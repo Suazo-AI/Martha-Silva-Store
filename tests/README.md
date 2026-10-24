@@ -15,8 +15,8 @@ bash tests/check.sh
 
 The runner resolves its own repository root, fails on the first unsuccessful stage,
 and clears frontend baseline overrides. It verifies two byte-identical snapshot builds, checks the nine-page fixture and matching
-`src/`/`dist/` app/API copies, runs 23 local-adapter backend tests, 11 jsdom DOM tests,
-nine-page local asset/link/anchor/ARIA checks, and syntax for all seven JS test/source
+`src/`/`dist/` app/API/integration-adapter copies, runs 23 local-adapter backend tests, the dual-integration adapter tests, 19 jsdom DOM tests,
+nine-page local asset/link/anchor/ARIA checks, and syntax for the JS test/source
 files. The frontend dependencies are isolated under `tests/frontend-deps`; `npm ci`
 uses committed package-lock versions/integrities and disables lifecycle scripts.
 `node_modules/` is ignored. `--install` requires registry network access and may emit

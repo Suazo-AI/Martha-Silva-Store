@@ -6,8 +6,8 @@ at recovered commit `e6299ee`: nine HTML templates, catalog, stylesheet, demo
 notice, and existing image assets. No additional products or invented media were
 introduced. There are no orders, SQLite databases, credentials, or npm dependencies.
 
-`prepare.py` assembles these files plus `src/app.js` and `src/demo-api.js` into the
-26-file `dist/` tree, using only Python 3's standard library. There is no install,
+`prepare.py` assembles these files plus `src/app.js`, `src/demo-api.js`, and `src/integration-adapters.js` into the
+27-file `dist/` tree, using only Python 3's standard library. There is no install,
 network access, BeautifulSoup dependency, sibling directory, or ignored recovery
 input. Output bytes do not depend on timestamps or absolute checkout paths.
 

@@ -19,10 +19,10 @@ def check_fixture(root):
     pages = sorted((root / 'dist').glob('*.html'))
     if len(pages) != 9:
         raise ValueError(f'Expected 9 recovered pages, found {len(pages)}')
-    for name in ('app.js', 'demo-api.js'):
+    for name in ('app.js', 'demo-api.js', 'integration-adapters.js'):
         if (root / 'src' / name).read_bytes() != (root / 'dist' / name).read_bytes():
             raise ValueError(f'src/dist drift: {name}')
-    print('PASS: 9 pages; src/dist app.js and demo-api.js match', flush=True)
+    print('PASS: 9 pages; src/dist app.js, demo-api.js and integration-adapters.js match', flush=True)
 
 
 def clean_environment():
@@ -66,6 +66,8 @@ def main(argv=None):
         check_fixture(ROOT)
         stage('Backend simulation')
         run([node, '--test', 'tests/backend.cjs'])
+        stage('Dual integration adapters (local/synthetic only)')
+        run([node, '--test', 'tests/integration-adapters.test.js'])
         stage('Catalog expansion regression')
         run([node, '--test', 'tests/catalog-migration.cjs'])
         stage('Asset audit regression (not full catalog completion)')
@@ -81,7 +83,7 @@ def main(argv=None):
         stage('Local HTML structure')
         run([sys.executable, 'tests/structure.py'])
         stage('JavaScript syntax')
-        files = sorted(path for pattern in ('src/*.js', 'dist/*.js', 'tests/*.cjs')
+        files = sorted(path for pattern in ('src/*.js', 'dist/*.js', 'tests/*.cjs', 'tests/*.test.js')
                        for path in ROOT.glob(pattern))
         for path in files:
             run([node, '--check', str(path.relative_to(ROOT))])

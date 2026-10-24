@@ -51,7 +51,7 @@ class RunnerTests(unittest.TestCase):
                 check.check_fixture(root)
             for i in range(9):
                 (root / 'dist' / f'{i}.html').write_text('')
-            for name in ('app.js', 'demo-api.js'):
+            for name in ('app.js', 'demo-api.js', 'integration-adapters.js'):
                 (root / 'src' / name).write_text('original')
                 (root / 'dist' / name).write_text('original')
             with contextlib.redirect_stdout(io.StringIO()):

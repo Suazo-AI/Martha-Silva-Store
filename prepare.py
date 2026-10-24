@@ -16,7 +16,7 @@ def build(output: Path) -> None:
     if len(pages) != 9:
         raise ValueError(f'Expected nine recovered templates, found {len(pages)}')
     sources = [(p, p.relative_to(static)) for p in sorted(static.rglob('*')) if p.is_file()]
-    sources += [(ROOT / 'src' / name, Path(name)) for name in ('app.js', 'demo-api.js')]
+    sources += [(ROOT / 'src' / name, Path(name)) for name in ('app.js', 'demo-api.js', 'integration-adapters.js')]
     for source, _ in sources:
         if not source.is_file() or source.is_symlink():
             raise ValueError(f'Missing or unsupported build input: {source}')

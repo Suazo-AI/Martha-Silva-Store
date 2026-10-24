@@ -16,7 +16,7 @@ def manifest(root):
 with tempfile.TemporaryDirectory(prefix='martha-build-test-') as temporary:
     output = Path(temporary) / 'dist'
     expected = manifest(ROOT / 'dist')
-    assert len(expected) == 26, f'Expected 26 snapshot files, got {len(expected)}'
+    assert len(expected) == 27, f'Expected 27 snapshot files, got {len(expected)}'
     for run in range(2):
         subprocess.run([sys.executable, '-S', str(ROOT / 'prepare.py'), '--output', str(output)],
                        check=True, cwd=temporary)

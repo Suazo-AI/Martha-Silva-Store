@@ -8,19 +8,78 @@
   const money = n => new Intl.NumberFormat('es-NI', {style:'currency',currency:'USD',currencyDisplay:'code'}).format(n / 100);
   const uuid = () => crypto.randomUUID();
   let products = [], cart = null, pageScope, lenis, raf, currentOrder, adminOrders = [], inventory = [], checkout = {}, quote, productObserver, productAdding = false;
+  const MODE_KEY = 'martha-integration-mode-v1';
+  let integrationMode = 'savia', integrationApi, integrationEpoch = 0, pendingApi = 0, busyActions = 0, mountJobs = 0, modeSwitching = false, integrationError = '';
+  try { const saved = sessionStorage.getItem(MODE_KEY); if (['savia','sisfain'].includes(saved)) integrationMode = saved; } catch {}
+  const sessionKey = name => `martha-${integrationMode}-${name}-v1`;
+  function loadCheckout() {
+    try { checkout = JSON.parse(sessionStorage.getItem(sessionKey('checkout')) || '{}'); } catch { checkout = {}; }
+    if (!checkout || typeof checkout !== 'object' || Array.isArray(checkout)) checkout = {};
+  }
+  function createIntegration() {
+    integrationApi = null;
+    try {
+      if (!window.MarthaIntegrations || !window.createMarthaDemoApi || !window.DEMO_CATALOG) throw new Error('No se cargó el modelo de integración. Recargá la página; las operaciones están bloqueadas.');
+      let storage; try { storage = localStorage; } catch {}
+      integrationApi = window.MarthaIntegrations.createDemoAdapter({mode:integrationMode,catalog:window.DEMO_CATALOG,storage,createDemoApi:window.createMarthaDemoApi});
+      integrationError = '';
+    } catch (error) { integrationError = error.message; }
+  }
+  function renderIntegration() {
+    const panel = $('[data-integration-panel]'); if (!panel) return;
+    panel.dataset.mode = integrationMode;
+    $$('[data-integration-mode]').forEach(button => {
+      button.setAttribute('aria-pressed', String(button.dataset.integrationMode === integrationMode));
+      button.disabled = !!(pendingApi || busyActions || mountJobs || modeSwitching);
+    });
+    const name = integrationMode === 'savia' ? 'SAVIA' : 'SISFAIN (CGA)';
+    $('[data-integration-status]',panel).textContent = integrationError ? `${name} · Modelo no disponible` : `${name} · Simulación local`;
+    $('[data-integration-description]',panel).textContent = integrationMode === 'savia'
+      ? 'SAVIA: Sistema de Administración, Ventas, Inventarios y Abastecimiento. Existe una API .NET sintética de prueba, pero esta demo no está conectada a ella ni a un sistema real. La compatibilidad comercial no está validada.'
+      : 'SISFAIN de CGA: modelo conceptual simulado. No contamos con un contrato ni una API verificada; no hay conexión configurada. La compatibilidad real está pendiente de validación con CGA.';
+    $('[data-integration-availability]',panel).textContent = integrationError || 'Sin backend configurado · sin conexión real';
+    $('[data-integration-error]',panel).hidden = !integrationError;
+    $('[data-integration-error]',panel).textContent = integrationError;
+  }
+  function blockCommerce() {
+    $$('[data-add], [data-sticky-add], [data-create-order], [data-test-payment], [data-quantity], [data-stock] button, [data-fulfillment] button').forEach(button => button.disabled = true);
+  }
+  async function switchIntegration(mode) {
+    if (!['savia','sisfain'].includes(mode) || mode === integrationMode || pendingApi || busyActions || mountJobs || modeSwitching) return;
+    try { sessionStorage.setItem(MODE_KEY, mode); } catch { notify('No pudimos guardar el modelo en esta pestaña. No se cambió la selección.'); return; }
+    modeSwitching = true; integrationEpoch++;
+    $$('dialog[open]').forEach(dialog => dialog.close());
+    integrationMode = mode;
+    products = []; cart = null; currentOrder = null; quote = null; checkout = {}; adminOrders = []; inventory = []; productAdding = false;
+    loadCheckout(); createIntegration();
+    if ($('main')?.dataset.page === 'order') { const url = new URL(location.href); url.searchParams.delete('id'); history.replaceState(null, '', url.pathname + url.search + url.hash); }
+    $$('[data-error], [data-add-confirmation]').forEach(element => element.hidden = true);
+    $$('input[name="variant"]').forEach(input => input.checked = false);
+    $('[data-cart-summary]')?.replaceChildren(); $('[data-order-root]')?.replaceChildren(); $('[data-admin-root]')?.replaceChildren();
+    renderIntegration();
+    try { await mountPage(); } finally { modeSwitching = false; renderIntegration(); }
+    $(`[data-integration-mode="${mode}"]`)?.focus({preventScroll:true});
+    notify(`${mode === 'savia' ? 'SAVIA' : 'SISFAIN (CGA)'}: bolsa y pedidos de prueba independientes. No se transfirió información entre modelos.`);
+  }
+  createIntegration(); loadCheckout();
   const statusLabel = {pending:'Pago pendiente',pending_payment:'Pago pendiente',paid:'Pago de prueba aprobado',declined:'Pago de prueba rechazado',cancelled:'Pedido cancelado',preparing:'En preparación',shipped:'Enviado',delivered:'Entregado',partially_refunded:'Reembolso parcial de prueba',refunded:'Reembolso de prueba completado',requested:'Solicitud recibida',received:'Prenda recibida',order_created:'Pedido creado',newsletter_opt_in:'Novedades seleccionadas',newsletter_not_selected:'Sin suscripción a novedades',test_payment_approved:'Pago de prueba aprobado',test_payment_declined:'Pago de prueba rechazado',test_payment_cancelled:'Pago de prueba cancelado',fulfillment_preparing:'En preparación',fulfillment_shipped:'Enviado',fulfillment_delivered:'Entregado',return_requested:'Devolución solicitada',return_received:'Prenda recibida',test_refund_completed:'Reembolso de prueba completado',reserve_expired:'Reserva vencida'};
   function readStorage(key, fallback) { try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch { return fallback; } }
   let favorites = readStorage('martha-parity-favorites', []);
   favorites = Array.isArray(favorites) ? favorites.filter(id => typeof id === 'string') : [];
-  try { checkout = JSON.parse(sessionStorage.getItem('martha-parity-checkout') || '{}'); } catch { checkout = {}; }
-  if(!checkout || typeof checkout !== 'object' || Array.isArray(checkout))checkout={};
-  function saveCheckout() { sessionStorage.setItem('martha-parity-checkout', JSON.stringify(checkout)); }
+  function saveCheckout() { try { sessionStorage.setItem(sessionKey('checkout'), JSON.stringify(checkout)); } catch { throw new Error('No pudimos guardar el avance de prueba en esta pestaña. No se envió un pedido real.'); } }
   function orderPayload() { return {quote_id:checkout.quote_id,idempotency_key:checkout.order_key,contact:{name:checkout.name,email:checkout.email,phone:checkout.phone},address:{line1:checkout.line1,city:checkout.city,department:checkout.department},newsletter:!!checkout.newsletter}; }
-  function rememberOrder(order) { currentOrder=order; checkout.order_id=order.id; sessionStorage.setItem('martha-parity-last-order',order.id); saveCheckout(); }
-  async function api(path,body,method=body===undefined?'GET':'POST'){return window.marthaDemoApi(path,body,method);}
+  function rememberOrder(order) { currentOrder=order; checkout.order_id=order.id; sessionStorage.setItem(sessionKey('last-order'),order.id); saveCheckout(); }
+  async function api(path,body,method=body===undefined?'GET':'POST') {
+    if (!integrationApi) throw new Error(integrationError || 'Modelo no disponible. Las operaciones están bloqueadas.');
+    const epoch = integrationEpoch, activeApi = integrationApi; pendingApi++; renderIntegration();
+    try { const result = await activeApi(path,body,method); if (epoch !== integrationEpoch) throw new Error('El modelo cambió. Repetí la acción en el modelo seleccionado.'); return result; }
+    finally { pendingApi--; renderIntegration(); }
+  }
+  // Exposed for local diagnostics only; no remote transport is configured here.
+  window.marthaStoreApi = api;
   function notify(text) { const toast = $('#toast'); if (!toast) return; toast.textContent = text; toast.classList.add('visible'); clearTimeout(notify.timer); notify.timer = setTimeout(() => toast.classList.remove('visible'), 4000); }
   function showError(root, error) { let box = $('[data-error]', root); if (!box) { box = document.createElement('p'); box.className = 'error'; box.setAttribute('data-error',''); box.setAttribute('role','alert'); root.prepend(box); } box.textContent = error.message; box.hidden = false; if(!root.closest('[data-product-id]')||$('[data-sticky-buy]')?.hidden!==false)box.scrollIntoView({block:'nearest'}); }
-  async function withButton(button, action) { if (button.disabled) return; const root = button.closest('form, dialog, [data-product-id], [data-checkout-root], [data-order-root], [data-admin-root], main') || document.body; $('[data-error]',root)?.setAttribute('hidden',''); button.disabled = true; if(button.matches('[data-add]')) {productAdding=true;syncProduct();} try { await action(); } catch (error) { showError(root, error); } finally { if (button.isConnected) button.disabled = false; if(button.matches('[data-add]')) {productAdding=false;syncProduct();const error=$('[data-product-error]'),sticky=$('[data-sticky-error]');if(error&&sticky){sticky.textContent=error.textContent;sticky.hidden=error.hidden;}} } }
+  async function withButton(button, action) { if (button.disabled) return; const root = button.closest('form, dialog, [data-product-id], [data-checkout-root], [data-order-root], [data-admin-root], main') || document.body; $('[data-error]',root)?.setAttribute('hidden',''); button.disabled = true; busyActions++; renderIntegration(); if(button.matches('[data-add]')) {productAdding=true;syncProduct();} try { await action(); } catch (error) { showError(root, error); } finally { busyActions--; renderIntegration(); if (button.isConnected) button.disabled = false; if(button.matches('[data-add]')) {productAdding=false;syncProduct();const error=$('[data-product-error]'),sticky=$('[data-sticky-error]');if(error&&sticky){sticky.textContent=error.textContent;sticky.hidden=error.hidden;}} } }
   async function refreshCart() { cart = await api('/api/cart'); $$('[data-bag-count]').forEach(n => n.textContent = cart.lines.reduce((n, line) => n + line.quantity, 0)); if($('#mini-bag')?.open)miniBag(); return cart; }
   function card(p) {
     const saved=favorites.includes(p.id), stock=p.variants.reduce((n,v)=>n+v.stock,0);
@@ -83,6 +142,7 @@
   function field(name,label,type='text',options={}) { return `<label class="field ${options.full ? 'full':''}"><span>${label}</span><input name="${name}" type="${type}" value="${esc(checkout[name] || '')}" ${options.required === false ? '' : 'required'} maxlength="${options.max || 200}" autocomplete="${options.auto || 'off'}" ${options.placeholder ? `placeholder="${esc(options.placeholder)}"`:''}>${options.help ? `<small>${options.help}</small>`:''}</label>`; }
   function renderCheckout(step = 'contact') {
     const mount = $('[data-checkout-root]'); if (!mount) return;
+    if (!cart.lines.length && !checkout.order_id && checkout.quote_id && checkout.order_key) { mount.innerHTML = '<div class="empty-state"><h2>Revisá tu pedido de prueba anterior.</h2><p>Podés recuperar su resultado en este mismo modelo. No se crea una compra real ni se cambia de sistema.</p><button class="button" data-recover-order>Recuperar pedido de prueba</button><p class="error" data-error role="alert" hidden></p></div>'; return; }
     if (!cart.lines.length) { mount.innerHTML = checkout.order_id ? `<div class="empty-state"><h2>Tu pedido de prueba ya fue creado.</h2><a class="button" href="/pedido.html?id=${encodeURIComponent(checkout.order_id)}">Continuar con tu pedido</a></div>` : '<div class="empty-state"><h2>Agregá una prenda para continuar.</h2><a class="button" href="/catalogo.html">Ver la colección</a></div>'; return; }
     const stages = ['contact','delivery','review','payment'];
     let content = '';
@@ -101,7 +161,7 @@
   }
   async function renderOrder() {
     const mount = $('[data-order-root]'); if (!mount) return;
-    const id = new URLSearchParams(location.search).get('id') || sessionStorage.getItem('martha-parity-last-order');
+    const id = new URLSearchParams(location.search).get('id') || sessionStorage.getItem(sessionKey('last-order'));
     if (!id) { mount.innerHTML='<div class="empty-state"><h2>No seleccionaste un pedido.</h2><a class="button" href="/catalogo.html">Ver la colección</a></div>'; return; }
     try {
       currentOrder = (await api(`/api/orders/${encodeURIComponent(id)}`)).order;
@@ -182,6 +242,7 @@
     first?.focus();return !first;
   }
   async function mountPage(focus = false) {
+    mountJobs++; renderIntegration();
     pageScope?.abort(); productObserver?.disconnect(); productObserver=null; pageScope = new AbortController(); stopMotion();
     const page = $('main')?.dataset.page;
     try {
@@ -191,10 +252,7 @@
       if (page === 'cart') renderCart();
       if (page === 'checkout') {
         quote=null;
-        if (!cart.lines.length && !checkout.order_id && checkout.quote_id && checkout.order_key) {
-          try { rememberOrder((await api('/api/orders',orderPayload())).order); }
-          catch (error) { if (!['stale_quote','empty_cart','invalid_quote'].includes(error.code)) { renderCheckout(); throw error; } }
-        }
+        // Page mounts never create an order. Only the explicit review action may do so.
         renderCheckout();
       }
       if (page === 'order') await renderOrder();
@@ -205,12 +263,16 @@
       }
       if (page === 'product') {productBuyBar();gallery();syncProduct();}
       motion(); if (focus) $('main')?.focus({preventScroll:true});
-    } catch (error) { showError($('main')||document.body,error); }
+    } catch (error) { integrationError = error.message; renderIntegration(); blockCommerce(); showError($('main')||document.body,error); }
+    finally { mountJobs--; renderIntegration(); }
     const position = page === 'catalog' ? sessionStorage.getItem('martha-parity-catalog-scroll:'+location.search) : null;
     if (focus && position) window.scrollTo(0,Number(position));
   }
   document.addEventListener('click', async event => {
     const b = event.target.closest('button,a'); if (!b) return;
+    if (b.matches('[data-integration-mode]')) { await switchIntegration(b.dataset.integrationMode); return; }
+    if (b.matches('[data-integration-retry]')) { if (!pendingApi && !busyActions && !mountJobs && !modeSwitching) { $$('[data-error]').forEach(element => element.hidden = true); createIntegration(); await mountPage(); } return; }
+    if (modeSwitching) { event.preventDefault(); return; }
     if(b.matches('[data-menu-toggle]')){b.setAttribute('aria-expanded','true');openDialog($('#mobile-menu'),b);return;}
     if (b.matches('[data-filters-open]')) {openDialog($('#filter-panel'),b);b.setAttribute('aria-expanded','true');$('[data-filters-close]').focus();return;}
     if (b.matches('[data-filters-close], [data-filters-apply]')) {$('#filter-panel').close();return;}
@@ -230,8 +292,9 @@
     if(b.matches('[data-move-favorite]')){await withButton(b,async()=>{if(!favorites.includes(b.dataset.product))favorites.push(b.dataset.product);localStorage.setItem('martha-parity-favorites',JSON.stringify(favorites));cart=await api('/api/cart/items',{variant_id:b.dataset.moveFavorite,quantity:0},'PATCH');await refreshCart();renderCart();if($('#mini-bag')?.open)miniBag();updateHearts();});return;}
     if (b.matches('[data-remove-item]')) { await withButton(b,async()=>{cart=await api('/api/cart/items',{variant_id:b.dataset.removeItem,quantity:0},'PATCH'); await refreshCart(); renderCart();if($('#mini-bag')?.open)miniBag();}); return; }
     if (b.matches('[data-checkout-back]')) { renderCheckout(b.dataset.checkoutBack); return; }
+    if (b.matches('[data-recover-order]')) { await withButton(b,async()=>{ rememberOrder((await api('/api/orders',orderPayload())).order); renderCheckout(); }); return; }
     if (b.matches('[data-create-order]')) { await withButton(b,async()=>{ checkout.quote_id=quote.id; checkout.order_key ||= uuid(); saveCheckout(); rememberOrder((await api('/api/orders',orderPayload())).order); renderCheckout('payment'); }); return; }
-    if (b.matches('[data-test-payment]')) { await withButton(b,async()=>{ const id=currentOrder?.id || checkout.order_id; if (!id) throw new Error('Revisá tu compra para crear el pedido primero.'); const result=await api(`/api/orders/${encodeURIComponent(id)}/test-payment`,{outcome:b.dataset.testPayment,idempotency_key:checkout.payment_key ||= uuid()}); currentOrder=result.order; sessionStorage.removeItem('martha-parity-checkout'); checkout={}; location.href='/pedido.html?id='+encodeURIComponent(id); }); return; }
+    if (b.matches('[data-test-payment]')) { await withButton(b,async()=>{ const id=currentOrder?.id || checkout.order_id; if (!id) throw new Error('Revisá tu compra para crear el pedido primero.'); const result=await api(`/api/orders/${encodeURIComponent(id)}/test-payment`,{outcome:b.dataset.testPayment,idempotency_key:checkout.payment_key ||= uuid()}); currentOrder=result.order; sessionStorage.removeItem(sessionKey('checkout')); checkout={}; location.href='/pedido.html?id='+encodeURIComponent(id); }); return; }
     if (b.matches('[data-rebuild-order]')) { await withButton(b,async()=>{ const existing=await refreshCart(); for(const line of currentOrder.lines) {const qty=(existing.lines.find(l=>l.variant_id===line.variant_id)?.quantity || 0)+line.quantity; await api('/api/cart/items',{variant_id:line.variant_id,quantity:qty},'PATCH');} location.href='/bolsa.html';}); return; }
     if (b.matches('[data-admin-refresh]')) { await withButton(b,renderAdmin); return; }
     if (b.matches('[data-admin-logout]')) { await withButton(b,async()=>{await api('/api/admin/logout',{}); await renderAdmin();}); return; }
@@ -240,7 +303,7 @@
     if (b.tagName === 'A') { if ($('main')?.dataset.page === 'catalog') sessionStorage.setItem('martha-parity-catalog-scroll:'+location.search,String(window.scrollY)); $('#mobile-menu')?.close(); $('[data-menu-toggle]')?.setAttribute('aria-expanded','false'); if (b.closest('#search-dialog')) $('#search-dialog').close(); }
   });
   document.addEventListener('change',async event=>{
-    const el=event.target;
+    const el=event.target; if (modeSwitching) return;
     if (el.matches('[data-sticky-size]')) { $$('input[name="variant"]').forEach(input=>input.checked=input.value===el.value&&!input.disabled); }
     if (el.matches('input[name="variant"], [data-sticky-size]')) { syncProduct();$('[data-add-confirmation]')?.setAttribute('hidden','');$('[data-product-error]')?.setAttribute('hidden','');$('[data-sticky-error]')?.setAttribute('hidden',''); }
     if (el.matches('[data-quantity]')) {
@@ -256,10 +319,21 @@
   document.addEventListener('input',event=>{if (event.target.matches('#catalog-filters input[name="q"]')) { clearTimeout(searchTimer); searchTimer=setTimeout(filterChange,150); }});
   function setCatalogParams(params) { clearTimeout(searchTimer); const url='/catalogo.html'+(params.size?'?'+params.toString():''); if(location.pathname+location.search!==url)history.pushState(null,'',url); }
   window.addEventListener('popstate',()=>{clearTimeout(searchTimer);if($('#catalog-filters'))catalog();});
-  window.addEventListener('pageshow',event=>{if(event.persisted)mountPage();});
+  window.addEventListener('pageshow',async event=>{
+    if (!event.persisted) return;
+    let preferred = integrationMode; try { const stored = sessionStorage.getItem(MODE_KEY); if (['savia','sisfain'].includes(stored)) preferred = stored; } catch {}
+    // A restored, still-pending action must finish with its existing namespace
+    // and in-memory checkout/order. Do not clear data needed after an await.
+    if (pendingApi || busyActions || mountJobs || modeSwitching) {
+      if (preferred !== integrationMode) { try { sessionStorage.setItem(MODE_KEY,integrationMode); } catch {} notify('La operación pendiente sigue en su modelo original. Podés cambiar al terminar.'); }
+      return;
+    }
+    if (preferred !== integrationMode) { await switchIntegration(preferred); return; }
+    loadCheckout(); quote = null; currentOrder = null; products = []; await mountPage();
+  });
   function filterChange() { const form=$('#catalog-filters'); if (!form) return; const params=new URLSearchParams(location.search); for (const [key,value] of new FormData(form)) {if (value && !(key === 'sort' && value === 'selection')) params.set(key,value); else params.delete(key);} setCatalogParams(params); catalog(); }
   document.addEventListener('submit',async event=>{
-    const form=event.target;
+    const form=event.target; if (modeSwitching) { event.preventDefault(); return; }
     if (form.id === 'catalog-filters') {event.preventDefault(); filterChange(); return;}
     if(form.matches('[data-newsletter]')){event.preventDefault();$('.newsletter-result',form).textContent='Tu código de prueba: PRUEBA10. No se envió ningún correo.';localStorage.setItem('martha-parity-newsletter-dismissed','true');return;}
     if (!form.matches('[data-checkout-form], [data-return-form], [data-admin-login], [data-fulfillment], [data-stock]')) return;
