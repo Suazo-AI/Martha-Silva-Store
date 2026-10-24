@@ -10,7 +10,7 @@ Corte de documentación: **2026-10-24**. El estado de remoto, CI y despliegues d
 | Original | Metadatos: 40 productos, 120 variantes, 170 referencias de galería | Recuperar medios aprobados y contrastar mapeo visual |
 | Fotografías | 11 medios locales; 0/170 rutas JPEG primarias exactas del original; véase auditoría | Fuente original accesible, transferencia permitida y hashes verificados |
 | Build | `prepare.py`, entradas versionadas y prueba de equivalencia | Mantener salida determinista al cambiar entradas |
-| QA | Suite integrada: 23 adaptador local, 9 migración, 11 DOM, 3 auditoría, 5 runner y 7 staging; 9 páginas estructurales | Ejecutada en Linux; evidencia/consolidated-qa.txt; navegador y Windows pendientes |
+| QA | Suite integrada: 23 adaptador local, 9 migración, 11 DOM, 3 auditoría, 5 runner y 7 staging; 9 páginas estructurales | Ubuntu y Windows PASS en `f22276a`, Actions [`40136425925`](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/40136425925); navegador real pendiente |
 | Pagos | Investigación estática REA; ningún proveedor elegido ni integración implementada | Elegibilidad comercial, decisión y pruebas sandbox con backend |
 | SISFAIN | No se ha encontrado backend en el material recuperado | Obtener contrato/API y acceso autorizado, si se requiere integrar |
 | Producción | No preparada | Completar criterios separados de producción |
@@ -56,3 +56,17 @@ Son condiciones de aceptación, no una declaración de que esta edición documen
 4. Resolver proveedor de tarjeta y arquitectura backend antes de calificar el sistema como producción.
 
 [Inicio](../README.md) · [Procedimientos](PLAYBOOK.md) · [Decisiones](DECISIONS.md)
+
+## Evidencia de CI y límite de autorización
+
+Actions run [`40136425925`](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/40136425925), commit `f22276a`: Ubuntu y Windows **PASS**, artefacto
+**PASS**, despliegue **SKIPPED**. La evidencia corresponde a ese commit, no a
+cambios posteriores. El acceso Cloudflare comprobado sigue siendo de solo lectura;
+`gh` CLI no está autenticado. No hay prueba de publicación nueva.
+
+La autorización persistente es únicamente para el nuevo Worker
+`martha-silva-preview`; no autoriza Admin amplio ni modificar el original.
+Antes de habilitar CD, una comprobación externa debe confirmar cuenta, Worker,
+URL real y alcance del token dedicado. La validación offline de URL no demuestra
+que su subdominio pertenezca a `CLOUDFLARE_ACCOUNT_ID`. El control de main es una
+salvaguarda no atómica: main puede avanzar después de la lectura.

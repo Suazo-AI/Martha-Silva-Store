@@ -97,6 +97,10 @@ jobs:
         with:
           node-version: '24'
           package-manager-cache: false
+      - name: Validate isolated preview URL before credentials or remote writes
+        env:
+          PREVIEW_URL: ${{ vars.CLOUDFLARE_PREVIEW_URL }}
+        run: python tools/deployment.py validate-url --url "$PREVIEW_URL"
       - name: Install pinned deployment tooling (no credentials)
         run: npm ci --ignore-scripts --no-audit --no-fund
       - name: Remove checked-in dist before downloading the tested artifact

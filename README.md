@@ -57,7 +57,7 @@ py -3 tests/check.py --install
 py -3 tests/check.py
 ```
 
-El runner usa Python estándar y resuelve `npm.cmd` en Windows. La ejecución real se verificó en Linux, no en Windows. Incluye pruebas de staging y del propio runner.
+El runner usa Python estándar y resuelve `npm.cmd` en Windows. La suite pasó en Ubuntu y Windows para `f22276a` (Actions run [`40136425925`](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/40136425925)); el job de despliegue quedó **SKIPPED**. Incluye pruebas de staging y del propio runner. Esto no prueba QA en navegador ni un despliegue.
 
 Editar HTML/CSS/catálogo/imágenes en `build-inputs/static/`, comportamiento en `src/`; después ejecutar `prepare.py`. No editar solo `dist/`: se perderá al reconstruir. Para una salida independiente: `python3 prepare.py --output /tmp/martha-demo-build` (directorio vacío).
 
@@ -67,3 +67,5 @@ Editar HTML/CSS/catálogo/imágenes en `build-inputs/static/`, comportamiento en
 - [Demo mejorada privada](https://martha-silva-photo-store.suazo-ai.chatgpt.site): puede requerir acceso; no es un enlace público nuevo ni prueba de sincronización con este commit.
 
 Publicar el repositorio no publica automáticamente la tienda. Cualquier despliegue debe identificar destino, commit, autorización, prueba de acceso y rollback. Ver [criterios de entrega](docs/PROJECT-STATUS.md#criterios-de-aceptación).
+
+La conexión persistente autorizada se limita al **nuevo Worker `martha-silva-preview`**, no a Admin amplio. El acceso Cloudflare comprobado sigue siendo de solo lectura y `gh` CLI no está autenticado; la habilitación de escritura y la asociación cuenta/URL requieren verificación externa antes de activar CD. Ver [CD aislado](docs/CLOUDFLARE-CD.md).

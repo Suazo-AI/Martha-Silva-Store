@@ -8,11 +8,15 @@ significa que haya un despliegue ni una conexión de escritura autorizada**.
 
 ## Activación deliberada
 
-1. Obtener autorización para la conexión persistente de escritura y confirmar
-   la cuenta y destino nuevos. No reutilizar el token histórico/de solo lectura.
+1. La conexión persistente está autorizada **solo para el nuevo Worker**, no
+   para Admin amplio. Confirmar externamente cuenta y destino nuevos; el acceso
+   Cloudflare comprobado sigue siendo de solo lectura y `gh` CLI no está
+   autenticado. No reutilizar el token histórico/de solo lectura.
 2. Un administrador autorizado debe crear **solo** `martha-silva-preview` y
    habilitar su subdominio workers.dev. Crear un Worker requiere rol Admin a
-   nivel Workers; no dar ese permiso amplio permanentemente a CI.
+   nivel Workers: ese permiso amplio no está autorizado por el alcance actual.
+   El bootstrap requiere intervención de un administrador ya autorizado o
+   aprobación separada; no dar ese permiso amplio permanentemente a CI.
 3. Crear un token dedicado con **Editor únicamente sobre ese Worker existente**,
    limitado a la cuenta elegida. No necesita rutas de zona, D1, KV, pagos ni
    acceso al Worker original. Guardarlo directamente como secreto de Actions
@@ -21,6 +25,9 @@ significa que haya un despliegue ni una conexión de escritura autorizada**.
    `CLOUDFLARE_PREVIEW_URL` (la URL HTTPS real devuelta por Cloudflare, con forma
    `https://martha-silva-preview.<subdominio>.workers.dev`). No hay cuenta ni URL
    real codificadas en el repositorio.
+   La URL se valida offline antes del token/deploy, pero su forma no demuestra
+   asociación con `CLOUDFLARE_ACCOUNT_ID`. La comprobación externa de esa
+   asociación y del alcance del token es un gate obligatorio de activación.
 5. Solo después de revisar destino/permisos, establecer
    `CLOUDFLARE_DEPLOY_ENABLED=true`. Ejecutar el workflow en **main** o enviar
    un cambio aprobado a main. Si falta el token, el job informa que no despliega.
@@ -33,9 +40,12 @@ artefacto `recovered-demo-<SHA>` y se incorpora `deployment.json` con SHA comple
 más hashes SHA-256. El job de deploy depende de ambos jobs, nunca corre para PR,
 y descarga el artefacto de **esa misma ejecución**, no reconstruye la tienda.
 Elimina primero el dist versionado para impedir mezclas. Verifica inventario,
-SHA y empaquetado sin credenciales antes de exponer el token solo al paso deploy.
+SHA, URL y empaquetado sin credenciales antes de exponer el token al control
+de presencia y al paso deploy. Solo el marcador raíz se excluye del inventario;
+los marcadores anidados se incluyen y los enlaces simbólicos se rechazan.
 Justo antes comprueba por lectura remota que main no haya avanzado; rechaza runs
-obsoletos en lugar de publicar una versión vieja accidentalmente.
+ya obsoletos. Es una salvaguarda **no atómica**, no una garantía absoluta:
+main puede avanzar entre esa lectura y la escritura remota.
 Wrangler oficial está fijado en 4.152.0 con lockfile; las acciones están fijadas
 por SHA. No hay GitHub write permissions, rutas, Worker histórico ni bindings.
 La concurrencia serializa el destino sin cancelar un deploy a mitad de escritura;
@@ -45,8 +55,14 @@ La comprobación HTTP posterior compara el marcador y cinco assets con el
 artefacto y exige 404 para una ruta inexistente. Tolera propagación hasta seis
 intentos con pausas de diez segundos y timeout por petición. No usa credenciales,
 no envía pedidos y no equivale a QA visual, de accesibilidad o de pagos.
+Rechaza redirecciones fuera del origen HTTPS aprobado antes de seguirlas;
+permite normalizaciones en el mismo origen. 401/403 y redirecciones inseguras
+fallan sin reintento.
 Un fallo de smoke deja el workflow rojo; **no revierte automáticamente**.
 Guardar SHA, versión/URL emitidas por Wrangler y resultado de smoke como evidencia.
+
+Actions run [`40136425925`](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/40136425925) para `f22276a`: Ubuntu, Windows y artefacto **PASS**;
+despliegue **SKIPPED**. No demuestra escritura Cloudflare ni URL publicada.
 
 ## Verificación local (sin acceso Cloudflare)
 
