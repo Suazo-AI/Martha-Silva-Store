@@ -1,0 +1,321 @@
+{
+  "schema_version": 1,
+  "status": "proposed-awaiting-owner-approval",
+  "baseline_commit": "a972e1148487349d975a845b0acbd07132fcdcba",
+  "execution_authorized": false,
+  "tasks": [
+    {
+      "id": "R01",
+      "priority": "P0",
+      "wave": "0",
+      "task_and_owner": "Congelar V1, stack, contrato API, estados y autoridad de stock. Integrador + responsable técnico + negocio.",
+      "lane": "integrator+business+technical",
+      "status": "planned",
+      "can_start_after": [],
+      "completion_dependencies": [],
+      "dependency_notes": "Aprobación del plan",
+      "definition_of_done": "ADR y contrato versionados; piloto/canal, estados y autoridad de datos definidos. Supuestos configurables de moneda, impuestos/redondeo, envío, reserva/cancelación y RPO/RTO separados de decisiones confirmadas, con dueño y gate de cierre. Las confirmaciones comerciales bloquean ventas reales, no fixtures ni base técnica."
+    },
+    {
+      "id": "R02",
+      "priority": "P0",
+      "wave": "0, externa",
+      "task_and_owner": "Elegir y tramitar pasarela. Negocio decide/contrata; agente compara evidencia; técnico valida API.",
+      "lane": "business+payments",
+      "status": "planned",
+      "can_start_after": [],
+      "completion_dependencies": [],
+      "dependency_notes": "Puede iniciar ya",
+      "definition_of_done": "País/entidad/cuenta y afiliación confirmados; cotización total y liquidación; documentación de integración; sandbox disponible. Contratos bancarios y credenciales productivas los gestiona el titular. No asumir Stripe ni plugin BAC de otro país."
+    },
+    {
+      "id": "R03",
+      "priority": "P0",
+      "wave": "0, externa",
+      "task_and_owner": "Aprobar catálogo piloto y condiciones comerciales. Negocio + agente de catálogo.",
+      "lane": "business+frontend",
+      "status": "planned",
+      "can_start_after": [
+        "R01"
+      ],
+      "completion_dependencies": [
+        "R01"
+      ],
+      "dependency_notes": "Alcance R01",
+      "definition_of_done": "Maestro privado CSV/JSON con SKU/variante, precio/moneda, foto del mismo producto, cupo disponible y ubicación; fuente/fecha y aprobación. Envío, contacto, privacidad y devoluciones revisados por negocio; no inventar tasas ni existencias."
+    },
+    {
+      "id": "R04",
+      "priority": "P0",
+      "wave": "1",
+      "task_and_owner": "Levantar API .NET + SQL de prueba reproducibles y ampliar CI. Agente backend; técnico revisa.",
+      "lane": "backend",
+      "status": "planned",
+      "can_start_after": [
+        "R01"
+      ],
+      "completion_dependencies": [
+        "R01"
+      ],
+      "dependency_notes": "R01",
+      "definition_of_done": "Checkout limpio arranca API y SQL con datos sintéticos; migraciones desde cero, health/readiness, configuración separada y tests .NET/SQL en CI. Licencia de desarrollo solo para entorno no productivo."
+    },
+    {
+      "id": "R05",
+      "priority": "P0",
+      "wave": "1",
+      "task_and_owner": "Catálogo y precios autoritativos en SQL. Agente backend/catalog.",
+      "lane": "backend",
+      "status": "planned",
+      "can_start_after": [
+        "R04"
+      ],
+      "completion_dependencies": [
+        "R03",
+        "R04"
+      ],
+      "dependency_notes": "R04; R03 para carga real",
+      "definition_of_done": "API devuelve variantes y disponibilidad desde SQL; validación decimal/moneda; precio manipulado por cliente se ignora; importación repetida no duplica SKU. Fixtures separadas de datos reales."
+    },
+    {
+      "id": "R06",
+      "priority": "P0",
+      "wave": "1",
+      "task_and_owner": "Identidad, sesiones y permisos reales. Agente seguridad/backend.",
+      "lane": "backend+security",
+      "status": "planned",
+      "can_start_after": [
+        "R01",
+        "R04"
+      ],
+      "completion_dependencies": [
+        "R01",
+        "R04"
+      ],
+      "dependency_notes": "R01, R04",
+      "definition_of_done": "Admin/operador con permisos mínimos; login/logout y expiración; cookies/CSRF según arquitectura; usuario no autorizado no lee/modifica pedidos ajenos ni stock; nada de autenticación simulada en modo real."
+    },
+    {
+      "id": "R07",
+      "priority": "P0",
+      "wave": "2",
+      "task_and_owner": "Corte pedido + reserva atómica + idempotencia. Agente inventario/pedidos.",
+      "lane": "backend",
+      "status": "planned",
+      "can_start_after": [
+        "R05",
+        "R06"
+      ],
+      "completion_dependencies": [
+        "R05",
+        "R06"
+      ],
+      "dependency_notes": "R05, R06",
+      "definition_of_done": "Una transacción crea pedido/reserva/clave; con 20 solicitudes por la última unidad solo una reserva válida y nunca saldo negativo; misma clave devuelve mismo pedido, payload distinto se rechaza; fallo SQL no deja estado parcial. Expirar/cancelar libera solo una vez; cantidades cero, negativas, fraccionarias no admitidas o superiores al límite se rechazan sin mutación."
+    },
+    {
+      "id": "R08",
+      "priority": "P0",
+      "wave": "2",
+      "task_and_owner": "Conectar frontend existente a HTTP real, incluidos precios estáticos/build. Agente frontend.",
+      "lane": "frontend",
+      "status": "planned",
+      "can_start_after": [
+        "R01"
+      ],
+      "completion_dependencies": [
+        "R01",
+        "R05",
+        "R06",
+        "R07"
+      ],
+      "dependency_notes": "Contrato R01; cierre con R05–R07",
+      "definition_of_done": "Catálogo, carrito y pedido consumen servidor; precio/stock no vienen de HTML antiguo ni localStorage; errores, reintentos, doble clic, Back/Forward y recarga preservan estado correcto; no fallback silencioso a demo. Confirmación persistente del pedido consultable por su comprador autorizado y número de referencia; canal externo solo si se acuerda y añade explícitamente su integración."
+    },
+    {
+      "id": "R09",
+      "priority": "P0",
+      "wave": "2",
+      "task_and_owner": "Panel mínimo de operación. Agente admin.",
+      "lane": "frontend",
+      "status": "planned",
+      "can_start_after": [
+        "R06",
+        "R07"
+      ],
+      "completion_dependencies": [
+        "R06",
+        "R07"
+      ],
+      "dependency_notes": "R06, R07",
+      "definition_of_done": "Operador consulta y procesa transiciones autorizadas (preparación, despacho/cierre) con referencia de seguimiento si aplica; ve pedidos/excepciones nuevos en panel. Administrador ajusta stock con motivo/auditoría y registra resultado real de reembolso/conciliación del portal. Reposición física es una acción separada. Persistencia entre equipos/sesiones y pruebas negativas de roles. Sin ERP completo."
+    },
+    {
+      "id": "R10",
+      "priority": "P0",
+      "wave": "2",
+      "task_and_owner": "Núcleo de pagos y excepciones independiente del proveedor. Agente pagos.",
+      "lane": "payments",
+      "status": "planned",
+      "can_start_after": [
+        "R07"
+      ],
+      "completion_dependencies": [
+        "R07"
+      ],
+      "dependency_notes": "R07",
+      "definition_of_done": "Máquina de estados y adaptador; tests de callback duplicado/desordenado, timeout ambiguo, importe/moneda incorrectos y cancelación. Pago tardío tras expirar stock entra en excepción/conciliación, no vende stock negativo. También probar fallo entre aprobación del proveedor y commit SQL, reembolso duplicado/parcial/reintentado y tope de importe; ninguna doble reposición. Recuperación por consulta/reconciliación, no repetir cargos a ciegas. Mock claramente identificado."
+    },
+    {
+      "id": "R11",
+      "priority": "P0",
+      "wave": "3",
+      "task_and_owner": "Integrar proveedor real en sandbox. Agente pagos + técnico.",
+      "lane": "payments",
+      "status": "planned",
+      "can_start_after": [
+        "R10"
+      ],
+      "completion_dependencies": [
+        "R02",
+        "R10",
+        "R12"
+      ],
+      "dependency_notes": "R02, R10; cierre requiere HTTPS/webhook de R12 si el proveedor lo exige",
+      "definition_of_done": "Checkout alojado/tokenizado conforme al proveedor; servidor verifica autenticidad, comercio, pedido, moneda e importe; retorno del navegador nunca confirma pago. Firma inválida y replay según protocolo se rechazan; aprobado/rechazado/cancelado/duplicado y reconciliación coinciden con registros del sandbox. PAN/CVV ausentes de aplicación/logs."
+    },
+    {
+      "id": "R12",
+      "priority": "P0",
+      "wave": "1–3, externa",
+      "task_and_owner": "Hosting y staging reales para frontend/API/SQL; CD verificable. Técnico/DevOps; dueño aprueba costo/acceso.",
+      "lane": "qa-devops+technical",
+      "status": "planned",
+      "can_start_after": [
+        "R01"
+      ],
+      "completion_dependencies": [
+        "R01",
+        "R04"
+      ],
+      "dependency_notes": "R01; cierre con R04 y accesos",
+      "definition_of_done": "Destino independiente, TLS, SQL privado, secretos seguros y release por SHA; pruebas pasan antes de desplegar; smoke externo confirma esa versión; original intacto. Cloudflare preview es opcional, no reemplaza hosting .NET/SQL."
+    },
+    {
+      "id": "R13",
+      "priority": "P0",
+      "wave": "3",
+      "task_and_owner": "QA real de compra y rendimiento móvil/escritorio. Agente QA/UX.",
+      "lane": "qa-devops+frontend",
+      "status": "planned",
+      "can_start_after": [
+        "R01"
+      ],
+      "completion_dependencies": [
+        "R08",
+        "R09",
+        "R11",
+        "R12"
+      ],
+      "dependency_notes": "R08, R09, R11, R12",
+      "definition_of_done": "E2E en navegador real y tamaños móvil/escritorio; pérdida de red, doble clic, recarga, stock agotado y pago cancelado; cero errores bloqueantes. Hero foto, teclado/foco/contraste y sin overflow. Protocolo móvil fijado: 3 corridas, mediana LCP de laboratorio ≤2.5 s y CLS ≤0.1 como objetivos; verificar scroll en dispositivo y registrar límites. No llamar a un test DOM prueba de iPhone."
+    },
+    {
+      "id": "R14",
+      "priority": "P0",
+      "wave": "continua, cierre 3",
+      "task_and_owner": "Seguridad y revisión de reglas de negocio. Agente seguridad + juez independiente.",
+      "lane": "qa-devops+judge",
+      "status": "planned",
+      "can_start_after": [
+        "R01"
+      ],
+      "completion_dependencies": [
+        "R06",
+        "R07",
+        "R08",
+        "R09",
+        "R10",
+        "R11",
+        "R12"
+      ],
+      "dependency_notes": "R06–R11; cierre en R12",
+      "definition_of_done": "Pruebas negativas de autorización/objetos, inyección/validación, CSRF según flujo, abuso/rate limits, secretos/dependencias; revisión del código de pagos/inventario y permisos de despliegue. Hallazgos críticos/altos de lanzamiento resueltos o lanzamiento bloqueado."
+    },
+    {
+      "id": "R15",
+      "priority": "P0",
+      "wave": "3",
+      "task_and_owner": "Respaldo, restauración, alertas y rollback. Técnico/DevOps.",
+      "lane": "qa-devops+technical",
+      "status": "planned",
+      "can_start_after": [
+        "R04"
+      ],
+      "completion_dependencies": [
+        "R04",
+        "R07",
+        "R10",
+        "R11",
+        "R12"
+      ],
+      "dependency_notes": "R04, R12; modelo final R07–R11",
+      "definition_of_done": "Restaurar backup en base aislada y medir contra RPO/RTO de R01; reconciliar pagos posteriores al punto restaurado; alerta ensayada y responsable asignado; rollback/cierre de ventas probado, sin asumir que rollback de código deshace migraciones."
+    },
+    {
+      "id": "R16",
+      "priority": "P0",
+      "wave": "4",
+      "task_and_owner": "Ensayo operativo y aceptación de negocio. Negocio + técnico; juez verifica evidencia.",
+      "lane": "business+technical+judge",
+      "status": "planned",
+      "can_start_after": [
+        "R01"
+      ],
+      "completion_dependencies": [
+        "R03",
+        "R09",
+        "R11",
+        "R13",
+        "R14",
+        "R15"
+      ],
+      "dependency_notes": "R03, R09, R11, R13–R15",
+      "definition_of_done": "Negocio procesa pedido, excepción, preparación/despacho, devolución por flujo aprobado y conciliación; políticas/moneda/envío correctos; ningún bloqueante abierto y aprobación escrita del candidato exacto. Puede usar portal del proveedor para reembolsos, con registro real y reposición separada."
+    },
+    {
+      "id": "R17",
+      "priority": "P0",
+      "wave": "4, externa",
+      "task_and_owner": "Paso a producción y piloto controlado. Titular del comercio + técnico.",
+      "lane": "business+technical",
+      "status": "planned",
+      "can_start_after": [
+        "R02",
+        "R16"
+      ],
+      "completion_dependencies": [
+        "R02",
+        "R16"
+      ],
+      "dependency_notes": "R16, habilitación productiva de R02",
+      "definition_of_done": "Credenciales/dominio productivos autorizados; cargo de bajo importe y devolución cuando corresponda, autorizados específicamente; pedido/stock/confirmación consultable de R08 y aviso en panel de R09/conciliación verificados, liquidación seguida hasta evidencia real. Go/no-go y fecha aprobados; sin declarar éxito financiero mientras esté pendiente. Al aceptar formalmente la V1, verificar con el dueño el cierre del alcance y cambiar el repo a privado según su instrucción; no esperar mejoras futuras ni prometer eliminar forks/copias."
+    },
+    {
+      "id": "R18",
+      "priority": "P1",
+      "wave": "posterior",
+      "task_and_owner": "Expandir catálogo/ERP y mantenimiento con agentes. Integrador + técnico.",
+      "lane": "integrator+technical",
+      "status": "planned",
+      "can_start_after": [
+        "R17"
+      ],
+      "completion_dependencies": [
+        "R17"
+      ],
+      "dependency_notes": "V1 aceptada R17",
+      "definition_of_done": "Backlog separado: resto de productos, sucursales/ERP según contrato, no-mistakes y agentes por eventos con límites. CI/alertas/backups no dependen de un agente siempre vivo."
+    }
+  ]
+}

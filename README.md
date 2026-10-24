@@ -11,6 +11,7 @@ Repositorio de recuperación y evolución de las demos de Martha Silva. Conserva
 | Original recuperado (parcial) | [Cloudflare](originals/cloudflare/README.md) |
 | Comparación del catálogo sin activar productos | [Staging](tests/catalog-staging-README.md), [resultado](evidence/catalog-staging.json) |
 | Seguridad y datos excluidos | [SECURITY](docs/SECURITY.md) |
+| Roadmap V1 propuesto y tareas | [ROADMAP-V1](docs/ROADMAP-V1.md), [tareas estructuradas](docs/roadmap-tasks.json) |
 | Estado, pendientes y criterios de aceptación | [PROJECT-STATUS](docs/PROJECT-STATUS.md) |
 | Procedimientos, herramientas y lecciones reutilizables | [PLAYBOOK](docs/PLAYBOOK.md) |
 | Registro de decisiones | [DECISIONS](docs/DECISIONS.md) |

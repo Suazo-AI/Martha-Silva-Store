@@ -50,10 +50,14 @@ Son condiciones de aceptación, no una declaración de que esta edición documen
 
 ## Orden de trabajo
 
-1. Integrar y verificar el repositorio de demos sin tocar el sitio original.
-2. Recuperar medios cuando la fuente vuelva a estar disponible; completar el catálogo en una rama separada.
-3. Ejecutar QA real sobre el candidato, sin confundirlo con las simulaciones DOM.
-4. Resolver proveedor de tarjeta y arquitectura backend antes de calificar el sistema como producción.
+El [roadmap V1 propuesto](ROADMAP-V1.md) prioriza una venta autoritativa y recuperable, no la recuperación exhaustiva ni nuevas herramientas. Está pendiente de aprobación del propietario antes de implementación.
+
+1. Acordar alcance/contratos y autoridad de stock; iniciar afiliación de tarjeta y catálogo piloto en paralelo.
+2. Construir el corte frontend → API .NET → SQL: pedido, reserva y operación, primero con fixtures identificadas.
+3. Integrar proveedor real en sandbox y cerrar staging, QA real, seguridad y recuperación.
+4. Aceptación del negocio y piloto productivo específicamente autorizados.
+
+La recuperación completa del catálogo y no-mistakes no bloquean ese piloto por sí mismos. La ausencia de una fuente única para stock compartido con ventas físicas sí bloquea ventas reales.
 
 [Inicio](../README.md) · [Procedimientos](PLAYBOOK.md) · [Decisiones](DECISIONS.md)
 
