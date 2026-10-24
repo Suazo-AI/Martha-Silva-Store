@@ -29,25 +29,37 @@ dotnet test backend/tests/Martha.Store.Api.Tests --no-restore --configuration Re
 Without the variable, SQL tests are visibly **skipped**, not passed. A build or
 unit-test pass is not evidence of transaction correctness on SQL Server.
 
-## CI approval boundary
+## Approved disposable SQL CI
 
-`.github/workflows/backend.yml` runs on push and pull requests to main, with manual
-dispatch also available. It builds and runs database-independent guards. Its SQL job is hard-disabled and does not accept a license or start SQL.
-After explicit SQL Server EULA authorization, the next implementation must:
+The user explicitly accepted **SQL Server 2022 Developer** licensing on
+2026-10-24 for non-production, synthetic CI only. This does not authorize
+production use, other licenses, paid resources or deployment.
 
-1. Pin an official Microsoft SQL Server Linux image to a reviewed tag/digest; use
-   a disposable GitHub-hosted Ubuntu runner, loopback-only port, Developer edition.
-2. Generate a strong random administrator password **at runtime**; mask it before
-   use, store only in job environment, never commit or print it.
-3. Start the approved container and perform bounded readiness checks. Do not copy
-   databases from users, shared environments or historical backups.
-4. Set `MARTHA_TEST_SQL_CONNECTION`, fail if it is absent, run the SQL category and
-   verify zero failed and zero skipped tests. Preserve sanitized test results.
-5. Always remove the disposable container. Do not deploy or publish API services.
+`.github/workflows/backend.yml` runs build/guards on pushes and PRs to `main`.
+The SQL job runs only after guards succeed, on this repository's trusted `main`
+push or manual dispatch; PR and fork events cannot start it. It uses a disposable
+GitHub-hosted Ubuntu runner and the immutable official image:
 
-Approval to execute tests is not approval to deploy, merge, accept other licenses,
-or connect to a production database. The current workflow deliberately cannot
-claim a SQL Server integration pass.
+`mcr.microsoft.com/mssql/server@sha256:cf8f0ab2ebe61feec2eed2629061a07d247f791c2a8ddda74a4ac9f06a291718`
+
+Registry manifest/config reviewed 2026-10-24: `2022-latest` at resolution time,
+Linux amd64, Microsoft SQL Server **16.0.4305.5**, Ubuntu 22.04, image created
+2026-10-03. Runtime checks additionally enforce engine major 16 and Developer
+edition. Source: [Microsoft container instructions](https://learn.microsoft.com/en-us/sql/linux/sql-server-linux-docker-container-deployment?view=sql-server-ver17).
+
+The job generates a cryptographically random strong SA password, masks it before
+use, and publishes only a dynamic loopback port. No credentials are committed.
+Each SQL test creates its own unique `MarthaSynthetic_Test_<guid>` database,
+applies actual migrations and drops that database on disposal. An `always()` cleanup step removes the container and its anonymous volumes,
+including databases left by an interrupted test; if the runner itself is terminated,
+GitHub-hosted runner destruction is the final isolation boundary. No external or production database is accessed.
+
+Readiness is bounded. Missing connection configuration, missing TRX, any skipped
+SQL test, any failure, an unexpected/duplicate test, or anything other than all
+six expected passing SQL tests fails the job. Only allowlisted test names,
+outcomes and counters are retained as a seven-day artifact; raw stdout/TRX,
+environment and container logs are not published. The sanitizer has independent
+unit tests and strips all arbitrary diagnostic text. No API deployment occurs.
 
 ## Dependencies
 
@@ -83,6 +95,15 @@ with this test branch, SDK 10.0.402 / runtime 10.0.13:
 - Full discovery/run without SQL configuration: **16 passed, 6 explicitly skipped**.
 - Existing demo `python3 tests/check.py --install`: passed (writable npm cache
   override required in the restricted executor).
-- Actual SQL Server integration: **not run**, pending explicit EULA authorization
-  and disposable SQL Server provisioning. No concurrency/rollback runtime claim
+- Actual SQL Server integration at the first foundation verification: **not run**.
+  Licensing was subsequently approved; the new CI job awaits remote execution. No concurrency/rollback runtime claim
   is made from the successful compilation or guard tests.
+
+### SQL CI implementation checks — 2026-10-24
+
+- Official MCR manifest and image configuration inspected; immutable digest pinned.
+- YAML parsing, bash syntax and five sanitizer unit tests passed.
+- Verifier checked against real VSTest TRX with six skipped SQL tests: correctly
+  failed (exit 1), retained only expected names/outcomes/counters.
+- No local Docker executable; genuine SQL behavior still awaits the first remote
+  run. Static review or a skipped-test verifier check is not a SQL test pass.
