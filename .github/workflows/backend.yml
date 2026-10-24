@@ -1,0 +1,36 @@
+name: Backend synthetic slice
+
+# Only database-independent checks run automatically; SQL remains explicitly blocked.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-guards:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: '10.0.402'
+      - name: Restore pinned dependencies
+        run: dotnet restore backend/tests/Martha.Store.Api.Tests --locked-mode
+      - name: Build and run database-independent guards
+        run: dotnet test backend/tests/Martha.Store.Api.Tests --no-restore --configuration Release --filter 'Category!=SqlServer'
+
+  sql-server-integration-awaiting-approval:
+    # Deliberately impossible to run: no EULA acceptance, no SQL container, no secrets.
+    # See tests/backend/README.md before implementing an approved disposable SQL job.
+    if: ${{ false }}
+    runs-on: ubuntu-24.04
+    steps:
+      - run: echo 'BLOCKED - SQL Server EULA approval and disposable runner setup required.'

@@ -1,0 +1,494 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Martha Silva synthetic foundation API",
+    "version": "1.0.0-lot1",
+    "description": "Technical R01/R04 development proof only, NOT production commerce. XXX denotes non-commercial synthetic amounts. No payment, identity, ERP, release or expiry implementation. Existing static demo remains separate."
+  },
+  "paths": {
+    "/health/live": {
+      "get": {
+        "operationId": "live",
+        "responses": {
+          "200": {
+            "description": "Live",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Live"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health/ready": {
+      "get": {
+        "operationId": "ready",
+        "description": "Checks SQL connectivity and applied application schema, not commercial or payment readiness.",
+        "responses": {
+          "200": {
+            "description": "Ready",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ready"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "storage_unavailable",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/catalog": {
+      "get": {
+        "operationId": "catalog",
+        "description": "SQL-backed synthetic catalog only. Without development gate returns 503 catalog_not_enabled; never falls back to demo.",
+        "responses": {
+          "200": {
+            "description": "Catalog",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Catalog"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "catalog_not_enabled or storage_unavailable",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected failure.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/synthetic/orders": {
+      "post": {
+        "operationId": "createSyntheticOrder",
+        "summary": "Reserve one synthetic variant (development-only)",
+        "description": "Requires Development and Synthetic:Enabled=true; otherwise route is absent (404). No authentication or production use. Same key + normalized variantId/quantity returns the original 201 representation. Same key + changed logical payload returns 409. All unknown fields including unitPriceMinor/totalMinor are rejected with 400. Expiry/cancellation are not implemented in this lot.",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 128,
+              "pattern": "^[!-~]{8,128}$"
+            },
+            "description": "Exactly one header value; case-sensitive; fixed synthetic actor scope. Retained for lifetime of disposable synthetic database."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSyntheticOrder"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Order",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Order"
+                }
+              }
+            },
+            "headers": {
+              "Location": {
+                "description": "Relative path of persisted synthetic order.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed JSON, invalid quantity/GUID/key or unknown field; no mutation.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown variant or route disabled.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "out_of_stock or idempotency_conflict; no mutation.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "storage_unavailable; retry same key, do not switch to demo.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected failure; no SQL/internal details returned.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/synthetic/orders/{orderId}": {
+      "get": {
+        "operationId": "getSyntheticOrder",
+        "description": "Development-only proof lookup, not authorized customer access. Disabled route or malformed path GUID returns 404.",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Order",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Order"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "order_not_found or not_found when disabled/malformed path GUID.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "storage_unavailable",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected failure.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CreateSyntheticOrder": {
+        "type": "object",
+        "properties": {
+          "variantId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Non-empty GUID. Normalized before idempotency comparison."
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        "required": [
+          "variantId",
+          "quantity"
+        ],
+        "additionalProperties": false
+      },
+      "Order": {
+        "type": "object",
+        "properties": {
+          "orderId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "variantId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "unitPriceMinor": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 9000000000000
+          },
+          "currency": {
+            "type": "string",
+            "enum": [
+              "XXX"
+            ]
+          },
+          "totalMinor": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 900000000000000
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "reserved"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "UTC server timestamp."
+          },
+          "synthetic": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          }
+        },
+        "required": [
+          "orderId",
+          "variantId",
+          "quantity",
+          "unitPriceMinor",
+          "currency",
+          "totalMinor",
+          "status",
+          "createdAt",
+          "synthetic"
+        ],
+        "additionalProperties": false
+      },
+      "Variant": {
+        "type": "object",
+        "properties": {
+          "variantId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "sku": {
+            "type": "string"
+          },
+          "unitPriceMinor": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 9000000000000
+          },
+          "currency": {
+            "type": "string",
+            "enum": [
+              "XXX"
+            ]
+          },
+          "availableQuantity": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "variantId",
+          "sku",
+          "unitPriceMinor",
+          "currency",
+          "availableQuantity"
+        ],
+        "additionalProperties": false
+      },
+      "Product": {
+        "type": "object",
+        "properties": {
+          "productId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "variants": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Variant"
+            }
+          }
+        },
+        "required": [
+          "productId",
+          "name",
+          "variants"
+        ],
+        "additionalProperties": false
+      },
+      "Catalog": {
+        "type": "object",
+        "properties": {
+          "synthetic": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Product"
+            }
+          }
+        },
+        "required": [
+          "synthetic",
+          "items"
+        ],
+        "additionalProperties": false
+      },
+      "Problem": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "status": {
+            "type": "integer",
+            "minimum": 400,
+            "maximum": 599
+          },
+          "code": {
+            "type": "string",
+            "enum": [
+              "invalid_request",
+              "unknown_variant",
+              "order_not_found",
+              "not_found",
+              "out_of_stock",
+              "idempotency_conflict",
+              "storage_unavailable",
+              "catalog_not_enabled",
+              "internal_error"
+            ]
+          },
+          "traceId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "title",
+          "status",
+          "code",
+          "traceId"
+        ],
+        "additionalProperties": true
+      },
+      "Live": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "live"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "additionalProperties": false
+      },
+      "Ready": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "ready"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "additionalProperties": false
+      }
+    }
+  }
+}

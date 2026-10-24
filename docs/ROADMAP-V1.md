@@ -1,6 +1,6 @@
 # Roadmap V1 — Martha Silva Store
 
-**Estado: propuesta para aprobación. Planificación, no implementación.** Base técnica: `a972e1148487349d975a845b0acbd07132fcdcba`. Fecha: 2026-10-24.
+**Estado: primer lote técnico aprobado el 2026-10-24; R01/R04 en curso. No es aprobación de producción.** Base técnica: `a972e1148487349d975a845b0acbd07132fcdcba`. Fecha: 2026-10-24.
 
 ## Objetivo y límite
 
@@ -49,7 +49,7 @@ Herramientas solo cuando sean necesarias: pruebas .NET con SQL Server real (Test
 
 ## Tareas priorizadas
 
-P0 = bloquea venta real; P1 = mejora posterior. Todas las tareas siguientes están **planificadas**, no terminadas. Las dependencias indican cierre; contratos y pruebas pueden prepararse antes con fixtures sintéticas identificadas.
+P0 = bloquea venta real; P1 = mejora posterior. R01/R04 están **en curso**; las demás tareas siguen planificadas. Ninguna se declara terminada por aprobación del plan. Las dependencias indican cierre; contratos y pruebas pueden prepararse antes con fixtures sintéticas identificadas.
 
 | ID | Prioridad / ola | Tarea y responsable | Depende de | Evidencia de terminado |
 |---|---|---|---|---|
@@ -113,4 +113,4 @@ No se fija una fecha de producción ni un porcentaje de avance con los bloqueos 
 
 ## Aprobación y primer lote
 
-Aprobar este alcance y la dirección .NET/SQL Server antes de implementación. El primer lote propuesto es **R01 + arranque R02/R03**, seguido de **R04 y contratos de R05–R08**. No se compran servicios, crean credenciales, envían trámites bancarios ni realizan cobros con la aprobación del plan solamente.
+El propietario aprobó este alcance y la dirección .NET/SQL Server para iniciar el primer lote. El primer lote propuesto es **R01 + arranque R02/R03**, seguido de **R04 y contratos de R05–R08**. No se compran servicios, crean credenciales, envían trámites bancarios ni realizan cobros con la aprobación del plan solamente.

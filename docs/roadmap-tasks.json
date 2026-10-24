@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "status": "proposed-awaiting-owner-approval",
+  "status": "first-technical-batch-approved-in-progress",
   "baseline_commit": "a972e1148487349d975a845b0acbd07132fcdcba",
-  "execution_authorized": false,
+  "execution_authorized": true,
   "tasks": [
     {
       "id": "R01",
@@ -10,7 +10,7 @@
       "wave": "0",
       "task_and_owner": "Congelar V1, stack, contrato API, estados y autoridad de stock. Integrador + responsable técnico + negocio.",
       "lane": "integrator+business+technical",
-      "status": "planned",
+      "status": "in_progress",
       "can_start_after": [],
       "completion_dependencies": [],
       "dependency_notes": "Aprobación del plan",
@@ -50,7 +50,7 @@
       "wave": "1",
       "task_and_owner": "Levantar API .NET + SQL de prueba reproducibles y ampliar CI. Agente backend; técnico revisa.",
       "lane": "backend",
-      "status": "planned",
+      "status": "in_progress",
       "can_start_after": [
         "R01"
       ],
@@ -317,5 +317,6 @@
       "dependency_notes": "V1 aceptada R17",
       "definition_of_done": "Backlog separado: resto de productos, sucursales/ERP según contrato, no-mistakes y agentes por eventos con límites. CI/alertas/backups no dependen de un agente siempre vivo."
     }
-  ]
+  ],
+  "authorization_scope": "R01 technical decisions and R04 foundation with synthetic data; separate permissions still required for contracts, credentials, costs and production"
 }
