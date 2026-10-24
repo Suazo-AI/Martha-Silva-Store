@@ -1,0 +1,42 @@
+[
+  {
+    "store": "chunche",
+    "url": "https://chunchemistico.com/wp-content/plugins/woocommerce/assets/client/blocks/wc-payment-method-bacs.js?ver=7d378c9eeec5f2eabd09",
+    "file": "rea-payment-audit/inputs/chunche/wc-payment-method-bacs.js",
+    "retrieval": "Firecrawl rawHtml; public static JS inert data",
+    "http_status": 200,
+    "source_page": "https://chunchemistico.com/carrito/",
+    "sha256": "4c39c54bda28f43830afbc68c04afecba4404ed9d2fcd544d960827a02170a2a",
+    "bytes": 655
+  },
+  {
+    "store": "chunche",
+    "url": "https://chunchemistico.com/wp-content/plugins/woocommerce/assets/client/blocks/wc-payment-method-cod.js?ver=c94f320fb6275390c73d",
+    "file": "rea-payment-audit/inputs/chunche/wc-payment-method-cod.js",
+    "retrieval": "Firecrawl rawHtml; public static JS inert data",
+    "http_status": 200,
+    "source_page": "https://chunchemistico.com/carrito/",
+    "sha256": "073b3866773f90b2366d9bfab82c020bf06761052f63c39633622bd140e7dd11",
+    "bytes": 888
+  },
+  {
+    "store": "limoncello",
+    "url": "https://limoncelloflowers.com/wp-content/plugins/woocommerce-square/build/assets/frontend/wc-square-payment-gateway-payment-form.js?ver=5.5.0",
+    "file": "rea-payment-audit/inputs/limoncello/wc-square-payment-gateway-payment-form.js",
+    "retrieval": "Firecrawl rawHtml; public static JS inert data",
+    "http_status": 200,
+    "source_page": "https://limoncelloflowers.com/order/",
+    "sha256": "9cc0c79c1d7878b6c70ac201a6fb84e999143c25d3b58dd99fa7f43299fbe240",
+    "bytes": 7542
+  },
+  {
+    "store": "limoncello",
+    "url": "https://limoncelloflowers.com/wp-content/plugins/woocommerce-square/build/assets/frontend/wc-square.js?ver=5.5.0",
+    "file": "rea-payment-audit/inputs/limoncello/wc-square.js",
+    "retrieval": "Firecrawl rawHtml; public static JS inert data",
+    "http_status": 200,
+    "source_page": "https://limoncelloflowers.com/order/",
+    "sha256": "730271c32733df25a705cbcdeb742c3aa2d4c63b3693bbf1ffaef507960ec7d3",
+    "bytes": 13843
+  }
+]

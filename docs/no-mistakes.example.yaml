@@ -1,0 +1,16 @@
+# INERT EXAMPLE: not loaded from docs/. See NO-MISTAKES.md before activation.
+# Source: https://kunchenguid.github.io/no-mistakes/reference/repo-config/
+agent: codex
+allow_repo_commands: false
+no_ci: false
+commands:
+  test: "python tests/check.py --install"
+auto_fix:
+  rebase: 0
+  review: 0
+  test: 0
+  document: 0
+  lint: 0
+  ci: 0
+pr:
+  publish_intent: false

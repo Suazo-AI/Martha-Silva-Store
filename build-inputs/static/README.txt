@@ -1,0 +1,1 @@
+Martha Silva Store: demo independiente. Catálogo reducido a las dos prendas cuyas fotos se recuperaron. Inventario, pedidos y datos guardados solo en el navegador. Sin pagos reales, D1 o SISFAIN productivo. No introducir datos reales. No modifica la tienda original.

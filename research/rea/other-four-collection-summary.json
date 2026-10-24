@@ -1,0 +1,44 @@
+{
+  "checked_at": "2026-10-24T19:18:54Z",
+  "scope": "Four public homepages and empty carts. Read-only retrieval, no target JavaScript execution, no session configuration saved.",
+  "stores": [
+    {
+      "store": "berry",
+      "pages": [
+        "https://berrymenic.com/",
+        "https://berrymenic.com/carrito/"
+      ],
+      "result": "Tilopay and PayPal plugin CSS observed, but no provider JavaScript in the inspected pages. Activation/transaction success unknown.",
+      "js_files": 0
+    },
+    {
+      "store": "chunche",
+      "pages": [
+        "https://chunchemistico.com/",
+        "https://chunchemistico.com/carrito/"
+      ],
+      "result": "Cart references BACS and COD payment registration JS; both collected. No card provider script observed; this does not exhaustively establish all checkout methods.",
+      "js_files": 2
+    },
+    {
+      "store": "youngskin",
+      "pages": [
+        "https://youngskinnic.com/",
+        "https://youngskinnic.com/carrito/"
+      ],
+      "result": "Generic Woo checkout JS only. No provider JS identified within inspected pages.",
+      "js_files": 0
+    },
+    {
+      "store": "limoncello",
+      "pages": [
+        "https://limoncelloflowers.com/",
+        "https://limoncelloflowers.com/cart/",
+        "https://limoncelloflowers.com/order/"
+      ],
+      "result": "Public order page references Square SDK plus WooCommerce Square payment form and integration wrappers; both wrappers collected. SDK and gift-card script not fetched to keep scope bounded. Transaction eligibility or success not verified.",
+      "js_files": 2
+    }
+  ],
+  "limits": "No guessed plugin asset paths, cart additions, payment submissions, private APIs, personal data, credentials, or inline tokens/capture_context. SHA256 covers local stored files including terminal newline inserted by patch writer."
+}

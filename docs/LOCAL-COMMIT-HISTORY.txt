@@ -1,0 +1,17 @@
+4b5861008a53c3c5f2aa4c8fcbb86e9c011c1e3a Update Site source
+e6299ee1548b435bf25e1039dac4e47644ad51ed Update Site source
+2e9f6b09a8ee14bf46642a07953fdce4fbe90d27 Preserve legacy demo state during known catalog expansion
+ad3ba47cbdf2104ef783dbd493d5cbe04184e134 test: document and aggregate recovered demo QA
+113a34e90d4e92fda235c9d20b1771a8e5214d45 Add offline original asset completeness audit and safe recovery guide
+339235f20109bd33b98d7522d177e57be5afac36 build: assemble recovered demo from self-contained tracked inputs
+10118d18d156794e5f5ad892b4999b21277b9bce Record REA payment evidence and aggregate cloud regression checks
+d6256330557933eeddc66e3c7642010d7e8f8ae7 Archive partial original Cloudflare recovery with hash provenance
+c8f99a3c8ffe17b512b96c5bf070184568411c46 Add portable stdlib QA runner and recorded validation
+84e2f5766961b97728f6a4733fa43b053100e00b Add offline recovered catalog staging and activation gates
+3acac9bfbc8e3ef18405d49f1678b9f51ca58099 docs: add recovery security boundaries and publication safeguards
+1b50d1d040d8fe2ca85fbe41a090358d7a944a42 Integrate recovery staging and portable QA gates
+9f7695fc67d77a85757b1494ad150a4c2aa2adde docs: add Spanish project navigation, delivery playbook and decision register
+c3beb82a7c6c04f5268288f82513e0ca50d73587 Align delivery documentation with integrated portable checks
+cb7ebd9e5912faaf7783682b39bb8ba03124e17b Add opt-in validated private-repository progress sync
+924f4fe2697be059855b88a064ec10a49e0b9503 Add portable CI artifact pipeline and safe no-mistakes opt-in guide
+b4a9de7ccb554ed2f565fd731c6fd870093eb42f Preserve 14 sourced social photos as unverified editorial staging

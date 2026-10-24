@@ -1,0 +1,12 @@
+PASS all nine actual page templates mount without JS errors
+PASS invalid favorites shape cannot break catalog mounting
+PASS catalog Back restores filter controls and result set
+PASS product zoom closes with focus on originating photo
+PASS quantity stock failure is visible within mini-bag and rolls back selection
+PASS successful quantity edit keeps mini-bag focus
+PASS admin refresh logout login remain functional
+PASS rapid repeated add clicks produce only one cart mutation
+PASS sort, empty filter, reset, and Forward agree with URL
+PASS malformed checkout storage shape recovers at contact form
+PASS remove final item keeps dialog open and close returns to add trigger
+11/11 DOM simulation tests passed

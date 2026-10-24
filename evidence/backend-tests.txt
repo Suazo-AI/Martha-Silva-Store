@@ -1,0 +1,31 @@
+✔ actual catalog and quantity validation (2.866843ms)
+✔ corrupt persisted state recovers safely (0.476769ms)
+✔ untrusted saved quantity cannot produce negative prices (0.250717ms)
+✔ reservation expires and cannot later be paid (1.977258ms)
+✔ checkout and payment retries cannot double decrement inventory (1.559537ms)
+✔ stale quote and reservation-aware inventory adjustment (1.035408ms)
+✔ returns enforce purchased quantity and refund/restock exactly once (2.471894ms)
+✔ admin is expressly local preview, logout gates mutations but login requires no credentials (0.302524ms)
+✔ unknown prototype-like order ID is not an order (0.31375ms)
+✔ malformed bodies yield actionable validation instead of TypeError (0.505311ms)
+✔ write failure is explicit and does not commit memory (0.262414ms)
+✔ legacy orders without explicit expiry also release abandoned reservations (0.489888ms)
+✔ expired quote fails without creating an order (0.327269ms)
+✔ declined or cancelled payment releases stock once, and terminal retry cannot approve it (1.368326ms)
+✔ returns reject malformed lines and duplicate quantities exceeding purchased stock (1.017221ms)
+✔ memory-only mode remains usable when localStorage is unavailable (0.178412ms)
+✔ failed reset preserves in-memory cart (0.212151ms)
+✔ repeated concurrent checkout and payment calls are idempotent in one instance (0.823878ms)
+✔ corrupt quote totals cannot change the checkout price (0.300221ms)
+✔ invalid snapshots are preserved exactly in a single recovery slot before fallback writes (0.360038ms)
+✔ existing different recovery snapshot prevents destructive overwrite of either saved copy (0.182067ms)
+✔ failed recovery backup does not overwrite damaged primary state (0.187395ms)
+✔ valid legacy saved orders load unchanged and do not create a recovery backup (0.964434ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 100.677438

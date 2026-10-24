@@ -1,0 +1,49 @@
+[
+  {
+    "asset": "tilopay/sdk_tpay.min.js",
+    "source_url": "https://app.tilopay.com/sdk/v2/sdk_tpay.min.js",
+    "retrieved_at_utc": "2026-10-24T19:17:51Z",
+    "http_status": 200,
+    "format": "Firecrawl rawHtml (public application/javascript), saved inert UTF-8 text",
+    "bytes": 42743,
+    "sha256_sanitized": "504d858c595f07254fbbc130b13e957034237234cf088e7f2c9faefd8021c78e",
+    "redactions": {
+      "jwt_like_literals": 1
+    },
+    "executed": false,
+    "note": "Hash describes saved sanitized content, not original wire bytes."
+  },
+  {
+    "asset": "aguamarina/wc-credomatic-paycom-gateway-frontend.js",
+    "source_url": "https://aguamarinanic.com/wp-content/plugins/wc-credomatic-paycom-gateway/assets/js/wc-credomatic-paycom-gateway-frontend.js?ver=1.1.0",
+    "http_status": 200,
+    "retrieved_at_utc": "2026-10-24T19:18:36Z",
+    "executed": false,
+    "bytes": 547,
+    "sha256_sanitized": "12e895a9693a6df26dd22f787931f10361ad427016ca771e344c76f2b39a0f1c",
+    "format": "Firecrawl rawHtml saved inert UTF-8 text",
+    "note": "Hash describes sanitized saved content, not wire bytes. JWT-like literals redacted if present."
+  },
+  {
+    "asset": "lacosmetiquera/wc-cybersource.min.js",
+    "source_url": "https://lacosmetiqueranic.com/wp-content/plugins/woocommerce-gateway-cybersource/assets/js/frontend/wc-cybersource.min.js?ver=2.9.4",
+    "http_status": 200,
+    "retrieved_at_utc": "2026-10-24T19:18:36Z",
+    "executed": false,
+    "bytes": 7650,
+    "sha256_sanitized": "cd56da0320bdf6e27bf799aa4d0aec447a824be4c023e729b87e6f034458a16f",
+    "format": "Firecrawl rawHtml saved inert UTF-8 text",
+    "note": "Hash describes sanitized saved content, not wire bytes. JWT-like literals redacted if present."
+  },
+  {
+    "asset": "cybersource/flex-microform.min.js",
+    "source_url": "https://flex.cybersource.com/microform/bundle/v2.12.1/flex-microform.min.js",
+    "http_status": 200,
+    "retrieved_at_utc": "2026-10-24T19:18:36Z",
+    "executed": false,
+    "bytes": 28618,
+    "sha256_sanitized": "39a5a28f68c661be22b8af651c8bb1213af98ae01c9cda17a3001b53b127fd4d",
+    "format": "Firecrawl rawHtml saved inert UTF-8 text",
+    "note": "Hash describes sanitized saved content, not wire bytes. JWT-like literals redacted if present."
+  }
+]

@@ -1,0 +1,1 @@
+PASS: 9 pages; local assets/srcset/routes/anchors/ARIA IDs; no video elements

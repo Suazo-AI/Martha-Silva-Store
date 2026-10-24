@@ -1,0 +1,201 @@
+{
+  "status": "editorial-staging-not-live-catalog",
+  "assets": [
+    {
+      "platform": "instagram",
+      "file": "assets/social/instagram/Dd-ETr6BL2V.jpg",
+      "source_post": "https://www.instagram.com/marthasilva.store/reel/Dd-ETr6BL2V/",
+      "sha256": "6f2f8a39e12a05d477253b00919e4e7629e086533e8e04e55c392964665ea7ae",
+      "dimensions": [
+        360,
+        640
+      ],
+      "description": "Pink off-shoulder floor-length gown with thigh slit; video preview includes baked-in play icon.",
+      "product_id": null,
+      "stock": null,
+      "verified_product_match": false
+    },
+    {
+      "platform": "instagram",
+      "file": "assets/social/instagram/DdXjMXIFHwT.jpg",
+      "source_post": "https://www.instagram.com/marthasilva.gala/p/DdXjMXIFHwT/",
+      "sha256": "a39934aafad7b9632062afab870fc6f9b3eb03207de578342f091409d1ad8b4d",
+      "dimensions": [
+        640,
+        640
+      ],
+      "description": "Silver embellished nude-tone strapless gown bodice; square crop, not full-length.",
+      "product_id": null,
+      "stock": null,
+      "verified_product_match": false
+    },
+    {
+      "platform": "instagram",
+      "file": "assets/social/instagram/DeSHKZPKTNp.jpg",
+      "source_post": "https://www.instagram.com/reel/DeSHKZPKTNp/",
+      "sha256": "ac95183b86886685ef299696fe7f482ac301860ce72511f6d78f5be2d4f424e7",
+      "dimensions": [
+        360,
+        640
+      ],
+      "description": "White off-shoulder lace long dress with thigh slit. Baked-in video play icon; preview only.",
+      "product_id": null,
+      "stock": null,
+      "verified_product_match": false
+    },
+    {
+      "platform": "instagram",
+      "file": "assets/social/instagram/DeSG5J1KzHb.jpg",
+      "source_post": "https://www.instagram.com/reel/DeSG5J1KzHb/",
+      "sha256": "c2176788deeb8d18622a5e17e6de48774956f07fb0a35c45745ab75fa4a5e922",
+      "dimensions": [
+        361,
+        640
+      ],
+      "description": "White strapless full-skirt bridal gown with train. Baked-in video play icon; preview only.",
+      "product_id": null,
+      "stock": null,
+      "verified_product_match": false
+    },
+    {
+      "platform": "instagram",
+      "file": "assets/social/instagram/DbZdVj6q2vn.jpg",
+      "source_post": "https://www.instagram.com/reel/DbZdVj6q2vn/",
+      "sha256": "75d1be14faf460ea62b072def61d46e2a4e08b67c89669fb5a5d0612def85166",
+      "dimensions": [
+        361,
+        640
+      ],
+      "description": "Back view of pale pink full-skirt gown and embroidered train. Baked-in video play icon; preview only.",
+      "product_id": null,
+      "stock": null,
+      "verified_product_match": false
+    },
+    {
+      "platform": "instagram",
+      "file": "assets/social/instagram/DdwJTglRMBn.jpg",
+      "source_post": "https://www.instagram.com/reel/DdwJTglRMBn/",
+      "sha256": "2940cf137d368fef51796ea81777f801deca18c876ab4827378d533b63ea2dbd",
+      "dimensions": [
+        360,
+        640
+      ],
+      "description": "Purple off-shoulder floor-length fitted gown with silver neckline detail. Baked-in video play icon; preview only.",
+      "product_id": null,
+      "stock": null,
+      "verified_product_match": false
+    },
+    {
+      "platform": "facebook",
+      "file": "assets/social/facebook/facebook-1188359736962837.jpg",
+      "source_post": "https://www.facebook.com/photo.php?fbid=1188359736962837&set=pb.100073664646939.-2207520000&type=3",
+      "sha256": "d537247411624458a34203cd6d822109c94fc958f7c93f59966dd82b43b91815",
+      "dimensions": [
+        1080,
+        1350
+      ],
+      "description": "Chocolate-brown floor-length draped halter dress, full length",
+      "product_id": null,
+      "stock": null,
+      "verified_product_match": false
+    },
+    {
+      "platform": "facebook",
+      "file": "assets/social/facebook/facebook-1188359733629504.jpg",
+      "source_post": "https://www.facebook.com/photo/?fbid=1188359733629504&set=pb.100073664646939.-2207520000",
+      "sha256": "c79fb0e879f2082b293cbe9db4108515e9024ecd505d17bdd330e57966b85cb1",
+      "dimensions": [
+        1080,
+        1350
+      ],
+      "description": "Same chocolate-brown halter dress, closer view",
+      "product_id": null,
+      "stock": null,
+      "verified_product_match": false
+    },
+    {
+      "platform": "facebook",
+      "file": "assets/social/facebook/facebook-1188359726962838.jpg",
+      "source_post": "https://www.facebook.com/photo/?fbid=1188359726962838&set=pb.100073664646939.-2207520000",
+      "sha256": "ee1cae4823fbe4eeceba74163bf38d8c40e33ef1a5f7a3b617a9a7994aaea6ad",
+      "dimensions": [
+        1080,
+        1350
+      ],
+      "description": "Chocolate-brown long-sleeve crop top and gathered maxi skirt",
+      "product_id": null,
+      "stock": null,
+      "verified_product_match": false
+    },
+    {
+      "platform": "facebook",
+      "file": "assets/social/facebook/facebook-1188359720296172.jpg",
+      "source_post": "https://www.facebook.com/photo/?fbid=1188359720296172&set=pb.100073664646939.-2207520000",
+      "sha256": "59438b6aab01850f20224be2c5ea929b4faa50d66e115217693638e55953911e",
+      "dimensions": [
+        1080,
+        1350
+      ],
+      "description": "Same brown two-piece set, closer view",
+      "product_id": null,
+      "stock": null,
+      "verified_product_match": false
+    },
+    {
+      "platform": "facebook",
+      "file": "assets/social/facebook/facebook-1188338656964945.jpg",
+      "source_post": "https://www.facebook.com/photo/?fbid=1188338656964945&set=pb.100073664646939.-2207520000",
+      "sha256": "891843d1295cbbf2301b9178b2ca9f035262f42a9772504202f98aeadbb97135",
+      "dimensions": [
+        1080,
+        1351
+      ],
+      "description": "Jewelry detail with black deep-V outfit; not standalone dress photo",
+      "product_id": null,
+      "stock": null,
+      "verified_product_match": false
+    },
+    {
+      "platform": "facebook",
+      "file": "assets/social/facebook/facebook-1188338646964946.jpg",
+      "source_post": "https://www.facebook.com/photo/?fbid=1188338646964946&set=pb.100073664646939.-2207520000",
+      "sha256": "5802d1172fc7894a69ac1fdb7d6c73a625af1e9d89c9af2574b12a76b75528cd",
+      "dimensions": [
+        1080,
+        1351
+      ],
+      "description": "Brown long-sleeve deep-V floor-length dress with gold front ornament",
+      "product_id": null,
+      "stock": null,
+      "verified_product_match": false
+    },
+    {
+      "platform": "facebook",
+      "file": "assets/social/facebook/facebook-1188338636964947.jpg",
+      "source_post": "https://www.facebook.com/photo/?fbid=1188338636964947&set=pb.100073664646939.-2207520000",
+      "sha256": "4188a39004df8f3670139c277b282a489e6d5b2c7571638a24aa5702e5b11576",
+      "dimensions": [
+        960,
+        1201
+      ],
+      "description": "Black long-sleeve deep-V floor-length dress with gold front ornament",
+      "product_id": null,
+      "stock": null,
+      "verified_product_match": false
+    },
+    {
+      "platform": "facebook",
+      "file": "assets/social/facebook/facebook-1188338623631615.jpg",
+      "source_post": "https://www.facebook.com/photo/?fbid=1188338623631615&set=pb.100073664646939.-2207520000",
+      "sha256": "a908cac9831b51a579b285af410d8d0f47a09d270a07462a70a607e8c6848a81",
+      "dimensions": [
+        1080,
+        1335
+      ],
+      "description": "Same black dress, closer view",
+      "product_id": null,
+      "stock": null,
+      "verified_product_match": false
+    }
+  ]
+}

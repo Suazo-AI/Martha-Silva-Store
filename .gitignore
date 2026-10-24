@@ -1,0 +1,53 @@
+build-tools/
+recovered/
+*.tar.gz
+*.zip
+__pycache__/
+
+node_modules/
+
+# Local secrets; commit only deliberately sanitized examples.
+.env
+.env.*
+!.env.example
+!.env.*.example
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+*-credentials.json
+*.token
+
+# Local Cloudflare state and database contents (keep schema/migrations trackable).
+.wrangler/
+*.db
+*.db-*
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+*.dump.sql
+*.backup.sql
+
+# Browser sessions / exports can contain customer details and admin sessions.
+playwright/.auth/
+storage-state*.json
+storageState*.json
+localStorage*.json
+localstorage*.json
+sessionStorage*.json
+sessionstorage*.json
+cookies*.json
+cookies*.txt
+*-localstorage-export.*
+*-sessionstorage-export.*
+
+# Explicit private export directories; synthetic test fixtures stay trackable.
+private-exports/
+customer-exports/
+order-exports/
+database-backups/

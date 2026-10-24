@@ -1,0 +1,315 @@
+{
+  "tool": "rea-agents",
+  "version": "6.7.0",
+  "method": "offline static analysis; target code not executed",
+  "results": [
+    {
+      "artifact_group": "aguamarina",
+      "evidence_id": "ev_c26028f6e459da94b6774d0581ef5d2520fdc832631bb9449f20c9e817872cb5",
+      "evidence_sha256": "ddaf85817af62d2e1e1e705486c011031138e006bffb75050aa8a185c9ef5591",
+      "subject_digest": {
+        "sha256": "0cf005968514976b9247e538b09532839daf5fb5616764eede185473b5d5eae3"
+      },
+      "confidence": "derived",
+      "statistics": {
+        "relevant_files": 1,
+        "nested_asar_containers": 0,
+        "text_bytes_read": 547,
+        "invalid_utf8_files": 0,
+        "parsed_javascript_files": 1,
+        "skipped_javascript_files": 0,
+        "visited_ast_nodes": 52,
+        "findings": 0,
+        "modules": 0,
+        "parse_failures": 0
+      },
+      "summary": {
+        "browser_windows": 0,
+        "explicit_web_preferences": 0,
+        "preload_entrypoints": 0,
+        "context_bridge_apis": 0,
+        "exposed_api_members": 0,
+        "ipc": {
+          "operations": 0,
+          "literal_channels": 0,
+          "dynamic_channel_operations": 0,
+          "renderer_transmissions": 0,
+          "renderer_listeners": 0,
+          "main_handlers": 0,
+          "paired_renderer_transmissions": 0,
+          "ambiguous_renderer_transmissions": 0,
+          "unpaired_literal_renderer_transmissions": 0
+        },
+        "sender_validation_observations": 0,
+        "utility_processes": 0,
+        "resolved_utility_entrypoints": 0,
+        "native_addon_bindings": 0,
+        "resolved_native_addon_bindings": 0
+      },
+      "limitations": [
+        "CommonJS and ESM binding relationships were recovered from inert syntax and resolved only within the inventoried artifact container.",
+        "JavaScript and HTML were parsed as inert text; bundle bootstrap code was never executed.",
+        "Static imports, entrypoints, workers, endpoints, and storage relationships do not prove runtime execution.",
+        "Static paths and relationships may remain unresolved when expressions are dynamic or obfuscated.",
+        "Webpack/Rspack factories were recovered from AST literals; REA did not invoke push handlers or bundle bootstrap code."
+      ]
+    },
+    {
+      "artifact_group": "chunche",
+      "evidence_id": "ev_ea210fa531f4c255a8ba00444975db243f14bf3b1e40fdb4ddb4870c0b8c500a",
+      "evidence_sha256": "15cf411712047b49937f4fc108ea108302bb8ac30f197905b2aa64a1dd845755",
+      "subject_digest": {
+        "sha256": "8971a551fcc5704b0521570121fe8597ef75720063da79cf9e991f9df034ea03"
+      },
+      "confidence": "derived",
+      "statistics": {
+        "relevant_files": 2,
+        "nested_asar_containers": 0,
+        "text_bytes_read": 1543,
+        "invalid_utf8_files": 0,
+        "parsed_javascript_files": 2,
+        "skipped_javascript_files": 0,
+        "visited_ast_nodes": 470,
+        "findings": 0,
+        "modules": 0,
+        "parse_failures": 0
+      },
+      "summary": {
+        "browser_windows": 0,
+        "explicit_web_preferences": 0,
+        "preload_entrypoints": 0,
+        "context_bridge_apis": 0,
+        "exposed_api_members": 0,
+        "ipc": {
+          "operations": 0,
+          "literal_channels": 0,
+          "dynamic_channel_operations": 0,
+          "renderer_transmissions": 0,
+          "renderer_listeners": 0,
+          "main_handlers": 0,
+          "paired_renderer_transmissions": 0,
+          "ambiguous_renderer_transmissions": 0,
+          "unpaired_literal_renderer_transmissions": 0
+        },
+        "sender_validation_observations": 0,
+        "utility_processes": 0,
+        "resolved_utility_entrypoints": 0,
+        "native_addon_bindings": 0,
+        "resolved_native_addon_bindings": 0
+      },
+      "limitations": [
+        "CommonJS and ESM binding relationships were recovered from inert syntax and resolved only within the inventoried artifact container.",
+        "JavaScript and HTML were parsed as inert text; bundle bootstrap code was never executed.",
+        "Static imports, entrypoints, workers, endpoints, and storage relationships do not prove runtime execution.",
+        "Static paths and relationships may remain unresolved when expressions are dynamic or obfuscated.",
+        "Webpack/Rspack factories were recovered from AST literals; REA did not invoke push handlers or bundle bootstrap code."
+      ]
+    },
+    {
+      "artifact_group": "cybersource",
+      "evidence_id": "ev_ba995627e3c2d9a67473c41a84fd2a56132b94a8cfb69075d7e854fc5725e903",
+      "evidence_sha256": "8e6ffafb292bd9411c89da1f39d9eedf5b20a56211e0b911c6836215aaf97131",
+      "subject_digest": {
+        "sha256": "08d94633f933bf778cf700ec6c6e37a17cd42062e48a0fc9085b72b6106a22d8"
+      },
+      "confidence": "derived",
+      "statistics": {
+        "relevant_files": 1,
+        "nested_asar_containers": 0,
+        "text_bytes_read": 28618,
+        "invalid_utf8_files": 0,
+        "parsed_javascript_files": 1,
+        "skipped_javascript_files": 0,
+        "visited_ast_nodes": 8944,
+        "findings": 122,
+        "modules": 81,
+        "parse_failures": 0
+      },
+      "summary": {
+        "browser_windows": 0,
+        "explicit_web_preferences": 0,
+        "preload_entrypoints": 0,
+        "context_bridge_apis": 0,
+        "exposed_api_members": 0,
+        "ipc": {
+          "operations": 0,
+          "literal_channels": 0,
+          "dynamic_channel_operations": 0,
+          "renderer_transmissions": 0,
+          "renderer_listeners": 0,
+          "main_handlers": 0,
+          "paired_renderer_transmissions": 0,
+          "ambiguous_renderer_transmissions": 0,
+          "unpaired_literal_renderer_transmissions": 0
+        },
+        "sender_validation_observations": 0,
+        "utility_processes": 0,
+        "resolved_utility_entrypoints": 0,
+        "native_addon_bindings": 0,
+        "resolved_native_addon_bindings": 0
+      },
+      "limitations": [
+        "CommonJS and ESM binding relationships were recovered from inert syntax and resolved only within the inventoried artifact container.",
+        "Graph coverage is incomplete; unavailable facts remain explicit and must not be read as absence.",
+        "JavaScript and HTML were parsed as inert text; bundle bootstrap code was never executed.",
+        "Static imports, entrypoints, workers, endpoints, and storage relationships do not prove runtime execution.",
+        "Static paths and relationships may remain unresolved when expressions are dynamic or obfuscated.",
+        "Webpack/Rspack factories were recovered from AST literals; REA did not invoke push handlers or bundle bootstrap code."
+      ]
+    },
+    {
+      "artifact_group": "lacosmetiquera",
+      "evidence_id": "ev_63bf5040280c557999e13b9b8c5f7c6297293c36f4351cd1c78b85c3f3c2ee67",
+      "evidence_sha256": "1f6454fc923a2a720eba78c6046db87ff3350b96db71927d3c6d3c566bc81f2d",
+      "subject_digest": {
+        "sha256": "1232e3de377a5fdff0973f9f5c4be9027dd6fb031de83732a72daf69a44b1097"
+      },
+      "confidence": "derived",
+      "statistics": {
+        "relevant_files": 1,
+        "nested_asar_containers": 0,
+        "text_bytes_read": 7650,
+        "invalid_utf8_files": 0,
+        "parsed_javascript_files": 1,
+        "skipped_javascript_files": 0,
+        "visited_ast_nodes": 1605,
+        "findings": 1,
+        "modules": 0,
+        "parse_failures": 0
+      },
+      "summary": {
+        "browser_windows": 0,
+        "explicit_web_preferences": 0,
+        "preload_entrypoints": 0,
+        "context_bridge_apis": 0,
+        "exposed_api_members": 0,
+        "ipc": {
+          "operations": 0,
+          "literal_channels": 0,
+          "dynamic_channel_operations": 0,
+          "renderer_transmissions": 0,
+          "renderer_listeners": 0,
+          "main_handlers": 0,
+          "paired_renderer_transmissions": 0,
+          "ambiguous_renderer_transmissions": 0,
+          "unpaired_literal_renderer_transmissions": 0
+        },
+        "sender_validation_observations": 0,
+        "utility_processes": 0,
+        "resolved_utility_entrypoints": 0,
+        "native_addon_bindings": 0,
+        "resolved_native_addon_bindings": 0
+      },
+      "limitations": [
+        "CommonJS and ESM binding relationships were recovered from inert syntax and resolved only within the inventoried artifact container.",
+        "JavaScript and HTML were parsed as inert text; bundle bootstrap code was never executed.",
+        "Static imports, entrypoints, workers, endpoints, and storage relationships do not prove runtime execution.",
+        "Static paths and relationships may remain unresolved when expressions are dynamic or obfuscated.",
+        "Webpack/Rspack factories were recovered from AST literals; REA did not invoke push handlers or bundle bootstrap code."
+      ]
+    },
+    {
+      "artifact_group": "limoncello",
+      "evidence_id": "ev_a3ae1935eadea98e2c104036b09949cccd4d2a062984d90a0219fa781c0ddfb8",
+      "evidence_sha256": "c4863ad2b5c6aa8f5fe53322e8ac69888eea463cc2a41a7570a1779f9ac1afb0",
+      "subject_digest": {
+        "sha256": "56a76958bb3512cda1338c5d3ab0d67737fa10e56ef840cb33b690ff2c4a9b03"
+      },
+      "confidence": "derived",
+      "statistics": {
+        "relevant_files": 2,
+        "nested_asar_containers": 0,
+        "text_bytes_read": 21385,
+        "invalid_utf8_files": 0,
+        "parsed_javascript_files": 2,
+        "skipped_javascript_files": 0,
+        "visited_ast_nodes": 4447,
+        "findings": 1,
+        "modules": 0,
+        "parse_failures": 0
+      },
+      "summary": {
+        "browser_windows": 0,
+        "explicit_web_preferences": 0,
+        "preload_entrypoints": 0,
+        "context_bridge_apis": 0,
+        "exposed_api_members": 0,
+        "ipc": {
+          "operations": 0,
+          "literal_channels": 0,
+          "dynamic_channel_operations": 0,
+          "renderer_transmissions": 0,
+          "renderer_listeners": 0,
+          "main_handlers": 0,
+          "paired_renderer_transmissions": 0,
+          "ambiguous_renderer_transmissions": 0,
+          "unpaired_literal_renderer_transmissions": 0
+        },
+        "sender_validation_observations": 0,
+        "utility_processes": 0,
+        "resolved_utility_entrypoints": 0,
+        "native_addon_bindings": 0,
+        "resolved_native_addon_bindings": 0
+      },
+      "limitations": [
+        "CommonJS and ESM binding relationships were recovered from inert syntax and resolved only within the inventoried artifact container.",
+        "JavaScript and HTML were parsed as inert text; bundle bootstrap code was never executed.",
+        "Static imports, entrypoints, workers, endpoints, and storage relationships do not prove runtime execution.",
+        "Static paths and relationships may remain unresolved when expressions are dynamic or obfuscated.",
+        "Webpack/Rspack factories were recovered from AST literals; REA did not invoke push handlers or bundle bootstrap code."
+      ]
+    },
+    {
+      "artifact_group": "tilopay",
+      "evidence_id": "ev_31614a62f279c0dbf41d149e448d5795893863632b865d9c8785547e2882b8bf",
+      "evidence_sha256": "8288ee5ec8b47d2319974776fa5181821d62c33a4baf9bfbbc733d8948116ea3",
+      "subject_digest": {
+        "sha256": "e730f42801a476e62c129b9d930add6a60da0342666e34bed36fc10bdb9ca329"
+      },
+      "confidence": "derived",
+      "statistics": {
+        "relevant_files": 1,
+        "nested_asar_containers": 0,
+        "text_bytes_read": 42743,
+        "invalid_utf8_files": 0,
+        "parsed_javascript_files": 1,
+        "skipped_javascript_files": 0,
+        "visited_ast_nodes": 8995,
+        "findings": 10,
+        "modules": 0,
+        "parse_failures": 0
+      },
+      "summary": {
+        "browser_windows": 0,
+        "explicit_web_preferences": 0,
+        "preload_entrypoints": 0,
+        "context_bridge_apis": 0,
+        "exposed_api_members": 0,
+        "ipc": {
+          "operations": 0,
+          "literal_channels": 0,
+          "dynamic_channel_operations": 0,
+          "renderer_transmissions": 0,
+          "renderer_listeners": 0,
+          "main_handlers": 0,
+          "paired_renderer_transmissions": 0,
+          "ambiguous_renderer_transmissions": 0,
+          "unpaired_literal_renderer_transmissions": 0
+        },
+        "sender_validation_observations": 0,
+        "utility_processes": 0,
+        "resolved_utility_entrypoints": 0,
+        "native_addon_bindings": 0,
+        "resolved_native_addon_bindings": 0
+      },
+      "limitations": [
+        "CommonJS and ESM binding relationships were recovered from inert syntax and resolved only within the inventoried artifact container.",
+        "Graph coverage is incomplete; unavailable facts remain explicit and must not be read as absence.",
+        "JavaScript and HTML were parsed as inert text; bundle bootstrap code was never executed.",
+        "Static imports, entrypoints, workers, endpoints, and storage relationships do not prove runtime execution.",
+        "Static paths and relationships may remain unresolved when expressions are dynamic or obfuscated.",
+        "Webpack/Rspack factories were recovered from AST literals; REA did not invoke push handlers or bundle bootstrap code."
+      ]
+    }
+  ]
+}

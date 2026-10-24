@@ -1,0 +1,69 @@
+name: Recovered demo CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: demo-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Portable checks (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      # Preserve the tracked bytes used by snapshot hash comparisons on Windows.
+      - name: Preserve line endings on this disposable runner
+        run: git config --global core.autocrlf false
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Install locked dependencies and run portable QA
+        run: python tests/check.py --install
+        timeout-minutes: 10
+      - name: Test the portable runner itself
+        run: python tests/test_check.py
+      - name: Require unchanged tracked files
+        run: git diff --exit-code
+
+  artifact:
+    name: Build artifact (not deployment)
+    needs: check
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: '3.12'
+      - name: Assemble only the recovered demo
+        run: python prepare.py --output artifact-dist
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        with:
+          name: recovered-demo-${{ github.sha }}
+          path: artifact-dist/
+          if-no-files-found: error
+          include-hidden-files: false
+          retention-days: 7

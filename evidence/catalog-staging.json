@@ -1,0 +1,2574 @@
+{
+  "schema": 1,
+  "kind": "inert_catalog_staging_report",
+  "scope": "Offline file observations only; not live stock, full recovery, or publication.",
+  "inventory_policy": "All recovered price/stock values are sample evidence. Runtime inventory is neither read nor changed.",
+  "activation_policy": "Recover and review original media, verify commercial data with owner, then separately authorize activation. This tool never activates.",
+  "summary": {
+    "recovered_products": 40,
+    "recovered_variants": 120,
+    "original_gallery_references": 170,
+    "current_demo_products": 2,
+    "new_staged_products": 38,
+    "original_galleries_complete": 0,
+    "publish_allowed": 0
+  },
+  "current_demo_only_ids": [],
+  "records": [
+    {
+      "id": "rosa-empolvado-pedreria",
+      "name": "Vestido rosa empolvado con pedrería",
+      "state": "existing_demo_preserved",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 17500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "rosa-empolvado-pedreria-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "rosa-empolvado-pedreria-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "rosa-empolvado-pedreria-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/rosa-empolvado-pedreria/01-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/rosa-empolvado-pedreria/02-three-quarter-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/rosa-empolvado-pedreria/03-side-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/rosa-empolvado-pedreria/04-back-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/rosa-empolvado-pedreria/05-detail-crop-432.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [
+        {
+          "reference": "/assets/research/assets/store-media/rosa-empolvado-pedreria/01-front-full-length-800.webp",
+          "status": "present"
+        }
+      ],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "gris-perla-hombros",
+      "name": "Vestido gris perla de hombros descubiertos",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 17500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "gris-perla-hombros-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "gris-perla-hombros-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "gris-perla-hombros-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/gris-perla-hombros/01-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/gris-perla-hombros/02-three-quarter-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/gris-perla-hombros/03-side-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/gris-perla-hombros/04-back-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/gris-perla-hombros/05-detail-crop-432.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "blanco-perlado-sirena",
+      "name": "Vestido blanco perlado con escote en V",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 17500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "blanco-perlado-sirena-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "blanco-perlado-sirena-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "blanco-perlado-sirena-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/blanco-perlado-sirena/01-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/blanco-perlado-sirena/02-three-quarter-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/blanco-perlado-sirena/03-side-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/blanco-perlado-sirena/04-back-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "rojo-tirantes-falda-amplia",
+      "name": "Rojo de tirantes y falda amplia",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 6500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "rojo-tirantes-falda-amplia-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "rojo-tirantes-falda-amplia-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "rojo-tirantes-falda-amplia-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/rojo-tirantes-falda-amplia/01-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/rojo-tirantes-falda-amplia/02-three-quarter-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/rojo-tirantes-falda-amplia/03-side-view-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/rojo-tirantes-falda-amplia/04-back-view-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/rojo-tirantes-falda-amplia/05-detail-crop-432.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "negro-brillo-pantalon-amplio",
+      "name": "Conjunto negro de brillo",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 17500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "negro-brillo-pantalon-amplio-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "negro-brillo-pantalon-amplio-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "negro-brillo-pantalon-amplio-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/negro-brillo-pantalon-amplio/01-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/negro-brillo-pantalon-amplio/02-three-quarter-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/negro-brillo-pantalon-amplio/03-side-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/negro-brillo-pantalon-amplio/04-back-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/negro-brillo-pantalon-amplio/05-detail-crop-432.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "azul-gris-un-hombro",
+      "name": "Azul gris de un hombro",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 17500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "azul-gris-un-hombro-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "azul-gris-un-hombro-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "azul-gris-un-hombro-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/azul-gris-un-hombro/01-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/azul-gris-un-hombro/02-three-quarter-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/azul-gris-un-hombro/03-side-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/azul-gris-un-hombro/04-back-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/azul-gris-un-hombro/05-detail-crop-432.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "verde-brillo-cuello-cruzado",
+      "name": "Verde de brillo y abertura",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 17500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "verde-brillo-cuello-cruzado-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "verde-brillo-cuello-cruzado-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "verde-brillo-cuello-cruzado-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/verde-brillo-cuello-cruzado/01-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/verde-brillo-cuello-cruzado/02-three-quarter-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/verde-brillo-cuello-cruzado/03-side-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/verde-brillo-cuello-cruzado/04-back-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/verde-brillo-cuello-cruzado/05-detail-crop-432.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "verde-esmeralda-tirantes-cruzados",
+      "name": "Verde esmeralda de tirantes",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 17500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "verde-esmeralda-tirantes-cruzados-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "verde-esmeralda-tirantes-cruzados-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "verde-esmeralda-tirantes-cruzados-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/verde-esmeralda-tirantes-cruzados/01-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/verde-esmeralda-tirantes-cruzados/02-three-quarter-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/verde-esmeralda-tirantes-cruzados/03-side-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/verde-esmeralda-tirantes-cruzados/04-back-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/verde-esmeralda-tirantes-cruzados/05-detail-crop-432.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "rosa-bronce-pedreria",
+      "name": "Rosa bronce de pedrería",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 17500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "rosa-bronce-pedreria-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "rosa-bronce-pedreria-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "rosa-bronce-pedreria-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/rosa-bronce-pedreria/01-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/rosa-bronce-pedreria/02-three-quarter-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/rosa-bronce-pedreria/03-side-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/rosa-bronce-pedreria/04-back-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/rosa-bronce-pedreria/05-detail-crop-432.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "negro-escote-puntas-abertura",
+      "name": "Negro de escote en puntas",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 17500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "negro-escote-puntas-abertura-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "negro-escote-puntas-abertura-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "negro-escote-puntas-abertura-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/negro-escote-puntas-abertura/01-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/negro-escote-puntas-abertura/02-three-quarter-back-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/negro-escote-puntas-abertura/03-side-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/negro-escote-puntas-abertura/04-back-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/negro-escote-puntas-abertura/05-detail-crop-432.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "fucsia-halter-pliegues",
+      "name": "Fucsia de cuello halter",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 17500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "fucsia-halter-pliegues-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "fucsia-halter-pliegues-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "fucsia-halter-pliegues-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/fucsia-halter-pliegues/01-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/fucsia-halter-pliegues/02-three-quarter-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/fucsia-halter-pliegues/03-side-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/fucsia-halter-pliegues/04-back-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/fucsia-halter-pliegues/05-detail-crop-432.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "plata-tirantes-copas-pedreria",
+      "name": "Plata de tirantes y pedrería",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 17500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "plata-tirantes-copas-pedreria-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "plata-tirantes-copas-pedreria-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "plata-tirantes-copas-pedreria-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/plata-tirantes-copas-pedreria/01-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/plata-tirantes-copas-pedreria/02-three-quarter-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/plata-tirantes-copas-pedreria/03-side-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/plata-tirantes-copas-pedreria/04-back-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/plata-tirantes-copas-pedreria/05-detail-crop-432.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "crema-flores-volante-asimetrico",
+      "name": "Crema floral de volante",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 6500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "crema-flores-volante-asimetrico-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "crema-flores-volante-asimetrico-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "crema-flores-volante-asimetrico-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/crema-flores-volante-asimetrico/01-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/crema-flores-volante-asimetrico/02-three-quarter-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/crema-flores-volante-asimetrico/03-side-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/crema-flores-volante-asimetrico/04-back-view-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/crema-flores-volante-asimetrico/05-detail-crop-432.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "rosa-marron-chaqueta-falda",
+      "name": "Conjunto rosa marrón",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 6500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "rosa-marron-chaqueta-falda-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "rosa-marron-chaqueta-falda-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "rosa-marron-chaqueta-falda-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/rosa-marron-chaqueta-falda/01-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/rosa-marron-chaqueta-falda/02-three-quarter-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/rosa-marron-chaqueta-falda/03-side-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/rosa-marron-chaqueta-falda/04-back-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/rosa-marron-chaqueta-falda/05-detail-crop-432.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "burdeos-top-pantalon-corto",
+      "name": "Conjunto burdeos sin mangas",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 6500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "burdeos-top-pantalon-corto-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "burdeos-top-pantalon-corto-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "burdeos-top-pantalon-corto-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/burdeos-top-pantalon-corto/01-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/burdeos-top-pantalon-corto/02-three-quarter-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/burdeos-top-pantalon-corto/03-side-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/burdeos-top-pantalon-corto/04-back-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/burdeos-top-pantalon-corto/05-detail-crop-432.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "negro-blanco-lunares-midi",
+      "name": "Midi negro de lunares blancos",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 6500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "negro-blanco-lunares-midi-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "negro-blanco-lunares-midi-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "negro-blanco-lunares-midi-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/negro-blanco-lunares-midi/01-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/negro-blanco-lunares-midi/02-three-quarter-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/negro-blanco-lunares-midi/03-side-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/negro-blanco-lunares-midi/04-back-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/negro-blanco-lunares-midi/05-detail-crop-432.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "crema-flores-naranjas-halter",
+      "name": "Crema de flores naranjas",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 6500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "crema-flores-naranjas-halter-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "crema-flores-naranjas-halter-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "crema-flores-naranjas-halter-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/crema-flores-naranjas-halter/01-front-full-length-480.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/crema-flores-naranjas-halter/02-three-quarter-back-full-length-480.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/crema-flores-naranjas-halter/03-side-full-length-480.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/crema-flores-naranjas-halter/04-back-full-length-480.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/crema-flores-naranjas-halter/05-detail-crop-231.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "azul-gris-flores-falda",
+      "name": "Azul gris de flores",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 6500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "azul-gris-flores-falda-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "azul-gris-flores-falda-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "azul-gris-flores-falda-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/azul-gris-flores-falda/01-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/azul-gris-flores-falda/02-three-quarter-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/azul-gris-flores-falda/03-side-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/azul-gris-flores-falda/04-back-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/azul-gris-flores-falda/05-detail-crop-432.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "rosa-flores-fucsias-halter",
+      "name": "Rosa de flores fucsias",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 6500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "rosa-flores-fucsias-halter-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "rosa-flores-fucsias-halter-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "rosa-flores-fucsias-halter-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/rosa-flores-fucsias-halter/01-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/rosa-flores-fucsias-halter/02-three-quarter-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/rosa-flores-fucsias-halter/03-side-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/rosa-flores-fucsias-halter/04-back-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/rosa-flores-fucsias-halter/05-detail-crop-432.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "rosa-claro-flores-doradas",
+      "name": "Rosa claro de flores doradas",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 6500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "rosa-claro-flores-doradas-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "rosa-claro-flores-doradas-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "rosa-claro-flores-doradas-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/rosa-claro-flores-doradas/01-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/rosa-claro-flores-doradas/02-three-quarter-back-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/rosa-claro-flores-doradas/03-side-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/rosa-claro-flores-doradas/04-back-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/rosa-claro-flores-doradas/05-detail-crop-432.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "burdeos-encaje-volantes-midi",
+      "name": "Midi burdeos de encaje",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 6500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "burdeos-encaje-volantes-midi-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "burdeos-encaje-volantes-midi-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "burdeos-encaje-volantes-midi-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/burdeos-encaje-volantes-midi/01-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/burdeos-encaje-volantes-midi/02-three-quarter-back-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/burdeos-encaje-volantes-midi/03-side-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/burdeos-encaje-volantes-midi/04-back-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/burdeos-encaje-volantes-midi/05-detail-crop-432.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "fucsia-un-hombro-volantes",
+      "name": "Fucsia de un hombro y volantes",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 6500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "fucsia-un-hombro-volantes-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "fucsia-un-hombro-volantes-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "fucsia-un-hombro-volantes-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/fucsia-un-hombro-volantes/01-front-full-length-1200.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/fucsia-un-hombro-volantes/02-three-quarter-front-full-length-1200.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/fucsia-un-hombro-volantes/03-side-full-length-1200.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/fucsia-un-hombro-volantes/04-back-full-length-1200.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/fucsia-un-hombro-volantes/05-detail-crop-480.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "negro-lunares-beige-hombros",
+      "name": "Negro de lunares beige",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 6500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "negro-lunares-beige-hombros-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "negro-lunares-beige-hombros-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "negro-lunares-beige-hombros-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/negro-lunares-beige-hombros/01-front-full-length-1200.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/negro-lunares-beige-hombros/02-three-quarter-back-full-length-1200.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/negro-lunares-beige-hombros/03-side-full-length-1200.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/negro-lunares-beige-hombros/04-back-full-length-1200.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/negro-lunares-beige-hombros/05-detail-crop-480.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "rosa",
+      "name": "Vestido rosa de un hombro",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 14500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "rosa-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "rosa-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "rosa-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/rosa/01-front-full-length-1600.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/rosa/02-bodice-detail-crop-480.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/rosa/03-lower-detail-crop-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "champagne",
+      "name": "Vestido champagne sin tirantes",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 19500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "champagne-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "champagne-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "champagne-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/champagne/01-front-full-length-1600.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/champagne/02-bodice-detail-crop-1200.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/champagne/03-lower-detail-crop-1200.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "negro",
+      "name": "Vestido negro con abertura",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 16500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "negro-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "negro-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "negro-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/negro/01-front-full-length-1600.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/negro/02-bodice-detail-crop-480.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/negro/03-lower-detail-crop-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "amarillo",
+      "name": "Vestido amarillo con capa",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 17500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "amarillo-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "amarillo-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "amarillo-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/amarillo/01-front-full-length-1600.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/amarillo/02-bodice-detail-crop-480.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/amarillo/03-lower-detail-crop-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "dorado",
+      "name": "Vestido dorado con drapeado",
+      "state": "existing_demo_preserved",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 18500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "dorado-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "dorado-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "dorado-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/dorado/01-front-full-length-1600.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/dorado/02-bodice-detail-crop-480.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/dorado/03-lower-detail-crop-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [
+        {
+          "reference": "/hero/dorado-mobile-1100.webp",
+          "status": "present"
+        }
+      ],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "novia",
+      "name": "Vestido de novia con mangas largas",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 29500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "novia-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "novia-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "novia-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/novia/01-front-portrait-480.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/novia/02-bodice-detail-crop-423.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/novia/03-sleeve-detail-crop-381.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "napoleon",
+      "name": "Chaqueta corta Napoleón con botones",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 6500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "napoleon-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "napoleon-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "napoleon-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/napoleon/01-front-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/napoleon/02-jacket-detail-crop-480.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/napoleon/03-buttons-detail-crop-480.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "azul-floral-un-hombro",
+      "name": "Vestido azul floral de un hombro",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 17500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "azul-floral-un-hombro-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "azul-floral-un-hombro-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "azul-floral-un-hombro-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/azul-floral-un-hombro/01-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/azul-floral-un-hombro/02-detail-crop-480.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/azul-floral-un-hombro/03-detail-crop-480.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "midi-estampado-burdeos",
+      "name": "Vestido midi con estampado burdeos",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 6500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "midi-estampado-burdeos-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "midi-estampado-burdeos-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "midi-estampado-burdeos-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/midi-estampado-burdeos/01-front-full-length-1600.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/midi-estampado-burdeos/02-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/midi-estampado-burdeos/03-three-quarter-back-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/midi-estampado-burdeos/05-detail-crop-1600.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/midi-estampado-burdeos/06-detail-crop-1600.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "novia-satinada-abertura",
+      "name": "Vestido de novia con drapeado y abertura",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 29500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "novia-satinada-abertura-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "novia-satinada-abertura-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "novia-satinada-abertura-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/novia-satinada-abertura/01-front-full-length-800.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/novia-satinada-abertura/02-front-full-length-480.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/novia-satinada-abertura/03-side-partial-full-length-480.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/novia-satinada-abertura/04-detail-crop-432.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/novia-satinada-abertura/05-detail-crop-444.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "novia-tirantes-encaje",
+      "name": "Vestido de novia con tirantes y encaje",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 29500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "novia-tirantes-encaje-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "novia-tirantes-encaje-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "novia-tirantes-encaje-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/novia-tirantes-encaje/01-front-full-length-1200.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/novia-tirantes-encaje/02-detail-crop-480.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/novia-tirantes-encaje/03-detail-crop-480.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "gala-rubi",
+      "name": "Muestra Rubí",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 17500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "gala-rubi-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "gala-rubi-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "gala-rubi-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/gala-rubi/01-front-full-length-1600.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/gala-rubi/03-detail-crop-1600.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "gala-oro",
+      "name": "Muestra Oro",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 17500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "gala-oro-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "gala-oro-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "gala-oro-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/gala-oro/01-front-full-length-1600.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/gala-oro/02-front-full-length-1600.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/gala-oro/05-three-quarter-back-reclining-1600.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/gala-oro/06-detail-crop-1600.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "gala-destello",
+      "name": "Muestra Destello",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 17500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "gala-destello-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "gala-destello-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "gala-destello-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/gala-destello/01-three-quarter-front-full-length-1600.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/gala-destello/02-front-full-length-1600.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/gala-destello/03-detail-crop-1600.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "novias-velo",
+      "name": "Muestra Velo",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 29500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "novias-velo-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "novias-velo-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "novias-velo-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/novias-velo/01-front-portrait-1600.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/novias-velo/02-three-quarter-front-portrait-1600.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/novias-velo/03-back-portrait-1600.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/novias-velo/04-back-detail-1600.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/novias-velo/05-detail-crop-1600.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "novias-alba",
+      "name": "Muestra Alba",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 29500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "novias-alba-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "novias-alba-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "novias-alba-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/novias-alba/01-front-portrait-1600.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/novias-alba/02-three-quarter-back-portrait-1600.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/novias-alba/03-detail-crop-1600.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    },
+    {
+      "id": "novias-encaje",
+      "name": "Muestra Encaje",
+      "state": "staged_not_published",
+      "publish_allowed": false,
+      "commercial_evidence": {
+        "classification": "recovered_sample_not_live_inventory",
+        "source_commercial_status": "sample",
+        "sample_price_minor": 29500,
+        "sample_currency": "USD",
+        "sample_variants": [
+          {
+            "id": "novias-encaje-S",
+            "size": "S",
+            "sample_stock": 3
+          },
+          {
+            "id": "novias-encaje-M",
+            "size": "M",
+            "sample_stock": 3
+          },
+          {
+            "id": "novias-encaje-L",
+            "size": "L",
+            "sample_stock": 0
+          }
+        ]
+      },
+      "original_gallery": [
+        {
+          "reference": "/research/assets/store-media/novias-encaje/01-back-full-length-1600.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        },
+        {
+          "reference": "/research/assets/store-media/novias-encaje/03-detail-crop-1600.jpg",
+          "in_manifest": true,
+          "demo_original_path": "missing",
+          "original_available": false
+        }
+      ],
+      "original_gallery_complete": false,
+      "current_demo_images": [],
+      "activation_blockers": [
+        "recover_and_review_complete_original_gallery",
+        "verify_price_currency_and_variant_stock_with_owner",
+        "explicit_activation_review_required"
+      ]
+    }
+  ],
+  "input_sha256": {
+    "original": "53c21aab9e68c8d9497c8b3923b7dffc344ad858b2327a44d29fbd1a778a9ea5",
+    "demo": "3d2c55868dfb8b623985bda4158f44ba5d48e0236ac65cdcdfcdfff2630ce665",
+    "manifest": "a5380851934632bdfc9a8f442a688277f33578f2f0a5c6884589425939421dbb"
+  }
+}

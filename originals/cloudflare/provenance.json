@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "status": "partial_original_recovery",
+  "import_date_utc": "2026-10-24",
+  "source": "Previously recovered local Cloudflare artifacts (cloudflare-recovery); no fresh network extraction in this import.",
+  "verification_scope": "Exact-byte comparison and SHA-256 against local recovered files; not independently authenticated against live deployment.",
+  "worker_executed": false,
+  "original_site_contacted": false,
+  "live_site_modified": false,
+  "counts": {
+    "products": 40,
+    "variants": 120,
+    "product_photo_paths": 170,
+    "hero_photo_paths": 1,
+    "total_asset_paths": 171,
+    "photo_files_in_this_archive": 0
+  },
+  "missing": [
+    "Original static HTML/CSS/browser JavaScript bundle",
+    "170 product photo files and one hero photo file",
+    "Database schema and runtime state required to run the original Worker"
+  ],
+  "excluded": [
+    "Credentials and secret values",
+    "Cloudflare account identifiers",
+    "Raw bindings and settings",
+    "Raw logs and HTTP response captures",
+    "Customer, order, session, and database records"
+  ],
+  "files": [
+    {
+      "path": "index.js",
+      "bytes": 56958,
+      "sha256": "f86a8c49b8554a72ec37efb131c49277acaf78a5c3612055838bd1fdd8acfab2",
+      "source_sha256": "f86a8c49b8554a72ec37efb131c49277acaf78a5c3612055838bd1fdd8acfab2",
+      "byte_identical_to_local_recovery": true
+    },
+    {
+      "path": "catalog-extracted.json",
+      "bytes": 53918,
+      "sha256": "53c21aab9e68c8d9497c8b3923b7dffc344ad858b2327a44d29fbd1a778a9ea5",
+      "source_sha256": "53c21aab9e68c8d9497c8b3923b7dffc344ad858b2327a44d29fbd1a778a9ea5",
+      "byte_identical_to_local_recovery": true
+    },
+    {
+      "path": "asset-paths.txt",
+      "bytes": 13779,
+      "sha256": "25d63e9b21d118dd245573421d4ca65844389e2f6287be523c9c8dbe0ceafe14",
+      "source_sha256": "25d63e9b21d118dd245573421d4ca65844389e2f6287be523c9c8dbe0ceafe14",
+      "byte_identical_to_local_recovery": true
+    }
+  ]
+}
