@@ -1,0 +1,12 @@
+{
+  "name": "martha-silva-preview-deployment",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "deploy:check": "wrangler deploy --config wrangler.jsonc --dry-run",
+    "deploy:preview": "wrangler deploy --config wrangler.jsonc"
+  },
+  "devDependencies": {
+    "wrangler": "4.152.0"
+  }
+}

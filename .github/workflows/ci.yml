@@ -12,7 +12,7 @@ permissions:
 
 concurrency:
   group: demo-ci-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   check:
@@ -40,6 +40,8 @@ jobs:
       - name: Install locked dependencies and run portable QA
         run: python tests/check.py --install
         timeout-minutes: 10
+      - name: Test deployment safety contracts
+        run: python tests/test_deployment.py
       - name: Test the portable runner itself
         run: python tests/test_check.py
       - name: Require unchanged tracked files
@@ -60,6 +62,8 @@ jobs:
           python-version: '3.12'
       - name: Assemble only the recovered demo
         run: python prepare.py --output artifact-dist
+      - name: Bind artifact to this main commit
+        run: python tools/deployment.py stamp --directory artifact-dist --sha "${{ github.sha }}"
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: recovered-demo-${{ github.sha }}
@@ -67,3 +71,70 @@ jobs:
           if-no-files-found: error
           include-hidden-files: false
           retention-days: 7
+
+  deploy:
+    name: Deploy isolated Cloudflare preview
+    needs: [check, artifact]
+    if: >-
+      github.event_name != 'pull_request' &&
+      github.ref == 'refs/heads/main' &&
+      vars.CLOUDFLARE_DEPLOY_ENABLED == 'true' &&
+      vars.CLOUDFLARE_ACCOUNT_ID != '' &&
+      vars.CLOUDFLARE_PREVIEW_URL != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    concurrency:
+      group: cloudflare-martha-silva-preview
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Install pinned deployment tooling (no credentials)
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Remove checked-in dist before downloading the tested artifact
+        run: rm -rf dist
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        with:
+          name: recovered-demo-${{ github.sha }}
+          path: dist/
+      - name: Verify artifact and offline packaging
+        env:
+          WRANGLER_SEND_METRICS: 'false'
+        run: |
+          python tools/deployment.py verify --directory dist --sha "${{ github.sha }}"
+          npm run deploy:check
+      - name: Refuse an obsolete main run before remote writes
+        run: |
+          current_main=$(git ls-remote origin refs/heads/main | cut -f1)
+          test "$current_main" = "${{ github.sha }}" || { echo "::error::main advanced; run CI for the current commit instead."; exit 1; }
+      - name: Check dedicated credential is configured
+        id: credentials
+        env:
+          DEPLOY_TOKEN: ${{ secrets.CLOUDFLARE_PREVIEW_API_TOKEN }}
+        run: |
+          if [ -n "$DEPLOY_TOKEN" ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::error::Deployment enabled but dedicated preview token is missing."
+            exit 1
+          fi
+      - name: Deploy only the verified main artifact
+        if: steps.credentials.outputs.ready == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_PREVIEW_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          WRANGLER_SEND_METRICS: 'false'
+        run: npm run deploy:preview -- --message "main ${{ github.sha }}"
+      - name: Verify public release (read-only, no customer data)
+        if: steps.credentials.outputs.ready == 'true'
+        env:
+          PREVIEW_URL: ${{ vars.CLOUDFLARE_PREVIEW_URL }}
+        run: python tools/deployment.py smoke --directory dist --sha "${{ github.sha }}" --url "$PREVIEW_URL"

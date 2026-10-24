@@ -17,6 +17,7 @@ Repositorio de recuperación y evolución de las demos de Martha Silva. Conserva
 | Reglas para contribuir | [AGENTS](AGENTS.md) |
 | Fuentes editables y compilación determinista | [build-inputs](build-inputs/README.md), `src/`, `prepare.py` |
 | Demo ensamblada | `dist/` |
+| CD aislado de Cloudflare, desactivado hasta autorización/configuración | [CLOUDFLARE-CD](docs/CLOUDFLARE-CD.md) |
 | Pruebas y límites de QA | [tests](tests/README.md), [evidencia](evidence/QA.md) |
 | Fotografías faltantes e importación segura | [ASSET-COMPLETENESS](docs/ASSET-COMPLETENESS.md) |
 | Investigación de pagos; ningún proveedor elegido | [REA](research/rea/README.md), [hallazgos](research/rea/FINDINGS.md) |

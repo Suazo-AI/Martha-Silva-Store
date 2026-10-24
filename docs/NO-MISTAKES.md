@@ -1,6 +1,6 @@
 # Revisión opcional con no-mistakes
 
-**Preparada, no instalada ni ejecutada.** No hay daemon, remote, hook o credencial
+**Binario verificado; puerta de revisión todavía inactiva.** Se verificó el binario oficial Linux v1.84.0 (4822244) en el entorno de trabajo el 2026-10-24. No hay daemon, remote, hook o credencial
 creados por esta integración. El ejemplo en `docs/no-mistakes.example.yaml` es
 inerte. CI funciona independientemente y no instala agentes en runners de PR.
 
@@ -72,7 +72,5 @@ no configurar hooks globales, no hacer doble push ni saltarse una puerta fallida
 5. Inspeccionar diferencias, responder hallazgos sin omitir fallos, verificar SHA
    publicado, PR y ambos checks de CI. No afirmar revisión realizada antes.
 
-No se ejecutó esta secuencia. Bloqueo actual: falta instalación autorizada y
-verificación del runner, sandbox, credenciales/transporte y primera ejecución en
-el host elegido. Hasta entonces usar la suite local y CI; no afirmar que
+No se ejecutó esta secuencia. Bloqueo actual: falta confirmar el host definitivo y autenticar GitHub CLI, además de autorizar/verificar la inicialización con daemon y skill de usuario. El diagnóstico local verificó ejecutables/configuración, no una revisión completa. Hasta entonces usar la suite local y CI; no afirmar que
 no-mistakes aprobó el código ni sustituir revisión humana o reglas de rama.
