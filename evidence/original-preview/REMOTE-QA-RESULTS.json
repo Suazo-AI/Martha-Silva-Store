@@ -1,0 +1,223 @@
+{
+  "status": "REPRESENTATIVE_BROWSER_QA_COMPLETE_WITH_EXPLICIT_LIMITS",
+  "started_at_utc": "2026-10-25T04:18:51Z",
+  "finished_at_utc": "2026-10-25T04:25:56.834181+00:00",
+  "origin": "https://martha-silva-preview.martha-silva-denis.workers.dev/",
+  "expected_commit": "7f29cf5a75db60c93b3bb3efa89c7e33d9e02a79",
+  "publication_reported_by_user": {
+    "deployment_id": "faf7f80497c04932b50c8af836ee8c8c",
+    "assets_total": 857,
+    "bindings": "ASSETS only",
+    "independently_checked_by_this_browser_qa": false
+  },
+  "browser": {
+    "name": "Chrome cloud CUA",
+    "viewport": {
+      "dpr": 1,
+      "height": 757,
+      "width": 1180
+    },
+    "native_pointer": "CUA Sky mouse movement in the same observed Chromium window; no DevTools or environment change"
+  },
+  "provenance": {
+    "source": "Normal Chrome rendered /deployment.json; declared values, not independent hashes of response bytes",
+    "url": "https://martha-silva-preview.martha-silva-denis.workers.dev/deployment.json",
+    "sha": "7f29cf5a75db60c93b3bb3efa89c7e33d9e02a79",
+    "files": 856,
+    "app_sha256": "b0d5b729c6888c690ce940a8d3da8a94fcadc8b324301d587ca43a043cf215f8",
+    "catalog_sha256": "c2d5ed59e03dd68b8e279a33bbce27f120ddb0ca29ff260bb2ec38bdf2df726f",
+    "expected_sha_match": true,
+    "expected_app_match": true,
+    "expected_catalog_match": true,
+    "independent_asset_byte_hashes": false,
+    "manifest_summary": {
+      "app_sha256": "b0d5b729c6888c690ce940a8d3da8a94fcadc8b324301d587ca43a043cf215f8",
+      "catalog_sha256": "c2d5ed59e03dd68b8e279a33bbce27f120ddb0ca29ff260bb2ec38bdf2df726f",
+      "file_count": 856,
+      "rendered_text_chars": 124002,
+      "sha": "7f29cf5a75db60c93b3bb3efa89c7e33d9e02a79",
+      "source": "JSON parsed within browser DOM; only summary returned to avoid object key serialization limits"
+    },
+    "manifest_file_count_observed_in_browser": true
+  },
+  "checks": [
+    {
+      "id": "C01",
+      "test": "Normal browser access",
+      "status": "PASS",
+      "evidence": "Home rendered in Chrome cloud without observed 403; no network-status code claimed from browser UI."
+    },
+    {
+      "id": "C02",
+      "test": "Deployment marker identity",
+      "status": "PASS_DECLARED_VALUES",
+      "evidence": "Rendered /deployment.json has expected commit, app.js and catalog.js hashes, 856 file entries. No independent response-body hash calculation."
+    },
+    {
+      "id": "C03",
+      "test": "Home photo hero",
+      "status": "PASS",
+      "evidence": "IMG loaded with natural dimensions 649x1162; hero/dorado-desktop-800.webp. Hero not a video."
+    },
+    {
+      "id": "C04",
+      "test": "Catalog count",
+      "status": "PASS",
+      "evidence": "40 prendas and 40 main article cards observed."
+    },
+    {
+      "id": "C05",
+      "test": "Category, empty result and filter reset",
+      "status": "PASS",
+      "evidence": "Novias=6; Novias+Dorado=0 with empty-state message; clear=40, focus restored to Filtros."
+    },
+    {
+      "id": "C06",
+      "test": "Ascending price sort",
+      "status": "PASS",
+      "evidence": "40 rendered prices checked, USD65.00 to USD295.00, monotonic ascending."
+    },
+    {
+      "id": "C07",
+      "test": "Representative PDP navigation and photo zoom",
+      "status": "PASS",
+      "evidence": "Rosa PDP loaded through catalog title link. Zoom displayed; Escape closed dialog and returned focus to Ampliar fotografía 1."
+    },
+    {
+      "id": "C08",
+      "test": "PDP video manual controls and lazy source",
+      "status": "PARTIAL",
+      "evidence": "Video tab scrolls to poster/controls; preload=none, controls=true, source assigned lazily, paused. Manual playback not exercised."
+    },
+    {
+      "id": "C09",
+      "test": "Demo bag add, isolation and removal",
+      "status": "PASS",
+      "evidence": "SAVIA Rosa/S quantity1 persisted while SISFAIN Rosa/M quantity1 remained separate. SAVIA removal left SISFAIN/M intact. Both final bags empty. No checkout/order."
+    },
+    {
+      "id": "C10",
+      "test": "Real pointer hover video and exit",
+      "status": "PASS",
+      "evidence": "Rosa card :hover=true; WebM playback paused=false, readyState4, currentTime>0, decoded720x1280, error=null. Pointer exit :hover=false, paused=true."
+    }
+  ],
+  "confirmed_storefront_failures": [],
+  "tool_observation_notes": [
+    "Two semantic title-link clicks did not establish navigation; after reading fresh AX state, direct AX interaction succeeded. Not attributed as a confirmed storefront defect.",
+    "Browser-extension metadata console errors were observed from chrome-extension://, not attributed to the storefront. No comprehensive console/network audit claimed.",
+    "Returning the entire files object through browser serialization initially exposed only 200 keys; final856 count was calculated inside page DOM. The saved deployment-rendered.json is explicitly a summary, not the full manifest."
+  ],
+  "boundaries": {
+    "no_order_or_form_submission": true,
+    "no_admin_or_checkout_opened": true,
+    "no_purchases": true,
+    "no_source_edits_or_publication": true,
+    "no_sql_or_credentials_or_permissions_changes": true,
+    "no_urllib_retry_or_download_proxy_or_UA_change": true,
+    "no_mobile_or_devtools_attempt": true,
+    "demo_bags_cleaned": true
+  },
+  "not_tested": [
+    "All47pages/all857assets",
+    "Independent hashes of asset response bytes",
+    "PDP manual playback",
+    "Reduced-motion and saveData branches",
+    "Mobile/responsive emulation",
+    "Full accessibility/performance/security audit",
+    "Orders, checkout, forms, admin, payment or SQL",
+    "Historical777/778 media recovery/legacy404 gate"
+  ],
+  "screenshots": [
+    {
+      "id": "01",
+      "file": "01-home.jpg",
+      "width": 1165,
+      "height": 747,
+      "bytes": 77767,
+      "sha256": "775206a0df197c6e1b8a17e1cd81aaea8f8ec2a1d70276f4882233a743de3728",
+      "format": "JPEG"
+    },
+    {
+      "id": "02",
+      "file": "02-catalog.jpg",
+      "width": 1165,
+      "height": 747,
+      "bytes": 69506,
+      "sha256": "9397a0cccf33bd805214bdeecf964471884b2a88d65113cf7b3e92bc1ca3b37f",
+      "format": "JPEG"
+    },
+    {
+      "id": "03",
+      "file": "03-filter-empty.jpg",
+      "width": 1180,
+      "height": 757,
+      "bytes": 34057,
+      "sha256": "b9e4779e5a9e55ad76760867f74ace71554d018b8fa7e2edeb6990cb3a66ac31",
+      "format": "JPEG"
+    },
+    {
+      "id": "04",
+      "file": "04-product.jpg",
+      "width": 1165,
+      "height": 747,
+      "bytes": 97420,
+      "sha256": "1eba199c10c819f696851fde2667149f5a2e2208a9c89049c3a8ba5b124680f0",
+      "format": "JPEG"
+    },
+    {
+      "id": "05",
+      "file": "05-zoom.jpg",
+      "width": 1180,
+      "height": 757,
+      "bytes": 66782,
+      "sha256": "0fd654ffd69aef2facc7f1ac5ae15abdc18ede5abad2fb587a83e8c81c16b45c",
+      "format": "JPEG"
+    },
+    {
+      "id": "06",
+      "file": "06-product-video.jpg",
+      "width": 1165,
+      "height": 747,
+      "bytes": 88409,
+      "sha256": "d4fbe1dd649273b3c52f0f72f3b7d0c964af949512a4b0acb5127d06dda32828",
+      "format": "JPEG"
+    },
+    {
+      "id": "07",
+      "file": "07-bag-savia.jpg",
+      "width": 1180,
+      "height": 757,
+      "bytes": 73957,
+      "sha256": "d4dccc6ce09cd1fdef21caf12a7d03b7b935d3ecbc9749099f9bffb41c465c16",
+      "format": "JPEG"
+    },
+    {
+      "id": "08",
+      "file": "08-bag-savia-restored.jpg",
+      "width": 1165,
+      "height": 747,
+      "bytes": 60366,
+      "sha256": "4a4fe44d898cfa5c289d98f6311ef1f4e57fe4d62758ac687cf09cf95bbee70f",
+      "format": "JPEG"
+    },
+    {
+      "id": "09",
+      "file": "09-bag-sisfain-restored.jpg",
+      "width": 1165,
+      "height": 747,
+      "bytes": 66151,
+      "sha256": "8329691828ff37e39693d2654d101834f4ce2e15f48629d5b41d26a968ba986f",
+      "format": "JPEG"
+    },
+    {
+      "id": "10",
+      "file": "10-card-hover.jpg",
+      "width": 1165,
+      "height": 747,
+      "bytes": 114745,
+      "sha256": "7002e2dbe0f500cfd9df134a6cb89de36696e2d58fe0fa1f557de509136882a9",
+      "format": "JPEG"
+    }
+  ]
+}

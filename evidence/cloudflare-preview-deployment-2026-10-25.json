@@ -160,5 +160,57 @@
     "Historical complete-media gate777/778 FAIL; legacy404 not synthesized",
     "First deployment has no prior preview version for rollback",
     "Remote browser review details recorded separately from local QA"
+  ],
+  "remote_browser_qa": {
+    "provider": "Cutufay via authorized Slack DM",
+    "published_source_sha": "7f29cf5a75db60c93b3bb3efa89c7e33d9e02a79",
+    "result": "Completed representative scope; no confirmed functional failures",
+    "viewport": {
+      "width": 1180,
+      "height": 757,
+      "dpr": 1
+    },
+    "observed": [
+      "home and hero photo",
+      "40 products",
+      "category/color filters including empty state",
+      "price sort",
+      "product detail and zoom with focus return",
+      "WebM card hover plays and pauses",
+      "separate SAVIA/SISFAIN carts; cleanup to empty"
+    ],
+    "limits": [
+      "No remote mobile/reduced-motion/saveData testing",
+      "No remote manual PDP video playback test",
+      "Manifest hash declarations read in browser; served-body hashes calculated separately by local public smoke",
+      "No checkout/admin/forms/orders/payments"
+    ],
+    "evidence_files_sha256": {
+      "REMOTE-QA-REPORT.md": "2dd1ee2ba3662e68f8c955d22213fa521357c388d2ffadd9ad1aace8f4f018fd",
+      "REMOTE-QA-RESULTS.json": "9eb1ea7652d8adc4a02af7de01cdb8ed42c26cf27a109777554283ba985e6e98",
+      "DELIVERY-MANIFEST.json": "96e9dbafc9a5491607e5f4682817ac755ebeab01a221b7d2a09a256bc7bbd991"
+    },
+    "slack_report_url": "https://denis-projects-group.slack.com/archives/D0CC1G4JS4U/p1792902429180639",
+    "screenshot_zip": {
+      "slack_file_id": "F0CC1LBJ4KW",
+      "captured_screenshots": 10,
+      "materialized_in_repository": false
+    },
+    "delivery_manifest_note": "Only the report, results and delivery index were materialized; other indexed files remain in the Slack ZIP."
+  },
+  "final_parallel_reviews": [
+    {
+      "area": "frontend",
+      "result": "Accepted; broad99/local focal7 and representative remote QA remain separated"
+    },
+    {
+      "area": "catalog_backend_tests",
+      "result": "Accepted for demo; no pending dependency installation; Windows aggregate1/Win1314, Linux focal13PASS, .NET18PASS+6SQLSKIP",
+      "documentation_limit": "Older backend narrative retains historical count/regex wording; current evidence and implementation supersede it."
+    },
+    {
+      "area": "evidence_integrity",
+      "result": "Accepted; report hashes, deployment linkage and local-vs-Slack custody verified"
+    }
   ]
 }

@@ -1,5 +1,28 @@
 # Evidencia de la copia autorizada
 
+## Publicación y revisión externa cerradas
+
+La versión de código `7f29cf5a75db60c93b3bb3efa89c7e33d9e02a79` está publicada
+en [el nuevo Worker](https://martha-silva-preview.martha-silva-denis.workers.dev/).
+El [registro de publicación](../cloudflare-preview-deployment-2026-10-25.json)
+incluye API, marcador remoto, 15 cuerpos públicos con hashes verificados y
+comparación de la portada original sin cambios.
+
+Cutufay completó un muestreo remoto a 1180×757: home, catálogo de 40 prendas,
+filtros/estado vacío, ordenación, PDP/zoom, hover WebM y bolsas separadas por
+modo, sin fallos funcionales confirmados. Ambas bolsas de prueba quedaron vacías.
+Ver [informe remoto](REMOTE-QA-REPORT.md) y [resultados](REMOTE-QA-RESULTS.json).
+Sus hashes coinciden con `DELIVERY-MANIFEST.json`. Los diez screenshots y los
+otros archivos de ese índice permanecen en el ZIP de
+[Slack](https://denis-projects-group.slack.com/archives/D0CC1G4JS4U/p1792902429180639);
+no se afirma que estén materializados en esta carpeta. El texto del informe
+conserva la estructura del paquete entregado por Cutufay.
+
+El navegador remoto leyó hashes declarados en el marcador; la comprobación
+independiente de cuerpos servidos pertenece al smoke PowerShell. El QA móvil y
+las preferencias de movimiento/ahorro de datos se probaron localmente y tienen
+su alcance separado. No hubo CI nueva ni push de Git.
+
 Base Git: `761559ad9b0cc6b7ac4c218029ce144791310172`; rama
 `feat/original-storefront-preview`. El commit que contiene este directorio
 identifica las fuentes locales; la publicación debe registrar por separado ese
