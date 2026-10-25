@@ -32,7 +32,7 @@
             }
           },
           "404": {
-            "description": "attempt_unknown: no durable receipt found; outcome remains unknown, do not fail over.",
+            "description": "not_found: synthetic gate closed or route absent. This does not establish the outcome of an earlier write.",
             "content": {
               "application/problem+json": {
                 "schema": {
@@ -90,7 +90,7 @@
             }
           },
           "404": {
-            "description": "attempt_unknown: no durable receipt found; outcome remains unknown, do not fail over.",
+            "description": "not_found: synthetic gate closed or route absent. This does not establish the outcome of an earlier write.",
             "content": {
               "application/problem+json": {
                 "schema": {
@@ -179,7 +179,7 @@
             }
           },
           "404": {
-            "description": "attempt_unknown: no durable receipt found; outcome remains unknown, do not fail over.",
+            "description": "unknown_variant or unknown_location: requested V2 inventory reference absent. not_found: synthetic gate closed or route absent; this does not establish the outcome of an earlier write.",
             "content": {
               "application/problem+json": {
                 "schema": {
@@ -258,7 +258,7 @@
             }
           },
           "404": {
-            "description": "attempt_unknown: no durable receipt found; outcome remains unknown, do not fail over.",
+            "description": "reservation_not_found: reservation resource absent. not_found: synthetic gate closed or route/identifier not matched. Neither establishes the outcome of an earlier write; reconcile its attempt on the same authority.",
             "content": {
               "application/problem+json": {
                 "schema": {
@@ -349,7 +349,7 @@
             }
           },
           "404": {
-            "description": "attempt_unknown: no durable receipt found; outcome remains unknown, do not fail over.",
+            "description": "reservation_not_found: reservation resource absent. not_found: synthetic gate closed or route/identifier not matched. A gate/route response does not establish the outcome of an earlier write.",
             "content": {
               "application/problem+json": {
                 "schema": {
@@ -440,7 +440,7 @@
             }
           },
           "404": {
-            "description": "attempt_unknown: no durable receipt found; outcome remains unknown, do not fail over.",
+            "description": "attempt_unknown: no durable attempt receipt found; outcome remains unknown, never proof of non-execution and never grounds for failover. not_found: synthetic gate closed or route/identifier not matched; this also leaves any earlier write outcome unknown.",
             "content": {
               "application/problem+json": {
                 "schema": {
@@ -498,7 +498,7 @@
             }
           },
           "404": {
-            "description": "attempt_unknown: no durable receipt found; outcome remains unknown, do not fail over.",
+            "description": "not_found: synthetic gate closed or route absent. This does not establish the outcome of an earlier write.",
             "content": {
               "application/problem+json": {
                 "schema": {
