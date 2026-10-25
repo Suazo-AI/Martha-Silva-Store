@@ -97,6 +97,8 @@ def main(argv=None):
         run([sys.executable, 'tests/catalog-staging.py'])
         stage('Frontend DOM simulation (not a browser)')
         run([node, 'tests/frontend-runtime.cjs'])
+        stage('Spanish and English storefront DOM simulation (not a browser)')
+        run([node, 'tests/localization-runtime.cjs'])
         stage('Local HTML structure')
         run([sys.executable, 'tests/structure.py'])
         stage('JavaScript syntax')

@@ -20,3 +20,22 @@ The GET default is an integration compatibility fix with the hardened API, not a
 The DOM checks include a visible SAVIA / SISFAIN (CGA) selection; explicit local-only, unconfigured statuses; isolated carts, checkout contact data and recent-order hints; removing cross-mode order URLs; missing-module fail-closed behavior and retry; pending-operation mode locking and repeated clicks; no automatic order creation on mount; and BFCache mode restoration without mutating an in-flight operation. These checks load `integration-adapters.js` between the local API and app. `window.marthaStoreApi` diagnoses the active local model; the legacy `marthaDemoApi` is not the storefront transport.
 
 No HTTP transport is configured in the storefront. These tests do not establish compatibility with a real SAVIA deployment or a CGA API, a connected .NET backend, real payments, visual layout or mobile-browser behavior.
+
+## Spanish and English storefront
+
+`node tests/localization-runtime.cjs` runs serial DOM simulations for the language
+switch, preference and explicit language URLs, all 47 page templates and 40
+product translations, English search with unchanged catalog filter values,
+dynamic favorites/bag/checkout messages, and preservation of customer-entered
+text. It also compares static and dynamically rendered image dimensions with
+the independent image-header inventory. An observer-settling check detects
+continuous translation mutations.
+
+The script uses the same locked jsdom installation as the existing frontend
+checks. `MARTHA_JSDOM_PATH` may point to an already-installed jsdom package when
+running the focused script without installing a second copy. The complete
+`python tests/check.py` runner includes both frontend scripts.
+
+These are DOM and metadata checks. They do not decode photos, measure responsive
+layout in a browser, or establish a visual review. Run on this laptop only through
+the required sequential heavy-task launcher after admission succeeds.

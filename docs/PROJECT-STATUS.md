@@ -1,5 +1,23 @@
 # Estado del proyecto
 
+## Bridal photography and English candidate — 2026-10-25
+
+The `fix/bridal-photos-bilingual-20261025` branch updates the current public
+storefront: a bounded bridal portrait beside its copy, truthful intrinsic
+dimensions across all 47 HTML pages, proportional shopping photos and an
+English/Spanish switch covering all 40 products and dynamic shopping UI.
+Photographic bytes, product identifiers, prices and sample inventory are unchanged.
+Spanish remains the default; `?lang=en` selects the English presentation.
+
+Image inspection in this change reads 737 file headers, not a new visual review.
+Thirteen serial localization DOM checks were added to the existing runner.
+Local heavy work was refused by `mantenimiento/Run-SequentialHeavyTask.ps1`:
+available RAM was below 1,536 MB and memory commitment exceeded 75%.
+Cutufay acknowledged independent cloud QA in Slack thread `1792971699.179229`.
+Build, automated checks, browser QA and republication are pending for this
+candidate; the publication record below remains the last verified live release.
+No GitHub push or CI result is claimed for the candidate.
+
 ## Estado vigente: tienda publica y SAVIA privado
 
 Tienda principal publicada en source`d2ad2000c68c492618c15f5a601cca9a47e8a587`, deployment`8e298940246a49be9b55dcf8ee422983`. MainHTTP200; marcador856entradas y8cuerpos porhash comprobados. `/savia`, `/savia/`, `/savia/index.html` y `/savia/app.mjs` devuelven404; sin enlace a la caja descartada. Brave existente verificado y recargado. OriginalCloudflare conserva200 ySHA c5d028. Evidencia: `../evidence/cloudflare-storefront-only-2026-10-25.json`.

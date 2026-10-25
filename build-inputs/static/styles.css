@@ -58,6 +58,28 @@ main[data-page=cart] .cart-line img{line-height:18.4px}
 
 .editorial-campaign>a>picture{height:100%;overflow:hidden}
 
+/* Preserve the complete supplied photograph in shopping image frames. */
+.product-image img,.product-image video,.category-tile img,.cart-line img,.mega-editorial img{object-fit:contain;object-position:center}
+.gallery-photo img,.gallery-clone img{object-fit:scale-down;object-position:center}
+.gallery-video video{object-fit:contain;object-position:center}
+
+/* A portrait needs a portrait frame; keep bridal copy beside it, never over it. */
+.editorial-campaign{height:auto;background:#f3f0eb}
+.editorial-campaign>a{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1fr);align-items:center;gap:clamp(32px,6vw,96px);max-width:1120px;height:auto;margin:0 auto;padding:48px 32px}
+.editorial-campaign>a>picture{width:100%;max-width:420px;height:auto;aspect-ratio:3/4;justify-self:center;background:#f3f0eb}
+.editorial-campaign img{display:block;width:100%;height:100%;object-fit:contain;object-position:center}
+.editorial-campaign a>div{position:static;min-width:0;max-width:440px;color:#241d19;text-shadow:none;padding:24px 0}
+.editorial-campaign h2{font-size:clamp(32px,3.1vw,44px);line-height:1.12;margin-bottom:16px}
+.editorial-campaign p{font-size:16px;line-height:1.6;margin-bottom:24px}
+@media(max-width:599px){
+ .editorial-campaign{height:auto}
+ .editorial-campaign>a{grid-template-columns:minmax(0,1fr);gap:0;padding:24px 16px}
+ .editorial-campaign>a>picture{max-width:360px;height:auto}
+ .editorial-campaign a>div{position:static;max-width:360px;width:100%;justify-self:center;padding:24px 0 8px}
+ .editorial-campaign h2{font-size:30px;line-height:1.15}
+ .editorial-campaign .button{width:100%;white-space:normal;min-height:48px}
+}
+
 /* Hero photograph: art-directed editorial crop on wide screens.
    The warm matte is presentation only, not a replacement brand color. */
 .campaign{background:#3b2924}
@@ -117,3 +139,10 @@ main[data-page=cart] .cart-line img{line-height:18.4px}
 [data-storefront-integration-hidden] .integration-toolbar{display:block}
 [data-storefront-integration-hidden] [data-integration-availability]{display:none}
 [data-storefront-integration-hidden][data-memory-only="true"] [data-integration-availability]{display:block}
+
+/* Storefront language choice: visible on every screen, separate from navigation controls. */
+.language-bar{min-height:36px;display:flex;justify-content:flex-end;align-items:center;gap:9px;padding:0 32px;background:#f7f5f2;border-bottom:1px solid #e5e0d9;font:12px/18px var(--body)}
+.language-bar button{min-height:36px;padding:7px 5px;border:0;background:transparent;text-underline-offset:4px;color:#59514a}
+.language-bar button[aria-pressed=true]{color:#111;font-weight:700;text-decoration:underline}
+.language-bar button:focus-visible{outline:2px solid #3b2924;outline-offset:-3px}
+@media(max-width:599px){.language-bar{padding:0 16px}.test-banner{font-size:11px;letter-spacing:0}}
