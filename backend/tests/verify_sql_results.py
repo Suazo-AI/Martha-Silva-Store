@@ -5,15 +5,29 @@ from pathlib import Path
 import sys
 import xml.etree.ElementTree as ET
 
-EXPECTED = {
+PREFIX = "Martha.Store.Api.Tests.SqlServerIntegrationTests."
+V2_PREFIX = "Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests."
+EXPECTED = {PREFIX + name for name in {
     "Concurrent_same_key_replays_exact_response_and_conflicting_payload_is_409",
     "Migrated_database_exposes_only_synthetic_catalog_and_seed_is_non_replenishing",
     "Twenty_distinct_requests_for_last_unit_have_exactly_one_winner",
     "Client_supplied_price_total_and_customer_fields_are_rejected_without_mutation",
     "Invalid_quantities_reject_without_any_persistent_change",
     "Failed_insert_rolls_back_stock_and_leaves_no_order_or_idempotency_fragment",
-}
-PREFIX = "Martha.Store.Api.Tests.SqlServerIntegrationTests."
+}} | {V2_PREFIX + name for name in {
+    "Twenty_distinct_reservations_for_last_unit_have_one_winner_and_balanced_ledger",
+    "Concurrent_same_key_replays_creation_and_changed_payload_conflicts",
+    "Repeated_and_concurrent_cancellation_releases_once_without_changing_on_hand",
+    "Failed_reservation_movement_rolls_back_balance_reservation_and_attempt",
+    "Failed_cancellation_movement_rolls_back_release_state_and_attempt",
+    "Creation_replay_is_original_after_cancellation_while_get_is_current",
+    "Lost_response_after_commit_is_recovered_by_lookup_and_stable_retry",
+    "Authority_mismatch_cannot_mutate_or_rewrite_persisted_authority",
+    "Repeating_seed_preserves_reserved_and_released_balances_and_ledger",
+    "Partial_or_inconsistent_seed_is_rejected_without_replenishment",
+    "Movement_ledger_reconciles_balances_and_reservation_states",
+    "Durable_rejection_replays_after_availability_changes_and_attempt_conflicts",
+}}
 
 
 def verify(directory):
@@ -31,9 +45,8 @@ def verify(directory):
         names = []
         for result in results:
             name = result.get("testName", "")
-            if not name.startswith(PREFIX) or name[len(PREFIX):] not in EXPECTED:
+            if name not in EXPECTED:
                 raise ValueError("unexpected test")
-            name = name[len(PREFIX):]
             names.append(name)
             outcome = result.get("outcome")
             if outcome not in {"Passed", "Failed", "NotExecuted", "Error", "Timeout", "Aborted", "Inconclusive"}:

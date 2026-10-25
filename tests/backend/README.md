@@ -56,7 +56,7 @@ GitHub-hosted runner destruction is the final isolation boundary. No external or
 
 Readiness is bounded. Missing connection configuration, missing TRX, any skipped
 SQL test, any failure, an unexpected/duplicate test, or anything other than all
-six expected passing SQL tests fails the job. Only allowlisted test names,
+18 expected passing SQL tests (six V1 and twelve SAVIA V2) fails the job. Only allowlisted test names,
 outcomes and counters are retained as a seven-day artifact; raw stdout/TRX,
 environment and container logs are not published. The sanitizer has independent
 unit tests and strips all arbitrary diagnostic text. No API deployment occurs.
@@ -81,8 +81,9 @@ replays (one exact response/order/decrement), changed-payload conflict, and forc
 insert failure rolling back stock with successful same-key retry afterward. The
 fault is a test-only CHECK constraint, not a production bypass/hook.
 
-Reservation expiry/cancellation/release, payment adapters, production auth, HTTP
-frontend wiring, and real inventory are explicitly outside this first slice.
+SAVIA V2 adds explicit cancellation/release and durable attempt lookup. Expiry,
+payment adapters, production auth, HTTP frontend wiring, and real inventory
+remain outside these synthetic slices.
 
 ## Verification — 2026-10-24
 
@@ -107,3 +108,49 @@ with this test branch, SDK 10.0.402 / runtime 10.0.13:
   failed (exit 1), retained only expected names/outcomes/counters.
 - No local Docker executable; genuine SQL behavior still awaits the first remote
   run. Static review or a skipped-test verifier check is not a SQL test pass.
+
+## SAVIA V2 prepared coverage - 2026-10-25
+
+`SaviaContractTests` exercises every V2 route outside the explicit Development +
+flag gate, capabilities without SQL, invalid quantity/key/attempt, multiple keys,
+server-owned fields, and authority mismatches before database resolution. These
+checks use the real HTTP host with no SQL configuration; they make no SQL claim.
+`SaviaModelGuardTests` also verifies synchronous and asynchronous refusal of
+attempt/movement rewrites and deletes before opening a SQL connection.
+
+`SaviaSqlServerIntegrationTests` adds twelve real-SQL tests, each with its own
+migrated disposable database and the explicit SAVIA seed. The six original V1
+SQL tests remain unchanged. V2 coverage includes:
+
+- Twenty distinct contenders for the last available unit and twenty exact-key
+  replays, canonical JSON replay, changed-payload conflict and attempt rebinding.
+- Twenty concurrent cancellation attempts, exact cancellation replay, one release
+  movement, and unchanged physical `OnHand`.
+- Test-only CHECK failures on reservation and cancellation movement inserts,
+  checking atomic rollback of balances, state, ledger and durable attempts plus
+  a successful same-identity retry. No production fault hook is introduced.
+- Immutable creation replay after cancellation with a mutable GET state view.
+- A completed response deliberately discarded unread, then durable attempt lookup
+  and stable reserve/cancel retries. This models a missing client receipt after
+  commit; it does not simulate a TCP fault. Missing lookup is `attempt_unknown`,
+  never evidence that an operation did not execute.
+- Authority mismatch with no mutation and tracked attempt/movement rewrite refusal.
+- Repeat seed without replenishment; corrupt metadata and a partial ledger fail
+  closed instead of repairing or replenishing inventory.
+- Ledger-to-balance and reservation-state reconciliation, plus durable business
+  rejection replay after availability changes and cross-operation attempt conflict.
+
+The sanitizer now allowlists all **18 fully qualified test names across both
+classes**. Any omitted, unknown, wrong-class, duplicate, failed or skipped result,
+or inconsistent counter, fails closed. Its independent unit tests derive counters
+from the exact allowlist rather than a hardcoded V1 count. Run them without SQL:
+
+```sh
+python -m unittest discover -s backend/tests -p test_verify_sql_results.py
+```
+
+All actual SQL behavior remains **NOT EXECUTED / explicitly SKIPPED** until a
+separately authorized SQL run succeeds. No SQL server, EULA acceptance, dependency
+installation, credential use, API deployment, push or production access is part of
+preparing these tests. Local compilation/runtime evidence for the final integrated
+V2 source belongs to the integration checkout, not an isolated test-only branch.
