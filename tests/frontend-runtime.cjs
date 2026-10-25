@@ -199,18 +199,31 @@ test('favorite visible label toggles with state without replacing SVG or accessi
 });
 
 test('stock notes retain sample qualification for unselected, scarce and last-unit sizes',async()=>{
- const b=await boot('producto-dorado.html');
+ const fixture=await boot('catalogo.html');
+ let cases;
  try {
-  const note=b.d.querySelector('[data-stock-note]'),product=b.w.DEMO_CATALOG.products.find(p=>p.id==='dorado');
-  assert.match(note.textContent,/^Stock de muestra · /);
-  const last=product.variants.find(v=>v.stock===1),other=product.variants.find(v=>v.stock>1);assert.ok(last);assert.ok(other);
-  for(const variant of [other,last]){
-   for(const input of b.d.querySelectorAll('input[name=variant]'))input.checked=input.value===variant.id;
-   b.d.querySelector('input[name=variant]:checked').dispatchEvent(new b.w.Event('change',{bubbles:true}));await tick();
+  const products=fixture.w.DEMO_CATALOG.products;
+  const lastProduct=products.find(p=>p.variants.some(v=>v.stock===1));
+  const otherProduct=products.find(p=>p.variants.some(v=>v.stock>=2));
+  assert.ok(lastProduct,'current fixture must include a real last-unit variant');
+  assert.ok(otherProduct,'current fixture must include a real variant with at least two units');
+  cases=[{productId:otherProduct.id,variantId:otherProduct.variants.find(v=>v.stock>=2).id,last:false},
+   {productId:lastProduct.id,variantId:lastProduct.variants.find(v=>v.stock===1).id,last:true}];
+ } finally { fixture.close() }
+ for(const sample of cases){
+  const b=await boot(`producto-${sample.productId}.html`);
+  try {
+   const note=b.d.querySelector('[data-stock-note]');
    assert.match(note.textContent,/^Stock de muestra · /);
-   if(variant===last)assert.match(note.textContent,/Última unidad/);
-  }
- } finally { b.close() }
+   const variant=b.w.DEMO_CATALOG.products.find(p=>p.id===sample.productId).variants.find(v=>v.id===sample.variantId);
+   if(sample.last)assert.equal(variant.stock,1);else assert.ok(variant.stock>=2);
+   const input=[...b.d.querySelectorAll('input[name=variant]')].find(input=>input.value===sample.variantId);
+   assert.ok(input);assert.equal(input.disabled,false);
+   input.checked=true;input.dispatchEvent(new b.w.Event('change',{bubbles:true}));await tick();
+   assert.match(note.textContent,/^Stock de muestra · /);
+   if(sample.last)assert.match(note.textContent,/Última unidad/);
+  } finally { b.close() }
+ }
 });
 
 test('BFCache restore follows the selected mode in the same tab without creating orders',async()=>{const b=await boot('pedido.html',w=>w.history.replaceState(null,'','/pedido.html?id=savia~old'));b.w.sessionStorage.setItem('martha-integration-mode-v1','sisfain');b.w.dispatchEvent(new b.w.PageTransitionEvent('pageshow',{persisted:true}));await tick();assert.equal(b.d.querySelector('[data-integration-panel]').dataset.mode,'sisfain');assert.equal(b.w.location.search,'');assert.match(b.d.querySelector('[data-order-root]').textContent,/No seleccionaste un pedido/);b.close()});
