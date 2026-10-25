@@ -14,6 +14,6 @@ public static partial class StoreDatabaseGuard
         if (!SyntheticDatabaseName().IsMatch(parsed.InitialCatalog)) throw new StorageUnavailableException();
     }
 
-    [GeneratedRegex("^MarthaSynthetic_[A-Za-z0-9_]{1,64}$", RegexOptions.CultureInvariant)]
+    [GeneratedRegex(@"\AMarthaSynthetic_[A-Za-z0-9_]{1,64}\z", RegexOptions.CultureInvariant)]
     private static partial Regex SyntheticDatabaseName();
 }

@@ -1,0 +1,99 @@
+{
+  "app_sha256": "b0d5b729c6888c690ce940a8d3da8a94fcadc8b324301d587ca43a043cf215f8",
+  "catalog_sha256": "c2d5ed59e03dd68b8e279a33bbce27f120ddb0ca29ff260bb2ec38bdf2df726f",
+  "results": [
+    {
+      "name": "normal real pointer hover starts and leave pauses",
+      "ok": true,
+      "before": {
+        "src": null,
+        "paused": true,
+        "time": 0,
+        "ready": 0,
+        "reduced": false,
+        "saveData": false,
+        "hover": true
+      },
+      "hovered": {
+        "src": "/research/assets/store-media/rosa-empolvado-pedreria/product.webm",
+        "paused": false,
+        "time": 1.1133,
+        "ready": 4,
+        "reduced": false,
+        "saveData": false,
+        "hover": true
+      },
+      "left": {
+        "src": "/research/assets/store-media/rosa-empolvado-pedreria/product.webm",
+        "paused": true,
+        "time": 1.1306,
+        "ready": 4,
+        "reduced": false,
+        "saveData": false,
+        "hover": true
+      }
+    },
+    {
+      "name": "reduced motion blocks hover video",
+      "ok": true,
+      "before": {
+        "src": null,
+        "paused": true,
+        "time": 0,
+        "ready": 0,
+        "reduced": true,
+        "saveData": false,
+        "hover": true
+      },
+      "hovered": {
+        "src": null,
+        "paused": true,
+        "time": 0,
+        "ready": 0,
+        "reduced": true,
+        "saveData": false,
+        "hover": true
+      },
+      "left": {
+        "src": null,
+        "paused": true,
+        "time": 0,
+        "ready": 0,
+        "reduced": true,
+        "saveData": false,
+        "hover": true
+      }
+    },
+    {
+      "name": "saveData preference blocks hover video",
+      "ok": true,
+      "before": {
+        "src": null,
+        "paused": true,
+        "time": 0,
+        "ready": 0,
+        "reduced": false,
+        "saveData": true,
+        "hover": true
+      },
+      "hovered": {
+        "src": null,
+        "paused": true,
+        "time": 0,
+        "ready": 0,
+        "reduced": false,
+        "saveData": true,
+        "hover": true
+      },
+      "left": {
+        "src": null,
+        "paused": true,
+        "time": 0,
+        "ready": 0,
+        "reduced": false,
+        "saveData": true,
+        "hover": true
+      }
+    }
+  ]
+}

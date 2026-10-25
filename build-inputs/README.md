@@ -1,5 +1,18 @@
 # Self-contained recovered demo build
 
+## Current integration
+
+The authorized public capture expands this branch to 47 HTML templates, 40 sample
+products and 120 variants. `static/research/assets/` preserves 777 captured media
+paths; fonts and animation vendors are local under `static/prototypes/`. Inputs
+remain separate from the inert historical Worker. `catalog.js` supplies shared
+media metadata instead of repeating it in each HTML. Run `python3 prepare.py`
+after every input change, then `python3 tests/check.py --install` on first use
+and `python3 tests/check.py` thereafter. The builder requires exactly the 40
+catalog product pages plus seven shared pages, copies bytes without network or
+transformation, and rejects stale output. One historical JPEG remains unavailable;
+see `../docs/ASSET-COMPLETENESS.md`. The notes below describe the earlier baseline.
+
 `static/` contains the **24 existing, user-owned published snapshot files** other
 than the two JavaScript source files. They were copied byte-for-byte from `dist/`
 at recovered commit `e6299ee`: nine HTML templates, catalog, stylesheet, demo

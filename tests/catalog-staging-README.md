@@ -16,11 +16,9 @@ stdout; redirect to a review location, never a published catalog.
 
 The recovered catalog observed on 2026-10-24 contains **40 products, 120 variants,
 and 170 original gallery references**, all explicitly `commercial_status: sample`.
-The valid current demo has **2 products / 6 variants**, using selected replacement
-images. **38 additional records are staging candidates, not published products.**
-With the existing demo assets, none of the 40 original galleries is complete at
-its exact original paths. This is not full photo recovery. A selected WebP or
-hero image does not prove recovery of the original multi-image JPG gallery.
+The current preview has **40 products / 120 sample variants**, enriched from the original public `STORE_MEDIA` mapping. Original files may be observed at `dist/research/assets/...`; the earlier `dist/assets/research/assets/...` mirror is retained as a fallback. Empty files or symlinks at the direct path cannot be masked by a fallback copy.
+
+The captured public source returned HTTP 404 for `/research/assets/martha-gala/f1bf4e3664d34cd4.jpg`, an older historical reference. It remains explicitly missing; no generated image, renamed copy or placeholder counts as its recovery. The observed rendered product mapping uses its own original store-media files. Historical original-reference completeness and rendered-gallery completeness are separate checks; the former must still fail for that missing file.
 
 The report preserves original price and stock only under `commercial_evidence`,
 using `sample_price_minor` and `sample_stock` labels. It is intentionally **not**

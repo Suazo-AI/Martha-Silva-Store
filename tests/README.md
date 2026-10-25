@@ -1,26 +1,31 @@
-# Recovered demo checks
+# Recovered preview checks
 
-Test the committed `dist/` snapshot directly; no build, server, credentials, production
-service, or external media download is required. Requirements: Bash, Node.js (tested
-with **24.22.1**), npm (**11.9.0**), and Python 3 (**3.12.14**, standard library only).
+Verify `dist/` against reproducible builds from the local inputs. No server, credentials,
+production service, or external media download is required. Requirements: Node.js (tested
+with **24.22.1**), npm (**11.9.0**), and Python 3 (standard library only).
 
 From the repository root:
 
 ```sh
 # First run: install the lockfile's jsdom dependency tree from npm's public registry.
-bash tests/check.sh --install
+python3 tests/check.py --install
 # Subsequent runs: offline; no dependency installation.
-bash tests/check.sh
+python3 tests/check.py
 ```
 
+On Windows, use `python` if that is the installed command. `bash tests/check.sh`
+forwards the same arguments to this runner where Bash is available.
+
 The runner resolves its own repository root, fails on the first unsuccessful stage,
-and clears frontend baseline overrides. It verifies two byte-identical snapshot builds, checks the nine-page fixture and matching
-`src/`/`dist/` app/API/integration-adapter copies, runs 23 local-adapter backend tests, the dual-integration adapter tests, 19 jsdom DOM tests,
-nine-page local asset/link/anchor/ARIA checks, and syntax for the JS test/source
+and clears frontend baseline overrides. It verifies two byte-identical snapshot builds, checks the 47-page / 40-product sample fixture and matching
+`src/`/`dist/` app/API/integration-adapter copies, runs 23 local-adapter tests against the explicit two-product legacy fixture, the dual-integration adapter tests, the unchanged six-to-120 migration regressions, full-catalog/media tests, and jsdom DOM tests,
+47-page local asset/link/anchor/ARIA checks, and syntax for the JS test/source
 files. The frontend dependencies are isolated under `tests/frontend-deps`; `npm ci`
 uses committed package-lock versions/integrities and disables lifecycle scripts.
 `node_modules/` is ignored. `--install` requires registry network access and may emit
 upstream deprecation notices; it does not run an audit or claim dependency security.
+
+The served catalog preserves the captured sample prices and stock for all 40 products / 120 variants. `fixtures/legacy-catalog.json` keeps the earlier two-product inputs for recovery, totals and migration regressions; it does not replace the served catalog. `original-catalog.cjs` checks the current catalog against the captured records and `fixtures/original-store-media.json`, then requires all rendered media files to exist. The explicitly unavailable historical reference is listed in `fixtures/original-missing-media.json`; it still fails the historical `--require-complete` gate.
 
 Individual commands and frontend coverage details: [frontend-README.md](frontend-README.md).
 For direct baseline experiments only, that suite supports `FRONTEND_APP` and

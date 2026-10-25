@@ -1,6 +1,16 @@
 # Estado del proyecto
 
-Corte de documentación: **2026-10-24**. El estado de remoto, CI y despliegues debe verificarse para el commit concreto de cada entrega.
+## Integración de la copia pública — 2026-10-25 UTC
+
+La rama `feat/original-storefront-preview`, basada en `761559ad9b0cc6b7ac4c218029ce144791310172`, integra 47 páginas y el catálogo de muestra público de 40 productos, 120 variantes y 170 posiciones de galería. Preserva el hero fotográfico, los modos locales SAVIA/SISFAIN, los seis grupos `sample_image=true` y las regresiones del catálogo anterior. No habilita el transporte ni el Worker históricos.
+
+El origen público autorizado permitió recuperar 840 de 841 archivos: 47 HTML, ocho recursos CSS/JS, ocho fuentes y 777 medios, con tamaños y SHA-256 verificados. Falta únicamente `/research/assets/martha-gala/f1bf4e3664d34cd4.jpg` (HTTP 404), que no usa la galería actual. La cobertura histórica sigue incompleta: `--require-complete` debe fallar 777/778. Los informes anteriores de dos productos y del equipo desconectado corresponden al snapshot base, no a esta captura.
+
+El usuario autorizó expresamente publicar una copia separada en su cuenta Cloudflare conectada. Destino único: `martha-silva-preview`; el original `martha-silva-demo.jason-suazof.workers.dev` queda intacto. El acceso de escritura y la URL deben acreditarse al publicar; no se solicitan roles Admin amplios ni se activa CD por inferencia. Los resultados finales de build, pruebas, navegador y publicación se registrarán en evidencia separada vinculada al artefacto.
+
+## Snapshot base histórico — 2026-10-24
+
+Las tablas y bloqueos que siguen documentan el snapshot base anterior a la captura pública descrita arriba; no son el estado de la rama ampliada. El estado de remoto, CI y despliegues debe verificarse para el commit concreto de cada entrega.
 
 ## Qué existe y qué falta
 

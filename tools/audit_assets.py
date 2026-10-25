@@ -31,7 +31,7 @@ def collect(base):
     evidence = {'schema': 1, 'sources': [], 'catalogs': [], 'media': []}
     for name in SOURCES:
         p = base / name
-        raw = p.read_text()
+        raw = p.read_text(encoding='utf-8')
         refs = sorted({x for x in MEDIA.findall(raw) if safe(x)})
         evidence['sources'].append({'path': name, 'bytes': p.stat().st_size,
                                     'sha256': sha(p), 'media_paths': refs})
@@ -54,12 +54,21 @@ def record(root, relative):
         return {'path': relative, 'status': 'symlink_rejected'}
     if not p.is_file():
         return {'path': relative, 'status': 'missing'}
+    if p.stat().st_size == 0:
+        return {'path': relative, 'status': 'empty', 'bytes': 0}
     return {'path': relative, 'status': 'present', 'bytes': p.stat().st_size,
             'sha256': sha(p)}
 
 
+def original_record(root, reference):
+    """Observe original public paths, retaining the earlier /assets mirror fallback."""
+    direct = record(root, reference.lstrip('/'))
+    # An explicit unsafe/empty original path must not be hidden by a legacy copy.
+    return record(root, 'assets' + reference) if direct['status'] == 'missing' else direct
+
+
 def audit(evidence, dist, staging=None):
-    text = (dist / 'catalog.js').read_text()
+    text = (dist / 'catalog.js').read_text(encoding='utf-8')
     prefix = 'window.DEMO_CATALOG='
     assert text.startswith(prefix), 'Unsupported catalog.js format'
     published, _ = json.JSONDecoder().raw_decode(text[len(prefix):])
@@ -72,7 +81,7 @@ def audit(evidence, dist, staging=None):
     refs = sorted({path for item in evidence['sources'] for path in item['media_paths']})
     assets = []
     for ref in refs:
-        row = {'reference': ref, 'demo': record(dist, 'assets' + ref)}
+        row = {'reference': ref, 'demo': original_record(dist, ref)}
         if staging is not None:
             row['staging'] = record(staging, ref.lstrip('/'))
         assets.append(row)
@@ -85,7 +94,7 @@ def audit(evidence, dist, staging=None):
             selected.append({'product': p['id'], **record(dist, rel)})
     original_primary = {ref for p in original for ref in p['images']}
     inventory = [record(dist, str(p.relative_to(dist)))
-                 for folder in ['assets', 'hero'] for p in sorted((dist / folder).rglob('*'))
+                 for folder in ['assets', 'hero', 'research/assets'] for p in sorted((dist / folder).rglob('*'))
                  if p.suffix.lower() in ALLOWED and p.is_file()]
     return {'schema': 1, 'scope': 'Offline local snapshot; not live deployment or original PC verification',
             'catalog_evidence': [{'source': c['source'], **counts(c['products'])} for c in evidence['catalogs']],
@@ -114,7 +123,7 @@ def main():
         evidence = collect(args.source_root)
         args.evidence.write_text(json.dumps(evidence, indent=2) + '\n')
     else:
-        evidence = json.loads(args.evidence.read_text())
+        evidence = json.loads(args.evidence.read_text(encoding='utf-8'))
     # Snapshot paths must satisfy the same allowlist before any filesystem access.
     assert all(safe(ref) for s in evidence['sources'] for ref in s['media_paths'])
     result = audit(evidence, args.dist, args.staging)

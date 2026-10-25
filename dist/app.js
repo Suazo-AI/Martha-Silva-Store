@@ -9,6 +9,8 @@
   const uuid = () => crypto.randomUUID();
   let products = [], cart = null, pageScope, lenis, raf, currentOrder, adminOrders = [], inventory = [], checkout = {}, quote, productObserver, productAdding = false;
   const MODE_KEY = 'martha-integration-mode-v1';
+  const integrationInstances = new Map();
+  let memoryOnlyIntegration = false;
   let integrationMode = 'savia', integrationApi, integrationEpoch = 0, pendingApi = 0, busyActions = 0, mountJobs = 0, modeSwitching = false, integrationError = '';
   try { const saved = sessionStorage.getItem(MODE_KEY); if (['savia','sisfain'].includes(saved)) integrationMode = saved; } catch {}
   const sessionKey = name => `martha-${integrationMode}-${name}-v1`;
@@ -21,7 +23,16 @@
     try {
       if (!window.MarthaIntegrations || !window.createMarthaDemoApi || !window.DEMO_CATALOG) throw new Error('No se cargó el modelo de integración. Recargá la página; las operaciones están bloqueadas.');
       let storage; try { storage = localStorage; } catch {}
-      integrationApi = window.MarthaIntegrations.createDemoAdapter({mode:integrationMode,catalog:window.DEMO_CATALOG,storage,createDemoApi:window.createMarthaDemoApi});
+      const factory = window.MarthaIntegrations.createDemoAdapter, engine = window.createMarthaDemoApi, catalog = window.DEMO_CATALOG;
+      const cached = integrationInstances.get(integrationMode);
+      // Retain memory-only models for this page, including BFCache. Stored
+      // models keep their existing reload behavior; reset updates the client.
+      if (storage || !cached || cached.factory !== factory || cached.engine !== engine || cached.catalog !== catalog || cached.storage !== storage) {
+        const api = factory({mode:integrationMode,catalog,storage,createDemoApi:engine});
+        integrationInstances.set(integrationMode, {api,factory,engine,catalog,storage});
+      }
+      integrationApi = integrationInstances.get(integrationMode).api;
+      memoryOnlyIntegration = !storage;
       integrationError = '';
     } catch (error) { integrationError = error.message; }
   }
@@ -37,7 +48,7 @@
     $('[data-integration-description]',panel).textContent = integrationMode === 'savia'
       ? 'SAVIA: Sistema de Administración, Ventas, Inventarios y Abastecimiento. Existe una API .NET sintética de prueba, pero esta demo no está conectada a ella ni a un sistema real. La compatibilidad comercial no está validada.'
       : 'SISFAIN de CGA: modelo conceptual simulado. No contamos con un contrato ni una API verificada; no hay conexión configurada. La compatibilidad real está pendiente de validación con CGA.';
-    $('[data-integration-availability]',panel).textContent = integrationError || 'Sin backend configurado · sin conexión real';
+    $('[data-integration-availability]',panel).textContent = integrationError || 'Sin backend configurado · sin conexión real' + (memoryOnlyIntegration ? ' · Datos temporales: se pierden al recargar esta página.' : '');
     $('[data-integration-error]',panel).hidden = !integrationError;
     $('[data-integration-error]',panel).textContent = integrationError;
   }
@@ -184,22 +195,26 @@
   }
   function stopMotion() { if (raf) cancelAnimationFrame(raf); raf=null; lenis?.destroy(); lenis=null; }
   let mediaObserver;
-  const allowVideo = () => false; // No automatic video decoding in the performance preview.
+  const allowVideo = () => !matchMedia('(prefers-reduced-motion: reduce)').matches && !navigator.connection?.saveData;
+  function loadVideoSource(video) {
+    if (!video.getAttribute('src') && video.dataset.src) video.src = video.dataset.webm && video.canPlayType('video/webm') ? video.dataset.webm : video.dataset.src;
+  }
   function playVideo(video) {
     if (!allowVideo() || document.hidden) return;
-    if (!video.getAttribute('src') && video.dataset.src) {
-      video.src = video.dataset.webm && video.canPlayType('video/webm') ? video.dataset.webm : video.dataset.src;
-    }
+    loadVideoSource(video);
     video.play().then(()=>video.classList.add('is-playing')).catch(()=>{});
   }
   function videoMotion() {
     mediaObserver?.disconnect();
     $$('video').forEach(video=>{video.pause();video.classList.remove('is-playing');});
-    if (!allowVideo()) return;
+    const manual = $$('.gallery-video video[controls][data-src]');
+    if (!manual.length) return;
     mediaObserver = new IntersectionObserver(entries=>entries.forEach(entry=>{
-      if (entry.isIntersecting) playVideo(entry.target); else entry.target.pause();
+      if (entry.isIntersecting) {
+        if (entry.target.controls) loadVideoSource(entry.target);
+      } else entry.target.pause();
     }), {threshold:.55});
-    $$('[data-autoplay-video]').forEach(video=>mediaObserver.observe(video));
+    manual.forEach(video=>mediaObserver.observe(video));
   }
   function motion() {
     stopMotion(); videoMotion(); if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;

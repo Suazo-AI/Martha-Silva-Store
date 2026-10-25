@@ -6,6 +6,7 @@ locked DOM dependencies; otherwise no dependency download is attempted.
 Frontend coverage is DOM simulation, not a real browser test.
 """
 import argparse
+import json
 import os
 from pathlib import Path
 import shutil
@@ -17,12 +18,26 @@ ROOT = Path(__file__).resolve().parent.parent
 
 def check_fixture(root):
     pages = sorted((root / 'dist').glob('*.html'))
-    if len(pages) != 9:
-        raise ValueError(f'Expected 9 recovered pages, found {len(pages)}')
+    if len(pages) != 47:
+        raise ValueError(f'Expected 47 recovered pages, found {len(pages)}')
+    catalog_text = (root / 'dist/catalog.js').read_text(encoding='utf-8')
+    prefix = 'window.DEMO_CATALOG='
+    if not catalog_text.startswith(prefix):
+        raise ValueError('Unsupported catalog.js format')
+    catalog, _ = json.JSONDecoder().raw_decode(catalog_text[len(prefix):])
+    products = catalog['products']
+    product_ids = {product['id'] for product in products}
+    if len(products) != 40 or len(product_ids) != 40 or sum(len(p['variants']) for p in products) != 120:
+        raise ValueError('Expected 40 unique sample products and 120 variants')
+    expected_pages = {'index.html', 'catalogo.html', 'bolsa.html', 'checkout.html',
+                      'pedido.html', 'ayuda.html', 'admin.html'}
+    expected_pages.update(f'producto-{product_id}.html' for product_id in product_ids)
+    if {page.name for page in pages} != expected_pages:
+        raise ValueError('Published pages do not match the 40 original product IDs and seven shared pages')
     for name in ('app.js', 'demo-api.js', 'integration-adapters.js'):
         if (root / 'src' / name).read_bytes() != (root / 'dist' / name).read_bytes():
             raise ValueError(f'src/dist drift: {name}')
-    print('PASS: 9 pages; src/dist app.js, demo-api.js and integration-adapters.js match', flush=True)
+    print('PASS: 47 pages / 40 sample products / 120 variants; src/dist app.js, demo-api.js and integration-adapters.js match', flush=True)
 
 
 def clean_environment():
@@ -70,6 +85,8 @@ def main(argv=None):
         run([node, '--test', 'tests/integration-adapters.test.js'])
         stage('Catalog expansion regression')
         run([node, '--test', 'tests/catalog-migration.cjs'])
+        stage('Complete original catalog and rendered media')
+        run([node, '--test', 'tests/original-catalog.cjs'])
         stage('Asset audit regression (not full catalog completion)')
         run([sys.executable, 'tests/asset-audit.py'])
         stage('Portable runner regression')

@@ -1,5 +1,25 @@
 # CD aislado de la demo (no producción)
 
+## Publicación manual autorizada — 2026-10-25 UTC
+
+El usuario autorizó integrar y publicar la copia separada usando la cuenta
+Cloudflare conectada. La consulta identificó una única cuenta
+`df367c9aba37b558d177d38da39083ce`, sin Workers existentes. La API aceptó
+`PUT /accounts/{account_id}/workers/subdomain` y confirmó
+`martha-silva-denis` con HTTP 200. Esto acredita escritura en esa operación,
+no la publicación del Worker. El destino reservado es `martha-silva-preview`;
+la URL prevista es `https://martha-silva-preview.martha-silva-denis.workers.dev/`
+y deberá verificarse después de publicar. El original pertenece a otro
+subdominio y no se modifica.
+
+La publicación manual usará el artefacto local probado, una sesión temporal
+de Static Assets y un módulo mínimo con el único binding `ASSETS`. No se
+extrae OAuth del conector, se copian bindings históricos ni se configuran
+zonas, D1, KV o secretos. Las credenciales temporales no forman parte de Git.
+La autorización actual no activa Actions/CD, modifica roles ni crea un token
+permanente. Las instrucciones siguientes describen el CD previamente preparado
+y sus comprobaciones históricas; no acreditan un despliegue nuevo.
+
 Destino único: **`martha-silva-preview`**, Worker nuevo de assets estáticos.
 El original `martha-silva-demo` y sus rutas/bindings no se modifican. No se
 activa GitHub Pages ni pagos/backend. El sitio publicado será público; no

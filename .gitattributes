@@ -1,0 +1,4 @@
+# Captured third-party resources retain their original bytes, license spacing
+# and line endings. Application sources keep the normal whitespace review.
+build-inputs/static/prototypes/** -text -whitespace
+dist/prototypes/** -text -whitespace

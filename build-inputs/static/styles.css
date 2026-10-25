@@ -83,8 +83,6 @@ main[data-page=cart] .cart-line img{line-height:18.4px}
  .campaign-copy p{margin-bottom:20px}
 }
 
-.demo-scope{grid-column:1/-1;margin:16px 0}.product-carousel:has(>article:nth-child(2):last-child){grid-auto-columns:minmax(220px,40%)}
-@media(max-width:599px){.product-carousel:has(>article:nth-child(2):last-child){grid-auto-columns:74%}}
 /* Explicit, local-only integration models. Shared storefront photography is unchanged. */
 .integration-panel{background:#f4f1ed;color:#25211e;border-bottom:1px solid #d9d1c8;padding:16px 32px;font:13px/1.5 var(--body)}
 .integration-toolbar{display:flex;align-items:center;justify-content:space-between;gap:20px;max-width:1440px;margin:auto}

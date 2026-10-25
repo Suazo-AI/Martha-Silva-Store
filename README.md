@@ -2,7 +2,9 @@
 
 Repositorio de recuperación y evolución de las demos de Martha Silva. Conserva código, evidencia y decisiones sin confundir una demo con una tienda en producción.
 
-**Ejecutable actual:** 9 páginas, 2 productos recuperados y estado en `localStorage`. No procesa tarjetas ni ofrece autenticación o inventario de producción. El catálogo original documentado tiene 40 productos, 120 variantes y 170 referencias de galería; faltan los archivos originales necesarios para una copia completa.
+**Copia en integración:** 47 páginas, 40 productos de muestra, 120 variantes y 170 posiciones de galería, con los adaptadores locales SAVIA/SISFAIN. Se recuperaron 777 de 778 medios históricos desde el sitio público autorizado; el JPEG restante devuelve 404 y no se sustituye. No procesa tarjetas ni ofrece autenticación o inventario de producción. El original de Cloudflare permanece intacto.
+
+La rama `feat/original-storefront-preview` amplía la demo anterior de dos productos. Conserva el hero fotográfico y usa el catálogo compartido para evitar repetir los metadatos de imágenes en cada página. Procedencia y límites: [diseño](DESIGN.md), [estado](docs/PROJECT-STATUS.md) y [medios](docs/ASSET-COMPLETENESS.md). Una copia local no acredita publicación: el destino autorizado es únicamente el nuevo Worker `martha-silva-preview` de la cuenta conectada.
 
 ## Navegación
 
@@ -69,4 +71,4 @@ Editar HTML/CSS/catálogo/imágenes en `build-inputs/static/`, comportamiento en
 
 Publicar el repositorio no publica automáticamente la tienda. Cualquier despliegue debe identificar destino, commit, autorización, prueba de acceso y rollback. Ver [criterios de entrega](docs/PROJECT-STATUS.md#criterios-de-aceptación).
 
-La conexión persistente autorizada se limita al **nuevo Worker `martha-silva-preview`**, no a Admin amplio. El acceso Cloudflare comprobado sigue siendo de solo lectura y `gh` CLI no está autenticado; la habilitación de escritura y la asociación cuenta/URL requieren verificación externa antes de activar CD. Ver [CD aislado](docs/CLOUDFLARE-CD.md).
+La conexión autorizada se limita al **nuevo Worker `martha-silva-preview`**, no a Admin amplio. Cloudflare confirmó por API la creación del subdominio separado `martha-silva-denis`; el despliegue y su URL deben comprobarse contra el artefacto concreto. `gh` CLI no está autenticado y no se activó CD. Ver [CD aislado](docs/CLOUDFLARE-CD.md).
