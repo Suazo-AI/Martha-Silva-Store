@@ -23,7 +23,18 @@
     "package_sha256": "6423657bfbf8779f77fb19743235140f48a68d7c74ca59242f45385f9f5f8adf",
     "slack_file_id": "F0CBWF649L6"
   },
-  "cloud_final_api_dom": "pending exact two-file patch c62c8856da489b2465fc11e94cc882dba3fe3a9f4d9976b887108237213ce8cd",
+  "cloud_final_api_dom": {
+    "api_pass": 8,
+    "dom_pass": 9,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "results": "cloud-savia-final-results.json",
+    "inventory": "cloud-savia-final-inventory.json",
+    "contract_review": "cloud-savia-final-contract.md",
+    "model_prior_same_hash_pass": 12
+  },
   "browser_qa": "candidate not executed; cloud browser could not reach sandbox loopback; personal Brave untouched",
   "backend_connection": {
     "deployed_api_url_verified": false,
@@ -37,5 +48,14 @@
   },
   "full_repository_suite": "attempted budget gate, deferred under low RAM; no final PASS",
   "github_push": false,
-  "deployment": "pending"
+  "deployment": {
+    "source_sha": "8c01f99fa325d8a5bde6fddfffdade4f527e91d3",
+    "deployment_id": "086e4da4c4504497a66ae6e93b08df17",
+    "public_http_smoke": "PASS13bodyhashes861manifestentries"
+  },
+  "storefront_final_regression": {
+    "status": "29/29 PASS cloud",
+    "test_sha256": "18f9a165dd83ae8d6511049e488412ac1d37703dcd27e85e109b81dfd0e2b032",
+    "original_catalog_mutated": false
+  }
 }

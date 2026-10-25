@@ -1,5 +1,19 @@
 # Estado del proyecto
 
+## Correccion de alcance: una sola interfaz
+
+Instruccion directa: conservar la URL principal y optimizar esa tienda para SAVIA; retirar la caja separada /savia/ y su enlace. No cambia el original Cloudflare. El prototipo queda fuera del build y su empaquetador se deshabilita. Los reportes de la publicacion8c01f99 se conservan como historicos. La retirada remota debe acreditarse con marker y HTTP404 para /savia/. No se afirma conexion real .NET/SQL.
+
+
+## Publicacion SAVIA y frontend 2026-10-25
+
+Fuente publicada `8c01f99fa325d8a5bde6fddfffdade4f527e91d3`, deployment `086e4da4c4504497a66ae6e93b08df17`, Worker `martha-silva-preview`. Tienda y `/savia/` responden HTTP200; marcador861entradas y13cuerpos comprobados por SHA256. El original conserva HTTP200 y el mismo SHA antes/despues.
+
+Validacion final cloud:29DOM tienda PASS; SAVIA8API+9DOM PASS y12modelo previos con hashes identicos. jsdom no equivale a navegador/SQL. QA publica Chrome cloud en cierre; no Safari/iPhone. Full suite final aplazada por memoria; no se declara PASS total ni CI remota. Backend/SQL real no conectado (rutas404 en preview); solo caja ficticia separada y diagnostico GET. La foto de portada conserva referencias de7f29cf5; reemplazo solicitado pendiente de seleccion. No push a GitHub: Denis/Tony es el destino humano solicitado y Suazo-AI no fue usado como sustituto.
+
+Evidencia: `../evidence/cloudflare-savia-deployment-2026-10-25.json`, `../evidence/cloudflare-savia-public-smoke-2026-10-25.json`, `../evidence/frontend-image-review/cloud-storefront-final-results.json`, `../dev/savia-demo-ui/evidence/cloud-savia-final-results.json`. Los estados previos a continuacion son cortes historicos.
+
+
 ## Frontend e imágenes — trabajo local del 25 de octubre de 2026
 
 La rama `fix/frontend-image-review-20261025` contiene la revisión de imágenes y

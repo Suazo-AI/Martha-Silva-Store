@@ -24,12 +24,17 @@
   "final_dom_candidate": {
     "test_count": 29,
     "local_run": "interrupted_no_result_memory_pressure",
-    "cloud_status": "pending",
+    "cloud_status": "29/29 PASS after isolated-demo stock transition test",
     "slack_file_id": "F0CCSR9L1FA",
     "package_sha256": "f7eb2791903c11dace0986f2a922c510cd1ac9c7f1955416a11cf2b64dd6d2ff",
-    "app_sha256": "71ffa37faba6ac1e251794b13717943919d4a16ee51df00860ea36d396caf488"
+    "app_sha256": "71ffa37faba6ac1e251794b13717943919d4a16ee51df00860ea36d396caf488",
+    "final_test_sha256": "18f9a165dd83ae8d6511049e488412ac1d37703dcd27e85e109b81dfd0e2b032",
+    "prior_test_fixture_failures_preserved": true
   },
   "full_suite_final": "not_completed; resource budget deferred; known earlier Windows symlink privilege limit1314",
   "github_push": false,
-  "deployment": "pending"
+  "deployment": {
+    "source_sha": "8c01f99fa325d8a5bde6fddfffdade4f527e91d3",
+    "deployment_id": "086e4da4c4504497a66ae6e93b08df17"
+  }
 }

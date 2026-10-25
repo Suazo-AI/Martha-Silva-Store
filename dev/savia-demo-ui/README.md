@@ -1,3 +1,7 @@
+# RETIRADO: prototipo de caja separada
+
+El usuario pidio mantener una unica interfaz en la URL principal. Este prototipo queda inerte y fuera de prepare.py y de la publicacion. No volver a publicar /savia/ ni su enlace. El contenido que sigue es evidencia historica de la implementacion descartada.
+
 # SAVIA: demostración de caja
 
 Interfaz de prueba independiente del storefront y del harness CLI. Permite
@@ -73,8 +77,10 @@ mensaje; nunca se instala automáticamente. El responsable coordina una sola
 tarea de QA a la vez.
 
 jsdom no verifica diseño, interacción táctil, lectores de pantalla ni una
-conexión .NET/SQL. La evidencia de esta tarea está pendiente; no se declaran
-pruebas ejecutadas en este documento.
+conexión .NET/SQL. La validación cloud del cliente final pasó ocho pruebas de API y nueve DOM.
+El modelo conserva doce pruebas aprobadas con los mismos hashes. Ver
+`evidence/cloud-savia-final-results.json` y el inventario asociado. No equivale
+a una prueba de navegador ni a una conexión real .NET/SQL.
 
 Por defecto, `prepare.py` sólo copia `build-inputs/static/**` y tres archivos de
 `src/`; Wrangler usa `./dist`. `dev/savia-demo-ui/` queda fuera de ese build.
