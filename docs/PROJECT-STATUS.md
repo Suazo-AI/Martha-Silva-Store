@@ -1,5 +1,27 @@
 # Estado del proyecto
 
+## Rama privada SAVIA — 2026-10-25
+
+Esta rama desarrolla el sistema interno, separado de la tienda. Se incorporó
+el delta privado de 57 archivos contra la base real f7, con hashes comprobados
+y sin sobrescribir la UI: auth/roles, directorio, comercio, abastecimiento,
+runner y migración de desarrollo. [Alcance privado](../SAVIA-INTERNAL.md).
+
+El primer corte de fuentes UI está en `3d8f11deec4a4a2ab8d5d6f9ef3a8176d8baa2d4`:
+ingreso/sesión y consultas de clientes/artículos contra el contrato privado.
+Cutufay reportó nueve pruebas auth y cinco DOM PASS sobre el paquete exacto
+`1d14ad33…`; son dobles y jsdom, sin SQL real ni navegador.
+[Evidencia inicial](../evidence/savia-internal/ui-auth-read-cloud-2026-10-25.json).
+El corte paginado posterior `41c66e52…` recibió 20 PASS. El juez repitió restore,
+Release y suite C# tras integrar esa UI: 435 PASS, 56 SQL omitidas, cero fallos
+y cero advertencias/errores. Son pruebas de código; SQL y operación real siguen
+pendientes. CRUD y los flujos de venta/compra de la UI permanecen apagados.
+
+No hay hosting interno configurado, base conectada, push o CI nuevos acreditados.
+El candidato de pruebas debe ser gratis y sin tarjeta; véase
+[alojamiento](savia-internal/FREE-HOSTING.md). Las secciones de publicación que
+siguen pertenecen a la tienda histórica, no son una entrega de SAVIA.
+
 ## Integración de la copia pública — 2026-10-25 UTC
 
 **Publicado y verificado:** [nuevo Worker](https://martha-silva-preview.martha-silva-denis.workers.dev/),

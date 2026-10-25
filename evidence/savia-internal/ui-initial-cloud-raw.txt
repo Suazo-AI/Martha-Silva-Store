@@ -1,0 +1,126 @@
+===== 1d14ad3-review.md =====
+# Staff UI re-review — revised packet 1d14ad3
+
+**Result: identified P1 fixed; lightweight checks PASS (3 syntax, 9 auth, 5 DOM); all 9 source hashes unchanged before/after.** Appropriate to continue protected-host integration as a limited read-only slice. This is **not** completion acceptance of SAVIA, runtime hosting, real authentication, browser QA or SQL persistence.
+
+Package SHA-256 reported and verified by root: `1d14ad33603670061e5cc3434343b507ab180b386f7c93f35e1450098156f502`. This reviewer independently hashed all extracted source files; see `1d14ad3-file-hashes.json`, `1d14ad3-pre.sha256` and `1d14ad3-post.sha256`. Source: `/workspace/scratch/14cff504045e/savia-internal/ui-reviewed/dev/savia-staff-ui`; backend contract baseline `b1eb4be`.
+
+## P1 disposition
+
+The previous packet `f154959` remains superseded and unaccepted. In this candidate, `app.mjs:205–208` handles 401 after destroyed/epoch checks but **before** the per-section requestId check. `requireAccess` increments epoch, nulls app identity, clears private rows/identity, hides and inerts shell, and locks actions. This fixes the identified stale-request 401 bypass while still preventing old-session responses affecting a replacement session.
+
+The new DOM regression starts two overlapping refresh reads, rejects the older with 401, verifies session closure and empty rows, resolves the newer success, and verifies no repopulation. It passes. The reverse completion ordering (newer success first, older 401 second) is covered by the source control flow, not a separate named executed test. No further P1 was found in this narrow delta review; this is not a claim that no other vulnerability exists.
+
+## Remaining P2 and scope limits
+
+- **P2 pagination still open:** `client.mjs:23–37` sends no skip/take and exposes no paging options; `index.html`/`app.mjs` have no page controls. Only the default first 50 customer/item results are browsable per query, though `X of total` is shown. Full-directory acceptance requires paging or explicit acceptance of this limitation.
+- Only auth/session/logout and read-only customer/item queries are connected. Directory mutations, stock balances/adjustments, sales/cancellations/returns, PO/receipt workflows, staff management, stable business idempotency and operation reconciliation are absent/disabled. Supplier/location reads exist in the adapter but lack visible connected workflows. These omissions are honestly described in the interface, not fallback behavior; they still prevent claiming a completed SAVIA.
+- Client-dialog field names are not a mutation DTO (`displayName`, `customerId` vs directory `{kind,name,...}`). It remains disabled, so this is not a live contract failure; the owner must adapt DTOs explicitly rather than blindly serializing it when writes are added.
+
+## Delta and security observations
+
+Beyond the P1, changes are an explanatory client comment, simpler truthful UI text, a pending-screen link back to login, a semantic dialog header, and the five new DOM tests. No new business write or network destination was introduced. Previous source findings remain applicable: direct `/me` shape, same-origin cookie requests, login CSRF rotation, 204 logout, four-role validation, textContent-only business rendering, explicit integer minor-unit pricing, no synthetic fallback, and no localStorage session authority.
+
+The DOM cases additionally exercise denied bootstrap (no business read), malicious-looking customer name rendered literally (no img element), disabled unavailable writes, 403 shown as an error rather than empty data, and immediate clearing before an uncertain logout response. All pass with application-client doubles.
+
+## Exact executed checks
+
+Environment: Node `v24.22.1`; existing jsdom `26.1.0` resolved to `/workspace/scratch/14cff504045e/savia-candidate-cloud/source/tests/frontend-deps/node_modules/jsdom/lib/api.js`. No package install or lockfile edit.
+
+Commands executed serially from `ui-reviewed`:
+
+```sh
+sha256sum dev/savia-staff-ui/*
+for f in app client login; do node --check "dev/savia-staff-ui/$f.mjs" || exit; done
+node --test dev/savia-staff-ui/auth.test.mjs
+NODE_PATH=/workspace/scratch/14cff504045e/savia-candidate-cloud/source/tests/frontend-deps/node_modules node --test dev/savia-staff-ui/dom.test.mjs
+sha256sum dev/savia-staff-ui/*
+cmp <saved-pre-hashes> <saved-post-hashes>
+```
+
+- Syntax: 3/3 PASS, exit0.
+- Auth: 9/9 PASS, 0 failures/skips/cancellations/todos, exit0; reported duration144.471832ms.
+- DOM: 5/5 PASS, 0 failures/skips/cancellations/todos, exit0; reported duration769.022935ms.
+- Pre/post source hash comparison: identical9/9, exit0.
+- Full outputs: `1d14ad3-syntax.log`, `1d14ad3-auth.log`, `1d14ad3-dom.log`, `1d14ad3-exits.log`.
+
+These are syntax/transport-double/jsdom tests. jsdom is not a browser; no visual, mobile, real keyboard focus, accessibility conformance, runtime CSP, cookie behavior, middleware authorization or SQL claim follows.
+
+## Host integration gate (root-owned, not executed here)
+
+Allow anonymous login HTML/module and shared presentation-only CSS; require `internal.read` for staff HTML, `app.mjs`, `client.mjs`. Keep all resources only under opt-in HTTPS .NET `/internal`, never public Worker/wwwroot bulk hosting. Set appropriate module/CSS content types; APIs must preserve JSON401/403 rather than HTML redirects. Login navigation can redirect to the canonical login document.
+
+Because source uses relative `./...` asset paths, canonicalize staff document to `/internal/` and login document to `/internal/login`, or have the owner switch to absolute `/internal/...` URLs. Serving at `/internal` or `/internal/login/` without canonicalization would resolve resources in different directories. This is an integration requirement, not evidence of a defect in a host that has not yet been mounted.
+
+No browser/loopback retry, Windows test, new external research, SQL/bootstrap/migration or source edits were performed. Review evidence files are the only writes by this reviewer.
+
+
+===== 1d14ad3-exits.log =====
+syntax_exit=0 auth_exit=0 dom_exit=0 hash_compare_exit=0
+
+
+===== 1d14ad3-syntax.log =====
+v24.22.1
+app.mjs syntax PASS
+client.mjs syntax PASS
+login.mjs syntax PASS
+
+
+===== 1d14ad3-auth.log =====
+✔ login renews CSRF after identity changes and verifies the server session before access (8.94394ms)
+✔ unverified clients cannot read directory data (1.066129ms)
+✔ a login/session identity mismatch never grants directory access (1.996904ms)
+✔ an expired or revoked session clears client access on 401 (1.427174ms)
+✔ failed revalidation cannot retain an earlier verified session (1.071418ms)
+✔ 403 stays a permission denial and cannot be presented as an empty directory (1.232711ms)
+✔ the read client refuses external origins and undeclared operations before transport (2.491221ms)
+✔ logout obtains identity-bound CSRF and accepts the documented empty 204 (2.503329ms)
+✔ a timeout does not manufacture a verified session (10.468431ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 144.471832
+
+
+===== 1d14ad3-dom.log =====
+✔ denied bootstrap leaves the workspace closed and never reads business data (125.020767ms)
+✔ 401 from an older concurrent read invalidates the UI and drops a newer success (52.973593ms)
+✔ directory names are rendered as text, and an unavailable write stays disabled (43.74345ms)
+✔ 403 is shown as an error instead of a zero-result customer list (41.820127ms)
+✔ logout hides and clears private data before the server response arrives (55.646768ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 769.022935
+
+
+===== 1d14ad3-pre.sha256 =====
+c51872e970af0d6acf1861c600f426a14a1a4a8012ba2cd59af4c00b64774c44  dev/savia-staff-ui/README.md
+0a782b657736663866534fc63e362042a021f2e3a93b7f69724e2a9982ec5863  dev/savia-staff-ui/app.mjs
+e93a84e2aba4a920dda00ce27633fa62fa5f412e8206810bc1246325463cbcc8  dev/savia-staff-ui/auth.test.mjs
+611f04daef1290f04627c1af26473e1a7bd1f90f0b6b93f26565461317fcd2c8  dev/savia-staff-ui/client.mjs
+de032c12fcd189b3351a37647da4a2b9eeaa6a52c4d50d5e645301dac3ae1e60  dev/savia-staff-ui/dom.test.mjs
+e4fd85472d4fa1c961f6a492dc3376698e1dc203b5839b5eec53a9fe68bba267  dev/savia-staff-ui/index.html
+b9068478b46b9786c18dbe54ffa1172e1fb325e283ca944f9c2a840b37d1a686  dev/savia-staff-ui/login.html
+4d0173fdff31882c795c79b65ced0b21f13165a0d769caeb252bea030cbc859d  dev/savia-staff-ui/login.mjs
+046123702cbc464ea884d1f6bc84d3c572e422fb4b8390fdd0d99d944f8f2155  dev/savia-staff-ui/styles.css
+
+
+===== 1d14ad3-post.sha256 =====
+c51872e970af0d6acf1861c600f426a14a1a4a8012ba2cd59af4c00b64774c44  dev/savia-staff-ui/README.md
+0a782b657736663866534fc63e362042a021f2e3a93b7f69724e2a9982ec5863  dev/savia-staff-ui/app.mjs
+e93a84e2aba4a920dda00ce27633fa62fa5f412e8206810bc1246325463cbcc8  dev/savia-staff-ui/auth.test.mjs
+611f04daef1290f04627c1af26473e1a7bd1f90f0b6b93f26565461317fcd2c8  dev/savia-staff-ui/client.mjs
+de032c12fcd189b3351a37647da4a2b9eeaa6a52c4d50d5e645301dac3ae1e60  dev/savia-staff-ui/dom.test.mjs
+e4fd85472d4fa1c961f6a492dc3376698e1dc203b5839b5eec53a9fe68bba267  dev/savia-staff-ui/index.html
+b9068478b46b9786c18dbe54ffa1172e1fb325e283ca944f9c2a840b37d1a686  dev/savia-staff-ui/login.html
+4d0173fdff31882c795c79b65ced0b21f13165a0d769caeb252bea030cbc859d  dev/savia-staff-ui/login.mjs
+046123702cbc464ea884d1f6bc84d3c572e422fb4b8390fdd0d99d944f8f2155  dev/savia-staff-ui/styles.css

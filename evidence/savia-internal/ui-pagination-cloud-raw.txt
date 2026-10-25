@@ -1,0 +1,143 @@
+===== 41c66e5-review.md =====
+# Staff UI pagination acceptance — packet 41c66e5
+
+**Terminal result: PASS. Identified pagination P2 closed for the connected customer/item directory views; previously corrected stale-401 P1 remains fixed.** Three syntax checks and all20 tests pass, with all10 source hashes identical before/after. Suitable to update the limited read-only source package. This is not whole-SAVIA completion or runtime/SQL/browser acceptance.
+
+## Artifact and scope
+
+- Root-verified outer package SHA-256: `41c66e528feaae542a59e4954c5eb22ad4d8ee75c2993dfb8a3b88652aeb52ef`.
+- Reviewed extracted source: `/workspace/scratch/14cff504045e/savia-internal/ui-pagination/dev/savia-staff-ui`.
+- Previous reviewed source: packet `1d14ad3`; backend contract reference `b1eb4be`.
+- Independent file hashes: `41c66e5-file-hashes.json`, `41c66e5-pre.sha256`, `41c66e5-post.sha256`.
+- No implementation edits or new dependencies. Evidence files are the reviewer's only writes.
+
+## Actual source review
+
+1. **P2 closed:** `client.mjs` accepts and transmits explicit `skip`/`take`, validates integer bounds (skip0..100000, take1..100), requires matching response bounds, and rejects oversized/inconsistent response pages. Customer filters and inactive flag are preserved in transport; UI currently uses active records by default.
+2. Both connected directory views provide previous/next controls, page-size25/50/100 and confirmed range/total text. Each retains its own applied query and pagination state. New searches and size changes reset offset0. Dirty, unapplied query text cannot be mixed with a previous offset. The server's skip ceiling is respected and explained rather than silently loading beyond it.
+3. Failed reads clear rows and confirmed pagination, show an error rather than an empty-directory success, disable pager controls, and leave search available to recover. Loading disables incompatible controls; empty pages beyond a reduced total are handled without inventing records. Pagination sends GET only and does not enable writes.
+4. **P1 remains fixed:** 401 is processed before per-section requestId supersession checks; global access loss increments epoch, clears session/rows/page state, hides/inerts shell and disables controls. Late success cannot restore private rows. Both the existing DOM regression and the new integrated transport+DOM regression pass.
+5. Added row/range/query text uses textContent, not HTML interpolation. No external runtime origin, credential default, synthetic business fallback, idempotency mutation or business write was added. Auth/login module and its CSRF/direct-me/204 contract behavior are unchanged.
+
+No new P1/P2 was found in the pagination delta. That statement is limited to the inspected source and executed double-based cases, not an exhaustive vulnerability or accessibility audit.
+
+## Executed checks (serial)
+
+Node `v24.22.1`; existing jsdom26.1.0 via:
+`NODE_PATH=/workspace/scratch/14cff504045e/savia-candidate-cloud/source/tests/frontend-deps/node_modules`.
+
+```sh
+sha256sum dev/savia-staff-ui/*
+for f in app client login; do node --check "dev/savia-staff-ui/$f.mjs" || exit; done
+node --test dev/savia-staff-ui/auth.test.mjs
+NODE_PATH=/workspace/scratch/14cff504045e/savia-candidate-cloud/source/tests/frontend-deps/node_modules node --test dev/savia-staff-ui/dom.test.mjs
+NODE_PATH=/workspace/scratch/14cff504045e/savia-candidate-cloud/source/tests/frontend-deps/node_modules node --test dev/savia-staff-ui/pagination.test.mjs
+sha256sum dev/savia-staff-ui/*
+cmp <saved-pre-hashes> <saved-post-hashes>
+```
+
+| Check | Result | Reported duration |
+| --- | --- | --- |
+| app/client/login module syntax | 3/3 PASS, exit0 | Not measured |
+| Auth transport doubles | 9/9 PASS, exit0 | 107.02772ms |
+| App DOM doubles | 5/5 PASS, exit0 | 722.854948ms |
+| Pagination transport + DOM doubles | 6/6 PASS, exit0 | 898.705193ms |
+| Pre/post hashes | 10/10 identical, exit0 | Not measured |
+
+All20 tests report zero failures, cancellations, skips and todos. Logs: `41c66e5-{syntax,auth,dom,pagination,exits}.log`. No package installation occurred. Tests whose titles mention Directory pages still use explicit mock transport; no real server or SQL is involved.
+
+## Unchanged acceptance limits
+
+Only auth/session/logout and customer/item directory reads are connected. Sales, adjustments, physical inventory balances, directory mutations, staff management, procurement/receipts, business idempotency and uncertain-write reconciliation remain absent/disabled. These are scope omissions, not implemented capabilities.
+
+Host/resource protection, canonical `/internal/` and `/internal/login` URLs, runtime HTTPS/cookies/CSP, live .NET authorization, browser interaction/layout/accessibility and SQL persistence remain root-owned separate gates. This review did not perform or repeat browser/loopback, Windows, SQL, migration, bootstrap or external research actions. No deployment or production acceptance is claimed.
+
+
+===== 41c66e5-exits.log =====
+syntax_exit=0 auth_exit=0 dom_exit=0 pagination_exit=0 hash_compare_exit=0
+
+
+===== 41c66e5-syntax.log =====
+v24.22.1
+app.mjs syntax PASS
+client.mjs syntax PASS
+login.mjs syntax PASS
+
+
+===== 41c66e5-auth.log =====
+✔ login renews CSRF after identity changes and verifies the server session before access (6.094256ms)
+✔ unverified clients cannot read directory data (0.521909ms)
+✔ a login/session identity mismatch never grants directory access (1.288048ms)
+✔ an expired or revoked session clears client access on 401 (4.16944ms)
+✔ failed revalidation cannot retain an earlier verified session (0.853931ms)
+✔ 403 stays a permission denial and cannot be presented as an empty directory (1.619389ms)
+✔ the read client refuses external origins and undeclared operations before transport (0.4963ms)
+✔ logout obtains identity-bound CSRF and accepts the documented empty 204 (0.521709ms)
+✔ a timeout does not manufacture a verified session (10.602247ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 107.02772
+
+
+===== 41c66e5-dom.log =====
+✔ denied bootstrap leaves the workspace closed and never reads business data (125.75948ms)
+✔ 401 from an older concurrent read invalidates the UI and drops a newer success (71.759743ms)
+✔ directory names are rendered as text, and an unavailable write stays disabled (51.399605ms)
+✔ 403 is shown as an error instead of a zero-result customer list (54.053849ms)
+✔ logout hides and clears private data before the server response arrives (69.716714ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 722.854948
+
+
+===== 41c66e5-pagination.log =====
+✔ Directory pagination sends the applied query, inactive flag and explicit skip/take (5.949777ms)
+✔ invalid query bounds are rejected before Directory transport (1.149819ms)
+✔ inconsistent response pages are rejected, but an empty page beyond the total is valid (3.129932ms)
+✔ next/previous, applied search and sizes 25/50/100 navigate real Directory pages without enabling writes (430.181734ms)
+✔ a failed next page stays visibly unconfirmed and disables the pager until a successful search (75.60597ms)
+✔ an older page 401 revokes the workspace and prevents a newer page response from repopulating it (58.920967ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 898.705193
+
+
+===== 41c66e5-pre.sha256 =====
+c51872e970af0d6acf1861c600f426a14a1a4a8012ba2cd59af4c00b64774c44  dev/savia-staff-ui/README.md
+ea71aa8a40f598b53894c763c6cf07f5502b454202e726d68377054c75c10244  dev/savia-staff-ui/app.mjs
+e93a84e2aba4a920dda00ce27633fa62fa5f412e8206810bc1246325463cbcc8  dev/savia-staff-ui/auth.test.mjs
+2ba141aa437abe7cf79a0573e25f1cd0693b84dbcbf946bd54890ed0992b4a7d  dev/savia-staff-ui/client.mjs
+de032c12fcd189b3351a37647da4a2b9eeaa6a52c4d50d5e645301dac3ae1e60  dev/savia-staff-ui/dom.test.mjs
+ffe48759028807f2a29b61d21afbb3814fc128749a5a723bcf18b45c62cdb1ba  dev/savia-staff-ui/index.html
+b9068478b46b9786c18dbe54ffa1172e1fb325e283ca944f9c2a840b37d1a686  dev/savia-staff-ui/login.html
+4d0173fdff31882c795c79b65ced0b21f13165a0d769caeb252bea030cbc859d  dev/savia-staff-ui/login.mjs
+c7f66725858bedb2016e7f800944684b0d4b1fd38ec3d2ea77d6f5b0318c71ec  dev/savia-staff-ui/pagination.test.mjs
+e43e99b50b19aeadc6ebadae63e64cf3902c96ca923d08943fa6daadff9d9ae8  dev/savia-staff-ui/styles.css
+
+
+===== 41c66e5-post.sha256 =====
+c51872e970af0d6acf1861c600f426a14a1a4a8012ba2cd59af4c00b64774c44  dev/savia-staff-ui/README.md
+ea71aa8a40f598b53894c763c6cf07f5502b454202e726d68377054c75c10244  dev/savia-staff-ui/app.mjs
+e93a84e2aba4a920dda00ce27633fa62fa5f412e8206810bc1246325463cbcc8  dev/savia-staff-ui/auth.test.mjs
+2ba141aa437abe7cf79a0573e25f1cd0693b84dbcbf946bd54890ed0992b4a7d  dev/savia-staff-ui/client.mjs
+de032c12fcd189b3351a37647da4a2b9eeaa6a52c4d50d5e645301dac3ae1e60  dev/savia-staff-ui/dom.test.mjs
+ffe48759028807f2a29b61d21afbb3814fc128749a5a723bcf18b45c62cdb1ba  dev/savia-staff-ui/index.html
+b9068478b46b9786c18dbe54ffa1172e1fb325e283ca944f9c2a840b37d1a686  dev/savia-staff-ui/login.html
+4d0173fdff31882c795c79b65ced0b21f13165a0d769caeb252bea030cbc859d  dev/savia-staff-ui/login.mjs
+c7f66725858bedb2016e7f800944684b0d4b1fd38ec3d2ea77d6f5b0318c71ec  dev/savia-staff-ui/pagination.test.mjs
+e43e99b50b19aeadc6ebadae63e64cf3902c96ca923d08943fa6daadff9d9ae8  dev/savia-staff-ui/styles.css

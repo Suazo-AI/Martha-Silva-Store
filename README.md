@@ -1,3 +1,11 @@
+# SAVIA interno — rama privada
+
+Esta rama conserva la historia del backend y desarrolla el sistema de gestión
+para personal y propietarios. El alcance y los límites actuales están en
+[SAVIA-INTERNAL](SAVIA-INTERNAL.md). La tienda pública se mantiene separada;
+los párrafos siguientes documentan la base histórica recuperada y no describen
+un despliegue del sistema interno.
+
 # Martha Silva Store
 
 Repositorio de recuperación y evolución de las demos de Martha Silva. Conserva código, evidencia y decisiones sin confundir una demo con una tienda en producción.

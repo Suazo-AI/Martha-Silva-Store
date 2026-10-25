@@ -51,6 +51,11 @@
             <p id="clients-error" class="error" data-section-error="clientes" role="alert" hidden></p>
             <div id="clients-empty" class="empty-state section-empty" data-section-empty="clientes" hidden><h3>Sin clientes para mostrar</h3><p>Probá otra búsqueda. El registro de clientes estará disponible cuando se habilite esa operación.</p></div>
             <div class="table-wrap" tabindex="0" role="region" aria-label="Tabla de clientes; desplazamiento horizontal si es necesario"><table id="clients-table" class="data-table"><caption class="sr-only">Directorio de clientes</caption><thead><tr><th scope="col">Cliente</th><th scope="col">Contacto</th><th scope="col">Estado</th><th scope="col">Acciones</th></tr></thead><tbody id="clients-rows" data-rows="clientes"></tbody></table></div>
+            <div id="clients-pagination" class="pagination" role="group" aria-label="Paginación de clientes">
+              <label class="pagination-size" for="clients-page-size">Clientes por página<select id="clients-page-size" name="pageSize" data-page-size="clientes" aria-controls="clients-table" disabled data-server-action><option value="25">25</option><option value="50" selected>50</option><option value="100">100</option></select></label>
+              <p id="clients-page-status" class="pagination-status" data-page-info="clientes" role="status" aria-live="polite" aria-atomic="true">Sin consulta confirmada.</p>
+              <div class="pagination-actions"><button class="btn btn-secondary" type="button" data-action="page-prev" data-target="clientes" data-page-prev="clientes" aria-controls="clients-table" aria-describedby="clients-page-status" disabled data-server-action>Clientes anteriores</button><button class="btn btn-secondary" type="button" data-action="page-next" data-target="clientes" data-page-next="clientes" aria-controls="clients-table" aria-describedby="clients-page-status" disabled data-server-action>Clientes siguientes</button></div>
+            </div>
           </div>
         </section>
         <section data-view="inventario" aria-labelledby="inventory-title" hidden>
@@ -62,6 +67,11 @@
             <p id="inventory-error" class="error" data-section-error="inventario" role="alert" hidden></p>
             <div id="inventory-empty" class="empty-state section-empty" data-section-empty="inventario" hidden><h3>No hay artículos para mostrar</h3><p>Probá otra búsqueda o consultá al responsable del directorio.</p></div>
             <div class="table-wrap" tabindex="0" role="region" aria-label="Tabla de artículos; desplazamiento horizontal si es necesario"><table id="inventory-table" class="data-table"><caption class="sr-only">Artículos del directorio</caption><thead><tr><th scope="col">Artículo</th><th scope="col">SKU</th><th scope="col">Precio informado</th><th scope="col">Estado</th></tr></thead><tbody id="inventory-rows" data-rows="inventario"></tbody></table></div>
+            <div id="inventory-pagination" class="pagination" role="group" aria-label="Paginación de artículos">
+              <label class="pagination-size" for="inventory-page-size">Artículos por página<select id="inventory-page-size" name="pageSize" data-page-size="inventario" aria-controls="inventory-table" disabled data-server-action><option value="25">25</option><option value="50" selected>50</option><option value="100">100</option></select></label>
+              <p id="inventory-page-status" class="pagination-status" data-page-info="inventario" role="status" aria-live="polite" aria-atomic="true">Sin consulta confirmada.</p>
+              <div class="pagination-actions"><button class="btn btn-secondary" type="button" data-action="page-prev" data-target="inventario" data-page-prev="inventario" aria-controls="inventory-table" aria-describedby="inventory-page-status" disabled data-server-action>Artículos anteriores</button><button class="btn btn-secondary" type="button" data-action="page-next" data-target="inventario" data-page-next="inventario" aria-controls="inventory-table" aria-describedby="inventory-page-status" disabled data-server-action>Artículos siguientes</button></div>
+            </div>
           </div>
         </section>
         <section data-view="ventas" aria-labelledby="sales-title" hidden>

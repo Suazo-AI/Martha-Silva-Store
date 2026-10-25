@@ -23,6 +23,19 @@ requiere correo, activación y datos del titular; no tarjeta. El usuario debe
 mantener el control de su cuenta y contraseña. El catálogo de plugins consultado
 no devolvió un conector específico de MonsterASP; no se afirmó que exista.
 
+Compatibilidad pendiente, comprobada contra el código recibido: la guarda
+privada actual acepta únicamente bases `SaviaInternalTest_...`; MonsterASP
+[conserva su prefijo `dbXXXX` incluso al renombrar](https://help.monsterasp.net/databases/tools/rename-database).
+Por eso este candidato no es una conexión directa lista para usar. Hace falta
+revisar una configuración explícita del destino de pruebas sin eliminar la
+protección existente. No se implementó ni activó una excepción.
+
+La [cadena de ejemplo del proveedor](https://help.monsterasp.net/databases/mssql/secure-connection)
+incluye `MultipleActiveResultSets=True`; el runner actual exige `False` para
+sus savepoints. También se debe verificar el cifrado y la confianza del
+certificado SQL del destino. No copiar esa cadena a Git ni aplicar defaults
+del proveedor automáticamente.
+
 ## Preparación antes de conectar
 
 - Confirmar titular, plan Free, subdominio y cuenta efectivos, sin copiar claves

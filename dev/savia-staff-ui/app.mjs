@@ -129,6 +129,8 @@ export function mountStaffApp({document = globalThis.document, client = createSt
   const state = {phase: 'loading', session: null, busy: false, view: null};
   let epoch = 0, destroyed = false;
   const reads = new Map();
+  const newPage = () => ({q: '', includeInactive: false, skip: 0, take: 50, status: 'idle', confirmed: null});
+  const pages = new Map([['clientes', newPage()], ['inventario', newPage()]]);
   const listen = (element, event, handler) => {
     element.addEventListener(event, handler);
     removers.push(() => element.removeEventListener(event, handler));
@@ -142,11 +144,14 @@ export function mountStaffApp({document = globalThis.document, client = createSt
     $$('[data-staff-form] button, [data-staff-form] input, [data-staff-form] select, [data-staff-form] textarea').forEach(control => { control.disabled = true; });
   }
   function clearPrivateView() {
+    for (const view of pages.keys()) pages.set(view, newPage());
+    reads.clear();
     $$('[data-rows]').forEach(element => element.replaceChildren());
     $$('[data-session-user], [data-session-role]').forEach(element => { element.textContent = ''; });
     $$('[data-staff-form]').forEach(form => { form.reset(); clearFormErrors(form); });
     $$('dialog[open]').forEach(dialog => dialog.close());
     $$('[data-section-empty]').forEach(element => { element.hidden = true; });
+    for (const view of pages.keys()) updatePager(view);
   }
   function showPending() {
     setVisible($('#staff-shell'), false);
@@ -165,11 +170,39 @@ export function mountStaffApp({document = globalThis.document, client = createSt
     $('#auth-required-title')?.focus();
   }
   const section = view => view === 'clientes' ? 'clients' : 'inventory';
+  function searchDraft(view) {
+    return $(`#${section(view)}-search-form`).elements.namedItem('query').value.trim();
+  }
+  function updatePager(view) {
+    const page = pages.get(view);
+    if (!page) return;
+    const previous = $(`[data-page-prev="${view}"]`), next = $(`[data-page-next="${view}"]`);
+    const size = $(`[data-page-size="${view}"]`), info = $(`[data-page-info="${view}"]`);
+    const dirty = searchDraft(view) !== page.q;
+    const confirmed = page.confirmed;
+    const usable = state.phase === 'ready' && page.status === 'success' && !!confirmed && !dirty;
+    if (previous) previous.disabled = !usable || confirmed.skip === 0;
+    if (next) next.disabled = !usable || confirmed.skip + confirmed.take >= confirmed.total || confirmed.skip + confirmed.take > 100000;
+    if (size) { size.disabled = !usable; size.value = String(page.take); }
+    if (!info) return;
+    if (page.status === 'loading') { info.textContent = 'Consultando la página…'; return; }
+    if (page.status === 'error') { info.textContent = 'Página no confirmada. Volvé a buscar o actualizar.'; return; }
+    if (!confirmed || state.phase !== 'ready') { info.textContent = 'Sin consulta confirmada.'; return; }
+    const range = confirmed.count
+      ? `${confirmed.skip + 1}–${confirmed.skip + confirmed.count} de ${confirmed.total}.`
+      : `Sin registros en esta página. Total informado: ${confirmed.total}.`;
+    const filter = page.q ? ` Búsqueda aplicada: ${page.q}.` : ' Todas las coincidencias.';
+    const pending = dirty ? ' Aplicá la búsqueda para cambiar de página.' : '';
+    const bound = confirmed.skip + confirmed.take > 100000 && confirmed.skip + confirmed.take < confirmed.total
+      ? ' Se alcanzó el límite de navegación; ajustá la búsqueda.' : '';
+    info.textContent = range + filter + pending + bound;
+  }
   function readControls(view, busy) {
     const prefix = section(view);
     const form = $(`#${prefix}-search-form`);
     if (form) for (const control of form.elements) control.disabled = busy || state.phase !== 'ready';
     if (view === 'inventario') $('[data-action="refresh-inventory"]').disabled = busy || state.phase !== 'ready';
+    updatePager(view);
   }
   function renderRecords(view, page) {
     const mount = $(`#${section(view)}-rows`);
@@ -184,7 +217,15 @@ export function mountStaffApp({document = globalThis.document, client = createSt
       fragment.append(tr);
     }
     mount.replaceChildren(fragment);
-    $(`#${section(view)}-empty`).hidden = page.items.length !== 0;
+    const empty = $(`#${section(view)}-empty`);
+    empty.hidden = page.items.length !== 0;
+    if (!page.items.length) {
+      const heading = empty.querySelector('h3'), description = empty.querySelector('p');
+      if (heading) heading.textContent = page.total > 0 ? 'No hay registros en esta página' : 'No hay resultados para esta búsqueda';
+      if (description) description.textContent = page.total > 0
+        ? `El servidor informa ${page.total} registros. Volvé a la página anterior o actualizá la consulta.`
+        : 'Probá otra búsqueda. No se agregaron registros de ejemplo.';
+    }
   }
   async function loadSection(view) {
     if (state.phase !== 'ready' || !state.session || !['clientes', 'inventario'].includes(view)) return;
@@ -192,20 +233,27 @@ export function mountStaffApp({document = globalThis.document, client = createSt
     reads.set(view, requestId);
     const generation = epoch;
     const actor = state.session.id;
-    const query = $(`#${prefix}-search-form`).elements.namedItem('query').value;
+    const pageState = pages.get(view);
+    const applied = {q: pageState.q, includeInactive: pageState.includeInactive, skip: pageState.skip, take: pageState.take};
+    pageState.status = 'loading';
     $(`#${prefix}-error`).hidden = true;
     $(`#${prefix}-empty`).hidden = true;
     $(`#${prefix}-status`).textContent = 'Consultando el directorio autorizado…';
+    $(`#${prefix}-rows`).replaceChildren();
     readControls(view, true);
     try {
-      const page = await (view === 'clientes' ? client.listCustomers({q: query}) : client.listItems({q: query}));
+      const page = await (view === 'clientes' ? client.listCustomers(applied) : client.listItems(applied));
       if (destroyed || generation !== epoch || actor !== state.session?.id || state.phase !== 'ready' || reads.get(view) !== requestId) return;
       renderRecords(view, page);
+      pageState.skip = page.skip; pageState.take = page.take;
+      pageState.confirmed = {skip: page.skip, take: page.take, total: page.total, count: page.items.length};
+      pageState.status = 'success';
       $(`#${prefix}-status`).textContent = `${page.items.length} de ${page.total} registros recibidos del servidor. Las escrituras todavía no están habilitadas.`;
     } catch (error) {
       if (destroyed || generation !== epoch) return;
       if (error?.status === 401) { requireAccess('La sesión venció o ya no está disponible. Volvé a ingresar.'); return; }
       if (reads.get(view) !== requestId) return;
+      pageState.status = 'error'; pageState.confirmed = null;
       $(`#${prefix}-rows`).replaceChildren();
       $(`#${prefix}-error`).textContent = error instanceof StaffRequestError ? error.message : 'No se pudieron cargar los datos. No se muestran resultados de ejemplo.';
       $(`#${prefix}-error`).hidden = false;
@@ -213,6 +261,27 @@ export function mountStaffApp({document = globalThis.document, client = createSt
     } finally {
       if (!destroyed && generation === epoch && reads.get(view) === requestId) readControls(view, false);
     }
+  }
+  function applySearch(view) {
+    const page = pages.get(view);
+    if (!page) return;
+    page.q = searchDraft(view); page.skip = 0;
+    void loadSection(view);
+  }
+  function turnPage(view, direction) {
+    const page = pages.get(view), confirmed = page?.confirmed;
+    if (!page || state.phase !== 'ready' || page.status !== 'success' || !confirmed || searchDraft(view) !== page.q) return;
+    const target = direction === 'previous' ? Math.max(0, confirmed.skip - confirmed.take) : confirmed.skip + confirmed.take;
+    if (target > 100000 || (direction === 'next' && target >= confirmed.total) || target === confirmed.skip) return;
+    page.skip = target;
+    void loadSection(view);
+  }
+  function refreshSection(view) {
+    const page = pages.get(view);
+    if (!page || state.phase !== 'ready') return;
+    // Refresh restores the applied query; it never submits a draft with an old offset.
+    $(`#${section(view)}-search-form`).elements.namedItem('query').value = page.q;
+    return loadSection(view);
   }
   async function verifySession() {
     const generation = ++epoch;
@@ -255,7 +324,7 @@ export function mountStaffApp({document = globalThis.document, client = createSt
     });
     $('#staff-title').textContent = {clientes: 'Clientes', ventas: 'Ventas', inventario: 'Artículos del negocio', abastecimiento: 'Abastecimiento'}[view] || 'SAVIA interno';
     if (moveFocus) $('#staff-title')?.focus();
-    if (load && ['clientes', 'inventario'].includes(view)) void loadSection(view);
+    if (load && ['clientes', 'inventario'].includes(view)) refreshSection(view);
     return true;
   }
   async function logout() {
@@ -273,21 +342,35 @@ export function mountStaffApp({document = globalThis.document, client = createSt
     if (!control || control.disabled) return;
     if (control.dataset.action === 'nav') { event.preventDefault(); navigate(control.dataset.target); }
     if (control.dataset.action === 'logout' && state.phase === 'ready') { event.preventDefault(); void logout(); }
-    if (control.dataset.action === 'refresh-inventory') void loadSection('inventario');
+    if (control.dataset.action === 'refresh-inventory') refreshSection('inventario');
+    if (control.dataset.action === 'page-prev') turnPage(control.dataset.target, 'previous');
+    if (control.dataset.action === 'page-next') turnPage(control.dataset.target, 'next');
     if (control.dataset.action === 'close-dialog') control.closest('dialog')?.close();
+  });
+  listen(document, 'input', event => {
+    if (event.target.matches('#clients-search')) updatePager('clientes');
+    if (event.target.matches('#inventory-search')) updatePager('inventario');
+  });
+  listen(document, 'change', event => {
+    const control = event.target;
+    if (!control.matches('[data-page-size]') || control.disabled || state.phase !== 'ready') return;
+    const view = control.dataset.pageSize, page = pages.get(view), take = Number(control.value);
+    if (!page || page.status !== 'success' || searchDraft(view) !== page.q || ![25, 50, 100].includes(take)) { updatePager(view); return; }
+    page.take = take; page.skip = 0;
+    void loadSection(view);
   });
   listen(document, 'submit', event => {
     if (!event.target.matches('[data-staff-form]')) return;
     event.preventDefault();
     if (state.phase !== 'ready') { announce('La sesión todavía no está verificada. No se envió información.'); return; }
     if (!validateForm(event.target)) return;
-    if (event.target.dataset.staffForm === 'clients-search') { void loadSection('clientes'); return; }
-    if (event.target.dataset.staffForm === 'inventory-search') { void loadSection('inventario'); return; }
+    if (event.target.dataset.staffForm === 'clients-search') { applySearch('clientes'); return; }
+    if (event.target.dataset.staffForm === 'inventory-search') { applySearch('inventario'); return; }
     announce('El guardado todavía no está habilitado: falta la recuperación del resultado del servidor. No se envió información.');
   });
   const ready = verifySession();
   return {
-    ready, navigate, refresh: () => loadSection(state.view),
+    ready, navigate, refresh: () => refreshSection(state.view),
     getState: () => ({phase: state.phase, busy: state.busy, view: state.view,
       authenticated: state.phase === 'ready' && !!state.session, role: state.session?.role || null}),
     destroy() { destroyed = true; ++epoch; state.session = null; clearPrivateView(); lockActions(); setVisible($('#staff-shell'), false); removers.forEach(remove => remove()); },

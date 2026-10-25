@@ -20,9 +20,11 @@ function entity(value, kind) {
 }
 export function createStaffClient(options = {}) {
   const auth = createAuthClient(options);
-  async function list(kind, {q = '', includeInactive = false, partyKind} = {}) {
-    if (typeof q !== 'string' || q.length > 200 || typeof includeInactive !== 'boolean') throw new StaffRequestError('invalid');
-    const params = new URLSearchParams({includeInactive: String(includeInactive)});
+  async function list(kind, {q = '', includeInactive = false, skip = 0, take = 50, partyKind} = {}) {
+    if (typeof q !== 'string' || q.length > 200 || typeof includeInactive !== 'boolean'
+      || !Number.isSafeInteger(skip) || skip < 0 || skip > 100000
+      || !Number.isSafeInteger(take) || take < 1 || take > 100) throw new StaffRequestError('invalid');
+    const params = new URLSearchParams({includeInactive: String(includeInactive), skip: String(skip), take: String(take)});
     if (q.trim()) params.set('q', q.trim());
     if (kind === 'parties') {
       if (!['customer', 'supplier'].includes(partyKind)) throw new StaffRequestError('invalid');
@@ -31,9 +33,12 @@ export function createStaffClient(options = {}) {
     const response = await auth.requestAuthenticated(`/internal/api/directory/${kind}?${params}`);
     if (!response || !Array.isArray(response.items)
       || ![response.total, response.skip, response.take].every(value => Number.isSafeInteger(value) && value >= 0)
-      || response.take < 1 || response.take > 100 || response.skip > 100000) throw new StaffRequestError('response');
+      || response.take < 1 || response.take > 100 || response.skip > 100000
+      || response.skip !== skip || response.take !== take
+      || response.items.length > take) throw new StaffRequestError('response');
     const items = response.items.map(value => entity(value, kind));
-    if (response.total < items.length || (kind === 'parties' && items.some(value => value.kind !== partyKind))) throw new StaffRequestError('response');
+    if (response.total < items.length || (items.length > 0 && response.total < skip + items.length)
+      || (kind === 'parties' && items.some(value => value.kind !== partyKind))) throw new StaffRequestError('response');
     return Object.freeze({items, total: response.total, skip: response.skip, take: response.take});
   }
   return Object.freeze({getSession: auth.getSession, getVerifiedSession: auth.getVerifiedSession,

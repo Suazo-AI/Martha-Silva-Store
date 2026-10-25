@@ -53,7 +53,13 @@
     "syntax_modules_pass": 3,
     "auth_transport_double_pass": 9,
     "dom_client_double_pass": 5,
-    "source_hashes_unchanged_pre_post": 9
+    "source_hashes_unchanged_pre_post": 9,
+    "exit_codes": {
+      "syntax": 0,
+      "auth": 0,
+      "dom": 0,
+      "hash_compare": 0
+    }
   },
   "commands": [
     "node --check dev/savia-staff-ui/app.mjs",
@@ -72,7 +78,6 @@
     "Session revalidation clears the prior identity before waiting for a response"
   ],
   "pending": [
-    "Raw executor logs and structured report attachment",
     "Directory pagination",
     "Directory writes and operation lookup integration",
     "SQL integration",
@@ -84,5 +89,12 @@
     "Transport/client doubles and jsdom do not prove real browser, HTTP, .NET, SQL, mobile or performance behavior",
     "No deployment, GitHub push or CI execution for this code",
     "Earlier f154959 UI candidate was superseded; its preliminary green auth tests did not accept that UI"
-  ]
+  ],
+  "raw_report": {
+    "file": "ui-initial-cloud-raw.txt",
+    "slack_file_id": "F0CCT33P0M6",
+    "sha256": "59bb24b6f2d4bee4cf706a4c196ec8c365a64ef9a5a462b624338ecdebfb6e29",
+    "bytes": 9537,
+    "normalization": "LF and one final newline, original report text retained"
+  }
 }

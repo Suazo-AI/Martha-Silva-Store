@@ -1,0 +1,154 @@
+===== environment.txt =====
+UTC: 2026-10-25T09:04:02Z
+HEAD: b226eff8d34b0e717d6c6069ae3b266d7f0ce45a
+SDK: 10.0.402
+SQL environment names only: Config file names only: Lock/global SHA256:
+3f9b8063fdc946bf82db965d9a228d4ea581390f83680ee3b952fb0ec00b2cf3  global.json
+2db528f3a68ac0cc09b3658d2b9bdb5dce10d7e8e36304c560f087e8cca50c58  backend/src/Martha.Store.Api/packages.lock.json
+e232fda3e775f3d736d1aafd214638654ba432ff90ea8a99262233bb9e055195  backend/tests/Martha.Store.Api.Tests/packages.lock.json
+
+
+===== final-head.txt =====
+Test HEAD: bab81bf3e8553ab771e1cc6a46c09f5d6831fb2b
+
+
+===== restore.log =====
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+
+Restore exit: 0
+
+
+===== build-final.log =====
+  Martha.Store.Api -> /workspace/scratch/14cff504045e/savia-internal/judge/backend/src/Martha.Store.Api/bin/Release/net10.0/Martha.Store.Api.dll
+  Martha.Store.Api.Tests -> /workspace/scratch/14cff504045e/savia-internal/judge/backend/tests/Martha.Store.Api.Tests/bin/Release/net10.0/Martha.Store.Api.Tests.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:07.14
+
+Build exit: 0
+
+
+===== test.log =====
+Test run for /workspace/scratch/14cff504045e/savia-internal/judge/backend/tests/Martha.Store.Api.Tests/bin/Release/net10.0/Martha.Store.Api.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.36]     Martha.Store.Api.Tests.InternalJudgeTests.Real_program_sql_login_issues_cookie_and_logout_revokes_even_the_replayed_old_cookie [SKIP]
+  Skipped Martha.Store.Api.Tests.InternalJudgeTests.Real_program_sql_login_issues_cookie_and_logout_revokes_even_the_replayed_old_cookie [1 ms]
+[xUnit.net 00:00:00.45]     Martha.Store.Api.Tests.InternalRunnerSqlTests.Storage_exception_after_action_started_is_unknown_not_retried_and_no_partial_write_survives [SKIP]
+[xUnit.net 00:00:00.45]     Martha.Store.Api.Tests.InternalRunnerSqlTests.Typed_replay_preserves_nested_arrays_integer_money_nulls_and_timestamp [SKIP]
+[xUnit.net 00:00:00.45]     Martha.Store.Api.Tests.InternalRunnerSqlTests.Replay_identity_isolated_by_actor_scope_and_case_sensitive_key [SKIP]
+[xUnit.net 00:00:00.45]     Martha.Store.Api.Tests.InternalRunnerSqlTests.Concurrent_same_identity_serializes_action_once_and_returns_the_same_replay [SKIP]
+[xUnit.net 00:00:00.45]     Martha.Store.Api.Tests.InternalRunnerSqlTests.Persisted_role_change_revokes_old_permission_before_replay_and_current_role_cannot_replay_it [SKIP]
+  Skipped Martha.Store.Api.Tests.InternalRunnerSqlTests.Storage_exception_after_action_started_is_unknown_not_retried_and_no_partial_write_survives [1 ms]
+  Skipped Martha.Store.Api.Tests.InternalRunnerSqlTests.Typed_replay_preserves_nested_arrays_integer_money_nulls_and_timestamp [1 ms]
+  Skipped Martha.Store.Api.Tests.InternalRunnerSqlTests.Replay_identity_isolated_by_actor_scope_and_case_sensitive_key [1 ms]
+  Skipped Martha.Store.Api.Tests.InternalRunnerSqlTests.Concurrent_same_identity_serializes_action_once_and_returns_the_same_replay [1 ms]
+  Skipped Martha.Store.Api.Tests.InternalRunnerSqlTests.Persisted_role_change_revokes_old_permission_before_replay_and_current_role_cannot_replay_it [1 ms]
+[xUnit.net 00:00:00.45]     Martha.Store.Api.Tests.InternalRunnerSqlTests.Persisted_revocation_rejects_both_existing_replay_and_new_action [SKIP]
+  Skipped Martha.Store.Api.Tests.InternalRunnerSqlTests.Persisted_revocation_rejects_both_existing_replay_and_new_action [1 ms]
+[xUnit.net 00:00:01.25]     Martha.Store.Api.Tests.InternalSupplySqlServerTests.Concurrent_duplicate_physical_receipts_never_increment_twice [SKIP]
+  Skipped Martha.Store.Api.Tests.InternalSupplySqlServerTests.Concurrent_duplicate_physical_receipts_never_increment_twice [1 ms]
+[xUnit.net 00:00:01.25]     Martha.Store.Api.Tests.InternalSupplySqlServerTests.Partial_multiline_receipt_replays_without_duplicate_stock_and_completes_remainder [SKIP]
+[xUnit.net 00:00:01.25]     Martha.Store.Api.Tests.InternalSupplySqlServerTests.Competing_receipts_for_last_units_cannot_overreceive [SKIP]
+[xUnit.net 00:00:01.25]     Martha.Store.Api.Tests.InternalSupplySqlServerTests.Second_line_stock_failure_rolls_back_first_counter_stock_movement_and_receipt [SKIP]
+[xUnit.net 00:00:01.25]     Martha.Store.Api.Tests.InternalSupplySqlServerTests.Cancelling_partial_order_preserves_received_stock_and_closes_only_remainder [SKIP]
+[xUnit.net 00:00:01.25]     Martha.Store.Api.Tests.InternalSupplySqlServerTests.Revoked_staff_session_cannot_mutate_or_replay_supply_commands [SKIP]
+[xUnit.net 00:00:01.25]     Martha.Store.Api.Tests.InternalSupplySqlServerTests.Overreceipt_rejects_every_line_and_conflicting_receipt_identity_cannot_be_reused [SKIP]
+[xUnit.net 00:00:01.25]     Martha.Store.Api.Tests.InternalCommerceSqlTests.Concurrent_consumers_cannot_oversell_one_available_unit [SKIP]
+[xUnit.net 00:00:01.25]     Martha.Store.Api.Tests.InternalCommerceSqlTests.Caller_rollback_removes_prior_line_updates_and_their_saved_movement_rows [SKIP]
+[xUnit.net 00:00:01.25]     Martha.Store.Api.Tests.InternalCommerceSqlTests.Ledger_rejects_lower_isolation_before_mutating_SQL [SKIP]
+  Skipped Martha.Store.Api.Tests.InternalSupplySqlServerTests.Partial_multiline_receipt_replays_without_duplicate_stock_and_completes_remainder [1 ms]
+  Skipped Martha.Store.Api.Tests.InternalSupplySqlServerTests.Competing_receipts_for_last_units_cannot_overreceive [1 ms]
+  Skipped Martha.Store.Api.Tests.InternalSupplySqlServerTests.Second_line_stock_failure_rolls_back_first_counter_stock_movement_and_receipt [1 ms]
+  Skipped Martha.Store.Api.Tests.InternalSupplySqlServerTests.Cancelling_partial_order_preserves_received_stock_and_closes_only_remainder [1 ms]
+  Skipped Martha.Store.Api.Tests.InternalSupplySqlServerTests.Revoked_staff_session_cannot_mutate_or_replay_supply_commands [1 ms]
+  Skipped Martha.Store.Api.Tests.InternalSupplySqlServerTests.Overreceipt_rejects_every_line_and_conflicting_receipt_identity_cannot_be_reused [1 ms]
+  Skipped Martha.Store.Api.Tests.InternalCommerceSqlTests.Concurrent_consumers_cannot_oversell_one_available_unit [1 ms]
+  Skipped Martha.Store.Api.Tests.InternalCommerceSqlTests.Caller_rollback_removes_prior_line_updates_and_their_saved_movement_rows [1 ms]
+  Skipped Martha.Store.Api.Tests.InternalCommerceSqlTests.Ledger_rejects_lower_isolation_before_mutating_SQL [1 ms]
+[xUnit.net 00:00:01.25]     Martha.Store.Api.Tests.InternalCommerceSqlTests.Ledger_creates_only_zero_based_balance_and_records_server_actor [SKIP]
+[xUnit.net 00:00:01.25]     Martha.Store.Api.Tests.InternalCommerceSqlTests.Reserved_units_and_upper_stock_bound_cannot_be_consumed_or_overflowed [SKIP]
+[xUnit.net 00:00:01.26]     Martha.Store.Api.Tests.InternalCommerceSqlTests.Concurrent_first_receipts_initialize_one_balance_without_lost_quantity [SKIP]
+  Skipped Martha.Store.Api.Tests.InternalCommerceSqlTests.Ledger_creates_only_zero_based_balance_and_records_server_actor [1 ms]
+  Skipped Martha.Store.Api.Tests.InternalCommerceSqlTests.Reserved_units_and_upper_stock_bound_cannot_be_consumed_or_overflowed [1 ms]
+  Skipped Martha.Store.Api.Tests.InternalCommerceSqlTests.Concurrent_first_receipts_initialize_one_balance_without_lost_quantity [1 ms]
+[xUnit.net 00:00:01.28]     Martha.Store.Api.Tests.SqlServerIntegrationTests.Concurrent_same_key_replays_exact_response_and_conflicting_payload_is_409 [SKIP]
+[xUnit.net 00:00:01.28]     Martha.Store.Api.Tests.SqlServerIntegrationTests.Migrated_database_exposes_only_synthetic_catalog_and_seed_is_non_replenishing [SKIP]
+[xUnit.net 00:00:01.28]     Martha.Store.Api.Tests.SqlServerIntegrationTests.Twenty_distinct_requests_for_last_unit_have_exactly_one_winner [SKIP]
+[xUnit.net 00:00:01.28]     Martha.Store.Api.Tests.SqlServerIntegrationTests.Client_supplied_price_total_and_customer_fields_are_rejected_without_mutation [SKIP]
+[xUnit.net 00:00:01.28]     Martha.Store.Api.Tests.SqlServerIntegrationTests.Invalid_quantities_reject_without_any_persistent_change [SKIP]
+[xUnit.net 00:00:01.28]     Martha.Store.Api.Tests.SqlServerIntegrationTests.Failed_insert_rolls_back_stock_and_leaves_no_order_or_idempotency_fragment [SKIP]
+  Skipped Martha.Store.Api.Tests.SqlServerIntegrationTests.Concurrent_same_key_replays_exact_response_and_conflicting_payload_is_409 [1 ms]
+  Skipped Martha.Store.Api.Tests.SqlServerIntegrationTests.Migrated_database_exposes_only_synthetic_catalog_and_seed_is_non_replenishing [1 ms]
+  Skipped Martha.Store.Api.Tests.SqlServerIntegrationTests.Twenty_distinct_requests_for_last_unit_have_exactly_one_winner [1 ms]
+  Skipped Martha.Store.Api.Tests.SqlServerIntegrationTests.Client_supplied_price_total_and_customer_fields_are_rejected_without_mutation [1 ms]
+  Skipped Martha.Store.Api.Tests.SqlServerIntegrationTests.Invalid_quantities_reject_without_any_persistent_change [1 ms]
+  Skipped Martha.Store.Api.Tests.SqlServerIntegrationTests.Failed_insert_rolls_back_stock_and_leaves_no_order_or_idempotency_fragment [1 ms]
+[xUnit.net 00:00:01.31]     Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Repeated_and_concurrent_cancellation_releases_once_without_changing_on_hand [SKIP]
+[xUnit.net 00:00:01.31]     Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Movement_ledger_reconciles_balances_and_reservation_states [SKIP]
+[xUnit.net 00:00:01.31]     Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Durable_rejection_replays_after_availability_changes_and_attempt_conflicts [SKIP]
+[xUnit.net 00:00:01.31]     Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Partial_or_inconsistent_seed_is_rejected_without_replenishment [SKIP]
+[xUnit.net 00:00:01.31]     Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Repeating_seed_preserves_reserved_and_released_balances_and_ledger [SKIP]
+  Skipped Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Repeated_and_concurrent_cancellation_releases_once_without_changing_on_hand [1 ms]
+  Skipped Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Movement_ledger_reconciles_balances_and_reservation_states [1 ms]
+  Skipped Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Durable_rejection_replays_after_availability_changes_and_attempt_conflicts [1 ms]
+  Skipped Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Partial_or_inconsistent_seed_is_rejected_without_replenishment [1 ms]
+  Skipped Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Repeating_seed_preserves_reserved_and_released_balances_and_ledger [1 ms]
+[xUnit.net 00:00:01.31]     Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Lost_response_after_commit_is_recovered_by_lookup_and_stable_retry [SKIP]
+[xUnit.net 00:00:01.31]     Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Concurrent_same_key_replays_creation_and_changed_payload_conflicts [SKIP]
+[xUnit.net 00:00:01.31]     Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Authority_mismatch_cannot_mutate_or_rewrite_persisted_authority [SKIP]
+[xUnit.net 00:00:01.31]     Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Bulk_ledger_and_attempt_mutations_are_rejected_by_SQL_and_rollback_all_changes [SKIP]
+[xUnit.net 00:00:01.31]     Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Creation_replay_is_original_after_cancellation_while_get_is_current [SKIP]
+[xUnit.net 00:00:01.32]     Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Twenty_distinct_reservations_for_last_unit_have_one_winner_and_balanced_ledger [SKIP]
+[xUnit.net 00:00:01.32]     Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Seed_rejects_orphan_success_attempt_without_reservation_movement_or_valid_receipt [SKIP]
+[xUnit.net 00:00:01.32]     Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Bulk_creation_receipt_and_fields_cannot_diverge_from_original_replay [SKIP]
+[xUnit.net 00:00:01.32]     Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Failed_cancellation_movement_rolls_back_release_state_and_attempt [SKIP]
+  Skipped Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Lost_response_after_commit_is_recovered_by_lookup_and_stable_retry [1 ms]
+  Skipped Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Concurrent_same_key_replays_creation_and_changed_payload_conflicts [1 ms]
+  Skipped Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Authority_mismatch_cannot_mutate_or_rewrite_persisted_authority [1 ms]
+  Skipped Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Bulk_ledger_and_attempt_mutations_are_rejected_by_SQL_and_rollback_all_changes [1 ms]
+  Skipped Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Creation_replay_is_original_after_cancellation_while_get_is_current [1 ms]
+  Skipped Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Twenty_distinct_reservations_for_last_unit_have_one_winner_and_balanced_ledger [1 ms]
+  Skipped Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Seed_rejects_orphan_success_attempt_without_reservation_movement_or_valid_receipt [1 ms]
+  Skipped Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Bulk_creation_receipt_and_fields_cannot_diverge_from_original_replay [1 ms]
+  Skipped Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Failed_cancellation_movement_rolls_back_release_state_and_attempt [1 ms]
+[xUnit.net 00:00:01.32]     Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Failed_reservation_movement_rolls_back_balance_reservation_and_attempt [SKIP]
+  Skipped Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Failed_reservation_movement_rolls_back_balance_reservation_and_attempt [1 ms]
+[xUnit.net 00:00:01.34]     Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Concurrent_cancel_and_return_have_only_one_stock_reversal [SKIP]
+  Skipped Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Concurrent_cancel_and_return_have_only_one_stock_reversal [1 ms]
+[xUnit.net 00:00:01.34]     Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Historical_cancellation_can_restore_inactive_item_and_location [SKIP]
+[xUnit.net 00:00:01.34]     Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Mixed_currency_sale_is_rejected_without_inventory_mutation [SKIP]
+[xUnit.net 00:00:01.34]     Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Partial_full_return_replay_and_excess_return_preserve_quantity_and_original_price [SKIP]
+[xUnit.net 00:00:01.34]     Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Cancel_replays_and_different_key_cancel_cannot_restock_twice_or_refund_bank_money [SKIP]
+[xUnit.net 00:00:01.34]     Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Same_sale_key_with_different_payload_is_a_conflict_not_a_second_sale [SKIP]
+[xUnit.net 00:00:01.34]     Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Server_priced_multiline_sale_replays_immutable_receipt_after_price_change [SKIP]
+[xUnit.net 00:00:01.34]     Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Rejected_later_line_rolls_back_earlier_line_and_failure_replay_remains_immutable [SKIP]
+[xUnit.net 00:00:01.34]     Martha.Store.Api.Tests.InternalSecuritySqlTests.Failed_login_lockout_is_persisted_across_scopes_and_correct_password_cannot_bypass_it [SKIP]
+[xUnit.net 00:00:01.34]     Martha.Store.Api.Tests.InternalSecuritySqlTests.Concurrent_owner_demotions_cannot_remove_every_enabled_owner [SKIP]
+  Skipped Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Historical_cancellation_can_restore_inactive_item_and_location [1 ms]
+  Skipped Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Mixed_currency_sale_is_rejected_without_inventory_mutation [1 ms]
+  Skipped Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Partial_full_return_replay_and_excess_return_preserve_quantity_and_original_price [1 ms]
+  Skipped Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Cancel_replays_and_different_key_cancel_cannot_restock_twice_or_refund_bank_money [1 ms]
+  Skipped Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Same_sale_key_with_different_payload_is_a_conflict_not_a_second_sale [1 ms]
+  Skipped Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Server_priced_multiline_sale_replays_immutable_receipt_after_price_change [1 ms]
+  Skipped Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Rejected_later_line_rolls_back_earlier_line_and_failure_replay_remains_immutable [1 ms]
+  Skipped Martha.Store.Api.Tests.InternalSecuritySqlTests.Failed_login_lockout_is_persisted_across_scopes_and_correct_password_cannot_bypass_it [1 ms]
+  Skipped Martha.Store.Api.Tests.InternalSecuritySqlTests.Concurrent_owner_demotions_cannot_remove_every_enabled_owner [1 ms]
+[xUnit.net 00:00:01.34]     Martha.Store.Api.Tests.InternalSecuritySqlTests.Owner_role_change_and_disablement_revoke_old_cookies_and_stale_versions_conflict [SKIP]
+[xUnit.net 00:00:01.34]     Martha.Store.Api.Tests.InternalSecuritySqlTests.Last_owner_cannot_be_disabled_or_demoted_and_non_owner_cannot_create_staff [SKIP]
+[xUnit.net 00:00:01.34]     Martha.Store.Api.Tests.InternalSecuritySqlTests.Password_reset_rotates_version_and_revokes_sessions_without_exposing_hash [SKIP]
+[xUnit.net 00:00:01.34]     Martha.Store.Api.Tests.InternalSecuritySqlTests.Successful_login_is_persisted_replaces_previous_session_and_logout_revokes_it [SKIP]
+  Skipped Martha.Store.Api.Tests.InternalSecuritySqlTests.Owner_role_change_and_disablement_revoke_old_cookies_and_stale_versions_conflict [1 ms]
+  Skipped Martha.Store.Api.Tests.InternalSecuritySqlTests.Last_owner_cannot_be_disabled_or_demoted_and_non_owner_cannot_create_staff [1 ms]
+  Skipped Martha.Store.Api.Tests.InternalSecuritySqlTests.Password_reset_rotates_version_and_revokes_sessions_without_exposing_hash [1 ms]
+  Skipped Martha.Store.Api.Tests.InternalSecuritySqlTests.Successful_login_is_persisted_replaces_previous_session_and_logout_revokes_it [1 ms]
+[xUnit.net 00:00:05.25]     Martha.Store.Api.Tests.InternalJudgeTests.Real_program_sql_role_change_and_disablement_revoke_cookies_and_enforce_new_role [SKIP]
+  Skipped Martha.Store.Api.Tests.InternalJudgeTests.Real_program_sql_role_change_and_disablement_revoke_cookies_and_enforce_new_role [1 ms]
+Results File: /workspace/scratch/14cff504045e/savia-internal/evidence-final-b226eff/final.trx
+
+Passed!  - Failed:     0, Passed:   435, Skipped:    56, Total:   491, Duration: 5 s - Martha.Store.Api.Tests.dll (net10.0)
+
+Test exit: 0
