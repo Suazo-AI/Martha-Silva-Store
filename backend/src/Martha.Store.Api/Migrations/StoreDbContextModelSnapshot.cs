@@ -290,6 +290,8 @@ namespace Martha.Store.Api.Migrations
 
                     b.ToTable("SaviaAttempts", t =>
                         {
+                t.UseSqlOutputClause(false);
+                t.HasTrigger("TR_SaviaAttempts_AppendOnly");
                             t.HasCheckConstraint("CK_SaviaAttempts_Authority", "[Mode] = 'savia' AND [InstanceId] = 'savia-synthetic-v2' AND [Epoch] = 1");
 
                             t.HasCheckConstraint("CK_SaviaAttempts_Operation", "[Operation] IN ('reserve','cancel')");
@@ -356,6 +358,8 @@ namespace Martha.Store.Api.Migrations
 
                     b.ToTable("SaviaReservations", t =>
                         {
+                t.UseSqlOutputClause(false);
+                t.HasTrigger("TR_SaviaReservations_ImmutableCreation");
                             t.HasCheckConstraint("CK_SaviaReservations_Quantity", "[Quantity] >= 1 AND [Quantity] <= 100");
 
                             t.HasCheckConstraint("CK_SaviaReservations_Price", "[UnitPriceMinor] >= 0 AND [UnitPriceMinor] <= 9000000000000 AND [TotalMinor] = [UnitPriceMinor] * [Quantity] AND [Currency] = 'XXX'");
@@ -429,6 +433,8 @@ namespace Martha.Store.Api.Migrations
 
                     b.ToTable("SaviaMovements", t =>
                         {
+                t.UseSqlOutputClause(false);
+                t.HasTrigger("TR_SaviaMovements_AppendOnly");
                             t.HasCheckConstraint("CK_SaviaMovements_Authority", "[Mode] = 'savia' AND [InstanceId] = 'savia-synthetic-v2' AND [Epoch] = 1");
 
                             t.HasCheckConstraint("CK_SaviaMovements_Delta", "[OnHandDelta] = 0 AND (([Kind] = 'reserve' AND [ReservedDelta] BETWEEN 1 AND 100) OR ([Kind] = 'cancel' AND [ReservedDelta] BETWEEN -100 AND -1))");

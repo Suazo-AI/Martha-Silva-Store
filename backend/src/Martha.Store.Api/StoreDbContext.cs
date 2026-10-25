@@ -17,6 +17,14 @@ public sealed class StoreDbContext(DbContextOptions<StoreDbContext> options) : D
     {
         if (ChangeTracker.Entries().Any(e => (e.Entity is SaviaAttempt or SaviaMovement) && e.State is EntityState.Modified or EntityState.Deleted))
             throw new InvalidOperationException("SAVIA attempts and movements are append-only.");
+        foreach (var entry in ChangeTracker.Entries<SaviaReservation>())
+        {
+            if (entry.State == EntityState.Deleted || entry.State == EntityState.Modified &&
+                (entry.Properties.Any(p => p.IsModified && p.Metadata.Name is not (nameof(SaviaReservation.State) or nameof(SaviaReservation.CancelledAt)))
+                 || entry.OriginalValues.GetValue<string>(nameof(SaviaReservation.State)) != "active"
+                 || entry.Entity.State != "cancelled" || entry.Entity.CancelledAt is null))
+                throw new InvalidOperationException("SAVIA reservation creation fields are immutable; only cancellation is allowed.");
+        }
     }
     public override int SaveChanges(bool acceptAllChangesOnSuccess)
     {

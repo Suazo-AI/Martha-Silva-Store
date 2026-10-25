@@ -31,6 +31,8 @@ internal static class SaviaModel
             r.Property(x => x.Currency).HasMaxLength(3).IsUnicode(false).UseCollation("Latin1_General_100_BIN2");
             r.ToTable("SaviaReservations", t =>
             {
+                t.UseSqlOutputClause(false);
+                t.HasTrigger("TR_SaviaReservations_ImmutableCreation");
                 t.HasCheckConstraint("CK_SaviaReservations_Quantity", "[Quantity] >= 1 AND [Quantity] <= 100");
                 t.HasCheckConstraint("CK_SaviaReservations_Price", "[UnitPriceMinor] >= 0 AND [UnitPriceMinor] <= 9000000000000 AND [TotalMinor] = [UnitPriceMinor] * [Quantity] AND [Currency] = 'XXX'");
                 t.HasCheckConstraint("CK_SaviaReservations_State", "([State] = 'active' AND [CancelledAt] IS NULL) OR ([State] = 'cancelled' AND [CancelledAt] IS NOT NULL)");
@@ -48,6 +50,8 @@ internal static class SaviaModel
             a.HasIndex(x => new { x.Operation, x.IdempotencyKey }).IsUnique();
             a.ToTable("SaviaAttempts", t =>
             {
+                t.UseSqlOutputClause(false);
+                t.HasTrigger("TR_SaviaAttempts_AppendOnly");
                 t.HasCheckConstraint("CK_SaviaAttempts_Authority", AuthoritySql);
                 t.HasCheckConstraint("CK_SaviaAttempts_Operation", "[Operation] IN ('reserve','cancel')");
                 t.HasCheckConstraint("CK_SaviaAttempts_Result", "([Outcome] = 'succeeded' AND [ResultJson] IS NOT NULL AND ISJSON([ResultJson]) = 1 AND [Error] IS NULL) OR ([Outcome] = 'rejected' AND [ResultJson] IS NULL AND [Error] IS NOT NULL)");
@@ -63,6 +67,8 @@ internal static class SaviaModel
             m.Property(x => x.Kind).HasMaxLength(16).IsUnicode(false).UseCollation("Latin1_General_100_BIN2");
             m.ToTable("SaviaMovements", t =>
             {
+                t.UseSqlOutputClause(false);
+                t.HasTrigger("TR_SaviaMovements_AppendOnly");
                 t.HasCheckConstraint("CK_SaviaMovements_Authority", AuthoritySql);
                 t.HasCheckConstraint("CK_SaviaMovements_Delta", "[OnHandDelta] = 0 AND (([Kind] = 'reserve' AND [ReservedDelta] BETWEEN 1 AND 100) OR ([Kind] = 'cancel' AND [ReservedDelta] BETWEEN -100 AND -1))");
             });

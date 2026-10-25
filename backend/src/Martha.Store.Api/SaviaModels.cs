@@ -75,3 +75,6 @@ public sealed class SaviaMovement
     public int Epoch { get; set; } = 1;
     public DateTimeOffset CreatedAt { get; set; }
 }
+
+[JsonUnmappedMemberHandling(JsonUnmappedMemberHandling.Disallow)]
+internal sealed record SaviaCancelPayload(Guid ReservationId, Guid AttemptId, SaviaAuthority Authority);

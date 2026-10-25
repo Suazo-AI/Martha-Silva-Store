@@ -115,6 +115,42 @@ public partial class SaviaV2Ledger : Migration
         migrationBuilder.CreateIndex(name: "IX_SaviaMovements_AttemptId", table: "SaviaMovements", columns: new[] { "AttemptId" }, unique: true);
         migrationBuilder.CreateIndex(name: "IX_SaviaMovements_ReservationId", table: "SaviaMovements", columns: new[] { "ReservationId" });
         migrationBuilder.CreateIndex(name: "IX_SaviaMovements_VariantId_LocationId", table: "SaviaMovements", columns: new[] { "VariantId", "LocationId" });
+        migrationBuilder.Sql("""
+            CREATE TRIGGER [TR_SaviaAttempts_AppendOnly] ON [SaviaAttempts] AFTER UPDATE, DELETE AS
+            BEGIN
+                SET NOCOUNT ON;
+                THROW 51001, 'SAVIA V2 ledger is append-only.', 1;
+            END
+            """);
+        migrationBuilder.Sql("""
+            CREATE TRIGGER [TR_SaviaMovements_AppendOnly] ON [SaviaMovements] AFTER UPDATE, DELETE AS
+            BEGIN
+                SET NOCOUNT ON;
+                THROW 51002, 'SAVIA V2 ledger is append-only.', 1;
+            END
+            """);
+        migrationBuilder.Sql("""
+            CREATE TRIGGER [TR_SaviaReservations_ImmutableCreation] ON [SaviaReservations] AFTER UPDATE, DELETE AS
+            BEGIN
+                SET NOCOUNT ON;
+                IF EXISTS (SELECT 1 FROM deleted d LEFT JOIN inserted i ON i.Id = d.Id WHERE i.Id IS NULL)
+                    THROW 51003, 'SAVIA V2 reservation creation is immutable.', 1;
+                IF EXISTS (
+                    SELECT [Id], [VariantId], [LocationId], [Quantity], [UnitPriceMinor], [TotalMinor], CONVERT(varbinary(max), [Currency]), [CreateAttemptId], [CreatedAt], CONVERT(varbinary(max), [CreationJson]) FROM inserted
+                    EXCEPT
+                    SELECT [Id], [VariantId], [LocationId], [Quantity], [UnitPriceMinor], [TotalMinor], CONVERT(varbinary(max), [Currency]), [CreateAttemptId], [CreatedAt], CONVERT(varbinary(max), [CreationJson]) FROM deleted
+                )
+                    THROW 51003, 'SAVIA V2 reservation creation is immutable.', 1;
+                IF EXISTS (
+                    SELECT 1 FROM inserted i JOIN deleted d ON i.Id = d.Id
+                    WHERE NOT (
+                        (d.State = 'active' AND d.CancelledAt IS NULL AND i.State = 'cancelled' AND i.CancelledAt IS NOT NULL)
+                        OR (d.State = i.State AND (d.CancelledAt = i.CancelledAt OR (d.CancelledAt IS NULL AND i.CancelledAt IS NULL)))
+                    )
+                )
+                    THROW 51003, 'SAVIA V2 permits only the original cancellation transition.', 1;
+            END
+            """);
     }
 
     protected override void Down(MigrationBuilder migrationBuilder)

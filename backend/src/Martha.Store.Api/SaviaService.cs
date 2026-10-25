@@ -69,7 +69,7 @@ public sealed class SaviaService(StoreDbContext db)
     {
         if (request.Authority != Authority) return new(null, "authority_mismatch");
         if (!ValidKey(key) || reservationId == Guid.Empty || request.AttemptId == Guid.Empty) return new(null, "invalid_request");
-        var payload = JsonSerializer.Serialize(new { reservationId, request.AttemptId, request.Authority }, Json);
+        var payload = JsonSerializer.Serialize(new SaviaCancelPayload(reservationId, request.AttemptId, request.Authority), Json);
         await using var tx = await db.Database.BeginTransactionAsync(ct);
         await LockIdentities("cancel", request.AttemptId, key, tx, ct);
         var replay = await Replay<SaviaCancellationReceipt>("cancel", request.AttemptId, key, payload, ct);
