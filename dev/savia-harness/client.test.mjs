@@ -8,7 +8,10 @@ const fixture = { variantId: '33333333-3333-3333-3333-333333333333', locationId:
   sku: 'SYNTHETIC-V2-001', name: 'SYNTHETIC TEST PRODUCT - NOT FOR SALE', unitPriceMinor: 1250,
   currency: 'XXX', onHand: 5, reserved: 0, available: 5, authority: AUTHORITY, synthetic: true };
 const catalog = { synthetic: true, authority: AUTHORITY, items: [fixture] };
-const answer = (status, body) => ({ ok: status >= 200 && status < 300, status, json: async () => structuredClone(body) });
+const answer = (status, body, contentType = 'application/json') => ({ ok: status >= 200 && status < 300, status,
+  headers: { get: name => name === 'content-type' ? contentType : null }, json: async () => structuredClone(body) });
+const problem = (status, code, changes = {}, contentType = 'application/problem+json') => answer(status,
+  { type: 'about:blank', title: code, status, code, traceId: 'contract-test-trace', ...changes }, contentType);
 const reserveReceipt = body => ({ reservationId: '55555555-5555-5555-5555-555555555555', variantId: body.variantId,
   locationId: body.locationId, quantity: body.quantity, unitPriceMinor: 1250, currency: 'XXX', totalMinor: 1250 * body.quantity,
   status: 'active', attemptId: body.attemptId, authority: body.authority, createdAt: '2026-10-25T00:00:00Z', synthetic: true });
@@ -36,7 +39,8 @@ test('only loopback HTTP origins; no remote, credentials, paths or redirects', a
 test('persist exact authority/key/payload before POST; server sets price', async () => {
   const { harness, calls } = setup((url, options, saved) => {
     const attempt = saved.at(-1).attempts[0];
-    assert.equal(attempt.status, 'prepared');
+    assert.equal(saved[0].attempts[0].status, 'prepared');
+    assert.equal(attempt.status, 'unknown');
     assert.equal(options.body, attempt.body);
     assert.equal(options.headers['Idempotency-Key'], attempt.key);
     const body = JSON.parse(options.body);
@@ -112,7 +116,7 @@ test('lookup recovers a committed creation after a lost response', async () => {
 
 test('explicit HTTP rejection differs from 503 uncertainty; no local success or ERP fallback', async () => {
   for (const [status, expected] of [[409, 'rejected'], [503, 'unknown'], [408, 'unknown'], [429, 'unknown']]) {
-    const { harness, calls } = setup(() => answer(status, { code: status === 409 ? 'out_of_stock' : 'storage_unavailable' }));
+    const { harness, calls } = setup(() => problem(status, status === 409 ? 'out_of_stock' : 'storage_unavailable'));
     assert.equal((await harness.reserve()).status, expected);
     assert.equal(harness.state.reservationId, null);
     assert.equal(calls.length, 2);
@@ -178,4 +182,101 @@ test('GET cannot overwrite the immutable creation receipt', async () => {
   await assert.rejects(harness.status(), /immutable original creation/);
   assert.equal(harness.state.creation.status, 'active');
   assert.equal(harness.state.current, null);
+});
+
+test('lost POST followed by retry 4xx never clears unknown or allows another reserve', async t => {
+  const failures = [
+    ['closed gate', () => problem(404, 'not_found')],
+    ['empty response', () => answer(404, {})],
+    ['access denied', () => problem(401, 'unauthorized')],
+    ['forbidden', () => problem(403, 'forbidden')],
+    ['identity conflict', () => problem(409, 'idempotency_conflict')],
+    ['attempt conflict', () => problem(409, 'attempt_conflict')],
+    ['authority conflict', () => problem(409, 'authority_mismatch')],
+    ['coherent business rejection on retry', () => problem(409, 'out_of_stock')],
+    ['coherent validation rejection on retry', () => problem(400, 'invalid_request')]
+  ];
+  for (const [label, failure] of failures) await t.test(label, async () => {
+    let posts = 0;
+    const { harness, calls, saved } = setup((url, options, snapshots) => {
+      assert.equal(snapshots.at(-1).attempts[0].status, 'unknown');
+      if (++posts === 1) throw new Error('Commit could have succeeded; response lost');
+      return failure();
+    });
+    const original = await harness.reserve();
+    const retried = await harness.retry(original.attemptId);
+    assert.equal(retried.status, 'unknown');
+    assert.equal(saved.at(-1).attempts[0].status, 'unknown');
+    assert.equal(calls[1].body, calls[2].body);
+    assert.deepEqual(calls[1].headers, calls[2].headers);
+    await assert.rejects(harness.reserve(), /pending\/unknown/);
+    await assert.rejects(harness.mode('savia'), /original authority/);
+    assert.equal(calls.length, 3);
+  });
+});
+
+test('restored prepared attempt may have executed before crash; retry cannot infer rejection', async () => {
+  const first = setup(() => { throw new Error('response lost'); });
+  await first.harness.reserve();
+  const restored = first.saved[0];
+  assert.equal(restored.attempts[0].status, 'prepared');
+  const second = setup((url, options, snapshots) => {
+    assert.equal(snapshots.at(-1).attempts[0].status, 'unknown');
+    return problem(409, 'out_of_stock');
+  }, restored);
+  assert.equal((await second.harness.retry()).status, 'unknown');
+  assert.equal(second.calls.length, 1);
+  await assert.rejects(second.harness.reserve(), /pending\/unknown/);
+});
+
+test('first send rejects only coherent allowlisted ProblemDetails', async t => {
+  const invalid = [
+    ['bare code', () => answer(409, { code: 'out_of_stock' })],
+    ['empty response', () => answer(404, {})],
+    ['generic route response', () => problem(404, 'not_found')],
+    ['wrong status', () => problem(409, 'out_of_stock', { status: 400 })],
+    ['wrong title', () => problem(409, 'out_of_stock', { title: 'different' })],
+    ['missing trace', () => problem(409, 'out_of_stock', { traceId: null })],
+    ['wrong media type', () => problem(409, 'out_of_stock', {}, 'application/json')],
+    ['identity conflict', () => problem(409, 'attempt_conflict')],
+    ['authority conflict', () => problem(409, 'authority_mismatch')]
+  ];
+  for (const [label, failure] of invalid) await t.test(label, async () => {
+    const { harness } = setup(failure);
+    assert.equal((await harness.reserve()).status, 'unknown');
+    await assert.rejects(harness.reserve(), /pending\/unknown/);
+  });
+  const { harness } = setup(() => problem(409, 'out_of_stock'));
+  assert.equal((await harness.reserve()).status, 'rejected');
+  assert.equal(harness.unresolved().length, 0);
+});
+
+test('durable rejection lookup resolves unknown after a rejected retry', async () => {
+  let posts = 0;
+  const { harness } = setup((url, options) => {
+    if (options.method === 'POST') {
+      if (++posts === 1) throw new Error('response lost');
+      return problem(404, 'not_found');
+    }
+    const attempt = harness.state.attempts[0];
+    return answer(200, { operation: 'reserve', attemptId: attempt.attemptId, authority: attempt.authority,
+      outcome: 'rejected', result: null, error: 'out_of_stock', createdAt: '2026-10-25T00:00:00Z' });
+  });
+  await harness.reserve();
+  assert.equal((await harness.retry()).status, 'unknown');
+  assert.equal((await harness.lookup()).status, 'rejected');
+  assert.equal(harness.unresolved().length, 0);
+});
+
+test('unrecognized rejection in lookup cannot close an unknown attempt', async () => {
+  const { harness } = setup((url, options) => {
+    if (options.method === 'POST') throw new Error('response lost');
+    const attempt = harness.state.attempts[0];
+    return answer(200, { operation: 'reserve', attemptId: attempt.attemptId, authority: attempt.authority,
+      outcome: 'rejected', result: null, error: 'not_found', createdAt: '2026-10-25T00:00:00Z' });
+  });
+  await harness.reserve();
+  await assert.rejects(harness.lookup(), /Unknown attempt lookup outcome/);
+  assert.equal(harness.state.attempts[0].status, 'unknown');
+  await assert.rejects(harness.reserve(), /pending\/unknown/);
 });

@@ -29,7 +29,7 @@ Los resultados impresos son respuestas HTTP o estado de transporte local, nunca 
 
 ## Timeout y reintento
 
-Antes de cada POST se guarda `.state.json` (ignorado por Git) con operación, autoridad original, attemptId, clave y payload exacto. El origen original también queda fijado. Fallar la escritura impide el POST. El lock exclusivo evita dos procesos sobre el mismo archivo; si un proceso fue interrumpido, inspeccionar que terminó antes de retirar manualmente su `.lock`. No borrar estado para resolver un timeout: podría ocultar un intento ya confirmado en SQL.
+Antes de cada POST se conserva el estado incierto `unknown` en disco; el guardado inicial `prepared` también se trata como incierto si se recupera tras una interrupción. Se guarda `.state.json` (ignorado por Git) con operación, autoridad original, attemptId, clave y payload exacto. El origen original también queda fijado. Fallar la escritura impide el POST. El lock exclusivo evita dos procesos sobre el mismo archivo; si un proceso fue interrumpido, inspeccionar que terminó antes de retirar manualmente su `.lock`. No borrar estado para resolver un timeout: podría ocultar un intento ya confirmado en SQL.
 
 ```powershell
 node dev/savia-harness/cli.mjs attempts
@@ -37,7 +37,7 @@ node dev/savia-harness/cli.mjs lookup
 node dev/savia-harness/cli.mjs retry
 ```
 
-`lookup` usa `GET /api/v2/synthetic/attempts/{reserve|cancel}/{attemptId}`. `404 attempt_unknown` significa resultado desconocido; no equivale a rechazo ni prueba que el POST no haya ejecutado. Un rechazo persistido tiene `outcome:rejected`. Tras `unknown`, `retry` reenvía exactamente el POST guardado: misma autoridad, clave, attemptId, payload y ruta, sin releer catálogo ni generar otra autoridad. Mientras existe un intento pendiente/desconocido no se admite una nueva reserva/cancelación ni cambio de modo.
+`lookup` usa `GET /api/v2/synthetic/attempts/{reserve|cancel}/{attemptId}`. `404 attempt_unknown` significa resultado desconocido; no equivale a rechazo ni prueba que el POST no haya ejecutado. Un rechazo persistido tiene `outcome:rejected`. En un primer envío solo se reconoce como rechazo un ProblemDetails coherente del contrato y con código permitido. Un 4xx de un reintento no resuelve el resultado original, aunque parezca un rechazo de negocio: conserva `unknown` hasta recibir el éxito exacto o consultar un recibo durable. Respuestas de acceso, rutas cerradas, conflictos de identidad o cuerpos inválidos nunca habilitan una nueva reserva pendiente. Tras `unknown`, `retry` reenvía exactamente el POST guardado: misma autoridad, clave, attemptId, payload y ruta, sin releer catálogo ni generar otra autoridad. Mientras existe un intento pendiente/desconocido no se admite una nueva reserva/cancelación ni cambio de modo.
 
 `lookup <attemptId>` y `retry <attemptId>` permiten escoger un intento anterior. Repetir la creación después de cancelar conserva el recibo original `status:active`; `status` hace un GET separado cuyo estado mutable será `cancelled`. Repetir la misma cancelación usa su clave original. Una cancelación nueva sobre una reserva ya cancelada puede devolver `already_cancelled` y liberación cero. El harness solo muestra movimientos reales de `GET /movements`; no los calcula localmente.
 

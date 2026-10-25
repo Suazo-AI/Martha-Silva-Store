@@ -7,6 +7,21 @@ const clone = value => JSON.parse(JSON.stringify(value));
 const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 const authorityMatches = a => a?.mode === AUTHORITY.mode && a?.instanceId === AUTHORITY.instanceId && a?.epoch === AUTHORITY.epoch;
 const pending = attempt => ['prepared', 'unknown'].includes(attempt.status);
+const rejectionStatuses = {
+  reserve: { invalid_request: 400, unknown_variant: 404, unknown_location: 404, out_of_stock: 409 },
+  cancel: { invalid_request: 400, reservation_not_found: 404 }
+};
+const durableRejections = {
+  reserve: ['unknown_variant', 'unknown_location', 'authority_mismatch', 'out_of_stock'],
+  cancel: ['reservation_not_found']
+};
+function coherentRejection(operation, response) {
+  const problem = response.body;
+  return response.contentType === 'application/problem+json' && problem?.status === response.status
+    && typeof problem.code === 'string' && problem.title === problem.code
+    && typeof problem.traceId === 'string' && problem.traceId.length > 0
+    && rejectionStatuses[operation]?.[problem.code] === response.status;
+}
 
 export function loopbackOrigin(value) {
   const url = new URL(value);
@@ -70,7 +85,8 @@ export class Harness {
         headers: { Accept: 'application/json', ...options.headers }, signal: controller.signal,
         redirect: 'error' });
       const body = await response.json();
-      return { status: response.status, ok: response.ok, body };
+      const contentType = response.headers?.get('content-type')?.split(';')[0].trim().toLowerCase();
+      return { status: response.status, ok: response.ok, body, contentType };
     } finally { clearTimeout(timer); }
   }
 
@@ -123,14 +139,14 @@ export class Harness {
     const { items: [fixture] } = await this.catalog();
     const attempt = await this.prepare('reserve', { variantId: fixture.variantId,
       locationId: fixture.locationId, quantity }, ROOT + '/reservations');
-    return this.dispatch(attempt);
+    return this.dispatch(attempt, true);
   }
 
   async cancel() {
     if (!this.state.reservationId) throw new Error('No known reservation; resolve the reserve attempt first');
     const attempt = await this.prepare('cancel', {}, ROOT + '/reservations/'
       + encodeURIComponent(this.state.reservationId) + '/cancel');
-    return this.dispatch(attempt);
+    return this.dispatch(attempt, true);
   }
 
   accept(attempt, receipt) {
@@ -159,7 +175,14 @@ export class Harness {
     attempt.error = null;
   }
 
-  async dispatch(attempt) {
+  async dispatch(attempt, fresh = false) {
+    // Only the first send in this process can acknowledge its own coherent rejection.
+    // A restored prepared attempt may already have committed before a crash.
+    const canAcknowledgeRejection = fresh && attempt.status === 'prepared';
+    if (pending(attempt)) {
+      attempt.status = 'unknown';
+      await this.persist(); // Keep uncertainty durable before the request can execute.
+    }
     let response;
     try {
       response = await this.request(attempt.path, { method: 'POST',
@@ -167,16 +190,17 @@ export class Harness {
       if (response.ok) {
         if (response.status !== (attempt.operation === 'reserve' ? 201 : 200)) throw new Error('Unexpected successful HTTP status');
         this.accept(attempt, response.body);
-      } else if (response.status >= 400 && response.status < 500 && ![408, 429].includes(response.status)) {
-        // A concrete rejection is different from transport uncertainty. Preserve prior receipts.
-        if (attempt.status !== 'succeeded') attempt.status = 'rejected';
-        attempt.error = response.body?.code ?? 'request_rejected';
+      } else if (canAcknowledgeRejection && coherentRejection(attempt.operation, response)) {
+        attempt.status = 'rejected';
+        attempt.error = response.body.code;
       } else {
-        if (attempt.status !== 'succeeded') attempt.status = 'unknown';
+        // A gate/access/identity failure on retry says nothing about the original POST.
+        // Only an exact success or durable attempt lookup can resolve that uncertainty.
+        if (pending(attempt)) attempt.status = 'unknown';
         attempt.error = response.body?.code ?? 'outcome_unknown';
       }
     } catch (error) {
-      if (attempt.status !== 'succeeded') attempt.status = 'unknown';
+      if (pending(attempt)) attempt.status = 'unknown';
       attempt.error = error.name === 'AbortError' ? 'timeout_outcome_unknown' : 'transport_or_contract_outcome_unknown';
     }
     await this.persist();
@@ -207,7 +231,8 @@ export class Harness {
       if (receipt.operation !== attempt.operation || receipt.attemptId !== attempt.attemptId
         || !same(receipt.authority, attempt.authority)) throw new Error('Attempt lookup identity mismatch');
       if (receipt.outcome === 'succeeded') this.accept(attempt, receipt.result);
-      else if (receipt.outcome === 'rejected' && receipt.result === null && typeof receipt.error === 'string') {
+      else if (receipt.outcome === 'rejected' && receipt.result === null
+        && durableRejections[attempt.operation].includes(receipt.error)) {
         if (attempt.status === 'succeeded') throw new Error('Lookup contradicts an acknowledged receipt');
         attempt.status = 'rejected';
         attempt.error = receipt.error;
