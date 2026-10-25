@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>SAVIA · Caja de prueba de Martha Silva</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.mjs"></script>
+</head>
+<body data-savia-app>
+  <a class="skip-link" href="#workspace">Ir a la caja</a>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Navegación principal">
+      <a class="brand" href="#caja" data-action="nav" data-target="caja"><strong>SAVIA</strong><span>Martha Silva</span></a>
+      <p class="muted">Tu espacio de venta</p>
+      <nav aria-label="Secciones">
+        <button class="nav-link" data-action="nav" data-target="caja" aria-current="page">Caja <span class="nav-count" data-cart-count>0</span></button>
+        <button class="nav-link" data-action="nav" data-target="catalogo">Catálogo</button>
+        <button class="nav-link" data-action="nav" data-target="ventas">Ventas <span class="nav-count" data-sales-count>0</span></button>
+        <button class="nav-link" data-action="nav" data-target="conexion">Conexión</button>
+        <button class="nav-link" data-action="nav" data-target="ayuda">Ayuda</button>
+      </nav>
+      <div class="sidebar-footer"><span class="status-badge">Demostración</span><p>No se realizan cobros reales.</p><button class="btn btn-secondary" data-action="reset-demo" data-focus-key="reset-demo">Reiniciar demo</button></div>
+    </aside>
+    <div class="workspace">
+      <header class="topbar"><div><p class="eyebrow">MARTHA SILVA · SAVIA</p><h1 id="view-title" tabindex="-1">Nueva venta</h1></div><span class="status-badge">Datos de ejemplo</span></header>
+      <main id="workspace" tabindex="-1">
+        <p class="demo-banner">Demo sin cobros reales. Los datos están solo en memoria: al recargar se borran la bolsa y las ventas de prueba.</p>
+        <p id="ui-error" class="error" role="alert" tabindex="-1" hidden></p>
+        <section class="pos-layout" data-view="caja" aria-labelledby="view-title">
+          <div class="catalog-panel">
+            <div class="section-heading"><div><h2>Elegí una prenda</h2><p class="muted">Productos, precios y existencias de ejemplo.</p></div><span data-catalog-count>6 prendas</span></div>
+            <div class="toolbar">
+              <label class="search-field" for="product-search">Buscar una prenda<input id="product-search" type="search" data-catalog-search placeholder="Nombre, color o categoría" autocomplete="off"></label>
+              <label class="category-filter" for="category-filter">Categoría<select id="category-filter" data-category-filter><option value="">Todas las categorías</option></select></label>
+            </div>
+            <div class="product-grid" data-product-grid="caja"></div>
+          </div>
+          <aside class="cart-panel" aria-label="Bolsa de la venta de prueba">
+            <div class="section-heading"><h2 data-cart-heading tabindex="-1">Tu bolsa</h2><button class="btn btn-secondary" data-action="clear-cart" data-focus-key="clear-cart" disabled>Vaciar bolsa</button></div>
+            <p class="muted">La bolsa no reserva existencias.</p>
+            <div data-cart-lines></div>
+            <div class="summary"><span>Total de muestra</span><strong data-cart-total>USD 0.00</strong><p class="muted" data-cart-items>0 prendas</p></div>
+            <button class="btn btn-primary" data-action="pay" data-focus-key="pay" disabled>Cobrar venta de prueba</button>
+            <p class="muted">El cobro es una simulación. No ingresés tarjetas.</p>
+          </aside>
+        </section>
+        <section class="catalog-panel" data-view="catalogo" aria-labelledby="view-title" hidden>
+          <div class="section-heading"><p class="view-intro">Consultá las tallas y existencias de los seis productos de ejemplo.</p><button class="btn btn-secondary" data-action="nav" data-target="caja">Ver mi bolsa</button></div>
+          <div class="toolbar"><label class="search-field" for="catalog-search">Buscar una prenda<input id="catalog-search" type="search" data-catalog-search placeholder="Nombre, color o categoría" autocomplete="off"></label><label class="category-filter" for="catalog-category-filter">Categoría<select id="catalog-category-filter" data-category-filter><option value="">Todas las categorías</option></select></label></div>
+          <div class="product-grid" data-product-grid="catalogo"></div>
+        </section>
+        <section class="catalog-panel" data-view="ventas" aria-labelledby="view-title" hidden><p class="view-intro">Solo aparecen las ventas ficticias de esta sesión. Cancelar devuelve sus prendas a las existencias de ejemplo una sola vez.</p><div data-sales-list></div></section>
+        <section class="catalog-panel" data-view="ayuda" aria-labelledby="view-title" hidden>
+          <div class="help-grid"><article><h2>1. Armá una venta</h2><p>En Caja, buscá una prenda, elegí una talla disponible y agregala a la bolsa. Ajustá las cantidades con los botones + y −.</p></article><article><h2>2. Probá el cobro</h2><p>Elegí Cobrar y luego Aprobar o Rechazar. Son escenarios simulados: no se pide ninguna tarjeta ni se mueve dinero. Si rechazás, la bolsa sigue igual para reintentar.</p></article><article><h2>3. Consultá tus ventas</h2><p>Una aprobación crea un comprobante ficticio y descuenta las existencias de ejemplo. En Ventas podés cancelar con confirmación; las prendas vuelven una sola vez.</p></article><article><h2>Tu sesión es temporal</h2><p>No ingresés datos personales, contraseñas ni tarjetas. Recargar o Reiniciar demo borra este escenario. No hay sincronización con la tienda ni con un ERP real.</p></article><article><h2>Qué significa Conexión</h2><p>Es una comprobación separada de la API de reservas sintéticas. Solo consulta su estado y catálogo; no envía ventas, pagos ni reservas. Sus fixtures usan moneda XXX y nunca se mezclan con los precios USD de esta caja de ejemplo.</p></article></div>
+        </section>
+        <section class="catalog-panel" data-view="conexion" aria-labelledby="view-title" hidden>
+          <p class="view-intro">Comprobá por separado la API de reservas sintéticas. Esta caja continúa siendo una simulación en memoria.</p>
+          <div class="connection-card"><h2>Estado de la API de prueba</h2><p data-backend-status role="status" aria-live="polite">Todavía no se comprobó la conexión. No se afirma que la API esté desplegada.</p><button class="btn btn-primary" data-action="check-backend" data-focus-key="check-backend">Comprobar conexión</button><ul class="check-list" data-backend-checks></ul></div>
+          <p class="demo-banner">Solo reservas sintéticas: esta API no procesa ventas ni pagos. No se enviará ninguna operación desde esta pantalla.</p>
+          <div data-backend-catalog></div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <p id="ui-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p><div class="toast" data-toast aria-hidden="true" hidden></div>
+  <dialog id="payment-dialog" class="modal" aria-labelledby="payment-title" aria-describedby="payment-note">
+    <h2 id="payment-title">Cobro de prueba</h2><p id="payment-note">Elegí un escenario simulado. No se cobrará dinero ni se solicitarán datos de tarjeta.</p><div data-payment-summary></div><p class="error" data-payment-error role="alert" hidden></p><div class="dialog-actions"><button class="btn btn-primary" data-action="approve">Aprobar simulación</button><button class="btn btn-secondary" data-action="decline">Rechazar simulación</button><button class="btn btn-secondary" data-action="close-dialog">Volver a la bolsa</button></div>
+  </dialog>
+  <dialog id="receipt-dialog" class="modal" aria-labelledby="receipt-title"><h2 id="receipt-title">Comprobante ficticio</h2><div class="receipt" data-receipt-content></div><div class="dialog-actions"><button class="btn btn-primary" data-action="new-sale" autofocus>Nueva venta</button><button class="btn btn-secondary" data-action="close-dialog">Cerrar comprobante</button></div></dialog>
+  <dialog id="confirm-dialog" class="modal" aria-labelledby="confirm-title"><h2 id="confirm-title">Confirmar acción</h2><p data-confirm-content></p><p class="error" data-confirm-error role="alert" hidden></p><div class="dialog-actions"><button class="btn btn-secondary" data-action="close-dialog" autofocus>Volver sin cambios</button><button class="btn btn-primary" data-action="confirm">Confirmar</button></div></dialog>
+</body>
+</html>

@@ -1,0 +1,41 @@
+{
+  "backend_base_sha": "f7e859bd0e6edf6bdef8b391b63589a212f0d088",
+  "runtime_files": {
+    "index.html": "0431257645f74389e70b6ffd0f494fd28839f5323b1e2bf06f6f183e8efb59eb",
+    "styles.css": "16fda7135b0e512474db1c72575b8c3ab40672694f493edc739e5f3ea098b9eb",
+    "app.mjs": "7a09458daace594cf151746c6b2abdb8791142c80df4f35e6724256c3fa3a3a9",
+    "model.mjs": "7379149d37aff19060c690fa5ba5c01f2a4f96b6b0d68bf44dee5448a0605ad3",
+    "api-client.mjs": "e4046e4f6d1c0d30c309c92d8a3db80a23ed8208560d3cb19f4b1ac669799d0c"
+  },
+  "local_tests": {
+    "model": {
+      "passed": 12
+    },
+    "api_final": {
+      "passed": 8
+    },
+    "dom": "interrupted_without_result_memory_pressure"
+  },
+  "cloud_initial_reported": {
+    "model": 12,
+    "api_before_strict_capability_fix": 7,
+    "dom": 9,
+    "package_sha256": "6423657bfbf8779f77fb19743235140f48a68d7c74ca59242f45385f9f5f8adf",
+    "slack_file_id": "F0CBWF649L6"
+  },
+  "cloud_final_api_dom": "pending exact two-file patch c62c8856da489b2465fc11e94cc882dba3fe3a9f4d9976b887108237213ce8cd",
+  "browser_qa": "candidate not executed; cloud browser could not reach sandbox loopback; personal Brave untouched",
+  "backend_connection": {
+    "deployed_api_url_verified": false,
+    "sql_test_result": "21 SQL SKIPPED; existing backend evidence only",
+    "browser_methods": [
+      "GET"
+    ],
+    "commercial_transactions": false,
+    "demo_currency": "USD sample",
+    "backend_currency": "XXX synthetic"
+  },
+  "full_repository_suite": "attempted budget gate, deferred under low RAM; no final PASS",
+  "github_push": false,
+  "deployment": "pending"
+}
