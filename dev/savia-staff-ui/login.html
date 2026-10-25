@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+  <title>Ingresar · SAVIA interno</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./login.mjs"></script>
+</head>
+<body data-staff-login>
+  <main id="login-view" class="login-shell">
+    <section class="auth-card" aria-labelledby="login-title">
+      <p class="eyebrow">SAVIA · ACCESO INTERNO</p>
+      <h1 id="login-title" tabindex="-1">Tu espacio de trabajo</h1>
+      <p>Ingreso exclusivo para personal y propietarios autorizados.</p>
+      <p id="login-status" class="section-status" role="status" aria-live="polite">Comprobando la disponibilidad del acceso…</p>
+      <p id="login-error" class="error" role="alert" tabindex="-1" hidden></p>
+      <form id="login-form" data-staff-form="login" method="post" aria-describedby="login-note">
+        <div class="field">
+          <label for="login-name">Usuario de trabajo</label>
+          <input id="login-name" name="loginName" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" required disabled data-server-action>
+        </div>
+        <div class="field">
+          <label for="login-password">Contraseña</label>
+          <input id="login-password" name="password" type="password" autocomplete="current-password" required disabled data-server-action>
+        </div>
+        <p id="login-note" class="form-note">Usá la cuenta que te habilitó el responsable del sistema. No se crean cuentas desde esta pantalla.</p>
+        <div class="actions"><button id="login-submit" class="btn" type="submit" disabled data-server-action>Ingresar</button></div>
+      </form>
+      <noscript><p class="notice">Necesitás activar JavaScript para verificar la sesión e ingresar. No se enviarán los datos del formulario.</p></noscript>
+      <p class="muted">Este sistema de gestión está separado de la tienda pública.</p>
+    </section>
+  </main>
+</body>
+</html>

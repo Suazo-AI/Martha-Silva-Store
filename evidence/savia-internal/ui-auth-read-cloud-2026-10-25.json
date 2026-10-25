@@ -1,0 +1,88 @@
+{
+  "date_utc": "2026-10-25",
+  "scope": "Private staff auth and directory read UI, before pagination",
+  "source": {
+    "history_base": "f7e859bd0e6edf6bdef8b391b63589a212f0d088",
+    "parent_head": "8fcfd6204bc5c4085440817337d9cde830cc3087",
+    "package_sha256": "1d14ad33603670061e5cc3434343b507ab180b386f7c93f35e1450098156f502",
+    "package_bytes": 77852,
+    "slack_file_id": "F0CBTC1PPSR",
+    "files": {
+      "dev/savia-staff-ui/index.html": {
+        "bytes": 9877,
+        "sha256": "e4fd85472d4fa1c961f6a492dc3376698e1dc203b5839b5eec53a9fe68bba267"
+      },
+      "dev/savia-staff-ui/login.html": {
+        "bytes": 2324,
+        "sha256": "b9068478b46b9786c18dbe54ffa1172e1fb325e283ca944f9c2a840b37d1a686"
+      },
+      "dev/savia-staff-ui/styles.css": {
+        "bytes": 18971,
+        "sha256": "046123702cbc464ea884d1f6bc84d3c572e422fb4b8390fdd0d99d944f8f2155"
+      },
+      "dev/savia-staff-ui/app.mjs": {
+        "bytes": 15522,
+        "sha256": "0a782b657736663866534fc63e362042a021f2e3a93b7f69724e2a9982ec5863"
+      },
+      "dev/savia-staff-ui/client.mjs": {
+        "bytes": 2969,
+        "sha256": "611f04daef1290f04627c1af26473e1a7bd1f90f0b6b93f26565461317fcd2c8"
+      },
+      "dev/savia-staff-ui/login.mjs": {
+        "bytes": 9578,
+        "sha256": "4d0173fdff31882c795c79b65ced0b21f13165a0d769caeb252bea030cbc859d"
+      },
+      "dev/savia-staff-ui/auth.test.mjs": {
+        "bytes": 6866,
+        "sha256": "e93a84e2aba4a920dda00ce27633fa62fa5f412e8206810bc1246325463cbcc8"
+      },
+      "dev/savia-staff-ui/dom.test.mjs": {
+        "bytes": 5475,
+        "sha256": "de032c12fcd189b3351a37647da4a2b9eeaa6a52c4d50d5e645301dac3ae1e60"
+      },
+      "dev/savia-staff-ui/README.md": {
+        "bytes": 2287,
+        "sha256": "c51872e970af0d6acf1861c600f426a14a1a4a8012ba2cd59af4c00b64774c44"
+      }
+    }
+  },
+  "executor": "Cutufay cloud",
+  "verification_kind": "Executor report received through authorized Slack coordination",
+  "report_message": "https://denis-projects-group.slack.com/archives/D0CC1G4JS4U/p1792918724335209",
+  "reported_results": {
+    "syntax_modules_pass": 3,
+    "auth_transport_double_pass": 9,
+    "dom_client_double_pass": 5,
+    "source_hashes_unchanged_pre_post": 9
+  },
+  "commands": [
+    "node --check dev/savia-staff-ui/app.mjs",
+    "node --check dev/savia-staff-ui/client.mjs",
+    "node --check dev/savia-staff-ui/login.mjs",
+    "node --test dev/savia-staff-ui/auth.test.mjs",
+    "node --test dev/savia-staff-ui/dom.test.mjs"
+  ],
+  "dependency_reported": {
+    "jsdom": "26.1.0",
+    "node_path": "/workspace/scratch/14cff504045e/savia-candidate-cloud/source/tests/frontend-deps/node_modules",
+    "source": "Existing locked storefront test dependency"
+  },
+  "fixed": [
+    "Earlier superseded directory read returning 401 now clears UI before stale-read filtering",
+    "Session revalidation clears the prior identity before waiting for a response"
+  ],
+  "pending": [
+    "Raw executor logs and structured report attachment",
+    "Directory pagination",
+    "Directory writes and operation lookup integration",
+    "SQL integration",
+    "Authorized hosting and HTTPS"
+  ],
+  "limits": [
+    "No local Node/build/browser run under Windows RAM pressure (659 MB available at gate check)",
+    "No full tests/check.py --install or aggregate check.py executed for this private UI change",
+    "Transport/client doubles and jsdom do not prove real browser, HTTP, .NET, SQL, mobile or performance behavior",
+    "No deployment, GitHub push or CI execution for this code",
+    "Earlier f154959 UI candidate was superseded; its preliminary green auth tests did not accept that UI"
+  ]
+}
