@@ -31,34 +31,34 @@ test('browser reaches only the synthetic capability descriptor; CGA stays closed
 
 test('invalid and foreign authority commands are rejected before storage resolution', async ({request}) => {
   const invalid = await request.post('/api/v2/synthetic/reservations', {
-    headers, data: {...command, quantity: 0},
+    headers, maxRedirects: 0, data: {...command, quantity: 0},
   });
   expect(invalid.status()).toBe(400);
   expect((await invalid.json()).code).toBe('invalid_request');
   const foreign = await request.post('/api/v2/synthetic/reservations', {
-    headers, data: {...command, authority: {...authority, mode: 'cga'}},
+    headers, maxRedirects: 0, data: {...command, authority: {...authority, mode: 'cga'}},
   });
   expect(foreign.status()).toBe(409);
   expect((await foreign.json()).code).toBe('authority_mismatch');
 });
 
 test('no SQL connection means readiness and data reads fail closed, without invented stock', async ({request}) => {
-  expect((await request.get('/health/live')).status()).toBe(200);
+  expect((await request.get('/health/live', {maxRedirects: 0})).status()).toBe(200);
   for (const route of ['/health/ready', '/api/v2/synthetic/catalog', '/api/v2/synthetic/movements']) {
-    const response = await request.get(route);
+    const response = await request.get(route, {maxRedirects: 0});
     expect(response.status()).toBe(503);
     const body = await response.json();
     expect(body.code).toBe('storage_unavailable');
     expect(body).not.toHaveProperty('items');
   }
-  const legacy = await request.get('/api/v1/catalog');
+  const legacy = await request.get('/api/v1/catalog', {maxRedirects: 0});
   expect(legacy.status()).toBe(503);
   expect((await legacy.json()).code).toBe('storage_unavailable');
 });
 
 test('client-supplied price is rejected by the real HTTP request contract', async ({request}) => {
   const response = await request.post('/api/v2/synthetic/reservations', {
-    headers, data: {...command, unitPriceMinor: 1},
+    headers, maxRedirects: 0, data: {...command, unitPriceMinor: 1},
   });
   expect(response.status()).toBe(400);
   expect((await response.json()).code).toBe('invalid_request');

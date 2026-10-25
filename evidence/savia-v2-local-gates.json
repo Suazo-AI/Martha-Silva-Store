@@ -39,7 +39,13 @@
       "inProgress": "0",
       "pending": "0"
     },
-    "note": "Skipped count comes from UnitTestResult outcome NotExecuted; this VSTest TRX reports notExecuted counter 0 despite 21 skipped results."
+    "note": "Skipped count comes from UnitTestResult outcome NotExecuted; this VSTest TRX reports notExecuted counter 0 despite 21 skipped results.",
+    "independentJudge": {
+      "passed": 45,
+      "failed": 0,
+      "skipped": 21,
+      "trxSha256": "22ad685d5dddb86d1f56822f368f302f8291d6885b05716b8212f4996883e3ca"
+    }
   },
   "sql": {
     "executed": false,
@@ -75,26 +81,33 @@
     "traceViewerUiOpened": false,
     "traces": [
       {
-        "file": "playwright-results/guards-browser-reaches-onl-4b9e8-descriptor-CGA-stays-closed/trace.zip",
-        "bytes": 6916,
-        "sha256": "4e3cf8e30e40a62dff8672cd05b6fde934578abe56b7ef53031322c5087f3620"
+        "file": "playwright-results-zero-redirects/guards-browser-reaches-onl-4b9e8-descriptor-CGA-stays-closed/trace.zip",
+        "bytes": 7400,
+        "sha256": "9a6b3c0615b7985752942d39834059d70197bc8a2734ef4681150764556f81b7"
       },
       {
-        "file": "playwright-results/guards-client-supplied-pri-68439--real-HTTP-request-contract/trace.zip",
-        "bytes": 5982,
-        "sha256": "184665b8a517a66095ebd3dee2f472f32a764c0ed13b6e9ff3853304c34a1f71"
+        "file": "playwright-results-zero-redirects/guards-client-supplied-pri-68439--real-HTTP-request-contract/trace.zip",
+        "bytes": 6021,
+        "sha256": "ba15d418426468d513d05ec126c264cf50164a4bba40d6f63539d5b16514c11c"
       },
       {
-        "file": "playwright-results/guards-invalid-and-foreign-54a5a-d-before-storage-resolution/trace.zip",
-        "bytes": 7037,
-        "sha256": "1f1eb553ecccf5fedce6f91e9664aedf98946e5136d21967e8b8b7ca4dc6b992"
+        "file": "playwright-results-zero-redirects/guards-invalid-and-foreign-54a5a-d-before-storage-resolution/trace.zip",
+        "bytes": 7093,
+        "sha256": "c065782fbe07537466e19eeb325510e4455f412cf6417bdee712ce48aee30304"
       },
       {
-        "file": "playwright-results/guards-no-SQL-connection-m-0eb5e-osed-without-invented-stock/trace.zip",
-        "bytes": 8214,
-        "sha256": "cd3c1008b749d21fc68519e00389bac1aa81bb871fe2149d7dcc6a2be6e8ba9a"
+        "file": "playwright-results-zero-redirects/guards-no-SQL-connection-m-0eb5e-osed-without-invented-stock/trace.zip",
+        "bytes": 8315,
+        "sha256": "01ef658d4c38036e0d8fb3771c0306a601fcbf2e9c04d5bd4111e22f779907d8"
       }
-    ]
+    ],
+    "apiRequestMaxRedirects": 0,
+    "qaInputsSha256": {
+      "dev/savia-harness/playwright/.gitignore": "1483e43a8af1fbab71986ab074cc6b7c296071fe47d511879bf7a52bb6390207",
+      "dev/savia-harness/playwright/guards.spec.mjs": "4d63d52cb527215a7785f886e7ca66d77124bc5c73cb9a849cab2d737e7c84ac",
+      "dev/savia-harness/playwright/playwright.config.mjs": "14ba30209244c03a63e5813b62455983d7deafdd6a57aefe9799fbf3f6ddede0",
+      "dev/savia-harness/playwright/README.md": "14b4f30cda08b00a31a731150f721457df37298c62e98494af00334ffa97bfba"
+    }
   },
   "sdkFirstRun": {
     "reportedDevelopmentCertificateCreation": true,
