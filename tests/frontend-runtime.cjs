@@ -199,31 +199,24 @@ test('favorite visible label toggles with state without replacing SVG or accessi
 });
 
 test('stock notes retain sample qualification for unselected, scarce and last-unit sizes',async()=>{
- const fixture=await boot('catalogo.html');
- let cases;
+ const b=await boot('producto-dorado.html');
  try {
-  const products=fixture.w.DEMO_CATALOG.products;
-  const lastProduct=products.find(p=>p.variants.some(v=>v.stock===1));
-  const otherProduct=products.find(p=>p.variants.some(v=>v.stock>=2));
-  assert.ok(lastProduct,'current fixture must include a real last-unit variant');
-  assert.ok(otherProduct,'current fixture must include a real variant with at least two units');
-  cases=[{productId:otherProduct.id,variantId:otherProduct.variants.find(v=>v.stock>=2).id,last:false},
-   {productId:lastProduct.id,variantId:lastProduct.variants.find(v=>v.stock===1).id,last:true}];
- } finally { fixture.close() }
- for(const sample of cases){
-  const b=await boot(`producto-${sample.productId}.html`);
-  try {
-   const note=b.d.querySelector('[data-stock-note]');
-   assert.match(note.textContent,/^Stock de muestra · /);
-   const variant=b.w.DEMO_CATALOG.products.find(p=>p.id===sample.productId).variants.find(v=>v.id===sample.variantId);
-   if(sample.last)assert.equal(variant.stock,1);else assert.ok(variant.stock>=2);
-   const input=[...b.d.querySelectorAll('input[name=variant]')].find(input=>input.value===sample.variantId);
-   assert.ok(input);assert.equal(input.disabled,false);
-   input.checked=true;input.dispatchEvent(new b.w.Event('change',{bubbles:true}));await tick();
-   assert.match(note.textContent,/^Stock de muestra · /);
-   if(sample.last)assert.match(note.textContent,/Última unidad/);
-  } finally { b.close() }
- }
+  const product=b.w.DEMO_CATALOG.products.find(p=>p.id==='dorado');
+  const variant=product.variants.find(v=>v.stock>=2);assert.ok(variant);
+  const choose=async()=>{const input=[...b.d.querySelectorAll('input[name=variant]')].find(input=>input.value===variant.id);assert.ok(input);assert.equal(input.disabled,false);input.checked=true;input.dispatchEvent(new b.w.Event('change',{bubbles:true}));await tick();};
+  assert.match(b.d.querySelector('[data-stock-note]').textContent,/^Stock de muestra · /);
+  await choose();assert.match(b.d.querySelector('[data-stock-note]').textContent,/^Stock de muestra · /);
+  // Exercise a real demo state transition in this disposable jsdom session.
+  // The recovered catalog file is never edited; it has no last-unit fixture.
+  await b.w.marthaStoreApi('/api/admin/login',{});
+  await b.w.marthaStoreApi('/api/admin/inventory',{variant_id:variant.id,quantity:1,reason:'Last-unit display regression in disposable demo'});
+  const current=await b.w.marthaStoreApi('/api/catalog');
+  assert.equal(current.products.find(p=>p.id==='dorado').variants.find(v=>v.id===variant.id).stock,1);
+  b.w.dispatchEvent(new b.w.PageTransitionEvent('pageshow',{persisted:true}));await tick();
+  await choose();
+  assert.match(b.d.querySelector('[data-stock-note]').textContent,/^Stock de muestra · /);
+  assert.match(b.d.querySelector('[data-stock-note]').textContent,/Última unidad/);
+ } finally { b.close() }
 });
 
 test('BFCache restore follows the selected mode in the same tab without creating orders',async()=>{const b=await boot('pedido.html',w=>w.history.replaceState(null,'','/pedido.html?id=savia~old'));b.w.sessionStorage.setItem('martha-integration-mode-v1','sisfain');b.w.dispatchEvent(new b.w.PageTransitionEvent('pageshow',{persisted:true}));await tick();assert.equal(b.d.querySelector('[data-integration-panel]').dataset.mode,'sisfain');assert.equal(b.w.location.search,'');assert.match(b.d.querySelector('[data-order-root]').textContent,/No seleccionaste un pedido/);b.close()});
