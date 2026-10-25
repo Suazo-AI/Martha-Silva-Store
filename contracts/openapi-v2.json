@@ -1,0 +1,1178 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Martha SAVIA Synthetic ERP V2",
+    "version": "2.0.0",
+    "description": "Development AND Synthetic:Enabled=true only; all V2 routes absent otherwise. Isolated V2 tables, no conversion from V1. Prices from server, XXX fixtures, one variant/location. No production auth, payments, sale, shipment, return or expiration. No CGA endpoint or failover. SQL runtime unverified until separately authorized real-SQL tests run. V1 contract unchanged."
+  },
+  "paths": {
+    "/api/v2/synthetic/catalog": {
+      "get": {
+        "summary": "Synthetic V2 inventory; available = onHand - reserved. No V1 conversion.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Synthetic V2 inventory; available = onHand - reserved. No V1 conversion.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Catalog"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request; strict unknown-field rejection, nonempty UUIDs and quantity 1..100.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "attempt_unknown: no durable receipt found; outcome remains unknown, do not fail over.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "storage_unavailable. Outcome may be unknown; retain authority, attemptId and key; do not send to another ERP.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "internal_error. Outcome may be unknown; reconcile on the same authority.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/synthetic/capabilities": {
+      "get": {
+        "summary": "Implementation capabilities without SQL access. CGA not verified and cannot write.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Implementation capabilities without SQL access. CGA not verified and cannot write.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CapabilityReport"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request; strict unknown-field rejection, nonempty UUIDs and quantity 1..100.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "attempt_unknown: no durable receipt found; outcome remains unknown, do not fail over.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "storage_unavailable. Outcome may be unknown; retain authority, attemptId and key; do not send to another ERP.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "internal_error. Outcome may be unknown; reconcile on the same authority.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/synthetic/reservations": {
+      "post": {
+        "summary": "Create reservation or replay the original immutable receipt (201).",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 128,
+              "pattern": "^[!-~]{8,128}$"
+            },
+            "description": "Exactly one value. Case-sensitive visible ASCII without spaces. Retain for the life of this disposable synthetic database."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReserveRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Create reservation or replay the original immutable receipt (201).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReservationReceipt"
+                }
+              }
+            },
+            "headers": {
+              "Location": {
+                "description": "Current reservation resource; its GET state may change without changing this receipt.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request; strict unknown-field rejection, nonempty UUIDs and quantity 1..100.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "attempt_unknown: no durable receipt found; outcome remains unknown, do not fail over.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "authority_mismatch, idempotency_conflict, attempt_conflict or out_of_stock.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "storage_unavailable. Outcome may be unknown; retain authority, attemptId and key; do not send to another ERP.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "internal_error. Outcome may be unknown; reconcile on the same authority.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/synthetic/reservations/{reservationId}": {
+      "get": {
+        "summary": "Current mutable state plus original immutable creation receipt.",
+        "parameters": [
+          {
+            "name": "reservationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Nonempty UUID."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Current mutable state plus original immutable creation receipt.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReservationView"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request; strict unknown-field rejection, nonempty UUIDs and quantity 1..100.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "attempt_unknown: no durable receipt found; outcome remains unknown, do not fail over.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "storage_unavailable. Outcome may be unknown; retain authority, attemptId and key; do not send to another ERP.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "internal_error. Outcome may be unknown; reconcile on the same authority.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/synthetic/reservations/{reservationId}/cancel": {
+      "post": {
+        "summary": "Cancel idempotently; release reserved once without increasing onHand.",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 128,
+              "pattern": "^[!-~]{8,128}$"
+            },
+            "description": "Exactly one value. Case-sensitive visible ASCII without spaces. Retain for the life of this disposable synthetic database."
+          },
+          {
+            "name": "reservationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Nonempty UUID."
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CancelRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Cancel idempotently; release reserved once without increasing onHand.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CancellationReceipt"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request; strict unknown-field rejection, nonempty UUIDs and quantity 1..100.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "attempt_unknown: no durable receipt found; outcome remains unknown, do not fail over.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "authority_mismatch, idempotency_conflict, attempt_conflict or out_of_stock.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "storage_unavailable. Outcome may be unknown; retain authority, attemptId and key; do not send to another ERP.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "internal_error. Outcome may be unknown; reconcile on the same authority.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/synthetic/attempts/{operation}/{attemptId}": {
+      "get": {
+        "summary": "Lookup on this fixed authority only. A 404 attempt_unknown is UNKNOWN, never proof of non-execution.",
+        "parameters": [
+          {
+            "name": "operation",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "reserve",
+                "cancel"
+              ]
+            }
+          },
+          {
+            "name": "attemptId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Nonempty UUID."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lookup on this fixed authority only. A 404 attempt_unknown is UNKNOWN, never proof of non-execution.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AttemptReceipt"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request; strict unknown-field rejection, nonempty UUIDs and quantity 1..100.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "attempt_unknown: no durable receipt found; outcome remains unknown, do not fail over.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "storage_unavailable. Outcome may be unknown; retain authority, attemptId and key; do not send to another ERP.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "internal_error. Outcome may be unknown; reconcile on the same authority.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/synthetic/movements": {
+      "get": {
+        "summary": "Read append-only V2 synthetic inventory movements.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Read append-only V2 synthetic inventory movements.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Movements"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request; strict unknown-field rejection, nonempty UUIDs and quantity 1..100.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "attempt_unknown: no durable receipt found; outcome remains unknown, do not fail over.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "storage_unavailable. Outcome may be unknown; retain authority, attemptId and key; do not send to another ERP.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "internal_error. Outcome may be unknown; reconcile on the same authority.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Authority": {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "type": "string",
+            "enum": [
+              "savia"
+            ]
+          },
+          "instanceId": {
+            "type": "string",
+            "enum": [
+              "savia-synthetic-v2"
+            ]
+          },
+          "epoch": {
+            "type": "integer",
+            "enum": [
+              1
+            ]
+          }
+        },
+        "required": [
+          "mode",
+          "instanceId",
+          "epoch"
+        ],
+        "additionalProperties": false
+      },
+      "ReserveRequest": {
+        "type": "object",
+        "properties": {
+          "variantId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Nonempty UUID."
+          },
+          "locationId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Nonempty UUID."
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "attemptId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Nonempty UUID."
+          },
+          "authority": {
+            "$ref": "#/components/schemas/Authority"
+          }
+        },
+        "required": [
+          "variantId",
+          "locationId",
+          "quantity",
+          "attemptId",
+          "authority"
+        ],
+        "additionalProperties": false
+      },
+      "CancelRequest": {
+        "type": "object",
+        "properties": {
+          "attemptId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Nonempty UUID."
+          },
+          "authority": {
+            "$ref": "#/components/schemas/Authority"
+          }
+        },
+        "required": [
+          "attemptId",
+          "authority"
+        ],
+        "additionalProperties": false
+      },
+      "CatalogItem": {
+        "type": "object",
+        "properties": {
+          "variantId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Nonempty UUID."
+          },
+          "locationId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Nonempty UUID."
+          },
+          "sku": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "unitPriceMinor": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9000000000000
+          },
+          "currency": {
+            "type": "string",
+            "enum": [
+              "XXX"
+            ]
+          },
+          "onHand": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "reserved": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "available": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "authority": {
+            "$ref": "#/components/schemas/Authority"
+          },
+          "synthetic": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          }
+        },
+        "required": [
+          "variantId",
+          "locationId",
+          "sku",
+          "name",
+          "unitPriceMinor",
+          "currency",
+          "onHand",
+          "reserved",
+          "available",
+          "authority",
+          "synthetic"
+        ],
+        "additionalProperties": false
+      },
+      "Catalog": {
+        "type": "object",
+        "properties": {
+          "synthetic": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          },
+          "authority": {
+            "$ref": "#/components/schemas/Authority"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CatalogItem"
+            }
+          }
+        },
+        "required": [
+          "synthetic",
+          "authority",
+          "items"
+        ],
+        "additionalProperties": false
+      },
+      "ReservationReceipt": {
+        "type": "object",
+        "properties": {
+          "reservationId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Nonempty UUID."
+          },
+          "variantId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Nonempty UUID."
+          },
+          "locationId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Nonempty UUID."
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "unitPriceMinor": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9000000000000
+          },
+          "currency": {
+            "type": "string",
+            "enum": [
+              "XXX"
+            ]
+          },
+          "totalMinor": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 900000000000000
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "reserved"
+            ]
+          },
+          "attemptId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Nonempty UUID."
+          },
+          "authority": {
+            "$ref": "#/components/schemas/Authority"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "synthetic": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          }
+        },
+        "required": [
+          "reservationId",
+          "variantId",
+          "locationId",
+          "quantity",
+          "unitPriceMinor",
+          "currency",
+          "totalMinor",
+          "status",
+          "attemptId",
+          "authority",
+          "createdAt",
+          "synthetic"
+        ],
+        "additionalProperties": false
+      },
+      "ReservationView": {
+        "type": "object",
+        "properties": {
+          "creation": {
+            "$ref": "#/components/schemas/ReservationReceipt"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "reserved",
+              "cancelled"
+            ]
+          },
+          "cancelledAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "required": [
+          "creation",
+          "status",
+          "cancelledAt"
+        ],
+        "additionalProperties": false
+      },
+      "CancellationReceipt": {
+        "type": "object",
+        "properties": {
+          "reservationId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Nonempty UUID."
+          },
+          "attemptId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Nonempty UUID."
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "cancelled"
+            ]
+          },
+          "releasedQuantity": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "authority": {
+            "$ref": "#/components/schemas/Authority"
+          },
+          "cancelledAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "synthetic": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          }
+        },
+        "required": [
+          "reservationId",
+          "attemptId",
+          "status",
+          "releasedQuantity",
+          "authority",
+          "cancelledAt",
+          "synthetic"
+        ],
+        "additionalProperties": false
+      },
+      "AttemptReceipt": {
+        "type": "object",
+        "properties": {
+          "operation": {
+            "type": "string",
+            "enum": [
+              "reserve",
+              "cancel"
+            ]
+          },
+          "attemptId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Nonempty UUID."
+          },
+          "authority": {
+            "$ref": "#/components/schemas/Authority"
+          },
+          "outcome": {
+            "type": "string",
+            "description": "Durably recorded outcome; absence or transport failure is unknown. See domain documentation."
+          },
+          "result": {
+            "type": "object",
+            "nullable": true,
+            "additionalProperties": true
+          },
+          "error": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "operation",
+          "attemptId",
+          "authority",
+          "outcome",
+          "result",
+          "error",
+          "createdAt"
+        ],
+        "additionalProperties": false
+      },
+      "Movement": {
+        "type": "object",
+        "properties": {
+          "movementId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Nonempty UUID."
+          },
+          "reservationId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Nonempty UUID."
+          },
+          "attemptId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Nonempty UUID."
+          },
+          "variantId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Nonempty UUID."
+          },
+          "locationId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Nonempty UUID."
+          },
+          "kind": {
+            "type": "string"
+          },
+          "onHandDelta": {
+            "type": "integer"
+          },
+          "reservedDelta": {
+            "type": "integer"
+          },
+          "authority": {
+            "$ref": "#/components/schemas/Authority"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "synthetic": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          }
+        },
+        "required": [
+          "movementId",
+          "reservationId",
+          "attemptId",
+          "variantId",
+          "locationId",
+          "kind",
+          "onHandDelta",
+          "reservedDelta",
+          "authority",
+          "createdAt",
+          "synthetic"
+        ],
+        "additionalProperties": false
+      },
+      "Movements": {
+        "type": "object",
+        "properties": {
+          "synthetic": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          },
+          "authority": {
+            "$ref": "#/components/schemas/Authority"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Movement"
+            }
+          }
+        },
+        "required": [
+          "synthetic",
+          "authority",
+          "items"
+        ],
+        "additionalProperties": false
+      },
+      "ErpCapabilities": {
+        "type": "object",
+        "properties": {
+          "catalog": {
+            "type": "boolean"
+          },
+          "reserve": {
+            "type": "boolean"
+          },
+          "getReservation": {
+            "type": "boolean"
+          },
+          "cancel": {
+            "type": "boolean"
+          },
+          "attemptLookup": {
+            "type": "boolean"
+          },
+          "movements": {
+            "type": "boolean"
+          },
+          "expiration": {
+            "type": "boolean"
+          },
+          "sale": {
+            "type": "boolean"
+          },
+          "shipment": {
+            "type": "boolean"
+          },
+          "return": {
+            "type": "boolean"
+          },
+          "payments": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "catalog",
+          "reserve",
+          "getReservation",
+          "cancel",
+          "attemptLookup",
+          "movements",
+          "expiration",
+          "sale",
+          "shipment",
+          "return",
+          "payments"
+        ],
+        "additionalProperties": false
+      },
+      "ProviderCapability": {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "type": "string",
+            "enum": [
+              "savia",
+              "cga"
+            ]
+          },
+          "authority": {
+            "type": "object",
+            "properties": {
+              "mode": {
+                "type": "string",
+                "enum": [
+                  "savia"
+                ]
+              },
+              "instanceId": {
+                "type": "string",
+                "enum": [
+                  "savia-synthetic-v2"
+                ]
+              },
+              "epoch": {
+                "type": "integer",
+                "enum": [
+                  1
+                ]
+              }
+            },
+            "required": [
+              "mode",
+              "instanceId",
+              "epoch"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          },
+          "implementationStatus": {
+            "type": "string",
+            "enum": [
+              "synthetic_code_implemented",
+              "not_verified"
+            ]
+          },
+          "sqlVerification": {
+            "type": "string",
+            "enum": [
+              "not_verified"
+            ]
+          },
+          "capabilities": {
+            "$ref": "#/components/schemas/ErpCapabilities"
+          }
+        },
+        "required": [
+          "mode",
+          "authority",
+          "implementationStatus",
+          "sqlVerification",
+          "capabilities"
+        ],
+        "additionalProperties": false
+      },
+      "CapabilityReport": {
+        "type": "object",
+        "properties": {
+          "synthetic": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          },
+          "authority": {
+            "$ref": "#/components/schemas/Authority"
+          },
+          "providers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProviderCapability"
+            }
+          }
+        },
+        "required": [
+          "synthetic",
+          "authority",
+          "providers"
+        ],
+        "additionalProperties": false
+      },
+      "Problem": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "status": {
+            "type": "integer"
+          },
+          "code": {
+            "type": "string"
+          },
+          "traceId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "title",
+          "status",
+          "code",
+          "traceId"
+        ]
+      }
+    }
+  }
+}

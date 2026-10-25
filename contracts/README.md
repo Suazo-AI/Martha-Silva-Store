@@ -42,3 +42,22 @@ El GUID es ilustrativo, no un SKU real ni promesa de que el seed lo contenga. Re
 ## Comprobación del artefacto
 
 El JSON es OpenAPI 3.0.3, con schemas cerrados para solicitudes/DTOs y errores extensibles. Revisar referencias internas y comparar rutas/DTOs contra código y pruebas en cada lote. El contrato por sí solo no demuestra atomicidad: las pruebas con SQL real autorizado deben verificarla. No hay endpoint de expiración declarado anticipadamente.
+
+
+## V2 SAVIA sintética (contrato separado)
+
+[`openapi-v2.json`](openapi-v2.json) describe el libro de inventario V2; las convenciones V1 anteriores y `openapi-v1.json` siguen congeladas. Detalle de implementación y límites: [backend V2](../docs/backend-v2.md).
+
+Todas las rutas `/api/v2/synthetic` existen solo con `Development` **y** `Synthetic:Enabled=true`; fuera del gate devuelven 404, incluido catálogo/capacidades. El prefijo SQL de pruebas existente sigue obligatorio. Ninguna ruta habilita CGA ni escribe a un ERP externo.
+
+- `GET /catalog`: `{synthetic:true,authority,items:[...]}` con `onHand`, `reserved`, `available = onHand - reserved`, precio del servidor y moneda `XXX`.
+- `GET /capabilities`: código sintético implementado frente a SQL no verificado; CGA no verificado, sin operaciones habilitadas. No requiere conexión SQL.
+- `POST /reservations`: `{variantId,locationId,quantity,attemptId,authority}` e `Idempotency-Key`. Respuesta 201 y `Location`; el replay conserva el recibo original, aunque la reserva haya sido cancelada.
+- `GET /reservations/{reservationId}`: `{creation,status,cancelledAt}`; `creation` es el recibo inmutable, `status` es el estado actual.
+- `POST /reservations/{reservationId}/cancel`: `{attemptId,authority}` y clave; 200, libera la reserva una sola vez sin aumentar `onHand`.
+- `GET /attempts/{operation}/{attemptId}`: operación `reserve` o `cancel`; solo consulta esta autoridad. 404 `attempt_unknown` indica resultado desconocido: nunca demuestra que una escritura no ocurrió.
+- `GET /movements`: `{synthetic:true,authority,items:[...]}`; movimientos del libro V2.
+
+La autoridad fija e inmutable es `{mode:"savia",instanceId:"savia-synthetic-v2",epoch:1}`. Es obligatoria en ambas mutaciones; cualquier otra devuelve 409 `authority_mismatch` antes de abrir almacenamiento. Solicitudes y autoridad rechazan campos desconocidos. GUID no vacío, cantidad entera 1..100 y reglas de clave V1; precio/total del cliente se rechazan. Un `attemptId` identifica el intento de una operación y se conserva junto a su clave y autoridad; conflictos no reemplazan el intento persistido.
+
+Una pérdida de respuesta, timeout, 5xx, conexión caída o ausencia de recibo implica **desconocido**. Conservar la misma autoridad, intento y clave para reconciliar; jamás enviar automáticamente a CGA ni a otra autoridad. No hay carrito multilínea, expiración, venta, envío, devolución, pago, datos comerciales ni API productiva. Las pruebas SQL reales autorizadas siguen necesarias para acreditar atomicidad, carreras, rollback y liberación concurrente.
