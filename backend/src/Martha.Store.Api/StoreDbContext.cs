@@ -8,8 +8,30 @@ public sealed class StoreDbContext(DbContextOptions<StoreDbContext> options) : D
     public DbSet<Variant> Variants => Set<Variant>();
     public DbSet<SyntheticOrder> SyntheticOrders => Set<SyntheticOrder>();
 
+    public DbSet<SaviaBalance> SaviaBalances => Set<SaviaBalance>();
+    public DbSet<SaviaReservation> SaviaReservations => Set<SaviaReservation>();
+    public DbSet<SaviaAttempt> SaviaAttempts => Set<SaviaAttempt>();
+    public DbSet<SaviaMovement> SaviaMovements => Set<SaviaMovement>();
+
+    private void GuardSaviaLedger()
+    {
+        if (ChangeTracker.Entries().Any(e => (e.Entity is SaviaAttempt or SaviaMovement) && e.State is EntityState.Modified or EntityState.Deleted))
+            throw new InvalidOperationException("SAVIA attempts and movements are append-only.");
+    }
+    public override int SaveChanges(bool acceptAllChangesOnSuccess)
+    {
+        GuardSaviaLedger();
+        return base.SaveChanges(acceptAllChangesOnSuccess);
+    }
+    public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
+    {
+        GuardSaviaLedger();
+        return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+    }
+
     protected override void OnModelCreating(ModelBuilder model)
     {
+        SaviaModel.Configure(model);
         model.Entity<Product>(p => { p.HasKey(x => x.Id); p.Property(x => x.Name).HasMaxLength(200); });
         model.Entity<Variant>(v =>
         {
