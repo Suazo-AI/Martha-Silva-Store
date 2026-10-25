@@ -1,5 +1,15 @@
 # Estado del proyecto
 
+## Frontend e imágenes — trabajo local del 25 de octubre de 2026
+
+La rama `fix/frontend-image-review-20261025` contiene la revisión de imágenes y
+usabilidad, separada de los worktrees activos de ERP. El destino solicitado
+para el código es la cuenta de GitHub de **Denis**; el usuario confirmó que
+**Tony y Denis son la misma persona**. Ese alias no determina un login de GitHub.
+La conexión verificada sigue siendo `Suazo-AI`; todavía no se verificó el
+repositorio de Denis ni se hizo push de esta rama. La web publicada y el estado
+local deben seguir identificándose por sus commits concretos.
+
 ## Integración de la copia pública — 2026-10-25 UTC
 
 **Publicado y verificado:** [nuevo Worker](https://martha-silva-preview.martha-silva-denis.workers.dev/),
@@ -100,3 +110,10 @@ Antes de habilitar CD, una comprobación externa debe confirmar cuenta, Worker,
 URL real y alcance del token dedicado. La validación offline de URL no demuestra
 que su subdominio pertenezca a `CLOUDFLARE_ACCOUNT_ID`. El control de main es una
 salvaguarda no atómica: main puede avanzar después de la lectura.
+
+
+## Frontend review 2026-10-25 (local candidate)
+
+737 image files were decoded and visually reviewed; media bytes are unchanged. Historical recovery remains incomplete at777/778. Hero viewport sizing and intrinsic zoom were checked in isolated Brave before the final header changes. Final UX fixes cover empty mini-bag checkout, favorite text, sample-stock wording and keyboard focus. The technical storefront selector is hidden while error retry and memory-only warnings remain available.
+
+Final29-case DOM candidate is sent to Cutufay cloud (F0CCSR9L1FA); its local run was interrupted without a result under memory pressure. Earlier26DOM and3+5Brave checks apply only to their recorded hashes. Full final suite is pending; do not relabel an interrupted run as PASS. This branch is not pushed or newly deployed by this record. See evidence/frontend-image-review/review-summary.json.

@@ -21,7 +21,7 @@
   function createIntegration() {
     integrationApi = null;
     try {
-      if (!window.MarthaIntegrations || !window.createMarthaDemoApi || !window.DEMO_CATALOG) throw new Error('No se cargó el modelo de integración. Recargá la página; las operaciones están bloqueadas.');
+      if (!window.MarthaIntegrations || !window.createMarthaDemoApi || !window.DEMO_CATALOG) throw new Error('No se cargó la compra de prueba. Usá Reintentar para continuar; no se realizó ninguna operación.');
       let storage; try { storage = localStorage; } catch {}
       const factory = window.MarthaIntegrations.createDemoAdapter, engine = window.createMarthaDemoApi, catalog = window.DEMO_CATALOG;
       const cached = integrationInstances.get(integrationMode);
@@ -39,16 +39,18 @@
   function renderIntegration() {
     const panel = $('[data-integration-panel]'); if (!panel) return;
     panel.dataset.mode = integrationMode;
+    panel.dataset.memoryOnly = String(memoryOnlyIntegration);
     $$('[data-integration-mode]').forEach(button => {
       button.setAttribute('aria-pressed', String(button.dataset.integrationMode === integrationMode));
       button.disabled = !!(pendingApi || busyActions || mountJobs || modeSwitching);
     });
-    const name = integrationMode === 'savia' ? 'SAVIA' : 'SISFAIN (CGA)';
-    $('[data-integration-status]',panel).textContent = integrationError ? `${name} · Modelo no disponible` : `${name} · Simulación local`;
+    const name = integrationMode === 'savia' ? 'SAVIA' : 'SISFAIN';
+    $('[data-integration-status]',panel).textContent = integrationError ? `${name} · Modo no disponible` : `${name} · Demostración`;
     $('[data-integration-description]',panel).textContent = integrationMode === 'savia'
       ? 'SAVIA: Sistema de Administración, Ventas, Inventarios y Abastecimiento. Existe una API .NET sintética de prueba, pero esta demo no está conectada a ella ni a un sistema real. La compatibilidad comercial no está validada.'
       : 'SISFAIN de CGA: modelo conceptual simulado. No contamos con un contrato ni una API verificada; no hay conexión configurada. La compatibilidad real está pendiente de validación con CGA.';
-    $('[data-integration-availability]',panel).textContent = integrationError || 'Sin backend configurado · sin conexión real' + (memoryOnlyIntegration ? ' · Datos temporales: se pierden al recargar esta página.' : '');
+    $('[data-integration-availability]',panel).textContent = (integrationError ? 'Reintentá para continuar.' : 'Cada modo conserva su propia bolsa') + (memoryOnlyIntegration ? ' · Datos temporales: se pierden al recargar esta página.' : '');
+    $('[data-integration-retry]',panel).hidden = !integrationError;
     $('[data-integration-error]',panel).hidden = !integrationError;
     $('[data-integration-error]',panel).textContent = integrationError;
   }
@@ -97,7 +99,20 @@
     const photo=(src,cls='')=>{const i=p.images.indexOf(src);return `<picture class="${cls}"><source type="image/webp" srcset="${esc(p.image_sets?.[i] || src+' 900w')}" sizes="(max-width:599px) 50vw,25vw"><img class="${cls}" src="${esc(p.jpeg_images?.[i] || src)}" srcset="${esc(p.jpeg_sets?.[i] || src+' 900w')}" sizes="(max-width:599px) 50vw,25vw" width="900" height="1200" alt="${esc(p.name)}" loading="lazy" decoding="async"></picture>`;};
     return `<article class="product-card" data-id="${esc(p.id)}"><a class="product-image" href="/producto-${esc(p.id)}.html">${photo(p.images[0])}${p.images[1]?photo(p.images[1],'secondary-image'):''}${p.video?`<video muted loop playsinline preload="none" data-src="${esc(p.video)}" data-webm="${esc(p.video_webm || '')}"></video>`:''}</a><button class="favorite-button" data-favorite="${esc(p.id)}" aria-label="Guardar en favoritos: ${esc(p.name)}" aria-pressed="${saved}"><svg viewBox="0 0 24 24" fill="${saved?'currentColor':'none'}" stroke="currentColor" aria-hidden="true"><path d="M20.8 4.6c-2-2-5.2-1.8-7.1.2L12 6.6l-1.7-1.8C8.4 2.8 5.2 2.6 3.2 4.6s-2 5.2 0 7.2L12 21l8.8-9.2c2-2 2-5.2 0-7.2Z"/></svg></button><div class="product-meta"><p class="product-category">MARTHA SILVA</p><h3 class="product-name"><a href="/producto-${esc(p.id)}.html">${esc(p.name)}</a></h3><p class="product-price">${money(p.price_minor)}</p><p class="product-badge">${p.sample_image?'Muestra · ':''}${stock===0?'Agotada':stock===1?'Última unidad':stock<=3?'Pocas unidades':''}</p></div></article>`;
   }
-  function updateHearts() { $$('[data-favorite]').forEach(b => { const saved = favorites.includes(b.dataset.favorite); b.setAttribute('aria-pressed', String(saved)); const p = products.find(p => p.id === b.dataset.favorite); b.setAttribute('aria-label',`${saved ? 'Quitar de' : 'Guardar en'} favoritos: ${p?.name || 'prenda'}`); $('svg',b)?.setAttribute('fill',saved ? 'currentColor':'none'); }); }
+  function updateHearts() {
+    $$('[data-favorite]').forEach(b => {
+      const saved = favorites.includes(b.dataset.favorite), label = `${saved ? 'Quitar de' : 'Guardar en'} favoritos`;
+      b.setAttribute('aria-pressed', String(saved));
+      const p = products.find(p => p.id === b.dataset.favorite);
+      b.setAttribute('aria-label',`${label}: ${p?.name || 'prenda'}`);
+      $('svg',b)?.setAttribute('fill',saved ? 'currentColor':'none');
+      const text = document.createTreeWalker(b, NodeFilter.SHOW_TEXT);
+      let node;
+      while ((node = text.nextNode())) {
+        if (!node.parentElement.closest('svg')) node.textContent = node.textContent.replace(/(?:Guardar en|Quitar de) favoritos/g, label);
+      }
+    });
+  }
   function catalog() {
     const form = $('#catalog-filters'); if (!form) return;
     const params = new URLSearchParams(location.search);
@@ -123,9 +138,10 @@
   function syncProduct() {
     const selected=$('input[name="variant"]:checked');
     const sticky=$('[data-sticky-size]'); if(sticky) sticky.value=selected?.value || '';
-    const note=$('[data-stock-note]'),variant=products.flatMap(p=>p.variants).find(v=>v.id===selected?.value);if(note)note.textContent=variant?(variant.stock===1?'Última unidad':variant.stock<=2?'Pocas unidades disponibles':'Talla disponible'):'Stock de muestra · demo';
+    const note=$('[data-stock-note]'),variant=products.flatMap(p=>p.variants).find(v=>v.id===selected?.value);if(note)note.textContent='Stock de muestra · '+(variant?(variant.stock===1?'Última unidad':variant.stock<=2?'Pocas unidades disponibles':'Talla disponible'):'demo');
     const available=$$('input[name="variant"]').some(input=>!input.disabled);
-    $$('[data-add], [data-sticky-add]').forEach(button=>{button.disabled=productAdding||!available;button.textContent=available?'Agregar a la bolsa':'Agotada';});
+    const ready = !!integrationApi && !integrationError;
+    $$('[data-add], [data-sticky-add]').forEach(button=>{button.disabled=!ready||productAdding||!available;button.textContent=available?'Agregar a la bolsa':'Agotada';});
     if(sticky) {sticky.disabled=!available;$$('option',sticky).forEach(option=>{if(option.value)option.disabled=!!$(`input[name="variant"][value="${CSS.escape(option.value)}"]`)?.disabled;});}
   }
   function productBuyBar() {
@@ -142,7 +158,18 @@
     panel.addEventListener('keydown',event=>{if(event.key!=='Tab')return;const items=$$('button:not(:disabled),select:not(:disabled),input:not(:disabled)',panel);const first=items[0],last=items.at(-1);if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}},{signal:pageScope.signal});
 
   }
-  function lineView(line, edit = false) { return `<article class="cart-line"><a href="/producto-${esc(line.product_id)}.html"><img src="${esc(line.image)}" alt="${esc(line.name)}" loading="lazy" width="900" height="1200"></a><div><p class="product-category">MARTHA SILVA</p><h3><a href="/producto-${esc(line.product_id)}.html">${esc(line.name)}</a></h3><p>${esc(line.color)} · Talla ${esc(line.size)}</p>${edit ? `<label class="quantity-label">Cantidad <select data-quantity="${esc(line.variant_id)}" aria-label="Cantidad de ${esc(line.name)}">${Array.from({length:10},(_,i) => `<option value="${i+1}" ${line.quantity === i+1 ? 'selected':''}>${i+1}</option>`).join('')}</select></label><button class="text-button" data-remove-item="${esc(line.variant_id)}">Retirar</button><button class="text-button" data-move-favorite="${esc(line.variant_id)}" data-product="${esc(line.product_id)}">Guardar para después</button>`:`<p>Cantidad: ${line.quantity}</p>`}</div><strong>${money(line.line_total_minor)}</strong></article>`; }
+  function lineView(line, edit = false) { return `<article class="cart-line"><a href="/producto-${esc(line.product_id)}.html"><img src="${esc(line.image)}" alt="${esc(line.name)}" loading="lazy" width="900" height="1200"></a><div><p class="product-category">MARTHA SILVA</p><h3><a href="/producto-${esc(line.product_id)}.html">${esc(line.name)}</a></h3><p>${esc(line.color)} · Talla ${esc(line.size)}</p>${edit ? `<label class="quantity-label">Cantidad <select data-quantity="${esc(line.variant_id)}" aria-label="Cantidad de ${esc(line.name)}, talla ${esc(line.size)}">${Array.from({length:10},(_,i) => `<option value="${i+1}" ${line.quantity === i+1 ? 'selected':''}>${i+1}</option>`).join('')}</select></label><button class="text-button" data-remove-item="${esc(line.variant_id)}" aria-label="Retirar ${esc(line.name)}, talla ${esc(line.size)}">Retirar</button><button class="text-button" data-move-favorite="${esc(line.variant_id)}" data-product="${esc(line.product_id)}" aria-label="Guardar en favoritos ${esc(line.name)}, talla ${esc(line.size)}">Guardar en favoritos</button>`:`<p>Cantidad: ${line.quantity}</p>`}</div><strong>${money(line.line_total_minor)}</strong></article>`; }
+  function cartActionFocus(button) {
+    const dialog = button.closest('#mini-bag');
+    const root = dialog ? $('[data-mini-bag-lines]',dialog) : $('[data-cart-lines]');
+    const index = root ? $$('[data-remove-item]',root).indexOf($('[data-remove-item]',button.closest('.cart-line'))) : -1;
+    return () => {
+      if (!root?.isConnected || (dialog && !dialog.open)) return;
+      const remaining = $$('[data-remove-item]',root);
+      const next = remaining[Math.max(0,Math.min(index,remaining.length-1))] || $('.empty-state a',root) || $('[data-close-dialog]',dialog || root);
+      next?.focus({preventScroll:true});
+    };
+  }
   function renderCart() {
     const mount = $('[data-cart-lines]'); if (!mount) return;
     if (!cart.lines.length) { $('[data-cart-running]')?.remove(); mount.innerHTML = '<div class="empty-state"><h2>Tu bolsa está vacía.</h2><p>Explorá vestidos de fiesta, novias y moda femenina.</p><a class="button" href="/catalogo.html">Ver la colección</a></div>'; $('[data-cart-summary]').innerHTML=''; return; }
@@ -151,7 +178,7 @@
     $('[data-cart-summary]').innerHTML = `<div class="order-summary"><h2>Resumen de compra</h2><p class="summary-selection">${esc(cart.lines.map(line => "Talla "+line.size+" - Cantidad "+line.quantity).join(" / "))}</p>${totals(cart, '<a class="button full" href="/checkout.html">Continuar con la compra</a>')}<p class="small muted">Elegí tu zona de entrega para conocer el total completo antes del pago.</p><p class="small">Compra de prueba. Precios, tallas y stock de muestra.</p></div>`;
   }
   function field(name,label,type='text',options={}) { return `<label class="field ${options.full ? 'full':''}"><span>${label}</span><input name="${name}" type="${type}" value="${esc(checkout[name] || '')}" ${options.required === false ? '' : 'required'} maxlength="${options.max || 200}" autocomplete="${options.auto || 'off'}" ${options.placeholder ? `placeholder="${esc(options.placeholder)}"`:''}>${options.help ? `<small>${options.help}</small>`:''}</label>`; }
-  function renderCheckout(step = 'contact') {
+  function renderCheckout(step = 'contact', focusStep = false) {
     const mount = $('[data-checkout-root]'); if (!mount) return;
     if (!cart.lines.length && !checkout.order_id && checkout.quote_id && checkout.order_key) { mount.innerHTML = '<div class="empty-state"><h2>Revisá tu pedido de prueba anterior.</h2><p>Podés recuperar su resultado en este mismo modelo. No se crea una compra real ni se cambia de sistema.</p><button class="button" data-recover-order>Recuperar pedido de prueba</button><p class="error" data-error role="alert" hidden></p></div>'; return; }
     if (!cart.lines.length) { mount.innerHTML = checkout.order_id ? `<div class="empty-state"><h2>Tu pedido de prueba ya fue creado.</h2><a class="button" href="/pedido.html?id=${encodeURIComponent(checkout.order_id)}">Continuar con tu pedido</a></div>` : '<div class="empty-state"><h2>Agregá una prenda para continuar.</h2><a class="button" href="/catalogo.html">Ver la colección</a></div>'; return; }
@@ -162,7 +189,9 @@
     if (step === 'review') content = `<button class="text-button" data-checkout-back="delivery">← Editar entrega</button><h2>Revisá tu compra</h2><div class="review-block"><h3>Contacto</h3><p>${esc(checkout.name)}<br>${esc(checkout.email)}<br>${esc(checkout.phone)}</p><h3>Entrega</h3><p>${esc(checkout.line1)}<br>${esc(checkout.city)}, ${esc(checkout.department)}</p></div><p>Todos los importes son de prueba. No se cobra dinero ni se envían prendas.</p><p data-error class="error" role="alert" hidden></p><button class="button full" data-create-order>Continuar al pago de prueba</button>`;
     if (step === 'payment') content = `<h2>Pago de prueba</h2><p>Este simulador guarda el resultado en tu pedido. No utiliza tarjetas ni una pasarela bancaria.</p><p class="notice">No se cobra dinero.</p><p data-error class="error" role="alert" hidden></p><button class="button full" data-test-payment="approved">Aprobar pago de prueba</button><div class="test-options"><button class="text-button" data-test-payment="declined">Probar pago rechazado</button><button class="text-button" data-test-payment="cancelled">Cancelar pedido</button></div>`;
     mount.innerHTML = `<ol class="steps" aria-label="Pasos de compra">${stages.map((s,i) => `<li class="${i<stages.indexOf(step)?'complete':''}" ${s === step ? 'aria-current="step"':''}>${i+1}. ${['Contacto','Entrega','Revisión','Pago'][i]}</li>`).join('')}</ol>${runningSummary(quote || cart,cart.lines,quote ? 'Total':'Total sin entrega')}<div class="commerce-grid"><section class="checkout-panel" aria-labelledby="checkout-stage-title">${content}</section><aside class="order-summary checkout-summary" data-checkout-step="${step}"><h2>Tu selección</h2>${cart.lines.map(line => lineView(line)).join('')}${totals(quote || cart)}<footer class="checkout-summary-footer"><div><h3>Compra de prueba</h3><p>USD · precios, tallas y stock de muestra.</p><p>Pago simulado. No se cobra dinero ni se envían prendas.</p><a href="/ayuda.html" data-barba-prevent>Entrega y devoluciones</a></div></footer></aside></div>`;
-    $('.checkout-panel h2',mount).id = 'checkout-stage-title';
+    const title = $('.checkout-panel h2',mount);
+    title.id = 'checkout-stage-title';
+    if (focusStep) { title.tabIndex = -1; title.focus({preventScroll:true}); }
     $('.checkout-panel',mount).scrollIntoView({block:'nearest'});
   }
   function returnItems(order, ret) { return '<ul class="return-items">'+ret.lines.map(line=>{const item=order.lines.find(item=>item.variant_id===line.variant_id); return '<li>'+esc(item?.name || line.variant_id)+' · Talla '+esc(item?.size)+' · Cantidad: '+line.quantity+'</li>';}).join('')+'</ul>'; }
@@ -226,12 +255,17 @@
     dialog.addEventListener('close',()=>{if(dialog.id==='newsletter-dialog')localStorage.setItem('martha-parity-newsletter-dismissed','true');trigger?.setAttribute('aria-expanded','false');if(trigger?.isConnected)trigger.focus({preventScroll:true});},{once:true});
   }
   function miniBag(trigger) {
-    const dialog=$('#mini-bag'); if(!dialog || !cart)return;
+    const dialog=$('#mini-bag'); if(!dialog || !cart || (!dialog.open && !trigger))return;
     const active=dialog.contains(document.activeElement) ? document.activeElement : null;
     const control=['quantity','removeItem','moveFavorite'].find(key=>active?.dataset[key]);
     const variant=control ? active.dataset[control] : null;
-    $('[data-mini-bag-lines]').innerHTML=cart.lines.map(line=>lineView(line,true)).join('');
-    $('[data-mini-bag-total]').innerHTML=totals(cart);openDialog(dialog,trigger || document.activeElement);
+    const hasLines=cart.lines.length>0;
+    $('#mini-bag-title',dialog).textContent=hasLines?'Agregada a tu bolsa':'Bolsa vacía';
+    $('[data-mini-bag-lines]').innerHTML=hasLines?cart.lines.map(line=>lineView(line,true)).join(''):'<p class="notice">No quedan prendas en tu bolsa. Seguí explorando la colección.</p><a class="text-link" href="/catalogo.html">Ver la colección</a>';
+    const total=$('[data-mini-bag-total]');total.innerHTML=hasLines?totals(cart):'';total.hidden=!hasLines;
+    const checkout=$('a[href="/checkout.html"]',dialog);
+    if(checkout){checkout.hidden=!hasLines;if(hasLines)checkout.removeAttribute('aria-disabled');else checkout.setAttribute('aria-disabled','true');}
+    if(!dialog.open)openDialog(dialog,trigger);
     if(control) {const next=$$('select,button',dialog).find(el=>el.dataset[control]===variant);(next || $('[data-close-dialog]',dialog))?.focus({preventScroll:true});}
   }
   function gallery() {
@@ -304,11 +338,11 @@
     if (b.matches('[data-clear-filters], [data-remove-filter]')) { event.preventDefault(); const params = new URLSearchParams(location.search); if (b.matches('[data-clear-filters]')) [...params.keys()].forEach(k=>params.delete(k)); else params.delete(b.dataset.removeFilter); setCatalogParams(params); catalog(); return; }
     if (b.matches('[data-sticky-add]')) { const main=$('[data-add]');if(main&&!main.disabled)main.click();return; }
     if (b.matches('[data-add]')) { await withButton(b,async()=>{ const input=$('input[name="variant"]:checked:not(:disabled)'); if (!input) throw new Error('Elegí una talla para agregar esta prenda.'); cart=await api('/api/cart/items',{variant_id:input.value,quantity:1}); await refreshCart(); const note=$('[data-add-confirmation]'); if (note) { note.innerHTML=`Prenda agregada a tu bolsa. <a href="/bolsa.html">Ver bolsa</a>`; note.hidden=false; } notify('Prenda agregada a tu bolsa.');miniBag(b); }); return; }
-    if(b.matches('[data-move-favorite]')){await withButton(b,async()=>{if(!favorites.includes(b.dataset.product))favorites.push(b.dataset.product);localStorage.setItem('martha-parity-favorites',JSON.stringify(favorites));cart=await api('/api/cart/items',{variant_id:b.dataset.moveFavorite,quantity:0},'PATCH');await refreshCart();renderCart();if($('#mini-bag')?.open)miniBag();updateHearts();});return;}
-    if (b.matches('[data-remove-item]')) { await withButton(b,async()=>{cart=await api('/api/cart/items',{variant_id:b.dataset.removeItem,quantity:0},'PATCH'); await refreshCart(); renderCart();if($('#mini-bag')?.open)miniBag();}); return; }
-    if (b.matches('[data-checkout-back]')) { renderCheckout(b.dataset.checkoutBack); return; }
+    if(b.matches('[data-move-favorite]')){const focus=cartActionFocus(b);await withButton(b,async()=>{if(!favorites.includes(b.dataset.product))favorites.push(b.dataset.product);localStorage.setItem('martha-parity-favorites',JSON.stringify(favorites));cart=await api('/api/cart/items',{variant_id:b.dataset.moveFavorite,quantity:0},'PATCH');await refreshCart();renderCart();if($('#mini-bag')?.open)miniBag();updateHearts();focus();notify('Prenda guardada en favoritos y retirada de tu bolsa.');});return;}
+    if (b.matches('[data-remove-item]')) { const focus=cartActionFocus(b);await withButton(b,async()=>{cart=await api('/api/cart/items',{variant_id:b.dataset.removeItem,quantity:0},'PATCH'); await refreshCart(); renderCart();if($('#mini-bag')?.open)miniBag();focus();notify('Prenda retirada de tu bolsa.');}); return; }
+    if (b.matches('[data-checkout-back]')) { renderCheckout(b.dataset.checkoutBack,true); return; }
     if (b.matches('[data-recover-order]')) { await withButton(b,async()=>{ rememberOrder((await api('/api/orders',orderPayload())).order); renderCheckout(); }); return; }
-    if (b.matches('[data-create-order]')) { await withButton(b,async()=>{ checkout.quote_id=quote.id; checkout.order_key ||= uuid(); saveCheckout(); rememberOrder((await api('/api/orders',orderPayload())).order); renderCheckout('payment'); }); return; }
+    if (b.matches('[data-create-order]')) { await withButton(b,async()=>{ checkout.quote_id=quote.id; checkout.order_key ||= uuid(); saveCheckout(); rememberOrder((await api('/api/orders',orderPayload())).order); renderCheckout('payment',true); }); return; }
     if (b.matches('[data-test-payment]')) { await withButton(b,async()=>{ const id=currentOrder?.id || checkout.order_id; if (!id) throw new Error('Revisá tu compra para crear el pedido primero.'); const result=await api(`/api/orders/${encodeURIComponent(id)}/test-payment`,{outcome:b.dataset.testPayment,idempotency_key:checkout.payment_key ||= uuid()}); currentOrder=result.order; sessionStorage.removeItem(sessionKey('checkout')); checkout={}; location.href='/pedido.html?id='+encodeURIComponent(id); }); return; }
     if (b.matches('[data-rebuild-order]')) { await withButton(b,async()=>{ const existing=await refreshCart(); for(const line of currentOrder.lines) {const qty=(existing.lines.find(l=>l.variant_id===line.variant_id)?.quantity || 0)+line.quantity; await api('/api/cart/items',{variant_id:line.variant_id,quantity:qty},'PATCH');} location.href='/bolsa.html';}); return; }
     if (b.matches('[data-admin-refresh]')) { await withButton(b,renderAdmin); return; }
@@ -356,8 +390,8 @@
     await withButton(button,async()=>{
       if (form.dataset.checkoutForm) {
         Object.assign(checkout,data); if(form.dataset.checkoutForm === 'contact') checkout.newsletter=form.elements.newsletter.checked; saveCheckout();
-        if (form.dataset.checkoutForm === 'contact') renderCheckout('delivery');
-        else {quote=await api('/api/quote',{delivery_zone:checkout.delivery_zone,coupon:checkout.coupon || ''}); checkout.order_key=uuid(); delete checkout.order_id; delete checkout.payment_key; saveCheckout(); renderCheckout('review');}
+        if (form.dataset.checkoutForm === 'contact') renderCheckout('delivery',true);
+        else {quote=await api('/api/quote',{delivery_zone:checkout.delivery_zone,coupon:checkout.coupon || ''}); checkout.order_key=uuid(); delete checkout.order_id; delete checkout.payment_key; saveCheckout(); renderCheckout('review',true);}
       } else if (form.matches('[data-return-form]')) {
         const lines=Object.entries(data).filter(([key,value])=>key.startsWith('return:')&&Number(value)>0).map(([key,value])=>({variant_id:key.slice(7),quantity:Number(value)}));
         if (!lines.length) throw new Error('Seleccioná al menos una prenda para devolver.');
@@ -367,6 +401,17 @@
       else if(form.dataset.stock) {await api('/api/admin/inventory',{variant_id:form.dataset.stock,quantity:Number(data.quantity),reason:data.reason}); await renderAdmin();}
     });
   });
+  function syncCampaignViewport() {
+    const height = $$('.test-banner, [data-integration-panel], .site-header')
+      .reduce((total, element) => total + element.getBoundingClientRect().height, 0);
+    document.documentElement.style.setProperty('--store-chrome-height', `${Math.ceil(height)}px`);
+  }
+  window.addEventListener('resize', syncCampaignViewport);
+  if (window.ResizeObserver) {
+    const chromeObserver = new ResizeObserver(syncCampaignViewport);
+    $$('.test-banner, [data-integration-panel], .site-header').forEach(element => chromeObserver.observe(element));
+  }
+  syncCampaignViewport();
   const reduced = matchMedia('(prefers-reduced-motion: reduce)'); reduced.addEventListener('change',motion);
   if (window.barba && $('[data-barba="container"]')) {
     const editorial = /^\/(?:index|catalogo|producto-[a-z0-9-]+)\.html$|^\/$/;
