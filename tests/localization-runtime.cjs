@@ -148,13 +148,54 @@ test('all 47 templates expose the language controls and English navigation', asy
       assert.ok(scripts.indexOf('/i18n.js') < scripts.indexOf('/app.js'), page);
       assert.equal(b.d.querySelectorAll('.language-bar').length, 1, page);
       assert.ok(b.d.querySelector('[data-language="en"]'), page);
-      const nav = text(b.d.querySelector('.desktop-nav'));
-      assert.doesNotMatch(nav, /Todas las prendas|Vestidos de fiesta|Moda femenina|Novias/, page);
-      assert.match(nav, /Bridal/i, page);
-      assert.doesNotMatch(b.d.querySelector('[data-search-open]').getAttribute('aria-label'), /Buscar/, page);
+      const nav = b.d.querySelector('.desktop-nav');
+      if (nav) {
+        assert.doesNotMatch(text(nav), /Todas las prendas|Vestidos de fiesta|Moda femenina|Novias/, page);
+        assert.match(text(nav), /Bridal/i, page);
+        assert.doesNotMatch(b.d.querySelector('[data-search-open]').getAttribute('aria-label'), /Buscar/, page);
+      } else {
+        assert.equal(page, 'checkout.html', 'only checkout intentionally uses the compact header');
+        assert.ok(b.d.querySelector('.checkout-header'));
+        assert.match(text(b.d.querySelector('.checkout-back')), /back to (?:your )?bag/i);
+        assert.doesNotMatch(text(b.d.querySelector('.checkout-back')), /Volver|bolsa/);
+        assert.match(text(b.d.querySelector('.site-footer')), /bridal/i);
+      }
       assert.doesNotMatch(b.d.querySelector('#search-dialog input').getAttribute('placeholder'), /Buscar por/, page);
+      const description = b.d.querySelector('meta[name=description]').getAttribute('content');
+      assert.doesNotMatch(description, /Vestidos de gala|novias|moda femenina/, page);
     });
   }
+});
+
+test('Back restores the English URL language after switching a filtered page to Spanish', async () => {
+  await withPage('catalogo.html', {query: '?category=Novias&lang=en'}, async b => {
+    const category = b.d.querySelector('[name=category]');
+    category.value = 'Gala'; category.dispatchEvent(new b.w.Event('change', {bubbles: true})); await tick();
+    b.w.MarthaI18n.setLanguage('es'); await tick();
+    assert.match(b.d.documentElement.lang, /^es(?:-|$)/);
+    assert.equal(new URL(b.w.location.href).searchParams.get('lang'), null);
+    b.w.history.back(); await tick(); await tick();
+    assert.equal(new URL(b.w.location.href).searchParams.get('lang'), 'en');
+    assert.equal(b.d.documentElement.lang, 'en');
+    assert.equal(b.w.MarthaI18n.language, 'en');
+    assert.equal(b.w.localStorage.getItem('martha-language-v1'), 'en');
+    assert.equal(category.value, 'Novias');
+    assert.match(category.selectedOptions[0].textContent, /bridal/i);
+  });
+});
+
+test('mixed text fragments and running totals remain English after dynamic insertion', async () => {
+  await withPage('index.html', {language: 'en', app: false}, async b => {
+    const status = b.d.createElement('p');
+    status.innerHTML = '<span translate="no">Rosa</span> · Solicitud recibida';
+    const summary = b.d.createElement('strong'); summary.textContent = 'Total sin entrega USD 185.00';
+    b.d.querySelector('main').append(status, summary); await tick();
+    assert.match(text(status), /^Rosa · /);
+    assert.doesNotMatch(text(status), /Solicitud recibida|Pink/);
+    assert.match(text(status), /request received/i);
+    assert.match(text(summary), /total before delivery/i);
+    assert.ok(text(summary).includes('USD 185.00'));
+  });
 });
 
 test('English URLs still work when browser storage is unavailable', async () => {
@@ -232,6 +273,31 @@ test('English favorites, validation, bag updates and stock errors stay translate
     assert.doesNotMatch(text(error), /No hay|unidades|talla/);
     assert.match(text(error), /enough|stock|available/i);
     assert.match(text(b.d.querySelector('[data-stock-note]')), /sample/i);
+  });
+});
+
+test('a language-qualified checkout link hides when the mini-bag becomes empty and restores on add', async () => {
+  await withPage('producto-dorado.html', {language: 'en'}, async b => {
+    const add = b.d.querySelector('[data-add]');
+    b.d.querySelector('input[name=variant]:not(:disabled)').checked = true;
+    add.click(); await tick();
+    const bag = b.d.querySelector('#mini-bag');
+    const checkout = bag.querySelector('a.button.secondary.full');
+    assert.ok(checkout); assert.equal(checkout.hidden, false);
+    // The navigation handler adds this query before a visit/Back to the same page.
+    checkout.href = '/checkout.html?lang=en';
+    bag.querySelector('[data-remove-item]').click(); await tick();
+    assert.equal(bag.querySelectorAll('.cart-line').length, 0);
+    assert.equal(checkout.hidden, true);
+    assert.equal(checkout.getAttribute('aria-disabled'), 'true');
+    assert.equal(bag.querySelector('[data-mini-bag-total]').hidden, true);
+    bag.querySelector('[data-close-dialog]').click();
+    add.click(); await tick();
+    assert.equal(bag.querySelectorAll('.cart-line').length, 1);
+    assert.equal(checkout.hidden, false);
+    assert.equal(checkout.hasAttribute('aria-disabled'), false);
+    assert.equal(bag.querySelector('[data-mini-bag-total]').hidden, false);
+    assert.equal(new URL(checkout.href).searchParams.get('lang'), 'en');
   });
 });
 

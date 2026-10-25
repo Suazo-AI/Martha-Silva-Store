@@ -147,6 +147,7 @@ Revisá tus prendas antes de continuar.|Review your items before continuing.
 Cargando tu bolsa…|Loading your bag…
 Resumen de la bolsa|Bag summary
 Vestidos de gala, novias y moda femenina.|Occasion dresses, bridal and womenswear.
+Vestidos de gala, novias y moda femenina de Martha Silva Store, Nicaragua.|Occasion dresses, bridal and womenswear from Martha Silva Store, Nicaragua.
 Selecciones|Selections
 Filtros|Filters
 Filtrar prendas|Filter styles

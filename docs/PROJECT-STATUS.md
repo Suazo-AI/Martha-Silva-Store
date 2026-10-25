@@ -10,13 +10,21 @@ Photographic bytes, product identifiers, prices and sample inventory are unchang
 Spanish remains the default; `?lang=en` selects the English presentation.
 
 Image inspection in this change reads 737 file headers, not a new visual review.
-Thirteen serial localization DOM checks were added to the existing runner.
+Sixteen serial localization DOM checks were added to the existing runner.
 Local heavy work was refused by `mantenimiento/Run-SequentialHeavyTask.ps1`:
 available RAM was below 1,536 MB and memory commitment exceeded 75%.
 Cutufay acknowledged independent cloud QA in Slack thread `1792971699.179229`.
 Build, automated checks, browser QA and republication are pending for this
 candidate; the publication record below remains the last verified live release.
-No GitHub push or CI result is claimed for the candidate.
+The first cloud run built 858 files reproducibly and passed the 23 backend
+simulations and 14 offline deployment checks. Localization was 11/13: one
+test assumed a desktop menu on the intentionally compact checkout page, and
+one real return-status fragment was untranslated. Revision two corrects that
+test, the status fragment, language/history restoration, summary translation,
+metadata and a query-qualified checkout-link edge case. Its checks are pending.
+The first source bundle omitted the OpenAPI contract needed by an adapter
+test; the corrected bundle includes the contract. No GitHub push or CI result
+is claimed for this candidate.
 
 ## Estado vigente: tienda publica y SAVIA privado
 

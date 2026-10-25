@@ -48,6 +48,7 @@
         ,[/^Desde (.+)$/, amount => `From ${amount}`]
         ,[/^Seguimiento:$/, () => 'Tracking:']
         ,[/^fotografía (\d+)$/, n => `photo ${n}`]
+        ,[/^(Total sin entrega|Total|Entrega estimada|Entrega|Subtotal|Impuestos de prueba|Descuento) ((?:USD|US\$|\$).+)$/, (label, amount) => `${english(label)} ${amount}`]
       ];
       let matched = false;
       for (const [pattern, render] of prefixes) {
@@ -55,9 +56,10 @@
         if (match) { result = render(...match.slice(1)); matched = true; break; }
       }
       if (!matched) {
-        const separator = text.includes(' · ') ? ' · ' : text.includes(' - ') ? ' - ' : null;
-        if (separator) result = text.split(separator).map(english).join(separator);
-        else if (text.includes(' / ')) result = text.split(' / ').map(english).join(' / ');
+        // A dynamic label may start with a separator after a protected data span.
+        // Preserve separator tokens while translating every surrounding label.
+        const parts = text.split(/(\s*·\s*|\s+-\s+|\s+\/\s+)/);
+        if (parts.length > 1) result = parts.map((part, index) => index % 2 ? part : english(part)).join('');
         else {
           result = text.replace(/Talla ([SML]|\d+)/g, 'Size $1').replace(/Cantidad:? (\d+)/g, 'Quantity: $1');
           for (const [spanish, translated] of productNames) result = result.split(spanish).join(translated);
@@ -110,6 +112,18 @@
     apply();
     window.dispatchEvent(new CustomEvent('martha:languagechange', { detail: { language } }));
   }
+  function syncHistoryLanguage() {
+    const choice = new URLSearchParams(location.search).get('lang');
+    // An explicit language in a restored URL takes precedence over the latest preference.
+    if (!['es', 'en'].includes(choice) || choice === language) return;
+    language = choice;
+    try { localStorage.setItem(key, language); } catch {}
+    refreshControls();
+    apply();
+    window.dispatchEvent(new CustomEvent('martha:languagechange', { detail: { language } }));
+  }
+  window.addEventListener('popstate', syncHistoryLanguage);
+  window.addEventListener('pageshow', syncHistoryLanguage);
   window.MarthaI18n = {
     get language() { return language; },
     translate: value => language === 'en' ? english(value) : String(value ?? ''),

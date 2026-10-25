@@ -136,7 +136,7 @@
   }
   function totals(q, cta = '') { return `<dl class="totals"><div><dt>Subtotal</dt><dd>${money(q.subtotal_minor)}</dd></div>${q.discount_minor ? `<div><dt>Descuento</dt><dd>−${money(q.discount_minor)}</dd></div>`:''}<div><dt>Entrega${q.shipping_minor === undefined ? ' estimada':''}</dt><dd>${q.shipping_minor === undefined ? 'Desde '+money(500):money(q.shipping_minor)}</dd></div><div><dt>Impuestos de prueba</dt><dd>${money(q.tax_minor || 0)}</dd></div><div class="total-row"><dt>Total${q.total_minor === undefined ? ' sin entrega':''}</dt><dd>${money(q.total_minor ?? q.subtotal_minor)}</dd></div></dl>${cta}`; }
   function runningSummary(q, lines, label) {
-    return `<details class="running-summary" data-running-summary><summary><span>${esc(lines.map(line => 'Talla '+line.size+' · Cantidad '+line.quantity).join(' / '))}</span><strong>${label} ${money(q.total_minor ?? q.subtotal_minor)}</strong></summary><div class="running-summary-content">${lines.map(line => lineView(line)).join('')}${totals(q)}<p class="small muted">Compra de prueba · sin cobros reales.</p></div></details>`;
+    return `<details class="running-summary" data-running-summary><summary><span>${esc(lines.map(line => 'Talla '+line.size+' · Cantidad '+line.quantity).join(' / '))}</span><strong><span>${label}</span> ${money(q.total_minor ?? q.subtotal_minor)}</strong></summary><div class="running-summary-content">${lines.map(line => lineView(line)).join('')}${totals(q)}<p class="small muted">Compra de prueba · sin cobros reales.</p></div></details>`;
   }
   function syncProduct() {
     const selected=$('input[name="variant"]:checked');
@@ -266,7 +266,7 @@
     $('#mini-bag-title',dialog).textContent=hasLines?'Agregada a tu bolsa':'Bolsa vacía';
     $('[data-mini-bag-lines]').innerHTML=hasLines?cart.lines.map(line=>lineView(line,true)).join(''):'<p class="notice">No quedan prendas en tu bolsa. Seguí explorando la colección.</p><a class="text-link" href="/catalogo.html">Ver la colección</a>';
     const total=$('[data-mini-bag-total]');total.innerHTML=hasLines?totals(cart):'';total.hidden=!hasLines;
-    const checkout=$('a[href="/checkout.html"]',dialog);
+    const checkout=$$('a[href]',dialog).find(link=>{const url=new URL(link.href,location.href);return url.origin===location.origin&&url.pathname==='/checkout.html';});
     if(checkout){checkout.hidden=!hasLines;if(hasLines)checkout.removeAttribute('aria-disabled');else checkout.setAttribute('aria-disabled','true');}
     if(!dialog.open)openDialog(dialog,trigger);
     if(control) {const next=$$('select,button',dialog).find(el=>el.dataset[control]===variant);(next || $('[data-close-dialog]',dialog))?.focus({preventScroll:true});}
