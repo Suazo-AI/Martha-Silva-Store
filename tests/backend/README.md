@@ -1,4 +1,4 @@
-# SQL Server backend tests — synthetic first slice
+# SQL Server backend tests â€” synthetic first slice
 
 These tests are separate from `tests/backend.cjs`, which checks the browser demo.
 No real customer, payment-card, production-inventory or historical database data is used.
@@ -56,7 +56,7 @@ GitHub-hosted runner destruction is the final isolation boundary. No external or
 
 Readiness is bounded. Missing connection configuration, missing TRX, any skipped
 SQL test, any failure, an unexpected/duplicate test, or anything other than all
-18 expected passing SQL tests (six V1 and twelve SAVIA V2) fails the job. Only allowlisted test names,
+21 expected passing SQL tests (six V1 and fifteen SAVIA V2) fails the job. Only allowlisted test names,
 outcomes and counters are retained as a seven-day artifact; raw stdout/TRX,
 environment and container logs are not published. The sanitizer has independent
 unit tests and strips all arbitrary diagnostic text. No API deployment occurs.
@@ -85,7 +85,7 @@ SAVIA V2 adds explicit cancellation/release and durable attempt lookup. Expiry,
 payment adapters, production auth, HTTP frontend wiring, and real inventory
 remain outside these synthetic slices.
 
-## Verification — 2026-10-24
+## Verification â€” 2026-10-24
 
 Temporary integration checkout combining the current backend source/migrations
 with this test branch, SDK 10.0.402 / runtime 10.0.13:
@@ -100,7 +100,7 @@ with this test branch, SDK 10.0.402 / runtime 10.0.13:
   Licensing was subsequently approved; the new CI job awaits remote execution. No concurrency/rollback runtime claim
   is made from the successful compilation or guard tests.
 
-### SQL CI implementation checks — 2026-10-24
+### SQL CI implementation checks â€” 2026-10-24
 
 - Official MCR manifest and image configuration inspected; immutable digest pinned.
 - YAML parsing, bash syntax and five sanitizer unit tests passed.
@@ -118,7 +118,7 @@ checks use the real HTTP host with no SQL configuration; they make no SQL claim.
 `SaviaModelGuardTests` also verifies synchronous and asynchronous refusal of
 attempt/movement rewrites and deletes before opening a SQL connection.
 
-`SaviaSqlServerIntegrationTests` adds twelve real-SQL tests, each with its own
+`SaviaSqlServerIntegrationTests` adds fifteen real-SQL tests, each with its own
 migrated disposable database and the explicit SAVIA seed. The six original V1
 SQL tests remain unchanged. V2 coverage includes:
 
@@ -135,12 +135,12 @@ SQL tests remain unchanged. V2 coverage includes:
   commit; it does not simulate a TCP fault. Missing lookup is `attempt_unknown`,
   never evidence that an operation did not execute.
 - Authority mismatch with no mutation and tracked attempt/movement rewrite refusal.
-- Repeat seed without replenishment; corrupt metadata and a partial ledger fail
+- Repeat seed without replenishment; corrupt metadata and an inconsistent balance fail
   closed instead of repairing or replenishing inventory.
 - Ledger-to-balance and reservation-state reconciliation, plus durable business
   rejection replay after availability changes and cross-operation attempt conflict.
 
-The sanitizer now allowlists all **18 fully qualified test names across both
+The sanitizer now allowlists all **21 fully qualified test names across both
 classes**. Any omitted, unknown, wrong-class, duplicate, failed or skipped result,
 or inconsistent counter, fails closed. Its independent unit tests derive counters
 from the exact allowlist rather than a hardcoded V1 count. Run them without SQL:
@@ -154,3 +154,15 @@ separately authorized SQL run succeeds. No SQL server, EULA acceptance, dependen
 installation, credential use, API deployment, push or production access is part of
 preparing these tests. Local compilation/runtime evidence for the final integrated
 V2 source belongs to the integration checkout, not an isolated test-only branch.
+
+
+### Additional SQL regression preparation
+
+Three further SQL tests require database enforcement against `ExecuteUpdate` and
+`ExecuteDelete` on attempts/movements, including deletion of an unreferenced
+rejected attempt. Each refusal must roll back a preceding balance update and leave
+all original ledger/attempt snapshots unchanged. Creation receipt JSON and price
+fields receive equivalent bulk-update checks so GET creation cannot diverge from
+the durable POST replay. The third test inserts a schema-valid orphan successful
+attempt with `ResultJson={}`; repeating seed must refuse it without repairing,
+replenishing or changing any persisted record. All remain unexecuted locally.

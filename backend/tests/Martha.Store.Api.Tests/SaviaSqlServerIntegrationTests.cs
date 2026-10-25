@@ -1,3 +1,4 @@
+using System.Data.Common;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -334,16 +335,16 @@ public sealed class SaviaSqlServerIntegrationTests
         {
             Assert.Equal("CORRUPT-SYNTHETIC-FIXTURE", (await db.SaviaBalances.AsNoTracking().SingleAsync()).Sku);
             await db.SaviaBalances.ExecuteUpdateAsync(s => s.SetProperty(x => x.Sku, originalSku));
-            // Deliberate test-only partial fixture: retain reservation/attempt/balance, remove its ledger.
-            await db.SaviaMovements.ExecuteDeleteAsync();
+            // Deliberate inconsistent fixture without bypassing append-only ledger triggers.
+            await db.SaviaBalances.ExecuteUpdateAsync(set => set.SetProperty(x => x.Reserved, 0));
             await Assert.ThrowsAsync<InvalidOperationException>(() => SaviaSyntheticSeed.Apply(db));
         }
         await using var final = database.Context();
         Assert.Equal(5, (await final.SaviaBalances.AsNoTracking().SingleAsync()).OnHand);
-        Assert.Equal(1, (await final.SaviaBalances.AsNoTracking().SingleAsync()).Reserved);
+        Assert.Equal(0, (await final.SaviaBalances.AsNoTracking().SingleAsync()).Reserved);
         Assert.Single(await final.SaviaReservations.ToListAsync());
         Assert.Single(await final.SaviaAttempts.ToListAsync());
-        Assert.Empty(await final.SaviaMovements.ToListAsync());
+        Assert.Single(await final.SaviaMovements.ToListAsync());
     }
 
     [SqlServerFact]
@@ -412,5 +413,127 @@ public sealed class SaviaSqlServerIntegrationTests
         Assert.Equal(3, await db.SaviaAttempts.CountAsync());
         Assert.Single(await db.SaviaReservations.ToListAsync());
         Assert.Equal(2, await db.SaviaMovements.CountAsync());
+    }
+
+    [SqlServerFact]
+    public async Task Bulk_ledger_and_attempt_mutations_are_rejected_by_SQL_and_rollback_all_changes()
+    {
+        await using var database = await Database();
+        await using var factory = new TestApiFactory(connection: database.Connection);
+        using var client = factory.CreateClient();
+        using var created = await Reserve(client, Guid.NewGuid(), "v2-bulk-protected-create");
+        await Read(created, HttpStatusCode.Created);
+        var rejectedAttempt = Guid.NewGuid();
+        using var rejected = await Reserve(client, rejectedAttempt, "v2-bulk-unreferenced-reject", 6);
+        await AssertError(rejected, HttpStatusCode.Conflict, "out_of_stock");
+        string originalAttempts;
+        string originalMovements;
+        await using (var db = database.Context())
+        {
+            originalAttempts = JsonSerializer.Serialize(await db.SaviaAttempts.AsNoTracking().OrderBy(x => x.AttemptId).ToListAsync());
+            originalMovements = JsonSerializer.Serialize(await db.SaviaMovements.AsNoTracking().OrderBy(x => x.Id).ToListAsync());
+        }
+        for (var operation = 0; operation < 4; operation++)
+        {
+            await using (var db = database.Context())
+            {
+                await using var transaction = await db.Database.BeginTransactionAsync();
+                // A legal preceding write must also roll back when the SQL trigger refuses the bulk mutation.
+                await db.SaviaBalances.ExecuteUpdateAsync(set => set.SetProperty(x => x.Reserved, 0));
+                var future = DateTimeOffset.UtcNow.AddDays(1);
+                switch (operation)
+                {
+                    case 0:
+                        await Assert.ThrowsAnyAsync<DbException>(() => db.SaviaMovements.ExecuteUpdateAsync(set => set.SetProperty(x => x.CreatedAt, future)));
+                        break;
+                    case 1:
+                        await Assert.ThrowsAnyAsync<DbException>(() => db.SaviaMovements.ExecuteDeleteAsync());
+                        break;
+                    case 2:
+                        await Assert.ThrowsAnyAsync<DbException>(() => db.SaviaAttempts.Where(x => x.AttemptId == rejectedAttempt)
+                            .ExecuteUpdateAsync(set => set.SetProperty(x => x.CanonicalPayload, "tampered-but-otherwise-valid")));
+                        break;
+                    default:
+                        // A rejected attempt has no reservation/movement FK: only append-only SQL enforcement prevents deletion.
+                        await Assert.ThrowsAnyAsync<DbException>(() => db.SaviaAttempts.Where(x => x.AttemptId == rejectedAttempt).ExecuteDeleteAsync());
+                        break;
+                }
+            }
+            await AssertBalances(database, 5, 1);
+            await using var check = database.Context();
+            Assert.Equal(originalAttempts, JsonSerializer.Serialize(await check.SaviaAttempts.AsNoTracking().OrderBy(x => x.AttemptId).ToListAsync()));
+            Assert.Equal(originalMovements, JsonSerializer.Serialize(await check.SaviaMovements.AsNoTracking().OrderBy(x => x.Id).ToListAsync()));
+        }
+    }
+
+    [SqlServerFact]
+    public async Task Seed_rejects_orphan_success_attempt_without_reservation_movement_or_valid_receipt()
+    {
+        await using var database = await Database();
+        var attemptId = Guid.NewGuid();
+        const string key = "v2-orphan-success-attempt";
+        await using (var db = database.Context())
+        {
+            db.SaviaAttempts.Add(new SaviaAttempt
+            {
+                AttemptId = attemptId, Operation = "reserve", IdempotencyKey = key,
+                CanonicalPayload = JsonSerializer.Serialize(ReserveBody(attemptId)),
+                Outcome = "succeeded", ResultJson = "{}", Error = null, CreatedAt = DateTimeOffset.UtcNow
+            });
+            await db.SaveChangesAsync();
+        }
+        string originalAttempt;
+        await using (var db = database.Context())
+        {
+            originalAttempt = JsonSerializer.Serialize(await db.SaviaAttempts.AsNoTracking().SingleAsync());
+            await Assert.ThrowsAsync<InvalidOperationException>(() => SaviaSyntheticSeed.Apply(db));
+        }
+        await using var final = database.Context();
+        Assert.Equal(originalAttempt, JsonSerializer.Serialize(await final.SaviaAttempts.AsNoTracking().SingleAsync()));
+        var balance = await final.SaviaBalances.AsNoTracking().SingleAsync();
+        Assert.Equal(5, balance.OnHand);
+        Assert.Equal(0, balance.Reserved);
+        Assert.Empty(await final.SaviaReservations.ToListAsync());
+        Assert.Empty(await final.SaviaMovements.ToListAsync());
+        Assert.Equal(1, (await final.Variants.AsNoTracking().SingleAsync()).AvailableQuantity);
+        Assert.Empty(await final.SyntheticOrders.ToListAsync());
+    }
+
+    [SqlServerFact]
+    public async Task Bulk_creation_receipt_and_fields_cannot_diverge_from_original_replay()
+    {
+        await using var database = await Database();
+        await using var factory = new TestApiFactory(connection: database.Connection);
+        using var client = factory.CreateClient();
+        var attempt = Guid.NewGuid();
+        const string key = "v2-protected-creation-receipt";
+        using var created = await Reserve(client, attempt, key);
+        var original = await Read(created, HttpStatusCode.Created);
+        var id = original.GetProperty("reservationId").GetGuid();
+        var originalView = await Get(client, $"/reservations/{id}");
+        for (var operation = 0; operation < 2; operation++)
+        {
+            await using (var db = database.Context())
+            {
+                await using var transaction = await db.Database.BeginTransactionAsync();
+                await db.SaviaBalances.ExecuteUpdateAsync(set => set.SetProperty(x => x.Reserved, 0));
+                if (operation == 0)
+                    await Assert.ThrowsAnyAsync<DbException>(() => db.SaviaReservations.Where(x => x.Id == id)
+                        .ExecuteUpdateAsync(set => set.SetProperty(x => x.CreationJson, "{}")));
+                else
+                    // Both values satisfy the price CHECK; refusal must protect immutable creation fields.
+                    await Assert.ThrowsAnyAsync<DbException>(() => db.SaviaReservations.Where(x => x.Id == id)
+                        .ExecuteUpdateAsync(set => set.SetProperty(x => x.UnitPriceMinor, 1300L).SetProperty(x => x.TotalMinor, 1300L)));
+            }
+            await AssertBalances(database, 5, 1);
+            var current = await Get(client, $"/reservations/{id}");
+            Assert.Equal(originalView.GetRawText(), current.GetRawText());
+            using var replay = await Reserve(client, attempt, key);
+            Assert.Equal(original.GetRawText(), (await Read(replay, HttpStatusCode.Created)).GetRawText());
+            await using var dbCheck = database.Context();
+            Assert.Single(await dbCheck.SaviaReservations.ToListAsync());
+            Assert.Single(await dbCheck.SaviaAttempts.ToListAsync());
+            Assert.Single(await dbCheck.SaviaMovements.ToListAsync());
+        }
     }
 }

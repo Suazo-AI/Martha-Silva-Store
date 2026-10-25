@@ -27,6 +27,9 @@ EXPECTED = {PREFIX + name for name in {
     "Partial_or_inconsistent_seed_is_rejected_without_replenishment",
     "Movement_ledger_reconciles_balances_and_reservation_states",
     "Durable_rejection_replays_after_availability_changes_and_attempt_conflicts",
+    "Bulk_ledger_and_attempt_mutations_are_rejected_by_SQL_and_rollback_all_changes",
+    "Seed_rejects_orphan_success_attempt_without_reservation_movement_or_valid_receipt",
+    "Bulk_creation_receipt_and_fields_cannot_diverge_from_original_replay",
 }}
 
 
