@@ -751,7 +751,7 @@
           "status": {
             "type": "string",
             "enum": [
-              "reserved"
+              "active"
             ]
           },
           "attemptId": {
@@ -798,7 +798,7 @@
           "status": {
             "type": "string",
             "enum": [
-              "reserved",
+              "active",
               "cancelled"
             ]
           },
@@ -831,7 +831,8 @@
           "status": {
             "type": "string",
             "enum": [
-              "cancelled"
+              "cancelled",
+              "already_cancelled"
             ]
           },
           "releasedQuantity": {
@@ -884,7 +885,11 @@
           },
           "outcome": {
             "type": "string",
-            "description": "Durably recorded outcome; absence or transport failure is unknown. See domain documentation."
+            "description": "Durably recorded outcome; absence or transport failure is unknown. See domain documentation.",
+            "enum": [
+              "succeeded",
+              "rejected"
+            ]
           },
           "result": {
             "type": "object",
@@ -940,7 +945,11 @@
             "description": "Nonempty UUID."
           },
           "kind": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "reserve",
+              "cancel"
+            ]
           },
           "onHandDelta": {
             "type": "integer"
