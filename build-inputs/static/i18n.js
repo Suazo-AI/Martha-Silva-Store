@@ -106,7 +106,7 @@
     language = next;
     try { localStorage.setItem(key, language); } catch {}
     const url = new URL(location.href);
-    if (language === 'en') url.searchParams.set('lang', 'en'); else url.searchParams.delete('lang');
+    url.searchParams.set('lang', language);
     history.replaceState(history.state, '', url.pathname + url.search + url.hash);
     refreshControls();
     apply();
@@ -141,17 +141,15 @@
     if (!link || event.defaultPrevented || event.button !== 0 || link.hasAttribute('download') || link.target === '_blank') return;
     const url = new URL(link.href, location.href);
     if (url.origin !== location.origin || !/^\/(?:[a-z0-9-]+\.html)?$/.test(url.pathname) || link.getAttribute('href').startsWith('#')) return;
-    if (language === 'en') url.searchParams.set('lang', 'en'); else url.searchParams.delete('lang');
+    url.searchParams.set('lang', language);
     if (link.href !== url.href) link.href = url.href;
   }, true);
   document.addEventListener('submit', event => {
     const form = event.target;
     if (!form.matches('#search-dialog form')) return;
     let choice = form.querySelector('input[name="lang"]');
-    if (language === 'en') {
-      if (!choice) { choice = document.createElement('input'); choice.type = 'hidden'; choice.name = 'lang'; form.append(choice); }
-      choice.value = 'en';
-    } else choice?.remove();
+    if (!choice) { choice = document.createElement('input'); choice.type = 'hidden'; choice.name = 'lang'; form.append(choice); }
+    choice.value = language;
   }, true);
   new MutationObserver(mutations => {
     const roots = new Set();

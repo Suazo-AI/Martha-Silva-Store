@@ -10,7 +10,7 @@ Photographic bytes, product identifiers, prices and sample inventory are unchang
 Spanish remains the default; `?lang=en` selects the English presentation.
 
 Image inspection in this change reads 737 file headers, not a new visual review.
-Sixteen serial localization DOM checks were added to the existing runner.
+Seventeen serial localization DOM checks were added to the existing runner.
 Local heavy work was refused by `mantenimiento/Run-SequentialHeavyTask.ps1`:
 available RAM was below 1,536 MB and memory commitment exceeded 75%.
 Cutufay acknowledged independent cloud QA in Slack thread `1792971699.179229`.
@@ -21,7 +21,9 @@ simulations and 14 offline deployment checks. Localization was 11/13: one
 test assumed a desktop menu on the intentionally compact checkout page, and
 one real return-status fragment was untranslated. Revision two corrects that
 test, the status fragment, language/history restoration, summary translation,
-metadata and a query-qualified checkout-link edge case. Its checks are pending.
+metadata and a query-qualified checkout-link edge case. Revision three also
+retains explicit English/Spanish URLs when browser storage can be read but
+cannot be updated. Its checks are pending.
 The first source bundle omitted the OpenAPI contract needed by an adapter
 test; the corrected bundle includes the contract. No GitHub push or CI result
 is claimed for this candidate.

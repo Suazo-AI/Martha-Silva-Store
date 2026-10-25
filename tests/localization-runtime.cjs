@@ -173,7 +173,7 @@ test('Back restores the English URL language after switching a filtered page to 
     category.value = 'Gala'; category.dispatchEvent(new b.w.Event('change', {bubbles: true})); await tick();
     b.w.MarthaI18n.setLanguage('es'); await tick();
     assert.match(b.d.documentElement.lang, /^es(?:-|$)/);
-    assert.equal(new URL(b.w.location.href).searchParams.get('lang'), null);
+    assert.equal(new URL(b.w.location.href).searchParams.get('lang'), 'es');
     b.w.history.back(); await tick(); await tick();
     assert.equal(new URL(b.w.location.href).searchParams.get('lang'), 'en');
     assert.equal(b.d.documentElement.lang, 'en');
@@ -207,6 +207,37 @@ test('English URLs still work when browser storage is unavailable', async () => 
     b.w.MarthaI18n.setLanguage('es'); await tick();
     assert.match(b.d.documentElement.lang, /^es(?:-|$)/);
   });
+});
+
+test('an explicit Spanish choice survives reload and navigation when saved English cannot be overwritten', async () => {
+  const blockWrites = w => {
+    w.Storage.prototype.setItem = function () { throw new Error('Storage writes unavailable in test'); };
+  };
+  let reloadQuery, navigationQuery;
+  await withPage('index.html', {language: 'en', app: false, beforeLocale: blockWrites}, async b => {
+    assert.equal(b.w.localStorage.getItem('martha-language-v1'), 'en');
+    assert.equal(b.d.documentElement.lang, 'en');
+    b.w.MarthaI18n.setLanguage('es'); await tick();
+    assert.match(b.d.documentElement.lang, /^es(?:-|$)/);
+    assert.equal(b.w.localStorage.getItem('martha-language-v1'), 'en', 'old readable value should remain when writes fail');
+    assert.equal(new URL(b.w.location.href).searchParams.get('lang'), 'es');
+    reloadQuery = new URL(b.w.location.href).search;
+    const link = b.d.querySelector('.desktop-nav a[href*="category=Novias"]');
+    assert.ok(link);
+    // Run the real capture handler while suppressing jsdom's unsupported navigation.
+    link.addEventListener('click', event => event.preventDefault());
+    link.click(); await tick();
+    const destination = new URL(link.href);
+    assert.equal(destination.searchParams.get('category'), 'Novias');
+    assert.equal(destination.searchParams.get('lang'), 'es');
+    navigationQuery = destination.search;
+  });
+  for (const [page, query] of [['index.html', reloadQuery], ['catalogo.html', navigationQuery]]) {
+    await withPage(page, {language: 'en', app: false, query, beforeLocale: blockWrites}, async b => {
+      assert.match(b.d.documentElement.lang, /^es(?:-|$)/, page);
+      assert.equal(b.w.MarthaI18n.language, 'es', page);
+    });
+  }
 });
 
 test('all 40 catalog names and descriptions have English translations and product pages use them', async () => {
