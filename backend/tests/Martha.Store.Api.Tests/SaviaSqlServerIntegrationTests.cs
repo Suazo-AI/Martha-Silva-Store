@@ -106,6 +106,8 @@ public sealed class SaviaSqlServerIntegrationTests
         { authority = Authority, attemptId = attempt.ToString("D").ToUpperInvariant(), quantity = 1, locationId = LocationId, variantId = VariantId }, key);
         Assert.Equal(HttpStatusCode.Created, canonicalReplay.StatusCode);
         Assert.Equal(original, await canonicalReplay.Content.ReadAsStringAsync());
+        using var changedPayload = await Reserve(client, attempt, key, 2);
+        await AssertError(changedPayload, HttpStatusCode.Conflict, "idempotency_conflict");
         using var conflict = await Reserve(client, Guid.NewGuid(), key, 2);
         await AssertError(conflict, HttpStatusCode.Conflict, "idempotency_conflict");
         using var rebindAttempt = await Reserve(client, attempt, "v2-other-key-001");
