@@ -3,17 +3,17 @@
 Repositorio de recuperación y evolución de las demos de Martha Silva. Conserva código, evidencia y decisiones sin confundir una demo con una tienda en producción.
 
 **Demo publicada:** [martha-silva-preview.martha-silva-denis.workers.dev](https://martha-silva-preview.martha-silva-denis.workers.dev/).
-Código publicado: `8c01f99fa325d8a5bde6fddfffdade4f527e91d3`; Worker nuevo,
+Código publicado: `d2ad2000c68c492618c15f5a601cca9a47e8a587`; Worker nuevo,
 separado del original. La portada y el marcador de versión responden HTTP 200;
-las 861 entradas del marcador y 13 cuerpos públicos se comprobaron por hash
-contra el artefacto local. [Evidencia de publicación](evidence/cloudflare-savia-deployment-2026-10-25.json).
+las 856 entradas del marcador y ocho cuerpos públicos se comprobaron por hash
+contra el artefacto local. [Evidencia de publicación](evidence/cloudflare-storefront-only-2026-10-25.json).
 
 **Copia publicada:** 47 páginas, 40 productos de muestra, 120 variantes y 170 posiciones de galería, con los adaptadores locales SAVIA/SISFAIN. Se recuperaron 777 de 778 medios históricos desde el sitio público autorizado; el JPEG restante devuelve 404 y no se sustituye. No procesa tarjetas ni ofrece autenticación o inventario de producción. El original de Cloudflare permanece intacto.
 
 La rama `feat/original-storefront-preview` amplía la demo anterior de dos productos. Conserva el hero fotográfico y usa el catálogo compartido para evitar repetir los metadatos de imágenes en cada página. Procedencia y límites: [diseño](DESIGN.md), [estado](docs/PROJECT-STATUS.md) y [medios](docs/ASSET-COMPLETENESS.md). Una copia local no acredita publicación: el destino autorizado es únicamente el nuevo Worker `martha-silva-preview` de la cuenta conectada.
 
 
-**Direccion vigente:** continuar unicamente sobre la demo principal <https://martha-silva-preview.martha-silva-denis.workers.dev/>. El usuario rechazo la caja separada `/savia/`: se retira de la publicacion junto con su enlace. La integracion real con el backend SAVIA sigue pendiente; no se sustituye por otra aplicacion ni por operaciones simuladas presentadas como reales.
+**Direccion vigente:** continuar unicamente sobre la demo principal <https://martha-silva-preview.martha-silva-denis.workers.dev/>. La caja separada `/savia/` y su enlace fueron retirados: sus rutas responden404. La integracion real con el backend SAVIA sigue pendiente; no se sustituye por otra aplicacion ni por operaciones simuladas presentadas como reales.
 
 ## Navegación
 
@@ -81,3 +81,8 @@ Editar HTML/CSS/catálogo/imágenes en `build-inputs/static/`, comportamiento en
 Publicar el repositorio no publica automáticamente la tienda. Cualquier despliegue debe identificar destino, commit, autorización, prueba de acceso y rollback. Ver [criterios de entrega](docs/PROJECT-STATUS.md#criterios-de-aceptación).
 
 La conexión autorizada se limita al **nuevo Worker `martha-silva-preview`**, no a Admin amplio. Cloudflare confirmó por API la creación del subdominio separado `martha-silva-denis`; el despliegue y su URL deben comprobarse contra el artefacto concreto. `gh` CLI no está autenticado y no se activó CD. Ver [CD aislado](docs/CLOUDFLARE-CD.md).
+
+
+## SAVIA interno
+
+SAVIA es un sistema para staff y propietarios, separado de la tienda publica: CRM, administracion, ventas, inventario y abastecimiento. La base tecnica reutilizada es f7e859b; todavia no constituye un CRM/ERP completo. La implementacion privada se coordina con Cutufay desde un snapshot de45fuentes verificadas, sin datos reales ni despliegue publico. Ver `docs/savia-internal/REUSE-MAP.md`, `STAFF-WORKFLOWS.md` y `ACCEPTANCE.md`.

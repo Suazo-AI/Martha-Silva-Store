@@ -1,5 +1,11 @@
 # Estado del proyecto
 
+## Estado vigente: tienda publica y SAVIA privado
+
+Tienda principal publicada en source`d2ad2000c68c492618c15f5a601cca9a47e8a587`, deployment`8e298940246a49be9b55dcf8ee422983`. MainHTTP200; marcador856entradas y8cuerpos porhash comprobados. `/savia`, `/savia/`, `/savia/index.html` y `/savia/app.mjs` devuelven404; sin enlace a la caja descartada. Brave existente verificado y recargado. OriginalCloudflare conserva200 ySHA c5d028. Evidencia: `../evidence/cloudflare-storefront-only-2026-10-25.json`.
+
+SAVIA sera exclusivamente interno para staff/duenos: CRM/admin/ventas/inventario/abastecimiento, con auth y permisos de servidor. Reuso: basef7 de reservas/inventario,45fuentes verificadas entregadas aCutufaycloud; noCRMterminado, noSQLreal ni nueva API publica afirmados. Los informes de la caja publica8c01f99 a continuacion son historicos de una implementacion retirada. NoGitHubpush ni CI nuevos.
+
 ## Correccion de alcance: una sola interfaz
 
 Instruccion directa: conservar la URL principal y optimizar esa tienda para SAVIA; retirar la caja separada /savia/ y su enlace. No cambia el original Cloudflare. El prototipo queda fuera del build y su empaquetador se deshabilita. Los reportes de la publicacion8c01f99 se conservan como historicos. La retirada remota debe acreditarse con marker y HTTP404 para /savia/. No se afirma conexion real .NET/SQL.
