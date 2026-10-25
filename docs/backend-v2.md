@@ -24,3 +24,11 @@ La autoridad es siempre `savia / savia-synthetic-v2 / 1`; nunca se cambia por co
 Compilar con SDK exacto `10.0.402`, restore `--locked-mode`, build/test `--no-restore`. Los tests sin SQL prueban contratos, gates y validación, pero no acreditan carreras ni transacciones. La integración SQL real debe verificar esquema separado, reservas concurrentes, claves/attemptId concurrentes, cancelación repetida y concurrente, rollback y replay original después de cancelar. No se afirma preparación productiva ni despliegue.
 
 El harness de desarrollo usa CLI Node con HTTP; no publica HTML, no requiere CORS y no es un cliente comercial. Sin ejecución autorizada contra SQL no acredita un flujo E2E. Su lookup conserva estado desconocido ante `404 attempt_unknown`, fallos de red o HTTP sin recibo verificable, sin enviar a CGA.
+
+## Verificación local del candidato
+
+Restore oficial bloqueado (`--locked-mode`) en caché aislada y compilación Release con SDK 10.0.402: PASS, cero advertencias/errores. Pruebas C#: 45 PASS, 0 FAIL, 21 SQL SKIPPED; no se abrió una base ni se aplicó la migración. Las pruebas SQL omitidas no verifican transacciones ni cierran R07.
+
+Playwright Test 1.62.1 ya instalado ejecutó cuatro pruebas con trazas contra HTTP local de la API real y un catálogo de conexión deliberadamente inválido: capacidades, validación/autoridad y cierre seguro sin datos ficticios. No constituye compra/reserva SQL end-to-end. El servidor temporal propio fue detenido. Ver [suite aislada](../dev/savia-harness/playwright/README.md) y [evidencia local](../evidence/savia-v2-local-gates.json).
+
+El primer arranque del SDK informó creación automática de un certificado HTTPS de desarrollo; no se ejecutó trust. Las invocaciones posteriores deshabilitan esa generación. No se limpiaron certificados ajenos.

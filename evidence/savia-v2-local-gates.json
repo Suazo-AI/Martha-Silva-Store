@@ -1,0 +1,112 @@
+{
+  "backendSourceCommit": "8a9132143090dfd6aea6e520cbf4054cbec1c1e7",
+  "scope": "Local synthetic guards and harness; SQL transactions and CGA not verified",
+  "sdk": "10.0.402",
+  "runtime": "10.0.13",
+  "restore": {
+    "source": "https://api.nuget.org/v3/index.json",
+    "lockedMode": true,
+    "isolatedCache": true,
+    "exitCode": 0,
+    "lockfilesChanged": false
+  },
+  "releaseBuild": {
+    "exitCode": 0,
+    "warnings": 0,
+    "errors": 0
+  },
+  "dotnetTests": {
+    "passed": 45,
+    "failed": 0,
+    "skipped": 21,
+    "total": 66,
+    "sqlConnectionVariableRemoved": true,
+    "rawCounters": {
+      "total": "66",
+      "executed": "45",
+      "passed": "45",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "note": "Skipped count comes from UnitTestResult outcome NotExecuted; this VSTest TRX reports notExecuted counter 0 despite 21 skipped results."
+  },
+  "sql": {
+    "executed": false,
+    "preparedTests": 21,
+    "v1": 6,
+    "v2": 15,
+    "migrationApplied": false,
+    "serverStarted": false
+  },
+  "nodeHarness": {
+    "passed": 37,
+    "transport": "explicit fetch doubles",
+    "verifiedByIndependentJudge": true
+  },
+  "legacyNodeRegressions": {
+    "passed": 55,
+    "scope": "existing local demo, not SQL or CGA"
+  },
+  "pythonEvidenceVerifier": {
+    "passed": 10,
+    "scope": "synthetic TRX evidence, not SQL"
+  },
+  "playwright": {
+    "version": "1.62.1",
+    "alreadyInstalled": true,
+    "browser": "Chrome 156.0.8078.47",
+    "passed": 4,
+    "failed": 0,
+    "sql": false,
+    "realLoopbackHttp": true,
+    "apiProcessStopped": true,
+    "traceViewerCliAvailable": true,
+    "traceViewerUiOpened": false,
+    "traces": [
+      {
+        "file": "playwright-results/guards-browser-reaches-onl-4b9e8-descriptor-CGA-stays-closed/trace.zip",
+        "bytes": 6916,
+        "sha256": "4e3cf8e30e40a62dff8672cd05b6fde934578abe56b7ef53031322c5087f3620"
+      },
+      {
+        "file": "playwright-results/guards-client-supplied-pri-68439--real-HTTP-request-contract/trace.zip",
+        "bytes": 5982,
+        "sha256": "184665b8a517a66095ebd3dee2f472f32a764c0ed13b6e9ff3853304c34a1f71"
+      },
+      {
+        "file": "playwright-results/guards-invalid-and-foreign-54a5a-d-before-storage-resolution/trace.zip",
+        "bytes": 7037,
+        "sha256": "1f1eb553ecccf5fedce6f91e9664aedf98946e5136d21967e8b8b7ca4dc6b992"
+      },
+      {
+        "file": "playwright-results/guards-no-SQL-connection-m-0eb5e-osed-without-invented-stock/trace.zip",
+        "bytes": 8214,
+        "sha256": "cd3c1008b749d21fc68519e00389bac1aa81bb871fe2149d7dcc6a2be6e8ba9a"
+      }
+    ]
+  },
+  "sdkFirstRun": {
+    "reportedDevelopmentCertificateCreation": true,
+    "trustCommandExecuted": false,
+    "subsequentCertificateGenerationDisabled": true
+  },
+  "limits": [
+    "No SQL integration or successful persisted reservation E2E",
+    "No CGA interface/access verified",
+    "No public storefront or images changed",
+    "No new dependencies or lockfile changes",
+    "No push, remote changes, deployment or billable resources started",
+    "SQL CI reuse requires verified destination/account/access and zero-cost capacity; historical license approval is CI-only"
+  ]
+}
