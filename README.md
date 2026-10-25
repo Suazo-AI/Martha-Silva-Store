@@ -1,4 +1,8 @@
-# Martha Silva Store
+# Martha Silva SISFAIN
+
+Esta copia es la base del modelo de **SISFAIN** y de la futura conexión de Martha Silva con SISFAIN. **SAVIA se desarrolla como proyecto aparte.** La separación y la procedencia se documentan en [Alcance SISFAIN](docs/SISFAIN.md).
+
+La integración real con SISFAIN está pendiente de su contrato/API y acceso autorizado. El contenido siguiente describe la base heredada de Martha Silva Store; sus enlaces y pruebas históricas corresponden al repositorio original.
 
 Repositorio de recuperación y evolución de las demos de Martha Silva. Conserva código, evidencia y decisiones sin confundir una demo con una tienda en producción.
 

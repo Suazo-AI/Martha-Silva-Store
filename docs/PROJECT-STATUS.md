@@ -1,5 +1,7 @@
 # Estado del proyecto
 
+**Alcance de esta copia (2026-10-25):** base del modelo SISFAIN y de la futura conexión de Martha Silva con SISFAIN; SAVIA será independiente. La creación del repositorio remoto sigue pendiente. Ver [SISFAIN](SISFAIN.md). El estado y las pruebas descritos a continuación se heredan del repositorio fuente.
+
 Corte de documentación: **2026-10-24**. El estado de remoto, CI y despliegues debe verificarse para el commit concreto de cada entrega.
 
 ## Qué existe y qué falta
