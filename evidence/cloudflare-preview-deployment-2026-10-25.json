@@ -1,0 +1,164 @@
+{
+  "deployed_source_commit": "7f29cf5a75db60c93b3bb3efa89c7e33d9e02a79",
+  "account_id": "df367c9aba37b558d177d38da39083ce",
+  "worker": "martha-silva-preview",
+  "url": "https://martha-silva-preview.martha-silva-denis.workers.dev",
+  "deployment_id": "faf7f80497c04932b50c8af836ee8c8c",
+  "api_status": 200,
+  "published_at_utc": "2026-10-25T04:17:41.406433Z",
+  "asset_files": 857,
+  "upload_unique_files": 856,
+  "upload_requests": 4,
+  "transport": "multipart with temporary session JWT; account OAuth stayed in connector",
+  "bindings": [
+    {
+      "type": "assets",
+      "name": "ASSETS"
+    }
+  ],
+  "worker_module": {
+    "name": "preview-assets.mjs",
+    "source": "export default { fetch(request, env) { return env.ASSETS.fetch(request); } };",
+    "sha256": "6be2d4f5d4b6e1792c1fcefc8c3f3402014fedc3d178be96ee9fa46cf3050c4e"
+  },
+  "asset_config": {
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "none",
+    "run_worker_first": false
+  },
+  "upload_manifest_sha256": "9b31d472432ddf553c714f69865c1c7c72491660ea1afe5a6fed4ea3aa231dbf",
+  "smoke": {
+    "sha": "7f29cf5a75db60c93b3bb3efa89c7e33d9e02a79",
+    "url": "https://martha-silva-preview.martha-silva-denis.workers.dev",
+    "client": "PowerShell Invoke-WebRequest default client",
+    "verified_at_utc": "2026-10-25T04:20:03.1367199Z",
+    "manifest_files": 856,
+    "marker_matches": true,
+    "assets": [
+      {
+        "path": "/",
+        "status": 200,
+        "sha256": "90b4e3f4520888678300e3bb5d01cf7c9412137d0f2727791d1ee38e427c8a08",
+        "content_type": "text/html",
+        "final_url": "https://martha-silva-preview.martha-silva-denis.workers.dev/"
+      },
+      {
+        "path": "/index.html",
+        "status": 200,
+        "sha256": "90b4e3f4520888678300e3bb5d01cf7c9412137d0f2727791d1ee38e427c8a08",
+        "content_type": "text/html",
+        "final_url": "https://martha-silva-preview.martha-silva-denis.workers.dev/"
+      },
+      {
+        "path": "/catalogo.html",
+        "status": 200,
+        "sha256": "fe8014849e0aaa443a55c2a33239511c124e911b896fed182e32b0f811ab1ace",
+        "content_type": "text/html",
+        "final_url": "https://martha-silva-preview.martha-silva-denis.workers.dev/catalogo"
+      },
+      {
+        "path": "/styles.css",
+        "status": 200,
+        "sha256": "c70542166dadaf7a2329bcfce61ddf9cb4abb0bf4b7aee084af952634c3e5520",
+        "content_type": "text/css",
+        "final_url": "https://martha-silva-preview.martha-silva-denis.workers.dev/styles.css"
+      },
+      {
+        "path": "/app.js",
+        "status": 200,
+        "sha256": "b0d5b729c6888c690ce940a8d3da8a94fcadc8b324301d587ca43a043cf215f8",
+        "content_type": "application/javascript",
+        "final_url": "https://martha-silva-preview.martha-silva-denis.workers.dev/app.js"
+      },
+      {
+        "path": "/demo-api.js",
+        "status": 200,
+        "sha256": "2cfdfaa9ea665ba4fd7c822ab66f7bdaa1499160c45e04cde53d14530d04002e",
+        "content_type": "application/javascript",
+        "final_url": "https://martha-silva-preview.martha-silva-denis.workers.dev/demo-api.js"
+      },
+      {
+        "path": "/catalog.js",
+        "status": 200,
+        "sha256": "c2d5ed59e03dd68b8e279a33bbce27f120ddb0ca29ff260bb2ec38bdf2df726f",
+        "content_type": "application/javascript",
+        "final_url": "https://martha-silva-preview.martha-silva-denis.workers.dev/catalog.js"
+      },
+      {
+        "path": "/integration-adapters.js",
+        "status": 200,
+        "sha256": "d274c6853b397c840b92e6dc2491f2f882e568d964429c7ad408fa971b6f2953",
+        "content_type": "application/javascript",
+        "final_url": "https://martha-silva-preview.martha-silva-denis.workers.dev/integration-adapters.js"
+      },
+      {
+        "path": "/prototypes/fonts/fonts.css",
+        "status": 200,
+        "sha256": "e5e48a278dfda8b08f229c502c017da470ad0a837b0a549b9dea8f856bf60605",
+        "content_type": "text/css",
+        "final_url": "https://martha-silva-preview.martha-silva-denis.workers.dev/prototypes/fonts/fonts.css"
+      },
+      {
+        "path": "/prototypes/fonts/font-4.ttf",
+        "status": 200,
+        "sha256": "a13d9b41b0a471ce58f0e46d377fa3cc76615e4632c3b15eb397caadf7a13f0a",
+        "content_type": "application/octet-stream",
+        "final_url": "https://martha-silva-preview.martha-silva-denis.workers.dev/prototypes/fonts/font-4.ttf"
+      },
+      {
+        "path": "/prototypes/vendor/gsap.min.js",
+        "status": 200,
+        "sha256": "92bb9a96476f983d212a2bc4f54c889039c1696dd4461d40a736860938570fbb",
+        "content_type": "application/javascript",
+        "final_url": "https://martha-silva-preview.martha-silva-denis.workers.dev/prototypes/vendor/gsap.min.js"
+      },
+      {
+        "path": "/producto-rosa-empolvado-pedreria.html",
+        "status": 200,
+        "sha256": "8ba0961c91b0c34b51fd5e3a756f74f4bd597c7964ca1b9994a9e52934158f3e",
+        "content_type": "text/html",
+        "final_url": "https://martha-silva-preview.martha-silva-denis.workers.dev/producto-rosa-empolvado-pedreria"
+      },
+      {
+        "path": "/research/assets/store-media/rosa-empolvado-pedreria/01-front-full-length-480.jpg",
+        "status": 200,
+        "sha256": "6e7f92050a2355bdb87fee28e29f1440e6f86db15a590af9eacbc57019a829e5",
+        "content_type": "image/jpeg",
+        "final_url": "https://martha-silva-preview.martha-silva-denis.workers.dev/research/assets/store-media/rosa-empolvado-pedreria/01-front-full-length-480.jpg"
+      },
+      {
+        "path": "/research/assets/store-media/rosa-empolvado-pedreria/product.mp4",
+        "status": 200,
+        "sha256": "0e18aa01a6fa116bff2b1af6ffca6c676ff534ac3b46cf0c7a5dd8ac565a43da",
+        "content_type": "video/mp4",
+        "final_url": "https://martha-silva-preview.martha-silva-denis.workers.dev/research/assets/store-media/rosa-empolvado-pedreria/product.mp4"
+      },
+      {
+        "path": "/research/assets/store-media/rosa-empolvado-pedreria/product.webm",
+        "status": 200,
+        "sha256": "c62952670bcc92acae91e37e6c31dc50e4041f26d5ff8b32e556c62aa37bde61",
+        "content_type": "video/webm",
+        "final_url": "https://martha-silva-preview.martha-silva-denis.workers.dev/research/assets/store-media/rosa-empolvado-pedreria/product.webm"
+      }
+    ],
+    "missing_status": 404,
+    "python_urllib_smoke": "HTTP403; stopped without retry",
+    "result": "PASS"
+  },
+  "original": {
+    "url": "https://martha-silva-demo.jason-suazof.workers.dev/",
+    "status": 200,
+    "sha256_before": "c5d0280fd53b25d5d82041e009fca7b7aec471a4cda63aa5f326d57ea27d3759",
+    "sha256_after": "c5d0280fd53b25d5d82041e009fca7b7aec471a4cda63aa5f326d57ea27d3759",
+    "unchanged": true,
+    "writes_performed": false
+  },
+  "git_push": false,
+  "new_ci_run": false,
+  "limits": [
+    "Sample catalog and local demo adapters; no production payments/backend",
+    "Historical complete-media gate777/778 FAIL; legacy404 not synthesized",
+    "First deployment has no prior preview version for rollback",
+    "Remote browser review details recorded separately from local QA"
+  ]
+}

@@ -2,7 +2,13 @@
 
 Repositorio de recuperación y evolución de las demos de Martha Silva. Conserva código, evidencia y decisiones sin confundir una demo con una tienda en producción.
 
-**Copia en integración:** 47 páginas, 40 productos de muestra, 120 variantes y 170 posiciones de galería, con los adaptadores locales SAVIA/SISFAIN. Se recuperaron 777 de 778 medios históricos desde el sitio público autorizado; el JPEG restante devuelve 404 y no se sustituye. No procesa tarjetas ni ofrece autenticación o inventario de producción. El original de Cloudflare permanece intacto.
+**Demo publicada:** [martha-silva-preview.martha-silva-denis.workers.dev](https://martha-silva-preview.martha-silva-denis.workers.dev/).
+Código publicado: `7f29cf5a75db60c93b3bb3efa89c7e33d9e02a79`; Worker nuevo,
+separado del original. La portada y el marcador de versión responden HTTP 200;
+el inventario de 856 archivos y 15 hashes públicos se comprobaron contra el
+artefacto local. [Evidencia de publicación](evidence/cloudflare-preview-deployment-2026-10-25.json).
+
+**Copia publicada:** 47 páginas, 40 productos de muestra, 120 variantes y 170 posiciones de galería, con los adaptadores locales SAVIA/SISFAIN. Se recuperaron 777 de 778 medios históricos desde el sitio público autorizado; el JPEG restante devuelve 404 y no se sustituye. No procesa tarjetas ni ofrece autenticación o inventario de producción. El original de Cloudflare permanece intacto.
 
 La rama `feat/original-storefront-preview` amplía la demo anterior de dos productos. Conserva el hero fotográfico y usa el catálogo compartido para evitar repetir los metadatos de imágenes en cada página. Procedencia y límites: [diseño](DESIGN.md), [estado](docs/PROJECT-STATUS.md) y [medios](docs/ASSET-COMPLETENESS.md). Una copia local no acredita publicación: el destino autorizado es únicamente el nuevo Worker `martha-silva-preview` de la cuenta conectada.
 

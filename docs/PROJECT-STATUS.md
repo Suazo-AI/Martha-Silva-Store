@@ -2,6 +2,22 @@
 
 ## Integración de la copia pública — 2026-10-25 UTC
 
+**Publicado y verificado:** [nuevo Worker](https://martha-silva-preview.martha-silva-denis.workers.dev/),
+commit de código `7f29cf5a75db60c93b3bb3efa89c7e33d9e02a79`,
+deployment `faf7f80497c04932b50c8af836ee8c8c`. API HTTP 200, binding único `ASSETS`;
+smoke público por cliente normal PowerShell: marcador completo de 856 archivos,
+15 hashes de recursos y ruta inexistente 404 PASS. El navegador cloud de
+Cutufay abrió el sitio sin 403. Python urllib recibió403 y se detuvo sin
+reintento; no se oculta ese límite de cliente. La portada original sigue HTTP 200
+con el mismo SHA-256 de la captura inicial. No hubo push ni CI nueva.
+
+QA local: 55 pruebas Node, 22 DOM y 47 páginas estructurales PASS. El agregado
+Windows conserva salida 1 por Win1314; Linux focal 13 PASS sin skips cubre los
+casos de symlink. Navegador: 99 verificaciones amplias más siete focales después
+del ajuste final de hover, con hashes y alcance separados. Ver
+[evidencia QA](../evidence/original-preview/README.md) y
+[registro de despliegue](../evidence/cloudflare-preview-deployment-2026-10-25.json).
+
 La rama `feat/original-storefront-preview`, basada en `761559ad9b0cc6b7ac4c218029ce144791310172`, integra 47 páginas y el catálogo de muestra público de 40 productos, 120 variantes y 170 posiciones de galería. Preserva el hero fotográfico, los modos locales SAVIA/SISFAIN, los seis grupos `sample_image=true` y las regresiones del catálogo anterior. No habilita el transporte ni el Worker históricos.
 
 El origen público autorizado permitió recuperar 840 de 841 archivos: 47 HTML, ocho recursos CSS/JS, ocho fuentes y 777 medios, con tamaños y SHA-256 verificados. Falta únicamente `/research/assets/martha-gala/f1bf4e3664d34cd4.jpg` (HTTP 404), que no usa la galería actual. La cobertura histórica sigue incompleta: `--require-complete` debe fallar 777/778. Los informes anteriores de dos productos y del equipo desconectado corresponden al snapshot base, no a esta captura.

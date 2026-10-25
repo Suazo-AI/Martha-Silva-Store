@@ -2,6 +2,15 @@
 
 ## Publicación manual autorizada — 2026-10-25 UTC
 
+**Resultado:** el nuevo Worker ya fue publicado en
+[martha-silva-preview.martha-silva-denis.workers.dev](https://martha-silva-preview.martha-silva-denis.workers.dev/),
+desde `7f29cf5a75db60c93b3bb3efa89c7e33d9e02a79`.
+Deployment `faf7f80497c04932b50c8af836ee8c8c`; API HTTP 200, marcador de versión y 15
+hashes públicos PASS con cliente PowerShell normal. El navegador cloud también
+abrió el sitio. [Registro](../evidence/cloudflare-preview-deployment-2026-10-25.json).
+La secuencia siguiente conserva las verificaciones previas; no implica que CD
+haya sido activado. El original sigue intacto.
+
 El usuario autorizó integrar y publicar la copia separada usando la cuenta
 Cloudflare conectada. La consulta identificó una única cuenta
 `df367c9aba37b558d177d38da39083ce`, sin Workers existentes. La API aceptó
