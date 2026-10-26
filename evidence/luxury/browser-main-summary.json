@@ -1,0 +1,67 @@
+{
+  "status": "PASS for bounded main-route desktop smoke and visual verification",
+  "environment": "Cloud Chromium via supported CUA API; no laptop or Suazo PC browser work",
+  "source_sha": "8ef27660bb94acc5d93f09d59b92cbbc8661e94e",
+  "urls": [
+    "https://martha-silva-preview.martha-silva-denis.workers.dev/?lang=es",
+    "https://martha-silva-preview.martha-silva-denis.workers.dev/?lang=en"
+  ],
+  "marker_observation": "Rendered /deployment.json, parsed count/fields within the browser evaluation:902 entries,44 editorial assets,no /_luxury-preview or /savia entries. Expected source,index,CSS,locale values match. See deployment-summary-observed.json.",
+  "marker_raw_hash": "Not independently verified by this browser agent; coordinator evidence is separate. No terminal retry after earlier403.",
+  "passes": [
+    "Spanish main route displays new luxury hero and all6 editorial photos",
+    "English main route displays authored heading/captions/caveat; unforgettable stays on a single line",
+    "All9 new photo instances complete with positive density-corrected natural dimensions and contain fit in both languages",
+    "document.fonts.status loaded in both languages",
+    "Zero measured horizontal overflow in both language observations",
+    "CTA visible and points to Gala collection; prior identical QA candidate navigated successfully to20-item Gala catalog",
+    "Language toggle updated ES toEN; earlier QA candidate also verified EN toES",
+    "Final published screenshots visually inspected: fullsource framing of all6 photos, no observed desktopP1/P2"
+  ],
+  "viewport": {
+    "inner_width": 1180,
+    "inner_height": 757,
+    "client_width": 1165,
+    "client_height": 757,
+    "dpr": 1,
+    "other_viewports": "Unexecuted: no supported resize/emulation capability"
+  },
+  "limits": [
+    "Not mobile, multi-viewport, Safari or performance QA",
+    "No new cart/checkout/order/payment operation",
+    "No raw HTTP body hash verification claimed",
+    "Marker-content hashes are assertions read from marker, distinct from coordinator raw-body hashes",
+    "Version/traffic activation identifiers supplied by coordinator are not this agent's direct API evidence"
+  ],
+  "cleanup": "Owned tab closed; remaining session tab list empty. No local server running.",
+  "screenshots": [
+    {
+      "path": "gallery-en.jpg",
+      "jpeg_width": 1165,
+      "jpeg_height": 1751,
+      "bytes": 205171,
+      "sha256": "122e03c31773395df7b4b5bf173fb4d82607346bead41f7f002ad7814a4b99d4"
+    },
+    {
+      "path": "gallery-es.jpg",
+      "jpeg_width": 1165,
+      "jpeg_height": 1751,
+      "bytes": 205156,
+      "sha256": "d6c84e9de4e7365a374ac9968fa6cb43ecd2c7b85684b3c808c434ba4e87f95a"
+    },
+    {
+      "path": "hero-en.jpg",
+      "jpeg_width": 1165,
+      "jpeg_height": 747,
+      "bytes": 79976,
+      "sha256": "e26aa91e3875875851cf2c6e144c2128fc7f485a3e77d384c85bf1aad0f6042b"
+    },
+    {
+      "path": "hero-es.jpg",
+      "jpeg_width": 1165,
+      "jpeg_height": 747,
+      "bytes": 79723,
+      "sha256": "831c51cc093246c8d5606acea525b39332d2c07164c56b6e1fb95614978ce60e"
+    }
+  ]
+}

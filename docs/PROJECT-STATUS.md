@@ -1,5 +1,42 @@
 # Estado del proyecto
 
+## Luxury Instagram editorial - 2026-10-25
+
+Published runtime source `8ef27660bb94acc5d93f09d59b92cbbc8661e94e` replaces
+the opening gold photograph with Martha Silva's silver gown and pink/purple
+supporting portraits. A six-photo Instagram editorial uses an espresso, ivory
+and champagne palette. All 44 responsive JPEG/WebP derivatives preserve the
+source frame and proportions; original photographs and provenance are retained.
+The 40-product catalog, 120 variants, 170 gallery positions and prior bounded
+bridal section remain unchanged. New copy and alternative text support ES/EN.
+
+Cutufay built and tested in cloud Linux after Denis explicitly confirmed cloud.
+Three lightweight local agents and six initial cloud agents split implementation,
+media, localization and review; no laptop builds, image conversion or browser QA
+ran. The local memory admission rejected heavy work at 817 MB available and
+88% committed. Existing binary transfer used uncompressed archives and bounded
+256 KiB buffers; all 784 supplied files and 13 reused binaries matched baseline.
+
+All 161 automated cases passed without failure/skip: 139 existing runner cases,
+14 offline deployment cases and eight focused editorial cases. All 902 runtime
+records match the cloud output manifest; 855 baseline files are unchanged.
+The historical completion gate still fails as expected at 777/778.
+
+Actual CUA desktop preview review at DOM 1180x757 confirmed ES/EN hero, complete
+photos, fonts, focus and six-photo gallery. Hero JPEG exports are 1165x747; the
+gallery section capture is 1180x1751, not a mobile viewport. No mobile/Safari or
+performance claim is made. The normal terminal HTTP client received 403 and
+stopped; independent binary-body HTTP hashes are not claimed.
+
+Cloudflare activated version `61c2f526-5315-4c55-9656-8cc148b1eea1` at 100%,
+traffic deployment `80a86895-4d5a-4536-994c-98a0e0b8a319`. The temporary QA
+path is omitted from the final 903-entry asset manifest and version preview
+routing remains disabled. Final main-URL desktop verification passed in ES/EN: marker source8ef/902,
+nine images decoded, fonts loaded and zero horizontal overflow. The owned tab
+was closed; no local server remained.
+No GitHub push or hosted CI run occurred. Source and evidence:
+`../evidence/luxury/publication.json` and `../evidence/luxury/final-summary.json`.
+
 ## Published bridal photography and English — 2026-10-25
 
 The `fix/bridal-photos-bilingual-20261025` branch updates the current public
