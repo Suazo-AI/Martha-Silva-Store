@@ -1,0 +1,8 @@
+..............
+----------------------------------------------------------------------
+Ran 14 tests in 0.156s
+
+OK
+PASS: remote release SHA, home page, 5 asset hashes and missing-path 404
+
+EXIT=0

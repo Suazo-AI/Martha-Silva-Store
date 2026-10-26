@@ -1,0 +1,25 @@
+{
+  "included_file_count": 121,
+  "changed_included": [
+    {
+      "path": "snapshot/build-inputs/static/index.html",
+      "before_sha256": "2a9140b98c862080d8b96570ff3efbaeaca23a6d75378bfa7b1f81ee13bf6edf",
+      "after_sha256": "b284a54a89e19919fcec73cd00b26d9e1e47b4f603d642b2e15dec73d80e1ae4",
+      "bytes": 196962
+    },
+    {
+      "path": "snapshot/build-inputs/static/locale-en.js",
+      "before_sha256": "e63ef9e8030f841b23c7c9bd30e81eab356ea367ca90de30f94b160dee04e4c9",
+      "after_sha256": "9a0426969bcbda9b6d14ba3d54399f2fa242527105eae8f594a4e7823edf26a9",
+      "bytes": 31979
+    },
+    {
+      "path": "snapshot/build-inputs/static/styles.css",
+      "before_sha256": "79cbd3ddcd52ac56ad5474f709729a3949f191aaefb77a710c847f2b5842e6fd",
+      "after_sha256": "7718cbe95874c8f0eed9747154c35c7305ef118b3f33be8203bde98588d0a109",
+      "bytes": 62749
+    }
+  ],
+  "missing_included": [],
+  "scope": "Final actual bytes after complete serial automated verification; replaces earlier pre-final source diff."
+}

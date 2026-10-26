@@ -52,6 +52,15 @@ payments, production authentication, D1, or SISFAIN.
 
 ## Build and edit
 
+The luxury Instagram home sections also have eight focused serial checks:
+
+```sh
+node --test --test-concurrency=1 tests/luxury-editorial.cjs
+```
+
+These verify responsive media metadata, source hashes, section accessibility and
+English/Spanish copy. They do not establish browser rendering or mobile QA.
+
 The recovered snapshot now builds with Python's standard library alone:
 
 ```sh

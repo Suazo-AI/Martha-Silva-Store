@@ -1,0 +1,51 @@
+{
+  "environment": "cloud workspace; not Suazo PC or laptop",
+  "automated_status": "PASS",
+  "automated_cases": {
+    "existing_runner": 139,
+    "offline_deployment": 14,
+    "new_luxury": 8,
+    "total": 161,
+    "failed": 0,
+    "skipped": 0
+  },
+  "runtime_files": 902,
+  "runtime_bytes": 134018632,
+  "runtime_manifest": "evidence/luxury/runtime-final.json",
+  "runtime_manifest_sha256": "c5a8b2e146e6d076415d36182547fd8a4f390919b4d0a65b2ba702f72d499a41",
+  "build_input_mapping_sha256": "d1eaae834dfdc5eb0ccb0af13b4a9ef40ba3f57fd85e675c4f4861ebbd8d8690",
+  "changed_runtime_paths": [
+    "index.html",
+    "locale-en.js",
+    "styles.css"
+  ],
+  "new_runtime_paths": 44,
+  "unchanged_baseline_paths": 855,
+  "baseline_present": 858,
+  "source_to_dist_mismatches": [],
+  "final_source_hashes": {
+    "styles.css": "7718cbe95874c8f0eed9747154c35c7305ef118b3f33be8203bde98588d0a109",
+    "index.html": "b284a54a89e19919fcec73cd00b26d9e1e47b4f603d642b2e15dec73d80e1ae4",
+    "locale-en.js": "9a0426969bcbda9b6d14ba3d54399f2fa242527105eae8f594a4e7823edf26a9"
+  },
+  "historical_completion_gate": {
+    "exit": 1,
+    "expected": true,
+    "present": 777,
+    "total": 778,
+    "only_missing": [
+      "/research/assets/martha-gala/f1bf4e3664d34cd4.jpg"
+    ]
+  },
+  "complete_sample_catalog": {
+    "products": 40,
+    "variants": 120,
+    "gallery_positions": 170,
+    "catalog_bytes_unchanged": true
+  },
+  "browser_qa_claimed": false,
+  "deployed": false,
+  "git_push": false,
+  "marker_added": false,
+  "logs": "evidence/luxury/final-test-stages.json"
+}

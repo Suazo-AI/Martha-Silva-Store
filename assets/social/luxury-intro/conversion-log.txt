@@ -1,0 +1,14 @@
+{
+  "originals_verified_unchanged": 6,
+  "derivatives": 44,
+  "derivative_bytes": 4330537,
+  "max_aspect_ratio_rounding_error_px": 0.5,
+  "decode_dimension_metadata_checks": "PASS for every generated JPEG and WebP",
+  "browser_validation": "Not performed by media agent; required in integrated QA"
+}
+Dd-ETr6BL2V 320x569 WEBP 28,528 bytes, 320x569 JPEG 51,942 bytes, 480x853 WEBP 51,466 bytes, 480x853 JPEG 97,410 bytes, 640x1138 WEBP 72,604 bytes, 640x1138 JPEG 149,762 bytes, 960x1707 WEBP 113,536 bytes, 960x1707 JPEG 267,599 bytes
+DdXjMXIFHwT 480x639 WEBP 32,836 bytes, 480x639 JPEG 64,090 bytes, 640x852 WEBP 55,506 bytes, 640x852 JPEG 107,468 bytes, 960x1278 WEBP 116,874 bytes, 960x1278 JPEG 224,481 bytes, 1440x1918 WEBP 268,144 bytes, 1440x1918 JPEG 495,254 bytes
+DeSHKZPKTNp 320x569 WEBP 35,924 bytes, 320x569 JPEG 59,291 bytes, 480x853 WEBP 65,158 bytes, 480x853 JPEG 112,533 bytes, 640x1138 WEBP 95,706 bytes, 640x1138 JPEG 174,611 bytes, 960x1707 WEBP 150,906 bytes, 960x1707 JPEG 312,893 bytes
+DeSG5J1KzHb 320x568 WEBP 8,564 bytes, 320x568 JPEG 19,190 bytes, 480x852 WEBP 14,344 bytes, 480x852 JPEG 39,756 bytes, 640x1136 WEBP 20,392 bytes, 640x1136 JPEG 34,747 bytes
+DbZdVj6q2vn 320x568 WEBP 29,382 bytes, 320x568 JPEG 46,920 bytes, 480x852 WEBP 52,314 bytes, 480x852 JPEG 93,600 bytes, 640x1136 WEBP 76,926 bytes, 640x1136 JPEG 112,974 bytes
+DdwJTglRMBn 320x569 WEBP 18,782 bytes, 320x569 JPEG 38,341 bytes, 480x853 WEBP 32,534 bytes, 480x853 JPEG 70,886 bytes, 640x1138 WEBP 46,406 bytes, 640x1138 JPEG 108,070 bytes, 960x1707 WEBP 70,672 bytes, 960x1707 JPEG 191,215 bytes

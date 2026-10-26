@@ -146,3 +146,92 @@ main[data-page=cart] .cart-line img{line-height:18.4px}
 .language-bar button[aria-pressed=true]{color:#111;font-weight:700;text-decoration:underline}
 .language-bar button:focus-visible{outline:2px solid #3b2924;outline-offset:-3px}
 @media(max-width:599px){.language-bar{padding:0 16px}.test-banner{font-size:11px;letter-spacing:0}}
+/* Luxury editorial opening — isolated from the legacy .campaign viewport cascade.
+   Authentic Instagram photographs stay complete: no crop, zoom, overlay or motion.
+   Source posts are inspiration, not verified catalog product/stock mappings. */
+.luxury-hero,.luxury-editorial{--luxury-espresso:#201914;--luxury-ivory:#f5efe5;--luxury-champagne:#bfa783;color:var(--luxury-ivory);background:var(--luxury-espresso)}
+.luxury-hero__inner{display:grid;grid-template-columns:minmax(0,43fr) minmax(0,57fr);align-items:center;max-width:1440px;margin:0 auto;padding:48px clamp(24px,4.45vw,64px)}
+.luxury-hero__copy{min-width:0;padding:24px clamp(24px,4vw,60px) 24px 0}
+.luxury-hero__eyebrow,.luxury-editorial__eyebrow{color:var(--luxury-champagne);font:500 11px/1.6 var(--body);letter-spacing:.18em;text-transform:uppercase}
+.luxury-hero h1{max-width:100%;margin:24px 0;font:400 clamp(52px,6.1vw,88px)/.98 var(--display);letter-spacing:-.035em;text-wrap:balance}
+.luxury-hero__intro{max-width:29ch;color:#e0d6ca;font:400 15px/1.8 var(--body)}
+.luxury-hero__actions{display:flex;flex-direction:column;align-items:flex-start;gap:16px;margin-top:32px}
+.luxury-hero__cta{display:inline-flex;align-items:center;justify-content:space-between;gap:28px;min-height:52px;max-width:100%;padding:15px 22px;border:1px solid var(--luxury-champagne);background:var(--luxury-ivory);color:var(--luxury-espresso);font:600 12px/1.6 var(--body);letter-spacing:.025em;transition:background 180ms ease,border-color 180ms ease}
+.luxury-hero__cta>span:last-child{font-size:22px;line-height:1;flex:none}
+.luxury-hero__cta:hover{background:#e9dcc9;border-color:#e9dcc9}
+.luxury-hero__link{display:inline-flex;align-items:center;min-height:44px;padding:8px 0;color:var(--luxury-ivory);font:400 12px/1.6 var(--body);text-decoration:underline;text-decoration-color:#bfa78399;text-underline-offset:6px}
+.luxury-hero__link:hover{text-decoration-color:var(--luxury-ivory)}
+.luxury-hero__signature{max-width:30ch;margin-top:40px;padding-top:20px;border-top:1px solid #bfa7834d;color:#c9b8a3;font:400 18px/1.4 var(--display)}
+.luxury-hero__media{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.345fr);align-items:center;gap:18px;width:100%;max-width:704px;justify-self:end;min-width:0}
+.luxury-hero__lead{min-width:0;background:#18120f;border:1px solid #bfa7834d}
+.luxury-hero__lead picture{aspect-ratio:2400/3196}
+.luxury-hero__support{display:grid;gap:18px;min-width:0}
+.luxury-hero__support figure{min-width:0;background:#18120f}
+.luxury-hero__support picture{aspect-ratio:1320/2347}
+.luxury-hero__media picture{width:100%;overflow:visible}
+.luxury-hero__media img{display:block;width:100%;height:100%;object-fit:contain;object-position:center}
+.luxury-hero a:focus-visible,.luxury-editorial a:focus-visible{outline:3px solid var(--luxury-ivory);outline-offset:6px}
+.luxury-editorial{scroll-margin-top:120px;border-top:1px solid #bfa78333}
+.luxury-editorial__inner{max-width:1440px;margin:0 auto;padding:72px clamp(24px,4.45vw,64px) 48px}
+.luxury-editorial__heading{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;margin-bottom:36px}
+.luxury-editorial h2{margin-top:12px;font:400 clamp(36px,4.3vw,56px)/1.05 var(--display);letter-spacing:-.025em}
+.luxury-editorial__intro{max-width:34ch;color:#d8cbbd;font:400 13px/1.8 var(--body)}
+.luxury-editorial__grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:20px;list-style:none;margin:0;padding:0}
+.luxury-editorial__card{min-width:0;max-width:320px;width:100%;justify-self:center}
+.luxury-editorial__card>a{display:block;height:100%}
+.luxury-editorial__portrait{aspect-ratio:9/16;background:#18120f;border:1px solid #bfa78333}
+.luxury-editorial__portrait picture,.luxury-editorial__portrait img{width:100%;height:100%}
+.luxury-editorial__portrait img{display:block;object-fit:contain;object-position:center}
+.luxury-editorial__caption{padding-top:18px}
+.luxury-editorial__number{display:block;color:var(--luxury-champagne);font:500 10px/1.6 var(--body);letter-spacing:.14em;margin-bottom:8px}
+.luxury-editorial h3{min-height:2.5em;font:400 23px/1.2 var(--display)}
+.luxury-editorial__source{display:inline-block;margin-top:12px;color:#dcc8aa;font:400 11px/1.7 var(--body);text-decoration:underline;text-decoration-color:#bfa78380;text-underline-offset:5px}
+.luxury-editorial__card>a:hover .luxury-editorial__source{color:var(--luxury-ivory);text-decoration-color:var(--luxury-ivory)}
+.luxury-editorial__note{margin-top:36px;padding-top:24px;border-top:1px solid #bfa78333;color:#c9b8a3;font:400 11px/1.8 var(--body)}
+@media(min-width:1024px) and (max-height:800px){
+ .luxury-hero__inner{padding-top:32px;padding-bottom:32px}
+ .luxury-hero__media{max-width:530px}
+ .luxury-hero__copy{padding-top:0;padding-bottom:0}
+ .luxury-hero h1{font-size:clamp(52px,5.5vw,76px)}
+ .luxury-hero__signature{margin-top:24px;padding-top:16px}
+}
+@media(min-width:768px) and (max-width:1199px){
+ .luxury-editorial__grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:32px 24px}
+}
+@media(min-width:768px) and (max-width:1023px){
+ .luxury-hero__inner{padding:40px 32px}
+ .luxury-hero__copy{padding:8px 24px 8px 0}
+ .luxury-hero h1{font-size:52px}
+ .luxury-hero__intro{font-size:13px}
+ .luxury-hero__media,.luxury-hero__support{gap:12px}
+ .luxury-hero__cta{gap:16px;padding:14px 16px}
+ .luxury-hero__signature{margin-top:24px;font-size:17px}
+}
+@media(max-width:767px){
+ .luxury-hero__inner{grid-template-columns:minmax(0,1fr);gap:24px;padding:28px 20px 40px}
+ .luxury-hero__copy{width:100%;max-width:480px;justify-self:center;padding:0}
+ .luxury-hero h1{max-width:100%;font-size:clamp(50px,13.8vw,72px);margin:16px 0}
+ .luxury-hero__intro{max-width:31ch;font-size:14px;line-height:1.7}
+ .luxury-hero__actions{gap:8px;margin-top:20px}
+ .luxury-hero__cta{min-height:48px;padding-top:13px;padding-bottom:13px}
+ .luxury-hero__signature{display:none}
+ .luxury-hero__media{grid-template-columns:minmax(0,1fr);gap:16px;max-width:480px;justify-self:center}
+ .luxury-hero__support{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+ .luxury-editorial{scroll-margin-top:68px}
+ .luxury-editorial__inner{padding:48px 20px 32px}
+ .luxury-editorial__heading{display:block;margin-bottom:28px}
+ .luxury-editorial__intro{max-width:36ch;margin-top:20px}
+ .luxury-editorial__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 16px;max-width:496px;margin:0 auto}
+ .luxury-editorial__card{max-width:240px}
+ .luxury-editorial__caption{padding-top:14px}
+ .luxury-editorial h3{font-size:22px}
+ .luxury-editorial__source{font-size:10px}
+ .luxury-editorial__note{margin-top:28px;padding-top:20px}
+}
+/* Keep the lead photograph in the opening mobile view; the gallery stays below. */
+@media(max-width:599px){
+ .luxury-hero__link{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+ .luxury-hero__cta{transition:none}
+}

@@ -2,6 +2,29 @@
 (() => {
   'use strict';
   const pairs = `
+Martha Silva · Gala & novias|Martha Silva · Occasionwear & bridal
+Una entrada inolvidable.|An unforgettable entrance.
+Gala, novias y momentos que merecen brillar.|Occasionwear, bridal and moments made to shine.
+Descubrí la colección|Discover the collection
+Explorá el editorial|Explore the editorial
+Presencia que se siente. Detalles que se recuerdan.|A presence you feel. Details you remember.
+El universo Martha|The world of Martha
+Vestir un momento.|Dress for the moment.
+Seis miradas a la gala y las novias, desde nuestro Instagram.|Six perspectives on occasionwear and bridal, from our Instagram.
+Fotografía editorial · consultá disponibilidad con la tienda.|Editorial photography · check availability with the store.
+Brillo en cada detalle|Sparkle in every detail
+La fuerza del rosa|The power of pink
+Una noche en violeta|A night in violet
+Encaje para el sí|Lace for “I do”
+El comienzo de todo|The beginning of it all
+Romance en movimiento|Romance in motion
+Ver en Instagram|View on Instagram
+Vestido de gala nude con pedrería plateada, fotografiado de cuerpo entero|Full-length view of a nude evening gown with silver embellishments
+Vestido de gala rosa con pedrería y detalle floral, fotografiado de cuerpo entero|Full-length view of a pink evening gown with sparkling embellishments and floral detail
+Vestido de gala violeta con hombros descubiertos y cola, fotografiado de cuerpo entero|Full-length view of a purple off-the-shoulder evening gown with a train
+Vestido blanco de encaje floral con abertura, fotografiado de cuerpo entero|Full-length view of a white floral lace dress with a slit
+Vestido de novia blanco de falda amplia y cola|White wedding dress with a full skirt and train
+Espalda de vestido rosa de falda amplia con motivos florales y cola|Back view of a pink dress with a full skirt, floral motifs and train
 Muestra|Sample
 Novias|Bridal
 Buscar|Search
