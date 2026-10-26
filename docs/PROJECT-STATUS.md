@@ -1,34 +1,45 @@
 # Estado del proyecto
 
-## Bridal photography and English candidate — 2026-10-25
+## Published bridal photography and English — 2026-10-25
 
 The `fix/bridal-photos-bilingual-20261025` branch updates the current public
 storefront: a bounded bridal portrait beside its copy, truthful intrinsic
 dimensions across all 47 HTML pages, proportional shopping photos and an
 English/Spanish switch covering all 40 products and dynamic shopping UI.
 Photographic bytes, product identifiers, prices and sample inventory are unchanged.
-Spanish remains the default; `?lang=en` selects the English presentation.
+Spanish remains the default; `?lang=en` selects English and `?lang=es` selects
+Spanish explicitly, including when browser storage cannot be updated.
 
 Image inspection in this change reads 737 file headers, not a new visual review.
 Seventeen serial localization DOM checks were added to the existing runner.
 Local heavy work was refused by `mantenimiento/Run-SequentialHeavyTask.ps1`:
 available RAM was below 1,536 MB and memory commitment exceeded 75%.
-Cutufay acknowledged independent cloud QA in Slack thread `1792971699.179229`.
-Build, automated checks, browser QA and republication are pending for this
-candidate; the publication record below remains the last verified live release.
-The first cloud run built 858 files reproducibly and passed the 23 backend
-simulations and 14 offline deployment checks. Localization was 11/13: one
-test assumed a desktop menu on the intentionally compact checkout page, and
-one real return-status fragment was untranslated. Revision two corrects that
-test, the status fragment, language/history restoration, summary translation,
-metadata and a query-qualified checkout-link edge case. Revision three also
-retains explicit English/Spanish URLs when browser storage can be read but
-cannot be updated. Its checks are pending.
-The first source bundle omitted the OpenAPI contract needed by an adapter
-test; the corrected bundle includes the contract. No GitHub push or CI result
-is claimed for this candidate.
+Cutufay coordinated six cloud subagents in Slack thread `1792971699.179229`.
+Source `b248b925d5d61a49124e10b0244362ae558c852d` passed all 153 automated
+cases: the complete runner, 17 localization cases and 14 offline deployment
+cases, with zero failures/skips. All 107 source hashes and 858 runtime outputs
+matched before/after. Live cloud HTTP checks passed the 858-entry marker,
+14 sampled bodies and three missing-route checks.
 
-## Estado vigente: tienda publica y SAVIA privado
+Desktop browser review confirmed the 420×560 bridal portrait with contain fit,
+English/Spanish navigation, search/filter/history, favorites, cart changes,
+empty-bag navigation, checkout validation and gallery/zoom. It found a hardcoded
+CSS search caption; final source `67d4647d5ee65c65dd037d2e664fcdc45c7009d6`
+changes only that CSS value. Its prepare/reproducible-build/structure checks
+passed; the other 857 outputs, including all JavaScript/HTML/tests, are identical.
+Cloudflare activated version `eb917441-e2f6-443d-acf3-56d94837edb8` at 100%.
+Final live browser verification passed: English displays Search in the visible
+caption and accessible label; switching to Spanish displays Buscar. The bridal
+portrait remains centered at 420×560 with contain fit. The final public marker
+matches all 858 hashes and the CSS body matches its cloud-verified SHA-256.
+
+Browser coverage is desktop 1188×761; no mobile/Safari/performance claim is made.
+Laptop PowerShell/curl public HTTP checks timed out; cloud checks are recorded
+separately. Media bytes remain unchanged and the historical 777/778 limitation
+remains. No GitHub push or hosted CI run was performed. Full provenance and
+verification are in `../evidence/bridal-bilingual/publication.json`.
+
+## Previous storefront publication: public store and private SAVIA
 
 Tienda principal publicada en source`d2ad2000c68c492618c15f5a601cca9a47e8a587`, deployment`8e298940246a49be9b55dcf8ee422983`. MainHTTP200; marcador856entradas y8cuerpos porhash comprobados. `/savia`, `/savia/`, `/savia/index.html` y `/savia/app.mjs` devuelven404; sin enlace a la caja descartada. Brave existente verificado y recargado. OriginalCloudflare conserva200 ySHA c5d028. Evidencia: `../evidence/cloudflare-storefront-only-2026-10-25.json`.
 

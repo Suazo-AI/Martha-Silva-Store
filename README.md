@@ -3,10 +3,11 @@
 Repositorio de recuperación y evolución de las demos de Martha Silva. Conserva código, evidencia y decisiones sin confundir una demo con una tienda en producción.
 
 **Demo publicada:** [martha-silva-preview.martha-silva-denis.workers.dev](https://martha-silva-preview.martha-silva-denis.workers.dev/).
-Código publicado: `d2ad2000c68c492618c15f5a601cca9a47e8a587`; Worker nuevo,
-separado del original. La portada y el marcador de versión responden HTTP 200;
-las 856 entradas del marcador y ocho cuerpos públicos se comprobaron por hash
-contra el artefacto local. [Evidencia de publicación](evidence/cloudflare-storefront-only-2026-10-25.json).
+Código publicado: `67d4647d5ee65c65dd037d2e664fcdc45c7009d6`, separado del original.
+Incluye fotografías ajustadas y selector de idioma en las 47 páginas y 40 productos.
+[English](https://martha-silva-preview.martha-silva-denis.workers.dev/?lang=en) ·
+[Español](https://martha-silva-preview.martha-silva-denis.workers.dev/?lang=es).
+[Evidencia de publicación y QA](evidence/bridal-bilingual/publication.json).
 
 **Copia publicada:** 47 páginas, 40 productos de muestra, 120 variantes y 170 posiciones de galería, con los adaptadores locales SAVIA/SISFAIN. Se recuperaron 777 de 778 medios históricos desde el sitio público autorizado; el JPEG restante devuelve 404 y no se sustituye. No procesa tarjetas ni ofrece autenticación o inventario de producción. El original de Cloudflare permanece intacto.
 
