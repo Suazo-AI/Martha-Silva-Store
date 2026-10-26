@@ -1,0 +1,65 @@
+{
+  "result": "PASS_OBSERVED_DESKTOP_SCOPE",
+  "checks": {
+    "release_marker_matches": true,
+    "viewport_exact": true,
+    "lead_below_header": true,
+    "lead_fully_in_viewport": true,
+    "header_occlusion_zero": true,
+    "lead_dimensions_unchanged": true,
+    "source_path_unchanged": true,
+    "all_images_complete": true,
+    "all_green_rail_scroll_margins_106": true,
+    "thumbnail3_fully_below_header": true,
+    "keyboard_share_actual_clipboard_match": true,
+    "keyboard_share_focus_retained": true,
+    "other_SKU_outside_override": true
+  },
+  "marker_metadata_only": true,
+  "browser_raw_response_body_hashes_observed": false,
+  "deployment_version_parent_supplied": "a8668b7b-9fe0-4635-ac5a-01033ae96e2b",
+  "traffic_receipt_parent_supplied": "1f24157b-6fc0-40fa-8aec-5a861dc89587",
+  "geometry": {
+    "before_lead_top": 0,
+    "before_header_bottom": 106,
+    "after_lead_top": 106,
+    "after_lead_bottom": 623.765625,
+    "after_header_bottom": 106,
+    "header_overlap_height_css": 0,
+    "header_overlap_area_css2": 0.0,
+    "painted_encoded_canvas_estimate": {
+      "x": 0.001953125,
+      "y": 106.0,
+      "width": 388.32421875,
+      "height": 517.765625
+    },
+    "method": "Observed centered scale-down resolves to contain because natural393x524 exceeds frame388.328x517.766; no pixel-content bbox inference."
+  },
+  "selected_source": {
+    "currentSrc": "https://martha-silva-preview.martha-silva-denis.workers.dev/research/assets/store-media/verde-brillo-cuello-cruzado/01-front-full-length-480.webp",
+    "runtime_path": "research/assets/store-media/verde-brillo-cuello-cruzado/01-front-full-length-480.webp",
+    "existing_local_manifest_sha256": "81f09218edc820279e926760d3e1ffe2c17f96c0dd8f1a9897ef5fcb5fc760f5",
+    "encoded_width": 480,
+    "encoded_height": 640,
+    "naturalWidth": 393,
+    "naturalHeight": 524,
+    "dimension_provenance": "Encoded sizes from existing verified photo ledger; browser natural dimensions recorded separately."
+  },
+  "visual_check": {
+    "head_and_hem_visible_after": true,
+    "stretch_observed": false,
+    "baked_matte_changed": false,
+    "G2_source_hair_crop_fixed": false,
+    "blur_fixed": false
+  },
+  "short_height_cap": {
+    "computed_max_height": "651px",
+    "actual_height": 517.765625,
+    "constraining": false,
+    "status": "pending_live_short_viewport_exercise"
+  },
+  "mobile": "pending_not_tested_no_forced_resize_or_emulation",
+  "share_pointer_copy_limit": "Initial pointer activation showed success text but empty clipboard and BODY focus; preserved as anomaly. Keyboard Tab/Return path then copied verified URL and retained button focus. No outbound share.",
+  "owned_browser_tab_id": "12",
+  "owned_browser_tab_closed": true
+}

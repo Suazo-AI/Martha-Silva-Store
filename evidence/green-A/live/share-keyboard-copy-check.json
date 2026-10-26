@@ -1,0 +1,10 @@
+{
+  "copy_trigger": "keyboard_Return",
+  "copied_url": "https://martha-silva-preview.martha-silva-denis.workers.dev/producto-verde-brillo-cuello-cruzado.html?lang=es",
+  "ui_status": "\t\t\t680 text Enlace copiado. Ya podés compartirlo.",
+  "active": {
+    "class": "text-button product-share-button",
+    "tag": "BUTTON",
+    "text": "Compartir producto"
+  }
+}
