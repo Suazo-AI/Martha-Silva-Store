@@ -1,0 +1,52 @@
+{
+  "created_utc": "2026-10-26T06:08:24.660625+00:00",
+  "baseline": "/workspace/scratch/14cff504045e/martha-product-share-20261026",
+  "candidate": "/workspace/scratch/14cff504045e/martha-green-occlusion-A-20261026",
+  "baseline_dist_files": 902,
+  "candidate_dist_files": 902,
+  "changed_dist_paths": [
+    "app.js",
+    "styles.css"
+  ],
+  "raster_count": 780,
+  "all_raster_hashes_unchanged": true,
+  "catalog_unchanged": true,
+  "html_paths_unchanged": true,
+  "app_source_sha256": "8ee8deb77dd6608023f0d315c2451aafa248f58e77658b881717e9de09470ba8",
+  "css_source_sha256": "955550d32bc9b1fb1c826abf30b65730e41fc0074a932a2d66276c08d37f0189",
+  "src_dist_app_identical": true,
+  "src_dist_css_identical": true,
+  "gallery_image_scale_down_preserved": true,
+  "new_css_declarations": [
+    "scroll-margin-top",
+    "top",
+    "max-height"
+  ],
+  "new_css_scope": "min-width1024 and exact main data-product-id verde-brillo-cuello-cruzado; direct gallery lead top/maxheight",
+  "full_check_log_sha256": "7073743ebe652c9716beac90d3de9e704a81f31eef9680b08ec9184767ca6aeb",
+  "focused_r2_log_sha256": "4ce0a9793a7bf4d286aa1efe5a0a8fc88931b4324a45666245c5321e94468c64",
+  "full_suite_case_count": 139,
+  "focused_r2_count": 6,
+  "full_log_terminal_pass": true,
+  "focused_log_terminal_pass": true,
+  "native_browser_candidate_proof": false,
+  "verdict": "Bounded source-fidelity/static acceptance for desktop header occlusion fix only; rendered success pending; no global photo approval",
+  "controlled_release_decision": "ACCEPT conditional on immediate post-activation CUA verification and rollback for material failure",
+  "release_authority": "Parent reports user/root authorization; judge does not activate or grant expanded scope",
+  "visual_success_claim_status": "PENDING actual post-activation check",
+  "supported_post_activation_browser_viewport": [
+    1180,
+    757
+  ],
+  "required_post_activation_checks": [
+    "delivered app/CSS identity",
+    "scrolled lead head/visible hem",
+    "rail scroll targets",
+    "Share",
+    "otherSKU same-viewport regression"
+  ],
+  "unsupported_browser_checks_pending_not_hard_prerequisites": [
+    "mobile/device rendering",
+    "short desktop viewport cap behavior"
+  ]
+}

@@ -465,6 +465,9 @@
     const height = $$('.test-banner, .language-bar, [data-integration-panel], .site-header')
       .reduce((total, element) => total + element.getBoundingClientRect().height, 0);
     document.documentElement.style.setProperty('--store-chrome-height', `${Math.ceil(height)}px`);
+    // Only the header stays sticky; banners/language rows scroll away.
+    const stickyHeaderHeight = $('.site-header')?.getBoundingClientRect().height || 0;
+    document.documentElement.style.setProperty('--store-sticky-header-height', `${Math.ceil(stickyHeaderHeight)}px`);
   }
   window.addEventListener('resize', syncCampaignViewport);
   if (window.ResizeObserver) {

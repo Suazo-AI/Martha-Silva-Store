@@ -1,0 +1,21 @@
+--- ../martha-product-share-20261026/src/app.js	2026-10-25 22:19:17.176024110 -0600
++++ src/app.js	2026-10-25 23:56:19.891990328 -0600
+@@ -465,6 +465,9 @@
+     const height = $$('.test-banner, .language-bar, [data-integration-panel], .site-header')
+       .reduce((total, element) => total + element.getBoundingClientRect().height, 0);
+     document.documentElement.style.setProperty('--store-chrome-height', `${Math.ceil(height)}px`);
++    // Only the header stays sticky; banners/language rows scroll away.
++    const stickyHeaderHeight = $('.site-header')?.getBoundingClientRect().height || 0;
++    document.documentElement.style.setProperty('--store-sticky-header-height', `${Math.ceil(stickyHeaderHeight)}px`);
+   }
+   window.addEventListener('resize', syncCampaignViewport);
+   if (window.ResizeObserver) {
+--- ../martha-product-share-20261026/build-inputs/static/styles.css	2026-10-25 22:20:41.265904016 -0600
++++ build-inputs/static/styles.css	2026-10-26 00:01:22.241525779 -0600
+@@ -238,3 +238,6 @@
+ 
+ /* Product sharing stays separate from bag/favorite actions. */
+ .product-share{margin-top:12px;min-width:0}.product-share-button{display:inline-flex;align-items:center;gap:8px;min-height:44px;white-space:normal;text-align:left}.product-share-button svg{width:20px;height:20px;flex:none}.product-share [data-product-share-status]:empty{margin:0}.product-share [data-product-share-status]{margin:8px 0;line-height:1.5}.product-share .field{margin:12px 0 0}.product-share [hidden]{display:none}.product-share input{min-width:0;font-size:16px}
++
++/* GREEN cut A: keep the lead photo below the measured sticky header. No image or sizing changes. */
++@media(min-width:1024px){main[data-product-id="verde-brillo-cuello-cruzado"] .gallery-photo{scroll-margin-top:var(--store-sticky-header-height,106px)}main[data-product-id="verde-brillo-cuello-cruzado"] .gallery-track>.gallery-photo{top:var(--store-sticky-header-height,106px);max-height:calc(100svh - var(--store-sticky-header-height,106px))}}

@@ -1,0 +1,52 @@
+{
+  "scope": "GREEN A desktop sticky-header occlusion only",
+  "base_source_sha": "e9e9609b9cda6f52abd0db1b35b570f3b83156b4",
+  "commands": [
+    {
+      "command": "node --check src/app.js",
+      "exit_code": 0
+    },
+    {
+      "command": "node tests/green-header.cjs",
+      "attempt": 1,
+      "pass": 5,
+      "fail": 1,
+      "exit_code": 1,
+      "cause": "test regex matched min-width; runtime unchanged"
+    },
+    {
+      "command": "node tests/green-header.cjs",
+      "attempt": 2,
+      "pass": 6,
+      "fail": 0,
+      "exit_code": 0
+    },
+    {
+      "command": "python3 prepare.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 tests/check.py",
+      "pass": 139,
+      "fail": 0,
+      "exit_code": 0
+    }
+  ],
+  "distinct_cases_pass": 145,
+  "all_raster_bytes_unchanged": true,
+  "products": 40,
+  "variants": 120,
+  "gallery_positions": 170,
+  "image_mutations": 0,
+  "candidate_browser": "not run before controlled release",
+  "scope_exclusions": [
+    "baked matte removal",
+    "source-headcut G2 removal",
+    "global photo candidate",
+    "AI recreation",
+    "new products",
+    "mobile layout changes"
+  ],
+  "release_gate": "independent judge accepted narrow controlled release, live verification pending",
+  "comment_clarification": "CSS comment saying no sizing changes is imprecise; max-height caps desktop box height while retaining scale-down, source pixels and width."
+}

@@ -1,0 +1,12 @@
+--- ../martha-product-share-20261026/src/app.js	2026-10-25 22:19:17.176024110 -0600
++++ src/app.js	2026-10-25 23:56:19.891990328 -0600
+@@ -465,6 +465,9 @@
+     const height = $$('.test-banner, .language-bar, [data-integration-panel], .site-header')
+       .reduce((total, element) => total + element.getBoundingClientRect().height, 0);
+     document.documentElement.style.setProperty('--store-chrome-height', `${Math.ceil(height)}px`);
++    // Only the header stays sticky; banners/language rows scroll away.
++    const stickyHeaderHeight = $('.site-header')?.getBoundingClientRect().height || 0;
++    document.documentElement.style.setProperty('--store-sticky-header-height', `${Math.ceil(stickyHeaderHeight)}px`);
+   }
+   window.addEventListener('resize', syncCampaignViewport);
+   if (window.ResizeObserver) {
