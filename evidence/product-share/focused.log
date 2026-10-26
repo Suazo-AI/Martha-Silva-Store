@@ -1,0 +1,21 @@
+Command: node --check tests/product-share.cjs && node tests/product-share.cjs
+Exit code: 0
+The syntax check produced no output. Returned test output (verbatim):
+PASS all 40 catalog PDPs mount exactly one named share button and share their own canonical URL
+PASS native share is called during the click, repeated clicks stay locked, and success does not copy
+PASS native cancellation is quiet and never copies
+PASS clipboard fallback only reports success after writeText resolves
+PASS non-cancellation native errors fall back to copying
+PASS denied or missing clipboard exposes an honestly labelled, selected manual link
+PASS English preference controls native title and clean URL; explicit Spanish overrides it
+PASS English fallback copy success and manual failure are localized, including language toggles
+PASS explicit English survives unavailable storage and ignores canonical-tag injection
+PASS remounts do not duplicate sharing, and favorites, bag and zoom still work
+PASS sharing remains independent of unavailable commerce; other pages and unknown products have no button
+11/11 product-share DOM checks passed
+
+Separate command: node --check src/app.js && node --check build-inputs/static/locale-en.js
+Exit code: 0
+Output: empty (successful syntax checks).
+
+Evidence preserved from already-returned tool output; no rerun, elapsed-time claim or real-browser claim.

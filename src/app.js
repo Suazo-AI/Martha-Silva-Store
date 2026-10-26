@@ -92,6 +92,61 @@
   // Exposed for local diagnostics only; no remote transport is configured here.
   window.marthaStoreApi = api;
   function notify(text) { const toast = $('#toast'); if (!toast) return; toast.textContent = text; toast.classList.add('visible'); clearTimeout(notify.timer); notify.timer = setTimeout(() => toast.classList.remove('visible'), 4000); }
+  function productShareData() {
+    const id = $('main[data-page="product"]')?.dataset.productId;
+    const product = window.DEMO_CATALOG?.products.find(item => item.id === id);
+    if (!product) return null;
+    // Construct from the catalog identity, never from tracking/order parameters or a canonical tag.
+    const url = new URL(`/producto-${encodeURIComponent(product.id)}.html`, location.origin);
+    url.searchParams.set('lang', window.MarthaI18n?.language === 'en' ? 'en' : 'es');
+    return {title: `${window.MarthaI18n?.translate(product.name) || product.name} · Martha Silva`, url: url.href};
+  }
+  function productShareControl() {
+    const form = $('[data-product-form]');
+    if (!form || !productShareData()) return;
+    let control = $('[data-product-share-control]');
+    if (!control) {
+      control = document.createElement('div');
+      control.className = 'product-share';
+      control.dataset.productShareControl = '';
+      control.innerHTML = '<button type="button" class="text-button product-share-button" data-product-share><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 16V3m-5 5 5-5 5 5M5 12v8h14v-8"/></svg><span>Compartir producto</span></button><p class="small" data-product-share-status role="status" aria-live="polite" aria-atomic="true"></p><label class="field" data-product-share-manual hidden><span>Enlace del producto</span><input type="text" data-product-share-url readonly translate="no" aria-describedby="product-share-help"><small id="product-share-help">Seleccioná y copiá este enlace para compartirlo.</small></label>';
+      form.after(control);
+      window.MarthaI18n?.apply(control);
+    }
+    window.addEventListener('martha:languagechange', () => {
+      const input = $('[data-product-share-url]', control);
+      if (input.value) input.value = productShareData()?.url || '';
+    }, {signal:pageScope.signal});
+  }
+  async function shareProduct(button) {
+    if (button.disabled) return;
+    const data = productShareData(), control = button.closest('[data-product-share-control]');
+    if (!data || !control) return;
+    const status = $('[data-product-share-status]',control), manual = $('[data-product-share-manual]',control);
+    status.textContent = ''; manual.hidden = true; button.disabled = true;
+    try {
+      if (typeof navigator.share === 'function') {
+        try {
+          // No await/API work before this call: preserve the click's native user activation.
+          await navigator.share(data);
+          return;
+        } catch (error) { if (error?.name === 'AbortError') return; }
+      }
+      if (!button.isConnected) return;
+      try {
+        if (typeof navigator.clipboard?.writeText !== 'function') throw new Error('Clipboard unavailable');
+        await navigator.clipboard.writeText(data.url);
+        if (button.isConnected) status.textContent = 'Enlace copiado. Ya podés compartirlo.';
+      } catch {
+        if (!button.isConnected) return;
+        status.textContent = 'No pudimos copiar el enlace. Copialo manualmente.';
+        const input = $('[data-product-share-url]',control);
+        input.value = data.url; manual.hidden = false;
+        input.focus({preventScroll:true}); input.select();
+      }
+      if (button.isConnected) window.MarthaI18n?.apply(control);
+    } finally { button.disabled = false; }
+  }
   function showError(root, error) { let box = $('[data-error]', root); if (!box) { box = document.createElement('p'); box.className = 'error'; box.setAttribute('data-error',''); box.setAttribute('role','alert'); root.prepend(box); } box.textContent = error.message; box.hidden = false; if(!root.closest('[data-product-id]')||$('[data-sticky-buy]')?.hidden!==false)box.scrollIntoView({block:'nearest'}); }
   async function withButton(button, action) { if (button.disabled) return; const root = button.closest('form, dialog, [data-product-id], [data-checkout-root], [data-order-root], [data-admin-root], main') || document.body; $('[data-error]',root)?.setAttribute('hidden',''); button.disabled = true; busyActions++; renderIntegration(); if(button.matches('[data-add]')) {productAdding=true;syncProduct();} try { await action(); } catch (error) { showError(root, error); } finally { busyActions--; renderIntegration(); if (button.isConnected) button.disabled = false; if(button.matches('[data-add]')) {productAdding=false;syncProduct();const error=$('[data-product-error]'),sticky=$('[data-sticky-error]');if(error&&sticky){sticky.textContent=error.textContent;sticky.hidden=error.hidden;}} } }
   async function refreshCart() { cart = await api('/api/cart'); $$('[data-bag-count]').forEach(n => n.textContent = cart.lines.reduce((n, line) => n + line.quantity, 0)); if($('#mini-bag')?.open)miniBag(); return cart; }
@@ -297,6 +352,7 @@
     mountJobs++; renderIntegration();
     pageScope?.abort(); productObserver?.disconnect(); productObserver=null; pageScope = new AbortController(); stopMotion();
     const page = $('main')?.dataset.page;
+    if (page === 'product') productShareControl();
     try {
       if (!products.length || ['catalog','product'].includes(page)) products=(await api('/api/catalog')).products.map(p=>({...p,...window.STORE_MEDIA?.[p.id]}));
       await refreshCart(); updateHearts();
@@ -322,6 +378,7 @@
   }
   document.addEventListener('click', async event => {
     const b = event.target.closest('button,a'); if (!b) return;
+    if (b.matches('[data-product-share]')) { await shareProduct(b); return; }
     if (b.matches('[data-integration-mode]')) { await switchIntegration(b.dataset.integrationMode); return; }
     if (b.matches('[data-integration-retry]')) { if (!pendingApi && !busyActions && !mountJobs && !modeSwitching) { $$('[data-error]').forEach(element => element.hidden = true); createIntegration(); await mountPage(); } return; }
     if (modeSwitching) { event.preventDefault(); return; }

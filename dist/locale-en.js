@@ -2,6 +2,11 @@
 (() => {
   'use strict';
   const pairs = `
+Compartir producto|Share product
+Enlace del producto|Product link
+Seleccioná y copiá este enlace para compartirlo.|Select and copy this link to share it.
+Enlace copiado. Ya podés compartirlo.|Link copied. You can now share it.
+No pudimos copiar el enlace. Copialo manualmente.|We could not copy the link. Copy it manually.
 Martha Silva · Gala & novias|Martha Silva · Occasionwear & bridal
 Una entrada inolvidable.|An unforgettable entrance.
 Gala, novias y momentos que merecen brillar.|Occasionwear, bridal and moments made to shine.

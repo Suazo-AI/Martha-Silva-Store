@@ -1,0 +1,37 @@
+{
+  "base_source_sha": "8ef27660bb94acc5d93f09d59b92cbbc8661e94e",
+  "base_history_sha": "8b25146723cd42efbdfa1d5404da920f5ce27245",
+  "scope": "product share only; no photo audit changes",
+  "source_files": {
+    "src/app.js": {
+      "bytes": 63104,
+      "sha256": "d381978579b3558fe49cf5ab103c4bf52a3debb38b14bc824efd9399f7d48959",
+      "cloudflare_upload_hash": "59fa67f7b24123184a8abeb5f8f3e3a2",
+      "base_sha256": "5462c3b9169707679325d5054f97af560b60244130f2e767442fefbba8f6f405"
+    },
+    "build-inputs/static/locale-en.js": {
+      "bytes": 32305,
+      "sha256": "9f779e3ba5099a9399a357e70c85e063001742febc3918aa79e2ea81e89ff4b2",
+      "cloudflare_upload_hash": "0a1f3171f6bd61c5dd6cc27c07bca221",
+      "base_sha256": "9a0426969bcbda9b6d14ba3d54399f2fa242527105eae8f594a4e7823edf26a9"
+    },
+    "build-inputs/static/styles.css": {
+      "bytes": 63290,
+      "sha256": "e0a002902eace0d8b9734f8b4473a1f6e7e29ba629522799aef5eae326a1256a",
+      "cloudflare_upload_hash": "666f8d75d829a62f689f173ef7d28b71",
+      "base_sha256": "7718cbe95874c8f0eed9747154c35c7305ef118b3f33be8203bde98588d0a109"
+    },
+    "tests/product-share.cjs": {
+      "bytes": 12138,
+      "sha256": "49fe2821f698375276c99b923700f27ae8063f19aa1ba187a651495f7ca1a791",
+      "cloudflare_upload_hash": "661085c25ee8e809e0821b7a9a99b708",
+      "base_sha256": null
+    }
+  },
+  "changed_outputs": [
+    "app.js",
+    "locale-en.js",
+    "styles.css"
+  ],
+  "unchanged_outputs": 899
+}

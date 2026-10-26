@@ -235,3 +235,6 @@ main[data-page=cart] .cart-line img{line-height:18.4px}
 @media(prefers-reduced-motion:reduce){
  .luxury-hero__cta{transition:none}
 }
+
+/* Product sharing stays separate from bag/favorite actions. */
+.product-share{margin-top:12px;min-width:0}.product-share-button{display:inline-flex;align-items:center;gap:8px;min-height:44px;white-space:normal;text-align:left}.product-share-button svg{width:20px;height:20px;flex:none}.product-share [data-product-share-status]:empty{margin:0}.product-share [data-product-share-status]{margin:8px 0;line-height:1.5}.product-share .field{margin:12px 0 0}.product-share [hidden]{display:none}.product-share input{min-width:0;font-size:16px}
