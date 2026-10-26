@@ -1,5 +1,10 @@
 # Martha Silva Store
 
+**Latest published update:** product sharing on all 40 product pages, with native
+sharing, copy/manual link fallback and ES/EN support. Runtime source
+`e9e9609b9cda6f52abd0db1b35b570f3b83156b4` preserves the luxury photography below.
+[Share-button publication evidence](evidence/product-share/publication.json).
+
 Repositorio de recuperación y evolución de las demos de Martha Silva. Conserva código, evidencia y decisiones sin confundir una demo con una tienda en producción.
 
 **Demo publicada:** [martha-silva-preview.martha-silva-denis.workers.dev](https://martha-silva-preview.martha-silva-denis.workers.dev/).

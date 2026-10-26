@@ -1,0 +1,27 @@
+{
+  "source_sha": "e9e9609b9cda6f52abd0db1b35b570f3b83156b4",
+  "url": "https://martha-silva-preview.martha-silva-denis.workers.dev/",
+  "version_id": "205cf823-313b-4667-8779-b08957424bd5",
+  "deployment_id": "2172a1c0-e350-4ef7-b9fc-d0c567941669",
+  "traffic_percent": 100,
+  "published_utc": "2026-10-26T04:25:10.838627Z",
+  "runtime_files": 902,
+  "total_assets": 903,
+  "changed_runtime": [
+    "app.js",
+    "locale-en.js",
+    "styles.css"
+  ],
+  "unchanged_runtime": 899,
+  "media_changes": 0,
+  "cloud_checks": {
+    "existing": 139,
+    "focused": 11,
+    "failures": 0,
+    "build_reproducible": true
+  },
+  "browser_verification": "Pending cloud CUA post-publication verification",
+  "local_heavy_tasks_run": false,
+  "rollback_version": "61c2f526-5315-4c55-9656-8cc148b1eea1",
+  "photo_audit": "Preserved separately; resume after share verification. Audit changes not published."
+}

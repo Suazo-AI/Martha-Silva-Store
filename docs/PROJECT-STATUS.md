@@ -1,5 +1,25 @@
 # Estado del proyecto
 
+## Product sharing - 2026-10-25
+
+Published source `e9e9609b9cda6f52abd0db1b35b570f3b83156b4` adds a sharing
+button to all 40 product pages. Native sharing preserves click activation;
+cancellation is quiet. Copy success is reported only after clipboard write;
+permission failures expose a selected manual link. Product URLs preserve ES/EN
+and exclude unrelated query parameters. Sharing remains available if the demo
+commerce adapter is unavailable.
+
+Cloud checks passed: 139 existing cases and 11 focused sharing cases, plus
+reproducible 902-file assembly and 47-page structure validation. Only app.js,
+locale-en.js and styles.css changed; all 780 raster files and index.html are
+unchanged. No heavy work ran on Tony. Post-publication browser coverage is
+recorded separately in evidence/product-share/publication.json.
+
+Cloudflare version `205cf823-313b-4667-8779-b08957424bd5` serves 100% of traffic,
+deployment `2172a1c0-e350-4ef7-b9fc-d0c567941669`. The photo-quality candidate
+remains separate and unpublished; the audit resumes after sharing verification.
+No GitHub push or hosted CI occurred.
+
 ## Luxury Instagram editorial - 2026-10-25
 
 Published runtime source `8ef27660bb94acc5d93f09d59b92cbbc8661e94e` replaces
