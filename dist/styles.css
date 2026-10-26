@@ -241,3 +241,16 @@ main[data-page=cart] .cart-line img{line-height:18.4px}
 
 /* GREEN cut A: keep the lead photo below the measured sticky header. No image or sizing changes. */
 @media(min-width:1024px){main[data-product-id="verde-brillo-cuello-cruzado"] .gallery-photo{scroll-margin-top:var(--store-sticky-header-height,106px)}main[data-product-id="verde-brillo-cuello-cruzado"] .gallery-track>.gallery-photo{top:var(--store-sticky-header-height,106px);max-height:calc(100svh - var(--store-sticky-header-height,106px))}}
+
+/* ADDITIVE SUPPORT ILLUSTRATIONS: scoped CSS only. */
+/* Scoped supporting illustrations. No gallery, card, video or commerce selectors. */
+.ai-support-illustration{max-width:1120px;margin:40px auto;padding:32px 24px;border-top:1px solid #dedbd5;text-align:center}
+.ai-support-illustration h2{font-size:clamp(22px,3vw,32px);line-height:1.25;margin:0 0 24px}
+.ai-support-illustration figure{margin:0}
+.ai-support-illustration [data-ai-support-image]{display:block;width:100%;height:auto;max-width:560px;max-height:none;object-fit:contain;object-position:center;margin:0 auto;transform:none}
+.ai-support-illustration figcaption{max-width:70ch;margin:18px auto 12px;font-size:14px;line-height:1.65}
+.ai-support-illustration [data-ai-lang]{display:block}
+.ai-support-illustration [hidden]{display:none!important}
+.ai-support-illustration__error{max-width:60ch;margin:0 auto;padding:24px;border:1px solid #dedbd5;line-height:1.6}
+.ai-support-illustration>a{display:inline-block;padding:8px 0;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:599px){.ai-support-illustration{padding:24px 20px;margin:28px auto}}

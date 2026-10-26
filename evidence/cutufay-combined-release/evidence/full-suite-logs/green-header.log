@@ -1,0 +1,27 @@
+PASS sticky header measurement excludes banners, language and integration rows
+PASS resize updates the exact measured header height with safe rounding
+PASS ResizeObserver follows header changes without relying on viewport resize
+PASS a page without the global header safely exposes zero sticky header height
+FAIL the CSS delta is desktop and exact-SKU scoped, with no pixel or zoom rule
+AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /first-child|image-dialog|object-fit|transform/. Input:
+
+' keep the lead photo below the measured sticky header. No image or sizing changes. */\n' +
+  '@media(min-width:1024px){main[data-product-id="verde-brillo-cuello-cruzado"] .gallery-photo{scroll-margin-top:var(--store-sticky-header-height,106px)}main[data-product-id="verde-brillo-cuello-cruzado"] .gallery-track>.gallery-photo{top:var(--store-sticky-header-height,106px);max-height:calc(100svh - var(--store-sticky-header-height,106px))}}\n' +
+  '\n' +
+  '/* ADDITIVE SUPPORT ILLUSTRATIONS: scoped CSS only. */\n' +
+  '/* Scoped supporting illustrations. No gallery, card, video or commerce selectors. */\n' +
+  '.ai-support-illustration{max-width:1120px;margin:40px auto;padding:32px 24px;border-top:1px solid #dedbd5;text-align:center}\n' +
+  '.ai-support-illustration h2{font-size:clamp(22px,3vw,32px);line-height:1.25;margin:0 0 24px}\n' +
+  '.ai-support-illustration figure{margin:0}\n' +
+  '.ai-support-illustration [data-ai-support-image]{display:block;width:100%;height:auto;max-width:560px;max-height:none;object-fit:contain;object-position:center;margin:0 auto;transform:none}\n' +
+  '.ai-support-illustration figcaption{max-width:70ch;margin:18px auto 12px;font-size:14px;line-height:1.65}\n' +
+  '.ai-support-illustration [data-ai-lang]{display:block}\n' +
+  '.ai-support-illustration [hidden]{display:none!important}\n' +
+  '.ai-support-illustration__error{max-width:60ch;margin:0 auto;padding:24px;border:1px solid #dedbd5;line-height:1.6}\n' +
+  '.ai-support-illustration>a{display:inline-block;padding:8px 0;text-decoration:underline;text-underline-offset:3px}\n' +
+  '@media(max-width:599px){.ai-support-illustration{padding:24px 20px;margin:28px auto}}\n'
+
+    at /workspace/scratch/14cff504045e/audit-centering-20261026/combined-release-tests/final-validation/tests/green-header.cjs:62:561
+    at /workspace/scratch/14cff504045e/audit-centering-20261026/combined-release-tests/final-validation/tests/green-header.cjs:65:64
+PASS share, favorites and gallery controls remain mounted on the unchanged green PDP
+5/6 green header DOM/static checks passed (not browser layout)

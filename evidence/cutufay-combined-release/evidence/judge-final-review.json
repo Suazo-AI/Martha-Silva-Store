@@ -1,0 +1,112 @@
+{
+  "created_utc": "2026-10-26T18:50:58.402499+00:00",
+  "reviewer": "/root/judge_web_photo_coverage",
+  "decision": "SOURCE_AND_AUTOMATED_ACCEPTED; CONDITIONAL_CONTROLLED_RELEASE",
+  "release_executed": false,
+  "live_UI_acceptance": "NOT_RUN_PENDING_PUBLICATION",
+  "user_authority_relayed_by_parent": {
+    "supporting_illustrations": "2026-10-26T16:44:40Z: Si \u00fasalas no importa, following disclosure and authentic-photo retention proposal",
+    "publish_combined_when_ready": "2026-10-26T18:25:31Z, parent confirmed both approved support illustrations and Back fix"
+  },
+  "candidate": {
+    "source": "audit-centering-20261026/combined-support-back-candidate-v4/source",
+    "app_sha256": "aa0528f71c3a23410dd7c2c0151427826f800e8f78a8057fe60d14427dcd89e8",
+    "controller_sha256": "aca2bf1ad30f73668607c220b447713d4bd3491cfb2d3b5646fd53cedafce787",
+    "AI_module_sha256": "edf6246dd3fa293504a133464018b7365333276ede124f253391c48a22495fd1",
+    "receipt_sha256": "19ca37a9351820e2fb7481d8e95580888fe589ef1d00eba08a4d8c6d491367d2",
+    "base_recorded_commit": "704b2e160106b709880ad7c22febd25adb6181d6",
+    "final_test_report": "audit-centering-20261026/combined-release-tests/final-report.json",
+    "final_test_report_sha256": "88ae8636573498a4ea53657d4660066e580210f8e5729afe418ad9f249a23c46"
+  },
+  "independent_verification": {
+    "actual_scope_against_exact_A": "947 existing source inputs unchanged; four modified; two added; no removal",
+    "source_file_count": 953,
+    "two_PDP_insertions_reversible": true,
+    "authentic_media_and_catalog_unchanged": true,
+    "v3_replaced_only_reviewed_controller_in_v2_app": true,
+    "v4_added_only_stale_hash_current_URL_guard": true,
+    "all_command_targeted_adapted_and_original_report_log_hashes_verified": true,
+    "actual_built_runtime_all_file_bytes_equal_sealed_manifest": true,
+    "built_runtime_count": 904,
+    "runtime_unchanged_from_A": 898,
+    "runtime_modified_existing": [
+      "app.js",
+      "producto-blanco-perlado-sirena.html",
+      "producto-rosa-empolvado-pedreria.html",
+      "styles.css"
+    ],
+    "runtime_added": [
+      "generated-illustrations/blanco-perlado-sirena-g1-gen-001-48170acd71bf.png",
+      "generated-illustrations/rosa-empolvado-pedreria-g1-gen-001-8e13cba8e436.png"
+    ],
+    "catalog_counts": {
+      "products": 40,
+      "photos": 170,
+      "variants": 120,
+      "Green_photos": 5
+    }
+  },
+  "automated_evidence": {
+    "aggregate_tests": 139,
+    "aggregate_exit_code": 0,
+    "supplemental_final_counts": {
+      "luxury_editorial": 8,
+      "product_share": 11,
+      "Green_adapted_fixture": 6,
+      "offline_deployment_safeguards": 14
+    },
+    "targeted_counts": {
+      "compound_scope": 6,
+      "combined_app_DOM": 14,
+      "actual_Barba_vendor_no_fetch": 1,
+      "focused_Back_regressions": 24,
+      "revised_AI_fragment_regressions": 20
+    },
+    "actual_vendor_mode": "Exact Barba2.10.3, native hash/history and router metadata, no-fetch JSDOM fixture; not rendered browser/full network lifecycle",
+    "Green_fixture_adaptation": {
+      "accepted": true,
+      "original_result": "5/6, exit1 retained",
+      "adapted_result": "6/6, same six-case contract",
+      "original_report_sha256": "60606e476eb48e000660ae942291ca9d670632943c9f99ed051e46eeed428506",
+      "copied_test_sha256": "8fcc9a05c9355674ffdda5c4433d0607aacc87c48b950bccfefab77830cbe845",
+      "rationale": "Original test incorrectly scanned all appended CSS after GREEN marker; copied fixture uses unique additive boundary and exact whole-A-prefix/approved-AI-suffix hashes, retaining every Green assertion",
+      "source_or_application_changed": false,
+      "aggregate_rerun": false,
+      "count_as_eleven": false
+    }
+  },
+  "resolved_concrete_findings": [
+    "AI/i18n mutation observer feedback loop",
+    "AI originals link creates unwanted hash history entry",
+    "Native fragment entry corrupts original scroll record",
+    "Actual locale same-entry replaceState mismatch",
+    "Queued stale hashchange invalidates newer navigation",
+    "Earlier user-cancellation, late-layout, commerce exclusion and deferred-focus cases retained in final24 regressions"
+  ],
+  "known_source_blockers": [],
+  "operational_blockers": [
+    {
+      "status": "REPORTED_BY_PARENT_PENDING",
+      "item": "Publisher CLI authentication is unavailable; no publication can be claimed"
+    }
+  ],
+  "conditions_before_authorized_release": [
+    "Restore authenticated authorized publisher access without bypassing controls",
+    "Verify current destination still corresponds to recorded A; reconcile any intervening changes instead of overwriting",
+    "Use only exact tested904 runtime payload and real integrated commit; generate and verify deployment marker from those bytes",
+    "Verify full-A rollback artifact/version and current traffic before promotion; app-only rollback is insufficient"
+  ],
+  "postpublication_acceptance": [
+    "Verify live marker/commit and six changed/new payload hashes against exact tested candidate",
+    "View both approved supporting illustrations fully framed with visible ES/EN AI/product-detail disclosure; preserve authentic galleries, SKU/form/Share references",
+    "Exercise original-photo links, language switching, catalog filters/search and catalog\u2192PDP\u2192Back/Forward scroll preservation in available real browser",
+    "Confirm Share and representative unchanged commerce behavior; record actual coverage and rollback on material regression"
+  ],
+  "limitations": [
+    "No prepublication rendered UI validation",
+    "No physical Safari/iPhone native Back/edge-swipe/BFCache/VoiceOver verification; do not claim that user-device defect is confirmed fixed",
+    "AI images are approved supporting illustrations, not exact authentic-product recovery; fine beadwork/identity details differ",
+    "Historical media inventory777/778 remains explicitly incomplete, while all170 selected gallery refs are present",
+    "No blanket photo exclusions, broader Green B delta, original-media deletion or commerce changes included"
+  ]
+}

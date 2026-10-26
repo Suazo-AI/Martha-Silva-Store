@@ -1,0 +1,7 @@
+PASS sticky header measurement excludes banners, language and integration rows
+PASS resize updates the exact measured header height with safe rounding
+PASS ResizeObserver follows header changes without relying on viewport resize
+PASS a page without the global header safely exposes zero sticky header height
+PASS the CSS delta is desktop and exact-SKU scoped, with no pixel or zoom rule
+PASS share, favorites and gallery controls remain mounted on the unchanged green PDP
+6/6 green header DOM/static checks passed (not browser layout)

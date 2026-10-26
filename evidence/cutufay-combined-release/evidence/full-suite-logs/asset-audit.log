@@ -1,0 +1,1269 @@
+{
+  "schema": 1,
+  "scope": "Offline local snapshot; not live deployment or original PC verification",
+  "catalog_evidence": [
+    {
+      "source": "martha-editorial/parity-v2/catalog-fixture.json",
+      "products": 40,
+      "variants": 120,
+      "gallery_references": 170
+    },
+    {
+      "source": "sisfain-research/observed-catalog.json",
+      "products": 40,
+      "variants": 120,
+      "gallery_references": 170
+    }
+  ],
+  "media_primary_references": 170,
+  "published_fixture": {
+    "products": 40,
+    "variants": 120,
+    "gallery_references": 170
+  },
+  "published_product_ids": [
+    "amarillo",
+    "azul-floral-un-hombro",
+    "azul-gris-flores-falda",
+    "azul-gris-un-hombro",
+    "blanco-perlado-sirena",
+    "burdeos-encaje-volantes-midi",
+    "burdeos-top-pantalon-corto",
+    "champagne",
+    "crema-flores-naranjas-halter",
+    "crema-flores-volante-asimetrico",
+    "dorado",
+    "fucsia-halter-pliegues",
+    "fucsia-un-hombro-volantes",
+    "gala-destello",
+    "gala-oro",
+    "gala-rubi",
+    "gris-perla-hombros",
+    "midi-estampado-burdeos",
+    "napoleon",
+    "negro",
+    "negro-blanco-lunares-midi",
+    "negro-brillo-pantalon-amplio",
+    "negro-escote-puntas-abertura",
+    "negro-lunares-beige-hombros",
+    "novia",
+    "novia-satinada-abertura",
+    "novia-tirantes-encaje",
+    "novias-alba",
+    "novias-encaje",
+    "novias-velo",
+    "plata-tirantes-copas-pedreria",
+    "rojo-tirantes-falda-amplia",
+    "rosa",
+    "rosa-bronce-pedreria",
+    "rosa-claro-flores-doradas",
+    "rosa-empolvado-pedreria",
+    "rosa-flores-fucsias-halter",
+    "rosa-marron-chaqueta-falda",
+    "verde-brillo-cuello-cruzado",
+    "verde-esmeralda-tirantes-cruzados"
+  ],
+  "unique_original_media_paths": 778,
+  "original_primary_paths_present_in_demo": 170,
+  "original_media_paths_present_in_demo": 777,
+  "selected_demo_images": [
+    {
+      "product": "rosa-empolvado-pedreria",
+      "path": "research/assets/store-media/rosa-empolvado-pedreria/01-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 59454,
+      "sha256": "a8545254d63100874382c10ab1040d149168e9ddcfcee9c9e460d1802148fdf2"
+    },
+    {
+      "product": "rosa-empolvado-pedreria",
+      "path": "research/assets/store-media/rosa-empolvado-pedreria/02-three-quarter-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 51908,
+      "sha256": "11d24c5fcecb89d495e7d630b01109a255ee5df253b5e89c15c0a9773aa32812"
+    },
+    {
+      "product": "rosa-empolvado-pedreria",
+      "path": "research/assets/store-media/rosa-empolvado-pedreria/03-side-full-length-800.webp",
+      "status": "present",
+      "bytes": 47788,
+      "sha256": "435476511a981a26a746c175a2457de5039365dcb88479f1b303f6bbd47f535c"
+    },
+    {
+      "product": "rosa-empolvado-pedreria",
+      "path": "research/assets/store-media/rosa-empolvado-pedreria/04-back-full-length-800.webp",
+      "status": "present",
+      "bytes": 46630,
+      "sha256": "b1260323400a7c76f76ebb4c75a36e8f8fb45549c436cea22eb0b9eaac03237f"
+    },
+    {
+      "product": "rosa-empolvado-pedreria",
+      "path": "research/assets/store-media/rosa-empolvado-pedreria/05-detail-crop-432.webp",
+      "status": "present",
+      "bytes": 22200,
+      "sha256": "9c03546afb4205c2bf71f9bb28a4fcface98b90703576cbd77d16b7593ae64d4"
+    },
+    {
+      "product": "gris-perla-hombros",
+      "path": "research/assets/store-media/gris-perla-hombros/01-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 47456,
+      "sha256": "9d7f795230b5a8561f82588ee1b3f776f2551473404accd1315f267499f00d5c"
+    },
+    {
+      "product": "gris-perla-hombros",
+      "path": "research/assets/store-media/gris-perla-hombros/02-three-quarter-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 47852,
+      "sha256": "26f582ce920103fde985ab5f767c3705758ed3f6300bc8b58b00b14dc8cc47d5"
+    },
+    {
+      "product": "gris-perla-hombros",
+      "path": "research/assets/store-media/gris-perla-hombros/03-side-full-length-800.webp",
+      "status": "present",
+      "bytes": 45942,
+      "sha256": "bbaa9f145515d84e2f6ee335af4e2327f9ce6c32940aeec82d68247293caa363"
+    },
+    {
+      "product": "gris-perla-hombros",
+      "path": "research/assets/store-media/gris-perla-hombros/04-back-full-length-800.webp",
+      "status": "present",
+      "bytes": 50860,
+      "sha256": "fea664f53304b1978cf76733ec271c075d9dd23d398676b4af9d05da2b7534fd"
+    },
+    {
+      "product": "gris-perla-hombros",
+      "path": "research/assets/store-media/gris-perla-hombros/05-detail-crop-432.webp",
+      "status": "present",
+      "bytes": 13036,
+      "sha256": "e63ee5d4fd43cb1c0d52f21efa0860e72453248a79a218f962fbd13d1de53325"
+    },
+    {
+      "product": "blanco-perlado-sirena",
+      "path": "research/assets/store-media/blanco-perlado-sirena/01-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 53534,
+      "sha256": "dfc3da2d975a2de5a3a1ead0fd46fc26c0b94167e75cabb83bbf347890ede4db"
+    },
+    {
+      "product": "blanco-perlado-sirena",
+      "path": "research/assets/store-media/blanco-perlado-sirena/02-three-quarter-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 61700,
+      "sha256": "75f7a048e4875912c200040db08fa8b0f7063fbaf8ffdec5942fdab3f3d56046"
+    },
+    {
+      "product": "blanco-perlado-sirena",
+      "path": "research/assets/store-media/blanco-perlado-sirena/03-side-full-length-800.webp",
+      "status": "present",
+      "bytes": 59896,
+      "sha256": "9856d96e3a349d53e9505c93dbd73339cc5120ff53a8ed7a34259090ee8ccaff"
+    },
+    {
+      "product": "blanco-perlado-sirena",
+      "path": "research/assets/store-media/blanco-perlado-sirena/04-back-full-length-800.webp",
+      "status": "present",
+      "bytes": 51204,
+      "sha256": "05a3dfda2d2d0fd4ce89168bb726ebbf1a48fb402de1ba19d3e987abcd58c618"
+    },
+    {
+      "product": "rojo-tirantes-falda-amplia",
+      "path": "research/assets/store-media/rojo-tirantes-falda-amplia/01-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 40354,
+      "sha256": "a29606b929da624b5132f309ce19c49c1cbfd860947217a880676509afe102ff"
+    },
+    {
+      "product": "rojo-tirantes-falda-amplia",
+      "path": "research/assets/store-media/rojo-tirantes-falda-amplia/02-three-quarter-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 36342,
+      "sha256": "60bc8aa81026bf977efec2efb726f0ecbb6a1052a1adf0a9e0d8ecb3a6c7ac9a"
+    },
+    {
+      "product": "rojo-tirantes-falda-amplia",
+      "path": "research/assets/store-media/rojo-tirantes-falda-amplia/03-side-view-800.webp",
+      "status": "present",
+      "bytes": 40008,
+      "sha256": "8503a331617f64a6ba95bbbacc17019917808f723246d984b34e1740d3273a52"
+    },
+    {
+      "product": "rojo-tirantes-falda-amplia",
+      "path": "research/assets/store-media/rojo-tirantes-falda-amplia/04-back-view-800.webp",
+      "status": "present",
+      "bytes": 33766,
+      "sha256": "08be111a920c92f5ef605bc5726880226953406faa777173783be306cc6a14b0"
+    },
+    {
+      "product": "rojo-tirantes-falda-amplia",
+      "path": "research/assets/store-media/rojo-tirantes-falda-amplia/05-detail-crop-432.webp",
+      "status": "present",
+      "bytes": 19378,
+      "sha256": "ce5aef01d27ca1d195c6c96bcda4c2d521d3dc3609f835a01df8b86e9fdd9748"
+    },
+    {
+      "product": "negro-brillo-pantalon-amplio",
+      "path": "research/assets/store-media/negro-brillo-pantalon-amplio/01-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 45028,
+      "sha256": "c720e28c5f7043881dc9e1d1fef5e87c60a099b7b1767626517b59ed7a3cbdf5"
+    },
+    {
+      "product": "negro-brillo-pantalon-amplio",
+      "path": "research/assets/store-media/negro-brillo-pantalon-amplio/02-three-quarter-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 43272,
+      "sha256": "b149d54e7436017e89890e21df0d8484ece07a22c6e95150c0080d096dbb20c5"
+    },
+    {
+      "product": "negro-brillo-pantalon-amplio",
+      "path": "research/assets/store-media/negro-brillo-pantalon-amplio/03-side-full-length-800.webp",
+      "status": "present",
+      "bytes": 42618,
+      "sha256": "d512344e5459c5bc3026ce9a6c554fa1e9a1ed560208aad9472b692b0784dd10"
+    },
+    {
+      "product": "negro-brillo-pantalon-amplio",
+      "path": "research/assets/store-media/negro-brillo-pantalon-amplio/04-back-full-length-800.webp",
+      "status": "present",
+      "bytes": 44864,
+      "sha256": "db7dbfc3d63956f73a6fa4521e97d62b85f70b00fa238be9670ff5e146cc5c2a"
+    },
+    {
+      "product": "negro-brillo-pantalon-amplio",
+      "path": "research/assets/store-media/negro-brillo-pantalon-amplio/05-detail-crop-432.webp",
+      "status": "present",
+      "bytes": 13442,
+      "sha256": "2850bc82e2ba2218dd980927787787fa20d6e52ce931f39c2472964e12063f8c"
+    },
+    {
+      "product": "azul-gris-un-hombro",
+      "path": "research/assets/store-media/azul-gris-un-hombro/01-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 45728,
+      "sha256": "c800e64ae0b5adf60662800b2324e563a41ffca8875c141f010b8243f3a2e114"
+    },
+    {
+      "product": "azul-gris-un-hombro",
+      "path": "research/assets/store-media/azul-gris-un-hombro/02-three-quarter-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 44016,
+      "sha256": "cc036b799bf84c95f7e4ca5e8b7af669de4d67c71432e826e44d5feb8250efde"
+    },
+    {
+      "product": "azul-gris-un-hombro",
+      "path": "research/assets/store-media/azul-gris-un-hombro/03-side-full-length-800.webp",
+      "status": "present",
+      "bytes": 43076,
+      "sha256": "f5cfb64e701e4ca8d09acf7288c66d460eb2ff6665f98651ac878bd230deabb4"
+    },
+    {
+      "product": "azul-gris-un-hombro",
+      "path": "research/assets/store-media/azul-gris-un-hombro/04-back-full-length-800.webp",
+      "status": "present",
+      "bytes": 41352,
+      "sha256": "c8088746cd673339dbe99fb2442f21d2cc5b97ad4939dad145b9f61e5abdde1d"
+    },
+    {
+      "product": "azul-gris-un-hombro",
+      "path": "research/assets/store-media/azul-gris-un-hombro/05-detail-crop-432.webp",
+      "status": "present",
+      "bytes": 12354,
+      "sha256": "3174c6b8a63d3a56b772a2e5091cb9a71a75a6f22bb0be609d6b82c9c3d02105"
+    },
+    {
+      "product": "verde-brillo-cuello-cruzado",
+      "path": "research/assets/store-media/verde-brillo-cuello-cruzado/01-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 45714,
+      "sha256": "df337a3540dff1dfb2771a1124345901db42ea37dae1679fe5d2594d57ab5eed"
+    },
+    {
+      "product": "verde-brillo-cuello-cruzado",
+      "path": "research/assets/store-media/verde-brillo-cuello-cruzado/02-three-quarter-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 43454,
+      "sha256": "6eccf450e75699dbb41d0a84a1a4a8d67bd4ba93530d5d2133a899eb5ad7b0a2"
+    },
+    {
+      "product": "verde-brillo-cuello-cruzado",
+      "path": "research/assets/store-media/verde-brillo-cuello-cruzado/03-side-full-length-800.webp",
+      "status": "present",
+      "bytes": 38702,
+      "sha256": "ed4589d01fe2817e3c2fc17e3558d0d078b42c58d495f9900269a59cb89e3bf7"
+    },
+    {
+      "product": "verde-brillo-cuello-cruzado",
+      "path": "research/assets/store-media/verde-brillo-cuello-cruzado/04-back-full-length-800.webp",
+      "status": "present",
+      "bytes": 41496,
+      "sha256": "56d8091d01c4a7579da9c148952df27ed1c4e52c56a0548e53653ef1340ac081"
+    },
+    {
+      "product": "verde-brillo-cuello-cruzado",
+      "path": "research/assets/store-media/verde-brillo-cuello-cruzado/05-detail-crop-432.webp",
+      "status": "present",
+      "bytes": 15832,
+      "sha256": "1f7b690fb6f22a1688f2d627893a4b12373d8c77282d9c8f85345310162513a7"
+    },
+    {
+      "product": "verde-esmeralda-tirantes-cruzados",
+      "path": "research/assets/store-media/verde-esmeralda-tirantes-cruzados/01-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 45796,
+      "sha256": "f659e2bfe0fd9f47db0add687157b0055cbcff3d9fad095b26c892ae9b7c2a95"
+    },
+    {
+      "product": "verde-esmeralda-tirantes-cruzados",
+      "path": "research/assets/store-media/verde-esmeralda-tirantes-cruzados/02-three-quarter-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 40398,
+      "sha256": "2aec7b9d06e2555d90be7bdf3a9936def54ece87290fb043b56217262aa99c12"
+    },
+    {
+      "product": "verde-esmeralda-tirantes-cruzados",
+      "path": "research/assets/store-media/verde-esmeralda-tirantes-cruzados/03-side-full-length-800.webp",
+      "status": "present",
+      "bytes": 44792,
+      "sha256": "ee4940a8f041dc7b1ae96edca97e2e70f9e39716a96444678c83c09cd1cb425e"
+    },
+    {
+      "product": "verde-esmeralda-tirantes-cruzados",
+      "path": "research/assets/store-media/verde-esmeralda-tirantes-cruzados/04-back-full-length-800.webp",
+      "status": "present",
+      "bytes": 42790,
+      "sha256": "795be568c228b17f1d9c1558abebf4bb72fb03acafccb590170290a474d405f5"
+    },
+    {
+      "product": "verde-esmeralda-tirantes-cruzados",
+      "path": "research/assets/store-media/verde-esmeralda-tirantes-cruzados/05-detail-crop-432.webp",
+      "status": "present",
+      "bytes": 11626,
+      "sha256": "962b7db2b96ac7eaf9e4bba5bf99a0811cfc27ad3be9a28b937ff88418c428a5"
+    },
+    {
+      "product": "rosa-bronce-pedreria",
+      "path": "research/assets/store-media/rosa-bronce-pedreria/01-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 62198,
+      "sha256": "e5352de173097f4e30ed7fb5a6aa7655bb9d91239789b0137023dd14ca6ac6b4"
+    },
+    {
+      "product": "rosa-bronce-pedreria",
+      "path": "research/assets/store-media/rosa-bronce-pedreria/02-three-quarter-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 59158,
+      "sha256": "f418a3e02942ff40eb00a614443d12c0a0b10ed35fe17cc2d50ed7dbf3e1198c"
+    },
+    {
+      "product": "rosa-bronce-pedreria",
+      "path": "research/assets/store-media/rosa-bronce-pedreria/03-side-full-length-800.webp",
+      "status": "present",
+      "bytes": 56628,
+      "sha256": "d9af45f90627f890ff9174511393cde89b50f1aebc689ef689407684dbaa0c16"
+    },
+    {
+      "product": "rosa-bronce-pedreria",
+      "path": "research/assets/store-media/rosa-bronce-pedreria/04-back-full-length-800.webp",
+      "status": "present",
+      "bytes": 56088,
+      "sha256": "7a9caaeb33564ff1b2d64a260ae16c0634a8f16df343314e0bd8e067d1450f80"
+    },
+    {
+      "product": "rosa-bronce-pedreria",
+      "path": "research/assets/store-media/rosa-bronce-pedreria/05-detail-crop-432.webp",
+      "status": "present",
+      "bytes": 22574,
+      "sha256": "3ba34617a5be9559fbaf06238c772b1f187b144b37a56f1085b0cadcee1ce59a"
+    },
+    {
+      "product": "negro-escote-puntas-abertura",
+      "path": "research/assets/store-media/negro-escote-puntas-abertura/01-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 52068,
+      "sha256": "15c48c6d536a7a652227ca840e0d56917afb85a095eed2d2c0a0a7786ae4355c"
+    },
+    {
+      "product": "negro-escote-puntas-abertura",
+      "path": "research/assets/store-media/negro-escote-puntas-abertura/02-three-quarter-back-full-length-800.webp",
+      "status": "present",
+      "bytes": 49972,
+      "sha256": "33e1c9d7a440f6e4240c2757a9906194e9ac571c2a4cd253572fe9385fff88cc"
+    },
+    {
+      "product": "negro-escote-puntas-abertura",
+      "path": "research/assets/store-media/negro-escote-puntas-abertura/03-side-full-length-800.webp",
+      "status": "present",
+      "bytes": 46674,
+      "sha256": "79c897f1c78cb4260628e48baf625e48d1f58d42453da44825667fd33871e500"
+    },
+    {
+      "product": "negro-escote-puntas-abertura",
+      "path": "research/assets/store-media/negro-escote-puntas-abertura/04-back-full-length-800.webp",
+      "status": "present",
+      "bytes": 48250,
+      "sha256": "a5346da20b25dc8c7e375f175f0ca36e4b7fe76613399b61d1f3cde434ad1162"
+    },
+    {
+      "product": "negro-escote-puntas-abertura",
+      "path": "research/assets/store-media/negro-escote-puntas-abertura/05-detail-crop-432.webp",
+      "status": "present",
+      "bytes": 12132,
+      "sha256": "fda824aef55678af17729ad47f2dc0447e2f6b922e1e9b9966026640f3b452dd"
+    },
+    {
+      "product": "fucsia-halter-pliegues",
+      "path": "research/assets/store-media/fucsia-halter-pliegues/01-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 44888,
+      "sha256": "7f8a317357c5a185215011cea7950421b11326797076536dd1e509c6122d7031"
+    },
+    {
+      "product": "fucsia-halter-pliegues",
+      "path": "research/assets/store-media/fucsia-halter-pliegues/02-three-quarter-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 46674,
+      "sha256": "8ae4ab73ae58f132c8f0615e03db28de4be789d4e3502c45c5bca37cd88e10a7"
+    },
+    {
+      "product": "fucsia-halter-pliegues",
+      "path": "research/assets/store-media/fucsia-halter-pliegues/03-side-full-length-800.webp",
+      "status": "present",
+      "bytes": 39836,
+      "sha256": "5abe2699894793e8b3b1cda9c942daec58a699806ae6bd045bf9ff9bd1bf5714"
+    },
+    {
+      "product": "fucsia-halter-pliegues",
+      "path": "research/assets/store-media/fucsia-halter-pliegues/04-back-full-length-800.webp",
+      "status": "present",
+      "bytes": 40372,
+      "sha256": "92e73defdb206a31bbc464f282812f30e4fe8f466ec648778ad61e0ba79b7ed5"
+    },
+    {
+      "product": "fucsia-halter-pliegues",
+      "path": "research/assets/store-media/fucsia-halter-pliegues/05-detail-crop-432.webp",
+      "status": "present",
+      "bytes": 10472,
+      "sha256": "31fd0f83e117646c6eb2f51de558d702450a7f6eb42d006cb34b874a14bb03a2"
+    },
+    {
+      "product": "plata-tirantes-copas-pedreria",
+      "path": "research/assets/store-media/plata-tirantes-copas-pedreria/01-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 54266,
+      "sha256": "caacaaad4baa3e49a1f10ca7c9584ecd5005ceae605d820eb12ed94199ee34a6"
+    },
+    {
+      "product": "plata-tirantes-copas-pedreria",
+      "path": "research/assets/store-media/plata-tirantes-copas-pedreria/02-three-quarter-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 59024,
+      "sha256": "d5d02c06ae6ffac6a12ba15aad205b109b9b01dd2db9a57764d866e601887a6f"
+    },
+    {
+      "product": "plata-tirantes-copas-pedreria",
+      "path": "research/assets/store-media/plata-tirantes-copas-pedreria/03-side-full-length-800.webp",
+      "status": "present",
+      "bytes": 44380,
+      "sha256": "d3dd6863fd91684c9a93f0c1d7d74703299a5b0b6313909290f810c0171313f0"
+    },
+    {
+      "product": "plata-tirantes-copas-pedreria",
+      "path": "research/assets/store-media/plata-tirantes-copas-pedreria/04-back-full-length-800.webp",
+      "status": "present",
+      "bytes": 44692,
+      "sha256": "4d25650a965b38fac7a13a6f6ddab75439343938e57d9626e71479849ca06019"
+    },
+    {
+      "product": "plata-tirantes-copas-pedreria",
+      "path": "research/assets/store-media/plata-tirantes-copas-pedreria/05-detail-crop-432.webp",
+      "status": "present",
+      "bytes": 36004,
+      "sha256": "e189f29709d810eb244f6ef6864cf5cc3ed0367c490826554b7bf7f8228b5a1f"
+    },
+    {
+      "product": "crema-flores-volante-asimetrico",
+      "path": "research/assets/store-media/crema-flores-volante-asimetrico/01-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 55720,
+      "sha256": "5e02ee11fdc112f81a7a594e59396ec5246584ba5682987b10ee73a552757cb0"
+    },
+    {
+      "product": "crema-flores-volante-asimetrico",
+      "path": "research/assets/store-media/crema-flores-volante-asimetrico/02-three-quarter-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 52830,
+      "sha256": "0f61cad53e27be7d401c86783bbd5c03ae75d1151571b8c5ee7354dd2ca97197"
+    },
+    {
+      "product": "crema-flores-volante-asimetrico",
+      "path": "research/assets/store-media/crema-flores-volante-asimetrico/03-side-full-length-800.webp",
+      "status": "present",
+      "bytes": 54492,
+      "sha256": "38f5b9fa9ca3afe8ae8aef4729d2e7f0ec6641921de27b7c619d7bf43463f30a"
+    },
+    {
+      "product": "crema-flores-volante-asimetrico",
+      "path": "research/assets/store-media/crema-flores-volante-asimetrico/04-back-view-800.webp",
+      "status": "present",
+      "bytes": 52804,
+      "sha256": "6fdcabc82ac36aea4dbeff8dbc939c20bde52e0952a6f53bfc97532c67ab98b0"
+    },
+    {
+      "product": "crema-flores-volante-asimetrico",
+      "path": "research/assets/store-media/crema-flores-volante-asimetrico/05-detail-crop-432.webp",
+      "status": "present",
+      "bytes": 24508,
+      "sha256": "1e74ab61e870e374298aab72c388b0b3522b26b1f6ca072ecbbdc08e5ab2cdc1"
+    },
+    {
+      "product": "rosa-marron-chaqueta-falda",
+      "path": "research/assets/store-media/rosa-marron-chaqueta-falda/01-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 54676,
+      "sha256": "9a6bef4804fc49ef994a71feef301b6f3056de16c46f3a50d80f0c2dd214afff"
+    },
+    {
+      "product": "rosa-marron-chaqueta-falda",
+      "path": "research/assets/store-media/rosa-marron-chaqueta-falda/02-three-quarter-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 53586,
+      "sha256": "a4920aaee711c1dff734f81acce9baec972ab2cb0494a8967bc935facf6dfe64"
+    },
+    {
+      "product": "rosa-marron-chaqueta-falda",
+      "path": "research/assets/store-media/rosa-marron-chaqueta-falda/03-side-full-length-800.webp",
+      "status": "present",
+      "bytes": 51906,
+      "sha256": "ef7848bdd2bf5d301e1d6aaee48a1ca387fc636ad8243b7951868508194dab43"
+    },
+    {
+      "product": "rosa-marron-chaqueta-falda",
+      "path": "research/assets/store-media/rosa-marron-chaqueta-falda/04-back-full-length-800.webp",
+      "status": "present",
+      "bytes": 47426,
+      "sha256": "6ce0fa9dce2613cbce07864406f541e146b411b3b2619b44648d23976ff06597"
+    },
+    {
+      "product": "rosa-marron-chaqueta-falda",
+      "path": "research/assets/store-media/rosa-marron-chaqueta-falda/05-detail-crop-432.webp",
+      "status": "present",
+      "bytes": 14086,
+      "sha256": "625d27d3dac06c32304e04e618377559f89f6b0aa35042d759910570a02bbf2b"
+    },
+    {
+      "product": "burdeos-top-pantalon-corto",
+      "path": "research/assets/store-media/burdeos-top-pantalon-corto/01-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 49986,
+      "sha256": "30c271a1643241edd47d28ae9d0971e5a1c9a73faed2f4498ca568a09fa36a73"
+    },
+    {
+      "product": "burdeos-top-pantalon-corto",
+      "path": "research/assets/store-media/burdeos-top-pantalon-corto/02-three-quarter-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 49732,
+      "sha256": "c9c035dae36e0754d899a5dc55623eac87f446eebc82360ca04d834690803381"
+    },
+    {
+      "product": "burdeos-top-pantalon-corto",
+      "path": "research/assets/store-media/burdeos-top-pantalon-corto/03-side-full-length-800.webp",
+      "status": "present",
+      "bytes": 47902,
+      "sha256": "8c61962495309cea6ff8a7dd0ff562874443a91c7881c057e60460cdb4a09100"
+    },
+    {
+      "product": "burdeos-top-pantalon-corto",
+      "path": "research/assets/store-media/burdeos-top-pantalon-corto/04-back-full-length-800.webp",
+      "status": "present",
+      "bytes": 45936,
+      "sha256": "5096126105ad126383a9680cd236278a96b4877d61cee4577f2ba22e25319c0c"
+    },
+    {
+      "product": "burdeos-top-pantalon-corto",
+      "path": "research/assets/store-media/burdeos-top-pantalon-corto/05-detail-crop-432.webp",
+      "status": "present",
+      "bytes": 13266,
+      "sha256": "aaef74e737227a7fa14d79d69b75b68250a5c70e434714962f2664fd1e2ee385"
+    },
+    {
+      "product": "negro-blanco-lunares-midi",
+      "path": "research/assets/store-media/negro-blanco-lunares-midi/01-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 58346,
+      "sha256": "57d98b84836b22a82d4e1eaff93fc59c34f6508c8ccb575a6586eb7aeb6af15b"
+    },
+    {
+      "product": "negro-blanco-lunares-midi",
+      "path": "research/assets/store-media/negro-blanco-lunares-midi/02-three-quarter-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 60872,
+      "sha256": "893699f77b0fa6acf960156ab118e819618b5cbf41c61f2a52a99208a3ba83bf"
+    },
+    {
+      "product": "negro-blanco-lunares-midi",
+      "path": "research/assets/store-media/negro-blanco-lunares-midi/03-side-full-length-800.webp",
+      "status": "present",
+      "bytes": 58778,
+      "sha256": "2b3d29744f41138ad4f580cc45abbc1bea96275bacda2a09b8ac59c722ce2735"
+    },
+    {
+      "product": "negro-blanco-lunares-midi",
+      "path": "research/assets/store-media/negro-blanco-lunares-midi/04-back-full-length-800.webp",
+      "status": "present",
+      "bytes": 63700,
+      "sha256": "f480c270c05c8c42919bff48518e12e00351cdf76730ad4d520ed6fa97c751f7"
+    },
+    {
+      "product": "negro-blanco-lunares-midi",
+      "path": "research/assets/store-media/negro-blanco-lunares-midi/05-detail-crop-432.webp",
+      "status": "present",
+      "bytes": 20984,
+      "sha256": "8af4cd75b88725d00479d761b4cd1a18def46f8e172d3bbc9c2a59121b784867"
+    },
+    {
+      "product": "crema-flores-naranjas-halter",
+      "path": "research/assets/store-media/crema-flores-naranjas-halter/01-front-full-length-480.webp",
+      "status": "present",
+      "bytes": 24324,
+      "sha256": "e7fd20e6b614b1248379abdfc072836df0c76e656bbc7131081762dcbb7386c2"
+    },
+    {
+      "product": "crema-flores-naranjas-halter",
+      "path": "research/assets/store-media/crema-flores-naranjas-halter/02-three-quarter-back-full-length-480.webp",
+      "status": "present",
+      "bytes": 23230,
+      "sha256": "c0b62ae4629c2b0c045fe20b3c8435b4c1b1d019e051422228385782b59e7670"
+    },
+    {
+      "product": "crema-flores-naranjas-halter",
+      "path": "research/assets/store-media/crema-flores-naranjas-halter/03-side-full-length-480.webp",
+      "status": "present",
+      "bytes": 23716,
+      "sha256": "9ac09040f899a46e8c796f38005152df14c40e412a8e32ae3113b3024bcf8fb8"
+    },
+    {
+      "product": "crema-flores-naranjas-halter",
+      "path": "research/assets/store-media/crema-flores-naranjas-halter/04-back-full-length-480.webp",
+      "status": "present",
+      "bytes": 23640,
+      "sha256": "881cd68eee816e2494d4369d3bbbfb52f651cb5bd3efb7c46ff34529bb6d26b8"
+    },
+    {
+      "product": "crema-flores-naranjas-halter",
+      "path": "research/assets/store-media/crema-flores-naranjas-halter/05-detail-crop-231.webp",
+      "status": "present",
+      "bytes": 7780,
+      "sha256": "e13c35a38a3757d1b0009c3ec6e4f8828078aa92726c87105e496bfcda975873"
+    },
+    {
+      "product": "azul-gris-flores-falda",
+      "path": "research/assets/store-media/azul-gris-flores-falda/01-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 51000,
+      "sha256": "cdb4b1a46080da40e044442c91aaca24a0771ed0cf3e02e0d48a9416e13dfdd9"
+    },
+    {
+      "product": "azul-gris-flores-falda",
+      "path": "research/assets/store-media/azul-gris-flores-falda/02-three-quarter-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 48540,
+      "sha256": "1d2f9262f5aed40bceaaea0048503eb702cd7bb6ed615f086c7cef8bf7cc8491"
+    },
+    {
+      "product": "azul-gris-flores-falda",
+      "path": "research/assets/store-media/azul-gris-flores-falda/03-side-full-length-800.webp",
+      "status": "present",
+      "bytes": 48580,
+      "sha256": "09a864527bec210febf961690f371cd5a29bec3a60f42e31d189e7049b818e0e"
+    },
+    {
+      "product": "azul-gris-flores-falda",
+      "path": "research/assets/store-media/azul-gris-flores-falda/04-back-full-length-800.webp",
+      "status": "present",
+      "bytes": 49838,
+      "sha256": "0d313fd440f896d6743c01e93492675198611e1cc142130d8d90740da3eb57e4"
+    },
+    {
+      "product": "azul-gris-flores-falda",
+      "path": "research/assets/store-media/azul-gris-flores-falda/05-detail-crop-432.webp",
+      "status": "present",
+      "bytes": 16250,
+      "sha256": "7d05915bfbf2a1971804339c3e4745e4b19dc0d185a87a1378260f384a467ba4"
+    },
+    {
+      "product": "rosa-flores-fucsias-halter",
+      "path": "research/assets/store-media/rosa-flores-fucsias-halter/01-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 86776,
+      "sha256": "a7b7c202f889a9b6c79307c9da8ed3de852f8b4fb746f4a76944ef1f6c766ac6"
+    },
+    {
+      "product": "rosa-flores-fucsias-halter",
+      "path": "research/assets/store-media/rosa-flores-fucsias-halter/02-three-quarter-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 95094,
+      "sha256": "a1aa4fa856b5367a59dd3d6d00a13d56b4eea63454cfc47a70a3974368c6bd9c"
+    },
+    {
+      "product": "rosa-flores-fucsias-halter",
+      "path": "research/assets/store-media/rosa-flores-fucsias-halter/03-side-full-length-800.webp",
+      "status": "present",
+      "bytes": 92602,
+      "sha256": "17174b7c7018182b70e7e295475544663802340ba3bbc395b4f4c75aab5ca122"
+    },
+    {
+      "product": "rosa-flores-fucsias-halter",
+      "path": "research/assets/store-media/rosa-flores-fucsias-halter/04-back-full-length-800.webp",
+      "status": "present",
+      "bytes": 90696,
+      "sha256": "1fb0e0ca565a418dfd30bfec1722971477f3f3d84cc29ef7e04583dc88edf90c"
+    },
+    {
+      "product": "rosa-flores-fucsias-halter",
+      "path": "research/assets/store-media/rosa-flores-fucsias-halter/05-detail-crop-432.webp",
+      "status": "present",
+      "bytes": 20088,
+      "sha256": "5f0b6c8fdafa91bd81756c5cfb55e6fc503cb1c854ab2cc25aa0fb3c1e3ba92b"
+    },
+    {
+      "product": "rosa-claro-flores-doradas",
+      "path": "research/assets/store-media/rosa-claro-flores-doradas/01-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 40020,
+      "sha256": "0d0a070e512338da0e382090c8f0f4bc2c528a61daab51cdbe491a1e77955d2f"
+    },
+    {
+      "product": "rosa-claro-flores-doradas",
+      "path": "research/assets/store-media/rosa-claro-flores-doradas/02-three-quarter-back-full-length-800.webp",
+      "status": "present",
+      "bytes": 38846,
+      "sha256": "eb9029cf9d0160b64d27eb8a5832a8d9a878c8a660248321094008afb0253c0c"
+    },
+    {
+      "product": "rosa-claro-flores-doradas",
+      "path": "research/assets/store-media/rosa-claro-flores-doradas/03-side-full-length-800.webp",
+      "status": "present",
+      "bytes": 41490,
+      "sha256": "e54b33ff27ebb7a3637a445b73594f95f46b04102adabb801431f09af8fe76f6"
+    },
+    {
+      "product": "rosa-claro-flores-doradas",
+      "path": "research/assets/store-media/rosa-claro-flores-doradas/04-back-full-length-800.webp",
+      "status": "present",
+      "bytes": 40286,
+      "sha256": "c7f21a04b9fd5574cd9e4425686b14396fb8fa0b52a78b560d24e855decdcc3c"
+    },
+    {
+      "product": "rosa-claro-flores-doradas",
+      "path": "research/assets/store-media/rosa-claro-flores-doradas/05-detail-crop-432.webp",
+      "status": "present",
+      "bytes": 11828,
+      "sha256": "963048da68569653c2cdec2a9c49989d8aed1179d79de1ed6626bfa9198b9ac6"
+    },
+    {
+      "product": "burdeos-encaje-volantes-midi",
+      "path": "research/assets/store-media/burdeos-encaje-volantes-midi/01-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 99340,
+      "sha256": "f133a9e922d9e4585731ade410823953dfd9c45e41e6eb2b5b6490ada9318d54"
+    },
+    {
+      "product": "burdeos-encaje-volantes-midi",
+      "path": "research/assets/store-media/burdeos-encaje-volantes-midi/02-three-quarter-back-full-length-800.webp",
+      "status": "present",
+      "bytes": 87114,
+      "sha256": "f8c33febbc33b3955046076d3f13f813fa9549b8b06d2419b02dbbe462e29ede"
+    },
+    {
+      "product": "burdeos-encaje-volantes-midi",
+      "path": "research/assets/store-media/burdeos-encaje-volantes-midi/03-side-full-length-800.webp",
+      "status": "present",
+      "bytes": 88988,
+      "sha256": "24a7da41cc00659955eb8b927d810279bd28c7d934c255e5b4b8b60364621025"
+    },
+    {
+      "product": "burdeos-encaje-volantes-midi",
+      "path": "research/assets/store-media/burdeos-encaje-volantes-midi/04-back-full-length-800.webp",
+      "status": "present",
+      "bytes": 90388,
+      "sha256": "f2e625bd5b45cd8113cd33cc58daea6d5f47923c25c56b74d5b8c0e346c6e4ba"
+    },
+    {
+      "product": "burdeos-encaje-volantes-midi",
+      "path": "research/assets/store-media/burdeos-encaje-volantes-midi/05-detail-crop-432.webp",
+      "status": "present",
+      "bytes": 26212,
+      "sha256": "0857d09bfeeec8f7f9c18be34b37ffc9324513209311f67b1ef81f59382818a6"
+    },
+    {
+      "product": "fucsia-un-hombro-volantes",
+      "path": "research/assets/store-media/fucsia-un-hombro-volantes/01-front-full-length-1200.webp",
+      "status": "present",
+      "bytes": 242744,
+      "sha256": "40d03f14d3f7d8a5c0c9ec39396c90827f4827170783438b5537b34bdc1fb9c2"
+    },
+    {
+      "product": "fucsia-un-hombro-volantes",
+      "path": "research/assets/store-media/fucsia-un-hombro-volantes/02-three-quarter-front-full-length-1200.webp",
+      "status": "present",
+      "bytes": 219308,
+      "sha256": "8e7799a6ce48731324dc426bdf00a09fa3557316a57ff60925a59b0bb16ab756"
+    },
+    {
+      "product": "fucsia-un-hombro-volantes",
+      "path": "research/assets/store-media/fucsia-un-hombro-volantes/03-side-full-length-1200.webp",
+      "status": "present",
+      "bytes": 196052,
+      "sha256": "7840fdcc988af1840a01c333a2ef1b87454c5e7def5ddff56b2fc22d1f639fc8"
+    },
+    {
+      "product": "fucsia-un-hombro-volantes",
+      "path": "research/assets/store-media/fucsia-un-hombro-volantes/04-back-full-length-1200.webp",
+      "status": "present",
+      "bytes": 200642,
+      "sha256": "77fa4f9a6c832d9a3c89b5c90cf682c2be343a3ccaa817f96aff3804594a3867"
+    },
+    {
+      "product": "fucsia-un-hombro-volantes",
+      "path": "research/assets/store-media/fucsia-un-hombro-volantes/05-detail-crop-480.webp",
+      "status": "present",
+      "bytes": 43572,
+      "sha256": "c3f59c6560d0b782919396185e2fe101ab7c09607b8acfc90a2692687ca9e81c"
+    },
+    {
+      "product": "negro-lunares-beige-hombros",
+      "path": "research/assets/store-media/negro-lunares-beige-hombros/01-front-full-length-1200.webp",
+      "status": "present",
+      "bytes": 109034,
+      "sha256": "47dd69ca68e30d064fc9e755911c17e99bb96d5b41c462b4a04062af64051852"
+    },
+    {
+      "product": "negro-lunares-beige-hombros",
+      "path": "research/assets/store-media/negro-lunares-beige-hombros/02-three-quarter-back-full-length-1200.webp",
+      "status": "present",
+      "bytes": 103176,
+      "sha256": "926327b2b429be871f5f4317e87884e3f060bcef4b70f08a9469ac649b6987bf"
+    },
+    {
+      "product": "negro-lunares-beige-hombros",
+      "path": "research/assets/store-media/negro-lunares-beige-hombros/03-side-full-length-1200.webp",
+      "status": "present",
+      "bytes": 107470,
+      "sha256": "5eee581406574ec79856ea22208c67bdd5cb9fba58144c031782702a50fdbd8d"
+    },
+    {
+      "product": "negro-lunares-beige-hombros",
+      "path": "research/assets/store-media/negro-lunares-beige-hombros/04-back-full-length-1200.webp",
+      "status": "present",
+      "bytes": 114632,
+      "sha256": "adfca55fe17c98061b1ff25b39b602ac4b0f928a3316336df76b355a8a8b19ed"
+    },
+    {
+      "product": "negro-lunares-beige-hombros",
+      "path": "research/assets/store-media/negro-lunares-beige-hombros/05-detail-crop-480.webp",
+      "status": "present",
+      "bytes": 24388,
+      "sha256": "a59c87baa66268aa87ceacd8de9089812be52b51b218f987a2574795cf48fc93"
+    },
+    {
+      "product": "rosa",
+      "path": "research/assets/store-media/rosa/01-front-full-length-1600.webp",
+      "status": "present",
+      "bytes": 129564,
+      "sha256": "8c549147cf2df5d1116c055a6d09ccc3e7f62a1923acf3bbf1ce581845a8c006"
+    },
+    {
+      "product": "rosa",
+      "path": "research/assets/store-media/rosa/02-bodice-detail-crop-480.webp",
+      "status": "present",
+      "bytes": 22016,
+      "sha256": "873f2b70b7246b872b0f48046646c349de8e1c1c7d230125157daadabfb5ed9b"
+    },
+    {
+      "product": "rosa",
+      "path": "research/assets/store-media/rosa/03-lower-detail-crop-800.webp",
+      "status": "present",
+      "bytes": 29498,
+      "sha256": "4ab3506e5aa82d8ca57cf3d3e47b5cc7a44fb3b3d9cc580248c2f79423a89db0"
+    },
+    {
+      "product": "champagne",
+      "path": "research/assets/store-media/champagne/01-front-full-length-1600.webp",
+      "status": "present",
+      "bytes": 292888,
+      "sha256": "53c703e4ff6e882d210c4f332a800ad103649d951fd3d9fedba79a426fba33d1"
+    },
+    {
+      "product": "champagne",
+      "path": "research/assets/store-media/champagne/02-bodice-detail-crop-1200.webp",
+      "status": "present",
+      "bytes": 136264,
+      "sha256": "8d6f5133c4bdc711361f0b8995002edaa478c93dfa4440123a472d5d0dbada59"
+    },
+    {
+      "product": "champagne",
+      "path": "research/assets/store-media/champagne/03-lower-detail-crop-1200.webp",
+      "status": "present",
+      "bytes": 145288,
+      "sha256": "e293ff4268379ad92fde2c21ab6571330a27318767e781ff4dbc3f77b007bf44"
+    },
+    {
+      "product": "negro",
+      "path": "research/assets/store-media/negro/01-front-full-length-1600.webp",
+      "status": "present",
+      "bytes": 62524,
+      "sha256": "54bfba611885b5ab1e5b57b319fc2c5b72f7fd791787d1cc40e66113dba8b66f"
+    },
+    {
+      "product": "negro",
+      "path": "research/assets/store-media/negro/02-bodice-detail-crop-480.webp",
+      "status": "present",
+      "bytes": 7818,
+      "sha256": "5d0684b46f831c547c5dcbb6079ed1a6416fe003b01b0e1b2ec8c1dfbee609d4"
+    },
+    {
+      "product": "negro",
+      "path": "research/assets/store-media/negro/03-lower-detail-crop-800.webp",
+      "status": "present",
+      "bytes": 17520,
+      "sha256": "5fea2bf89bddfe018d1d9b176102d3762be2d87f6a2e84add2329404d5c4ddeb"
+    },
+    {
+      "product": "amarillo",
+      "path": "research/assets/store-media/amarillo/01-front-full-length-1600.webp",
+      "status": "present",
+      "bytes": 91060,
+      "sha256": "d10e15cdb3eb2b2e5a92e394f02119f5e78f3c51e6e04a2c4f1640ad3c2801dc"
+    },
+    {
+      "product": "amarillo",
+      "path": "research/assets/store-media/amarillo/02-bodice-detail-crop-480.webp",
+      "status": "present",
+      "bytes": 17206,
+      "sha256": "2b43c2ff5d15ec429a1bab9fc94221eefb476dc8b041e9604ce45656b83ead14"
+    },
+    {
+      "product": "amarillo",
+      "path": "research/assets/store-media/amarillo/03-lower-detail-crop-800.webp",
+      "status": "present",
+      "bytes": 21626,
+      "sha256": "3f7d1372ff226f053cf4cd243e6087599f4941a5ab83b18b3ee93597a8232b07"
+    },
+    {
+      "product": "dorado",
+      "path": "research/assets/store-media/dorado/01-front-full-length-1600.webp",
+      "status": "present",
+      "bytes": 102550,
+      "sha256": "4fca1b66e7ccdf181eba8e4e222899eb114652655917d3dfd9635e7376bee67a"
+    },
+    {
+      "product": "dorado",
+      "path": "research/assets/store-media/dorado/02-bodice-detail-crop-480.webp",
+      "status": "present",
+      "bytes": 17544,
+      "sha256": "db211f02a1cdbecd75384e8b831b59ae3ff60714a0cb2fe952a2914c8ba67729"
+    },
+    {
+      "product": "dorado",
+      "path": "research/assets/store-media/dorado/03-lower-detail-crop-800.webp",
+      "status": "present",
+      "bytes": 22254,
+      "sha256": "cc6ef39ba62a78b27ed9d5f041873453a66fd1472f6df8384f1e380cdc09dab2"
+    },
+    {
+      "product": "novia",
+      "path": "research/assets/store-media/novia/01-front-portrait-480.webp",
+      "status": "present",
+      "bytes": 34306,
+      "sha256": "b7500a23cf34d7cbed70e8b52f34bf7f27624dd05175db70bb54a5277e8d493d"
+    },
+    {
+      "product": "novia",
+      "path": "research/assets/store-media/novia/02-bodice-detail-crop-423.webp",
+      "status": "present",
+      "bytes": 34686,
+      "sha256": "c1943e145cddec09fbfedab0279751c29dafcded3b58ed0bf411f427f1ab6024"
+    },
+    {
+      "product": "novia",
+      "path": "research/assets/store-media/novia/03-sleeve-detail-crop-381.webp",
+      "status": "present",
+      "bytes": 21746,
+      "sha256": "cf24680b52f83644f2cf3e56eb852a5a6a41812417c24532a678d86d70aa4bde"
+    },
+    {
+      "product": "napoleon",
+      "path": "research/assets/store-media/napoleon/01-front-800.webp",
+      "status": "present",
+      "bytes": 67740,
+      "sha256": "eadb950fce4525f4cf20ed8ecfde5de0207f68ec1042967d29f17349231cf769"
+    },
+    {
+      "product": "napoleon",
+      "path": "research/assets/store-media/napoleon/02-jacket-detail-crop-480.webp",
+      "status": "present",
+      "bytes": 11244,
+      "sha256": "114342d7fa31ff629d9418c82395af91829901d26719838dc0642e66b40b1251"
+    },
+    {
+      "product": "napoleon",
+      "path": "research/assets/store-media/napoleon/03-buttons-detail-crop-480.webp",
+      "status": "present",
+      "bytes": 11716,
+      "sha256": "1cc6dcd48206df09950fa959cf671d973b97b2eed174315df9b5666830388421"
+    },
+    {
+      "product": "azul-floral-un-hombro",
+      "path": "research/assets/store-media/azul-floral-un-hombro/01-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 92446,
+      "sha256": "6e149235129aa7c2e714be8e139f3a22ae2e37160780999e06522d612c38926e"
+    },
+    {
+      "product": "azul-floral-un-hombro",
+      "path": "research/assets/store-media/azul-floral-un-hombro/02-detail-crop-480.webp",
+      "status": "present",
+      "bytes": 28494,
+      "sha256": "c8670a5f6bd758fd964c919f034810e544e5c1edf6a4bb5db850d423f5f2c987"
+    },
+    {
+      "product": "azul-floral-un-hombro",
+      "path": "research/assets/store-media/azul-floral-un-hombro/03-detail-crop-480.webp",
+      "status": "present",
+      "bytes": 30848,
+      "sha256": "4bb253e0a12fdf938155fc4f2e857fe9de538e9a7255ed44cf85d1ba62e2b551"
+    },
+    {
+      "product": "midi-estampado-burdeos",
+      "path": "research/assets/store-media/midi-estampado-burdeos/01-front-full-length-1600.webp",
+      "status": "present",
+      "bytes": 225928,
+      "sha256": "014b70f8e26a3905a17d78a332dc4a9bc32c9087919e9d37a719356791892fb6"
+    },
+    {
+      "product": "midi-estampado-burdeos",
+      "path": "research/assets/store-media/midi-estampado-burdeos/02-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 53460,
+      "sha256": "cf07532c20c754e9def86cfd845285889604c833ac37e26997c8aeaf65e8fc51"
+    },
+    {
+      "product": "midi-estampado-burdeos",
+      "path": "research/assets/store-media/midi-estampado-burdeos/03-three-quarter-back-full-length-800.webp",
+      "status": "present",
+      "bytes": 59154,
+      "sha256": "0043f37de56fe3f9838b5a8923c5c4f37e0118d94863b4339ba4e9a31fe02213"
+    },
+    {
+      "product": "midi-estampado-burdeos",
+      "path": "research/assets/store-media/midi-estampado-burdeos/05-detail-crop-1600.webp",
+      "status": "present",
+      "bytes": 89308,
+      "sha256": "e08fc0da26001fa07ad2b7cbda920bbb14d3a00a895cd209bafd8f998e3c4ee1"
+    },
+    {
+      "product": "midi-estampado-burdeos",
+      "path": "research/assets/store-media/midi-estampado-burdeos/06-detail-crop-1600.webp",
+      "status": "present",
+      "bytes": 144840,
+      "sha256": "070e18439df51266b920fff72dd404d6aa7a2060421c8cd9a0f668ee815fb66f"
+    },
+    {
+      "product": "novia-satinada-abertura",
+      "path": "research/assets/store-media/novia-satinada-abertura/01-front-full-length-800.webp",
+      "status": "present",
+      "bytes": 99060,
+      "sha256": "2a08db89d60c9481bc234df198380059ef1d8f4448606b7bff355cd905b9d00a"
+    },
+    {
+      "product": "novia-satinada-abertura",
+      "path": "research/assets/store-media/novia-satinada-abertura/02-front-full-length-480.webp",
+      "status": "present",
+      "bytes": 37318,
+      "sha256": "9f7d3f945f34bf5fb802522ff48ef48ff21591ba1065b9167b1ed9919ace24f7"
+    },
+    {
+      "product": "novia-satinada-abertura",
+      "path": "research/assets/store-media/novia-satinada-abertura/03-side-partial-full-length-480.webp",
+      "status": "present",
+      "bytes": 34418,
+      "sha256": "413f749ab3cfab71a17e8f9b9a22528c45069752900b36d32ab76a91cb795271"
+    },
+    {
+      "product": "novia-satinada-abertura",
+      "path": "research/assets/store-media/novia-satinada-abertura/04-detail-crop-432.webp",
+      "status": "present",
+      "bytes": 14716,
+      "sha256": "bb2a07c80c430a67e65f4ce4348459fd5b66b1a584c21e171d42ff1e3653a6e4"
+    },
+    {
+      "product": "novia-satinada-abertura",
+      "path": "research/assets/store-media/novia-satinada-abertura/05-detail-crop-444.webp",
+      "status": "present",
+      "bytes": 15918,
+      "sha256": "6499300dad8715f50df33ccdc955bee60d2c32ad8069f53df2b06c4a83299741"
+    },
+    {
+      "product": "novia-tirantes-encaje",
+      "path": "research/assets/store-media/novia-tirantes-encaje/01-front-full-length-1200.webp",
+      "status": "present",
+      "bytes": 136556,
+      "sha256": "60a32ca9896f907d2fd1863d923b6e8f85254bd348d123f71600d61e5e9935a4"
+    },
+    {
+      "product": "novia-tirantes-encaje",
+      "path": "research/assets/store-media/novia-tirantes-encaje/02-detail-crop-480.webp",
+      "status": "present",
+      "bytes": 20772,
+      "sha256": "eb5775e82de2295a3a6dd6da11bc61d7897dc2704c9d87e7ea4de6724e8bcfe2"
+    },
+    {
+      "product": "novia-tirantes-encaje",
+      "path": "research/assets/store-media/novia-tirantes-encaje/03-detail-crop-480.webp",
+      "status": "present",
+      "bytes": 14018,
+      "sha256": "eb91ea826f7240ae3e11bfd5a523ebb662b85f64c080941e1655b5cb293653d3"
+    },
+    {
+      "product": "gala-rubi",
+      "path": "research/assets/store-media/gala-rubi/01-front-full-length-1600.webp",
+      "status": "present",
+      "bytes": 97420,
+      "sha256": "dcdfd6fc255d2bf1ff738f8bec547405fa33054a0e1405ff9e746a369f0340c7"
+    },
+    {
+      "product": "gala-rubi",
+      "path": "research/assets/store-media/gala-rubi/03-detail-crop-1600.webp",
+      "status": "present",
+      "bytes": 192446,
+      "sha256": "dd82eeb0fa92cb762f6bfe1404c207611656f47e86bcf1e238e9277e427cba11"
+    },
+    {
+      "product": "gala-oro",
+      "path": "research/assets/store-media/gala-oro/01-front-full-length-1600.webp",
+      "status": "present",
+      "bytes": 134230,
+      "sha256": "9f40d76a78028312de5d04b02c499b283cd2c849e700b3ccaea4d3289ff94199"
+    },
+    {
+      "product": "gala-oro",
+      "path": "research/assets/store-media/gala-oro/02-front-full-length-1600.webp",
+      "status": "present",
+      "bytes": 133730,
+      "sha256": "1367e0fbb63706e7e2a1051ad0798829a603114f6edb540739253db06cabac08"
+    },
+    {
+      "product": "gala-oro",
+      "path": "research/assets/store-media/gala-oro/05-three-quarter-back-reclining-1600.webp",
+      "status": "present",
+      "bytes": 87832,
+      "sha256": "f4fedd40e52785f6d6456930441c828082ee12428628572650f4fb346ae335f5"
+    },
+    {
+      "product": "gala-oro",
+      "path": "research/assets/store-media/gala-oro/06-detail-crop-1600.webp",
+      "status": "present",
+      "bytes": 287642,
+      "sha256": "3c485ac8e84c4b1da5101418bd8fad43e4dd839c7cb2997051298771ee1ff58c"
+    },
+    {
+      "product": "gala-destello",
+      "path": "research/assets/store-media/gala-destello/01-three-quarter-front-full-length-1600.webp",
+      "status": "present",
+      "bytes": 123900,
+      "sha256": "061d90b9943f9fbf5d9b32baa0576e2e3ceddfa0d8ab0f99e53e5d2c22a86e94"
+    },
+    {
+      "product": "gala-destello",
+      "path": "research/assets/store-media/gala-destello/02-front-full-length-1600.webp",
+      "status": "present",
+      "bytes": 146182,
+      "sha256": "9c8c9194162702d3b9e5ad12a2cee4d7c639dd98a74c7b8e03420955b8989c8c"
+    },
+    {
+      "product": "gala-destello",
+      "path": "research/assets/store-media/gala-destello/03-detail-crop-1600.webp",
+      "status": "present",
+      "bytes": 197728,
+      "sha256": "e18d455850f637f09a1d4b06e1e428e0823b85e0fdf7d018d34f5ae8ca82d40c"
+    },
+    {
+      "product": "novias-velo",
+      "path": "research/assets/store-media/novias-velo/01-front-portrait-1600.webp",
+      "status": "present",
+      "bytes": 79836,
+      "sha256": "265df1a9c730ff3c5c5e66da32135d177745c0468f93af7ee65d51298804e81e"
+    },
+    {
+      "product": "novias-velo",
+      "path": "research/assets/store-media/novias-velo/02-three-quarter-front-portrait-1600.webp",
+      "status": "present",
+      "bytes": 72580,
+      "sha256": "4bf9c8e5fa4a6b8fe59136552efe5adc3451dc8df3ea43a8c978a556efec767a"
+    },
+    {
+      "product": "novias-velo",
+      "path": "research/assets/store-media/novias-velo/03-back-portrait-1600.webp",
+      "status": "present",
+      "bytes": 160840,
+      "sha256": "49ba989d0061cfe5f43563519fb9b939e3901ee6020ebfe65e111beee303f4c5"
+    },
+    {
+      "product": "novias-velo",
+      "path": "research/assets/store-media/novias-velo/04-back-detail-1600.webp",
+      "status": "present",
+      "bytes": 120500,
+      "sha256": "7458792db2c05ac11bf734925f446dc3dcf8ca9c0f24c256c80914f75349efdd"
+    },
+    {
+      "product": "novias-velo",
+      "path": "research/assets/store-media/novias-velo/05-detail-crop-1600.webp",
+      "status": "present",
+      "bytes": 61316,
+      "sha256": "e01f8ca2318cad58da49025d55aba4358a0c864b80fe08ea1d28fc60d5328310"
+    },
+    {
+      "product": "novias-alba",
+      "path": "research/assets/store-media/novias-alba/01-front-portrait-1600.webp",
+      "status": "present",
+      "bytes": 77988,
+      "sha256": "85256fa83bf559a8f41fd282b72a5460eb7a61864010f3ed4afe200f85dd220c"
+    },
+    {
+      "product": "novias-alba",
+      "path": "research/assets/store-media/novias-alba/02-three-quarter-back-portrait-1600.webp",
+      "status": "present",
+      "bytes": 90186,
+      "sha256": "34088ecbac6ba8473070fae53bd979950c1ec2f6604c7abace25c0428a67ebc7"
+    },
+    {
+      "product": "novias-alba",
+      "path": "research/assets/store-media/novias-alba/03-detail-crop-1600.webp",
+      "status": "present",
+      "bytes": 82660,
+      "sha256": "7e1e82940e8f3aca6300337af3282437535e778adccfa5b26afe12fb1e10c27a"
+    },
+    {
+      "product": "novias-encaje",
+      "path": "research/assets/store-media/novias-encaje/01-back-full-length-1600.webp",
+      "status": "present",
+      "bytes": 159546,
+      "sha256": "e28f57fa3ed3c3d8e2a52d1f604c1548a050dd17abcee1abc0b6a439f97c6990"
+    },
+    {
+      "product": "novias-encaje",
+      "path": "research/assets/store-media/novias-encaje/03-detail-crop-1600.webp",
+      "status": "present",
+      "bytes": 89286,
+      "sha256": "94ee9483b6a89d35dfdb36fd7d1ca53a1996a917adcb20b0da966fa7465a5849"
+    }
+  ],
+  "exclusions": [
+    "SQLite/databases",
+    "orders",
+    "customer data",
+    "secrets",
+    "URLs/query strings",
+    "missing.svg placeholder"
+  ]
+}

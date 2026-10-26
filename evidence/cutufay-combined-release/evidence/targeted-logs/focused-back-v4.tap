@@ -1,0 +1,34 @@
+TESTED_APP_SHA256 aa0528f71c3a23410dd7c2c0151427826f800e8f78a8057fe60d14427dcd89e8
+TESTED_CONTROLLER_SHA256 aca2bf1ad30f73668607c220b447713d4bd3491cfb2d3b5646fd53cedafce787
+✔ activation merges external/router state keys and leaves native scrollRestoration unchanged (105.526764ms)
+✔ two same-URL history entries keep different positions through Back and Forward (22.244805ms)
+✔ filter/search/sort/language entries preserve exact URLs and unrelated state with router metadata (16.78346ms)
+✔ fresh Barba navigation goes top, while Back enter does not force top (20.836223ms)
+✔ home history restore is not restricted to catalogue query cache (24.453389ms)
+✔ initial nonpersisted back_forward entry restores saved state; fresh navigate does not (23.538311ms)
+✔ persisted resume restores after remount and stale resume cannot override a newer navigation (13.114828ms)
+✔ initially short layout reconciles target after image/ResizeObserver within settling window (10.758976ms)
+✔ late image beyond two seconds must not permanently lose an unreachable saved target (14.452104ms)
+✔ touch/wheel/pointer/key input cancels pending reconciliation and respects user position (177.771432ms)
+✔ new navigation cancels stale transition and pending resize callbacks (8.068373ms)
+✔ captured horizontal carousel/gallery offsets restore with the entry (7.792818ms)
+✔ catalogue popstate integration renders before restore and clears pending search debounce (1.405696ms)
+✔ obsolete query-only sessionStorage write/read is absent from Back candidate integration (0.212857ms)
+✔ persisted-only pageshow integration snapshots before awaited remount and resumes afterwards (1.883786ms)
+✔ non-editorial commerce pages do not acquire editorial history state or restore scroll (39.402697ms)
+✔ slow initial mount does not restore stale back_forward offset after user already scrolls (13.68386ms)
+✔ focus is allowed only for an untouched fresh transition, not Back/Forward or stale navigation (12.772782ms)
+✔ actual async mount evaluates focus predicate only after delayed API mount and respects intervening interaction (20.354788ms)
+✔ Barba after passes deferred focus predicate rather than eagerly focusing before async mount completes (0.785812ms)
+✔ standalone AT-style button click cancels pending outer and inner-gallery restore without pointer events (9.442283ms)
+✔ native-hash anchor click cancels pending and delayed-initial restoration without pointer events (18.425263ms)
+✔ accessibility delta: async mount preserves actual user-focused button after detail-zero click (19.0025ms)
+✔ accessibility delta: restore remains instant and independent of reduced-motion preference (23.926457ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 24
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1298.743387

@@ -1,0 +1,23 @@
+TESTED_COMBINED_APP_SHA256 aa0528f71c3a23410dd7c2c0151427826f800e8f78a8057fe60d14427dcd89e8
+✔ combined app mounts both approved support PDPs without replacing authentic galleries or Share (1901.648188ms)
+✔ combined locale switching and image failure/recovery change support only, never authentic gallery state (2438.272791ms)
+✔ combined Back restoration survives AI load events and repeated simulated Barba main swaps (1895.52437ms)
+✔ AI support does not install on Green, catalogue or checkout, while Green retains five authentic photos (1068.581316ms)
+✔ late detached AI error cannot hide newly mounted support after combined-app remount (828.42647ms)
+✔ actual i18n plus AI observers become quiescent after boot, locale changes and repeated refresh (1577.94906ms)
+✔ normal AI-original link adds no hash/history entry, cancels pending restore and preserves previous catalogue offset (1659.113827ms)
+✔ AI original-link handler leaves modified, already prevented and non-allowlisted links native (663.170944ms)
+✔ residual native-fragment entry: returning from ordinary #main must preserve original catalogue offset (764.206867ms)
+✔ native-fragment Back and Forward retain distinct entry IDs and independently changed offsets (767.797987ms)
+✔ native popstate captures changed outgoing position even before a scheduled scroll RAF has flushed (1708.411759ms)
+✔ actual i18n replaceState language change preserves same-entry Back offset and English URL (1436.734001ms)
+✔ home native editorial fragment keeps its own position through Back and Forward (495.881404ms)
+✔ stale queued hashchange from prior page cannot cancel current-entry pending restoration (822.073604ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 18666.079792

@@ -8,6 +8,185 @@
   const locale = () => window.MarthaI18n?.language === 'en' ? 'en-US' : 'es-NI';
   const money = n => new Intl.NumberFormat(locale(), {style:'currency',currency:'USD',currencyDisplay:'code'}).format(n / 100);
   const uuid = () => crypto.randomUUID();
+  // Per-entry editorial view state; leaves native scrollRestoration unchanged.
+  const viewHistory = (() => {
+    const key = '__marthaViewV1', records = new Map(), transitions = new WeakMap();
+    const href = () => location.pathname + location.search + location.hash;
+    const finite = value => Number.isFinite(Number(value)) ? Math.max(0, Number(value)) : 0;
+    const stateObject = () => history.state && typeof history.state === 'object' ? history.state : {};
+    const valid = value => value && typeof value.id === 'string' && typeof value.url === 'string' && value.url.startsWith('/') && value.scroll && Number.isFinite(value.scroll.y) && Number.isFinite(value.scroll.x) ? value : null;
+    const initial = valid(stateObject()[key]), initialURL = href();
+    let active = initial, pending = null, epoch = 0, interaction = 0, job = null, captureFrame = 0;
+    let nativeState = {...stateObject()}, pendingInteraction = 0;
+    const editorial = () => ['home','catalog','product'].includes(document.querySelector('main')?.dataset.page);
+    function fromState(value) { const saved = valid(value); return saved && (records.get(saved.id) || saved); }
+    function remember(record, persist = false) {
+      if (!record) return;
+      records.set(record.id, record);
+      if (persist && record.url === href()) {
+        const current = valid(stateObject()[key]);
+        if (!current || current.id === record.id) {
+          try { history.replaceState({...stateObject(),[key]:record},'',location.href); } catch {}
+          nativeState = {...stateObject()};
+        }
+      }
+    }
+    function snapshot(record) {
+      if (!record) return null;
+      const containers = [...document.querySelectorAll('main [data-carousel],main [data-gallery-viewport]')].slice(0,24)
+        .map((node,index) => ({index,left:finite(node.scrollLeft),top:finite(node.scrollTop)}));
+      return {...record,scroll:{x:finite(window.scrollX),y:finite(window.scrollY)},containers};
+    }
+    function capture(persist = true) {
+      if (!editorial() || !active || active.url !== href() || job) return active;
+      active = snapshot(active); remember(active,persist); return active;
+    }
+    function activate(record = null, fresh = false) {
+      if(!editorial()){active=null;return null;}
+      let chosen = !fresh && (valid(record) || fromState(stateObject()[key]));
+      if (!chosen || chosen.url !== href()) chosen = {id:crypto.randomUUID(),url:href(),scroll:{x:finite(window.scrollX),y:finite(window.scrollY)},containers:[]};
+      active = chosen; records.set(active.id,active);
+      try { history.replaceState({...stateObject(),[key]:active},'',location.href); } catch {}
+      nativeState = {...stateObject()};
+      return active;
+    }
+    function cancel() {
+      if (captureFrame) cancelAnimationFrame(captureFrame); captureFrame = 0;
+      if (!job) return;
+      cancelAnimationFrame(job.frame);cancelAnimationFrame(job.settleFrame);job.resize?.disconnect();
+      document.removeEventListener('load',job.onLoad,true);document.removeEventListener('error',job.onLoad,true);job = null;
+    }
+    function restore(record) {
+      cancel();
+      if (!editorial() || !valid(record) || record.url !== href() || active?.id !== record.id) return;
+      const token = epoch, touched = interaction;
+      const work = {frame:0,settleFrame:0,resize:null,onLoad:null,fontsReady:!document.fonts || document.fonts.status!=='loading'}; job = work;
+      const apply = () => {
+        work.frame = 0;
+        if (job !== work || epoch !== token || interaction !== touched || href() !== record.url || active?.id !== record.id) return;
+        window.scrollTo({left:finite(record.scroll.x),top:finite(record.scroll.y),behavior:'instant'});
+        const containers = [...document.querySelectorAll('main [data-carousel],main [data-gallery-viewport]')];
+        for (const saved of record.containers || []) {
+          const node = containers[saved.index]; if (node) { node.scrollLeft=finite(saved.left);node.scrollTop=finite(saved.top); }
+        }
+        const reached=Math.abs(window.scrollY-record.scroll.y)<=1 && Math.abs(window.scrollX-record.scroll.x)<=1;
+        const pendingImage=[...document.querySelectorAll('main img')].some(img=>!img.complete && img.getBoundingClientRect().top<=window.innerHeight);
+        if(reached && work.fontsReady && !pendingImage){
+          const height=document.documentElement.scrollHeight;
+          cancelAnimationFrame(work.settleFrame);
+          work.settleFrame=requestAnimationFrame(()=>{
+            if(job===work && epoch===token && interaction===touched && height===document.documentElement.scrollHeight && Math.abs(window.scrollY-record.scroll.y)<=1){cancel();capture(true);}
+          });
+        }
+      };
+      const schedule = () => { if (job === work && !work.frame) work.frame=requestAnimationFrame(apply); };
+      work.onLoad = event => { if (event.target.matches?.('main img,main video')) schedule(); };
+      document.addEventListener('load',work.onLoad,true);document.addEventListener('error',work.onLoad,true);
+      if (window.ResizeObserver) { work.resize=new ResizeObserver(schedule); const main=document.querySelector('main');if(main)work.resize.observe(main); }
+      // Event-driven and outcome-bounded: keep an unreachable saved target intact until
+      // layout makes it reachable, or user interaction/new navigation cancels the job.
+      schedule(); document.fonts?.ready?.then(()=>{work.fontsReady=true;schedule();});
+    }
+    const historyTrigger = data => ['back','forward','popstate'].includes(data?.trigger) || data?.event?.type === 'popstate';
+    function begin(data) {
+      const traversal=historyTrigger(data);
+      if(!traversal)capture(false);cancel();epoch++;
+      const record=traversal ? (pending || fromState(data?.event?.state?.[key]) || fromState(stateObject()[key])) : null;
+      if (!traversal) pending=null;
+      transitions.set(data,{epoch,interaction,traversal,record});
+    }
+    function shouldFocus(data) {
+      const transition=transitions.get(data);
+      return !!transition && !transition.traversal && transition.epoch===epoch && transition.interaction===interaction;
+    }
+    function finish(data) {
+      const transition=transitions.get(data);if(!transition || transition.epoch!==epoch)return;
+      const record=transition.record;
+      activate(record,!transition.traversal);pending=null;
+      if(transition.traversal && record && transition.interaction===interaction)restore(record);else capture(true);
+    }
+    function sameDocument() {
+      if (!pending || pending.url!==href() || location.pathname!=='/catalogo.html') return;
+      const record=pending;activate(record);restore(record);
+    }
+    function push(url) {
+      capture(true);cancel();epoch++;pending=null;
+      const preserved={...stateObject()};
+      if (window.barba?.history?.add) window.barba.history.add(url,'barba','push');
+      else history.pushState(preserved,'',url);
+      const router={...stateObject()};
+      active={id:crypto.randomUUID(),url:href(),scroll:{x:finite(window.scrollX),y:finite(window.scrollY)},containers:[]};
+      // Keep router-owned and unrelated metadata; only our per-entry record is replaced.
+      try { history.replaceState({...preserved,...router,[key]:active},'',location.href); } catch {}
+      nativeState = {...stateObject()};
+      remember(active);
+    }
+    function resumeSnapshot() {
+      cancel();epoch++;
+      return {record:fromState(stateObject()[key]) || active,epoch,interaction};
+    }
+    function resume(saved) {
+      if (!saved || saved.epoch!==epoch)return;
+      activate(saved.record);
+      if(saved.interaction===interaction)restore(saved.record);else capture(true);
+    }
+    function initialMount() {
+      if(epoch!==0 || href()!==initialURL)return;
+      const isHistory=performance.getEntriesByType?.('navigation')?.[0]?.type==='back_forward';
+      activate(initial);
+      if(isHistory && initial && interaction===0)restore(initial);else capture(true);
+    }
+    function interacted() { interaction++;cancel(); }
+    for (const type of ['pointerdown','touchstart','wheel','keydown']) window.addEventListener(type,interacted,{passive:true,capture:true});
+    document.addEventListener('click',event=>{interacted();if(event.target.closest?.('a[href]'))capture(true);},{capture:true});
+    window.addEventListener('scroll',()=>{
+      if(job || !editorial() || !active || active.url!==href())return;
+      // Persist the inexpensive coordinates in memory immediately: native Back can
+      // change location before a queued RAF gets to snapshot the outgoing entry.
+      active={...active,scroll:{x:finite(window.scrollX),y:finite(window.scrollY)}};remember(active,false);
+      if(!captureFrame)captureFrame=requestAnimationFrame(()=>{captureFrame=0;capture(false);});
+    },{passive:true});
+    window.addEventListener('pagehide',()=>{cancel();capture(true);});
+    window.addEventListener('popstate',event=>{
+      const target=fromState(event.state?.[key]);
+      const same=target && active && target.id===active.id && target.url===active.url;
+      if(!same){capture(false);cancel();epoch++;}
+      pending=target;pendingInteraction=interaction;
+    },{capture:true});
+    window.addEventListener('martha:languagechange',()=>{
+      if(!editorial() || !active || active.url===href())return;
+      const current=valid(stateObject()[key]);
+      if(!current || current.id!==active.id)return;
+      const before=new URL(active.url,location.href),after=new URL(location.href);
+      before.searchParams.delete('lang');after.searchParams.delete('lang');
+      if(before.pathname+before.search+before.hash!==after.pathname+after.search+after.hash)return;
+      // i18n replaces the URL of this entry, rather than creating a new one.
+      cancel();epoch++;pending=null;
+      active=snapshot({...active,url:href()});remember(active,true);
+    });
+    window.addEventListener('hashchange',event=>{
+      if(!editorial())return;
+      let before,after;try{before=new URL(event.oldURL);after=new URL(event.newURL);}catch{return;}
+      if(after.href!==location.href || before.origin!==after.origin || before.pathname+before.search!==after.pathname+after.search)return;
+      const saved=fromState(stateObject()[key]), target=saved?.url===href()?saved:null;
+      const restoreKnown=target && pending?.id===target.id && pendingInteraction===interaction;
+      cancel();epoch++;
+      if(target){
+        activate(target);pending=null;
+        if(restoreKnown)restore(target);else capture(true);
+      }else{
+        // A native fragment entry may have null state. Carry router/custom fields
+        // forward without changing the native entry or adding a second history item.
+        try{history.replaceState({...nativeState,...stateObject()},'',location.href);}catch{}
+        activate(null,true);pending=null;capture(true);
+      }
+    });
+    // Installation happens before Barba init; keep its original entry snapshot if init rewrites state.
+    if(initial)records.set(initial.id,initial);
+    return Object.freeze({capture,activate,restore,cancel,begin,finish,shouldFocus,historyTrigger,sameDocument,push,resumeSnapshot,resume,initialMount});
+  })();
+  window.MarthaViewHistory = viewHistory;
+
   let products = [], cart = null, pageScope, lenis, raf, currentOrder, adminOrders = [], inventory = [], checkout = {}, quote, productObserver, productAdding = false;
   const MODE_KEY = 'martha-integration-mode-v1';
   const integrationInstances = new Map();
@@ -370,11 +549,9 @@
         if (p) $$('input[name="variant"]').forEach(input => {const v=p.variants.find(v => v.id === input.value); input.disabled=!v || v.stock <= 0; const label=input.closest('label');label?.classList.toggle('unavailable',input.disabled);if(label&&v){label.dataset.stock=v.stock;$('small',label).textContent=v.coming_soon&&v.stock<=0?'Próximamente':v.stock<=0?'Agotada':v.stock===1?'Última unidad':v.stock===2?'Pocas unidades':'';}});
       }
       if (page === 'product') {productBuyBar();gallery();syncProduct();}
-      motion(); if (focus) $('main')?.focus({preventScroll:true});
+      motion(); if (typeof focus==='function' ? focus() : focus) $('main')?.focus({preventScroll:true});
     } catch (error) { integrationError = error.message; renderIntegration(); blockCommerce(); showError($('main')||document.body,error); }
     finally { mountJobs--; renderIntegration(); }
-    const position = page === 'catalog' ? sessionStorage.getItem('martha-parity-catalog-scroll:'+location.search) : null;
-    if (focus && position) window.scrollTo(0,Number(position));
   }
   document.addEventListener('click', async event => {
     const b = event.target.closest('button,a'); if (!b) return;
@@ -409,7 +586,7 @@
     if (b.matches('[data-admin-logout]')) { await withButton(b,async()=>{await api('/api/admin/logout',{}); await renderAdmin();}); return; }
     if (b.matches('[data-receive-return]')) { await withButton(b,async()=>{await api(`/api/admin/orders/${b.dataset.order}/returns/${b.dataset.receiveReturn}/receive`,{}); await renderAdmin();}); return; }
     if (b.matches('[data-refund]')) { await withButton(b,async()=>{const id=b.dataset.refund; await api(`/api/admin/orders/${b.dataset.order}/refund`,{return_id:id,restock:!!$$('[data-restock]').find(input=>input.dataset.restock===id)?.checked}); await renderAdmin();}); return; }
-    if (b.tagName === 'A') { if ($('main')?.dataset.page === 'catalog') sessionStorage.setItem('martha-parity-catalog-scroll:'+location.search,String(window.scrollY)); $('#mobile-menu')?.close(); $('[data-menu-toggle]')?.setAttribute('aria-expanded','false'); if (b.closest('#search-dialog')) $('#search-dialog').close(); }
+    if (b.tagName === 'A') { viewHistory.capture(true); $('#mobile-menu')?.close(); $('[data-menu-toggle]')?.setAttribute('aria-expanded','false'); if (b.closest('#search-dialog')) $('#search-dialog').close(); }
   });
   document.addEventListener('change',async event=>{
     const el=event.target; if (modeSwitching) return;
@@ -426,10 +603,11 @@
   });
   let searchTimer;
   document.addEventListener('input',event=>{if (event.target.matches('#catalog-filters input[name="q"]')) { clearTimeout(searchTimer); searchTimer=setTimeout(filterChange,150); }});
-  function setCatalogParams(params) { clearTimeout(searchTimer); const url='/catalogo.html'+(params.size?'?'+params.toString():''); if(location.pathname+location.search!==url)history.pushState(null,'',url); }
-  window.addEventListener('popstate',()=>{clearTimeout(searchTimer);if($('#catalog-filters'))catalog();});
+  function setCatalogParams(params) { clearTimeout(searchTimer); const url='/catalogo.html'+(params.size?'?'+params.toString():''); if(location.pathname+location.search!==url)viewHistory.push(url); }
+  window.addEventListener('popstate',()=>{clearTimeout(searchTimer);if(location.pathname==='/catalogo.html'&&$('#catalog-filters')){catalog();viewHistory.sameDocument();}});
   window.addEventListener('pageshow',async event=>{
     if (!event.persisted) return;
+    const resumeView = viewHistory.resumeSnapshot();
     let preferred = integrationMode; try { const stored = sessionStorage.getItem(MODE_KEY); if (['savia','sisfain'].includes(stored)) preferred = stored; } catch {}
     // A restored, still-pending action must finish with its existing namespace
     // and in-memory checkout/order. Do not clear data needed after an await.
@@ -437,8 +615,8 @@
       if (preferred !== integrationMode) { try { sessionStorage.setItem(MODE_KEY,integrationMode); } catch {} notify('La operación pendiente sigue en su modelo original. Podés cambiar al terminar.'); }
       return;
     }
-    if (preferred !== integrationMode) { await switchIntegration(preferred); return; }
-    loadCheckout(); quote = null; currentOrder = null; products = []; await mountPage();
+    if (preferred !== integrationMode) { await switchIntegration(preferred); viewHistory.resume(resumeView); return; }
+    loadCheckout(); quote = null; currentOrder = null; products = []; await mountPage(); viewHistory.resume(resumeView);
   });
   function filterChange() { const form=$('#catalog-filters'); if (!form) return; const params=new URLSearchParams(location.search); for (const [key,value] of new FormData(form)) {if (value && !(key === 'sort' && value === 'selection')) params.set(key,value); else params.delete(key);} setCatalogParams(params); catalog(); }
   document.addEventListener('submit',async event=>{
@@ -478,7 +656,7 @@
   const reduced = matchMedia('(prefers-reduced-motion: reduce)'); reduced.addEventListener('change',motion);
   if (window.barba && $('[data-barba="container"]')) {
     const editorial = /^\/(?:index|catalogo|producto-[a-z0-9-]+)\.html$|^\/$/;
-    barba.init({timeout:4000,preventRunning:true,prevent:({href,el})=>{const url=new URL(href,location.href);return el.hasAttribute('data-barba-prevent')||url.origin!==location.origin||!editorial.test(url.pathname)||!['home','catalog','product'].includes($('main')?.dataset.page);},transitions:[{name:'editorial',async leave(data){stopMotion(); if(window.gsap && !reduced.matches) await gsap.to(data.current.container,{opacity:0,duration:.12});},enter(){window.scrollTo(0,0);},async after(){await mountPage(true);}}]});
+    barba.init({timeout:4000,preventRunning:true,prevent:({href,el})=>{const url=new URL(href,location.href);return el.hasAttribute('data-barba-prevent')||url.origin!==location.origin||!editorial.test(url.pathname)||!['home','catalog','product'].includes($('main')?.dataset.page);},transitions:[{name:'editorial',async leave(data){viewHistory.begin(data);stopMotion(); if(window.gsap && !reduced.matches) await gsap.to(data.current.container,{opacity:0,duration:.12});},enter(data){if(!viewHistory.historyTrigger(data))window.scrollTo(0,0);},async after(data){await mountPage(()=>viewHistory.shouldFocus(data));viewHistory.finish(data);}}]});
   }
   const mega=$('#mega-menu'),trigger=$('[data-mega-trigger]'),header=$('.site-header');
   const toggleMega=open=>{if(!mega)return;mega.hidden=!open;trigger?.setAttribute('aria-expanded',String(open));};
@@ -491,8 +669,80 @@
   $$('dialog').forEach(d=>{d.addEventListener('cancel',()=>{if(d.id==='newsletter-dialog')localStorage.setItem('martha-parity-newsletter-dismissed','true');});d.addEventListener('click',e=>{if(e.target===d){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom){if(d.id==='newsletter-dialog')localStorage.setItem('martha-parity-newsletter-dismissed','true');d.close();}}});});
   navigator.connection?.addEventListener('change',videoMotion);
   document.addEventListener('visibilitychange',videoMotion);
-  mountPage();
+  viewHistory.activate();
+  mountPage().then(()=>viewHistory.initialMount());
 
 
 })();
 
+
+/* ADDITIVE SUPPORT ILLUSTRATIONS: no original A code changed. */
+/* Isolated additive module. Install globally only after the exact current shell/build is restored. */
+(() => {
+  'use strict';
+  if (window.MarthaSupportingIllustrations) return;
+  const allowed = Object.freeze({
+    'blanco-perlado-sirena':'/generated-illustrations/blanco-perlado-sirena-g1-gen-001-48170acd71bf.png',
+    'rosa-empolvado-pedreria':'/generated-illustrations/rosa-empolvado-pedreria-g1-gen-001-8e13cba8e436.png'
+  });
+  const selector = '[data-ai-support-illustration]';
+  let lastLanguage = null;
+  const language = () => (window.MarthaI18n?.language || document.documentElement.lang).toLowerCase().startsWith('en') ? 'en' : 'es';
+  function validImage(img) {
+    if (!img?.matches?.('img[data-ai-support-image]')) return null;
+    const section = img.closest(selector), id = section?.dataset.aiProduct;
+    if (!id || section.closest('main[data-product-id]')?.dataset.productId !== id) return null;
+    try { const url = new URL(img.getAttribute('src'),location.href); return url.origin === location.origin && url.pathname === allowed[id] ? section : null; }
+    catch { return null; }
+  }
+  function imageState(img, failed) {
+    const section = validImage(img); if (!section) return;
+    const notice = section.querySelector('[data-ai-support-load-error]');
+    if (img.hidden !== failed) img.hidden = failed;
+    if (notice && notice.hidden !== !failed) notice.hidden = !failed;
+    const state = failed ? 'failed' : 'ready';
+    if (section.dataset.aiImageState !== state) section.dataset.aiImageState = state;
+  }
+  function refresh(root = document) {
+    const sections = [...(root.matches?.(selector) ? [root] : []), ...(root.querySelectorAll?.(selector) || [])];
+    const lang = language(); lastLanguage = lang;
+    for (const section of sections) {
+      const img = section.querySelector('img[data-ai-support-image]');
+      if (!validImage(img)) continue;
+      if (section.dataset.aiLanguage !== lang) section.dataset.aiLanguage = lang;
+      section.querySelectorAll('[data-ai-lang]').forEach(node => { const hidden = node.dataset.aiLang !== lang; if (node.hidden !== hidden) node.hidden = hidden; });
+      const alt = img.getAttribute(lang === 'en' ? 'data-ai-alt-en' : 'data-ai-alt-es') || img.alt;
+      if (img.alt !== alt) img.alt = alt;
+      if (img.complete) imageState(img, !img.naturalWidth);
+    }
+  }
+  // Enhance only the two supporting-image reference links. Keep their native
+  // anchor fallback, but normal activation does not create a hash history entry.
+  document.addEventListener('click',event => {
+    if (event.defaultPrevented || event.button > 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const link = event.target.closest?.('[data-ai-support-illustration] > a[href="#main"]');
+    const section = link?.closest(selector);
+    if (!section || !validImage(section.querySelector('img[data-ai-support-image]'))) return;
+    const main = section.closest('main#main[tabindex="-1"]'), gallery = main?.querySelector('.product-gallery');
+    if (!gallery || typeof gallery.scrollIntoView !== 'function') return;
+    event.preventDefault();
+    main.focus({preventScroll:true});
+    gallery.scrollIntoView({block:'start',behavior:'instant'});
+    window.MarthaViewHistory?.capture(true);
+  });
+  document.addEventListener('error',event => imageState(event.target,true),true);
+  document.addEventListener('load',event => imageState(event.target,false),true);
+  window.addEventListener('martha:languagechange',() => refresh());
+  const observer = new MutationObserver(records => {
+    for (const record of records) {
+      if (record.type === 'attributes') {
+        if (record.target === document.documentElement && language() !== lastLanguage) refresh();
+        continue;
+      }
+      record.addedNodes.forEach(node => { if (node.nodeType === 1) refresh(node); });
+    }
+  });
+  observer.observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['lang']});
+  window.MarthaSupportingIllustrations = Object.freeze({refresh});
+  refresh();
+})();

@@ -1,0 +1,59 @@
+{
+  "changed_files": [
+    {
+      "before_sha256": "8ee8deb77dd6608023f0d315c2451aafa248f58e77658b881717e9de09470ba8",
+      "bytes": 78861,
+      "cloudflare_upload_hash": "8f4df8d34f12f81ad6e5295ad88d6a6a",
+      "operation": "changed",
+      "runtime_path": "app.js",
+      "sha256": "aa0528f71c3a23410dd7c2c0151427826f800e8f78a8057fe60d14427dcd89e8",
+      "source_path": "src/app.js"
+    },
+    {
+      "before_sha256": "955550d32bc9b1fb1c826abf30b65730e41fc0074a932a2d66276c08d37f0189",
+      "bytes": 64864,
+      "cloudflare_upload_hash": "4721698f86ee2f3e8a00038e38cb8c2c",
+      "operation": "changed",
+      "runtime_path": "styles.css",
+      "sha256": "14275118ce05a69322963373243dc723294292d5caca78802d2f9cf1ed65d186",
+      "source_path": "build-inputs/static/styles.css"
+    },
+    {
+      "before_sha256": "5de33a549ddde101666c98995a8068fad7740cd107704983a72c80ecfc2ffd3d",
+      "bytes": 247126,
+      "cloudflare_upload_hash": "cf4010f4f0f5acc1d1771d8aa4be233b",
+      "operation": "changed",
+      "runtime_path": "producto-blanco-perlado-sirena.html",
+      "sha256": "9e47db6124a43c8ebb88096977047250231f59cd08a2f732f279f373bc5dc6d8",
+      "source_path": "build-inputs/static/producto-blanco-perlado-sirena.html"
+    },
+    {
+      "before_sha256": "ef5915e4701407790d9abb4e1862021bc65f71a581414edafefe8af8b89a1aa2",
+      "bytes": 248851,
+      "cloudflare_upload_hash": "3893ef2e2257f39010b078d06430aef8",
+      "operation": "changed",
+      "runtime_path": "producto-rosa-empolvado-pedreria.html",
+      "sha256": "eb9fc145b5c0311ee517e0c9c00a753dc228142ff0fa8ccc64c5cc6fd6d71039",
+      "source_path": "build-inputs/static/producto-rosa-empolvado-pedreria.html"
+    },
+    {
+      "before_sha256": null,
+      "bytes": 1623549,
+      "cloudflare_upload_hash": "071aeb200f44663c61d83e7c74caca09",
+      "operation": "new",
+      "runtime_path": "generated-illustrations/blanco-perlado-sirena-g1-gen-001-48170acd71bf.png",
+      "sha256": "48170acd71bf1dae2f797cfb22c8dafe522d990de03c9b6ce5ce63a456b67ffe",
+      "source_path": "build-inputs/static/generated-illustrations/blanco-perlado-sirena-g1-gen-001-48170acd71bf.png"
+    },
+    {
+      "before_sha256": null,
+      "bytes": 1737603,
+      "cloudflare_upload_hash": "44e2438dce0b0f3fef89ff9e49d758ed",
+      "operation": "new",
+      "runtime_path": "generated-illustrations/rosa-empolvado-pedreria-g1-gen-001-8e13cba8e436.png",
+      "sha256": "8e13cba8e436ab0a4aa381db6a7d99e44f8624acb7a73eb62d4731ef0a218413",
+      "source_path": "build-inputs/static/generated-illustrations/rosa-empolvado-pedreria-g1-gen-001-8e13cba8e436.png"
+    }
+  ],
+  "receipt_sha256": "19ca37a9351820e2fb7481d8e95580888fe589ef1d00eba08a4d8c6d491367d2"
+}

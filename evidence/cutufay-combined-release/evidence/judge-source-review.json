@@ -1,0 +1,75 @@
+{
+  "created_utc": "2026-10-26T18:42:53.239862+00:00",
+  "role": "independent source/delta judge; no implementation or deployment",
+  "source_gate": "ACCEPT_FOR_SERIAL_FULL_BUILD_IF_TARGETED_REGRESSIONS_PASS",
+  "release_gate": "PENDING_FINAL_COMBINED_BUILD_AND_REPORT",
+  "app_sha256": "aa0528f71c3a23410dd7c2c0151427826f800e8f78a8057fe60d14427dcd89e8",
+  "controller_sha256": "aca2bf1ad30f73668607c220b447713d4bd3491cfb2d3b5646fd53cedafce787",
+  "assembly_receipt_sha256": "19ca37a9351820e2fb7481d8e95580888fe589ef1d00eba08a4d8c6d491367d2",
+  "baseline_commit": "704b2e160106b709880ad7c22febd25adb6181d6",
+  "independent_scope": {
+    "baseline_files": 951,
+    "source_files": 953,
+    "unchanged_existing": 947,
+    "modified_existing": [
+      "src/app.js",
+      "build-inputs/static/styles.css",
+      "build-inputs/static/producto-blanco-perlado-sirena.html",
+      "build-inputs/static/producto-rosa-empolvado-pedreria.html"
+    ],
+    "new_files": [
+      "build-inputs/static/generated-illustrations/blanco-perlado-sirena-g1-gen-001-48170acd71bf.png",
+      "build-inputs/static/generated-illustrations/rosa-empolvado-pedreria-g1-gen-001-8e13cba8e436.png"
+    ],
+    "deleted": [],
+    "v2_to_v3_only_exact_controller_replacement": true,
+    "PDP_fragments_reversible_to_exact_A": true,
+    "AI_v2_appendix_and_other_five_payloads_unchanged": true,
+    "authentic_catalog_and_media_unchanged": true,
+    "v3_to_v4_only_stale_hash_current_URL_guard": true
+  },
+  "reviewed_compound_findings": [
+    {
+      "finding": "AI/i18n observer feedback loop",
+      "fix": "Idempotent writes and effective-language observer guard; AI v2 unchanged in v3"
+    },
+    {
+      "finding": "New AI original-photo native hash link could corrupt Back state",
+      "fix": "Scoped unmodified activation targets authentic gallery without changing URL/history; fallback/modifiers retained"
+    },
+    {
+      "finding": "Existing native fragment entries overwrite prior entry coordinates",
+      "fix": "URL-bound capture; distinct hash-entry activation and interaction-guarded restoration; immediate coordinate capture before RAF"
+    },
+    {
+      "finding": "Actual i18n replaceState leaves old per-entry URL",
+      "fix": "Explicit language-event reconciliation for lang-only same-entry replacement, retaining identity and state"
+    },
+    {
+      "finding": "Queued stale hashchange must not invalidate newer navigation",
+      "fix": "Require event.newURL to equal current location.href before entry changes"
+    }
+  ],
+  "targeted_test_gate": {
+    "owner": "review_complete_people_batch_two",
+    "expected_compound_cases": 14,
+    "expected_copied_Back_cases": 24,
+    "status_at_source_review": "RUNNING_ON_V4; prior13 passed on V3, not inherited as V4 proof"
+  },
+  "remaining_release_conditions": [
+    "Exact v3 combined build/suite and904 runtime delta proof",
+    "Current destination/commit/marker and full-A rollback validation by publisher",
+    "User-authorized publication followed by live UI/hash verification",
+    "Root reports current publisher authentication unavailable; no release until authorized route works"
+  ],
+  "limitations": [
+    "No prepublication rendered-browser or physical Safari/iPhone/VoiceOver validation",
+    "DOM/native JSDOM history tests do not prove Safari edge-swipe or BFCache lifecycle",
+    "Fine product-detail fidelity of AI images remains limited; approved supporting illustration use only",
+    "No broader photo removals or Green B changes authorized by this delta"
+  ],
+  "supersedes_source_gate": {
+    "path": "audit-centering-20261026/combined-support-back-candidate-v3/evidence/judge-source-review.json",
+    "sha256": "0f82c5b7cc5977bf8e4400431e548564b83eb58f3ad347aa2f3cfff913182efb"
+  }
+}

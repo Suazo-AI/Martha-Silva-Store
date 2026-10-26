@@ -1,0 +1,87 @@
+{
+  "contract_version": 1,
+  "status": "COPY_READY_FOR_AUTHORIZED_SUPPORTING_ILLUSTRATION_INTEGRATION",
+  "authorization_context": "Root relayed user approval “Si úsalas no importa” to use these as supporting illustrations while preserving original photographs. This text contract neither edits source nor authorizes publication.",
+  "sources": [
+    {
+      "path": "/workspace/scratch/14cff504045e/audit-centering-20261026/generated-candidates/candidate-ledger.json",
+      "sha256": "4d752a8126160cbc96a3460285c646bf220c3f2e87ab13febf52191e5d116c10"
+    },
+    {
+      "path": "/workspace/scratch/14cff504045e/audit-centering-20261026/generated-candidates/judge-preview-review.json",
+      "sha256": "bb60e679006df403d2e4936abfd36b13db1c5b3d9b0b802d87e3eb6040837999"
+    }
+  ],
+  "shared_disclosures": {
+    "es": {
+      "disclosure": "Imagen de apoyo editada con IA. La pedrería, el bordado y otros detalles se han regenerado y pueden diferir del producto real. Consulta las fotografías originales.",
+      "original_photographs_link_text": "Ver fotografías originales"
+    },
+    "en": {
+      "disclosure": "Supporting image edited with AI. Beadwork, embroidery and other details have been regenerated and may differ from the actual product. Refer to the original photographs.",
+      "original_photographs_link_text": "View original photographs"
+    }
+  },
+  "candidates": [
+    {
+      "candidate_id": "blanco-perlado-sirena-g1-gen-001",
+      "product_id": "blanco-perlado-sirena",
+      "candidate_path": "/workspace/scratch/14cff504045e/audit-centering-20261026/generated-candidates/blanco-perlado-background-v1.png",
+      "candidate_sha256": "48170acd71bf1dae2f797cfb22c8dafe522d990de03c9b6ce5ce63a456b67ffe",
+      "role": "supporting_ai_illustration_not_verified_product_detail",
+      "texts": {
+        "es": {
+          "caption": "Blanco Perlado · Ilustración con IA",
+          "alt": "Ilustración con IA de una modelo de cuerpo entero con vestido blanco perlado, escote en V y falda sirena."
+        },
+        "en": {
+          "caption": "Blanco Perlado · AI illustration",
+          "alt": "AI illustration of a full-length model wearing a pearl-white V-neck mermaid gown."
+        }
+      },
+      "shared_disclosure_key": "shared_disclosures",
+      "disclosure_dom_id": "ai-disclosure-blanco-perlado-sirena",
+      "original_reference_paths": [
+        "/research/assets/store-media/blanco-perlado-sirena/01-front-full-length-800.webp"
+      ]
+    },
+    {
+      "candidate_id": "rosa-empolvado-pedreria-g1-gen-001",
+      "product_id": "rosa-empolvado-pedreria",
+      "candidate_path": "/workspace/scratch/14cff504045e/audit-centering-20261026/generated-candidates/rosa-empolvado-crown-v1.png",
+      "candidate_sha256": "8e13cba8e436ab0a4aa381db6a7d99e44f8624acb7a73eb62d4731ef0a218413",
+      "role": "supporting_ai_illustration_not_verified_product_detail",
+      "texts": {
+        "es": {
+          "caption": "Rosa Empolvado · Ilustración con IA",
+          "alt": "Ilustración con IA de una modelo de cuerpo entero con vestido rosa empolvado, hombros descubiertos y abertura lateral."
+        },
+        "en": {
+          "caption": "Rosa Empolvado · AI illustration",
+          "alt": "AI illustration of a full-length model wearing a dusty-pink off-shoulder gown with a side slit."
+        }
+      },
+      "shared_disclosure_key": "shared_disclosures",
+      "disclosure_dom_id": "ai-disclosure-rosa-empolvado-pedreria",
+      "original_reference_paths": [
+        "/research/assets/store-media/rosa-empolvado-pedreria/01-front-full-length-800.webp",
+        "/research/assets/store-media/rosa-empolvado-pedreria/02-three-quarter-front-full-length-800.webp"
+      ]
+    }
+  ],
+  "implementation_rules": [
+    "Keep each short caption and full disclosure visibly associated with its illustration; do not hide the disclosure only in alt text, a tooltip or a footer.",
+    "Use the locale-matched alt and connect the image/figure to its disclosure through aria-describedby; do not replace the meaningful alt with the disclosure paragraph.",
+    "Retain the AI label and disclosure in enlarged/zoom views. Original photographs remain available through the adjacent locale-matched link or existing gallery control.",
+    "Use these as secondary supporting illustrations, not as a verified close-up or sole source of actual beadwork, embroidery, fabric or product detail. Do not replace or relabel the unchanged original photographs as generated images.",
+    "Do not describe either image as restored, exact restoration, unaltered, faithful product detail, background-only edit or crown-only edit. Judge observed regeneration beyond the intended region.",
+    "Keep product proper names Blanco Perlado and Rosa Empolvado unchanged in English captions; alt text translates the visual garment description.",
+    "No new image generation, image edits, browser use, application-source edits or publication were performed for this contract."
+  ],
+  "acceptance_checks": [
+    "The two image hashes match the intended candidates.",
+    "Both ES and EN show AI disclosure beside the supporting image, including zoom.",
+    "A screen reader receives the descriptive alt and associated disclosure.",
+    "Original-product-photo access remains visible and functioning."
+  ]
+}

@@ -1,0 +1,12 @@
+PASS all 40 catalog PDPs mount exactly one named share button and share their own canonical URL
+PASS native share is called during the click, repeated clicks stay locked, and success does not copy
+PASS native cancellation is quiet and never copies
+PASS clipboard fallback only reports success after writeText resolves
+PASS non-cancellation native errors fall back to copying
+PASS denied or missing clipboard exposes an honestly labelled, selected manual link
+PASS English preference controls native title and clean URL; explicit Spanish overrides it
+PASS English fallback copy success and manual failure are localized, including language toggles
+PASS explicit English survives unavailable storage and ignores canonical-tag injection
+PASS remounts do not duplicate sharing, and favorites, bag and zoom still work
+PASS sharing remains independent of unavailable commerce; other pages and unknown products have no button
+11/11 product-share DOM checks passed
