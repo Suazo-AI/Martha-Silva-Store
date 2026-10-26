@@ -1,5 +1,26 @@
 # Estado del proyecto
 
+## Green product desktop gallery - 2026-10-26
+
+Published source `704b2e160106b709880ad7c22febd25adb6181d6` measures only the
+sticky site header and uses that height for the green product's desktop gallery
+offset, scroll margin and viewport-height cap. The existing fit mode remains;
+the cap can reduce the displayed image size in a short window. Only app.js and
+styles.css differ from the sharing release: 900 runtime outputs, all 780 raster
+files, all 47 HTML pages and the catalog are unchanged.
+
+Cloud checks passed: 139 existing cases and six focused DOM/static cases. The
+first focused run's false width/min-width assertion and its corrected passing
+run are both retained. Independent source review accepted a controlled release
+with immediate live CUA verification and rollback for a material failure.
+Actual coverage and verification status: evidence/green-A/publication.json.
+Mobile and short-window rendering are not claimed. Matte removal, G2 source
+framing, generative examples and the global photo candidate are separate.
+
+Version `a8668b7b-9fe0-4635-ac5a-01033ae96e2b` serves 100% of traffic;
+deployment `1f24157b-6fc0-40fa-8aec-5a861dc89587`. Preview routing remains
+disabled. No heavy laptop task, GitHub push or hosted CI was run.
+
 ## Product sharing - 2026-10-25
 
 Published source `e9e9609b9cda6f52abd0db1b35b570f3b83156b4` adds a sharing

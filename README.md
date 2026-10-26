@@ -1,6 +1,11 @@
 # Martha Silva Store
 
-**Latest published update:** product sharing on all 40 product pages, with native
+**Latest published update:** the green product's desktop gallery uses the measured
+sticky-header height for its offset and scroll margin, with a viewport height cap.
+Runtime source `704b2e160106b709880ad7c22febd25adb6181d6`; photographic bytes and
+catalog entries are unchanged. [Release evidence](evidence/green-A/publication.json).
+
+**Product sharing:** available on all 40 product pages, with native
 sharing, copy/manual link fallback and ES/EN support. Runtime source
 `e9e9609b9cda6f52abd0db1b35b570f3b83156b4` preserves the luxury photography below.
 [Share-button publication evidence](evidence/product-share/publication.json).

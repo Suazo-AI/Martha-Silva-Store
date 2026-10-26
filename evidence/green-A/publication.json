@@ -1,0 +1,41 @@
+{
+  "source_sha": "704b2e160106b709880ad7c22febd25adb6181d6",
+  "url": "https://martha-silva-preview.martha-silva-denis.workers.dev/producto-verde-brillo-cuello-cruzado?lang=es",
+  "published_utc": "2026-10-26T06:17:52.897886Z",
+  "version_id": "a8668b7b-9fe0-4635-ac5a-01033ae96e2b",
+  "deployment_id": "1f24157b-6fc0-40fa-8aec-5a861dc89587",
+  "traffic_percent": 100,
+  "scope": "Green product desktop sticky-header offset, scroll margin and viewport height cap only",
+  "runtime_files": 902,
+  "total_assets": 903,
+  "changed_runtime": [
+    "app.js",
+    "styles.css"
+  ],
+  "unchanged_runtime": 900,
+  "photographic_bytes_unchanged": true,
+  "catalog_and_html_unchanged": true,
+  "products": 40,
+  "variants": 120,
+  "gallery_positions": 170,
+  "cloud_checks": {
+    "main": 139,
+    "focused": 6,
+    "distinct_pass": 145
+  },
+  "release_review": "Accepted for controlled narrow release with immediate CUA verification and rollback for material failure",
+  "live_verification": "PASS in actual cloud Chrome 1180x757, DPR1/scale1, scrollY757. Header bottom106, lead top106/bottom623.765625, overlap0 (baseline106). Head and hem visible; frame/source unchanged. Rail target, keyboard Share actual clipboard/focus and other-SKU scope checks passed. 13 checks; owned tab12 closed. See LIVE-REPORT.md and live-verification.json.",
+  "live_verification_limits": "Marker hashes are metadata, not fresh raw-response-body hashes. Initial pointer-copy anomaly is preserved; separate keyboard activation verified actual URL/focus. Mobile and short-height cap remain unexercised.",
+  "rollback_version": "205cf823-313b-4667-8779-b08957424bd5",
+  "preview_routing": {
+    "enabled": true,
+    "previews_enabled": false
+  },
+  "coverage_limits": [
+    "mobile and short desktop viewport not visually exercised",
+    "baked-in matte and G2 source framing not changed",
+    "no global photo-quality approval"
+  ],
+  "local_checks": "Source/output and manifest/log hashes matched; source whitespace check passed excluding preserved raw .diff evidence with required patch context spaces.",
+  "local_heavy_tasks_run": false
+}
