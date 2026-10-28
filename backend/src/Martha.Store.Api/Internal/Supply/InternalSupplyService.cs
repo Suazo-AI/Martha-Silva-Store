@@ -8,29 +8,35 @@ namespace Martha.Store.Api.Internal;
 // the injected context inside the root runner's single serializable transaction.
 public sealed class InternalSupplyService(InternalDbContext db, IInternalCommandRunner commands, IInternalStockLedger stock)
 {
-    public async Task<InternalSupplyPage<InternalPurchaseOrderView>> List(int skip, int take, CancellationToken ct)
+    public async Task<InternalSupplyPage<InternalPurchaseOrderView>> List(int skip, int take, CancellationToken ct, Guid actorId = default)
     {
         ArgumentOutOfRangeException.ThrowIfNegative(skip);
         if (take is < 1 or > 100) throw new ArgumentOutOfRangeException(nameof(take));
-        var orders = await db.Set<InternalPurchaseOrder>().AsNoTracking().Include(x => x.Lines)
+        var locations = new InternalBranchAccess(db).Locations(actorId)
+            .Where(_ => db.InternalStaff.Any(staff => staff.Id == actorId && (staff.Role == "Owner" || staff.Role == "Manager" || staff.Role == "Inventory")));
+        var orders = await db.Set<InternalPurchaseOrder>().AsNoTracking().Where(x => locations.Any(l => l.Id == x.LocationId)).Include(x => x.Lines)
             .OrderByDescending(x => x.CreatedAt).ThenBy(x => x.Id).Skip(skip).Take(take + 1).ToListAsync(ct);
         return new(orders.Take(take).Select(InternalPurchaseOrderView.From).ToArray(), skip, take, orders.Count > take);
     }
 
-    public async Task<InternalPurchaseOrderView?> Get(Guid id, CancellationToken ct)
+    public async Task<InternalPurchaseOrderView?> Get(Guid id, CancellationToken ct, Guid actorId = default)
     {
-        var order = await db.Set<InternalPurchaseOrder>().AsNoTracking().Include(x => x.Lines)
+        var locations = new InternalBranchAccess(db).Locations(actorId)
+            .Where(_ => db.InternalStaff.Any(staff => staff.Id == actorId && (staff.Role == "Owner" || staff.Role == "Manager" || staff.Role == "Inventory")));
+        var order = await db.Set<InternalPurchaseOrder>().AsNoTracking().Where(x => locations.Any(l => l.Id == x.LocationId)).Include(x => x.Lines)
             .SingleOrDefaultAsync(x => x.Id == id, ct);
         return order is null ? null : InternalPurchaseOrderView.From(order);
     }
 
-    public async Task<InternalSupplyPage<InternalPurchaseReceiptView>?> Receipts(Guid orderId, int skip, int take, CancellationToken ct)
+    public async Task<InternalSupplyPage<InternalPurchaseReceiptView>?> Receipts(Guid orderId, int skip, int take, CancellationToken ct, Guid actorId = default)
     {
         ArgumentOutOfRangeException.ThrowIfNegative(skip);
         if (take is < 1 or > 100) throw new ArgumentOutOfRangeException(nameof(take));
-        if (!await db.Set<InternalPurchaseOrder>().AnyAsync(x => x.Id == orderId, ct)) return null;
+        var locations = new InternalBranchAccess(db).Locations(actorId)
+            .Where(_ => db.InternalStaff.Any(staff => staff.Id == actorId && (staff.Role == "Owner" || staff.Role == "Manager" || staff.Role == "Inventory")));
+        if (!await db.Set<InternalPurchaseOrder>().AnyAsync(x => x.Id == orderId && locations.Any(l => l.Id == x.LocationId), ct)) return null;
         var receipts = await db.Set<InternalPurchaseReceipt>().AsNoTracking().Include(x => x.Lines)
-            .Where(x => x.PurchaseOrderId == orderId).OrderByDescending(x => x.ReceivedAt).ThenBy(x => x.Id)
+            .Where(x => x.PurchaseOrderId == orderId && locations.Any(l => l.Id == x.LocationId)).OrderByDescending(x => x.ReceivedAt).ThenBy(x => x.Id)
             .Skip(skip).Take(take + 1).ToListAsync(ct);
         return new(receipts.Take(take).Select(InternalPurchaseReceiptView.From).ToArray(), skip, take, receipts.Count > take);
     }
@@ -40,7 +46,7 @@ public sealed class InternalSupplyService(InternalDbContext db, IInternalCommand
     {
         var error = ValidateCommand(actorId, key) ?? InternalSupplyRules.Validate(request);
         if (error is not null) return Task.FromResult(InternalResult<InternalPurchaseOrderView>.Fail(error));
-        return commands.Run(actorId, "supply.purchase.create", key, InternalSupplyRules.OrderFingerprint(request), async token =>
+        return commands.RunScoped(actorId, "supply.purchase.create", key, InternalSupplyRules.OrderFingerprint(request), new InternalCommandResource("location", request.LocationId), async token =>
         {
             RequireTransaction();
             var supplier = await db.Set<InternalParty>().AsNoTracking()
@@ -84,13 +90,15 @@ public sealed class InternalSupplyService(InternalDbContext db, IInternalCommand
             InternalSupplyRules.Validate(request);
         if (error is not null) return Task.FromResult(InternalResult<InternalPurchaseReceiptView>.Fail(error));
         var fingerprint = InternalSupplyRules.ReceiptFingerprint(orderId, request);
-        return commands.Run(actorId, "supply.receipt.create", key, fingerprint, async token =>
+        return commands.RunScoped(actorId, "supply.receipt.create", key, fingerprint, new InternalCommandResource("purchase", orderId), async token =>
         {
             RequireTransaction();
             // Also deduplicate the physical receipt under a different command key.
             var existing = await db.Set<InternalPurchaseReceipt>()
                 .FromSqlInterpolated($"SELECT * FROM [savia_internal].[PurchaseReceipts] WITH (UPDLOCK,HOLDLOCK) WHERE [Id] = {request.ReceiptId}")
                 .AsNoTracking().Include(x => x.Lines).SingleOrDefaultAsync(token);
+            if (existing is not null && !await new InternalBranchAccess(db).CanAccessLocation(actorId, existing.LocationId, token))
+                return InternalResult<InternalPurchaseReceiptView>.Fail("forbidden");
             if (existing is not null)
                 return existing.PurchaseOrderId == orderId && existing.Fingerprint == fingerprint && existing.ReceivedBy == actorId
                     ? InternalResult<InternalPurchaseReceiptView>.Ok(InternalPurchaseReceiptView.From(existing))
@@ -165,8 +173,8 @@ public sealed class InternalSupplyService(InternalDbContext db, IInternalCommand
             InternalSupplyRules.Validate(request);
         if (error is not null) return Task.FromResult(InternalResult<InternalPurchaseOrderView>.Fail(error));
         var reason = request.Reason.Trim();
-        return commands.Run(actorId, "supply.purchase.cancel", key,
-            InternalRules.Fingerprint(new { OrderId = orderId, Reason = reason }), async token =>
+        return commands.RunScoped(actorId, "supply.purchase.cancel", key,
+            InternalRules.Fingerprint(new { OrderId = orderId, Reason = reason }), new InternalCommandResource("purchase", orderId), async token =>
         {
             RequireTransaction();
             var order = await db.Set<InternalPurchaseOrder>()

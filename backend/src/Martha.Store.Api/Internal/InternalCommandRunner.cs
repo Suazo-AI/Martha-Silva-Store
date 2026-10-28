@@ -14,6 +14,8 @@ public sealed class InternalOperation
     public string Key { get; set; } = "";
     public string Fingerprint { get; set; } = "";
     public string ResultJson { get; set; } = "";
+    public Guid? LocationId { get; set; }
+    public Guid? OriginalBranchId { get; set; }
     public DateTimeOffset CreatedAt { get; set; }
 }
 
@@ -25,8 +27,8 @@ public static class InternalCommandAuthorization
         {
             "directory.items.create" or "directory.items.update" or "directory.items.deactivate"
             or "directory.locations.create" or "directory.locations.update" or "directory.locations.deactivate"
-            or "directory.parties.create" or "directory.parties.update" or "directory.parties.deactivate"
-            or "supply.purchase.create" or "supply.purchase.cancel"
+            or "directory.parties.create" or "directory.parties.update" or "directory.parties.deactivate" => ["Owner"],
+            "supply.purchase.create" or "supply.purchase.cancel"
             or "commerce.sale.cancel" or "commerce.sale.return" => ["Owner", "Manager"],
             "commerce.stock.adjust" or "supply.receipt.create" => ["Owner", "Manager", "Inventory"],
             "commerce.sale.record" => ["Owner", "Manager", "Cashier"],
@@ -40,8 +42,16 @@ public sealed class InternalCommandRunner(InternalDbContext db, InternalSecurity
     IHttpContextAccessor http, TimeProvider time) : IInternalCommandRunner
 {
     private static readonly JsonSerializerOptions Json = new(JsonSerializerDefaults.Web);
-    public async Task<InternalResult<T>> Run<T>(Guid actorId, string scope, string key, string fingerprint,
+    public Task<InternalResult<T>> Run<T>(Guid actorId, string scope, string key, string fingerprint,
         Func<CancellationToken, Task<InternalResult<T>>> action, CancellationToken ct)
+        => RunCore(actorId, scope, key, fingerprint, null, action, ct);
+
+    public Task<InternalResult<T>> RunScoped<T>(Guid actorId, string scope, string key, string fingerprint,
+        InternalCommandResource resource, Func<CancellationToken, Task<InternalResult<T>>> action, CancellationToken ct)
+        => RunCore(actorId, scope, key, fingerprint, resource, action, ct);
+
+    private async Task<InternalResult<T>> RunCore<T>(Guid actorId, string scope, string key, string fingerprint,
+        InternalCommandResource? commandResource, Func<CancellationToken, Task<InternalResult<T>>> action, CancellationToken ct)
     {
         if (actorId == Guid.Empty || !InternalRules.ValidKey(key) || scope is not { Length: >= 1 and <= 80 }
             || fingerprint is not { Length: 64 } || !fingerprint.All(Uri.IsHexDigit))
@@ -72,10 +82,20 @@ public sealed class InternalCommandRunner(InternalDbContext db, InternalSecurity
             }
             var prior = await db.Set<InternalOperation>().AsNoTracking()
                 .SingleOrDefaultAsync(x => x.ActorId == actorId && x.Scope == scope && x.Key == key, ct);
+            var access = new InternalBranchAccess(db);
             if (prior is not null)
+            {
+                if (!await access.CanReadOperation(actorId, prior, ct)) return InternalResult<T>.Fail("forbidden");
                 return prior.Fingerprint != fingerprint ? InternalResult<T>.Fail("idempotency_conflict")
                     : JsonSerializer.Deserialize<InternalResult<T>>(prior.ResultJson, Json)
                       ?? InternalResult<T>.Fail("unknown_outcome");
+            }
+            Guid? locationId = commandResource is null ? null : await access.ResolveLocation(commandResource, ct);
+            if (commandResource is null ? !current.IsInRole("Owner")
+                : locationId is null || !await access.CanAccessLocation(actorId, locationId.Value, ct))
+                return InternalResult<T>.Fail("forbidden");
+            var originalBranchId = locationId is null ? null : await db.InternalLocations
+                .Where(x => x.Id == locationId.Value).Select(x => x.BranchId).SingleOrDefaultAsync(ct);
             await transaction.CreateSavepointAsync("BeforeInternalAction", ct);
             actionStarted = true;
             var outcome = await action(ct);
@@ -88,6 +108,7 @@ public sealed class InternalCommandRunner(InternalDbContext db, InternalSecurity
             db.Set<InternalOperation>().Add(new InternalOperation
             {
                 Id = Guid.NewGuid(), ActorId = actorId, Scope = scope, Key = key, Fingerprint = fingerprint,
+                LocationId = locationId, OriginalBranchId = originalBranchId,
                 ResultJson = JsonSerializer.Serialize(outcome, Json), CreatedAt = time.GetUtcNow()
             });
             await db.SaveChangesAsync(ct);

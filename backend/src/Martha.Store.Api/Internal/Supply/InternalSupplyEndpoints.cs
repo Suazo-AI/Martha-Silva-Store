@@ -16,14 +16,14 @@ public static class InternalSupplyEndpoints
             context.HttpContext.Response.Headers.Pragma = "no-cache";
             return await next(context);
         });
-        group.MapGet("/purchase-orders", async (int? skip, int? take, InternalSupplyService service, CancellationToken ct) =>
+        group.MapGet("/purchase-orders", async (int? skip, int? take, InternalSupplyService service, HttpContext http, CancellationToken ct) =>
             !ValidPage(skip, take) ? Results.BadRequest(new { error = "invalid_pagination" }) :
-            await Read(async () => Results.Ok(await service.List(skip ?? 0, take ?? 50, ct))));
-        group.MapGet("/purchase-orders/{id:guid}", async (Guid id, InternalSupplyService service, CancellationToken ct) =>
-            await Read(async () => await service.Get(id, ct) is { } order ? Results.Ok(order) : Results.NotFound(new { error = "purchase_order_not_found" })));
-        group.MapGet("/purchase-orders/{id:guid}/receipts", async (Guid id, int? skip, int? take, InternalSupplyService service, CancellationToken ct) =>
+            await Read(async () => Results.Ok(await service.List(skip ?? 0, take ?? 50, ct, InternalActor.Id(http.User))))).RequireAuthorization("internal.inventory");
+        group.MapGet("/purchase-orders/{id:guid}", async (Guid id, InternalSupplyService service, HttpContext http, CancellationToken ct) =>
+            await Read(async () => await service.Get(id, ct, InternalActor.Id(http.User)) is { } order ? Results.Ok(order) : Results.NotFound(new { error = "purchase_order_not_found" }))).RequireAuthorization("internal.inventory");
+        group.MapGet("/purchase-orders/{id:guid}/receipts", async (Guid id, int? skip, int? take, InternalSupplyService service, HttpContext http, CancellationToken ct) =>
             !ValidPage(skip, take) ? Results.BadRequest(new { error = "invalid_pagination" }) :
-            await Read(async () => await service.Receipts(id, skip ?? 0, take ?? 50, ct) is { } receipts ? Results.Ok(receipts) : Results.NotFound(new { error = "purchase_order_not_found" })));
+            await Read(async () => await service.Receipts(id, skip ?? 0, take ?? 50, ct, InternalActor.Id(http.User)) is { } receipts ? Results.Ok(receipts) : Results.NotFound(new { error = "purchase_order_not_found" }))).RequireAuthorization("internal.inventory");
         group.MapPost("/purchase-orders", async (InternalPurchaseOrderRequest request, HttpContext http, InternalSupplyService service, CancellationToken ct) =>
             Respond(await service.Create(InternalActor.Id(http.User), Key(http), request, ct)))
             .RequireAuthorization("internal.manage").RequireInternalCsrf();

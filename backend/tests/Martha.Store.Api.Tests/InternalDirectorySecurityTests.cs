@@ -22,7 +22,7 @@ namespace Martha.Store.Api.Tests;
 public sealed class InternalDirectorySecurityTests
 {
     [Fact]
-    public async Task All_routes_require_read_policy_and_all_nine_mutations_require_manage_and_csrf()
+    public async Task All_routes_require_read_policy_and_all_nine_mutations_require_owner_and_csrf()
     {
         await using var host = await DirectoryHost.Start();
         var endpoints = ((IEndpointRouteBuilder)host.App).DataSources.SelectMany(x => x.Endpoints).ToArray();
@@ -36,7 +36,7 @@ public sealed class InternalDirectorySecurityTests
             var methods = endpoint.Metadata.GetMetadata<IHttpMethodMetadata>()!.HttpMethods;
             if (methods.Contains("GET")) continue;
             writes++;
-            Assert.Contains(authorization, x => x.Policy == "internal.manage");
+            Assert.Contains(authorization, x => x.Policy == "internal.owner");
             Assert.NotNull(endpoint.Metadata.GetMetadata<InternalDirectoryMutationMetadata>());
         }
         Assert.Equal(9, writes);
@@ -60,8 +60,8 @@ public sealed class InternalDirectorySecurityTests
     [Theory]
     [InlineData(null, 401)] [InlineData("Visitor", 403)]
     [InlineData("Cashier", 403)] [InlineData("Inventory", 403)]
-    [InlineData("Owner", 400)] [InlineData("Manager", 400)]
-    public async Task Every_write_requires_manager_and_a_csrf_token(string? role, int status)
+    [InlineData("Owner", 400)] [InlineData("Manager", 403)]
+    public async Task Every_write_requires_owner_and_a_csrf_token(string? role, int status)
     {
         await using var host = await DirectoryHost.Start();
         foreach (var resource in new[] { "items", "locations", "parties" })
@@ -178,6 +178,7 @@ public sealed class InternalDirectorySecurityTests
             {
                 options.AddPolicy("internal.read", p => p.RequireAuthenticatedUser().RequireRole("Owner", "Manager", "Cashier", "Inventory"));
                 options.AddPolicy("internal.manage", p => p.RequireAuthenticatedUser().RequireRole("Owner", "Manager"));
+                options.AddPolicy("internal.owner", p => p.RequireAuthenticatedUser().RequireRole("Owner"));
             });
             builder.Services.AddScoped(_ => InternalDirectoryModelTests.Database());
             var runner = new InternalDirectoryCommandTests.RecordingRunner { Error = runnerError };

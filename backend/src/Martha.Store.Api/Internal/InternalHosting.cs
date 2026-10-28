@@ -56,14 +56,20 @@ public static class InternalHosting
             await db.Set<InternalPurchaseOrder>().AsNoTracking().Select(x => x.Id).Take(1).ToListAsync(ct);
             return Results.Ok(new { status = "ready", scope = "internal", paymentProcessing = false });
         }).RequireAuthorization("internal.read");
-        routes.MapGet("/internal/api/operations/{scope}", async (string scope, HttpContext http, InternalDbContext db, CancellationToken ct) =>
+        routes.MapGet("/internal/api/operations/{scope}", async (string scope, HttpContext http, InternalDbContext db, InternalSecurityService security, CancellationToken ct) =>
         {
             var keys = http.Request.Headers["Idempotency-Key"];
             if (keys.Count != 1 || !InternalRules.ValidKey(keys[0])) return ApiError.Result(http, 400, "invalid_request");
             if (!InternalCommandAuthorization.Allowed(http.User, scope)) return ApiError.Result(http, 403, "forbidden");
-            var actorId = InternalActor.Id(http.User); var key = keys[0]!;
+            await using var transaction = await db.Database.BeginTransactionAsync(System.Data.IsolationLevel.Serializable, ct);
+            var current = await security.ValidateSession(http.User, ct);
+            if (current is null) return ApiError.Result(http, 401, "unauthenticated");
+            if (!InternalCommandAuthorization.Allowed(current, scope)) return ApiError.Result(http, 403, "forbidden");
+            var actorId = InternalActor.Id(current); var key = keys[0]!;
             var operation = await db.Set<InternalOperation>().AsNoTracking().SingleOrDefaultAsync(x => x.ActorId == actorId && x.Scope == scope && x.Key == key, ct);
             if (operation is null) return ApiError.Result(http, 404, "operation_unknown");
+            if (!await new InternalBranchAccess(db).CanReadOperation(actorId, operation, ct))
+                return ApiError.Result(http, 403, "forbidden");
             using var json = JsonDocument.Parse(operation.ResultJson);
             return Results.Ok(new { status = "completed", result = json.RootElement.Clone() });
         }).RequireAuthorization("internal.read");

@@ -58,16 +58,16 @@ public static class InternalSecurityRules
     }
 }
 
-public sealed record InternalStaffView(Guid Id, string LoginName, string DisplayName, string Role, bool Enabled, Guid Version)
+public sealed record InternalStaffView(Guid Id, string LoginName, string DisplayName, string Role, bool Enabled, Guid Version, Guid? BranchId = null)
 {
     public static InternalStaffView From(InternalStaff staff) => new(staff.Id, staff.LoginName, staff.DisplayName,
-        staff.Role, staff.Enabled, staff.SecurityVersion);
+        staff.Role, staff.Enabled, staff.SecurityVersion, staff.BranchId);
 }
 public sealed record InternalLoginRequest(string? LoginName, string? Password)
 { public override string ToString() => "InternalLoginRequest { redacted }"; }
-public sealed record InternalStaffCreateRequest(string? LoginName, string? DisplayName, string? Role, string? Password)
+public sealed record InternalStaffCreateRequest(string? LoginName, string? DisplayName, string? Role, string? Password, Guid? BranchId = null)
 { public override string ToString() => "InternalStaffCreateRequest { redacted }"; }
-public sealed record InternalStaffUpdateRequest(string? DisplayName, string? Role, [property: JsonRequired] bool Enabled, Guid Version);
+public sealed record InternalStaffUpdateRequest(string? DisplayName, string? Role, [property: JsonRequired] bool Enabled, Guid Version, Guid? BranchId = null);
 public sealed record InternalStaffPasswordRequest(string? Password, Guid Version)
 { public override string ToString() => "InternalStaffPasswordRequest { redacted }"; }
 public sealed record InternalLoginResult(InternalStaff Staff, InternalSession Session);

@@ -74,11 +74,13 @@ public sealed class InternalSecurityService(InternalDbContext db, IPasswordHashe
         if (!ValidCreate(request)) return InternalResult<InternalStaffView>.Fail("invalid_request");
         await using var transaction = await db.Database.BeginTransactionAsync(IsolationLevel.Serializable, ct);
         if (!await IsCurrentOwner(actor, ct)) return InternalResult<InternalStaffView>.Fail("forbidden");
+        if (!await ValidBranch(request.Role!, request.BranchId, ct)) return InternalResult<InternalStaffView>.Fail("invalid_branch");
         var normalized = InternalSecurityRules.NormalizeLoginName(request.LoginName!);
         if (await db.InternalStaff.AnyAsync(x => x.NormalizedLoginName == normalized, ct))
             return InternalResult<InternalStaffView>.Fail("login_unavailable");
         var staff = NewStaff(request, time.GetUtcNow());
         db.InternalStaff.Add(staff);
+        RecordBranchChange(InternalActor.Id(actor), staff, null);
         await db.SaveChangesAsync(ct);
         await transaction.CommitAsync(ct);
         return InternalResult<InternalStaffView>.Ok(InternalStaffView.From(staff));
@@ -96,6 +98,10 @@ public sealed class InternalSecurityService(InternalDbContext db, IPasswordHashe
         if (staff.Enabled && staff.Role == "Owner" && (!request.Enabled || request.Role != "Owner")
             && await db.InternalStaff.CountAsync(x => x.Enabled && x.Role == "Owner", ct) <= 1)
             return InternalResult<InternalStaffView>.Fail("last_owner_required");
+        if (!await ValidBranch(request.Role!, request.BranchId, ct)) return InternalResult<InternalStaffView>.Fail("invalid_branch");
+        var previousBranchId = staff.BranchId;
+        staff.BranchId = request.BranchId;
+        if (previousBranchId != staff.BranchId) RecordBranchChange(InternalActor.Id(actor), staff, previousBranchId);
         staff.DisplayName = request.DisplayName!;
         staff.Role = request.Role!;
         staff.Enabled = request.Enabled;
@@ -120,6 +126,14 @@ public sealed class InternalSecurityService(InternalDbContext db, IPasswordHashe
         await transaction.CommitAsync(ct);
         return InternalResult<InternalStaffView>.Ok(InternalStaffView.From(staff));
     }
+
+    private Task<bool> ValidBranch(string role, Guid? branchId, CancellationToken ct) => branchId is null
+        ? Task.FromResult(true) // Unassigned non-Owners are denied, never global.
+        : role == "Owner" || branchId == Guid.Empty ? Task.FromResult(false)
+        : db.Set<InternalBranch>().AnyAsync(x => x.Id == branchId && x.Active, ct);
+
+    private void RecordBranchChange(Guid actorId, InternalStaff staff, Guid? previous) => db.Set<InternalBranchAssignmentAudit>().Add(new()
+    { Id = Guid.NewGuid(), ActorId = actorId, StaffId = staff.Id, PreviousBranchId = previous, BranchId = staff.BranchId, CreatedAt = time.GetUtcNow() });
 
     private async Task<bool> IsCurrentOwner(ClaimsPrincipal actor, CancellationToken ct)
     {
@@ -150,7 +164,7 @@ public sealed class InternalSecurityService(InternalDbContext db, IPasswordHashe
         var staff = new InternalStaff
         {
             Id = Guid.NewGuid(), LoginName = request.LoginName!, NormalizedLoginName = InternalSecurityRules.NormalizeLoginName(request.LoginName!),
-            DisplayName = request.DisplayName!, Role = request.Role!, Enabled = true, SecurityVersion = Guid.NewGuid(),
+            DisplayName = request.DisplayName!, Role = request.Role!, BranchId = request.BranchId, Enabled = true, SecurityVersion = Guid.NewGuid(),
             CreatedAt = now, UpdatedAt = now
         };
         staff.PasswordHash = passwords.HashPassword(staff, request.Password!);

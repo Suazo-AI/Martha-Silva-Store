@@ -228,12 +228,18 @@ public sealed class InternalSupplyRulesTests
         .UseSqlServer("Server=127.0.0.1,1;Database=MarthaSynthetic_InternalSupply_NotOpened;Integrated Security=true;Connect Timeout=1").Options);
     private sealed class NeverRunCommands : IInternalCommandRunner
     {
+        public Task<InternalResult<T>> RunScoped<T>(Guid actorId, string scope, string key, string fingerprint,
+            InternalCommandResource resource, Func<CancellationToken, Task<InternalResult<T>>> action, CancellationToken ct) =>
+            throw new InvalidOperationException("Synthetic validation test must not run any command or open SQL.");
         public Task<InternalResult<T>> Run<T>(Guid actorId, string scope, string key, string fingerprint,
             Func<CancellationToken, Task<InternalResult<T>>> action, CancellationToken ct) =>
             throw new InvalidOperationException("Synthetic validation test must not run any command or open SQL.");
     }
     private sealed class NoTransactionCommands : IInternalCommandRunner
     {
+        public Task<InternalResult<T>> RunScoped<T>(Guid actorId, string scope, string key, string fingerprint,
+            InternalCommandResource resource, Func<CancellationToken, Task<InternalResult<T>>> action, CancellationToken ct) =>
+            action(ct);
         public Task<InternalResult<T>> Run<T>(Guid actorId, string scope, string key, string fingerprint,
             Func<CancellationToken, Task<InternalResult<T>>> action, CancellationToken ct) => action(ct);
     }

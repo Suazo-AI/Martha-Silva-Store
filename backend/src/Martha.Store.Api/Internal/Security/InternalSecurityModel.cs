@@ -11,6 +11,7 @@ public sealed class InternalStaff
     public string DisplayName { get; set; } = "";
     public string PasswordHash { get; set; } = "";
     public string Role { get; set; } = "";
+    public Guid? BranchId { get; set; }
     public bool Enabled { get; set; }
     public Guid SecurityVersion { get; set; }
     public int FailedSignIns { get; set; }

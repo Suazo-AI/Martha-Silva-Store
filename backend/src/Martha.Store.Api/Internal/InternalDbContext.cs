@@ -8,6 +8,7 @@ public sealed partial class InternalDbContext(DbContextOptions<InternalDbContext
     {
         model.HasDefaultSchema("savia_internal");
         ConfigureSecurity(model); ConfigureDirectory(model); ConfigureCommerce(model); ConfigureSupply(model);
+        ConfigureBranches(model);
         model.Entity<InternalOperation>(e =>
         {
             e.ToTable("Operations"); e.HasKey(x => x.Id);
@@ -22,7 +23,7 @@ public sealed partial class InternalDbContext(DbContextOptions<InternalDbContext
     private void GuardAudit()
     {
         if (ChangeTracker.Entries().Any(e => e.Entity is InternalOperation or InternalStockMovement or InternalStockAdjustment
-            or InternalSaleReversal or InternalSaleReversalLine or InternalPurchaseReceipt or InternalPurchaseReceiptLine
+            or InternalSaleReversal or InternalSaleReversalLine or InternalPurchaseReceipt or InternalPurchaseReceiptLine or InternalBranchAssignmentAudit
             && e.State is EntityState.Modified or EntityState.Deleted))
             throw new InvalidOperationException("Internal operation and inventory audit records are append-only.");
     }

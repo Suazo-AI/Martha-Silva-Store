@@ -34,4 +34,8 @@ public interface IInternalCommandRunner
 {
     Task<InternalResult<T>> Run<T>(Guid actorId, string scope, string key, string fingerprint,
         Func<CancellationToken, Task<InternalResult<T>>> action, CancellationToken ct);
+    // Older/fake runners must opt in; never silently drop resource authorization.
+    Task<InternalResult<T>> RunScoped<T>(Guid actorId, string scope, string key, string fingerprint,
+        InternalCommandResource resource, Func<CancellationToken, Task<InternalResult<T>>> action, CancellationToken ct)
+        => Task.FromResult(InternalResult<T>.Fail("storage_unavailable"));
 }

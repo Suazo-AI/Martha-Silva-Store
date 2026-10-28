@@ -218,6 +218,8 @@ public sealed class InternalCommerceTests
         .UseSqlServer("Server=127.0.0.1,1;Database=MarthaInternal_Unit;Integrated Security=true;Connect Timeout=1").Options);
     private sealed class NeverRunner : IInternalCommandRunner
     {
+        public Task<InternalResult<T>> RunScoped<T>(Guid actorId, string scope, string key, string fingerprint, InternalCommandResource resource, Func<CancellationToken, Task<InternalResult<T>>> action, CancellationToken ct) =>
+            throw new InvalidOperationException("Invalid input must not reach scoped runner.");
         public Task<InternalResult<T>> Run<T>(Guid actorId, string scope, string key, string fingerprint, Func<CancellationToken, Task<InternalResult<T>>> action, CancellationToken ct) =>
             throw new InvalidOperationException("Malformed commands must not reach the runner.");
     }

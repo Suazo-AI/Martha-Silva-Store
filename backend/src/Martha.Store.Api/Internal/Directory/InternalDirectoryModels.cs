@@ -17,6 +17,7 @@ public sealed class InternalItem
 public sealed class InternalLocation
 {
     public Guid Id { get; set; }
+    public Guid? BranchId { get; set; }
     public string Name { get; set; } = "";
     public bool Active { get; set; } = true;
 }
@@ -40,7 +41,7 @@ public sealed record InternalItemWrite(
     bool Active = true);
 
 [JsonUnmappedMemberHandling(JsonUnmappedMemberHandling.Disallow)]
-public sealed record InternalLocationWrite([property: JsonRequired] string? Name, bool Active = true);
+public sealed record InternalLocationWrite([property: JsonRequired] string? Name, bool Active = true, Guid? BranchId = null);
 
 [JsonUnmappedMemberHandling(JsonUnmappedMemberHandling.Disallow)]
 public sealed record InternalPartyWrite(
@@ -49,7 +50,7 @@ public sealed record InternalPartyWrite(
     string? Email = null, string? Phone = null, bool Active = true);
 
 public sealed record InternalItemView(Guid Id, string Sku, string Name, long UnitPriceMinor, string Currency, bool Active);
-public sealed record InternalLocationView(Guid Id, string Name, bool Active);
+public sealed record InternalLocationView(Guid Id, string Name, bool Active, Guid? BranchId = null);
 public sealed record InternalPartyView(Guid Id, string Kind, string Name, string? Email, string? Phone, bool Active);
 public sealed record InternalDirectoryPage<T>(IReadOnlyList<T> Items, int Total, int Skip, int Take);
 

@@ -9,7 +9,7 @@ public sealed class InternalCommerceService(InternalDbContext db, IInternalComma
         if (!ValidActorKey(actorId, key) || !InternalCommerceRules.ValidReason(request.Reason)
             || !InternalStockLedger.ValidChange(request.ItemId, request.LocationId, request.OnHandDelta, 0, actorId, actorId, "adjustment"))
             return Task.FromResult(InternalResult<InternalStockAdjustmentReceipt>.Fail("invalid_request"));
-        return commands.Run(actorId, "commerce.stock.adjust", key, InternalRules.Fingerprint(request), async token =>
+        return commands.RunScoped(actorId, "commerce.stock.adjust", key, InternalRules.Fingerprint(request), new InternalCommandResource("location", request.LocationId), async token =>
         {
             if (!await db.Set<InternalItem>().AnyAsync(x => x.Id == request.ItemId && x.Active, token))
                 return InternalResult<InternalStockAdjustmentReceipt>.Fail("item_not_found");
@@ -33,7 +33,7 @@ public sealed class InternalCommerceService(InternalDbContext db, IInternalComma
     {
         if (!ValidActorKey(actorId, key) || !InternalCommerceRules.ValidSale(request))
             return Task.FromResult(InternalResult<InternalSaleReceipt>.Fail("invalid_request"));
-        return commands.Run(actorId, "commerce.sale.record", key, InternalRules.Fingerprint(request), async token =>
+        return commands.RunScoped(actorId, "commerce.sale.record", key, InternalRules.Fingerprint(request), new InternalCommandResource("location", request.LocationId), async token =>
         {
             if (!await db.Set<InternalLocation>().AnyAsync(x => x.Id == request.LocationId && x.Active, token))
                 return InternalResult<InternalSaleReceipt>.Fail("location_not_found");
@@ -74,7 +74,7 @@ public sealed class InternalCommerceService(InternalDbContext db, IInternalComma
     {
         if (saleId == Guid.Empty || !ValidActorKey(actorId, key) || !InternalCommerceRules.ValidReason(request.Reason))
             return Task.FromResult(InternalResult<InternalSaleReversalReceipt>.Fail("invalid_request"));
-        return commands.Run(actorId, "commerce.sale.cancel", key, InternalRules.Fingerprint(new { saleId, request }), async token =>
+        return commands.RunScoped(actorId, "commerce.sale.cancel", key, InternalRules.Fingerprint(new { saleId, request }), new InternalCommandResource("sale", saleId), async token =>
         {
             var sale = await LockSale(saleId, token);
             if (sale is null) return InternalResult<InternalSaleReversalReceipt>.Fail("sale_not_found");
@@ -107,7 +107,7 @@ public sealed class InternalCommerceService(InternalDbContext db, IInternalComma
     {
         if (saleId == Guid.Empty || !ValidActorKey(actorId, key) || !InternalCommerceRules.ValidReturn(request))
             return Task.FromResult(InternalResult<InternalSaleReversalReceipt>.Fail("invalid_request"));
-        return commands.Run(actorId, "commerce.sale.return", key, InternalRules.Fingerprint(new { saleId, request }), async token =>
+        return commands.RunScoped(actorId, "commerce.sale.return", key, InternalRules.Fingerprint(new { saleId, request }), new InternalCommandResource("sale", saleId), async token =>
         {
             var sale = await LockSale(saleId, token);
             if (sale is null) return InternalResult<InternalSaleReversalReceipt>.Fail("sale_not_found");
@@ -136,29 +136,33 @@ public sealed class InternalCommerceService(InternalDbContext db, IInternalComma
         }, ct);
     }
 
-    public async Task<InternalCommercePage<InternalStockView>> Stock(Guid? locationId, int skip, int take, CancellationToken ct)
+    public async Task<InternalCommercePage<InternalStockView>> Stock(Guid? locationId, int skip, int take, CancellationToken ct, Guid actorId = default)
     {
         RequirePage(skip, take, 1000);
-        var query = db.Set<InternalStockBalance>().AsNoTracking().Where(x => locationId == null || x.LocationId == locationId);
+        var locations = new InternalBranchAccess(db).Locations(actorId);
+        var query = db.Set<InternalStockBalance>().AsNoTracking().Where(x => locations.Any(l => l.Id == x.LocationId))
+            .Where(x => locationId == null || x.LocationId == locationId);
         var total = await query.CountAsync(ct);
         var items = await query.OrderBy(x => x.ItemId).ThenBy(x => x.LocationId).Skip(skip).Take(take)
             .Select(x => new InternalStockView(x.ItemId, x.LocationId, x.OnHand, x.Reserved, x.OnHand - x.Reserved, x.UpdatedAt)).ToListAsync(ct);
         return new(items, total, skip, take);
     }
 
-    public async Task<InternalCommercePage<InternalStockMovement>> Movements(Guid? itemId, Guid? locationId, int skip, int take, CancellationToken ct)
+    public async Task<InternalCommercePage<InternalStockMovement>> Movements(Guid? itemId, Guid? locationId, int skip, int take, CancellationToken ct, Guid actorId = default)
     {
         RequirePage(skip, take, 200);
-        var query = db.Set<InternalStockMovement>().AsNoTracking().Where(x => (itemId == null || x.ItemId == itemId) && (locationId == null || x.LocationId == locationId));
+        var locations = new InternalBranchAccess(db).Locations(actorId);
+        var query = db.Set<InternalStockMovement>().AsNoTracking().Where(x => locations.Any(l => l.Id == x.LocationId)).Where(x => (itemId == null || x.ItemId == itemId) && (locationId == null || x.LocationId == locationId));
         var total = await query.CountAsync(ct);
         var items = await query.OrderByDescending(x => x.CreatedAt).ThenBy(x => x.Id).Skip(skip).Take(take).ToListAsync(ct);
         return new(items, total, skip, take);
     }
 
-    public async Task<InternalCommercePage<InternalSaleReceipt>> Sales(int skip, int take, CancellationToken ct)
+    public async Task<InternalCommercePage<InternalSaleReceipt>> Sales(int skip, int take, CancellationToken ct, Guid actorId = default)
     {
         RequirePage(skip, take, 100);
-        var query = db.Set<InternalSale>().AsNoTracking();
+        var locations = new InternalBranchAccess(db).Locations(actorId);
+        var query = db.Set<InternalSale>().AsNoTracking().Where(x => locations.Any(l => l.Id == x.LocationId));
         var total = await query.CountAsync(ct);
         var items = await query.Include(x => x.Lines).OrderByDescending(x => x.CreatedAt).ThenBy(x => x.Id).Skip(skip).Take(take).ToListAsync(ct);
         return new(items.Select(ToReceipt).ToArray(), total, skip, take);
@@ -170,15 +174,17 @@ public sealed class InternalCommerceService(InternalDbContext db, IInternalComma
         if (!ValidPage(skip, take, maximum)) throw new ArgumentOutOfRangeException(nameof(take), "Invalid page bounds.");
     }
 
-    public async Task<InternalSaleReceipt?> Sale(Guid id, CancellationToken ct)
+    public async Task<InternalSaleReceipt?> Sale(Guid id, CancellationToken ct, Guid actorId = default)
     {
-        var sale = await db.Set<InternalSale>().AsNoTracking().Include(x => x.Lines).SingleOrDefaultAsync(x => x.Id == id, ct);
+        var locations = new InternalBranchAccess(db).Locations(actorId);
+        var sale = await db.Set<InternalSale>().AsNoTracking().Where(x => locations.Any(l => l.Id == x.LocationId)).Include(x => x.Lines).SingleOrDefaultAsync(x => x.Id == id, ct);
         return sale is null ? null : ToReceipt(sale);
     }
 
-    public async Task<IReadOnlyList<InternalSaleReversalReceipt>?> Reversals(Guid id, CancellationToken ct)
+    public async Task<IReadOnlyList<InternalSaleReversalReceipt>?> Reversals(Guid id, CancellationToken ct, Guid actorId = default)
     {
-        var sale = await db.Set<InternalSale>().AsNoTracking().SingleOrDefaultAsync(x => x.Id == id, ct);
+        var locations = new InternalBranchAccess(db).Locations(actorId);
+        var sale = await db.Set<InternalSale>().AsNoTracking().Where(x => locations.Any(l => l.Id == x.LocationId)).SingleOrDefaultAsync(x => x.Id == id, ct);
         if (sale is null) return null;
         return (await db.Set<InternalSaleReversal>().AsNoTracking().Include(x => x.Lines).Where(x => x.SaleId == id)
             .OrderBy(x => x.CreatedAt).ThenBy(x => x.Id).ToListAsync(ct)).Select(x => ToReceipt(x, sale)).ToArray();

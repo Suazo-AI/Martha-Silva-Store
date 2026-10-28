@@ -17,13 +17,16 @@ public static class InternalDirectoryEndpoints
             });
         directory.MapGet("/items", ListItems);
         directory.MapGet("/locations", ListLocations);
-        directory.MapGet("/parties", ListParties);
+        directory.MapGet("/parties", ListParties).RequireAuthorization("internal.owner");
         directory.MapGet("/items/{id:guid}", (Guid id, InternalDbContext db, CancellationToken ct) =>
             ReadOne<InternalItem, InternalItemView>(id, db, InternalDirectoryService.View, ct));
-        directory.MapGet("/locations/{id:guid}", (Guid id, InternalDbContext db, CancellationToken ct) =>
-            ReadOne<InternalLocation, InternalLocationView>(id, db, InternalDirectoryService.View, ct));
+        directory.MapGet("/locations/{id:guid}", (Guid id, HttpContext http, InternalDbContext db, CancellationToken ct) => Read(async () =>
+        {
+            var location = await new InternalBranchAccess(db).Locations(InternalActor.Id(http.User)).SingleOrDefaultAsync(x => x.Id == id, ct);
+            return location is null ? Error("not_found", 404) : Results.Ok(InternalDirectoryService.View(location));
+        }));
         directory.MapGet("/parties/{id:guid}", (Guid id, InternalDbContext db, CancellationToken ct) =>
-            ReadOne<InternalParty, InternalPartyView>(id, db, InternalDirectoryService.View, ct));
+            ReadOne<InternalParty, InternalPartyView>(id, db, InternalDirectoryService.View, ct)).RequireAuthorization("internal.owner");
 
         Protect(directory.MapPost("/items", async (InternalItemWrite request, HttpContext http, InternalDbContext db, IInternalCommandRunner runner, CancellationToken ct) =>
             Result(await new InternalDirectoryService(db, runner).SaveItem(null, request, InternalActor.Id(http.User), Key(http), ct), true)));
@@ -46,7 +49,7 @@ public static class InternalDirectoryEndpoints
         return endpoints;
     }
 
-    private static void Protect(RouteHandlerBuilder route) => route.RequireAuthorization("internal.manage")
+    private static void Protect(RouteHandlerBuilder route) => route.RequireAuthorization("internal.owner")
         .WithMetadata(new InternalDirectoryMutationMetadata())
         .AddEndpointFilter<InternalDirectoryMutationFilter>();
 
@@ -65,16 +68,16 @@ public static class InternalDirectoryEndpoints
         return Results.Ok(new InternalDirectoryPage<InternalItemView>(items, total, offset, limit));
     });
 
-    private static Task<IResult> ListLocations(InternalDbContext db, string? q, bool? includeInactive, int? skip, int? take, CancellationToken ct) => Read(async () =>
+    private static Task<IResult> ListLocations(InternalDbContext db, HttpContext http, string? q, bool? includeInactive, int? skip, int? take, CancellationToken ct) => Read(async () =>
     {
         var offset = skip ?? 0;
         var limit = take ?? 50;
         if (!InternalDirectoryValidation.Query(q, offset, limit, out var search)) return Error("invalid_request", 400);
-        var query = db.Set<InternalLocation>().AsNoTracking().Where(x => includeInactive == true || x.Active);
+        var query = new InternalBranchAccess(db).Locations(InternalActor.Id(http.User)).Where(x => includeInactive == true || x.Active);
         if (search is not null) query = query.Where(x => x.Name.Contains(search));
         var total = await query.CountAsync(ct);
         var locations = await query.OrderBy(x => x.Name).ThenBy(x => x.Id).Skip(offset).Take(limit)
-            .Select(x => new InternalLocationView(x.Id, x.Name, x.Active)).ToListAsync(ct);
+            .Select(x => new InternalLocationView(x.Id, x.Name, x.Active, x.BranchId)).ToListAsync(ct);
         return Results.Ok(new InternalDirectoryPage<InternalLocationView>(locations, total, offset, limit));
     });
 

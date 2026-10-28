@@ -51,6 +51,19 @@ public sealed class InternalDirectoryService(InternalDbContext db, IInternalComm
                     location = new InternalLocation { Id = Guid.NewGuid() };
                     db.Add(location);
                 }
+                if (value.BranchId is { } branchId && !await db.Set<InternalBranch>().AnyAsync(x => x.Id == branchId && x.Active, token))
+                    return InternalResult<InternalLocationView>.Fail("invalid_request");
+                // Never move recorded history into another branch by remapping its location.
+                if (location.BranchId != value.BranchId && (
+                    await db.Set<InternalStockBalance>().AnyAsync(x => x.LocationId == location.Id, token) ||
+                    await db.Set<InternalStockMovement>().AnyAsync(x => x.LocationId == location.Id, token) ||
+                    await db.Set<InternalStockAdjustment>().AnyAsync(x => x.LocationId == location.Id, token) ||
+                    await db.Set<InternalPurchaseReceipt>().AnyAsync(x => x.LocationId == location.Id, token) ||
+                    await db.Set<InternalSale>().AnyAsync(x => x.LocationId == location.Id, token) ||
+                    await db.Set<InternalPurchaseOrder>().AnyAsync(x => x.LocationId == location.Id, token) ||
+                    await db.Set<InternalOperation>().AnyAsync(x => x.LocationId == location.Id, token)))
+                    return InternalResult<InternalLocationView>.Fail("conflict");
+                location.BranchId = value.BranchId;
                 location.Name = value.Name!;
                 location.Active = value.Active;
                 await db.SaveChangesAsync(token);
@@ -111,6 +124,6 @@ public sealed class InternalDirectoryService(InternalDbContext db, IInternalComm
         id != Guid.Empty && actorId != Guid.Empty && InternalRules.ValidKey(key);
 
     public static InternalItemView View(InternalItem item) => new(item.Id, item.Sku, item.Name, item.UnitPriceMinor, item.Currency, item.Active);
-    public static InternalLocationView View(InternalLocation location) => new(location.Id, location.Name, location.Active);
+    public static InternalLocationView View(InternalLocation location) => new(location.Id, location.Name, location.Active, location.BranchId);
     public static InternalPartyView View(InternalParty party) => new(party.Id, party.Kind, party.Name, party.Email, party.Phone, party.Active);
 }

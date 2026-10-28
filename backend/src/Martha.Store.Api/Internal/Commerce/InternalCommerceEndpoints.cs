@@ -8,16 +8,16 @@ public static class InternalCommerceEndpoints
     public static IEndpointRouteBuilder MapInternalCommerce(this IEndpointRouteBuilder endpoints)
     {
         var group = endpoints.MapGroup("/internal/api/commerce").RequireAuthorization("internal.read");
-        group.MapGet("/inventory", async (Guid? locationId, int? skip, int? take, InternalCommerceService service, CancellationToken ct) =>
-            InternalCommerceService.ValidPage(skip ?? 0, take ?? 100, 1000) ? Results.Ok(await service.Stock(locationId, skip ?? 0, take ?? 100, ct)) : Error("invalid_request"));
-        group.MapGet("/movements", async (Guid? itemId, Guid? locationId, int? skip, int? take, InternalCommerceService service, CancellationToken ct) =>
-            InternalCommerceService.ValidPage(skip ?? 0, take ?? 100, 200) ? Results.Ok(await service.Movements(itemId, locationId, skip ?? 0, take ?? 100, ct)) : Error("invalid_request"));
-        group.MapGet("/sales", async (int? skip, int? take, InternalCommerceService service, CancellationToken ct) =>
-            InternalCommerceService.ValidPage(skip ?? 0, take ?? 100, 100) ? Results.Ok(await service.Sales(skip ?? 0, take ?? 100, ct)) : Error("invalid_request"));
-        group.MapGet("/sales/{id:guid}", async (Guid id, InternalCommerceService service, CancellationToken ct) =>
-            await service.Sale(id, ct) is { } sale ? Results.Ok(sale) : Error("sale_not_found"));
-        group.MapGet("/sales/{id:guid}/reversals", async (Guid id, InternalCommerceService service, CancellationToken ct) =>
-            await service.Reversals(id, ct) is { } records ? Results.Ok(records) : Error("sale_not_found"));
+        group.MapGet("/inventory", async (Guid? locationId, int? skip, int? take, InternalCommerceService service, HttpContext http, CancellationToken ct) =>
+            InternalCommerceService.ValidPage(skip ?? 0, take ?? 100, 1000) ? Results.Ok(await service.Stock(locationId, skip ?? 0, take ?? 100, ct, InternalActor.Id(http.User))) : Error("invalid_request"));
+        group.MapGet("/movements", async (Guid? itemId, Guid? locationId, int? skip, int? take, InternalCommerceService service, HttpContext http, CancellationToken ct) =>
+            InternalCommerceService.ValidPage(skip ?? 0, take ?? 100, 200) ? Results.Ok(await service.Movements(itemId, locationId, skip ?? 0, take ?? 100, ct, InternalActor.Id(http.User))) : Error("invalid_request"));
+        group.MapGet("/sales", async (int? skip, int? take, InternalCommerceService service, HttpContext http, CancellationToken ct) =>
+            InternalCommerceService.ValidPage(skip ?? 0, take ?? 100, 100) ? Results.Ok(await service.Sales(skip ?? 0, take ?? 100, ct, InternalActor.Id(http.User))) : Error("invalid_request"));
+        group.MapGet("/sales/{id:guid}", async (Guid id, InternalCommerceService service, HttpContext http, CancellationToken ct) =>
+            await service.Sale(id, ct, InternalActor.Id(http.User)) is { } sale ? Results.Ok(sale) : Error("sale_not_found"));
+        group.MapGet("/sales/{id:guid}/reversals", async (Guid id, InternalCommerceService service, HttpContext http, CancellationToken ct) =>
+            await service.Reversals(id, ct, InternalActor.Id(http.User)) is { } records ? Results.Ok(records) : Error("sale_not_found"));
         group.MapPost("/adjustments", async (InternalStockAdjustmentRequest request, HttpContext context, InternalCommerceService service, CancellationToken ct) =>
             Result(await service.Adjust(request, InternalActor.Id(context.User), Key(context), ct)))
             .RequireAuthorization("internal.inventory").RequireInternalCsrf();
