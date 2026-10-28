@@ -26,9 +26,10 @@ public static class InternalCommandAuthorization
             "directory.items.create" or "directory.items.update" or "directory.items.deactivate"
             or "directory.locations.create" or "directory.locations.update" or "directory.locations.deactivate"
             or "directory.parties.create" or "directory.parties.update" or "directory.parties.deactivate"
-            or "supply.purchase.create" or "supply.purchase.cancel" => ["Owner", "Manager"],
+            or "supply.purchase.create" or "supply.purchase.cancel"
+            or "commerce.sale.cancel" or "commerce.sale.return" => ["Owner", "Manager"],
             "commerce.stock.adjust" or "supply.receipt.create" => ["Owner", "Manager", "Inventory"],
-            "commerce.sale.record" or "commerce.sale.cancel" or "commerce.sale.return" => ["Owner", "Manager", "Cashier"],
+            "commerce.sale.record" => ["Owner", "Manager", "Cashier"],
             _ => []
         };
         return principal.Identity?.IsAuthenticated == true && roles.Any(principal.IsInRole);

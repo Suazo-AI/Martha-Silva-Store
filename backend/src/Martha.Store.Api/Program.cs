@@ -4,6 +4,13 @@ using Martha.Store.Api.Internal;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 
+// Explicit offline maintenance only: never build/start the web host on this path.
+if (InternalOwnerConsole.IsInvocation(args))
+{
+    Environment.ExitCode = await InternalOwnerConsole.Run(args);
+    return;
+}
+
 var builder = WebApplication.CreateBuilder(args);
 var internalEnabled = builder.Environment.IsDevelopment()
     && builder.Configuration.GetValue<bool>("InternalSavia:Enabled");

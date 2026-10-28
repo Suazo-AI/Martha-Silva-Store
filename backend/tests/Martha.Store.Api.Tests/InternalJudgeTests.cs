@@ -257,8 +257,8 @@ public sealed class InternalJudgeTests
             ["directory.parties.deactivate"] = ["Owner", "Manager"],
             ["commerce.stock.adjust"] = ["Owner", "Manager", "Inventory"],
             ["commerce.sale.record"] = ["Owner", "Manager", "Cashier"],
-            ["commerce.sale.cancel"] = ["Owner", "Manager", "Cashier"],
-            ["commerce.sale.return"] = ["Owner", "Manager", "Cashier"],
+            ["commerce.sale.cancel"] = ["Owner", "Manager"],
+            ["commerce.sale.return"] = ["Owner", "Manager"],
             ["supply.purchase.create"] = ["Owner", "Manager"],
             ["supply.purchase.cancel"] = ["Owner", "Manager"],
             ["supply.receipt.create"] = ["Owner", "Manager", "Inventory"]
@@ -272,6 +272,35 @@ public sealed class InternalJudgeTests
         }
         foreach (var scope in new[] { "", "*", "directory.*", "security.staff.create", "commerce.sale.record ", "unknown" })
             Assert.False(InternalCommandAuthorization.Allowed(principal, scope));
+    }
+
+    [Theory]
+    [InlineData("/internal/api/commerce/sales", "internal.sell")]
+    [InlineData("/internal/api/commerce/sales/{id:guid}/cancel", "internal.manage")]
+    [InlineData("/internal/api/commerce/sales/{id:guid}/returns", "internal.manage")]
+    public async Task Sale_and_reversal_routes_have_exact_server_policies_without_business_storage(string path, string mutationPolicy)
+    {
+        await using var factory = new JudgeFactory();
+        using var client = Client(factory);
+        var route = Assert.Single(InternalRoutes(factory), endpoint => endpoint.RoutePattern.RawText == path
+            && endpoint.Metadata.GetMetadata<HttpMethodMetadata>()!.HttpMethods.Contains("POST"));
+        Assert.Null(route.Metadata.GetMetadata<IAllowAnonymous>());
+        var authorization = route.Metadata.GetOrderedMetadata<IAuthorizeData>();
+        Assert.Equal(new[] { "internal.read", mutationPolicy }.Order(), authorization.Select(value => value.Policy!).Order());
+
+        // Policy-only principals do not simulate cookie validation or a persisted session.
+        // The real Program has no database connection configured in this test.
+        var policy = await AuthorizationPolicy.CombineAsync(factory.Services.GetRequiredService<IAuthorizationPolicyProvider>(), authorization);
+        Assert.NotNull(policy);
+        var service = factory.Services.GetRequiredService<IAuthorizationService>();
+        foreach (var role in new[] { "Owner", "Manager", "Cashier", "Inventory", "Visitor", "owner" })
+        {
+            var principal = new ClaimsPrincipal(new ClaimsIdentity([new Claim(ClaimTypes.Role, role)], "policy-only"));
+            var expected = role is "Owner" or "Manager" || (mutationPolicy == "internal.sell" && role == "Cashier");
+            Assert.Equal(expected, (await service.AuthorizeAsync(principal, null, policy!)).Succeeded);
+            var anonymous = new ClaimsPrincipal(new ClaimsIdentity([new Claim(ClaimTypes.Role, role)]));
+            Assert.False((await service.AuthorizeAsync(anonymous, null, policy!)).Succeeded);
+        }
     }
 
     [Theory]

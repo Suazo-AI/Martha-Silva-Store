@@ -26,10 +26,10 @@ public static class InternalCommerceEndpoints
             .RequireAuthorization("internal.sell").RequireInternalCsrf();
         group.MapPost("/sales/{id:guid}/cancel", async (Guid id, InternalSaleCancelRequest request, HttpContext context, InternalCommerceService service, CancellationToken ct) =>
             Result(await service.CancelSale(id, request, InternalActor.Id(context.User), Key(context), ct)))
-            .RequireAuthorization("internal.sell").RequireInternalCsrf();
+            .RequireAuthorization("internal.manage").RequireInternalCsrf();
         group.MapPost("/sales/{id:guid}/returns", async (Guid id, InternalSaleReturnRequest request, HttpContext context, InternalCommerceService service, CancellationToken ct) =>
             Result(await service.ReturnSale(id, request, InternalActor.Id(context.User), Key(context), ct)))
-            .RequireAuthorization("internal.sell").RequireInternalCsrf();
+            .RequireAuthorization("internal.manage").RequireInternalCsrf();
         return endpoints;
     }
 

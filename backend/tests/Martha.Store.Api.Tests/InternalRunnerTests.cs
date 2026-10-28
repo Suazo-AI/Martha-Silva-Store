@@ -35,8 +35,8 @@ public sealed class InternalRunnerTests
         { "commerce.stock.adjust", ["Owner", "Manager", "Inventory"] },
         { "supply.receipt.create", ["Owner", "Manager", "Inventory"] },
         { "commerce.sale.record", ["Owner", "Manager", "Cashier"] },
-        { "commerce.sale.cancel", ["Owner", "Manager", "Cashier"] },
-        { "commerce.sale.return", ["Owner", "Manager", "Cashier"] }
+        { "commerce.sale.cancel", ["Owner", "Manager"] },
+        { "commerce.sale.return", ["Owner", "Manager"] }
     };
 
     [Theory]
@@ -109,9 +109,12 @@ public sealed class InternalRunnerTests
     public Task Different_authenticated_actor_cannot_run_another_actors_operation() =>
         AssertRejected("unauthenticated", principal: Principal("Owner", Guid.NewGuid()));
 
-    [Fact]
-    public Task Unauthenticated_role_claim_does_not_authorize_a_command() =>
-        AssertRejected("unauthenticated", principal: Principal("Owner", authenticated: false));
+    [Theory]
+    [InlineData("directory.items.create")]
+    [InlineData("commerce.sale.cancel")]
+    [InlineData("commerce.sale.return")]
+    public Task Unauthenticated_role_claim_does_not_authorize_a_command(string scope) =>
+        AssertRejected("unauthenticated", principal: Principal("Owner", authenticated: false), scope: scope);
 
     [Fact]
     public Task Missing_http_context_does_not_synthesize_an_actor() =>
@@ -120,6 +123,10 @@ public sealed class InternalRunnerTests
     [Theory]
     [InlineData("Cashier", "directory.items.create")]
     [InlineData("Inventory", "commerce.sale.record")]
+    [InlineData("Cashier", "commerce.sale.cancel")]
+    [InlineData("Cashier", "commerce.sale.return")]
+    [InlineData("Inventory", "commerce.sale.cancel")]
+    [InlineData("Inventory", "commerce.sale.return")]
     [InlineData("Cashier", "supply.receipt.create")]
     [InlineData("Inventory", "supply.purchase.cancel")]
     [InlineData("Owner", "unregistered.operation")]
@@ -148,15 +155,21 @@ public sealed class InternalRunnerTests
         Assert.False(called);
     }
 
-    [Fact]
-    public async Task Failure_before_connection_open_returns_storage_unavailable_without_action_or_retry()
+    [Theory]
+    [InlineData("Owner", "directory.items.create")]
+    [InlineData("Owner", "commerce.sale.cancel")]
+    [InlineData("Manager", "commerce.sale.cancel")]
+    [InlineData("Owner", "commerce.sale.return")]
+    [InlineData("Manager", "commerce.sale.return")]
+    [InlineData("Cashier", "commerce.sale.record")]
+    public async Task Failure_before_connection_open_returns_storage_unavailable_without_action_or_retry(string role, string scope)
     {
         var unavailable = new UnavailableBeforeOpen();
         await using var db = new InternalDbContext(new DbContextOptionsBuilder<InternalDbContext>()
             .UseSqlServer("Server=127.0.0.1,1;Database=SaviaInternalTest_RunnerMetadata;Integrated Security=true;Connect Timeout=1")
             .AddInterceptors(unavailable).Options);
         var called = false;
-        var result = await Runner(db, Principal("Owner")).Run(Actor, Scope, Key, Fingerprint, _ =>
+        var result = await Runner(db, Principal(role)).Run(Actor, scope, Key, Fingerprint, _ =>
         {
             called = true;
             return Task.FromResult(InternalResult<string>.Ok("must not execute"));
