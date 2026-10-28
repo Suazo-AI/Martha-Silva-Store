@@ -8,7 +8,7 @@ const {JSDOM} = createRequire(import.meta.url)('jsdom');
 
 // Explicit application-client doubles exercise DOM behavior, not .NET or SQL.
 const staff = {id: 'b5af9f41-78b6-4a21-9b6a-d07c29a67076', loginName: 'test.staff',
-  displayName: 'Personal de prueba', role: 'Manager', enabled: true,
+  displayName: 'Personal de prueba', role: 'Owner', enabled: true,
   version: '31f2bab2-9872-4b5f-bb24-09d7c2b57a30'};
 const customer = {id: '18b9320a-2075-41cd-88a0-24341e7b9e30', name: 'Cliente sintético',
   kind: 'customer', email: 'test@example.invalid', phone: '', active: true};

@@ -28,6 +28,12 @@ por vista; una búsqueda sin aplicar no se mezcla con el desplazamiento anterior
 Ante 401 se vacían datos e identidad, incluso si la respuesta pertenece a una
 consulta anterior. Nuevos clientes, edición, ventas y compras siguen apagados.
 
+El corte de sucursales reserva clientes/proveedores a Owner. La UI oculta y
+bloquea esas consultas para los otros roles y abre Artículos; el servidor sigue
+siendo la autoridad. Artículos muestra el catálogo global, no existencias por
+sucursal. No hay selector ni administración de sucursales en esta interfaz.
+Antes de operar se requieren pruebas del servidor, sesión y ámbito persistido.
+
 No usar credenciales predeterminadas, autenticación en `localStorage`, datos
 comerciales ficticios ni respuestas de éxito fabricadas. Una pantalla disponible
 no demuestra que su operación esté implementada. Los precios, permisos,
@@ -43,11 +49,13 @@ original; no mostrar éxito ni generar una segunda operación equivalente.
 La revisión debe distinguir comprobaciones estáticas, pruebas con dobles,
 navegador real y persistencia SQL. El entorno Windows tiene presión de memoria:
 la edición es ligera y los builds y recorridos de navegador se coordinan en el
-entorno cloud de Cutufay. El paquete paginado `41c66e52…` recibió 20 PASS:
+entorno cloud de Cutufay. Históricamente, el paquete paginado `41c66e52…` recibió 20 PASS:
 9 de auth, 5 DOM y 6 de paginación. Son dobles explícitos, no SQL ni navegador.
+Ese resultado no valida la nueva compatibilidad; los nueve casos de
+`branch-compat.test.mjs` están escritos y pendientes de ejecución cloud.
 
 Comandos: `node --test dev/savia-staff-ui/auth.test.mjs`, y para DOM/paginación
-`node --test dev/savia-staff-ui/dom.test.mjs dev/savia-staff-ui/pagination.test.mjs`
+`node --test dev/savia-staff-ui/dom.test.mjs dev/savia-staff-ui/pagination.test.mjs dev/savia-staff-ui/branch-compat.test.mjs`
 con jsdom 26.1.0 del lock existente de `tests/frontend-deps` disponible mediante
 `NODE_PATH`. No se añadieron dependencias ni una instalación nueva de jsdom.
 La suite agregada `tests/check.py` no se ejecutó para este cambio bajo el límite

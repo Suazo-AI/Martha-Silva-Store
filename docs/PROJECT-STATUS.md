@@ -1,6 +1,28 @@
 # Estado del proyecto
 
-## Rama privada SAVIA — 2026-10-25
+## Revisión aislada de sucursales — 2026-10-28
+
+La rama `feat/savia-branch-integration-20261028` parte del commit local real
+`4a9c11e45953512a41c7152e2f79f9f5a10743a6`. Owner/B1 se importó en `c927eed`
+y las 25 rutas del candidato de sucursales en `744f245`. Los dos checkouts
+anteriores permanecen intactos. El snapshot histórico de 113 archivos se
+reconstruyó del paquete y se verificó por SHA-256; no se obtuvo la historia Git
+del baseline cloud declarado `d77c64be` ni se lo atribuye como ancestro local.
+
+La revisión posterior corrige compatibilidad: Clientes es exclusivo de Owner
+también en UI; los otros roles inician en Artículos. Un PUT que omita
+`branchId` conserva la asignación persistida; null explícito solicita quitarla
+bajo las guardas del servidor. No se habilitan CRUD, asignaciones reales,
+backfill ni administración de sucursales desde la UI.
+
+Las pruebas nuevas están escritas, sin ejecución acreditada. No se ejecutaron
+compilación, xUnit, HTTP, SQL, concurrencia ni migraciones para este corte.
+La migración y snapshot manuales requieren revisión EF y pruebas Up/Down en
+un destino desechable autorizado; Down elimina datos de ámbito y auditoría.
+Los resultados históricos que siguen no validan esta fuente. No hay hosting,
+cuenta Owner creada, push, CI ni publicación nuevos.
+
+## Antecedente privado SAVIA — 2026-10-25
 
 Esta rama desarrolla el sistema interno, separado de la tienda. Se incorporó
 el delta privado de 57 archivos contra la base real f7, con hashes comprobados

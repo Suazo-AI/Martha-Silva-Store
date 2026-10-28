@@ -14,15 +14,18 @@ SQL servers or enables the feature on startup.
 
 Base path: `/internal/api/directory`. Collections: `items`, `locations`, `parties`.
 
-- `GET /{collection}`: `internal.read`; `{items, total, skip, take}` response.
+- `GET /{collection}`: `internal.read`; Party additionally requires `internal.owner`.
+  Items are the global catalog; locations are filtered by the persisted branch
+  for non-Owners. Response: `{items, total, skip, take}`.
   Optional query `q`, `includeInactive`, `skip` (default 0, max 100000), `take`
   (default 50, max 100); parties also accept `kind=customer|supplier`.
 - `GET /{collection}/{id}`: same policy; includes an inactive record by stable ID
   so historic references remain readable.
-- `POST /{collection}`: `internal.manage`, creates a server-generated ID, 201.
-- `PUT /{collection}/{id}`: `internal.manage`, full replacement of editable
-  fields, 200; existing record required.
-- `DELETE /{collection}/{id}`: `internal.manage`, **soft-deactivation only**, 200
+- `POST /{collection}`: `internal.owner`, creates a server-generated ID, 201.
+- `PUT /{collection}/{id}`: `internal.owner`, replacement of editable
+  fields, 200; existing record required. Omitted location `branchId` preserves
+  its persisted assignment; explicit null requests unassignment.
+- `DELETE /{collection}/{id}`: `internal.owner`, **soft-deactivation only**, 200
   with retained ID and `active=false`. No hard-delete operation exists.
 
 All directory endpoints reject plain HTTP before directory reads or command
@@ -37,13 +40,19 @@ Write bodies (unknown members, including actor/ID overrides, are rejected):
 
 ```text
 items:     {sku, name, unitPriceMinor, currency, active?}
-locations: {name, active?}
+locations: {name, active?, branchId?}
 parties:   {kind, name, email?, phone?, active?}
 ```
 
 `active` defaults true. PUT can reactivate an existing entity. `kind` is immutable
 after party creation: a second role needs a separate party ID. Responses contain
 these fields plus `id`; optional contact fields are nullable.
+
+New locations with no branch remain unassigned. A supplied branch must be active.
+Changing a location assignment with stock/history/operations is rejected,
+including assigning a historical unassigned location. No backfill is inferred.
+Location replay fingerprints distinguish omitted branchId, explicit null and a
+GUID; changing that intent with the same key does not replace an old receipt.
 
 SKU is ASCII-only, trimmed and uppercased, with SQL uniqueness across active and
 inactive items; deactivation never releases a historical SKU. Item prices are

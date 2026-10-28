@@ -21,6 +21,9 @@ function entity(value, kind) {
 export function createStaffClient(options = {}) {
   const auth = createAuthClient(options);
   async function list(kind, {q = '', includeInactive = false, skip = 0, take = 50, partyKind} = {}) {
+    const verified = auth.getVerifiedSession();
+    if (kind === 'parties' && verified && verified.role !== 'Owner')
+      throw new StaffRequestError('forbidden', 403);
     if (typeof q !== 'string' || q.length > 200 || typeof includeInactive !== 'boolean'
       || !Number.isSafeInteger(skip) || skip < 0 || skip > 100000
       || !Number.isSafeInteger(take) || take < 1 || take > 100) throw new StaffRequestError('invalid');

@@ -131,6 +131,7 @@ export function mountStaffApp({document = globalThis.document, client = createSt
   const reads = new Map();
   const newPage = () => ({q: '', includeInactive: false, skip: 0, take: 50, status: 'idle', confirmed: null});
   const pages = new Map([['clientes', newPage()], ['inventario', newPage()]]);
+  const canReadView = view => view !== 'clientes' || state.session?.role === 'Owner';
   const listen = (element, event, handler) => {
     element.addEventListener(event, handler);
     removers.push(() => element.removeEventListener(event, handler));
@@ -180,7 +181,8 @@ export function mountStaffApp({document = globalThis.document, client = createSt
     const size = $(`[data-page-size="${view}"]`), info = $(`[data-page-info="${view}"]`);
     const dirty = searchDraft(view) !== page.q;
     const confirmed = page.confirmed;
-    const usable = state.phase === 'ready' && page.status === 'success' && !!confirmed && !dirty;
+    const usable = state.phase === 'ready' && canReadView(view)
+      && page.status === 'success' && !!confirmed && !dirty;
     if (previous) previous.disabled = !usable || confirmed.skip === 0;
     if (next) next.disabled = !usable || confirmed.skip + confirmed.take >= confirmed.total || confirmed.skip + confirmed.take > 100000;
     if (size) { size.disabled = !usable; size.value = String(page.take); }
@@ -200,7 +202,8 @@ export function mountStaffApp({document = globalThis.document, client = createSt
   function readControls(view, busy) {
     const prefix = section(view);
     const form = $(`#${prefix}-search-form`);
-    if (form) for (const control of form.elements) control.disabled = busy || state.phase !== 'ready';
+    if (form) for (const control of form.elements)
+      control.disabled = busy || state.phase !== 'ready' || !canReadView(view);
     if (view === 'inventario') $('[data-action="refresh-inventory"]').disabled = busy || state.phase !== 'ready';
     updatePager(view);
   }
@@ -228,7 +231,8 @@ export function mountStaffApp({document = globalThis.document, client = createSt
     }
   }
   async function loadSection(view) {
-    if (state.phase !== 'ready' || !state.session || !['clientes', 'inventario'].includes(view)) return;
+    if (state.phase !== 'ready' || !state.session || !canReadView(view)
+      || !['clientes', 'inventario'].includes(view)) return;
     const prefix = section(view), requestId = (reads.get(view) || 0) + 1;
     reads.set(view, requestId);
     const generation = epoch;
@@ -294,7 +298,12 @@ export function mountStaffApp({document = globalThis.document, client = createSt
       setVisible($('#session-pending'), false); setVisible($('#auth-required'), false); setVisible($('#staff-shell'), true);
       $('[data-session-user]').textContent = verified.displayName;
       $('[data-session-role]').textContent = verified.role;
-      $$('[data-action="nav"], [data-action="logout"]').forEach(button => { button.disabled = false; });
+      $$('[data-action="nav"]').forEach(button => {
+        const allowed = canReadView(button.dataset.target);
+        button.disabled = !allowed;
+        setVisible(button, allowed);
+      });
+      $('[data-action="logout"]').disabled = false;
       for (const view of ['clientes', 'inventario']) {
         readControls(view, false);
         $(`#${section(view)}-search-form`).elements.namedItem('query').maxLength = 200;
@@ -302,8 +311,9 @@ export function mountStaffApp({document = globalThis.document, client = createSt
       const create = $('[data-action="new-client"]');
       if (create) { create.disabled = true; create.title = 'El guardado de clientes está pendiente del contrato de resultado y recuperación.'; }
       announce('Sesión verificada por el servidor. Negocio de esta instancia; consultas de directorio habilitadas.');
-      navigate('clientes', false, false);
-      await loadSection('clientes');
+      const initialView = verified.role === 'Owner' ? 'clientes' : 'inventario';
+      navigate(initialView, false, false);
+      await loadSection(initialView);
     } catch (error) {
       if (destroyed || generation !== epoch) return;
       requireAccess(error instanceof StaffRequestError ? error.message : 'No se pudo verificar el acceso. El espacio de trabajo permanece cerrado.');
@@ -312,6 +322,10 @@ export function mountStaffApp({document = globalThis.document, client = createSt
   function navigate(view, moveFocus = true, load = true) {
     if (state.phase !== 'ready' || !state.session) {
       announce('Primero debe verificarse el acceso mediante el servidor. No se abrió información del negocio.');
+      return false;
+    }
+    if (!canReadView(view)) {
+      announce('Tu rol no tiene acceso al directorio de clientes.');
       return false;
     }
     const target = $$('[data-view]').find(section => section.dataset.view === view);

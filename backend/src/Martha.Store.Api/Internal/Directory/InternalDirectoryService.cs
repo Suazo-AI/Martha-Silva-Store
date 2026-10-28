@@ -42,6 +42,8 @@ public sealed class InternalDirectoryService(InternalDbContext db, IInternalComm
         if (!ValidCommand(id, actorId, key)) return InternalResult<InternalLocationView>.Fail("invalid_request");
         var value = normalized.Value!;
         return await commands.Run(actorId, id.HasValue ? "directory.locations.update" : "directory.locations.create", key,
+            // Omission keeps the pre-branch {id,value:{Name,Active}} fingerprint.
+            // The DTO omits its default wrapper but emits explicit null/GUID intent.
             InternalRules.Fingerprint(new { id, value }), async token =>
             {
                 InternalLocation? location = id.HasValue ? await db.Set<InternalLocation>().SingleOrDefaultAsync(x => x.Id == id.Value, token) : null;
@@ -51,10 +53,13 @@ public sealed class InternalDirectoryService(InternalDbContext db, IInternalComm
                     location = new InternalLocation { Id = Guid.NewGuid() };
                     db.Add(location);
                 }
-                if (value.BranchId is { } branchId && !await db.Set<InternalBranch>().AnyAsync(x => x.Id == branchId && x.Active, token))
+                // Resolve omission against authoritative state inside this runner transaction.
+                var desiredBranchId = value.BranchId.IsSpecified ? value.BranchId.Value : location.BranchId;
+                if (value.BranchId.IsSpecified && desiredBranchId is { } branchId
+                    && !await db.Set<InternalBranch>().AnyAsync(x => x.Id == branchId && x.Active, token))
                     return InternalResult<InternalLocationView>.Fail("invalid_request");
                 // Never move recorded history into another branch by remapping its location.
-                if (location.BranchId != value.BranchId && (
+                if (location.BranchId != desiredBranchId && (
                     await db.Set<InternalStockBalance>().AnyAsync(x => x.LocationId == location.Id, token) ||
                     await db.Set<InternalStockMovement>().AnyAsync(x => x.LocationId == location.Id, token) ||
                     await db.Set<InternalStockAdjustment>().AnyAsync(x => x.LocationId == location.Id, token) ||
@@ -63,7 +68,7 @@ public sealed class InternalDirectoryService(InternalDbContext db, IInternalComm
                     await db.Set<InternalPurchaseOrder>().AnyAsync(x => x.LocationId == location.Id, token) ||
                     await db.Set<InternalOperation>().AnyAsync(x => x.LocationId == location.Id, token)))
                     return InternalResult<InternalLocationView>.Fail("conflict");
-                location.BranchId = value.BranchId;
+                location.BranchId = desiredBranchId;
                 location.Name = value.Name!;
                 location.Active = value.Active;
                 await db.SaveChangesAsync(token);

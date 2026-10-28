@@ -9,7 +9,7 @@ const {JSDOM} = createRequire(import.meta.url)('jsdom');
 
 // Synthetic transport and DOM doubles only; no server, SQL or browser is used.
 const staff = {id: 'b5af9f41-78b6-4a21-9b6a-d07c29a67076', loginName: 'test.staff',
-  displayName: 'Personal de prueba', role: 'Manager', enabled: true,
+  displayName: 'Personal de prueba', role: 'Owner', enabled: true,
   version: '31f2bab2-9872-4b5f-bb24-09d7c2b57a30'};
 const customer = index => ({id: `18b9320a-2075-41cd-88a0-${String(index + 1).padStart(12, '0')}`,
   name: `Cliente de prueba ${index + 1}`, kind: 'customer', email: null, phone: null, active: true});

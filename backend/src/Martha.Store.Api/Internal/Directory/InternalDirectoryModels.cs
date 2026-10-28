@@ -41,7 +41,20 @@ public sealed record InternalItemWrite(
     bool Active = true);
 
 [JsonUnmappedMemberHandling(JsonUnmappedMemberHandling.Disallow)]
-public sealed record InternalLocationWrite([property: JsonRequired] string? Name, bool Active = true, Guid? BranchId = null);
+public sealed record InternalLocationWrite
+{
+    [JsonRequired] public string? Name { get; init; }
+    public bool Active { get; init; } = true;
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public InternalBranchIdUpdate BranchId { get; init; }
+
+    [JsonConstructor] public InternalLocationWrite() { }
+    public InternalLocationWrite(string? Name, bool Active = true)
+    { this.Name = Name; this.Active = Active; }
+    public InternalLocationWrite(string? Name, bool Active, Guid? BranchId) : this(Name, Active)
+    { this.BranchId = InternalBranchIdUpdate.Specified(BranchId); }
+    public InternalLocationWrite(string? Name, Guid? BranchId) : this(Name, true, BranchId) { }
+}
 
 [JsonUnmappedMemberHandling(JsonUnmappedMemberHandling.Disallow)]
 public sealed record InternalPartyWrite(

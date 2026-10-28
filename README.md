@@ -6,6 +6,13 @@ para personal y propietarios. El alcance y los límites actuales están en
 los párrafos siguientes documentan la base histórica recuperada y no describen
 un despliegue del sistema interno.
 
+La revisión aislada `feat/savia-branch-integration-20261028` conserva la base
+local `4a9c11e` e importa Owner/B1 (`c927eed`) y sucursales (`744f245`). La fuente
+histórica de 113 archivos se reconstruyó y verificó por SHA-256; el parentesco
+Git con el baseline cloud declarado `d77c64be` permanece sin demostrar.
+La compatibilidad de UI y PUT se ajusta en esta revisión; compilación, SQL y
+migraciones siguen pendientes. Ver [estado](docs/PROJECT-STATUS.md).
+
 # Martha Silva Store
 
 Repositorio de recuperación y evolución de las demos de Martha Silva. Conserva código, evidencia y decisiones sin confundir una demo con una tienda en producción.

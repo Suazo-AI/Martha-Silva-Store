@@ -176,6 +176,46 @@ public sealed class InternalSecuritySqlTests
             Assert.True((await Service(db).Login(new("fixture-staff", "replacement-synthetic-test-input"), default)).Success);
     }
 
+    [InternalSecuritySqlFact]
+    public async Task Owner_can_disable_staff_with_an_inactive_retained_branch_without_reassigning_it()
+    {
+        await using var fixture = new SecuritySqlDatabase();
+        await fixture.Initialize();
+        var (_, owner) = await SeedStaff(fixture, "fixture-owner", "Owner");
+        var (staffId, prior) = await SeedStaff(fixture, "fixture-manager", "Manager");
+        var branchId = Guid.NewGuid();
+        var version = Guid.Parse(prior.FindFirstValue(InternalSecurityRules.VersionClaim)!);
+        await using (var db = fixture.Context())
+        {
+            db.Set<InternalBranch>().Add(new() { Id = branchId, Name = "Synthetic inactive branch", Active = false });
+            (await db.InternalStaff.SingleAsync(x => x.Id == staffId)).BranchId = branchId;
+            await db.SaveChangesAsync();
+        }
+        await using (var db = fixture.Context())
+        {
+            // Explicit assignment to an inactive branch remains rejected, even if
+            // the same Owner wants to disable the employee in that request.
+            Assert.Equal("invalid_branch", (await Service(db).UpdateStaff(owner, staffId,
+                new("Synthetic manager", "Manager", false, version, branchId), default)).Error);
+        }
+        await using (var db = fixture.Context())
+        {
+            var result = await Service(db).UpdateStaff(owner, staffId,
+                new("Synthetic manager", "Manager", false, version), default);
+            Assert.True(result.Success);
+            Assert.Equal(branchId, result.Value!.BranchId);
+            Assert.False(result.Value.Enabled);
+            Assert.NotEqual(version, result.Value.Version);
+        }
+        await using (var db = fixture.Context())
+        {
+            Assert.Null(await Service(db).ValidateSession(prior, default));
+            Assert.NotNull((await db.InternalSessions.SingleAsync(x => x.StaffId == staffId)).RevokedAt);
+            Assert.Equal(branchId, (await db.InternalStaff.SingleAsync(x => x.Id == staffId)).BranchId);
+            Assert.Empty(await db.Set<InternalBranchAssignmentAudit>().ToListAsync());
+        }
+    }
+
     private static async Task<(Guid Id, ClaimsPrincipal Principal)> SeedStaff(SecuritySqlDatabase fixture, string loginName, string role)
     {
         // Direct synthetic fixtures only: intentionally never invoke InternalOwnerBootstrap.

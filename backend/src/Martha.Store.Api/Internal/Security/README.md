@@ -19,6 +19,16 @@ One business per isolated SAVIA instance. Staff is not a public customer login o
 4. `POST .../logout` revokes the persisted session before deleting the browser cookie. Fetch a fresh anonymous CSRF token before another login.
 5. Owner-only `GET/POST .../staff`, `PUT .../staff/{id}`, and `POST .../staff/{id}/password` manage staff. Update/reset require the current `version` from safe staff responses. Listing is bounded to 200 entries with `truncated`; this is not an unbounded directory/export.
 
+Staff PUT distinguishes omitted `branchId` (preserve the assignment inside its
+transaction), explicit null (request unassignment) and a nonempty GUID (request
+an active branch). The current Owner, version, role and last-owner checks still
+apply. Promotion to Owner cannot implicitly clear a retained branch: an explicit
+unassignment is required. Changes retain security-version rotation and session
+revocation. Unassigned non-Owners never gain global access.
+Omission may retain an inactive branch so an Owner can still disable or rename
+staff; it does not reactivate that branch or grant its scoped access. Explicit
+assignment to an inactive branch remains rejected.
+
 Auth and antiforgery cookies are `__Host-` prefixed, Path=/, no Domain, Secure, HttpOnly, SameSite=Strict. Session tickets have absolute 8-hour expiry, no sliding renewal, and are validated against persisted session + enabled staff + exact role + security version on **every request**. A missing/unavailable database never grants a mock identity or falls back to client state.
 
 Five failed password verifications lock the persisted account for 15 minutes. Admission is additionally bounded per process: ten attempts/IP/minute, 120 total/minute, four in flight, at most 4,096 address buckets. The proxy configuration affects the observed transport address. This is not a distributed rate-limit guarantee; deployment needs a reviewed edge/shared limit if horizontally scaled.

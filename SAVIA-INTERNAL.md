@@ -1,5 +1,11 @@
 # SAVIA interno: base de trabajo
 
+La revisión aislada de 2026-10-28 conserva esta foundation e incorpora Owner/B1
+y el candidato de aislamiento por sucursal en commits locales separados.
+Incluye compatibilidad de lecturas por rol y de omisión de `branchId` en PUT.
+Su compilación, pruebas, SQL y migraciones siguen pendientes. Los recuentos de
+pruebas de esta página son históricos; ver [estado actual](docs/PROJECT-STATUS.md).
+
 Sistema destinado exclusivamente a staff y propietarios: CRM, administración,
 ventas, inventario y abastecimiento. La tienda pública de Martha Silva es otra
 superficie. No publicar este sistema dentro de la tienda ni reintroducir `/savia/`.

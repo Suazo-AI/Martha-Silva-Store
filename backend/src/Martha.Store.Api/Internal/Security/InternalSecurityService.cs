@@ -98,9 +98,15 @@ public sealed class InternalSecurityService(InternalDbContext db, IPasswordHashe
         if (staff.Enabled && staff.Role == "Owner" && (!request.Enabled || request.Role != "Owner")
             && await db.InternalStaff.CountAsync(x => x.Enabled && x.Role == "Owner", ct) <= 1)
             return InternalResult<InternalStaffView>.Fail("last_owner_required");
-        if (!await ValidBranch(request.Role!, request.BranchId, ct)) return InternalResult<InternalStaffView>.Fail("invalid_branch");
+        // Absence preserves the persisted assignment; explicit null requests unassignment.
+        var desiredBranchId = request.BranchId.IsSpecified ? request.BranchId.Value : staff.BranchId;
+        // An inactive retained branch must not prevent an Owner from disabling staff.
+        // New assignments still require an active branch; Owner cannot retain one.
+        if ((request.BranchId.IsSpecified || request.Role == "Owner")
+            && !await ValidBranch(request.Role!, desiredBranchId, ct))
+            return InternalResult<InternalStaffView>.Fail("invalid_branch");
         var previousBranchId = staff.BranchId;
-        staff.BranchId = request.BranchId;
+        staff.BranchId = desiredBranchId;
         if (previousBranchId != staff.BranchId) RecordBranchChange(InternalActor.Id(actor), staff, previousBranchId);
         staff.DisplayName = request.DisplayName!;
         staff.Role = request.Role!;

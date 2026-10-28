@@ -67,7 +67,22 @@ public sealed record InternalLoginRequest(string? LoginName, string? Password)
 { public override string ToString() => "InternalLoginRequest { redacted }"; }
 public sealed record InternalStaffCreateRequest(string? LoginName, string? DisplayName, string? Role, string? Password, Guid? BranchId = null)
 { public override string ToString() => "InternalStaffCreateRequest { redacted }"; }
-public sealed record InternalStaffUpdateRequest(string? DisplayName, string? Role, [property: JsonRequired] bool Enabled, Guid Version, Guid? BranchId = null);
+public sealed record InternalStaffUpdateRequest
+{
+    public string? DisplayName { get; init; }
+    public string? Role { get; init; }
+    [JsonRequired] public bool Enabled { get; init; }
+    public Guid Version { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public InternalBranchIdUpdate BranchId { get; init; }
+
+    [JsonConstructor] public InternalStaffUpdateRequest() { }
+    public InternalStaffUpdateRequest(string? DisplayName, string? Role, bool Enabled, Guid Version)
+    { this.DisplayName = DisplayName; this.Role = Role; this.Enabled = Enabled; this.Version = Version; }
+    public InternalStaffUpdateRequest(string? DisplayName, string? Role, bool Enabled, Guid Version,
+        Guid? BranchId) : this(DisplayName, Role, Enabled, Version)
+    { this.BranchId = InternalBranchIdUpdate.Specified(BranchId); }
+}
 public sealed record InternalStaffPasswordRequest(string? Password, Guid Version)
 { public override string ToString() => "InternalStaffPasswordRequest { redacted }"; }
 public sealed record InternalLoginResult(InternalStaff Staff, InternalSession Session);
