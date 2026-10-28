@@ -16,7 +16,9 @@ class AuditTests(unittest.TestCase):
         result = a.audit(json.loads((ROOT / 'evidence/asset-source-manifest.json').read_text()), ROOT / 'dist')
         for catalog in result['catalog_evidence']:
             self.assertEqual((catalog['products'], catalog['variants'], catalog['gallery_references']), (40, 120, 170))
-        self.assertEqual(result['published_fixture'], {'products': 40, 'variants': 120, 'gallery_references': 170})
+        # The historical captures above retain G2; the reviewed Green selection
+        # omits that already clipped source from the active four-photo gallery.
+        self.assertEqual(result['published_fixture'], {'products': 40, 'variants': 120, 'gallery_references': 169})
         self.assertEqual(result['unpublished_product_ids'], [])
         unavailable = set(json.loads((ROOT / 'tests/fixtures/original-missing-media.json').read_text())['paths'])
         missing = {item['reference'] for item in result['original_media'] if item['demo']['status'] != 'present'}

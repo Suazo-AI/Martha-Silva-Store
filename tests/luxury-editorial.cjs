@@ -176,17 +176,29 @@ test('Spanish default and English toggle translate every new visible/accessible 
   } finally { w.close(); }
 });
 
-test('the catalog stays a byte-identical 40-product / 120-variant / 170-gallery sample baseline', () => {
+test('the sample catalog preserves commerce with the scoped four-photo Green selection', () => {
   const bytes = fs.readFileSync(path.join(dist, 'catalog.js'));
-  // SHA from the verified 67d4647d5ee65c65dd037d2e664fcdc45c7009d6 runtime marker.
-  assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'), 'e5d0d4fad22ba4ccb69ebda8b6888ca54185b87260f4715be52bea3a79794134');
+  assert.deepEqual(bytes, fs.readFileSync(path.join(root, 'build-inputs/static/catalog.js')));
+  // Freeze this scoped candidate. The prior e5d0... hash remains historical;
+  // original-catalog.cjs independently bounds the six Green fields and 22 files.
+  assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'), 'bd5e8b959174d1e4eadfca98221f291c9a4ee2475cec8d201036e391d6f02a14');
+  const captured = require('./fixtures/catalog-expansion.json');
+  const capturedMedia = require('./fixtures/original-store-media.json');
+  const green = require('../evidence/green-photo-borders/selection.json');
   const dom = new JSDOM('', {runScripts: 'outside-only'});
   try {
     dom.window.eval(bytes.toString('utf8'));
-    const catalog = dom.window.DEMO_CATALOG;
+    const catalog = JSON.parse(JSON.stringify(dom.window.DEMO_CATALOG));
     assert.equal(catalog.products.length, 40);
     assert.equal(catalog.products.reduce((sum, product) => sum + product.variants.length, 0), 120);
-    assert.equal(catalog.products.reduce((sum, product) => sum + product.images.length, 0), 170);
+    assert.equal(catalog.products.reduce((sum, product) => sum + product.images.length, 0), 169);
+    assert.deepEqual(catalog.products.map(product => product.id), captured.products.map(product => product.id));
+    for (const [index, product] of catalog.products.entries()) {
+      for (const [key, value] of Object.entries(captured.products[index]))
+        if (key !== 'images') assert.deepEqual(product[key], value, product.id + ':' + key);
+      const expected = product.id === green.product_id ? green.expected_media : capturedMedia[product.id];
+      assert.deepEqual(product.images, expected.images, product.id);
+    }
     assert.equal(catalog.brand.commercial_status, 'sample');
     assert.equal(bytes.includes(Buffer.from('/editorial/')), false);
   } finally { dom.window.close(); }

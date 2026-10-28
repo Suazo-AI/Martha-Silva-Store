@@ -2954,6 +2954,100 @@
     "/research/assets/store-media/verde-esmeralda-tirantes-cruzados/05-detail-crop-432.webp": [
       432,
       576
+    ],
+    "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/01-front-full-length-320.webp": [
+      320,
+      569
+    ],
+    "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/01-front-full-length-320.jpg": [
+      320,
+      569
+    ],
+    "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/01-front-full-length-480.webp": [
+      480,
+      854
+    ],
+    "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/01-front-full-length-480.jpg": [
+      480,
+      854
+    ],
+    "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/01-front-full-length-570.webp": [
+      570,
+      1014
+    ],
+    "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/01-front-full-length-570.jpg": [
+      570,
+      1014
+    ],
+    "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/03-side-full-length-320.webp": [
+      320,
+      569
+    ],
+    "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/03-side-full-length-320.jpg": [
+      320,
+      569
+    ],
+    "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/03-side-full-length-480.webp": [
+      480,
+      854
+    ],
+    "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/03-side-full-length-480.jpg": [
+      480,
+      854
+    ],
+    "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/03-side-full-length-570.webp": [
+      570,
+      1014
+    ],
+    "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/03-side-full-length-570.jpg": [
+      570,
+      1014
+    ],
+    "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/04-back-full-length-320.webp": [
+      320,
+      569
+    ],
+    "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/04-back-full-length-320.jpg": [
+      320,
+      569
+    ],
+    "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/04-back-full-length-480.webp": [
+      480,
+      854
+    ],
+    "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/04-back-full-length-480.jpg": [
+      480,
+      854
+    ],
+    "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/04-back-full-length-570.webp": [
+      570,
+      1014
+    ],
+    "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/04-back-full-length-570.jpg": [
+      570,
+      1014
+    ],
+    "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/05-detail-crop-320.webp": [
+      320,
+      296
+    ],
+    "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/05-detail-crop-320.jpg": [
+      320,
+      296
+    ],
+    "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/05-detail-crop-432.webp": [
+      432,
+      399
+    ],
+    "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/05-detail-crop-432.jpg": [
+      432,
+      399
     ]
+  },
+  "green_crop_addendum": {
+    "new_derivative_files": 22,
+    "new_dimensions_source": "evidence/green-photo-borders/selection.json",
+    "current_registry_entries": 759,
+    "scope": "New22 derivative headers checked in cloud; original inspection counters and entries remain historical. No new full-corpus decode/visual claim."
   }
 }
