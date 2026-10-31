@@ -34,7 +34,14 @@
     function snapshot(record) {
       if (!record) return null;
       const containers = [...document.querySelectorAll('main [data-carousel],main [data-gallery-viewport]')].slice(0,24)
-        .map((node,index) => ({index,left:finite(node.scrollLeft),top:finite(node.scrollTop)}));
+        .map((node,index) => {
+          const saved={index,left:finite(node.scrollLeft),top:finite(node.scrollTop)};
+          if(node.hasAttribute('data-gallery-viewport')){
+            const detail={index:null};node.dispatchEvent(new CustomEvent('martha:gallerycapture',{detail}));
+            if(Number.isInteger(detail.index) && detail.index>=0)saved.galleryIndex=detail.index;
+          }
+          return saved;
+        });
       return {...record,scroll:{x:finite(window.scrollX),y:finite(window.scrollY)},containers};
     }
     function capture(persist = true) {
@@ -66,10 +73,17 @@
         if (job !== work || epoch !== token || interaction !== touched || href() !== record.url || active?.id !== record.id) return;
         window.scrollTo({left:finite(record.scroll.x),top:finite(record.scroll.y),behavior:'instant'});
         const containers = [...document.querySelectorAll('main [data-carousel],main [data-gallery-viewport]')];
+        let galleriesReady=true;
         for (const saved of record.containers || []) {
-          const node = containers[saved.index]; if (node) { node.scrollLeft=finite(saved.left);node.scrollTop=finite(saved.top); }
+          const node = containers[saved.index]; if (!node)continue;
+          if(node.hasAttribute('data-gallery-viewport') && Number.isInteger(saved.galleryIndex)){
+            const detail={index:saved.galleryIndex,handled:false,ready:false};
+            node.dispatchEvent(new CustomEvent('martha:galleryrestore',{detail}));
+            if(detail.handled){galleriesReady=galleriesReady && detail.ready;node.scrollTop=finite(saved.top);continue;}
+          }
+          node.scrollLeft=finite(saved.left);node.scrollTop=finite(saved.top);
         }
-        const reached=Math.abs(window.scrollY-record.scroll.y)<=1 && Math.abs(window.scrollX-record.scroll.x)<=1;
+        const reached=galleriesReady && Math.abs(window.scrollY-record.scroll.y)<=1 && Math.abs(window.scrollX-record.scroll.x)<=1;
         const pendingImage=[...document.querySelectorAll('main img')].some(img=>!img.complete && img.getBoundingClientRect().top<=window.innerHeight);
         if(reached && work.fontsReady && !pendingImage){
           const height=document.documentElement.scrollHeight;
@@ -508,12 +522,66 @@
   function gallery() {
     const track=$('[data-gallery-track]'),viewport=$('[data-gallery-viewport]');if(!track||!viewport)return;
     let index=0;const slides=$$('.gallery-photo,.gallery-video',track),mobile=()=>matchMedia('(max-width:1023px)').matches;
-    const mark=()=>$$('[data-gallery-go]').forEach(b=>b.setAttribute('aria-current',String(Number(b.dataset.galleryGo)===index)));
-    const go=n=>{index=(n+slides.length)%slides.length;mark();if(mobile())viewport.scrollTo({left:slides[index].offsetLeft,behavior:reduced.matches?'instant':'smooth'});else slides[index].scrollIntoView({block:'nearest',behavior:reduced.matches?'instant':'smooth'});};
+    if(!slides.length)return;
+    const signal=pageScope.signal,strip=$('.gallery-thumbnails');
+    let pendingDesktopIndex=null,pendingMobileIndex=null,desktopFrame=0,resizeFrame=0,lastWidth=viewport.clientWidth,lastMobile=mobile();
+    const layoutChanged=()=>mobile()!==lastMobile || viewport.clientWidth!==lastWidth;
+    const desktopLeft=slide=>Math.max(0,Math.min(viewport.scrollWidth-viewport.clientWidth,viewport.scrollLeft+slide.getBoundingClientRect().left-viewport.getBoundingClientRect().left-viewport.clientLeft));
+    const nearest=()=>slides.reduce((best,slide,n)=>Math.abs(desktopLeft(slide)-viewport.scrollLeft)<Math.abs(desktopLeft(slides[best])-viewport.scrollLeft)?n:best,0);
+    const mark=()=>{
+      $$('[data-gallery-go]').forEach(b=>b.setAttribute('aria-current',String(Number(b.dataset.galleryGo)===index)));
+      if(mobile()||!strip)return;
+      const thumb=$(`[data-gallery-go="${index}"]`,strip);if(!thumb)return;
+      const r=thumb.getBoundingClientRect(),s=strip.getBoundingClientRect(),left=s.left+strip.clientLeft,right=left+strip.clientWidth;
+      if(r.left<left)strip.scrollLeft+=r.left-left;else if(r.right>right)strip.scrollLeft+=r.right-right;
+    };
+    const go=n=>{
+      if(layoutChanged())realign();
+      index=(n+slides.length)%slides.length;mark();
+      if(mobile()){pendingMobileIndex=index;viewport.scrollTo({left:slides[index].offsetLeft,behavior:reduced.matches?'instant':'smooth'});}
+      else{pendingDesktopIndex=index;viewHistory.capture(true);viewport.scrollTo({left:desktopLeft(slides[index]),behavior:reduced.matches?'instant':'smooth'});}
+    };
     if(mobile())viewport.scrollLeft=slides[0].offsetLeft;
     document.addEventListener('click',e=>{const b=e.target.closest('[data-gallery-go],[data-gallery-prev],[data-gallery-next]');if(!b)return;go(b.hasAttribute('data-gallery-go')?Number(b.dataset.galleryGo):index+(b.hasAttribute('data-gallery-next')?1:-1));},{signal:pageScope.signal});
-    let galleryFrame=0; viewport.addEventListener('scroll',()=>{if(!mobile()||galleryFrame)return;galleryFrame=requestAnimationFrame(()=>{galleryFrame=0;const width=slides[0].offsetWidth;if(!width)return;const next=(Math.round((viewport.scrollLeft-slides[0].offsetLeft)/width)+slides.length)%slides.length;if(next!==index){index=next;mark();}});},{passive:true,signal:pageScope.signal});pageScope.signal.addEventListener('abort',()=>cancelAnimationFrame(galleryFrame),{once:true});
+    let galleryFrame=0; viewport.addEventListener('scroll',()=>{if(!mobile()||galleryFrame||layoutChanged())return;galleryFrame=requestAnimationFrame(()=>{galleryFrame=0;if(layoutChanged()){scheduleResize();return;}const width=slides[0].offsetWidth;if(!width)return;const next=(Math.round((viewport.scrollLeft-slides[0].offsetLeft)/width)+slides.length)%slides.length;if(next!==index){index=next;mark();}});},{passive:true,signal:pageScope.signal});pageScope.signal.addEventListener('abort',()=>cancelAnimationFrame(galleryFrame),{once:true});
     viewport.addEventListener('scrollend',()=>{if(mobile()&&viewport.scrollLeft<slides[0].offsetLeft-1)viewport.scrollTo({left:slides[index].offsetLeft,behavior:'instant'});},{signal:pageScope.signal});
+    const syncDesktop=()=>{
+      desktopFrame=0;if(mobile())return;
+      if(layoutChanged()){scheduleResize();return;}
+      if(pendingDesktopIndex!==null){if(Math.abs(viewport.scrollLeft-desktopLeft(slides[pendingDesktopIndex]))>1)return;pendingDesktopIndex=null;}
+      index=nearest();mark();viewHistory.capture(false);
+    };
+    viewport.addEventListener('scroll',()=>{if(!mobile()&&!desktopFrame)desktopFrame=requestAnimationFrame(syncDesktop);},{passive:true,signal});
+    viewport.addEventListener('scrollend',()=>{if(!mobile()){if(layoutChanged()){scheduleResize();return;}pendingDesktopIndex=null;syncDesktop();}},{signal});
+    viewport.addEventListener('scrollend',()=>{if(mobile())pendingMobileIndex=null;},{signal});
+    for(const type of ['wheel','pointerdown','touchstart'])viewport.addEventListener(type,()=>{if(mobile())pendingMobileIndex=null;else pendingDesktopIndex=null;},{passive:true,signal});
+    viewport.addEventListener('martha:gallerycapture',event=>{
+      if(layoutChanged()){event.detail.index=mobile()?(pendingMobileIndex ?? index):(pendingDesktopIndex ?? index);return;}
+      const width=slides[0].offsetWidth;
+      event.detail.index=mobile()?(pendingMobileIndex ?? (width?(Math.round((viewport.scrollLeft-slides[0].offsetLeft)/width)+slides.length)%slides.length:index)):(pendingDesktopIndex ?? nearest());
+    },{signal});
+    viewport.addEventListener('martha:galleryrestore',event=>{
+      const detail=event.detail;if(detail.index<0||detail.index>=slides.length)return;
+      detail.handled=true;if(!viewport.clientWidth)return;
+      pendingDesktopIndex=null;pendingMobileIndex=null;index=detail.index;mark();
+      const left=mobile()?slides[index].offsetLeft:desktopLeft(slides[index]);viewport.scrollTo({left,behavior:'instant'});detail.ready=Math.abs(viewport.scrollLeft-left)<=1;
+    },{signal});
+    const realign=()=>{
+      resizeFrame=0;const nowMobile=mobile(),width=viewport.clientWidth;
+      if(nowMobile===lastMobile && width===lastWidth)return;
+      if(!width)return;
+      const wasMobile=lastMobile;
+      cancelAnimationFrame(galleryFrame);galleryFrame=0;cancelAnimationFrame(desktopFrame);desktopFrame=0;
+      pendingDesktopIndex=null;pendingMobileIndex=null;
+      lastMobile=nowMobile;lastWidth=width;
+      if(!nowMobile)viewport.scrollTo({left:desktopLeft(slides[index]),behavior:'instant'});
+      else if(!wasMobile)viewport.scrollLeft=slides[index].offsetLeft;
+      mark();viewHistory.capture(false);
+    };
+    const scheduleResize=()=>{if(!resizeFrame)resizeFrame=requestAnimationFrame(realign);};
+    window.addEventListener('resize',scheduleResize,{passive:true,signal});
+    const resize=window.ResizeObserver?new ResizeObserver(scheduleResize):null;resize?.observe(viewport);
+    signal.addEventListener('abort',()=>{cancelAnimationFrame(desktopFrame);cancelAnimationFrame(resizeFrame);resize?.disconnect();},{once:true});
   }
   function validate(form) {
     let first;
