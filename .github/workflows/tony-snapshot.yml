@@ -1,0 +1,56 @@
+name: Tony source snapshot
+
+on:
+  push:
+    branches: [Tony]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tony-snapshot-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  integrity:
+    name: Publication integrity and reproducible build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - run: python tools/verify_release_snapshot.py
+      - run: python tests/build.py
+      - name: Check public JavaScript syntax
+        run: |
+          for file in dist/*.js src/*.js; do node --check "$file"; done
+      - run: git diff --exit-code
+
+  historical-regressions:
+    name: Historical portable regression suite (known gaps retained)
+    needs: integrity
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - run: python tests/check.py --install
+
+# This workflow does not deploy or create databases, accounts, or credentials.

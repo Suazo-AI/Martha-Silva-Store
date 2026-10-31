@@ -1,115 +1,70 @@
-# SAVIA interno — rama privada
-
-Esta rama conserva la historia del backend y desarrolla el sistema de gestión
-para personal y propietarios. El alcance y los límites actuales están en
-[SAVIA-INTERNAL](SAVIA-INTERNAL.md). La tienda pública se mantiene separada;
-los párrafos siguientes documentan la base histórica recuperada y no describen
-un despliegue del sistema interno.
-
-La revisión aislada `feat/savia-branch-integration-20261028` conserva la base
-local `4a9c11e` e importa Owner/B1 (`c927eed`) y sucursales (`744f245`). La fuente
-histórica de 113 archivos se reconstruyó y verificó por SHA-256; el parentesco
-Git con el baseline cloud declarado `d77c64be` permanece sin demostrar.
-La compatibilidad de UI y PUT se ajusta en esta revisión; compilación, SQL y
-migraciones siguen pendientes. Ver [estado](docs/PROJECT-STATUS.md).
-
 # Martha Silva Store
 
-**Latest published update:** the green product's desktop gallery uses the measured
-sticky-header height for its offset and scroll margin, with a viewport height cap.
-Runtime source `704b2e160106b709880ad7c22febd25adb6181d6`; photographic bytes and
-catalog entries are unchanged. [Release evidence](evidence/green-A/publication.json).
+La rama `Tony` conserva la historia real y las fuentes de la ultima demo publicada.
+Este push no despliega la web ni modifica `main`. [Cronologia](docs/UPDATE-HISTORY.md).
 
-**Product sharing:** available on all 40 product pages, with native
-sharing, copy/manual link fallback and ES/EN support. Runtime source
-`e9e9609b9cda6f52abd0db1b35b570f3b83156b4` preserves the luxury photography below.
-[Share-button publication evidence](evidence/product-share/publication.json).
+**Demo:** <https://martha-silva-preview.martha-silva-denis.workers.dev/>.
+Ultimo recibo conservado: version `601268a3-81ce-4277-a8ef-cb2e84d2fbb1`, publicada
+2026-10-30 a las 04:50:10 UTC. `dist/` reproduce sus 1081 archivos publicos;
+`README.txt` es un auxiliar adicional excluido del manifiesto publico.
+La integridad de bytes no acredita una comprobacion visual actual del sitio.
 
-Repositorio de recuperación y evolución de las demos de Martha Silva. Conserva código, evidencia y decisiones sin confundir una demo con una tienda en producción.
+Incluye 47 paginas, 40 productos de muestra, 120 variantes, ES/EN, portada editorial,
+compartir productos, historial y galeria horizontal con marco proporcional.
+Precios, pedidos y existencias del simulador no son datos comerciales autoritativos.
+No hay pagos bancarios productivos implementados.
 
-**Demo publicada:** [martha-silva-preview.martha-silva-denis.workers.dev](https://martha-silva-preview.martha-silva-denis.workers.dev/).
-Código publicado: `8ef27660bb94acc5d93f09d59b92cbbc8661e94e`, separado del original.
-Portada editorial con seis fotografías de Instagram, fondo espresso/marfil y 44 derivados responsivos.
-Conserva el selector de idioma en las 47 páginas y 40 productos.
-[English](https://martha-silva-preview.martha-silva-denis.workers.dev/?lang=en) ·
-[Español](https://martha-silva-preview.martha-silva-denis.workers.dev/?lang=es).
-[Evidencia de publicación y QA](evidence/luxury/publication.json).
+## Fuentes y evidencia
 
-**Copia publicada:** 47 páginas, 40 productos de muestra, 120 variantes y 170 posiciones de galería, con los adaptadores locales SAVIA/SISFAIN. Se recuperaron 777 de 778 medios históricos desde el sitio público autorizado; el JPEG restante devuelve 404 y no se sustituye. No procesa tarjetas ni ofrece autenticación o inventario de producción. El original de Cloudflare permanece intacto.
-
-La rama `feat/original-storefront-preview` amplía la demo anterior de dos productos. Conserva el hero fotográfico y usa el catálogo compartido para evitar repetir los metadatos de imágenes en cada página. Procedencia y límites: [diseño](DESIGN.md), [estado](docs/PROJECT-STATUS.md) y [medios](docs/ASSET-COMPLETENESS.md). Una copia local no acredita publicación: el destino autorizado es únicamente el nuevo Worker `martha-silva-preview` de la cuenta conectada.
-
-
-**Direccion vigente:** continuar unicamente sobre la demo principal <https://martha-silva-preview.martha-silva-denis.workers.dev/>. La caja separada `/savia/` y su enlace fueron retirados: sus rutas responden404. La integracion real con el backend SAVIA sigue pendiente; no se sustituye por otra aplicacion ni por operaciones simuladas presentadas como reales.
-
-## Navegación
-
-| Necesidad | Entrada |
+| Contenido | Ubicacion |
 | --- | --- |
-| Original recuperado (parcial) | [Cloudflare](originals/cloudflare/README.md) |
-| Comparación del catálogo sin activar productos | [Staging](tests/catalog-staging-README.md), [resultado](evidence/catalog-staging.json) |
-| Seguridad y datos excluidos | [SECURITY](docs/SECURITY.md) |
-| Roadmap V1 propuesto y tareas | [ROADMAP-V1](docs/ROADMAP-V1.md), [tareas estructuradas](docs/roadmap-tasks.json) |
-| Estado, pendientes y criterios de aceptación | [PROJECT-STATUS](docs/PROJECT-STATUS.md) |
-| Procedimientos, herramientas y lecciones reutilizables | [PLAYBOOK](docs/PLAYBOOK.md) |
-| Registro de decisiones | [DECISIONS](docs/DECISIONS.md) |
-| Reglas para contribuir | [AGENTS](AGENTS.md) |
-| Fuentes editables y compilación determinista | [build-inputs](build-inputs/README.md), `src/`, `prepare.py` |
-| Demo ensamblada | `dist/` |
-| CD aislado de Cloudflare, desactivado hasta autorización/configuración | [CLOUDFLARE-CD](docs/CLOUDFLARE-CD.md) |
-| Pruebas y límites de QA | [tests](tests/README.md), [evidencia](evidence/QA.md) |
-| Fotografías faltantes e importación segura | [ASSET-COMPLETENESS](docs/ASSET-COMPLETENESS.md) |
-| Investigación de pagos; ningún proveedor elegido | [REA](research/rea/README.md), [hallazgos](research/rea/FINDINGS.md) |
+| Comportamiento editable | `src/` |
+| HTML, CSS, catalogo y medios | `build-inputs/static/` |
+| Salida ensamblada | `dist/` y `prepare.py` |
+| Cronologia y versiones | [UPDATE-HISTORY](docs/UPDATE-HISTORY.md) |
+| Estado y pendientes | [PROJECT-STATUS](docs/PROJECT-STATUS.md) |
+| Hashes, imagenes y recibos | [Entregas](evidence/releases/20261030/) |
+| Comprobaciones reproducibles | [SYNC-VERIFICATION](docs/SYNC-VERIFICATION.md) |
+| Original separado e inerte | [originals/cloudflare](originals/cloudflare/README.md) |
+| SAVIA staff | [SAVIA-INTERNAL](SAVIA-INTERNAL.md), `backend/`, `contracts/`, `dev/savia-staff-ui/` |
+| Seguridad y contribuciones | [SECURITY](docs/SECURITY.md), [AGENTS](AGENTS.md) |
 
-El material histórico de Cloudflare se conserva separado en `originals/cloudflare/` (integrado); no forma parte del build raíz ni debe desplegarse por defecto. La historia Git registra la evolución; los commits importados indican el SHA de procedencia local cuando cambia su identidad al publicarlos por API: `git log --oneline --all --decorate`.
+Se conservan fotografias historicas y derivados. La ultima demo tambien contiene
+**156 PNG unicos generados con IA**, en 158 ubicaciones: son ilustraciones de demo,
+no fotografias documentales recuperadas ni garantia de fidelidad del vestido real.
+No alcanzan Full HD; diez registros historicos carecen de listas completas de
+referencias y persisten limites de continuidad visual. Ver
+[luxury-selected-assets.json](evidence/releases/20261030/luxury-selected-assets.json).
+La recuperacion historica permanece en 777/778 medios; el JPEG ausente no se invento.
 
 ## Ejecutar localmente
 
-Requisitos de referencia usados por las pruebas: Python 3.12.14, Node.js 24.22.1 y npm 11.9.0. Python utiliza solo biblioteca estándar. Las pruebas DOM requieren las dependencias fijadas en `tests/frontend-deps/package-lock.json`; su primera instalación necesita acceso al registro npm.
-
-### Linux / WSL
-
-Desde la raíz del checkout:
+Con Python 3, desde la raiz del checkout:
 
 ```sh
-python3 prepare.py
-python3 tests/check.py --install   # primera vez; instala dependencias fijadas
-python3 tests/check.py          # siguientes ejecuciones sin instalar
-python3 -m http.server 8000 --bind 127.0.0.1 --directory dist
+python prepare.py
+python -m http.server 8000 --bind 127.0.0.1 --directory dist
 ```
 
-Abrir <http://127.0.0.1:8000>. `Ctrl+C` detiene el servidor. No abrir el HTML con `file://` ni introducir datos reales de clientes o tarjetas.
+Abrir <http://127.0.0.1:8000/>; Ctrl+C detiene el servidor. En Windows tambien puede
+usarse `py -3`. No usar datos reales de clientes o tarjetas. Editar las entradas,
+no solo `dist/`; `prepare.py --output` acepta una carpeta nueva.
 
-### Windows
-
-Para ejecutar la demo desde PowerShell, con Python instalado y su lanzador disponible:
-
-```powershell
-py -3 prepare.py
-py -3 -m http.server 8000 --bind 127.0.0.1 --directory dist
+```sh
+python tools/verify_release_snapshot.py
+python tests/build.py
+python tests/check.py --install
 ```
 
-Para la suite completa desde PowerShell:
+El verificador comprueba hashes, estructura y fuentes; build exige dos salidas
+identicas. La suite historica conserva fallos documentados: no se declara toda
+la bateria aprobada. El workflow `Tony source snapshot` ejecuta estas comprobaciones
+en cloud, sin desplegar ni iniciar SQL. Consultar resultados del SHA exacto.
 
-```powershell
-py -3 tests/check.py --install
-py -3 tests/check.py
-```
+## SAVIA y publicacion
 
-El runner usa Python estándar y resuelve `npm.cmd` en Windows. La suite pasó en Ubuntu y Windows para `f22276a` (Actions run [`40136425925`](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/40136425925)); el job de despliegue quedó **SKIPPED**. Incluye pruebas de staging y del propio runner. Esto no prueba QA en navegador ni un despliegue.
-
-Editar HTML/CSS/catálogo/imágenes en `build-inputs/static/`, comportamiento en `src/`; después ejecutar `prepare.py`. No editar solo `dist/`: se perderá al reconstruir. Para una salida independiente: `python3 prepare.py --output /tmp/martha-demo-build` (directorio vacío).
-
-## Sitios de referencia
-
-- [Original Cloudflare](https://martha-silva-demo.jason-suazof.workers.dev/): preservar sin modificar.
-- [Demo mejorada privada](https://martha-silva-photo-store.suazo-ai.chatgpt.site): puede requerir acceso; no es un enlace público nuevo ni prueba de sincronización con este commit.
-
-Publicar el repositorio no publica automáticamente la tienda. Cualquier despliegue debe identificar destino, commit, autorización, prueba de acceso y rollback. Ver [criterios de entrega](docs/PROJECT-STATUS.md#criterios-de-aceptación).
-
-La conexión autorizada se limita al **nuevo Worker `martha-silva-preview`**, no a Admin amplio. Cloudflare confirmó por API la creación del subdominio separado `martha-silva-denis`; el despliegue y su URL deben comprobarse contra el artefacto concreto. `gh` CLI no está autenticado y no se activó CD. Ver [CD aislado](docs/CLOUDFLARE-CD.md).
-
-
-## SAVIA interno
-
-SAVIA es un sistema para staff y propietarios, separado de la tienda publica: CRM, administracion, ventas, inventario y abastecimiento. La base tecnica reutilizada es f7e859b; todavia no constituye un CRM/ERP completo. La implementacion privada se coordina con Cutufay desde un snapshot de45fuentes verificadas, sin datos reales ni despliegue publico. Ver `docs/savia-internal/REUSE-MAP.md`, `STAFF-WORKFLOWS.md` y `ACCEPTANCE.md`.
+SAVIA conserva `023364fd`, Owner/B1 y aislamiento por sucursal. Su compilacion,
+SQL y migraciones necesitan validacion propia. La UI staff esta fuera de `dist/`;
+no se reintroduce `/savia/` ni se afirma que el backend este alojado o conectado.
+El Worker original `martha-silva-demo.jason-suazof.workers.dev` queda fuera del
+destino. Cualquier despliegue posterior requiere candidato, destino y rollback.
