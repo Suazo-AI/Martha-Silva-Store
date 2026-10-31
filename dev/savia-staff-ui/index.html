@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+  <title>SAVIA interno · Gestión del negocio</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.mjs"></script>
+</head>
+<body data-staff-app>
+  <section id="session-pending" class="login-shell" aria-labelledby="session-title">
+    <div class="auth-card"><p class="eyebrow">SAVIA · USO INTERNO</p><h1 id="session-title">Comprobando tu acceso</h1><p id="session-status" role="status" aria-live="polite">Esperando la confirmación de tu sesión.</p><a class="btn btn-secondary" href="./login">Volver al ingreso</a></div>
+  </section>
+  <section id="auth-required" class="login-shell" aria-labelledby="auth-required-title" hidden>
+    <div class="auth-card"><p class="eyebrow">SAVIA · ACCESO DEL PERSONAL</p><h1 id="auth-required-title" tabindex="-1">Volvé a ingresar</h1><p id="auth-required-message" role="status">Necesitás una sesión autorizada para abrir el espacio de trabajo.</p><a class="btn" href="./login">Ir al ingreso</a></div>
+  </section>
+  <div id="staff-shell" class="app-shell" hidden inert>
+    <a class="skip-link" href="#staff-main">Ir al contenido</a>
+    <aside class="sidebar" aria-label="Navegación interna">
+      <div class="brand"><strong>SAVIA</strong><span>Gestión interna</span></div>
+      <nav aria-label="Áreas de trabajo">
+        <button class="nav-link" type="button" data-action="nav" data-target="clientes" aria-current="page" disabled data-server-action>Clientes</button>
+        <button class="nav-link" type="button" data-action="nav" data-target="ventas" disabled data-server-action>Ventas</button>
+        <button class="nav-link" type="button" data-action="nav" data-target="inventario" disabled data-server-action>Inventario</button>
+        <button class="nav-link" type="button" data-action="nav" data-target="abastecimiento" disabled data-server-action>Abastecimiento</button>
+      </nav>
+      <p class="muted">Acceso reservado al personal autorizado.</p>
+    </aside>
+    <div class="workspace">
+      <header class="topbar">
+        <div><p class="eyebrow">ESPACIO DE TRABAJO</p><h1 id="staff-title" tabindex="-1">Clientes</h1></div>
+        <div id="staff-session" class="session-info" aria-label="Sesión autorizada">
+          <dl><div><dt>Usuario</dt><dd data-session-user></dd></div><div><dt>Perfil</dt><dd data-session-role></dd></div><div><dt>Ámbito</dt><dd>Negocio de esta instancia</dd></div></dl>
+          <button class="btn btn-secondary" type="button" data-action="logout" disabled data-server-action>Cerrar sesión</button>
+        </div>
+      </header>
+      <main id="staff-main" tabindex="-1">
+        <p id="staff-status" class="section-status" role="status" aria-live="polite" aria-atomic="true"></p>
+        <p id="staff-error" class="error" role="alert" tabindex="-1" hidden></p>
+        <section data-view="clientes" aria-labelledby="clients-title">
+          <div class="page-header"><div><h2 id="clients-title">Directorio de clientes</h2><p class="muted">Buscá y consultá los clientes del negocio.</p></div><button class="btn" type="button" data-action="new-client" disabled data-server-action>Nuevo cliente</button></div>
+          <div class="panel">
+            <form id="clients-search-form" class="toolbar" data-staff-form="clients-search" method="get">
+              <div class="field"><label for="clients-search">Buscar un cliente</label><input id="clients-search" name="query" type="search" placeholder="Nombre o contacto" autocomplete="off" disabled data-server-action></div>
+              <button class="btn btn-secondary" type="submit" disabled data-server-action>Buscar</button>
+            </form>
+            <p id="clients-status" class="section-status" data-section-status="clientes" role="status" aria-live="polite">Sin consulta todavía.</p>
+            <p id="clients-error" class="error" data-section-error="clientes" role="alert" hidden></p>
+            <div id="clients-empty" class="empty-state section-empty" data-section-empty="clientes" hidden><h3>Sin clientes para mostrar</h3><p>Probá otra búsqueda. El registro de clientes estará disponible cuando se habilite esa operación.</p></div>
+            <div class="table-wrap" tabindex="0" role="region" aria-label="Tabla de clientes; desplazamiento horizontal si es necesario"><table id="clients-table" class="data-table"><caption class="sr-only">Directorio de clientes</caption><thead><tr><th scope="col">Cliente</th><th scope="col">Contacto</th><th scope="col">Estado</th><th scope="col">Acciones</th></tr></thead><tbody id="clients-rows" data-rows="clientes"></tbody></table></div>
+            <div id="clients-pagination" class="pagination" role="group" aria-label="Paginación de clientes">
+              <label class="pagination-size" for="clients-page-size">Clientes por página<select id="clients-page-size" name="pageSize" data-page-size="clientes" aria-controls="clients-table" disabled data-server-action><option value="25">25</option><option value="50" selected>50</option><option value="100">100</option></select></label>
+              <p id="clients-page-status" class="pagination-status" data-page-info="clientes" role="status" aria-live="polite" aria-atomic="true">Sin consulta confirmada.</p>
+              <div class="pagination-actions"><button class="btn btn-secondary" type="button" data-action="page-prev" data-target="clientes" data-page-prev="clientes" aria-controls="clients-table" aria-describedby="clients-page-status" disabled data-server-action>Clientes anteriores</button><button class="btn btn-secondary" type="button" data-action="page-next" data-target="clientes" data-page-next="clientes" aria-controls="clients-table" aria-describedby="clients-page-status" disabled data-server-action>Clientes siguientes</button></div>
+            </div>
+          </div>
+        </section>
+        <section data-view="inventario" aria-labelledby="inventory-title" hidden>
+          <div class="page-header"><div><h2 id="inventory-title">Artículos del negocio</h2><p class="muted">Consultá el directorio de artículos.</p></div><button class="btn btn-secondary" type="button" data-action="refresh-inventory" disabled data-server-action>Actualizar artículos</button></div>
+          <p class="notice">El directorio muestra artículos y precios; no incluye saldos de existencias.</p>
+          <div class="panel">
+            <form id="inventory-search-form" class="toolbar" data-staff-form="inventory-search" method="get"><div class="field"><label for="inventory-search">Buscar un artículo</label><input id="inventory-search" name="query" type="search" placeholder="Nombre o SKU" autocomplete="off" disabled data-server-action></div><button class="btn btn-secondary" type="submit" disabled data-server-action>Buscar</button></form>
+            <p id="inventory-status" class="section-status" data-section-status="inventario" role="status" aria-live="polite">Sin consulta todavía.</p>
+            <p id="inventory-error" class="error" data-section-error="inventario" role="alert" hidden></p>
+            <div id="inventory-empty" class="empty-state section-empty" data-section-empty="inventario" hidden><h3>No hay artículos para mostrar</h3><p>Probá otra búsqueda o consultá al responsable del directorio.</p></div>
+            <div class="table-wrap" tabindex="0" role="region" aria-label="Tabla de artículos; desplazamiento horizontal si es necesario"><table id="inventory-table" class="data-table"><caption class="sr-only">Artículos del directorio</caption><thead><tr><th scope="col">Artículo</th><th scope="col">SKU</th><th scope="col">Precio informado</th><th scope="col">Estado</th></tr></thead><tbody id="inventory-rows" data-rows="inventario"></tbody></table></div>
+            <div id="inventory-pagination" class="pagination" role="group" aria-label="Paginación de artículos">
+              <label class="pagination-size" for="inventory-page-size">Artículos por página<select id="inventory-page-size" name="pageSize" data-page-size="inventario" aria-controls="inventory-table" disabled data-server-action><option value="25">25</option><option value="50" selected>50</option><option value="100">100</option></select></label>
+              <p id="inventory-page-status" class="pagination-status" data-page-info="inventario" role="status" aria-live="polite" aria-atomic="true">Sin consulta confirmada.</p>
+              <div class="pagination-actions"><button class="btn btn-secondary" type="button" data-action="page-prev" data-target="inventario" data-page-prev="inventario" aria-controls="inventory-table" aria-describedby="inventory-page-status" disabled data-server-action>Artículos anteriores</button><button class="btn btn-secondary" type="button" data-action="page-next" data-target="inventario" data-page-next="inventario" aria-controls="inventory-table" aria-describedby="inventory-page-status" disabled data-server-action>Artículos siguientes</button></div>
+            </div>
+          </div>
+        </section>
+        <section data-view="ventas" aria-labelledby="sales-title" hidden>
+          <div class="page-header"><div><h2 id="sales-title">Ventas</h2><p class="muted">Registro de ventas del personal.</p></div></div>
+          <div class="panel empty-state"><h3>Ventas aún no disponibles</h3><p id="sales-pending-note">No se pueden registrar ventas ni cobros desde esta pantalla.</p><button class="btn" type="button" aria-describedby="sales-pending-note" disabled>Nueva venta</button></div>
+        </section>
+        <section data-view="abastecimiento" aria-labelledby="purchasing-title" hidden>
+          <div class="page-header"><div><h2 id="purchasing-title">Abastecimiento</h2><p class="muted">Compras y recepción de mercancía.</p></div></div>
+          <div class="panel empty-state"><h3>Abastecimiento aún no disponible</h3><p id="purchasing-pending-note">La creación de compras y la recepción de mercancía están pendientes en esta pantalla.</p><button class="btn" type="button" aria-describedby="purchasing-pending-note" disabled>Nueva compra</button></div>
+        </section>
+      </main>
+    </div>
+    <dialog id="client-dialog" aria-labelledby="client-dialog-title" aria-describedby="client-form-note">
+      <header class="dialog-header"><h2 id="client-dialog-title" tabindex="-1">Registrar cliente</h2></header>
+      <form id="client-form" data-staff-form="client" method="post" autocomplete="off">
+        <input name="customerId" type="hidden" value="">
+        <div class="form-grid">
+          <div class="field"><label for="client-name">Nombre del cliente <span class="muted">(obligatorio)</span></label><input id="client-name" name="displayName" type="text" required disabled data-server-action></div>
+          <div class="field"><label for="client-phone">Teléfono <span class="muted">(opcional)</span></label><input id="client-phone" name="phone" type="tel" inputmode="tel" disabled data-server-action></div>
+          <div class="field"><label for="client-email">Correo electrónico <span class="muted">(opcional)</span></label><input id="client-email" name="email" type="email" disabled data-server-action></div>
+        </div>
+        <p id="client-form-note" class="form-note">Registrá únicamente los datos de contacto necesarios y autorizados para la atención del cliente.</p>
+        <p id="client-form-error" class="error" role="alert" tabindex="-1" hidden></p>
+        <div class="dialog-actions actions"><button class="btn btn-secondary" type="button" data-action="close-dialog">Volver sin guardar</button><button id="client-save" class="btn" type="submit" disabled data-server-action>Guardar cliente</button></div>
+      </form>
+    </dialog>
+  </div>
+  <noscript><p class="notice">JavaScript es necesario para comprobar los permisos. El espacio de trabajo permanecerá oculto y no se enviarán formularios.</p></noscript>
+</body>
+</html>

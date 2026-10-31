@@ -1,9 +1,20 @@
 using System.Data.Common;
 using Martha.Store.Api;
+using Martha.Store.Api.Internal;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 
+// Explicit offline maintenance only: never build/start the web host on this path.
+if (InternalOwnerConsole.IsInvocation(args))
+{
+    Environment.ExitCode = await InternalOwnerConsole.Run(args);
+    return;
+}
+
 var builder = WebApplication.CreateBuilder(args);
+var internalEnabled = builder.Environment.IsDevelopment()
+    && builder.Configuration.GetValue<bool>("InternalSavia:Enabled");
+if (internalEnabled) builder.Services.AddPrivateSavia(builder.Configuration);
 var syntheticEnabled = builder.Environment.IsDevelopment()
     && builder.Configuration.GetValue<bool>("Synthetic:Enabled");
 builder.Services.AddProblemDetails(options => options.CustomizeProblemDetails = context =>
@@ -37,6 +48,41 @@ app.UseStatusCodePages(async context =>
     await ApiError.Result(context.HttpContext, response.StatusCode,
         response.StatusCode == 404 ? "not_found" : "invalid_request").ExecuteAsync(context.HttpContext);
 });
+
+// Private routes are opt-in and never mounted by the customer static Worker.
+if (internalEnabled)
+{
+    app.Use(async (context, next) =>
+    {
+        if (context.Request.Path.StartsWithSegments("/internal", StringComparison.OrdinalIgnoreCase))
+        {
+            context.Response.Headers.CacheControl = "no-store";
+            context.Response.Headers.Pragma = "no-cache";
+            context.Response.Headers.XContentTypeOptions = "nosniff";
+            context.Response.Headers["Referrer-Policy"] = "no-referrer";
+            context.Response.Headers["Content-Security-Policy"] = "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'";
+            if (!context.Request.IsHttps)
+            { await ApiError.Result(context, 400, "https_required").ExecuteAsync(context); return; }
+        }
+        await next(context);
+    });
+    app.UseAuthentication();
+    app.Use(async (context, next) =>
+    {
+        // Endpoint routing treats trailing slashes equivalently; canonicalize without duplicate routes.
+        if (context.Request.Path.Equals("/internal", StringComparison.OrdinalIgnoreCase))
+        { context.Response.Redirect("/internal/"); return; }
+        if (context.Request.Path.Equals("/internal/login/", StringComparison.OrdinalIgnoreCase))
+        { context.Response.Redirect("/internal/login"); return; }
+        if (context.Request.Path.Equals("/internal/", StringComparison.OrdinalIgnoreCase)
+            && context.User.Identity?.IsAuthenticated != true)
+        { context.Response.Redirect("/internal/login"); return; }
+        await next(context);
+    });
+    app.UseAuthorization();
+    app.MapPrivateSavia();
+    app.MapInternalUi();
+}
 
 if (args.Contains("--migrate") || args.Contains("--seed-synthetic") || args.Contains("--seed-savia-synthetic"))
 {

@@ -1,3 +1,7 @@
+# Consolidated source status
+
+The preserved SAVIA branch review is in [BRANCH-REVIEW-STATUS-20261028](savia-internal/BRANCH-REVIEW-STATUS-20261028.md). Private staff source remains separate from public dist; no staff deployment is established. Historical storefront status follows; the final synchronization ledger will supersede its latest-release claims.
+
 # Estado del proyecto
 
 ## Green product desktop gallery - 2026-10-26

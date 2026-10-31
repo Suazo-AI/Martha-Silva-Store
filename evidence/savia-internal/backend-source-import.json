@@ -1,0 +1,412 @@
+{
+  "package_sha256": "db4d9d27fc3f5e3c7c125623400382dfc708e1cf0da14c292f74eb0a6e3baa35",
+  "history_base": "f7e859bd0e6edf6bdef8b391b63589a212f0d088",
+  "cloud_source_commit": "e22437b832789bc67b65363f2b981545838eb6be",
+  "independent_test_commit": "bab81bf3e8553ab771e1cc6a46c09f5d6831fb2b",
+  "applied_files": 57,
+  "ui_overwritten": false,
+  "sql_executed": false,
+  "build_executed_locally": false,
+  "deployment": false,
+  "files": [
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceEndpoints.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "ad1c379e64f181231de9b302671708ae00cda2812a9afa89f0f3afbe74d20767",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceModel.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "9d5d5accd28cc61760fd8105cb8dd4506c7bacd86352b9c740a3ec3e3c1d7136",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceModels.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "c7ddcf743557363d5aadd14f50061072697e81e1180463b0830eb3e61f3db789",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceService.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "85a99c1aef0e64a88027690e708851fca51aeeb250f2cd2bb993f10a28eca481",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalStockLedger.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "2f8c408d258dc212ae714a0758f3b4ad22bb5c71a90d1a4ef2ffd414c6c53359",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryEndpoints.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "6e83a898ce7480ff320f7de81925a55ae14dda71685498822208f13e300b7e90",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryModels.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "295f3b72c3d7c76cc2af343265c544c2f5a55f6463e48111ad5ec5d99c089a88",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryService.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "4c64592a8bdfd881ff67b4f559b4235d72d5d13e50901dfae996b0f551c83b9e",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryValidation.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "b72f98e3f54e09c89f1aeefeaa8783154b6980269a87cc1a7868dde9e33b36a9",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Directory/README.md",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "c3634357ed447d200c2de6ea69490d012dcabc9887408e12efa5efe88f307aa9",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalCommandRunner.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "bbf8cb5416b29e810f51f045809d31994981bd3d9de9d14239380718422afd4e",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalContracts.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "0d1b297b723cad5aaa93813769025551cab72d4b1d1d31d3e511ca972082e4cf",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalDbContext.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "9e7ca0513c2d6fc995f9fa50cdf08c89a42739b2d67660fd68d8d0b4f2c57ca5",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalDbContextFactory.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "51352d60c7a9e8bc61b56fe9b1fc62d356a137ecc1c87ba15dfe40103ba4a3a9",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalHosting.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "5e164c44addac2991a01b226fefe1101657c3f383871f72896f5b3d865bdfcc7",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalUiHosting.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "e42cd183e3d48c159d3aad5d5a9a22aea775ac404a7521da724bacc795a584a7",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Migrations/20261025085402_InitialInternalSavia.Designer.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "3130b5e0785e6c3b093757b3c7b2316f3364fa05babe4a121687b1e5474784c5",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Migrations/20261025085402_InitialInternalSavia.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "2017f1217f77f47c2b4338e386ddedaa0e5535a0517736ae940bfad6dbf2c731",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Migrations/InitialInternalSavia.idempotent.sql",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "18a0d76c793b9d43a4a75008d39fe8ac92f791deaf1e4e63e487e5655f065fe0",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Migrations/InternalDbContextModelSnapshot.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "33347bd6d293f8b0074f7785e2d44bd31be531f1f01f4f21a31119675b72ac06",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalLoginLimiter.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "e6d7c19301e34f64f896d4505ad11ebb871ba781bd425f4c55972ec3a22f592d",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurity.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "52b35a34eba3b8170d31d620832202f14c71cd1b2ba654c8b4061dea88c0fc3d",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurityModel.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "9ccd634683abb6fdc89bd28ad4fbf31a2a7f8bc4e6fcec2521bf7469326b251c",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurityRules.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "3615ec3d96615ba22494c0719d776bf687123317ecc2d06899fad7880acaeaac",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurityService.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "d1522c77f741a7ca49bc96253525bb61b3b22b372acd7607e569f99f9bcf3b57",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/README.md",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "a84d531988d79f0bea693c1b0ca5abc6425babbfacf5b02fa940d1384e302c70",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyDbContext.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "57e4fdeb43a4dba44c14fa667dfedee5b2e078949537c2bee6b3c96dddfa23fd",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyEndpoints.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "0a772c649bac8e2161908b76641d202d51b9fe90f3829c02180301a5e1c837c1",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyModels.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "072545d4aac6cc9fb310dbf6bbe8aa1318007d29a4c300518179fa44d26624c9",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyRules.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "e2844e4af57ed2fe720363072eaff7f9ca43e455313f96dd9a2d799e1df6fef8",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyService.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "bab1b56b7a0f96c238ce98de2b22042bd2e7d316064cd88ffb0a2b58108245e9",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Supply/README.md",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "bcc043c02ccd9c7d23d5ff8ece174e4023c72160e0dcfa34beab42b1612f2d22",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Martha.Store.Api.csproj",
+      "action": "update",
+      "base_sha256": "e5215b2a3488ed4d24c96a939fd781cb034e46ac4c30605362016501870b79dd",
+      "new_sha256": "3491ae523bcb697a2ba49a1895b053b88cf8b54d68f3e9ebcb207c438a4f610a",
+      "current_sha256": "e5215b2a3488ed4d24c96a939fd781cb034e46ac4c30605362016501870b79dd"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Program.cs",
+      "action": "update",
+      "base_sha256": "16f2cb8a5971533de764112108f6c6a33facaa5ca3a404ed7d1cf38d3dca0a0a",
+      "new_sha256": "a5d75b09573b92666ebb3a074c652aaa632f513d1f97ca6627e7052d6b32331e",
+      "current_sha256": "16f2cb8a5971533de764112108f6c6a33facaa5ca3a404ed7d1cf38d3dca0a0a"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalAuthReviewTests.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "f9d4e5bd6739b8d1c5b57fb26161943acb4d4255a11a8c4df3c236836fab610d",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCommerceCommandSqlTests.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "bb848b8989066299c7105fcdfed9eb96b4091af7fa50b003f3257810d89a50a6",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCommerceSqlTests.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "584e4b4273d2affc7e72617a9b3f7fc0024c27fa4da90df2c84034284dbe2085",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCommerceTests.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "c0639c869396a994c6fbe44ae73303d42e3745f0032197e2a07831c7437caa99",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalDirectoryCommandTests.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "58b57e5f71857e6762b8ba5845ff7f8f08a9c064b0178ccf057f5bcd5abf710c",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalDirectoryModelTests.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "c87a301e50e6dd7ab0f67de368541bfe8d22d97c06150a591a6887b2bbce2718",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalDirectorySecurityTests.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "b1a989d30f35dfe84c35141ea044c5ce837feb3e6c625aef268ad9e6967ce6d6",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalDirectoryValidationTests.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "391042174228a38e8b0b0da365525f7ab87c161925aec4d026ae168de3d4e8f6",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalJudgeTests.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "0057ad7070cf35c5a0baf1be2d98b53a34b47ec27a6b0b2e250854655ba97c64",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalMigrationTests.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "6c3793794f4de1dbd6bb94a4022b3750152b46f3c5a35c1f81a9434f972016d4",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalRunnerModelTests.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "7f16fa4e859952c8778577cd16be57614664618c4959699cd06341c8f4c2ed2d",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalRunnerSqlTests.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "4d7664caaf3ef3a33fe15cd1dc914965e032ecffcb4b1796092610a324857c73",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalRunnerTests.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "a4d8f7a05a4619ff0c90a4808d0a591b28a073f5f5fbd1656c02ff58e58d699c",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalSecuritySqlTests.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "d7f7ff5396d2c1f4053ee8014818f18896ac256852886dac28cc31d22f37e927",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalSecurityTests.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "c3b7fe145762f2a90013680dfff363c387ab725221e2b7e95fbcff6bfbd812bb",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalSupplyRulesTests.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "17499f80698c7b4e06822f29b6431133e70d798754348638cd3dc78d7ab69b67",
+      "current_sha256": null
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalSupplySqlServerTests.cs",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "e6837b2997f6679042f6b2044ddfa39e9366c2f169ce0d8353fbc257230896ca",
+      "current_sha256": null
+    },
+    {
+      "path": "docs/INTERNAL-RUNNER-TESTS-2026-10-25.md",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "698b00f32ade87ee111c8a4a393e258285de15ef502e4ac6ce44e890496be173",
+      "current_sha256": null
+    },
+    {
+      "path": "docs/savia-internal/ACCEPTANCE.md",
+      "action": "already_identical",
+      "base_sha256": null,
+      "new_sha256": "545cce6aad0393ed634bf5cf1e485cab923056fb89a1e751a25c0256967127e5",
+      "current_sha256": "545cce6aad0393ed634bf5cf1e485cab923056fb89a1e751a25c0256967127e5"
+    },
+    {
+      "path": "docs/savia-internal/IMPLEMENTATION-BOUNDARY.md",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "ecd16fa1cd6a2537a6fee48f570b0d5f24adc8949cb3f0381baa1fb82c7c93a4",
+      "current_sha256": null
+    },
+    {
+      "path": "docs/savia-internal/MIGRATION-PLAN.md",
+      "action": "add",
+      "base_sha256": null,
+      "new_sha256": "ebe933f8c1b8ffab212d6988b6a197f32dba762f4cff84a0a0b02165fde92145",
+      "current_sha256": null
+    },
+    {
+      "path": "docs/savia-internal/REUSE-MAP.md",
+      "action": "already_identical",
+      "base_sha256": null,
+      "new_sha256": "daad8bb9c89d34d1ee2efbe6dbb9a247eea58cc51f942565793807b2b66d7fa0",
+      "current_sha256": "daad8bb9c89d34d1ee2efbe6dbb9a247eea58cc51f942565793807b2b66d7fa0"
+    },
+    {
+      "path": "docs/savia-internal/STAFF-WORKFLOWS.md",
+      "action": "already_identical",
+      "base_sha256": null,
+      "new_sha256": "2f1153ece42df5165a2707147d804189796a74a07e487602748fc81e84f378e4",
+      "current_sha256": "2f1153ece42df5165a2707147d804189796a74a07e487602748fc81e84f378e4"
+    }
+  ]
+}

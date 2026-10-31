@@ -1,3 +1,18 @@
+# SAVIA interno — rama privada
+
+Esta rama conserva la historia del backend y desarrolla el sistema de gestión
+para personal y propietarios. El alcance y los límites actuales están en
+[SAVIA-INTERNAL](SAVIA-INTERNAL.md). La tienda pública se mantiene separada;
+los párrafos siguientes documentan la base histórica recuperada y no describen
+un despliegue del sistema interno.
+
+La revisión aislada `feat/savia-branch-integration-20261028` conserva la base
+local `4a9c11e` e importa Owner/B1 (`c927eed`) y sucursales (`744f245`). La fuente
+histórica de 113 archivos se reconstruyó y verificó por SHA-256; el parentesco
+Git con el baseline cloud declarado `d77c64be` permanece sin demostrar.
+La compatibilidad de UI y PUT se ajusta en esta revisión; compilación, SQL y
+migraciones siguen pendientes. Ver [estado](docs/PROJECT-STATUS.md).
+
 # Martha Silva Store
 
 **Latest published update:** the green product's desktop gallery uses the measured
