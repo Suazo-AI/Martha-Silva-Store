@@ -70,3 +70,14 @@ bash tests/check.sh
 
 See [build-inputs/README.md](../build-inputs/README.md) for editable inputs,
 clean-checkout byte-equivalence verification and the historical-generator boundary.
+
+The desktop gallery candidate adds fourteen source-level DOM cases. They are
+written but NOT RUN on Tony. Run them explicitly on the authorized cloud host:
+
+```sh
+node tests/desktop-gallery.cjs
+```
+
+`tests/check.py` includes this file in syntax checks, but does not execute these
+cases. See [desktop-gallery-README.md](desktop-gallery-README.md) for prerequisites,
+mocking limits and the required independent browser review before publication.
