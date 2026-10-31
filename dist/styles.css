@@ -254,3 +254,9 @@ main[data-page=cart] .cart-line img{line-height:18.4px}
 .ai-support-illustration__error{max-width:60ch;margin:0 auto;padding:24px;border:1px solid #dedbd5;line-height:1.6}
 .ai-support-illustration>a{display:inline-block;padding:8px 0;text-decoration:underline;text-underline-offset:3px}
 @media(max-width:599px){.ai-support-illustration{padding:24px 20px;margin:28px auto}}
+
+/* Local luxury candidate: preserve complete generated model and frame, no stretching. */
+.product-image img,.category-tile img,.cart-line img,.mega-editorial img,
+.gallery-photo img,.gallery-clone img,.gallery-thumbnails img,.edit-photo img,
+.luxury-hero__media img,.luxury-editorial__portrait img,
+.campaign-photo .hero-photograph img { object-fit:contain; object-position:center; }

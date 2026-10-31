@@ -255,22 +255,8 @@ main[data-page=cart] .cart-line img{line-height:18.4px}
 .ai-support-illustration>a{display:inline-block;padding:8px 0;text-decoration:underline;text-underline-offset:3px}
 @media(max-width:599px){.ai-support-illustration{padding:24px 20px;margin:28px auto}}
 
-/* DESKTOP PRODUCT CAROUSEL: enhanced only after the gallery controller mounts. */
-@media(min-width:1024px){
- .product-gallery[data-desktop-carousel]{--gallery-stage-height:max(1px,calc(100svh - var(--store-sticky-header-height,106px) - 72px));display:grid;grid-template-columns:60px minmax(0,1fr);column-gap:12px;align-items:start;position:sticky;top:var(--store-sticky-header-height,106px);padding:0 12px 16px}
- .product-gallery[data-desktop-carousel] .gallery-viewport{grid-column:2;grid-row:1;min-width:0;width:100%;aspect-ratio:3/4;max-height:var(--gallery-stage-height);overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
- .product-gallery[data-desktop-carousel] .gallery-viewport::-webkit-scrollbar{display:none}
- .product-gallery[data-desktop-carousel] .gallery-track{display:flex;position:relative;width:100%;height:100%;gap:0;align-items:stretch}
- .product-gallery[data-desktop-carousel] .gallery-rail{display:contents}
- .product-gallery[data-desktop-carousel] .gallery-track :is(.gallery-photo,.gallery-video){position:relative;top:auto;grid-column:auto;grid-row:auto;align-self:stretch;flex:0 0 100%;width:100%;min-width:0;height:100%;max-height:none;aspect-ratio:auto;scroll-snap-align:start;scroll-snap-stop:always}
- .product-gallery[data-desktop-carousel] .gallery-photo img,.product-gallery[data-desktop-carousel] .gallery-video video{width:100%;height:100%;object-fit:scale-down;object-position:center}
- .product-gallery[data-desktop-carousel] .gallery-thumbnails{position:static;grid-column:1;grid-row:1 / span 2;display:flex;flex-direction:column;align-items:center;gap:8px;max-height:var(--gallery-stage-height);overflow-y:auto;overscroll-behavior-y:contain;scrollbar-width:none;padding:2px;margin:0;z-index:auto}
- .product-gallery[data-desktop-carousel] .gallery-thumbnails::-webkit-scrollbar{display:none}
- .product-gallery[data-desktop-carousel] .gallery-thumbnails button{display:grid;place-items:center;flex:0 0 auto;width:52px;height:auto;aspect-ratio:3/4;padding:0}
- .product-gallery[data-desktop-carousel] .gallery-thumbnails button:focus-visible{outline:2px solid currentColor;outline-offset:-4px}
- .product-gallery[data-desktop-carousel] .gallery-thumbnails img{display:block;width:100%;height:100%;object-fit:contain;object-position:center}
- .product-gallery[data-desktop-carousel] .gallery-arrows{position:static;grid-column:2;grid-row:2;display:flex;justify-content:center;gap:12px;margin-top:8px;pointer-events:auto}
- .product-gallery[data-desktop-carousel] .gallery-arrows button{display:grid;place-items:center;width:44px;min-width:44px;height:44px;min-height:44px;padding:0;background:transparent}
- .product-gallery[data-desktop-carousel] .gallery-arrows button svg{position:static;display:block;width:14px;height:14px}
- .product-gallery[data-desktop-carousel] .gallery-dots{display:none}
-}
+/* Local luxury candidate: preserve complete generated model and frame, no stretching. */
+.product-image img,.category-tile img,.cart-line img,.mega-editorial img,
+.gallery-photo img,.gallery-clone img,.gallery-thumbnails img,.edit-photo img,
+.luxury-hero__media img,.luxury-editorial__portrait img,
+.campaign-photo .hero-photograph img { object-fit:contain; object-position:center; }

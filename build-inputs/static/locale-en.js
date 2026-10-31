@@ -27,7 +27,7 @@ Ver en Instagram|View on Instagram
 Vestido de gala nude con pedrería plateada, fotografiado de cuerpo entero|Full-length view of a nude evening gown with silver embellishments
 Vestido de gala rosa con pedrería y detalle floral, fotografiado de cuerpo entero|Full-length view of a pink evening gown with sparkling embellishments and floral detail
 Vestido de gala violeta con hombros descubiertos y cola, fotografiado de cuerpo entero|Full-length view of a purple off-the-shoulder evening gown with a train
-Vestido blanco de encaje floral con abertura, fotografiado de cuerpo entero|Full-length view of a white floral lace dress with a slit
+Diseño de demostración: vestido blanco de encaje floral, cuello alto, manga larga y falda amplia|Fictional demo design: a white floral lace gown with a high neck, long sleeves and a full skirt
 Vestido de novia blanco de falda amplia y cola|White wedding dress with a full skirt and train
 Espalda de vestido rosa de falda amplia con motivos florales y cola|Back view of a pink dress with a full skirt, floral motifs and train
 Muestra|Sample
@@ -439,8 +439,8 @@ azul-gris-un-hombro|Blue gray one-shoulder dress|Blue gray gown with one sleeve,
 verde-brillo-cuello-cruzado|Green shimmer slit dress|Green shimmer gown with a V-neck, a cutout at the waist and a side slit.
 verde-esmeralda-tirantes-cruzados|Emerald green strappy dress|Green strappy gown with pleats, a slit and crossover straps at the back.
 rosa-bronce-pedreria|Bronze pink embellished dress|Strapless bronze pink gown with a sweetheart neckline and sparkling embellishments.
-negro-escote-puntas-abertura|Black pointed-neckline dress|Strapless black gown with a pointed neckline and a side slit.
-fucsia-halter-pliegues|Fuchsia halter-neck dress|Fuchsia gown with a halter neckline, waist pleats and a slit.
+negro-escote-puntas-abertura|Black high-neck evening gown|Fictional demo design: a black high-neck gown with long sleeves and a flowing full skirt, without a slit.
+fucsia-halter-pliegues|Fuchsia halter-neck dress|Fictional demo design: a high-halter fuchsia gown with waist pleats and a full skirt, without a slit.
 plata-tirantes-copas-pedreria|Silver embellished strappy dress|Silver gown with thin straps, defined cups and sparkling embellishments.
 crema-flores-volante-asimetrico|Cream floral ruffle dress|Floral halter-neck dress with a full skirt and an asymmetric ruffle.
 rosa-marron-chaqueta-falda|Rose brown jacket and skirt set|Set with a pocketed jacket and a straight knee-length skirt.
@@ -464,17 +464,27 @@ azul-floral-un-hombro|Blue floral one-shoulder dress|Blue gown with a light flor
 midi-estampado-burdeos|Burgundy-print midi dress|Sleeveless midi dress with a burgundy print on a beige background and a full skirt.
 novia-satinada-abertura|Draped slit wedding dress|Strapless wedding dress with a sweetheart neckline, pleated bodice and a side slit. Veil, shoes and accessories are not included.
 novia-tirantes-encaje|Strappy lace wedding dress|Strappy wedding dress with floral motifs, a V-neck, a slit and a train. Veil, shoes and accessories are not included.
-gala-rubi|Ruby sample|Sample, not Martha Silva inventory. Off-the-shoulder red dress with pleats and a side slit.
-gala-oro|Gold sample|Sample, not Martha Silva inventory. Gold strappy dress with a draped neckline and an open back.
-gala-destello|Sparkle sample|Sample, not Martha Silva inventory. Off-the-shoulder silver dress with sparkling embellishments and a slit.
-novias-velo|Veil sample|Sample, not Martha Silva inventory. High-neck wedding dress with long sleeves and lace motifs. The photos show only part of the skirt.
-novias-alba|Alba sample|Sample, not Martha Silva inventory. V-neck wedding dress with long sleeves and voluminous shoulders. The photos crop the hem.
+gala-rubi|Ruby sample|Sample, not Martha Silva inventory. Fictional demo design: a long-sleeved red satin gown with a full skirt, without a slit.
+gala-oro|Gold sample|Sample, not Martha Silva inventory. Fictional demo design: an embroidered champagne gown with long sleeves and a full skirt.
+gala-destello|Sparkle sample|Sample, not Martha Silva inventory. Fictional demo design: a long-sleeved silver beaded gown with a full skirt, without a slit.
+novias-velo|Veil sample|Sample, not Martha Silva inventory. High-neck wedding dress with long sleeves and lace motifs. The demo presents AI-generated full-length views.
+novias-alba|Alba sample|Sample, not Martha Silva inventory. V-neck wedding dress with long sleeves and voluminous shoulders. The demo presents AI-generated full-length views.
 novias-encaje|Lace sample|Sample, not Martha Silva inventory. Wedding dress with a V-back, floral motifs, a bow and a train. Only back views are available.
 `.trim();
   const byId = Object.fromEntries(products.split('\n').map(line => { const [id, name, description] = line.split('|'); return [id, { name, description }]; }));
   for (const product of window.DEMO_CATALOG?.products || []) {
     const english = byId[product.id];
-    if (english) { messages[product.name] = english.name; messages[product.description] = english.description; }
+    if (english) {
+      messages[product.name] = english.name;
+      messages[product.description] = english.description;
+      messages[product.name + ' · Vista completa · Imagen generada con IA'] = english.name + ' · Full-length view · AI-generated image';
+    }
+  }
+  // Native editorial images retain their authored description plus an AI disclosure.
+  for (const [spanish, english] of Object.entries(messages)) {
+    if (!spanish.includes(' · Imagen generada con IA')) {
+      messages[spanish + ' · Imagen generada con IA'] = english + ' · AI-generated image';
+    }
   }
   window.MARTHA_PRODUCT_EN = byId;
   window.MARTHA_EN = messages;

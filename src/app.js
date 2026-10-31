@@ -34,12 +34,7 @@
     function snapshot(record) {
       if (!record) return null;
       const containers = [...document.querySelectorAll('main [data-carousel],main [data-gallery-viewport]')].slice(0,24)
-        .map((node,index) => {
-          const saved={index,left:finite(node.scrollLeft),top:finite(node.scrollTop)};
-          const selected=node.getAttribute('data-gallery-active-index');
-          if(node.matches('[data-gallery-viewport]')&&selected!==null&&Number.isInteger(Number(selected))&&Number(selected)>=0)saved.galleryIndex=Number(selected);
-          return saved;
-        });
+        .map((node,index) => ({index,left:finite(node.scrollLeft),top:finite(node.scrollTop)}));
       return {...record,scroll:{x:finite(window.scrollX),y:finite(window.scrollY)},containers};
     }
     function capture(persist = true) {
@@ -72,13 +67,7 @@
         window.scrollTo({left:finite(record.scroll.x),top:finite(record.scroll.y),behavior:'instant'});
         const containers = [...document.querySelectorAll('main [data-carousel],main [data-gallery-viewport]')];
         for (const saved of record.containers || []) {
-          const node = containers[saved.index];
-          if(node){
-            const slides=node.matches('[data-gallery-viewport]')?node.querySelectorAll('.gallery-photo,.gallery-video'):[];
-            const slide=Number.isInteger(saved.galleryIndex)&&saved.galleryIndex>=0?slides[saved.galleryIndex]:null;
-            node.scrollLeft=slide?slide.offsetLeft:finite(saved.left);node.scrollTop=finite(saved.top);
-            if(slide)node.dispatchEvent(new CustomEvent('martha:galleryrestore',{detail:{index:saved.galleryIndex}}));
-          }
+          const node = containers[saved.index]; if (node) { node.scrollLeft=finite(saved.left);node.scrollTop=finite(saved.top); }
         }
         const reached=Math.abs(window.scrollY-record.scroll.y)<=1 && Math.abs(window.scrollX-record.scroll.x)<=1;
         const pendingImage=[...document.querySelectorAll('main img')].some(img=>!img.complete && img.getBoundingClientRect().top<=window.innerHeight);
@@ -342,8 +331,8 @@
   async function refreshCart() { cart = await api('/api/cart'); $$('[data-bag-count]').forEach(n => n.textContent = cart.lines.reduce((n, line) => n + line.quantity, 0)); if($('#mini-bag')?.open)miniBag(); return cart; }
   function card(p) {
     const saved=favorites.includes(p.id), stock=p.variants.reduce((n,v)=>n+v.stock,0);
-    const photo=(src,cls='')=>{const i=p.images.indexOf(src),dimensions=window.STORE_IMAGE_DIMENSIONS?.[p.jpeg_images?.[i] || src] || [900,1200];return `<picture class="${cls}"><source type="image/webp" srcset="${esc(p.image_sets?.[i] || src+' 900w')}" sizes="(max-width:599px) 50vw,25vw"><img class="${cls}" src="${esc(p.jpeg_images?.[i] || src)}" srcset="${esc(p.jpeg_sets?.[i] || src+' 900w')}" sizes="(max-width:599px) 50vw,25vw" width="${dimensions[0]}" height="${dimensions[1]}" alt="${esc(p.name)}" loading="lazy" decoding="async"></picture>`;};
-    return `<article class="product-card" data-id="${esc(p.id)}"><a class="product-image" href="/producto-${esc(p.id)}.html">${photo(p.images[0])}${p.images[1]?photo(p.images[1],'secondary-image'):''}${p.video?`<video muted loop playsinline preload="none" data-src="${esc(p.video)}" data-webm="${esc(p.video_webm || '')}"></video>`:''}</a><button class="favorite-button" data-favorite="${esc(p.id)}" aria-label="Guardar en favoritos: ${esc(p.name)}" aria-pressed="${saved}"><svg viewBox="0 0 24 24" fill="${saved?'currentColor':'none'}" stroke="currentColor" aria-hidden="true"><path d="M20.8 4.6c-2-2-5.2-1.8-7.1.2L12 6.6l-1.7-1.8C8.4 2.8 5.2 2.6 3.2 4.6s-2 5.2 0 7.2L12 21l8.8-9.2c2-2 2-5.2 0-7.2Z"/></svg></button><div class="product-meta"><p class="product-category">MARTHA SILVA</p><h3 class="product-name"><a href="/producto-${esc(p.id)}.html">${esc(p.name)}</a></h3><p class="product-price">${money(p.price_minor)}</p><p class="product-badge">${p.sample_image?'Muestra · ':''}${stock===0?'Agotada':stock===1?'Última unidad':stock<=3?'Pocas unidades':''}</p></div></article>`;
+    const photo=(src,cls='')=>{const i=p.images.indexOf(src),dimensions=window.STORE_IMAGE_DIMENSIONS?.[p.jpeg_images?.[i] || src] || [900,1200];return `<picture class="${cls}"><source type="${src.endsWith('.png') ? 'image/png' : 'image/webp'}" srcset="${esc(p.image_sets?.[i] || src+' 900w')}" sizes="(max-width:599px) 50vw,25vw"><img class="${cls}" src="${esc(p.jpeg_images?.[i] || src)}" srcset="${esc(p.jpeg_sets?.[i] || src+' 900w')}" sizes="(max-width:599px) 50vw,25vw" width="${dimensions[0]}" height="${dimensions[1]}" alt="${esc(p.name)}" loading="lazy" decoding="async"></picture>`;};
+    return `<article class="product-card" data-id="${esc(p.id)}"><a class="product-image" href="/producto-${esc(p.id)}.html">${photo(p.images[0])}${p.images[1]?photo(p.images[1],'secondary-image'):''}${p.video&&!['negro-escote-puntas-abertura','fucsia-halter-pliegues','gala-rubi','gala-oro','gala-destello'].includes(p.id)?`<video muted loop playsinline preload="none" data-src="${esc(p.video)}" data-webm="${esc(p.video_webm || '')}"></video>`:''}</a><button class="favorite-button" data-favorite="${esc(p.id)}" aria-label="Guardar en favoritos: ${esc(p.name)}" aria-pressed="${saved}"><svg viewBox="0 0 24 24" fill="${saved?'currentColor':'none'}" stroke="currentColor" aria-hidden="true"><path d="M20.8 4.6c-2-2-5.2-1.8-7.1.2L12 6.6l-1.7-1.8C8.4 2.8 5.2 2.6 3.2 4.6s-2 5.2 0 7.2L12 21l8.8-9.2c2-2 2-5.2 0-7.2Z"/></svg></button><div class="product-meta"><p class="product-category">MARTHA SILVA</p><h3 class="product-name"><a href="/producto-${esc(p.id)}.html">${esc(p.name)}</a></h3><p class="product-price">${money(p.price_minor)}</p><p class="product-badge">${p.sample_image?'Muestra · ':''}${stock===0?'Agotada':stock===1?'Última unidad':stock<=3?'Pocas unidades':''}</p></div></article>`;
   }
   function updateHearts() {
     $$('[data-favorite]').forEach(b => {
@@ -518,110 +507,13 @@
   }
   function gallery() {
     const track=$('[data-gallery-track]'),viewport=$('[data-gallery-viewport]');if(!track||!viewport)return;
-    const root=viewport.closest('.product-gallery'),slides=$$('.gallery-photo,.gallery-video',track);if(!root||!slides.length)return;
-    const signal=pageScope.signal,desktopQuery=matchMedia('(min-width:1024px)');
-    const desktop=()=>desktopQuery.matches,mobile=()=>matchMedia('(max-width:1023px)').matches;
-    const horizontal=()=>desktop()||mobile();
-    const originalMarker=root.getAttribute('data-desktop-carousel'),originalIndex=viewport.getAttribute('data-gallery-active-index');
-    const attributes=slides.map(slide=>({slide,hidden:slide.getAttribute('aria-hidden'),inert:slide.getAttribute('inert'),tabindex:slide.getAttribute('tabindex')}));
-    const sources=slides.flatMap(slide=>$$('source[srcset],img[srcset]',slide)).map(node=>({node,sizes:node.getAttribute('sizes')}));
-    const restore=(node,name,value)=>{if(value===null)node.removeAttribute(name);else if(node.getAttribute(name)!==value)node.setAttribute(name,value);};
-    const nearest=()=>slides.reduce((best,slide,i)=>Math.abs(slide.offsetLeft-viewport.scrollLeft)<Math.abs(slides[best].offsetLeft-viewport.scrollLeft)?i:best,0);
-    let index=0,pendingIndex=null,galleryFrame=0,layoutFrame=0;
-    root.setAttribute('data-desktop-carousel','');
-    const syncSources=()=>{
-      const width=viewport.clientWidth;
-      for(const {node,sizes} of sources){
-        if(desktop()&&width>0)restore(node,'sizes',`${Math.ceil(width)}px`);
-        else if(!desktop())restore(node,'sizes',sizes);
-      }
-    };
-    const mark=()=>{
-      const focused=document.activeElement,focusedSlide=slides.find(slide=>slide.contains(focused));
-      const changed=viewport.getAttribute('data-gallery-active-index')!==String(index);
-      restore(viewport,'data-gallery-active-index',String(index));
-      $$('[data-gallery-go]',root).forEach(b=>restore(b,'aria-current',String(Number(b.dataset.galleryGo)===index)));
-      for(const item of attributes){
-        const active=item.slide===slides[index];
-        restore(item.slide,'aria-hidden',desktop()&&!active?'true':item.hidden);
-        restore(item.slide,'inert',desktop()&&!active?'':item.inert);
-        restore(item.slide,'tabindex',desktop()&&!active?'-1':item.tabindex);
-        const video=$('video',item.slide);if(desktop()&&!active&&video&&!video.paused)video.pause();
-      }
-      if(desktop()&&focusedSlide&&focusedSlide!==slides[index]){
-        const target=slides[index].matches('.gallery-photo')?slides[index]:$('video[controls]',slides[index]);
-        target?.focus({preventScroll:true});
-        if(!target||document.activeElement!==target)$('[data-gallery-next]',root)?.focus({preventScroll:true});
-      }
-      const thumbs=$('.gallery-thumbnails',root),selected=$('.gallery-thumbnails [aria-current="true"]',root);
-      if(desktop()&&thumbs&&selected){
-        const list=thumbs.getBoundingClientRect(),item=selected.getBoundingClientRect();
-        if(item.top<list.top)thumbs.scrollTop+=item.top-list.top;
-        else if(item.bottom>list.bottom)thumbs.scrollTop+=item.bottom-list.bottom;
-      }
-      // Persist internal selection before native Back can change location. A
-      // container scroll does not trigger the window scroll-history listener.
-      if(changed)viewHistory.capture(true);
-    };
-    const align=behavior=>{if(horizontal())viewport.scrollTo({left:slides[index].offsetLeft,behavior});};
-    const go=n=>{
-      if(!Number.isInteger(n))return;
-      index=((n%slides.length)+slides.length)%slides.length;pendingIndex=desktop()?index:null;mark();
-      if(horizontal())align(reduced.matches?'instant':'smooth');
-      else slides[index].scrollIntoView({block:'nearest',behavior:reduced.matches?'instant':'smooth'});
-    };
-    syncSources();if(desktop()&&viewport.clientWidth)index=nearest();
+    let index=0;const slides=$$('.gallery-photo,.gallery-video',track),mobile=()=>matchMedia('(max-width:1023px)').matches;
+    const mark=()=>$$('[data-gallery-go]').forEach(b=>b.setAttribute('aria-current',String(Number(b.dataset.galleryGo)===index)));
+    const go=n=>{index=(n+slides.length)%slides.length;mark();if(mobile())viewport.scrollTo({left:slides[index].offsetLeft,behavior:reduced.matches?'instant':'smooth'});else slides[index].scrollIntoView({block:'nearest',behavior:reduced.matches?'instant':'smooth'});};
     if(mobile())viewport.scrollLeft=slides[0].offsetLeft;
-    mark();
-    root.addEventListener('click',e=>{const b=e.target.closest('[data-gallery-go],[data-gallery-prev],[data-gallery-next]');if(!b)return;go(b.hasAttribute('data-gallery-go')?Number(b.dataset.galleryGo):index+(b.hasAttribute('data-gallery-next')?1:-1));},{signal});
-    root.addEventListener('keydown',e=>{
-      if(!desktop()||e.altKey||e.ctrlKey||e.metaKey||e.shiftKey||e.target.closest('video,input,textarea,select,[contenteditable]'))return;
-      if(!e.target.closest('.gallery-photo,[data-gallery-go],[data-gallery-prev],[data-gallery-next]'))return;
-      const next=e.key==='ArrowLeft'?index-1:e.key==='ArrowRight'?index+1:e.key==='Home'?0:e.key==='End'?slides.length-1:null;
-      if(next===null)return;e.preventDefault();go(next);
-    },{signal});
-    viewport.addEventListener('scroll',()=>{
-      if(!horizontal()||galleryFrame)return;
-      galleryFrame=requestAnimationFrame(()=>{
-        galleryFrame=0;let next=index;
-        if(desktop()){
-          if(!viewport.clientWidth)return;
-          if(pendingIndex!==null&&Math.abs(viewport.scrollLeft-slides[pendingIndex].offsetLeft)>1)return;
-          pendingIndex=null;next=nearest();
-        }
-        else {const width=slides[0].offsetWidth;if(!width)return;next=((Math.round((viewport.scrollLeft-slides[0].offsetLeft)/width)%slides.length)+slides.length)%slides.length;}
-        if(next!==index){index=next;mark();}
-      });
-    },{passive:true,signal});
-    viewport.addEventListener('scrollend',()=>{
-      if(desktop()){pendingIndex=null;if(viewport.clientWidth){index=nearest();mark();}}
-      else if(mobile()&&viewport.scrollLeft<slides[0].offsetLeft-1)align('instant');
-    },{signal});
-    const interrupt=()=>{if(desktop()&&pendingIndex!==null){pendingIndex=null;index=nearest();mark();}};
-    for(const type of ['wheel','pointerdown','touchstart'])viewport.addEventListener(type,interrupt,{passive:true,signal});
-    viewport.addEventListener('martha:galleryrestore',event=>{
-      const selected=event.detail?.index;if(!Number.isInteger(selected)||selected<0||selected>=slides.length)return;
-      pendingIndex=null;index=selected;mark();
-    },{signal});
-    let wasDesktop=desktop(),lastWidth=viewport.clientWidth;
-    const resize=()=>{
-      if(signal.aborted||layoutFrame)return;
-      layoutFrame=requestAnimationFrame(()=>{
-        layoutFrame=0;const mode=desktop(),width=viewport.clientWidth,changed=mode!==wasDesktop;
-        syncSources();
-        if(changed||(mode&&Math.abs(width-lastWidth)>.5)){pendingIndex=null;align('instant');mark();}
-        wasDesktop=mode;lastWidth=width;
-      });
-    };
-    window.addEventListener('resize',resize,{signal});desktopQuery.addEventListener?.('change',resize);
-    const observer=window.ResizeObserver?new ResizeObserver(resize):null;observer?.observe(viewport);
-    signal.addEventListener('abort',()=>{
-      cancelAnimationFrame(galleryFrame);cancelAnimationFrame(layoutFrame);observer?.disconnect();desktopQuery.removeEventListener?.('change',resize);
-      for(const item of attributes){restore(item.slide,'aria-hidden',item.hidden);restore(item.slide,'inert',item.inert);restore(item.slide,'tabindex',item.tabindex);}
-      for(const {node,sizes} of sources)restore(node,'sizes',sizes);
-      restore(root,'data-desktop-carousel',originalMarker);
-      restore(viewport,'data-gallery-active-index',originalIndex);
-    },{once:true});
+    document.addEventListener('click',e=>{const b=e.target.closest('[data-gallery-go],[data-gallery-prev],[data-gallery-next]');if(!b)return;go(b.hasAttribute('data-gallery-go')?Number(b.dataset.galleryGo):index+(b.hasAttribute('data-gallery-next')?1:-1));},{signal:pageScope.signal});
+    let galleryFrame=0; viewport.addEventListener('scroll',()=>{if(!mobile()||galleryFrame)return;galleryFrame=requestAnimationFrame(()=>{galleryFrame=0;const width=slides[0].offsetWidth;if(!width)return;const next=(Math.round((viewport.scrollLeft-slides[0].offsetLeft)/width)+slides.length)%slides.length;if(next!==index){index=next;mark();}});},{passive:true,signal:pageScope.signal});pageScope.signal.addEventListener('abort',()=>cancelAnimationFrame(galleryFrame),{once:true});
+    viewport.addEventListener('scrollend',()=>{if(mobile()&&viewport.scrollLeft<slides[0].offsetLeft-1)viewport.scrollTo({left:slides[index].offsetLeft,behavior:'instant'});},{signal:pageScope.signal});
   }
   function validate(form) {
     let first;
