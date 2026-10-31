@@ -1,5 +1,18 @@
 # Estado de la sincronizacion de Tony
 
+Actualización local incorporada el 31 de octubre UTC: [SAVIA-LATEST](SAVIA-LATEST.md).
+Los cinco deltas de pruebas del candidato local del 28 de octubre están incorporados.
+Hay evidencia histórica de 581 resultados aprobados; no se repitieron en esta publicación.
+El paquete diagnóstico del 30 de octubre sigue pendiente de revisión independiente.
+Piloto `NO_APTO`. [Procedencia](../evidence/savia/20261030/README.md).
+
+También se preservan las [observaciones locales de tienda y SEO](../evidence/project-state-20261030.json).
+El triage SEO del 30 de octubre encontró `noindex,nofollow` en la demo alternativa
+`martha-silva-demo.jason-suazof.workers.dev`; no confirmó el dominio de producción.
+No se volvió a consultar ese sitio durante este push ni se cambiaron sus directivas.
+Para continuar SEO, Jason debe confirmar la URL de producción. El agente debe verificar
+esa URL antes de preparar cambios de indexación; la demo alternativa no la sustituye.
+
 Esta entrega reune fuentes e historia; no modifica el despliegue existente ni
 `main`. Las publicaciones se identifican por recibos, no por fecha de importacion.
 Ver [cronologia](UPDATE-HISTORY.md) y [verificacion](SYNC-VERIFICATION.md).
@@ -12,7 +25,7 @@ Ver [cronologia](UPDATE-HISTORY.md) y [verificacion](SYNC-VERIFICATION.md).
 | Imagenes | Originales preservados, 156 PNG generados con destinos/dimensiones/hashes | Full HD no alcanzado, diez listas de referencias incompletas y continuidad limitada |
 | Recuperacion | 777/778 medios historicos | La auditoria estricta debe rechazar recuperacion total |
 | Suite historica | Paquete luxury: 13/18 comandos aprobados | Cuatro suites fallaban y un control estricto detectaba referencias ausentes |
-| SAVIA staff | Historia hasta `023364fd`, ASP.NET Core/EF SQL Server y UI separados | Compilar/probar Owner/B1/sucursales, SQL autorizado, migraciones y hosting |
+| SAVIA staff | Historia `023364fd` más cinco deltas de pruebas locales; diagnóstico offline preservado | Revisión independiente del paquete nuevo; controles reales, SQL y hosting no aceptados |
 | Comercio real | Simulador local | Autoridad de precio/stock/pedido, tarjetas, webhooks y reconciliacion |
 
 La revision visual independiente del ultimo marco siguio en HOLD. El usuario

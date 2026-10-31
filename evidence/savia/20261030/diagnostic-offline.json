@@ -1,0 +1,318 @@
+{
+  "measured_utc": "2026-10-31T01:00:29.386Z",
+  "node": "v24.19.0",
+  "status": "PASS_OFFLINE_SYNTHETIC_ONLY",
+  "cases": 21,
+  "results": [
+    {
+      "name": "HTTP_100",
+      "status": "PASS",
+      "assertions": [
+        {
+          "id": "ANONYMOUS_API_ME_STATUS",
+          "kind": "http_status",
+          "expected": 401,
+          "received": 100,
+          "status": "FAIL"
+        }
+      ]
+    },
+    {
+      "name": "HTTP_200",
+      "status": "PASS",
+      "assertions": [
+        {
+          "id": "ANONYMOUS_API_ME_STATUS",
+          "kind": "http_status",
+          "expected": 401,
+          "received": 200,
+          "status": "FAIL"
+        }
+      ]
+    },
+    {
+      "name": "HTTP_302",
+      "status": "PASS",
+      "assertions": [
+        {
+          "id": "ANONYMOUS_API_ME_STATUS",
+          "kind": "http_status",
+          "expected": 401,
+          "received": 302,
+          "status": "FAIL"
+        }
+      ]
+    },
+    {
+      "name": "HTTP_400",
+      "status": "PASS",
+      "assertions": [
+        {
+          "id": "ANONYMOUS_API_ME_STATUS",
+          "kind": "http_status",
+          "expected": 401,
+          "received": 400,
+          "status": "FAIL"
+        }
+      ]
+    },
+    {
+      "name": "HTTP_403",
+      "status": "PASS",
+      "assertions": [
+        {
+          "id": "ANONYMOUS_API_ME_STATUS",
+          "kind": "http_status",
+          "expected": 401,
+          "received": 403,
+          "status": "FAIL"
+        }
+      ]
+    },
+    {
+      "name": "HTTP_404",
+      "status": "PASS",
+      "assertions": [
+        {
+          "id": "ANONYMOUS_API_ME_STATUS",
+          "kind": "http_status",
+          "expected": 401,
+          "received": 404,
+          "status": "FAIL"
+        }
+      ]
+    },
+    {
+      "name": "HTTP_500",
+      "status": "PASS",
+      "assertions": [
+        {
+          "id": "ANONYMOUS_API_ME_STATUS",
+          "kind": "http_status",
+          "expected": 401,
+          "received": 500,
+          "status": "FAIL"
+        }
+      ]
+    },
+    {
+      "name": "HTTP_599",
+      "status": "PASS",
+      "assertions": [
+        {
+          "id": "ANONYMOUS_API_ME_STATUS",
+          "kind": "http_status",
+          "expected": 401,
+          "received": 599,
+          "status": "FAIL"
+        }
+      ]
+    },
+    {
+      "name": "SHELL_VISIBLE",
+      "status": "PASS",
+      "assertions": [
+        {
+          "id": "ANONYMOUS_API_ME_STATUS",
+          "kind": "http_status",
+          "expected": 401,
+          "received": 401,
+          "status": "PASS"
+        },
+        {
+          "id": "ANONYMOUS_DOCUMENT_SHELL_HIDDEN",
+          "kind": "boolean",
+          "expected": true,
+          "received": false,
+          "status": "FAIL"
+        }
+      ]
+    },
+    {
+      "name": "SHELL_ABSENT",
+      "status": "PASS",
+      "assertions": [
+        {
+          "id": "ANONYMOUS_API_ME_STATUS",
+          "kind": "http_status",
+          "expected": 401,
+          "received": 401,
+          "status": "PASS"
+        },
+        {
+          "id": "ANONYMOUS_DOCUMENT_SHELL_HIDDEN",
+          "kind": "boolean",
+          "expected": true,
+          "received": true,
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "name": "SHELL_HIDDEN",
+      "status": "PASS",
+      "assertions": [
+        {
+          "id": "ANONYMOUS_API_ME_STATUS",
+          "kind": "http_status",
+          "expected": 401,
+          "received": 401,
+          "status": "PASS"
+        },
+        {
+          "id": "ANONYMOUS_DOCUMENT_SHELL_HIDDEN",
+          "kind": "boolean",
+          "expected": true,
+          "received": true,
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "name": "FETCH_ERROR",
+      "status": "PASS",
+      "assertions": [
+        {
+          "id": "ANONYMOUS_API_ME_STATUS",
+          "kind": "http_status",
+          "expected": 401,
+          "received": null,
+          "status": "NOT_OBSERVED"
+        }
+      ]
+    },
+    {
+      "name": "GOTO_ERROR",
+      "status": "PASS",
+      "assertions": [
+        {
+          "id": "ANONYMOUS_API_ME_STATUS",
+          "kind": "http_status",
+          "expected": 401,
+          "received": 401,
+          "status": "PASS"
+        },
+        {
+          "id": "ANONYMOUS_DOCUMENT_SHELL_HIDDEN",
+          "kind": "boolean",
+          "expected": true,
+          "received": null,
+          "status": "NOT_OBSERVED"
+        }
+      ]
+    },
+    {
+      "name": "INVALID_STRING",
+      "status": "PASS",
+      "assertions": [
+        {
+          "id": "ANONYMOUS_API_ME_STATUS",
+          "kind": "http_status",
+          "expected": 401,
+          "received": null,
+          "status": "INVALID_OBSERVATION"
+        }
+      ]
+    },
+    {
+      "name": "INVALID_OBJECT",
+      "status": "PASS",
+      "assertions": [
+        {
+          "id": "ANONYMOUS_API_ME_STATUS",
+          "kind": "http_status",
+          "expected": 401,
+          "received": null,
+          "status": "INVALID_OBSERVATION"
+        }
+      ]
+    },
+    {
+      "name": "INVALID_NAN",
+      "status": "PASS",
+      "assertions": [
+        {
+          "id": "ANONYMOUS_API_ME_STATUS",
+          "kind": "http_status",
+          "expected": 401,
+          "received": null,
+          "status": "INVALID_OBSERVATION"
+        }
+      ]
+    },
+    {
+      "name": "INVALID_LOW",
+      "status": "PASS",
+      "assertions": [
+        {
+          "id": "ANONYMOUS_API_ME_STATUS",
+          "kind": "http_status",
+          "expected": 401,
+          "received": null,
+          "status": "INVALID_OBSERVATION"
+        }
+      ]
+    },
+    {
+      "name": "INVALID_HIGH",
+      "status": "PASS",
+      "assertions": [
+        {
+          "id": "ANONYMOUS_API_ME_STATUS",
+          "kind": "http_status",
+          "expected": 401,
+          "received": null,
+          "status": "INVALID_OBSERVATION"
+        }
+      ]
+    },
+    {
+      "name": "INVALID_NULL",
+      "status": "PASS",
+      "assertions": [
+        {
+          "id": "ANONYMOUS_API_ME_STATUS",
+          "kind": "http_status",
+          "expected": 401,
+          "received": null,
+          "status": "INVALID_OBSERVATION"
+        }
+      ]
+    },
+    {
+      "name": "INVALID_UNDEFINED",
+      "status": "PASS",
+      "assertions": [
+        {
+          "id": "ANONYMOUS_API_ME_STATUS",
+          "kind": "http_status",
+          "expected": 401,
+          "received": null,
+          "status": "INVALID_OBSERVATION"
+        }
+      ]
+    },
+    {
+      "name": "INVALID_COERCION",
+      "status": "PASS",
+      "assertions": [
+        {
+          "id": "ANONYMOUS_API_ME_STATUS",
+          "kind": "http_status",
+          "expected": 401,
+          "received": null,
+          "status": "INVALID_OBSERVATION"
+        }
+      ]
+    }
+  ],
+  "protected_files_unchanged": 2492,
+  "source_sha256": "80b097b1986d75162ed7a91f1be474892779ed9da1cbda39f519da5d41bca4ab",
+  "candidate_sha256": "75b7dcc4fc2f06d80e332cb411f548c75dd773c1041eb97dbc5508ef9bafcb42",
+  "real_runtime_executed": false,
+  "real_browser_executed": false,
+  "network_used": false,
+  "certificate_stores_accessed": false,
+  "docker_accessed": false,
+  "pilot_status": "NO_APTO"
+}

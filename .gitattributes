@@ -2,3 +2,7 @@
 # and line endings. Application sources keep the normal whitespace review.
 build-inputs/static/prototypes/** -text -whitespace
 dist/prototypes/** -text -whitespace
+
+# Frozen public evidence keeps the original source bytes across Windows/Linux.
+evidence/savia/20261030/** -text -whitespace
+.githooks/* text eol=lf

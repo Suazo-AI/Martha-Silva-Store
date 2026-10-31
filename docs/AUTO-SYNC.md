@@ -1,105 +1,75 @@
-# Validated local progress sync (opt-in)
+# Registro y sincronización de avances
 
-**Delivered but not activated.** No hook is installed by checking out these files.
-Authentication and a successful real push must be established before calling sync
-active. This implementation has only offline mocked-network regression coverage;
-it does not provision credentials, log in, retry automatically, or bypass branch
-protection. Git hooks run on this computer, not in GitHub or API-created commits.
+Destino autorizado: rama `Tony` de `Suazo-AI/Martha-Silva-Store`, repositorio público.
+El mecanismo es local a este checkout. No usa un servicio ni un vigilante de archivos.
 
-## Prerequisites and activation
+1. El agente documenta resultado, comprobación, límites y siguiente acción en el documento del área.
+2. El agente revisa y añade únicamente los archivos de ese avance al índice Git.
+3. `pre-commit` inspecciona los bytes del índice y agrega un recibo en `docs/progress/`.
+4. `post-commit` verifica los commits pendientes y hace push sin force a `Tony`.
+5. El hook compara el SHA remoto y guarda el resultado en `.git/progress-sync.json`.
+6. GitHub Actions comprueba el recibo, las pruebas del hook y los hashes de evidencia.
 
-Use a trusted POSIX shell/Git installation, Python 3, Node.js, GitHub CLI (`gh`),
-and the QA dependencies documented by `tests/check.py`. Authenticate GitHub CLI
-and Git transport manually using the user's approved credential method. They
-are separate requirements: `gh` access alone does not ensure `git push` works.
-The authenticated account must be able to read this repo's visibility and push
-`main`. `Suazo-AI/Martha-Silva-Store` must remain **private**.
+Cada recibo enumera archivos y blobs Git. `NOT_RUN_BY_HOOK` significa que el hook
+no ejecutó pruebas del producto. La evidencia de las pruebas debe quedar en la documentación.
+Un commit no demuestra aceptación visual, comercial, de seguridad ni del piloto.
 
-From the repository root on `main`:
+El hook bloquea rutas sensibles, tipos de archivo peligrosos, enlaces simbólicos,
+archivos mayores de 8 MiB y algunos formatos de credenciales. Es un filtro conservador;
+no garantiza detectar todo secreto o dato personal. Revisar el diff sigue siendo obligatorio.
+No ejecuta Docker, SQL, scripts del producto, despliegues ni pruebas pesadas.
+No incluye archivos sin stage y no crea commits por pulsación de tecla.
 
-```sh
-# Inspect before replacing any existing hooks configuration; preserve it if set.
-git config --show-origin --get core.hooksPath
-# After authentication, initialize/update the tracking reference manually.
-git fetch origin main
-python3 tests/test_sync_progress.py
-python3 tools/sync_progress.py
-# Only after the validated real push succeeds, opt in for this repository:
-git config --local core.hooksPath .githooks
-# Confirm the effective value and its origin:
-git config --show-origin --get core.hooksPath
-```
+## Activación en otro checkout confiable
 
-Never set global hooks configuration. This setting applies to this repository
-(and may be shared by its worktrees); only `main` can publish. Preserve the hook's
-executable bit on checkout. Environments without executable shell hooks should
-use the explicit Python command instead. No service or background watcher runs.
-
-## Meaningful progress
-
-After an ordinary explicit commit, `post-commit` validates and pushes that commit.
-It **does not commit every keystroke** or decide which files constitute progress.
-For one command that validates, commits explicitly selected tracked files, and
-then validates/pushes, run from the repository root:
+Git no instala hooks al clonar. Revisar primero `.githooks/` y `tools/progress.py`.
+Se necesitan Git, Python 3, GitHub CLI autenticada y autorización para publicar en este repositorio público.
+Desde `Tony`, con `origin/Tony` actualizado:
 
 ```sh
-python3 tools/sync_progress.py --commit "Describe this completed progress" src/app.js dist/app.js
+python tests/test_progress.py
+python tools/progress.py install
+git config --show-origin --get core.hooksPath
+git config --local --get progress.autopush
 ```
 
-Supply exact tracked file paths, not globs/directories. New files must be reviewed
-and committed explicitly using normal Git first. Existing staged work, unrelated
-modified files, and untracked files block this convenience command. It never uses
-`git add .`, resets changes, rewrites history, or force-pushes. QA may regenerate
-build outputs; include intended output changes explicitly and review any failure.
-The convenience command suppresses hooks only on its own commit to avoid invoking
-the sync twice; it does not modify configuration. Push still respects pre-push
-hooks and remote branch protections.
+La instalación solo cambia `core.hooksPath=.githooks` y `progress.autopush=true`
+en la configuración local del repositorio. Rechaza otro hook local ya instalado.
+Las credenciales se consultan mediante `gh auth git-credential` para un único push.
+No modifica el helper global ni imprime tokens.
 
-## Gates and failure handling
+## Fallo o divergencia
 
-Before pushing, the helper requires:
+Un fallo de `post-commit` conserva el commit local. Git puede devolver éxito aunque
+el push falle. Solo `SYNCED` con SHA remoto coincidente acredita sincronización.
+No hay reintentos ocultos ni force-push. Si otro equipo avanzó `Tony`, revisar la
+divergencia y reconciliar los cambios antes de volver a publicar.
 
-- Exact expected `origin` fetch and push destination (one each), `main`, and a
-  GitHub CLI query confirming the exact repository is private.
-- A clean index/worktree, including untracked files, before **and after** QA.
-- No recognizable private-key/GitHub/AWS/OpenAI token patterns in committed
-  tracked blobs or outgoing patches relative to local `origin/main`; sensitive
-  filenames and submodules are blocked. This is a conservative heuristic, **not
-  a comprehensive secret scanner or a guarantee**. Review changes yourself.
-- Successful `python tests/check.py`, followed by another repository/HEAD check.
+Después de corregir la causa:
 
-The only publication is a non-force `git push origin HEAD:main` with automatic
-tag following and mirror mode disabled. Remote rejections, missing dependencies,
-missing `origin/main`, authentication/visibility errors, or potential secrets
-stop publication. Commands are noninteractive, bounded to five minutes each,
-and never automatically retried. Captured output is not printed to avoid leaking
-credentials or source content; run `python3 tests/check.py` manually for QA details.
+```sh
+python tools/progress.py publish
+```
 
-A post-commit failure **cannot undo the already completed local commit**, and Git
-may still report the commit as successful. Read the `Auto-sync blocked` message;
-do not interpret a successful commit as a successful push. Once the cause is
-resolved, retry explicitly with `python3 tools/sync_progress.py`. If a suspected
-secret was committed, do not retry publication until it has been removed from
-all outgoing history and any actual exposed credential has been rotated.
-No background retries or pending queue are created.
+Si el hook creó un recibo y después cambió el índice, retirar solo ese recibo nuevo
+del índice y del disco antes de regenerarlo. No editar recibos ya publicados.
+Si se detecta un secreto en historia pendiente, sanear toda esa historia antes del push.
 
-## Disable / uninstall
+## Desactivar y restaurar
 
-If this project setting was newly installed and no prior value existed:
+Para detener el push automático y conservar el registro:
+
+```sh
+git config --local progress.autopush false
+```
+
+Si antes no había un hook local, retirar la configuración añadida:
 
 ```sh
 git config --local --unset core.hooksPath
+git config --local --unset progress.autopush
 ```
 
-If there was a prior local value, restore that exact value instead. Do not change
-global configuration. The tracked hook/helper may remain inert in the repository.
-
-## Offline tests
-
-```sh
-python3 tests/test_sync_progress.py
-```
-
-These tests mock command execution: they perform no network calls, do not commit,
-and do not push. They are separate from `tests/check.py` and should be run when
-changing this helper. A mocked success message is not evidence of a real push.
+Si existía un valor anterior, restaurar ese valor exacto. No cambiar configuración global.
+`tools/sync_progress.py` y sus pruebas quedan como implementación histórica inactiva
+para `main` privado; los hooks actuales usan `tools/progress.py`.

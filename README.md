@@ -3,6 +3,11 @@
 La rama `Tony` conserva la historia real y las fuentes de la ultima demo publicada.
 Este push no despliega la web ni modifica `main`. [Cronologia](docs/UPDATE-HISTORY.md).
 
+**Último estado local incorporado:** [SAVIA al 30 de octubre, 22:59 Nicaragua](docs/SAVIA-LATEST.md).
+Piloto `NO_APTO`; preparación offline con revisión pendiente.
+Cada commit documenta sus archivos y sincroniza `Tony` mediante los [hooks locales](docs/AUTO-SYNC.md).
+Los [recibos](docs/progress/) identifican bytes publicados, no aceptación del producto.
+
 **Demo:** <https://martha-silva-preview.martha-silva-denis.workers.dev/>.
 Ultimo recibo conservado: version `601268a3-81ce-4277-a8ef-cb2e84d2fbb1`, publicada
 2026-10-30 a las 04:50:10 UTC. `dist/` reproduce sus 1081 archivos publicos;

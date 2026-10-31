@@ -142,7 +142,8 @@ public sealed class InternalSecuritySqlTests
                 return (await Service(db).UpdateStaff(owner.Principal, owner.Id, new("Fixture owner", "Manager", true,
                     Guid.Parse(owner.Principal.FindFirstValue(InternalSecurityRules.VersionClaim)!)), default)).Success;
             }
-            catch (Exception error) when (error is DbException or DbUpdateException)
+            catch (Exception error) when (error is DbException or DbUpdateException
+                or InvalidOperationException { InnerException: SqlException { Number: 1205 } })
             {
                 // SQL may abort a serializable deadlock victim. It must not weaken isolation or silently retry.
                 return false;

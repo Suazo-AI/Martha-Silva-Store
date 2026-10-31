@@ -1,0 +1,83 @@
+{
+  "measured_utc": "2026-10-31T04:58:17.207Z",
+  "node": "v24.19.0",
+  "status": "PASS_OFFLINE_SYNTHETIC_ONLY",
+  "cases": 4,
+  "results": [
+    {
+      "name": "HTTP_302",
+      "status": "PASS",
+      "assertions": [
+        {
+          "id": "ANONYMOUS_API_ME_STATUS",
+          "kind": "http_status",
+          "expected": 401,
+          "received": 302,
+          "status": "FAIL"
+        }
+      ]
+    },
+    {
+      "name": "SHELL_VISIBLE",
+      "status": "PASS",
+      "assertions": [
+        {
+          "id": "ANONYMOUS_API_ME_STATUS",
+          "kind": "http_status",
+          "expected": 401,
+          "received": 401,
+          "status": "PASS"
+        },
+        {
+          "id": "ANONYMOUS_DOCUMENT_SHELL_HIDDEN",
+          "kind": "boolean",
+          "expected": true,
+          "received": false,
+          "status": "FAIL"
+        }
+      ]
+    },
+    {
+      "name": "SHELL_HIDDEN",
+      "status": "PASS",
+      "assertions": [
+        {
+          "id": "ANONYMOUS_API_ME_STATUS",
+          "kind": "http_status",
+          "expected": 401,
+          "received": 401,
+          "status": "PASS"
+        },
+        {
+          "id": "ANONYMOUS_DOCUMENT_SHELL_HIDDEN",
+          "kind": "boolean",
+          "expected": true,
+          "received": true,
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "name": "FETCH_ERROR",
+      "status": "PASS",
+      "assertions": [
+        {
+          "id": "ANONYMOUS_API_ME_STATUS",
+          "kind": "http_status",
+          "expected": 401,
+          "received": null,
+          "status": "NOT_OBSERVED"
+        }
+      ]
+    }
+  ],
+  "protected_files_unchanged": 2492,
+  "source_sha256": "80b097b1986d75162ed7a91f1be474892779ed9da1cbda39f519da5d41bca4ab",
+  "candidate_sha256": "75b7dcc4fc2f06d80e332cb411f548c75dd773c1041eb97dbc5508ef9bafcb42",
+  "real_runtime_executed": false,
+  "real_browser_executed": false,
+  "network_used": false,
+  "certificate_stores_accessed": false,
+  "docker_accessed": false,
+  "pilot_status": "NO_APTO"
+}

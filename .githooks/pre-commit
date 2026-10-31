@@ -1,0 +1,8 @@
+#!/bin/sh
+root=$(git rev-parse --show-toplevel) || exit 1
+# Windows Store python3 can be a stub; prefer python when it exists.
+if command -v python >/dev/null 2>&1; then
+    exec python "$root/tools/progress.py" pre-commit
+else
+    exec python3 "$root/tools/progress.py" pre-commit
+fi

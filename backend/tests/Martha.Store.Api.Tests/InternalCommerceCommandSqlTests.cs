@@ -111,14 +111,58 @@ public sealed class InternalCommerceCommandSqlTests
         await using var fixture = await InternalCommerceSqlDatabase.Create();
         var sale = await Sell(fixture, 2);
         var line = Assert.Single(sale.Lines);
+        var actor = fixture.Actor;
+        var cancelRequest = new InternalSaleCancelRequest("cancel test");
+        var returnRequest = new InternalSaleReturnRequest("return test", [new(line.SaleLineId, 2)]);
+        const string cancelKey = "concurrent-cancel-001";
+        const string returnKey = "concurrent-return-001";
         var results = await Task.WhenAll(
-            fixture.Execute(s => s.CancelSale(sale.SaleId, new("cancel test"), fixture.Actor, "concurrent-cancel-001", default)),
-            fixture.Execute(s => s.ReturnSale(sale.SaleId, new("return test", [new(line.SaleLineId, 2)]), fixture.Actor, "concurrent-return-001", default)));
-        Assert.Single(results, result => result.Success);
-        Assert.Single(results, result => result.Error == "sale_state_conflict");
-        await using var verify = fixture.Context();
-        Assert.Equal(5, (await verify.Set<InternalStockBalance>().SingleAsync()).OnHand);
-        Assert.Equal(1, await verify.Set<InternalSaleReversal>().CountAsync());
+            fixture.Execute(s => s.CancelSale(sale.SaleId, cancelRequest, actor, cancelKey, default)),
+            fixture.Execute(s => s.ReturnSale(sale.SaleId, returnRequest, actor, returnKey, default)));
+        var winner = Assert.Single(results, result => result.Success);
+        var nonSuccess = Assert.Single(results, result => !result.Success);
+        Assert.Contains(nonSuccess.Error, new[] { "sale_state_conflict", "unknown_outcome" });
+        var losingIndex = Array.FindIndex(results, result => !result.Success);
+        var losingScope = losingIndex == 0 ? "commerce.sale.cancel" : "commerce.sale.return";
+        var losingKey = losingIndex == 0 ? cancelKey : returnKey;
+        await using (var verify = fixture.Context())
+        {
+            Assert.Equal(5, (await verify.Set<InternalStockBalance>().SingleAsync()).OnHand);
+            Assert.Equal(1, await verify.Set<InternalSaleReversal>().CountAsync());
+            Assert.Equal(winner.Value!.ReversalId, (await verify.Set<InternalSaleReversal>().SingleAsync()).Id);
+        }
+
+        // Reconcile once with the exact losing actor, scope, key and payload.
+        var recovered = losingIndex == 0
+            ? await fixture.Execute(s => s.CancelSale(sale.SaleId, cancelRequest, actor, cancelKey, default))
+            : await fixture.Execute(s => s.ReturnSale(sale.SaleId, returnRequest, actor, returnKey, default));
+        Assert.False(recovered.Success);
+        Assert.Equal("sale_state_conflict", recovered.Error);
+        InternalOperation persisted;
+        await using (var verify = fixture.Context())
+        {
+            persisted = await verify.Set<InternalOperation>().AsNoTracking()
+                .SingleAsync(operation => operation.ActorId == actor && operation.Scope == losingScope && operation.Key == losingKey);
+            var rejection = JsonSerializer.Deserialize<InternalResult<InternalSaleReversalReceipt>>(
+                persisted.ResultJson, new JsonSerializerOptions(JsonSerializerDefaults.Web));
+            Assert.NotNull(rejection);
+            Assert.False(rejection.Success);
+            Assert.Equal("sale_state_conflict", rejection.Error);
+        }
+
+        // A second explicit call must replay the same definitive rejection.
+        var replay = losingIndex == 0
+            ? await fixture.Execute(s => s.CancelSale(sale.SaleId, cancelRequest, actor, cancelKey, default))
+            : await fixture.Execute(s => s.ReturnSale(sale.SaleId, returnRequest, actor, returnKey, default));
+        Assert.Equal(JsonSerializer.Serialize(recovered), JsonSerializer.Serialize(replay));
+        await using var final = fixture.Context();
+        var replayedOperation = await final.Set<InternalOperation>().AsNoTracking()
+            .SingleAsync(operation => operation.ActorId == actor && operation.Scope == losingScope && operation.Key == losingKey);
+        Assert.Equal(persisted.Id, replayedOperation.Id);
+        Assert.Equal(persisted.ResultJson, replayedOperation.ResultJson);
+        Assert.Equal(5, (await final.Set<InternalStockBalance>().SingleAsync()).OnHand);
+        Assert.Equal(1, await final.Set<InternalSaleReversal>().CountAsync());
+        Assert.Equal(winner.Value!.ReversalId, (await final.Set<InternalSaleReversal>().SingleAsync()).Id);
     }
 
     [InternalCommerceSqlFact]

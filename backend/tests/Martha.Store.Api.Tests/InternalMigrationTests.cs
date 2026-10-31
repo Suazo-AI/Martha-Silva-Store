@@ -66,8 +66,11 @@ public sealed class InternalMigrationTests
         var assembly = db.GetService<IMigrationsAssembly>();
         var migration = assembly.CreateMigration(assembly.Migrations.First().Value, db.Database.ProviderName!);
         var tables = migration.UpOperations.OfType<CreateTableOperation>().ToArray();
-        var expected = db.GetService<IDesignTimeModel>().Model.GetRelationalModel().Tables
-            .Select(table => (table.Schema, table.Name)).OrderBy(table => table.Name).ToArray();
+        // Compare a historical migration with its own target model.
+        var expected = migration.TargetModel.GetEntityTypes()
+            .Where(entity => entity.GetTableName() is not null)
+            .Select(entity => (Schema: entity.GetSchema(), Name: entity.GetTableName()!))
+            .Distinct().OrderBy(table => table.Name).ToArray();
         Assert.Equal(expected, tables.Select(table => (table.Schema, table.Name)).OrderBy(table => table.Name).ToArray());
         Assert.All(tables, table => Assert.Equal("savia_internal", table.Schema));
         Assert.All(migration.UpOperations, operation =>
@@ -78,6 +81,21 @@ public sealed class InternalMigrationTests
             Assert.Equal("savia_internal", key.PrincipalSchema);
             Assert.Equal(ReferentialAction.Restrict, key.OnDelete);
         });
+        Assert.Equal(ConnectionState.Closed, db.Database.GetDbConnection().State);
+    }
+
+    [Fact]
+    public void Complete_migration_chain_creates_the_current_internal_table_set()
+    {
+        using var db = Database();
+        var assembly = db.GetService<IMigrationsAssembly>();
+        var created = assembly.Migrations.Values
+            .SelectMany(type => assembly.CreateMigration(type, db.Database.ProviderName!).UpOperations)
+            .OfType<CreateTableOperation>()
+            .Select(table => (table.Schema, table.Name)).Distinct().OrderBy(table => table.Name).ToArray();
+        var expected = db.GetService<IDesignTimeModel>().Model.GetRelationalModel().Tables
+            .Select(table => (table.Schema, table.Name)).OrderBy(table => table.Name).ToArray();
+        Assert.Equal(expected, created);
         Assert.Equal(ConnectionState.Closed, db.Database.GetDbConnection().State);
     }
 

@@ -1,5 +1,12 @@
 # Evolución preservada de Martha Silva
 
+## Sincronización local del 31 de octubre UTC
+
+Se incorporan cinco deltas de pruebas de SAVIA y la evidencia offline más reciente
+(30 de octubre, 22:59 Nicaragua). Ver [SAVIA-LATEST](SAVIA-LATEST.md).
+Se añade registro por commit, sincronización automática local a `Tony` y CI del mecanismo.
+No se cambia la última publicación de tienda ni se acepta el piloto real.
+
 Se conservan los commits originales accesibles, con sus fechas, SHA y parentesco.
 Frontend y SAVIA divergían: dos merges reúnen ambas líneas. Las últimas tres
 publicaciones existían como runtime congelado y deltas aislados; se importan

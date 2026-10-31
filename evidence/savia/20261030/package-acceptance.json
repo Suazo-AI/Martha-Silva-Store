@@ -1,0 +1,68 @@
+{
+  "measured_utc": "2026-10-31T04:59:45.055602+00:00",
+  "host": "SUAZO-PC",
+  "status": "OFFLINE_PREPARATION_ACCEPTED_NEW_PACKAGE_REVIEW_PENDING",
+  "package_hashes": {
+    "status": "OFFLINE_PACKAGE_PREPARED_REVIEW_PENDING",
+    "manifest_sha256": "4aeab3dd27b9cce38ce7c7f150196a7bd85b30df320439a313c2f91cba4d2ff1",
+    "browser_sha256": "75b7dcc4fc2f06d80e332cb411f548c75dd773c1041eb97dbc5508ef9bafcb42",
+    "source_manifest_sha256": "2e20c955b91fce6fe0d8b9780abb6af9c786ee7d5d5a6be32173a15a9035fa2c",
+    "launcher_sha256": "36100dc2f04ce6f9e71e217e140d0c22db4f9c3941d3335b7f75d9363bacd681",
+    "manual_entry_sha256": "776e53b73f6b99a1461d3344ce0b2445e1d4b5a615aa0649707bfb628c531f94",
+    "package_files": 388,
+    "source_pins": 529,
+    "runtime_authorized": false,
+    "pilot_status": "NO_APTO"
+  },
+  "acceptance": {
+    "separate_package": true,
+    "reviewed_candidate_exact": true,
+    "limited_three_file_diff": true,
+    "inherited_functional_criteria_unchanged": true,
+    "all_package_and_source_pins_verified": true,
+    "static_and_vm_checks_pass": true,
+    "frozen_2492_files_unchanged": true,
+    "generation_sources_and_inputs_retained": true,
+    "no_runtime_authorization_or_attempt": true
+  },
+  "reports": {
+    "STATIC-RESULT.json": "3bca49660d47a5b98d30b30fe5a6af53640b48fa7f11036bf85dc70fba39e586",
+    "INTEGRATION-VM-RESULT.json": "8f015d53fdf597147747984cada0fed1edf2ae6fec71a14b571923f04f3cd930",
+    "SYNTAX-RESULT.json": "15e1a359d23d351b8bedbd968c14a04c1029cc7d58ed6fa537582c1875a21280",
+    "CRITICAL-PATH.json": "2b4edf46f9a382d0157588d37d949f253c48413ff10894b313b1c42ba0ca881d"
+  },
+  "observed_native_process_receipts": {
+    "PREPARE-PROCESS.json": {
+      "started_utc": "2026-10-31T04:57:59.0595736Z",
+      "finished_utc": "2026-10-31T04:58:05.3197273Z",
+      "command": "python.exe -B prepare.py",
+      "actual_exit": 0,
+      "provenance": "Immediate LASTEXITCODE from native process; no exit inferred from JSON"
+    },
+    "VM-PROCESS.json": {
+      "started_utc": "2026-10-31T04:58:16.0405420Z",
+      "finished_utc": "2026-10-31T04:58:17.2280536Z",
+      "command": "node.exe integration-checks.cjs",
+      "actual_exit": 0,
+      "provenance": "Immediate LASTEXITCODE from native process; VM doubles only"
+    },
+    "VERIFY-PROCESS.json": {
+      "started_utc": "2026-10-31T04:58:32.1192638Z",
+      "finished_utc": "2026-10-31T04:58:34.3846767Z",
+      "command": "python.exe -B verify.py",
+      "actual_exit": 0,
+      "provenance": "Immediate LASTEXITCODE from native process; package source not executed"
+    }
+  },
+  "reused_synthetic_cases": 21,
+  "new_integration_vm_cases": 4,
+  "runtime_authorized": false,
+  "real_functional_controls_passed_new": 0,
+  "docker_accessed": false,
+  "certificate_stores_accessed": false,
+  "root_cleanup_and_docker_stop": "Previous R7 evidence only; not reprobed",
+  "historical_received_http": "UNKNOWN",
+  "product_cause_fixed": false,
+  "pilot_status": "NO_APTO",
+  "independent_package_review": "PENDING_FRESH_SELECTION"
+}
