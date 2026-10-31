@@ -16,6 +16,42 @@ push de SHA exacto, rechazo sin reintento y lectura remota discrepante.
 El primer push real debe acreditar el hook completo con SHA remoto coincidente.
 El recibo local de esa lectura está en `.git/progress-sync.json`, fuera del repositorio.
 
+## Resultado real verificado
+
+Primer commit publicado por los hooks: `115b95197250b86121282116ff808ba3923f286f`.
+`pre-commit` agregó el recibo de 37 archivos. `post-commit` hizo el push y confirmó
+el SHA mediante `ls-remote`; una consulta independiente de la referencia GitHub coincidió.
+La lectura remota de `docs/SAVIA-LATEST.md` coincidió con el blob local
+`c45c8c4b45de66910ef6fb8af1267ba56a99e9ac`. Working tree limpio después del push.
+
+- [CI del registro](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41173856157): PASS, incluidos tests, recibo y hashes.
+- [CI de tienda](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41173856076): integridad/build/sintaxis PASS; regresión histórica FAIL.
+- [Run anterior a este cambio](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41170326976): ya terminaba en `failure`.
+
+## Fallo pendiente de la suite histórica
+
+`python tests/check.py --install` termina con exit 1 al ejecutar
+`node --test tests/original-catalog.cjs`. Tres comprobaciones fallan:
+
+1. `all 40 original products retain their captured sample prices, variants and stock`.
+2. `other 39 products remain exact; Green alone uses its independently approved media selection`.
+3. `every rendered gallery, responsive image and product-video file exists locally without symlinks`.
+
+Los dos primeros rechazan diferencias contra el catálogo original congelado.
+El tercero falla en `assert.ok(references.size > 700)`.
+Este commit no modifica catálogo, medios ni esa suite. La entrega de la tienda ya
+documentaba incompatibilidades entre el catálogo histórico y las ilustraciones luxury.
+No se da por aprobada la suite completa; los pasos posteriores al primer fallo no corrieron.
+
+No se intentó cambiar la tienda ni reescribir los criterios históricos: esta tarea
+autoriza sincronización y documentación. La corrección pertenece a una tarea de catálogo.
+Responsable siguiente: agente de tienda, con el catálogo actual como artefacto explícito.
+Recomendación: conservar la suite original para su fixture y definir las expectativas
+del catálogo luxury con evidencia de las decisiones autorizadas.
+Antes de editar UI o medios, aplicar el gate del proyecto.
+Cerrar con `python tests/check.py --install` aprobado sobre el fixture correcto,
+sin eliminar controles de integridad ni afirmar fotografías originales para imágenes generadas.
+
 La suite completa `tests/check.py --install` se ejecuta por el workflow existente
 `Tony source snapshot`. Este checkout local es parcial y no contiene `build-inputs/`
 ni `dist/`; no se afirma ejecutar aquí las pruebas que los necesitan.
