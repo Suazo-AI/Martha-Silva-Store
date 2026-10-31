@@ -24,7 +24,8 @@ Ver [cronologia](UPDATE-HISTORY.md) y [verificacion](SYNC-VERIFICATION.md).
 | Galeria | Publicaciones horizontal y proporcional separadas | Ultima: 11 comprobaciones con dobles; navegador real/Safari pendientes |
 | Imagenes | Originales preservados, 156 PNG generados con destinos/dimensiones/hashes | Full HD no alcanzado, diez listas de referencias incompletas y continuidad limitada |
 | Recuperacion | 777/778 medios historicos | La auditoria estricta debe rechazar recuperacion total |
-| Suite historica | Paquete luxury: 13/18 comandos aprobados | Cuatro suites fallaban y un control estricto detectaba referencias ausentes |
+| Regresiones del catálogo | 9/9 pruebas locales; 152 imágenes publicadas y 774 referencias históricas comprobadas | [Validación completa y límites](CATALOG-REGRESSION-FIX.md); CI del SHA entregado |
+| Informe luxury histórico | Conserva el resultado original de 13/18 comandos | No acredita la suite actual ni recuperación completa |
 | SAVIA staff | Historia `023364fd` más cinco deltas de pruebas locales; diagnóstico offline preservado | Revisión independiente del paquete nuevo; controles reales, SQL y hosting no aceptados |
 | Comercio real | Simulador local | Autoridad de precio/stock/pedido, tarjetas, webhooks y reconciliacion |
 
@@ -36,7 +37,7 @@ Los 435 PASS C# y 56 SQL omitidas pertenecen a una fuente privada anterior;
 **no validan `023364fd` ni sus migraciones posteriores**. Estado preservado:
 [BRANCH-REVIEW-STATUS-20261028](savia-internal/BRANCH-REVIEW-STATUS-20261028.md).
 
-La laptop rechazo tareas pesadas por RAM insuficiente. Se hicieron revision de
-fuentes, comprobaciones ligeras y transferencia Git con un trabajador. No se
-abrieron navegadores ni SQL. Build reproducible y suite se ejecutan en GitHub;
-los fallos deben conservarse, no ocultarse.
+La importación anterior en laptop quedó limitada por RAM. La corrección posterior
+en `SUAZO-PC` ejecutó build reproducible y regresiones locales. Las pruebas que
+crean symlinks requieren la CI de Linux: Windows devuelve `WinError 1314`.
+Los resultados históricos se conservan; ver [comprobaciones actuales](CATALOG-REGRESSION-FIX.md).

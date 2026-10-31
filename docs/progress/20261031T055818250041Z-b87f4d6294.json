@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-31T05:58:18.250041+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "change": "M",
+      "git_blob": "e54c9337aa8653dda72caad961436d5d0f4e48f3"
+    },
+    {
+      "path": "README.md",
+      "change": "M",
+      "git_blob": "d92cf66a8fa93903b7be87d9cc8cf88679ade59f"
+    },
+    {
+      "path": "docs/CATALOG-REGRESSION-FIX.md",
+      "change": "A",
+      "git_blob": "11dafdb08f11d3ce315841256609c407b620af5b"
+    },
+    {
+      "path": "docs/PROGRESS-SYNC-VALIDATION.md",
+      "change": "M",
+      "git_blob": "6ca8c4cff3dbba7c908debce206526f0b0cc2e3b"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "3a5488545bed6d6402c8e6eea02ca6e89a86cc53"
+    },
+    {
+      "path": "docs/SYNC-VERIFICATION.md",
+      "change": "M",
+      "git_blob": "c654116c889b13a7dd2f9604644f0611c9340e8c"
+    },
+    {
+      "path": "docs/UPDATE-HISTORY.md",
+      "change": "M",
+      "git_blob": "40ff9a689c5781b424e69bc5778f35fb2b41da05"
+    },
+    {
+      "path": "tests/asset-audit.py",
+      "change": "M",
+      "git_blob": "b698ba9b0065d0856c1f16cba1bd9b9d2728340b"
+    },
+    {
+      "path": "tests/fixtures/published-catalog-contract.json",
+      "change": "A",
+      "git_blob": "efb30fa0f26e9ee8f728c9fda1acaf998ba2d56f"
+    },
+    {
+      "path": "tests/original-catalog.cjs",
+      "change": "M",
+      "git_blob": "c846878f03be52b2fa22469708fe64c52bf51b6d"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

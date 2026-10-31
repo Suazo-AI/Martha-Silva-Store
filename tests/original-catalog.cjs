@@ -1,6 +1,6 @@
 'use strict';
-// Focused Green media exception; captured fixtures remain historical and intact.
-// Historical capture fixtures remain intact; one independently reviewed Green exception.
+// Captured commercial data and historical photos remain independently checked.
+// Current media is authorized by the preserved luxury publication, not by itself.
 // Captured public demo data and observed media, never commercial inventory.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -13,14 +13,19 @@ const original = require('./fixtures/catalog-expansion.json');
 const originalMedia = require('./fixtures/original-store-media.json');
 const legacy = require('./fixtures/legacy-catalog.json');
 const evidence = require('../evidence/asset-source-manifest.json');
+const publication = require('./fixtures/published-catalog-contract.json');
+const release = require('../evidence/releases/20261030/current-runtime-sha256.json');
+const selected = require('../evidence/releases/20261030/luxury-selected-assets.json');
 const root = path.resolve(__dirname, '..');
 const context = {window:{}};
-vm.runInNewContext(fs.readFileSync(path.join(root, 'build-inputs/static/catalog.js'), 'utf8'), context);
+const catalogSource = fs.readFileSync(path.join(root, 'build-inputs/static/catalog.js'));
+vm.runInNewContext(catalogSource.toString('utf8'), context);
 const catalog = JSON.parse(JSON.stringify(context.window.DEMO_CATALOG));
 const media = JSON.parse(JSON.stringify(context.window.STORE_MEDIA));
 const dimensions = JSON.parse(JSON.stringify(context.window.STORE_IMAGE_DIMENSIONS));
 const allowed = new Set(evidence.sources.flatMap(source => source.media_paths));
-const localMedia = /^\/research\/assets\/[A-Za-z0-9_./-]+\.(?:jpg|jpeg|png|webp|mp4|webm)$/;
+const localMedia = /^\/(?:research\/assets|generated-luxury)\/[A-Za-z0-9_./-]+\.(?:jpg|jpeg|png|webp|mp4|webm)$/;
+const referencePattern = /\/(?:research\/assets|generated-luxury)\/[A-Za-z0-9_./-]+\.(?:jpg|jpeg|png|webp|mp4|webm)/g;
 
 const selection = require('../evidence/green-photo-borders/selection.json');
 const GREEN = 'verde-brillo-cuello-cruzado';
@@ -37,6 +42,24 @@ const approvedPaths = new Set(approvedGrid.map(value => value.path));
 const reviewedVariants = new Map(selection.variants.map(value => [value.path, value]));
 const expectedMedia = JSON.parse(JSON.stringify(originalMedia));
 expectedMedia[GREEN] = selection.expected_media;
+const publishedMedia = {};
+const selectedImages = new Map();
+for (const product of original.products) {
+  const records = selected.selected_assets.filter(record => record.product_id === product.id)
+    .sort((left, right) => left.runtime_destination.localeCompare(right.runtime_destination));
+  assert.ok(records.length, 'No published image selection for ' + product.id);
+  for (const record of records) {
+    const reference = '/' + record.runtime_destination;
+    assert.ok(!selectedImages.has(reference), 'Duplicate product image selection: ' + reference);
+    selectedImages.set(reference, record);
+  }
+  const images = records.map(record => '/' + record.runtime_destination);
+  const sets = records.map(record => '/' + record.runtime_destination + ' ' + record.dimensions[0] + 'w');
+  publishedMedia[product.id] = {...originalMedia[product.id], images, jpeg_images: images,
+    image_sets: sets, jpeg_sets: sets,
+    image_labels: images.map(() => 'Imagen generada con IA · vista completa'),
+    video_poster: images[0]};
+}
 const staticRoot = path.join(root, 'build-inputs/static');
 function hash(bytes) { return crypto.createHash('sha256').update(bytes).digest('hex'); }
 function regularFile(reference) {
@@ -129,33 +152,45 @@ test('the 18 original Green raster files remain byte-identical and available', (
 function assertReference(reference) {
   assert.match(reference, localMedia);
   assert.ok(!reference.split('/').includes('..'), reference);
-  assert.ok(allowed.has(reference) || approvedPaths.has(reference), 'unrecorded/unapproved reference: ' + reference);
+  assert.ok(allowed.has(reference) || approvedPaths.has(reference) || selectedImages.has(reference),
+    'unrecorded/unapproved reference: ' + reference);
 }
 
-test('all 40 original products retain their captured sample prices, variants and stock', () => {
-  assert.equal(catalog.mode, 'local_test');
-  assert.equal(catalog.brand.commercial_status, 'sample');
-  assert.equal(catalog.products.length, 40);
-  assert.equal(new Set(catalog.products.map(product => product.id)).size, 40);
-  assert.equal(catalog.products.reduce((count, product) => count + product.variants.length, 0), 120);
-  assert.deepEqual(catalog.products.map(product => product.id), original.products.map(product => product.id));
-  for (const [index, product] of catalog.products.entries()) {
+function assertProducts(actual) {
+  assert.equal(actual.mode, 'local_test');
+  assert.equal(actual.brand.commercial_status, 'sample');
+  assert.equal(actual.products.length, 40);
+  assert.equal(new Set(actual.products.map(product => product.id)).size, 40);
+  assert.equal(actual.products.reduce((count, product) => count + product.variants.length, 0), 120);
+  assert.deepEqual(actual.products.map(product => product.id), original.products.map(product => product.id));
+  for (const [index, product] of actual.products.entries()) {
+    const overrides = publication.copy_overrides[product.id] || {};
+    assert.ok(Object.keys(overrides).every(key => ['name', 'description'].includes(key)),
+      'Copy exceptions must not override commerce: ' + product.id);
     for (const [key, value] of Object.entries(original.products[index])) {
-      if (key !== 'images') assert.deepEqual(product[key], value, product.id + ':' + key);
+      if (key !== 'images') assert.deepEqual(product[key], overrides[key] ?? value, product.id + ':' + key);
     }
     assert.equal(product.commercial_status, 'sample');
-    assert.deepEqual(product.images, expectedMedia[product.id].images);
+    assert.deepEqual(product.images, publishedMedia[product.id].images);
+    for (const [key, value] of Object.entries(publishedMedia[product.id]))
+      assert.deepEqual(product[key], value, product.id + ':' + key);
   }
+}
+
+test('all 40 products retain captured prices, variants and stock plus explicit published copy/media changes', () => {
+  assert.equal(hash(catalogSource), publication.source_catalog_sha256, 'published catalog pin');
+  assert.equal(publication.source_catalog_sha256, release['catalog.js'].sha256);
+  assertProducts(catalog);
 });
 
-test('other 39 products remain exact; Green alone uses its independently approved media selection', () => {
-  assert.deepEqual(media, expectedMedia);
-  for (const id of Object.keys(originalMedia)) if (id !== GREEN) assert.deepEqual(media[id], originalMedia[id],id);
-  assert.equal(Object.keys(media).length, 40);
-  assert.equal(Object.values(media).reduce((count, item) => count + item.images.length, 0), 169);
+function assertPublishedMedia(actual) {
+  assert.deepEqual(actual, publishedMedia, 'media must match the independent published selection');
+  assert.equal(Object.keys(actual).length, 40);
+  assert.equal(Object.values(actual).reduce((count, item) => count + item.images.length, 0), 152);
+  assert.equal(selectedImages.size, 152);
   const candidateReferences = new Set();
   for (const product of catalog.products) {
-    const item = media[product.id];
+    const item = actual[product.id];
     for (const [key, value] of Object.entries(item)) assert.deepEqual(product[key], value, product.id + ':' + key);
     for (const key of ['jpeg_images', 'image_sets', 'jpeg_sets', 'image_labels']) {
       assert.equal(item[key].length, item.images.length, product.id + ':' + key);
@@ -167,21 +202,72 @@ test('other 39 products remain exact; Green alone uses its independently approve
         assertReference(reference);
         assert.match(width, /^[1-9][0-9]*w$/);
         assert.equal(extra, undefined);
-        if (approvedPaths.has(reference)) {
-          assert.equal(width,reviewedVariants.get(reference).width+'w','false descriptor: '+reference);
+        if (selectedImages.has(reference)) {
+          assert.equal(width,selectedImages.get(reference).dimensions[0]+'w','false descriptor: '+reference);
           candidateReferences.add(reference);
         }
       }
     }
     for (const key of ['video', 'video_webm', 'video_poster']) if (item[key]) assertReference(item[key]);
   }
-  assert.deepEqual([...candidateReferences].sort(),[...approvedPaths].sort(),'every approved responsive variant must be referenced');
+  assert.deepEqual([...candidateReferences].sort(), [...selectedImages.keys()].sort(),
+    'every published product image must be referenced');
+}
+
+test('all 40 current media records match the 152 independently recorded product-image selections', () => {
+  assertPublishedMedia(media);
 });
 
 test('every rendered gallery, responsive image and product-video file exists locally without symlinks', () => {
-  const references = new Set(JSON.stringify(media).match(/\/research\/assets\/[A-Za-z0-9_./-]+\.(?:jpg|jpeg|png|webp|mp4|webm)/g));
-  assert.ok(references.size > 700);
+  const references = new Set(JSON.stringify(media).match(referencePattern));
+  const expected = new Set(JSON.stringify(publishedMedia).match(referencePattern));
+  assert.equal(references.size, 202, '152 selected PNGs and 50 retained product-video files');
+  assert.deepEqual([...references].sort(), [...expected].sort());
   for (const reference of references) { assertReference(reference); regularFile(reference); }
+  for (const [reference, record] of selectedImages) {
+    const bytes = fs.readFileSync(regularFile(reference));
+    assert.equal(bytes.length, record.bytes, reference);
+    assert.equal(hash(bytes), record.sha256, reference);
+    assert.equal(bytes.subarray(0, 8).toString('hex'), '89504e470d0a1a0a', reference);
+    const size = [bytes.readUInt32BE(16), bytes.readUInt32BE(20)];
+    assert.deepEqual(size, record.dimensions, reference);
+    assert.deepEqual(dimensions[reference], size, reference);
+  }
+});
+
+test('all 774 historical media references remain available separately from the current selection', () => {
+  const references = new Set(JSON.stringify(originalMedia).match(referencePattern));
+  assert.equal(references.size, 774);
+  for (const reference of references) { assertReference(reference); regularFile(reference); }
+  // The previous 169-photo Green stage remains a separate, internally consistent contract.
+  assert.equal(Object.values(expectedMedia).reduce((count, item) => count + item.images.length, 0), 169);
+  for (const [id, item] of Object.entries(expectedMedia)) {
+    if (id !== GREEN) assert.deepEqual(item, originalMedia[id], id);
+    for (const reference of new Set(JSON.stringify(item).match(referencePattern))) {
+      assertReference(reference); regularFile(reference);
+    }
+  }
+});
+
+test('commerce checks reject price, stock and variant mutations despite published media exceptions', () => {
+  for (const field of ['price', 'stock', 'variant']) {
+    const changed = structuredClone(catalog);
+    if (field === 'price') changed.products[0].price_minor++;
+    if (field === 'stock') changed.products[0].variants[0].stock++;
+    if (field === 'variant') changed.products[0].variants[0].id = 'unapproved';
+    assert.throws(() => assertProducts(changed), assert.AssertionError, field);
+  }
+});
+
+test('current media checks reject missing, cross-product and false-width references', () => {
+  for (const mutation of ['missing', 'cross-product', 'width']) {
+    const changed = structuredClone(media);
+    const ids = Object.keys(changed);
+    if (mutation === 'missing') changed[ids[0]].images.pop();
+    if (mutation === 'cross-product') changed[ids[0]].images[0] = changed[ids[1]].images[0];
+    if (mutation === 'width') changed[ids[0]].image_sets[0] = changed[ids[0]].images[0] + ' 1w';
+    assert.throws(() => assertPublishedMedia(changed), assert.AssertionError, mutation);
+  }
 });
 
 test('the served full catalog supports the real legacy six-to-120 variant migration', async () => {

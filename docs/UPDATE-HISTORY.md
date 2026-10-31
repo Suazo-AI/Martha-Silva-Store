@@ -1,5 +1,13 @@
 # Evolución preservada de Martha Silva
 
+## Corrección de regresiones del catálogo, 31 de octubre UTC
+
+Se separan los contratos históricos y la selección luxury publicada. Se mantienen
+las comparaciones de precios, stock y variantes, y se comprueban los 152 PNG
+contra el manifiesto previo. Se corrige también el conteo de la auditoría.
+Se añaden casos negativos y atributos LF para el checkout Windows.
+[Resultado, comandos y límites](CATALOG-REGRESSION-FIX.md). Sin nueva publicación del sitio.
+
 ## Sincronización local del 31 de octubre UTC
 
 Se incorporan cinco deltas de pruebas de SAVIA y la evidencia offline más reciente

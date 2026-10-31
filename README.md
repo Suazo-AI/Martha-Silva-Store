@@ -62,9 +62,11 @@ python tests/check.py --install
 ```
 
 El verificador comprueba hashes, estructura y fuentes; build exige dos salidas
-identicas. La suite historica conserva fallos documentados: no se declara toda
-la bateria aprobada. El workflow `Tony source snapshot` ejecuta estas comprobaciones
-en cloud, sin desplegar ni iniciar SQL. Consultar resultados del SHA exacto.
+identicas. Las regresiones del catálogo distinguen capturas históricas y selección
+publicada; conservan precios, stock, variantes y controles de archivos. Ver
+[corrección y comprobaciones](docs/CATALOG-REGRESSION-FIX.md). El workflow
+`Tony source snapshot` ejecuta la suite completa en Linux, sin desplegar ni iniciar
+SQL. Consultar resultados del SHA exacto.
 
 ## SAVIA y publicacion
 

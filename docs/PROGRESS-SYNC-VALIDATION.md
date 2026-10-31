@@ -1,5 +1,10 @@
 # Validación del registro de avances
 
+Actualización: Jason autorizó corregir los tres fallos de catálogo descritos abajo.
+La reproducción, corrección y comprobaciones actuales están en
+[CATALOG-REGRESSION-FIX](CATALOG-REGRESSION-FIX.md). El resto conserva el resultado
+del primer push y sus límites históricos.
+
 Host local: `SUAZO-PC`, Windows. Alcance: registro Git y exportación de evidencia.
 
 - `python tests/test_progress.py`: PASS, 13 pruebas; Git temporal real y transporte remoto simulado.
@@ -28,7 +33,7 @@ La lectura remota de `docs/SAVIA-LATEST.md` coincidió con el blob local
 - [CI de tienda](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41173856076): integridad/build/sintaxis PASS; regresión histórica FAIL.
 - [Run anterior a este cambio](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41170326976): ya terminaba en `failure`.
 
-## Fallo pendiente de la suite histórica
+## Fallo de la suite histórica observado en el primer push
 
 `python tests/check.py --install` termina con exit 1 al ejecutar
 `node --test tests/original-catalog.cjs`. Tres comprobaciones fallan:

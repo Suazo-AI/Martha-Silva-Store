@@ -6,3 +6,12 @@ dist/prototypes/** -text -whitespace
 # Frozen public evidence keeps the original source bytes across Windows/Linux.
 evidence/savia/20261030/** -text -whitespace
 .githooks/* text eol=lf
+
+# Snapshot manifests hash LF bytes; Windows checkout must preserve those bytes.
+src/*.js text eol=lf
+build-inputs/static/*.html text eol=lf
+build-inputs/static/*.js text eol=lf
+build-inputs/static/*.css text eol=lf
+dist/*.html text eol=lf
+dist/*.js text eol=lf
+dist/*.css text eol=lf
