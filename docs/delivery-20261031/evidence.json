@@ -1,0 +1,168 @@
+{
+  "generated_utc": "2026-11-01T04:49:01.685347+00:00",
+  "base_commit": "98c9014c79501977519b84f959049b62940b69a3",
+  "branch": "Tony",
+  "working_tree_had_preexisting_changes": true,
+  "scope": "read-only product diagnosis; documentation artifacts only",
+  "runtime_reexecuted": false,
+  "historical_acceptance": {
+    "pass": 13,
+    "fail": 0,
+    "skip": 0,
+    "not_run": 9,
+    "total": 22,
+    "critical_ui_pass": 5,
+    "critical_ui_total": 5
+  },
+  "source_hashes": [
+    {
+      "path": "global.json",
+      "sha256": "c58760b0c663e532210133cd9ca33bf43d8243f0d0631ab7134aa3f5784d6b15",
+      "tracked_at_inspection": true,
+      "bytes": 80
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "sha256": "e6493333e976cb2318ea99d065f619a496b3297cec0eb89f13c35453b612eb03",
+      "tracked_at_inspection": true,
+      "bytes": 4506
+    },
+    {
+      "path": "docs/SAVIA-LATEST.md",
+      "sha256": "54fefd4c7a8e3bf5a7e6a6d1493172178d804097a0dedb6904a07d1a08ccb0ac",
+      "tracked_at_inspection": true,
+      "bytes": 4369
+    },
+    {
+      "path": "dev/savia-staff-ui/index.html",
+      "sha256": "b10cb0d2e7ea628a616e4b514b8cb188942e0332157410d5cac7cc3e398b8a6c",
+      "tracked_at_inspection": true,
+      "bytes": 13735
+    },
+    {
+      "path": "dev/savia-staff-ui/app.mjs",
+      "sha256": "46dbf8aa0d2f8f962b2868d3893a6dd7ef3eeab49d30b317e42350ea80f74fd9",
+      "tracked_at_inspection": true,
+      "bytes": 30838
+    },
+    {
+      "path": "dev/savia-staff-ui/client.mjs",
+      "sha256": "9dd4ee88c9f34f5948ec38d31f73bde976acffcc03c7bdfa99b5996dcc87243d",
+      "tracked_at_inspection": true,
+      "bytes": 7395
+    },
+    {
+      "path": "dev/savia-staff-ui/styles.css",
+      "sha256": "9f9bca25769c903c3b886b5e7ff2b4570f4893e44e80219fe34d2acb949c070b",
+      "tracked_at_inspection": true,
+      "bytes": 19938
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalCommandRunner.cs",
+      "sha256": "23979a253d89d26d978b3fb1990178045e33032452c664a3f3cffa49782d683f",
+      "tracked_at_inspection": true,
+      "bytes": 7750
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalBranchAccess.cs",
+      "sha256": "05a25ed226a2947714af3ad024ede993bfcd80f8a57e20e9bc83f3aeaef12b22",
+      "tracked_at_inspection": true,
+      "bytes": 4183
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryService.cs",
+      "sha256": "85d3b1bdce621c5027c07a05386f808d0e0704d0dc22525b3718f3407ae927fd",
+      "tracked_at_inspection": true,
+      "bytes": 9206
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceService.cs",
+      "sha256": "c6c7589f6aeb0e0b2ffba71f85890f9d2a08a80174256829f98e8e72fe15c443",
+      "tracked_at_inspection": true,
+      "bytes": 15750
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurity.cs",
+      "sha256": "57a068fdcb8476b0c6e08c1fba72e7c46c8e6479d8b8dfb4bad9da8569cd6e54",
+      "tracked_at_inspection": true,
+      "bytes": 10267
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurityRules.cs",
+      "sha256": "5a2ab442b982afa445cd1f8944e278c811ab3b91fb1115b3c63a64d2569bb1aa",
+      "tracked_at_inspection": true,
+      "bytes": 5268
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyEndpoints.cs",
+      "sha256": "02ceccc4e05a5f892b2439cd9a2464e8c5960f8d4537ab6cf44e75645db6954a",
+      "tracked_at_inspection": true,
+      "bytes": 4725
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalSecuritySqlTests.cs",
+      "sha256": "9a64295beaeae3340fc07e51f0ce0f473a773fb6043d80fc63b786b73e92223e",
+      "tracked_at_inspection": true,
+      "bytes": 14721
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCommerceSqlTests.cs",
+      "sha256": "3133d4ed1de334edd255eb825f7a59b3f8d69449772078a1770c82f9dd370711",
+      "tracked_at_inspection": true,
+      "bytes": 12146
+    },
+    {
+      "path": ".github/workflows/backend.yml",
+      "sha256": "ed2c72a4a4d4f6d1458669e86f1df4a21d119306daffeeb9ebb27d653fe08342",
+      "tracked_at_inspection": true,
+      "bytes": 6260
+    },
+    {
+      "path": ".github/workflows/tony-snapshot.yml",
+      "sha256": "b681abb09e390e95a44d0c22874906f72f830578d2e6ec5617fb6873ae00dcbd",
+      "tracked_at_inspection": true,
+      "bytes": 1751
+    },
+    {
+      "path": ".github/workflows/progress.yml",
+      "sha256": "b2b0cc09e5a0d69ab4032b71f77aba6c4aebae3fea08595da3f7e3218f4dd408",
+      "tracked_at_inspection": true,
+      "bytes": 676
+    },
+    {
+      "path": "docs/savia-internal/sql-local-20261031/TEST-MATRIX.md",
+      "sha256": "07ade2c69bb80756db9a3e0f47967249fb012bd28625fa6499eb6f8a0740079e",
+      "tracked_at_inspection": false,
+      "bytes": 6031
+    },
+    {
+      "path": "docs/savia-internal/sql-local-20261031/CURRENT.md",
+      "sha256": "82ce6566b0fd64a9191d1d865e974eb981debd2d32cd0f49ac2628ad73dfbeaf",
+      "tracked_at_inspection": false,
+      "bytes": 6288
+    },
+    {
+      "path": "docs/savia-internal/sql-local-20261031/ui-recovery-fix.json",
+      "sha256": "527aa1f4169db1da0a1205051f55b32efd8576e78381352ed44ef9dfed2397bb",
+      "tracked_at_inspection": false,
+      "bytes": 1783
+    },
+    {
+      "path": "docs/savia-internal/sql-local-20261031/ui-response-loss-proof.json",
+      "sha256": "58bd652efadebbbb552e24acf1bf6938fc7bf468d76fd3aa678658bd1f1141b6",
+      "tracked_at_inspection": false,
+      "bytes": 3398
+    },
+    {
+      "path": "docs/savia-internal/sql-local-20261031/api-only-persistence-proof.json",
+      "sha256": "5ddb5b71f6037161c23de6f1077dbfc726307111548454bb94d90a240ccf8330",
+      "tracked_at_inspection": false,
+      "bytes": 2884
+    }
+  ],
+  "limitations": [
+    "Source hashes identify local bytes, not successful runtime.",
+    "Untracked source evidence is not included in this publication.",
+    "Acceptance counts are preserved evidence, not recertified results."
+  ]
+}
