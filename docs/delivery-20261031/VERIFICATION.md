@@ -35,6 +35,18 @@ No se cambiaron privilegios ni tests. La ruta mínima es el workflow Linux `Tony
 
 Si ese workflow falla también, conservar error y causa con el mismo criterio. No elevar Windows ni ampliar permisos para este documento. Dueño: orquestador. Cierre de la alternativa: mismo snapshot público y suite histórica verdes en Linux; el fallo local queda registrado.
 
+### Resultado remoto observado
+
+El commit `025b77a9b430baac319c9b66456ceabf62218de3` quedó `SYNCED` y `git ls-remote origin refs/heads/Tony` devolvió ese mismo SHA. Solo publicó los ocho archivos del paquete y el recibo del hook.
+
+Los tres jobs aplicables terminaron con `conclusion: success`:
+
+- [Progress receipt and sync safety](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41274655588).
+- [Publication integrity and reproducible build](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41274655596/job/124754270397).
+- [Historical portable regression suite](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41274655596/job/124754339788), finalizada el 1 de noviembre a las 04:52:46 UTC.
+
+La suite histórica quedó verificada por la ruta Linux existente. Windows conserva su limitación de symlink. El runtime SAVIA y los cambios locales ajenos no se recertificaron. Este apartado se agrega como seguimiento documental de ese candidato, no como una nueva ejecución del producto.
+
 ## Visor documental
 
 El informe se ejercitó en navegador real mediante la sesión local de Lavish. Filtros: Todas muestra seis áreas; Próximo incremento muestra tres; Después muestra tres; volver a Todas restaura seis. La hipótesis se expande y el enlace NEXT-INCREMENT abre el documento corregido.
