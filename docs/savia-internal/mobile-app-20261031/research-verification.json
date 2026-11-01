@@ -1,0 +1,59 @@
+{
+  "checked_at_utc": "2026-11-01T02:51:34.250701+00:00",
+  "scope": "Research artifacts only; no product implementation, runtime or device validation.",
+  "automated_checks": [
+    {
+      "check": "html_local_links",
+      "passed": true,
+      "missing": []
+    },
+    {
+      "check": "markdown_local_links",
+      "passed": true,
+      "missing": []
+    },
+    {
+      "check": "unique_html_ids",
+      "passed": true
+    },
+    {
+      "check": "review_expanders",
+      "passed": true,
+      "count": 6
+    }
+  ],
+  "browser_review": {
+    "tool": "chrome-devtools-axi / Chrome",
+    "desktop": {
+      "actual_width": 1887,
+      "horizontal_overflow": false
+    },
+    "narrow_window": {
+      "requested_width": 390,
+      "actual_width": 504,
+      "horizontal_overflow": false
+    },
+    "mobile_emulation": {
+      "actual_width": 390,
+      "horizontal_overflow": false,
+      "viewport": "390x844x3,mobile,touch"
+    },
+    "sale_acceptance_disclosure": "Clicked by current element reference; fresh DOM read confirmed open=true. Device emulation reloaded the page and reset the native disclosure.",
+    "visual_inspection": "Local screenshot inspected at actual width 504; text and stacked route comparison readable.",
+    "real_phone_testing": "NOT RUN"
+  },
+  "product_tests": "NOT RUN: documentation-only research",
+  "phone_acceptance_M01_M10": "NOT RUN",
+  "limitations": [
+    "External references are source links; their availability can change.",
+    "Concurrent local evidence is a timestamped observation, not a fresh execution."
+  ],
+  "verification_correction": "First link check ran before generating the verification file and reported that future path missing. Generated file exists; failed markdown-link check now passes. First browser click used an unquoted @ref; PowerShell consumed it and CLI returned VALIDATION_ERROR/Missing element ref. Quoted @ref succeeded; no artifact change needed.",
+  "commands": [
+    "Python HTMLParser: local HTML/Markdown links, duplicate IDs, disclosure count",
+    "npx -y chrome-devtools-axi newpage file:///C:/Users/Jason/MARTHA-SILVA/github/docs/savia-internal/mobile-app-20261031/index.html",
+    "chrome-devtools-axi eval: title, actual viewport and horizontal overflow",
+    "chrome-devtools-axi click: quoted current element reference",
+    "chrome-devtools-axi emulate --viewport 390x844x3,mobile,touch"
+  ]
+}
