@@ -465,6 +465,24 @@ export function mountCommerce({document, client, getSession, onUnauthorized}) {
     for(const line of receipt.lines) mount.append(textElement(document,'p',`${line.sku} · ${line.name} · ${line.quantity} × ${money(line.unitPriceMinor)} = ${money(line.totalMinor)}`));
     mount.append(textElement(document,'strong',`Total: ${money(receipt.totalMinor)}`)); mount.hidden=false;
   }
+  // A receipt reference is stored only after the server confirmed that sale, so failing to show it
+  // must not invent an unconfirmed operation (N5). Only a real pending reference blocks new sales.
+  async function restoreReceipt(saleId, g, id) {
+    let receipt = null, gone = false;
+    try {
+      receipt = await client.getSale(saleId);
+      if (receipt.actorId !== id) { receipt = null; gone = true; }
+    } catch (error) {
+      if (error?.status === 401) throw error;
+      gone = [403, 404].includes(error?.status);
+    }
+    if (!current(g, id)) return;
+    if (receipt) { showReceipt(receipt); return; }
+    if (gone) { try { storage().removeItem(receiptKey(id)); } catch {} }
+    const notice = gone ? 'El último recibo confirmado ya no está disponible en el servidor.'
+      : 'No se pudo cargar el último recibo confirmado desde el servidor.';
+    $('sale-status').textContent = `${notice} ${$('sale-status').textContent}`;
+  }
   async function resolve(mode) {
     if(busy || !pending || !actor) return;
     const operation=pending, id=actor, g=generation; busy=true; lock(); $('sale-status').textContent= mode==='recover' ? 'Comprobando la venta original…' : 'Esperando confirmación del servidor…';
@@ -505,7 +523,7 @@ export function mountCommerce({document, client, getSession, onUnauthorized}) {
         pending=value;
       }
       const last=storage().getItem(receiptKey(id));
-      if(last) { const receipt=await client.getSale(last); if(current(g,id)) { if(receipt.actorId !== id) throw new StaffRequestError('response'); showReceipt(receipt); } }
+      if(last) await restoreReceipt(last,g,id);
       await loadStock();
     } catch(error) { if(current(g,id)) { busy=false; pending ||= {}; fail(error); } }
     finally { if(current(g,id)) { busy=false; lock(); } }

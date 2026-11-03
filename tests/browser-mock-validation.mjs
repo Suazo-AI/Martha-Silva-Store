@@ -144,6 +144,29 @@ try{
     await writeFile(path.join(out,'stale-receipt-observation.json'),JSON.stringify(observation,null,2));await s.page.screenshot({path:path.join(out,'stale-receipt.png'),fullPage:true});
     assert.equal(observation.submitDisabled,false,'Confirmed receipt became unavailable; new authorized sale is locked, with no recoverable pending operation.');
   }));
+  const seedSaleState=async(s,pending)=>{await s.page.goto(origin+'/internal/login');await s.page.evaluate(({actorId,saleId,pending})=>{sessionStorage.setItem(`savia.sale.receipt.${actorId}`,saleId);if(pending)sessionStorage.setItem(`savia.sale.pending.${actorId}`,pending);},{actorId:actor.id,saleId:receipt.saleId,pending:pending?JSON.stringify(pending):null});};
+  const storedReceipt=s=>s.page.evaluate(k=>sessionStorage.getItem(k),`savia.sale.receipt.${actor.id}`);
+  await test('Stale receipt 403 after reassignment is cleared and leaves a fresh sale available (N5)',()=>withStaff({role:'Cashier',override:async({route,p,json})=>{if(p.endsWith('/sales/'+receipt.saleId)){await json(route,{code:'forbidden'},403);return true;}}},async s=>{
+    await seedSaleState(s);await ready(s);await s.page.locator('[data-target="ventas"][data-action="nav"]').click();
+    await expect(s.page.locator('#sale-submit')).toBeEnabled();await expect(s.page.locator('#sale-status')).toContainText('ya no está disponible');await expect(s.page.locator('#sale-receipt')).toBeHidden();
+    assert.equal(await storedReceipt(s),null);assert.equal(s.state.sales.length,0);
+  }));
+  await test('Unavailable receipt lookup keeps its reference and does not invent a pending sale (N5)',()=>withStaff({role:'Cashier',override:async({route,p,json})=>{if(p.endsWith('/sales/'+receipt.saleId)){await json(route,{code:'unavailable'},503);return true;}}},async s=>{
+    await seedSaleState(s);await ready(s);await s.page.locator('[data-target="ventas"][data-action="nav"]').click();
+    await expect(s.page.locator('#sale-submit')).toBeEnabled();await expect(s.page.locator('#sale-status')).toContainText('No se pudo cargar');await expect(s.page.locator('#sale-recover')).toBeHidden();
+    assert.equal(await storedReceipt(s),receipt.saleId);assert.equal(s.state.sales.length,0);
+  }));
+  await test('Stale receipt never unlocks a real pending sale; recovery reuses the original key (N5)',()=>withStaff({role:'Cashier',override:async({route,p,json})=>{if(p.endsWith('/sales/'+receipt.saleId)){await json(route,{code:'not_found'},404);return true;}}},async s=>{
+    const pendingKey=id(170);await seedSaleState(s,{key:pendingKey,body});await ready(s);await s.page.locator('[data-target="ventas"][data-action="nav"]').click();
+    await expect(s.page.locator('#sale-receipt')).toBeVisible();const recoveries=s.state.calls.filter(x=>x.path.includes('/operations/'));
+    assert.equal(s.state.sales.length,0,'A new sale was posted while an unconfirmed operation existed.');assert.equal(recoveries.length,1);assert.equal(recoveries[0].key,pendingKey);
+  }));
+  await test('Revoked session during receipt restore returns to sign-in without staff data (N5)',()=>withStaff({role:'Cashier',override:async({route,p,json})=>{if(p.endsWith('/sales/'+receipt.saleId)){await json(route,{code:'unauthenticated'},401);return true;}}},async s=>{
+    // Non-Owner roles open on Inventario, which starts sales immediately; the revoked session must win before any click.
+    await seedSaleState(s);await s.page.goto(origin+'/internal/');
+    await expect(s.page.locator('#auth-required')).toBeVisible();await expect(s.page.locator('#staff-shell')).toBeHidden();await expect(s.page.locator('#sale-receipt')).toBeHidden();
+    assert.ok(s.state.calls.some(x=>x.path.endsWith('/sales/'+receipt.saleId)),'The receipt lookup was never attempted.');assert.equal(s.state.sales.length,0);
+  }));
   await test('Unimplemented purchasing and customer creation remain visibly unavailable',()=>withStaff({},async s=>{await ready(s);await expect(s.page.locator('[data-action="new-client"]')).toBeDisabled();await s.page.locator('[data-target="abastecimiento"][data-action="nav"]').click();await expect(s.page.locator('#purchasing-pending-note')).toBeVisible();return 'Coverage observation only: these workflows are not implemented in the frontend.';}));
   for(const mobile of [false,true])await test(`Staff visible screens have no document overflow at ${mobile?'390':'1440'}px`,()=>withStaff({mobile},async s=>{
     await ready(s);const measurements=[];for(const view of ['clientes','inventario','ventas','abastecimiento']){await s.page.locator(`[data-target="${view}"][data-action="nav"]`).click();const dims=await s.page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth}));measurements.push({view,...dims});assert.ok(dims.scroll<=dims.width+1,JSON.stringify(measurements));}return measurements;
