@@ -50,6 +50,7 @@ Un defecto de mi propia prueba quedó registrado: el primer intento del caso 401
 | Restart: stop/start controlado del contenedor | PASS | 15 s hasta listo; esquema, datos y rechazos intactos |
 | **Total** | **592/592 PASS, 0 SKIP** | `python3 backend/tests/verify_full_suite.py --min-tests 592 <resultados>` |
 | Job SQL actual de `main` (`Category=SqlServer` + `verify_sql_results.py`) | 21/21 PASS; verificador PASS | Integrar Tony a `main` no rompe ese job |
+| Job de guardas de `backend.yml` (`Category!=SqlServer`) | Rojo en el CI del PR #2: 1 FAIL; corregido: 523 PASS, 0 FAIL, 48 SKIP | El caso offline de scripts de release necesita `SAVIA_PILOT_EVIDENCE`; el paso ahora le da una carpeta propia. Los 48 skips son los casos con SQL, que `savia.yml` sí ejecuta |
 
 **Oráculo de esquema.** El caso de release compara el esquema contra `expected-invariants.json`, que solo existe en la evidencia privada de SUAZO-PC. Para no evaluar la base contra sí misma, se generó [expected-invariants.model-derived.json](../../backend/tests/fixtures/expected-invariants.model-derived.json) desde el modelo EF con `EnsureCreated`, un camino independiente de las migraciones escritas a mano: 19 tablas, 32 checks, 26 FK, 37 índices y 19 PK. Las migraciones, incluida `20261027224500_InternalBranchScope`, producen exactamente ese esquema. Ese archivo no reemplaza el oráculo privado: la tarjeta C4 exige compararlos.
 
@@ -58,13 +59,15 @@ Un defecto de mi propia prueba quedó registrado: el primer intento del caso 401
 - Se ejecuta en PR hacia `main` (solo ramas de este repositorio para el job SQL), push a `main` y ejecución manual.
 - Job 1: pruebas del personal y arnés de navegador con el Google Chrome del runner; sube evidencia sintética 7 días.
 - Job 2: la suite completa contra SQL Server 2022 Developer desechable, con contraseña aleatoria enmascarada y puerto solo en loopback. Copia el oráculo derivado del modelo, reinicia el contenedor para la prueba de persistencia y exige que pasen 592 casos sin ningún skip. Sube solo contadores y nombres de métodos (`verify_full_suite.py` descarta argumentos y diagnósticos, porque algunos casos usan marcadores sintéticos parecidos a secretos). Destruye el contenedor siempre.
-- `backend.yml` y `ci.yml` no cambian. No despliega ni publica nada.
+- `ci.yml` no cambia. En `backend.yml` solo cambia el paso de guardas, que ahora da al caso offline de scripts de release su carpeta de evidencia. Ningún workflow despliega ni publica.
 - El job SQL se reprodujo localmente paso por paso: 592/592 y oráculo intacto durante la corrida.
 
 ## Correcciones a afirmaciones previas
 
 - Afirmé durante la sesión que el verificador SQL de `main` fallaría al integrar Tony. Era falso: Tony ya lo actualizó a 21 casos, y se comprobó con 21/21 y el verificador en PASS.
 - El bloqueo "WinError 1314" de [testing-20261103](../testing-20261103/README.md) ya está cerrado: el CI Linux de Tony ejecutó esas suites en `20932d5` ([run 41718312660](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41718312660)): auditoría 6/6 y staging 10/10.
+- Integrar Tony a `main` **sí** rompía `backend.yml`, pero en el job de guardas, no en el job SQL: el caso offline de scripts de release falla sin `SAVIA_PILOT_EVIDENCE`. Nunca había corrido en CI porque Tony no tenía PR. Lo detectó el CI del PR #2 y se corrigió en el workflow, sin tocar la prueba.
+- El primer push de `savia.yml` no arrancó: usaba el contexto `runner` en el `env` del job, donde GitHub no lo admite. Corregido.
 - `main` no tiene protección de rama ni checks requeridos. "Fusionar cuando pasen los checks requeridos" no tiene freno hasta configurarlos (tarjeta C1).
 
 ## Integración con Tony
@@ -74,7 +77,7 @@ Estos commits no traen recibo de progreso: `tools/progress.py` solo funciona en 
 Archivos tocados:
 - `dev/savia-staff-ui/app.mjs`
 - `tests/browser-mock-validation.mjs`
-- `.github/workflows/savia.yml`
+- `.github/workflows/savia.yml` y el paso de guardas de `.github/workflows/backend.yml`
 - `backend/tests/verify_full_suite.py`, `backend/tests/test_verify_full_suite.py`
 - `backend/tests/fixtures/expected-invariants.model-derived.json`
 - `docs/sprint-20261104/`

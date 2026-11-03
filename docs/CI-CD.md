@@ -24,6 +24,7 @@ visibilidad permite subir secretos, pedidos, clientes o credenciales.
 En PR hacia `main`, push a `main` y ejecución manual: pruebas del personal, arnés de navegador real con
 Chrome del runner y la suite .NET completa (592 casos) contra SQL Server 2022 Developer desechable,
 incluidos release y restart. El job SQL no corre en PR de forks. Sube solo resultados saneados; no despliega.
+En `backend.yml`, el paso de guardas da a `PrivatePilotReleaseTests` offline su carpeta `SAVIA_PILOT_EVIDENCE`.
 Ver [sprint-20261104](sprint-20261104/README.md).
 
 ## Controles
