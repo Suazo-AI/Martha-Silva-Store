@@ -28,6 +28,8 @@ Fecha de registro: 2026-10-24. Este documento distingue decisiones adoptadas de 
 | D-017 | Decisión de implementación | Git + rg + mapa de fuentes como navegación disponible; Graphify opcional y derivado | Application Control bloquea el binario; no eludir la política ni importar el grafo de otro checkout |
 | D-018 | Adoptada | Publicar resultados curados y hashes; mantener evidencias operativas privadas fuera del índice Git | [Exclusiones](reconciliation-20261103/README.md); no perder originales ni sobrescribir validation/outputs |
 | D-019 | Distinción de alcance | D-008/D-009 siguen aplicando a la tienda pública; no añaden pagos al incremento interno | Backend interno implementado no resuelve tarjetas, producción ni SISFAIN de D-010 |
+| D-020 | Adoptada (pedido de Jason, 2026-11-03) | El estado de entrega vive en [ledger.json](pipeline/ledger.json); `progress-digest.yml` lo valida y publica un resumen determinista en cada push y PR. Alternativas: resumen manual (se desactualiza), solo Trello (sin SHA ni CI), estado escrito por IA (puede inventar) | [Flujo](pipeline/README.md). Sustituye la exclusión "watcher o loop autónomo" del sprint solo para registrar y avisar: no corrige, no fusiona ni despliega |
+| D-021 | Propuesta, decide Jason | Narrador IA opcional y de solo lectura en PR; recomendado Claude con `CLAUDE_CODE_OAUTH_TOKEN` | Item `PIPE-AI`. Sin secreto no corre; credencial y costo son decisión de Jason |
 
 Los resultados de pruebas son evidencia, no decisiones de negocio. La política comercial de stock cero,
 proveedor de tarjetas, aceptación visual y destino productivo siguen pendientes de sus responsables.
