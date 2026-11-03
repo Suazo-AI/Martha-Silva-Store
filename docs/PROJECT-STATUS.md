@@ -22,6 +22,7 @@ Para continuar: [AGENT-START](AGENT-START.md), [mapa de fuentes](CODE-MAP.md), [
 Fuente de resultados: [validación 2026-11-03](testing-20261103/README.md).
 La [reconciliación](reconciliation-20261103/README.md) conserva procedencia y exclusiones públicas.
 Los porcentajes de matrices históricas no se suman con pruebas unitarias o escenarios de navegador.
+La vinculación registra hashes locales y blobs publicados: Git solo normaliza saltos de línea en los diez archivos.
 
 ## Siguiente acción y aceptación
 

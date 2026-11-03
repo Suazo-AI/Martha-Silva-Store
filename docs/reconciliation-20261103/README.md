@@ -11,6 +11,10 @@ con [la evidencia publicada](../testing-20261103/evidence/source-hashes.json) en
 Incluye consola Owner, validación de longitud de contraseña, UI de comercio y pruebas asociadas.
 Esta tarea no modifica esos bytes ni corrige el fallo N5. No repite SQL ni pruebas ya acreditadas para esos bytes.
 
+Readback del commit `ae476e6c4190416c04c89a6ffc27152708c784d7`: Git normalizó CRLF/LF en los diez archivos.
+La vinculación conserva SHA-256 local probado, SHA-256 publicado y blob Git por archivo.
+La comparación normalizada confirma cero diferencias de lógica; no se exige un hash binario idéntico entre plataformas.
+
 Se actualizan README, PROJECT-STATUS, SAVIA-LATEST, SAVIA-INTERNAL, documentación de backend y staff,
 DECISIONS y PLAYBOOK. Se crea una entrada común: [AGENT-START](../AGENT-START.md),
 [CODE-MAP](../CODE-MAP.md) y [DATABASE](../DATABASE.md).
@@ -65,3 +69,8 @@ archivos, 22 criterios exportados y exclusiones privadas efectivas. Las guardas 
 se verifican antes del commit. Los resultados frescos quedan en [verification.json](verification.json).
 Los hooks producen el recibo y sincronizan Tony; el estado de GitHub se informa para el SHA publicado.
 No editar un recibo generado ni atribuir a esta tarea un despliegue, un grafo generado o una base configurada nuevamente.
+
+La [vista de continuación](index.html) reutiliza la paleta del informe existente. Se comprobó carga y apertura
+del detalle Graphify en navegador. Se retiraron enlaces dentro de disclosures tras un aviso del editor y se
+cambiaron enlaces al repositorio canónico para que funcionen fuera de la carpeta local. El editor conserva
+un aviso móvil sobre el enlace ya retirado; no se afirma una auditoría responsive completa de esta vista documental.

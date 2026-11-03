@@ -14,7 +14,11 @@
       "dev/savia-staff-ui/login.mjs",
       "dev/savia-staff-ui/pagination.test.mjs",
       "dev/savia-staff-ui/commerce.test.mjs"
-    ]
+    ],
+    "source_publication_commit": "ae476e6c4190416c04c89a6ffc27152708c784d7",
+    "git_payloads_checked": 10,
+    "only_line_ending_differences": 10,
+    "logic_differences": 0
   },
   "previous_source_manifest": {
     "files": 2377,
