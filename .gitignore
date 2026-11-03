@@ -56,3 +56,6 @@ database-backups/
 # See docs/reconciliation-20261103/README.md. Never add these directories wholesale.
 /docs/savia-internal/sql-local-20261031/
 /docs/savia-internal/design-exploration-20261031/
+
+# Worktrees temporales de agentes locales
+.claude/worktrees/
