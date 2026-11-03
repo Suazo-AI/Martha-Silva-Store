@@ -2,6 +2,11 @@
 
 Corte: 2026-11-03. Host de la validación: SUAZO-PC. Checkout canónico `github`, rama `Tony`.
 **No listo para producción. Siguiente incremento: venta segura por cajero, empezando por N5.**
+
+> **Actualización 2026-11-03, rama `claude/funny-brahmagupta-5e5rj0` (PR de integración):** N5 corregido con
+> rojo-verde-revert en navegador real (arnés 36/36, personal 42/42); backend 592/592 contra SQL Server real,
+> incluidos release y restart en Linux; CI `savia.yml` para el PR. Detalle, límites y comandos:
+> [sprint-20261104](sprint-20261104/README.md). Reparto C1–C12: https://trello.com/b/pq9G9Qqj/martha-silva
 Para continuar: [AGENT-START](AGENT-START.md), [mapa de fuentes](CODE-MAP.md), [decisiones](DECISIONS.md).
 
 | Área | Evidencia verificada | Pendiente / límite |

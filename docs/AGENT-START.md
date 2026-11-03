@@ -17,6 +17,10 @@ El índice y cualquier grafo son ayudas de navegación, nunca autoridad de permi
 
 ## Próxima tarea concreta
 
+> Actualización 2026-11-03: N5 está corregido en la rama `claude/funny-brahmagupta-5e5rj0` (PR de integración),
+> con evidencia en [sprint-20261104](sprint-20261104/README.md). No repetir esa corrección: integrarla y seguir
+> las tarjetas C1–C12 del sprint. El texto siguiente queda como antecedente.
+
 Corregir N5: la recuperación de un recibo confirmado con respuesta 404 crea un bloqueo de venta pendiente.
 Reproducción: caso `Stale confirmed receipt` de [browser-mock-validation.mjs](../tests/browser-mock-validation.mjs).
 Punto inicial: restauración del recibo en [app.mjs](../dev/savia-staff-ui/app.mjs).

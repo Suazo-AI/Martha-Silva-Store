@@ -1,6 +1,7 @@
 # Incremento: Venta segura por cajero
 
 Estado al 2026-11-03: **VALIDACIÓN PARCIAL POR CAPAS; ACEPTACIÓN OPERATIVA N1–N10 PENDIENTE**.
+Actualización: N5 corregido en el PR de integración, con ciclo rojo-verde-revert; ver [sprint-20261104](../sprint-20261104/README.md).
 N5 falla en navegador con API simulada: recibo confirmado con 404 bloquea ventas nuevas.
 Ver [validación reciente](../testing-20261103/README.md). El contrato siguiente permanece;
 los casos SQL y navegador separados no lo aceptan automáticamente.
