@@ -16,6 +16,23 @@ Fecha de registro: 2026-10-24. Este documento distingue decisiones adoptadas de 
 | D-010 | Pendiente | Definir backend autoritativo e integración SISFAIN, si corresponde | No se encontró backend SISFAIN; no inventar endpoints, contratos o credenciales |
 | D-011 | Adoptada | Preservar historia y verificar entregas por SHA | Commit local, push remoto y despliegue son estados distintos |
 
+## Decisiones vigentes — 2026-11-03
+
+| ID | Estado | Decisión y fundamento | Sustituye / evidencia |
+| --- | --- | --- | --- |
+| D-012 | Adoptada | Un checkout canónico `github`, rama Tony; actualizar código, decisiones y evidencia pública revisada | Pedido de Jason; [AGENT-START](AGENT-START.md), [reconciliación](reconciliation-20261103/README.md) |
+| D-013 | Hecho de alcance | Snapshot de tienda: 47 páginas, 40 productos y 120 variantes de muestra | Actualiza la línea base 9/2 de D-002, sin convertirla en inventario comercial |
+| D-014 | Alcance interno vigente | Un negocio y una sucursal operativa; Owner, Manager, Cashier, Inventory; Internal es autoridad privada | [NEXT-INCREMENT](delivery-20261031/NEXT-INCREMENT.md); propuestas multiempresa/seis roles quedan históricas |
+| D-015 | Prioridad técnica propuesta | Corregir N5 y aceptar venta segura por cajero antes de ampliar pantallas o agentes | Fallo reproducido y falta de recorrido combinado; [pruebas](testing-20261103/README.md) |
+| D-016 | Elegida por Jason | Preparar índice para agentes y documentación SQL; no modificar la base en esta reconciliación | Respuesta explícita 2026-11-03; [DATABASE](DATABASE.md) |
+| D-017 | Decisión de implementación | Git + rg + mapa de fuentes como navegación disponible; Graphify opcional y derivado | Application Control bloquea el binario; no eludir la política ni importar el grafo de otro checkout |
+| D-018 | Adoptada | Publicar resultados curados y hashes; mantener evidencias operativas privadas fuera del índice Git | [Exclusiones](reconciliation-20261103/README.md); no perder originales ni sobrescribir validation/outputs |
+| D-019 | Distinción de alcance | D-008/D-009 siguen aplicando a la tienda pública; no añaden pagos al incremento interno | Backend interno implementado no resuelve tarjetas, producción ni SISFAIN de D-010 |
+
+Los resultados de pruebas son evidencia, no decisiones de negocio. La política comercial de stock cero,
+proveedor de tarjetas, aceptación visual y destino productivo siguen pendientes de sus responsables.
+No se activa un loop autónomo ilimitado de agentes; los fixes requieren reproducción, límites y verificación.
+
 ## Hitos rastreables en la historia existente
 
 - `e6299ee`: base recuperada referenciada por los registros de QA y build.

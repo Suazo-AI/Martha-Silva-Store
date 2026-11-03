@@ -1,5 +1,10 @@
 # Isolated branch authorization candidate — 2026-10-27
 
+> Documento histórico de su fecha/candidato. Para continuar al 2026-11-03, usar
+> [AGENT-START](AGENT-START.md) y [PROJECT-STATUS](PROJECT-STATUS.md).
+> Sus conteos, bloqueos y autorizaciones no se trasladan automáticamente al candidato actual.
+
+
 Status: source candidate only, NOT integrated, NOT compiled, NOT runtime-accepted. Original historical B1 snapshot remains untouched. No user records, PCs, credentials, runtime transfers or deployments were changed.
 
 The status above describes the received cloud artifact. Local review on

@@ -1,5 +1,5 @@
 // Private staff shell. Server identity and business contracts are required.
-// No fixture business data, local authentication, persistence or transport fallback.
+// No fixture business data or local authentication. Only pending operation references persist per tab.
 import {createStaffClient} from './client.mjs';
 import {StaffRequestError, readStaff} from './login.mjs';
 const errorIds = new WeakMap();
@@ -127,7 +127,10 @@ export function mountStaffApp({document = globalThis.document, client = createSt
   const $$ = selector => [...document.querySelectorAll(selector)];
   const removers = [];
   const state = {phase: 'loading', session: null, busy: false, view: null};
-  let epoch = 0, destroyed = false;
+  const commerce = typeof client.recordSale === 'function' ? mountCommerce({document, client,
+    getSession: () => state.phase === 'ready' ? state.session : null,
+    onUnauthorized: () => requireAccess('La sesión venció. Volvé a ingresar para comprobar la venta.')}) : null;
+  let epoch = 0, destroyed = false, commerceStarted = false;
   const reads = new Map();
   const newPage = () => ({q: '', includeInactive: false, skip: 0, take: 50, status: 'idle', confirmed: null});
   const pages = new Map([['clientes', newPage()], ['inventario', newPage()]]);
@@ -145,6 +148,8 @@ export function mountStaffApp({document = globalThis.document, client = createSt
     $$('[data-staff-form] button, [data-staff-form] input, [data-staff-form] select, [data-staff-form] textarea').forEach(control => { control.disabled = true; });
   }
   function clearPrivateView() {
+    commerceStarted = false;
+    commerce?.clear();
     for (const view of pages.keys()) pages.set(view, newPage());
     reads.clear();
     $$('[data-rows]').forEach(element => element.replaceChildren());
@@ -339,6 +344,10 @@ export function mountStaffApp({document = globalThis.document, client = createSt
     $('#staff-title').textContent = {clientes: 'Clientes', ventas: 'Ventas', inventario: 'Artículos del negocio', abastecimiento: 'Abastecimiento'}[view] || 'SAVIA interno';
     if (moveFocus) $('#staff-title')?.focus();
     if (load && ['clientes', 'inventario'].includes(view)) refreshSection(view);
+    if (['inventario','ventas'].includes(view) && commerce) {
+      if (!commerceStarted) { commerceStarted = true; void commerce.start(); }
+      else if (load && view === 'inventario') void commerce.loadStock();
+    }
     return true;
   }
   async function logout() {
@@ -387,8 +396,132 @@ export function mountStaffApp({document = globalThis.document, client = createSt
     ready, navigate, refresh: () => refreshSection(state.view),
     getState: () => ({phase: state.phase, busy: state.busy, view: state.view,
       authenticated: state.phase === 'ready' && !!state.session, role: state.session?.role || null}),
-    destroy() { destroyed = true; ++epoch; state.session = null; clearPrivateView(); lockActions(); setVisible($('#staff-shell'), false); removers.forEach(remove => remove()); },
+    destroy() { destroyed = true; ++epoch; state.session = null; clearPrivateView(); commerce?.destroy(); lockActions(); setVisible($('#staff-shell'), false); removers.forEach(remove => remove()); },
   };
+}
+
+export function mountCommerce({document, client, getSession, onUnauthorized}) {
+  const $ = id => document.getElementById(id);
+  const form = $('sale-form');
+  if (!form) return {clear(){}, start(){}, loadStock(){}, destroy(){}};
+  let generation = 0, stockRead = 0, busy = false, pending = null, items = [], locations = [], actor = null;
+  const removers = [];
+  const listen = (el, event, fn) => { el.addEventListener(event, fn); removers.push(() => el.removeEventListener(event, fn)); };
+  const keyFor = id => `savia.sale.pending.${id}`;
+  const receiptKey = id => `savia.sale.receipt.${id}`;
+  const storage = () => document.defaultView.sessionStorage;
+  const current = (g, id) => generation === g && getSession()?.id === id;
+  function lock() {
+    const allowed = !!actor && getSession()?.id === actor && ['Owner','Manager','Cashier'].includes(getSession()?.role);
+    for (const control of form.elements) control.disabled = !allowed || busy || !!pending || !items.length || !locations.length;
+    $('stock-location').disabled = !actor || busy || !locations.length;
+    $('stock-refresh').disabled = !actor || busy || !locations.length;
+    for (const id of ['sale-recover','sale-retry']) { $(id).hidden = !pending; $(id).disabled = busy || !allowed || !pending?.key; }
+  }
+  function fail(error, target = 'sale-status') {
+    if (error?.status === 401) { onUnauthorized(); return; }
+    $(target).textContent = error instanceof StaffRequestError ? error.message : 'No se pudo confirmar la respuesta. Volvé a comprobarla.';
+    if (pending && target === 'sale-status') $(target).textContent += ' La venta sigue sin confirmar. Comprobala o reintentá la misma venta.';
+  }
+  function clear() {
+    ++generation; ++stockRead; actor=null; pending=null; busy=false; items=[]; locations=[];
+    for (const id of ['stock-location','sale-location','sale-item','stock-table','sale-receipt']) $(id).replaceChildren();
+    $('sale-receipt').hidden=true; form.reset(); $('sale-status').textContent='Esperando datos del servidor.';
+    $('stock-status').textContent='Sin consulta confirmada.'; lock();
+  }
+  async function allPages(fn) {
+    const rows=[];
+    for(let skip=0;skip<=100000;skip+=100) {
+      const page=await fn({skip,take:100}); rows.push(...page.items);
+      if(skip+page.items.length>=page.total) return rows;
+      if(!page.items.length) throw new StaffRequestError('response');
+    }
+    throw new StaffRequestError('response');
+  }
+  function options(select, rows, label) { select.replaceChildren(...rows.map(row => { const option=textElement(document,'option',label(row)); option.value=row.id; return option; })); }
+  async function loadStock() {
+    if(!actor || !locations.length) return;
+    const g=generation, id=actor, request=++stockRead, location=$('stock-location').value;
+    $('stock-status').textContent='Consultando existencias…'; $('stock-table').replaceChildren();
+    try {
+      const rows=[];
+      for(let skip=0;skip<=100000;skip+=100) {
+        const page=await client.listInventory(location,skip); rows.push(...page.items);
+        if(skip+page.items.length>=page.total) break;
+        if(!page.items.length || skip===100000) throw new StaffRequestError('response');
+      }
+      if(!current(g,id) || request !== stockRead) return;
+      const byId=new Map(items.map(x=>[x.id,x]));
+      renderTable($('stock-table'),{columns:[{label:'SKU',value:x=>byId.get(x.itemId)?.sku || x.itemId},{label:'Artículo y talla',value:x=>byId.get(x.itemId)?.name || 'Artículo fuera del catálogo activo'},
+        {label:'En existencia',key:'onHand'},{label:'Reservado',key:'reserved'},{label:'Disponible',key:'available'}],rows,caption:locations.find(x=>x.id===location)?.name,emptyText:'No hay saldos registrados para esta sucursal.'});
+      $('stock-status').textContent=`${rows.length} saldos confirmados por el servidor.`;
+    } catch(error) { if(current(g,id) && request===stockRead) fail(error,'stock-status'); }
+  }
+  function showReceipt(receipt) {
+    const mount=$('sale-receipt'); mount.replaceChildren(textElement(document,'h3','Recibo confirmado'),
+      textElement(document,'p',`Venta: ${receipt.saleId}`),textElement(document,'p',`Sucursal: ${locations.find(x=>x.id===receipt.locationId)?.name || receipt.locationId}`),
+      textElement(document,'p',`Estado: ${{recorded:'Registrada',cancelled:'Cancelada',returned:'Devuelta',partially_returned:'Devolución parcial'}[receipt.state]} · Sin cobro bancario`));
+    const money=value=>new Intl.NumberFormat('es-NI',{style:'currency',currency:receipt.currency}).format(value/100);
+    for(const line of receipt.lines) mount.append(textElement(document,'p',`${line.sku} · ${line.name} · ${line.quantity} × ${money(line.unitPriceMinor)} = ${money(line.totalMinor)}`));
+    mount.append(textElement(document,'strong',`Total: ${money(receipt.totalMinor)}`)); mount.hidden=false;
+  }
+  async function resolve(mode) {
+    if(busy || !pending || !actor) return;
+    const operation=pending, id=actor, g=generation; busy=true; lock(); $('sale-status').textContent= mode==='recover' ? 'Comprobando la venta original…' : 'Esperando confirmación del servidor…';
+    try {
+      const receipt=await (mode==='recover' ? client.recoverSale(operation.key,operation.body) : client.recordSale(operation.key,operation.body));
+      if(!current(g,id)) return;
+      if(receipt.actorId !== id) throw new StaffRequestError('response');
+      // Persist the receipt reference first; keep the pending operation if persistence fails.
+      storage().setItem(receiptKey(id),receipt.saleId); storage().removeItem(keyFor(id));
+      pending=null; showReceipt(receipt); $('sale-status').textContent='Venta confirmada por el servidor.';
+      await loadStock();
+    } catch(error) {
+      if(current(g,id)) {
+        if(mode==='recover' && error instanceof StaffRequestError && error.code==='sale_rejected') {
+          try { storage().removeItem(keyFor(id)); pending=null; }
+          catch { fail(new StaffRequestError('unavailable')); return; }
+        }
+        fail(error);
+      }
+    }
+    finally { if(current(g,id)) { busy=false; lock(); } }
+  }
+  async function start() {
+    const session=getSession(); if(!session) return;
+    const g=generation,id=session.id; actor=id; busy=true; lock();
+    try {
+      const [catalog,places]=await Promise.all([allPages(client.listItems),allPages(client.listLocations)]);
+      if(!current(g,id)) return;
+      items=catalog.filter(x=>x.active); locations=places.filter(x=>x.active && x.branchId);
+      options($('sale-item'),items,x=>`${x.sku} · ${x.name}`);
+      for(const select of [$('sale-location'),$('stock-location')]) options(select,locations,x=>x.name);
+      $('sale-status').textContent=['Owner','Manager','Cashier'].includes(session.role) ? 'Elegí sucursal, artículo y cantidad.' : 'Tu perfil permite consultar existencias.';
+      const raw=storage().getItem(keyFor(id));
+      if(raw) {
+        const value=JSON.parse(raw);
+        // Validation is repeated by the client before every recovery or resend.
+        if(!value || typeof value.key!=='string' || !/^[0-9a-f-]{36}$/i.test(value.key) || !value.body) throw new StaffRequestError('response');
+        pending=value;
+      }
+      const last=storage().getItem(receiptKey(id));
+      if(last) { const receipt=await client.getSale(last); if(current(g,id)) { if(receipt.actorId !== id) throw new StaffRequestError('response'); showReceipt(receipt); } }
+      await loadStock();
+    } catch(error) { if(current(g,id)) { busy=false; pending ||= {}; fail(error); } }
+    finally { if(current(g,id)) { busy=false; lock(); } }
+    if(current(g,id) && pending?.key) await resolve('recover');
+  }
+  listen(form,'submit',event=>{
+    event.preventDefault();
+    if(busy || pending || !actor || !['Owner','Manager','Cashier'].includes(getSession()?.role) || !validateForm(form)) return;
+    const body={locationId:$('sale-location').value,customerId:null,lines:[{itemId:$('sale-item').value,quantity:Number($('sale-quantity').value)}]};
+    const operation={key:document.defaultView.crypto.randomUUID(),body};
+    try { storage().setItem(keyFor(actor),JSON.stringify(operation)); pending=operation; $('sale-receipt').hidden=true; void resolve('record'); }
+    catch(error) { pending={}; fail(error); lock(); }
+  });
+  listen($('stock-location'),'change',()=>void loadStock()); listen($('stock-refresh'),'click',()=>void loadStock());
+  listen($('sale-recover'),'click',()=>void resolve('recover')); listen($('sale-retry'),'click',()=>void resolve('record'));
+  return {clear,start,loadStock,destroy(){clear();removers.forEach(fn=>fn());}};
 }
 
 if (typeof document !== 'undefined' && document.querySelector('[data-staff-app]')) mountStaffApp();

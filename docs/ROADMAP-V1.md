@@ -1,5 +1,10 @@
 # Roadmap V1 — Martha Silva Store
 
+> Documento histórico de su fecha/candidato. Para continuar al 2026-11-03, usar
+> [AGENT-START](AGENT-START.md) y [PROJECT-STATUS](PROJECT-STATUS.md).
+> Sus conteos, bloqueos y autorizaciones no se trasladan automáticamente al candidato actual.
+
+
 **Estado: primer lote técnico aprobado el 2026-10-24; R01/R04 en curso. No es aprobación de producción.** Base técnica: `a972e1148487349d975a845b0acbd07132fcdcba`. Fecha: 2026-10-24.
 
 ## Objetivo y límite

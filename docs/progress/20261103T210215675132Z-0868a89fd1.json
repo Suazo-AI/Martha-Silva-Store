@@ -1,0 +1,230 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-03T21:02:15.675132+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": ".gitignore",
+      "change": "M",
+      "git_blob": "2f8c61f64a08014009bea2db504ca0b2908dc5a1"
+    },
+    {
+      "path": "AGENTS.md",
+      "change": "M",
+      "git_blob": "f28a2f134ae5da37c1677a73a1139b47808ef6c6"
+    },
+    {
+      "path": "README.md",
+      "change": "M",
+      "git_blob": "f68352ac5a9af383a299fffae3a56846d848ed97"
+    },
+    {
+      "path": "SAVIA-INTERNAL.md",
+      "change": "M",
+      "git_blob": "f6381dd46f6e824541a3f30387f1293173bd19bb"
+    },
+    {
+      "path": "backend/README.md",
+      "change": "M",
+      "git_blob": "be0be0c255cd51243d7a807044c14184e987516c"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalOwnerConsole.cs",
+      "change": "M",
+      "git_blob": "35ced5c4364fe976a8e6b953756df5964406b02b"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurityRules.cs",
+      "change": "M",
+      "git_blob": "6b3839872f9317a5b54b492ab09c876e5734ccf5"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalOwnerConsoleTests.cs",
+      "change": "M",
+      "git_blob": "362c8d35b67dfea73a43e67642b968d20aeaa137"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalSecurityTests.cs",
+      "change": "M",
+      "git_blob": "3fab4751c3542244d42e4a39a9f815d1f0209dea"
+    },
+    {
+      "path": "contracts/README.md",
+      "change": "M",
+      "git_blob": "f023b97f07271f68693d49ed25d5ca20ce0e6c07"
+    },
+    {
+      "path": "dev/savia-staff-ui/README.md",
+      "change": "M",
+      "git_blob": "457ce09820a5e822ad7d1221dad366963f2e09e4"
+    },
+    {
+      "path": "dev/savia-staff-ui/app.mjs",
+      "change": "M",
+      "git_blob": "61c9fddad32851425629245453d015f38c609c9c"
+    },
+    {
+      "path": "dev/savia-staff-ui/client.mjs",
+      "change": "M",
+      "git_blob": "744ab5db68eb1a5f7a89e5cb3d1a424459add9ae"
+    },
+    {
+      "path": "dev/savia-staff-ui/commerce.test.mjs",
+      "change": "A",
+      "git_blob": "cdc8dabd6289b6282c48ca7d9a328e850a213026"
+    },
+    {
+      "path": "dev/savia-staff-ui/index.html",
+      "change": "M",
+      "git_blob": "96bc1fa79847e58ab1edcf2239b0a73831ceb27b"
+    },
+    {
+      "path": "dev/savia-staff-ui/login.mjs",
+      "change": "M",
+      "git_blob": "40bf4849b1026a5ea218776c4f651166eb10acce"
+    },
+    {
+      "path": "dev/savia-staff-ui/pagination.test.mjs",
+      "change": "M",
+      "git_blob": "d82bb60450e5db353d2938f83f4ff33b93db68b5"
+    },
+    {
+      "path": "docs/AGENT-START.md",
+      "change": "A",
+      "git_blob": "5d89848310a838c98d0caf01ffde5dfd33dcdff9"
+    },
+    {
+      "path": "docs/BACKEND-LOT1.md",
+      "change": "M",
+      "git_blob": "cfed8c32a0c021e5d1154b7321231525aee73733"
+    },
+    {
+      "path": "docs/BRANCH-CANDIDATE-20261027.md",
+      "change": "M",
+      "git_blob": "a6ed2bc8c232cded93053623b32c6e6619bbe36d"
+    },
+    {
+      "path": "docs/CODE-MAP.md",
+      "change": "A",
+      "git_blob": "74f1dfcaa103485482bc71ca999f53a98b52e623"
+    },
+    {
+      "path": "docs/DATABASE.md",
+      "change": "A",
+      "git_blob": "af2779da37b05c7a0fc73f205aea64a10fa10619"
+    },
+    {
+      "path": "docs/DECISIONS.md",
+      "change": "M",
+      "git_blob": "f7a35e67e1a260efa5a38ef57e195a06c51acc4b"
+    },
+    {
+      "path": "docs/INTERNAL-RUNNER-TESTS-2026-10-25.md",
+      "change": "M",
+      "git_blob": "1068c1aeb19bca5132fa39c5eb56790e59744aff"
+    },
+    {
+      "path": "docs/PLAYBOOK.md",
+      "change": "M",
+      "git_blob": "7d484e8bad0a1213d68310e063489e5368673604"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "dc00faa6e18c5745904a4a153856d033796eacf3"
+    },
+    {
+      "path": "docs/RELEASE-STATUS.md",
+      "change": "M",
+      "git_blob": "7e08df84897f1c3167db1d93f7fd0aedb0bda049"
+    },
+    {
+      "path": "docs/REMOTE-DELIVERY.md",
+      "change": "M",
+      "git_blob": "4710b279503de716b42a72b52f2792168167d444"
+    },
+    {
+      "path": "docs/ROADMAP-REVIEW.md",
+      "change": "M",
+      "git_blob": "a5e2a9659b8c11f77e65a8b042291ac9387f581d"
+    },
+    {
+      "path": "docs/ROADMAP-V1.md",
+      "change": "M",
+      "git_blob": "7fcab5cf8a1aff9542266b70d73f79f3f8b7f741"
+    },
+    {
+      "path": "docs/SAVIA-LATEST.md",
+      "change": "M",
+      "git_blob": "dd583e16398302e2a9227a67f31363ae7eef4455"
+    },
+    {
+      "path": "docs/SYNC-VERIFICATION.md",
+      "change": "M",
+      "git_blob": "e6b0276b78bcce540a498083eabd18554c4c3d73"
+    },
+    {
+      "path": "docs/UPDATE-HISTORY.md",
+      "change": "M",
+      "git_blob": "ba7e165b58053438a5445558dcb8ec6bc10b88ef"
+    },
+    {
+      "path": "docs/backend-v2.md",
+      "change": "M",
+      "git_blob": "547b962208b9af5092cc43cf059282f364f625d7"
+    },
+    {
+      "path": "docs/delivery-20261031/NEXT-INCREMENT.md",
+      "change": "M",
+      "git_blob": "d7dc9d85ca48dbe7e8dc826d7a1c718b1f99ab91"
+    },
+    {
+      "path": "docs/delivery-20261031/README.md",
+      "change": "M",
+      "git_blob": "907b1f4b53dee19aa9506a484969f21924756fee"
+    },
+    {
+      "path": "docs/delivery-20261031/TOOLKIT.md",
+      "change": "M",
+      "git_blob": "fc52366541ead99b70b2b32e77de0fd6c84a15d9"
+    },
+    {
+      "path": "docs/reconciliation-20261103/README.md",
+      "change": "A",
+      "git_blob": "09511662bda4ae9e805ff6ac29891152db15c7dc"
+    },
+    {
+      "path": "docs/reconciliation-20261103/index.html",
+      "change": "A",
+      "git_blob": "565c295f442f9678e12feaf33bcb04c4f515346e"
+    },
+    {
+      "path": "docs/reconciliation-20261103/operational-history.json",
+      "change": "A",
+      "git_blob": "d1e856af3ebd57eea32a3a8ec2e74b9c8dc9dee0"
+    },
+    {
+      "path": "docs/reconciliation-20261103/source-binding.json",
+      "change": "A",
+      "git_blob": "7298cbe0c8e3c742d1249cb001eec4211b4a76e8"
+    },
+    {
+      "path": "docs/reconciliation-20261103/verification.json",
+      "change": "A",
+      "git_blob": "bc14ee7383cce52ff4f0c0e6c9a7fd07d1fd09e1"
+    },
+    {
+      "path": "docs/savia-internal/ACCEPTANCE.md",
+      "change": "M",
+      "git_blob": "670742eda146cdbe1037d116a109d05510d99880"
+    },
+    {
+      "path": "docs/savia-internal/STAFF-WORKFLOWS.md",
+      "change": "M",
+      "git_blob": "2925873d906e02b479b3f6e3d34ebf3b740df3e1"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

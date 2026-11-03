@@ -1,5 +1,10 @@
 # SAVIA interno: flujos para personal y dueños
 
+> Propuesta histórica, no estado actual. El alcance interno vigente es un negocio, una sucursal operativa
+> y cuatro roles; ver [decisiones](../DECISIONS.md) y [SAVIA-LATEST](../SAVIA-LATEST.md).
+> Este texto no autoriza ampliar roles, negocios, runtime ni flujos del incremento vigente.
+
+
 Especificación de UX para la implementación privada en curso; no acredita funciones terminadas.
 Alcance vigente del usuario: CRM, administración, ventas, inventario y abastecimiento exclusivos del personal. La tienda pública permanece aparte; no reintroducir `/savia` como acceso público ni convertir la tienda en un panel administrativo.
 

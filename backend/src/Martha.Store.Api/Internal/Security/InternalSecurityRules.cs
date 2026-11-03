@@ -11,12 +11,13 @@ public static class InternalSecurityRules
     public static readonly TimeSpan SessionLifetime = TimeSpan.FromHours(8);
     public static readonly TimeSpan LockoutDuration = TimeSpan.FromMinutes(15);
     public const int MaxFailedSignIns = 5;
+    public const int MinimumPasswordLength = 15;
 
     public static bool ValidRole(string? value) => value is "Owner" or "Manager" or "Cashier" or "Inventory";
     public static bool ValidLoginName(string? value) => value is { Length: >= 3 and <= 64 }
         && value.All(c => char.IsAsciiLetterOrDigit(c) || c is '.' or '_' or '-');
     public static string NormalizeLoginName(string value) => value.ToUpperInvariant();
-    public static bool ValidPassword(string? value) => value is { Length: >= 15 and <= 128 }
+    public static bool ValidPassword(string? value) => value is { Length: >= MinimumPasswordLength and <= 128 }
         && !string.IsNullOrWhiteSpace(value) && !value.Any(char.IsControl);
     public static bool ValidDisplayName(string? value) => value is { Length: >= 1 and <= 120 }
         && value == value.Trim() && !value.Any(char.IsControl);

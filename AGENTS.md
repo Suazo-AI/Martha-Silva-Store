@@ -1,5 +1,10 @@
 # Reglas del repositorio
 
+Entrada común para continuar: [docs/AGENT-START.md](docs/AGENT-START.md).
+Estado y decisiones vigentes: [PROJECT-STATUS](docs/PROJECT-STATUS.md), [DECISIONS](docs/DECISIONS.md).
+Para ubicar código usar [CODE-MAP](docs/CODE-MAP.md); antes de SQL leer [DATABASE](docs/DATABASE.md).
+
+
 ## Registrar cada avance
 
 Destino de esta sincronización: `Tony`. Jason autorizó publicar los avances del proyecto.

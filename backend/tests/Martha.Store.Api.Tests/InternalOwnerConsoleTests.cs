@@ -41,7 +41,7 @@ public sealed class InternalOwnerConsoleTests
         Assert.Equal(0, calls);
         Assert.Equal(0, settingsReads);
         Assert.Equal(0, console.ReadCount);
-        Assert.DoesNotContain(Secret, console.Output);
+        Assert.DoesNotContain(Secret, console.Output + console.InputFeedback);
     }
 
     [Theory]
@@ -111,7 +111,7 @@ public sealed class InternalOwnerConsoleTests
         Assert.Equal(InternalOwnerConsole.Refused, await Run(console, readSettings: () => Settings() with
         { Connection = Connection + ";Failover Partner=unconfirmed.invalid;Password=" + Secret }));
         Assert.Equal(0, console.ReadCount);
-        Assert.DoesNotContain(Secret, console.Output);
+        Assert.DoesNotContain(Secret, console.Output + console.InputFeedback);
         Assert.DoesNotContain("unconfirmed.invalid", console.Output);
     }
 
@@ -121,13 +121,13 @@ public sealed class InternalOwnerConsoleTests
         var console = Ready();
         Assert.Equal(InternalOwnerConsole.Refused, await Run(console,
             readSettings: () => throw new InvalidOperationException(Secret)));
-        Assert.DoesNotContain(Secret, console.Output);
+        Assert.DoesNotContain(Secret, console.Output + console.InputFeedback);
         Assert.Contains("No database attempt", console.Output);
         Assert.DoesNotContain(Connection, Settings().ToString());
     }
 
     [Fact]
-    public async Task Happy_path_is_one_call_after_both_confirmations_with_no_echo_or_credentials_in_output()
+    public async Task Happy_path_is_one_call_after_both_confirmations_without_password_disclosure()
     {
         var console = Ready();
         var calls = 0;
@@ -144,7 +144,7 @@ public sealed class InternalOwnerConsoleTests
         Assert.Equal(InternalOwnerConsole.Created, result);
         Assert.Equal(1, calls);
         Assert.All(console.Intercepts, Assert.True);
-        Assert.DoesNotContain(Secret, console.Output);
+        Assert.DoesNotContain(Secret, console.Output + console.InputFeedback);
         Assert.DoesNotContain("synthetic-owner", console.Output);
         Assert.DoesNotContain(CreatedId.ToString(), console.Output);
         Assert.DoesNotContain(Connection, console.Output);
@@ -162,7 +162,90 @@ public sealed class InternalOwnerConsoleTests
     {
         var console = new FakeConsole(lines);
         Assert.Equal(InternalOwnerConsole.Refused, await Run(console));
-        Assert.DoesNotContain(Secret, console.Output);
+        Assert.DoesNotContain(Secret, console.Output + console.InputFeedback);
+    }
+
+    [Fact]
+    public async Task Identity_and_confirmations_are_visible_while_both_passwords_are_masked()
+    {
+        var console = Ready();
+        Assert.Equal(InternalOwnerConsole.Created, await Run(console,
+            callback: (_, _, _, _, _) => Task.FromResult(InternalResult<Guid>.Ok(CreatedId))));
+        Assert.Equal("PRIVATE" + "synthetic-owner" + "Synthetic Owner" + new string('*', Secret.Length * 2) + Confirmation, console.InputFeedback);
+        Assert.DoesNotContain(Secret, console.Output + console.InputFeedback);
+        Assert.Contains("synthetic-owner", console.Output + console.InputFeedback);
+        Assert.All(console.Intercepts, Assert.True);
+    }
+
+    [Theory]
+    [InlineData("private", "Expected exactly PRIVATE")]
+    [InlineData("", "Expected exactly PRIVATE")]
+    [InlineData("PRIVATEX\b", "Too many characters")]
+    public async Task Public_confirmation_reports_safe_rejection_reason_without_calling_service(string input, string reason)
+    {
+        var console = new FakeConsole(input);
+        Assert.Equal(InternalOwnerConsole.Refused, await Run(console));
+        Assert.Equal(0, console.RemainingKeys);
+        Assert.Contains(reason, console.Output);
+        Assert.Contains("Cancelled before any database attempt", console.Output);
+    }
+
+    [Fact]
+    public async Task Control_in_public_confirmation_reports_reason_and_drains_without_calling_service()
+    {
+        var console = new FakeConsole();
+        console.AddKey(new ConsoleKeyInfo('v', ConsoleKey.V, false, false, true));
+        foreach (var character in "PRIVATE")
+            console.AddKey(new ConsoleKeyInfo(character, ConsoleKey.A, true, false, false));
+        console.AddKey(new ConsoleKeyInfo('\r', ConsoleKey.Enter, false, false, false));
+        Assert.Equal(InternalOwnerConsole.Refused, await Run(console));
+        Assert.Equal(0, console.RemainingKeys);
+        Assert.Contains("Control modifier received", console.Output);
+        Assert.DoesNotContain("New owner login", console.Output);
+        Assert.Equal("", console.InputFeedback);
+    }
+
+    [Fact]
+    public async Task Empty_login_reports_no_characters_without_calling_service()
+    {
+        var console = new FakeConsole("PRIVATE", "");
+        Assert.Equal(InternalOwnerConsole.Refused, await Run(console));
+        Assert.Contains("Login input: No characters received", console.Output);
+        Assert.DoesNotContain("New owner display name", console.Output);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task Identity_control_rejection_names_field_but_never_prints_input(bool display)
+    {
+        var console = display ? new FakeConsole("PRIVATE", "savia-test-owner") : new FakeConsole("PRIVATE");
+        console.AddKey(new ConsoleKeyInfo('v', ConsoleKey.V, false, false, true));
+        foreach (var character in "SYNTHETIC-private-input-marker")
+            console.AddKey(new ConsoleKeyInfo(character, ConsoleKey.A, false, false, false));
+        console.AddKey(new ConsoleKeyInfo('\r', ConsoleKey.Enter, false, false, false));
+        Assert.Equal(InternalOwnerConsole.Refused, await Run(console));
+        Assert.Equal(0, console.RemainingKeys);
+        Assert.Contains((display ? "Display name input: " : "Login input: ") + "Control modifier received", console.Output);
+        Assert.DoesNotContain("SYNTHETIC-private-input-marker", console.Output);
+        Assert.Equal("PRIVATE" + (display ? "savia-test-owner" : ""), console.InputFeedback);
+    }
+
+    [Fact]
+    public async Task Recommended_synthetic_identity_is_visible_and_accepted()
+    {
+        var console = new FakeConsole("PRIVATE", "savia-test-owner", "Synthetic Owner", Secret, Secret, Confirmation);
+        var calls = 0;
+        Assert.Equal(InternalOwnerConsole.Created, await Run(console, callback: (_, login, display, _, _) =>
+        {
+            calls++;
+            Assert.Equal("savia-test-owner", login);
+            Assert.Equal("Synthetic Owner", display);
+            return Task.FromResult(InternalResult<Guid>.Ok(CreatedId));
+        }));
+        Assert.Equal(1, calls);
+        Assert.DoesNotContain("savia-test-owner", console.Output);
+        Assert.Equal("PRIVATE" + "savia-test-owner" + "Synthetic Owner" + new string('*', Secret.Length * 2) + Confirmation, console.InputFeedback);
     }
 
     [Fact]
@@ -192,7 +275,8 @@ public sealed class InternalOwnerConsoleTests
         Assert.Equal(InternalOwnerConsole.Refused, await Run(console));
         Assert.Equal(0, console.RemainingKeys);
         Assert.All(console.Intercepts, Assert.True);
-        Assert.DoesNotContain(Secret, console.Output);
+        Assert.DoesNotContain(Secret, console.Output + console.InputFeedback);
+        Assert.Contains(controlModifier ? "Control modifier received" : "Non-character key received", console.Output);
     }
 
     [Fact]
@@ -205,7 +289,28 @@ public sealed class InternalOwnerConsoleTests
             return Task.FromResult(InternalResult<Guid>.Ok(CreatedId));
         }));
         Assert.All(console.Intercepts, Assert.True);
-        Assert.DoesNotContain(Secret, console.Output);
+        Assert.DoesNotContain(Secret, console.Output + console.InputFeedback);
+        Assert.Contains(new string('*', Secret.Length + 1) + "\b \b", console.InputFeedback);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task Password_minimum_is_consistent_between_prompt_and_validation(bool belowMinimum)
+    {
+        var password = new string('x', InternalSecurityRules.MinimumPasswordLength - (belowMinimum ? 1 : 0));
+        var console = new FakeConsole("PRIVATE", "synthetic-owner", "Synthetic Owner", password, password, Confirmation);
+        var calls = 0;
+        var result = await Run(console, callback: (_, _, _, actual, _) =>
+        {
+            calls++;
+            Assert.Equal(password, actual);
+            return Task.FromResult(InternalResult<Guid>.Ok(CreatedId));
+        });
+        Assert.Equal(belowMinimum ? InternalOwnerConsole.Refused : InternalOwnerConsole.Created, result);
+        Assert.Equal(belowMinimum ? 0 : 1, calls);
+        Assert.Contains($"New password ({InternalSecurityRules.MinimumPasswordLength}-128 characters; stars):", console.Output);
+        Assert.DoesNotContain(password, console.Output + console.InputFeedback);
     }
 
     [Fact]
@@ -234,7 +339,7 @@ public sealed class InternalOwnerConsoleTests
         }));
         Assert.Equal(1, calls);
         Assert.Contains("UNKNOWN. Do not retry", console.Output);
-        Assert.DoesNotContain(Secret, console.Output);
+        Assert.DoesNotContain(Secret, console.Output + console.InputFeedback);
         Assert.DoesNotContain("failed", console.Output, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("creation committed", console.Output);
     }
@@ -248,7 +353,7 @@ public sealed class InternalOwnerConsoleTests
         Assert.Equal(InternalOwnerConsole.OutcomeUnknown, await Run(console, callback: (_, _, _, _, _) =>
             Task.FromResult(new InternalResult<Guid>(Guid.Empty, error))));
         Assert.Contains("UNKNOWN. Do not retry", console.Output);
-        Assert.DoesNotContain(Secret, console.Output);
+        Assert.DoesNotContain(Secret, console.Output + console.InputFeedback);
     }
 
     [Fact]
@@ -278,6 +383,7 @@ public sealed class InternalOwnerConsoleTests
         private readonly Queue<ConsoleKeyInfo> keys = new(lines.SelectMany(line => (line + "\n").Select(character =>
             new ConsoleKeyInfo(character, character switch { '\n' => ConsoleKey.Enter, '\b' => ConsoleKey.Backspace, _ => ConsoleKey.A }, false, false, false))));
         private readonly List<string> output = [];
+        private readonly List<string> inputFeedback = [];
         public bool IsInputRedirected { get; set; }
         public bool IsOutputRedirected { get; set; }
         public bool IsErrorRedirected { get; set; }
@@ -285,8 +391,10 @@ public sealed class InternalOwnerConsoleTests
         public int ReadCount => Intercepts.Count;
         public int RemainingKeys => keys.Count;
         public string Output => string.Join('\n', output);
+        public string InputFeedback => string.Concat(inputFeedback);
         public void AddKey(ConsoleKeyInfo key) => keys.Enqueue(key);
         public void WriteLine(string message) => output.Add(message);
+        public void WriteInputFeedback(string message) => inputFeedback.Add(message);
         public ConsoleKeyInfo ReadKey(bool intercept)
         { Intercepts.Add(intercept); return keys.Dequeue(); }
     }

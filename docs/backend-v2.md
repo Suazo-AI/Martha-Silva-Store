@@ -1,5 +1,10 @@
 # Backend V2: libro sintético SAVIA
 
+> Documento histórico de su fecha/candidato. Para continuar al 2026-11-03, usar
+> [AGENT-START](AGENT-START.md) y [PROJECT-STATUS](PROJECT-STATUS.md).
+> Sus conteos, bloqueos y autorizaciones no se trasladan automáticamente al candidato actual.
+
+
 V2 agrega un puerto `IErpPort`, el adaptador `SaviaErpAdapter` y un descriptor `CgaCapabilityAdapter` cerrado. [Contrato HTTP](../contracts/openapi-v2.json) y [convenciones](../contracts/README.md). No redirige rutas V1 ni convierte sus existencias.
 
 `Program.cs` registra V2 únicamente con `Development` y `Synthetic:Enabled=true`. Las mutaciones validan estructura, clave y autoridad antes de resolver SQL; el guard de base `MarthaSynthetic_[A-Za-z0-9_]{1,64}` continúa en la creación del contexto. Las capacidades son información de código sin acceso SQL: SAVIA sintético implementado, ejecución SQL no verificada; CGA no verificado, sin operaciones, conexión ni endpoint.

@@ -1,62 +1,32 @@
 # Interfaz interna de SAVIA
 
-Fuentes de la interfaz para personal y propietarios. Se desarrollan aparte de la
-tienda Martha Silva: este directorio no es entrada de `prepare.py`, no se copia a
-`dist/` y no se publica en el Worker de la tienda ni en `/savia/`.
+Actualizado: 2026-11-03. Fuentes privadas de personal, fuera de `dist/` y del Worker público.
+Montaje .NET: `/internal/login` y `/internal/`; API bajo `/internal/api/`.
+El servidor aplica sesión, permisos, ámbito de sucursal y CSRF. Ocultar botones no es autorización.
 
-El servidor .NET privado embebe seis recursos mediante una lista explícita.
-El montaje está implementado bajo habilitación de desarrollo; no hay despliegue
-ni acceso a SQL verificados. Ocultar la navegación o un botón no constituye
-autorización. El alcance actual es un negocio por instancia/base aislada.
+## Fuentes y comportamiento
 
-## Reparto de archivos
+- `login.html` / `login.mjs`: ingreso anónimo.
+- `index.html` / `styles.css`: estructura, controles y presentación.
+- `app.mjs` / `client.mjs`: sesión, directorio paginado, stock, venta, recibo y recuperación del intento.
 
-- `login.html` y `login.mjs`: ingreso anónimo, sin datos del negocio.
-- `index.html`: estructura semántica, navegación y formularios del personal.
-- `styles.css`: diseño adaptable, estados y foco de teclado.
-- `app.mjs` y `client.mjs`: interacción y contrato HTTP del servidor.
+La UI ya tiene venta y recuperación implementadas. El catálogo global y las existencias por sucursal son lecturas diferentes.
+Una pérdida de respuesta requiere recuperar el intento original; no fabricar éxito ni generar una venta equivalente.
+N5 permanece abierto: restaurar un recibo confirmado con 404 crea un falso estado pendiente y bloquea ventas nuevas.
+Fuente reproducible: `Stale confirmed receipt` de [browser-mock-validation.mjs](../../tests/browser-mock-validation.mjs).
 
-Montaje acordado: `/internal/login` entrega el ingreso; `/internal/` y los
-módulos del personal requieren `internal.read` en .NET. `styles.css` puede
-servirse sin sesión porque contiene únicamente presentación. Las API devuelven
-401/403 JSON; la redirección hacia ingreso corresponde a la navegación del
-documento. Ese montaje es un contrato de integración, no prueba de despliegue.
+## Evidencia y comprobaciones
 
-El corte actual implementa CSRF, ingreso, verificación de sesión, cierre y
-lecturas de clientes/artículos con paginación 25/50/100. Conserva consulta y página
-por vista; una búsqueda sin aplicar no se mezcla con el desplazamiento anterior.
-Ante 401 se vacían datos e identidad, incluso si la respuesta pertenece a una
-consulta anterior. Nuevos clientes, edición, ventas y compras siguen apagados.
+El [lote 2026-11-03](../../docs/testing-20261103/README.md) obtuvo 42/42 pruebas staff JS.
+El navegador usa API simulada; hay 31/32 escenarios aprobados en el conjunto público/staff y N5 fallido.
+La evidencia Owner navegador → SQL del 31 de octubre es histórica; falta aceptar el candidato actual por cajero.
 
-El corte de sucursales reserva clientes/proveedores a Owner. La UI oculta y
-bloquea esas consultas para los otros roles y abre Artículos; el servidor sigue
-siendo la autoridad. Artículos muestra el catálogo global, no existencias por
-sucursal. No hay selector ni administración de sucursales en esta interfaz.
-Antes de operar se requieren pruebas del servidor, sesión y ámbito persistido.
+```powershell
+# Usar el jsdom ya instalado del lock, solo en el proceso de comprobación.
+$env:NODE_PATH = (Resolve-Path tests/frontend-deps/node_modules).Path
+node --test dev/savia-staff-ui/*.test.mjs
+```
 
-No usar credenciales predeterminadas, autenticación en `localStorage`, datos
-comerciales ficticios ni respuestas de éxito fabricadas. Una pantalla disponible
-no demuestra que su operación esté implementada. Los precios, permisos,
-existencias y resultados provienen del servidor.
-
-## Verificación e integración
-
-Los contratos exactos del integrador determinan rutas, DTO, sesión, CSRF y
-recuperación de operaciones. No completar vacíos inventando endpoints. Las
-respuestas perdidas después de una escritura requieren consultar el intento
-original; no mostrar éxito ni generar una segunda operación equivalente.
-
-La revisión debe distinguir comprobaciones estáticas, pruebas con dobles,
-navegador real y persistencia SQL. El entorno Windows tiene presión de memoria:
-la edición es ligera y los builds y recorridos de navegador se coordinan en el
-entorno cloud de Cutufay. Históricamente, el paquete paginado `41c66e52…` recibió 20 PASS:
-9 de auth, 5 DOM y 6 de paginación. Son dobles explícitos, no SQL ni navegador.
-Ese resultado no valida la nueva compatibilidad; los nueve casos de
-`branch-compat.test.mjs` están escritos y pendientes de ejecución cloud.
-
-Comandos: `node --test dev/savia-staff-ui/auth.test.mjs`, y para DOM/paginación
-`node --test dev/savia-staff-ui/dom.test.mjs dev/savia-staff-ui/pagination.test.mjs dev/savia-staff-ui/branch-compat.test.mjs`
-con jsdom 26.1.0 del lock existente de `tests/frontend-deps` disponible mediante
-`NODE_PATH`. No se añadieron dependencias ni una instalación nueva de jsdom.
-La suite agregada `tests/check.py` no se ejecutó para este cambio bajo el límite
-de memoria. No hay QA visual/móvil, SQL real, push, CI ni despliegue acreditados.
+Consultar el [toolkit de navegador](../../docs/testing-20261103/README.md) para enfocar N5.
+La [entrada de agentes](../../docs/AGENT-START.md) y [N1–N10](../../docs/delivery-20261031/NEXT-INCREMENT.md)
+definen el siguiente trabajo. No se acredita aceptación visual, Safari/iPhone físico ni despliegue productivo.

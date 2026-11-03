@@ -9,6 +9,7 @@ public interface IInternalOwnerConsole
     bool IsOutputRedirected { get; }
     bool IsErrorRedirected { get; }
     void WriteLine(string message);
+    void WriteInputFeedback(string message) { }
     ConsoleKeyInfo ReadKey(bool intercept);
 }
 
@@ -68,27 +69,45 @@ public static class InternalOwnerConsole
 
             console.WriteLine($"OFFLINE initial-owner maintenance. Server: {target.DataSource}; database: {target.InitialCatalog}.");
             console.WriteLine("No database/schema is created or migrated. Any existing staff row closes bootstrap.");
-            console.WriteLine("Confirm separate authorization for this exact target and a private, unrecorded terminal. Type PRIVATE to continue; Escape cancels. Inputs are not echoed.");
-            if (ReadValue(console, 7) != "PRIVATE") return Refuse(console, "Cancelled before any database attempt.");
+            console.WriteLine("Confirm separate authorization for this exact target and a private, unrecorded terminal.");
+            console.WriteLine("Type PRIVATE in uppercase, then Enter. Your text is visible. Escape cancels. Do not paste.");
+            var privacy = ReadValue(console, 7, out var publicRejection);
+            if (privacy != "PRIVATE")
+                return Refuse(console, "Cancelled before any database attempt. "
+                    + (publicRejection ?? "Expected exactly PRIVATE in uppercase, without spaces."));
+            console.WriteLine("PRIVATE accepted. Login, name and confirmations are visible. Passwords show stars. Press Enter once after each field.");
             console.WriteLine("New owner login (3-64 ASCII letters, digits, dot, underscore or hyphen):");
-            var login = ReadValue(console, 64);
+            var login = ReadValue(console, 64, out var loginRejection);
             if (!InternalSecurityRules.ValidLoginName(login))
-                return Refuse(console, "Refused: invalid owner identity. No database attempt was made.");
+                return Refuse(console, "Refused: invalid owner identity. Login input: "
+                    + (loginRejection ?? (string.IsNullOrEmpty(login)
+                        ? "No characters received. Type manually and press Enter once."
+                        : "Use 3-64 ASCII letters, digits, dot, underscore or hyphen; no spaces."))
+                    + " No database attempt was made.");
             console.WriteLine("New owner display name (1-120 characters):");
-            var display = ReadValue(console, 120);
+            var display = ReadValue(console, 120, out var displayRejection);
             if (!InternalSecurityRules.ValidDisplayName(display))
-                return Refuse(console, "Refused: invalid owner identity. No database attempt was made.");
-            console.WriteLine("New password (15-128 characters; no echo):");
-            var password = ReadValue(console, 128);
+                return Refuse(console, "Refused: invalid owner identity. Display name input: "
+                    + (displayRejection ?? (string.IsNullOrEmpty(display)
+                        ? "No characters received. Type manually and press Enter once."
+                        : "Use 1-120 characters without leading/trailing spaces or control characters."))
+                    + " No database attempt was made.");
+            console.WriteLine($"New password ({InternalSecurityRules.MinimumPasswordLength}-128 characters; stars):");
+            var password = ReadValue(console, 128, out var passwordRejection, mask: true);
             if (!InternalSecurityRules.ValidPassword(password))
-                return Refuse(console, "Refused: invalid password. No database attempt was made.");
-            console.WriteLine("Repeat new password (no echo):");
-            if (!string.Equals(password, ReadValue(console, 128), StringComparison.Ordinal))
-                return Refuse(console, "Refused: passwords do not match. No database attempt was made.");
+                return Refuse(console, "Refused: invalid password. Password input: "
+                    + (passwordRejection ?? $"Use {InternalSecurityRules.MinimumPasswordLength}-128 characters, not only spaces; no control characters.")
+                    + " No database attempt was made.");
+            console.WriteLine("Repeat new password (stars):");
+            if (!string.Equals(password, ReadValue(console, 128, out var repeatRejection, mask: true), StringComparison.Ordinal))
+                return Refuse(console, "Refused: passwords do not match. "
+                    + (repeatRejection is null ? "" : "Repeated password input: " + repeatRejection + " ")
+                    + "No database attempt was made.");
             var confirmation = $"CREATE OWNER IN {target.DataSource}/{target.InitialCatalog}";
             console.WriteLine($"Final authorization: type exactly {confirmation}");
-            if (ReadValue(console, confirmation.Length) != confirmation)
-                return Refuse(console, "Cancelled before any database attempt.");
+            if (ReadValue(console, confirmation.Length, out var finalRejection) != confirmation)
+                return Refuse(console, "Cancelled before any database attempt. Final confirmation: "
+                    + (finalRejection ?? "Type the exact authorization phrase manually."));
             ct.ThrowIfCancellationRequested();
             // Recheck redirection immediately before any effect. Never silently retry this callback.
             if (console.IsInputRedirected || console.IsOutputRedirected || console.IsErrorRedirected)
@@ -97,7 +116,7 @@ public static class InternalOwnerConsole
             var result = await createOwner(settings, login!, display!, password!, ct);
             if (result.Success && result.Value != Guid.Empty)
             {
-                WriteSafely(console, "Initial owner creation committed. No credential was printed. Bootstrap is now closed.");
+                WriteSafely(console, "Initial owner creation committed. No password was printed. Bootstrap is now closed.");
                 return Created;
             }
             if (result.Error == "bootstrap_closed")
@@ -138,29 +157,46 @@ public static class InternalOwnerConsole
         && value.All(c => char.IsAsciiLetterOrDigit(c) || c is '.' or '_' or '-' or '\\' or ',' or ':' or '(' or ')' or '[' or ']');
 
     private static string? ReadValue(IInternalOwnerConsole console, int maximum)
+        => ReadValue(console, maximum, out _);
+
+    private static string? ReadValue(IInternalOwnerConsole console, int maximum,
+        out string? rejection, bool mask = false)
     {
         var buffer = new char[maximum];
         var length = 0;
-        var invalid = false;
+        rejection = null;
         try
         {
             while (true)
             {
                 var key = console.ReadKey(intercept: true);
-                if (key.Key == ConsoleKey.Escape) return null;
+                if (key.Key == ConsoleKey.Escape) { rejection = "Escape received."; return null; }
                 if (key.Key == ConsoleKey.Enter)
-                    return invalid || key.Modifiers.HasFlag(ConsoleModifiers.Control) ? null : new string(buffer, 0, length);
+                {
+                    if (key.Modifiers.HasFlag(ConsoleModifiers.Control))
+                        rejection ??= "Control modifier received. Release Ctrl and type manually.";
+                    console.WriteLine("");
+                    return rejection is not null ? null : new string(buffer, 0, length);
+                }
                 // Drain a rejected line through Enter instead of returning queued secret characters
                 // to the operator's shell. A rejected line can never be repaired into a truncated password.
-                if (invalid) continue;
-                if (key.Modifiers.HasFlag(ConsoleModifiers.Control)) { invalid = true; continue; }
+                if (rejection is not null) continue;
+                if (key.Modifiers.HasFlag(ConsoleModifiers.Control))
+                { rejection = "Control modifier received. Release Ctrl and type manually."; continue; }
                 if (key.Key == ConsoleKey.Backspace)
                 {
-                    if (length > 0) buffer[--length] = '\0';
+                    if (length > 0)
+                    {
+                        buffer[--length] = '\0';
+                        console.WriteInputFeedback("\b \b");
+                    }
                     continue;
                 }
-                if (char.IsControl(key.KeyChar) || length == maximum) { invalid = true; continue; }
+                if (char.IsControl(key.KeyChar))
+                { rejection = "Non-character key received. Type only the requested text."; continue; }
+                if (length == maximum) { rejection = "Too many characters. Type only the requested text."; continue; }
                 buffer[length++] = key.KeyChar;
+                console.WriteInputFeedback(mask ? "*" : key.KeyChar.ToString());
             }
         }
         finally { Array.Clear(buffer); }
@@ -178,6 +214,7 @@ public static class InternalOwnerConsole
         public bool IsOutputRedirected => Console.IsOutputRedirected;
         public bool IsErrorRedirected => Console.IsErrorRedirected;
         public void WriteLine(string message) => Console.WriteLine(message);
+        public void WriteInputFeedback(string message) => Console.Write(message);
         public ConsoleKeyInfo ReadKey(bool intercept) => Console.ReadKey(intercept);
     }
 }

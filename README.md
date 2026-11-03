@@ -1,12 +1,19 @@
-# Martha Silva Store
+# Martha Silva Store / SAVIA
 
-La rama `Tony` conserva la historia real y las fuentes de la ultima demo publicada.
-Este push no despliega la web ni modifica `main`. [Cronologia](docs/UPDATE-HISTORY.md).
+**Estado al 2026-11-03: candidato probado por capas; no listo para producción.**
+La tienda pública y la aplicación interna de personal tienen alcances y autoridades separados.
+El siguiente incremento es corregir N5 y probar la venta por cajero de navegador a SQL.
 
-**Último estado local incorporado:** [SAVIA al 30 de octubre, 22:59 Nicaragua](docs/SAVIA-LATEST.md).
-Piloto `NO_APTO`; preparación offline con revisión pendiente.
-Cada commit documenta sus archivos y sincroniza `Tony` mediante los [hooks locales](docs/AUTO-SYNC.md).
-Los [recibos](docs/progress/) identifican bytes publicados, no aceptación del producto.
+Entrada para cualquier agente: [AGENT-START](docs/AGENT-START.md).
+Estado vigente: [PROJECT-STATUS](docs/PROJECT-STATUS.md).
+Decisiones: [DECISIONS](docs/DECISIONS.md). SQL: [DATABASE](docs/DATABASE.md).
+Última validación: [590 backend PASS, 2 NOT RUN; navegador 31/32](docs/testing-20261103/README.md).
+El caso fallido bloquea ventas nuevas cuando un recibo histórico devuelve 404. No está corregido.
+
+Checkout canónico: `C:/Users/Jason/MARTHA-SILVA/github`, rama `Tony`.
+Los hooks registran y sincronizan commits autorizados; [AUTO-SYNC](docs/AUTO-SYNC.md).
+La [reconciliación](docs/reconciliation-20261103/README.md) vincula código probado, documentación y exclusiones.
+Push, despliegue y aceptación son estados diferentes. Las copias vecinas no son el checkout activo.
 
 **Demo:** <https://martha-silva-preview.martha-silva-denis.workers.dev/>.
 Ultimo recibo conservado: version `601268a3-81ce-4277-a8ef-cb2e84d2fbb1`, publicada
@@ -30,7 +37,7 @@ No hay pagos bancarios productivos implementados.
 | Estado y pendientes | [PROJECT-STATUS](docs/PROJECT-STATUS.md) |
 | Hashes, imagenes y recibos | [Entregas](evidence/releases/20261030/) |
 | Comprobaciones reproducibles | [SYNC-VERIFICATION](docs/SYNC-VERIFICATION.md) |
-| Original separado e inerte | [originals/cloudflare](originals/cloudflare/README.md) |
+| Original separado e inerte | [Procedencia del original](evidence/original-preview/README.md) |
 | SAVIA staff | [SAVIA-INTERNAL](SAVIA-INTERNAL.md), `backend/`, `contracts/`, `dev/savia-staff-ui/` |
 | Seguridad y contribuciones | [SECURITY](docs/SECURITY.md), [AGENTS](AGENTS.md) |
 
@@ -68,10 +75,12 @@ publicada; conservan precios, stock, variantes y controles de archivos. Ver
 `Tony source snapshot` ejecuta la suite completa en Linux, sin desplegar ni iniciar
 SQL. Consultar resultados del SHA exacto.
 
-## SAVIA y publicacion
+## SAVIA y publicación
 
-SAVIA conserva `023364fd`, Owner/B1 y aislamiento por sucursal. Su compilacion,
-SQL y migraciones necesitan validacion propia. La UI staff esta fuera de `dist/`;
-no se reintroduce `/savia/` ni se afirma que el backend este alojado o conectado.
-El Worker original `martha-silva-demo.jason-suazof.workers.dev` queda fuera del
-destino. Cualquier despliegue posterior requiere candidato, destino y rollback.
+SAVIA tiene sesión, permisos, directorio, stock, venta y recuperación implementados en el candidato.
+Existe evidencia histórica de una venta Owner desde navegador a SQL. La validación reciente separó
+API simulada en navegador y SQL real en fixtures; falta aceptar el recorrido combinado actual por cajero.
+La UI staff está fuera de `dist/` y no se publica en el Worker de la tienda.
+No se afirma hosting productivo, pagos bancarios ni aceptación visual.
+El Worker original `martha-silva-demo.jason-suazof.workers.dev` queda fuera del destino de esta sincronización.
+Cualquier despliegue requiere alcance, destino y rollback aprobados.

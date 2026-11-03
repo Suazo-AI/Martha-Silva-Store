@@ -1,5 +1,11 @@
 # Evolución preservada de Martha Silva
 
+Última reconciliación documental y de código: 2026-11-03.
+Diez archivos de producto/pruebas publicados con los mismos bytes del candidato validado; N5 permanece abierto.
+Se actualizan estado, decisiones, entrada de agentes y documentación SQL; no se modifica runtime.
+[Procedencia y exclusiones](reconciliation-20261103/README.md). El recibo del commit identifica la publicación.
+
+
 ## Corrección de regresiones del catálogo, 31 de octubre UTC
 
 Se separan los contratos históricos y la selección luxury publicada. Se mantienen

@@ -1,0 +1,58 @@
+{
+  "date": "2026-11-03",
+  "tested_base_sha": "9befe15ece1cfb34b7376a13d1c5d8dac4a837fe",
+  "evidence_commit": "64b974aec7e5f9a9777cf68ab8a3b6ce573ad2f9",
+  "meaning": "Same ten previously uncommitted product/test files as the completed validation. Publishing does not fix N5 or rerun tests.",
+  "files": [
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalOwnerConsole.cs",
+      "sha256": "1dc8d25a851366fa257084cfec6c9f182056cc77f00738a87271c702cff4f60c",
+      "matches_tested_bytes": true
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurityRules.cs",
+      "sha256": "5a2ab442b982afa445cd1f8944e278c811ab3b91fb1115b3c63a64d2569bb1aa",
+      "matches_tested_bytes": true
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalOwnerConsoleTests.cs",
+      "sha256": "93ebe73728606568c9b6a65beb79b297f99d062556cb28309366578229688b21",
+      "matches_tested_bytes": true
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalSecurityTests.cs",
+      "sha256": "869bc9dc48ca3f1daf95933a4fd459ba070dc81a9a0fddff4b24ee1fa1404afc",
+      "matches_tested_bytes": true
+    },
+    {
+      "path": "dev/savia-staff-ui/app.mjs",
+      "sha256": "46dbf8aa0d2f8f962b2868d3893a6dd7ef3eeab49d30b317e42350ea80f74fd9",
+      "matches_tested_bytes": true
+    },
+    {
+      "path": "dev/savia-staff-ui/client.mjs",
+      "sha256": "9dd4ee88c9f34f5948ec38d31f73bde976acffcc03c7bdfa99b5996dcc87243d",
+      "matches_tested_bytes": true
+    },
+    {
+      "path": "dev/savia-staff-ui/index.html",
+      "sha256": "b10cb0d2e7ea628a616e4b514b8cb188942e0332157410d5cac7cc3e398b8a6c",
+      "matches_tested_bytes": true
+    },
+    {
+      "path": "dev/savia-staff-ui/login.mjs",
+      "sha256": "6d493acf575f0312d56d39f290804c323209aa99715eced002cc4089a8a6d1a0",
+      "matches_tested_bytes": true
+    },
+    {
+      "path": "dev/savia-staff-ui/pagination.test.mjs",
+      "sha256": "e0509c9ecbf644f374f13e37be5f0647e47dabacb53d9dc57ef238079c8f1a85",
+      "matches_tested_bytes": true
+    },
+    {
+      "path": "dev/savia-staff-ui/commerce.test.mjs",
+      "sha256": "0bb19c1f31cb41935856c36399e1f58c9dff429dbf1b74a826706a8da25b9f14",
+      "matches_tested_bytes": true
+    }
+  ]
+}

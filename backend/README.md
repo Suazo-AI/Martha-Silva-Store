@@ -1,27 +1,33 @@
-# Backend: primera base técnica, no tienda productiva
+# Backend .NET / SQL Server
 
-ASP.NET Core / .NET SDK 10.0.402, EF Core SQL Server 10.0.13. Leer [contrato](../contracts/README.md) y [alcance del lote](../docs/BACKEND-LOT1.md). El frontend existente sigue usando su simulador; todavía no está conectado a esta API.
+API ASP.NET Core; SDK fijado en [global.json](../global.json): 10.0.402.
+El [contrato](../contracts/README.md), [estado](../docs/PROJECT-STATUS.md) y
+[DATABASE](../docs/DATABASE.md) distinguen el contexto sintético Store del privado Internal.
+La tienda pública conserva su simulador. La UI staff se sirve desde el host privado .NET bajo habilitación explícita.
 
-## Verificar sin base de datos
+## Verificación
 
-Desde la raíz, con el SDK de global.json instalado:
+Desde la raíz, con las dependencias instaladas:
 
 ```sh
 dotnet restore backend/Martha.Store.slnx --locked-mode
 dotnet build backend/Martha.Store.slnx --no-restore -c Release
-dotnet test backend/tests/Martha.Store.Api.Tests --no-build --no-restore -c Release
 ```
 
-El resultado actual esperado sin conexión SQL es 16 pruebas PASS y 6 SQL SKIPPED. Omitir esas pruebas no verifica reservas ni transacciones. En runners restringidos que no permiten sockets internos de MSBuild: restore con `-m:1`; build con `-m:1 -p:UseSharedCompilation=false`. No desactivar protecciones del sistema.
+Antes de ejecutar tests, revisar las variables y fixtures SQL: algunas pruebas crean y eliminan bases
+cuando reciben conexiones. No usar una conexión ambiental desconocida ni la base del piloto.
+La [última ejecución](../docs/testing-20261103/README.md) registró 590 PASS y 2 NOT RUN en total:
+523 offline y 67 SQL reales. Es evidencia fechada, no el resultado prometido de cualquier comando sin SQL.
+Los dos casos pendientes son migración/backup/restore Internal y reinicio del contenedor propio.
 
-## Entorno sintético (pendiente de SQL autorizado)
+## Autoridad y seguridad
 
-- `ASPNETCORE_ENVIRONMENT=Development` y `Synthetic__Enabled=true`, ambos necesarios.
-- `ConnectionStrings__Store`: conexión a base de prueba autorizada cuyo nombre cumple `MarthaSynthetic_[A-Za-z0-9_]{1,64}`. No guardar contraseñas en Git. El prefijo es una protección accidental, no prueba que el servidor sea de pruebas.
-- Migración y seed son explícitos con argumentos `--migrate` y `--seed-synthetic`; jamás automáticos al iniciar. No aplicar EF CLI directamente a un destino real ni usar overrides para sortear la guarda.
-- `--seed-synthetic` no rellena existencias de una semilla ya creada.
-- Production/Test no habilitan las rutas sintéticas aunque la bandera esté encendida. Live puede devolver 200 y readiness 503 cuando SQL no está listo; eso es el cierre seguro esperado.
+- `Program.cs` configura los dos contextos; `--migrate` y los seeds de ese archivo operan sobre Store.
+- `Internal/` contiene sesión, roles, ámbito de sucursal, directorio, stock, ventas, compras e idempotencia.
+- `/health/ready` comprueba Store; `/internal/api/readiness` comprueba Internal y exige autorización.
+- Internal exige Development, habilitación explícita, HTTPS y nombre de base de prueba permitido.
+- El arranque no migra, no crea Owner y no habilita pagos bancarios.
 
-No hay login real, expiración/cancelación de reservas, pagos, clientes, envíos ni despliegue API. Los precios/currency XXX son fixtures, no cotización ni moneda comercial. Las pruebas de carreras/rollback deben pasar contra SQL Server real antes de afirmar esa funcionalidad.
-
-La licencia SQL Server Developer se debe aceptar específicamente para uso no productivo antes de iniciar su contenedor. Su aceptación no autoriza nuevas credenciales, cobros, producción o gastos.
+Consultar [DATABASE](../docs/DATABASE.md) antes de preparar conexiones, migraciones o runtime.
+No ejecutar comandos de documentos históricos como si fueran una autorización vigente.
+Las reservas del adaptador legado no constituyen reservas implementadas en Internal.

@@ -1,5 +1,10 @@
 # Toolkit mínimo para el stack actual
 
+> Corte histórico del 31 de octubre. Continuación al 2026-11-03: [AGENT-START](../AGENT-START.md),
+> [validación reciente](../testing-20261103/README.md) y [estado vigente](../PROJECT-STATUS.md).
+> Conservar el diagnóstico; no repetir pasos consumidos ni interpretar sus pendientes como hechos actuales.
+
+
 Este toolkit selecciona lo que ya existe. No instala skills, agentes, MCPs, bases ni observabilidad nueva. Las recetas de producto son para futuros incrementos autorizados; los resultados de este encargo están en VERIFICATION.
 
 ## Herramientas y límites

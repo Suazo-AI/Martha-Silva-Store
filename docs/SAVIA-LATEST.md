@@ -1,39 +1,33 @@
 # SAVIA: estado más reciente
 
-Fuente: medición local `2026-10-31T04:59:45.055602+00:00` en `SUAZO-PC`.
-Corresponde al 30 de octubre, 22:59:45, en Nicaragua.
-**Piloto: NO_APTO. Runtime nuevo: no autorizado.**
+Actualizado: 2026-11-03. Estado general: [PROJECT-STATUS](PROJECT-STATUS.md).
+Continuación: [AGENT-START](AGENT-START.md). Configuración y prueba SQL: [DATABASE](DATABASE.md).
 
-| Evidencia | Resultado y límite |
-| --- | --- |
-| Backend histórico, 28 octubre | 581 resultados `Passed`; no se repitió la suite para esta publicación |
-| Último intento real R7 | `AssertionError / ERR_ASSERTION`, etapa `anonymous`; `checks=[]`, `network=[]` |
-| Diagnóstico aislado | 21 casos sintéticos aprobados; sus resultados se reutilizaron por hash |
-| Paquete offline nuevo | 388 archivos, 529 referencias de fuentes; 2492 archivos congelados preservados según aceptación local |
-| Integración con dobles | Cuatro casos nuevos aprobados; ningún navegador ni flujo comercial real |
-| Fuentes actualizadas | Cuatro archivos de pruebas modificados y `PrivatePilotReleaseTests.cs` añadido |
+La UI actual implementa ingreso, sesión, directorio, consulta de stock, venta y recuperación de recibo.
+El código local probado se incorpora a Tony con [hashes de procedencia](reconciliation-20261103/source-binding.json).
+No está aceptado para producción: N5 reproduce un bloqueo al restaurar un recibo confirmado que devuelve 404.
 
-El HTTP recibido en el fallo real sigue `UNKNOWN`. El diagnóstico agrega observación
-con un esquema cerrado. La evidencia no demuestra que la causa del producto esté corregida.
-Las pruebas del backend son históricas y no aceptan este paquete ni sus flujos reales.
+Validación reciente: 590 casos backend PASS y 2 NOT RUN; 42/42 staff JS; 31/32 navegador; 4/4 guardas HTTP.
+Los 67 casos SQL reales usaron bases nuevas desechables y preservaron las 52 existentes.
+Los casos internos de ese lote usan EnsureCreated; no acreditan migraciones de release.
+Ver [resultados, fallos y límites](testing-20261103/README.md).
 
-El alcance V1 aprobado es un negocio, una sucursal y diez flujos internos.
-Checkout público, tarjetas/bancos, factura fiscal electrónica y multisucursal quedan fuera.
-Esta sincronización no despliega, no ejecuta SQL, no inicia Docker y no toca certificados.
+## Antecedente operativo preservado
 
-## Bloqueo y siguiente acción
+El corte local del 31 de octubre registra 13/22 criterios PASS y 9 NOT RUN; interfaz crítica 5/5.
+Incluye migración Internal real, venta sintética Owner, recibo, pérdida de respuesta, recuperación y persistencia
+tras reinicio solo de API. No hace falta repetir ese reinicio para publicar documentación.
+El [resumen público](reconciliation-20261103/operational-history.json) conserva resultados y hashes de fuentes privadas.
+Las cuentas, conexiones, bases, sesiones y autorizaciones no se publican.
 
-El paquete nuevo espera revisión independiente offline.
-Jason debe elegir el modelo exacto y el nivel de razonamiento antes de delegarla.
-La aceptación exige un veredicto sobre los hashes de este paquete, sin ejecutar runtime.
-Los 21 casos previos y los cuatro dobles nuevos no sustituyen esa revisión.
+La preparación de vigilancia histórica quedó PREPARED_NOT_ACTIVE; entrega/reanudación NOT_PROVEN.
+No se activa con este trabajo. Los intentos R3–R7 y autorizaciones de un solo uso son historia, no una cola de ejecución.
+El estado offline previo NO_APTO/APTO se consulta en su corte; no sustituye la evidencia SQL/UI posterior.
 
-El intento R7 ya se consumió. No se repite con esta autorización de GitHub.
-Después de la revisión, cualquier prueba real exige una autorización nueva y acotada.
-Se debe resolver primero el contexto de certificados con evidencia fresca autorizada.
-El bloqueo se cierra con revisión aprobada y controles reales del alcance permitido;
-no se cierra por un push ni por resultados sintéticos.
+## Alcance y próxima acción
 
-Evidencia preservada, procedencia y exclusiones:
-[evidence/savia/20261030](../evidence/savia/20261030/README.md).
-El estado de tienda y sus pendientes siguen en [PROJECT-STATUS](PROJECT-STATUS.md).
+V1 interno: un negocio, una sucursal operativa; Owner, Manager, Cashier e Inventory con ámbito validado por servidor.
+Los ámbitos adicionales de fixtures son pruebas de aislamiento, no una ampliación comercial.
+Checkout público, tarjetas/bancos, factura fiscal electrónica y multisucursal quedan fuera de este incremento.
+Corregir N5 y completar [Venta segura por cajero](delivery-20261031/NEXT-INCREMENT.md).
+No se ha ejecutado el recorrido combinado actual de navegador a SQL ni se han cerrado todos sus criterios.

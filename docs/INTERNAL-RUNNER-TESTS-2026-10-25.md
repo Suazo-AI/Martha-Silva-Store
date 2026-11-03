@@ -1,5 +1,10 @@
 # Independent internal runner checks — 2026-10-25
 
+> Documento histórico de su fecha/candidato. Para continuar al 2026-11-03, usar
+> [AGENT-START](AGENT-START.md) y [PROJECT-STATUS](PROJECT-STATUS.md).
+> Sus conteos, bloqueos y autorizaciones no se trasladan automáticamente al candidato actual.
+
+
 ## Scope and evidence
 
 Base reviewed: `b1eb4bec119e8ee8985d59291146b52c41579566`.

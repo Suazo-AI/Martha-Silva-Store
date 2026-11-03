@@ -1,5 +1,10 @@
 # Aceptación de SAVIA interno
 
+> Propuesta histórica, no estado actual. El alcance interno vigente es un negocio, una sucursal operativa
+> y cuatro roles; ver [decisiones](../DECISIONS.md) y [SAVIA-LATEST](../SAVIA-LATEST.md).
+> Este texto no autoriza ampliar roles, negocios, runtime ni flujos del incremento vigente.
+
+
 Criterios propuestos para integrar una aplicación privada de personal y propietarios.
 No describen funciones ya entregadas ni sustituyen el código o los contratos vigentes.
 

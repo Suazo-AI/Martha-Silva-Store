@@ -13,6 +13,7 @@ export class StaffRequestError extends Error {
       unauthorized: 'La sesión no está disponible o venció. Volvé a ingresar.',
       forbidden: 'Tu cuenta no tiene permiso para esta operación.',
       invalid: 'El servidor no aceptó los datos. Revisá los campos antes de continuar.',
+      sale_rejected: 'La venta fue rechazada. Revisá la sucursal y la cantidad antes de registrar otra.',
       rate_limited: 'Se alcanzó el límite de intentos. Esperá antes de volver a ingresar.',
       unavailable: 'No se pudo confirmar la respuesta del servidor. No se declaró una operación realizada.',
       response: 'La respuesta no coincide con el contrato interno. No se habilitaron operaciones.',
@@ -33,12 +34,13 @@ export function readStaff(value) {
 export function createAuthClient({fetchImpl = globalThis.fetch, timeoutMs = 10000, onUnauthorized = () => {}} = {}) {
   if (typeof fetchImpl !== 'function') throw new Error('El transporte del servidor no está disponible.');
   let csrf = null, session = null;
-  async function request(path, {method = 'GET', body, csrfToken, allowEmpty = false} = {}) {
+  async function request(path, {method = 'GET', body, csrfToken, idempotencyKey, allowEmpty = false} = {}) {
     const controller = new AbortController(); let timer;
     try {
       const headers = {Accept: 'application/json'};
       if (body !== undefined) headers['Content-Type'] = 'application/json';
       if (csrfToken) headers['X-CSRF-TOKEN'] = csrfToken;
+      if (idempotencyKey) headers['Idempotency-Key'] = idempotencyKey;
       const response = await Promise.race([
         fetchImpl(path, {method, headers, credentials: 'same-origin', redirect: 'error',
           cache: 'no-store', signal: controller.signal,
@@ -102,6 +104,16 @@ export function createAuthClient({fetchImpl = globalThis.fetch, timeoutMs = 1000
     csrf = null; session = null;
   }
   return Object.freeze({prepareLogin: renewCsrf, login, getSession, logout,
+    requestBusiness: async (path, {method = 'GET', body, key} = {}) => {
+      if (!session) throw new StaffRequestError('unauthorized', 401);
+      const sale = path === '/internal/api/commerce/sales' && method === 'POST';
+      const read = method === 'GET' && (/^\/internal\/api\/commerce\/inventory\?locationId=[0-9a-f-]+&skip=\d+&take=100$/i.test(path)
+        || /^\/internal\/api\/commerce\/sales\/[0-9a-f-]+$/i.test(path));
+      const recovery = method === 'GET' && path === '/internal/api/operations/commerce.sale.record';
+      if (!(sale || read || recovery) || ((sale || recovery) && !guid(key))) throw new StaffRequestError('invalid');
+      if (sale) await renewCsrf();
+      return request(path, {method, body, idempotencyKey: key, csrfToken: sale ? csrf : undefined});
+    },
     getVerifiedSession: () => session,
     requestAuthenticated: async path => {
       if (!session) throw new StaffRequestError('unauthorized', 401);

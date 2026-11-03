@@ -55,7 +55,9 @@ function setup(t, transport) {
   const dom = new JSDOM(html, {url: 'https://staff.example.invalid/internal/', runScripts: 'outside-only'});
   const document = dom.window.document;
   const client = createStaffClient(transport);
-  const app = mountStaffApp({document, client, redirect: () => assert.fail('Pagination must not redirect')});
+  // Keep this transport focused on Directory pagination; commerce has separate contract and DOM tests.
+  const {recordSale, ...directoryClient} = client;
+  const app = mountStaffApp({document, client: directoryClient, redirect: () => assert.fail('Pagination must not redirect')});
   t.after(() => { app.destroy(); dom.window.close(); });
   return {app, document, client};
 }

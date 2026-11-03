@@ -1,5 +1,12 @@
 # Contrato HTTP V1 — base sintética
 
+Alcance: este documento y los OpenAPI V1/V2 describen el adaptador sintético Store.
+No son el contrato de rutas `/internal/api/`. Para SAVIA privado, consultar
+[CODE-MAP](../docs/CODE-MAP.md), los endpoints/DTO de `Internal/` y el
+[incremento N1–N10](../docs/delivery-20261031/NEXT-INCREMENT.md).
+Resultados SQL actuales: [validación 2026-11-03](../docs/testing-20261103/README.md).
+Las limitaciones del lote legado no deben atribuirse automáticamente a Internal.
+
 [`openapi-v1.json`](openapi-v1.json) es el contrato versionado de este lote, no una API comercial lista. Ver [ADR](../docs/adr/0001-backend-synthetic-foundation.md) y [gates](../docs/BACKEND-LOT1.md). No requiere generar código ni bloquea compilar la aplicación.
 
 ## Convenciones congeladas

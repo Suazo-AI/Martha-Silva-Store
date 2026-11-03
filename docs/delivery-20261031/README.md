@@ -1,5 +1,10 @@
 # Martha Silva: terminar una V1 verificable
 
+> Corte histórico del 31 de octubre. Continuación al 2026-11-03: [AGENT-START](../AGENT-START.md),
+> [validación reciente](../testing-20261103/README.md) y [estado vigente](../PROJECT-STATUS.md).
+> Conservar el diagnóstico; no repetir pasos consumidos ni interpretar sus pendientes como hechos actuales.
+
+
 **Siguiente incremento: Venta segura por cajero.** Demostrar permisos, sesión y aislamiento sobre la venta existente reduce cuatro brechas operativas. Añadir pantallas ahora no demuestra que el personal pueda operar correctamente.
 
 Fecha: 31 de octubre de 2026, America/Managua. Inspección terminada durante el 1 de noviembre UTC. Modo DISCOVER. Host SUAZO-PC; orquestador Codex y revisión independiente con `gpt-6-astra`, razonamiento `high`.

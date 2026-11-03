@@ -1,5 +1,10 @@
 # Comprobación de la entrega de fuentes
 
+> Documento histórico de su fecha/candidato. Para continuar al 2026-11-03, usar
+> [AGENT-START](AGENT-START.md) y [PROJECT-STATUS](PROJECT-STATUS.md).
+> Sus conteos, bloqueos y autorizaciones no se trasladan automáticamente al candidato actual.
+
+
 Los hashes identifican bytes y correspondencia; no prueban nitidez, fidelidad
 del producto, interacción, accesibilidad, carga o aceptación visual.
 

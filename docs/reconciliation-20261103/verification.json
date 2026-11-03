@@ -1,0 +1,72 @@
+{
+  "observed_utc": "2026-11-03T21:01:51.832496+00:00",
+  "host": "SUAZO-PC",
+  "source_binding": {
+    "matched_files": 10,
+    "paths": [
+      "backend/src/Martha.Store.Api/Internal/Security/InternalOwnerConsole.cs",
+      "backend/src/Martha.Store.Api/Internal/Security/InternalSecurityRules.cs",
+      "backend/tests/Martha.Store.Api.Tests/InternalOwnerConsoleTests.cs",
+      "backend/tests/Martha.Store.Api.Tests/InternalSecurityTests.cs",
+      "dev/savia-staff-ui/app.mjs",
+      "dev/savia-staff-ui/client.mjs",
+      "dev/savia-staff-ui/index.html",
+      "dev/savia-staff-ui/login.mjs",
+      "dev/savia-staff-ui/pagination.test.mjs",
+      "dev/savia-staff-ui/commerce.test.mjs"
+    ]
+  },
+  "previous_source_manifest": {
+    "files": 2377,
+    "only_documentation_changes": [
+      "dev/savia-staff-ui/README.md"
+    ],
+    "non_documentation_mismatches": 0
+  },
+  "documentation": {
+    "markdown_documents": 29,
+    "relative_links_checked": 189,
+    "broken_links": []
+  },
+  "historical_criteria": {
+    "total": 22,
+    "pass": 13,
+    "not_run": 9
+  },
+  "private_originals": [
+    {
+      "directory": "docs/savia-internal/sql-local-20261031/",
+      "preserved_files": 61,
+      "ignored": true,
+      "tracked_files": 0
+    },
+    {
+      "directory": "docs/savia-internal/design-exploration-20261031/",
+      "preserved_files": 2,
+      "ignored": true,
+      "tracked_files": 0
+    }
+  ],
+  "frozen_directories_modified": false,
+  "diff_check": "PASS",
+  "checks_already_completed_this_task": [
+    {
+      "command": "python tests/test_progress.py",
+      "passed": 13,
+      "failed": 0
+    },
+    {
+      "command": "python tools/export_progress.py --verify",
+      "preserved_evidence_hashes": 15,
+      "result": "PASS"
+    }
+  ],
+  "not_executed_this_task": [
+    "SQL access or mutation",
+    "product suite rerun",
+    "deployment",
+    "Graphify build",
+    "service/certificate changes"
+  ],
+  "browser_review": "Lavish HTML inspected in in-app browser; disclosure controls exercised. Not product acceptance."
+}

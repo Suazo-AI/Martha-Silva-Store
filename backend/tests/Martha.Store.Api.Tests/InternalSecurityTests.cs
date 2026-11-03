@@ -37,7 +37,8 @@ public sealed class InternalSecurityTests
     public void Password_policy_allows_passphrases_without_silent_truncation()
     {
         Assert.True(InternalSecurityRules.ValidPassword("a synthetic test passphrase"));
-        Assert.False(InternalSecurityRules.ValidPassword(new string('x', 14)));
+        Assert.False(InternalSecurityRules.ValidPassword(new string('x', InternalSecurityRules.MinimumPasswordLength - 1)));
+        Assert.True(InternalSecurityRules.ValidPassword(new string('x', InternalSecurityRules.MinimumPasswordLength)));
         Assert.True(InternalSecurityRules.ValidPassword(new string('x', 128)));
         Assert.False(InternalSecurityRules.ValidPassword(new string('x', 129)));
         Assert.False(InternalSecurityRules.ValidPassword(new string(' ', 20)));

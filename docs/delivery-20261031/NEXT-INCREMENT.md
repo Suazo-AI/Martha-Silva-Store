@@ -1,6 +1,10 @@
 # Incremento: Venta segura por cajero
 
-Estado: **PREPARADO; NO EJECUTADO**. Un único incremento sobre el flujo actual. Objetivo: cerrar ROLE-01, SESSION-01 y SCOPE-01, y completar la denegación pendiente de ADJ-01. Solo marcar cada criterio PASS cuando todos sus subcasos estén comprobados.
+Estado al 2026-11-03: **VALIDACIÓN PARCIAL POR CAPAS; ACEPTACIÓN OPERATIVA N1–N10 PENDIENTE**.
+N5 falla en navegador con API simulada: recibo confirmado con 404 bloquea ventas nuevas.
+Ver [validación reciente](../testing-20261103/README.md). El contrato siguiente permanece;
+los casos SQL y navegador separados no lo aceptan automáticamente.
+ Un único incremento sobre el flujo actual. Objetivo: cerrar ROLE-01, SESSION-01 y SCOPE-01, y completar la denegación pendiente de ADJ-01. Solo marcar cada criterio PASS cuando todos sus subcasos estén comprobados.
 
 ## Contrato
 
