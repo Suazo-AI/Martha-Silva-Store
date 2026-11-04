@@ -1,0 +1,360 @@
+{
+  "task_id": "FIX-PR2-C11-N10-INDEPENDENT-20261104",
+  "status": "returned",
+  "verdict": "NEEDS WORK",
+  "acceptance_scope": "Independent C11/N10 technical review against frozen N1-N10; no operational acceptance or deployment.",
+  "reviewer": {
+    "model": "gpt-6-astra",
+    "reasoning": "high",
+    "host": "SUAZO-PC"
+  },
+  "target_sha": "e4b7910835bf2c9901aa06989e296997875a3636",
+  "head_at_review": "e4b7910835bf2c9901aa06989e296997875a3636",
+  "focal_source_diff_empty": true,
+  "criteria": [
+    {
+      "id": "N1",
+      "verdict": "APTO",
+      "layer": "HTTP/API with real SQL",
+      "basis": "All roles and unassigned user; server identity, scoped counts/pages, forged role headers, rejected operations; 19-table fingerprint unchanged.",
+      "source": "InternalAcceptanceHttpSqlTests.cs:25-86",
+      "method_prefix": "N1_"
+    },
+    {
+      "id": "N2",
+      "verdict": "APTO",
+      "layer": "Real combined Cashier path plus API/SQL and mocked-browser role controls",
+      "basis": "Cashier real sale/reload and lost-response GET recovery retain ledger and original receipt; Owner/Manager browser controls pass and allowed server sale paths pass.",
+      "source": "tests/browser-mock-validation.mjs:124-152; C6 browser checkpoints",
+      "limit": "Not a real combined Owner/Manager browser sale run."
+    },
+    {
+      "id": "N3",
+      "verdict": "APTO",
+      "layer": "HTTP/API with real SQL",
+      "basis": "Cashier prohibited commands and costs, Inventory sale denial, valid positive controls, no cost leaks, equal 19-table fingerprint.",
+      "source": "InternalAcceptanceHttpSqlTests.cs:90-144,327-344,474-498",
+      "method_prefix": "N3_"
+    },
+    {
+      "id": "N4",
+      "verdict": "APTO",
+      "layer": "HTTP/API with real SQL",
+      "basis": "Foreign IDs/location/paging/actor identity denied. Two historical remap requests return409. Original history and18business tables identical; exactly one durable rejected Operations row, as accepted C7 exception.",
+      "source": "InternalAcceptanceHttpSqlTests.cs:148-225",
+      "method_prefix": "N4_"
+    },
+    {
+      "id": "N5",
+      "verdict": "PENDING",
+      "layer": "Mocked-browser receipt cases and historical red-green-revert; missing exact HTTP reassignment case",
+      "basis": "Five N5 browser cases PASS; confirmed stale receipt is separated from uncertain attempt. Existing server tests cover role change or fixture-manufactured new session, not old Cashier HTTP cookie after branch reassignment.",
+      "source": "tests/browser-mock-validation.mjs:221-249; InternalBranchScopeSqlTests.cs:93-118,352-360; InternalSecurityService.cs:101-116",
+      "gap_id": "C11-N5-01",
+      "limit": "Missing evidence only; no product defect reproduced. Not an N5-COV extra."
+    },
+    {
+      "id": "N6",
+      "verdict": "APTO",
+      "layer": "Mocked browser plus real SQL scope/replay tests",
+      "basis": "Actor/version/location changes preserve original attempt privately and prevent cross-actor resend/rekey/recovery; backend scope replay retains commercial state.",
+      "source": "tests/browser-mock-validation.mjs:153-183; InternalBranchScopeSqlTests.cs:93-118",
+      "limit": "No combined real branch-change browser reconciliation was run."
+    },
+    {
+      "id": "N7",
+      "verdict": "APTO",
+      "layer": "Real logout/revocation API, controlled-clock middleware test, mocked-browser late-response races",
+      "basis": "Logout204 then401 with no active sessions; expired protected ticket gives two401 before DB resolution, nonexpired positive control reaches validator; late responses cannot restore data or send a waiting sale.",
+      "source": "InternalSecurityTests.cs:261-322; tests/browser-mock-validation.mjs:185-219",
+      "limit": "No eight-hour real browser or SQL session expiration run; system clock unchanged."
+    },
+    {
+      "id": "N8",
+      "verdict": "APTO",
+      "layer": "HTTP/API with real SQL",
+      "basis": "Absent/wrong/anonymous/other-identity CSRF rejected without19-table changes; valid current pair records exactly one sale/line/movement/operation.",
+      "source": "InternalAcceptanceHttpSqlTests.cs:229-275",
+      "method_prefix": "N8_"
+    },
+    {
+      "id": "N9",
+      "verdict": "APTO",
+      "layer": "HTTP/API with real SQL",
+      "basis": "Cashier adjustment denied unchanged; Owner+3 reason/actor/location read independently in SQL; replay returns same adjustment and preserves post-state.",
+      "source": "InternalAcceptanceHttpSqlTests.cs:279-320",
+      "method_prefix": "N9_"
+    }
+  ],
+  "verification": {
+    "backend": {
+      "run_id": 41765611859,
+      "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41765611859",
+      "head": "e4b7910835bf2c9901aa06989e296997875a3636",
+      "checkout_sha": "f1a0bb1d0cd0258838f920ec8f811315820c7587",
+      "compare_files": [],
+      "cases": 600,
+      "passed": 600,
+      "not_passed": 0,
+      "methods": {
+        "Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N1_each_role_reads_only_its_server_scope_and_unassigned_user_has_no_global_access": {
+          "cases": 1,
+          "passed": 1
+        },
+        "Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N3_cashier_direct_commands_and_cost_reads_are_rejected_without_writes_or_cost_leaks": {
+          "cases": 1,
+          "passed": 1
+        },
+        "Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N4_foreign_location_ids_paging_and_operation_identity_are_denied_without_writes_or_leaks": {
+          "cases": 1,
+          "passed": 1
+        },
+        "Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N8_missing_wrong_or_stale_csrf_is_rejected_without_writes_and_a_valid_pair_still_works": {
+          "cases": 1,
+          "passed": 1
+        },
+        "Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N9_owner_adjustment_keeps_reason_actor_and_movement_while_cashier_same_action_changes_nothing": {
+          "cases": 1,
+          "passed": 1
+        },
+        "Martha.Store.Api.Tests.InternalSecurityTests.Expired_cookie_is_rejected_by_fake_TimeProvider_before_database_resolution": {
+          "cases": 1,
+          "passed": 1
+        }
+      }
+    },
+    "browser_mock": {
+      "cases": 45,
+      "passed": 45,
+      "failed": 0,
+      "layer": "Real Chromium browser; mocked staff API; public browser-local demo",
+      "runtime_errors": 0,
+      "external_requests": 0,
+      "matching_ui_git_hashes": 6
+    },
+    "staff_dom_doubles": {
+      "tests": 45,
+      "suites": 0,
+      "pass": 45,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "combined": {
+      "run_id": 41765611979,
+      "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41765611979",
+      "browser_steps": 21,
+      "smoke_steps": 19,
+      "oracle_captures": 38,
+      "oracle_failures": 0,
+      "original_key_preserved": true,
+      "original_sale_preserved": true,
+      "matching_c6_source_git_hashes": 8,
+      "checkpoints": [
+        {
+          "step": "browser.start",
+          "status": "PASS",
+          "sale_posts": 0,
+          "sales": 0,
+          "sale_lines": 0,
+          "sale_movements": 0,
+          "sale_operations": 0,
+          "stock": 30,
+          "dom": [
+            "login_ready"
+          ]
+        },
+        {
+          "step": "browser.cashier_login",
+          "status": "PASS",
+          "sale_posts": 0,
+          "sales": 0,
+          "sale_lines": 0,
+          "sale_movements": 0,
+          "sale_operations": 0,
+          "stock": 30,
+          "dom": [
+            "shell",
+            "cashier",
+            "sale_enabled"
+          ]
+        },
+        {
+          "step": "browser.inventory",
+          "status": "PASS",
+          "sale_posts": 0,
+          "sales": 0,
+          "sale_lines": 0,
+          "sale_movements": 0,
+          "sale_operations": 0,
+          "stock": 30,
+          "dom": [
+            "inventory",
+            "stock_current"
+          ]
+        },
+        {
+          "step": "browser.sale_confirmed",
+          "status": "PASS",
+          "sale_posts": 1,
+          "sales": 1,
+          "sale_lines": 1,
+          "sale_movements": 1,
+          "sale_operations": 1,
+          "stock": 28,
+          "dom": [
+            "receipt",
+            "sale_enabled"
+          ]
+        },
+        {
+          "step": "browser.receipt_reload",
+          "status": "PASS",
+          "sale_posts": 1,
+          "sales": 1,
+          "sale_lines": 1,
+          "sale_movements": 1,
+          "sale_operations": 1,
+          "stock": 28,
+          "dom": [
+            "receipt",
+            "same_receipt",
+            "sale_enabled"
+          ]
+        },
+        {
+          "step": "browser.stock_after_sale",
+          "status": "PASS",
+          "sale_posts": 1,
+          "sales": 1,
+          "sale_lines": 1,
+          "sale_movements": 1,
+          "sale_operations": 1,
+          "stock": 28,
+          "dom": [
+            "inventory",
+            "stock_current"
+          ]
+        },
+        {
+          "step": "browser.response_loss_committed",
+          "status": "PASS",
+          "sale_posts": 2,
+          "sales": 2,
+          "sale_lines": 2,
+          "sale_movements": 2,
+          "sale_operations": 2,
+          "stock": 27,
+          "dom": [
+            "pending",
+            "pending_key_preserved"
+          ]
+        },
+        {
+          "step": "browser.recover_after_reload",
+          "status": "PASS",
+          "sale_posts": 2,
+          "sales": 2,
+          "sale_lines": 2,
+          "sale_movements": 2,
+          "sale_operations": 2,
+          "stock": 27,
+          "dom": [
+            "receipt",
+            "same_receipt",
+            "sale_enabled"
+          ]
+        },
+        {
+          "step": "browser.repeated_reload",
+          "status": "PASS",
+          "sale_posts": 2,
+          "sales": 2,
+          "sale_lines": 2,
+          "sale_movements": 2,
+          "sale_operations": 2,
+          "stock": 27,
+          "dom": [
+            "receipt",
+            "same_receipt",
+            "sale_enabled"
+          ]
+        },
+        {
+          "step": "browser.stock_after_recovery",
+          "status": "PASS",
+          "sale_posts": 2,
+          "sales": 2,
+          "sale_lines": 2,
+          "sale_movements": 2,
+          "sale_operations": 2,
+          "stock": 27,
+          "dom": [
+            "inventory",
+            "stock_current"
+          ]
+        },
+        {
+          "step": "browser.logout",
+          "status": "PASS",
+          "sale_posts": 2,
+          "sales": 2,
+          "sale_lines": 2,
+          "sale_movements": 2,
+          "sale_operations": 2,
+          "stock": 27,
+          "dom": [
+            "logged_out"
+          ]
+        }
+      ]
+    }
+  },
+  "artifact_sha256": {
+    "docs/c8-ui-20261103/ci-41765611859/backend/sanitized-results.json": "4afe8bcf8e774f8845cc1ecc800cea2db64fa9f6f750ebbef75815311d6a486d",
+    "docs/c8-ui-20261103/ci-41765611859/browser/browser-results.json": "b2431b8f822d452ed3ab4c68ce659f243b33bf34e8baba5c02216894675b40d0",
+    "docs/c8-ui-20261103/ci-41765611859/run-binding.json": "8ab656e51c585e6d3de72e3e37333161a5b796952da839013b40e9baa10850bb",
+    "docs/c8-ui-20261103/ci-41765611859/staff-summary.json": "14d54c5133534dfdba8513e2ac4343cbc287767de72ba0e2889a7625d08a127f",
+    "docs/c6-e2e-20261103/ci-41765611979/browser/evidence.json": "6f1eb9cb175d00c5abaaf4a01bf337363af0547e9fffacdc38e1030d22f6bb0d",
+    "docs/c6-e2e-20261103/ci-41765611979/smoke/evidence.json": "2ab7c5982f68b248fead2644c1e706abe016bbd792610a7639533fa39a1e6184"
+  },
+  "candidate_source_sha256": {
+    "docs/delivery-20261031/NEXT-INCREMENT.md": "6f7b6b850336e1202e53ea3ecb3337796ce16c9eba8bbfaa0016812019786524",
+    "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs": "6de3d3d19b01160e40bc2140653c9e3f64f3f7f2a8bfd193f9a14e97d30faf72",
+    "backend/tests/Martha.Store.Api.Tests/InternalSecurityTests.cs": "7a1e82f7ed971550ac8a20de2138827fdbdd25a13eabfb2c25ae371af24ffbc0",
+    "backend/tests/Martha.Store.Api.Tests/InternalBranchScopeSqlTests.cs": "8616f3a49d2831595de33c17b25012f7479ee8e2a04477d2dca8a92aeaa922e1",
+    "backend/src/Martha.Store.Api/Internal/Security/InternalSecurityService.cs": "5a25800064ec476bd49cb0ff9c4e1ff0c72b77f9baa3ce7a7b458350aab427fb",
+    "tests/browser-mock-validation.mjs": "ddfce9989610729579264763a1980cdb95b21971f2368bf94e4d868cf6ecbf83"
+  },
+  "findings": [
+    {
+      "id": "C11-N5-01",
+      "severity": "acceptance-evidence-gap",
+      "criterion": "N5: old session invalid after Cashier branch reassignment",
+      "observed": "No exact HTTP Cashier reassignment plus old-cookie rejection evidence in reviewed suite. The SQL scope fixture rotates SecurityVersion, revokes sessions and constructs a valid new principal itself.",
+      "not_claimed": "No production defect, data leak or second debit is reproduced.",
+      "next_action": "Integrator adds a focused real HTTP+SQL regression: Cashier login/sale A, Owner reassignment through normal endpoint to synthetic B, replay saved old cookie=>401, new login confirms B and cannot read A receipt; review ledger invariants. Bind the result to the resulting candidate CI.",
+      "owner": "Primary / authorized integrator",
+      "completion_check": "Named method present as1/1 in same-candidate sanitized backend artifact, with source assertions and independent review; existing suite stays green."
+    }
+  ],
+  "unverified": [
+    "Full operational acceptance of N1-N10 remains pending because N5 original subcase lacks direct execution evidence.",
+    "N5-COV three extra scenarios remain outside original closure and pending.",
+    "No real eight-hour browser expiration, production environment, devices, backup/restore, C9 or deployment.",
+    "No reproducible-build verification of recorded API DLL; DLL is a build output absent from Git, not a missing source.",
+    "No raw per-table SQL snapshots are exported; the passing real-SQL tests assert equality internally.",
+    "No current live network query or runtime was performed in this review; supplied sanitized run-binding and artifacts were inspected directly."
+  ],
+  "changed": [
+    "coordination/root-c11-review-20261104/REVIEW.md",
+    "coordination/root-c11-review-20261104/evidence.json"
+  ],
+  "usage": {
+    "tokens": "unknown",
+    "cost": "unknown",
+    "elapsed": "unknown"
+  },
+  "next_action": "Primary verifies this review and resolves C11-N5-01 before full N10 acceptance. Preserve C11/TONY/Trello states until authorized integration."
+}

@@ -226,6 +226,147 @@ public sealed class InternalAcceptanceHttpSqlTests
     }
 
     [InternalJudgeHttpSqlFact]
+    public async Task N5_owner_branch_reassignment_rejects_original_cashier_cookie_and_preserves_sales_before_new_scope_login()
+    {
+        await using var f = await AcceptanceFixture.Create();
+        using var cashier = await f.Login("cashier");
+        using var owner = await f.Login("owner");
+        var staff = f.Staff["cashier"];
+        var originalCsrf = await Csrf(cashier);
+        var originalCookie = cashier.CookieHeader;
+        var originalVersion = staff.SecurityVersion;
+        var saleKey = Key();
+        Guid saleA;
+        var beforeSale = await f.Fingerprint();
+        using (var response = await cashier.Send(Post, "/internal/api/commerce/sales", f.SaleBody(f.LocationA), originalCsrf, saleKey))
+        {
+            var receipt = await Json(response, HttpStatusCode.OK);
+            saleA = receipt.GetProperty("saleId").GetGuid();
+            Assert.Equal(staff.Id, receipt.GetProperty("actorId").GetGuid());
+            Assert.Equal(f.LocationA, receipt.GetProperty("locationId").GetGuid());
+            Assert.Equal(1, Assert.Single(receipt.GetProperty("lines").EnumerateArray()).GetProperty("quantity").GetInt32());
+        }
+        var afterSale = await f.Fingerprint();
+        foreach (var table in new[] { "Sales", "SaleLines", "StockMovements", "Operations" })
+            Assert.Equal(Count(beforeSale, table) + 1, Count(afterSale, table));
+        Assert.Equal("18", await f.Scalar($"SELECT OnHand FROM savia_internal.StockBalances WHERE ItemId='{f.Database.Item}' AND LocationId='{f.LocationA}'"));
+
+        // No cookie container: every request explicitly reuses the captured cookie AND CSRF, including after a 401 Set-Cookie.
+        using var replayClient = Client(f.Factory);
+        async Task<HttpResponseMessage> SendOriginal(HttpMethod method, string path, object? body = null, string? key = null)
+        {
+            using var request = new HttpRequestMessage(method, path);
+            request.Headers.Add("Cookie", originalCookie);
+            request.Headers.Add("X-CSRF-TOKEN", originalCsrf);
+            if (key is not null) request.Headers.Add("Idempotency-Key", key);
+            if (body is not null) request.Content = JsonContent.Create(body);
+            return await replayClient.SendAsync(request);
+        }
+        // Positive control uses exactly the same transport/header mechanism as the rejected requests below.
+        using (var response = await SendOriginal(Get, "/internal/api/security/me"))
+        {
+            var me = await Json(response, HttpStatusCode.OK);
+            Assert.Equal(staff.Id, me.GetProperty("id").GetGuid());
+            Assert.Equal(f.BranchA, me.GetProperty("branchId").GetGuid());
+            Assert.Equal(originalVersion, me.GetProperty("version").GetGuid());
+        }
+        using (var response = await SendOriginal(Get, $"/internal/api/commerce/sales/{saleA}"))
+            Assert.Equal(saleA, (await Json(response, HttpStatusCode.OK)).GetProperty("saleId").GetGuid());
+
+        // Exclude only the three intended authentication/assignment tables; all 16 business tables retain full-row hashes.
+        async Task<SortedDictionary<string, string>> BusinessFingerprint()
+        {
+            var fingerprint = await f.Fingerprint();
+            foreach (var table in new[] { "Staff", "Sessions", "BranchAssignmentAudit" }) Assert.True(fingerprint.Remove(table));
+            Assert.Equal(16, fingerprint.Count);
+            return fingerprint;
+        }
+        var historySql = $"""
+            SELECT (SELECT * FROM savia_internal.Sales WHERE LocationId='{f.LocationA}' ORDER BY Id FOR JSON PATH)
+            UNION ALL SELECT (SELECT l.* FROM savia_internal.SaleLines l JOIN savia_internal.Sales s ON s.Id=l.SaleId WHERE s.LocationId='{f.LocationA}' ORDER BY l.Id FOR JSON PATH)
+            UNION ALL SELECT (SELECT * FROM savia_internal.StockMovements WHERE LocationId='{f.LocationA}' ORDER BY Id FOR JSON PATH)
+            UNION ALL SELECT (SELECT * FROM savia_internal.Operations WHERE LocationId='{f.LocationA}' ORDER BY Id FOR JSON PATH)
+            UNION ALL SELECT (SELECT * FROM savia_internal.StockBalances WHERE LocationId='{f.LocationA}' ORDER BY ItemId FOR JSON PATH)
+            UNION ALL SELECT (SELECT * FROM savia_internal.Locations WHERE Id='{f.LocationA}' FOR JSON PATH)
+            """;
+        var historyA = await f.Rows(historySql);
+        var business = await BusinessFingerprint();
+        var auditCount = int.Parse(await f.Scalar("SELECT COUNT(*) FROM savia_internal.BranchAssignmentAudit"), CultureInfo.InvariantCulture);
+        Guid newVersion;
+        using (var response = await owner.Send(Put, $"/internal/api/security/staff/{staff.Id}",
+            new { displayName = staff.DisplayName, role = "Cashier", enabled = true, version = originalVersion, branchId = f.BranchB }, await Csrf(owner)))
+        {
+            var changed = await Json(response, HttpStatusCode.OK);
+            Assert.Equal(staff.Id, changed.GetProperty("id").GetGuid());
+            Assert.Equal("Cashier", changed.GetProperty("role").GetString());
+            Assert.True(changed.GetProperty("enabled").GetBoolean());
+            Assert.Equal(f.BranchB, changed.GetProperty("branchId").GetGuid());
+            newVersion = changed.GetProperty("version").GetGuid();
+            Assert.NotEqual(originalVersion, newVersion);
+        }
+        Assert.Equal("1", await f.Scalar($"SELECT COUNT(*) FROM savia_internal.Staff WHERE Id='{staff.Id}' AND BranchId='{f.BranchB}' AND Role='Cashier' AND Enabled=1 AND SecurityVersion='{newVersion}'"));
+        Assert.Equal("1", await f.Scalar($"SELECT COUNT(*) FROM savia_internal.Sessions WHERE StaffId='{staff.Id}' AND SecurityVersion='{originalVersion}' AND RevokedAt IS NOT NULL"));
+        Assert.Equal("0", await f.Scalar($"SELECT COUNT(*) FROM savia_internal.Sessions WHERE StaffId='{staff.Id}' AND RevokedAt IS NULL"));
+        Assert.Equal((auditCount + 1).ToString(CultureInfo.InvariantCulture), await f.Scalar("SELECT COUNT(*) FROM savia_internal.BranchAssignmentAudit"));
+        Assert.Equal("1", await f.Scalar($"SELECT COUNT(*) FROM savia_internal.BranchAssignmentAudit WHERE ActorId='{f.Database.Actor}' AND StaffId='{staff.Id}' AND PreviousBranchId='{f.BranchA}' AND BranchId='{f.BranchB}'"));
+        Assert.Equal(business, await BusinessFingerprint());
+
+        foreach (var (method, path, body, key) in new (HttpMethod, string, object?, string?)[]
+        {
+            (Get, "/internal/api/security/me", null, null),
+            (Post, "/internal/api/commerce/sales", f.SaleBody(f.LocationA), saleKey),
+            (Post, "/internal/api/commerce/sales", f.SaleBody(f.LocationA), Key())
+        })
+        {
+            using var response = await SendOriginal(method, path, body, key);
+            Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
+            AssertNoLeak(await response.Content.ReadAsStringAsync(), saleA, f.LocationA, f.LocationB);
+            Assert.Equal(business, await BusinessFingerprint());
+        }
+
+        using var fresh = await f.Login("cashier");
+        using (var response = await fresh.Send(Get, "/internal/api/security/me"))
+        {
+            var me = await Json(response, HttpStatusCode.OK);
+            Assert.Equal(staff.Id, me.GetProperty("id").GetGuid());
+            Assert.Equal("Cashier", me.GetProperty("role").GetString());
+            Assert.Equal(f.BranchB, me.GetProperty("branchId").GetGuid());
+            Assert.Equal(newVersion, me.GetProperty("version").GetGuid());
+        }
+        await Rejected(fresh, HttpStatusCode.NotFound, Get, $"/internal/api/commerce/sales/{saleA}");
+        await Rejected(fresh, HttpStatusCode.Forbidden, Post, "/internal/api/commerce/sales", f.SaleBody(f.LocationA), key: saleKey);
+        Assert.Equal(business, await BusinessFingerprint());
+        var locations = await Page(fresh, "/internal/api/directory/locations", 1);
+        var stock = await Page(fresh, "/internal/api/commerce/inventory", 1);
+        var sales = await Page(fresh, "/internal/api/commerce/sales", 1);
+        Assert.Equal(f.LocationB, Assert.Single(locations.GetProperty("items").EnumerateArray()).GetProperty("id").GetGuid());
+        var stockB = Assert.Single(stock.GetProperty("items").EnumerateArray());
+        Assert.Equal(f.LocationB, stockB.GetProperty("locationId").GetGuid());
+        Assert.Equal(8, stockB.GetProperty("onHand").GetInt32());
+        Assert.Equal(f.SaleB, Assert.Single(sales.GetProperty("items").EnumerateArray()).GetProperty("saleId").GetGuid());
+        foreach (var page in new[] { locations, stock, sales }) AssertNoLeak(page.GetRawText(), f.LocationA, f.SaleA, saleA, f.PurchaseA);
+        Assert.Equal(business, await BusinessFingerprint());
+
+        // Positive B control: one new sale/debit. Every original A row, including its operation and stock, remains identical.
+        using (var response = await fresh.Send(Post, "/internal/api/commerce/sales", f.SaleBody(f.LocationB), await Csrf(fresh), Key()))
+        {
+            var receipt = await Json(response, HttpStatusCode.OK);
+            Assert.NotEqual(saleA, receipt.GetProperty("saleId").GetGuid());
+            Assert.Equal(staff.Id, receipt.GetProperty("actorId").GetGuid());
+            Assert.Equal(f.LocationB, receipt.GetProperty("locationId").GetGuid());
+            Assert.Equal(1, Assert.Single(receipt.GetProperty("lines").EnumerateArray()).GetProperty("quantity").GetInt32());
+        }
+        var afterB = await BusinessFingerprint();
+        foreach (var table in new[] { "Sales", "SaleLines", "StockMovements", "Operations" })
+            Assert.Equal(Count(business, table) + 1, Count(afterB, table));
+        Assert.Equal(business.Where(x => x.Key is not ("Sales" or "SaleLines" or "StockMovements" or "Operations" or "StockBalances")),
+            afterB.Where(x => x.Key is not ("Sales" or "SaleLines" or "StockMovements" or "Operations" or "StockBalances")));
+        Assert.Equal("7", await f.Scalar($"SELECT OnHand FROM savia_internal.StockBalances WHERE ItemId='{f.Database.Item}' AND LocationId='{f.LocationB}'"));
+        Assert.Equal("1", await f.Scalar($"SELECT COUNT(*) FROM savia_internal.Operations WHERE ActorId='{staff.Id}' AND [Key]='{saleKey}' AND LocationId='{f.LocationA}' AND OriginalBranchId='{f.BranchA}'"));
+        Assert.Equal(historyA, await f.Rows(historySql));
+    }
+
+    [InternalJudgeHttpSqlFact]
     public async Task N8_missing_wrong_or_stale_csrf_is_rejected_without_writes_and_a_valid_pair_still_works()
     {
         await using var f = await AcceptanceFixture.Create();

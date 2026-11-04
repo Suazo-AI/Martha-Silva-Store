@@ -273,7 +273,7 @@
       "order": 13,
       "track": "sprint",
       "owner": "denis",
-      "status": "todo",
+      "status": "review",
       "blocked_by": [
         "C6",
         "C7",
@@ -283,7 +283,8 @@
       "why": "Un segundo par de ojos con postura NEEDS WORK atrapa éxitos inventados",
       "done_when": "Veredicto escrito: ledger antes/después sin segundo débito ni éxito inventado",
       "trello": "https://trello.com/c/ant3sEML",
-      "prep": "Dependencias tecnicas C6/C7/C8 satisfechas. Requiere su propio veredicto independiente N10; no ejecutado ni aceptado por los dictamenes limitados C6/C8. C9 y autorizaciones permanecen separadas."
+      "prep": "Dictamen inicial NEEDS WORK: 8 APTO, solo C11-N5-01 pendiente. Regresion HTTP+SQL por Owner PUT preparada y compilada; faltan CI del SHA exacto y dictamen independiente final. No cierra C11 ni ejecuta N5-COV/C9.",
+      "evidence": "docs/c11-next-20261104/README.md"
     },
     {
       "id": "C12",

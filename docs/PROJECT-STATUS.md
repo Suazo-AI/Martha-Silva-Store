@@ -18,6 +18,9 @@ No se ejecutó conexión SQL local, API ni Docker nuevos. Faltan permiso de pref
 coordinador Windows y corrida sintética con ventas/restauración/RTO/RPO. C11 conserva su revisión propia pendiente.
 P-LEGACY: [19/19 aserciones clasificadas](p-legacy-20261104/CLASSIFICATION.md);
 las correcciones permanecen abiertas en [issue #4](https://github.com/Suazo-AI/Martha-Silva-Store/issues/4).
+
+C11: dictamen inicial NEEDS WORK (8 APTO; C11-N5-01 pendiente). La regresión HTTP+SQL de reasignación Cashier A→B por Owner PUT está preparada y compila. CI del nuevo SHA y dictamen final pendientes; [detalle y límites](c11-next-20261104/README.md).
+
 Los siguientes cortes y tablas conservan evidencia histórica; este corte y el ledger establecen el avance actual.
 
 > **Actualización 2026-11-03, rama `claude/funny-brahmagupta-5e5rj0` (PR de integración):** N5 corregido con

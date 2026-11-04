@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-04T04:37:21.686326+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": ".github/workflows/savia.yml",
+      "change": "M",
+      "git_blob": "9fffaf2327f88448a60637f1f018b62f9b2b0110"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs",
+      "change": "M",
+      "git_blob": "04694f507c5b71362df38a1b0d882dbee1b1086e"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "a6340dcdc846b79b84d68b7bd94e57561fa3d3ed"
+    },
+    {
+      "path": "docs/c11-next-20261104/README.md",
+      "change": "M",
+      "git_blob": "4f4ed01c8ed5cd4b95b166ce3474cf17742bc1ef"
+    },
+    {
+      "path": "docs/c11-next-20261104/initial-review-evidence.json",
+      "change": "A",
+      "git_blob": "4a2d4b6f53820238b80d646868eda26e45a2216d"
+    },
+    {
+      "path": "docs/c11-next-20261104/initial-review.md",
+      "change": "A",
+      "git_blob": "4e0a573fb33c2c0d7c97205b7a813bf5b437b6c3"
+    },
+    {
+      "path": "docs/c11-next-20261104/local-checks.json",
+      "change": "A",
+      "git_blob": "d925bc58604e6b6e547c57704258f18d64858c57"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "change": "M",
+      "git_blob": "12ae77fa98315d3f0c433b4a998e7d5ed80355dd"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}
