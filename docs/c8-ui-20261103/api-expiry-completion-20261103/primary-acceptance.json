@@ -1,0 +1,46 @@
+{
+  "reviewedUtc": "2026-11-04T01:31:09.799445+00:00",
+  "reviewer": "primary /root",
+  "status": "ACCEPTED_LOCAL_CI_PENDING",
+  "base": "775f301bc195c43baedc68c86f4e71affe92ef95",
+  "sdkVersionReadback": "10.0.402",
+  "systemSdkReadback": "8.0.422",
+  "sdkZipSha512IndependentlyVerified": true,
+  "officialMetadataUrlHashMatch": true,
+  "exportedWorkerFiles": 10,
+  "exportHashMismatches": 0,
+  "newTest": {
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0
+  },
+  "InternalSecurityTests": {
+    "passed": 49,
+    "failed": 0,
+    "skipped": 0,
+    "includesNewTest": true
+  },
+  "originalTrxHashesVerified": true,
+  "originalLogsHashesVerified": true,
+  "sanitizedTrxCapturedOutputs": 0,
+  "fiveExistingUiHashesUnchanged": true,
+  "diffCheckExitCode": 0,
+  "productionSecurityFilesChanged": false,
+  "backendPatchSha256": "927ea77b1a63c134cae03dac13e6545d624a05a8f3aabb501d01fef100a23e09",
+  "sqlExecuted": false,
+  "browserRepeated": false,
+  "ci": "PENDING: no commit or push authorized",
+  "canonicalProductPatchApplied": false,
+  "worktreeClean": false,
+  "worktreeDirtyReason": "five preserved UI files, one new backend test and evidence docs; retained intentionally",
+  "rawPrivateLogsExported": false,
+  "sdkZipExported": false,
+  "trello": {
+    "url": "https://trello.com/c/61IxxolB",
+    "complete": 4,
+    "total": 5,
+    "list": "En curso",
+    "ciCheckItem": "incomplete",
+    "exactReadbackVerified": true
+  }
+}

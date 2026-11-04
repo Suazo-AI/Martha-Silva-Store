@@ -105,3 +105,36 @@ C9 terminó la [preparación documental](c9-recovery-20261103/PREPARATION.md), c
 Faltan preflight autorizado, rutas/permisos/TLS actuales, oráculos en restaurada y RTO/RPO medidos en SUAZO-PC.
 El backup/restore Linux ya existente no cierra esa brecha. No se repiten one-shots históricos.
 No se fusiona a main, despliega ni cambia seguridad.
+
+### Resultado del primer CI C6 e integración C8
+
+El candidato `6aeb9a35f45331ace85ac48dc19bfd9264b0f722` quedó publicado y SYNCED en Tony y PR2.
+El [CI 41757409404](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41757409404) pasó C5 smoke.
+C6 tuvo 20 pasos PASS y 1 FAIL: completó venta, descarte de respuesta después del commit,
+recuperación GET con clave original y recarga repetida contra Chrome/API/SQL reales.
+SQL observó 2 ventas, 2 líneas, 2 operaciones de venta, 2 movimientos de venta y stock 27.
+Falló `browser.logout` a los 20126 ms; teardown de API/base/directorio y retirada del contenedor PASS.
+El juez independiente confirmó la evidencia de negocio y pidió readback explícito de ausencia de Chrome/Node.
+La corrección y un nuevo CI son obligatorios antes de cerrar C6.
+La [evidencia inicial](c6-e2e-20261103/ci-41757409404/run-binding.json) conserva ese fallo.
+
+Se importaron los seis archivos C8 del patch `a0762dc021260f4c8c88b849552c4775c6bef17af06c5338e68e95cd7a221df0`.
+Los seis blobs Git coinciden con la entrega probada; se reutilizan 45/45 browser, 45/45 staff,
+9/9 enfocados y 49/49 seguridad, incluido 1/1 de expiración absoluta con reloj falso en TestServer.
+No se repitieron esas pruebas locales. Se elevó el mínimo CI backend de 599 a 600 por el nuevo Fact.
+Falta CI del candidato integrado; véase [integración C8](c8-ui-20261103/INTEGRATION.md).
+
+Se conservan los documentos y evidencia saneada entregados por los agentes existentes.
+La [revisión técnica C4/C5/C7](technical-ready-review-20261104/primary-review.md) conserva C4 5/5 y C5 4/4,
+con READY formal de Jason pendiente. C7 tiene 5/6: el 409 registra una Operations durable;
+el ledger refleja blocked hasta resolver expresamente el criterio literal de cero escrituras.
+No se alteró ese criterio ni el comportamiento para aprobarlo.
+C9 sigue preparada y bloqueada según su informe. Trello C6/C9 tiene comentarios con readback exacto.
+
+El delta C6 posterior quedó importado: logout espera204 y verifica URL/login/401;
+la retirada registra Chrome por CDP y exige ausencia de grupos propios Node/Chrome.
+Sus33/33 comprobaciones ligeras pasan; falta repetir el CI real y reevaluar el dictamen.
+El hook bloqueó dos TRX saneados por extensión: se excluyeron del índice sin cambiar la política.
+Se conservan sus originales, hashes y resultados JSON. El candidato combinará C8 y la corrección C6.
+El [preflight propuesto C9](c9-recovery-20261103/PREFLIGHT-SCOPE.md) concreta lecturas y límites;
+no está autorizado ni ejecutado.

@@ -88,6 +88,7 @@ class BrowserSafetyTests(unittest.TestCase):
         harness.ids = {'location': KEY, 'items': [SALE]}
         harness.database_created = True
         harness.stop_browser = Mock()
+        harness.register_browser_group = Mock()
         process = Mock(stdin=io.BytesIO())
         process.wait.return_value = 0
         process.poll.return_value = None
@@ -95,6 +96,7 @@ class BrowserSafetyTests(unittest.TestCase):
         return harness, process, hashes
 
     def run_child(self, harness, process, chunks, clock=None):
+        chunks = [b'{"owned_browser_pid":12346}\n', *chunks]
         with patch.object(GP.shutil, 'which', return_value='/existing-tool'), \
              patch.object(GP.subprocess, 'run', return_value=types.SimpleNamespace(stdout=b'public-fixture')), \
              patch.object(GP.subprocess, 'Popen', return_value=process), \
@@ -133,7 +135,7 @@ class BrowserSafetyTests(unittest.TestCase):
         with self.assertRaisesRegex(GP.HarnessError, 'oráculo SQL falló en browser.response_loss_committed'):
             self.run_child(harness, process, events)
         sent = [json.loads(line) for line in process.stdin.getvalue().splitlines()]
-        self.assertEqual(sum(message == {'ok': True} for message in sent), 6)
+        self.assertEqual(sum(message == {'ok': True} for message in sent), 7)  # ownership + six SQL ACKs
         self.assertEqual(harness.steps[-1]['status'], 'FAIL')
         self.assertNotIn('browser.recover_after_reload', [step['step'] for step in harness.steps])
         harness.stop_browser.assert_called_once()
@@ -141,26 +143,82 @@ class BrowserSafetyTests(unittest.TestCase):
     def test_timeout_stops_browser_before_teardown(self):
         harness, process, _ = self.prepare()
         with self.assertRaisesRegex(GP.HarnessError, '^browser_timeout$'):
-            self.run_child(harness, process, [], clock=[0, 200, 400, 600])
+            self.run_child(harness, process, [], clock=[0, 0, 0, 400, 600])
         harness.stop_browser.assert_called_once()
         self.assertEqual(harness.steps[-1]['status'], 'FAIL')
 
-    def test_stop_kills_owned_process_group_after_wait_timeout(self):
+    def owned_processes(self):
         harness, process, _ = self.prepare()
         del harness.stop_browser
         harness.browser_process = process
         process.pid = 12345
-        process.wait.side_effect = [GP.subprocess.TimeoutExpired('node', 5), 0]
-        process.returncode = -9
-        with patch.object(GP.os, 'killpg', create=True) as kill, patch.object(GP.signal, 'SIGKILL', 9, create=True):
+        process.poll.return_value = -9
+        harness.browser_groups = {12345: {12345: 'node-start'}, 12346: {12346: 'chrome-start'}}
+        harness.browser_ownership_confirmed = True
+        alive = {12345: {12345: 'node-start'}, 12346: {12346: 'chrome-start'}}
+        harness.browser_group_members = Mock(side_effect=lambda group: alive[group].copy())
+        return harness, process, alive
+
+    def test_stop_kills_both_owned_groups_then_reads_absence_and_is_idempotent(self):
+        harness, process, alive = self.owned_processes()
+        def signal_group(group, sig):
+            if sig == 9:
+                alive[group].clear()
+        with patch.object(GP.os, 'killpg', side_effect=signal_group, create=True) as kill, \
+             patch.object(GP.signal, 'SIGKILL', 9, create=True), patch.object(GP.time, 'sleep'):
             self.assertEqual(harness.stop_browser(), -9)
+            self.assertTrue(harness.browser_processes_absent)
             self.assertEqual(harness.stop_browser(), -9)
             self.assertIsNone(harness.browser_process)
-            self.assertEqual(kill.call_count, 2)
-        self.assertEqual(kill.call_args_list[0].args, (12345, GP.signal.SIGTERM))
-        self.assertEqual(kill.call_args_list[1].args, (12345, 9))
+            self.assertEqual([call.args for call in kill.call_args_list],
+                [(12346, GP.signal.SIGTERM), (12345, GP.signal.SIGTERM), (12346, 9), (12345, 9)])
+        self.assertTrue(all(not members for members in alive.values()))
         self.assertTrue(process.stdin.closed)
         process.stdout.close.assert_called_once()
+
+    def test_persistent_chrome_after_term_and_kill_fails_absence_readback(self):
+        harness, process, alive = self.owned_processes()
+        alive[12345].clear()  # Node exited; the independently detached Chrome group remains.
+        with patch.object(GP.os, 'killpg', create=True) as kill, \
+             patch.object(GP.signal, 'SIGKILL', 9, create=True), patch.object(GP.time, 'sleep'):
+            harness.stop_browser()
+        self.assertFalse(harness.browser_processes_absent)
+        self.assertEqual([call.args for call in kill.call_args_list], [(12346, GP.signal.SIGTERM), (12346, 9)])
+
+    def test_reused_group_identity_is_never_signaled_and_fails_readback(self):
+        harness, process, alive = self.owned_processes()
+        alive[12345].clear()
+        alive[12346] = {12346: 'different-process-start'}
+        with patch.object(GP.os, 'killpg', create=True) as kill, \
+             patch.object(GP.signal, 'SIGKILL', 9, create=True), patch.object(GP.time, 'sleep'):
+            harness.stop_browser()
+        kill.assert_not_called()
+        self.assertFalse(harness.browser_processes_absent)
+
+    def test_readback_error_cannot_pass_cleanup(self):
+        harness, process, _ = self.owned_processes()
+        harness.browser_group_members.side_effect = PermissionError('private unit fixture')
+        with patch.object(GP.os, 'killpg', create=True) as kill, patch.object(GP.signal, 'SIGKILL', 9, create=True):
+            harness.stop_browser()
+        kill.assert_not_called()
+        self.assertFalse(harness.browser_processes_absent)
+
+    def test_chrome_registration_requires_own_profile_and_node_parent(self):
+        harness, process, _ = self.prepare()
+        del harness.register_browser_group
+        harness.browser_process = process
+        process.pid = 12345
+        identity = {'pid': 12346, 'parent': 12345, 'group': 12346, 'start': 'chrome-start'}
+        with patch.object(harness, 'browser_process_identity', return_value=identity), \
+             patch.object(GP.Path, 'read_bytes', return_value=(
+                 '--user-data-dir=' + str(harness.private / 'chrome-profile')).encode() + b'\0'):
+            harness.register_browser_group(12346, chrome=True)
+        self.assertTrue(harness.browser_ownership_confirmed)
+        self.assertEqual(harness.browser_groups, {12346: {12346: 'chrome-start'}})
+        with patch.object(harness, 'browser_process_identity', return_value=identity), \
+             patch.object(GP.Path, 'read_bytes', return_value=b'--user-data-dir=/other/profile\0'):
+            with self.assertRaisesRegex(GP.HarnessError, 'browser_profile_ownership_invalid'):
+                harness.register_browser_group(12346, chrome=True)
 
 
 if __name__ == '__main__':

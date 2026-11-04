@@ -14,6 +14,7 @@ const uuid = value => typeof value === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-
 const check = (condition, code) => { if (!condition) throw new Error(code); };
 let context;
 let failed = false;
+let failurePhase = 'c6_browser_failed';
 try {
   const first = await incoming.next();
   check(!first.done, 'c6_config_missing');
@@ -33,6 +34,17 @@ try {
     viewport: {width: 1440, height: 1000},
     args: ['--disable-background-networking', `--ignore-certificate-errors-spki-list=${config.spki}`],
   });
+  failurePhase = 'c6_browser_process_identity';
+  const ownershipSession = await context.browser().newBrowserCDPSession();
+  const {processInfo} = await ownershipSession.send('SystemInfo.getProcessInfo');
+  const browserProcesses = processInfo.filter(entry => entry.type === 'browser');
+  check(browserProcesses.length === 1 && Number.isSafeInteger(browserProcesses[0].id)
+    && browserProcesses[0].id > 1, 'c6_browser_process_identity');
+  process.stdout.write(`${JSON.stringify({owned_browser_pid: browserProcesses[0].id})}\n`);
+  const ownershipAck = await incoming.next();
+  check(!ownershipAck.done && JSON.parse(ownershipAck.value).ok === true, 'c6_sql_checkpoint_refused');
+  await ownershipSession.detach();
+  failurePhase = 'c6_browser_failed';
   const page = context.pages()[0] || await context.newPage();
   const runtimeSession = await context.newCDPSession(page);
   const chromeRuntime = await runtimeSession.send('Browser.getVersion');
@@ -255,15 +267,26 @@ try {
   await checkpoint('browser.repeated_reload', {dom: ['receipt', 'same_receipt', 'sale_enabled'], sale_id: lostReceipt.saleId});
   await checkpoint('browser.stock_after_recovery', await stock(27, 7));
 
-  await page.locator('[data-action="logout"]').click();
+  // Observe the real 204 separately from navigation and login preparation.
+  failurePhase = 'c6_logout_click';
+  const logoutResponse = page.waitForResponse(result => new URL(result.url()).pathname === '/internal/api/security/logout'
+    && result.request().method() === 'POST', {timeout: 15000});
+  logoutResponse.catch(() => {}); // Keep the observer handled if the click fails first.
+  await page.locator('[data-action="logout"]').click({noWaitAfter: true});
+  failurePhase = 'c6_logout_response';
+  check((await logoutResponse).status() === 204, 'c6_logout_http');
+  failurePhase = 'c6_logout_navigation';
+  await page.waitForURL(url => url.href === `${origin.origin}/internal/login`, {waitUntil: 'commit', timeout: 20000});
+  failurePhase = 'c6_logout_form';
   await expect(page.locator('#login-submit')).toBeEnabled();
+  failurePhase = 'c6_logout_me';
   const meStatus = await page.evaluate(async () => (await fetch('/internal/api/security/me', {credentials: 'same-origin'})).status);
   check(meStatus === 401 && posts === 2, 'c6_logout_or_post_count');
   await checkpoint('browser.logout', {dom: ['logged_out']});
 } catch (error) {
   failed = true;
   // Never print Playwright, CDP, network or assertion exception text (it may contain secrets).
-  const safe = /^c6_[a-z_]{1,80}$/.test(error?.message) ? error.message : 'c6_browser_failed';
+  const safe = /^c6_[a-z_]{1,80}$/.test(error?.message) ? error.message : failurePhase;
   process.stdout.write(`${JSON.stringify({error: safe})}\n`);
 } finally {
   try { await context?.close(); } catch { failed = true; }

@@ -135,3 +135,42 @@ test('a timeout does not manufacture a verified session', async () => {
   await assert.rejects(client.getSession(), error => error.code === 'unavailable');
   assert.equal(client.getVerifiedSession(), null);
 });
+
+for (const boundary of ['headers', 'body']) test(`a late private response after 401 is discarded at ${boundary}`, async () => {
+  let release, entered;
+  const waiting = new Promise(resolve => { entered = resolve; });
+  const pending = new Promise(resolve => { release = resolve; });
+  const response = json({items: ['private synthetic value']});
+  if (boundary === 'body') response.json = () => { entered(); return pending; };
+  const transport = scripted([() => json(staff), () => {
+    if (boundary === 'headers') { entered(); return pending; }
+    return response;
+  }, () => json({code: 'unauthenticated'}, 401)]);
+  const client = createAuthClient(transport);
+  await client.getSession();
+  const late = client.requestAuthenticated('/internal/api/directory/items');
+  await waiting;
+  await assert.rejects(client.requestAuthenticated('/internal/api/directory/locations'), error => error.status === 401);
+  release(boundary === 'headers' ? response : {items: ['private synthetic value']});
+  await assert.rejects(late, error => error.status === 401);
+  assert.equal(client.getVerifiedSession(), null);
+  await assert.rejects(client.requestAuthenticated('/internal/api/directory/items'), error => error.status === 401);
+  transport.done();
+});
+
+test('session revalidation cannot revive access after a concurrent request returns 401', async () => {
+  let denyRead, finishSession;
+  const read = new Promise(resolve => { denyRead = resolve; });
+  const revalidation = new Promise(resolve => { finishSession = resolve; });
+  const transport = scripted([() => json(staff), () => read, () => revalidation]);
+  const client = createAuthClient(transport);
+  await client.getSession();
+  const pendingRead = client.requestAuthenticated('/internal/api/directory/items');
+  const pendingSession = client.getSession();
+  denyRead(json({code: 'unauthenticated'}, 401));
+  await assert.rejects(pendingRead, error => error.status === 401);
+  finishSession(json(staff));
+  await assert.rejects(pendingSession, error => error.status === 401);
+  assert.equal(client.getVerifiedSession(), null);
+  transport.done();
+});

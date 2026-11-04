@@ -1,0 +1,1000 @@
+{
+  "task": "c8-ui-20261103",
+  "status": "LOCAL_VALIDATED_PENDING_REVIEW_CI_API",
+  "host": "SUAZO-PC",
+  "workerModel": "gpt-6.1-sol",
+  "workerReasoning": "high",
+  "base": "775f301bc195c43baedc68c86f4e71affe92ef95",
+  "branch": "task/c8-n2-n6-n7-20261103",
+  "fileHashes": {
+    "dev/savia-staff-ui/README.md": "0227a090710012f9f71c54e90d38b5fff631567d33255068a96b0ed4b83e4b47",
+    "dev/savia-staff-ui/app.mjs": "c5179f67e8f613e6a71ed1e611cd923a4c3862a4a646aa3be4b8f81b8609d48e",
+    "dev/savia-staff-ui/auth.test.mjs": "7c6b890b25b8c27e4f2fcda44549db2ca3f2f67552c7c7b6a2e3afa14b16bab6",
+    "dev/savia-staff-ui/login.mjs": "ac7714a22eb1e7a383ca41e3e11343472025271dcf21dc862f39cf8c386fc787",
+    "tests/browser-mock-validation.mjs": "f10b58fc28191646b750e488a8b84904ffba00337cf2054ee151316d9a28d415"
+  },
+  "patchSha256": "0f87604ec56d081fc2f2432fcfbd7c2ecdd74524240ce7db7fb4fa8442408f5c",
+  "testBinding": {
+    "harnessSha256": "f10b58fc28191646b750e488a8b84904ffba00337cf2054ee151316d9a28d415",
+    "harnessLastWriteUtc": "2026-11-04T00:08:51.199581+00:00",
+    "limitation": "Harness hash recorded after runs, not inside each historical run. Red driver only writes app.mjs/login.mjs, preserving test file; nine identical named cases in red and final green.",
+    "redDriverSha256": "ec95a732f6f636ed7837e662f675d291cced74562f5d56f44a5a838010be7610"
+  },
+  "staffTests": {
+    "passed": 45,
+    "failed": 0,
+    "skipped": 0,
+    "exit": 0,
+    "logSha256": "8019520bd1f899323dac3fe67fc1252307b86ec69877b0afcbf8353bef91c5ae"
+  },
+  "stages": [
+    {
+      "stage": "baseline",
+      "observedUtc": "2026-11-04T00:04:46.523Z",
+      "exit": 1,
+      "passed": 4,
+      "failed": 4,
+      "node": "v24.18.0",
+      "browser": "156.0.8078.80",
+      "sourceHashes": {
+        "dev/savia-staff-ui/app.mjs": "6df74c24a246ee3539ef4f07839620df15129ceb6d3750253b61ed63bf62b130",
+        "dev/savia-staff-ui/client.mjs": "9dd4ee88c9f34f5948ec38d31f73bde976acffcc03c7bdfa99b5996dcc87243d",
+        "dev/savia-staff-ui/login.mjs": "6d493acf575f0312d56d39f290804c323209aa99715eced002cc4089a8a6d1a0",
+        "dev/savia-staff-ui/login.html": "4803ece2ef530d9e5161837209ac86591bfe1447e9876b0f38bf17baca9a8382",
+        "dev/savia-staff-ui/index.html": "b10cb0d2e7ea628a616e4b514b8cb188942e0332157410d5cac7cc3e398b8a6c",
+        "dev/savia-staff-ui/styles.css": "9f9bca25769c903c3b886b5e7ff2b4570f4893e44e80219fe34d2acb949c070b"
+      },
+      "rawJsonSha256": "51b57b2f2c282f565dd81830dd4466da3e4650bdf333c46f762a28cc92744d85",
+      "runtimeErrors": 0,
+      "externalRequests": 0,
+      "networkFailureCount": 5,
+      "results": [
+        {
+          "name": "N2 Cashier reload recovers the same uncertain attempt without another sale (C8)",
+          "status": "PASS",
+          "durationMs": 1412,
+          "detail": {
+            "key": "f3624ca4-ad17-417b-81e8-4326dcf06dc9",
+            "saleId": "00000001-0000-0000-0000-000000000005",
+            "posts": 1
+          }
+        },
+        {
+          "name": "N2 Owner reload recovers the same uncertain attempt without another sale (C8)",
+          "status": "PASS",
+          "durationMs": 1219,
+          "detail": {
+            "key": "a8a24fce-1970-4f6a-8291-e0b729e22e9f",
+            "saleId": "00000001-0000-0000-0000-000000000005",
+            "posts": 1
+          }
+        },
+        {
+          "name": "N2 Manager reload recovers the same uncertain attempt without another sale (C8)",
+          "status": "PASS",
+          "durationMs": 1043,
+          "detail": {
+            "key": "dfda8c5b-ed18-4023-b42d-77d56981a57b",
+            "saleId": "00000001-0000-0000-0000-000000000005",
+            "posts": 1
+          }
+        },
+        {
+          "name": "N6 changing actor keeps the uncertain key private and never replays it as the new actor (C8)",
+          "status": "PASS",
+          "durationMs": 903,
+          "detail": {
+            "originalKey": "ef3ba74d-e3fa-444f-9322-3510b136e8ee",
+            "pendingKeys": 1
+          }
+        },
+        {
+          "name": "N6 changed actor version preserves the attempt and blocks recovery and resend under the new scope (C8)",
+          "status": "FAIL",
+          "durationMs": 5860,
+          "error": "expect(locator).toContainText(expected) failed\n\nLocator: locator('#sale-status')\nExpected substring: \"acceso cambi\u00f3\"\nReceived string:    \"Venta confirmada por el servidor.\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"to.have.text\" with timeout 5000ms\n  - waiting for locator('#sale-status')\n    14 \u00d7 locator resolved to <p role=\"status\" id=\"sale-status\" aria-live=\"polite\">Venta confirmada por el servidor.</p>\n       - unexpected value \"Venta confirmada por el servidor.\"\n"
+        },
+        {
+          "name": "N7 revoked mocked 401 discards late stock and cancels a sale waiting for CSRF (C8)",
+          "status": "FAIL",
+          "durationMs": 6491,
+          "error": "locator.click: Timeout 5000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-target=\"ventas\"][data-action=\"nav\"]')\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" class=\"nav-link\" data-action=\"nav\" data-target=\"ventas\" data-server-action=\"\">Ventas</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m    - element is not stable\u001b[22m\n\u001b[2m  - retrying click action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m    - element is not visible\u001b[22m\n\u001b[2m  - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 \u00d7 waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    9 \u00d7 waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 500ms\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n"
+        },
+        {
+          "name": "N7 absolute-expiry mocked 401 discards late stock and cancels a sale waiting for CSRF (C8)",
+          "status": "FAIL",
+          "durationMs": 6439,
+          "error": "locator.click: Timeout 5000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-target=\"ventas\"][data-action=\"nav\"]')\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" class=\"nav-link\" data-action=\"nav\" data-target=\"ventas\" data-server-action=\"\">Ventas</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 \u00d7 waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 \u00d7 waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    9 \u00d7 waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 500ms\u001b[22m\n"
+        },
+        {
+          "name": "N7 logout cancels a sale awaiting CSRF and discards its late response (C8)",
+          "status": "FAIL",
+          "durationMs": 6706,
+          "error": "page.waitForLoadState: Timeout 5000ms exceeded."
+        }
+      ]
+    },
+    {
+      "stage": "baseline-corrected-harness",
+      "observedUtc": "2026-11-04T00:05:50.256Z",
+      "exit": 1,
+      "passed": 4,
+      "failed": 4,
+      "node": "v24.18.0",
+      "browser": "156.0.8078.80",
+      "sourceHashes": {
+        "dev/savia-staff-ui/app.mjs": "6df74c24a246ee3539ef4f07839620df15129ceb6d3750253b61ed63bf62b130",
+        "dev/savia-staff-ui/client.mjs": "9dd4ee88c9f34f5948ec38d31f73bde976acffcc03c7bdfa99b5996dcc87243d",
+        "dev/savia-staff-ui/login.mjs": "6d493acf575f0312d56d39f290804c323209aa99715eced002cc4089a8a6d1a0",
+        "dev/savia-staff-ui/login.html": "4803ece2ef530d9e5161837209ac86591bfe1447e9876b0f38bf17baca9a8382",
+        "dev/savia-staff-ui/index.html": "b10cb0d2e7ea628a616e4b514b8cb188942e0332157410d5cac7cc3e398b8a6c",
+        "dev/savia-staff-ui/styles.css": "9f9bca25769c903c3b886b5e7ff2b4570f4893e44e80219fe34d2acb949c070b"
+      },
+      "rawJsonSha256": "841429c68b6320fcd0ca347c2104571354fe5f8e6678360671cfccc8a04bd9e2",
+      "runtimeErrors": 0,
+      "externalRequests": 0,
+      "networkFailureCount": 5,
+      "results": [
+        {
+          "name": "N2 Cashier reload recovers the same uncertain attempt without another sale (C8)",
+          "status": "PASS",
+          "durationMs": 1403,
+          "detail": {
+            "key": "1c49b72d-fa02-4c77-9f23-a8441cb01bdd",
+            "saleId": "00000001-0000-0000-0000-000000000005",
+            "posts": 1
+          }
+        },
+        {
+          "name": "N2 Owner reload recovers the same uncertain attempt without another sale (C8)",
+          "status": "PASS",
+          "durationMs": 1218,
+          "detail": {
+            "key": "a77eb355-fff3-4f34-995f-2a147589d84f",
+            "saleId": "00000001-0000-0000-0000-000000000005",
+            "posts": 1
+          }
+        },
+        {
+          "name": "N2 Manager reload recovers the same uncertain attempt without another sale (C8)",
+          "status": "PASS",
+          "durationMs": 1119,
+          "detail": {
+            "key": "fd0eb202-976e-49a8-90ac-51d9d6f65c09",
+            "saleId": "00000001-0000-0000-0000-000000000005",
+            "posts": 1
+          }
+        },
+        {
+          "name": "N6 changing actor keeps the uncertain key private and never replays it as the new actor (C8)",
+          "status": "PASS",
+          "durationMs": 1021,
+          "detail": {
+            "originalKey": "e0ed03b0-c2f3-47e9-8f4a-b1a7594a7637",
+            "pendingKeys": 1
+          }
+        },
+        {
+          "name": "N6 changed actor version preserves the attempt and blocks recovery and resend under the new scope (C8)",
+          "status": "FAIL",
+          "durationMs": 6105,
+          "error": "expect(locator).toContainText(expected) failed\n\nLocator: locator('#sale-status')\nExpected substring: \"acceso cambi\u00f3\"\nReceived string:    \"Venta confirmada por el servidor.\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"to.have.text\" with timeout 5000ms\n  - waiting for locator('#sale-status')\n    14 \u00d7 locator resolved to <p role=\"status\" id=\"sale-status\" aria-live=\"polite\">Venta confirmada por el servidor.</p>\n       - unexpected value \"Venta confirmada por el servidor.\"\n"
+        },
+        {
+          "name": "N7 revoked mocked 401 discards late stock and cancels a sale waiting for CSRF (C8)",
+          "status": "FAIL",
+          "durationMs": 1748,
+          "error": "A sale was sent after 401 while its CSRF request was in flight.\n\n1 !== 0\n"
+        },
+        {
+          "name": "N7 absolute-expiry mocked 401 discards late stock and cancels a sale waiting for CSRF (C8)",
+          "status": "FAIL",
+          "durationMs": 1565,
+          "error": "A sale was sent after 401 while its CSRF request was in flight.\n\n1 !== 0\n"
+        },
+        {
+          "name": "N7 logout cancels a sale awaiting CSRF and discards its late response (C8)",
+          "status": "FAIL",
+          "durationMs": 936,
+          "error": "A sale waiting for CSRF was sent after logout began.\n\n1 !== 0\n"
+        }
+      ]
+    },
+    {
+      "stage": "green",
+      "observedUtc": "2026-11-04T00:07:22.632Z",
+      "exit": 0,
+      "passed": 8,
+      "failed": 0,
+      "node": "v24.18.0",
+      "browser": "156.0.8078.80",
+      "sourceHashes": {
+        "dev/savia-staff-ui/app.mjs": "ccff10a0f82efbc9c71f36b42e869273944b760a44a858c666789eff6d373179",
+        "dev/savia-staff-ui/client.mjs": "9dd4ee88c9f34f5948ec38d31f73bde976acffcc03c7bdfa99b5996dcc87243d",
+        "dev/savia-staff-ui/login.mjs": "88b1dca009b2ed8ffa6d1b177de07d4bc2ef7a0f914b0202571435a69d6ec97c",
+        "dev/savia-staff-ui/login.html": "4803ece2ef530d9e5161837209ac86591bfe1447e9876b0f38bf17baca9a8382",
+        "dev/savia-staff-ui/index.html": "b10cb0d2e7ea628a616e4b514b8cb188942e0332157410d5cac7cc3e398b8a6c",
+        "dev/savia-staff-ui/styles.css": "9f9bca25769c903c3b886b5e7ff2b4570f4893e44e80219fe34d2acb949c070b"
+      },
+      "rawJsonSha256": "9e056d574fc3cc6eda96ac271c42c6d404c6b36ff596624233359e8d75c2582a",
+      "runtimeErrors": 0,
+      "externalRequests": 0,
+      "networkFailureCount": 6,
+      "results": [
+        {
+          "name": "N2 Cashier reload recovers the same uncertain attempt without another sale (C8)",
+          "status": "PASS",
+          "durationMs": 1448,
+          "detail": {
+            "key": "07516d5a-13a8-4c1c-8a72-5183be8ac5a6",
+            "saleId": "00000001-0000-0000-0000-000000000005",
+            "posts": 1
+          }
+        },
+        {
+          "name": "N2 Owner reload recovers the same uncertain attempt without another sale (C8)",
+          "status": "PASS",
+          "durationMs": 1211,
+          "detail": {
+            "key": "ffd62632-0468-4000-b44f-edaa8de2b2ac",
+            "saleId": "00000001-0000-0000-0000-000000000005",
+            "posts": 1
+          }
+        },
+        {
+          "name": "N2 Manager reload recovers the same uncertain attempt without another sale (C8)",
+          "status": "PASS",
+          "durationMs": 1167,
+          "detail": {
+            "key": "e5e07b5a-a560-4d68-ab2b-4bd957e7c55f",
+            "saleId": "00000001-0000-0000-0000-000000000005",
+            "posts": 1
+          }
+        },
+        {
+          "name": "N6 changing actor keeps the uncertain key private and never replays it as the new actor (C8)",
+          "status": "PASS",
+          "durationMs": 1008,
+          "detail": {
+            "originalKey": "ef1b8d36-7ebd-4515-a3ae-a8579206f322",
+            "pendingKeys": 1
+          }
+        },
+        {
+          "name": "N6 changed actor version preserves the attempt and blocks recovery and resend under the new scope (C8)",
+          "status": "PASS",
+          "durationMs": 790,
+          "detail": {
+            "preservedKey": "fe8a213e-5aa7-4e6c-8fbb-2858800c1f54",
+            "posts": 1
+          }
+        },
+        {
+          "name": "N7 revoked mocked 401 discards late stock and cancels a sale waiting for CSRF (C8)",
+          "status": "PASS",
+          "durationMs": 1477,
+          "detail": {
+            "reason": "revoked",
+            "layer": "mocked browser 401 only; API TimeProvider NOT RUN",
+            "preservedKey": "89db00f1-1b5b-4fa6-8ef9-6172c2c6b0d6"
+          }
+        },
+        {
+          "name": "N7 absolute-expiry mocked 401 discards late stock and cancels a sale waiting for CSRF (C8)",
+          "status": "PASS",
+          "durationMs": 1528,
+          "detail": {
+            "reason": "absolute-expiry",
+            "layer": "mocked browser 401 only; API TimeProvider NOT RUN",
+            "preservedKey": "24ae6e7f-be50-4278-90a6-7e136a1a1867"
+          }
+        },
+        {
+          "name": "N7 logout cancels a sale awaiting CSRF and discards its late response (C8)",
+          "status": "PASS",
+          "durationMs": 1049,
+          "detail": {
+            "posts": 0
+          }
+        }
+      ]
+    },
+    {
+      "stage": "green-final",
+      "observedUtc": "2026-11-04T00:10:14.819Z",
+      "exit": 0,
+      "passed": 9,
+      "failed": 0,
+      "node": "v24.18.0",
+      "browser": "156.0.8078.80",
+      "sourceHashes": {
+        "dev/savia-staff-ui/app.mjs": "c5179f67e8f613e6a71ed1e611cd923a4c3862a4a646aa3be4b8f81b8609d48e",
+        "dev/savia-staff-ui/client.mjs": "9dd4ee88c9f34f5948ec38d31f73bde976acffcc03c7bdfa99b5996dcc87243d",
+        "dev/savia-staff-ui/login.mjs": "ac7714a22eb1e7a383ca41e3e11343472025271dcf21dc862f39cf8c386fc787",
+        "dev/savia-staff-ui/login.html": "4803ece2ef530d9e5161837209ac86591bfe1447e9876b0f38bf17baca9a8382",
+        "dev/savia-staff-ui/index.html": "b10cb0d2e7ea628a616e4b514b8cb188942e0332157410d5cac7cc3e398b8a6c",
+        "dev/savia-staff-ui/styles.css": "9f9bca25769c903c3b886b5e7ff2b4570f4893e44e80219fe34d2acb949c070b"
+      },
+      "rawJsonSha256": "3d6b3a168f0aa983602675f3774ad131c761886702e0db483c7bca84eaedeaa8",
+      "runtimeErrors": 0,
+      "externalRequests": 0,
+      "networkFailureCount": 6,
+      "results": [
+        {
+          "name": "N2 Cashier reload recovers the same uncertain attempt without another sale (C8)",
+          "status": "PASS",
+          "durationMs": 1526,
+          "detail": {
+            "key": "14820d4d-eece-4c5e-94c1-9dfdbd43c15c",
+            "saleId": "00000001-0000-0000-0000-000000000005",
+            "posts": 1
+          }
+        },
+        {
+          "name": "N2 Owner reload recovers the same uncertain attempt without another sale (C8)",
+          "status": "PASS",
+          "durationMs": 1304,
+          "detail": {
+            "key": "df7a6873-ef52-4bd4-819d-05967d111e4d",
+            "saleId": "00000001-0000-0000-0000-000000000005",
+            "posts": 1
+          }
+        },
+        {
+          "name": "N2 Manager reload recovers the same uncertain attempt without another sale (C8)",
+          "status": "PASS",
+          "durationMs": 1351,
+          "detail": {
+            "key": "836f1098-6bbe-4380-8396-b8871b5fe3ca",
+            "saleId": "00000001-0000-0000-0000-000000000005",
+            "posts": 1
+          }
+        },
+        {
+          "name": "N6 changing actor keeps the uncertain key private and never replays it as the new actor (C8)",
+          "status": "PASS",
+          "durationMs": 1091,
+          "detail": {
+            "originalKey": "a1cf87ec-6e7a-4d81-b048-999f1044a106",
+            "pendingKeys": 1
+          }
+        },
+        {
+          "name": "N6 changed actor version preserves the attempt and blocks recovery and resend under the new scope (C8)",
+          "status": "PASS",
+          "durationMs": 773,
+          "detail": {
+            "preservedKey": "8a8e859f-b0fc-43dd-bcde-35aec87d772a",
+            "posts": 1
+          }
+        },
+        {
+          "name": "N6 legacy attempt outside the current authorized locations stays private and cannot be replayed (C8)",
+          "status": "PASS",
+          "durationMs": 940,
+          "detail": {
+            "preservedKey": "00000001-0000-0000-0000-000000000185",
+            "legacyVersion": "unknown; never rebound",
+            "posts": 0
+          }
+        },
+        {
+          "name": "N7 revoked mocked 401 discards late stock and cancels a sale waiting for CSRF (C8)",
+          "status": "PASS",
+          "durationMs": 1479,
+          "detail": {
+            "reason": "revoked",
+            "layer": "mocked browser 401 only; API TimeProvider NOT RUN",
+            "preservedKey": "d24b74af-24b1-421b-95bd-44f6e8d3b584"
+          }
+        },
+        {
+          "name": "N7 absolute-expiry mocked 401 discards late stock and cancels a sale waiting for CSRF (C8)",
+          "status": "PASS",
+          "durationMs": 1550,
+          "detail": {
+            "reason": "absolute-expiry",
+            "layer": "mocked browser 401 only; API TimeProvider NOT RUN",
+            "preservedKey": "e94a854f-1247-4df1-9fcf-907776657be4"
+          }
+        },
+        {
+          "name": "N7 logout cancels a sale awaiting CSRF and discards its late response (C8)",
+          "status": "PASS",
+          "durationMs": 1217,
+          "detail": {
+            "posts": 0
+          }
+        }
+      ]
+    },
+    {
+      "stage": "red-app-only",
+      "observedUtc": "2026-11-04T00:11:05.331Z",
+      "exit": 1,
+      "passed": 7,
+      "failed": 2,
+      "node": "v24.18.0",
+      "browser": "156.0.8078.80",
+      "sourceHashes": {
+        "dev/savia-staff-ui/app.mjs": "6df74c24a246ee3539ef4f07839620df15129ceb6d3750253b61ed63bf62b130",
+        "dev/savia-staff-ui/client.mjs": "9dd4ee88c9f34f5948ec38d31f73bde976acffcc03c7bdfa99b5996dcc87243d",
+        "dev/savia-staff-ui/login.mjs": "ac7714a22eb1e7a383ca41e3e11343472025271dcf21dc862f39cf8c386fc787",
+        "dev/savia-staff-ui/login.html": "4803ece2ef530d9e5161837209ac86591bfe1447e9876b0f38bf17baca9a8382",
+        "dev/savia-staff-ui/index.html": "b10cb0d2e7ea628a616e4b514b8cb188942e0332157410d5cac7cc3e398b8a6c",
+        "dev/savia-staff-ui/styles.css": "9f9bca25769c903c3b886b5e7ff2b4570f4893e44e80219fe34d2acb949c070b"
+      },
+      "rawJsonSha256": "cb509a55efd9c008c2d92c6116214d8bafecfea526d2833022d459104a9e4459",
+      "runtimeErrors": 0,
+      "externalRequests": 0,
+      "networkFailureCount": 6,
+      "results": [
+        {
+          "name": "N2 Cashier reload recovers the same uncertain attempt without another sale (C8)",
+          "status": "PASS",
+          "durationMs": 1543,
+          "detail": {
+            "key": "0440e8a9-8912-423c-9a09-9142250aa36f",
+            "saleId": "00000001-0000-0000-0000-000000000005",
+            "posts": 1
+          }
+        },
+        {
+          "name": "N2 Owner reload recovers the same uncertain attempt without another sale (C8)",
+          "status": "PASS",
+          "durationMs": 1302,
+          "detail": {
+            "key": "2a656a4d-ae20-42f9-893d-1d63cd06430a",
+            "saleId": "00000001-0000-0000-0000-000000000005",
+            "posts": 1
+          }
+        },
+        {
+          "name": "N2 Manager reload recovers the same uncertain attempt without another sale (C8)",
+          "status": "PASS",
+          "durationMs": 1276,
+          "detail": {
+            "key": "0165696d-274e-418e-b326-030d96ce3fac",
+            "saleId": "00000001-0000-0000-0000-000000000005",
+            "posts": 1
+          }
+        },
+        {
+          "name": "N6 changing actor keeps the uncertain key private and never replays it as the new actor (C8)",
+          "status": "PASS",
+          "durationMs": 1022,
+          "detail": {
+            "originalKey": "e504dc1d-97f5-4166-9581-7d7213041c26",
+            "pendingKeys": 1
+          }
+        },
+        {
+          "name": "N6 changed actor version preserves the attempt and blocks recovery and resend under the new scope (C8)",
+          "status": "FAIL",
+          "durationMs": 6056,
+          "error": "expect(locator).toContainText(expected) failed\n\nLocator: locator('#sale-status')\nExpected substring: \"acceso cambi\u00f3\"\nReceived string:    \"Venta confirmada por el servidor.\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"to.have.text\" with timeout 5000ms\n  - waiting for locator('#sale-status')\n    14 \u00d7 locator resolved to <p role=\"status\" id=\"sale-status\" aria-live=\"polite\">Venta confirmada por el servidor.</p>\n       - unexpected value \"Venta confirmada por el servidor.\"\n"
+        },
+        {
+          "name": "N6 legacy attempt outside the current authorized locations stays private and cannot be replayed (C8)",
+          "status": "FAIL",
+          "durationMs": 6999,
+          "error": "expect(locator).toContainText(expected) failed\n\nLocator: locator('#sale-status')\nExpected substring: \"acceso cambi\u00f3\"\nReceived string:    \"Venta confirmada por el servidor.\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"to.have.text\" with timeout 5000ms\n  - waiting for locator('#sale-status')\n    14 \u00d7 locator resolved to <p role=\"status\" id=\"sale-status\" aria-live=\"polite\">Venta confirmada por el servidor.</p>\n       - unexpected value \"Venta confirmada por el servidor.\"\n"
+        },
+        {
+          "name": "N7 revoked mocked 401 discards late stock and cancels a sale waiting for CSRF (C8)",
+          "status": "PASS",
+          "durationMs": 1571,
+          "detail": {
+            "reason": "revoked",
+            "layer": "mocked browser 401 only; API TimeProvider NOT RUN",
+            "preservedKey": "ed4d7be2-8f18-4fa1-a330-56b8ac3778c0"
+          }
+        },
+        {
+          "name": "N7 absolute-expiry mocked 401 discards late stock and cancels a sale waiting for CSRF (C8)",
+          "status": "PASS",
+          "durationMs": 1553,
+          "detail": {
+            "reason": "absolute-expiry",
+            "layer": "mocked browser 401 only; API TimeProvider NOT RUN",
+            "preservedKey": "ae067f5b-6545-4455-845c-1afc6d83f48b"
+          }
+        },
+        {
+          "name": "N7 logout cancels a sale awaiting CSRF and discards its late response (C8)",
+          "status": "PASS",
+          "durationMs": 1099,
+          "detail": {
+            "posts": 0
+          }
+        }
+      ]
+    },
+    {
+      "stage": "red-login-only",
+      "observedUtc": "2026-11-04T00:11:17.322Z",
+      "exit": 1,
+      "passed": 6,
+      "failed": 3,
+      "node": "v24.18.0",
+      "browser": "156.0.8078.80",
+      "sourceHashes": {
+        "dev/savia-staff-ui/app.mjs": "c5179f67e8f613e6a71ed1e611cd923a4c3862a4a646aa3be4b8f81b8609d48e",
+        "dev/savia-staff-ui/client.mjs": "9dd4ee88c9f34f5948ec38d31f73bde976acffcc03c7bdfa99b5996dcc87243d",
+        "dev/savia-staff-ui/login.mjs": "6d493acf575f0312d56d39f290804c323209aa99715eced002cc4089a8a6d1a0",
+        "dev/savia-staff-ui/login.html": "4803ece2ef530d9e5161837209ac86591bfe1447e9876b0f38bf17baca9a8382",
+        "dev/savia-staff-ui/index.html": "b10cb0d2e7ea628a616e4b514b8cb188942e0332157410d5cac7cc3e398b8a6c",
+        "dev/savia-staff-ui/styles.css": "9f9bca25769c903c3b886b5e7ff2b4570f4893e44e80219fe34d2acb949c070b"
+      },
+      "rawJsonSha256": "613744b10e26c995b745d8c66221d64fd6a3495920d14b5bb26d23dcae865b25",
+      "runtimeErrors": 0,
+      "externalRequests": 0,
+      "networkFailureCount": 5,
+      "results": [
+        {
+          "name": "N2 Cashier reload recovers the same uncertain attempt without another sale (C8)",
+          "status": "PASS",
+          "durationMs": 1490,
+          "detail": {
+            "key": "b118630f-8739-4dbf-aa20-c93ff8e58917",
+            "saleId": "00000001-0000-0000-0000-000000000005",
+            "posts": 1
+          }
+        },
+        {
+          "name": "N2 Owner reload recovers the same uncertain attempt without another sale (C8)",
+          "status": "PASS",
+          "durationMs": 1236,
+          "detail": {
+            "key": "8b12bc06-f3de-46ea-86ba-3ea8e0ddf258",
+            "saleId": "00000001-0000-0000-0000-000000000005",
+            "posts": 1
+          }
+        },
+        {
+          "name": "N2 Manager reload recovers the same uncertain attempt without another sale (C8)",
+          "status": "PASS",
+          "durationMs": 1244,
+          "detail": {
+            "key": "9606c947-bac4-4ed6-ba95-2315d3cf3fac",
+            "saleId": "00000001-0000-0000-0000-000000000005",
+            "posts": 1
+          }
+        },
+        {
+          "name": "N6 changing actor keeps the uncertain key private and never replays it as the new actor (C8)",
+          "status": "PASS",
+          "durationMs": 1136,
+          "detail": {
+            "originalKey": "94b94359-1854-4b81-92c9-72fea0459839",
+            "pendingKeys": 1
+          }
+        },
+        {
+          "name": "N6 changed actor version preserves the attempt and blocks recovery and resend under the new scope (C8)",
+          "status": "PASS",
+          "durationMs": 839,
+          "detail": {
+            "preservedKey": "7cffcc6c-e7d9-4a7f-94ee-1c3d18b625c4",
+            "posts": 1
+          }
+        },
+        {
+          "name": "N6 legacy attempt outside the current authorized locations stays private and cannot be replayed (C8)",
+          "status": "PASS",
+          "durationMs": 968,
+          "detail": {
+            "preservedKey": "00000001-0000-0000-0000-000000000185",
+            "legacyVersion": "unknown; never rebound",
+            "posts": 0
+          }
+        },
+        {
+          "name": "N7 revoked mocked 401 discards late stock and cancels a sale waiting for CSRF (C8)",
+          "status": "FAIL",
+          "durationMs": 1564,
+          "error": "A sale was sent after 401 while its CSRF request was in flight.\n\n1 !== 0\n"
+        },
+        {
+          "name": "N7 absolute-expiry mocked 401 discards late stock and cancels a sale waiting for CSRF (C8)",
+          "status": "FAIL",
+          "durationMs": 1508,
+          "error": "A sale was sent after 401 while its CSRF request was in flight.\n\n1 !== 0\n"
+        },
+        {
+          "name": "N7 logout cancels a sale awaiting CSRF and discards its late response (C8)",
+          "status": "FAIL",
+          "durationMs": 918,
+          "error": "A sale waiting for CSRF was sent after logout began.\n\n1 !== 0\n"
+        }
+      ]
+    },
+    {
+      "stage": "full",
+      "observedUtc": "2026-11-04T00:12:32.935Z",
+      "exit": 0,
+      "passed": 45,
+      "failed": 0,
+      "node": "v24.18.0",
+      "browser": "156.0.8078.80",
+      "sourceHashes": {
+        "dev/savia-staff-ui/app.mjs": "c5179f67e8f613e6a71ed1e611cd923a4c3862a4a646aa3be4b8f81b8609d48e",
+        "dev/savia-staff-ui/client.mjs": "9dd4ee88c9f34f5948ec38d31f73bde976acffcc03c7bdfa99b5996dcc87243d",
+        "dev/savia-staff-ui/login.mjs": "ac7714a22eb1e7a383ca41e3e11343472025271dcf21dc862f39cf8c386fc787",
+        "dev/savia-staff-ui/login.html": "4803ece2ef530d9e5161837209ac86591bfe1447e9876b0f38bf17baca9a8382",
+        "dev/savia-staff-ui/index.html": "b10cb0d2e7ea628a616e4b514b8cb188942e0332157410d5cac7cc3e398b8a6c",
+        "dev/savia-staff-ui/styles.css": "9f9bca25769c903c3b886b5e7ff2b4570f4893e44e80219fe34d2acb949c070b"
+      },
+      "rawJsonSha256": "bad1e8f22d3c9877d10bba2ec01a08b0281059f7e119f1c193e8b32d78ddad3c",
+      "runtimeErrors": 0,
+      "externalRequests": 0,
+      "networkFailureCount": 9,
+      "results": [
+        {
+          "name": "Login posts CSRF and verifies server identity before opening staff",
+          "status": "PASS",
+          "durationMs": 992
+        },
+        {
+          "name": "Login HTTP 401 stays closed with visible error",
+          "status": "PASS",
+          "durationMs": 402
+        },
+        {
+          "name": "Login HTTP 429 stays closed with visible error",
+          "status": "PASS",
+          "durationMs": 449
+        },
+        {
+          "name": "Login HTTP 503 stays closed with visible error",
+          "status": "PASS",
+          "durationMs": 405
+        },
+        {
+          "name": "Anonymous session exposes no staff data",
+          "status": "PASS",
+          "durationMs": 337
+        },
+        {
+          "name": "Owner navigation and sale permissions in browser",
+          "status": "PASS",
+          "durationMs": 416
+        },
+        {
+          "name": "Manager navigation and sale permissions in browser",
+          "status": "PASS",
+          "durationMs": 427
+        },
+        {
+          "name": "Cashier navigation and sale permissions in browser",
+          "status": "PASS",
+          "durationMs": 429
+        },
+        {
+          "name": "Inventory navigation and sale permissions in browser",
+          "status": "PASS",
+          "durationMs": 416
+        },
+        {
+          "name": "Customer pagination and search use actual network query",
+          "status": "PASS",
+          "durationMs": 512
+        },
+        {
+          "name": "Customer text is escaped instead of executing HTML",
+          "status": "PASS",
+          "durationMs": 386
+        },
+        {
+          "name": "Empty catalog disables sale without inventing stock",
+          "status": "PASS",
+          "durationMs": 446
+        },
+        {
+          "name": "Sale sends no price, preserves key, displays receipt and updated stock",
+          "status": "PASS",
+          "durationMs": 667
+        },
+        {
+          "name": "Rapid double submit sends one request",
+          "status": "PASS",
+          "durationMs": 665
+        },
+        {
+          "name": "Lost response recovers original operation without second POST",
+          "status": "PASS",
+          "durationMs": 587
+        },
+        {
+          "name": "Sale HTTP 401 never shows invented success",
+          "status": "PASS",
+          "durationMs": 575
+        },
+        {
+          "name": "Sale HTTP 403 never shows invented success",
+          "status": "PASS",
+          "durationMs": 572
+        },
+        {
+          "name": "Sale HTTP 500 never shows invented success",
+          "status": "PASS",
+          "durationMs": 513
+        },
+        {
+          "name": "Malformed receipt leaves operation recoverable and blocks new sale",
+          "status": "PASS",
+          "durationMs": 520
+        },
+        {
+          "name": "Confirmed rejected recovery unlocks only the rejected attempt",
+          "status": "PASS",
+          "durationMs": 614
+        },
+        {
+          "name": "Logout uses CSRF, clears private view and returns to login",
+          "status": "PASS",
+          "durationMs": 473
+        },
+        {
+          "name": "N2 Cashier reload recovers the same uncertain attempt without another sale (C8)",
+          "status": "PASS",
+          "durationMs": 760,
+          "detail": {
+            "key": "333e171e-f4d3-43c8-b734-cb0308be290f",
+            "saleId": "00000001-0000-0000-0000-000000000005",
+            "posts": 1
+          }
+        },
+        {
+          "name": "N2 Owner reload recovers the same uncertain attempt without another sale (C8)",
+          "status": "PASS",
+          "durationMs": 895,
+          "detail": {
+            "key": "0fe422bb-d72c-4ccc-b307-e129af0e0af2",
+            "saleId": "00000001-0000-0000-0000-000000000005",
+            "posts": 1
+          }
+        },
+        {
+          "name": "N2 Manager reload recovers the same uncertain attempt without another sale (C8)",
+          "status": "PASS",
+          "durationMs": 804,
+          "detail": {
+            "key": "bb083371-0bd6-43f5-98d3-1b1a18d20b25",
+            "saleId": "00000001-0000-0000-0000-000000000005",
+            "posts": 1
+          }
+        },
+        {
+          "name": "N6 changing actor keeps the uncertain key private and never replays it as the new actor (C8)",
+          "status": "PASS",
+          "durationMs": 662,
+          "detail": {
+            "originalKey": "a4ced139-b900-4feb-b13b-0b363aac1729",
+            "pendingKeys": 1
+          }
+        },
+        {
+          "name": "N6 changed actor version preserves the attempt and blocks recovery and resend under the new scope (C8)",
+          "status": "PASS",
+          "durationMs": 692,
+          "detail": {
+            "preservedKey": "981bccc9-0a24-47ca-ab4a-58ab8f3a27bb",
+            "posts": 1
+          }
+        },
+        {
+          "name": "N6 legacy attempt outside the current authorized locations stays private and cannot be replayed (C8)",
+          "status": "PASS",
+          "durationMs": 509,
+          "detail": {
+            "preservedKey": "00000001-0000-0000-0000-000000000185",
+            "legacyVersion": "unknown; never rebound",
+            "posts": 0
+          }
+        },
+        {
+          "name": "N7 revoked mocked 401 discards late stock and cancels a sale waiting for CSRF (C8)",
+          "status": "PASS",
+          "durationMs": 1218,
+          "detail": {
+            "reason": "revoked",
+            "layer": "mocked browser 401 only; API TimeProvider NOT RUN",
+            "preservedKey": "9c05409c-e758-4312-8ea4-113e519da3ff"
+          }
+        },
+        {
+          "name": "N7 absolute-expiry mocked 401 discards late stock and cancels a sale waiting for CSRF (C8)",
+          "status": "PASS",
+          "durationMs": 1270,
+          "detail": {
+            "reason": "absolute-expiry",
+            "layer": "mocked browser 401 only; API TimeProvider NOT RUN",
+            "preservedKey": "b6408783-e861-47a7-aaa3-61419f5d704f"
+          }
+        },
+        {
+          "name": "N7 logout cancels a sale awaiting CSRF and discards its late response (C8)",
+          "status": "PASS",
+          "durationMs": 742,
+          "detail": {
+            "posts": 0
+          }
+        },
+        {
+          "name": "Stale confirmed receipt 404 must not permanently block a fresh sale (N5)",
+          "status": "PASS",
+          "durationMs": 633
+        },
+        {
+          "name": "Stale receipt 403 after reassignment is cleared and leaves a fresh sale available (N5)",
+          "status": "PASS",
+          "durationMs": 554
+        },
+        {
+          "name": "Unavailable receipt lookup keeps its reference and does not invent a pending sale (N5)",
+          "status": "PASS",
+          "durationMs": 562
+        },
+        {
+          "name": "Stale receipt never unlocks a real pending sale; recovery reuses the original key (N5)",
+          "status": "PASS",
+          "durationMs": 535
+        },
+        {
+          "name": "Revoked session during receipt restore returns to sign-in without staff data (N5)",
+          "status": "PASS",
+          "durationMs": 507
+        },
+        {
+          "name": "Unimplemented purchasing and customer creation remain visibly unavailable",
+          "status": "PASS",
+          "durationMs": 450,
+          "detail": "Coverage observation only: these workflows are not implemented in the frontend."
+        },
+        {
+          "name": "Staff visible screens have no document overflow at 1440px",
+          "status": "PASS",
+          "durationMs": 618,
+          "detail": [
+            {
+              "view": "clientes",
+              "width": 1440,
+              "scroll": 1440
+            },
+            {
+              "view": "inventario",
+              "width": 1440,
+              "scroll": 1440
+            },
+            {
+              "view": "ventas",
+              "width": 1440,
+              "scroll": 1440
+            },
+            {
+              "view": "abastecimiento",
+              "width": 1440,
+              "scroll": 1440
+            }
+          ]
+        },
+        {
+          "name": "Staff visible screens have no document overflow at 390px",
+          "status": "PASS",
+          "durationMs": 763,
+          "detail": [
+            {
+              "view": "clientes",
+              "width": 390,
+              "scroll": 390
+            },
+            {
+              "view": "inventario",
+              "width": 390,
+              "scroll": 390
+            },
+            {
+              "view": "ventas",
+              "width": 390,
+              "scroll": 390
+            },
+            {
+              "view": "abastecimiento",
+              "width": 390,
+              "scroll": 390
+            }
+          ]
+        },
+        {
+          "name": "All 47 public pages mount in Chromium with no uncaught JavaScript errors",
+          "status": "PASS",
+          "durationMs": 36137,
+          "detail": {
+            "pages": 47
+          }
+        },
+        {
+          "name": "Public product, bag, translation and synthetic checkout approval work in browser",
+          "status": "PASS",
+          "durationMs": 1487,
+          "detail": "Browser-local demo only; no payment, email or external order sent."
+        },
+        {
+          "name": "Staff source bytes unchanged during browser run",
+          "status": "PASS",
+          "durationMs": 4
+        },
+        {
+          "name": "Public synthetic payment declined releases reservation and permits rebuilding order",
+          "status": "PASS",
+          "durationMs": 1555,
+          "detail": "Local demo reservation/payment state only; no external provider."
+        },
+        {
+          "name": "Public synthetic payment cancelled releases reservation and permits rebuilding order",
+          "status": "PASS",
+          "durationMs": 1475,
+          "detail": "Local demo reservation/payment state only; no external provider."
+        },
+        {
+          "name": "Public gallery actual geometry and controls at 1440px",
+          "status": "PASS",
+          "durationMs": 1272,
+          "detail": {
+            "left": 534,
+            "width": 534,
+            "scrollWidth": 1069
+          }
+        },
+        {
+          "name": "Public gallery actual geometry and controls at 390px",
+          "status": "PASS",
+          "durationMs": 1189,
+          "detail": {
+            "left": 780,
+            "width": 390,
+            "scrollWidth": 1170
+          }
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Staff API mocked in browser; no real SQL or customer data.",
+    "Absolute-expiry browser case injects a 401, not API fake TimeProvider proof.",
+    "No new CI run: no commit, push, PR mutation or merge authorized.",
+    "Local visual recordings are evidence, not Jason visual acceptance.",
+    "Legacy records retain unknown original version; only recovery read in current authorized location; no resend."
+  ],
+  "apiExpiryPrerequisite": {
+    "observedUtc": "2026-11-04T00:21:35.329011+00:00",
+    "status": "NOT_RUN_SDK_BLOCKED",
+    "scope": "Offline TestServer only; no SQL or listener required",
+    "targetFramework": "net10.0",
+    "requestedSdk": {
+      "version": "10.0.402",
+      "rollForward": "disable",
+      "allowPrerelease": false
+    },
+    "installedSdks": [
+      "8.0.422 [C:/Program Files/dotnet/sdk]"
+    ],
+    "dependenciesCached": [
+      "Microsoft.AspNetCore.Mvc.Testing 10.0.13",
+      "Microsoft.EntityFrameworkCore.SqlServer 10.0.13",
+      "Microsoft.NET.Test.Sdk 18.11.0"
+    ],
+    "projectAssetsPresent": false,
+    "command": "dotnet test backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj --no-restore --filter 'FullyQualifiedName~InternalSecurityTests' --logger 'console;verbosity=minimal'",
+    "exit": -2147450735,
+    "failure": "A compatible .NET SDK was not found. Requested SDK version: 10.0.402.",
+    "logSha256": "a7ff2cd1a88e2d7b70dc0eaa9aee218abecd0db83cb283356b7c0e40bd596fef",
+    "attempts": 1,
+    "backendTestAdded": false,
+    "installs": false,
+    "networkRestore": false,
+    "nextOwner": "primary/Jason",
+    "nextAction": "Provide existing compatible SDK path or authorize SDK 10.0.402 installation; alternatively authorize push to an environment with that SDK. Offline API test does not require SQL permission."
+  }
+}

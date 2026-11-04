@@ -54,7 +54,7 @@ Cada modo usa una base nueva; las dos ventas siguientes pertenecen solo a la cor
 | `browser.recover_after_reload` | Solo después del oráculo anterior: recarga; GET operations con la misma clave; mismo recibo; pendiente retirado | Conteos de negocio idénticos; POST acumulados = 2 |
 | `browser.repeated_reload` | Otra recarga; GET del mismo recibo | Sin otra venta/débito/operación |
 | `browser.stock_after_recovery` | Inventario visible: total 27, primer artículo 7 | Conteos de negocio idénticos |
-| `browser.logout` | Logout real; `me` = 401 | 0 sesiones, 2 ventas |
+| `browser.logout` | Logout HTTP 204; URL de login, formulario habilitado; `me` = 401 | 0 sesiones, 2 ventas |
 
 Cada checkpoint vuelve a exigir 2 migraciones y cero violaciones de los invariantes C5.
 Python no confirma el checkpoint al navegador hasta que el helper SQL termina y los oráculos pasan.
@@ -69,8 +69,11 @@ Los cuerpos de peticiones/respuestas, cookies y CSRF permanecen privados.
 
 Chrome usa un perfil temporal privado y permite únicamente el SPKI del certificado efímero de C5.
 No usa `ignoreHTTPSErrors`, no toca almacenes de certificados y bloquea peticiones fuera del origen loopback.
-El padre limita el proceso a 300 segundos y mata solo su grupo de procesos ante fallo o timeout.
-La retirada conserva las guardas de propiedad de la base y exige el readback existente de C5.
+El padre limita el proceso a 300 segundos. CDP identifica Chrome por un canal privado.
+Linux valida su perfil, ascendencia y hora de inicio antes de registrar sus grupos propios de Node y Chrome.
+La retirada usa TERM/KILL solo con identidad confirmada y exige leer la ausencia de ambos grupos.
+Una lectura fallida, identidad reutilizada o proceso persistente impide PASS; conserva las guardas SQL de C5.
+El logout publica solo un código fijo por fase ante fallo; nunca el mensaje crudo del navegador.
 
 `evidence.json` y `oracles.md` incluyen runtime, hashes de fuentes/UI servida/API Release y eventos saneados.
 Conservan staging privado, escaneo de secretos y manifiesto SHA-256 `evidence-approved` de C5.

@@ -400,6 +400,9 @@ class GoldenPath:
         self.previous = None
         self.browser_process = None
         self.browser_exit = None
+        self.browser_groups = {}
+        self.browser_ownership_confirmed = False
+        self.browser_processes_absent = False
         self.browser_evidence = None
 
     # -- evidence ---------------------------------------------------------------------------
@@ -835,30 +838,82 @@ class GoldenPath:
                 raise HarnessError(f'la API terminó durante serve (código {self.api.returncode})')
             time.sleep(1)
 
+    @staticmethod
+    def browser_process_identity(pid):
+        # Linux /proc start time prevents a reused PID from authorizing a signal.
+        fields = (Path('/proc') / str(pid) / 'stat').read_text().rsplit(')', 1)[1].split()
+        return {'pid': pid, 'parent': int(fields[1]), 'group': int(fields[2]), 'start': fields[19]}
+
+    def browser_group_members(self, group):
+        members = {}
+        for entry in Path('/proc').iterdir():
+            if not entry.name.isdecimal():
+                continue
+            try:
+                identity = self.browser_process_identity(int(entry.name))
+            except FileNotFoundError:
+                continue
+            if identity['group'] == group:
+                members[identity['pid']] = identity['start']
+        return members
+
+    def register_browser_group(self, pid, chrome=False):
+        expect(type(pid) is int and pid > 1, 'browser_process_identity_invalid')
+        identity = self.browser_process_identity(pid)
+        expect(identity['group'] == pid, 'browser_process_group_invalid')
+        if chrome:
+            command = (Path('/proc') / str(pid) / 'cmdline').read_bytes().split(b'\0')
+            profile = ('--user-data-dir=' + str(self.private / 'chrome-profile')).encode()
+            expect(profile in command, 'browser_profile_ownership_invalid')
+            parent = identity['parent']
+            for _ in range(32):
+                if parent == self.browser_process.pid:
+                    break
+                expect(parent > 1, 'browser_process_parent_invalid')
+                parent = self.browser_process_identity(parent)['parent']
+            expect(parent == self.browser_process.pid, 'browser_process_parent_invalid')
+        self.browser_groups[pid] = {pid: identity['start']}
+        self.browser_ownership_confirmed = chrome
+
     def stop_browser(self):
-        """Stop only this run's process group, including Chrome descendants after Node failure."""
+        """Retire registered Node/Chrome groups and require a final absence readback."""
         process = self.browser_process
         if not process:
             return self.browser_exit
-        # Node is its own session leader. Kill remaining Chrome children even if Node already exited.
+        absent = False
         try:
-            os.killpg(process.pid, signal.SIGTERM)
-        except ProcessLookupError:
-            pass
-        try:
-            process.wait(timeout=5)
-        except subprocess.TimeoutExpired:
-            pass
-        try:
-            os.killpg(process.pid, signal.SIGKILL)
-        except ProcessLookupError:
-            pass
-        process.wait(timeout=5)
-        for pipe in (process.stdin, process.stdout):
-            if pipe:
-                pipe.close()
-        self.browser_exit = process.returncode
-        self.browser_process = None
+            # Playwright detaches Chrome: retire its group before retiring Node.
+            groups = list(reversed(self.browser_groups))
+            for sig in (signal.SIGTERM, signal.SIGKILL):
+                for group in groups:
+                    members = self.browser_group_members(group)
+                    if not members:
+                        continue
+                    known = self.browser_groups[group]
+                    if not any(known.get(pid) == start for pid, start in members.items()):
+                        continue  # Never signal a group whose ownership cannot be proved.
+                    known.update(members)
+                    try:
+                        os.killpg(group, sig)
+                    except ProcessLookupError:
+                        pass
+                for _ in range(50):
+                    process.poll()  # Reap Node before checking /proc.
+                    if all(not self.browser_group_members(group) for group in groups):
+                        absent = True
+                        break
+                    time.sleep(0.1)
+                if absent:
+                    break
+            self.browser_processes_absent = bool(absent and self.browser_ownership_confirmed)
+        except (OSError, ValueError, IndexError):
+            self.browser_processes_absent = False
+        finally:
+            self.browser_exit = process.poll()
+            for pipe in (process.stdin, process.stdout):
+                if pipe:
+                    pipe.close()
+            self.browser_process = None
         return self.browser_exit
 
     def browser(self):
@@ -928,12 +983,23 @@ class GoldenPath:
                                   'c6_confirmed_storage_invalid', 'c6_dom_stock_invalid', 'c6_receipt_reload_http',
                                   'c6_recovery_not_completed', 'c6_served_source_mismatch', 'c6_session_cookie_flags',
                                   'c6_sale_http', 'c6_loss_interception_failed', 'c6_pending_key_lost',
-                                  'c6_recovery_key_or_post_count', 'c6_logout_or_post_count', 'c6_browser_failed'}
-                raise HarnessError(code if code in allowed_errors else 'browser_protocol_invalid')
+                                  'c6_recovery_key_or_post_count', 'c6_logout_or_post_count', 'c6_browser_failed',
+                                  'c6_browser_process_identity', 'c6_logout_click', 'c6_logout_response',
+                                  'c6_logout_http', 'c6_logout_navigation', 'c6_logout_form', 'c6_logout_me'}
+                code = code if code in allowed_errors else 'browser_protocol_invalid'
+                if self.steps and self.steps[-1]['step'].startswith('browser.'):
+                    self.steps[-1]['error_code'] = code
+                raise HarnessError(code)
             return event
 
         try:
+            self.register_browser_group(process.pid)
             send(config)
+            ownership = receive()
+            expect(isinstance(ownership, dict) and set(ownership) == {'owned_browser_pid'},
+                   'browser_process_identity_invalid')
+            self.register_browser_group(ownership['owned_browser_pid'], chrome=True)
+            send({'ok': True})
             for name in BROWSER_STEPS:
                 sale_count = 2 if BROWSER_STEPS.index(name) >= BROWSER_STEPS.index('browser.response_loss_committed') else (
                     1 if BROWSER_STEPS.index(name) >= BROWSER_STEPS.index('browser.sale_confirmed') else 0)
@@ -996,6 +1062,8 @@ class GoldenPath:
         began = time.monotonic()
         if self.browser_process or self.browser_exit is not None:
             records['browser_exit'] = self.stop_browser()
+            records['browser_ownership_confirmed'] = self.browser_ownership_confirmed
+            records['browser_processes_absent'] = self.browser_processes_absent
         records['api_exit'] = self.stop_api() if self.api else None
         if self.drop_needed:
             dropped = self.helper('drop', self.database, allow_fail=True)
@@ -1085,6 +1153,7 @@ def main(argv=None):
         harness.steps.append({'step': 'teardown.stop_api_drop_database', 'ms': cleanup.get('ms'),
                               'status': 'PASS' if cleanup.get('database_dropped') in (True, 'not_created')
                               and cleanup.get('private_dir_removed') and not cleanup.get('api_log_fail_or_crit')
+                              and (args.mode != 'browser' or cleanup.get('browser_processes_absent') is True)
                               else 'FAIL', **cleanup})
         if harness.steps[-1]['status'] != 'PASS':
             outcome, code = 'FAIL', 1

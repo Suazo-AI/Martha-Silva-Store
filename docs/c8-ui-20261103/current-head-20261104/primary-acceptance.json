@@ -1,0 +1,97 @@
+{
+  "candidatePatchHash": "a0762dc021260f4c8c88b849552c4775c6bef17af06c5338e68e95cd7a221df0",
+  "candidateEqualsCurrentDiff": true,
+  "ledgerPatchHash": "fb0409a4d29f8483b0670f96dcddd2ed6a674431dee2131433f619b692c4c1aa",
+  "ledgerEqualsCurrentDiff": true,
+  "historicalEvidenceHashes": [
+    {
+      "name": "verification.json",
+      "match": true
+    },
+    {
+      "name": "report.md",
+      "match": true
+    },
+    {
+      "name": "verification.json",
+      "match": true
+    },
+    {
+      "name": "primary-acceptance.json",
+      "match": true
+    },
+    {
+      "name": "expiry-test.sanitized.trx",
+      "match": true
+    },
+    {
+      "name": "security-regressions.sanitized.trx",
+      "match": true
+    }
+  ],
+  "protectedHashesMatch": true,
+  "backendAddedFactCount": 1,
+  "observedUtc": "2026-11-04T01:59:00.310003+00:00",
+  "host": "SUAZO-PC",
+  "batch": {
+    "workers": {
+      "model": "gpt-6.1-sol",
+      "reasoning": "high",
+      "reused": [
+        "c8_ui",
+        "c8_api_expiry"
+      ]
+    },
+    "judge": {
+      "model": "gpt-6.1-sol",
+      "reasoning": "xhigh",
+      "reused": "c8_judge"
+    },
+    "maxConcurrent": 2
+  },
+  "frozenHead": "260b75951729189d987ffe423218ab1643bcfa3c",
+  "dependencyBlobsCheckedByPrimary": 71,
+  "dependencyMismatches": 0,
+  "c4PrivateOracle": {
+    "comparison": "six complete sets equal; provenance differs by origin",
+    "privateHashMatchesFreeze": true,
+    "counts": {
+      "history": 2,
+      "tables": 19,
+      "checks": 32,
+      "foreign_keys": 26,
+      "indexes": 37,
+      "primary_keys": 19
+    },
+    "privateValuesExported": false
+  },
+  "verdict": {
+    "C4": "5/5 verified; formal Jason acceptance pending",
+    "C5": "4/4 verified; formal Jason acceptance pending",
+    "C7": "5/6 verified; literal zero-writes remains incomplete",
+    "C8": "4/5; exact candidate CI pending"
+  },
+  "newTestsExecuted": 0,
+  "backendTotalWithNewFact": {
+    "expected": 600,
+    "observed": false,
+    "derivation": "599 existing CI cases + one new Fact; full combined suite NOT RUN"
+  },
+  "canonicalSharedFilesEditedByThisBatch": [],
+  "resourcesStarted": [],
+  "commit": false,
+  "push": false,
+  "merge": false,
+  "deploy": false,
+  "securityChanges": false,
+  "acceptance": "Portable local C8 candidate and technical review accepted by primary; no claim of CI for new C8 bytes or formal Jason acceptance of C4/C5.",
+  "trelloReadback": "../../technical-ready-review-20261104/trello-readback.json",
+  "trelloVerifiedCounts": {
+    "C4": "5/5",
+    "C5": "4/4",
+    "C7": "5/6",
+    "C8": "4/5"
+  },
+  "finalWorktreeState": "C8 intentionally dirty; judge snapshot clean",
+  "ownRuntimeProcessesDetected": 0
+}

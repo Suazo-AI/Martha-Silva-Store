@@ -1,0 +1,14 @@
+{
+  "time": "2026-11-04T00:01:28.449317+00:00",
+  "host": "SUAZO-PC",
+  "baseline": "775f301bc195c43baedc68c86f4e71affe92ef95",
+  "canonicalHead": "20932d5c97f2caaafad7dc888879957791907f36",
+  "worktree": "C:/Users/Jason/MARTHA-SILVA/test-runs/c8-n2-n6-n7-20261103",
+  "branch": "task/c8-n2-n6-n7-20261103",
+  "processInventoryCount": 637,
+  "matchingExternalExecutors": [],
+  "otherKnownChat": "Validar regresion N5: idle completed via wait_threads",
+  "previousWorkers": "c3_n5 and pr2_judge: completed",
+  "freeRAMGiBObserved": 6,
+  "noPublish": true
+}

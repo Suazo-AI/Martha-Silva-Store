@@ -1,0 +1,8 @@
+{
+  "observedUtc": "2026-11-04T02:01:19.8180637Z",
+  "host": "SUAZO-PC",
+  "scope": "Only reused-agent C8 candidate and C4/C5/C7 snapshot; other chats retain C6/C9",
+  "matchedRuntimeProcesses": [],
+  "resourcesStopped": [],
+  "sharedResourcesChanged": false
+}

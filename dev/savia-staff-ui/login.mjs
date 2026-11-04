@@ -33,8 +33,12 @@ export function readStaff(value) {
 }
 export function createAuthClient({fetchImpl = globalThis.fetch, timeoutMs = 10000, onUnauthorized = () => {}} = {}) {
   if (typeof fetchImpl !== 'function') throw new Error('El transporte del servidor no está disponible.');
-  let csrf = null, session = null;
+  let csrf = null, session = null, epoch = 0, sessionRead = 0;
+  const current = generation => {
+    if (generation !== epoch) throw new StaffRequestError('unauthorized', 401);
+  };
   async function request(path, {method = 'GET', body, csrfToken, idempotencyKey, allowEmpty = false} = {}) {
+    const generation = epoch;
     const controller = new AbortController(); let timer;
     try {
       const headers = {Accept: 'application/json'};
@@ -49,8 +53,9 @@ export function createAuthClient({fetchImpl = globalThis.fetch, timeoutMs = 1000
           controller.abort(); reject(new StaffRequestError('unavailable'));
         }, timeoutMs); }),
       ]);
+      current(generation);
       if (response.status === 401) {
-        session = null; csrf = null; onUnauthorized();
+        ++epoch; session = null; csrf = null; onUnauthorized();
         const error = new StaffRequestError('unauthorized', 401);
         if (path === SECURITY_PATHS.login) error.message = 'Usuario o contraseña inválidos. Revisá tus datos de acceso.';
         throw error;
@@ -67,28 +72,39 @@ export function createAuthClient({fetchImpl = globalThis.fetch, timeoutMs = 1000
       if (allowEmpty && response.status === 204) return null;
       const type = response.headers.get('content-type')?.split(';')[0].trim().toLowerCase();
       if (type !== 'application/json') throw new StaffRequestError('response', response.status);
-      try { return await response.json(); } catch { throw new StaffRequestError('response', response.status); }
+      let value;
+      try { value = await response.json(); } catch { throw new StaffRequestError('response', response.status); }
+      current(generation);
+      return value;
     } catch (error) {
       if (error instanceof StaffRequestError) throw error;
       throw new StaffRequestError('unavailable');
     } finally { clearTimeout(timer); }
   }
   async function renewCsrf() {
+    const generation = epoch;
     const value = await request(SECURITY_PATHS.csrf);
+    current(generation);
     if (value?.headerName !== 'X-CSRF-TOKEN' || typeof value.token !== 'string'
       || !/^[\x21-\x7e]{1,4096}$/.test(value.token)) throw new StaffRequestError('response');
     csrf = value.token;
   }
   async function getSession() {
-    session = null;
-    try { session = readStaff(await request(SECURITY_PATHS.me)); return session; }
-    catch (error) { session = null; throw error; }
+    const generation = epoch, verification = ++sessionRead;
+    session = null; csrf = null;
+    try {
+      const verified = readStaff(await request(SECURITY_PATHS.me));
+      current(generation);
+      if (verification !== sessionRead) throw new StaffRequestError('unauthorized', 401);
+      ++epoch; session = verified; return session;
+    }
+    catch (error) { if (generation === epoch) session = null; throw error; }
   }
   async function login({loginName, password}) {
     if (typeof loginName !== 'string' || !loginName.trim() || typeof password !== 'string' || !password) {
       throw new StaffRequestError('invalid');
     }
-    session = null; await renewCsrf();
+    ++epoch; session = null; csrf = null; await renewCsrf();
     const result = await request(SECURITY_PATHS.login, {method: 'POST', csrfToken: csrf, body: {loginName, password}});
     const reported = readStaff(result?.staff);
     if (typeof result.expiresAt !== 'string' || !Number.isFinite(Date.parse(result.expiresAt))) throw new StaffRequestError('response');
@@ -98,7 +114,7 @@ export function createAuthClient({fetchImpl = globalThis.fetch, timeoutMs = 1000
     return verified;
   }
   async function logout() {
-    session = null;
+    ++epoch; session = null; csrf = null;
     await renewCsrf();
     await request(SECURITY_PATHS.logout, {method: 'POST', csrfToken: csrf, allowEmpty: true});
     csrf = null; session = null;
@@ -106,12 +122,15 @@ export function createAuthClient({fetchImpl = globalThis.fetch, timeoutMs = 1000
   return Object.freeze({prepareLogin: renewCsrf, login, getSession, logout,
     requestBusiness: async (path, {method = 'GET', body, key} = {}) => {
       if (!session) throw new StaffRequestError('unauthorized', 401);
+      const generation = epoch;
       const sale = path === '/internal/api/commerce/sales' && method === 'POST';
       const read = method === 'GET' && (/^\/internal\/api\/commerce\/inventory\?locationId=[0-9a-f-]+&skip=\d+&take=100$/i.test(path)
         || /^\/internal\/api\/commerce\/sales\/[0-9a-f-]+$/i.test(path));
       const recovery = method === 'GET' && path === '/internal/api/operations/commerce.sale.record';
       if (!(sale || read || recovery) || ((sale || recovery) && !guid(key))) throw new StaffRequestError('invalid');
       if (sale) await renewCsrf();
+      current(generation);
+      if (!session) throw new StaffRequestError('unauthorized', 401);
       return request(path, {method, body, idempotencyKey: key, csrfToken: sale ? csrf : undefined});
     },
     getVerifiedSession: () => session,

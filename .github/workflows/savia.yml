@@ -141,8 +141,8 @@ jobs:
             --logger 'trx;LogFileName=restart.trx' --results-directory "$RUNNER_TEMP/savia-results" > "$RUNNER_TEMP/savia-restart.log" 2>&1
       - name: Require every case executed and passed; sanitize evidence
         if: ${{ always() }}
-        # 599 = every case on 2026-11-04 (592 + 7 from C4/C7). Raise it when tests are added; losing cases fails the job.
-        run: python3 backend/tests/verify_full_suite.py --min-tests 599 "$RUNNER_TEMP/savia-results"
+        # 600 = every case on 2026-11-04 (592 + 7 from C4/C7 + 1 C8 absolute-expiry test).
+        run: python3 backend/tests/verify_full_suite.py --min-tests 600 "$RUNNER_TEMP/savia-results"
       - name: Upload sanitized outcomes only
         if: ${{ always() }}
         uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0

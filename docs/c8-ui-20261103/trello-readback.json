@@ -1,0 +1,83 @@
+{
+  "id": "6aea5de74b0da8bdf86eff30",
+  "name": "C8 [Denis Alvarez · A] N2, N6 y N7 en la interfaz",
+  "idList": "6aea5d677e8b3123293bcaa8",
+  "desc": "**Objetivo**\nN2, N6 y N7 en la interfaz:\n- Recargar y recuperar el **mismo intento**.\n- Venta incierta durante cambio de identidad **conserva la clave** y no reenvía como otro actor.\n- Logout, expiración absoluta (`TimeProvider` falso en la API) y revocación, **descartando respuestas tardías tras 401**.\n\n**Dueño y carril**\nDenis Alvarez · carril A.\n\n**Bloqueado por**\nNinguno por C3: C3 cerrada el 2026-11-03 con revision independiente aceptada por Jason, head 775f301bc195c43baedc68c86f4e71affe92ef95.\n\n**Bloquea**\nC11.\n\n**Archivos**\n- `dev/savia-staff-ui/**`\n- `tests/browser-mock-validation.mjs`\n\n**Verificación**\n- Pruebas nuevas en `tests/browser-mock-validation.mjs` en verde.\n- Rojo-verde: cada prueba falla sin el cambio de UI correspondiente.\n- Arnés de navegador completo en verde; CI del PR en verde.\n\n**Evidencia esperada**\nSalida del arnés (casos N2, N6, N7 y total), navegador y versión, run de CI.\n\n**Criterio de cierre**\nN2, N6 y N7 cubiertos en la interfaz con pruebas rojo-verde; CI en verde.\n\n**Plantilla READY**\n```\nPara mover a \"En revisión\", comentar:\nREADY\nPR: <url>\nhead: <sha40>\nbase: origin/main@<sha40>\nci: <run url> passed=<k> failed=0 pending=0 skipped=<s>\nevidencia: <ruta o run>\nno ejecutado: <qué y por qué>\n```\n## C8: avance local 2026-11-03\nImplementacion y validacion local realizadas de forma aislada, sin cierre integral de C8.\nBase: 775f301bc195c43baedc68c86f4e71affe92ef95; rama local task/c8-n2-n6-n7-20261103. Sin commit/push.\nN2 ya funcionaba: nuevas pruebas Cashier, Owner y Manager confirman misma clave y un solo POST tras recargas.\nN6: intento ligado a version del actor, clave conservada y reenvio bloqueado al cambiar identidad/ambito. Legado sin version no puede reenviar; recuperacion limitada al ambito actual autorizado.\nN7: se descartan respuestas tardias y se evita POST que esperaba CSRF tras 401/logout.\nChrome 156.0.8078.80: enfocado 9/9 PASS, completo 45/45 PASS. Staff JS 45/45 PASS.\nRojo con solo app revertido: 7 PASS / 2 FAIL. Solo login revertido: 6 PASS / 3 FAIL. Producto restaurado; pruebas conservadas.\nRevision independiente gpt-6.1-sol xhigh: APTO CON REPAROS, sin defecto nuevo accionable.\nPendiente N7 API: expiracion absoluta con TimeProvider falso. Proyecto net10.0, host SDK 8.0.422; prueba browser absolute-expiry solo simula 401. No se instalo SDK ni se toco SQL.\nPendiente CI del nuevo candidato: no puede acreditarse con CI del head anterior. No se hizo push por instruccion de Jason.\nEvidencia: C:/Users/Jason/MARTHA-SILVA/github/docs/c8-ui-20261103/ (report.md, verification.json, independent-review.md, ui.patch).\nC11 conserva dependencia C8 hasta completar los criterios pendientes. Sin merge, despliegue ni cambios de configuracion de seguridad.\n",
+  "url": "https://trello.com/c/61IxxolB/11-c8-denis-alvarez-a-n2-n6-y-n7-en-la-interfaz",
+  "checklists": [
+    {
+      "id": "6aea5dfd3a346182e7386fd5",
+      "name": "Criterios de cierre",
+      "idBoard": "6aea5bcd3e4793672218d44c",
+      "idCard": "6aea5de74b0da8bdf86eff30",
+      "pos": 140737488355328,
+      "checkItems": [
+        {
+          "id": "6aea5e7e23ddd453210c01fd",
+          "name": "Recargar y recuperar el mismo intento",
+          "nameData": {
+            "emoji": {}
+          },
+          "pos": 1,
+          "state": "complete",
+          "due": null,
+          "dueReminder": null,
+          "idMember": null,
+          "idChecklist": "6aea5dfd3a346182e7386fd5"
+        },
+        {
+          "id": "6aea5e7e0403a1cb8e099584",
+          "name": "Venta incierta durante cambio de identidad conserva la clave y no reenvía como otro actor",
+          "nameData": {
+            "emoji": {}
+          },
+          "pos": 2,
+          "state": "complete",
+          "due": null,
+          "dueReminder": null,
+          "idMember": null,
+          "idChecklist": "6aea5dfd3a346182e7386fd5"
+        },
+        {
+          "id": "6aea5e7f8e4e33b9e808f455",
+          "name": "Logout, expiración absoluta (TimeProvider falso en la API) y revocación descartan respuestas tardías tras 401",
+          "nameData": {
+            "emoji": {}
+          },
+          "pos": 3,
+          "state": "incomplete",
+          "due": null,
+          "dueReminder": null,
+          "idMember": null,
+          "idChecklist": "6aea5dfd3a346182e7386fd5"
+        },
+        {
+          "id": "6aea5e801d9f61a330573226",
+          "name": "Pruebas rojo-verde en tests/browser-mock-validation.mjs y arnés completo en verde",
+          "nameData": {
+            "emoji": {}
+          },
+          "pos": 4,
+          "state": "complete",
+          "due": null,
+          "dueReminder": null,
+          "idMember": null,
+          "idChecklist": "6aea5dfd3a346182e7386fd5"
+        },
+        {
+          "id": "6aea5e8098e764681b30eac2",
+          "name": "CI en verde",
+          "nameData": {
+            "emoji": {}
+          },
+          "pos": 5,
+          "state": "incomplete",
+          "due": null,
+          "dueReminder": null,
+          "idMember": null,
+          "idChecklist": "6aea5dfd3a346182e7386fd5"
+        }
+      ]
+    }
+  ]
+}

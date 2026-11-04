@@ -12,8 +12,15 @@ El servidor aplica sesión, permisos, ámbito de sucursal y CSRF. Ocultar botone
 
 La UI ya tiene venta y recuperación implementadas. El catálogo global y las existencias por sucursal son lecturas diferentes.
 Una pérdida de respuesta requiere recuperar el intento original; no fabricar éxito ni generar una venta equivalente.
-N5 permanece abierto: restaurar un recibo confirmado con 404 crea un falso estado pendiente y bloquea ventas nuevas.
+N5 está corregido en la base `775f301bc195c43baedc68c86f4e71affe92ef95`.
 Fuente reproducible: `Stale confirmed receipt` de [browser-mock-validation.mjs](../../tests/browser-mock-validation.mjs).
+
+C8 añade la versión del actor a los intentos nuevos y conserva su clave durante cambios de acceso.
+Una versión distinta o una ubicación fuera del ámbito actual bloquean recuperación y reenvío del intento.
+Los intentos históricos sin versión pueden consultar su recuperación si la ubicación sigue autorizada; no pueden reenviarse.
+No se asigna una versión nueva a un intento histórico ni se borra su referencia para desbloquear ventas.
+Un 401 o logout invalida respuestas tardías y evita enviar una venta que todavía espera CSRF.
+Ver [evidencia local y límites de C8](../../docs/c8-ui-20261103/report.md).
 
 ## Evidencia y comprobaciones
 

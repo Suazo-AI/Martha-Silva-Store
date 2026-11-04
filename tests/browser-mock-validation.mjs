@@ -45,7 +45,7 @@ const place={id:id(3),branchId:id(4),name:'Synthetic branch A',active:true};
 const body={locationId:place.id,customerId:null,lines:[{itemId:item.id,quantity:1}]};
 const receipt={saleId:id(5),actorId:actor.id,locationId:place.id,customerId:null,currency:'NIO',totalMinor:10000,state:'recorded',paymentStatus:'not_processed',createdAt:'2026-11-03T12:00:00Z',lines:[{saleLineId:id(6),itemId:item.id,sku:item.sku,name:item.name,quantity:1,returnedQuantity:0,unitPriceMinor:10000,totalMinor:10000}]};
 const party={id:id(10),name:'Synthetic customer <img src=x onerror=alert(1)>',active:true,kind:'customer',email:'synthetic@example.invalid',phone:''};
-async function save(){await writeFile(path.join(out,'browser-results.json'),JSON.stringify({observedUtc:new Date().toISOString(),host:process.env.COMPUTERNAME,layer:'Real Chromium browser; mocked staff API; public browser-local demo',origin,sourceHashes:sources,results,runtime,externalRequests,networkFailures},null,2));}
+async function save(){await writeFile(path.join(out,'browser-results.json'),JSON.stringify({observedUtc:new Date().toISOString(),host:process.env.COMPUTERNAME,node:process.version,browser:browser.version(),layer:'Real Chromium browser; mocked staff API; public browser-local demo',origin,sourceHashes:sources,results,runtime,externalRequests,networkFailures},null,2));}
 async function test(name,fn){
   if(testMatch&&!name.includes(testMatch))return;
   const start=Date.now();try{const detail=await fn();results.push({name,status:'PASS',durationMs:Date.now()-start,...(detail?{detail}:{})});}
@@ -53,10 +53,11 @@ async function test(name,fn){
   await save(); console.log(`${results.at(-1).status} ${name}`);
 }
 async function setup(options={}){
-  const ctx=await browser.newContext({viewport:options.mobile?{width:390,height:844}:{width:1440,height:1000},serviceWorkers:'block'});
+  const viewport=options.mobile?{width:390,height:844}:{width:1440,height:1000};
+  const ctx=await browser.newContext({viewport,serviceWorkers:'block',...(process.env.MARTHA_BROWSER_RECORD_VIDEO?{recordVideo:{dir:path.join(out,'videos'),size:viewport}}:{})});
   const page=await ctx.newPage();page.setDefaultTimeout(5000);
   const state={session:options.session!==false,role:options.role||'Owner',sales:[],calls:[],...options};
-  const currentActor=()=>({...actor,role:state.role});
+  const currentActor=()=>({...actor,role:state.role,...state.identity});
   const json=(route,data,status=200)=>route.fulfill({status,contentType:'application/json',body:JSON.stringify(data)});
   page.on('pageerror',e=>runtime.push({test:state.label||'',error:e.message}));
   page.on('requestfailed',r=>networkFailures.push({test:state.label||'',path:new URL(r.url()).pathname,error:r.failure()?.errorText}));
@@ -90,7 +91,7 @@ async function setup(options={}){
     if(p.includes('/commerce/sales/'))return json(route,receipt);
     return json(route,{code:'unhandled_mock_route'},501);
   });
-  return {ctx,page,state,json,close:()=>ctx.close()};
+  return {ctx,page,state,json,close:async()=>{const video=page.video();await ctx.close();if(video&&state.label)await video.saveAs(path.join(out,'videos',state.label+'.webm'));}};
 }
 async function withStaff(options,fn){const s=await setup(options);try{return await fn(s);}finally{await s.close();}}
 async function ready(s){await s.page.goto(origin+'/internal/');await expect(s.page.locator('#staff-shell')).toBeVisible();}
@@ -137,6 +138,86 @@ try{
   await test('Malformed receipt leaves operation recoverable and blocks new sale',()=>withStaff({override:async({route,p,method,json})=>{if(p.endsWith('/sales')&&method==='POST'){await json(route,{...receipt,totalMinor:1});return true;}}},async s=>{await sales(s);await s.page.locator('#sale-submit').click();await expect(s.page.locator('#sale-status')).toContainText('contrato');await expect(s.page.locator('#sale-submit')).toBeDisabled();await expect(s.page.locator('#sale-receipt')).toBeHidden();}));
   await test('Confirmed rejected recovery unlocks only the rejected attempt',()=>withStaff({override:async({route,p,method,json})=>{if(p.endsWith('/sales')&&method==='POST'){await route.abort();return true;}if(p.includes('/operations/')){await json(route,{status:'completed',result:{success:false,value:null,error:'stock_unavailable'}});return true;}}},async s=>{await sales(s);await s.page.locator('#sale-submit').click();await expect(s.page.locator('#sale-recover')).toBeEnabled();await s.page.locator('#sale-recover').click();await expect(s.page.locator('#sale-submit')).toBeEnabled();await expect(s.page.locator('#sale-receipt')).toBeHidden();}));
   await test('Logout uses CSRF, clears private view and returns to login',()=>withStaff({},async s=>{await ready(s);await s.page.locator('[data-action="logout"]').click();await s.page.waitForURL('**/internal/login');assert.ok(s.state.calls.find(x=>x.path.endsWith('/logout')).hasCsrf);assert.equal(s.state.session,false);}));
+  for(const role of ['Cashier','Owner','Manager'])await test(`N2 ${role} reload recovers the same uncertain attempt without another sale (C8)`,()=>withStaff({role,label:`n2-${role.toLowerCase()}`,override:async({route,p,method,state,req})=>{
+    if(p.endsWith('/sales')&&method==='POST'){state.sales.push({key:req.headers()['idempotency-key'],payload:req.postDataJSON()});await route.abort('failed');return true;}
+  }},async s=>{
+    await sales(s);await s.page.locator('#sale-submit').click();await expect(s.page.locator('#sale-recover')).toBeEnabled();
+    const original=s.state.sales[0];assert.deepEqual(original.payload,body);
+    await s.page.reload();await s.page.locator('[data-target="ventas"][data-action="nav"]').click();await expect(s.page.locator('#sale-receipt')).toBeVisible();
+    assert.equal(s.state.sales.length,1);assert.deepEqual(s.state.calls.filter(x=>x.path.includes('/operations/')).map(x=>x.key),[original.key]);
+    await expect(s.page.locator('#sale-receipt')).toContainText(receipt.saleId);await expect(s.page.locator('#sale-receipt')).toContainText('100');
+    await s.page.reload();await s.page.locator('[data-target="ventas"][data-action="nav"]').click();await expect(s.page.locator('#sale-receipt')).toContainText(receipt.saleId);
+    assert.equal(s.state.sales.length,1);assert.equal(s.state.calls.filter(x=>x.path.includes('/operations/')).length,1);
+    return {key:original.key,saleId:receipt.saleId,posts:s.state.sales.length};
+  }));
+  await test('N6 changing actor keeps the uncertain key private and never replays it as the new actor (C8)',()=>withStaff({role:'Cashier',label:'n6-other-actor',override:async({route,p,method,state,req})=>{
+    if(p.endsWith('/sales')&&method==='POST'){state.sales.push({key:req.headers()['idempotency-key'],payload:req.postDataJSON()});await route.abort('failed');return true;}
+  }},async s=>{
+    await sales(s);await s.page.locator('#sale-submit').click();await expect(s.page.locator('#sale-recover')).toBeEnabled();
+    const key=s.state.sales[0].key,storageKey=`savia.sale.pending.${actor.id}`;const original=await s.page.evaluate(k=>sessionStorage.getItem(k),storageKey);
+    s.state.identity={id:id(180),version:id(181),displayName:'Synthetic new cashier'};
+    await s.page.reload();await s.page.locator('[data-target="ventas"][data-action="nav"]').click();await expect(s.page.locator('#sale-submit')).toBeEnabled();
+    await expect(s.page.locator('#sale-receipt')).toBeEmpty();await expect(s.page.locator('#sale-recover')).toBeHidden();
+    assert.equal(await s.page.evaluate(k=>sessionStorage.getItem(k),storageKey),original);assert.equal(s.state.sales.length,1);assert.equal(s.state.calls.filter(x=>x.path.includes('/operations/')).length,0);
+    const keys=await s.page.evaluate(()=>Object.keys(sessionStorage).filter(k=>k.startsWith('savia.sale.pending.')));assert.deepEqual(keys,[storageKey]);return {originalKey:key,pendingKeys:keys.length};
+  }));
+  await test('N6 changed actor version preserves the attempt and blocks recovery and resend under the new scope (C8)',()=>withStaff({role:'Cashier',mobile:true,label:'n6-changed-version',override:async({route,p,method,state,req})=>{
+    if(p.endsWith('/sales')&&method==='POST'){state.sales.push({key:req.headers()['idempotency-key'],payload:req.postDataJSON()});await route.abort('failed');return true;}
+  }},async s=>{
+    await sales(s);await s.page.locator('#sale-submit').click();await expect(s.page.locator('#sale-recover')).toBeEnabled();
+    const storageKey=`savia.sale.pending.${actor.id}`,original=await s.page.evaluate(k=>sessionStorage.getItem(k),storageKey);
+    s.state.identity={version:id(182)};await s.page.reload();await s.page.locator('[data-target="ventas"][data-action="nav"]').click();await expect(s.page.locator('#sale-item option')).toHaveCount(1);
+    await expect(s.page.locator('#sale-status')).toContainText('acceso cambió');await expect(s.page.locator('#sale-submit')).toBeDisabled();await expect(s.page.locator('#sale-recover')).toBeDisabled();await expect(s.page.locator('#sale-retry')).toBeDisabled();
+    await expect(s.page.locator('#sale-receipt')).toBeEmpty();assert.equal(await s.page.evaluate(k=>sessionStorage.getItem(k),storageKey),original);
+    assert.equal(s.state.calls.filter(x=>x.path.includes('/operations/')).length,0);assert.equal(s.state.sales.length,1);
+    return {preservedKey:JSON.parse(original).key,posts:s.state.sales.length};
+  }));
+  await test('N6 legacy attempt outside the current authorized locations stays private and cannot be replayed (C8)',()=>withStaff({role:'Cashier',label:'n6-legacy-scope',override:async({route,p,json})=>{
+    if(p.endsWith('/directory/locations')){await json(route,{items:[{...place,id:id(183),branchId:id(184),name:'Synthetic branch B'}],total:1,skip:0,take:100});return true;}
+  }},async s=>{
+    const pendingKey=id(185),original=JSON.stringify({key:pendingKey,body});
+    await s.page.goto(origin+'/internal/login');await s.page.evaluate(({key,value})=>sessionStorage.setItem(key,value),{key:`savia.sale.pending.${actor.id}`,value:original});
+    await ready(s);await s.page.locator('[data-target="ventas"][data-action="nav"]').click();await expect(s.page.locator('#sale-item option')).toHaveCount(1);
+    await expect(s.page.locator('#sale-status')).toContainText('acceso cambió');await expect(s.page.locator('#sale-submit')).toBeDisabled();await expect(s.page.locator('#sale-recover')).toBeDisabled();await expect(s.page.locator('#sale-retry')).toBeDisabled();await expect(s.page.locator('#sale-receipt')).toBeEmpty();
+    assert.equal(await s.page.evaluate(k=>sessionStorage.getItem(k),`savia.sale.pending.${actor.id}`),original);assert.equal(s.state.calls.filter(x=>x.path.includes('/operations/')).length,0);assert.equal(s.state.sales.length,0);
+    return {preservedKey:pendingKey,legacyVersion:'unknown; never rebound',posts:s.state.sales.length};
+  }));
+  for(const reason of ['revoked','absolute-expiry'])await test(`N7 ${reason} mocked 401 discards late stock and cancels a sale waiting for CSRF (C8)`,()=>withStaff({role:'Cashier',label:`n7-${reason}`},async s=>{
+    await sales(s);let releaseCsrf,releaseStock,csrfHeld=false;const originalCalls=s.state.calls.length;
+    s.state.override=async({route,p,json})=>{
+      if(p.endsWith('/csrf')){csrfHeld=true;await new Promise(r=>releaseCsrf=r);await json(route,{headerName:'X-CSRF-TOKEN',token:'synthetic-delayed-csrf'});return true;}
+      if(p.endsWith('/commerce/inventory')&&!releaseStock){await new Promise(r=>releaseStock=r);await json(route,{items:[{itemId:item.id,locationId:place.id,onHand:3,reserved:0,available:3}],total:1,skip:0,take:100});return true;}
+      if(p.endsWith('/directory/items')&&csrfHeld){await json(route,{code:reason},401);return true;}
+    };
+    // Start stock before the sale, then use an independent directory read to return 401.
+    await s.page.locator('[data-target="inventario"][data-action="nav"]').click();await expect.poll(()=>!!releaseStock).toBe(true);
+    await s.page.locator('[data-target="ventas"][data-action="nav"]').click();await s.page.locator('#sale-submit').click();await expect.poll(()=>csrfHeld).toBe(true);
+    const original=await s.page.evaluate(k=>sessionStorage.getItem(k),`savia.sale.pending.${actor.id}`);
+    await s.page.locator('[data-target="inventario"][data-action="nav"]').click();await expect(s.page.locator('#auth-required')).toBeVisible();
+    const csrfResponse=s.page.waitForResponse(r=>r.url().endsWith('/csrf'));releaseCsrf();await csrfResponse;
+    const stockResponse=s.page.waitForResponse(r=>r.url().includes('/commerce/inventory'));releaseStock();await stockResponse;
+    await s.page.waitForLoadState('networkidle');await expect(s.page.locator('#staff-shell')).toBeHidden();await expect(s.page.locator('#stock-table')).toBeEmpty();await expect(s.page.locator('#sale-receipt')).toBeEmpty();
+    assert.equal(s.state.calls.slice(originalCalls).filter(x=>x.method==='POST'&&x.path.endsWith('/sales')).length,0,'A sale was sent after 401 while its CSRF request was in flight.');
+    assert.equal(await s.page.evaluate(k=>sessionStorage.getItem(k),`savia.sale.pending.${actor.id}`),original);assert.equal(s.state.sales.length,0);
+    // Native controls and synthetic submits must remain closed after the denial.
+    const calls=s.state.calls.length;await s.page.locator('#sale-form').dispatchEvent('submit');await s.page.waitForLoadState('networkidle');assert.equal(s.state.calls.length,calls);
+    return {reason,layer:'mocked browser 401 only; API TimeProvider NOT RUN',preservedKey:JSON.parse(original).key};
+  }));
+  await test('N7 logout cancels a sale awaiting CSRF and discards its late response (C8)',()=>withStaff({role:'Cashier',label:'n7-logout'},async s=>{
+    await sales(s);let releaseCsrf,releaseLogout,csrfCalls=0;
+    s.state.override=async({route,p,json})=>{
+      if(p.endsWith('/csrf')&&++csrfCalls===1){await new Promise(r=>releaseCsrf=r);await json(route,{headerName:'X-CSRF-TOKEN',token:'synthetic-delayed-csrf'});return true;}
+      if(p.endsWith('/logout')){s.state.session=false;await new Promise(r=>releaseLogout=r);await route.fulfill({status:204,body:''});return true;}
+    };
+    await s.page.locator('#sale-submit').click();await expect.poll(()=>!!releaseCsrf).toBe(true);await s.page.locator('[data-action="logout"]').click();await expect.poll(()=>!!releaseLogout).toBe(true);
+    const csrfResponse=s.page.waitForResponse(r=>r.url().endsWith('/csrf'));releaseCsrf();await csrfResponse;
+    // The logout response stays in flight. Wait for the released CSRF body and browser task queue,
+    // rather than networkidle, which cannot occur until that deliberately held logout completes.
+    await s.page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+    assert.equal(s.state.calls.filter(x=>x.method==='POST'&&x.path.endsWith('/sales')).length,0,'A sale waiting for CSRF was sent after logout began.');
+    await expect(s.page.locator('#stock-table')).toBeEmpty();await expect(s.page.locator('#sale-receipt')).toBeEmpty();releaseLogout();await s.page.waitForURL('**/internal/login');
+    assert.ok(s.state.calls.find(x=>x.path.endsWith('/logout')).hasCsrf);return {posts:s.state.sales.length};
+  }));
   await test('Stale confirmed receipt 404 must not permanently block a fresh sale (N5)',()=>withStaff({role:'Cashier',override:async({route,p,json})=>{if(p.endsWith('/sales/'+receipt.saleId)){await json(route,{code:'not_found'},404);return true;}}},async s=>{
     await s.page.goto(origin+'/internal/login');await s.page.evaluate(({key,value})=>sessionStorage.setItem(key,value),{key:`savia.sale.receipt.${actor.id}`,value:receipt.saleId});await ready(s);await s.page.locator('[data-target="ventas"][data-action="nav"]').click();
     await expect(s.page.locator('#sale-item option')).toHaveCount(1);await expect(s.page.locator('#sale-status')).toContainText('servidor');

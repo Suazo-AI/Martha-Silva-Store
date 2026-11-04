@@ -411,17 +411,23 @@ export function mountCommerce({document, client, getSession, onUnauthorized}) {
   const receiptKey = id => `savia.sale.receipt.${id}`;
   const storage = () => document.defaultView.sessionStorage;
   const current = (g, id) => generation === g && getSession()?.id === id;
+  const changedScope = () => !!pending?.key && ((!!pending.actorVersion && pending.actorVersion !== getSession()?.version)
+    || !locations.some(location => location.id === pending.body?.locationId));
   function lock() {
     const allowed = !!actor && getSession()?.id === actor && ['Owner','Manager','Cashier'].includes(getSession()?.role);
     for (const control of form.elements) control.disabled = !allowed || busy || !!pending || !items.length || !locations.length;
     $('stock-location').disabled = !actor || busy || !locations.length;
     $('stock-refresh').disabled = !actor || busy || !locations.length;
-    for (const id of ['sale-recover','sale-retry']) { $(id).hidden = !pending; $(id).disabled = busy || !allowed || !pending?.key; }
+    for (const id of ['sale-recover','sale-retry']) {
+      $(id).hidden = !pending;
+      $(id).disabled = busy || !allowed || !pending?.key || changedScope()
+        || (id === 'sale-retry' && pending.actorVersion !== getSession()?.version);
+    }
   }
   function fail(error, target = 'sale-status') {
     if (error?.status === 401) { onUnauthorized(); return; }
     $(target).textContent = error instanceof StaffRequestError ? error.message : 'No se pudo confirmar la respuesta. Volvé a comprobarla.';
-    if (pending && target === 'sale-status') $(target).textContent += ' La venta sigue sin confirmar. Comprobala o reintentá la misma venta.';
+    if (pending && target === 'sale-status') $(target).textContent += ' La venta sigue sin confirmar. Comprobala con la clave original.';
   }
   function clear() {
     ++generation; ++stockRead; actor=null; pending=null; busy=false; items=[]; locations=[];
@@ -484,7 +490,8 @@ export function mountCommerce({document, client, getSession, onUnauthorized}) {
     $('sale-status').textContent = `${notice} ${$('sale-status').textContent}`;
   }
   async function resolve(mode) {
-    if(busy || !pending || !actor) return;
+    if(busy || !pending || !actor || changedScope()
+      || (mode==='record' && pending.actorVersion !== getSession()?.version)) return;
     const operation=pending, id=actor, g=generation; busy=true; lock(); $('sale-status').textContent= mode==='recover' ? 'Comprobando la venta original…' : 'Esperando confirmación del servidor…';
     try {
       const receipt=await (mode==='recover' ? client.recoverSale(operation.key,operation.body) : client.recordSale(operation.key,operation.body));
@@ -522,6 +529,11 @@ export function mountCommerce({document, client, getSession, onUnauthorized}) {
         if(!value || typeof value.key!=='string' || !/^[0-9a-f-]{36}$/i.test(value.key) || !value.body) throw new StaffRequestError('response');
         pending=value;
       }
+      if(changedScope()) {
+        $('sale-status').textContent='Tu acceso cambió. La venta anterior sigue sin confirmar. Pedí al responsable que la concilie.';
+        await loadStock();
+        return;
+      }
       const last=storage().getItem(receiptKey(id));
       if(last) await restoreReceipt(last,g,id);
       await loadStock();
@@ -533,7 +545,7 @@ export function mountCommerce({document, client, getSession, onUnauthorized}) {
     event.preventDefault();
     if(busy || pending || !actor || !['Owner','Manager','Cashier'].includes(getSession()?.role) || !validateForm(form)) return;
     const body={locationId:$('sale-location').value,customerId:null,lines:[{itemId:$('sale-item').value,quantity:Number($('sale-quantity').value)}]};
-    const operation={key:document.defaultView.crypto.randomUUID(),body};
+    const operation={key:document.defaultView.crypto.randomUUID(),body,actorVersion:getSession().version};
     try { storage().setItem(keyFor(actor),JSON.stringify(operation)); pending=operation; $('sale-receipt').hidden=true; void resolve('record'); }
     catch(error) { pending={}; fail(error); lock(); }
   });

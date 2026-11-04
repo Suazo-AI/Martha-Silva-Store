@@ -1,0 +1,80 @@
+{
+  "task": "reconcile-C8-ledger-ready-20261104",
+  "observedUtc": "2026-11-04T01:52:10.888125+00:00",
+  "host": "SUAZO-PC",
+  "model": "gpt-6.1-sol",
+  "reasoning": "high",
+  "head": "260b75951729189d987ffe423218ab1643bcfa3c",
+  "status": "LOCAL_DOCUMENTARY_COMPLETE_PENDING_PRIMARY_REVIEW_CI",
+  "evidenceMode": "REUSED_NOT_RERUN",
+  "testRunsNew": 0,
+  "changedLedgerFields": [
+    "items[C8].prep",
+    "items[C8].evidence"
+  ],
+  "jsonBeforeValid": true,
+  "jsonAfterValid": true,
+  "onlyAllowedC8FieldsChanged": true,
+  "otherItemsPeopleTargetsUnchanged": true,
+  "c8StatusBefore": "doing",
+  "c8StatusAfter": "doing",
+  "ci": "PENDING; base260b759CI does not cover product patches",
+  "trelloComplete": 4,
+  "trelloTotal": 5,
+  "trelloList": "En curso",
+  "trelloMutations": 0,
+  "c11Done": false,
+  "ledgerBeforeSha256": "d4f97bfc808eae8d6766c3c35a4b2a6362fea0f7668e8a7c8d82b2af193bca59",
+  "ledgerAfterSha256": "704e3b6625e1354e0f1be6cac94b1191798eb2b6f604665c36eec90d2c034ac4",
+  "ledgerPatchSha256": "fb0409a4d29f8483b0670f96dcddd2ed6a674431dee2131433f619b692c4c1aa",
+  "productPatchSha256": "a0762dc021260f4c8c88b849552c4775c6bef17af06c5338e68e95cd7a221df0",
+  "protectedFileHashes": {
+    "dev\\savia-staff-ui\\README.md": "0227a090710012f9f71c54e90d38b5fff631567d33255068a96b0ed4b83e4b47",
+    "dev\\savia-staff-ui\\app.mjs": "c5179f67e8f613e6a71ed1e611cd923a4c3862a4a646aa3be4b8f81b8609d48e",
+    "dev\\savia-staff-ui\\auth.test.mjs": "7c6b890b25b8c27e4f2fcda44549db2ca3f2f67552c7c7b6a2e3afa14b16bab6",
+    "dev\\savia-staff-ui\\login.mjs": "ac7714a22eb1e7a383ca41e3e11343472025271dcf21dc862f39cf8c386fc787",
+    "tests\\browser-mock-validation.mjs": "f10b58fc28191646b750e488a8b84904ffba00337cf2054ee151316d9a28d415",
+    "backend\\tests\\Martha.Store.Api.Tests\\InternalSecurityTests.cs": "cf45feb9be7ef8e79f108ad0baa2b288c0bf488711fa9c08632ce740ff079c49",
+    "docs\\c8-ui-20261103\\current-head-20261104\\candidate.patch": "a0762dc021260f4c8c88b849552c4775c6bef17af06c5338e68e95cd7a221df0",
+    "docs\\c8-ui-20261103\\current-head-20261104\\report.md": "1d07c9a22c666e851d6036f066dc884fd889f2b9cc3e015b221f1fb49a4407fe",
+    "docs\\c8-ui-20261103\\current-head-20261104\\binding.json": "f75f98e37c5506c960cebba06f1be86e7699b8d3e69b099409206f94a92c2545",
+    "docs\\c8-ui-20261103\\current-head-20261104\\verification.json": "b2ab6d6cae014e68faddd3971a40abd379f5eaf7922ec76b85d89d0dfd60bd0c"
+  },
+  "allSixProductFilesAndFourUiEvidenceFilesUnchanged": true,
+  "dependencyBlobCount": 71,
+  "dependencyComparison": {
+    "command": [
+      "git",
+      "diff",
+      "--quiet",
+      "775f301bc195c43baedc68c86f4e71affe92ef95",
+      "260b75951729189d987ffe423218ab1643bcfa3c",
+      "--",
+      "<71 paths from binding.json dependencyBlobs>"
+    ],
+    "exitCode": 0
+  },
+  "gitDiffCheckExit": 0,
+  "dirtyIntentional": true,
+  "judgeVerdictsAvailableAtPreparation": false,
+  "judgeVerdictsPath": "C:\\Users\\Jason\\MARTHA-SILVA\\coordination\\technical-ready-C4-C5-C7-20261104\\checklist-verdicts.json",
+  "ownership": "Released to primary after this delivery; no further worker mutations",
+  "blockers": [
+    {
+      "item": "CI for exact C8 candidate bytes",
+      "evidence": "verification.json ciBaseDoesNotCoverPatch=true",
+      "attempt": "No CI run attempted; this batch permits local documentation only",
+      "nextAction": "Primary reviews/exports; Jason authorizes publication/CI when appropriate",
+      "owner": "Primary/Jason",
+      "completionCheck": "Green CI tied to same six product/test file hashes"
+    },
+    {
+      "item": "C4/C5/C7 checklist reconciliation",
+      "evidence": "Independent judge in progress; C4 private oracle comparison pending; C7 409 durableOperations+1 conflicts with literal zero writes",
+      "attempt": "No other ledger items or checklist states modified",
+      "nextAction": "Primary incorporates judge verdict; Jason resolves C7 criterion explicitly",
+      "owner": "Primary/Jason",
+      "completionCheck": "Exact checklist proposal backed by judge evidence without narrowing criteria"
+    }
+  ]
+}

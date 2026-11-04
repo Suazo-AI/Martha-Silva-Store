@@ -1,0 +1,48 @@
+{
+  "run_id": 41757409404,
+  "attempt": 1,
+  "event": "pull_request",
+  "pr": 2,
+  "head_sha": "6aeb9a35f45331ace85ac48dc19bfd9264b0f722",
+  "base_sha": "3b0049163ece2d9431cee01f1bea624a66d9d8d4",
+  "merge_ref": "9ce7000a86c7bf14fda53b43cb98e036ad46184a",
+  "head_merge_changed_files": [],
+  "compare_status": "ahead",
+  "compare_ahead_by": 1,
+  "compare_behind_by": 0,
+  "job_id": 126336673298,
+  "conclusion": "failure",
+  "browser_steps": {
+    "PASS": 10,
+    "FAIL": 1
+  },
+  "all_steps": {
+    "PASS": 20,
+    "FAIL": 1
+  },
+  "failed_step": "browser.logout",
+  "failed_ms": 20126,
+  "cleanup_step": {
+    "step": "teardown.stop_api_drop_database",
+    "ms": 660,
+    "status": "PASS",
+    "browser_exit": 1,
+    "api_exit": 0,
+    "database_dropped": true,
+    "api_log_lines": 64,
+    "api_log_fail_or_crit": 0,
+    "api_log_warn": 27,
+    "private_dir_removed": true
+  },
+  "c5_step": "success",
+  "evidence_verification": "success",
+  "artifact_upload": "success",
+  "container_absence_step": "success",
+  "source": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41757409404",
+  "artifact": "savia-browser-path-41757409404-1",
+  "artifact_files": {
+    "evidence.json": "d8c60c9ddd9194fa50c940ba46e23bbf24b89eaa4169e5f14d24c720035018ef",
+    "oracles.md": "2654de7062945e4d993a805bf48a1a82bf7fae3da0e418178125b48f67bd7423"
+  },
+  "limit": "Failed run; not C6 acceptance. Runtime diagnosis and fresh CI required."
+}

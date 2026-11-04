@@ -1,0 +1,362 @@
+{
+  "lists": [
+    {
+      "id": "6aea5d651b32f0468b4a2794",
+      "name": "Cómo trabajamos (leer primero)"
+    },
+    {
+      "id": "6aea5d657fa1eec91e923376",
+      "name": "Día 1 · mié 4 nov"
+    },
+    {
+      "id": "6aea5d66e5b03a07af094570",
+      "name": "Día 2 · jue 5 nov"
+    },
+    {
+      "id": "6aea5d66a63aadf3a63e4545",
+      "name": "Día 3 · vie 6 nov"
+    },
+    {
+      "id": "6aea5d677e8b3123293bcaa8",
+      "name": "En curso (WIP 1 por persona)"
+    },
+    {
+      "id": "6aea5d67897bcc01e9a29184",
+      "name": "En revisión (READY enviado)"
+    },
+    {
+      "id": "6aea5d68411ef7f938f3f92e",
+      "name": "Hecho (READY validado)"
+    },
+    {
+      "id": "6aea5d68cf25961553aafab0",
+      "name": "Fuera de este sprint"
+    }
+  ],
+  "cards": {
+    "C4": {
+      "id": "6aea5db529d01970fc29d79a",
+      "name": "C4 [Jason · B] Migraciones Internal de release",
+      "desc": "## 🟡 Estado al 4-nov — EN REVISIÓN: READY enviado; falta que Jason lo valide\n**Hecho (evidencia en el READY de los comentarios y en [C4-C7.md](https://github.com/Suazo-AI/Martha-Silva-Store/blob/claude/funny-brahmagupta-5e5rj0/docs/sprint-20261104/C4-C7.md)):**\n- `has-pending-model-changes`: sin cambios.\n- `InitialInternalSavia.idempotent.sql` regenerado por EF, ahora **con** `InternalBranchScope`.\n- Una guarda falla si el script versionado se desincroniza.\n- Probado con SQL real sobre base vacía y sobre copia sintética con historia, con readback.\n- Los 2 `PrivatePilotReleaseTests` corren en CI.\n- CI: [run 41744363308](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41744363308), 599/599.\n\n**Cubre lo pendiente que anotó Tony/Codex:** el versionado del script (se regeneró en el mismo archivo), el comando `has-pending-model-changes`, y los readbacks de upgrade y de la copia con historia.\n\n**Lo único que falta (Jason, en SUAZO-PC):** comparar `backend/tests/fixtures/expected-invariants.model-derived.json` con el `expected-invariants.json` privado. Luego validar el READY y mover a Hecho.\n\n---\n**Objetivo**\n- `dotnet ef migrations has-pending-model-changes`.\n- Aplicar migraciones a **base vacía** y a **copia sintética con historia**.\n- Script de release que incluya `20261027224500_InternalBranchScope` (el actual `InitialInternalSavia.idempotent.sql` **no la incluye**).\n- Ejecutar los 2 `PrivatePilotReleaseTests` hoy NOT RUN.\n\n**Dueño y carril**\nJason Suazo · carril B.\n\n**Bloqueado por**\nNada.\n\n**Bloquea**\nC5, C7, C9.\n\n**Archivos**\n- `backend/src/Martha.Store.Api/Internal/Migrations/**`\n- `backend/tests/**`\n\n**Verificación**\n- `dotnet ef migrations has-pending-model-changes` sin cambios pendientes.\n- Script de release aplicado a base vacía y a copia sintética; readback del historial de migraciones con `InternalBranchScope`.\n- Los 2 `PrivatePilotReleaseTests` ejecutados.\n\n**Evidencia esperada**\nSalida de los comandos, resultado de las 2 pruebas con readback, run de CI.\n\n**Criterio de cierre**\n2 casos PASS con readback; CI en verde.\n\n**Plantilla READY**\n```\nPara mover a \"En revisión\", comentar:\nREADY\nPR: <url>\nhead: <sha40>\nbase: origin/main@<sha40>\nci: <run url> passed=<k> failed=0 pending=0 skipped=<s>\nevidencia: <ruta o run>\nno ejecutado: <qué y por qué>\n```",
+      "idList": "6aea5d67897bcc01e9a29184",
+      "url": "https://trello.com/c/NYX7OGvK/7-c4-jason-b-migraciones-internal-de-release",
+      "dateLastActivity": "2026-11-04T00:21:20.264Z",
+      "checklists": [
+        {
+          "id": "6aea5dfb73e02f9c8a251159",
+          "name": "Criterios de cierre",
+          "checkItems": [
+            {
+              "id": "6aea5e36ade0714b026596c2",
+              "name": "dotnet ef migrations has-pending-model-changes sin cambios pendientes",
+              "nameData": {
+                "emoji": {}
+              },
+              "pos": 1,
+              "state": "incomplete",
+              "due": null,
+              "dueReminder": null,
+              "idMember": null,
+              "idChecklist": "6aea5dfb73e02f9c8a251159"
+            },
+            {
+              "id": "6aea5e374ce5c9cbf52b665f",
+              "name": "Migraciones aplicadas a base vacía y a copia sintética con historia",
+              "nameData": {
+                "emoji": {}
+              },
+              "pos": 2,
+              "state": "incomplete",
+              "due": null,
+              "dueReminder": null,
+              "idMember": null,
+              "idChecklist": "6aea5dfb73e02f9c8a251159"
+            },
+            {
+              "id": "6aea5e379bee14751da20f79",
+              "name": "Script de release incluye 20261027224500_InternalBranchScope",
+              "nameData": {
+                "emoji": {}
+              },
+              "pos": 3,
+              "state": "incomplete",
+              "due": null,
+              "dueReminder": null,
+              "idMember": null,
+              "idChecklist": "6aea5dfb73e02f9c8a251159"
+            },
+            {
+              "id": "6aea5e38ca3d0c5bd7a5af6b",
+              "name": "2 PrivatePilotReleaseTests PASS con readback",
+              "nameData": {
+                "emoji": {}
+              },
+              "pos": 4,
+              "state": "incomplete",
+              "due": null,
+              "dueReminder": null,
+              "idMember": null,
+              "idChecklist": "6aea5dfb73e02f9c8a251159"
+            },
+            {
+              "id": "6aea5e50d29ae382152ad09c",
+              "name": "CI en verde",
+              "nameData": {
+                "emoji": {}
+              },
+              "pos": 5,
+              "state": "incomplete",
+              "due": null,
+              "dueReminder": null,
+              "idMember": null,
+              "idChecklist": "6aea5dfb73e02f9c8a251159"
+            }
+          ]
+        }
+      ]
+    },
+    "C5": {
+      "id": "6aea5de589984656dfca2dfc",
+      "name": "C5 [Jason · B] Arnés del camino dorado: API real + SQL desechable",
+      "desc": "## 🟡 Estado al 4-nov — EN REVISIÓN: READY enviado; falta que Jason lo valide\n**Hecho:** el arnés `tests/golden-path/` (con su [README](https://github.com/Suazo-AI/Martha-Silva-Store/blob/claude/funny-brahmagupta-5e5rj0/tests/golden-path/README.md)) prueba esta cadena completa:\n- API real por HTTPS sobre una base `SaviaInternalTest_Golden_*` creada con el **migrador de release**.\n- 5 identidades sintéticas.\n- Venta, replay con la misma clave sin efecto, recuperación y logout, con oráculos SQL después de cada paso: **19/19**.\n\nEl workflow `golden-path.yml` corre en cada PR: [run 41744363369](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41744363369). El integrador lo verificó también localmente: 17 s, base eliminada al final y evidencia sin secretos.\n\n**Para C6 (Denis):** `python3 tests/golden-path/golden_path.py --mode serve --out <dir>` deja la API y SQL arriba. Las credenciales sintéticas quedan en `session.json` (0600).\n\n**Hallazgo:** no hay endpoint para crear sucursales; ver la tarjeta API-BRANCH.\n\n**Falta:** solo la validación de Jason.\n\n---\n**Objetivo**\nArnés del camino dorado:\n- API real + SQL desechable.\n- Identidades **sintéticas**: Owner, Manager, Cashier, Inventory y una sin asignación.\n- Esquema creado con **migraciones de release** (no `EnsureCreated`).\n- Script reproducible que corra igual en local y en CI.\n\n**Dueño y carril**\nJason Suazo · carril B.\n\n**Bloqueado por**\nC4.\n\n**Bloquea**\nC6.\n\n**Archivos**\n- `backend/tests/**`\n- Script del arnés y workflow de CI (`.github/workflows/**`); rutas exactas a definir en el PR.\n\n**Verificación**\n- Ejecutar el script en una máquina limpia: levanta API y SQL, aplica migraciones de release, crea las 5 identidades sintéticas.\n- El mismo script en CI del PR termina en verde.\n- Readback: historial de migraciones y usuarios sintéticos presentes; ningún dato real.\n\n**Evidencia esperada**\nComando exacto, salida local, run de CI.\n\n**Criterio de cierre**\nArnés reproducible en local y CI, con migraciones de release e identidades sintéticas; CI en verde.\n\n**Plantilla READY**\n```\nPara mover a \"En revisión\", comentar:\nREADY\nPR: <url>\nhead: <sha40>\nbase: origin/main@<sha40>\nci: <run url> passed=<k> failed=0 pending=0 skipped=<s>\nevidencia: <ruta o run>\nno ejecutado: <qué y por qué>\n```",
+      "idList": "6aea5d67897bcc01e9a29184",
+      "url": "https://trello.com/c/cNYz2Hci/8-c5-jason-b-arn%C3%A9s-del-camino-dorado-api-real-sql-desechable",
+      "dateLastActivity": "2026-11-04T00:21:20.829Z",
+      "checklists": [
+        {
+          "id": "6aea5dfcfbb2bba92736f87c",
+          "name": "Criterios de cierre",
+          "checkItems": [
+            {
+              "id": "6aea5e5058c211bc54ccc925",
+              "name": "API real + SQL desechable levantados por un script reproducible",
+              "nameData": {
+                "emoji": {}
+              },
+              "pos": 1,
+              "state": "incomplete",
+              "due": null,
+              "dueReminder": null,
+              "idMember": null,
+              "idChecklist": "6aea5dfcfbb2bba92736f87c"
+            },
+            {
+              "id": "6aea5e5100c0dabd87682f74",
+              "name": "Identidades sintéticas: Owner, Manager, Cashier, Inventory y sin asignación",
+              "nameData": {
+                "emoji": {}
+              },
+              "pos": 2,
+              "state": "incomplete",
+              "due": null,
+              "dueReminder": null,
+              "idMember": null,
+              "idChecklist": "6aea5dfcfbb2bba92736f87c"
+            },
+            {
+              "id": "6aea5e52186655e5afef1c42",
+              "name": "Esquema creado con migraciones de release (no EnsureCreated)",
+              "nameData": {
+                "emoji": {}
+              },
+              "pos": 3,
+              "state": "incomplete",
+              "due": null,
+              "dueReminder": null,
+              "idMember": null,
+              "idChecklist": "6aea5dfcfbb2bba92736f87c"
+            },
+            {
+              "id": "6aea5e5214eec246fdff6462",
+              "name": "Mismo script corre en local y en CI; CI en verde",
+              "nameData": {
+                "emoji": {}
+              },
+              "pos": 4,
+              "state": "incomplete",
+              "due": null,
+              "dueReminder": null,
+              "idMember": null,
+              "idChecklist": "6aea5dfcfbb2bba92736f87c"
+            }
+          ]
+        }
+      ]
+    },
+    "C7": {
+      "id": "6aea5de62bcaaced705f1942",
+      "name": "C7 [Jason · B] N1, N3, N4, N8 y N9 como pruebas de API con oráculos SQL",
+      "desc": "## 🟡 Estado al 4-nov — EN REVISIÓN: READY enviado; falta que Jason lo valide\n**Hecho:** N1, N3, N4, N8 y N9 se prueban por HTTP con login y CSRF reales sobre una base migrada.\n- Cada rechazo compara una huella SHA-256 de las 19 tablas antes y después: **cero escrituras**.\n- Siete mutaciones temporales del código fuente fueron detectadas por las pruebas (rojo-verde).\n- CI: [run 41744363308](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41744363308), 599/599.\n- Detalle: [C4-C7.md](https://github.com/Suazo-AI/Martha-Silva-Store/blob/claude/funny-brahmagupta-5e5rj0/docs/sprint-20261104/C4-C7.md).\n\n**Hallazgo:** el CSRF del mismo usuario sobrevive al re-login. No es escalada de permisos. Ver la tarjeta SEC-CSRF; la decisión es de Jason.\n\n**Alimenta C11:** Denis revisa estos rechazos como parte de N10.\n\n**Falta:** solo la validación de Jason.\n\n---\n**Objetivo**\nN1, N3, N4, N8 y N9 como pruebas de API con oráculos SQL:\n- Rechazos con **cero escrituras** (conteos o huellas iguales antes y después).\n- Manipulación de ubicación, IDs y skip/take.\n- CSRF ausente o incorrecto.\n- Ajuste Owner frente a Cashier.\n\n**Dueño y carril**\nJason Suazo · carril B.\n\n**Bloqueado por**\nC4.\n\n**Bloquea**\nC11.\n\n**Archivos**\n- `backend/tests/**`\n\n**Verificación**\n- Cada caso de rechazo toma conteos/huellas SQL antes y después y exige igualdad.\n- Prueba en verde con el fix y roja si se quita la validación correspondiente (cuando aplique).\n- CI del PR en verde.\n\n**Evidencia esperada**\nLista de casos con resultado, salida de las pruebas, run de CI.\n\n**Criterio de cierre**\nN1, N3, N4, N8 y N9 cubiertos por pruebas de API con oráculos SQL; CI en verde.\n\n**Plantilla READY**\n```\nPara mover a \"En revisión\", comentar:\nREADY\nPR: <url>\nhead: <sha40>\nbase: origin/main@<sha40>\nci: <run url> passed=<k> failed=0 pending=0 skipped=<s>\nevidencia: <ruta o run>\nno ejecutado: <qué y por qué>\n```",
+      "idList": "6aea5d67897bcc01e9a29184",
+      "url": "https://trello.com/c/YIlPjyVg/10-c7-jason-b-n1-n3-n4-n8-y-n9-como-pruebas-de-api-con-or%C3%A1culos-sql",
+      "dateLastActivity": "2026-11-04T00:21:21.376Z",
+      "checklists": [
+        {
+          "id": "6aea5dfda497c0f3046159ad",
+          "name": "Criterios de cierre",
+          "checkItems": [
+            {
+              "id": "6aea5e56683d163dc2a0a549",
+              "name": "N1, N3, N4, N8 y N9 implementados como pruebas de API con oráculos SQL",
+              "nameData": {
+                "emoji": {}
+              },
+              "pos": 1,
+              "state": "incomplete",
+              "due": null,
+              "dueReminder": null,
+              "idMember": null,
+              "idChecklist": "6aea5dfda497c0f3046159ad"
+            },
+            {
+              "id": "6aea5e57d64fe07fd3f98734",
+              "name": "Rechazos con cero escrituras (conteos o huellas iguales antes y después)",
+              "nameData": {
+                "emoji": {}
+              },
+              "pos": 2,
+              "state": "incomplete",
+              "due": null,
+              "dueReminder": null,
+              "idMember": null,
+              "idChecklist": "6aea5dfda497c0f3046159ad"
+            },
+            {
+              "id": "6aea5e58259b11d8a36c5e90",
+              "name": "Manipulación de ubicación, IDs y skip/take cubierta",
+              "nameData": {
+                "emoji": {}
+              },
+              "pos": 3,
+              "state": "incomplete",
+              "due": null,
+              "dueReminder": null,
+              "idMember": null,
+              "idChecklist": "6aea5dfda497c0f3046159ad"
+            },
+            {
+              "id": "6aea5e58a0ea2858280cc089",
+              "name": "CSRF ausente o incorrecto cubierto",
+              "nameData": {
+                "emoji": {}
+              },
+              "pos": 4,
+              "state": "incomplete",
+              "due": null,
+              "dueReminder": null,
+              "idMember": null,
+              "idChecklist": "6aea5dfda497c0f3046159ad"
+            },
+            {
+              "id": "6aea5e59bb5feea16e85c12d",
+              "name": "Ajuste Owner frente a Cashier cubierto",
+              "nameData": {
+                "emoji": {}
+              },
+              "pos": 5,
+              "state": "incomplete",
+              "due": null,
+              "dueReminder": null,
+              "idMember": null,
+              "idChecklist": "6aea5dfda497c0f3046159ad"
+            },
+            {
+              "id": "6aea5e593ebeede65d38b9ee",
+              "name": "CI en verde",
+              "nameData": {
+                "emoji": {}
+              },
+              "pos": 6,
+              "state": "incomplete",
+              "due": null,
+              "dueReminder": null,
+              "idMember": null,
+              "idChecklist": "6aea5dfda497c0f3046159ad"
+            }
+          ]
+        }
+      ]
+    },
+    "C8": {
+      "id": "6aea5de74b0da8bdf86eff30",
+      "name": "C8 [Denis Alvarez · A] N2, N6 y N7 en la interfaz",
+      "desc": "## Estado verificado 2026-11-03 (America/Managua): EN CURSO, 4/5\n\nC8 local verificado sobre base `775f301bc195c43baedc68c86f4e71affe92ef95`.\nEste estado reemplaza el plan anterior que decia NOT RUN.\n\n- Interfaz: 9/9 enfocados, 45/45 navegador y 45/45 staff JS; evidencia existente reutilizada, sin repetir C3 ni navegador.\n- Rojo-verde UI: reversion selectiva app 7 PASS/2 FAIL; login 6 PASS/3 FAIL. Producto restaurado.\n- Revision independiente de cinco archivos: APTO CON REPAROS, sin defecto nuevo accionable confirmado.\n- SDK portable .NET `10.0.402` instalado en `C:/Users/Jason/.dotnet-sdk-10.0.402`; ZIP oficial verificado SHA512. SDK del sistema 8.0.422 intacto; sin PATH global.\n- Expiracion API: nuevo Fact `Expired_cookie_is_rejected_by_fake_TimeProvider_before_database_resolution`, 1/1 PASS. Dos GET /internal/api/security/me devuelven 401 despues de avanzar solo TimeProvider falso; DB resolutions 0. Control no expirado alcanza guarda DB antes de configurar SQL.\n- Regresiones InternalSecurityTests: 49/49 PASS, incluye nuevo Fact; 0 FAIL/0 SKIP. Restore locked desde cache, exit 0.\n- Primary reviso diff, logs, TRX originales y hashes; aceptacion local. Sin cambios de seguridad productiva, SQL, Docker, certificados ni reloj global.\n\nEvidencia local canonica: `C:/Users/Jason/MARTHA-SILVA/github/docs/c8-ui-20261103/api-expiry-completion-20261103/` (report.md, primary-acceptance.json, comandos, TRX sanitizados y backend-test.patch).\nPatch backend SHA256: `927ea77b1a63c134cae03dac13e6545d624a05a8f3aabb501d01fef100a23e09`.\nPatch UI previo SHA256: `0f87604ec56d081fc2f2432fcfbd7c2ecdd74524240ce7db7fb4fa8442408f5c`.\nWorktree aislado: `C:/Users/Jason/MARTHA-SILVA/test-runs/c8-api-expiry-20261103`; seis archivos modificados y docs conservados intencionalmente. Recursos propios liberados.\n\nPendiente unico de cierre: CI del candidato que contiene ambos parches. No existe commit/push de este lote; CI de otros heads no cubre estos bytes. No se marca CI ni se mueve la tarjeta a Hecho. C11 conserva dependencia C8.\nResponsable siguiente: primary/Jason, cuando autorice publicar el candidato, verificar CI de ese SHA. Comprobacion de cierre: CI passed y criterio 5/5; no se autoriza esa publicacion en este lote.\nNo hubo commit, push, merge, despliegue ni cambios de seguridad en este lote. La evidencia esta guardada localmente, no publicada en GitHub.\n\n---\n**Objetivo**\nN2, N6 y N7 en la interfaz:\n- Recargar y recuperar el **mismo intento**.\n- Venta incierta durante cambio de identidad **conserva la clave** y no reenvía como otro actor.\n- Logout, expiración absoluta (`TimeProvider` falso en la API) y revocación, **descartando respuestas tardías tras 401**.\n\n**Dueño y carril**\nDenis Alvarez · carril A.\n\n**Bloqueado por**\nNinguno por C3: C3 cerrada el 2026-11-03 con revision independiente aceptada por Jason, head 775f301bc195c43baedc68c86f4e71affe92ef95.\n\n**Bloquea**\nC11.\n\n**Archivos**\n- `dev/savia-staff-ui/**`\n- `tests/browser-mock-validation.mjs`\n\n**Verificación**\n- Pruebas nuevas en `tests/browser-mock-validation.mjs` en verde.\n- Rojo-verde: cada prueba falla sin el cambio de UI correspondiente.\n- Arnés de navegador completo en verde; CI del PR en verde.\n\n**Evidencia esperada**\nSalida del arnés (casos N2, N6, N7 y total), navegador y versión, run de CI.\n\n**Criterio de cierre**\nN2, N6 y N7 cubiertos en la interfaz con pruebas rojo-verde; CI en verde.\n\n**Plantilla READY**\n```\nPara mover a \"En revisión\", comentar:\nREADY\nPR: <url>\nhead: <sha40>\nbase: origin/main@<sha40>\nci: <run url> passed=<k> failed=0 pending=0 skipped=<s>\nevidencia: <ruta o run>\nno ejecutado: <qué y por qué>\n```",
+      "idList": "6aea5d677e8b3123293bcaa8",
+      "url": "https://trello.com/c/61IxxolB/11-c8-denis-alvarez-a-n2-n6-y-n7-en-la-interfaz",
+      "dateLastActivity": "2026-11-04T01:34:17.130Z",
+      "checklists": [
+        {
+          "id": "6aea5dfd3a346182e7386fd5",
+          "name": "Criterios de cierre",
+          "checkItems": [
+            {
+              "id": "6aea5e7e23ddd453210c01fd",
+              "name": "Recargar y recuperar el mismo intento",
+              "nameData": {
+                "emoji": {}
+              },
+              "pos": 1,
+              "state": "complete",
+              "due": null,
+              "dueReminder": null,
+              "idMember": null,
+              "idChecklist": "6aea5dfd3a346182e7386fd5"
+            },
+            {
+              "id": "6aea5e7e0403a1cb8e099584",
+              "name": "Venta incierta durante cambio de identidad conserva la clave y no reenvía como otro actor",
+              "nameData": {
+                "emoji": {}
+              },
+              "pos": 2,
+              "state": "complete",
+              "due": null,
+              "dueReminder": null,
+              "idMember": null,
+              "idChecklist": "6aea5dfd3a346182e7386fd5"
+            },
+            {
+              "id": "6aea5e7f8e4e33b9e808f455",
+              "name": "Logout, expiración absoluta (TimeProvider falso en la API) y revocación descartan respuestas tardías tras 401",
+              "nameData": {
+                "emoji": {}
+              },
+              "pos": 3,
+              "state": "complete",
+              "due": null,
+              "dueReminder": null,
+              "idMember": null,
+              "idChecklist": "6aea5dfd3a346182e7386fd5"
+            },
+            {
+              "id": "6aea5e801d9f61a330573226",
+              "name": "Pruebas rojo-verde en tests/browser-mock-validation.mjs y arnés completo en verde",
+              "nameData": {
+                "emoji": {}
+              },
+              "pos": 4,
+              "state": "complete",
+              "due": null,
+              "dueReminder": null,
+              "idMember": null,
+              "idChecklist": "6aea5dfd3a346182e7386fd5"
+            },
+            {
+              "id": "6aea5e8098e764681b30eac2",
+              "name": "CI en verde",
+              "nameData": {
+                "emoji": {}
+              },
+              "pos": 5,
+              "state": "incomplete",
+              "due": null,
+              "dueReminder": null,
+              "idMember": null,
+              "idChecklist": "6aea5dfd3a346182e7386fd5"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

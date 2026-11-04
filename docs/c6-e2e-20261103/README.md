@@ -1,6 +1,6 @@
 # C6: Chrome → API HTTPS → SQL
 
-Estado de esta publicación: implementación integrada; **ejecución real y revisión independiente pendientes**.
+Estado de esta publicación: primera ejecución real parcial; corrección importada; **nuevo CI y reevaluación independiente pendientes**.
 Tarjeta: https://trello.com/c/ezVfv0Pk. PR: https://github.com/Suazo-AI/Martha-Silva-Store/pull/2.
 Fecha local: 2026-11-03; host de coordinación `SUAZO-PC`.
 
@@ -41,15 +41,39 @@ El escáner de secretos conocidos conserva su límite: no acredita ausencia de s
 
 ## Bloqueos y siguiente comprobación
 
+Primer CI real: [41757409404](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41757409404),
+head `6aeb9a35f45331ace85ac48dc19bfd9264b0f722`.
+Chrome `156.0.8078.47`, Node `v24.22.1`, Playwright `1.63.0`.
+C5 smoke pasó. C6 confirmó diez checkpoints de navegador, incluida respuesta perdida tras commit,
+recuperación GET con clave original y recarga repetida: dos ventas, dos líneas, dos operaciones de venta,
+dos movimientos de venta, stock 27 y cero invariantes fallidas.
+Falló únicamente `browser.logout` tras 20126 ms; no se declara C6 PASS.
+La causa de ese timeout todavía no estaba demostrada al registrar esta corrida.
+API, base y directorio privado se retiraron; el paso de destrucción del contenedor pasó.
+La ausencia explícita de Chrome/Node requiere una guarda adicional señalada por el juez.
+Los [bytes saneados y binding](ci-41757409404/run-binding.json) conservan el fallo sin sobrescribirlo.
+El ejecutor corrige su alcance y el juez independiente revisa el snapshot aislado.
+
+La corrección posterior conserva la hipótesis de timeout sin atribuirla al producto.
+Logout observa el HTTP 204 antes de comprobar navegación, formulario y `/me` 401.
+Cada fase publica un código fijo de fallo, sin mensajes crudos.
+CDP identifica el PID Chrome; Linux exige perfil privado, ascendencia y hora de inicio propios.
+La retirada consulta ambos grupos Node/Chrome y no permite PASS si una lectura falla o quedan procesos.
+Las 33/33 pruebas ligeras pasan, incluidas persistencia, reutilización de PID y lectura denegada.
+El probe local dejó sus dos perfiles ausentes, Chrome vivos=0 y señales=0.
+[Procedencia del delta](correction-import.json) · [informe del ejecutor](implementation.md).
+Estas pruebas no sustituyen un nuevo CI Chrome/API/SQL.
+
 | Bloqueo | Evidencia / causa | Acción y resultado | Dueño / cierre |
 | --- | --- | --- | --- |
-| C6 real NOT RUN | El alcance local no inicia Docker/SQL/API; el arnés usa POSIX | Fuentes y workflow preparados para el CI Linux existente | Coordinador: publicar candidato, exigir C5 y C6 PASS, bajar evidencia y verificar retirada |
-| Revisión independiente pendiente | El ejecutor no acepta su propio trabajo; la selección del juez está solicitada | Diff y contrato congelados; no se declara C6 terminada | Jason confirma modelo/razonamiento; juez de solo lectura; primary comprueba hallazgos |
-| C8 aún separado | La evidencia local pertenece a su parche, no al SHA publicado | Su ejecutor prepara patch sobre el head actual y conserva rojo/verde | Integración posterior con CI del candidato y conteo nuevo de suite |
+| C6 logout FAIL inicial | CI 41757409404 confirmó negocio/recuperación; logout agotó 20s | Gates explícitos importados y comprobaciones ligeras33/33; corrida real pendiente | Coordinador: exigir C5/C6 PASS y verificar evidencia y retirada en nuevo SHA |
+| Revisión independiente pendiente | Dictamen inicial NO APTO: logout y ausencia Chrome;15/17 cumplidos | Jason autorizó gpt-6.1-sol/xhigh; juez reevalúa delta de ambos hallazgos | Primary verifica dictamen y nueva evidencia antes de aceptar |
+| C8 CI pendiente | Seis archivos importados con blobs iguales al patch probado | Rojo/verde conservado; mínimo backend elevado a600 por nuevo Fact | CI del candidato integrado y C6 contra esa misma UI |
 | C9 requiere alcance nuevo | Falta medir restaurada con ventas, RTO/RPO en SUAZO-PC y campos SQL/TLS actuales | Revisión documental terminada; cero SQL/API/Docker nuevos | [Informe C9](../c9-recovery-20261103/PREPARATION.md#bloqueos-reales-y-cierre) fija causa, efectos, rollback y comprobación |
 
 La lectura de `.github/workflows/ci.yml` confirma que el despliegue exige main y habilitación expresa.
 La variable `CLOUDFLARE_DEPLOY_ENABLED` estaba ausente (HTTP 404); no se modificó.
 Esta continuación no fusiona a main ni despliega ni cambia seguridad.
+El [alcance propuesto de preflight C9](../c9-recovery-20261103/PREFLIGHT-SCOPE.md) queda sin autorizar ni ejecutar.
 
 Lección aplicada: el evento del navegador no basta; SQL debe confirmar el commit antes de permitir recuperación.

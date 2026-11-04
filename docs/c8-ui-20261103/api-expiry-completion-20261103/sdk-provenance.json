@@ -1,0 +1,20 @@
+{
+  "metadataUrl": "https://builds.dotnet.microsoft.com/dotnet/release-metadata/10.0/releases.json",
+  "metadataSha256": "8fa7ae2d46b1f94416d5458c7ed68b0c3cafc5efb8e34d89dea3a98bf0a38b33",
+  "sdk": "10.0.402",
+  "rid": "win-x64",
+  "url": "https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.402/dotnet-sdk-10.0.402-win-x64.zip",
+  "expectedSha512": "ae4fd528cb7e9f6af6aaf7de36715a69f761f183744f1bb3025d19f5a92447090ec561410e46266c1d10a63781ed6f3de771760bc76c876d87daabc367b898cd",
+  "downloadStartedUtc": "2026-11-04T01:20:40.6065741+00:00",
+  "actualSha512": "ae4fd528cb7e9f6af6aaf7de36715a69f761f183744f1bb3025d19f5a92447090ec561410e46266c1d10a63781ed6f3de771760bc76c876d87daabc367b898cd",
+  "hashVerified": true,
+  "installPath": "C:/Users/Jason/.dotnet-sdk-10.0.402",
+  "downloadCompletedUtc": "2026-11-04T01:23:38.9969290+00:00",
+  "versionReadback": "10.0.402",
+  "listSdks": [
+    "10.0.402 [C:\\Users\\Jason\\.dotnet-sdk-10.0.402\\sdk]"
+  ],
+  "zipBytes": 300755826,
+  "extractionAfterSha512Verification": true,
+  "installation": "Portable ZIP; no installer, PATH/registry/global environment changes"
+}

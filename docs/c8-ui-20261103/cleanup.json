@@ -1,0 +1,15 @@
+{
+  "observedUtc": "2026-11-04T00:14:05.9387997Z",
+  "ports": [
+    51266,
+    52414,
+    53280,
+    54438,
+    55073,
+    57399,
+    62098
+  ],
+  "listeners": [],
+  "activeHarnessNodes": [],
+  "mechanism": "Every context closed in finally; browser.close and server.close awaited by harness; no process termination used."
+}
