@@ -119,7 +119,7 @@
       "status": "review",
       "title": "Revisar y aprobar el PR de N5 + CI SAVIA",
       "why": "Revisión en contexto fresco; quien escribió el cambio no puede ser su único juez",
-      "done_when": "Aprobación en el PR #2 con rojo al revertir reproducido en Chrome real",
+      "done_when": "Aprobación en el PR #2 con rojo al revertir reproducido en Chrome real (incluye C4, C5 y C7)",
       "trello": "https://trello.com/c/0kdbzEyA"
     },
     {
@@ -127,7 +127,7 @@
       "order": 6,
       "track": "sprint",
       "owner": "claude",
-      "status": "review",
+      "status": "done",
       "title": "Migraciones Internal de release",
       "why": "El script idempotente de release no incluía InternalBranchScope; producción se crearía sin esa migración",
       "done_when": "Sin cambios de modelo pendientes; script generado por EF con todas las migraciones y guarda de divergencia; aplicado a base vacía y a copia con historia con readback",
@@ -138,14 +138,15 @@
         "backend/tests/Martha.Store.Api.Tests/*Migration*",
         "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs"
       ],
-      "report": "docs/sprint-20261104/C4-C7.md"
+      "report": "docs/sprint-20261104/C4-C7.md",
+      "evidence": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41744363308 (SAVIA judge 599/599 en 7c53ae6) · docs/sprint-20261104/C4-C7.md"
     },
     {
       "id": "C5",
       "order": 7,
       "track": "sprint",
       "owner": "claude",
-      "status": "review",
+      "status": "done",
       "title": "Arnés del camino dorado: API real + SQL desechable",
       "why": "Nunca se probó navegador/HTTP → API real → SQL migrado como una sola cadena",
       "done_when": "Script reproducible local y CI: migraciones de release, 5 identidades sintéticas, venta, replay y oráculos SQL por paso",
@@ -155,14 +156,15 @@
         "tests/golden-path/*",
         ".github/workflows/golden-path.yml"
       ],
-      "report": "docs/sprint-20261104/C5.md"
+      "report": "docs/sprint-20261104/C5.md",
+      "evidence": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41744363369 (golden path en 7c53ae6) · docs/sprint-20261104/C5.md"
     },
     {
       "id": "C6",
       "order": 8,
       "track": "sprint",
       "owner": "denis",
-      "status": "blocked",
+      "status": "todo",
       "blocked_by": [
         "C5"
       ],
@@ -179,7 +181,7 @@
       "order": 9,
       "track": "sprint",
       "owner": "claude",
-      "status": "review",
+      "status": "done",
       "title": "N1, N3, N4, N8 y N9 como pruebas de API con oráculos SQL",
       "why": "Un rechazo que escribe algo es un fallo silencioso; hay que medir cero escrituras",
       "done_when": "Cada rechazo compara conteos/huellas SQL antes y después; CI en verde",
@@ -187,7 +189,8 @@
       "paths": [
         "backend/tests/Martha.Store.Api.Tests/*"
       ],
-      "report": "docs/sprint-20261104/C4-C7.md"
+      "report": "docs/sprint-20261104/C4-C7.md",
+      "evidence": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41744363308 (SAVIA judge 599/599 en 7c53ae6) · docs/sprint-20261104/C4-C7.md"
     },
     {
       "id": "C8",
@@ -211,7 +214,7 @@
       "order": 11,
       "track": "sprint",
       "owner": "denis",
-      "status": "blocked",
+      "status": "todo",
       "blocked_by": [
         "C4"
       ],
@@ -437,7 +440,7 @@
       "order": 40,
       "track": "pipeline",
       "owner": "claude",
-      "status": "doing",
+      "status": "done",
       "title": "Ledger + resumen determinista en cada push y PR",
       "why": "Que GitHub, no una persona, diga en cada avance dónde vamos, qué falta y qué decisión hace falta",
       "done_when": "progress-digest.yml verde en el PR; pruebas de tools/delivery_status.py en check.py; issue de bitácora actualizándose solo",
@@ -447,14 +450,15 @@
         "docs/pipeline/*",
         ".github/workflows/progress-digest.yml",
         ".github/pull_request_template.md"
-      ]
+      ],
+      "evidence": "https://github.com/Suazo-AI/Martha-Silva-Store/issues/3 · https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41744363236"
     },
     {
       "id": "PIPE-AI",
       "order": 41,
       "track": "pipeline",
       "owner": "jason",
-      "status": "blocked",
+      "status": "todo",
       "blocked_by": [
         "PIPE-LEDGER"
       ],
