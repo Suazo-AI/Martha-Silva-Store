@@ -5,7 +5,7 @@
 - Plan del lote: [PROMPT](PROMPT.md). Reparto: Trello https://trello.com/b/pq9G9Qqj/martha-silva (C1–C12, Jason y Denis Alvarez).
 - Prácticas adoptadas de los 19 repositorios, con SHA: [PRACTICAS-19-REPOS](PRACTICAS-19-REPOS.md). Cuestionario para la tienda: [CUESTIONARIO-MARTHA](CUESTIONARIO-MARTHA.md).
 - Evidencia curada y hashes: [evidence.json](evidence.json).
-- **4-nov:** C4 (script de release completo) y C7 (N1, N3, N4, N8 y N9 por HTTP con cero escrituras medidas en SQL): [C4-C7](C4-C7.md). Flujo de avance automático: [pipeline](../pipeline/README.md); prompt revisado: [PROMPT-AUTONOMO](PROMPT-AUTONOMO.md).
+- **4-nov:** C4 (script de release completo) y C7 (N1, N3, N4, N8 y N9 por HTTP con cero escrituras medidas en SQL): [C4-C7](C4-C7.md). C5 (arnés del camino dorado: API real, migrador de release, 5 identidades sintéticas, venta, replay y oráculos SQL por paso; base de C6): [C5](C5.md). Flujo de avance automático: [pipeline](../pipeline/README.md); prompt revisado: [PROMPT-AUTONOMO](PROMPT-AUTONOMO.md).
 
 ## Candidato y entorno
 

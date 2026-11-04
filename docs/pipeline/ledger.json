@@ -145,19 +145,17 @@
       "order": 7,
       "track": "sprint",
       "owner": "claude",
-      "status": "doing",
+      "status": "review",
       "title": "Arnés del camino dorado: API real + SQL desechable",
       "why": "Nunca se probó navegador/HTTP → API real → SQL migrado como una sola cadena",
       "done_when": "Script reproducible local y CI: migraciones de release, 5 identidades sintéticas, venta, replay y oráculos SQL por paso",
       "alternatives": "Seguir con mocks de navegador y SQL por separado (no prueba la unión)",
-      "needs": {
-        "tool": "SQL Server 2022 Developer desechable (misma imagen que CI)"
-      },
       "trello": "https://trello.com/c/cNYz2Hci",
       "paths": [
         "tests/golden-path/*",
         ".github/workflows/golden-path.yml"
-      ]
+      ],
+      "report": "docs/sprint-20261104/C5.md"
     },
     {
       "id": "C6",
@@ -172,7 +170,7 @@
       "why": "La caja usa un navegador; solo el navegador prueba recarga, pérdida de respuesta y recuperación reales",
       "done_when": "Corre en el CI del PR con trazas como artefacto y oráculos SQL tras cada paso",
       "needs": {
-        "tool": "Playwright 1.63 + modo 'mantener arriba' del arnés de C5"
+        "tool": "Playwright 1.63 + `golden_path.py --mode serve` (deja API+SQL arriba, credenciales sintéticas en session.json 0600)"
       },
       "trello": "https://trello.com/c/ezVfv0Pk"
     },
@@ -300,6 +298,22 @@
       "paths": [
         "backend/src/Martha.Store.Api/Internal/Security/*"
       ]
+    },
+    {
+      "id": "API-BRANCH",
+      "order": 16,
+      "track": "prod",
+      "owner": "jason",
+      "status": "todo",
+      "title": "No hay endpoint para crear sucursales",
+      "why": "Hallazgo de C5: crear una sucursal exige SQL/EF directo; en producción el Owner no tiene forma soportada",
+      "done_when": "Decisión: endpoint Owner o procedimiento documentado de alta de sucursal con prueba",
+      "alternatives": "Endpoint Owner en Security/Directory · script de alta revisado y documentado (una sola sucursal hoy, D-014)",
+      "needs": {
+        "decision": "¿Endpoint de sucursales o alta por script mientras sea una sola sucursal?",
+        "decider": "jason",
+        "recommendation": "Script documentado mientras D-014 sea una sucursal; endpoint antes de multisucursal"
+      }
     },
     {
       "id": "P-HOST",
