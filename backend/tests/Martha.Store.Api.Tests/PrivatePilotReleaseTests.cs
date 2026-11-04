@@ -15,15 +15,15 @@ public sealed class PrivatePilotReleaseTests
     private static string Evidence => Environment.GetEnvironmentVariable("SAVIA_PILOT_EVIDENCE")
         ?? throw new InvalidOperationException("Worker evidence path required");
     private static readonly string[] History = ["20261025085402_InitialInternalSavia", "20261027224500_InternalBranchScope"];
-    private static string Connection(string database)
+    internal static string Connection(string database)
     {
-        Assert.Matches("^SaviaInternalTest_Pilot_[a-f0-9]{32}$", database);
+        Assert.Matches("^SaviaInternalTest_(?:Pilot|Release)_[a-f0-9]{32}$", database);
         var parsed = new SqlConnectionStringBuilder(Environment.GetEnvironmentVariable("MARTHA_INTERNAL_TEST_SQL_CONNECTION")) { InitialCatalog = database, Pooling = false };
         InternalDatabaseGuard.Validate(parsed.ConnectionString);
         return parsed.ConnectionString;
     }
-    private static InternalDbContext Context(string database) => new(new DbContextOptionsBuilder<InternalDbContext>().UseSqlServer(Connection(database)).Options);
-    private static async Task<string[]> Rows(string database, string sql)
+    internal static InternalDbContext Context(string database) => new(new DbContextOptionsBuilder<InternalDbContext>().UseSqlServer(Connection(database)).Options);
+    internal static async Task<string[]> Rows(string database, string sql)
     {
         await using var c = new SqlConnection(Connection(database)); await c.OpenAsync();
         await using var cmd = c.CreateCommand(); cmd.CommandText = sql; cmd.CommandTimeout = 90;
@@ -31,12 +31,12 @@ public sealed class PrivatePilotReleaseTests
         while (await reader.ReadAsync()) result.Add(string.Join("|", Enumerable.Range(0, reader.FieldCount).Select(i => reader.IsDBNull(i) ? "NULL" : Convert.ToString(reader.GetValue(i), System.Globalization.CultureInfo.InvariantCulture))));
         return result.ToArray();
     }
-    private static async Task Execute(string database, string sql)
+    internal static async Task Execute(string database, string sql)
     {
         await using var c = new SqlConnection(Connection(database)); await c.OpenAsync();
         await using var cmd = c.CreateCommand(); cmd.CommandText = sql; cmd.CommandTimeout = 90; await cmd.ExecuteNonQueryAsync();
     }
-    private static async Task Master(string sql)
+    internal static async Task Master(string sql)
     {
         var cs = new SqlConnectionStringBuilder(Environment.GetEnvironmentVariable("MARTHA_INTERNAL_TEST_SQL_CONNECTION")) { InitialCatalog = "master", Pooling = false };
         await using var c = new SqlConnection(cs.ConnectionString); await c.OpenAsync();
@@ -44,7 +44,7 @@ public sealed class PrivatePilotReleaseTests
     }
     private static string NewDatabase() => "SaviaInternalTest_Pilot_" + Guid.NewGuid().ToString("N");
     private static void Write(string name, object data) => File.WriteAllText(Path.Combine(Evidence, name), JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true }));
-    private static async Task<SortedDictionary<string, string[]>> Inspect(string database)
+    internal static async Task<SortedDictionary<string, string[]>> Inspect(string database)
     {
         var facts = new SortedDictionary<string, string[]>();
         facts["history"] = await Rows(database, "SELECT MigrationId FROM dbo.__EFMigrationsHistory ORDER BY MigrationId");

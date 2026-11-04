@@ -626,3 +626,135 @@ END;
 
 COMMIT;
 GO
+
+BEGIN TRANSACTION;
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261027224500_InternalBranchScope'
+)
+BEGIN
+    CREATE TABLE [savia_internal].[Branches] (
+        [Id] uniqueidentifier NOT NULL,
+        [Name] nvarchar(120) NOT NULL,
+        [Active] bit NOT NULL,
+        CONSTRAINT [PK_Branches] PRIMARY KEY ([Id])
+    );
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261027224500_InternalBranchScope'
+)
+BEGIN
+    ALTER TABLE [savia_internal].[Staff] ADD [BranchId] uniqueidentifier NULL;
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261027224500_InternalBranchScope'
+)
+BEGIN
+    ALTER TABLE [savia_internal].[Locations] ADD [BranchId] uniqueidentifier NULL;
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261027224500_InternalBranchScope'
+)
+BEGIN
+    ALTER TABLE [savia_internal].[Operations] ADD [LocationId] uniqueidentifier NULL;
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261027224500_InternalBranchScope'
+)
+BEGIN
+    ALTER TABLE [savia_internal].[Operations] ADD [OriginalBranchId] uniqueidentifier NULL;
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261027224500_InternalBranchScope'
+)
+BEGIN
+    CREATE INDEX [IX_Staff_BranchId] ON [savia_internal].[Staff] ([BranchId]);
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261027224500_InternalBranchScope'
+)
+BEGIN
+    CREATE INDEX [IX_Locations_BranchId] ON [savia_internal].[Locations] ([BranchId]);
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261027224500_InternalBranchScope'
+)
+BEGIN
+    CREATE INDEX [IX_Operations_OriginalBranchId] ON [savia_internal].[Operations] ([OriginalBranchId]);
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261027224500_InternalBranchScope'
+)
+BEGIN
+    ALTER TABLE [savia_internal].[Staff] ADD CONSTRAINT [FK_Staff_Branches_BranchId] FOREIGN KEY ([BranchId]) REFERENCES [savia_internal].[Branches] ([Id]) ON DELETE NO ACTION;
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261027224500_InternalBranchScope'
+)
+BEGIN
+    ALTER TABLE [savia_internal].[Locations] ADD CONSTRAINT [FK_Locations_Branches_BranchId] FOREIGN KEY ([BranchId]) REFERENCES [savia_internal].[Branches] ([Id]) ON DELETE NO ACTION;
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261027224500_InternalBranchScope'
+)
+BEGIN
+    CREATE TABLE [savia_internal].[BranchAssignmentAudit] (
+        [Id] uniqueidentifier NOT NULL,
+        [ActorId] uniqueidentifier NOT NULL,
+        [StaffId] uniqueidentifier NOT NULL,
+        [PreviousBranchId] uniqueidentifier NULL,
+        [BranchId] uniqueidentifier NULL,
+        [CreatedAt] datetimeoffset NOT NULL,
+        CONSTRAINT [PK_BranchAssignmentAudit] PRIMARY KEY ([Id]),
+        CONSTRAINT [FK_BranchAssignmentAudit_Staff_ActorId] FOREIGN KEY ([ActorId]) REFERENCES [savia_internal].[Staff] ([Id]) ON DELETE NO ACTION,
+        CONSTRAINT [FK_BranchAssignmentAudit_Staff_StaffId] FOREIGN KEY ([StaffId]) REFERENCES [savia_internal].[Staff] ([Id]) ON DELETE NO ACTION
+    );
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261027224500_InternalBranchScope'
+)
+BEGIN
+    CREATE INDEX [IX_BranchAssignmentAudit_ActorId] ON [savia_internal].[BranchAssignmentAudit] ([ActorId]);
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261027224500_InternalBranchScope'
+)
+BEGIN
+    CREATE INDEX [IX_BranchAssignmentAudit_StaffId] ON [savia_internal].[BranchAssignmentAudit] ([StaffId]);
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261027224500_InternalBranchScope'
+)
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20261027224500_InternalBranchScope', N'10.0.13');
+END;
+
+COMMIT;
+GO
