@@ -153,7 +153,8 @@ internal sealed class InternalCommerceSqlDatabase : IAsyncDisposable
     }
 
     public InternalDbContext Context() => new(new DbContextOptionsBuilder<InternalDbContext>().UseSqlServer(connection).Options);
-    public static async Task<InternalCommerceSqlDatabase> Create()
+    // migrate=true applies the real Internal migrations instead of EnsureCreated (release-equivalent schema).
+    public static async Task<InternalCommerceSqlDatabase> Create(bool migrate = false)
     {
         var fixture = new InternalCommerceSqlDatabase();
         try
@@ -165,7 +166,7 @@ internal sealed class InternalCommerceSqlDatabase : IAsyncDisposable
             await command.ExecuteNonQueryAsync();
             fixture.created = true;
             await using var db = fixture.Context();
-            await db.Database.EnsureCreatedAsync();
+            if (migrate) await db.Database.MigrateAsync(); else await db.Database.EnsureCreatedAsync();
             db.Set<InternalItem>().AddRange(
                 new InternalItem { Id = fixture.Item, Sku = "SQL-TEST-A", Name = "Disposable test item A", Currency = "USD", UnitPriceMinor = 125, Active = true },
                 new InternalItem { Id = fixture.SecondItem, Sku = "SQL-TEST-B", Name = "Disposable test item B", Currency = "USD", UnitPriceMinor = 275, Active = true });

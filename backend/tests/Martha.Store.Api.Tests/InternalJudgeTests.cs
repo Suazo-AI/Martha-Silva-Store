@@ -489,8 +489,8 @@ public sealed class InternalJudgeTests
         Assert.Equal(HttpStatusCode.Unauthorized, revoked.StatusCode);
     }
 
-    private const string HttpFixturePassword = "synthetic-http-fixture-input-only";
-    private static async Task<string> PrepareHttpFixture(InternalCommerceSqlDatabase fixture)
+    internal const string HttpFixturePassword = "synthetic-http-fixture-input-only";
+    internal static async Task<string> PrepareHttpFixture(InternalCommerceSqlDatabase fixture)
     {
         await using var db = fixture.Context();
         var staff = await db.Set<InternalStaff>().SingleAsync(candidate => candidate.Id == fixture.Actor);
@@ -499,7 +499,7 @@ public sealed class InternalJudgeTests
         return db.Database.GetConnectionString()!; // Never logged; scoped to the generated disposable fixture database.
     }
 
-    private static async Task Login(HttpSession session, string loginName)
+    internal static async Task Login(HttpSession session, string loginName)
     {
         var token = await Csrf(session);
         using var response = await session.Send(HttpMethod.Post, "/internal/api/security/login",
@@ -510,23 +510,28 @@ public sealed class InternalJudgeTests
             && cookie.Contains("httponly", StringComparison.OrdinalIgnoreCase) && cookie.Contains("samesite=strict", StringComparison.OrdinalIgnoreCase)));
     }
 
-    private static async Task<string> Csrf(HttpSession session)
+    internal static async Task<string> Csrf(HttpSession session)
     {
         using var response = await session.Send(HttpMethod.Get, "/internal/api/security/csrf");
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         return (await response.Content.ReadFromJsonAsync<JsonElement>()).GetProperty("token").GetString()!;
     }
 
-    private sealed class HttpSession(HttpClient client) : IDisposable
+    internal sealed class HttpSession(HttpClient client) : IDisposable
     {
         private readonly Dictionary<string, string> cookies = new(StringComparer.Ordinal);
+        private readonly Dictionary<string, string> headers = new(StringComparer.OrdinalIgnoreCase);
+        // Extra client-chosen headers (e.g. forged role/actor hints) sent with every later request.
+        public void Header(string name, string value) => headers[name] = value;
         public string CookieHeader => string.Join("; ", cookies.Select(cookie => cookie.Key + "=" + cookie.Value));
-        public async Task<HttpResponseMessage> Send(HttpMethod method, string path, object? body = null, string? csrf = null)
+        public async Task<HttpResponseMessage> Send(HttpMethod method, string path, object? body = null, string? csrf = null, string? idempotencyKey = null)
         {
             using var request = new HttpRequestMessage(method, path);
             if (body is not null) request.Content = JsonContent.Create(body);
             if (cookies.Count != 0) request.Headers.Add("Cookie", CookieHeader);
             if (csrf is not null) request.Headers.Add("X-CSRF-TOKEN", csrf);
+            if (idempotencyKey is not null) request.Headers.Add("Idempotency-Key", idempotencyKey);
+            foreach (var header in headers) request.Headers.Add(header.Key, header.Value);
             var response = await client.SendAsync(request);
             if (response.Headers.TryGetValues("Set-Cookie", out var values))
                 foreach (var value in values)
@@ -539,7 +544,7 @@ public sealed class InternalJudgeTests
         public void Dispose() => client.Dispose();
     }
 
-    private static HttpClient Client(JudgeFactory factory) => factory.CreateClient(new WebApplicationFactoryClientOptions
+    internal static HttpClient Client(JudgeFactory factory) => factory.CreateClient(new WebApplicationFactoryClientOptions
     { BaseAddress = new Uri("https://localhost"), AllowAutoRedirect = false, HandleCookies = false });
 
     private static RouteEndpoint[] InternalRoutes(JudgeFactory factory) => factory.Services.GetRequiredService<EndpointDataSource>()
@@ -547,7 +552,7 @@ public sealed class InternalJudgeTests
 
     // Real Program and real cookie authentication; only configuration and ephemeral test key storage differ.
     // No fake principal, authentication handler, database provider or command runner is installed.
-    private sealed class JudgeFactory(string environment = "Development", bool? enabled = true, string? connection = null) : WebApplicationFactory<Program>
+    internal sealed class JudgeFactory(string environment = "Development", bool? enabled = true, string? connection = null) : WebApplicationFactory<Program>
     {
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
