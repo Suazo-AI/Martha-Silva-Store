@@ -71,3 +71,13 @@ No se hace merge, despliegue, SQL local ni cambio de seguridad.
 ## Comprobacion independiente previa al CI combinado
 
 [PRE-CI-REVIEW.md](PRE-CI-REVIEW.md) confirma los seis blobs C8 y 48/48 hashes de evidencia. La comparacion de 71 entradas usa el overlay esperado: 66 baseBlob intactos y cinco fuentes reemplazadas por candidateBlob C8. No afirma que las 71 conserven el blob de base tras importar el producto. API expiry 1/1 y seguridad 49/49 son evidencia local reutilizada. CI combinado de browser45/staff45/backend600 pendiente; no cerrar C8.
+
+## Cierre del CI integrado
+
+CI [41765611859/1](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41765611859)
+en `e4b7910835bf2c9901aa06989e296997875a3636`: browser 45/45, staff 45/45 y backend 600/600.
+Seguridad 49/49 incluye expiración 1/1; los nueve casos C8 pasan dentro de los 45 browser.
+[Revisión final separada](FINAL-CI-REVIEW.md), [hashes y fuentes](final-ci-evidence.json)
+y [cierre Trello](trello-closure.json): Hecho 5/5, según instrucción de Jason.
+Se conservan los tres GAP adicionales N5-COV; no se afirma su cobertura ni un defecto sin reproducción.
+La revisión técnica no acepta dispositivos reales, QA visual, C9 ni producción.

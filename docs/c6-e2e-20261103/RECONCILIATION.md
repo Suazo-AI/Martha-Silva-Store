@@ -52,3 +52,17 @@ La corrección usó el intérprete existente, salida verbose y límite de 600 s;
 Lección aplicada: separar límite del colector, fallo del launcher y resultado del producto.
 No hubo API, SQL, Docker ni navegador local en esta validación.
 El CI combinado sigue pendiente de publicación y lectura directa de artefactos.
+
+## Resultado final de la unión
+
+La unión autorizada quedó publicada como `e4b7910835bf2c9901aa06989e296997875a3636`,
+con recibo normal y readback idéntico en Tony y PR #2; main conserva `3b0049163ece2d9431cee01f1bea624a66d9d8d4`.
+El [CI combinado](ci-41765611979/REPORT.md) pasa y el [juez](independent-final-review.md)
+cierra H1/H2 con 17/17 puntos cumplidos. Los estados pendientes de los apartados anteriores son históricos.
+C8 también pasa en el mismo candidato. La instrucción posterior de Jason fue «Ciérralos y actualiza trello»;
+los recibos de C6/C8 documentan Hecho 4/4 y 5/5. C9 permanece bloqueada por autorización y ejecución separadas.
+
+Control documental previo al commit: una lectura con codificación Windows alteró acentos del ledger.
+Se reconstruyó desde el blob UTF-8 de HEAD y se reaplicaron solo cinco registros del cierre.
+Comparación estructural: 29 registros intactos, C9 intacta; `python tools/delivery_status.py --check`: 34 válidos.
+Lección aplicada: leer y escribir UTF-8 explícito, y comprobar el diff por campos antes de publicar.

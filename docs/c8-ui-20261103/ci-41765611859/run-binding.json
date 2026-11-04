@@ -1,0 +1,255 @@
+{
+  "run_id": 41765611859,
+  "head": "e4b7910835bf2c9901aa06989e296997875a3636",
+  "base": "3b0049163ece2d9431cee01f1bea624a66d9d8d4",
+  "event": "pull_request",
+  "attempt": 1,
+  "status": "completed",
+  "conclusion": "success",
+  "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41765611859",
+  "workflow": ".github/workflows/savia.yml",
+  "merge_commit_sha": "f1a0bb1d0cd0258838f920ec8f811315820c7587",
+  "compare": {
+    "repository_full_name": "Suazo-AI/Martha-Silva-Store",
+    "base": "e4b7910835bf2c9901aa06989e296997875a3636",
+    "head": "f1a0bb1d0cd0258838f920ec8f811315820c7587",
+    "status": "ahead",
+    "ahead_by": 1,
+    "behind_by": 0,
+    "total_commits": 1,
+    "too_large": null,
+    "base_commit": {
+      "sha": "e4b7910835bf2c9901aa06989e296997875a3636",
+      "url": "https://api.github.com/repos/Suazo-AI/Martha-Silva-Store/commits/e4b7910835bf2c9901aa06989e296997875a3636",
+      "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/commit/e4b7910835bf2c9901aa06989e296997875a3636"
+    },
+    "merge_base_commit": {
+      "sha": "e4b7910835bf2c9901aa06989e296997875a3636",
+      "url": "https://api.github.com/repos/Suazo-AI/Martha-Silva-Store/commits/e4b7910835bf2c9901aa06989e296997875a3636",
+      "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/commit/e4b7910835bf2c9901aa06989e296997875a3636"
+    },
+    "files": []
+  },
+  "jobs": [
+    {
+      "id": 126363152814,
+      "name": "Staff UI tests and real browser harness",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 41765611859,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Run actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Install locked jsdom without lifecycle scripts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Staff UI tests (jsdom doubles, not a browser)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Install pinned Playwright library; the runner's Google Chrome is the browser",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Real browser with synthetic API responses (includes the N5 regressions)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7
+        },
+        {
+          "name": "Upload browser evidence (synthetic records only)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8
+        },
+        {
+          "name": "Post Run actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15
+        },
+        {
+          "name": "Post Run actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17
+        }
+      ]
+    },
+    {
+      "id": 126363153085,
+      "name": "Complete backend suite on disposable SQL Server",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 41765611859,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Run actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Verify the evidence summarizer",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Restore pinned dependencies and build",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Start disposable SQL Server 2022 Developer",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Wait for SQL and verify licensed edition and engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7
+        },
+        {
+          "name": "Run every backend case against disposable SQL (restart proof held back)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8
+        },
+        {
+          "name": "Controlled container stop/start, then restart persistence proof",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9
+        },
+        {
+          "name": "Require every case executed and passed; sanitize evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10
+        },
+        {
+          "name": "Upload sanitized outcomes only",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11
+        },
+        {
+          "name": "Always destroy the disposable SQL container and raw logs",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12
+        },
+        {
+          "name": "Post Run actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 23
+        },
+        {
+          "name": "Post Run actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 24
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 25
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 13293135677,
+      "name": "savia-backend-outcomes-41765611859-1",
+      "size_in_bytes": 7529,
+      "url": "https://api.github.com/repos/Suazo-AI/Martha-Silva-Store/actions/artifacts/13293135677",
+      "archive_download_url": "https://api.github.com/repos/Suazo-AI/Martha-Silva-Store/actions/artifacts/13293135677/zip",
+      "expired": false,
+      "created_at": "2026-11-04T03:14:04Z",
+      "expires_at": "2026-11-11T03:14:04Z",
+      "updated_at": "2026-11-04T03:14:04Z",
+      "digest": "sha256:2ebd08e19f9fa7d65afd4dd2e0bbca3da2c276e6f6732e6c3a89571d05c87dff",
+      "workflow_run": {
+        "id": 41765611859,
+        "repository_id": 1432603254,
+        "head_repository_id": 1432603254,
+        "head_branch": "claude/funny-brahmagupta-5e5rj0",
+        "head_sha": "e4b7910835bf2c9901aa06989e296997875a3636"
+      }
+    },
+    {
+      "id": 13292871339,
+      "name": "savia-browser-evidence-41765611859-1",
+      "size_in_bytes": 73943,
+      "url": "https://api.github.com/repos/Suazo-AI/Martha-Silva-Store/actions/artifacts/13292871339",
+      "archive_download_url": "https://api.github.com/repos/Suazo-AI/Martha-Silva-Store/actions/artifacts/13292871339/zip",
+      "expired": false,
+      "created_at": "2026-11-04T03:13:44Z",
+      "expires_at": "2026-11-11T03:13:43Z",
+      "updated_at": "2026-11-04T03:13:44Z",
+      "digest": "sha256:4632864ca8a354c210bd27f2f974cd8bafc0e6bcf2814438d8d966e63aa47cef",
+      "workflow_run": {
+        "id": 41765611859,
+        "repository_id": 1432603254,
+        "head_repository_id": 1432603254,
+        "head_branch": "claude/funny-brahmagupta-5e5rj0",
+        "head_sha": "e4b7910835bf2c9901aa06989e296997875a3636"
+      }
+    }
+  ],
+  "limits": [
+    "Synthetic CI on disposable Linux SQL only; no Windows C9 RTO/RPO proof.",
+    "Raw logs, traces, tokens, signed URLs and credentials excluded."
+  ]
+}

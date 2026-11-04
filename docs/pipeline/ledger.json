@@ -165,7 +165,7 @@
       "order": 8,
       "track": "sprint",
       "owner": "denis",
-      "status": "doing",
+      "status": "done",
       "blocked_by": [
         "C5"
       ],
@@ -176,13 +176,14 @@
         "tool": "Chrome + Playwright 1.63.0 + golden_path.py --mode browser (protocolo privado; oraculos SQL antes de avanzar)"
       },
       "trello": "https://trello.com/c/ezVfv0Pk",
-      "prep": "CI 41757409404 en 6aeb9a3: venta/recuperacion GET reales sin duplicado; 2 ventas/lineas/operaciones de venta/movs de venta, stock27. Fallo logout. Delta importado con gates204/URL/login/401 y ausencia obligatoria Node/Chrome propios; 33/33 ligeras PASS. Nuevo CI real y reevaluacion juez gpt-6.1-sol/xhigh pendientes; no cerrado.",
+      "prep": "CI sintetico Linux 41765611979/1 en e4b7910835bf2c9901aa06989e296997875a3636: 21/21 pasos, 11/11 browser, 20 oraculos SQL; 2 POST y 2 ventas, recuperacion GET con clave original sin otro debito, stock27. Logout204/me401, sesiones0; Chrome/API/base/directorio/contenedor retirados. Juez independiente APTO17/17; H1/H2 cerrados.",
       "paths": [
         "tests/golden-path/*",
         "tests/test_golden_path_browser_safety.py",
         ".github/workflows/golden-path.yml"
       ],
-      "report": "docs/c6-e2e-20261103/README.md"
+      "report": "docs/c6-e2e-20261103/README.md",
+      "evidence": "docs/c6-e2e-20261103/independent-final-review.md / docs/c6-e2e-20261103/ci-41765611979/REPORT.md / https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41765611979"
     },
     {
       "id": "C7",
@@ -205,7 +206,7 @@
       "order": 10,
       "track": "sprint",
       "owner": "denis",
-      "status": "doing",
+      "status": "done",
       "blocked_by": [
         "C3"
       ],
@@ -216,8 +217,8 @@
       "paths": [
         "dev/savia-staff-ui/*"
       ],
-      "prep": "C8 local probado: UI enfocada 9/9, browser 45/45, staff 45/45, API expiración 1/1 e InternalSecurityTests 49/49 (incluye API). Evidencia REUTILIZADA, cero ejecuciones nuevas; bytes y dependencias iguales. Base probada 775f301bc195c43baedc68c86f4e71affe92ef95, port local 260b75951729189d987ffe423218ab1643bcfa3c. Trello 4/5 En curso. CI del candidato C8 pendiente; CI 260b759 no cubre los parches.",
-      "evidence": "docs/c8-ui-20261103/INTEGRATION.md · docs/c8-ui-20261103/integration-binding.json · docs/c8-ui-20261103/current-head-20261104/report.md · docs/c8-ui-20261103/api-expiry-completion-20261103/primary-acceptance.json. Patch producto SHA256 a0762dc021260f4c8c88b849552c4775c6bef17af06c5338e68e95cd7a221df0. Seis blobs importados y comprobados sobre 6aeb9a3; evidencia saneada revisada. C8 sigue doing; CI del candidato integrado y C11 pendientes."
+      "prep": "CI 41765611859/1 en e4b7910835bf2c9901aa06989e296997875a3636: browser45/45, staff45/45, backend600/600 sin omisiones; seguridad49/49 incluye expiracion1/1. Seis blobs C8, seis hashes servidos y overlay71/71 verificados. Conserva rojo-verde previo; no representa produccion ni aceptacion visual.",
+      "evidence": "docs/c8-ui-20261103/FINAL-CI-REVIEW.md / docs/c8-ui-20261103/ci-41765611859/run-binding.json / https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41765611859"
     },
     {
       "id": "C9",
@@ -272,7 +273,7 @@
       "order": 13,
       "track": "sprint",
       "owner": "denis",
-      "status": "blocked",
+      "status": "todo",
       "blocked_by": [
         "C6",
         "C7",
@@ -282,7 +283,7 @@
       "why": "Un segundo par de ojos con postura NEEDS WORK atrapa éxitos inventados",
       "done_when": "Veredicto escrito: ledger antes/después sin segundo débito ni éxito inventado",
       "trello": "https://trello.com/c/ant3sEML",
-      "prep": "Tony/Codex: matriz de revisión por escenario; ejecución 0; Trello C11 2026-11-03"
+      "prep": "Dependencias tecnicas C6/C7/C8 satisfechas. Requiere su propio veredicto independiente N10; no ejecutado ni aceptado por los dictamenes limitados C6/C8. C9 y autorizaciones permanecen separadas."
     },
     {
       "id": "C12",
@@ -313,7 +314,9 @@
       "paths": [
         "tests/browser-mock-validation.mjs"
       ],
-      "trello": "https://trello.com/c/145Qp5pz"
+      "trello": "https://trello.com/c/145Qp5pz",
+      "prep": "Revision final C8 confirma tres GAP: submit durante recovery retenido, venta nueva completa tras descartar recibo obsoleto y carrera404 tardia. Casos adyacentes PASS no cubren estos escenarios; no se afirma defecto sin reproducir ni se descarta cobertura por inferencia.",
+      "report": "docs/c8-ui-20261103/FINAL-CI-REVIEW.md"
     },
     {
       "id": "SEC-CSRF",
@@ -406,7 +409,7 @@
       "order": 23,
       "track": "prod",
       "owner": "denis",
-      "status": "todo",
+      "status": "done",
       "title": "Clasificar las 19 aserciones heredadas que fallan",
       "why": "Un rojo permanente entrena a ignorar el CI",
       "done_when": "Cada aserción marcada regresión, obsoleta, entorno o inestable, con issue o fix",
@@ -414,7 +417,10 @@
         "tests/desktop-gallery.cjs",
         "tests/green-header.cjs",
         "tests/luxury-editorial.cjs"
-      ]
+      ],
+      "report": "docs/p-legacy-20261104/CLASSIFICATION.md",
+      "evidence": "19/19 clasificadas (5 contrato DOM, 9 obsoletas, 5 entorno); solo clasificacion. Issue abierto con acciones por caso: https://github.com/Suazo-AI/Martha-Silva-Store/issues/4 / docs/p-legacy-20261104/CLASSIFICATION.md",
+      "prep": "Paquete de FIX-PR2 verificado: documento SHA256 c16b69043f9c5d741717e2a14f6677e80f83d7257d53b20dcf9a9b339a602f06; cuerpo del issue #4 coincide tras normalizar saltos y espacios finales. Solo clasificacion; no nuevas pruebas ni correcciones de las aserciones."
     },
     {
       "id": "P-OWNER",

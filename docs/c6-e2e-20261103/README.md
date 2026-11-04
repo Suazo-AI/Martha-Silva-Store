@@ -81,3 +81,14 @@ Lección aplicada: el evento del navegador no basta; SQL debe confirmar el commi
 ## Union puntual C6 y validacion combinada pendiente
 
 Ver [RECONCILIATION.md](RECONCILIATION.md). Jason autorizo conservar 2ddf83de y b6bc0396 mediante una union con recibo y una excepcion limitada al unico SHA remoto nuevo. Resolucion revisada; 33/33 ligeras PASS. CI combinado y cierre de los 17 checks pendientes.
+
+## Cierre técnico del candidato combinado
+
+CI [41765611979/1](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41765611979)
+en `e4b7910835bf2c9901aa06989e296997875a3636`: 21/21 pasos, 11/11 browser;
+recuperación GET de la clave original con dos POST totales, dos ventas y stock 27.
+Logout y retirada de Chrome/API/base/directorio/contenedor comprobados.
+[Juez independiente APTO 17/17](independent-final-review.md); H1/H2 cerrados.
+[Evidencia exacta](ci-41765611979/REPORT.md), [hashes del juez](independent-final-evidence.json)
+y [cierre Trello](trello-closure.json): Hecho 4/4, según instrucción de Jason.
+Alcance: CI sintético Linux. No acepta C9, Windows operativo ni producción.

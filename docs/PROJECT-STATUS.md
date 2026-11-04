@@ -1,7 +1,24 @@
 # Estado vigente de Martha Silva / SAVIA
 
-Corte: 2026-11-03. Host de la validación: SUAZO-PC. Checkout canónico `github`, rama `Tony`.
-**No listo para producción. Siguiente incremento: venta segura por cajero, empezando por N5.**
+Corte operativo: 2026-11-04 UTC. Host coordinador: SUAZO-PC. Checkout canónico `github`, rama `Tony`.
+**No listo para producción. C6 y C8 pasan en CI sintético Linux; C9 sigue sin autorización SQL nueva.**
+
+El candidato `e4b7910835bf2c9901aa06989e296997875a3636` está publicado en Tony y PR #2.
+C6: 21/21 pasos, 11/11 de Chrome, recuperación GET con clave original y solo dos POST de venta;
+dos ventas y stock 27, logout 204/401, sesiones 0 y retirada de Chrome/API/base/contenedor comprobada.
+[Artefactos y revisión C6](c6-e2e-20261103/ci-41765611979/REPORT.md).
+C8: navegador 45/45, staff 45/45 y backend 600/600; incluye seguridad 49/49 y expiración 1/1.
+[Evidencia CI C8](c8-ui-20261103/ci-41765611859/run-binding.json).
+El PR tiene 12 checks PASS, 0 FAIL y 3 SKIP previstos; ningún paso C6/C8 requerido fue omitido.
+No equivale a aceptación del negocio, pruebas Windows, dispositivos reales ni producción.
+
+C9 tiene [procedimiento G0–G9](c9-recovery-20261103/PROCEDURE.md) y
+[preflight acotado propuesto](c9-recovery-20261103/PREFLIGHT-SCOPE.md).
+No se ejecutó conexión SQL local, API ni Docker nuevos. Faltan permiso de preflight, campos actuales,
+coordinador Windows y corrida sintética con ventas/restauración/RTO/RPO. C11 conserva su revisión propia pendiente.
+P-LEGACY: [19/19 aserciones clasificadas](p-legacy-20261104/CLASSIFICATION.md);
+las correcciones permanecen abiertas en [issue #4](https://github.com/Suazo-AI/Martha-Silva-Store/issues/4).
+Los siguientes cortes y tablas conservan evidencia histórica; este corte y el ledger establecen el avance actual.
 
 > **Actualización 2026-11-03, rama `claude/funny-brahmagupta-5e5rj0` (PR de integración):** N5 corregido con
 > rojo-verde-revert en navegador real (arnés 36/36, personal 42/42); backend 592/592 contra SQL Server real,
