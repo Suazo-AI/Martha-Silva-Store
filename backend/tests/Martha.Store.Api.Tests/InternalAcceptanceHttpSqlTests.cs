@@ -310,6 +310,7 @@ public sealed class InternalAcceptanceHttpSqlTests
         Assert.Equal((auditCount + 1).ToString(CultureInfo.InvariantCulture), await f.Scalar("SELECT COUNT(*) FROM savia_internal.BranchAssignmentAudit"));
         Assert.Equal("1", await f.Scalar($"SELECT COUNT(*) FROM savia_internal.BranchAssignmentAudit WHERE ActorId='{f.Database.Actor}' AND StaffId='{staff.Id}' AND PreviousBranchId='{f.BranchA}' AND BranchId='{f.BranchB}'"));
         Assert.Equal(business, await BusinessFingerprint());
+        var afterReassignment = await f.Fingerprint();
 
         foreach (var (method, path, body, key) in new (HttpMethod, string, object?, string?)[]
         {
@@ -321,10 +322,12 @@ public sealed class InternalAcceptanceHttpSqlTests
             using var response = await SendOriginal(method, path, body, key);
             Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
             AssertNoLeak(await response.Content.ReadAsStringAsync(), saleA, f.LocationA, f.LocationB);
-            Assert.Equal(business, await BusinessFingerprint());
+            Assert.Equal(afterReassignment, await f.Fingerprint());
         }
 
         using var fresh = await f.Login("cashier");
+        Assert.Equal(business, await BusinessFingerprint());
+        var afterFreshLogin = await f.Fingerprint();
         using (var response = await fresh.Send(Get, "/internal/api/security/me"))
         {
             var me = await Json(response, HttpStatusCode.OK);
@@ -333,19 +336,23 @@ public sealed class InternalAcceptanceHttpSqlTests
             Assert.Equal(f.BranchB, me.GetProperty("branchId").GetGuid());
             Assert.Equal(newVersion, me.GetProperty("version").GetGuid());
         }
+        Assert.Equal(afterFreshLogin, await f.Fingerprint());
         await Rejected(fresh, HttpStatusCode.NotFound, Get, $"/internal/api/commerce/sales/{saleA}");
+        Assert.Equal(afterFreshLogin, await f.Fingerprint());
         await Rejected(fresh, HttpStatusCode.Forbidden, Post, "/internal/api/commerce/sales", f.SaleBody(f.LocationA), key: saleKey);
-        Assert.Equal(business, await BusinessFingerprint());
+        Assert.Equal(afterFreshLogin, await f.Fingerprint());
         var locations = await Page(fresh, "/internal/api/directory/locations", 1);
+        Assert.Equal(afterFreshLogin, await f.Fingerprint());
         var stock = await Page(fresh, "/internal/api/commerce/inventory", 1);
+        Assert.Equal(afterFreshLogin, await f.Fingerprint());
         var sales = await Page(fresh, "/internal/api/commerce/sales", 1);
+        Assert.Equal(afterFreshLogin, await f.Fingerprint());
         Assert.Equal(f.LocationB, Assert.Single(locations.GetProperty("items").EnumerateArray()).GetProperty("id").GetGuid());
         var stockB = Assert.Single(stock.GetProperty("items").EnumerateArray());
         Assert.Equal(f.LocationB, stockB.GetProperty("locationId").GetGuid());
         Assert.Equal(8, stockB.GetProperty("onHand").GetInt32());
         Assert.Equal(f.SaleB, Assert.Single(sales.GetProperty("items").EnumerateArray()).GetProperty("saleId").GetGuid());
         foreach (var page in new[] { locations, stock, sales }) AssertNoLeak(page.GetRawText(), f.LocationA, f.SaleA, saleA, f.PurchaseA);
-        Assert.Equal(business, await BusinessFingerprint());
 
         // Positive B control: one new sale/debit. Every original A row, including its operation and stock, remains identical.
         using (var response = await fresh.Send(Post, "/internal/api/commerce/sales", f.SaleBody(f.LocationB), await Csrf(fresh), Key()))
