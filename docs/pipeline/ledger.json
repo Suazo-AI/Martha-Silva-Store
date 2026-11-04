@@ -6,7 +6,8 @@
     "jason": "Jason Suazo",
     "denis": "Denis Alvarez",
     "claude": "Agente (Claude Code)",
-    "martha": "Martha (tienda)"
+    "martha": "Martha (tienda)",
+    "suazo_pc": "Coordinador SUAZO-PC"
   },
   "tracks": [
     {
@@ -81,16 +82,17 @@
       "done_when": "Protección de main con checks requeridos leída de la API; valor de CLOUDFLARE_DEPLOY_ENABLED anotado; decisiones en docs/DECISIONS.md",
       "alternatives": "Fusionar sin protección confiando en revisión manual (rechazado: sin freno automático)",
       "needs": {
-        "decision": "Responsable de aceptación y entorno del ensayo; concretar alerta y reconciliación contable cuando la prenda física existe pero el stock registrado es 0",
+        "decision": "Entorno del ensayo; concretar autorización, alerta y reconciliación contable cuando la prenda física existe pero el stock registrado es 0",
         "decider": "jason",
-        "recommendation": "Conservar decisión de Denis: la prenda física existente sí se entrega; no introducir rechazo automático por stock registrado 0. Registrar cómo alertar y reconciliar; confirmar responsable y entorno del ensayo.",
+        "recommendation": "D-022: Jason designó al coordinador SUAZO-PC como responsable de aceptación. Conservar la entrega de prenda física existente; definir alerta/reconciliación y confirmar entorno. Protección de main y efecto del merge siguen pendientes.",
         "tool": "Configuración de GitHub (admin): protección de rama y variables de Actions"
       },
       "trello": "https://trello.com/c/e57qFLhJ",
       "paths": [
         "docs/DECISIONS.md",
         ".github/workflows/ci.yml"
-      ]
+      ],
+      "prep": "Responsable de aceptación decidido por Jason: coordinador SUAZO-PC (D-022, 2026-11-03 America/Managua). Solo este criterio se completa; C1 sigue todo."
     },
     {
       "id": "C2",
@@ -260,14 +262,14 @@
       ],
       "title": "Ensayo supervisado en la tienda",
       "why": "Solo quien vende puede demostrar que sirve; ninguna prueba sintética lo sustituye",
-      "done_when": "5 tareas sin ayuda; 30 ventas sintéticas con p95 enviar→recibo ≤ 1 s en la caja; conteo físico = SAVIA; hoja firmada",
+      "done_when": "5 tareas sin ayuda; 30 ventas sintéticas con p95 enviar→recibo ≤ 1 s en la caja; conteo físico = SAVIA; registro de aceptación por flujo del coordinador SUAZO-PC (D-022)",
       "needs": {
-        "decision": "Firma de aceptación por flujo",
-        "decider": "martha",
+        "decision": "Dictamen de aceptación por flujo emitido por el coordinador SUAZO-PC, según D-022, contra evidencia del ensayo",
+        "decider": "suazo_pc",
         "test": "30 mediciones p50/p95 en la caja real"
       },
       "trello": "https://trello.com/c/RYEhYexC",
-      "prep": "Tony/Codex: guion de 5 tareas y registro de defectos; ensayo 0; Trello C10 2026-11-03"
+      "prep": "Guion de cinco tareas y registro preparados; ensayo0. Jason asignó la aceptación al coordinador SUAZO-PC (D-022); no sustituye tareas presenciales,30mediciones en caja ni conteo físico."
     },
     {
       "id": "C11",

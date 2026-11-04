@@ -3,6 +3,11 @@
 Corte operativo: 2026-11-04 UTC. Host coordinador: SUAZO-PC. Checkout canónico `github`, rama `Tony`.
 **No listo para producción. C6/C8 y C11 pasan técnicamente; C9 sigue bloqueado por confianza TLS.**
 
+Jason designó al coordinador SUAZO-PC como responsable de aceptación por flujo de C10
+([D-022](DECISIONS.md#d-022--responsable-de-aceptación-del-ensayo)), en lugar de la propuesta de Martha.
+El responsable está decidido; el ensayo y su dictamen no están aceptados anticipadamente.
+Martha aporta datos de operación. Siguen pendientes el entorno, C2/C9 y evidencia presencial.
+
 Código aceptado: `53dd23b5cfec2cb5dd717395b9095a71d29669f0`, publicado en Tony y PR #2.
 C11/N10: [APTO independiente por capas](c11-next-20261104/final-review.md).
 Nuevo N5 HTTP+SQL 1/1, backend 601/601 sin fallos/omitidos; conserva los 600 casos anteriores.

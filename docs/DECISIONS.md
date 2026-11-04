@@ -56,3 +56,24 @@ Añadir una entrada con fecha, estado, motivo, evidencia y decisión reemplazada
 ## Reconciliación de stock físico — candidato de corrección 2026-11-04
 
 La instrucción directa de Denis conserva la entrega cuando la prenda física sí existe, aun si el stock registrado figura en 0. El ledger no debe reabrir esa elección ni recomendar un rechazo automático. Siguen pendientes la forma de alertar y reconciliar el registro, y su aceptación con el responsable del negocio. Este ajuste documental no modifica las guardas actuales de SQL/API ni acredita un cambio funcional de inventario.
+
+## D-022 — Responsable de aceptación del ensayo
+
+Adoptada por Jason el 2026-11-03, America/Managua (2026-11-04 UTC):
+el coordinador/agente de **SUAZO-PC** emite la aceptación por flujo del ensayo C10.
+Sustituye la propuesta de asignar esa aceptación a Martha.
+Martha sigue aportando los datos de operación y las respuestas de C2.
+Jason conserva la autorización de integración y despliegue.
+
+Asignar el responsable no acepta anticipadamente el ensayo ni cierra C1 o C10.
+Las cinco tareas por quien vende, las 30 mediciones en caja y el conteo físico
+siguen necesitando evidencia real. El coordinador acepta o rechaza cada flujo
+contra esa evidencia y registra el dictamen; no atribuye una aceptación personal a Martha.
+No se inicia otro agente ni se autoriza SQL, certificados, merge o despliegue.
+
+Verificación: `python tests/test_delivery_status.py`, 24/24 PASS;
+`python tools/delivery_status.py --check`, ledger válido, 34 items.
+Lectura exacta de cuatro tarjetas y dos criterios de Trello:
+[responsable decidido en C1](https://trello.com/c/e57qFLhJ);
+[dictamen C10 todavía pendiente](https://trello.com/c/RYEhYexC).
+Siguiente decisión de Jason: equipo y entorno del ensayo; fecha después de resolver C2/C9.
