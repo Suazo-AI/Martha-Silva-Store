@@ -1,0 +1,45 @@
+{
+  "source": "Authenticated decoded GitHub job logs already read; no new run or job requested",
+  "excerpts": [
+    {
+      "job_id": 126392957252,
+      "lines": [
+        "2026-11-04T04:45:30.4439815Z Artifact savia-backend-outcomes-41774927960-1.zip successfully finalized. Artifact ID 13296353218",
+        "2026-11-04T04:45:30.4440621Z Artifact savia-backend-outcomes-41774927960-1 has been successfully uploaded! Final size is 7559 bytes. Artifact ID is 13296353218"
+      ]
+    },
+    {
+      "job_id": 126392957018,
+      "lines": [
+        "2026-11-04T04:45:01.0567504Z Artifact savia-browser-evidence-41774927960-1.zip successfully finalized. Artifact ID 13295923664",
+        "2026-11-04T04:45:01.0568580Z Artifact savia-browser-evidence-41774927960-1 has been successfully uploaded! Final size is 73941 bytes. Artifact ID is 13295923664"
+      ]
+    },
+    {
+      "job_id": 126392957847,
+      "lines": [
+        "2026-11-04T04:45:30.8053371Z Artifact savia-golden-path-41774928044-1.zip successfully finalized. Artifact ID 13296217986",
+        "2026-11-04T04:45:30.8054434Z Artifact savia-golden-path-41774928044-1 has been successfully uploaded! Final size is 2536 bytes. Artifact ID is 13296217986",
+        "2026-11-04T04:45:31.9566833Z Artifact savia-browser-path-41774928044-1.zip successfully finalized. Artifact ID 13295724663",
+        "2026-11-04T04:45:31.9568032Z Artifact savia-browser-path-41774928044-1 has been successfully uploaded! Final size is 5326 bytes. Artifact ID is 13295724663"
+      ]
+    }
+  ],
+  "publication_verified": true,
+  "limitation": "The observer read actual post-command PASS output and successful cleanup step conclusions. No independent later host inspection is claimed.",
+  "container_absence": [
+    {
+      "job_id": 126392957252,
+      "actual_stdout": [
+        "2026-11-04T04:45:30.7023813Z PASS: disposable SQL container absence verified."
+      ]
+    },
+    {
+      "job_id": 126392957847,
+      "actual_stdout": [
+        "2026-11-04T04:45:32.2282012Z PASS: disposable SQL container absence verified."
+      ]
+    }
+  ],
+  "checked_head_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0"
+}

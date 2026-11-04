@@ -1,0 +1,279 @@
+{
+  "schema": 1,
+  "candidate_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+  "actual_checkout_sha": "cb3109bc5159b86d4ec8c68e3ac058d2f949bab7",
+  "candidate_tree": "abaf54477b400ac434835864fbd79795210b5f32",
+  "checkout_tree": "abaf54477b400ac434835864fbd79795210b5f32",
+  "whole_tree_identical": true,
+  "jobs": [
+    {
+      "job_id": 126392957252,
+      "checkout_lines": [
+        "2026-11-04T04:43:48.5628203Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/2/merge",
+        "2026-11-04T04:43:49.2232575Z HEAD is now at cb3109b Merge 53dd23b5cfec2cb5dd717395b9095a71d29669f0 into 3b0049163ece2d9431cee01f1bea624a66d9d8d4",
+        "2026-11-04T04:43:49.2359175Z [command]/usr/bin/git log -1 --format=%H",
+        "2026-11-04T04:43:49.2393208Z cb3109bc5159b86d4ec8c68e3ac058d2f949bab7"
+      ]
+    },
+    {
+      "job_id": 126392957018,
+      "checkout_lines": [
+        "2026-11-04T04:43:48.1779688Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/2/merge",
+        "2026-11-04T04:43:48.8711550Z HEAD is now at cb3109b Merge 53dd23b5cfec2cb5dd717395b9095a71d29669f0 into 3b0049163ece2d9431cee01f1bea624a66d9d8d4",
+        "2026-11-04T04:43:48.8790558Z [command]/usr/bin/git log -1 --format=%H",
+        "2026-11-04T04:43:48.8811175Z cb3109bc5159b86d4ec8c68e3ac058d2f949bab7"
+      ]
+    },
+    {
+      "job_id": 126392957847,
+      "checkout_lines": [
+        "2026-11-04T04:43:49.6999920Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/2/merge",
+        "2026-11-04T04:43:50.4601920Z HEAD is now at cb3109b Merge 53dd23b5cfec2cb5dd717395b9095a71d29669f0 into 3b0049163ece2d9431cee01f1bea624a66d9d8d4",
+        "2026-11-04T04:43:50.4656365Z [command]/usr/bin/git log -1 --format=%H",
+        "2026-11-04T04:43:50.4681311Z cb3109bc5159b86d4ec8c68e3ac058d2f949bab7"
+      ]
+    }
+  ],
+  "source_git_lf_sha256": {
+    "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs": "a2ad86527f08e0d8b20c08cf659ce4695b4faa1352ca836a5843a07fd5dfe0df",
+    ".github/workflows/savia.yml": "f91c5b631b5d48fd4aaa7503e20d54414bb39e8dc225801aa8ad35913a89fd36",
+    ".github/workflows/golden-path.yml": "1bc4cfd6ba4e58e3becbfc34366dbbb5f7804a5ad01acd83db1e56c3f4e70e89"
+  },
+  "runs": [
+    {
+      "id": 41774927960,
+      "head_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+      "event": "pull_request",
+      "head_branch": "claude/funny-brahmagupta-5e5rj0",
+      "run_attempt": 1,
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 41774928044,
+      "head_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+      "event": "pull_request",
+      "head_branch": "claude/funny-brahmagupta-5e5rj0",
+      "run_attempt": 1,
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "checks": [
+    {
+      "id": 126393667140,
+      "name": "Deploy isolated Cloudflare preview",
+      "status": "completed",
+      "conclusion": "skipped",
+      "head_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+      "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41774927957/job/126393667140"
+    },
+    {
+      "id": 126393666324,
+      "name": "Build artifact (not deployment)",
+      "status": "completed",
+      "conclusion": "skipped",
+      "head_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+      "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41774927957/job/126393666324"
+    },
+    {
+      "id": 126393293121,
+      "name": "sql-server-integration",
+      "status": "completed",
+      "conclusion": "skipped",
+      "head_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+      "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41774928093/job/126393293121"
+    },
+    {
+      "id": 126393117520,
+      "name": "Publish digest (sticky PR comment or issue log)",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+      "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41774927987/job/126393117520"
+    },
+    {
+      "id": 126393081686,
+      "name": "Optional AI narrator (read-only)",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+      "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41774927987/job/126393081686"
+    },
+    {
+      "id": 126393010848,
+      "name": "Optional AI narrator (read-only)",
+      "status": "completed",
+      "conclusion": "skipped",
+      "head_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+      "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41774920282/job/126393010848"
+    },
+    {
+      "id": 126393009999,
+      "name": "Publish digest (sticky PR comment or issue log)",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+      "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41774920282/job/126393009999"
+    },
+    {
+      "id": 126392957847,
+      "name": "Real API + disposable SQL golden path",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+      "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41774928044/job/126392957847"
+    },
+    {
+      "id": 126392957584,
+      "name": "build-and-guards",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+      "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41774928093/job/126392957584"
+    },
+    {
+      "id": 126392957270,
+      "name": "Portable checks (windows-latest)",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+      "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41774927957/job/126392957270"
+    },
+    {
+      "id": 126392957252,
+      "name": "Complete backend suite on disposable SQL Server",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+      "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41774927960/job/126392957252"
+    },
+    {
+      "id": 126392957202,
+      "name": "Ledger check and deterministic digest",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+      "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41774927987/job/126392957202"
+    },
+    {
+      "id": 126392957018,
+      "name": "Staff UI tests and real browser harness",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+      "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41774927960/job/126392957018"
+    },
+    {
+      "id": 126392956967,
+      "name": "Portable checks (ubuntu-latest)",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+      "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41774927957/job/126392956967"
+    },
+    {
+      "id": 126392933887,
+      "name": "Ledger check and deterministic digest",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+      "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41774920282/job/126392933887"
+    },
+    {
+      "id": 126392804700,
+      "name": "Historical portable regression suite (known gaps retained)",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+      "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41774848716/job/126392804700"
+    },
+    {
+      "id": 126392801690,
+      "name": "Optional AI narrator (read-only)",
+      "status": "completed",
+      "conclusion": "skipped",
+      "head_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+      "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41774848718/job/126392801690"
+    },
+    {
+      "id": 126392800138,
+      "name": "Publish digest (sticky PR comment or issue log)",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+      "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41774848718/job/126392800138"
+    },
+    {
+      "id": 126392709710,
+      "name": "Progress receipt and sync safety",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+      "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41774848786/job/126392709710"
+    },
+    {
+      "id": 126392709697,
+      "name": "Ledger check and deterministic digest",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+      "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41774848718/job/126392709697"
+    },
+    {
+      "id": 126392709493,
+      "name": "Publication integrity and reproducible build",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+      "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41774848716/job/126392709493"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 13296353218,
+      "name": "savia-backend-outcomes-41774927960-1",
+      "run_id": 41774927960,
+      "head_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+      "size_in_bytes": 7559,
+      "github_reported_zip_digest": "sha256:436e9d0c8f937e4ad201a0c01e8a727c7ee2e560506cf645ee9e25eea13230b9",
+      "zip_digest_locally_recomputed": false,
+      "expired": false
+    },
+    {
+      "id": 13295923664,
+      "name": "savia-browser-evidence-41774927960-1",
+      "run_id": 41774927960,
+      "head_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+      "size_in_bytes": 73941,
+      "github_reported_zip_digest": "sha256:9ba479b3c4d4024f0e0632a36d784d57e0b18e6cbd542a1d57f2b25c45906e65",
+      "zip_digest_locally_recomputed": false,
+      "expired": false
+    },
+    {
+      "id": 13296217986,
+      "name": "savia-golden-path-41774928044-1",
+      "run_id": 41774928044,
+      "head_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+      "size_in_bytes": 2536,
+      "github_reported_zip_digest": "sha256:e67f0def3ee627559cb5e82014bc16aed146f6ef46ce53c570765d5232a74ea3",
+      "zip_digest_locally_recomputed": false,
+      "expired": false
+    },
+    {
+      "id": 13295724663,
+      "name": "savia-browser-path-41774928044-1",
+      "run_id": 41774928044,
+      "head_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+      "size_in_bytes": 5326,
+      "github_reported_zip_digest": "sha256:45fecf10814c2881193f269045c31f5a02ffe35a7cb3896276281570e761d96b",
+      "zip_digest_locally_recomputed": false,
+      "expired": false
+    }
+  ],
+  "limitations": [
+    "ZIP digests are reported by authenticated GitHub API; no claim of local ZIP-byte recomputation.",
+    "Artifacts downloaded via existing gh-axi wrapper exit0; extracted-file hashes are tracked separately.",
+    "CI default checkout is a synthetic PR merge commit. Its tree equals the candidate tree; main was not merged by this work."
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-04T05:07:53.105656+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "f38426a8945bbf926c293c99534c4126b6dd026e"
+    },
+    {
+      "path": "docs/c11-next-20261104/README.md",
+      "change": "M",
+      "git_blob": "01f5d33dc79a12e09eb71a9a7d77f585b5e92264"
+    },
+    {
+      "path": "docs/c11-next-20261104/ci-53dd23b5/golden/savia-browser-path-41774928044-1/evidence.json",
+      "change": "A",
+      "git_blob": "e51d631859db9e7f41969dc564277c3921bae349"
+    },
+    {
+      "path": "docs/c11-next-20261104/ci-53dd23b5/golden/savia-browser-path-41774928044-1/oracles.md",
+      "change": "A",
+      "git_blob": "35c879921307a4f6f47c58c7fb692c843ad3106f"
+    },
+    {
+      "path": "docs/c11-next-20261104/ci-53dd23b5/golden/savia-golden-path-41774928044-1/evidence.json",
+      "change": "A",
+      "git_blob": "4c54b4f674f6138f1daa8fe2af25518b87f2d683"
+    },
+    {
+      "path": "docs/c11-next-20261104/ci-53dd23b5/golden/savia-golden-path-41774928044-1/oracles.md",
+      "change": "A",
+      "git_blob": "90a9d3a4319e70599adff13be3a6a222d332156c"
+    },
+    {
+      "path": "docs/c11-next-20261104/ci-53dd23b5/publication-cleanup.json",
+      "change": "A",
+      "git_blob": "5b73f83702c7a0b082d8713b18973f2a5742ac40"
+    },
+    {
+      "path": "docs/c11-next-20261104/ci-53dd23b5/root-ci-binding.json",
+      "change": "A",
+      "git_blob": "b5d0c0468b0e0013438d79e0f0afa8a918f30380"
+    },
+    {
+      "path": "docs/c11-next-20261104/ci-53dd23b5/savia/savia-backend-outcomes-41774927960-1/sanitized-results.json",
+      "change": "A",
+      "git_blob": "7145354d03694d574952a92a8c68e6f0cefc25cc"
+    },
+    {
+      "path": "docs/c11-next-20261104/ci-53dd23b5/savia/savia-browser-evidence-41774927960-1/browser-results.json",
+      "change": "A",
+      "git_blob": "4ff77aac6da1f9b91b40b97aa0407917098ea75c"
+    },
+    {
+      "path": "docs/c11-next-20261104/closure-export-manifest.json",
+      "change": "A",
+      "git_blob": "061c1ad49475d31fd1be43e9f0bc58e0b051368d"
+    },
+    {
+      "path": "docs/c11-next-20261104/final-review-evidence.json",
+      "change": "A",
+      "git_blob": "79d13790099c9efc4ff3e86579de0aed768d4042"
+    },
+    {
+      "path": "docs/c11-next-20261104/final-review.md",
+      "change": "A",
+      "git_blob": "6167e6a98be05601d6bb56431e1974a857014d58"
+    },
+    {
+      "path": "docs/c11-next-20261104/pre-ci-evidence-19-tables.json",
+      "change": "A",
+      "git_blob": "7da0b21026b7e790ac75bf868501b683275ca622"
+    },
+    {
+      "path": "docs/c11-next-20261104/pre-ci-evidence-4f060265.json",
+      "change": "A",
+      "git_blob": "d4f3c52ee5cb09df34628b3ff227b335b0c5cb10"
+    },
+    {
+      "path": "docs/c11-next-20261104/pre-ci-review-19-tables.md",
+      "change": "A",
+      "git_blob": "062a991a519f702db3fcea309d62285b94b61123"
+    },
+    {
+      "path": "docs/c11-next-20261104/pre-ci-review-4f060265.md",
+      "change": "A",
+      "git_blob": "8858b649f24802b4f2e8253dbe15a790815e3214"
+    },
+    {
+      "path": "docs/c11-next-20261104/trello-closure.json",
+      "change": "A",
+      "git_blob": "3b518cfd858386570a95e725f90ba795c4e6693e"
+    },
+    {
+      "path": "docs/c9-recovery-20261103/CERTIFICATE-INVESTIGATION-SCOPE.md",
+      "change": "A",
+      "git_blob": "350bc9d810c61d87c65e4bd3a0484aa212a20a56"
+    },
+    {
+      "path": "docs/c9-recovery-20261103/PREFLIGHT-RESULT.md",
+      "change": "A",
+      "git_blob": "dc306743a53c4b98f08307650ca5517297ee9635"
+    },
+    {
+      "path": "docs/c9-recovery-20261103/preflight-result.sanitized.json",
+      "change": "A",
+      "git_blob": "d72dc514484f047e0626f79e0bc983fe593d7d90"
+    },
+    {
+      "path": "docs/c9-recovery-20261103/trello-preflight-result.json",
+      "change": "A",
+      "git_blob": "ed609559276e9c76bc16f720635862d0692174f8"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "change": "M",
+      "git_blob": "531bb8d4c3a5435aff006e175c0473d9d4b662e1"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

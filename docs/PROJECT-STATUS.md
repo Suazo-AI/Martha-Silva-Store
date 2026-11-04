@@ -1,25 +1,36 @@
 # Estado vigente de Martha Silva / SAVIA
 
 Corte operativo: 2026-11-04 UTC. Host coordinador: SUAZO-PC. Checkout canónico `github`, rama `Tony`.
-**No listo para producción. C6 y C8 pasan en CI sintético Linux; C9 sigue sin autorización SQL nueva.**
+**No listo para producción. C6/C8 y C11 pasan técnicamente; C9 sigue bloqueado por confianza TLS.**
 
-El candidato `e4b7910835bf2c9901aa06989e296997875a3636` está publicado en Tony y PR #2.
-C6: 21/21 pasos, 11/11 de Chrome, recuperación GET con clave original y solo dos POST de venta;
-dos ventas y stock 27, logout 204/401, sesiones 0 y retirada de Chrome/API/base/contenedor comprobada.
-[Artefactos y revisión C6](c6-e2e-20261103/ci-41765611979/REPORT.md).
-C8: navegador 45/45, staff 45/45 y backend 600/600; incluye seguridad 49/49 y expiración 1/1.
-[Evidencia CI C8](c8-ui-20261103/ci-41765611859/run-binding.json).
-El PR tiene 12 checks PASS, 0 FAIL y 3 SKIP previstos; ningún paso C6/C8 requerido fue omitido.
-No equivale a aceptación del negocio, pruebas Windows, dispositivos reales ni producción.
+Código aceptado: `53dd23b5cfec2cb5dd717395b9095a71d29669f0`, publicado en Tony y PR #2.
+C11/N10: [APTO independiente por capas](c11-next-20261104/final-review.md).
+Nuevo N5 HTTP+SQL 1/1, backend 601/601 sin fallos/omitidos; conserva los 600 casos anteriores.
+Los rechazos de autorización, alcance y CSRF conservan las 19 tablas. Staff 45/45 y browser con API simulada 45/45.
+El [binding exacto](c11-next-20261104/ci-53dd23b5/root-ci-binding.json) registra 21 checks:
+16 success, 5 skips de jobs previstos, 0 fallos/pendientes en ese candidato.
 
-C9 tiene [procedimiento G0–G9](c9-recovery-20261103/PROCEDURE.md) y
-[preflight acotado propuesto](c9-recovery-20261103/PREFLIGHT-SCOPE.md).
-No se ejecutó conexión SQL local, API ni Docker nuevos. Faltan permiso de preflight, campos actuales,
-coordinador Windows y corrida sintética con ventas/restauración/RTO/RPO. C11 conserva su revisión propia pendiente.
+C6 se conserva: navegador→API→SQL real, 21/21 pasos, 20 capturas SQL y 0 fallos de oráculo.
+Pérdida después de commit, recuperación GET con clave original y recargas mantienen solo dos POST,
+dos ventas y stock 27. Logout 204/401 y sesiones 0.
+API/base/directorio, Chrome y ausencia final de los contenedores comprobados en el [cierre C11](c11-next-20261104/README.md).
+C8 conserva cierre técnico y sus regresiones; C7 conserva la excepción durable de remap 409.
+No equivale a aceptación del negocio, Windows, dispositivos reales ni producción.
+
+C9: [único preflight consumido](c9-recovery-20261103/PREFLIGHT-RESULT.md).
+El cliente devolvió `The certificate chain was issued by an authority that is not trusted.`
+Hubo 1 Open, 0 sesiones, 0 consultas y 0 mutaciones emitidas; exit 1 en 88 ms.
+Cerró/dispuso y no reintentó. La identidad SQL, sesión TLS, permisos, rutas y colisiones siguen NOT RUN.
+La causa exacta del certificado/cadena no está identificada. El primary preparó una
+[investigación acotada](c9-recovery-20261103/CERTIFICATE-INVESTIGATION-SCOPE.md), todavía sin ejecución.
+Jason / administrador decide cualquier corrección de seguridad y conexión nueva bajo alcance separado.
+C9 sigue 0/5; faltan coordinador Windows, restore con ventas/oráculos, RTO/RPO y recuperación del último Owner.
+
+Los tres extras N5-COV siguen pendientes. Las siete tarjetas TONY en revisión conservan su estado.
 P-LEGACY: [19/19 aserciones clasificadas](p-legacy-20261104/CLASSIFICATION.md);
 las correcciones permanecen abiertas en [issue #4](https://github.com/Suazo-AI/Martha-Silva-Store/issues/4).
-
-C11: dictamen inicial NEEDS WORK (8 APTO; C11-N5-01 pendiente). La regresión HTTP+SQL de reasignación Cashier A→B por Owner PUT está preparada y compila. CI del nuevo SHA y dictamen final pendientes; [detalle y límites](c11-next-20261104/README.md).
+El recibo normal identifica el commit documental de cierre; su SHA requiere readback y CI propios.
+No hubo merge a main, despliegue ni cambios de seguridad en este cierre.
 
 Los siguientes cortes y tablas conservan evidencia histórica; este corte y el ledger establecen el avance actual.
 
@@ -54,10 +65,11 @@ La vinculación registra hashes locales y blobs publicados: Git solo normaliza s
 
 ## Siguiente acción y aceptación
 
-Corregir la recuperación de un recibo confirmado inexistente sin fabricar una venta pendiente.
-Reproducir `Stale confirmed receipt`; conservar bloqueos de operaciones realmente pendientes y sesiones revocadas.
-Después preparar el [incremento N1–N10](delivery-20261031/NEXT-INCREMENT.md) en entorno SQL aislado autorizado:
-una venta, precio del servidor, un movimiento de stock, recibo tras recargar y recuperación sin duplicados.
+Preparar el siguiente lote de tres escenarios N5-COV a partir del código aceptado, conservando N1–N10.
+Para C9, identificar primero el certificado/cadena mediante el alcance separado preparado.
+No repetir el intento SQL consumido ni ejecutar restore hasta contar con metadata y autorización aplicables.
+El [incremento N1–N10](delivery-20261031/NEXT-INCREMENT.md) ya tiene aceptación técnica por capas;
+la aceptación operativa y recuperación Windows siguen pendientes.
 
 Producción requiere además resolver pruebas heredadas, migraciones/recuperación, permisos/sesiones/sucursal,
 dispositivos y aceptación del negocio. La tienda pública requiere su integración de pagos y autoridad comercial.

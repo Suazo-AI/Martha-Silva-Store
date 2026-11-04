@@ -234,16 +234,17 @@
       "done_when": "BACKUP WITH CHECKSUM, RESTORE VERIFYONLY, restauración como base nueva con oráculos; RTO y RPO medidos; recuperación Owner documentada",
       "needs": {
         "tool": "SQL Server del entorno real (SUAZO-PC) para medir RTO",
-        "decision": "Autorizar solo el preflight C9 acotado tras revisar el informe; cualquier mutacion o grant requiere alcance explicito.",
+        "decision": "Resolver primero la identidad/cadena del certificado bajo alcance separado. Cualquier cambio de seguridad y nuevo intento SQL requieren autorizacion nueva; preflight anterior consumido.",
         "decider": "jason"
       },
       "trello": "https://trello.com/c/vVQVt9Qo",
       "paths": [
         "tests/sql/*"
       ],
-      "prep": "23 fuentes y 14 controles de preparacion previos; procedimiento adicional G0-G9 con 12/12 controles documentales. Cero SQL/conexiones/API/Docker nuevos. Backup CI sin ventas no mide RTO/RPO SUAZO-PC; ultimo Owner perdido sin recuperacion implementada.",
-      "blocker": "Preparacion documental lista; falta alcance nuevo de diagnostico SQL y corrida sintetica Windows. Faltan rutas/permisos/TLS actuales, coordinador C9, oraculos sobre restaurada y medicion RTO/RPO. No repetir one-shots historicos.",
-      "report": "docs/c9-recovery-20261103/PROCEDURE.md"
+      "prep": "Procedimiento G0-G9 preparado. Unico preflight metadata 2026-11-04:1Open,0sesiones,0consultas,exit1 en88ms; cadena no confiable. Cierre/dispose completos, latch retenido,0reintentos/fallback y0mutaciones emitidas. Estado persistente igual no probado. Campos SQL/rutas/colisiones NOT RUN; C9 permanece0/5.",
+      "blocker": "Cliente rechazo la confianza de la cadena del certificado; certificado/CA efectivos desconocidos. No se intento correccion por quedar fuera del alcance consumido. Primary preparo investigacion OS de certificados sin conexion SQL; Jason/administrador decide alcance nuevo. Faltan metadata actual, coordinador Windows, restaurada con ventas/oraculos, RTO/RPO y recuperacion del ultimo Owner.",
+      "report": "docs/c9-recovery-20261103/PREFLIGHT-RESULT.md",
+      "evidence": "docs/c9-recovery-20261103/preflight-result.sanitized.json / docs/c9-recovery-20261103/CERTIFICATE-INVESTIGATION-SCOPE.md"
     },
     {
       "id": "C10",
@@ -273,7 +274,7 @@
       "order": 13,
       "track": "sprint",
       "owner": "denis",
-      "status": "review",
+      "status": "done",
       "blocked_by": [
         "C6",
         "C7",
@@ -283,8 +284,8 @@
       "why": "Un segundo par de ojos con postura NEEDS WORK atrapa éxitos inventados",
       "done_when": "Veredicto escrito: ledger antes/después sin segundo débito ni éxito inventado",
       "trello": "https://trello.com/c/ant3sEML",
-      "prep": "Dictamen inicial NEEDS WORK: 8 APTO, solo C11-N5-01 pendiente. Regresion HTTP+SQL por Owner PUT preparada y compilada; faltan CI del SHA exacto y dictamen independiente final. No cierra C11 ni ejecuta N5-COV/C9.",
-      "evidence": "docs/c11-next-20261104/README.md"
+      "prep": "APTO tecnico por capas, juez independiente gpt-6-astra/high en 53dd23b5. Nuevo N5 HTTP+SQL 1/1, backend601/601 sin fallos/omitidos; 257 metodos/600casos anteriores preservados. Rechazos comparan19tablas; Golden19+21 y recuperacion sin segundo debito. N5-COV, C9 y aceptacion operativa siguen pendientes.",
+      "evidence": "docs/c11-next-20261104/final-review.md / docs/c11-next-20261104/final-review-evidence.json / https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41774927960 / https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41774928044"
     },
     {
       "id": "C12",
