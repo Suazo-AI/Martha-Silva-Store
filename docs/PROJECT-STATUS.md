@@ -7,6 +7,9 @@ Corte: 2026-11-03. Host de la validación: SUAZO-PC. Checkout canónico `github`
 > rojo-verde-revert en navegador real (arnés 36/36, personal 42/42); backend 592/592 contra SQL Server real,
 > incluidos release y restart en Linux; CI `savia.yml` para el PR. Detalle, límites y comandos:
 > [sprint-20261104](sprint-20261104/README.md). Reparto C1–C12: https://trello.com/b/pq9G9Qqj/martha-silva
+> **Actualización 2026-11-04:** C3 cerrada por Jason; C4 (script de release completo), C5 (arnés API real + SQL)
+> y C7 (N1, N3, N4, N8, N9 con cero escrituras) en verde en CI con mínimo de 599 casos. El estado vivo está en
+> [ledger.json](pipeline/ledger.json) y se publica solo en cada push y PR ([pipeline](pipeline/README.md)).
 Para continuar: [AGENT-START](AGENT-START.md), [mapa de fuentes](CODE-MAP.md), [decisiones](DECISIONS.md).
 
 | Área | Evidencia verificada | Pendiente / límite |

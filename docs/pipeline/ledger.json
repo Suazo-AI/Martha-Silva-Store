@@ -116,11 +116,12 @@
       "order": 5,
       "track": "sprint",
       "owner": "denis",
-      "status": "review",
+      "status": "done",
       "title": "Revisar y aprobar el PR de N5 + CI SAVIA",
       "why": "Revisión en contexto fresco; quien escribió el cambio no puede ser su único juez",
-      "done_when": "Aprobación en el PR #2 con rojo al revertir reproducido en Chrome real (incluye C4, C5 y C7)",
-      "trello": "https://trello.com/c/0kdbzEyA"
+      "done_when": "Revisión independiente aceptada por Jason y CI del SHA en verde (no exige aprobación formal de GitHub)",
+      "trello": "https://trello.com/c/0kdbzEyA",
+      "evidence": "https://trello.com/c/0kdbzEyA (cerrada por Jason 2026-11-03 23:46 UTC: SUAZO-PC Chrome 156 / Playwright 1.62.1, fix 5 PASS, revert 3 FAIL + 2 PASS; docs/c3-n5-20261103/ y docs/pr2-review-20261103/ en SUAZO-PC). Sin aprobación formal de GitHub, por decisión de Jason"
     },
     {
       "id": "C4",
@@ -174,7 +175,8 @@
       "needs": {
         "tool": "Playwright 1.63 + `golden_path.py --mode serve` (deja API+SQL arriba, credenciales sintéticas en session.json 0600)"
       },
-      "trello": "https://trello.com/c/ezVfv0Pk"
+      "trello": "https://trello.com/c/ezVfv0Pk",
+      "prep": "Tony/Codex preparó 2 casos y oráculos por paso, NOT RUN; Trello C6 2026-11-03"
     },
     {
       "id": "C7",
@@ -197,7 +199,7 @@
       "order": 10,
       "track": "sprint",
       "owner": "denis",
-      "status": "blocked",
+      "status": "todo",
       "blocked_by": [
         "C3"
       ],
@@ -207,7 +209,8 @@
       "trello": "https://trello.com/c/61IxxolB",
       "paths": [
         "dev/savia-staff-ui/*"
-      ]
+      ],
+      "prep": "Tony/Codex preparó 6 casos (N2/N6/N7), todos NOT RUN; Trello C8 2026-11-03"
     },
     {
       "id": "C9",
@@ -227,7 +230,8 @@
       "trello": "https://trello.com/c/vVQVt9Qo",
       "paths": [
         "tests/sql/*"
-      ]
+      ],
+      "prep": "Tony/Codex: borrador de recuperación Owner por otro Owner vigente (documental, sin ejecución); Trello C9 2026-11-03"
     },
     {
       "id": "C10",
@@ -249,7 +253,8 @@
         "decider": "martha",
         "test": "30 mediciones p50/p95 en la caja real"
       },
-      "trello": "https://trello.com/c/RYEhYexC"
+      "trello": "https://trello.com/c/RYEhYexC",
+      "prep": "Tony/Codex: guion de 5 tareas y registro de defectos; ensayo 0; Trello C10 2026-11-03"
     },
     {
       "id": "C11",
@@ -265,7 +270,8 @@
       "title": "N10: revisión independiente de rechazos y recuperación",
       "why": "Un segundo par de ojos con postura NEEDS WORK atrapa éxitos inventados",
       "done_when": "Veredicto escrito: ledger antes/después sin segundo débito ni éxito inventado",
-      "trello": "https://trello.com/c/ant3sEML"
+      "trello": "https://trello.com/c/ant3sEML",
+      "prep": "Tony/Codex: matriz de revisión por escenario; ejecución 0; Trello C11 2026-11-03"
     },
     {
       "id": "C12",
@@ -282,6 +288,20 @@
       "why": "Cerrar el sprint con un SHA verificable en main sin despliegue no autorizado",
       "done_when": "Checks requeridos en verde en el SHA; merge sin despliegue no autorizado; PROJECT-STATUS actualizado",
       "trello": "https://trello.com/c/5yVy70Ju"
+    },
+    {
+      "id": "N5-COV",
+      "order": 14.5,
+      "track": "sprint",
+      "owner": "denis",
+      "status": "todo",
+      "title": "Cobertura extra de N5 sugerida por el crítico de C3",
+      "why": "El crítico de Cutufay señaló 3 huecos: botón durante recuperación pendiente, venta nueva completa tras descartar un recibo obsoleto y posible carrera en el caso 404. Recomendación, no criterio original de C3",
+      "done_when": "Cada hueco cubierto por una prueba en tests/browser-mock-validation.mjs con rojo-verde, o descartado por escrito con el motivo",
+      "alternatives": "Incluirlo en C8 (misma área y mismo arnés) · dejarlo para después del ensayo",
+      "paths": [
+        "tests/browser-mock-validation.mjs"
+      ]
     },
     {
       "id": "SEC-CSRF",
@@ -383,6 +403,21 @@
       ]
     },
     {
+      "id": "P-OWNER",
+      "order": 23.5,
+      "track": "prod",
+      "owner": "jason",
+      "status": "todo",
+      "title": "Recuperación si se pierden todas las cuentas Owner",
+      "why": "Hallazgo de Tony/Codex en C9: el reset solo funciona con otro Owner vigente y el bootstrap no recupera cuentas existentes",
+      "done_when": "Procedimiento revisado y probado en una base sintética, sin reabrir el bootstrap",
+      "needs": {
+        "decision": "¿Procedimiento de emergencia por SQL controlado o mantener siempre 2 Owner activos?",
+        "decider": "jason",
+        "recommendation": "Exigir 2 Owner activos como regla operativa y documentar un procedimiento SQL de emergencia probado en sintético"
+      }
+    },
+    {
       "id": "P-GO",
       "order": 24,
       "track": "prod",
@@ -393,7 +428,8 @@
         "C12",
         "P-SEC",
         "P-OPS",
-        "P-LEGACY"
+        "P-LEGACY",
+        "P-OWNER"
       ],
       "title": "Salida a producción de SAVIA interno",
       "why": "Uso real en la caja con respaldo, monitoreo y aceptación firmada",

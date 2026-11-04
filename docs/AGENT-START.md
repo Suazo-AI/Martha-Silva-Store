@@ -1,6 +1,6 @@
 # Continuar Martha Silva / SAVIA
 
-Actualizado: 2026-11-03. Entrada común para cualquier agente; no requiere Graphify.
+Actualizado: 2026-11-04. Entrada común para cualquier agente; no requiere Graphify.
 Checkout: `C:/Users/Jason/MARTHA-SILVA/github`. Rama: `Tony`.
 Remoto: `Suazo-AI/Martha-Silva-Store`. No trabajar sobre las copias históricas del folder padre.
 
@@ -14,6 +14,25 @@ Remoto: `Suazo-AI/Martha-Silva-Store`. No trabajar sobre las copias históricas 
 Prioridad de fuentes: instrucción vigente de Jason → contrato aprobado → código del candidato
 → evidencia con fecha/hash → propuesta histórica. Un conflicto se registra; no se resuelve inventando capacidades.
 El índice y cualquier grafo son ayudas de navegación, nunca autoridad de permisos, esquema o aceptación.
+
+## Estado compartido entre agentes (2026-11-04)
+
+Todos los agentes (Claude, Codex/Tony y otros) parten del mismo lugar:
+
+1. **Estado:** [docs/pipeline/ledger.json](pipeline/ledger.json) es la fuente única. `python3 tools/delivery_status.py`
+   muestra dónde vamos, el camino crítico, la siguiente acción por persona y las decisiones pendientes.
+   Trello muestra quién hace qué; si Trello y el ledger difieren, se corrige el ledger con evidencia.
+2. **Candidato:** rama `claude/funny-brahmagupta-5e5rj0`, [PR #2](https://github.com/Suazo-AI/Martha-Silva-Store/pull/2).
+   Partir del head más reciente del PR, no de `775f301` ni de `Tony@20932d5`: ya incluye N5, C4, C5, C7 y el flujo.
+3. **No repetir trabajo verificado:** N5, C3, C4, C5 y C7 están `done` con evidencia en el ledger. Si se duda de
+   algo, se reabre con una prueba que falle, no rehaciéndolo.
+4. **Registrar avance:** en el mismo PR, cambiar `status` y `evidence` del item; `done` sin evidencia o antes
+   que sus dependencias hace fallar el CI. Usar la [plantilla de PR](../.github/pull_request_template.md).
+   El workflow `progress-digest.yml` publica el estado en el PR y en el issue #3 sin intervención.
+5. **Hallazgos:** un hallazgo nuevo es un item nuevo del ledger (dueño, porqué, criterio de hecho,
+   alternativas, decisión si aplica), no solo un comentario de Trello o Slack.
+6. **Puertas de un solo sentido:** merge a `main`, despliegue, secretos, datos reales y cambios de
+   seguridad requieren a Jason. Ver [pipeline](pipeline/README.md) y [AGENTS](../AGENTS.md).
 
 ## Próxima tarea concreta
 
