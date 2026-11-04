@@ -3,6 +3,16 @@
 Corte operativo: 2026-11-04 UTC. Host coordinador: SUAZO-PC. Checkout canónico `github`, rama `Tony`.
 **No listo para producción. C6/C8 y C11 pasan técnicamente; C9 sigue bloqueado por confianza TLS.**
 
+Actualización de alcance, 2026-11-04 America/Managua: Jason exige venta multiartículo
+en una factura y sustitución de SISFAIN, no mantenerlo como integración objetivo
+([D-023/D-024](DECISIONS.md#d-023--venta-multiartículo-obligatoria)).
+El backend admite varias líneas; la UI/cliente actuales limitan a una. Los pagos
+internos siguen `not_processed`; la paridad comercial/fiscal no está implementada.
+Tres agentes investigaron operación, fiscalidad y migración/calidad. La explicación,
+matriz, escenarios ficticios y límites están en
+[ensayo sintético](synthetic-replacement-20261104/README.md).
+El modelo no prueba SAVIA ni cierra C2/C9/C10. La aceptación sigue a cargo de SUAZO-PC.
+
 Jason designó al coordinador SUAZO-PC como responsable de aceptación por flujo de C10
 ([D-022](DECISIONS.md#d-022--responsable-de-aceptación-del-ensayo)), en lugar de la propuesta de Martha.
 El responsable está decidido; el ensayo y su dictamen no están aceptados anticipadamente.

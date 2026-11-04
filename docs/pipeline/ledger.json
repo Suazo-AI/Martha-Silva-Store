@@ -101,11 +101,11 @@
       "owner": "jason",
       "status": "todo",
       "title": "Datos reales de la tienda (cuestionario a Martha, solo agregados)",
-      "why": "Sin saber líneas por venta, comprobante fiscal y equipo de caja, el ensayo puede probar lo equivocado",
-      "done_when": "Respuestas agregadas en el repo y decisión escrita sobre formulario de una línea y doble captura fiscal",
-      "alternatives": "Suponer una venta de una línea sin comprobante (riesgo: doble trabajo en caja)",
+      "why": "Falta confirmar configuración y flujos de SISFAIN usados hoy, documento fiscal y equipo de caja; multiartículo y sustitución ya son requisitos",
+      "done_when": "Respuestas agregadas, matriz de sustitución por flujo y configuración fiscal/equipo documentadas; no reabrir la obligatoriedad multiartículo",
+      "alternatives": "Inventar paridad desde marketing o limitar a una línea (descartado por Jason)",
       "needs": {
-        "decision": "Respuestas del cuestionario",
+        "decision": "Versión y módulos de SISFAIN, medios de pago, crédito, documentos, exportación y equipo; multiartículo obligatorio según D-023 y sustitución según D-024",
         "decider": "martha"
       },
       "trello": "https://trello.com/c/aS0pUmYb",
@@ -488,12 +488,13 @@
       "blocked_by": [
         "S-PAY"
       ],
-      "title": "Backend autoritativo de pedidos e integración SISFAIN (D-010)",
+      "title": "Autoridad de pedidos públicos y contrato de sustitución SISFAIN (D-024)",
       "why": "Precios, stock y pedidos de la demo no son autoridad comercial",
-      "done_when": "Contrato del backend definido; SISFAIN confirmado o descartado por escrito",
+      "done_when": "Contrato autoritativo de pedidos públicos definido; matriz de sustitución SISFAIN aprobada y límites frente a SAVIA interno documentados",
       "needs": {
-        "decision": "¿Existe SISFAIN y se integra?",
-        "decider": "jason"
+        "decision": "Definir paridad del reemplazo y transición; no integrar SISFAIN como objetivo ni asumir que SAVIA interno resuelve pedidos públicos",
+        "decider": "jason",
+        "recommendation": "SISFAIN confirmado por Jason y asociación pública de CGA; reemplazar flujos usados, conservar continuidad y migrar solo tras conciliación autorizada"
       }
     },
     {

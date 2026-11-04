@@ -1,11 +1,11 @@
 # Cuestionario: cómo se vende hoy en la tienda
 
-**Propósito:** decidir si SAVIA puede usarse en la caja durante el ensayo del viernes 6 de noviembre y qué tiene que probar antes.
+**Propósito:** documentar los flujos de SISFAIN que SAVIA debe sustituir y preparar un ensayo. Viernes 6 de noviembre es propuesta sin hora confirmada.
 **De:** Jason. **Para:** Martha. **Uso de las respuestas:** en el repositorio solo se guardan totales y decisiones; nunca nombres de clientes, montos de ventas reales ni datos personales.
 
 ## Contexto
 
-SAVIA es el sistema interno para que el personal registre ventas y consulte existencias. Hoy funciona con datos de prueba. Antes de usarlo en la tienda necesitamos saber cómo se vende de verdad, para no construir algo que obligue a trabajar el doble.
+SAVIA es el sistema interno para que el personal registre ventas y consulte existencias. Hoy funciona con datos de prueba. Jason confirmó que sustituiremos SISFAIN y que una factura debe permitir varios artículos. Necesitamos saber qué flujos y módulos usan hoy para conservar la operación completa. El coordinador SUAZO-PC acepta cada flujo del ensayo; Jason autoriza integración y despliegue.
 
 ## Cómo responder
 
@@ -14,12 +14,12 @@ Unos 15 minutos, por escrito o en una llamada. "No sé" y respuestas aproximadas
 ## La venta de cada día
 
 ### ¿Qué documento recibe el cliente al comprar: factura con número fiscal, recibo simple o ninguno?
-_Por qué importa: si cada venta exige una factura emitida en otro sistema, usar SAVIA obligaría a registrar cada venta dos veces._
+¿Qué numeración, impuestos, exenciones, anulaciones y devoluciones usan? El contador debe validar los requisitos y la autorización aplicable antes de emitir desde el reemplazo. Se pueden describir formatos o mostrar ejemplos ficticios; no enviar facturas de clientes.
 
 >
 
-### ¿Cuántas prendas lleva normalmente una venta: una, dos, tres o más?
-_Por qué importa: la pantalla actual registra una sola prenda por venta._
+### Requisito decidido: varios artículos en la misma factura.
+¿Cuál es un carrito habitual y uno grande, usando prendas e importes ficticios? ¿Hay descuentos por artículo, por factura o ambos? La cantidad nos ayuda a probar el requisito; no decide si se incluye.
 
 >
 
@@ -28,14 +28,15 @@ _Por qué importa: con ese número fijamos cuántas ventas de prueba hacer y cu�
 
 >
 
-### ¿Dónde registran hoy las ventas y las existencias: otro sistema, una hoja de cálculo o un cuaderno?
+### SISFAIN es el servicio actual confirmado. ¿Qué versión y módulos usan?
+Incluir proformas, compras, recepciones, traslados, cuentas por cobrar/pagar, abonos, caja, reportes y exportaciones que efectivamente necesitan. ¿Qué operación requiere hoy una hoja o cuaderno adicional?
 
 >
 
 ## Existencias
 
-### Si una clienta quiere una prenda que según el registro ya no hay, ¿qué se hace?
-_Por qué importa: decide si SAVIA debe rechazar la venta sin existencias (lo recomendado) o permitirla y dejar el faltante anotado._
+### Si la prenda física existe aunque SISFAIN registre 0, se entrega: decisión ya tomada.
+¿Quién confirma SKU, talla y ubicación? ¿Quién puede conciliar la diferencia? ¿Qué motivo, alerta y revisión necesitan? Recomendación para revisar: facultad operativa de la encargada, ajuste trazable +1 y venta -1 dentro de un flujo protegido. Esta propuesta no está implementada ni aceptada.
 
 >
 
@@ -52,6 +53,8 @@ _Por qué importa: si dos canales venden la misma prenda sin un registro común,
 
 ### ¿Cuántas devoluciones o cambios hay en un mes, aproximadamente, y quién los autoriza?
 
+¿Se devuelve parte de una factura? ¿El reintegro va a efectivo, transferencia, saldo a favor o deuda? ¿Qué pasa con la prenda dañada?
+
 >
 
 ## Personas y permisos
@@ -67,6 +70,12 @@ _Por qué importa: SAVIA tiene cuatro perfiles (dueña, encargada, cajera e inve
 
 ## La caja
 
+### ¿Qué medios de pago usan y se pueden combinar? ¿Venden a crédito o reciben abonos?
+
+Describir apertura, cambio, retiros, gastos, arqueo, cierre, diferencias y saldos pendientes con ejemplos ficticios. Registrar un pago con tarjeta es distinto de procesarlo con un banco.
+
+>
+
 ### ¿Qué equipo hay en la caja (computadora, tableta o teléfono) y qué internet usa (wifi o datos)?
 _Por qué importa: la velocidad se mide en ese equipo y esa red, no en una computadora de oficina._
 
@@ -77,14 +86,17 @@ _Por qué importa: SAVIA tiene que recuperar una venta cuya respuesta se perdió
 
 >
 
-## El ensayo del viernes
+## El ensayo propuesto
 
-### ¿Quién puede dedicar 45 minutos el viernes para probar cinco tareas, y a qué hora?
+### ¿Quién puede dedicar 45 minutos a probar cinco tareas sin ayuda del agente y qué equipo usará?
+
+Fecha y hora por acordar después de C2/C9 y de completar los módulos del flujo. Para medir 30 ventas y recuperación, reservar tiempo adicional según el guion.
 
 >
 
-### ¿Quién decide si SAVIA queda aceptado para seguir probándolo en la tienda?
-_Por qué importa: alguien de la tienda, no un programador ni un agente, tiene que firmar que sirve._
+### Responsable decidido: el coordinador SUAZO-PC acepta o rechaza cada flujo con evidencia.
+
+Martha aporta reglas y datos de operación. Quien vende ejecuta las tareas. Jason conserva las decisiones de integración y despliegue. Asignar el responsable no significa que el ensayo esté aceptado.
 
 >
 
@@ -93,3 +105,13 @@ _Por qué importa: alguien de la tienda, no un programador ni un agente, tiene q
 ¿Hay algo de cómo trabajan que no preguntamos y deberíamos saber?
 
 >
+
+## Migración y continuidad
+
+¿Qué reportes/exportaciones permiten conservar catálogo, stock por ubicación, ventas, saldos y documentos pendientes? ¿Qué información histórica necesitan consultar después del cambio?
+
+Solo se solicitan descripción y agregados. Un acceso, exportación o migración con datos reales requiere alcance separado. No cancelar el servicio actual antes de reconciliar y aceptar el reemplazo.
+
+>
+
+Versión vigente: 2026-11-04 America/Managua, D-022/D-023/D-024. Las imágenes antiguas del cuestionario quedan históricas si contradicen esta versión; no enviarlas sin regenerar. No se envió este documento a Martha.

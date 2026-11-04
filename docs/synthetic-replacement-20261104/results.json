@@ -1,0 +1,481 @@
+{
+  "kind": "SYNTHETIC_MODEL_ONLY",
+  "currency": "NIO",
+  "money_unit": "centavo",
+  "tax": "not_modeled; no fiscal validity",
+  "fixture": {
+    "items": {
+      "MOCK-BLUSA-M": {
+        "price": 35000,
+        "stock": 8
+      },
+      "MOCK-JEAN-30": {
+        "price": 90000,
+        "stock": 4
+      },
+      "MOCK-VESTIDO-S": {
+        "price": 120000,
+        "stock": 0
+      }
+    },
+    "sales": {},
+    "operations": {},
+    "audit": [],
+    "receipts": {},
+    "purchases": {},
+    "receivable": {},
+    "cash": 0,
+    "transfer": 0
+  },
+  "summary": {
+    "scenarios": 18,
+    "passed": 18,
+    "assertions": 51,
+    "failed": 0,
+    "negative_controls_detected": 3
+  },
+  "scenarios": [
+    {
+      "id": "S01",
+      "title": "Conciliación por un rol sin permiso",
+      "initial": "Vestido: registro 0; conteo ficticio 1.",
+      "action": "La caja intenta ajustar existencias; en esta propuesta solo Manager puede autorizar.",
+      "expected": "Ajuste rechazado; ningún saldo, cobro o documento cambia. S02 prueba el camino autorizado.",
+      "checks": {
+        "expected_rejection": true,
+        "state_unchanged": true
+      },
+      "status": "PASS_MODELO"
+    },
+    {
+      "id": "S02",
+      "title": "Entrega tras conciliación",
+      "initial": "Registro reconciliado a 1.",
+      "action": "Vender el vestido una vez.",
+      "expected": "Saldo 0; ajuste visible; venta visible; sin inventar una compra.",
+      "checks": {
+        "stock_zero": true,
+        "sale_total": true,
+        "adjustment_and_sale": true
+      },
+      "status": "PASS_MODELO"
+    },
+    {
+      "id": "S03",
+      "title": "Sin prenda física",
+      "initial": "Registro 0; conteo 0.",
+      "action": "Intentar otra venta del vestido.",
+      "expected": "No se promete una entrega inexistente; no cambia caja ni inventario.",
+      "checks": {
+        "expected_rejection": true,
+        "state_unchanged": true
+      },
+      "status": "PASS_MODELO"
+    },
+    {
+      "id": "S04",
+      "title": "Una factura, varios artículos",
+      "initial": "Blusa 8, jean 4, vestido 1.",
+      "action": "2 blusas × C$350 + 1 jean × C$900 + 1 vestido × C$1.200; pago mixto.",
+      "expected": "3 renglones, 4 prendas, total C$2.800; caja C$1.000 y transferencia C$1.800.",
+      "checks": {
+        "three_lines": true,
+        "four_units": true,
+        "total": true,
+        "cash": true,
+        "transfer": true,
+        "stocks": true
+      },
+      "status": "PASS_MODELO"
+    },
+    {
+      "id": "S05",
+      "title": "Respuesta perdida y doble clic",
+      "initial": "La venta anterior se confirmó, pero la respuesta se pierde.",
+      "action": "Consultar/reintentar con la misma clave y contenido.",
+      "expected": "Mismo identificador; una venta y un descuento de stock.",
+      "checks": {
+        "same_id": true,
+        "no_second_mutation": true,
+        "one_sale": true
+      },
+      "status": "PASS_MODELO"
+    },
+    {
+      "id": "S06",
+      "title": "Clave reutilizada con otro cajero",
+      "initial": "MOCK-CART pertenece a caja A.",
+      "action": "Reutilizar la clave desde caja B.",
+      "expected": "Conflicto; ninguna venta, cobro o ajuste adicional.",
+      "checks": {
+        "expected_rejection": true,
+        "state_unchanged": true
+      },
+      "status": "PASS_MODELO"
+    },
+    {
+      "id": "S07",
+      "title": "Un renglón inválido",
+      "initial": "Hay blusas; el vestido ya no está.",
+      "action": "Enviar blusa y vestido juntos.",
+      "expected": "Ningún renglón se guarda; no se cobra parcialmente.",
+      "checks": {
+        "expected_rejection": true,
+        "state_unchanged": true
+      },
+      "status": "PASS_MODELO"
+    },
+    {
+      "id": "S08",
+      "title": "Pago insuficiente",
+      "initial": "Una blusa cuesta C$350.",
+      "action": "Intentar contado de C$349.",
+      "expected": "Rechazo sin mutación; el crédito requiere un flujo explícito.",
+      "checks": {
+        "expected_rejection": true,
+        "state_unchanged": true
+      },
+      "status": "PASS_MODELO"
+    },
+    {
+      "id": "S09",
+      "title": "Rol sin permiso",
+      "initial": "Usuario MOCK-LECTOR.",
+      "action": "Intentar registrar venta.",
+      "expected": "Rechazo sin mutación.",
+      "checks": {
+        "expected_rejection": true,
+        "state_unchanged": true
+      },
+      "status": "PASS_MODELO"
+    },
+    {
+      "id": "S10",
+      "title": "Última unidad: orden A y luego B",
+      "initial": "Dos cajas observan una unidad.",
+      "action": "Ejecutar A y B en secuencia; este modelo no usa hilos ni SQL.",
+      "expected": "Solo A vende. Falta repetir la carrera concurrente en la aplicación real.",
+      "checks": {
+        "expected_rejection": true,
+        "state_unchanged": true,
+        "only_one_sale": true
+      },
+      "status": "PASS_MODELO"
+    },
+    {
+      "id": "S11",
+      "title": "Compra y recepción parcial",
+      "initial": "8 blusas; orden de 5.",
+      "action": "Recibir 2 y repetir la confirmación.",
+      "expected": "Stock 10; recibido 2, pendiente 3; repetir no duplica.",
+      "checks": {
+        "stock": true,
+        "received": true,
+        "expected_rejection": true,
+        "state_unchanged": true
+      },
+      "status": "PASS_MODELO"
+    },
+    {
+      "id": "S12",
+      "title": "Devolución parcial rastreable",
+      "initial": "Venta de 2 blusas y 1 jean.",
+      "action": "Devolver 1 blusa; repetir solicitud.",
+      "expected": "Reintegro C$350 una vez, stock +1, original preservado; no devolver más de lo vendido.",
+      "checks": {
+        "refund": true,
+        "replay_unchanged": true,
+        "cash": true,
+        "expected_rejection": true,
+        "state_unchanged": true
+      },
+      "status": "PASS_MODELO"
+    },
+    {
+      "id": "S13",
+      "title": "Crédito y abono",
+      "initial": "Venta C$900, anticipo C$300.",
+      "action": "Abonar C$200 y repetir.",
+      "expected": "Saldo C$400; un solo abono; cobro superior al saldo rechazado.",
+      "checks": {
+        "balance": true,
+        "expected_rejection": true,
+        "state_unchanged": true
+      },
+      "status": "PASS_MODELO"
+    },
+    {
+      "id": "S14",
+      "title": "Cierre del día",
+      "initial": "Ventas C$2.500, devolución C$350, saldo crédito C$400.",
+      "action": "Reconciliar cobrado y saldo; comparar conteo ficticio de caja.",
+      "expected": "Caja C$1.750; un conteo de C$1.740 tiene diferencia -C$10 y requiere revisión.",
+      "checks": {
+        "cash": true,
+        "equation": true,
+        "difference_detected": true
+      },
+      "status": "PASS_MODELO"
+    },
+    {
+      "id": "S15",
+      "title": "Respaldo y recuperación del modelo",
+      "initial": "Snapshot del día con ventas, claves, saldos y bitácora.",
+      "action": "Serializar/restaurar y repetir abono anterior.",
+      "expected": "Estado exacto, clave conservada, ningún abono duplicado. No prueba restore de SQL Server.",
+      "checks": {
+        "same_state": true,
+        "file_roundtrip": true
+      },
+      "status": "PASS_MODELO"
+    },
+    {
+      "id": "S16",
+      "title": "Respaldo alterado",
+      "initial": "Snapshot cambia un centavo sin actualizar su hash.",
+      "action": "Intentar restauración.",
+      "expected": "Integridad rechazada. El hash no autentica a un atacante que pueda recalcularlo.",
+      "checks": {
+        "tampering_detected": true
+      },
+      "status": "PASS_MODELO"
+    },
+    {
+      "id": "S17",
+      "title": "Treinta ventas ficticias",
+      "initial": "Stock inicial 40; blusa C$350.",
+      "action": "Ejecutar 30 claves únicas.",
+      "expected": "30 ventas, caja C$10.500, stock 10. No mide p50/p95, red, impresora ni caja real.",
+      "checks": {
+        "sales": true,
+        "cash": true,
+        "stock": true
+      },
+      "status": "PASS_MODELO"
+    },
+    {
+      "id": "S18",
+      "title": "El control debe detectar un resultado malo",
+      "initial": "Copias con total, stock y abono alterados.",
+      "action": "Aplicar los mismos oráculos de negocio a resultados corruptos.",
+      "expected": "Detectar las 3 alteraciones. Es un control negativo del modelo, no mutation testing del producto.",
+      "checks": {
+        "total_wrong_by_one_cent": true,
+        "duplicate_stock_decrement": true,
+        "duplicate_collection": true
+      },
+      "status": "PASS_MODELO"
+    }
+  ],
+  "negative_controls": [
+    {
+      "fault": "total_wrong_by_one_cent",
+      "detected": true
+    },
+    {
+      "fault": "duplicate_stock_decrement",
+      "detected": true
+    },
+    {
+      "fault": "duplicate_collection",
+      "detected": true
+    }
+  ],
+  "acceptance": {
+    "acceptor": "coordinador SUAZO-PC",
+    "synthetic_model": "PASS",
+    "real_seller_5_tasks": "NOT_RUN",
+    "real_checkout_30_measurements": "NOT_RUN",
+    "windows_sql_restore_C9": "BLOCKED_TLS",
+    "fiscal_configuration": "UNKNOWN",
+    "trial_C10": "NOT_ACCEPTED",
+    "production": "NOT_READY"
+  },
+  "day_end": {
+    "items": {
+      "MOCK-BLUSA-M": {
+        "price": 35000,
+        "stock": 9
+      },
+      "MOCK-JEAN-30": {
+        "price": 90000,
+        "stock": 2
+      },
+      "MOCK-VESTIDO-S": {
+        "price": 120000,
+        "stock": 0
+      }
+    },
+    "sales": {
+      "MOCK-V0001": {
+        "id": "MOCK-V0001",
+        "actor": "MOCK-CAJA-A",
+        "lines": [
+          {
+            "sku": "MOCK-BLUSA-M",
+            "qty": 2,
+            "price": 35000,
+            "returned": 1,
+            "total": 70000
+          },
+          {
+            "sku": "MOCK-JEAN-30",
+            "qty": 1,
+            "price": 90000,
+            "returned": 0,
+            "total": 90000
+          }
+        ],
+        "total": 160000,
+        "payments": {
+          "cash": 160000
+        },
+        "balance": 0,
+        "refund": 35000,
+        "document": "SIMULADO-SIN-VALIDEZ-FISCAL"
+      },
+      "MOCK-V0002": {
+        "id": "MOCK-V0002",
+        "actor": "MOCK-CAJA-A",
+        "lines": [
+          {
+            "sku": "MOCK-JEAN-30",
+            "qty": 1,
+            "price": 90000,
+            "returned": 0,
+            "total": 90000
+          }
+        ],
+        "total": 90000,
+        "payments": {
+          "cash": 30000
+        },
+        "balance": 40000,
+        "refund": 0,
+        "document": "SIMULADO-SIN-VALIDEZ-FISCAL"
+      }
+    },
+    "operations": {
+      "MOCK-RETURN-SALE": {
+        "fingerprint": "0e81d91a3e591b4d7e75f446b8efffa14f79adc4e186ee6985a831f83a8ebee6",
+        "sale": "MOCK-V0001"
+      },
+      "MOCK-CREDIT": {
+        "fingerprint": "dece88b568227515eabad6cf3417fc8b94e3878023bf1f19f75df53c412601ee",
+        "sale": "MOCK-V0002"
+      }
+    },
+    "audit": [
+      {
+        "sequence": 1,
+        "kind": "purchase",
+        "actor": "MOCK-INVENTARIO",
+        "payload": {
+          "id": "MOCK-PO1",
+          "qty": 5
+        },
+        "previous": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "10f9767d7874a151308af0827b95bc6713d4ec3223c2a8bc96a91cd882f8521a"
+      },
+      {
+        "sequence": 2,
+        "kind": "receive",
+        "actor": "MOCK-INVENTARIO",
+        "payload": {
+          "order": "MOCK-PO1",
+          "qty": 2,
+          "key": "MOCK-RC1"
+        },
+        "previous": "10f9767d7874a151308af0827b95bc6713d4ec3223c2a8bc96a91cd882f8521a",
+        "hash": "289623c69f3bd46115fdb9434c057701bc0a67334b6f12d9c5492dfabe6b4350"
+      },
+      {
+        "sequence": 3,
+        "kind": "sale",
+        "actor": "MOCK-CAJA-A",
+        "payload": {
+          "id": "MOCK-V0001",
+          "key": "MOCK-RETURN-SALE",
+          "total": 160000
+        },
+        "previous": "289623c69f3bd46115fdb9434c057701bc0a67334b6f12d9c5492dfabe6b4350",
+        "hash": "1597c8231e4593961dd6c874988043660ebb95ea1f0a847437397e8ea7c75759"
+      },
+      {
+        "sequence": 4,
+        "kind": "return",
+        "actor": "MOCK-MANAGER",
+        "payload": {
+          "sale": "MOCK-V0001",
+          "sku": "MOCK-BLUSA-M",
+          "qty": 1,
+          "refund": 35000
+        },
+        "previous": "1597c8231e4593961dd6c874988043660ebb95ea1f0a847437397e8ea7c75759",
+        "hash": "28ff43d9104459a9438a51eb65adbbbeef54c7d8cb72aa7f47c747475b61826d"
+      },
+      {
+        "sequence": 5,
+        "kind": "sale",
+        "actor": "MOCK-CAJA-A",
+        "payload": {
+          "id": "MOCK-V0002",
+          "key": "MOCK-CREDIT",
+          "total": 90000
+        },
+        "previous": "28ff43d9104459a9438a51eb65adbbbeef54c7d8cb72aa7f47c747475b61826d",
+        "hash": "c21a28b2fe1006c3172e7ec892a3f4b4ce51a1114e1f52ba1488cbbe1622c619"
+      },
+      {
+        "sequence": 6,
+        "kind": "collection",
+        "actor": "MOCK-CAJA-A",
+        "payload": {
+          "sale": "MOCK-V0002",
+          "amount": 20000
+        },
+        "previous": "c21a28b2fe1006c3172e7ec892a3f4b4ce51a1114e1f52ba1488cbbe1622c619",
+        "hash": "7d0abab622d311158af8d711db14dc4e58045bfceb5f765b3bab0fc1ebd5b94a"
+      }
+    ],
+    "receipts": {
+      "MOCK-RC1": [
+        "MOCK-PO1",
+        2
+      ],
+      "MOCK-RET1": {
+        "fingerprint": [
+          "MOCK-V0001",
+          "MOCK-BLUSA-M",
+          1
+        ],
+        "refund": 35000
+      },
+      "MOCK-AB1": [
+        "MOCK-V0002",
+        20000
+      ]
+    },
+    "purchases": {
+      "MOCK-PO1": {
+        "sku": "MOCK-BLUSA-M",
+        "ordered": 5,
+        "received": 2,
+        "unit_cost": 20000
+      }
+    },
+    "receivable": {
+      "MOCK-V0001": 0,
+      "MOCK-V0002": 40000
+    },
+    "cash": 175000,
+    "transfer": 0
+  },
+  "limitations": [
+    "No SAVIA code, HTTP, SQL, Windows security, real transactions or SISFAIN exercised.",
+    "Sequential model; no database concurrency or transactional isolation proof.",
+    "No taxes, fiscal authorization, customer data, card processing, costing or supplier payments.",
+    "A hash detects accidental alteration, not hostile rewriting or independent acceptance."
+  ],
+  "simulator_sha256": "1f1f5efe21eb0b3cdab7cb6acaebdeabed6b25f1b4bfd933e8ce3d6b784e5f85"
+}

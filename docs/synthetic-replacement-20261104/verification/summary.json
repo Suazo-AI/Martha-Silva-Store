@@ -1,0 +1,32 @@
+{
+  "provenance": "Original five logs retained outside the public checkout in coordination/research-20261104/migration/simulation-run. Public fields selected after review, not raw logs.",
+  "commands": [
+    {
+      "command": "python docs/synthetic-replacement-20261104/simulate.py --out <isolated-output>",
+      "exit": 0,
+      "scenarios": 18,
+      "assertions": 51,
+      "negative_controls_detected": 3
+    },
+    {
+      "command": "python tests/test_delivery_status.py",
+      "exit": 0,
+      "tests": 24
+    },
+    {
+      "command": "python tools/delivery_status.py --check",
+      "exit": 0,
+      "ledger_items": 34
+    },
+    {
+      "command": "python tests/test_progress.py",
+      "exit": 0,
+      "tests": 23
+    },
+    {
+      "command": "python tools/export_progress.py --verify",
+      "exit": 0,
+      "preserved_hashes": 15
+    }
+  ]
+}

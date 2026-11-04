@@ -77,3 +77,32 @@ Lectura exacta de cuatro tarjetas y dos criterios de Trello:
 [responsable decidido en C1](https://trello.com/c/e57qFLhJ);
 [dictamen C10 todavía pendiente](https://trello.com/c/RYEhYexC).
 Siguiente decisión de Jason: equipo y entorno del ensayo; fecha después de resolver C2/C9.
+
+## D-023 — Venta multiartículo obligatoria
+
+Adoptada por Jason el 2026-11-04, America/Managua: una factura debe admitir varios
+artículos y cantidades. No se consulta si basta una prenda por venta.
+La API interna modela varias líneas; la UI actual arma una y el cliente exige una.
+La decisión no acredita su implementación completa en pantalla ni validez fiscal.
+Se sustituye la alternativa de una línea de C2. Se pueden preguntar volúmenes para
+diseñar y probar, sin reabrir el requisito.
+
+## D-024 — Sustituir el servicio SISFAIN
+
+Adoptada por Jason el 2026-11-04, America/Managua: SISFAIN es el servicio actual
+que queremos sustituir. No es el objetivo mantenerlo como autoridad integrada.
+CGA publica SISFAIN Pro 4.0 y lista a Martha Silva como cliente; esto no identifica
+la versión, módulos ni configuración instalada. No se halló un backend/API accesible.
+[Producto](https://cgasoluciones.com/servicios/sistema-de-facturacion-inventarios-sisfain/)
+y [clientes oficiales](https://cgasoluciones.com/nuestros-clientes/).
+
+Sustituye la incertidumbre comercial de D-010 y su propuesta de integración.
+Los pedidos de la tienda pública y la autorización de pagos/despliegue conservan
+sus contratos separados. No se infiere que el incremento interno ya cubra caja,
+crédito, documento fiscal, migración o todos los módulos del servicio instalado.
+
+Tres agentes `gpt-6.1-sol / high`, seleccionados por Jason, investigaron operación,
+fiscalidad y migración/calidad. La matriz y el modelo ficticio están en
+[ensayo y sustitución](synthetic-replacement-20261104/README.md).
+Los datos reales, corte operativo, cambios fiscales, SQL, certificados y despliegue
+requieren sus alcances correspondientes. No se canceló ni modificó el servicio actual.

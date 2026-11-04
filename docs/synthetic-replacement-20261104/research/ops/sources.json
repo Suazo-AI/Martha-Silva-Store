@@ -1,0 +1,144 @@
+{
+  "task_id": "SISFAIN-OPS-20261104",
+  "research_mode": "DISCOVER",
+  "accessed_date_utc": "2026-11-04",
+  "accessed_date_managua": "2026-11-03",
+  "host": "SUAZO-PC",
+  "selected_model": "gpt-6.1-sol",
+  "selected_reasoning": "high",
+  "effective_backend_verified": false,
+  "source_scope": "Public official marketing pages and linked asset URLs; no installed system access",
+  "web_budget": {
+    "search_queries": 5,
+    "paid_firecrawl_calls": 0,
+    "used": 10,
+    "max_queries_and_opens": 12,
+    "page_or_asset_opens": 5
+  },
+  "sources": [
+    {
+      "read_method": "web.open",
+      "id": "S1",
+      "url": "https://cgasoluciones.com/servicios/sistema-de-facturacion-inventarios-sisfain/",
+      "installed_version_verified": false,
+      "publication_or_update_date": null,
+      "tool_reference": "turn1view0",
+      "title": "Sistema de Facturación Inventarios SISFAIN",
+      "source_version_label": "SISFAIN Pro 4.0",
+      "type": "primary_public_product_page",
+      "publisher": "CGA Soluciones",
+      "relevant_lines": [
+        54,
+        55,
+        57,
+        59,
+        60,
+        63,
+        65,
+        66,
+        68,
+        70,
+        72,
+        73,
+        75,
+        77,
+        79,
+        80,
+        82,
+        84,
+        86,
+        87,
+        89
+      ]
+    },
+    {
+      "read_method": "web.open",
+      "id": "S2",
+      "url": "https://cgasoluciones.com/nuestros-clientes/",
+      "evidence_kind": "LogoMarthaSilva2 image link under SISFAIN Nicaragua heading",
+      "tool_reference": "turn1view1",
+      "title": "Nuestros Clientes",
+      "type": "primary_public_customer_page",
+      "active_contract_verified": false,
+      "publisher": "CGA Soluciones",
+      "relevant_lines": [
+        169,
+        204
+      ]
+    },
+    {
+      "id": "S2A",
+      "image_pixels_inspected": false,
+      "tool_reference": "turn2view0",
+      "meaning": "Linked asset URL verified; no visual text transcription claimed",
+      "type": "primary_linked_image_url",
+      "publisher": "CGA Soluciones",
+      "read_method": "web.click",
+      "url": "https://cgasoluciones.com/wp-content/uploads/2023/06/LogoMarthaSilva2.jpg"
+    },
+    {
+      "read_method": "web.open",
+      "id": "S3",
+      "url": "https://cgasoluciones.com/service-category/sistemas/",
+      "tool_reference": "turn6view0",
+      "title": "Sistemas archivos",
+      "current_installed_version_verified": false,
+      "type": "primary_public_archive_excerpt",
+      "entry_date": "2023-06-21",
+      "publisher": "CGA Soluciones",
+      "relevant_lines": [
+        52,
+        54,
+        56
+      ]
+    },
+    {
+      "id": "S4",
+      "image_pixels_inspected": false,
+      "tool_reference": "turn7view0",
+      "type": "primary_linked_product_image_url",
+      "used_for_functional_claims": false,
+      "publisher": "CGA Soluciones",
+      "read_method": "web.click",
+      "url": "https://cgasoluciones.com/wp-content/uploads/2023/06/sisfain-mockup-1.webp"
+    }
+  ],
+  "discovery_queries": [
+    "site:cgasoluciones.com SISFAIN devoluciones compras talla color crédito",
+    "SISFAIN CGA Soluciones manual factura productos devoluciones",
+    "\"SISFAIN\" \"devoluciones\"",
+    "\"SISFAIN\" \"manual\"",
+    "site:cgasoluciones.com \"SISFAIN\" -inurl:sistema-de-facturacion -inurl:nuestros-clientes"
+  ],
+  "discarded_results": "Other products and jurisdictions were not used as evidence about SISFAIN.",
+  "local_instruction_reads": [
+    "C:/Users/Jason/AI-OS/playbooks/suazo-evidence-first/SKILL.md",
+    "C:/Users/Jason/MARTHA-SILVA/github/AGENTS.md",
+    "C:/Users/Jason/MARTHA-SILVA/github/docs/PROJECT-STATUS.md",
+    "C:/Users/Jason/.agents/skills/web-access/SKILL.md",
+    "C:/Users/Jason/AI-OS/NORTH-STAR.md",
+    "C:/Users/Jason/AI-OS/CORE.md",
+    "C:/Users/Jason/AI-OS/OUTPUT.md"
+  ],
+  "proposals_not_executed": [
+    "M1 multi-item mixed-payment sale",
+    "M2 partial receiving and supplier payable",
+    "M3 quote credit partial return"
+  ],
+  "unverified": [
+    "Martha installation and version",
+    "current contract",
+    "enabled modules",
+    "multi-item behavior",
+    "variants",
+    "returns",
+    "partial receiving",
+    "tax rules",
+    "card processing integration",
+    "data migration feasibility",
+    "production suitability"
+  ],
+  "tokens_used": null,
+  "monetary_cost": null,
+  "usage_note": "No token or session monetary meter available; no paid connector called."
+}

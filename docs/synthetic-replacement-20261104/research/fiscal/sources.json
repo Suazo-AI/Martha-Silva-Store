@@ -1,0 +1,107 @@
+{
+  "task_id": "SISFAIN-FISCAL-20261104",
+  "retrieved_utc": "2026-11-04T05:56:59Z",
+  "host": "SUAZO-PC",
+  "assigned_model": "gpt-6.1-sol",
+  "assigned_reasoning": "high",
+  "legal_currentness_confirmed": false,
+  "martha_tax_regime_verified": false,
+  "sources": [
+    {
+      "id": "CGA-SISFAIN",
+      "url": "https://cgasoluciones.com/servicios/sistema-de-facturacion-inventarios-sisfain/",
+      "publisher": "CGA Soluciones",
+      "primary": true,
+      "read_mode": "live_open",
+      "status": "accessible",
+      "observed": "SISFAIN Pro 4.0; operaciones de crédito, cuentas corrientes, cargos y abonos; pagos mixtos; exportación Excel condicionada a disponibilidad",
+      "limit": "Descripción comercial. No verifica instalación Martha, autorización DGI, API o exportación íntegra."
+    },
+    {
+      "id": "CGA-CLIENTES",
+      "url": "https://cgasoluciones.com/nuestros-clientes/",
+      "publisher": "CGA Soluciones",
+      "primary": true,
+      "read_mode": "live_open_partial_excerpt",
+      "status": "accessible",
+      "observed": "Página Nuestros Clientes abierta; extracto recibido no mostró ficha de Martha",
+      "limit": "No usada para probar contrato ni configuración Martha."
+    },
+    {
+      "id": "DGI-AUTORIZACION",
+      "url": "https://www.dgi.gob.ni/FAQ/otros_tramites.htm",
+      "publisher": "Dirección General de Ingresos Nicaragua",
+      "primary": true,
+      "read_mode": "official_indexed_excerpt_only",
+      "status": "live_open_rejected",
+      "error": "The requested URL was rejected. Please consult with your administrator.",
+      "support_id": "8409274772762431454",
+      "observed": "Pregunta 8 menciona requisitos de solicitud de autorización de sistemas computarizados y D.T. 09-2007",
+      "limit": "Contenido histórico indexado; vigencia y aplicabilidad actual sin verificar."
+    },
+    {
+      "id": "DGI-FACTURA",
+      "url": "https://www.dgi.gob.ni/FAQ/obligaciones_de_los_responsabl.htm",
+      "publisher": "Dirección General de Ingresos Nicaragua",
+      "primary": true,
+      "read_mode": "official_indexed_excerpt_only",
+      "status": "live_open_rejected",
+      "error": "The requested URL was rejected. Please consult with your administrator.",
+      "support_id": "8409274772762428092",
+      "observed": "Preguntas sobre datos de factura, numeración, sucursales y anulación; referencias LCT143 y Reglamento100",
+      "limit": "No confirma régimen de Martha ni texto legal vigente."
+    },
+    {
+      "id": "DGI-CREDITO",
+      "url": "https://www.dgi.gob.ni/FAQ/credito_fiscal.htm",
+      "publisher": "Dirección General de Ingresos Nicaragua",
+      "primary": true,
+      "read_mode": "official_indexed_excerpt_plus_initial_live_heading",
+      "status": "initial_open_heading_accessible_followup_rejected",
+      "error": "The requested URL was rejected. Please consult with your administrator.",
+      "support_id": "8409274772762497071",
+      "observed": "Índice distingue crédito fiscal y débito fiscal; devolución de mercadería con referencia LCT123",
+      "limit": "No se evaluó texto legal consolidado ni procedimiento vigente completo."
+    },
+    {
+      "id": "DGI-CONSERVACION",
+      "url": "https://www.dgi.gob.ni/FAQ/consultas_generales2.htm",
+      "publisher": "Dirección General de Ingresos Nicaragua",
+      "primary": true,
+      "read_mode": "official_indexed_excerpt_only",
+      "status": "live_open_rejected",
+      "error": "The requested URL was rejected. Please consult with your administrator.",
+      "support_id": "8409274772760305052",
+      "observed": "Índice menciona cuatro años y Código Tributario43",
+      "limit": "No sirve para establecer política de borrado ni plazo universal."
+    }
+  ],
+  "excluded_discovery": [
+    {
+      "url": "https://nicaragua.justia.com/nacionales/normas-tecnicas/requisitos-para-uso-de-sistemas-de-facturacion-computarizadas-jul-16-2007/gdoc/",
+      "reason": "Reproducción no oficial. No usada para declarar obligaciones legales vigentes."
+    },
+    {
+      "url": "https://legislacion.asamblea.gob.ni/SILEG/Iniciativas.nsf/0/3636a2c1dc3dae2606257654006000c2/%24FILE/ATTZZFJE.pdf/DICTAMEN%20FAVORABLE%20DE%20MAYORIA%2029%20de%20Nov.pdf",
+      "reason": "Resultado oficial sobre dictamen de proyecto. No es prueba de ley vigente y no se abrió."
+    }
+  ],
+  "usage": {
+    "web_search_queries": 7,
+    "web_open_requests": 9,
+    "total_queries_and_opens": 16,
+    "approved_initial_limit": 12,
+    "coordinator_approved_extension": 4,
+    "rejected_live_opens": 4,
+    "firecrawl_calls": 0,
+    "cost": null,
+    "exact_tokens": null
+  },
+  "verification": {
+    "writes_limited_to_owned_scope": true,
+    "real_data_accessed": false,
+    "fiscal_documents_issued": false,
+    "git_mutations": false,
+    "runtime_or_security_mutations": false
+  }
+}
