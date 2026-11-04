@@ -199,7 +199,7 @@
       "order": 10,
       "track": "sprint",
       "owner": "denis",
-      "status": "todo",
+      "status": "doing",
       "blocked_by": [
         "C3"
       ],
@@ -301,7 +301,8 @@
       "alternatives": "Incluirlo en C8 (misma área y mismo arnés) · dejarlo para después del ensayo",
       "paths": [
         "tests/browser-mock-validation.mjs"
-      ]
+      ],
+      "trello": "https://trello.com/c/145Qp5pz"
     },
     {
       "id": "SEC-CSRF",
@@ -320,7 +321,8 @@
       },
       "paths": [
         "backend/src/Martha.Store.Api/Internal/Security/*"
-      ]
+      ],
+      "trello": "https://trello.com/c/6i6uYO7r"
     },
     {
       "id": "API-BRANCH",
@@ -336,7 +338,8 @@
         "decision": "¿Endpoint de sucursales o alta por script mientras sea una sola sucursal?",
         "decider": "jason",
         "recommendation": "Script documentado mientras D-014 sea una sucursal; endpoint antes de multisucursal"
-      }
+      },
+      "trello": "https://trello.com/c/PpBOHmWD"
     },
     {
       "id": "P-HOST",
@@ -415,7 +418,8 @@
         "decision": "¿Procedimiento de emergencia por SQL controlado o mantener siempre 2 Owner activos?",
         "decider": "jason",
         "recommendation": "Exigir 2 Owner activos como regla operativa y documentar un procedimiento SQL de emergencia probado en sintético"
-      }
+      },
+      "trello": "https://trello.com/c/XMPIyKa8"
     },
     {
       "id": "P-GO",
@@ -507,7 +511,8 @@
         "decider": "jason",
         "recommendation": "Claude con CLAUDE_CODE_OAUTH_TOKEN de la suscripción existente",
         "tool": "Secreto CLAUDE_CODE_OAUTH_TOKEN, ANTHROPIC_API_KEY u OPENAI_API_KEY"
-      }
+      },
+      "trello": "https://trello.com/c/dtcQ4Hzy"
     }
   ]
 }
