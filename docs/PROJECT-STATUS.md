@@ -20,6 +20,9 @@ Jason eligió **SUAZO-PC con datos sintéticos** para el ensayo
 ([D-025](DECISIONS.md#d-025--equipo-y-datos-del-ensayo)). No fija el montaje productivo.
 Martha aporta datos de operación. Siguen pendientes C2/C9 y la ejecución/evidencia de C10.
 Siguiente decisión: facultad para registrar y conciliar la entrega con stock registrado 0.
+La [explicación con situaciones y revisión de crítico/jurado](stock-decision-20261104/README.md)
+recomienda ensayar una excepción delimitada, con revisión independiente. Sigue sin aprobarse
+ni implementarse; distingue entrega registrada, revisión y causa resuelta. No cierra criterios.
 
 Código aceptado: `53dd23b5cfec2cb5dd717395b9095a71d29669f0`, publicado en Tony y PR #2.
 C11/N10: [APTO independiente por capas](c11-next-20261104/final-review.md).
