@@ -1,0 +1,376 @@
+{
+  "status": "PASS",
+  "kind": "serial raw HTTP response integrity, not rendered UI QA",
+  "source_sha": "e2a475961a0056ac6609a86e34a2a58c05e37707",
+  "verified_responses": 52,
+  "duration_seconds": 10.687,
+  "footer_HTML": 47,
+  "rendered_browser": "NOT_RUN",
+  "Safari_iPhone_VoiceOver": "NOT_RUN",
+  "results": [
+    {
+      "path": "/admin.html",
+      "status": 200,
+      "bytes": 16535,
+      "sha256": "e4f4d14b60bffd4cb249b00da3b411a2044f5394ccea00c44d0c336484497456",
+      "pass": true
+    },
+    {
+      "path": "/app.js",
+      "status": 200,
+      "bytes": 78861,
+      "sha256": "aa0528f71c3a23410dd7c2c0151427826f800e8f78a8057fe60d14427dcd89e8",
+      "pass": true
+    },
+    {
+      "path": "/ayuda.html",
+      "status": 200,
+      "bytes": 18040,
+      "sha256": "9817bf91e086febe515aaa647c2d0e7807eabb80c56b051c7dcd18dafcf11a2c",
+      "pass": true
+    },
+    {
+      "path": "/bolsa.html",
+      "status": 200,
+      "bytes": 16597,
+      "sha256": "a292bcd68be10e211d8e37afc4c8732c01223ff48f5c67d06a55b6361d055fbc",
+      "pass": true
+    },
+    {
+      "path": "/catalogo.html",
+      "status": 200,
+      "bytes": 132933,
+      "sha256": "193eb52d513159d5b892449e1c0ae766957f942305c21d1549390acd7c3370fb",
+      "pass": true
+    },
+    {
+      "path": "/checkout.html",
+      "status": 200,
+      "bytes": 10857,
+      "sha256": "7b40b15bfb823183e2c1fdea7bb01e7e7f27de128fccce5896c4d4d9d8547e56",
+      "pass": true
+    },
+    {
+      "path": "/deployment.json",
+      "status": 200,
+      "bytes": 127114,
+      "sha256": "5c8b6a0afcf43b407d43e62a2ab216afdab54d0457ab41ec4569a9bb71f860d7",
+      "pass": true
+    },
+    {
+      "path": "/generated-illustrations/blanco-perlado-sirena-g1-gen-001-48170acd71bf.png",
+      "status": 200,
+      "bytes": 1623549,
+      "sha256": "48170acd71bf1dae2f797cfb22c8dafe522d990de03c9b6ce5ce63a456b67ffe",
+      "pass": true
+    },
+    {
+      "path": "/generated-illustrations/rosa-empolvado-pedreria-g1-gen-001-8e13cba8e436.png",
+      "status": 200,
+      "bytes": 1737603,
+      "sha256": "8e13cba8e436ab0a4aa381db6a7d99e44f8624acb7a73eb62d4731ef0a218413",
+      "pass": true
+    },
+    {
+      "path": "/index.html",
+      "status": 200,
+      "bytes": 196895,
+      "sha256": "fbcdabd8a44e6c2aec9681319a98ce501600f8e42ddb30088518f05180f7ec33",
+      "pass": true
+    },
+    {
+      "path": "/pedido.html",
+      "status": 200,
+      "bytes": 16528,
+      "sha256": "3b5e8da6ba1767da04e6cc47d7d004a721475d8a83b75f63e90f615675a329a4",
+      "pass": true
+    },
+    {
+      "path": "/producto-amarillo.html",
+      "status": 200,
+      "bytes": 242329,
+      "sha256": "68698bd6e00d0626fa473868c97d5d3056be0145fd0b3320adf0ba075907514f",
+      "pass": true
+    },
+    {
+      "path": "/producto-azul-floral-un-hombro.html",
+      "status": 200,
+      "bytes": 241983,
+      "sha256": "631f981aae11ead9dfc1a85f822825188087e76ecbd57e9bad7cf47d8b91ba9b",
+      "pass": true
+    },
+    {
+      "path": "/producto-azul-gris-flores-falda.html",
+      "status": 200,
+      "bytes": 246448,
+      "sha256": "d276283ab527ac31f5b427151c06c0203b9707ed5d2d4fd41ff58227b86d7ee1",
+      "pass": true
+    },
+    {
+      "path": "/producto-azul-gris-un-hombro.html",
+      "status": 200,
+      "bytes": 246332,
+      "sha256": "95510d7082a128e86cac1b7e2cac6b1685701bdd7f85bf5420e5d3f5e042722b",
+      "pass": true
+    },
+    {
+      "path": "/producto-blanco-perlado-sirena.html",
+      "status": 200,
+      "bytes": 247059,
+      "sha256": "0179b37aef19365c9c977c5ded3b2ca44fea732da9456ab8266a49cd4f024e9a",
+      "pass": true
+    },
+    {
+      "path": "/producto-burdeos-encaje-volantes-midi.html",
+      "status": 200,
+      "bytes": 246687,
+      "sha256": "d8a7148840b692c25c6695c3ac13c19249fcd1de43ed89258da0157c937209c9",
+      "pass": true
+    },
+    {
+      "path": "/producto-burdeos-top-pantalon-corto.html",
+      "status": 200,
+      "bytes": 246632,
+      "sha256": "196c3e9f69677b93327881f6c6620076e7ad6e20cc3eaa95b696daaf795a1020",
+      "pass": true
+    },
+    {
+      "path": "/producto-champagne.html",
+      "status": 200,
+      "bytes": 243156,
+      "sha256": "d3e45ce2ef6d4be1a958c0ceacbfc6a512f8332f0e83dc840b0ef78ef2904423",
+      "pass": true
+    },
+    {
+      "path": "/producto-crema-flores-naranjas-halter.html",
+      "status": 200,
+      "bytes": 245744,
+      "sha256": "e7019d9676cad27848c84438da27fee2421927f88e56bef8977814278690797b",
+      "pass": true
+    },
+    {
+      "path": "/producto-crema-flores-volante-asimetrico.html",
+      "status": 200,
+      "bytes": 246671,
+      "sha256": "e5dcbeb71ddf446c7e543041652489acf36328b4d38a56779ef6946849b811b5",
+      "pass": true
+    },
+    {
+      "path": "/producto-dorado.html",
+      "status": 200,
+      "bytes": 242270,
+      "sha256": "96f5af808d5a69bac72401efa7f537eceb2ba6461c345d3d9e46ee673fc03b4b",
+      "pass": true
+    },
+    {
+      "path": "/producto-fucsia-halter-pliegues.html",
+      "status": 200,
+      "bytes": 246449,
+      "sha256": "e206134a0dffde195379d173b91854fb2e1ff3828b1c1483fb5fe6bf7f42756f",
+      "pass": true
+    },
+    {
+      "path": "/producto-fucsia-un-hombro-volantes.html",
+      "status": 200,
+      "bytes": 247515,
+      "sha256": "91259fc232c55e2805965eee625e14b5cb1943c141a42b7fade89305c937dac1",
+      "pass": true
+    },
+    {
+      "path": "/producto-gala-destello.html",
+      "status": 200,
+      "bytes": 243778,
+      "sha256": "d8459786c1a5722060a6528127db06c5dae41c404d6b06f76e0a9e370ab68c57",
+      "pass": true
+    },
+    {
+      "path": "/producto-gala-oro.html",
+      "status": 200,
+      "bytes": 246419,
+      "sha256": "2a79ec15990e2b6f02be69bc611f83496bca40612c6e234b7f5e69546b2c5c63",
+      "pass": true
+    },
+    {
+      "path": "/producto-gala-rubi.html",
+      "status": 200,
+      "bytes": 241115,
+      "sha256": "9777fb871f9261e92a65305ad36eb8a33a8f251ab12793abb69c7713bad390ef",
+      "pass": true
+    },
+    {
+      "path": "/producto-gris-perla-hombros.html",
+      "status": 200,
+      "bytes": 246405,
+      "sha256": "339f884be93efc952142559596224a1966576ebb44299a5b549e7e1d4f97e7e1",
+      "pass": true
+    },
+    {
+      "path": "/producto-midi-estampado-burdeos.html",
+      "status": 200,
+      "bytes": 249148,
+      "sha256": "e0ea56de1e214bf0065422593f463c3d2c21b253ab0dbf7bff74db10b9cb00f8",
+      "pass": true
+    },
+    {
+      "path": "/producto-napoleon.html",
+      "status": 200,
+      "bytes": 241916,
+      "sha256": "a293ed2f04ae0b5212fec816ec9b48c7aee34b32d109b807272ea4be1b6280a8",
+      "pass": true
+    },
+    {
+      "path": "/producto-negro-blanco-lunares-midi.html",
+      "status": 200,
+      "bytes": 246588,
+      "sha256": "4405e37e0206bac39b461307cf2c85d428d4c45a82da00f7711fe7769fe5ed99",
+      "pass": true
+    },
+    {
+      "path": "/producto-negro-brillo-pantalon-amplio.html",
+      "status": 200,
+      "bytes": 246676,
+      "sha256": "dbd1fbb3e6acb10e148e626f8d1bf174face6c68eabf818c44f1a11652379854",
+      "pass": true
+    },
+    {
+      "path": "/producto-negro-escote-puntas-abertura.html",
+      "status": 200,
+      "bytes": 246684,
+      "sha256": "166a0b061b987ce11650544fcf7d8b19d0bac23d03a236d5e40d538647c94842",
+      "pass": true
+    },
+    {
+      "path": "/producto-negro-lunares-beige-hombros.html",
+      "status": 200,
+      "bytes": 247605,
+      "sha256": "19c5dd60f788f5057688a2c2d2cbc406eadf4a0ddfe9c00c46b246e6b8ab6b74",
+      "pass": true
+    },
+    {
+      "path": "/producto-negro.html",
+      "status": 200,
+      "bytes": 242238,
+      "sha256": "cd33e7d373f8d65fcfe52ce4cf7fdb115d145922711a54d8687b76db329a3b1f",
+      "pass": true
+    },
+    {
+      "path": "/producto-novia-satinada-abertura.html",
+      "status": 200,
+      "bytes": 245768,
+      "sha256": "59cad63c29694df801e42176b2b4dce1f196e7c1df4bd4458ef171086c336e26",
+      "pass": true
+    },
+    {
+      "path": "/producto-novia-tirantes-encaje.html",
+      "status": 200,
+      "bytes": 242019,
+      "sha256": "9c67aba59cc7c561b3aceb4a1a9e6d4734b0f4d14d81ed58340fe593c0600a3e",
+      "pass": true
+    },
+    {
+      "path": "/producto-novia.html",
+      "status": 200,
+      "bytes": 241868,
+      "sha256": "66c334f37c0a897595289d288f6b9ab1f05ba1616155a4fbe0504df8dab7086a",
+      "pass": true
+    },
+    {
+      "path": "/producto-novias-alba.html",
+      "status": 200,
+      "bytes": 243803,
+      "sha256": "3735c1fe23691f9d3297545d7db22e5808f41c7f879021e40f65a63c2c747173",
+      "pass": true
+    },
+    {
+      "path": "/producto-novias-encaje.html",
+      "status": 200,
+      "bytes": 241206,
+      "sha256": "a5e7d1f04681385c8f6e2cc5ec8bf5d57ef7f6dbaf7be221273760aa8bfb5ed1",
+      "pass": true
+    },
+    {
+      "path": "/producto-novias-velo.html",
+      "status": 200,
+      "bytes": 248623,
+      "sha256": "1edf1aa665a74ac9a27b411623c37a75574e63f866ee931813351c3d0f7a37ef",
+      "pass": true
+    },
+    {
+      "path": "/producto-plata-tirantes-copas-pedreria.html",
+      "status": 200,
+      "bytes": 246745,
+      "sha256": "225ef0eb710b18e00cbc316df4cefca9426153ddca5dc92c606d4681cc986360",
+      "pass": true
+    },
+    {
+      "path": "/producto-rojo-tirantes-falda-amplia.html",
+      "status": 200,
+      "bytes": 246393,
+      "sha256": "84b6483ddaee4be5bb4f17e91d065e1a0beec44724a53e99cc8a1e5fadf3f63f",
+      "pass": true
+    },
+    {
+      "path": "/producto-rosa-bronce-pedreria.html",
+      "status": 200,
+      "bytes": 246389,
+      "sha256": "777019c2ad2bdc70bd7046f405e1192c326302c649de3f25e1e470b8ffc8dd99",
+      "pass": true
+    },
+    {
+      "path": "/producto-rosa-claro-flores-doradas.html",
+      "status": 200,
+      "bytes": 246580,
+      "sha256": "427a01f1817dce19c92ac1725d66610182669bb62760448ab1318eded2d4926c",
+      "pass": true
+    },
+    {
+      "path": "/producto-rosa-empolvado-pedreria.html",
+      "status": 200,
+      "bytes": 248784,
+      "sha256": "6138fb07e2dc3af9501c780b02bc440ebbbf6800b1970d1ed19387f5832d9a10",
+      "pass": true
+    },
+    {
+      "path": "/producto-rosa-flores-fucsias-halter.html",
+      "status": 200,
+      "bytes": 246599,
+      "sha256": "4259d49ec82f5c4e70edfc5d5fec534777d2c0d44ec5e855c15cb36b54ad2243",
+      "pass": true
+    },
+    {
+      "path": "/producto-rosa-marron-chaqueta-falda.html",
+      "status": 200,
+      "bytes": 246599,
+      "sha256": "198401815475d1149e6ebd63d1636292e5cf91ba04c88ec3ff26532d75400ed8",
+      "pass": true
+    },
+    {
+      "path": "/producto-rosa.html",
+      "status": 200,
+      "bytes": 242252,
+      "sha256": "4e7dbfbe1f6a59cea7a15f80b28cf0052bc6c05ced172b71772679d9bf4399d7",
+      "pass": true
+    },
+    {
+      "path": "/producto-verde-brillo-cuello-cruzado.html",
+      "status": 200,
+      "bytes": 246661,
+      "sha256": "ebba16ca8d6393100a78aa2e323719f39dcd69a91819f05ebe803ef2d50e123f",
+      "pass": true
+    },
+    {
+      "path": "/producto-verde-esmeralda-tirantes-cruzados.html",
+      "status": 200,
+      "bytes": 246910,
+      "sha256": "5a3e0c91eb4e155ddf01175267d07269800292592252d329993b69501899c491",
+      "pass": true
+    },
+    {
+      "path": "/styles.css",
+      "status": 200,
+      "bytes": 64864,
+      "sha256": "14275118ce05a69322963373243dc723294292d5caca78802d2f9cf1ed65d186",
+      "pass": true
+    }
+  ]
+}

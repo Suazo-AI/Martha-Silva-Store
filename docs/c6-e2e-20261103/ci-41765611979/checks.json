@@ -1,0 +1,994 @@
+{
+  "schema_version": 1,
+  "review": "C6 combined CI evidence review; not the separate judge verdict or C8 acceptance",
+  "host": "SUAZO-PC",
+  "created_utc": "2026-11-04T03:20:53.718Z",
+  "run": {
+    "id": 41765611979,
+    "attempt": 1,
+    "job_id": 126363153242,
+    "head": "e4b7910835bf2c9901aa06989e296997875a3636",
+    "actual_checkout": "f1a0bb1d0cd0258838f920ec8f811315820c7587",
+    "compare_head_to_checkout_files": [],
+    "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41765611979"
+  },
+  "result": {
+    "criteria_passed": 17,
+    "criteria_failed": 0,
+    "browser_checkpoints_passed": 11,
+    "all_browser_run_steps_passed": 21,
+    "sql_oracle_checkpoints": 20,
+    "zero_invariant_observations": 160,
+    "migrations_applied": 2,
+    "observed_sale_posts": 2,
+    "source_hashes_matched_to_git": 8
+  },
+  "criteria": [
+    {
+      "id": 1,
+      "criterion": "Candidate identity and approved bytes",
+      "status": "PASS",
+      "evidence_kind": "supplied_run_binding + exact_git_bytes + pinned_verifier_step",
+      "observed": {
+        "run_id": 41765611979,
+        "attempt": 1,
+        "head": "e4b7910835bf2c9901aa06989e296997875a3636",
+        "merge_commit_sha": "f1a0bb1d0cd0258838f920ec8f811315820c7587",
+        "compare_files": [],
+        "artifact_ids": [
+          13292142418,
+          13291863195
+        ],
+        "publication_step": {
+          "name": "Verify exact C6 evidence bytes before publication",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15
+        },
+        "git_source_matches": "8/8",
+        "file_hashes": {
+          "run-binding.json": "b872f240a5b960a0937b538f25134f1d755a09c56d26cccc08852176c019946f",
+          "browser/evidence.json": "6f1eb9cb175d00c5abaaf4a01bf337363af0547e9fffacdc38e1030d22f6bb0d",
+          "browser/oracles.md": "5780090af31f8bdf41a76d4a72fe933013a960eab8ebc0baf41d31384430b6f8",
+          "smoke/evidence.json": "2ab7c5982f68b248fead2644c1e706abe016bbd792610a7639533fa39a1e6184",
+          "smoke/oracles.md": "30ee767aa786d93551b3c94fd5e82565e6a2c42302c7f91419b97c9e086b6307",
+          "log-provenance.json": "9bc87c22e0155442a31b63836fface44245986703ee1c0e6a11e2fd081625bfc"
+        },
+        "table_checks": {
+          "browser": {
+            "rows": 21,
+            "matches": true
+          },
+          "smoke": {
+            "rows": 19,
+            "matches": true
+          }
+        },
+        "checkout_readback": [
+          "2026-11-04T03:12:16.9463709Z [command]/usr/bin/git log -1 --format=%H",
+          "2026-11-04T03:12:16.9502245Z f1a0bb1d0cd0258838f920ec8f811315820c7587"
+        ],
+        "log_provenance_sha256": "9bc87c22e0155442a31b63836fface44245986703ee1c0e6a11e2fd081625bfc"
+      }
+    },
+    {
+      "id": 2,
+      "criterion": "Chrome runtime and isolation",
+      "status": "PASS",
+      "evidence_kind": "direct_artifact_fields",
+      "observed": {
+        "runtime": {
+          "chrome": "Chrome/156.0.8078.79",
+          "node": "v24.22.2",
+          "playwright": "1.63.0"
+        },
+        "tls": "isolated Chrome profile; ephemeral certificate SPKI allowlist; no trust store changes",
+        "raw_trace_or_har_recorded": false,
+        "external_requests": "0 in11/11",
+        "runtime_errors": "0 in11/11",
+        "served_source_checks": [
+          {
+            "step": "browser.start",
+            "count": 6,
+            "all_match_top_level": true
+          },
+          {
+            "step": "browser.cashier_login",
+            "count": 6,
+            "all_match_top_level": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "criterion": "Owned Chrome and Node groups",
+      "status": "PASS",
+      "evidence_kind": "artifact_flag + hash_bound_source_semantics",
+      "observed": {
+        "field": "steps[teardown.stop_api_drop_database].browser_ownership_confirmed",
+        "value": true,
+        "source": "golden_path.py register_browser_group validates dedicated PGID, private profile argument, Node ancestry and /proc start identity"
+      }
+    },
+    {
+      "id": 4,
+      "criterion": "Final own process absence",
+      "status": "PASS",
+      "evidence_kind": "artifact_flag + hash_bound_source_semantics",
+      "observed": {
+        "browser_processes_absent": true,
+        "browser_exit": 0,
+        "source": "stop_browser enumerates both registered groups after close/TERM/KILL, fails closed on readback error"
+      }
+    },
+    {
+      "id": 5,
+      "criterion": "Complete browser path",
+      "status": "PASS",
+      "evidence_kind": "direct_artifact_fields",
+      "observed": {
+        "browser_steps": [
+          {
+            "step": "browser.start",
+            "status": "PASS"
+          },
+          {
+            "step": "browser.cashier_login",
+            "status": "PASS"
+          },
+          {
+            "step": "browser.inventory",
+            "status": "PASS"
+          },
+          {
+            "step": "browser.sale_confirmed",
+            "status": "PASS"
+          },
+          {
+            "step": "browser.receipt_reload",
+            "status": "PASS"
+          },
+          {
+            "step": "browser.stock_after_sale",
+            "status": "PASS"
+          },
+          {
+            "step": "browser.response_loss_committed",
+            "status": "PASS"
+          },
+          {
+            "step": "browser.recover_after_reload",
+            "status": "PASS"
+          },
+          {
+            "step": "browser.repeated_reload",
+            "status": "PASS"
+          },
+          {
+            "step": "browser.stock_after_recovery",
+            "status": "PASS"
+          },
+          {
+            "step": "browser.logout",
+            "status": "PASS"
+          }
+        ],
+        "total_steps": 21,
+        "outcome": "PASS",
+        "error": null
+      }
+    },
+    {
+      "id": 6,
+      "criterion": "Real cashier login",
+      "status": "PASS",
+      "evidence_kind": "direct_artifact_fields",
+      "observed": {
+        "step": "browser.cashier_login",
+        "network": [
+          {
+            "method": "GET",
+            "path": "/internal/api/security/csrf",
+            "status": 200,
+            "key": null,
+            "response_lost": false
+          },
+          {
+            "method": "POST",
+            "path": "/internal/api/security/login",
+            "status": 200,
+            "key": null,
+            "response_lost": false
+          },
+          {
+            "method": "GET",
+            "path": "/internal/api/security/csrf",
+            "status": 200,
+            "key": null,
+            "response_lost": false
+          },
+          {
+            "method": "GET",
+            "path": "/internal/api/security/me",
+            "status": 200,
+            "key": null,
+            "response_lost": false
+          },
+          {
+            "method": "GET",
+            "path": "/internal/api/security/me",
+            "status": 200,
+            "key": null,
+            "response_lost": false
+          }
+        ],
+        "dom": [
+          "shell",
+          "cashier",
+          "sale_enabled"
+        ],
+        "active_sessions": 1,
+        "cashier_active_sessions": 1
+      }
+    },
+    {
+      "id": 7,
+      "criterion": "Initial inventory",
+      "status": "PASS",
+      "evidence_kind": "direct_artifact_fields",
+      "observed": {
+        "step": "browser.inventory",
+        "dom": [
+          "inventory",
+          "stock_current"
+        ],
+        "stock_rows": 3,
+        "stock_total": 30,
+        "oracles": {
+          "active_sessions": 1,
+          "adjustments": 3,
+          "balance_vs_last_movement_mismatch": 0,
+          "balance_vs_movement_sum_mismatch": 0,
+          "balances": 3,
+          "branches": 1,
+          "cashier_active_sessions": 1,
+          "duplicate_idempotency_keys": 0,
+          "items": 3,
+          "items_without_synthetic_marker": 0,
+          "lines_without_exactly_one_movement": 0,
+          "locations": 1,
+          "migrations_applied": 2,
+          "movements": 3,
+          "negative_movement_after": 0,
+          "negative_or_invalid_stock": 0,
+          "on_hand_total": 30,
+          "operations": 7,
+          "sale_lines": 0,
+          "sale_movements": 0,
+          "sale_movements_not_matching_a_line": 0,
+          "sale_operations": 0,
+          "sales": 0,
+          "staff": 5,
+          "unassigned_staff": 1
+        }
+      }
+    },
+    {
+      "id": 8,
+      "criterion": "First authoritative sale",
+      "status": "PASS",
+      "evidence_kind": "artifact_fields + hash_bound_receipt_assertions",
+      "observed": {
+        "step": "browser.sale_confirmed",
+        "request": {
+          "step": "browser.sale_confirmed",
+          "method": "POST",
+          "path": "/internal/api/commerce/sales",
+          "status": 200,
+          "key": "f403bb85-8e19-411b-aa23-8832142111e4",
+          "response_lost": false
+        },
+        "quantity": 2,
+        "total_minor": 2500,
+        "sale_id": "ed15f67d-5b7f-44dd-92c8-12a79ec0a148",
+        "dom": [
+          "receipt",
+          "sale_enabled"
+        ],
+        "oracles": {
+          "active_sessions": 1,
+          "adjustments": 3,
+          "balance_vs_last_movement_mismatch": 0,
+          "balance_vs_movement_sum_mismatch": 0,
+          "balances": 3,
+          "branches": 1,
+          "cashier_active_sessions": 1,
+          "duplicate_idempotency_keys": 0,
+          "items": 3,
+          "items_without_synthetic_marker": 0,
+          "lines_without_exactly_one_movement": 0,
+          "locations": 1,
+          "migrations_applied": 2,
+          "movements": 4,
+          "negative_movement_after": 0,
+          "negative_or_invalid_stock": 0,
+          "on_hand_total": 28,
+          "operations": 8,
+          "sale_lines": 1,
+          "sale_movements": 1,
+          "sale_movements_not_matching_a_line": 0,
+          "sale_operations": 1,
+          "sales": 1,
+          "staff": 5,
+          "unassigned_staff": 1
+        },
+        "receipt_semantics": "receipt() validates real response identity/line/server price; receiptDom checks displayed id/quantity/total and cleared pending storage"
+      }
+    },
+    {
+      "id": 9,
+      "criterion": "First receipt reload",
+      "status": "PASS",
+      "evidence_kind": "direct_artifact_fields",
+      "observed": {
+        "same_sale_id": "ed15f67d-5b7f-44dd-92c8-12a79ec0a148",
+        "sale_posts": 1,
+        "read_only": [
+          {
+            "step": "browser.receipt_reload",
+            "columns": [
+              "sales",
+              "sale_lines",
+              "sale_movements",
+              "sale_operations",
+              "movements",
+              "operations",
+              "on_hand_total"
+            ],
+            "unchanged": true,
+            "values": {
+              "sales": 1,
+              "sale_lines": 1,
+              "sale_movements": 1,
+              "sale_operations": 1,
+              "movements": 4,
+              "operations": 8,
+              "on_hand_total": 28
+            }
+          },
+          {
+            "step": "browser.stock_after_sale",
+            "columns": [
+              "sales",
+              "sale_lines",
+              "sale_movements",
+              "sale_operations",
+              "movements",
+              "operations",
+              "on_hand_total"
+            ],
+            "unchanged": true,
+            "values": {
+              "sales": 1,
+              "sale_lines": 1,
+              "sale_movements": 1,
+              "sale_operations": 1,
+              "movements": 4,
+              "operations": 8,
+              "on_hand_total": 28
+            }
+          }
+        ],
+        "stock_total": 28
+      }
+    },
+    {
+      "id": 10,
+      "criterion": "Lost committed response",
+      "status": "PASS",
+      "evidence_kind": "artifact_fields + hash_bound_fault_source",
+      "observed": {
+        "step": "browser.response_loss_committed",
+        "request": {
+          "step": "browser.response_loss_committed",
+          "method": "POST",
+          "path": "/internal/api/commerce/sales",
+          "status": 200,
+          "key": "f11ad76b-163d-400e-b885-a9aaa7a3f4f1",
+          "response_lost": true
+        },
+        "key": "f11ad76b-163d-400e-b885-a9aaa7a3f4f1",
+        "sale_id": "caf75dd9-f618-4e4d-bb63-43eadce2c9b6",
+        "quantity": 1,
+        "total_minor": 1250,
+        "dom": [
+          "pending",
+          "pending_key_preserved"
+        ],
+        "response_semantics": "CDP requestStage Response reads real HTTP200 receipt then Fetch.failRequest; no POST replay or synthetic response"
+      }
+    },
+    {
+      "id": 11,
+      "criterion": "SQL before recovery",
+      "status": "PASS",
+      "evidence_kind": "oracle_fields + hash_bound_stdio_order",
+      "observed": {
+        "step": "browser.response_loss_committed",
+        "oracles": {
+          "active_sessions": 1,
+          "adjustments": 3,
+          "balance_vs_last_movement_mismatch": 0,
+          "balance_vs_movement_sum_mismatch": 0,
+          "balances": 3,
+          "branches": 1,
+          "cashier_active_sessions": 1,
+          "duplicate_idempotency_keys": 0,
+          "items": 3,
+          "items_without_synthetic_marker": 0,
+          "lines_without_exactly_one_movement": 0,
+          "locations": 1,
+          "migrations_applied": 2,
+          "movements": 5,
+          "negative_movement_after": 0,
+          "negative_or_invalid_stock": 0,
+          "on_hand_total": 27,
+          "operations": 9,
+          "sale_lines": 2,
+          "sale_movements": 2,
+          "sale_movements_not_matching_a_line": 0,
+          "sale_operations": 2,
+          "sales": 2,
+          "staff": 5,
+          "unassigned_staff": 1
+        },
+        "oracle_failures": [],
+        "order": "Python self.step evaluates SQL after response_loss checkpoint; send(ok) occurs afterward; browser awaits acknowledgement before reloadReceipt"
+      }
+    },
+    {
+      "id": 12,
+      "criterion": "Recovery with original key",
+      "status": "PASS",
+      "evidence_kind": "direct_artifact_fields",
+      "observed": {
+        "step": "browser.recover_after_reload",
+        "original_key": "f11ad76b-163d-400e-b885-a9aaa7a3f4f1",
+        "recovery_key": "f11ad76b-163d-400e-b885-a9aaa7a3f4f1",
+        "same_sale_id": "caf75dd9-f618-4e4d-bb63-43eadce2c9b6",
+        "sale_posts": 2,
+        "operation_get": {
+          "method": "GET",
+          "path": "/internal/api/operations/commerce.sale.record",
+          "status": 200,
+          "key": "f11ad76b-163d-400e-b885-a9aaa7a3f4f1",
+          "response_lost": false
+        },
+        "new_sale_posts": 0
+      }
+    },
+    {
+      "id": 13,
+      "criterion": "Repeated recovery without writes",
+      "status": "PASS",
+      "evidence_kind": "direct_artifact_fields",
+      "observed": {
+        "step": "browser.repeated_reload",
+        "same_sale_id": "caf75dd9-f618-4e4d-bb63-43eadce2c9b6",
+        "sale_posts": 2,
+        "total_observed_sale_posts": 2,
+        "read_only_comparisons": [
+          {
+            "step": "browser.receipt_reload",
+            "columns": [
+              "sales",
+              "sale_lines",
+              "sale_movements",
+              "sale_operations",
+              "movements",
+              "operations",
+              "on_hand_total"
+            ],
+            "unchanged": true,
+            "values": {
+              "sales": 1,
+              "sale_lines": 1,
+              "sale_movements": 1,
+              "sale_operations": 1,
+              "movements": 4,
+              "operations": 8,
+              "on_hand_total": 28
+            }
+          },
+          {
+            "step": "browser.stock_after_sale",
+            "columns": [
+              "sales",
+              "sale_lines",
+              "sale_movements",
+              "sale_operations",
+              "movements",
+              "operations",
+              "on_hand_total"
+            ],
+            "unchanged": true,
+            "values": {
+              "sales": 1,
+              "sale_lines": 1,
+              "sale_movements": 1,
+              "sale_operations": 1,
+              "movements": 4,
+              "operations": 8,
+              "on_hand_total": 28
+            }
+          },
+          {
+            "step": "browser.recover_after_reload",
+            "columns": [
+              "sales",
+              "sale_lines",
+              "sale_movements",
+              "sale_operations",
+              "movements",
+              "operations",
+              "on_hand_total"
+            ],
+            "unchanged": true,
+            "values": {
+              "sales": 2,
+              "sale_lines": 2,
+              "sale_movements": 2,
+              "sale_operations": 2,
+              "movements": 5,
+              "operations": 9,
+              "on_hand_total": 27
+            }
+          },
+          {
+            "step": "browser.repeated_reload",
+            "columns": [
+              "sales",
+              "sale_lines",
+              "sale_movements",
+              "sale_operations",
+              "movements",
+              "operations",
+              "on_hand_total"
+            ],
+            "unchanged": true,
+            "values": {
+              "sales": 2,
+              "sale_lines": 2,
+              "sale_movements": 2,
+              "sale_operations": 2,
+              "movements": 5,
+              "operations": 9,
+              "on_hand_total": 27
+            }
+          },
+          {
+            "step": "browser.stock_after_recovery",
+            "columns": [
+              "sales",
+              "sale_lines",
+              "sale_movements",
+              "sale_operations",
+              "movements",
+              "operations",
+              "on_hand_total"
+            ],
+            "unchanged": true,
+            "values": {
+              "sales": 2,
+              "sale_lines": 2,
+              "sale_movements": 2,
+              "sale_operations": 2,
+              "movements": 5,
+              "operations": 9,
+              "on_hand_total": 27
+            }
+          },
+          {
+            "step": "browser.logout",
+            "columns": [
+              "sales",
+              "sale_lines",
+              "sale_movements",
+              "sale_operations",
+              "movements",
+              "operations",
+              "on_hand_total"
+            ],
+            "unchanged": true,
+            "values": {
+              "sales": 2,
+              "sale_lines": 2,
+              "sale_movements": 2,
+              "sale_operations": 2,
+              "movements": 5,
+              "operations": 9,
+              "on_hand_total": 27
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 14,
+      "criterion": "Final stock",
+      "status": "PASS",
+      "evidence_kind": "direct_artifact_fields",
+      "observed": {
+        "step": "browser.stock_after_recovery",
+        "dom": [
+          "inventory",
+          "stock_current"
+        ],
+        "stock_rows": 3,
+        "stock_total": 27,
+        "sql_on_hand_total": 27
+      }
+    },
+    {
+      "id": 15,
+      "criterion": "Business invariants per action",
+      "status": "PASS",
+      "evidence_kind": "direct_artifact_fields",
+      "observed": {
+        "oracle_checkpoints": 20,
+        "migrations_applied": "2 in20/20",
+        "zero_counter_observations": 160,
+        "always_zero": [
+          "lines_without_exactly_one_movement",
+          "sale_movements_not_matching_a_line",
+          "balance_vs_movement_sum_mismatch",
+          "balance_vs_last_movement_mismatch",
+          "negative_or_invalid_stock",
+          "negative_movement_after",
+          "duplicate_idempotency_keys",
+          "items_without_synthetic_marker"
+        ],
+        "issues": [],
+        "expected_progression": [
+          {
+            "step": "browser.start",
+            "expected_sales": 0,
+            "expected_stock": 30,
+            "expected_posts": 0,
+            "pass": true
+          },
+          {
+            "step": "browser.cashier_login",
+            "expected_sales": 0,
+            "expected_stock": 30,
+            "expected_posts": 0,
+            "pass": true
+          },
+          {
+            "step": "browser.inventory",
+            "expected_sales": 0,
+            "expected_stock": 30,
+            "expected_posts": 0,
+            "pass": true
+          },
+          {
+            "step": "browser.sale_confirmed",
+            "expected_sales": 1,
+            "expected_stock": 28,
+            "expected_posts": 1,
+            "pass": true
+          },
+          {
+            "step": "browser.receipt_reload",
+            "expected_sales": 1,
+            "expected_stock": 28,
+            "expected_posts": 1,
+            "pass": true
+          },
+          {
+            "step": "browser.stock_after_sale",
+            "expected_sales": 1,
+            "expected_stock": 28,
+            "expected_posts": 1,
+            "pass": true
+          },
+          {
+            "step": "browser.response_loss_committed",
+            "expected_sales": 2,
+            "expected_stock": 27,
+            "expected_posts": 2,
+            "pass": true
+          },
+          {
+            "step": "browser.recover_after_reload",
+            "expected_sales": 2,
+            "expected_stock": 27,
+            "expected_posts": 2,
+            "pass": true
+          },
+          {
+            "step": "browser.repeated_reload",
+            "expected_sales": 2,
+            "expected_stock": 27,
+            "expected_posts": 2,
+            "pass": true
+          },
+          {
+            "step": "browser.stock_after_recovery",
+            "expected_sales": 2,
+            "expected_stock": 27,
+            "expected_posts": 2,
+            "pass": true
+          },
+          {
+            "step": "browser.logout",
+            "expected_sales": 2,
+            "expected_stock": 27,
+            "expected_posts": 2,
+            "pass": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 16,
+      "criterion": "Logout",
+      "status": "PASS",
+      "evidence_kind": "direct_artifact_fields",
+      "observed": {
+        "step": "browser.logout",
+        "network": [
+          {
+            "method": "GET",
+            "path": "/internal/api/security/csrf",
+            "status": 200,
+            "key": null,
+            "response_lost": false
+          },
+          {
+            "method": "POST",
+            "path": "/internal/api/security/logout",
+            "status": 204,
+            "key": null,
+            "response_lost": false
+          },
+          {
+            "method": "GET",
+            "path": "/internal/login",
+            "status": 200,
+            "key": null,
+            "response_lost": false
+          },
+          {
+            "method": "GET",
+            "path": "/internal/styles.css",
+            "status": 200,
+            "key": null,
+            "response_lost": false
+          },
+          {
+            "method": "GET",
+            "path": "/internal/login.mjs",
+            "status": 200,
+            "key": null,
+            "response_lost": false
+          },
+          {
+            "method": "GET",
+            "path": "/internal/api/security/csrf",
+            "status": 200,
+            "key": null,
+            "response_lost": false
+          },
+          {
+            "method": "GET",
+            "path": "/internal/api/security/me",
+            "status": 401,
+            "key": null,
+            "response_lost": false
+          }
+        ],
+        "dom": [
+          "logged_out"
+        ],
+        "active_sessions": 0,
+        "cashier_active_sessions": 0,
+        "sale_posts": 2
+      }
+    },
+    {
+      "id": 17,
+      "criterion": "Full withdrawal",
+      "status": "PASS",
+      "evidence_kind": "direct_teardown_fields + real_sanitized_log_excerpt + pinned_cleanup_source",
+      "observed": {
+        "teardown": {
+          "step": "teardown.stop_api_drop_database",
+          "ms": 876,
+          "status": "PASS",
+          "browser_exit": 0,
+          "browser_ownership_confirmed": true,
+          "browser_processes_absent": true,
+          "api_exit": 0,
+          "database_dropped": true,
+          "api_log_lines": 64,
+          "api_log_fail_or_crit": 0,
+          "api_log_warn": 27,
+          "private_dir_removed": true
+        },
+        "container_cleanup_step": {
+          "name": "Always destroy the disposable SQL container",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18
+        },
+        "container_gate_source": ".github/workflows/golden-path.yml:153-171 at e4: set -euo pipefail; scoped rm; scoped docker ls; nonempty→exit1; empty→PASS",
+        "raw_container_log_line_supplied": true,
+        "observation_limit": "Safe excerpt supplied in log-provenance.json; full private log was not read or published by this worker.",
+        "container_absence_readback": [
+          "2026-11-04T03:13:56.7059623Z PASS: disposable SQL container absence verified."
+        ],
+        "full_log_sha256_recorded": "8daecf05e610c6195d2ff0c6ad210a895a1c6506dba44d6bdbba66622c237846"
+      }
+    }
+  ],
+  "source_checks": [
+    {
+      "path": "dev/savia-staff-ui/app.mjs",
+      "artifact_sha256": "65b9c09dacfc858b9e70ef8baf303560e26cbc0d406c99b989b5a31d5da42327",
+      "git_sha256": "65b9c09dacfc858b9e70ef8baf303560e26cbc0d406c99b989b5a31d5da42327",
+      "artifact_matches_git": true,
+      "local_file_sha256": "c5179f67e8f613e6a71ed1e611cd923a4c3862a4a646aa3be4b8f81b8609d48e",
+      "local_matches_git": false,
+      "local_lf_normalized_matches_git": true
+    },
+    {
+      "path": "dev/savia-staff-ui/client.mjs",
+      "artifact_sha256": "3ca499eaed1a2ff636e4ed385b25bd96122488c94fad38be6bc80460f49fa6b9",
+      "git_sha256": "3ca499eaed1a2ff636e4ed385b25bd96122488c94fad38be6bc80460f49fa6b9",
+      "artifact_matches_git": true,
+      "local_file_sha256": "9dd4ee88c9f34f5948ec38d31f73bde976acffcc03c7bdfa99b5996dcc87243d",
+      "local_matches_git": false,
+      "local_lf_normalized_matches_git": true
+    },
+    {
+      "path": "dev/savia-staff-ui/login.mjs",
+      "artifact_sha256": "139fb119d215df458f67d3cb5916dbe3bd6db8682da113297d45121c2725cf66",
+      "git_sha256": "139fb119d215df458f67d3cb5916dbe3bd6db8682da113297d45121c2725cf66",
+      "artifact_matches_git": true,
+      "local_file_sha256": "ac7714a22eb1e7a383ca41e3e11343472025271dcf21dc862f39cf8c386fc787",
+      "local_matches_git": false,
+      "local_lf_normalized_matches_git": true
+    },
+    {
+      "path": "dev/savia-staff-ui/login.html",
+      "artifact_sha256": "b9068478b46b9786c18dbe54ffa1172e1fb325e283ca944f9c2a840b37d1a686",
+      "git_sha256": "b9068478b46b9786c18dbe54ffa1172e1fb325e283ca944f9c2a840b37d1a686",
+      "artifact_matches_git": true,
+      "local_file_sha256": "4803ece2ef530d9e5161837209ac86591bfe1447e9876b0f38bf17baca9a8382",
+      "local_matches_git": false,
+      "local_lf_normalized_matches_git": true
+    },
+    {
+      "path": "dev/savia-staff-ui/index.html",
+      "artifact_sha256": "d4fcaa074c039b2f50783b3209a1429587b38f0c7e4335726dc0210be5c74c6f",
+      "git_sha256": "d4fcaa074c039b2f50783b3209a1429587b38f0c7e4335726dc0210be5c74c6f",
+      "artifact_matches_git": true,
+      "local_file_sha256": "b10cb0d2e7ea628a616e4b514b8cb188942e0332157410d5cac7cc3e398b8a6c",
+      "local_matches_git": false,
+      "local_lf_normalized_matches_git": true
+    },
+    {
+      "path": "dev/savia-staff-ui/styles.css",
+      "artifact_sha256": "e43e99b50b19aeadc6ebadae63e64cf3902c96ca923d08943fa6daadff9d9ae8",
+      "git_sha256": "e43e99b50b19aeadc6ebadae63e64cf3902c96ca923d08943fa6daadff9d9ae8",
+      "artifact_matches_git": true,
+      "local_file_sha256": "9f9bca25769c903c3b886b5e7ff2b4570f4893e44e80219fe34d2acb949c070b",
+      "local_matches_git": false,
+      "local_lf_normalized_matches_git": true
+    },
+    {
+      "path": "tests/golden-path/golden_path.py",
+      "artifact_sha256": "b957230ab923f34f56d61f1853c967f938baa8009601212dbb5dec7973ff7fbb",
+      "git_sha256": "b957230ab923f34f56d61f1853c967f938baa8009601212dbb5dec7973ff7fbb",
+      "artifact_matches_git": true,
+      "local_file_sha256": "e420885d49e066ca50cf6582d574149eb847338813362040c72bf92dbd9072fb",
+      "local_matches_git": false,
+      "local_lf_normalized_matches_git": true
+    },
+    {
+      "path": "tests/golden-path/browser_path.mjs",
+      "artifact_sha256": "5a09272ffb8a1c433813bc4cad626921cd1b0ef329f0097a008122e41eb6df21",
+      "git_sha256": "5a09272ffb8a1c433813bc4cad626921cd1b0ef329f0097a008122e41eb6df21",
+      "artifact_matches_git": true,
+      "local_file_sha256": "5a09272ffb8a1c433813bc4cad626921cd1b0ef329f0097a008122e41eb6df21",
+      "local_matches_git": true,
+      "local_lf_normalized_matches_git": true
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/bin/Release/net10.0/Martha.Store.Api.dll",
+      "artifact_sha256": "794f1faaf6e67889a0ef13978083d1eba022bfca7d6176a0216c8b81ff4b4106",
+      "status": "RUNTIME_HASH_RECORDED_BUILD_NOT_REPRODUCED"
+    }
+  ],
+  "immutable_guard_sources": {
+    "workflow_sha256": "1bc4cfd6ba4e58e3becbfc34366dbbb5f7804a5ad01acd83db1e56c3f4e70e89",
+    "verifier_sha256": "cf494c86fe22cbbd7e8ad3e7ffabc97d55cafbb1e1afb90e19efa2656ce6c5ff",
+    "git_ref": "e4b7910835bf2c9901aa06989e296997875a3636",
+    "verifier_steps": [
+      {
+        "name": "Verify exact evidence bytes before publication",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 12
+      },
+      {
+        "name": "Verify exact C6 evidence bytes before publication",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 15
+      }
+    ],
+    "marker_handling": "Original evidence-approved marker is intentionally not uploaded. This review confirms exact verifier steps succeeded and reviews their Git-pinned source; no marker copy is invented."
+  },
+  "artifact_file_hashes": {
+    "run-binding.json": "b872f240a5b960a0937b538f25134f1d755a09c56d26cccc08852176c019946f",
+    "browser/evidence.json": "6f1eb9cb175d00c5abaaf4a01bf337363af0547e9fffacdc38e1030d22f6bb0d",
+    "browser/oracles.md": "5780090af31f8bdf41a76d4a72fe933013a960eab8ebc0baf41d31384430b6f8",
+    "smoke/evidence.json": "2ab7c5982f68b248fead2644c1e706abe016bbd792610a7639533fa39a1e6184",
+    "smoke/oracles.md": "30ee767aa786d93551b3c94fd5e82565e6a2c42302c7f91419b97c9e086b6307",
+    "log-provenance.json": "9bc87c22e0155442a31b63836fface44245986703ee1c0e6a11e2fd081625bfc"
+  },
+  "artifact_metadata": [
+    {
+      "id": 13292142418,
+      "name": "savia-browser-path-41765611979-1",
+      "digest": "sha256:1094903ed33d0555c1585b516b2e62e748d38ccee310ab868fefc0829d1c4199",
+      "head_sha": "e4b7910835bf2c9901aa06989e296997875a3636",
+      "run_id": 41765611979
+    },
+    {
+      "id": 13291863195,
+      "name": "savia-golden-path-41765611979-1",
+      "digest": "sha256:2f37b708e4d633890956c33cf4b01cccf4bc5fc61eedb9283a637186d610fd5b",
+      "head_sha": "e4b7910835bf2c9901aa06989e296997875a3636",
+      "run_id": 41765611979
+    }
+  ],
+  "smoke": {
+    "outcome": "PASS",
+    "error": null,
+    "steps": 19,
+    "all_steps_pass": true,
+    "oracle_checkpoints": 18,
+    "migrations_applied_2_everywhere": true,
+    "all_eight_invariants_zero_everywhere": true,
+    "all_oracle_failures_empty": true,
+    "final_sales": 1,
+    "final_stock": 28,
+    "teardown": {
+      "step": "teardown.stop_api_drop_database",
+      "ms": 869,
+      "status": "PASS",
+      "api_exit": 0,
+      "database_dropped": true,
+      "api_log_lines": 86,
+      "api_log_fail_or_crit": 0,
+      "api_log_warn": 38,
+      "private_dir_removed": true
+    },
+    "oracle_table": {
+      "rows": 19,
+      "matches": true
+    }
+  },
+  "limits": [
+    "The supplied safe binding and log excerpt provide provenance; this worker did not query GitHub or read full private logs.",
+    "Artifact archive bytes and evidence-approved marker were not supplied, so archive digests were recorded but not independently rehashed. Extracted file hashes above bind the exact reviewed bytes.",
+    "The API DLL runtime hash is recorded in the artifact; no local DLL comparison or build reproduction was performed.",
+    "Windows/SUAZO-PC runtime, production TLS/proxy, mobile, visual acceptance, accessibility audit, payments, concurrency/load and backup/restore are not proven by this Linux synthetic CI.",
+    "C8 acceptance and the separate judge verdict remain outside this report."
+  ],
+  "execution_scope": "Read local evidence and immutable Git blobs only. No checkout/index/source changes, GitHub queries, tests, browser/API/SQL/Docker runtime, commits, push or external messages."
+}

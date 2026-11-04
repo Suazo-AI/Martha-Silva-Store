@@ -1,5 +1,10 @@
 # Backend — lote 1: contrato y base sintética
 
+> Documento histórico de su fecha/candidato. Para continuar al 2026-11-03, usar
+> [AGENT-START](AGENT-START.md) y [PROJECT-STATUS](PROJECT-STATUS.md).
+> Sus conteos, bloqueos y autorizaciones no se trasladan automáticamente al candidato actual.
+
+
 **Alcance:** R01 técnico + fundamento R04 del [roadmap](ROADMAP-V1.md). La aprobación de implementar este lote no cierra las decisiones comerciales allí pendientes. No es R07 productivo, lanzamiento, integración de tarjetas ni sustitución de la demo.
 
 - [Contrato OpenAPI](../contracts/openapi-v1.json)

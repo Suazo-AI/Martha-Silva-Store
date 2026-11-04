@@ -1,0 +1,109 @@
+{
+  "number": 2,
+  "state": "open",
+  "head": "260b75951729189d987ffe423218ab1643bcfa3c",
+  "headRef": "claude/funny-brahmagupta-5e5rj0",
+  "base": "3b0049163ece2d9431cee01f1bea624a66d9d8d4",
+  "url": "https://github.com/Suazo-AI/Martha-Silva-Store/pull/2",
+  "runs": [
+    {
+      "id": 41753826810,
+      "name": "SAVIA judge",
+      "head_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753826810",
+      "created_at": "2026-11-04T01:24:21Z",
+      "updated_at": "2026-11-04T01:26:14Z"
+    },
+    {
+      "id": 41753825286,
+      "name": "Progress digest",
+      "head_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753825286",
+      "created_at": "2026-11-04T01:24:20Z",
+      "updated_at": "2026-11-04T01:24:53Z"
+    },
+    {
+      "id": 41753825297,
+      "name": "Backend synthetic slice",
+      "head_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753825297",
+      "created_at": "2026-11-04T01:24:20Z",
+      "updated_at": "2026-11-04T01:25:20Z"
+    },
+    {
+      "id": 41753825393,
+      "name": "Recovered demo CI",
+      "head_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753825393",
+      "created_at": "2026-11-04T01:24:20Z",
+      "updated_at": "2026-11-04T01:25:59Z"
+    },
+    {
+      "id": 41753825439,
+      "name": "SAVIA golden path",
+      "head_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753825439",
+      "created_at": "2026-11-04T01:24:20Z",
+      "updated_at": "2026-11-04T01:25:43Z"
+    },
+    {
+      "id": 41753811810,
+      "name": "Progress digest",
+      "head_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753811810",
+      "created_at": "2026-11-04T01:24:13Z",
+      "updated_at": "2026-11-04T01:24:37Z"
+    },
+    {
+      "id": 41753735695,
+      "name": "Tony source snapshot",
+      "head_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753735695",
+      "created_at": "2026-11-04T01:23:35Z",
+      "updated_at": "2026-11-04T01:25:14Z"
+    },
+    {
+      "id": 41753735692,
+      "name": "Progress digest",
+      "head_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753735692",
+      "created_at": "2026-11-04T01:23:35Z",
+      "updated_at": "2026-11-04T01:24:01Z"
+    },
+    {
+      "id": 41753735691,
+      "name": "Progress documentation",
+      "head_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753735691",
+      "created_at": "2026-11-04T01:23:35Z",
+      "updated_at": "2026-11-04T01:24:04Z"
+    }
+  ]
+}

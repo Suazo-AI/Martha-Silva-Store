@@ -1,0 +1,13 @@
+{
+  "card": "C6",
+  "card_id": "6aea5de54c008e36e0aecc0c",
+  "marker": "[SAVIA-C6-CI-41757409404]",
+  "action_id": "6aea935f33fd061e88202faa",
+  "date": "2026-11-04T02:07:27.566Z",
+  "comment": "[SAVIA-C6-CI-41757409404]\nCandidato 6aeb9a35f45331ace85ac48dc19bfd9264b0f722 publicado en Tony y PR #2. CI real 41757409404: venta, perdida de respuesta despues de commit, recuperacion GET con clave original y recarga repetida PASS; SQL 2 ventas/2 lineas/2 movimientos de venta/2 operaciones, stock27 y cero claves duplicadas. FAIL solo browser.logout (20s); teardown base/API/directorio y contenedor PASS. No se cierra C6. Ejecutor corrige y juez independiente gpt-6.1-sol/xhigh revisa diff y workflow. Nuevo CI requerido. Evidencia saneada: https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41757409404 . Sin merge, despliegue, datos reales ni cambios de seguridad.",
+  "exact_readback": true,
+  "list_id": "6aea5d677e8b3123293bcaa8",
+  "closed": false,
+  "checklists_changed": false,
+  "list_changed": false
+}

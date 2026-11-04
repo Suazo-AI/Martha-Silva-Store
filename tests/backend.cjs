@@ -1,11 +1,9 @@
 'use strict';
 const assert=require('node:assert/strict');
-const fs=require('node:fs');
-const vm=require('node:vm');
 const test=require('node:test');
 const {createDemoApi}=require('../dist/demo-api.js');
-const context={window:{}};vm.runInNewContext(fs.readFileSync(require.resolve('../dist/catalog.js'),'utf8'),context);
-const catalog=JSON.parse(JSON.stringify(context.window.DEMO_CATALOG));
+// Explicit two-product fixture keeps legacy prices, stock and recovery regressions stable.
+const catalog=require('./fixtures/legacy-catalog.json');
 const vid=catalog.products[0].variants[0].id;
 const KEY='martha-parity-v2-demo-state-1';
 function setup(raw){const saved=new Map(raw===undefined?[]:[[KEY,raw]]);const storage={getItem:k=>saved.get(k)??null,setItem:(k,v)=>saved.set(k,v)};return {api:createDemoApi(catalog,storage),state:()=>JSON.parse(saved.get(KEY)),storage};}
@@ -13,7 +11,7 @@ const contact={name:'Test',email:'test@example.com',phone:'123'};
 const address={line1:'Demo',city:'Demo',department:'Demo'};
 async function checkout(api,key='one',qty=1){await api('/api/cart/items',{variant_id:vid,quantity:qty});const q=await api('/api/quote',{delivery_zone:'managua',coupon:'PRUEBA10'});return (await api('/api/orders',{quote_id:q.id,idempotency_key:key,contact,address})).order;}
 const rejects=(f,code)=>assert.rejects(f,e=>e.code===code);
-test('actual catalog and quantity validation',async()=>{const {api}=setup();assert.equal((await api('/api/catalog')).products.length,2);for(const quantity of [-1,0.5,'1',NaN,11])await rejects(()=>api('/api/cart/items',{variant_id:vid,quantity}),'invalid_quantity');await rejects(()=>api('/api/cart/items',{variant_id:vid,quantity:4}),'insufficient_stock');await api('/api/cart/items',{variant_id:vid,quantity:2});assert.equal((await api('/api/cart')).subtotal_minor,35000);await api('/api/cart/items',{variant_id:vid,quantity:0},'PATCH');assert.equal((await api('/api/cart')).lines.length,0);});
+test('legacy fixture catalog and quantity validation',async()=>{const {api}=setup();assert.equal((await api('/api/catalog')).products.length,2);for(const quantity of [-1,0.5,'1',NaN,11])await rejects(()=>api('/api/cart/items',{variant_id:vid,quantity}),'invalid_quantity');await rejects(()=>api('/api/cart/items',{variant_id:vid,quantity:4}),'insufficient_stock');await api('/api/cart/items',{variant_id:vid,quantity:2});assert.equal((await api('/api/cart')).subtotal_minor,35000);await api('/api/cart/items',{variant_id:vid,quantity:0},'PATCH');assert.equal((await api('/api/cart')).lines.length,0);});
 test('corrupt persisted state recovers safely',async()=>{for(const raw of ['{bad',JSON.stringify({version:1}),JSON.stringify({version:1,cart:{},stock:{},orders:[],quotes:{},keys:{},audit:[],admin:true})]){const {api}=setup(raw);const c=await api('/api/catalog');assert.equal(c.products[0].variants[0].stock,3);assert.equal((await api('/api/cart')).lines.length,0);}});
 test('untrusted saved quantity cannot produce negative prices',async()=>{const x=setup();await x.api('/api/cart');const s=x.state();s.cart[vid]=-5;x.storage.setItem(KEY,JSON.stringify(s));assert.equal((await x.api('/api/cart')).lines.length,0);});
 test('reservation expires and cannot later be paid',async()=>{const x=setup();const o=await checkout(x.api);const s=x.state();s.orders[o.id].created_at=new Date(Date.now()-31*60*1000).toISOString();s.orders[o.id].reservation_expires_at=Date.now()-1;x.storage.setItem(KEY,JSON.stringify(s));const inv=await x.api('/api/admin/inventory');assert.equal(inv.variants[0].available,3);const paid=await x.api(`/api/orders/${o.id}/test-payment`,{outcome:'approved'});assert.equal(paid.order.status,'cancelled');assert.equal(paid.order.events.at(-1).type,'reserve_expired');});

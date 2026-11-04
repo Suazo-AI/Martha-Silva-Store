@@ -1,0 +1,170 @@
+name: SAVIA judge
+
+# External judge for the SAVIA staff path: staff UI tests, a real browser harness and the
+# complete backend suite against a disposable SQL Server. Builds and tests only; no deploy.
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: savia-judge-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  staff-ui-and-browser:
+    name: Staff UI tests and real browser harness
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Install locked jsdom without lifecycle scripts
+        run: npm ci --prefix tests/frontend-deps --ignore-scripts --no-audit --no-fund
+      - name: Staff UI tests (jsdom doubles, not a browser)
+        run: NODE_PATH="$PWD/tests/frontend-deps/node_modules" node --test dev/savia-staff-ui/*.test.mjs
+      - name: Install pinned Playwright library; the runner's Google Chrome is the browser
+        run: |
+          mkdir -p "$RUNNER_TEMP/pw" && cd "$RUNNER_TEMP/pw"
+          npm init -y > /dev/null
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm install --no-audit --no-fund --ignore-scripts playwright@1.63.0
+          google-chrome --version
+      - name: Real browser with synthetic API responses (includes the N5 regressions)
+        run: node tests/browser-mock-validation.mjs "$RUNNER_TEMP/pw/node_modules/playwright" "$RUNNER_TEMP/browser-evidence"
+      - name: Upload browser evidence (synthetic records only)
+        if: ${{ always() }}
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        with:
+          name: savia-browser-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/browser-evidence/
+          if-no-files-found: error
+          retention-days: 7
+
+  backend-full-suite-sql:
+    name: Complete backend suite on disposable SQL Server
+    # Licensed SQL runs only for this repository's own branches; fork PRs cannot start it.
+    if: >-
+      github.repository == 'Suazo-AI/Martha-Silva-Store' &&
+      (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      # Same immutable image as backend.yml: SQL Server 2022 Developer 16.0.4305.5, approved 2026-10-24 for non-production CI.
+      SQL_IMAGE: mcr.microsoft.com/mssql/server@sha256:cf8f0ab2ebe61feec2eed2629061a07d247f791c2a8ddda74a4ac9f06a291718
+      SQL_CONTAINER: savia-synthetic-${{ github.run_id }}-${{ github.run_attempt }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: '10.0.402'
+      - name: Verify the evidence summarizer
+        run: python3 -m unittest discover -s backend/tests -p test_verify_full_suite.py
+      - name: Restore pinned dependencies and build
+        run: |
+          dotnet restore backend/tests/Martha.Store.Api.Tests --locked-mode
+          dotnet build backend/tests/Martha.Store.Api.Tests --no-restore --configuration Release
+      - name: Start disposable SQL Server 2022 Developer
+        shell: bash
+        run: |
+          set -euo pipefail
+          password="Aa1!$(openssl rand -hex 32)"
+          echo "::add-mask::$password"
+          export MSSQL_SA_PASSWORD="$password"
+          printf 'SQLCMDPASSWORD=%s\n' "$password" >> "$GITHUB_ENV"
+          docker pull "$SQL_IMAGE"
+          # Fixed loopback port so the restart proof reconnects to the same endpoint.
+          docker run --detach --name "$SQL_CONTAINER" --platform linux/amd64 \
+            --memory 4g --cpus 2 --publish 127.0.0.1:14333:1433 \
+            --env ACCEPT_EULA=Y --env MSSQL_PID=Developer --env MSSQL_SA_PASSWORD \
+            "$SQL_IMAGE" > /dev/null
+          connection="Server=127.0.0.1,14333;Database=master;User ID=sa;Password=$password;Encrypt=true;TrustServerCertificate=true;Connect Timeout=5;Pooling=false"
+          echo "::add-mask::$connection"
+          printf 'MARTHA_TEST_SQL_CONNECTION=%s\n' "$connection" >> "$GITHUB_ENV"
+      - name: Wait for SQL and verify licensed edition and engine
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in $(seq 1 60); do
+            if docker exec --env SQLCMDPASSWORD "$SQL_CONTAINER" /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -C -l 2 -t 3 -b \
+              -Q "IF CONVERT(int, SERVERPROPERTY('ProductMajorVersion')) <> 16 THROW 51000, 'Expected SQL Server 2022', 1; IF CONVERT(nvarchar(128), SERVERPROPERTY('Edition')) NOT LIKE 'Developer%' THROW 51001, 'Expected Developer edition', 1;" >/dev/null 2>&1; then
+              exit 0
+            fi
+            sleep 2
+          done
+          echo '::error::Disposable SQL Server did not become ready within the bounded startup window.'
+          exit 1
+      - name: Run every backend case against disposable SQL (restart proof held back)
+        shell: bash
+        run: |
+          set -euo pipefail
+          : "${MARTHA_TEST_SQL_CONNECTION:?SQL tests must not silently skip}"
+          export MARTHA_INTERNAL_TEST_SQL_CONNECTION="$MARTHA_TEST_SQL_CONNECTION" SAVIA_INTERNAL_TEST_SQL_CONNECTION="$MARTHA_TEST_SQL_CONNECTION"
+          export SAVIA_INTERNAL_SQL_TESTS_AUTHORIZED=1 SAVIA_INTERNAL_HTTP_SQL_TESTS_AUTHORIZED=1
+          export SAVIA_PILOT_EVIDENCE="$RUNNER_TEMP/savia-pilot"
+          mkdir -p "$SAVIA_PILOT_EVIDENCE" "$RUNNER_TEMP/savia-results"
+          # Schema oracle derived from the EF model (EnsureCreated), independent of the hand-written migrations.
+          cp backend/tests/fixtures/expected-invariants.model-derived.json "$SAVIA_PILOT_EVIDENCE/expected-invariants.json"
+          # Raw output stays on this disposable runner; only sanitized outcomes are uploaded.
+          dotnet test backend/tests/Martha.Store.Api.Tests --no-build --no-restore --configuration Release \
+            --filter 'FullyQualifiedName!~Frozen_fixture_survives_controlled_owned_container_stop_start' \
+            --logger 'trx;LogFileName=full.trx' --results-directory "$RUNNER_TEMP/savia-results" > "$RUNNER_TEMP/savia-full.log" 2>&1
+      - name: Controlled container stop/start, then restart persistence proof
+        shell: bash
+        run: |
+          set -euo pipefail
+          export MARTHA_INTERNAL_TEST_SQL_CONNECTION="$MARTHA_TEST_SQL_CONNECTION" SAVIA_PILOT_EVIDENCE="$RUNNER_TEMP/savia-pilot"
+          release="$(ls -t "$SAVIA_PILOT_EVIDENCE"/release-*.json | head -1)"
+          database="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["source"])' "$release")"
+          [[ "$database" =~ ^SaviaInternalTest_Pilot_[a-f0-9]{32}$ ]]
+          docker stop "$SQL_CONTAINER" > /dev/null
+          docker start "$SQL_CONTAINER" > /dev/null
+          for attempt in $(seq 1 60); do
+            if docker exec --env SQLCMDPASSWORD "$SQL_CONTAINER" /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -C -l 2 -t 3 -b -Q "SET NOCOUNT ON; SELECT 1" >/dev/null 2>&1; then
+              break
+            fi
+            sleep 2
+          done
+          SAVIA_PILOT_PERSIST_DATABASE="$database" dotnet test backend/tests/Martha.Store.Api.Tests --no-build --no-restore --configuration Release \
+            --filter 'FullyQualifiedName~Frozen_fixture_survives_controlled_owned_container_stop_start' \
+            --logger 'trx;LogFileName=restart.trx' --results-directory "$RUNNER_TEMP/savia-results" > "$RUNNER_TEMP/savia-restart.log" 2>&1
+      - name: Require every case executed and passed; sanitize evidence
+        if: ${{ always() }}
+        # 601 = previous 600 cases + C11 Cashier branch-reassignment HTTP+SQL regression.
+        run: python3 backend/tests/verify_full_suite.py --min-tests 601 "$RUNNER_TEMP/savia-results"
+      - name: Upload sanitized outcomes only
+        if: ${{ always() }}
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        with:
+          name: savia-backend-outcomes-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/savia-results/sanitized-results.json
+          if-no-files-found: error
+          retention-days: 7
+      - name: Always destroy the disposable SQL container and raw logs
+        if: ${{ always() }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if docker container inspect "$SQL_CONTAINER" >/dev/null 2>&1; then
+            docker rm --force --volumes "$SQL_CONTAINER" > /dev/null
+          fi
+          rm -f "$RUNNER_TEMP"/savia-*.log "$RUNNER_TEMP"/savia-results/*.trx
+          remaining="$(docker container ls --all --filter "name=^/${SQL_CONTAINER}$" --format '{{.Names}}')"
+          if [ -n "$remaining" ]; then
+            echo '::error::Disposable SQL container remains after teardown.'
+            exit 1
+          fi
+          echo 'PASS: disposable SQL container absence verified.'
+
+# This workflow does not deploy, publish, or create accounts or credentials.

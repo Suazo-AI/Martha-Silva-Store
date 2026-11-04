@@ -1,0 +1,194 @@
+v24.22.1
+Python 3.12.14
+
+== Reproducible snapshot build ==
+Prepared 47 pages / 40 sample products / 902 files: /tmp/martha-build-test-j72xwo04/dist
+Prepared 47 pages / 40 sample products / 902 files: /tmp/martha-build-test-j72xwo04/dist
+PASS: clean and repeat builds match all 902 paths and SHA-256 hashes
+
+== Recovered fixture ==
+PASS: 47 pages / 40 sample products / 120 variants; src/dist app.js, demo-api.js and integration-adapters.js match
+
+== Backend simulation ==
+✔ legacy fixture catalog and quantity validation (3.808364ms)
+✔ corrupt persisted state recovers safely (0.710058ms)
+✔ untrusted saved quantity cannot produce negative prices (0.42948ms)
+✔ reservation expires and cannot later be paid (2.803325ms)
+✔ checkout and payment retries cannot double decrement inventory (2.384286ms)
+✔ stale quote and reservation-aware inventory adjustment (1.113685ms)
+✔ returns enforce purchased quantity and refund/restock exactly once (3.461903ms)
+✔ admin is expressly local preview, logout gates mutations but login requires no credentials (0.378378ms)
+✔ unknown prototype-like order ID is not an order (0.328962ms)
+✔ malformed bodies yield actionable validation instead of TypeError (0.698013ms)
+✔ write failure is explicit and does not commit memory (0.374226ms)
+✔ legacy orders without explicit expiry also release abandoned reservations (0.667751ms)
+✔ expired quote fails without creating an order (0.418132ms)
+✔ declined or cancelled payment releases stock once, and terminal retry cannot approve it (2.069397ms)
+✔ returns reject malformed lines and duplicate quantities exceeding purchased stock (1.543245ms)
+✔ memory-only mode remains usable when localStorage is unavailable (0.285908ms)
+✔ failed reset preserves in-memory cart (0.241099ms)
+✔ repeated concurrent checkout and payment calls are idempotent in one instance (0.939374ms)
+✔ corrupt quote totals cannot change the checkout price (0.371147ms)
+✔ invalid snapshots are preserved exactly in a single recovery slot before fallback writes (0.565981ms)
+✔ existing different recovery snapshot prevents destructive overwrite of either saved copy (0.345456ms)
+✔ failed recovery backup does not overwrite damaged primary state (0.245309ms)
+✔ valid legacy saved orders load unchanged and do not create a recovery backup (1.299432ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 140.02464
+
+== Dual integration adapters (local/synthetic only) ==
+✔ descriptors identify two disconnected demo models and cannot enable production (41.071322ms)
+✔ demo cart, inventory, orders, retry keys and reset are isolated by mode (13.859218ms)
+✔ local key replay rejects a new quote or changed customer data but allows exact and key-only recovery (5.452146ms)
+✔ missing local catalog fails explicitly instead of advertising an empty loaded integration (0.440856ms)
+✔ unscoped legacy state is not imported into either integration (2.845868ms)
+✔ cross-mode quote/order/return references and synthetic origins fail before mutation (2.937777ms)
+✔ return workflow keeps all outward references scoped including admin lists (5.68643ms)
+✔ CGA route simulation never issues a vendor request and rejects invented external routes (3.6356ms)
+✔ both model families expose the same canonical catalog fields without conflating currency or IDs (10.608909ms)
+✔ HTTP adapter is unconfigured by default; synthetic writes require explicit opt-in (0.804155ms)
+✔ synthetic HTTP uses only documented paths, exact minimal body and credential-free options (1.225967ms)
+✔ synthetic input rejects mode mixing, local IDs, prices, contact, multi-lines and invalid keys before network (0.754486ms)
+✔ synthetic catalog rejects commercial, malformed, unsafe and duplicate data (0.992341ms)
+✔ synthetic order validates exact schema, amounts, lifecycle, UTC and request identity (0.756854ms)
+✔ problem codes are preserved without leaking arbitrary server message contents (0.284757ms)
+✔ unknown outcomes never auto-retry, mutate the caller or fallback; manual retry keeps the exact key (0.643639ms)
+✔ invalid JSON, missing response and unexpected success status remain fail-closed (0.419339ms)
+✔ browser export has no network bootstrap or CGA client (1.481564ms)
+✔ loopback HTTP fixture proves wire request and retry behavior, not .NET interoperability (50.932441ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 453.764781
+
+== Catalog expansion regression ==
+✔ known 6 to 120 expansion preserves the complete legacy snapshot and only adds fixture stock (15.226134ms)
+✔ old quote remains usable after expansion and checkout retries retain identity (3.170006ms)
+✔ pending reservation and payment idempotency survive migration and reopen (5.553267ms)
+✔ returns and refund retry never restock twice after migration (2.831948ms)
+✔ expired legacy reservations still expire once during expansion (2.156083ms)
+✔ failed migration write preserves original bytes and can be retried (1.838454ms)
+✔ corrupt legacy data and partial stock loss are backed up, never silently repaired (7.655875ms)
+✔ unknown catalog expansion is not eligible for legacy repair (2.835855ms)
+✔ migration corruption with occupied recovery slot leaves both copies untouched (1.077685ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 172.016555
+
+== Complete original catalog and rendered media ==
+✔ all 40 original products retain their captured sample prices, variants and stock (3.528285ms)
+✔ the shared STORE_MEDIA and enriched product fields preserve all observed gallery metadata (4.50699ms)
+✔ every rendered gallery, responsive image and product-video file exists locally without symlinks (26.982473ms)
+✔ the served full catalog supports the real legacy six-to-120 variant migration (4.463862ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 161.270774
+
+== Asset audit regression (not full catalog completion) ==
+......
+----------------------------------------------------------------------
+Ran 6 tests in 0.407s
+
+OK
+
+== Portable runner regression ==
+......
+----------------------------------------------------------------------
+Ran 6 tests in 0.012s
+
+OK
+
+== Automatic sync guard regression ==
+................
+----------------------------------------------------------------------
+Ran 16 tests in 0.006s
+
+OK
+Validated commit pushed to private origin/main.
+
+== Recovered catalog staging regression ==
+..........
+----------------------------------------------------------------------
+Ran 10 tests in 0.114s
+
+OK
+
+== Frontend DOM simulation (not a browser) ==
+PASS all 47 actual page templates mount without JS errors
+PASS invalid favorites shape cannot break catalog mounting
+PASS catalog Back restores filter controls and result set
+PASS product zoom closes with focus on originating photo
+PASS quantity stock failure is visible within mini-bag and rolls back selection
+PASS successful quantity edit keeps mini-bag focus
+PASS admin refresh logout login remain functional
+PASS rapid repeated add clicks produce only one cart mutation
+PASS sort, empty filter, reset, and Forward agree with URL
+PASS malformed checkout storage shape recovers at contact form
+PASS remove final item keeps dialog open and close returns to add trigger
+PASS both integration models are explicitly local and unconfigured
+PASS switching integrations isolates and restores each simulated cart
+PASS memory-only carts survive mode changes, retry and BFCache within the same page
+PASS memory-only orders survive mode changes and an explicit reset stays scoped
+PASS memory-only model retry fails closed for a missing module and restores its state
+PASS checkout contact data and last-order hints never transfer between modes
+PASS switching on order page removes the previous mode order URL
+PASS missing integration module fails closed and retry restores the model
+PASS pending cart mutation locks mode selection and repeated clicks
+PASS mount does not automatically create or recover a simulated order
+PASS changing size cannot re-enable purchases while the model is unavailable
+PASS cart controls have distinct accessible names for different sizes
+PASS removing a cart line preserves focus and announces the change
+PASS checkout moves keyboard focus to the next step heading
+PASS mini-bag empty state after remove or favorite hides checkout and restores on a new add
+PASS favorite visible label toggles with state without replacing SVG or accessible content
+PASS stock notes retain sample qualification for unselected, scarce and last-unit sizes
+PASS BFCache restore follows the selected mode in the same tab without creating orders
+29/29 DOM simulation tests passed
+
+== Spanish and English storefront DOM simulation (not a browser) ==
+PASS Spanish remains the default and both language controls are accessible
+PASS an explicit English URL overrides a saved Spanish preference without losing filters
+PASS an explicit Spanish URL replaces a saved English preference for subsequent pages
+PASS language switching persists, restores Spanish, and leaves catalog data untouched
+PASS all 47 templates expose the language controls and English navigation
+PASS Back restores the English URL language after switching a filtered page to Spanish
+PASS mixed text fragments and running totals remain English after dynamic insertion
+PASS English URLs still work when browser storage is unavailable
+PASS an explicit Spanish choice survives reload and navigation when saved English cannot be overwritten
+PASS all 40 catalog names and descriptions have English translations and product pages use them
+PASS English product search and color filters retain Spanish data keys
+PASS English favorites, validation, bag updates and stock errors stay translated after mutations
+PASS a language-qualified checkout link hides when the mini-bag becomes empty and restores on add
+PASS English checkout preserves customer text and never translates form values
+PASS English order views preserve customer-entered return reasons and tracking text
+PASS the observer translates newly inserted UI but preserves excluded data and settles
+PASS static photo dimensions match the independent image-header inventory
+17/17 localization DOM simulations passed (no browser layout/decoding claim)
+
+== Local HTML structure ==
+PASS: 47 pages; local assets/srcset/deferred-video/routes/anchors/ARIA IDs; photographic hero
+
+== JavaScript syntax ==
+PASS: syntax (17 JavaScript files)
+
+PASS: all recovered-demo automated checks

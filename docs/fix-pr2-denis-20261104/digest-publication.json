@@ -1,0 +1,90 @@
+{
+  "task_id": "FIX-PR2-DENIS-20261104-DIGEST-PUBLICATION-260b759",
+  "status": "PASS",
+  "sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+  "issue_id": 3,
+  "pull_request_id": 2,
+  "historical_event": {
+    "comment_id": 6619736977,
+    "comment_url": "https://github.com/Suazo-AI/Martha-Silva-Store/issues/3#issuecomment-6619736977",
+    "marker": "<!-- savia-progress-digest -->",
+    "event_name": "push",
+    "ref": "refs/heads/Tony",
+    "event_sha": "95120c29cbd685a6818dc9923b05f81c45b5daa0",
+    "pr_head_sha": null,
+    "run_id": 41751973517,
+    "run_attempt": 1,
+    "run_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41751973517"
+  },
+  "historical_comment_preserved": true,
+  "historical_comment_unchanged_since_creation": true,
+  "current_events": [
+    {
+      "comment_id": 6619960602,
+      "comment_url": "https://github.com/Suazo-AI/Martha-Silva-Store/issues/3#issuecomment-6619960602",
+      "marker": "<!-- savia-progress-digest -->",
+      "event_name": "push",
+      "ref": "refs/heads/Tony",
+      "event_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "pr_head_sha": null,
+      "run_id": 41753735692,
+      "run_attempt": 1,
+      "run_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753735692"
+    },
+    {
+      "comment_id": 6619969407,
+      "comment_url": "https://github.com/Suazo-AI/Martha-Silva-Store/issues/3#issuecomment-6619969407",
+      "marker": "<!-- savia-progress-digest -->",
+      "event_name": "push",
+      "ref": "refs/heads/claude/funny-brahmagupta-5e5rj0",
+      "event_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "pr_head_sha": null,
+      "run_id": 41753811810,
+      "run_attempt": 1,
+      "run_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753811810"
+    },
+    {
+      "comment_id": 6618512889,
+      "comment_url": "https://github.com/Suazo-AI/Martha-Silva-Store/pull/2#issuecomment-6618512889",
+      "marker": "<!-- savia-progress-digest -->",
+      "event_name": "pull_request",
+      "ref": "refs/pull/2/merge",
+      "event_sha": "ec671f4331267c8a0419b38d6c36a31e78f1be8d",
+      "pr_head_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "run_id": 41753825286,
+      "run_attempt": 1,
+      "run_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753825286"
+    }
+  ],
+  "pull_request": {
+    "state": "open",
+    "head_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+    "head_ref": "claude/funny-brahmagupta-5e5rj0",
+    "base_ref": "main",
+    "base_sha": "3b0049163ece2d9431cee01f1bea624a66d9d8d4",
+    "url": "https://github.com/Suazo-AI/Martha-Silva-Store/pull/2"
+  },
+  "main": {
+    "current_sha": "3b0049163ece2d9431cee01f1bea624a66d9d8d4",
+    "baseline_source_sha": "95120c29cbd685a6818dc9923b05f81c45b5daa0",
+    "baseline_matches": [
+      {
+        "field": "PR_merge_ref.base",
+        "sha": "3b0049163ece2d9431cee01f1bea624a66d9d8d4"
+      }
+    ],
+    "tip_unchanged_from_immutable_baseline": true
+  },
+  "verification": {
+    "published_comment_metadata_read": true,
+    "published_event_lines_and_run_links_read": true,
+    "full_comment_bodies_retained": false,
+    "read_only_github": true,
+    "tests_repeated": false,
+    "ci_status_used_as_publication_proof": false
+  },
+  "unverified": [
+    "No independent audit of transient main ref movements or actor audit logs; current tip equals the pre-publication baseline.",
+    "No SQL, Golden Path, product acceptance or new CI execution reviewed in this task."
+  ]
+}

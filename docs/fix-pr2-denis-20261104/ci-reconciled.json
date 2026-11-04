@@ -1,0 +1,463 @@
+{
+  "schema": 1,
+  "task": "FIX-PR2-DENIS-20261104",
+  "head_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+  "checkout": {
+    "head_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+    "checkout_sha": "ec671f4331267c8a0419b38d6c36a31e78f1be8d",
+    "checkout_parents": [
+      "3b0049163ece2d9431cee01f1bea624a66d9d8d4",
+      "260b75951729189d987ffe423218ab1643bcfa3c"
+    ],
+    "tree_delta_paths": [],
+    "same_tree": true,
+    "golden_log_checkout_verified": true
+  },
+  "workflows": [
+    {
+      "id": 41753826810,
+      "workflow": "savia.yml",
+      "event": "pull_request",
+      "branch": "claude/funny-brahmagupta-5e5rj0",
+      "head_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "conclusion": "success",
+      "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753826810"
+    },
+    {
+      "id": 41753825286,
+      "workflow": "progress-digest.yml",
+      "event": "pull_request",
+      "branch": "claude/funny-brahmagupta-5e5rj0",
+      "head_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "conclusion": "success",
+      "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753825286"
+    },
+    {
+      "id": 41753825297,
+      "workflow": "backend.yml",
+      "event": "pull_request",
+      "branch": "claude/funny-brahmagupta-5e5rj0",
+      "head_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "conclusion": "success",
+      "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753825297"
+    },
+    {
+      "id": 41753825393,
+      "workflow": "ci.yml",
+      "event": "pull_request",
+      "branch": "claude/funny-brahmagupta-5e5rj0",
+      "head_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "conclusion": "success",
+      "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753825393"
+    },
+    {
+      "id": 41753825439,
+      "workflow": "golden-path.yml",
+      "event": "pull_request",
+      "branch": "claude/funny-brahmagupta-5e5rj0",
+      "head_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "conclusion": "success",
+      "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753825439"
+    },
+    {
+      "id": 41753811810,
+      "workflow": "progress-digest.yml",
+      "event": "push",
+      "branch": "claude/funny-brahmagupta-5e5rj0",
+      "head_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "conclusion": "success",
+      "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753811810"
+    },
+    {
+      "id": 41753735695,
+      "workflow": "tony-snapshot.yml",
+      "event": "push",
+      "branch": "Tony",
+      "head_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "conclusion": "success",
+      "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753735695"
+    },
+    {
+      "id": 41753735692,
+      "workflow": "progress-digest.yml",
+      "event": "push",
+      "branch": "Tony",
+      "head_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "conclusion": "success",
+      "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753735692"
+    },
+    {
+      "id": 41753735691,
+      "workflow": "progress.yml",
+      "event": "push",
+      "branch": "Tony",
+      "head_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "conclusion": "success",
+      "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753735691"
+    }
+  ],
+  "golden": {
+    "run_id": 41753825439,
+    "outcome": "PASS",
+    "steps_passed": 19,
+    "steps": [
+      {
+        "step": "sql.migrate_release",
+        "status": "PASS",
+        "sale_oracles": {
+          "duplicate_idempotency_keys": 0,
+          "on_hand_total": 0,
+          "sale_lines": 0,
+          "sale_movements": 0,
+          "sale_operations": 0,
+          "sales": 0
+        }
+      },
+      {
+        "step": "owner.bootstrap_console",
+        "status": "PASS",
+        "sale_oracles": {
+          "duplicate_idempotency_keys": 0,
+          "on_hand_total": 0,
+          "sale_lines": 0,
+          "sale_movements": 0,
+          "sale_operations": 0,
+          "sales": 0
+        }
+      },
+      {
+        "step": "sql.branch_seed",
+        "status": "PASS",
+        "sale_oracles": {
+          "duplicate_idempotency_keys": 0,
+          "on_hand_total": 0,
+          "sale_lines": 0,
+          "sale_movements": 0,
+          "sale_operations": 0,
+          "sales": 0
+        }
+      },
+      {
+        "step": "api.start_readiness_anonymous",
+        "status": "PASS",
+        "http": [
+          401
+        ],
+        "sale_oracles": {
+          "duplicate_idempotency_keys": 0,
+          "on_hand_total": 0,
+          "sale_lines": 0,
+          "sale_movements": 0,
+          "sale_operations": 0,
+          "sales": 0
+        }
+      },
+      {
+        "step": "owner.login_readiness",
+        "status": "PASS",
+        "http": [
+          200,
+          200
+        ],
+        "sale_oracles": {
+          "duplicate_idempotency_keys": 0,
+          "on_hand_total": 0,
+          "sale_lines": 0,
+          "sale_movements": 0,
+          "sale_operations": 0,
+          "sales": 0
+        }
+      },
+      {
+        "step": "owner.seed_directory",
+        "status": "PASS",
+        "http": [
+          201,
+          201,
+          201,
+          201
+        ],
+        "sale_oracles": {
+          "duplicate_idempotency_keys": 0,
+          "on_hand_total": 0,
+          "sale_lines": 0,
+          "sale_movements": 0,
+          "sale_operations": 0,
+          "sales": 0
+        }
+      },
+      {
+        "step": "owner.seed_stock_adjustments",
+        "status": "PASS",
+        "http": [
+          200,
+          200,
+          200
+        ],
+        "sale_oracles": {
+          "duplicate_idempotency_keys": 0,
+          "on_hand_total": 30,
+          "sale_lines": 0,
+          "sale_movements": 0,
+          "sale_operations": 0,
+          "sales": 0
+        }
+      },
+      {
+        "step": "owner.seed_staff",
+        "status": "PASS",
+        "http": [
+          200,
+          200,
+          200,
+          200
+        ],
+        "sale_oracles": {
+          "duplicate_idempotency_keys": 0,
+          "on_hand_total": 30,
+          "sale_lines": 0,
+          "sale_movements": 0,
+          "sale_operations": 0,
+          "sales": 0
+        }
+      },
+      {
+        "step": "owner.scope_and_logout",
+        "status": "PASS",
+        "http": [
+          200,
+          200,
+          200,
+          204,
+          401
+        ],
+        "sale_oracles": {
+          "duplicate_idempotency_keys": 0,
+          "on_hand_total": 30,
+          "sale_lines": 0,
+          "sale_movements": 0,
+          "sale_operations": 0,
+          "sales": 0
+        }
+      },
+      {
+        "step": "manager.login_scope_logout",
+        "status": "PASS",
+        "http": [
+          200,
+          200,
+          200,
+          204
+        ],
+        "sale_oracles": {
+          "duplicate_idempotency_keys": 0,
+          "on_hand_total": 30,
+          "sale_lines": 0,
+          "sale_movements": 0,
+          "sale_operations": 0,
+          "sales": 0
+        }
+      },
+      {
+        "step": "inventory.login_scope_sale_denied",
+        "status": "PASS",
+        "http": [
+          200,
+          200,
+          200,
+          403,
+          204
+        ],
+        "sale_oracles": {
+          "duplicate_idempotency_keys": 0,
+          "on_hand_total": 30,
+          "sale_lines": 0,
+          "sale_movements": 0,
+          "sale_operations": 0,
+          "sales": 0
+        }
+      },
+      {
+        "step": "unassigned.denied_scope_and_sale",
+        "status": "PASS",
+        "http": [
+          200,
+          200,
+          200,
+          403,
+          204
+        ],
+        "sale_oracles": {
+          "duplicate_idempotency_keys": 0,
+          "on_hand_total": 30,
+          "sale_lines": 0,
+          "sale_movements": 0,
+          "sale_operations": 0,
+          "sales": 0
+        }
+      },
+      {
+        "step": "cashier.login_scope",
+        "status": "PASS",
+        "http": [
+          200,
+          200,
+          200
+        ],
+        "sale_oracles": {
+          "duplicate_idempotency_keys": 0,
+          "on_hand_total": 30,
+          "sale_lines": 0,
+          "sale_movements": 0,
+          "sale_operations": 0,
+          "sales": 0
+        }
+      },
+      {
+        "step": "cashier.sale_with_idempotency_key",
+        "status": "PASS",
+        "http": [
+          200
+        ],
+        "sale_oracles": {
+          "duplicate_idempotency_keys": 0,
+          "on_hand_total": 28,
+          "sale_lines": 1,
+          "sale_movements": 1,
+          "sale_operations": 1,
+          "sales": 1
+        }
+      },
+      {
+        "step": "cashier.replay_same_key_no_effect",
+        "status": "PASS",
+        "http": [
+          200
+        ],
+        "sale_oracles": {
+          "duplicate_idempotency_keys": 0,
+          "on_hand_total": 28,
+          "sale_lines": 1,
+          "sale_movements": 1,
+          "sale_operations": 1,
+          "sales": 1
+        }
+      },
+      {
+        "step": "cashier.same_key_other_body_conflict",
+        "status": "PASS",
+        "http": [
+          409
+        ],
+        "sale_oracles": {
+          "duplicate_idempotency_keys": 0,
+          "on_hand_total": 28,
+          "sale_lines": 1,
+          "sale_movements": 1,
+          "sale_operations": 1,
+          "sales": 1
+        }
+      },
+      {
+        "step": "cashier.recover_by_key",
+        "status": "PASS",
+        "http": [
+          200
+        ],
+        "sale_oracles": {
+          "duplicate_idempotency_keys": 0,
+          "on_hand_total": 28,
+          "sale_lines": 1,
+          "sale_movements": 1,
+          "sale_operations": 1,
+          "sales": 1
+        }
+      },
+      {
+        "step": "cashier.logout",
+        "status": "PASS",
+        "http": [
+          204,
+          401
+        ],
+        "sale_oracles": {
+          "duplicate_idempotency_keys": 0,
+          "on_hand_total": 28,
+          "sale_lines": 1,
+          "sale_movements": 1,
+          "sale_operations": 1,
+          "sales": 1
+        }
+      },
+      {
+        "step": "teardown.stop_api_drop_database",
+        "status": "PASS"
+      }
+    ],
+    "teardown": {
+      "step": "teardown.stop_api_drop_database",
+      "ms": 822,
+      "status": "PASS",
+      "api_exit": 0,
+      "database_dropped": true,
+      "api_log_lines": 86,
+      "api_log_fail_or_crit": 0,
+      "api_log_warn": 38,
+      "private_dir_removed": true
+    },
+    "cleanup_absence_verified": true,
+    "artifacts": {
+      "evidence.json": "f4841b01674316deb26698083131b35d16eebe9b3dfa5a2bbc2a3735ff00a3fb",
+      "oracles.md": "293a5a22755e70cc86842af78d96150df3d7729c8577827af52b234458ecc792"
+    }
+  },
+  "backend": {
+    "run_id": 41753826810,
+    "cases": 599,
+    "passed": 599,
+    "failed": 0,
+    "skipped": 0,
+    "restart_method": "Martha.Store.Api.Tests.PrivatePilotReleaseTests.Frozen_fixture_survives_controlled_owned_container_stop_start",
+    "restart_cases": 1,
+    "restart_passed": 1,
+    "cleanup_absence_verified": true,
+    "sanitized_artifact_sha256": "e3142bc04e35b0653f05d7c31377550b3a579aa382fa6f8a9347e01f99a8eb55"
+  },
+  "legitimate_skips": [
+    {
+      "workflow": "ci.yml",
+      "jobs": [
+        "Deploy isolated Cloudflare preview",
+        "Build artifact (not deployment)"
+      ],
+      "reason": "Configured branch/deployment conditions; deployment not authorized."
+    },
+    {
+      "workflow": "backend.yml",
+      "job": "sql-server-integration",
+      "reason": "Main-only job; real SQL proof provided by separate SAVIA and Golden PR workflows."
+    }
+  ],
+  "limitations": [
+    "real browser/UI (C6)",
+    "Windows/SUAZO-PC",
+    "production TLS/proxy",
+    "payments",
+    "concurrency/load",
+    "backup/restore",
+    "idempotent release SQL script",
+    "No real failed-SQL cleanup, SIGKILL or power-loss proof; uncertain/refusal/timeout failure paths use doubles.",
+    "No independent filesystem inspection after hosted runner disposal.",
+    "Windows symlink privilege unchanged; applicable cases passed on Linux."
+  ],
+  "findings": "All seven TONY-* remain review.",
+  "milestones": {
+    "integration_percent": 100,
+    "integration_completed": 4,
+    "integration_total": 4,
+    "validation_percent": 100,
+    "validation_completed": 5,
+    "validation_total": 5,
+    "scope": "This FIX-PR2 task at the audited head; not production readiness or acceptance of all sprint cards."
+  }
+}

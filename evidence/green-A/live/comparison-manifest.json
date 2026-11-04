@@ -1,0 +1,52 @@
+{
+  "before_source": "e9e9609b9cda6f52abd0db1b35b570f3b83156b4",
+  "after_source": "704b2e160106b709880ad7c22febd25adb6181d6",
+  "viewport": [
+    1180,
+    757
+  ],
+  "DPR": 1,
+  "scrollY": 757,
+  "files": {
+    "REPORT.md": {
+      "bytes": 3698,
+      "sha256": "a3e6d77a9c8707ab7ee064e92ae7281f551e8e71596efbd3e4a2f854bfdb5f6b"
+    },
+    "verification.json": {
+      "bytes": 2731,
+      "sha256": "4f3921c332964c7ca2f58e8390c7faf50a0d0e7d0b56b2070dcc6aa1d5617f0f"
+    },
+    "scrollY757.json": {
+      "bytes": 7351,
+      "sha256": "32121dc6291e59e6fc91ef694998339e3544059ed8f5e9ff6ae96c7f4ad117d8"
+    },
+    "initial.json": {
+      "bytes": 8273,
+      "sha256": "e1c1aa90b26ef716a4b27b4f578767eb055c2a56dd648beceb9300eccc3756bc"
+    },
+    "rail-thumbnail-3.json": {
+      "bytes": 7956,
+      "sha256": "7de771773b218542592109519bacd071201bcdb0175b74acdbc6e55bbb2449d1"
+    },
+    "share-keyboard-copy-check.json": {
+      "bytes": 363,
+      "sha256": "bc2df3ea7ea6be4c6e11f89d082faf2ba8bf179b864672a290c14482e747d33a"
+    },
+    "share-check.json": {
+      "bytes": 389,
+      "sha256": "d6bb7b88b443f2c3b12f787f2cb85b6d4b3efd1eeaa954cce36560f95390fddc"
+    },
+    "unaffected-rosa.json": {
+      "bytes": 15637,
+      "sha256": "ab0357b61b822e84b7e5b9480475c4c582608318713ee7bdfb6ce07c945c62c0"
+    },
+    "before-scrollY757.jpg": {
+      "bytes": 83631,
+      "sha256": "dae7202e9a7923fb78e159f6ab771463ea88b0b8f864eca8d51e1ffb6ba979bc"
+    },
+    "after-scrollY757.jpg": {
+      "bytes": 87427,
+      "sha256": "9e045bb2a32289ee1cb1067a8d4934cd69bcef887d65b22e0574ea5627cd8580"
+    }
+  }
+}

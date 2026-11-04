@@ -1,0 +1,93 @@
+{
+  "assets": [
+    {
+      "file": "Dd-ETr6BL2V.jpg",
+      "source_post": "https://www.instagram.com/p/Dd-ETr6BL2V/",
+      "platform": "instagram",
+      "sha256": "b6f7be38e5724e03b933ea9ac5b8d021ce30ce3a60821cbbfb48e8ce6810de44",
+      "bytes": 358334,
+      "dimensions": [
+        1320,
+        2347
+      ],
+      "verified_owners": [
+        "marthasilva.store",
+        "marthasilva.gala"
+      ]
+    },
+    {
+      "file": "DdXjMXIFHwT.jpg",
+      "source_post": "https://www.instagram.com/p/DdXjMXIFHwT/",
+      "platform": "instagram",
+      "sha256": "3e27f62d339b8f1bd9371fbe2e74e2527b37153eb9fef970606c671535968aa0",
+      "bytes": 950933,
+      "dimensions": [
+        2400,
+        3196
+      ],
+      "verified_owners": [
+        "marthasilva.gala",
+        "marthasilva.store"
+      ]
+    },
+    {
+      "file": "DeSHKZPKTNp.jpg",
+      "source_post": "https://www.instagram.com/p/DeSHKZPKTNp/",
+      "platform": "instagram",
+      "sha256": "a64f60b40a4be1bfa4dcc23ab1969ebdcd1bae6740aa1afb895eab00afa84777",
+      "bytes": 427989,
+      "dimensions": [
+        1320,
+        2347
+      ],
+      "verified_owners": [
+        "marthasilva.gala",
+        "marthasilva.store"
+      ]
+    },
+    {
+      "file": "DeSG5J1KzHb.jpg",
+      "source_post": "https://www.instagram.com/p/DeSG5J1KzHb/",
+      "platform": "instagram",
+      "sha256": "9baaf1235bc81e72a3262e070d53673ced243c87f2db3311b8750aff96c5f80a",
+      "bytes": 20478,
+      "dimensions": [
+        640,
+        1136
+      ],
+      "verified_owners": [
+        "marthasilva.gala"
+      ]
+    },
+    {
+      "file": "DbZdVj6q2vn.jpg",
+      "source_post": "https://www.instagram.com/p/DbZdVj6q2vn/",
+      "platform": "instagram",
+      "sha256": "65fefefba27f125329d93377389370902412638e07c3c17213c17dc9d008c0b5",
+      "bytes": 80167,
+      "dimensions": [
+        640,
+        1136
+      ],
+      "verified_owners": [
+        "marthasilva.gala",
+        "marthasilva.store"
+      ]
+    },
+    {
+      "file": "DdwJTglRMBn.jpg",
+      "source_post": "https://www.instagram.com/p/DdwJTglRMBn/",
+      "platform": "instagram",
+      "sha256": "50dc3379d48de779bf7a1d196c59d27f4873a80c38589996906d808deb5725d9",
+      "bytes": 257108,
+      "dimensions": [
+        1320,
+        2347
+      ],
+      "verified_owners": [
+        "marthasilva.gala",
+        "marthasilva.store"
+      ]
+    }
+  ]
+}

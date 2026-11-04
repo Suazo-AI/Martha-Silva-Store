@@ -1,0 +1,362 @@
+{
+  "task_id": "technical-ready-C4-C5-C7-20261104",
+  "mode": "VALIDATE",
+  "host": "SUAZO-PC",
+  "model": "gpt-6.1-sol",
+  "reasoning": "xhigh",
+  "source_root": "C:/Users/Jason/MARTHA-SILVA/test-runs/c4-c5-c7-review-20261104",
+  "branch": "task/c4-c5-c7-review-20261104",
+  "requested_head": "260b75951729189d987ffe423218ab1643bcfa3c",
+  "worktree_clean": true,
+  "verdict": "APTO CON REPAROS",
+  "acceptance": "No constituye aceptación formal de Jason ni cierre de tarjetas.",
+  "ci": {
+    "associated_head": "260b75951729189d987ffe423218ab1643bcfa3c",
+    "checkout": "ec671f4331267c8a0419b38d6c36a31e78f1be8d",
+    "backend_run": 41753826810,
+    "golden_run": 41753825439,
+    "merge_vs_head_changed_files": [],
+    "binding_evidence": "evidence/head-merge-binding.json",
+    "backend_outcomes": "evidence/backend-sanitized-results.json",
+    "golden_evidence": "evidence/golden-evidence.json",
+    "backend": {
+      "cases": 599,
+      "passed": 599,
+      "notPassed": 0,
+      "relevant_methods_each_passed": 1
+    },
+    "golden": {
+      "steps": 19,
+      "passed": 19,
+      "oracle_failures": 0,
+      "database_dropped": true,
+      "private_dir_removed": true
+    },
+    "artifact_zip_sha256": {
+      "backend": "f7013ba3c8ef823c91af7f82494de1e6d00983cccf84694041b15f5a660e1633",
+      "golden": "ebb958286258b70dfc6360b7915055052709874ef0dd2db037dfd4f07cfe1316"
+    }
+  },
+  "check_items": [
+    {
+      "card": "C4",
+      "card_id": "6aea5db529d01970fc29d79a",
+      "checklist_id": "6aea5dfb73e02f9c8a251159",
+      "check_item_id": "6aea5e36ade0714b026596c2",
+      "text": "dotnet ef migrations has-pending-model-changes sin cambios pendientes",
+      "status": "VERIFIED",
+      "recommend_mark": true,
+      "candidate": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "evidence": [
+        "docs/sprint-20261104/C4-C7.md:16",
+        "backend/tests/Martha.Store.Api.Tests/InternalMigrationTests.cs:55",
+        "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753826810",
+        "evidence/backend-sanitized-results.json"
+      ],
+      "limit": "CLI histórico exit 0; guarda equivalente HasPendingModelChanges() vigente. No se volvió a ejecutar."
+    },
+    {
+      "card": "C4",
+      "card_id": "6aea5db529d01970fc29d79a",
+      "checklist_id": "6aea5dfb73e02f9c8a251159",
+      "check_item_id": "6aea5e374ce5c9cbf52b665f",
+      "text": "Migraciones aplicadas a base vacía y a copia sintética con historia",
+      "status": "VERIFIED",
+      "recommend_mark": true,
+      "candidate": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "evidence": [
+        "backend/tests/Martha.Store.Api.Tests/InternalReleaseScriptTests.cs:53",
+        "docs/sprint-20261104/C4-C7.md:44",
+        "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753826810",
+        "evidence/backend-sanitized-results.json"
+      ],
+      "limit": "Base vacía, primera migración con filas de nueve tablas, igualdad antes/después y reaplicación. SQL sintético desechable."
+    },
+    {
+      "card": "C4",
+      "card_id": "6aea5db529d01970fc29d79a",
+      "checklist_id": "6aea5dfb73e02f9c8a251159",
+      "check_item_id": "6aea5e379bee14751da20f79",
+      "text": "Script de release incluye 20261027224500_InternalBranchScope",
+      "status": "VERIFIED",
+      "recommend_mark": true,
+      "candidate": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "evidence": [
+        "backend/tests/Martha.Store.Api.Tests/InternalReleaseScriptTests.cs:40",
+        "backend/tests/Martha.Store.Api.Tests/InternalReleaseScriptTests.cs:56",
+        "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753826810",
+        "evidence/backend-sanitized-results.json"
+      ],
+      "limit": "Guarda compara generación EF completa, registra cada migración y prueba aplicación. No implica autorización para aplicar al entorno real."
+    },
+    {
+      "card": "C4",
+      "card_id": "6aea5db529d01970fc29d79a",
+      "checklist_id": "6aea5dfb73e02f9c8a251159",
+      "check_item_id": "6aea5e38ca3d0c5bd7a5af6b",
+      "text": "2 PrivatePilotReleaseTests PASS con readback",
+      "status": "VERIFIED",
+      "recommend_mark": true,
+      "candidate": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "evidence": [
+        "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs:88",
+        "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs:107",
+        "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs:141",
+        "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753826810",
+        "evidence/backend-sanitized-results.json"
+      ],
+      "limit": "Par offline+release SQL y readbacks de esquema/negocio/restauración; CI usa oráculo público del modelo. Comparación offline adicional con oráculo privado: seis conjuntos iguales y hash privado coincide con freeze."
+    },
+    {
+      "card": "C4",
+      "card_id": "6aea5db529d01970fc29d79a",
+      "checklist_id": "6aea5dfb73e02f9c8a251159",
+      "check_item_id": "6aea5e50d29ae382152ad09c",
+      "text": "CI en verde",
+      "status": "VERIFIED",
+      "recommend_mark": true,
+      "candidate": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "evidence": [
+        "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753826810",
+        "evidence/ci-status.json",
+        "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753826810",
+        "evidence/backend-sanitized-results.json"
+      ],
+      "limit": "Run asociado a head260b759; checkout ec671f4331267c8a0419b38d6c36a31e78f1be8d. Comparación GitHub merge/head: cero archivos cambiados."
+    },
+    {
+      "card": "C5",
+      "card_id": "6aea5de589984656dfca2dfc",
+      "checklist_id": "6aea5dfcfbb2bba92736f87c",
+      "check_item_id": "6aea5e5058c211bc54ccc925",
+      "text": "API real + SQL desechable levantados por un script reproducible",
+      "status": "VERIFIED",
+      "recommend_mark": true,
+      "candidate": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "evidence": [
+        "docs/sprint-20261104/C5.md:6",
+        "docs/sprint-20261104/C5.md:69",
+        "tests/golden-path/golden_path.py:513",
+        "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753825439",
+        "evidence/golden-evidence.json"
+      ],
+      "limit": "Dos corridas locales Linux 19/19; evidencia posterior 19 pasos con oráculos y cleanup. CI actual smoke PASS. Windows no probado."
+    },
+    {
+      "card": "C5",
+      "card_id": "6aea5de589984656dfca2dfc",
+      "checklist_id": "6aea5dfcfbb2bba92736f87c",
+      "check_item_id": "6aea5e5100c0dabd87682f74",
+      "text": "Identidades sintéticas: Owner, Manager, Cashier, Inventory y sin asignación",
+      "status": "VERIFIED",
+      "recommend_mark": true,
+      "candidate": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "evidence": [
+        "tests/golden-path/golden_path.py:515",
+        "tests/golden-path/golden_path.py:578",
+        "tests/golden-path/golden_path.py:608",
+        "tests/golden-path/golden_path.py:637",
+        "evidence/golden-evidence.json"
+      ],
+      "limit": "SQL observa staff=5 y unassigned_staff=1. Cada perfil inicia sesión. Sin asignación es Cashier con BranchId NULL; C7 también prueba Manager sin asignación."
+    },
+    {
+      "card": "C5",
+      "card_id": "6aea5de589984656dfca2dfc",
+      "checklist_id": "6aea5dfcfbb2bba92736f87c",
+      "check_item_id": "6aea5e52186655e5afef1c42",
+      "text": "Esquema creado con migraciones de release (no EnsureCreated)",
+      "status": "VERIFIED",
+      "recommend_mark": true,
+      "candidate": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "evidence": [
+        "tests/golden-path/GoldenPath.Sql/Program.cs:105",
+        "tests/golden-path/golden_path.py:511",
+        "evidence/golden-evidence.json"
+      ],
+      "limit": "IMigrator.MigrateAsync; ambas migraciones aplicadas y ninguna pendiente. No ejecuta el .sql idempotente; éste se valida en C4."
+    },
+    {
+      "card": "C5",
+      "card_id": "6aea5de589984656dfca2dfc",
+      "checklist_id": "6aea5dfcfbb2bba92736f87c",
+      "check_item_id": "6aea5e5214eec246fdff6462",
+      "text": "Mismo script corre en local y en CI; CI en verde",
+      "status": "VERIFIED",
+      "recommend_mark": true,
+      "candidate": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "evidence": [
+        "docs/sprint-20261104/C5.md:16",
+        "docs/sprint-20261104/C5.md:69",
+        ".github/workflows/golden-path.yml:81",
+        "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753825439",
+        "evidence/golden-evidence.json"
+      ],
+      "limit": "Mismo golden_path.py --no-build; local Linux y runner Linux. No prueba Windows ni despliegue."
+    },
+    {
+      "card": "C7",
+      "card_id": "6aea5de62bcaaced705f1942",
+      "checklist_id": "6aea5dfda497c0f3046159ad",
+      "check_item_id": "6aea5e56683d163dc2a0a549",
+      "text": "N1, N3, N4, N8 y N9 implementados como pruebas de API con oráculos SQL",
+      "status": "VERIFIED",
+      "recommend_mark": true,
+      "candidate": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "evidence": [
+        "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs:25",
+        "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs:90",
+        "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs:148",
+        "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs:229",
+        "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs:279",
+        "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753826810",
+        "evidence/backend-sanitized-results.json"
+      ],
+      "limit": "Fixture migrada; servidor real con cookie/CSRF; SQL independiente para alcance, actor, ledger y huellas."
+    },
+    {
+      "card": "C7",
+      "card_id": "6aea5de62bcaaced705f1942",
+      "checklist_id": "6aea5dfda497c0f3046159ad",
+      "check_item_id": "6aea5e57d64fe07fd3f98734",
+      "text": "Rechazos con cero escrituras (conteos o huellas iguales antes y después)",
+      "status": "PARTIAL",
+      "recommend_mark": false,
+      "candidate": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "evidence": [
+        "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs:182",
+        "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs:214",
+        "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs:246",
+        "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs:474",
+        "docs/sprint-20261104/C4-C7.md:122",
+        "evidence/backend-sanitized-results.json"
+      ],
+      "limit": "19 tablas: rechazos de autorización/CSRF sin cambios. Excepción intencional: remap409 añade exactamente una Operations durable; las 18 restantes no cambian. No marcar literal universal sin registrar esta precisión."
+    },
+    {
+      "card": "C7",
+      "card_id": "6aea5de62bcaaced705f1942",
+      "checklist_id": "6aea5dfda497c0f3046159ad",
+      "check_item_id": "6aea5e58259b11d8a36c5e90",
+      "text": "Manipulación de ubicación, IDs y skip/take cubierta",
+      "status": "VERIFIED",
+      "recommend_mark": true,
+      "candidate": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "evidence": [
+        "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs:156",
+        "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs:179",
+        "backend/src/Martha.Store.Api/Internal/InternalCommandRunner.cs:59",
+        "backend/src/Martha.Store.Api/Internal/InternalBranchAccess.cs:27",
+        "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753826810",
+        "evidence/backend-sanitized-results.json"
+      ],
+      "limit": "IDs ajenos404, escrituras ajenas403, filtros ajenos vacíos, límites400 y paginación sin ampliar alcance. Clave no transfiere actor."
+    },
+    {
+      "card": "C7",
+      "card_id": "6aea5de62bcaaced705f1942",
+      "checklist_id": "6aea5dfda497c0f3046159ad",
+      "check_item_id": "6aea5e58a0ea2858280cc089",
+      "text": "CSRF ausente o incorrecto cubierto",
+      "status": "VERIFIED",
+      "recommend_mark": true,
+      "candidate": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "evidence": [
+        "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs:229",
+        "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs:253",
+        "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs:263",
+        "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753826810",
+        "evidence/backend-sanitized-results.json"
+      ],
+      "limit": "Faltante/falso/anónimo/otro usuario rechazados sin cambios. Par fresco permite una venta del actor actual. SEC-CSRF mismo usuario tras relogin queda separado."
+    },
+    {
+      "card": "C7",
+      "card_id": "6aea5de62bcaaced705f1942",
+      "checklist_id": "6aea5dfda497c0f3046159ad",
+      "check_item_id": "6aea5e59bb5feea16e85c12d",
+      "text": "Ajuste Owner frente a Cashier cubierto",
+      "status": "VERIFIED",
+      "recommend_mark": true,
+      "candidate": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "evidence": [
+        "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs:279",
+        "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs:300",
+        "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs:316",
+        "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753826810",
+        "evidence/backend-sanitized-results.json"
+      ],
+      "limit": "Mismo body: Cashier403 y huellas iguales; Owner200 con razón, actor, ubicación, movimiento+3, balance+3 y replay sin efecto adicional."
+    },
+    {
+      "card": "C7",
+      "card_id": "6aea5de62bcaaced705f1942",
+      "checklist_id": "6aea5dfda497c0f3046159ad",
+      "check_item_id": "6aea5e593ebeede65d38b9ee",
+      "text": "CI en verde",
+      "status": "VERIFIED",
+      "recommend_mark": true,
+      "candidate": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "evidence": [
+        "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753826810",
+        "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753826810",
+        "evidence/backend-sanitized-results.json"
+      ],
+      "limit": "Run asociado a head260b759; checkout ec671f4331267c8a0419b38d6c36a31e78f1be8d. Comparación GitHub merge/head: cero archivos cambiados."
+    }
+  ],
+  "extra_gates": [
+    {
+      "card": "C4",
+      "status": "VERIFIED",
+      "name": "Comparar expected-invariants.model-derived.json con expected-invariants.json privado de SUAZO-PC",
+      "private_path": "C:/Users/Jason/MARTHA-SILVA/validation/private-pilot-20261028/worker/expected-invariants.json",
+      "freeze_path": "C:/Users/Jason/MARTHA-SILVA/validation/private-pilot-20261028/worker/expected-invariants-freeze.json",
+      "private_sha256": "569a26094a106c305093acd291e772558af2c13b6cfb60e8a5ebcc0486043021",
+      "freeze_sha_matches": true,
+      "frozen_utc": "2026-10-29T05:33:42.2820687Z",
+      "public_worktree_sha256": "3015d5316e6c5090846c29f87e6d180bb72fa9964dea48b3f628251a601239d0",
+      "public_lf_sha256": "4e3b7296aabddd94e9cdc2928246f74761438b72f944ed40eca74b418851a305",
+      "schema_comparison": {
+        "history": {
+          "private": 2,
+          "model": 2,
+          "differences": 0
+        },
+        "tables": {
+          "private": 19,
+          "model": 19,
+          "differences": 0
+        },
+        "checks": {
+          "private": 32,
+          "model": 32,
+          "differences": 0
+        },
+        "foreign_keys": {
+          "private": 26,
+          "model": 26,
+          "differences": 0
+        },
+        "indexes": {
+          "private": 37,
+          "model": 37,
+          "differences": 0
+        },
+        "primary_keys": {
+          "private": 19,
+          "model": 19,
+          "differences": 0
+        }
+      },
+      "provenance_difference": "Esperada: fuente Up congelada antes de SQL frente a esquema creado desde modelo EF con EnsureCreated. Es metadata de origen, no discrepancia de esquema.",
+      "scope": "Comparación offline de archivos y validación del hash congelado. No se copió contenido privado.",
+      "limit": "No demuestra el estado actual de ninguna base de SUAZO-PC. No constituye aceptación formal de Jason.",
+      "owner": "primary para adjuntar el resultado técnico; Jason conserva aceptación"
+    }
+  ],
+  "runtime_executed_by_judge": false,
+  "external_mutations": false,
+  "ownership": "released after writing these two artifacts"
+}
+

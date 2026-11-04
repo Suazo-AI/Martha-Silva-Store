@@ -1,0 +1,15 @@
+{
+  "observed_utc": "2026-11-04T02:46:09.931899+00:00",
+  "card": "C6",
+  "card_id": "6aea5de54c008e36e0aecc0c",
+  "action_id": "6aea9c701274d729cf1e530f",
+  "marker": "[SAVIA-C6-DIVERGENCE-2ddf83d-b6bc0396]",
+  "comment": "[SAVIA-C6-DIVERGENCE-2ddf83d-b6bc0396]\nTony publicado 2ddf83de7a89da608e8267a21313d64b373bf5e2 incluye diagnostico logout y retirada verificable de Chrome. PR remoto avanzo independientemente b6bc0396bb7d53359d23b806a3177edc194c8e62: consume cuerpo GET me401. CI actual PR: 9 PASS,0 FAIL,3 SKIP,12 total; golden41758450353 PASS en b6. Ese head no cubre el delta Chrome ni C8 de Tony. Push al PR rechazo fetch-first; no se forzo. Resolucion combinada preparada y probada 33/33 sin SQL local. Importador requiere nueva autorizacion puntual de Jason para SHA b6, por AUTO-SYNC.md:85. C6 sigue pendiente de CI combinado y juez de17checks. Propuesta revisable: coordination/pr2-b6bc0396-proposal-20261104/REVIEW.md. No main, deploy ni seguridad producto.",
+  "exact_readback": true,
+  "list_id": "6aea5d677e8b3123293bcaa8",
+  "closed": false,
+  "checklists_changed": false,
+  "list_changed": false,
+  "complete": 0,
+  "total": 4
+}

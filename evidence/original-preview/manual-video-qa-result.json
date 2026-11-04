@@ -1,0 +1,44 @@
+{
+  "hashes": {
+    "app": "b0d5b729c6888c690ce940a8d3da8a94fcadc8b324301d587ca43a043cf215f8",
+    "page": "8ba0961c91b0c34b51fd5e3a756f74f4bd597c7964ca1b9994a9e52934158f3e"
+  },
+  "initial": {
+    "src": "http://127.0.0.1:8010/research/assets/store-media/rosa-empolvado-pedreria/product.webm",
+    "ready": 0,
+    "network": 1,
+    "paused": true,
+    "time": 0,
+    "duration": null,
+    "controls": true,
+    "rect": {
+      "x": 0,
+      "y": -123.5,
+      "width": 390,
+      "height": 520,
+      "top": -123.5,
+      "right": 390,
+      "bottom": 396.5,
+      "left": 0
+    }
+  },
+  "after": {
+    "src": "http://127.0.0.1:8010/research/assets/store-media/rosa-empolvado-pedreria/product.webm",
+    "ready": 4,
+    "network": 1,
+    "paused": false,
+    "time": 1.9254,
+    "duration": 6,
+    "controls": true,
+    "rect": {
+      "x": 0,
+      "y": -123.5,
+      "width": 390,
+      "height": 520,
+      "top": -123.5,
+      "right": 390,
+      "bottom": 396.5,
+      "left": 0
+    }
+  }
+}

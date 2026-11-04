@@ -1,0 +1,30 @@
+PASS all 47 actual page templates mount without JS errors
+PASS invalid favorites shape cannot break catalog mounting
+PASS catalog Back restores filter controls and result set
+PASS product zoom closes with focus on originating photo
+PASS quantity stock failure is visible within mini-bag and rolls back selection
+PASS successful quantity edit keeps mini-bag focus
+PASS admin refresh logout login remain functional
+PASS rapid repeated add clicks produce only one cart mutation
+PASS sort, empty filter, reset, and Forward agree with URL
+PASS malformed checkout storage shape recovers at contact form
+PASS remove final item keeps dialog open and close returns to add trigger
+PASS both integration models are explicitly local and unconfigured
+PASS switching integrations isolates and restores each simulated cart
+PASS memory-only carts survive mode changes, retry and BFCache within the same page
+PASS memory-only orders survive mode changes and an explicit reset stays scoped
+PASS memory-only model retry fails closed for a missing module and restores its state
+PASS checkout contact data and last-order hints never transfer between modes
+PASS switching on order page removes the previous mode order URL
+PASS missing integration module fails closed and retry restores the model
+PASS pending cart mutation locks mode selection and repeated clicks
+PASS mount does not automatically create or recover a simulated order
+PASS changing size cannot re-enable purchases while the model is unavailable
+PASS cart controls have distinct accessible names for different sizes
+PASS removing a cart line preserves focus and announces the change
+PASS checkout moves keyboard focus to the next step heading
+PASS mini-bag empty state after remove or favorite hides checkout and restores on a new add
+PASS favorite visible label toggles with state without replacing SVG or accessible content
+PASS stock notes retain sample qualification for unselected, scarce and last-unit sizes
+PASS BFCache restore follows the selected mode in the same tab without creating orders
+29/29 DOM simulation tests passed

@@ -1,0 +1,1315 @@
+{
+  "schema": 1,
+  "scope": "green-photo-crop-v1",
+  "base_source": "e2a475961a0056ac6609a86e34a2a58c05e37707",
+  "product_id": "verde-brillo-cuello-cruzado",
+  "active_positions": [
+    1,
+    3,
+    4,
+    5
+  ],
+  "excluded_positions": [
+    2
+  ],
+  "expected_media": {
+    "images": [
+      "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/01-front-full-length-570.webp",
+      "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/03-side-full-length-570.webp",
+      "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/04-back-full-length-570.webp",
+      "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/05-detail-crop-432.webp"
+    ],
+    "image_sets": [
+      "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/01-front-full-length-320.webp 320w, /research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/01-front-full-length-480.webp 480w, /research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/01-front-full-length-570.webp 570w",
+      "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/03-side-full-length-320.webp 320w, /research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/03-side-full-length-480.webp 480w, /research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/03-side-full-length-570.webp 570w",
+      "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/04-back-full-length-320.webp 320w, /research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/04-back-full-length-480.webp 480w, /research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/04-back-full-length-570.webp 570w",
+      "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/05-detail-crop-320.webp 320w, /research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/05-detail-crop-432.webp 432w"
+    ],
+    "jpeg_sets": [
+      "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/01-front-full-length-320.jpg 320w, /research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/01-front-full-length-480.jpg 480w, /research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/01-front-full-length-570.jpg 570w",
+      "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/03-side-full-length-320.jpg 320w, /research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/03-side-full-length-480.jpg 480w, /research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/03-side-full-length-570.jpg 570w",
+      "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/04-back-full-length-320.jpg 320w, /research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/04-back-full-length-480.jpg 480w, /research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/04-back-full-length-570.jpg 570w",
+      "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/05-detail-crop-320.jpg 320w, /research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/05-detail-crop-432.jpg 432w"
+    ],
+    "jpeg_images": [
+      "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/01-front-full-length-570.jpg",
+      "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/03-side-full-length-570.jpg",
+      "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/04-back-full-length-570.jpg",
+      "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/05-detail-crop-432.jpg"
+    ],
+    "image_labels": [
+      "front full length",
+      "side full length",
+      "back full length",
+      "Detalle de la fotografía original"
+    ],
+    "sample_image": false,
+    "video": "/research/assets/store-media/verde-brillo-cuello-cruzado/product.mp4",
+    "video_webm": "/research/assets/store-media/verde-brillo-cuello-cruzado/product.webm",
+    "video_poster": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/01-front-full-length-480.webp"
+  },
+  "variants": [
+    {
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/01-front-full-length-320.webp",
+      "width": 320,
+      "height": 569,
+      "sha256": "682c271a1e085de3a2770b0a76f607dc62b54d7e020ae3b854f98a3b8c8546c7",
+      "bytes": 157130,
+      "format": "WEBP",
+      "rgb_equal_to_expected_resize": true,
+      "mean_absolute_rgb_difference": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "private_exif_bytes": 0,
+      "xmp_bytes": 0,
+      "icc_preserved": false
+    },
+    {
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/01-front-full-length-320.jpg",
+      "width": 320,
+      "height": 569,
+      "sha256": "adc5d4876fca1ed44afdc5db722d98497f5a40e41d10a657ff06ef8d813a4c5a",
+      "bytes": 71034,
+      "format": "JPEG",
+      "rgb_equal_to_expected_resize": false,
+      "mean_absolute_rgb_difference": [
+        1.047643892794376,
+        0.8689696836555361,
+        1.1612752636203867
+      ],
+      "private_exif_bytes": 0,
+      "xmp_bytes": 0,
+      "icc_preserved": false
+    },
+    {
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/01-front-full-length-480.webp",
+      "width": 480,
+      "height": 854,
+      "sha256": "270c48a7f567f03aa7469327a364ef8892775cc5ce701d8d6dd1f38e9728edc9",
+      "bytes": 294274,
+      "format": "WEBP",
+      "rgb_equal_to_expected_resize": true,
+      "mean_absolute_rgb_difference": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "private_exif_bytes": 0,
+      "xmp_bytes": 0,
+      "icc_preserved": false
+    },
+    {
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/01-front-full-length-480.jpg",
+      "width": 480,
+      "height": 854,
+      "sha256": "9ece6c4250fd021f4430f0cf47024a5bd88458ac3427767a0435e0c37d2d89ea",
+      "bytes": 132825,
+      "format": "JPEG",
+      "rgb_equal_to_expected_resize": false,
+      "mean_absolute_rgb_difference": [
+        0.899634074941452,
+        0.7294959992193599,
+        1.0049277907884466
+      ],
+      "private_exif_bytes": 0,
+      "xmp_bytes": 0,
+      "icc_preserved": false
+    },
+    {
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/01-front-full-length-570.webp",
+      "width": 570,
+      "height": 1014,
+      "sha256": "a4e28b63431bafdece78c674dae9f9673239b7ed8bccb970586f2040da79c49f",
+      "bytes": 339298,
+      "format": "WEBP",
+      "rgb_equal_to_expected_resize": true,
+      "mean_absolute_rgb_difference": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "private_exif_bytes": 0,
+      "xmp_bytes": 0,
+      "icc_preserved": false
+    },
+    {
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/01-front-full-length-570.jpg",
+      "width": 570,
+      "height": 1014,
+      "sha256": "0b47bcb8a10d0772be8d944ea49c3b048538d06ee67d2a0615966b07a6463980",
+      "bytes": 169835,
+      "format": "JPEG",
+      "rgb_equal_to_expected_resize": false,
+      "mean_absolute_rgb_difference": [
+        0.8094778366033427,
+        0.6386276341741929,
+        0.9032907713069657
+      ],
+      "private_exif_bytes": 0,
+      "xmp_bytes": 0,
+      "icc_preserved": false
+    },
+    {
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/03-side-full-length-320.webp",
+      "width": 320,
+      "height": 569,
+      "sha256": "829f3f32d08d6ac07ffb275d902c5fbb7b9776220dba9574fbcc409db4bc4ca3",
+      "bytes": 147096,
+      "format": "WEBP",
+      "rgb_equal_to_expected_resize": true,
+      "mean_absolute_rgb_difference": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "private_exif_bytes": 0,
+      "xmp_bytes": 0,
+      "icc_preserved": false
+    },
+    {
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/03-side-full-length-320.jpg",
+      "width": 320,
+      "height": 569,
+      "sha256": "c02432507b12cb7bc788e655a197f305c19257c240f232feb357544552d7c0cd",
+      "bytes": 66835,
+      "format": "JPEG",
+      "rgb_equal_to_expected_resize": false,
+      "mean_absolute_rgb_difference": [
+        0.9744837434094903,
+        0.8140817223198594,
+        1.1291849736379613
+      ],
+      "private_exif_bytes": 0,
+      "xmp_bytes": 0,
+      "icc_preserved": false
+    },
+    {
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/03-side-full-length-480.webp",
+      "width": 480,
+      "height": 854,
+      "sha256": "e7d4f7865eff9b08db31a3c364e63ca2f1961edf2107213e504b8ef1956cd0dd",
+      "bytes": 270124,
+      "format": "WEBP",
+      "rgb_equal_to_expected_resize": true,
+      "mean_absolute_rgb_difference": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "private_exif_bytes": 0,
+      "xmp_bytes": 0,
+      "icc_preserved": false
+    },
+    {
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/03-side-full-length-480.jpg",
+      "width": 480,
+      "height": 854,
+      "sha256": "ae1d5fc9f5f5f4e4df523526111815749268ebcbc47e2655ac2e5013d48ece46",
+      "bytes": 124504,
+      "format": "JPEG",
+      "rgb_equal_to_expected_resize": false,
+      "mean_absolute_rgb_difference": [
+        0.8366876463700235,
+        0.6795057572209211,
+        0.9828600702576112
+      ],
+      "private_exif_bytes": 0,
+      "xmp_bytes": 0,
+      "icc_preserved": false
+    },
+    {
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/03-side-full-length-570.webp",
+      "width": 570,
+      "height": 1014,
+      "sha256": "a13cd96b64e54e4bced263f73a383892df5ea6b322a31eed3b27ba7f37fe6b87",
+      "bytes": 299702,
+      "format": "WEBP",
+      "rgb_equal_to_expected_resize": true,
+      "mean_absolute_rgb_difference": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "private_exif_bytes": 0,
+      "xmp_bytes": 0,
+      "icc_preserved": false
+    },
+    {
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/03-side-full-length-570.jpg",
+      "width": 570,
+      "height": 1014,
+      "sha256": "d6fdbf95a8a4eddbb9376db9316c38f3f92c35e16bdfb5eb9379301aa78f8e45",
+      "bytes": 160067,
+      "format": "JPEG",
+      "rgb_equal_to_expected_resize": false,
+      "mean_absolute_rgb_difference": [
+        0.7536662168241116,
+        0.6036938994428873,
+        0.89343402885913
+      ],
+      "private_exif_bytes": 0,
+      "xmp_bytes": 0,
+      "icc_preserved": false
+    },
+    {
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/04-back-full-length-320.webp",
+      "width": 320,
+      "height": 569,
+      "sha256": "49ba8c7e0c1c40060f73fcd6b7343de44a9fb593393b1d5c498ca692ee2fc965",
+      "bytes": 148856,
+      "format": "WEBP",
+      "rgb_equal_to_expected_resize": true,
+      "mean_absolute_rgb_difference": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "private_exif_bytes": 0,
+      "xmp_bytes": 0,
+      "icc_preserved": false
+    },
+    {
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/04-back-full-length-320.jpg",
+      "width": 320,
+      "height": 569,
+      "sha256": "196ce964cd4d987485c2930b63a557e68164cbef1ef08a2964714dc0b6678aba",
+      "bytes": 67822,
+      "format": "JPEG",
+      "rgb_equal_to_expected_resize": false,
+      "mean_absolute_rgb_difference": [
+        1.0054316783831283,
+        0.8409160808435853,
+        1.1516531195079087
+      ],
+      "private_exif_bytes": 0,
+      "xmp_bytes": 0,
+      "icc_preserved": false
+    },
+    {
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/04-back-full-length-480.webp",
+      "width": 480,
+      "height": 854,
+      "sha256": "356d6f5923bdf7e3b2e1075c2e8c36f03f393518c2640a0b91d7868a6cd78bd3",
+      "bytes": 275996,
+      "format": "WEBP",
+      "rgb_equal_to_expected_resize": true,
+      "mean_absolute_rgb_difference": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "private_exif_bytes": 0,
+      "xmp_bytes": 0,
+      "icc_preserved": false
+    },
+    {
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/04-back-full-length-480.jpg",
+      "width": 480,
+      "height": 854,
+      "sha256": "b9592979815f375161d1f88d9f421315bb98fb1bedd549626e250c5c8a013034",
+      "bytes": 127208,
+      "format": "JPEG",
+      "rgb_equal_to_expected_resize": false,
+      "mean_absolute_rgb_difference": [
+        0.8724385245901639,
+        0.704603337236534,
+        0.9905884074941452
+      ],
+      "private_exif_bytes": 0,
+      "xmp_bytes": 0,
+      "icc_preserved": false
+    },
+    {
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/04-back-full-length-570.webp",
+      "width": 570,
+      "height": 1014,
+      "sha256": "6f717a3a169e366792ebbea2712b7043f7a0b713619d459be1109c2f72f13abd",
+      "bytes": 310562,
+      "format": "WEBP",
+      "rgb_equal_to_expected_resize": true,
+      "mean_absolute_rgb_difference": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "private_exif_bytes": 0,
+      "xmp_bytes": 0,
+      "icc_preserved": false
+    },
+    {
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/04-back-full-length-570.jpg",
+      "width": 570,
+      "height": 1014,
+      "sha256": "9f24af4e246e1fe58656ee7bc93631cd669e2226620b904fca02a12cca752ef5",
+      "bytes": 162901,
+      "format": "JPEG",
+      "rgb_equal_to_expected_resize": false,
+      "mean_absolute_rgb_difference": [
+        0.7817831066818921,
+        0.6248538011695907,
+        0.897266341395896
+      ],
+      "private_exif_bytes": 0,
+      "xmp_bytes": 0,
+      "icc_preserved": false
+    },
+    {
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/05-detail-crop-320.webp",
+      "width": 320,
+      "height": 296,
+      "sha256": "a7c069883630c7b0040b687bc8c7d5d954bd73ec6ac4b7fe848a74d50c529d9c",
+      "bytes": 75566,
+      "format": "WEBP",
+      "rgb_equal_to_expected_resize": true,
+      "mean_absolute_rgb_difference": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "private_exif_bytes": 0,
+      "xmp_bytes": 0,
+      "icc_preserved": false
+    },
+    {
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/05-detail-crop-320.jpg",
+      "width": 320,
+      "height": 296,
+      "sha256": "c060a4f58be0e49422ea0d15822f98ef9238e9153dd971be16313651d871b63d",
+      "bytes": 34818,
+      "format": "JPEG",
+      "rgb_equal_to_expected_resize": false,
+      "mean_absolute_rgb_difference": [
+        0.9653399493243243,
+        0.8135240709459459,
+        1.063724662162162
+      ],
+      "private_exif_bytes": 0,
+      "xmp_bytes": 0,
+      "icc_preserved": false
+    },
+    {
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/05-detail-crop-432.webp",
+      "width": 432,
+      "height": 399,
+      "sha256": "56cc626929e389d2b45458b849950f7302a401cab163276b2b18cc1110db34a2",
+      "bytes": 108844,
+      "format": "WEBP",
+      "rgb_equal_to_expected_resize": true,
+      "mean_absolute_rgb_difference": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "private_exif_bytes": 0,
+      "xmp_bytes": 0,
+      "icc_preserved": false
+    },
+    {
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/05-detail-crop-432.jpg",
+      "width": 432,
+      "height": 399,
+      "sha256": "a2bba53f8acc6ae7e10b664087a0eac783b812676a377997fc5ad95fe09d2cb1",
+      "bytes": 52833,
+      "format": "JPEG",
+      "rgb_equal_to_expected_resize": false,
+      "mean_absolute_rgb_difference": [
+        0.828309198923234,
+        0.6892868745938922,
+        0.9140037593984962
+      ],
+      "private_exif_bytes": 0,
+      "xmp_bytes": 0,
+      "icc_preserved": false
+    }
+  ],
+  "rows": [
+    {
+      "position": 1,
+      "action": "replace",
+      "approved_for_integration": true,
+      "source_path": "/research/assets/store-media/verde-brillo-cuello-cruzado/01-front-full-length-800.webp",
+      "source_sha256": "df337a3540dff1dfb2771a1124345901db42ea37dae1679fe5d2594d57ab5eed",
+      "source_native_dimensions": [
+        800,
+        1067
+      ],
+      "source_choice": "Largest existing preferred WebP, native JPEG/WebP diagnostic comparison separately retained; not a recovered camera master",
+      "roi_exclusive": [
+        100,
+        44,
+        670,
+        1058
+      ],
+      "crop_width": 570,
+      "crop_height": 1014,
+      "lossless_crop_rgb_identity_verified": true,
+      "master_path": "masters/01-front-full-length-native.png",
+      "master_sha256": "94d7fb88ea44ba5eafcd780f67d36f16dbc985eee48c574821b5d1392f271a2b",
+      "variants": [
+        {
+          "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/01-front-full-length-320.webp",
+          "width": 320,
+          "height": 569,
+          "sha256": "682c271a1e085de3a2770b0a76f607dc62b54d7e020ae3b854f98a3b8c8546c7",
+          "bytes": 157130,
+          "format": "WEBP",
+          "rgb_equal_to_expected_resize": true,
+          "mean_absolute_rgb_difference": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "private_exif_bytes": 0,
+          "xmp_bytes": 0,
+          "icc_preserved": false
+        },
+        {
+          "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/01-front-full-length-320.jpg",
+          "width": 320,
+          "height": 569,
+          "sha256": "adc5d4876fca1ed44afdc5db722d98497f5a40e41d10a657ff06ef8d813a4c5a",
+          "bytes": 71034,
+          "format": "JPEG",
+          "rgb_equal_to_expected_resize": false,
+          "mean_absolute_rgb_difference": [
+            1.047643892794376,
+            0.8689696836555361,
+            1.1612752636203867
+          ],
+          "private_exif_bytes": 0,
+          "xmp_bytes": 0,
+          "icc_preserved": false
+        },
+        {
+          "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/01-front-full-length-480.webp",
+          "width": 480,
+          "height": 854,
+          "sha256": "270c48a7f567f03aa7469327a364ef8892775cc5ce701d8d6dd1f38e9728edc9",
+          "bytes": 294274,
+          "format": "WEBP",
+          "rgb_equal_to_expected_resize": true,
+          "mean_absolute_rgb_difference": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "private_exif_bytes": 0,
+          "xmp_bytes": 0,
+          "icc_preserved": false
+        },
+        {
+          "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/01-front-full-length-480.jpg",
+          "width": 480,
+          "height": 854,
+          "sha256": "9ece6c4250fd021f4430f0cf47024a5bd88458ac3427767a0435e0c37d2d89ea",
+          "bytes": 132825,
+          "format": "JPEG",
+          "rgb_equal_to_expected_resize": false,
+          "mean_absolute_rgb_difference": [
+            0.899634074941452,
+            0.7294959992193599,
+            1.0049277907884466
+          ],
+          "private_exif_bytes": 0,
+          "xmp_bytes": 0,
+          "icc_preserved": false
+        },
+        {
+          "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/01-front-full-length-570.webp",
+          "width": 570,
+          "height": 1014,
+          "sha256": "a4e28b63431bafdece78c674dae9f9673239b7ed8bccb970586f2040da79c49f",
+          "bytes": 339298,
+          "format": "WEBP",
+          "rgb_equal_to_expected_resize": true,
+          "mean_absolute_rgb_difference": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "private_exif_bytes": 0,
+          "xmp_bytes": 0,
+          "icc_preserved": false
+        },
+        {
+          "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/01-front-full-length-570.jpg",
+          "width": 570,
+          "height": 1014,
+          "sha256": "0b47bcb8a10d0772be8d944ea49c3b048538d06ee67d2a0615966b07a6463980",
+          "bytes": 169835,
+          "format": "JPEG",
+          "rgb_equal_to_expected_resize": false,
+          "mean_absolute_rgb_difference": [
+            0.8094778366033427,
+            0.6386276341741929,
+            0.9032907713069657
+          ],
+          "private_exif_bytes": 0,
+          "xmp_bytes": 0,
+          "icc_preserved": false
+        }
+      ],
+      "discarded_band_statistics": {
+        "left": {
+          "box": [
+            0,
+            0,
+            100,
+            1067
+          ],
+          "mean": [
+            243.95642924086224,
+            241.009053420806,
+            235.02497656982194
+          ],
+          "stddev": [
+            0.7062211140030851,
+            0.2868445528870051,
+            0.8233610993503345
+          ]
+        },
+        "top": {
+          "box": [
+            100,
+            0,
+            670,
+            44
+          ],
+          "mean": [
+            0.24840510366826157,
+            0.10933014354066986,
+            0.11658692185007974
+          ],
+          "stddev": [
+            1.0370034928506648,
+            0.4018605427134288,
+            0.5343503501178485
+          ]
+        },
+        "right": {
+          "box": [
+            670,
+            0,
+            800,
+            1067
+          ],
+          "mean": [
+            187.83133876432845,
+            185.51992646528728,
+            180.83132434575734
+          ],
+          "stddev": [
+            102.49944666545647,
+            101.45305985492631,
+            98.86314644573662
+          ]
+        },
+        "bottom": {
+          "box": [
+            100,
+            1058,
+            670,
+            1067
+          ],
+          "mean": [
+            2.487914230019493,
+            1.0023391812865496,
+            0.6033138401559455
+          ],
+          "stddev": [
+            2.7940256048151757,
+            1.0665909996758753,
+            1.0918574820705673
+          ]
+        }
+      },
+      "approval_scope": "Reviewed asset ROI and delivery encodings only; website release requires a separate gate"
+    },
+    {
+      "position": 3,
+      "action": "replace",
+      "approved_for_integration": true,
+      "source_path": "/research/assets/store-media/verde-brillo-cuello-cruzado/03-side-full-length-800.webp",
+      "source_sha256": "ed4589d01fe2817e3c2fc17e3558d0d078b42c58d495f9900269a59cb89e3bf7",
+      "source_native_dimensions": [
+        800,
+        1067
+      ],
+      "source_choice": "Largest existing preferred WebP, native JPEG/WebP diagnostic comparison separately retained; not a recovered camera master",
+      "roi_exclusive": [
+        100,
+        44,
+        670,
+        1058
+      ],
+      "crop_width": 570,
+      "crop_height": 1014,
+      "lossless_crop_rgb_identity_verified": true,
+      "master_path": "masters/03-side-full-length-native.png",
+      "master_sha256": "123bd612782166ddba8fe3e59c605b5ecf2838db5987e679bc32f1cc915bb209",
+      "variants": [
+        {
+          "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/03-side-full-length-320.webp",
+          "width": 320,
+          "height": 569,
+          "sha256": "829f3f32d08d6ac07ffb275d902c5fbb7b9776220dba9574fbcc409db4bc4ca3",
+          "bytes": 147096,
+          "format": "WEBP",
+          "rgb_equal_to_expected_resize": true,
+          "mean_absolute_rgb_difference": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "private_exif_bytes": 0,
+          "xmp_bytes": 0,
+          "icc_preserved": false
+        },
+        {
+          "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/03-side-full-length-320.jpg",
+          "width": 320,
+          "height": 569,
+          "sha256": "c02432507b12cb7bc788e655a197f305c19257c240f232feb357544552d7c0cd",
+          "bytes": 66835,
+          "format": "JPEG",
+          "rgb_equal_to_expected_resize": false,
+          "mean_absolute_rgb_difference": [
+            0.9744837434094903,
+            0.8140817223198594,
+            1.1291849736379613
+          ],
+          "private_exif_bytes": 0,
+          "xmp_bytes": 0,
+          "icc_preserved": false
+        },
+        {
+          "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/03-side-full-length-480.webp",
+          "width": 480,
+          "height": 854,
+          "sha256": "e7d4f7865eff9b08db31a3c364e63ca2f1961edf2107213e504b8ef1956cd0dd",
+          "bytes": 270124,
+          "format": "WEBP",
+          "rgb_equal_to_expected_resize": true,
+          "mean_absolute_rgb_difference": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "private_exif_bytes": 0,
+          "xmp_bytes": 0,
+          "icc_preserved": false
+        },
+        {
+          "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/03-side-full-length-480.jpg",
+          "width": 480,
+          "height": 854,
+          "sha256": "ae1d5fc9f5f5f4e4df523526111815749268ebcbc47e2655ac2e5013d48ece46",
+          "bytes": 124504,
+          "format": "JPEG",
+          "rgb_equal_to_expected_resize": false,
+          "mean_absolute_rgb_difference": [
+            0.8366876463700235,
+            0.6795057572209211,
+            0.9828600702576112
+          ],
+          "private_exif_bytes": 0,
+          "xmp_bytes": 0,
+          "icc_preserved": false
+        },
+        {
+          "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/03-side-full-length-570.webp",
+          "width": 570,
+          "height": 1014,
+          "sha256": "a13cd96b64e54e4bced263f73a383892df5ea6b322a31eed3b27ba7f37fe6b87",
+          "bytes": 299702,
+          "format": "WEBP",
+          "rgb_equal_to_expected_resize": true,
+          "mean_absolute_rgb_difference": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "private_exif_bytes": 0,
+          "xmp_bytes": 0,
+          "icc_preserved": false
+        },
+        {
+          "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/03-side-full-length-570.jpg",
+          "width": 570,
+          "height": 1014,
+          "sha256": "d6fdbf95a8a4eddbb9376db9316c38f3f92c35e16bdfb5eb9379301aa78f8e45",
+          "bytes": 160067,
+          "format": "JPEG",
+          "rgb_equal_to_expected_resize": false,
+          "mean_absolute_rgb_difference": [
+            0.7536662168241116,
+            0.6036938994428873,
+            0.89343402885913
+          ],
+          "private_exif_bytes": 0,
+          "xmp_bytes": 0,
+          "icc_preserved": false
+        }
+      ],
+      "discarded_band_statistics": {
+        "left": {
+          "box": [
+            0,
+            0,
+            100,
+            1067
+          ],
+          "mean": [
+            243.9617900656045,
+            241.00025304592316,
+            235.02082474226805
+          ],
+          "stddev": [
+            0.7447235078007836,
+            0.2964803400123597,
+            0.824608210754542
+          ]
+        },
+        "top": {
+          "box": [
+            100,
+            0,
+            670,
+            44
+          ],
+          "mean": [
+            0.25877192982456143,
+            0.1094896331738437,
+            0.10781499202551834
+          ],
+          "stddev": [
+            1.0487056306791367,
+            0.38942057452556456,
+            0.4728880802324762
+          ]
+        },
+        "right": {
+          "box": [
+            670,
+            0,
+            800,
+            1067
+          ],
+          "mean": [
+            187.8700814649268,
+            185.5129478768654,
+            180.7987600028837
+          ],
+          "stddev": [
+            102.4616933977226,
+            101.4483309592272,
+            98.92220296327999
+          ]
+        },
+        "bottom": {
+          "box": [
+            100,
+            1058,
+            670,
+            1067
+          ],
+          "mean": [
+            1.8187134502923976,
+            0.5270955165692007,
+            0.6335282651072125
+          ],
+          "stddev": [
+            2.3788953285434964,
+            0.9598909257395504,
+            1.1154622236534792
+          ]
+        }
+      },
+      "approval_scope": "Reviewed asset ROI and delivery encodings only; website release requires a separate gate"
+    },
+    {
+      "position": 4,
+      "action": "replace",
+      "approved_for_integration": true,
+      "source_path": "/research/assets/store-media/verde-brillo-cuello-cruzado/04-back-full-length-800.webp",
+      "source_sha256": "56d8091d01c4a7579da9c148952df27ed1c4e52c56a0548e53653ef1340ac081",
+      "source_native_dimensions": [
+        800,
+        1067
+      ],
+      "source_choice": "Largest existing preferred WebP, native JPEG/WebP diagnostic comparison separately retained; not a recovered camera master",
+      "roi_exclusive": [
+        100,
+        44,
+        670,
+        1058
+      ],
+      "crop_width": 570,
+      "crop_height": 1014,
+      "lossless_crop_rgb_identity_verified": true,
+      "master_path": "masters/04-back-full-length-native.png",
+      "master_sha256": "67aed8c2c3f94e5bd5d602d0ef5a29319e9b04d2f6a2375bb8d0afd86c08111b",
+      "variants": [
+        {
+          "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/04-back-full-length-320.webp",
+          "width": 320,
+          "height": 569,
+          "sha256": "49ba8c7e0c1c40060f73fcd6b7343de44a9fb593393b1d5c498ca692ee2fc965",
+          "bytes": 148856,
+          "format": "WEBP",
+          "rgb_equal_to_expected_resize": true,
+          "mean_absolute_rgb_difference": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "private_exif_bytes": 0,
+          "xmp_bytes": 0,
+          "icc_preserved": false
+        },
+        {
+          "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/04-back-full-length-320.jpg",
+          "width": 320,
+          "height": 569,
+          "sha256": "196ce964cd4d987485c2930b63a557e68164cbef1ef08a2964714dc0b6678aba",
+          "bytes": 67822,
+          "format": "JPEG",
+          "rgb_equal_to_expected_resize": false,
+          "mean_absolute_rgb_difference": [
+            1.0054316783831283,
+            0.8409160808435853,
+            1.1516531195079087
+          ],
+          "private_exif_bytes": 0,
+          "xmp_bytes": 0,
+          "icc_preserved": false
+        },
+        {
+          "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/04-back-full-length-480.webp",
+          "width": 480,
+          "height": 854,
+          "sha256": "356d6f5923bdf7e3b2e1075c2e8c36f03f393518c2640a0b91d7868a6cd78bd3",
+          "bytes": 275996,
+          "format": "WEBP",
+          "rgb_equal_to_expected_resize": true,
+          "mean_absolute_rgb_difference": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "private_exif_bytes": 0,
+          "xmp_bytes": 0,
+          "icc_preserved": false
+        },
+        {
+          "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/04-back-full-length-480.jpg",
+          "width": 480,
+          "height": 854,
+          "sha256": "b9592979815f375161d1f88d9f421315bb98fb1bedd549626e250c5c8a013034",
+          "bytes": 127208,
+          "format": "JPEG",
+          "rgb_equal_to_expected_resize": false,
+          "mean_absolute_rgb_difference": [
+            0.8724385245901639,
+            0.704603337236534,
+            0.9905884074941452
+          ],
+          "private_exif_bytes": 0,
+          "xmp_bytes": 0,
+          "icc_preserved": false
+        },
+        {
+          "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/04-back-full-length-570.webp",
+          "width": 570,
+          "height": 1014,
+          "sha256": "6f717a3a169e366792ebbea2712b7043f7a0b713619d459be1109c2f72f13abd",
+          "bytes": 310562,
+          "format": "WEBP",
+          "rgb_equal_to_expected_resize": true,
+          "mean_absolute_rgb_difference": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "private_exif_bytes": 0,
+          "xmp_bytes": 0,
+          "icc_preserved": false
+        },
+        {
+          "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/04-back-full-length-570.jpg",
+          "width": 570,
+          "height": 1014,
+          "sha256": "9f24af4e246e1fe58656ee7bc93631cd669e2226620b904fca02a12cca752ef5",
+          "bytes": 162901,
+          "format": "JPEG",
+          "rgb_equal_to_expected_resize": false,
+          "mean_absolute_rgb_difference": [
+            0.7817831066818921,
+            0.6248538011695907,
+            0.897266341395896
+          ],
+          "private_exif_bytes": 0,
+          "xmp_bytes": 0,
+          "icc_preserved": false
+        }
+      ],
+      "discarded_band_statistics": {
+        "left": {
+          "box": [
+            0,
+            0,
+            100,
+            1067
+          ],
+          "mean": [
+            243.95846298031864,
+            240.99451733833178,
+            235.018519212746
+          ],
+          "stddev": [
+            0.7693149128483717,
+            0.3089388774740617,
+            0.8211325871808417
+          ]
+        },
+        "top": {
+          "box": [
+            100,
+            0,
+            670,
+            44
+          ],
+          "mean": [
+            0.27759170653907494,
+            0.1545055821371611,
+            0.15171451355661883
+          ],
+          "stddev": [
+            0.9899294865395076,
+            0.46736778909956883,
+            0.5520631983358615
+          ]
+        },
+        "right": {
+          "box": [
+            670,
+            0,
+            800,
+            1067
+          ],
+          "mean": [
+            187.8717756470334,
+            185.5158388003749,
+            180.8052339413164
+          ],
+          "stddev": [
+            102.44896686183115,
+            101.44798297630894,
+            98.91044369511359
+          ]
+        },
+        "bottom": {
+          "box": [
+            100,
+            1058,
+            670,
+            1067
+          ],
+          "mean": [
+            1.9489278752436647,
+            0.7491228070175439,
+            1.0270955165692008
+          ],
+          "stddev": [
+            2.475163928385525,
+            0.9592192500746417,
+            1.4295157731387274
+          ]
+        }
+      },
+      "approval_scope": "Reviewed asset ROI and delivery encodings only; website release requires a separate gate"
+    },
+    {
+      "position": 5,
+      "action": "replace",
+      "approved_for_integration": true,
+      "source_path": "/research/assets/store-media/verde-brillo-cuello-cruzado/05-detail-crop-432.webp",
+      "source_sha256": "1f7b690fb6f22a1688f2d627893a4b12373d8c77282d9c8f85345310162513a7",
+      "source_native_dimensions": [
+        432,
+        576
+      ],
+      "source_choice": "Largest existing preferred WebP, native JPEG/WebP diagnostic comparison separately retained; not a recovered camera master",
+      "roi_exclusive": [
+        0,
+        88,
+        432,
+        487
+      ],
+      "crop_width": 432,
+      "crop_height": 399,
+      "lossless_crop_rgb_identity_verified": true,
+      "master_path": "masters/05-detail-crop-native.png",
+      "master_sha256": "c268d8fb9efc87f02ca1792c862a66b392425d6f8a5018f1126844a2fbb28ab7",
+      "variants": [
+        {
+          "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/05-detail-crop-320.webp",
+          "width": 320,
+          "height": 296,
+          "sha256": "a7c069883630c7b0040b687bc8c7d5d954bd73ec6ac4b7fe848a74d50c529d9c",
+          "bytes": 75566,
+          "format": "WEBP",
+          "rgb_equal_to_expected_resize": true,
+          "mean_absolute_rgb_difference": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "private_exif_bytes": 0,
+          "xmp_bytes": 0,
+          "icc_preserved": false
+        },
+        {
+          "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/05-detail-crop-320.jpg",
+          "width": 320,
+          "height": 296,
+          "sha256": "c060a4f58be0e49422ea0d15822f98ef9238e9153dd971be16313651d871b63d",
+          "bytes": 34818,
+          "format": "JPEG",
+          "rgb_equal_to_expected_resize": false,
+          "mean_absolute_rgb_difference": [
+            0.9653399493243243,
+            0.8135240709459459,
+            1.063724662162162
+          ],
+          "private_exif_bytes": 0,
+          "xmp_bytes": 0,
+          "icc_preserved": false
+        },
+        {
+          "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/05-detail-crop-432.webp",
+          "width": 432,
+          "height": 399,
+          "sha256": "56cc626929e389d2b45458b849950f7302a401cab163276b2b18cc1110db34a2",
+          "bytes": 108844,
+          "format": "WEBP",
+          "rgb_equal_to_expected_resize": true,
+          "mean_absolute_rgb_difference": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "private_exif_bytes": 0,
+          "xmp_bytes": 0,
+          "icc_preserved": false
+        },
+        {
+          "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/cropped-v1/05-detail-crop-432.jpg",
+          "width": 432,
+          "height": 399,
+          "sha256": "a2bba53f8acc6ae7e10b664087a0eac783b812676a377997fc5ad95fe09d2cb1",
+          "bytes": 52833,
+          "format": "JPEG",
+          "rgb_equal_to_expected_resize": false,
+          "mean_absolute_rgb_difference": [
+            0.828309198923234,
+            0.6892868745938922,
+            0.9140037593984962
+          ],
+          "private_exif_bytes": 0,
+          "xmp_bytes": 0,
+          "icc_preserved": false
+        }
+      ],
+      "discarded_band_statistics": {
+        "top": {
+          "box": [
+            0,
+            0,
+            432,
+            88
+          ],
+          "mean": [
+            244.0546875,
+            240.97482638888889,
+            234.94239267676767
+          ],
+          "stddev": [
+            0.47885927468639217,
+            0.21015046254736897,
+            0.5066331883648733
+          ]
+        },
+        "bottom": {
+          "box": [
+            0,
+            487,
+            432,
+            576
+          ],
+          "mean": [
+            243.98748959633792,
+            240.98970037453182,
+            235.0
+          ],
+          "stddev": [
+            0.46643984410373723,
+            0.38906456755421465,
+            0.5342026311267928
+          ]
+        }
+      },
+      "approval_scope": "Reviewed asset ROI and delivery encodings only; website release requires a separate gate"
+    }
+  ],
+  "preserved_originals": [
+    {
+      "sha256": "1324a7372f1889594ca8a6dda2efa920c207684d4dd713f9c185bc2696a16d32",
+      "bytes": 48605,
+      "width": 480,
+      "height": 640,
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/01-front-full-length-480.jpg"
+    },
+    {
+      "sha256": "81f09218edc820279e926760d3e1ffe2c17f96c0dd8f1a9897ef5fcb5fc760f5",
+      "bytes": 24648,
+      "width": 480,
+      "height": 640,
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/01-front-full-length-480.webp"
+    },
+    {
+      "sha256": "ffaed75ceba47f0c684c440699a7040bec3a545dc751080118e3fc8dcf97d6a5",
+      "bytes": 102377,
+      "width": 800,
+      "height": 1067,
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/01-front-full-length-800.jpg"
+    },
+    {
+      "sha256": "df337a3540dff1dfb2771a1124345901db42ea37dae1679fe5d2594d57ab5eed",
+      "bytes": 45714,
+      "width": 800,
+      "height": 1067,
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/01-front-full-length-800.webp"
+    },
+    {
+      "sha256": "658d960f18fca99d301f644efade16107ea07de0f58977bf9b6e6845995f32a5",
+      "bytes": 47822,
+      "width": 480,
+      "height": 640,
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/02-three-quarter-front-full-length-480.jpg"
+    },
+    {
+      "sha256": "f81eb7b4bbc9e7b7b7b772363ed39716edefbc55c513349eab2d44ceacc83d9d",
+      "bytes": 23856,
+      "width": 480,
+      "height": 640,
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/02-three-quarter-front-full-length-480.webp"
+    },
+    {
+      "sha256": "eaca47f0f638bfa46f1e6d1222f855daf9d056b7e7822b1368aea5e46c61b3e7",
+      "bytes": 100028,
+      "width": 800,
+      "height": 1067,
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/02-three-quarter-front-full-length-800.jpg"
+    },
+    {
+      "sha256": "6eccf450e75699dbb41d0a84a1a4a8d67bd4ba93530d5d2133a899eb5ad7b0a2",
+      "bytes": 43454,
+      "width": 800,
+      "height": 1067,
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/02-three-quarter-front-full-length-800.webp"
+    },
+    {
+      "sha256": "213485a424c4cd7ea17d0f4cf6ee2abc15b79aaf8faee928472efb53f3f7cc9f",
+      "bytes": 45031,
+      "width": 480,
+      "height": 640,
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/03-side-full-length-480.jpg"
+    },
+    {
+      "sha256": "003c270007584d64319c26d72c613a26c90664e9908de912e58d3500d77c5177",
+      "bytes": 21284,
+      "width": 480,
+      "height": 640,
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/03-side-full-length-480.webp"
+    },
+    {
+      "sha256": "179bc83e6b555f5a52416178c5402d8629ef7422efe110dcea09ef83a1f27bf8",
+      "bytes": 94795,
+      "width": 800,
+      "height": 1067,
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/03-side-full-length-800.jpg"
+    },
+    {
+      "sha256": "ed4589d01fe2817e3c2fc17e3558d0d078b42c58d495f9900269a59cb89e3bf7",
+      "bytes": 38702,
+      "width": 800,
+      "height": 1067,
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/03-side-full-length-800.webp"
+    },
+    {
+      "sha256": "5b488a56ab6df99470b1d52d32cc6e775915d073479bd8475374c49a98476cef",
+      "bytes": 46226,
+      "width": 480,
+      "height": 640,
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/04-back-full-length-480.jpg"
+    },
+    {
+      "sha256": "0c370a6a87bc850d27e71d1acfba55bdef6e1e02f92356ef4fec137ec3ccf8ad",
+      "bytes": 22696,
+      "width": 480,
+      "height": 640,
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/04-back-full-length-480.webp"
+    },
+    {
+      "sha256": "9b294c62eca9dfca1752c8033eb0e317db70da5c2c3b6d8f1cfb5cc2fb68762e",
+      "bytes": 97771,
+      "width": 800,
+      "height": 1067,
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/04-back-full-length-800.jpg"
+    },
+    {
+      "sha256": "56d8091d01c4a7579da9c148952df27ed1c4e52c56a0548e53653ef1340ac081",
+      "bytes": 41496,
+      "width": 800,
+      "height": 1067,
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/04-back-full-length-800.webp"
+    },
+    {
+      "sha256": "c17c3f0055512a4da3a05756af11301aaa17cc68061fabad98300a7f980a0383",
+      "bytes": 31825,
+      "width": 432,
+      "height": 576,
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/05-detail-crop-432.jpg"
+    },
+    {
+      "sha256": "1f7b690fb6f22a1688f2d627893a4b12373d8c77282d9c8f85345310162513a7",
+      "bytes": 15832,
+      "width": 432,
+      "height": 576,
+      "path": "/research/assets/store-media/verde-brillo-cuello-cruzado/05-detail-crop-432.webp"
+    }
+  ],
+  "review_scope": "Four asset ROIs independently accepted; 11 JPEG visually inspected; 11 WebP have executor RGB identity evidence. Browser/release pending.",
+  "recipe": {
+    "crop_only_native_master": true,
+    "resize": "LANCZOS downsize only; h=round(crop_h*w/crop_w)",
+    "webp": "lossless method6, RGB identity verified at each output width",
+    "jpeg": "quality95, subsampling0, optimize, progressive; recompression difference reported",
+    "metadata": "No EXIF/XMP copied; existing ICC preserved if present",
+    "no_generation_no_sharpen_no_color_grade": true
+  },
+  "toolchain": {
+    "host_kind": "Higgsfield cloud, not Tony/Suazo",
+    "system": "Linux",
+    "python": "3.12.10",
+    "pillow": "12.3.0",
+    "webp": "1.6.0",
+    "jpeg": "6.2",
+    "cpu_logical": 2
+  },
+  "delivery_manifest_sha256": "e0678fa0324a741433199ed6e11a5078e2c91997fba734feafb3ec88de15362c",
+  "delivery_archive_sha256": "ef6415a1a8517edd906772da9fceaecb5c127cf9ff5a9ce74d8b7c1f10c431dc"
+}

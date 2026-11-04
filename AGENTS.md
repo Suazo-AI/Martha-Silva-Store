@@ -1,5 +1,23 @@
 # Reglas del repositorio
 
+Entrada común para continuar: [docs/AGENT-START.md](docs/AGENT-START.md).
+Estado y decisiones vigentes: [PROJECT-STATUS](docs/PROJECT-STATUS.md), [DECISIONS](docs/DECISIONS.md).
+Para ubicar código usar [CODE-MAP](docs/CODE-MAP.md); antes de SQL leer [DATABASE](docs/DATABASE.md).
+
+
+## Registrar cada avance
+
+Destino de esta sincronización: `Tony`. Jason autorizó publicar los avances del proyecto.
+Trabajar en el checkout Git canónico; no dejar cambios finales solo en carpetas externas.
+Antes de cada commit, actualizar el documento del área con resultado, comando, evidencia,
+límites y siguiente acción. Añadir rutas explícitas después de revisar datos sensibles.
+Los hooks locales agregan el recibo y sincronizan GitHub; comprobar `SYNCED` y SHA remoto.
+Si falla, resolver la causa y ejecutar `python tools/progress.py publish`; no declarar entrega remota.
+No saltarse hooks ni usar force-push. Un entorno nuevo debe instalar los hooks conscientemente.
+Ver [AUTO-SYNC](docs/AUTO-SYNC.md). La autorización de GitHub no autoriza runtime ni despliegue.
+Para cambios del registro, ejecutar `python tests/test_progress.py` y
+`python tools/export_progress.py --verify`, además de las comprobaciones aplicables.
+
 ## Antes de cambiar
 
 1. Leer `README.md`, `docs/PROJECT-STATUS.md` y las instrucciones del área afectada.

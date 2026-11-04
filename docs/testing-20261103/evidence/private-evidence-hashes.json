@@ -1,0 +1,41 @@
+{
+  "note": "Integrity references only. These private inputs are intentionally not published. No secrets or database inventories are reproduced here.",
+  "files": [
+    {
+      "run": "trx",
+      "name": "offline-tests.trx",
+      "sha256": "96d31758e255ee718b5357a628769f080f38677e0b1046a76c800561d370da90",
+      "bytes": 1227580
+    },
+    {
+      "run": "trx",
+      "name": "offline-script-corrected.trx",
+      "sha256": "b083930596f4df917ee9120199246bae27ba8d8d2dfdfaa3095276c53fb6821f",
+      "bytes": 3144
+    },
+    {
+      "run": "trx",
+      "name": "isolated-sql.trx",
+      "sha256": "241dc7710c4dc58e7b754c3dce04d0f3173b9aeafbe1a3b9832b4291cf277349",
+      "bytes": 709130
+    },
+    {
+      "run": "20261103-results",
+      "name": "source-manifest.json",
+      "sha256": "f104f7e612b39b82be613db787adcaf3684333d19afff9cd86575db965432025",
+      "bytes": 620919
+    },
+    {
+      "run": "20261103-results",
+      "name": "sql-database-readback.private.json",
+      "sha256": "b0919e9c6785a0137e34d3e28ae88d3f69275e1d831c2606c62fc97a2815437b",
+      "bytes": 221
+    },
+    {
+      "run": "20261103-http-guards",
+      "name": "results.json",
+      "sha256": "33f62786ac6775bea3fe67bf3f53503febeeb4a110393db51ed61556907b5d0c",
+      "bytes": 1298
+    }
+  ]
+}

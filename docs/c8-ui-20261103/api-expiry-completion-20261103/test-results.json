@@ -1,0 +1,274 @@
+[
+  {
+    "label": "expiry-test",
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "rawTrxSha256": "53eb6b43b71f9a9bcdbc0e988907451601262e3985e3d0349c8652c1e0e9703c",
+    "tests": [
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Expired_cookie_is_rejected_by_fake_TimeProvider_before_database_resolution",
+        "outcome": "Passed",
+        "duration": "00:00:14.2528814"
+      }
+    ],
+    "sanitizedTrxSha256": "0666601786ac1e5bb548865f737fbf65d40124ddbc94fb0947f290d0649b9cd9"
+  },
+  {
+    "label": "security-regressions",
+    "total": 49,
+    "passed": 49,
+    "failed": 0,
+    "skipped": 0,
+    "rawTrxSha256": "35019535a5d0e11b450256465e2d8f8708fbb3b57ea6cf92e126157c6a2887f9",
+    "tests": [
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Expired_cookie_is_rejected_by_fake_TimeProvider_before_database_resolution",
+        "outcome": "Passed",
+        "duration": "00:00:00.2192557"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Policies_enforce_role_boundaries(policy: \"internal.inventory\", role: \"Inventory\", expected: True)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0006518"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Stale_or_forged_claims_and_invalid_sessions_are_rejected(mutation: \"expired\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000058"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Policies_enforce_role_boundaries(policy: \"internal.read\", role: \"Unknown\", expected: False)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0031370"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Stale_or_forged_claims_and_invalid_sessions_are_rejected(mutation: \"revoked\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0001348"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Policies_enforce_role_boundaries(policy: \"internal.manage\", role: \"Cashier\", expected: False)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0001253"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Roles_are_a_closed_server_allowlist(role: \"Inventory\", expected: True)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000009"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Roles_are_a_closed_server_allowlist(role: \"Admin\", expected: False)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000051"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Stale_or_forged_claims_and_invalid_sessions_are_rejected(mutation: \"duplicate_role\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000158"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Anonymous_role_headers_cannot_authorize_staff_endpoints_and_http_cannot_get_tokens",
+        "outcome": "Passed",
+        "duration": "00:00:00.0812300"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Policies_enforce_role_boundaries(policy: \"internal.owner\", role: \"Owner\", expected: True)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0004314"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Persisted_session_and_current_staff_are_both_required",
+        "outcome": "Passed",
+        "duration": "00:00:00.0004985"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Roles_are_a_closed_server_allowlist(role: null, expected: False)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000011"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Roles_are_a_closed_server_allowlist(role: \"Owner\", expected: True)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0004008"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Policies_enforce_role_boundaries(policy: \"internal.sell\", role: \"Cashier\", expected: True)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0562472"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Global_login_budget_is_shared_across_addresses_and_recovers_after_window",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002713"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Roles_are_a_closed_server_allowlist(role: \"Manager\", expected: True)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000014"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Password_policy_allows_passphrases_without_silent_truncation",
+        "outcome": "Passed",
+        "duration": "00:00:00.0005444"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Stale_or_forged_claims_and_invalid_sessions_are_rejected(mutation: \"missing_session\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000688"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Policies_enforce_role_boundaries(policy: \"internal.owner\", role: \"Manager\", expected: False)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0001159"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Login_names_are_bounded_unambiguous_identifiers(name: \"staff.member\", expected: True)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0002095"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Login_and_reusable_mutation_filter_require_a_real_csrf_pair_even_when_anonymous",
+        "outcome": "Passed",
+        "duration": "00:00:00.1724961"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Stale_or_forged_claims_and_invalid_sessions_are_rejected(mutation: \"too_long\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000056"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Staff_and_sessions_are_in_separate_schema_with_unique_login_and_concurrency_guard",
+        "outcome": "Passed",
+        "duration": "00:00:04.2670883"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Login_names_are_bounded_unambiguous_identifiers(name: null, expected: False)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000041"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Login_names_are_bounded_unambiguous_identifiers(name: \"aa\", expected: False)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000011"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Roles_are_a_closed_server_allowlist(role: \"owner\", expected: False)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000011"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Login_names_are_bounded_unambiguous_identifiers(name: \"a b\", expected: False)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000014"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Stale_or_forged_claims_and_invalid_sessions_are_rejected(mutation: \"unknown_role\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0019840"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Anonymous_challenges_and_login_csrf_do_not_resolve_database_configuration",
+        "outcome": "Passed",
+        "duration": "00:00:00.5143121"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Policies_enforce_role_boundaries(policy: \"internal.manage\", role: \"Manager\", expected: True)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0001191"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Policies_enforce_role_boundaries(policy: \"internal.sell\", role: \"Inventory\", expected: False)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0001542"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Stale_or_forged_claims_and_invalid_sessions_are_rejected(mutation: \"duplicate_actor\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000055"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Credential_request_diagnostics_do_not_print_passwords",
+        "outcome": "Passed",
+        "duration": "00:00:00.0006047"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Policies_enforce_role_boundaries(policy: \"internal.read\", role: \"Inventory\", expected: True)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0001159"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Roles_are_a_closed_server_allowlist(role: \"Cashier\", expected: True)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000082"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Login_names_are_bounded_unambiguous_identifiers(name: \"stáff\", expected: False)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000014"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Login_admission_bounds_concurrency_and_attempts_then_recovers",
+        "outcome": "Passed",
+        "duration": "00:00:00.0057226"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Registered_password_hasher_uses_salted_hashes_and_rejects_wrong_input",
+        "outcome": "Passed",
+        "duration": "00:00:00.7529304"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Roles_are_a_closed_server_allowlist(role: \"Owner,Manager\", expected: False)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0066051"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Policies_enforce_role_boundaries(policy: \"internal.inventory\", role: \"Cashier\", expected: False)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0048247"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Login_names_are_bounded_unambiguous_identifiers(name: \" staff\", expected: False)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000036"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Stale_or_forged_claims_and_invalid_sessions_are_rejected(mutation: \"role\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0017101"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Stale_or_forged_claims_and_invalid_sessions_are_rejected(mutation: \"future\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000167"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Cookies_are_host_scoped_strict_secure_http_only_and_not_sliding",
+        "outcome": "Passed",
+        "duration": "00:00:00.2053578"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Lockout_counter_is_bounded_and_resets_only_after_expiry",
+        "outcome": "Passed",
+        "duration": "00:00:00.0007297"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Login_names_are_bounded_unambiguous_identifiers(name: \"TEST-ONLY_01\", expected: True)",
+        "outcome": "Passed",
+        "duration": "00:00:00.0006730"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Stale_or_forged_claims_and_invalid_sessions_are_rejected(mutation: \"wrong_staff\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000037"
+      },
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Stale_or_forged_claims_and_invalid_sessions_are_rejected(mutation: \"version\")",
+        "outcome": "Passed",
+        "duration": "00:00:00.0000317"
+      }
+    ],
+    "sanitizedTrxSha256": "28c1d1fb4aa1706b9e2b472b665f857199c001e8f264f21897f3ac9d655ee12d"
+  }
+]

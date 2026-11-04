@@ -1,0 +1,83 @@
+{
+  "package_sha256": "6423657bfbf8779f77fb19743235140f48a68d7c74ca59242f45385f9f5f8adf",
+  "base_sha": "f7e859bd0e6edf6bdef8b391b63589a212f0d088",
+  "uncommitted": true,
+  "files": [
+    {
+      "path": "backend/src/Martha.Store.Api/ErpPort.cs",
+      "bytes": 3995,
+      "sha256": "59d100625fa277df594fb786bc47bf22bd6afdb796baad62af864dcc63e7fa68"
+    },
+    {
+      "path": "contracts/openapi-v2.json",
+      "bytes": 33930,
+      "sha256": "45fd1ed2340380d63092cf937411eb63f304e3bc516c9bf3a8020100a2262676"
+    },
+    {
+      "path": "dev/savia-demo-ui/README.md",
+      "bytes": 4244,
+      "sha256": "431ac12e53d974566948cc8105a42e14f37775734e5dcffcaa564d9fabe4b738"
+    },
+    {
+      "path": "dev/savia-demo-ui/api-client.mjs",
+      "bytes": 5937,
+      "sha256": "e4046e4f6d1c0d30c309c92d8a3db80a23ed8208560d3cb19f4b1ac669799d0c"
+    },
+    {
+      "path": "dev/savia-demo-ui/api-client.test.mjs",
+      "bytes": 5567,
+      "sha256": "6ae3f36a87c10b1411584bc36a009613f35f32f49f30bd81b0cd6de71095e544"
+    },
+    {
+      "path": "dev/savia-demo-ui/app.mjs",
+      "bytes": 19176,
+      "sha256": "7a09458daace594cf151746c6b2abdb8791142c80df4f35e6724256c3fa3a3a9"
+    },
+    {
+      "path": "dev/savia-demo-ui/index.html",
+      "bytes": 8661,
+      "sha256": "0431257645f74389e70b6ffd0f494fd28839f5323b1e2bf06f6f183e8efb59eb"
+    },
+    {
+      "path": "dev/savia-demo-ui/model.mjs",
+      "bytes": 7082,
+      "sha256": "7379149d37aff19060c690fa5ba5c01f2a4f96b6b0d68bf44dee5448a0605ad3"
+    },
+    {
+      "path": "dev/savia-demo-ui/model.test.mjs",
+      "bytes": 10900,
+      "sha256": "ba975a5f1735613a3c0f5a9fa85b66f68a42acf32bc28da975f9ca7d77a30ffc"
+    },
+    {
+      "path": "dev/savia-demo-ui/package-preview.py",
+      "bytes": 2527,
+      "sha256": "7bae1f85988aae4f7a5437536c4427b6d4e2867caaf0eb39d5e0a0eabd382f15"
+    },
+    {
+      "path": "dev/savia-demo-ui/styles.css",
+      "bytes": 20466,
+      "sha256": "16fda7135b0e512474db1c72575b8c3ab40672694f493edc739e5f3ea098b9eb"
+    },
+    {
+      "path": "dev/savia-demo-ui/ui.test.mjs",
+      "bytes": 13548,
+      "sha256": "b460b2e22ec8cdd109a8713d031de0c071e032f6ef30ba1b5abf1f6d4afd5020"
+    },
+    {
+      "path": "dev/savia-harness/README.md",
+      "bytes": 6934,
+      "sha256": "6999a592b251d5e8222a7b22b78558eda32e0581c34ffa0446cb20c2918b2430"
+    },
+    {
+      "path": "tests/frontend-deps/package-lock.json",
+      "bytes": 17775,
+      "sha256": "50533349c58837c076a491f64e81556cd7476c0664b198702967a2ac6293e865"
+    },
+    {
+      "path": "tests/frontend-deps/package.json",
+      "bytes": 51,
+      "sha256": "f7f1b2db56466792239fd1a245dccca219dbeca3838bb470e5a6d6e923388a7e"
+    }
+  ],
+  "patch_sha256": "c62c8856da489b2465fc11e94cc882dba3fe3a9f4d9976b887108237213ce8cd"
+}

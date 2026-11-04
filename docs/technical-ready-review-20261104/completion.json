@@ -1,0 +1,56 @@
+{
+  "observedUtc": "2026-11-04T02:02:14.499039+00:00",
+  "boundedBatchComplete": true,
+  "agentsReused": 3,
+  "agentsReleased": 3,
+  "newTests": 0,
+  "trello": {
+    "C4": "5/5",
+    "C5": "4/4",
+    "C7": "5/6",
+    "C8": "4/5"
+  },
+  "trelloListsChanged": false,
+  "trelloExactReadbacksVerified": true,
+  "c8Closed": false,
+  "frozenHead": "260b75951729189d987ffe423218ab1643bcfa3c",
+  "candidatePatchSha256": "a0762dc021260f4c8c88b849552c4775c6bef17af06c5338e68e95cd7a221df0",
+  "publicSafeExport": true,
+  "canonicalCommitByThisBatch": false,
+  "pushByThisBatch": false,
+  "mergeByThisBatch": false,
+  "deployByThisBatch": false,
+  "securityChangesByThisBatch": false,
+  "remainingGates": [
+    {
+      "item": "C8 exact candidate CI",
+      "cause": "Existing green CI omits the six C8 files",
+      "attempt": "Portable patch, six file hashes, 71 dependency blobs and source evidence verified; no publication attempted under explicit no-push instruction",
+      "nextAction": "Authorized integration verifies green CI covering same six file hashes",
+      "owner": "Primary/Jason in authorized integration",
+      "completionCheck": "C8 CI check complete, total5/5, exact candidate binding"
+    },
+    {
+      "item": "C7 literal zero writes",
+      "cause": "Expected 409 persists one durable Operations row; 18 business tables unchanged",
+      "attempt": "Read test assertions, runner implementation and existing current artifact; retained incomplete literal criterion without code/security changes",
+      "nextAction": "Jason explicitly accepts documented durable-rejection exception or supplies another criterion",
+      "owner": "Jason",
+      "completionCheck": "Criterion wording and observed Operations effect agree; no invented universal zero-writes claim"
+    },
+    {
+      "item": "C4/C5 formal READY acceptance",
+      "cause": "Card descriptions reserve final READY validation to Jason",
+      "attempt": "Completed all technical checklists and private C4 oracle comparison; retained En revisión",
+      "nextAction": "Jason validates READY from linked reviewed artifacts",
+      "owner": "Jason",
+      "completionCheck": "READY validated; no additional technical rerun required for reviewed frozen scope"
+    }
+  ],
+  "excludedFromBatch": [
+    "Other active C6/C9 owners and changes",
+    "raw private oracle values",
+    "raw CI logs and ZIP files",
+    "credentials, certificates and sessions"
+  ]
+}

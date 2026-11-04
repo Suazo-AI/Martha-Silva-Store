@@ -1,0 +1,133 @@
+{
+  "schema": 1,
+  "recordedUtc": "2026-11-03",
+  "meaning": "Curated results of a cloud session; not product acceptance or production evidence.",
+  "candidate": {
+    "base": "Tony 20932d5c97f2caaafad7dc888879957791907f36",
+    "branch": "claude/funny-brahmagupta-5e5rj0",
+    "sourceSha256": {
+      "dev/savia-staff-ui/app.mjs": "1ace7445e2f05e224dad969346eaf29e4a46ef48a9b6acfb87f338fe1beaf3ac",
+      "tests/browser-mock-validation.mjs": "f9290cdacce73d237e32846d66f7154588e59fe1f110f2bb1acebc728c0a8164",
+      ".github/workflows/savia.yml": "abba70806127404660e433423f2e8a213af63cab3c25b91404935d5b0c5fa6c5",
+      "backend/tests/verify_full_suite.py": "ab4b6ba0fd193c9ef88f63219ce2d3456a2f192b2ff1a0688349a6cc97f4cf11",
+      "backend/tests/test_verify_full_suite.py": "dba6bf4a3c5012750872aba89d4237ddabc2b0b1707aefc86284d4b9fb6d53d0",
+      "backend/tests/fixtures/expected-invariants.model-derived.json": "4e3b7296aabddd94e9cdc2928246f74761438b72f944ed40eca74b418851a305"
+    }
+  },
+  "environment": {
+    "host": "Linux cloud container (not SUAZO-PC)",
+    "node": "22.23.4",
+    "python": "3.13",
+    "dotnetSdk": "10.0.402",
+    "sqlServer": "16.0.4305.5 Developer, image mcr.microsoft.com/mssql/server@sha256:cf8f0ab2ebe61feec2eed2629061a07d247f791c2a8ddda74a4ac9f06a291718",
+    "browser": "Chrome for Testing 153.0.8010.12 via Playwright 1.63.0 (channel shim to the bundled build)"
+  },
+  "n5": {
+    "redBeforeFix": {
+      "status": "El servidor no aceptó los datos. Revisá los campos antes de continuar. La venta sigue sin confirmar. Comprobala o reintentá la misma venta.",
+      "submitDisabled": true,
+      "recoverDisabled": true,
+      "retryDisabled": true
+    },
+    "greenAfterFix": {
+      "status": "El último recibo confirmado ya no está disponible en el servidor. Elegí sucursal, artículo y cantidad.",
+      "submitDisabled": false,
+      "recoverDisabled": true,
+      "retryDisabled": true
+    },
+    "n5GroupWithFix": [
+      {
+        "name": "Stale confirmed receipt 404 must not permanently block a fresh sale (N5)",
+        "status": "PASS"
+      },
+      {
+        "name": "Stale receipt 403 after reassignment is cleared and leaves a fresh sale available (N5)",
+        "status": "PASS"
+      },
+      {
+        "name": "Unavailable receipt lookup keeps its reference and does not invent a pending sale (N5)",
+        "status": "PASS"
+      },
+      {
+        "name": "Stale receipt never unlocks a real pending sale; recovery reuses the original key (N5)",
+        "status": "PASS"
+      },
+      {
+        "name": "Revoked session during receipt restore returns to sign-in without staff data (N5)",
+        "status": "PASS"
+      }
+    ],
+    "n5GroupWithFixReverted": [
+      {
+        "name": "Stale confirmed receipt 404 must not permanently block a fresh sale (N5)",
+        "status": "FAIL"
+      },
+      {
+        "name": "Stale receipt 403 after reassignment is cleared and leaves a fresh sale available (N5)",
+        "status": "FAIL"
+      },
+      {
+        "name": "Unavailable receipt lookup keeps its reference and does not invent a pending sale (N5)",
+        "status": "FAIL"
+      },
+      {
+        "name": "Stale receipt never unlocks a real pending sale; recovery reuses the original key (N5)",
+        "status": "PASS"
+      },
+      {
+        "name": "Revoked session during receipt restore returns to sign-in without staff data (N5)",
+        "status": "PASS"
+      }
+    ],
+    "fullBrowserHarness": {
+      "passed": 36,
+      "total": 36
+    },
+    "staffNodeTests": {
+      "passed": 42,
+      "total": 42
+    },
+    "portableSuite": "PASS (python3 tests/check.py --install)"
+  },
+  "backend": {
+    "offlineWithoutSql": {
+      "passed": 522,
+      "failed": 1,
+      "skipped": 69,
+      "failedReason": "SAVIA_PILOT_EVIDENCE precondition"
+    },
+    "completeWithSql": {
+      "cases": 592,
+      "passed": 592,
+      "notPassed": 0,
+      "skipped": 0,
+      "methods": 249
+    },
+    "releaseMigrationBackupRestore": "PASS",
+    "restartPersistenceAfterContainerStopStart": "PASS (15 s to ready)",
+    "mainSqlJobReproduction": {
+      "categorySqlServer": "21/21 PASS",
+      "verify_sql_results.py": "PASS"
+    },
+    "schemaOracle": {
+      "file": "backend/tests/fixtures/expected-invariants.model-derived.json",
+      "method": "EF model via EnsureCreated, independent of migrations",
+      "counts": {
+        "tables": 19,
+        "checks": 32,
+        "foreign_keys": 26,
+        "indexes": 37,
+        "primary_keys": 19
+      },
+      "limit": "Not the private SUAZO-PC oracle; comparison pending (card C4)."
+    }
+  },
+  "notRun": [
+    "Combined browser -> real API -> SQL path (C5/C6)",
+    "N1-N4, N6-N10 automated on candidate (C7, C8, C11)",
+    "Windows / Chrome stable / iPhone / accessibility / counter performance / in-store trial (C10)",
+    "Comparison with the private schema oracle (C4); RTO/RPO in the real environment (C9)",
+    "CI of the PR (recorded on the PR)",
+    "Any deployment"
+  ]
+}

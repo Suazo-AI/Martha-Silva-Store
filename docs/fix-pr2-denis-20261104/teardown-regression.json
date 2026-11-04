@@ -1,0 +1,76 @@
+{
+  "before": [
+    {
+      "workflow": ".github/workflows/golden-path.yml",
+      "scenario": "Docker unavailable: inspect returns42",
+      "exit": 0,
+      "false_success": true
+    },
+    {
+      "workflow": ".github/workflows/savia.yml",
+      "scenario": "Docker unavailable: inspect returns42",
+      "exit": 0,
+      "false_success": true
+    }
+  ],
+  "after": [
+    {
+      "workflow": ".github/workflows/golden-path.yml",
+      "scenario": "docker-unavailable",
+      "exit": 42,
+      "expected": 42,
+      "pass": true
+    },
+    {
+      "workflow": ".github/workflows/golden-path.yml",
+      "scenario": "container-remains",
+      "exit": 1,
+      "expected": 1,
+      "pass": true
+    },
+    {
+      "workflow": ".github/workflows/golden-path.yml",
+      "scenario": "container-removed",
+      "exit": 0,
+      "expected": 0,
+      "pass": true
+    },
+    {
+      "workflow": ".github/workflows/golden-path.yml",
+      "scenario": "container-already-absent",
+      "exit": 0,
+      "expected": 0,
+      "pass": true
+    },
+    {
+      "workflow": ".github/workflows/savia.yml",
+      "scenario": "docker-unavailable",
+      "exit": 42,
+      "expected": 42,
+      "pass": true
+    },
+    {
+      "workflow": ".github/workflows/savia.yml",
+      "scenario": "container-remains",
+      "exit": 1,
+      "expected": 1,
+      "pass": true
+    },
+    {
+      "workflow": ".github/workflows/savia.yml",
+      "scenario": "container-removed",
+      "exit": 0,
+      "expected": 0,
+      "pass": true
+    },
+    {
+      "workflow": ".github/workflows/savia.yml",
+      "scenario": "container-already-absent",
+      "exit": 0,
+      "expected": 0,
+      "pass": true
+    }
+  ],
+  "method": "Execute the actual final cleanup run block with Git Bash. Only the Docker command is replaced by a function; RUNNER_TEMP is an isolated synthetic directory.",
+  "limit": "Shell failure/absence semantics verified; real CI container absence still needs observed run readback."
+}

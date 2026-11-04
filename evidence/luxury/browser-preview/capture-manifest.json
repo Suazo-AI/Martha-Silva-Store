@@ -1,0 +1,33 @@
+{
+  "scope": "Actual cloud CUA QA path screenshots; not final main URL verification",
+  "browser_dom_viewport": [
+    1180,
+    757
+  ],
+  "hero_export": [
+    1165,
+    747
+  ],
+  "gallery_section_capture": [
+    1180,
+    1751
+  ],
+  "mobile_tested": false,
+  "files": [
+    {
+      "file": "luxury-hero-es-preview.jpg",
+      "sha256": "2123af697d396beab2520272859c838adec664006a2c36037bbf041d8cf8c85b",
+      "bytes": 79565
+    },
+    {
+      "file": "luxury-hero-en-preview.jpg",
+      "sha256": "e9864681f7dab12298563e8678dfc7fded02b6390f2f1041dcf67311349779db",
+      "bytes": 79985
+    },
+    {
+      "file": "luxury-gallery-es-preview.jpg",
+      "sha256": "a500a7a93d8f946ef0ae4110a8120c1781bb8c34863c2400c375b4f05158b4d1",
+      "bytes": 205703
+    }
+  ]
+}

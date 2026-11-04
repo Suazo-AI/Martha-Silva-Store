@@ -1,0 +1,19 @@
+{
+  "candidate_source_sha": "b4952fbdff073140e460744e37b751bdc89804ae",
+  "target": "https://martha-silva-preview.martha-silva-denis.workers.dev/",
+  "branch": "fix/bridal-photos-bilingual-20261025",
+  "cloud_candidate": {
+    "archive": "C:\\Users\\luzbl\\Tony\\martha-silva-v1\\herramientas\\bridal-bilingual-20261025\\BRIDAL-BILINGUAL-CANDIDATE.zip",
+    "bytes": 1557412,
+    "sha256": "567a885266a3b6a84c8bf5e75ea0ec49a87e0daa84a4f29f907aea75f829b854",
+    "candidate_json_sha256": "02f2f6ae6cf069a50b1367c2be0e09d111cbed608ff9ee132db88f15bfe50d2e",
+    "source_files": 103,
+    "source_bytes": 11697625
+  },
+  "slack_thread": "https://denis-projects-group.slack.com/archives/D0CC1G4JS4U/p1792971699179229",
+  "slack_candidate_file": "F0CBUV2TQCB",
+  "source_integrity_remote_acknowledged": "103/103 files, zero differences",
+  "local_heavy_tasks": "not started; required admission refused low available RAM and excessive memory commitment",
+  "cloud_checks": "running; no PASS claimed yet",
+  "publication": "pending"
+}

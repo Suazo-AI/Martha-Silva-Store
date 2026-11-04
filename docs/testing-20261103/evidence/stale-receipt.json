@@ -1,0 +1,6 @@
+{
+  "status": "El servidor no aceptó los datos. Revisá los campos antes de continuar. La venta sigue sin confirmar. Comprobala o reintentá la misma venta.",
+  "submitDisabled": true,
+  "recoverDisabled": true,
+  "retryDisabled": true
+}

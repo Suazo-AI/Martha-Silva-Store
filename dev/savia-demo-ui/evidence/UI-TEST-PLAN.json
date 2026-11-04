@@ -1,0 +1,35 @@
+{
+  "status": "planned_not_executed",
+  "scope": "Independent browser-memory SAVIA POS demonstration; DOM simulation only",
+  "base_commit": "f7e859b",
+  "runner": "Node test runner with an existing external jsdom installation; no install, browser, build or SQL",
+  "model_contract": {
+    "factory": "createDemoStore()",
+    "currency": "USD sample",
+    "catalog_products": 6,
+    "cart_reserves_stock": false,
+    "persistence": "none; reload resets model",
+    "declined": "cart and stock unchanged; no sale created",
+    "approved": "stock decremented once; cart emptied; demo sale recorded",
+    "cancelled_sale": "stock restored once; duplicate cancellation rejected",
+    "reset": "fixtures restored; cart and sales cleared"
+  },
+  "planned_ui_cases": [
+    "Initial mount, explicit demo/memory/no-real-payments notices, empty cart and disabled checkout",
+    "Search/category result changes do not mutate stock or cart",
+    "Size selection required; unavailable size cannot be added; actionable error feedback and focus",
+    "Add, change quantity and remove preserve sensible focus and product/size accessible names",
+    "Approval creates a demo receipt and stock change; repeat action cannot duplicate sale",
+    "Decline preserves cart and stock and gives clear recoverable feedback",
+    "Cancel one sale restores its stock exactly once",
+    "Reset discards local scenario and returns usable focus/initial state",
+    "Connection unavailable with explicit virtual transport; no real network request or fallback authority"
+  ],
+  "publication_boundary": "prepare.py reads only build-inputs/static and three src modules; Wrangler assets directory is dist; dev/savia-demo-ui requires explicit separate packaging",
+  "limits": [
+    "Tests have not been run by this agent",
+    "DOM simulation does not prove pixels, responsive/touch behavior, actual screen-reader behavior or performance",
+    "API diagnostic uses separate synthetic XXX fixture; not the USD sample till",
+    "No sales/payment API, real ERP, SQL verification or remote delivery claim"
+  ]
+}

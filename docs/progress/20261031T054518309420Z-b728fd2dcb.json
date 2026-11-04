@@ -1,0 +1,195 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-31T05:45:18.309420+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "change": "M",
+      "git_blob": "4f221e2d3c6feb321de64cd6334bb52093a4ded5"
+    },
+    {
+      "path": ".githooks/post-commit",
+      "change": "M",
+      "git_blob": "cfe9c7d3358d798d16840184c277072aaf278140"
+    },
+    {
+      "path": ".githooks/pre-commit",
+      "change": "A",
+      "git_blob": "79b6c2569430acb821f6254124e2a4c89573bac1"
+    },
+    {
+      "path": ".github/workflows/progress.yml",
+      "change": "A",
+      "git_blob": "af1f98035828a5f95e75db1cb0372bc0e88e6168"
+    },
+    {
+      "path": "AGENTS.md",
+      "change": "M",
+      "git_blob": "cb188e8c539843992af93917b69bd97f0685cf54"
+    },
+    {
+      "path": "README.md",
+      "change": "M",
+      "git_blob": "2db37edae0c545891de42e0c7278e1e0cc8eabdf"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCommerceCommandSqlTests.cs",
+      "change": "M",
+      "git_blob": "1a5934262729b3ba7b2b198dc2b25196c3912f51"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalJudgeTests.cs",
+      "change": "M",
+      "git_blob": "dafc223ada692cf42b1023d7008e200ce7e1d1ee"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalMigrationTests.cs",
+      "change": "M",
+      "git_blob": "8a1e56c30c10e8fc921d86df48ac589949f39076"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalSecuritySqlTests.cs",
+      "change": "M",
+      "git_blob": "a8bf083462777ca0344031fe11d7f5ea90d78153"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs",
+      "change": "A",
+      "git_blob": "b4ebb78092e0fd53493af954e79c14cf27cc3cfc"
+    },
+    {
+      "path": "docs/AUTO-SYNC.md",
+      "change": "M",
+      "git_blob": "7de8c19892a314bff2306b0d0e5ea0032c424dc7"
+    },
+    {
+      "path": "docs/PROGRESS-SYNC-VALIDATION.md",
+      "change": "A",
+      "git_blob": "2df52dae8ed17a20b008d20c2399d8f4e497a05f"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "87a78e681b9e13d74386a042635b72e16b52e342"
+    },
+    {
+      "path": "docs/SAVIA-LATEST.md",
+      "change": "A",
+      "git_blob": "c45c8c4b45de66910ef6fb8af1267ba56a99e9ac"
+    },
+    {
+      "path": "docs/UPDATE-HISTORY.md",
+      "change": "M",
+      "git_blob": "420f1e1459199c29e2159aa788b26f73ae63f141"
+    },
+    {
+      "path": "evidence/project-state-20261030.json",
+      "change": "A",
+      "git_blob": "2de5f5f029f87dca9d24cd52cc3171ad3725e6c6"
+    },
+    {
+      "path": "evidence/savia/20261030/README.md",
+      "change": "A",
+      "git_blob": "cf9314a7819ea9f0761da02b702348411ea2a32f"
+    },
+    {
+      "path": "evidence/savia/20261030/anonymous-failure.json",
+      "change": "A",
+      "git_blob": "54080ff75c7fce6d55644d972948e9965105d8da"
+    },
+    {
+      "path": "evidence/savia/20261030/diagnostic-offline.json",
+      "change": "A",
+      "git_blob": "b716925264fcd960131de2447ee34260f1d97e3b"
+    },
+    {
+      "path": "evidence/savia/20261030/diagnostic/baseline-browser.cjs",
+      "change": "A",
+      "git_blob": "0fed59b6512a89bee65007c12fef29030e0627a9"
+    },
+    {
+      "path": "evidence/savia/20261030/diagnostic/browser.diff",
+      "change": "A",
+      "git_blob": "34a09d20b5cfd264f042f729128772be270b7ca8"
+    },
+    {
+      "path": "evidence/savia/20261030/diagnostic/candidate-browser.cjs",
+      "change": "A",
+      "git_blob": "965bb0c87f3a5235c921cefdb5fa69f68faf8844"
+    },
+    {
+      "path": "evidence/savia/20261030/diagnostic/error-policy.cjs",
+      "change": "A",
+      "git_blob": "a8dbe06618b19a60afec65365fa9aedb77b0ca60"
+    },
+    {
+      "path": "evidence/savia/20261030/diagnostic/offline-checks.cjs",
+      "change": "A",
+      "git_blob": "0ea90e7180690a3a41ca7cf06c950dec2173d5da"
+    },
+    {
+      "path": "evidence/savia/20261030/historical-backend.json",
+      "change": "A",
+      "git_blob": "2e4a67c9cc58867c9b66dd4ef4a71d70f8acaf19"
+    },
+    {
+      "path": "evidence/savia/20261030/manifest.json",
+      "change": "A",
+      "git_blob": "73c0b2b6dbb1194f7078fa3587916af5eac3bc34"
+    },
+    {
+      "path": "evidence/savia/20261030/package-acceptance.json",
+      "change": "A",
+      "git_blob": "1632c2bd95925a2e7cfb9db0d31a99ef68a0251a"
+    },
+    {
+      "path": "evidence/savia/20261030/package-vm.json",
+      "change": "A",
+      "git_blob": "f0ae7083daecad2f3a4f714bdd992d31da1c15e4"
+    },
+    {
+      "path": "evidence/savia/20261030/source-deltas/InternalCommerceCommandSqlTests.cs",
+      "change": "A",
+      "git_blob": "1a5934262729b3ba7b2b198dc2b25196c3912f51"
+    },
+    {
+      "path": "evidence/savia/20261030/source-deltas/InternalJudgeTests.cs",
+      "change": "A",
+      "git_blob": "dafc223ada692cf42b1023d7008e200ce7e1d1ee"
+    },
+    {
+      "path": "evidence/savia/20261030/source-deltas/InternalMigrationTests.cs",
+      "change": "A",
+      "git_blob": "8a1e56c30c10e8fc921d86df48ac589949f39076"
+    },
+    {
+      "path": "evidence/savia/20261030/source-deltas/InternalSecuritySqlTests.cs",
+      "change": "A",
+      "git_blob": "a8bf083462777ca0344031fe11d7f5ea90d78153"
+    },
+    {
+      "path": "evidence/savia/20261030/source-deltas/PrivatePilotReleaseTests.cs",
+      "change": "A",
+      "git_blob": "b4ebb78092e0fd53493af954e79c14cf27cc3cfc"
+    },
+    {
+      "path": "tests/test_progress.py",
+      "change": "A",
+      "git_blob": "dc89e65283290c5b674c0ef41a03e3276ceb2d0d"
+    },
+    {
+      "path": "tools/export_progress.py",
+      "change": "A",
+      "git_blob": "3c747efe87af2d7f098dd2eb8bda325f552816c9"
+    },
+    {
+      "path": "tools/progress.py",
+      "change": "A",
+      "git_blob": "3a1a9ab87787e307fcf8214250f211e7217259da"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

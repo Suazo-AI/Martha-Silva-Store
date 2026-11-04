@@ -1,0 +1,181 @@
+{
+  "schema_version": 1,
+  "task": "C6 PR2 publication validation",
+  "host": "SUAZO-PC",
+  "repository": "C:/Users/Jason/MARTHA-SILVA/github",
+  "created_utc": "2026-11-04T03:08:59.145Z",
+  "frozen_manifest_ref": "c00ae5e766f71defbaf2894bac20b2ea7e93a1de",
+  "scope": "Read-only validation of source/index/tree; outputs only in coordination. No canonical writes, commit, push, API, SQL, Docker or browser runs.",
+  "initial_collector_limit_s": 90,
+  "initial_results": [
+    {
+      "name": "progress_tests",
+      "executable": "python",
+      "args": [
+        "-B",
+        "tests/test_progress.py"
+      ],
+      "exit": null,
+      "ms": 90201,
+      "stdout": "",
+      "stderr": "........",
+      "timed_out": true,
+      "status": "NOT_PASS_COLLECTOR_TIMEOUT"
+    },
+    {
+      "name": "export_verify",
+      "executable": "python",
+      "args": [
+        "-B",
+        "tools/export_progress.py",
+        "--verify"
+      ],
+      "exit": 0,
+      "ms": 990,
+      "stdout": "PASS: 15 preserved evidence hashes; no runtime executed.\r\n",
+      "stderr": "",
+      "status": "PASS"
+    },
+    {
+      "name": "delivery_status",
+      "executable": "python",
+      "args": [
+        "-B",
+        "tools/delivery_status.py",
+        "--check"
+      ],
+      "exit": 0,
+      "ms": 841,
+      "stdout": "Ledger: valid; 34 items.\r\n",
+      "stderr": "",
+      "status": "PASS"
+    },
+    {
+      "name": "staged_diff_check",
+      "executable": "git",
+      "args": [
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "exit": 0,
+      "ms": 720,
+      "stdout": "",
+      "stderr": "",
+      "status": "PASS"
+    },
+    {
+      "name": "frozen_import_blobs_18",
+      "executable": "python",
+      "args": [
+        "-B",
+        "-c",
+        "import importlib.util,sys\nfrom pathlib import Path\nspec=importlib.util.spec_from_file_location('c6_publish_progress',Path('tools/progress.py').resolve())\np=importlib.util.module_from_spec(spec)\nspec.loader.exec_module(p)\nassert len(p.PR2_IMPORT_COMMITS)==18, 'unexpected_import_count'\nfor commit in p.PR2_IMPORT_COMMITS:\n p.verify_import(commit,manifest_ref='c00ae5e766f71defbaf2894bac20b2ea7e93a1de')\nprint('PR2_IMPORT_VERIFIED 18/18 manifest_ref=c00ae5e766f71defbaf2894bac20b2ea7e93a1de')\n"
+      ],
+      "exit": null,
+      "ms": 90135,
+      "stdout": "",
+      "stderr": "",
+      "timed_out": true,
+      "status": "NOT_PASS_COLLECTOR_TIMEOUT"
+    }
+  ],
+  "launcher_attempt": {
+    "name": "suite_launcher_path_failure",
+    "executable": "powershell.exe",
+    "args": [
+      "-NoProfile",
+      "-NonInteractive",
+      "-Command",
+      "$env:PYTHONUNBUFFERED='1'; python -B tests/test_progress.py -v; exit $LASTEXITCODE"
+    ],
+    "exit": 0,
+    "ms": 1101,
+    "stderr": "python : The term 'python' is not recognized as the name of a cmdlet, function, script file, or operable program.",
+    "tests_started": false,
+    "status": "NOT_RUN",
+    "note": "PowerShell child did not start Python; exit 0 is not a test result."
+  },
+  "revised_import_check": {
+    "name": "old17_json_plus_b6_real_blobs",
+    "executable": "python",
+    "args": [
+      "-B",
+      "-u",
+      "-c",
+      "import importlib.util,json,re\nfrom pathlib import Path\nspec=importlib.util.spec_from_file_location('c6_publish_progress',Path('tools/progress.py').resolve())\np=importlib.util.module_from_spec(spec)\nspec.loader.exec_module(p)\nold_source=p.git('show','2ddf83de7a89da608e8267a21313d64b373bf5e2:tools/progress.py').decode()\nold_path=re.search(r\"^PR2_IMPORT_MANIFEST = '([^']+)'$\",old_source,re.M).group(1)\nold=json.loads(p.git('show','2ddf83de7a89da608e8267a21313d64b373bf5e2:'+old_path))\nnew=json.loads(p.git('show','c00ae5e766f71defbaf2894bac20b2ea7e93a1de:'+p.PR2_IMPORT_MANIFEST))\nassert len(old['commits'])==17 and len(new['commits'])==18\nassert old['commits']==new['commits'][:17], 'old17_records_differ'\nassert new['commits'][-1]['commit']=='b6bc0396bb7d53359d23b806a3177edc194c8e62'\nassert p.PR2_IMPORT_COMMITS[-1]=='b6bc0396bb7d53359d23b806a3177edc194c8e62'\nprint('PASS: JSON old17 == new first17; new total18; only final commit b6bc0396',flush=True)\np.verify_import('b6bc0396bb7d53359d23b806a3177edc194c8e62',manifest_ref='c00ae5e766f71defbaf2894bac20b2ea7e93a1de')\nprint('PR2_IMPORT_DELTA_VERIFIED old17_identical + b6_real_blobs',flush=True)\n"
+    ],
+    "exit": 0,
+    "ms": 8717,
+    "stdout": "PASS: JSON old17 == new first17; new total18; only final commit b6bc0396\r\nPASS: frozen PR2 import and publication scan for b6bc0396bb7d; no historical receipt implied.\r\nPR2_IMPORT_DELTA_VERIFIED old17_identical + b6_real_blobs\r\n",
+    "stderr": "",
+    "status": "PASS",
+    "meaning": "Old 17 JSON records are identical to the first 17 records in c00; only b6 was rescanned against actual frozen tree bytes. No claim of 18 fresh rescans."
+  },
+  "required_suite": {
+    "name": "progress_tests_verbose",
+    "executable": "python",
+    "args": [
+      "-B",
+      "-u",
+      "-c",
+      "import os,sys; os.environ['PYTHONUNBUFFERED']='1'; os.execv(sys.executable,[sys.executable,'-B','tests/test_progress.py','-v'])"
+    ],
+    "effective_command": "python -B tests/test_progress.py -v",
+    "child_only_environment": {
+      "PYTHONUNBUFFERED": "1"
+    },
+    "cwd": "C:/Users/Jason/MARTHA-SILVA/github",
+    "status": "PASS",
+    "exit": 0,
+    "elapsed_process_ms": 229679,
+    "unittest_elapsed_s": 228.214,
+    "test_count": 23,
+    "passed": 23,
+    "timeout_s": 600,
+    "timed_out": false,
+    "stderr_sanitized": "test_failed_push_preserves_commit_without_retry (__main__.ProgressTests.test_failed_push_preserves_commit_without_retry) ... ok\ntest_frozen_import_and_new_checkpoint_require_distinct_evidence (__main__.ProgressTests.test_frozen_import_and_new_checkpoint_require_distinct_evidence) ... ok\ntest_frozen_import_missing_or_changed_manifest_blocks (__main__.ProgressTests.test_frozen_import_missing_or_changed_manifest_blocks) ... ok\ntest_frozen_import_rejects_wrong_blob_digest_even_with_matching_pin (__main__.ProgressTests.test_frozen_import_rejects_wrong_blob_digest_even_with_matching_pin) ... ok\ntest_frozen_import_rejects_wrong_scope_even_with_matching_pin (__main__.ProgressTests.test_frozen_import_rejects_wrong_scope_even_with_matching_pin) ... ok\ntest_frozen_import_retains_secret_and_mode_guards (__main__.ProgressTests.test_frozen_import_retains_secret_and_mode_guards) ... ok\ntest_frozen_import_retains_symlink_guard (__main__.ProgressTests.test_frozen_import_retains_symlink_guard) ... ok\ntest_frozen_import_uses_pinned_git_bytes_with_windows_line_endings (__main__.ProgressTests.test_frozen_import_uses_pinned_git_bytes_with_windows_line_endings) ... ok\ntest_frozen_merge_checks_first_parent_tree_and_both_parents (__main__.ProgressTests.test_frozen_merge_checks_first_parent_tree_and_both_parents) ... ok\ntest_missing_receipt_rejected (__main__.ProgressTests.test_missing_receipt_rejected) ... ok\ntest_modified_index_rejects_stale_receipt (__main__.ProgressTests.test_modified_index_rejects_stale_receipt) ... ok\ntest_new_reconciliation_merge_requires_its_own_normal_receipt (__main__.ProgressTests.test_new_reconciliation_merge_requires_its_own_normal_receipt) ... ok\ntest_precommit_is_idempotent (__main__.ProgressTests.test_precommit_is_idempotent) ... ok\ntest_publish_exact_sha_without_force_and_readback (__main__.ProgressTests.test_publish_exact_sha_without_force_and_readback) ... ok\ntest_publish_mixed_history_blocks_before_push_if_import_invalid (__main__.ProgressTests.test_publish_mixed_history_blocks_before_push_if_import_invalid) ... ok\ntest_publish_rejects_wrong_repository_visibility (__main__.ProgressTests.test_publish_rejects_wrong_repository_visibility) ... ok\ntest_records_staged_bytes_preserving_unstaged_work (__main__.ProgressTests.test_records_staged_bytes_preserving_unstaged_work) ... ok\ntest_remote_readback_mismatch_is_not_success (__main__.ProgressTests.test_remote_readback_mismatch_is_not_success) ... ok\ntest_secret_in_index_blocks_even_if_worktree_cleaned (__main__.ProgressTests.test_secret_in_index_blocks_even_if_worktree_cleaned) ... ok\ntest_sensitive_paths_and_credentials_blocked (__main__.ProgressTests.test_sensitive_paths_and_credentials_blocked) ... ok\ntest_symlink_mode_blocked (__main__.ProgressTests.test_symlink_mode_blocked) ... ok\ntest_tampered_receipt_rejected (__main__.ProgressTests.test_tampered_receipt_rejected) ... ok\ntest_wrong_branch_or_remote_blocked (__main__.ProgressTests.test_wrong_branch_or_remote_blocked) ... ok\n----------------------------------------------------------------------\nRan 23 tests in 228.214s\nOK\n",
+    "stdout_omitted": {
+      "bytes": 2474,
+      "sha256": "bd297dbda8752771feadfd9669106b171fed8115e21d72b0226b8cdb06aab374",
+      "reason": "Fixture operation output omitted; unittest result and case names retained."
+    }
+  },
+  "process_accounting": {
+    "before": {
+      "query_ok": true,
+      "own_direct_children": [],
+      "matching_owned_validation": [],
+      "all_git_count": 0
+    },
+    "after": {
+      "query_ok": true,
+      "known_owned_pids_present": [],
+      "own_direct_python_git_children": [],
+      "all_git_count": 0
+    },
+    "owned_launch_pids": [
+      28548,
+      9144
+    ],
+    "signals_sent": 0
+  },
+  "index_accounting": {
+    "initial_sha256": "19b49719ea6497cc054d922248ac9ae68b887d7cba2588c392c07e8c33317c40",
+    "after_parent_24_path_add_sha256": "cce50f7cfed1d177a8cade492999d1ae75f58c93f8dfaed76698417c68bf2778",
+    "final_observed_sha256": "982682ab2ec2be4ed8eb5eedc40927cf02e7019e7123842c66369a041aeae503",
+    "initial_staged_path_count": 23,
+    "verified_parent_addition_at_24_paths": [
+      "docs/c9-recovery-20261103/trello-procedure.json"
+    ],
+    "parent_later_reported_staged_path_count": 27,
+    "note": "Parent staged additional authorized sanitized evidence during validation. Child made no index or canonical writes. Final whitespace and final publication tree are root-owned."
+  },
+  "limitations": [
+    "Original full 18 scan timed out at the 90 s collector limit; no completed result. It was not rerun.",
+    "The old 17 records equality plus fresh b6 scan was the explicitly approved replacement gate.",
+    "Whitespace PASS applies to the earlier staged set; root will check its final staged set.",
+    "No combined C6+C8 real CI was run in this validation."
+  ],
+  "lesson": "Do not treat a collector timeout or shell exit 0 before Python starts as a product result. Use the resolved interpreter, child-only environment, sequential verbose progress and an adequate collector limit."
+}

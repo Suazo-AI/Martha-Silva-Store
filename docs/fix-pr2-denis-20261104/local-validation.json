@@ -1,0 +1,246 @@
+{
+  "host": "SUAZO-PC",
+  "sql_environment": "No local SQL/Docker was started or repurposed. Existing approved CI route pending this commit.",
+  "builds": [
+    {
+      "name": "restore-helper",
+      "command": [
+        "C:\\Users\\Jason\\MARTHA-SILVA\\validation\\resolution-20261028-jsdom\\.sdk-10.0.402\\dotnet.exe",
+        "restore",
+        "tests/golden-path/GoldenPath.Sql",
+        "--locked-mode"
+      ],
+      "exit": 0,
+      "seconds": 4.92
+    },
+    {
+      "name": "build-helper",
+      "command": [
+        "C:\\Users\\Jason\\MARTHA-SILVA\\validation\\resolution-20261028-jsdom\\.sdk-10.0.402\\dotnet.exe",
+        "build",
+        "tests/golden-path/GoldenPath.Sql",
+        "--no-restore",
+        "--configuration",
+        "Release"
+      ],
+      "exit": 0,
+      "seconds": 18.94
+    },
+    {
+      "name": "restore-tests",
+      "command": [
+        "C:\\Users\\Jason\\MARTHA-SILVA\\validation\\resolution-20261028-jsdom\\.sdk-10.0.402\\dotnet.exe",
+        "restore",
+        "backend/tests/Martha.Store.Api.Tests",
+        "--locked-mode"
+      ],
+      "exit": 0,
+      "seconds": 1.97
+    },
+    {
+      "name": "build-backend",
+      "command": [
+        "C:\\Users\\Jason\\MARTHA-SILVA\\validation\\resolution-20261028-jsdom\\.sdk-10.0.402\\dotnet.exe",
+        "build",
+        "backend/tests/Martha.Store.Api.Tests",
+        "--no-restore",
+        "--configuration",
+        "Release"
+      ],
+      "exit": 0,
+      "seconds": 7.28
+    }
+  ],
+  "backend_offline": {
+    "total": 599,
+    "passed": 524,
+    "skipped": 75,
+    "failed": 0,
+    "exit": 0,
+    "seconds": 16.91,
+    "command": "SDK10.0.402 dotnet test backend/tests/Martha.Store.Api.Tests --no-restore --no-build --configuration Release --logger trx;LogFileName=offline.trx --results-directory <private-results>",
+    "limit": "No SQL connection/authorization variables in child process;75 SQL cases explicitly skipped."
+  },
+  "unit_suites": [
+    {
+      "command": "python -B tests/test_delivery_status.py",
+      "passed": 24,
+      "exit": 0
+    },
+    {
+      "command": "python -B tests/test_golden_path_safety.py",
+      "passed": 17,
+      "exit": 0,
+      "limit": "AST-loaded functions and doubles; no real SQL/API/Windows POSIX support claimed."
+    },
+    {
+      "command": "python -B tests/test_progress.py",
+      "passed": 22,
+      "exit": 0,
+      "limit": "Real temporary Git; publication transport replaced."
+    }
+  ],
+  "repository_checks": [
+    {
+      "name": "progress-tests",
+      "command": [
+        "python",
+        "-B",
+        "tests/test_progress.py"
+      ],
+      "exit": 0,
+      "seconds": 57.73
+    },
+    {
+      "name": "repository-check",
+      "command": [
+        "python",
+        "-B",
+        "tests/check.py"
+      ],
+      "exit": 1,
+      "seconds": 14.47
+    },
+    {
+      "name": "export-progress",
+      "command": [
+        "python",
+        "-B",
+        "tools/export_progress.py",
+        "--verify"
+      ],
+      "exit": 0,
+      "seconds": 0.16
+    },
+    {
+      "name": "ledger-check",
+      "command": [
+        "python",
+        "-B",
+        "tools/delivery_status.py",
+        "--check"
+      ],
+      "exit": 0,
+      "seconds": 0.14
+    }
+  ],
+  "continued_checks_after_windows_privilege_failure": [
+    {
+      "name": "portable-runner",
+      "command": [
+        "python",
+        "-B",
+        "tests/test_check.py"
+      ],
+      "exit": 0,
+      "seconds": 0.38
+    },
+    {
+      "name": "historical-sync",
+      "command": [
+        "python",
+        "-B",
+        "tests/test_sync_progress.py"
+      ],
+      "exit": 0,
+      "seconds": 0.38
+    },
+    {
+      "name": "catalog-staging",
+      "command": [
+        "python",
+        "-B",
+        "tests/catalog-staging.py"
+      ],
+      "exit": 1,
+      "seconds": 0.59
+    },
+    {
+      "name": "frontend-runtime",
+      "command": [
+        "node",
+        "tests/frontend-runtime.cjs"
+      ],
+      "exit": 0,
+      "seconds": 20.34
+    },
+    {
+      "name": "localization-runtime",
+      "command": [
+        "node",
+        "tests/localization-runtime.cjs"
+      ],
+      "exit": 0,
+      "seconds": 40.58
+    },
+    {
+      "name": "structure",
+      "command": [
+        "python",
+        "-B",
+        "tests/structure.py"
+      ],
+      "exit": 0,
+      "seconds": 2.95
+    },
+    {
+      "name": "staff-ui",
+      "command": [
+        "node",
+        "--test",
+        "dev\\savia-staff-ui\\auth.test.mjs",
+        "dev\\savia-staff-ui\\branch-compat.test.mjs",
+        "dev\\savia-staff-ui\\commerce.test.mjs",
+        "dev\\savia-staff-ui\\dom.test.mjs",
+        "dev\\savia-staff-ui\\pagination.test.mjs"
+      ],
+      "exit": 0,
+      "seconds": 2.03
+    },
+    {
+      "name": "backend-evidence-verifier",
+      "command": [
+        "python",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "backend/tests",
+        "-p",
+        "test_verify_full_suite.py"
+      ],
+      "exit": 0,
+      "seconds": 0.28
+    },
+    {
+      "name": "javascript-syntax",
+      "files": 19,
+      "failures": [],
+      "exit": 0
+    }
+  ],
+  "known_windows_failures": [
+    {
+      "command": "python -B tests/check.py",
+      "stage": "tests/asset-audit.py",
+      "passed": 3,
+      "errors": 3,
+      "error": "OSError: [WinError 1314] A required privilege is not held by the client",
+      "owner": "Integrator via existing Linux CI",
+      "next_action": "Run the same check on the PR2 candidate in Linux CI; retain Windows security controls.",
+      "completion_check": "Linux historical-regressions job executes the symlink cases."
+    },
+    {
+      "command": "python -B tests/catalog-staging.py",
+      "passed": 8,
+      "errors": 2,
+      "error": "OSError: [WinError 1314] A required privilege is not held by the client",
+      "owner": "Integrator via existing Linux CI",
+      "next_action": "Same Linux CI path; no local policy change.",
+      "completion_check": "Full10 staging cases pass on Linux."
+    }
+  ],
+  "ci_status": "See publication.json and ci-runtime.json for observed initial CI; follow-up compatibility fix requires fresh same-SHA CI.",
+  "code_cut": "ca917005c331e8096e84d21bc1b35cb71a1700d5"
+}

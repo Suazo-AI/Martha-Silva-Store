@@ -1,0 +1,9 @@
+--- ../martha-product-share-20261026/build-inputs/static/styles.css	2026-10-25 22:20:41.265904016 -0600
++++ build-inputs/static/styles.css	2026-10-26 00:01:22.241525779 -0600
+@@ -238,3 +238,6 @@
+ 
+ /* Product sharing stays separate from bag/favorite actions. */
+ .product-share{margin-top:12px;min-width:0}.product-share-button{display:inline-flex;align-items:center;gap:8px;min-height:44px;white-space:normal;text-align:left}.product-share-button svg{width:20px;height:20px;flex:none}.product-share [data-product-share-status]:empty{margin:0}.product-share [data-product-share-status]{margin:8px 0;line-height:1.5}.product-share .field{margin:12px 0 0}.product-share [hidden]{display:none}.product-share input{min-width:0;font-size:16px}
++
++/* GREEN cut A: keep the lead photo below the measured sticky header. No image or sizing changes. */
++@media(min-width:1024px){main[data-product-id="verde-brillo-cuello-cruzado"] .gallery-photo{scroll-margin-top:var(--store-sticky-header-height,106px)}main[data-product-id="verde-brillo-cuello-cruzado"] .gallery-track>.gallery-photo{top:var(--store-sticky-header-height,106px);max-height:calc(100svh - var(--store-sticky-header-height,106px))}}

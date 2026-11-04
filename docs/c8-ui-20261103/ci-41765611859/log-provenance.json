@@ -1,0 +1,16 @@
+{
+  "run_id": 41765611859,
+  "attempt": 1,
+  "head": "e4b7910835bf2c9901aa06989e296997875a3636",
+  "job_id": 126363152814,
+  "checkout_sha": "f1a0bb1d0cd0258838f920ec8f811315820c7587",
+  "checkout_readback": [
+    "2026-11-04T03:12:16.0215212Z [command]/usr/bin/git log -1 --format=%H",
+    "2026-11-04T03:12:16.0254690Z f1a0bb1d0cd0258838f920ec8f811315820c7587"
+  ],
+  "container_absence_readback": [],
+  "capture_wrapper_sha256": "fa65771d9f5fa450ec518e69b915ebad7a5cac033d0af68d3141e26d64415cd2",
+  "full_log_file_sha256": "8df416c3a7457057ca944074c6c51be00d330ae7d674747d7cfbceda40dee675",
+  "full_log_decoded_utf8_sha256": "8df416c3a7457057ca944074c6c51be00d330ae7d674747d7cfbceda40dee675",
+  "source": "gh-axi full_log file, not truncated TOON capture; raw logs excluded"
+}

@@ -1,0 +1,14 @@
+PASS sticky header measurement excludes banners, language and integration rows
+PASS resize updates the exact measured header height with safe rounding
+PASS ResizeObserver follows header changes without relying on viewport resize
+PASS a page without the global header safely exposes zero sticky header height
+FAIL the CSS delta is desktop and exact-SKU scoped, with no pixel or zoom rule
+AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /first-child|image-dialog|object-fit|transform|width:|display:/. Input:
+
+' keep the lead photo below the measured sticky header. No image or sizing changes. */\n' +
+  '@media(min-width:1024px){main[data-product-id="verde-brillo-cuello-cruzado"] .gallery-photo{scroll-margin-top:var(--store-sticky-header-height,106px)}main[data-product-id="verde-brillo-cuello-cruzado"] .gallery-track>.gallery-photo{top:var(--store-sticky-header-height,106px);max-height:calc(100svh - var(--store-sticky-header-height,106px))}}\n'
+
+    at /workspace/scratch/14cff504045e/martha-green-occlusion-A-20261026/tests/green-header.cjs:62:561
+    at /workspace/scratch/14cff504045e/martha-green-occlusion-A-20261026/tests/green-header.cjs:65:64
+PASS share, favorites and gallery controls remain mounted on the unchanged green PDP
+5/6 green header DOM/static checks passed (not browser layout)

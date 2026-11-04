@@ -1,0 +1,29 @@
+TESTED_REVISED_AI_MODULE_SHA256 edf6246dd3fa293504a133464018b7365333276ede124f253391c48a22495fd1
+✔ original fragment contract targets exactly two SKUs and revised AI module parses (4.111988ms)
+✔ two staged image bytes match provenance SHA and native PNG geometry (41.537995ms)
+✔ blanco-perlado-sirena: bilingual disclosure and accessible relation; separate from authentic gallery (176.024779ms)
+✔ blanco-perlado-sirena: scoped contain/autoheight styling cannot cover-crop the illustration (143.30849ms)
+✔ blanco-perlado-sirena: ES default and language change EN→ES localize visible caption and alt (45.27029ms)
+✔ blanco-perlado-sirena: success then load error then recovery preserves all authentic controls (34.264892ms)
+✔ blanco-perlado-sirena: already-failed completed image falls back on initial scan (28.945403ms)
+✔ blanco-perlado-sirena: existing successful image and singleton reinitialization are idempotent (30.878565ms)
+✔ blanco-perlado-sirena: dynamically added complete support section gets localized and load-handled (51.455429ms)
+✔ blanco-perlado-sirena: unknown path or wrong-PDP identity remains untouched by decorator (119.776902ms)
+✔ rosa-empolvado-pedreria: bilingual disclosure and accessible relation; separate from authentic gallery (32.022941ms)
+✔ rosa-empolvado-pedreria: scoped contain/autoheight styling cannot cover-crop the illustration (52.607587ms)
+✔ rosa-empolvado-pedreria: ES default and language change EN→ES localize visible caption and alt (50.688022ms)
+✔ rosa-empolvado-pedreria: success then load error then recovery preserves all authentic controls (59.756879ms)
+✔ rosa-empolvado-pedreria: already-failed completed image falls back on initial scan (34.494362ms)
+✔ rosa-empolvado-pedreria: existing successful image and singleton reinitialization are idempotent (46.102325ms)
+✔ rosa-empolvado-pedreria: dynamically added complete support section gets localized and load-handled (67.6449ms)
+✔ rosa-empolvado-pedreria: unknown path or wrong-PDP identity remains untouched by decorator (124.704545ms)
+✔ ordinary authentic image error is not captured as an AI illustration failure (47.878866ms)
+✔ html lang mutation localizes when MarthaI18n is absent (64.779437ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1916.966838

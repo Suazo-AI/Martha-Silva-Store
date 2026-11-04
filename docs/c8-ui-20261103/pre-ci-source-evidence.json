@@ -1,0 +1,1324 @@
+{
+  "task_id": "SAVIA-C8-FINAL-EVIDENCE-20261104",
+  "status": "PRE_CI_REVIEW_ONLY",
+  "mode": "VALIDATE",
+  "observedUtc": "2026-11-04T02:48:11.267686+00:00",
+  "host": "SUAZO-PC",
+  "worker": {
+    "owner": "/root/c8_final_evidence",
+    "selectedModel": "gpt-6.1-sol",
+    "selectedReasoning": "xhigh",
+    "modelSource": "Explicit parent task packet; no separate runtime model telemetry"
+  },
+  "repository": "C:\\Users\\Jason\\MARTHA-SILVA\\github",
+  "frozenCanonicalHead": "2ddf83de7a89da608e8267a21313d64b373bf5e2",
+  "finalCandidateSha": null,
+  "actualSourceDirectory": "docs/c8-ui-20261103/current-head-20261104",
+  "requestedSourceNameNotFound": "current-head-validation-20261104",
+  "sixBlobs": [
+    {
+      "path": "dev/savia-staff-ui/README.md",
+      "expectedCandidateBlob": "f7f17b0f792586ce3d296e6bcb78b4e046a905d1",
+      "frozenCandidateBlob": "f7f17b0f792586ce3d296e6bcb78b4e046a905d1",
+      "match": true
+    },
+    {
+      "path": "dev/savia-staff-ui/app.mjs",
+      "expectedCandidateBlob": "761eafa3e64ebca784d96c4465d052b2603c91be",
+      "frozenCandidateBlob": "761eafa3e64ebca784d96c4465d052b2603c91be",
+      "match": true
+    },
+    {
+      "path": "dev/savia-staff-ui/auth.test.mjs",
+      "expectedCandidateBlob": "857e81996dc82a4a9e484e86099d2c9c00b09586",
+      "frozenCandidateBlob": "857e81996dc82a4a9e484e86099d2c9c00b09586",
+      "match": true
+    },
+    {
+      "path": "dev/savia-staff-ui/login.mjs",
+      "expectedCandidateBlob": "6a639cafe028fe28be9ab0539688afcaa7aef86b",
+      "frozenCandidateBlob": "6a639cafe028fe28be9ab0539688afcaa7aef86b",
+      "match": true
+    },
+    {
+      "path": "tests/browser-mock-validation.mjs",
+      "expectedCandidateBlob": "199f8826515d0a3c1f3e6c8981d964b6fc3aeebd",
+      "frozenCandidateBlob": "199f8826515d0a3c1f3e6c8981d964b6fc3aeebd",
+      "match": true
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalSecurityTests.cs",
+      "expectedCandidateBlob": "ee3b15ec123c93b5a073295fe4b4cb70b814d501",
+      "frozenCandidateBlob": "ee3b15ec123c93b5a073295fe4b4cb70b814d501",
+      "match": true
+    }
+  ],
+  "dependencies": {
+    "entryCount": 71,
+    "unchangedBaseEntries": 66,
+    "intentionalC8Replacements": 5,
+    "mismatchesWithExpectedC8Overlay": 0,
+    "entries": [
+      {
+        "path": "backend/src/Martha.Store.Api/ErpPort.cs",
+        "priorBlob": "416637dcca445b32343dc2d1d5265a7b2bede414",
+        "baseBlob": "416637dcca445b32343dc2d1d5265a7b2bede414",
+        "expectedWithC8": "416637dcca445b32343dc2d1d5265a7b2bede414",
+        "frozenCandidateBlob": "416637dcca445b32343dc2d1d5265a7b2bede414",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceEndpoints.cs",
+        "priorBlob": "e706a7efa32d4c41e7ae1c729f78baa334948d46",
+        "baseBlob": "e706a7efa32d4c41e7ae1c729f78baa334948d46",
+        "expectedWithC8": "e706a7efa32d4c41e7ae1c729f78baa334948d46",
+        "frozenCandidateBlob": "e706a7efa32d4c41e7ae1c729f78baa334948d46",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceModel.cs",
+        "priorBlob": "1a620439eb0f3fe2063c804a67189bf1276c7782",
+        "baseBlob": "1a620439eb0f3fe2063c804a67189bf1276c7782",
+        "expectedWithC8": "1a620439eb0f3fe2063c804a67189bf1276c7782",
+        "frozenCandidateBlob": "1a620439eb0f3fe2063c804a67189bf1276c7782",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceModels.cs",
+        "priorBlob": "ce9cd22595bc0f83fa7ae122a6bfee02ec08838c",
+        "baseBlob": "ce9cd22595bc0f83fa7ae122a6bfee02ec08838c",
+        "expectedWithC8": "ce9cd22595bc0f83fa7ae122a6bfee02ec08838c",
+        "frozenCandidateBlob": "ce9cd22595bc0f83fa7ae122a6bfee02ec08838c",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceService.cs",
+        "priorBlob": "9c3ae45a855a2d2048c50bc4584dfc6de8764c45",
+        "baseBlob": "9c3ae45a855a2d2048c50bc4584dfc6de8764c45",
+        "expectedWithC8": "9c3ae45a855a2d2048c50bc4584dfc6de8764c45",
+        "frozenCandidateBlob": "9c3ae45a855a2d2048c50bc4584dfc6de8764c45",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalStockLedger.cs",
+        "priorBlob": "826268a2fc6b679206d2bece2ec0fc1da6ce8ad0",
+        "baseBlob": "826268a2fc6b679206d2bece2ec0fc1da6ce8ad0",
+        "expectedWithC8": "826268a2fc6b679206d2bece2ec0fc1da6ce8ad0",
+        "frozenCandidateBlob": "826268a2fc6b679206d2bece2ec0fc1da6ce8ad0",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryEndpoints.cs",
+        "priorBlob": "3991be21ea767c60be21a0571bf0de2f5d218225",
+        "baseBlob": "3991be21ea767c60be21a0571bf0de2f5d218225",
+        "expectedWithC8": "3991be21ea767c60be21a0571bf0de2f5d218225",
+        "frozenCandidateBlob": "3991be21ea767c60be21a0571bf0de2f5d218225",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryModels.cs",
+        "priorBlob": "e74a0a0059163c51d5851c0e0fbb2e0da17d50a3",
+        "baseBlob": "e74a0a0059163c51d5851c0e0fbb2e0da17d50a3",
+        "expectedWithC8": "e74a0a0059163c51d5851c0e0fbb2e0da17d50a3",
+        "frozenCandidateBlob": "e74a0a0059163c51d5851c0e0fbb2e0da17d50a3",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryService.cs",
+        "priorBlob": "7129aa02245f8632b1c63e22623a8a337b576a08",
+        "baseBlob": "7129aa02245f8632b1c63e22623a8a337b576a08",
+        "expectedWithC8": "7129aa02245f8632b1c63e22623a8a337b576a08",
+        "frozenCandidateBlob": "7129aa02245f8632b1c63e22623a8a337b576a08",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryValidation.cs",
+        "priorBlob": "7665da0c8969e5620a5798eb170819fc8f05e5ac",
+        "baseBlob": "7665da0c8969e5620a5798eb170819fc8f05e5ac",
+        "expectedWithC8": "7665da0c8969e5620a5798eb170819fc8f05e5ac",
+        "frozenCandidateBlob": "7665da0c8969e5620a5798eb170819fc8f05e5ac",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/InternalBranchAccess.cs",
+        "priorBlob": "b430769eca3c504bee2f566e75bfed10dfc18e41",
+        "baseBlob": "b430769eca3c504bee2f566e75bfed10dfc18e41",
+        "expectedWithC8": "b430769eca3c504bee2f566e75bfed10dfc18e41",
+        "frozenCandidateBlob": "b430769eca3c504bee2f566e75bfed10dfc18e41",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/InternalBranchIdUpdate.cs",
+        "priorBlob": "ac1f2b8283799c0b52fb61879deb1a00176e6bb9",
+        "baseBlob": "ac1f2b8283799c0b52fb61879deb1a00176e6bb9",
+        "expectedWithC8": "ac1f2b8283799c0b52fb61879deb1a00176e6bb9",
+        "frozenCandidateBlob": "ac1f2b8283799c0b52fb61879deb1a00176e6bb9",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/InternalCommandRunner.cs",
+        "priorBlob": "8b07d2fedb43dcb5981c8aa68473bcbfb88a5119",
+        "baseBlob": "8b07d2fedb43dcb5981c8aa68473bcbfb88a5119",
+        "expectedWithC8": "8b07d2fedb43dcb5981c8aa68473bcbfb88a5119",
+        "frozenCandidateBlob": "8b07d2fedb43dcb5981c8aa68473bcbfb88a5119",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/InternalContracts.cs",
+        "priorBlob": "b86d9a4b1c040bfb18dde8b5aef705e1058d9a9f",
+        "baseBlob": "b86d9a4b1c040bfb18dde8b5aef705e1058d9a9f",
+        "expectedWithC8": "b86d9a4b1c040bfb18dde8b5aef705e1058d9a9f",
+        "frozenCandidateBlob": "b86d9a4b1c040bfb18dde8b5aef705e1058d9a9f",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/InternalDbContext.cs",
+        "priorBlob": "7bc82f03c40be88c2e2dc776f7bbc7e0317441bd",
+        "baseBlob": "7bc82f03c40be88c2e2dc776f7bbc7e0317441bd",
+        "expectedWithC8": "7bc82f03c40be88c2e2dc776f7bbc7e0317441bd",
+        "frozenCandidateBlob": "7bc82f03c40be88c2e2dc776f7bbc7e0317441bd",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/InternalDbContextFactory.cs",
+        "priorBlob": "bd1bb1147897fe725217e5a1a8b1277fe0ce3959",
+        "baseBlob": "bd1bb1147897fe725217e5a1a8b1277fe0ce3959",
+        "expectedWithC8": "bd1bb1147897fe725217e5a1a8b1277fe0ce3959",
+        "frozenCandidateBlob": "bd1bb1147897fe725217e5a1a8b1277fe0ce3959",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/InternalHosting.cs",
+        "priorBlob": "a8fb32f5b1b78c396f77e17f191a1ad886654338",
+        "baseBlob": "a8fb32f5b1b78c396f77e17f191a1ad886654338",
+        "expectedWithC8": "a8fb32f5b1b78c396f77e17f191a1ad886654338",
+        "frozenCandidateBlob": "a8fb32f5b1b78c396f77e17f191a1ad886654338",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/InternalUiHosting.cs",
+        "priorBlob": "18d6ad725f53b621682948fc45fc60a1cca30ac4",
+        "baseBlob": "18d6ad725f53b621682948fc45fc60a1cca30ac4",
+        "expectedWithC8": "18d6ad725f53b621682948fc45fc60a1cca30ac4",
+        "frozenCandidateBlob": "18d6ad725f53b621682948fc45fc60a1cca30ac4",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Migrations/20261025085402_InitialInternalSavia.Designer.cs",
+        "priorBlob": "c866fc78aa1fc9e41f26c943d7694ae59f4dbba2",
+        "baseBlob": "c866fc78aa1fc9e41f26c943d7694ae59f4dbba2",
+        "expectedWithC8": "c866fc78aa1fc9e41f26c943d7694ae59f4dbba2",
+        "frozenCandidateBlob": "c866fc78aa1fc9e41f26c943d7694ae59f4dbba2",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Migrations/20261025085402_InitialInternalSavia.cs",
+        "priorBlob": "6bfc916d11a72b287373d71956632bb0e0d5b66c",
+        "baseBlob": "6bfc916d11a72b287373d71956632bb0e0d5b66c",
+        "expectedWithC8": "6bfc916d11a72b287373d71956632bb0e0d5b66c",
+        "frozenCandidateBlob": "6bfc916d11a72b287373d71956632bb0e0d5b66c",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Migrations/20261027224500_InternalBranchScope.Designer.cs",
+        "priorBlob": "aab7eb4c04c5adbf0293e3e27275b62ed98662b5",
+        "baseBlob": "aab7eb4c04c5adbf0293e3e27275b62ed98662b5",
+        "expectedWithC8": "aab7eb4c04c5adbf0293e3e27275b62ed98662b5",
+        "frozenCandidateBlob": "aab7eb4c04c5adbf0293e3e27275b62ed98662b5",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Migrations/20261027224500_InternalBranchScope.cs",
+        "priorBlob": "03f90f2b90bf125476666a7308e0ba8075e47090",
+        "baseBlob": "03f90f2b90bf125476666a7308e0ba8075e47090",
+        "expectedWithC8": "03f90f2b90bf125476666a7308e0ba8075e47090",
+        "frozenCandidateBlob": "03f90f2b90bf125476666a7308e0ba8075e47090",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Migrations/InternalDbContextModelSnapshot.cs",
+        "priorBlob": "5ae6410a6b765b8020171248da4b03a9f694ee3b",
+        "baseBlob": "5ae6410a6b765b8020171248da4b03a9f694ee3b",
+        "expectedWithC8": "5ae6410a6b765b8020171248da4b03a9f694ee3b",
+        "frozenCandidateBlob": "5ae6410a6b765b8020171248da4b03a9f694ee3b",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Security/InternalLoginLimiter.cs",
+        "priorBlob": "8077f14642943b2bb31aae5b1e02b7eaca70e417",
+        "baseBlob": "8077f14642943b2bb31aae5b1e02b7eaca70e417",
+        "expectedWithC8": "8077f14642943b2bb31aae5b1e02b7eaca70e417",
+        "frozenCandidateBlob": "8077f14642943b2bb31aae5b1e02b7eaca70e417",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Security/InternalOwnerConsole.cs",
+        "priorBlob": "35ced5c4364fe976a8e6b953756df5964406b02b",
+        "baseBlob": "35ced5c4364fe976a8e6b953756df5964406b02b",
+        "expectedWithC8": "35ced5c4364fe976a8e6b953756df5964406b02b",
+        "frozenCandidateBlob": "35ced5c4364fe976a8e6b953756df5964406b02b",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurity.cs",
+        "priorBlob": "476da10c9748be6b70b0d4c3501838299bd90b3a",
+        "baseBlob": "476da10c9748be6b70b0d4c3501838299bd90b3a",
+        "expectedWithC8": "476da10c9748be6b70b0d4c3501838299bd90b3a",
+        "frozenCandidateBlob": "476da10c9748be6b70b0d4c3501838299bd90b3a",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurityModel.cs",
+        "priorBlob": "f4d17aa5d4f6b1f9a303f2948cd42e15e2aebe12",
+        "baseBlob": "f4d17aa5d4f6b1f9a303f2948cd42e15e2aebe12",
+        "expectedWithC8": "f4d17aa5d4f6b1f9a303f2948cd42e15e2aebe12",
+        "frozenCandidateBlob": "f4d17aa5d4f6b1f9a303f2948cd42e15e2aebe12",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurityRules.cs",
+        "priorBlob": "6b3839872f9317a5b54b492ab09c876e5734ccf5",
+        "baseBlob": "6b3839872f9317a5b54b492ab09c876e5734ccf5",
+        "expectedWithC8": "6b3839872f9317a5b54b492ab09c876e5734ccf5",
+        "frozenCandidateBlob": "6b3839872f9317a5b54b492ab09c876e5734ccf5",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurityService.cs",
+        "priorBlob": "66adf9e7903f56f44a3a5848055f180d0e9ae7c8",
+        "baseBlob": "66adf9e7903f56f44a3a5848055f180d0e9ae7c8",
+        "expectedWithC8": "66adf9e7903f56f44a3a5848055f180d0e9ae7c8",
+        "frozenCandidateBlob": "66adf9e7903f56f44a3a5848055f180d0e9ae7c8",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyDbContext.cs",
+        "priorBlob": "bd31eb059d1b93775dff3ff778ec16080c0aafbc",
+        "baseBlob": "bd31eb059d1b93775dff3ff778ec16080c0aafbc",
+        "expectedWithC8": "bd31eb059d1b93775dff3ff778ec16080c0aafbc",
+        "frozenCandidateBlob": "bd31eb059d1b93775dff3ff778ec16080c0aafbc",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyEndpoints.cs",
+        "priorBlob": "38326c621ea626afe5bde557ac964c21f2a72c27",
+        "baseBlob": "38326c621ea626afe5bde557ac964c21f2a72c27",
+        "expectedWithC8": "38326c621ea626afe5bde557ac964c21f2a72c27",
+        "frozenCandidateBlob": "38326c621ea626afe5bde557ac964c21f2a72c27",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyModels.cs",
+        "priorBlob": "e19f54695d20289c0214d81c2c6ceceb6d4f0846",
+        "baseBlob": "e19f54695d20289c0214d81c2c6ceceb6d4f0846",
+        "expectedWithC8": "e19f54695d20289c0214d81c2c6ceceb6d4f0846",
+        "frozenCandidateBlob": "e19f54695d20289c0214d81c2c6ceceb6d4f0846",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyRules.cs",
+        "priorBlob": "985b21025748f0a90619c4df7f18503245c70806",
+        "baseBlob": "985b21025748f0a90619c4df7f18503245c70806",
+        "expectedWithC8": "985b21025748f0a90619c4df7f18503245c70806",
+        "frozenCandidateBlob": "985b21025748f0a90619c4df7f18503245c70806",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyService.cs",
+        "priorBlob": "98cdc3f11fdebcb3207a6eaafb369c67b058025a",
+        "baseBlob": "98cdc3f11fdebcb3207a6eaafb369c67b058025a",
+        "expectedWithC8": "98cdc3f11fdebcb3207a6eaafb369c67b058025a",
+        "frozenCandidateBlob": "98cdc3f11fdebcb3207a6eaafb369c67b058025a",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Martha.Store.Api.csproj",
+        "priorBlob": "45932d72ec9928deaf57c4a25dc9a8df5520c4cd",
+        "baseBlob": "45932d72ec9928deaf57c4a25dc9a8df5520c4cd",
+        "expectedWithC8": "45932d72ec9928deaf57c4a25dc9a8df5520c4cd",
+        "frozenCandidateBlob": "45932d72ec9928deaf57c4a25dc9a8df5520c4cd",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Migrations/20261024223644_InitialSyntheticFoundation.Designer.cs",
+        "priorBlob": "c7eb8639190c9182aedbc37d07f0e4824c7ec120",
+        "baseBlob": "c7eb8639190c9182aedbc37d07f0e4824c7ec120",
+        "expectedWithC8": "c7eb8639190c9182aedbc37d07f0e4824c7ec120",
+        "frozenCandidateBlob": "c7eb8639190c9182aedbc37d07f0e4824c7ec120",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Migrations/20261024223644_InitialSyntheticFoundation.cs",
+        "priorBlob": "0d70781892ec99550ca44298f48fe62e9ebe5471",
+        "baseBlob": "0d70781892ec99550ca44298f48fe62e9ebe5471",
+        "expectedWithC8": "0d70781892ec99550ca44298f48fe62e9ebe5471",
+        "frozenCandidateBlob": "0d70781892ec99550ca44298f48fe62e9ebe5471",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Migrations/20261025010000_SaviaV2Ledger.Designer.cs",
+        "priorBlob": "370c80e1b54046cb980428e2143f30d7a35ddc9c",
+        "baseBlob": "370c80e1b54046cb980428e2143f30d7a35ddc9c",
+        "expectedWithC8": "370c80e1b54046cb980428e2143f30d7a35ddc9c",
+        "frozenCandidateBlob": "370c80e1b54046cb980428e2143f30d7a35ddc9c",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Migrations/20261025010000_SaviaV2Ledger.cs",
+        "priorBlob": "bb8f98014fc2f3057925197ffeb0ba9fb4553b99",
+        "baseBlob": "bb8f98014fc2f3057925197ffeb0ba9fb4553b99",
+        "expectedWithC8": "bb8f98014fc2f3057925197ffeb0ba9fb4553b99",
+        "frozenCandidateBlob": "bb8f98014fc2f3057925197ffeb0ba9fb4553b99",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Migrations/StoreDbContextModelSnapshot.cs",
+        "priorBlob": "1b3b5bde47b0cb67210dfd106ae9cbc91b989424",
+        "baseBlob": "1b3b5bde47b0cb67210dfd106ae9cbc91b989424",
+        "expectedWithC8": "1b3b5bde47b0cb67210dfd106ae9cbc91b989424",
+        "frozenCandidateBlob": "1b3b5bde47b0cb67210dfd106ae9cbc91b989424",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Program.cs",
+        "priorBlob": "2d81835ee1725d9f0a0c713c8ee3b0a990a6001d",
+        "baseBlob": "2d81835ee1725d9f0a0c713c8ee3b0a990a6001d",
+        "expectedWithC8": "2d81835ee1725d9f0a0c713c8ee3b0a990a6001d",
+        "frozenCandidateBlob": "2d81835ee1725d9f0a0c713c8ee3b0a990a6001d",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/SaviaModel.cs",
+        "priorBlob": "c74eb379b5243d8c9019a8566eae6d4abcc6588c",
+        "baseBlob": "c74eb379b5243d8c9019a8566eae6d4abcc6588c",
+        "expectedWithC8": "c74eb379b5243d8c9019a8566eae6d4abcc6588c",
+        "frozenCandidateBlob": "c74eb379b5243d8c9019a8566eae6d4abcc6588c",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/SaviaModels.cs",
+        "priorBlob": "b948ca89646ed249c6f431eca4cc82a63f5ab90a",
+        "baseBlob": "b948ca89646ed249c6f431eca4cc82a63f5ab90a",
+        "expectedWithC8": "b948ca89646ed249c6f431eca4cc82a63f5ab90a",
+        "frozenCandidateBlob": "b948ca89646ed249c6f431eca4cc82a63f5ab90a",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/SaviaService.cs",
+        "priorBlob": "f9bd7e3140a66663dd2cc0c3ce187db38a8d36c9",
+        "baseBlob": "f9bd7e3140a66663dd2cc0c3ce187db38a8d36c9",
+        "expectedWithC8": "f9bd7e3140a66663dd2cc0c3ce187db38a8d36c9",
+        "frozenCandidateBlob": "f9bd7e3140a66663dd2cc0c3ce187db38a8d36c9",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/SaviaSyntheticSeed.cs",
+        "priorBlob": "34a4efafc55ddd8c2fa11e8214b3bae6ae147a0f",
+        "baseBlob": "34a4efafc55ddd8c2fa11e8214b3bae6ae147a0f",
+        "expectedWithC8": "34a4efafc55ddd8c2fa11e8214b3bae6ae147a0f",
+        "frozenCandidateBlob": "34a4efafc55ddd8c2fa11e8214b3bae6ae147a0f",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/StoreDatabaseGuard.cs",
+        "priorBlob": "97d8c71dc8bbfc3602ca4c44f00d9c98736c0479",
+        "baseBlob": "97d8c71dc8bbfc3602ca4c44f00d9c98736c0479",
+        "expectedWithC8": "97d8c71dc8bbfc3602ca4c44f00d9c98736c0479",
+        "frozenCandidateBlob": "97d8c71dc8bbfc3602ca4c44f00d9c98736c0479",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/StoreDbContext.cs",
+        "priorBlob": "14797ed3ef295f5af27d993354e86fe771b83c1e",
+        "baseBlob": "14797ed3ef295f5af27d993354e86fe771b83c1e",
+        "expectedWithC8": "14797ed3ef295f5af27d993354e86fe771b83c1e",
+        "frozenCandidateBlob": "14797ed3ef295f5af27d993354e86fe771b83c1e",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/StoreDbContextFactory.cs",
+        "priorBlob": "9b05ad1de7ca92ae52613c043302722668aedc3b",
+        "baseBlob": "9b05ad1de7ca92ae52613c043302722668aedc3b",
+        "expectedWithC8": "9b05ad1de7ca92ae52613c043302722668aedc3b",
+        "frozenCandidateBlob": "9b05ad1de7ca92ae52613c043302722668aedc3b",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/SyntheticOrders.cs",
+        "priorBlob": "1ef44fb3b17891caa6d1a8789ee8fd76bf841585",
+        "baseBlob": "1ef44fb3b17891caa6d1a8789ee8fd76bf841585",
+        "expectedWithC8": "1ef44fb3b17891caa6d1a8789ee8fd76bf841585",
+        "frozenCandidateBlob": "1ef44fb3b17891caa6d1a8789ee8fd76bf841585",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/SyntheticSeed.cs",
+        "priorBlob": "66159380f47d727af14272af50e115ca84b6261b",
+        "baseBlob": "66159380f47d727af14272af50e115ca84b6261b",
+        "expectedWithC8": "66159380f47d727af14272af50e115ca84b6261b",
+        "frozenCandidateBlob": "66159380f47d727af14272af50e115ca84b6261b",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/packages.lock.json",
+        "priorBlob": "b0baf3aefb660433fe3ea404c66b7337296edf45",
+        "baseBlob": "b0baf3aefb660433fe3ea404c66b7337296edf45",
+        "expectedWithC8": "b0baf3aefb660433fe3ea404c66b7337296edf45",
+        "frozenCandidateBlob": "b0baf3aefb660433fe3ea404c66b7337296edf45",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+        "priorBlob": "55278b1e3bc355a1fe58607a8a8cb7a6ecd44fa9",
+        "baseBlob": "55278b1e3bc355a1fe58607a8a8cb7a6ecd44fa9",
+        "expectedWithC8": "55278b1e3bc355a1fe58607a8a8cb7a6ecd44fa9",
+        "frozenCandidateBlob": "55278b1e3bc355a1fe58607a8a8cb7a6ecd44fa9",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "backend/tests/Martha.Store.Api.Tests/packages.lock.json",
+        "priorBlob": "db8eae16ca336d09066bc1f92026701657efc8e2",
+        "baseBlob": "db8eae16ca336d09066bc1f92026701657efc8e2",
+        "expectedWithC8": "db8eae16ca336d09066bc1f92026701657efc8e2",
+        "frozenCandidateBlob": "db8eae16ca336d09066bc1f92026701657efc8e2",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "dev/savia-staff-ui/README.md",
+        "priorBlob": "457ce09820a5e822ad7d1221dad366963f2e09e4",
+        "baseBlob": "457ce09820a5e822ad7d1221dad366963f2e09e4",
+        "expectedWithC8": "f7f17b0f792586ce3d296e6bcb78b4e046a905d1",
+        "frozenCandidateBlob": "f7f17b0f792586ce3d296e6bcb78b4e046a905d1",
+        "match": true,
+        "intentionalC8Replacement": true
+      },
+      {
+        "path": "dev/savia-staff-ui/app.mjs",
+        "priorBlob": "a9c975a7246db0def6498ca768d578385033f9eb",
+        "baseBlob": "a9c975a7246db0def6498ca768d578385033f9eb",
+        "expectedWithC8": "761eafa3e64ebca784d96c4465d052b2603c91be",
+        "frozenCandidateBlob": "761eafa3e64ebca784d96c4465d052b2603c91be",
+        "match": true,
+        "intentionalC8Replacement": true
+      },
+      {
+        "path": "dev/savia-staff-ui/auth.test.mjs",
+        "priorBlob": "3693647dc3af389050d15e2f2f9a8de4e7e9d7e8",
+        "baseBlob": "3693647dc3af389050d15e2f2f9a8de4e7e9d7e8",
+        "expectedWithC8": "857e81996dc82a4a9e484e86099d2c9c00b09586",
+        "frozenCandidateBlob": "857e81996dc82a4a9e484e86099d2c9c00b09586",
+        "match": true,
+        "intentionalC8Replacement": true
+      },
+      {
+        "path": "dev/savia-staff-ui/branch-compat.test.mjs",
+        "priorBlob": "f220d358fc27f938ae67fd52418fb09517fe2ec0",
+        "baseBlob": "f220d358fc27f938ae67fd52418fb09517fe2ec0",
+        "expectedWithC8": "f220d358fc27f938ae67fd52418fb09517fe2ec0",
+        "frozenCandidateBlob": "f220d358fc27f938ae67fd52418fb09517fe2ec0",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "dev/savia-staff-ui/client.mjs",
+        "priorBlob": "744ab5db68eb1a5f7a89e5cb3d1a424459add9ae",
+        "baseBlob": "744ab5db68eb1a5f7a89e5cb3d1a424459add9ae",
+        "expectedWithC8": "744ab5db68eb1a5f7a89e5cb3d1a424459add9ae",
+        "frozenCandidateBlob": "744ab5db68eb1a5f7a89e5cb3d1a424459add9ae",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "dev/savia-staff-ui/commerce.test.mjs",
+        "priorBlob": "cdc8dabd6289b6282c48ca7d9a328e850a213026",
+        "baseBlob": "cdc8dabd6289b6282c48ca7d9a328e850a213026",
+        "expectedWithC8": "cdc8dabd6289b6282c48ca7d9a328e850a213026",
+        "frozenCandidateBlob": "cdc8dabd6289b6282c48ca7d9a328e850a213026",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "dev/savia-staff-ui/dom.test.mjs",
+        "priorBlob": "43322796ac0e4f84c99c301b80aa21cc5277a6d1",
+        "baseBlob": "43322796ac0e4f84c99c301b80aa21cc5277a6d1",
+        "expectedWithC8": "43322796ac0e4f84c99c301b80aa21cc5277a6d1",
+        "frozenCandidateBlob": "43322796ac0e4f84c99c301b80aa21cc5277a6d1",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "dev/savia-staff-ui/index.html",
+        "priorBlob": "96bc1fa79847e58ab1edcf2239b0a73831ceb27b",
+        "baseBlob": "96bc1fa79847e58ab1edcf2239b0a73831ceb27b",
+        "expectedWithC8": "96bc1fa79847e58ab1edcf2239b0a73831ceb27b",
+        "frozenCandidateBlob": "96bc1fa79847e58ab1edcf2239b0a73831ceb27b",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "dev/savia-staff-ui/login.html",
+        "priorBlob": "6d37d8e1de075fdca8d9da3c43fa05e4e4f8f87c",
+        "baseBlob": "6d37d8e1de075fdca8d9da3c43fa05e4e4f8f87c",
+        "expectedWithC8": "6d37d8e1de075fdca8d9da3c43fa05e4e4f8f87c",
+        "frozenCandidateBlob": "6d37d8e1de075fdca8d9da3c43fa05e4e4f8f87c",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "dev/savia-staff-ui/login.mjs",
+        "priorBlob": "40bf4849b1026a5ea218776c4f651166eb10acce",
+        "baseBlob": "40bf4849b1026a5ea218776c4f651166eb10acce",
+        "expectedWithC8": "6a639cafe028fe28be9ab0539688afcaa7aef86b",
+        "frozenCandidateBlob": "6a639cafe028fe28be9ab0539688afcaa7aef86b",
+        "match": true,
+        "intentionalC8Replacement": true
+      },
+      {
+        "path": "dev/savia-staff-ui/pagination.test.mjs",
+        "priorBlob": "d82bb60450e5db353d2938f83f4ff33b93db68b5",
+        "baseBlob": "d82bb60450e5db353d2938f83f4ff33b93db68b5",
+        "expectedWithC8": "d82bb60450e5db353d2938f83f4ff33b93db68b5",
+        "frozenCandidateBlob": "d82bb60450e5db353d2938f83f4ff33b93db68b5",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "dev/savia-staff-ui/styles.css",
+        "priorBlob": "dfd080c6f83adb95d8ea44e5cdd675c8e8f28067",
+        "baseBlob": "dfd080c6f83adb95d8ea44e5cdd675c8e8f28067",
+        "expectedWithC8": "dfd080c6f83adb95d8ea44e5cdd675c8e8f28067",
+        "frozenCandidateBlob": "dfd080c6f83adb95d8ea44e5cdd675c8e8f28067",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "global.json",
+        "priorBlob": "08555100a62dbedcf53940a125126f8aa222c4c9",
+        "baseBlob": "08555100a62dbedcf53940a125126f8aa222c4c9",
+        "expectedWithC8": "08555100a62dbedcf53940a125126f8aa222c4c9",
+        "frozenCandidateBlob": "08555100a62dbedcf53940a125126f8aa222c4c9",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "package-lock.json",
+        "priorBlob": "455318a0618b4081793def4c643c21c296aa9aeb",
+        "baseBlob": "455318a0618b4081793def4c643c21c296aa9aeb",
+        "expectedWithC8": "455318a0618b4081793def4c643c21c296aa9aeb",
+        "frozenCandidateBlob": "455318a0618b4081793def4c643c21c296aa9aeb",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "package.json",
+        "priorBlob": "e6b1fcd60d5907313bd6aabcc1f072c89bf7ff34",
+        "baseBlob": "e6b1fcd60d5907313bd6aabcc1f072c89bf7ff34",
+        "expectedWithC8": "e6b1fcd60d5907313bd6aabcc1f072c89bf7ff34",
+        "frozenCandidateBlob": "e6b1fcd60d5907313bd6aabcc1f072c89bf7ff34",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "tests/browser-mock-validation.mjs",
+        "priorBlob": "6a6a1ac3d1873c48f1c5d146c36467993b492fa8",
+        "baseBlob": "6a6a1ac3d1873c48f1c5d146c36467993b492fa8",
+        "expectedWithC8": "199f8826515d0a3c1f3e6c8981d964b6fc3aeebd",
+        "frozenCandidateBlob": "199f8826515d0a3c1f3e6c8981d964b6fc3aeebd",
+        "match": true,
+        "intentionalC8Replacement": true
+      },
+      {
+        "path": "tests/frontend-deps/package-lock.json",
+        "priorBlob": "e7451a6fe7c07b77969508ccc3445bb44be6232d",
+        "baseBlob": "e7451a6fe7c07b77969508ccc3445bb44be6232d",
+        "expectedWithC8": "e7451a6fe7c07b77969508ccc3445bb44be6232d",
+        "frozenCandidateBlob": "e7451a6fe7c07b77969508ccc3445bb44be6232d",
+        "match": true,
+        "intentionalC8Replacement": false
+      },
+      {
+        "path": "tests/frontend-deps/package.json",
+        "priorBlob": "1d73fca162646f826b00cd1f3698ddca22b8e36b",
+        "baseBlob": "1d73fca162646f826b00cd1f3698ddca22b8e36b",
+        "expectedWithC8": "1d73fca162646f826b00cd1f3698ddca22b8e36b",
+        "frozenCandidateBlob": "1d73fca162646f826b00cd1f3698ddca22b8e36b",
+        "match": true,
+        "intentionalC8Replacement": false
+      }
+    ],
+    "historicalDriftOutsideFocusedClosure": [
+      "backend/src/Martha.Store.Api/Internal/Migrations/InitialInternalSavia.idempotent.sql",
+      "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs",
+      "backend/tests/Martha.Store.Api.Tests/InternalCommerceSqlTests.cs",
+      "backend/tests/Martha.Store.Api.Tests/InternalJudgeTests.cs",
+      "backend/tests/Martha.Store.Api.Tests/InternalReleaseScriptTests.cs",
+      "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs"
+    ]
+  },
+  "sourceInventory": {
+    "reviewedFiles": 48,
+    "hashMatches": 48,
+    "entries": [
+      {
+        "path": "docs/c8-ui-20261103/api-expiry-completion-20261103/backend-test.patch",
+        "expectedSha256": "927ea77b1a63c134cae03dac13e6545d624a05a8f3aabb501d01fef100a23e09",
+        "observedSha256": "927ea77b1a63c134cae03dac13e6545d624a05a8f3aabb501d01fef100a23e09",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/c8-ui-20261103/api-expiry-completion-20261103/command-results.json",
+        "expectedSha256": "641c9d6e0d33e539ea256e0017a5be1c67e6d0b7e2b74086c772bb5371e9c502",
+        "observedSha256": "641c9d6e0d33e539ea256e0017a5be1c67e6d0b7e2b74086c772bb5371e9c502",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/c8-ui-20261103/api-expiry-completion-20261103/completion.md",
+        "expectedSha256": "c52ff1d6b153ece88df6f61e7960b34927aa917fc74c99b723158a00ad4a27dd",
+        "observedSha256": "c52ff1d6b153ece88df6f61e7960b34927aa917fc74c99b723158a00ad4a27dd",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/c8-ui-20261103/api-expiry-completion-20261103/expiry-test.sanitized.trx",
+        "expectedSha256": "0666601786ac1e5bb548865f737fbf65d40124ddbc94fb0947f290d0649b9cd9",
+        "observedSha256": "0666601786ac1e5bb548865f737fbf65d40124ddbc94fb0947f290d0649b9cd9",
+        "match": true,
+        "excludedFromPublication": true
+      },
+      {
+        "path": "docs/c8-ui-20261103/api-expiry-completion-20261103/primary-acceptance.json",
+        "expectedSha256": "cbbe72e21fc30daa9ba1f74de8f1b51e6722072b345e63dd88895da834f85fef",
+        "observedSha256": "cbbe72e21fc30daa9ba1f74de8f1b51e6722072b345e63dd88895da834f85fef",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/c8-ui-20261103/api-expiry-completion-20261103/report.md",
+        "expectedSha256": "6a25bc8f6c9b2ac7c1feb0709ce34fb9e6b927fb4b74805b0c4b54a3e7b93ac6",
+        "observedSha256": "6a25bc8f6c9b2ac7c1feb0709ce34fb9e6b927fb4b74805b0c4b54a3e7b93ac6",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/c8-ui-20261103/api-expiry-completion-20261103/scope-verification.json",
+        "expectedSha256": "0a79c58558104411ca4ca1c578ff9483da2176e2fe5498bf2099a8f6a823ac2a",
+        "observedSha256": "0a79c58558104411ca4ca1c578ff9483da2176e2fe5498bf2099a8f6a823ac2a",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/c8-ui-20261103/api-expiry-completion-20261103/sdk-provenance.json",
+        "expectedSha256": "1f47fcf73015e2af35c0c5ebc25cd25327a43a45077840aff2e964f2d2c7de35",
+        "observedSha256": "1f47fcf73015e2af35c0c5ebc25cd25327a43a45077840aff2e964f2d2c7de35",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/c8-ui-20261103/api-expiry-completion-20261103/security-regressions.sanitized.trx",
+        "expectedSha256": "28c1d1fb4aa1706b9e2b472b665f857199c001e8f264f21897f3ac9d655ee12d",
+        "observedSha256": "28c1d1fb4aa1706b9e2b472b665f857199c001e8f264f21897f3ac9d655ee12d",
+        "match": true,
+        "excludedFromPublication": true
+      },
+      {
+        "path": "docs/c8-ui-20261103/api-expiry-completion-20261103/SHA256SUMS.json",
+        "expectedSha256": "88a58250133a48e6b615b790a2dc2c527c83e829cb7d1f94aed819b524789e03",
+        "observedSha256": "88a58250133a48e6b615b790a2dc2c527c83e829cb7d1f94aed819b524789e03",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/c8-ui-20261103/api-expiry-completion-20261103/test-results.json",
+        "expectedSha256": "10b4b3b84186bfa44902a4883d3fd037908e3caf2dda21bf7fd198c03503e64f",
+        "observedSha256": "10b4b3b84186bfa44902a4883d3fd037908e3caf2dda21bf7fd198c03503e64f",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/c8-ui-20261103/api-expiry-completion-20261103/trello-before.json",
+        "expectedSha256": "cd014d4f477a7c0155f01cc8a772454adf8f7eb723fcb35875bf81f078bb42a9",
+        "observedSha256": "cd014d4f477a7c0155f01cc8a772454adf8f7eb723fcb35875bf81f078bb42a9",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/c8-ui-20261103/api-expiry-completion-20261103/trello-readback.json",
+        "expectedSha256": "1e941ef96d9f5d00bd1b33448c2208623ab46fb16e59951dc39cf21ee7287eed",
+        "observedSha256": "1e941ef96d9f5d00bd1b33448c2208623ab46fb16e59951dc39cf21ee7287eed",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/c8-ui-20261103/api-expiry-completion-20261103/verification.json",
+        "expectedSha256": "805336ca4dbb361aac7ebb6b974b4747e732ef3d70fca643b44454aaf4a09c2d",
+        "observedSha256": "805336ca4dbb361aac7ebb6b974b4747e732ef3d70fca643b44454aaf4a09c2d",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/c8-ui-20261103/api-expiry-handoff.md",
+        "expectedSha256": "95351f1492f246d044abefcb644280e93d29aa0ecdf96552ac57e035f3b0e197",
+        "observedSha256": "95351f1492f246d044abefcb644280e93d29aa0ecdf96552ac57e035f3b0e197",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/c8-ui-20261103/api-prerequisite.json",
+        "expectedSha256": "616425dc03489474119d60c9c9ca75964978e99717aaa6dd204265477217579f",
+        "observedSha256": "616425dc03489474119d60c9c9ca75964978e99717aaa6dd204265477217579f",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/c8-ui-20261103/c8-preflight.json",
+        "expectedSha256": "723a6f24d0cf8b93f0d33c1c30eaade527cece5fa521ad8c5dae6430134d6620",
+        "observedSha256": "723a6f24d0cf8b93f0d33c1c30eaade527cece5fa521ad8c5dae6430134d6620",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/c8-ui-20261103/c8-trello-start.json",
+        "expectedSha256": "4afb76ac63d4fc24d7c6e43197dc26dc5294bad2d652f62e7b1098756643755f",
+        "observedSha256": "4afb76ac63d4fc24d7c6e43197dc26dc5294bad2d652f62e7b1098756643755f",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/c8-ui-20261103/cleanup.json",
+        "expectedSha256": "99b2385aae101a56c42fdd2c522e8a044e45ed521c8841e951f51c9526032d5a",
+        "observedSha256": "99b2385aae101a56c42fdd2c522e8a044e45ed521c8841e951f51c9526032d5a",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/c8-ui-20261103/current-head-20261104/acceptance-checks.json",
+        "expectedSha256": "a4bae8c65c49fc233621671733ec553a09916e62e2a1eb4d423319d27a4afd72",
+        "observedSha256": "a4bae8c65c49fc233621671733ec553a09916e62e2a1eb4d423319d27a4afd72",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/c8-ui-20261103/current-head-20261104/binding.json",
+        "expectedSha256": "f75f98e37c5506c960cebba06f1be86e7699b8d3e69b099409206f94a92c2545",
+        "observedSha256": "f75f98e37c5506c960cebba06f1be86e7699b8d3e69b099409206f94a92c2545",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/c8-ui-20261103/current-head-20261104/candidate.patch",
+        "expectedSha256": "a0762dc021260f4c8c88b849552c4775c6bef17af06c5338e68e95cd7a221df0",
+        "observedSha256": "a0762dc021260f4c8c88b849552c4775c6bef17af06c5338e68e95cd7a221df0",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/c8-ui-20261103/current-head-20261104/export-manifest.json",
+        "expectedSha256": "64a66c98c3ef042178f2a2555889f88ef856a441a354d919cd44e8b2f46c1c00",
+        "observedSha256": "64a66c98c3ef042178f2a2555889f88ef856a441a354d919cd44e8b2f46c1c00",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/c8-ui-20261103/current-head-20261104/ledger-proposal.patch",
+        "expectedSha256": "fb0409a4d29f8483b0670f96dcddd2ed6a674431dee2131433f619b692c4c1aa",
+        "observedSha256": "fb0409a4d29f8483b0670f96dcddd2ed6a674431dee2131433f619b692c4c1aa",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/c8-ui-20261103/current-head-20261104/primary-acceptance.json",
+        "expectedSha256": "412f5ff9a4bff23ae9a90fe520c9ac65d21fe1791885d0255f8c2b125ebd6b77",
+        "observedSha256": "412f5ff9a4bff23ae9a90fe520c9ac65d21fe1791885d0255f8c2b125ebd6b77",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/c8-ui-20261103/current-head-20261104/reconciliation.md",
+        "expectedSha256": "9dd3174df941de5ea3f2e5fa5008771fd354db1dc0f97b32a93b32d1ebb33021",
+        "observedSha256": "9dd3174df941de5ea3f2e5fa5008771fd354db1dc0f97b32a93b32d1ebb33021",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/c8-ui-20261103/current-head-20261104/report.md",
+        "expectedSha256": "1d07c9a22c666e851d6036f066dc884fd889f2b9cc3e015b221f1fb49a4407fe",
+        "observedSha256": "1d07c9a22c666e851d6036f066dc884fd889f2b9cc3e015b221f1fb49a4407fe",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/c8-ui-20261103/current-head-20261104/trello-proposal.json",
+        "expectedSha256": "c83bdc948418ab5d3481903c6ecec6800b0ff11ac2629bab1770820029b6fd69",
+        "observedSha256": "c83bdc948418ab5d3481903c6ecec6800b0ff11ac2629bab1770820029b6fd69",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/c8-ui-20261103/current-head-20261104/verification.json",
+        "expectedSha256": "b2ab6d6cae014e68faddd3971a40abd379f5eaf7922ec76b85d89d0dfd60bd0c",
+        "observedSha256": "b2ab6d6cae014e68faddd3971a40abd379f5eaf7922ec76b85d89d0dfd60bd0c",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/c8-ui-20261103/independent-review.md",
+        "expectedSha256": "50fbc6ee32a07027551ac0565ee9126fef1a6e5c1bed367fdd004162bb669b8a",
+        "observedSha256": "50fbc6ee32a07027551ac0565ee9126fef1a6e5c1bed367fdd004162bb669b8a",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/c8-ui-20261103/README.md",
+        "expectedSha256": "ac2781f50757180607c904568318a2a408dcf07019bab3f8906cd7df3759a3c3",
+        "observedSha256": "ac2781f50757180607c904568318a2a408dcf07019bab3f8906cd7df3759a3c3",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/c8-ui-20261103/report.md",
+        "expectedSha256": "69286e085173f28a7d20926c8a0e7b078a118997fb980f8c04775421c0d2feb3",
+        "observedSha256": "69286e085173f28a7d20926c8a0e7b078a118997fb980f8c04775421c0d2feb3",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/c8-ui-20261103/trello-readback.json",
+        "expectedSha256": "fecf67ea71726adc17d5932909d7b21369959ad8beb353449081ca9d3f130a04",
+        "observedSha256": "fecf67ea71726adc17d5932909d7b21369959ad8beb353449081ca9d3f130a04",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/c8-ui-20261103/ui.patch",
+        "expectedSha256": "0f87604ec56d081fc2f2432fcfbd7c2ecdd74524240ce7db7fb4fa8442408f5c",
+        "observedSha256": "0f87604ec56d081fc2f2432fcfbd7c2ecdd74524240ce7db7fb4fa8442408f5c",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/c8-ui-20261103/verification.json",
+        "expectedSha256": "b00f40217858bad1ca39a7da12e28af2135036600864ad455af41218093659e8",
+        "observedSha256": "b00f40217858bad1ca39a7da12e28af2135036600864ad455af41218093659e8",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/technical-ready-review-20261104/checklist-verdicts.json",
+        "expectedSha256": "28d5e972f4589080321d61f11790525f21499c8c5a0dc7228866f61e32fea4e5",
+        "observedSha256": "28d5e972f4589080321d61f11790525f21499c8c5a0dc7228866f61e32fea4e5",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/technical-ready-review-20261104/completion.json",
+        "expectedSha256": "de333ca8f282a5bd13491e6853179e41f2c08d2e67c8f88e1590fc18de73d71f",
+        "observedSha256": "de333ca8f282a5bd13491e6853179e41f2c08d2e67c8f88e1590fc18de73d71f",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/technical-ready-review-20261104/evidence/backend-sanitized-results.json",
+        "expectedSha256": "e3142bc04e35b0653f05d7c31377550b3a579aa382fa6f8a9347e01f99a8eb55",
+        "observedSha256": "e3142bc04e35b0653f05d7c31377550b3a579aa382fa6f8a9347e01f99a8eb55",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/technical-ready-review-20261104/evidence/ci-status.json",
+        "expectedSha256": "8e413c6480fe91f9ff2c0d19f0c1cfe1443fe4b7eca49883df2ba3622909b1a3",
+        "observedSha256": "8e413c6480fe91f9ff2c0d19f0c1cfe1443fe4b7eca49883df2ba3622909b1a3",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/technical-ready-review-20261104/evidence/golden-evidence.json",
+        "expectedSha256": "f4841b01674316deb26698083131b35d16eebe9b3dfa5a2bbc2a3735ff00a3fb",
+        "observedSha256": "f4841b01674316deb26698083131b35d16eebe9b3dfa5a2bbc2a3735ff00a3fb",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/technical-ready-review-20261104/evidence/head-merge-binding.json",
+        "expectedSha256": "eb2738dac8ff317af48e203de8b4cef5e6e2dba0be062c5a826334087cb7ee67",
+        "observedSha256": "eb2738dac8ff317af48e203de8b4cef5e6e2dba0be062c5a826334087cb7ee67",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/technical-ready-review-20261104/export-manifest.json",
+        "expectedSha256": "c427c2241eac0091dac14191ec5a32940125ab43de5aeb1f6e1cab9d3f48baa9",
+        "observedSha256": "c427c2241eac0091dac14191ec5a32940125ab43de5aeb1f6e1cab9d3f48baa9",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/technical-ready-review-20261104/independent-review.md",
+        "expectedSha256": "b162297d191ce1cdcfd395ed0a0a7e3a41ab9080ecef62d3ff5d7905c336eba3",
+        "observedSha256": "b162297d191ce1cdcfd395ed0a0a7e3a41ab9080ecef62d3ff5d7905c336eba3",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/technical-ready-review-20261104/primary-review.md",
+        "expectedSha256": "0df710fb3e9288e48651320ba2e98ccf32138f98b94230dab569c721f5b2fae4",
+        "observedSha256": "0df710fb3e9288e48651320ba2e98ccf32138f98b94230dab569c721f5b2fae4",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/technical-ready-review-20261104/resources-final.json",
+        "expectedSha256": "4adc4c965c4023b0f531d92bc888d2b89ff883e2b8f7e5d93d7e79286512709c",
+        "observedSha256": "4adc4c965c4023b0f531d92bc888d2b89ff883e2b8f7e5d93d7e79286512709c",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/technical-ready-review-20261104/trello-before.json",
+        "expectedSha256": "fde9f7fa3ea335dd994e7cf4fd95c9e3a1688804095c2f065c05e12304511759",
+        "observedSha256": "fde9f7fa3ea335dd994e7cf4fd95c9e3a1688804095c2f065c05e12304511759",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/technical-ready-review-20261104/trello-readback.json",
+        "expectedSha256": "291f03f1ae22a051caa85a2af0778a7cb9b40d2a343321470bf39af73da0714e",
+        "observedSha256": "291f03f1ae22a051caa85a2af0778a7cb9b40d2a343321470bf39af73da0714e",
+        "match": true,
+        "excludedFromPublication": false
+      },
+      {
+        "path": "docs/technical-ready-review-20261104/worktrees-final.json",
+        "expectedSha256": "cb4b37c94728e96819df141c4bec2139ace54ee02674f733dcebd1ff75a4dcf7",
+        "observedSha256": "cb4b37c94728e96819df141c4bec2139ace54ee02674f733dcebd1ff75a4dcf7",
+        "match": true,
+        "excludedFromPublication": false
+      }
+    ],
+    "excludedFromPublication": [
+      "docs/c8-ui-20261103/api-expiry-completion-20261103/expiry-test.sanitized.trx",
+      "docs/c8-ui-20261103/api-expiry-completion-20261103/security-regressions.sanitized.trx"
+    ],
+    "excludedContentCopied": false
+  },
+  "historicalEvidence": {
+    "mode": "REUSED_NOT_RERUN",
+    "newTestRuns": 0,
+    "source": "docs/c8-ui-20261103/current-head-20261104/verification.json",
+    "reusedResults": {
+      "focusedBrowser": {
+        "passed": 9,
+        "failed": 0
+      },
+      "fullBrowser": {
+        "passed": 45,
+        "failed": 0
+      },
+      "staffUnit": {
+        "passed": 45,
+        "failed": 0,
+        "skipped": 0,
+        "exit": 0,
+        "logSha256": "8019520bd1f899323dac3fe67fc1252307b86ec69877b0afcbf8353bef91c5ae"
+      },
+      "apiExpiry": {
+        "passed": 1,
+        "failed": 0
+      },
+      "InternalSecurityTests": {
+        "passed": 49,
+        "failed": 0
+      }
+    },
+    "localSanitizedTrxReadback": [
+      {
+        "source": "docs/c8-ui-20261103/api-expiry-completion-20261103/expiry-test.sanitized.trx",
+        "sha256": "0666601786ac1e5bb548865f737fbf65d40124ddbc94fb0947f290d0649b9cd9",
+        "counters": [
+          {
+            "total": 1,
+            "executed": 1,
+            "passed": 1,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          }
+        ],
+        "resultCount": 1,
+        "allPassed": true,
+        "excludedFromPublication": true,
+        "rawContentCopied": false
+      },
+      {
+        "source": "docs/c8-ui-20261103/api-expiry-completion-20261103/security-regressions.sanitized.trx",
+        "sha256": "28c1d1fb4aa1706b9e2b472b665f857199c001e8f264f21897f3ac9d655ee12d",
+        "counters": [
+          {
+            "total": 49,
+            "executed": 49,
+            "passed": 49,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          }
+        ],
+        "resultCount": 49,
+        "allPassed": true,
+        "excludedFromPublication": true,
+        "rawContentCopied": false
+      }
+    ],
+    "historicalHarnessBindingLimit": "Harness hash recorded after runs, not inside each historical run. Red driver only writes app.mjs/login.mjs, preserving test file; nine identical named cases in red and final green.",
+    "runtime": {
+      "node": "v24.18.0",
+      "browser": "156.0.8078.80",
+      "dotnet": "10.0.402"
+    },
+    "deduplication": [
+      "Focused 9 browser cases are part of browser 45.",
+      "Expiry 1 case is part of security 49.",
+      "Security 49 must be located inside backend 600 in final artifact.",
+      "These suites cover distinct layers and are never summed as a completion percentage."
+    ]
+  },
+  "acceptanceMap": [
+    {
+      "criterion": "N2 reload without duplicate",
+      "coverage": "Three named browser cases: Cashier, Owner, Manager",
+      "source": "tests/browser-mock-validation.mjs:141-152",
+      "assertions": [
+        "same original key on recovery GET",
+        "one sales POST after first and repeated reload",
+        "same sale receipt"
+      ],
+      "limit": "Browser with mocked staff API; no SQL proof"
+    },
+    {
+      "criterion": "N6 identity/version/location isolation",
+      "coverage": "Three named browser cases: actor change, version change, legacy location change",
+      "source": "tests/browser-mock-validation.mjs:153-184",
+      "assertions": [
+        "original pending record preserved",
+        "no recovery GET in changed scope",
+        "no replay as new actor or scope",
+        "private receipt hidden"
+      ],
+      "limit": "Legacy attempt lacks version; currently authorized recovery only; never rebound"
+    },
+    {
+      "criterion": "N7 revoked/absolute-expiry 401 and logout",
+      "coverage": "Three named browser cases: mocked revoked 401, mocked absolute-expiry 401, logout",
+      "source": "tests/browser-mock-validation.mjs:185-220",
+      "assertions": [
+        "late private response ignored",
+        "sale POST held at CSRF is canceled",
+        "pending key preserved",
+        "UI remains closed after denial"
+      ],
+      "limit": "Browser 401 is synthetic; does not prove API clock expiry"
+    },
+    {
+      "criterion": "API absolute expiry",
+      "coverage": "Martha.Store.Api.Tests.InternalSecurityTests.Expired_cookie_is_rejected_by_fake_TimeProvider_before_database_resolution",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSecurityTests.cs:261-322",
+      "assertions": [
+        "valid protected ticket roundtrip",
+        "same fake TimeProvider in DI and named cookie options",
+        "8h+1s gives two 401 responses",
+        "expired DB resolution count remains zero",
+        "nonexpired control trips exact production-event DB guard once"
+      ],
+      "limit": "TestServer in-memory; synthetic protected cookie; production events/options; no SQL connection or global-clock change"
+    },
+    {
+      "criterion": "Auth races and staff regressions",
+      "coverage": "45 staff JS tests, including late headers/body and revalidation after concurrent 401",
+      "source": "dev/savia-staff-ui/auth.test.mjs:137-175",
+      "assertions": [
+        "late data cannot restore access",
+        "session revalidation cannot revive denied session"
+      ],
+      "limit": "Transport/DOM doubles; separate from real browser"
+    },
+    {
+      "criterion": "Integrated regressions",
+      "coverage": "Backend 600/600, security 49/49, staff 45/45, browser 45/45",
+      "source": ".github/workflows/savia.yml",
+      "assertions": [
+        "all named required jobs/steps ran",
+        "zero backend notPassed",
+        "no staff skipped/cancelled/todo",
+        "all 45 browser results passed",
+        "same final candidate or proven identical merge tree"
+      ],
+      "limit": "PENDING final CI; green state alone insufficient"
+    }
+  ],
+  "minimumFinalCiRequest": {
+    "artifacts": [
+      {
+        "name": "savia-browser-evidence-<run_id>-<run_attempt>",
+        "requiredFile": "browser-results.json",
+        "reason": "45 named browser results; nine C8 results; sourceHashes; runtime; externalRequests/networkFailures. Screenshots/video not required to close this behavior-only acceptance."
+      },
+      {
+        "name": "savia-backend-outcomes-<run_id>-<run_attempt>",
+        "requiredFile": "sanitized-results.json",
+        "reason": "cases=600, passed=600, notPassed=0; InternalSecurityTests methods sum 49/49; expiry method 1/1. No raw TRX/log download needed."
+      }
+    ],
+    "snapshots": [
+      "Run id, attempt, URL, event, head_sha, workflow path/revision, tested checkout SHA/tree, PR head SHA/tree.",
+      "Jobs and required step conclusions, including actual execution and teardown; no raw logs.",
+      "Staff test step sanitized counters: tests=45, pass=45, fail=0, cancelled=0, skipped=0, todo=0; exit=0; tied to job/run/attempt.",
+      "Final candidate six-blob comparison and 71-path expectedWithC8 comparison.",
+      "For pull_request merge ref, prove tested merge tree equals final candidate tree, or document and review differences."
+    ],
+    "notNeeded": [
+      "No new local tests.",
+      "No separate API-expiry or security CI rerun when backend artifact contains their method-level counts.",
+      "No raw TRX, raw logs, secrets, certificates, session tickets or real customer records."
+    ]
+  },
+  "initialGithubQuery": {
+    "command": "npx --no-install gh-axi pr view 2 --repo Suazo-AI/Martha-Silva-Store",
+    "exit": 0,
+    "state": "open",
+    "aggregateChecks": {
+      "passed": 9,
+      "failed": 0,
+      "skipped": 3,
+      "total": 12
+    },
+    "acceptanceValue": "Insufficient: compact output has no candidate SHA or case evidence.",
+    "furtherQueries": 0
+  },
+  "blockers": [
+    {
+      "id": "FINAL-CANDIDATE",
+      "fact": "Only canonical Tony 2ddf83de7a89da608e8267a21313d64b373bf5e2 was verified here. Root reports PR2 remote divergence and says b6bc0396bb7d53359d23b806a3177edc194c8e62 does not contain all six C8 blobs.",
+      "cause": "Final integration belongs exclusively to root; final candidate SHA is not supplied.",
+      "attemptedCorrection": "Verified canonical six blobs and all 71 dependency entries with the intentional C8 overlay. No Git mutation authorized to this worker.",
+      "result": "PASS pre-CI binding only; final binding pending.",
+      "nextAction": "Root freezes final published SHA and supplies six-blob/tree snapshot with PR head and run binding.",
+      "owner": "/root",
+      "completionCheck": "Six expected candidate blobs and 71 expectedWithC8 entries match final candidate; PR merge checkout tree equals candidate tree if CI uses a merge ref."
+    },
+    {
+      "id": "FINAL-CI",
+      "fact": "Initial gh-axi query returned 9 passed, 0 failed, 3 skipped, 12 total and no SHA in the compact response. Final artifacts were not supplied.",
+      "cause": "Aggregate PR state cannot identify tested C8 bytes or prove required cases.",
+      "attemptedCorrection": "Read workflow upload paths, result schemas and reused evidence; prepared minimum artifact request. No polling, rerun or local runtime permitted.",
+      "result": "Historical local evidence verified; integrated CI acceptance remains pending.",
+      "nextAction": "Root supplies run/jobs/steps snapshot, two artifacts and a sanitized staff-step result summary.",
+      "owner": "/root",
+      "completionCheck": "All required actual CI evidence meets acceptance on final SHA; no required job/step skipped; no failed/not-executed case."
+    }
+  ],
+  "formalJasonReady": "NOT_CLAIMED",
+  "changes": [
+    "coordination/c8-final-evidence-20261104/PRE-CI-REVIEW.md",
+    "coordination/c8-final-evidence-20261104/source-evidence.json"
+  ],
+  "scopeCompliance": {
+    "canonicalCheckoutWritten": false,
+    "gitMutations": false,
+    "externalMutations": false,
+    "localTests": 0,
+    "sqlApiDockerServices": false,
+    "installations": false,
+    "certAclSecurityChanges": false,
+    "realData": false,
+    "nestedAgents": 0
+  },
+  "usage": {
+    "readOnlyExecInvocationsBeforeReportWrite": 13,
+    "initialGithubQueries": 1,
+    "paidProviderCallsBeyondApprovedWorker": 0,
+    "localTestRuns": 0,
+    "inputTokens": "not reported",
+    "cacheTokens": "not reported",
+    "outputTokens": "not reported",
+    "reasoningTokens": "not reported",
+    "providerUsd": "not reported",
+    "toolExtractionErrors": [
+      "AttributeError: list has no items; corrected by inspecting root type.",
+      "UnicodeEncodeError: cp1252 cannot encode arrow; corrected by stdout UTF-8."
+    ],
+    "limits": "No CI polling after initial query; freeze pending root final snapshot."
+  }
+}

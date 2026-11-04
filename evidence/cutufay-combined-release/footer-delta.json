@@ -1,0 +1,287 @@
+{
+  "scope": "47 exact footer anchors removed; admin route/authentication unchanged",
+  "pages": [
+    {
+      "path": "admin.html",
+      "before_sha256": "84b7d477112f30bb9c627403fc6b0549e866d04d8b07eb33d5ef0e08ebafbf04",
+      "after_sha256": "e4f4d14b60bffd4cb249b00da3b411a2044f5394ccea00c44d0c336484497456",
+      "removed_anchors": 1
+    },
+    {
+      "path": "ayuda.html",
+      "before_sha256": "23d43fc4812a8a326273b3a6b652b408ebc2e8dad02359229ec1861d3ac7d659",
+      "after_sha256": "9817bf91e086febe515aaa647c2d0e7807eabb80c56b051c7dcd18dafcf11a2c",
+      "removed_anchors": 1
+    },
+    {
+      "path": "bolsa.html",
+      "before_sha256": "fbbc6e70c41afb0091eb6c569d8458f1cc61c0fc97f5b75c0c872abe9c57da4f",
+      "after_sha256": "a292bcd68be10e211d8e37afc4c8732c01223ff48f5c67d06a55b6361d055fbc",
+      "removed_anchors": 1
+    },
+    {
+      "path": "catalogo.html",
+      "before_sha256": "c34d94c2417c19bf0d8b96c884d642737e1da84ff2970f6ea2fbc790149087b6",
+      "after_sha256": "193eb52d513159d5b892449e1c0ae766957f942305c21d1549390acd7c3370fb",
+      "removed_anchors": 1
+    },
+    {
+      "path": "checkout.html",
+      "before_sha256": "30b088af895506e5989214858ff6835ef2f7224b9b043457e9a7f5320ffc13f6",
+      "after_sha256": "7b40b15bfb823183e2c1fdea7bb01e7e7f27de128fccce5896c4d4d9d8547e56",
+      "removed_anchors": 1
+    },
+    {
+      "path": "index.html",
+      "before_sha256": "b284a54a89e19919fcec73cd00b26d9e1e47b4f603d642b2e15dec73d80e1ae4",
+      "after_sha256": "fbcdabd8a44e6c2aec9681319a98ce501600f8e42ddb30088518f05180f7ec33",
+      "removed_anchors": 1
+    },
+    {
+      "path": "pedido.html",
+      "before_sha256": "25ed9b8df3d21c78467a1e92fed6f33bf70bd1edbbe7a29b9c39ab9a35289c0e",
+      "after_sha256": "3b5e8da6ba1767da04e6cc47d7d004a721475d8a83b75f63e90f615675a329a4",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-amarillo.html",
+      "before_sha256": "b767758cf546fd096c23d0e507276078bf8ab5d8fe3346d5e16d546ac238f0de",
+      "after_sha256": "68698bd6e00d0626fa473868c97d5d3056be0145fd0b3320adf0ba075907514f",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-azul-floral-un-hombro.html",
+      "before_sha256": "8cacf05947a4b35a1a7454ed7f8926874b54396c30f487018329e358ae5ae922",
+      "after_sha256": "631f981aae11ead9dfc1a85f822825188087e76ecbd57e9bad7cf47d8b91ba9b",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-azul-gris-flores-falda.html",
+      "before_sha256": "6a4e9ce98231f3fd2eca7f4b9eda4cc4a22293e937eff43b1271ac4995d281f8",
+      "after_sha256": "d276283ab527ac31f5b427151c06c0203b9707ed5d2d4fd41ff58227b86d7ee1",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-azul-gris-un-hombro.html",
+      "before_sha256": "ad14a92831a0366a04197cdc6afa33e0f4094ed6ac8177cfc45901759df60bf6",
+      "after_sha256": "95510d7082a128e86cac1b7e2cac6b1685701bdd7f85bf5420e5d3f5e042722b",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-blanco-perlado-sirena.html",
+      "before_sha256": "9e47db6124a43c8ebb88096977047250231f59cd08a2f732f279f373bc5dc6d8",
+      "after_sha256": "0179b37aef19365c9c977c5ded3b2ca44fea732da9456ab8266a49cd4f024e9a",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-burdeos-encaje-volantes-midi.html",
+      "before_sha256": "559831bd4cbd8ec545f5da1a074c60e0b741410a6d5d6bd8ceba9fcad216484b",
+      "after_sha256": "d8a7148840b692c25c6695c3ac13c19249fcd1de43ed89258da0157c937209c9",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-burdeos-top-pantalon-corto.html",
+      "before_sha256": "76bcee2753495269438c858d340ab611c66ed34ca66a1a818a7f4956a51e1849",
+      "after_sha256": "196c3e9f69677b93327881f6c6620076e7ad6e20cc3eaa95b696daaf795a1020",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-champagne.html",
+      "before_sha256": "e79ca1399844ef008507eae4223f49685728c48a4747dd93aa776f7045532623",
+      "after_sha256": "d3e45ce2ef6d4be1a958c0ceacbfc6a512f8332f0e83dc840b0ef78ef2904423",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-crema-flores-naranjas-halter.html",
+      "before_sha256": "4067dd400bee2d6258aa218053ebae89543a05fca0a688c8dda7350d8ae244b4",
+      "after_sha256": "e7019d9676cad27848c84438da27fee2421927f88e56bef8977814278690797b",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-crema-flores-volante-asimetrico.html",
+      "before_sha256": "8318d43b697a249e2d46eaa95aafe039ac38f31e6eff086ab2d19b3f458a7719",
+      "after_sha256": "e5dcbeb71ddf446c7e543041652489acf36328b4d38a56779ef6946849b811b5",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-dorado.html",
+      "before_sha256": "265f623b97175266683fad160a20f312ce2820f0cce0c12231041674ff1ef7cf",
+      "after_sha256": "96f5af808d5a69bac72401efa7f537eceb2ba6461c345d3d9e46ee673fc03b4b",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-fucsia-halter-pliegues.html",
+      "before_sha256": "7f4ee9200add12cf7b32b28a8653de867a838eb339333fc4f29acbc63af879e3",
+      "after_sha256": "e206134a0dffde195379d173b91854fb2e1ff3828b1c1483fb5fe6bf7f42756f",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-fucsia-un-hombro-volantes.html",
+      "before_sha256": "c2b62a2cb677fbd8c60a2e9da1a8302b41dd3b7879b0c1577c3af3b29180ce2d",
+      "after_sha256": "91259fc232c55e2805965eee625e14b5cb1943c141a42b7fade89305c937dac1",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-gala-destello.html",
+      "before_sha256": "d9b2c8134dfadbe0045be53ca85ee8e770e4d63c38463363f97220e87dec17e9",
+      "after_sha256": "d8459786c1a5722060a6528127db06c5dae41c404d6b06f76e0a9e370ab68c57",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-gala-oro.html",
+      "before_sha256": "c65c8e5f82efd8e2cba4608997a5c50a26aa54f67f2a9ad3423f0146801ff67a",
+      "after_sha256": "2a79ec15990e2b6f02be69bc611f83496bca40612c6e234b7f5e69546b2c5c63",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-gala-rubi.html",
+      "before_sha256": "066b051787feba395d7b08e5f1acba6e0f9704155f32eb3350fa13923b6b8522",
+      "after_sha256": "9777fb871f9261e92a65305ad36eb8a33a8f251ab12793abb69c7713bad390ef",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-gris-perla-hombros.html",
+      "before_sha256": "cfd059e3d596ef068fa93cf8dc73bdaa5325c5c64224f75a0a63dc310bab6d64",
+      "after_sha256": "339f884be93efc952142559596224a1966576ebb44299a5b549e7e1d4f97e7e1",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-midi-estampado-burdeos.html",
+      "before_sha256": "ea5ec5cc4b355995390b7b2e8bc2c9c03dc5bbfeebf72f62496f4548b11e1fbf",
+      "after_sha256": "e0ea56de1e214bf0065422593f463c3d2c21b253ab0dbf7bff74db10b9cb00f8",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-napoleon.html",
+      "before_sha256": "5fe87ebbfb06f9f5312ad8498f5c95becfb654d8ef58ee6cfe2cd1538067423e",
+      "after_sha256": "a293ed2f04ae0b5212fec816ec9b48c7aee34b32d109b807272ea4be1b6280a8",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-negro-blanco-lunares-midi.html",
+      "before_sha256": "67a7ea2194277174a8a349b1ffa077b71e20a558ca9bd4ac3e40e90063e0937f",
+      "after_sha256": "4405e37e0206bac39b461307cf2c85d428d4c45a82da00f7711fe7769fe5ed99",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-negro-brillo-pantalon-amplio.html",
+      "before_sha256": "58b035edf2782b21fd894db97f23c96745d5e73a7d86a35ba27a676a486ebff5",
+      "after_sha256": "dbd1fbb3e6acb10e148e626f8d1bf174face6c68eabf818c44f1a11652379854",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-negro-escote-puntas-abertura.html",
+      "before_sha256": "92fc95fc8e4c7ad739e894557e0f1fe5d11431bc680030bb467e8772da4ee622",
+      "after_sha256": "166a0b061b987ce11650544fcf7d8b19d0bac23d03a236d5e40d538647c94842",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-negro-lunares-beige-hombros.html",
+      "before_sha256": "d805e0f4ef6d18ffcf74231b75a4647e787d922e8260d6edad4e7894e3b9f8e0",
+      "after_sha256": "19c5dd60f788f5057688a2c2d2cbc406eadf4a0ddfe9c00c46b246e6b8ab6b74",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-negro.html",
+      "before_sha256": "0d67833201ac4c991b90ca41d9a22b312c3e761cadd824fd2d6caaad831e93e5",
+      "after_sha256": "cd33e7d373f8d65fcfe52ce4cf7fdb115d145922711a54d8687b76db329a3b1f",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-novia-satinada-abertura.html",
+      "before_sha256": "585f3c2be84d7584f456c8da2fb645ff2c22cfe53bc371664067220bf87c0063",
+      "after_sha256": "59cad63c29694df801e42176b2b4dce1f196e7c1df4bd4458ef171086c336e26",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-novia-tirantes-encaje.html",
+      "before_sha256": "190494f2223628161b6b0e7a9da0aef6481b1269eeb577d96eb3b919685cdfb8",
+      "after_sha256": "9c67aba59cc7c561b3aceb4a1a9e6d4734b0f4d14d81ed58340fe593c0600a3e",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-novia.html",
+      "before_sha256": "dfe6bfcf8d93a9bcd33f5e3443f5eba04806392c8869382736c680e1f14fa2c7",
+      "after_sha256": "66c334f37c0a897595289d288f6b9ab1f05ba1616155a4fbe0504df8dab7086a",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-novias-alba.html",
+      "before_sha256": "0166d1259bbdf0180a74d72ae704f78e39beebc85d1dff3f8413278e20201ca9",
+      "after_sha256": "3735c1fe23691f9d3297545d7db22e5808f41c7f879021e40f65a63c2c747173",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-novias-encaje.html",
+      "before_sha256": "f2986c1df177cab67ec7b1ce03544d36fb8dd2ecfbe8bd7d3241663bf3fa3059",
+      "after_sha256": "a5e7d1f04681385c8f6e2cc5ec8bf5d57ef7f6dbaf7be221273760aa8bfb5ed1",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-novias-velo.html",
+      "before_sha256": "90f8d20080f53ed25b2918f105927facd022f364498e55c61747ff7956c8c658",
+      "after_sha256": "1edf1aa665a74ac9a27b411623c37a75574e63f866ee931813351c3d0f7a37ef",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-plata-tirantes-copas-pedreria.html",
+      "before_sha256": "3e250346f5dfb63a5829679da5364c5903df73f28e8d4f31f5d47aad5e36725a",
+      "after_sha256": "225ef0eb710b18e00cbc316df4cefca9426153ddca5dc92c606d4681cc986360",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-rojo-tirantes-falda-amplia.html",
+      "before_sha256": "4b1e35b298f37df6e25a870c9160bc1461dc40ccdb789bc3c676f5651251735d",
+      "after_sha256": "84b6483ddaee4be5bb4f17e91d065e1a0beec44724a53e99cc8a1e5fadf3f63f",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-rosa-bronce-pedreria.html",
+      "before_sha256": "2d667a43152b23203a40e8d087c5d69fc13f77f5f41ee8b39dc5bbbc0d3fbdfd",
+      "after_sha256": "777019c2ad2bdc70bd7046f405e1192c326302c649de3f25e1e470b8ffc8dd99",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-rosa-claro-flores-doradas.html",
+      "before_sha256": "31c58e7b3f0eacc27ec27bcc11c9b47c1a79a28ca2979d030ae867e7447d80a0",
+      "after_sha256": "427a01f1817dce19c92ac1725d66610182669bb62760448ab1318eded2d4926c",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-rosa-empolvado-pedreria.html",
+      "before_sha256": "eb9fc145b5c0311ee517e0c9c00a753dc228142ff0fa8ccc64c5cc6fd6d71039",
+      "after_sha256": "6138fb07e2dc3af9501c780b02bc440ebbbf6800b1970d1ed19387f5832d9a10",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-rosa-flores-fucsias-halter.html",
+      "before_sha256": "c3399e0ee91110a0abac0be5871f33a7d7860a6af381406fd49d6f5aa78f5dba",
+      "after_sha256": "4259d49ec82f5c4e70edfc5d5fec534777d2c0d44ec5e855c15cb36b54ad2243",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-rosa-marron-chaqueta-falda.html",
+      "before_sha256": "1e1b0e39e2fd10d6e136518b279762314b8f346113d380a105a1602cb8524e30",
+      "after_sha256": "198401815475d1149e6ebd63d1636292e5cf91ba04c88ec3ff26532d75400ed8",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-rosa.html",
+      "before_sha256": "f6d399789a0a8cc761b27a41a9beaf45e795f14b680950718c8358774d60ebcb",
+      "after_sha256": "4e7dbfbe1f6a59cea7a15f80b28cf0052bc6c05ced172b71772679d9bf4399d7",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-verde-brillo-cuello-cruzado.html",
+      "before_sha256": "b97fc801d81e766e6a2ddc58d15865e8642c4302991fc6862653ef52c072b2ec",
+      "after_sha256": "ebba16ca8d6393100a78aa2e323719f39dcd69a91819f05ebe803ef2d50e123f",
+      "removed_anchors": 1
+    },
+    {
+      "path": "producto-verde-esmeralda-tirantes-cruzados.html",
+      "before_sha256": "838b86eb01f73a16d38087af51f28c722b496537049edfa010ccb4534fe104e7",
+      "after_sha256": "5a3e0c91eb4e155ddf01175267d07269800292592252d329993b69501899c491",
+      "removed_anchors": 1
+    }
+  ]
+}

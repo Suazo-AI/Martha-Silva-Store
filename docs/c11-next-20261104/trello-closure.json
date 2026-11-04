@@ -1,0 +1,197 @@
+{
+  "schema": 1,
+  "task_id": "C11-N5-01-20261104",
+  "candidate": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+  "scope": "technical N1-N10 acceptance by declared layers; operational acceptance excluded",
+  "source_review": {
+    "path": "judge/REVIEW.md",
+    "sha256": "bd258311f5bc3a8c65bbb0205a041852837428881d6b4930227f9c4a56b0597c",
+    "evidence_path": "judge/evidence.json",
+    "evidence_sha256": "af2eefe088b1255e786921b47be3766c6d89c83f99cd01dd472ffdd0f61b9c84",
+    "verdict": "APTO",
+    "reviewer": "gpt-6-astra / high"
+  },
+  "card_before": {
+    "id": "6aea5de91431fcd571c2cce5",
+    "name": "C11 [Denis Alvarez · revisor] N10: revisión independiente de rechazos y recuperación",
+    "idBoard": "6aea5bcd3e4793672218d44c",
+    "idList": "6aea5d66a63aadf3a63e4545",
+    "closed": false,
+    "shortUrl": "https://trello.com/c/ant3sEML",
+    "url": "https://trello.com/c/ant3sEML/14-c11-denis-alvarez-revisor-n10-revisi%C3%B3n-independiente-de-rechazos-y-recuperaci%C3%B3n"
+  },
+  "checklists_before": [
+    {
+      "id": "6aea5dff18238d825f6ab22d",
+      "name": "Criterios de cierre",
+      "items": [
+        {
+          "id": "6aea5e879bea942628dc10fc",
+          "name": "Todos los rechazos revisados de forma independiente",
+          "state": "incomplete",
+          "pos": 1
+        },
+        {
+          "id": "6aea5e88714fd851b3240226",
+          "name": "Recuperación revisada de forma independiente",
+          "state": "incomplete",
+          "pos": 2
+        },
+        {
+          "id": "6aea5e8847d0d06fb3d0cf7c",
+          "name": "Ledger antes/después comparado por caso",
+          "state": "incomplete",
+          "pos": 3
+        },
+        {
+          "id": "6aea5e89b996a5aedb4cf7fb",
+          "name": "Ningún segundo débito ni éxito inventado",
+          "state": "incomplete",
+          "pos": 4
+        },
+        {
+          "id": "6aea5e8a621faab5a58e017c",
+          "name": "Veredicto escrito con evidencia (NEEDS WORK por defecto hasta ver evidencia)",
+          "state": "incomplete",
+          "pos": 5
+        }
+      ]
+    }
+  ],
+  "destination": {
+    "id": "6aea5d68411ef7f938f3f92e",
+    "name": "Hecho (READY validado)",
+    "idBoard": "6aea5bcd3e4793672218d44c",
+    "closed": false
+  },
+  "criteria_mapping": [
+    {
+      "item": "6aea5e879bea942628dc10fc",
+      "evidence": "Independent N1/N3/N4/N5/N8/N9 denials and N6/N7 layers; APTO scope expressly layered."
+    },
+    {
+      "item": "6aea5e88714fd851b3240226",
+      "evidence": "Golden same_key_and_sale_recovered=true; 21 browser checkpoints PASS."
+    },
+    {
+      "item": "6aea5e8847d0d06fb3d0cf7c",
+      "evidence": "38 SQL captures, zero oracle failures; N5 full19-table rejection equality; C7 durable rejection exception explicit."
+    },
+    {
+      "item": "6aea5e89b996a5aedb4cf7fb",
+      "evidence": "Only2 salePOSTs,2 sales/lines/movements/operations, stock27 preserved across recovery/reloads/logout."
+    },
+    {
+      "item": "6aea5e8a621faab5a58e017c",
+      "evidence": "Written independent APTO review and source/artifact hashes."
+    }
+  ],
+  "comment_marker": "[SAVIA-C11-APTO-53dd23b5]",
+  "comment_text": "[SAVIA-C11-APTO-53dd23b5]\nC11 / N10: cierre técnico por capas con dictamen independiente APTO, gpt-6-astra / high.\nSHA probado: 53dd23b5cfec2cb5dd717395b9095a71d29669f0.\n\nSAVIA: backend 601/601 PASS, 0 failed / 0 skipped; los 600 casos previos se conservan. Nuevo método N5_owner_branch_reassignment_rejects_original_cashier_cookie_and_preserves_sales_before_new_scope_login: 1/1 PASS.\nCI: https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41774927960\n\nGolden: smoke 19/19 y Chrome → HTTPS API → SQL real 21/21; 38 capturas SQL, 0 oracle_failures. Dos POST de venta producen dos ventas/líneas/movimientos/operaciones y stock 30→28→27. La respuesta perdida se recupera por GET con la clave y sale_id originales. Recargas y logout conservan dos registros y stock27: sin segundo débito ni éxito inventado.\nCI: https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41774928044\n\nN5 real HTTP+SQL: Owner PUT cambia Cashier A→B sin fabricar principal; cookie y CSRF originales explícitos en cada replay, controles200 antes y401 después. Cada rechazo conserva19 tablas; loginB confirma ámbito, reciboA404, ventaA403 y ventaB válida con un solo débito (stockB8→7). C7 conserva su excepción explícita: remap409 añade un rechazo durable en Operations.\n\nAlcance por capas: N1–N10 APTO técnico. Cashier venta/recuperación C6 usa API/SQL reales; Owner/Manager y cambios tardíos también tienen pruebas por capas. Browser45/45 usa Chromium real con APIstaff simulada; no prueba SQL. La expiración usa TimeProvider controlado, sin demostrar ocho horas de navegador/SQL.\n\nLímites: N5-COV conserva tres extras pendientes. C9 / backup-restore y aceptación operativa integral siguen separados. No prueba Windows/dispositivos, pagos/carga, TLS/proxy de producción ni autoriza despliegue. El juez no leyó readbacks independientes de ausencia final del contenedor ni publicación a nivel job; no se infieren del verde. Este comentario no inventa un SHA documental final.\nDocumento en Tony: https://github.com/Suazo-AI/Martha-Silva-Store/blob/Tony/docs/c11-next-20261104/README.md",
+  "comment_sha256": "c763a0a4269694829fff00cb536745a93cb4e63cee0f6a1aba0cf211046647a2",
+  "changes": [
+    {
+      "method": "POST",
+      "route": "cards/6aea5de91431fcd571c2cce5/actions/comments",
+      "id": "6aeabbdd303bdc3945add1b9"
+    },
+    {
+      "method": "PUT",
+      "route": "cards/6aea5de91431fcd571c2cce5/checkItem/6aea5e879bea942628dc10fc",
+      "state": "complete"
+    },
+    {
+      "method": "PUT",
+      "route": "cards/6aea5de91431fcd571c2cce5/checkItem/6aea5e88714fd851b3240226",
+      "state": "complete"
+    },
+    {
+      "method": "PUT",
+      "route": "cards/6aea5de91431fcd571c2cce5/checkItem/6aea5e8847d0d06fb3d0cf7c",
+      "state": "complete"
+    },
+    {
+      "method": "PUT",
+      "route": "cards/6aea5de91431fcd571c2cce5/checkItem/6aea5e89b996a5aedb4cf7fb",
+      "state": "complete"
+    },
+    {
+      "method": "PUT",
+      "route": "cards/6aea5de91431fcd571c2cce5/checkItem/6aea5e8a621faab5a58e017c",
+      "state": "complete"
+    },
+    {
+      "method": "PUT",
+      "route": "cards/6aea5de91431fcd571c2cce5",
+      "idList": "6aea5d68411ef7f938f3f92e"
+    }
+  ],
+  "status": "verified",
+  "untouched_scope": "All mutations are confined to C11 card/checkItems/comment; no other TONY card written.",
+  "limits": [
+    "N5-COV three extras",
+    "whole operational acceptance",
+    "Windows/devices",
+    "backup/restore",
+    "production/deployment",
+    "DLL reproducible build",
+    "rawZIP digests",
+    "container absence and publication step log readbacks"
+  ],
+  "usage": "unknown",
+  "comment_id": "6aeabbdd303bdc3945add1b9",
+  "card_after": {
+    "id": "6aea5de91431fcd571c2cce5",
+    "name": "C11 [Denis Alvarez · revisor] N10: revisión independiente de rechazos y recuperación",
+    "idBoard": "6aea5bcd3e4793672218d44c",
+    "idList": "6aea5d68411ef7f938f3f92e",
+    "closed": false,
+    "shortUrl": "https://trello.com/c/ant3sEML",
+    "url": "https://trello.com/c/ant3sEML/14-c11-denis-alvarez-revisor-n10-revisi%C3%B3n-independiente-de-rechazos-y-recuperaci%C3%B3n"
+  },
+  "checklists_after": [
+    {
+      "id": "6aea5dff18238d825f6ab22d",
+      "name": "Criterios de cierre",
+      "items": [
+        {
+          "id": "6aea5e879bea942628dc10fc",
+          "name": "Todos los rechazos revisados de forma independiente",
+          "state": "complete"
+        },
+        {
+          "id": "6aea5e88714fd851b3240226",
+          "name": "Recuperación revisada de forma independiente",
+          "state": "complete"
+        },
+        {
+          "id": "6aea5e8847d0d06fb3d0cf7c",
+          "name": "Ledger antes/después comparado por caso",
+          "state": "complete"
+        },
+        {
+          "id": "6aea5e89b996a5aedb4cf7fb",
+          "name": "Ningún segundo débito ni éxito inventado",
+          "state": "complete"
+        },
+        {
+          "id": "6aea5e8a621faab5a58e017c",
+          "name": "Veredicto escrito con evidencia (NEEDS WORK por defecto hasta ver evidencia)",
+          "state": "complete"
+        }
+      ]
+    }
+  ],
+  "comment_readback": {
+    "id": "6aeabbdd303bdc3945add1b9",
+    "text": "[SAVIA-C11-APTO-53dd23b5]\nC11 / N10: cierre técnico por capas con dictamen independiente APTO, gpt-6-astra / high.\nSHA probado: 53dd23b5cfec2cb5dd717395b9095a71d29669f0.\n\nSAVIA: backend 601/601 PASS, 0 failed / 0 skipped; los 600 casos previos se conservan. Nuevo método N5_owner_branch_reassignment_rejects_original_cashier_cookie_and_preserves_sales_before_new_scope_login: 1/1 PASS.\nCI: https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41774927960\n\nGolden: smoke 19/19 y Chrome → HTTPS API → SQL real 21/21; 38 capturas SQL, 0 oracle_failures. Dos POST de venta producen dos ventas/líneas/movimientos/operaciones y stock 30→28→27. La respuesta perdida se recupera por GET con la clave y sale_id originales. Recargas y logout conservan dos registros y stock27: sin segundo débito ni éxito inventado.\nCI: https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41774928044\n\nN5 real HTTP+SQL: Owner PUT cambia Cashier A→B sin fabricar principal; cookie y CSRF originales explícitos en cada replay, controles200 antes y401 después. Cada rechazo conserva19 tablas; loginB confirma ámbito, reciboA404, ventaA403 y ventaB válida con un solo débito (stockB8→7). C7 conserva su excepción explícita: remap409 añade un rechazo durable en Operations.\n\nAlcance por capas: N1–N10 APTO técnico. Cashier venta/recuperación C6 usa API/SQL reales; Owner/Manager y cambios tardíos también tienen pruebas por capas. Browser45/45 usa Chromium real con APIstaff simulada; no prueba SQL. La expiración usa TimeProvider controlado, sin demostrar ocho horas de navegador/SQL.\n\nLímites: N5-COV conserva tres extras pendientes. C9 / backup-restore y aceptación operativa integral siguen separados. No prueba Windows/dispositivos, pagos/carga, TLS/proxy de producción ni autoriza despliegue. El juez no leyó readbacks independientes de ausencia final del contenedor ni publicación a nivel job; no se infieren del verde. Este comentario no inventa un SHA documental final.\nDocumento en Tony: https://github.com/Suazo-AI/Martha-Silva-Store/blob/Tony/docs/c11-next-20261104/README.md",
+    "exact_match": true
+  },
+  "list_readback": {
+    "id": "6aea5d68411ef7f938f3f92e",
+    "name": "Hecho (READY validado)",
+    "idBoard": "6aea5bcd3e4793672218d44c",
+    "closed": false
+  },
+  "verified_utc": "2026-11-04T05:00:20.883291+00:00"
+}

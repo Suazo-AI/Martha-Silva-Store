@@ -1,0 +1,121 @@
+{
+  "interface": "python -B tests/golden-path/verify_evidence.py --source <synthetic-source> --destination <synthetic-destination>",
+  "cases": [
+    {
+      "case": "valid",
+      "returncode": 0,
+      "stdout": "Evidence publication verified (known-secret scan and exact-byte manifest).\n",
+      "stderr": "",
+      "destination_files": [
+        "evidence.json",
+        "oracles.md"
+      ],
+      "checks": {
+        "exit_code": true,
+        "exact_stdout": true,
+        "empty_stderr": true,
+        "exact_allowlist": true,
+        "byte_identity": true
+      },
+      "pass": true
+    },
+    {
+      "case": "tampered_bytes",
+      "returncode": 1,
+      "stdout": "Evidence publication refused: approval or content verification failed.\n",
+      "stderr": "",
+      "destination_files": [
+        "keep-private-fixture.txt"
+      ],
+      "checks": {
+        "exit_code": true,
+        "exact_stdout": true,
+        "empty_stderr": true,
+        "no_public_files": true,
+        "only_sentinel_remains": true,
+        "sentinel_unchanged": true,
+        "no_synthetic_secret_echo": true
+      },
+      "pass": true
+    },
+    {
+      "case": "tampered_manifest",
+      "returncode": 1,
+      "stdout": "Evidence publication refused: approval or content verification failed.\n",
+      "stderr": "",
+      "destination_files": [
+        "keep-private-fixture.txt"
+      ],
+      "checks": {
+        "exit_code": true,
+        "exact_stdout": true,
+        "empty_stderr": true,
+        "no_public_files": true,
+        "only_sentinel_remains": true,
+        "sentinel_unchanged": true,
+        "no_synthetic_secret_echo": true
+      },
+      "pass": true
+    },
+    {
+      "case": "missing_marker",
+      "returncode": 1,
+      "stdout": "Evidence publication refused: approval or content verification failed.\n",
+      "stderr": "",
+      "destination_files": [
+        "keep-private-fixture.txt"
+      ],
+      "checks": {
+        "exit_code": true,
+        "exact_stdout": true,
+        "empty_stderr": true,
+        "no_public_files": true,
+        "only_sentinel_remains": true,
+        "sentinel_unchanged": true,
+        "no_synthetic_secret_echo": true
+      },
+      "pass": true
+    },
+    {
+      "case": "wrong_marker_name",
+      "returncode": 1,
+      "stdout": "Evidence publication refused: approval or content verification failed.\n",
+      "stderr": "",
+      "destination_files": [
+        "keep-private-fixture.txt"
+      ],
+      "checks": {
+        "exit_code": true,
+        "exact_stdout": true,
+        "empty_stderr": true,
+        "no_public_files": true,
+        "only_sentinel_remains": true,
+        "sentinel_unchanged": true,
+        "no_synthetic_secret_echo": true
+      },
+      "pass": true
+    },
+    {
+      "case": "known_synthetic_secret",
+      "returncode": 1,
+      "stdout": "Evidence publication refused: approval or content verification failed.\n",
+      "stderr": "",
+      "destination_files": [
+        "keep-private-fixture.txt"
+      ],
+      "checks": {
+        "exit_code": true,
+        "exact_stdout": true,
+        "empty_stderr": true,
+        "no_public_files": true,
+        "only_sentinel_remains": true,
+        "sentinel_unchanged": true,
+        "no_synthetic_secret_echo": true
+      },
+      "pass": true
+    }
+  ],
+  "passed": 6,
+  "primary_artifact_readback": true,
+  "limit": "Real CLI and files, synthetic inputs. No SQL, API or interrupted product process."
+}

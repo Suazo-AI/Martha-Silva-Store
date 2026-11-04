@@ -1,5 +1,10 @@
 # Estado verificado de entrega
 
+> Documento histórico de su fecha/candidato. Para continuar al 2026-11-03, usar
+> [AGENT-START](AGENT-START.md) y [PROJECT-STATUS](PROJECT-STATUS.md).
+> Sus conteos, bloqueos y autorizaciones no se trasladan automáticamente al candidato actual.
+
+
 Corte: 2026-10-24.
 
 - Repositorio: https://github.com/Suazo-AI/Martha-Silva-Store

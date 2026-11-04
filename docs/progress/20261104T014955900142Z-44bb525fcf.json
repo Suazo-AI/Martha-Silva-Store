@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-04T01:49:55.900142+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "800498a9b2a80df73fdd5e28e3d685f598c5bccd"
+    },
+    {
+      "path": "docs/fix-pr2-denis-20261104/README.md",
+      "change": "M",
+      "git_blob": "0934c9eda3348c541fbeb3d9cf47db072befc100"
+    },
+    {
+      "path": "docs/fix-pr2-denis-20261104/ci-reconciled.json",
+      "change": "A",
+      "git_blob": "df695263bbe84927b7aa98ea0c9679a2cd127587"
+    },
+    {
+      "path": "docs/fix-pr2-denis-20261104/digest-publication.json",
+      "change": "A",
+      "git_blob": "c74e50947c5ec4e46b6364ef641f316674f1a51b"
+    },
+    {
+      "path": "docs/fix-pr2-denis-20261104/reconciliation-publication.json",
+      "change": "A",
+      "git_blob": "91544379efc23d74caa32eff3e6b0bcd398f83ce"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

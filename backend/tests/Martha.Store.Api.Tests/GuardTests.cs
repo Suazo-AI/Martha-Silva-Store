@@ -3,6 +3,7 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using Xunit;
 using Martha.Store.Api;
+using Microsoft.Data.SqlClient;
 
 namespace Martha.Store.Api.Tests;
 
@@ -55,6 +56,19 @@ public sealed class GuardTests
     public void Database_guard_accepts_only_named_synthetic_catalog()
     {
         StoreDatabaseGuard.Validate("Server=127.0.0.1;Database=MarthaSynthetic_Test_123;Integrated Security=true");
+    }
+
+    [Theory]
+    [InlineData("'")]
+    [InlineData("\"")]
+    public void Database_guard_rejects_quoted_catalog_with_trailing_line_feed(string quote)
+    {
+        const string catalog = "MarthaSynthetic_Test_123";
+        StoreDatabaseGuard.Validate($"Server=127.0.0.1;Database={quote}{catalog}{quote};Integrated Security=true");
+
+        var connection = $"Server=127.0.0.1;Database={quote}{catalog}\n{quote};Integrated Security=true";
+        Assert.Equal(catalog + "\n", new SqlConnectionStringBuilder(connection).InitialCatalog);
+        Assert.Throws<StorageUnavailableException>(() => StoreDatabaseGuard.Validate(connection));
     }
 
     [Fact]

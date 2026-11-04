@@ -1,0 +1,56 @@
+===== api-client.log =====
+Command: node --test dev/savia-demo-ui/api-client.test.mjs
+Exit code: 0
+
+✔ static 404 closes connection without manufacturing catalog or enabling transactions (4.092236ms)
+✔ HTML returned by a static fallback cannot masquerade as an API (0.628658ms)
+✔ real contract-shaped reads preserve XXX and unverified SQL; writes remain closed (1.597196ms)
+✔ a capabilities response alone does not prove storage readiness (0.766165ms)
+✔ capabilities reject unsupported SQL claims, missing flags, commerce and CGA operations (4.22041ms)
+✔ invalid currency, balances, authority, quantities and IDs are rejected (2.608741ms)
+✔ transport errors expose useful generic errors without leaking exception text (0.275465ms)
+✔ timeouts finish each read and keep operations closed (7.533662ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 96.741318
+
+
+
+===== ui.log =====
+Command: node --test dev/savia-demo-ui/ui.test.mjs
+Exit code: 0
+
+✔ mount is explicit about demo/memory and does not contact backend automatically (120.774212ms)
+✔ search filters displayed catalog without changing the scenario (67.518757ms)
+✔ size must be selected and exhausted sizes are unavailable (45.787072ms)
+✔ cart actions preserve useful focus and announce removal without reserving stock (204.1355ms)
+✔ approval changes stock once and displays a clearly synthetic receipt (112.25799ms)
+✔ decline is recoverable and preserves both cart and stock (67.018323ms)
+✔ cancelling a demo receipt restores units once and disables repeat cancellation (126.222852ms)
+✔ reset requires confirmation and restores the independent sample scenario (142.45464ms)
+✔ Connection unavailable is explicit and uses only virtual same-origin GETs (40.19174ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1234.244515
+
+
+
+===== versions.log =====
+Command: node --version
+Exit code: 0
+v24.22.1
+
+Command: npm --version
+Exit code: 0
+11.9.0
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.

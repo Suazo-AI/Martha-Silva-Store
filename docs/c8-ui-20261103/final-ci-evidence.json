@@ -1,0 +1,1420 @@
+{
+  "task_id": "SAVIA-C8-FINAL-EVIDENCE-20261104",
+  "status": "C8_TECHNICAL_CI_PASS",
+  "observedUtc": "2026-11-04T03:21:24.144970+00:00",
+  "owner": "/root/c8_final_evidence",
+  "host": "SUAZO-PC",
+  "selectedModel": "gpt-6.1-sol",
+  "selectedReasoning": "xhigh",
+  "candidate": "e4b7910835bf2c9901aa06989e296997875a3636",
+  "run": {
+    "id": 41765611859,
+    "attempt": 1,
+    "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41765611859",
+    "event": "pull_request",
+    "status": "completed",
+    "conclusion": "success",
+    "testedCheckoutSha": "f1a0bb1d0cd0258838f920ec8f811315820c7587",
+    "mergeComparison": {
+      "repository_full_name": "Suazo-AI/Martha-Silva-Store",
+      "base": "e4b7910835bf2c9901aa06989e296997875a3636",
+      "head": "f1a0bb1d0cd0258838f920ec8f811315820c7587",
+      "status": "ahead",
+      "ahead_by": 1,
+      "behind_by": 0,
+      "total_commits": 1,
+      "too_large": null,
+      "base_commit": {
+        "sha": "e4b7910835bf2c9901aa06989e296997875a3636",
+        "url": "https://api.github.com/repos/Suazo-AI/Martha-Silva-Store/commits/e4b7910835bf2c9901aa06989e296997875a3636",
+        "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/commit/e4b7910835bf2c9901aa06989e296997875a3636"
+      },
+      "merge_base_commit": {
+        "sha": "e4b7910835bf2c9901aa06989e296997875a3636",
+        "url": "https://api.github.com/repos/Suazo-AI/Martha-Silva-Store/commits/e4b7910835bf2c9901aa06989e296997875a3636",
+        "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/commit/e4b7910835bf2c9901aa06989e296997875a3636"
+      },
+      "files": []
+    }
+  },
+  "acceptance": {
+    "sixImportedBlobs": "6/6 MATCH",
+    "dependencyOverlay": "71/71 MATCH; 66 base entries and five intentional C8 replacements",
+    "browserSourceHashes": "6/6 MATCH with exact Git blob bytes",
+    "staff": {
+      "tests": 45,
+      "passed": 45,
+      "failed": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "browser": {
+      "tests": 45,
+      "passed": 45,
+      "failed": 0,
+      "c8Focused": 9
+    },
+    "backend": {
+      "cases": 600,
+      "passed": 600,
+      "notPassed": 0,
+      "securityIncluded": {
+        "cases": 49,
+        "passed": 49
+      },
+      "expiryIncluded": {
+        "cases": 1,
+        "passed": 1
+      }
+    },
+    "requiredJobs": "2/2 completed success",
+    "requiredSteps": "All steps recorded completed success; none skipped",
+    "formalJasonReady": "NOT_CLAIMED"
+  },
+  "gitBinding": {
+    "observedUtc": "2026-11-04T03:17:52.961496+00:00",
+    "candidate": "e4b7910835bf2c9901aa06989e296997875a3636",
+    "gitReadOnly": true,
+    "lsTreeCommand": [
+      "git",
+      "-C",
+      "C:\\Users\\Jason\\MARTHA-SILVA\\github",
+      "ls-tree",
+      "-r",
+      "e4b7910835bf2c9901aa06989e296997875a3636",
+      "--",
+      "backend/src/Martha.Store.Api/ErpPort.cs",
+      "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceEndpoints.cs",
+      "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceModel.cs",
+      "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceModels.cs",
+      "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceService.cs",
+      "backend/src/Martha.Store.Api/Internal/Commerce/InternalStockLedger.cs",
+      "backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryEndpoints.cs",
+      "backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryModels.cs",
+      "backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryService.cs",
+      "backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryValidation.cs",
+      "backend/src/Martha.Store.Api/Internal/InternalBranchAccess.cs",
+      "backend/src/Martha.Store.Api/Internal/InternalBranchIdUpdate.cs",
+      "backend/src/Martha.Store.Api/Internal/InternalCommandRunner.cs",
+      "backend/src/Martha.Store.Api/Internal/InternalContracts.cs",
+      "backend/src/Martha.Store.Api/Internal/InternalDbContext.cs",
+      "backend/src/Martha.Store.Api/Internal/InternalDbContextFactory.cs",
+      "backend/src/Martha.Store.Api/Internal/InternalHosting.cs",
+      "backend/src/Martha.Store.Api/Internal/InternalUiHosting.cs",
+      "backend/src/Martha.Store.Api/Internal/Migrations/20261025085402_InitialInternalSavia.Designer.cs",
+      "backend/src/Martha.Store.Api/Internal/Migrations/20261025085402_InitialInternalSavia.cs",
+      "backend/src/Martha.Store.Api/Internal/Migrations/20261027224500_InternalBranchScope.Designer.cs",
+      "backend/src/Martha.Store.Api/Internal/Migrations/20261027224500_InternalBranchScope.cs",
+      "backend/src/Martha.Store.Api/Internal/Migrations/InternalDbContextModelSnapshot.cs",
+      "backend/src/Martha.Store.Api/Internal/Security/InternalLoginLimiter.cs",
+      "backend/src/Martha.Store.Api/Internal/Security/InternalOwnerConsole.cs",
+      "backend/src/Martha.Store.Api/Internal/Security/InternalSecurity.cs",
+      "backend/src/Martha.Store.Api/Internal/Security/InternalSecurityModel.cs",
+      "backend/src/Martha.Store.Api/Internal/Security/InternalSecurityRules.cs",
+      "backend/src/Martha.Store.Api/Internal/Security/InternalSecurityService.cs",
+      "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyDbContext.cs",
+      "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyEndpoints.cs",
+      "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyModels.cs",
+      "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyRules.cs",
+      "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyService.cs",
+      "backend/src/Martha.Store.Api/Martha.Store.Api.csproj",
+      "backend/src/Martha.Store.Api/Migrations/20261024223644_InitialSyntheticFoundation.Designer.cs",
+      "backend/src/Martha.Store.Api/Migrations/20261024223644_InitialSyntheticFoundation.cs",
+      "backend/src/Martha.Store.Api/Migrations/20261025010000_SaviaV2Ledger.Designer.cs",
+      "backend/src/Martha.Store.Api/Migrations/20261025010000_SaviaV2Ledger.cs",
+      "backend/src/Martha.Store.Api/Migrations/StoreDbContextModelSnapshot.cs",
+      "backend/src/Martha.Store.Api/Program.cs",
+      "backend/src/Martha.Store.Api/SaviaModel.cs",
+      "backend/src/Martha.Store.Api/SaviaModels.cs",
+      "backend/src/Martha.Store.Api/SaviaService.cs",
+      "backend/src/Martha.Store.Api/SaviaSyntheticSeed.cs",
+      "backend/src/Martha.Store.Api/StoreDatabaseGuard.cs",
+      "backend/src/Martha.Store.Api/StoreDbContext.cs",
+      "backend/src/Martha.Store.Api/StoreDbContextFactory.cs",
+      "backend/src/Martha.Store.Api/SyntheticOrders.cs",
+      "backend/src/Martha.Store.Api/SyntheticSeed.cs",
+      "backend/src/Martha.Store.Api/packages.lock.json",
+      "backend/tests/Martha.Store.Api.Tests/InternalSecurityTests.cs",
+      "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+      "backend/tests/Martha.Store.Api.Tests/packages.lock.json",
+      "dev/savia-staff-ui/README.md",
+      "dev/savia-staff-ui/app.mjs",
+      "dev/savia-staff-ui/auth.test.mjs",
+      "dev/savia-staff-ui/branch-compat.test.mjs",
+      "dev/savia-staff-ui/client.mjs",
+      "dev/savia-staff-ui/commerce.test.mjs",
+      "dev/savia-staff-ui/dom.test.mjs",
+      "dev/savia-staff-ui/index.html",
+      "dev/savia-staff-ui/login.html",
+      "dev/savia-staff-ui/login.mjs",
+      "dev/savia-staff-ui/pagination.test.mjs",
+      "dev/savia-staff-ui/styles.css",
+      "global.json",
+      "package-lock.json",
+      "package.json",
+      "tests/browser-mock-validation.mjs",
+      "tests/frontend-deps/package-lock.json",
+      "tests/frontend-deps/package.json"
+    ],
+    "sixBlobs": [
+      {
+        "path": "dev/savia-staff-ui/README.md",
+        "expected": "f7f17b0f792586ce3d296e6bcb78b4e046a905d1",
+        "actual": "f7f17b0f792586ce3d296e6bcb78b4e046a905d1",
+        "match": true
+      },
+      {
+        "path": "dev/savia-staff-ui/app.mjs",
+        "expected": "761eafa3e64ebca784d96c4465d052b2603c91be",
+        "actual": "761eafa3e64ebca784d96c4465d052b2603c91be",
+        "match": true
+      },
+      {
+        "path": "dev/savia-staff-ui/auth.test.mjs",
+        "expected": "857e81996dc82a4a9e484e86099d2c9c00b09586",
+        "actual": "857e81996dc82a4a9e484e86099d2c9c00b09586",
+        "match": true
+      },
+      {
+        "path": "dev/savia-staff-ui/login.mjs",
+        "expected": "6a639cafe028fe28be9ab0539688afcaa7aef86b",
+        "actual": "6a639cafe028fe28be9ab0539688afcaa7aef86b",
+        "match": true
+      },
+      {
+        "path": "tests/browser-mock-validation.mjs",
+        "expected": "199f8826515d0a3c1f3e6c8981d964b6fc3aeebd",
+        "actual": "199f8826515d0a3c1f3e6c8981d964b6fc3aeebd",
+        "match": true
+      },
+      {
+        "path": "backend/tests/Martha.Store.Api.Tests/InternalSecurityTests.cs",
+        "expected": "ee3b15ec123c93b5a073295fe4b4cb70b814d501",
+        "actual": "ee3b15ec123c93b5a073295fe4b4cb70b814d501",
+        "match": true
+      }
+    ],
+    "dependencies": [
+      {
+        "path": "backend/src/Martha.Store.Api/ErpPort.cs",
+        "expectedWithC8": "416637dcca445b32343dc2d1d5265a7b2bede414",
+        "actual": "416637dcca445b32343dc2d1d5265a7b2bede414",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceEndpoints.cs",
+        "expectedWithC8": "e706a7efa32d4c41e7ae1c729f78baa334948d46",
+        "actual": "e706a7efa32d4c41e7ae1c729f78baa334948d46",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceModel.cs",
+        "expectedWithC8": "1a620439eb0f3fe2063c804a67189bf1276c7782",
+        "actual": "1a620439eb0f3fe2063c804a67189bf1276c7782",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceModels.cs",
+        "expectedWithC8": "ce9cd22595bc0f83fa7ae122a6bfee02ec08838c",
+        "actual": "ce9cd22595bc0f83fa7ae122a6bfee02ec08838c",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceService.cs",
+        "expectedWithC8": "9c3ae45a855a2d2048c50bc4584dfc6de8764c45",
+        "actual": "9c3ae45a855a2d2048c50bc4584dfc6de8764c45",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalStockLedger.cs",
+        "expectedWithC8": "826268a2fc6b679206d2bece2ec0fc1da6ce8ad0",
+        "actual": "826268a2fc6b679206d2bece2ec0fc1da6ce8ad0",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryEndpoints.cs",
+        "expectedWithC8": "3991be21ea767c60be21a0571bf0de2f5d218225",
+        "actual": "3991be21ea767c60be21a0571bf0de2f5d218225",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryModels.cs",
+        "expectedWithC8": "e74a0a0059163c51d5851c0e0fbb2e0da17d50a3",
+        "actual": "e74a0a0059163c51d5851c0e0fbb2e0da17d50a3",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryService.cs",
+        "expectedWithC8": "7129aa02245f8632b1c63e22623a8a337b576a08",
+        "actual": "7129aa02245f8632b1c63e22623a8a337b576a08",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryValidation.cs",
+        "expectedWithC8": "7665da0c8969e5620a5798eb170819fc8f05e5ac",
+        "actual": "7665da0c8969e5620a5798eb170819fc8f05e5ac",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/InternalBranchAccess.cs",
+        "expectedWithC8": "b430769eca3c504bee2f566e75bfed10dfc18e41",
+        "actual": "b430769eca3c504bee2f566e75bfed10dfc18e41",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/InternalBranchIdUpdate.cs",
+        "expectedWithC8": "ac1f2b8283799c0b52fb61879deb1a00176e6bb9",
+        "actual": "ac1f2b8283799c0b52fb61879deb1a00176e6bb9",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/InternalCommandRunner.cs",
+        "expectedWithC8": "8b07d2fedb43dcb5981c8aa68473bcbfb88a5119",
+        "actual": "8b07d2fedb43dcb5981c8aa68473bcbfb88a5119",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/InternalContracts.cs",
+        "expectedWithC8": "b86d9a4b1c040bfb18dde8b5aef705e1058d9a9f",
+        "actual": "b86d9a4b1c040bfb18dde8b5aef705e1058d9a9f",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/InternalDbContext.cs",
+        "expectedWithC8": "7bc82f03c40be88c2e2dc776f7bbc7e0317441bd",
+        "actual": "7bc82f03c40be88c2e2dc776f7bbc7e0317441bd",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/InternalDbContextFactory.cs",
+        "expectedWithC8": "bd1bb1147897fe725217e5a1a8b1277fe0ce3959",
+        "actual": "bd1bb1147897fe725217e5a1a8b1277fe0ce3959",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/InternalHosting.cs",
+        "expectedWithC8": "a8fb32f5b1b78c396f77e17f191a1ad886654338",
+        "actual": "a8fb32f5b1b78c396f77e17f191a1ad886654338",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/InternalUiHosting.cs",
+        "expectedWithC8": "18d6ad725f53b621682948fc45fc60a1cca30ac4",
+        "actual": "18d6ad725f53b621682948fc45fc60a1cca30ac4",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Migrations/20261025085402_InitialInternalSavia.Designer.cs",
+        "expectedWithC8": "c866fc78aa1fc9e41f26c943d7694ae59f4dbba2",
+        "actual": "c866fc78aa1fc9e41f26c943d7694ae59f4dbba2",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Migrations/20261025085402_InitialInternalSavia.cs",
+        "expectedWithC8": "6bfc916d11a72b287373d71956632bb0e0d5b66c",
+        "actual": "6bfc916d11a72b287373d71956632bb0e0d5b66c",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Migrations/20261027224500_InternalBranchScope.Designer.cs",
+        "expectedWithC8": "aab7eb4c04c5adbf0293e3e27275b62ed98662b5",
+        "actual": "aab7eb4c04c5adbf0293e3e27275b62ed98662b5",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Migrations/20261027224500_InternalBranchScope.cs",
+        "expectedWithC8": "03f90f2b90bf125476666a7308e0ba8075e47090",
+        "actual": "03f90f2b90bf125476666a7308e0ba8075e47090",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Migrations/InternalDbContextModelSnapshot.cs",
+        "expectedWithC8": "5ae6410a6b765b8020171248da4b03a9f694ee3b",
+        "actual": "5ae6410a6b765b8020171248da4b03a9f694ee3b",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Security/InternalLoginLimiter.cs",
+        "expectedWithC8": "8077f14642943b2bb31aae5b1e02b7eaca70e417",
+        "actual": "8077f14642943b2bb31aae5b1e02b7eaca70e417",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Security/InternalOwnerConsole.cs",
+        "expectedWithC8": "35ced5c4364fe976a8e6b953756df5964406b02b",
+        "actual": "35ced5c4364fe976a8e6b953756df5964406b02b",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurity.cs",
+        "expectedWithC8": "476da10c9748be6b70b0d4c3501838299bd90b3a",
+        "actual": "476da10c9748be6b70b0d4c3501838299bd90b3a",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurityModel.cs",
+        "expectedWithC8": "f4d17aa5d4f6b1f9a303f2948cd42e15e2aebe12",
+        "actual": "f4d17aa5d4f6b1f9a303f2948cd42e15e2aebe12",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurityRules.cs",
+        "expectedWithC8": "6b3839872f9317a5b54b492ab09c876e5734ccf5",
+        "actual": "6b3839872f9317a5b54b492ab09c876e5734ccf5",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurityService.cs",
+        "expectedWithC8": "66adf9e7903f56f44a3a5848055f180d0e9ae7c8",
+        "actual": "66adf9e7903f56f44a3a5848055f180d0e9ae7c8",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyDbContext.cs",
+        "expectedWithC8": "bd31eb059d1b93775dff3ff778ec16080c0aafbc",
+        "actual": "bd31eb059d1b93775dff3ff778ec16080c0aafbc",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyEndpoints.cs",
+        "expectedWithC8": "38326c621ea626afe5bde557ac964c21f2a72c27",
+        "actual": "38326c621ea626afe5bde557ac964c21f2a72c27",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyModels.cs",
+        "expectedWithC8": "e19f54695d20289c0214d81c2c6ceceb6d4f0846",
+        "actual": "e19f54695d20289c0214d81c2c6ceceb6d4f0846",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyRules.cs",
+        "expectedWithC8": "985b21025748f0a90619c4df7f18503245c70806",
+        "actual": "985b21025748f0a90619c4df7f18503245c70806",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyService.cs",
+        "expectedWithC8": "98cdc3f11fdebcb3207a6eaafb369c67b058025a",
+        "actual": "98cdc3f11fdebcb3207a6eaafb369c67b058025a",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Martha.Store.Api.csproj",
+        "expectedWithC8": "45932d72ec9928deaf57c4a25dc9a8df5520c4cd",
+        "actual": "45932d72ec9928deaf57c4a25dc9a8df5520c4cd",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Migrations/20261024223644_InitialSyntheticFoundation.Designer.cs",
+        "expectedWithC8": "c7eb8639190c9182aedbc37d07f0e4824c7ec120",
+        "actual": "c7eb8639190c9182aedbc37d07f0e4824c7ec120",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Migrations/20261024223644_InitialSyntheticFoundation.cs",
+        "expectedWithC8": "0d70781892ec99550ca44298f48fe62e9ebe5471",
+        "actual": "0d70781892ec99550ca44298f48fe62e9ebe5471",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Migrations/20261025010000_SaviaV2Ledger.Designer.cs",
+        "expectedWithC8": "370c80e1b54046cb980428e2143f30d7a35ddc9c",
+        "actual": "370c80e1b54046cb980428e2143f30d7a35ddc9c",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Migrations/20261025010000_SaviaV2Ledger.cs",
+        "expectedWithC8": "bb8f98014fc2f3057925197ffeb0ba9fb4553b99",
+        "actual": "bb8f98014fc2f3057925197ffeb0ba9fb4553b99",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Migrations/StoreDbContextModelSnapshot.cs",
+        "expectedWithC8": "1b3b5bde47b0cb67210dfd106ae9cbc91b989424",
+        "actual": "1b3b5bde47b0cb67210dfd106ae9cbc91b989424",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/Program.cs",
+        "expectedWithC8": "2d81835ee1725d9f0a0c713c8ee3b0a990a6001d",
+        "actual": "2d81835ee1725d9f0a0c713c8ee3b0a990a6001d",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/SaviaModel.cs",
+        "expectedWithC8": "c74eb379b5243d8c9019a8566eae6d4abcc6588c",
+        "actual": "c74eb379b5243d8c9019a8566eae6d4abcc6588c",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/SaviaModels.cs",
+        "expectedWithC8": "b948ca89646ed249c6f431eca4cc82a63f5ab90a",
+        "actual": "b948ca89646ed249c6f431eca4cc82a63f5ab90a",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/SaviaService.cs",
+        "expectedWithC8": "f9bd7e3140a66663dd2cc0c3ce187db38a8d36c9",
+        "actual": "f9bd7e3140a66663dd2cc0c3ce187db38a8d36c9",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/SaviaSyntheticSeed.cs",
+        "expectedWithC8": "34a4efafc55ddd8c2fa11e8214b3bae6ae147a0f",
+        "actual": "34a4efafc55ddd8c2fa11e8214b3bae6ae147a0f",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/StoreDatabaseGuard.cs",
+        "expectedWithC8": "97d8c71dc8bbfc3602ca4c44f00d9c98736c0479",
+        "actual": "97d8c71dc8bbfc3602ca4c44f00d9c98736c0479",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/StoreDbContext.cs",
+        "expectedWithC8": "14797ed3ef295f5af27d993354e86fe771b83c1e",
+        "actual": "14797ed3ef295f5af27d993354e86fe771b83c1e",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/StoreDbContextFactory.cs",
+        "expectedWithC8": "9b05ad1de7ca92ae52613c043302722668aedc3b",
+        "actual": "9b05ad1de7ca92ae52613c043302722668aedc3b",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/SyntheticOrders.cs",
+        "expectedWithC8": "1ef44fb3b17891caa6d1a8789ee8fd76bf841585",
+        "actual": "1ef44fb3b17891caa6d1a8789ee8fd76bf841585",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/SyntheticSeed.cs",
+        "expectedWithC8": "66159380f47d727af14272af50e115ca84b6261b",
+        "actual": "66159380f47d727af14272af50e115ca84b6261b",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/src/Martha.Store.Api/packages.lock.json",
+        "expectedWithC8": "b0baf3aefb660433fe3ea404c66b7337296edf45",
+        "actual": "b0baf3aefb660433fe3ea404c66b7337296edf45",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+        "expectedWithC8": "55278b1e3bc355a1fe58607a8a8cb7a6ecd44fa9",
+        "actual": "55278b1e3bc355a1fe58607a8a8cb7a6ecd44fa9",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "backend/tests/Martha.Store.Api.Tests/packages.lock.json",
+        "expectedWithC8": "db8eae16ca336d09066bc1f92026701657efc8e2",
+        "actual": "db8eae16ca336d09066bc1f92026701657efc8e2",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "dev/savia-staff-ui/README.md",
+        "expectedWithC8": "f7f17b0f792586ce3d296e6bcb78b4e046a905d1",
+        "actual": "f7f17b0f792586ce3d296e6bcb78b4e046a905d1",
+        "intentionalC8Replacement": true,
+        "match": true
+      },
+      {
+        "path": "dev/savia-staff-ui/app.mjs",
+        "expectedWithC8": "761eafa3e64ebca784d96c4465d052b2603c91be",
+        "actual": "761eafa3e64ebca784d96c4465d052b2603c91be",
+        "intentionalC8Replacement": true,
+        "match": true
+      },
+      {
+        "path": "dev/savia-staff-ui/auth.test.mjs",
+        "expectedWithC8": "857e81996dc82a4a9e484e86099d2c9c00b09586",
+        "actual": "857e81996dc82a4a9e484e86099d2c9c00b09586",
+        "intentionalC8Replacement": true,
+        "match": true
+      },
+      {
+        "path": "dev/savia-staff-ui/branch-compat.test.mjs",
+        "expectedWithC8": "f220d358fc27f938ae67fd52418fb09517fe2ec0",
+        "actual": "f220d358fc27f938ae67fd52418fb09517fe2ec0",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "dev/savia-staff-ui/client.mjs",
+        "expectedWithC8": "744ab5db68eb1a5f7a89e5cb3d1a424459add9ae",
+        "actual": "744ab5db68eb1a5f7a89e5cb3d1a424459add9ae",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "dev/savia-staff-ui/commerce.test.mjs",
+        "expectedWithC8": "cdc8dabd6289b6282c48ca7d9a328e850a213026",
+        "actual": "cdc8dabd6289b6282c48ca7d9a328e850a213026",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "dev/savia-staff-ui/dom.test.mjs",
+        "expectedWithC8": "43322796ac0e4f84c99c301b80aa21cc5277a6d1",
+        "actual": "43322796ac0e4f84c99c301b80aa21cc5277a6d1",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "dev/savia-staff-ui/index.html",
+        "expectedWithC8": "96bc1fa79847e58ab1edcf2239b0a73831ceb27b",
+        "actual": "96bc1fa79847e58ab1edcf2239b0a73831ceb27b",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "dev/savia-staff-ui/login.html",
+        "expectedWithC8": "6d37d8e1de075fdca8d9da3c43fa05e4e4f8f87c",
+        "actual": "6d37d8e1de075fdca8d9da3c43fa05e4e4f8f87c",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "dev/savia-staff-ui/login.mjs",
+        "expectedWithC8": "6a639cafe028fe28be9ab0539688afcaa7aef86b",
+        "actual": "6a639cafe028fe28be9ab0539688afcaa7aef86b",
+        "intentionalC8Replacement": true,
+        "match": true
+      },
+      {
+        "path": "dev/savia-staff-ui/pagination.test.mjs",
+        "expectedWithC8": "d82bb60450e5db353d2938f83f4ff33b93db68b5",
+        "actual": "d82bb60450e5db353d2938f83f4ff33b93db68b5",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "dev/savia-staff-ui/styles.css",
+        "expectedWithC8": "dfd080c6f83adb95d8ea44e5cdd675c8e8f28067",
+        "actual": "dfd080c6f83adb95d8ea44e5cdd675c8e8f28067",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "global.json",
+        "expectedWithC8": "08555100a62dbedcf53940a125126f8aa222c4c9",
+        "actual": "08555100a62dbedcf53940a125126f8aa222c4c9",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "package-lock.json",
+        "expectedWithC8": "455318a0618b4081793def4c643c21c296aa9aeb",
+        "actual": "455318a0618b4081793def4c643c21c296aa9aeb",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "package.json",
+        "expectedWithC8": "e6b1fcd60d5907313bd6aabcc1f072c89bf7ff34",
+        "actual": "e6b1fcd60d5907313bd6aabcc1f072c89bf7ff34",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "tests/browser-mock-validation.mjs",
+        "expectedWithC8": "199f8826515d0a3c1f3e6c8981d964b6fc3aeebd",
+        "actual": "199f8826515d0a3c1f3e6c8981d964b6fc3aeebd",
+        "intentionalC8Replacement": true,
+        "match": true
+      },
+      {
+        "path": "tests/frontend-deps/package-lock.json",
+        "expectedWithC8": "e7451a6fe7c07b77969508ccc3445bb44be6232d",
+        "actual": "e7451a6fe7c07b77969508ccc3445bb44be6232d",
+        "intentionalC8Replacement": false,
+        "match": true
+      },
+      {
+        "path": "tests/frontend-deps/package.json",
+        "expectedWithC8": "1d73fca162646f826b00cd1f3698ddca22b8e36b",
+        "actual": "1d73fca162646f826b00cd1f3698ddca22b8e36b",
+        "intentionalC8Replacement": false,
+        "match": true
+      }
+    ],
+    "browserSourceHashes": [
+      {
+        "path": "dev/savia-staff-ui/app.mjs",
+        "gitBlob": "761eafa3e64ebca784d96c4465d052b2603c91be",
+        "expectedSha256FromGitBlob": "65b9c09dacfc858b9e70ef8baf303560e26cbc0d406c99b989b5a31d5da42327",
+        "ciObservedSha256": "65b9c09dacfc858b9e70ef8baf303560e26cbc0d406c99b989b5a31d5da42327",
+        "match": true
+      },
+      {
+        "path": "dev/savia-staff-ui/client.mjs",
+        "gitBlob": "744ab5db68eb1a5f7a89e5cb3d1a424459add9ae",
+        "expectedSha256FromGitBlob": "3ca499eaed1a2ff636e4ed385b25bd96122488c94fad38be6bc80460f49fa6b9",
+        "ciObservedSha256": "3ca499eaed1a2ff636e4ed385b25bd96122488c94fad38be6bc80460f49fa6b9",
+        "match": true
+      },
+      {
+        "path": "dev/savia-staff-ui/login.mjs",
+        "gitBlob": "6a639cafe028fe28be9ab0539688afcaa7aef86b",
+        "expectedSha256FromGitBlob": "139fb119d215df458f67d3cb5916dbe3bd6db8682da113297d45121c2725cf66",
+        "ciObservedSha256": "139fb119d215df458f67d3cb5916dbe3bd6db8682da113297d45121c2725cf66",
+        "match": true
+      },
+      {
+        "path": "dev/savia-staff-ui/login.html",
+        "gitBlob": "6d37d8e1de075fdca8d9da3c43fa05e4e4f8f87c",
+        "expectedSha256FromGitBlob": "b9068478b46b9786c18dbe54ffa1172e1fb325e283ca944f9c2a840b37d1a686",
+        "ciObservedSha256": "b9068478b46b9786c18dbe54ffa1172e1fb325e283ca944f9c2a840b37d1a686",
+        "match": true
+      },
+      {
+        "path": "dev/savia-staff-ui/index.html",
+        "gitBlob": "96bc1fa79847e58ab1edcf2239b0a73831ceb27b",
+        "expectedSha256FromGitBlob": "d4fcaa074c039b2f50783b3209a1429587b38f0c7e4335726dc0210be5c74c6f",
+        "ciObservedSha256": "d4fcaa074c039b2f50783b3209a1429587b38f0c7e4335726dc0210be5c74c6f",
+        "match": true
+      },
+      {
+        "path": "dev/savia-staff-ui/styles.css",
+        "gitBlob": "dfd080c6f83adb95d8ea44e5cdd675c8e8f28067",
+        "expectedSha256FromGitBlob": "e43e99b50b19aeadc6ebadae63e64cf3902c96ca923d08943fa6daadff9d9ae8",
+        "ciObservedSha256": "e43e99b50b19aeadc6ebadae63e64cf3902c96ca923d08943fa6daadff9d9ae8",
+        "match": true
+      }
+    ],
+    "sixBlobMatches": 6,
+    "dependencyMatches": 71,
+    "browserSourceHashMatches": 6,
+    "normalization": "SHA256 is computed from exact Git blob bytes, not the Windows checkout."
+  },
+  "artifactEvidence": {
+    "sourceDirectory": "coordination/c8-ci-41765611859",
+    "hashes": [
+      {
+        "path": "run-binding.json",
+        "sha256": "8ab656e51c585e6d3de72e3e37333161a5b796952da839013b40e9baa10850bb"
+      },
+      {
+        "path": "staff-summary.json",
+        "sha256": "14d54c5133534dfdba8513e2ac4343cbc287767de72ba0e2889a7625d08a127f"
+      },
+      {
+        "path": "log-provenance.json",
+        "sha256": "b748d8edde7a8f009d400dcf7e6110a53034066033a9dec35a99b04e3625a1f1"
+      },
+      {
+        "path": "browser/browser-results.json",
+        "sha256": "b2431b8f822d452ed3ab4c68ce659f243b33bf34e8baba5c02216894675b40d0"
+      },
+      {
+        "path": "backend/sanitized-results.json",
+        "sha256": "4afe8bcf8e774f8845cc1ecc800cea2db64fa9f6f750ebbef75815311d6a486d"
+      }
+    ],
+    "artifacts": [
+      {
+        "id": 13293135677,
+        "name": "savia-backend-outcomes-41765611859-1",
+        "size_in_bytes": 7529,
+        "url": "https://api.github.com/repos/Suazo-AI/Martha-Silva-Store/actions/artifacts/13293135677",
+        "archive_download_url": "https://api.github.com/repos/Suazo-AI/Martha-Silva-Store/actions/artifacts/13293135677/zip",
+        "expired": false,
+        "created_at": "2026-11-04T03:14:04Z",
+        "expires_at": "2026-11-11T03:14:04Z",
+        "updated_at": "2026-11-04T03:14:04Z",
+        "digest": "sha256:2ebd08e19f9fa7d65afd4dd2e0bbca3da2c276e6f6732e6c3a89571d05c87dff",
+        "workflow_run": {
+          "id": 41765611859,
+          "repository_id": 1432603254,
+          "head_repository_id": 1432603254,
+          "head_branch": "claude/funny-brahmagupta-5e5rj0",
+          "head_sha": "e4b7910835bf2c9901aa06989e296997875a3636"
+        }
+      },
+      {
+        "id": 13292871339,
+        "name": "savia-browser-evidence-41765611859-1",
+        "size_in_bytes": 73943,
+        "url": "https://api.github.com/repos/Suazo-AI/Martha-Silva-Store/actions/artifacts/13292871339",
+        "archive_download_url": "https://api.github.com/repos/Suazo-AI/Martha-Silva-Store/actions/artifacts/13292871339/zip",
+        "expired": false,
+        "created_at": "2026-11-04T03:13:44Z",
+        "expires_at": "2026-11-11T03:13:43Z",
+        "updated_at": "2026-11-04T03:13:44Z",
+        "digest": "sha256:4632864ca8a354c210bd27f2f974cd8bafc0e6bcf2814438d8d966e63aa47cef",
+        "workflow_run": {
+          "id": 41765611859,
+          "repository_id": 1432603254,
+          "head_repository_id": 1432603254,
+          "head_branch": "claude/funny-brahmagupta-5e5rj0",
+          "head_sha": "e4b7910835bf2c9901aa06989e296997875a3636"
+        }
+      }
+    ],
+    "jobs": [
+      {
+        "id": 126363152814,
+        "name": "Staff UI tests and real browser harness",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 41765611859,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Install locked jsdom without lifecycle scripts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Staff UI tests (jsdom doubles, not a browser)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Install pinned Playwright library; the runner's Google Chrome is the browser",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Real browser with synthetic API responses (includes the N5 regressions)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Upload browser evidence (synthetic records only)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Post Run actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15
+          },
+          {
+            "name": "Post Run actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17
+          }
+        ]
+      },
+      {
+        "id": 126363153085,
+        "name": "Complete backend suite on disposable SQL Server",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 41765611859,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Verify the evidence summarizer",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Restore pinned dependencies and build",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Start disposable SQL Server 2022 Developer",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Wait for SQL and verify licensed edition and engine",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Run every backend case against disposable SQL (restart proof held back)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Controlled container stop/start, then restart persistence proof",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Require every case executed and passed; sanitize evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10
+          },
+          {
+            "name": "Upload sanitized outcomes only",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11
+          },
+          {
+            "name": "Always destroy the disposable SQL container and raw logs",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12
+          },
+          {
+            "name": "Post Run actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 23
+          },
+          {
+            "name": "Post Run actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 24
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 25
+          }
+        ]
+      }
+    ],
+    "browser": {
+      "cases": 45,
+      "passed": 45,
+      "failed": 0,
+      "runtimeErrors": 0,
+      "externalRequests": 0,
+      "networkFailures": [
+        {
+          "test": "",
+          "path": "/internal/api/commerce/sales",
+          "error": "net::ERR_FAILED"
+        },
+        {
+          "test": "",
+          "path": "/internal/api/commerce/sales",
+          "error": "net::ERR_FAILED"
+        },
+        {
+          "test": "",
+          "path": "/internal/api/security/logout",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "test": "n2-cashier",
+          "path": "/internal/api/commerce/sales",
+          "error": "net::ERR_FAILED"
+        },
+        {
+          "test": "n2-owner",
+          "path": "/internal/api/commerce/sales",
+          "error": "net::ERR_FAILED"
+        },
+        {
+          "test": "n2-manager",
+          "path": "/internal/api/commerce/sales",
+          "error": "net::ERR_FAILED"
+        },
+        {
+          "test": "n6-other-actor",
+          "path": "/internal/api/commerce/sales",
+          "error": "net::ERR_FAILED"
+        },
+        {
+          "test": "n6-changed-version",
+          "path": "/internal/api/commerce/sales",
+          "error": "net::ERR_FAILED"
+        },
+        {
+          "test": "n7-logout",
+          "path": "/internal/api/security/logout",
+          "error": "net::ERR_ABORTED"
+        }
+      ],
+      "c8": [
+        {
+          "name": "N2 Cashier reload recovers the same uncertain attempt without another sale (C8)",
+          "status": "PASS",
+          "assertionDetail": {
+            "posts": 1
+          }
+        },
+        {
+          "name": "N2 Owner reload recovers the same uncertain attempt without another sale (C8)",
+          "status": "PASS",
+          "assertionDetail": {
+            "posts": 1
+          }
+        },
+        {
+          "name": "N2 Manager reload recovers the same uncertain attempt without another sale (C8)",
+          "status": "PASS",
+          "assertionDetail": {
+            "posts": 1
+          }
+        },
+        {
+          "name": "N6 changing actor keeps the uncertain key private and never replays it as the new actor (C8)",
+          "status": "PASS",
+          "assertionDetail": {
+            "pendingKeys": 1
+          }
+        },
+        {
+          "name": "N6 changed actor version preserves the attempt and blocks recovery and resend under the new scope (C8)",
+          "status": "PASS",
+          "assertionDetail": {
+            "posts": 1
+          }
+        },
+        {
+          "name": "N6 legacy attempt outside the current authorized locations stays private and cannot be replayed (C8)",
+          "status": "PASS",
+          "assertionDetail": {
+            "legacyVersion": "unknown; never rebound",
+            "posts": 0
+          }
+        },
+        {
+          "name": "N7 revoked mocked 401 discards late stock and cancels a sale waiting for CSRF (C8)",
+          "status": "PASS",
+          "assertionDetail": {
+            "reason": "revoked",
+            "layer": "mocked browser 401 only; API TimeProvider NOT RUN"
+          }
+        },
+        {
+          "name": "N7 absolute-expiry mocked 401 discards late stock and cancels a sale waiting for CSRF (C8)",
+          "status": "PASS",
+          "assertionDetail": {
+            "reason": "absolute-expiry",
+            "layer": "mocked browser 401 only; API TimeProvider NOT RUN"
+          }
+        },
+        {
+          "name": "N7 logout cancels a sale awaiting CSRF and discards its late response (C8)",
+          "status": "PASS",
+          "assertionDetail": {
+            "posts": 0
+          }
+        }
+      ],
+      "n5": [
+        {
+          "name": "Stale confirmed receipt 404 must not permanently block a fresh sale (N5)",
+          "status": "PASS"
+        },
+        {
+          "name": "Stale receipt 403 after reassignment is cleared and leaves a fresh sale available (N5)",
+          "status": "PASS"
+        },
+        {
+          "name": "Unavailable receipt lookup keeps its reference and does not invent a pending sale (N5)",
+          "status": "PASS"
+        },
+        {
+          "name": "Stale receipt never unlocks a real pending sale; recovery reuses the original key (N5)",
+          "status": "PASS"
+        },
+        {
+          "name": "Revoked session during receipt restore returns to sign-in without staff data (N5)",
+          "status": "PASS"
+        }
+      ],
+      "sourceHashes": {
+        "dev/savia-staff-ui/app.mjs": "65b9c09dacfc858b9e70ef8baf303560e26cbc0d406c99b989b5a31d5da42327",
+        "dev/savia-staff-ui/client.mjs": "3ca499eaed1a2ff636e4ed385b25bd96122488c94fad38be6bc80460f49fa6b9",
+        "dev/savia-staff-ui/login.mjs": "139fb119d215df458f67d3cb5916dbe3bd6db8682da113297d45121c2725cf66",
+        "dev/savia-staff-ui/login.html": "b9068478b46b9786c18dbe54ffa1172e1fb325e283ca944f9c2a840b37d1a686",
+        "dev/savia-staff-ui/index.html": "d4fcaa074c039b2f50783b3209a1429587b38f0c7e4335726dc0210be5c74c6f",
+        "dev/savia-staff-ui/styles.css": "e43e99b50b19aeadc6ebadae63e64cf3902c96ca923d08943fa6daadff9d9ae8"
+      },
+      "node": "v24.22.2",
+      "browser": "156.0.8078.79",
+      "layer": "Real Chromium browser; mocked staff API; public browser-local demo"
+    },
+    "backend": {
+      "cases": 600,
+      "passed": 600,
+      "notPassed": 0,
+      "minimumCases": 600,
+      "methodCount": 257,
+      "methodCountSumVerified": true,
+      "securityMethodCount": 17,
+      "securityCases": 49,
+      "securityPassed": 49,
+      "securityMethods": {
+        "Martha.Store.Api.Tests.InternalSecurityTests.Anonymous_challenges_and_login_csrf_do_not_resolve_database_configuration": {
+          "cases": 1,
+          "passed": 1
+        },
+        "Martha.Store.Api.Tests.InternalSecurityTests.Anonymous_role_headers_cannot_authorize_staff_endpoints_and_http_cannot_get_tokens": {
+          "cases": 1,
+          "passed": 1
+        },
+        "Martha.Store.Api.Tests.InternalSecurityTests.Cookies_are_host_scoped_strict_secure_http_only_and_not_sliding": {
+          "cases": 1,
+          "passed": 1
+        },
+        "Martha.Store.Api.Tests.InternalSecurityTests.Credential_request_diagnostics_do_not_print_passwords": {
+          "cases": 1,
+          "passed": 1
+        },
+        "Martha.Store.Api.Tests.InternalSecurityTests.Expired_cookie_is_rejected_by_fake_TimeProvider_before_database_resolution": {
+          "cases": 1,
+          "passed": 1
+        },
+        "Martha.Store.Api.Tests.InternalSecurityTests.Global_login_budget_is_shared_across_addresses_and_recovers_after_window": {
+          "cases": 1,
+          "passed": 1
+        },
+        "Martha.Store.Api.Tests.InternalSecurityTests.Lockout_counter_is_bounded_and_resets_only_after_expiry": {
+          "cases": 1,
+          "passed": 1
+        },
+        "Martha.Store.Api.Tests.InternalSecurityTests.Login_admission_bounds_concurrency_and_attempts_then_recovers": {
+          "cases": 1,
+          "passed": 1
+        },
+        "Martha.Store.Api.Tests.InternalSecurityTests.Login_and_reusable_mutation_filter_require_a_real_csrf_pair_even_when_anonymous": {
+          "cases": 1,
+          "passed": 1
+        },
+        "Martha.Store.Api.Tests.InternalSecurityTests.Login_names_are_bounded_unambiguous_identifiers": {
+          "cases": 7,
+          "passed": 7
+        },
+        "Martha.Store.Api.Tests.InternalSecurityTests.Password_policy_allows_passphrases_without_silent_truncation": {
+          "cases": 1,
+          "passed": 1
+        },
+        "Martha.Store.Api.Tests.InternalSecurityTests.Persisted_session_and_current_staff_are_both_required": {
+          "cases": 1,
+          "passed": 1
+        },
+        "Martha.Store.Api.Tests.InternalSecurityTests.Policies_enforce_role_boundaries": {
+          "cases": 10,
+          "passed": 10
+        },
+        "Martha.Store.Api.Tests.InternalSecurityTests.Registered_password_hasher_uses_salted_hashes_and_rejects_wrong_input": {
+          "cases": 1,
+          "passed": 1
+        },
+        "Martha.Store.Api.Tests.InternalSecurityTests.Roles_are_a_closed_server_allowlist": {
+          "cases": 8,
+          "passed": 8
+        },
+        "Martha.Store.Api.Tests.InternalSecurityTests.Staff_and_sessions_are_in_separate_schema_with_unique_login_and_concurrency_guard": {
+          "cases": 1,
+          "passed": 1
+        },
+        "Martha.Store.Api.Tests.InternalSecurityTests.Stale_or_forged_claims_and_invalid_sessions_are_rejected": {
+          "cases": 11,
+          "passed": 11
+        }
+      },
+      "expiry": {
+        "method": "Martha.Store.Api.Tests.InternalSecurityTests.Expired_cookie_is_rejected_by_fake_TimeProvider_before_database_resolution",
+        "cases": 1,
+        "passed": 1
+      }
+    },
+    "staffSummary": {
+      "run_id": 41765611859,
+      "attempt": 1,
+      "head": "e4b7910835bf2c9901aa06989e296997875a3636",
+      "job_id": 126363152814,
+      "step": "Staff UI tests (jsdom doubles, not a browser)",
+      "source": "Completed GitHub job log, read locally; raw log excluded from public evidence",
+      "counters": {
+        "tests": 45,
+        "suites": 0,
+        "pass": 45,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "summary_lines": [
+        "2026-11-04T03:12:24.3246057Z ℹ tests 45",
+        "2026-11-04T03:12:24.3246724Z ℹ suites 0",
+        "2026-11-04T03:12:24.3253309Z ℹ pass 45",
+        "2026-11-04T03:12:24.3253773Z ℹ fail 0",
+        "2026-11-04T03:12:24.3254211Z ℹ cancelled 0",
+        "2026-11-04T03:12:24.3254667Z ℹ skipped 0",
+        "2026-11-04T03:12:24.3255065Z ℹ todo 0"
+      ],
+      "capture_wrapper_sha256": "fa65771d9f5fa450ec518e69b915ebad7a5cac033d0af68d3141e26d64415cd2",
+      "full_log_file_sha256": "8df416c3a7457057ca944074c6c51be00d330ae7d674747d7cfbceda40dee675",
+      "full_log_decoded_utf8_sha256": "8df416c3a7457057ca944074c6c51be00d330ae7d674747d7cfbceda40dee675",
+      "provenance_note": "Counters extracted from full_log bytes. Capture wrapper is truncated TOON and has a different hash."
+    },
+    "logProvenance": {
+      "run_id": 41765611859,
+      "attempt": 1,
+      "head": "e4b7910835bf2c9901aa06989e296997875a3636",
+      "job_id": 126363152814,
+      "checkout_sha": "f1a0bb1d0cd0258838f920ec8f811315820c7587",
+      "checkout_readback": [
+        "2026-11-04T03:12:16.0215212Z [command]/usr/bin/git log -1 --format=%H",
+        "2026-11-04T03:12:16.0254690Z f1a0bb1d0cd0258838f920ec8f811315820c7587"
+      ],
+      "container_absence_readback": [],
+      "capture_wrapper_sha256": "fa65771d9f5fa450ec518e69b915ebad7a5cac033d0af68d3141e26d64415cd2",
+      "full_log_file_sha256": "8df416c3a7457057ca944074c6c51be00d330ae7d674747d7cfbceda40dee675",
+      "full_log_decoded_utf8_sha256": "8df416c3a7457057ca944074c6c51be00d330ae7d674747d7cfbceda40dee675",
+      "source": "gh-axi full_log file, not truncated TOON capture; raw logs excluded"
+    }
+  },
+  "evidenceInterpretation": {
+    "deduplication": [
+      "The nine C8 browser cases are included in 45 browser cases.",
+      "The expiry case is included in 49 InternalSecurityTests cases.",
+      "The 49 security cases are included in the backend 600 cases.",
+      "No aggregate acceptance percentage is produced by adding these groups."
+    ],
+    "freshVsReused": "CI counts above are fresh run 41765611859 attempt 1. Historical red/green evidence remains reused and was not rerun locally.",
+    "checkoutBinding": "Staff runner git log readback is f1a0bb1d0cd0258838f920ec8f811315820c7587. The supplied GitHub compare has merge_base=e4, no changed files and too_large=null; browser source hashes independently match candidate Git blobs.",
+    "staffProvenance": "The TOON capture wrapper has sha256 fa657... and points to a separate full_log file with sha256 8df416.... Supplement and staff summary identify both objects; the earlier mismatch is resolved, not hidden.",
+    "browserNetworkObservations": "Nine requestfailed events are retained: seven sales net::ERR_FAILED with abort injection present in source and two logout net::ERR_ABORTED during navigation. Browser runtime errors and external requests are both zero. All named browser scenarios pass.",
+    "limits": [
+      "Browser is real Chromium with synthetic staff API responses; it does not prove browser→API→SQL.",
+      "API expiry is a synthetic protected cookie in TestServer with a fake TimeProvider; no global clock change or SQL resolution.",
+      "Staff tests use transport/DOM doubles.",
+      "Historical harness hash was recorded after historical red/green runs; that original limitation remains.",
+      "Legacy attempts without actor version retain their documented limitation.",
+      "This report does not accept C6, C9, C11, production, devices or Jason's formal READY.",
+      "The full raw staff log was not copied or rehashed by this worker. Root supplied safe summary/provenance from authenticated retrieval; the local wrapper digest was independently observed."
+    ]
+  },
+  "closedBlockers": [
+    {
+      "id": "FINAL-CANDIDATE",
+      "priorFact": "Only Tony@2dd was checked; PR2 was divergent.",
+      "resolution": "Root published e4; direct read-only Git verification matched all six blobs, all 71 overlay entries and all six browser source hashes.",
+      "owner": "/root",
+      "completionEvidence": "gitBinding"
+    },
+    {
+      "id": "FINAL-CI",
+      "priorFact": "Only aggregate PR check state was available.",
+      "resolution": "Both exact jobs/steps and named result artifacts were supplied for run 41765611859/1 and independently checked.",
+      "owner": "/root",
+      "completionEvidence": "artifactEvidence"
+    },
+    {
+      "id": "STAFF-LOG-PROVENANCE",
+      "priorFact": "Local TOON wrapper and staff-summary raw-log digest differed.",
+      "resolution": "log-provenance.json distinguishes the wrapper hash fa657... from full_log hash 8df416... and supplies runner checkout readback.",
+      "owner": "/root",
+      "completionEvidence": "artifactEvidence.logProvenance"
+    }
+  ],
+  "n5Coverage": {
+    "scope": "Additional mapping requested by root; no executor, runtime or criterion change.",
+    "status": "THREE_PENDING_COVERAGE_GAPS",
+    "existingBrowserN5Cases": [
+      {
+        "name": "Stale confirmed receipt 404 must not permanently block a fresh sale (N5)",
+        "status": "PASS"
+      },
+      {
+        "name": "Stale receipt 403 after reassignment is cleared and leaves a fresh sale available (N5)",
+        "status": "PASS"
+      },
+      {
+        "name": "Unavailable receipt lookup keeps its reference and does not invent a pending sale (N5)",
+        "status": "PASS"
+      },
+      {
+        "name": "Stale receipt never unlocks a real pending sale; recovery reuses the original key (N5)",
+        "status": "PASS"
+      },
+      {
+        "name": "Revoked session during receipt restore returns to sign-in without staff data (N5)",
+        "status": "PASS"
+      }
+    ],
+    "items": [
+      {
+        "id": "N5-COV-RECOVERY-DISABLED",
+        "criterion": "Venta deshabilitada durante recuperación",
+        "status": "GAP",
+        "existingEvidence": [
+          "app.mjs:492-513 sets busy=true and lock() before awaited recovery.",
+          "commerce.test.mjs:48-56 checks original-key recovery and unresolved 404 after completion.",
+          "browser-mock-validation.mjs:240-244 checks zero sale POST and original recovery key."
+        ],
+        "missingEvidence": "No held recovery response with an assertion and attempted submit during that exact in-flight interval.",
+        "nextAction": "Root/FIX adds and exercises the existing ledger scenario with a held recovery response, then supplies focused evidence.",
+        "owner": "/root / FIX",
+        "completionCheck": "Direct test evidence for disabled sale control and no sales POST while recovery remains unresolved.",
+        "attemptedCorrection": "None: this worker is read-only and has no runtime authorization; existing code/tests were inspected."
+      },
+      {
+        "id": "N5-COV-FRESH-SALE",
+        "criterion": "Venta nueva completa tras descartar recibo obsoleto",
+        "status": "GAP",
+        "existingEvidence": [
+          "browser-mock-validation.mjs:221-227 confirms submit becomes enabled after stale receipt 404.",
+          "browser-mock-validation.mjs:230-238 confirms stale 403 clears the receipt and 503 does not invent a pending operation."
+        ],
+        "missingEvidence": "No new sale is submitted and completed after that same stale-receipt discard in the current browser case.",
+        "nextAction": "Root/FIX exercises the existing end-to-end new-sale criterion after stale receipt discard.",
+        "owner": "/root / FIX",
+        "completionCheck": "One completed fresh sale and its receipt after the stale-receipt discard, with no duplicate operation.",
+        "attemptedCorrection": "None: no new test executor, runtime or criterion change permitted in this batch."
+      },
+      {
+        "id": "N5-COV-404-RACE",
+        "criterion": "Carrera 404",
+        "status": "GAP",
+        "existingEvidence": [
+          "app.mjs:476-490 has a current(g,id) guard before stale receipt removal.",
+          "Current browser N5 404 responses are immediate; the five N5 cases all pass."
+        ],
+        "missingEvidence": "No controlled delayed 404 competes with another action; no result oracle for that interleaving is exercised.",
+        "nextAction": "Root/FIX applies the exact pending ledger scenario and its existing oracle; this review does not choose a replacement criterion.",
+        "owner": "/root / FIX",
+        "completionCheck": "The specified 404 race is directly exercised with controlled ordering and passes its frozen oracle.",
+        "attemptedCorrection": "None: this batch permits coverage mapping only; no reproduction or implementation was attempted."
+      }
+    ],
+    "changesToFrozenC8Acceptance": false,
+    "productDefectClaimed": false
+  },
+  "safety": {
+    "localTestRuns": 0,
+    "runtimeStarted": false,
+    "sqlApiDockerServices": false,
+    "gitWrites": false,
+    "checkoutIndexRefsWritten": false,
+    "githubCallsThisFinalPhase": 0,
+    "trelloCalls": 0,
+    "installs": false,
+    "certAclSecurityChanges": false,
+    "rawLogsOrTrxCopied": false,
+    "secretsOrRealDataCopied": false,
+    "nestedDelegation": 0
+  },
+  "usage": {
+    "finalPhaseReadOnlyExecInvocations": 7,
+    "finalPhaseGithubQueries": 0,
+    "localTestRuns": 0,
+    "additionalPaidProviderCalls": 0,
+    "inputTokens": "not exposed",
+    "cacheTokens": "not exposed",
+    "outputTokens": "not exposed",
+    "reasoningTokens": "not exposed",
+    "providerUsd": "not exposed",
+    "elapsedSeconds": "not exposed as a phase total"
+  },
+  "nextAction": "Root adopts this technical evidence, preserves the three pending N5-COV cases and keeps Jason's READY separate."
+}

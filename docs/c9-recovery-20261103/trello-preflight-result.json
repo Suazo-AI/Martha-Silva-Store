@@ -1,0 +1,42 @@
+{
+  "card": "C9",
+  "card_id": "6aea5de748c40007cf1f7eeb",
+  "marker": "[SAVIA-C9-PREFLIGHT-FAIL-CLOSED-20261104]",
+  "action_id": "6aeabc42c628d1fd26f3a77d",
+  "date": "2026-11-04T05:01:54.104Z",
+  "comment": "[SAVIA-C9-PREFLIGHT-FAIL-CLOSED-20261104]\nC9 sigue bloqueada 0/5. Unico intento metadata:1 Open,0 sesiones SQL,0 consultas y0 mutaciones emitidas; exit1 en88ms. Error exacto: The certificate chain was issued by an authority that is not trusted. Conexion cerrada/dispuesta, latch retenido y0 reintentos/fallback; ningun cambio de seguridad. No se identifica aun certificado/CA efectivos. No se probo igualdad completa del estado persistente. Campos SQL/permisos/rutas/colisiones NOT RUN; restore con ventas/oraculos, RTO/RPO y ultimo Owner siguen pendientes. Primary preparo una investigacion acotada de metadata local de certificados, todavia sin ejecutar ni abrir SQL. Jason/administrador decide cualquier correccion y nuevo intento bajo alcance separado; no reutilizar este intento. Informe saneado: https://github.com/Suazo-AI/Martha-Silva-Store/blob/Tony/docs/c9-recovery-20261103/PREFLIGHT-RESULT.md . Siguiente alcance preparado: https://github.com/Suazo-AI/Martha-Silva-Store/blob/Tony/docs/c9-recovery-20261103/CERTIFICATE-INVESTIGATION-SCOPE.md .",
+  "exact_readback": true,
+  "list_id": "6aea5d66e5b03a07af094570",
+  "closed": false,
+  "checklists_changed": false,
+  "list_changed": false,
+  "check_items": [
+    {
+      "id": "6aea5e81242a5b702b033587",
+      "name": "BACKUP WITH CHECKSUM ejecutado",
+      "state": "incomplete"
+    },
+    {
+      "id": "6aea5e817c70d59ff697ae1a",
+      "name": "RESTORE VERIFYONLY sin errores",
+      "state": "incomplete"
+    },
+    {
+      "id": "6aea5e8214ad86923a7d4ecb",
+      "name": "Restaurado como base nueva y mismos oráculos en verde",
+      "state": "incomplete"
+    },
+    {
+      "id": "6aea5e821abe297af9336cc5",
+      "name": "RTO real medido y RPO (ventas que se pierden) documentado",
+      "state": "incomplete"
+    },
+    {
+      "id": "6aea5e84d99c76a9e1454a16",
+      "name": "Recuperación del acceso Owner documentada (sin contraseñas ni secretos)",
+      "state": "incomplete"
+    }
+  ],
+  "complete": 0,
+  "total": 5
+}

@@ -1,0 +1,30 @@
+{
+  "observedUtc": "2026-11-04T00:21:35.329011+00:00",
+  "status": "NOT_RUN_SDK_BLOCKED",
+  "scope": "Offline TestServer only; no SQL or listener required",
+  "targetFramework": "net10.0",
+  "requestedSdk": {
+    "version": "10.0.402",
+    "rollForward": "disable",
+    "allowPrerelease": false
+  },
+  "installedSdks": [
+    "8.0.422 [C:/Program Files/dotnet/sdk]"
+  ],
+  "dependenciesCached": [
+    "Microsoft.AspNetCore.Mvc.Testing 10.0.13",
+    "Microsoft.EntityFrameworkCore.SqlServer 10.0.13",
+    "Microsoft.NET.Test.Sdk 18.11.0"
+  ],
+  "projectAssetsPresent": false,
+  "command": "dotnet test backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj --no-restore --filter 'FullyQualifiedName~InternalSecurityTests' --logger 'console;verbosity=minimal'",
+  "exit": -2147450735,
+  "failure": "A compatible .NET SDK was not found. Requested SDK version: 10.0.402.",
+  "logSha256": "a7ff2cd1a88e2d7b70dc0eaa9aee218abecd0db83cb283356b7c0e40bd596fef",
+  "attempts": 1,
+  "backendTestAdded": false,
+  "installs": false,
+  "networkRestore": false,
+  "nextOwner": "primary/Jason",
+  "nextAction": "Provide existing compatible SDK path or authorize SDK 10.0.402 installation; alternatively authorize push to an environment with that SDK. Offline API test does not require SQL permission."
+}

@@ -1,0 +1,65 @@
+[
+  {
+    "label": "restore-offline",
+    "executable": "C:/Users/Jason/.dotnet-sdk-10.0.402/dotnet.exe",
+    "arguments": [
+      "restore",
+      "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+      "--locked-mode",
+      "--ignore-failed-sources",
+      "--source",
+      "C:/Users/Jason/.nuget/packages"
+    ],
+    "cwd": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\c8-api-expiry-20261103",
+    "startedUtc": "2026-11-04T01:23:49.7974984+00:00",
+    "completedUtc": "2026-11-04T01:24:21.1247171+00:00",
+    "exitCode": 0,
+    "logSha256": "ca8bfce6e43d578016d4de8a2310fb06e510a903a25ed0db485b93fd5dc53659"
+  },
+  {
+    "label": "expiry-test",
+    "executable": "C:/Users/Jason/.dotnet-sdk-10.0.402/dotnet.exe",
+    "arguments": [
+      "test",
+      "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+      "--no-restore",
+      "--filter",
+      "FullyQualifiedName~InternalSecurityTests.Expired_cookie_is_rejected_by_fake_TimeProvider_before_database_resolution",
+      "--logger",
+      "console;verbosity=minimal",
+      "--logger",
+      "trx;LogFileName=expiry-test.trx",
+      "--results-directory",
+      "C:/Users/Jason/MARTHA-SILVA/test-runs/c8-api-expiry-20261103-evidence/results",
+      "-p:UseSharedCompilation=false"
+    ],
+    "cwd": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\c8-api-expiry-20261103",
+    "startedUtc": "2026-11-04T01:24:21.3536424+00:00",
+    "completedUtc": "2026-11-04T01:26:40.2675995+00:00",
+    "exitCode": 0,
+    "logSha256": "48799118b88289b1c2881d676736674e64106dc10189f8e803f7d2fb077a5c74"
+  },
+  {
+    "label": "security-regressions",
+    "executable": "C:/Users/Jason/.dotnet-sdk-10.0.402/dotnet.exe",
+    "arguments": [
+      "test",
+      "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+      "--no-restore",
+      "--no-build",
+      "--filter",
+      "FullyQualifiedName~InternalSecurityTests",
+      "--logger",
+      "console;verbosity=minimal",
+      "--logger",
+      "trx;LogFileName=security-regressions.trx",
+      "--results-directory",
+      "C:/Users/Jason/MARTHA-SILVA/test-runs/c8-api-expiry-20261103-evidence/results"
+    ],
+    "cwd": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\c8-api-expiry-20261103",
+    "startedUtc": "2026-11-04T01:26:40.2738239+00:00",
+    "completedUtc": "2026-11-04T01:26:48.6444717+00:00",
+    "exitCode": 0,
+    "logSha256": "4193552cbf8986652d00e827f20f18a437e788470208bb77b81c9bd0378fce33"
+  }
+]

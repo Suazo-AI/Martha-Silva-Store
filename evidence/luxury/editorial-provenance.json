@@ -1,0 +1,754 @@
+{
+  "schema": 1,
+  "task": "SUAZO-LUXURY-20261025-cloud-authorized-implementation",
+  "environment": "cloud workspace; not Suazo PC or laptop",
+  "original_manifest": {
+    "path": "new-instagram/download-manifest.json",
+    "bytes": 2469,
+    "sha256": "bea67e97f465bd7cf9b1ac8ba1213f30402a4638e1ee4381637d526716d202ea"
+  },
+  "provenance_scope": "Post URLs and verified owners are preserved from the supplied transfer manifest; this pass does not independently reverify live Instagram ownership.",
+  "editorial_only": true,
+  "catalog_mapping": "None. Photos are editorial, not verified commercial SKUs, prices or stock.",
+  "transform": {
+    "execution": "serial",
+    "tool": "Pillow",
+    "pillow_version": "12.3.0",
+    "webp_version": "1.6.0",
+    "jpeg_version": "6.2",
+    "resampling": "LANCZOS",
+    "dimensions": "width from explicit allowlist; height = round(source_height * width / source_width)",
+    "no_upscale": true,
+    "crop": false,
+    "rotation": "EXIF transpose if needed; all provided sources have zero EXIF tags",
+    "color": "RGB; no color-grade or retouch; original sources have no ICC profile",
+    "private_metadata": "No EXIF, XMP, comment, ICC or other source metadata copied into outputs",
+    "webp": {
+      "quality": 86,
+      "method": 6,
+      "lossless": false
+    },
+    "jpeg": {
+      "quality": 88,
+      "subsampling": 0,
+      "optimize": true,
+      "progressive": true
+    }
+  },
+  "visual_review": {
+    "date_utc": "2026-10-26",
+    "scope": "All six original photographs inspected as actual pixels with view_image before derivative generation; derivative spot checks separately recorded in README.",
+    "observations": "No embedded play icons. Whole source frame retained; inherited source framing or soft source detail is not reconstructed. Below-fold lazy loading, contain fit and responsive selection require independent markup/browser validation."
+  },
+  "assets": [
+    {
+      "post_id": "Dd-ETr6BL2V",
+      "source_post": "https://www.instagram.com/p/Dd-ETr6BL2V/",
+      "platform": "instagram",
+      "verified_owners_from_transfer_manifest": [
+        "marthasilva.store",
+        "marthasilva.gala"
+      ],
+      "role": "supporting-portrait-and-editorial",
+      "description_en": "Model wearing a pink embellished gown with a leg slit on a staircase.",
+      "description_es": "Modelo con vestido rosa de pedrería y abertura en una escalera.",
+      "visual_notes": "Head, heels and trailing skirt visible. Rounded black corners are part of source pixels and remain unchanged.",
+      "original": {
+        "path": "new-instagram/Dd-ETr6BL2V.jpg",
+        "bytes": 358334,
+        "sha256": "b6f7be38e5724e03b933ea9ac5b8d021ce30ce3a60821cbbfb48e8ce6810de44",
+        "width": 1320,
+        "height": 2347,
+        "format": "JPEG",
+        "metadata": {
+          "exif_tag_count": 0,
+          "icc_bytes": 0
+        },
+        "preserved_unchanged": true,
+        "published_by_this_change": false
+      },
+      "derivatives": [
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/Dd-ETr6BL2V-320.webp",
+          "runtime_path": "/editorial/Dd-ETr6BL2V-320.webp",
+          "bytes": 28528,
+          "sha256": "148fbdea1d727323cf112f1b405a06e3ed02256885ecd4e29ffaa20e9d485583",
+          "width": 320,
+          "height": 569,
+          "format": "WEBP",
+          "source_sha256": "b6f7be38e5724e03b933ea9ac5b8d021ce30ce3a60821cbbfb48e8ce6810de44",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/Dd-ETr6BL2V-320.jpg",
+          "runtime_path": "/editorial/Dd-ETr6BL2V-320.jpg",
+          "bytes": 51942,
+          "sha256": "68acdb2c59bf405be39215e72000d532adfddff91c86597e6ed29128a6f57e41",
+          "width": 320,
+          "height": 569,
+          "format": "JPEG",
+          "source_sha256": "b6f7be38e5724e03b933ea9ac5b8d021ce30ce3a60821cbbfb48e8ce6810de44",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/Dd-ETr6BL2V-480.webp",
+          "runtime_path": "/editorial/Dd-ETr6BL2V-480.webp",
+          "bytes": 51466,
+          "sha256": "698be55801c3f7f2c641d0bf98b49b6a6b185658dcf0355c85b5eb82918107cb",
+          "width": 480,
+          "height": 853,
+          "format": "WEBP",
+          "source_sha256": "b6f7be38e5724e03b933ea9ac5b8d021ce30ce3a60821cbbfb48e8ce6810de44",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/Dd-ETr6BL2V-480.jpg",
+          "runtime_path": "/editorial/Dd-ETr6BL2V-480.jpg",
+          "bytes": 97410,
+          "sha256": "579f13995beba3d01dd756e4664e81a9eb87ca400d431c5775005ba50a902f7c",
+          "width": 480,
+          "height": 853,
+          "format": "JPEG",
+          "source_sha256": "b6f7be38e5724e03b933ea9ac5b8d021ce30ce3a60821cbbfb48e8ce6810de44",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/Dd-ETr6BL2V-640.webp",
+          "runtime_path": "/editorial/Dd-ETr6BL2V-640.webp",
+          "bytes": 72604,
+          "sha256": "c33b28ae8f521bbcdcd5ec6415c510a37ae71633335eb973271ece30b90bb8a1",
+          "width": 640,
+          "height": 1138,
+          "format": "WEBP",
+          "source_sha256": "b6f7be38e5724e03b933ea9ac5b8d021ce30ce3a60821cbbfb48e8ce6810de44",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/Dd-ETr6BL2V-640.jpg",
+          "runtime_path": "/editorial/Dd-ETr6BL2V-640.jpg",
+          "bytes": 149762,
+          "sha256": "1235a22b9b21dd833fa10a97cd1138a93e12974ed9db81827b327a678400786a",
+          "width": 640,
+          "height": 1138,
+          "format": "JPEG",
+          "source_sha256": "b6f7be38e5724e03b933ea9ac5b8d021ce30ce3a60821cbbfb48e8ce6810de44",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/Dd-ETr6BL2V-960.webp",
+          "runtime_path": "/editorial/Dd-ETr6BL2V-960.webp",
+          "bytes": 113536,
+          "sha256": "1255a0cc80a6c8449836d515b1571c25d75a97f9d58d1757a50e8c42eff4bbed",
+          "width": 960,
+          "height": 1707,
+          "format": "WEBP",
+          "source_sha256": "b6f7be38e5724e03b933ea9ac5b8d021ce30ce3a60821cbbfb48e8ce6810de44",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/Dd-ETr6BL2V-960.jpg",
+          "runtime_path": "/editorial/Dd-ETr6BL2V-960.jpg",
+          "bytes": 267599,
+          "sha256": "e9d76bcbf7df025fe707bf56f3ea9acee963200584370408722cf09e7433aafe",
+          "width": 960,
+          "height": 1707,
+          "format": "JPEG",
+          "source_sha256": "b6f7be38e5724e03b933ea9ac5b8d021ce30ce3a60821cbbfb48e8ce6810de44",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        }
+      ]
+    },
+    {
+      "post_id": "DdXjMXIFHwT",
+      "source_post": "https://www.instagram.com/p/DdXjMXIFHwT/",
+      "platform": "instagram",
+      "verified_owners_from_transfer_manifest": [
+        "marthasilva.gala",
+        "marthasilva.store"
+      ],
+      "role": "lead-hero-and-editorial",
+      "description_en": "Model wearing a full-length nude gown with silver embellishment.",
+      "description_es": "Modelo con vestido largo en tono nude y pedrería plateada.",
+      "visual_notes": "Dominant full-length gown; preserve the complete supplied frame, including all available train and head pixels.",
+      "original": {
+        "path": "new-instagram/DdXjMXIFHwT.jpg",
+        "bytes": 950933,
+        "sha256": "3e27f62d339b8f1bd9371fbe2e74e2527b37153eb9fef970606c671535968aa0",
+        "width": 2400,
+        "height": 3196,
+        "format": "JPEG",
+        "metadata": {
+          "exif_tag_count": 0,
+          "icc_bytes": 0
+        },
+        "preserved_unchanged": true,
+        "published_by_this_change": false
+      },
+      "derivatives": [
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DdXjMXIFHwT-480.webp",
+          "runtime_path": "/editorial/DdXjMXIFHwT-480.webp",
+          "bytes": 32836,
+          "sha256": "76686ddf562c0b970fa8ac95d39da024b4e6f02d8dea3a5d1ed04c310a0168f3",
+          "width": 480,
+          "height": 639,
+          "format": "WEBP",
+          "source_sha256": "3e27f62d339b8f1bd9371fbe2e74e2527b37153eb9fef970606c671535968aa0",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DdXjMXIFHwT-480.jpg",
+          "runtime_path": "/editorial/DdXjMXIFHwT-480.jpg",
+          "bytes": 64090,
+          "sha256": "d179e45c6aa1c9442d4c853b951f35242ad2828b362ae9600e5107386beaf624",
+          "width": 480,
+          "height": 639,
+          "format": "JPEG",
+          "source_sha256": "3e27f62d339b8f1bd9371fbe2e74e2527b37153eb9fef970606c671535968aa0",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DdXjMXIFHwT-640.webp",
+          "runtime_path": "/editorial/DdXjMXIFHwT-640.webp",
+          "bytes": 55506,
+          "sha256": "e77f1df42405bd52130d458abf378520990a3ed4292c6056ba2c1f446590a8b5",
+          "width": 640,
+          "height": 852,
+          "format": "WEBP",
+          "source_sha256": "3e27f62d339b8f1bd9371fbe2e74e2527b37153eb9fef970606c671535968aa0",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DdXjMXIFHwT-640.jpg",
+          "runtime_path": "/editorial/DdXjMXIFHwT-640.jpg",
+          "bytes": 107468,
+          "sha256": "85bba3fcd720dd83501693ae8fe01f59ffa122d0ad9c245d579d1db74c58881c",
+          "width": 640,
+          "height": 852,
+          "format": "JPEG",
+          "source_sha256": "3e27f62d339b8f1bd9371fbe2e74e2527b37153eb9fef970606c671535968aa0",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DdXjMXIFHwT-960.webp",
+          "runtime_path": "/editorial/DdXjMXIFHwT-960.webp",
+          "bytes": 116874,
+          "sha256": "a0afcc739fa6cc75971b3a3facff7de5e6af364359a21a8eb17783eff7480f1a",
+          "width": 960,
+          "height": 1278,
+          "format": "WEBP",
+          "source_sha256": "3e27f62d339b8f1bd9371fbe2e74e2527b37153eb9fef970606c671535968aa0",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DdXjMXIFHwT-960.jpg",
+          "runtime_path": "/editorial/DdXjMXIFHwT-960.jpg",
+          "bytes": 224481,
+          "sha256": "6feb5fe46ccb5d3f0ec7a382002df4358dec9f7d25fe0f2ee443c3201b1b052e",
+          "width": 960,
+          "height": 1278,
+          "format": "JPEG",
+          "source_sha256": "3e27f62d339b8f1bd9371fbe2e74e2527b37153eb9fef970606c671535968aa0",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DdXjMXIFHwT-1440.webp",
+          "runtime_path": "/editorial/DdXjMXIFHwT-1440.webp",
+          "bytes": 268144,
+          "sha256": "ed558dcff8935e184676fcc9299c6bf6dd867c958774fd35d73540bc28bb8674",
+          "width": 1440,
+          "height": 1918,
+          "format": "WEBP",
+          "source_sha256": "3e27f62d339b8f1bd9371fbe2e74e2527b37153eb9fef970606c671535968aa0",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DdXjMXIFHwT-1440.jpg",
+          "runtime_path": "/editorial/DdXjMXIFHwT-1440.jpg",
+          "bytes": 495254,
+          "sha256": "56ccc5ea13eb91277e26da7b2d46ff38f248b19be79fa41d024cdbd4d81400cb",
+          "width": 1440,
+          "height": 1918,
+          "format": "JPEG",
+          "source_sha256": "3e27f62d339b8f1bd9371fbe2e74e2527b37153eb9fef970606c671535968aa0",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        }
+      ]
+    },
+    {
+      "post_id": "DeSHKZPKTNp",
+      "source_post": "https://www.instagram.com/p/DeSHKZPKTNp/",
+      "platform": "instagram",
+      "verified_owners_from_transfer_manifest": [
+        "marthasilva.gala",
+        "marthasilva.store"
+      ],
+      "role": "editorial-gallery",
+      "description_en": "Model wearing an off-the-shoulder white lace gown with a leg slit.",
+      "description_es": "Modelo con vestido blanco de encaje, hombros descubiertos y abertura.",
+      "visual_notes": "Head, lace hem and heels visible. Rounded black corners are part of source pixels and remain unchanged.",
+      "original": {
+        "path": "new-instagram/DeSHKZPKTNp.jpg",
+        "bytes": 427989,
+        "sha256": "a64f60b40a4be1bfa4dcc23ab1969ebdcd1bae6740aa1afb895eab00afa84777",
+        "width": 1320,
+        "height": 2347,
+        "format": "JPEG",
+        "metadata": {
+          "exif_tag_count": 0,
+          "icc_bytes": 0
+        },
+        "preserved_unchanged": true,
+        "published_by_this_change": false
+      },
+      "derivatives": [
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DeSHKZPKTNp-320.webp",
+          "runtime_path": "/editorial/DeSHKZPKTNp-320.webp",
+          "bytes": 35924,
+          "sha256": "c7d62a2521facab941475745409e237c9e8cb0a729a9a3d378434a555c85be9a",
+          "width": 320,
+          "height": 569,
+          "format": "WEBP",
+          "source_sha256": "a64f60b40a4be1bfa4dcc23ab1969ebdcd1bae6740aa1afb895eab00afa84777",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DeSHKZPKTNp-320.jpg",
+          "runtime_path": "/editorial/DeSHKZPKTNp-320.jpg",
+          "bytes": 59291,
+          "sha256": "69758c3262e1ddd3cfae8fdf7bb7378eae08e2661c5075d2b84943a6fee3a88f",
+          "width": 320,
+          "height": 569,
+          "format": "JPEG",
+          "source_sha256": "a64f60b40a4be1bfa4dcc23ab1969ebdcd1bae6740aa1afb895eab00afa84777",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DeSHKZPKTNp-480.webp",
+          "runtime_path": "/editorial/DeSHKZPKTNp-480.webp",
+          "bytes": 65158,
+          "sha256": "15ad002de0e8027d2fa4c6e7b5f38065703edbf3ef17a8a43a11b7590a44716d",
+          "width": 480,
+          "height": 853,
+          "format": "WEBP",
+          "source_sha256": "a64f60b40a4be1bfa4dcc23ab1969ebdcd1bae6740aa1afb895eab00afa84777",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DeSHKZPKTNp-480.jpg",
+          "runtime_path": "/editorial/DeSHKZPKTNp-480.jpg",
+          "bytes": 112533,
+          "sha256": "e08535d577957014dff0371ffb27ccd466a138e4f8e29497a4eb984610a26116",
+          "width": 480,
+          "height": 853,
+          "format": "JPEG",
+          "source_sha256": "a64f60b40a4be1bfa4dcc23ab1969ebdcd1bae6740aa1afb895eab00afa84777",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DeSHKZPKTNp-640.webp",
+          "runtime_path": "/editorial/DeSHKZPKTNp-640.webp",
+          "bytes": 95706,
+          "sha256": "05db80a9695376b692e93ae469aea010f878ebbc08cff6e050917646500b2854",
+          "width": 640,
+          "height": 1138,
+          "format": "WEBP",
+          "source_sha256": "a64f60b40a4be1bfa4dcc23ab1969ebdcd1bae6740aa1afb895eab00afa84777",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DeSHKZPKTNp-640.jpg",
+          "runtime_path": "/editorial/DeSHKZPKTNp-640.jpg",
+          "bytes": 174611,
+          "sha256": "d85433f84048d0b05c4cd1367e0226947c7d3d22c5d33c06a48607719992eb54",
+          "width": 640,
+          "height": 1138,
+          "format": "JPEG",
+          "source_sha256": "a64f60b40a4be1bfa4dcc23ab1969ebdcd1bae6740aa1afb895eab00afa84777",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DeSHKZPKTNp-960.webp",
+          "runtime_path": "/editorial/DeSHKZPKTNp-960.webp",
+          "bytes": 150906,
+          "sha256": "7049d4ea400208431bb5e7903b16a27b1d62049ef1df691fff08d63f66fe9cbe",
+          "width": 960,
+          "height": 1707,
+          "format": "WEBP",
+          "source_sha256": "a64f60b40a4be1bfa4dcc23ab1969ebdcd1bae6740aa1afb895eab00afa84777",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DeSHKZPKTNp-960.jpg",
+          "runtime_path": "/editorial/DeSHKZPKTNp-960.jpg",
+          "bytes": 312893,
+          "sha256": "3b7d8bb67f947b22857583438478dae57b5aee680d919dff45d3a606acb61243",
+          "width": 960,
+          "height": 1707,
+          "format": "JPEG",
+          "source_sha256": "a64f60b40a4be1bfa4dcc23ab1969ebdcd1bae6740aa1afb895eab00afa84777",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        }
+      ]
+    },
+    {
+      "post_id": "DeSG5J1KzHb",
+      "source_post": "https://www.instagram.com/p/DeSG5J1KzHb/",
+      "platform": "instagram",
+      "verified_owners_from_transfer_manifest": [
+        "marthasilva.gala"
+      ],
+      "role": "modest-editorial-gallery-not-hero",
+      "description_en": "Model holding a bouquet in a strapless white bridal ballgown.",
+      "description_es": "Modelo con ramo y vestido de novia blanco de falda amplia y sin tirantes.",
+      "visual_notes": "640-pixel source is visibly soft. Entire frame preserved. Keep display modest, recommended at most 320 CSS pixels wide for 2x delivery; never use as a hero.",
+      "original": {
+        "path": "new-instagram/DeSG5J1KzHb.jpg",
+        "bytes": 20478,
+        "sha256": "9baaf1235bc81e72a3262e070d53673ced243c87f2db3311b8750aff96c5f80a",
+        "width": 640,
+        "height": 1136,
+        "format": "JPEG",
+        "metadata": {
+          "exif_tag_count": 0,
+          "icc_bytes": 0
+        },
+        "preserved_unchanged": true,
+        "published_by_this_change": false
+      },
+      "derivatives": [
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DeSG5J1KzHb-320.webp",
+          "runtime_path": "/editorial/DeSG5J1KzHb-320.webp",
+          "bytes": 8564,
+          "sha256": "1df84589ce3cc83fb5158836e3041e98a421e9c59226396b74de46c1457f1a3e",
+          "width": 320,
+          "height": 568,
+          "format": "WEBP",
+          "source_sha256": "9baaf1235bc81e72a3262e070d53673ced243c87f2db3311b8750aff96c5f80a",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DeSG5J1KzHb-320.jpg",
+          "runtime_path": "/editorial/DeSG5J1KzHb-320.jpg",
+          "bytes": 19190,
+          "sha256": "75f6558d08318d1c1cf1bad3f80677eada8fa708064a34f8e35bdc79a95508a4",
+          "width": 320,
+          "height": 568,
+          "format": "JPEG",
+          "source_sha256": "9baaf1235bc81e72a3262e070d53673ced243c87f2db3311b8750aff96c5f80a",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DeSG5J1KzHb-480.webp",
+          "runtime_path": "/editorial/DeSG5J1KzHb-480.webp",
+          "bytes": 14344,
+          "sha256": "9a6d6237d75ee423aaec242ab82f645d4048eb8cf89d337b88af5a6ca8127f5f",
+          "width": 480,
+          "height": 852,
+          "format": "WEBP",
+          "source_sha256": "9baaf1235bc81e72a3262e070d53673ced243c87f2db3311b8750aff96c5f80a",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DeSG5J1KzHb-480.jpg",
+          "runtime_path": "/editorial/DeSG5J1KzHb-480.jpg",
+          "bytes": 39756,
+          "sha256": "77c5cf3fb01a163ab9ddf7cdc622fb943be5cd3d9fbb148b746d98cce9792c26",
+          "width": 480,
+          "height": 852,
+          "format": "JPEG",
+          "source_sha256": "9baaf1235bc81e72a3262e070d53673ced243c87f2db3311b8750aff96c5f80a",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DeSG5J1KzHb-640.webp",
+          "runtime_path": "/editorial/DeSG5J1KzHb-640.webp",
+          "bytes": 20392,
+          "sha256": "a6f2f393cba2c9edf2b4b3e0bd2ab5a4e5514ceab009d2c06abadf80fea6ea17",
+          "width": 640,
+          "height": 1136,
+          "format": "WEBP",
+          "source_sha256": "9baaf1235bc81e72a3262e070d53673ced243c87f2db3311b8750aff96c5f80a",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DeSG5J1KzHb-640.jpg",
+          "runtime_path": "/editorial/DeSG5J1KzHb-640.jpg",
+          "bytes": 34747,
+          "sha256": "dc77d96a096e0bac24d3ab1ceb37e3aaa5ba5cff39921d82315633be86ddb505",
+          "width": 640,
+          "height": 1136,
+          "format": "JPEG",
+          "source_sha256": "9baaf1235bc81e72a3262e070d53673ced243c87f2db3311b8750aff96c5f80a",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        }
+      ]
+    },
+    {
+      "post_id": "DbZdVj6q2vn",
+      "source_post": "https://www.instagram.com/p/DbZdVj6q2vn/",
+      "platform": "instagram",
+      "verified_owners_from_transfer_manifest": [
+        "marthasilva.gala",
+        "marthasilva.store"
+      ],
+      "role": "modest-editorial-gallery-not-hero",
+      "description_en": "Back view of a model in a blush-pink ballgown with a lace train.",
+      "description_es": "Vista de espalda de un vestido rosa claro de falda amplia y cola de encaje.",
+      "visual_notes": "640-pixel source. Entire supplied frame preserved without inventing train detail beyond the frame. Keep display modest, recommended at most 320 CSS pixels wide for 2x delivery; never use as a hero.",
+      "original": {
+        "path": "new-instagram/DbZdVj6q2vn.jpg",
+        "bytes": 80167,
+        "sha256": "65fefefba27f125329d93377389370902412638e07c3c17213c17dc9d008c0b5",
+        "width": 640,
+        "height": 1136,
+        "format": "JPEG",
+        "metadata": {
+          "exif_tag_count": 0,
+          "icc_bytes": 0
+        },
+        "preserved_unchanged": true,
+        "published_by_this_change": false
+      },
+      "derivatives": [
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DbZdVj6q2vn-320.webp",
+          "runtime_path": "/editorial/DbZdVj6q2vn-320.webp",
+          "bytes": 29382,
+          "sha256": "89dbfdcecb24891895af2fafbb569e3c76028d02e59d978f72297f0443b34520",
+          "width": 320,
+          "height": 568,
+          "format": "WEBP",
+          "source_sha256": "65fefefba27f125329d93377389370902412638e07c3c17213c17dc9d008c0b5",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DbZdVj6q2vn-320.jpg",
+          "runtime_path": "/editorial/DbZdVj6q2vn-320.jpg",
+          "bytes": 46920,
+          "sha256": "fd4dc46d0f6030c0999921fb70f4670131be2b0ddc5f00b43f15e0164c9a9f73",
+          "width": 320,
+          "height": 568,
+          "format": "JPEG",
+          "source_sha256": "65fefefba27f125329d93377389370902412638e07c3c17213c17dc9d008c0b5",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DbZdVj6q2vn-480.webp",
+          "runtime_path": "/editorial/DbZdVj6q2vn-480.webp",
+          "bytes": 52314,
+          "sha256": "fe2cd6d3bba322a1b78ac7b574b8656133e23bee72cae8b73c2c0d3cb4a375a2",
+          "width": 480,
+          "height": 852,
+          "format": "WEBP",
+          "source_sha256": "65fefefba27f125329d93377389370902412638e07c3c17213c17dc9d008c0b5",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DbZdVj6q2vn-480.jpg",
+          "runtime_path": "/editorial/DbZdVj6q2vn-480.jpg",
+          "bytes": 93600,
+          "sha256": "6acb4db39c8b8407584e9c50d7b3225290b54c0aaace53dc5f279525cd3d99a6",
+          "width": 480,
+          "height": 852,
+          "format": "JPEG",
+          "source_sha256": "65fefefba27f125329d93377389370902412638e07c3c17213c17dc9d008c0b5",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DbZdVj6q2vn-640.webp",
+          "runtime_path": "/editorial/DbZdVj6q2vn-640.webp",
+          "bytes": 76926,
+          "sha256": "20775176ecbbec354bd25c9e0178fe12b5ea5e0282f40f1182318960806808bb",
+          "width": 640,
+          "height": 1136,
+          "format": "WEBP",
+          "source_sha256": "65fefefba27f125329d93377389370902412638e07c3c17213c17dc9d008c0b5",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DbZdVj6q2vn-640.jpg",
+          "runtime_path": "/editorial/DbZdVj6q2vn-640.jpg",
+          "bytes": 112974,
+          "sha256": "4834b1f7d264083919a951d91a15f4ad9f9ec77c77b9777b2907a5bbb0d475f8",
+          "width": 640,
+          "height": 1136,
+          "format": "JPEG",
+          "source_sha256": "65fefefba27f125329d93377389370902412638e07c3c17213c17dc9d008c0b5",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        }
+      ]
+    },
+    {
+      "post_id": "DdwJTglRMBn",
+      "source_post": "https://www.instagram.com/p/DdwJTglRMBn/",
+      "platform": "instagram",
+      "verified_owners_from_transfer_manifest": [
+        "marthasilva.gala",
+        "marthasilva.store"
+      ],
+      "role": "supporting-portrait-and-editorial",
+      "description_en": "Model wearing a purple off-the-shoulder gown with a long train.",
+      "description_es": "Modelo con vestido morado de hombros descubiertos y cola larga.",
+      "visual_notes": "Head and gown train visible. Rounded black corners are part of source pixels and remain unchanged.",
+      "original": {
+        "path": "new-instagram/DdwJTglRMBn.jpg",
+        "bytes": 257108,
+        "sha256": "50dc3379d48de779bf7a1d196c59d27f4873a80c38589996906d808deb5725d9",
+        "width": 1320,
+        "height": 2347,
+        "format": "JPEG",
+        "metadata": {
+          "exif_tag_count": 0,
+          "icc_bytes": 0
+        },
+        "preserved_unchanged": true,
+        "published_by_this_change": false
+      },
+      "derivatives": [
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DdwJTglRMBn-320.webp",
+          "runtime_path": "/editorial/DdwJTglRMBn-320.webp",
+          "bytes": 18782,
+          "sha256": "7a38319842f6c330d91e03633445b233b0e7f02e0c5f5c77abbea16f740ec1a7",
+          "width": 320,
+          "height": 569,
+          "format": "WEBP",
+          "source_sha256": "50dc3379d48de779bf7a1d196c59d27f4873a80c38589996906d808deb5725d9",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DdwJTglRMBn-320.jpg",
+          "runtime_path": "/editorial/DdwJTglRMBn-320.jpg",
+          "bytes": 38341,
+          "sha256": "cbe7f19dc71aa6d35733b52446bdddc9640c2a906b7191cf90d99c0bb53d9114",
+          "width": 320,
+          "height": 569,
+          "format": "JPEG",
+          "source_sha256": "50dc3379d48de779bf7a1d196c59d27f4873a80c38589996906d808deb5725d9",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DdwJTglRMBn-480.webp",
+          "runtime_path": "/editorial/DdwJTglRMBn-480.webp",
+          "bytes": 32534,
+          "sha256": "76b27e10c4621e2afcb3932d5181c4d7ce4b532dd51d1bc2a75a94c7249bc19e",
+          "width": 480,
+          "height": 853,
+          "format": "WEBP",
+          "source_sha256": "50dc3379d48de779bf7a1d196c59d27f4873a80c38589996906d808deb5725d9",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DdwJTglRMBn-480.jpg",
+          "runtime_path": "/editorial/DdwJTglRMBn-480.jpg",
+          "bytes": 70886,
+          "sha256": "8ec1f42e8a1b8e4efdddc282c99b9ffb71af98c9c22ffcd327c6cdab6d1ac012",
+          "width": 480,
+          "height": 853,
+          "format": "JPEG",
+          "source_sha256": "50dc3379d48de779bf7a1d196c59d27f4873a80c38589996906d808deb5725d9",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DdwJTglRMBn-640.webp",
+          "runtime_path": "/editorial/DdwJTglRMBn-640.webp",
+          "bytes": 46406,
+          "sha256": "f0e442fb7bcfa1e6a51b2504a65dd2e90a363dddf65955f0edababcb87ccd2e3",
+          "width": 640,
+          "height": 1138,
+          "format": "WEBP",
+          "source_sha256": "50dc3379d48de779bf7a1d196c59d27f4873a80c38589996906d808deb5725d9",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DdwJTglRMBn-640.jpg",
+          "runtime_path": "/editorial/DdwJTglRMBn-640.jpg",
+          "bytes": 108070,
+          "sha256": "fc057ff71c6a0efadc6a90696df58fca8cff96b293aaa61f6fe79702bd9915e7",
+          "width": 640,
+          "height": 1138,
+          "format": "JPEG",
+          "source_sha256": "50dc3379d48de779bf7a1d196c59d27f4873a80c38589996906d808deb5725d9",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DdwJTglRMBn-960.webp",
+          "runtime_path": "/editorial/DdwJTglRMBn-960.webp",
+          "bytes": 70672,
+          "sha256": "d48db5eb79e2f7fcd4f897134f9e82ade5eef2ac248f6a5ab5d8a21e745423da",
+          "width": 960,
+          "height": 1707,
+          "format": "WEBP",
+          "source_sha256": "50dc3379d48de779bf7a1d196c59d27f4873a80c38589996906d808deb5725d9",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        },
+        {
+          "input_path": "snapshot/build-inputs/static/editorial/DdwJTglRMBn-960.jpg",
+          "runtime_path": "/editorial/DdwJTglRMBn-960.jpg",
+          "bytes": 191215,
+          "sha256": "6e8893ab6ec0e5a7376bee28dc611a62eaa3b449a72c75906c1ba01357a789bd",
+          "width": 960,
+          "height": 1707,
+          "format": "JPEG",
+          "source_sha256": "50dc3379d48de779bf7a1d196c59d27f4873a80c38589996906d808deb5725d9",
+          "full_source_frame": true,
+          "metadata_stripped": true
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "originals_verified_unchanged": 6,
+    "derivatives": 44,
+    "derivative_bytes": 4330537,
+    "max_aspect_ratio_rounding_error_px": 0.5,
+    "decode_dimension_metadata_checks": "PASS for every generated JPEG and WebP",
+    "browser_validation": "Not performed by media agent; required in integrated QA"
+  }
+}

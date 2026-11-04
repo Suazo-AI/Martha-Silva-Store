@@ -1,0 +1,1515 @@
+{
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/156.0.8078.47",
+    "revision": "@1d17a2e2ee147bb7d6ae2ab6abdb3a2510c17775",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+    "jsVersion": "15.6.75.19"
+  },
+  "hashes": {
+    "admin.html": "5d55ea7c015c33a9f8b60d233a74d1e97315c15a26cb235cdd38f31528eb9f77",
+    "app.js": "4661fd969305839c61e945f6502be183c5b0f05340fc1dc208b0a46c68fbd040",
+    "ayuda.html": "bef334151b5ae90401ed3962471783b1867119e9cbcbfb8e015a42a105ac4ff3",
+    "bolsa.html": "74fa50e22414315bc0191b351d2b528e382516b07ebbf0eb6cc8644419f9d996",
+    "catalog.js": "c2d5ed59e03dd68b8e279a33bbce27f120ddb0ca29ff260bb2ec38bdf2df726f",
+    "catalogo.html": "fe8014849e0aaa443a55c2a33239511c124e911b896fed182e32b0f811ab1ace",
+    "checkout.html": "af1ab4185143df790879de731c649135a886932d6f8d3f3efa4bbbb98963a1c9",
+    "index.html": "90b4e3f4520888678300e3bb5d01cf7c9412137d0f2727791d1ee38e427c8a08",
+    "pedido.html": "1f90dd81376b7c89ed0fda6ee1875ecf2472c35f9825862a8aced87bec361070",
+    "producto-amarillo.html": "d02d4fd26180fdedb8633111fea9a913242425e252453b496564721aead39ad4",
+    "producto-azul-floral-un-hombro.html": "5f940836c69fac3c962d66bc2e4801b266d65af7050945f4495ea14c6f888937",
+    "producto-azul-gris-flores-falda.html": "a7698f2988807a817ec4c28120ef1f7d677b40804f243554f76e4b77b19110a7",
+    "producto-azul-gris-un-hombro.html": "1fbe086a7a049af38984a91895742aaa29b0968364b5c7568e01f9ad6872e288",
+    "producto-blanco-perlado-sirena.html": "d6015b5ff6f4c022b7a8bd4f7e2fdfa097cc2a7db16617c12ff9d4b6d7255f95",
+    "producto-burdeos-encaje-volantes-midi.html": "5bccf220024565b4b4e00a208e00320d2a507dfd261251b8d0239535495a3735",
+    "producto-burdeos-top-pantalon-corto.html": "4ab1264dd61cf8374408418d326b4998fe8c1b584b9351cf6c3606d9f81584ac",
+    "producto-champagne.html": "fbe31fa66ecd8959e214f10c5d22c5af3748a047ee5ebe02aa7c1d98ef4026cf",
+    "producto-crema-flores-naranjas-halter.html": "30a2bf36a200acc447bf90a7d704d410e19a72599053079f5cbc41f7a513c350",
+    "producto-crema-flores-volante-asimetrico.html": "8246429db3a5412c48808064e7b75f432e16641c373a7a71d9e7a8c3fc6b36ed",
+    "producto-dorado.html": "dd251ab11dc4a896ac0604b3e65138a1fa880618797bc1951c49eb69de2910b5",
+    "producto-fucsia-halter-pliegues.html": "dfcccb09aa5ce73e15747700475eb5d774acf024bca8c425bbf0b6f211292217",
+    "producto-fucsia-un-hombro-volantes.html": "ee7235bf728a1b14ba326b39a93d3731c9cc117fe7f8b97f3e942b80f0c68b7c",
+    "producto-gala-destello.html": "80bd21ecb9957e2b396e0cd816cafda50d359e94bc2894466a3e241a5b6cbdd9",
+    "producto-gala-oro.html": "e8c8e8ef23d8d5970fd03cd28c3fc910acb4d4d8a4a9b45a9de5e5c18a0c89ee",
+    "producto-gala-rubi.html": "192bd69ac47f8b8900792c25d8b4ef2c20f74bfac8136a9cbcfc5a486295f43d",
+    "producto-gris-perla-hombros.html": "22b3ede7481a2f6145a092ace995398e45975b6ebf88967bae02baa1f5608d48",
+    "producto-midi-estampado-burdeos.html": "09b85e9515d0d594d05493d656ff26fee1abddc64e098e4f5ae4c8bd7122533a",
+    "producto-napoleon.html": "1d39cfc537f4903f7f241cec6e9aacd13c0080d14fc85c4dd61f562272d01b5e",
+    "producto-negro-blanco-lunares-midi.html": "b808585563c4f81069f4b7b8b657ee7956954609b9b28ad082586383cbc39d52",
+    "producto-negro-brillo-pantalon-amplio.html": "8c7cc7194ee7126f1b04fd7c82063b606f9d5f87f49ab488b593043a3fcd6855",
+    "producto-negro-escote-puntas-abertura.html": "f2993bbf63bf9a955bedeed48470fa8850827ec9dd2de2de43aa10e39cbbe627",
+    "producto-negro-lunares-beige-hombros.html": "f34ec93257cabdfafd50802b275e0f841c3a844f76e3f25888a936b26206eeba",
+    "producto-negro.html": "2a92ee2e8066ea3faf2cafac3ff0e26ae288bee2048755b62e6c154e60482b96",
+    "producto-novia-satinada-abertura.html": "83f2d45e4f530c1a73a40b34c4591063232715c5e7251999429211dde31fcd57",
+    "producto-novia-tirantes-encaje.html": "619ac9f332a3a8882db3f8d022f82b890c6185c6a8b1211c613cb345a6302c91",
+    "producto-novia.html": "8f91e07d6046f3286066e18047b4cc06e6a845b01d00df35cddfda4f134bceb4",
+    "producto-novias-alba.html": "cbeb0d67cd6b36851b993bca4aee456fd9308df06ea434abbbc4633f170e5b4a",
+    "producto-novias-encaje.html": "c107f624af79ffdf30c746d9b0644613ecc11f24e39d1234366a8a988a4c3c6e",
+    "producto-novias-velo.html": "8655d2fba578918864f16d61413493fa267ddd7983fe511f4806b54e89b30632",
+    "producto-plata-tirantes-copas-pedreria.html": "c4a6eee17149abc7721bc7df51160b919242704a12d0e09fab31c30bc549d9da",
+    "producto-rojo-tirantes-falda-amplia.html": "87422d48648ccc44a847a5275539fe62309e1311fc4f09a1ac449ae76972c16e",
+    "producto-rosa-bronce-pedreria.html": "65bbf03131b7afe68548a4152cf756f526d4604b8950388f5b4ca50579f0f70a",
+    "producto-rosa-claro-flores-doradas.html": "9029d4efb4d3d43108283c7bbe351ef8bf26294198a67a559c3ffaf0e52d14cf",
+    "producto-rosa-empolvado-pedreria.html": "8ba0961c91b0c34b51fd5e3a756f74f4bd597c7964ca1b9994a9e52934158f3e",
+    "producto-rosa-flores-fucsias-halter.html": "4d2bd6ba6f6b33a8a875618e79b2db4a6c246d435f8e92cab595a6383e4ef882",
+    "producto-rosa-marron-chaqueta-falda.html": "578db4ee300309e57353f2c9e3403d8c9b5f56b4fd7d207aa17ce6869ab67fc0",
+    "producto-rosa.html": "98381edfa0282ee048173ee720e226ff9a67d440e66c8a53a2a5f341977139e5",
+    "producto-verde-brillo-cuello-cruzado.html": "93fcb5a71644322c96993b6534ceddddd3f5ba151b3c69fc3edf487fd7b4d380",
+    "producto-verde-esmeralda-tirantes-cruzados.html": "f0829e0864ea07ac3b2a5ec7e31481794c4efd135010884f9f23d3a01fe7141e",
+    "styles.css": "c70542166dadaf7a2329bcfce61ddf9cb4abb0bf4b7aee084af952634c3e5520"
+  },
+  "pages": [
+    {
+      "file": "admin.html",
+      "page": "admin",
+      "title": "Administración local · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "ayuda.html",
+      "page": "help",
+      "title": "Ayuda · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "bolsa.html",
+      "page": "cart",
+      "title": "Tu bolsa · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "catalogo.html",
+      "page": "catalog",
+      "title": "La colección · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "checkout.html",
+      "page": "checkout",
+      "title": "Comprar como invitada · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "index.html",
+      "page": "home",
+      "title": "Gala, novias y moda femenina · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "pedido.html",
+      "page": "order",
+      "title": "Tu pedido · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-amarillo.html",
+      "page": "product",
+      "title": "Vestido amarillo con capa · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-azul-floral-un-hombro.html",
+      "page": "product",
+      "title": "Vestido azul floral de un hombro · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-azul-gris-flores-falda.html",
+      "page": "product",
+      "title": "Azul gris de flores · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-azul-gris-un-hombro.html",
+      "page": "product",
+      "title": "Azul gris de un hombro · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-blanco-perlado-sirena.html",
+      "page": "product",
+      "title": "Vestido blanco perlado con escote en V · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-burdeos-encaje-volantes-midi.html",
+      "page": "product",
+      "title": "Midi burdeos de encaje · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-burdeos-top-pantalon-corto.html",
+      "page": "product",
+      "title": "Conjunto burdeos sin mangas · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-champagne.html",
+      "page": "product",
+      "title": "Vestido champagne sin tirantes · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-crema-flores-naranjas-halter.html",
+      "page": "product",
+      "title": "Crema de flores naranjas · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-crema-flores-volante-asimetrico.html",
+      "page": "product",
+      "title": "Crema floral de volante · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-dorado.html",
+      "page": "product",
+      "title": "Vestido dorado con drapeado · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-fucsia-halter-pliegues.html",
+      "page": "product",
+      "title": "Fucsia de cuello halter · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-fucsia-un-hombro-volantes.html",
+      "page": "product",
+      "title": "Fucsia de un hombro y volantes · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-gala-destello.html",
+      "page": "product",
+      "title": "Muestra Destello · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-gala-oro.html",
+      "page": "product",
+      "title": "Muestra Oro · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-gala-rubi.html",
+      "page": "product",
+      "title": "Muestra Rubí · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-gris-perla-hombros.html",
+      "page": "product",
+      "title": "Vestido gris perla de hombros descubiertos · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-midi-estampado-burdeos.html",
+      "page": "product",
+      "title": "Vestido midi con estampado burdeos · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-napoleon.html",
+      "page": "product",
+      "title": "Chaqueta corta Napoleón con botones · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-negro-blanco-lunares-midi.html",
+      "page": "product",
+      "title": "Midi negro de lunares blancos · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-negro-brillo-pantalon-amplio.html",
+      "page": "product",
+      "title": "Conjunto negro de brillo · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-negro-escote-puntas-abertura.html",
+      "page": "product",
+      "title": "Negro de escote en puntas · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-negro-lunares-beige-hombros.html",
+      "page": "product",
+      "title": "Negro de lunares beige · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-negro.html",
+      "page": "product",
+      "title": "Vestido negro con abertura · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-novia-satinada-abertura.html",
+      "page": "product",
+      "title": "Vestido de novia con drapeado y abertura · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-novia-tirantes-encaje.html",
+      "page": "product",
+      "title": "Vestido de novia con tirantes y encaje · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-novia.html",
+      "page": "product",
+      "title": "Vestido de novia con mangas largas · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-novias-alba.html",
+      "page": "product",
+      "title": "Muestra Alba · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-novias-encaje.html",
+      "page": "product",
+      "title": "Muestra Encaje · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-novias-velo.html",
+      "page": "product",
+      "title": "Muestra Velo · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-plata-tirantes-copas-pedreria.html",
+      "page": "product",
+      "title": "Plata de tirantes y pedrería · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-rojo-tirantes-falda-amplia.html",
+      "page": "product",
+      "title": "Rojo de tirantes y falda amplia · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-rosa-bronce-pedreria.html",
+      "page": "product",
+      "title": "Rosa bronce de pedrería · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-rosa-claro-flores-doradas.html",
+      "page": "product",
+      "title": "Rosa claro de flores doradas · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-rosa-empolvado-pedreria.html",
+      "page": "product",
+      "title": "Vestido rosa empolvado con pedrería · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-rosa-flores-fucsias-halter.html",
+      "page": "product",
+      "title": "Rosa de flores fucsias · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-rosa-marron-chaqueta-falda.html",
+      "page": "product",
+      "title": "Conjunto rosa marrón · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-rosa.html",
+      "page": "product",
+      "title": "Vestido rosa de un hombro · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-verde-brillo-cuello-cruzado.html",
+      "page": "product",
+      "title": "Verde de brillo y abertura · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    },
+    {
+      "file": "producto-verde-esmeralda-tirantes-cruzados.html",
+      "page": "product",
+      "title": "Verde esmeralda de tirantes · Martha Silva Store",
+      "width": 1440,
+      "scrollWidth": 1425,
+      "main": true,
+      "errors": [],
+      "broken": []
+    }
+  ],
+  "checks": [
+    {
+      "name": "desktop admin.html",
+      "ok": true,
+      "detail": "admin"
+    },
+    {
+      "name": "desktop ayuda.html",
+      "ok": true,
+      "detail": "help"
+    },
+    {
+      "name": "desktop bolsa.html",
+      "ok": true,
+      "detail": "cart"
+    },
+    {
+      "name": "desktop catalogo.html",
+      "ok": true,
+      "detail": "catalog"
+    },
+    {
+      "name": "desktop checkout.html",
+      "ok": true,
+      "detail": "checkout"
+    },
+    {
+      "name": "desktop index.html",
+      "ok": true,
+      "detail": "home"
+    },
+    {
+      "name": "desktop pedido.html",
+      "ok": true,
+      "detail": "order"
+    },
+    {
+      "name": "desktop producto-amarillo.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-azul-floral-un-hombro.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-azul-gris-flores-falda.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-azul-gris-un-hombro.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-blanco-perlado-sirena.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-burdeos-encaje-volantes-midi.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-burdeos-top-pantalon-corto.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-champagne.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-crema-flores-naranjas-halter.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-crema-flores-volante-asimetrico.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-dorado.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-fucsia-halter-pliegues.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-fucsia-un-hombro-volantes.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-gala-destello.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-gala-oro.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-gala-rubi.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-gris-perla-hombros.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-midi-estampado-burdeos.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-napoleon.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-negro-blanco-lunares-midi.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-negro-brillo-pantalon-amplio.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-negro-escote-puntas-abertura.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-negro-lunares-beige-hombros.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-negro.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-novia-satinada-abertura.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-novia-tirantes-encaje.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-novia.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-novias-alba.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-novias-encaje.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-novias-velo.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-plata-tirantes-copas-pedreria.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-rojo-tirantes-falda-amplia.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-rosa-bronce-pedreria.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-rosa-claro-flores-doradas.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-rosa-empolvado-pedreria.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-rosa-flores-fucsias-halter.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-rosa-marron-chaqueta-falda.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-rosa.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-verde-brillo-cuello-cruzado.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "desktop producto-verde-esmeralda-tirantes-cruzados.html",
+      "ok": true,
+      "detail": "product"
+    },
+    {
+      "name": "catalog filters and browser history",
+      "ok": true,
+      "detail": {
+        "color": "Rosa empolvado",
+        "count": 1,
+        "url": "?color=Rosa+empolvado"
+      }
+    },
+    {
+      "name": "desktop product gallery zoom size and SAVIA cart",
+      "ok": true,
+      "detail": {
+        "count": 1
+      }
+    },
+    {
+      "name": "SAVIA SISFAIN carts isolated and persistent",
+      "ok": true,
+      "detail": [
+        "MARTHA SILVA\n\nVestido rosa empolvado con pedrería\n\nRosa empolvado · Talla S\n\nCantidad\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nRetirarGuardar para después\nUSD 175.00"
+      ]
+    },
+    {
+      "name": "mobile admin.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile ayuda.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile bolsa.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile catalogo.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile checkout.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile index.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile pedido.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-amarillo.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-azul-floral-un-hombro.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-azul-gris-flores-falda.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-azul-gris-un-hombro.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-blanco-perlado-sirena.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-burdeos-encaje-volantes-midi.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-burdeos-top-pantalon-corto.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-champagne.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-crema-flores-naranjas-halter.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-crema-flores-volante-asimetrico.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-dorado.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-fucsia-halter-pliegues.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-fucsia-un-hombro-volantes.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-gala-destello.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-gala-oro.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-gala-rubi.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-gris-perla-hombros.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-midi-estampado-burdeos.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-napoleon.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-negro-blanco-lunares-midi.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-negro-brillo-pantalon-amplio.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-negro-escote-puntas-abertura.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-negro-lunares-beige-hombros.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-negro.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-novia-satinada-abertura.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-novia-tirantes-encaje.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-novia.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-novias-alba.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-novias-encaje.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-novias-velo.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-plata-tirantes-copas-pedreria.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-rojo-tirantes-falda-amplia.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-rosa-bronce-pedreria.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-rosa-claro-flores-doradas.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-rosa-empolvado-pedreria.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-rosa-flores-fucsias-halter.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-rosa-marron-chaqueta-falda.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-rosa.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-verde-brillo-cuello-cruzado.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile producto-verde-esmeralda-tirantes-cruzados.html",
+      "ok": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "viewport": "width=device-width,initial-scale=1"
+      }
+    },
+    {
+      "name": "mobile menu actual dialog",
+      "ok": true
+    },
+    {
+      "name": "mobile gallery slide and zoom",
+      "ok": true,
+      "detail": {
+        "before": 780,
+        "after": 1170
+      }
+    }
+  ],
+  "failures": [],
+  "exceptions": [],
+  "httpErrors": [],
+  "externalRequests": [],
+  "links": {
+    "pages": 47,
+    "checked_local_links": 8816,
+    "broken": [],
+    "external": [
+      "https://www.facebook.com/marthasilvanicaragua",
+      "https://www.instagram.com/marthasilva.store/",
+      "https://www.threads.com/@marthasilva.store",
+      "https://www.tiktok.com/@marthasilva.store"
+    ]
+  },
+  "visual_inspected": [
+    "desktop-home.png",
+    "desktop-product.png",
+    "desktop-bag-dialog.png",
+    "mobile-index.png",
+    "mobile-catalogo.png",
+    "mobile-producto-rosa-empolvado-pedreria.png",
+    "mobile-menu-settled.png",
+    "mobile-gallery-next.png",
+    "mobile-video-manual-play.png",
+    "mobile-bolsa.png",
+    "mobile-checkout.png"
+  ],
+  "limits": [
+    "Broad99check run used hashes; final seven-check run used final_hashes. All HTML/catalog/style hashes match across both; app.js changed for final hover guard.",
+    "Chrome headless desktop and mobile viewport/touch emulation, not a physical phone, Safari, or Firefox.",
+    "All47 pages checked programmatically at both widths; visual pixel review limited to visual_inspected list.",
+    "saveData preference simulated by navigator.connection getter; reduced-motion through CDP media emulation.",
+    "No real backend, payment, fulfillment, production inventory, native BFCache certification, accessibility audit, or performance benchmark.",
+    "Hero remains photograph. No page-load video autoplay; original guarded card hover and manual product gallery playback verified.",
+    "Initial exploratory run saw optional implicit favicon.ico404; broad repeated run emitted no HTTP errors."
+  ],
+  "broad_run_phase": "After deferred gallery video build, before final hover restoration. 99/99 checks.",
+  "final_hashes": {
+    "admin.html": "5d55ea7c015c33a9f8b60d233a74d1e97315c15a26cb235cdd38f31528eb9f77",
+    "app.js": "b0d5b729c6888c690ce940a8d3da8a94fcadc8b324301d587ca43a043cf215f8",
+    "ayuda.html": "bef334151b5ae90401ed3962471783b1867119e9cbcbfb8e015a42a105ac4ff3",
+    "bolsa.html": "74fa50e22414315bc0191b351d2b528e382516b07ebbf0eb6cc8644419f9d996",
+    "catalog.js": "c2d5ed59e03dd68b8e279a33bbce27f120ddb0ca29ff260bb2ec38bdf2df726f",
+    "catalogo.html": "fe8014849e0aaa443a55c2a33239511c124e911b896fed182e32b0f811ab1ace",
+    "checkout.html": "af1ab4185143df790879de731c649135a886932d6f8d3f3efa4bbbb98963a1c9",
+    "index.html": "90b4e3f4520888678300e3bb5d01cf7c9412137d0f2727791d1ee38e427c8a08",
+    "pedido.html": "1f90dd81376b7c89ed0fda6ee1875ecf2472c35f9825862a8aced87bec361070",
+    "producto-amarillo.html": "d02d4fd26180fdedb8633111fea9a913242425e252453b496564721aead39ad4",
+    "producto-azul-floral-un-hombro.html": "5f940836c69fac3c962d66bc2e4801b266d65af7050945f4495ea14c6f888937",
+    "producto-azul-gris-flores-falda.html": "a7698f2988807a817ec4c28120ef1f7d677b40804f243554f76e4b77b19110a7",
+    "producto-azul-gris-un-hombro.html": "1fbe086a7a049af38984a91895742aaa29b0968364b5c7568e01f9ad6872e288",
+    "producto-blanco-perlado-sirena.html": "d6015b5ff6f4c022b7a8bd4f7e2fdfa097cc2a7db16617c12ff9d4b6d7255f95",
+    "producto-burdeos-encaje-volantes-midi.html": "5bccf220024565b4b4e00a208e00320d2a507dfd261251b8d0239535495a3735",
+    "producto-burdeos-top-pantalon-corto.html": "4ab1264dd61cf8374408418d326b4998fe8c1b584b9351cf6c3606d9f81584ac",
+    "producto-champagne.html": "fbe31fa66ecd8959e214f10c5d22c5af3748a047ee5ebe02aa7c1d98ef4026cf",
+    "producto-crema-flores-naranjas-halter.html": "30a2bf36a200acc447bf90a7d704d410e19a72599053079f5cbc41f7a513c350",
+    "producto-crema-flores-volante-asimetrico.html": "8246429db3a5412c48808064e7b75f432e16641c373a7a71d9e7a8c3fc6b36ed",
+    "producto-dorado.html": "dd251ab11dc4a896ac0604b3e65138a1fa880618797bc1951c49eb69de2910b5",
+    "producto-fucsia-halter-pliegues.html": "dfcccb09aa5ce73e15747700475eb5d774acf024bca8c425bbf0b6f211292217",
+    "producto-fucsia-un-hombro-volantes.html": "ee7235bf728a1b14ba326b39a93d3731c9cc117fe7f8b97f3e942b80f0c68b7c",
+    "producto-gala-destello.html": "80bd21ecb9957e2b396e0cd816cafda50d359e94bc2894466a3e241a5b6cbdd9",
+    "producto-gala-oro.html": "e8c8e8ef23d8d5970fd03cd28c3fc910acb4d4d8a4a9b45a9de5e5c18a0c89ee",
+    "producto-gala-rubi.html": "192bd69ac47f8b8900792c25d8b4ef2c20f74bfac8136a9cbcfc5a486295f43d",
+    "producto-gris-perla-hombros.html": "22b3ede7481a2f6145a092ace995398e45975b6ebf88967bae02baa1f5608d48",
+    "producto-midi-estampado-burdeos.html": "09b85e9515d0d594d05493d656ff26fee1abddc64e098e4f5ae4c8bd7122533a",
+    "producto-napoleon.html": "1d39cfc537f4903f7f241cec6e9aacd13c0080d14fc85c4dd61f562272d01b5e",
+    "producto-negro-blanco-lunares-midi.html": "b808585563c4f81069f4b7b8b657ee7956954609b9b28ad082586383cbc39d52",
+    "producto-negro-brillo-pantalon-amplio.html": "8c7cc7194ee7126f1b04fd7c82063b606f9d5f87f49ab488b593043a3fcd6855",
+    "producto-negro-escote-puntas-abertura.html": "f2993bbf63bf9a955bedeed48470fa8850827ec9dd2de2de43aa10e39cbbe627",
+    "producto-negro-lunares-beige-hombros.html": "f34ec93257cabdfafd50802b275e0f841c3a844f76e3f25888a936b26206eeba",
+    "producto-negro.html": "2a92ee2e8066ea3faf2cafac3ff0e26ae288bee2048755b62e6c154e60482b96",
+    "producto-novia-satinada-abertura.html": "83f2d45e4f530c1a73a40b34c4591063232715c5e7251999429211dde31fcd57",
+    "producto-novia-tirantes-encaje.html": "619ac9f332a3a8882db3f8d022f82b890c6185c6a8b1211c613cb345a6302c91",
+    "producto-novia.html": "8f91e07d6046f3286066e18047b4cc06e6a845b01d00df35cddfda4f134bceb4",
+    "producto-novias-alba.html": "cbeb0d67cd6b36851b993bca4aee456fd9308df06ea434abbbc4633f170e5b4a",
+    "producto-novias-encaje.html": "c107f624af79ffdf30c746d9b0644613ecc11f24e39d1234366a8a988a4c3c6e",
+    "producto-novias-velo.html": "8655d2fba578918864f16d61413493fa267ddd7983fe511f4806b54e89b30632",
+    "producto-plata-tirantes-copas-pedreria.html": "c4a6eee17149abc7721bc7df51160b919242704a12d0e09fab31c30bc549d9da",
+    "producto-rojo-tirantes-falda-amplia.html": "87422d48648ccc44a847a5275539fe62309e1311fc4f09a1ac449ae76972c16e",
+    "producto-rosa-bronce-pedreria.html": "65bbf03131b7afe68548a4152cf756f526d4604b8950388f5b4ca50579f0f70a",
+    "producto-rosa-claro-flores-doradas.html": "9029d4efb4d3d43108283c7bbe351ef8bf26294198a67a559c3ffaf0e52d14cf",
+    "producto-rosa-empolvado-pedreria.html": "8ba0961c91b0c34b51fd5e3a756f74f4bd597c7964ca1b9994a9e52934158f3e",
+    "producto-rosa-flores-fucsias-halter.html": "4d2bd6ba6f6b33a8a875618e79b2db4a6c246d435f8e92cab595a6383e4ef882",
+    "producto-rosa-marron-chaqueta-falda.html": "578db4ee300309e57353f2c9e3403d8c9b5f56b4fd7d207aa17ce6869ab67fc0",
+    "producto-rosa.html": "98381edfa0282ee048173ee720e226ff9a67d440e66c8a53a2a5f341977139e5",
+    "producto-verde-brillo-cuello-cruzado.html": "93fcb5a71644322c96993b6534ceddddd3f5ba151b3c69fc3edf487fd7b4d380",
+    "producto-verde-esmeralda-tirantes-cruzados.html": "f0829e0864ea07ac3b2a5ec7e31481794c4efd135010884f9f23d3a01fe7141e",
+    "styles.css": "c70542166dadaf7a2329bcfce61ddf9cb4abb0bf4b7aee084af952634c3e5520"
+  },
+  "final_focal": {
+    "phase": "After final hover restoration; seven checks, not a full repeated47page suite.",
+    "checks": 7,
+    "failures": 0,
+    "hover": {
+      "app_sha256": "b0d5b729c6888c690ce940a8d3da8a94fcadc8b324301d587ca43a043cf215f8",
+      "catalog_sha256": "c2d5ed59e03dd68b8e279a33bbce27f120ddb0ca29ff260bb2ec38bdf2df726f",
+      "results": [
+        {
+          "name": "normal real pointer hover starts and leave pauses",
+          "ok": true,
+          "before": {
+            "src": null,
+            "paused": true,
+            "time": 0,
+            "ready": 0,
+            "reduced": false,
+            "saveData": false,
+            "hover": true
+          },
+          "hovered": {
+            "src": "/research/assets/store-media/rosa-empolvado-pedreria/product.webm",
+            "paused": false,
+            "time": 1.1133,
+            "ready": 4,
+            "reduced": false,
+            "saveData": false,
+            "hover": true
+          },
+          "left": {
+            "src": "/research/assets/store-media/rosa-empolvado-pedreria/product.webm",
+            "paused": true,
+            "time": 1.1306,
+            "ready": 4,
+            "reduced": false,
+            "saveData": false,
+            "hover": true
+          }
+        },
+        {
+          "name": "reduced motion blocks hover video",
+          "ok": true,
+          "before": {
+            "src": null,
+            "paused": true,
+            "time": 0,
+            "ready": 0,
+            "reduced": true,
+            "saveData": false,
+            "hover": true
+          },
+          "hovered": {
+            "src": null,
+            "paused": true,
+            "time": 0,
+            "ready": 0,
+            "reduced": true,
+            "saveData": false,
+            "hover": true
+          },
+          "left": {
+            "src": null,
+            "paused": true,
+            "time": 0,
+            "ready": 0,
+            "reduced": true,
+            "saveData": false,
+            "hover": true
+          }
+        },
+        {
+          "name": "saveData preference blocks hover video",
+          "ok": true,
+          "before": {
+            "src": null,
+            "paused": true,
+            "time": 0,
+            "ready": 0,
+            "reduced": false,
+            "saveData": true,
+            "hover": true
+          },
+          "hovered": {
+            "src": null,
+            "paused": true,
+            "time": 0,
+            "ready": 0,
+            "reduced": false,
+            "saveData": true,
+            "hover": true
+          },
+          "left": {
+            "src": null,
+            "paused": true,
+            "time": 0,
+            "ready": 0,
+            "reduced": false,
+            "saveData": true,
+            "hover": true
+          }
+        }
+      ]
+    },
+    "manual_video": {
+      "hashes": {
+        "app": "b0d5b729c6888c690ce940a8d3da8a94fcadc8b324301d587ca43a043cf215f8",
+        "page": "8ba0961c91b0c34b51fd5e3a756f74f4bd597c7964ca1b9994a9e52934158f3e"
+      },
+      "initial": {
+        "src": "http://127.0.0.1:8010/research/assets/store-media/rosa-empolvado-pedreria/product.webm",
+        "ready": 0,
+        "network": 1,
+        "paused": true,
+        "time": 0,
+        "duration": null,
+        "controls": true,
+        "rect": {
+          "x": 0,
+          "y": -123.5,
+          "width": 390,
+          "height": 520,
+          "top": -123.5,
+          "right": 390,
+          "bottom": 396.5,
+          "left": 0
+        }
+      },
+      "after": {
+        "src": "http://127.0.0.1:8010/research/assets/store-media/rosa-empolvado-pedreria/product.webm",
+        "ready": 4,
+        "network": 1,
+        "paused": false,
+        "time": 1.9254,
+        "duration": 6,
+        "controls": true,
+        "rect": {
+          "x": 0,
+          "y": -123.5,
+          "width": 390,
+          "height": 520,
+          "top": -123.5,
+          "right": 390,
+          "bottom": 396.5,
+          "left": 0
+        }
+      },
+      "ok": true
+    },
+    "targeted": [
+      {
+        "name": "SAVIA cart and SISFAIN same page isolation",
+        "ok": true,
+        "detail": [
+          "MARTHA SILVA\n\nVestido rosa empolvado con pedrería\n\nRosa empolvado · Talla S\n\nCantidad\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nRetirarGuardar para después\nUSD 175.00"
+        ]
+      },
+      {
+        "name": "mobile menu layout geometry",
+        "ok": true,
+        "detail": {
+          "dialog": {
+            "x": 0,
+            "y": 51,
+            "width": 390,
+            "height": 793,
+            "right": 390
+          },
+          "heading": {
+            "x": 16,
+            "y": 82,
+            "width": 115.5625,
+            "height": 30,
+            "right": 131.5625
+          },
+          "bodyWidth": 390,
+          "windowWidth": 390,
+          "styles": {
+            "padding": "0px",
+            "transform": "none"
+          }
+        }
+      },
+      {
+        "name": "PDP video slide behavior",
+        "ok": true,
+        "detail": {
+          "src": "/research/assets/store-media/rosa-empolvado-pedreria/product.webm",
+          "dataSrc": "/research/assets/store-media/rosa-empolvado-pedreria/product.mp4",
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true,
+          "placeholder": "Video de la prenda",
+          "viewport": 2730
+        }
+      }
+    ]
+  }
+}

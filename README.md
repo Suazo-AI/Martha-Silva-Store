@@ -1,72 +1,86 @@
-# Martha Silva Store
+# Martha Silva Store / SAVIA
 
-Repositorio de recuperación y evolución de las demos de Martha Silva. Conserva código, evidencia y decisiones sin confundir una demo con una tienda en producción.
+**Estado al 2026-11-03: candidato probado por capas; no listo para producción.**
+La tienda pública y la aplicación interna de personal tienen alcances y autoridades separados.
+El siguiente incremento es corregir N5 y probar la venta por cajero de navegador a SQL.
 
-**Ejecutable actual:** 9 páginas, 2 productos recuperados y estado en `localStorage`. No procesa tarjetas ni ofrece autenticación o inventario de producción. El catálogo original documentado tiene 40 productos, 120 variantes y 170 referencias de galería; faltan los archivos originales necesarios para una copia completa.
+Entrada para cualquier agente: [AGENT-START](docs/AGENT-START.md).
+Estado vigente: [PROJECT-STATUS](docs/PROJECT-STATUS.md).
+Decisiones: [DECISIONS](docs/DECISIONS.md). SQL: [DATABASE](docs/DATABASE.md).
+Última validación: [590 backend PASS, 2 NOT RUN; navegador 31/32](docs/testing-20261103/README.md).
+El caso fallido bloquea ventas nuevas cuando un recibo histórico devuelve 404. No está corregido.
 
-## Navegación
+Checkout canónico: `C:/Users/Jason/MARTHA-SILVA/github`, rama `Tony`.
+Los hooks registran y sincronizan commits autorizados; [AUTO-SYNC](docs/AUTO-SYNC.md).
+La [reconciliación](docs/reconciliation-20261103/README.md) vincula código probado, documentación y exclusiones.
+Push, despliegue y aceptación son estados diferentes. Las copias vecinas no son el checkout activo.
 
-| Necesidad | Entrada |
+**Demo:** <https://martha-silva-preview.martha-silva-denis.workers.dev/>.
+Ultimo recibo conservado: version `601268a3-81ce-4277-a8ef-cb2e84d2fbb1`, publicada
+2026-10-30 a las 04:50:10 UTC. `dist/` reproduce sus 1081 archivos publicos;
+`README.txt` es un auxiliar adicional excluido del manifiesto publico.
+La integridad de bytes no acredita una comprobacion visual actual del sitio.
+
+Incluye 47 paginas, 40 productos de muestra, 120 variantes, ES/EN, portada editorial,
+compartir productos, historial y galeria horizontal con marco proporcional.
+Precios, pedidos y existencias del simulador no son datos comerciales autoritativos.
+No hay pagos bancarios productivos implementados.
+
+## Fuentes y evidencia
+
+| Contenido | Ubicacion |
 | --- | --- |
-| Original recuperado (parcial) | [Cloudflare](originals/cloudflare/README.md) |
-| Comparación del catálogo sin activar productos | [Staging](tests/catalog-staging-README.md), [resultado](evidence/catalog-staging.json) |
-| Seguridad y datos excluidos | [SECURITY](docs/SECURITY.md) |
-| Roadmap V1 propuesto y tareas | [ROADMAP-V1](docs/ROADMAP-V1.md), [tareas estructuradas](docs/roadmap-tasks.json) |
-| Estado, pendientes y criterios de aceptación | [PROJECT-STATUS](docs/PROJECT-STATUS.md) |
-| Procedimientos, herramientas y lecciones reutilizables | [PLAYBOOK](docs/PLAYBOOK.md) |
-| Registro de decisiones | [DECISIONS](docs/DECISIONS.md) |
-| Reglas para contribuir | [AGENTS](AGENTS.md) |
-| Fuentes editables y compilación determinista | [build-inputs](build-inputs/README.md), `src/`, `prepare.py` |
-| Demo ensamblada | `dist/` |
-| CD aislado de Cloudflare, desactivado hasta autorización/configuración | [CLOUDFLARE-CD](docs/CLOUDFLARE-CD.md) |
-| Pruebas y límites de QA | [tests](tests/README.md), [evidencia](evidence/QA.md) |
-| Fotografías faltantes e importación segura | [ASSET-COMPLETENESS](docs/ASSET-COMPLETENESS.md) |
-| Investigación de pagos; ningún proveedor elegido | [REA](research/rea/README.md), [hallazgos](research/rea/FINDINGS.md) |
+| Comportamiento editable | `src/` |
+| HTML, CSS, catalogo y medios | `build-inputs/static/` |
+| Salida ensamblada | `dist/` y `prepare.py` |
+| Cronologia y versiones | [UPDATE-HISTORY](docs/UPDATE-HISTORY.md) |
+| Estado y pendientes | [PROJECT-STATUS](docs/PROJECT-STATUS.md) |
+| Hashes, imagenes y recibos | [Entregas](evidence/releases/20261030/) |
+| Comprobaciones reproducibles | [SYNC-VERIFICATION](docs/SYNC-VERIFICATION.md) |
+| Original separado e inerte | [Procedencia del original](evidence/original-preview/README.md) |
+| SAVIA staff | [SAVIA-INTERNAL](SAVIA-INTERNAL.md), `backend/`, `contracts/`, `dev/savia-staff-ui/` |
+| Seguridad y contribuciones | [SECURITY](docs/SECURITY.md), [AGENTS](AGENTS.md) |
 
-El material histórico de Cloudflare se conserva separado en `originals/cloudflare/` (integrado); no forma parte del build raíz ni debe desplegarse por defecto. La historia Git registra la evolución; los commits importados indican el SHA de procedencia local cuando cambia su identidad al publicarlos por API: `git log --oneline --all --decorate`.
+Se conservan fotografias historicas y derivados. La ultima demo tambien contiene
+**156 PNG unicos generados con IA**, en 158 ubicaciones: son ilustraciones de demo,
+no fotografias documentales recuperadas ni garantia de fidelidad del vestido real.
+No alcanzan Full HD; diez registros historicos carecen de listas completas de
+referencias y persisten limites de continuidad visual. Ver
+[luxury-selected-assets.json](evidence/releases/20261030/luxury-selected-assets.json).
+La recuperacion historica permanece en 777/778 medios; el JPEG ausente no se invento.
 
 ## Ejecutar localmente
 
-Requisitos de referencia usados por las pruebas: Python 3.12.14, Node.js 24.22.1 y npm 11.9.0. Python utiliza solo biblioteca estándar. Las pruebas DOM requieren las dependencias fijadas en `tests/frontend-deps/package-lock.json`; su primera instalación necesita acceso al registro npm.
-
-### Linux / WSL
-
-Desde la raíz del checkout:
+Con Python 3, desde la raiz del checkout:
 
 ```sh
-python3 prepare.py
-python3 tests/check.py --install   # primera vez; instala dependencias fijadas
-python3 tests/check.py          # siguientes ejecuciones sin instalar
-python3 -m http.server 8000 --bind 127.0.0.1 --directory dist
+python prepare.py
+python -m http.server 8000 --bind 127.0.0.1 --directory dist
 ```
 
-Abrir <http://127.0.0.1:8000>. `Ctrl+C` detiene el servidor. No abrir el HTML con `file://` ni introducir datos reales de clientes o tarjetas.
+Abrir <http://127.0.0.1:8000/>; Ctrl+C detiene el servidor. En Windows tambien puede
+usarse `py -3`. No usar datos reales de clientes o tarjetas. Editar las entradas,
+no solo `dist/`; `prepare.py --output` acepta una carpeta nueva.
 
-### Windows
-
-Para ejecutar la demo desde PowerShell, con Python instalado y su lanzador disponible:
-
-```powershell
-py -3 prepare.py
-py -3 -m http.server 8000 --bind 127.0.0.1 --directory dist
+```sh
+python tools/verify_release_snapshot.py
+python tests/build.py
+python tests/check.py --install
 ```
 
-Para la suite completa desde PowerShell:
+El verificador comprueba hashes, estructura y fuentes; build exige dos salidas
+identicas. Las regresiones del catálogo distinguen capturas históricas y selección
+publicada; conservan precios, stock, variantes y controles de archivos. Ver
+[corrección y comprobaciones](docs/CATALOG-REGRESSION-FIX.md). El workflow
+`Tony source snapshot` ejecuta la suite completa en Linux, sin desplegar ni iniciar
+SQL. Consultar resultados del SHA exacto.
 
-```powershell
-py -3 tests/check.py --install
-py -3 tests/check.py
-```
+## SAVIA y publicación
 
-El runner usa Python estándar y resuelve `npm.cmd` en Windows. La suite pasó en Ubuntu y Windows para `f22276a` (Actions run [`40136425925`](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/40136425925)); el job de despliegue quedó **SKIPPED**. Incluye pruebas de staging y del propio runner. Esto no prueba QA en navegador ni un despliegue.
-
-Editar HTML/CSS/catálogo/imágenes en `build-inputs/static/`, comportamiento en `src/`; después ejecutar `prepare.py`. No editar solo `dist/`: se perderá al reconstruir. Para una salida independiente: `python3 prepare.py --output /tmp/martha-demo-build` (directorio vacío).
-
-## Sitios de referencia
-
-- [Original Cloudflare](https://martha-silva-demo.jason-suazof.workers.dev/): preservar sin modificar.
-- [Demo mejorada privada](https://martha-silva-photo-store.suazo-ai.chatgpt.site): puede requerir acceso; no es un enlace público nuevo ni prueba de sincronización con este commit.
-
-Publicar el repositorio no publica automáticamente la tienda. Cualquier despliegue debe identificar destino, commit, autorización, prueba de acceso y rollback. Ver [criterios de entrega](docs/PROJECT-STATUS.md#criterios-de-aceptación).
-
-La conexión persistente autorizada se limita al **nuevo Worker `martha-silva-preview`**, no a Admin amplio. El acceso Cloudflare comprobado sigue siendo de solo lectura y `gh` CLI no está autenticado; la habilitación de escritura y la asociación cuenta/URL requieren verificación externa antes de activar CD. Ver [CD aislado](docs/CLOUDFLARE-CD.md).
+SAVIA tiene sesión, permisos, directorio, stock, venta y recuperación implementados en el candidato.
+Existe evidencia histórica de una venta Owner desde navegador a SQL. La validación reciente separó
+API simulada en navegador y SQL real en fixtures; falta aceptar el recorrido combinado actual por cajero.
+La UI staff está fuera de `dist/` y no se publica en el Worker de la tienda.
+No se afirma hosting productivo, pagos bancarios ni aceptación visual.
+El Worker original `martha-silva-demo.jason-suazof.workers.dev` queda fuera del destino de esta sincronización.
+Cualquier despliegue requiere alcance, destino y rollback aprobados.

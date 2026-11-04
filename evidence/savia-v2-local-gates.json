@@ -1,0 +1,125 @@
+{
+  "backendSourceCommit": "8a9132143090dfd6aea6e520cbf4054cbec1c1e7",
+  "scope": "Local synthetic guards and harness; SQL transactions and CGA not verified",
+  "sdk": "10.0.402",
+  "runtime": "10.0.13",
+  "restore": {
+    "source": "https://api.nuget.org/v3/index.json",
+    "lockedMode": true,
+    "isolatedCache": true,
+    "exitCode": 0,
+    "lockfilesChanged": false
+  },
+  "releaseBuild": {
+    "exitCode": 0,
+    "warnings": 0,
+    "errors": 0
+  },
+  "dotnetTests": {
+    "passed": 45,
+    "failed": 0,
+    "skipped": 21,
+    "total": 66,
+    "sqlConnectionVariableRemoved": true,
+    "rawCounters": {
+      "total": "66",
+      "executed": "45",
+      "passed": "45",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "note": "Skipped count comes from UnitTestResult outcome NotExecuted; this VSTest TRX reports notExecuted counter 0 despite 21 skipped results.",
+    "independentJudge": {
+      "passed": 45,
+      "failed": 0,
+      "skipped": 21,
+      "trxSha256": "22ad685d5dddb86d1f56822f368f302f8291d6885b05716b8212f4996883e3ca"
+    }
+  },
+  "sql": {
+    "executed": false,
+    "preparedTests": 21,
+    "v1": 6,
+    "v2": 15,
+    "migrationApplied": false,
+    "serverStarted": false
+  },
+  "nodeHarness": {
+    "passed": 37,
+    "transport": "explicit fetch doubles",
+    "verifiedByIndependentJudge": true
+  },
+  "legacyNodeRegressions": {
+    "passed": 55,
+    "scope": "existing local demo, not SQL or CGA"
+  },
+  "pythonEvidenceVerifier": {
+    "passed": 10,
+    "scope": "synthetic TRX evidence, not SQL"
+  },
+  "playwright": {
+    "version": "1.62.1",
+    "alreadyInstalled": true,
+    "browser": "Chrome 156.0.8078.47",
+    "passed": 4,
+    "failed": 0,
+    "sql": false,
+    "realLoopbackHttp": true,
+    "apiProcessStopped": true,
+    "traceViewerCliAvailable": true,
+    "traceViewerUiOpened": false,
+    "traces": [
+      {
+        "file": "playwright-results-zero-redirects/guards-browser-reaches-onl-4b9e8-descriptor-CGA-stays-closed/trace.zip",
+        "bytes": 7400,
+        "sha256": "9a6b3c0615b7985752942d39834059d70197bc8a2734ef4681150764556f81b7"
+      },
+      {
+        "file": "playwright-results-zero-redirects/guards-client-supplied-pri-68439--real-HTTP-request-contract/trace.zip",
+        "bytes": 6021,
+        "sha256": "ba15d418426468d513d05ec126c264cf50164a4bba40d6f63539d5b16514c11c"
+      },
+      {
+        "file": "playwright-results-zero-redirects/guards-invalid-and-foreign-54a5a-d-before-storage-resolution/trace.zip",
+        "bytes": 7093,
+        "sha256": "c065782fbe07537466e19eeb325510e4455f412cf6417bdee712ce48aee30304"
+      },
+      {
+        "file": "playwright-results-zero-redirects/guards-no-SQL-connection-m-0eb5e-osed-without-invented-stock/trace.zip",
+        "bytes": 8315,
+        "sha256": "01ef658d4c38036e0d8fb3771c0306a601fcbf2e9c04d5bd4111e22f779907d8"
+      }
+    ],
+    "apiRequestMaxRedirects": 0,
+    "qaInputsSha256": {
+      "dev/savia-harness/playwright/.gitignore": "1483e43a8af1fbab71986ab074cc6b7c296071fe47d511879bf7a52bb6390207",
+      "dev/savia-harness/playwright/guards.spec.mjs": "4d63d52cb527215a7785f886e7ca66d77124bc5c73cb9a849cab2d737e7c84ac",
+      "dev/savia-harness/playwright/playwright.config.mjs": "14ba30209244c03a63e5813b62455983d7deafdd6a57aefe9799fbf3f6ddede0",
+      "dev/savia-harness/playwright/README.md": "14b4f30cda08b00a31a731150f721457df37298c62e98494af00334ffa97bfba"
+    }
+  },
+  "sdkFirstRun": {
+    "reportedDevelopmentCertificateCreation": true,
+    "trustCommandExecuted": false,
+    "subsequentCertificateGenerationDisabled": true
+  },
+  "limits": [
+    "No SQL integration or successful persisted reservation E2E",
+    "No CGA interface/access verified",
+    "No public storefront or images changed",
+    "No new dependencies or lockfile changes",
+    "No push, remote changes, deployment or billable resources started",
+    "SQL CI reuse requires verified destination/account/access and zero-cost capacity; historical license approval is CI-only"
+  ]
+}

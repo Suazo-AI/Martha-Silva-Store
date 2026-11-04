@@ -1,0 +1,37 @@
+{
+  "status": "approved_supporting_use_only_pending_exact_A_integration",
+  "user_reply_utc": "2026-10-26T16:44:40Z",
+  "preceding_question": "Son imágenes editadas con IA, no publicadas. También cambiaron detalles finos de la pedrería. ¿Las usamos como ilustraciones de apoyo, conservando las fotos reales como referencia del producto?",
+  "user_reply": "Si úsalas no importa",
+  "evidence_source": "Parent-provided transcript evidence",
+  "scope": [
+    "Add only these two clearly disclosed supporting illustrations on their matching PDPs",
+    "Retain authentic photographs as product references",
+    "Retain original gallery and commercial data"
+  ],
+  "not_authorized": [
+    "Replace authentic photographs or catalog media arrays",
+    "Apply historical blanket removal counts",
+    "Add other AI repairs",
+    "Publish or deploy"
+  ],
+  "assets": [
+    {
+      "candidate_id": "blanco-perlado-sirena-g1-gen-001",
+      "product_id": "blanco-perlado-sirena",
+      "sha256": "48170acd71bf1dae2f797cfb22c8dafe522d990de03c9b6ce5ce63a456b67ffe",
+      "proposed_runtime_path_not_registered": "/generated-illustrations/blanco-perlado-sirena-g1-gen-001-48170acd71bf.png"
+    },
+    {
+      "candidate_id": "rosa-empolvado-pedreria-g1-gen-001",
+      "product_id": "rosa-empolvado-pedreria",
+      "sha256": "8e13cba8e436ab0a4aa381db6a7d99e44f8624acb7a73eb62d4731ef0a218413",
+      "proposed_runtime_path_not_registered": "/generated-illustrations/rosa-empolvado-pedreria-g1-gen-001-8e13cba8e436.png"
+    }
+  ],
+  "product_fidelity_status": "Independent judge hold retained; supporting use approved with explicit disclosure of regenerated details",
+  "source_integration": "isolated_fragments_only_full_A_unavailable",
+  "runtime_registered": false,
+  "publication_authorized": false,
+  "published": false
+}

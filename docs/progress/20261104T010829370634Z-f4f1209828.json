@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-04T01:08:29.370634+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": ".github/workflows/progress-digest.yml",
+      "change": "M",
+      "git_blob": "f44853adc1fcd2ed4ba6dd75375267479a9a5107"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "3696a3b462411d51d09f0f4bc624b704532aea2b"
+    },
+    {
+      "path": "docs/fix-pr2-denis-20261104/README.md",
+      "change": "M",
+      "git_blob": "6876be494c81673c27fb9bcaf54e5b09ef549f32"
+    },
+    {
+      "path": "docs/fix-pr2-denis-20261104/ci-runtime.json",
+      "change": "A",
+      "git_blob": "0a679f8a77154bd920c0e7369a4388204625b73e"
+    },
+    {
+      "path": "docs/fix-pr2-denis-20261104/digest-cli-regression.json",
+      "change": "A",
+      "git_blob": "77d2e63c8a96e43cb24f2c6bc9e5b7998730eb3a"
+    },
+    {
+      "path": "docs/fix-pr2-denis-20261104/local-validation.json",
+      "change": "M",
+      "git_blob": "0ced32d584b3df167d4bbd2a1eee06a5a570b4f8"
+    },
+    {
+      "path": "docs/fix-pr2-denis-20261104/publication.json",
+      "change": "A",
+      "git_blob": "e5be86d7fee40f762a3d7d816297e01c4915d2e5"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

@@ -1,0 +1,405 @@
+{
+  "remote_base": "3b0049163ece2d9431cee01f1bea624a66d9d8d4",
+  "original_commits": [
+    {
+      "sha": "7e560a83878c91ccbe36760bdb73baaf16c45ed8",
+      "tree": "8002953b0f2f14866bf8108aa5105678f881d9df",
+      "parents": "3b0049163ece2d9431cee01f1bea624a66d9d8d4",
+      "author_date": "2026-10-24T17:15:45-06:00",
+      "committer_date": "2026-10-24T17:15:58-06:00",
+      "subject": "Add isolated SAVIA and SISFAIN demo adapters with synthetic HTTP contract"
+    },
+    {
+      "sha": "c44d442d52cbbef6d894f9ff52583a7cc2b654ee",
+      "tree": "19a1cafe37e2f2bdc48723185dc4dc024859cb02",
+      "parents": "7e560a83878c91ccbe36760bdb73baaf16c45ed8",
+      "author_date": "2026-10-24T17:16:13-06:00",
+      "committer_date": "2026-10-24T17:16:31-06:00",
+      "subject": "Add isolated local SAVIA and SISFAIN demo models to storefront"
+    },
+    {
+      "sha": "761559ad9b0cc6b7ac4c218029ce144791310172",
+      "tree": "8d5f389829c9ab31486e9abaaa6b435d9f2dca5f",
+      "parents": "c44d442d52cbbef6d894f9ff52583a7cc2b654ee",
+      "author_date": "2026-10-24T17:16:45-06:00",
+      "committer_date": "2026-10-24T17:16:45-06:00",
+      "subject": "Document dual integration boundaries and assemble reviewed demo"
+    },
+    {
+      "sha": "7f29cf5a75db60c93b3bb3efa89c7e33d9e02a79",
+      "tree": "64a3e0c1ed4b8e02b856bfba94f285d438e98fa3",
+      "parents": "761559ad9b0cc6b7ac4c218029ce144791310172",
+      "author_date": "2026-10-24T23:14:39-05:00",
+      "committer_date": "2026-10-24T23:14:39-05:00",
+      "subject": "Restore original 40-product storefront in isolated demo preview"
+    },
+    {
+      "sha": "c0b0c1f90a4ebfc168f28843d85ff450c864438a",
+      "tree": "822b803035be3c89582f772f5a17fa92471c7bce",
+      "parents": "7f29cf5a75db60c93b3bb3efa89c7e33d9e02a79",
+      "author_date": "2026-10-24T23:25:53-05:00",
+      "committer_date": "2026-10-24T23:25:53-05:00",
+      "subject": "Record isolated Cloudflare publication and verified release hashes"
+    },
+    {
+      "sha": "17b044df41ac5670a1a36770e0e61325f4b65d3e",
+      "tree": "0e5bbebc7086a5a8b1303d699cbd926768906d69",
+      "parents": "c0b0c1f90a4ebfc168f28843d85ff450c864438a",
+      "author_date": "2026-10-24T23:29:45-05:00",
+      "committer_date": "2026-10-24T23:29:45-05:00",
+      "subject": "Close remote browser QA with three independent reviews"
+    },
+    {
+      "sha": "713aab65361b0c0004521afebdac5df2ce75e4ff",
+      "tree": "5671b3192d53643e1440bf489d00d3e875bffa6d",
+      "parents": "17b044df41ac5670a1a36770e0e61325f4b65d3e",
+      "author_date": "2026-10-25T00:47:57-05:00",
+      "committer_date": "2026-10-25T00:49:05-05:00",
+      "subject": "Add isolated SAVIA V2 reservation ledger and durable attempts"
+    },
+    {
+      "sha": "33498477b4f89f0637dece919fcf9d81c9ebe99a",
+      "tree": "42e4bc48d430c3a8dc6aae9601462a7124a6e19b",
+      "parents": "713aab65361b0c0004521afebdac5df2ce75e4ff",
+      "author_date": "2026-10-25T00:45:29-05:00",
+      "committer_date": "2026-10-25T00:50:13-05:00",
+      "subject": "feat(api): expose isolated synthetic Savia V2 port and contract"
+    },
+    {
+      "sha": "e2e6f43bcc306312e683c8bad9f3fecf2a8662ba",
+      "tree": "fd575b8c8c63c96a53808c3a4e67a5448a5c6f0c",
+      "parents": "33498477b4f89f0637dece919fcf9d81c9ebe99a",
+      "author_date": "2026-10-25T00:46:00-05:00",
+      "committer_date": "2026-10-25T00:50:14-05:00",
+      "subject": "docs(contract): align Savia statuses with final domain DTOs"
+    },
+    {
+      "sha": "eecf39f3148505c7c2dc40180fb78830d2fb2022",
+      "tree": "0f39947a0a7ee0cbfb9dadd2413749210f365cfe",
+      "parents": "e2e6f43bcc306312e683c8bad9f3fecf2a8662ba",
+      "author_date": "2026-10-25T00:46:36-05:00",
+      "committer_date": "2026-10-25T00:50:15-05:00",
+      "subject": "Add isolated SAVIA V2 development HTTP harness"
+    },
+    {
+      "sha": "005997a3b2291994b25967629d23cd43e4379d9e",
+      "tree": "c64285bf03e066d434424e300bb4852e389fd995",
+      "parents": "eecf39f3148505c7c2dc40180fb78830d2fb2022",
+      "author_date": "2026-10-25T00:47:06-05:00",
+      "committer_date": "2026-10-25T00:50:15-05:00",
+      "subject": "test(savia): prepare V2 guards and strict SQL integration coverage"
+    },
+    {
+      "sha": "19f60f2c40c884ae00ba8aee4a7888e00959834d",
+      "tree": "cd6bfa074659b812b3c12f69d41d01926c92877b",
+      "parents": "005997a3b2291994b25967629d23cd43e4379d9e",
+      "author_date": "2026-10-25T00:47:47-05:00",
+      "committer_date": "2026-10-25T00:50:16-05:00",
+      "subject": "test(savia): cover changed payload under original attempt identity"
+    },
+    {
+      "sha": "bd2884740aea4857c36e40c318306a37b6b019a2",
+      "tree": "2ae456eb932b74b47dd7214ce9b1f7faf56715f0",
+      "parents": "19f60f2c40c884ae00ba8aee4a7888e00959834d",
+      "author_date": "2026-10-25T00:51:40-05:00",
+      "committer_date": "2026-10-25T00:52:04-05:00",
+      "subject": "Enforce immutable SAVIA V2 ledger and reconcile seed receipts"
+    },
+    {
+      "sha": "249b7a9c8763c979f9fcdd1ac9933c480029bd78",
+      "tree": "4c9f9b601d2cd6fbc86a2c5531adaf80f3af403a",
+      "parents": "bd2884740aea4857c36e40c318306a37b6b019a2",
+      "author_date": "2026-10-25T00:50:07-05:00",
+      "committer_date": "2026-10-25T00:52:05-05:00",
+      "subject": "test(savia): require SQL immutability and reject orphan success seeds"
+    },
+    {
+      "sha": "7d4dcfe957c029a4b27548b9b05682d8189cb598",
+      "tree": "6853867b7f5d10df48de5cbe1374e8c764ab6bf4",
+      "parents": "249b7a9c8763c979f9fcdd1ac9933c480029bd78",
+      "author_date": "2026-10-25T00:54:27-05:00",
+      "committer_date": "2026-10-25T00:56:04-05:00",
+      "subject": "docs(contract): distinguish route-specific V2 not found responses"
+    },
+    {
+      "sha": "8a9132143090dfd6aea6e520cbf4054cbec1c1e7",
+      "tree": "ceded4181557820a88d89f66b7c6c23dcc8f2de2",
+      "parents": "7d4dcfe957c029a4b27548b9b05682d8189cb598",
+      "author_date": "2026-10-25T00:56:28-05:00",
+      "committer_date": "2026-10-25T00:56:58-05:00",
+      "subject": "Keep uncertain SAVIA attempts unresolved after retry errors"
+    },
+    {
+      "sha": "c1fc7d11c0d08542061c8f1f148b77b3ae2ed256",
+      "tree": "55adb9a380fe609448d42e81efaa7c7048eca256",
+      "parents": "8a9132143090dfd6aea6e520cbf4054cbec1c1e7",
+      "author_date": "2026-10-25T01:14:55-05:00",
+      "committer_date": "2026-10-25T01:14:55-05:00",
+      "subject": "Verify synthetic .NET gates and isolated Playwright HTTP traces"
+    },
+    {
+      "sha": "f7e859bd0e6edf6bdef8b391b63589a212f0d088",
+      "tree": "a09b109d600b9c69daadb4d7840993d743195c29",
+      "parents": "c1fc7d11c0d08542061c8f1f148b77b3ae2ed256",
+      "author_date": "2026-10-25T01:18:58-05:00",
+      "committer_date": "2026-10-25T01:18:58-05:00",
+      "subject": "Keep Playwright API requests on loopback and finalize gate evidence"
+    },
+    {
+      "sha": "15812ab8e74ac6e6242a381a21e091fa212860ac",
+      "tree": "d93c973d68be08e26ad0fc5121952191d78c28f9",
+      "parents": "f7e859bd0e6edf6bdef8b391b63589a212f0d088",
+      "author_date": "2026-10-25T02:36:31-05:00",
+      "committer_date": "2026-10-25T02:36:31-05:00",
+      "subject": "Add isolated SAVIA demo interface and verified read-only API boundary"
+    },
+    {
+      "sha": "c5ea2c3fd999171cd4520372c7dd4f68f48e6db4",
+      "tree": "012fad4a3f7ef3432a17ece787cd27a04ef50dde",
+      "parents": "15812ab8e74ac6e6242a381a21e091fa212860ac",
+      "author_date": "2026-10-25T02:36:44-05:00",
+      "committer_date": "2026-10-25T02:36:44-05:00",
+      "subject": "Normalize SAVIA evidence line endings"
+    },
+    {
+      "sha": "7cbba2e19af98b55da82a89e69b1717d39b69726",
+      "tree": "f750b6d446a2ea6439c339d86c443af55fb931a0",
+      "parents": "17b044df41ac5670a1a36770e0e61325f4b65d3e",
+      "author_date": "2026-10-25T02:34:56-05:00",
+      "committer_date": "2026-10-25T02:34:56-05:00",
+      "subject": "Improve storefront usability and preserve image review evidence"
+    },
+    {
+      "sha": "9c9e6874a3cd60cb903b101267b2777ae62536cf",
+      "tree": "415c4b576d75fd31d2e6da32643e00196427bcdf",
+      "parents": "c5ea2c3fd999171cd4520372c7dd4f68f48e6db4 7cbba2e19af98b55da82a89e69b1717d39b69726",
+      "author_date": "2026-10-25T02:36:45-05:00",
+      "committer_date": "2026-10-25T02:36:45-05:00",
+      "subject": "Merge commit '7cbba2e19af98b55da82a89e69b1717d39b69726' into erp/savia-demo-ui"
+    },
+    {
+      "sha": "311354e4ac0757619bfc21ed3ae27351335c2acb",
+      "tree": "2f062c031451d4976d89167b4c004897967d5db6",
+      "parents": "9c9e6874a3cd60cb903b101267b2777ae62536cf",
+      "author_date": "2026-10-25T02:40:03-05:00",
+      "committer_date": "2026-10-25T02:40:03-05:00",
+      "subject": "Exercise real stock fixtures in sample-label regression"
+    },
+    {
+      "sha": "8c01f99fa325d8a5bde6fddfffdade4f527e91d3",
+      "tree": "d2193b9bbe32ae89ca3588d58cb9a98319c7b0b7",
+      "parents": "311354e4ac0757619bfc21ed3ae27351335c2acb",
+      "author_date": "2026-10-25T02:45:39-05:00",
+      "committer_date": "2026-10-25T02:45:39-05:00",
+      "subject": "Verify last-unit labels through an isolated demo inventory transition"
+    },
+    {
+      "sha": "d2ad2000c68c492618c15f5a601cca9a47e8a587",
+      "tree": "22362390dd96ba97dee6521402a89e7422bd1917",
+      "parents": "8c01f99fa325d8a5bde6fddfffdade4f527e91d3",
+      "author_date": "2026-10-25T03:00:19-05:00",
+      "committer_date": "2026-10-25T03:00:19-05:00",
+      "subject": "Retire the separate SAVIA prototype and retain the original demo URL"
+    },
+    {
+      "sha": "98a03b30fae6250e55317fa8228c65925967ed65",
+      "tree": "c6709d56f0a365ec791303e35b4e8ccbff45f2ef",
+      "parents": "d2ad2000c68c492618c15f5a601cca9a47e8a587",
+      "author_date": "2026-10-25T03:35:01-05:00",
+      "committer_date": "2026-10-25T03:35:01-05:00",
+      "subject": "Record verified withdrawal and separate private SAVIA direction"
+    },
+    {
+      "sha": "b4952fbdff073140e460744e37b751bdc89804ae",
+      "tree": "11aaa74ea108e2713483a2e9cfa644d9abc9e836",
+      "parents": "98a03b30fae6250e55317fa8228c65925967ed65",
+      "author_date": "2026-10-25T18:46:53-05:00",
+      "committer_date": "2026-10-25T18:46:53-05:00",
+      "subject": "Fit bridal photography and add Spanish English storefront support"
+    },
+    {
+      "sha": "a7d60d2536397c28cf2557d2d835fba4e5a1d2d1",
+      "tree": "fa4bb489bfce74af7ec7e5464c8a4e695e35eac5",
+      "parents": "b4952fbdff073140e460744e37b751bdc89804ae",
+      "author_date": "2026-10-25T18:55:21-05:00",
+      "committer_date": "2026-10-25T18:55:21-05:00",
+      "subject": "Close bilingual history cart and photo regressions from cloud review"
+    },
+    {
+      "sha": "b248b925d5d61a49124e10b0244362ae558c852d",
+      "tree": "ebc050b7c6f66244009f14e3f0bd6981417443eb",
+      "parents": "a7d60d2536397c28cf2557d2d835fba4e5a1d2d1",
+      "author_date": "2026-10-25T18:58:38-05:00",
+      "committer_date": "2026-10-25T18:58:38-05:00",
+      "subject": "Preserve explicit language choice when browser storage is read only"
+    },
+    {
+      "sha": "8172ad538280cc224f70e4983339ad75141ce683",
+      "tree": "11b49ad2aa2486c5fd8c19726b6ee25cb2c5d33f",
+      "parents": "b248b925d5d61a49124e10b0244362ae558c852d",
+      "author_date": "2026-10-25T19:09:00-05:00",
+      "committer_date": "2026-10-25T19:09:00-05:00",
+      "subject": "Restore cloud verified bilingual runtime output for b248b925"
+    },
+    {
+      "sha": "67d4647d5ee65c65dd037d2e664fcdc45c7009d6",
+      "tree": "d383e595ccd6e96cf1a243585f1168d9d5199b1c",
+      "parents": "8172ad538280cc224f70e4983339ad75141ce683",
+      "author_date": "2026-10-25T19:09:01-05:00",
+      "committer_date": "2026-10-25T19:09:01-05:00",
+      "subject": "Localize the visible search caption from its accessible label"
+    },
+    {
+      "sha": "c664610757d25c0e512a23606a6c3ddd66b3577f",
+      "tree": "601e70cb64e377f46710999bc57fd8a36513c5cb",
+      "parents": "67d4647d5ee65c65dd037d2e664fcdc45c7009d6",
+      "author_date": "2026-10-25T19:18:17-05:00",
+      "committer_date": "2026-10-25T19:18:17-05:00",
+      "subject": "Record verified public bilingual photography release and final caption check"
+    },
+    {
+      "sha": "8ef27660bb94acc5d93f09d59b92cbbc8661e94e",
+      "tree": "3d6a1d86b5afe92f3afb2544135b3e888c8db684",
+      "parents": "c664610757d25c0e512a23606a6c3ddd66b3577f",
+      "author_date": "2026-10-25T21:45:27-05:00",
+      "committer_date": "2026-10-25T21:45:27-05:00",
+      "subject": "Add luxury Instagram hero and editorial photography"
+    },
+    {
+      "sha": "8b25146723cd42efbdfa1d5404da920f5ce27245",
+      "tree": "df0bfe4442d7fd7021fc4ba9a117514a3eb6ab3b",
+      "parents": "8ef27660bb94acc5d93f09d59b92cbbc8661e94e",
+      "author_date": "2026-10-25T21:54:36-05:00",
+      "committer_date": "2026-10-25T21:54:36-05:00",
+      "subject": "Record verified luxury photography publication"
+    },
+    {
+      "sha": "e9e9609b9cda6f52abd0db1b35b570f3b83156b4",
+      "tree": "d4b102a809c06126a805798e571ccf56dbbc8b4f",
+      "parents": "8b25146723cd42efbdfa1d5404da920f5ce27245",
+      "author_date": "2026-10-25T23:24:19-05:00",
+      "committer_date": "2026-10-25T23:24:19-05:00",
+      "subject": "feat: share product links with native sharing and copy fallback"
+    },
+    {
+      "sha": "8154aed553e247a4d522c6d8447dbd2f72102af2",
+      "tree": "a9d930a585839308ef26dfd96f7e9b0b35de8d23",
+      "parents": "e9e9609b9cda6f52abd0db1b35b570f3b83156b4",
+      "author_date": "2026-10-25T23:26:27-05:00",
+      "committer_date": "2026-10-25T23:26:27-05:00",
+      "subject": "docs: record product sharing publication and cloud verification"
+    },
+    {
+      "sha": "d4536b4b6566f07cf2667b70539e56068ccaceb2",
+      "tree": "c53307b3b9f925fa46327a25e77a7fb3c50ea248",
+      "parents": "8154aed553e247a4d522c6d8447dbd2f72102af2",
+      "author_date": "2026-10-25T23:32:20-05:00",
+      "committer_date": "2026-10-25T23:32:20-05:00",
+      "subject": "docs: record live sharing verification and browser limits"
+    },
+    {
+      "sha": "704b2e160106b709880ad7c22febd25adb6181d6",
+      "tree": "0e77a4ebe46839926d20a5ce0c229366b0d2eaa5",
+      "parents": "d4536b4b6566f07cf2667b70539e56068ccaceb2",
+      "author_date": "2026-10-26T01:15:26-05:00",
+      "committer_date": "2026-10-26T01:15:26-05:00",
+      "subject": "fix: fit green product gallery below the sticky header"
+    },
+    {
+      "sha": "403d0d2f316f4e01899d4c1f68b65c4c31162102",
+      "tree": "e968e7060616963e7d3b613f13a0364de7fde35c",
+      "parents": "704b2e160106b709880ad7c22febd25adb6181d6",
+      "author_date": "2026-10-26T01:39:08-05:00",
+      "committer_date": "2026-10-26T01:39:08-05:00",
+      "subject": "docs: record green gallery publication and live verification"
+    },
+    {
+      "sha": "2785ca7bbc615be4201b07e4208dd2601a2c81cd",
+      "tree": "4500e94ef96082fd7ef7f24a68c8deb958ad3a9f",
+      "parents": "403d0d2f316f4e01899d4c1f68b65c4c31162102",
+      "author_date": "2026-10-26T01:46:31-05:00",
+      "committer_date": "2026-10-26T01:46:31-05:00",
+      "subject": "docs: preserve matched green gallery before and after evidence"
+    },
+    {
+      "sha": "e2a475961a0056ac6609a86e34a2a58c05e37707",
+      "tree": "a38a04770e2ed7f9895fd9edf3da680ef3d39fe5",
+      "parents": "2785ca7bbc615be4201b07e4208dd2601a2c81cd",
+      "author_date": "2026-10-26T18:53:51-05:00",
+      "committer_date": "2026-10-26T18:53:51-05:00",
+      "subject": "Restore history context, add approved support illustrations and remove demo admin footer link"
+    },
+    {
+      "sha": "a69c4a7884b7ec41918c9b7cd0b606fd7350f7d0",
+      "tree": "4e10c0664c27aace9b279bf13cd525e97779e51d",
+      "parents": "e2a475961a0056ac6609a86e34a2a58c05e37707",
+      "author_date": "2026-10-26T18:55:36-05:00",
+      "committer_date": "2026-10-26T18:55:36-05:00",
+      "subject": "Record combined publication and 52 verified live response hashes"
+    },
+    {
+      "sha": "fd760def920ea242a39fb7631ac5dda6e1fafc29",
+      "tree": "9068179969c710d718ccf5dca0a51837bf24d4ac",
+      "parents": "a69c4a7884b7ec41918c9b7cd0b606fd7350f7d0",
+      "author_date": "2026-10-26T21:00:20-05:00",
+      "committer_date": "2026-10-26T21:00:20-05:00",
+      "subject": "Add desktop product carousel candidate and focused DOM cases"
+    },
+    {
+      "sha": "8fcfd6204bc5c4085440817337d9cde830cc3087",
+      "tree": "09dbd467f651f6c9e94758ec224ea82f06d31f3a",
+      "parents": "f7e859bd0e6edf6bdef8b391b63589a212f0d088",
+      "author_date": "2026-10-25T03:35:02-05:00",
+      "committer_date": "2026-10-25T03:35:02-05:00",
+      "subject": "Adopt the preserved backend history as the private SAVIA foundation"
+    },
+    {
+      "sha": "3d8f11deec4a4a2ab8d5d6f9ef3a8176d8baa2d4",
+      "tree": "e33b6a44570629951d479e4393f78c98dd136197",
+      "parents": "8fcfd6204bc5c4085440817337d9cde830cc3087",
+      "author_date": "2026-10-25T04:01:07-05:00",
+      "committer_date": "2026-10-25T04:01:07-05:00",
+      "subject": "Add private staff sign-in and directory read UI with cloud regression evidence"
+    },
+    {
+      "sha": "4a9c11e45953512a41c7152e2f79f9f5a10743a6",
+      "tree": "56416fa225cbba0e3fb39d76a11b4de83584012f",
+      "parents": "3d8f11deec4a4a2ab8d5d6f9ef3a8176d8baa2d4",
+      "author_date": "2026-10-25T04:22:13-05:00",
+      "committer_date": "2026-10-25T04:22:13-05:00",
+      "subject": "Integrate private SAVIA backend and paginated staff directory with cloud verification"
+    },
+    {
+      "sha": "c927eed3de276c12b496b33c4f16612abeddf4f1",
+      "tree": "e40959cfa80c97a9808443bfe9be9bc715caf3dc",
+      "parents": "4a9c11e45953512a41c7152e2f79f9f5a10743a6",
+      "author_date": "2026-10-27T20:31:09-05:00",
+      "committer_date": "2026-10-27T20:31:09-05:00",
+      "subject": "Import verified SAVIA Owner and B1 source changes"
+    },
+    {
+      "sha": "744f245b598703def6ef42d139015fc4aa3fec83",
+      "tree": "f6bf24c4c5ba12f658affa10c2127e374ef5fba9",
+      "parents": "c927eed3de276c12b496b33c4f16612abeddf4f1",
+      "author_date": "2026-10-27T20:31:11-05:00",
+      "committer_date": "2026-10-27T20:31:11-05:00",
+      "subject": "Integrate reviewed SAVIA branch isolation candidate"
+    },
+    {
+      "sha": "023364fd6572c40e354b3826774bce8d4e2c98f1",
+      "tree": "49d3c52a3cb7c15312d9617586648138ecd9987a",
+      "parents": "744f245b598703def6ef42d139015fc4aa3fec83",
+      "author_date": "2026-10-27T20:39:50-05:00",
+      "committer_date": "2026-10-27T20:39:50-05:00",
+      "subject": "Preserve branch update intent and align staff UI permissions"
+    },
+    {
+      "sha": "e7cf4b16ba147752170eb7a7228c7a42279925a5",
+      "tree": "c87ae4d0997a11f336281f33118f412bf35aee57",
+      "parents": "e2a475961a0056ac6609a86e34a2a58c05e37707",
+      "author_date": "2026-10-28T00:41:17-05:00",
+      "committer_date": "2026-10-28T00:41:17-05:00",
+      "subject": "Remove baked-in padding from reviewed Green product photographs"
+    }
+  ]
+}

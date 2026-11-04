@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "scope": "lightweight integration and HTML parser checks, not a build or rendered-browser QA",
+  "runtime_count": 904,
+  "unchanged_from_A": 853,
+  "modified_existing": 49,
+  "new_PNG": 2,
+  "footer_pages": 47,
+  "source_dist_changed_payloads_equal": 51,
+  "v4_app_css_PNG_exact": true,
+  "local_heavy_work_run": false,
+  "cloud_suite_v4_status": "pass_with_documented_fixture_adaptation",
+  "Safari_iPhone_VoiceOver": "NOT_RUN"
+}

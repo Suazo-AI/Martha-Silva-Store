@@ -1,0 +1,252 @@
+{
+  "reviewed_files": 48,
+  "bytes": 462450,
+  "alerts": [],
+  "files": [
+    {
+      "path": "docs/c8-ui-20261103/api-expiry-completion-20261103/backend-test.patch",
+      "bytes": 6105,
+      "sha256": "927ea77b1a63c134cae03dac13e6545d624a05a8f3aabb501d01fef100a23e09"
+    },
+    {
+      "path": "docs/c8-ui-20261103/api-expiry-completion-20261103/command-results.json",
+      "bytes": 2522,
+      "sha256": "641c9d6e0d33e539ea256e0017a5be1c67e6d0b7e2b74086c772bb5371e9c502"
+    },
+    {
+      "path": "docs/c8-ui-20261103/api-expiry-completion-20261103/completion.md",
+      "bytes": 3503,
+      "sha256": "c52ff1d6b153ece88df6f61e7960b34927aa917fc74c99b723158a00ad4a27dd"
+    },
+    {
+      "path": "docs/c8-ui-20261103/api-expiry-completion-20261103/expiry-test.sanitized.trx",
+      "bytes": 2303,
+      "sha256": "0666601786ac1e5bb548865f737fbf65d40124ddbc94fb0947f290d0649b9cd9"
+    },
+    {
+      "path": "docs/c8-ui-20261103/api-expiry-completion-20261103/primary-acceptance.json",
+      "bytes": 1475,
+      "sha256": "cbbe72e21fc30daa9ba1f74de8f1b51e6722072b345e63dd88895da834f85fef"
+    },
+    {
+      "path": "docs/c8-ui-20261103/api-expiry-completion-20261103/report.md",
+      "bytes": 4602,
+      "sha256": "6a25bc8f6c9b2ac7c1feb0709ce34fb9e6b927fb4b74805b0c4b54a3e7b93ac6"
+    },
+    {
+      "path": "docs/c8-ui-20261103/api-expiry-completion-20261103/scope-verification.json",
+      "bytes": 1934,
+      "sha256": "0a79c58558104411ca4ca1c578ff9483da2176e2fe5498bf2099a8f6a823ac2a"
+    },
+    {
+      "path": "docs/c8-ui-20261103/api-expiry-completion-20261103/sdk-provenance.json",
+      "bytes": 1132,
+      "sha256": "1f47fcf73015e2af35c0c5ebc25cd25327a43a45077840aff2e964f2d2c7de35"
+    },
+    {
+      "path": "docs/c8-ui-20261103/api-expiry-completion-20261103/security-regressions.sanitized.trx",
+      "bytes": 59840,
+      "sha256": "28c1d1fb4aa1706b9e2b472b665f857199c001e8f264f21897f3ac9d655ee12d"
+    },
+    {
+      "path": "docs/c8-ui-20261103/api-expiry-completion-20261103/SHA256SUMS.json",
+      "bytes": 862,
+      "sha256": "88a58250133a48e6b615b790a2dc2c527c83e829cb7d1f94aed819b524789e03"
+    },
+    {
+      "path": "docs/c8-ui-20261103/api-expiry-completion-20261103/test-results.json",
+      "bytes": 12344,
+      "sha256": "10b4b3b84186bfa44902a4883d3fd037908e3caf2dda21bf7fd198c03503e64f"
+    },
+    {
+      "path": "docs/c8-ui-20261103/api-expiry-completion-20261103/trello-before.json",
+      "bytes": 5032,
+      "sha256": "cd014d4f477a7c0155f01cc8a772454adf8f7eb723fcb35875bf81f078bb42a9"
+    },
+    {
+      "path": "docs/c8-ui-20261103/api-expiry-completion-20261103/trello-readback.json",
+      "bytes": 6287,
+      "sha256": "1e941ef96d9f5d00bd1b33448c2208623ab46fb16e59951dc39cf21ee7287eed"
+    },
+    {
+      "path": "docs/c8-ui-20261103/api-expiry-completion-20261103/verification.json",
+      "bytes": 2219,
+      "sha256": "805336ca4dbb361aac7ebb6b974b4747e732ef3d70fca643b44454aaf4a09c2d"
+    },
+    {
+      "path": "docs/c8-ui-20261103/api-expiry-handoff.md",
+      "bytes": 3095,
+      "sha256": "95351f1492f246d044abefcb644280e93d29aa0ecdf96552ac57e035f3b0e197"
+    },
+    {
+      "path": "docs/c8-ui-20261103/api-prerequisite.json",
+      "bytes": 1328,
+      "sha256": "616425dc03489474119d60c9c9ca75964978e99717aaa6dd204265477217579f"
+    },
+    {
+      "path": "docs/c8-ui-20261103/c8-preflight.json",
+      "bytes": 568,
+      "sha256": "723a6f24d0cf8b93f0d33c1c30eaade527cece5fa521ad8c5dae6430134d6620"
+    },
+    {
+      "path": "docs/c8-ui-20261103/c8-trello-start.json",
+      "bytes": 3895,
+      "sha256": "4afb76ac63d4fc24d7c6e43197dc26dc5294bad2d652f62e7b1098756643755f"
+    },
+    {
+      "path": "docs/c8-ui-20261103/cleanup.json",
+      "bytes": 339,
+      "sha256": "99b2385aae101a56c42fdd2c522e8a044e45ed521c8841e951f51c9526032d5a"
+    },
+    {
+      "path": "docs/c8-ui-20261103/current-head-20261104/acceptance-checks.json",
+      "bytes": 4152,
+      "sha256": "a4bae8c65c49fc233621671733ec553a09916e62e2a1eb4d423319d27a4afd72"
+    },
+    {
+      "path": "docs/c8-ui-20261103/current-head-20261104/binding.json",
+      "bytes": 25625,
+      "sha256": "f75f98e37c5506c960cebba06f1be86e7699b8d3e69b099409206f94a92c2545"
+    },
+    {
+      "path": "docs/c8-ui-20261103/current-head-20261104/candidate.patch",
+      "bytes": 36269,
+      "sha256": "a0762dc021260f4c8c88b849552c4775c6bef17af06c5338e68e95cd7a221df0"
+    },
+    {
+      "path": "docs/c8-ui-20261103/current-head-20261104/export-manifest.json",
+      "bytes": 1146,
+      "sha256": "64a66c98c3ef042178f2a2555889f88ef856a441a354d919cd44e8b2f46c1c00"
+    },
+    {
+      "path": "docs/c8-ui-20261103/current-head-20261104/ledger-proposal.patch",
+      "bytes": 1270,
+      "sha256": "fb0409a4d29f8483b0670f96dcddd2ed6a674431dee2131433f619b692c4c1aa"
+    },
+    {
+      "path": "docs/c8-ui-20261103/current-head-20261104/primary-acceptance.json",
+      "bytes": 2776,
+      "sha256": "412f5ff9a4bff23ae9a90fe520c9ac65d21fe1791885d0255f8c2b125ebd6b77"
+    },
+    {
+      "path": "docs/c8-ui-20261103/current-head-20261104/reconciliation.md",
+      "bytes": 3792,
+      "sha256": "9dd3174df941de5ea3f2e5fa5008771fd354db1dc0f97b32a93b32d1ebb33021"
+    },
+    {
+      "path": "docs/c8-ui-20261103/current-head-20261104/report.md",
+      "bytes": 3734,
+      "sha256": "1d07c9a22c666e851d6036f066dc884fd889f2b9cc3e015b221f1fb49a4407fe"
+    },
+    {
+      "path": "docs/c8-ui-20261103/current-head-20261104/trello-proposal.json",
+      "bytes": 2738,
+      "sha256": "c83bdc948418ab5d3481903c6ecec6800b0ff11ac2629bab1770820029b6fd69"
+    },
+    {
+      "path": "docs/c8-ui-20261103/current-head-20261104/verification.json",
+      "bytes": 6316,
+      "sha256": "b2ab6d6cae014e68faddd3971a40abd379f5eaf7922ec76b85d89d0dfd60bd0c"
+    },
+    {
+      "path": "docs/c8-ui-20261103/independent-review.md",
+      "bytes": 9643,
+      "sha256": "50fbc6ee32a07027551ac0565ee9126fef1a6e5c1bed367fdd004162bb669b8a"
+    },
+    {
+      "path": "docs/c8-ui-20261103/README.md",
+      "bytes": 3079,
+      "sha256": "ac2781f50757180607c904568318a2a408dcf07019bab3f8906cd7df3759a3c3"
+    },
+    {
+      "path": "docs/c8-ui-20261103/report.md",
+      "bytes": 7717,
+      "sha256": "69286e085173f28a7d20926c8a0e7b078a118997fb980f8c04775421c0d2feb3"
+    },
+    {
+      "path": "docs/c8-ui-20261103/trello-readback.json",
+      "bytes": 5389,
+      "sha256": "fecf67ea71726adc17d5932909d7b21369959ad8beb353449081ca9d3f130a04"
+    },
+    {
+      "path": "docs/c8-ui-20261103/ui.patch",
+      "bytes": 30164,
+      "sha256": "0f87604ec56d081fc2f2432fcfbd7c2ecdd74524240ce7db7fb4fa8442408f5c"
+    },
+    {
+      "path": "docs/c8-ui-20261103/verification.json",
+      "bytes": 43346,
+      "sha256": "b00f40217858bad1ca39a7da12e28af2135036600864ad455af41218093659e8"
+    },
+    {
+      "path": "docs/technical-ready-review-20261104/checklist-verdicts.json",
+      "bytes": 17064,
+      "sha256": "28d5e972f4589080321d61f11790525f21499c8c5a0dc7228866f61e32fea4e5"
+    },
+    {
+      "path": "docs/technical-ready-review-20261104/completion.json",
+      "bytes": 2484,
+      "sha256": "de333ca8f282a5bd13491e6853179e41f2c08d2e67c8f88e1590fc18de73d71f"
+    },
+    {
+      "path": "docs/technical-ready-review-20261104/evidence/backend-sanitized-results.json",
+      "bytes": 42498,
+      "sha256": "e3142bc04e35b0653f05d7c31377550b3a579aa382fa6f8a9347e01f99a8eb55"
+    },
+    {
+      "path": "docs/technical-ready-review-20261104/evidence/ci-status.json",
+      "bytes": 4008,
+      "sha256": "8e413c6480fe91f9ff2c0d19f0c1cfe1443fe4b7eca49883df2ba3622909b1a3"
+    },
+    {
+      "path": "docs/technical-ready-review-20261104/evidence/golden-evidence.json",
+      "bytes": 20457,
+      "sha256": "f4841b01674316deb26698083131b35d16eebe9b3dfa5a2bbc2a3735ff00a3fb"
+    },
+    {
+      "path": "docs/technical-ready-review-20261104/evidence/head-merge-binding.json",
+      "bytes": 313,
+      "sha256": "eb2738dac8ff317af48e203de8b4cef5e6e2dba0be062c5a826334087cb7ee67"
+    },
+    {
+      "path": "docs/technical-ready-review-20261104/export-manifest.json",
+      "bytes": 1498,
+      "sha256": "c427c2241eac0091dac14191ec5a32940125ab43de5aeb1f6e1cab9d3f48baa9"
+    },
+    {
+      "path": "docs/technical-ready-review-20261104/independent-review.md",
+      "bytes": 10379,
+      "sha256": "b162297d191ce1cdcfd395ed0a0a7e3a41ab9080ecef62d3ff5d7905c336eba3"
+    },
+    {
+      "path": "docs/technical-ready-review-20261104/primary-review.md",
+      "bytes": 4183,
+      "sha256": "0df710fb3e9288e48651320ba2e98ccf32138f98b94230dab569c721f5b2fae4"
+    },
+    {
+      "path": "docs/technical-ready-review-20261104/resources-final.json",
+      "bytes": 269,
+      "sha256": "4adc4c965c4023b0f531d92bc888d2b89ff883e2b8f7e5d93d7e79286512709c"
+    },
+    {
+      "path": "docs/technical-ready-review-20261104/trello-before.json",
+      "bytes": 22517,
+      "sha256": "fde9f7fa3ea335dd994e7cf4fd95c9e3a1688804095c2f065c05e12304511759"
+    },
+    {
+      "path": "docs/technical-ready-review-20261104/trello-readback.json",
+      "bytes": 29447,
+      "sha256": "291f03f1ae22a051caa85a2af0778a7cb9b40d2a343321470bf39af73da0714e"
+    },
+    {
+      "path": "docs/technical-ready-review-20261104/worktrees-final.json",
+      "bytes": 792,
+      "sha256": "cb4b37c94728e96819df141c4bec2139ace54ee02674f733dcebd1ff75a4dcf7"
+    }
+  ],
+  "excluded_from_publication": [
+    "docs/c8-ui-20261103/api-expiry-completion-20261103/expiry-test.sanitized.trx",
+    "docs/c8-ui-20261103/api-expiry-completion-20261103/security-regressions.sanitized.trx"
+  ],
+  "exclusion_reason": "Publication hook rejects .trx filenames. Original files retained, not renamed or rewritten; JSON outcomes and original hashes published."
+}

@@ -1,0 +1,415 @@
+{
+  "method": "Static extraction of literal MapGet/Post/Put/Patch/Delete, local literal MapGroup prefixes, and Program.cs synthetic prefix concatenations; not dynamic endpoint discovery or execution coverage.",
+  "counts": {
+    "legacy/synthetic/public-backend": 12,
+    "internal": 46
+  },
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/health/live",
+      "file": "backend/src/Martha.Store.Api/Program.cs",
+      "line": 98,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "GET",
+      "path": "/health/ready",
+      "file": "backend/src/Martha.Store.Api/Program.cs",
+      "line": 99,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/catalog",
+      "file": "backend/src/Martha.Store.Api/Program.cs",
+      "line": 116,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/synthetic/orders",
+      "file": "backend/src/Martha.Store.Api/Program.cs",
+      "line": 131,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/synthetic/orders/{orderId:guid}",
+      "file": "backend/src/Martha.Store.Api/Program.cs",
+      "line": 140,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "GET",
+      "path": "/internal/api/commerce/inventory",
+      "file": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceEndpoints.cs",
+      "line": 11,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "GET",
+      "path": "/internal/api/commerce/movements",
+      "file": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceEndpoints.cs",
+      "line": 13,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "GET",
+      "path": "/internal/api/commerce/sales",
+      "file": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceEndpoints.cs",
+      "line": 15,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "GET",
+      "path": "/internal/api/commerce/sales/{id:guid}",
+      "file": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceEndpoints.cs",
+      "line": 17,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "GET",
+      "path": "/internal/api/commerce/sales/{id:guid}/reversals",
+      "file": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceEndpoints.cs",
+      "line": 19,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "POST",
+      "path": "/internal/api/commerce/adjustments",
+      "file": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceEndpoints.cs",
+      "line": 21,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "POST",
+      "path": "/internal/api/commerce/sales",
+      "file": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceEndpoints.cs",
+      "line": 24,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "POST",
+      "path": "/internal/api/commerce/sales/{id:guid}/cancel",
+      "file": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceEndpoints.cs",
+      "line": 27,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "POST",
+      "path": "/internal/api/commerce/sales/{id:guid}/returns",
+      "file": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceEndpoints.cs",
+      "line": 30,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "GET",
+      "path": "/internal/api/directory/items",
+      "file": "backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryEndpoints.cs",
+      "line": 18,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "GET",
+      "path": "/internal/api/directory/locations",
+      "file": "backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryEndpoints.cs",
+      "line": 19,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "GET",
+      "path": "/internal/api/directory/parties",
+      "file": "backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryEndpoints.cs",
+      "line": 20,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "GET",
+      "path": "/internal/api/directory/items/{id:guid}",
+      "file": "backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryEndpoints.cs",
+      "line": 21,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "GET",
+      "path": "/internal/api/directory/locations/{id:guid}",
+      "file": "backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryEndpoints.cs",
+      "line": 23,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "GET",
+      "path": "/internal/api/directory/parties/{id:guid}",
+      "file": "backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryEndpoints.cs",
+      "line": 28,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "POST",
+      "path": "/internal/api/directory/items",
+      "file": "backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryEndpoints.cs",
+      "line": 31,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "PUT",
+      "path": "/internal/api/directory/items/{id:guid}",
+      "file": "backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryEndpoints.cs",
+      "line": 33,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "DELETE",
+      "path": "/internal/api/directory/items/{id:guid}",
+      "file": "backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryEndpoints.cs",
+      "line": 35,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "POST",
+      "path": "/internal/api/directory/locations",
+      "file": "backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryEndpoints.cs",
+      "line": 37,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "PUT",
+      "path": "/internal/api/directory/locations/{id:guid}",
+      "file": "backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryEndpoints.cs",
+      "line": 39,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "DELETE",
+      "path": "/internal/api/directory/locations/{id:guid}",
+      "file": "backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryEndpoints.cs",
+      "line": 41,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "POST",
+      "path": "/internal/api/directory/parties",
+      "file": "backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryEndpoints.cs",
+      "line": 43,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "PUT",
+      "path": "/internal/api/directory/parties/{id:guid}",
+      "file": "backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryEndpoints.cs",
+      "line": 45,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "DELETE",
+      "path": "/internal/api/directory/parties/{id:guid}",
+      "file": "backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryEndpoints.cs",
+      "line": 47,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "GET",
+      "path": "/internal/api/supply/purchase-orders",
+      "file": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyEndpoints.cs",
+      "line": 19,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "GET",
+      "path": "/internal/api/supply/purchase-orders/{id:guid}",
+      "file": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyEndpoints.cs",
+      "line": 22,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "GET",
+      "path": "/internal/api/supply/purchase-orders/{id:guid}/receipts",
+      "file": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyEndpoints.cs",
+      "line": 24,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "POST",
+      "path": "/internal/api/supply/purchase-orders",
+      "file": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyEndpoints.cs",
+      "line": 27,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "POST",
+      "path": "/internal/api/supply/purchase-orders/{id:guid}/receipts",
+      "file": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyEndpoints.cs",
+      "line": 30,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "POST",
+      "path": "/internal/api/supply/purchase-orders/{id:guid}/cancel",
+      "file": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyEndpoints.cs",
+      "line": 33,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "GET",
+      "path": "/internal/api/readiness",
+      "file": "backend/src/Martha.Store.Api/Internal/InternalHosting.cs",
+      "line": 45,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "GET",
+      "path": "/internal/api/operations/{scope}",
+      "file": "backend/src/Martha.Store.Api/Internal/InternalHosting.cs",
+      "line": 59,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "GET",
+      "path": "/internal/api/security/csrf",
+      "file": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurity.cs",
+      "line": 89,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "POST",
+      "path": "/internal/api/security/login",
+      "file": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurity.cs",
+      "line": 94,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "POST",
+      "path": "/internal/api/security/logout",
+      "file": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurity.cs",
+      "line": 114,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "GET",
+      "path": "/internal/api/security/me",
+      "file": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurity.cs",
+      "line": 120,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "GET",
+      "path": "/internal/api/security/staff",
+      "file": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurity.cs",
+      "line": 126,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "POST",
+      "path": "/internal/api/security/staff",
+      "file": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurity.cs",
+      "line": 131,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "PUT",
+      "path": "/internal/api/security/staff/{staffId:guid}",
+      "file": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurity.cs",
+      "line": 133,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "POST",
+      "path": "/internal/api/security/staff/{staffId:guid}/password",
+      "file": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurity.cs",
+      "line": 136,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "GET",
+      "path": "/internal/login",
+      "file": "backend/src/Martha.Store.Api/Internal/InternalUiHosting.cs",
+      "line": 8,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "GET",
+      "path": "/internal/login.mjs",
+      "file": "backend/src/Martha.Store.Api/Internal/InternalUiHosting.cs",
+      "line": 9,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "GET",
+      "path": "/internal/styles.css",
+      "file": "backend/src/Martha.Store.Api/Internal/InternalUiHosting.cs",
+      "line": 10,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "GET",
+      "path": "/internal/",
+      "file": "backend/src/Martha.Store.Api/Internal/InternalUiHosting.cs",
+      "line": 11,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "GET",
+      "path": "/internal/app.mjs",
+      "file": "backend/src/Martha.Store.Api/Internal/InternalUiHosting.cs",
+      "line": 12,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "GET",
+      "path": "/internal/client.mjs",
+      "file": "backend/src/Martha.Store.Api/Internal/InternalUiHosting.cs",
+      "line": 13,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/synthetic/capabilities",
+      "file": "backend/src/Martha.Store.Api/Program.cs",
+      "line": 150,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/synthetic/catalog",
+      "file": "backend/src/Martha.Store.Api/Program.cs",
+      "line": 155,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/synthetic/reservations",
+      "file": "backend/src/Martha.Store.Api/Program.cs",
+      "line": 158,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/synthetic/reservations/{reservationId:guid}",
+      "file": "backend/src/Martha.Store.Api/Program.cs",
+      "line": 170,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/synthetic/reservations/{reservationId:guid}/cancel",
+      "file": "backend/src/Martha.Store.Api/Program.cs",
+      "line": 175,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/synthetic/attempts/{operation}/{attemptId:guid}",
+      "file": "backend/src/Martha.Store.Api/Program.cs",
+      "line": 186,
+      "evidence": "source route declaration; not execution coverage"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/synthetic/movements",
+      "file": "backend/src/Martha.Store.Api/Program.cs",
+      "line": 195,
+      "evidence": "source route declaration; not execution coverage"
+    }
+  ]
+}

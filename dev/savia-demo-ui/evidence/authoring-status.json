@@ -1,0 +1,58 @@
+{
+  "status": "authored_not_executed",
+  "base_commit": "f7e859bd0e6edf6bdef8b391b63589a212f0d088",
+  "scope": "README and nine DOM tests for independent SAVIA sample UI; no runtime QA executed by this agent",
+  "files": [
+    {
+      "path": "dev/savia-demo-ui/README.md",
+      "bytes": 4244,
+      "sha256": "431ac12e53d974566948cc8105a42e14f37775734e5dcffcaa564d9fabe4b738"
+    },
+    {
+      "path": "dev/savia-demo-ui/ui.test.mjs",
+      "bytes": 13548,
+      "sha256": "b460b2e22ec8cdd109a8713d031de0c071e032f6ef30ba1b5abf1f6d4afd5020"
+    },
+    {
+      "path": "dev/savia-demo-ui/evidence/UI-TEST-PLAN.json",
+      "bytes": 2072,
+      "sha256": "2232bbfa2b0a67974409c2c130b915a7994399ee31784edb54303b458ed62882"
+    }
+  ],
+  "existing_dependency_example": "../Martha-Silva-frontend-images/tests/frontend-deps/node_modules/jsdom",
+  "dependencies_installed": false,
+  "tests_executed": false,
+  "browsers_started": false,
+  "builds_executed": false,
+  "source_ownership": "README.md, ui.test.mjs, evidence/* only; model/app/CSS/packager reviewed without edits",
+  "pending": [
+    "Root must execute syntax and tests serially after frontend/model integration",
+    "Browser/layout/mobile and actual reader behavior remain unverified",
+    "Backend diagnostic availability and remote /savia publication need separate evidence"
+  ],
+  "default_publication_exclusion": {
+    "prepare_inputs": [
+      "build-inputs/static/**",
+      "src/app.js",
+      "src/demo-api.js",
+      "src/integration-adapters.js"
+    ],
+    "wrangler_assets_directory": "./dist",
+    "explicit_packager": "dev/savia-demo-ui/package-preview.py",
+    "runtime_allowlist": [
+      "index.html",
+      "styles.css",
+      "app.mjs",
+      "model.mjs",
+      "api-client.mjs"
+    ],
+    "packager_excludes": [
+      "README.md",
+      "*.test.mjs",
+      "evidence/",
+      "profiles",
+      "harness",
+      "backend"
+    ]
+  }
+}

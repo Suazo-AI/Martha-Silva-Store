@@ -1,0 +1,306 @@
+{
+  "marker": {
+    "observed_at": "2026-10-26T05:39:13.188Z",
+    "runtime_files": 902,
+    "sha": "e9e9609b9cda6f52abd0db1b35b570f3b83156b4",
+    "url": "https://martha-silva-preview.martha-silva-denis.workers.dev/deployment.json"
+  },
+  "measurement": {
+    "images": [
+      {
+        "button_attributes": [
+          [
+            "class",
+            "gallery-photo"
+          ],
+          [
+            "type",
+            "button"
+          ],
+          [
+            "data-gallery-index",
+            "0"
+          ],
+          [
+            "data-zoom",
+            "/research/assets/store-media/verde-brillo-cuello-cruzado/01-front-full-length-800.webp"
+          ],
+          [
+            "aria-label",
+            "Ampliar fotografía 1"
+          ]
+        ],
+        "complete": true,
+        "currentSrc": "https://martha-silva-preview.martha-silva-denis.workers.dev/research/assets/store-media/verde-brillo-cuello-cruzado/01-front-full-length-480.webp",
+        "frame": {
+          "aspectRatio": "675 / 900",
+          "background": "rgb(240, 240, 240)",
+          "border": "0px",
+          "padding": "0px",
+          "rect": {
+            "height": 517.765625,
+            "width": 388.328125,
+            "x": 0,
+            "y": 175
+          }
+        },
+        "naturalHeight": 524,
+        "naturalWidth": 393,
+        "rect": {
+          "height": 517.765625,
+          "width": 388.328125,
+          "x": 0,
+          "y": 175
+        },
+        "selector": ".gallery-photo[aria-label=\"Ampliar fotografía 1\"] img",
+        "selector_count": 1,
+        "style": {
+          "background": "rgba(0, 0, 0, 0)",
+          "border": "0px",
+          "height": "517.766px",
+          "objectFit": "scale-down",
+          "objectPosition": "50% 50%",
+          "padding": "0px",
+          "width": "388.328px"
+        }
+      },
+      {
+        "button_attributes": [
+          [
+            "class",
+            "gallery-photo"
+          ],
+          [
+            "type",
+            "button"
+          ],
+          [
+            "data-gallery-index",
+            "1"
+          ],
+          [
+            "data-zoom",
+            "/research/assets/store-media/verde-brillo-cuello-cruzado/02-three-quarter-front-full-length-800.webp"
+          ],
+          [
+            "aria-label",
+            "Ampliar fotografía 2"
+          ]
+        ],
+        "complete": true,
+        "currentSrc": "https://martha-silva-preview.martha-silva-denis.workers.dev/research/assets/store-media/verde-brillo-cuello-cruzado/02-three-quarter-front-full-length-480.webp",
+        "frame": {
+          "aspectRatio": "675 / 900",
+          "background": "rgb(240, 240, 240)",
+          "border": "0px",
+          "padding": "0px",
+          "rect": {
+            "height": 517.765625,
+            "width": 388.328125,
+            "x": 388.328125,
+            "y": 175
+          }
+        },
+        "naturalHeight": 524,
+        "naturalWidth": 393,
+        "rect": {
+          "height": 517.765625,
+          "width": 388.328125,
+          "x": 388.328125,
+          "y": 175
+        },
+        "selector": ".gallery-photo[aria-label=\"Ampliar fotografía 2\"] img",
+        "selector_count": 1,
+        "style": {
+          "background": "rgba(0, 0, 0, 0)",
+          "border": "0px",
+          "height": "517.766px",
+          "objectFit": "scale-down",
+          "objectPosition": "50% 50%",
+          "padding": "0px",
+          "width": "388.328px"
+        }
+      },
+      {
+        "button_attributes": [
+          [
+            "class",
+            "gallery-photo"
+          ],
+          [
+            "type",
+            "button"
+          ],
+          [
+            "data-gallery-index",
+            "2"
+          ],
+          [
+            "data-zoom",
+            "/research/assets/store-media/verde-brillo-cuello-cruzado/03-side-full-length-800.webp"
+          ],
+          [
+            "aria-label",
+            "Ampliar fotografía 3"
+          ]
+        ],
+        "complete": true,
+        "currentSrc": "https://martha-silva-preview.martha-silva-denis.workers.dev/research/assets/store-media/verde-brillo-cuello-cruzado/03-side-full-length-480.webp",
+        "frame": {
+          "aspectRatio": "675 / 900",
+          "background": "rgb(240, 240, 240)",
+          "border": "0px",
+          "padding": "0px",
+          "rect": {
+            "height": 517.765625,
+            "width": 388.328125,
+            "x": 388.328125,
+            "y": 692.765625
+          }
+        },
+        "naturalHeight": 524,
+        "naturalWidth": 393,
+        "rect": {
+          "height": 517.765625,
+          "width": 388.328125,
+          "x": 388.328125,
+          "y": 692.765625
+        },
+        "selector": ".gallery-photo[aria-label=\"Ampliar fotografía 3\"] img",
+        "selector_count": 1,
+        "style": {
+          "background": "rgba(0, 0, 0, 0)",
+          "border": "0px",
+          "height": "517.766px",
+          "objectFit": "scale-down",
+          "objectPosition": "50% 50%",
+          "padding": "0px",
+          "width": "388.328px"
+        }
+      },
+      {
+        "button_attributes": [
+          [
+            "class",
+            "gallery-photo"
+          ],
+          [
+            "type",
+            "button"
+          ],
+          [
+            "data-gallery-index",
+            "3"
+          ],
+          [
+            "data-zoom",
+            "/research/assets/store-media/verde-brillo-cuello-cruzado/04-back-full-length-800.webp"
+          ],
+          [
+            "aria-label",
+            "Ampliar fotografía 4"
+          ]
+        ],
+        "complete": true,
+        "currentSrc": "https://martha-silva-preview.martha-silva-denis.workers.dev/research/assets/store-media/verde-brillo-cuello-cruzado/04-back-full-length-480.webp",
+        "frame": {
+          "aspectRatio": "675 / 900",
+          "background": "rgb(240, 240, 240)",
+          "border": "0px",
+          "padding": "0px",
+          "rect": {
+            "height": 517.765625,
+            "width": 388.328125,
+            "x": 388.328125,
+            "y": 1210.53125
+          }
+        },
+        "naturalHeight": 524,
+        "naturalWidth": 393,
+        "rect": {
+          "height": 517.765625,
+          "width": 388.328125,
+          "x": 388.328125,
+          "y": 1210.53125
+        },
+        "selector": ".gallery-photo[aria-label=\"Ampliar fotografía 4\"] img",
+        "selector_count": 1,
+        "style": {
+          "background": "rgba(0, 0, 0, 0)",
+          "border": "0px",
+          "height": "517.766px",
+          "objectFit": "scale-down",
+          "objectPosition": "50% 50%",
+          "padding": "0px",
+          "width": "388.328px"
+        }
+      },
+      {
+        "button_attributes": [
+          [
+            "class",
+            "gallery-photo"
+          ],
+          [
+            "type",
+            "button"
+          ],
+          [
+            "data-gallery-index",
+            "4"
+          ],
+          [
+            "data-zoom",
+            "/research/assets/store-media/verde-brillo-cuello-cruzado/05-detail-crop-432.webp"
+          ],
+          [
+            "aria-label",
+            "Ampliar fotografía 5"
+          ]
+        ],
+        "complete": true,
+        "currentSrc": "https://martha-silva-preview.martha-silva-denis.workers.dev/research/assets/store-media/verde-brillo-cuello-cruzado/05-detail-crop-432.webp",
+        "frame": {
+          "aspectRatio": "675 / 900",
+          "background": "rgb(240, 240, 240)",
+          "border": "0px",
+          "padding": "0px",
+          "rect": {
+            "height": 517.765625,
+            "width": 388.328125,
+            "x": 388.328125,
+            "y": 1728.296875
+          }
+        },
+        "naturalHeight": 524,
+        "naturalWidth": 393,
+        "rect": {
+          "height": 517.765625,
+          "width": 388.328125,
+          "x": 388.328125,
+          "y": 1728.296875
+        },
+        "selector": ".gallery-photo[aria-label=\"Ampliar fotografía 5\"] img",
+        "selector_count": 1,
+        "style": {
+          "background": "rgba(0, 0, 0, 0)",
+          "border": "0px",
+          "height": "517.766px",
+          "objectFit": "scale-down",
+          "objectPosition": "50% 50%",
+          "padding": "0px",
+          "width": "388.328px"
+        }
+      }
+    ],
+    "observed_at": "2026-10-26T05:40:09.475Z",
+    "url": "https://martha-silva-preview.martha-silva-denis.workers.dev/producto-verde-brillo-cuello-cruzado?lang=es",
+    "viewport": {
+      "dpr": 1,
+      "height": 757,
+      "scale": 1,
+      "scrollY": 0,
+      "width": 1180
+    }
+  }
+}

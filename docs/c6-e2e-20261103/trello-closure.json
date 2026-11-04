@@ -1,0 +1,21 @@
+{
+  "card": "C6",
+  "card_id": "6aea5de54c008e36e0aecc0c",
+  "marker": "[SAVIA-C6-CLOSE-e4b79108]",
+  "action_id": "6aeaa5aef38e5c901c6798f0",
+  "date": "2026-11-04T03:25:34.869Z",
+  "comment": "[SAVIA-C6-CLOSE-e4b79108]\nREADY\nPR: https://github.com/Suazo-AI/Martha-Silva-Store/pull/2\nhead: e4b7910835bf2c9901aa06989e296997875a3636\nbase: origin/main@3b0049163ece2d9431cee01f1bea624a66d9d8d4\nci: https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41765611979 passed=12 failed=0 pending=0 skipped=3\nevidencia: docs/c6-e2e-20261103/independent-final-review.md y ci-41765611979/. Juez APTO17/17; H1/H2 cerrados. Chrome real -> API HTTPS real -> SQL, 11/11 checkpoints; 2 POST y 2 ventas, recuperacion GET clave original sin doble venta; stock27; logout204/me401/sesiones0. Chrome/API/base/directorio/contenedor ausentes. Artefactos: traza saneada JSON y oraculos MD, sin HAR ni sesiones.\nno ejecutado: Windows/C9, dispositivos, carga y produccion. Cierre tecnico y paso a Hecho por instruccion de Jason: \u00abCi\u00e9rralos y actualiza trello\u00bb. No autoriza main, despliegue, SQL local ni cambios de seguridad.",
+  "exact_readback": true,
+  "list_before": "6aea5d677e8b3123293bcaa8",
+  "list_after": "6aea5d68411ef7f938f3f92e",
+  "closed": false,
+  "check_items_completed": [
+    "6aea5e53ba0a0d4d1ed800ab",
+    "6aea5e53acd2b8ef81e21843",
+    "6aea5e55a33a33fe155398ec",
+    "6aea5e561940c1d33d0c7665"
+  ],
+  "complete": 4,
+  "total": 4,
+  "technical_closure": true
+}

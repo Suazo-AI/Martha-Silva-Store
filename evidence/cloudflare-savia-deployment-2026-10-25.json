@@ -1,0 +1,45 @@
+{
+  "url": "https://martha-silva-preview.martha-silva-denis.workers.dev/",
+  "ui_url": "https://martha-silva-preview.martha-silva-denis.workers.dev/savia/",
+  "source_sha": "8c01f99fa325d8a5bde6fddfffdade4f527e91d3",
+  "deployment_id": "086e4da4c4504497a66ae6e93b08df17",
+  "modified_on": "2026-10-25T07:47:39.046001Z",
+  "account_id": "df367c9aba37b558d177d38da39083ce",
+  "worker": "martha-silva-preview",
+  "bindings": [
+    "ASSETS"
+  ],
+  "release_paths": 862,
+  "unique_hashes": 861,
+  "public_marker_entries": 861,
+  "verified_actual_body_hashes": 13,
+  "github_push": false,
+  "ci_for_new_commit": "not_run; no authorized Denis remote verified",
+  "backend_api_deployed": false,
+  "backend_sql_verified": false,
+  "original": {
+    "before_status": 200,
+    "after_status": 200,
+    "before_sha256": "c5d0280fd53b25d5d82041e009fca7b7aec471a4cda63aa5f326d57ea27d3759",
+    "after_sha256": "c5d0280fd53b25d5d82041e009fca7b7aec471a4cda63aa5f326d57ea27d3759",
+    "modified": false
+  },
+  "tests": {
+    "storefront_dom_pass": 29,
+    "savia_model_same_hash_pass": 12,
+    "savia_api_pass": 8,
+    "savia_dom_pass": 9,
+    "full_suite": "not_completed under memory budget; no complete-suite PASS",
+    "browser_public": "in_progress via Cutufay Chrome cloud; not Safari/iPhone"
+  },
+  "hero": {
+    "media_references_equal_to_source_7f29cf5": true,
+    "new_choice_applied": false,
+    "requested_replacement": "pending user selection; do not claim resolved"
+  },
+  "rollback": {
+    "previous_deployed_source_sha": "7f29cf5a75db60c93b3bb3efa89c7e33d9e02a79",
+    "previous_deployment_id": "faf7f80497c04932b50c8af836ee8c8c",
+    "previous_release_preserved": true
+  }
+}

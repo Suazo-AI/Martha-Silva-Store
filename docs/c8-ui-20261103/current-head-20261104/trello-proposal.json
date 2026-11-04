@@ -1,0 +1,50 @@
+{
+  "schema": "trello-proposal/1",
+  "status": "LOCAL_PROPOSAL_NOT_EXECUTED",
+  "cardId": "6aea5de74b0da8bdf86eff30",
+  "cardUrl": "https://trello.com/c/61IxxolB",
+  "listId": "6aea5d677e8b3123293bcaa8",
+  "listName": "En curso",
+  "checklistId": "6aea5dfd3a346182e7386fd5",
+  "complete": 4,
+  "total": 5,
+  "preserveListAndChecklistStates": true,
+  "checkItems": [
+    {
+      "id": "6aea5e7e23ddd453210c01fd",
+      "name": "Recargar y recuperar el mismo intento",
+      "currentState": "complete",
+      "proposedState": "complete"
+    },
+    {
+      "id": "6aea5e7e0403a1cb8e099584",
+      "name": "Venta incierta durante cambio de identidad conserva la clave y no reenvía como otro actor",
+      "currentState": "complete",
+      "proposedState": "complete"
+    },
+    {
+      "id": "6aea5e7f8e4e33b9e808f455",
+      "name": "Logout, expiración absoluta (TimeProvider falso en la API) y revocación descartan respuestas tardías tras 401",
+      "currentState": "complete",
+      "proposedState": "complete"
+    },
+    {
+      "id": "6aea5e801d9f61a330573226",
+      "name": "Pruebas rojo-verde en tests/browser-mock-validation.mjs y arnés completo en verde",
+      "currentState": "complete",
+      "proposedState": "complete"
+    },
+    {
+      "id": "6aea5e8098e764681b30eac2",
+      "name": "CI en verde",
+      "currentState": "incomplete",
+      "proposedState": "incomplete"
+    }
+  ],
+  "descriptionAction": "Append only the following evidence update after primary review; preserve the existing description and acceptance criteria.",
+  "appendDescription": "## C8 reconciliada sobre candidato actual — 2026-11-04\nEstado: En curso, 4/5. CI sigue pendiente.\nEvidencia REUTILIZADA, no ejecución nueva: UI enfocada 9/9; browser 45/45; staff 45/45; API expiración 1/1; InternalSecurityTests 49/49 (incluye API).\nBase probada: 775f301bc195c43baedc68c86f4e71affe92ef95. Port local: 260b75951729189d987ffe423218ab1643bcfa3c.\nSeis archivos idénticos y 71 blobs de dependencias iguales; ver docs/c8-ui-20261103/current-head-20261104/binding.json y verification.json.\nPatch producto SHA256: a0762dc021260f4c8c88b849552c4775c6bef17af06c5338e68e95cd7a221df0.\nAPI aceptada localmente: docs/c8-ui-20261103/api-expiry-completion-20261103/primary-acceptance.json.\nLa CI de 260b759 no incluye los parches C8. Falta una CI verde de los mismos bytes antes de cerrar C8. C11 permanece pendiente.\nPropuesta preparada localmente; exportación/revisión del primary y publicación de este texto pendientes.",
+  "ciCheckItemId": "6aea5e8098e764681b30eac2",
+  "ciProposedState": "incomplete",
+  "c11Action": "NONE; preserve pending/blocked status",
+  "externalMutationsPerformed": 0
+}

@@ -1,0 +1,165 @@
+{
+  "date": "2026-11-03",
+  "host": "SUAZO-PC",
+  "verdict": "NOT PRODUCTION READY",
+  "base_sha": "9befe15ece1cfb34b7376a13d1c5d8dac4a837fe",
+  "candidate_has_preexisting_uncommitted_changes": true,
+  "dotnet": {
+    "passed": 590,
+    "failed": 0,
+    "not_run": 2
+  },
+  "browser": {
+    "passed": 31,
+    "failed": 1
+  },
+  "http": {
+    "passed": 4,
+    "owned_api_stopped": true
+  },
+  "sql": {
+    "passed": 67,
+    "failed": 0,
+    "skipped": 0,
+    "wall_seconds": 29.484,
+    "version": "17.0.1000.7",
+    "edition": "Standard Developer Edition (64-bit)",
+    "database_count_before": 52,
+    "database_count_after": 52,
+    "preexisting_names_preserved": true,
+    "new_databases_remaining": 0,
+    "manual_cleanup": false
+  },
+  "source_audit": {
+    "files": 2377,
+    "mismatches": 0
+  },
+  "layers": [
+    {
+      "layer": "Backend / offline",
+      "status": "PASS",
+      "result": "523 / 523",
+      "meaning": "Unit tests and in-process HTTP; one offline release-script case passed after providing its owned evidence directory."
+    },
+    {
+      "layer": "Backend / real SQL",
+      "status": "PASS",
+      "result": "67 / 67",
+      "meaning": "21 migrated StoreDbContext cases; 46 internal EnsureCreated cases. Transactions, concurrency, stock, authentication, revocation and idempotency."
+    },
+    {
+      "layer": "Internal release / recovery",
+      "status": "NOT RUN",
+      "result": "2 cases",
+      "meaning": "Internal migration/backup/restore and controlled owned-container restart require their separate isolated environment."
+    },
+    {
+      "layer": "Staff frontend / Node",
+      "status": "PASS",
+      "result": "42 / 42",
+      "meaning": "Authentication, session handling, pagination, DOM, branch compatibility and commerce."
+    },
+    {
+      "layer": "Demo frontend / Node",
+      "status": "PASS",
+      "result": "29 / 29",
+      "meaning": "Client, model and UI contract tests."
+    },
+    {
+      "layer": "Harness client / Node",
+      "status": "PASS",
+      "result": "37 / 37",
+      "meaning": "API client and operation recovery contracts."
+    },
+    {
+      "layer": "Public local adapter",
+      "status": "PASS",
+      "result": "23 / 23",
+      "meaning": "Browser-local commerce simulator; no external provider."
+    },
+    {
+      "layer": "Public integration adapters",
+      "status": "PASS",
+      "result": "19 / 19",
+      "meaning": "Local/synthetic boundary, payload and mode isolation."
+    },
+    {
+      "layer": "Catalog / migration",
+      "status": "PASS",
+      "result": "9 / 9 + 9 / 9",
+      "meaning": "Catalog expansion and current media/catalog assertions."
+    },
+    {
+      "layer": "Public DOM simulations",
+      "status": "PASS",
+      "result": "29 / 29 + 17 / 17 + 11 / 11",
+      "meaning": "Runtime, localization and sharing. jsdom is not layout proof."
+    },
+    {
+      "layer": "Live HTTP guards",
+      "status": "PASS",
+      "result": "4 / 4",
+      "meaning": "Real loopback .NET process; invalid SQL target; fail-closed storage, authority and client-price guards."
+    },
+    {
+      "layer": "Browser / synthetic scenarios",
+      "status": "FAIL",
+      "result": "31 pass / 1 fail",
+      "meaning": "Real Chrome. Stale saved receipt 404 leaves staff new-sale, recovery and retry controls locked."
+    },
+    {
+      "layer": "Legacy desktop gallery",
+      "status": "FAIL",
+      "result": "1 pass / 13 fail",
+      "meaning": "Geometry fixture mismatch is evidenced by source and two passing real browser checks; 13 assertions remain unreconciled."
+    },
+    {
+      "layer": "Legacy Green checks",
+      "status": "FAIL",
+      "result": "4 pass / 2 fail",
+      "meaning": "Old CSS hash and media-count expectations disagree with current output. Contract drift needs explicit reconciliation."
+    },
+    {
+      "layer": "Legacy editorial checks",
+      "status": "FAIL",
+      "result": "4 pass / 4 fail",
+      "meaning": "Old source paths/media expectations disagree with current output. Do not silently rewrite expected results."
+    },
+    {
+      "layer": "Windows asset/catalog guards",
+      "status": "BLOCKED",
+      "result": "3 + 2 errors",
+      "meaning": "WinError1314 while creating symlinks. Asset audit:6 methods, 3 error observations. Catalog staging:10 methods, 2 errors."
+    },
+    {
+      "layer": "Deployment contracts",
+      "status": "PARTIAL",
+      "result": "13 pass / 1 skip",
+      "meaning": "Symlink test explicitly skipped because local privilege is unavailable. No deployment was performed."
+    },
+    {
+      "layer": "Build / structure",
+      "status": "PASS",
+      "result": "47 pages ; 1082 dist files",
+      "meaning": "Reproducible build, publication snapshot, asset links, ARIA references and JS syntax."
+    },
+    {
+      "layer": "Progress / runner checks",
+      "status": "PASS",
+      "result": "13 + 10 + 6 + 16",
+      "meaning": "Progress hooks, SQL result verifier, portable runner and legacy sync tests. Export verification also passed."
+    },
+    {
+      "layer": "Browser to live API to SQL",
+      "status": "NOT RUN",
+      "result": "No combined session",
+      "meaning": "Browser mocks and SQL TestServer tests are separate layers; no combined staff transaction was exercised."
+    },
+    {
+      "layer": "External providers / release",
+      "status": "NOT RUN",
+      "result": "No production verdict",
+      "meaning": "Payments, SISFAIN, production hosting/TLS, real-device acceptance, load and operational recovery remain unproved."
+    }
+  ]
+}

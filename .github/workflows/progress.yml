@@ -1,0 +1,26 @@
+name: Progress documentation
+
+on:
+  push:
+    branches: [Tony]
+
+permissions:
+  contents: read
+
+jobs:
+  progress:
+    name: Progress receipt and sync safety
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          fetch-depth: 2
+          persist-credentials: false
+      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405
+        with:
+          python-version: '3.12'
+      - run: python tests/test_progress.py
+      - run: python tools/progress.py verify
+      - name: Verify exported evidence hashes
+        run: python tools/export_progress.py --verify

@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "state": "FINAL_TECHNICAL_DELIVERY_CONDITIONAL_CONTROLLED_RELEASE_NOT_DEPLOYED",
+  "base_source": "704b2e160106b709880ad7c22febd25adb6181d6",
+  "candidate_source_commit": null,
+  "publisher_assigns_real_commit": true,
+  "combined_app_sha256": "aa0528f71c3a23410dd7c2c0151427826f800e8f78a8057fe60d14427dcd89e8",
+  "assembly_receipt_sha256": "19ca37a9351820e2fb7481d8e95580888fe589ef1d00eba08a4d8c6d491367d2",
+  "tester_report_sha256": "88ae8636573498a4ea53657d4660066e580210f8e5729afe418ad9f249a23c46",
+  "judge_report_sha256": "a9416dd4e4b9a39214a31e28244d4a2e4c6b4cf4ad19fb4f26cb6ecf0118d044",
+  "source_overlay_files": 6,
+  "runtime_count": 904,
+  "unchanged_from_A": 898,
+  "modified_existing": 4,
+  "new_assets": 2,
+  "deployment_marker_included": false,
+  "physical_runtime_plus_future_marker": 905,
+  "test_status": "pass_with_documented_fixture_adaptation",
+  "original_Green_5_of_6_preserved": true,
+  "adapted_Green_6_of_6_evidence_only": true,
+  "tests_in_candidate_source_modified": false,
+  "publisher_authentication_freshly_verified": false,
+  "CF_or_deploy_run_by_packager": false,
+  "Safari_iPhone_VoiceOver": "NOT_RUN",
+  "rollback": {
+    "historical_A_version": "a8668b7b-9fe0-4635-ac5a-01033ae96e2b",
+    "historical_traffic_reference": "1f24157b-6fc0-40fa-8aec-5a861dc89587",
+    "fresh_verification_required": true,
+    "restore_full_A_not_app_only": true
+  }
+}

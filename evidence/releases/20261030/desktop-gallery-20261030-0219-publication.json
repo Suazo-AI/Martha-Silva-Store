@@ -1,0 +1,43 @@
+{
+  "task_id": "cutufay-denis-desktop-gallery-20261030-0219",
+  "status": "published_with_explicit_user_visual_qa_waiver",
+  "verified_utc": "2026-10-30T03:15:00.839983+00:00",
+  "worker": "martha-silva-preview",
+  "url": "https://martha-silva-preview.martha-silva-denis.workers.dev/",
+  "commit": "b8b1ee892660efa26915bf818a6c5268231c3dba",
+  "published_at_utc": "2026-10-30T03:14:18.572293Z",
+  "version": "a29e4d01-d512-4ac5-98b0-80aec872a70b",
+  "deployment": "0448a761-19d3-4147-a39a-5e4281cf70f2",
+  "percentage": 100,
+  "changed": {
+    "/app.js": {
+      "bytes": 83985,
+      "sha256": "18a3ce0dcc76df48ab6bc3a838abc696abcc917f3e98f98af5a4ec7d2b2e2bc7",
+      "upload_hash": "c6c8f33cb123d8cdd314b015cf7123ff"
+    },
+    "/styles.css": {
+      "bytes": 68449,
+      "sha256": "01769418100505f06f86b545a30d20e3bd953eb208b3a2b5fd838849134597d6",
+      "upload_hash": "4eee3efecf98ff64e6c810664860f913"
+    }
+  },
+  "public_files": 1081,
+  "unchanged_manifest_entries": 1079,
+  "media_regenerated": false,
+  "configuration_preserved": true,
+  "rollback": {
+    "version": "26c01241-dbdc-4af7-bfef-37cedff5ce23",
+    "deployment": "1e0a20b7-88f7-4d82-b17c-0a3331e741d6"
+  },
+  "validation": {
+    "syntax": "PASS",
+    "diff": "PASS",
+    "source_hashes": "PASS",
+    "final_resize_mock": "6/6 PASS; not browser QA",
+    "final_browser_qa": "NOT_COMPLETED; user explicitly waived",
+    "independent_judge": "HOLD_NOT_CHANGED",
+    "safari_real": "NOT_RUN",
+    "postpublish_visual": "NOT_RUN",
+    "postpublish_api": "PASS"
+  }
+}

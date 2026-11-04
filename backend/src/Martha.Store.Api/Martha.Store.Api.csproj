@@ -12,4 +12,12 @@
     <PackageReference Include="System.Security.Cryptography.Pkcs" Version="10.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.13" PrivateAssets="all" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="../../../dev/savia-staff-ui/index.html" LogicalName="SaviaStaff.index.html" />
+    <EmbeddedResource Include="../../../dev/savia-staff-ui/login.html" LogicalName="SaviaStaff.login.html" />
+    <EmbeddedResource Include="../../../dev/savia-staff-ui/styles.css" LogicalName="SaviaStaff.styles.css" />
+    <EmbeddedResource Include="../../../dev/savia-staff-ui/app.mjs" LogicalName="SaviaStaff.app.mjs" />
+    <EmbeddedResource Include="../../../dev/savia-staff-ui/client.mjs" LogicalName="SaviaStaff.client.mjs" />
+    <EmbeddedResource Include="../../../dev/savia-staff-ui/login.mjs" LogicalName="SaviaStaff.login.mjs" />
+  </ItemGroup>
 </Project>

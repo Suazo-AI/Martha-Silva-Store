@@ -1,0 +1,108 @@
+{
+  "g1": [
+    {
+      "rect": {
+        "bottom": 2006.828125,
+        "height": 2588.828125,
+        "left": 0,
+        "right": 776.65625,
+        "top": -582,
+        "width": 776.65625,
+        "x": 0,
+        "y": -582
+      },
+      "selector": "product-gallery",
+      "style": {
+        "background": "rgba(0, 0, 0, 0)",
+        "overflow": "visible",
+        "position": "relative",
+        "top": "0px"
+      }
+    },
+    {
+      "rect": {
+        "bottom": 0,
+        "height": 0,
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "selector": "gallery-viewport",
+      "style": {
+        "background": "rgba(0, 0, 0, 0)",
+        "overflow": "visible",
+        "position": "static",
+        "top": "auto"
+      }
+    },
+    {
+      "rect": {
+        "bottom": 2006.828125,
+        "height": 2588.828125,
+        "left": 0,
+        "right": 776.65625,
+        "top": -582,
+        "width": 776.65625,
+        "x": 0,
+        "y": -582
+      },
+      "selector": "gallery-track",
+      "style": {
+        "background": "rgba(0, 0, 0, 0)",
+        "overflow": "visible",
+        "position": "static",
+        "top": "auto"
+      }
+    },
+    {
+      "rect": {
+        "bottom": 517.765625,
+        "height": 517.765625,
+        "left": 0,
+        "right": 388.328125,
+        "top": 0,
+        "width": 388.328125,
+        "x": 0,
+        "y": 0
+      },
+      "selector": "gallery-photo",
+      "style": {
+        "background": "rgb(240, 240, 240)",
+        "overflow": "hidden",
+        "position": "sticky",
+        "top": "0px"
+      }
+    }
+  ],
+  "headers": [
+    {
+      "class": "site-header",
+      "position": "sticky",
+      "rect": {
+        "bottom": 106,
+        "height": 106,
+        "left": 0,
+        "right": 1165,
+        "top": 0,
+        "width": 1165,
+        "x": 0,
+        "y": 0
+      },
+      "tag": "HEADER",
+      "top": "0px",
+      "zIndex": "100"
+    }
+  ],
+  "observed_at": "2026-10-26T05:41:53.654Z",
+  "scrollY": 757,
+  "url": "https://martha-silva-preview.martha-silva-denis.workers.dev/producto-verde-brillo-cuello-cruzado?lang=es",
+  "viewport": {
+    "dpr": 1,
+    "height": 757,
+    "scale": 1,
+    "width": 1180
+  }
+}

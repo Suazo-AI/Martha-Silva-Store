@@ -1,0 +1,30 @@
+{
+  "run_id": 41765611859,
+  "attempt": 1,
+  "head": "e4b7910835bf2c9901aa06989e296997875a3636",
+  "job_id": 126363152814,
+  "step": "Staff UI tests (jsdom doubles, not a browser)",
+  "source": "Completed GitHub job log, read locally; raw log excluded from public evidence",
+  "counters": {
+    "tests": 45,
+    "suites": 0,
+    "pass": 45,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "summary_lines": [
+    "2026-11-04T03:12:24.3246057Z \u2139 tests 45",
+    "2026-11-04T03:12:24.3246724Z \u2139 suites 0",
+    "2026-11-04T03:12:24.3253309Z \u2139 pass 45",
+    "2026-11-04T03:12:24.3253773Z \u2139 fail 0",
+    "2026-11-04T03:12:24.3254211Z \u2139 cancelled 0",
+    "2026-11-04T03:12:24.3254667Z \u2139 skipped 0",
+    "2026-11-04T03:12:24.3255065Z \u2139 todo 0"
+  ],
+  "capture_wrapper_sha256": "fa65771d9f5fa450ec518e69b915ebad7a5cac033d0af68d3141e26d64415cd2",
+  "full_log_file_sha256": "8df416c3a7457057ca944074c6c51be00d330ae7d674747d7cfbceda40dee675",
+  "full_log_decoded_utf8_sha256": "8df416c3a7457057ca944074c6c51be00d330ae7d674747d7cfbceda40dee675",
+  "provenance_note": "Counters extracted from full_log bytes. Capture wrapper is truncated TOON and has a different hash."
+}

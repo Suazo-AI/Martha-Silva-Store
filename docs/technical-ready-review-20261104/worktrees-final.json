@@ -1,0 +1,24 @@
+{
+  "c8-current-head-20261104": {
+    "head": "260b75951729189d987ffe423218ab1643bcfa3c",
+    "status": [
+      " M backend/tests/Martha.Store.Api.Tests/InternalSecurityTests.cs",
+      " M dev/savia-staff-ui/README.md",
+      " M dev/savia-staff-ui/app.mjs",
+      " M dev/savia-staff-ui/auth.test.mjs",
+      " M dev/savia-staff-ui/login.mjs",
+      " M docs/pipeline/ledger.json",
+      " M tests/browser-mock-validation.mjs",
+      "?? docs/c8-ui-20261103/"
+    ]
+  },
+  "c4-c5-c7-review-20261104": {
+    "head": "260b75951729189d987ffe423218ab1643bcfa3c",
+    "status": []
+  },
+  "canonicalHeadObserved": "6aeb9a35f45331ace85ac48dc19bfd9264b0f722",
+  "canonicalOwnDocsStatus": [
+    "?? docs/c8-ui-20261103/",
+    "?? docs/technical-ready-review-20261104/"
+  ]
+}
