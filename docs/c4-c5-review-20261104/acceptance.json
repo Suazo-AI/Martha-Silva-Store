@@ -1,0 +1,138 @@
+{
+  "task": "C4-C5-INDEPENDENT-20261104",
+  "verified_utc": "2026-11-04T05:48:27.050957+00:00",
+  "verdict": "APTO tecnico; no defectos bloqueantes",
+  "reviewed_sha": "d475d6d4a2caffe9d8181acdff80794ff3f6abb4",
+  "runtime_head": "8744a9699812d62ea5ed31c63781748f833c3def",
+  "changed_paths_since_runtime": [
+    "docs/DECISIONS.md",
+    "docs/PROJECT-STATUS.md",
+    "docs/pipeline/ledger.json",
+    "docs/progress/20261104T054016305151Z-febbf8bbe9.json"
+  ],
+  "runtime_checkout": "2c29209667631c38047f33f3e84f4d777a7740e3",
+  "runtime_tree": "32112430eff2932fa593338b3e454dd2020bc9a5",
+  "source_equivalence": "Producto, pruebas y workflows sin cambios; evidencia reutilizada por bytes iguales.",
+  "c4_checklist": "5/5",
+  "c5_checklist": "4/4",
+  "backend": {
+    "passed": 601,
+    "cases": 601,
+    "focal_methods": {
+      "Martha.Store.Api.Tests.InternalMigrationTests.Internal_snapshot_matches_the_current_design_time_model_without_a_server": {
+        "cases": 1,
+        "passed": 1
+      },
+      "Martha.Store.Api.Tests.InternalReleaseScriptTests.Checked_in_idempotent_release_script_equals_ef_generation_for_every_internal_migration": {
+        "cases": 1,
+        "passed": 1
+      },
+      "Martha.Store.Api.Tests.InternalReleaseScriptTests.Release_script_upgrades_empty_and_first_migration_databases_and_preserves_synthetic_rows": {
+        "cases": 1,
+        "passed": 1
+      },
+      "Martha.Store.Api.Tests.PrivatePilotReleaseTests.Frozen_fixture_survives_controlled_owned_container_stop_start": {
+        "cases": 1,
+        "passed": 1
+      },
+      "Martha.Store.Api.Tests.PrivatePilotReleaseTests.Offline_current_release_scripts_are_context_isolated_without_model_drift": {
+        "cases": 1,
+        "passed": 1
+      },
+      "Martha.Store.Api.Tests.PrivatePilotReleaseTests.Real_migration_reapply_throwaway_down_up_and_actual_backup_restore": {
+        "cases": 1,
+        "passed": 1
+      }
+    }
+  },
+  "golden": {
+    "passed": 19,
+    "steps": 19,
+    "oracle_captures": 18,
+    "oracle_failures": 0,
+    "sale_count": 1,
+    "stock_after_sale_and_replay": 28,
+    "cleanup": {
+      "step": "teardown.stop_api_drop_database",
+      "ms": 872,
+      "status": "PASS",
+      "api_exit": 0,
+      "database_dropped": true,
+      "api_log_lines": 86,
+      "api_log_fail_or_crit": 0,
+      "api_log_warn": 38,
+      "private_dir_removed": true
+    }
+  },
+  "private_freeze_sha256_match": true,
+  "private_six_sets_equal": true,
+  "checks": {
+    "head": "8744a9699812d62ea5ed31c63781748f833c3def",
+    "success": 16,
+    "skipped": 5,
+    "failed": 0,
+    "pending": 0
+  },
+  "source_sha256_git_blob_bytes": {
+    "backend/src/Martha.Store.Api/Internal/Migrations/InitialInternalSavia.idempotent.sql": "8aacf56efaa92d3f7d6e3233c557c21f0ad55995df18eaa41ce8f5f688893da8",
+    "backend/tests/Martha.Store.Api.Tests/InternalReleaseScriptTests.cs": "78aa138819598c9f0e83644f35ef2db0e2056ffd88e82c8c2cf04fd2e6ef5adf",
+    "backend/tests/Martha.Store.Api.Tests/InternalMigrationTests.cs": "2dd138143180b43626adf1f5b8317553e6675e590435cadf8723e4c7471e5bce",
+    "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs": "0cc927b7f9196960569bd9b2356a6b7506804b0a4843af5546bd962bb0cb7bab",
+    "tests/golden-path/golden_path.py": "b957230ab923f34f56d61f1853c967f938baa8009601212dbb5dec7973ff7fbb",
+    "tests/golden-path/GoldenPath.Sql/Program.cs": "73dace52d407545267b7b9214b9a80f39d8c01e92633b52ec553744c2894b157",
+    "tests/golden-path/verify_evidence.py": "cf494c86fe22cbbd7e8ad3e7ffabc97d55cafbb1e1afb90e19efa2656ce6c5ff",
+    ".github/workflows/golden-path.yml": "1bc4cfd6ba4e58e3becbfc34366dbbb5f7804a5ad01acd83db1e56c3f4e70e89"
+  },
+  "artifact_sha256_local_bytes": {
+    "coordination/c11-close-20261104/ci-8744a969/savia/savia-backend-outcomes-41779354410-1/sanitized-results.json": "54fcc2cb7eb3ef69d80a4154ada33dec8be3ab0e074ae79f1a2735158e055661",
+    "coordination/c11-close-20261104/ci-8744a969/golden/savia-golden-path-41779354413-1/evidence.json": "bc878678c157597dbb5f5e923ce5ec92db08eff3907e860013bc45de131011af",
+    "coordination/c11-close-20261104/final-ci-binding-8744a969.json": "8c3b8b6c97f42cf3985f80cf773365ab884ac125087147073d0886dc656f347e"
+  },
+  "judge_report_sha256": "480458ae1edd159b869ce291fda0acbecb94bd9677a46da9f63a1422355bcd56",
+  "judge_evidence_sha256": "eff9e184767efcb42009d43e4277da59e11d1b53b1631938e54ffe07369401a4",
+  "new_runtime_executed": false,
+  "limits": [
+    "Synthetic Linux/SQL CI; no new Windows execution.",
+    "Runtime belongs to 8744, not d475.",
+    "No new failure injection; code reviewed for cleanup/publication.",
+    "ZIP digests are GitHub metadata, not local binary recomputation.",
+    "38 API warnings retained; zero fail/crit.",
+    "Branch seeded through EF because no HTTP creation endpoint exists.",
+    "No production, real data or operational acceptance; C9 excluded.",
+    "Local portable check failed with WinError 1314; Linux equivalent passed, later local stages not run."
+  ],
+  "exclusions": [
+    "Private fixture values, databases, credentials, sessions, certificates, raw logs and execution authorizations."
+  ],
+  "blockers": [],
+  "checks_performed": [
+    "Immutable source/hash verification",
+    "Six named C4 runtime outcomes",
+    "19 Golden steps and 18 SQL captures",
+    "Exact SQL oracle equality after replay/conflict/recovery",
+    "Frozen private oracle six-set comparison offline",
+    "Fresh GitHub checks readback and Trello checklist readback"
+  ],
+  "publication_status": "Prepared; verify normal hook SYNCED and remote SHA separately.",
+  "local_docs_check": {
+    "command": "python tests/check.py",
+    "exit_code": 1,
+    "cause": "WinError 1314 in Path.symlink_to: host lacks required privilege",
+    "asset_tests": 6,
+    "asset_errors": 3,
+    "later_runner_stages": "not executed",
+    "code_or_permissions_changed": false,
+    "alternative": {
+      "run": 41779354483,
+      "job": 126407090176,
+      "head": "8744a9699812d62ea5ed31c63781748f833c3def",
+      "platform": "ubuntu-latest",
+      "asset_tests": 6,
+      "asset_result": "OK",
+      "runner_result": "PASS: all recovered-demo automated checks"
+    },
+    "local_gap_owner": "Jason",
+    "local_gap_completion": "Run python tests/check.py in an authorized Windows environment with symlink privilege; require exit 0",
+    "raw_log_sha256": "cb6d541d0e997425766065a2d74d785dcee6fe86edcbccf2604f2f4320b2ed2f"
+  }
+}

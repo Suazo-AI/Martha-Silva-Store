@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-04T05:51:14.453396+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/c4-c5-review-20261104/README.md",
+      "change": "A",
+      "git_blob": "c83a62fda4c3cc3523e4e1ffae9a9e9198a579a3"
+    },
+    {
+      "path": "docs/c4-c5-review-20261104/acceptance.json",
+      "change": "A",
+      "git_blob": "bbfd930abb9552662d19bdf3f451bd7131b8e6a8"
+    },
+    {
+      "path": "docs/c4-c5-review-20261104/checks-readback.json",
+      "change": "A",
+      "git_blob": "ce4c890ce1126771e800280089be75cc803c4162"
+    },
+    {
+      "path": "docs/c4-c5-review-20261104/judge/REVIEW.md",
+      "change": "A",
+      "git_blob": "27635c99b5296cd0ace6be3e92a4fad0d400a457"
+    },
+    {
+      "path": "docs/c4-c5-review-20261104/judge/evidence.json",
+      "change": "A",
+      "git_blob": "890410ebffa68fb2d87aebedc225f3efe23cd4eb"
+    },
+    {
+      "path": "docs/c4-c5-review-20261104/linux-portable-check-readback.json",
+      "change": "A",
+      "git_blob": "aa1a1814b60897d64b174c8c9203cb1b58a11f83"
+    },
+    {
+      "path": "docs/c4-c5-review-20261104/private-oracle-comparison.sanitized.json",
+      "change": "A",
+      "git_blob": "0af421fbbf5b21c62b996e8eb5d1c6976442e651"
+    },
+    {
+      "path": "docs/c4-c5-review-20261104/trello-readonly.json",
+      "change": "A",
+      "git_blob": "db34bc0142d3b594171fd946e627d1040af30c94"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

@@ -1,0 +1,167 @@
+{
+  "task_id": "C4-C5-INDEPENDENT-20261104",
+  "status": "complete",
+  "verdict": "APTO",
+  "scope": "Dictamen tecnico C4/C5; no aceptacion operativa ni de despliegue",
+  "host": "SUAZO-PC",
+  "model": "gpt-6-astra",
+  "reasoning": "high",
+  "reviewed_sha": "d475d6d4a2caffe9d8181acdff80794ff3f6abb4",
+  "reviewed_tree": "802396b07dfddeb8b8d6879f058acdffc8cd57f6",
+  "runtime_head": "8744a9699812d62ea5ed31c63781748f833c3def",
+  "runtime_checkout": "2c29209667631c38047f33f3e84f4d777a7740e3",
+  "runtime_tree": "32112430eff2932fa593338b3e454dd2020bc9a5",
+  "runtime_checkout_parents": [
+    "3b0049163ece2d9431cee01f1bea624a66d9d8d4",
+    "8744a9699812d62ea5ed31c63781748f833c3def"
+  ],
+  "equivalence": "Solo cuatro documentos cambiaron; producto, migraciones, pruebas, dependencias y workflows identicos",
+  "changed_paths_since_runtime": [
+    "docs/DECISIONS.md",
+    "docs/PROJECT-STATUS.md",
+    "docs/pipeline/ledger.json",
+    "docs/progress/20261104T054016305151Z-febbf8bbe9.json"
+  ],
+  "source_sha256_git_blob_bytes": {
+    "backend/src/Martha.Store.Api/Internal/Migrations/InitialInternalSavia.idempotent.sql": "8aacf56efaa92d3f7d6e3233c557c21f0ad55995df18eaa41ce8f5f688893da8",
+    "backend/tests/Martha.Store.Api.Tests/InternalReleaseScriptTests.cs": "78aa138819598c9f0e83644f35ef2db0e2056ffd88e82c8c2cf04fd2e6ef5adf",
+    "backend/tests/Martha.Store.Api.Tests/InternalMigrationTests.cs": "2dd138143180b43626adf1f5b8317553e6675e590435cadf8723e4c7471e5bce",
+    "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs": "0cc927b7f9196960569bd9b2356a6b7506804b0a4843af5546bd962bb0cb7bab",
+    "tests/golden-path/golden_path.py": "b957230ab923f34f56d61f1853c967f938baa8009601212dbb5dec7973ff7fbb",
+    "tests/golden-path/GoldenPath.Sql/Program.cs": "73dace52d407545267b7b9214b9a80f39d8c01e92633b52ec553744c2894b157",
+    "tests/golden-path/verify_evidence.py": "cf494c86fe22cbbd7e8ad3e7ffabc97d55cafbb1e1afb90e19efa2656ce6c5ff",
+    ".github/workflows/golden-path.yml": "1bc4cfd6ba4e58e3becbfc34366dbbb5f7804a5ad01acd83db1e56c3f4e70e89"
+  },
+  "artifact_sha256_local_bytes": {
+    "coordination/c11-close-20261104/ci-8744a969/savia/savia-backend-outcomes-41779354410-1/sanitized-results.json": "54fcc2cb7eb3ef69d80a4154ada33dec8be3ab0e074ae79f1a2735158e055661",
+    "coordination/c11-close-20261104/ci-8744a969/golden/savia-golden-path-41779354413-1/evidence.json": "bc878678c157597dbb5f5e923ce5ec92db08eff3907e860013bc45de131011af",
+    "coordination/c11-close-20261104/final-ci-binding-8744a969.json": "8c3b8b6c97f42cf3985f80cf773365ab884ac125087147073d0886dc656f347e"
+  },
+  "methods": {
+    "Martha.Store.Api.Tests.InternalMigrationTests.Internal_snapshot_matches_the_current_design_time_model_without_a_server": {
+      "cases": 1,
+      "passed": 1
+    },
+    "Martha.Store.Api.Tests.InternalReleaseScriptTests.Checked_in_idempotent_release_script_equals_ef_generation_for_every_internal_migration": {
+      "cases": 1,
+      "passed": 1
+    },
+    "Martha.Store.Api.Tests.InternalReleaseScriptTests.Release_script_upgrades_empty_and_first_migration_databases_and_preserves_synthetic_rows": {
+      "cases": 1,
+      "passed": 1
+    },
+    "Martha.Store.Api.Tests.PrivatePilotReleaseTests.Frozen_fixture_survives_controlled_owned_container_stop_start": {
+      "cases": 1,
+      "passed": 1
+    },
+    "Martha.Store.Api.Tests.PrivatePilotReleaseTests.Offline_current_release_scripts_are_context_isolated_without_model_drift": {
+      "cases": 1,
+      "passed": 1
+    },
+    "Martha.Store.Api.Tests.PrivatePilotReleaseTests.Real_migration_reapply_throwaway_down_up_and_actual_backup_restore": {
+      "cases": 1,
+      "passed": 1
+    }
+  },
+  "backend": {
+    "cases": 601,
+    "passed": 601,
+    "notPassed": 0
+  },
+  "golden": {
+    "steps": 19,
+    "passed": 19,
+    "oracle_captures": 18,
+    "oracle_failures": 0,
+    "cleanup": {
+      "step": "teardown.stop_api_drop_database",
+      "ms": 872,
+      "status": "PASS",
+      "api_exit": 0,
+      "database_dropped": true,
+      "api_log_lines": 86,
+      "api_log_fail_or_crit": 0,
+      "api_log_warn": 38,
+      "private_dir_removed": true
+    }
+  },
+  "runs": {
+    "backend": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41779354410",
+    "golden": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41779354413"
+  },
+  "criteria": [
+    {
+      "id": "C4.1",
+      "verdict": "APTO",
+      "criterion": "Sin cambios de modelo pendientes",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalMigrationTests.cs:55",
+      "evidence": "HasPendingModelChanges false; named method 1/1"
+    },
+    {
+      "id": "C4.2",
+      "verdict": "APTO",
+      "criterion": "SQL completo generado por EF y guarda de divergencia",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalReleaseScriptTests.cs:39",
+      "evidence": "Igualdad GenerateScript; ambas migraciones; named method 1/1; prefijo historico intacto"
+    },
+    {
+      "id": "C4.3",
+      "verdict": "APTO",
+      "criterion": "Aplicacion vacia e historia sintetica con readback",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalReleaseScriptTests.cs:52",
+      "evidence": "SQL por lotes; 3 bases; historia exacta; filas originales preservadas; esquema contra migrador; reaplicacion; named method 1/1"
+    },
+    {
+      "id": "C4.4",
+      "verdict": "APTO",
+      "criterion": "Copia y readback real adicional",
+      "source": "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs:107",
+      "evidence": "BACKUP CHECKSUM/RESTORE VERIFYONLY/RESTORE real; igualdad negocio y esquema; named method 1/1"
+    },
+    {
+      "id": "C5.1",
+      "verdict": "APTO",
+      "criterion": "Arnes reproducible local POSIX y CI con migraciones reales",
+      "source": "tests/golden-path/GoldenPath.Sql/Program.cs:105",
+      "evidence": "IMigrator.MigrateAsync; 2 migraciones y 0 pendientes; workflow ubuntu; mismo entrypoint documentado"
+    },
+    {
+      "id": "C5.2",
+      "verdict": "APTO",
+      "criterion": "Cinco identidades sinteticas y scopes",
+      "source": "tests/golden-path/golden_path.py:616",
+      "evidence": "Owner consola, staff HTTP; cinco perfiles; Inventory/Unassigned venta403; una sucursal sintetica"
+    },
+    {
+      "id": "C5.3",
+      "verdict": "APTO",
+      "criterion": "Venta replay conflicto recuperacion y oraculos por paso",
+      "source": "tests/golden-path/golden_path.py:768",
+      "evidence": "19/19 pasos; 18 capturas SQL; venta1/linea1/op1; stock30->28 sin segundo debito"
+    },
+    {
+      "id": "C5.4",
+      "verdict": "APTO",
+      "criterion": "Cleanup y publicacion protegida",
+      "source": "tests/golden-path/golden_path.py:1060",
+      "evidence": "API exit0; database_dropped true; private_dir_removed true; manifest exact-byte; logs vinculados indican contenedor ausente"
+    }
+  ],
+  "findings": [],
+  "blockers": [],
+  "changed": [
+    "coordination/c4-c5-review-20261104/judge/REVIEW.md",
+    "coordination/c4-c5-review-20261104/judge/evidence.json"
+  ],
+  "verification": "Git show/diff/log inmutables y lectura directa de JSON existentes; cero suites/runtime/red/mutaciones Git",
+  "usage": "Tokens, coste y duracion exacta desconocidos",
+  "unverified": [
+    "CI del SHA d475 no consultada; evidencia runtime es 8744 con fuentes iguales",
+    "No nuevo runtime local Windows; arnes requiere POSIX PTY",
+    "No datos reales, produccion, operacion, carga ni auditoria universal de scopes",
+    "ZIP digests reportados por API en binding; no recomputados localmente",
+    "Fallas de sanitizacion/cleanup revisadas en codigo; no nueva inyeccion runtime",
+    "El scanner cubre secretos conocidos, no prueba ausencia universal de secretos"
+  ],
+  "next_action": "Root verifica este dictamen y sus hashes, coteja estado/CI bajo su carril y decide integracion sin cambiar siete TONY review ni C9 blocked."
+}
