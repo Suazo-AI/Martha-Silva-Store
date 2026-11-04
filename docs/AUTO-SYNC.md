@@ -71,6 +71,21 @@ Los commits nuevos siguen necesitando exactamente un recibo generado por el hook
 La importación no fabrica recibos históricos ni acredita aceptación del producto.
 No modifica historia, remotos, hooks ni configuración de seguridad.
 
+### Reconciliación puntual autorizada de PR2
+
+Jason autorizó conservar los dos historiales divergentes mediante un único commit
+de unión, sin fusionar PR2 a `main` ni reescribir historia. El importador activo
+añade exclusivamente `9719d8edc226d09aa09df1be02658236fceaf97c` a los 16 SHA anteriores.
+El manifiesto original permanece congelado. El nuevo manifiesto
+[`progress-imports/pr2-9719d8ed.json`](progress-imports/pr2-9719d8ed.json)
+conserva esos 16 registros y fija árbol, padres y blobs del único SHA adicional.
+Su SHA256 sobre bytes LF de Git es
+`f279097cd07684fe66fce857a09dea06b42804cfc44e24aff759754a9955dc7b`.
+
+El permiso no admite un SHA adicional ni un merge sin recibo. El commit de unión
+y cualquier avance nuevo mantienen el recibo y todos los filtros habituales.
+Los resultados de aceptación siguen separados de esta excepción histórica.
+
 ## Desactivar y restaurar
 
 Para detener el push automático y conservar el registro:

@@ -111,6 +111,31 @@ class ProgressTests(unittest.TestCase):
         with self.assertRaisesRegex(p.Blocked, 'tree, parents or blobs'):
             p.verify(commit)
 
+    def test_new_reconciliation_merge_requires_its_own_normal_receipt(self):
+        imported, manifest = self.frozen_import()
+        self.import_manifest(manifest)
+        self.git('switch', '-c', 'reconciliation-side', imported)
+        self.stage('side.txt', b'independent published change\n')
+        self.git('commit', '-m', 'Separate side fixture')
+        side = self.git('rev-parse', 'HEAD').decode().strip()
+        self.git('switch', 'Tony')
+        parent = self.git('rev-parse', 'HEAD').decode().strip()
+        self.git('merge', '--no-ff', '--no-commit', 'reconciliation-side')
+        tree = self.git('write-tree').decode().strip()
+        undocumented = self.git('commit-tree', tree, '-p', parent, '-p', side,
+                                '-m', 'Receipt-free merge fixture').decode().strip()
+        self.assertEqual(len(self.git('show', '-s', '--format=%P', undocumented).split()), 2)
+        self.assertNotIn(undocumented, p.PR2_IMPORT_COMMITS)
+        with self.assertRaisesRegex(p.Blocked, 'exactly one progress receipt'):
+            p.verify(undocumented)
+        p.pre_commit()
+        self.git('commit', '-m', 'Documented reconciliation fixture')
+        self.assertEqual(self.git('show', '-s', '--format=%P', 'HEAD').decode().split(),
+                         [parent, side])
+        self.assertNotIn(self.git('rev-parse', 'HEAD').decode().strip(), p.PR2_IMPORT_COMMITS)
+        p.verify()
+        p.verify(imported)
+
     def test_frozen_import_missing_or_changed_manifest_blocks(self):
         commit, manifest = self.frozen_import()
         with self.assertRaises(p.Blocked):

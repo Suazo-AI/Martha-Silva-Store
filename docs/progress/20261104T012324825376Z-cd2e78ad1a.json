@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-04T01:23:24.825376+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/AUTO-SYNC.md",
+      "change": "M",
+      "git_blob": "b403736bf47de3b533dbfcce6b56b493ce7de23f"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "1ae56743bd04a19e357095bf76e9691b23b4cfee"
+    },
+    {
+      "path": "docs/fix-pr2-denis-20261104/README.md",
+      "change": "M",
+      "git_blob": "4cf949d1ffe1fabeadff0ecfd5b93da62e228c14"
+    },
+    {
+      "path": "docs/fix-pr2-denis-20261104/reconciliation.json",
+      "change": "A",
+      "git_blob": "101609b743e0da0d6500a1357b2df7be4ef8faf3"
+    },
+    {
+      "path": "docs/progress-imports/pr2-9719d8ed.json",
+      "change": "A",
+      "git_blob": "df4d21991052065ec129027661d3e8b6445f61b5"
+    },
+    {
+      "path": "tests/test_progress.py",
+      "change": "M",
+      "git_blob": "6518d646af08381592e9850058fca5259072de56"
+    },
+    {
+      "path": "tools/progress.py",
+      "change": "M",
+      "git_blob": "bf757934273c18c99405d4d14978fb1aa59170e7"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

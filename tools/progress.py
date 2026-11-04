@@ -18,10 +18,10 @@ ORIGINS = {f'https://github.com/{REPOSITORY}.git',
 RECEIPTS = 'docs/progress/'
 # Frozen import of already-published PR2 history without canonical receipts.
 # This is not a receipt exemption for future commits or other pull requests.
-PR2_IMPORT_MANIFEST = 'docs/progress-imports/pr2-88faa2dd.json'
-PR2_IMPORT_SHA256 = '22c5c476de48cddbb91801783dbedf74c0143f506da7995acdfcb786d8b08e15'
+PR2_IMPORT_MANIFEST = 'docs/progress-imports/pr2-9719d8ed.json'
+PR2_IMPORT_SHA256 = 'f279097cd07684fe66fce857a09dea06b42804cfc44e24aff759754a9955dc7b'
 PR2_IMPORT_BASE = '20932d5c97f2caaafad7dc888879957791907f36'
-PR2_IMPORT_HEAD = '88faa2dd0d51fc1c5089b721ba5b17c23d4d61d4'
+PR2_IMPORT_HEAD = '9719d8edc226d09aa09df1be02658236fceaf97c'
 PR2_IMPORT_COMMITS = (
     '56999669dfca2a8d0d5c8f8296a3035fb78b02cc',
     '3e91801a3b01a1735f03cd1812589716e02d9c94',
@@ -39,6 +39,7 @@ PR2_IMPORT_COMMITS = (
     '60e6cfad6bbff60708e7d4cfed196a58550eebf9',
     '5895c292f653780cbf408dedaaf4850c0ddfb8c5',
     '88faa2dd0d51fc1c5089b721ba5b17c23d4d61d4',
+    '9719d8edc226d09aa09df1be02658236fceaf97c',
 )
 SECRET = re.compile(
     rb'-----BEGIN (?:RSA |EC |OPENSSH |DSA |ENCRYPTED )?PRIVATE KEY-----|'

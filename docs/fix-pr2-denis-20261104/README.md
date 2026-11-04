@@ -104,3 +104,34 @@ La evidencia pública contiene únicamente fuentes, hashes y resultados revisado
 Lección aplicada: verificar el hash del blob Git cuando `core.autocrlf` normaliza
 un manifiesto firmado por hash. Verificar también el estado final de una retirada;
 una inspección fallida no demuestra ausencia.
+
+## Reconciliación puntual de los historiales publicados
+
+Tony avanzó a `95120c29cbd685a6818dc9923b05f81c45b5daa0`; otro ejecutor publicó
+`9719d8edc226d09aa09df1be02658236fceaf97c` en PR2 con el mismo padre `ca917005`.
+Ambos avances se conservan. Jason autorizó un único commit de unión de historiales
+y ampliar el importador exclusivamente al segundo SHA, para un total de 17.
+La autorización no incluye merge de PR2 a main, force-push ni despliegue.
+
+El SHA adicional cambia solo `.github/workflows/progress-digest.yml`.
+Su árbol es `5399907e741505b8d287ba8e2f5ca34c35f56e7a` y su blob es
+`681ca470afb62ec44cbaabb618d20ee25b3727b9`, SHA256
+`cb24a5857dc2c56c00cda20a0117f34c87fc2be38b221de0ff3953cd2d76410d`.
+Los filtros de publicación pasaron. El nuevo manifiesto conserva íntegros los
+16 registros anteriores; su pin y alcance constan en [AUTO-SYNC](../AUTO-SYNC.md).
+
+El patch del importador pasó `git apply --check --whitespace=error-all` antes de
+aplicarse. El control y su manifiesto entran en el único commit de unión con
+recibo normal. Se resolvió el único conflicto al conservar exactamente el workflow
+de Tony, incluida la propagación de errores con `set -euo pipefail`.
+Las pruebas del registro pasan **23/23**: el caso nuevo rechaza un merge fuera
+de la lista sin recibo y acepta el mismo árbol con su recibo normal.
+Los 17 SHA reales pasan el verificador con los bytes Git del manifiesto en stage.
+`export_progress.py --verify` conserva 15 hashes; el ledger es válido, 34 elementos.
+Véase [evidencia de reconciliación](reconciliation.json).
+Falta verificar el commit de unión, ambos remotos y su CI.
+Responsable: integrador en SUAZO-PC. Los 33 archivos ajenos permanecen fuera del stage.
+
+Integración al corte de esta reconciliación: **75%**, 3/4 hitos; falta el mismo SHA
+final en ambos remotos. Validación: **80%**, 4/5; falta CI completo de ese SHA final.
+Los siete hallazgos `TONY-*` permanecen en `review`.

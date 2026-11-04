@@ -72,3 +72,9 @@ Los digest de push fallaron por flags incompatibles de gh; el seguimiento reconc
 la corrección vigente en main y agrega pipefail. Falta confirmar CI de ese nuevo SHA.
 Los siete `TONY-*` permanecen en `review`.
 Véanse [resultados, límites y siguientes acciones](fix-pr2-denis-20261104/README.md).
+
+La divergencia entre Tony `95120c29` y PR2 `9719d8ed` está auditada.
+Jason autorizó una unión puntual de historiales y ampliar el importador solo a
+`9719d8ed`, para 17 SHA exactos. El manifiesto original de 16 permanece intacto.
+Se conservan el workflow de Tony y los avances de ambos; no se fusiona PR2 a main.
+Faltan el SHA común publicado, SYNCED y CI completo del mismo SHA.
