@@ -1,6 +1,6 @@
 {
   "schema": "savia-delivery-ledger/1",
-  "updated": "2026-11-03",
+  "updated": "2026-11-04",
   "about": "Fuente única del estado de entrega. Un item pasa a done solo con evidencia verificable (run de CI, ruta en el repo o PR). tools/delivery_status.py valida este archivo en cada push y PR.",
   "people": {
     "jason": "Jason Suazo",
@@ -9,36 +9,73 @@
     "martha": "Martha (tienda)"
   },
   "tracks": [
-    {"id": "sprint", "name": "Sprint 4–6 nov: venta segura por cajero"},
-    {"id": "prod", "name": "SAVIA interno: producción"},
-    {"id": "store", "name": "Tienda pública"},
-    {"id": "pipeline", "name": "Flujo de trabajo y registro"}
+    {
+      "id": "sprint",
+      "name": "Sprint 4–6 nov: venta segura por cajero"
+    },
+    {
+      "id": "prod",
+      "name": "SAVIA interno: producción"
+    },
+    {
+      "id": "store",
+      "name": "Tienda pública"
+    },
+    {
+      "id": "pipeline",
+      "name": "Flujo de trabajo y registro"
+    }
   ],
   "targets": [
-    {"id": "C12", "name": "cierre del sprint (merge a main)"},
-    {"id": "P-GO", "name": "SAVIA interno en producción"}
+    {
+      "id": "C12",
+      "name": "cierre del sprint (merge a main)"
+    },
+    {
+      "id": "P-GO",
+      "name": "SAVIA interno en producción"
+    }
   ],
   "items": [
     {
-      "id": "N5", "order": 1, "track": "sprint", "owner": "claude", "status": "done",
+      "id": "N5",
+      "order": 1,
+      "track": "sprint",
+      "owner": "claude",
+      "status": "done",
       "title": "Recibo histórico inaccesible ya no bloquea ventas",
       "why": "Un 404/403 del último recibo dejaba la caja sin poder vender (pending ||= {})",
       "done_when": "Rojo en 20932d5, verde 5/5 en navegador real, rojo de nuevo al revertir; CI del PR en verde",
       "alternatives": "Borrar toda la sesión local al fallar (rechazado en NEXT-INCREMENT: pierde ventas inciertas reales)",
       "evidence": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41732265496",
-      "paths": ["dev/savia-staff-ui/app.mjs", "tests/browser-mock-validation.mjs"]
+      "paths": [
+        "dev/savia-staff-ui/app.mjs",
+        "tests/browser-mock-validation.mjs"
+      ]
     },
     {
-      "id": "CI-JUEZ", "order": 2, "track": "sprint", "owner": "claude", "status": "done",
+      "id": "CI-JUEZ",
+      "order": 2,
+      "track": "sprint",
+      "owner": "claude",
+      "status": "done",
       "title": "CI juzga SAVIA: UI, navegador y 592 casos contra SQL real",
       "why": "Sin un juez externo, 'pasa en mi máquina' no distingue avance de regresión",
       "done_when": "savia.yml verde en el SHA del PR, sin skips, con mínimo de casos",
       "alternatives": "Solo correr en SUAZO-PC (no reproducible, sin historial por SHA)",
       "evidence": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41732265496",
-      "paths": [".github/workflows/savia.yml", ".github/workflows/backend.yml", "backend/tests/verify_full_suite.py"]
+      "paths": [
+        ".github/workflows/savia.yml",
+        ".github/workflows/backend.yml",
+        "backend/tests/verify_full_suite.py"
+      ]
     },
     {
-      "id": "C1", "order": 3, "track": "sprint", "owner": "jason", "status": "todo",
+      "id": "C1",
+      "order": 3,
+      "track": "sprint",
+      "owner": "jason",
+      "status": "todo",
       "title": "Decisiones del lote y seguridad de merge",
       "why": "main no tiene protección ni checks requeridos; un merge podría desplegar el preview si CLOUDFLARE_DEPLOY_ENABLED es true",
       "done_when": "Protección de main con checks requeridos leída de la API; valor de CLOUDFLARE_DEPLOY_ENABLED anotado; decisiones en docs/DECISIONS.md",
@@ -50,166 +87,373 @@
         "tool": "Configuración de GitHub (admin): protección de rama y variables de Actions"
       },
       "trello": "https://trello.com/c/e57qFLhJ",
-      "paths": ["docs/DECISIONS.md", ".github/workflows/ci.yml"]
+      "paths": [
+        "docs/DECISIONS.md",
+        ".github/workflows/ci.yml"
+      ]
     },
     {
-      "id": "C2", "order": 4, "track": "sprint", "owner": "jason", "status": "todo",
+      "id": "C2",
+      "order": 4,
+      "track": "sprint",
+      "owner": "jason",
+      "status": "todo",
       "title": "Datos reales de la tienda (cuestionario a Martha, solo agregados)",
       "why": "Sin saber líneas por venta, comprobante fiscal y equipo de caja, el ensayo puede probar lo equivocado",
       "done_when": "Respuestas agregadas en el repo y decisión escrita sobre formulario de una línea y doble captura fiscal",
       "alternatives": "Suponer una venta de una línea sin comprobante (riesgo: doble trabajo en caja)",
-      "needs": {"decision": "Respuestas del cuestionario", "decider": "martha"},
+      "needs": {
+        "decision": "Respuestas del cuestionario",
+        "decider": "martha"
+      },
       "trello": "https://trello.com/c/aS0pUmYb",
-      "paths": ["docs/sprint-20261104/CUESTIONARIO-MARTHA.md"]
+      "paths": [
+        "docs/sprint-20261104/CUESTIONARIO-MARTHA.md"
+      ]
     },
     {
-      "id": "C3", "order": 5, "track": "sprint", "owner": "denis", "status": "review",
+      "id": "C3",
+      "order": 5,
+      "track": "sprint",
+      "owner": "denis",
+      "status": "review",
       "title": "Revisar y aprobar el PR de N5 + CI SAVIA",
       "why": "Revisión en contexto fresco; quien escribió el cambio no puede ser su único juez",
       "done_when": "Aprobación en el PR #2 con rojo al revertir reproducido en Chrome real",
       "trello": "https://trello.com/c/0kdbzEyA"
     },
     {
-      "id": "C4", "order": 6, "track": "sprint", "owner": "claude", "status": "doing",
+      "id": "C4",
+      "order": 6,
+      "track": "sprint",
+      "owner": "claude",
+      "status": "review",
       "title": "Migraciones Internal de release",
       "why": "El script idempotente de release no incluía InternalBranchScope; producción se crearía sin esa migración",
       "done_when": "Sin cambios de modelo pendientes; script generado por EF con todas las migraciones y guarda de divergencia; aplicado a base vacía y a copia con historia con readback",
       "alternatives": "Aplicar con Migrate() en el arranque (sin script revisable para el DBA)",
-      "needs": {"test": "Guarda de divergencia del script y aplicación sobre historia sintética"},
       "trello": "https://trello.com/c/NYX7OGvK",
-      "paths": ["backend/src/Martha.Store.Api/Internal/Migrations/*", "backend/tests/Martha.Store.Api.Tests/*Migration*", "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs"]
+      "paths": [
+        "backend/src/Martha.Store.Api/Internal/Migrations/*",
+        "backend/tests/Martha.Store.Api.Tests/*Migration*",
+        "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs"
+      ],
+      "report": "docs/sprint-20261104/C4-C7.md"
     },
     {
-      "id": "C5", "order": 7, "track": "sprint", "owner": "claude", "status": "doing",
+      "id": "C5",
+      "order": 7,
+      "track": "sprint",
+      "owner": "claude",
+      "status": "doing",
       "title": "Arnés del camino dorado: API real + SQL desechable",
       "why": "Nunca se probó navegador/HTTP → API real → SQL migrado como una sola cadena",
       "done_when": "Script reproducible local y CI: migraciones de release, 5 identidades sintéticas, venta, replay y oráculos SQL por paso",
       "alternatives": "Seguir con mocks de navegador y SQL por separado (no prueba la unión)",
-      "needs": {"tool": "SQL Server 2022 Developer desechable (misma imagen que CI)"},
+      "needs": {
+        "tool": "SQL Server 2022 Developer desechable (misma imagen que CI)"
+      },
       "trello": "https://trello.com/c/cNYz2Hci",
-      "paths": ["tests/golden-path/*", ".github/workflows/golden-path.yml"]
+      "paths": [
+        "tests/golden-path/*",
+        ".github/workflows/golden-path.yml"
+      ]
     },
     {
-      "id": "C6", "order": 8, "track": "sprint", "owner": "denis", "status": "blocked", "blocked_by": ["C5"],
+      "id": "C6",
+      "order": 8,
+      "track": "sprint",
+      "owner": "denis",
+      "status": "blocked",
+      "blocked_by": [
+        "C5"
+      ],
       "title": "Camino dorado E2E en Chrome real con oráculos SQL",
       "why": "La caja usa un navegador; solo el navegador prueba recarga, pérdida de respuesta y recuperación reales",
       "done_when": "Corre en el CI del PR con trazas como artefacto y oráculos SQL tras cada paso",
-      "needs": {"tool": "Playwright 1.63 + modo 'mantener arriba' del arnés de C5"},
+      "needs": {
+        "tool": "Playwright 1.63 + modo 'mantener arriba' del arnés de C5"
+      },
       "trello": "https://trello.com/c/ezVfv0Pk"
     },
     {
-      "id": "C7", "order": 9, "track": "sprint", "owner": "claude", "status": "doing",
+      "id": "C7",
+      "order": 9,
+      "track": "sprint",
+      "owner": "claude",
+      "status": "review",
       "title": "N1, N3, N4, N8 y N9 como pruebas de API con oráculos SQL",
       "why": "Un rechazo que escribe algo es un fallo silencioso; hay que medir cero escrituras",
       "done_when": "Cada rechazo compara conteos/huellas SQL antes y después; CI en verde",
-      "needs": {"test": "Huellas SQL antes/después por caso de rechazo"},
       "trello": "https://trello.com/c/YIlPjyVg",
-      "paths": ["backend/tests/Martha.Store.Api.Tests/*"]
+      "paths": [
+        "backend/tests/Martha.Store.Api.Tests/*"
+      ],
+      "report": "docs/sprint-20261104/C4-C7.md"
     },
     {
-      "id": "C8", "order": 10, "track": "sprint", "owner": "denis", "status": "blocked", "blocked_by": ["C3"],
+      "id": "C8",
+      "order": 10,
+      "track": "sprint",
+      "owner": "denis",
+      "status": "blocked",
+      "blocked_by": [
+        "C3"
+      ],
       "title": "N2, N6 y N7 en la interfaz",
       "why": "Recarga, cambio de identidad y expiración son fallos de la UI, no de la API",
       "done_when": "Pruebas rojo-verde en tests/browser-mock-validation.mjs; arnés completo y CI en verde",
       "trello": "https://trello.com/c/61IxxolB",
-      "paths": ["dev/savia-staff-ui/*"]
+      "paths": [
+        "dev/savia-staff-ui/*"
+      ]
     },
     {
-      "id": "C9", "order": 11, "track": "sprint", "owner": "denis", "status": "blocked", "blocked_by": ["C4"],
+      "id": "C9",
+      "order": 11,
+      "track": "sprint",
+      "owner": "denis",
+      "status": "blocked",
+      "blocked_by": [
+        "C4"
+      ],
       "title": "Respaldo, restauración, RTO/RPO y acceso Owner",
       "why": "Sin restauración probada y medida, una falla del equipo de la tienda pierde ventas",
       "done_when": "BACKUP WITH CHECKSUM, RESTORE VERIFYONLY, restauración como base nueva con oráculos; RTO y RPO medidos; recuperación Owner documentada",
-      "needs": {"tool": "SQL Server del entorno real (SUAZO-PC) para medir RTO"},
+      "needs": {
+        "tool": "SQL Server del entorno real (SUAZO-PC) para medir RTO"
+      },
       "trello": "https://trello.com/c/vVQVt9Qo",
-      "paths": ["tests/sql/*"]
+      "paths": [
+        "tests/sql/*"
+      ]
     },
     {
-      "id": "C10", "order": 12, "track": "sprint", "owner": "jason+denis", "status": "blocked", "blocked_by": ["C1", "C2", "C6", "C9"],
+      "id": "C10",
+      "order": 12,
+      "track": "sprint",
+      "owner": "jason+denis",
+      "status": "blocked",
+      "blocked_by": [
+        "C1",
+        "C2",
+        "C6",
+        "C9"
+      ],
       "title": "Ensayo supervisado en la tienda",
       "why": "Solo quien vende puede demostrar que sirve; ninguna prueba sintética lo sustituye",
       "done_when": "5 tareas sin ayuda; 30 ventas sintéticas con p95 enviar→recibo ≤ 1 s en la caja; conteo físico = SAVIA; hoja firmada",
-      "needs": {"decision": "Firma de aceptación por flujo", "decider": "martha", "test": "30 mediciones p50/p95 en la caja real"},
+      "needs": {
+        "decision": "Firma de aceptación por flujo",
+        "decider": "martha",
+        "test": "30 mediciones p50/p95 en la caja real"
+      },
       "trello": "https://trello.com/c/RYEhYexC"
     },
     {
-      "id": "C11", "order": 13, "track": "sprint", "owner": "denis", "status": "blocked", "blocked_by": ["C6", "C7", "C8"],
+      "id": "C11",
+      "order": 13,
+      "track": "sprint",
+      "owner": "denis",
+      "status": "blocked",
+      "blocked_by": [
+        "C6",
+        "C7",
+        "C8"
+      ],
       "title": "N10: revisión independiente de rechazos y recuperación",
       "why": "Un segundo par de ojos con postura NEEDS WORK atrapa éxitos inventados",
       "done_when": "Veredicto escrito: ledger antes/después sin segundo débito ni éxito inventado",
       "trello": "https://trello.com/c/ant3sEML"
     },
     {
-      "id": "C12", "order": 14, "track": "sprint", "owner": "jason", "status": "blocked", "blocked_by": ["C1", "C3", "C11"],
+      "id": "C12",
+      "order": 14,
+      "track": "sprint",
+      "owner": "jason",
+      "status": "blocked",
+      "blocked_by": [
+        "C1",
+        "C3",
+        "C11"
+      ],
       "title": "PR de integración a main y READY final",
       "why": "Cerrar el sprint con un SHA verificable en main sin despliegue no autorizado",
       "done_when": "Checks requeridos en verde en el SHA; merge sin despliegue no autorizado; PROJECT-STATUS actualizado",
       "trello": "https://trello.com/c/5yVy70Ju"
     },
     {
-      "id": "P-HOST", "order": 20, "track": "prod", "owner": "jason", "status": "todo",
+      "id": "SEC-CSRF",
+      "order": 15,
+      "track": "sprint",
+      "owner": "jason",
+      "status": "todo",
+      "title": "CSRF emitido antes de una reasignación sigue válido tras re-login del mismo usuario",
+      "why": "Hallazgo de C7: el token está ligado al usuario, no a la sesión; la cookie vieja sí da 401. No es escalada (mismo usuario), pero N8 estricto pediría ligarlo a la sesión",
+      "done_when": "Decisión registrada; si se liga a la sesión, prueba roja-verde en InternalAcceptanceHttpSqlTests",
+      "alternatives": "Dejarlo ligado al usuario (sin riesgo de escalada, más simple) · ligarlo a la sesión (N8 estricto, cambio pequeño en Security)",
+      "needs": {
+        "decision": "¿El token CSRF debe invalidarse al cerrar o revocar la sesión del mismo usuario?",
+        "decider": "jason",
+        "recommendation": "Ligarlo a la sesión antes de producción; no bloquea el ensayo del viernes"
+      },
+      "paths": [
+        "backend/src/Martha.Store.Api/Internal/Security/*"
+      ]
+    },
+    {
+      "id": "P-HOST",
+      "order": 20,
+      "track": "prod",
+      "owner": "jason",
+      "status": "todo",
       "title": "Elegir dónde corre SAVIA en producción",
       "why": "Respaldo, TLS, monitoreo y RTO dependen del lugar (equipo en tienda o nube)",
       "done_when": "Decisión registrada en DECISIONS con costo, responsable y plan de respaldo",
       "alternatives": "SUAZO-PC en la tienda (barato, punto único de falla) · VM o servicio administrado en la nube (costo mensual, depende de internet)",
-      "needs": {"decision": "Hospedaje de producción", "decider": "jason", "recommendation": "Decidir después del ensayo C10, con los datos de red de C2"}
+      "needs": {
+        "decision": "Hospedaje de producción",
+        "decider": "jason",
+        "recommendation": "Decidir después del ensayo C10, con los datos de red de C2"
+      }
     },
     {
-      "id": "P-SEC", "order": 21, "track": "prod", "owner": "jason", "status": "blocked", "blocked_by": ["P-HOST"],
+      "id": "P-SEC",
+      "order": 21,
+      "track": "prod",
+      "owner": "jason",
+      "status": "blocked",
+      "blocked_by": [
+        "P-HOST"
+      ],
       "title": "Secretos, TLS y cuentas del personal en producción",
       "why": "Las cuentas sintéticas y certificados de prueba no sirven en producción",
       "done_when": "Secretos fuera del repo con rotación documentada; TLS válido; cuentas reales creadas por el Owner",
-      "needs": {"tool": "Gestor de secretos del hospedaje elegido"}
+      "needs": {
+        "tool": "Gestor de secretos del hospedaje elegido"
+      }
     },
     {
-      "id": "P-OPS", "order": 22, "track": "prod", "owner": "jason", "status": "blocked", "blocked_by": ["P-HOST", "C9"],
+      "id": "P-OPS",
+      "order": 22,
+      "track": "prod",
+      "owner": "jason",
+      "status": "blocked",
+      "blocked_by": [
+        "P-HOST",
+        "C9"
+      ],
       "title": "Respaldo programado, monitoreo y runbook de incidentes",
       "why": "Producción sin alerta ni respaldo programado se descubre rota por la clienta",
       "done_when": "Respaldo diario verificado, alerta a una persona nombrada, runbook de caída y rollback probado una vez",
-      "needs": {"tool": "Monitoreo de disponibilidad y tarea programada de respaldo"}
+      "needs": {
+        "tool": "Monitoreo de disponibilidad y tarea programada de respaldo"
+      }
     },
     {
-      "id": "P-LEGACY", "order": 23, "track": "prod", "owner": "denis", "status": "todo",
+      "id": "P-LEGACY",
+      "order": 23,
+      "track": "prod",
+      "owner": "denis",
+      "status": "todo",
       "title": "Clasificar las 19 aserciones heredadas que fallan",
       "why": "Un rojo permanente entrena a ignorar el CI",
       "done_when": "Cada aserción marcada regresión, obsoleta, entorno o inestable, con issue o fix",
-      "paths": ["tests/desktop-gallery.cjs", "tests/green-header.cjs", "tests/luxury-editorial.cjs"]
+      "paths": [
+        "tests/desktop-gallery.cjs",
+        "tests/green-header.cjs",
+        "tests/luxury-editorial.cjs"
+      ]
     },
     {
-      "id": "P-GO", "order": 24, "track": "prod", "owner": "jason", "status": "blocked", "blocked_by": ["C10", "C12", "P-SEC", "P-OPS", "P-LEGACY"],
+      "id": "P-GO",
+      "order": 24,
+      "track": "prod",
+      "owner": "jason",
+      "status": "blocked",
+      "blocked_by": [
+        "C10",
+        "C12",
+        "P-SEC",
+        "P-OPS",
+        "P-LEGACY"
+      ],
       "title": "Salida a producción de SAVIA interno",
       "why": "Uso real en la caja con respaldo, monitoreo y aceptación firmada",
       "done_when": "Despliegue autorizado por Jason, verificado por SHA, con respaldo y alerta activos",
-      "needs": {"decision": "Autorizar el despliegue", "decider": "jason"}
+      "needs": {
+        "decision": "Autorizar el despliegue",
+        "decider": "jason"
+      }
     },
     {
-      "id": "S-PAY", "order": 30, "track": "store", "owner": "jason", "status": "todo",
+      "id": "S-PAY",
+      "order": 30,
+      "track": "store",
+      "owner": "jason",
+      "status": "todo",
       "title": "Proveedor de pago con tarjeta (D-008, D-009)",
       "why": "La tienda pública no es producción sin cobro con tarjeta",
       "done_when": "Proveedor elegido con elegibilidad del comercio verificada; integración probada en sandbox",
-      "needs": {"decision": "Proveedor de tarjeta", "decider": "jason", "recommendation": "Fuera del sprint; decidir con condiciones del comercio verificadas"}
+      "needs": {
+        "decision": "Proveedor de tarjeta",
+        "decider": "jason",
+        "recommendation": "Fuera del sprint; decidir con condiciones del comercio verificadas"
+      }
     },
     {
-      "id": "S-BACKEND", "order": 31, "track": "store", "owner": "jason", "status": "blocked", "blocked_by": ["S-PAY"],
+      "id": "S-BACKEND",
+      "order": 31,
+      "track": "store",
+      "owner": "jason",
+      "status": "blocked",
+      "blocked_by": [
+        "S-PAY"
+      ],
       "title": "Backend autoritativo de pedidos e integración SISFAIN (D-010)",
       "why": "Precios, stock y pedidos de la demo no son autoridad comercial",
       "done_when": "Contrato del backend definido; SISFAIN confirmado o descartado por escrito",
-      "needs": {"decision": "¿Existe SISFAIN y se integra?", "decider": "jason"}
+      "needs": {
+        "decision": "¿Existe SISFAIN y se integra?",
+        "decider": "jason"
+      }
     },
     {
-      "id": "PIPE-LEDGER", "order": 40, "track": "pipeline", "owner": "claude", "status": "doing",
+      "id": "PIPE-LEDGER",
+      "order": 40,
+      "track": "pipeline",
+      "owner": "claude",
+      "status": "doing",
       "title": "Ledger + resumen determinista en cada push y PR",
       "why": "Que GitHub, no una persona, diga en cada avance dónde vamos, qué falta y qué decisión hace falta",
       "done_when": "progress-digest.yml verde en el PR; pruebas de tools/delivery_status.py en check.py; issue de bitácora actualizándose solo",
       "alternatives": "Resumen escrito a mano (se desactualiza) · solo Trello (sin enlace a SHA ni CI)",
-      "paths": ["tools/delivery_status.py", "docs/pipeline/*", ".github/workflows/progress-digest.yml", ".github/pull_request_template.md"]
+      "paths": [
+        "tools/delivery_status.py",
+        "docs/pipeline/*",
+        ".github/workflows/progress-digest.yml",
+        ".github/pull_request_template.md"
+      ]
     },
     {
-      "id": "PIPE-AI", "order": 41, "track": "pipeline", "owner": "jason", "status": "blocked", "blocked_by": ["PIPE-LEDGER"],
+      "id": "PIPE-AI",
+      "order": 41,
+      "track": "pipeline",
+      "owner": "jason",
+      "status": "blocked",
+      "blocked_by": [
+        "PIPE-LEDGER"
+      ],
       "title": "Narrador IA opcional (Claude o Codex) en cada PR",
       "why": "Explica en lenguaje natural por qué, alternativas y riesgos del cambio, sin decidir el estado",
       "done_when": "Un secreto configurado y un comentario del narrador visto en un PR",
       "alternatives": "Solo el resumen determinista (gratis, menos contexto)",
-      "needs": {"decision": "¿Claude o Codex y quién paga el uso?", "decider": "jason", "recommendation": "Claude con CLAUDE_CODE_OAUTH_TOKEN de la suscripción existente", "tool": "Secreto CLAUDE_CODE_OAUTH_TOKEN, ANTHROPIC_API_KEY u OPENAI_API_KEY"}
+      "needs": {
+        "decision": "¿Claude o Codex y quién paga el uso?",
+        "decider": "jason",
+        "recommendation": "Claude con CLAUDE_CODE_OAUTH_TOKEN de la suscripción existente",
+        "tool": "Secreto CLAUDE_CODE_OAUTH_TOKEN, ANTHROPIC_API_KEY u OPENAI_API_KEY"
+      }
     }
   ]
 }
