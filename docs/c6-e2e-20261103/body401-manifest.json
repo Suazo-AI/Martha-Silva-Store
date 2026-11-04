@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "generated_utc": "2026-11-04T02:46:35.798Z",
+  "source": {
+    "path": "C:/Users/Jason/MARTHA-SILVA/test-runs/c6-browser-sql-20261103/tests/golden-path/browser_path.mjs",
+    "sha256": "5a09272ffb8a1c433813bc4cad626921cd1b0ef329f0097a008122e41eb6df21",
+    "proposal_exact_bytes_equal": true
+  },
+  "files": {
+    "b6-body401-delta.patch": "80e3ed6ea1923cbbad55a8b1ea8047f74e90bdd190f9258d6714e1f74ad69121",
+    "b6-body401-checks.json": "45d3082c54950330b1942439b3e5baca3b03206391d01d6a5dc41fdec41a71d1",
+    "ci-41758450353-snapshot.json": "3820328365eac009ea6bc1bb3a0a99a52a66dbbd1b71a6c80e83ad664088149c",
+    "b6-body401-report.md": "7b28310303f823ee4f44dfc722cb61aecd863ef74991985a095610b5ad2efebc"
+  }
+}

@@ -240,9 +240,9 @@
       "paths": [
         "tests/sql/*"
       ],
-      "prep": "23 fuentes revisadas; cero SQL/API/Docker nuevos. Backup/VERIFYONLY/restore de CI existente no mide recuperacion con ventas ni RTO SUAZO-PC. Reutiliza borrador Owner; ultimo Owner perdido sin recuperacion implementada.",
+      "prep": "23 fuentes y 14 controles de preparacion previos; procedimiento adicional G0-G9 con 12/12 controles documentales. Cero SQL/conexiones/API/Docker nuevos. Backup CI sin ventas no mide RTO/RPO SUAZO-PC; ultimo Owner perdido sin recuperacion implementada.",
       "blocker": "Preparacion documental lista; falta alcance nuevo de diagnostico SQL y corrida sintetica Windows. Faltan rutas/permisos/TLS actuales, coordinador C9, oraculos sobre restaurada y medicion RTO/RPO. No repetir one-shots historicos.",
-      "report": "docs/c9-recovery-20261103/PREPARATION.md"
+      "report": "docs/c9-recovery-20261103/PROCEDURE.md"
     },
     {
       "id": "C10",

@@ -1,0 +1,31 @@
+{
+  "status": "AUTHORIZED_APPLIED_PENDING_TESTS_AND_CI",
+  "source": {
+    "commit": "b6bc0396bb7d53359d23b806a3177edc194c8e62",
+    "tree": "df8e64e568d9260107e5c5d5d6fa368ed148bc84",
+    "parents": [
+      "6aeb9a35f45331ace85ac48dc19bfd9264b0f722"
+    ],
+    "files": [
+      {
+        "path": "tests/golden-path/browser_path.mjs",
+        "change": "M",
+        "git_blob": "b97b62c115914a861316e47d4cb5f6d712c76db5",
+        "sha256": "178d42bcc034870159ee20b22edf81c93a337edb963ec03430af311bf67d0666"
+      }
+    ]
+  },
+  "current_Tony": "2ddf83de7a89da608e8267a21313d64b373bf5e2",
+  "common_base": "6aeb9a35f45331ace85ac48dc19bfd9264b0f722",
+  "old_manifest_git_sha256": "f279097cd07684fe66fce857a09dea06b42804cfc44e24aff759754a9955dc7b",
+  "new_manifest_sha256": "b85fcdb199afa3d6acb3ee628796548bad4cf862c15b8c88973d63fc905b9dbe",
+  "old_records_unchanged": true,
+  "new_commits_allowed": [
+    "b6bc0396bb7d53359d23b806a3177edc194c8e62"
+  ],
+  "total_frozen_commits": 18,
+  "runtime_executed": false,
+  "canonical_changes": true,
+  "authorization_scope": "One merge of 2ddf83de and b6bc0396, preserving 17 historical records and normal receipt on the new merge; no main, force, deploy or SQL.",
+  "resolved_js_sha256": "5a09272ffb8a1c433813bc4cad626921cd1b0ef329f0097a008122e41eb6df21"
+}

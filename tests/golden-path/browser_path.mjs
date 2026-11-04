@@ -280,7 +280,12 @@ try {
   failurePhase = 'c6_logout_form';
   await expect(page.locator('#login-submit')).toBeEnabled();
   failurePhase = 'c6_logout_me';
-  const meStatus = await page.evaluate(async () => (await fetch('/internal/api/security/me', {credentials: 'same-origin'})).status);
+  // Consume the 401 body before the networkidle checkpoint.
+  const meStatus = await page.evaluate(async () => {
+    const response = await fetch('/internal/api/security/me', {credentials: 'same-origin'});
+    await response.arrayBuffer();
+    return response.status;
+  });
   check(meStatus === 401 && posts === 2, 'c6_logout_or_post_count');
   await checkpoint('browser.logout', {dom: ['logged_out']});
 } catch (error) {

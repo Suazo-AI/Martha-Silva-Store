@@ -1,0 +1,15 @@
+{
+  "observed_utc": "2026-11-04T02:56:31.935505+00:00",
+  "card": "C9",
+  "card_id": "6aea5de748c40007cf1f7eeb",
+  "action_id": "6aea9ede6cabb592fb095142",
+  "marker": "[SAVIA-C9-PROCEDURE-20261104]",
+  "comment": "[SAVIA-C9-PROCEDURE-20261104]\nProcedimiento C9 preparado: G0-G9, manifest de campos actuales, secuencia con S1 antes del backup y S2 despues, oraculos de restaurada, RTO SQL/servicio, RPO observado y retirada con propiedad.12/12 controles documentales PASS; cero SQL/conexiones/API/Docker/pruebas/runtime nuevos. No existe aun coordinador Windows; helper no ofrece backup/restore/timing. Reset soportado exige otro Owner vigente; ultimo Owner perdido sigue sin ruta soportada. Documento a publicar con union C6 autorizada: docs/c9-recovery-20261103/PROCEDURE.md. El unico siguiente paso recomendado sigue siendo autorizar preflight de lectura separado; no se marcaron checks de corrida ni se consumieron nombres historicos.",
+  "exact_readback": true,
+  "list_id": "6aea5d66e5b03a07af094570",
+  "closed": false,
+  "checklists_changed": false,
+  "list_changed": false,
+  "complete": 0,
+  "total": 5
+}

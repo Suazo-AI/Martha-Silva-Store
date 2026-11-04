@@ -138,3 +138,13 @@ El hook bloqueó dos TRX saneados por extensión: se excluyeron del índice sin 
 Se conservan sus originales, hashes y resultados JSON. El candidato combinará C8 y la corrección C6.
 El [preflight propuesto C9](c9-recovery-20261103/PREFLIGHT-SCOPE.md) concreta lecturas y límites;
 no está autorizado ni ejecutado.
+
+### Continuacion coordinada: union C6 autorizada y candidatos congelados
+
+Tony2ddf83de y PRb6bc0396 divergieron; no se forzo Git. Jason autorizo una union puntual y solo el nuevo SHA b6bc0396 en el importador; se conservan los 17 registros anteriores, filtros y recibo normal de la union. C6 combina cuerpo401 consumido con diagnostico y ausencia verificable de Chrome. 33/33 ligeras PASS; juez APTO CON REPAROS; CI combinado pendiente. [Detalle](c6-e2e-20261103/RECONCILIATION.md).
+
+C8: seis blobs, overlay71/71 e inventario48/48 comprobados por agente separado; cierre depende del mismo candidato CI. [Revision](c8-ui-20261103/PRE-CI-REVIEW.md).
+
+Se conserva el cierre C7 registrado por el otro hilo: Trello Hecho6/6 y excepcion durable aceptada, sin cambiar codigo ni seguridad. [Recibo del cierre](c7-closure-20261103/README.md). La nota historica5/6 queda desplazada por ese recibo.
+
+C9: [procedimiento](c9-recovery-20261103/PROCEDURE.md) y 12/12 controles documentales nuevos; cero SQL/conexiones/runtime. Gates G0-G9 pendientes de campos, preflight autorizado, coordinador Windows y corrida con ventas/RTO/RPO/retirada. [Alcance solo lectura propuesto](c9-recovery-20261103/PREFLIGHT-SCOPE.md). No se repitieron one-shots historicos.

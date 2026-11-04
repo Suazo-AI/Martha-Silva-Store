@@ -77,3 +77,7 @@ Esta continuación no fusiona a main ni despliega ni cambia seguridad.
 El [alcance propuesto de preflight C9](../c9-recovery-20261103/PREFLIGHT-SCOPE.md) queda sin autorizar ni ejecutar.
 
 Lección aplicada: el evento del navegador no basta; SQL debe confirmar el commit antes de permitir recuperación.
+
+## Union puntual C6 y validacion combinada pendiente
+
+Ver [RECONCILIATION.md](RECONCILIATION.md). Jason autorizo conservar 2ddf83de y b6bc0396 mediante una union con recibo y una excepcion limitada al unico SHA remoto nuevo. Resolucion revisada; 33/33 ligeras PASS. CI combinado y cierre de los 17 checks pendientes.

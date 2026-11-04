@@ -67,3 +67,7 @@ Primary verifica CI del SHA publicado, 600 casos backend, 45 casos de navegador,
 45 staff JS y C6 real contra la UI integrada.
 Después actualiza Trello con lectura exacta y conserva la aprobación formal pendiente donde corresponde.
 No se hace merge, despliegue, SQL local ni cambio de seguridad.
+
+## Comprobacion independiente previa al CI combinado
+
+[PRE-CI-REVIEW.md](PRE-CI-REVIEW.md) confirma los seis blobs C8 y 48/48 hashes de evidencia. La comparacion de 71 entradas usa el overlay esperado: 66 baseBlob intactos y cinco fuentes reemplazadas por candidateBlob C8. No afirma que las 71 conserven el blob de base tras importar el producto. API expiry 1/1 y seguridad 49/49 son evidencia local reutilizada. CI combinado de browser45/staff45/backend600 pendiente; no cerrar C8.

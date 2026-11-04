@@ -86,6 +86,20 @@ El permiso no admite un SHA adicional ni un merge sin recibo. El commit de unió
 y cualquier avance nuevo mantienen el recibo y todos los filtros habituales.
 Los resultados de aceptación siguen separados de esta excepción histórica.
 
+### Unión puntual de C6 autorizada el 2026-11-03
+
+Jason autorizó unir `2ddf83de7a89da608e8267a21313d64b373bf5e2` con
+`b6bc0396bb7d53359d23b806a3177edc194c8e62`, sin main ni reescritura.
+El único SHA adicional sin recibo permitido es `b6bc0396bb7d53359d23b806a3177edc194c8e62`.
+Su delta consume el cuerpo del 401 en la prueba C6; no cambia seguridad del producto.
+El manifiesto activo [pr2-b6bc0396.json](progress-imports/pr2-b6bc0396.json)
+conserva los 17 registros anteriores y añade árbol, padre y blob de ese único commit.
+El pin SHA256 de sus bytes LF es
+`b85fcdb199afa3d6acb3ee628796548bad4cf862c15b8c88973d63fc905b9dbe`.
+Los manifiestos anteriores permanecen congelados.
+Todos los filtros, el recibo del commit de unión y los recibos futuros siguen obligatorios.
+Esta excepción no permite otro SHA ni acredita aceptación C6 o C8.
+
 ## Desactivar y restaurar
 
 Para detener el push automático y conservar el registro:
