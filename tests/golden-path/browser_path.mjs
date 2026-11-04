@@ -257,7 +257,12 @@ try {
 
   await page.locator('[data-action="logout"]').click();
   await expect(page.locator('#login-submit')).toBeEnabled();
-  const meStatus = await page.evaluate(async () => (await fetch('/internal/api/security/me', {credentials: 'same-origin'})).status);
+  // Read the body too: an unread 401 body keeps the request open and networkidle never arrives.
+  const meStatus = await page.evaluate(async () => {
+    const response = await fetch('/internal/api/security/me', {credentials: 'same-origin'});
+    await response.arrayBuffer();
+    return response.status;
+  });
   check(meStatus === 401 && posts === 2, 'c6_logout_or_post_count');
   await checkpoint('browser.logout', {dom: ['logged_out']});
 } catch (error) {
