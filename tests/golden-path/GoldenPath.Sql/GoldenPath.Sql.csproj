@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Herramienta de prueba del camino dorado (C5): migrador EF real, sucursal sintética, oráculos SQL,
+       certificado TLS efímero y retiro de la base. No forma parte del producto ni se publica. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <IsPackable>false</IsPackable>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../../backend/src/Martha.Store.Api/Martha.Store.Api.csproj" />
+  </ItemGroup>
+</Project>

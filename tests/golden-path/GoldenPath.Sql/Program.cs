@@ -1,0 +1,211 @@
+// Herramienta del arnés del camino dorado (C5). Solo pruebas: nunca imprime la conexión, contraseñas ni mensajes
+// del servidor. Cada comando escribe una línea JSON en stdout con conteos y nombres; los errores salen como tipo/número.
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
+using System.Text.Json;
+using System.Text.RegularExpressions;
+using Martha.Store.Api.Internal;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
+
+try
+{
+    return args switch
+    {
+        ["cert", var dir] => Cert(dir),
+        ["create", var db] => await Create(db),
+        ["branch", var db, var id] => await Branch(db, Guid.Parse(id)),
+        ["oracles", var db] => await Oracles(db),
+        ["exists", var db] => await Exists(db),
+        ["drop", var db] => await Drop(db),
+        _ => Fail("usage", "cert <dir> | create|oracles|exists|drop <db> | branch <db> <guid>")
+    };
+}
+catch (Exception ex)
+{
+    // Messages may echo server names or values; report only the type and, for SQL, the error number.
+    return ex is Refusal refusal ? Fail("refused", refusal.Message)
+        : Fail(ex.GetType().Name, ex is SqlException sql ? $"sql_error_{sql.Number}" : "see_private_logs");
+}
+
+static int Fail(string error, string detail)
+{
+    Console.WriteLine(JsonSerializer.Serialize(new { ok = false, error, detail }));
+    return 1;
+}
+
+static int Ok(object value)
+{
+    Console.WriteLine(JsonSerializer.Serialize(value));
+    return 0;
+}
+
+// Stricter than the product guard (SaviaInternalTest_*): only names this harness generates.
+static string Guarded(string database)
+{
+    if (!Regex.IsMatch(database, @"\ASaviaInternalTest_Golden_[a-f0-9]{32}\z"))
+        throw new Refusal("database_name_not_golden_disposable");
+    return database;
+}
+
+static string Connection(string database)
+{
+    var supplied = Environment.GetEnvironmentVariable("MARTHA_TEST_SQL_CONNECTION");
+    if (string.IsNullOrWhiteSpace(supplied)) throw new Refusal("missing_MARTHA_TEST_SQL_CONNECTION");
+    var builder = new SqlConnectionStringBuilder(supplied)
+    { InitialCatalog = database, Pooling = false, MultipleActiveResultSets = false };
+    if (database != "master")
+    {
+        Guarded(database);
+        InternalDatabaseGuard.Validate(builder.ConnectionString); // Same guard the API applies.
+    }
+    return builder.ConnectionString;
+}
+
+static InternalDbContext Context(string database) => new(new DbContextOptionsBuilder<InternalDbContext>()
+    .UseSqlServer(Connection(database), sql => sql.CommandTimeout(60)).Options);
+
+static async Task<bool> DatabaseExists(string database)
+{
+    await using var connection = new SqlConnection(Connection("master"));
+    await connection.OpenAsync();
+    await using var command = connection.CreateCommand();
+    command.CommandText = "SELECT COUNT(*) FROM sys.databases WHERE name = @name";
+    command.Parameters.AddWithValue("@name", database);
+    return Convert.ToInt32(await command.ExecuteScalarAsync()) == 1;
+}
+
+static int Cert(string directory)
+{
+    Directory.CreateDirectory(directory);
+    using var key = ECDsa.Create(ECCurve.NamedCurves.nistP256);
+    var request = new CertificateRequest("CN=SAVIA golden path loopback (synthetic)", key, HashAlgorithmName.SHA256);
+    var san = new SubjectAlternativeNameBuilder();
+    san.AddIpAddress(System.Net.IPAddress.Loopback);
+    san.AddDnsName("localhost");
+    request.CertificateExtensions.Add(san.Build());
+    request.CertificateExtensions.Add(new X509BasicConstraintsExtension(false, false, 0, true));
+    request.CertificateExtensions.Add(new X509KeyUsageExtension(X509KeyUsageFlags.DigitalSignature, true));
+    request.CertificateExtensions.Add(new X509EnhancedKeyUsageExtension([new Oid("1.3.6.1.5.5.7.3.1")], false));
+    var now = DateTimeOffset.UtcNow;
+    using var certificate = request.CreateSelfSigned(now.AddMinutes(-5), now.AddDays(1));
+    var keyPath = Path.Combine(directory, "key.pem");
+    var certPath = Path.Combine(directory, "cert.pem");
+    // Create the key file private before writing any key material.
+    var options = new FileStreamOptions { Mode = FileMode.CreateNew, Access = FileAccess.Write };
+    if (!OperatingSystem.IsWindows()) options.UnixCreateMode = UnixFileMode.UserRead | UnixFileMode.UserWrite;
+    using (var stream = new FileStream(keyPath, options))
+    using (var writer = new StreamWriter(stream)) writer.Write(key.ExportPkcs8PrivateKeyPem());
+    File.WriteAllText(certPath, certificate.ExportCertificatePem());
+    return Ok(new { ok = true, cert = "cert.pem", sha256 = certificate.GetCertHashString(HashAlgorithmName.SHA256) });
+}
+
+static async Task<int> Create(string database)
+{
+    Guarded(database);
+    if (await DatabaseExists(database)) throw new Refusal("database_already_exists");
+    await using var db = Context(database);
+    // Release path: the real EF migrator (as PrivatePilotReleaseTests), never EnsureCreated.
+    var migrator = db.GetService<IMigrator>();
+    await migrator.MigrateAsync();
+    var applied = (await db.Database.GetAppliedMigrationsAsync()).ToArray();
+    var pending = (await db.Database.GetPendingMigrationsAsync()).ToArray();
+    var known = db.Database.GetMigrations().ToArray();
+    var staff = await db.InternalStaff.CountAsync();
+    return Ok(new { ok = pending.Length == 0 && applied.SequenceEqual(known) && staff == 0,
+        applied, pending = pending.Length, known = known.Length, staff, method = "IMigrator.MigrateAsync" });
+}
+
+static async Task<int> Branch(string database, Guid id)
+{
+    // No HTTP endpoint creates branches in this candidate; insert through the product's EF entity.
+    await using var db = Context(database);
+    if (await db.Set<InternalBranch>().AnyAsync()) throw new Refusal("branch_already_exists");
+    db.Set<InternalBranch>().Add(new InternalBranch { Id = id, Name = "SINTETICO Golden sucursal", Active = true });
+    await db.SaveChangesAsync();
+    return Ok(new { ok = true, branches = await db.Set<InternalBranch>().CountAsync() });
+}
+
+static async Task<int> Exists(string database)
+{
+    Guarded(database);
+    return Ok(new { ok = true, exists = await DatabaseExists(database) });
+}
+
+static async Task<int> Drop(string database)
+{
+    Guarded(database);
+    if (await DatabaseExists(database))
+    {
+        await using var connection = new SqlConnection(Connection("master"));
+        await connection.OpenAsync();
+        await using var command = connection.CreateCommand();
+        // Name already matched the strict generated pattern above; brackets are safe for [a-zA-Z0-9_].
+        command.CommandText = $"ALTER DATABASE [{database}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE; DROP DATABASE [{database}];";
+        command.CommandTimeout = 60;
+        await command.ExecuteNonQueryAsync();
+    }
+    var after = await DatabaseExists(database);
+    return Ok(new { ok = !after, existsAfter = after });
+}
+
+static async Task<int> Oracles(string database)
+{
+    await using var connection = new SqlConnection(Connection(database));
+    await connection.OpenAsync();
+    await using var command = connection.CreateCommand();
+    command.CommandTimeout = 60;
+    command.CommandText = """
+        SET NOCOUNT ON;
+        SELECT
+          (SELECT COUNT(*) FROM savia_internal.Sales) AS sales,
+          (SELECT COUNT(*) FROM savia_internal.SaleLines) AS sale_lines,
+          (SELECT COUNT(*) FROM savia_internal.StockMovements) AS movements,
+          (SELECT COUNT(*) FROM savia_internal.StockMovements WHERE Kind = 'sale') AS sale_movements,
+          (SELECT COUNT(*) FROM savia_internal.StockAdjustments) AS adjustments,
+          (SELECT COUNT(*) FROM savia_internal.SaleLines l
+             WHERE (SELECT COUNT(*) FROM savia_internal.StockMovements m
+                    WHERE m.OperationId = l.SaleId AND m.ItemId = l.ItemId AND m.Kind = 'sale') <> 1) AS lines_without_exactly_one_movement,
+          (SELECT COUNT(*) FROM savia_internal.StockMovements m
+             WHERE m.Kind = 'sale' AND NOT EXISTS (SELECT 1 FROM savia_internal.SaleLines l
+                    WHERE l.SaleId = m.OperationId AND l.ItemId = m.ItemId AND -m.OnHandDelta = l.Quantity)) AS sale_movements_not_matching_a_line,
+          (SELECT COUNT(*) FROM savia_internal.StockBalances b
+             WHERE b.OnHand <> ISNULL((SELECT SUM(m.OnHandDelta) FROM savia_internal.StockMovements m
+                                       WHERE m.ItemId = b.ItemId AND m.LocationId = b.LocationId), 0)
+                OR b.Reserved <> ISNULL((SELECT SUM(m.ReservedDelta) FROM savia_internal.StockMovements m
+                                       WHERE m.ItemId = b.ItemId AND m.LocationId = b.LocationId), 0)) AS balance_vs_movement_sum_mismatch,
+          (SELECT COUNT(*) FROM savia_internal.StockBalances b
+             WHERE EXISTS (SELECT 1 FROM savia_internal.StockMovements m WHERE m.ItemId = b.ItemId AND m.LocationId = b.LocationId)
+               AND b.OnHand <> (SELECT TOP 1 m.OnHandAfter FROM savia_internal.StockMovements m
+                                WHERE m.ItemId = b.ItemId AND m.LocationId = b.LocationId
+                                ORDER BY m.CreatedAt DESC, m.OnHandAfter)) AS balance_vs_last_movement_mismatch,
+          (SELECT COUNT(*) FROM savia_internal.StockBalances WHERE OnHand < 0 OR Reserved < 0 OR Reserved > OnHand) AS negative_or_invalid_stock,
+          (SELECT COUNT(*) FROM savia_internal.StockMovements WHERE OnHandAfter < 0 OR ReservedAfter < 0) AS negative_movement_after,
+          (SELECT COUNT(*) FROM (SELECT ActorId, Scope, [Key] FROM savia_internal.Operations
+                                 GROUP BY ActorId, Scope, [Key] HAVING COUNT(*) > 1) d) AS duplicate_idempotency_keys,
+          (SELECT COUNT(*) FROM savia_internal.Operations) AS operations,
+          (SELECT COUNT(*) FROM savia_internal.Operations WHERE Scope = 'commerce.sale.record') AS sale_operations,
+          (SELECT ISNULL(SUM(OnHand), 0) FROM savia_internal.StockBalances) AS on_hand_total,
+          (SELECT COUNT(*) FROM savia_internal.StockBalances) AS balances,
+          (SELECT COUNT(*) FROM savia_internal.Staff) AS staff,
+          (SELECT COUNT(*) FROM savia_internal.Staff WHERE Role <> 'Owner' AND BranchId IS NULL) AS unassigned_staff,
+          (SELECT COUNT(*) FROM savia_internal.Branches) AS branches,
+          (SELECT COUNT(*) FROM savia_internal.Locations) AS locations,
+          (SELECT COUNT(*) FROM savia_internal.Items) AS items,
+          (SELECT COUNT(*) FROM savia_internal.Items WHERE Sku NOT LIKE 'SINTETICO-GOLDEN-%') AS items_without_synthetic_marker,
+          (SELECT COUNT(*) FROM savia_internal.Sessions WHERE RevokedAt IS NULL AND ExpiresAt > SYSDATETIMEOFFSET()) AS active_sessions,
+          (SELECT COUNT(*) FROM savia_internal.Sessions s JOIN savia_internal.Staff st ON st.Id = s.StaffId
+             WHERE st.Role = 'Cashier' AND st.BranchId IS NOT NULL AND s.RevokedAt IS NULL AND s.ExpiresAt > SYSDATETIMEOFFSET()) AS cashier_active_sessions,
+          (SELECT COUNT(*) FROM dbo.__EFMigrationsHistory) AS migrations_applied;
+        """;
+    await using var reader = await command.ExecuteReaderAsync();
+    if (!await reader.ReadAsync()) throw new Refusal("no_oracle_row");
+    var result = new SortedDictionary<string, long>(StringComparer.Ordinal);
+    for (var i = 0; i < reader.FieldCount; i++) result[reader.GetName(i)] = Convert.ToInt64(reader.GetValue(i));
+    return Ok(new { ok = true, counts = result });
+}
+
+// Refusals carry only fixed codes written above, never server or request text.
+sealed class Refusal(string code) : Exception(code);
