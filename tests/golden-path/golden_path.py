@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Arnés del camino dorado (C5): API real + SQL Server desechable + oráculos SQL.
 
-Uso:  python3 tests/golden-path/golden_path.py --out DIR [--mode smoke|serve] [--no-build]
+Uso:  python3 tests/golden-path/golden_path.py --out DIR [--mode smoke|serve|browser] [--no-build]
 Requiere MARTHA_TEST_SQL_CONNECTION (servidor desechable; la base indicada se ignora).
 Solo biblioteca estándar de Python y el SDK .NET fijado en global.json. Linux/macOS (usa pty).
 
@@ -9,6 +9,7 @@ Nunca escribe en la salida ni en la evidencia: contraseñas, cookies, tokens CSR
 Ver tests/golden-path/README.md.
 """
 import argparse
+import base64
 import fcntl
 import hashlib
 import http.client
@@ -51,6 +52,75 @@ TABLE_COLUMNS = [('sales', 'ventas'), ('sale_operations', 'ops_venta'), ('moveme
                  ('sale_movements', 'movs_venta'), ('on_hand_total', 'existencia'),
                  ('balance_vs_movement_sum_mismatch', 'Σmov≠saldo'), ('negative_or_invalid_stock', 'negativos'),
                  ('duplicate_idempotency_keys', 'claves_dup'), ('active_sessions', 'sesiones')]
+BROWSER_SCRIPT = ROOT / 'tests/golden-path/browser_path.mjs'
+BROWSER_SOURCES = ['dev/savia-staff-ui/' + name for name in
+                   ('app.mjs', 'client.mjs', 'login.mjs', 'login.html', 'index.html', 'styles.css')]
+BROWSER_STEPS = ('browser.start', 'browser.cashier_login', 'browser.inventory',
+                 'browser.sale_confirmed', 'browser.receipt_reload', 'browser.stock_after_sale',
+                 'browser.response_loss_committed', 'browser.recover_after_reload',
+                 'browser.repeated_reload', 'browser.stock_after_recovery', 'browser.logout')
+BROWSER_READ_ONLY = ('sales', 'sale_lines', 'sale_movements', 'sale_operations',
+                     'movements', 'operations', 'on_hand_total')
+BROWSER_DOM = dict(zip(BROWSER_STEPS, (
+    {'login_ready'}, {'shell', 'cashier', 'sale_enabled'}, {'inventory', 'stock_current'},
+    {'receipt', 'sale_enabled'}, {'receipt', 'same_receipt', 'sale_enabled'}, {'inventory', 'stock_current'},
+    {'pending', 'pending_key_preserved'}, {'receipt', 'same_receipt', 'sale_enabled'},
+    {'receipt', 'same_receipt', 'sale_enabled'}, {'inventory', 'stock_current'}, {'logged_out'})))
+UUID_PATTERN = re.compile(r'\A[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\Z')
+
+
+def browser_checkpoint(event, expected_step, secrets_seen):
+    """An untrusted subprocess cannot add arbitrary strings to public evidence.
+
+    Secret values travel only through the private pipe and join the existing final scanner.
+    The rest of the protocol is an allowlist of fixed labels, counts, UUIDs and hashes.
+    """
+    def valid(condition):
+        expect(condition, 'browser_protocol_invalid')
+    valid(isinstance(event, dict) and set(event) == {'step', 'notes', 'secrets'})
+    valid(event['step'] == expected_step)
+    valid(isinstance(event['secrets'], list) and len(event['secrets']) <= 100)
+    valid(all(isinstance(value, str) and len(value) <= 8192 for value in event['secrets']))
+    secrets_seen.update(event['secrets'])
+    notes = event['notes']
+    allowed = {'dom', 'network', 'sale_posts', 'stock_total', 'stock_rows', 'quantity', 'total_minor',
+               'key', 'sale_id', 'runtime', 'source_hashes', 'external_requests', 'runtime_errors'}
+    valid(isinstance(notes, dict) and set(notes) <= allowed
+          and {'dom', 'network', 'sale_posts', 'external_requests', 'runtime_errors'} <= set(notes))
+    dom_labels = {'login_ready', 'shell', 'cashier', 'inventory', 'receipt', 'pending',
+                  'sale_enabled', 'pending_key_preserved', 'same_receipt', 'stock_current', 'logged_out'}
+    valid(isinstance(notes['dom'], list) and all(value in dom_labels for value in notes['dom'])
+          and BROWSER_DOM[expected_step] <= set(notes['dom']))
+    for key in ('sale_posts', 'stock_total', 'stock_rows', 'quantity', 'total_minor', 'external_requests', 'runtime_errors'):
+        if key in notes:
+            valid(type(notes[key]) is int and 0 <= notes[key] <= 100000)
+    for key in ('key', 'sale_id'):
+        if key in notes:
+            valid(isinstance(notes[key], str) and UUID_PATTERN.fullmatch(notes[key]) is not None)
+    if 'runtime' in notes:
+        valid(isinstance(notes['runtime'], dict) and set(notes['runtime']) == {'chrome', 'node', 'playwright'})
+        valid(all(isinstance(v, str) and re.fullmatch(r'[A-Za-z0-9 .()_/-]{1,120}', v)
+                  for v in notes['runtime'].values()))
+    if 'source_hashes' in notes:
+        valid(isinstance(notes['source_hashes'], dict) and set(notes['source_hashes']) == set(BROWSER_SOURCES))
+        valid(all(isinstance(v, str) and re.fullmatch(r'[a-f0-9]{64}', v) for v in notes['source_hashes'].values()))
+    paths = {'/internal/login', '/internal/', '/internal/app.mjs', '/internal/client.mjs',
+             '/internal/login.mjs', '/internal/styles.css', '/internal/api/security/csrf',
+             '/internal/api/security/login', '/internal/api/security/me', '/internal/api/security/logout',
+             '/internal/api/directory/items', '/internal/api/directory/locations',
+             '/internal/api/commerce/inventory', '/internal/api/commerce/sales',
+             '/internal/api/operations/commerce.sale.record'}
+    valid(isinstance(notes['network'], list) and len(notes['network']) <= 200)
+    for request in notes['network']:
+        valid(isinstance(request, dict) and set(request) == {'method', 'path', 'status', 'key', 'response_lost'})
+        valid(request['method'] in ('GET', 'POST'))
+        path = request['path']
+        valid(isinstance(path, str) and (path in paths or (path.startswith('/internal/api/commerce/sales/')
+              and UUID_PATTERN.fullmatch(path.rsplit('/', 1)[-1]) is not None)))
+        valid(request['status'] is None or (type(request['status']) is int and 100 <= request['status'] <= 599))
+        valid(type(request['response_lost']) is bool)
+        valid(request['key'] is None or (isinstance(request['key'], str) and UUID_PATTERN.fullmatch(request['key']) is not None))
+    return notes
 
 
 class HarnessError(Exception):
@@ -328,6 +398,9 @@ class GoldenPath:
         self.users = {}
         self.port = None
         self.previous = None
+        self.browser_process = None
+        self.browser_exit = None
+        self.browser_evidence = None
 
     # -- evidence ---------------------------------------------------------------------------
     def oracles(self):
@@ -365,7 +438,7 @@ class GoldenPath:
 
     def write_evidence(self, outcome, error=None):
         evidence = {
-            'harness': 'tests/golden-path/golden_path.py', 'card': 'C5', 'mode': self.args.mode,
+            'harness': 'tests/golden-path/golden_path.py', 'card': 'C6' if self.args.mode == 'browser' else 'C5', 'mode': self.args.mode,
             'outcome': outcome, 'error': error,
             'database_name': self.database,  # random disposable name; not a credential
             'migration_method': 'EF IMigrator.MigrateAsync (release migrator; not EnsureCreated)',
@@ -376,9 +449,12 @@ class GoldenPath:
             'roles': ROLES,
             'total_ms': round((time.monotonic() - self.started) * 1000),
             'steps': self.steps,
-            'not_proven': ['real browser/UI (C6)', 'Windows/SUAZO-PC', 'production TLS/proxy', 'payments',
+            'not_proven': ([] if self.args.mode == 'browser' else ['real browser/UI (C6)']) + ['Windows/SUAZO-PC', 'production TLS/proxy', 'payments',
                            'concurrency/load', 'backup/restore', 'idempotent release SQL script'],
         }
+        if self.args.mode == 'browser':
+            evidence['browser'] = self.browser_evidence
+            evidence['not_proven'] += ['mobile devices', 'visual acceptance', 'full accessibility audit']
         table = self.table()
         # Scan the exact UTF-8 bytes before making either public file available.
         # Private staging is outside --out, so always() artifact steps cannot collect it.
@@ -405,6 +481,28 @@ class GoldenPath:
             cells = [record['step'], record['status'], str(record.get('ms', ''))]
             cells += [str(counts.get(key, '–')) for key, _ in TABLE_COLUMNS]
             lines.append('| ' + ' | '.join(cells) + ' |')
+        if self.args.mode == 'browser' and self.browser_evidence:
+            browser = self.browser_evidence
+            lines += ['', '## C6: Chrome y eventos saneados', '',
+                      'Runtime: ' + json.dumps(browser.get('runtime', {}), sort_keys=True), '',
+                      'TLS: perfil privado; pin SPKI del certificado efímero; sin modificar almacenes.', '',
+                      '| fuente | SHA-256 |', '|---|---|']
+            for name, digest in browser['source_hashes'].items():
+                lines.append(f'| {name} | {digest} |')
+            lines += ['', '| paso | DOM comprobado | método/ruta/HTTP/clave |', '|---|---|---|']
+            for record in self.steps:
+                if not record['step'].startswith('browser.'):
+                    continue
+                requests = []
+                for request in record.get('network', []):
+                    label = f"{request['method']} {request['path']} HTTP {request['status']}"
+                    if request['key']:
+                        label += ' key=' + request['key']
+                    if request['response_lost']:
+                        label += ' (respuesta descartada tras commit)'
+                    requests.append(label)
+                lines.append('| ' + record['step'] + ' | ' + ', '.join(record.get('dom', []))
+                             + ' | ' + '<br>'.join(requests) + ' |')
         return '\n'.join(lines)
 
     def scan_for_secrets(self, skip=(), directory=None):
@@ -737,9 +835,167 @@ class GoldenPath:
                 raise HarnessError(f'la API terminó durante serve (código {self.api.returncode})')
             time.sleep(1)
 
+    def stop_browser(self):
+        """Stop only this run's process group, including Chrome descendants after Node failure."""
+        process = self.browser_process
+        if not process:
+            return self.browser_exit
+        # Node is its own session leader. Kill remaining Chrome children even if Node already exited.
+        try:
+            os.killpg(process.pid, signal.SIGTERM)
+        except ProcessLookupError:
+            pass
+        try:
+            process.wait(timeout=5)
+        except subprocess.TimeoutExpired:
+            pass
+        try:
+            os.killpg(process.pid, signal.SIGKILL)
+        except ProcessLookupError:
+            pass
+        process.wait(timeout=5)
+        for pipe in (process.stdin, process.stdout):
+            if pipe:
+                pipe.close()
+        self.browser_exit = process.returncode
+        self.browser_process = None
+        return self.browser_exit
+
+    def browser(self):
+        """Chrome UI actions, private checkpoint pipe, existing SQL oracle after every action."""
+        node, openssl = shutil.which('node'), shutil.which('openssl')
+        package = Path(self.args.playwright_directory).resolve()
+        expect(node and openssl, 'browser_requires_existing_node_and_openssl')
+        expect((package / 'index.mjs').is_file() and (package / 'package.json').is_file(),
+               'browser_requires_existing_playwright_directory')
+        # Chrome trusts this ephemeral public key only in its fresh, private profile.
+        # No machine trust store mutation, ignoreHTTPSErrors or blanket TLS bypass.
+        public_key = subprocess.run([openssl, 'x509', '-in', str(self.out / 'cert.pem'), '-pubkey', '-noout'],
+                                    check=True, capture_output=True).stdout
+        der = subprocess.run([openssl, 'pkey', '-pubin', '-outform', 'DER'], input=public_key,
+                             check=True, capture_output=True).stdout
+        pin = base64.b64encode(hashlib.sha256(der).digest()).decode('ascii')
+        source_hashes = {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest() for name in BROWSER_SOURCES}
+        self.browser_evidence = {
+            'transport': 'Chrome HTTPS to real API; CDP discards a committed HTTP 200 response once',
+            'tls': 'isolated Chrome profile; ephemeral certificate SPKI allowlist; no trust store changes',
+            'tls_spki_sha256': pin,
+            'source_hashes': {**source_hashes,
+                              'tests/golden-path/golden_path.py': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+                              'tests/golden-path/browser_path.mjs': hashlib.sha256(BROWSER_SCRIPT.read_bytes()).hexdigest(),
+                              'backend/src/Martha.Store.Api/bin/Release/net10.0/Martha.Store.Api.dll': hashlib.sha256(self.api_dll.read_bytes()).hexdigest()},
+            'raw_trace_or_har_recorded': False,
+        }
+        config = {'base_url': self.base_url, 'profile': str(self.private / 'chrome-profile'), 'spki': pin,
+                  'playwright_directory': str(package), 'source_hashes': source_hashes,
+                  'cashier': self.users['Cashier'], 'location_id': self.ids['location'],
+                  'item_id': self.ids['items'][0], 'sku': ITEMS[0][0], 'unit_price_minor': ITEMS[0][2]}
+        process = subprocess.Popen([node, str(BROWSER_SCRIPT)], cwd=ROOT, env=child_env(),
+                                   stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL,
+                                   start_new_session=True)
+        self.browser_process = process
+        deadline = time.monotonic() + 300
+        buffered = b''
+        observed_posts, sale_keys, sale_ids = 0, [], []
+
+        def send(value):
+            process.stdin.write((json.dumps(value) + '\n').encode('utf-8'))
+            process.stdin.flush()
+
+        def receive():
+            nonlocal buffered
+            while b'\n' not in buffered:
+                remaining = deadline - time.monotonic()
+                expect(remaining > 0, 'browser_timeout')
+                ready, _, _ = select.select([process.stdout], [], [], min(remaining, 1))
+                if not ready:
+                    expect(process.poll() is None, 'browser_exited_before_checkpoint')
+                    continue
+                chunk = os.read(process.stdout.fileno(), 65536)
+                expect(chunk, 'browser_checkpoint_eof')
+                buffered += chunk
+                expect(len(buffered) <= 262144, 'browser_protocol_oversize')
+            line, buffered = buffered.split(b'\n', 1)
+            try:
+                event = json.loads(line)
+            except (ValueError, UnicodeError):
+                raise HarnessError('browser_protocol_invalid') from None
+            if isinstance(event, dict) and set(event) == {'error'}:
+                # The child emits only its own fixed c6_* codes; raw exceptions stay private.
+                code = event['error']
+                allowed_errors = {'c6_config_missing', 'c6_origin_or_pin_invalid', 'c6_local_source_mismatch',
+                                  'c6_browser_runtime_guard', 'c6_sql_checkpoint_refused', 'c6_server_receipt_invalid',
+                                  'c6_confirmed_storage_invalid', 'c6_dom_stock_invalid', 'c6_receipt_reload_http',
+                                  'c6_recovery_not_completed', 'c6_served_source_mismatch', 'c6_session_cookie_flags',
+                                  'c6_sale_http', 'c6_loss_interception_failed', 'c6_pending_key_lost',
+                                  'c6_recovery_key_or_post_count', 'c6_logout_or_post_count', 'c6_browser_failed'}
+                raise HarnessError(code if code in allowed_errors else 'browser_protocol_invalid')
+            return event
+
+        try:
+            send(config)
+            for name in BROWSER_STEPS:
+                sale_count = 2 if BROWSER_STEPS.index(name) >= BROWSER_STEPS.index('browser.response_loss_committed') else (
+                    1 if BROWSER_STEPS.index(name) >= BROWSER_STEPS.index('browser.sale_confirmed') else 0)
+                expected = {'sales': sale_count, 'sale_lines': sale_count, 'sale_movements': sale_count,
+                            'sale_operations': sale_count, 'movements': len(ITEMS) + sale_count,
+                            'on_hand_total': 30 - (0 if sale_count == 0 else 2 if sale_count == 1 else 3),
+                            'active_sessions': 0 if name in ('browser.start', 'browser.logout') else 1}
+                read_only = name in ('browser.receipt_reload', 'browser.stock_after_sale', 'browser.recover_after_reload',
+                                    'browser.repeated_reload', 'browser.stock_after_recovery', 'browser.logout')
+                def checkpoint(name=name, sale_count=sale_count):
+                    nonlocal observed_posts
+                    event = receive()
+                    notes = browser_checkpoint(event, name, self.secrets_seen)
+                    expect(notes['sale_posts'] == sale_count, 'browser_sale_post_count_mismatch')
+                    if name == 'browser.start':
+                        expect(notes.get('source_hashes') == source_hashes, 'browser_served_source_hash_mismatch')
+                        expect('runtime' in notes, 'browser_runtime_missing')
+                        self.browser_evidence['runtime'] = notes['runtime']
+                    if name == 'browser.cashier_login':
+                        expect(notes.get('source_hashes') == source_hashes, 'browser_served_source_hash_mismatch')
+                    sale_requests = [request for request in notes['network']
+                                     if request['method'] == 'POST' and request['path'] == '/internal/api/commerce/sales']
+                    observed_posts += len(sale_requests)
+                    expect(observed_posts == sale_count, 'browser_observed_sale_post_count_mismatch')
+                    if name in ('browser.sale_confirmed', 'browser.response_loss_committed'):
+                        quantity = 2 if name == 'browser.sale_confirmed' else 1
+                        expect(len(sale_requests) == 1 and sale_requests[0]['status'] == 200
+                               and sale_requests[0]['response_lost'] == (quantity == 1)
+                               and sale_requests[0]['key'] == notes.get('key')
+                               and notes.get('quantity') == quantity and notes.get('total_minor') == ITEMS[0][2] * quantity
+                               and 'sale_id' in notes and notes.get('key') not in sale_keys and notes['sale_id'] not in sale_ids,
+                               'browser_sale_commit_evidence_invalid')
+                        sale_keys.append(notes['key'])
+                        sale_ids.append(notes['sale_id'])
+                    if name in ('browser.receipt_reload', 'browser.recover_after_reload', 'browser.repeated_reload'):
+                        expect(notes.get('sale_id') == sale_ids[-1], 'browser_reloaded_different_receipt')
+                    if name == 'browser.recover_after_reload':
+                        expect(notes.get('key') == sale_keys[-1] and any(
+                            request['method'] == 'GET' and request['path'] == '/internal/api/operations/commerce.sale.record'
+                            and request['key'] == sale_keys[-1] and request['status'] == 200 for request in notes['network']),
+                            'browser_recovery_key_evidence_invalid')
+                    if name in ('browser.inventory', 'browser.stock_after_sale', 'browser.stock_after_recovery'):
+                        expect(notes.get('stock_rows') == len(ITEMS) and notes.get('stock_total') == expected['on_hand_total'],
+                               'browser_stock_evidence_invalid')
+                    expect(notes.get('external_requests', 0) == 0 and notes.get('runtime_errors', 0) == 0,
+                           'browser_external_request_or_runtime_error')
+                    return notes
+                self.step(name, checkpoint, expected, same_as_previous=BROWSER_READ_ONLY if read_only else ())
+                send({'ok': True})  # Never advance UI until the corresponding real SQL check passed.
+            expect(process.wait(timeout=max(1, min(20, deadline - time.monotonic()))) == 0,
+                   'browser_process_failed')
+            expect(not buffered, 'browser_unexpected_trailing_output')
+            extra = process.stdout.read(1)
+            expect(not extra, 'browser_unexpected_trailing_output')
+        finally:
+            self.stop_browser()
+
     def teardown(self):
         records = {}
         began = time.monotonic()
+        if self.browser_process or self.browser_exit is not None:
+            records['browser_exit'] = self.stop_browser()
         records['api_exit'] = self.stop_api() if self.api else None
         if self.drop_needed:
             dropped = self.helper('drop', self.database, allow_fail=True)
@@ -787,12 +1043,15 @@ def load_connection(path):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('--out', required=True, help='directorio de evidencia saneada')
-    parser.add_argument('--mode', choices=['smoke', 'serve'], default='smoke')
+    parser.add_argument('--mode', choices=['smoke', 'serve', 'browser'], default='smoke')
+    parser.add_argument('--playwright-directory', help='paquete Playwright ya instalado; obligatorio para --mode browser')
     parser.add_argument('--no-build', action='store_true', help='usar binarios Release ya compilados')
     parser.add_argument('--sql-env-file', help='archivo privado con MARTHA_TEST_SQL_CONNECTION=… (no se imprime)')
     parser.add_argument('--keep-private-log', help='copiar el log crudo de la API (0600) a esta ruta FUERA de --out')
     parser.add_argument('--database', help=argparse.SUPPRESS)  # only to test the refusal guard
     args = parser.parse_args(argv)
+    if args.mode == 'browser' and not args.playwright_directory:
+        parser.error('--mode browser requiere --playwright-directory (no instala dependencias)')
     if args.keep_private_log and Path(args.keep_private_log).resolve().is_relative_to(Path(args.out).resolve()):
         parser.error('--keep-private-log debe quedar fuera de --out (el log crudo no es evidencia saneada)')
     if args.sql_env_file:
@@ -803,8 +1062,8 @@ def main(argv=None):
     outcome, error, code = 'FAIL', None, 1
     try:
         harness.setup()
-        if args.mode == 'smoke':
-            harness.smoke()
+        if args.mode in ('smoke', 'browser'):
+            harness.smoke() if args.mode == 'smoke' else harness.browser()
             outcome, code = 'PASS', 0
         else:
             harness.serve()

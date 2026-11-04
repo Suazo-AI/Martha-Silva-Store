@@ -1,8 +1,8 @@
 name: SAVIA golden path
 
-# C5 golden path: the real API process over HTTPS on loopback, internal schema applied by the EF release
-# migrator on a disposable SQL Server, synthetic identities, one idempotent cashier sale and SQL oracles
-# after every step. Builds and tests only; no deploy, no secrets, no accounts outside the throwaway database.
+# C5 API smoke and C6 Chrome path use the real API over loopback HTTPS and disposable SQL.
+# C6 checks SQL after browser steps, including a committed sale whose response is lost and recovered.
+# Synthetic data only; no deploy or accounts outside the throwaway databases.
 on:
   pull_request:
     branches: [main]
@@ -35,7 +35,9 @@ jobs:
         with:
           persist-credentials: false
       - name: Evidence and cleanup failure regressions (stdlib only)
-        run: python3 tests/test_golden_path_safety.py
+        run: |
+          python3 tests/test_golden_path_safety.py
+          python3 tests/test_golden_path_browser_safety.py
       - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
           dotnet-version: '10.0.402'
@@ -43,6 +45,19 @@ jobs:
         run: |
           dotnet restore tests/golden-path/GoldenPath.Sql --locked-mode
           dotnet build tests/golden-path/GoldenPath.Sql --no-restore --configuration Release
+      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.0.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Prepare pinned browser driver without changing the runner trust store
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/c6-playwright"
+          cd "$RUNNER_TEMP/c6-playwright"
+          npm init -y > /dev/null
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm install --no-audit --no-fund --ignore-scripts playwright@1.63.0
+          google-chrome --version
       - name: Start disposable SQL Server 2022 Developer
         shell: bash
         run: |
@@ -79,6 +94,14 @@ jobs:
           : "${MARTHA_TEST_SQL_CONNECTION:?The golden path must not silently skip}"
           # stdin is not a terminal here; the harness gives the Owner console its own private pty.
           python3 tests/golden-path/golden_path.py --no-build --out "$RUNNER_TEMP/golden-evidence" < /dev/null
+      - name: C6 Chrome to real API to SQL, including lost-response recovery without a second sale
+        shell: bash
+        run: |
+          set -euo pipefail
+          : "${MARTHA_TEST_SQL_CONNECTION:?C6 must not silently skip}"
+          python3 tests/golden-path/golden_path.py --mode browser --no-build \
+            --playwright-directory "$RUNNER_TEMP/c6-playwright/node_modules/playwright" \
+            --out "$RUNNER_TEMP/c6-evidence" < /dev/null
       - name: Verify exact evidence bytes before publication
         id: evidence_safety
         if: ${{ always() }}
@@ -103,6 +126,30 @@ jobs:
             ${{ runner.temp }}/golden-approved/oracles.md
           if-no-files-found: error
           retention-days: 7
+      - name: Verify exact C6 evidence bytes before publication
+        id: browser_evidence_safety
+        if: ${{ always() }}
+        shell: bash
+        run: |
+          python3 tests/golden-path/verify_evidence.py --source "$RUNNER_TEMP/c6-evidence" \
+            --destination "$RUNNER_TEMP/c6-approved"
+      - name: Publish the C6 browser checkpoints and SQL oracle table
+        if: ${{ always() && steps.browser_evidence_safety.outcome == 'success' }}
+        shell: bash
+        run: |
+          if [ -f "$RUNNER_TEMP/c6-approved/oracles.md" ]; then
+            { echo '### SAVIA C6: real browser and SQL checkpoints'; echo; cat "$RUNNER_TEMP/c6-approved/oracles.md"; } >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Upload sanitized C6 browser trace and SQL evidence only
+        if: ${{ always() && steps.browser_evidence_safety.outcome == 'success' }}
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        with:
+          name: savia-browser-path-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/c6-approved/evidence.json
+            ${{ runner.temp }}/c6-approved/oracles.md
+          if-no-files-found: error
+          retention-days: 7
       - name: Always destroy the disposable SQL container
         if: ${{ always() }}
         shell: bash
@@ -113,6 +160,9 @@ jobs:
           fi
           rm -rf "$RUNNER_TEMP/golden-evidence"
           rm -rf "$RUNNER_TEMP/golden-approved"
+          rm -rf "$RUNNER_TEMP/c6-evidence"
+          rm -rf "$RUNNER_TEMP/c6-approved"
+          rm -rf "$RUNNER_TEMP/c6-playwright"
           remaining="$(docker container ls --all --filter "name=^/${SQL_CONTAINER}$" --format '{{.Names}}')"
           if [ -n "$remaining" ]; then
             echo '::error::Disposable SQL container remains after teardown.'

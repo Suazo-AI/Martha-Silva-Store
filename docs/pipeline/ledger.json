@@ -165,7 +165,7 @@
       "order": 8,
       "track": "sprint",
       "owner": "denis",
-      "status": "todo",
+      "status": "doing",
       "blocked_by": [
         "C5"
       ],
@@ -173,10 +173,16 @@
       "why": "La caja usa un navegador; solo el navegador prueba recarga, pérdida de respuesta y recuperación reales",
       "done_when": "Corre en el CI del PR con trazas como artefacto y oráculos SQL tras cada paso",
       "needs": {
-        "tool": "Playwright 1.63 + `golden_path.py --mode serve` (deja API+SQL arriba, credenciales sintéticas en session.json 0600)"
+        "tool": "Chrome + Playwright 1.63.0 + golden_path.py --mode browser (protocolo privado; oraculos SQL antes de avanzar)"
       },
       "trello": "https://trello.com/c/ezVfv0Pk",
-      "prep": "Tony/Codex preparó 2 casos y oráculos por paso, NOT RUN; Trello C6 2026-11-03"
+      "prep": "Implementado en worktree aislado sobre 260b759; 29/29 checks ligeros PASS. Integrado sobre 9b35697. Chrome/API/SQL real y juez independiente pendientes; no cerrado.",
+      "paths": [
+        "tests/golden-path/*",
+        "tests/test_golden_path_browser_safety.py",
+        ".github/workflows/golden-path.yml"
+      ],
+      "report": "docs/c6-e2e-20261103/README.md"
     },
     {
       "id": "C7",
@@ -217,7 +223,7 @@
       "order": 11,
       "track": "sprint",
       "owner": "denis",
-      "status": "todo",
+      "status": "blocked",
       "blocked_by": [
         "C4"
       ],
@@ -225,13 +231,17 @@
       "why": "Sin restauración probada y medida, una falla del equipo de la tienda pierde ventas",
       "done_when": "BACKUP WITH CHECKSUM, RESTORE VERIFYONLY, restauración como base nueva con oráculos; RTO y RPO medidos; recuperación Owner documentada",
       "needs": {
-        "tool": "SQL Server del entorno real (SUAZO-PC) para medir RTO"
+        "tool": "SQL Server del entorno real (SUAZO-PC) para medir RTO",
+        "decision": "Autorizar solo el preflight C9 acotado tras revisar el informe; cualquier mutacion o grant requiere alcance explicito.",
+        "decider": "jason"
       },
       "trello": "https://trello.com/c/vVQVt9Qo",
       "paths": [
         "tests/sql/*"
       ],
-      "prep": "Tony/Codex: borrador de recuperación Owner por otro Owner vigente (documental, sin ejecución); Trello C9 2026-11-03"
+      "prep": "23 fuentes revisadas; cero SQL/API/Docker nuevos. Backup/VERIFYONLY/restore de CI existente no mide recuperacion con ventas ni RTO SUAZO-PC. Reutiliza borrador Owner; ultimo Owner perdido sin recuperacion implementada.",
+      "blocker": "Preparacion documental lista; falta alcance nuevo de diagnostico SQL y corrida sintetica Windows. Faltan rutas/permisos/TLS actuales, coordinador C9, oraculos sobre restaurada y medicion RTO/RPO. No repetir one-shots historicos.",
+      "report": "docs/c9-recovery-20261103/PREPARATION.md"
     },
     {
       "id": "C10",

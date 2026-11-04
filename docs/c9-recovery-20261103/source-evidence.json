@@ -1,0 +1,203 @@
+{
+  "task": "C9-preparation-20261103",
+  "observed_utc": "2026-11-04T01:48:28.155016+00:00",
+  "host": "SUAZO-PC",
+  "configured_worker_model": "gpt-6.1-sol",
+  "configured_reasoning": "xhigh",
+  "canonical_git_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+  "report_sha256": "5a577ca35c45c31f0252395eb4b63445c08f2b1d0573597eed72ca15ead0f950",
+  "report_bytes": 26049,
+  "verification": {
+    "report_exists": true,
+    "markdown_fences_paired": true,
+    "scope_pending_explicit": true,
+    "fixed_sha_present": true,
+    "c9_not_complete": true,
+    "blocker_table_present": true,
+    "owner_draft_reference_present": true,
+    "no_new_sql_claim": true,
+    "synthetic_names_match_product_and_helper": true,
+    "rto_service_includes_final_oracles": true,
+    "supported_new_process_rebind_defined": true,
+    "rpo_uses_post_backup_operation": true,
+    "missing_fields_and_authorization_explicit": true,
+    "proposed_database_names_both_guarded": true
+  },
+  "sources": [
+    {
+      "path": "AGENTS.md",
+      "kind": "git_blob",
+      "git_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "sha256": "25b8d53e514543e8912b0781b08e00253b629ff63f5bcad7772c2acc15c6b0d3",
+      "lines": 43
+    },
+    {
+      "path": "docs/AGENT-START.md",
+      "kind": "git_blob",
+      "git_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "sha256": "1d27f746b85cc3535e62317ac4154900d3bebeaeb514c1d405ecda4e27edc241",
+      "lines": 72
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "kind": "git_blob",
+      "git_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "sha256": "7f5ddedde00e9bbe3e1c01f0a6e34c0b6536a0fec795035467510ae57524878b",
+      "lines": 80
+    },
+    {
+      "path": "docs/DATABASE.md",
+      "kind": "git_blob",
+      "git_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "sha256": "bec8f69879194b12cb2044af2791e97d392ee5cc9c9bbe51b05bf689a98c95c7",
+      "lines": 56
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "kind": "git_blob",
+      "git_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "sha256": "3063e061f72f8b65d81b220c8936291962ba7ac8ab70731b56e015a765d159f2",
+      "lines": 624
+    },
+    {
+      "path": "docs/sprint-20261104/C4-C7.md",
+      "kind": "git_blob",
+      "git_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "sha256": "51c4638d824efd89af28408e62e176c24cfd6073ca0f966d1127743c7d85b924",
+      "lines": 155
+    },
+    {
+      "path": "docs/savia-internal/OWNER-BOOTSTRAP.md",
+      "kind": "git_blob",
+      "git_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "sha256": "94cc166764c253502fb6313b6cd16f7225fb3f8a1e20591736d943e9b1ee01d0",
+      "lines": 114
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs",
+      "kind": "git_blob",
+      "git_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "sha256": "0cc927b7f9196960569bd9b2356a6b7506804b0a4843af5546bd962bb0cb7bab",
+      "lines": 166
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalHosting.cs",
+      "kind": "git_blob",
+      "git_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "sha256": "8ce552f5c0c35e8d00fa7ddcf9feae170d6882ff6a1f9520a68bd7deb3675590",
+      "lines": 78
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalOwnerConsole.cs",
+      "kind": "git_blob",
+      "git_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "sha256": "09fca7e70d4ed56347c8ab4eb1bbfcace418c1a436c96690a2f54be21084ba05",
+      "lines": 220
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurity.cs",
+      "kind": "git_blob",
+      "git_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "sha256": "52b35a34eba3b8170d31d620832202f14c71cd1b2ba654c8b4061dea88c0fc3d",
+      "lines": 169
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurityService.cs",
+      "kind": "git_blob",
+      "git_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "sha256": "5a25800064ec476bd49cb0ff9c4e1ff0c72b77f9baa3ce7a7b458350aab427fb",
+      "lines": 204
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurityRules.cs",
+      "kind": "git_blob",
+      "git_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "sha256": "6d359d1309e6ca73c7cd229766f75385bf8cf27f55a78c12e141e47e0e076f32",
+      "lines": 89
+    },
+    {
+      "path": "tests/golden-path/README.md",
+      "kind": "git_blob",
+      "git_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "sha256": "5feabc255b1cfb8454efca2275c4fb92a4a038afa5b7f006cf26b65c02f45a75",
+      "lines": 100
+    },
+    {
+      "path": "tests/golden-path/GoldenPath.Sql/Program.cs",
+      "kind": "git_blob",
+      "git_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "sha256": "73dace52d407545267b7b9214b9a80f39d8c01e92633b52ec553744c2894b157",
+      "lines": 211
+    },
+    {
+      "path": "tests/golden-path/golden_path.py",
+      "kind": "git_blob",
+      "git_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "sha256": "ac3c20e6f79afa8bc596e4a216f8015258473938097aabeb74ef663218bb2c21",
+      "lines": 856
+    },
+    {
+      "path": "global.json",
+      "kind": "git_blob",
+      "git_sha": "260b75951729189d987ffe423218ab1643bcfa3c",
+      "sha256": "3f9b8063fdc946bf82db965d9a228d4ea581390f83680ee3b952fb0ec00b2cf3",
+      "lines": 1
+    },
+    {
+      "path": "docs/savia-internal/sql-local-20261031/CURRENT.md",
+      "kind": "historical_local_not_committed",
+      "sha256": "82ce6566b0fd64a9191d1d865e974eb981debd2d32cd0f49ac2628ad73dfbeaf",
+      "lines": 33,
+      "raw_copy_excluded": true
+    },
+    {
+      "path": "docs/savia-internal/sql-local-20261031/LocalRestoreProof.cs",
+      "kind": "historical_local_not_committed",
+      "sha256": "d90360bb2e7b6239d09e879828d14855086ac818d3a96ed1d4a7a8a453099b6e",
+      "lines": 48,
+      "raw_copy_excluded": true
+    },
+    {
+      "path": "docs/savia-internal/sql-local-20261031/restore-proof.json",
+      "kind": "historical_local_not_committed",
+      "sha256": "cbc809140dae75de1d2dc44489a77d72536b9bf468ed2c98a0f9c58a448619da",
+      "lines": 30,
+      "raw_copy_excluded": true
+    },
+    {
+      "path": "docs/savia-internal/sql-local-20261031/sql-readback.sanitized.json",
+      "kind": "historical_local_not_committed",
+      "sha256": "5a6aa5c119bd5c7111392a862a2139c92b2989b3c76ac8e10e4ba8fc78efb42e",
+      "lines": 380,
+      "raw_copy_excluded": true
+    },
+    {
+      "path": "docs/savia-internal/sql-local-20261031/api-permissions.json",
+      "kind": "historical_local_not_committed",
+      "sha256": "d68395f8db59d079b50797d91b388359db873ce1f47a6d010cf23e93f7c5bcfe",
+      "lines": 22,
+      "raw_copy_excluded": true
+    },
+    {
+      "path": "docs/savia-internal/sql-local-20261031/api-only-persistence-proof.json",
+      "kind": "historical_local_not_committed",
+      "sha256": "5ddb5b71f6037161c23de6f1077dbfc726307111548454bb94d90a240ccf8330",
+      "lines": 69,
+      "raw_copy_excluded": true
+    }
+  ],
+  "external_evidence_supplied_by_primary_not_retrieved": {
+    "owner_draft_url": "https://denis-projects-group.slack.com/files/U0CC17GNJA0/F0CELEANZ8E/c9-owner-recovery-draft.md",
+    "owner_draft_sha256": "fee62423f69fd7946e6923f594ce8ae5d5f0a448e05049cef274f03a031e6a12",
+    "owner_draft_verdict": "ACCEPT_DOCUMENTARY_DRAFT_ONLY"
+  },
+  "exclusions": [
+    "SQL connections/queries",
+    "runtime/API execution",
+    "Docker/services/security changes",
+    "raw historical files",
+    "databases/backups/certificates/secrets/sessions",
+    "canonical repository mutations",
+    "commits/push/external messages"
+  ]
+}

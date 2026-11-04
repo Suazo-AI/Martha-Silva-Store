@@ -86,3 +86,22 @@ con readback de ausencia de los dos contenedores. El merge ref probado tiene
 un árbol idéntico al candidato. Los siete TONY-* siguen review.
 El informe final debe conservar su propio SHA/CI; véase
 [CI saneado](fix-pr2-denis-20261104/ci-reconciled.json).
+
+## Continuación C6, C8 y C9 — 2026-11-03 local / 2026-11-04 UTC
+
+El CI inicial de PR2 en `260b759` tenía 12 PASS, 0 FAIL y 3 SKIP configurados.
+FIX-PR2 publicó su cierre en `9b35697`; se verificaron SYNCED y ambas ramas antes de tomar Tony.
+Se conservan ese commit y las carpetas ajenas sin seguimiento.
+
+C6 añade Chrome contra API HTTPS y SQL real, con oráculos antes de permitir cada checkpoint siguiente.
+La pérdida de respuesta se inyecta después de recibir el HTTP 200 real de una venta comprometida.
+La recuperación exige la misma clave y recibo, cero POST adicionales y stock 27 desde 30 tras las dos ventas.
+Las 29/29 comprobaciones ligeras pasan; **corrida real y revisión independiente pendientes**.
+El workflow conserva el smoke C5 y publica solo evidencia saneada.
+Véase [informe C6](c6-e2e-20261103/README.md).
+
+C8 conserva su ejecutor y evidencia local; su parche todavía requiere integración y CI del candidato.
+C9 terminó la [preparación documental](c9-recovery-20261103/PREPARATION.md), con cero SQL/API/Docker nuevos.
+Faltan preflight autorizado, rutas/permisos/TLS actuales, oráculos en restaurada y RTO/RPO medidos en SUAZO-PC.
+El backup/restore Linux ya existente no cierra esa brecha. No se repiten one-shots históricos.
+No se fusiona a main, despliega ni cambia seguridad.
