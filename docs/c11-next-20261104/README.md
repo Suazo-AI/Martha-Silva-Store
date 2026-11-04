@@ -33,7 +33,7 @@ Las filas originales A permanecen iguales y su operación sigue siendo única.
 | --- | --- |
 | Backend HTTP+SQL | [601/601 PASS](ci-53dd23b5/savia/savia-backend-outcomes-41774927960-1/sanitized-results.json), 0 failed/skipped; nuevo método N5 1/1. Los 257 métodos anteriores conservan sus 600 casos. Reinicio controlado 1/1. |
 | Staff unit | 45/45, 0 failed/skipped, leído en el log del job 126392957018. |
-| Chromium con API staff simulada | [45/45 PASS](ci-53dd23b5/savia/savia-browser-evidence-41774927960-1/browser-results.json); 0 errores runtime y solicitudes externas. Nueve fallos de red corresponden a pérdidas/cancelaciones inyectadas. |
+| Chromium con API staff simulada | [45/45 PASS](ci-53dd23b5/savia/savia-browser-evidence-41774927960-1/browser-results.json); 0 errores runtime y solicitudes externas. Se observan 9 fallos de red: 7 en ventas con aborto deliberado y 2 cancelaciones de logout; el artefacto no clasifica individualmente su causa. |
 | Golden API+SQL | [19/19 pasos](ci-53dd23b5/golden/savia-golden-path-41774928044-1/evidence.json), 18 capturas SQL y 0 fallos de oráculo. |
 | C6 navegador→API→SQL | [21/21 pasos](ci-53dd23b5/golden/savia-browser-path-41774928044-1/evidence.json), 20 capturas SQL y 0 fallos de oráculo. |
 
