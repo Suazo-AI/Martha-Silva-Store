@@ -135,3 +135,57 @@ Responsable: integrador en SUAZO-PC. Los 33 archivos ajenos permanecen fuera del
 Integración al corte de esta reconciliación: **75%**, 3/4 hitos; falta el mismo SHA
 final en ambos remotos. Validación: **80%**, 4/5; falta CI completo de ese SHA final.
 Los siete hallazgos `TONY-*` permanecen en `review`.
+
+## Resultado del SHA reconciliado
+
+El commit `260b75951729189d987ffe423218ab1643bcfa3c` conserva ambos padres
+publicados y quedó **SYNCED** en Tony y la rama fuente de PR2, sin force-push.
+Los nueve workflows aplicables terminaron en success para ese mismo head.
+Véanse [publicación](reconciliation-publication.json), [CI y oráculos](ci-reconciled.json)
+y [lectura de los comentarios publicados](digest-publication.json).
+
+Golden pasó **19/19**. El backend pasó **599/599**, cero FAIL y SKIP;
+el reinicio controlado del contenedor conservó el fixture, **1/1**.
+La venta, replay, conflicto 409 y recuperación dejaron exactamente una venta,
+una línea, un movimiento y una operación de venta, con stock total 28.
+La base se retiró, el directorio privado se eliminó, API salió con código 0
+y ambos jobs confirmaron la ausencia de sus contenedores después de eliminarlos.
+La publicación del resumen y de los artefactos saneados pasó.
+
+El checkout real de ambos jobs SQL fue
+`ec671f4331267c8a0419b38d6c36a31e78f1be8d`, con padres main `3b004916`
+y candidato `260b759`. La comparación completa de árboles no tuvo diferencias:
+el merge ref probó exactamente el árbol publicado, incluida la documentación.
+Los dos comentarios nuevos del issue #3 conservan los eventos de ambas ramas;
+el comentario histórico anterior permanece sin cambios. PR2 sigue abierto.
+
+Los SKIP configurados corresponden al deploy, build artifact y al job backend
+limitado a main. Los otros dos workflows sí ejecutaron SQL sintético real.
+No se inició Docker ni se ejecutó SQL en Windows; no se tocaron datos reales,
+certificados, seguridad, main ni despliegues. Los errores de privilegios de symlink
+del host se cubrieron en Linux, sin modificar su política.
+
+No se prueba navegador real, carga, backup/restore, TLS de producción ni caída
+del host. Los fallos inciertos y de interrupción del helper siguen probados con
+dobles; el éxito real de SQL no sustituye esas limitaciones.
+
+Integración: **100%**, 4/4 hitos. Validación: **100%**, 5/5 hitos de FIX-PR2.
+Estos porcentajes no cierran C6, C8, C9, C11 ni los siete hallazgos en review.
+El commit posterior que publica este informe requiere su propio SYNCED y CI.
+No se reutilizará el resultado de `260b759` para declarar ese siguiente SHA validado.
+
+## Serialización del checkout canónico
+
+El commit que contiene este apartado es la última escritura de FIX-PR2 en el
+checkout canónico. Una vez publicado con SYNCED y SHA coincidente en ambas ramas,
+este ejecutor libera el checkout y sigue solo con lecturas del CI de ese SHA.
+La siguiente integración debe refrescar ambos remotos y conservar esta historia.
+C6, C8 y la preparación documental de C9 tienen ejecutores separados;
+este cierre no duplica sus pruebas ni autoriza runtime nuevo para esas tarjetas.
+La clasificación P-LEGACY se prepara fuera del checkout, sin cambios al ledger
+ni a las fuentes compartidas durante la integración de C6.
+La cuenta GitHub comprobada por API es `Suazo-AI`, propietaria del repositorio
+`Suazo-AI/Martha-Silva-Store`; no se cambiaron credenciales ni helpers globales.
+Los 33 archivos ajenos siguen presentes y fuera de este commit. En el cierre,
+32 conservan el hash inicial; `docs/c8-ui-20261103/README.md` recibió un cambio
+concurrente que se conserva íntegro y no se incluye en FIX-PR2.

@@ -78,3 +78,11 @@ Jason autorizó una unión puntual de historiales y ampliar el importador solo a
 `9719d8ed`, para 17 SHA exactos. El manifiesto original de 16 permanece intacto.
 Se conservan el workflow de Tony y los avances de ambos; no se fusiona PR2 a main.
 Faltan el SHA común publicado, SYNCED y CI completo del mismo SHA.
+
+La reconciliación quedó publicada como `260b75951729189d987ffe423218ab1643bcfa3c`:
+Tony y PR2 coinciden, SYNCED, nueve workflows success en el mismo head.
+Artefactos frescos: Golden19/19, backend599/599 sin SKIP, reinicio1/1 y retirada
+con readback de ausencia de los dos contenedores. El merge ref probado tiene
+un árbol idéntico al candidato. Los siete TONY-* siguen review.
+El informe final debe conservar su propio SHA/CI; véase
+[CI saneado](fix-pr2-denis-20261104/ci-reconciled.json).

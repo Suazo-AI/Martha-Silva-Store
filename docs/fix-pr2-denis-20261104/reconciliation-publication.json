@@ -1,0 +1,18 @@
+{
+  "commit": "260b75951729189d987ffe423218ab1643bcfa3c",
+  "ordered_parents": [
+    "95120c29cbd685a6818dc9923b05f81c45b5daa0",
+    "9719d8edc226d09aa09df1be02658236fceaf97c"
+  ],
+  "remotes": {
+    "refs/heads/Tony": "260b75951729189d987ffe423218ab1643bcfa3c",
+    "refs/heads/claude/funny-brahmagupta-5e5rj0": "260b75951729189d987ffe423218ab1643bcfa3c"
+  },
+  "sync": {
+    "status": "SYNCED",
+    "commit": "260b75951729189d987ffe423218ab1643bcfa3c",
+    "branch": "Tony",
+    "verified_at_utc": "2026-11-04T01:23:34.291856+00:00"
+  },
+  "tracked_clean": true
+}
