@@ -106,3 +106,27 @@ fiscalidad y migración/calidad. La matriz y el modelo ficticio están en
 [ensayo y sustitución](synthetic-replacement-20261104/README.md).
 Los datos reales, corte operativo, cambios fiscales, SQL, certificados y despliegue
 requieren sus alcances correspondientes. No se canceló ni modificó el servicio actual.
+
+## D-025 — Equipo y datos del ensayo
+
+Adoptada por Jason el 2026-11-04, America/Managua: usar **SUAZO-PC** como equipo
+del ensayo, con **datos sintéticos**. Sustituye la elección de equipo pendiente de
+C1. D-022 conserva al coordinador SUAZO-PC como aceptante por flujo.
+
+Esta decisión no fija la red ni el equipo productivo de la tienda. Antes de probar,
+se registra el montaje efectivamente usado y se reutiliza solo la evidencia aplicable.
+No acepta C10, no resuelve C9 ni autoriza conexiones SQL nuevas, Docker,
+certificados, datos reales, integración o despliegue. No se ejecutó el ensayo.
+
+Siguiente decisión: quién registra y quién concilia la diferencia cuando el registro
+dice 0 y existe la prenda física. La entrega ya está decidida; los permisos no.
+Propuesta para Jason, todavía no adoptada: cajera registra la entrega excepcional
+con incidencia obligatoria; encargada valida y concilia al cierre. Sin facultad
+de ajustes libres para la cajera. El flujo requiere implementación y pruebas propias.
+
+Verificación: `python tests/test_delivery_status.py`, 24/24 PASS;
+`python tools/delivery_status.py --check`, ledger válido con 34 items.
+Trello: cuatro descripciones leídas de vuelta y criterio de entorno de C1 completo;
+la facultad de stock conserva estado pendiente.
+[Recibo saneado](sprint-20261104/ensayo-suazo-pc-receipt.json).
+La decisión de entorno no completa los demás criterios de C1.

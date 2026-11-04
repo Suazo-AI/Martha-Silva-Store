@@ -82,9 +82,9 @@
       "done_when": "Protección de main con checks requeridos leída de la API; valor de CLOUDFLARE_DEPLOY_ENABLED anotado; decisiones en docs/DECISIONS.md",
       "alternatives": "Fusionar sin protección confiando en revisión manual (rechazado: sin freno automático)",
       "needs": {
-        "decision": "Entorno del ensayo; concretar autorización, alerta y reconciliación contable cuando la prenda física existe pero el stock registrado es 0",
+        "decision": "Concretar autorización, alerta y reconciliación contable cuando la prenda física existe pero el stock registrado es 0; equipo del ensayo ya decidido en D-025",
         "decider": "jason",
-        "recommendation": "D-022: Jason designó al coordinador SUAZO-PC como responsable de aceptación. Conservar la entrega de prenda física existente; definir alerta/reconciliación y confirmar entorno. Protección de main y efecto del merge siguen pendientes.",
+        "recommendation": "D-022/D-025: coordinador SUAZO-PC acepta; ensayo en SUAZO-PC con datos sintéticos. Propuesta pendiente: cajera registra entrega excepcional con incidencia, encargada valida y concilia al cierre; sin ajustes libres de cajera. Protección de main y efecto del merge siguen pendientes.",
         "tool": "Configuración de GitHub (admin): protección de rama y variables de Actions"
       },
       "trello": "https://trello.com/c/e57qFLhJ",
@@ -92,7 +92,7 @@
         "docs/DECISIONS.md",
         ".github/workflows/ci.yml"
       ],
-      "prep": "Responsable de aceptación decidido por Jason: coordinador SUAZO-PC (D-022, 2026-11-03 America/Managua). Solo este criterio se completa; C1 sigue todo."
+      "prep": "Responsable decidido: coordinador SUAZO-PC (D-022). Equipo decidido: SUAZO-PC con datos sintéticos (D-025, 2026-11-04 America/Managua). C1 sigue todo por mecanismos de stock y seguridad de merge; no se ejecutó el ensayo."
     },
     {
       "id": "C2",
@@ -269,7 +269,7 @@
         "test": "30 mediciones p50/p95 en la caja real"
       },
       "trello": "https://trello.com/c/RYEhYexC",
-      "prep": "Guion de cinco tareas y registro preparados; ensayo0. Jason asignó la aceptación al coordinador SUAZO-PC (D-022); no sustituye tareas presenciales,30mediciones en caja ni conteo físico."
+      "prep": "Guion de cinco tareas y registro preparados; ensayo0. Acepta el coordinador SUAZO-PC (D-022); equipo SUAZO-PC y datos sintéticos (D-025). No sustituye tareas por quien vende,30mediciones ni conteo físico. C2/C9 y ejecución siguen pendientes."
     },
     {
       "id": "C11",

@@ -16,7 +16,10 @@ El modelo no prueba SAVIA ni cierra C2/C9/C10. La aceptación sigue a cargo de S
 Jason designó al coordinador SUAZO-PC como responsable de aceptación por flujo de C10
 ([D-022](DECISIONS.md#d-022--responsable-de-aceptación-del-ensayo)), en lugar de la propuesta de Martha.
 El responsable está decidido; el ensayo y su dictamen no están aceptados anticipadamente.
-Martha aporta datos de operación. Siguen pendientes el entorno, C2/C9 y evidencia presencial.
+Jason eligió **SUAZO-PC con datos sintéticos** para el ensayo
+([D-025](DECISIONS.md#d-025--equipo-y-datos-del-ensayo)). No fija el montaje productivo.
+Martha aporta datos de operación. Siguen pendientes C2/C9 y la ejecución/evidencia de C10.
+Siguiente decisión: facultad para registrar y conciliar la entrega con stock registrado 0.
 
 Código aceptado: `53dd23b5cfec2cb5dd717395b9095a71d29669f0`, publicado en Tony y PR #2.
 C11/N10: [APTO independiente por capas](c11-next-20261104/final-review.md).

@@ -1,0 +1,34 @@
+{
+  "at": "2026-11-04T06:28:54.540612+00:00",
+  "cards": [
+    {
+      "id": "6aea5db278918fb6261121a9",
+      "url": "https://trello.com/c/e57qFLhJ/4-c1-jason-integrador-decisiones-del-lote-y-seguridad-de-merge",
+      "sha256": "634103df4c4c1f310a57e9e4bc84f50bbadf11eefd20ae0e3c8e346b11ca64b0",
+      "verified": true
+    },
+    {
+      "id": "6aea5de84c241ad501a6a786",
+      "url": "https://trello.com/c/RYEhYexC/13-c10-jason-denis-alvarez-ensayo-supervisado-en-la-tienda",
+      "sha256": "96dba26c0178b435488ff8da544b5ee83315e155db280d646ff676adb5cfa399",
+      "verified": true
+    },
+    {
+      "id": "6aea7a421a9f35097ca709eb",
+      "url": "https://trello.com/c/Ri11Pahx/17-%F0%9F%93%8D-estado-vigente-4-nov-cierre-t%C3%A9cnico-y-decisiones-pendientes",
+      "sha256": "a1b2c13a2c169eb4d7e870366fde0767cf7a707011400a591ab0a93f8c400c1f",
+      "verified": true
+    },
+    {
+      "id": "6aea5db3c62fed2d4a7d10f2",
+      "url": "https://trello.com/c/aS0pUmYb/5-c2-jason-b-datos-reales-de-la-tienda",
+      "sha256": "6121a8ab782af2373ad82679acd5d565c3c88beac6437396968a4b062262ed56",
+      "verified": true
+    }
+  ],
+  "environment_check": {
+    "id": "6aea5e2d47d0d06fb3d047cb",
+    "state": "complete",
+    "verified": true
+  }
+}
