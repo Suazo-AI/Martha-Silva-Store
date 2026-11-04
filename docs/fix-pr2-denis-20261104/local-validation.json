@@ -241,5 +241,6 @@
       "completion_check": "Full10 staging cases pass on Linux."
     }
   ],
-  "ci_status": "PENDING_PUBLICATION; no old run counts as candidate acceptance."
+  "ci_status": "See publication.json and ci-runtime.json for observed initial CI; follow-up compatibility fix requires fresh same-SHA CI.",
+  "code_cut": "ca917005c331e8096e84d21bc1b35cb71a1700d5"
 }

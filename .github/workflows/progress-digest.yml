@@ -222,8 +222,10 @@ jobs:
         run: |
           body="$RUNNER_TEMP/in/body.md"
           # Select the oldest open labeled issue deterministically; ignore PRs.
+          # gh rejects --slurp together with --jq; preserve API failures across the pipe.
+          set -euo pipefail
           number="$(gh api "repos/$GITHUB_REPOSITORY/issues?labels=bitacora&state=open&per_page=100" --paginate --slurp \
-            --jq '[.[][] | select(.pull_request == null)] | sort_by(.number) | .[0].number // empty')"
+            | jq -r '[.[][] | select(.pull_request == null)] | sort_by(.number) | .[0].number // empty')"
           if [ -z "$number" ]; then
             gh label create bitacora --color 0E8A16 --description 'Registro automático de avance' 2>/dev/null || true
             url="$(gh issue create --label bitacora --title 'Bitácora de avance (automática)' \

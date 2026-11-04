@@ -65,6 +65,10 @@ Build Release con SDK10.0.402 PASS; backend local 524 PASS,75 SKIP,0 FAIL.
 La importación histórica fija16 SHA y conserva recibos obligatorios para commits nuevos.
 El CLI real de evidencia pasó6 escenarios; cleanup pasó8 escenarios de shell con Docker simulado.
 Los cinco errores Windows de symlinks se conservan como limitación de verificación.
-API/SQL real, publicación, SHA remoto y CI del candidato siguen pendientes en este corte.
+El código inicial quedó SYNCED como `ca917005c331e8096e84d21bc1b35cb71a1700d5` en Tony y PR2.
+API/SQL real pasó 19/19; backend SQL pasó 599/599 sin SKIP e incluyó reinicio.
+Publicación de evidencia y readback de retirada pasaron. Linux cubrió los symlinks.
+Los digest de push fallaron por flags incompatibles de gh; el seguimiento reconcilia
+la corrección vigente en main y agrega pipefail. Falta confirmar CI de ese nuevo SHA.
 Los siete `TONY-*` permanecen en `review`.
 Véanse [resultados, límites y siguientes acciones](fix-pr2-denis-20261104/README.md).

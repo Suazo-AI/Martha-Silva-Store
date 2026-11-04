@@ -18,7 +18,8 @@ y `gpt-6-astra/high` para CI y el límite CLI de publicación de evidencia.
 Los [hashes](package-hashes.json) fijan el candidato original antes de las adiciones
 de documentación y readback de retirada. El diff respecto de ese candidato agrega
 el importador histórico, sus pruebas, esta evidencia y la comprobación de ausencia
-del contenedor en los dos workflows SQL. No cambia las reglas funcionales de stock.
+del contenedor en los dos workflows SQL. El seguimiento corrige además la combinación
+incompatible de flags de `gh`, con propagación de fallos. No cambia reglas de stock.
 
 ## Validación local
 
@@ -56,6 +57,13 @@ se ejecutaron por separado después del bloqueo Windows; sus salidas están enum
 5. No se inició Docker ni se reutilizó SQL local. El arnés requiere POSIX.
    Los 75 SKIP locales no acreditan API/SQL. Responsable: integrador; siguiente acción:
    publicar este candidato en PR2 y leer los artefactos del CI sintético existente.
+   Ese recorrido ya pasó en el corte inicial; el SHA de seguimiento necesita CI propio.
+6. Los dos digest de push fallaron con `the --slurp option is not supported with --jq or --template`.
+   `main` ya tenía la separación `--slurp | jq -r`; se reconcilió ese delta sin merge.
+   Se agregó `set -euo pipefail`: una API simulada con error 42 ya no permite publicar.
+   La consulta real de solo lectura con los flags compatibles terminó con código 0.
+   Véase [regresión del CLI](digest-cli-regression.json). Responsable: integrador;
+   cierre: ambos digest de push y el digest de PR pasan en el SHA de seguimiento.
 
 El CLI válido copió exactamente `evidence.json` y `oracles.md`. Cinco negativos
 retiraron evidencia publicable anterior y conservaron el archivo ajeno.
@@ -63,21 +71,31 @@ Esto prueba el límite de publicación con archivos reales, sin probar un fallo 
 Las pruebas de interrupción del helper usan dobles; SIGKILL o pérdida de energía
 siguen fuera de las garantías del proceso.
 
-## Publicación y aceptación pendientes en este corte
+## Publicación y CI observado
 
-El commit contenedor y su recibo identifican estos bytes. Después del hook se debe
-leer `SYNCED` y el SHA remoto de `Tony`, y avanzar por fast-forward la rama existente
-`claude/funny-brahmagupta-5e5rj0` de PR2 al mismo SHA. Sin force-push, merge ni deploy.
+El código inicial quedó `SYNCED` en `Tony` y PR2 con
+`ca917005c331e8096e84d21bc1b35cb71a1700d5`. Véase [readback](publication.json).
+Los workflows de progreso, snapshot y checks portátiles Windows/Linux pasaron.
+Los casos de symlink pendientes en SUAZO-PC pasaron en Linux sin cambiar sus controles.
+Build artifact, deploy y SQL del workflow backend limitado a `main` quedaron SKIP.
 
-La aceptación requiere CI asociado a ese SHA, artefacto golden path con oráculos y
-readback SQL de retirada, suite SQL completa sin SKIP y readback de ausencia de los
-contenedores. Los jobs de PR pueden probar un merge ref: registrar también su SHA,
-padres y comparación de árbol. Un CI anterior no cubre este candidato.
+El [recorrido real](ci-runtime.json) tuvo **19/19 PASS**: dos migraciones EF,
+Owner por consola privada, roles, venta idempotente, replay sin efecto, conflicto 409,
+recuperación por clave y logout. SQL comprobó una venta, una línea, un movimiento
+de venta, una operación de venta y stock total 28. Retirada: API exit 0,
+`database_dropped=true`, `private_dir_removed=true`, cero logs fail/crit y 38 warn.
+El backend SQL completó **599/599 PASS**, cero SKIP, incluida la prueba de reinicio.
+La publicación de evidencia y el readback de ausencia de ambos contenedores pasaron.
 
-Integración: **50%** en este corte, 2/4 hitos (fuentes verificadas y parche aplicado).
-Faltan publicación canónica y readback remoto/PR2.
-Validación: **60%**, 3/5 hitos (digest, seguridad, build y suite local).
-Faltan checks completos Linux y recorrido real API/SQL con evidencia y retirada.
+Los jobs probaron el merge ref `c2371917f8f5cc10a7d7ee14b270035815a0db9b`.
+Su único delta respecto del candidato fue la corrección compatible del digest que
+ya estaba en `main`; todos los archivos del producto y workflows SQL eran idénticos.
+El seguimiento aplica esa corrección, agrega fallo cerrado y documenta estos resultados.
+Necesita confirmar su propio `SYNCED`, SHA remoto y CI; el resultado anterior no lo sustituye.
+
+Integración: **100%**, 4/4 hitos del código inicial (fuentes, aplicación, hook, remotos).
+Validación: **80%**, 4/5 hitos; digest unitario, seguridad, build/suite local y API/SQL
+comprobados. Falta el conjunto completo de CI del SHA que contiene el ajuste del digest.
 Son porcentajes de esta tarea; no miden preparación de producción ni cierre de tarjetas.
 
 Se excluyen ZIP, logs crudos, TRX, certificados, sesiones y autorizaciones de ejecución.

@@ -1,0 +1,52 @@
+{
+  "code_commit": "ca917005c331e8096e84d21bc1b35cb71a1700d5",
+  "Tony_remote": "ca917005c331e8096e84d21bc1b35cb71a1700d5",
+  "PR2_remote": "ca917005c331e8096e84d21bc1b35cb71a1700d5",
+  "PR2_branch": "claude/funny-brahmagupta-5e5rj0",
+  "previous_PR2_head": "88faa2dd0d51fc1c5089b721ba5b17c23d4d61d4",
+  "fast_forward": true,
+  "canonical_hook_status": "SYNCED",
+  "canonical_hook_verified_at_utc": "2026-11-04T01:01:29.748162+00:00",
+  "no_force_push": true,
+  "preexisting_untracked_preserved": 33,
+  "ci_for_code_commit": {
+    "progress_documentation": {
+      "run": 41751111104,
+      "conclusion": "success"
+    },
+    "tony_snapshot": {
+      "run": 41751111201,
+      "conclusion": "success"
+    },
+    "portable_PR_CI": {
+      "run": 41751178419,
+      "conclusion": "success",
+      "windows": "success",
+      "ubuntu": "success",
+      "artifact": "skipped",
+      "deploy": "skipped"
+    },
+    "digest_Tony_push": {
+      "run": 41751111018,
+      "conclusion": "failure",
+      "cause": "gh --slurp incompatible with --jq; reconciliation and pipefail fix in follow-up commit"
+    },
+    "digest_source_push": {
+      "run": 41751170377,
+      "conclusion": "failure",
+      "same_cause": true
+    },
+    "digest_PR": {
+      "run": 41751178367,
+      "conclusion": "success",
+      "limit": "PR merge ref carried main compatibility fix; push branch still required repair"
+    }
+  },
+  "PR_merge_ref": {
+    "sha": "c2371917f8f5cc10a7d7ee14b270035815a0db9b",
+    "base": "3b0049163ece2d9431cee01f1bea624a66d9d8d4",
+    "only_tree_difference_from_code_commit": ".github/workflows/progress-digest.yml: separate --slurp output from jq consumer",
+    "product_and_SQL_workflows_identical": true
+  },
+  "status": "Follow-up commit must pass the push digest and all applicable same-SHA checks."
+}
