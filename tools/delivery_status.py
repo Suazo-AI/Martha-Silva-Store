@@ -22,6 +22,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_LEDGER = ROOT / 'docs' / 'pipeline' / 'ledger.json'
 STATUSES = ('todo', 'doing', 'review', 'blocked', 'done', 'dropped')
 OPEN = ('todo', 'doing', 'review', 'blocked')
+SATISFIED = ('done', 'dropped')
 REQUIRED = ('id', 'title', 'track', 'owner', 'status', 'why', 'done_when')
 PR_SECTIONS = ('por que', 'alternativas', 'evidencia', 'que falta')
 MARKER = '<!-- savia-progress-digest -->'
@@ -71,8 +72,11 @@ def validate(ledger):
         for dep in item.get('blocked_by', []):
             if dep not in by_id:
                 errors.append(f'{label}: blocked_by unknown {dep}')
-            elif item.get('status') == 'done' and by_id[dep].get('status') != 'done':
+            elif item.get('status') == 'done' and by_id[dep].get('status') not in SATISFIED:
                 errors.append(f'{label}: done while prerequisite {dep} is {by_id[dep].get("status")}')
+    for target in ledger.get('targets', []):
+        if target.get('id') not in by_id:
+            errors.append(f'target unknown {target.get("id")}')
     errors.extend(_cycles(by_id))
     return errors
 
@@ -97,35 +101,43 @@ def _cycles(by_id):
 
 
 def actionable(ledger):
-    """Open items whose prerequisites are all done, grouped by owner."""
+    """Open items whose prerequisites are done or deliberately dropped, grouped by owner."""
     by_id = {i['id']: i for i in ledger['items']}
     result = {}
     for item in ledger['items']:
         if item['status'] not in OPEN:
             continue
-        if all(by_id[d]['status'] in ('done', 'dropped') for d in item.get('blocked_by', [])):
+        if all(by_id.get(d, {}).get('status') in SATISFIED for d in item.get('blocked_by', [])):
             for owner in item['owner'].split('+'):
                 result.setdefault(owner.strip(), []).append(item)
     return result
 
 
 def critical_path(ledger, target):
-    """Longest chain of unfinished items that still has to happen before `target` is done."""
+    """Longest unfinished chain; raise ValueError for unknown nodes or cyclic ancestry."""
     by_id = {i['id']: i for i in ledger['items']}
+    if target not in by_id:
+        raise ValueError(f'unknown target {target}')
     memo = {}
+    visiting = set()
 
     def chain(node):
+        if node not in by_id:
+            raise ValueError(f'unknown dependency {node}')
+        if node in visiting:
+            raise ValueError(f'dependency cycle at {node}')
         if node in memo:
             return memo[node]
         item = by_id[node]
-        if item['status'] in ('done', 'dropped'):
-            memo[node] = []
-            return []
-        best = max((chain(d) for d in item.get('blocked_by', [])), key=len, default=[])
-        memo[node] = best + [node]
+        visiting.add(node)
+        # Inspect even satisfied ancestry: invalid references must not look complete.
+        paths = [chain(d) for d in item.get('blocked_by', [])]
+        visiting.remove(node)
+        best = max(paths, key=len, default=[])
+        memo[node] = [] if item['status'] in SATISFIED else best + [node]
         return memo[node]
 
-    return chain(target) if target in by_id else []
+    return chain(target)
 
 
 def touched(ledger, files):
@@ -217,8 +229,13 @@ def render(ledger, errors, event):
     out.append('')
 
     for target in ledger.get('targets', []):
-        path = critical_path(ledger, target['id'])
         label = _cell(target['name'])
+        try:
+            path = critical_path(ledger, target['id'])
+        except ValueError as error:
+            out.append(f'**Camino crítico a {label}:** no disponible '
+                       f'(ledger inválido: {_cell(error)}).')
+            continue
         if not path:
             out.append(f'**Camino crítico a {label}:** completo.')
         else:

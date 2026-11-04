@@ -51,12 +51,22 @@ todos los artículos con marcador sintético. La tabla por paso queda en `oracle
 
 ## Garantías de seguridad del arnés
 
-- Rechaza cualquier base que no sea `SaviaInternalTest_Golden_<32 hex>`; nunca borra una base existente ajena
-  (si el nombre ya existe, se niega antes de crear). La API además aplica su propia guarda `SaviaInternalTest_*`.
+- Rechaza cualquier base que no sea `SaviaInternalTest_Golden_<32 hex>` y conserva una base cuya creación
+  fue rechazada por existir. La API además aplica su propia guarda `SaviaInternalTest_*`.
 - No crea logins ni credenciales SQL. Las contraseñas de los usuarios sintéticos son aleatorias por corrida.
-- Nunca escribe contraseñas, cookies, tokens CSRF ni la conexión; al final busca esos valores en `--out` y falla si aparecen.
+- Los dos archivos publicables se escriben primero en staging privado fuera de `--out`, se escanean contra
+  los secretos conocidos y solo entonces se exponen con un manifiesto SHA-256 `evidence-approved`.
+  CI verifica ese manifiesto y copia los bytes comprobados a `golden-approved` antes del resumen o artefacto.
+  Un fallo del escaneo no imprime tabla ni error crudo y no habilita publicación. Este filtro de valores
+  conocidos no garantiza detectar secretos desconocidos ni reemplaza la revisión del contenido.
 - Clave TLS y log de la API viven en un directorio temporal 0700 fuera de `--out`, borrado al terminar.
-- La API escucha solo en `127.0.0.1`. Un fallo o una señal siempre detiene la API y borra la base propia.
+- La API escucha solo en `127.0.0.1`. Ante una señal manejable o timeout se detiene y espera el helper propio
+  antes de limpiar. Solo una respuesta `ok: true` de creación habilita el borrado automático con readback.
+  Una creación interrumpida, sin respuesta o con error genérico queda `unknown`, hace fallar la retirada
+  y pide revisión del operador; no se borra una base de propiedad incierta ni se declara `not_created`.
+  Puede quedar una base parcial en un servidor local: identificarla mediante evidencia privada y propietario
+  antes de una limpieza autorizada. CI elimina su contenedor desechable propio en el paso final independiente.
+  SIGKILL, pérdida de energía o fallo del host no permiten garantizar limpieza desde este proceso.
 
 ## Modo `serve` para C6 (navegador)
 
@@ -67,7 +77,15 @@ python3 tests/golden-path/golden_path.py --mode serve --out <dir>
 Al estar listo escribe `<dir>/serve-ready.json` (URL, usuarios, PID; sin contraseñas) y `<dir>/session.json` con permisos
 0600: `base_url`, `login_url`, `ca_cert`, `location_id`, `item_ids` y `users.<Rol>.{loginName,password,role,assigned}`.
 El navegador debe confiar en `ca_cert` o usar un perfil desechable que lo acepte; las cookies `__Host-` exigen HTTPS.
-Terminar con Ctrl+C o `SIGTERM` al PID: borra `session.json`, detiene la API y elimina la base. En `serve` no se hace la venta.
+Terminar con Ctrl+C o `SIGTERM` al PID: retira `session.json`, detiene la API e intenta eliminar solo la base
+con creación confirmada. La incertidumbre se reporta como fallo de retirada. En `serve` no se hace la venta.
+
+## Regresiones ligeras de seguridad
+
+`python -B tests/test_golden_path_safety.py` comprueba publicación, secretos sintéticos, manifiestos,
+interrupción del helper y propiedad incierta sin SQL, API, .NET ni navegador. En Windows carga las
+definiciones exactas por AST omitiendo imports POSIX; no acredita ejecutar el arnés POSIX allí.
+El recorrido Linux API/SQL del mismo candidato y la ejecución de Actions siguen siendo verificaciones separadas.
 
 ## Qué prueba y qué no
 

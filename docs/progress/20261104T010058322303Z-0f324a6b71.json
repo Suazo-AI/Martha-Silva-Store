@@ -1,0 +1,125 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-04T01:00:58.322303+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": ".github/workflows/golden-path.yml",
+      "change": "M",
+      "git_blob": "ffbf9470e9c959b974de3d49ae8d1e045a0d587a"
+    },
+    {
+      "path": ".github/workflows/progress-digest.yml",
+      "change": "M",
+      "git_blob": "2a8d053d1a1bfeef3b2af8385b5a2d65969bb2f3"
+    },
+    {
+      "path": ".github/workflows/savia.yml",
+      "change": "M",
+      "git_blob": "be204535759208d56a0a2af1ab6b61c2bda7db04"
+    },
+    {
+      "path": "docs/AUTO-SYNC.md",
+      "change": "M",
+      "git_blob": "4f374d651e19b968b0eb4d166947e5f4a36be559"
+    },
+    {
+      "path": "docs/DECISIONS.md",
+      "change": "M",
+      "git_blob": "ff772432863c08a05da54d93229744feb610a0d8"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "c521617e5d9c0c0bc3a0caf19cdecc8c5a705c28"
+    },
+    {
+      "path": "docs/fix-pr2-denis-20261104/README.md",
+      "change": "A",
+      "git_blob": "62641eba90a627aae1920c02bba330592424ecdf"
+    },
+    {
+      "path": "docs/fix-pr2-denis-20261104/evidence-cli.json",
+      "change": "A",
+      "git_blob": "9147698f05d949844a989c3411ed31c378190b1e"
+    },
+    {
+      "path": "docs/fix-pr2-denis-20261104/local-validation.json",
+      "change": "A",
+      "git_blob": "2d541e93a7a30c4b342e255bd3ba58162e9b7b28"
+    },
+    {
+      "path": "docs/fix-pr2-denis-20261104/package-hashes.json",
+      "change": "A",
+      "git_blob": "b5c084ebe9a816f2901ae5d2adb5344bc21e88c2"
+    },
+    {
+      "path": "docs/fix-pr2-denis-20261104/teardown-regression.json",
+      "change": "A",
+      "git_blob": "266fc5061ac37bf21dc7b3444765d6b3e8c99cb5"
+    },
+    {
+      "path": "docs/pipeline/README.md",
+      "change": "M",
+      "git_blob": "551f95bb1bff845199293b78074cfab08958e31c"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "change": "M",
+      "git_blob": "44724eba2843fc6b8011ae88e1f0f61d7e18a29d"
+    },
+    {
+      "path": "docs/progress-imports/pr2-88faa2dd.json",
+      "change": "A",
+      "git_blob": "ea0cd55c9ba6f5355d68c6e736c4a198a4e18283"
+    },
+    {
+      "path": "docs/sprint-20261104/TONY-PR2-FIXES.md",
+      "change": "A",
+      "git_blob": "5e96f9ec3b6319e655f901f2723f5a28643e4bf4"
+    },
+    {
+      "path": "tests/golden-path/README.md",
+      "change": "M",
+      "git_blob": "f6ba30548fb7196ce7e76cf04307729ae7fa2aae"
+    },
+    {
+      "path": "tests/golden-path/golden_path.py",
+      "change": "M",
+      "git_blob": "586610100233516fe28c894026c7b6acb26b8aab"
+    },
+    {
+      "path": "tests/golden-path/verify_evidence.py",
+      "change": "A",
+      "git_blob": "886740d7a897d5f41268d8252400bc23e62f4089"
+    },
+    {
+      "path": "tests/test_delivery_status.py",
+      "change": "M",
+      "git_blob": "b643e894225681f012a9855a64414c9eb481afa5"
+    },
+    {
+      "path": "tests/test_golden_path_safety.py",
+      "change": "A",
+      "git_blob": "f15256c1a37f948101cc6d27cbcce59202aa3e58"
+    },
+    {
+      "path": "tests/test_progress.py",
+      "change": "M",
+      "git_blob": "a03dfa5ea253c2be370a4ac62c451a9e2a8f6f0d"
+    },
+    {
+      "path": "tools/delivery_status.py",
+      "change": "M",
+      "git_blob": "0aae49b593706b0512715eb284ade38d4c7fb81f"
+    },
+    {
+      "path": "tools/progress.py",
+      "change": "M",
+      "git_blob": "6f6b2f75759c6a00717c150f6154d1a5aebec683"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

@@ -34,6 +34,8 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
+      - name: Evidence and cleanup failure regressions (stdlib only)
+        run: python3 tests/test_golden_path_safety.py
       - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
           dotnet-version: '10.0.402'
@@ -77,21 +79,28 @@ jobs:
           : "${MARTHA_TEST_SQL_CONNECTION:?The golden path must not silently skip}"
           # stdin is not a terminal here; the harness gives the Owner console its own private pty.
           python3 tests/golden-path/golden_path.py --no-build --out "$RUNNER_TEMP/golden-evidence" < /dev/null
-      - name: Publish the per-step oracle table to the job summary
+      - name: Verify exact evidence bytes before publication
+        id: evidence_safety
         if: ${{ always() }}
         shell: bash
         run: |
-          if [ -f "$RUNNER_TEMP/golden-evidence/oracles.md" ]; then
-            { echo '### SAVIA golden path: SQL oracles per step'; echo; cat "$RUNNER_TEMP/golden-evidence/oracles.md"; } >> "$GITHUB_STEP_SUMMARY"
+          python3 tests/golden-path/verify_evidence.py --source "$RUNNER_TEMP/golden-evidence" \
+            --destination "$RUNNER_TEMP/golden-approved"
+      - name: Publish the per-step oracle table to the job summary
+        if: ${{ always() && steps.evidence_safety.outcome == 'success' }}
+        shell: bash
+        run: |
+          if [ -f "$RUNNER_TEMP/golden-approved/oracles.md" ]; then
+            { echo '### SAVIA golden path: SQL oracles per step'; echo; cat "$RUNNER_TEMP/golden-approved/oracles.md"; } >> "$GITHUB_STEP_SUMMARY"
           fi
       - name: Upload sanitized evidence only
-        if: ${{ always() }}
+        if: ${{ always() && steps.evidence_safety.outcome == 'success' }}
         uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: savia-golden-path-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
-            ${{ runner.temp }}/golden-evidence/evidence.json
-            ${{ runner.temp }}/golden-evidence/oracles.md
+            ${{ runner.temp }}/golden-approved/evidence.json
+            ${{ runner.temp }}/golden-approved/oracles.md
           if-no-files-found: error
           retention-days: 7
       - name: Always destroy the disposable SQL container
@@ -103,5 +112,12 @@ jobs:
             docker rm --force --volumes "$SQL_CONTAINER" > /dev/null
           fi
           rm -rf "$RUNNER_TEMP/golden-evidence"
+          rm -rf "$RUNNER_TEMP/golden-approved"
+          remaining="$(docker container ls --all --filter "name=^/${SQL_CONTAINER}$" --format '{{.Names}}')"
+          if [ -n "$remaining" ]; then
+            echo '::error::Disposable SQL container remains after teardown.'
+            exit 1
+          fi
+          echo 'PASS: disposable SQL container absence verified.'
 
 # This workflow does not deploy, publish, or create accounts or credentials outside the throwaway database.

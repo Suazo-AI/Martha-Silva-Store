@@ -19,6 +19,7 @@ permissions:
 concurrency:
   group: progress-digest-${{ github.event_name }}-${{ github.ref }}
   cancel-in-progress: false
+  queue: max
 
 jobs:
   digest:
@@ -156,6 +157,11 @@ jobs:
       (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: ubuntu-24.04
     timeout-minutes: 5
+    # One cooperating publisher at a time, across branches and event kinds.
+    concurrency:
+      group: savia-progress-digest-publication
+      cancel-in-progress: false
+      queue: max
     permissions:
       contents: read
       issues: write
@@ -167,9 +173,19 @@ jobs:
           merge-multiple: true
           path: ${{ runner.temp }}/in
       - name: Compose
+        env:
+          EVENT_KIND: ${{ github.event_name }}
+          EVENT_REF: ${{ github.ref }}
+          EVENT_SHA: ${{ github.sha }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
           cd "$RUNNER_TEMP/in"
-          cp digest.md body.md
+          # Keep the sticky marker first; all facts below belong to this event.
+          printf '<!-- savia-progress-digest -->\n\n' > body.md
+          printf '**Historical event snapshot; not global current state.**\n\n' >> body.md
+          printf 'Event: `%s`; ref: `%s`; event SHA: `%s`; PR head: `%s`; run: `%s`; attempt: `%s`.\n\n' \
+            "$EVENT_KIND" "$EVENT_REF" "$EVENT_SHA" "${PR_HEAD_SHA:-n/a}" "$GITHUB_RUN_ID" "$GITHUB_RUN_ATTEMPT" >> body.md
+          cat digest.md >> body.md
           if [ -s narrative.md ]; then
             { printf '\n<details><summary>Lectura del narrador IA (no decide el estado)</summary>\n\n'; cat narrative.md; printf '\n</details>\n'; } >> body.md
           fi
@@ -179,10 +195,20 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           PR: ${{ github.event.pull_request.number }}
+          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha }}
+          EXPECTED_UPDATED_AT: ${{ github.event.pull_request.updated_at }}
         run: |
           body="$RUNNER_TEMP/in/body.md"
           id="$(gh api "repos/$GITHUB_REPOSITORY/issues/$PR/comments" --paginate \
             --jq '[.[] | select(.user.login == "github-actions[bot]" and (.body | startswith("<!-- savia-progress-digest -->")))][0].id // empty' | head -1)"
+          # Recheck after comment discovery, immediately before the sticky write.
+          # Head alone cannot reject an older body-edit event on the same commit.
+          live="$(gh api "repos/$GITHUB_REPOSITORY/pulls/$PR" --jq '[.head.sha, .updated_at, .state] | @tsv')"
+          IFS=$'\t' read -r live_head live_updated_at live_state <<< "$live"
+          if [ "$live_state" != open ] || [ "$live_head" != "$EXPECTED_HEAD" ] || [ "$live_updated_at" != "$EXPECTED_UPDATED_AT" ]; then
+            echo "Skipped sticky publication: PR metadata changed or the PR closed after this event. See this run's event snapshot/artifact." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
           if [ -n "$id" ]; then
             gh api -X PATCH "repos/$GITHUB_REPOSITORY/issues/comments/$id" -F "body=@$body" > /dev/null
           else
@@ -195,15 +221,16 @@ jobs:
           GH_REPO: ${{ github.repository }}
         run: |
           body="$RUNNER_TEMP/in/body.md"
-          number="$(gh issue list --label bitacora --state open --json number --jq '.[0].number // empty')"
+          # Select the oldest open labeled issue deterministically; ignore PRs.
+          number="$(gh api "repos/$GITHUB_REPOSITORY/issues?labels=bitacora&state=open&per_page=100" --paginate --slurp \
+            --jq '[.[][] | select(.pull_request == null)] | sort_by(.number) | .[0].number // empty')"
           if [ -z "$number" ]; then
             gh label create bitacora --color 0E8A16 --description 'Registro automático de avance' 2>/dev/null || true
             url="$(gh issue create --label bitacora --title 'Bitácora de avance (automática)' \
-              --body 'Cada push se registra aquí con el estado del ledger. Suscríbase a este issue para recibir avisos. Fuente: docs/pipeline/ledger.json')"
+              --body 'Historical event log from docs/pipeline/ledger.json. Each comment records its event, ref, SHA and run. Comment order is publication order, not a global current-state claim. Subscribe for notifications.')"
             number="${url##*/}"
           fi
           gh issue comment "$number" --body-file "$body" > /dev/null
-          { printf 'Estado vigente según el último push. Cada push agrega un comentario; suscríbase para recibir avisos.\n\n'; cat "$body"; } > "$RUNNER_TEMP/issue-body.md"
-          gh issue edit "$number" --body-file "$RUNNER_TEMP/issue-body.md" > /dev/null
+          # Append history only. Never replace the issue body with branch-specific state.
 
-# Writes only comments and the progress issue. It does not deploy, publish, push or change settings.
+# Writes only comments and creates a labeled progress issue when absent. No issue-body state overwrite, source push, deployment or settings change.

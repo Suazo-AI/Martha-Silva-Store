@@ -55,6 +55,22 @@ Si el hook creó un recibo y después cambió el índice, retirar solo ese recib
 del índice y del disco antes de regenerarlo. No editar recibos ya publicados.
 Si se detecta un secreto en historia pendiente, sanear toda esa historia antes del push.
 
+## Importación histórica congelada de PR2
+
+`tools/progress.py` admite exclusivamente los 16 SHA ya publicados entre
+`20932d5c97f2caaafad7dc888879957791907f36` y
+`88faa2dd0d51fc1c5089b721ba5b17c23d4d61d4`, enumerados en el código y en
+[`progress-imports/pr2-88faa2dd.json`](progress-imports/pr2-88faa2dd.json).
+El manifiesto fija árbol, padres, cambios, blobs Git y SHA256 de cada archivo.
+Su SHA256 sobre los bytes LF almacenados por Git es
+`22c5c476de48cddbb91801783dbedf74c0143f506da7995acdfcb786d8b08e15`.
+
+La comprobación conserva los filtros de rutas, modos, tamaño y secretos.
+Una alteración del manifiesto o de su alcance bloquea la publicación.
+Los commits nuevos siguen necesitando exactamente un recibo generado por el hook.
+La importación no fabrica recibos históricos ni acredita aceptación del producto.
+No modifica historia, remotos, hooks ni configuración de seguridad.
+
 ## Desactivar y restaurar
 
 Para detener el push automático y conservar el registro:

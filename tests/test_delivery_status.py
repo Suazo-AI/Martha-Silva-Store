@@ -4,6 +4,7 @@ import json
 import sys
 import tempfile
 import unittest
+from unittest import mock
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -101,15 +102,79 @@ class DigestTests(unittest.TestCase):
         self.assertIn('**Camino crítico a fin** (2 pasos): Y [b] → Z [a+b]', text)
 
 
+
+class InvalidGraphRegressionTests(unittest.TestCase):
+    def test_unknown_target_is_rejected_and_never_reported_complete(self):
+        data = ledger()
+        data['targets'] = [{'id': 'MISSING', 'name': 'missing target'}]
+        self.assertIn('target unknown MISSING', ds.validate(data))
+        text = ds.render(data, ds.validate(data), {})
+        self.assertIn('[!CAUTION]', text)
+        self.assertIn('missing target', text)
+        self.assertIn('ledger inválido', text)
+        self.assertNotIn('completo.', text)
+
+    def test_unknown_target_has_explicit_path_error(self):
+        with self.assertRaisesRegex(ValueError, 'unknown target MISSING'):
+            ds.critical_path(ledger(), 'MISSING')
+
+    def test_cycle_has_explicit_path_error_and_render_survives(self):
+        data = ledger(X={'status': 'todo', 'blocked_by': ['Z']})
+        with self.assertRaisesRegex(ValueError, 'dependency cycle'):
+            ds.critical_path(data, 'Z')
+        text = ds.render(data, ds.validate(data), {})
+        self.assertIn('[!CAUTION]', text)
+        self.assertIn('ledger inválido', text)
+        self.assertIn('dependency cycle', text)
+        self.assertIn('### Siguiente acción por persona', text)
+
+    def test_unknown_dependency_has_explicit_path_error_and_render_survives(self):
+        data = ledger(Y={'blocked_by': ['MISSING']})
+        with self.assertRaisesRegex(ValueError, 'unknown dependency MISSING'):
+            ds.critical_path(data, 'Z')
+        text = ds.render(data, ds.validate(data), {})
+        self.assertIn('Y: blocked_by unknown MISSING', text)
+        self.assertIn('ledger inválido', text)
+        self.assertIn('### Decisiones que faltan', text)
+        self.assertNotIn('completo.', text)
+
+    def test_unknown_dependency_is_not_actionable(self):
+        result = ds.actionable(ledger(Y={'blocked_by': ['MISSING']}))
+        self.assertNotIn('b', result)
+        self.assertNotIn('a', result)
+
+    def test_dropped_prerequisite_is_consistently_satisfied(self):
+        dropped = {'status': 'dropped', 'decision_ref': 'decision/retire-x'}
+        waiting = ledger(X=dropped)
+        self.assertEqual(ds.validate(waiting), [])
+        self.assertEqual([i['id'] for i in ds.actionable(waiting)['b']], ['Y'])
+        self.assertEqual(ds.critical_path(waiting, 'Z'), ['Y', 'Z'])
+        completed = ledger(X=dropped, Y={'status': 'done', 'evidence': 'run/y'},
+                           Z={'status': 'done', 'evidence': 'run/z'})
+        self.assertEqual(ds.validate(completed), [])
+        self.assertEqual(ds.critical_path(completed, 'Z'), [])
+        self.assertIn('**Camino crítico a fin:** completo.',
+                      ds.render(completed, ds.validate(completed), {}))
+
+    def test_completed_target_with_invalid_ancestry_is_not_reported_complete(self):
+        data = ledger(Y={'status': 'done', 'evidence': 'run/y',
+                         'blocked_by': ['MISSING']},
+                      Z={'status': 'done', 'evidence': 'run/z'})
+        text = ds.render(data, ds.validate(data), {})
+        self.assertIn('ledger inválido', text)
+        self.assertNotIn('completo.', text)
+
+
 class CliTests(unittest.TestCase):
     def run_cli(self, data, payload, *extra):
         with tempfile.TemporaryDirectory() as tmp:
             ledger_path, event_path, out = Path(tmp, 'l.json'), Path(tmp, 'e.json'), Path(tmp, 'o.md')
             ledger_path.write_text(json.dumps(data))
             event_path.write_text(json.dumps(payload))
-            code = ds.main(['--ledger', str(ledger_path), '--event', str(event_path),
-                            '--event-name', 'pull_request', '--output', str(out), *extra])
-            return code, out.read_text()
+            with mock.patch.object(ds, 'event_changes', return_value=([], [])):
+                code = ds.main(['--ledger', str(ledger_path), '--event', str(event_path),
+                                '--event-name', 'pull_request', '--output', str(out), *extra])
+            return code, out.read_text(encoding='utf-8')
 
     def pr(self, body, draft=False):
         return {'pull_request': {'number': 7, 'title': 't', 'body': body, 'draft': draft,
@@ -129,6 +194,25 @@ class CliTests(unittest.TestCase):
         code, text = self.run_cli(ledger(X={'evidence': ''}), self.pr('## Por qué\n## Alternativas\n## Evidencia\n## Qué falta'))
         self.assertEqual(code, 1)
         self.assertIn('[!CAUTION]', text)
+
+
+    def test_invalid_graphs_exit_one_and_write_useful_digest(self):
+        cases = {
+            'unknown target': ledger(),
+            'cycle': ledger(X={'status': 'todo', 'blocked_by': ['Z']}),
+            'unknown dependency': ledger(Y={'blocked_by': ['MISSING']}),
+        }
+        cases['unknown target']['targets'] = [{'id': 'MISSING', 'name': 'fin'}]
+        for label, data in cases.items():
+            with self.subTest(case=label):
+                code, text = self.run_cli(data, self.pr(
+                    '## Por qué\n## Alternativas\n## Evidencia\n## Qué falta'))
+                self.assertEqual(code, 1)
+                self.assertTrue(text.startswith(ds.MARKER))
+                self.assertIn('[!CAUTION]', text)
+                self.assertIn('ledger inválido', text)
+                self.assertIn('### Siguiente acción por persona', text)
+                self.assertNotIn('completo.', text)
 
 
 if __name__ == '__main__':

@@ -51,3 +51,20 @@ No se despliega, ejecuta SQL, inicia Docker, cambia certificados ni reinicia ser
 [SAVIA-LATEST](SAVIA-LATEST.md), [cronología](UPDATE-HISTORY.md) y los documentos fechados conservan antecedentes.
 La URL de producción para SEO sigue sin confirmarse; la observación anterior de `noindex,nofollow`
 en la demo alternativa no se volvió a consultar aquí ni autoriza cambiar la indexación.
+
+
+## Candidato de correcciones de Tony — 2026-11-04
+
+Preparado sobre PR #2 `88faa2dd0d51fc1c5089b721ba5b17c23d4d61d4`: coherencia del digest, bitácora por evento y publicación de evidencia/limpieza incierta del arnés. Véase [informe](sprint-20261104/TONY-PR2-FIXES.md). Las 41 pruebas unitarias ligeras pasan; no se ejecutó aquí SQL, API, navegador ni compilación. Integración canónica, SHA remoto y CI del candidato pendientes. Esto no aprueba ni fusiona el PR y no cierra C1/C3/C6/C9/C11.
+
+## Integración canónica de FIX-PR2-DENIS-20261104
+
+El parche de 13 archivos está aplicado y cotejado contra sus blobs Git.
+Digest 24/24, seguridad 17/17 e importador 22/22 PASS en SUAZO-PC.
+Build Release con SDK10.0.402 PASS; backend local 524 PASS,75 SKIP,0 FAIL.
+La importación histórica fija16 SHA y conserva recibos obligatorios para commits nuevos.
+El CLI real de evidencia pasó6 escenarios; cleanup pasó8 escenarios de shell con Docker simulado.
+Los cinco errores Windows de symlinks se conservan como limitación de verificación.
+API/SQL real, publicación, SHA remoto y CI del candidato siguen pendientes en este corte.
+Los siete `TONY-*` permanecen en `review`.
+Véanse [resultados, límites y siguientes acciones](fix-pr2-denis-20261104/README.md).

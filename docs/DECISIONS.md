@@ -51,3 +51,8 @@ Consultar `git show <sha>` antes de atribuir un cambio específico. Los commits 
 Añadir una entrada con fecha, estado, motivo, evidencia y decisión reemplazada. No borrar el bloqueo histórico para aparentar que nunca existió. Una ampliación del catálogo, selección de pagos o publicación debe traer sus pruebas y actualizar [PROJECT-STATUS](PROJECT-STATUS.md).
 
 [Inicio](../README.md) · [Procedimientos](PLAYBOOK.md)
+
+
+## Reconciliación de stock físico — candidato de corrección 2026-11-04
+
+La instrucción directa de Denis conserva la entrega cuando la prenda física sí existe, aun si el stock registrado figura en 0. El ledger no debe reabrir esa elección ni recomendar un rechazo automático. Siguen pendientes la forma de alertar y reconciliar el registro, y su aceptación con el responsable del negocio. Este ajuste documental no modifica las guardas actuales de SQL/API ni acredita un cambio funcional de inventario.

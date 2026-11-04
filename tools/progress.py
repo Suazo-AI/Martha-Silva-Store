@@ -16,6 +16,30 @@ BRANCH = 'Tony'
 ORIGINS = {f'https://github.com/{REPOSITORY}.git',
            f'https://github.com/{REPOSITORY}', f'git@github.com:{REPOSITORY}.git'}
 RECEIPTS = 'docs/progress/'
+# Frozen import of already-published PR2 history without canonical receipts.
+# This is not a receipt exemption for future commits or other pull requests.
+PR2_IMPORT_MANIFEST = 'docs/progress-imports/pr2-88faa2dd.json'
+PR2_IMPORT_SHA256 = '22c5c476de48cddbb91801783dbedf74c0143f506da7995acdfcb786d8b08e15'
+PR2_IMPORT_BASE = '20932d5c97f2caaafad7dc888879957791907f36'
+PR2_IMPORT_HEAD = '88faa2dd0d51fc1c5089b721ba5b17c23d4d61d4'
+PR2_IMPORT_COMMITS = (
+    '56999669dfca2a8d0d5c8f8296a3035fb78b02cc',
+    '3e91801a3b01a1735f03cd1812589716e02d9c94',
+    'cf7a306fd1dd14552eccee922d1eada7372f157c',
+    '775f301bc195c43baedc68c86f4e71affe92ef95',
+    'df3d8969e8851aecc7d25d6820ba87c3d0404cba',
+    'ca500bb3058a2021c4169a42db3db86f4f7fd7a5',
+    'c64338b19b326a492b999d8da94a9494d547968c',
+    '95ce89f53562c3b076e1bed80c51ad410da07159',
+    'c89087a99abf81447f37537cb9dd58baccc5fc94',
+    '1a7cb01987f66fc7d19fd95a34afd8b7c0fcc3a0',
+    '25d8dcc41de3e4f29c84a51e0f56bbcdd85aeb7e',
+    'a2067e09842c4f0eaaf517aae9ff3a9527932d2c',
+    '7c53ae66d1c41631be331514667f3697549c3d03',
+    '60e6cfad6bbff60708e7d4cfed196a58550eebf9',
+    '5895c292f653780cbf408dedaaf4850c0ddfb8c5',
+    '88faa2dd0d51fc1c5089b721ba5b17c23d4d61d4',
+)
 SECRET = re.compile(
     rb'-----BEGIN (?:RSA |EC |OPENSSH |DSA |ENCRYPTED )?PRIVATE KEY-----|'
     rb'\b(?:gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|'
@@ -166,10 +190,41 @@ def validate_receipt(path, payload, files):
         raise Blocked('Progress receipt filename does not match its bytes.')
 
 
+def verify_import(commit, manifest_ref='HEAD'):
+    if commit not in PR2_IMPORT_COMMITS:
+        raise Blocked('Commit is outside the frozen PR2 import.')
+    payload = git('show', f'{manifest_ref}:{PR2_IMPORT_MANIFEST}')
+    if hashlib.sha256(payload).hexdigest() != PR2_IMPORT_SHA256:
+        raise Blocked('PR2 import manifest differs from the reviewed bytes.')
+    manifest = json.loads(payload)
+    if (manifest.get('schema') != 1 or manifest.get('repository') != REPOSITORY
+            or manifest.get('source_pr') != 2
+            or manifest.get('source_branch') != 'claude/funny-brahmagupta-5e5rj0'
+            or manifest.get('base') != PR2_IMPORT_BASE
+            or manifest.get('head') != PR2_IMPORT_HEAD
+            or tuple(row.get('commit') for row in manifest.get('commits', [])) != PR2_IMPORT_COMMITS):
+        raise Blocked('Invalid frozen PR2 import scope.')
+    recorded = next(row for row in manifest['commits'] if row['commit'] == commit)
+    files = describe(changes(commit), commit)  # Retain all path, mode and secret scans.
+    for item in files:
+        if item['git_blob']:
+            item['sha256'] = hashlib.sha256(git('cat-file', 'blob', item['git_blob'])).hexdigest()
+    actual = {'commit': commit,
+              'tree': git('rev-parse', f'{commit}^{{tree}}').decode().strip(),
+              'parents': git('show', '-s', '--format=%P', commit).decode().split(),
+              'files': files}
+    if actual != recorded:
+        raise Blocked('Imported PR2 commit differs from its reviewed tree, parents or blobs.')
+    print(f'PASS: frozen PR2 import and publication scan for {commit[:12]}; no historical receipt implied.')
+
+
 def verify(commit='HEAD'):
     commit = git('rev-parse', '--verify', f'{commit}^{{commit}}').decode().strip()
     rows = changes(commit)
     receipts = [(status, path) for status, path in rows if path.startswith(RECEIPTS)]
+    if not receipts and commit in PR2_IMPORT_COMMITS:
+        verify_import(commit)
+        return
     if len(receipts) != 1 or receipts[0][0] != 'A':
         raise Blocked('Each new commit must add exactly one progress receipt.')
     path = receipts[0][1]

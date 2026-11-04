@@ -14,9 +14,43 @@ Dónde aparece:
 
 | Evento | Destino | Aviso |
 | --- | --- | --- |
-| Push a cualquier rama (incluye `Tony` cuando el workflow llegue ahí) | Issue **"Bitácora de avance (automática)"** (etiqueta `bitacora`): un comentario por push y el cuerpo con el estado vigente | Notificación de GitHub a quien esté suscrito al issue |
-| PR abierto, actualizado o editado | Un único comentario fijo en el PR, que se reescribe en cada evento | Notificación normal del PR |
+| Push a cualquier rama (incluye `Tony` cuando el workflow llegue ahi) o ejecucion manual | Issue con etiqueta `bitacora`: comentarios historicos con evento, ref, SHA, run e intento; no reescribe el cuerpo como estado global vigente | Notificacion de GitHub a quien este suscrito al issue |
+| PR abierto, actualizado o editado | Comentario fijo del evento, solo si el PR sigue abierto y coinciden su head y `updated_at` vivos; si cambio, se omite la escritura y queda el snapshot en Actions | Notificacion normal del PR cuando se publica |
 | Cualquiera | Resumen del job en Actions | — |
+
+## Publicacion historica y concurrencia
+
+Cada resumen identifica evento, ref, SHA del evento, head del PR si corresponde, run e intento.
+Es un snapshot historico del ledger de ese evento, no una afirmacion de estado global actual.
+Una rama atrasada o un run demorado puede publicar despues de otro: ese orden refleja llegada
+al publicador y no convierte su ledger en el vigente para todas las ramas.
+
+El job `publish` usa un grupo de concurrencia global, `savia-progress-digest-publication`,
+compartido entre ramas y tipos de evento. Los publicadores que usan esta version no buscan ni
+crean simultaneamente la primera Bitacora. Se elige el issue abierto etiquetado de menor numero
+(excluyendo PRs) y solo se agregan comentarios; no se cierran ni eliminan issues duplicados existentes.
+Las colas usan `queue: max`: GitHub admite hasta 100 pendientes por grupo; al superar ese limite
+puede cancelar entradas. No es una promesa de entrega ilimitada ni exactamente una vez. Reintentar
+un run puede agregar otro comentario historico, identificado por su run e intento.
+
+Para el comentario fijo de PR, despues de buscar el comentario existente se consulta el PR vivo.
+Si esta cerrado, cambio el head o cambio `updated_at` respecto del evento, el job omite el POST/PATCH.
+La lectura fallida no autoriza usar datos antiguos. Esta comprobacion reduce escrituras atrasadas,
+pero GET y POST/PATCH no son una operacion atomica: aun existe una ventana si el PR cambia entre
+ambas llamadas. Por eso el propio comentario conserva el head y el evento del snapshot.
+
+Antes de activar esta correccion deben terminar los runs antiguos que no compartan el nuevo
+bloqueo. Otros workflows, bots y personas no quedan serializados por este grupo. Si ya existe un
+cuerpo de issue generado por una version anterior que diga que es el estado vigente, esta version
+no lo sustituye: requiere una correccion puntual revisada del texto historico; no se debe interpretar
+ese cuerpo antiguo como una medicion actual. No se cambia informacion manual del issue por inferencia.
+
+Permisos y efectos conservados: el publicador tiene `contents: read`, `issues: write` y
+`pull-requests: write`; puede crear la etiqueta/issue y escribir comentarios de issue/PR.
+No hace push de codigo, merge ni despliegue. El narrador opcional y los tests del digest no cambian
+por esta correccion; la metadata y los artefactos no prueban que la evidencia del ledger sea cierta.
+
+Referencia de la cola y sus limites: [documentacion oficial de concurrencia de GitHub](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/control-workflow-concurrency).
 
 ## Reglas que el CI hace cumplir
 

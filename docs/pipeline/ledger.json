@@ -81,9 +81,9 @@
       "done_when": "Protección de main con checks requeridos leída de la API; valor de CLOUDFLARE_DEPLOY_ENABLED anotado; decisiones en docs/DECISIONS.md",
       "alternatives": "Fusionar sin protección confiando en revisión manual (rechazado: sin freno automático)",
       "needs": {
-        "decision": "Responsable de aceptación, venta con stock 0, entorno del ensayo (SUAZO-PC en tienda o caja en la misma red)",
+        "decision": "Responsable de aceptación y entorno del ensayo; concretar alerta y reconciliación contable cuando la prenda física existe pero el stock registrado es 0",
         "decider": "jason",
-        "recommendation": "Martha acepta; rechazar stock 0; SUAZO-PC en la tienda con API+SQL locales",
+        "recommendation": "Conservar decisión de Denis: la prenda física existente sí se entrega; no introducir rechazo automático por stock registrado 0. Registrar cómo alertar y reconciliar; confirmar responsable y entorno del ensayo.",
         "tool": "Configuración de GitHub (admin): protección de rama y variables de Actions"
       },
       "trello": "https://trello.com/c/e57qFLhJ",
@@ -513,6 +513,112 @@
         "tool": "Secreto CLAUDE_CODE_OAUTH_TOKEN, ANTHROPIC_API_KEY u OPENAI_API_KEY"
       },
       "trello": "https://trello.com/c/dtcQ4Hzy"
+    },
+    {
+      "id": "TONY-STATUS01",
+      "track": "pipeline",
+      "owner": "denis",
+      "status": "review",
+      "title": "Unknown target must not appear complete",
+      "why": "An absent target rendered a completed critical path.",
+      "done_when": "Unknown target fails CLI and emits an explicitly invalid digest.",
+      "alternatives": "Prepared patch reviewed independently; integration remains with the existing canonical owner. No direct API push or control bypass.",
+      "evidence": "docs/sprint-20261104/TONY-PR2-FIXES.md",
+      "paths": [
+        "tools/delivery_status.py",
+        "tests/test_delivery_status.py"
+      ]
+    },
+    {
+      "id": "TONY-STATUS02",
+      "track": "pipeline",
+      "owner": "denis",
+      "status": "review",
+      "title": "Invalid dependencies must still produce an honest digest",
+      "why": "Cycles or missing references prevented the diagnostic digest.",
+      "done_when": "Cycle and missing-dependency regressions produce a nonzero result and useful invalid digest.",
+      "alternatives": "Prepared patch reviewed independently; integration remains with the existing canonical owner. No direct API push or control bypass.",
+      "evidence": "docs/sprint-20261104/TONY-PR2-FIXES.md",
+      "paths": [
+        "tools/delivery_status.py",
+        "tests/test_delivery_status.py"
+      ]
+    },
+    {
+      "id": "TONY-STATUS03",
+      "track": "pipeline",
+      "owner": "denis",
+      "status": "review",
+      "title": "Use one dropped-prerequisite rule",
+      "why": "A dropped prerequisite permitted starting but prevented completing downstream work.",
+      "done_when": "Decision-backed dropped dependencies agree across validation, actionable items and critical path.",
+      "alternatives": "Prepared patch reviewed independently; integration remains with the existing canonical owner. No direct API push or control bypass.",
+      "evidence": "docs/sprint-20261104/TONY-PR2-FIXES.md",
+      "paths": [
+        "tools/delivery_status.py",
+        "tests/test_delivery_status.py"
+      ]
+    },
+    {
+      "id": "TONY-WF01",
+      "track": "pipeline",
+      "owner": "denis",
+      "status": "review",
+      "title": "Preserve per-event progress history",
+      "why": "Delayed cross-branch publication overwrote global current-state issue body.",
+      "done_when": "Append-only branch/SHA snapshots, cooperating publication serialization and honest stale-PR check limits.",
+      "alternatives": "Prepared patch reviewed independently; integration remains with the existing canonical owner. No direct API push or control bypass.",
+      "evidence": "docs/sprint-20261104/TONY-PR2-FIXES.md",
+      "paths": [
+        ".github/workflows/progress-digest.yml",
+        "docs/pipeline/README.md"
+      ]
+    },
+    {
+      "id": "TONY-HC01",
+      "track": "pipeline",
+      "owner": "denis",
+      "status": "review",
+      "title": "Scan exact evidence before publishing",
+      "why": "The workflow could upload files after the harness secret scan failed.",
+      "done_when": "Known-secret failure never publishes files/table; manifest tamper fails; same-SHA Actions verifies guarded summary/artifact.",
+      "alternatives": "Prepared patch reviewed independently; integration remains with the existing canonical owner. No direct API push or control bypass.",
+      "evidence": "docs/sprint-20261104/TONY-PR2-FIXES.md",
+      "paths": [
+        "tests/golden-path/*",
+        ".github/workflows/golden-path.yml",
+        "tests/test_golden_path_safety.py"
+      ]
+    },
+    {
+      "id": "TONY-HC02",
+      "track": "pipeline",
+      "owner": "denis",
+      "status": "review",
+      "title": "Do not report uncertain SQL creation as clean",
+      "why": "Interrupted or generic failed creation could be reported not_created or authorize an unsafe drop.",
+      "done_when": "Unit refusal/timeout/unknown cases fail safely without autodrop; real authorized SQL smoke and teardown readback pass on integrated SHA.",
+      "alternatives": "Prepared patch reviewed independently; integration remains with the existing canonical owner. No direct API push or control bypass.",
+      "evidence": "docs/sprint-20261104/TONY-PR2-FIXES.md",
+      "paths": [
+        "tests/golden-path/*",
+        "tests/test_golden_path_safety.py"
+      ]
+    },
+    {
+      "id": "TONY-STOCKDOC",
+      "track": "pipeline",
+      "owner": "denis",
+      "status": "review",
+      "title": "Preserve the existing physical-garment delivery instruction",
+      "why": "The ledger reopened the settled delivery decision and recommended automatic stock-zero rejection.",
+      "done_when": "Docs retain Denis delivery instruction while leaving alert/reconciliation acceptance explicit; no untested stock runtime change.",
+      "alternatives": "Prepared patch reviewed independently; integration remains with the existing canonical owner. No direct API push or control bypass.",
+      "evidence": "docs/sprint-20261104/TONY-PR2-FIXES.md",
+      "paths": [
+        "docs/DECISIONS.md",
+        "docs/pipeline/ledger.json"
+      ]
     }
   ]
 }

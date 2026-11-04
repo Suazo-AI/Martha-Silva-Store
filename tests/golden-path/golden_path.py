@@ -10,6 +10,7 @@ Ver tests/golden-path/README.md.
 """
 import argparse
 import fcntl
+import hashlib
 import http.client
 import json
 import os
@@ -92,10 +93,21 @@ class Helper:
 
     def __call__(self, *args, allow_fail=False):
         env = child_env({'MARTHA_TEST_SQL_CONNECTION': self.connection})
-        done = subprocess.run([self.dotnet, str(self.dll), *args], env=env, capture_output=True, text=True, timeout=300)
-        lines = [line for line in done.stdout.splitlines() if line.startswith('{')]
-        result = json.loads(lines[-1]) if lines else {'ok': False, 'error': 'no_output', 'detail': f'exit_{done.returncode}'}
-        if (done.returncode != 0 or not result.get('ok')) and not allow_fail:
+        process = subprocess.Popen([self.dotnet, str(self.dll), *args], env=env,
+                                   stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        try:
+            stdout, _ = process.communicate(timeout=300)
+        except BaseException:
+            # Stop our own helper before SQL cleanup, including on SIGINT/SIGTERM or timeout.
+            # An interrupted create has no ownership acknowledgement; never infer a safe drop.
+            process.kill()
+            process.communicate()
+            raise
+        lines = [line for line in stdout.splitlines() if line.startswith('{')]
+        result = json.loads(lines[-1]) if lines else {'ok': False, 'error': 'no_output', 'detail': f'exit_{process.returncode}'}
+        if not isinstance(result, dict):
+            raise HarnessError('respuesta SQL no válida; resultado sin confirmación')
+        if (process.returncode != 0 or not result.get('ok')) and not allow_fail:
             raise HarnessError(f"herramienta SQL '{args[0]}' falló: {result.get('error')} / {result.get('detail')}")
         return result
 
@@ -296,6 +308,9 @@ class GoldenPath:
         self.args = args
         self.out = Path(args.out).resolve()
         self.out.mkdir(parents=True, exist_ok=True)
+        # Reusing --out must never let a prior run's approval publish stale evidence.
+        for name in ('evidence.json', 'oracles.md', 'evidence-approved'):
+            (self.out / name).unlink(missing_ok=True)
         self.private = Path(tempfile.mkdtemp(prefix='savia-golden-private-'))  # outside the evidence dir
         os.chmod(self.private, 0o700)
         self.server_connection = os.environ.get('MARTHA_TEST_SQL_CONNECTION', '')
@@ -307,6 +322,7 @@ class GoldenPath:
         self.api_log = None
         self.database_created = False
         self.drop_needed = False
+        self.creation_state = 'not_started'
         self.started = time.monotonic()
         self.ids = {}
         self.users = {}
@@ -363,9 +379,22 @@ class GoldenPath:
             'not_proven': ['real browser/UI (C6)', 'Windows/SUAZO-PC', 'production TLS/proxy', 'payments',
                            'concurrency/load', 'backup/restore', 'idempotent release SQL script'],
         }
-        (self.out / 'evidence.json').write_text(json.dumps(evidence, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
         table = self.table()
-        (self.out / 'oracles.md').write_text(table + '\n', encoding='utf-8')
+        # Scan the exact UTF-8 bytes before making either public file available.
+        # Private staging is outside --out, so always() artifact steps cannot collect it.
+        with tempfile.TemporaryDirectory(prefix='savia-evidence-private-', dir=self.out.parent) as directory:
+            staged = Path(directory)
+            os.chmod(staged, 0o700)
+            (staged / 'evidence.json').write_text(json.dumps(evidence, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
+            (staged / 'oracles.md').write_text(table + '\n', encoding='utf-8')
+            self.scan_for_secrets(directory=staged)
+            self.scan_for_secrets()
+            manifest = {'schema': 1, 'files': {name: hashlib.sha256((staged / name).read_bytes()).hexdigest()
+                                               for name in ('evidence.json', 'oracles.md')}}
+            for name in manifest['files']:
+                os.replace(staged / name, self.out / name)
+            # Last write: CI verifies this manifest against exact bytes before publication.
+            (self.out / 'evidence-approved').write_text(json.dumps(manifest) + '\n', encoding='utf-8')
         return table
 
     def table(self):
@@ -378,7 +407,7 @@ class GoldenPath:
             lines.append('| ' + ' | '.join(cells) + ' |')
         return '\n'.join(lines)
 
-    def scan_for_secrets(self, skip=()):
+    def scan_for_secrets(self, skip=(), directory=None):
         """Fail if any password, cookie, CSRF token or the connection leaked into the evidence directory."""
         needles = {s for s in self.secrets_seen if len(s) >= 8}
         if self.server_connection:
@@ -387,7 +416,7 @@ class GoldenPath:
                 k, _, v = part.partition('=')
                 if k.strip().lower() in ('password', 'pwd') and len(v.strip()) >= 4:
                     needles.add(v.strip())
-        for path in self.out.rglob('*'):
+        for path in (directory or self.out).rglob('*'):
             if path.is_file() and path.name not in skip:
                 text = path.read_text(encoding='utf-8', errors='replace')
                 for needle in needles:
@@ -465,11 +494,19 @@ class GoldenPath:
         shutil.move(str(self.private / 'tls' / 'cert.pem'), str(self.out / 'cert.pem'))
 
         def migrate():
+            # Before a reply there is no proof whether CREATE committed or refused an
+            # existing database. Teardown must report uncertainty, never not_created.
+            self.creation_state = 'uncertain'
             result = self.helper('create', self.database, allow_fail=True)
             if result.get('detail') in ('database_already_exists', 'database_name_not_golden_disposable'):
+                self.creation_state = 'refused'
                 raise HarnessError(f"herramienta SQL rechazó la base: {result['detail']}")  # never drop it
-            self.drop_needed = True  # created (possibly partially) by this run
-            expect(result.get('ok'), f"migración falló: {result.get('error')} / {result.get('detail')}")
+            if result.get('ok') is not True:
+                # A generic SQL error can occur during the pre-existence check itself.
+                # Even a returned error is not proof that this run owns the database.
+                raise HarnessError('creación SQL sin confirmación; propiedad de la base desconocida')
+            self.drop_needed = True  # successful create acknowledgement from this run
+            self.creation_state = 'acknowledged'
             self.database_created = True
             expect(result['pending'] == 0 and len(result['applied']) == EXPECTED_MIGRATIONS, 'migraciones incompletas')
             return {'applied_migrations': result['applied'], 'method': result['method']}
@@ -708,8 +745,15 @@ class GoldenPath:
             dropped = self.helper('drop', self.database, allow_fail=True)
             exists = self.helper('exists', self.database, allow_fail=True)
             records['database_dropped'] = bool(dropped.get('ok')) and exists.get('exists') is False
+        elif self.creation_state == 'uncertain':
+            # A matching name alone is not ownership: do not drop a pre-existing
+            # caller-specified DB after an interrupted refusal. Require operator review.
+            records['database_dropped'] = False
+            records['database_creation'] = 'unknown'
+            records['operator_cleanup_required'] = True
         else:
             records['database_dropped'] = 'not_created'
+            records['database_creation'] = self.creation_state
         for name in ('session.json', 'serve-ready.json'):
             (self.out / name).unlink(missing_ok=True)
         log = self.private / 'api.log'
@@ -786,16 +830,25 @@ def main(argv=None):
         if harness.steps[-1]['status'] != 'PASS':
             outcome, code = 'FAIL', 1
             error = error or 'retiro incompleto'
-        table = harness.write_evidence(outcome, error)
         try:
+            table = harness.write_evidence(outcome, error)
             checked = harness.scan_for_secrets()
             print(f'Evidencia revisada: ningún secreto conocido ({checked} valores) en {harness.out}', flush=True)
-        except HarnessError as leak:
+        except Exception:
             outcome, code = 'FAIL', 1
-            print(f'FAIL {leak}', file=sys.stderr, flush=True)
-        print('\n' + table, flush=True)
-        print(f'\n{outcome}: camino dorado ({args.mode}) en {round((time.monotonic() - harness.started))} s'
-              + (f' — {error}' if error else ''), flush=True)
+            for name in ('evidence.json', 'oracles.md', 'evidence-approved'):
+                (harness.out / name).unlink(missing_ok=True)
+            # Do not echo the table/error/path when sanitization failed: it may carry secrets.
+            print('FAIL: evidencia no aprobada; no se publica contenido.', file=sys.stderr, flush=True)
+        else:
+            print('\n' + table, flush=True)
+            print(f'\n{outcome}: camino dorado ({args.mode}) en {round((time.monotonic() - harness.started))} s'
+                  + (f' — {error}' if error else ''), flush=True)
+        finally:
+            shutil.rmtree(harness.private, ignore_errors=True)
+            if harness.private.exists():
+                code = 1
+                print('FAIL: no se pudo retirar el directorio privado.', file=sys.stderr, flush=True)
     return code
 
 
