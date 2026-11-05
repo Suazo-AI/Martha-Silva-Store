@@ -5,6 +5,8 @@ Base: `6f304a7571a554bb8968e081a14985829aee3dfb`. Target: canonical checkout, `T
 
 Primary accepts the candidate as bounded local technical work for publication.
 Fresh Linux CI is required for the integrated commit. Production remains NO-GO.
+Initial publication `300bf55` synchronized; its workflows failed YAML parsing.
+The [failure and correction](publication-ci.md) remain separate from product test results.
 The required Opus critic verdict is absent because Antigravity rejected quota.
 This publication does not waive that review or any operational gate.
 

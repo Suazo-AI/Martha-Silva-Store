@@ -17,7 +17,8 @@ La simulación administrativa añade doce familias del modelo offline, no capaci
 El primary comprobó dos copias normales y cinco controles negativos; Astra/high revisó diez criterios sin hallazgos materiales.
 El primary acepta evidencia técnica offline acotada; [dictamen y límites](release-20261105/admin-judge.md).
 Opus no devolvió dictamen: Antigravity agotó la cuota; [bloqueo y siguiente acción](release-20261105/admin-review-blocker.md).
-Los artefactos importados y estas observaciones todavía no tienen publicación ni CI propios.
+Los artefactos se publicaron en `300bf55`; sus workflows fallaron por sintaxis YAML introducida por el primary.
+La [corrección documentada](release-20261105/responsive-integration/publication-ci.md) exige readback y CI nuevos; no hay aceptación de Linux todavía.
 Esto no cambia C2/C9/C10 ni la decisión de producción.
 
 Actualización N5-COV, 2026-11-05 UTC: [cobertura de recuperación en navegador](n5-browser-20261105/README.md).

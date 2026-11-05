@@ -38,7 +38,8 @@ jobs:
           node-version: '24'
           package-manager-cache: false
       - name: Install pinned responsive media test dependencies
-        run: python -m pip install --only-binary=:all: --disable-pip-version-check -r tests/media-requirements.txt
+        run: >-
+          python -m pip install --only-binary=:all: --disable-pip-version-check -r tests/media-requirements.txt
       - name: Install locked dependencies and run portable QA
         run: python tests/check.py --install
         timeout-minutes: 10
