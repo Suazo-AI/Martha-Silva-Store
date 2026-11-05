@@ -1,0 +1,26 @@
+{
+  "observedUtc": "2026-11-05T02:26:26.772Z",
+  "host": "SUAZO-PC",
+  "node": "v24.18.0",
+  "browser": "156.0.8078.80",
+  "layer": "Real Chromium browser; mocked staff API; public browser-local demo",
+  "origin": "http://127.0.0.1:64938",
+  "sourceHashes": {
+    "dev/savia-staff-ui/app.mjs": "c5179f67e8f613e6a71ed1e611cd923a4c3862a4a646aa3be4b8f81b8609d48e",
+    "dev/savia-staff-ui/client.mjs": "9dd4ee88c9f34f5948ec38d31f73bde976acffcc03c7bdfa99b5996dcc87243d",
+    "dev/savia-staff-ui/login.mjs": "ac7714a22eb1e7a383ca41e3e11343472025271dcf21dc862f39cf8c386fc787",
+    "dev/savia-staff-ui/login.html": "4803ece2ef530d9e5161837209ac86591bfe1447e9876b0f38bf17baca9a8382",
+    "dev/savia-staff-ui/index.html": "b10cb0d2e7ea628a616e4b514b8cb188942e0332157410d5cac7cc3e398b8a6c",
+    "dev/savia-staff-ui/styles.css": "9f9bca25769c903c3b886b5e7ff2b4570f4893e44e80219fe34d2acb949c070b"
+  },
+  "results": [
+    {
+      "name": "Sale sends no price, preserves key, displays receipt and updated stock",
+      "status": "PASS",
+      "durationMs": 1299
+    }
+  ],
+  "runtime": [],
+  "externalRequests": [],
+  "networkFailures": []
+}

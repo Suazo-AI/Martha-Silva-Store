@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {createRequire} from 'node:module';
 import {mountCommerce} from './app.mjs';
-import {createStaffClient, readReceipt} from './client.mjs';
+import {createStaffClient, readReceipt, validateSaleRequest} from './client.mjs';
 import {StaffRequestError} from './login.mjs';
 const {JSDOM}=createRequire(import.meta.url)('jsdom');
 const html=await readFile(new URL('./index.html',import.meta.url),'utf8');
@@ -105,4 +105,92 @@ test('malformed completed outcome stays unresolved and cannot unlock a new sale'
   const original=JSON.stringify({key:id(8),body});s.window.sessionStorage.setItem(`savia.sale.pending.${actor.id}`,original);
   await s.app.start();assert.equal(s.window.sessionStorage.getItem(`savia.sale.pending.${actor.id}`),original);
   assert.equal(s.document.getElementById('sale-submit').disabled,true);
+});
+
+const second={...item,id:id(20),sku:'SYN-M',name:'Synthetic M'};
+const multiBody={...body,lines:[{itemId:item.id,quantity:2},{itemId:second.id,quantity:3}]};
+const multiReceipt={...receipt,totalMinor:50000,lines:[{...receipt.lines[0],quantity:2,totalMinor:20000},
+  {...receipt.lines[0],saleLineId:id(21),itemId:second.id,sku:second.sku,name:second.name,quantity:3,totalMinor:30000}]};
+const twoItems={listItems:async()=>({items:[item,second],total:2})};
+function fillMulti(s) {
+  s.document.getElementById('sale-quantity').value='2';
+  s.document.getElementById('sale-add').click();
+  s.document.getElementById('sale-quantity-2').value='3';
+}
+
+test('multiarticle cart adds, edits and removes either row without losing remaining quantities',async t=>{
+  const s=setup(t,twoItems); await s.app.start(); fillMulti(s);
+  assert.equal(s.document.getElementById('sale-item-2').value,second.id);
+  assert.equal(s.document.getElementById('sale-add').disabled,true);
+  s.document.querySelector('[data-sale-remove="0"]').click();
+  assert.equal(s.document.getElementById('sale-item').value,second.id);
+  assert.equal(s.document.getElementById('sale-quantity').value,'3');
+  assert.equal(s.document.querySelector('[data-sale-remove]').disabled,true);
+  s.document.getElementById('sale-add').click();
+  assert.equal(s.document.getElementById('sale-item-2').value,item.id);
+  s.document.querySelector('[data-sale-remove="1"]').click();
+  assert.equal(s.document.querySelectorAll('[data-sale-line]').length,1);
+});
+
+test('multiarticle double submit freezes all lines and renders the server total and every item',async t=>{
+  const calls=[]; let finish;
+  const s=setup(t,{...twoItems,recordSale:(key,payload)=>{calls.push({key,payload});return new Promise(r=>finish=r);}});
+  await s.app.start();fillMulti(s);s.submit();s.submit();
+  assert.equal(calls.length,1);assert.deepEqual(calls[0].payload,multiBody);
+  assert.deepEqual(JSON.parse(s.window.sessionStorage.getItem(`savia.sale.pending.${actor.id}`)).body,multiBody);
+  for(const control of s.document.getElementById('sale-form').elements) assert.equal(control.disabled,true);
+  finish(multiReceipt);await flush();
+  const text=s.document.getElementById('sale-receipt').textContent;
+  assert.match(text,/SYN-S/);assert.match(text,/SYN-M/);assert.match(text,/500/);
+  assert.equal(s.document.querySelectorAll('[data-sale-line]').length,1);
+  assert.equal(s.document.getElementById('sale-item').value,'');s.submit();await flush();assert.equal(calls.length,1);
+});
+
+test('duplicate articles and fractional quantities never create or persist a sale',async t=>{
+  let writes=0;const s=setup(t,{...twoItems,recordSale:async()=>{writes++;return multiReceipt;}});
+  await s.app.start();fillMulti(s);s.document.getElementById('sale-item-2').value=item.id;s.submit();
+  assert.match(s.document.getElementById('sale-status').textContent,/repetidos/);
+  s.document.getElementById('sale-item-2').value=second.id;s.document.getElementById('sale-quantity-2').value='1.5';s.submit();
+  await flush();assert.equal(writes,0);assert.equal(s.window.sessionStorage.getItem(`savia.sale.pending.${actor.id}`),null);
+});
+
+test('multiarticle retry sends the original full body and key after response loss',async t=>{
+  const calls=[];const s=setup(t,{...twoItems,recordSale:async(key,payload)=>{calls.push({key,payload});if(calls.length===1)throw new StaffRequestError('unavailable');return multiReceipt;}});
+  await s.app.start();fillMulti(s);s.submit();await flush();
+  // Even a programmatic field change cannot alter the persisted operation.
+  s.document.getElementById('sale-quantity-2').value='99';s.document.getElementById('sale-retry').click();await flush();
+  assert.equal(calls.length,2);assert.deepEqual(calls[0],calls[1]);assert.deepEqual(calls[1].payload,multiBody);
+});
+
+test('multiarticle reload displays and recovers the original lines even when an item left the catalog',async t=>{
+  let writes=0;const s=setup(t,{recordSale:async()=>{writes++;return multiReceipt;},recoverSale:async(key,payload)=>{
+    assert.equal(key,id(8));assert.deepEqual(payload,multiBody);
+    assert.equal(s.document.getElementById('sale-item-2').value,second.id);
+    assert.equal(s.document.getElementById('sale-quantity-2').value,'3');return multiReceipt;
+  }});
+  s.window.sessionStorage.setItem(`savia.sale.pending.${actor.id}`,JSON.stringify({key:id(8),body:multiBody,actorVersion:actor.version}));
+  await s.app.start();assert.equal(writes,0);assert.equal(s.document.getElementById('sale-receipt').hidden,false);
+});
+
+test('request bounds and case-insensitive distinct item identities are enforced',()=>{
+  const hundred={...body,lines:Array.from({length:100},(_,n)=>({itemId:id(100+n),quantity:100000}))};
+  assert.doesNotThrow(()=>validateSaleRequest(hundred));
+  const hex='abcdefab-cdef-abcd-efab-abcdefabcdef';
+  for(const lines of [[],[...hundred.lines,{itemId:id(999),quantity:1}],
+    [{itemId:hex,quantity:1},{itemId:hex.toUpperCase(),quantity:1}],
+    [{itemId:item.id,quantity:0}],[{itemId:item.id,quantity:100001}],[null]])
+    assert.throws(()=>validateSaleRequest({...body,lines}),StaffRequestError);
+});
+
+test('multiarticle receipts match every requested item and quantity independently of ordering',()=>{
+  assert.equal(readReceipt({...multiReceipt,lines:[...multiReceipt.lines].reverse()},multiBody).saleId,receipt.saleId);
+  const first=multiReceipt.lines[0],last=multiReceipt.lines[1];
+  for(const wrong of [
+    {...multiReceipt,lines:[first],totalMinor:first.totalMinor},
+    {...multiReceipt,lines:[first,{...last,itemId:id(22)}]},
+    {...multiReceipt,lines:[first,{...last,itemId:first.itemId}]},
+    {...multiReceipt,lines:[first,{...last,saleLineId:first.saleLineId}]},
+    {...multiReceipt,lines:[first,{...last,quantity:4,totalMinor:40000}],totalMinor:60000},
+    {...multiReceipt,lines:[first,last,{...last,saleLineId:id(23),itemId:id(24)}],totalMinor:80000}
+  ]) assert.throws(()=>readReceipt(wrong,multiBody),StaffRequestError);
 });

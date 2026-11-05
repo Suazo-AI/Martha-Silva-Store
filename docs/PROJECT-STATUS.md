@@ -6,7 +6,9 @@ Corte operativo: 2026-11-04 UTC. Host coordinador: SUAZO-PC. Checkout canónico 
 Actualización de alcance, 2026-11-04 America/Managua: Jason exige venta multiartículo
 en una factura y sustitución de SISFAIN, no mantenerlo como integración objetivo
 ([D-023/D-024](DECISIONS.md#d-023--venta-multiartículo-obligatoria)).
-El backend admite varias líneas; la UI/cliente actuales limitan a una. Los pagos
+La UI/cliente de Tony ya permiten varias líneas en una venta y su recuperación;
+[verificación del incremento](multiarticle-20261104/README.md) pendiente de CI real del nuevo SHA.
+El backend admite varias líneas. Los pagos
 internos siguen `not_processed`; la paridad comercial/fiscal no está implementada.
 Tres agentes investigaron operación, fiscalidad y migración/calidad. La explicación,
 matriz, escenarios ficticios y límites están en

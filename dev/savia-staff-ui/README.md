@@ -10,7 +10,7 @@ El servidor aplica sesión, permisos, ámbito de sucursal y CSRF. Ocultar botone
 - `index.html` / `styles.css`: estructura, controles y presentación.
 - `app.mjs` / `client.mjs`: sesión, directorio paginado, stock, venta, recibo y recuperación del intento.
 
-La UI ya tiene venta y recuperación implementadas. El catálogo global y las existencias por sucursal son lecturas diferentes.
+La UI ya tiene venta multiartículo y recuperación implementadas. El catálogo global y las existencias por sucursal son lecturas diferentes.
 Una pérdida de respuesta requiere recuperar el intento original; no fabricar éxito ni generar una venta equivalente.
 N5 está corregido en la base `775f301bc195c43baedc68c86f4e71affe92ef95`.
 Fuente reproducible: `Stale confirmed receipt` de [browser-mock-validation.mjs](../../tests/browser-mock-validation.mjs).

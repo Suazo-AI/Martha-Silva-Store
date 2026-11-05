@@ -109,7 +109,7 @@ try{
   await test('Anonymous session exposes no staff data',()=>withStaff({session:false},async s=>{await s.page.goto(origin+'/internal/');await expect(s.page.locator('#auth-required')).toBeVisible();await expect(s.page.locator('#staff-shell')).toBeHidden();assert.equal(s.state.calls.filter(x=>x.path.includes('/directory/')).length,0);}));
   for(const role of ['Owner','Manager','Cashier','Inventory'])await test(`${role} navigation and sale permissions in browser`,()=>withStaff({role},async s=>{
     await ready(s);await expect(s.page.locator('[data-target="clientes"][data-action="nav"]'))[role==='Owner'?'toBeVisible':'toBeHidden']();
-    await s.page.locator('[data-target="ventas"][data-action="nav"]').click();await expect(s.page.locator('#sale-item option')).toHaveCount(1);
+    await s.page.locator('[data-target="ventas"][data-action="nav"]').click();await expect(s.page.locator('#sale-item option:not([value=""])')).toHaveCount(1);
     await expect(s.page.locator('#sale-submit'))[role==='Inventory'?'toBeDisabled':'toBeEnabled']();
     if(role!=='Owner')assert.equal(s.state.calls.filter(x=>x.path.endsWith('/parties')).length,0);
   }));
@@ -124,6 +124,42 @@ try{
   await test('Sale sends no price, preserves key, displays receipt and updated stock',()=>withStaff({},async s=>{
     await sales(s);await s.page.locator('#sale-submit').click();await expect(s.page.locator('#sale-receipt')).toBeVisible();assert.deepEqual(s.state.sales[0].payload,body);assert.match(s.state.sales[0].key,/^[a-f0-9-]{36}$/);assert.equal(s.state.sales.length,1);assert.ok(s.state.calls.find(x=>x.method==='POST'&&x.path.endsWith('/sales')).hasCsrf);
     await s.page.reload();await s.page.locator('[data-target="ventas"][data-action="nav"]').click();await expect(s.page.locator('#sale-receipt')).toBeVisible();assert.equal(s.state.sales.length,1);
+  }));
+  for(const mobile of [false,true])await test(`Multiarticle cart and lost response reload at ${mobile?'390':'1440'}px`,()=>withStaff({mobile,label:`multiarticle-${mobile?'mobile':'desktop'}`,override:async({route,p,method,state,req,json,u})=>{
+    const extra={...item,id:id(20),sku:'SYN-M',name:'Synthetic dress M',unitPriceMinor:2500};
+    const result={...receipt,totalMinor:27500,lines:[{...receipt.lines[0],quantity:2,totalMinor:20000},
+      {...receipt.lines[0],saleLineId:id(21),itemId:extra.id,sku:extra.sku,name:extra.name,quantity:3,unitPriceMinor:2500,totalMinor:7500}]};
+    if(p.endsWith('/directory/items')){await json(route,{items:[item,extra],total:2,skip:Number(u.searchParams.get('skip')),take:Number(u.searchParams.get('take'))});return true;}
+    if(p.endsWith('/sales')&&method==='POST'){
+      state.sales.push({key:req.headers()['idempotency-key'],payload:req.postDataJSON()}); await route.abort('failed');return true;
+    }
+    if(p.includes('/operations/')){await json(route,{status:'completed',result:{success:true,value:result,error:null}});return true;}
+    if(p.includes('/commerce/sales/')){await json(route,result);return true;}
+  }},async s=>{
+    await sales(s);await s.page.locator('#sale-quantity').fill('2');await s.page.locator('#sale-add').click();
+    await s.page.locator('#sale-quantity-2').fill('3');
+    await expect(s.page.locator('#sale-item-2')).toHaveValue(id(20));
+    await s.page.locator('[data-sale-remove="0"]').click();
+    await expect(s.page.locator('#sale-item')).toHaveValue(id(20));await expect(s.page.locator('#sale-quantity')).toHaveValue('3');
+    await s.page.locator('#sale-add').click();await s.page.locator('#sale-item').selectOption(item.id);
+    await s.page.locator('#sale-quantity').fill('2');await s.page.locator('#sale-item-2').selectOption(id(20));
+    await s.page.locator('#sale-quantity-2').fill('3');
+    assert.ok(await s.page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+    await s.page.screenshot({path:path.join(out,`multiarticle-${mobile?'mobile':'desktop'}-cart.png`),fullPage:true});
+    await s.page.locator('#sale-submit').evaluate(el=>{el.click();el.click();});
+    await expect(s.page.locator('#sale-recover')).toBeEnabled();await expect(s.page.locator('#sale-add')).toBeDisabled();
+    assert.equal(s.state.sales.length,1);
+    assert.deepEqual(s.state.sales[0].payload,{...body,lines:[{itemId:item.id,quantity:2},{itemId:id(20),quantity:3}]});
+    const originalKey=s.state.sales[0].key;
+    await s.page.reload();await s.page.locator('[data-target="ventas"][data-action="nav"]').click();
+    await expect(s.page.locator('#sale-receipt')).toContainText('SYN-S');await expect(s.page.locator('#sale-receipt')).toContainText('SYN-M');
+    await expect(s.page.locator('#sale-receipt strong')).toContainText('275');
+    await expect(s.page.locator('#sale-item')).toHaveValue('');await expect(s.page.locator('[data-sale-line]')).toHaveCount(1);
+    assert.equal(s.state.sales.length,1);assert.ok(s.state.calls.some(c=>c.path.includes('/operations/')&&c.key===originalKey));
+    await s.page.reload();await s.page.locator('[data-target="ventas"][data-action="nav"]').click();
+    await expect(s.page.locator('#sale-receipt')).toBeVisible();assert.equal(s.state.sales.length,1);
+    assert.ok(await s.page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+    await s.page.screenshot({path:path.join(out,`multiarticle-${mobile?'mobile':'desktop'}-receipt.png`),fullPage:true});
   }));
   await test('Rapid double submit sends one request',()=>withStaff({override:async({route,p,method,state,req,json})=>{if(p.endsWith('/sales')&&method==='POST'){state.sales.push({key:req.headers()['idempotency-key'],payload:req.postDataJSON()});await new Promise(r=>setTimeout(r,150));await json(route,receipt);return true;}}},async s=>{
     await sales(s);await s.page.locator('#sale-submit').evaluate(el=>{el.click();el.click();});await expect(s.page.locator('#sale-receipt')).toBeVisible();assert.equal(s.state.sales.length,1);
@@ -166,7 +202,7 @@ try{
   }},async s=>{
     await sales(s);await s.page.locator('#sale-submit').click();await expect(s.page.locator('#sale-recover')).toBeEnabled();
     const storageKey=`savia.sale.pending.${actor.id}`,original=await s.page.evaluate(k=>sessionStorage.getItem(k),storageKey);
-    s.state.identity={version:id(182)};await s.page.reload();await s.page.locator('[data-target="ventas"][data-action="nav"]').click();await expect(s.page.locator('#sale-item option')).toHaveCount(1);
+    s.state.identity={version:id(182)};await s.page.reload();await s.page.locator('[data-target="ventas"][data-action="nav"]').click();await expect(s.page.locator('#sale-item option:not([value=""])')).toHaveCount(1);
     await expect(s.page.locator('#sale-status')).toContainText('acceso cambió');await expect(s.page.locator('#sale-submit')).toBeDisabled();await expect(s.page.locator('#sale-recover')).toBeDisabled();await expect(s.page.locator('#sale-retry')).toBeDisabled();
     await expect(s.page.locator('#sale-receipt')).toBeEmpty();assert.equal(await s.page.evaluate(k=>sessionStorage.getItem(k),storageKey),original);
     assert.equal(s.state.calls.filter(x=>x.path.includes('/operations/')).length,0);assert.equal(s.state.sales.length,1);
@@ -177,7 +213,7 @@ try{
   }},async s=>{
     const pendingKey=id(185),original=JSON.stringify({key:pendingKey,body});
     await s.page.goto(origin+'/internal/login');await s.page.evaluate(({key,value})=>sessionStorage.setItem(key,value),{key:`savia.sale.pending.${actor.id}`,value:original});
-    await ready(s);await s.page.locator('[data-target="ventas"][data-action="nav"]').click();await expect(s.page.locator('#sale-item option')).toHaveCount(1);
+    await ready(s);await s.page.locator('[data-target="ventas"][data-action="nav"]').click();await expect(s.page.locator('#sale-item option:not([value=""])')).toHaveCount(1);
     await expect(s.page.locator('#sale-status')).toContainText('acceso cambió');await expect(s.page.locator('#sale-submit')).toBeDisabled();await expect(s.page.locator('#sale-recover')).toBeDisabled();await expect(s.page.locator('#sale-retry')).toBeDisabled();await expect(s.page.locator('#sale-receipt')).toBeEmpty();
     assert.equal(await s.page.evaluate(k=>sessionStorage.getItem(k),`savia.sale.pending.${actor.id}`),original);assert.equal(s.state.calls.filter(x=>x.path.includes('/operations/')).length,0);assert.equal(s.state.sales.length,0);
     return {preservedKey:pendingKey,legacyVersion:'unknown; never rebound',posts:s.state.sales.length};
@@ -220,7 +256,7 @@ try{
   }));
   await test('Stale confirmed receipt 404 must not permanently block a fresh sale (N5)',()=>withStaff({role:'Cashier',override:async({route,p,json})=>{if(p.endsWith('/sales/'+receipt.saleId)){await json(route,{code:'not_found'},404);return true;}}},async s=>{
     await s.page.goto(origin+'/internal/login');await s.page.evaluate(({key,value})=>sessionStorage.setItem(key,value),{key:`savia.sale.receipt.${actor.id}`,value:receipt.saleId});await ready(s);await s.page.locator('[data-target="ventas"][data-action="nav"]').click();
-    await expect(s.page.locator('#sale-item option')).toHaveCount(1);await expect(s.page.locator('#sale-status')).toContainText('servidor');
+    await expect(s.page.locator('#sale-item option:not([value=""])')).toHaveCount(1);await expect(s.page.locator('#sale-status')).toContainText('servidor');
     const observation=await s.page.evaluate(()=>({status:document.querySelector('#sale-status').textContent,submitDisabled:document.querySelector('#sale-submit').disabled,recoverDisabled:document.querySelector('#sale-recover').disabled,retryDisabled:document.querySelector('#sale-retry').disabled}));
     await writeFile(path.join(out,'stale-receipt-observation.json'),JSON.stringify(observation,null,2));await s.page.screenshot({path:path.join(out,'stale-receipt.png'),fullPage:true});
     assert.equal(observation.submitDisabled,false,'Confirmed receipt became unavailable; new authorized sale is locked, with no recoverable pending operation.');

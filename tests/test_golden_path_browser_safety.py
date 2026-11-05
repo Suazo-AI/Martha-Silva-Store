@@ -85,7 +85,7 @@ class BrowserSafetyTests(unittest.TestCase):
         harness.api_dll = base / 'api.dll'; harness.api_dll.write_bytes(b'synthetic unit fixture')
         harness.base_url = 'https://127.0.0.1:12345'
         harness.users = {'Cashier': {'loginName': 'unit.cashier', 'password': 'unit-private-password'}}
-        harness.ids = {'location': KEY, 'items': [SALE]}
+        harness.ids = {'location': KEY, 'items': [SALE, LOST_SALE]}
         harness.database_created = True
         harness.stop_browser = Mock()
         harness.register_browser_group = Mock()
@@ -117,10 +117,10 @@ class BrowserSafetyTests(unittest.TestCase):
             if index in (0, 1): event['notes']['source_hashes'] = hashes
             if index == 0: event['notes']['runtime'] = {'chrome': 'Chrome/1.2.3', 'node': 'v24.0.0', 'playwright': '1.63.0'}
             if name in ('browser.inventory', 'browser.stock_after_sale'):
-                event['notes'].update(stock_rows=3, stock_total=30 if sales == 0 else 28)
+                event['notes'].update(stock_rows=3, stock_total=30 if sales == 0 else 27)
             if name in ('browser.sale_confirmed', 'browser.response_loss_committed'):
                 key, sale, quantity = (KEY, SALE, 2) if sales == 1 else (LOST_KEY, LOST_SALE, 1)
-                event['notes'].update(key=key, sale_id=sale, quantity=quantity, total_minor=1250 * quantity)
+                event['notes'].update(key=key, sale_id=sale, quantity=quantity, total_minor=1250 * quantity + 3400)
                 event['notes']['network'].append({'method': 'POST', 'path': '/internal/api/commerce/sales',
                     'status': 200, 'key': key, 'response_lost': sales == 2})
             if name == 'browser.receipt_reload': event['notes']['sale_id'] = SALE
@@ -128,9 +128,9 @@ class BrowserSafetyTests(unittest.TestCase):
             # The child claims the second sale committed. SQL independently still sees only one.
             actual = min(sales, 1)
             counts.append({**dict.fromkeys(GP.ALWAYS_ZERO, 0), 'migrations_applied': 2, 'sales': actual,
-                'sale_lines': actual, 'sale_movements': actual, 'sale_operations': actual,
-                'movements': 3 + actual, 'operations': 10 + actual,
-                'on_hand_total': 30 if actual == 0 else 28, 'active_sessions': 0 if index == 0 else 1})
+                'sale_lines': 2 * actual, 'sale_movements': 2 * actual, 'sale_operations': actual,
+                'movements': 3 + 2 * actual, 'operations': 10 + actual,
+                'on_hand_total': 30 if actual == 0 else 27, 'active_sessions': 0 if index == 0 else 1})
         harness.oracles = Mock(side_effect=counts)
         with self.assertRaisesRegex(GP.HarnessError, 'oráculo SQL falló en browser.response_loss_committed'):
             self.run_child(harness, process, events)

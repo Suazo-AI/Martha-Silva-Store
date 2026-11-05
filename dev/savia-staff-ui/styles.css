@@ -98,6 +98,12 @@ form { margin: 0; }
 .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 1.25rem; }
 .field { display: flex; flex-direction: column; gap: .45rem; min-width: 0; font-size: .875rem; font-weight: 600; }
 .field.full { grid-column: 1 / -1; }
+.sale-lines { gap: 1rem; }
+.sale-line { display: grid; grid-template-columns: minmax(0, 1fr) 110px auto; gap: .75rem; align-items: end; }
+@media (max-width: 600px) {
+  .sale-line { grid-template-columns: minmax(0, 1fr) 100px; }
+  .sale-line > .field:first-child { grid-column: 1 / -1; }
+}
 .field > small { font-weight: 400; }
 label { overflow-wrap: anywhere; }
 input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]), select, textarea { display: block; width: 100%; min-width: 0; min-height: 46px; padding: .7rem .85rem; border: 1px solid #b3c2b1; border-radius: var(--radius-small); background: white; color: var(--ink); line-height: 1.4; transition: border-color 120ms ease, box-shadow 120ms ease; }

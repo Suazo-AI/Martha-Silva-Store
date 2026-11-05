@@ -1,6 +1,6 @@
 // Private staff shell. Server identity and business contracts are required.
 // No fixture business data or local authentication. Only pending operation references persist per tab.
-import {createStaffClient} from './client.mjs';
+import {createStaffClient, validateSaleRequest} from './client.mjs';
 import {StaffRequestError, readStaff} from './login.mjs';
 const errorIds = new WeakMap();
 
@@ -413,9 +413,38 @@ export function mountCommerce({document, client, getSession, onUnauthorized}) {
   const current = (g, id) => generation === g && getSession()?.id === id;
   const changedScope = () => !!pending?.key && ((!!pending.actorVersion && pending.actorVersion !== getSession()?.version)
     || !locations.some(location => location.id === pending.body?.locationId));
+  const cart = () => [...$('sale-lines').querySelectorAll('[data-sale-line]')].map(row => ({
+    itemId:row.querySelector('select').value, quantity:Number(row.querySelector('input').value)}));
+  function renderLines(lines = [{itemId:items[0]?.id || '',quantity:1}]) {
+    $('sale-lines').replaceChildren(...lines.map((line,index) => {
+      const row=document.createElement('div'); row.className='sale-line'; row.dataset.saleLine='';
+      const suffix=index ? `-${index+1}` : '';
+      for(const [name,title] of [['item','Artículo y talla'],['quantity','Cantidad']]) {
+        const field=document.createElement('div'); field.className='field';
+        const label=textElement(document,'label',`${title} ${index+1}`); label.htmlFor=`sale-${name}${suffix}`;
+        const control=document.createElement(name==='item'?'select':'input'); control.id=label.htmlFor; control.required=true;
+        if(name==='item') {
+          options(control,items,x=>`${x.sku} · ${x.name}`);
+          const placeholder=textElement(document,'option','Elegir artículo'); placeholder.value=''; control.prepend(placeholder);
+          if(line.itemId && !items.some(item=>item.id===line.itemId)) {
+            const missing=textElement(document,'option',`Artículo fuera del catálogo activo: ${line.itemId}`); missing.value=line.itemId; control.append(missing);
+          }
+          control.value=line.itemId;
+        }
+        else { control.type='number'; control.min='1'; control.max='100000'; control.step='1'; control.value=String(line.quantity); }
+        field.append(label,control); row.append(field);
+      }
+      const remove=textElement(document,'button','Quitar'); remove.type='button'; remove.className='btn btn-secondary';
+      remove.dataset.saleRemove=String(index); remove.setAttribute('aria-label',`Quitar artículo ${index+1}`); row.append(remove);
+      return row;
+    }));
+    lock();
+  }
   function lock() {
     const allowed = !!actor && getSession()?.id === actor && ['Owner','Manager','Cashier'].includes(getSession()?.role);
     for (const control of form.elements) control.disabled = !allowed || busy || !!pending || !items.length || !locations.length;
+    $('sale-add').disabled ||= cart().length >= Math.min(100,items.length);
+    for(const remove of form.querySelectorAll('[data-sale-remove]')) remove.disabled ||= cart().length <= 1;
     $('stock-location').disabled = !actor || busy || !locations.length;
     $('stock-refresh').disabled = !actor || busy || !locations.length;
     for (const id of ['sale-recover','sale-retry']) {
@@ -431,7 +460,7 @@ export function mountCommerce({document, client, getSession, onUnauthorized}) {
   }
   function clear() {
     ++generation; ++stockRead; actor=null; pending=null; busy=false; items=[]; locations=[];
-    for (const id of ['stock-location','sale-location','sale-item','stock-table','sale-receipt']) $(id).replaceChildren();
+    for (const id of ['stock-location','sale-location','sale-lines','stock-table','sale-receipt']) $(id).replaceChildren();
     $('sale-receipt').hidden=true; form.reset(); $('sale-status').textContent='Esperando datos del servidor.';
     $('stock-status').textContent='Sin consulta confirmada.'; lock();
   }
@@ -483,7 +512,7 @@ export function mountCommerce({document, client, getSession, onUnauthorized}) {
       gone = [403, 404].includes(error?.status);
     }
     if (!current(g, id)) return;
-    if (receipt) { showReceipt(receipt); return; }
+    if (receipt) { showReceipt(receipt); if(!pending) renderLines([{itemId:'',quantity:1}]); return; }
     if (gone) { try { storage().removeItem(receiptKey(id)); } catch {} }
     const notice = gone ? 'El último recibo confirmado ya no está disponible en el servidor.'
       : 'No se pudo cargar el último recibo confirmado desde el servidor.';
@@ -499,7 +528,7 @@ export function mountCommerce({document, client, getSession, onUnauthorized}) {
       if(receipt.actorId !== id) throw new StaffRequestError('response');
       // Persist the receipt reference first; keep the pending operation if persistence fails.
       storage().setItem(receiptKey(id),receipt.saleId); storage().removeItem(keyFor(id));
-      pending=null; showReceipt(receipt); $('sale-status').textContent='Venta confirmada por el servidor.';
+      pending=null; showReceipt(receipt); renderLines([{itemId:'',quantity:1}]); $('sale-status').textContent='Venta confirmada por el servidor.';
       await loadStock();
     } catch(error) {
       if(current(g,id)) {
@@ -519,15 +548,18 @@ export function mountCommerce({document, client, getSession, onUnauthorized}) {
       const [catalog,places]=await Promise.all([allPages(client.listItems),allPages(client.listLocations)]);
       if(!current(g,id)) return;
       items=catalog.filter(x=>x.active); locations=places.filter(x=>x.active && x.branchId);
-      options($('sale-item'),items,x=>`${x.sku} · ${x.name}`);
+      renderLines();
       for(const select of [$('sale-location'),$('stock-location')]) options(select,locations,x=>x.name);
-      $('sale-status').textContent=['Owner','Manager','Cashier'].includes(session.role) ? 'Elegí sucursal, artículo y cantidad.' : 'Tu perfil permite consultar existencias.';
+      $('sale-status').textContent=['Owner','Manager','Cashier'].includes(session.role) ? 'Elegí sucursal, artículos y cantidades.' : 'Tu perfil permite consultar existencias.';
       const raw=storage().getItem(keyFor(id));
       if(raw) {
         const value=JSON.parse(raw);
         // Validation is repeated by the client before every recovery or resend.
         if(!value || typeof value.key!=='string' || !/^[0-9a-f-]{36}$/i.test(value.key) || !value.body) throw new StaffRequestError('response');
         pending=value;
+        validateSaleRequest(value.body);
+        $('sale-location').value=value.body.locationId;
+        renderLines(value.body.lines);
       }
       if(changedScope()) {
         $('sale-status').textContent='Tu acceso cambió. La venta anterior sigue sin confirmar. Pedí al responsable que la concilie.';
@@ -544,10 +576,27 @@ export function mountCommerce({document, client, getSession, onUnauthorized}) {
   listen(form,'submit',event=>{
     event.preventDefault();
     if(busy || pending || !actor || !['Owner','Manager','Cashier'].includes(getSession()?.role) || !validateForm(form)) return;
-    const body={locationId:$('sale-location').value,customerId:null,lines:[{itemId:$('sale-item').value,quantity:Number($('sale-quantity').value)}]};
+    const body={locationId:$('sale-location').value,customerId:null,lines:cart()};
+    if(new Set(body.lines.map(line=>line.itemId.toLowerCase())).size !== body.lines.length) {
+      $('sale-status').textContent='Hay artículos repetidos. Usá una sola fila por artículo y sumá su cantidad.'; return;
+    }
+    try { validateSaleRequest(body); } catch(error) { fail(error); return; }
     const operation={key:document.defaultView.crypto.randomUUID(),body,actorVersion:getSession().version};
     try { storage().setItem(keyFor(actor),JSON.stringify(operation)); pending=operation; $('sale-receipt').hidden=true; void resolve('record'); }
     catch(error) { pending={}; fail(error); lock(); }
+  });
+  listen($('sale-add'),'click',()=>{
+    if(busy || pending || $('sale-add').disabled) return;
+    const lines=cart(),next=items.find(item=>!lines.some(line=>line.itemId===item.id));
+    if(!next || lines.length>=100) return;
+    renderLines([...lines,{itemId:next.id,quantity:1}]);
+    $('sale-lines').lastElementChild.querySelector('select').focus();
+  });
+  listen($('sale-lines'),'click',event=>{
+    const remove=event.target.closest('[data-sale-remove]');
+    if(!remove || remove.disabled || busy || pending) return;
+    const lines=cart(),index=Number(remove.dataset.saleRemove); lines.splice(index,1); renderLines(lines);
+    $('sale-lines').children[Math.min(index,lines.length-1)].querySelector('select').focus();
   });
   listen($('stock-location'),'change',()=>void loadStock()); listen($('stock-refresh'),'click',()=>void loadStock());
   listen($('sale-recover'),'click',()=>void resolve('recover')); listen($('sale-retry'),'click',()=>void resolve('record'));

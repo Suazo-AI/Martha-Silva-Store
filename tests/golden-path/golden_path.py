@@ -944,7 +944,8 @@ class GoldenPath:
         config = {'base_url': self.base_url, 'profile': str(self.private / 'chrome-profile'), 'spki': pin,
                   'playwright_directory': str(package), 'source_hashes': source_hashes,
                   'cashier': self.users['Cashier'], 'location_id': self.ids['location'],
-                  'item_id': self.ids['items'][0], 'sku': ITEMS[0][0], 'unit_price_minor': ITEMS[0][2]}
+                  'item_id': self.ids['items'][0], 'sku': ITEMS[0][0], 'unit_price_minor': ITEMS[0][2],
+                  'second_item_id': self.ids['items'][1], 'second_sku': ITEMS[1][0], 'second_unit_price_minor': ITEMS[1][2]}
         process = subprocess.Popen([node, str(BROWSER_SCRIPT)], cwd=ROOT, env=child_env(),
                                    stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL,
                                    start_new_session=True)
@@ -1003,9 +1004,9 @@ class GoldenPath:
             for name in BROWSER_STEPS:
                 sale_count = 2 if BROWSER_STEPS.index(name) >= BROWSER_STEPS.index('browser.response_loss_committed') else (
                     1 if BROWSER_STEPS.index(name) >= BROWSER_STEPS.index('browser.sale_confirmed') else 0)
-                expected = {'sales': sale_count, 'sale_lines': sale_count, 'sale_movements': sale_count,
-                            'sale_operations': sale_count, 'movements': len(ITEMS) + sale_count,
-                            'on_hand_total': 30 - (0 if sale_count == 0 else 2 if sale_count == 1 else 3),
+                expected = {'sales': sale_count, 'sale_lines': 2 * sale_count, 'sale_movements': 2 * sale_count,
+                            'sale_operations': sale_count, 'movements': len(ITEMS) + 2 * sale_count,
+                            'on_hand_total': 30 - (0 if sale_count == 0 else 3 if sale_count == 1 else 5),
                             'active_sessions': 0 if name in ('browser.start', 'browser.logout') else 1}
                 read_only = name in ('browser.receipt_reload', 'browser.stock_after_sale', 'browser.recover_after_reload',
                                     'browser.repeated_reload', 'browser.stock_after_recovery', 'browser.logout')
@@ -1029,7 +1030,7 @@ class GoldenPath:
                         expect(len(sale_requests) == 1 and sale_requests[0]['status'] == 200
                                and sale_requests[0]['response_lost'] == (quantity == 1)
                                and sale_requests[0]['key'] == notes.get('key')
-                               and notes.get('quantity') == quantity and notes.get('total_minor') == ITEMS[0][2] * quantity
+                               and notes.get('quantity') == quantity and notes.get('total_minor') == ITEMS[0][2] * quantity + ITEMS[1][2]
                                and 'sale_id' in notes and notes.get('key') not in sale_keys and notes['sale_id'] not in sale_ids,
                                'browser_sale_commit_evidence_invalid')
                         sale_keys.append(notes['key'])

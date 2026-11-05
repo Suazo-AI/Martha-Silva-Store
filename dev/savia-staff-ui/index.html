@@ -84,8 +84,8 @@
           <div class="panel">
             <form id="sale-form" class="form-grid" method="post">
               <div class="field"><label for="sale-location">Sucursal</label><select id="sale-location" required disabled></select></div>
-              <div class="field"><label for="sale-item">Artículo y talla</label><select id="sale-item" required disabled></select></div>
-              <div class="field"><label for="sale-quantity">Cantidad</label><input id="sale-quantity" type="number" min="1" max="100000" step="1" value="1" required disabled></div>
+              <div id="sale-lines" class="sale-lines field full"></div>
+              <button id="sale-add" class="btn btn-secondary" type="button" disabled>Agregar artículo</button>
               <button id="sale-submit" class="btn" type="submit" disabled>Registrar venta</button>
             </form>
             <p>Registro interno; sin cobro bancario.</p>

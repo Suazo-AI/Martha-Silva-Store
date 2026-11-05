@@ -69,25 +69,34 @@ export function createStaffClient(options = {}) {
 }
 const isId = value => typeof value === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(value) && !/^0{8}-0{4}-0{4}-0{4}-0{12}$/.test(value);
 export function validateSaleRequest(body) {
-  if (!body || !isId(body.locationId) || body.customerId !== null || !Array.isArray(body.lines) || body.lines.length !== 1
-    || !isId(body.lines[0].itemId) || !Number.isSafeInteger(body.lines[0].quantity) || body.lines[0].quantity < 1 || body.lines[0].quantity > 100000)
+  if (!body || !isId(body.locationId) || body.customerId !== null || !Array.isArray(body.lines)
+    || body.lines.length < 1 || body.lines.length > 100
+    || body.lines.some(line => !line || !isId(line.itemId) || !Number.isSafeInteger(line.quantity) || line.quantity < 1 || line.quantity > 100000)
+    || new Set(body.lines.map(line => line.itemId.toLowerCase())).size !== body.lines.length)
     throw new StaffRequestError('invalid');
 }
 export function readReceipt(value, expected) {
   if (!value || !isId(value.saleId) || !isId(value.locationId) || !isId(value.actorId)
     || !/^[A-Z]{3}$/.test(value.currency) || value.currency === 'XXX' || !['recorded','cancelled','partially_returned','returned'].includes(value.state)
     || value.paymentStatus !== 'not_processed' || !Number.isFinite(Date.parse(value.createdAt))
-    || !Number.isSafeInteger(value.totalMinor) || value.totalMinor < 0 || !Array.isArray(value.lines) || !value.lines.length)
+    || !Number.isSafeInteger(value.totalMinor) || value.totalMinor < 0 || !Array.isArray(value.lines) || !value.lines.length || value.lines.length > 100)
     throw new StaffRequestError('response');
   let total = 0;
   for (const line of value.lines) {
-    if (!isId(line.saleLineId) || !isId(line.itemId) || !string(line.sku) || !string(line.name)
+    if (!line || !isId(line.saleLineId) || !isId(line.itemId) || !string(line.sku) || !string(line.name)
       || !Number.isSafeInteger(line.quantity) || line.quantity < 1 || !Number.isSafeInteger(line.unitPriceMinor) || line.unitPriceMinor < 0
       || !Number.isSafeInteger(line.returnedQuantity) || line.returnedQuantity < 0 || line.returnedQuantity > line.quantity
       || !Number.isSafeInteger(line.totalMinor) || line.totalMinor !== line.quantity * line.unitPriceMinor) throw new StaffRequestError('response');
     total += line.totalMinor;
   }
-  if (!Number.isSafeInteger(total) || total !== value.totalMinor || (expected && (value.locationId !== expected.locationId
-    || value.lines.length !== 1 || value.lines[0].itemId !== expected.lines[0].itemId || value.lines[0].quantity !== expected.lines[0].quantity))) throw new StaffRequestError('response');
+  if (!Number.isSafeInteger(total) || total !== value.totalMinor
+    || new Set(value.lines.map(line => line.itemId.toLowerCase())).size !== value.lines.length
+    || new Set(value.lines.map(line => line.saleLineId.toLowerCase())).size !== value.lines.length) throw new StaffRequestError('response');
+  if (expected) {
+    validateSaleRequest(expected);
+    const quantities = new Map(expected.lines.map(line => [line.itemId.toLowerCase(), line.quantity]));
+    if (value.locationId.toLowerCase() !== expected.locationId.toLowerCase() || value.lines.length !== expected.lines.length
+      || value.lines.some(line => quantities.get(line.itemId.toLowerCase()) !== line.quantity)) throw new StaffRequestError('response');
+  }
   return value;
 }

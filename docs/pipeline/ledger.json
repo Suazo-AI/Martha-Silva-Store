@@ -39,6 +39,18 @@
   ],
   "items": [
     {
+      "id": "SALE-MULTI",
+      "track": "sprint",
+      "owner": "suazo_pc",
+      "status": "review",
+      "title": "Venta multiarticulo completa y recuperable",
+      "why": "D-023 exige varios articulos por factura; la UI anterior solo enviaba una linea.",
+      "done_when": "Carrito editable, recibo completo y recuperacion con clave/cuerpo originales; CI del SHA exacto prueba dos ventas, cuatro lineas y cuatro movimientos sin duplicados ni efectos parciales.",
+      "alternatives": "Aprovechar la transaccion e idempotencia del backend existente; no crear ventas separadas por articulo.",
+      "evidence": "docs/multiarticle-20261104/README.md",
+      "paths": ["dev/savia-staff-ui/*", "tests/browser-mock-validation.mjs", "tests/golden-path/*", "tests/test_golden_path_browser_safety.py", "docs/multiarticle-20261104/*"]
+    },
+    {
       "id": "N5",
       "order": 1,
       "track": "sprint",

@@ -1,0 +1,49 @@
+{
+  "observed_utc": "2026-11-05T02:37:19.810308+00:00",
+  "host": "SUAZO-PC",
+  "data": "synthetic",
+  "checks": [
+    {
+      "command": "node --test dev/savia-staff-ui/*.test.mjs",
+      "passed": 52,
+      "failed": 0,
+      "exit_code": 0
+    },
+    {
+      "command": "python tests/test_golden_path_browser_safety.py",
+      "passed": 16,
+      "failed": 0,
+      "exit_code": 0
+    },
+    {
+      "command": "python tests/test_golden_path_safety.py",
+      "passed": 17,
+      "failed": 0,
+      "exit_code": 0
+    },
+    {
+      "command": "python tests/test_progress.py",
+      "passed": 23,
+      "failed": 0,
+      "exit_code": 0
+    },
+    {
+      "command": "python tools/export_progress.py --verify",
+      "preserved_hashes": 15,
+      "exit_code": 0
+    },
+    {
+      "command": "python tools/delivery_status.py --check",
+      "items": 35,
+      "exit_code": 0
+    },
+    {
+      "command": "python tests/check.py",
+      "exit_code": 1,
+      "error": "WinError 1314 in three existing symlink fixtures; 6 tests, 3 errors. Linux CI required."
+    }
+  ],
+  "not_run": "no-mistakes pipeline: CLI reports repo not initialized. No new gate or model provider installed. Existing CI and independent critic/jury used.",
+  "excluded": "Raw logs, credentials, tokens, browser profiles, sessions, SQL databases and private traces remain outside Git.",
+  "scope": "No merge/deploy, local SQL/Docker/certificate changes. Same-tab recovery only."
+}

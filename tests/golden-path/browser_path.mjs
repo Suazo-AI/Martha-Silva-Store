@@ -89,9 +89,10 @@ try {
       try {
         const body = request.postDataJSON();
         check(uuid(key) && posts <= 2 && Object.keys(body).sort().join(',') === 'customerId,lines,locationId'
-          && body.locationId === config.location_id && body.customerId === null && body.lines.length === 1
-          && Object.keys(body.lines[0]).sort().join(',') === 'itemId,quantity'
-          && body.lines[0].itemId === config.item_id && body.lines[0].quantity === (posts === 1 ? 2 : 1),
+          && body.locationId === config.location_id && body.customerId === null && body.lines.length === 2
+          && body.lines.every(line => Object.keys(line).sort().join(',') === 'itemId,quantity')
+          && body.lines[0].itemId === config.item_id && body.lines[0].quantity === (posts === 1 ? 2 : 1)
+          && body.lines[1].itemId === config.second_item_id && body.lines[1].quantity === 1,
         'c6_sale_request_invalid');
       } catch { runtimeErrors++; }
     }
@@ -133,22 +134,25 @@ try {
   function receipt(value, quantity, saleId = null) {
     check(value && uuid(value.saleId) && (!saleId || value.saleId === saleId) && value.locationId === config.location_id
       && value.state === 'recorded' && value.paymentStatus === 'not_processed' && value.currency === 'USD'
-      && value.totalMinor === config.unit_price_minor * quantity && value.lines.length === 1
-      && value.lines[0].itemId === config.item_id && value.lines[0].sku === config.sku
-      && value.lines[0].quantity === quantity && value.lines[0].unitPriceMinor === config.unit_price_minor
-      && value.lines[0].totalMinor === value.totalMinor, 'c6_server_receipt_invalid');
+      && value.totalMinor === config.unit_price_minor * quantity + config.second_unit_price_minor && value.lines.length === 2,
+      'c6_server_receipt_invalid');
+    const first=value.lines.find(line=>line.itemId===config.item_id),second=value.lines.find(line=>line.itemId===config.second_item_id);
+    check(first?.sku === config.sku && first.quantity === quantity && first.unitPriceMinor === config.unit_price_minor
+      && first.totalMinor === quantity * config.unit_price_minor
+      && second?.sku === config.second_sku && second.quantity === 1 && second.unitPriceMinor === config.second_unit_price_minor
+      && second.totalMinor === config.second_unit_price_minor, 'c6_server_receipt_invalid');
     return value;
   }
   async function receiptDom(value) {
     await expect(page.locator('#sale-receipt')).toBeVisible();
     await expect(page.locator('#sale-receipt')).toContainText(`Venta: ${value.saleId}`);
-    await expect(page.locator('#sale-receipt')).toContainText(`${value.lines[0].quantity} ×`);
+    for(const line of value.lines) await expect(page.locator('#sale-receipt')).toContainText(`${line.sku} · ${line.name} · ${line.quantity} ×`);
     await expect(page.locator('#sale-receipt strong')).toHaveText(`Total: ${new Intl.NumberFormat('es-NI', {style: 'currency', currency: 'USD'}).format(value.totalMinor / 100)}`);
     const state = await stored();
     check(state.pending === 0 && state.saleId === value.saleId, 'c6_confirmed_storage_invalid');
     await expect(page.locator('#sale-submit')).toBeEnabled();
   }
-  async function stock(total, firstItem) {
+  async function stock(total, firstItem, secondItem) {
     await nav('inventario');
     await expect(page.locator('#stock-refresh')).toBeEnabled();
     await page.locator('#stock-refresh').click();
@@ -158,7 +162,8 @@ try {
     check(rows.length === 3 && rows.reduce((sum, row) => sum + Number(row[2]), 0) === total
       && rows.reduce((sum, row) => sum + Number(row[4]), 0) === total
       && rows.every(row => Number(row[3]) === 0)
-      && Number(rows.find(row => row[0] === config.sku)?.[2]) === firstItem, 'c6_dom_stock_invalid');
+      && Number(rows.find(row => row[0] === config.sku)?.[2]) === firstItem
+      && Number(rows.find(row => row[0] === config.second_sku)?.[2]) === secondItem, 'c6_dom_stock_invalid');
     return {dom: ['inventory', 'stock_current'], stock_rows: rows.length, stock_total: total};
   }
   async function reloadReceipt(value, recover = false) {
@@ -174,8 +179,8 @@ try {
     const body = await response.json();
     if (recover) {
       check(body.status === 'completed' && body.result.success === true && body.result.error === null, 'c6_recovery_not_completed');
-      receipt(body.result.value, value.lines[0].quantity, value.saleId);
-    } else receipt(body, value.lines[0].quantity, value.saleId);
+      receipt(body.result.value, value.lines.find(line=>line.itemId===config.item_id).quantity, value.saleId);
+    } else receipt(body, value.lines.find(line=>line.itemId===config.item_id).quantity, value.saleId);
     await receiptDom(value);
   }
 
@@ -198,11 +203,13 @@ try {
     && cookie.sameSite === 'Strict' && cookie.path === '/' && cookie.domain === '127.0.0.1'), 'c6_session_cookie_flags');
   await checkpoint('browser.cashier_login', {dom: ['shell', 'cashier', 'sale_enabled'], source_hashes: servedHashes});
 
-  await checkpoint('browser.inventory', await stock(30, 10));
+  await checkpoint('browser.inventory', await stock(30, 10, 10));
   await nav('ventas');
   await page.locator('#sale-location').selectOption(config.location_id);
   await page.locator('#sale-item').selectOption(config.item_id);
   await page.locator('#sale-quantity').fill('2');
+  await page.locator('#sale-add').click();
+  await page.locator('#sale-item-2').selectOption(config.second_item_id);
   const normalResponse = page.waitForResponse(result => new URL(result.url()).pathname === '/internal/api/commerce/sales'
     && result.request().method() === 'POST');
   await page.locator('#sale-submit').click();
@@ -216,7 +223,7 @@ try {
 
   await reloadReceipt(normal);
   await checkpoint('browser.receipt_reload', {dom: ['receipt', 'same_receipt', 'sale_enabled'], sale_id: normal.saleId});
-  await checkpoint('browser.stock_after_sale', await stock(28, 8));
+  await checkpoint('browser.stock_after_sale', await stock(27, 8, 9));
 
   // Pause the REAL Chrome POST at response stage. A received 200 + authoritative receipt means
   // the handler committed before we discard it. There is no replay, synthetic receipt or route.fetch.
@@ -242,7 +249,10 @@ try {
   });
   await cdp.send('Fetch.enable', {patterns: [{urlPattern: `${origin.origin}/internal/api/commerce/sales`, requestStage: 'Response'}]});
   await nav('ventas');
+  await page.locator('#sale-item').selectOption(config.item_id);
   await page.locator('#sale-quantity').fill('1');
+  await page.locator('#sale-add').click();
+  await page.locator('#sale-item-2').selectOption(config.second_item_id);
   await page.locator('#sale-submit').click();
   await lossDone;
   check(!lossError && lostReceipt, 'c6_loss_interception_failed');
@@ -256,7 +266,7 @@ try {
   await checkpoint('browser.response_loss_committed', {dom: ['pending', 'pending_key_preserved'],
     sale_id: lostReceipt.saleId, key: lostKey, quantity: 1, total_minor: lostReceipt.totalMinor});
 
-  // The Python acknowledgement above arrives only after SQL proved two sales/two debits/stock 27.
+  // SQL independently proved two sales, four lines, four debits and stock 25 before recovery.
   // Reload uses the same pending key via GET operations; no POST is allowed to appear again.
   await reloadReceipt(lostReceipt, true);
   check(posts === 2 && network.some(entry => entry.path === '/internal/api/operations/commerce.sale.record'
@@ -265,7 +275,7 @@ try {
     sale_id: lostReceipt.saleId, key: lostKey});
   await reloadReceipt(lostReceipt);
   await checkpoint('browser.repeated_reload', {dom: ['receipt', 'same_receipt', 'sale_enabled'], sale_id: lostReceipt.saleId});
-  await checkpoint('browser.stock_after_recovery', await stock(27, 7));
+  await checkpoint('browser.stock_after_recovery', await stock(25, 7, 8));
 
   // Observe the real 204 separately from navigation and login preparation.
   failurePhase = 'c6_logout_click';

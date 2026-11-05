@@ -17,6 +17,10 @@ El índice y cualquier grafo son ayudas de navegación, nunca autoridad de permi
 
 ## Estado compartido entre agentes (2026-11-04)
 
+Incremento posterior: la venta multiartículo se implementa y valida en el checkout canónico Tony.
+Consultar [su evidencia y límites](multiarticle-20261104/README.md) antes de integrar este cambio en PR #2.
+No atribuir al incremento la CI del candidato anterior ni fusionarlo sin autorización de Jason.
+
 Todos los agentes (Claude, Codex/Tony y otros) parten del mismo lugar:
 
 1. **Estado:** [docs/pipeline/ledger.json](pipeline/ledger.json) es la fuente única. `python3 tools/delivery_status.py`
