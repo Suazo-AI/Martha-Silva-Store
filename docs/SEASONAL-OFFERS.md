@@ -40,3 +40,7 @@ Este componente sigue siendo una **demo**, con precios y stock ilustrativos. No 
 ## Verificación
 
 Preparar el build reproducible con python prepare.py, ejecutar python tests/check.py --install en una primera instalación y python tests/check.py después. Los tests DOM de tests/frontend-runtime.cjs cubren: estado vacío para las cuatro temporadas, cambio de selección, datos aprobados y precio consistente, además de descuentos falsos/expirados. jsdom no reemplaza QA visual ni pruebas contra una pasarela/stock real.
+
+## Registro de corrección
+
+- **2026-11-05**: La primera CI detectó una excepción al activar la vista: se había utilizado el selector singular `$` (Element) antes de llamar `forEach`. Se cambió al selector múltiple `$$` (array de Elements) en `src/app.js` y `dist/app.js`. Evidencia inicial: [CI fallida 41995071999](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41995071999). Es necesario validar el commit corregido con una nueva CI antes de considerarlo apto.
