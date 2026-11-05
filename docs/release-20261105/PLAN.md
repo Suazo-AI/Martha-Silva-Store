@@ -1,7 +1,10 @@
 # SAVIA and website: evidence-led release plan
 
 2026-11-05. SUAZO-PC. Mode: DISCOVER. **NO-GO for production; plan accepted for bounded use with limits.**
-Primary accepted the source-audit/plan package after Astra's ACCEPT WITH LIMITS and the two corrections below. Opus critic remains pending.
+Primary accepted the source-audit/plan package after Astra's ACCEPT WITH LIMITS and the two corrections below.
+Update after candidate `a1e2263`: Jason replaced the pending Opus critic with Gemini 4 Argon/high.
+Its ACCEPT WITH LIMITS is accepted for bounded technical use; effective provider effort remains unknown.
+See [replacement critic acceptance](primary-critic-review.md). Earlier Opus/quota statements below describe the original dispatch, not the current selection.
 Audited base: Tony `dfc7e65af477bdfc625f174d71bd2f23a99c400f`.
 This plan grants no new runtime, security, integration or deployment permission.
 

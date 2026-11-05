@@ -1,5 +1,9 @@
 # Administrative critic: quota failure
 
+Historical failure receipt. Jason subsequently authorized Gemini 4 Argon/high as replacement.
+That critic completed and its report is accepted for bounded technical use; see [primary review](primary-critic-review.md).
+Effective provider effort remains unknown. The historical Opus error below is preserved without retry.
+
 2026-11-05 UTC. SUAZO-PC. Primary: T3 Code / Codex / gpt-6.1-sol / xhigh.
 Affected artifact: independent Opus review of `admin-20261105`, not the simulation execution.
 Product and simulation sources remain unchanged.

@@ -3,7 +3,8 @@
 2026-11-05. SUAZO-PC. Source: `dfc7e65af477bdfc625f174d71bd2f23a99c400f`.
 Mode: DISCOVER. Documentation candidate; production remains NO-GO.
 Primary accepts the plan and source audits for bounded prioritization with limits after Astra's new-scope ACCEPT WITH LIMITS.
-This is not full critic/judge closeout. Opus critic remains quota-blocked and pending.
+At this original review, Opus critic was quota-blocked and pending.
+Subsequent update: Jason authorized Gemini 4 Argon/high as replacement. The [primary's replacement-critic review](primary-critic-review.md) accepts its bounded technical findings and preserves the effective-effort verification gap.
 
 ## Verified directly
 

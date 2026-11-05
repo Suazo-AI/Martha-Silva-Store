@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-05T22:59:05.818453+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "b676e5b65e93de335a44382144487024d20f9dde"
+    },
+    {
+      "path": "docs/release-20261105/CRITIC-IMPORT.json",
+      "change": "A",
+      "git_blob": "ba41eab14cf879c86269ff2d262e3ee702b01194"
+    },
+    {
+      "path": "docs/release-20261105/PLAN.md",
+      "change": "M",
+      "git_blob": "1ef4e6c7b033f151f4f0614377af39b8705e3143"
+    },
+    {
+      "path": "docs/release-20261105/admin-review-blocker.md",
+      "change": "M",
+      "git_blob": "8e853b3370eee84e5ec796d6eb49bee043ba09fd"
+    },
+    {
+      "path": "docs/release-20261105/gemini-critic-20261105.md",
+      "change": "A",
+      "git_blob": "bd33506eeb16fb36cb754eef1bcfd8b259ae255c"
+    },
+    {
+      "path": "docs/release-20261105/primary-critic-review.md",
+      "change": "A",
+      "git_blob": "df8aabbd6d9bce1ee49877acdc1dc4faa9455e1d"
+    },
+    {
+      "path": "docs/release-20261105/primary-review.md",
+      "change": "M",
+      "git_blob": "35c6ded91919d1e6f3ab5252a272aaea85112fd1"
+    },
+    {
+      "path": "docs/release-20261105/responsive-integration/README.md",
+      "change": "M",
+      "git_blob": "89cbe11f41b73a17ae1c4ddb877662a626e1340c"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

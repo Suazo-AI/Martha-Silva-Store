@@ -1,0 +1,116 @@
+{
+  "sourceBaseSha": "a1e226380b0d32dcade1448c6cf0877ddb639902",
+  "criticReport": {
+    "path": "docs/release-20261105/gemini-critic-20261105.md",
+    "sourceCheckout": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-84d747c8",
+    "rawSha256": "8231be0b315991cbd17df854aeec530fdb84304a90c2222821b8c17bf6b2c89f",
+    "lfSha256": "8231be0b315991cbd17df854aeec530fdb84304a90c2222821b8c17bf6b2c89f"
+  },
+  "policy": "RAW hashes describe exact recorded working-tree bytes. LF hashes normalize only CRLF to LF and bind portable text to Git. Historical receipts remain unchanged. The current driver differs intentionally from its historical source per R2.",
+  "checks": {
+    "criticReportRawMatchesReturn": true,
+    "adminHistoricalReceiptHashesMatched": 14,
+    "reportedPortabilityFilesMatchedToGit": 8
+  },
+  "initialVerification": {
+    "exit": 1,
+    "error": "AssertionError: 7",
+    "cause": "The primary selector omitted the .cjs script existing-jsdom.cjs. No product or evidence mismatch was found.",
+    "correction": "Explicitly select the seven reported paths and corrected driver; verify 8/8 against original receipt, both checkouts and Git."
+  },
+  "portability": [
+    {
+      "path": "build-inputs/README.md",
+      "historicalImportedRawSha256": "e46e60db347304f53207f62b53e985b433dee066ccf9052dd792c9729f07b19d",
+      "sourceRawSha256": "e46e60db347304f53207f62b53e985b433dee066ccf9052dd792c9729f07b19d",
+      "canonicalRawSha256": "e46e60db347304f53207f62b53e985b433dee066ccf9052dd792c9729f07b19d",
+      "criticCheckoutRawSha256": "1f997526530c5aa2d04d14e493d4fed5e260cb89490b9ae791b5aed197f822b5",
+      "lfSha256": "97ac1b574ae429c74ba0f968e027f63f87814e68f04d7c025a4a7e608d6590d9",
+      "gitBlobLfMatchesBothCheckouts": true,
+      "historicalSourceLfMatchesCurrent": true
+    },
+    {
+      "path": "tests/responsive_images.py",
+      "historicalImportedRawSha256": "c8d52e59761c7ce9fba6ebbf7d78c6a4689478b069dea36e987f363b333c58bd",
+      "sourceRawSha256": "c8d52e59761c7ce9fba6ebbf7d78c6a4689478b069dea36e987f363b333c58bd",
+      "canonicalRawSha256": "c8d52e59761c7ce9fba6ebbf7d78c6a4689478b069dea36e987f363b333c58bd",
+      "criticCheckoutRawSha256": "5870dff463eceeb7f38a97b14397c0c1a767c8133c33062a6132f5a2d560bc36",
+      "lfSha256": "e46e3f9d7ca162ba5f4b68ccd89418e6b6c52085c3166d2cb1e9e47cba65c812",
+      "gitBlobLfMatchesBothCheckouts": true,
+      "historicalSourceLfMatchesCurrent": true
+    },
+    {
+      "path": "tools/responsive_images.py",
+      "historicalImportedRawSha256": "3098dce13ac389cca77081ccfd725615bffbd5c7a19ff1e2a5d84521e88f5965",
+      "sourceRawSha256": "3098dce13ac389cca77081ccfd725615bffbd5c7a19ff1e2a5d84521e88f5965",
+      "canonicalRawSha256": "3098dce13ac389cca77081ccfd725615bffbd5c7a19ff1e2a5d84521e88f5965",
+      "criticCheckoutRawSha256": "76d848cfc17ea9884293a507ca6fd4e8767328579071ea8e6ca68954cda0a63e",
+      "lfSha256": "c2b5295dfb8418a8481b29c3aa366147fb91bb97e00073d46191800a8501505e",
+      "gitBlobLfMatchesBothCheckouts": true,
+      "historicalSourceLfMatchesCurrent": true
+    },
+    {
+      "path": "docs/release-20261105/responsive-images/apply.py",
+      "historicalImportedRawSha256": "d05e7cad37e8dde68bcc39b08e44cd5ddd9de75e2acfda46b747d6fba2db4fc1",
+      "sourceRawSha256": "d05e7cad37e8dde68bcc39b08e44cd5ddd9de75e2acfda46b747d6fba2db4fc1",
+      "canonicalRawSha256": "d05e7cad37e8dde68bcc39b08e44cd5ddd9de75e2acfda46b747d6fba2db4fc1",
+      "criticCheckoutRawSha256": "d69dbd68b2a708e52aee96031d6b0cd1a793c06e5f355e0779130d0c36f175db",
+      "lfSha256": "52df87106c1b3e6082324ffdc460f67148dab7ce9e0c68b4dd383142d741444f",
+      "gitBlobLfMatchesBothCheckouts": true,
+      "historicalSourceLfMatchesCurrent": true
+    },
+    {
+      "path": "docs/release-20261105/responsive-images/existing-jsdom.cjs",
+      "historicalImportedRawSha256": "fa48cf558656713988003be0f6dd961f17ebafb6869994f46fa6ab72d4f6c559",
+      "sourceRawSha256": "fa48cf558656713988003be0f6dd961f17ebafb6869994f46fa6ab72d4f6c559",
+      "canonicalRawSha256": "fa48cf558656713988003be0f6dd961f17ebafb6869994f46fa6ab72d4f6c559",
+      "criticCheckoutRawSha256": "b473c8d49fb0ad0a2a071d9a570b7dfe6c48d457d74df2ec41e46f0d581c0f9c",
+      "lfSha256": "455d0555f8235b13fcd1e40af6e23562fa6d77e5c38c0896aab734fc8a7a5ccf",
+      "gitBlobLfMatchesBothCheckouts": true,
+      "historicalSourceLfMatchesCurrent": true
+    },
+    {
+      "path": "docs/release-20261105/responsive-images/summarize.py",
+      "historicalImportedRawSha256": "55c36718c907a67a9ce1d7996e1df7582ceaf5cafd8762adaa3137e8eec5a344",
+      "sourceRawSha256": "55c36718c907a67a9ce1d7996e1df7582ceaf5cafd8762adaa3137e8eec5a344",
+      "canonicalRawSha256": "55c36718c907a67a9ce1d7996e1df7582ceaf5cafd8762adaa3137e8eec5a344",
+      "criticCheckoutRawSha256": "cb789ff8298418aac29280aa21727937fc60351fa0173d152bfc66a01fa82101",
+      "lfSha256": "d9f93f328c57688d7c4c405463ffd4b2cafdda3c6f14972ccdc120b12cc6b2e9",
+      "gitBlobLfMatchesBothCheckouts": true,
+      "historicalSourceLfMatchesCurrent": true
+    },
+    {
+      "path": "docs/release-20261105/responsive-images/verify-determinism.py",
+      "historicalImportedRawSha256": "ea6e9298a77a194de16b0373869d64be37841000a4762f91d0363e089f8e918c",
+      "sourceRawSha256": "ea6e9298a77a194de16b0373869d64be37841000a4762f91d0363e089f8e918c",
+      "canonicalRawSha256": "ea6e9298a77a194de16b0373869d64be37841000a4762f91d0363e089f8e918c",
+      "criticCheckoutRawSha256": "02d883a8488a4e52da8a845a55e12bbbaa4b61646d2487b9c0899042a83d8786",
+      "lfSha256": "c2378d60bdbdab55c7a3f5e7f9cab55490c5b9076cc0a1cf990eff011c261644",
+      "gitBlobLfMatchesBothCheckouts": true,
+      "historicalSourceLfMatchesCurrent": true
+    },
+    {
+      "path": "docs/release-20261105/responsive-followup/driver.mjs",
+      "historicalImportedRawSha256": "c8eb8d82d6c447feb9043ef3d329036ab14424751dc9d9246b265a6c9638acda",
+      "sourceRawSha256": "c8eb8d82d6c447feb9043ef3d329036ab14424751dc9d9246b265a6c9638acda",
+      "canonicalRawSha256": "8cd66831dcf3d0cf075fa256b68fb5d4700dc8e2d6902d12cc049601e220bf83",
+      "criticCheckoutRawSha256": "0f9e90c1cabf04bc5850f74b437931de17aca24f869f8e45d95c98adf41d9383",
+      "lfSha256": "0fbc59408070b12d0698d187703763f3dda14db7261f7f7df810dc2c4d434225",
+      "gitBlobLfMatchesBothCheckouts": true,
+      "historicalSourceLfMatchesCurrent": false
+    }
+  ],
+  "execution": {
+    "provider": "antigravity",
+    "model": "gemini-4-argon",
+    "requestedOptions": {
+      "thinking_level": "high"
+    },
+    "reportedHarnessValue": "EFFORT LEVEL: 0.20",
+    "effectiveProviderEffort": "unknown",
+    "highComplianceVerified": false,
+    "host": "SUAZO-PC",
+    "usage": "unknown",
+    "cost": "unknown"
+  }
+}

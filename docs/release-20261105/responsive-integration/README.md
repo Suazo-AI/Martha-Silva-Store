@@ -93,7 +93,10 @@ Historical Chrome measurements use loopback HTTP, synthetic commerce and fixed s
 They do not establish physical-device acceptance, production INP, universal connectivity,
 real card processing, SQL recovery or business acceptance. C2/C9/C10 remain unchanged.
 Jason/administrator owns the existing C9 certificate-scope decision; no retry was made.
-Opus review requires provider quota recovery; Astra does not replace that critic.
+Jason replaced the unavailable Opus critic with Gemini 4 Argon/high.
+The [replacement review](../primary-critic-review.md) is accepted for bounded technical use.
+Its two low-severity observations clarify RAW/LF portability and verifier independence; product bytes remain unchanged.
+Requested high reasoning is recorded; effective provider effort remains unknown.
 
 Lesson applied: a release snapshot and a CI gate must evolve with the accepted artifact.
 Preserve earlier evidence, bind the new candidate and demonstrate failure sensitivity.

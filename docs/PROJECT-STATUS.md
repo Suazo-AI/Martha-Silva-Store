@@ -17,7 +17,10 @@ Windows conserva `WinError 1314` en symlinks; el resultado Linux no modifica sus
 La simulación administrativa añade doce familias del modelo offline, no capacidades de SAVIA.
 El primary comprobó dos copias normales y cinco controles negativos; Astra/high revisó diez criterios sin hallazgos materiales.
 El primary acepta evidencia técnica offline acotada; [dictamen y límites](release-20261105/admin-judge.md).
-Opus no devolvió dictamen: Antigravity agotó la cuota; [bloqueo y siguiente acción](release-20261105/admin-review-blocker.md).
+Opus no devolvió dictamen por cuota; Jason autorizó reemplazarlo por Gemini 4 Argon/high.
+Gemini devolvió ACCEPT WITH LIMITS para plan, simulación administrativa y candidato responsivo; [aceptación del primary](release-20261105/primary-critic-review.md).
+El primary verificó el informe, 14 hashes históricos y ocho bindings RAW/LF; los dos reparos bajos quedan precisados sin cambiar producto.
+High fue solicitado; el valor de arnés `0.20` no acredita esfuerzo efectivo del proveedor. Esa verificación sigue abierta.
 Los artefactos se publicaron en `300bf55`; sus workflows fallaron por sintaxis YAML introducida por el primary.
 La [corrección documentada](release-20261105/responsive-integration/publication-ci.md) se publicó en `b033c48`, con SYNCED y CI Linux exitoso de ese SHA.
 Esto no cambia C2/C9/C10 ni la decisión de producción.
@@ -39,7 +42,7 @@ El primary verificó importación exacta, 13 hashes del sitio y 31 fuentes SAVIA
 Astra/high emitió ACCEPT WITH LIMITS, cero objeciones materiales; el primary aplicó dos aclaraciones de ejecución.
 Las pruebas documentales pasan 23/23 y los 15 hashes preservados, exit 0. El verificador estático parcial y su corrección se distinguen en la revisión.
 Los informes son auditorías de fuente: no ejecutaron navegador, dispositivos, SQL, cobros, cierre ni restauración.
-El [dictamen del primary](release-20261105/primary-review.md) acepta el plan para priorización limitada; Opus vía Antigravity sigue pendiente por cuota.
+El [dictamen inicial del primary](release-20261105/primary-review.md) acepta el plan para priorización limitada; la [revisión posterior de Gemini](release-20261105/primary-critic-review.md) aporta el crítico sustituto con límites explícitos.
 Siguen C2/C9/C10, mecanismo de excepciones, pagos/cierre, hosting y aceptación operativa. Producción sigue NO-GO.
 La publicación documental en Tony requiere SHA remoto y CI; no autoriza merge, despliegue ni repetir intentos consumidos.
 
