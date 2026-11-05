@@ -1,7 +1,8 @@
 # Una venta, un inventario confiable y una decisión pendiente
 
 Fecha: 2026-11-04, America/Managua. Equipo de ensayo: SUAZO-PC, datos sintéticos.
-Estado: explicación y recomendación. Jason todavía no aprueba esta política.
+Actualización: Jason eligió la política para el ensayo sintético en [D-026](../DECISIONS.md#d-026--cajera-registra-la-excepción-encargada-revisa-después).
+Momento de revisión y suplencia siguen propuestos. El análisis siguiente conserva el razonamiento y las alternativas.
 No se modificó ni ejecutó el producto para producir este análisis.
 
 ## El negocio que queremos administrar
@@ -128,24 +129,68 @@ No puede pasar como inventario conciliado. Sin responsable de revisión previsto
 Mediríamos tiempo en caja, proporción de excepciones, antigüedad de pendientes y esfuerzo de revisión.
 No se ejecutaron estos casos nuevos ni se fijaron metas sin datos.
 
-## La primera decisión
+## Decisión registrada y siguiente decisión
 
-Para el ensayo sintético en SUAZO-PC: cuando la prenda existe, ¿la cajera puede registrar
-la excepción y continuar, dejando revisión obligatoria a otra persona, o debe intervenir la encargada en cada caso?
+Jason eligió que la cajera registre la excepción y la encargada revise después, para probarlo en SUAZO-PC.
+No eligió activar el recorrido en producción ni lo aceptó como implementado.
 
-Recomendación: la primera, con las condiciones anteriores. Después corresponde nombrar encargada y suplente.
+Siguiente propuesta: revisar al cierre de cada jornada simulada y usar suplente si falta la encargada.
+Los perfiles del ensayo son ficticios y distintos de la cajera. Los nombres solo ilustran; no son una decisión comercial.
+Ejemplo: Beatriz revisa; si falta, Carla toma esa responsabilidad. Si no logra explicar
+el origen de un pantalón vendido, registra lo comprobado y conserva la causa abierta, con responsable y próxima revisión definidos.
+El cierre observado puede registrarse sin declarar inventario conciliado artificialmente.
+Pregunta para Jason: ¿probamos esa regla de revisión al cierre con suplente, manteniendo abiertas las causas sin evidencia?
 Jason decide la facultad comercial. El equipo técnico debe resolver cómo implementarla y demostrarla.
 No hace falta que Jason elija estructura de base de datos, transacciones o saldos internos.
 
 ## Evidencia, límites y siguiente acción
 
-Fuentes vigentes: D-022 a D-025 en `docs/DECISIONS.md`, `docs/PROJECT-STATUS.md`,
+Fuentes vigentes: D-022 a D-026 en `docs/DECISIONS.md`, `docs/PROJECT-STATUS.md`,
 modelo histórico de `docs/synthetic-replacement-20261104/README.md` e implementación indicada arriba.
 El modelo histórico con autorización previa y +1/−1 no demuestra el nuevo procedimiento.
-La entrega está decidida; los permisos continúan pendientes. Este documento aclara la propuesta de D-025.
+La entrega estaba decidida y D-026 elige la facultad para el ensayo; momento y cobertura de revisión siguen pendientes.
 No cierra C1, C2, C9 ni C10 y no modifica Trello ni el ledger.
 
 Lección aplicada: saldo final correcto y revisión firmada no prueban movimientos correctos.
 Por eso el ensayo incluye una talla equivocada y una causa desconocida que no deben cerrarse artificialmente.
 No se observaron turnos reales ni se conoce todavía quién hará la revisión cotidiana.
-Siguiente acción del coordinador: registrar la respuesta de Jason y preparar el alcance de implementación y ensayo correspondiente.
+Siguiente acción: resolver cobertura y momento de revisión, y preparar el alcance de implementación y ensayo correspondiente.
+
+### Registro y revisión de D-026
+
+Se actualizaron DECISIONS, PROJECT-STATUS, C1/C10 del ledger y la pregunta de existencias
+del cuestionario. Se sustituyó la recomendación vieja de ajuste +1/-1 como procedimiento preferido.
+Las imágenes históricas del cuestionario no se regeneraron ni se enviaron a Martha.
+Trello: cuatro descripciones con readback exacto; criterio de stock incompleto por cobertura,
+momento y mecanismo verificado pendientes. [Recibo saneado](decision-026-receipt.json).
+
+La nueva [crítica](decision-026-critic.md) y el [jurado con respuesta a objeciones](decision-026-jury.md)
+coinciden en revisar al cierre con suplente; esa siguiente regla todavía requiere respuesta de Jason.
+Lección aplicada: elegir nombres ficticios no es una decisión comercial; elegir cobertura y momento de revisión sí.
+
+Por solicitud expresa de Jason se agregaron roles permanentes a las instrucciones globales
+`C:/Users/Jason/.codex/AGENTS.md` y `C:/Users/Jason/.claude/CLAUDE.md`.
+Se armonizó también `C:/Users/Jason/AGENTS.md`, que contenía la confirmación repetida de modelos.
+Crítico: `gpt-6.1-sol/high`; jurado: `gpt-6-astra/high`. Solo esos dos roles tienen
+selección permanente; el coordinador verifica evidencia y Jason conserva las decisiones.
+Se verificó el texto instalado. Esto no acredita recarga en otros chats ni acceso a ambos modelos desde Claude.
+Se publican únicamente esta descripción y la evidencia apta del proyecto, no copias de configuración global ni logs privados.
+
+Verificación del registro: definiciones de roles globales coincidentes; JSON del ledger
+legible; cuatro readbacks exactos de Trello y criterio de stock todavía incompleto.
+`git diff --check` sin errores después de las correcciones documentales.
+
+La suite local `python tests/check.py` terminó con exit 1 en `tests/asset-audit.py`:
+`OSError: [WinError 1314] A required privilege is not held by the client` al crear enlaces
+simbólicos de fixtures. La etapa informa seis pruebas y tres errores de creación de enlaces.
+El build repetible pasó con 1082 rutas y hashes coincidentes antes de ese fallo.
+La suite se detuvo; no se atribuyen resultados a sus etapas posteriores.
+
+Bloqueo de verificación local, no defecto demostrado por el cambio documental.
+No se cambiaron privilegios ni expectativas, ni se repitió la suite.
+Ruta alternativa del coordinador: publicar el cambio autorizado y comprobar la CI Linux
+del SHA exacto. Su resultado no elimina el fallo local Windows ni prueba el nuevo flujo de stock.
+Los logs completos y las rutas temporales quedan fuera del repositorio público.
+Comprobaciones focales separadas: `python tests/test_delivery_status.py`, exit 0,
+24/24; `python tools/delivery_status.py --check`, exit 0, 34 items válidos.
+No subsanan la suite completa fallida ni prueban implementación del nuevo recorrido.

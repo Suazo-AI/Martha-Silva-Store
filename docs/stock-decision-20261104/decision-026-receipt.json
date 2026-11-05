@@ -1,0 +1,39 @@
+{
+  "at": "2026-11-05T01:05:27.463655+00:00",
+  "decision": "D-026",
+  "scope": "SUAZO-PC synthetic trial only",
+  "product_implemented": false,
+  "trial_executed": false,
+  "cards": [
+    {
+      "id": "6aea5db278918fb6261121a9",
+      "url": "https://trello.com/c/e57qFLhJ/4-c1-jason-integrador-decisiones-del-lote-y-seguridad-de-merge",
+      "sha256": "503496329cd1fc5a65fc60002befc4f3f72f4fab9133f9a6699450ca83ed1b26",
+      "exact_readback": true
+    },
+    {
+      "id": "6aea5de84c241ad501a6a786",
+      "url": "https://trello.com/c/RYEhYexC/13-c10-jason-denis-alvarez-ensayo-supervisado-en-la-tienda",
+      "sha256": "51853868ca7931273a289f88ab2a742c3ab278e56fb2c8df6703d7935402fb01",
+      "exact_readback": true
+    },
+    {
+      "id": "6aea7a421a9f35097ca709eb",
+      "url": "https://trello.com/c/Ri11Pahx/17-%F0%9F%93%8D-estado-vigente-4-nov-cierre-t%C3%A9cnico-y-decisiones-pendientes",
+      "sha256": "9abf6395b7810288d59890faf360c7c9d9e087b6eaab2fc691d1e03d49132c80",
+      "exact_readback": true
+    },
+    {
+      "id": "6aea5db3c62fed2d4a7d10f2",
+      "url": "https://trello.com/c/aS0pUmYb/5-c2-jason-b-datos-reales-de-la-tienda",
+      "sha256": "af5438f8991abb4db136f03626175dfc15ea208c5a60570bd24227b4e82d85e8",
+      "exact_readback": true
+    }
+  ],
+  "stock_check": {
+    "id": "6aea5e2d522cb4bb14f787e3",
+    "state": "incomplete",
+    "exact_readback": true,
+    "reason": "Timing, coverage and implemented mechanism remain pending"
+  }
+}

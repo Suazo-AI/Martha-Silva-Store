@@ -36,7 +36,7 @@ Incluir proformas, compras, recepciones, traslados, cuentas por cobrar/pagar, ab
 ## Existencias
 
 ### Si la prenda física existe aunque SISFAIN registre 0, se entrega: decisión ya tomada.
-¿Quién confirma SKU, talla y ubicación? ¿Quién puede conciliar la diferencia? ¿Qué motivo, alerta y revisión necesitan? Recomendación para revisar: facultad operativa de la encargada, ajuste trazable +1 y venta -1 dentro de un flujo protegido. Esta propuesta no está implementada ni aceptada.
+Para el ensayo sintético, Jason eligió que la cajera registre la excepción y la encargada revise después, sin ajustes libres de la cajera (D-026). El nuevo flujo todavía no está implementado ni aceptado. ¿Quién confirma SKU, talla y ubicación en la operación real? ¿Quién revisa las diferencias y quién la sustituye? ¿Qué evidencia y alertas usan? No se pide aprobar un ajuste automático +1/-1 ni volver a decidir la entrega ya acordada.
 
 >
 

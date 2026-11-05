@@ -123,6 +123,8 @@ dice 0 y existe la prenda física. La entrega ya está decidida; los permisos no
 Propuesta para Jason, todavía no adoptada: cajera registra la entrega excepcional
 con incidencia obligatoria; encargada valida y concilia al cierre. Sin facultad
 de ajustes libres para la cajera. El flujo requiere implementación y pruebas propias.
+Actualización posterior: [D-026](#d-026--cajera-registra-la-excepción-encargada-revisa-después)
+elige esa facultad para el ensayo; momento y cobertura de revisión siguen pendientes.
 
 Verificación: `python tests/test_delivery_status.py`, 24/24 PASS;
 `python tools/delivery_status.py --check`, ledger válido con 34 items.
@@ -130,3 +132,31 @@ Trello: cuatro descripciones leídas de vuelta y criterio de entorno de C1 compl
 la facultad de stock conserva estado pendiente.
 [Recibo saneado](sprint-20261104/ensayo-suazo-pc-receipt.json).
 La decisión de entorno no completa los demás criterios de C1.
+
+## D-026 — Cajera registra la excepción; encargada revisa después
+
+Adoptada por Jason el 2026-11-04, America/Managua, **para probar en el ensayo
+sintético de SUAZO-PC**: la cajera registra la entrega excepcional cuando existe
+la prenda física y el registro dice 0. La encargada revisa después.
+La propuesta pendiente de D-025 queda elegida para ese ensayo.
+
+El caso queda vinculado a la venta, artículo, talla, ubicación, cantidad, actor y momento.
+La cajera no recibe facultad de ajustar libremente las existencias.
+Revisión y resolución de la causa son resultados distintos. Una corrección requiere
+evidencia; una causa desconocida conserva seguimiento, sin inventar recepción, costo o saldo.
+La entrega física ya estaba decidida y no se reabre el rechazo automático por stock 0.
+
+Siguiente decisión pendiente: momento de revisión y cobertura de la encargada.
+Recomendación para el ensayo, todavía no adoptada: revisión al cierre de cada jornada
+simulada, con un suplente distinto de la cajera si falta la encargada. Usar perfiles
+ficticios; no asignar empleados reales ni responsabilidades productivas por esta prueba.
+Si falta evidencia, registrar revisión y conservar causa abierta, responsable y próxima revisión.
+
+El código actual impide descontar a existencias negativas. El nuevo recorrido no está
+implementado, ejecutado ni aceptado. No se elimina esa guarda ni se habilitan SQL,
+Docker, certificados, datos reales o despliegue. C1/C2/C9/C10 conservan sus brechas.
+Aceptar la política no equivale a aceptar funcionalmente el ensayo.
+
+[Explicación y alternativas](stock-decision-20261104/README.md).
+El registro, readback de Trello y revisión de los dos agentes quedan en
+[recibo de D-026](stock-decision-20261104/decision-026-receipt.json).
