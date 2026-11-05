@@ -151,6 +151,7 @@ Recomendación para el ensayo, todavía no adoptada: revisión al cierre de cada
 simulada, con un suplente distinto de la cajera si falta la encargada. Usar perfiles
 ficticios; no asignar empleados reales ni responsabilidades productivas por esta prueba.
 Si falta evidencia, registrar revisión y conservar causa abierta, responsable y próxima revisión.
+Actualización posterior: D-027 adopta revisión al cierre, suplente y causas abiertas para el ensayo.
 
 El código actual impide descontar a existencias negativas. El nuevo recorrido no está
 implementado, ejecutado ni aceptado. No se elimina esa guarda ni se habilitan SQL,
@@ -160,3 +161,26 @@ Aceptar la política no equivale a aceptar funcionalmente el ensayo.
 [Explicación y alternativas](stock-decision-20261104/README.md).
 El registro, readback de Trello y revisión de los dos agentes quedan en
 [recibo de D-026](stock-decision-20261104/decision-026-receipt.json).
+
+## D-027 — Revisión al cierre, suplente y causas abiertas
+
+Adoptada por Jason el 2026-11-04, America/Managua, para el ensayo sintético
+en SUAZO-PC: revisar las excepciones al cierre de cada jornada; usar suplente
+si falta la encargada; conservar abiertas las causas que no tengan evidencia.
+Resuelve el momento y la cobertura propuestos en D-026. No se vuelven a preguntar.
+
+La revisión corresponde a un perfil distinto de quien registró la excepción.
+El caso conserva evidencia examinada, resultado de revisión y, cuando falta resolver
+la causa, responsable y próxima revisión definidos. Revisar no equivale a conciliar.
+El cierre observado puede registrarse sin declarar inventario conciliado artificialmente.
+Los perfiles son ficticios en el ensayo; empleados y cobertura reales siguen por conocer en C2.
+
+Esta elección no implementa, ejecuta ni acepta el recorrido. C1 conserva pendiente
+demostrar el mecanismo de stock y configurar/verificar su seguridad de integración;
+C2/C9/C10 conservan sus brechas. Sin SQL, Docker, certificados ni despliegue nuevos.
+
+Siguiente autorización recomendada: activar protección de `main` con checks concretos,
+sin merge ni despliegue. La lectura actual de GitHub devuelve `protected=false` y
+rulesets vacíos. No se cambió esa configuración. El plan exacto y la alternativa de C2
+están en [siguiente decisión](stock-decision-20261104/decision-027-next.md).
+[Recibo de Trello](stock-decision-20261104/decision-027-receipt.json).

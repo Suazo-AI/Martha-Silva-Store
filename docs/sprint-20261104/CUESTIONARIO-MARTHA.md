@@ -36,7 +36,7 @@ Incluir proformas, compras, recepciones, traslados, cuentas por cobrar/pagar, ab
 ## Existencias
 
 ### Si la prenda física existe aunque SISFAIN registre 0, se entrega: decisión ya tomada.
-Para el ensayo sintético, Jason eligió que la cajera registre la excepción y la encargada revise después, sin ajustes libres de la cajera (D-026). El nuevo flujo todavía no está implementado ni aceptado. ¿Quién confirma SKU, talla y ubicación en la operación real? ¿Quién revisa las diferencias y quién la sustituye? ¿Qué evidencia y alertas usan? No se pide aprobar un ajuste automático +1/-1 ni volver a decidir la entrega ya acordada.
+Para el ensayo sintético, Jason eligió que la cajera registre la excepción sin ajustes libres (D-026), y que otra persona revise al cierre, con suplente y causas abiertas si falta evidencia (D-027). El nuevo flujo todavía no está implementado ni aceptado. ¿Quién confirma SKU, talla y ubicación en la operación real? ¿Quién revisa las diferencias y quién la sustituye? ¿Qué evidencia y alertas usan? Se pide conocer la operación real, no volver a elegir la política del ensayo ni aprobar un ajuste automático +1/-1.
 
 >
 

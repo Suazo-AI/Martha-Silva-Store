@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-05T01:26:13.381108+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/DECISIONS.md",
+      "change": "M",
+      "git_blob": "3d70db040fbc98cf568fbb7d98a5697c6ff11ad3"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "723a61eb0d034caacb9608fb7ff89c5eae2e196f"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "change": "M",
+      "git_blob": "3dd24ac2e7c66b03c699d4fc192e7198c02394ff"
+    },
+    {
+      "path": "docs/sprint-20261104/CUESTIONARIO-MARTHA.md",
+      "change": "M",
+      "git_blob": "3ba9e92d18f2052f64229b38d6de4d3c7bd0647c"
+    },
+    {
+      "path": "docs/stock-decision-20261104/README.md",
+      "change": "M",
+      "git_blob": "f06b7a6351bc79c744bf7fe17dc9e906f034288c"
+    },
+    {
+      "path": "docs/stock-decision-20261104/decision-027-critic.md",
+      "change": "A",
+      "git_blob": "ec5bf5d62dc612bee0e171320f9c3c3520e49cc5"
+    },
+    {
+      "path": "docs/stock-decision-20261104/decision-027-github-readback.json",
+      "change": "A",
+      "git_blob": "c94903b4e61713b8755609dd54f1012e4b90e0d4"
+    },
+    {
+      "path": "docs/stock-decision-20261104/decision-027-jury.md",
+      "change": "A",
+      "git_blob": "6a3e5693c7cf9bc1a490fc96d6fc6742aba43652"
+    },
+    {
+      "path": "docs/stock-decision-20261104/decision-027-main-protection.proposed.json",
+      "change": "A",
+      "git_blob": "c180e27c6bd1568b117f3fe768aca34f4c53b721"
+    },
+    {
+      "path": "docs/stock-decision-20261104/decision-027-next.md",
+      "change": "A",
+      "git_blob": "2c1c7c0ac3c5baa0446aa47522d99055fe0bd1f6"
+    },
+    {
+      "path": "docs/stock-decision-20261104/decision-027-receipt.json",
+      "change": "A",
+      "git_blob": "a2f194c8b26ac8bd983a7c8aa77c1c47d2156df9"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

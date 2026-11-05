@@ -21,8 +21,10 @@ Jason eligió **SUAZO-PC con datos sintéticos** para el ensayo
 Martha aporta datos de operación. Siguen pendientes C2/C9 y la ejecución/evidencia de C10.
 Jason eligió para el ensayo que la cajera registre la excepción y la encargada revise
 después ([D-026](DECISIONS.md#d-026--cajera-registra-la-excepción-encargada-revisa-después)).
-Sin ajustes libres de la cajera. Siguiente decisión: momento de revisión y cobertura
-cuando falta la encargada; se recomiendan cierre de jornada simulada y suplente ficticio.
+Sin ajustes libres de la cajera. Jason eligió revisión al cierre de cada jornada,
+suplente si falta la encargada y causas abiertas sin evidencia ([D-027](DECISIONS.md#d-027--revisión-al-cierre-suplente-y-causas-abiertas)).
+Siguiente autorización recomendada: proteger `main` con checks requeridos, sin merge
+ni despliegue; [plan y ejemplo](stock-decision-20261104/decision-027-next.md).
 La [explicación con situaciones y revisión de crítico/jurado](stock-decision-20261104/README.md)
 conserva alternativas y límites. La política está elegida para ensayo; el nuevo flujo
 no está implementado, ejecutado ni aceptado. No cierra criterios.

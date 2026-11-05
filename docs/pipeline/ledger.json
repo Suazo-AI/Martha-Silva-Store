@@ -82,9 +82,9 @@
       "done_when": "Protección de main con checks requeridos leída de la API; valor de CLOUDFLARE_DEPLOY_ENABLED anotado; decisiones en docs/DECISIONS.md",
       "alternatives": "Fusionar sin protección confiando en revisión manual (rechazado: sin freno automático)",
       "needs": {
-        "decision": "D-026 elige cajera registra excepción y encargada revisa después para ensayo; decidir momento y cobertura de revisión. Conserva seguridad de merge pendiente.",
+        "decision": "D-026/D-027 eligen excepción de cajera con revisión al cierre, suplente y causas sin evidencia abiertas para ensayo. Falta autorizar protección de main y verificar seguridad del merge.",
         "decider": "jason",
-        "recommendation": "D-022/D-025/D-026: SUAZO-PC acepta y aloja ensayo sintético; cajera registra excepción, encargada revisa después, sin ajustes libres. Propuesta pendiente: revisión al cierre de jornada simulada con suplente ficticio distinto de cajera; causa sin evidencia queda abierta. Protección de main y efecto del merge pendientes.",
+        "recommendation": "D-022/D-025/D-026/D-027: SUAZO-PC ensayo sintético y dictamen; cajera registra, encargada revisa al cierre con suplente y causa abierta sin evidencia. Autorizar protección main según plan decision-027-next.md, sin merge ni deploy; verificar efecto efectivo de variables antes de integrar. Flujo de stock no implementado ni probado.",
         "tool": "Configuración de GitHub (admin): protección de rama y variables de Actions"
       },
       "trello": "https://trello.com/c/e57qFLhJ",
@@ -92,7 +92,7 @@
         "docs/DECISIONS.md",
         ".github/workflows/ci.yml"
       ],
-      "prep": "D-022/D-025: coordinador SUAZO-PC acepta; equipo SUAZO-PC y datos sintéticos. D-026: elegida excepción de cajera con revisión posterior de encargada, sin ajustes libres. Momento, suplencia, implementación y prueba pendientes; C1 sigue todo, seguridad de merge abierta."
+      "prep": "D-022/D-025: SUAZO-PC acepta y aloja ensayo sintético. D-026/D-027: excepción de cajera, revisión al cierre con suplente y causas sin evidencia abiertas. Implementación/prueba y seguridad de merge pendientes; C1 sigue todo. main protected=false y rulesets vacíos en lectura actual; plan preparado, sin mutación."
     },
     {
       "id": "C2",
@@ -269,7 +269,7 @@
         "test": "30 mediciones p50/p95 en la caja real"
       },
       "trello": "https://trello.com/c/RYEhYexC",
-      "prep": "Guion de cinco tareas preparado; ensayo0. SUAZO-PC acepta (D-022); equipo SUAZO-PC y datos sintéticos (D-025). D-026 elige excepción de cajera con revisión posterior; nuevo flujo no implementado ni probado. Momento y cobertura de revisión pendientes. No sustituye tareas por quien vende,30mediciones ni conteo físico. C2/C9 y ejecución pendientes."
+      "prep": "Guion de cinco tareas preparado; ensayo0. SUAZO-PC acepta (D-022) y aloja datos sintéticos (D-025). D-026/D-027: cajera registra excepción; encargada revisa al cierre, con suplente y causa abierta sin evidencia. Flujo no implementado ni probado. No sustituye tareas por quien vende,30mediciones ni conteo físico. C2/C9 y ejecución pendientes."
     },
     {
       "id": "C11",

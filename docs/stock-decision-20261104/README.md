@@ -2,7 +2,8 @@
 
 Fecha: 2026-11-04, America/Managua. Equipo de ensayo: SUAZO-PC, datos sintéticos.
 Actualización: Jason eligió la política para el ensayo sintético en [D-026](../DECISIONS.md#d-026--cajera-registra-la-excepción-encargada-revisa-después).
-Momento de revisión y suplencia siguen propuestos. El análisis siguiente conserva el razonamiento y las alternativas.
+Jason eligió revisión al cierre con suplente y causas abiertas sin evidencia en [D-027](../DECISIONS.md#d-027--revisión-al-cierre-suplente-y-causas-abiertas).
+El análisis siguiente conserva el razonamiento y las alternativas.
 No se modificó ni ejecutó el producto para producir este análisis.
 
 ## El negocio que queremos administrar
@@ -134,27 +135,27 @@ No se ejecutaron estos casos nuevos ni se fijaron metas sin datos.
 Jason eligió que la cajera registre la excepción y la encargada revise después, para probarlo en SUAZO-PC.
 No eligió activar el recorrido en producción ni lo aceptó como implementado.
 
-Siguiente propuesta: revisar al cierre de cada jornada simulada y usar suplente si falta la encargada.
+Elegido en D-027: revisar al cierre de cada jornada simulada y usar suplente si falta la encargada.
 Los perfiles del ensayo son ficticios y distintos de la cajera. Los nombres solo ilustran; no son una decisión comercial.
 Ejemplo: Beatriz revisa; si falta, Carla toma esa responsabilidad. Si no logra explicar
 el origen de un pantalón vendido, registra lo comprobado y conserva la causa abierta, con responsable y próxima revisión definidos.
 El cierre observado puede registrarse sin declarar inventario conciliado artificialmente.
-Pregunta para Jason: ¿probamos esa regla de revisión al cierre con suplente, manteniendo abiertas las causas sin evidencia?
+La regla ya está elegida. La [siguiente autorización recomendada](decision-027-next.md) es proteger `main`, sin merge ni despliegue.
 Jason decide la facultad comercial. El equipo técnico debe resolver cómo implementarla y demostrarla.
 No hace falta que Jason elija estructura de base de datos, transacciones o saldos internos.
 
 ## Evidencia, límites y siguiente acción
 
-Fuentes vigentes: D-022 a D-026 en `docs/DECISIONS.md`, `docs/PROJECT-STATUS.md`,
+Fuentes vigentes: D-022 a D-027 en `docs/DECISIONS.md`, `docs/PROJECT-STATUS.md`,
 modelo histórico de `docs/synthetic-replacement-20261104/README.md` e implementación indicada arriba.
 El modelo histórico con autorización previa y +1/−1 no demuestra el nuevo procedimiento.
-La entrega estaba decidida y D-026 elige la facultad para el ensayo; momento y cobertura de revisión siguen pendientes.
+La entrega estaba decidida, D-026 elige la facultad y D-027 elige momento y cobertura de revisión para el ensayo.
 No cierra C1, C2, C9 ni C10 y no modifica Trello ni el ledger.
 
 Lección aplicada: saldo final correcto y revisión firmada no prueban movimientos correctos.
 Por eso el ensayo incluye una talla equivocada y una causa desconocida que no deben cerrarse artificialmente.
 No se observaron turnos reales ni se conoce todavía quién hará la revisión cotidiana.
-Siguiente acción: resolver cobertura y momento de revisión, y preparar el alcance de implementación y ensayo correspondiente.
+Siguiente acción: resolver la protección de integración y obtener los hechos operativos de C2, conservando el alcance de implementación y ensayo pendiente.
 
 ### Registro y revisión de D-026
 
@@ -165,7 +166,7 @@ Trello: cuatro descripciones con readback exacto; criterio de stock incompleto p
 momento y mecanismo verificado pendientes. [Recibo saneado](decision-026-receipt.json).
 
 La nueva [crítica](decision-026-critic.md) y el [jurado con respuesta a objeciones](decision-026-jury.md)
-coinciden en revisar al cierre con suplente; esa siguiente regla todavía requiere respuesta de Jason.
+coinciden en revisar al cierre con suplente; Jason adoptó esa regla posteriormente en D-027.
 Lección aplicada: elegir nombres ficticios no es una decisión comercial; elegir cobertura y momento de revisión sí.
 
 Por solicitud expresa de Jason se agregaron roles permanentes a las instrucciones globales
