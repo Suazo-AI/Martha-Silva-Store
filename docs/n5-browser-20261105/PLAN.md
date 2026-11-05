@@ -2,8 +2,9 @@
 
 Date: 2026-11-05. Host: SUAZO-PC. Mode: BUILD (test coverage).
 Source: Tony `1e353d45cd0eb2ad8e79589f410ac191c1368b06`.
-Status: execution returned; Astra review and primary minor corrections completed;
-corrected integration N5 passed 8/8. Opus and remote CI remain pending.
+Status: primary ACCEPT WITH LIMITS after Opus return and Astra/high M1 adjudication.
+Negative controls killed 3/3; baseline/restored N5 passed 8/8. N5-COV is done.
+Remote delivery requires the publication SHA readback and applicable GitHub CI.
 Production remains NO-GO.
 
 ## Objective and authorization
@@ -80,3 +81,43 @@ See [primary inspection](primary-review.md) for acceptance limits and review blo
 Public-package correction: the commit hook rejected raw `.log` paths. Primary
 archived nine logs outside the repository and published reviewed totals/hashes in
 EXECUTION-SUMMARY.json. Controls remain unchanged; normal-hook retry and CI pending.
+
+## Critic follow-up and frozen negative controls
+
+Opus returned ACCEPT WITH LIMITS. The model was claude-opus-5-5 through
+Antigravity; requested thinking_level was high, effective reasoning was not
+exposed. Do not label the critic runtime high-verified. The reviewer could not
+load three global rule files due a workspace pre-tool restriction; primary read
+them directly. Those limits remain in [critic.md](critic.md).
+
+Material M1 is accepted: keep N5-COV in review until disposable mutation controls
+prove the tests detect the injected regressions. The owner acceptance criterion
+is unchanged. No first-green result is being relabeled red/green.
+
+Primary corrected m2 by adding a browser turn after the second synthetic submit.
+For m1, the combined late-response mutation below must demonstrate that the
+observation window detects the forbidden state change. A surviving mutant or
+infrastructure failure is not a PASS; return it for diagnosis.
+
+Frozen control plan, Sol/high in a separate T3-managed worktree:
+1. Baseline focused N5: all eight cases pass on the exact approved test bytes.
+2. Remove only busy/pending submit guards: held recovery test must fail on a
+   semantic invariant, such as original pending bytes changing.
+3. Omit obsolete receipt storage removal: complete fresh-sale test must fail.
+4. Remove the two request epoch checks and the restoreReceipt generation guard:
+   late-404 test must fail on retained-reference/private-state protection.
+5. Restore exact product bytes after each injection and after the final run;
+   restored N5 must pass 8/8. Product mutations must never enter canonical Git.
+
+Record command, filter, exit, test assertion, raw and normalized source hashes,
+mutation patch and restoration proof. Use the installed Playwright and Chrome,
+synthetic HTTP only, no API/SQL/Docker/certificates, no external requests.
+Primary owns serial evidence integration and asks Astra/high to adjudicate M1
+on the returned artifacts. No operational or production acceptance is implied.
+
+## Negative control return
+
+Primary verified baseline8/8, M01/M02/M03 killed and restored8/8 on the frozen
+88eaa4 test overlay. Product restored byte for byte; no real defect reproduced.
+See mutations/README.md and IMPORT.json. Independent Astra/high adjudication of
+M1 remains pending. Keep the acceptance checks and ledger review unchanged.

@@ -1,0 +1,478 @@
+{
+  "taskId": "savia-n5-mutation-20261105",
+  "mode": "VALIDATE",
+  "startedUtc": "2026-11-05T14:18:42Z",
+  "runtime": {
+    "host": "SUAZO-PC",
+    "provider": "codex",
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "evidence": "T3 runtime_info and agent-awareness report gpt-6.1-sol/high; not inferred from prompt",
+    "worktree": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-0dda9f02",
+    "baseSha": "5ab44fbb8210f3d6e98f34745700194195c0e1ce",
+    "usage": "unknown; subscription tokens/currency not reported"
+  },
+  "bytePolicy": "Raw SHA256 covers exact disk bytes. Canonical LF SHA256 replaces CRLF with LF only; no other normalization. Git blob comparison uses canonical LF. Mutations preserve original disk newline bytes. Finally restores exact saved product bytes after every mutant.",
+  "baselineSources": {
+    "dev/savia-staff-ui/app.mjs": {
+      "rawSha256": "383c40447e91aa465cc945138699151826d7c1ad93f2f1ed041aa3dcda303309",
+      "canonicalLfSha256": "7499bfdd63ce02507a1df22867d27f78f33af04c667769652a8212676f14a092",
+      "bytes": 35651,
+      "crlf": 606,
+      "lf": 606,
+      "gitBlob": {
+        "rawSha256": "7499bfdd63ce02507a1df22867d27f78f33af04c667769652a8212676f14a092",
+        "canonicalLfSha256": "7499bfdd63ce02507a1df22867d27f78f33af04c667769652a8212676f14a092",
+        "bytes": 35045,
+        "crlf": 0,
+        "lf": 606
+      },
+      "matchesGitCanonicalLf": true
+    },
+    "dev/savia-staff-ui/login.mjs": {
+      "rawSha256": "ac7714a22eb1e7a383ca41e3e11343472025271dcf21dc862f39cf8c386fc787",
+      "canonicalLfSha256": "139fb119d215df458f67d3cb5916dbe3bd6db8682da113297d45121c2725cf66",
+      "bytes": 11527,
+      "crlf": 188,
+      "lf": 188,
+      "gitBlob": {
+        "rawSha256": "139fb119d215df458f67d3cb5916dbe3bd6db8682da113297d45121c2725cf66",
+        "canonicalLfSha256": "139fb119d215df458f67d3cb5916dbe3bd6db8682da113297d45121c2725cf66",
+        "bytes": 11339,
+        "crlf": 0,
+        "lf": 188
+      },
+      "matchesGitCanonicalLf": true
+    }
+  },
+  "runs": [
+    {
+      "name": "baseline",
+      "filter": "N5",
+      "command": "node tests/browser-mock-validation.mjs C:/Users/Jason/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-0dda9f02\\docs\\n5-browser-20261105\\mutations\\baseline",
+      "environment": {
+        "MARTHA_BROWSER_TEST_MATCH": "N5"
+      },
+      "sourceHashes": {
+        "dev/savia-staff-ui/app.mjs": {
+          "rawSha256": "383c40447e91aa465cc945138699151826d7c1ad93f2f1ed041aa3dcda303309",
+          "canonicalLfSha256": "7499bfdd63ce02507a1df22867d27f78f33af04c667769652a8212676f14a092",
+          "bytes": 35651,
+          "crlf": 606,
+          "lf": 606
+        },
+        "dev/savia-staff-ui/login.mjs": {
+          "rawSha256": "ac7714a22eb1e7a383ca41e3e11343472025271dcf21dc862f39cf8c386fc787",
+          "canonicalLfSha256": "139fb119d215df458f67d3cb5916dbe3bd6db8682da113297d45121c2725cf66",
+          "bytes": 11527,
+          "crlf": 188,
+          "lf": 188
+        }
+      },
+      "expectedExit": 0,
+      "exit": 0,
+      "privateLog": {
+        "path": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\n5-browser-20261105\\t3-0dda9f02-mutation-20261105\\baseline.log",
+        "sha256": "562be14dc33f767fb77acc4772ce498d06beabdc87b9b1cfac2d6cff2c2937ac"
+      },
+      "resultsPath": "docs\\n5-browser-20261105\\mutations\\baseline\\browser-results.json",
+      "resultsSha256": "ec6ae9ae3e1111f8d3f3cb6001c7073e5fd69ef38654ac4e57f615f38cf8d2cd",
+      "passed": 8,
+      "failed": 0,
+      "assertions": [],
+      "pageErrors": [],
+      "externalRequests": [],
+      "networkFailures": [
+        {
+          "test": "n5-held-recovery",
+          "path": "/internal/api/commerce/sales",
+          "error": "net::ERR_FAILED"
+        },
+        {
+          "test": "n5-late-404",
+          "path": "/internal/api/security/logout",
+          "error": "net::ERR_ABORTED"
+        }
+      ],
+      "browser": "156.0.8078.80",
+      "networkFailureCounts": {
+        "net::ERR_FAILED": 1,
+        "net::ERR_ABORTED": 1
+      },
+      "verdict": "PASS",
+      "restoration": {
+        "dev/savia-staff-ui/app.mjs": {
+          "rawSha256": "383c40447e91aa465cc945138699151826d7c1ad93f2f1ed041aa3dcda303309",
+          "canonicalLfSha256": "7499bfdd63ce02507a1df22867d27f78f33af04c667769652a8212676f14a092",
+          "bytes": 35651,
+          "crlf": 606,
+          "lf": 606,
+          "rawEqualBaseline": true
+        },
+        "dev/savia-staff-ui/login.mjs": {
+          "rawSha256": "ac7714a22eb1e7a383ca41e3e11343472025271dcf21dc862f39cf8c386fc787",
+          "canonicalLfSha256": "139fb119d215df458f67d3cb5916dbe3bd6db8682da113297d45121c2725cf66",
+          "bytes": 11527,
+          "crlf": 188,
+          "lf": 188,
+          "rawEqualBaseline": true
+        }
+      },
+      "completedAndTornDown": true
+    },
+    {
+      "name": "M01",
+      "filter": "N5 held operation recovery",
+      "command": "node tests/browser-mock-validation.mjs C:/Users/Jason/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-0dda9f02\\docs\\n5-browser-20261105\\mutations\\M01",
+      "environment": {
+        "MARTHA_BROWSER_TEST_MATCH": "N5 held operation recovery"
+      },
+      "sourceHashes": {
+        "dev/savia-staff-ui/app.mjs": {
+          "rawSha256": "c57236b7668b89b592216b04888d80a517553eb75cd490ee33aefbf2386fd26b",
+          "canonicalLfSha256": "86f67b2755ebb0b74327d86c08bc82dc20e5d907dc4870d05168d7750f0c1f93",
+          "bytes": 35632,
+          "crlf": 606,
+          "lf": 606
+        },
+        "dev/savia-staff-ui/login.mjs": {
+          "rawSha256": "ac7714a22eb1e7a383ca41e3e11343472025271dcf21dc862f39cf8c386fc787",
+          "canonicalLfSha256": "139fb119d215df458f67d3cb5916dbe3bd6db8682da113297d45121c2725cf66",
+          "bytes": 11527,
+          "crlf": 188,
+          "lf": 188
+        }
+      },
+      "expectedExit": 1,
+      "exit": 1,
+      "privateLog": {
+        "path": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\n5-browser-20261105\\t3-0dda9f02-mutation-20261105\\M01.log",
+        "sha256": "a55418f0f0f23824b564931dd6562f9b24d54ae9303a945b3a11bdbc2041e48f"
+      },
+      "resultsPath": "docs\\n5-browser-20261105\\mutations\\M01\\browser-results.json",
+      "resultsSha256": "17afd905e7e4c7c0803510546d7e7de8510f7531764c9f68e4b351ad30b7ef75",
+      "passed": 0,
+      "failed": 1,
+      "assertions": [
+        "Original pending bytes changed during held recovery.\n+ actual - expected\n\n+ '{\"key\":\"b3ed0ff8-76e0-4f43-afe3-08b15d066d47\",\"body\":{\"locationId\":\"00000001-0000-0000-0000-000000000003\",\"customerId\":null,\"lines\":[{\"itemId\":\"00000001-0000-0000-0000-000000000002\",\"quantity\":1}]},\"actorVersion\":\"00000001-0000-0000-0000-000000000009\"}'\n- '{\"key\":\"24532b27-9a62-4bf2-8f0f-e77b729e097b\",\"body\":{\"locationId\":\"00000001-0000-0000-0000-000000000003\",\"customerId\":null,\"lines\":[{\"itemId\":\"00000001-0000-0000-0000-000000000002\",\"quantity\":1}]},\"actorVersion\":\"00000001-0000-0000-0000-000000000009\"}'\n"
+      ],
+      "pageErrors": [],
+      "externalRequests": [],
+      "networkFailures": [
+        {
+          "test": "n5-held-recovery",
+          "path": "/internal/api/commerce/sales",
+          "error": "net::ERR_FAILED"
+        }
+      ],
+      "browser": "156.0.8078.80",
+      "networkFailureCounts": {
+        "net::ERR_FAILED": 1
+      },
+      "verdict": "killed",
+      "restoration": {
+        "dev/savia-staff-ui/app.mjs": {
+          "rawSha256": "383c40447e91aa465cc945138699151826d7c1ad93f2f1ed041aa3dcda303309",
+          "canonicalLfSha256": "7499bfdd63ce02507a1df22867d27f78f33af04c667769652a8212676f14a092",
+          "bytes": 35651,
+          "crlf": 606,
+          "lf": 606,
+          "rawEqualBaseline": true
+        },
+        "dev/savia-staff-ui/login.mjs": {
+          "rawSha256": "ac7714a22eb1e7a383ca41e3e11343472025271dcf21dc862f39cf8c386fc787",
+          "canonicalLfSha256": "139fb119d215df458f67d3cb5916dbe3bd6db8682da113297d45121c2725cf66",
+          "bytes": 11527,
+          "crlf": 188,
+          "lf": 188,
+          "rawEqualBaseline": true
+        }
+      },
+      "expectedAssertion": "Original pending bytes changed during held recovery.",
+      "completedAndTornDown": true,
+      "patchSha256": "4b70587d0977325b87c76a6f2d17fcb7f60c2e89c5856110fe89fe96d9d0ff73",
+      "patchReconstructionVerified": true
+    },
+    {
+      "name": "M02",
+      "filter": "N5 discarded 404 receipt",
+      "command": "node tests/browser-mock-validation.mjs C:/Users/Jason/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-0dda9f02\\docs\\n5-browser-20261105\\mutations\\M02",
+      "environment": {
+        "MARTHA_BROWSER_TEST_MATCH": "N5 discarded 404 receipt"
+      },
+      "sourceHashes": {
+        "dev/savia-staff-ui/app.mjs": {
+          "rawSha256": "3fe413e586f55c2c55d394e3da59acf101e044a859e71bfd5398ebdb994efb86",
+          "canonicalLfSha256": "98a9ef1597640c28151c8370b5f5cd650be53524d20f02df19461ccf9f9986d1",
+          "bytes": 35614,
+          "crlf": 606,
+          "lf": 606
+        },
+        "dev/savia-staff-ui/login.mjs": {
+          "rawSha256": "ac7714a22eb1e7a383ca41e3e11343472025271dcf21dc862f39cf8c386fc787",
+          "canonicalLfSha256": "139fb119d215df458f67d3cb5916dbe3bd6db8682da113297d45121c2725cf66",
+          "bytes": 11527,
+          "crlf": 188,
+          "lf": 188
+        }
+      },
+      "expectedExit": 1,
+      "exit": 1,
+      "privateLog": {
+        "path": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\n5-browser-20261105\\t3-0dda9f02-mutation-20261105\\M02.log",
+        "sha256": "89e178fffdfdb09a7f33de39cd8d40c84c2ab7d681cee394e6210c63f40a3b48"
+      },
+      "resultsPath": "docs\\n5-browser-20261105\\mutations\\M02\\browser-results.json",
+      "resultsSha256": "547fbc640e66ec7ac5f82887495a9d60748ad6ebf40d2767579aa8f218d9b708",
+      "passed": 0,
+      "failed": 1,
+      "assertions": [
+        "Expected values to be strictly equal:\n+ actual - expected\n\n+ '00000001-0000-0000-0000-000000000005'\n- null\n"
+      ],
+      "pageErrors": [],
+      "externalRequests": [],
+      "networkFailures": [],
+      "browser": "156.0.8078.80",
+      "networkFailureCounts": {},
+      "verdict": "killed",
+      "restoration": {
+        "dev/savia-staff-ui/app.mjs": {
+          "rawSha256": "383c40447e91aa465cc945138699151826d7c1ad93f2f1ed041aa3dcda303309",
+          "canonicalLfSha256": "7499bfdd63ce02507a1df22867d27f78f33af04c667769652a8212676f14a092",
+          "bytes": 35651,
+          "crlf": 606,
+          "lf": 606,
+          "rawEqualBaseline": true
+        },
+        "dev/savia-staff-ui/login.mjs": {
+          "rawSha256": "ac7714a22eb1e7a383ca41e3e11343472025271dcf21dc862f39cf8c386fc787",
+          "canonicalLfSha256": "139fb119d215df458f67d3cb5916dbe3bd6db8682da113297d45121c2725cf66",
+          "bytes": 11527,
+          "crlf": 188,
+          "lf": 188,
+          "rawEqualBaseline": true
+        }
+      },
+      "expectedAssertion": "Expected null obsolete receipt reference; actual 00000001-0000-0000-0000-000000000005",
+      "completedAndTornDown": true,
+      "patchSha256": "d5aebcdc880d46fee4f7950f5c06cde60feb76e76637921eaa2c70351429409b",
+      "patchReconstructionVerified": true
+    },
+    {
+      "name": "M03",
+      "filter": "N5 late old receipt 404",
+      "command": "node tests/browser-mock-validation.mjs C:/Users/Jason/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-0dda9f02\\docs\\n5-browser-20261105\\mutations\\M03",
+      "environment": {
+        "MARTHA_BROWSER_TEST_MATCH": "N5 late old receipt 404"
+      },
+      "sourceHashes": {
+        "dev/savia-staff-ui/app.mjs": {
+          "rawSha256": "c30d7193946944dae7c913ac77debc7e7cd9938cf995c757cb1d658296ba80af",
+          "canonicalLfSha256": "90249113733e30268be39475067ec3dc17c7fc42376fdd26cf3c9a6f66e6ffb3",
+          "bytes": 35619,
+          "crlf": 606,
+          "lf": 606
+        },
+        "dev/savia-staff-ui/login.mjs": {
+          "rawSha256": "88024cfa9e8e7d86d94da3062a2fad8aa5420dc3140668c9c3adb06dc940ba73",
+          "canonicalLfSha256": "13ecca90511ea7e143c4a8436b6a36faf0731d2c60083dd495d59191eac18135",
+          "bytes": 11487,
+          "crlf": 188,
+          "lf": 188
+        }
+      },
+      "expectedExit": 1,
+      "exit": 1,
+      "privateLog": {
+        "path": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\n5-browser-20261105\\t3-0dda9f02-mutation-20261105\\M03.log",
+        "sha256": "60c8853371e729ec472b89889907ea83d638d963d9a928287d44b7d0f6ff5767"
+      },
+      "resultsPath": "docs\\n5-browser-20261105\\mutations\\M03\\browser-results.json",
+      "resultsSha256": "16e4d3ddda73ae26a59dd882c2b3cd3bb06013609015bb1e53ea7c652da7dee5",
+      "passed": 0,
+      "failed": 1,
+      "assertions": [
+        "Old 404 erased reference after generation invalidation.\n+ actual - expected\n\n+ null\n- '00000001-0000-0000-0000-000000000005'\n"
+      ],
+      "pageErrors": [],
+      "externalRequests": [],
+      "networkFailures": [],
+      "browser": "156.0.8078.80",
+      "networkFailureCounts": {},
+      "verdict": "killed",
+      "restoration": {
+        "dev/savia-staff-ui/app.mjs": {
+          "rawSha256": "383c40447e91aa465cc945138699151826d7c1ad93f2f1ed041aa3dcda303309",
+          "canonicalLfSha256": "7499bfdd63ce02507a1df22867d27f78f33af04c667769652a8212676f14a092",
+          "bytes": 35651,
+          "crlf": 606,
+          "lf": 606,
+          "rawEqualBaseline": true
+        },
+        "dev/savia-staff-ui/login.mjs": {
+          "rawSha256": "ac7714a22eb1e7a383ca41e3e11343472025271dcf21dc862f39cf8c386fc787",
+          "canonicalLfSha256": "139fb119d215df458f67d3cb5916dbe3bd6db8682da113297d45121c2725cf66",
+          "bytes": 11527,
+          "crlf": 188,
+          "lf": 188,
+          "rawEqualBaseline": true
+        }
+      },
+      "expectedAssertion": "Old 404 erased reference after generation invalidation.",
+      "completedAndTornDown": true,
+      "patchSha256": "9b50601123c28e53007b3e81382038bcc0eb1729084a3dc90df0eac84c284cda",
+      "patchReconstructionVerified": true
+    },
+    {
+      "name": "restored",
+      "filter": "N5",
+      "command": "node tests/browser-mock-validation.mjs C:/Users/Jason/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-0dda9f02\\docs\\n5-browser-20261105\\mutations\\restored",
+      "environment": {
+        "MARTHA_BROWSER_TEST_MATCH": "N5"
+      },
+      "sourceHashes": {
+        "dev/savia-staff-ui/app.mjs": {
+          "rawSha256": "383c40447e91aa465cc945138699151826d7c1ad93f2f1ed041aa3dcda303309",
+          "canonicalLfSha256": "7499bfdd63ce02507a1df22867d27f78f33af04c667769652a8212676f14a092",
+          "bytes": 35651,
+          "crlf": 606,
+          "lf": 606
+        },
+        "dev/savia-staff-ui/login.mjs": {
+          "rawSha256": "ac7714a22eb1e7a383ca41e3e11343472025271dcf21dc862f39cf8c386fc787",
+          "canonicalLfSha256": "139fb119d215df458f67d3cb5916dbe3bd6db8682da113297d45121c2725cf66",
+          "bytes": 11527,
+          "crlf": 188,
+          "lf": 188
+        }
+      },
+      "expectedExit": 0,
+      "exit": 0,
+      "privateLog": {
+        "path": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\n5-browser-20261105\\t3-0dda9f02-mutation-20261105\\restored.log",
+        "sha256": "a27df22d0e69ae02d867c4612dd04154f6c12c7f475ca3a7cc0ec01f4251a909"
+      },
+      "resultsPath": "docs\\n5-browser-20261105\\mutations\\restored\\browser-results.json",
+      "resultsSha256": "ef48c4167fd96ed09def4a66bfc57dcc6346e63442769b795b1f641f267240eb",
+      "passed": 8,
+      "failed": 0,
+      "assertions": [],
+      "pageErrors": [],
+      "externalRequests": [],
+      "networkFailures": [
+        {
+          "test": "n5-held-recovery",
+          "path": "/internal/api/commerce/sales",
+          "error": "net::ERR_FAILED"
+        },
+        {
+          "test": "n5-late-404",
+          "path": "/internal/api/security/logout",
+          "error": "net::ERR_ABORTED"
+        }
+      ],
+      "browser": "156.0.8078.80",
+      "networkFailureCounts": {
+        "net::ERR_FAILED": 1,
+        "net::ERR_ABORTED": 1
+      },
+      "verdict": "PASS",
+      "restoration": {
+        "dev/savia-staff-ui/app.mjs": {
+          "rawSha256": "383c40447e91aa465cc945138699151826d7c1ad93f2f1ed041aa3dcda303309",
+          "canonicalLfSha256": "7499bfdd63ce02507a1df22867d27f78f33af04c667769652a8212676f14a092",
+          "bytes": 35651,
+          "crlf": 606,
+          "lf": 606,
+          "rawEqualBaseline": true
+        },
+        "dev/savia-staff-ui/login.mjs": {
+          "rawSha256": "ac7714a22eb1e7a383ca41e3e11343472025271dcf21dc862f39cf8c386fc787",
+          "canonicalLfSha256": "139fb119d215df458f67d3cb5916dbe3bd6db8682da113297d45121c2725cf66",
+          "bytes": 11527,
+          "crlf": 188,
+          "lf": 188,
+          "rawEqualBaseline": true
+        }
+      },
+      "completedAndTornDown": true
+    }
+  ],
+  "blockers": [],
+  "limits": [
+    "Real installed Chrome; synthetic intercepted HTTP only",
+    "No real API, SQL, Docker, certificates, TLS, payments, external requests or operational acceptance",
+    "No commit, stage, push, PR, deploy or nested delegation",
+    "Worker return is not independent acceptance; primary then Astra/high review pending"
+  ],
+  "approvedTest": {
+    "path": "tests/browser-mock-validation.mjs",
+    "rawSha256": "88eaa468cc92bdd32ca6b066b512c6a8ebd38969cc7f332dbad9b41122269dea",
+    "canonicalLfSha256": "67fa281d2cde8adb8f7cabf6de2117176b06e6f2417a57daafc43355f1a9f144",
+    "bytes": 52124,
+    "crlf": 429,
+    "lf": 429,
+    "canonicalFrozenReadVerified": true
+  },
+  "verdict": "RETURNED: baseline 8/8; three injected regressions killed; restored 8/8; primary/judge acceptance pending",
+  "finalProductDiff": "",
+  "finalTestHash": "88eaa468cc92bdd32ca6b066b512c6a8ebd38969cc7f332dbad9b41122269dea",
+  "changedPaths": [
+    " M tests/browser-mock-validation.mjs",
+    "?? docs/n5-browser-20261105/mutations/M01.patch",
+    "?? docs/n5-browser-20261105/mutations/M01/browser-results.json",
+    "?? docs/n5-browser-20261105/mutations/M02.patch",
+    "?? docs/n5-browser-20261105/mutations/M02/browser-results.json",
+    "?? docs/n5-browser-20261105/mutations/M03.patch",
+    "?? docs/n5-browser-20261105/mutations/M03/browser-results.json",
+    "?? docs/n5-browser-20261105/mutations/README.md",
+    "?? docs/n5-browser-20261105/mutations/RESULT.json",
+    "?? docs/n5-browser-20261105/mutations/baseline/browser-results.json",
+    "?? docs/n5-browser-20261105/mutations/baseline/stale-receipt-observation.json",
+    "?? docs/n5-browser-20261105/mutations/baseline/stale-receipt.png",
+    "?? docs/n5-browser-20261105/mutations/restored/browser-results.json",
+    "?? docs/n5-browser-20261105/mutations/restored/stale-receipt-observation.json",
+    "?? docs/n5-browser-20261105/mutations/restored/stale-receipt.png"
+  ],
+  "finishedUtc": "2026-11-05T14:19:30Z",
+  "classifierCorrection": {
+    "initialFailure": "Post-run evidence classifier rejected expected logout net::ERR_ABORTED; browser baseline itself passed 8/8 exit0.",
+    "directEvidence": "baseline/browser-results.json networkFailures: n5-late-404 /internal/api/security/logout net::ERR_ABORTED; no runtime errors or externalRequests.",
+    "correction": "Accept and count only synthetic sales ERR_FAILED and late-404 logout ERR_ABORTED; reuse unchanged baseline evidence without browser rerun.",
+    "lesson": "Expected navigation aborts are evidence to count, not unexpected product or infrastructure failures."
+  },
+  "privateDriver": {
+    "path": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\n5-browser-20261105\\t3-0dda9f02-mutation-20261105\\run.py",
+    "sha256": "ce88220c524704d0c72826f4ead333c9a1a99d6a25589643c98037ce6ed70415"
+  },
+  "finalProductRawHashes": {
+    "dev/savia-staff-ui/app.mjs": "383c40447e91aa465cc945138699151826d7c1ad93f2f1ed041aa3dcda303309",
+    "dev/savia-staff-ui/login.mjs": "ac7714a22eb1e7a383ca41e3e11343472025271dcf21dc862f39cf8c386fc787"
+  },
+  "evidenceFiles": {
+    "docs/n5-browser-20261105/mutations/M01.patch": "4b70587d0977325b87c76a6f2d17fcb7f60c2e89c5856110fe89fe96d9d0ff73",
+    "docs/n5-browser-20261105/mutations/M02.patch": "d5aebcdc880d46fee4f7950f5c06cde60feb76e76637921eaa2c70351429409b",
+    "docs/n5-browser-20261105/mutations/M03.patch": "9b50601123c28e53007b3e81382038bcc0eb1729084a3dc90df0eac84c284cda",
+    "docs/n5-browser-20261105/mutations/README.md": "ff2d328f422a48e108a35dcadcdb44da1d172b02f5846ed176b67b616c9eaad5",
+    "docs/n5-browser-20261105/mutations/baseline/browser-results.json": "ec6ae9ae3e1111f8d3f3cb6001c7073e5fd69ef38654ac4e57f615f38cf8d2cd",
+    "docs/n5-browser-20261105/mutations/baseline/stale-receipt-observation.json": "003fb893b7ca07e8abc855f0ccc1505b58b31c3451b15c36ca141a7a37fe84d5",
+    "docs/n5-browser-20261105/mutations/baseline/stale-receipt.png": "d3090e2f6e4e1b128b03136cf066075c92c5d6223e5cbf146224bad8828d660d",
+    "docs/n5-browser-20261105/mutations/M01/browser-results.json": "17afd905e7e4c7c0803510546d7e7de8510f7531764c9f68e4b351ad30b7ef75",
+    "docs/n5-browser-20261105/mutations/M02/browser-results.json": "547fbc640e66ec7ac5f82887495a9d60748ad6ebf40d2767579aa8f218d9b708",
+    "docs/n5-browser-20261105/mutations/M03/browser-results.json": "16e4d3ddda73ae26a59dd882c2b3cd3bb06013609015bb1e53ea7c652da7dee5",
+    "docs/n5-browser-20261105/mutations/restored/browser-results.json": "ef48c4167fd96ed09def4a66bfc57dcc6346e63442769b795b1f641f267240eb",
+    "docs/n5-browser-20261105/mutations/restored/stale-receipt-observation.json": "003fb893b7ca07e8abc855f0ccc1505b58b31c3451b15c36ca141a7a37fe84d5",
+    "docs/n5-browser-20261105/mutations/restored/stale-receipt.png": "d3090e2f6e4e1b128b03136cf066075c92c5d6223e5cbf146224bad8828d660d"
+  },
+  "verification": {
+    "allFiveExitsAndVerdicts": true,
+    "browserResultAndPrivateLogHashes": true,
+    "allSourceHashesBoundToHarness": true,
+    "patchesReconstructExactMutatedBytes": true,
+    "restorationAfterEveryRun": true,
+    "zeroFinalProductDiff": true,
+    "approvedTestRawHash": true,
+    "noPublicRawLogs": true,
+    "expectedAbortsRetained": true
+  }
+}

@@ -1,0 +1,165 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-05T14:42:19.236621+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "9938798c46174584a60edc7185c50291633f13c0"
+    },
+    {
+      "path": "docs/n5-browser-20261105/.gitattributes",
+      "change": "A",
+      "git_blob": "a24332af02d0c435d495e84f78d73830fad03dbb"
+    },
+    {
+      "path": "docs/n5-browser-20261105/ACCEPTANCE.json",
+      "change": "A",
+      "git_blob": "bcf8e02139b5dee230e74b6a35fefd268b76f855"
+    },
+    {
+      "path": "docs/n5-browser-20261105/EXECUTION-SUMMARY.json",
+      "change": "M",
+      "git_blob": "785134a3195cf116f2d75187ac2d8ab32c20ff76"
+    },
+    {
+      "path": "docs/n5-browser-20261105/HASH-POLICY.md",
+      "change": "A",
+      "git_blob": "40012e5461a141f4c6000a30d49e5365ec9c9b20"
+    },
+    {
+      "path": "docs/n5-browser-20261105/INTEGRATION.json",
+      "change": "M",
+      "git_blob": "ac541b9bc4ab30d90c8eeee718a2f709f8fcb842"
+    },
+    {
+      "path": "docs/n5-browser-20261105/PLAN.md",
+      "change": "M",
+      "git_blob": "2a0e22a4f1f3a265403e1d737dc7baf4e19c81ed"
+    },
+    {
+      "path": "docs/n5-browser-20261105/PUBLICATION.md",
+      "change": "M",
+      "git_blob": "48f26ee7b28f6aa348ef2f247be742a7da35ba29"
+    },
+    {
+      "path": "docs/n5-browser-20261105/README.md",
+      "change": "M",
+      "git_blob": "3e86e6e7686a67bb51285f989174ae8de09cbe14"
+    },
+    {
+      "path": "docs/n5-browser-20261105/REVIEW-PACKET.json",
+      "change": "A",
+      "git_blob": "374500fd5e98c9b0b743f56d85c375edda85692e"
+    },
+    {
+      "path": "docs/n5-browser-20261105/critic.md",
+      "change": "A",
+      "git_blob": "d58e51e9f3d1183ba9e188785d4534e04477480b"
+    },
+    {
+      "path": "docs/n5-browser-20261105/mutations/IMPORT.json",
+      "change": "A",
+      "git_blob": "3dae5796a1ae5559c7a88ade08ea13ad9b4beb6f"
+    },
+    {
+      "path": "docs/n5-browser-20261105/mutations/M01.patch",
+      "change": "A",
+      "git_blob": "085381fa8650abba163774bbab2a002c68731b44"
+    },
+    {
+      "path": "docs/n5-browser-20261105/mutations/M01/browser-results.json",
+      "change": "A",
+      "git_blob": "05e6677c5dc90484df06496a84f69212adce0a03"
+    },
+    {
+      "path": "docs/n5-browser-20261105/mutations/M02.patch",
+      "change": "A",
+      "git_blob": "e14f44801728f3b6a230fbceccd361c1cdd7c21e"
+    },
+    {
+      "path": "docs/n5-browser-20261105/mutations/M02/browser-results.json",
+      "change": "A",
+      "git_blob": "824850927b4636d36379c4abafe19b74d57125fb"
+    },
+    {
+      "path": "docs/n5-browser-20261105/mutations/M03.patch",
+      "change": "A",
+      "git_blob": "58de0a9f8adda93af3335be626a4743cc118a758"
+    },
+    {
+      "path": "docs/n5-browser-20261105/mutations/M03/browser-results.json",
+      "change": "A",
+      "git_blob": "fde0d4b14f915261508794764edf976972644db1"
+    },
+    {
+      "path": "docs/n5-browser-20261105/mutations/README.md",
+      "change": "A",
+      "git_blob": "4afb6a3102e58dceaa8e83fec9719f9ac82c4613"
+    },
+    {
+      "path": "docs/n5-browser-20261105/mutations/RESULT.json",
+      "change": "A",
+      "git_blob": "711f6ddc6bf9b7599a4dafdf4c70dde325d06d83"
+    },
+    {
+      "path": "docs/n5-browser-20261105/mutations/baseline/browser-results.json",
+      "change": "A",
+      "git_blob": "26f84ddd200fa98b1aec41edbaf6fa0bb084ef53"
+    },
+    {
+      "path": "docs/n5-browser-20261105/mutations/baseline/stale-receipt-observation.json",
+      "change": "A",
+      "git_blob": "cdd1e38a36545845ffd3981d90feb53d769bdacd"
+    },
+    {
+      "path": "docs/n5-browser-20261105/mutations/baseline/stale-receipt.png",
+      "change": "A",
+      "git_blob": "837857e06b6cbdc1820a0b2fefe12aa64979d8f5"
+    },
+    {
+      "path": "docs/n5-browser-20261105/mutations/judge.md",
+      "change": "A",
+      "git_blob": "acad26310e02ef512ec6f4c5e2eaa8b88fb63973"
+    },
+    {
+      "path": "docs/n5-browser-20261105/mutations/restored/browser-results.json",
+      "change": "A",
+      "git_blob": "5fea8a6f0ba2d514e5d6b60d40d43d8411fdaa6e"
+    },
+    {
+      "path": "docs/n5-browser-20261105/mutations/restored/stale-receipt-observation.json",
+      "change": "A",
+      "git_blob": "cdd1e38a36545845ffd3981d90feb53d769bdacd"
+    },
+    {
+      "path": "docs/n5-browser-20261105/mutations/restored/stale-receipt.png",
+      "change": "A",
+      "git_blob": "837857e06b6cbdc1820a0b2fefe12aa64979d8f5"
+    },
+    {
+      "path": "docs/n5-browser-20261105/mutations/worker-README.md",
+      "change": "A",
+      "git_blob": "7d14f820ea1d807b2bcd45300488f6fa7bed8a14"
+    },
+    {
+      "path": "docs/n5-browser-20261105/primary-review.md",
+      "change": "M",
+      "git_blob": "a40a78137db10863165dfed31900135a1cb28be0"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "change": "M",
+      "git_blob": "4556b386baae2c43b73a47002aec237b598e529b"
+    },
+    {
+      "path": "tests/browser-mock-validation.mjs",
+      "change": "M",
+      "git_blob": "2e7f93f98d7d12c7b20654ef0c7e2fa63b313cfb"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

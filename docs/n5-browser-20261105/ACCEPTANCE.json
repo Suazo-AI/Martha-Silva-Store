@@ -1,0 +1,88 @@
+{
+  "schema": 1,
+  "observedUtc": "2026-11-05T14:41:19.872161+00:00",
+  "host": "SUAZO-PC",
+  "primary": {
+    "provider": "codex",
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "xhigh"
+  },
+  "disposition": "ACCEPT WITH LIMITS",
+  "item": "N5-COV",
+  "status": "done",
+  "doneWhenUnchanged": true,
+  "ownerWaiver": false,
+  "productChanged": false,
+  "existingProductDefectReproduced": false,
+  "testRawSha256": "88eaa468cc92bdd32ca6b066b512c6a8ebd38969cc7f332dbad9b41122269dea",
+  "baselineBaseSha": "5ab44fbb8210f3d6e98f34745700194195c0e1ce",
+  "mutationRuns": {
+    "counts": [
+      [
+        8,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        8,
+        0
+      ]
+    ],
+    "exits": [
+      0,
+      1,
+      1,
+      1,
+      0
+    ]
+  },
+  "critic": {
+    "model": "claude-opus-5-5",
+    "provider": "antigravity",
+    "requestedEffort": "high",
+    "effectiveEffort": "unknown",
+    "verdict": "ACCEPT WITH LIMITS"
+  },
+  "finalJudge": {
+    "model": "gpt-6-astra",
+    "provider": "codex",
+    "requestedEffort": "high",
+    "effectiveEffort": "high",
+    "verdict": "ACCEPT WITH LIMITS",
+    "report": "mutations/judge.md",
+    "M1": "satisfied without waiver",
+    "m1": "resolved for observed combined-boundary scenario/window"
+  },
+  "reviewPacket": {
+    "rawSha256": "3f04c85c77d423038a61f5d14e7a4a3b6ec6bf9ae797a3e61368166850722085",
+    "archive": "C:/Users/Jason/MARTHA-SILVA/test-runs/n5-browser-20261105/review-inputs-before-acceptance/",
+    "meaning": "historical pre-acceptance inputs; not current working-tree hashes"
+  },
+  "publicationRequirement": "normal hooks; SYNCED and matching remote SHA; applicable CI on that same publication SHA",
+  "notRun": [
+    "real API",
+    "SQL",
+    "physical devices",
+    "full browser suite on current overlay",
+    "production",
+    "operational acceptance"
+  ],
+  "remainingProductGates": [
+    "C2",
+    "C9 consumed TLS attempt",
+    "C10",
+    "payments",
+    "hosting"
+  ]
+}

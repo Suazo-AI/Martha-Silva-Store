@@ -1,5 +1,28 @@
 # N5 publication and exact-source CI
 
+## Accepted negative-control publication, 2026-11-05
+
+Primary accepts N5-COV with limits after the independent Astra/high M1 verdict.
+This publication includes the exact 88eaa4 test overlay, restored-product evidence,
+normal-hook-safe public artifacts and the unchanged ledger criterion.
+Local checks: progress23/23, ledger24/24, ledger valid35, preserved15/15.
+No product source changed. No merge, deployment, API, SQL or operational acceptance.
+
+Remote delivery criterion for this publication: normal hooks emit SYNCED;
+origin/Tony equals local HEAD; GitHub Checks for that exact SHA finish with no
+failed or pending applicable job. Optional configured narrator skip is reported
+separately. The primary records the observed SHA and check results in the final
+handoff. Those live per-commit Checks are the authoritative CI evidence.
+Earlier receipts below apply only to their recorded SHAs. Their green results
+are never reused as proof for this publication. This avoids a self-referential
+extra commit solely to insert its own future SHA/CI result into this file.
+
+REVIEW-PACKET.json is historical input metadata for the independent review.
+Before acceptance edits, primary archived its exact29 files and packet outside
+the public repository. INTEGRATION.json contains current portable artifact hashes.
+
+## Earlier publication history
+
 Observed 2026-11-05 UTC on SUAZO-PC by T3 Code / Codex gpt-6.1-sol/xhigh.
 
 Published source SHA: `0a056be612f5f3701f7a39fd37031f426bfe0dc8` on Tony.

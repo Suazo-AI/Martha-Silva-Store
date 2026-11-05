@@ -109,7 +109,23 @@
     "primaryPortable": {
       "exit": 1,
       "environmentError": "WinError 1314 during three symlink fixtures",
-      "alternative": "Exact-candidate Ubuntu CI; pending"
+      "alternative": "Exact-source Ubuntu CI passed: 0a056be612f5f3701f7a39fd37031f426bfe0dc8 and doc-only 5ab44fbb8210f3d6e98f34745700194195c0e1ce; 5 success and 1 optional skip per SHA. Local exit1 remains historical."
     }
+  },
+  "followUp": {
+    "critic": "ACCEPT WITH LIMITS; requested high, effective unknown",
+    "negativeControls": {
+      "source": "mutations/RESULT.json",
+      "import": "mutations/IMPORT.json",
+      "baseline": "8/8 exit0",
+      "M01": "killed exit1; pending bytes changed",
+      "M02": "killed exit1; obsolete reference retained",
+      "M03": "killed exit1; invalidated reference erased",
+      "restored": "8/8 exit0",
+      "productRestored": true,
+      "adjudication": "ACCEPT WITH LIMITS by Astra/high; primary accepted; N5-COV done",
+      "realDefectReproduced": false
+    },
+    "acceptance": "ACCEPTANCE.json"
   }
 }

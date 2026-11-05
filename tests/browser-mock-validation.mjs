@@ -350,7 +350,7 @@ try{
       assert.equal(await storedReceipt(s),receipt.saleId,'Old 404 erased reference after generation invalidation.');
       assert.equal(await s.page.locator('#sale-status').textContent(),status);assert.equal(await pendingBytes(s),null);
       await expect(s.page.locator('#stock-table')).toBeEmpty();await expect(s.page.locator('#sale-receipt')).toBeEmpty();await expect(s.page.locator('#staff-shell')).toBeHidden();
-      await s.page.locator('#sale-form').dispatchEvent('submit');assert.equal(salePosts(s).length,0);
+      await s.page.locator('#sale-form').dispatchEvent('submit');await browserTurn(s.page);assert.equal(salePosts(s).length,0);
       logout.release();await s.page.waitForURL('**/internal/login');
       await s.page.locator('#login-name').fill('synthetic');await s.page.locator('#login-password').fill('Synthetic-Only-123!');await s.page.locator('#login-submit').click();
       await s.page.waitForURL('**/internal/');await s.page.locator('[data-target="ventas"][data-action="nav"]').click();await expect(s.page.locator('#sale-submit')).toBeEnabled();

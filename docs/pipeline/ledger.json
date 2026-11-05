@@ -325,7 +325,7 @@
       "order": 14.5,
       "track": "sprint",
       "owner": "denis",
-      "status": "review",
+      "status": "done",
       "title": "Cobertura extra de N5 sugerida por el crítico de C3",
       "why": "El crítico de Cutufay señaló 3 huecos: botón durante recuperación pendiente, venta nueva completa tras descartar un recibo obsoleto y posible carrera en el caso 404. Recomendación, no criterio original de C3",
       "done_when": "Cada hueco cubierto por una prueba en tests/browser-mock-validation.mjs con rojo-verde, o descartado por escrito con el motivo",
@@ -334,10 +334,10 @@
         "tests/browser-mock-validation.mjs"
       ],
       "trello": "https://trello.com/c/145Qp5pz",
-      "prep": "Revision final C8 confirma tres GAP: submit durante recovery retenido, venta nueva completa tras descartar recibo obsoleto y carrera404 tardia. Casos adyacentes PASS no cubren estos escenarios; no se afirma defecto sin reproducir ni se descarta cobertura por inferencia.",
+      "prep": "Three browser gaps covered; hypothetical same-generation newer-pending race reasonedly unreachable. Current overlay88eaa4: baseline/restored8/8, three semantic mutants killed, exits0/1/1/1/0. Exact product bytes restored. No existing product defect reproduced.",
       "report": "docs/n5-browser-20261105/primary-review.md",
       "evidence": "docs/n5-browser-20261105/README.md",
-      "review": "Worker: N5 8/8, full Chrome/HTTP mocks 50/50, staff 102/102. Astra/high APTO CON REPAROS sin bloqueantes. Primary corrige atribucion del 404 tardio y celdas iniciales de stock; N5 integrado 8/8. Critico Opus pendiente por cuota. Portable local bloqueado por WinError 1314; CI Linux pendiente. Sin defecto de producto reproducido ni nueva prueba API/SQL/operativa. No se afirma rojo-verde de una correccion inexistente."
+      "review": "Primary ACCEPT WITH LIMITS after Opus return and final Astra/high M1 adjudication. M1 satisfied by negative controls, m1 satisfied for observed combined-boundary window; m2 corrected; stale PLAN header fixed. No waiver or criterion change. Opus high requested/effective unknown remains disclosed. Historical browser50/50,staff102/102 and earlier LinuxCI stay source-bound. Remote delivery requires publication SHA readback and its applicable CI. No new real API/SQL/device/operational proof."
     },
     {
       "id": "SEC-CSRF",

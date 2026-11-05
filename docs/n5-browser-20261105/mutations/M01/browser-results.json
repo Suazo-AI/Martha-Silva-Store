@@ -1,0 +1,33 @@
+{
+  "observedUtc": "2026-11-05T14:19:19.045Z",
+  "host": "SUAZO-PC",
+  "node": "v24.18.0",
+  "browser": "156.0.8078.80",
+  "layer": "Real Chromium browser; mocked staff API; public browser-local demo",
+  "origin": "http://127.0.0.1:56523",
+  "sourceHashes": {
+    "dev/savia-staff-ui/app.mjs": "c57236b7668b89b592216b04888d80a517553eb75cd490ee33aefbf2386fd26b",
+    "dev/savia-staff-ui/client.mjs": "0447a3c83910d9a5618f98886d1025b9a74a3f59839eeca2ea0d7cc1ca6c4825",
+    "dev/savia-staff-ui/login.mjs": "ac7714a22eb1e7a383ca41e3e11343472025271dcf21dc862f39cf8c386fc787",
+    "dev/savia-staff-ui/login.html": "4803ece2ef530d9e5161837209ac86591bfe1447e9876b0f38bf17baca9a8382",
+    "dev/savia-staff-ui/index.html": "b5fe1c6a87f9cb4736e103eae888be97546e4f7b7e50d8893fe4ab4b01a6897d",
+    "dev/savia-staff-ui/styles.css": "3be78159e11d127c91db22399fb306fcc35e9cb8886a556393a003b82c9c2622"
+  },
+  "results": [
+    {
+      "name": "N5 held operation recovery blocks native and synthetic submit without changing original bytes",
+      "status": "FAIL",
+      "durationMs": 747,
+      "error": "Original pending bytes changed during held recovery.\n+ actual - expected\n\n+ '{\"key\":\"b3ed0ff8-76e0-4f43-afe3-08b15d066d47\",\"body\":{\"locationId\":\"00000001-0000-0000-0000-000000000003\",\"customerId\":null,\"lines\":[{\"itemId\":\"00000001-0000-0000-0000-000000000002\",\"quantity\":1}]},\"actorVersion\":\"00000001-0000-0000-0000-000000000009\"}'\n- '{\"key\":\"24532b27-9a62-4bf2-8f0f-e77b729e097b\",\"body\":{\"locationId\":\"00000001-0000-0000-0000-000000000003\",\"customerId\":null,\"lines\":[{\"itemId\":\"00000001-0000-0000-0000-000000000002\",\"quantity\":1}]},\"actorVersion\":\"00000001-0000-0000-0000-000000000009\"}'\n"
+    }
+  ],
+  "runtime": [],
+  "externalRequests": [],
+  "networkFailures": [
+    {
+      "test": "n5-held-recovery",
+      "path": "/internal/api/commerce/sales",
+      "error": "net::ERR_FAILED"
+    }
+  ]
+}

@@ -4,14 +4,14 @@ Corte operativo: 2026-11-04 UTC. Host coordinador: SUAZO-PC. Checkout canónico 
 **No listo para producción. C6/C8 y C11 pasan técnicamente; C9 sigue bloqueado por confianza TLS.**
 
 Actualización N5-COV, 2026-11-05 UTC: [cobertura de recuperación en navegador](n5-browser-20261105/README.md).
-Worker Sol/high: N5 8/8, Chrome/HTTP simulado 50/50 y staff 102/102; exits 0, producto sin cambios.
-Astra/high: APTO CON REPAROS, cero bloqueantes. El primary precisó la protección conjunta durante logout
-y reforzó la comparación inicial de existencias. N5 integrado pasó 8/8; Opus sigue pendiente.
-El ledger queda en `review`; no se cierra por los resultados del worker ni por el juez solo.
-La cuota fresca de Antigravity/Claude-GPT a las 13:46:34 UTC fue 0%; reinicio indicado 14:03:19 UTC.
-No se usa otro modelo ni crédito adicional. Esto no cierra C2/C9/C10 ni acredita API/SQL/dispositivos reales.
-La comprobación general local volvió a detenerse por WinError 1314 en fixtures de symlink;
-la alternativa es el CI Linux del SHA publicado, todavía pendiente. Ledger y 24 pruebas del ledger pasan.
+N5-COV: aceptado tecnicamente con limites; ledger `done`, criterio sin cambios.
+Sol/high: baseline8/8, tres mutaciones killed y restaurado8/8; exits 0/1/1/1/0.
+Astra/high resolvio M1 y la sensibilidad de la ventana observada; primary acepta.
+Opus devolvio ACCEPT WITH LIMITS; high solicitado, reasoning efectivo desconocido.
+Producto restaurado byte por byte. Full50/50 y staff102/102 siguen ligados a sus fuentes historicas.
+La entrega remota exige SYNCED, SHA remoto coincidente y CI aplicable de ese SHA.
+El WinError1314 local sigue registrado; CI Linux anterior no acredita este nuevo commit.
+Esto no cierra C2/C9/C10 ni acredita API/SQL/dispositivos o produccion real.
 
 Actualización de planificación, 2026-11-05 UTC: [plan de cierre por evidencia](release-20261105/PLAN.md) y [prompt reescrito](release-20261105/PROMPT.md).
 Jason autorizó corregir la raíz de T3 a `github`; readback confirmado, dos auditorías completadas en worktrees administrados separados.
@@ -141,7 +141,7 @@ La vinculación registra hashes locales y blobs publicados: Git solo normaliza s
 
 ## Siguiente acción y aceptación
 
-Preparar el siguiente lote de tres escenarios N5-COV a partir del código aceptado, conservando N1–N10.
+N5-COV esta aceptado con limites. Verificar publicacion y CI del SHA exacto; continuar C2 sin reabrir pruebas ya aceptadas.
 Para C9, identificar primero el certificado/cadena mediante el alcance separado preparado.
 No repetir el intento SQL consumido ni ejecutar restore hasta contar con metadata y autorización aplicables.
 El [incremento N1–N10](delivery-20261031/NEXT-INCREMENT.md) ya tiene aceptación técnica por capas;

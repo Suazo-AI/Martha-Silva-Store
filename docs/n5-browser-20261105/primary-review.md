@@ -1,132 +1,118 @@
-# N5 browser coverage: primary inspection
+# N5-COV: primary acceptance with limits
 
 Date: 2026-11-05 UTC. Host: SUAZO-PC.
-Primary: T3 Code / Codex, gpt-6.1-sol, xhigh.
-Disposition: limited technical integration accepted; final review PENDING Opus.
-Production: NO-GO. This report does not close the ledger item.
+Primary: T3 Code / Codex, gpt-6.1-sol / xhigh.
+Disposition: ACCEPT WITH LIMITS. N5-COV is technically done.
+Production remains NO-GO. No product defect was reproduced or fixed in this batch.
 
-## Artifact and direct checks
+## Accepted result
 
-Worker: Codex gpt-6.1-sol, requested/effective reasoningEffort high.
-T3 worktree: `C:/Users/Jason/.t3/worktrees/github/t3-6b804833`.
-Base SHA: `1e353d45cd0eb2ad8e79589f410ac191c1368b06`.
-Test: `tests/browser-mock-validation.mjs`.
-Original worker test SHA256: `020b29f19d8820489ccdb4317141ec3ca2fd83d4733a8244a277bc5ab982862c`.
-Corrected integrated test SHA256: `8fdd63efe6a2858b15c54cf589c1b3215d6f70320b946a3151b875b5e86960c8`.
+The three frozen browser gaps are covered by actual Chrome tests with HTTP mocks:
+held recovery preserves original pending bytes and blocks additional submission;
+404 discard permits one complete multiarticle sale with stock refresh; reachable
+logout invalidation protects state from a held old 404.
 
-Primary read the actual diff, worker README/RESULT, focused/full browser JSON,
-log summaries and affected `app.mjs` generation/receipt/start/submit paths.
-The diff adds 94 lines and three cases; existing assertions remain present.
-Only the test and owned evidence changed in the worker checkout.
-`git diff --check` returned 0. Product Git diff was empty.
-All 16 entries in changedFilesSha256 and six source hashes match current files.
-Focused/full browser source manifests match those same six source hashes.
+The hypothetical same-generation newer-pending sale is reasonedly dismissed.
+start keeps busy while awaiting restoreReceipt, lock disables controls, and the
+submit handler rejects busy/pending. The tests did not manufacture that state.
+The ledger done_when is unchanged. No owner waiver is used.
 
-Recorded execution: N5 8/8, full browser 50/50, staff 102/102, zero skips; exits 0.
-The logs and machine-readable results agree on counts.
-Browser runtime arrays and external-request arrays are empty.
-Focused aborts: one deliberately lost sale response and one logout navigation.
-Full aborts: ten deliberately lost sale responses and three logout navigations.
-These are expected test actions, not zero failed HTTP requests.
-Logs use UTF-16 BOM; parse using the detected BOM before summarizing.
-After the two minor judge findings, primary strengthened the initial inventory
-comparison to exact cells and corrected the logout attribution in README.
-The integrated test then passed focused N5 8/8, exit 0, on the corrected SHA256.
-It recorded zero uncaught page errors, zero external requests and the same two
-expected aborts. The 50/50 full and 102/102 staff runs remain the worker's original
-evidence; they were not repeated or attributed to the corrected test bytes.
-`RESULT.json` stays the original worker record. `worker-test.patch` reproduces its
-test from the base and `worker-README.md` preserves its README. The generated
-`INTEGRATION.json` records current bytes and checks separately.
+| Current-overlay run | PASS / FAIL | Exit | Evidence |
+| --- | --- | --- | --- |
+| baseline | 8 / 0 | 0 | Original product plus frozen approved test |
+| M01 | 0 / 1 | 1 | Original pending bytes changed during held recovery |
+| M02 | 0 / 1 | 1 | Obsolete reference retained instead of null |
+| M03 | 0 / 1 | 1 | Old 404 erased reference after generation invalidation |
+| restored | 8 / 0 | 0 | Exact original product bytes restored |
 
-## Frozen criteria
+M01 removes only busy/pending submit guards. Other POST protection remains;
+corruption of the stored original key is the correct semantic kill.
+M02 omits only obsolete receipt removal. M03 removes two request epoch checks
+and restoreReceipt's generation guard together. These are deliberately injected
+regressions, not demonstrated defects in the unchanged product.
 
-1. Held operation GET: disabled native button plus synthetic submit, zero new POSTs,
-   byte-identical pending body/key/version, original-key recovery, one setup POST.
-2. Discarded receipt 404: complete two-line sale, exact body, one UUID-keyed POST,
-   new receipt/reference and inventory read, stock 10/10 to 8/7, reload without repost.
-   This fixture has no old pending operation, so it does not claim comparison with
-   a prior operation key. Receipt data and inventory remain HTTP fixtures.
-3. Held old receipt 404: native logout invalidates the live document before the
-   response; its completion changes neither cleared private UI nor stored reference.
-   Native login then exercises a fresh session. No manual storage deletion.
-   Logout also advances the client's epoch in login.mjs. The old response is
-   rejected as 401 before the HTTP 404 is processed; restoreReceipt rethrows it.
-   This proves the combined logout protections, not the isolated gone branch or
-   restoreReceipt generation guard. Astra identified this attribution correction.
-   A concurrent new sale within the original generation is dismissed because
-   start awaits restoreReceipt with busy set, lock disables controls and submit
-   rejects while busy/pending. Navigation does not create a new commerce instance.
-   This is a reasoned dismissal plus a reachable invalidation test, not a claim
-   that the impossible newer-pending state was exercised.
+## Independent review and dispositions
 
-All new cases passed unchanged product on their first actual browser execution.
-No red product result exists; no product correction is justified by this batch.
+Original Astra/high review: APTO CON REPAROS. Primary corrected exact initial
+stock cells and attribution to combined logout protection.
+Opus claude-opus-5-5 via Antigravity: ACCEPT WITH LIMITS, material M1.
+High was requested; effective reasoning remains unknown. The critic's global-rule
+access denials remain disclosed. This acceptance does not verify that setting.
 
-## Blockers, owners and completion checks
+Final Astra/high: ACCEPT WITH LIMITS; actual high reported by runtime metadata.
+[M1 adjudication](mutations/judge.md) finds no material blocker for this scope.
+Primary accepts that verdict after independently inspecting the actual evidence.
 
-- Independent judge: [Astra/high](judge.md) returned APTO CON REPAROS, zero material
-  findings. Primary verified both minor findings in source and corrected them.
-  Focused browser recheck passed with exact initial cells. No new judge run is
-  needed for the strengthened assertion and factual documentation correction.
-- Opus critic: the previous approved Antigravity route was quota-blocked. A
-  read-only quota check at 2026-11-05T13:41:11.946Z returned stale data and
-  `Antigravity process discovery unavailable`; effective availability is unknown.
-  The cached Claude/GPT window showed 0 and reset 2026-11-05T14:03:19Z, which is
-  not a fresh availability guarantee. No retry or paid-credit fallback attempted.
-  Fresh quota at 2026-11-05T13:46:34.569Z now confirms effective Claude/GPT 0%,
-  exhausted_now, limiting five-hour reset 2026-11-05T14:03:19Z (08:03:19 Managua).
-  Owner: primary. Recheck after the indicated reset; only fresh availability plus
-  an actual approved Opus/high verdict closes this blocker. No substitution or
-  paid-credit fallback. The ledger remains review.
-- General portable check: fresh `python tests/check.py` exited 1 at asset-audit
-  fixture creation with `[WinError 1314] A required privilege is not held by the
-  client`; six asset tests ran with three environment errors. Reproducible build
-  and fixture checks passed before that failure. Cause: Windows symlink privilege,
-  matching the documented baseline issue. No product assertion failed in this
-  error. No security/privilege change or repeated attempt was made.
-  Owner: primary. The approved normal Tony push runs the same portable suite on
-  Ubuntu through tony-snapshot.yml. Close the verification gap only with that
-  exact candidate's Linux CI result; do not claim full local portable PASS.
-- Integration/publication: primary imported only the bounded files into Tony and
-  preserved foreign untracked paths. Corrected N5 passed 8/8; ledger validation,
-  24 ledger tests and 15 preserved evidence hashes passed. Progress tests passed
-  exit 0. Supplemental screenshots were inspected and contain synthetic fixtures.
-  Remote SHA and exact-SHA CI remain required before remote delivery is claimed.
-  Publication of review-stage progress does not close Opus or the ledger item.
-- Product dependencies: C2 walkthrough, C9 consumed TLS attempt, C10 operational
-  acceptance, payments/closing and hosting remain outside this test-only batch.
-  No correction attempted because this packet grants no new operational,
-  SQL, certificate, real-data, merge or deployment authority. Owners and next
-  actions remain in the current release plan and ledger; none are closed here.
+- M1: closed by real negative controls plus restored green, without criterion change.
+- m1: closed for the observed scenario/window. M03 detects the forbidden erase
+  after the existing response.finished/two-frame wait. No isolated-guard or
+  exhaustive scheduler proof is claimed. Future additional waits need new review.
+- m2: browserTurn follows the second synthetic submit in the tested overlay.
+- m3: PLAN's stale Opus-pending header is corrected before publication.
+- m4: explicit byte policy, archived log references and import mappings verified.
 
-## Limits and lesson
+The final judge's prose has a 65-character login hash transcription error.
+Its exported report preserves that wording and adds a primary erratum with the
+actual 64-character value. The actual source manifest is correct. No extra
+review was needed for this factual export annotation.
 
-Actual Chrome with mocked HTTP. No fresh real API, SQL, physical-device,
-cross-browser, performance, production or operational acceptance proof.
-No primary CI or complete local portable-PASS claim yet. Worker token/currency usage is unknown.
-Lesson applied: hold real intercepted requests and exercise native user
-transitions; do not create unreachable races by deleting storage in the test.
+## Source versions and evidence
 
-## Public evidence package
+Original worker: t3-6b804833 at base 1e353d45cd0eb2ad8e79589f410ac191c1368b06.
+Original test raw SHA256: 020b29f19d8820489ccdb4317141ec3ca2fd83d4733a8244a277bc5ab982862c.
+That worker recorded focused8/8, full browser50/50 and staff102/102, zero skips.
+Primary's exact-stock corrected focused8/8 used raw test hash
+8fdd63efe6a2858b15c54cf589c1b3215d6f70320b946a3151b875b5e86960c8.
+Neither full50/50 nor the earlier focused run is attributed to the current overlay.
 
-The first commit attempt was blocked by the existing `.log` filename policy in
-`tools/progress.py`. No commit or push occurred during that attempt.
-Primary removed all nine raw logs from the index and archived them outside the
-repository at `C:/Users/Jason/MARTHA-SILVA/test-runs/n5-browser-20261105/raw-logs/`.
-No filter was weakened and no raw log was renamed to bypass it.
-[EXECUTION-SUMMARY.json](EXECUTION-SUMMARY.json) records reviewed totals, log hashes
-and archive locations. Browser result JSON, command/exit records and synthetic
-screenshots remain in the public evidence package. Frozen `RESULT.json` and
-`worker-README.md` refer to the original worker checkout; their log paths are not
-included in the public package. Completion check: normal hook accepts this
-allowlisted package, remote SHA matches and exact-SHA Linux CI is inspected.
-Owner: primary. Independent Opus review remains pending.
+Mutation worker: t3-0dda9f02 at base 5ab44fbb8210f3d6e98f34745700194195c0e1ce.
+Current approved test raw SHA256:
+88eaa468cc92bdd32ca6b066b512c6a8ebd38969cc7f332dbad9b41122269dea.
+It includes the second-submit browser turn. Exactly five browser invocations ran.
+Current worker and canonical product bytes equal their initial baseline.
 
-## Exact-source CI follow-up
+Primary verified 13 original evidence hashes, five private log hashes, the private
+driver hash, all five source-bound result sets and exact original patch replay.
+The independent final judge additionally verified 29 frozen inputs, 53 portable
+integration hashes, 14 import entries, nine historical logs and 30 source hashes.
+The original patches reconstruct exact observed mutant bytes in memory.
+The original M03 patch is privately archived; its public derivative only removes
+indentation on two blank added lines. No run is attributed to that derivative.
 
-[PUBLICATION.md](PUBLICATION.md) records SYNCED source SHA `0a056be612f5f3701f7a39fd37031f426bfe0dc8`
-and its five successful checks plus one expected optional skip. Ubuntu passed
-`python tests/check.py --install`, closing the alternate portable verification
-step. The earlier local Windows failure is preserved; Opus acceptance remains
-pending and the ledger item remains review.
+Frozen REVIEW-PACKET.json describes inputs before acceptance edits. The exact
+29 input bytes and packet are archived at
+C:/Users/Jason/MARTHA-SILVA/test-runs/n5-browser-20261105/review-inputs-before-acceptance/.
+Those historical document hashes are not a current-working-tree manifest.
+INTEGRATION.json supplies the current portable artifact manifest.
+
+## Integration checks, limits and publication
+
+python tests/test_progress.py: 23/23 PASS.
+python tests/test_delivery_status.py: 24/24 PASS.
+python tools/delivery_status.py --check: valid35 items.
+python tools/export_progress.py --verify: 15/15 preserved evidence hashes.
+git diff --cached --check: exit0 before publication.
+Primary did not repeat the worker's browser invocations.
+
+The general Windows portable run failed with WinError 1314 during symlink fixture
+creation. No security/privilege change or repeated attempt was made.
+Linux portable CI passed on earlier source0a056be and doc-only5ab44fb.
+Those earlier results do not prove CI for this publication. Remote delivery
+requires normal-hook SYNCED, matching remote SHA and applicable checks on that SHA.
+[Publication evidence and criterion](PUBLICATION.md).
+
+Baseline/restored each contain zero page errors and zero external requests.
+Each retains one deliberate sale ERR_FAILED and one logout ERR_ABORTED.
+M01 retains one deliberate sale failure. M02/M03 record none.
+The worker corrected only an expected-abort classifier, reusing baseline evidence.
+Primary corrected its assumption that console logs contain semantic errors;
+those errors are in browser JSON, while logs contain names/counts. No rerun.
+Lesson applied: verify each output schema and require semantic kills plus exact
+restoration instead of inferring sensitivity from the first green run.
+
+NOT RUN: real API, SQL, physical devices, cross-browser performance, full browser
+suite on this overlay, production or operational acceptance. Usage/cost unknown.
+C2 walkthrough, C9 consumed TLS attempt, C10 operational acceptance, payments and
+hosting remain separately gated. No correction attempted here because this batch
+has no authority to run those paths. Owners and completion checks remain in the
+release plan and ledger. Next: normal publication/readback and exact-SHA CI.
