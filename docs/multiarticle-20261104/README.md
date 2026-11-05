@@ -18,11 +18,19 @@ Host local: SUAZO-PC. Datos de prueba sintéticos. D-023 deja de ser una limitac
 Pruebas locales: 52/52 de frontend, incluidas siete nuevas pruebas multiartículo; 16/16 de seguridad del arnés de navegador y 17/17 del arnés API.
 Chrome con API simulada: los recorridos multiartículo pasan a 390 y 1440 píxeles, con pérdida de respuesta y recuperación tras recarga.
 El recorrido completo de Chrome con API simulada pasa 47/47, sin errores JavaScript ni solicitudes externas.
-Las pruebas reales de API+SQL están pendientes del SHA publicado. No se atribuye el resultado histórico 601 al código nuevo.
+Las pruebas reales del candidato `922852cbf6c9af2eacb2e5c02a42d912c14f6893` pasan:
+backend HTTP+SQL 601/601, Chrome con API simulada 47/47, golden API+SQL 19/19 y Chrome→API→SQL 21/21.
+[SAVIA judge](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41956521427) y
+[SAVIA golden path](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41956521562) terminaron success sobre ese SHA.
+[Recibo CI y hashes](ci-receipt.json), [oráculos C6](c6-oracles.md), [evidencia C6](c6-evidence.json) y [backend](backend-results.json).
+Ocho hashes de fuentes servidas/arnés coinciden con los blobs Git del candidato; no se usan resultados de otro SHA.
 
 El arnés C6 se amplió a dos líneas por cada venta. Sus oráculos exigen dos ventas, cuatro líneas y cuatro movimientos de venta;
 existencia total 25 desde 30, primer artículo 7, segundo 8 y tercero intacto en 10. La recarga debe conservar esas cuentas.
-Se reutilizan las pruebas SQL existentes de replay inmutable y rollback de la segunda línea; su resultado fresco se registrará tras CI.
+La pérdida de respuesta ocurre después de un HTTP 200 real. Tras recuperarla y recargar otra vez, SQL mantiene esas mismas cuentas;
+cero claves duplicadas, cero líneas sin movimiento único y cero diferencias entre movimientos y balances.
+Las pruebas existentes de replay inmutable y rollback de la segunda línea pasan en la suite 601/601.
+Las bases, API y procesos de navegador desechables se eliminaron con readback de ausencia.
 
 Comandos locales:
 
@@ -36,17 +44,19 @@ node tests/browser-mock-validation.mjs <playwright-instalado> <directorio-eviden
 
 ## Revisión y límites
 
-Crítico: gpt-6.1-sol / high. Jurado: gpt-6-astra / high. Dictamen: APTO para continuar CI; sin defectos accionables abiertos.
+Crítico: gpt-6.1-sol / high. Jurado: gpt-6-astra / high. Dictamen final: APTO técnicamente; sin defectos accionables abiertos.
 El crítico pidió normalizar UUID, validar el recibo completo, conservar el pendiente fuera del catálogo y limpiar el carrito confirmado.
 Las cuatro correcciones están incorporadas y tienen pruebas de comportamiento. El jurado detectó la última antes de la publicación.
 [Crítico](critic.md) y [jurado](jury.md). [Resultados locales](local-verification.json) y [Chrome completo](browser-complete.json).
+[Jurado de evidencia CI](jury-ci.md): aceptación técnica del incremento; no aceptación operativa ni producción lista.
 
 [Antes: una línea](before-single-article.webm) · [Después: escritorio](multiarticle-desktop.webm) · [Después: móvil](multiarticle-mobile.webm).
 Grabación y capturas muestran datos sintéticos y respuestas simuladas; no son evidencia SQL ni aprobación visual de Jason.
 Se conservan los tokens y distribución existentes. Capturas: [carrito móvil](multiarticle-mobile-cart.png) y [recibo](multiarticle-mobile-receipt.png).
 
 El comando general tests/check.py falla localmente: WinError 1314 en tres fixtures de enlaces simbólicos.
-No se elevan permisos para evitarlo; la vía de cierre es el CI Linux del candidato. El CLI no-mistakes informa repo no inicializado;
+No se elevan permisos para evitarlo; el check Historical portable regression suite del CI Linux del candidato pasó.
+El CLI no-mistakes informa repo no inicializado;
 no se instaló otro gate ni proveedor. Se usan los controles existentes y la revisión independiente, sin afirmar ejecución de ese pipeline.
 
 Lección aplicada: vaciar el carrito al confirmar evita repetir la selección con una clave nueva. Prueba: segundo submit sin elegir artículo, cero POST extra.
@@ -60,6 +70,8 @@ C1 (excepción de stock y variables), C2, C9 y C10 mantienen sus brechas. No se 
 
 ## Siguiente acción y responsables
 
-Primary: publicar el candidato en Tony, ejecutar los workflows existentes SAVIA judge y SAVIA golden path sobre ese SHA,
-leer sus resultados y oráculos, y actualizar esta evidencia y Trello.
-Jason conserva la aceptación operativa, el merge y el despliegue. PR #2 no se modifica ni fusiona por publicar en Tony.
+Incremento técnico completado y publicado en Tony. [Trello SALE-MULTI](https://trello.com/c/ADACfDwh).
+Primary comprobó los artefactos, hashes, rollback/replay, limpieza y revisión del jurado. Las pruebas no acreditan cero errores futuros.
+El siguiente incremento recomendado es implementar la excepción de stock acordada D-026/D-027; permanece pendiente y no se amplía este cambio.
+Jason conserva la aceptación operativa, el merge y el despliegue. PR #2 permanece abierto con head 8744a969;
+main protegido conserva 3b004916. Publicar en Tony no modifica ni fusiona el PR.

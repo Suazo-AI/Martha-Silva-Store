@@ -17,7 +17,7 @@ El índice y cualquier grafo son ayudas de navegación, nunca autoridad de permi
 
 ## Estado compartido entre agentes (2026-11-04)
 
-Incremento posterior: la venta multiartículo se implementa y valida en el checkout canónico Tony.
+Incremento posterior: la venta multiartículo está validada técnicamente en Tony@922852c.
 Consultar [su evidencia y límites](multiarticle-20261104/README.md) antes de integrar este cambio en PR #2.
 No atribuir al incremento la CI del candidato anterior ni fusionarlo sin autorización de Jason.
 

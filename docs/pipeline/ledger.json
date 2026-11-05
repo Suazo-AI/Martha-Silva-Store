@@ -42,7 +42,7 @@
       "id": "SALE-MULTI",
       "track": "sprint",
       "owner": "suazo_pc",
-      "status": "review",
+      "status": "done",
       "title": "Venta multiarticulo completa y recuperable",
       "why": "D-023 exige varios articulos por factura; la UI anterior solo enviaba una linea.",
       "done_when": "Carrito editable, recibo completo y recuperacion con clave/cuerpo originales; CI del SHA exacto prueba dos ventas, cuatro lineas y cuatro movimientos sin duplicados ni efectos parciales.",

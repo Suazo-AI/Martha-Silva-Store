@@ -1,0 +1,467 @@
+{
+  "observed_utc": "2026-11-05T02:42:24.035568+00:00",
+  "candidate_sha": "922852cbf6c9af2eacb2e5c02a42d912c14f6893",
+  "runs": [
+    {
+      "conclusion": "success",
+      "databaseId": 41956521562,
+      "headSha": "922852cbf6c9af2eacb2e5c02a42d912c14f6893",
+      "jobs": [
+        {
+          "completedAt": "2026-11-05T02:40:23Z",
+          "conclusion": "success",
+          "databaseId": 127012626633,
+          "name": "Real API + disposable SQL golden path",
+          "startedAt": "2026-11-05T02:38:28Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-11-05T02:38:30Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-11-05T02:38:28Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:38:38Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd",
+              "number": 2,
+              "startedAt": "2026-11-05T02:38:30Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:38:38Z",
+              "conclusion": "success",
+              "name": "Evidence and cleanup failure regressions (stdlib only)",
+              "number": 3,
+              "startedAt": "2026-11-05T02:38:38Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:38:47Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68",
+              "number": 4,
+              "startedAt": "2026-11-05T02:38:38Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:39:00Z",
+              "conclusion": "success",
+              "name": "Restore pinned dependencies and build the API and the golden-path SQL tool",
+              "number": 5,
+              "startedAt": "2026-11-05T02:38:47Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:39:01Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f",
+              "number": 6,
+              "startedAt": "2026-11-05T02:39:00Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:39:05Z",
+              "conclusion": "success",
+              "name": "Prepare pinned browser driver without changing the runner trust store",
+              "number": 7,
+              "startedAt": "2026-11-05T02:39:01Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:39:20Z",
+              "conclusion": "success",
+              "name": "Start disposable SQL Server 2022 Developer",
+              "number": 8,
+              "startedAt": "2026-11-05T02:39:05Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:39:25Z",
+              "conclusion": "success",
+              "name": "Wait for SQL and verify licensed edition and engine",
+              "number": 9,
+              "startedAt": "2026-11-05T02:39:20Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:39:44Z",
+              "conclusion": "success",
+              "name": "Golden path smoke (real API, migrator, roles, idempotent sale, SQL oracles, teardown)",
+              "number": 10,
+              "startedAt": "2026-11-05T02:39:25Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:40:17Z",
+              "conclusion": "success",
+              "name": "C6 Chrome to real API to SQL, including lost-response recovery without a second sale",
+              "number": 11,
+              "startedAt": "2026-11-05T02:39:44Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:40:17Z",
+              "conclusion": "success",
+              "name": "Verify exact evidence bytes before publication",
+              "number": 12,
+              "startedAt": "2026-11-05T02:40:17Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:40:17Z",
+              "conclusion": "success",
+              "name": "Publish the per-step oracle table to the job summary",
+              "number": 13,
+              "startedAt": "2026-11-05T02:40:17Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:40:19Z",
+              "conclusion": "success",
+              "name": "Upload sanitized evidence only",
+              "number": 14,
+              "startedAt": "2026-11-05T02:40:17Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:40:19Z",
+              "conclusion": "success",
+              "name": "Verify exact C6 evidence bytes before publication",
+              "number": 15,
+              "startedAt": "2026-11-05T02:40:19Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:40:19Z",
+              "conclusion": "success",
+              "name": "Publish the C6 browser checkpoints and SQL oracle table",
+              "number": 16,
+              "startedAt": "2026-11-05T02:40:19Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:40:20Z",
+              "conclusion": "success",
+              "name": "Upload sanitized C6 browser trace and SQL evidence only",
+              "number": 17,
+              "startedAt": "2026-11-05T02:40:19Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:40:20Z",
+              "conclusion": "success",
+              "name": "Always destroy the disposable SQL container",
+              "number": 18,
+              "startedAt": "2026-11-05T02:40:20Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:40:21Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f",
+              "number": 34,
+              "startedAt": "2026-11-05T02:40:20Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:40:21Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68",
+              "number": 35,
+              "startedAt": "2026-11-05T02:40:21Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:40:21Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd",
+              "number": 36,
+              "startedAt": "2026-11-05T02:40:21Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:40:21Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 37,
+              "startedAt": "2026-11-05T02:40:21Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41956521562/job/127012626633"
+        }
+      ],
+      "status": "completed",
+      "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41956521562"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 41956521427,
+      "headSha": "922852cbf6c9af2eacb2e5c02a42d912c14f6893",
+      "jobs": [
+        {
+          "completedAt": "2026-11-05T02:40:46Z",
+          "conclusion": "success",
+          "databaseId": 127012626624,
+          "name": "Complete backend suite on disposable SQL Server",
+          "startedAt": "2026-11-05T02:38:32Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-11-05T02:38:34Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-11-05T02:38:33Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:38:44Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd",
+              "number": 2,
+              "startedAt": "2026-11-05T02:38:34Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:38:56Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68",
+              "number": 3,
+              "startedAt": "2026-11-05T02:38:44Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:38:56Z",
+              "conclusion": "success",
+              "name": "Verify the evidence summarizer",
+              "number": 4,
+              "startedAt": "2026-11-05T02:38:56Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:39:18Z",
+              "conclusion": "success",
+              "name": "Restore pinned dependencies and build",
+              "number": 5,
+              "startedAt": "2026-11-05T02:38:56Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:39:35Z",
+              "conclusion": "success",
+              "name": "Start disposable SQL Server 2022 Developer",
+              "number": 6,
+              "startedAt": "2026-11-05T02:39:18Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:39:40Z",
+              "conclusion": "success",
+              "name": "Wait for SQL and verify licensed edition and engine",
+              "number": 7,
+              "startedAt": "2026-11-05T02:39:35Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:40:24Z",
+              "conclusion": "success",
+              "name": "Run every backend case against disposable SQL (restart proof held back)",
+              "number": 8,
+              "startedAt": "2026-11-05T02:39:40Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:40:43Z",
+              "conclusion": "success",
+              "name": "Controlled container stop/start, then restart persistence proof",
+              "number": 9,
+              "startedAt": "2026-11-05T02:40:24Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:40:43Z",
+              "conclusion": "success",
+              "name": "Require every case executed and passed; sanitize evidence",
+              "number": 10,
+              "startedAt": "2026-11-05T02:40:43Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:40:44Z",
+              "conclusion": "success",
+              "name": "Upload sanitized outcomes only",
+              "number": 11,
+              "startedAt": "2026-11-05T02:40:43Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:40:44Z",
+              "conclusion": "success",
+              "name": "Always destroy the disposable SQL container and raw logs",
+              "number": 12,
+              "startedAt": "2026-11-05T02:40:44Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:40:44Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68",
+              "number": 23,
+              "startedAt": "2026-11-05T02:40:44Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:40:44Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd",
+              "number": 24,
+              "startedAt": "2026-11-05T02:40:44Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:40:45Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 25,
+              "startedAt": "2026-11-05T02:40:44Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41956521427/job/127012626624"
+        },
+        {
+          "completedAt": "2026-11-05T02:40:01Z",
+          "conclusion": "success",
+          "databaseId": 127012626893,
+          "name": "Staff UI tests and real browser harness",
+          "startedAt": "2026-11-05T02:38:28Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-11-05T02:38:29Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-11-05T02:38:28Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:38:37Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd",
+              "number": 2,
+              "startedAt": "2026-11-05T02:38:29Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:38:38Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f",
+              "number": 3,
+              "startedAt": "2026-11-05T02:38:37Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:38:39Z",
+              "conclusion": "success",
+              "name": "Install locked jsdom without lifecycle scripts",
+              "number": 4,
+              "startedAt": "2026-11-05T02:38:38Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:38:42Z",
+              "conclusion": "success",
+              "name": "Staff UI tests (jsdom doubles, not a browser)",
+              "number": 5,
+              "startedAt": "2026-11-05T02:38:39Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:38:45Z",
+              "conclusion": "success",
+              "name": "Install pinned Playwright library; the runner's Google Chrome is the browser",
+              "number": 6,
+              "startedAt": "2026-11-05T02:38:42Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:39:59Z",
+              "conclusion": "success",
+              "name": "Real browser with synthetic API responses (includes the N5 regressions)",
+              "number": 7,
+              "startedAt": "2026-11-05T02:38:45Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:40:00Z",
+              "conclusion": "success",
+              "name": "Upload browser evidence (synthetic records only)",
+              "number": 8,
+              "startedAt": "2026-11-05T02:39:59Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:40:00Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f",
+              "number": 15,
+              "startedAt": "2026-11-05T02:40:00Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:40:00Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd",
+              "number": 16,
+              "startedAt": "2026-11-05T02:40:00Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-05T02:40:00Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 17,
+              "startedAt": "2026-11-05T02:40:00Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41956521427/job/127012626893"
+        }
+      ],
+      "status": "completed",
+      "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41956521427"
+    }
+  ],
+  "data": "synthetic",
+  "source_hashes_match_git_blobs": true,
+  "sql_after_loss_and_recovery": {
+    "sales": 2,
+    "sale_lines": 4,
+    "sale_movements": 4,
+    "on_hand_total": 25,
+    "duplicates": 0,
+    "partial_or_mismatched_lines": 0
+  },
+  "backend": {
+    "passed": 601,
+    "failed": 0,
+    "rollback_and_replay_methods_present": true
+  },
+  "main": {
+    "sha": "3b0049163ece2d9431cee01f1bea624a66d9d8d4",
+    "protected": true
+  },
+  "pr2": {
+    "state": "open",
+    "merged": false,
+    "head_sha": "8744a9699812d62ea5ed31c63781748f833c3def",
+    "url": "https://github.com/Suazo-AI/Martha-Silva-Store/pull/2"
+  },
+  "scope": "No merge or deploy. Product candidate on Tony. CI uses disposable SQL only; SUAZO-PC SQL/certificates untouched."
+}

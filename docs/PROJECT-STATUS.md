@@ -7,7 +7,8 @@ Actualización de alcance, 2026-11-04 America/Managua: Jason exige venta multiar
 en una factura y sustitución de SISFAIN, no mantenerlo como integración objetivo
 ([D-023/D-024](DECISIONS.md#d-023--venta-multiartículo-obligatoria)).
 La UI/cliente de Tony ya permiten varias líneas en una venta y su recuperación;
-[verificación del incremento](multiarticle-20261104/README.md) pendiente de CI real del nuevo SHA.
+[incremento validado](multiarticle-20261104/README.md) en `922852c`: backend 601/601,
+Chrome simulado 47/47 y Chrome→API→SQL 21/21; recuperación sin ventas ni movimientos duplicados.
 El backend admite varias líneas. Los pagos
 internos siguen `not_processed`; la paridad comercial/fiscal no está implementada.
 Tres agentes investigaron operación, fiscalidad y migración/calidad. La explicación,
