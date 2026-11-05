@@ -12,13 +12,14 @@ El primary verificó 3,127 fuentes, 692 respuestas y doce grabaciones; [revisió
 Astra devolvió APTO CON REPAROS; el primary corrigió la puerta CI y los metadatos del driver.
 El candidato ya está integrado en el checkout canónico; [aceptación técnica y comprobaciones](release-20261105/responsive-integration/README.md).
 Build reproducible1,559, imágenes1/1, fuentes2/2, editorial/catálogo18/18 y registro23/23 pasan localmente.
-La suite completa en Linux queda pendiente del SHA publicado; Windows conserva `WinError 1314` en symlinks.
+La suite completa en Linux y los tres workflows pasan en `b033c48`; [readback exacto](release-20261105/responsive-integration/CI.json).
+Windows conserva `WinError 1314` en symlinks; el resultado Linux no modifica sus permisos.
 La simulación administrativa añade doce familias del modelo offline, no capacidades de SAVIA.
 El primary comprobó dos copias normales y cinco controles negativos; Astra/high revisó diez criterios sin hallazgos materiales.
 El primary acepta evidencia técnica offline acotada; [dictamen y límites](release-20261105/admin-judge.md).
 Opus no devolvió dictamen: Antigravity agotó la cuota; [bloqueo y siguiente acción](release-20261105/admin-review-blocker.md).
 Los artefactos se publicaron en `300bf55`; sus workflows fallaron por sintaxis YAML introducida por el primary.
-La [corrección documentada](release-20261105/responsive-integration/publication-ci.md) exige readback y CI nuevos; no hay aceptación de Linux todavía.
+La [corrección documentada](release-20261105/responsive-integration/publication-ci.md) se publicó en `b033c48`, con SYNCED y CI Linux exitoso de ese SHA.
 Esto no cambia C2/C9/C10 ni la decisión de producción.
 
 Actualización N5-COV, 2026-11-05 UTC: [cobertura de recuperación en navegador](n5-browser-20261105/README.md).

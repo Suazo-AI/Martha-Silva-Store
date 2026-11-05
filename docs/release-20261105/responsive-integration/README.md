@@ -4,7 +4,8 @@
 Base: `6f304a7571a554bb8968e081a14985829aee3dfb`. Target: canonical checkout, `Tony`.
 
 Primary accepts the candidate as bounded local technical work for publication.
-Fresh Linux CI is required for the integrated commit. Production remains NO-GO.
+The full Linux gate passed on integrated commit `b033c48`; [API readback](CI.json).
+Production remains NO-GO.
 Initial publication `300bf55` synchronized; its workflows failed YAML parsing.
 The [failure and correction](publication-ci.md) remain separate from product test results.
 The required Opus critic verdict is absent because Antigravity rejected quota.
@@ -79,13 +80,13 @@ extra paths each fail; restored verification passes. See [controls](snapshot-con
 
 The worker's full Windows run retains `WinError 1314` during symlink fixtures.
 The primary did not repeat that known privilege failure or relax security controls.
-The integrated Linux workflow must execute the complete common runner, including R1.
-Local focused success does not imply that this future run passed.
+The integrated Linux workflow executed the complete common runner, including R1.
+Its successful job and step results are recorded separately in [CI.json](CI.json).
 
 ## Limits and next action
 
-Publish through normal hooks, require SYNCED and matching remote SHA, then inspect
-that SHA's CI. The final handback must distinguish actual CI from this pre-publication record.
+Publication `b033c48` returned SYNCED, matched the remote SHA and passed all three workflows.
+Closing documentation also requires normal hooks and its own exact-SHA CI at handback.
 If CI fails, primary owns diagnosis and the smallest authorized correction.
 
 Historical Chrome measurements use loopback HTTP, synthetic commerce and fixed samples.

@@ -23,9 +23,19 @@ Dependency versions and command arguments are unchanged. Product bytes are uncha
 The corrected workflows parse successfully and every `run` step has a string value.
 Deployment contract checks remain 13 PASS, 1 SKIP, exit 0.
 
-Next: publish this correction through the same hooks, verify its remote SHA and inspect
-that SHA's workflows. The failed runs above remain historical failures.
-No Linux success is inferred from local focused checks or parsing alone.
+## Verified resolution
+
+Correction `b033c4812b23b9ec41761ff4667460073f4c0f2f` returned SYNCED and matched
+`refs/heads/Tony`. All three workflows completed successfully:
+[snapshot/full Linux suite](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42120906277),
+[progress documentation](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42120906216),
+[digest](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42120906095).
+The [API readback](CI.json) includes both snapshot jobs and their actual step outcomes.
+The common runner and pinned media dependency installation both completed successfully.
+The failed runs above remain historical failures. Linux success does not repair Windows privileges.
+
+This closing documentation must be published normally. Its own SHA/CI will be checked
+at handback; this receipt only attributes the executions above to `b033c48`.
 
 Lesson: validate workflow syntax before publication, including commands containing colons.
 Existing deployment contract tests did not detect this parser error; their success was insufficient.
