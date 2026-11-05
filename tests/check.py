@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """Portable offline QA: python tests/check.py [--install].
 
-Requires Python 3 and Node.js on PATH. --install explicitly runs npm ci using
-locked DOM dependencies; otherwise no dependency download is attempted.
+Requires Python 3, Node.js and tests/media-requirements.txt dependencies.
+--install explicitly runs npm ci using locked DOM dependencies;
+otherwise no dependency download is attempted. CI installs the pinned media
+dependencies before invoking this runner.
 Frontend coverage is DOM simulation, not a real browser test.
 """
 import argparse
@@ -87,6 +89,12 @@ def main(argv=None):
         run([node, '--test', 'tests/catalog-migration.cjs'])
         stage('Complete original catalog and rendered media')
         run([node, '--test', 'tests/original-catalog.cjs'])
+        stage('Responsive image identity, dimensions and fallbacks')
+        run([sys.executable, 'tests/responsive_images.py'])
+        stage('Complete responsive fonts and immutable TTF fallback')
+        run([sys.executable, 'tests/responsive_fonts.py'])
+        stage('Editorial provenance and current published contract')
+        run([node, '--test', 'tests/luxury-editorial.cjs'])
         stage('Asset audit regression (not full catalog completion)')
         run([sys.executable, 'tests/asset-audit.py'])
         stage('Portable runner regression')

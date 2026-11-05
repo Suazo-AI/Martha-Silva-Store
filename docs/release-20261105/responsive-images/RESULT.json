@@ -1,0 +1,387 @@
+{
+  "task_id": "savia-responsive-images-20261105",
+  "status": "partial",
+  "acceptance": "Worker returned, not primary accepted",
+  "source_sha": "6f304a7571a554bb8968e081a14985829aee3dfb",
+  "identity": {
+    "host": "SUAZO-PC",
+    "provider": "codex",
+    "model": "gpt-6.1-sol",
+    "requestedReasoning": "high",
+    "effectiveReasoning": "high per T3 runtime instruction and awareness metadata",
+    "isolation": "T3 managed worktree t3-bde304d7; observed path and git HEAD verified"
+  },
+  "worktree": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-bde304d7",
+  "comparison": [
+    {
+      "group": "normal-mobile",
+      "route": "index.html",
+      "beforeBytes": 35195193,
+      "afterBytes": 1868232,
+      "reductionPercent": 94.692,
+      "target80Pass": true,
+      "canonicalBaselineBytes": 35195193,
+      "beforeMatchesCanonical": true
+    },
+    {
+      "group": "normal-mobile",
+      "route": "catalogo.html",
+      "beforeBytes": 36407867,
+      "afterBytes": 1638035,
+      "reductionPercent": 95.501,
+      "target80Pass": true,
+      "canonicalBaselineBytes": 36407867,
+      "beforeMatchesCanonical": true
+    },
+    {
+      "group": "normal-mobile",
+      "route": "producto-amarillo.html",
+      "beforeBytes": 29882466,
+      "afterBytes": 1652280,
+      "reductionPercent": 94.471,
+      "target80Pass": true,
+      "canonicalBaselineBytes": 29882466,
+      "beforeMatchesCanonical": true
+    },
+    {
+      "group": "normal-desktop",
+      "route": "index.html",
+      "beforeBytes": 47249267,
+      "afterBytes": 2114075,
+      "reductionPercent": 95.526,
+      "target80Pass": true,
+      "canonicalBaselineBytes": 47249267,
+      "beforeMatchesCanonical": true
+    },
+    {
+      "group": "normal-desktop",
+      "route": "catalogo.html",
+      "beforeBytes": 53423091,
+      "afterBytes": 1819101,
+      "reductionPercent": 96.595,
+      "target80Pass": true,
+      "canonicalBaselineBytes": 53423091,
+      "beforeMatchesCanonical": true
+    },
+    {
+      "group": "normal-desktop",
+      "route": "producto-amarillo.html",
+      "beforeBytes": 29882466,
+      "afterBytes": 1749986,
+      "reductionPercent": 94.144,
+      "target80Pass": true,
+      "canonicalBaselineBytes": 29882466,
+      "beforeMatchesCanonical": true
+    }
+  ],
+  "phases": {
+    "before": {
+      "result": "docs\\release-20261105\\responsive-images\\before\\RESULT.json",
+      "navigations": 6,
+      "served": {
+        "count": 214,
+        "mismatches": []
+      },
+      "cleanup": {
+        "browserClosed": true,
+        "serverClosed": true
+      }
+    },
+    "after": {
+      "result": "docs\\release-20261105\\responsive-images\\after\\RESULT.json",
+      "navigations": 16,
+      "served": {
+        "count": 805,
+        "mismatches": []
+      },
+      "cleanup": {
+        "browserClosed": true,
+        "serverClosed": true
+      }
+    },
+    "critical": {
+      "result": "docs\\release-20261105\\responsive-images\\critical\\RESULT.json",
+      "navigations": 4,
+      "served": {
+        "count": 88,
+        "mismatches": []
+      },
+      "cleanup": {
+        "browserClosed": true,
+        "serverClosed": true
+      }
+    },
+    "record-fix": {
+      "result": "docs\\release-20261105\\responsive-images\\record-fix\\RESULT.json",
+      "navigations": 1,
+      "served": {
+        "count": 35,
+        "mismatches": []
+      },
+      "cleanup": {
+        "browserClosed": true,
+        "serverClosed": true
+      }
+    }
+  },
+  "navigationsTotal": 27,
+  "limits": {
+    "maxMinutes": 35,
+    "maxNavigations": 32,
+    "maxSources": 200,
+    "maxDerivatives": 600,
+    "actualSources": 156,
+    "actualDerivatives": 468,
+    "fullCheckAttempts": 1,
+    "focusedSuiteRuns": 1,
+    "providers": "Local only; no new providers/credits/uploads/install"
+  },
+  "criticalPath": {
+    "status": "demo-outcome-observed",
+    "steps": [
+      "Selected amarillo-S; mini bag opened",
+      "Bag contains Amarillo",
+      "Synthetic contact/delivery accepted; review creates local demo order",
+      "Approved simulated payment; local pedido outcome"
+    ],
+    "outcome": "Tu pedido de prueba\n\nConsult\u00e1 el estado y los detalles de tu pedido de prueba.\n\nPEDIDO DEMO-0001\n\nPago de prueba aprobado\nPago de prueba aprobado\n\nPedido de prueba guardado. No confirma un cobro ni una entrega real.\n\nMARTHA SILVA\n\nVestido amarillo con capa\n\nAmarillo \u00b7 Talla S\n\nCantidad: 1\n\nUSD\u00a0175.00\nEntrega\n\nPrueba Responsive\nDireccion ficticia\nManagua, Managua\n\nEstado del pedido\n5/11/2026, 3:14:32 p. m.\nPedido creado\n5/11/2026, 3:14:32 p. m.\nSin suscripci\u00f3n a novedades\n5/11/2026, 3:14:32 p. m.\nPago de prueba aprobado\nResumen de compra\nSubtotal\nUSD\u00a0175.00\nEntrega\nUSD\u00a05.00\nImpuestos de prueba\nUSD\u00a00.00\nTotal\nUSD\u00a0180.00\n\nresponsive@example.test\n\nSeguir explorando la colecci\u00f3n",
+    "buttons": [],
+    "errors": [],
+    "external": []
+  },
+  "commands": [
+    {
+      "command": "python tools/responsive_images.py",
+      "exit": 0
+    },
+    {
+      "command": "python docs/release-20261105/responsive-images/apply.py",
+      "exit": 0
+    },
+    {
+      "command": "python prepare.py",
+      "exit": 0
+    },
+    {
+      "command": "node --check src/app.js",
+      "exit": 0
+    },
+    {
+      "command": "python tests/responsive_images.py",
+      "exit": 0,
+      "result": "1 test; all originals/468 derivatives and 47 exact fallback templates checked"
+    },
+    {
+      "command": "node --require ./docs/release-20261105/responsive-images/existing-jsdom.cjs --test tests/original-catalog.cjs tests/luxury-editorial.cjs",
+      "exit": 1,
+      "result": "13/17 pass; original-catalog 9/9; luxury-editorial 4/8; four stale assertions, see historic-test-diagnosis.json"
+    },
+    {
+      "command": "python tests/check.py",
+      "exit": 2,
+      "result": "preflight Missing jsdom; no stages ran, no installation; one attempt only"
+    },
+    {
+      "command": "python tools/audit_assets.py --output docs/release-20261105/responsive-images/asset-audit.json",
+      "exit": 0,
+      "limit": "without --require-complete; not complete historical recovery"
+    },
+    {
+      "command": "git diff --check",
+      "exit": 0
+    },
+    {
+      "command": "node docs/release-20261105/responsive-images/driver.mjs before",
+      "exit": 0,
+      "result": "returned"
+    },
+    {
+      "command": "node docs/release-20261105/responsive-images/driver.mjs after",
+      "exit": 0,
+      "result": "returned"
+    },
+    {
+      "command": "node docs/release-20261105/responsive-images/driver.mjs critical",
+      "exit": 0,
+      "result": "returned"
+    },
+    {
+      "command": "node docs/release-20261105/responsive-images/driver.mjs record-fix",
+      "exit": 0,
+      "result": "returned"
+    },
+    {
+      "command": "python -X utf8 docs/release-20261105/responsive-images/summarize.py",
+      "exit": 0
+    },
+    {
+      "command": "python docs/release-20261105/responsive-images/verify-determinism.py",
+      "exit": 0,
+      "result": "468/468 independent encodes byte-identical"
+    }
+  ],
+  "blockers": [
+    {
+      "artifact": "degraded index.html",
+      "evidence": "after/RESULT.json; 40013ms timeout, loadEventEnd=0; 1663922 completed network bytes, two WebP responses pending",
+      "cause": "Remaining initial demand under 50KB/s; exact critical resource cause not isolated. Top completed resources include catalog.js 216994 bytes and four TTF files ~95KB each.",
+      "attemptedCorrection": "Responsive whole-frame WebP sources reduced normal transfer >94%; degraded index still times out",
+      "owner": "primary/frontend",
+      "nextAction": "Authorize a separate font/catalog delivery investigation; no font/layout/script changes within this scope",
+      "completionCheck": "Same degraded index load completes under 40s, readable content, no errors/overflow"
+    },
+    {
+      "artifact": "tests/check.py",
+      "evidence": "exit 2; Missing jsdom: run python tests/check.py --install first.",
+      "cause": "Managed worktree has no tests/frontend-deps/node_modules/jsdom; canonical checkout has installed jsdom",
+      "attemptedCorrection": "No installation or out-of-scope dependency path mutation; focused tests explicitly resolve existing canonical jsdom with evidence-only preload",
+      "owner": "primary",
+      "nextAction": "Provide existing test dependencies in integration environment and run full check against integrated candidate",
+      "completionCheck": "python tests/check.py exit 0; document any later environment failure separately"
+    },
+    {
+      "artifact": "tests/luxury-editorial.cjs",
+      "evidence": "4/8 failed; original-catalog 9/9 passed; historic-test-diagnosis.json",
+      "cause": "Assertions expect historical /editorial paths and bd5e catalog hash; actual before uses /generated-luxury and 1495 hash",
+      "attemptedCorrection": "Fixtures unchanged; byte-equivalence diagnosis confirms same before inputs for failed assertions",
+      "owner": "primary/test-maintainer",
+      "nextAction": "Review stale editorial assertions separately against independently approved publication",
+      "completionCheck": "Reviewed contracts pass without weakening identity/provenance guards"
+    }
+  ],
+  "recordingCorrection": {
+    "failure": "First after mobile index video compositor scaled frame to top-left despite correct DOM viewport",
+    "correction": "record-fix setup changes viewport 361 then 360 before navigation; one additional navigation",
+    "result": "Inspected corrected frame at 4s; correct full 360x800 composition; original flawed video retained"
+  },
+  "criticalVerifierCorrection": {
+    "failure": "First bag locator selected a hidden duplicate product link; not a product defect",
+    "correction": "Visible exact destination link; one bounded critical-only rerun",
+    "result": "Demo approved outcome; zero page errors/external requests"
+  },
+  "notRun": [
+    "Production/deployment",
+    "Physical devices; Firefox/Safari",
+    "Field INP/CWV",
+    "Owner visual acceptance",
+    "Offline sales unsupported; no SW added",
+    "Full automated candidate check blocked in preflight"
+  ],
+  "usage": {
+    "tokens": "unknown",
+    "cost": "unknown"
+  },
+  "privateEvidenceDirectory": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-responsive-images-20261105-t3-bde304d7",
+  "changedPaths": "changed-paths.json",
+  "finalSourceManifest": {
+    "path": "source-manifest.json",
+    "sha256": "ac43aad1163c8edf4f74f51e8af0b67a2125374dc397530cc844d8286e44869b",
+    "files": 3105
+  },
+  "sourceUnchangedExceptAddedPictureSources": "tests/responsive_images.py PASS: stripping added source tags restores each HTML to raw before hash",
+  "branch": "t3/savia-responsive-images",
+  "finalHead": "6f304a7571a554bb8968e081a14985829aee3dfb",
+  "driverBindings": {
+    "finalDriverSha256": "6f13272729505bfb6eb1c9292bc22481c0ad8a7764c21ce7ea7e513386809d9b",
+    "note": "Before and after manifests freeze the actual loaded driver at each run. Evidence-only verifier/recorder corrections followed; product sources unchanged during all after runs."
+  },
+  "instrumentationNotes": [
+    "Preview open rejected about:blank unsupported-protocol; installed Playwright/Chrome path used with local allowlist proxy.",
+    "Before six normal samples equal canonical measured bytes exactly; normal browser conditions and delivery matched.",
+    "Only completed CDP bytes are compared for normal samples; degraded incomplete bytes are not page weight.",
+    "Images retain exact original fallback dimensions. Browser naturalWidth can be density-corrected; actual derivative dimensions/hashes in asset manifest.",
+    "Record-fix and critical correction ran concurrently; their timing is not used in normal performance comparisons.",
+    "Full-check preflight occurred before markup application and ran no checks; no candidate full-suite success is claimed.",
+    "Python summarizer first failed Windows cp1252 decode; corrected invocation uses python -X utf8, no browser repeat.",
+    "Initial evidence-script assembly failed quoting before writing; corrected script separately written and applied once."
+  ],
+  "visualInspection": {
+    "method": "FFmpeg extracted frame at 4 seconds from all 12 normal before/after recordings plus corrected index recording; direct inspection of comparison and full corrected frame",
+    "coverage": "One sampled frame per video; remaining video ranges and audio unreviewed; owner visual acceptance NOT RUN",
+    "result": "Five matched pairs show same composition at sampled time; initial after index recorder scaling artifact corrected and directly inspected. No CSS/design changes."
+  },
+  "normalGeneratedPngSelections": [],
+  "recordings": {
+    "manifest": "recording-checks.json",
+    "playableCount": 21,
+    "correctedMobileIndex": "record-fix/recordings/normal-mobile-index.html.webm",
+    "criticalPath": "critical/recordings/critical-path.webm"
+  },
+  "determinism": {
+    "checked": 468,
+    "mismatches": [],
+    "elapsedSeconds": 207.2029999999795,
+    "method": "Independent in-memory re-encode of every derivative; no file rewrite"
+  },
+  "acceptanceChecks": {
+    "1_beforeAfter": "PASS with disclosed first-after recorder correction; owner visual acceptance NOT RUN",
+    "2_normalReduction": "PASS six of six >=80%; actual 94.144-96.595 percent",
+    "3_degraded": "PARTIAL: index timeout; catalog and Amarillo load completed",
+    "4_noJs": "PASS three routes and native catalog traversal; offline sales unsupported",
+    "5_criticalAndTests": "PARTIAL: demo critical path PASS; image/source/catalog/provenance checks PASS; full suite preflight blocked; four historical editorial assertions FAIL",
+    "6_evidence": "PASS local manifests, commands/exits and 21 playable clips; worker return requires primary acceptance"
+  },
+  "privateFiles": [
+    {
+      "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-responsive-images-20261105-t3-bde304d7\\after-observations.json",
+      "bytes": 2741157,
+      "sha256": "41f6a5b537a545fa89d10084e6725c16277355a261158311779f1b2e49a84309"
+    },
+    {
+      "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-responsive-images-20261105-t3-bde304d7\\after-server-log.json",
+      "bytes": 181367,
+      "sha256": "ad1dda8b975675e1c34fb549abe1cf9252aa917d06df747a710d83d0291ee847"
+    },
+    {
+      "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-responsive-images-20261105-t3-bde304d7\\asset-audit.log",
+      "bytes": 85642,
+      "sha256": "d4a6aab1c979bb0adfc3d05bc0e198e238d6093d248d954072f18ceb94f43793"
+    },
+    {
+      "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-responsive-images-20261105-t3-bde304d7\\before-observations.json",
+      "bytes": 989528,
+      "sha256": "6a990ec5f60a7d7c10e8944742139943ea03efafd1474ecae565b85f518a0a13"
+    },
+    {
+      "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-responsive-images-20261105-t3-bde304d7\\before-server-log.json",
+      "bytes": 49031,
+      "sha256": "aae0219ee89a7d87662c25b3db7f9d5f8348cbd68837d47045b38231443d90e4"
+    },
+    {
+      "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-responsive-images-20261105-t3-bde304d7\\critical-observations.json",
+      "bytes": 22501,
+      "sha256": "c98bad6eac9b5eda60c1452065fc44ab2fa378c5767fc2857594929f4ab82654"
+    },
+    {
+      "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-responsive-images-20261105-t3-bde304d7\\critical-server-log.json",
+      "bytes": 19210,
+      "sha256": "ac23a6db7194252231ffdd9faebe05c13790e41064b99e74c26c2ac5c2f62675"
+    },
+    {
+      "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-responsive-images-20261105-t3-bde304d7\\focused-existing.log",
+      "bytes": 12774,
+      "sha256": "64ee661480f7bf3657e65aa0d2bca97a1cd6e87a90142423b81304943028d3d4"
+    },
+    {
+      "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-responsive-images-20261105-t3-bde304d7\\focused-images.log",
+      "bytes": 840,
+      "sha256": "923e5d954eb50694ba9f38641b736301d1be71cff8a783afd400590ad3677e3f"
+    },
+    {
+      "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-responsive-images-20261105-t3-bde304d7\\full-check.log",
+      "bytes": 828,
+      "sha256": "207cf03f66bc30a40727310f5369df2cd3f30c653b15c158d61afe07a5607127"
+    },
+    {
+      "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-responsive-images-20261105-t3-bde304d7\\record-fix-observations.json",
+      "bytes": 174412,
+      "sha256": "da2ea31e215bac6157dd15a08f960293bdeebd9c5fc2a233b8edbad15d6cf93b"
+    },
+    {
+      "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-responsive-images-20261105-t3-bde304d7\\record-fix-server-log.json",
+      "bytes": 8735,
+      "sha256": "d65c03b1bd7d7d2400dc8c23c98ce71e78547bbba5ed8a82a415e22eb8bdb4c6"
+    }
+  ],
+  "finishedUtc": "2026-11-05T21:19:36.234194+00:00"
+}

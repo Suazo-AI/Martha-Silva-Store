@@ -11,10 +11,16 @@ const root = path.resolve(__dirname, '..');
 const dist = path.join(root, 'dist');
 const manifest = require('../evidence/luxury/editorial-provenance.json');
 const assets = new Map(manifest.assets.flatMap(asset => asset.derivatives.map(derivative => [derivative.runtime_path, {...derivative, original: asset.original, post: asset.post_id}])));
+const publication = require('./fixtures/published-catalog-contract.json');
+const release = require('../evidence/releases/20261030/current-runtime-sha256.json');
+const selected = new Map(require('../evidence/releases/20261030/luxury-selected-assets.json').selected_assets.map(r => ['/' + r.runtime_destination, r]));
+const responsive = new Map(require('../build-inputs/static/responsive-images/manifest.json').assets.map(r => [r.original, r]));
+const hash = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
 const html = () => fs.readFileSync(path.join(dist, 'index.html'), 'utf8');
 const normalize = value => value.replace(/\s+/g, ' ').trim();
 
 function dimensions(bytes) {
+  if (bytes.subarray(0,8).toString('hex') === '89504e470d0a1a0a') return {width:bytes.readUInt32BE(16),height:bytes.readUInt32BE(20)};
   if (bytes[0] === 0xff && bytes[1] === 0xd8) {
     let offset = 2;
     while (offset < bytes.length) {
@@ -58,7 +64,7 @@ test('new sections have named headings and preserve the independent bridal secti
 
 test('only the new lead receives high priority; all supporting and editorial images are lazy', () => withDOM(d => {
   const lead = d.querySelector('.luxury-hero__lead img');
-  assert.match(lead.getAttribute('src'), /^\/editorial\/DdXjMXIFHwT-/);
+  assert.equal(lead.getAttribute('src'), '/generated-luxury/champagne/01-front-v1.png');
   assert.equal(lead.getAttribute('fetchpriority'), 'high');
   assert.equal(lead.getAttribute('loading'), 'eager');
   assert.equal(d.querySelectorAll('img[fetchpriority="high"]').length, 1);
@@ -87,48 +93,62 @@ test('all 44 derivative byte hashes and actual image headers agree with provenan
   }
 });
 
-test('every new image has truthful fallback dimensions and responsive candidates from the same original', () => withDOM(d => {
-  const referenced = new Set();
+function assertCurrentImages(d) {
+  // The preserved publication pins the entire authored page after delivery additions are removed.
+  assert.equal(hash(html().replace(/<source data-responsive-generated=""[^>]+>/g, '')), release['index.html'].sha256);
+  assert.match(d.querySelector('meta[name="robots"]').content, /noindex/);
   for (const img of d.querySelectorAll('.luxury-hero img, .luxury-editorial img')) {
-    const fallback = assets.get(img.getAttribute('src'));
-    assert.ok(fallback, img.getAttribute('src'));
-    assert.equal(Number(img.getAttribute('width')), fallback.width);
-    assert.equal(Number(img.getAttribute('height')), fallback.height);
-    assert.ok(img.getAttribute('alt')?.trim());
-    assert.equal(img.getAttribute('decoding'), 'async');
-    const source = img.closest('picture').querySelector('source[type="image/webp"]');
-    assert.ok(source);
-    for (const element of [source, img]) {
-      assert.ok(element.getAttribute('sizes'));
-      const candidates = element.getAttribute('srcset').split(',').map(value => value.trim().split(/\s+/));
-      assert.ok(candidates.length >= 2);
-      for (const [url, width] of candidates) {
-        const asset = assets.get(url);
-        assert.ok(asset, url);
-        assert.equal(asset.source_sha256, fallback.source_sha256, url);
-        assert.equal(width, asset.width + 'w', url);
-        referenced.add(url);
+    const url=img.getAttribute('src'), record=selected.get(url), derived=responsive.get(url);
+    assert.ok(record, 'Independent publication selection: '+url);
+    const bytes=fs.readFileSync(path.join(dist,url));
+    assert.equal(hash(bytes),record.sha256);
+    assert.deepEqual(dimensions(bytes), {width:record.dimensions[0],height:record.dimensions[1]});
+    assert.equal(+img.getAttribute('width'),record.dimensions[0]);
+    assert.equal(+img.getAttribute('height'),record.dimensions[1]);
+    assert.match(img.alt,/Imagen generada con IA/);
+    assert.equal(img.getAttribute('decoding'),'async');
+    assert.equal(img.getAttribute('srcset'),url+' '+record.dimensions[0]+'w');
+    assert.ok(derived); assert.equal(derived.sha256,record.sha256);
+    assert.equal(derived.full_source_frame,true);
+    const picture=img.closest('picture');
+    const fallback=picture.querySelector('source[type="image/png"]');
+    assert.equal(fallback.getAttribute('srcset'),img.getAttribute('srcset'));
+    assert.equal(picture.querySelectorAll('source[type="image/webp"]').length,1);
+    for (const source of picture.querySelectorAll('source[type="image/webp"]')) {
+      assert.ok(source.hasAttribute('data-responsive-generated'));
+      assert.equal(source.getAttribute('sizes'),img.getAttribute('sizes'));
+      assert.equal(source.getAttribute('srcset'),derived.derivatives.map(r=>r.path+' '+r.width+'w').join(', '));
+      for(const r of derived.derivatives) {
+        const data=fs.readFileSync(path.join(dist,r.path));
+        assert.equal(hash(data),r.sha256);
+        assert.deepEqual(dimensions(data),{width:r.width,height:r.height});
+        assert.equal(r.height,Math.round(record.dimensions[1]*r.width/record.dimensions[0]));
       }
     }
   }
-  assert.ok(referenced.size > 0, 'Responsive image paths were checked');
+}
+test('published generated images keep exact identity, IA labels, dimensions and whole-frame fallbacks',()=>withDOM(assertCurrentImages));
+test('identity and IA-label guards reject independent negative controls',()=>withDOM(d=>{
+  const img=d.querySelector('.luxury-hero img'), alt=img.alt, src=img.getAttribute('src');
+  img.alt='Fotografia original'; assert.throws(()=>assertCurrentImages(d)); img.alt=alt;
+  img.setAttribute('src','/generated-luxury/rosa/01-front-v1.png');
+  assert.throws(()=>assertCurrentImages(d)); img.setAttribute('src',src);
+  const source=img.closest('picture').querySelector('source[type="image/webp"]');
+  source.remove(); assert.throws(()=>assertCurrentImages(d)); img.closest('picture').prepend(source); assertCurrentImages(d);
 }));
-
-test('six editorial photos link to their authentic posts without product or purchase bindings', () => withDOM(d => {
-  const cards = [...d.querySelectorAll('.luxury-editorial__card')];
-  assert.equal(cards.length, 6);
-  assert.equal(new Set(cards.map(card => assets.get(card.querySelector('img').getAttribute('src')).post)).size, 6);
-  for (const card of cards) {
-    const link = card.querySelector('a');
-    const asset = assets.get(card.querySelector('img').getAttribute('src'));
-    assert.equal(link.href, 'https://www.instagram.com/p/' + asset.post + '/');
-    assert.equal(link.getAttribute('target'), '_blank');
-    assert.ok(link.rel.split(/\s+/).includes('noopener'));
+test('six generated editorial illustrations retain historic post context without purchase bindings',()=>withDOM(d=>{
+  const cards=[...d.querySelectorAll('.luxury-editorial__card')];assert.equal(cards.length,6);
+  const posts=new Set(manifest.assets.map(a=>a.post_id)), seen=new Set();
+  for(const card of cards){
+    const img=card.querySelector('img'),post=img.getAttribute('data-luxury-editorial').replace(/-\d+$/,'');
+    assert.ok(posts.has(post));seen.add(post);
+    const link=card.querySelector('a');assert.equal(link.href,'https://www.instagram.com/p/'+post+'/');
+    assert.equal(link.target,'_blank');assert.ok(link.rel.split(/\s+/).includes('noopener'));
     assert.ok(link.rel.split(/\s+/).includes('noreferrer'));
-    assert.equal(card.querySelector('[data-product-card], [data-add-to-cart], [data-variant], button'), null);
+    assert.equal(card.querySelector('[data-product-card], [data-add-to-cart], [data-variant], button'),null);
+    assert.match(img.alt,/Imagen generada con IA/);
   }
-  assert.equal(manifest.editorial_only, true);
-  assert.match(normalize(d.querySelector('.luxury-editorial').textContent), /editorial/i);
+  assert.equal(seen.size,6);assert.equal(manifest.editorial_only,true);
 }));
 
 test('scoped CSS retains contain fit, focus visibility, and reduced-motion handling', () => {
@@ -176,30 +196,15 @@ test('Spanish default and English toggle translate every new visible/accessible 
   } finally { w.close(); }
 });
 
-test('the sample catalog preserves commerce with the scoped four-photo Green selection', () => {
-  const bytes = fs.readFileSync(path.join(dist, 'catalog.js'));
-  assert.deepEqual(bytes, fs.readFileSync(path.join(root, 'build-inputs/static/catalog.js')));
-  // Freeze this scoped candidate. The prior e5d0... hash remains historical;
-  // original-catalog.cjs independently bounds the six Green fields and 22 files.
-  assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'), 'bd5e8b959174d1e4eadfca98221f291c9a4ee2475cec8d201036e391d6f02a14');
-  const captured = require('./fixtures/catalog-expansion.json');
-  const capturedMedia = require('./fixtures/original-store-media.json');
-  const green = require('../evidence/green-photo-borders/selection.json');
-  const dom = new JSDOM('', {runScripts: 'outside-only'});
-  try {
-    dom.window.eval(bytes.toString('utf8'));
-    const catalog = JSON.parse(JSON.stringify(dom.window.DEMO_CATALOG));
-    assert.equal(catalog.products.length, 40);
-    assert.equal(catalog.products.reduce((sum, product) => sum + product.variants.length, 0), 120);
-    assert.equal(catalog.products.reduce((sum, product) => sum + product.images.length, 0), 169);
-    assert.deepEqual(catalog.products.map(product => product.id), captured.products.map(product => product.id));
-    for (const [index, product] of catalog.products.entries()) {
-      for (const [key, value] of Object.entries(captured.products[index]))
-        if (key !== 'images') assert.deepEqual(product[key], value, product.id + ':' + key);
-      const expected = product.id === green.product_id ? green.expected_media : capturedMedia[product.id];
-      assert.deepEqual(product.images, expected.images, product.id);
-    }
-    assert.equal(catalog.brand.commercial_status, 'sample');
-    assert.equal(bytes.includes(Buffer.from('/editorial/')), false);
-  } finally { dom.window.close(); }
+test('published sample catalog remains pinned independently; original-catalog suite owns commerce and historical stages',()=>{
+  const bytes=fs.readFileSync(path.join(dist,'catalog.js'));
+  assert.deepEqual(bytes,fs.readFileSync(path.join(root,'build-inputs/static/catalog.js')));
+  assert.equal(hash(bytes),publication.source_catalog_sha256);
+  assert.equal(publication.source_catalog_sha256,release['catalog.js'].sha256);
+  const dom=new JSDOM('',{runScripts:'outside-only'});
+  try{dom.window.eval(bytes.toString('utf8'));const c=dom.window.DEMO_CATALOG;
+    assert.equal(c.products.length,40);assert.equal(c.products.reduce((n,p)=>n+p.variants.length,0),120);
+    assert.equal(c.products.reduce((n,p)=>n+p.images.length,0),152);
+    assert.equal(c.brand.commercial_status,'sample');
+  }finally{dom.window.close();}
 });

@@ -3,6 +3,11 @@
 build-inputs/static/prototypes/** -text -whitespace
 dist/prototypes/** -text -whitespace
 
+# Responsive derivative manifests and media preserve the recorded RAW bytes.
+build-inputs/static/responsive-images/** -text -whitespace
+dist/responsive-images/** -text -whitespace
+docs/release-20261105/responsive-integration/driver-recorded.mjs -text whitespace=trailing-space,space-before-tab,cr-at-eol
+
 # Frozen public evidence keeps the original source bytes across Windows/Linux.
 evidence/savia/20261030/** -text -whitespace
 # Archival exports retain bytes and accept CRLF while keeping ordinary whitespace checks.

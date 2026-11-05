@@ -2,7 +2,7 @@
 
 **Estado al 2026-11-05: candidato probado por capas; no listo para producción.**
 La tienda pública y la aplicación interna de personal tienen alcances y autoridades separados.
-N5 está corregido. Su cobertura adicional de recuperación está en revisión;
+N5 está corregido. Su cobertura adicional de recuperación está aceptada con límites;
 siguen las validaciones y decisiones operativas del [estado vigente](docs/PROJECT-STATUS.md).
 
 Entrada para cualquier agente: [AGENT-START](docs/AGENT-START.md).
@@ -10,7 +10,7 @@ Estado vigente: [PROJECT-STATUS](docs/PROJECT-STATUS.md).
 Decisiones: [DECISIONS](docs/DECISIONS.md). SQL: [DATABASE](docs/DATABASE.md).
 Validación histórica del 3 de noviembre: [590 backend PASS, 2 NOT RUN; navegador 31/32](docs/testing-20261103/README.md).
 El N5 fallido en ese corte ya fue corregido. El [lote adicional N5](docs/n5-browser-20261105/README.md)
-registró 50/50 con Chrome y HTTP simulado, sin defecto nuevo reproducido; sigue pendiente el cierre de revisión.
+registró 50/50 con Chrome y HTTP simulado, sin defecto nuevo reproducido; controles negativos posteriores cerraron la revisión acotada.
 
 Checkout canónico: `C:/Users/Jason/MARTHA-SILVA/github`, rama `Tony`.
 Los hooks registran y sincronizan commits autorizados; [AUTO-SYNC](docs/AUTO-SYNC.md).
@@ -67,6 +67,7 @@ no solo `dist/`; `prepare.py --output` acepta una carpeta nueva.
 ```sh
 python tools/verify_release_snapshot.py
 python tests/build.py
+python -m pip install --only-binary=:all: -r tests/media-requirements.txt
 python tests/check.py --install
 ```
 
@@ -76,6 +77,11 @@ publicada; conservan precios, stock, variantes y controles de archivos. Ver
 [corrección y comprobaciones](docs/CATALOG-REGRESSION-FIX.md). El workflow
 `Tony source snapshot` ejecuta la suite completa en Linux, sin desplegar ni iniciar
 SQL. Consultar resultados del SHA exacto.
+
+La puerta común incluye los controles de imágenes responsivas, fuentes completas
+y procedencia editorial. Las dependencias de medios tienen versiones fijadas.
+El snapshot actual se genera explícitamente con
+`python tools/verify_release_snapshot.py --record`; el registro de octubre se conserva.
 
 ## SAVIA y publicación
 

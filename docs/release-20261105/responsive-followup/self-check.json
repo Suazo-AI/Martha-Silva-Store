@@ -1,0 +1,11 @@
+{
+  "sourceBinding": "PASS",
+  "packageDrift": "NONE",
+  "browserNavigations": 18,
+  "serverResponseBindings": "PASS",
+  "overflowPageErrorsExternalPageRequests": 0,
+  "importedEvidence": "byte exact per IMPORT readback",
+  "fullCheck": "FAIL WinError1314, not bypassed",
+  "fontAndEditorialNegativeControls": "PASS",
+  "independentAcceptance": "NOT RUN"
+}

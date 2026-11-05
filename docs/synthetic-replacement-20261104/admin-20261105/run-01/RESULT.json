@@ -1,0 +1,52 @@
+{
+  "task_id": "savia-admin-simulation-20261105",
+  "status": "PARTIAL_FAILED",
+  "source_sha": "6f304a7571a554bb8968e081a14985829aee3dfb",
+  "identity": {
+    "host": "SUAZO-PC",
+    "harness": "T3 Code / Codex",
+    "model": "gpt-6.1-sol",
+    "effective_reasoning": "high",
+    "settings_evidence": "runtime context and agent-awareness; independent provider telemetry unavailable",
+    "isolation": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-83ae6eec",
+    "python": "3.11.9",
+    "tokens": "unknown",
+    "cost": "unknown"
+  },
+  "command": "C:\\Users\\Jason\\AppData\\Local\\Programs\\Python\\Python311\\python.exe C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-83ae6eec\\docs\\synthetic-replacement-20261104\\admin-20261105\\simulate_admin.py --out C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-83ae6eec\\docs\\synthetic-replacement-20261104\\admin-20261105\\run-01",
+  "source_hashes_before": {
+    "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-83ae6eec\\docs\\synthetic-replacement-20261104\\admin-20261105\\simulate_admin.py": "3e29f429e0571625387395a0da208b7a1723ab2716519ad48004627124e9eba9",
+    "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-83ae6eec\\docs\\synthetic-replacement-20261104\\admin-20261105\\oracle.py": "361b0a2f7015dfe26064fc7acc4a39fd6fad410b3a1487a34282e89221fcf41f",
+    "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-83ae6eec\\docs\\synthetic-replacement-20261104\\admin-20261105\\MATRIX.json": "345edff5b5d7ca1a8f999580e225fde890f2a5b61aee590d95727b8caac32d0a",
+    "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-83ae6eec\\docs\\synthetic-replacement-20261104\\admin-20261105\\ACCEPTANCE.md": "c771b279802d00aff2552b9232598247aa4aff14d1151e6b71490fcebd9cf744",
+    "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-83ae6eec\\docs\\synthetic-replacement-20261104\\simulate.py": "8e3a76f8be58c34b387f80857dac1a0c7232a9fedfda14bbbab23c0b5c143c0c",
+    "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-83ae6eec\\docs\\synthetic-replacement-20261104\\results.json": "83f72112b34ec861f5c457e3fe29f6065b3c3d738a192ad457126869d8d4226b",
+    "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-83ae6eec\\docs\\synthetic-replacement-20261104\\README.md": "c92453f5500a320ca39b2216d511713b3ea2192e882a2643b96806a664554014",
+    "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-83ae6eec\\docs\\synthetic-replacement-20261104\\REVIEW.md": "5a41493428e05646044ed50776bc95bc3ae7366f79aff119681e79fb4d479644"
+  },
+  "historical": {
+    "scenarios": 18,
+    "assertions": 51,
+    "rerun": false
+  },
+  "seeds": [
+    7,
+    19,
+    41,
+    83,
+    131,
+    251,
+    509,
+    1021
+  ],
+  "generated_actions": 0,
+  "cases": [],
+  "controls": [],
+  "limitations": [
+    "Sequential offline specification only",
+    "No SAVIA runtime, SQL, bank, fiscal, latency, backup, real staffing or operational acceptance",
+    "C2/C9/C10 remain open"
+  ],
+  "exit_code": 1,
+  "failure": "AssertionError(('A01-cash-shortfall', '10000+70000+10000+5000-35000-2000=48000; shortage=-500'))"
+}

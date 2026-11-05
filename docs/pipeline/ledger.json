@@ -90,13 +90,13 @@
       "owner": "jason",
       "status": "todo",
       "title": "Decisiones del lote y seguridad de merge",
-      "why": "D-028 activa main con siete checks requeridos; falta verificar efecto efectivo de variables de despliegue y demostrar el mecanismo de stock antes de integrar",
+      "why": "D-028 activa main con siete checks requeridos; variables verificadas sin deploy habilitado el 2026-11-05; falta demostrar el mecanismo de stock antes de integrar",
       "done_when": "Protección de main con checks requeridos leída de la API; valor de CLOUDFLARE_DEPLOY_ENABLED anotado; decisiones en docs/DECISIONS.md",
       "alternatives": "Fusionar sin protección confiando en revisión manual (rechazado: sin freno automático)",
       "needs": {
-        "decision": "D-026/D-027/D-028 adoptadas: excepción y revisión para ensayo; protección main aplicada y verificada. C1 no cerrada: variables efectivas y mecanismo de stock pendientes.",
+        "decision": "D-026/D-027/D-028 adoptadas: excepción y revisión para ensayo; protección main aplicada y verificada. Variables leídas el 2026-11-05: ninguna en repo, dueño User y job sin environment; condición deploy no satisfecha. C1 no cerrada: mecanismo de stock pendiente.",
         "decider": "jason",
-        "recommendation": "Conservar main protegida sin merge/deploy. Verificar variables antes de cualquier integración. D-029 adopta reconstrucción guiada C2 con Martha usando datos ficticios; falta coordinar y obtener respuestas.",
+        "recommendation": "Conservar main protegida sin merge/deploy. Revalidar configuración puntual antes de integrar y demostrar mecanismo de stock. D-029 adopta reconstrucción guiada C2 con Martha usando datos ficticios; falta coordinar y obtener respuestas.",
         "tool": "Configuración de GitHub (admin): protección de rama y variables de Actions"
       },
       "trello": "https://trello.com/c/e57qFLhJ",
@@ -104,7 +104,7 @@
         "docs/DECISIONS.md",
         ".github/workflows/ci.yml"
       ],
-      "prep": "D-028: main protected=true, siete checks app15368, strict y admins, PR, conversaciones, sin force-push/borrado; readback exacto. main SHA sin cambio, PR2 abierto, sin merge/deploy. No rechazo adversarial ensayado. Variables y mecanismo stock pendientes; C1 sigue todo. Recibo docs/stock-decision-20261104/decision-028-main-protection-receipt.json."
+      "prep": "D-028: main protected=true, siete checks app15368, strict y admins, PR, conversaciones, sin force-push/borrado; readback exacto. Sin merge/deploy. No rechazo adversarial ensayado. Readback 2026-11-05: cero variables de Actions, dueño User, deploy job sin environment; condición deploy no satisfecha. Mecanismo stock pendiente; C1 sigue todo. Recibos docs/stock-decision-20261104/decision-028-main-protection-receipt.json y docs/release-20261105/deploy-variable-readback.json."
     },
     {
       "id": "C2",

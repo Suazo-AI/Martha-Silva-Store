@@ -1,0 +1,39 @@
+{
+  "task_id": "savia-admin-simulation-20261105",
+  "status": "RETURNED_NOT_ACCEPTED",
+  "driver_invocations": [
+    {
+      "command": "python C:/Users/Jason/.t3/worktrees/github/t3-83ae6eec/docs/synthetic-replacement-20261104/admin-20261105/simulate_admin.py --out C:/Users/Jason/.t3/worktrees/github/t3-83ae6eec/docs/synthetic-replacement-20261104/admin-20261105/run-01",
+      "exit": 1,
+      "observation": "Harness literal error: expected 48000 instead of 58000. Original result preserved."
+    },
+    {
+      "command": "python C:/Users/Jason/.t3/worktrees/github/t3-83ae6eec/docs/synthetic-replacement-20261104/admin-20261105/simulate_admin.py --out C:/Users/Jason/.t3/worktrees/github/t3-83ae6eec/docs/synthetic-replacement-20261104/admin-20261105/run-02",
+      "exit": 0,
+      "observation": "12 families; 350 driver assertions; 325 transition invariant bundles; 256 generated actions; 5 negative process exits 1; baseline/final verifier exits 0."
+    }
+  ],
+  "hashes": {
+    "docs\\synthetic-replacement-20261104\\admin-20261105\\ACCEPTANCE.md": "c771b279802d00aff2552b9232598247aa4aff14d1151e6b71490fcebd9cf744",
+    "docs\\synthetic-replacement-20261104\\admin-20261105\\MATRIX.json": "345edff5b5d7ca1a8f999580e225fde890f2a5b61aee590d95727b8caac32d0a",
+    "docs\\synthetic-replacement-20261104\\admin-20261105\\oracle.py": "361b0a2f7015dfe26064fc7acc4a39fd6fad410b3a1487a34282e89221fcf41f",
+    "docs\\synthetic-replacement-20261104\\admin-20261105\\README.md": "ef8ad4577f21e69334b75046f68f22df7b0531085e73105bad8f4ddb875ae587",
+    "docs\\synthetic-replacement-20261104\\admin-20261105\\run-01\\RESULT.json": "94e043968ca4c951967e44ee8a09a6eeed7f6a2f98138292b679cf49eccbc9d3",
+    "docs\\synthetic-replacement-20261104\\admin-20261105\\run-02\\altered_stock.json": "d94751a74c8e52f03b58157bd32a34c4f8221439c05f3b5f1898dba648b27c31",
+    "docs\\synthetic-replacement-20261104\\admin-20261105\\run-02\\baseline-normal.json": "6670c17fe65bc6def9658770903622b9a865f207dc0a6c8a6f9af918030038ca",
+    "docs\\synthetic-replacement-20261104\\admin-20261105\\run-02\\duplicate_cash_collection.json": "38654c4629ba8d7baff648fba6bc13f18b6b3be48b840b670b13c07bfe2ebc61",
+    "docs\\synthetic-replacement-20261104\\admin-20261105\\run-02\\omitted_event.json": "c0f5f4d8196b1fdcbf610ce03535790fa0cd032f6094d880ba4a5f4332e347c4",
+    "docs\\synthetic-replacement-20261104\\admin-20261105\\run-02\\restored-normal.json": "6670c17fe65bc6def9658770903622b9a865f207dc0a6c8a6f9af918030038ca",
+    "docs\\synthetic-replacement-20261104\\admin-20261105\\run-02\\RESULT.json": "aed4e33898bc844536aeb8e4b8b1abd5d51de9c10a00e960377ee5efdfb9e98e",
+    "docs\\synthetic-replacement-20261104\\admin-20261105\\run-02\\silent_balance.json": "189c455f8dcb4aa933c875257deb39f18d87b673611e54a60bc38252f04adf9c",
+    "docs\\synthetic-replacement-20261104\\admin-20261105\\run-02\\unauthorized_close.json": "63d317de7c2158648547196b2230c2dc1ae0f6ea450dac82bfe3db93b54714ef",
+    "docs\\synthetic-replacement-20261104\\admin-20261105\\simulate_admin.py": "f2da5a68eda8ca0e2a31705b3a36e0e6b9d33aa2947055c425b43c6d877281f9"
+  },
+  "tracked_diff": [],
+  "staged_diff": [],
+  "head": "6f304a7571a554bb8968e081a14985829aee3dfb",
+  "elapsed_seconds_driver": 1.406,
+  "worker_tokens": "unknown",
+  "worker_cost": "unknown",
+  "limits": "No further full driver invocation. No product capabilities or operational acceptance claimed."
+}

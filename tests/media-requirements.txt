@@ -1,0 +1,4 @@
+# Match the responsive candidate's recorded verification environment.
+Pillow==12.3.0
+fonttools==4.67.0
+Brotli==1.2.0

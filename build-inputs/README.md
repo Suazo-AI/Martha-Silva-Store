@@ -54,3 +54,26 @@ backend tests, 11 DOM simulations, nine-page structure checks and seven JavaScri
 syntax checks passed afterward. Byte equivalence preserves the existing artifact,
 but **does not establish real-browser visual equivalence**: no screenshot, rendering,
 responsive, or real-browser interaction test was performed.
+
+## Responsive generated image delivery (2026-11-05)
+
+`python tools/responsive_images.py` creates WebP candidates under
+`static/responsive-images/` from existing authorized `static/generated-luxury/*.png`.
+Pillow 12.3.0 and its installed libwebp are required only for derivative generation.
+No network or installation is part of the script. It preserves whole frames at
+360px, 720px and original width, without upscaling, quality 82, method 6, LANCZOS.
+The manifest binds original and derivative SHA256, dimensions, byte sizes and versions.
+Run `python prepare.py` after regeneration. Never edit generated files manually.
+HTML and dynamic cards prefer WebP; PNG sources, zoom, original paths and IA labels
+remain intact. Browsers without WebP retain the original heavy PNG delivery.
+The generator does not rewrite use sites; new originals need explicit source references.
+See `docs/release-20261105/responsive-images/README.md` for scoped lab evidence and gaps.
+
+## Complete WOFF2 delivery
+
+Run `python tools/responsive_fonts.py` with FontTools 4.67.0 / Brotli 1.2.0.
+The eight original TTF files remain unchanged and remain CSS fallbacks.
+No subsetting or typeface changes. Embedded copyright and OFL URLs are retained.
+See `docs/release-20261105/responsive-followup/fonts.json` for source hashes,
+complete table verification and observed license metadata. WOFF2 head checksum
+and compression bit 11 are the only normalized table fields. Run prepare.py.

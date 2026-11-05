@@ -1,0 +1,172 @@
+[
+  {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-baseline.log",
+    "bytes": 10918,
+    "sha256": "afe7d6168d7b75b2202251fe1b6c17bf302bc10543f587d1dcc2685f9598c676"
+  },
+  {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-browser-after.log",
+    "bytes": 1808,
+    "sha256": "eb44a54c30a6ae0294256183e07493e09620b1d3900a0d5c9776f86b2ed73d3b"
+  },
+  {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-browser-before.log",
+    "bytes": 2124,
+    "sha256": "e41b1dee2d947ed4e6633fc782dd28b3a9b47092db9c21ed5720889edfa80b58"
+  },
+  {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-corrected-tests.log",
+    "bytes": 3966,
+    "sha256": "e7a6be3961e0afe267b66f8709c776e2b64ff7dad58b45f638daeb3140299b4b"
+  },
+  {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-css.py",
+    "bytes": 846,
+    "sha256": "c2f260895754b6c8a21082e1600dcfdd5231082ed2e247513f43f56bc05345c6"
+  },
+  {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-diff-check.log",
+    "bytes": 910,
+    "sha256": "d3003534d6e491bab000621192653efe49db4234b1ea2c86d4800b8bd0367405"
+  },
+  {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-driver.py",
+    "bytes": 1421,
+    "sha256": "d8b7082b596ed5414fc5eb6412aa9af7259b81f992f847ffebdd2895eec6e8a6"
+  },
+  {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-editorial.py",
+    "bytes": 5640,
+    "sha256": "b9ae898fd03bcbdbfdefe3c5f4007612e404a91499e22cf772af8d8695741e74"
+  },
+  {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-final-editorial.log",
+    "bytes": 3964,
+    "sha256": "a749c76013d3a67beef7f9db415bc519bd06a1397a862fbcccfd12fa7af568d0"
+  },
+  {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-final-fonts-corrected.log",
+    "bytes": 822,
+    "sha256": "6fbc2d6b4febd836f2435820c77360ee6c6ec821f6176d6f050f6e8ac6b1002d"
+  },
+  {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-final-fonts.log",
+    "bytes": 2454,
+    "sha256": "2a661c7def6e3aa1ed0691857109e65d7cee6b2e5579afdeeea41a16450609f4"
+  },
+  {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-final-images.log",
+    "bytes": 820,
+    "sha256": "2a81480540aec4937d2781b2d32d7e4664fe47737667e3b471e15fdc01055364"
+  },
+  {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-finalize.py",
+    "bytes": 12849,
+    "sha256": "5f400dcb6f7e8c39090a857588c5838ad020b95bc1c07c3f8e2fd9147bcbe8f8"
+  },
+  {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-font-correction.py",
+    "bytes": 522,
+    "sha256": "2caa5e28c1c915c2e44639907e7f65b74672303595b1204fc99d5d6432e64ff7"
+  },
+  {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-font-negative.log",
+    "bytes": 826,
+    "sha256": "17dc1d02f2da4a142c11a0ae6c4634cb2aa3293e86e550565bf3d5e422e85617"
+  },
+  {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-font-negative.py",
+    "bytes": 644,
+    "sha256": "45dd10bfa89ad94943d04e6ad913563c09d4e5b07bafbe533a54c98e4d509819"
+  },
+  {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-font-test-correction.py",
+    "bytes": 1360,
+    "sha256": "6e967e330393c021aefc08b15f9b187b962c3054ee5cf49c60b87c4b98d33ef0"
+  },
+  {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-frames.py",
+    "bytes": 1548,
+    "sha256": "450d3eff46940449bc08953eb45dee94069b1152f5ef034dc1d9990f62705594"
+  },
+  {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-full-check.log",
+    "bytes": 19608,
+    "sha256": "25dfc1c0ecc15a5066983a8fe3b6cff296c512a8e7d5b51c15c67b96afc4842c"
+  },
+  {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-guard.py",
+    "bytes": 767,
+    "sha256": "72d47ed173b00f0af4509cd2638152c62be5adf8e2593b11dae4ce2af05c6f20"
+  },
+  {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-import.py",
+    "bytes": 2051,
+    "sha256": "0912acc1aba33c036be4897333c356e4268a55c44ca089e9d30ca624b4a7694d"
+  },
+  {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-imported-tests.log",
+    "bytes": 12772,
+    "sha256": "4da355d3fc9ab6985ddd1e6648241e0e1f55bcf9857ddac9fd150adb882eca6a"
+  },
+  {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-staff-resolved.log",
+    "bytes": 1102,
+    "sha256": "192ad3701aa85ec1871e5aff27f942f5cd75d6681e3d9acc6496f6278b328b5b"
+  },
+  {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-staff.log",
+    "bytes": 2810,
+    "sha256": "c09ed8f5a5aaf2d5e4404ce7a5d2f78949dc0f6cdf57f852b4a383acfd9053df"
+  },
+  {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-stage-0.log",
+    "bytes": 109,
+    "sha256": "be377122b0518a9dde304ab3c26fd06a14e8d4507d20a72089bc79ad16ed5d83"
+  },
+  {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-stage-1.log",
+    "bytes": 169,
+    "sha256": "a6f6d59ba7874b497d2598098d74fc400fb0e91adc0f50822d33d5d756a70973"
+  },
+  {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-stage-2.log",
+    "bytes": 128,
+    "sha256": "714d41bc5b211930be67c461004f2a939c216ff52297041fa837885c52210adc"
+  },
+  {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-stage-3.log",
+    "bytes": 26,
+    "sha256": "9775f3ff3161d2ec33c8121ac13215e2b106161f1080f0dc50118f0c87532e82"
+  },
+  {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-stage-4.log",
+    "bytes": 1918,
+    "sha256": "afcf4170c361c82eb046659cafdf8815346022be0d4f663a6e4b8e6952d24f99"
+  },
+  {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-stage-5.log",
+    "bytes": 2078,
+    "sha256": "bd23efc107281f32ce1f92875ad1d34063ff43dff14b40cff9b243f67f4097a8"
+  },
+  {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-stage-6.log",
+    "bytes": 1513,
+    "sha256": "0057997eb70660096b4e0b654521a45ab9d25ca852f0c0e6625a049922349217"
+  },
+  {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-stage-7.log",
+    "bytes": 95,
+    "sha256": "4416c3fddecccca779b2529f067892c0b61cf5a8445f2962f995c64a25e2514b"
+  },
+  {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-stages.py",
+    "bytes": 1216,
+    "sha256": "84a5fb9702bbeae6141bfbf5c0277314005098cbcd039c4b0402b2f89b312dfb"
+  },
+  {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-summarize.py",
+    "bytes": 2272,
+    "sha256": "15a4af33530172e6005af3594b8e2b646a5150aa57cb47a6bab9771bdec0665d"
+  }
+]

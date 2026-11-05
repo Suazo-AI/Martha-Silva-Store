@@ -1,0 +1,163 @@
+{
+  "fixture": {
+    "items": {
+      "MOCK-BLUSA-M": {
+        "price": 35000,
+        "stock": 8
+      },
+      "MOCK-JEAN-30": {
+        "price": 90000,
+        "stock": 4
+      },
+      "MOCK-VESTIDO-S": {
+        "price": 120000,
+        "stock": 0
+      }
+    },
+    "opening": 10000,
+    "reviewers": [
+      "MOCK-MANAGER",
+      "MOCK-SUBSTITUTE"
+    ],
+    "withdrawers": [
+      "MOCK-MANAGER"
+    ],
+    "cashier": "MOCK-CAJA-A"
+  },
+  "journal": [
+    {
+      "action": {
+        "op": "sale",
+        "key": "S",
+        "lines": [
+          {
+            "sku": "MOCK-BLUSA-M",
+            "qty": 1
+          }
+        ],
+        "payments": {
+          "cash": 35000
+        },
+        "credit": false,
+        "actor": "MOCK-CAJA-A"
+      },
+      "expected": "applied",
+      "observed": "applied",
+      "error": null,
+      "whole_state_unchanged": false,
+      "lost_output": false,
+      "committed": true,
+      "response": "returned"
+    },
+    {
+      "action": {
+        "op": "close",
+        "actor": "MOCK-MANAGER",
+        "evidence": "MOCK-COUNT-SHEET",
+        "counted": 44500,
+        "shift": "MOCK-SHIFT-A"
+      },
+      "expected": "applied",
+      "observed": "applied",
+      "error": null,
+      "whole_state_unchanged": false,
+      "lost_output": false,
+      "committed": true,
+      "response": "returned"
+    }
+  ],
+  "state": {
+    "model": {
+      "items": {
+        "MOCK-BLUSA-M": {
+          "price": 35000,
+          "stock": 7
+        },
+        "MOCK-JEAN-30": {
+          "price": 90000,
+          "stock": 4
+        },
+        "MOCK-VESTIDO-S": {
+          "price": 120000,
+          "stock": 0
+        }
+      },
+      "sales": {
+        "MOCK-V0001": {
+          "id": "MOCK-V0001",
+          "actor": "MOCK-CAJA-A",
+          "lines": [
+            {
+              "sku": "MOCK-BLUSA-M",
+              "qty": 1,
+              "price": 35000,
+              "returned": 0,
+              "total": 35000
+            }
+          ],
+          "total": 35000,
+          "payments": {
+            "cash": 35000
+          },
+          "balance": 0,
+          "refund": 0,
+          "document": "SIMULADO-SIN-VALIDEZ-FISCAL"
+        }
+      },
+      "operations": {
+        "S": {
+          "fingerprint": "f02a537a93b0fd7b65e00ea8a948865fb44f73b2a7304e28b3e284e5a61924ce",
+          "sale": "MOCK-V0001"
+        }
+      },
+      "audit": [
+        {
+          "sequence": 1,
+          "kind": "sale",
+          "actor": "MOCK-CAJA-A",
+          "payload": {
+            "id": "MOCK-V0001",
+            "key": "S",
+            "total": 35000
+          },
+          "previous": "0000000000000000000000000000000000000000000000000000000000000000",
+          "hash": "12ff3f51366dad047e7142e41f455633a29a70b7b896516794bf7c4bbc050b65"
+        }
+      ],
+      "receipts": {},
+      "purchases": {},
+      "receivable": {
+        "MOCK-V0001": 0
+      },
+      "cash": 35000,
+      "transfer": 0
+    },
+    "admin": {
+      "pending": {},
+      "settled": {},
+      "settled_total": 0,
+      "withdrawals": 0,
+      "incidents": {},
+      "reviews": {},
+      "closes": {
+        "MOCK-SHIFT-A": {
+          "actor": "MOCK-MANAGER",
+          "evidence": "MOCK-COUNT-SHEET",
+          "counted": 44500,
+          "expected": 45000,
+          "difference": -500,
+          "cause": "open"
+        }
+      },
+      "audit": [
+        {
+          "op": "close",
+          "actor": "MOCK-MANAGER",
+          "evidence": "MOCK-COUNT-SHEET",
+          "counted": 44500,
+          "shift": "MOCK-SHIFT-A"
+        }
+      ]
+    }
+  }
+}

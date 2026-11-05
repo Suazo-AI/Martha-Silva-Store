@@ -1,0 +1,8 @@
+{
+  "index_before_equivalent_after_removing_added_sources": true,
+  "catalog_unchanged": true,
+  "historic_expected_catalog_sha": "bd5e8b959174d1e4eadfca98221f291c9a4ee2475cec8d201036e391d6f02a14",
+  "actual_before_catalog_sha": "1495e8a10a2cde56ddb0087051c327949389f775977f41b7d4b676f37f3cd343",
+  "before_lead_src": "/generated-luxury/champagne/01-front-v1.png",
+  "inference": "Four luxury-editorial failures refer to pre-luxury-publication editorial assets and catalog hash; removing additions restores byte-exact before index. No fixture modified."
+}

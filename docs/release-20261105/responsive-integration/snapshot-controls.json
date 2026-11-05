@@ -1,0 +1,24 @@
+{
+  "scope": "Manifest sensitivity; source/dist and structural guards unchanged. No product mutation.",
+  "results": [
+    {
+      "control": "missing_path",
+      "exit": 1,
+      "observed": "Public paths differ from recorded publication"
+    },
+    {
+      "control": "altered_hash",
+      "exit": 1,
+      "observed": "Publication bytes differ from the recorded snapshot"
+    },
+    {
+      "control": "extra_path",
+      "exit": 1,
+      "observed": "Public paths differ from recorded publication"
+    },
+    {
+      "control": "restored",
+      "exit": 0
+    }
+  ]
+}
