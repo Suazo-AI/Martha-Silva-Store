@@ -45,7 +45,7 @@
   function seasonalOffers(season = 'graduaciones') {
     const root = $('[data-seasonal-offers]'); if (!root) return;
     const active = Object.prototype.hasOwnProperty.call(seasonalNames,season) ? season : 'graduaciones';
-    $('[data-seasonal-season]',root).forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.seasonalSeason === active)));
+    $$('[data-seasonal-season]',root).forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.seasonalSeason === active)));
     const matching = products.filter(p=>isApprovedSeasonalOffer(p,active,nicaraguaDate()));
     const html = matching.map(p=>{
       const previous = p.seasonal_offer.previous_price_minor;
