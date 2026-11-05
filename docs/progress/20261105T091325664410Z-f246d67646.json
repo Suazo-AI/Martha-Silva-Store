@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-05T09:13:25.664410+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "d71f6babf774a9baf609a052654f0052cbd90bd5"
+    },
+    {
+      "path": "docs/sisfain-reference-20261105/EVIDENCE.json",
+      "change": "A",
+      "git_blob": "0b40c5dc6171af422bde89b2d5b26d1784ef059c"
+    },
+    {
+      "path": "docs/sisfain-reference-20261105/README.md",
+      "change": "A",
+      "git_blob": "b6482c76316985bbf56c58c6f856680dd42ade44"
+    },
+    {
+      "path": "docs/sisfain-reference-20261105/critic.md",
+      "change": "A",
+      "git_blob": "d61e0cb3012dcbebba93ee92451cd038142739c0"
+    },
+    {
+      "path": "docs/sisfain-reference-20261105/jury.md",
+      "change": "A",
+      "git_blob": "783b9936af90df620ce619b64feb25b5bd37ad47"
+    },
+    {
+      "path": "docs/sisfain-reference-20261105/primary-review.md",
+      "change": "A",
+      "git_blob": "dc5028ea5df7db5cc2a1876e1ea910ad5f414da8"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

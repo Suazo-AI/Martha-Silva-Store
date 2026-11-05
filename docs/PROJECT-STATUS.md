@@ -3,6 +3,16 @@
 Corte operativo: 2026-11-04 UTC. Host coordinador: SUAZO-PC. Checkout canónico `github`, rama `Tony`.
 **No listo para producción. C6/C8 y C11 pasan técnicamente; C9 sigue bloqueado por confianza TLS.**
 
+Referencia visual revisada, 2026-11-05 UTC: [SISFAIN Pro 4.0 y brechas operativas](sisfain-reference-20261105/README.md).
+Descarga original validada y fotogramas inspeccionados; el promo no confirma los módulos usados por Martha.
+La recepción de compras tiene API, pero sigue pendiente en la pantalla de personal; los pagos internos siguen `not_processed`.
+La recomendación es cerrar un día completo de operación con datos ficticios y aceptación por flujo, usando D-029.
+La transcripción AssemblyAI falló sin texto utilizable. La evidencia es visual y muestreada; no cierra C2/C9/C10 ni producción.
+También se actualizaron nueve archivos globales para FFmpeg con inspección directa o AGY `gemini-3.8-flash-high` / `high`.
+La carga de esas instrucciones en sesiones nuevas de todos los clientes y en otros hosts sigue NOT RUN.
+La [revisión final](sisfain-reference-20261105/primary-review.md) acepta el estudio y las reglas locales con límites: Opus vía Antigravity/high, Astra/high y cero hallazgos materiales abiertos.
+La regla global de orquestación y sus adaptadores pasan 51 comprobaciones estáticas actuales; la carga en sesión nueva y la calificación GLM/DeepSeek siguen NOT RUN.
+
 Actualización de pruebas y documentación, 2026-11-05 UTC: [simulaciones de fallas aceptadas con límites](failure-simulation-20261105/primary-review.md).
 Diez familias, 32 variaciones deterministas y 192 acciones fijas; focused 50/50 y staff 102/102, exit 0.
 El primary reforzó el fixture F07 después del crítico; el jurado dejó cero hallazgos materiales abiertos.
