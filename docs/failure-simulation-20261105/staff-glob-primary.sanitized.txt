@@ -1,0 +1,624 @@
+TAP version 13
+# Subtest: login renews CSRF after identity changes and verifies the server session before access
+ok 1 - login renews CSRF after identity changes and verifies the server session before access
+  ---
+  duration_ms: 68.6602
+  type: 'test'
+  ...
+# Subtest: unverified clients cannot read directory data
+ok 2 - unverified clients cannot read directory data
+  ---
+  duration_ms: 0.5785
+  type: 'test'
+  ...
+# Subtest: a login/session identity mismatch never grants directory access
+ok 3 - a login/session identity mismatch never grants directory access
+  ---
+  duration_ms: 1.1423
+  type: 'test'
+  ...
+# Subtest: an expired or revoked session clears client access on 401
+ok 4 - an expired or revoked session clears client access on 401
+  ---
+  duration_ms: 1.5626
+  type: 'test'
+  ...
+# Subtest: failed revalidation cannot retain an earlier verified session
+ok 5 - failed revalidation cannot retain an earlier verified session
+  ---
+  duration_ms: 5.0259
+  type: 'test'
+  ...
+# Subtest: 403 stays a permission denial and cannot be presented as an empty directory
+ok 6 - 403 stays a permission denial and cannot be presented as an empty directory
+  ---
+  duration_ms: 0.9736
+  type: 'test'
+  ...
+# Subtest: the read client refuses external origins and undeclared operations before transport
+ok 7 - the read client refuses external origins and undeclared operations before transport
+  ---
+  duration_ms: 12.6682
+  type: 'test'
+  ...
+# Subtest: logout obtains identity-bound CSRF and accepts the documented empty 204
+ok 8 - logout obtains identity-bound CSRF and accepts the documented empty 204
+  ---
+  duration_ms: 2.6929
+  type: 'test'
+  ...
+# Subtest: a timeout does not manufacture a verified session
+ok 9 - a timeout does not manufacture a verified session
+  ---
+  duration_ms: 24.3589
+  type: 'test'
+  ...
+# Subtest: a late private response after 401 is discarded at headers
+ok 10 - a late private response after 401 is discarded at headers
+  ---
+  duration_ms: 8.5254
+  type: 'test'
+  ...
+# Subtest: a late private response after 401 is discarded at body
+ok 11 - a late private response after 401 is discarded at body
+  ---
+  duration_ms: 4.5594
+  type: 'test'
+  ...
+# Subtest: session revalidation cannot revive access after a concurrent request returns 401
+ok 12 - session revalidation cannot revive access after a concurrent request returns 401
+  ---
+  duration_ms: 1.311
+  type: 'test'
+  ...
+# Subtest: Manager opens items and cannot trigger a customer read through hidden controls
+ok 13 - Manager opens items and cannot trigger a customer read through hidden controls
+  ---
+  duration_ms: 359.3894
+  type: 'test'
+  ...
+# Subtest: Manager client refuses both Party feeds before transport but retains catalog reads
+ok 14 - Manager client refuses both Party feeds before transport but retains catalog reads
+  ---
+  duration_ms: 42.5244
+  type: 'test'
+  ...
+# Subtest: Cashier opens items and cannot trigger a customer read through hidden controls
+ok 15 - Cashier opens items and cannot trigger a customer read through hidden controls
+  ---
+  duration_ms: 211.4457
+  type: 'test'
+  ...
+# Subtest: Cashier client refuses both Party feeds before transport but retains catalog reads
+ok 16 - Cashier client refuses both Party feeds before transport but retains catalog reads
+  ---
+  duration_ms: 6.3516
+  type: 'test'
+  ...
+# Subtest: Inventory opens items and cannot trigger a customer read through hidden controls
+ok 17 - Inventory opens items and cannot trigger a customer read through hidden controls
+  ---
+  duration_ms: 167.3935
+  type: 'test'
+  ...
+# Subtest: Inventory client refuses both Party feeds before transport but retains catalog reads
+ok 18 - Inventory client refuses both Party feeds before transport but retains catalog reads
+  ---
+  duration_ms: 0.8752
+  type: 'test'
+  ...
+# Subtest: Owner opens customers and a later server denial is an error, not empty success
+ok 19 - Owner opens customers and a later server denial is an error, not empty success
+  ---
+  duration_ms: 130.8333
+  type: 'test'
+  ...
+# Subtest: missing verified session keeps 401 and makes no Party request
+ok 20 - missing verified session keeps 401 and makes no Party request
+  ---
+  duration_ms: 1.9239
+  type: 'test'
+  ...
+# Subtest: Owner client still uses the existing authenticated Party contracts
+ok 21 - Owner client still uses the existing authenticated Party contracts
+  ---
+  duration_ms: 2.3754
+  type: 'test'
+  ...
+# Subtest: stock comes from the selected location and absent balances are not invented
+ok 22 - stock comes from the selected location and absent balances are not invented
+  ---
+  duration_ms: 207.4896
+  type: 'test'
+  ...
+# Subtest: double submit sends one frozen sale and displays only a confirmed receipt
+ok 23 - double submit sends one frozen sale and displays only a confirmed receipt
+  ---
+  duration_ms: 130.9315
+  type: 'test'
+  ...
+# Subtest: lost response locks a new sale; retry reuses the exact key and payload
+ok 24 - lost response locks a new sale; retry reuses the exact key and payload
+  ---
+  duration_ms: 62.2231
+  type: 'test'
+  ...
+# Subtest: reload recovers an unresolved operation without sending a second sale
+ok 25 - reload recovers an unresolved operation without sending a second sale
+  ---
+  duration_ms: 70.6774
+  type: 'test'
+  ...
+# Subtest: operation not found keeps the original operation unresolved
+ok 26 - operation not found keeps the original operation unresolved
+  ---
+  duration_ms: 57.1557
+  type: 'test'
+  ...
+# Subtest: 401 clears rendered stock, receipt and controls
+ok 27 - 401 clears rendered stock, receipt and controls
+  ---
+  duration_ms: 74.8258
+  type: 'test'
+  ...
+# Subtest: unavailable durable operation storage prevents both the initial write and retry
+ok 28 - unavailable durable operation storage prevents both the initial write and retry
+  ---
+  duration_ms: 50.202
+  type: 'test'
+  ...
+# Subtest: late stock response cannot repopulate a cleared session
+ok 29 - late stock response cannot repopulate a cleared session
+  ---
+  duration_ms: 48.587
+  type: 'test'
+  ...
+# Subtest: receipt validation rejects mismatched quantity, actor-independent arithmetic and unknown payment status
+ok 30 - receipt validation rejects mismatched quantity, actor-independent arithmetic and unknown payment status
+  ---
+  duration_ms: 2.1938
+  type: 'test'
+  ...
+# Subtest: commerce transport uses fresh CSRF and original idempotency key without client prices
+ok 31 - commerce transport uses fresh CSRF and original idempotency key without client prices
+  ---
+  duration_ms: 35.0158
+  type: 'test'
+  ...
+# Subtest: recovery decodes the real successful command envelope
+ok 32 - recovery decodes the real successful command envelope
+  ---
+  duration_ms: 2.3443
+  type: 'test'
+  ...
+# Subtest: confirmed rejected command unlocks the form and clears only its pending reference
+ok 33 - confirmed rejected command unlocks the form and clears only its pending reference
+  ---
+  duration_ms: 57.8145
+  type: 'test'
+  ...
+# Subtest: malformed completed outcome stays unresolved and cannot unlock a new sale
+ok 34 - malformed completed outcome stays unresolved and cannot unlock a new sale
+  ---
+  duration_ms: 56.1711
+  type: 'test'
+  ...
+# Subtest: multiarticle cart adds, edits and removes either row without losing remaining quantities
+ok 35 - multiarticle cart adds, edits and removes either row without losing remaining quantities
+  ---
+  duration_ms: 84.8669
+  type: 'test'
+  ...
+# Subtest: multiarticle double submit freezes all lines and renders the server total and every item
+ok 36 - multiarticle double submit freezes all lines and renders the server total and every item
+  ---
+  duration_ms: 77.6825
+  type: 'test'
+  ...
+# Subtest: duplicate articles and fractional quantities never create or persist a sale
+ok 37 - duplicate articles and fractional quantities never create or persist a sale
+  ---
+  duration_ms: 50.8794
+  type: 'test'
+  ...
+# Subtest: multiarticle retry sends the original full body and key after response loss
+ok 38 - multiarticle retry sends the original full body and key after response loss
+  ---
+  duration_ms: 49.1141
+  type: 'test'
+  ...
+# Subtest: multiarticle reload displays and recovers the original lines even when an item left the catalog
+ok 39 - multiarticle reload displays and recovers the original lines even when an item left the catalog
+  ---
+  duration_ms: 35.797
+  type: 'test'
+  ...
+# Subtest: request bounds and case-insensitive distinct item identities are enforced
+ok 40 - request bounds and case-insensitive distinct item identities are enforced
+  ---
+  duration_ms: 0.7998
+  type: 'test'
+  ...
+# Subtest: multiarticle receipts match every requested item and quantity independently of ordering
+ok 41 - multiarticle receipts match every requested item and quantity independently of ordering
+  ---
+  duration_ms: 2.3061
+  type: 'test'
+  ...
+# Subtest: denied bootstrap leaves the workspace closed and never reads business data
+ok 42 - denied bootstrap leaves the workspace closed and never reads business data
+  ---
+  duration_ms: 254.2956
+  type: 'test'
+  ...
+# Subtest: 401 from an older concurrent read invalidates the UI and drops a newer success
+ok 43 - 401 from an older concurrent read invalidates the UI and drops a newer success
+  ---
+  duration_ms: 162.6849
+  type: 'test'
+  ...
+# Subtest: directory names are rendered as text, and an unavailable write stays disabled
+ok 44 - directory names are rendered as text, and an unavailable write stays disabled
+  ---
+  duration_ms: 118.0816
+  type: 'test'
+  ...
+# Subtest: 403 is shown as an error instead of a zero-result customer list
+ok 45 - 403 is shown as an error instead of a zero-result customer list
+  ---
+  duration_ms: 146.2895
+  type: 'test'
+  ...
+# Subtest: logout hides and clears private data before the server response arrives
+ok 46 - logout hides and clears private data before the server response arrives
+  ---
+  duration_ms: 176.117
+  type: 'test'
+  ...
+# Subtest: F01 held pending recovery blocks submit and retry until original recovery completes
+ok 47 - F01 held pending recovery blocks submit and retry until original recovery completes
+  ---
+  duration_ms: 358.6179
+  type: 'test'
+  ...
+# Subtest: F02 obsolete receipt discard permits a complete new multiarticle sale
+ok 48 - F02 obsolete receipt discard permits a complete new multiarticle sale
+  ---
+  duration_ms: 116.0257
+  type: 'test'
+  ...
+# Subtest: F03 late obsolete404 from an earlier generation cannot erase a newer pending sale
+ok 49 - F03 late obsolete404 from an earlier generation cannot erase a newer pending sale
+  ---
+  duration_ms: 99.2601
+  type: 'test'
+  ...
+# Subtest: F04 response loss retry and reload preserve original full body and key
+ok 50 - F04 response loss retry and reload preserve original full body and key
+  ---
+  duration_ms: 143.9165
+  type: 'test'
+  ...
+# Subtest: F05 delayed POST double submit sends exactly one full operation
+ok 51 - F05 delayed POST double submit sends exactly one full operation
+  ---
+  duration_ms: 63.2871
+  type: 'test'
+  ...
+# Subtest: F06 failed pending storage prevents initial and retry POST
+ok 52 - F06 failed pending storage prevents initial and retry POST
+  ---
+  duration_ms: 47.8124
+  type: 'test'
+  ...
+# Subtest: F07 revoked session rejects a late POST response without repopulating DOM
+ok 53 - F07 revoked session rejects a late POST response without repopulating DOM
+  ---
+  duration_ms: 62.5929
+  type: 'test'
+  ...
+# Subtest: F08 operation404 remains pending; durable rejected outcome unlocks without POST
+ok 54 - F08 operation404 remains pending; durable rejected outcome unlocks without POST
+  ---
+  duration_ms: 60.9472
+  type: 'test'
+  ...
+# Subtest: F09 corrupted HTTP receipts cannot confirm or clear original operation
+    # Subtest: malformed
+    ok 1 - malformed
+      ---
+      duration_ms: 43.9999
+      type: 'test'
+      ...
+    # Subtest: missing
+    ok 2 - missing
+      ---
+      duration_ms: 49.9864
+      type: 'test'
+      ...
+    # Subtest: duplicateItem
+    ok 3 - duplicateItem
+      ---
+      duration_ms: 61.3399
+      type: 'test'
+      ...
+    # Subtest: duplicateLine
+    ok 4 - duplicateLine
+      ---
+      duration_ms: 56.194
+      type: 'test'
+      ...
+    # Subtest: alteredTotal
+    ok 5 - alteredTotal
+      ---
+      duration_ms: 56.4504
+      type: 'test'
+      ...
+    # Subtest: alteredQuantity
+    ok 6 - alteredQuantity
+      ---
+      duration_ms: 60.6763
+      type: 'test'
+      ...
+    # Subtest: wrongLocation
+    ok 7 - wrongLocation
+      ---
+      duration_ms: 54.1848
+      type: 'test'
+      ...
+    # Subtest: fractional
+    ok 8 - fractional
+      ---
+      duration_ms: 42.7848
+      type: 'test'
+      ...
+    1..8
+ok 55 - F09 corrupted HTTP receipts cannot confirm or clear original operation
+  ---
+  duration_ms: 428.7167
+  type: 'test'
+  ...
+# Subtest: F10 deterministic receipt/quantity sweep: 32 seeds, 192 explicit actions, 8 fault classes
+    # Subtest: seed=1
+    ok 1 - seed=1
+      ---
+      duration_ms: 0.4978
+      type: 'test'
+      ...
+    # Subtest: seed=2
+    ok 2 - seed=2
+      ---
+      duration_ms: 0.144
+      type: 'test'
+      ...
+    # Subtest: seed=3
+    ok 3 - seed=3
+      ---
+      duration_ms: 0.1009
+      type: 'test'
+      ...
+    # Subtest: seed=4
+    ok 4 - seed=4
+      ---
+      duration_ms: 0.097
+      type: 'test'
+      ...
+    # Subtest: seed=5
+    ok 5 - seed=5
+      ---
+      duration_ms: 0.3985
+      type: 'test'
+      ...
+    # Subtest: seed=6
+    ok 6 - seed=6
+      ---
+      duration_ms: 0.1989
+      type: 'test'
+      ...
+    # Subtest: seed=7
+    ok 7 - seed=7
+      ---
+      duration_ms: 0.4205
+      type: 'test'
+      ...
+    # Subtest: seed=8
+    ok 8 - seed=8
+      ---
+      duration_ms: 0.193
+      type: 'test'
+      ...
+    # Subtest: seed=9
+    ok 9 - seed=9
+      ---
+      duration_ms: 0.2157
+      type: 'test'
+      ...
+    # Subtest: seed=10
+    ok 10 - seed=10
+      ---
+      duration_ms: 0.1241
+      type: 'test'
+      ...
+    # Subtest: seed=11
+    ok 11 - seed=11
+      ---
+      duration_ms: 0.1558
+      type: 'test'
+      ...
+    # Subtest: seed=12
+    ok 12 - seed=12
+      ---
+      duration_ms: 0.5362
+      type: 'test'
+      ...
+    # Subtest: seed=13
+    ok 13 - seed=13
+      ---
+      duration_ms: 0.311
+      type: 'test'
+      ...
+    # Subtest: seed=14
+    ok 14 - seed=14
+      ---
+      duration_ms: 0.2924
+      type: 'test'
+      ...
+    # Subtest: seed=15
+    ok 15 - seed=15
+      ---
+      duration_ms: 0.2872
+      type: 'test'
+      ...
+    # Subtest: seed=16
+    ok 16 - seed=16
+      ---
+      duration_ms: 0.2172
+      type: 'test'
+      ...
+    # Subtest: seed=17
+    ok 17 - seed=17
+      ---
+      duration_ms: 0.2016
+      type: 'test'
+      ...
+    # Subtest: seed=18
+    ok 18 - seed=18
+      ---
+      duration_ms: 0.1861
+      type: 'test'
+      ...
+    # Subtest: seed=19
+    ok 19 - seed=19
+      ---
+      duration_ms: 0.1202
+      type: 'test'
+      ...
+    # Subtest: seed=20
+    ok 20 - seed=20
+      ---
+      duration_ms: 0.0873
+      type: 'test'
+      ...
+    # Subtest: seed=21
+    ok 21 - seed=21
+      ---
+      duration_ms: 0.2167
+      type: 'test'
+      ...
+    # Subtest: seed=22
+    ok 22 - seed=22
+      ---
+      duration_ms: 0.1275
+      type: 'test'
+      ...
+    # Subtest: seed=23
+    ok 23 - seed=23
+      ---
+      duration_ms: 0.1359
+      type: 'test'
+      ...
+    # Subtest: seed=24
+    ok 24 - seed=24
+      ---
+      duration_ms: 0.174
+      type: 'test'
+      ...
+    # Subtest: seed=25
+    ok 25 - seed=25
+      ---
+      duration_ms: 0.2116
+      type: 'test'
+      ...
+    # Subtest: seed=26
+    ok 26 - seed=26
+      ---
+      duration_ms: 0.2738
+      type: 'test'
+      ...
+    # Subtest: seed=27
+    ok 27 - seed=27
+      ---
+      duration_ms: 0.1675
+      type: 'test'
+      ...
+    # Subtest: seed=28
+    ok 28 - seed=28
+      ---
+      duration_ms: 0.65
+      type: 'test'
+      ...
+    # Subtest: seed=29
+    ok 29 - seed=29
+      ---
+      duration_ms: 0.1743
+      type: 'test'
+      ...
+    # Subtest: seed=30
+    ok 30 - seed=30
+      ---
+      duration_ms: 0.7753
+      type: 'test'
+      ...
+    # Subtest: seed=31
+    ok 31 - seed=31
+      ---
+      duration_ms: 0.2698
+      type: 'test'
+      ...
+    # Subtest: seed=32
+    ok 32 - seed=32
+      ---
+      duration_ms: 0.3039
+      type: 'test'
+      ...
+    1..32
+ok 56 - F10 deterministic receipt/quantity sweep: 32 seeds, 192 explicit actions, 8 fault classes
+  ---
+  duration_ms: 13.1179
+  type: 'test'
+  ...
+# Subtest: Directory pagination sends the applied query, inactive flag and explicit skip/take
+ok 57 - Directory pagination sends the applied query, inactive flag and explicit skip/take
+  ---
+  duration_ms: 47.1111
+  type: 'test'
+  ...
+# Subtest: invalid query bounds are rejected before Directory transport
+ok 58 - invalid query bounds are rejected before Directory transport
+  ---
+  duration_ms: 3.0929
+  type: 'test'
+  ...
+# Subtest: inconsistent response pages are rejected, but an empty page beyond the total is valid
+ok 59 - inconsistent response pages are rejected, but an empty page beyond the total is valid
+  ---
+  duration_ms: 11.7283
+  type: 'test'
+  ...
+# Subtest: next/previous, applied search and sizes 25/50/100 navigate real Directory pages without enabling writes
+ok 60 - next/previous, applied search and sizes 25/50/100 navigate real Directory pages without enabling writes
+  ---
+  duration_ms: 992.9778
+  type: 'test'
+  ...
+# Subtest: a failed next page stays visibly unconfirmed and disables the pager until a successful search
+ok 61 - a failed next page stays visibly unconfirmed and disables the pager until a successful search
+  ---
+  duration_ms: 138.2034
+  type: 'test'
+  ...
+# Subtest: an older page 401 revokes the workspace and prevents a newer page response from repopulating it
+ok 62 - an older page 401 revokes the workspace and prevents a newer page response from repopulating it
+  ---
+  duration_ms: 160.3442
+  type: 'test'
+  ...
+1..62
+# tests 102
+# suites 0
+# pass 102
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2813.9521

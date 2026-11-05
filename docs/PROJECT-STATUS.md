@@ -3,6 +3,15 @@
 Corte operativo: 2026-11-04 UTC. Host coordinador: SUAZO-PC. Checkout canónico `github`, rama `Tony`.
 **No listo para producción. C6/C8 y C11 pasan técnicamente; C9 sigue bloqueado por confianza TLS.**
 
+Actualización de pruebas y documentación, 2026-11-05 UTC: [simulaciones de fallas aceptadas con límites](failure-simulation-20261105/primary-review.md).
+Diez familias, 32 variaciones deterministas y 192 acciones fijas; focused 50/50 y staff 102/102, exit 0.
+El primary reforzó el fixture F07 después del crítico; el jurado dejó cero hallazgos materiales abiertos.
+No se reprodujo un defecto ni se cambió producto. jsdom y HTTP simulado no cierran criterios de navegador, SQL ni operación.
+La validación general local se detuvo por WinError 1314 al crear symlinks; ver evidencia y ruta alternativa Linux en la revisión.
+Se integraron cuatro [archivos públicos de agent-awareness](agent-awareness-20261104/README.md), por copia exacta y con exclusiones revisadas.
+No se instaló configuración desde el checkout. Observar carga automática en sesiones nuevas de Codex y Claude sigue NOT RUN.
+La publicación en Tony exige readback remoto y CI del SHA que contiene este avance; no equivale a merge ni despliegue.
+
 Actualización de alcance, 2026-11-04 America/Managua: Jason exige venta multiartículo
 en una factura y sustitución de SISFAIN, no mantenerlo como integración objetivo
 ([D-023/D-024](DECISIONS.md#d-023--venta-multiartículo-obligatoria)).

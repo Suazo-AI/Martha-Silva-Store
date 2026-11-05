@@ -1,0 +1,82 @@
+{
+  "task_id": "SAVIA-FAULT-SIM-20261105",
+  "status": "LOCAL_PASS_PENDING_PRIMARY_REVIEW",
+  "cases": [
+    {
+      "id": "F01",
+      "criterion": "submit during held pending recovery",
+      "result": "PASS",
+      "test_file": "dev/savia-staff-ui/failure-simulation.test.mjs"
+    },
+    {
+      "id": "F02",
+      "criterion": "complete new sale after obsolete receipt discard",
+      "result": "PASS",
+      "test_file": "dev/savia-staff-ui/failure-simulation.test.mjs"
+    },
+    {
+      "id": "F03",
+      "criterion": "late obsolete404 racing new sale across clear/start generation",
+      "limit": "Same-generation sale is blocked while start awaits obsolete receipt. Cross-generation late response exercised.",
+      "result": "PASS",
+      "test_file": "dev/savia-staff-ui/failure-simulation.test.mjs"
+    },
+    {
+      "id": "F04",
+      "criterion": "response loss retry/reload original key and full multiarticle body",
+      "result": "PASS",
+      "test_file": "dev/savia-staff-ui/failure-simulation.test.mjs"
+    },
+    {
+      "id": "F05",
+      "criterion": "double submit while delayed",
+      "result": "PASS",
+      "test_file": "dev/savia-staff-ui/failure-simulation.test.mjs"
+    },
+    {
+      "id": "F06",
+      "criterion": "storage write failure prevents POST",
+      "result": "PASS",
+      "test_file": "dev/savia-staff-ui/failure-simulation.test.mjs"
+    },
+    {
+      "id": "F07",
+      "criterion": "revoked session and late response cannot repopulate",
+      "result": "PASS",
+      "test_file": "dev/savia-staff-ui/failure-simulation.test.mjs"
+    },
+    {
+      "id": "F08",
+      "criterion": "operation404 pending then durable rejection unlocks",
+      "result": "PASS",
+      "test_file": "dev/savia-staff-ui/failure-simulation.test.mjs"
+    },
+    {
+      "id": "F09",
+      "criterion": "malformed/missing/duplicate lines and altered totals cannot confirm",
+      "samples": 8,
+      "result": "PASS",
+      "test_file": "dev/savia-staff-ui/failure-simulation.test.mjs"
+    },
+    {
+      "id": "F10",
+      "criterion": "deterministic quantity/receipt variations",
+      "seeds": 32,
+      "actions": 192,
+      "independent_fault_classes": 8,
+      "result": "PASS",
+      "test_file": "dev/savia-staff-ui/failure-simulation.test.mjs"
+    }
+  ],
+  "unsupported": [
+    "SQL transaction persistence and duplicate sale prevention on server",
+    "real browser/device",
+    "tab closure or cross-device recovery"
+  ],
+  "limits": {
+    "max_seeds": 100,
+    "max_actions": 10000,
+    "max_test_executions": 3,
+    "extra_focused_only_after_harness_correction": 1
+  }
+}

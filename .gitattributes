@@ -5,6 +5,9 @@ dist/prototypes/** -text -whitespace
 
 # Frozen public evidence keeps the original source bytes across Windows/Linux.
 evidence/savia/20261030/** -text -whitespace
+# Archival exports retain bytes and accept CRLF while keeping ordinary whitespace checks.
+docs/agent-awareness-20261104/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
+docs/failure-simulation-20261105/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
 .githooks/* text eol=lf
 
 # Snapshot manifests hash LF bytes; Windows checkout must preserve those bytes.

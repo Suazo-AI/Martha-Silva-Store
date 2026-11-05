@@ -1,0 +1,148 @@
+v24.18.0
+Python 3.11.9
+
+== Reproducible snapshot build ==
+Prepared 47 pages / 40 sample products / 1082 files: C:\Users\Jason\AppData\Local\Temp\martha-build-test-7jh_l974\dist
+Prepared 47 pages / 40 sample products / 1082 files: C:\Users\Jason\AppData\Local\Temp\martha-build-test-7jh_l974\dist
+PASS: clean and repeat builds match all 1082 paths and SHA-256 hashes
+
+== Recovered fixture ==
+PASS: 47 pages / 40 sample products / 120 variants; src/dist app.js, demo-api.js and integration-adapters.js match
+
+== Backend simulation ==
+✔ legacy fixture catalog and quantity validation (3.3925ms)
+✔ corrupt persisted state recovers safely (0.927ms)
+✔ untrusted saved quantity cannot produce negative prices (0.3003ms)
+✔ reservation expires and cannot later be paid (5.3278ms)
+✔ checkout and payment retries cannot double decrement inventory (0.8241ms)
+✔ stale quote and reservation-aware inventory adjustment (1.3102ms)
+✔ returns enforce purchased quantity and refund/restock exactly once (1.9522ms)
+✔ admin is expressly local preview, logout gates mutations but login requires no credentials (0.2504ms)
+✔ unknown prototype-like order ID is not an order (0.1959ms)
+✔ malformed bodies yield actionable validation instead of TypeError (0.3755ms)
+✔ write failure is explicit and does not commit memory (0.2227ms)
+✔ legacy orders without explicit expiry also release abandoned reservations (0.3935ms)
+✔ expired quote fails without creating an order (0.2637ms)
+✔ declined or cancelled payment releases stock once, and terminal retry cannot approve it (0.7063ms)
+✔ returns reject malformed lines and duplicate quantities exceeding purchased stock (0.7178ms)
+✔ memory-only mode remains usable when localStorage is unavailable (0.1758ms)
+✔ failed reset preserves in-memory cart (0.2047ms)
+✔ repeated concurrent checkout and payment calls are idempotent in one instance (1.5674ms)
+✔ corrupt quote totals cannot change the checkout price (0.2652ms)
+✔ invalid snapshots are preserved exactly in a single recovery slot before fallback writes (0.8347ms)
+✔ existing different recovery snapshot prevents destructive overwrite of either saved copy (0.2138ms)
+✔ failed recovery backup does not overwrite damaged primary state (0.1657ms)
+✔ valid legacy saved orders load unchanged and do not create a recovery backup (1.0382ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 133.7131
+
+== Dual integration adapters (local/synthetic only) ==
+✔ descriptors identify two disconnected demo models and cannot enable production (5.3151ms)
+✔ demo cart, inventory, orders, retry keys and reset are isolated by mode (16.5534ms)
+✔ local key replay rejects a new quote or changed customer data but allows exact and key-only recovery (3.4684ms)
+✔ missing local catalog fails explicitly instead of advertising an empty loaded integration (0.2949ms)
+✔ unscoped legacy state is not imported into either integration (2.1639ms)
+✔ cross-mode quote/order/return references and synthetic origins fail before mutation (2.3375ms)
+✔ return workflow keeps all outward references scoped including admin lists (4.2335ms)
+✔ CGA route simulation never issues a vendor request and rejects invented external routes (1.7946ms)
+✔ both model families expose the same canonical catalog fields without conflating currency or IDs (4.6013ms)
+✔ HTTP adapter is unconfigured by default; synthetic writes require explicit opt-in (0.5992ms)
+✔ synthetic HTTP uses only documented paths, exact minimal body and credential-free options (2.3037ms)
+✔ synthetic input rejects mode mixing, local IDs, prices, contact, multi-lines and invalid keys before network (0.6037ms)
+✔ synthetic catalog rejects commercial, malformed, unsafe and duplicate data (1.3273ms)
+✔ synthetic order validates exact schema, amounts, lifecycle, UTC and request identity (1.3231ms)
+✔ problem codes are preserved without leaking arbitrary server message contents (0.2596ms)
+✔ unknown outcomes never auto-retry, mutate the caller or fallback; manual retry keeps the exact key (0.3155ms)
+✔ invalid JSON, missing response and unexpected success status remain fail-closed (0.2737ms)
+✔ browser export has no network bootstrap or CGA client (1.6734ms)
+✔ loopback HTTP fixture proves wire request and retry behavior, not .NET interoperability (113.3447ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 321.6818
+
+== Catalog expansion regression ==
+✔ known 6 to 120 expansion preserves the complete legacy snapshot and only adds fixture stock (9.4279ms)
+✔ old quote remains usable after expansion and checkout retries retain identity (3.2774ms)
+✔ pending reservation and payment idempotency survive migration and reopen (3.6134ms)
+✔ returns and refund retry never restock twice after migration (1.7254ms)
+✔ expired legacy reservations still expire once during expansion (0.9477ms)
+✔ failed migration write preserves original bytes and can be retried (1.0791ms)
+✔ corrupt legacy data and partial stock loss are backed up, never silently repaired (5.6247ms)
+✔ unknown catalog expansion is not eligible for legacy repair (3.883ms)
+✔ migration corruption with occupied recovery slot leaves both copies untouched (0.7286ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 135.4669
+
+== Complete original catalog and rendered media ==
+✔ the independent Green selection authorizes exactly four photos, six fields and 22 variants (25.0109ms)
+✔ the 18 original Green raster files remain byte-identical and available (17.0094ms)
+✔ all 40 products retain captured prices, variants and stock plus explicit published copy/media changes (1.6695ms)
+✔ all 40 current media records match the 152 independently recorded product-image selections (4.2813ms)
+✔ every rendered gallery, responsive image and product-video file exists locally without symlinks (419.0418ms)
+✔ all 774 historical media references remain available separately from the current selection (361.1236ms)
+✔ commerce checks reject price, stock and variant mutations despite published media exceptions (3.2692ms)
+✔ current media checks reject missing, cross-product and false-width references (8.3045ms)
+✔ the served full catalog supports the real legacy six-to-120 variant migration (3.3455ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1080.8001
+
+== Asset audit regression (not full catalog completion) ==
+..E..EE
+======================================================================
+ERROR: test_missing_and_symlink_not_read (__main__.AuditTests.test_missing_and_symlink_not_read)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Jason\MARTHA-SILVA\github\tests\asset-audit.py", line 87, in test_missing_and_symlink_not_read
+    (root / 'link.jpg').symlink_to(root / 'actual.jpg')
+  File "C:\Users\Jason\AppData\Local\Programs\Python\Python311\Lib\pathlib.py", line 1198, in symlink_to
+    os.symlink(target, self, target_is_directory)
+OSError: [WinError 1314] A required privilege is not held by the client: 'C:\\Users\\Jason\\AppData\\Local\\Temp\\tmp91x4e01y\\actual.jpg' -> 'C:\\Users\\Jason\\AppData\\Local\\Temp\\tmp91x4e01y\\link.jpg'
+
+======================================================================
+ERROR: test_symlinks_are_rejected_in_both_original_and_legacy_layouts (__main__.AuditTests.test_symlinks_are_rejected_in_both_original_and_legacy_layouts) (relative='research/assets/example/front.jpg')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Jason\MARTHA-SILVA\github\tests\asset-audit.py", line 68, in test_symlinks_are_rejected_in_both_original_and_legacy_layouts
+    link.symlink_to(original)
+  File "C:\Users\Jason\AppData\Local\Programs\Python\Python311\Lib\pathlib.py", line 1198, in symlink_to
+    os.symlink(target, self, target_is_directory)
+OSError: [WinError 1314] A required privilege is not held by the client: 'C:\\Users\\Jason\\AppData\\Local\\Temp\\tmpn1q8r1ay\\fixture.jpg' -> 'C:\\Users\\Jason\\AppData\\Local\\Temp\\tmpn1q8r1ay\\research\\assets\\example\\front.jpg'
+
+======================================================================
+ERROR: test_symlinks_are_rejected_in_both_original_and_legacy_layouts (__main__.AuditTests.test_symlinks_are_rejected_in_both_original_and_legacy_layouts) (relative='assets/research/assets/example/front.jpg')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Jason\MARTHA-SILVA\github\tests\asset-audit.py", line 68, in test_symlinks_are_rejected_in_both_original_and_legacy_layouts
+    link.symlink_to(original)
+  File "C:\Users\Jason\AppData\Local\Programs\Python\Python311\Lib\pathlib.py", line 1198, in symlink_to
+    os.symlink(target, self, target_is_directory)
+OSError: [WinError 1314] A required privilege is not held by the client: 'C:\\Users\\Jason\\AppData\\Local\\Temp\\tmpmon0pbyd\\fixture.jpg' -> 'C:\\Users\\Jason\\AppData\\Local\\Temp\\tmpmon0pbyd\\assets\\research\\assets\\example\\front.jpg'
+
+----------------------------------------------------------------------
+Ran 6 tests in 1.732s
+
+FAILED (errors=3)
+FAIL: command exited with status 1
