@@ -2,6 +2,11 @@
 
 Fecha local: 2026-11-04, America/Managua. Host SUAZO-PC.
 
+**Actualización D-029:** Jason eligió la reconstrucción guiada con datos ficticios.
+[Guion operativo preparado](../sprint-20261104/GUION-RECONSTRUCCION-MARTHA.md).
+La elección siguiente queda como historia; ya no es una decisión pendiente.
+La conversación todavía no fue coordinada ni realizada.
+
 ## Qué quedó resuelto
 
 La protección aprobada de `main` está instalada. Siete checks requeridos y cada campo

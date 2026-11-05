@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-05T02:01:35.490515+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/DECISIONS.md",
+      "change": "M",
+      "git_blob": "084605db067e3083b8a18e381d09365bfa60c140"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "18a323252e64e0a81a09ce9b1879775234448779"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "change": "M",
+      "git_blob": "e76f8137c4601b596162f0529afd249d72801bb4"
+    },
+    {
+      "path": "docs/sprint-20261104/CUESTIONARIO-MARTHA.md",
+      "change": "M",
+      "git_blob": "f7fcf6555b6688096a8d7ffcdb6ead792dd3bec2"
+    },
+    {
+      "path": "docs/sprint-20261104/GUION-RECONSTRUCCION-MARTHA.md",
+      "change": "A",
+      "git_blob": "ea1697eb05815013710b77075a74231d73e998d3"
+    },
+    {
+      "path": "docs/stock-decision-20261104/README.md",
+      "change": "M",
+      "git_blob": "c82f39dbe2ebc8e037a9836b53800418a4ea688d"
+    },
+    {
+      "path": "docs/stock-decision-20261104/decision-028-next.md",
+      "change": "M",
+      "git_blob": "71c3fcd2323354ab181dc64d4ff0f45abc7432b7"
+    },
+    {
+      "path": "docs/stock-decision-20261104/decision-029-critic.md",
+      "change": "A",
+      "git_blob": "c26f43b135f298bb316dd7091b94a899ed72456d"
+    },
+    {
+      "path": "docs/stock-decision-20261104/decision-029-jury.md",
+      "change": "A",
+      "git_blob": "2656311e1a83f7f4e515abf608738be61c8aaade"
+    },
+    {
+      "path": "docs/stock-decision-20261104/decision-029-receipt.json",
+      "change": "A",
+      "git_blob": "4a0f2d8703f0044f89a3bfb2af852cafe7f492be"
+    },
+    {
+      "path": "docs/stock-decision-20261104/decision-029-review.md",
+      "change": "A",
+      "git_blob": "3dab4ba714df4a6383afb616ade51bcde5bd9757"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

@@ -84,7 +84,7 @@
       "needs": {
         "decision": "D-026/D-027/D-028 adoptadas: excepción y revisión para ensayo; protección main aplicada y verificada. C1 no cerrada: variables efectivas y mecanismo de stock pendientes.",
         "decider": "jason",
-        "recommendation": "Conservar main protegida sin merge/deploy. Verificar variables antes de cualquier integración. Siguiente decisión de negocio propuesta C2: reconstrucción guiada con Martha usando datos ficticios; aún no elegida.",
+        "recommendation": "Conservar main protegida sin merge/deploy. Verificar variables antes de cualquier integración. D-029 adopta reconstrucción guiada C2 con Martha usando datos ficticios; falta coordinar y obtener respuestas.",
         "tool": "Configuración de GitHub (admin): protección de rama y variables de Actions"
       },
       "trello": "https://trello.com/c/e57qFLhJ",
@@ -100,18 +100,21 @@
       "track": "sprint",
       "owner": "jason",
       "status": "todo",
-      "title": "Datos reales de la tienda (cuestionario a Martha, solo agregados)",
+      "title": "Datos de operación: reconstrucción guiada con Martha y cuestionario complementario",
       "why": "Falta confirmar configuración y flujos de SISFAIN usados hoy, documento fiscal y equipo de caja; multiartículo y sustitución ya son requisitos",
       "done_when": "Respuestas agregadas, matriz de sustitución por flujo y configuración fiscal/equipo documentadas; no reabrir la obligatoriedad multiartículo",
       "alternatives": "Inventar paridad desde marketing o limitar a una línea (descartado por Jason)",
       "needs": {
-        "decision": "Versión y módulos de SISFAIN, medios de pago, crédito, documentos, exportación y equipo; multiartículo obligatorio según D-023 y sustitución según D-024",
-        "decider": "martha"
+        "decision": "D-029 elige reconstrucción guiada con datos ficticios. Faltan respuestas de Martha: versión/módulos, cobros, documentos, cierre, fiscalidad, exportación y equipo; sin reabrir multiartículo.",
+        "decider": "martha",
+        "recommendation": "Jason coordina disponibilidad y sigue GUION-RECONSTRUCCION-MARTHA.md. Registrar declarado/observado/pendiente; validar resumen con Martha y preparar matriz proceso-requisito-prueba-brecha. Sin ventas ficticias en producción."
       },
       "trello": "https://trello.com/c/aS0pUmYb",
       "paths": [
-        "docs/sprint-20261104/CUESTIONARIO-MARTHA.md"
-      ]
+        "docs/sprint-20261104/CUESTIONARIO-MARTHA.md",
+        "docs/sprint-20261104/GUION-RECONSTRUCCION-MARTHA.md"
+      ],
+      "prep": "D-029 adoptada: guion con venta ficticia multiartículo, efectivo/cambio, variantes condicionales, stock y cierre; hoja sin respuestas. Conversación no coordinada ni realizada, sin contacto externo. C2 sigue todo; no acredita producto ni ensayo."
     },
     {
       "id": "C3",

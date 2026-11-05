@@ -210,3 +210,26 @@ indicación de Jason; no hay reversión insegura automática.
 y [recibo Trello](stock-decision-20261104/decision-028-trello-receipt.json).
 La siguiente decisión de C2 es propuesta, no adoptada:
 [reconstrucción guiada del proceso real con datos ficticios](stock-decision-20261104/decision-028-next.md).
+
+## D-029 — Reconstrucción guiada con Martha usando datos ficticios
+
+Adoptada por Jason el 2026-11-04, America/Managua. Se elige una reconstrucción guiada
+de una venta completa con Martha, usando datos ficticios, y el cuestionario para cubrir huecos.
+Se descarta depender únicamente del cuestionario. Duración propuesta: unos 30 minutos;
+fecha, hora y disponibilidad de Martha todavía sin coordinar.
+
+Jason conduce la conversación con el [guion preparado](sprint-20261104/GUION-RECONSTRUCCION-MARTHA.md).
+Martha explica y confirma su práctica actual. Se siguen identificación, factura multiartículo,
+cobro, comprobante, inventario y cierre. Las variantes y los temas no cubiertos quedan pendientes.
+No se vuelve a decidir multiartículo ni la política de ensayo D-026/D-027.
+
+Cada conclusión distingue declarado, observado y pendiente. El comportamiento probado
+de SAVIA requiere evidencia propia. No se inventan respuestas, uso de pagos mixtos ni reglas fiscales.
+El resumen posterior alimentará la matriz proceso → requisito → prueba → brecha.
+
+Estado: decisión registrada y guion preparado; entrevista no coordinada ni realizada.
+No se contactó a Martha, no se ingresaron ventas ficticias en producción y no se ejecutó
+SAVIA ni SISFAIN. Sin merge ni despliegue. C2 sigue abierta hasta respuestas y matriz verificables;
+C1/C9/C10 conservan sus brechas. Datos privados y respuestas sin sanear no se publican.
+
+[Recibo de Trello y verificación](stock-decision-20261104/decision-029-receipt.json).

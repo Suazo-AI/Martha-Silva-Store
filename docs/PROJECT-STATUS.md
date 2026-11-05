@@ -28,8 +28,10 @@ base actualizada, administradores incluidos, conversaciones resueltas, sin force
 ni borrado. [Readback exacto](stock-decision-20261104/decision-028-main-protection-receipt.json).
 `main` conserva su SHA y PR #2 sigue abierto, sin merge ni despliegue por este avance.
 C1 sigue abierta: efecto de variables y mecanismo de stock pendientes. El readback
-no demuestra un rechazo adversarial. Siguiente decisión propuesta: cómo levantar el
-flujo real con Martha en C2; [ejemplo y recomendación](stock-decision-20261104/decision-028-next.md).
+no demuestra un rechazo adversarial. D-029 adopta reconstrucción guiada con Martha
+usando datos ficticios, más cuestionario para huecos. [Guion listo](sprint-20261104/GUION-RECONSTRUCCION-MARTHA.md).
+Conversación todavía sin coordinar ni realizar; C2 sigue abierta, sin respuestas inventadas.
+Siguiente acción: Jason coordina la disponibilidad y usa el guion; no se contactó a Martha.
 La [explicación con situaciones y revisión de crítico/jurado](stock-decision-20261104/README.md)
 conserva alternativas y límites. La política está elegida para ensayo; el nuevo flujo
 no está implementado, ejecutado ni aceptado. No cierra criterios.

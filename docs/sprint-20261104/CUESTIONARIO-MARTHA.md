@@ -1,6 +1,8 @@
 # Cuestionario: cómo se vende hoy en la tienda
 
-**Propósito:** documentar los flujos de SISFAIN que SAVIA debe sustituir y preparar un ensayo. Viernes 6 de noviembre es propuesta sin hora confirmada.
+**Propósito:** documentar los flujos de SISFAIN que SAVIA debe sustituir y preparar un ensayo.
+**Método elegido D-029:** reconstrucción guiada con datos ficticios; este cuestionario completa los huecos.
+Fecha y hora sin coordinar. La propuesta anterior del viernes 6 no es una cita confirmada.
 **De:** Jason. **Para:** Martha. **Uso de las respuestas:** en el repositorio solo se guardan totales y decisiones; nunca nombres de clientes, montos de ventas reales ni datos personales.
 
 ## Contexto
@@ -9,7 +11,9 @@ SAVIA es el sistema interno para que el personal registre ventas y consulte exis
 
 ## Cómo responder
 
-Unos 15 minutos, por escrito o en una llamada. "No sé" y respuestas aproximadas también sirven: márcalas como aproximadas en vez de dejarlas en blanco. Las preguntas van de la más importante a la menos importante.
+Primero seguir el [guion de reconstrucción](GUION-RECONSTRUCCION-MARTHA.md), unos 30 minutos propuestos.
+Después responder por escrito las preguntas que quedaron pendientes. "No sé" y respuestas aproximadas
+también sirven: márcalas como aproximadas. No se espera cubrir todo en una llamada.
 
 ## La venta de cada día
 
@@ -45,7 +49,10 @@ _Por qué importa: si dos canales venden la misma prenda sin un registro común,
 
 >
 
-### Para el ensayo, ¿qué 5 a 10 prendas, con talla, podemos usar? Las contaremos a mano antes y después.
+### ¿Qué 5 a 10 tipos de prendas, con talla y color inventados, conviene representar en el ensayo sintético?
+
+No pedimos existencias ni ventas reales. El ensayo posterior usará datos ficticios en SUAZO-PC;
+no se registran pruebas en la operación productiva.
 
 >
 
@@ -114,4 +121,4 @@ Solo se solicitan descripción y agregados. Un acceso, exportación o migración
 
 >
 
-Versión vigente: 2026-11-04 America/Managua, D-022/D-023/D-024. Las imágenes antiguas del cuestionario quedan históricas si contradicen esta versión; no enviarlas sin regenerar. No se envió este documento a Martha.
+Versión vigente: 2026-11-04 America/Managua, D-022 a D-029. Las imágenes antiguas del cuestionario quedan históricas si contradicen esta versión; no enviarlas sin regenerar. No se envió este documento a Martha.
