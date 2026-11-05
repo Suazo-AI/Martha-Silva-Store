@@ -3,6 +3,17 @@
 Corte operativo: 2026-11-04 UTC. Host coordinador: SUAZO-PC. Checkout canónico `github`, rama `Tony`.
 **No listo para producción. C6/C8 y C11 pasan técnicamente; C9 sigue bloqueado por confianza TLS.**
 
+Actualización de planificación, 2026-11-05 UTC: [plan de cierre por evidencia](release-20261105/PLAN.md) y [prompt reescrito](release-20261105/PROMPT.md).
+Jason autorizó corregir la raíz de T3 a `github`; readback confirmado, dos auditorías completadas en worktrees administrados separados.
+Terra/high auditó el sitio; Sol/high trazó el día operativo y las tres brechas de navegador N5-COV.
+El primary verificó importación exacta, 13 hashes del sitio y 31 fuentes SAVIA; las diferencias CRLF/LF no son cambios de código.
+Astra/high emitió ACCEPT WITH LIMITS, cero objeciones materiales; el primary aplicó dos aclaraciones de ejecución.
+Las pruebas documentales pasan 23/23 y los 15 hashes preservados, exit 0. El verificador estático parcial y su corrección se distinguen en la revisión.
+Los informes son auditorías de fuente: no ejecutaron navegador, dispositivos, SQL, cobros, cierre ni restauración.
+El [dictamen del primary](release-20261105/primary-review.md) acepta el plan para priorización limitada; Opus vía Antigravity sigue pendiente por cuota.
+Siguen C2/C9/C10, mecanismo de excepciones, pagos/cierre, hosting y aceptación operativa. Producción sigue NO-GO.
+La publicación documental en Tony requiere SHA remoto y CI; no autoriza merge, despliegue ni repetir intentos consumidos.
+
 Referencia visual revisada, 2026-11-05 UTC: [SISFAIN Pro 4.0 y brechas operativas](sisfain-reference-20261105/README.md).
 Descarga original validada y fotogramas inspeccionados; el promo no confirma los módulos usados por Martha.
 La recepción de compras tiene API, pero sigue pendiente en la pantalla de personal; los pagos internos siguen `not_processed`.

@@ -1,0 +1,198 @@
+{
+  "task_id": "RELEASE-SAVIA-SOL-20261105",
+  "status": "RETURNED_NOT_ACCEPTED",
+  "mode": "DISCOVER",
+  "changed": [
+    "docs/release-20261105/savia-audit.md",
+    "docs/release-20261105/savia-baseline.json"
+  ],
+  "verification": {
+    "kind": "static_read_only_audit",
+    "product_tests": "NOT RUN",
+    "browser": "NOT RUN",
+    "sql": "NOT RUN",
+    "runtime": "NOT RUN",
+    "bounded_commands": [
+      {
+        "command": "Python bounded verification 1: HEAD, noncanonical path, raw SHA256 and normalized Git blob binding; then historical hash equality assertion",
+        "exit": 1,
+        "observed": "All 31 source inputs matched raw manifest and HEAD blobs; historical equality assertion failed. Historical source binding must remain explicit."
+      },
+      {
+        "command": "Python bounded verification 2: classify historical differences; check final source/ownership, artifact limits and JSON schema",
+        "exit": 0
+      }
+    ],
+    "historical_primary_hash_binding": {
+      "dev/savia-staff-ui/app.mjs": {
+        "matches": true,
+        "historical": "383c40447e91aa465cc945138699151826d7c1ad93f2f1ed041aa3dcda303309",
+        "current": "383c40447e91aa465cc945138699151826d7c1ad93f2f1ed041aa3dcda303309"
+      },
+      "dev/savia-staff-ui/client.mjs": {
+        "matches": true,
+        "historical": "0447a3c83910d9a5618f98886d1025b9a74a3f59839eeca2ea0d7cc1ca6c4825",
+        "current": "0447a3c83910d9a5618f98886d1025b9a74a3f59839eeca2ea0d7cc1ca6c4825"
+      },
+      "dev/savia-staff-ui/login.mjs": {
+        "matches": true,
+        "historical": "ac7714a22eb1e7a383ca41e3e11343472025271dcf21dc862f39cf8c386fc787",
+        "current": "ac7714a22eb1e7a383ca41e3e11343472025271dcf21dc862f39cf8c386fc787"
+      },
+      "dev/savia-staff-ui/failure-simulation.test.mjs": {
+        "matches": false,
+        "historical": "491a8f3b0f516fefd81fa5cc426c0c002470f3ef183e3d1eeb8dc08deef5d9d8",
+        "current": "0c66bea4d4e338fcf240c34e65adafff7b1db921e918f39d3666ae9e0d32866c"
+      }
+    }
+  },
+  "identity": {
+    "host": "SUAZO-PC",
+    "harness": "T3 Code / Codex",
+    "requested": {
+      "provider": "codex",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high"
+    },
+    "effective_runtime_reported": {
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high"
+    },
+    "independent_provider_telemetry": null,
+    "worktree": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-7dae3d3b",
+    "branch": "t3/7dae3d3b",
+    "source_sha": "dfc7e65af477bdfc625f174d71bd2f23a99c400f"
+  },
+  "usage": {
+    "input_tokens": null,
+    "output_tokens": null,
+    "cost": null,
+    "elapsed_seconds": null
+  },
+  "unverified": [
+    "Complete synthetic day",
+    "fresh candidate execution",
+    "N5 browser extras",
+    "business facts",
+    "payment settlement/fiscal rules",
+    "C9 recovery/RTO/RPO/last Owner",
+    "C10 trial",
+    "new scope critic/judge acceptance"
+  ],
+  "blockers": [
+    {
+      "id": "C9-TLS",
+      "state": "open",
+      "runtime_correction_attempted": false,
+      "details": "See blocker table in savia-audit.md"
+    },
+    {
+      "id": "C9-RECOVERY",
+      "state": "open",
+      "runtime_correction_attempted": false,
+      "details": "See blocker table in savia-audit.md"
+    },
+    {
+      "id": "C2",
+      "state": "open",
+      "runtime_correction_attempted": false,
+      "details": "See blocker table in savia-audit.md"
+    },
+    {
+      "id": "PAYMENT-DOCUMENT-CLOSE",
+      "state": "open",
+      "runtime_correction_attempted": false,
+      "details": "See blocker table in savia-audit.md"
+    },
+    {
+      "id": "D026-D027",
+      "state": "open",
+      "runtime_correction_attempted": false,
+      "details": "See blocker table in savia-audit.md"
+    },
+    {
+      "id": "N5-COV",
+      "state": "open",
+      "runtime_correction_attempted": false,
+      "details": "See blocker table in savia-audit.md"
+    },
+    {
+      "id": "C10-C12-HOST",
+      "state": "open",
+      "runtime_correction_attempted": false,
+      "details": "See blocker table in savia-audit.md"
+    },
+    {
+      "id": "SEC-CSRF",
+      "state": "open",
+      "runtime_correction_attempted": false,
+      "details": "See blocker table in savia-audit.md"
+    }
+  ],
+  "next_action": "Primary independently reads both artifacts, verifies source hashes/ownership, and scopes one browser evidence task plus Jason/Martha walkthrough; no C9 runtime without fresh authority.",
+  "source_hashes_sha256": {
+    "AGENTS.md": "664e28f1de4c034bfbbd865faa52558d9f4e21aa493696a37d971cf96bb9a1bb",
+    "docs/AGENT-START.md": "94b9582680491e5635a2d6e0047b17f75daa2eec224bdf85a97b30d0c740df10",
+    "docs/PROJECT-STATUS.md": "ec7d32038f994b55ae25ecef5b8873128f03579071163ff2041fa573c6ddc369",
+    "docs/DECISIONS.md": "ac8e34e7b656ce21e00a1d92d73c9c646c6fffb3d9b4196fd4021b06de3168e6",
+    "docs/pipeline/ledger.json": "7529a0a0bf4b6124a318cf5e00b47220c648cb54cc06f4b678b2f6b3702a1544",
+    "docs/CODE-MAP.md": "14c798f19c85d470294818f0570419fe51b81f66aea6e279af70fe59a5f7eed5",
+    "dev/savia-staff-ui/app.mjs": "383c40447e91aa465cc945138699151826d7c1ad93f2f1ed041aa3dcda303309",
+    "dev/savia-staff-ui/client.mjs": "0447a3c83910d9a5618f98886d1025b9a74a3f59839eeca2ea0d7cc1ca6c4825",
+    "dev/savia-staff-ui/login.mjs": "ac7714a22eb1e7a383ca41e3e11343472025271dcf21dc862f39cf8c386fc787",
+    "dev/savia-staff-ui/commerce.test.mjs": "ca26a9e7a67e68a21563e4ee92dbc0bd46f48f85d8531a724ce1e5529aa25d7d",
+    "dev/savia-staff-ui/failure-simulation.test.mjs": "0c66bea4d4e338fcf240c34e65adafff7b1db921e918f39d3666ae9e0d32866c",
+    "tests/browser-mock-validation.mjs": "5a84afb516e8f265d6e48f62c680325f1e06fe1168ca7f63fb201bdbb5dc84a5",
+    "backend/src/Martha.Store.Api/Internal/InternalDbContext.cs": "763130f95547af71e855f1b1f52b89372b58b3d87ab7c7b7605f162c1481fd5d",
+    "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceService.cs": "c6c7589f6aeb0e0b2ffba71f85890f9d2a08a80174256829f98e8e72fe15c443",
+    "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceEndpoints.cs": "ee2be90365dedb79c1a638a3bf5bdb95747d1df3a6efddc1e519168cf3ebe36c",
+    "backend/src/Martha.Store.Api/Internal/Commerce/InternalStockLedger.cs": "325a6147e39b8aff02098cf531b0be84256625e8f31119e07d0d019688d30633",
+    "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyService.cs": "aa2d20b1c929f78c2566c749404e99857ed03b89cafcd8cb7a0079f0fe8c1b3d",
+    "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyEndpoints.cs": "02ceccc4e05a5f892b2439cd9a2464e8c5960f8d4537ab6cf44e75645db6954a",
+    "backend/src/Martha.Store.Api/Internal/Security/InternalSecurityService.cs": "b7317d3ccaccb6335609a7690d211bf940c2bc5ce555bf1c05bbfa51e47f0d14",
+    "backend/src/Martha.Store.Api/Internal/Security/InternalOwnerConsole.cs": "1dc8d25a851366fa257084cfec6c9f182056cc77f00738a87271c702cff4f60c",
+    "backend/tests/Martha.Store.Api.Tests/InternalCommerceCommandSqlTests.cs": "3776b2b33264c4f98ef83cb571de50ef6a608d9cd71c42eef3ad3e9b3b8a0454",
+    "backend/tests/Martha.Store.Api.Tests/InternalSupplySqlServerTests.cs": "f23058891efc942e101477cc9b0a5917127a398ca72d5c5e079736a93c2aa18b",
+    "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs": "1590caa23f8e1f7d616f9cc0f78bfdce34995572902196e432c7f62167bcadaa",
+    "backend/tests/Martha.Store.Api.Tests/InternalSecuritySqlTests.cs": "e103961423d46599f0268bfda3dd737994d215f9e3b31cfc4a6392677b193a5e",
+    "docs/c9-recovery-20261103/PREFLIGHT-RESULT.md": "7d45cbe0330720a8bba78fc337ae732cace4544304a9a52cde67b65a1150fee7",
+    "docs/c9-recovery-20261103/CERTIFICATE-INVESTIGATION-SCOPE.md": "464605ba66f242855da0aba00d462f6ff396c9a6c9caac5c18d057bc63fc79ab",
+    "docs/sprint-20261104/GUION-RECONSTRUCCION-MARTHA.md": "902f13c660682d6b3570ef8737db9cf07ce50a532d079c0d1efe5d237ef3e32d",
+    "docs/multiarticle-20261104/README.md": "f0b7efab9a4f2d3fecc46c5c03118fe0cdc99005158abcf4963a460d49e4dbe1",
+    "docs/failure-simulation-20261105/README.md": "6f75f1b6d9986d48c73bb5d894e21f7c3ce75609b641f84e07f5458696400041",
+    "docs/failure-simulation-20261105/PRIMARY-RESULT.json": "32fd60e9ca696c1a6e77f452e86ed943beeb98356e062ef0fc45bb977df62bb2",
+    "docs/failure-simulation-20261105/primary-review.md": "96464d8876bbc1903b1cae1313e5242278875d9c750f9fb7fd35718390ed2c6f"
+  },
+  "historical_evidence": {
+    "multiarticle_candidate": "922852cbf6c9af2eacb2e5c02a42d912c14f6893",
+    "failure_simulation_candidate": "7d61524e29b4286055d44d145475a0a76195e1ba",
+    "fresh_execution": false
+  },
+  "discovery_commands": [
+    {
+      "command": "git rev-parse HEAD",
+      "exit": 0,
+      "observed": "dfc7e65af477bdfc625f174d71bd2f23a99c400f"
+    },
+    {
+      "command": "git branch --show-current",
+      "exit": 0,
+      "observed": "t3/7dae3d3b"
+    },
+    {
+      "command": "git status --short",
+      "exit": 0,
+      "observed": "clean before owned writes"
+    },
+    {
+      "command": "python C:/Users/Jason/AI-OS/bin/agent-awareness.py --workspace \"C:/Users/Jason/.t3/worktrees/github/t3-7dae3d3b\"",
+      "exit": 0,
+      "observed": "SUAZO-PC; own managed worker; unknown other harness activity; isolated paths"
+    },
+    {
+      "command": "Python bounded source read via stdin",
+      "exit": 1,
+      "observed": "UnicodeEncodeError cp1252; resolved by PYTHONIOENCODING=utf-8; corrected read exit 0"
+    }
+  ]
+}

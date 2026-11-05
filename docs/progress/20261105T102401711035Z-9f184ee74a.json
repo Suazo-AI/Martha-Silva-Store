@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-05T10:24:01.711035+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "765d986eaa3dcb4b5e3e4e39d91a0baf70be8695"
+    },
+    {
+      "path": "docs/release-20261105/BASELINE.json",
+      "change": "A",
+      "git_blob": "29465b3d6a4bd9be0f2099e4bcd3f5be5b5d2e3b"
+    },
+    {
+      "path": "docs/release-20261105/PLAN.md",
+      "change": "A",
+      "git_blob": "f5eda53a46baebb5dfa0470c3425782f843c1a2a"
+    },
+    {
+      "path": "docs/release-20261105/PROMPT.md",
+      "change": "A",
+      "git_blob": "8ed2be8d6591b32005c411bc5fa3e2e6d0d4d273"
+    },
+    {
+      "path": "docs/release-20261105/SOURCES.md",
+      "change": "A",
+      "git_blob": "d7f63c1226f9303af7707a1e05b3bfdaa838c0ed"
+    },
+    {
+      "path": "docs/release-20261105/judge.md",
+      "change": "A",
+      "git_blob": "086de2a0680bb958a8cba869df23e833ad9ebd2b"
+    },
+    {
+      "path": "docs/release-20261105/primary-review.md",
+      "change": "A",
+      "git_blob": "0ea8bce449e84c08a0cd9c0f26f7144ea3cfdb4a"
+    },
+    {
+      "path": "docs/release-20261105/savia-audit.md",
+      "change": "A",
+      "git_blob": "e42a1af1ff9746cc9dedb4de0edc3608bf7e5703"
+    },
+    {
+      "path": "docs/release-20261105/savia-baseline.json",
+      "change": "A",
+      "git_blob": "7efd3644a61932f7619c93a4217fb3ec912aad81"
+    },
+    {
+      "path": "docs/release-20261105/validation-final.json",
+      "change": "A",
+      "git_blob": "dce577417b3e4a82c1ad9f5b8f36f78f0c52b7c1"
+    },
+    {
+      "path": "docs/release-20261105/validation.json",
+      "change": "A",
+      "git_blob": "995d54e2bf5dac84405a9a7bd204b490b392d85b"
+    },
+    {
+      "path": "docs/release-20261105/website-audit.md",
+      "change": "A",
+      "git_blob": "962775751053baee8a5304fb0751180acb32bb56"
+    },
+    {
+      "path": "docs/release-20261105/website-baseline.json",
+      "change": "A",
+      "git_blob": "b73af34c5b1a03f50f3aecc21253dd9e7d15e64d"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

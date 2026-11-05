@@ -1,0 +1,321 @@
+{
+  "date": "2026-11-05",
+  "host": "SUAZO-PC",
+  "mode": "DISCOVER",
+  "source_sha": "dfc7e65af477bdfc625f174d71bd2f23a99c400f",
+  "t3_workspace_root": "C:/Users/Jason/MARTHA-SILVA/github",
+  "dist": {
+    "files": 1082,
+    "bytes": 472334693,
+    "meaning": "aggregate disk inventory; not page transfer"
+  },
+  "pages": [
+    {
+      "path": "build-inputs/static/index.html",
+      "source_bytes": 156908,
+      "gzip_source_bytes": 12580,
+      "contains_noindex": true,
+      "contains_json_ld_script": false
+    },
+    {
+      "path": "build-inputs/static/catalogo.html",
+      "source_bytes": 106718,
+      "gzip_source_bytes": 9790,
+      "contains_noindex": true,
+      "contains_json_ld_script": false
+    },
+    {
+      "path": "build-inputs/static/producto-amarillo.html",
+      "source_bytes": 188238,
+      "gzip_source_bytes": 13737,
+      "contains_noindex": true,
+      "contains_json_ld_script": false
+    }
+  ],
+  "raw_sha256": {
+    "prepare.py": "83f6ab4c812d6d67ac15b7fc0d04e13e3e9c3ec2855b256bd3075aafa2ca396a",
+    "wrangler.jsonc": "5b3e9a407ffedc75e229a5eedd6b8aa669e8a095366f8ca9e17cd4393e334599",
+    "src/app.js": "40cb7c411d9bf52ae4de19ac79b34a9ad43b6f0d0977fdcc90e96446e45e3da3",
+    "src/demo-api.js": "2cfdfaa9ea665ba4fd7c822ab66f7bdaa1499160c45e04cde53d14530d04002e",
+    "src/integration-adapters.js": "d274c6853b397c840b92e6dc2491f2f882e568d964429c7ad408fa971b6f2953",
+    "build-inputs/static/index.html": "6e96ebba9772d9317740d071110f6aba6300f7cdc8b5187bd17b4c22b262b31e",
+    "build-inputs/static/catalogo.html": "b4d562b24f016e1e866f36867391205083a32dcedcc9f56ef04779f1b0cb63ad",
+    "build-inputs/static/producto-amarillo.html": "69e0917b152eeb574fe722c7359c6d525e5cb2fd2fa8b3eb3d9c753ed1f48fbe",
+    "build-inputs/static/ayuda.html": "f397f20ba7fd505b9f30b0f23c8e65e32da14d7b097bdbcd1a99c50f5f351b2d",
+    "dev/savia-staff-ui/app.mjs": "383c40447e91aa465cc945138699151826d7c1ad93f2f1ed041aa3dcda303309",
+    "dev/savia-staff-ui/client.mjs": "0447a3c83910d9a5618f98886d1025b9a74a3f59839eeca2ea0d7cc1ca6c4825",
+    "docs/pipeline/ledger.json": "7529a0a0bf4b6124a318cf5e00b47220c648cb54cc06f4b678b2f6b3702a1544",
+    "docs/DECISIONS.md": "ac8e34e7b656ce21e00a1d92d73c9c646c6fffb3d9b4196fd4021b06de3168e6"
+  },
+  "worker_imports": [
+    {
+      "path": "docs/release-20261105/website-audit.md",
+      "source_worktree": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-e041308e",
+      "sha256": "b4a27e120d934e44f86567b72bac5fa0be78a60ea181334102ba3a3f2d888a49",
+      "exact_copy": true
+    },
+    {
+      "path": "docs/release-20261105/website-baseline.json",
+      "source_worktree": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-e041308e",
+      "sha256": "e68c3a87a98e16dfe73655ad711b2759341b8d8e4b74bd7a9f3bf00e88e29bf9",
+      "exact_copy": true
+    },
+    {
+      "path": "docs/release-20261105/savia-audit.md",
+      "source_worktree": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-7dae3d3b",
+      "sha256": "3e378a15e605fbdc3df7cfffbed6075a19086f0dae7a3bca217f63b71ac1260f",
+      "exact_copy": true
+    },
+    {
+      "path": "docs/release-20261105/savia-baseline.json",
+      "source_worktree": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-7dae3d3b",
+      "sha256": "b969af884fb9fc953f2d3de5126fea4420248a1cc9b1bd5a9c9bfbd0f6f689d6",
+      "exact_copy": true
+    }
+  ],
+  "savia_source_binding": [
+    {
+      "path": "AGENTS.md",
+      "worker_raw_manifest_match": true,
+      "canonical_raw_sha256": "664e28f1de4c034bfbbd865faa52558d9f4e21aa493696a37d971cf96bb9a1bb",
+      "worker_equals_canonical_raw": true,
+      "all_equal_after_crlf_normalization": true
+    },
+    {
+      "path": "docs/AGENT-START.md",
+      "worker_raw_manifest_match": true,
+      "canonical_raw_sha256": "94b9582680491e5635a2d6e0047b17f75daa2eec224bdf85a97b30d0c740df10",
+      "worker_equals_canonical_raw": true,
+      "all_equal_after_crlf_normalization": true
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "worker_raw_manifest_match": true,
+      "canonical_raw_sha256": "c431c3fec945cd070d3762609480a2a48c00f3999742a678ba668ca748fc3fb9",
+      "worker_equals_canonical_raw": false,
+      "all_equal_after_crlf_normalization": true
+    },
+    {
+      "path": "docs/DECISIONS.md",
+      "worker_raw_manifest_match": true,
+      "canonical_raw_sha256": "ac8e34e7b656ce21e00a1d92d73c9c646c6fffb3d9b4196fd4021b06de3168e6",
+      "worker_equals_canonical_raw": true,
+      "all_equal_after_crlf_normalization": true
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "worker_raw_manifest_match": true,
+      "canonical_raw_sha256": "7529a0a0bf4b6124a318cf5e00b47220c648cb54cc06f4b678b2f6b3702a1544",
+      "worker_equals_canonical_raw": true,
+      "all_equal_after_crlf_normalization": true
+    },
+    {
+      "path": "docs/CODE-MAP.md",
+      "worker_raw_manifest_match": true,
+      "canonical_raw_sha256": "ddf9c20a78431014f65ba47fa0a96c30a3e16e39aa61f1dda369edab48922536",
+      "worker_equals_canonical_raw": false,
+      "all_equal_after_crlf_normalization": true
+    },
+    {
+      "path": "dev/savia-staff-ui/app.mjs",
+      "worker_raw_manifest_match": true,
+      "canonical_raw_sha256": "383c40447e91aa465cc945138699151826d7c1ad93f2f1ed041aa3dcda303309",
+      "worker_equals_canonical_raw": true,
+      "all_equal_after_crlf_normalization": true
+    },
+    {
+      "path": "dev/savia-staff-ui/client.mjs",
+      "worker_raw_manifest_match": true,
+      "canonical_raw_sha256": "0447a3c83910d9a5618f98886d1025b9a74a3f59839eeca2ea0d7cc1ca6c4825",
+      "worker_equals_canonical_raw": true,
+      "all_equal_after_crlf_normalization": true
+    },
+    {
+      "path": "dev/savia-staff-ui/login.mjs",
+      "worker_raw_manifest_match": true,
+      "canonical_raw_sha256": "ac7714a22eb1e7a383ca41e3e11343472025271dcf21dc862f39cf8c386fc787",
+      "worker_equals_canonical_raw": true,
+      "all_equal_after_crlf_normalization": true
+    },
+    {
+      "path": "dev/savia-staff-ui/commerce.test.mjs",
+      "worker_raw_manifest_match": true,
+      "canonical_raw_sha256": "c7f8fe1120aac8cc6d70290a79fbe002e888e7a8cf722f7e65e9dc7e67d5e6c1",
+      "worker_equals_canonical_raw": false,
+      "all_equal_after_crlf_normalization": true
+    },
+    {
+      "path": "dev/savia-staff-ui/failure-simulation.test.mjs",
+      "worker_raw_manifest_match": true,
+      "canonical_raw_sha256": "491a8f3b0f516fefd81fa5cc426c0c002470f3ef183e3d1eeb8dc08deef5d9d8",
+      "worker_equals_canonical_raw": false,
+      "all_equal_after_crlf_normalization": true
+    },
+    {
+      "path": "tests/browser-mock-validation.mjs",
+      "worker_raw_manifest_match": true,
+      "canonical_raw_sha256": "5a84afb516e8f265d6e48f62c680325f1e06fe1168ca7f63fb201bdbb5dc84a5",
+      "worker_equals_canonical_raw": true,
+      "all_equal_after_crlf_normalization": true
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalDbContext.cs",
+      "worker_raw_manifest_match": true,
+      "canonical_raw_sha256": "763130f95547af71e855f1b1f52b89372b58b3d87ab7c7b7605f162c1481fd5d",
+      "worker_equals_canonical_raw": true,
+      "all_equal_after_crlf_normalization": true
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceService.cs",
+      "worker_raw_manifest_match": true,
+      "canonical_raw_sha256": "c6c7589f6aeb0e0b2ffba71f85890f9d2a08a80174256829f98e8e72fe15c443",
+      "worker_equals_canonical_raw": true,
+      "all_equal_after_crlf_normalization": true
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceEndpoints.cs",
+      "worker_raw_manifest_match": true,
+      "canonical_raw_sha256": "ee2be90365dedb79c1a638a3bf5bdb95747d1df3a6efddc1e519168cf3ebe36c",
+      "worker_equals_canonical_raw": true,
+      "all_equal_after_crlf_normalization": true
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalStockLedger.cs",
+      "worker_raw_manifest_match": true,
+      "canonical_raw_sha256": "325a6147e39b8aff02098cf531b0be84256625e8f31119e07d0d019688d30633",
+      "worker_equals_canonical_raw": true,
+      "all_equal_after_crlf_normalization": true
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyService.cs",
+      "worker_raw_manifest_match": true,
+      "canonical_raw_sha256": "aa2d20b1c929f78c2566c749404e99857ed03b89cafcd8cb7a0079f0fe8c1b3d",
+      "worker_equals_canonical_raw": true,
+      "all_equal_after_crlf_normalization": true
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyEndpoints.cs",
+      "worker_raw_manifest_match": true,
+      "canonical_raw_sha256": "02ceccc4e05a5f892b2439cd9a2464e8c5960f8d4537ab6cf44e75645db6954a",
+      "worker_equals_canonical_raw": true,
+      "all_equal_after_crlf_normalization": true
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurityService.cs",
+      "worker_raw_manifest_match": true,
+      "canonical_raw_sha256": "b7317d3ccaccb6335609a7690d211bf940c2bc5ce555bf1c05bbfa51e47f0d14",
+      "worker_equals_canonical_raw": true,
+      "all_equal_after_crlf_normalization": true
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalOwnerConsole.cs",
+      "worker_raw_manifest_match": true,
+      "canonical_raw_sha256": "1dc8d25a851366fa257084cfec6c9f182056cc77f00738a87271c702cff4f60c",
+      "worker_equals_canonical_raw": true,
+      "all_equal_after_crlf_normalization": true
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCommerceCommandSqlTests.cs",
+      "worker_raw_manifest_match": true,
+      "canonical_raw_sha256": "1335b58cb5fcc85088878e74e1740f0dd6e44c6763f9182b96d2764c01d8c291",
+      "worker_equals_canonical_raw": false,
+      "all_equal_after_crlf_normalization": true
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalSupplySqlServerTests.cs",
+      "worker_raw_manifest_match": true,
+      "canonical_raw_sha256": "f23058891efc942e101477cc9b0a5917127a398ca72d5c5e079736a93c2aa18b",
+      "worker_equals_canonical_raw": true,
+      "all_equal_after_crlf_normalization": true
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs",
+      "worker_raw_manifest_match": true,
+      "canonical_raw_sha256": "1590caa23f8e1f7d616f9cc0f78bfdce34995572902196e432c7f62167bcadaa",
+      "worker_equals_canonical_raw": true,
+      "all_equal_after_crlf_normalization": true
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalSecuritySqlTests.cs",
+      "worker_raw_manifest_match": true,
+      "canonical_raw_sha256": "9a64295beaeae3340fc07e51f0ce0f473a773fb6043d80fc63b786b73e92223e",
+      "worker_equals_canonical_raw": false,
+      "all_equal_after_crlf_normalization": true
+    },
+    {
+      "path": "docs/c9-recovery-20261103/PREFLIGHT-RESULT.md",
+      "worker_raw_manifest_match": true,
+      "canonical_raw_sha256": "683c1e9ae5980a93db7c8090b1221e92cc6645c6379c3c11927d9c77fddf4593",
+      "worker_equals_canonical_raw": false,
+      "all_equal_after_crlf_normalization": true
+    },
+    {
+      "path": "docs/c9-recovery-20261103/CERTIFICATE-INVESTIGATION-SCOPE.md",
+      "worker_raw_manifest_match": true,
+      "canonical_raw_sha256": "94b71c8cd195b9fa29be4fb7e98ec8d8c01ede238c9d5335d9380f49a29c485b",
+      "worker_equals_canonical_raw": false,
+      "all_equal_after_crlf_normalization": true
+    },
+    {
+      "path": "docs/sprint-20261104/GUION-RECONSTRUCCION-MARTHA.md",
+      "worker_raw_manifest_match": true,
+      "canonical_raw_sha256": "2d3174cd12e56e6faef38490671759d5e5a02570df3b9066eacd95b6dcc40005",
+      "worker_equals_canonical_raw": false,
+      "all_equal_after_crlf_normalization": true
+    },
+    {
+      "path": "docs/multiarticle-20261104/README.md",
+      "worker_raw_manifest_match": true,
+      "canonical_raw_sha256": "23288a110e44b91f2a1c679084b491b90d89c022dcf52cb51c53bcccff795067",
+      "worker_equals_canonical_raw": false,
+      "all_equal_after_crlf_normalization": true
+    },
+    {
+      "path": "docs/failure-simulation-20261105/README.md",
+      "worker_raw_manifest_match": true,
+      "canonical_raw_sha256": "6f75f1b6d9986d48c73bb5d894e21f7c3ce75609b641f84e07f5458696400041",
+      "worker_equals_canonical_raw": true,
+      "all_equal_after_crlf_normalization": true
+    },
+    {
+      "path": "docs/failure-simulation-20261105/PRIMARY-RESULT.json",
+      "worker_raw_manifest_match": true,
+      "canonical_raw_sha256": "32fd60e9ca696c1a6e77f452e86ed943beeb98356e062ef0fc45bb977df62bb2",
+      "worker_equals_canonical_raw": true,
+      "all_equal_after_crlf_normalization": true
+    },
+    {
+      "path": "docs/failure-simulation-20261105/primary-review.md",
+      "worker_raw_manifest_match": true,
+      "canonical_raw_sha256": "96464d8876bbc1903b1cae1313e5242278875d9c750f9fb7fd35718390ed2c6f",
+      "worker_equals_canonical_raw": true,
+      "all_equal_after_crlf_normalization": true
+    }
+  ],
+  "historical_failure_test_hash": {
+    "historical_expected": "491a8f3b0f516fefd81fa5cc426c0c002470f3ef183e3d1eeb8dc08deef5d9d8",
+    "canonical_raw": "491a8f3b0f516fefd81fa5cc426c0c002470f3ef183e3d1eeb8dc08deef5d9d8",
+    "worker_raw": "0c66bea4d4e338fcf240c34e65adafff7b1db921e918f39d3666ae9e0d32866c",
+    "canonical_matches_historical": true,
+    "conclusion": "Raw worktree differences are line-ending differences; source text at HEAD matches after CRLF normalization. This does not rerun historical tests."
+  },
+  "verification": {
+    "fresh_product_tests": "NOT RUN",
+    "browser": "NOT RUN",
+    "physical_devices": "NOT RUN",
+    "sql": "NOT RUN",
+    "payments": "NOT RUN",
+    "production": "NOT RUN",
+    "critic": "BLOCKED: approved Antigravity route quota",
+    "judge": "PENDING"
+  },
+  "excluded": [
+    "private T3 settings and authorization receipts",
+    "raw logs",
+    "recordings",
+    "credentials",
+    "certificates",
+    "databases",
+    "unrelated work"
+  ]
+}

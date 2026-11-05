@@ -1,0 +1,177 @@
+{
+  "task_id": "RELEASE-DOCS-VERIFY-20261105",
+  "status": "partial",
+  "mode": "DISCOVER / mechanical documentation validation",
+  "accepted": false,
+  "verdict": "INCOMPLETE: verifier failed before static candidate checks; two required repository checks PASS",
+  "identity": {
+    "host": "SUAZO-PC",
+    "harness": "T3 Code / Codex",
+    "provider": "codex",
+    "model": "gpt-6.1-sol",
+    "requested_reasoning": "high",
+    "runtime_effective_reasoning": "high (runtime declaration)",
+    "independent_provider_telemetry": null,
+    "usage": null,
+    "own_path": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-dc7f806c",
+    "canonical_path": "C:\\Users\\Jason\\MARTHA-SILVA\\github",
+    "branch": "t3/release-docs-validation",
+    "source_sha": "dfc7e65af477bdfc625f174d71bd2f23a99c400f",
+    "own_head": "dfc7e65af477bdfc625f174d71bd2f23a99c400f",
+    "canonical_head": "dfc7e65af477bdfc625f174d71bd2f23a99c400f",
+    "canonical_branch": "Tony",
+    "git_dir": "C:/Users/Jason/MARTHA-SILVA/github/.git/worktrees/t3-dc7f806c",
+    "distinct_worktree": true,
+    "initial_own_status": "clean"
+  },
+  "changed": [
+    "docs/release-20261105/validation.json"
+  ],
+  "candidate_root": "C:/Users/Jason/MARTHA-SILVA/github/docs/release-20261105",
+  "candidate_inputs_sha256_at_initial_capture": {
+    "BASELINE.json": "b7e517885ac95cfdb1907944d6772d2fb7b88ce65d57918a8309699ba36bbeee",
+    "GATE.md": "dd00ea6ab61fda244ae81eecd2f435dfa325df1d616f892515c648bf6ee9f03a",
+    "PLAN.md": "c056ab1f79a0293bf190c7e9eefdf5dae91ba765a23e59be6f8ec0b37961c678",
+    "primary-review.md": "5757d9749ffd93c00dc322585b48992aac5e4efe639041abd2601349a723df5f",
+    "PROMPT.md": "5bd05cc5199a4abb43a201079d9fb50a33ebafbc211f3bd2ba0cd7c517543837",
+    "savia-audit.md": "3e378a15e605fbdc3df7cfffbed6075a19086f0dae7a3bca217f63b71ac1260f",
+    "savia-baseline.json": "b969af884fb9fc953f2d3de5126fea4420248a1cc9b1bd5a9c9bfbd0f6f689d6",
+    "SOURCES.md": "7f86c8fd55520a367629b6b71c647e5051ece3eb923ed93c3ce9004f4f53f51a",
+    "website-audit.md": "b4a27e120d934e44f86567b72bac5fa0be78a60ea181334102ba3a3f2d888a49",
+    "website-baseline.json": "e68c3a87a98e16dfe73655ad711b2759341b8d8e4b74bd7a9f3bf00e88e29bf9"
+  },
+  "hash_limit": "Hashes captured before required tests. End-of-review freeze equality, BASELINE source binding and exact import-copy comparisons NOT RUN because third Python command did not parse.",
+  "commands": [
+    {
+      "command": "python tests/test_progress.py",
+      "cwd": "C:\\Users\\Jason\\MARTHA-SILVA\\github",
+      "exit": 0,
+      "summary": "Ran 23 tests in 33.313s",
+      "raw_logs_copied": false
+    },
+    {
+      "command": "python tools/export_progress.py --verify",
+      "cwd": "C:/Users/Jason/MARTHA-SILVA/github",
+      "exit": 0,
+      "summary": "PASS: 15 preserved evidence hashes; no runtime executed.",
+      "raw_logs_copied": false
+    },
+    {
+      "command": "PowerShell here-string piped to python -; inline static validator for JSON, Markdown links, baseline/import/source SHA256, source Git binding, secret screening and validation.json write",
+      "cwd": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-dc7f806c",
+      "exit": 1,
+      "error": "SyntaxError: unmatched ')'",
+      "stdin_line": 77,
+      "failing_statement": "if norm((root/rel).read_bytes())!=norm(git(root,'show',expected+':'+rel))):finding(...)",
+      "result": "Python parse failure; none of static command body ran; no write from that command.",
+      "attempts": 1
+    }
+  ],
+  "verification_command_count": 3,
+  "read_only_preflight": {
+    "progress": {
+      "evidence": [
+        "C:/Users/Jason/MARTHA-SILVA/github/tests/test_progress.py:17",
+        "C:/Users/Jason/MARTHA-SILVA/github/tests/test_progress.py:20",
+        "C:/Users/Jason/MARTHA-SILVA/github/tests/test_progress.py:36",
+        "C:/Users/Jason/MARTHA-SILVA/github/tests/test_progress.py:198",
+        "C:/Users/Jason/MARTHA-SILVA/github/tests/test_progress.py:297",
+        "C:/Users/Jason/MARTHA-SILVA/github/tests/test_progress.py:333",
+        "C:/Users/Jason/MARTHA-SILVA/github/tests/test_progress.py:354"
+      ],
+      "result": "ROOT patched to TemporaryDirectory; Git writes/refs restricted to disposable fixture repositories; publication transport mocked. No canonical index/ref/push operation requested.",
+      "limit": "Required test is read-only toward canonical project, not toward its temporary fixtures."
+    },
+    "export": {
+      "evidence": [
+        "C:/Users/Jason/MARTHA-SILVA/github/tools/export_progress.py:90"
+      ],
+      "result": "--verify reads preserved manifest/payloads and compares SHA256; no --export. Imported progress main is guarded."
+    },
+    "environment": "PYTHONDONTWRITEBYTECODE=1 applied to both required checks to avoid imported-module cache writes."
+  },
+  "counts": {
+    "progress_tests_passed": 23,
+    "progress_test_failures": 0,
+    "progress_test_seconds": 33.313,
+    "preserved_export_hashes_passed": 15,
+    "candidate_inputs_hashed": 10,
+    "static_json_syntax_files_checked": 0,
+    "local_markdown_links_checked": 0,
+    "baseline_source_hash_comparisons": 0,
+    "exact_import_copy_comparisons": 0,
+    "candidate_screened_files": 0
+  },
+  "findings_by_severity": [
+    {
+      "severity": "ERROR",
+      "id": "VERIFIER_SYNTAX",
+      "evidence": "Third inline Python command, stdin:77; process exit 1.",
+      "cause": "Worker-authored helper contains one extra closing parenthesis in website Git-binding comparison. Verification failure, not a reproduced product or candidate defect.",
+      "correction": "None attempted: one-run/max-three-verification-command budget exhausted; no retry or candidate repair.",
+      "result": "Static candidate checks and planned JSON output did not execute. This JSON is returned separately via apply_patch as the only workspace file write.",
+      "owner": "primary",
+      "next_action": "Authorize one fresh bounded mechanical validation run with corrected helper; preserve current candidate hashes or explicitly refreeze changed inputs.",
+      "completion_check": "Fresh run exits 0 and records JSON/link/source/import/secret-screen counts, exact input hashes and output readback."
+    }
+  ],
+  "blockers": [
+    {
+      "id": "MECHANICAL_VALIDATION_INCOMPLETE",
+      "evidence": "Third command exit 1, stdin:77, SyntaxError: unmatched ')'.",
+      "cause": "Verifier syntax defect.",
+      "correction": "No retry; command cap reached.",
+      "result": "PARTIAL, not accepted.",
+      "owner": "primary",
+      "next_action": "Commission fresh bounded verifier with corrected helper.",
+      "completion_check": "All frozen mechanical acceptance checks executed and recorded."
+    },
+    {
+      "id": "CRITIC_PENDING",
+      "evidence": "C:/Users/Jason/MARTHA-SILVA/github/docs/release-20261105/primary-review.md (Publication and blockers); approved route failure supplied in task packet.",
+      "cause": "Opus 5.5/high approved Antigravity critic previously failed quota; this worker did not independently execute it.",
+      "correction": "No retry, substitution or replacement.",
+      "result": "Still PENDING; existing reviews do not cover this plan.",
+      "owner": "primary / Jason",
+      "next_action": "Retain critic gate until approved route can review exact candidate.",
+      "completion_check": "Fresh approved critic review of frozen candidate; primary independent acceptance."
+    }
+  ],
+  "awareness": {
+    "startup_command": "C:\\Users\\Jason\\AppData\\Local\\Programs\\Python\\Python311\\python.exe C:/Users/Jason/AI-OS/bin/agent-awareness.py --workspace C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-dc7f806c",
+    "startup_exit": 0,
+    "evidence": "Startup hook and first verification wrapper detected own T3 task in distinct worktree; other harness activity unknown.",
+    "pre_mutation_recheck": "NOT RUN: third helper failed parsing before its planned awareness subprocess. Scope restricted to explicitly assigned new validation.json."
+  },
+  "not_run": [
+    "candidate JSON syntax",
+    "local relative Markdown links in PLAN/PROMPT/SOURCES/primary-review and imported audits",
+    "BASELINE source SHA256 comparisons",
+    "exact worker import-copy equality",
+    "normalized source Git bindings",
+    "candidate secret/private-artifact screening",
+    "final input freeze check",
+    "product tests",
+    "browser",
+    "physical devices",
+    "network",
+    "payments",
+    "SQL",
+    "Docker",
+    "certificates",
+    "production",
+    "general check.py: known Windows symlink-privilege block; not retried",
+    "critic",
+    "judge",
+    "remote publication/CI"
+  ],
+  "exclusions": [
+    "Superseded historical GATE.md body excluded from active link/content validation; initial file hash recorded only.",
+    "No raw logs copied; required command output captured in memory and reduced to counts/exits.",
+    "Test stdout contains simulated SYNCED from fixture transport; it is not real remote publication.",
+    "No private T3 settings/history, execution authorization receipts, backups, recordings, credentials, certificates, databases, customer data or unrelated files opened/imported.",
+    "Imported candidate bytes were not changed; no product or policy review performed.",
+    "No canonical writes, actual stage/commit/push/PR/ref mutation, merge or deploy performed by worker; required tests mutate only disposable fixture repositories."
+  ],
+  "next_action": "Primary reads partial report, verifies candidate hashes, and arranges a fresh corrected bounded mechanical run before acceptance or Tony publication."
+}
