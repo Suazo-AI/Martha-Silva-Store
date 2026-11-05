@@ -122,3 +122,11 @@ screenshots remain in the public evidence package. Frozen `RESULT.json` and
 included in the public package. Completion check: normal hook accepts this
 allowlisted package, remote SHA matches and exact-SHA Linux CI is inspected.
 Owner: primary. Independent Opus review remains pending.
+
+## Exact-source CI follow-up
+
+[PUBLICATION.md](PUBLICATION.md) records SYNCED source SHA `0a056be612f5f3701f7a39fd37031f426bfe0dc8`
+and its five successful checks plus one expected optional skip. Ubuntu passed
+`python tests/check.py --install`, closing the alternate portable verification
+step. The earlier local Windows failure is preserved; Opus acceptance remains
+pending and the ledger item remains review.

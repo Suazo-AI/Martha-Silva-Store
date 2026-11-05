@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-05T14:01:24.189407+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/n5-browser-20261105/INTEGRATION.json",
+      "change": "M",
+      "git_blob": "d5160cf82ad40c082e702368829e92410ced76f3"
+    },
+    {
+      "path": "docs/n5-browser-20261105/PUBLICATION.md",
+      "change": "A",
+      "git_blob": "a939213e5552bbcc1736c2ed78a844084afa882c"
+    },
+    {
+      "path": "docs/n5-browser-20261105/README.md",
+      "change": "M",
+      "git_blob": "caeb7d9a05e7c72febc02b70c53419ef60eda986"
+    },
+    {
+      "path": "docs/n5-browser-20261105/primary-review.md",
+      "change": "M",
+      "git_blob": "e7c5133a5d5867382afa23d729c8eddcd2d7f8c3"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

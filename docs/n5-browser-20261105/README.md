@@ -77,3 +77,6 @@ screenshots remain in the public evidence package. Frozen `RESULT.json` and
 included in the public package. Completion check: normal hook accepts this
 allowlisted package, remote SHA matches and exact-SHA Linux CI is inspected.
 Owner: primary. Independent Opus review remains pending.
+
+Exact-source publication/CI follow-up: [PUBLICATION.md](PUBLICATION.md).
+The published test source passed Linux portable CI; independent Opus review remains pending.
