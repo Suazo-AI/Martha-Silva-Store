@@ -1,6 +1,8 @@
 # Una venta, un inventario confiable y una decisión pendiente
 
 Fecha: 2026-11-04, America/Managua. Equipo de ensayo: SUAZO-PC, datos sintéticos.
+Estado posterior D-028: protección de `main` aplicada y verificada, sin merge ni despliegue.
+La siguiente decisión propuesta es [cómo levantar el flujo real de Martha, C2](decision-028-next.md).
 Actualización: Jason eligió la política para el ensayo sintético en [D-026](../DECISIONS.md#d-026--cajera-registra-la-excepción-encargada-revisa-después).
 Jason eligió revisión al cierre con suplente y causas abiertas sin evidencia en [D-027](../DECISIONS.md#d-027--revisión-al-cierre-suplente-y-causas-abiertas).
 El análisis siguiente conserva el razonamiento y las alternativas.

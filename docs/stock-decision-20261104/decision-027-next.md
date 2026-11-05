@@ -1,5 +1,10 @@
 # D-027 registrada; siguiente autorización propuesta
 
+**Actualización D-028:** Jason autorizó este plan y la protección se aplicó y verificó.
+[Recibo de configuración](decision-028-main-protection-receipt.json).
+El texto siguiente conserva el plan y las lecturas previas; ya no es autorización pendiente.
+[Siguiente decisión vigente propuesta: C2](decision-028-next.md).
+
 Jason eligió revisión al cierre de cada jornada simulada, con suplente si falta
 la encargada y causas abiertas sin evidencia. Es política del ensayo sintético
 SUAZO-PC. No acredita implementación, ejecución, aceptación ni personal real designado.

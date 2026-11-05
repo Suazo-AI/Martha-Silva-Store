@@ -184,3 +184,29 @@ sin merge ni despliegue. La lectura actual de GitHub devuelve `protected=false` 
 rulesets vacíos. No se cambió esa configuración. El plan exacto y la alternativa de C2
 están en [siguiente decisión](stock-decision-20261104/decision-027-next.md).
 [Recibo de Trello](stock-decision-20261104/decision-027-receipt.json).
+
+## D-028 — Protección de main activada, sin merge ni despliegue
+
+Autorizada por Jason el 2026-11-04, America/Managua. Aplicada por el coordinador
+SUAZO-PC y verificada por API el 2026-11-05 01:37 UTC. Se aplicó exactamente el
+[payload aprobado](stock-decision-20261104/decision-027-main-protection.proposed.json).
+
+`main` exige PR, base actualizada y siete checks de GitHub Actions (`app_id=15368`).
+Incluye administradores, descarta aprobaciones obsoletas, exige conversaciones resueltas
+y bloquea force-push y borrado. Cero aprobaciones humanas adicionales obligatorias.
+
+Readback de todos los campos: correcto. `main` conserva
+`3b0049163ece2d9431cee01f1bea624a66d9d8d4`; PR #2 abierto, sin fusionar,
+head `8744a9699812d62ea5ed31c63781748f833c3def`. Snapshot de despliegues sin cambios.
+No se fusionó, desplegó ni modificaron variables, secretos o workflows.
+
+Límites: configuración leída, sin probar rechazo adversarial. El efecto efectivo de
+variables sigue sin verificar; el HTTP 404 previo no equivale a despliegue desactivado.
+C1 continúa abierta por ese efecto y por el mecanismo de stock no implementado/probado.
+C2/C9/C10 conservan sus brechas. Quitar esta protección debilitaría controles y requiere
+indicación de Jason; no hay reversión insegura automática.
+
+[Recibo GitHub](stock-decision-20261104/decision-028-main-protection-receipt.json)
+y [recibo Trello](stock-decision-20261104/decision-028-trello-receipt.json).
+La siguiente decisión de C2 es propuesta, no adoptada:
+[reconstrucción guiada del proceso real con datos ficticios](stock-decision-20261104/decision-028-next.md).

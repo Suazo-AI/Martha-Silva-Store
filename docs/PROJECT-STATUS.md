@@ -23,8 +23,13 @@ Jason eligió para el ensayo que la cajera registre la excepción y la encargada
 después ([D-026](DECISIONS.md#d-026--cajera-registra-la-excepción-encargada-revisa-después)).
 Sin ajustes libres de la cajera. Jason eligió revisión al cierre de cada jornada,
 suplente si falta la encargada y causas abiertas sin evidencia ([D-027](DECISIONS.md#d-027--revisión-al-cierre-suplente-y-causas-abiertas)).
-Siguiente autorización recomendada: proteger `main` con checks requeridos, sin merge
-ni despliegue; [plan y ejemplo](stock-decision-20261104/decision-027-next.md).
+Jason autorizó y se activó la protección de `main` en D-028: siete checks obligatorios,
+base actualizada, administradores incluidos, conversaciones resueltas, sin force-push
+ni borrado. [Readback exacto](stock-decision-20261104/decision-028-main-protection-receipt.json).
+`main` conserva su SHA y PR #2 sigue abierto, sin merge ni despliegue por este avance.
+C1 sigue abierta: efecto de variables y mecanismo de stock pendientes. El readback
+no demuestra un rechazo adversarial. Siguiente decisión propuesta: cómo levantar el
+flujo real con Martha en C2; [ejemplo y recomendación](stock-decision-20261104/decision-028-next.md).
 La [explicación con situaciones y revisión de crítico/jurado](stock-decision-20261104/README.md)
 conserva alternativas y límites. La política está elegida para ensayo; el nuevo flujo
 no está implementado, ejecutado ni aceptado. No cierra criterios.

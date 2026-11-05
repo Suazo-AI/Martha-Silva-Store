@@ -1,0 +1,66 @@
+{
+  "decision": "D-028",
+  "at_utc": "2026-11-05T01:37:15.599342+00:00",
+  "repository": "Suazo-AI/Martha-Silva-Store",
+  "branch": "main",
+  "approved_payload_sha256": "c82119616dcacc67d2b9fa2e75cbd282605781b6e96977822225de1fd97c27f7",
+  "before_protected": false,
+  "after_protected": true,
+  "exact_configuration_readback": true,
+  "required_checks": [
+    [
+      "Complete backend suite on disposable SQL Server",
+      15368
+    ],
+    [
+      "Ledger check and deterministic digest",
+      15368
+    ],
+    [
+      "Portable checks (ubuntu-latest)",
+      15368
+    ],
+    [
+      "Portable checks (windows-latest)",
+      15368
+    ],
+    [
+      "Real API + disposable SQL golden path",
+      15368
+    ],
+    [
+      "Staff UI tests and real browser harness",
+      15368
+    ],
+    [
+      "build-and-guards",
+      15368
+    ]
+  ],
+  "strict": true,
+  "enforce_admins": true,
+  "require_pull_request": true,
+  "required_approving_review_count": 0,
+  "dismiss_stale_reviews": true,
+  "required_conversation_resolution": true,
+  "allow_force_pushes": false,
+  "allow_deletions": false,
+  "restrictions": null,
+  "main_sha_before": "3b0049163ece2d9431cee01f1bea624a66d9d8d4",
+  "main_sha_after": "3b0049163ece2d9431cee01f1bea624a66d9d8d4",
+  "pr2": {
+    "state": "open",
+    "merged": false,
+    "head_sha": "8744a9699812d62ea5ed31c63781748f833c3def"
+  },
+  "deployment_ids_unchanged": true,
+  "deployment_count_in_snapshot": 0,
+  "merge_performed": false,
+  "deploy_performed": false,
+  "limitations": [
+    "Configuration readback; no adversarial rejected push or merge was attempted.",
+    "Deployment variables and their effective behavior remain unverified."
+  ],
+  "require_code_owner_reviews": false,
+  "independent_connector_read": "Integration GET returned HTTP 403 Resource not accessible by integration; installed gh CLI read succeeded. No permission changes."
+}

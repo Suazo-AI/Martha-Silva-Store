@@ -78,13 +78,13 @@
       "owner": "jason",
       "status": "todo",
       "title": "Decisiones del lote y seguridad de merge",
-      "why": "main no tiene protección ni checks requeridos; un merge podría desplegar el preview si CLOUDFLARE_DEPLOY_ENABLED es true",
+      "why": "D-028 activa main con siete checks requeridos; falta verificar efecto efectivo de variables de despliegue y demostrar el mecanismo de stock antes de integrar",
       "done_when": "Protección de main con checks requeridos leída de la API; valor de CLOUDFLARE_DEPLOY_ENABLED anotado; decisiones en docs/DECISIONS.md",
       "alternatives": "Fusionar sin protección confiando en revisión manual (rechazado: sin freno automático)",
       "needs": {
-        "decision": "D-026/D-027 eligen excepción de cajera con revisión al cierre, suplente y causas sin evidencia abiertas para ensayo. Falta autorizar protección de main y verificar seguridad del merge.",
+        "decision": "D-026/D-027/D-028 adoptadas: excepción y revisión para ensayo; protección main aplicada y verificada. C1 no cerrada: variables efectivas y mecanismo de stock pendientes.",
         "decider": "jason",
-        "recommendation": "D-022/D-025/D-026/D-027: SUAZO-PC ensayo sintético y dictamen; cajera registra, encargada revisa al cierre con suplente y causa abierta sin evidencia. Autorizar protección main según plan decision-027-next.md, sin merge ni deploy; verificar efecto efectivo de variables antes de integrar. Flujo de stock no implementado ni probado.",
+        "recommendation": "Conservar main protegida sin merge/deploy. Verificar variables antes de cualquier integración. Siguiente decisión de negocio propuesta C2: reconstrucción guiada con Martha usando datos ficticios; aún no elegida.",
         "tool": "Configuración de GitHub (admin): protección de rama y variables de Actions"
       },
       "trello": "https://trello.com/c/e57qFLhJ",
@@ -92,7 +92,7 @@
         "docs/DECISIONS.md",
         ".github/workflows/ci.yml"
       ],
-      "prep": "D-022/D-025: SUAZO-PC acepta y aloja ensayo sintético. D-026/D-027: excepción de cajera, revisión al cierre con suplente y causas sin evidencia abiertas. Implementación/prueba y seguridad de merge pendientes; C1 sigue todo. main protected=false y rulesets vacíos en lectura actual; plan preparado, sin mutación."
+      "prep": "D-028: main protected=true, siete checks app15368, strict y admins, PR, conversaciones, sin force-push/borrado; readback exacto. main SHA sin cambio, PR2 abierto, sin merge/deploy. No rechazo adversarial ensayado. Variables y mecanismo stock pendientes; C1 sigue todo. Recibo docs/stock-decision-20261104/decision-028-main-protection-receipt.json."
     },
     {
       "id": "C2",
