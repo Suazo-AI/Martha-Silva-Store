@@ -27,6 +27,36 @@
     const photo=(src,cls='')=>{const i=p.images.indexOf(src);return `<picture class="${cls}"><source type="image/webp" srcset="${esc(p.image_sets?.[i] || src+' 900w')}" sizes="(max-width:599px) 50vw,25vw"><img class="${cls}" src="${esc(p.jpeg_images?.[i] || src)}" srcset="${esc(p.jpeg_sets?.[i] || src+' 900w')}" sizes="(max-width:599px) 50vw,25vw" width="900" height="1200" alt="${esc(p.name)}" loading="lazy" decoding="async"></picture>`;};
     return `<article class="product-card" data-id="${esc(p.id)}"><a class="product-image" href="/producto-${esc(p.id)}.html">${photo(p.images[0])}${p.images[1]?photo(p.images[1],'secondary-image'):''}${p.video?`<video muted loop playsinline preload="none" data-src="${esc(p.video)}" data-webm="${esc(p.video_webm || '')}"></video>`:''}</a><button class="favorite-button" data-favorite="${esc(p.id)}" aria-label="Guardar en favoritos: ${esc(p.name)}" aria-pressed="${saved}"><svg viewBox="0 0 24 24" fill="${saved?'currentColor':'none'}" stroke="currentColor" aria-hidden="true"><path d="M20.8 4.6c-2-2-5.2-1.8-7.1.2L12 6.6l-1.7-1.8C8.4 2.8 5.2 2.6 3.2 4.6s-2 5.2 0 7.2L12 21l8.8-9.2c2-2 2-5.2 0-7.2Z"/></svg></button><div class="product-meta"><p class="product-category">MARTHA SILVA</p><h3 class="product-name"><a href="/producto-${esc(p.id)}.html">${esc(p.name)}</a></h3><p class="product-price">${money(p.price_minor)}</p><p class="product-badge">${p.sample_image?'Muestra · ':''}${stock===0?'Agotada':stock===1?'Última unidad':stock<=3?'Pocas unidades':''}</p></div></article>`;
   }
+  const seasonalNames = Object.freeze({'graduaciones':'Graduaciones','verano':'Verano','fin-de-ano':'Fin de año','bodas-eventos':'Bodas y eventos'});
+  function nicaraguaDate() {
+    const parts = Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'America/Managua',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date()).map(p=>[p.type,p.value]));
+    return [parts.year,parts.month,parts.day].join('-');
+  }
+  function isApprovedSeasonalOffer(p, season, today) {
+    const offer = p.seasonal_offer;
+    const iso = value => typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value);
+    return p.commercial_status === 'active' && p.currency === 'USD' &&
+      offer?.approved === true && offer.season === season &&
+      Number.isSafeInteger(p.price_minor) && p.price_minor > 0 &&
+      Number.isSafeInteger(offer.previous_price_minor) && offer.previous_price_minor > p.price_minor &&
+      iso(offer.starts_on) && iso(offer.ends_on) && offer.starts_on <= today && today <= offer.ends_on &&
+      Array.isArray(p.variants) && p.variants.some(v=>v.stock > 0);
+  }
+  function seasonalOffers(season = 'graduaciones') {
+    const root = $('[data-seasonal-offers]'); if (!root) return;
+    const active = Object.prototype.hasOwnProperty.call(seasonalNames,season) ? season : 'graduaciones';
+    $('[data-seasonal-season]',root).forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.seasonalSeason === active)));
+    const matching = products.filter(p=>isApprovedSeasonalOffer(p,active,nicaraguaDate()));
+    const html = matching.map(p=>{
+      const previous = p.seasonal_offer.previous_price_minor;
+      const discount = Math.round((1 - p.price_minor/previous)*100);
+      const sizes = p.variants.filter(v=>v.stock > 0).map(v=>v.size).join(' · ');
+      const href = '/producto-'+encodeURIComponent(p.slug || p.id)+'.html';
+      return `<article class="seasonal-card" data-seasonal-card><a class="seasonal-card-image" href="${esc(href)}"><img src="${esc(p.images?.[0] || '/assets/missing.svg')}" alt="${esc(p.name)}" width="900" height="1200" loading="lazy"><span class="seasonal-discount">−${discount}%</span></a><div class="seasonal-card-info"><p class="seasonal-card-type">${esc(p.category || 'Prendas')}</p><h3><a href="${esc(href)}">${esc(p.name)}</a></h3><p class="seasonal-prices"><s>${money(previous)}</s><strong>${money(p.price_minor)}</strong></p><p class="seasonal-sizes">Tallas disponibles: ${esc(sizes)}</p></div></article>`;
+    }).join('');
+    const mount = $('[data-seasonal-results]',root);
+    mount.innerHTML = html ? `<div class="seasonal-grid">${html}</div>` : `<div class="seasonal-empty"><h3>Sin descuentos confirmados para ${esc(seasonalNames[active])}</h3><p>Podés explorar la colección mientras se verifican las promociones de temporada.</p><a class="button secondary" href="/catalogo.html">Ver todas las prendas</a></div>`;
+  }
   function updateHearts() { $$('[data-favorite]').forEach(b => { const saved = favorites.includes(b.dataset.favorite); b.setAttribute('aria-pressed', String(saved)); const p = products.find(p => p.id === b.dataset.favorite); b.setAttribute('aria-label',`${saved ? 'Quitar de' : 'Guardar en'} favoritos: ${p?.name || 'prenda'}`); $('svg',b)?.setAttribute('fill',saved ? 'currentColor':'none'); }); }
   function catalog() {
     const form = $('#catalog-filters'); if (!form) return;
@@ -187,6 +217,7 @@
     try {
       if (!products.length || ['catalog','product'].includes(page)) products=(await api('/api/catalog')).products.map(p=>({...p,...window.STORE_MEDIA?.[p.id]}));
       await refreshCart(); updateHearts();
+      if (page === 'home') seasonalOffers();
       if (page === 'catalog') {catalog();filterPanel();}
       if (page === 'cart') renderCart();
       if (page === 'checkout') {
@@ -211,6 +242,7 @@
   }
   document.addEventListener('click', async event => {
     const b = event.target.closest('button,a'); if (!b) return;
+    if(b.matches('[data-seasonal-season]')) { seasonalOffers(b.dataset.seasonalSeason); return; }
     if(b.matches('[data-menu-toggle]')){b.setAttribute('aria-expanded','true');openDialog($('#mobile-menu'),b);return;}
     if (b.matches('[data-filters-open]')) {openDialog($('#filter-panel'),b);b.setAttribute('aria-expanded','true');$('[data-filters-close]').focus();return;}
     if (b.matches('[data-filters-close], [data-filters-apply]')) {$('#filter-panel').close();return;}

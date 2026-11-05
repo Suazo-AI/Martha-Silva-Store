@@ -3,13 +3,13 @@ const {JSDOM,VirtualConsole}=require('./frontend-deps/node_modules/jsdom');
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
 const root=path.resolve(__dirname,'../dist');
 const tick=()=>new Promise(r=>setTimeout(r,10));
-async function boot(page,setup=()=>{}) {
+async function boot(page,setup=()=>{},editCatalog=()=>{}) {
  const errors=[],vc=new VirtualConsole();vc.on('jsdomError',e=>errors.push(e.message));
  const dom=new JSDOM(fs.readFileSync(path.join(root,page),'utf8'),{url:'https://demo.test/'+page,runScripts:'outside-only',pretendToBeVisual:true,virtualConsole:vc});
  const w=dom.window;w.matchMedia=()=>({matches:false,addEventListener(){}});w.IntersectionObserver=class{observe(){}disconnect(){}};w.CSS={escape:s=>s};
  w.HTMLElement.prototype.scrollIntoView=function(){};w.HTMLElement.prototype.scrollTo=function(){};w.scrollTo=()=>{};
  w.HTMLMediaElement.prototype.pause=function(){};w.HTMLDialogElement.prototype.showModal=function(){this.open=true;this.querySelector('button,input,select')?.focus()};w.HTMLDialogElement.prototype.close=function(){this.open=false;this.dispatchEvent(new w.Event('close'))};
- setup(w);for(const f of ['catalog.js',process.env.FRONTEND_API || 'demo-api.js',process.env.FRONTEND_APP || 'app.js'])w.eval(fs.readFileSync(path.resolve(root,f),'utf8'));
+ setup(w);w.eval(fs.readFileSync(path.resolve(root,'catalog.js'),'utf8'));editCatalog(w.DEMO_CATALOG);for(const f of [process.env.FRONTEND_API || 'demo-api.js',process.env.FRONTEND_APP || 'app.js'])w.eval(fs.readFileSync(path.resolve(root,f),'utf8'));
  await tick();return {dom,w,d:w.document,errors,close:()=>dom.window.close()};
 }
 const tests=[];function test(name,run){tests.push([name,run])}
@@ -24,4 +24,48 @@ test('rapid repeated add clicks produce only one cart mutation',async()=>{const 
 test('sort, empty filter, reset, and Forward agree with URL',async()=>{const b=await boot('catalogo.html');b.d.querySelector('[data-sort="price-desc"]').click();assert.equal(b.d.querySelector('.product-card').dataset.id,'dorado');const size=b.d.querySelector('[name=size]');size.value='L';size.dispatchEvent(new b.w.Event('change',{bubbles:true}));assert.equal(b.d.querySelectorAll('.product-card').length,0);b.d.querySelector('[data-filter-reset]').click();assert.equal(b.d.querySelectorAll('.product-card').length,2);assert.equal(b.w.location.search,'?sort=price-desc');b.w.history.back();await tick();await tick();assert.equal(size.value,'L');b.w.history.forward();await tick();await tick();assert.equal(size.value,'');assert.equal(b.d.querySelectorAll('.product-card').length,2);b.close()});
 test('malformed checkout storage shape recovers at contact form',async()=>{for(const value of ['null','[]','42']){const b=await boot('checkout.html',w=>{w.sessionStorage.setItem('martha-parity-checkout',value);w.eval(fs.readFileSync(path.join(root,'catalog.js'),'utf8'));w.eval(fs.readFileSync(path.join(root,'demo-api.js'),'utf8'));w.marthaDemoApi('/api/cart/items',{variant_id:'dorado-S',quantity:1});});assert.ok(b.d.querySelector('[data-checkout-form="contact"]'));assert.equal(b.d.querySelector('main [data-error]:not([hidden])'),null);b.close()}});
 test('remove final item keeps dialog open and close returns to add trigger',async()=>{const b=await boot('producto-dorado.html');b.d.querySelector('[name=variant]').checked=true;const add=b.d.querySelector('[data-add]');add.focus();add.click();await tick();const modal=b.d.querySelector('#mini-bag');const remove=modal.querySelector('[data-remove-item]');remove.focus();remove.click();await tick();assert.ok(modal.open);assert.equal(modal.querySelectorAll('.cart-line').length,0);assert.equal(b.d.activeElement,modal.querySelector('[data-close-dialog]'));modal.querySelector('[data-close-dialog]').click();assert.equal(b.d.activeElement,add);b.close()});
+
+test('seasonal area defaults to honest empty state and every season selector works',async()=>{
+ const b=await boot('index.html');
+ assert.equal(b.d.querySelectorAll('[data-seasonal-season]').length,4);
+ assert.equal(b.d.querySelectorAll('[data-seasonal-card]').length,0);
+ assert.match(b.d.querySelector('[data-seasonal-results]').textContent,/Sin descuentos confirmados para Graduaciones/);
+ b.d.querySelector('[data-seasonal-season="verano"]').click();
+ assert.match(b.d.querySelector('[data-seasonal-results]').textContent,/Sin descuentos confirmados para Verano/);
+ assert.equal(b.d.querySelector('[data-seasonal-season="verano"]').getAttribute('aria-pressed'),'true');
+ assert.equal(b.d.querySelector('[data-seasonal-season="graduaciones"]').getAttribute('aria-pressed'),'false');
+ assert.deepEqual(b.errors,[]);
+ b.close();
+});
+test('only approved, dated, stocked promotions with consistent checkout price appear',async()=>{
+ const b=await boot('index.html',()=>{},catalog=>{
+  const good=catalog.products[0];good.commercial_status='active';
+  good.seasonal_offer={season:'graduaciones',previous_price_minor:20000,starts_on:'2020-01-01',ends_on:'2099-12-31',approved:true};
+  const blocked=catalog.products[1];blocked.commercial_status='active';
+  blocked.seasonal_offer={season:'graduaciones',previous_price_minor:27000,starts_on:'2020-01-01',ends_on:'2099-12-31',approved:false};
+ });
+ assert.equal(b.d.querySelectorAll('[data-seasonal-card]').length,1);
+ assert.match(b.d.querySelector('[data-seasonal-card]').textContent,/Vestido rosa empolvado/);
+ assert.match(b.d.querySelector('[data-seasonal-card] .seasonal-prices').textContent,/200/);
+ assert.match(b.d.querySelector('[data-seasonal-card] .seasonal-prices').textContent,/175/);
+ assert.equal(b.d.querySelector('[data-seasonal-card] .seasonal-discount').textContent,'−13%');
+ b.d.querySelector('[data-seasonal-season="verano"]').click();
+ assert.equal(b.d.querySelectorAll('[data-seasonal-card]').length,0);
+ b.d.querySelector('[data-seasonal-season="graduaciones"]').click();
+ assert.equal(b.d.querySelectorAll('[data-seasonal-card]').length,1);
+ assert.deepEqual(b.errors,[]);
+ b.close();
+});
+test('expired or non-reduced seasonal prices do not become promotions',async()=>{
+ const b=await boot('index.html',()=>{},catalog=>{
+  catalog.products.forEach((p,i)=>{
+    p.commercial_status='active';
+    p.seasonal_offer={season:'graduaciones',previous_price_minor:i ? p.price_minor : p.price_minor+1000,starts_on:'2020-01-01',ends_on:i?'2099-12-31':'2020-12-31',approved:true};
+  });
+ });
+ assert.equal(b.d.querySelectorAll('[data-seasonal-card]').length,0);
+ assert.deepEqual(b.errors,[]);
+ b.close();
+});
+
 (async()=>{let failed=0;for(const [name,run]of tests){try{await run();console.log('PASS',name)}catch(e){failed++;console.error('FAIL',name,e.message)}}console.log(`${tests.length-failed}/${tests.length} DOM simulation tests passed`);process.exit(failed?1:0)})();
