@@ -1,0 +1,204 @@
+{
+  "schema": "savia-n5-integration/1",
+  "observedUtc": "2026-11-05T13:57:33.154738+00:00",
+  "host": "SUAZO-PC",
+  "baseSHA": "1e353d45cd0eb2ad8e79589f410ac191c1368b06",
+  "status": "review",
+  "sourceProductChanged": false,
+  "originalWorkerResultPreserved": true,
+  "workerFullBrowser": {
+    "pass": 50,
+    "scope": "original worker test bytes only"
+  },
+  "workerStaff": {
+    "pass": 102,
+    "scope": "unchanged staff sources"
+  },
+  "correctedFocused": {
+    "pass": 8,
+    "fail": 0,
+    "exit": 0,
+    "testSha256": "8fdd63efe6a2858b15c54cf589c1b3215d6f70320b946a3151b875b5e86960c8",
+    "sourceHashes": {
+      "dev/savia-staff-ui/app.mjs": "383c40447e91aa465cc945138699151826d7c1ad93f2f1ed041aa3dcda303309",
+      "dev/savia-staff-ui/client.mjs": "0447a3c83910d9a5618f98886d1025b9a74a3f59839eeca2ea0d7cc1ca6c4825",
+      "dev/savia-staff-ui/login.mjs": "ac7714a22eb1e7a383ca41e3e11343472025271dcf21dc862f39cf8c386fc787",
+      "dev/savia-staff-ui/login.html": "4803ece2ef530d9e5161837209ac86591bfe1447e9876b0f38bf17baca9a8382",
+      "dev/savia-staff-ui/index.html": "b5fe1c6a87f9cb4736e103eae888be97546e4f7b7e50d8893fe4ab4b01a6897d",
+      "dev/savia-staff-ui/styles.css": "3be78159e11d127c91db22399fb306fcc35e9cb8886a556393a003b82c9c2622"
+    }
+  },
+  "checks": [
+    {
+      "command": [
+        "python",
+        "tools/export_progress.py",
+        "--verify"
+      ],
+      "exit": 0,
+      "log": "docs/n5-browser-20261105/primary-export.log"
+    },
+    {
+      "observedUtc": "2026-11-05T13:48:41.203236+00:00",
+      "command": [
+        "node",
+        "tests/browser-mock-validation.mjs",
+        "C:/Users/Jason/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright",
+        "docs\\n5-browser-20261105\\primary-focused"
+      ],
+      "filter": "N5",
+      "exit": 0,
+      "testSha256": "8fdd63efe6a2858b15c54cf589c1b3215d6f70320b946a3151b875b5e86960c8",
+      "log": "docs/n5-browser-20261105/primary-focused.log"
+    },
+    {
+      "command": [
+        "python",
+        "tools/delivery_status.py",
+        "--check"
+      ],
+      "exit": 0,
+      "log": "docs/n5-browser-20261105/primary-ledger.log"
+    },
+    {
+      "command": [
+        "python",
+        "tests/test_delivery_status.py"
+      ],
+      "exit": 0,
+      "log": "docs/n5-browser-20261105/primary-ledger-tests.log"
+    },
+    {
+      "command": [
+        "python",
+        "tests/check.py"
+      ],
+      "exit": 1,
+      "log": "docs/n5-browser-20261105/primary-portable.log"
+    },
+    {
+      "command": [
+        "python",
+        "tests/test_progress.py"
+      ],
+      "exit": 0,
+      "log": "docs/n5-browser-20261105/primary-progress.log"
+    }
+  ],
+  "judge": "APTO CON REPAROS; both minor findings resolved by primary",
+  "critic": "PENDING; Antigravity Claude/GPT fresh effective availability 0% at 2026-11-05T13:46:34.569Z; indicated reset 2026-11-05T14:03:19Z",
+  "portableGap": "WinError 1314, three symlink fixture errors; exact-candidate Linux CI pending",
+  "sha256": {
+    "tests/browser-mock-validation.mjs": "8fdd63efe6a2858b15c54cf589c1b3215d6f70320b946a3151b875b5e86960c8",
+    "README.md": "40396423c94c658c7f44b866f13bd3f7929bc839ff96f28097d16aae3a6c8fed",
+    "dev/savia-staff-ui/README.md": "0d6b7cc2b18d28a6fd2c10bdc6cff192d0718dfe82cc84dab44f61b74b41af92",
+    "docs/PROJECT-STATUS.md": "89022a5b16e1bf72f36707aa2d06bcb4648f96fd77b3c1b2ae7c91a76b61c0f3",
+    "docs/pipeline/ledger.json": "1c73d6b5a53436ec788901db5667d94608813563d4c72f95eb95c3799c702a03",
+    "docs/n5-browser-20261105/judge.md": "5a74b36861c1c2a4771f73e5274368af62f48727445cc9a5c1363b95e2172833",
+    "docs/n5-browser-20261105/PLAN.md": "31f2395bb83ec89e5a82e7caed5dc5a8be96412a23762c0493937cc255e7d758",
+    "docs/n5-browser-20261105/primary-export-command.json": "37dca49fd8b48ea6861d9fcae2fa35cebc8a76b4dfdec4167f46e2f945124796",
+    "docs/n5-browser-20261105/primary-focused-command.json": "1467c1348e1081546d490eb6dbe7b80ade776c7c14afbdd7a5949dd376f53576",
+    "docs/n5-browser-20261105/primary-ledger-command.json": "90efcc126135817691cc226c4f6b579ddee32a2f01cca698a7344bfb7b1b3929",
+    "docs/n5-browser-20261105/primary-ledger-tests-command.json": "9b51cafdb1882349cfa0e56de18883b1bb368375da85f88fb5d0f2f664789f3b",
+    "docs/n5-browser-20261105/primary-portable-command.json": "9fd0e03cf206c948788d1e2e471a6a5a631e7590b2b2089e5f92c73364fcee42",
+    "docs/n5-browser-20261105/primary-progress-command.json": "06bbda3fcf48156ea3de2abe9050e7a9fdddf4980f19ca0ad11bbcb22ef22f88",
+    "docs/n5-browser-20261105/primary-review.md": "c38b2d4de228c4630ee2c29c924e623e58a1c4abb7b31bf04ef6fe0d16030b2a",
+    "docs/n5-browser-20261105/README.md": "e9cc02f15d9bd55ee16bf58fb9a303dddd9e302b1cff6c609048e832ba9b55cf",
+    "docs/n5-browser-20261105/RESULT.json": "212651087ca71ed6a27f084eed784d2a918921a9d9526561f7a4274a13ead0bb",
+    "docs/n5-browser-20261105/worker-README.md": "9f53d0a05bbc0013d9d7c787d7ff3460a88a92a31ea30b8562be2674bd8f435f",
+    "docs/n5-browser-20261105/worker-test.patch": "e65c98b5bfd61d44d56c6b894f150bc8b12858c461c83baab442740e005e85f0",
+    "docs/n5-browser-20261105/focused/browser-results.json": "32f51bc6ecec0fb53cda49b2258ac58bbe81999c2909e99e348c1a20096f5a9d",
+    "docs/n5-browser-20261105/focused/stale-receipt-observation.json": "003fb893b7ca07e8abc855f0ccc1505b58b31c3451b15c36ca141a7a37fe84d5",
+    "docs/n5-browser-20261105/focused/stale-receipt.png": "d3090e2f6e4e1b128b03136cf066075c92c5d6223e5cbf146224bad8828d660d",
+    "docs/n5-browser-20261105/full/browser-results.json": "d024a32cef75749e7540d8d11a10572188297bd8303c0fb21c258ac83ceb28c0",
+    "docs/n5-browser-20261105/full/multiarticle-desktop-cart.png": "44b3c4c50ba59383a23dec4f8d1be73c7b2e198503feebc97788ee2d2d87470d",
+    "docs/n5-browser-20261105/full/multiarticle-desktop-receipt.png": "320f9588cb3499caebdb9cf80e2f3c38662827a6746bc1093fdf023089828853",
+    "docs/n5-browser-20261105/full/multiarticle-mobile-cart.png": "18bfa0b19f9ec8c46edaa1105b32d2f223e448396c47bee2ec5df52e1569037a",
+    "docs/n5-browser-20261105/full/multiarticle-mobile-receipt.png": "4b706722f1cb7c2e00fa5a7bb933d3ec845944ae8ca0b7a134932d82cc3d40e1",
+    "docs/n5-browser-20261105/full/public-checkout-observation.json": "755c104ea4981d793d35c543aa63dcecfc589495c624b9d5a17a27c91afa537b",
+    "docs/n5-browser-20261105/full/stale-receipt-observation.json": "003fb893b7ca07e8abc855f0ccc1505b58b31c3451b15c36ca141a7a37fe84d5",
+    "docs/n5-browser-20261105/full/stale-receipt.png": "d3090e2f6e4e1b128b03136cf066075c92c5d6223e5cbf146224bad8828d660d",
+    "docs/n5-browser-20261105/primary-focused/browser-results.json": "edfbf26c9aad9f8228c072821e13304ef554f8e0813a40266981aa160d2eef78",
+    "docs/n5-browser-20261105/primary-focused/stale-receipt-observation.json": "003fb893b7ca07e8abc855f0ccc1505b58b31c3451b15c36ca141a7a37fe84d5",
+    "docs/n5-browser-20261105/primary-focused/stale-receipt.png": "d3090e2f6e4e1b128b03136cf066075c92c5d6223e5cbf146224bad8828d660d",
+    "docs/n5-browser-20261105/EXECUTION-SUMMARY.json": "b37e34ec18d3d917f5bf3fba6a875f171831adf265c05f3b89111cd7afec0c88"
+  },
+  "notRun": [
+    "corrected full browser suite (original full pass reused; one assertion strengthened)",
+    "real API",
+    "SQL",
+    "physical devices",
+    "production",
+    "operational acceptance",
+    "merge",
+    "deployment"
+  ],
+  "next": "Exact-SHA publication/CI, then approved Opus/high review when fresh availability permits; no automatic paid-credit fallback.",
+  "judgeFormatting": "Trailing whitespace and extra EOF blank line removed from exported verdict; wording unchanged.",
+  "excludedRawLogs": [
+    {
+      "originalWorkerOrPrimaryPath": "docs/n5-browser-20261105/focused.log",
+      "sha256": "6150b54420f9607d454defca3d825211855679b97e8c88d5c080d9ba489c7ab0",
+      "bytes": 1732,
+      "encoding": "UTF-16 with BOM",
+      "archivePath": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\n5-browser-20261105\\raw-logs\\focused.log"
+    },
+    {
+      "originalWorkerOrPrimaryPath": "docs/n5-browser-20261105/full.log",
+      "sha256": "56b6133919357fa21e94eeb9072d725a5b6ecc29ed7d4056955987c6e054f327",
+      "bytes": 7542,
+      "encoding": "UTF-16 with BOM",
+      "archivePath": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\n5-browser-20261105\\raw-logs\\full.log"
+    },
+    {
+      "originalWorkerOrPrimaryPath": "docs/n5-browser-20261105/primary-export.log",
+      "sha256": "6bc37a5368f6e607e6a0932afb47bf96d5a6a014603732c4a3c3005c79e0ee56",
+      "bytes": 58,
+      "encoding": "UTF-8",
+      "archivePath": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\n5-browser-20261105\\raw-logs\\primary-export.log"
+    },
+    {
+      "originalWorkerOrPrimaryPath": "docs/n5-browser-20261105/primary-focused.log",
+      "sha256": "2ad02e80a69bff77c8406aa91711890e53e2e2cd197646ad9a1747ddaca468b1",
+      "bytes": 849,
+      "encoding": "UTF-8",
+      "archivePath": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\n5-browser-20261105\\raw-logs\\primary-focused.log"
+    },
+    {
+      "originalWorkerOrPrimaryPath": "docs/n5-browser-20261105/primary-ledger-tests.log",
+      "sha256": "9e90a6b1a33303a2fa2394e0014c4973eb48df3ed52c49e44c52c19f787bbe2c",
+      "bytes": 128,
+      "encoding": "UTF-8",
+      "archivePath": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\n5-browser-20261105\\raw-logs\\primary-ledger-tests.log"
+    },
+    {
+      "originalWorkerOrPrimaryPath": "docs/n5-browser-20261105/primary-ledger.log",
+      "sha256": "9775f3ff3161d2ec33c8121ac13215e2b106161f1080f0dc50118f0c87532e82",
+      "bytes": 26,
+      "encoding": "UTF-8",
+      "archivePath": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\n5-browser-20261105\\raw-logs\\primary-ledger.log"
+    },
+    {
+      "originalWorkerOrPrimaryPath": "docs/n5-browser-20261105/primary-portable.log",
+      "sha256": "51d5ebbb7841212a07f2a75f4439f242e2dc000c28e544223219787009ee64be",
+      "bytes": 9509,
+      "encoding": "UTF-8",
+      "archivePath": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\n5-browser-20261105\\raw-logs\\primary-portable.log"
+    },
+    {
+      "originalWorkerOrPrimaryPath": "docs/n5-browser-20261105/primary-progress.log",
+      "sha256": "2101a8ce53fa6b3952c8c49f5905b29ff3cc282ef3a7504de2cb229ae52fc923",
+      "bytes": 2602,
+      "encoding": "UTF-8",
+      "archivePath": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\n5-browser-20261105\\raw-logs\\primary-progress.log"
+    },
+    {
+      "originalWorkerOrPrimaryPath": "docs/n5-browser-20261105/staff.log",
+      "sha256": "ef7425c6a63529991e047fd8658add41e25b2ccae8308e817506772aad2533ed",
+      "bytes": 13762,
+      "encoding": "UTF-16 with BOM",
+      "archivePath": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\n5-browser-20261105\\raw-logs\\staff.log"
+    }
+  ],
+  "publicPackageCorrection": "Initial commit rejected by .log policy; nine raw logs archived externally. Reviewed structured summary included; policy unchanged."
+}

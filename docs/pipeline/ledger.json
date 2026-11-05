@@ -1,6 +1,6 @@
 {
   "schema": "savia-delivery-ledger/1",
-  "updated": "2026-11-04",
+  "updated": "2026-11-05",
   "about": "Fuente única del estado de entrega. Un item pasa a done solo con evidencia verificable (run de CI, ruta en el repo o PR). tools/delivery_status.py valida este archivo en cada push y PR.",
   "people": {
     "jason": "Jason Suazo",
@@ -325,7 +325,7 @@
       "order": 14.5,
       "track": "sprint",
       "owner": "denis",
-      "status": "todo",
+      "status": "review",
       "title": "Cobertura extra de N5 sugerida por el crítico de C3",
       "why": "El crítico de Cutufay señaló 3 huecos: botón durante recuperación pendiente, venta nueva completa tras descartar un recibo obsoleto y posible carrera en el caso 404. Recomendación, no criterio original de C3",
       "done_when": "Cada hueco cubierto por una prueba en tests/browser-mock-validation.mjs con rojo-verde, o descartado por escrito con el motivo",
@@ -335,7 +335,9 @@
       ],
       "trello": "https://trello.com/c/145Qp5pz",
       "prep": "Revision final C8 confirma tres GAP: submit durante recovery retenido, venta nueva completa tras descartar recibo obsoleto y carrera404 tardia. Casos adyacentes PASS no cubren estos escenarios; no se afirma defecto sin reproducir ni se descarta cobertura por inferencia.",
-      "report": "docs/c8-ui-20261103/FINAL-CI-REVIEW.md"
+      "report": "docs/n5-browser-20261105/primary-review.md",
+      "evidence": "docs/n5-browser-20261105/README.md",
+      "review": "Worker: N5 8/8, full Chrome/HTTP mocks 50/50, staff 102/102. Astra/high APTO CON REPAROS sin bloqueantes. Primary corrige atribucion del 404 tardio y celdas iniciales de stock; N5 integrado 8/8. Critico Opus pendiente por cuota. Portable local bloqueado por WinError 1314; CI Linux pendiente. Sin defecto de producto reproducido ni nueva prueba API/SQL/operativa. No se afirma rojo-verde de una correccion inexistente."
     },
     {
       "id": "SEC-CSRF",

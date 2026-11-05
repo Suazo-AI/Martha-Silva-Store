@@ -3,6 +3,16 @@
 Corte operativo: 2026-11-04 UTC. Host coordinador: SUAZO-PC. Checkout canónico `github`, rama `Tony`.
 **No listo para producción. C6/C8 y C11 pasan técnicamente; C9 sigue bloqueado por confianza TLS.**
 
+Actualización N5-COV, 2026-11-05 UTC: [cobertura de recuperación en navegador](n5-browser-20261105/README.md).
+Worker Sol/high: N5 8/8, Chrome/HTTP simulado 50/50 y staff 102/102; exits 0, producto sin cambios.
+Astra/high: APTO CON REPAROS, cero bloqueantes. El primary precisó la protección conjunta durante logout
+y reforzó la comparación inicial de existencias. N5 integrado pasó 8/8; Opus sigue pendiente.
+El ledger queda en `review`; no se cierra por los resultados del worker ni por el juez solo.
+La cuota fresca de Antigravity/Claude-GPT a las 13:46:34 UTC fue 0%; reinicio indicado 14:03:19 UTC.
+No se usa otro modelo ni crédito adicional. Esto no cierra C2/C9/C10 ni acredita API/SQL/dispositivos reales.
+La comprobación general local volvió a detenerse por WinError 1314 en fixtures de symlink;
+la alternativa es el CI Linux del SHA publicado, todavía pendiente. Ledger y 24 pruebas del ledger pasan.
+
 Actualización de planificación, 2026-11-05 UTC: [plan de cierre por evidencia](release-20261105/PLAN.md) y [prompt reescrito](release-20261105/PROMPT.md).
 Jason autorizó corregir la raíz de T3 a `github`; readback confirmado, dos auditorías completadas en worktrees administrados separados.
 Terra/high auditó el sitio; Sol/high trazó el día operativo y las tres brechas de navegador N5-COV.

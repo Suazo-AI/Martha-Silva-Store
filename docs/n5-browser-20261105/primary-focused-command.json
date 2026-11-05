@@ -1,0 +1,13 @@
+{
+  "observedUtc": "2026-11-05T13:48:41.203236+00:00",
+  "command": [
+    "node",
+    "tests/browser-mock-validation.mjs",
+    "C:/Users/Jason/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright",
+    "docs\\n5-browser-20261105\\primary-focused"
+  ],
+  "filter": "N5",
+  "exit": 0,
+  "testSha256": "8fdd63efe6a2858b15c54cf589c1b3215d6f70320b946a3151b875b5e86960c8",
+  "log": "docs/n5-browser-20261105/primary-focused.log"
+}

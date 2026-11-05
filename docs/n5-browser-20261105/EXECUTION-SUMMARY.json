@@ -1,0 +1,115 @@
+{
+  "schema": "savia-n5-public-execution-summary/1",
+  "host": "SUAZO-PC",
+  "observedUtc": "2026-11-05T13:57:33.150678+00:00",
+  "policy": "tools/progress.py rejects .log publication. Raw logs are excluded, not renamed or copied into another public format. Frozen RESULT.json still describes the original worker checkout.",
+  "rawLogs": [
+    {
+      "originalWorkerOrPrimaryPath": "docs/n5-browser-20261105/focused.log",
+      "sha256": "6150b54420f9607d454defca3d825211855679b97e8c88d5c080d9ba489c7ab0",
+      "bytes": 1732,
+      "encoding": "UTF-16 with BOM",
+      "archivePath": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\n5-browser-20261105\\raw-logs\\focused.log"
+    },
+    {
+      "originalWorkerOrPrimaryPath": "docs/n5-browser-20261105/full.log",
+      "sha256": "56b6133919357fa21e94eeb9072d725a5b6ecc29ed7d4056955987c6e054f327",
+      "bytes": 7542,
+      "encoding": "UTF-16 with BOM",
+      "archivePath": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\n5-browser-20261105\\raw-logs\\full.log"
+    },
+    {
+      "originalWorkerOrPrimaryPath": "docs/n5-browser-20261105/primary-export.log",
+      "sha256": "6bc37a5368f6e607e6a0932afb47bf96d5a6a014603732c4a3c3005c79e0ee56",
+      "bytes": 58,
+      "encoding": "UTF-8",
+      "archivePath": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\n5-browser-20261105\\raw-logs\\primary-export.log"
+    },
+    {
+      "originalWorkerOrPrimaryPath": "docs/n5-browser-20261105/primary-focused.log",
+      "sha256": "2ad02e80a69bff77c8406aa91711890e53e2e2cd197646ad9a1747ddaca468b1",
+      "bytes": 849,
+      "encoding": "UTF-8",
+      "archivePath": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\n5-browser-20261105\\raw-logs\\primary-focused.log"
+    },
+    {
+      "originalWorkerOrPrimaryPath": "docs/n5-browser-20261105/primary-ledger-tests.log",
+      "sha256": "9e90a6b1a33303a2fa2394e0014c4973eb48df3ed52c49e44c52c19f787bbe2c",
+      "bytes": 128,
+      "encoding": "UTF-8",
+      "archivePath": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\n5-browser-20261105\\raw-logs\\primary-ledger-tests.log"
+    },
+    {
+      "originalWorkerOrPrimaryPath": "docs/n5-browser-20261105/primary-ledger.log",
+      "sha256": "9775f3ff3161d2ec33c8121ac13215e2b106161f1080f0dc50118f0c87532e82",
+      "bytes": 26,
+      "encoding": "UTF-8",
+      "archivePath": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\n5-browser-20261105\\raw-logs\\primary-ledger.log"
+    },
+    {
+      "originalWorkerOrPrimaryPath": "docs/n5-browser-20261105/primary-portable.log",
+      "sha256": "51d5ebbb7841212a07f2a75f4439f242e2dc000c28e544223219787009ee64be",
+      "bytes": 9509,
+      "encoding": "UTF-8",
+      "archivePath": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\n5-browser-20261105\\raw-logs\\primary-portable.log"
+    },
+    {
+      "originalWorkerOrPrimaryPath": "docs/n5-browser-20261105/primary-progress.log",
+      "sha256": "2101a8ce53fa6b3952c8c49f5905b29ff3cc282ef3a7504de2cb229ae52fc923",
+      "bytes": 2602,
+      "encoding": "UTF-8",
+      "archivePath": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\n5-browser-20261105\\raw-logs\\primary-progress.log"
+    },
+    {
+      "originalWorkerOrPrimaryPath": "docs/n5-browser-20261105/staff.log",
+      "sha256": "ef7425c6a63529991e047fd8658add41e25b2ccae8308e817506772aad2533ed",
+      "bytes": 13762,
+      "encoding": "UTF-16 with BOM",
+      "archivePath": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\n5-browser-20261105\\raw-logs\\staff.log"
+    }
+  ],
+  "results": {
+    "workerFocused": {
+      "passed": 8,
+      "failed": 0,
+      "exit": 0
+    },
+    "workerFullBrowser": {
+      "passed": 50,
+      "failed": 0,
+      "exit": 0
+    },
+    "workerStaff": {
+      "passed": 102,
+      "failed": 0,
+      "skipped": 0,
+      "exit": 0
+    },
+    "primaryCorrectedFocused": {
+      "passed": 8,
+      "failed": 0,
+      "exit": 0
+    },
+    "primaryProgress": {
+      "passed": 23,
+      "exit": 0
+    },
+    "primaryLedgerTests": {
+      "passed": 24,
+      "exit": 0
+    },
+    "primaryLedgerValidation": {
+      "items": 35,
+      "exit": 0
+    },
+    "primaryPreservedHashes": {
+      "verified": 15,
+      "exit": 0
+    },
+    "primaryPortable": {
+      "exit": 1,
+      "environmentError": "WinError 1314 during three symlink fixtures",
+      "alternative": "Exact-candidate Ubuntu CI; pending"
+    }
+  }
+}

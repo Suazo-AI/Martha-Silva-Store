@@ -25,8 +25,10 @@ Ver [evidencia local y límites de C8](../../docs/c8-ui-20261103/report.md).
 ## Evidencia y comprobaciones
 
 El [lote 2026-11-03](../../docs/testing-20261103/README.md) obtuvo 42/42 pruebas staff JS.
-El navegador usa API simulada; hay 31/32 escenarios aprobados en el conjunto público/staff y N5 fallido.
-La evidencia Owner navegador → SQL del 31 de octubre es histórica; falta aceptar el candidato actual por cajero.
+En ese corte histórico hubo 31/32 escenarios con API simulada y N5 fallido; ese defecto ya está corregido.
+El [lote N5 del 5 de noviembre](../../docs/n5-browser-20261105/README.md) registró 50/50 con Chrome/HTTP simulado
+y staff 102/102. El primary aplica dos precisiones del juez; la revisión de Opus sigue pendiente.
+Para pruebas posteriores navegador → API → SQL por cajero, consultar el estado vigente; este lote no repite SQL.
 
 ```powershell
 # Usar el jsdom ya instalado del lock, solo en el proceso de comprobación.

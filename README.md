@@ -1,14 +1,16 @@
 # Martha Silva Store / SAVIA
 
-**Estado al 2026-11-03: candidato probado por capas; no listo para producción.**
+**Estado al 2026-11-05: candidato probado por capas; no listo para producción.**
 La tienda pública y la aplicación interna de personal tienen alcances y autoridades separados.
-El siguiente incremento es corregir N5 y probar la venta por cajero de navegador a SQL.
+N5 está corregido. Su cobertura adicional de recuperación está en revisión;
+siguen las validaciones y decisiones operativas del [estado vigente](docs/PROJECT-STATUS.md).
 
 Entrada para cualquier agente: [AGENT-START](docs/AGENT-START.md).
 Estado vigente: [PROJECT-STATUS](docs/PROJECT-STATUS.md).
 Decisiones: [DECISIONS](docs/DECISIONS.md). SQL: [DATABASE](docs/DATABASE.md).
-Última validación: [590 backend PASS, 2 NOT RUN; navegador 31/32](docs/testing-20261103/README.md).
-El caso fallido bloquea ventas nuevas cuando un recibo histórico devuelve 404. No está corregido.
+Validación histórica del 3 de noviembre: [590 backend PASS, 2 NOT RUN; navegador 31/32](docs/testing-20261103/README.md).
+El N5 fallido en ese corte ya fue corregido. El [lote adicional N5](docs/n5-browser-20261105/README.md)
+registró 50/50 con Chrome y HTTP simulado, sin defecto nuevo reproducido; sigue pendiente el cierre de revisión.
 
 Checkout canónico: `C:/Users/Jason/MARTHA-SILVA/github`, rama `Tony`.
 Los hooks registran y sincronizan commits autorizados; [AUTO-SYNC](docs/AUTO-SYNC.md).

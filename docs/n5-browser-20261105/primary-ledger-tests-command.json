@@ -1,0 +1,8 @@
+{
+  "command": [
+    "python",
+    "tests/test_delivery_status.py"
+  ],
+  "exit": 0,
+  "log": "docs/n5-browser-20261105/primary-ledger-tests.log"
+}

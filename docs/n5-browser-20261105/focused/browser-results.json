@@ -1,0 +1,138 @@
+{
+  "observedUtc": "2026-11-05T13:33:50.265Z",
+  "host": "SUAZO-PC",
+  "node": "v24.18.0",
+  "browser": "156.0.8078.80",
+  "layer": "Real Chromium browser; mocked staff API; public browser-local demo",
+  "origin": "http://127.0.0.1:56514",
+  "sourceHashes": {
+    "dev/savia-staff-ui/app.mjs": "383c40447e91aa465cc945138699151826d7c1ad93f2f1ed041aa3dcda303309",
+    "dev/savia-staff-ui/client.mjs": "0447a3c83910d9a5618f98886d1025b9a74a3f59839eeca2ea0d7cc1ca6c4825",
+    "dev/savia-staff-ui/login.mjs": "ac7714a22eb1e7a383ca41e3e11343472025271dcf21dc862f39cf8c386fc787",
+    "dev/savia-staff-ui/login.html": "4803ece2ef530d9e5161837209ac86591bfe1447e9876b0f38bf17baca9a8382",
+    "dev/savia-staff-ui/index.html": "b5fe1c6a87f9cb4736e103eae888be97546e4f7b7e50d8893fe4ab4b01a6897d",
+    "dev/savia-staff-ui/styles.css": "3be78159e11d127c91db22399fb306fcc35e9cb8886a556393a003b82c9c2622"
+  },
+  "results": [
+    {
+      "name": "Stale confirmed receipt 404 must not permanently block a fresh sale (N5)",
+      "status": "PASS",
+      "durationMs": 1088
+    },
+    {
+      "name": "N5 held operation recovery blocks native and synthetic submit without changing original bytes",
+      "status": "PASS",
+      "durationMs": 955,
+      "detail": {
+        "originalKey": "79e8f7fd-b42e-481e-852d-879d7dd86cf4",
+        "originalPendingSha256": "48ce06c6f1bd2ee4fdd63bab91bb747497797c1553ad32c99df863d373bd5a49",
+        "body": {
+          "locationId": "00000001-0000-0000-0000-000000000003",
+          "customerId": null,
+          "lines": [
+            {
+              "itemId": "00000001-0000-0000-0000-000000000002",
+              "quantity": 1
+            }
+          ]
+        },
+        "heldRecoveryGet": 1,
+        "postsWhileHeld": 0,
+        "totalPosts": 1
+      }
+    },
+    {
+      "name": "N5 discarded 404 receipt permits one complete fresh multiarticle sale and stock refresh",
+      "status": "PASS",
+      "durationMs": 1355,
+      "detail": {
+        "obsoleteSaleId": "00000001-0000-0000-0000-000000000005",
+        "newSaleId": "00000001-0000-0000-0000-000000000221",
+        "newKey": "83f608df-2e53-41a9-b1b3-df51cb372b67",
+        "body": {
+          "locationId": "00000001-0000-0000-0000-000000000003",
+          "customerId": null,
+          "lines": [
+            {
+              "itemId": "00000001-0000-0000-0000-000000000002",
+              "quantity": 2
+            },
+            {
+              "itemId": "00000001-0000-0000-0000-000000000220",
+              "quantity": 3
+            }
+          ]
+        },
+        "posts": 1,
+        "stockBefore": [
+          "SYN-SSynthetic dress S10010",
+          "SYN-MSynthetic dress M10010"
+        ],
+        "stockAfter": [
+          [
+            "SYN-S",
+            "Synthetic dress S",
+            "8",
+            "0",
+            "8"
+          ],
+          [
+            "SYN-M",
+            "Synthetic dress M",
+            "7",
+            "0",
+            "7"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "N5 late old receipt 404 after user logout preserves invalidated state and retained reference",
+      "status": "PASS",
+      "durationMs": 1326,
+      "detail": {
+        "heldOld404": true,
+        "userTransition": "native logout then login; no storage removal",
+        "late404PreservedReference": true,
+        "late404ChangedPrivateState": false,
+        "sameGenerationSubmitPosts": 0,
+        "newSessionEnabled": true,
+        "disposition": "Same-generation new sale unreachable while start awaits restoreReceipt; reachable logout generation boundary exercised."
+      }
+    },
+    {
+      "name": "Stale receipt 403 after reassignment is cleared and leaves a fresh sale available (N5)",
+      "status": "PASS",
+      "durationMs": 591
+    },
+    {
+      "name": "Unavailable receipt lookup keeps its reference and does not invent a pending sale (N5)",
+      "status": "PASS",
+      "durationMs": 606
+    },
+    {
+      "name": "Stale receipt never unlocks a real pending sale; recovery reuses the original key (N5)",
+      "status": "PASS",
+      "durationMs": 672
+    },
+    {
+      "name": "Revoked session during receipt restore returns to sign-in without staff data (N5)",
+      "status": "PASS",
+      "durationMs": 786
+    }
+  ],
+  "runtime": [],
+  "externalRequests": [],
+  "networkFailures": [
+    {
+      "test": "n5-held-recovery",
+      "path": "/internal/api/commerce/sales",
+      "error": "net::ERR_FAILED"
+    },
+    {
+      "test": "n5-late-404",
+      "path": "/internal/api/security/logout",
+      "error": "net::ERR_ABORTED"
+    }
+  ]
+}
