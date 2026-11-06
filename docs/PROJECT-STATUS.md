@@ -3,7 +3,8 @@
 Current primary assessment, 2026-11-06 UTC: production remains NO-GO.
 [Complete remaining work and proposed critical path](release-20261106/completion-audit.md).
 This assessment separates adopted decisions, missing implementation, unexecuted proof and external production prerequisites.
-Independent process critic/judge requested by Jason; no claim of their acceptance yet.
+Gemini process critique returned REVISE. Primary objections are recorded; Astra process adjudication remains pending.
+[Critique and primary response](release-20261106/process-response.md).
 
 Supply receipt preparation: Astra ACCEPT WITH LIMITS returned and accepted by the primary.
 21/21 current source bindings match. No-SQL CI42169677581 passed on unchanged bindings.
@@ -17,7 +18,9 @@ M2 is now reproduced and corrected locally: Git preserves LF headers, and the sn
 The new recorder regression fails before the fix and passes after it. Direct snapshot verification and static-header tests pass.
 No app, headers, dist or media bytes changed in this correction.
 [Exact M2 proof and limits](hardening-20261106/combined/CI-HEADERS-LF-FIX.json).
-Corrected-commit Linux CI and Astra storefront adjudication remain pending. This does not accept production.
+Primary accepted the bounded M1/M2 corrections at 2bf3635 after Astra ACCEPT WITH LIMITS and direct exact-SHA Linux readback.
+Run42175006747 passed both integrity/build and historical portable regression jobs. All 28 source bindings still match.
+[Acceptance and limits](hardening-20261106/combined/PORTABILITY-ACCEPTANCE.json). Production remains NO-GO.
 
 The following sections retain earlier dated observations. Later accepted evidence above supersedes their pending-review statements.
 No merge, deployment or new SQL/API/Docker/certificate runtime occurred in this update.

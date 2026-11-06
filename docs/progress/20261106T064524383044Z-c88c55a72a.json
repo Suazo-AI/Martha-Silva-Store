@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-06T06:45:24.383044+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "762cf455e56d897d0eee26e648ed798035eef476"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/PORTABILITY-ACCEPTANCE.json",
+      "change": "A",
+      "git_blob": "3259aa60ca98c07749761dfa5267e5392471f751"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/astra-portability-judge.md",
+      "change": "A",
+      "git_blob": "1a2055e656b667e8160959c5d648e675984219de"
+    },
+    {
+      "path": "docs/release-20261106/process-critic.md",
+      "change": "A",
+      "git_blob": "314bcb7f49dffde2980d4cdfc2f3622048717013"
+    },
+    {
+      "path": "docs/release-20261106/process-response.md",
+      "change": "A",
+      "git_blob": "f9eba19181fea112d9e46161075ed0383088c674"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

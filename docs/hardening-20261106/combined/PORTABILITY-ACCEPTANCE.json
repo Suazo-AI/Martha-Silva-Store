@@ -1,0 +1,60 @@
+{
+  "testedSha": "2bf3635e718cebb558ac4dd6ab863be34f172c4a",
+  "decision": "ACCEPT WITH LIMITS: storefront portability corrections M1/M2 only",
+  "primary": {
+    "host": "SUAZO-PC",
+    "harness": "T3 Code/Codex",
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "xhigh"
+  },
+  "sourceIdentity": {
+    "manifest": "REVIEW-CANDIDATE.json",
+    "gitAndCurrentLfBindingsVerified": 28,
+    "duplicateHashManifestCreated": false
+  },
+  "critic": {
+    "path": "gemini-critic.md",
+    "verdict": "REJECT on a77f705; preserved as historical finding"
+  },
+  "judge": {
+    "path": "astra-portability-judge.md",
+    "sha256": "c659dc660f058a25025376d864066fa3b3f7a6b2ff55216cb93ad60d3f36794a",
+    "verdict": "ACCEPT WITH LIMITS conditional on exact-SHA Linux CI"
+  },
+  "githubReadback": {
+    "runId": 42175006747,
+    "attempt": 1,
+    "headSha": "2bf3635e718cebb558ac4dd6ab863be34f172c4a",
+    "status": "completed",
+    "conclusion": "success",
+    "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42175006747",
+    "jobs": [
+      {
+        "id": 127751334998,
+        "name": "Publication integrity and reproducible build",
+        "conclusion": "success",
+        "checks": [
+          "snapshot identity",
+          "reproducible build",
+          "JavaScript syntax",
+          "clean generated diff"
+        ]
+      },
+      {
+        "id": 127751468247,
+        "name": "Historical portable regression suite (known gaps retained)",
+        "conclusion": "success",
+        "command": "python tests/check.py --install"
+      }
+    ],
+    "source": "Direct gh api run/jobs readback by the primary during this turn; no new dispatch"
+  },
+  "verification": "Primary verified returned report SHA256 and all 28 Git/LF bindings. Prior red/green and header/snapshot checks are retained, not rerun for this documentation-only acceptance. Linux jobs satisfy the judge condition.",
+  "limits": [
+    "Not production acceptance",
+    "No new browser, SQL/API/Docker/certificate runtime, live payment, merge or deployment",
+    "Known historical exclusions remain explicit",
+    "The documentation publication has a later SHA; this result remains bound to testedSha"
+  ],
+  "nextAction": "Prioritize the real persisted business journey and the already adopted stock-exception flow; keep production gates separate"
+}
