@@ -27,7 +27,7 @@ Cada registro de catálogo puede declarar, tras validación comercial:
 
 El ejemplo anterior es **esquemático**, no un precio previo real ni una autorización de campaña. No copiarlo al catálogo sin evidencia. Temporadas válidas: graduaciones, verano, fin-de-ano, bodas-eventos.
 
-Una tarjeta se muestra solamente si: la prenda tiene estado comercial active, la moneda es USD, la oferta está aprobada, fecha local de Nicaragua dentro de la vigencia, precio previo en centavos mayor al precio actual, ambos precios enteros válidos y al menos una talla con existencias. El **precio vigente es price_minor**, que también utiliza el simulador de compra; previous_price_minor es exclusivamente el precio histórico verificado para comparación. No agregar un precio promocional divergente del precio de compra.
+Una tarjeta se muestra solamente si: la prenda tiene estado comercial active, la moneda es USD, la oferta está aprobada, ambas fechas existen en el calendario gregoriano (incluidos años bisiestos), el inicio no es posterior al fin, la fecha local de Nicaragua está dentro de la vigencia, precio previo en centavos mayor al precio actual, ambos precios enteros válidos y al menos una talla con existencias. El **precio vigente es price_minor**, que también utiliza el simulador de compra; previous_price_minor es exclusivamente el precio histórico verificado para comparación. No agregar un precio promocional divergente del precio de compra.
 
 El porcentaje se calcula a partir de esos dos precios y se redondea al entero más cercano. Si falta un dato, el artículo no aparece como oferta. El catálogo vigente puede seguir consultándose sin descuento.
 
@@ -44,3 +44,5 @@ Preparar el build reproducible con python prepare.py, ejecutar python tests/chec
 ## Registro de corrección
 
 - **2026-11-05**: La primera CI detectó una excepción al activar la vista: se había utilizado el selector singular `$` (Element) antes de llamar `forEach`. Se cambió al selector múltiple `$$` (array de Elements) en `src/app.js` y `dist/app.js`. Evidencia inicial: [CI fallida 41995071999](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41995071999). Es necesario validar el commit corregido con una nueva CI antes de considerarlo apto.
+
+- **2026-11-06**: Revisión de PR #5: se reemplazó la comprobación de solo formato de fechas por verificación de calendario (meses, días y bisiestos), más el orden de vigencia. Se añadieron casos negativos y un bisiesto válido en `tests/frontend-runtime.cjs`. Pendiente: CI del SHA nuevo y QA visual desktop/móvil; ningún descuento se habilitó.
