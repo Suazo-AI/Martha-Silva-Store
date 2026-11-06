@@ -21,7 +21,9 @@ def digest(path):
 
 def verify(record=False):
     actual = {p.relative_to(ROOT / 'dist').as_posix(): p for p in (ROOT / 'dist').rglob('*') if p.is_file()}
-    public = set(actual) - {'README.txt'}
+    controls = {'_headers'}
+    assert controls <= set(actual), 'Missing static asset control configuration'
+    public = set(actual) - {'README.txt'} - controls
     assert len(public) == 1558, 'Responsive candidate public path count changed'
     js = {'app.js', 'demo-api.js', 'integration-adapters.js'}
     static = {p.relative_to(ROOT / 'build-inputs/static').as_posix(): p for p in (ROOT / 'build-inputs/static').rglob('*') if p.is_file()}
@@ -44,16 +46,16 @@ def verify(record=False):
     assert pages == {f'producto-{pid}.html' for pid in ids} | {'index.html', 'catalogo.html', 'bolsa.html', 'checkout.html', 'pedido.html', 'ayuda.html', 'admin.html'}
     assert not any(p.startswith(('savia/', 'internal/', 'backend/', 'dev/')) for p in public)
     observed = {rel: {'sha256': digest(actual[rel]), 'bytes': actual[rel].stat().st_size}
-                for rel in sorted(public)}
+                for rel in sorted(public | controls)}
     if record:
         # Record only after input parity and the structural gates pass.
         # The October snapshot remains immutable historical evidence.
         SNAPSHOT.parent.mkdir(parents=True, exist_ok=True)
         SNAPSHOT.write_text(json.dumps(observed, indent=2) + '\n', encoding='utf-8')
     manifest = json.loads(SNAPSHOT.read_text(encoding='utf-8'))
-    assert public == set(manifest), 'Public paths differ from recorded publication'
+    assert public | controls == set(manifest), 'Public/control paths differ from recorded publication'
     assert observed == manifest, 'Publication bytes differ from the recorded snapshot'
-    print('PASS: 1558 public paths match publication bytes; all 1559 dist files match canonical inputs; 47 pages / 40 products / 120 variants; no staff runtime paths')
+    print(f'PASS: {len(public)} public paths and {len(controls)} control file match recorded bytes; all {len(actual)} dist files match canonical inputs; 47 pages / 40 products / 120 variants; no staff runtime paths')
 
 
 if __name__ == '__main__':

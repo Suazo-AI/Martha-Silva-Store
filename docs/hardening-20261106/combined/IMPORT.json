@@ -1,0 +1,450 @@
+{
+  "base": "65ab1d942a4666321e489da1cccd6341a0f671b7",
+  "workerBase": "b30a275ac7de4e796f34ddf5fb80ebffb3eea98c",
+  "worker": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-b74f045e",
+  "verified": {
+    "candidate": 3126,
+    "evidence": 55,
+    "changed": 22,
+    "media": 624,
+    "fonts": 17
+  },
+  "normalization": "lfSha256 normalizes CRLF to LF only; rawSha256 preserves original bytes. Historical receipts unchanged.",
+  "sourceImports": [
+    {
+      "path": "build-inputs/static/_headers",
+      "rawSha256": "503d49f3f495ee3001ae78d8db6ca666bbe424cfa962ba4244348000943e907f",
+      "lfSha256": "503d49f3f495ee3001ae78d8db6ca666bbe424cfa962ba4244348000943e907f",
+      "previousRawSha256": null
+    },
+    {
+      "path": "build-inputs/static/catalogo.html",
+      "rawSha256": "d38a7c67f7b4ab23fc977e361c28a19212d043a9515a4354394af57e08f15626",
+      "lfSha256": "d38a7c67f7b4ab23fc977e361c28a19212d043a9515a4354394af57e08f15626",
+      "previousRawSha256": "6496b076c78706b10421b5485d782f46a912235a07dcb0dae2d0ff7540085533"
+    },
+    {
+      "path": "build-inputs/static/index.html",
+      "rawSha256": "3a2d298f99ff5ab1485121fd63921ab95af7abb1ce85f42d659c9449e242d8fb",
+      "lfSha256": "b025431c70d13b2264aac29cf03f65557bf3412849a43c4c1cf033b0adb3832d",
+      "previousRawSha256": "2701cb4ede080b3708dc65352623216dd25afc8e97c90515c9692b44226ece24"
+    },
+    {
+      "path": "build-inputs/static/locale-en.js",
+      "rawSha256": "0f35a694433d4ac4f496a48356ebe831eba680937eef7cf7f65be1cc1d59b9b1",
+      "lfSha256": "25635092271c419b53ef454a2c92d35bfcc162d1c823fd6ca0cbb1eed0aebb7a",
+      "previousRawSha256": "e985ad319f0c44d9830fb4941c378c3e6bed4d43a2b741aa59fda2510e003e61"
+    },
+    {
+      "path": "build-inputs/static/styles.css",
+      "rawSha256": "0a05e6dbbb334e88c535b98a6c461150cad0c73982e63586f0d777289feb0488",
+      "lfSha256": "0a05e6dbbb334e88c535b98a6c461150cad0c73982e63586f0d777289feb0488",
+      "previousRawSha256": "9d7cb94e0e57c89fa884294de04a0baf8bfd1362ddc4de9a45aa2939a79ca679"
+    },
+    {
+      "path": "package-lock.json",
+      "rawSha256": "869b928f447562e5a3b97022e2c7b28a566180be1ca1cb4af40f33d5724aa301",
+      "lfSha256": "2c3ec783b8d731d534fe7fcc693c3ed7ae8b20d41930b388c69b47eb6f7ad0e9",
+      "previousRawSha256": "eefd3d54ed11bf7f772d74f04b0df014232f58a04213cffc01d6fa1f68842400"
+    },
+    {
+      "path": "package.json",
+      "rawSha256": "55c2b7d5fb46a8c245763ef4b82c9b21cff756d01bdf5be8a42225111be670da",
+      "lfSha256": "1bfdebbc38a34e9509cd0b2cac12e9ca6263366c35e2109199b4047823a20e3a",
+      "previousRawSha256": "66af25f2519e27861811fdde4fb09cca95bae21dcc57ddc0f14f11f60cde5fe8"
+    },
+    {
+      "path": "src/app.js",
+      "rawSha256": "ae2577a4a707628f93b19593a41a08db239914e4f34e97455b03a1fb80c421b0",
+      "lfSha256": "a6209bb17816e00b723c610ad0a85f7c86ac362d750507a369ba4b790160463e",
+      "previousRawSha256": "d9a06a0f87aa7b1c696d40b4f7fc8b666b2c0c6c0eae1407f8ff2fc859af83dc"
+    },
+    {
+      "path": "tests/check.py",
+      "rawSha256": "8f127bf6979a28f320b96cd14c334acab44232508f3773ad1195be058adc81ec",
+      "lfSha256": "d9b2670022e71888c3c2a3b588da82e299cdbff75ff012159f29a23f07cb6438",
+      "previousRawSha256": "a671546749ebeebb6c6f2587dc3334e35144c89a38ed36a3daff9dec9352a1e9"
+    },
+    {
+      "path": "tests/luxury-editorial.cjs",
+      "rawSha256": "a03c5a5993e01238c0933ae7fb7fbce523a28c3b13b837e1780d03cd97cc0169",
+      "lfSha256": "94bde45be3e217f195a4eb2f116811dd324f26c5fe85a08b18df4dab9091edcf",
+      "previousRawSha256": "3f5728af10229914f9768cdd3f08583bf84c80d72dd61b8f7229963660cd6bb6"
+    },
+    {
+      "path": "tests/responsive_images.py",
+      "rawSha256": "0f80506355bedbcc136b0807bc3842fbc9b3452fde29e35958059ac993c758dc",
+      "lfSha256": "b76eb9eefb4ac9fce3eb9c2438edc4f88d6cc83fbad532ef984405d7fd8634ba",
+      "previousRawSha256": "c8d52e59761c7ce9fba6ebbf7d78c6a4689478b069dea36e987f363b333c58bd"
+    },
+    {
+      "path": "tests/static_headers.py",
+      "rawSha256": "e8534005d9dbe004b17914fc30a520fc99c06aeb46f271193087d76d8adb5d9e",
+      "lfSha256": "5aaa8ebb90b8cb6ea29141d20123b20146faef7084958a7ba46997e8cc7bcf89",
+      "previousRawSha256": null
+    },
+    {
+      "path": "tests/test_deployment.py",
+      "rawSha256": "30cfdd0982160f27f97a7e0e009f1b4f2d38ef09d1342257da8864165a9e737e",
+      "lfSha256": "1034d9b196fef3b86c1b4304bac461f84d721551da679920f8b4d23365e2f006",
+      "previousRawSha256": "b56ec450a012e44b3401529b5955d35f52a704175f264ed0480f2d46670778e3"
+    },
+    {
+      "path": "tests/test_release_snapshot.py",
+      "rawSha256": "37e0ee45e22d1d194a4085d476c176e6381c7804fe2ec6f8b92eaf822f67a07d",
+      "lfSha256": "37e0ee45e22d1d194a4085d476c176e6381c7804fe2ec6f8b92eaf822f67a07d",
+      "previousRawSha256": null
+    },
+    {
+      "path": "tools/verify_release_snapshot.py",
+      "rawSha256": "a386639a2f19e04627cf3a29d2e1ba71c9e25211af8c83cabc51f35e14db9353",
+      "lfSha256": "4bf2ca8365aa9514650ff020039d1fbdfdcfa32f246a389a2e910d5aaea98352",
+      "previousRawSha256": "9894e0e2b68ff699e2a96f4adf552712e76034cc5c3959d9697f1cac98c8b51b"
+    }
+  ],
+  "publicEvidence": [
+    {
+      "path": "browser-flow.js",
+      "sha256": "7032ec2fcc5c4523c030770bc67c9bb3901c8929fc0d99bcd030ee3e0557cba4",
+      "bytes": 2341,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\hardening-20261106\\combined\\browser-flow.js"
+    },
+    {
+      "path": "browser_driver.py",
+      "sha256": "d1f2fa46073ad5c306535e83d8bf5d3915525a43a730d8453c524f6390cd6d9b",
+      "bytes": 3646,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\hardening-20261106\\combined\\browser_driver.py"
+    },
+    {
+      "path": "candidate-hashes.json",
+      "sha256": "76b0b1649ef6649736bbb6f6210c6d2bb3c7240e180623345796cd8eca86d58f",
+      "bytes": 478324,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\hardening-20261106\\combined\\candidate-hashes.json"
+    },
+    {
+      "path": "changed-hashes.json",
+      "sha256": "2d0dd0d3f6ae596a99cbfbbd4d0db30af165f4825eaf8e97b96065ad6079531b",
+      "bytes": 7064,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\hardening-20261106\\combined\\changed-hashes.json"
+    },
+    {
+      "path": "checks.json",
+      "sha256": "0ab9c25fd1d5e30f578bceb3f5c1aae93a7e378e92fa6501ba753b881d777489",
+      "bytes": 2264,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\hardening-20261106\\combined\\checks.json"
+    },
+    {
+      "path": "cleanup.json",
+      "sha256": "91747a85093461c938fc1814a81c7e0d170e61ee81e6c5516f3b97421cf687bb",
+      "bytes": 251,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\hardening-20261106\\combined\\cleanup.json"
+    },
+    {
+      "path": "desktop-bag.png",
+      "sha256": "5cb66a8336aa7dbc12f2964ded0904464b38227374756b7175f0e57426b253d7",
+      "bytes": 479396,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\hardening-20261106\\combined\\desktop-bag.png"
+    },
+    {
+      "path": "desktop-home-rechecked.png",
+      "sha256": "7bf788fd49f72261e495336f4eb78de95e3aa0772de7a6f1c0fb972f330aecb9",
+      "bytes": 1142933,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\hardening-20261106\\combined\\desktop-home-rechecked.png"
+    },
+    {
+      "path": "desktop-home.png",
+      "sha256": "f889c5cce7b4337ecff4249342f1b92399ea60261008f507270a4689055732f9",
+      "bytes": 1263796,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\hardening-20261106\\combined\\desktop-home.png"
+    },
+    {
+      "path": "desktop-order.png",
+      "sha256": "325ba79cbacd8d4e211231027f15d20b1738f7ee79a61d1f406d88e16907f1e2",
+      "bytes": 141693,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\hardening-20261106\\combined\\desktop-order.png"
+    },
+    {
+      "path": "desktop-payment.png",
+      "sha256": "9a1f6ee83b6e24401b70d8ce6f2967807367a29043c92890723d80cedb9b7e48",
+      "bytes": 123625,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\hardening-20261106\\combined\\desktop-payment.png"
+    },
+    {
+      "path": "evidence-files.json",
+      "sha256": "338df019f70adc2d98414f5613c5b77a0b05334268639332b18de145b744c9ed",
+      "bytes": 7291,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\hardening-20261106\\combined\\evidence-files.json"
+    },
+    {
+      "path": "font-hashes.json",
+      "sha256": "b8a68c3e23d0b03bf331dfdd113d5de68e0a8e922a801531a54f6260469faa50",
+      "bytes": 2689,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\hardening-20261106\\combined\\font-hashes.json"
+    },
+    {
+      "path": "import-verification.json",
+      "sha256": "88fb93c3964e51450bc60781bcfdf33af64168bbef122ab6f1add73494118662",
+      "bytes": 353204,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\hardening-20261106\\combined\\import-verification.json"
+    },
+    {
+      "path": "media-hashes.json",
+      "sha256": "6c694afe41bd5a5d63b83e1a9dae82432f837c94c35c2f9fd7064fb88d73a166",
+      "bytes": 117425,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\hardening-20261106\\combined\\media-hashes.json"
+    },
+    {
+      "path": "mobile-bag.png",
+      "sha256": "698ef07c34f0ce8dde4063702e47f99a1ce5b7d040bd3eac28896c47fc5746ff",
+      "bytes": 68221,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\hardening-20261106\\combined\\mobile-bag.png"
+    },
+    {
+      "path": "mobile-home.png",
+      "sha256": "5e1e0164f44b7ae1e3435882e8ea9d331917c7d8dcbd274b8131c50c059e0f1d",
+      "bytes": 392916,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\hardening-20261106\\combined\\mobile-home.png"
+    },
+    {
+      "path": "mobile-order.png",
+      "sha256": "7ed2acdbc725659e85df33aba3c22a4f0bc5ec2fe832bdab1ced91c68203747b",
+      "bytes": 90920,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\hardening-20261106\\combined\\mobile-order.png"
+    },
+    {
+      "path": "mobile-payment.png",
+      "sha256": "9f69c35d29b0bf5aed4223d21addc130381f6c48c363435289c1142920f802fc",
+      "bytes": 69122,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\hardening-20261106\\combined\\mobile-payment.png"
+    },
+    {
+      "path": "README.md",
+      "sha256": "0f04cc9afe38af8d5cf30e68df5ebc5d182dcdba079ec44ac44089f08ca842f6",
+      "bytes": 7725,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\hardening-20261106\\combined\\README.md"
+    },
+    {
+      "path": "RESULT.json",
+      "sha256": "96f0ddfc015d9c6ead35464c62002ebf36589dd8c90222d93a7bff1a73ef4946",
+      "bytes": 18869,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\hardening-20261106\\combined\\RESULT.json"
+    },
+    {
+      "path": "runtime-evidence.json",
+      "sha256": "bf0c21529ef9899d50f5236ae60da24e1ecedb5532b57e8a58595aad55b43e6d",
+      "bytes": 22900,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\hardening-20261106\\combined\\runtime-evidence.json"
+    },
+    {
+      "path": "serve.py",
+      "sha256": "a900ecab9e9417bd7e815c6bbf9d621867d559be90f6bf3877fb525e2e0b5dce",
+      "bytes": 790,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\hardening-20261106\\combined\\serve.py"
+    },
+    {
+      "path": "setup.json",
+      "sha256": "d84175edbad5cbe02bc5f551c7c46be8debbc1f78e0f6a368f10eaae127361a3",
+      "bytes": 679,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\hardening-20261106\\combined\\setup.json"
+    }
+  ],
+  "excludedRaw": [
+    {
+      "path": "browser-close.log",
+      "sha256": "8b25292decdb89791d5fe7253899610064477e169588fd13b4bdf83b6de7a910",
+      "bytes": 56,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\worker-raw\\browser-close.log"
+    },
+    {
+      "path": "browser-desktop.json",
+      "sha256": "ba7b858ced6238349139acccbc030cfb5d907c57df2c0e6fe6a457c1f1e54fff",
+      "bytes": 77422,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\worker-raw\\browser-desktop.json"
+    },
+    {
+      "path": "browser-desktop.log",
+      "sha256": "31165f3d6931f7ad74da872a2501635a96187a19d94c1f880e142c0c48c73393",
+      "bytes": 388,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\worker-raw\\browser-desktop.log"
+    },
+    {
+      "path": "browser-home.log",
+      "sha256": "9f7c129379d64d736c5da93016a20aac1f28b5bc6dcbf8ac577e38955f37afcb",
+      "bytes": 33432,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\worker-raw\\browser-home.log"
+    },
+    {
+      "path": "browser-mobile.json",
+      "sha256": "a060b8d878698b4bf516d538dfc93aa304f26247fea670a1c907956d4457a3f9",
+      "bytes": 103027,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\worker-raw\\browser-mobile.json"
+    },
+    {
+      "path": "browser-summary.json",
+      "sha256": "3aabbf4d391769a3cabcde06c3ed669f72056b118d748a644630017346c679c3",
+      "bytes": 66918,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\worker-raw\\browser-summary.json"
+    },
+    {
+      "path": "check-0.log",
+      "sha256": "6288178acd5beeeac10e151442f1bf8563618cf6077ddfadddab454c902e5094",
+      "bytes": 311,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\worker-raw\\check-0.log"
+    },
+    {
+      "path": "check-1.log",
+      "sha256": "baf1aeb41568e1c67f13c71a2f87b6a3709cdef0653cb0ffa12886faed463ac1",
+      "bytes": 2108,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\worker-raw\\check-1.log"
+    },
+    {
+      "path": "check-10.log",
+      "sha256": "4416c3fddecccca779b2529f067892c0b61cf5a8445f2962f995c64a25e2514b",
+      "bytes": 95,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\worker-raw\\check-10.log"
+    },
+    {
+      "path": "check-11.log",
+      "sha256": "14a991ddb5a954a36710a3ef08c3216b17f37c936829cdf994bf47dd821ff63e",
+      "bytes": 172,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\worker-raw\\check-11.log"
+    },
+    {
+      "path": "check-12.log",
+      "sha256": "87937aa0517cb0c35e631dcaa64d9501dac6162f377ffbe686cbed2ebf8ce738",
+      "bytes": 743,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\worker-raw\\check-12.log"
+    },
+    {
+      "path": "check-13.log",
+      "sha256": "70f13f75c8149b31289d3f40e6c19306ec8d478f8001d3d40c04b542433a81aa",
+      "bytes": 383,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\worker-raw\\check-13.log"
+    },
+    {
+      "path": "check-14.log",
+      "sha256": "70f13f75c8149b31289d3f40e6c19306ec8d478f8001d3d40c04b542433a81aa",
+      "bytes": 383,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\worker-raw\\check-14.log"
+    },
+    {
+      "path": "check-15.log",
+      "sha256": "fb1be333c836673ef43df2e24e44d21fd0608ddd454e8e818d8b4a8347869870",
+      "bytes": 679,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\worker-raw\\check-15.log"
+    },
+    {
+      "path": "check-2.log",
+      "sha256": "17c7f9525badd7db74d91ffc6bd18feac601177edca5fa443e6d9dee9e4e1ed7",
+      "bytes": 1531,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\worker-raw\\check-2.log"
+    },
+    {
+      "path": "check-3.log",
+      "sha256": "ef03e11e4010ccb5b0b0d014dab33623f8ec1c00776c32ab79a4802bf3fe2d8f",
+      "bytes": 2833,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\worker-raw\\check-3.log"
+    },
+    {
+      "path": "check-4.log",
+      "sha256": "e6e996464fc67d341e34bceae16ce0a7631f81458345aec23e5dfff8b2c7d9e8",
+      "bytes": 103,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\worker-raw\\check-4.log"
+    },
+    {
+      "path": "check-5.log",
+      "sha256": "407ce5bc96085e4f7920f2a332358d02d5931c6ac5bec63759caa98ede6712c0",
+      "bytes": 105,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\worker-raw\\check-5.log"
+    },
+    {
+      "path": "check-6.log",
+      "sha256": "354c3d828acda6a2a7353175af6f47b9a6ade35a84756ca5433e46f76b8d8b55",
+      "bytes": 105,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\worker-raw\\check-6.log"
+    },
+    {
+      "path": "check-7.log",
+      "sha256": "c0acad2c98ee9774b0c5f3dcdf8d868677fc3b456964fd0a162b71568de0f071",
+      "bytes": 448,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\worker-raw\\check-7.log"
+    },
+    {
+      "path": "check-8.log",
+      "sha256": "3f00c28d3350cd05f3fee1038d2a0c59b53c99e22bfc87d17b8d0e9d816e5972",
+      "bytes": 204,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\worker-raw\\check-8.log"
+    },
+    {
+      "path": "check-9.log",
+      "sha256": "200d65d5b635762b94ee76e6e75ce75e82861e2292ac9e4ff847c31286cccb90",
+      "bytes": 110,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\worker-raw\\check-9.log"
+    },
+    {
+      "path": "desktop-console.log",
+      "sha256": "3bf068ea6399612be8b44f57885c57fe3b5f4b536f3ac27de64431ced8997fb6",
+      "bytes": 834,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\worker-raw\\desktop-console.log"
+    },
+    {
+      "path": "desktop-home-recheck-console.log",
+      "sha256": "1b34f39797234798dc54cadc4a58669f9e71264fc9681ab5247d9fc55edd93c7",
+      "bytes": 832,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\worker-raw\\desktop-home-recheck-console.log"
+    },
+    {
+      "path": "desktop-home-recheck-open.log",
+      "sha256": "a92341706958463db1f1363d6b319d3da729d09113f0b5a512248e015d570e38",
+      "bytes": 33544,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\worker-raw\\desktop-home-recheck-open.log"
+    },
+    {
+      "path": "desktop-home-recheck.log",
+      "sha256": "8c1e0c1f7362f76176a0f95795698c3071a7eda89a17e7563c260b43b535be92",
+      "bytes": 1482,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\worker-raw\\desktop-home-recheck.log"
+    },
+    {
+      "path": "desktop-network.log",
+      "sha256": "8e53c97fcc5da176ec4322c1cbf3c66752ef723a52702a2487322ca1eea06e07",
+      "bytes": 3508,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\worker-raw\\desktop-network.log"
+    },
+    {
+      "path": "desktop-readback.log",
+      "sha256": "e62fdff1edd4dadb57ca4a5b571631362e1b65c93d0c1debc1026b69d222d324",
+      "bytes": 1964,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\worker-raw\\desktop-readback.log"
+    },
+    {
+      "path": "setup-0.log",
+      "sha256": "7012b7863e820455c6e017e848fa6e98db2529a4766ae249f8e0f19aace7ae41",
+      "bytes": 107,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\worker-raw\\setup-0.log"
+    },
+    {
+      "path": "setup-1.log",
+      "sha256": "14a991ddb5a954a36710a3ef08c3216b17f37c936829cdf994bf47dd821ff63e",
+      "bytes": 172,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\worker-raw\\setup-1.log"
+    },
+    {
+      "path": "setup-2.log",
+      "sha256": "1e2ca95173152d1fb282dd02fbb43337edd623aa3be05403f43f5329c308a015",
+      "bytes": 27,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\worker-raw\\setup-2.log"
+    },
+    {
+      "path": "setup-3.log",
+      "sha256": "fdedc4ad50fa24c0e3d9e3533085c040932727a5adfe89731c936ce93f495083",
+      "bytes": 150,
+      "copiedTo": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\worker-raw\\setup-3.log"
+    }
+  ],
+  "provenance": {
+    "path": "reference-provenance.json",
+    "sha256": "5add17708be8f2737eb6db943ebefda6a6335938a9b614a49e76d470f9bb10b6"
+  },
+  "generated": "dist and release manifest must be regenerated; never copied from worker"
+}

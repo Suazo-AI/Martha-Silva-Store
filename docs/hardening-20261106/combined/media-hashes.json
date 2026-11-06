@@ -1,0 +1,2498 @@
+[
+  {
+    "path": "build-inputs/static/generated-luxury/amarillo/01-front-v1.png",
+    "sha256": "597bf9819c64141df2cf5237b390e5acfe63ebba2dc252d041206b16bcfa8a3e"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/amarillo/01-front-v1-360.webp",
+    "sha256": "62400f4f7ba6aa327c02b2e99c299a0569b61371356f1729b584447e57b7e5aa"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/amarillo/01-front-v1-720.webp",
+    "sha256": "a96ab4a491c06a6d1740f875888c4bd48484c14e63a685ff331d14575ce39c83"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/amarillo/01-front-v1-1086.webp",
+    "sha256": "9d921ad2821f468bf30acd1e5d8dd5abc90a986e1c5e5c0c905171de0a1d430e"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/amarillo/02-view-v1.png",
+    "sha256": "64f644ef8cd2c90475ceeaa774708aee23ea1860e55e5c8e4044b41a3fc46ce2"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/amarillo/02-view-v1-360.webp",
+    "sha256": "ca0256f56f176f87d567391efcfe569fe86fa263803a79fafb4d2a564a9dbf29"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/amarillo/02-view-v1-720.webp",
+    "sha256": "182cf919041eddb5510c6392d1fc17ed31191e62e18387a046e912dda0cc700d"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/amarillo/02-view-v1-1086.webp",
+    "sha256": "fb6717f25cef5cb7e8c6025a3ecfa948c5ad3d5fd1f2e6fa46e5ede4a5b9cede"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/azul-floral-un-hombro/01-front-v1.png",
+    "sha256": "5fc4edde05268186abd4dfeacc609ad128798135812c6507fb9e45600a045227"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/azul-floral-un-hombro/01-front-v1-360.webp",
+    "sha256": "98f056899d8d48efd1456bd4f2d78ddf6a67a9a519516079399ea3357a2fed89"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/azul-floral-un-hombro/01-front-v1-720.webp",
+    "sha256": "8d3ad4e2429d2096e412a498797b537ec7cd725b92ce53d55b22333d164c762a"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/azul-floral-un-hombro/01-front-v1-1086.webp",
+    "sha256": "e8b92051c7541cd32da797bcb1eab28b1e4753dcd3b977f26b17866d9c9adc36"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/azul-floral-un-hombro/02-view-v1.png",
+    "sha256": "586ac131fff07949d5f8642368bdbc8156f8340ca48f63d42573555d41c29da5"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/azul-floral-un-hombro/02-view-v1-360.webp",
+    "sha256": "3beab794eef14a3ecd009d65a3903622b99cb1cfa3df17aefadb62198a0b3a54"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/azul-floral-un-hombro/02-view-v1-720.webp",
+    "sha256": "0a514a7df2d770a4fb8fe90849f51a3dfa3fd96af2b1d346e56deaf4b4ab2ee7"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/azul-floral-un-hombro/02-view-v1-1086.webp",
+    "sha256": "29ef87b433c9b947a803c12efcc73de294c2b14a48ed179d44c35be24a27f00b"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/azul-gris-flores-falda/01-front-v1.png",
+    "sha256": "ceb32cf9c21c38ba782c6227021d02d5975733e5473268dbd8d8915a1dfd8c66"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/azul-gris-flores-falda/01-front-v1-360.webp",
+    "sha256": "d183f1471be91c28c9f6b2e57bec156a83a409fdb6c31c73e3fb001451be0593"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/azul-gris-flores-falda/01-front-v1-720.webp",
+    "sha256": "e83d706fb8f398ee6e2271221bfc6cc2e70ec2486c76c39b55ff375dffa16f6d"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/azul-gris-flores-falda/01-front-v1-1086.webp",
+    "sha256": "1ca1f1877804b16e415dbaca895c18a62c11b6861e97ea8d9a8d8016414f35ef"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/azul-gris-flores-falda/02-view-v1.png",
+    "sha256": "b6109917890a5454e44ff3bb275759ac73c8a5ad6c9df9215edf194561a17420"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/azul-gris-flores-falda/02-view-v1-360.webp",
+    "sha256": "83360f5db371f92fc597f5acb54dac1574c231833fe4ffde6746e4ff44aba028"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/azul-gris-flores-falda/02-view-v1-720.webp",
+    "sha256": "fea4e1feed4c2d19e81c59bfb74eab24ab59d1c8922b7c5047e7b8af88afce13"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/azul-gris-flores-falda/02-view-v1-1086.webp",
+    "sha256": "e537f2959d940dd6b515b6567637a5a8550a0460597636c12613b8dbcb6f99b5"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/azul-gris-flores-falda/03-view-v1.png",
+    "sha256": "26da74a9354b15836ba7615760dfa20549bbf17f195bfa44f1786987cce34c88"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/azul-gris-flores-falda/03-view-v1-360.webp",
+    "sha256": "dbe4f9e33c78b1e05195e6e05abf03345038850cacbbaa499b872252e6aee879"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/azul-gris-flores-falda/03-view-v1-720.webp",
+    "sha256": "4fabc95527fca93b1f1aa0b3db1f7fcf4a297497f2816c14165908bd8c3ea908"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/azul-gris-flores-falda/03-view-v1-1086.webp",
+    "sha256": "5345e8dd7427a3b2914324a0007c294a36ad23480f0a7c640521147334146124"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/azul-gris-flores-falda/04-view-v1.png",
+    "sha256": "2e4442c2be66faa0349480a49b40281aec997a73ff4f89da4309b13c4c997309"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/azul-gris-flores-falda/04-view-v1-360.webp",
+    "sha256": "f75a3ffa5c0be86c80ff019af0d650e7b5629a3681efa86a4983fd0bb275789e"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/azul-gris-flores-falda/04-view-v1-720.webp",
+    "sha256": "ab3899b55c2edebf5365749187209488c57b327de956ad2a9ef43e7ba905a66a"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/azul-gris-flores-falda/04-view-v1-1086.webp",
+    "sha256": "7c662d1fc4ce6168bb264bef9ebb9f15f2cfc7a5fe7a90bf5bccde4100ebe95c"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/azul-gris-un-hombro/01-front-v1.png",
+    "sha256": "01fb8c450575e8b99768f9b21524bfd934a81c4ac31d6a4d08771c3f6a80914a"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/azul-gris-un-hombro/01-front-v1-360.webp",
+    "sha256": "371ac8b61a04ba43167f35ddb2220e8c83028e9d7ce690514c02c7a548db0508"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/azul-gris-un-hombro/01-front-v1-720.webp",
+    "sha256": "d173476bf71d6d47baba2f902d7b9aeede9a4457fcaa5db945f3bc7c698ef4c3"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/azul-gris-un-hombro/01-front-v1-1024.webp",
+    "sha256": "5fd0127b8fd641cb2571627fccd32e4565342fb7f0ba03b47820d3a16419b728"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/azul-gris-un-hombro/02-view-v1.png",
+    "sha256": "0d15e054ad24abcdf2fbc0968175a5db1ef8572f6bc8e042dcbec802ceaf858d"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/azul-gris-un-hombro/02-view-v1-360.webp",
+    "sha256": "378caa1c495412dcc81d8bc7a581f825aaea44c8da5ab0d2615b21edb9455523"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/azul-gris-un-hombro/02-view-v1-720.webp",
+    "sha256": "ebb5b0e5ea17de002cfc7014699e4a505e7fc049a9bbed9ca1196dc05aeb9dd2"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/azul-gris-un-hombro/02-view-v1-1086.webp",
+    "sha256": "b22da353e070fcd3dd981a58f84d562837ded7fd6b15d8fcfa7950207315e104"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/azul-gris-un-hombro/03-view-v1.png",
+    "sha256": "69a4648fc1b0f02cf7a0bb49f1e9211b2f3174272e1c7bdc5adf5460d2772316"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/azul-gris-un-hombro/03-view-v1-360.webp",
+    "sha256": "ea134dc7ca14f174a09a79e8a0d554d30ca2cdc0affc249ab1e67287c0f74730"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/azul-gris-un-hombro/03-view-v1-720.webp",
+    "sha256": "3fd1af262ef0351a12bbf3cc458b5c0b000eea6da924dec61b89b78878f26ca3"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/azul-gris-un-hombro/03-view-v1-1086.webp",
+    "sha256": "8ad77ee732b4521ee35e4dd47f4ef8391f18d122343aaf9d883b2581ec578833"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/azul-gris-un-hombro/04-view-v1.png",
+    "sha256": "351bdc2b140e5bb85260086f6bd672dd62fca27b552109fd04e4a5fb50c8b399"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/azul-gris-un-hombro/04-view-v1-360.webp",
+    "sha256": "3344357aad2ed0df0ace6fa4a32b5b0c7e617113176e47ab68f022ae6ec81cf9"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/azul-gris-un-hombro/04-view-v1-720.webp",
+    "sha256": "13d2b4b0556f2ff68f5ec44e52d9715070fa83e97f05ceeb2285987dfaf32d80"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/azul-gris-un-hombro/04-view-v1-1086.webp",
+    "sha256": "f795275fccb7c4bff59203266085dd5fb43de672eaad8454424d4767e64c5af2"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/blanco-perlado-sirena/01-front-v1.png",
+    "sha256": "41210a97ee091676a48e99d55b6b567cf53cb55e0fb3e2813e6aaaa9a7a54ca5"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/blanco-perlado-sirena/01-front-v1-360.webp",
+    "sha256": "7f4ccf252dc863ddcd0c7eafc0ecb5cebdc1a4d9297baa8a3b7629000d0701ec"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/blanco-perlado-sirena/01-front-v1-720.webp",
+    "sha256": "44b120f67cbc466bbe3d3d3dd1c8f10065f80f0bb04422b8d0c14b8c102c7722"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/blanco-perlado-sirena/01-front-v1-1024.webp",
+    "sha256": "33e57c3d7e8d517b3b8f22474fc219610397ec172a7d0879da06a70424a49cde"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/blanco-perlado-sirena/02-view-v1.png",
+    "sha256": "143c7a846a4a0cb3c536110b58d9b5ed7448eabcafd2d010ac10fad738395b9e"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/blanco-perlado-sirena/02-view-v1-360.webp",
+    "sha256": "7c56e841249ab693094312e5197e561334e082a559e00a13d629da0a1fab4cd6"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/blanco-perlado-sirena/02-view-v1-720.webp",
+    "sha256": "2822a3582297ca690407fd8b8704ee330d60a55f45838ce30ad1e0daf0abb663"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/blanco-perlado-sirena/02-view-v1-1086.webp",
+    "sha256": "4002490db4d8faf2d0d38dcbde2d17740005d8d36a014fb873ef780721abb3ac"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/blanco-perlado-sirena/03-view-v1.png",
+    "sha256": "defdd0fd4998b101d679856c83a79bb57d6f14c8d4eafe43d25ae9168c0b2cea"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/blanco-perlado-sirena/03-view-v1-360.webp",
+    "sha256": "99e260ac89a0af87bdf9b5c49b0512c125889015593d8920ed25d0be5875a256"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/blanco-perlado-sirena/03-view-v1-720.webp",
+    "sha256": "a407207e46ad2aaa6a9353f7fa996f2329608bff0256520747df28ff069681cc"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/blanco-perlado-sirena/03-view-v1-1086.webp",
+    "sha256": "6ed56b8de7981ee249f00d53297e2ffd1291cefa6f46bf6e19f2b9c00ae554b6"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/blanco-perlado-sirena/04-view-v1.png",
+    "sha256": "5c9e46203a081202756e188a20a3240e86f2283312f709eebe5b19791dd5283a"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/blanco-perlado-sirena/04-view-v1-360.webp",
+    "sha256": "b6d7b5f7f9386f308ecd3e3a65323233a4478d9bdc783e902671bfae59f2cd8f"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/blanco-perlado-sirena/04-view-v1-720.webp",
+    "sha256": "26d46765306fee8959928e043055970a2e2dbfa1b6e5df77f5e9c55ace75803d"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/blanco-perlado-sirena/04-view-v1-1086.webp",
+    "sha256": "77065b4bf4e105f21b663ba1f3f5d48d24fe7b817ddb15f9ff164181f3215da4"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/burdeos-encaje-volantes-midi/01-front-v1.png",
+    "sha256": "8d135a6f63044ca1a4cdde31e2bcdd5dcc897eecc1575d07b397eb706fc3aab6"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/burdeos-encaje-volantes-midi/01-front-v1-360.webp",
+    "sha256": "1688984348b31ad4a1b67c4b6c59a8b10a5897928f69c3eff34620c50823e056"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/burdeos-encaje-volantes-midi/01-front-v1-720.webp",
+    "sha256": "673d9e13715cda6306affc29de1f1075e4b1fa66ca6b30ee6149aa18c9a7c571"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/burdeos-encaje-volantes-midi/01-front-v1-1086.webp",
+    "sha256": "dd5197f37e57a2e016727524ee1e13388fd0da5f30a64ddcb0cf946a65f819e0"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/burdeos-encaje-volantes-midi/02-view-v1.png",
+    "sha256": "a5471d256feac73ae43ec18a3bea354005adcc66b7b9bfc87f1155c7f2cb64b4"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/burdeos-encaje-volantes-midi/02-view-v1-360.webp",
+    "sha256": "f2c8a6ee332a1bcf7deaca0c7f9bd35982afaf3e679141b3a6d432ddd70967c4"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/burdeos-encaje-volantes-midi/02-view-v1-720.webp",
+    "sha256": "133e103b8028e4101005db18328b8f64604cc29b2db5bdc6ba29193de5e02866"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/burdeos-encaje-volantes-midi/02-view-v1-1086.webp",
+    "sha256": "337ba95a493b022444c7940379290323cc15557d02bf7fb261e335ca8e89b457"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/burdeos-encaje-volantes-midi/03-view-v1.png",
+    "sha256": "d04237a5677c76c9c04301b0662581b4387d9604a7cfca9cba2dae63c698a0a1"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/burdeos-encaje-volantes-midi/03-view-v1-360.webp",
+    "sha256": "492c006abdbf3f401601ca53ca74cf789d115c5d3b569c2f7e54246119da24c1"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/burdeos-encaje-volantes-midi/03-view-v1-720.webp",
+    "sha256": "f2322b350d145710efd326d9f9cceb918c33399d99238d9534cdd44e32fa2c55"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/burdeos-encaje-volantes-midi/03-view-v1-1086.webp",
+    "sha256": "59a8f108b53227270e70c941269b64a30b663df7fd9e29df34a75a92066f1ddc"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/burdeos-encaje-volantes-midi/04-view-v1.png",
+    "sha256": "a74e20fa33f8fd44dddc474fe3e6bdef8ade0ae02d9ff514a9c8283c3740bff5"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/burdeos-encaje-volantes-midi/04-view-v1-360.webp",
+    "sha256": "13c42014a2b8f6d86c2abc860d34cefd5ee30ffffa09db3db2c3dc84b6e03596"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/burdeos-encaje-volantes-midi/04-view-v1-720.webp",
+    "sha256": "5c58572937c614b327cfd841a869f93a25deac1a524ccdb5d2098a57b90eb7be"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/burdeos-encaje-volantes-midi/04-view-v1-1086.webp",
+    "sha256": "4e97560a0e89d35ae7dea587003e25c56fbc2000d122d450abcda1f37f9918a0"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/burdeos-encaje-volantes-midi/05-view-v1.png",
+    "sha256": "866138f981ec960da52d1ac94bfeff535fe30a60bd0b2a21b6596c526741d30a"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/burdeos-encaje-volantes-midi/05-view-v1-360.webp",
+    "sha256": "7e2aa645a044173f892a7ff3229c24d3267d94b9028e4ab974c4b2a3fceaf10f"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/burdeos-encaje-volantes-midi/05-view-v1-720.webp",
+    "sha256": "00ab32b4a719984c7438275970c172f1d9a928f239ebe54833bab1d67c07103c"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/burdeos-encaje-volantes-midi/05-view-v1-1086.webp",
+    "sha256": "c26956b94c1ef23d8fa3f0cf6f5d2b4a683efbe00b93675c47b3f618e5e8cd20"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/burdeos-top-pantalon-corto/01-front-v1.png",
+    "sha256": "55872a4127d1b640a70f2a113d5b8535979992edfd5609269b60a44da4f5e465"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/burdeos-top-pantalon-corto/01-front-v1-360.webp",
+    "sha256": "ab33fe06afcaaca6f11d395caf63c87f78cb32ef395e9f3f7a3ef5537c5c5694"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/burdeos-top-pantalon-corto/01-front-v1-720.webp",
+    "sha256": "6225e6de44e0c0483033357e602814200226b9390c62452455bf63337fd7fadb"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/burdeos-top-pantalon-corto/01-front-v1-1086.webp",
+    "sha256": "78bca7540096ce6d9e45a94e695dc50bb8a52b683bcb28866c6a1c0635fa920a"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/burdeos-top-pantalon-corto/02-view-v1.png",
+    "sha256": "be7369bc25545ade68b2cedd8edcd8c68cd6a39e39d562f3e0e5eb6b2ff70b4d"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/burdeos-top-pantalon-corto/02-view-v1-360.webp",
+    "sha256": "c4e7895fa41ed88f6bf0cdbdf3010b621ada5c22eec2077e9fb053238f435f4d"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/burdeos-top-pantalon-corto/02-view-v1-720.webp",
+    "sha256": "ae1f99034703b26317e5cb1e55fbcc2133857f4a9bc8d716fa6fb41ae2e01e31"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/burdeos-top-pantalon-corto/02-view-v1-1086.webp",
+    "sha256": "46f58370f2cf86560d4c5e0d029b737d971e9cd7889e122e953fac2d894f4d0e"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/burdeos-top-pantalon-corto/03-view-v1.png",
+    "sha256": "6a9ebff69bf04418b06d6fc1bf5438cf1ace27e860825973d34dbccd211e10fe"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/burdeos-top-pantalon-corto/03-view-v1-360.webp",
+    "sha256": "eb06b63b27b16ffcf239a22653f3070b12e49ba498cab5afc11cd79d1dbbea37"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/burdeos-top-pantalon-corto/03-view-v1-720.webp",
+    "sha256": "2b098f89a3488eed4e90bf46beca77d067e4ec3af1a162a21b7b28bc2ba76535"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/burdeos-top-pantalon-corto/03-view-v1-1086.webp",
+    "sha256": "e95f062a47aa836b2b52e38927f11617e9930dccc0810be2c44b731afe74d66a"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/burdeos-top-pantalon-corto/04-view-v1.png",
+    "sha256": "13947af2a51902e7faf768109b13402fa496d92525032ae7c2fa3a6d6f552d6d"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/burdeos-top-pantalon-corto/04-view-v1-360.webp",
+    "sha256": "b837c792348b0cb252dcf8d5c7558be374308eb909501581661a47c873e88e75"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/burdeos-top-pantalon-corto/04-view-v1-720.webp",
+    "sha256": "5d164aee9b25ee25f0caa5d7bf960ccaa862bc326f6a7f4f6267dce5bfd9b55d"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/burdeos-top-pantalon-corto/04-view-v1-1086.webp",
+    "sha256": "8004ecb5415a8b30ae983535eb4c890a851ba4e2b48825ffddc62e6e17173512"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/champagne/01-front-v1.png",
+    "sha256": "ddd74a363ec953afb161ab0c9c70fa59f37782ec91b75f38a967a977dd24afe1"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/champagne/01-front-v1-360.webp",
+    "sha256": "8ac036ae6a5d3030e2b7e10e049b6800dec323a3a97a5b7da64a1d313eb3bb0e"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/champagne/01-front-v1-720.webp",
+    "sha256": "2c0e6198bd3c0efebc8365a0d5c3899876feba55f21eeb17934c748d4ad5a69a"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/champagne/01-front-v1-1086.webp",
+    "sha256": "dd04ad33e1097e9882f6f6a39c7e18d0990e87f788c254bc26339fe922a6365e"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/champagne/02-view-v1.png",
+    "sha256": "abbeda5b5daf11a6e1537499b9c3664d6172214bd53c2c0583e63547a38eaa01"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/champagne/02-view-v1-360.webp",
+    "sha256": "ce0cc28fa5aeedcbbd1e9156b96dfc25eb0f0aa30ab3920ff272b41d61b3ea85"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/champagne/02-view-v1-720.webp",
+    "sha256": "39e8944e76ebf6612f15379682262dd14d3396b44c090f2cb5e701fc73e99a0d"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/champagne/02-view-v1-1086.webp",
+    "sha256": "b0849bda0622c88a271b46b871c89e0b81c84f23e63a06213363ceab9f76656e"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/crema-flores-naranjas-halter/01-front-v1.png",
+    "sha256": "a989b5fee17ea7ff4b3ceaf3603cd74e4f72aac292681b4c0832a41c2d97191e"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/crema-flores-naranjas-halter/01-front-v1-360.webp",
+    "sha256": "698ea1d2c57d65fe06e8bf9bb13be8f6420a1b5d77d5217d9b2e71dee9e413f1"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/crema-flores-naranjas-halter/01-front-v1-720.webp",
+    "sha256": "8d44c3efed3aea98bdc933d3a52da8777b28f1962b5383e5ae8337464e9dbb80"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/crema-flores-naranjas-halter/01-front-v1-1086.webp",
+    "sha256": "d1a80ac2055a65946f02ff2a437eb3ab3d9a735ec31bbd4e7cf92e72367ac8ba"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/crema-flores-naranjas-halter/02-view-v1.png",
+    "sha256": "e975d64397be3ad2d829c74b88bab1ead49cda2edde2e59fa84ef257786dcd03"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/crema-flores-naranjas-halter/02-view-v1-360.webp",
+    "sha256": "34b6d238f58ba973e0ab9bfaaef787760b64fa1636351a3138f7e06d109e6b26"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/crema-flores-naranjas-halter/02-view-v1-720.webp",
+    "sha256": "b610d1af9aa29ae23e3c13222635204471813f88b6886035ee2c6649be24b383"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/crema-flores-naranjas-halter/02-view-v1-1086.webp",
+    "sha256": "768400b2903f722c178e990416a9811e13bbc13c60c2cfb2520b5dadb1e24c13"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/crema-flores-naranjas-halter/03-view-v1.png",
+    "sha256": "50b83b479c31faf4b5c38fd33487ee4d7d04eca547f122b5331bfd13db17a0a7"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/crema-flores-naranjas-halter/03-view-v1-360.webp",
+    "sha256": "f2426932cdbeb96eb9ff3c1b2481b9268ea728c9209e6bc28d6a2b33e9175a21"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/crema-flores-naranjas-halter/03-view-v1-720.webp",
+    "sha256": "bae194d726c41a099848953cea1dee6a795f3c02bdc9e00cede6b0d27805edb8"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/crema-flores-naranjas-halter/03-view-v1-1086.webp",
+    "sha256": "8d6572a912619bcf3212fa46fbb7f0139e32fd2c8a29871f0c68a31bb97c1c63"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/crema-flores-naranjas-halter/04-view-v1.png",
+    "sha256": "1dcb3f1f71a81f121c21f1a94b5ee86f8d15f935e128845ea619b4cff1c37826"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/crema-flores-naranjas-halter/04-view-v1-360.webp",
+    "sha256": "488d855cad23636909868ba8293cdcd73371fe4fc9224bf80b4041315fd8299e"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/crema-flores-naranjas-halter/04-view-v1-720.webp",
+    "sha256": "bf116f96b0524e10537398145d938fc42ba70f2cf6b7079308357bc5c32e7581"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/crema-flores-naranjas-halter/04-view-v1-1086.webp",
+    "sha256": "f8dd6082dc126a4a7aa5f8dd703a28cd6d4b90a6e1e4f11604a9253fa15aa57d"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/crema-flores-naranjas-halter/05-view-v1.png",
+    "sha256": "ba7b66e96538c7a4eaa01e4c6941e2dc01fcac6a34cc6b5bdb3ff6af79421359"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/crema-flores-naranjas-halter/05-view-v1-360.webp",
+    "sha256": "0a2916f6cd89ebd0ec8f3b9120ff9ae90fc6204cc7a1ff7ca86f03c4e2c60783"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/crema-flores-naranjas-halter/05-view-v1-720.webp",
+    "sha256": "7214c9567fdabb05b81c2a261e4dd903b1effcc64629ba48d49751a89057e9c3"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/crema-flores-naranjas-halter/05-view-v1-1086.webp",
+    "sha256": "06df3c0101ce4d776de99ed3a1afeef3cab84bed354334a1ff06209a4d8e3f53"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/crema-flores-volante-asimetrico/01-front-v1.png",
+    "sha256": "5f8dbda63d663787f112c97f4e9f9f43ccebd00dd8f68b89828535bf0e682e81"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/crema-flores-volante-asimetrico/01-front-v1-360.webp",
+    "sha256": "aa31ad81b33651c7ff646a49618df4462e3e907855ce1150783813a25def8f7b"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/crema-flores-volante-asimetrico/01-front-v1-720.webp",
+    "sha256": "51e2bea7c93562711057e6c016b6f2b1bda5da668bd4ae7e9b57277573b16573"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/crema-flores-volante-asimetrico/01-front-v1-1086.webp",
+    "sha256": "34d3db975de8be3daea9c1b1e598b1a9533a49dd8a96b0a4608185b081df486a"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/crema-flores-volante-asimetrico/02-view-v1.png",
+    "sha256": "39872b81d906ccc34beff95455a7dd59f94a6a7fe9aea63c84d355585923986a"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/crema-flores-volante-asimetrico/02-view-v1-360.webp",
+    "sha256": "95d9c2f50c88d66cc383067787f9e670965b56e553efee5d0a4219e855722b7a"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/crema-flores-volante-asimetrico/02-view-v1-720.webp",
+    "sha256": "e4b2726f21028d77025310806fe582a08626b40d05271ed20aec64463c9779bb"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/crema-flores-volante-asimetrico/02-view-v1-1086.webp",
+    "sha256": "80e2541aed81ed45bea3868b428ad444b4e0c82e60e05f3b31ac90bd4e84450a"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/crema-flores-volante-asimetrico/03-view-v1.png",
+    "sha256": "042245beadce6507dacbfef0b65cadd384dc7e4964ffb23313da1721533b0bef"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/crema-flores-volante-asimetrico/03-view-v1-360.webp",
+    "sha256": "a323c0a11038fefd5ebb528b0f560ddd7fce147f0f591880192dcd376c3d9739"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/crema-flores-volante-asimetrico/03-view-v1-720.webp",
+    "sha256": "52987dbac9232c6f916f630bdec80d9fd0db05e70eac67ddb7c969f8e6006da9"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/crema-flores-volante-asimetrico/03-view-v1-1086.webp",
+    "sha256": "532268e70b6e1c2db4cb2ada31965f533e2e1a91765d50c7b5c61e57c391062c"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/crema-flores-volante-asimetrico/04-view-v1.png",
+    "sha256": "45fd9e322a876c77276f3e6e58348bb00e6a04b6e45b73f7c4a8f6e29eb8085d"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/crema-flores-volante-asimetrico/04-view-v1-360.webp",
+    "sha256": "6c8e6f0db75255b674102ad9c745e651fae152624deabf8c4d0e39127e02f4c9"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/crema-flores-volante-asimetrico/04-view-v1-720.webp",
+    "sha256": "9ff7222bfab6722e39eba6827b49f9ddc53bc9918af6593f6af7648addcdb890"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/crema-flores-volante-asimetrico/04-view-v1-1086.webp",
+    "sha256": "f34548a8182ceb2524c0513858d415a4f610270559c9352d5b21128360322774"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/crema-flores-volante-asimetrico/05-view-v1.png",
+    "sha256": "a075b42625b52b80dee5761ed781543fde200f3a815a6afe3f27027ca0a73625"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/crema-flores-volante-asimetrico/05-view-v1-360.webp",
+    "sha256": "61a09a61dccb7e0a5e8c927ba9988ff314bb18e887f003d11150f2d02886bec0"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/crema-flores-volante-asimetrico/05-view-v1-720.webp",
+    "sha256": "e0b186dbf60581d1ee2ef600b8ba447d83ad85d2912bef5f25ccbfd60ab4443a"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/crema-flores-volante-asimetrico/05-view-v1-1086.webp",
+    "sha256": "d248f0c719652b3db2f80d2d1d0bb163bec1a0a099994039fa645a9808b2d20e"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/dorado/01-front-v1.png",
+    "sha256": "01cc1d4b546d9c4c8e745c38a422e034a66d1b430938ff22eab5edda2f8bafef"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/dorado/01-front-v1-360.webp",
+    "sha256": "6b471631cf094c932059c52de3588cb7c377a1c3a942be77d43fc99b6d97822d"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/dorado/01-front-v1-720.webp",
+    "sha256": "2afe3f57718b1689bf95f4932f17109455e0fcad0d0fe40bcd17a23c7e5076fd"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/dorado/01-front-v1-1086.webp",
+    "sha256": "6dfa918a58d1b9ee9579c82d59219c6dbc30705c31bf74b1387b942e82e38c63"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/dorado/02-view-v1.png",
+    "sha256": "a899bdc948578fe5c10eb031fd15467f47ad1a49832de5a40f58393ec8d97ead"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/dorado/02-view-v1-360.webp",
+    "sha256": "2ead514894500298a6dcbcdbfd7db51e3e5f8ed96d9fc61a30eceefd2d34cf32"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/dorado/02-view-v1-720.webp",
+    "sha256": "96370eb59ecaf01bd75d1b2e35fe6bb37d2d5061c50c4db0c205e099ad5771de"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/dorado/02-view-v1-1086.webp",
+    "sha256": "712b18a2253e1621c41982429c70935eed09efff5b741dd68037b2a2c6d0c65a"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/editorial/DbZdVj6q2vn-v2.png",
+    "sha256": "13c4dacd54fd3479e02c5aaafde912c9f748d8b054b2a952133b03a0890570c3"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/editorial/DbZdVj6q2vn-v2-360.webp",
+    "sha256": "a2e161f36b0006f4579c7ef34550164827fabdb32ceba95332214bc0b0e59da5"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/editorial/DbZdVj6q2vn-v2-720.webp",
+    "sha256": "87fc6761b5da24dd09b7ea23d3c25243e87848d6961a185c0e639c2924df3a42"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/editorial/DbZdVj6q2vn-v2-1086.webp",
+    "sha256": "7d2b8b4ffe37efa583492aa520b84b6c7b5ff5bc3570a3aff563e7fc60ad8e88"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/editorial/DdwJTglRMBn-v1.png",
+    "sha256": "8d1b5cc749b8f6c665636626ef5a1fbbce408fba6d003ebbb1ad6cea6ce2b0c1"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/editorial/DdwJTglRMBn-v1-360.webp",
+    "sha256": "d033726094cf20c4675e59d69d558e11fbf251b4b5565cbcf5a6273b465e1997"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/editorial/DdwJTglRMBn-v1-720.webp",
+    "sha256": "ae01f5087fc6497ad289989146bc330fdce06870bc786a8f8f4e4bf14d74a38a"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/editorial/DdwJTglRMBn-v1-1086.webp",
+    "sha256": "3d3ecf2e01f87ff5dab0ea0ce9bdde0afe6904c234d048d99208ea6e583d963f"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/editorial/DeSG5J1KzHb-v2.png",
+    "sha256": "ebbb43fee026126f866eb54dbd11593f3d9a09f8cccc9892a13d2bbedf4de5ec"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/editorial/DeSG5J1KzHb-v2-360.webp",
+    "sha256": "57025727d65225c8815abbfbf935e8841d96eeb4aef5feaeca3d666e5415b6ba"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/editorial/DeSG5J1KzHb-v2-720.webp",
+    "sha256": "f5273cb8b263c06bb13f3aa411f26b86c9bb69d4b4d31d7442c5a06b49eed7de"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/editorial/DeSG5J1KzHb-v2-1086.webp",
+    "sha256": "8d527e56a93387365a39e72137ce7c8bbbfa3a124b49201de154f25322917cea"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/editorial/DeSHKZPKTNp-alternative-v2.png",
+    "sha256": "1e048d9c9841b47a688133ed6007c2178eacf9c16a23a8ad174e2aaf09d71b40"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/editorial/DeSHKZPKTNp-alternative-v2-360.webp",
+    "sha256": "b3af77ecf11c865ef17a3f5abcfaf5ad3e5deb20bf68b155c89b3853649fe6da"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/editorial/DeSHKZPKTNp-alternative-v2-720.webp",
+    "sha256": "9c0f5c3aba865488654982e1c3989f9cae4adce3c2af87c6c46f60bb0d6b9cf2"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/editorial/DeSHKZPKTNp-alternative-v2-1127.webp",
+    "sha256": "d9b191f068b1e16fe671361b0dd854f2e95fb0c35a733ebf72c0f73056564ff6"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/fucsia-halter-pliegues/01-front-v1.png",
+    "sha256": "f98209af027a8f9187ca6c62da1254a1e17eaba03139ecf4991e7040178a187b"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/fucsia-halter-pliegues/01-front-v1-360.webp",
+    "sha256": "c2d738dc98442ab83de2de52fbaed9694cf04079dc6a10a3f0543c61d4133649"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/fucsia-halter-pliegues/01-front-v1-720.webp",
+    "sha256": "e39d4b1a9eb98d80fa3cbbdd3938fb5453f43cf8f13ee44c14482e18d7ab9eae"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/fucsia-halter-pliegues/01-front-v1-1127.webp",
+    "sha256": "2e0dc87df6f98c479f160d987503bd4f1d194b83bf742c7937654473ef7ec872"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/fucsia-halter-pliegues/02-view-v1.png",
+    "sha256": "389185650f248229e094e4a2d5a42c5baa72b65a41af5f2108f01f04a8121650"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/fucsia-halter-pliegues/02-view-v1-360.webp",
+    "sha256": "a4f667e0f5ba98ee3443c802ed39f8e887bccd760a4293d04f3830f08125136b"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/fucsia-halter-pliegues/02-view-v1-720.webp",
+    "sha256": "4a864d6384bb861e188e5c105de323044402dc199826b8b3525e2f0c29b5c1cc"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/fucsia-halter-pliegues/02-view-v1-1127.webp",
+    "sha256": "c5c7804044e495ec3c563945bc7204d55bc422d6689068c4d310b2a11b15b750"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/fucsia-halter-pliegues/03-view-v1.png",
+    "sha256": "224503d1c1895a52d700c8d06c9baca60e04759045ef42d8189a9c6e853a36c0"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/fucsia-halter-pliegues/03-view-v1-360.webp",
+    "sha256": "dc6c32f16ff6e12ce6f6e86c33289e2d321932d6d53164f2e05fc824fdaee5fd"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/fucsia-halter-pliegues/03-view-v1-720.webp",
+    "sha256": "d1bfdb271a0a5af86c71f82dc9daf9947c6ebbf71ff0d359f7f5cd79f7da46d8"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/fucsia-halter-pliegues/03-view-v1-1127.webp",
+    "sha256": "a8467945897b0e850dc2f4b689c60e540ada3b701e0092ec2084b65793404458"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/fucsia-halter-pliegues/04-view-v1.png",
+    "sha256": "a79be1f957d0ee1f4d5f18591fc818d48c64fc31945cd6f1483be343d5dda870"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/fucsia-halter-pliegues/04-view-v1-360.webp",
+    "sha256": "3800cafc0a8f1540f496fb5ab01a2fcce49cbd6b07aac3a0f3c3a796ec30af4b"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/fucsia-halter-pliegues/04-view-v1-720.webp",
+    "sha256": "9b6a1ce28e325bee7d5e6ae9f6f00da5af2b5a5240028d75ec8f83ac0be6a10a"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/fucsia-halter-pliegues/04-view-v1-1127.webp",
+    "sha256": "9ac7be5cd2bc779ffad377fe7d89d48277ad2c86f651fe8eb526db99685d2f93"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/fucsia-un-hombro-volantes/01-front-v1.png",
+    "sha256": "5959697954bfc435f9518d8df6b70af2804a9ea6e30fd0c2869d7fa0b0c1cda4"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/fucsia-un-hombro-volantes/01-front-v1-360.webp",
+    "sha256": "6ab957ad1336d1c065616f62edcd0f085d69e8ff9e85ad89a3181b79aa6e0c79"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/fucsia-un-hombro-volantes/01-front-v1-720.webp",
+    "sha256": "7b46faee208707a9a2dc53c8587b5acf7bc436ff18ef04ac3f994cfe77e4eda4"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/fucsia-un-hombro-volantes/01-front-v1-1086.webp",
+    "sha256": "7b00a51c6b3c72f1df8a9c2e3ed583f859d6718deb222df20e40250d407fdec2"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/fucsia-un-hombro-volantes/02-view-v1.png",
+    "sha256": "0e1d0d26ea9805756f1a430bf72853a11b6a570c773980b50b30776f5c82bdda"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/fucsia-un-hombro-volantes/02-view-v1-360.webp",
+    "sha256": "20044fe0b7229161176fd18604c159da91f0a69462720421bc60cba02e99fadb"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/fucsia-un-hombro-volantes/02-view-v1-720.webp",
+    "sha256": "e584ea42ac636d8181e403fd988cc5319039924fbc64a2a0933ed309709167eb"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/fucsia-un-hombro-volantes/02-view-v1-1086.webp",
+    "sha256": "0962aa78bf698ac6661ffda53c7ab6b81a986a30ac0c688b8a81c21337d0c6b4"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/fucsia-un-hombro-volantes/03-view-v1.png",
+    "sha256": "34fabf4498291824e145ba48c4b7b027e7c4585afe579a345b8afef916bff255"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/fucsia-un-hombro-volantes/03-view-v1-360.webp",
+    "sha256": "7709356c16a5984ce2c495b02b4169747cf5cc3a38e71cc44d826c40010b0ab4"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/fucsia-un-hombro-volantes/03-view-v1-720.webp",
+    "sha256": "248b4e2f65fcdb6707a8ed5ebba062df79ad6033b3807da39de1c32f0930fdc9"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/fucsia-un-hombro-volantes/03-view-v1-1086.webp",
+    "sha256": "9f226ff61aaf5e342272eb3dd8da5d90f9b13677ab66608dd982f05f9f9aa0c6"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/fucsia-un-hombro-volantes/04-view-v1.png",
+    "sha256": "0d37457f2aa8454d0c7909f08db0d2589d8888b66126576477f7870d68ee6e26"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/fucsia-un-hombro-volantes/04-view-v1-360.webp",
+    "sha256": "232af5070601a13368b86119066dfa141765ff14b25cb612cd33bd1c640a5780"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/fucsia-un-hombro-volantes/04-view-v1-720.webp",
+    "sha256": "29e5ff34c1755ccff25503aecffb9a75a12444385bd5bee353eaa8af0e346754"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/fucsia-un-hombro-volantes/04-view-v1-1086.webp",
+    "sha256": "bc39ce4de7d92e9983128828c68aa5f61346c212d96391eb2a1cf8a6fac2bb2b"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/fucsia-un-hombro-volantes/05-view-v1.png",
+    "sha256": "a7e9d11d939e947fb7419eaa664c675f5035960c76554de002fe3a6584f5aeeb"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/fucsia-un-hombro-volantes/05-view-v1-360.webp",
+    "sha256": "3d138c5fac31747bc8a475c6c12bcaf63b98b590dc0100bd387b09748539d219"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/fucsia-un-hombro-volantes/05-view-v1-720.webp",
+    "sha256": "7107eb4c3b2938fd717fe4694f52078f8cdaa91806e55feb7927e95ef5f7b654"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/fucsia-un-hombro-volantes/05-view-v1-1086.webp",
+    "sha256": "d167d60a615bd831b40549a642ce1513d67f377575a493f2bb8aa808b4592d2f"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/gala-destello/01-front-v1.png",
+    "sha256": "ee27b31b0404d8c459c19a77aeefb82e920e2697adf91346b1d80ea0aaf7c1c4"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gala-destello/01-front-v1-360.webp",
+    "sha256": "55dd1820c4abc78f3fe13954eaed6ad4badcdbd6117ea3a27091e294383df07a"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gala-destello/01-front-v1-720.webp",
+    "sha256": "37d4d558ff66ebb373875dbeea5a17fb252933de888981eeb454a5e955eafa0d"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gala-destello/01-front-v1-1127.webp",
+    "sha256": "38c487fc4d927a746b675f72de8cfd6a14048f375c428d030831ba9c160723c7"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/gala-destello/02-view-v1.png",
+    "sha256": "abad7f084bcf89a3c9015ca3dfaad2fb95ad6466b892e57ccdd84756a89b9150"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gala-destello/02-view-v1-360.webp",
+    "sha256": "e2bfedad819761d5173d82b0c79189a0912024520da2d6f2761f582cb415ba8a"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gala-destello/02-view-v1-720.webp",
+    "sha256": "6b27f04522aaa88dd36eb19671f4e47ada33f83c46c0959bca989ec75285c7ae"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gala-destello/02-view-v1-1127.webp",
+    "sha256": "9e8c5b32d9c6780521066342fef412f7262da4a95b8ee494312520de30368790"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/gala-destello/03-view-v1.png",
+    "sha256": "ea1910c97b518fd29cb737c3b01979f2be792de9a190ca47d297b46c77bc7bb4"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gala-destello/03-view-v1-360.webp",
+    "sha256": "69955a204f13bbdd67932a2f95422bd70bdb86d401e033f5fe81a0573895ea25"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gala-destello/03-view-v1-720.webp",
+    "sha256": "db3dc7ce06f424be1907c1351fb0f2b880a0fef35ea1fccbef78c7f11a2a53e5"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gala-destello/03-view-v1-1127.webp",
+    "sha256": "197d0b7cea3732dcde13dd0dc421eaf1c583760fc9390ed3b7e45e440444b4e3"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/gala-oro/01-front-v1.png",
+    "sha256": "32dc4e6a380ad7353b0daa3dccc53f075b0e33b4e2487426550d1da843c1c240"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gala-oro/01-front-v1-360.webp",
+    "sha256": "acfa5e6c7befd55584c6bc8449e2c22a1c806a451c68fe8c5d0bf5530224a4b2"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gala-oro/01-front-v1-720.webp",
+    "sha256": "df6d0e469d7f4c0d5b6f9bb456e784833fdc84d8dca04c4efdc9be561c0593fc"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gala-oro/01-front-v1-1127.webp",
+    "sha256": "e2053860e50725a83cfd1e5195456d5b7b38714197e2b2d9726117ce38587b2c"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/gala-oro/02-view-v1.png",
+    "sha256": "f88603d35c46eb987009ee846a1cd04ae479a30c1fbfc841a9b68c2407cc251b"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gala-oro/02-view-v1-360.webp",
+    "sha256": "e4bc24e9be99f6ba7ac4f76253a06594507a97f442e9220a77e0a7082fe4d551"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gala-oro/02-view-v1-720.webp",
+    "sha256": "da4ae2ccdfaebedbdf92f0eeafc4c987b316c69f6d48701933a4b263049fae3a"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gala-oro/02-view-v1-1126.webp",
+    "sha256": "2dfce1e354801d3077c0cf4c1731f6bca313d064e54fd67a1b1fb8b6694529c6"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/gala-oro/03-view-v1.png",
+    "sha256": "faadc3a33ef61832aff703b4bdb55efc8c6b1656a2a42259e4ee1864d48b9d60"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gala-oro/03-view-v1-360.webp",
+    "sha256": "6e294e2e66779838978a6ac69ee6b48b0c723a70f75ec361adc31cc8d53ae389"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gala-oro/03-view-v1-720.webp",
+    "sha256": "4aa68f48c50cabb8da76f5aadfd902a2c4576dc93269ba649d35e0a02048a6d5"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gala-oro/03-view-v1-1127.webp",
+    "sha256": "e8a99288e1d03d32b6b31e25b9e4fbbb9290737f1b1e631a6d18debabfcc72cc"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/gala-oro/04-view-v1.png",
+    "sha256": "46e9ffaf1aeca5bc29ec2c477a81053fcf305b1003f07be89e726be6370c947c"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gala-oro/04-view-v1-360.webp",
+    "sha256": "b13273e90577d4d958d357542ba8eb214cf9c6d2813eaecbe207e8ccd1f391dc"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gala-oro/04-view-v1-720.webp",
+    "sha256": "0317c38f62ec90e157d5543debb182cb236db10d5eeb81eda631dd9cf966b672"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gala-oro/04-view-v1-1127.webp",
+    "sha256": "91751ad7c086650b4909c026e1f80aff3eebbba5f8aa6c40d74fb8e2d703bbdb"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/gala-rubi/01-front-v1.png",
+    "sha256": "679d5afb6fb2a61a3efe95d578096df158f5abc2091c9a4a6eb69faa691d9ed9"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gala-rubi/01-front-v1-360.webp",
+    "sha256": "6ac101349e70e8c684e9cd06f09765710a58c381b0cace63b7abd622576366df"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gala-rubi/01-front-v1-720.webp",
+    "sha256": "63403a125eabdf0eabd7e2c5aa7a469d152b1992f27309e91005436177a82ed2"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gala-rubi/01-front-v1-1127.webp",
+    "sha256": "14d43d697820cf3c0794ba1c345aa0f5f078ff094227e6a944c9459b589507c4"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/gala-rubi/02-view-v1.png",
+    "sha256": "4870bcb1f0eee741e1fe7dae824000bd0573ad9c6b6ffb194a6260dc37116401"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gala-rubi/02-view-v1-360.webp",
+    "sha256": "2f407a48770353515753952b37cd652deb178d6bf805ca764e486436a0c69ed6"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gala-rubi/02-view-v1-720.webp",
+    "sha256": "7b80a7e1af14f77d65f3567057aa75c752df8fa4ec58819d07a3fb8d55eaf038"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gala-rubi/02-view-v1-1086.webp",
+    "sha256": "18673827b27889b356334a30d1a7bc88b727dc4cd3a3dba2abb7843b4201bf9f"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/gris-perla-hombros/01-front-v1.png",
+    "sha256": "fbfdbb12e023ba7398840b403ad6c12019caf7924bc9c87459674cfb2a499215"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gris-perla-hombros/01-front-v1-360.webp",
+    "sha256": "cd9313b3b0dee9660076595e6317e8df092008cacc5203839ca50c438113ea44"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gris-perla-hombros/01-front-v1-720.webp",
+    "sha256": "e878935cea6fc48ea4de48d0ef4b5db5cec567d4b9f396bf41912dc195aca037"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gris-perla-hombros/01-front-v1-1024.webp",
+    "sha256": "762daa6037138b04508acd00f35c061ca77c8cac45c64173c7c60f34e62041d8"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/gris-perla-hombros/02-view-v1.png",
+    "sha256": "45d0b97dc314c973225b065549350a0e070f535e545fe421c94056c04cd0cd52"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gris-perla-hombros/02-view-v1-360.webp",
+    "sha256": "f3fdd49bec705a414b42f04d8567d1820c42fd76a9c1c516b44ef1bb8adbb2bc"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gris-perla-hombros/02-view-v1-720.webp",
+    "sha256": "d2f6e77025b6ce5702f9e6170e28cdf5c42ffbd792be0dce4fcf7c77e5a42749"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gris-perla-hombros/02-view-v1-1086.webp",
+    "sha256": "27e9ef055e6bfa1ac38bb728f37c7d7625b1f112219e4fc4b8875dbeb5f7c4b8"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/gris-perla-hombros/03-view-v1.png",
+    "sha256": "13856c9975153e8ecde15070b1ad566c091b64bad8a2f66cf3d8c85e25eda340"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gris-perla-hombros/03-view-v1-360.webp",
+    "sha256": "6a565997374f0fddf667f92a4d103d0f9014ce7610df420e7fc6cf2af95fdd33"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gris-perla-hombros/03-view-v1-720.webp",
+    "sha256": "56c2f5137039683d192e64cbe62878b3c90d96a3241e9ab8d82c1665e77bbfbe"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gris-perla-hombros/03-view-v1-1086.webp",
+    "sha256": "37e4e716ec5e7944bdb9e3d68b8622ef9b27398099caa9cc7e48fc47a49dddea"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/gris-perla-hombros/04-view-v1.png",
+    "sha256": "d77cefb066813d5a9e73e793866440298d2684c64f7b6ba0c165dc857f9f485f"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gris-perla-hombros/04-view-v1-360.webp",
+    "sha256": "54c599b93bccd729a9142f81164c56471c49f7bbf85e4487c6d8d7143ddd0e16"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gris-perla-hombros/04-view-v1-720.webp",
+    "sha256": "d30d75f9af562e0f390943da34dd4309fd3bea1e1cd0dac04e82c57f63a52ef5"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gris-perla-hombros/04-view-v1-1086.webp",
+    "sha256": "b6265ae0fab16163706219c1e1f3909042fc073e3ae4155d570ca86fa1874ddb"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/gris-perla-hombros/05-view-v1.png",
+    "sha256": "361b375f5285c01989511b880acfe54d7a2b02047be36d1adc59ea1dd95514b8"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gris-perla-hombros/05-view-v1-360.webp",
+    "sha256": "462f3453e7b9c9a7ba0f1d68383f0b75af6c5670bb9b283e3ff16cc1099adb4b"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gris-perla-hombros/05-view-v1-720.webp",
+    "sha256": "b5c60ed8fd148bcd3eff8e3e2bfc5af026832b874e5d47f0b2acda477b465b36"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/gris-perla-hombros/05-view-v1-1086.webp",
+    "sha256": "d9c5b7d69877941a07eeb65a06c0358d9a9b5a154d1419a3b9b28ec63d14a4f8"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/midi-estampado-burdeos/01-front-v1.png",
+    "sha256": "11e4f602364b3c11f704b426bd9f812341b55f194fc6215934a2a480e4d75f39"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/midi-estampado-burdeos/01-front-v1-360.webp",
+    "sha256": "664983b341bff32b0a85093618b1bfedb89d6f6e767def7abafbc16b192c72e7"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/midi-estampado-burdeos/01-front-v1-720.webp",
+    "sha256": "dcd08d3f53625c16ea5e6dc873fefc7ee82601ef04bf8b97e474290965b729e4"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/midi-estampado-burdeos/01-front-v1-1086.webp",
+    "sha256": "869191b0e86885e269ae9897a54b46796fddd79eadbd3a5ea820e741a09a6e84"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/midi-estampado-burdeos/02-view-v1.png",
+    "sha256": "0dd1bb944cb2d1fd500c63a13bfe1fab0cb3b3509056d834b70ebb2b5e7655e4"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/midi-estampado-burdeos/02-view-v1-360.webp",
+    "sha256": "0cba9f2251d15bffbd143e204ffa14e30b80435912e783394cbfa92c47da564c"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/midi-estampado-burdeos/02-view-v1-720.webp",
+    "sha256": "9d0b5438f0e4912db7c40accabf7937a174eb60a7a405844c526ab9afc4d8611"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/midi-estampado-burdeos/02-view-v1-1086.webp",
+    "sha256": "23cb53dc5be931ed1a43d3a2501967fb45c5194badb4c4cebe6e853dd22bb967"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/midi-estampado-burdeos/03-view-v1.png",
+    "sha256": "2b3e1569f7d63cfdc5b2d4af217cd38f55cd554c152cfd3414c6e4729facd972"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/midi-estampado-burdeos/03-view-v1-360.webp",
+    "sha256": "d6727e2858af2cf3220265a34a3393d6a7a4c38c8ee1da62e737e17eab4f156f"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/midi-estampado-burdeos/03-view-v1-720.webp",
+    "sha256": "028a9933f1e3b9e8591154eaabadb3e2fd0b323d5fde3862e5cda74d33a2b1dd"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/midi-estampado-burdeos/03-view-v1-1086.webp",
+    "sha256": "a6cc8e6a0a387c5c3e97a8997e534a8aa507702de74575557a8bb8a85f4a5623"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/midi-estampado-burdeos/04-view-v1.png",
+    "sha256": "39a47e8c6e2fc2156c707298f61ec80022f66ff3985114bdd12112ed6b03b07a"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/midi-estampado-burdeos/04-view-v1-360.webp",
+    "sha256": "104a42dfa0482d8fd878f402d8d38c7f9c6a015a062ccc5a2be494b7dc7092e5"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/midi-estampado-burdeos/04-view-v1-720.webp",
+    "sha256": "660edf6d85adfca8e308b73f899f772137bc20ea21699fdb2fdbe266d96db2c9"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/midi-estampado-burdeos/04-view-v1-1086.webp",
+    "sha256": "1364943eea9d48bef9d536ed866661f927ade6011b915f12c23c4b5f093a7467"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/napoleon/01-front-v1.png",
+    "sha256": "f1fde9885acc864717e3a34d1e71a212e40277abd9e937399b27bcc7042ccc0e"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/napoleon/01-front-v1-360.webp",
+    "sha256": "e9dd934fe73a6e6894f55db5c8e88d9cce24497d7aa338a4409e5b87d8be2c03"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/napoleon/01-front-v1-720.webp",
+    "sha256": "b2e1e5bfc9ad50c73a45eb6d2328a397f0af9dc22a71d2886ff4d88c906d38c4"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/napoleon/01-front-v1-1086.webp",
+    "sha256": "b940b6b36d20fa6d6b6fdea8a49a19aa69e3da12b08849b037a77d127ea2211f"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/napoleon/02-view-v1.png",
+    "sha256": "34ee9e1ead538deac0283902eab0a88068aefd0a38c333a089cbdcabe89d4432"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/napoleon/02-view-v1-360.webp",
+    "sha256": "a6183d50bc4e0088df71e5b1c83eaa8f14b803eb3ee1097c35d3d9cfba2b8805"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/napoleon/02-view-v1-720.webp",
+    "sha256": "9638906ca57f66a2f7c8760e6242be581f9204747ddec22f1554032c165ef3a6"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/napoleon/02-view-v1-1086.webp",
+    "sha256": "77b1fba08abfe325033fe35efa35fe9e98d103ddf40464b232f7919a2cbde10c"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/napoleon/03-view-v1.png",
+    "sha256": "4ae9c02f018c21fda83fe32c4ed665c7acc104ac9409c70767da23df43710c2e"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/napoleon/03-view-v1-360.webp",
+    "sha256": "8f71060c9d77251c399e864e53c57407de4daff2157658ba4682dfeb2304d8e6"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/napoleon/03-view-v1-720.webp",
+    "sha256": "aefd443c300cb99a4fa51504235749fa6a969cb806137b49483768ef3fee025f"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/napoleon/03-view-v1-1086.webp",
+    "sha256": "c7e7ce2b09bbb9e7dad74407f5483402d085df30bf95d00ed0773a9e87ed8b90"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/negro/01-front-v1.png",
+    "sha256": "c6dde1a9b8ce3a10866ef04f9ca6a8a8f0819f397ef319df87743ad59f3b0420"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro/01-front-v1-360.webp",
+    "sha256": "d4ca13f4668e1516151becb2b7de99d3776bb27bc1bde1745f6d1418a9887d0e"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro/01-front-v1-720.webp",
+    "sha256": "6c6112ca3c05904923024860afd886a62f04dbce5e16913401801b2f49fd87f7"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro/01-front-v1-1086.webp",
+    "sha256": "62560b35e99d4279b7624e3c2f98e9266e7502d872b78d1d8ada3dc67f139052"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/negro/02-view-v1.png",
+    "sha256": "9be0feca941a7a21d1216eddeb0386995262f0dc90c228a9aa7a10760d30ecd1"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro/02-view-v1-360.webp",
+    "sha256": "5d47ab55f0f630b70bda06bdde0bc3ae57f5fe2d5d0b09d0c54937feb9cc5767"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro/02-view-v1-720.webp",
+    "sha256": "2e19da1b96458e85145c2d7081d8fd7d61ae0a346e38c877a37f624a29bacdb3"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro/02-view-v1-1086.webp",
+    "sha256": "1f321c4ffe649691da0b7cf1cf733cfb167b1d9f63e29cf47a7aa365f2b09cfe"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/negro-blanco-lunares-midi/01-front-v1.png",
+    "sha256": "d91e3332ea6f9db7ad13ab62ff2674fba2e6c554c7e75aae3d7125b779049f83"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-blanco-lunares-midi/01-front-v1-360.webp",
+    "sha256": "169e762da2addd60f64a7cc28fdb33f00b8e3b83c0aaaa185bf70ca2405d1a12"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-blanco-lunares-midi/01-front-v1-720.webp",
+    "sha256": "2ba3a447b5fcd694f8bb2d0648df1ba68199d593461edf7cfca9e32d804a6303"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-blanco-lunares-midi/01-front-v1-1086.webp",
+    "sha256": "473b03af8c17075d9b99ae321b70c45ededb046214cbf05046f0ae6374bb1dac"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/negro-blanco-lunares-midi/02-view-v1.png",
+    "sha256": "b50cd51aa3dad0604791f97f89397c8360743d7571909544e63bbacc747b5e3b"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-blanco-lunares-midi/02-view-v1-360.webp",
+    "sha256": "951021e5001f0a8d5051bfe21b9140c3040567f57173d1d8b05e27dc08a48f6f"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-blanco-lunares-midi/02-view-v1-720.webp",
+    "sha256": "1f52302061ea3ae2e36f121277015862bbcc008233eabedb06b9e144e896a8f9"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-blanco-lunares-midi/02-view-v1-1086.webp",
+    "sha256": "894ad657cacca7e060d022aa5b4782f1ed48bf930c22d39c9e0ee106a66ac4c8"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/negro-blanco-lunares-midi/03-view-v1.png",
+    "sha256": "f44119ee1f2cb58483b0d8b5fba0ddcb72e9494f03873e0fc8382cb458cbde6f"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-blanco-lunares-midi/03-view-v1-360.webp",
+    "sha256": "12090d03d814b748dcec5147c70270bff74ccb7f0aef7d0ee1a3c5432b2e46ff"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-blanco-lunares-midi/03-view-v1-720.webp",
+    "sha256": "60eda08ee3eff3257ffb2603cf8c287309a29947572136d95e348d35a187bc7e"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-blanco-lunares-midi/03-view-v1-1086.webp",
+    "sha256": "33b3cb0b4c4cea694e25b7e63828673f7ce7cf3d34202d8d7714666d5d60cfe2"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/negro-blanco-lunares-midi/04-view-v1.png",
+    "sha256": "3eb3d18c25f7429e440673b1140cde175ca46141e434c73e12f01b4f861ae972"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-blanco-lunares-midi/04-view-v1-360.webp",
+    "sha256": "9448ff924a4af273d5002f794f80aad4bc9b2386fd8a54e16cbc613de546a68a"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-blanco-lunares-midi/04-view-v1-720.webp",
+    "sha256": "8843c7beccd0eba80e75f34f4d3da76f039170f60c0c7ee3a19ada90365d4849"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-blanco-lunares-midi/04-view-v1-1086.webp",
+    "sha256": "f6e67299cc8e382830e45faabfdbfb3fdf25bdf1d959edad40fe8d3d906745ee"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/negro-blanco-lunares-midi/05-view-v1.png",
+    "sha256": "e82f14e04ad753e641b9152d8a4147a40be8e955f4e9d3752b78c263543eed95"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-blanco-lunares-midi/05-view-v1-360.webp",
+    "sha256": "3ab23aeea3ebc9dc8d24d6321cc3f05822e17b14409a8547475cc22c26e50190"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-blanco-lunares-midi/05-view-v1-720.webp",
+    "sha256": "1a458c528f01d431ea161507643360d8fc6c0a983b4f3251f07f3fba55d86280"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-blanco-lunares-midi/05-view-v1-1086.webp",
+    "sha256": "088cbaf4da77ca1df4ee03fec8082cfa7b63b102e399c429e53c55bd09ff474a"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/negro-brillo-pantalon-amplio/01-front-v1.png",
+    "sha256": "e1a4418c2fb46f153c0f4f29a9c00f7597ab9406f7af3d28f6b9e38c5b38c948"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-brillo-pantalon-amplio/01-front-v1-360.webp",
+    "sha256": "b111fd751731eef30a30d3cec6042de0221adab0b2cbcad18b6f6768da543030"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-brillo-pantalon-amplio/01-front-v1-720.webp",
+    "sha256": "deae88d8ca57d95b6ca282b87ca28dcbbe568738d9dbacd3a037a5f1f082ddb7"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-brillo-pantalon-amplio/01-front-v1-1024.webp",
+    "sha256": "0e52204273c5051966b7e8d862730525b9d0e316820db29c832e8db6dda09eaf"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/negro-brillo-pantalon-amplio/02-view-v1.png",
+    "sha256": "557bf8909b792e0c0e884286b0610e3e077d8eaa0225ea5c41274fe0dd2d159b"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-brillo-pantalon-amplio/02-view-v1-360.webp",
+    "sha256": "f75dea3cb4a9695e711beb6045f5c91e1fe6282ba799783d4756c285fcb2bf2d"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-brillo-pantalon-amplio/02-view-v1-720.webp",
+    "sha256": "859364c52c871cf91e80237e12d2ac464759087582a48e739721bf38fee66901"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-brillo-pantalon-amplio/02-view-v1-1086.webp",
+    "sha256": "a57df89bcd2ffde446296caa326b3a7ccab4c6d23b6ecc52ac3614b01eacc1f4"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/negro-brillo-pantalon-amplio/03-view-v1.png",
+    "sha256": "739611aa093436e251328363bda4d2245162866b898a1ca7bdcea7588e8749c0"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-brillo-pantalon-amplio/03-view-v1-360.webp",
+    "sha256": "33fb24b2c5bc933bfc061c892ecdea30c4a0c29026b79134b1aee0094b89e345"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-brillo-pantalon-amplio/03-view-v1-720.webp",
+    "sha256": "73da4cf9a005a5ee6bb285f8deeac16ec20c0c8585ace987cc302564427dd9a1"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-brillo-pantalon-amplio/03-view-v1-1086.webp",
+    "sha256": "60d1da0e71ff85c829e1c35b4aa6c66fca129e3bd9c4aae3115e4fe28cc8e010"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/negro-brillo-pantalon-amplio/04-view-v1.png",
+    "sha256": "d9318a9a19dbb06919afc31b11433a49001676e818e74f8fbb24ecec6bf99cb9"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-brillo-pantalon-amplio/04-view-v1-360.webp",
+    "sha256": "2778e01f1760c26ac78c5b73b96e662dade9102b6a35853033a499f06841f061"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-brillo-pantalon-amplio/04-view-v1-720.webp",
+    "sha256": "de60ba9b961bdadd2aca1c11814273bc98051fe17377bd41ddc79403dec89748"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-brillo-pantalon-amplio/04-view-v1-1086.webp",
+    "sha256": "d7bbadd16ea434bb6d3924c628d2cbcafa664071d9ba3aae9b46f9efc92b9a43"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/negro-brillo-pantalon-amplio/05-view-v1.png",
+    "sha256": "5e09b884540d6afc5f260ac31f9a14c38fd28b9adf4e2ebc6cabeebfef22e12b"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-brillo-pantalon-amplio/05-view-v1-360.webp",
+    "sha256": "95c2f8a83f88a319e859255c0030d6dcb19a1eaa039b6199d45cf4efbe5df9b6"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-brillo-pantalon-amplio/05-view-v1-720.webp",
+    "sha256": "ac8b0b7412b5264e3bd47241c151827939e4158dbd7934ca482a4db7a59f3d26"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-brillo-pantalon-amplio/05-view-v1-1086.webp",
+    "sha256": "8c5d3fc764f1dc80d2aa7bc04b3552474e858ec9dc023b70cfc09c97eef4a902"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/negro-escote-puntas-abertura/01-front-v1.png",
+    "sha256": "b78c384d24292a1da041ce86214d9d376168304184cbb5601111506792544de0"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-escote-puntas-abertura/01-front-v1-360.webp",
+    "sha256": "6a2de585f3b5cd24ca3549ff7bfac66b94136093f9124e91743565392e7a68ca"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-escote-puntas-abertura/01-front-v1-720.webp",
+    "sha256": "1f2a3ec59fd532c6b7d92928040d96d44d00a1a81fd9f639516d1d13c2df8bd9"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-escote-puntas-abertura/01-front-v1-1127.webp",
+    "sha256": "daec4cfc3954a78fb43823363b287db8520323ae02610dc999d85d5a51c6b820"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/negro-escote-puntas-abertura/02-view-v1.png",
+    "sha256": "8c9231ed8954408da96a9377994e803036effa2d95fc32dd08715f825030f776"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-escote-puntas-abertura/02-view-v1-360.webp",
+    "sha256": "6953519045a2a774bdca6376140c4d263dd1997f2d5b2d185202fe4fa8f5a16f"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-escote-puntas-abertura/02-view-v1-720.webp",
+    "sha256": "55bed6bf9b30a8fa97c58bf1eb5c4369f0da7e300696c5cd438d8290ceee1a15"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-escote-puntas-abertura/02-view-v1-1127.webp",
+    "sha256": "5ab875fffaf6130994b1af28da3f4e5c8e74336dab4b6ef3dd99eaa01810f931"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/negro-escote-puntas-abertura/03-view-v1.png",
+    "sha256": "62d2324caea22c3c97e78ff98bc68a9803668b605283ec2ac7f66ffb7de0e1f9"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-escote-puntas-abertura/03-view-v1-360.webp",
+    "sha256": "ea31e1f3b608a59386465e01057b7fd2705741ecbc114acd35a9ccd4813a400d"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-escote-puntas-abertura/03-view-v1-720.webp",
+    "sha256": "bc88d65b94da31bc268dd8f4201bd7bcd0bcb0c209af6ded97d1e794d685b3b7"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-escote-puntas-abertura/03-view-v1-1127.webp",
+    "sha256": "7d9fb8e7b3a3dcdfde50ed3ca8c7ed110e169e2dbe316d3ca152689f87221ab7"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/negro-escote-puntas-abertura/04-view-v1.png",
+    "sha256": "a23eac06b5949d68dc9ab87fdbbd476fa75e0a55dcdc0f1a49a4c929f704b311"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-escote-puntas-abertura/04-view-v1-360.webp",
+    "sha256": "ca592db073aaddf1f986a7e79a660acca53feafd3b98566a28fab18fa4f84ebc"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-escote-puntas-abertura/04-view-v1-720.webp",
+    "sha256": "4ed851a501feda6b3abcde6b21fad4488f6e775d675fc8e422d8049877f98037"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-escote-puntas-abertura/04-view-v1-1126.webp",
+    "sha256": "f2fab400cdd97bc6fdb8045228bb4696c4f4c565397d98b7a270aed967e05448"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/negro-escote-puntas-abertura/05-view-v1.png",
+    "sha256": "32dd39676a9a8ebf1daec409ad0596927ad8206896fe351704afee25f969051e"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-escote-puntas-abertura/05-view-v1-360.webp",
+    "sha256": "3a65f1cfaf23447da5fb90ccb55cd9931ebd5cab34aa79d7b575763478388db7"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-escote-puntas-abertura/05-view-v1-720.webp",
+    "sha256": "4612bab09f0c89083d91bb4080dff4aa3628642546644bf7bd21ee232ddf807f"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-escote-puntas-abertura/05-view-v1-1127.webp",
+    "sha256": "4f8f30eb0a11d0fc27ced6195a22e2ef216717c1a30bcf7f97796b86a00a299e"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/negro-lunares-beige-hombros/01-front-v1.png",
+    "sha256": "6b8ce7a120ca32a06cadd9f6ea2da90524026cf7bce323e023400cf0c366329d"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-lunares-beige-hombros/01-front-v1-360.webp",
+    "sha256": "579ad7f220f218bee35a40d394664391e8befe795be90413c929c0d476040226"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-lunares-beige-hombros/01-front-v1-720.webp",
+    "sha256": "0d2630cc679d945c4e0ff32aab458f9f392cfbb081b577eb76a1ef16a30010e5"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-lunares-beige-hombros/01-front-v1-1086.webp",
+    "sha256": "da8f2339b0af9a184e1f753f2b32bed323c591ec248a6bd1b7159c860527d940"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/negro-lunares-beige-hombros/02-view-v1.png",
+    "sha256": "5dc18a7fa907c23946921c3daf11617e11832087f410d9a266d5fc43f63505aa"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-lunares-beige-hombros/02-view-v1-360.webp",
+    "sha256": "52ca9dbe32fcf44772858d24d53207719a8f9966efb837e2333f2bcdc28f2cb7"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-lunares-beige-hombros/02-view-v1-720.webp",
+    "sha256": "5faa05637bde13af86d3d1bf08635deebda24c7d2a10661dc4d2046517050010"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-lunares-beige-hombros/02-view-v1-1086.webp",
+    "sha256": "9481741dcc5b5e5569d2b06fe9f7c9e2025d86c32d0e304acacbaf4c96d1f76e"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/negro-lunares-beige-hombros/03-view-v1.png",
+    "sha256": "018b118339096fb95b8430fca1fff8dffc0bfe13d334754bee4bbcf73b18c998"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-lunares-beige-hombros/03-view-v1-360.webp",
+    "sha256": "1ae9e053d4cc9fe0c4739138c55e5c6c8459b873bde9b53fee9bb4391c32bbbb"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-lunares-beige-hombros/03-view-v1-720.webp",
+    "sha256": "028eb21b7e6f8181bc88d5518c653b8b9b8b510e604c2e3f3e5a034d7caaa24e"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-lunares-beige-hombros/03-view-v1-1086.webp",
+    "sha256": "4227c2ceac1ffd46ba2f4fab16d938c793b9f1bcd388273e2e3ae1db2cdea046"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/negro-lunares-beige-hombros/04-view-v1.png",
+    "sha256": "4062ef26ccee999094d0d27a2a924b7b087b6e1904b96fabf8fcc84d865f9f15"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-lunares-beige-hombros/04-view-v1-360.webp",
+    "sha256": "7fbc74b47aff8aeb745bb0cdcb29ae697d19f6b666e601907fe9c1b3003b7188"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-lunares-beige-hombros/04-view-v1-720.webp",
+    "sha256": "66e32933fa2a58a6acf97744e0b51c4e01428980cc133e504178413fad5face4"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/negro-lunares-beige-hombros/04-view-v1-1086.webp",
+    "sha256": "640b6513a4ea989176827fc857af60ef0226d19e12047107ac42ac3c2518197e"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/novia/01-front-v1.png",
+    "sha256": "64bb7e25ce7b901ec20dd4edc27b5765acf72c213ad46bb3c5b5b9dde959414b"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novia/01-front-v1-360.webp",
+    "sha256": "dd30f09078e1b9b585661157097321ecf486e589b7b0feb5de7b9b7986228857"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novia/01-front-v1-720.webp",
+    "sha256": "c560dcbc24e5741a1d9b29f626874c2b7925e8b90af32f2545c46a34e6af3e4d"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novia/01-front-v1-1086.webp",
+    "sha256": "8f9e9aa33d4dca85ca2f10d1684e6e7831a97691acc7660dd71c339d0a311a6b"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/novia/02-view-v1.png",
+    "sha256": "d1fc8e6f882f442e63c3e3f2f13ca4b62900f8d85fb8761c43c099c235132be2"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novia/02-view-v1-360.webp",
+    "sha256": "48fd3d8cbd778d8fbcd7f25e468ab3c68933dfd21219f5efa24ae1e101e9cad5"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novia/02-view-v1-720.webp",
+    "sha256": "9572c7cae89302d46c6799f5c90c6b0fd9e3431b90ccc1b42f6dee922d3c34bd"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novia/02-view-v1-1086.webp",
+    "sha256": "9b62a542093503c0f859645aa431af309d8107e6b45d36e31b6a5b54695bdc62"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/novia/03-view-v1.png",
+    "sha256": "8df72eed081cc5925b08faa98eeda00f85a005f0910a72b18b867bbbff447bad"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novia/03-view-v1-360.webp",
+    "sha256": "5bbadb0c8abbb34afc2ce594e939f48142fa717c086a816b4c46cb11ec5e126d"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novia/03-view-v1-720.webp",
+    "sha256": "0da2ba5eba6d785bec343ee099657b93fdae53bb79df5e1f8f1fc1632a052d39"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novia/03-view-v1-1086.webp",
+    "sha256": "4962467ea3839969c45e7bf754b343b4b5d53a191cfc6d250416054b4c6232e9"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/novia-satinada-abertura/01-front-v1.png",
+    "sha256": "6506ce9ec27dfb380328bea4bb094856f04a4a1cadf85edd7679ad6f32c2743f"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novia-satinada-abertura/01-front-v1-360.webp",
+    "sha256": "5cb8f8a9a19db564d1326b3ae3a6ad9ffc812d40af7197f357d89cf1585a1b52"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novia-satinada-abertura/01-front-v1-720.webp",
+    "sha256": "46a4b3527d84d8911a884f47e60ba88d5f4e71e98d3a13b1e703b40022dc89d5"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novia-satinada-abertura/01-front-v1-1086.webp",
+    "sha256": "30934b3d571ab83634d6e464271e4c9df088184d0ae36a96d99f237a348dd4f8"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/novia-satinada-abertura/02-view-v1.png",
+    "sha256": "b69fe5884d559d0a011770cebf9ade8da89e1119085e7e5e36173fa789aa4067"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novia-satinada-abertura/02-view-v1-360.webp",
+    "sha256": "047abe598979fdfa0ccaeb17643d7f0b53f2ffc6c73c824f54d60482482d4ebf"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novia-satinada-abertura/02-view-v1-720.webp",
+    "sha256": "7611e9a87373f5df777008cefba7f400eaa5eaaaee65accee583ec721783949f"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novia-satinada-abertura/02-view-v1-1086.webp",
+    "sha256": "1aacf75c50de7ed72ece0b7c31914a9a8d870602b212f75e3591bf867b71f8a4"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/novia-satinada-abertura/03-view-v1.png",
+    "sha256": "dc2f45e1ef2f8acccdf65b6a88092d145c5b925f8c43404796b448b4d34a77ba"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novia-satinada-abertura/03-view-v1-360.webp",
+    "sha256": "9fa25a948f506378c1f2cf53b108a0f198ce498a9440027ed971df542331ae3d"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novia-satinada-abertura/03-view-v1-720.webp",
+    "sha256": "3056f419f28c8b7d09de8020bf3c173e5fe0f20732dcb5a5557754e54daa6ccd"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novia-satinada-abertura/03-view-v1-1086.webp",
+    "sha256": "e7443981664fc4e33f3bac82ed5ce72aaba016b1eb520832a12ab24f075fb796"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/novia-satinada-abertura/04-view-v1.png",
+    "sha256": "56077691ad1bdc0da37359af40494ea8533250d3ac01439c5c30685752329c73"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novia-satinada-abertura/04-view-v1-360.webp",
+    "sha256": "84635247afb219d05b448f7f730721aadb11fbed9d8d7bed5ae625fa639e3e4f"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novia-satinada-abertura/04-view-v1-720.webp",
+    "sha256": "3bc6a04f76e837e6ebbd623ac7cb2198d8f8622d597c4e9b41306e6b8de22edb"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novia-satinada-abertura/04-view-v1-1086.webp",
+    "sha256": "1bef415fef2f5d27712757206433c09d11ef4a63b4173c536c3663d852fe8d69"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/novia-tirantes-encaje/01-front-v1.png",
+    "sha256": "9e8ce6ff9e7e99881d7df7dbeb5684055430ce1e1de0d6c3d8fd86a776ac6af8"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novia-tirantes-encaje/01-front-v1-360.webp",
+    "sha256": "c3ae1d4cf2764e0eeeea1013087d19efda01907c844be43b3eca3925181c824c"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novia-tirantes-encaje/01-front-v1-720.webp",
+    "sha256": "2b7138f2d6079732faf524f214108dcec1ad3e96bacafcbd9f53c91be1088c63"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novia-tirantes-encaje/01-front-v1-1086.webp",
+    "sha256": "a7dff8c8cf3f637fd03e0c2b7c71044747e6b08734b3e20ba2ad917636c7d986"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/novia-tirantes-encaje/02-view-v1.png",
+    "sha256": "611ccdd85dfa2eba412457589d6b19e17fe1386f8dcde28a201ec585f2245988"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novia-tirantes-encaje/02-view-v1-360.webp",
+    "sha256": "4d2588e1e9c2eb8bbb8f4be79bdf82ee45c706c35232aaee8243dbe19980abf5"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novia-tirantes-encaje/02-view-v1-720.webp",
+    "sha256": "5d693756423cfb69f31cd803d794f650e412ef18597504a8040d2cc5ea8fd41c"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novia-tirantes-encaje/02-view-v1-1086.webp",
+    "sha256": "7756cd1ce6a8ad633e86dc0a43710c028a46e116a04324b093b974f9298b8949"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/novias-alba/01-front-v1.png",
+    "sha256": "0adbdaff7de820947c4422626a3334377d4b8ad9b496ff5caac926c5058718bb"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novias-alba/01-front-v1-360.webp",
+    "sha256": "08874cea865291e981a0728045f4770fc78231e6b5d319f530b638950ebf4933"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novias-alba/01-front-v1-720.webp",
+    "sha256": "aefb7bbb1fc96e593ccce27d2e49ddc1cc834f4be83233c287cba73b9e6e3671"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novias-alba/01-front-v1-1086.webp",
+    "sha256": "7e2e6fac9559cdf5f9166aace48d9224c636db19c07916f3684adb6628de4db0"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/novias-alba/02-view-v1.png",
+    "sha256": "7927079ba1047313c0383c7d60b97bec190c0b59c14d57cf025508f9c3b9f0a2"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novias-alba/02-view-v1-360.webp",
+    "sha256": "88038ea1fa5525bf4abc353da0000b629c68f7346dd0e2e54ebfb30827ce7f8d"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novias-alba/02-view-v1-720.webp",
+    "sha256": "0e5c96a1958c4f866245c8a23324f036f60d77694791ac1cb9b9ce0fda8e1b70"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novias-alba/02-view-v1-1086.webp",
+    "sha256": "cfaded28ca626623f5bd8fcb062c870d4fffb1b16880d24b20521ce8b26d4d4c"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/novias-alba/03-view-v1.png",
+    "sha256": "f976317a92baeb378d9dcff2fab64262c5fc21a80ecc729aed2fd01b87c2d882"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novias-alba/03-view-v1-360.webp",
+    "sha256": "986b548d4fa06cbaf6cc240bea37dc6d4797c3c59b4ffd18e02cbd6dda5adac1"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novias-alba/03-view-v1-720.webp",
+    "sha256": "d165bb64278865dfd04fdbdd292969d4e3f5a6576197e77c58aace7a414e36eb"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novias-alba/03-view-v1-1086.webp",
+    "sha256": "4866cc2c2d3c7733e1fe6c624cffcc3889d88b56608dcfae4f4e168e8e8dcf1d"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/novias-encaje/01-front-v1.png",
+    "sha256": "ee439cadb5d15bc990c16ee705a8233aec06e80e9c09f9aeeafd29e82056c4dc"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novias-encaje/01-front-v1-360.webp",
+    "sha256": "fc70d0bee6c58cf3e3bc5f7bb9350f8d60ab937d685412ca4b6f8a3f3dc14fa4"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novias-encaje/01-front-v1-720.webp",
+    "sha256": "9751e2808431ab1d33cda1f9f5c813021a3477b02872163df3ee771545de98a5"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novias-encaje/01-front-v1-1086.webp",
+    "sha256": "a1b87505865ab8968ee3a5e6cf8dc6f36c9ba74f3c01463e0a8bbfe7b3b3d843"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/novias-encaje/02-view-v1.png",
+    "sha256": "695602990ba1975b1f689e283d78386d46c714ca88ccb6f303cf209337cfb89b"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novias-encaje/02-view-v1-360.webp",
+    "sha256": "236bd8794d583e4f394ddadcbca3d7dfe7ef4c8c87db2f42709149eaf269f1dc"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novias-encaje/02-view-v1-720.webp",
+    "sha256": "4ca1be59d6a9719272395b427744305884bd132beb1cbcaf405517d3783ed84d"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novias-encaje/02-view-v1-1086.webp",
+    "sha256": "7f41ea6f256b0bfd095366f05825e169257f405e29d4c85dc68aa3b10c632f32"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/novias-velo/01-front-v1.png",
+    "sha256": "9ed7b50cea6c5187eac6ad83e3d5a77c02d1f5ed899867e26c7d52f43a41b2a7"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novias-velo/01-front-v1-360.webp",
+    "sha256": "be8d16b550bca1aaea77ea1bc95fd50751610f553af4510da12a36eda473ec12"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novias-velo/01-front-v1-720.webp",
+    "sha256": "8a3711cc97a2b5f8bd26083c91b49293f7ef95ecb3d5ec91af38dc9295d9fb36"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novias-velo/01-front-v1-1086.webp",
+    "sha256": "75a29afd85073fddeddfaa2ce4645bd0d7487d7decc56d270c25c2ec3d8b9397"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/novias-velo/02-view-v1.png",
+    "sha256": "1824d1b3dce975813ea789daef2b3dd8976375954e92f50e597d4681b6ae40db"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novias-velo/02-view-v1-360.webp",
+    "sha256": "2d37e292e222b8043ae822759d8f683a89a7c7aba4ab44a75524ebc3431a8871"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novias-velo/02-view-v1-720.webp",
+    "sha256": "9266be23f690b9aa80be647e6e6542b4381a051b78ad7db864085b6a75525565"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novias-velo/02-view-v1-1086.webp",
+    "sha256": "033e6067c4a1c8cc6071e2f154b4d651013f11010cb5233f5bea209c6ba99194"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/novias-velo/03-view-v1.png",
+    "sha256": "3e7adc4fda25fa160d37559015b29a52f0315886e34ffff204406a99f7f28c0c"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novias-velo/03-view-v1-360.webp",
+    "sha256": "418a9a449769c51019a66a86cf036f123871b2ce5f118c5c6fcf959090e91b34"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novias-velo/03-view-v1-720.webp",
+    "sha256": "8e269820d362ff33c6c3c9c045da25fd152f1d30cb018bfeec3fe6522a543920"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novias-velo/03-view-v1-1086.webp",
+    "sha256": "2a53b4510866e4576f865a4cdb4c7134adc59822d32088e546297d5bdaf3a6d8"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/novias-velo/04-view-v1.png",
+    "sha256": "9918d82c118771f06ca6ed8465502bbb1029c96c71fde26fb1d92402c88030e0"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novias-velo/04-view-v1-360.webp",
+    "sha256": "31826935fb3334859f837aa0fed6084aa243c277a32ebe32314c40ed4c683120"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novias-velo/04-view-v1-720.webp",
+    "sha256": "22a3abf2d92b25e9cf689f6e9a91bbf0e801a9b8ffa711ce39c958306676e3fe"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novias-velo/04-view-v1-1086.webp",
+    "sha256": "fabc78c8d1eb6a4be45863678aca3c01db2ee4d7811c537c2d8a9538502e6d77"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/novias-velo/05-view-v1.png",
+    "sha256": "b49717f41fb023f41abe29735b0e24f0457ca16bdbf0b2bfbe8e2d4508a89740"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novias-velo/05-view-v1-360.webp",
+    "sha256": "f5535150234b574d7794f768f5bf66515c2f574ea6225db621764b4871dd88d7"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novias-velo/05-view-v1-720.webp",
+    "sha256": "760939b902a5440b7b6f693160bebf2b2ca228ae2675ea0bb34055eac2ddc134"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/novias-velo/05-view-v1-1086.webp",
+    "sha256": "e285e1a5eb5e55f945e65b3a1788d0f06f0a0ac07881987ad07bea9539983bd9"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/plata-tirantes-copas-pedreria/01-front-v1.png",
+    "sha256": "f84f56fb39deffd91f876e5cb800a7bde95cd7538d6414b88fd69f3558ccbd5e"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/plata-tirantes-copas-pedreria/01-front-v1-360.webp",
+    "sha256": "80d03111b23f2e3021f69830b5b8ad591e73d3ee7feb5d8d8cb2164b343d81bf"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/plata-tirantes-copas-pedreria/01-front-v1-720.webp",
+    "sha256": "8b64348115defdfb2544b3100192c1a6ececd8e303455f2075dc0061610981b2"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/plata-tirantes-copas-pedreria/01-front-v1-1127.webp",
+    "sha256": "b252f93bebb9bbb7bc6c728f2ce6d221e62058767ad26b40bd7c5a755cd1f10b"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/plata-tirantes-copas-pedreria/02-view-v1.png",
+    "sha256": "6afe3323616cf024984c88cc5f2435ce325b939c9f2ad7e1bc1c20e8f64c72b9"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/plata-tirantes-copas-pedreria/02-view-v1-360.webp",
+    "sha256": "d93155508f1c46f91708710d2139e8412c543f3b26ad3d5cf8d61a38f78113ef"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/plata-tirantes-copas-pedreria/02-view-v1-720.webp",
+    "sha256": "8b673ef443113db914d8a95fb26818449b54ef4fb848ea63c63557ea53f35190"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/plata-tirantes-copas-pedreria/02-view-v1-1127.webp",
+    "sha256": "964fca41ca5d8f9a4722a3e1cb5351c888ca7c7629bf734e39f429eaa207de04"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/plata-tirantes-copas-pedreria/03-view-v1.png",
+    "sha256": "e666f1d031159d337e56ddddc3526372a46a0f2735c119cc7e5f7352f916715b"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/plata-tirantes-copas-pedreria/03-view-v1-360.webp",
+    "sha256": "94b34023193ef6cdada35fb7fe5fa49d825fdbd65b985bc8b0b107a186d14d3c"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/plata-tirantes-copas-pedreria/03-view-v1-720.webp",
+    "sha256": "16263f391a5cc2dccf72ce22f45b5f1d7261207a5040e28186e818834489d7c3"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/plata-tirantes-copas-pedreria/03-view-v1-1127.webp",
+    "sha256": "dee89aea41dbfe080302fc5cfacc82c469c47f685e8a4fbd93241557a4316fee"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/plata-tirantes-copas-pedreria/04-view-v1.png",
+    "sha256": "37fc1edaba28879e87d14e949ca42cd652b2b935e2817b65af2b641c6b1f2f9a"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/plata-tirantes-copas-pedreria/04-view-v1-360.webp",
+    "sha256": "96836c2a173e4b6afcb215a866fe76844cc99fc386fef1087493c9543260be89"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/plata-tirantes-copas-pedreria/04-view-v1-720.webp",
+    "sha256": "7f34fc04ee6a032e1d13710bae819b34fc99a0b70ba6d96b5f994fe6f8c4662d"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/plata-tirantes-copas-pedreria/04-view-v1-1127.webp",
+    "sha256": "8289e65675dcc3216c9b337d7f2e9230a5bf0d5c4ce3ceb4d440110afcd16577"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/plata-tirantes-copas-pedreria/05-view-v1.png",
+    "sha256": "83228310a1e4510e66dc3dc6c1c063fa62ac1c19550c6c3447d5f49a6dc261f5"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/plata-tirantes-copas-pedreria/05-view-v1-360.webp",
+    "sha256": "088dfd502f2a0b96bc507510e8c7255293f0f4a7b66f172a1ffdf0d24210096a"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/plata-tirantes-copas-pedreria/05-view-v1-720.webp",
+    "sha256": "aa9f0b21c310a3c669f147ceb4186f0c7c3e414998aa9608891b2b34d29ed2e1"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/plata-tirantes-copas-pedreria/05-view-v1-1127.webp",
+    "sha256": "9ad14620d6db5caa31c0de6fc50759f668d408f9e10181f52ff67d89dbdc332d"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/rojo-tirantes-falda-amplia/01-front-v1.png",
+    "sha256": "2377a35498c1b9f5ff8d3e1c942c3ed168ca56e5e3c3e05aaec5544d20cd4e09"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rojo-tirantes-falda-amplia/01-front-v1-360.webp",
+    "sha256": "ad591ec8d253da164e906ed25a05b99d670719207f966ac8445510150b34f9c1"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rojo-tirantes-falda-amplia/01-front-v1-720.webp",
+    "sha256": "e2399b0afea546ec0ba6c002c10705dc955a74ebacc32bd12b0f982e59154307"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rojo-tirantes-falda-amplia/01-front-v1-1024.webp",
+    "sha256": "a57513c245b92ef097f2d1fc586cea5763f44145df693ea2b4462b87a085ed87"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/rojo-tirantes-falda-amplia/02-view-v1.png",
+    "sha256": "2a761f83e84d5eaa44ba776c4a505213b51152394cd4c7df7fcc58961b01c01b"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rojo-tirantes-falda-amplia/02-view-v1-360.webp",
+    "sha256": "991fc1c170c31f38b45a46dcc0c390f861cc7d721dfd20f7a5126bebbe5bd842"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rojo-tirantes-falda-amplia/02-view-v1-720.webp",
+    "sha256": "56bfca55df0157f33c4e11f5d6203a3296ecbbd5b9f436d47b1518e407dc2568"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rojo-tirantes-falda-amplia/02-view-v1-1086.webp",
+    "sha256": "44737d4f65b9ca5340e6fc8b941971e202f1449d45c8ca826751df4b4e1bfba0"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/rojo-tirantes-falda-amplia/03-view-v1.png",
+    "sha256": "56072d5c2b7f7db7d7a38062c118b067310e1139801685cd8f47f8d2469d105e"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rojo-tirantes-falda-amplia/03-view-v1-360.webp",
+    "sha256": "4f9054e70282b6bd6a6583aee3ad6fbbc40022eefefc1be37768bde8d5f1be60"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rojo-tirantes-falda-amplia/03-view-v1-720.webp",
+    "sha256": "320fcbd2151469c90da750603bfb086d020de1573b3e58004469a72bf83b630a"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rojo-tirantes-falda-amplia/03-view-v1-1086.webp",
+    "sha256": "c6a8d06ee978a51da72451ecd92bdbbe795257083246199ae692f0d0f2702005"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/rojo-tirantes-falda-amplia/04-view-v1.png",
+    "sha256": "507ef46b1704c0295f223871bd7513f99732d6f2f9e90590289ebd98b33a6641"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rojo-tirantes-falda-amplia/04-view-v1-360.webp",
+    "sha256": "74c322ff390da563162ae547e94920dc5d9983d763b55d0996510918163687e6"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rojo-tirantes-falda-amplia/04-view-v1-720.webp",
+    "sha256": "fb75aa88b1ce21ce40a9d744c67e9fcb9d7d93b25aebd98e0c262fe75e5c169f"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rojo-tirantes-falda-amplia/04-view-v1-1086.webp",
+    "sha256": "baf4ff1ac935944e85f0082278a209a104ca791f391682ce4ddb01c08573952a"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/rojo-tirantes-falda-amplia/05-view-v1.png",
+    "sha256": "02df59360713b0c73fd1321c41f961fb1e3532037a08c19cf97074e3bd83df87"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rojo-tirantes-falda-amplia/05-view-v1-360.webp",
+    "sha256": "6813226db75e99325305f3f6b22c23356f0b09a438dafa540c18a340ba82e7f7"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rojo-tirantes-falda-amplia/05-view-v1-720.webp",
+    "sha256": "4791f17202be4e341aa6abf5c75b47e50b0b348288e0e1b67db62f878caec117"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rojo-tirantes-falda-amplia/05-view-v1-1086.webp",
+    "sha256": "b84e82331a8bb5815e983294a80bea4109fcd050dbdbb730c1c3bb5e49978b5f"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/rosa/01-front-v1.png",
+    "sha256": "ce62e3d538e4d89d417b737b9e11e983c4da8ceecb8f527b9d2214c65e954be8"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa/01-front-v1-360.webp",
+    "sha256": "393b00d1c1e30d9d85c5694b6fd29fafbf40e4154879bf5180810b829b296a16"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa/01-front-v1-720.webp",
+    "sha256": "a303598b311e44f411c4b06f27ed26df4305e5108aeaf516f5192586736e71d0"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa/01-front-v1-1086.webp",
+    "sha256": "65b53f2fd061d691cba4fe4aaf9a77d9b85acd6737e9ec19a0b9340dfed1b7c6"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/rosa/02-view-v1.png",
+    "sha256": "b6854cd15f024a18e144db48897710d5996a4097e3061571dc9eadd1c1bf03ce"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa/02-view-v1-360.webp",
+    "sha256": "6c2eab4e66296d1d284aec2c727dce9aaec213e9a2e4c24416c292e6e866915b"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa/02-view-v1-720.webp",
+    "sha256": "db0415e718e60e6e1571de04d0df45a94874d8ed5498c46d55b94938edadf6e4"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa/02-view-v1-1086.webp",
+    "sha256": "0fb346d6a030a40c18e624f0b7d1fd6e8f23076b4b47c0fbec0f78bb02386118"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/rosa-bronce-pedreria/01-front-v1.png",
+    "sha256": "c57e48324d627021ed113b7967eb015f125070c608cf437954eaa655ba0b70a9"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-bronce-pedreria/01-front-v1-360.webp",
+    "sha256": "5d8c40c700cbec639c8c85e9119b956ee3afb075302ce409dbc1cc711bb0bccf"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-bronce-pedreria/01-front-v1-720.webp",
+    "sha256": "7e27855a55803697ce3f0bf31cde36ec04f86f121ce495127685f6e6d1a41eda"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-bronce-pedreria/01-front-v1-1086.webp",
+    "sha256": "29c0f53dd66d5d5b9b0e6239db5575f401de62d534b996dee291b65e5c3f2435"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/rosa-bronce-pedreria/02-view-v1.png",
+    "sha256": "4e0c1c337c577739329d7c204cfccb9bc4be6f0f6dcf2f16d19d1f8b06fc9962"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-bronce-pedreria/02-view-v1-360.webp",
+    "sha256": "a0c4febdf5d29098087730c56fb149bf6af8ce1738fc46279e681d087681b7f4"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-bronce-pedreria/02-view-v1-720.webp",
+    "sha256": "dc4a6e6654b5986c265eff6489b7c0aef412c3e1d05f24e36abb19f5cd4ac3cf"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-bronce-pedreria/02-view-v1-1086.webp",
+    "sha256": "0ff635f802d80df896cd0a9532fa47975f03241da833e98ce8663d2cec8d2ef7"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/rosa-bronce-pedreria/03-view-v1.png",
+    "sha256": "1c1aecf2eda76cc6750164b1f917ce2f01ab7860e561293303e3738c67f5de8f"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-bronce-pedreria/03-view-v1-360.webp",
+    "sha256": "8e3e0bbe0e4b2058cdd5f7a1a70f263f12b4bc2bd63959c9a986ec5cf94090e4"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-bronce-pedreria/03-view-v1-720.webp",
+    "sha256": "62eda02579af30944f3a339c2ce6353dd9ee8aa1870843d3e711e53eb253b598"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-bronce-pedreria/03-view-v1-1086.webp",
+    "sha256": "334c9c12fd50009e5fcf37a230ba53812b06b720c992dc5f2ba6b812079b1a3d"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/rosa-bronce-pedreria/04-view-v1.png",
+    "sha256": "b8fadd42568de2d3a52f7dbf0a712000302eddec263f9f18fae43a172dabcb84"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-bronce-pedreria/04-view-v1-360.webp",
+    "sha256": "0bff181783c132790723a161e45aeba99e1a23aad1cadf8ead00e123c05be423"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-bronce-pedreria/04-view-v1-720.webp",
+    "sha256": "b39f23f3bf3d1c39a7274e3c0323f69d779ec2f4849a51df6f99d256c2f4d6b0"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-bronce-pedreria/04-view-v1-1086.webp",
+    "sha256": "97ddc9ac44f0a180a81eb646815fad44de91f1aa133a256b33c61f7820b257c3"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/rosa-bronce-pedreria/05-view-v1.png",
+    "sha256": "0beb786521c8148cc52d0eb3c6c1502ae62d57566fd44bfebe041a5d5467ae15"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-bronce-pedreria/05-view-v1-360.webp",
+    "sha256": "4ccdb39684c94de09919a58c922d0a46d3c89bf5e3b3b9a9436920ec4307c987"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-bronce-pedreria/05-view-v1-720.webp",
+    "sha256": "059f35340871f7971f1ce6ebf0ce9533c7ef7ed1a3ab9d5d0ba604a0216797c3"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-bronce-pedreria/05-view-v1-1086.webp",
+    "sha256": "8a25bcdc39b4c20a9763d62e2a41e815d2d3b5aad9e6edacd8226dbd56ac0b3a"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/rosa-claro-flores-doradas/01-front-v1.png",
+    "sha256": "0e4379542c08c6962a143a073977d9b6a3beb9b145fabd3bdd515a22832810d6"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-claro-flores-doradas/01-front-v1-360.webp",
+    "sha256": "22364c8f4bad4732462b4d5aa9bebe1e74902bddb132330c889808149c8507a2"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-claro-flores-doradas/01-front-v1-720.webp",
+    "sha256": "b03c8ab45477ef5406000cd5755c54650b2e9185c02a88f3054090c3972594d5"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-claro-flores-doradas/01-front-v1-1086.webp",
+    "sha256": "d96c4932048b66c2a6d7aa8493aea17b71166e4f7bfc575a6fe531f82baf9233"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/rosa-claro-flores-doradas/02-view-v1.png",
+    "sha256": "011975c73e239c8d7b6355f31c214b29fd8ca8560b81a59e2429484c37a60fe8"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-claro-flores-doradas/02-view-v1-360.webp",
+    "sha256": "7f89bbf9b8de7b82577b20d4d300e924082c12fc7b1a9b463ac6297e6c3e1b93"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-claro-flores-doradas/02-view-v1-720.webp",
+    "sha256": "7f71bd89b09fc09c29124ab25ba083a4add4181f86b84883d85769054fe5082a"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-claro-flores-doradas/02-view-v1-1086.webp",
+    "sha256": "aa8658a69a853fe508dda845e95ffa0c99aff3cf64ae2ab91c66485b6d748cdf"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/rosa-claro-flores-doradas/03-view-v1.png",
+    "sha256": "861ccea46e2f4be055ed466852fe4faaf3a700058b12c8fed27b80a4f693b8fc"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-claro-flores-doradas/03-view-v1-360.webp",
+    "sha256": "d93367acb8c051e0ee6fb553eb40689637adef053a7f95e21a709eed03c9c1ba"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-claro-flores-doradas/03-view-v1-720.webp",
+    "sha256": "f6685b8f6002953cc87389a0ade65738828bc8f5c26b031316628a62839b2c05"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-claro-flores-doradas/03-view-v1-1086.webp",
+    "sha256": "fd3088094f97a7987e501a267d4dcb620b3f7c8805e0646ad4a8e1ee979bbdc8"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/rosa-claro-flores-doradas/04-view-v1.png",
+    "sha256": "957c3d0e9e1d97add9a13ffb378e714051dccadac3041f44f871710a40ea2569"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-claro-flores-doradas/04-view-v1-360.webp",
+    "sha256": "f542d98637d58481cf29de410525c638509edf1b6bc3580334aa9d59f49c2632"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-claro-flores-doradas/04-view-v1-720.webp",
+    "sha256": "389223e7c0b2ee07454a8b8e16c29378912a47621f31f11318609ca0ff0e466a"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-claro-flores-doradas/04-view-v1-1086.webp",
+    "sha256": "9093d3cedc3a475e98e351313615f6155f625e542f9c08107ac1bb97cbfa4eba"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/rosa-claro-flores-doradas/05-view-v1.png",
+    "sha256": "947193fd8a9c9448b79fde3274ace983be91560c49800cb3e75aed1bc49061d3"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-claro-flores-doradas/05-view-v1-360.webp",
+    "sha256": "23bb80f1799b2799bd3b8680a643df51f855ae7ab7eee994204fe5319bb993ae"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-claro-flores-doradas/05-view-v1-720.webp",
+    "sha256": "e8c89b08b2b9eeaf4117cb525e69dcdebf77138ce95c205a3f10e6c3a435b6eb"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-claro-flores-doradas/05-view-v1-1086.webp",
+    "sha256": "f7c7f2e21aaf1364496818a62d715a57259b2c386ed592e071216b8854777ed2"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/rosa-empolvado-pedreria/01-front-v1.png",
+    "sha256": "02032d94691d5f658c4b82816e8379d72e5b3c0b6079e2196a92cdf583db7dbe"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-empolvado-pedreria/01-front-v1-360.webp",
+    "sha256": "6b0bb29dce01d9adf927a0deb7a34c2f2a5d0954129c844b4d095706dc6faf9a"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-empolvado-pedreria/01-front-v1-720.webp",
+    "sha256": "f65965629fb1540b3354ad7373dc15f9ba81e62adce16bf5cbf37f91ae8fae52"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-empolvado-pedreria/01-front-v1-1024.webp",
+    "sha256": "469c6ed4c16f2cd8c30818c782050570e28819ba96627dc17cce5154739ee225"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/rosa-empolvado-pedreria/02-view-v1.png",
+    "sha256": "d2a94384743431df83fcf95ab01105e4a12def5c70027b638932f78255c48989"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-empolvado-pedreria/02-view-v1-360.webp",
+    "sha256": "d1c6daba7beaef69dd3ae70d4e311198ce9b875a1bbd731da49f6365a066fd59"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-empolvado-pedreria/02-view-v1-720.webp",
+    "sha256": "4d23b37231186cdb88db21bcfbc3682b8237c36451b836da581d3bbfe3b115d3"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-empolvado-pedreria/02-view-v1-1086.webp",
+    "sha256": "68e3cab428a20eb943fccf448c715233d20448b2897164ff8eed21ebbfa98912"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/rosa-empolvado-pedreria/03-view-v1.png",
+    "sha256": "e451375a377cae8ad9ebeab49b5ad67388fe48f1f77ce82bb6f921a1a944ad77"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-empolvado-pedreria/03-view-v1-360.webp",
+    "sha256": "57652d1a2b919d0ff72e831faf28a220d70d48db9f635ca8ac526a9c8a631d55"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-empolvado-pedreria/03-view-v1-720.webp",
+    "sha256": "8684a66165e540036316419466754b72bdae147bb7577c93c613d77dc436f981"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-empolvado-pedreria/03-view-v1-1086.webp",
+    "sha256": "da3a8203b65a6c9c1d0877e42335823cb8c7c5ab2af0835ebe461a4a2832cc04"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/rosa-empolvado-pedreria/04-view-v1.png",
+    "sha256": "429a3c5844e10d0af5b4117c63a019d7e888da7c081e89e7dd7778c1cd458389"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-empolvado-pedreria/04-view-v1-360.webp",
+    "sha256": "f071c54860329d594e34f8c9f3177d25b80f6993da641fa0ba69b68abe4aed7d"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-empolvado-pedreria/04-view-v1-720.webp",
+    "sha256": "7d5ac7e0483a8204936f55c23bc1d403495fef9efd8ab56ae4118c12f5b84da2"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-empolvado-pedreria/04-view-v1-1086.webp",
+    "sha256": "1764b57ea766fe9a2ae4e00f1bedcff04abcf229330feee7328d40ae0eb7eab9"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/rosa-flores-fucsias-halter/01-front-v1.png",
+    "sha256": "a7b7c5a303047f1447f4e7dd0aee65a3fb2e86e16354240f8f4962490fe6b5d6"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-flores-fucsias-halter/01-front-v1-360.webp",
+    "sha256": "a09dea349b60650791cdc0e6ce823bc0db6bdcd382979aa9de933e4046c34411"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-flores-fucsias-halter/01-front-v1-720.webp",
+    "sha256": "24e1ebe7894838ce2949ed1e15c865333bfe5a14aa59d27cdc64ea7b38e34445"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-flores-fucsias-halter/01-front-v1-1086.webp",
+    "sha256": "8344a6ad2c86bd362a76072179decc675340483b440bb6f65b4c71c4ac5581ec"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/rosa-flores-fucsias-halter/02-view-v1.png",
+    "sha256": "9ef48c334f52e82d874dd4cc635a697165ac30a467854370a2b9e451d8954e9f"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-flores-fucsias-halter/02-view-v1-360.webp",
+    "sha256": "35c7c2e26afbb156f4a2f44f7ff4d6260d5d29cbb466a2c2121fb522f4020003"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-flores-fucsias-halter/02-view-v1-720.webp",
+    "sha256": "f1ca3508c04205c99fd8fa07620fe240bfbb035fcdf21e1a0d3097becde4ba26"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-flores-fucsias-halter/02-view-v1-1086.webp",
+    "sha256": "36f25c1084e161065429c97c67da002b02f9c7156972b85662d6ead0e1d91678"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/rosa-flores-fucsias-halter/03-view-v1.png",
+    "sha256": "39558e8cb8b175f7935c7704121d3cd7387c809e0587c7ef2d54b0726b443848"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-flores-fucsias-halter/03-view-v1-360.webp",
+    "sha256": "e395eb3c3d9cba52f75c31e982cc79aa18a4e961af574237661df993fde78c37"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-flores-fucsias-halter/03-view-v1-720.webp",
+    "sha256": "d7c691f9e220624d9d20e2928980cadfc30fdac88705cd7e945fd0f72ebc10ff"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-flores-fucsias-halter/03-view-v1-1086.webp",
+    "sha256": "727ec72fd32dc8e82a45273dd0f6406c0f866d609fde4d492a2c8d261ac4ad2d"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/rosa-flores-fucsias-halter/04-view-v1.png",
+    "sha256": "0aa45c90cdebd8f91dd38cb3f291458dfbc6f1753d8ebcabb7c155007f998dc8"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-flores-fucsias-halter/04-view-v1-360.webp",
+    "sha256": "f23d2f3d6d309a9b73a56f27d28746de2c5189f5ab14b82c8b3cfe6a73b13473"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-flores-fucsias-halter/04-view-v1-720.webp",
+    "sha256": "753838efba7078458312d0b570382ed3519e05dd81aa07514a7120045ba3b024"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-flores-fucsias-halter/04-view-v1-1086.webp",
+    "sha256": "13cf58cd4a3fd53f1121942d711bdc2f0b5170b29d56cf23b2ea1a3b72c745a0"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/rosa-flores-fucsias-halter/05-view-v1.png",
+    "sha256": "ecf803c8f9f769496cd16c5896d01e12267466ac88735c0db3928c89d973f216"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-flores-fucsias-halter/05-view-v1-360.webp",
+    "sha256": "e3f13f4ff1240ff0a647578b3f921e86d428af903c12ad603348bcb38621e0af"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-flores-fucsias-halter/05-view-v1-720.webp",
+    "sha256": "e67c6f25d7478f58c4c82684158af5569946fb42998190449c370d47fee18482"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-flores-fucsias-halter/05-view-v1-1086.webp",
+    "sha256": "fbc58e83e64499ef637cf437d82501918f0f66810db5fbd1ef4726960d7cdbab"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/rosa-marron-chaqueta-falda/01-front-v1.png",
+    "sha256": "1975c0d4e8d54712073faa6abcb9ea412c298b7239a57038c13bec8b848a6c87"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-marron-chaqueta-falda/01-front-v1-360.webp",
+    "sha256": "b5cd1ca60ce97ab36e32626769eda55e84f9cc6cc81fc104a3abd1753cf472aa"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-marron-chaqueta-falda/01-front-v1-720.webp",
+    "sha256": "1520add9582d24e1c304d7396b36810a6b472290a83824e4146297bbb65199b8"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-marron-chaqueta-falda/01-front-v1-1086.webp",
+    "sha256": "54e418d84316e7a91da11f3fb89a454da0aa0cdd24f0f9b67fb2dfe3b8343d22"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/rosa-marron-chaqueta-falda/02-view-v1.png",
+    "sha256": "bee8610fa4f357b0b4f8deec2ff4307c8732b542477e62733b914ae94df4cbd0"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-marron-chaqueta-falda/02-view-v1-360.webp",
+    "sha256": "42f48efc5bda9e10ad9b4ee5d5c925be6483d023c369120b550df6731df2a8af"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-marron-chaqueta-falda/02-view-v1-720.webp",
+    "sha256": "5f15a2277ad42921fca35409c987b8597ca7d9a8e09f58a9d71e165d44096521"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-marron-chaqueta-falda/02-view-v1-1086.webp",
+    "sha256": "965ad5d39000a512efa4891ad1d127b1e64b68667b3404c6cee35f0b6e3c89d1"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/rosa-marron-chaqueta-falda/03-view-v1.png",
+    "sha256": "ae349542ef6ba2109848941235fbaad4d04919ff356c780399d95da89046a813"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-marron-chaqueta-falda/03-view-v1-360.webp",
+    "sha256": "856ad2efb2717957720bf04b2615f87286783a9c03c925761c3cc9bd4bf15424"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-marron-chaqueta-falda/03-view-v1-720.webp",
+    "sha256": "fd18696007d2a6ad47d389043c33382eea0f5ce068437a96fb4bc9f213a3b4e6"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-marron-chaqueta-falda/03-view-v1-1086.webp",
+    "sha256": "7e8f8f07036b131c4aa59e28679bb7e8e78d1ee0747ed3ce2005fb59d5f88110"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/rosa-marron-chaqueta-falda/04-view-v1.png",
+    "sha256": "f273fdf80f46088058d5025743dcf57eded7221439abcea295fbf7ed4d9abdea"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-marron-chaqueta-falda/04-view-v1-360.webp",
+    "sha256": "002af2b685c19cb3bbf9d19e180c1b222eea01f42114d19ade027f957ddee638"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-marron-chaqueta-falda/04-view-v1-720.webp",
+    "sha256": "afc5278fde7a173da75408f6afb1e5f2dccf35f1d20cfff26da3b9211ef2de95"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-marron-chaqueta-falda/04-view-v1-1086.webp",
+    "sha256": "5d8ffa94ce6ca6def94b5e808c82b065b3375f5d1a28732a44defa52b7b7bb36"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/rosa-marron-chaqueta-falda/05-view-v1.png",
+    "sha256": "eb721539f9b47e091274a38699e9d8e5becf4e7338a80a7ce417d4722788fc60"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-marron-chaqueta-falda/05-view-v1-360.webp",
+    "sha256": "20a0d255a5acacb3e98cf5833ae1802dafd567020f17dfc20b6683cd0571df3a"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-marron-chaqueta-falda/05-view-v1-720.webp",
+    "sha256": "458ec5184ad17981881e34c65d52d7027acc4f7456e3518fa4be0fadd8d9c102"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/rosa-marron-chaqueta-falda/05-view-v1-1086.webp",
+    "sha256": "7b9a3723b56ffd83942402c2bd54888fe50cb527b351e8bd26e69c4173c8a69b"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/verde-brillo-cuello-cruzado/01-front-v1.png",
+    "sha256": "f09aee6b8b0bf527f54876df5cecb1041e06794a552641c93cd81039f40071fa"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/verde-brillo-cuello-cruzado/01-front-v1-360.webp",
+    "sha256": "bed06c4c765d652d89eaaf5430b5eaaba57d4ef54320a1a31915f85812a23c97"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/verde-brillo-cuello-cruzado/01-front-v1-720.webp",
+    "sha256": "fc3a634f2ffac87ec62e2246b9113f36419dd46cad6051c809bec2ead57e3bac"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/verde-brillo-cuello-cruzado/01-front-v1-1024.webp",
+    "sha256": "9a4535ad8d12bf1ebeb1b39300c0b2c31aa375cbba581a83e71f9daf96b4dce7"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/verde-brillo-cuello-cruzado/03-view-v1.png",
+    "sha256": "293f76bdf9bba6d76cda3fc651f2cae2e385c2beba483c8e61a14158a8c83911"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/verde-brillo-cuello-cruzado/03-view-v1-360.webp",
+    "sha256": "44a4c7a2dee51681f2442b07a88366a9d6f9681b47ae37178f2c8bfb61ed1139"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/verde-brillo-cuello-cruzado/03-view-v1-720.webp",
+    "sha256": "722641d31f77979e7862358102e68bbb3a7dcfda95c85888bec3fccc0844818a"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/verde-brillo-cuello-cruzado/03-view-v1-1086.webp",
+    "sha256": "f8a4d402bdc45b17ea617cf15f622f767e35f74d6cae7cb13f56a505319b3fc2"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/verde-brillo-cuello-cruzado/04-view-v1.png",
+    "sha256": "dcddd9927ae12418c7930fddc4594f0ea4b935c9b5333b58e945a4f5ea7f5535"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/verde-brillo-cuello-cruzado/04-view-v1-360.webp",
+    "sha256": "d9eb7e2245d282dc4f0e88485d0f3d98d72ff45e0ebbad2f73ff890678513673"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/verde-brillo-cuello-cruzado/04-view-v1-720.webp",
+    "sha256": "8bb1a65f07a8b8f745e9a631ee1dd096fdfaea7c4b749d968624544b9bb92b7e"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/verde-brillo-cuello-cruzado/04-view-v1-1086.webp",
+    "sha256": "10871cef8959ec51c5eb2696d51895e3c2fc28ec7d23e42cc6ed9bb08a1b0d20"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/verde-esmeralda-tirantes-cruzados/01-front-v1.png",
+    "sha256": "c901b3909c8a4de6221e9614004ddf8e4db9a47a124328d1cf2c48a29670e677"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/verde-esmeralda-tirantes-cruzados/01-front-v1-360.webp",
+    "sha256": "cf99be9281693fa9dab92bac753c0b7c44939c297d3fe1b27ad822b5d9a26115"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/verde-esmeralda-tirantes-cruzados/01-front-v1-720.webp",
+    "sha256": "91be2dd729fbc9840423d1bb4631e8fbcd2f7b4edbea91e8b7af055ff1e28516"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/verde-esmeralda-tirantes-cruzados/01-front-v1-1024.webp",
+    "sha256": "f11e3da32fef49cab15219f0aaa680517f97a51e29475474ea2bb6a882bbd237"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/verde-esmeralda-tirantes-cruzados/02-view-v1.png",
+    "sha256": "5be9ecc2fecd3cdfebb927cc9f349393a936921aa86096b7ee020e2418651f63"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/verde-esmeralda-tirantes-cruzados/02-view-v1-360.webp",
+    "sha256": "7106d17471123751eff838b8b2bcf2ac10c23acfa29ada48196b5b670cc32b14"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/verde-esmeralda-tirantes-cruzados/02-view-v1-720.webp",
+    "sha256": "ebf6a80fe14e5e162c4a693b5cc42e83ea83a8e6deeaa8881ff9f490bdbfff3d"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/verde-esmeralda-tirantes-cruzados/02-view-v1-1086.webp",
+    "sha256": "cb0be1692d58a6c5276d0ecb53d5617df120813879c85523f7964bb12da1bf49"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/verde-esmeralda-tirantes-cruzados/03-view-v1.png",
+    "sha256": "1a6fd2aef81d14930b331ed6d2be1d629349fe3b76589d683e4d580b06bd8ca0"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/verde-esmeralda-tirantes-cruzados/03-view-v1-360.webp",
+    "sha256": "537e0d1ecb706909ad50c64a958a80d9c0474ca61cea9698f59cffad8bb5337d"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/verde-esmeralda-tirantes-cruzados/03-view-v1-720.webp",
+    "sha256": "32710191fc5469c444c04b3be2847d9821d04937b7bc713deebc9557b3fdb400"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/verde-esmeralda-tirantes-cruzados/03-view-v1-1086.webp",
+    "sha256": "53b3e03b4b32265257e570d53956e4ca648af0ef664fdb71390da70bc0d08dff"
+  },
+  {
+    "path": "build-inputs/static/generated-luxury/verde-esmeralda-tirantes-cruzados/04-view-v1.png",
+    "sha256": "1e98ae26ef591e3ed65c1ca47862cb29e7141591ffa22c6ca4af7b73cc673496"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/verde-esmeralda-tirantes-cruzados/04-view-v1-360.webp",
+    "sha256": "4511bfb480cc1159e198fd4b28cb2922d0aa6b20807d92cf637b19de577d1219"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/verde-esmeralda-tirantes-cruzados/04-view-v1-720.webp",
+    "sha256": "d4a18d824b97fae63a36b21b133b0c0eb0490306201d1743ae8791b62c347366"
+  },
+  {
+    "path": "build-inputs/static/responsive-images/verde-esmeralda-tirantes-cruzados/04-view-v1-1086.webp",
+    "sha256": "d92bed0104cff7e2c9728fb0ce1bd636429c200749515e03789fe8e1af3b755f"
+  }
+]

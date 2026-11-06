@@ -1,0 +1,114 @@
+[
+  {
+    "phase": "before",
+    "viewport": {
+      "width": 1280,
+      "height": 900
+    },
+    "path": "docs/hardening-20261106/combined/primary/videos/before-desktop.webm",
+    "bytes": 1118417,
+    "sha256": "7a62136530654ee26f6778da5851748c05d50c2adf13bbb1da90fdcb24c36c6b",
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "vp8",
+          "width": 1280,
+          "height": 900
+        }
+      ],
+      "format": {
+        "duration": "8.560000"
+      }
+    },
+    "decodeExit": 0,
+    "sampledTimestampSeconds": 2,
+    "frame": "docs/hardening-20261106/combined/primary/screenshots/before-desktop-frame-2s.png",
+    "visualSampling": "Primary inspected the frame at 2 seconds. Full decode succeeded; no claim of every video frame visually reviewed."
+  },
+  {
+    "phase": "before",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "path": "docs/hardening-20261106/combined/primary/videos/before-mobile.webm",
+    "bytes": 702326,
+    "sha256": "f217aa7d8f76d8c92dcb8242ca653abd2d6a796ecf2ac9ce133b91ff61d8011e",
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "vp8",
+          "width": 390,
+          "height": 844
+        }
+      ],
+      "format": {
+        "duration": "7.440000"
+      }
+    },
+    "decodeExit": 0,
+    "sampledTimestampSeconds": 2,
+    "frame": "docs/hardening-20261106/combined/primary/screenshots/before-mobile-frame-2s.png",
+    "visualSampling": "Primary inspected the frame at 2 seconds. Full decode succeeded; no claim of every video frame visually reviewed."
+  },
+  {
+    "phase": "after",
+    "viewport": {
+      "width": 1280,
+      "height": 900
+    },
+    "path": "docs/hardening-20261106/combined/primary/videos/after-desktop.webm",
+    "bytes": 1350529,
+    "sha256": "650dc28259f25e4dcb7ba071902cf34d879f299d42d920754f882bd709b24d25",
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "vp8",
+          "width": 1280,
+          "height": 900
+        }
+      ],
+      "format": {
+        "duration": "11.400000"
+      }
+    },
+    "decodeExit": 0,
+    "sampledTimestampSeconds": 2,
+    "frame": "docs/hardening-20261106/combined/primary/screenshots/after-desktop-frame-2s.png",
+    "visualSampling": "Primary inspected the frame at 2 seconds. Full decode succeeded; no claim of every video frame visually reviewed."
+  },
+  {
+    "phase": "after",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "path": "docs/hardening-20261106/combined/primary/videos/after-mobile.webm",
+    "bytes": 1063250,
+    "sha256": "8d775ba4d4064c82f75da8574132fbcd45997d7db41a343315b3496d1ddad8cc",
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "vp8",
+          "width": 390,
+          "height": 844
+        }
+      ],
+      "format": {
+        "duration": "12.400000"
+      }
+    },
+    "decodeExit": 0,
+    "sampledTimestampSeconds": 2,
+    "frame": "docs/hardening-20261106/combined/primary/screenshots/after-mobile-frame-2s.png",
+    "visualSampling": "Primary inspected the frame at 2 seconds. Full decode succeeded; no claim of every video frame visually reviewed."
+  }
+]

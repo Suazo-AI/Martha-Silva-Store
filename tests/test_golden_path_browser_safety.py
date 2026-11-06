@@ -3,6 +3,7 @@ import contextlib
 import hashlib
 import io
 import json
+import re
 from pathlib import Path
 import tempfile
 import types
@@ -146,6 +147,20 @@ class BrowserSafetyTests(unittest.TestCase):
             self.run_child(harness, process, [], clock=[0, 0, 0, 400, 600])
         harness.stop_browser.assert_called_once()
         self.assertEqual(harness.steps[-1]['status'], 'FAIL')
+
+    def test_supply_child_errors_keep_safe_codes_and_reject_unknown_text(self):
+        source = (GP.ROOT / 'tests/golden-path/browser_path.mjs').read_text(encoding='utf-8')
+        codes = set(re.findall(r"'((?:c6_supply_)[a-z_]+)'", source))
+        self.assertGreaterEqual(len(codes), 14)
+        for code in sorted(codes) + ['private-csrf-value is not a safe error code']:
+            expected = code if code in codes else 'browser_protocol_invalid'
+            with self.subTest(code=expected):
+                harness, process, _ = self.prepare()
+                event = (json.dumps({'error': code}) + '\n').encode()
+                with self.assertRaisesRegex(GP.HarnessError, '^' + expected + '$'):
+                    self.run_child(harness, process, [event])
+                self.assertEqual(harness.steps[-1]['error_code'], expected)
+                harness.stop_browser.assert_called_once()
 
     def owned_processes(self):
         harness, process, _ = self.prepare()

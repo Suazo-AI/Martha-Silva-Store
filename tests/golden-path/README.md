@@ -162,10 +162,10 @@ TLS, proxy o hosting de producción; pagos (no hay proveedor); concurrencia, car
 oráculo privado de esquema (C4). La sucursal se inserta por EF porque el producto no ofrece otra vía.
 Un PASS local no sustituye el resultado de CI (`.github/workflows/golden-path.yml`).
 
-## Recepci?n combinada preparada, no ejecutada
+## Recepción combinada preparada, no ejecutada
 
-`--mode browser --supply` conserva ventas y a?ade recepci?n Inventory parcial/completa,
-p?rdida de respuesta y recuperaci?n GET con clave e identidad originales.
-Requiere autorizaci?n de runtime nueva; no hereda la corrida SQL anterior.
+`--mode browser --supply` conserva ventas y añade recepción de inventario parcial/completa,
+pérdida de respuesta y recuperación GET con clave e identidad originales.
+Requiere autorización de runtime nueva; no hereda la corrida SQL anterior.
 Contrato, controles sin SQL y comando futuro: [SUPPLY-REAL-PREP](../../docs/supply-real-20261106/README.md).
 El workflow ofrece `supply_receipt=false` por defecto.

@@ -1,0 +1,169 @@
+[
+  {
+    "command": [
+      "python",
+      "tests/build.py"
+    ],
+    "exit": 0,
+    "seconds": 15.703,
+    "privateLog": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\checks\\check-0.log",
+    "sha256": "cc75ab84017a9e0110e992084c4a4dd0441c2d296f717056ce9ce6c494c2fdd3",
+    "tail": [
+      "Prepared 47 pages / 40 sample products / 1560 files: C:\\Users\\Jason\\AppData\\Local\\Temp\\martha-build-test-dxnhdw3z\\dist",
+      "Prepared 47 pages / 40 sample products / 1560 files: C:\\Users\\Jason\\AppData\\Local\\Temp\\martha-build-test-dxnhdw3z\\dist",
+      "PASS: clean and repeat builds match all 1560 paths and SHA-256 hashes"
+    ]
+  },
+  {
+    "command": [
+      "node",
+      "tests/frontend-runtime.cjs"
+    ],
+    "exit": 0,
+    "seconds": 54.75,
+    "privateLog": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\checks\\check-1.log",
+    "sha256": "bd23efc107281f32ce1f92875ad1d34063ff43dff14b40cff9b243f67f4097a8",
+    "tail": [
+      "PASS mini-bag empty state after remove or favorite hides checkout and restores on a new add",
+      "PASS favorite visible label toggles with state without replacing SVG or accessible content",
+      "PASS stock notes retain sample qualification for unselected, scarce and last-unit sizes",
+      "PASS BFCache restore follows the selected mode in the same tab without creating orders",
+      "29/29 DOM simulation tests passed"
+    ]
+  },
+  {
+    "command": [
+      "node",
+      "tests/localization-runtime.cjs"
+    ],
+    "exit": 0,
+    "seconds": 62.968,
+    "privateLog": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\checks\\check-2.log",
+    "sha256": "0057997eb70660096b4e0b654521a45ab9d25ca852f0c0e6625a049922349217",
+    "tail": [
+      "PASS English checkout preserves customer text and never translates form values",
+      "PASS English order views preserve customer-entered return reasons and tracking text",
+      "PASS the observer translates newly inserted UI but preserves excluded data and settles",
+      "PASS static photo dimensions match the independent image-header inventory",
+      "17/17 localization DOM simulations passed (no browser layout/decoding claim)"
+    ]
+  },
+  {
+    "command": [
+      "node",
+      "--test",
+      "tests/luxury-editorial.cjs",
+      "tests/original-catalog.cjs",
+      "tests/catalog-migration.cjs"
+    ],
+    "exit": 0,
+    "seconds": 3.985,
+    "privateLog": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\checks\\check-3.log",
+    "sha256": "6da659e31e749ec367884089806f329a2ce82b3f28739c612a59042945788a90",
+    "tail": [
+      "ℹ fail 0",
+      "ℹ cancelled 0",
+      "ℹ skipped 0",
+      "ℹ todo 0",
+      "ℹ duration_ms 3862.6191"
+    ]
+  },
+  {
+    "command": [
+      "python",
+      "tests/responsive_images.py"
+    ],
+    "exit": 0,
+    "seconds": 2.125,
+    "privateLog": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\checks\\check-4.log",
+    "sha256": "009a8237c8b411135dd50c4bbc5cadb3f5037f2010119d54b4c0db9cc7f196ee",
+    "tail": [
+      ".",
+      "----------------------------------------------------------------------",
+      "Ran 1 test in 1.805s",
+      "",
+      "OK"
+    ]
+  },
+  {
+    "command": [
+      "python",
+      "tests/static_headers.py"
+    ],
+    "exit": 0,
+    "seconds": 0.484,
+    "privateLog": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\checks\\check-5.log",
+    "sha256": "354c3d828acda6a2a7353175af6f47b9a6ade35a84756ca5433e46f76b8d8b55",
+    "tail": [
+      "..",
+      "----------------------------------------------------------------------",
+      "Ran 2 tests in 0.001s",
+      "",
+      "OK"
+    ]
+  },
+  {
+    "command": [
+      "python",
+      "tests/test_release_snapshot.py"
+    ],
+    "exit": 0,
+    "seconds": 17.516,
+    "privateLog": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\checks\\check-6.log",
+    "sha256": "97bc06815a56087ea1b3954ecb260e0e2c7227070877a7bfc0cc9b6562459de7",
+    "tail": [
+      "Ran 1 test in 17.183s",
+      "",
+      "OK",
+      "PASS: 1558 public paths and 1 control file match recorded bytes; all 1560 dist files match canonical inputs; 47 pages / 40 products / 120 variants; no staff runtime paths",
+      "PASS: 1558 public paths and 1 control file match recorded bytes; all 1560 dist files match canonical inputs; 47 pages / 40 products / 120 variants; no staff runtime paths"
+    ]
+  },
+  {
+    "command": [
+      "python",
+      "tests/structure.py"
+    ],
+    "exit": 0,
+    "seconds": 12.625,
+    "privateLog": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\checks\\check-7.log",
+    "sha256": "4416c3fddecccca779b2529f067892c0b61cf5a8445f2962f995c64a25e2514b",
+    "tail": [
+      "PASS: 47 pages; local assets/srcset/deferred-video/routes/anchors/ARIA IDs; photographic hero"
+    ]
+  },
+  {
+    "command": [
+      "python",
+      "tests/test_golden_path_safety.py"
+    ],
+    "exit": 0,
+    "seconds": 0.781,
+    "privateLog": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\checks\\check-8.log",
+    "sha256": "6448efec71800e2a1c28a5e63fc59896911f139316ae89d0d5e1a68b949a4696",
+    "tail": [
+      ".................",
+      "----------------------------------------------------------------------",
+      "Ran 17 tests in 0.324s",
+      "",
+      "OK"
+    ]
+  },
+  {
+    "command": [
+      "python",
+      "tests/test_golden_path_browser_safety.py"
+    ],
+    "exit": 0,
+    "seconds": 1.094,
+    "privateLog": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\checks\\check-9.log",
+    "sha256": "f9604bddab7d698631e98501d1a300d5facd5963c7955d1cb2b56f1dc353a672",
+    "tail": [
+      "........................",
+      "----------------------------------------------------------------------",
+      "Ran 24 tests in 0.678s",
+      "",
+      "OK"
+    ]
+  }
+]

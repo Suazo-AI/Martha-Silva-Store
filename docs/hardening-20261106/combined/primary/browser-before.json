@@ -1,0 +1,132 @@
+[
+  {
+    "phase": "before",
+    "label": "desktop",
+    "viewport": {
+      "width": 1280,
+      "height": 900
+    },
+    "browser": "156.0.8078.80",
+    "observations": [
+      {
+        "step": "home",
+        "url": "/",
+        "size": [
+          1280,
+          900
+        ],
+        "overflow": false,
+        "broken": [],
+        "heading": "Una entrada inolvidable.",
+        "csp": []
+      },
+      {
+        "step": "home-scroll",
+        "url": "/",
+        "size": [
+          1280,
+          900
+        ],
+        "overflow": false,
+        "broken": [],
+        "heading": "Una entrada inolvidable.",
+        "csp": []
+      },
+      {
+        "step": "catalog",
+        "url": "/catalogo.html",
+        "size": [
+          1280,
+          900
+        ],
+        "overflow": false,
+        "broken": [],
+        "heading": "La colecci\u00c3\u00b3n",
+        "csp": []
+      },
+      {
+        "step": "bag",
+        "url": "/producto-dorado.html",
+        "size": [
+          1280,
+          900
+        ],
+        "overflow": false,
+        "broken": [],
+        "heading": "Vestido dorado con drapeado",
+        "notice": "Prenda agregada a tu bolsa. Ver bolsa",
+        "csp": []
+      }
+    ],
+    "errors": [],
+    "consoleErrors": [],
+    "failed": [],
+    "external": [],
+    "video": "docs/hardening-20261106/combined/primary/videos/before-desktop.webm"
+  },
+  {
+    "phase": "before",
+    "label": "mobile",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "browser": "156.0.8078.80",
+    "observations": [
+      {
+        "step": "home",
+        "url": "/",
+        "size": [
+          390,
+          844
+        ],
+        "overflow": false,
+        "broken": [],
+        "heading": "Una entrada inolvidable.",
+        "csp": []
+      },
+      {
+        "step": "home-scroll",
+        "url": "/",
+        "size": [
+          390,
+          844
+        ],
+        "overflow": false,
+        "broken": [],
+        "heading": "Una entrada inolvidable.",
+        "csp": []
+      },
+      {
+        "step": "catalog",
+        "url": "/catalogo.html",
+        "size": [
+          390,
+          844
+        ],
+        "overflow": false,
+        "broken": [],
+        "heading": "La colecci\u00c3\u00b3n",
+        "csp": []
+      },
+      {
+        "step": "bag",
+        "url": "/producto-dorado.html",
+        "size": [
+          390,
+          844
+        ],
+        "overflow": false,
+        "broken": [],
+        "heading": "Vestido dorado con drapeado",
+        "notice": "Prenda agregada a tu bolsa. Ver bolsa",
+        "csp": []
+      }
+    ],
+    "errors": [],
+    "consoleErrors": [],
+    "failed": [],
+    "external": [],
+    "video": "docs/hardening-20261106/combined/primary/videos/before-mobile.webm"
+  }
+]

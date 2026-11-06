@@ -1,0 +1,9 @@
+{
+  "ports": {
+    "18313": "released; fresh loopback bind PASS",
+    "18314": "released; fresh loopback bind PASS"
+  },
+  "axi_owned_page_8": "closed; original page 3 restored",
+  "t3_owned_tab": "closed by tool",
+  "git_index": "untouched"
+}

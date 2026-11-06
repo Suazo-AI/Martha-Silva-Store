@@ -487,5 +487,6 @@ novias-encaje|Lace sample|Sample, not Martha Silva inventory. Wedding dress with
     }
   }
   window.MARTHA_PRODUCT_EN = byId;
+  Object.assign(messages, {'Noche de': 'A night of', 'gala': 'gala', 'COMPRAR AHORA': 'SHOP NOW', 'Destacados': 'Highlights', 'Elegir destacado': 'Choose a highlight', 'Destacado 1': 'Highlight 1', 'Destacado 2': 'Highlight 2', 'Destacado 3': 'Highlight 3', 'Pausar': 'Pause', 'Reproducir': 'Play', 'Prendas por fila': 'Items per row', '2 por fila': '2 per row', '3 por fila': '3 per row', '4 por fila': '4 per row', '1 por fila': '1 per row', 'Agregar rápido': 'Quick add'});
   window.MARTHA_EN = messages;
 })();

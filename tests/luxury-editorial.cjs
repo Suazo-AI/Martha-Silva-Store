@@ -51,10 +51,10 @@ function withDOM(run) {
 }
 
 test('new sections have named headings and preserve the independent bridal section', () => withDOM(d => {
-  assert.equal(d.querySelectorAll('.luxury-hero').length, 1);
+  assert.equal(d.querySelectorAll('.hero-oh').length, 1);
   assert.equal(d.querySelectorAll('.luxury-editorial').length, 1);
   assert.equal(d.querySelectorAll('h1').length, 1);
-  for (const section of d.querySelectorAll('.luxury-hero, .luxury-editorial')) {
+  for (const section of d.querySelectorAll('.luxury-editorial')) {
     assert.ok(d.getElementById(section.getAttribute('aria-labelledby')));
     assert.equal(section.classList.contains('campaign'), false);
   }
@@ -63,13 +63,13 @@ test('new sections have named headings and preserve the independent bridal secti
 }));
 
 test('only the new lead receives high priority; all supporting and editorial images are lazy', () => withDOM(d => {
-  const lead = d.querySelector('.luxury-hero__lead img');
-  assert.equal(lead.getAttribute('src'), '/generated-luxury/champagne/01-front-v1.png');
+  const lead = d.querySelector('.hero-oh img');
+  assert.equal(lead.getAttribute('src'), '/generated-luxury/dorado/01-front-v1.png');
   assert.equal(lead.getAttribute('fetchpriority'), 'high');
   assert.equal(lead.getAttribute('loading'), 'eager');
-  assert.equal(d.querySelectorAll('img[fetchpriority="high"]').length, 1);
-  const others = [...d.querySelectorAll('.luxury-hero img, .luxury-editorial img')].filter(img => img !== lead);
-  assert.equal(others.length, 8);
+  assert.equal(d.querySelectorAll('img[fetchpriority="high"]').length, 2);
+  const others = [...d.querySelectorAll('.hero-oh img, .luxury-editorial img')].filter(img => img.getAttribute('fetchpriority') !== 'high');
+  assert.equal(others.length, 10);
   for (const img of others) {
     assert.equal(img.getAttribute('loading'), 'lazy');
     assert.notEqual(img.getAttribute('fetchpriority'), 'high');
@@ -95,9 +95,12 @@ test('all 44 derivative byte hashes and actual image headers agree with provenan
 
 function assertCurrentImages(d) {
   // The preserved publication pins the entire authored page after delivery additions are removed.
-  assert.equal(hash(html().replace(/<source data-responsive-generated=""[^>]+>/g, '')), release['index.html'].sha256);
+  // D-030 explicitly replaces the Denis split hero with Jason's selected carousel.
+  assert.equal(d.querySelector('.luxury-hero'), null);
+  assert.deepEqual([...d.querySelectorAll('.ho-slide .ho-cta')].map(a=>a.getAttribute('href')), ['/catalogo.html?category=Gala','/producto-champagne.html','/catalogo.html?category=Novias']);
+  assert.match(d.querySelector('.ho-copy h1').textContent,/Noche de gala/);
   assert.match(d.querySelector('meta[name="robots"]').content, /noindex/);
-  for (const img of d.querySelectorAll('.luxury-hero img, .luxury-editorial img')) {
+  for (const img of d.querySelectorAll('.hero-oh img, .luxury-editorial img')) {
     const url=img.getAttribute('src'), record=selected.get(url), derived=responsive.get(url);
     assert.ok(record, 'Independent publication selection: '+url);
     const bytes=fs.readFileSync(path.join(dist,url));
@@ -129,7 +132,7 @@ function assertCurrentImages(d) {
 }
 test('published generated images keep exact identity, IA labels, dimensions and whole-frame fallbacks',()=>withDOM(assertCurrentImages));
 test('identity and IA-label guards reject independent negative controls',()=>withDOM(d=>{
-  const img=d.querySelector('.luxury-hero img'), alt=img.alt, src=img.getAttribute('src');
+  const img=d.querySelector('.hero-oh img'), alt=img.alt, src=img.getAttribute('src');
   img.alt='Fotografia original'; assert.throws(()=>assertCurrentImages(d)); img.alt=alt;
   img.setAttribute('src','/generated-luxury/rosa/01-front-v1.png');
   assert.throws(()=>assertCurrentImages(d)); img.setAttribute('src',src);
@@ -153,7 +156,7 @@ test('six generated editorial illustrations retain historic post context without
 
 test('scoped CSS retains contain fit, focus visibility, and reduced-motion handling', () => {
   const css = fs.readFileSync(path.join(dist, 'styles.css'), 'utf8');
-  assert.match(css, /\.luxury-hero[^{}]*img[^{}]*\{[^}]*object-fit\s*:\s*contain/s);
+  assert.match(css, /\.ho-m img[^{}]*\{[^}]*object-fit\s*:\s*cover/s);
   assert.match(css, /\.luxury-editorial[^{}]*img[^{}]*\{[^}]*object-fit\s*:\s*contain/s);
   assert.match(css, /\.luxury-[^{}]*:focus-visible/);
   assert.match(css, /@media\s*\(prefers-reduced-motion:\s*reduce\)[\s\S]*\.luxury-/);

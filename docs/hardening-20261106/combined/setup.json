@@ -1,0 +1,43 @@
+[
+  {
+    "command": [
+      "python",
+      "prepare.py"
+    ],
+    "exit": 0,
+    "log": "setup-0.log"
+  },
+  {
+    "command": [
+      "python",
+      "tools/verify_release_snapshot.py",
+      "--record"
+    ],
+    "exit": 0,
+    "log": "setup-1.log"
+  },
+  {
+    "command": [
+      "npm.cmd",
+      "ci",
+      "--ignore-scripts",
+      "--no-audit",
+      "--no-fund"
+    ],
+    "exit": 0,
+    "log": "setup-2.log"
+  },
+  {
+    "command": [
+      "npm.cmd",
+      "ci",
+      "--prefix",
+      "tests/frontend-deps",
+      "--ignore-scripts",
+      "--no-audit",
+      "--no-fund"
+    ],
+    "exit": 0,
+    "log": "setup-3.log"
+  }
+]

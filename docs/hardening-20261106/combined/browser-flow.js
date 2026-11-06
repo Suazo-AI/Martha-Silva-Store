@@ -1,0 +1,18 @@
+const origin='http://127.0.0.1:18313';
+const read=async(label)=>console.log(JSON.stringify({label,...await page.eval(()=>({url:location.href,viewport:[innerWidth,innerHeight],overflow:document.documentElement.scrollWidth>innerWidth,broken:[...document.images].filter(i=>i.complete&&i.currentSrc&&!i.naturalWidth).map(i=>i.currentSrc),visibleErrors:[...document.querySelectorAll('[data-error]:not([hidden])')].map(x=>x.textContent),text:document.querySelector('main')?.innerText.slice(0,650),resources:performance.getEntriesByType('resource').map(r=>({url:r.name,bytes:r.transferSize,duration:r.duration})),csp:window.__csp||[]}))}));
+await read('initial');
+await page.open(origin+'/catalogo.html');await page.wait('.product-card');
+console.log('catalog-count',await page.eval(()=>document.querySelectorAll('.product-card').length));
+await page.open(origin+'/producto-dorado.html');await page.wait('[name=variant]');
+await page.eval(()=>{window.__csp=[];document.addEventListener('securitypolicyviolation',e=>window.__csp.push({directive:e.violatedDirective,blocked:e.blockedURI}));});
+await page.click('[name=variant]:not(:disabled)');await page.click('[data-add]');await page.wait('#mini-bag[open]');
+await read('mini-bag');await page.click('#mini-bag [data-close-dialog]');
+await page.open(origin+'/bolsa.html');await page.wait('.cart-line');await read('bag');
+await page.open(origin+'/checkout.html');await page.wait('[name=name]');
+await page.fill('[name=name]','Persona Ficticia');await page.fill('[name=email]','piloto@example.test');await page.fill('[name=phone]','88888888');
+await page.click('[data-checkout-form=contact] button');await page.wait('[name=line1]');
+await page.fill('[name=line1]','Direccion ficticia 123');await page.fill('[name=city]','Managua');await page.fill('[name=department]','Managua');
+await page.click('[data-checkout-form=delivery] button');await page.wait('[data-create-order]');
+await read('review');await page.click('[data-create-order]');await page.wait('[data-test-payment=approved]');
+await read('payment');await page.click('[data-test-payment=approved]');await page.wait('.order-heading');await read('order');
+console.log('order-readback',await page.eval(()=>({heading:document.querySelector('.order-heading').innerText,notice:document.querySelector('main .notice').innerText})));

@@ -1,5 +1,18 @@
 # Estado vigente de Martha Silva / SAVIA
 
+
+Actualizaci?n integrada, 2026-11-06 UTC: frontend Jason con im?genes Denis importado y probado localmente.
+Los 3,126 archivos del candidato coinciden byte por byte; build reproducible de 1,560 archivos.
+DOM29/29, localizaci?n17/17, cat?logo27/27, im?genes1/1, headers2/2 y snapshot1/1 pasan.
+Desktop y m?vil completan `DEMO-0001` por USD190.00. Es compra simulada; no cobro ni persistencia API/SQL.
+Cuatro grabaciones antes/despu?s tienen hashes y decode completo verificados. Puertos propios liberados.
+[Revisi?n integrada y l?mites](hardening-20261106/combined/primary-review.md). CI Linux del nuevo SHA y cr?tico/juez pendientes.
+El cr?tico de recepci?n acept? la preparaci?n con l?mites. Sus dos correcciones est?n aplicadas: seguridad17/17 y navegador24/24.
+[Correcciones y nuevo candidato](supply-real-20261106/correction-review.md). Juez pendiente; recorrido combinado NOT RUN.
+Sin merge, despliegue ni nueva corrida SQL. Producci?n permanece NO-GO.
+
+La secci?n de preparaci?n siguiente registra el estado previo, antes de esta integraci?n y del retorno del cr?tico.
+
 Preparación de recepción real, 2026-11-06 UTC: candidato importado desde `b30a275` y congelado para revisión.
 El primary verificó 20 bindings de origen, 40 controles sin SQL y compilación Release sin errores ni advertencias.
 El SDK portable `10.0.402` ya existía; queda corregido el bloqueo de compilación reportado por el worker.

@@ -1,0 +1,502 @@
+{
+  "port": 18314,
+  "runs": [
+    {
+      "label": "positive",
+      "pid": 33480,
+      "command": [
+        "C:\\Program Files\\nodejs\\node.EXE",
+        "C:\\Users\\Jason\\MARTHA-SILVA\\github\\node_modules\\wrangler\\bin\\wrangler.js",
+        "dev",
+        "--config",
+        "C:\\Users\\Jason\\AppData\\Local\\Temp\\storefront-headers-mr1ihnp2\\wrangler.json",
+        "--local",
+        "--ip",
+        "127.0.0.1",
+        "--port",
+        "18314",
+        "--inspector-port",
+        "0",
+        "--persist-to",
+        "C:\\Users\\Jason\\AppData\\Local\\Temp\\storefront-headers-mr1ihnp2\\state",
+        "--env-file",
+        "C:\\Users\\Jason\\AppData\\Local\\Temp\\storefront-headers-mr1ihnp2\\empty.env",
+        "--log-level",
+        "error",
+        "--no-live-reload"
+      ],
+      "responses": [
+        {
+          "path": "/",
+          "status": 200,
+          "headers": {
+            "Transfer-Encoding": "chunked",
+            "Content-Type": "text/html; charset=utf-8",
+            "Cache-Control": "public, max-age=0, must-revalidate",
+            "ETag": "\"b0c2471ebbbdbf93a8ff9aa9d6459ece\"",
+            "CF-Cache-Status": "HIT",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "x-content-type-options": "nosniff",
+            "x-robots-tag": "noindex, nofollow",
+            "Connection": "close"
+          },
+          "sha256": "3a2d298f99ff5ab1485121fd63921ab95af7abb1ce85f42d659c9449e242d8fb"
+        },
+        {
+          "path": "/app.js",
+          "status": 200,
+          "headers": {
+            "Content-Length": "93721",
+            "Content-Type": "text/javascript; charset=utf-8",
+            "Cache-Control": "public, max-age=0, must-revalidate",
+            "ETag": "\"fe5729eedc196533e5543595c355482a\"",
+            "CF-Cache-Status": "HIT",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "x-content-type-options": "nosniff",
+            "x-robots-tag": "noindex, nofollow",
+            "Connection": "close"
+          },
+          "sha256": "ae2577a4a707628f93b19593a41a08db239914e4f34e97455b03a1fb80c421b0"
+        },
+        {
+          "path": "/styles.css",
+          "status": 200,
+          "headers": {
+            "Content-Length": "131141",
+            "Content-Type": "text/css; charset=utf-8",
+            "Cache-Control": "public, max-age=0, must-revalidate",
+            "ETag": "\"6e37c1ecdcac082b3e54f6372049df4c\"",
+            "CF-Cache-Status": "HIT",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "x-content-type-options": "nosniff",
+            "x-robots-tag": "noindex, nofollow",
+            "Connection": "close"
+          },
+          "sha256": "0a05e6dbbb334e88c535b98a6c461150cad0c73982e63586f0d777289feb0488"
+        },
+        {
+          "path": "/catalog.js",
+          "status": 200,
+          "headers": {
+            "Content-Length": "216694",
+            "Content-Type": "text/javascript; charset=utf-8",
+            "Cache-Control": "public, max-age=0, must-revalidate",
+            "ETag": "\"b817f20541ac364fb5eb93f20f5c78b6\"",
+            "CF-Cache-Status": "HIT",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "x-content-type-options": "nosniff",
+            "x-robots-tag": "noindex, nofollow",
+            "Connection": "close"
+          },
+          "sha256": "1495e8a10a2cde56ddb0087051c327949389f775977f41b7d4b676f37f3cd343"
+        },
+        {
+          "path": "/demo-api.js",
+          "status": 200,
+          "headers": {
+            "Content-Length": "19962",
+            "Content-Type": "text/javascript; charset=utf-8",
+            "Cache-Control": "public, max-age=0, must-revalidate",
+            "ETag": "\"5555361e945f9b05d59788d0d45821cf\"",
+            "CF-Cache-Status": "HIT",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "x-content-type-options": "nosniff",
+            "x-robots-tag": "noindex, nofollow",
+            "Connection": "close"
+          },
+          "sha256": "2cfdfaa9ea665ba4fd7c822ab66f7bdaa1499160c45e04cde53d14530d04002e"
+        },
+        {
+          "path": "/integration-adapters.js",
+          "status": 200,
+          "headers": {
+            "Content-Length": "16659",
+            "Content-Type": "text/javascript; charset=utf-8",
+            "Cache-Control": "public, max-age=0, must-revalidate",
+            "ETag": "\"14866f70fae2cb83e29ced5c5441383c\"",
+            "CF-Cache-Status": "HIT",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "x-content-type-options": "nosniff",
+            "x-robots-tag": "noindex, nofollow",
+            "Connection": "close"
+          },
+          "sha256": "d274c6853b397c840b92e6dc2491f2f882e568d964429c7ad408fa971b6f2953"
+        },
+        {
+          "path": "/deployment.json",
+          "status": 200,
+          "headers": {
+            "Content-Length": "214793",
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store",
+            "ETag": "\"89f65142486c8315ec10e057b4d88f53\"",
+            "CF-Cache-Status": "HIT",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "x-content-type-options": "nosniff",
+            "x-robots-tag": "noindex, nofollow",
+            "Connection": "close"
+          },
+          "sha256": "ecf8f6f7cf57068bb2c4a2c12f4dc22f4acfc1bdb507dec820c27057b7cc25bb"
+        },
+        {
+          "path": "/__missing_headers_probe__",
+          "status": 404,
+          "headers": {
+            "Content-Length": "0",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "x-content-type-options": "nosniff",
+            "x-robots-tag": "noindex, nofollow",
+            "Connection": "close"
+          },
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "/_headers",
+          "status": 404,
+          "headers": {
+            "Content-Length": "0",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "x-content-type-options": "nosniff",
+            "x-robots-tag": "noindex, nofollow",
+            "Connection": "close"
+          },
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "label": "negative",
+      "pid": 61408,
+      "command": [
+        "C:\\Program Files\\nodejs\\node.EXE",
+        "C:\\Users\\Jason\\MARTHA-SILVA\\github\\node_modules\\wrangler\\bin\\wrangler.js",
+        "dev",
+        "--config",
+        "C:\\Users\\Jason\\AppData\\Local\\Temp\\storefront-headers-mr1ihnp2\\wrangler.json",
+        "--local",
+        "--ip",
+        "127.0.0.1",
+        "--port",
+        "18314",
+        "--inspector-port",
+        "0",
+        "--persist-to",
+        "C:\\Users\\Jason\\AppData\\Local\\Temp\\storefront-headers-mr1ihnp2\\state",
+        "--env-file",
+        "C:\\Users\\Jason\\AppData\\Local\\Temp\\storefront-headers-mr1ihnp2\\empty.env",
+        "--log-level",
+        "error",
+        "--no-live-reload"
+      ],
+      "responses": [
+        {
+          "path": "/",
+          "status": 200,
+          "headers": {
+            "Transfer-Encoding": "chunked",
+            "Content-Type": "text/html; charset=utf-8",
+            "Cache-Control": "public, max-age=0, must-revalidate",
+            "ETag": "\"b0c2471ebbbdbf93a8ff9aa9d6459ece\"",
+            "CF-Cache-Status": "HIT",
+            "Connection": "close"
+          },
+          "sha256": "3a2d298f99ff5ab1485121fd63921ab95af7abb1ce85f42d659c9449e242d8fb"
+        },
+        {
+          "path": "/app.js",
+          "status": 200,
+          "headers": {
+            "Content-Length": "93721",
+            "Content-Type": "text/javascript; charset=utf-8",
+            "Cache-Control": "public, max-age=0, must-revalidate",
+            "ETag": "\"fe5729eedc196533e5543595c355482a\"",
+            "CF-Cache-Status": "HIT",
+            "Connection": "close"
+          },
+          "sha256": "ae2577a4a707628f93b19593a41a08db239914e4f34e97455b03a1fb80c421b0"
+        },
+        {
+          "path": "/styles.css",
+          "status": 200,
+          "headers": {
+            "Content-Length": "131141",
+            "Content-Type": "text/css; charset=utf-8",
+            "Cache-Control": "public, max-age=0, must-revalidate",
+            "ETag": "\"6e37c1ecdcac082b3e54f6372049df4c\"",
+            "CF-Cache-Status": "HIT",
+            "Connection": "close"
+          },
+          "sha256": "0a05e6dbbb334e88c535b98a6c461150cad0c73982e63586f0d777289feb0488"
+        },
+        {
+          "path": "/catalog.js",
+          "status": 200,
+          "headers": {
+            "Content-Length": "216694",
+            "Content-Type": "text/javascript; charset=utf-8",
+            "Cache-Control": "public, max-age=0, must-revalidate",
+            "ETag": "\"b817f20541ac364fb5eb93f20f5c78b6\"",
+            "CF-Cache-Status": "HIT",
+            "Connection": "close"
+          },
+          "sha256": "1495e8a10a2cde56ddb0087051c327949389f775977f41b7d4b676f37f3cd343"
+        },
+        {
+          "path": "/demo-api.js",
+          "status": 200,
+          "headers": {
+            "Content-Length": "19962",
+            "Content-Type": "text/javascript; charset=utf-8",
+            "Cache-Control": "public, max-age=0, must-revalidate",
+            "ETag": "\"5555361e945f9b05d59788d0d45821cf\"",
+            "CF-Cache-Status": "HIT",
+            "Connection": "close"
+          },
+          "sha256": "2cfdfaa9ea665ba4fd7c822ab66f7bdaa1499160c45e04cde53d14530d04002e"
+        },
+        {
+          "path": "/integration-adapters.js",
+          "status": 200,
+          "headers": {
+            "Content-Length": "16659",
+            "Content-Type": "text/javascript; charset=utf-8",
+            "Cache-Control": "public, max-age=0, must-revalidate",
+            "ETag": "\"14866f70fae2cb83e29ced5c5441383c\"",
+            "CF-Cache-Status": "HIT",
+            "Connection": "close"
+          },
+          "sha256": "d274c6853b397c840b92e6dc2491f2f882e568d964429c7ad408fa971b6f2953"
+        },
+        {
+          "path": "/deployment.json",
+          "status": 200,
+          "headers": {
+            "Content-Length": "214793",
+            "Content-Type": "application/json",
+            "Cache-Control": "public, max-age=0, must-revalidate",
+            "ETag": "\"89f65142486c8315ec10e057b4d88f53\"",
+            "CF-Cache-Status": "HIT",
+            "Connection": "close"
+          },
+          "sha256": "ecf8f6f7cf57068bb2c4a2c12f4dc22f4acfc1bdb507dec820c27057b7cc25bb"
+        },
+        {
+          "path": "/__missing_headers_probe__",
+          "status": 404,
+          "headers": {
+            "Content-Length": "0",
+            "Connection": "close"
+          },
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "/_headers",
+          "status": 404,
+          "headers": {
+            "Content-Length": "0",
+            "Connection": "close"
+          },
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "label": "restored",
+      "pid": 37356,
+      "command": [
+        "C:\\Program Files\\nodejs\\node.EXE",
+        "C:\\Users\\Jason\\MARTHA-SILVA\\github\\node_modules\\wrangler\\bin\\wrangler.js",
+        "dev",
+        "--config",
+        "C:\\Users\\Jason\\AppData\\Local\\Temp\\storefront-headers-mr1ihnp2\\wrangler.json",
+        "--local",
+        "--ip",
+        "127.0.0.1",
+        "--port",
+        "18314",
+        "--inspector-port",
+        "0",
+        "--persist-to",
+        "C:\\Users\\Jason\\AppData\\Local\\Temp\\storefront-headers-mr1ihnp2\\state",
+        "--env-file",
+        "C:\\Users\\Jason\\AppData\\Local\\Temp\\storefront-headers-mr1ihnp2\\empty.env",
+        "--log-level",
+        "error",
+        "--no-live-reload"
+      ],
+      "responses": [
+        {
+          "path": "/",
+          "status": 200,
+          "headers": {
+            "Transfer-Encoding": "chunked",
+            "Content-Type": "text/html; charset=utf-8",
+            "Cache-Control": "public, max-age=0, must-revalidate",
+            "ETag": "\"b0c2471ebbbdbf93a8ff9aa9d6459ece\"",
+            "CF-Cache-Status": "HIT",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "x-content-type-options": "nosniff",
+            "x-robots-tag": "noindex, nofollow",
+            "Connection": "close"
+          },
+          "sha256": "3a2d298f99ff5ab1485121fd63921ab95af7abb1ce85f42d659c9449e242d8fb"
+        },
+        {
+          "path": "/app.js",
+          "status": 200,
+          "headers": {
+            "Content-Length": "93721",
+            "Content-Type": "text/javascript; charset=utf-8",
+            "Cache-Control": "public, max-age=0, must-revalidate",
+            "ETag": "\"fe5729eedc196533e5543595c355482a\"",
+            "CF-Cache-Status": "HIT",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "x-content-type-options": "nosniff",
+            "x-robots-tag": "noindex, nofollow",
+            "Connection": "close"
+          },
+          "sha256": "ae2577a4a707628f93b19593a41a08db239914e4f34e97455b03a1fb80c421b0"
+        },
+        {
+          "path": "/styles.css",
+          "status": 200,
+          "headers": {
+            "Content-Length": "131141",
+            "Content-Type": "text/css; charset=utf-8",
+            "Cache-Control": "public, max-age=0, must-revalidate",
+            "ETag": "\"6e37c1ecdcac082b3e54f6372049df4c\"",
+            "CF-Cache-Status": "HIT",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "x-content-type-options": "nosniff",
+            "x-robots-tag": "noindex, nofollow",
+            "Connection": "close"
+          },
+          "sha256": "0a05e6dbbb334e88c535b98a6c461150cad0c73982e63586f0d777289feb0488"
+        },
+        {
+          "path": "/catalog.js",
+          "status": 200,
+          "headers": {
+            "Content-Length": "216694",
+            "Content-Type": "text/javascript; charset=utf-8",
+            "Cache-Control": "public, max-age=0, must-revalidate",
+            "ETag": "\"b817f20541ac364fb5eb93f20f5c78b6\"",
+            "CF-Cache-Status": "HIT",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "x-content-type-options": "nosniff",
+            "x-robots-tag": "noindex, nofollow",
+            "Connection": "close"
+          },
+          "sha256": "1495e8a10a2cde56ddb0087051c327949389f775977f41b7d4b676f37f3cd343"
+        },
+        {
+          "path": "/demo-api.js",
+          "status": 200,
+          "headers": {
+            "Content-Length": "19962",
+            "Content-Type": "text/javascript; charset=utf-8",
+            "Cache-Control": "public, max-age=0, must-revalidate",
+            "ETag": "\"5555361e945f9b05d59788d0d45821cf\"",
+            "CF-Cache-Status": "HIT",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "x-content-type-options": "nosniff",
+            "x-robots-tag": "noindex, nofollow",
+            "Connection": "close"
+          },
+          "sha256": "2cfdfaa9ea665ba4fd7c822ab66f7bdaa1499160c45e04cde53d14530d04002e"
+        },
+        {
+          "path": "/integration-adapters.js",
+          "status": 200,
+          "headers": {
+            "Content-Length": "16659",
+            "Content-Type": "text/javascript; charset=utf-8",
+            "Cache-Control": "public, max-age=0, must-revalidate",
+            "ETag": "\"14866f70fae2cb83e29ced5c5441383c\"",
+            "CF-Cache-Status": "HIT",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "x-content-type-options": "nosniff",
+            "x-robots-tag": "noindex, nofollow",
+            "Connection": "close"
+          },
+          "sha256": "d274c6853b397c840b92e6dc2491f2f882e568d964429c7ad408fa971b6f2953"
+        },
+        {
+          "path": "/deployment.json",
+          "status": 200,
+          "headers": {
+            "Content-Length": "214793",
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store",
+            "ETag": "\"89f65142486c8315ec10e057b4d88f53\"",
+            "CF-Cache-Status": "HIT",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "x-content-type-options": "nosniff",
+            "x-robots-tag": "noindex, nofollow",
+            "Connection": "close"
+          },
+          "sha256": "ecf8f6f7cf57068bb2c4a2c12f4dc22f4acfc1bdb507dec820c27057b7cc25bb"
+        },
+        {
+          "path": "/__missing_headers_probe__",
+          "status": 404,
+          "headers": {
+            "Content-Length": "0",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "x-content-type-options": "nosniff",
+            "x-robots-tag": "noindex, nofollow",
+            "Connection": "close"
+          },
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "/_headers",
+          "status": 404,
+          "headers": {
+            "Content-Length": "0",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "x-content-type-options": "nosniff",
+            "x-robots-tag": "noindex, nofollow",
+            "Connection": "close"
+          },
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    }
+  ],
+  "cleanup": [
+    {
+      "pid": 33480,
+      "taskkill_exit": 0,
+      "process_exited": true
+    },
+    {
+      "pid": 61408,
+      "taskkill_exit": 0,
+      "process_exited": true
+    },
+    {
+      "pid": 37356,
+      "taskkill_exit": 0,
+      "process_exited": true
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+[
+  {
+    "command": [
+      "npm.cmd",
+      "ci",
+      "--ignore-scripts",
+      "--no-audit",
+      "--no-fund"
+    ],
+    "exit": 0,
+    "privateLog": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\dependencies\\locked-install.log",
+    "sha256": "c33ddd0e6d27e2f94fe7d72b362f760880a8c790589bb3a8dcc0187c337348e3"
+  },
+  {
+    "command": [
+      "npm.cmd",
+      "audit",
+      "--json"
+    ],
+    "exit": 0,
+    "privateLog": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\dependencies\\audit-all.log",
+    "sha256": "2ba174dba3d8660de1a3e9a147662992d51b4bc841e9925a8bae9db587d58f6e",
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    },
+    "error": null
+  },
+  {
+    "command": [
+      "npm.cmd",
+      "audit",
+      "--omit=dev",
+      "--json"
+    ],
+    "exit": 0,
+    "privateLog": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\dependencies\\audit-production.log",
+    "sha256": "2ba174dba3d8660de1a3e9a147662992d51b4bc841e9925a8bae9db587d58f6e",
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    },
+    "error": null
+  }
+]

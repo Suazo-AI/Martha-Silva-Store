@@ -196,7 +196,7 @@ class DeploymentTests(unittest.TestCase):
         self.assertEqual(config['assets'], {'directory': './dist', 'html_handling': 'auto-trailing-slash', 'not_found_handling': 'none'})
         self.assertFalse(set(config) & {'main', 'routes', 'route', 'account_id', 'kv_namespaces', 'd1_databases'})
         package = json.loads((ROOT / 'package.json').read_text())
-        self.assertEqual(package['devDependencies']['wrangler'], '4.152.0')
+        self.assertEqual(package['devDependencies']['wrangler'], '4.158.0')
 
     def test_workflow_gates_and_same_sha(self):
         workflow = (ROOT / '.github/workflows/ci.yml').read_text()

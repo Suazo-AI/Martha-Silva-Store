@@ -1,11 +1,15 @@
 {
+  "_headers": {
+    "sha256": "503d49f3f495ee3001ae78d8db6ca666bbe424cfa962ba4244348000943e907f",
+    "bytes": 486
+  },
   "admin.html": {
     "sha256": "868171df99b9d5725e04264d11a84d768e0be8a8067a20a7d828c9258114d2f5",
     "bytes": 16601
   },
   "app.js": {
-    "sha256": "d9a06a0f87aa7b1c696d40b4f7fc8b666b2c0c6c0eae1407f8ff2fc859af83dc",
-    "bytes": 88151
+    "sha256": "ae2577a4a707628f93b19593a41a08db239914e4f34e97455b03a1fb80c421b0",
+    "bytes": 93721
   },
   "assets/missing.svg": {
     "sha256": "d554c87f8dbda28d8a3aa567e19290c0ff9845c1b459f72e35c62535e1f41428",
@@ -28,8 +32,8 @@
     "bytes": 216694
   },
   "catalogo.html": {
-    "sha256": "6496b076c78706b10421b5485d782f46a912235a07dcb0dae2d0ff7540085533",
-    "bytes": 131746
+    "sha256": "d38a7c67f7b4ab23fc977e361c28a19212d043a9515a4354394af57e08f15626",
+    "bytes": 132872
   },
   "checkout.html": {
     "sha256": "83e214067645d42bb8cba707bbaeaf3b8b0cd8c8eb55701f8546a308058212dd",
@@ -892,16 +896,16 @@
     "bytes": 9637
   },
   "index.html": {
-    "sha256": "2701cb4ede080b3708dc65352623216dd25afc8e97c90515c9692b44226ece24",
-    "bytes": 196768
+    "sha256": "3a2d298f99ff5ab1485121fd63921ab95af7abb1ce85f42d659c9449e242d8fb",
+    "bytes": 198685
   },
   "integration-adapters.js": {
     "sha256": "d274c6853b397c840b92e6dc2491f2f882e568d964429c7ad408fa971b6f2953",
     "bytes": 16659
   },
   "locale-en.js": {
-    "sha256": "e985ad319f0c44d9830fb4941c378c3e6bed4d43a2b741aa59fda2510e003e61",
-    "bytes": 33034
+    "sha256": "0f35a694433d4ac4f496a48356ebe831eba680937eef7cf7f65be1cc1d59b9b1",
+    "bytes": 34004
   },
   "pedido.html": {
     "sha256": "6581791afce0a828a5c81e3093024baf04bc42162dc1168ccc0ead69781092b1",
@@ -6228,7 +6232,7 @@
     "bytes": 57476
   },
   "styles.css": {
-    "sha256": "9d7cb94e0e57c89fa884294de04a0baf8bfd1362ddc4de9a45aa2939a79ca679",
-    "bytes": 70063
+    "sha256": "0a05e6dbbb334e88c535b98a6c461150cad0c73982e63586f0d777289feb0488",
+    "bytes": 131141
   }
 }

@@ -1050,7 +1050,14 @@ class GoldenPath:
                                   'c6_sale_http', 'c6_loss_interception_failed', 'c6_pending_key_lost',
                                   'c6_recovery_key_or_post_count', 'c6_logout_or_post_count', 'c6_browser_failed',
                                   'c6_browser_process_identity', 'c6_logout_click', 'c6_logout_response',
-                                  'c6_logout_http', 'c6_logout_navigation', 'c6_logout_form', 'c6_logout_me'}
+                                  'c6_logout_http', 'c6_logout_navigation', 'c6_logout_form', 'c6_logout_me',
+                                  'c6_supply_complete_invalid', 'c6_supply_identity_invalid',
+                                  'c6_supply_logout_invalid', 'c6_supply_loss_failed',
+                                  'c6_supply_loss_request_missing', 'c6_supply_loss_requires_commit',
+                                  'c6_supply_partial_http', 'c6_supply_partial_invalid',
+                                  'c6_supply_pending_changed', 'c6_supply_pending_identity_invalid',
+                                  'c6_supply_pending_not_cleared', 'c6_supply_recovery_invalid',
+                                  'c6_supply_reload_invalid', 'c6_supply_request_invalid'}
                 code = code if code in allowed_errors else 'browser_protocol_invalid'
                 if self.steps and self.steps[-1]['step'].startswith('browser.'):
                     self.steps[-1]['error_code'] = code
