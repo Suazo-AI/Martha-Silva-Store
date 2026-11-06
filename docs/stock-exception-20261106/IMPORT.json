@@ -1,0 +1,253 @@
+{
+  "base_sha": "9597f19d0e1621c2b3984f8bf8878a0f7d58d906",
+  "policy": "Exact RAW copy; public evidence allowlist; raw logs private; no bin/obj/videos/config/snapshots",
+  "source_contracts_verified": 31,
+  "files": [
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\backend-full-offline.log",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\raw-logs\\backend-full-offline.log",
+      "kind": "private-log",
+      "sha256": "05adbf933772a236323ecee4defc7d13420d56addfa11dd63b53c9a968fe17aa"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\browser-mock\\browser-results.json",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\stock-exception-20261106\\worker\\browser-mock\\browser-results.json",
+      "kind": "public",
+      "sha256": "8bd11c8453da6bf1d98dabd6a12525f5a7a2a8eeb8b365290a8120cf241816ef"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\browser-mock\\multiarticle-desktop-cart.png",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\stock-exception-20261106\\worker\\browser-mock\\multiarticle-desktop-cart.png",
+      "kind": "public",
+      "sha256": "b488ac8fcc9dde9c89c38cee22810411fdb045b70ee0ec971962e3e8a428b40e"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\browser-mock\\multiarticle-desktop-receipt.png",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\stock-exception-20261106\\worker\\browser-mock\\multiarticle-desktop-receipt.png",
+      "kind": "public",
+      "sha256": "79d1b11b138eeebb9b54164344011bdbedb60a70261000dd7b2a351934d961f8"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\browser-mock\\multiarticle-mobile-cart.png",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\stock-exception-20261106\\worker\\browser-mock\\multiarticle-mobile-cart.png",
+      "kind": "public",
+      "sha256": "81a889bd3d4fd422899a752045fc1e3bd36ffe939bfb3484e6b5ad8e1f2c3cd8"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\browser-mock\\multiarticle-mobile-receipt.png",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\stock-exception-20261106\\worker\\browser-mock\\multiarticle-mobile-receipt.png",
+      "kind": "public",
+      "sha256": "2cea058e9dc0fcdac77113f0ce569c2fffc069aacbd09787bcf322dcda71e81e"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\browser-mock\\public-checkout-observation.json",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\stock-exception-20261106\\worker\\browser-mock\\public-checkout-observation.json",
+      "kind": "public",
+      "sha256": "e9088218c886ec30923ff1189e714728176c4d3a85c73a42147fba16a2463ef9"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\browser-mock\\stale-receipt-observation.json",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\stock-exception-20261106\\worker\\browser-mock\\stale-receipt-observation.json",
+      "kind": "public",
+      "sha256": "003fb893b7ca07e8abc855f0ccc1505b58b31c3451b15c36ca141a7a37fe84d5"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\browser-mock\\stale-receipt.png",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\stock-exception-20261106\\worker\\browser-mock\\stale-receipt.png",
+      "kind": "public",
+      "sha256": "83f5edc272db1359eae38312d374e8b28ae97f457740f34231c7fe4a48dbdd5a"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\browser-mock.log",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\raw-logs\\browser-mock.log",
+      "kind": "private-log",
+      "sha256": "cefafa7cf45fd4147f791017112cf5ea3fe4e3875cb29445804167d5000b32dc"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\browser-stock-check.mjs",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\stock-exception-20261106\\worker\\browser-stock-check.mjs",
+      "kind": "public",
+      "sha256": "024e26ae76e27a62ca8af29a0de1a6c2284b82a545065b82a338d44e0ba7b226"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\browser-stock-results.json",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\stock-exception-20261106\\worker\\browser-stock-results.json",
+      "kind": "public",
+      "sha256": "7a1576978c664247490d9a1aa79d5d5c28fe63f5f95ff498534c46ca582fa877"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\browser-stock.log",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\raw-logs\\browser-stock.log",
+      "kind": "private-log",
+      "sha256": "eab614f4c7f7845f390afd6756ef3a3a0185c4d743d3cec88423f7954bed898a"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\browser-supply\\results.json",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\stock-exception-20261106\\worker\\browser-supply\\results.json",
+      "kind": "public",
+      "sha256": "6a56d6a207ace40d1526c8b626bbde51c2f0a6ce23b4d0224399c30122be08c8"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\browser-supply.log",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\raw-logs\\browser-supply.log",
+      "kind": "private-log",
+      "sha256": "253b02e7107ff049e23ccb156839e01fe350d9f0f9711fab4473676f38cd4e5c"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\commands.json",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\stock-exception-20261106\\worker\\commands.json",
+      "kind": "public",
+      "sha256": "d5a3bf24461e79f6c946f64c94f7d74dc8da43e073aedea9e23493819a58753c"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\current-release-down.sql",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\stock-exception-20261106\\worker\\current-release-down.sql",
+      "kind": "public",
+      "sha256": "e8b45689101d2e7021c0914268a18655582015482fb588d3950c5ea878cd10a6"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\current-release-idempotent.sql",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\stock-exception-20261106\\worker\\current-release-idempotent.sql",
+      "kind": "public",
+      "sha256": "b38ee572b60f4953619cc9721fe91e09f92abf257f96d37d76d220db53a50520"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\current-release.sql",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\stock-exception-20261106\\worker\\current-release.sql",
+      "kind": "public",
+      "sha256": "c75a07f21c04eaccb967179360529387e69e9d2befa6dadf357dfebb6c1deda8"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\dotnet-tests.log",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\raw-logs\\dotnet-tests.log",
+      "kind": "private-log",
+      "sha256": "c0e3b7c0961e57f12fc1ef11aac2f3500c5db5fa8df676b8cd53c61e0ba5f238"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\ef-scaffold\\.gitignore",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\stock-exception-20261106\\worker\\ef-scaffold\\.gitignore",
+      "kind": "public",
+      "sha256": "79914b5e84e1a58b12d9e874ea343e2d131dcdaaf0a3bacf01210219fc679d13"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\ef-scaffold\\ef-scaffold.csproj",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\stock-exception-20261106\\worker\\ef-scaffold\\ef-scaffold.csproj",
+      "kind": "public",
+      "sha256": "4bd73695d38d245e2ff22ed75edb944960ef7831cf0b42ad4bf0fef54b8645ee"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\ef-scaffold\\Program.cs",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\stock-exception-20261106\\worker\\ef-scaffold\\Program.cs",
+      "kind": "public",
+      "sha256": "34a0bcae8bc6eb8b8f6bf72608d26ba265aad9856da7127fd412aee2723301e1"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\ef-script.log",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\raw-logs\\ef-script.log",
+      "kind": "private-log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\handoff-check.json",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\stock-exception-20261106\\worker\\handoff-check.json",
+      "kind": "public",
+      "sha256": "fc809e731e70e90ec21679ef5f8c66a736b2971b9ebbefb2238848939e237134"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\harness-tests.log",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\raw-logs\\harness-tests.log",
+      "kind": "private-log",
+      "sha256": "54ea4d3c67581cd52ff997520826cfd022042a78052c1c68e24d69cf14f80759"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\negative-cashier_review_guard.log",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\raw-logs\\negative-cashier_review_guard.log",
+      "kind": "private-log",
+      "sha256": "08e0b510815f21f9021c5bf557ffe136e6ad6a5e94262a463af0df09fd13de52"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\negative-controls.json",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\stock-exception-20261106\\worker\\negative-controls.json",
+      "kind": "public",
+      "sha256": "0459b0a8a7e418813f05811792d4a5b55be4a8fdca32dcc4a23fb978bd954a82"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\negative-receipt_exception_binding.log",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\raw-logs\\negative-receipt_exception_binding.log",
+      "kind": "private-log",
+      "sha256": "47104373d24038e10cca1f38283fca5944ea555a29158a983ffd52ca4b4ae502"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\negative-review_late_response.log",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\raw-logs\\negative-review_late_response.log",
+      "kind": "private-log",
+      "sha256": "dd5478382d471cab89e8e5d74e7405497ca71464525089d810e100fb807c97b4"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\negative-server_review_permission.log",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\raw-logs\\negative-server_review_permission.log",
+      "kind": "private-log",
+      "sha256": "5b43393e2453654024962442e1986de9e22d458991495261555d8a71a5dbce2f"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\README.md",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\stock-exception-20261106\\worker\\README.md",
+      "kind": "public",
+      "sha256": "45efc390061c691a34be56ae9251edcfa8ae1ea04359530ead0014ab7d831f0b"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\repository-check.log",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\raw-logs\\repository-check.log",
+      "kind": "private-log",
+      "sha256": "3f4c24a10015e47798f4212d751011b5d1a29ce8eb54a6d19250e1bf89e088f6"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\restoration.json",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\stock-exception-20261106\\worker\\restoration.json",
+      "kind": "public",
+      "sha256": "740b7c602c076b3b419a4d45e1866499c0a938cf4160c29c8c61eb0ba25360ac"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\RESULT.json",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\stock-exception-20261106\\worker\\RESULT.json",
+      "kind": "public",
+      "sha256": "04e12b39f09ec3872fd652bd04f7ba6445b2886d72651bcb30801a460dcb05c9"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\source-binding.json",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\stock-exception-20261106\\worker\\source-binding.json",
+      "kind": "public",
+      "sha256": "7bab0229342a5415a30754cf8e163743146bad505959baf5e1a64767fdfffc1a"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\sql-helper-build.log",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\raw-logs\\sql-helper-build.log",
+      "kind": "private-log",
+      "sha256": "f7051e370780cda3c0b54e61489f9d27c51dd39132c10f2d23ac6d1278ec1fa1"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\staff-tests.log",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\raw-logs\\staff-tests.log",
+      "kind": "private-log",
+      "sha256": "3307174bec4d63a6f7b0368c4e070aff53ed18cd3ddd1e055aa741bc179c9a00"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\stock-review-1440.png",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\stock-exception-20261106\\worker\\stock-review-1440.png",
+      "kind": "public",
+      "sha256": "e5866d0add811493156524d0e5429b57e9ab78e478da011acdae81e81c3e0c88"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\stock-review-390.png",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\stock-exception-20261106\\worker\\stock-review-390.png",
+      "kind": "public",
+      "sha256": "cd950567434e289b833f6d2b8eb2a9a38670cb5b5a0d58bdc1c69ac04cecd279"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c\\docs\\stock-exception-20261106\\worker\\stock-ui-tests.log",
+      "destination": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\raw-logs\\stock-ui-tests.log",
+      "kind": "private-log",
+      "sha256": "672cd1a84c754a87b2657e6d5ddb4691e0b691a68adb24d42e3d908c482869f9"
+    }
+  ]
+}

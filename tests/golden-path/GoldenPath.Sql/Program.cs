@@ -20,6 +20,8 @@ try
         ["oracles", var db] => await Oracles(db),
         ["receipt-identity", var db, var receipt, var actor, var order, var location, var item, var key, var quantity] =>
             await ReceiptIdentity(db, Guid.Parse(receipt), Guid.Parse(actor), Guid.Parse(order), Guid.Parse(location), Guid.Parse(item), Guid.Parse(key), int.Parse(quantity)),
+        ["stock-identity", var db, var sale, var actor, var item, var location, var key, var reviewer, var reviewKey] =>
+            await StockIdentity(db, Guid.Parse(sale), Guid.Parse(actor), Guid.Parse(item), Guid.Parse(location), Guid.Parse(key), Guid.Parse(reviewer), Guid.Parse(reviewKey)),
         ["exists", var db] => await Exists(db),
         ["drop", var db] => await Drop(db),
         _ => Fail("usage", "cert <dir> | create|oracles|exists|drop <db> | branch <db> <guid>")
@@ -184,13 +186,16 @@ static async Task<int> Oracles(string database)
              (SELECT 1 FROM savia_internal.PurchaseReceiptLines l WHERE l.ReceiptId=m.OperationId AND l.ItemId=m.ItemId)) AS orphan_receipt_movement,
           (SELECT COUNT(*) FROM savia_internal.PurchaseOrderLines l WHERE l.ReceivedQuantity <>
              ISNULL((SELECT SUM(r.Quantity) FROM savia_internal.PurchaseReceiptLines r WHERE r.PurchaseOrderLineId=l.Id),0)) AS receipt_order_mismatch,
+          (SELECT COUNT(*) FROM savia_internal.SaleLines WHERE ExceptionReason IS NOT NULL) AS exception_lines,
+          (SELECT COUNT(*) FROM savia_internal.StockExceptionReviews) AS stock_reviews,
+          (SELECT COUNT(*) FROM savia_internal.StockMovements m JOIN savia_internal.SaleLines l ON l.SaleId=m.OperationId AND l.ItemId=m.ItemId WHERE l.ExceptionReason IS NOT NULL AND m.Kind='sale') AS exception_movements,
           (SELECT COUNT(*) FROM savia_internal.Sales) AS sales,
           (SELECT COUNT(*) FROM savia_internal.SaleLines) AS sale_lines,
           (SELECT COUNT(*) FROM savia_internal.StockMovements) AS movements,
           (SELECT COUNT(*) FROM savia_internal.StockMovements WHERE Kind = 'sale') AS sale_movements,
           (SELECT COUNT(*) FROM savia_internal.StockAdjustments) AS adjustments,
           (SELECT COUNT(*) FROM savia_internal.SaleLines l
-             WHERE (SELECT COUNT(*) FROM savia_internal.StockMovements m
+             WHERE l.ExceptionReason IS NULL AND (SELECT COUNT(*) FROM savia_internal.StockMovements m
                     WHERE m.OperationId = l.SaleId AND m.ItemId = l.ItemId AND m.Kind = 'sale') <> 1) AS lines_without_exactly_one_movement,
           (SELECT COUNT(*) FROM savia_internal.StockMovements m
              WHERE m.Kind = 'sale' AND NOT EXISTS (SELECT 1 FROM savia_internal.SaleLines l
@@ -256,6 +261,36 @@ static async Task<int> ReceiptIdentity(string database, Guid receipt, Guid actor
     command.Parameters.AddWithValue("@key", key.ToString());
     command.Parameters.AddWithValue("@quantity", quantity);
     return Ok(new { ok = true, matches = Convert.ToInt32(await command.ExecuteScalarAsync()) });
+}
+
+static async Task<int> StockIdentity(string database, Guid sale, Guid actor, Guid item, Guid location, Guid key, Guid reviewer, Guid reviewKey)
+{
+    await using var connection = new SqlConnection(Connection(database)); await connection.OpenAsync();
+    await using var command = connection.CreateCommand();
+    command.CommandText = """
+      SELECT
+       (SELECT COUNT(*) FROM savia_internal.Sales s JOIN savia_internal.SaleLines l ON l.SaleId=s.Id
+        JOIN savia_internal.Operations op ON op.ActorId=s.ActorId AND op.Scope='commerce.sale.record' AND op.[Key]=@key
+          AND JSON_VALUE(op.ResultJson,'$.value.saleId')=CONVERT(nvarchar(36),s.Id)
+        WHERE s.Id=@sale AND s.ActorId=@actor AND s.LocationId=@location AND l.ItemId=@item
+          AND l.Quantity=1 AND l.ReturnedQuantity=0 AND l.Size='S' AND l.ExceptionReason='SINTETICO physical garment present'
+          AND s.TotalMinor=1250 AND l.TotalMinor=1250 AND l.UnitPriceMinor=1250
+          AND NOT EXISTS(SELECT 1 FROM savia_internal.StockMovements m WHERE m.OperationId=s.Id)
+          AND NOT EXISTS(SELECT 1 FROM savia_internal.StockBalances b WHERE b.ItemId=@item AND b.LocationId=@location AND (b.OnHand<>0 OR b.Reserved<>0))) AS allocation_matches,
+       (SELECT COUNT(*) FROM savia_internal.StockExceptionReviews r
+        JOIN savia_internal.SaleLines l ON l.Id=r.SaleLineId
+        JOIN savia_internal.Sales s ON s.Id=l.SaleId
+        JOIN savia_internal.Operations op ON op.ActorId=r.ReviewerId AND op.Scope='commerce.stock.review' AND op.[Key]=@reviewKey
+          AND JSON_VALUE(op.ResultJson,'$.value.id')=CONVERT(nvarchar(36),r.Id)
+        WHERE s.Id=@sale AND r.ReviewerId=@reviewer AND r.ReviewerId<>s.ActorId AND r.CauseState='open'
+          AND r.ResponsibleActorId=@reviewer AND r.NextReviewAt>r.CreatedAt
+          AND r.Evidence='SINTETICO sale and physical count examined'
+          AND r.Outcome='SINTETICO cause unproven; follow up') AS review_matches
+      """;
+    foreach(var pair in new[]{("@sale",sale),("@actor",actor),("@item",item),("@location",location),("@reviewer",reviewer)}) command.Parameters.AddWithValue(pair.Item1,pair.Item2);
+    command.Parameters.AddWithValue("@key",key.ToString());command.Parameters.AddWithValue("@reviewKey",reviewKey.ToString());
+    await using var reader=await command.ExecuteReaderAsync();await reader.ReadAsync();
+    return Ok(new {ok=true,allocation_matches=reader.GetInt32(0),review_matches=reader.GetInt32(1)});
 }
 
 // Refusals carry only fixed codes written above, never server or request text.

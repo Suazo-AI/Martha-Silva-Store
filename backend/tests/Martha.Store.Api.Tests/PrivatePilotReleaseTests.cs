@@ -14,7 +14,7 @@ public sealed class PrivatePilotReleaseTests
 {
     private static string Evidence => Environment.GetEnvironmentVariable("SAVIA_PILOT_EVIDENCE")
         ?? throw new InvalidOperationException("Worker evidence path required");
-    private static readonly string[] History = ["20261025085402_InitialInternalSavia", "20261027224500_InternalBranchScope"];
+    private static readonly string[] History = ["20261025085402_InitialInternalSavia", "20261027224500_InternalBranchScope", InternalStockExceptionTests.Migration];
     internal static string Connection(string database)
     {
         Assert.Matches("^SaviaInternalTest_(?:Pilot|Release)_[a-f0-9]{32}$", database);
@@ -65,8 +65,8 @@ public sealed class PrivatePilotReleaseTests
     {
         using var expected = JsonDocument.Parse(File.ReadAllText(Path.Combine(Evidence,"expected-invariants.json")));
         foreach (var key in new[] {"history","tables","checks","foreign_keys","indexes","primary_keys"})
-            Assert.Equal(expected.RootElement.GetProperty(key).EnumerateArray().Select(x=>x.GetString()).OrderBy(x=>x,StringComparer.Ordinal).ToArray(),facts[key].OrderBy(x=>x,StringComparer.Ordinal).ToArray());
-        Assert.Equal(20,facts["all_tables"].Length);
+            Assert.Equal(InternalStockExceptionTests.Expected(expected.RootElement.GetProperty(key).EnumerateArray().Select(x=>x.GetString()), key).OrderBy(x=>x,StringComparer.Ordinal).ToArray(),facts[key].OrderBy(x=>x,StringComparer.Ordinal).ToArray());
+        Assert.Equal(21,facts["all_tables"].Length);
         Assert.Contains("dbo.__EFMigrationsHistory",facts["all_tables"]);
         Assert.All(facts["all_tables"],x=>Assert.True(x=="dbo.__EFMigrationsHistory" || x.StartsWith("savia_internal.")));
         Assert.All(facts["constraint_state"],x=>Assert.EndsWith("|False|False",x));

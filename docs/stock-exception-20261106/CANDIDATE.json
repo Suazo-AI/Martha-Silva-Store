@@ -1,0 +1,211 @@
+{
+  "base_sha": "9597f19d0e1621c2b3984f8bf8878a0f7d58d906",
+  "status": "REVIEW; not accepted",
+  "hash_policy": "RAW exact bytes; LF replaces CRLF only, retaining BOM; clean Git checkouts must match LF",
+  "primary_edits": [
+    "Request DTO conditional null omission preserves legacy replay fingerprint",
+    "Legacy fingerprint regression test",
+    "Manual workflow opt-in, pre-runtime combination guard, and no-SQL CI stock guards",
+    "Offline tests exercise invalid argument refusal and inspect workflow routing"
+  ],
+  "contracts": [
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceEndpoints.cs",
+      "rawSha256": "d10abf20a14c61e63fab9a1860924846a20da5085abc2ad763b26aab0266310b",
+      "lfSha256": "94cbcd3144a3502fe55cdfc3424faeeaeb07c699b48146114cc31af575cb50fb",
+      "baseGitBlob": "e706a7efa32d4c41e7ae1c729f78baa334948d46"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceModel.cs",
+      "rawSha256": "5bc6df737a3b194269ebf411acb9bdc80f793763318a1ea43c8b5e7df911d259",
+      "lfSha256": "c602dea39e85a31c46245b3a21c8d2398c3ec31e90140bb6b0b1b9221a7aa395",
+      "baseGitBlob": "1a620439eb0f3fe2063c804a67189bf1276c7782"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceModels.cs",
+      "rawSha256": "5bbbec25627ca52743c2b6e79f07b02a51fde661cb848897d2bffe606a7f3f7d",
+      "lfSha256": "9ce06ffc9aa504ec168aff25aa11cf4c95555bab513515399745f5bac6de8783",
+      "baseGitBlob": "ce9cd22595bc0f83fa7ae122a6bfee02ec08838c"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceService.cs",
+      "rawSha256": "f9c4411a2a41a0c4e8597817f087843470540cce1f0c42323ff6fe0c46247567",
+      "lfSha256": "b4427fd39c0bded1b72947fd15b7cd222a4245b7109f5acb83cd36ccf4f36335",
+      "baseGitBlob": "9c3ae45a855a2d2048c50bc4584dfc6de8764c45"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalStockLedger.cs",
+      "rawSha256": "ed683374c45a9c9b0807f383ec2a828a5e2e32b183afe7a8b5f4c3daa3cbb3a7",
+      "lfSha256": "83f12cefec893d670719bc8d12e3815a6b4f1ef5d8687e5292aa933e3e2ac683",
+      "baseGitBlob": "826268a2fc6b679206d2bece2ec0fc1da6ce8ad0"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalCommandRunner.cs",
+      "rawSha256": "f246811eb229ce4b4232f9f3f045a20f2c4c7595e174a7c4e0a184c8205d3b59",
+      "lfSha256": "a5a8ee34e6b0e6db98f1c93500e94d8c224c7b0090a7f6d118ed48b7871d6d78",
+      "baseGitBlob": "8b07d2fedb43dcb5981c8aa68473bcbfb88a5119"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalDbContext.cs",
+      "rawSha256": "0ed12c5747b763442936bbf9ab97f9504cab1be03797ea8bd075afa44607906c",
+      "lfSha256": "5e7449509a14736b70134604829186911596c605bb9e3ec9f1e25a4ac59fc2ab",
+      "baseGitBlob": "7bc82f03c40be88c2e2dc776f7bbc7e0317441bd"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Migrations/20261106071201_PhysicalStockException.Designer.cs",
+      "rawSha256": "8c09d3c170ce2245db4a9e366657985e21d3828d70d598deb9102e96d2f1f616",
+      "lfSha256": "db259030ae2378d2d147fd0d98c62472cb93bb7f7759073d57a952283dc9a864",
+      "baseGitBlob": null
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Migrations/20261106071201_PhysicalStockException.cs",
+      "rawSha256": "f0679a4b25c1612b1e3fcf0f4b3aa8a15ef50241572a1c20b0ebba9e3c861d16",
+      "lfSha256": "b551cb4d6e88683130f0a09fbca37c8e5feabe2128790357c58d198575020894",
+      "baseGitBlob": null
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Migrations/InitialInternalSavia.idempotent.sql",
+      "rawSha256": "07f2c4c4944267f6fee3c497da028c6df9ee05d66287c5350121f62af3582e0c",
+      "lfSha256": "554c717a430b02df5b9417df37006750b78a5bad2fcb140d5d9882edab4150fe",
+      "baseGitBlob": "dd460a9299b5d9cb6db427d4169dd37f4006063d"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Migrations/InternalDbContextModelSnapshot.cs",
+      "rawSha256": "c361416b3bb16daca2e5321ae5d03873a7d9e3cdc2114fcac94b35a97d78fa62",
+      "lfSha256": "f1f1443198da501ec1abe5a48055a08e282c588c1713ac9092e74ce8d7cc097a",
+      "baseGitBlob": "5ae6410a6b765b8020171248da4b03a9f694ee3b"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/StockExceptions/InternalStockExceptions.cs",
+      "rawSha256": "4ed8d558c6e46f2b03688ec76b43bc0cc3455f45adc956d1c452a8126e1fe30a",
+      "lfSha256": "34aeb1cb20f86e275b75af6ef45ac75fd2842d886561b6e652b53920255788b7",
+      "baseGitBlob": null
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCommerceSqlTests.cs",
+      "rawSha256": "c69efc9a4491f4a109834e39aff3ccc4008d6e01decf65f8d8d2010a12a07e36",
+      "lfSha256": "c69efc9a4491f4a109834e39aff3ccc4008d6e01decf65f8d8d2010a12a07e36",
+      "baseGitBlob": "cc9419a1f68ef47bd8b9017ac24699640eb2eb0f"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalReleaseScriptTests.cs",
+      "rawSha256": "c992a2912c1b58ec845b70fb2995e092492e1c563ec93244bb8b737c931e796d",
+      "lfSha256": "2d2cfae89bc64be883a9da1f8a4248efa076dd3bb331d37d611f4cb65dc9848c",
+      "baseGitBlob": "1583e178d7da945c5ac12e411a39e18d92e76da3"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalStockExceptionSqlTests.cs",
+      "rawSha256": "d2631979c2c5b6af25cc91eeccfa1fbcfe5a7a37fbb0edfdfad4c51a1c8df4ad",
+      "lfSha256": "d7c148a54817d115560eca350cedcfa2032c431d3652f8075020148f9a339b7f",
+      "baseGitBlob": null
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalStockExceptionTests.cs",
+      "rawSha256": "b6540c829a15b641ed2134737118e362b3b210f2b618229fd9e6e95d8f192037",
+      "lfSha256": "a5d0ecd327b695edc5b690a20376b33e9035f853bf586978a7eb93442cebf834",
+      "baseGitBlob": null
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs",
+      "rawSha256": "3636636dcc80ab022a8c7b2226e7e259f9379ddc6318ad7f1aa6aa81cb108dcd",
+      "lfSha256": "2bd31d350d88a79a6e2e252d283b585fc9b9d6f09830c3e44bb3cab0b7b8fd9e",
+      "baseGitBlob": "a02283570ff44f7ef2e438df2dc413db6c9ba952"
+    },
+    {
+      "path": "dev/savia-staff-ui/README.md",
+      "rawSha256": "97e6ff600c3179f6280f57a99a3314ac82be42a484ba347d5dd93ff53d5bb43b",
+      "lfSha256": "97e6ff600c3179f6280f57a99a3314ac82be42a484ba347d5dd93ff53d5bb43b",
+      "baseGitBlob": "fc13fc7b7c35b06b58e7c1132def367bb334a739"
+    },
+    {
+      "path": "dev/savia-staff-ui/app.mjs",
+      "rawSha256": "cf3f032e986a11dc81bd769eb9c6ffafceddbd530cabb8de84b5cb44d12f6391",
+      "lfSha256": "cf3f032e986a11dc81bd769eb9c6ffafceddbd530cabb8de84b5cb44d12f6391",
+      "baseGitBlob": "e5396e114f588066c0e085e125423730ddd908cf"
+    },
+    {
+      "path": "dev/savia-staff-ui/client.mjs",
+      "rawSha256": "3eec3aeac1aedafbe982013848204117f2abff4040f1d1bcdc5d05202eb69f46",
+      "lfSha256": "ff4114da682949f4de0a957d28cf7b9a21828c88ecc32019c5bf0fd3e146da8f",
+      "baseGitBlob": "3f73ebb610728190483d058c1c9c9efc56dd060f"
+    },
+    {
+      "path": "dev/savia-staff-ui/index.html",
+      "rawSha256": "72193922c484ffe0fe2468ba897cfb2fc1bcf598528645b15311332b33d94b64",
+      "lfSha256": "88811aeb14377241bb812d495f42ffa8070d68f36742d170f5b07f8d5bcc544c",
+      "baseGitBlob": "47701fb7e4395bfb84b419040b14a4fdff2a10e2"
+    },
+    {
+      "path": "dev/savia-staff-ui/login.mjs",
+      "rawSha256": "07c6a492a0519a60d04873853102731d287beafbebee3ba9609e16ec6740a11d",
+      "lfSha256": "d2100680b3f558002f0cf6c3273cdf2911eb1d560164fb3bb4ecde7e2d30f77f",
+      "baseGitBlob": "9efd1fed45b53ac0bb5fc68e029c21e485045128"
+    },
+    {
+      "path": "dev/savia-staff-ui/stock-exception.test.mjs",
+      "rawSha256": "194bdfcf42cff34534dd2b5b141d7af4ce629f6a99ace32593bf0bccfa5a9218",
+      "lfSha256": "194bdfcf42cff34534dd2b5b141d7af4ce629f6a99ace32593bf0bccfa5a9218",
+      "baseGitBlob": null
+    },
+    {
+      "path": "dev/savia-staff-ui/styles.css",
+      "rawSha256": "61db534591305d989d815c47999cc5706d7b8de6e00c1628d361e10edbb94ca0",
+      "lfSha256": "61db534591305d989d815c47999cc5706d7b8de6e00c1628d361e10edbb94ca0",
+      "baseGitBlob": "e0d227c8b6c822090d6980a99ce91f1989bde520"
+    },
+    {
+      "path": "tests/golden-path/GoldenPath.Sql/Program.cs",
+      "rawSha256": "41b7ffaf9b73e02bb9877f538114a3dfbba1e7d846245b49ad29d5413a1be2c5",
+      "lfSha256": "41b7ffaf9b73e02bb9877f538114a3dfbba1e7d846245b49ad29d5413a1be2c5",
+      "baseGitBlob": "cdd1bebfe306cb6e91ce3450c915257f68f1db17"
+    },
+    {
+      "path": "tests/golden-path/README.md",
+      "rawSha256": "e7a5a7fe4cc140e5f49873cad75304e24a24dbc39c852864b45de77d5803f87f",
+      "lfSha256": "e7a5a7fe4cc140e5f49873cad75304e24a24dbc39c852864b45de77d5803f87f",
+      "baseGitBlob": "ecb80eedc606504fdd71b58e3ed4ea9a0111711e"
+    },
+    {
+      "path": "tests/golden-path/browser_path.mjs",
+      "rawSha256": "e2cbdfd18878864d3953d768a28adbaae3a68f195fe1dfe79710a34c79b23473",
+      "lfSha256": "e2cbdfd18878864d3953d768a28adbaae3a68f195fe1dfe79710a34c79b23473",
+      "baseGitBlob": "4041de4430f64d35dc50ce0be0455d1659cdc134"
+    },
+    {
+      "path": "tests/golden-path/golden_path.py",
+      "rawSha256": "419d27b62a367ba771988face2efd9fe8f8ef26270c8b9814ccc3922fcb6a502",
+      "lfSha256": "419d27b62a367ba771988face2efd9fe8f8ef26270c8b9814ccc3922fcb6a502",
+      "baseGitBlob": "dc06203ac89324f2e3b1004302b3666cdd89a673"
+    },
+    {
+      "path": "tests/golden-path/oracles.md",
+      "rawSha256": "5ca095fbe9dfcf0f84a126acb61eb58a73981c849dd03f6666f21b4ca5206e89",
+      "lfSha256": "2bb8668485c09c890b36ce0edfa6c9181b612b622f2e78ece69999e89dd27c9f",
+      "baseGitBlob": null
+    },
+    {
+      "path": "tests/test_golden_path_browser_safety.py",
+      "rawSha256": "5bca935f9d1af9c50686291e423147bba289ba4310123cc9c0d506acc7f35317",
+      "lfSha256": "5bca935f9d1af9c50686291e423147bba289ba4310123cc9c0d506acc7f35317",
+      "baseGitBlob": "54bcbab69c82cd7b71bc37880b9d40284c610de9"
+    },
+    {
+      "path": "tests/test_golden_path_stock_exception.py",
+      "rawSha256": "f77382bf36c31a6a0599a5c7f50106d2fa1ac91877c41d40e282a192fe031128",
+      "lfSha256": "f77382bf36c31a6a0599a5c7f50106d2fa1ac91877c41d40e282a192fe031128",
+      "baseGitBlob": null
+    },
+    {
+      "path": ".github/workflows/golden-path.yml",
+      "rawSha256": "767c6c4c424b8bc975642c813afcaad41dc8baf125a31e38bf6e128b914277d5",
+      "lfSha256": "9b1f6f20bfe5ad28b0e9401730be1c1f39e57d4cf61d3f3b6ce7d4bf4e70eae6",
+      "baseGitBlob": "ac55c2c422e450169fe2c02b24770ffefde215b5"
+    },
+    {
+      "path": ".github/workflows/staff-ui-candidate.yml",
+      "rawSha256": "94d354f7abd268b74ac966e5f3a7067d156a272ff0dfca2ba4000c6250b880e7",
+      "lfSha256": "dbc792e894d35b7dde8e5ac9c07d51aeaf99e5f9efeb4bf983cc8939507cb9cb",
+      "baseGitBlob": "aea6fc776740c4a19dbe0fb0a1fcc39bc026d32c"
+    }
+  ]
+}

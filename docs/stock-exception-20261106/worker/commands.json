@@ -1,0 +1,104 @@
+[
+  {
+    "command": "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe --version",
+    "exit": 0,
+    "result": "10.0.402"
+  },
+  {
+    "command": "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe restore backend/tests/Martha.Store.Api.Tests --locked-mode",
+    "exit": 0
+  },
+  {
+    "command": "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe restore tests/golden-path/GoldenPath.Sql --locked-mode",
+    "exit": 0
+  },
+  {
+    "command": "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe run --project docs/stock-exception-20261106/worker/ef-scaffold --no-restore",
+    "exit": 0,
+    "result": "EF 10.0.13 design-time scaffold; current migration 20261106071201; no SQL connection"
+  },
+  {
+    "command": "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe run --project docs/stock-exception-20261106/worker/ef-scaffold --no-restore -- script",
+    "exit": 0,
+    "result": "IMigrator generated checked-in idempotent SQL; final newline normalized by generator"
+  },
+  {
+    "command": "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe test backend/tests/Martha.Store.Api.Tests --no-restore --filter 'FullyQualifiedName~InternalStockExceptionTests|FullyQualifiedName~InternalCommerceTests|FullyQualifiedName~InternalReleaseScriptTests|FullyQualifiedName~PrivatePilotReleaseTests' --logger 'console;verbosity=minimal'",
+    "exit": 0,
+    "passed": 75,
+    "skipped": 6,
+    "log": "dotnet-tests.log",
+    "note": "filter and logger are individual quoted shell arguments; SQL endpoint variables absent"
+  },
+  {
+    "command": "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe test backend/tests/Martha.Store.Api.Tests --no-restore --logger 'console;verbosity=minimal'",
+    "environment": {
+      "SAVIA_PILOT_EVIDENCE": "<worktree>/docs/stock-exception-20261106/worker",
+      "MARTHA_INTERNAL_TEST_SQL_CONNECTION": "absent",
+      "MARTHA_TEST_SQL_CONNECTION": "absent"
+    },
+    "exit": 0,
+    "passed": 542,
+    "skipped": 79,
+    "log": "backend-full-offline.log"
+  },
+  {
+    "command": "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe build tests/golden-path/GoldenPath.Sql --no-restore",
+    "exit": 0,
+    "warnings": 0,
+    "errors": 0,
+    "log": "sql-helper-build.log"
+  },
+  {
+    "command": "node --test dev/savia-staff-ui/*.test.mjs",
+    "environment": {
+      "NODE_PATH": "C:/Users/Jason/MARTHA-SILVA/github/tests/frontend-deps/node_modules"
+    },
+    "exit": 0,
+    "passed": 133,
+    "skipped": 0,
+    "log": "staff-tests.log"
+  },
+  {
+    "command": "node tests/browser-mock-validation.mjs C:/Users/Jason/AppData/Roaming/npm/node_modules/@playwright/cli/node_modules/playwright docs/stock-exception-20261106/worker/browser-mock",
+    "exit": 0,
+    "passed": 50,
+    "log": "browser-mock.log",
+    "limit": "Earlier UI bytes, before final evidence rendering/layout. Final feature-specific Chrome run binds final UI bytes."
+  },
+  {
+    "command": "node tests/browser-supply-validation.mjs C:/Users/Jason/AppData/Roaming/npm/node_modules/@playwright/cli/node_modules/playwright docs/stock-exception-20261106/worker/browser-supply",
+    "exit": 0,
+    "passed": 8,
+    "log": "browser-supply.log",
+    "limit": "Mocked HTTP only; before final layout adjustment."
+  },
+  {
+    "command": "node docs/stock-exception-20261106/worker/browser-stock-check.mjs C:/Users/Jason/AppData/Roaming/npm/node_modules/@playwright/cli/node_modules/playwright",
+    "exit": 0,
+    "passed": 2,
+    "log": "browser-stock.log",
+    "result": "final UI bytes; 1440x1000 and 390x844; lost sale response with one sale POST; lost review response with same-key/body retry; one mocked review; no external requests or page errors"
+  },
+  {
+    "command": "python -m unittest discover -s tests -p 'test_golden_path*.py'",
+    "exit": 0,
+    "passed": 44,
+    "log": "harness-tests.log"
+  },
+  {
+    "command": "node --check tests/golden-path/browser_path.mjs",
+    "exit": 0
+  },
+  {
+    "command": "python tests/check.py --install",
+    "exit": 1,
+    "log": "repository-check.log",
+    "result": "locked npm install and preceding stages pass; asset-audit.py: three symlink fixture errors WinError 1314; later stages NOT RUN"
+  },
+  {
+    "command": "git diff --check",
+    "exit": 0,
+    "result": "line-ending conversion warnings only"
+  }
+]

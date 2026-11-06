@@ -1,0 +1,153 @@
+{
+  "task_id": "savia-stock-exception-9597f19-20261106-01",
+  "status": "returned",
+  "acceptance": false,
+  "base_sha": "9597f19d0e1621c2b3984f8bf8878a0f7d58d906",
+  "branch": "t3/physical-stock-exception",
+  "worktree": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-92a93a5c",
+  "identity": {
+    "host": "SUAZO-PC",
+    "harness": "T3 Code / Codex",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "verification": "runtime_info plus identity-awareness.txt",
+    "isolation": "existing assigned T3-managed worktree; no new checkout; no children",
+    "token_usage": "unknown",
+    "provider_cost": "unknown"
+  },
+  "timing": {
+    "first_observed_start_utc_approximate": "2026-11-06T06:50:00Z",
+    "evidence_written_utc": "2026-11-06T07:35:41.685252+00:00",
+    "elapsed_minutes_estimate": 48,
+    "exact_elapsed_telemetry": "unknown",
+    "limit_minutes": 50,
+    "finished_utc": "2026-11-06T07:37:43.511242+00:00"
+  },
+  "implemented": [
+    "Explicit sale-line exceptional allocation with mandatory reason and physical size; parent sale links actor/time/location; no balance, purchase receipt, cost or movement fabrication",
+    "Same serializable runner, stock-key lock ordering, idempotency fingerprint/result replay and ordinary stock/reservation guards",
+    "Exceptional returns/cancellation persist quantity/credit reversal without invented stock; original allocation remains auditable",
+    "Manager/Owner review requires a different actor server-side including Owner; append-only evidence/outcome/open cause/responsible authorized actor/future review date",
+    "Durable UI intent, same-key/body retry, duplicate-submit guard, session/version invalidation and late-response protection",
+    "Generated internal-only migration and script; prepared default-false combined browser/API/SQL journey; existing 17 checkpoints and four identity oracles retained"
+  ],
+  "changed_paths": [
+    "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceEndpoints.cs",
+    "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceModel.cs",
+    "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceModels.cs",
+    "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceService.cs",
+    "backend/src/Martha.Store.Api/Internal/Commerce/InternalStockLedger.cs",
+    "backend/src/Martha.Store.Api/Internal/InternalCommandRunner.cs",
+    "backend/src/Martha.Store.Api/Internal/InternalDbContext.cs",
+    "backend/src/Martha.Store.Api/Internal/Migrations/20261106071201_PhysicalStockException.Designer.cs",
+    "backend/src/Martha.Store.Api/Internal/Migrations/20261106071201_PhysicalStockException.cs",
+    "backend/src/Martha.Store.Api/Internal/Migrations/InitialInternalSavia.idempotent.sql",
+    "backend/src/Martha.Store.Api/Internal/Migrations/InternalDbContextModelSnapshot.cs",
+    "backend/src/Martha.Store.Api/Internal/StockExceptions/InternalStockExceptions.cs",
+    "backend/tests/Martha.Store.Api.Tests/InternalCommerceSqlTests.cs",
+    "backend/tests/Martha.Store.Api.Tests/InternalReleaseScriptTests.cs",
+    "backend/tests/Martha.Store.Api.Tests/InternalStockExceptionSqlTests.cs",
+    "backend/tests/Martha.Store.Api.Tests/InternalStockExceptionTests.cs",
+    "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs",
+    "dev/savia-staff-ui/README.md",
+    "dev/savia-staff-ui/app.mjs",
+    "dev/savia-staff-ui/client.mjs",
+    "dev/savia-staff-ui/index.html",
+    "dev/savia-staff-ui/login.mjs",
+    "dev/savia-staff-ui/stock-exception.test.mjs",
+    "dev/savia-staff-ui/styles.css",
+    "tests/golden-path/GoldenPath.Sql/Program.cs",
+    "tests/golden-path/README.md",
+    "tests/golden-path/browser_path.mjs",
+    "tests/golden-path/golden_path.py",
+    "tests/golden-path/oracles.md",
+    "tests/test_golden_path_browser_safety.py",
+    "tests/test_golden_path_stock_exception.py"
+  ],
+  "source_binding": "source-binding.json",
+  "commands": "commands.json",
+  "negative_controls": "negative-controls.json",
+  "restoration": "restoration.json",
+  "verification": {
+    "backend_offline": {
+      "passed": 542,
+      "skipped": 79
+    },
+    "staff_unit_mocked": {
+      "passed": 133
+    },
+    "golden_harness_offline": {
+      "passed": 44
+    },
+    "earlier_browser_mock": {
+      "passed": 50
+    },
+    "earlier_supply_browser_mock": {
+      "passed": 8
+    },
+    "final_stock_browser_mock": {
+      "passed": 2,
+      "widths": [
+        1440,
+        390
+      ]
+    },
+    "negative_controls": {
+      "detected": 4,
+      "exact_byte_restoration": true
+    },
+    "sql_helper": "compiled",
+    "repository_gate": "failed: WinError 1314 asset-audit symlink fixture"
+  },
+  "not_run": [
+    "SQL connection or migration application",
+    "Three prepared InternalStockExceptionSqlTests (part of 79 skipped tests)",
+    "Real SQL/API/browser journey with --supply --stock-exception",
+    "Real persistence, SQL locking/concurrency/rollback/reversal proof",
+    "Docker, certificates/trust changes, Actions dispatch, production, payments, deployment",
+    "Independent Gemini critic and Astra judge; primary integration/acceptance",
+    "tests/check.py stages after asset-audit failure"
+  ],
+  "blockers": [
+    {
+      "artifact": "real persistence journey",
+      "cause": "worker authority excludes SQL/API-backed runtime",
+      "attempt": "compiled helper, generated migration offline, prepared SQL tests and default-false journey; did not open connection",
+      "next_action": "primary freeze/review candidate, then obtain/reuse explicit disposable runtime authority before running prepared journey",
+      "owner": "primary orchestrator",
+      "completion_check": "exact candidate SHA/source bytes, three SQL tests and all 22 combined checkpoints pass; independent SQL identity/accounting oracles and verified cleanup"
+    },
+    {
+      "artifact": "python tests/check.py --install",
+      "cause": "Windows symlink fixture creation requires a privilege unavailable to this process: WinError 1314",
+      "attempt": "ran once; recorded three asset-audit errors; did not change security or retry",
+      "next_action": "primary run unchanged repository check in existing authorized Linux CI/environment; do not infer later stages passed",
+      "owner": "primary orchestrator",
+      "completion_check": "whole repository runner exits 0 with exact candidate bytes"
+    },
+    {
+      "artifact": "worker/ef-scaffold/bin and obj local cache",
+      "cause": "automatic approval review rejected Remove-Item recursive cache deletion: blocked by policy",
+      "attempt": "no deletion executed; retained cache; added scoped ef-scaffold/.gitignore; git check-ignore confirmed exclusion",
+      "next_action": "retain ignored cache and omit it from integration; no deletion bypass",
+      "owner": "implementation worker / primary integration",
+      "completion_check": "cache remains ignored; source-binding and integration candidate contain only source/evidence, no compiled cache",
+      "state": "contained by permitted alternative"
+    }
+  ],
+  "resolved_failures": [
+    "Initial CS1061 from accidental validation of exception fields on return DTO corrected; focused tests passed",
+    "Concurrent .NET builds caused CS2012 file-in-use; serial SQL-helper build passed",
+    "Harness mocked migration count updated from 2 to 3; 44 guards pass",
+    "Direct inspection found wrong placement of exception predicate in SQL oracle; corrected ordinary-sale predicate and preserved purchase oracle; offline source guard added",
+    "First whole-backend invocation omitted SAVIA_PILOT_EVIDENCE; rerun with explicit evidence directory passed",
+    "First new browser script import used one extra parent directory; corrected import; final desktop/mobile runs pass"
+  ],
+  "limits": [
+    "Mocked browser records are not database persistence proof",
+    "Review remains open; no cause-resolution or automatic reconciliation action is implemented",
+    "Responsible profile ID and sale ID are explicit manual trial inputs; no real employee assignments",
+    "No staged files, commit, push, PR, publication, merge, deployment or ledger/status changes"
+  ],
+  "next_action": "Primary orchestrator reviews the source-bound candidate, then sends the frozen candidate to the independent critic/judge before any authorized real journey."
+}

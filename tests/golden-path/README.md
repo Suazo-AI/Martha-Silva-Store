@@ -169,3 +169,37 @@ pérdida de respuesta y recuperación GET con clave e identidad originales.
 Requiere autorización de runtime nueva; no hereda la corrida SQL anterior.
 Contrato, controles sin SQL y comando futuro: [SUPPLY-REAL-PREP](../../docs/supply-real-20261106/README.md).
 El workflow ofrece `supply_receipt=false` por defecto.
+
+
+## Physical exception + independent review: explicit opt-in, NOT RUN
+
+`--stock-exception` defaults to false and requires `--supply --mode browser`.
+Existing `--supply` alone retains its 17 checkpoints and four SQL identity oracles.
+The new flag adds five checkpoints after that unchanged path: exceptional sale, reload,
+different-person review, review reload and final logout.
+No workflow dispatch, runtime permission or deployment is enabled by this preparation.
+
+Prepared command, only after the primary obtains separate disposable SQL/API runtime authority:
+
+```sh
+python3 tests/golden-path/golden_path.py --out <fresh-evidence-directory> --mode browser --playwright-directory <installed-package> --supply --stock-exception
+```
+
+Use the existing private connection source, synthetic identities and disposable database guard.
+The command requires the existing Linux/POSIX harness environment; this worker did not run it on Windows.
+The fixture adds one synthetic article with no balance, receipt or opening quantity.
+The cashier delivers 1 size S at 1250 USD minor units and enters an explicit reason.
+A different Manager reviews sale and physical-count evidence at simulated close.
+The cause remains open, with that synthetic Manager responsible and next review in 2099.
+See [oracles.md](oracles.md) for exact durable accounting and identity checks.
+
+Prepared SQL tests: `InternalStockExceptionSqlTests` cover concurrent identical replay,
+body conflict, mixed-line rollback, partial return, cancellation, Owner self-review denial,
+substitute review and review replay.
+They use `MARTHA_INTERNAL_TEST_SQL_CONNECTION` only under separate runtime authority.
+Their three skipped results here are NOT persistence proof.
+
+Retirement is mandatory: stop only owned browser/API process groups, remove the private session
+file and drop only the database acknowledged as created by this run.
+A failed or uncertain drop/stop is a failed run; verify `cleanup` and evidence verification output.
+No migration was applied and no SQL connection was opened by this worker.

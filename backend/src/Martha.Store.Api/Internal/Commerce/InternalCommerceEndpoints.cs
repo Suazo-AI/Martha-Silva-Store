@@ -30,6 +30,11 @@ public static class InternalCommerceEndpoints
         group.MapPost("/sales/{id:guid}/returns", async (Guid id, InternalSaleReturnRequest request, HttpContext context, InternalCommerceService service, CancellationToken ct) =>
             Result(await service.ReturnSale(id, request, InternalActor.Id(context.User), Key(context), ct)))
             .RequireAuthorization("internal.manage").RequireInternalCsrf();
+        group.MapGet("/sales/{id:guid}/stock-reviews", async (Guid id, InternalCommerceService service, HttpContext http, CancellationToken ct) =>
+            await service.StockReviews(id, InternalActor.Id(http.User), ct) is { } records ? Results.Ok(records) : Error("sale_not_found"));
+        group.MapPost("/sales/{id:guid}/stock-reviews", async (Guid id, InternalStockExceptionReviewRequest request, InternalCommerceService service, HttpContext http, CancellationToken ct) =>
+            Result(await service.ReviewStockException(id, request, InternalActor.Id(http.User), Key(http), ct)))
+            .RequireAuthorization("internal.manage").RequireInternalCsrf();
         return endpoints;
     }
 

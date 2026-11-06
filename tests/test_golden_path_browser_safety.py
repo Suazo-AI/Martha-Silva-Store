@@ -128,7 +128,7 @@ class BrowserSafetyTests(unittest.TestCase):
             events.append((json.dumps(event) + '\n').encode())
             # The child claims the second sale committed. SQL independently still sees only one.
             actual = min(sales, 1)
-            counts.append({**dict.fromkeys(GP.ALWAYS_ZERO, 0), 'migrations_applied': 2, 'sales': actual,
+            counts.append({**dict.fromkeys(GP.ALWAYS_ZERO, 0), 'migrations_applied': GP.EXPECTED_MIGRATIONS, 'sales': actual,
                 'sale_lines': 2 * actual, 'sale_movements': 2 * actual, 'sale_operations': actual,
                 'movements': 3 + 2 * actual, 'operations': 10 + actual,
                 'on_hand_total': 30 if actual == 0 else 27, 'active_sessions': 0 if index == 0 else 1})
@@ -285,7 +285,7 @@ class SupplyHarnessControls(unittest.TestCase):
                 try:
                     harness.database_created = True
                     harness.oracles = Mock(return_value={**dict.fromkeys(GP.ALWAYS_ZERO, 0),
-                        'migrations_applied': 2, **final, field: value})
+                        'migrations_applied': GP.EXPECTED_MIGRATIONS, **final, field: value})
                     with self.assertRaises(GP.HarnessError):
                         harness.step('browser.supply_recovered', lambda: {}, final)
                     self.assertEqual(harness.steps[-1]['status'], 'FAIL')
@@ -321,7 +321,7 @@ class SupplyHarnessControls(unittest.TestCase):
                     event['notes']['network'] = [{'method': 'GET', 'path': '/internal/api/operations/commerce.sale.record',
                         'status': 200, 'key': LOST_KEY, 'response_lost': False}]
                 events.append(event)
-                counts.append({**dict.fromkeys(GP.ALWAYS_ZERO, 0), 'migrations_applied': 2,
+                counts.append({**dict.fromkeys(GP.ALWAYS_ZERO, 0), 'migrations_applied': GP.EXPECTED_MIGRATIONS,
                     'sales': sales, 'sale_lines': 2*sales, 'sale_movements': 2*sales, 'sale_operations': sales,
                     'movements': 3+2*sales, 'operations': 10+sales, 'on_hand_total': (30,27,25)[sales],
                     'active_sessions': int(name not in ('browser.start', 'browser.logout'))})
@@ -339,7 +339,7 @@ class SupplyHarnessControls(unittest.TestCase):
                         'status': 200, 'key': LOST_KEY, 'response_lost': False}]
                 event['notes'].update(notes)
                 events.append(event)
-                counts.append({**dict.fromkeys(GP.ALWAYS_ZERO, 0), 'migrations_applied': 2,
+                counts.append({**dict.fromkeys(GP.ALWAYS_ZERO, 0), 'migrations_applied': GP.EXPECTED_MIGRATIONS,
                                **GP.supply_expected(name), 'operations': 13 if index == 0 else 14 if index == 1 else 15})
             harness.oracles = Mock(side_effect=counts)
             helper.run_child(harness, process, [(json.dumps(event)+'\n').encode() for event in events])

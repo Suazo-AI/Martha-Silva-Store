@@ -55,6 +55,8 @@ export function createStaffClient(options = {}) {
           || x.available !== x.onHand-x.reserved || x.onHand < 0 || x.reserved < 0)) throw new StaffRequestError('response');
       return page;
     },
+    async stockReviews(saleId) { if(!isId(saleId)) throw new StaffRequestError('invalid'); return auth.requestBusiness(`/internal/api/commerce/sales/${saleId}/stock-reviews`); },
+    async reviewStockException(saleId, key, body) { if(!isId(saleId)) throw new StaffRequestError('invalid'); return auth.requestBusiness(`/internal/api/commerce/sales/${saleId}/stock-reviews`,{method:'POST',key,body}); },
     async recordSale(key, body) { validateSaleRequest(body); return readReceipt(await auth.requestBusiness('/internal/api/commerce/sales', {method:'POST',key,body}), body); },
     async recoverSale(key, body) { validateSaleRequest(body); const v=await auth.requestBusiness('/internal/api/operations/commerce.sale.record',{key});
       if(v?.status !== 'completed' || !v.result) throw new StaffRequestError('response');
@@ -69,10 +71,12 @@ export function createStaffClient(options = {}) {
     listItems: options => list('items', options), listLocations: options => list('locations', options)});
 }
 const isId = value => typeof value === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(value) && !/^0{8}-0{4}-0{4}-0{4}-0{12}$/.test(value);
+const auditText = (v,max) => typeof v==='string' && v.length<=max && v.trim().length>0 && !/[\x00-\x1f\x7f]/.test(v);
 export function validateSaleRequest(body) {
   if (!body || !isId(body.locationId) || body.customerId !== null || !Array.isArray(body.lines)
     || body.lines.length < 1 || body.lines.length > 100
-    || body.lines.some(line => !line || !isId(line.itemId) || !Number.isSafeInteger(line.quantity) || line.quantity < 1 || line.quantity > 100000)
+    || body.lines.some(line => !line || !isId(line.itemId) || !Number.isSafeInteger(line.quantity) || line.quantity < 1 || line.quantity > 100000
+      || (line.exceptionReason != null ? !auditText(line.exceptionReason,500) || !auditText(line.size,80) : line.size != null))
     || new Set(body.lines.map(line => line.itemId.toLowerCase())).size !== body.lines.length)
     throw new StaffRequestError('invalid');
 }
@@ -88,6 +92,7 @@ export function readReceipt(value, expected) {
       || !Number.isSafeInteger(line.quantity) || line.quantity < 1 || !Number.isSafeInteger(line.unitPriceMinor) || line.unitPriceMinor < 0
       || !Number.isSafeInteger(line.returnedQuantity) || line.returnedQuantity < 0 || line.returnedQuantity > line.quantity
       || !Number.isSafeInteger(line.totalMinor) || line.totalMinor !== line.quantity * line.unitPriceMinor) throw new StaffRequestError('response');
+    if(line.exceptionReason != null ? !auditText(line.exceptionReason,500) || !auditText(line.size,80) : line.size != null) throw new StaffRequestError('response');
     total += line.totalMinor;
   }
   if (!Number.isSafeInteger(total) || total !== value.totalMinor
@@ -97,7 +102,9 @@ export function readReceipt(value, expected) {
     validateSaleRequest(expected);
     const quantities = new Map(expected.lines.map(line => [line.itemId.toLowerCase(), line.quantity]));
     if (value.locationId.toLowerCase() !== expected.locationId.toLowerCase() || value.lines.length !== expected.lines.length
-      || value.lines.some(line => quantities.get(line.itemId.toLowerCase()) !== line.quantity)) throw new StaffRequestError('response');
+      || value.lines.some(line => quantities.get(line.itemId.toLowerCase()) !== line.quantity
+        || (expected.lines.find(x=>x.itemId.toLowerCase()===line.itemId.toLowerCase())?.exceptionReason?.trim() ?? null) !== (line.exceptionReason ?? null)
+        || (expected.lines.find(x=>x.itemId.toLowerCase()===line.itemId.toLowerCase())?.size?.trim() ?? null) !== (line.size ?? null))) throw new StaffRequestError('response');
   }
   return value;
 }

@@ -51,10 +51,13 @@ public sealed partial class InternalDbContext
         var line = model.Entity<InternalSaleLine>();
         line.ToTable("SaleLines", t =>
         {
+            t.HasCheckConstraint("CK_InternalSaleLine_Exception", "([ExceptionReason] IS NULL AND [Size] IS NULL) OR ([ExceptionReason] IS NOT NULL AND [Size] IS NOT NULL AND LEN(LTRIM(RTRIM([ExceptionReason]))) > 0 AND LEN(LTRIM(RTRIM([Size]))) > 0)");
             t.HasCheckConstraint("CK_InternalSaleLine_Quantity", "[Quantity] >= 1 AND [Quantity] <= 1000000 AND [ReturnedQuantity] >= 0 AND [ReturnedQuantity] <= [Quantity]");
             t.HasCheckConstraint("CK_InternalSaleLine_Amounts", "[UnitPriceMinor] >= 0 AND [UnitPriceMinor] <= 9000000000000 AND [TotalMinor] >= 0 AND [TotalMinor] <= 9000000000000 AND CAST([UnitPriceMinor] AS decimal(28,0)) * [Quantity] = [TotalMinor]");
         });
         line.HasKey(x => x.Id);
+        line.Property(x => x.ExceptionReason).HasMaxLength(500);
+        line.Property(x => x.Size).HasMaxLength(80);
         line.Property(x => x.Sku).HasMaxLength(80).IsRequired();
         line.Property(x => x.Name).HasMaxLength(200).IsRequired();
         line.HasIndex(x => new { x.SaleId, x.ItemId }).IsUnique();

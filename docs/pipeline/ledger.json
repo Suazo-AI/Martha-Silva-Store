@@ -52,7 +52,13 @@
       "done_when": "Listado/detalle/recepción parcial y completa, intento durable y recuperación sin duplicados; Chrome con HTTP simulado, controles negativos, revisión independiente y CI del SHA integrado. API/SQL real y aceptación operativa permanecen gates separados.",
       "alternatives": "Conectar el contrato de recepción existente antes de crear otro simulador. No ampliar permisos del directorio ni inventar cobro, ajuste de stock o validez fiscal.",
       "evidence": "docs/supply-ui-20261105/primary-review.md",
-      "paths": ["dev/savia-staff-ui/*", "backend/src/Martha.Store.Api/Internal/InternalUiHosting.cs", "backend/src/Martha.Store.Api/Martha.Store.Api.csproj", "tests/*supply*", "docs/supply-ui-20261105/*"]
+      "paths": [
+        "dev/savia-staff-ui/*",
+        "backend/src/Martha.Store.Api/Internal/InternalUiHosting.cs",
+        "backend/src/Martha.Store.Api/Martha.Store.Api.csproj",
+        "tests/*supply*",
+        "docs/supply-ui-20261105/*"
+      ]
     },
     {
       "id": "SALE-MULTI",
@@ -64,7 +70,13 @@
       "done_when": "Carrito editable, recibo completo y recuperacion con clave/cuerpo originales; CI del SHA exacto prueba dos ventas, cuatro lineas y cuatro movimientos sin duplicados ni efectos parciales.",
       "alternatives": "Aprovechar la transaccion e idempotencia del backend existente; no crear ventas separadas por articulo.",
       "evidence": "docs/multiarticle-20261104/README.md",
-      "paths": ["dev/savia-staff-ui/*", "tests/browser-mock-validation.mjs", "tests/golden-path/*", "tests/test_golden_path_browser_safety.py", "docs/multiarticle-20261104/*"]
+      "paths": [
+        "dev/savia-staff-ui/*",
+        "tests/browser-mock-validation.mjs",
+        "tests/golden-path/*",
+        "tests/test_golden_path_browser_safety.py",
+        "docs/multiarticle-20261104/*"
+      ]
     },
     {
       "id": "N5",
@@ -128,7 +140,7 @@
       "order": 4,
       "track": "sprint",
       "owner": "suazo_pc",
-      "status": "todo",
+      "status": "review",
       "title": "Implementar entrega excepcional y revision independiente D-026/D-027",
       "why": "La prenda fisica existe con registro0; la politica elegida aun no tiene un recorrido soportado y persistido.",
       "done_when": "UI/API/SQL vinculan venta, articulo/talla/ubicacion/cantidad/actor/momento; motivo obligatorio; guardas normales no negativas y sin ajustes libres de cajera; atomicidad/idempotencia/rollback; reintento/concurrencia/fallo parcial y devolucion/reversion correctos; revisor distinto, suplente al cierre, evidencia/causa abierta/responsable/proxima revision persistidos. Sin recepcion, costo o saldo inventados. Recorrido real probado y aceptado.",
@@ -137,8 +149,8 @@
         "dev/savia-staff-ui/*",
         "tests/golden-path/*"
       ],
-      "prep": "D026/D027 ya adoptadas. El puente artificial de stock no es una decision autorizada. Implementacion local reversible permitida; SQL/API/Docker/certificados requieren alcance propio. Un executor Sol/high; integracion serial del primary.",
-      "report": "docs/release-20261106/process-acceptance.md"
+      "prep": "Candidate imported from worker: mandatory reason/size, no fabricated balance/movement, different-person append-only review. Primary reproduced and fixed ordinary-sale fingerprint regression. Primary offline: backend543 pass/58 skip, staff133, harness46, helper build and Chrome1440/390 pass. SQL persistence/concurrency and independent acceptance NOT RUN. Original done_when unchanged.",
+      "report": "docs/stock-exception-20261106/PRIMARY-REVIEW.md"
     },
     {
       "id": "C2",
@@ -308,7 +320,7 @@
         "SUPPLY-UI",
         "STOCK-EXCEPTION"
       ],
-      "blocker": "Falta implementar STOCK-EXCEPTION y autorizar una campana integrada sobre el candidato congelado. Preparacion puede avanzar sin C2/C9.",
+      "blocker": "STOCK-EXCEPTION candidate is under independent review; integrated SQL/browser campaign is NOT RUN. Freeze and review before requesting runtime scope.",
       "title": "Ensayo tecnico sintetico persistido en SUAZO-PC",
       "why": "Una pantalla simulada y una suite SQL separada no prueban juntas el recorrido real completo.",
       "done_when": "Candidato congelado: navegador/API/SQL de recepcion, venta/reintento, excepcion y revision por otra persona pasan con oraculos independientes persistidos; identidad de fuentes, saneamiento y retiro comprobado de recursos propios. No sustituye tareas, tiempos o conteo fisico de C10.",

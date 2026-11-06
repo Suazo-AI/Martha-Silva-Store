@@ -29,7 +29,7 @@ public static class InternalCommandAuthorization
             or "directory.locations.create" or "directory.locations.update" or "directory.locations.deactivate"
             or "directory.parties.create" or "directory.parties.update" or "directory.parties.deactivate" => ["Owner"],
             "supply.purchase.create" or "supply.purchase.cancel"
-            or "commerce.sale.cancel" or "commerce.sale.return" => ["Owner", "Manager"],
+            or "commerce.stock.review" or "commerce.sale.cancel" or "commerce.sale.return" => ["Owner", "Manager"],
             "commerce.stock.adjust" or "supply.receipt.create" => ["Owner", "Manager", "Inventory"],
             "commerce.sale.record" => ["Owner", "Manager", "Cashier"],
             _ => []

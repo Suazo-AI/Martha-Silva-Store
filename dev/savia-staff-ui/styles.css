@@ -99,6 +99,7 @@ form { margin: 0; }
 .field { display: flex; flex-direction: column; gap: .45rem; min-width: 0; font-size: .875rem; font-weight: 600; }
 .field.full { grid-column: 1 / -1; }
 .sale-lines { gap: 1rem; }
+.sale-line > .sale-exception { grid-column: 1 / -1; }
 .sale-line { display: grid; grid-template-columns: minmax(0, 1fr) 110px auto; gap: .75rem; align-items: end; }
 @media (max-width: 600px) {
   .sale-line { grid-template-columns: minmax(0, 1fr) 100px; }

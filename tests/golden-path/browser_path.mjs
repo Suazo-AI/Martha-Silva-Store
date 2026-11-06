@@ -66,6 +66,7 @@ try {
   ].map(value => `/internal/api/${value}`)]);
   const permittedPath = pathname => allowed.has(pathname)
     || (pathname.startsWith('/internal/api/commerce/sales/') && uuid(pathname.split('/').at(-1)))
+    || /^\/internal\/api\/commerce\/sales\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\/stock-reviews$/.test(pathname)
     || /^\/internal\/api\/supply\/purchase-orders\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}(?:\/receipts)?$/.test(pathname);
   await context.route('**/*', async route => {
     const url = new URL(route.request().url());
@@ -89,6 +90,10 @@ try {
       // The UI sends only identity and quantity. No client price or total enters the API.
       try {
         const body = request.postDataJSON();
+        if(config.stock_exception && posts===3) {
+          check(uuid(key) && Object.keys(body).sort().join(',')==='customerId,lines,locationId' && body.customerId===null && body.locationId===config.location_id && Object.keys(body.lines[0]).sort().join(',')==='exceptionReason,itemId,quantity,size' && body.lines.length===1 && body.lines[0].itemId===config.exception_item_id && body.lines[0].quantity===1 && body.lines[0].size==='S' && body.lines[0].exceptionReason==='SINTETICO physical garment present','c6_stock_sale_invalid');
+          return;
+        }
         check(uuid(key) && posts <= 2 && Object.keys(body).sort().join(',') === 'customerId,lines,locationId'
           && body.locationId === config.location_id && body.customerId === null && body.lines.length === 2
           && body.lines.every(line => Object.keys(line).sort().join(',') === 'itemId,quantity')
@@ -409,6 +414,41 @@ try {
     await expect(page.locator('#login-submit')).toBeEnabled();
     await supplyCheckpoint('browser.supply_logout');
   }
+  if(config.stock_exception) {
+    let exceptional, saleKey, reviewKey, review;
+    const login=async user=>{await page.locator('#login-name').fill(user.loginName);await page.locator('#login-password').fill(user.password);await page.locator('#login-submit').click();await nav('ventas');};
+    const logout=async()=>{await page.locator('[data-action="logout"]').click({noWaitAfter:true});await page.waitForURL(`${origin.origin}/internal/login`);};
+    const cp=step=>checkpoint(step,{dom:step.endsWith('logout')?['logged_out']:['shell'],sale_id:exceptional.saleId,key:saleKey,
+      ...(review?{review_id:review.id,review_key:reviewKey}: {})});
+    await login(config.cashier);
+    await page.locator('#sale-item').selectOption(config.exception_item_id);
+    await page.locator('#sale-quantity').fill('1');
+    await page.locator('[data-exception]').check();
+    await page.locator('[data-exception-reason]').fill('SINTETICO physical garment present');
+    await page.locator('[data-exception-size]').fill('S');
+    const sold=page.waitForResponse(r=>new URL(r.url()).pathname==='/internal/api/commerce/sales'&&r.request().method()==='POST');
+    await page.locator('#sale-submit').click();const response=await sold;
+    check(response.status()===200,'c6_stock_sale_invalid');exceptional=await response.json();saleKey=response.request().headers()['idempotency-key'];
+    check(exceptional.lines.length===1 && exceptional.lines[0].exceptionReason==='SINTETICO physical garment present' && exceptional.totalMinor===1250,'c6_stock_sale_invalid');
+    await expect(page.locator('#sale-receipt')).toContainText(exceptional.saleId);await cp('browser.stock_sale');
+    await page.reload();await nav('ventas');await expect(page.locator('#sale-receipt')).toContainText(exceptional.saleId);await cp('browser.stock_reload');
+    await logout();await login(config.manager);
+    await page.locator('#stock-review-load input').fill(exceptional.saleId);await page.locator('#stock-review-load button').click();
+    await expect(page.locator('#stock-review-form select')).toHaveValue(exceptional.lines[0].saleLineId);
+    await page.locator('[name="evidence"]').fill('SINTETICO sale and physical count examined');
+    await page.locator('[name="outcome"]').fill('SINTETICO cause unproven; follow up');
+    await page.locator('[name="responsibleActorId"]').fill(config.manager.id);
+    await page.locator('[name="nextReviewAt"]').fill('2099-11-07T17:00');
+    const reviewed=page.waitForResponse(r=>new URL(r.url()).pathname.endsWith('/stock-reviews')&&r.request().method()==='POST');
+    await page.locator('#stock-review-form button').click();const rr=await reviewed;check(rr.status()===200,'c6_stock_review_invalid');
+    review=await rr.json();reviewKey=rr.request().headers()['idempotency-key'];
+    check(review.reviewerId===config.manager.id && review.reviewerId!==exceptional.actorId && review.causeState==='open','c6_stock_review_invalid');
+    await expect(page.locator('#stock-review-status')).toContainText('confirmada');await cp('browser.stock_review');
+    await page.reload();await nav('ventas');await page.locator('#stock-review-load input').fill(exceptional.saleId);await page.locator('#stock-review-load button').click();
+    await expect(page.locator('#stock-review-evidence')).toContainText(review.id);await cp('browser.stock_review_reload');
+    await logout();await cp('browser.stock_logout');
+  }
+
 
 } catch (error) {
   failed = true;

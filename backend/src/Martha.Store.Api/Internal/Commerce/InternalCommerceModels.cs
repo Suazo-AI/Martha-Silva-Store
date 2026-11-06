@@ -59,6 +59,8 @@ public sealed class InternalSaleLine
     public string Name { get; set; } = "";
     public int Quantity { get; set; }
     public int ReturnedQuantity { get; set; }
+    public string? ExceptionReason { get; set; }
+    public string? Size { get; set; }
     public long UnitPriceMinor { get; set; }
     public long TotalMinor { get; set; }
 }
@@ -86,7 +88,9 @@ public sealed class InternalSaleReversalLine
 }
 
 [JsonUnmappedMemberHandling(JsonUnmappedMemberHandling.Disallow)]
-public sealed record InternalSaleLineRequest(Guid ItemId, int Quantity);
+public sealed record InternalSaleLineRequest(Guid ItemId, int Quantity,
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] string? ExceptionReason = null,
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] string? Size = null);
 [JsonUnmappedMemberHandling(JsonUnmappedMemberHandling.Disallow)]
 public sealed record InternalSaleRequest(Guid LocationId, Guid? CustomerId, IReadOnlyList<InternalSaleLineRequest>? Lines);
 [JsonUnmappedMemberHandling(JsonUnmappedMemberHandling.Disallow)]
@@ -100,7 +104,7 @@ public sealed record InternalSaleReturnRequest(string? Reason, IReadOnlyList<Int
 
 public sealed record InternalStockView(Guid ItemId, Guid LocationId, int OnHand, int Reserved, int Available, DateTimeOffset UpdatedAt);
 public sealed record InternalStockAdjustmentReceipt(Guid AdjustmentId, Guid ItemId, Guid LocationId, int OnHandDelta, Guid ActorId, string Reason, DateTimeOffset CreatedAt);
-public sealed record InternalSaleLineReceipt(Guid SaleLineId, Guid ItemId, string Sku, string Name, int Quantity, int ReturnedQuantity, long UnitPriceMinor, long TotalMinor);
+public sealed record InternalSaleLineReceipt(Guid SaleLineId, Guid ItemId, string Sku, string Name, int Quantity, int ReturnedQuantity, long UnitPriceMinor, long TotalMinor, string? ExceptionReason = null, string? Size = null);
 public sealed record InternalSaleReceipt(Guid SaleId, Guid LocationId, Guid? CustomerId, Guid ActorId, string Currency, long TotalMinor, string State,
     string PaymentStatus, DateTimeOffset CreatedAt, IReadOnlyList<InternalSaleLineReceipt> Lines);
 public sealed record InternalSaleReversalLineReceipt(Guid SaleLineId, int Quantity, long RecordedCreditMinor);

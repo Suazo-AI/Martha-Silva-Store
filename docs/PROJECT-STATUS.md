@@ -9,6 +9,12 @@ STOCK-EXCEPTION and TECH-TRIAL now track the missing technical journey; C10 oper
 P-LEGACY stays closed for classification; current storefront remediation is separate.
 [Accepted plan, evidence and next execution](release-20261106/process-acceptance.md).
 
+Stock exception candidate, 2026-11-06: implementation is under review, not accepted.
+Primary reproduced and corrected an ordinary-sale replay fingerprint regression before publication.
+Primary checks: backend543 pass/58 skipped; staff133/133; harness46/46; actual Chrome desktop/mobile with mocked HTTP.
+Default-false stock workflow input is prepared; no SQL runtime was started or dispatched.
+[Candidate, proof boundaries and remaining blockers](stock-exception-20261106/PRIMARY-REVIEW.md).
+
 Supply receipt preparation: Astra ACCEPT WITH LIMITS returned and accepted by the primary.
 21/21 current source bindings match. No-SQL CI42169677581 passed on unchanged bindings.
 That run has 526 .NET passes and 55 skips, staff124/124 and mocked Chrome50/50 plus8/8.

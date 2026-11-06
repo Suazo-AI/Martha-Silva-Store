@@ -1,0 +1,77 @@
+{
+  "checks": [
+    {
+      "log": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\legacy-fingerprint-red.log",
+      "sha256": "4affcf8b8d8745a5b0b09ff327f62cb980382aec5ad28ff25f03c5bc667cc4b0",
+      "exit": 1,
+      "meaning": "Product regression reproduced: legacy ordinary sale fingerprint changed"
+    },
+    {
+      "log": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\primary-backend.log",
+      "sha256": "52b65d9cc17263b373cf0a2a11bff2c25212395f1ca08f514a245f5247eabe1b",
+      "exit": 1,
+      "meaning": "Environment failure: required private evidence directory absent"
+    },
+    {
+      "log": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\primary-backend-green.log",
+      "sha256": "00331e2365c25b336a2d86311c0bf41ee6a5b1d1071e40a8f3f7bca58d36ecb3",
+      "exit": 0,
+      "meaning": "543 passed; 58 skipped; explicit evidence directory; no SQL"
+    },
+    {
+      "log": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\primary-staff.log",
+      "sha256": "7f08dd3d57eb74a6bc248d376cad8f867002e9d9d1051252b18f9b97db47e27e",
+      "exit": 0,
+      "meaning": "133 passed; zero skipped"
+    },
+    {
+      "log": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\primary-harness.log",
+      "sha256": "861d2981e6fc077786b49e28171120121ae5e9faa77a07e398d70e0dbeb27a82",
+      "exit": 0,
+      "meaning": "46 passed"
+    },
+    {
+      "log": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\primary-helper.log",
+      "sha256": "3693119da45ae86e44facc6f3dad1cd4e90ccb82f65335c7e8a1a41a06750c3a",
+      "exit": 0,
+      "meaning": "Build only; no API or SQL runtime"
+    },
+    {
+      "log": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\primary-browser.log",
+      "sha256": "eab614f4c7f7845f390afd6756ef3a3a0185c4d743d3cec88423f7954bed898a",
+      "exit": 0,
+      "meaning": "Two viewports; real Chrome with HTTP mocks; after-only video"
+    }
+  ],
+  "sdk": "10.0.402",
+  "sql_runtime": "NOT RUN",
+  "dispatch": "NOT RUN",
+  "proof": "See PRIMARY-REVIEW.md for commands and layers",
+  "other_checks": {
+    "delivery_ledger": {
+      "valid_items": 39,
+      "unit_passes": 24,
+      "exit": 0
+    },
+    "frozen_public_export": {
+      "preserved_hashes": 15,
+      "exit": 0
+    },
+    "yaml": "two workflows parse; no runtime",
+    "node_syntax": {
+      "exit": 0
+    },
+    "whitespace": {
+      "exit": 0
+    },
+    "public_scan": "PASS; no raw logs, secrets, bin/obj caches imported",
+    "progress_tests": {
+      "log": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\primary-progress.log",
+      "sha256": "32f8aa297008b1b3f5ba8846bb1aa99fba7924f92990fb25e0210e29f44e6b23",
+      "exit": 0,
+      "result": [
+        "Ran 23 tests in 45.094s\r"
+      ]
+    }
+  }
+}

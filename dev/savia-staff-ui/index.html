@@ -92,6 +92,21 @@
             <p id="sale-status" role="status" aria-live="polite">Esperando datos del servidor.</p>
             <div class="actions"><button id="sale-recover" class="btn btn-secondary" type="button" hidden>Comprobar venta</button><button id="sale-retry" class="btn btn-secondary" type="button" hidden>Reintentar misma venta</button></div>
             <div id="sale-receipt" hidden></div>
+            <section id="stock-review" hidden>
+              <h3>Revisión de entrega excepcional al cierre</h3>
+              <form id="stock-review-load" class="form-grid"><label>Venta<input name="saleId" required></label><button class="btn btn-secondary">Consultar venta</button></form>
+              <div id="stock-review-evidence"></div>
+              <form id="stock-review-form" class="form-grid">
+                <label>Artículo y talla<select name="saleLineId" required></select></label>
+                <label>Evidencia examinada<textarea name="evidence" maxlength="500" required></textarea></label>
+                <label>Resultado de revisión<textarea name="outcome" maxlength="500" required></textarea></label>
+                <label>Perfil responsable (ID)<input name="responsibleActorId" required></label>
+                <label>Próxima revisión<input name="nextReviewAt" type="datetime-local" required></label>
+                <button class="btn">Registrar revisión; causa abierta</button>
+              </form>
+              <button id="stock-review-retry" class="btn btn-secondary" type="button" hidden>Reintentar misma revisión</button>
+              <p id="stock-review-status" role="status" aria-live="polite"></p>
+            </section>
           </div>
         </section>
         <section data-view="abastecimiento" aria-labelledby="purchasing-title" hidden>

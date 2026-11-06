@@ -36,7 +36,7 @@ ROOT = Path(__file__).resolve().parents[2]
 API_PROJECT = ROOT / 'backend/src/Martha.Store.Api'
 HELPER_PROJECT = ROOT / 'tests/golden-path/GoldenPath.Sql'
 DATABASE_PATTERN = re.compile(r'\ASaviaInternalTest_Golden_[a-f0-9]{32}\Z')
-EXPECTED_MIGRATIONS = 2  # 20261025085402_InitialInternalSavia, 20261027224500_InternalBranchScope
+EXPECTED_MIGRATIONS = 3  # InitialInternalSavia, InternalBranchScope, PhysicalStockException
 SEED_STOCK = 10
 SALE_QUANTITY = 2
 ITEMS = [('SINTETICO-GOLDEN-01', 'SINTETICO Golden artículo 1', 1250),
@@ -44,7 +44,7 @@ ITEMS = [('SINTETICO-GOLDEN-01', 'SINTETICO Golden artículo 1', 1250),
          ('SINTETICO-GOLDEN-03', 'SINTETICO Golden artículo 3', 990)]
 ROLES = ['Owner', 'Manager', 'Cashier', 'Inventory', 'Unassigned']
 # Invariants that must hold after EVERY step once the schema exists.
-ALWAYS_ZERO = ['lines_without_exactly_one_movement', 'sale_movements_not_matching_a_line',
+ALWAYS_ZERO = ['exception_movements', 'lines_without_exactly_one_movement', 'sale_movements_not_matching_a_line',
                'balance_vs_movement_sum_mismatch', 'balance_vs_last_movement_mismatch',
                'negative_or_invalid_stock', 'negative_movement_after', 'duplicate_idempotency_keys',
                'items_without_synthetic_marker', 'receipt_movement_mismatch', 'orphan_receipt_movement', 'receipt_order_mismatch']
@@ -66,8 +66,10 @@ BROWSER_DOM = dict(zip(BROWSER_STEPS, (
     {'receipt', 'sale_enabled'}, {'receipt', 'same_receipt', 'sale_enabled'}, {'inventory', 'stock_current'},
     {'pending', 'pending_key_preserved'}, {'receipt', 'same_receipt', 'sale_enabled'},
     {'receipt', 'same_receipt', 'sale_enabled'}, {'inventory', 'stock_current'}, {'logged_out'})))
+STOCK_STEPS = ('browser.stock_sale', 'browser.stock_reload', 'browser.stock_review', 'browser.stock_review_reload', 'browser.stock_logout')
 SUPPLY_STEPS = ('browser.supply_login', 'browser.supply_partial', 'browser.supply_loss',
                 'browser.supply_recovered', 'browser.supply_reload', 'browser.supply_logout')
+BROWSER_DOM.update({name: {'logged_out'} if name.endswith('logout') else {'shell'} for name in STOCK_STEPS})
 BROWSER_DOM.update({name: {'logged_out'} if name.endswith('logout') else {'shell'} for name in SUPPLY_STEPS})
 
 
@@ -123,7 +125,7 @@ def browser_checkpoint(event, expected_step, secrets_seen):
     secrets_seen.update(event['secrets'])
     notes = event['notes']
     allowed = {'dom', 'network', 'sale_posts', 'stock_total', 'stock_rows', 'quantity', 'total_minor',
-               'key', 'sale_id', 'runtime', 'source_hashes', 'external_requests', 'runtime_errors', 'receipt_posts', 'receipt_id', 'order_id', 'actor_id', 'location_id'}
+               'key', 'sale_id', 'runtime', 'source_hashes', 'external_requests', 'runtime_errors', 'receipt_posts', 'receipt_id', 'order_id', 'actor_id', 'location_id', 'review_id', 'review_key', 'sale_line_id'}
     valid(isinstance(notes, dict) and set(notes) <= allowed
           and {'dom', 'network', 'sale_posts', 'external_requests', 'runtime_errors'} <= set(notes))
     dom_labels = {'login_ready', 'shell', 'cashier', 'inventory', 'receipt', 'pending',
@@ -133,7 +135,7 @@ def browser_checkpoint(event, expected_step, secrets_seen):
     for key in ('sale_posts', 'stock_total', 'stock_rows', 'quantity', 'total_minor', 'external_requests', 'runtime_errors', 'receipt_posts'):
         if key in notes:
             valid(type(notes[key]) is int and 0 <= notes[key] <= 100000)
-    for key in ('key', 'sale_id', 'receipt_id', 'order_id', 'actor_id', 'location_id'):
+    for key in ('key', 'sale_id', 'receipt_id', 'order_id', 'actor_id', 'location_id', 'review_id', 'review_key', 'sale_line_id'):
         if key in notes:
             valid(isinstance(notes[key], str) and UUID_PATTERN.fullmatch(notes[key]) is not None)
     if 'runtime' in notes:
@@ -156,7 +158,7 @@ def browser_checkpoint(event, expected_step, secrets_seen):
         valid(request['method'] in ('GET', 'POST'))
         path = request['path']
         valid(isinstance(path, str) and (path in paths or (path.startswith('/internal/api/commerce/sales/')
-              and UUID_PATTERN.fullmatch(path.rsplit('/', 1)[-1]) is not None) or re.fullmatch(
+              and (UUID_PATTERN.fullmatch(path.rsplit('/', 1)[-1]) is not None or re.fullmatch(r'/internal/api/commerce/sales/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/stock-reviews',path))) or re.fullmatch(
                   r'/internal/api/supply/purchase-orders/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}(?:/receipts)?', path)))
         valid(request['status'] is None or (type(request['status']) is int and 100 <= request['status'] <= 599))
         valid(type(request['response_lost']) is bool)
@@ -703,6 +705,16 @@ class GoldenPath:
             return {'http': codes}
         self.step('owner.seed_directory', directory, {'locations': 1, 'items': len(ITEMS), 'sales': 0})
 
+        if getattr(self.args, 'stock_exception', False):
+            def exception_fixture():
+                status, item = self.owner.post('/internal/api/directory/items',
+                    {'sku': 'SINTETICO-GOLDEN-EX', 'name': 'SINTETICO physical garment',
+                     'unitPriceMinor': 1250, 'currency': 'USD', 'active': True}, new_key())
+                expect(status == 201, 'stock_exception_item_failed')
+                self.ids['exception_item'] = item['id']
+                return {'http': status}
+            self.step('owner.seed_exception_item', exception_fixture, {'items': len(ITEMS) + 1})
+
         def stock():
             codes = []
             for item_id in self.ids['items']:
@@ -1009,6 +1021,8 @@ class GoldenPath:
                   'second_item_id': self.ids['items'][1], 'second_sku': ITEMS[1][0], 'second_unit_price_minor': ITEMS[1][2]}
         if getattr(self.args, 'supply', False):
             config.update(supply=self.supply_fixture, inventory=self.users['Inventory'])
+        if getattr(self.args, 'stock_exception', False):
+            config.update(stock_exception=True, exception_item_id=self.ids['exception_item'], manager=self.users['Manager'])
         process = subprocess.Popen([node, str(BROWSER_SCRIPT)], cwd=ROOT, env=child_env(),
                                    stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL,
                                    start_new_session=True)
@@ -1072,7 +1086,24 @@ class GoldenPath:
                    'browser_process_identity_invalid')
             self.register_browser_group(ownership['owned_browser_pid'], chrome=True)
             send({'ok': True})
-            for name in (*BROWSER_STEPS, *(SUPPLY_STEPS if getattr(self.args, 'supply', False) else ())):
+            for name in (*BROWSER_STEPS, *(SUPPLY_STEPS if getattr(self.args, 'supply', False) else ()), *(STOCK_STEPS if getattr(self.args, 'stock_exception', False) else ())):
+                if name in STOCK_STEPS:
+                    event = receive()
+                    notes = browser_checkpoint(event, name, self.secrets_seen)
+                    reviewed = STOCK_STEPS.index(name) >= 2
+                    expect(notes['sale_posts'] == 3 and notes['external_requests'] == notes['runtime_errors'] == 0,
+                           'stock_exception_network_invalid')
+                    identity = self.helper('stock-identity', self.database, notes['sale_id'], self.users['Cashier']['id'],
+                        self.ids['exception_item'], self.ids['location'], notes['key'],
+                        self.users['Manager']['id'], notes.get('review_key', str(uuid.UUID(int=0))))
+                    expect(identity.get('allocation_matches') == 1 and identity.get('review_matches') == int(reviewed),
+                           'stock_exception_sql_identity_mismatch')
+                    expected = {'sales': 3, 'sale_lines': 5, 'sale_movements': 4, 'sale_operations': 3,
+                                'exception_lines': 1, 'stock_reviews': int(reviewed), 'exception_movements': 0,
+                                'movements': 9, 'on_hand_total': 30, 'active_sessions': int(name != STOCK_STEPS[-1])}
+                    self.step(name, lambda: notes, expected)
+                    send({'ok': True})
+                    continue
                 if name in SUPPLY_STEPS:
                     self.steps.append({'step': name, 'status': 'FAIL'})
                     event = receive()
@@ -1215,12 +1246,15 @@ def main(argv=None):
     parser.add_argument('--out', required=True, help='directorio de evidencia saneada')
     parser.add_argument('--mode', choices=['smoke', 'serve', 'browser'], default='smoke')
     parser.add_argument('--playwright-directory', help='paquete Playwright ya instalado; obligatorio para --mode browser')
+    parser.add_argument('--stock-exception', action='store_true', help='opt-in physical delivery and independent review; requires --supply and separately authorized runtime')
     parser.add_argument('--supply', action='store_true', help='combined sale + staff receipt journey; requires separate runtime authorization')
     parser.add_argument('--no-build', action='store_true', help='usar binarios Release ya compilados')
     parser.add_argument('--sql-env-file', help='archivo privado con MARTHA_TEST_SQL_CONNECTION=… (no se imprime)')
     parser.add_argument('--keep-private-log', help='copiar el log crudo de la API (0600) a esta ruta FUERA de --out')
     parser.add_argument('--database', help=argparse.SUPPRESS)  # only to test the refusal guard
     args = parser.parse_args(argv)
+    if args.stock_exception and (not args.supply or args.mode != 'browser'):
+        parser.error('--stock-exception requires --supply --mode browser')
     if args.supply and args.mode != 'browser':
         parser.error('--supply requires --mode browser')
     if args.mode == 'browser' and not args.playwright_directory:

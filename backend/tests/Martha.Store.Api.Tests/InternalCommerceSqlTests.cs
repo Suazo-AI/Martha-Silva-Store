@@ -195,13 +195,13 @@ internal sealed class InternalCommerceSqlDatabase : IAsyncDisposable
         }
     }
 
-    public async Task<T> Execute<T>(Func<InternalCommerceService, Task<T>> action)
+    public async Task<T> Execute<T>(Func<InternalCommerceService, Task<T>> action, InternalStaff? actingStaff = null, InternalSession? actingSession = null)
     {
         await using var db = Context();
         var security = new InternalSecurityService(db, new PasswordHasher<InternalStaff>(), TimeProvider.System);
         var http = new HttpContextAccessor
         {
-            HttpContext = new DefaultHttpContext { User = InternalSecurityRules.Principal(Staff, Session) }
+            HttpContext = new DefaultHttpContext { User = InternalSecurityRules.Principal(actingStaff ?? Staff, actingSession ?? Session) }
         };
         var commands = new InternalCommandRunner(db, security, http, TimeProvider.System);
         return await action(new InternalCommerceService(db, commands, new InternalStockLedger(db)));

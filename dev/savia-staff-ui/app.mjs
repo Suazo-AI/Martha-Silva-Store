@@ -132,6 +132,7 @@ export function mountStaffApp({document = globalThis.document, client = createSt
     getSession: () => state.phase === 'ready' ? state.session : null,
     onUnauthorized: () => requireAccess('La sesión venció. Volvé a ingresar para comprobar la venta.')}) : null;
   const supply = typeof client.listPurchaseOrders === 'function' ? mountSupply({document, client, getSession: () => state.phase === 'ready' ? state.session : null, onUnauthorized: () => requireAccess('La sesión venció. Volvé a ingresar.') , onStock: () => commerce?.loadStock()}) : null;
+  const stockReview = typeof client.reviewStockException === 'function' ? mountStockReview({document,client,getSession:()=>state.phase==='ready'?state.session:null,onUnauthorized:()=>requireAccess('La sesión venció. Volvé a ingresar.')}) : null;
   let epoch = 0, destroyed = false, commerceStarted = false;
   const reads = new Map();
   const newPage = () => ({q: '', includeInactive: false, skip: 0, take: 50, status: 'idle', confirmed: null});
@@ -152,7 +153,7 @@ export function mountStaffApp({document = globalThis.document, client = createSt
   function clearPrivateView() {
     commerceStarted = false;
     commerce?.clear();
-    supply?.clear();
+    supply?.clear(); stockReview?.clear();
     for (const view of pages.keys()) pages.set(view, newPage());
     reads.clear();
     $$('[data-rows]').forEach(element => element.replaceChildren());
@@ -348,7 +349,7 @@ export function mountStaffApp({document = globalThis.document, client = createSt
     if (moveFocus) $('#staff-title')?.focus();
     if (load && ['clientes', 'inventario'].includes(view)) refreshSection(view);
     if (['inventario','ventas'].includes(view) && commerce) {
-      if (!commerceStarted) { commerceStarted = true; void commerce.start(); }
+      if (!commerceStarted) { commerceStarted = true; void commerce.start(); stockReview?.start(); }
       else if (load && view === 'inventario') void commerce.loadStock();
     }
     if (view === 'abastecimiento') void supply?.start();
@@ -400,7 +401,7 @@ export function mountStaffApp({document = globalThis.document, client = createSt
     ready, navigate, refresh: () => refreshSection(state.view),
     getState: () => ({phase: state.phase, busy: state.busy, view: state.view,
       authenticated: state.phase === 'ready' && !!state.session, role: state.session?.role || null}),
-    destroy() { destroyed = true; ++epoch; state.session = null; clearPrivateView(); commerce?.destroy(); supply?.destroy(); lockActions(); setVisible($('#staff-shell'), false); removers.forEach(remove => remove()); },
+    destroy() { destroyed = true; ++epoch; state.session = null; clearPrivateView(); commerce?.destroy(); supply?.destroy(); stockReview?.destroy(); lockActions(); setVisible($('#staff-shell'), false); removers.forEach(remove => remove()); },
   };
 }
 
@@ -418,7 +419,8 @@ export function mountCommerce({document, client, getSession, onUnauthorized}) {
   const changedScope = () => !!pending?.key && ((!!pending.actorVersion && pending.actorVersion !== getSession()?.version)
     || !locations.some(location => location.id === pending.body?.locationId));
   const cart = () => [...$('sale-lines').querySelectorAll('[data-sale-line]')].map(row => ({
-    itemId:row.querySelector('select').value, quantity:Number(row.querySelector('input').value)}));
+    itemId:row.querySelector('select').value, quantity:Number(row.querySelector('input').value),
+    ...(row.querySelector('[data-exception]')?.checked ? {exceptionReason:row.querySelector('[data-exception-reason]').value,size:row.querySelector('[data-exception-size]').value} : {})}));
   function renderLines(lines = [{itemId:items[0]?.id || '',quantity:1}]) {
     $('sale-lines').replaceChildren(...lines.map((line,index) => {
       const row=document.createElement('div'); row.className='sale-line'; row.dataset.saleLine='';
@@ -438,8 +440,21 @@ export function mountCommerce({document, client, getSession, onUnauthorized}) {
         else { control.type='number'; control.min='1'; control.max='100000'; control.step='1'; control.value=String(line.quantity); }
         field.append(label,control); row.append(field);
       }
+      const exceptionField=document.createElement('div'); exceptionField.className='field sale-exception';
+      const exceptionLabel=textElement(document,'label','Entregar prenda física con disponible 0');
+      const exception=document.createElement('input'); exception.type='checkbox'; exception.dataset.exception='';
+      exception.checked=line.exceptionReason != null; exceptionLabel.prepend(exception);
+      exceptionField.append(exceptionLabel);
+      for (const [attribute,title,value] of [['exceptionReason','Motivo de entrega excepcional',line.exceptionReason],['size','Talla de la prenda',line.size]]) {
+        const label=textElement(document,'label',title), input=document.createElement('input');
+        input.type='text'; input.maxLength=attribute==='size'?80:500; input.value=value || '';
+        input.dataset[attribute==='size'?'exceptionSize':'exceptionReason']='';
+        input.required=exception.checked; input.hidden=!exception.checked; label.hidden=!exception.checked;
+        label.append(input); exceptionField.append(label);
+        exception.addEventListener('change',()=>{input.required=exception.checked; input.hidden=!exception.checked; label.hidden=!exception.checked;});
+      }
       const remove=textElement(document,'button','Quitar'); remove.type='button'; remove.className='btn btn-secondary';
-      remove.dataset.saleRemove=String(index); remove.setAttribute('aria-label',`Quitar artículo ${index+1}`); row.append(remove);
+      remove.dataset.saleRemove=String(index); remove.setAttribute('aria-label',`Quitar artículo ${index+1}`); row.append(remove,exceptionField);
       return row;
     }));
     lock();
@@ -502,6 +517,7 @@ export function mountCommerce({document, client, getSession, onUnauthorized}) {
       textElement(document,'p',`Estado: ${{recorded:'Registrada',cancelled:'Cancelada',returned:'Devuelta',partially_returned:'Devolución parcial'}[receipt.state]} · Sin cobro bancario`));
     const money=value=>new Intl.NumberFormat('es-NI',{style:'currency',currency:receipt.currency}).format(value/100);
     for(const line of receipt.lines) mount.append(textElement(document,'p',`${line.sku} · ${line.name} · ${line.quantity} × ${money(line.unitPriceMinor)} = ${money(line.totalMinor)}`));
+    for(const line of receipt.lines.filter(x=>x.exceptionReason)) mount.append(textElement(document,'p',`Entrega excepcional · ${line.sku} · Talla: ${line.size} · Motivo: ${line.exceptionReason} · Causa abierta`));
     mount.append(textElement(document,'strong',`Total: ${money(receipt.totalMinor)}`)); mount.hidden=false;
   }
   // A receipt reference is stored only after the server confirmed that sale, so failing to show it
@@ -608,3 +624,46 @@ export function mountCommerce({document, client, getSession, onUnauthorized}) {
 }
 
 if (typeof document !== 'undefined' && document.querySelector('[data-staff-app]')) mountStaffApp();
+
+
+export function mountStockReview({document,client,getSession,onUnauthorized}) {
+  const $=id=>document.getElementById(id), panel=$('stock-review'), form=$('stock-review-form'), load=$('stock-review-load');
+  if(!panel) return {start(){},clear(){},destroy(){}};
+  let epoch=0,busy=false,sale=null,pending=null,blocked=false;
+  const storage=()=>document.defaultView.sessionStorage;
+  const storageKey=a=>`savia.stock.review.pending.${a.id}`;
+  const same=(e,a)=>epoch===e && getSession()?.id===a.id && getSession()?.version===a.version;
+  const allowed=()=>['Owner','Manager'].includes(getSession()?.role);
+  const status=text=>$('stock-review-status').textContent=text;
+  function lock(){for(const el of form.elements) el.disabled=busy||blocked||!!pending||!sale||!allowed();
+    for(const el of load.elements)el.disabled=busy||blocked||!!pending||!allowed();
+    $('stock-review-retry').hidden=!pending; $('stock-review-retry').disabled=busy||blocked||!allowed();}
+  function clear(){epoch++;busy=false;sale=null;pending=null;blocked=false;panel.hidden=true;form.reset();load.reset();$('stock-review-evidence').replaceChildren();form.elements.saleLineId.replaceChildren();status('');lock();}
+  function start(){clear();panel.hidden=!allowed();if(!allowed())return;
+    try{const raw=storage().getItem(storageKey(getSession()));if(raw){pending=JSON.parse(raw);
+      if(pending.actorVersion!==getSession().version||pending.actorId!==getSession().id||typeof pending.key!=='string'||!pending.body||!pending.saleId)blocked=true;
+      status(blocked?'La referencia requiere conciliación por el responsable.':'Revisión sin confirmar. Reintentá con la misma referencia.');}}
+    catch{blocked=true;status('No se pudo leer la referencia pendiente.');}lock();}
+  function fail(e){if(e.status===401){onUnauthorized();return;}status(pending?'Revisión sin confirmar. La referencia original se conserva.':'No se pudo consultar la venta.');}
+  async function send(){if(busy||blocked||!pending||!allowed())return;const a=getSession(),e=epoch,op=pending;busy=true;lock();
+    try{const result=await client.reviewStockException(op.saleId,op.key,op.body);if(!same(e,a))return;
+      if(!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(result.id)||!Number.isFinite(Date.parse(result.createdAt))||result.saleLineId!==op.body.saleLineId||result.reviewerId!==a.id||result.causeState!=='open'||result.evidence!==op.body.evidence.trim()||result.outcome!==op.body.outcome.trim()||result.responsibleActorId!==op.body.responsibleActorId||Date.parse(result.nextReviewAt)!==Date.parse(op.body.nextReviewAt))throw Error('response');
+      storage().removeItem(storageKey(a));pending=null;status('Revisión confirmada. Causa abierta; seguimiento registrado.');
+    }catch(error){if(same(e,a))fail(error);}finally{if(same(e,a)){busy=false;lock();}}}
+  async function read(event){event.preventDefault();if(busy||pending||blocked||!allowed())return;const a=getSession(),e=epoch;busy=true;sale=null;lock();
+    try{const value=await client.getSale(load.elements.saleId.value.trim());const reviews=await client.stockReviews(value.saleId);if(!same(e,a))return;
+      $('stock-review-evidence').replaceChildren(
+        textElement(document,'p',`Venta ${value.saleId} · Registró ${value.actorId} · ${value.createdAt}`),
+        ...value.lines.filter(x=>x.exceptionReason).map(x=>textElement(document,'p',`${x.sku} · Talla ${x.size} · ${x.quantity} entregadas · ${x.returnedQuantity} revertidas · ${x.exceptionReason}`)),
+        ...reviews.map(x=>textElement(document,'p',`Revisión ${x.id} · ${x.evidence} · ${x.outcome} · Causa abierta · Responsable ${x.responsibleActorId} · Próxima revisión ${x.nextReviewAt}`)));
+      if(value.actorId===a.id){status('Otro perfil autorizado debe revisar esta entrega.');return;}
+      const lines=value.lines.filter(x=>x.exceptionReason);sale=value;form.elements.saleLineId.replaceChildren(...lines.map(x=>{const option=textElement(document,'option',`${x.sku} · ${x.size} · ${x.quantity} · ${x.exceptionReason}`);option.value=x.saleLineId;return option;}));
+      if(!lines.length)sale=null;status(lines.length?'Examiná la evidencia y registrá el seguimiento.':'La venta no contiene entregas excepcionales.');
+    }catch(error){if(same(e,a))fail(error);}finally{if(same(e,a)){busy=false;lock();}}}
+  function submit(event){event.preventDefault();if(busy||pending||blocked||!sale||!allowed()||!form.reportValidity())return;
+    try{const a=getSession(),f=form.elements,body={saleLineId:f.saleLineId.value,evidence:f.evidence.value,outcome:f.outcome.value,responsibleActorId:f.responsibleActorId.value.trim(),nextReviewAt:new Date(f.nextReviewAt.value).toISOString()};
+      const op={actorId:a.id,actorVersion:a.version,saleId:sale.saleId,key:document.defaultView.crypto.randomUUID(),body};const raw=JSON.stringify(op);storage().setItem(storageKey(a),raw);if(storage().getItem(storageKey(a))!==raw)throw Error('storage');pending=op;void send();
+    }catch{blocked=true;status('No se pudo guardar la referencia. La revisión no se envió.');lock();}}
+  const retry=()=>void send();load.addEventListener('submit',read);form.addEventListener('submit',submit);$('stock-review-retry').addEventListener('click',retry);
+  return {start,clear,destroy(){clear();load.removeEventListener('submit',read);form.removeEventListener('submit',submit);$('stock-review-retry').removeEventListener('click',retry);}};
+}

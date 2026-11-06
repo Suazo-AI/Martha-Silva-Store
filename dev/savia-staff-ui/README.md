@@ -61,3 +61,25 @@ El módulo tiene recurso .NET y ruta protegida explícitos; queda fuera del Work
 Pruebas portables: `NODE_PATH=<locked node_modules> node --test dev/savia-staff-ui/*.test.mjs`.
 Chrome con API HTTP simulada: `node tests/browser-supply-validation.mjs <installed-playwright-directory> <evidence-directory>`.
 Evidencia y límites: [worker](../../docs/supply-ui-20261105/worker/README.md).
+
+
+## Physical delivery exception (D-026/D-027, synthetic trial)
+
+Each sale row has an explicit physical-delivery checkbox for recorded available stock 0.
+Reason and physical garment size are mandatory.
+The server records the exception on the sale line; it does not create stock, cost, purchase receipt or a stock movement.
+Normal rows retain the ordinary stock/reservation checks.
+Returns/cancellations record exceptional delivered quantity and sale credit reversals without creating inventory.
+An evidence-based inventory correction is separate.
+
+At simulated day close, a Manager or Owner opens the sale ID under Ventas.
+The reviewer must differ from its registering actor, including an Owner or substitute.
+The reviewer enters examined evidence, outcome, an authorized synthetic responsible profile ID and a future review date.
+Review records remain open and append-only; this UI does not claim cause resolution or reconciliation.
+Profile IDs are entered explicitly; this increment does not assign real employees.
+The UI stores `savia.stock.review.pending.<actorId>` before POST.
+Reload/retry preserves its key/body; duplicate submits and late replies cannot erase the pending reference.
+Session/version changes block recovery for manual reconciliation.
+
+Focused checks: `node --test dev/savia-staff-ui/stock-exception.test.mjs` with existing jsdom on NODE_PATH.
+See [worker evidence](../../docs/stock-exception-20261106/worker/README.md) for commands, limits and prepared SQL checks.

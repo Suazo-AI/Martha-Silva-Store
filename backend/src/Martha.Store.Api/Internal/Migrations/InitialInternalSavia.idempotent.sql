@@ -1,4 +1,4 @@
-﻿IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
 BEGIN
     CREATE TABLE [__EFMigrationsHistory] (
         [MigrationId] nvarchar(150) NOT NULL,
@@ -754,6 +754,91 @@ IF NOT EXISTS (
 BEGIN
     INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
     VALUES (N'20261027224500_InternalBranchScope', N'10.0.13');
+END;
+
+COMMIT;
+GO
+
+BEGIN TRANSACTION;
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261106071201_PhysicalStockException'
+)
+BEGIN
+    ALTER TABLE [savia_internal].[SaleLines] ADD [ExceptionReason] nvarchar(500) NULL;
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261106071201_PhysicalStockException'
+)
+BEGIN
+    ALTER TABLE [savia_internal].[SaleLines] ADD [Size] nvarchar(80) NULL;
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261106071201_PhysicalStockException'
+)
+BEGIN
+    CREATE TABLE [savia_internal].[StockExceptionReviews] (
+        [Id] uniqueidentifier NOT NULL,
+        [SaleLineId] uniqueidentifier NOT NULL,
+        [ReviewerId] uniqueidentifier NOT NULL,
+        [Evidence] nvarchar(500) NOT NULL,
+        [Outcome] nvarchar(500) NOT NULL,
+        [ResponsibleActorId] uniqueidentifier NOT NULL,
+        [NextReviewAt] datetimeoffset NOT NULL,
+        [CreatedAt] datetimeoffset NOT NULL,
+        [CauseState] nvarchar(16) NOT NULL,
+        CONSTRAINT [PK_StockExceptionReviews] PRIMARY KEY ([Id]),
+        CONSTRAINT [CK_InternalStockReview_Next] CHECK ([NextReviewAt] > [CreatedAt]),
+        CONSTRAINT [CK_InternalStockReview_Open] CHECK ([CauseState] = 'open'),
+        CONSTRAINT [FK_StockExceptionReviews_SaleLines_SaleLineId] FOREIGN KEY ([SaleLineId]) REFERENCES [savia_internal].[SaleLines] ([Id]) ON DELETE NO ACTION,
+        CONSTRAINT [FK_StockExceptionReviews_Staff_ResponsibleActorId] FOREIGN KEY ([ResponsibleActorId]) REFERENCES [savia_internal].[Staff] ([Id]) ON DELETE NO ACTION,
+        CONSTRAINT [FK_StockExceptionReviews_Staff_ReviewerId] FOREIGN KEY ([ReviewerId]) REFERENCES [savia_internal].[Staff] ([Id]) ON DELETE NO ACTION
+    );
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261106071201_PhysicalStockException'
+)
+BEGIN
+    EXEC(N'ALTER TABLE [savia_internal].[SaleLines] ADD CONSTRAINT [CK_InternalSaleLine_Exception] CHECK (([ExceptionReason] IS NULL AND [Size] IS NULL) OR ([ExceptionReason] IS NOT NULL AND [Size] IS NOT NULL AND LEN(LTRIM(RTRIM([ExceptionReason]))) > 0 AND LEN(LTRIM(RTRIM([Size]))) > 0))');
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261106071201_PhysicalStockException'
+)
+BEGIN
+    CREATE INDEX [IX_StockExceptionReviews_ResponsibleActorId] ON [savia_internal].[StockExceptionReviews] ([ResponsibleActorId]);
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261106071201_PhysicalStockException'
+)
+BEGIN
+    CREATE INDEX [IX_StockExceptionReviews_ReviewerId] ON [savia_internal].[StockExceptionReviews] ([ReviewerId]);
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261106071201_PhysicalStockException'
+)
+BEGIN
+    CREATE INDEX [IX_StockExceptionReviews_SaleLineId] ON [savia_internal].[StockExceptionReviews] ([SaleLineId]);
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261106071201_PhysicalStockException'
+)
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20261106071201_PhysicalStockException', N'10.0.13');
 END;
 
 COMMIT;

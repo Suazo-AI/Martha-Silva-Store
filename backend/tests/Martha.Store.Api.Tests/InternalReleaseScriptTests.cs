@@ -53,7 +53,7 @@ public sealed class InternalReleaseScriptTests
     public async Task Release_script_upgrades_empty_and_first_migration_databases_and_preserves_synthetic_rows()
     {
         const string first = "20261025085402_InitialInternalSavia";
-        string[] all = ["20261025085402_InitialInternalSavia", "20261027224500_InternalBranchScope"];
+        string[] all = ["20261025085402_InitialInternalSavia", "20261027224500_InternalBranchScope", InternalStockExceptionTests.Migration];
         var script = CheckedInScript();
         var empty = NewDatabase(); var upgraded = NewDatabase(); var migrated = NewDatabase();
         var created = new List<string>();
@@ -129,7 +129,7 @@ public sealed class InternalReleaseScriptTests
     {
         using var expected = JsonDocument.Parse(File.ReadAllText(RepositoryFile("backend/tests/fixtures/expected-invariants.model-derived.json")));
         foreach (var key in new[] { "history", "tables", "checks", "foreign_keys", "indexes", "primary_keys" })
-            Assert.Equal(expected.RootElement.GetProperty(key).EnumerateArray().Select(x => x.GetString()).OrderBy(x => x, StringComparer.Ordinal).ToArray(),
+            Assert.Equal(InternalStockExceptionTests.Expected(expected.RootElement.GetProperty(key).EnumerateArray().Select(x => x.GetString()), key).OrderBy(x => x, StringComparer.Ordinal).ToArray(),
                 facts[key].OrderBy(x => x, StringComparer.Ordinal).ToArray());
         Assert.All(facts["constraint_state"], x => Assert.EndsWith("|False|False", x));
     }

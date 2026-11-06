@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Martha.Store.Api.Internal;
 
-public sealed class InternalCommerceService(InternalDbContext db, IInternalCommandRunner commands, IInternalStockLedger ledger)
+public sealed partial class InternalCommerceService(InternalDbContext db, IInternalCommandRunner commands, IInternalStockLedger ledger)
 {
     public Task<InternalResult<InternalStockAdjustmentReceipt>> Adjust(InternalStockAdjustmentRequest request, Guid actorId, string key, CancellationToken ct)
     {
@@ -59,9 +59,12 @@ public sealed class InternalCommerceService(InternalDbContext db, IInternalComma
                 sale.Lines.Add(new()
                 {
                     Id = Guid.NewGuid(), SaleId = sale.Id, ItemId = item.Id, Sku = item.Sku, Name = item.Name,
+                    ExceptionReason = requested.ExceptionReason?.Trim(), Size = requested.Size?.Trim(),
                     Quantity = requested.Quantity, UnitPriceMinor = item.UnitPriceMinor, TotalMinor = item.UnitPriceMinor * requested.Quantity
                 });
-                var change = await ledger.Change(item.Id, sale.LocationId, -requested.Quantity, 0, actorId, sale.Id, "sale", token);
+                var change = requested.ExceptionReason is null
+                    ? await ledger.Change(item.Id, sale.LocationId, -requested.Quantity, 0, actorId, sale.Id, "sale", token)
+                    : await RecordExceptionalAllocation(item.Id, sale.LocationId, token);
                 if (!change.Success) return InternalResult<InternalSaleReceipt>.Fail(change.Error!);
             }
             db.Set<InternalSale>().Add(sale);
@@ -90,7 +93,9 @@ public sealed class InternalCommerceService(InternalDbContext db, IInternalComma
             var reversal = NewReversal(sale, actorId, "cancel", request.Reason!);
             foreach (var line in sale.Lines.OrderBy(x => x.ItemId))
             {
-                var change = await ledger.Change(line.ItemId, sale.LocationId, line.Quantity, 0, actorId, reversal.Id, "sale_cancel", token);
+                var change = line.ExceptionReason is null
+                    ? await ledger.Change(line.ItemId, sale.LocationId, line.Quantity, 0, actorId, reversal.Id, "sale_cancel", token)
+                    : InternalResult<bool>.Ok(true);
                 if (!change.Success) return InternalResult<InternalSaleReversalReceipt>.Fail(change.Error!);
                 reversal.Lines.Add(NewReversalLine(reversal.Id, line, line.Quantity));
             }
@@ -122,7 +127,9 @@ public sealed class InternalCommerceService(InternalDbContext db, IInternalComma
             foreach (var requested in ordered)
             {
                 var line = byId[requested.SaleLineId];
-                var change = await ledger.Change(line.ItemId, sale.LocationId, requested.Quantity, 0, actorId, reversal.Id, "sale_return", token);
+                var change = line.ExceptionReason is null
+                    ? await ledger.Change(line.ItemId, sale.LocationId, requested.Quantity, 0, actorId, reversal.Id, "sale_return", token)
+                    : InternalResult<bool>.Ok(true);
                 if (!change.Success) return InternalResult<InternalSaleReversalReceipt>.Fail(change.Error!);
                 var reversedLine = NewReversalLine(reversal.Id, line, requested.Quantity);
                 reversal.Lines.Add(reversedLine);
@@ -201,7 +208,7 @@ public sealed class InternalCommerceService(InternalDbContext db, IInternalComma
         new() { Id = Guid.NewGuid(), ReversalId = reversalId, SaleLineId = line.Id, Quantity = quantity, RecordedCreditMinor = checked(line.UnitPriceMinor * quantity) };
     private static InternalSaleReceipt ToReceipt(InternalSale sale) =>
         new(sale.Id, sale.LocationId, sale.CustomerId, sale.ActorId, sale.Currency, sale.TotalMinor, sale.State, "not_processed", sale.CreatedAt,
-            sale.Lines.OrderBy(x => x.ItemId).Select(x => new InternalSaleLineReceipt(x.Id, x.ItemId, x.Sku, x.Name, x.Quantity, x.ReturnedQuantity, x.UnitPriceMinor, x.TotalMinor)).ToArray());
+            sale.Lines.OrderBy(x => x.ItemId).Select(x => new InternalSaleLineReceipt(x.Id, x.ItemId, x.Sku, x.Name, x.Quantity, x.ReturnedQuantity, x.UnitPriceMinor, x.TotalMinor, x.ExceptionReason, x.Size)).ToArray());
     private static InternalSaleReversalReceipt ToReceipt(InternalSaleReversal reversal, InternalSale sale) =>
         new(reversal.Id, sale.Id, reversal.ActorId, reversal.Kind, sale.State, sale.Currency, reversal.RecordedCreditMinor, "not_processed", reversal.Reason,
             reversal.CreatedAt, reversal.Lines.OrderBy(x => x.SaleLineId).Select(x => new InternalSaleReversalLineReceipt(x.SaleLineId, x.Quantity, x.RecordedCreditMinor)).ToArray());

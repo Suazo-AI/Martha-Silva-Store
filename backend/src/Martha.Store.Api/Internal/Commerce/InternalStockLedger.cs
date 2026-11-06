@@ -65,7 +65,8 @@ public static class InternalCommerceRules
     public static bool ValidReason(string? reason) => reason is { Length: >= 1 and <= 500 } && reason.Trim().Length >= 1 && !reason.Any(char.IsControl);
     public static bool ValidSale(InternalSaleRequest request) => request.LocationId != Guid.Empty && request.CustomerId != Guid.Empty
         && request.Lines is { Count: >= 1 and <= MaxLines }
-        && request.Lines.All(x => x is not null && x.ItemId != Guid.Empty && x.Quantity is >= 1 and <= MaxLineQuantity)
+        && request.Lines.All(x => x is not null && x.ItemId != Guid.Empty && x.Quantity is >= 1 and <= MaxLineQuantity
+            && (x.ExceptionReason is null ? x.Size is null : ValidReason(x.ExceptionReason) && InternalStockExceptionRules.ValidSize(x.Size)))
         && request.Lines.Select(x => x.ItemId).Distinct().Count() == request.Lines.Count;
     public static bool ValidReturn(InternalSaleReturnRequest request) => ValidReason(request.Reason)
         && request.Lines is { Count: >= 1 and <= MaxLines }
