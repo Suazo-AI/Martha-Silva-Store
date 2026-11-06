@@ -1,24 +1,24 @@
 # Estado vigente de Martha Silva / SAVIA
 
+Current primary assessment, 2026-11-06 UTC: production remains NO-GO.
+[Complete remaining work and proposed critical path](release-20261106/completion-audit.md).
+This assessment separates adopted decisions, missing implementation, unexecuted proof and external production prerequisites.
+Independent process critic/judge requested by Jason; no claim of their acceptance yet.
 
-Correcci?n de publicaci?n, 2026-11-06 UTC: `8523523` qued? SYNCED, pero su snapshot Linux fall? por CRLF/LF.
-Tres hashes registraban los bytes Windows previos a la conversi?n Git. El c?digo publicado ya era LF.
-Primary reprodujo el fallo, a?adi? una guarda con rojo/verde y registr? los hashes de esos mismos blobs Git.
-Snapshot y build1,560 pasan localmente. No cambi? el frontend publicado ni sus im?genes.
-[Correcci?n y manifiesto actual](hardening-20261106/combined/ci-correction.md). CI Linux corregida y revisiones independientes pendientes.
+Supply receipt preparation: Astra ACCEPT WITH LIMITS returned and accepted by the primary.
+21/21 current source bindings match. No-SQL CI42169677581 passed on unchanged bindings.
+That run has 526 .NET passes and 55 skips, staff124/124 and mocked Chrome50/50 plus8/8.
+[Preparation acceptance and limits](supply-real-20261106/PREPARATION-ACCEPTANCE.json).
+The prepared combined Browser -> API -> SQL receipt journey remains NOT RUN and needs its specific runtime scope.
 
+Combined Jason frontend / Denis images: local acceptance is recorded; Gemini storefront review is active on a77f705.
+Linux run42170897865 on a77f705 passed publication integrity/build, then failed a CRLF-specific exact-layout test expectation.
+The primary reproduced the failure and corrected only the test hash/comment. Focused test exits 0; altered-input control exits 1; restored test exits 0.
+No product source or images changed in this correction. New Linux aggregate and storefront judgment remain pending.
+[Exact failure and correction](hardening-20261106/combined/ci-correction.md).
 
-Actualizaci?n integrada, 2026-11-06 UTC: frontend Jason con im?genes Denis importado y probado localmente.
-Los 3,126 archivos del candidato coinciden byte por byte; build reproducible de 1,560 archivos.
-DOM29/29, localizaci?n17/17, cat?logo27/27, im?genes1/1, headers2/2 y snapshot1/1 pasan.
-Desktop y m?vil completan `DEMO-0001` por USD190.00. Es compra simulada; no cobro ni persistencia API/SQL.
-Cuatro grabaciones antes/despu?s tienen hashes y decode completo verificados. Puertos propios liberados.
-[Revisi?n integrada y l?mites](hardening-20261106/combined/primary-review.md). CI Linux del nuevo SHA y cr?tico/juez pendientes.
-El cr?tico de recepci?n acept? la preparaci?n con l?mites. Sus dos correcciones est?n aplicadas: seguridad17/17 y navegador24/24.
-[Correcciones y nuevo candidato](supply-real-20261106/correction-review.md). Juez pendiente; recorrido combinado NOT RUN.
-Sin merge, despliegue ni nueva corrida SQL. Producci?n permanece NO-GO.
-
-La secci?n de preparaci?n siguiente registra el estado previo, antes de esta integraci?n y del retorno del cr?tico.
+The following sections retain earlier dated observations. Later accepted evidence above supersedes their pending-review statements.
+No merge, deployment or new SQL/API/Docker/certificate runtime occurred in this update.
 
 Preparación de recepción real, 2026-11-06 UTC: candidato importado desde `b30a275` y congelado para revisión.
 El primary verificó 20 bindings de origen, 40 controles sin SQL y compilación Release sin errores ni advertencias.

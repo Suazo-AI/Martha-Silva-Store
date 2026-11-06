@@ -33,3 +33,17 @@ Next: publish the corrected candidate, read exact-commit CI, and obtain Astra's 
 ## Automatic Linux readback on 8523523
 
 [CI-852.json](CI-852.json) binds all 21 source paths to successful no-SQL run 42169677581 on `8523523a41d490f7bdcca016bf34cc5fc2c04a37`. Helper Release build: zero warnings/errors. Staff: 124/124; mocked Chrome: 50/50 and 8/8. Database-independent .NET: 526 passed, 55 skipped, zero failed. These skipped tests remain explicit. This is preparation and source-lineage evidence; the combined real browser/API/SQL journey remains NOT RUN.
+
+## Primary acceptance of preparation, 2026-11-06
+
+The preceding sections record the correction/review sequence. Astra has now returned.
+The primary read the complete [Astra preparation judgment](astra-judge-preparation.md), verified its exact SHA256 and imported only that report.
+All 21 current candidate source bindings still match their declared LF hashes.
+F1/F2 are resolved; F3/F4 remain explicit non-blocking limits.
+The primary accepts the preparation increment with limits. [PREPARATION-ACCEPTANCE.json](PREPARATION-ACCEPTANCE.json) records this decision.
+
+No-SQL run 42169677581 at 8523523 passed with the same 21 source bindings.
+It includes 526 .NET passes and 55 skips, helper compilation, staff124/124 and mocked Chrome50/50 plus8/8.
+It does not execute the new Browser → API → SQL receipt journey.
+That journey remains NOT RUN. No new SQL, API, Docker or certificate runtime is authorized by this acceptance.
+Next: finish the current integrated candidate's applicable Linux checks and present the exact reviewed runtime scope under DATABASE.md.

@@ -1,6 +1,6 @@
 {
-  "sourceBase": "8523523a41d490f7bdcca016bf34cc5fc2c04a37",
-  "status": "lf-safe-integration-local-pass-pending-linux-and-independent-review",
+  "sourceBase": "a77f705a6fd6a2778e4112c21aaa72ab8e478015",
+  "status": "integrity-linux-pass-layout-test-lf-fix-local-pass-pending-linux-aggregate-and-review",
   "host": "SUAZO-PC",
   "primary": {
     "provider": "codex",
@@ -114,8 +114,8 @@
     {
       "path": "tests/responsive_images.py",
       "role": "changed",
-      "rawSha256": "0f80506355bedbcc136b0807bc3842fbc9b3452fde29e35958059ac993c758dc",
-      "lfSha256": "b76eb9eefb4ac9fce3eb9c2438edc4f88d6cc83fbad532ef984405d7fd8634ba"
+      "rawSha256": "89f4acf3c93f5668a560716613a3aa0305dc1054320a247a380fb88f1a140599",
+      "lfSha256": "505783b4cf7afb2a1e55eb075a214edaa17324e9b24891df426fbb06ce19b5db"
     },
     {
       "path": "tests/static_headers.py",
@@ -172,5 +172,8 @@
       "lfSha256": "be98fa5c4badaad243be68197359d49ae7b5c0492cfbc3288dd0d2cdc3a12ac7"
     }
   ],
-  "historicalCandidate": "CANDIDATE.json describes the original Windows integration at 8523523. This manifest describes the LF-safe correction."
+  "historicalCandidate": "CANDIDATE.json describes the original Windows integration at 8523523. This manifest describes the LF-safe correction.",
+  "deltaFromPreviousManifest": [
+    "tests/responsive_images.py"
+  ]
 }

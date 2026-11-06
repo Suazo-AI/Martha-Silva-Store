@@ -1,0 +1,92 @@
+{
+  "sourceBase": "a77f705a6fd6a2778e4112c21aaa72ab8e478015",
+  "host": "SUAZO-PC",
+  "primary": {
+    "harness": "T3 Code / Codex",
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "xhigh"
+  },
+  "run": {
+    "id": 42170897865,
+    "headSha": "a77f705a6fd6a2778e4112c21aaa72ab8e478015",
+    "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42170897865",
+    "conclusion": "failure",
+    "integrityJob": {
+      "id": 127738208659,
+      "conclusion": "success"
+    },
+    "historicalRegressionJob": {
+      "id": 127738328503,
+      "conclusion": "failure"
+    }
+  },
+  "failure": {
+    "test": "ResponsiveImages.test_originals_dimensions_hashes_and_fallback",
+    "path": "tests/responsive_images.py",
+    "assertion": "index.html stripped RAW hash differs",
+    "actualLf": "35a8495127d2da4ce6061e77092fb46682e5a7c5d34ec5c88f2646985f3db1f5",
+    "oldExpectedCrlf": "008e96af33d9ba8c3630d057a6885faf314a859d9d55bed9cf8d1782898d4e54"
+  },
+  "cause": "The stripped index layout hash was recorded from CRLF Windows bytes. Actual input and its Git blob are LF. Catalog hash already binds LF bytes.",
+  "correction": "Update only the index layout constant and its comment. Keep exact-byte layout equality, original-image integrity and generated derivative checks. No product source changed.",
+  "localChecks": [
+    {
+      "command": "python tests/responsive_images.py",
+      "phase": "before correction",
+      "exit": 1,
+      "privateLogSha256": "e70b34bb7f63933aa20cdd1a0f7c9ae0b3c1d57be22c09a4805ab9a5a0d025e5"
+    },
+    {
+      "command": "python tests/responsive_images.py",
+      "phase": "after correction",
+      "exit": 0,
+      "privateLogSha256": "c9d68966152ec22d3a5c718940cee38990a4bb6f354311e6a117c3c9629f9df4"
+    },
+    {
+      "command": "python negative-responsive.py",
+      "phase": "disposable in-memory input substitution",
+      "exit": 1,
+      "privateLogSha256": "36ebf2828f9510f4a09f1aa1b7cb9bb00ee0587aaa21f8f2efd0c7a623678ada"
+    },
+    {
+      "command": "python tests/responsive_images.py",
+      "phase": "restored normal input",
+      "exit": 0,
+      "privateLogSha256": "d49c7b1d453cf0c26807f707b1dd2c88b5c2cf7d2e8d24967dc0d440479dcaac"
+    }
+  ],
+  "negativeControl": {
+    "scope": "In-memory substitution of index.html input only. No product or fixture file was changed. Unknown selected-layout bytes must fail the exact hash check.",
+    "script": "from pathlib import Path\nfrom unittest.mock import patch\nimport runpy,unittest,sys\nnamespace=runpy.run_path(\"tests/responsive_images.py\")\ntarget=Path(\"build-inputs/static/index.html\").resolve()\noriginal=Path.read_bytes\ndef substituted(path):\n    data=original(path)\n    return data+b\"<!-- changed selected layout -->\" if path.resolve()==target else data\nwith patch.object(Path,\"read_bytes\",substituted):\n    result=unittest.TextTestRunner().run(unittest.defaultTestLoader.loadTestsFromTestCase(namespace[\"ResponsiveImages\"]))\nsys.exit(0 if result.wasSuccessful() else 1)\n",
+    "driverSha256": "c276fa6495d3ff1431e3cce133d405b8623c92ed0ff37bda1a3b67e8d4bcb3c1",
+    "commands": [
+      {
+        "command": [
+          "python",
+          "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\ci-a77\\negative-responsive.py"
+        ],
+        "exit": 1,
+        "sha256": "36ebf2828f9510f4a09f1aa1b7cb9bb00ee0587aaa21f8f2efd0c7a623678ada",
+        "log": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\ci-a77\\responsive-negative.log",
+        "tail": "7c5d34ec5c88f2646985f3db1f5'\r\n- 122e879ada779ac98b2023886d77e058f4074b168876199dff93eaa687aa7a00\r\n+ 35a8495127d2da4ce6061e77092fb46682e5a7c5d34ec5c88f2646985f3db1f5\r\n : index.html\r\n\r\n----------------------------------------------------------------------\r\nRan 1 test in 1.062s\r\n\r\nFAILED (failures=1)\r\n"
+      },
+      {
+        "command": [
+          "python",
+          "tests/responsive_images.py"
+        ],
+        "exit": 0,
+        "sha256": "d49c7b1d453cf0c26807f707b1dd2c88b5c2cf7d2e8d24967dc0d440479dcaac",
+        "log": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\ci-a77\\responsive-restored.log",
+        "tail": ".\r\n----------------------------------------------------------------------\r\nRan 1 test in 0.650s\r\n\r\nOK\r\n"
+      }
+    ],
+    "sourceUnchangedSha256": "b025431c70d13b2264aac29cf03f65557bf3412849a43c4c1cf033b0adb3832d"
+  },
+  "limits": [
+    "No application source, images or styles changed.",
+    "The input substitution is a test control, not a product defect or a product mutation.",
+    "New Linux aggregate result pending. Existing critic is frozen at a77f705; this narrow test-only delta requires explicit primary adjudication."
+  ],
+  "lesson": "Bind exact layout expectations to actual committed bytes before freezing a cross-platform candidate; run the affected exact-byte guard after integration."
+}

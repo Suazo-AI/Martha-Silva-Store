@@ -22,8 +22,8 @@ class ResponsiveImages(unittest.TestCase):
     self.assertEqual(d['height'],round(a['height']*d['width']/a['width']))
     self.assertLessEqual(d['width'],a['width'])
   self.assertEqual(hashlib.sha256((STATIC/'catalog.js').read_bytes()).hexdigest(),hashes['build-inputs/static/catalog.js'])
-  # D-030 selected Jason composition; only these two authored layouts change.
-  selected_layouts={'index.html': '008e96af33d9ba8c3630d057a6885faf314a859d9d55bed9cf8d1782898d4e54', 'catalogo.html': '672886e25c2de0535b5265f9e105d63f1acbb50eeefceb6f8cebc79328268c92'}
+  # D-030 selected Jason composition; exact LF bytes required by .gitattributes.
+  selected_layouts={'index.html': '35a8495127d2da4ce6061e77092fb46682e5a7c5d34ec5c88f2646985f3db1f5', 'catalogo.html': '672886e25c2de0535b5265f9e105d63f1acbb50eeefceb6f8cebc79328268c92'}
   for page in STATIC.glob('*.html'):
    s=page.read_bytes();stripped=re.sub(rb'<source data-responsive-generated=""[^>]+>',b'',s)
    self.assertEqual(hashlib.sha256(stripped).hexdigest(),selected_layouts.get(page.name,hashes['build-inputs/static/'+page.name]),page.name)

@@ -29,3 +29,21 @@ They are not a new browser execution on this correction commit. No new visual be
 | Independent review | Paused while the snapshot failed. Primary sends the corrected manifest and both the original and correction evidence to Gemini. Astra follows the critic. |
 
 Lesson: enforce the repository's checkout line endings before recording RAW release hashes. Local source/dist parity alone does not prove portable publication.
+
+## Linux readback and the next exposed layout guard
+
+Run [42170897865](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42170897865) completed on exact `a77f705a6fd6a2778e4112c21aaa72ab8e478015`.
+Publication integrity and reproducible build passed. This closes the original snapshot portability failure.
+The historical aggregate then failed at `ResponsiveImages.test_originals_dimensions_hashes_and_fallback`.
+Its index layout constant described the CRLF version; actual index bytes and the Git blob are LF.
+The primary proved both hashes and reproduced the same local failure before editing.
+
+The correction changes only that exact hash and its comment in `tests/responsive_images.py`.
+It does not change application source, layout, original images, derivatives or the exact-byte assertion.
+The focused test now exits 0. An in-memory substituted index input exits 1; restored input exits 0.
+[CI-IMAGE-LF-FIX.json](CI-IMAGE-LF-FIX.json) records commands, output hashes, the disposable driver and unchanged input hash.
+The new Linux aggregate remains pending. A successful integrity job is not a successful aggregate.
+
+The active Gemini storefront review remains attributed to its frozen a77f705 candidate.
+The primary must adjudicate this narrow test-only delta explicitly when accepting that review.
+The refreshed 27-path REVIEW-CANDIDATE describes current paths; historical manifests remain unchanged.

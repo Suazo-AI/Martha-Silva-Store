@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-06T06:14:48.659942+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "44dd8d8763f43d3c4c1262c8aea9c99147f8dc20"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/CI-IMAGE-LF-FIX.json",
+      "change": "A",
+      "git_blob": "54ae00c812e773a188c6eacd552e84abe532af1e"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/REVIEW-CANDIDATE.json",
+      "change": "M",
+      "git_blob": "d0ab10b6855110c5f410f11670159703bfb85bd9"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/ci-correction.md",
+      "change": "M",
+      "git_blob": "4da17991268555ed29dfdf4b7531d8156042bdf6"
+    },
+    {
+      "path": "docs/release-20261106/completion-audit.html",
+      "change": "A",
+      "git_blob": "a8c3e860844dbf20e8790499d75f12e241ceff36"
+    },
+    {
+      "path": "docs/release-20261106/completion-audit.md",
+      "change": "A",
+      "git_blob": "bc82d71a620ec10c94c2609db0ee1684e657c290"
+    },
+    {
+      "path": "docs/supply-real-20261106/PREPARATION-ACCEPTANCE.json",
+      "change": "A",
+      "git_blob": "590aad2b13d68a0900842710770e25fe0d463fc6"
+    },
+    {
+      "path": "docs/supply-real-20261106/astra-judge-preparation.md",
+      "change": "A",
+      "git_blob": "c3c12ae4e1b6061e4c947dc03ce63197c0bff959"
+    },
+    {
+      "path": "docs/supply-real-20261106/correction-review.md",
+      "change": "M",
+      "git_blob": "b356c42889d7515f4575be00ab460ea231997589"
+    },
+    {
+      "path": "tests/responsive_images.py",
+      "change": "M",
+      "git_blob": "807fc5f9ad8882cdb8a1423f61ead66afdcd6882"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}
