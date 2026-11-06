@@ -47,14 +47,14 @@ ROLES = ['Owner', 'Manager', 'Cashier', 'Inventory', 'Unassigned']
 ALWAYS_ZERO = ['lines_without_exactly_one_movement', 'sale_movements_not_matching_a_line',
                'balance_vs_movement_sum_mismatch', 'balance_vs_last_movement_mismatch',
                'negative_or_invalid_stock', 'negative_movement_after', 'duplicate_idempotency_keys',
-               'items_without_synthetic_marker']
+               'items_without_synthetic_marker', 'receipt_movement_mismatch', 'orphan_receipt_movement', 'receipt_order_mismatch']
 TABLE_COLUMNS = [('sales', 'ventas'), ('sale_operations', 'ops_venta'), ('movements', 'movs'),
                  ('sale_movements', 'movs_venta'), ('on_hand_total', 'existencia'),
                  ('balance_vs_movement_sum_mismatch', 'Σmov≠saldo'), ('negative_or_invalid_stock', 'negativos'),
                  ('duplicate_idempotency_keys', 'claves_dup'), ('active_sessions', 'sesiones')]
 BROWSER_SCRIPT = ROOT / 'tests/golden-path/browser_path.mjs'
 BROWSER_SOURCES = ['dev/savia-staff-ui/' + name for name in
-                   ('app.mjs', 'client.mjs', 'login.mjs', 'login.html', 'index.html', 'styles.css')]
+                   ('app.mjs', 'client.mjs', 'login.mjs', 'login.html', 'index.html', 'styles.css', 'supply.mjs')]
 BROWSER_STEPS = ('browser.start', 'browser.cashier_login', 'browser.inventory',
                  'browser.sale_confirmed', 'browser.receipt_reload', 'browser.stock_after_sale',
                  'browser.response_loss_committed', 'browser.recover_after_reload',
@@ -66,6 +66,45 @@ BROWSER_DOM = dict(zip(BROWSER_STEPS, (
     {'receipt', 'sale_enabled'}, {'receipt', 'same_receipt', 'sale_enabled'}, {'inventory', 'stock_current'},
     {'pending', 'pending_key_preserved'}, {'receipt', 'same_receipt', 'sale_enabled'},
     {'receipt', 'same_receipt', 'sale_enabled'}, {'inventory', 'stock_current'}, {'logged_out'})))
+SUPPLY_STEPS = ('browser.supply_login', 'browser.supply_partial', 'browser.supply_loss',
+                'browser.supply_recovered', 'browser.supply_reload', 'browser.supply_logout')
+BROWSER_DOM.update({name: {'logged_out'} if name.endswith('logout') else {'shell'} for name in SUPPLY_STEPS})
+
+
+def supply_expected(step):
+    """Independent fixture arithmetic: order 5 units at 700; deliveries 2 then 3.
+
+    Sale path already left 25 units, 2 sales, 4 sale movements and 3 adjustments.
+    Recovery changes no quantities or command/receipt counts.
+    """
+    expect(step in SUPPLY_STEPS, 'supply_unknown_step')
+    n = 0 if step == SUPPLY_STEPS[0] else 1 if step == SUPPLY_STEPS[1] else 2
+    received = (0, 2, 5)[n]
+    return {'purchase_orders': 1, 'purchase_lines': 1, 'purchase_quantity': 5,
+            'purchase_total': 3500, 'purchase_received': received,
+            'purchase_open': int(n == 0), 'purchase_partial': int(n == 1), 'purchase_complete': int(n == 2),
+            'purchase_receipts': n, 'purchase_receipt_lines': n, 'purchase_receipt_total': received * 700,
+            'purchase_movements': n, 'purchase_operations': 1, 'receipt_operations': n,
+            'sales': 2, 'sale_lines': 4, 'sale_movements': 4, 'sale_operations': 2,
+            'movements': 7 + n, 'on_hand_total': 25 + received,
+            'active_sessions': int(step != SUPPLY_STEPS[-1])}
+
+
+def supply_identity(notes, fixture, previous, step):
+    """Validate sanitized evidence against the owned fixture, never against product calculations."""
+    expect(notes.get('order_id') == fixture['id'] and notes.get('actor_id') == fixture['actor']
+           and notes.get('location_id') == fixture['locationId'], 'supply_attribution_mismatch')
+    if step in SUPPLY_STEPS[1:5]:
+        expect(all(UUID_PATTERN.fullmatch(notes.get(k, '')) for k in ('key', 'receipt_id')), 'supply_identity_invalid')
+        if step in SUPPLY_STEPS[3:5]:
+            expect(all(notes.get(k) == previous.get(k) for k in ('key', 'receipt_id')), 'supply_pending_identity_mismatch')
+        if step == SUPPLY_STEPS[2]:
+            expect(all(notes.get(k) != previous.get(k) for k in ('key', 'receipt_id')), 'supply_duplicate_identity')
+    n = 0 if step == SUPPLY_STEPS[0] else 1 if step == SUPPLY_STEPS[1] else 2
+    expect(notes.get('receipt_posts') == n, 'supply_repost')
+    return notes
+
+
 UUID_PATTERN = re.compile(r'\A[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\Z')
 
 
@@ -84,17 +123,17 @@ def browser_checkpoint(event, expected_step, secrets_seen):
     secrets_seen.update(event['secrets'])
     notes = event['notes']
     allowed = {'dom', 'network', 'sale_posts', 'stock_total', 'stock_rows', 'quantity', 'total_minor',
-               'key', 'sale_id', 'runtime', 'source_hashes', 'external_requests', 'runtime_errors'}
+               'key', 'sale_id', 'runtime', 'source_hashes', 'external_requests', 'runtime_errors', 'receipt_posts', 'receipt_id', 'order_id', 'actor_id', 'location_id'}
     valid(isinstance(notes, dict) and set(notes) <= allowed
           and {'dom', 'network', 'sale_posts', 'external_requests', 'runtime_errors'} <= set(notes))
     dom_labels = {'login_ready', 'shell', 'cashier', 'inventory', 'receipt', 'pending',
                   'sale_enabled', 'pending_key_preserved', 'same_receipt', 'stock_current', 'logged_out'}
     valid(isinstance(notes['dom'], list) and all(value in dom_labels for value in notes['dom'])
           and BROWSER_DOM[expected_step] <= set(notes['dom']))
-    for key in ('sale_posts', 'stock_total', 'stock_rows', 'quantity', 'total_minor', 'external_requests', 'runtime_errors'):
+    for key in ('sale_posts', 'stock_total', 'stock_rows', 'quantity', 'total_minor', 'external_requests', 'runtime_errors', 'receipt_posts'):
         if key in notes:
             valid(type(notes[key]) is int and 0 <= notes[key] <= 100000)
-    for key in ('key', 'sale_id'):
+    for key in ('key', 'sale_id', 'receipt_id', 'order_id', 'actor_id', 'location_id'):
         if key in notes:
             valid(isinstance(notes[key], str) and UUID_PATTERN.fullmatch(notes[key]) is not None)
     if 'runtime' in notes:
@@ -105,18 +144,20 @@ def browser_checkpoint(event, expected_step, secrets_seen):
         valid(isinstance(notes['source_hashes'], dict) and set(notes['source_hashes']) == set(BROWSER_SOURCES))
         valid(all(isinstance(v, str) and re.fullmatch(r'[a-f0-9]{64}', v) for v in notes['source_hashes'].values()))
     paths = {'/internal/login', '/internal/', '/internal/app.mjs', '/internal/client.mjs',
-             '/internal/login.mjs', '/internal/styles.css', '/internal/api/security/csrf',
+             '/internal/login.mjs', '/internal/styles.css', '/internal/supply.mjs', '/internal/api/security/csrf',
              '/internal/api/security/login', '/internal/api/security/me', '/internal/api/security/logout',
              '/internal/api/directory/items', '/internal/api/directory/locations',
              '/internal/api/commerce/inventory', '/internal/api/commerce/sales',
-             '/internal/api/operations/commerce.sale.record'}
+             '/internal/api/operations/commerce.sale.record', '/internal/api/operations/supply.receipt.create',
+             '/internal/api/supply/purchase-orders'}
     valid(isinstance(notes['network'], list) and len(notes['network']) <= 200)
     for request in notes['network']:
         valid(isinstance(request, dict) and set(request) == {'method', 'path', 'status', 'key', 'response_lost'})
         valid(request['method'] in ('GET', 'POST'))
         path = request['path']
         valid(isinstance(path, str) and (path in paths or (path.startswith('/internal/api/commerce/sales/')
-              and UUID_PATTERN.fullmatch(path.rsplit('/', 1)[-1]) is not None)))
+              and UUID_PATTERN.fullmatch(path.rsplit('/', 1)[-1]) is not None) or re.fullmatch(
+                  r'/internal/api/supply/purchase-orders/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}(?:/receipts)?', path)))
         valid(request['status'] is None or (type(request['status']) is int and 100 <= request['status'] <= 599))
         valid(type(request['response_lost']) is bool)
         valid(request['key'] is None or (isinstance(request['key'], str) and UUID_PATTERN.fullmatch(request['key']) is not None))
@@ -450,6 +491,7 @@ class GoldenPath:
             'directory_stock_staff_method': 'HTTP as Owner: directory/locations, directory/items, commerce/adjustments, security/staff',
             'api': {'binding': '127.0.0.1 (https, ephemeral self-signed certificate)', 'process': 'dotnet Martha.Store.Api.dll'},
             'roles': ROLES,
+            'supply_journey': getattr(self.args, 'supply', False),
             'total_ms': round((time.monotonic() - self.started) * 1000),
             'steps': self.steps,
             'not_proven': ([] if self.args.mode == 'browser' else ['real browser/UI (C6)']) + ['Windows/SUAZO-PC', 'production TLS/proxy', 'payments',
@@ -684,8 +726,27 @@ class GoldenPath:
                 status, created = self.owner.post('/internal/api/security/staff', body, None)
                 expect(status == 200 and created['branchId'] == body['branchId'], f'crear personal {role} HTTP {status}')
                 codes.append(status)
+                u['id'] = created['id']
             return {'http': codes}
         self.step('owner.seed_staff', staff, {'staff': len(ROLES), 'unassigned_staff': 1})
+
+        if getattr(self.args, 'supply', False):
+            def purchase_fixture():
+                status, supplier = self.owner.post('/internal/api/directory/parties',
+                    {'kind': 'supplier', 'name': 'SINTETICO Golden supplier', 'active': True}, new_key())
+                expect(status == 201, 'supply_supplier_create_failed')
+                status, order = self.owner.post('/internal/api/supply/purchase-orders',
+                    {'supplierId': supplier['id'], 'locationId': self.ids['location'], 'currency': 'USD',
+                     'reference': 'SINTETICO Golden receipt',
+                     'lines': [{'itemId': self.ids['items'][0], 'quantity': 5, 'unitCostMinor': 700}]}, new_key())
+                expect(status == 200 and order['status'] == 'open' and order['totalMinor'] == 3500
+                       and len(order['lines']) == 1 and order['lines'][0]['receivedQuantity'] == 0,
+                       'supply_order_fixture_invalid')
+                self.supply_fixture = {**order, 'actor': self.users['Inventory']['id']}
+                return {'http': [201, 200]}
+            self.step('owner.seed_purchase', purchase_fixture,
+                      {'purchase_orders': 1, 'purchase_lines': 1, 'purchase_quantity': 5,
+                       'purchase_received': 0, 'purchase_total': 3500, 'purchase_receipts': 0})
 
         def owner_scope():
             codes = []
@@ -946,6 +1007,8 @@ class GoldenPath:
                   'cashier': self.users['Cashier'], 'location_id': self.ids['location'],
                   'item_id': self.ids['items'][0], 'sku': ITEMS[0][0], 'unit_price_minor': ITEMS[0][2],
                   'second_item_id': self.ids['items'][1], 'second_sku': ITEMS[1][0], 'second_unit_price_minor': ITEMS[1][2]}
+        if getattr(self.args, 'supply', False):
+            config.update(supply=self.supply_fixture, inventory=self.users['Inventory'])
         process = subprocess.Popen([node, str(BROWSER_SCRIPT)], cwd=ROOT, env=child_env(),
                                    stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL,
                                    start_new_session=True)
@@ -953,6 +1016,7 @@ class GoldenPath:
         deadline = time.monotonic() + 300
         buffered = b''
         observed_posts, sale_keys, sale_ids = 0, [], []
+        supply_previous, receipt_posts = {}, 0
 
         def send(value):
             process.stdin.write((json.dumps(value) + '\n').encode('utf-8'))
@@ -1001,7 +1065,37 @@ class GoldenPath:
                    'browser_process_identity_invalid')
             self.register_browser_group(ownership['owned_browser_pid'], chrome=True)
             send({'ok': True})
-            for name in BROWSER_STEPS:
+            for name in (*BROWSER_STEPS, *(SUPPLY_STEPS if getattr(self.args, 'supply', False) else ())):
+                if name in SUPPLY_STEPS:
+                    self.steps.append({'step': name, 'status': 'FAIL'})
+                    event = receive()
+                    notes = browser_checkpoint(event, name, self.secrets_seen)
+                    supply_identity(notes, self.supply_fixture, supply_previous, name)
+                    requests = [r for r in notes['network'] if r['method'] == 'POST' and r['path'].endswith('/receipts')]
+                    receipt_posts += len(requests)
+                    expect(receipt_posts == notes['receipt_posts'] and notes['sale_posts'] == 2
+                           and not any(r['method'] == 'POST' and r['path'] == '/internal/api/commerce/sales' for r in notes['network'])
+                           and notes['runtime_errors'] == notes['external_requests'] == 0, 'supply_network_invalid')
+                    if name in SUPPLY_STEPS[1:3]:
+                        expect(len(requests) == 1 and requests[0]['key'] == notes['key']
+                               and requests[0]['status'] == 200 and requests[0]['response_lost'] == (name == SUPPLY_STEPS[2]),
+                               'supply_commit_not_observed')
+                    if name == SUPPLY_STEPS[3]:
+                        expect(any(r['method'] == 'GET' and r['path'] == '/internal/api/operations/supply.receipt.create'
+                                   and r['key'] == notes['key'] and r['status'] == 200 for r in notes['network']),
+                               'supply_recovery_not_observed')
+                    if name in SUPPLY_STEPS[1:5]:
+                        identity = self.helper('receipt-identity', self.database, notes['receipt_id'], notes['actor_id'],
+                                               notes['order_id'], notes['location_id'], self.ids['items'][0], notes['key'],
+                                               '2' if name == SUPPLY_STEPS[1] else '3')
+                        expect(identity.get('matches') == 1, 'supply_sql_identity_mismatch')
+                        notes['sql_identity_matches'] = identity['matches']
+                    self.steps.pop()  # step() now owns this checkpoint and its SQL evidence.
+                    self.step(name, lambda: notes, supply_expected(name),
+                              same_as_previous=BROWSER_READ_ONLY if name in SUPPLY_STEPS[3:] else ())
+                    supply_previous = notes
+                    send({'ok': True})
+                    continue
                 sale_count = 2 if BROWSER_STEPS.index(name) >= BROWSER_STEPS.index('browser.response_loss_committed') else (
                     1 if BROWSER_STEPS.index(name) >= BROWSER_STEPS.index('browser.sale_confirmed') else 0)
                 expected = {'sales': sale_count, 'sale_lines': 2 * sale_count, 'sale_movements': 2 * sale_count,
@@ -1114,11 +1208,14 @@ def main(argv=None):
     parser.add_argument('--out', required=True, help='directorio de evidencia saneada')
     parser.add_argument('--mode', choices=['smoke', 'serve', 'browser'], default='smoke')
     parser.add_argument('--playwright-directory', help='paquete Playwright ya instalado; obligatorio para --mode browser')
+    parser.add_argument('--supply', action='store_true', help='combined sale + staff receipt journey; requires separate runtime authorization')
     parser.add_argument('--no-build', action='store_true', help='usar binarios Release ya compilados')
     parser.add_argument('--sql-env-file', help='archivo privado con MARTHA_TEST_SQL_CONNECTION=… (no se imprime)')
     parser.add_argument('--keep-private-log', help='copiar el log crudo de la API (0600) a esta ruta FUERA de --out')
     parser.add_argument('--database', help=argparse.SUPPRESS)  # only to test the refusal guard
     args = parser.parse_args(argv)
+    if args.supply and args.mode != 'browser':
+        parser.error('--supply requires --mode browser')
     if args.mode == 'browser' and not args.playwright_directory:
         parser.error('--mode browser requiere --playwright-directory (no instala dependencias)')
     if args.keep_private_log and Path(args.keep_private_log).resolve().is_relative_to(Path(args.out).resolve()):

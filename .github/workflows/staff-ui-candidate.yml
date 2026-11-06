@@ -9,6 +9,8 @@ on:
       - 'tests/browser-*-validation.mjs'
       - 'tests/frontend-deps/**'
       - 'tests/fixtures/supply-browser.mjs'
+      - 'tests/golden-path/**'
+      - 'tests/test_golden_path*_safety.py'
       - 'backend/**'
       - 'global.json'
       - '.github/workflows/staff-ui-candidate.yml'
@@ -32,6 +34,15 @@ jobs:
       - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68
         with:
           dotnet-version: '10.0.402'
+      - name: Real-journey harness refusal and cleanup guards (no runtime)
+        run: |
+          python3 tests/test_golden_path_safety.py
+          python3 tests/test_golden_path_browser_safety.py
+          node --check tests/golden-path/browser_path.mjs
+      - name: Compile real-journey helper without starting API or SQL
+        run: |
+          dotnet restore tests/golden-path/GoldenPath.Sql --locked-mode
+          dotnet build tests/golden-path/GoldenPath.Sql --no-restore --configuration Release
       - name: Install locked DOM test dependencies without lifecycle scripts
         run: npm ci --prefix tests/frontend-deps --ignore-scripts --no-audit --no-fund
       - name: Staff DOM and mocked transport regressions

@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-06T05:09:13.733601+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": ".github/workflows/golden-path.yml",
+      "change": "M",
+      "git_blob": "ac55c2c422e450169fe2c02b24770ffefde215b5"
+    },
+    {
+      "path": ".github/workflows/staff-ui-candidate.yml",
+      "change": "M",
+      "git_blob": "aea6fc776740c4a19dbe0fb0a1fcc39bc026d32c"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "41e0510a126872c981c3f9f7ce9ab14701bbed3a"
+    },
+    {
+      "path": "docs/pipeline/PARALLEL-20261106.md",
+      "change": "M",
+      "git_blob": "f8f5e5d527680e4b5bdcbc26ec6619a4260aba39"
+    },
+    {
+      "path": "docs/supply-real-20261106/CANDIDATE.json",
+      "change": "A",
+      "git_blob": "9c2ae113978f9c44ed52b9241c0dd511de4811e2"
+    },
+    {
+      "path": "docs/supply-real-20261106/IMPORT.json",
+      "change": "A",
+      "git_blob": "7d3a364d29329ff0496dad07e6353e416fed2276"
+    },
+    {
+      "path": "docs/supply-real-20261106/README.md",
+      "change": "A",
+      "git_blob": "4c204a4da683586526aa5fadbd3a69aa6614827a"
+    },
+    {
+      "path": "docs/supply-real-20261106/RESULT.json",
+      "change": "A",
+      "git_blob": "429b201f44dbbd59ab6a667a332057a11742ae9f"
+    },
+    {
+      "path": "docs/supply-real-20261106/primary-checks.json",
+      "change": "A",
+      "git_blob": "43b28ea4c4183868f14c8177681419f437a4724d"
+    },
+    {
+      "path": "docs/supply-real-20261106/primary-review.md",
+      "change": "A",
+      "git_blob": "53fa5e4ccef04c002fb3809ee18d209d4ffa4b3f"
+    },
+    {
+      "path": "tests/golden-path/GoldenPath.Sql/Program.cs",
+      "change": "M",
+      "git_blob": "cdd1bebfe306cb6e91ce3450c915257f68f1db17"
+    },
+    {
+      "path": "tests/golden-path/README.md",
+      "change": "M",
+      "git_blob": "33628a0056a37e78bab814fc3fd73a8810f68fa1"
+    },
+    {
+      "path": "tests/golden-path/browser_path.mjs",
+      "change": "M",
+      "git_blob": "4041de4430f64d35dc50ce0be0455d1659cdc134"
+    },
+    {
+      "path": "tests/golden-path/golden_path.py",
+      "change": "M",
+      "git_blob": "03e4b8da4611a4f1c1833efe57ecd3ee68835e71"
+    },
+    {
+      "path": "tests/test_golden_path_browser_safety.py",
+      "change": "M",
+      "git_blob": "2e5de74ec5ddbeda751bb119e12f59d8ac253869"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

@@ -1,5 +1,12 @@
 # Estado vigente de Martha Silva / SAVIA
 
+Preparación de recepción real, 2026-11-06 UTC: candidato importado desde `b30a275` y congelado para revisión.
+El primary verificó 20 bindings de origen, 40 controles sin SQL y compilación Release sin errores ni advertencias.
+El SDK portable `10.0.402` ya existía; queda corregido el bloqueo de compilación reportado por el worker.
+La CI sin SQL incorpora estos controles y la compilación. Su resultado del nuevo SHA sigue pendiente.
+[Revisión primaria y límites](supply-real-20261106/primary-review.md). Crítico y juez pendientes; recorrido combinado NOT RUN.
+No se ejecutó otra corrida SQL, API, Docker, certificados, merge ni despliegue.
+
 Actualización SQL, 2026-11-06 UTC: **602/602 backend PASS, cero fallos u omitidos** en `Tony@708bdbb`.
 El primary verificó run42163110947, artefacto descargado de nuevo, backup/restore, reinicio y salida real de limpieza.
 [Aceptación técnica y límites](sql-ci-20261106/README.md). Una sola corrida autorizada; sin SQL local, merge ni despliegue.

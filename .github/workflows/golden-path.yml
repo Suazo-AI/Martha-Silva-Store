@@ -9,6 +9,11 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      supply_receipt:
+        description: 'Combined receipt journey (requires separate Jason runtime authorization)'
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -95,11 +100,15 @@ jobs:
           # stdin is not a terminal here; the harness gives the Owner console its own private pty.
           python3 tests/golden-path/golden_path.py --no-build --out "$RUNNER_TEMP/golden-evidence" < /dev/null
       - name: C6 Chrome to real API to SQL, including lost-response recovery without a second sale
+        env:
+          RUN_SUPPLY_RECEIPT: ${{ github.event_name == 'workflow_dispatch' && inputs.supply_receipt == true }}
         shell: bash
         run: |
           set -euo pipefail
           : "${MARTHA_TEST_SQL_CONNECTION:?C6 must not silently skip}"
-          python3 tests/golden-path/golden_path.py --mode browser --no-build \
+          receipt_args=()
+          if [ "$RUN_SUPPLY_RECEIPT" = "true" ]; then receipt_args+=(--supply); fi
+          python3 tests/golden-path/golden_path.py --mode browser --no-build "${receipt_args[@]}" \
             --playwright-directory "$RUNNER_TEMP/c6-playwright/node_modules/playwright" \
             --out "$RUNNER_TEMP/c6-evidence" < /dev/null
       - name: Verify exact evidence bytes before publication

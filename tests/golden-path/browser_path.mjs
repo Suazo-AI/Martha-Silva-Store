@@ -57,15 +57,16 @@ try {
   const servedHashes = {};
   const staticPaths = new Map([
     ['/internal/login', 'login.html'], ['/internal/', 'index.html'],
-    ...['app.mjs', 'client.mjs', 'login.mjs', 'styles.css'].map(name => [`/internal/${name}`, name]),
+    ...['app.mjs', 'client.mjs', 'login.mjs', 'styles.css', 'supply.mjs'].map(name => [`/internal/${name}`, name]),
   ]);
   const allowed = new Set([...staticPaths.keys(), ...[
     'security/csrf', 'security/login', 'security/me', 'security/logout',
     'directory/items', 'directory/locations', 'commerce/inventory', 'commerce/sales',
-    'operations/commerce.sale.record',
+    'operations/commerce.sale.record', 'operations/supply.receipt.create', 'supply/purchase-orders',
   ].map(value => `/internal/api/${value}`)]);
   const permittedPath = pathname => allowed.has(pathname)
-    || (pathname.startsWith('/internal/api/commerce/sales/') && uuid(pathname.split('/').at(-1)));
+    || (pathname.startsWith('/internal/api/commerce/sales/') && uuid(pathname.split('/').at(-1)))
+    || /^\/internal\/api\/supply\/purchase-orders\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}(?:\/receipts)?$/.test(pathname);
   await context.route('**/*', async route => {
     const url = new URL(route.request().url());
     if (url.origin !== origin.origin) { externalRequests++; await route.abort(); return; }
@@ -298,6 +299,117 @@ try {
   });
   check(meStatus === 401 && posts === 2, 'c6_logout_or_post_count');
   await checkpoint('browser.logout', {dom: ['logged_out']});
+
+  if (config.supply) {
+    const fixture = config.supply;
+    const receiptPath = `/internal/api/supply/purchase-orders/${fixture.id}/receipts`;
+    const lineId = fixture.lines[0].id;
+    let receiptPosts = 0, delivery, deliveryKey;
+    const readPending = () => page.evaluate(() => JSON.parse(sessionStorage.getItem('savia.supply.pending.v1')));
+    const identity = value => {
+      check(value && uuid(value.id) && value.purchaseOrderId === fixture.id
+        && value.locationId === config.location_id && value.receivedBy === fixture.actor
+        && value.currency === 'USD' && value.lines.length === 1
+        && value.lines[0].purchaseOrderLineId === lineId && value.lines[0].itemId === config.item_id
+        && value.lines[0].unitCostMinor === 700, 'c6_supply_identity_invalid');
+      return value;
+    };
+    page.on('request', request => {
+      if (request.method() !== 'POST' || new URL(request.url()).pathname !== receiptPath) return;
+      receiptPosts++;
+      try {
+        const body = request.postDataJSON();
+        check(receiptPosts <= 2 && Object.keys(body).sort().join() === 'lines,receiptId'
+          && uuid(body.receiptId) && body.lines.length === 1 && body.lines[0].purchaseOrderLineId === lineId
+          && body.lines[0].quantity === (receiptPosts === 1 ? 2 : 3), 'c6_supply_request_invalid');
+      } catch { runtimeErrors++; }
+    });
+    const supplyCheckpoint = async step => checkpoint(step, {dom: step.endsWith('logout') ? ['logged_out'] : ['shell'],
+      receipt_posts: receiptPosts, order_id: fixture.id, actor_id: fixture.actor, location_id: config.location_id,
+      ...(delivery ? {receipt_id: delivery.id, key: deliveryKey} : {})});
+    await page.locator('#login-name').fill(config.inventory.loginName);
+    await page.locator('#login-password').fill(config.inventory.password);
+    await page.locator('#login-submit').click();
+    await expect(page.locator('[data-session-role]')).toHaveText('Inventory');
+    await nav('abastecimiento');
+    await page.locator(`[data-order-id="${fixture.id}"]`).click();
+    await expect(page.locator('#supply-detail')).toContainText('open');
+    await supplyCheckpoint('browser.supply_login');
+    await page.locator(`[data-line-id="${lineId}"]`).fill('2');
+    const partialResponse = page.waitForResponse(r => new URL(r.url()).pathname === receiptPath && r.request().method() === 'POST');
+    await page.locator('#supply-submit').click();
+    const partial = await partialResponse;
+    check(partial.status() === 200, 'c6_supply_partial_http');
+    delivery = identity(await partial.json()); deliveryKey = partial.request().headers()['idempotency-key'];
+    check(uuid(deliveryKey) && delivery.totalMinor === 1400 && delivery.orderStatusAfter === 'partially_received'
+      && delivery.lines[0].quantity === 2, 'c6_supply_partial_invalid');
+    await expect(page.locator('#supply-result')).toContainText(delivery.id);
+    await expect(page.locator('#supply-detail')).toContainText('partially_received');
+    await expect(page.locator(`[data-line-id="${lineId}"]`)).toHaveAttribute('max', '3');
+    check(await readPending() === null, 'c6_supply_pending_not_cleared');
+    await supplyCheckpoint('browser.supply_partial');
+
+    const partialId = delivery.id, partialKey = deliveryKey;
+    const loss = await context.newCDPSession(page);
+    let lossFailure = false, resolveLoss;
+    const lossDone = new Promise(resolve => { resolveLoss = resolve; });
+    loss.on('Fetch.requestPaused', async event => {
+      try {
+        check(event.request.method === 'POST' && event.responseStatusCode === 200, 'c6_supply_loss_requires_commit');
+        const raw = await loss.send('Fetch.getResponseBody', {requestId: event.requestId});
+        delivery = identity(JSON.parse(raw.base64Encoded ? Buffer.from(raw.body, 'base64').toString('utf8') : raw.body));
+        deliveryKey = Object.entries(event.request.headers).find(([k]) => k.toLowerCase() === 'idempotency-key')?.[1];
+        check(uuid(deliveryKey) && deliveryKey !== partialKey && delivery.id !== partialId
+          && delivery.totalMinor === 2100 && delivery.orderStatusAfter === 'received' && delivery.lines[0].quantity === 3,
+        'c6_supply_complete_invalid');
+        const record = network.findLast(r => r.method === 'POST' && r.path === receiptPath);
+        check(record?.key === deliveryKey, 'c6_supply_loss_request_missing');
+        record.status = 200; record.response_lost = true;
+        await loss.send('Fetch.failRequest', {requestId: event.requestId, errorReason: 'Failed'});
+      } catch { lossFailure = true; }
+      finally { resolveLoss(); }
+    });
+    await loss.send('Fetch.enable', {patterns: [{urlPattern: `${origin.origin}${receiptPath}`, requestStage: 'Response'}]});
+    await page.locator(`[data-line-id="${lineId}"]`).fill('3');
+    await page.locator('#supply-submit').click();
+    await lossDone;
+    check(!lossFailure, 'c6_supply_loss_failed');
+    await loss.send('Fetch.disable'); await loss.detach();
+    await expect(page.locator('#supply-recover')).toBeEnabled();
+    await expect(page.locator('#supply-submit')).toBeDisabled();
+    const pending = await readPending();
+    check(pending?.key === deliveryKey && pending.body.receiptId === delivery.id && pending.actorId === fixture.actor
+      && pending.order.id === fixture.id && pending.body.lines[0].quantity === 3, 'c6_supply_pending_identity_invalid');
+    await supplyCheckpoint('browser.supply_loss');
+
+    await page.reload();
+    await nav('abastecimiento');
+    await expect(page.locator('#supply-recover')).toBeEnabled();
+    const restored = await readPending();
+    check(JSON.stringify(restored) === JSON.stringify(pending), 'c6_supply_pending_changed');
+    await page.locator('#supply-recover').click();
+    await expect(page.locator('#supply-result')).toContainText(delivery.id);
+    await expect(page.locator('#supply-detail')).toContainText('received');
+    await expect(page.locator(`[data-line-id="${lineId}"]`)).toHaveAttribute('max', '0');
+    check(await readPending() === null && receiptPosts === 2, 'c6_supply_recovery_invalid');
+    await supplyCheckpoint('browser.supply_recovered');
+    await page.reload(); await nav('abastecimiento');
+    await page.locator(`[data-order-id="${fixture.id}"]`).click();
+    await expect(page.locator('#supply-detail')).toContainText('received');
+    await expect(page.locator(`[data-line-id="${lineId}"]`)).toHaveAttribute('max', '0');
+    await expect(page.locator('#supply-receipts')).toContainText(delivery.id);
+    await expect(page.locator('#supply-receipts')).toContainText(partialId);
+    await expect(page.locator('#supply-submit')).toBeDisabled();
+    check(await readPending() === null && receiptPosts === 2, 'c6_supply_reload_invalid');
+    await supplyCheckpoint('browser.supply_reload');
+    const finalLogout = page.waitForResponse(r => new URL(r.url()).pathname === '/internal/api/security/logout');
+    await page.locator('[data-action="logout"]').click({noWaitAfter: true});
+    check((await finalLogout).status() === 204, 'c6_supply_logout_invalid');
+    await page.waitForURL(`${origin.origin}/internal/login`);
+    await expect(page.locator('#login-submit')).toBeEnabled();
+    await supplyCheckpoint('browser.supply_logout');
+  }
+
 } catch (error) {
   failed = true;
   // Never print Playwright, CDP, network or assertion exception text (it may contain secrets).

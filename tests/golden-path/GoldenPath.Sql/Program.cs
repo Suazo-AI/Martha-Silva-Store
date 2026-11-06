@@ -18,6 +18,8 @@ try
         ["create", var db] => await Create(db),
         ["branch", var db, var id] => await Branch(db, Guid.Parse(id)),
         ["oracles", var db] => await Oracles(db),
+        ["receipt-identity", var db, var receipt, var actor, var order, var location, var item, var key, var quantity] =>
+            await ReceiptIdentity(db, Guid.Parse(receipt), Guid.Parse(actor), Guid.Parse(order), Guid.Parse(location), Guid.Parse(item), Guid.Parse(key), int.Parse(quantity)),
         ["exists", var db] => await Exists(db),
         ["drop", var db] => await Drop(db),
         _ => Fail("usage", "cert <dir> | create|oracles|exists|drop <db> | branch <db> <guid>")
@@ -160,6 +162,28 @@ static async Task<int> Oracles(string database)
     command.CommandText = """
         SET NOCOUNT ON;
         SELECT
+          (SELECT COUNT(*) FROM savia_internal.PurchaseOrders) AS purchase_orders,
+          (SELECT COUNT(*) FROM savia_internal.PurchaseOrderLines) AS purchase_lines,
+          (SELECT ISNULL(SUM(Quantity),0) FROM savia_internal.PurchaseOrderLines) AS purchase_quantity,
+          (SELECT ISNULL(SUM(ReceivedQuantity),0) FROM savia_internal.PurchaseOrderLines) AS purchase_received,
+          (SELECT ISNULL(SUM(TotalMinor),0) FROM savia_internal.PurchaseOrders) AS purchase_total,
+          (SELECT COUNT(*) FROM savia_internal.PurchaseOrders WHERE Status='open') AS purchase_open,
+          (SELECT COUNT(*) FROM savia_internal.PurchaseOrders WHERE Status='partially_received') AS purchase_partial,
+          (SELECT COUNT(*) FROM savia_internal.PurchaseOrders WHERE Status='received') AS purchase_complete,
+          (SELECT COUNT(*) FROM savia_internal.PurchaseReceipts) AS purchase_receipts,
+          (SELECT COUNT(*) FROM savia_internal.PurchaseReceiptLines) AS purchase_receipt_lines,
+          (SELECT ISNULL(SUM(TotalMinor),0) FROM savia_internal.PurchaseReceipts) AS purchase_receipt_total,
+          (SELECT COUNT(*) FROM savia_internal.StockMovements WHERE Kind='purchase_receipt') AS purchase_movements,
+          (SELECT COUNT(*) FROM savia_internal.Operations WHERE Scope='supply.purchase.create') AS purchase_operations,
+          (SELECT COUNT(*) FROM savia_internal.Operations WHERE Scope='supply.receipt.create') AS receipt_operations,
+          (SELECT COUNT(*) FROM savia_internal.PurchaseReceiptLines l JOIN savia_internal.PurchaseReceipts r ON r.Id=l.ReceiptId
+             WHERE (SELECT COUNT(*) FROM savia_internal.StockMovements m WHERE m.OperationId=r.Id AND m.Kind='purchase_receipt'
+               AND m.ItemId=l.ItemId AND m.LocationId=r.LocationId AND m.ActorId=r.ReceivedBy
+               AND m.OnHandDelta=l.Quantity AND m.ReservedDelta=0) <> 1) AS receipt_movement_mismatch,
+          (SELECT COUNT(*) FROM savia_internal.StockMovements m WHERE m.Kind='purchase_receipt' AND NOT EXISTS
+             (SELECT 1 FROM savia_internal.PurchaseReceiptLines l WHERE l.ReceiptId=m.OperationId AND l.ItemId=m.ItemId)) AS orphan_receipt_movement,
+          (SELECT COUNT(*) FROM savia_internal.PurchaseOrderLines l WHERE l.ReceivedQuantity <>
+             ISNULL((SELECT SUM(r.Quantity) FROM savia_internal.PurchaseReceiptLines r WHERE r.PurchaseOrderLineId=l.Id),0)) AS receipt_order_mismatch,
           (SELECT COUNT(*) FROM savia_internal.Sales) AS sales,
           (SELECT COUNT(*) FROM savia_internal.SaleLines) AS sale_lines,
           (SELECT COUNT(*) FROM savia_internal.StockMovements) AS movements,
@@ -205,6 +229,33 @@ static async Task<int> Oracles(string database)
     var result = new SortedDictionary<string, long>(StringComparer.Ordinal);
     for (var i = 0; i < reader.FieldCount; i++) result[reader.GetName(i)] = Convert.ToInt64(reader.GetValue(i));
     return Ok(new { ok = true, counts = result });
+}
+
+// Exact identity readback, parameterized, counts only. No raw SQL rows leave this process.
+static async Task<int> ReceiptIdentity(string database, Guid receipt, Guid actor, Guid order, Guid location, Guid item, Guid key, int quantity)
+{
+    await using var connection = new SqlConnection(Connection(database));
+    await connection.OpenAsync();
+    await using var command = connection.CreateCommand();
+    command.CommandText = """
+        SELECT COUNT(*) FROM savia_internal.PurchaseReceipts r
+        JOIN savia_internal.PurchaseReceiptLines l ON l.ReceiptId=r.Id
+        JOIN savia_internal.StockMovements m ON m.OperationId=r.Id AND m.Kind='purchase_receipt'
+          AND m.ItemId=l.ItemId AND m.LocationId=r.LocationId AND m.ActorId=r.ReceivedBy AND m.OnHandDelta=l.Quantity
+        JOIN savia_internal.PurchaseOrders o ON o.Id=r.PurchaseOrderId
+        JOIN savia_internal.Operations op ON op.ActorId=r.ReceivedBy AND op.Scope='supply.receipt.create'
+          AND op.[Key]=@key AND op.LocationId=r.LocationId AND JSON_VALUE(op.ResultJson,'$.success')='true'
+          AND JSON_VALUE(op.ResultJson,'$.value.id')=CONVERT(nvarchar(36),r.Id)
+        WHERE r.Id=@receipt AND r.ReceivedBy=@actor AND r.PurchaseOrderId=@order AND r.LocationId=@location
+          AND l.ItemId=@item AND o.LocationId=@location AND o.UpdatedBy=@actor
+          AND l.Quantity=@quantity AND l.UnitCostMinor=700 AND r.TotalMinor=@quantity*700
+          AND r.OrderStatusAfter=CASE WHEN @quantity=2 THEN 'partially_received' ELSE 'received' END
+        """;
+    foreach (var pair in new[] { ("@receipt", receipt), ("@actor", actor), ("@order", order), ("@location", location), ("@item", item) })
+        command.Parameters.AddWithValue(pair.Item1, pair.Item2);
+    command.Parameters.AddWithValue("@key", key.ToString());
+    command.Parameters.AddWithValue("@quantity", quantity);
+    return Ok(new { ok = true, matches = Convert.ToInt32(await command.ExecuteScalarAsync()) });
 }
 
 // Refusals carry only fixed codes written above, never server or request text.

@@ -1,0 +1,138 @@
+{
+  "base": "b30a275ac7de4e796f34ddf5fb80ebffb3eea98c",
+  "worker": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-9fd9e2cf",
+  "sourcesVerified": 20,
+  "imported": [
+    ".github/workflows/golden-path.yml",
+    "docs/supply-real-20261106/README.md",
+    "docs/supply-real-20261106/RESULT.json",
+    "tests/golden-path/GoldenPath.Sql/Program.cs",
+    "tests/golden-path/README.md",
+    "tests/golden-path/browser_path.mjs",
+    "tests/golden-path/golden_path.py",
+    "tests/test_golden_path_browser_safety.py"
+  ],
+  "normalization": "LF means CRLF to LF only; historical RAW receipts unchanged",
+  "bindings": [
+    {
+      "path": ".github/workflows/golden-path.yml",
+      "role": "changed",
+      "workerRawSha256": "8e07d99e80fa19a04592d55bbcf3880412994c21be17b6bf5d914b3e717ca81b",
+      "lfSha256": "15e23e84284f0227c35074bee6dee0f17bba5b1f675d1e40373098cc37afad82"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalCommandRunner.cs",
+      "role": "contract",
+      "workerRawSha256": "23979a253d89d26d978b3fb1990178045e33032452c664a3f3cffa49782d683f",
+      "lfSha256": "83889bcab5bbe88cef341e5ed125206c00956a87fa03fd57d80f7c37e3b3f1a5"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyDbContext.cs",
+      "role": "contract",
+      "workerRawSha256": "014a73e2fd89b84041d4615581f1723c49857a54738bf98cef95cecfe2efe2b9",
+      "lfSha256": "57e4fdeb43a4dba44c14fa667dfedee5b2e078949537c2bee6b3c96dddfa23fd"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyEndpoints.cs",
+      "role": "contract",
+      "workerRawSha256": "02ceccc4e05a5f892b2439cd9a2464e8c5960f8d4537ab6cf44e75645db6954a",
+      "lfSha256": "c7707b5c937a3475236e02bb4c67b9d29e23fa986eb8f0b29c016ba13646eb61"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyModels.cs",
+      "role": "contract",
+      "workerRawSha256": "126bf5339a3403552b8f73ba8dfe9e9fc9b2fb8161f08e48ae365ba692aaafde",
+      "lfSha256": "072545d4aac6cc9fb310dbf6bbe8aa1318007d29a4c300518179fa44d26624c9"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyService.cs",
+      "role": "contract",
+      "workerRawSha256": "aa2d20b1c929f78c2566c749404e99857ed03b89cafcd8cb7a0079f0fe8c1b3d",
+      "lfSha256": "42294e790dcf444ceab1e209eaade68a3610a2400d5d71119c1b0fbafb786adf"
+    },
+    {
+      "path": "dev/savia-staff-ui/app.mjs",
+      "role": "contract",
+      "workerRawSha256": "cc70f5adf216de28cf5a4b5efc1166d2df5fb6b6d22da9c6daee004c92237208",
+      "lfSha256": "7901d54f7ea18b09e6f50dfc8f7596a135ec3a951bd732e1a3435cb7d1185083"
+    },
+    {
+      "path": "dev/savia-staff-ui/client.mjs",
+      "role": "contract",
+      "workerRawSha256": "d435b0ec3752ad81630fc7a8368e3a0465654dce569a815e9b149cac5614dec3",
+      "lfSha256": "cdf34879fdd5e78d8141c23533de2d07155bb7451bcd7582b41e553cd71e2639"
+    },
+    {
+      "path": "dev/savia-staff-ui/index.html",
+      "role": "contract",
+      "workerRawSha256": "1b2b705b65461cdedf4360bc5c9a34271bef8b12461a5639181566d1b2dae45e",
+      "lfSha256": "234fa005e324a0cd20bd43936450b68b9d08d1152b4714db871e425577c6a859"
+    },
+    {
+      "path": "dev/savia-staff-ui/login.mjs",
+      "role": "contract",
+      "workerRawSha256": "67c005464ad8904de3a283bb1c0aa9a6564ed0f15a9e8cb8861795ca6b8bfbb3",
+      "lfSha256": "5d2bd800a550501c020a300b39d87c85c9abf06379609942e02bc39beb580297"
+    },
+    {
+      "path": "dev/savia-staff-ui/supply.mjs",
+      "role": "contract",
+      "workerRawSha256": "28a2eeb88316a6803902dde3cc7ce2a2e21a3043b4b7419a2acb5ccaa4099b7f",
+      "lfSha256": "2beb1f821afcbfe773968d00a9534158ca8ef4b5f124427377288be01182b71a"
+    },
+    {
+      "path": "docs/supply-real-20261106/README.md",
+      "role": "changed",
+      "workerRawSha256": "d6344868fbabdba64837bffd43b1d7f450edfb35c91d743b42ec06dfc56ec436",
+      "lfSha256": "d6344868fbabdba64837bffd43b1d7f450edfb35c91d743b42ec06dfc56ec436"
+    },
+    {
+      "path": "global.json",
+      "role": "contract",
+      "workerRawSha256": "c58760b0c663e532210133cd9ca33bf43d8243f0d0631ab7134aa3f5784d6b15",
+      "lfSha256": "3f9b8063fdc946bf82db965d9a228d4ea581390f83680ee3b952fb0ec00b2cf3"
+    },
+    {
+      "path": "tests/golden-path/GoldenPath.Sql/Program.cs",
+      "role": "changed",
+      "workerRawSha256": "c507423802d0d63b4bcfecbf061c871a43e4e47c1b9a9341b4e397450586b3c9",
+      "lfSha256": "3bb8e1c89ae2456b9ae06397272c99f37a9261598c9889b6bb87d3db90f4842c"
+    },
+    {
+      "path": "tests/golden-path/README.md",
+      "role": "changed",
+      "workerRawSha256": "7d7b91933109e7a3619f50657fee737fd9f3876cdcbc061bad1599e557d4782a",
+      "lfSha256": "02fe87b5d812a4d202ba715c08919ba43c51c951be94ae0bd18c9bde9addbbc6"
+    },
+    {
+      "path": "tests/golden-path/browser_path.mjs",
+      "role": "changed",
+      "workerRawSha256": "4567fe760f415f98042ba07e6a1b3766ea11b364438c4c9aa1be51b95b30def4",
+      "lfSha256": "2ed74f02c5f821c6a3574ae21d6b627cab4e8791df5e04aeaf087a540f99c8d5"
+    },
+    {
+      "path": "tests/golden-path/golden_path.py",
+      "role": "changed",
+      "workerRawSha256": "d09f0e9d75ec12cbe3559471b8f4125edd80396cc659e931f75e3f780f2e6d87",
+      "lfSha256": "5d203118448f9b0c40e72bef9ef20194746bb20be520a6d7fed35227fd7f9859"
+    },
+    {
+      "path": "tests/golden-path/verify_evidence.py",
+      "role": "contract",
+      "workerRawSha256": "a314df2d0e918e6b6d517dbcf9e24d8313d7a34c5814c2071f61591431913c6c",
+      "lfSha256": "cf494c86fe22cbbd7e8ad3e7ffabc97d55cafbb1e1afb90e19efa2656ce6c5ff"
+    },
+    {
+      "path": "tests/test_golden_path_browser_safety.py",
+      "role": "changed",
+      "workerRawSha256": "2e147d2d6bdafbb286bed45e555c77089cc1e7b0741c7f0d58716ce97f119516",
+      "lfSha256": "ce82e38e239697ee35226bacb1cc4217b1a113dabaaccd2a8659c8e8ede4284e"
+    },
+    {
+      "path": "tests/test_golden_path_safety.py",
+      "role": "contract",
+      "workerRawSha256": "a40147c12d58c98becc409d423971ef75b5445c653ba0297f8e750f488fdf170",
+      "lfSha256": "06e11db0a2c1f0acea63b6f0c1bae0e751a56a8df057ac5ea6c536a0d856dd1e"
+    }
+  ]
+}
