@@ -1,0 +1,157 @@
+{
+  "task_id": "savia-local-offline-A-0f786c3-20261106-01",
+  "status": "RETURNED_FAIL",
+  "primary_acceptance": "PENDING independent raw TRX inspection",
+  "production_readiness": "NOT ESTABLISHED",
+  "host": "SUAZO-PC",
+  "provider": "codex",
+  "model": "gpt-6.1-sol",
+  "requested_effort": "high",
+  "effective_effort": "high",
+  "runtime_evidence": "T3 runtime_info and agent-awareness running gpt-6.1-sol/high",
+  "base_sha": "0f786c3f2a747115b5cae90957b17a959f357298",
+  "worktree": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-add5e329",
+  "sdk": "10.0.402",
+  "inventory_path": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\local-validation-20261106\\PARTITIONS.json",
+  "inventory_raw_sha256": "b95a226931107e0143dcab19cd87c4973a13d22a690f76ecd7bb211642df07ad",
+  "filter_length": 11424,
+  "filter_sha256": "fb915675e10f0071f2c40820b20a0f76e27ae5e75912a8061e5241601b1d7ada",
+  "commands": [
+    {
+      "stage": "restore",
+      "argv": [
+        "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+        "restore",
+        "backend/tests/Martha.Store.Api.Tests",
+        "--locked-mode"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 2.051,
+      "log": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\local-validation-20261106\\worker-A-20261106-01-t3-add5e329\\restore.log",
+      "raw_log_sha256": "8d06a9ca01da8c38206d534641bf9cdcb83cc6709e4973e4a55b9b40258f9511"
+    },
+    {
+      "stage": "build",
+      "argv": [
+        "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+        "build",
+        "backend/tests/Martha.Store.Api.Tests",
+        "--no-restore",
+        "--configuration",
+        "Release"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 212.155,
+      "log": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\local-validation-20261106\\worker-A-20261106-01-t3-add5e329\\build.log",
+      "raw_log_sha256": "b7c05c78342bc0df89069dc51220a232417efa3df493f19552a8f3b87832136d"
+    },
+    {
+      "stage": "test",
+      "argv": [
+        "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+        "test",
+        "backend/tests/Martha.Store.Api.Tests",
+        "--no-build",
+        "--no-restore",
+        "--configuration",
+        "Release",
+        "--filter",
+        "<exact PARTITIONS.json partition A filter loaded as one process argument>",
+        "--logger",
+        "trx;LogFileName=A.trx",
+        "--results-directory",
+        "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\local-validation-20261106\\worker-A-20261106-01-t3-add5e329"
+      ],
+      "exit_code": 1,
+      "wall_seconds": 38.22,
+      "log": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\local-validation-20261106\\worker-A-20261106-01-t3-add5e329\\test.log",
+      "raw_log_sha256": "30cd05d09fec48e8a0e2c4c99961a806ede7e4a187321d857d4ce60618b4caae"
+    }
+  ],
+  "private_evidence": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\local-validation-20261106\\worker-A-20261106-01-t3-add5e329",
+  "raw_trx_path": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\local-validation-20261106\\worker-A-20261106-01-t3-add5e329\\A.trx",
+  "raw_trx_sha256": "6f696d585151a11d7e66f21620ac2728ef00e9e058e06a8a834dbbbc1df63552",
+  "raw_trx_bytes": 1157559,
+  "checks": {
+    "all_three_commands_exit_zero": false,
+    "exact_552_passed": false,
+    "method_counter_equal": true,
+    "unique_trx_ids": true,
+    "no_C_E_methods": true,
+    "eleven_bindings_unchanged": true,
+    "all_backend_sources_unchanged": true,
+    "empty_git_index": true,
+    "only_overlay_and_owned_evidence": true
+  },
+  "comparison": {
+    "expected_cases": 552,
+    "actual_cases": 552,
+    "expected_unique_methods": 195,
+    "actual_unique_methods": 195,
+    "method_counter_equal": true,
+    "missing": {},
+    "extra": {},
+    "forbidden_sql_or_recovery_methods": [],
+    "unique_test_ids": 552,
+    "unique_execution_ids": 552,
+    "outcomes": {
+      "Passed": 551,
+      "Failed": 1
+    }
+  },
+  "repeated_display_label_groups": 2,
+  "argument_identity_limit": "TRX testId and executionId retain every occurrence. Truncated theory display labels cannot independently establish original argument identity. Method multiplicities match exactly.",
+  "source_bindings": "source-bindings.json",
+  "sql_environment_removed": [
+    "MARTHA_TEST_SQL_CONNECTION",
+    "MARTHA_INTERNAL_TEST_SQL_CONNECTION",
+    "SAVIA_INTERNAL_TEST_SQL_CONNECTION",
+    "SAVIA_INTERNAL_SQL_TESTS_AUTHORIZED",
+    "SAVIA_INTERNAL_HTTP_SQL_TESTS_AUTHORIZED",
+    "SAVIA_PILOT_PERSIST_DATABASE"
+  ],
+  "child_sql_variables_absent": true,
+  "sql_runtime": "No C/E methods executed. Six SQL variables removed only in child environment. No SQL/service/container commands issued. Offline SQL script generation is included in A. No SQL inventory or network trace was taken.",
+  "B": "HISTORICAL SOURCE-BOUND ONLY, not rerun",
+  "NOT_RUN": [
+    "SQL C77",
+    "real combined journey D",
+    "recovery E2",
+    "full Windows repository suite",
+    "browser",
+    "CI",
+    "production"
+  ],
+  "failures": [
+    {
+      "method": "Martha.Store.Api.Tests.PrivatePilotReleaseTests.Offline_current_release_scripts_are_context_isolated_without_model_drift",
+      "outcome": "Failed",
+      "exception": "System.IO.DirectoryNotFoundException",
+      "message": "System.IO.DirectoryNotFoundException : Could not find a part of the path 'C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\local-validation-20261106\\worker-A-20261106-01-t3-add5e329\\script-evidence\\current-release.sql'.",
+      "source": "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs:90",
+      "classification": "worker environment preparation failure",
+      "cause_verified": "SAVIA_PILOT_EVIDENCE targeted a nonexistent child directory. Test writes current-release.sql without creating that directory."
+    }
+  ],
+  "unexpected_git_paths": [],
+  "usage_cost": "unknown",
+  "next_action": "Authorize a new bounded A attempt. Use a new unique private directory, precreate SAVIA_PILOT_EVIDENCE, and retain this failed run separately.",
+  "blockers": [
+    {
+      "artifact": "A552 full partition",
+      "expected": "552 Passed, 0 failures/skips",
+      "observed": "551 Passed, 1 Failed, 0 NotExecuted",
+      "cause": "Worker selected an uncreated SAVIA_PILOT_EVIDENCE directory. The failure is environment preparation, not a reproduced product defect.",
+      "correction": {
+        "action": "Created the missing private script-evidence directory after the single failed A run",
+        "was_absent_before_correction": true,
+        "directory_exists_after_correction": true,
+        "runtime_retest": "NOT RUN. The one complete A attempt limit is exhausted."
+      },
+      "owner": "primary orchestrator",
+      "next_action": "Authorize a new bounded A attempt. Use a new unique private directory, precreate SAVIA_PILOT_EVIDENCE, and retain this failed run separately.",
+      "completion_check": "A new exact-filter TRX has 552 Passed, zero failures/skips, equal method Counter, unique case IDs, unchanged bindings and no C/E methods."
+    }
+  ],
+  "source_work_stopped_after_failure": true
+}

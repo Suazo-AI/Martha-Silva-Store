@@ -1,0 +1,18 @@
+{
+  "cases": 9,
+  "passed": 9,
+  "failed": 0,
+  "skipped": 0,
+  "timing": {
+    "exit": 0,
+    "seconds": 42.9621796
+  },
+  "trx_raw_sha256": "69d179273e22c2722215b38c155ceb6ac49bd118803f1dbd4e487747dbbe553f",
+  "methods": {
+    "Martha.Store.Api.Tests.InternalAcceptanceFingerprintTests.Only_intended_authentication_assignment_changes_are_excluded": 3,
+    "Martha.Store.Api.Tests.InternalAcceptanceFingerprintTests.Actual_fixture_guard_accepts_current_relational_model": 1,
+    "Martha.Store.Api.Tests.InternalAcceptanceFingerprintTests.Review_table_change_fails_the_same_business_dictionary_comparison": 1,
+    "Martha.Store.Api.Tests.InternalAcceptanceFingerprintTests.Actual_business_subset_keeps_all_seventeen_tables_and_review_hash": 1,
+    "Martha.Store.Api.Tests.InternalAcceptanceFingerprintTests.Both_guards_reject_schema_drift_even_with_same_count": 3
+  }
+}

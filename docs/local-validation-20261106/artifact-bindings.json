@@ -1,0 +1,10 @@
+{
+  "algorithm": "SHA256 raw bytes",
+  "files": {
+    "fingerprint-results.json": "c8976bee986b232abfb38a064b20e82093211c88be4f5365d4565d83749a8fa9",
+    "PARTITIONS.json": "b95a226931107e0143dcab19cd87c4973a13d22a690f76ecd7bb211642df07ad",
+    "README.md": "341cd9bd90cb17c5cb4e982cc054c4f1f866a82bd43ca6a068e3190964168fd3",
+    "RESULT.json": "4493a7cd7e5c72e8544a0bbff80e5c259778e32241af9999d95ccf68898e31d4",
+    "source-bindings.json": "173656e8f464d8f4758431940df518655fc7bb6a150a4c2d26f9329799756b6b"
+  }
+}

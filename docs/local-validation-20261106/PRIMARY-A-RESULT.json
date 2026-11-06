@@ -1,0 +1,86 @@
+{
+  "status": "ACCEPTED_OFFLINE_A_COVERAGE_WITH_TARGETED_ENVIRONMENT_RETEST",
+  "production": "NOT ESTABLISHED",
+  "base_sha": "0f786c3f2a747115b5cae90957b17a959f357298",
+  "source_bindings": "offline-A/source-bindings.json",
+  "assembly_reused_unchanged": true,
+  "assembly_sha256": "f34ab91883ab924c751b04b2820f38addbf9597f9af328dc537bd0d2190da1ce",
+  "original_run": {
+    "passed": 551,
+    "failed": 1,
+    "skipped": 0,
+    "exit": 1,
+    "trx_sha256": "6f696d585151a11d7e66f21620ac2728ef00e9e058e06a8a834dbbbc1df63552",
+    "evidence": "offline-A/RESULT.json"
+  },
+  "environment_failure": {
+    "method": "Martha.Store.Api.Tests.PrivatePilotReleaseTests.Offline_current_release_scripts_are_context_isolated_without_model_drift",
+    "exception": "System.IO.DirectoryNotFoundException",
+    "cause": "SAVIA_PILOT_EVIDENCE directory was not created before execution.",
+    "fix": "Precreate a new private evidence directory. No source change.",
+    "diagnostic_preserved": true
+  },
+  "targeted_retest": {
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "exit": 0,
+    "seconds": 6.231,
+    "command": [
+      "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+      "test",
+      "backend/tests/Martha.Store.Api.Tests",
+      "--no-build",
+      "--no-restore",
+      "-c",
+      "Release",
+      "--filter",
+      "FullyQualifiedName=Martha.Store.Api.Tests.PrivatePilotReleaseTests.Offline_current_release_scripts_are_context_isolated_without_model_drift",
+      "--logger",
+      "trx;LogFileName=offline-script-retest.trx",
+      "--results-directory",
+      "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\local-validation-20261106\\primary-targeted-retest-25d8e32d"
+    ],
+    "trx_sha256": "c554f5a43d1cb4f0167423e9481531916adfb7cc551200d6c060f7a517dc7413",
+    "log_sha256": "6ceda38e0940606868039b7de8dd0535516bb12eaa49e966b9cafb7cf9047557",
+    "private_result": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\local-validation-20261106\\primary-targeted-retest-25d8e32d\\RESULT.json",
+    "generated_scripts": [
+      {
+        "file": "current-release-down.sql",
+        "bytes": 4901,
+        "sha256": "e8b45689101d2e7021c0914268a18655582015482fb588d3950c5ea878cd10a6"
+      },
+      {
+        "file": "current-release-idempotent.sql",
+        "bytes": 34702,
+        "sha256": "b38ee572b60f4953619cc9721fe91e09f92abf257f96d37d76d220db53a50520"
+      },
+      {
+        "file": "current-release.sql",
+        "bytes": 23301,
+        "sha256": "c75a07f21c04eaccb967179360529387e69e9d2befa6dadf357dfebb6c1deda8"
+      }
+    ]
+  },
+  "acceptance": {
+    "original_passes": 551,
+    "replacement_passes": 1,
+    "accepted_occurrences": 552,
+    "unique_methods": 195,
+    "expected_method_multiplicities_equal": true,
+    "original_test_ids_unique": 552,
+    "original_execution_ids_unique": 552,
+    "backend_files_equal_worker_canonical_lf": 105,
+    "full_partition_rerun": false,
+    "single_all_green_552_result_trx": false,
+    "theory_argument_limit": "TRX testId and executionId retain every occurrence. Truncated theory display labels cannot independently establish original argument identity. Method multiplicities match exactly."
+  },
+  "not_run": [
+    "C77 SQL",
+    "combined real journey D",
+    "E2 recovery",
+    "fresh B browser",
+    "production"
+  ],
+  "next_action": "Jason opens Docker Desktop; primary verifies the local runtime before executing C/D/E under the approved scoped policy."
+}

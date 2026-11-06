@@ -1,0 +1,134 @@
+{
+  "task_id": "savia-fingerprint-correction-0f786c3-20261106-01",
+  "status": "returned_candidate_not_accepted",
+  "identity": {
+    "host": "SUAZO-PC",
+    "provider": "codex",
+    "model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "effective_effort": "high",
+    "identity_evidence": "T3 runtime instructions and agent-awareness task metadata",
+    "checkout": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-c0d851dc",
+    "isolation": "assigned tool-managed worktree; no checkout created",
+    "branch": "t3/fix-stale-fingerprint-guards",
+    "base_sha": "0f786c3f2a747115b5cae90957b17a959f357298",
+    "result_commit": null,
+    "tokens": "unknown",
+    "cost": "unknown"
+  },
+  "changed_source_paths": [
+    "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs",
+    "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceFingerprint.cs",
+    "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceFingerprintTests.cs"
+  ],
+  "added_evidence_paths": [
+    "docs/stock-exception-20261106/runtime-campaign/correction/source-bindings.json",
+    "docs/stock-exception-20261106/runtime-campaign/correction/test-results.sanitized.json",
+    "docs/stock-exception-20261106/runtime-campaign/correction/README.md",
+    "docs/stock-exception-20261106/runtime-campaign/correction/RESULT.json"
+  ],
+  "verification": {
+    "commands": [
+      {
+        "command": "& 'C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe' --version",
+        "exit": 0,
+        "result": "10.0.402"
+      },
+      {
+        "command": "& 'C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe' restore backend/tests/Martha.Store.Api.Tests --locked-mode --verbosity minimal",
+        "exit": 0
+      },
+      {
+        "command": "& 'C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe' test backend/tests/Martha.Store.Api.Tests --no-restore --configuration Release --filter 'FullyQualifiedName~InternalAcceptanceFingerprintTests' --logger 'trx;LogFileName=fingerprint-red.trx' --results-directory \"$env:TEMP/savia-fingerprint-correction-20261106\"",
+        "exit": 1
+      },
+      {
+        "command": "& 'C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe' test backend/tests/Martha.Store.Api.Tests --no-restore --configuration Release --filter 'FullyQualifiedName~InternalAcceptanceFingerprintTests' --logger 'trx;LogFileName=fingerprint-green.trx' --results-directory \"$env:TEMP/savia-fingerprint-correction-20261106\"",
+        "exit": 0
+      },
+      {
+        "command": "& 'C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe' test backend/tests/Martha.Store.Api.Tests --no-build --no-restore --configuration Release --filter 'Category!=SqlServer' --logger 'trx;LogFileName=backend-offline.trx' --results-directory \"$env:TEMP/savia-fingerprint-correction-20261106\"",
+        "exit": 0
+      },
+      {
+        "command": "& 'C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe' test backend/tests/Martha.Store.Api.Tests --no-build --no-restore --configuration Release --list-tests --filter 'Category=SqlServer' > \"$env:TEMP/savia-fingerprint-correction-20261106/filtered-inventory.txt\"",
+        "exit": 0,
+        "filtered_out_case_count": 21
+      },
+      {
+        "command": "git diff --check",
+        "exit": 0
+      }
+    ],
+    "focused_red": {
+      "passed": 2,
+      "failed": 7,
+      "skipped": 0
+    },
+    "focused_green": {
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0
+    },
+    "backend_offline": {
+      "passed": 552,
+      "failed": 0,
+      "skipped": 58,
+      "total": 610,
+      "category_sqlserver_filtered_out": 21
+    },
+    "preservation": {
+      "entire_original_file_equals_base_plus_only_three_intended_replacements": true,
+      "direct_ado_enumeration_preserved": true,
+      "full_row_hash_loop_and_format_preserved": true,
+      "six_unauthorized_write_assertion_bodies_preserved": true
+    },
+    "sdk": "10.0.402",
+    "locked_restore": "existing package cache checked; no global tools installed; lockfiles unchanged"
+  },
+  "test_environment": {
+    "process_only_cleared": [
+      "MARTHA_TEST_SQL_CONNECTION",
+      "MARTHA_INTERNAL_TEST_SQL_CONNECTION",
+      "SAVIA_INTERNAL_TEST_SQL_CONNECTION",
+      "SAVIA_INTERNAL_SQL_TESTS_AUTHORIZED",
+      "SAVIA_INTERNAL_HTTP_SQL_TESTS_AUTHORIZED",
+      "SAVIA_PILOT_PERSIST_DATABASE"
+    ],
+    "SAVIA_PILOT_EVIDENCE": "$env:TEMP/savia-fingerprint-correction-20261106/offline-scripts",
+    "note": "Directory created only for existing offline migration-script generation; SQL scripts not executed. Backend HTTP tests use in-process TestServer, no listening API/browser journey."
+  },
+  "conclusion": "Offline stale guard defect proven. Historical six SQL failure causes remain unconfirmed. No full SQL PASS claim.",
+  "historical_primary_supplied_not_reverified": {
+    "run": 42295568744,
+    "attempt": 1,
+    "source_sha": "0f786c3f2a747115b5cae90957b17a959f357298",
+    "cases": 621,
+    "passed": 615,
+    "notPassed": 6,
+    "artifact_sha256": "aaedf6cd21c4dc45c903320dee0d4531ee2cd0ec17167df0995e89892ece303f",
+    "exact_historical_assertions": "unavailable after existing cleanup"
+  },
+  "not_run": [
+    "SQL connections",
+    "Docker",
+    "cloud workflow dispatch/rerun",
+    "listening API/browser journey",
+    "certificates/security configuration",
+    "staging/commit/push/merge/deploy",
+    "full frontend/Chrome checks"
+  ],
+  "blockers": [
+    {
+      "item": "Historical SQL failure attribution and runtime acceptance",
+      "evidence": "Old raw TRX/logs deleted; primary sanitized artifact has six nonpassing methods without messages. New offline red/green is distinct evidence.",
+      "cause": "Historical assertion messages unavailable; stale guards are a proven offline defect and a hypothesis for old failures.",
+      "attempted_correction_result": "Shared test-only guard corrected; focused9/9 and offline552 PASS,58 skipped. No SQL rerun attempted because one-attempt authority is consumed.",
+      "next_action": "Primary independently review candidate, then obtain explicit authority before one exact-candidate SQL rerun.",
+      "owner": "primary orchestrator / Jason for runtime authorization",
+      "completion_check": "Fresh exact-SHA SQL results with retained sanitized assertion evidence and cleanup proof"
+    }
+  ],
+  "lesson": "A count-only schema guard both rejects an intended new table and accepts a missing table; pin explicit names and exercise the actual guard against relational metadata offline.",
+  "next_action": "Primary serial integration and independent acceptance; separately authorize runtime rerun."
+}

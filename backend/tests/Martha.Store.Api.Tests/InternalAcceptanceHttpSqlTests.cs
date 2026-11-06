@@ -273,13 +273,10 @@ public sealed class InternalAcceptanceHttpSqlTests
         using (var response = await SendOriginal(Get, $"/internal/api/commerce/sales/{saleA}"))
             Assert.Equal(saleA, (await Json(response, HttpStatusCode.OK)).GetProperty("saleId").GetGuid());
 
-        // Exclude only the three intended authentication/assignment tables; all 16 business tables retain full-row hashes.
+        // Exclude only authentication/assignment tables; retain every business table's full-row hash.
         async Task<SortedDictionary<string, string>> BusinessFingerprint()
         {
-            var fingerprint = await f.Fingerprint();
-            foreach (var table in new[] { "Staff", "Sessions", "BranchAssignmentAudit" }) Assert.True(fingerprint.Remove(table));
-            Assert.Equal(16, fingerprint.Count);
-            return fingerprint;
+            return InternalAcceptanceFingerprint.Business(await f.Fingerprint());
         }
         var historySql = $"""
             SELECT (SELECT * FROM savia_internal.Sales WHERE LocationId='{f.LocationA}' ORDER BY Id FOR JSON PATH)
@@ -630,7 +627,7 @@ public sealed class InternalAcceptanceHttpSqlTests
                 await using var reader = await cmd.ExecuteReaderAsync();
                 while (await reader.ReadAsync()) tables.Add(reader.GetString(0));
             }
-            Assert.Equal(19, tables.Count);
+            InternalAcceptanceFingerprint.AssertTables(tables);
             foreach (var table in tables)
             {
                 await using var cmd = c.CreateCommand();

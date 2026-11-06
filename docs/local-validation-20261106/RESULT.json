@@ -1,0 +1,114 @@
+{
+  "task_id": "savia-local-chunks-0f786c3-20261106-01",
+  "status": "RETURNED PARTIAL; primary acceptance pending",
+  "identity": {
+    "host": "SUAZO-PC",
+    "provider": "codex",
+    "model": "gpt-6.1-sol",
+    "requested_reasoning": "high",
+    "effective_reasoning": "high",
+    "evidence": "runtime instructions + task metadata in agent-awareness",
+    "worktree": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-1837cee6",
+    "base_sha": "0f786c3f2a747115b5cae90957b17a959f357298",
+    "overlay": "three immutable files; hashes in source-bindings.json",
+    "tokens": "unknown",
+    "cost": "unknown"
+  },
+  "sdk": "10.0.402",
+  "locked_restore_exit": 0,
+  "compile": "one Release compile during focused test, exit 0",
+  "fingerprint": {
+    "cases": 9,
+    "passed": 9,
+    "failed": 0,
+    "skipped": 0,
+    "timing": {
+      "exit": 0,
+      "seconds": 42.9621796
+    },
+    "trx_raw_sha256": "69d179273e22c2722215b38c155ceb6ac49bd118803f1dbd4e487747dbbe553f",
+    "methods": {
+      "Martha.Store.Api.Tests.InternalAcceptanceFingerprintTests.Only_intended_authentication_assignment_changes_are_excluded": 3,
+      "Martha.Store.Api.Tests.InternalAcceptanceFingerprintTests.Actual_fixture_guard_accepts_current_relational_model": 1,
+      "Martha.Store.Api.Tests.InternalAcceptanceFingerprintTests.Review_table_change_fails_the_same_business_dictionary_comparison": 1,
+      "Martha.Store.Api.Tests.InternalAcceptanceFingerprintTests.Actual_business_subset_keeps_all_seventeen_tables_and_review_hash": 1,
+      "Martha.Store.Api.Tests.InternalAcceptanceFingerprintTests.Both_guards_reject_schema_drift_even_with_same_count": 3
+    }
+  },
+  "sql": {
+    "preflight": {
+      "attempts": 1,
+      "encryption": "required",
+      "identity": "Windows integrated",
+      "trust_server_certificate": false,
+      "exit": 1,
+      "transport": "shared memory",
+      "seconds": 0.3065449
+    },
+    "command": "& 'C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/180/Tools/Binn/SQLCMD.EXE' -S 'lpc:SUAZO-PC\\SAVIATEST' -E -N -d master -l 5 -t 5 -b -Q 'SET NOCOUNT ON; SELECT name FROM sys.databases ORDER BY name;'",
+    "failure": "Microsoft ODBC Driver 18 for SQL Server : SSL Provider: The certificate chain was issued by an authority that is not trusted. Client unable to establish connection.",
+    "six_case_attempts": 0,
+    "queries_executed": 0,
+    "task_owned_databases_created": 0,
+    "cleanup": "not needed; no successful connection; DB inventory NOT obtained; preservation not verified via SQL"
+  },
+  "discovery": {
+    "command": "& $sdk test backend/tests/Martha.Store.Api.Tests --no-build --no-restore --configuration Release --list-tests",
+    "exit": 0,
+    "cases": 631,
+    "methods": 274,
+    "source_attribute_gaps": [],
+    "truncated_display_collisions": 6,
+    "case_identity": "private display labels; public rows retain methods and exact multiplicity; theory arguments deliberately omitted"
+  },
+  "not_run": [
+    "broader offline block (historical 552 PASS is not current evidence)",
+    "C SQL regression six cases and other domains",
+    "D combined real journey",
+    "E release backup/restore/restart",
+    "cloud dispatch",
+    "frontend/browser reruns"
+  ],
+  "blockers": [
+    {
+      "id": "C",
+      "cause": "strict TLS chain validation failed in one current ODBC preflight",
+      "attempt": "one strict integrated shared-memory connection; no relaxation or retry",
+      "result": "exit 1; six SQL tests NOT RUN",
+      "owner": "primary/Jason",
+      "next_action": "primary prepares separately authorized certificate-chain investigation, or separately authorized disposable Linux local runtime; no security changes in this task",
+      "completion_check": "fresh authorized strict connection passes, then six actual passes/zero skips and private before/after inventory proof"
+    },
+    {
+      "id": "D/E",
+      "cause": "Windows lacks harness POSIX modules and Linux /proc cleanup; E hardcodes /var/opt/mssql/data and needs exclusive owned-container restart",
+      "attempt": "direct source inspection; no blind runtime attempt",
+      "result": "NOT RUN",
+      "owner": "primary/Jason",
+      "next_action": "approve starting existing Docker Desktop Linux engine, inspect existing Linux images/dependencies, prepare pinned disposable SQL + isolated Linux runner with exact source mounts; authorize prerequisite installation only if missing",
+      "completion_check": "D sanitized combined checkpoint proof; E actual restore plus owned-container restart, exact DB cleanup and container absence"
+    }
+  ],
+  "private_evidence": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\local-validation-20261106\\worker-1837cee6",
+  "no_stage_commit_push": true,
+  "lesson": "Category!=SqlServer excludes only category-tagged Store tests; custom SQL Facts also need explicit exclusion. Inventory before partitioning prevents silent skips.",
+  "discovery_gaps": [
+    "Backend inventory is runtime-discovered and source-classified. B script assertions and D checkpoints are not dotnet cases. Non-backend Python suite cases were not runtime-discovered here; exact existing workflow commands are recorded in README. No claim of exhaustive repository-wide case discovery.",
+    "Theory display arguments truncate: 6 repeated labels. All occurrences retained. Individual argument identity requires private TRX inspection; not proved here."
+  ],
+  "B_source_bound_reuse": {
+    "matched": 22,
+    "total": 22,
+    "runtime": "historical only",
+    "source_sha": "139c3898d1e76e66a07b89f179e50508672df473"
+  },
+  "returned_utc": "2026-11-06T21:49:49.939860+00:00",
+  "verification_limit": "Strict preflight used ODBC18, not test Microsoft.Data.SqlClient; connection rejected before SQL execution. Inventory not obtained.",
+  "verification_final": {
+    "source_bindings": 11,
+    "partition_cases": 631,
+    "partition_method_filters": "274/274 disjoint, exhaustive",
+    "diff_check_exit": 0,
+    "compile_warnings": 0
+  }
+}
