@@ -11,6 +11,14 @@ Remoto: `Suazo-AI/Martha-Silva-Store`. No trabajar sobre las copias históricas 
 3. Localizar el área en [CODE-MAP](CODE-MAP.md); leer su fuente y contrato antes de editar.
 4. Para SQL, leer [DATABASE](DATABASE.md). Para pruebas, leer [la última validación](testing-20261103/README.md).
 
+## Aprendizaje y tareas que Jason pospone
+
+Cuando Jason posponga una tarea, registrarla en el [backlog de aprendizaje](learning/backlog.html).
+Leer [su contrato](learning/README.md) antes de actualizar el registro: conservar prioridad, objetivo, criterio de finalización y siguiente acción.
+No marcar una habilidad como demostrada por una explicación o una entrega del agente.
+Los cambios del navegador requieren exportación para que el agente pueda incorporarlos; no afirmar sincronización automática.
+El ledger de producción sigue siendo la autoridad del proyecto.
+
 Prioridad de fuentes: instrucción vigente de Jason → contrato aprobado → código del candidato
 → evidencia con fecha/hash → propuesta histórica. Un conflicto se registra; no se resuelve inventando capacidades.
 El índice y cualquier grafo son ayudas de navegación, nunca autoridad de permisos, esquema o aceptación.
