@@ -1,0 +1,886 @@
+{
+  "baseSha": "a4bdac69581ac0423a964dea6bc5c74d4e2bad28",
+  "status": "UNACCEPTED_REVIEW_CANDIDATE",
+  "policy": "RAW exact bytes; LF replaces CRLF only and retains BOM; frozen worker files unchanged. Raw logs archived, not published; historical log links resolve through this map. No outside-workspace hook or allowlist changed.",
+  "sensitivePatternFlags": [],
+  "records": [
+    {
+      "source": "backend/src/Martha.Store.Api/Internal/InternalUiHosting.cs",
+      "target": "backend/src/Martha.Store.Api/Internal/InternalUiHosting.cs",
+      "rawSha256": "06f3b59dd2545c06a5588985ac8bd11dd6fe62d653d0d6682c14fb560d30eea5",
+      "lfSha256": "fa9e6976fc6c221e0a278336e1e2dc3ab4d1852014112eeb9d92f2aceae8ddc3"
+    },
+    {
+      "source": "backend/src/Martha.Store.Api/Martha.Store.Api.csproj",
+      "target": "backend/src/Martha.Store.Api/Martha.Store.Api.csproj",
+      "rawSha256": "67918b858c54f58f25e32c41532ca37ab9da19d154e47e0fd8e75c5175da4259",
+      "lfSha256": "6070096536d919ec850175d7f256b770909483bc02011226b02c577b20c91f46"
+    },
+    {
+      "source": "dev/savia-staff-ui/README.md",
+      "target": "dev/savia-staff-ui/README.md",
+      "rawSha256": "f5a61471af1930f5466f9fbce5f152dc3265943a54e1f2b5c82ef7bf547fbaff",
+      "lfSha256": "1c12048706cee466e9c435ef455b22e7cfdbd0457cc345179f84a0cc4e4be5b4"
+    },
+    {
+      "source": "dev/savia-staff-ui/app.mjs",
+      "target": "dev/savia-staff-ui/app.mjs",
+      "rawSha256": "cc70f5adf216de28cf5a4b5efc1166d2df5fb6b6d22da9c6daee004c92237208",
+      "lfSha256": "7901d54f7ea18b09e6f50dfc8f7596a135ec3a951bd732e1a3435cb7d1185083"
+    },
+    {
+      "source": "dev/savia-staff-ui/client.mjs",
+      "target": "dev/savia-staff-ui/client.mjs",
+      "rawSha256": "d435b0ec3752ad81630fc7a8368e3a0465654dce569a815e9b149cac5614dec3",
+      "lfSha256": "cdf34879fdd5e78d8141c23533de2d07155bb7451bcd7582b41e553cd71e2639"
+    },
+    {
+      "source": "dev/savia-staff-ui/index.html",
+      "target": "dev/savia-staff-ui/index.html",
+      "rawSha256": "1b2b705b65461cdedf4360bc5c9a34271bef8b12461a5639181566d1b2dae45e",
+      "lfSha256": "234fa005e324a0cd20bd43936450b68b9d08d1152b4714db871e425577c6a859"
+    },
+    {
+      "source": "dev/savia-staff-ui/login.mjs",
+      "target": "dev/savia-staff-ui/login.mjs",
+      "rawSha256": "67c005464ad8904de3a283bb1c0aa9a6564ed0f15a9e8cb8861795ca6b8bfbb3",
+      "lfSha256": "5d2bd800a550501c020a300b39d87c85c9abf06379609942e02bc39beb580297"
+    },
+    {
+      "source": "dev/savia-staff-ui/supply-pagination.test.mjs",
+      "target": "dev/savia-staff-ui/supply-pagination.test.mjs",
+      "rawSha256": "c8dcb1fdd12a0a73eea718b9faa4968ac9a0eb20993fe37fa68a35b54dbf1a89",
+      "lfSha256": "c53817ddc8891ffe3f0d8c3ce96439d52ca46656dae90f2cb0ed0b624fe34f68"
+    },
+    {
+      "source": "dev/savia-staff-ui/supply.mjs",
+      "target": "dev/savia-staff-ui/supply.mjs",
+      "rawSha256": "1695273b2135acddb900c821e62f872601bc2ea443312763ea879ff9da60246b",
+      "lfSha256": "2beb1f821afcbfe773968d00a9534158ca8ef4b5f124427377288be01182b71a"
+    },
+    {
+      "source": "dev/savia-staff-ui/supply.test.mjs",
+      "target": "dev/savia-staff-ui/supply.test.mjs",
+      "rawSha256": "b3f98a6cd260ee8bc7ac50cd0b615d973ca9319e3ff1fb97f3c977e693f04ba9",
+      "lfSha256": "07b25e860b9587cb0e20769bb12877787e5148c2f46534eeb9ea0d9c371912b8"
+    },
+    {
+      "source": "tests/browser-mock-validation.mjs",
+      "target": "tests/browser-mock-validation.mjs",
+      "rawSha256": "0de9295d229a54c1315c125c13228f9b1b6df56dab2c051bdccbb30e99993125",
+      "lfSha256": "72f5edc736fce220da42116b32db71077c8e1524df01c5d7da9982d42e2151a9"
+    },
+    {
+      "source": "tests/browser-supply-validation.mjs",
+      "target": "tests/browser-supply-validation.mjs",
+      "rawSha256": "5d214b5b778102ad4b51cc71e8fe7c48e19c754eb5b1248c0fe0b2e6f03a105d",
+      "lfSha256": "98c637f647e7d46f2c11ddaa6d9e235d4923c5efdbcd45849c7efe1caf72be06"
+    },
+    {
+      "source": "tests/check.py",
+      "target": "tests/check.py",
+      "rawSha256": "a671546749ebeebb6c6f2587dc3334e35144c89a38ed36a3daff9dec9352a1e9",
+      "lfSha256": "c2401f4058b71553aef40a91508b6bb5b63a32e0f8bb12e5feb1ac497082bd68"
+    },
+    {
+      "source": "tests/test_check.py",
+      "target": "tests/test_check.py",
+      "rawSha256": "63dc631eb9f349cb5ae969f2e2512ab791ae4c80cb30b8e42040481bd83c4c9e",
+      "lfSha256": "785967582905f35369d576efd7419c1bd3b7bb57bb4c7ca0b9f2f487d65f66bc"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\after-1440.png",
+      "target": "docs\\supply-ui-20261105\\worker\\after-1440.png",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "be5e4e3c222613c7dc9bfa2c89efeca8200f9a9197ae0f5d6467670a52f8a7b7",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\after-390.png",
+      "target": "docs\\supply-ui-20261105\\worker\\after-390.png",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "716d80ef381f5425e34486b286d97a6f821b73a55c306d3aae3b79b905b22693",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\base-hashes.json",
+      "target": "docs\\supply-ui-20261105\\worker\\base-hashes.json",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "129f4301740aeb7ffbcda5216f8bb487770edcda66dead2ab9ff9fc5b07eecf5",
+      "lfSha256": "393fff0d6fa02b6d9745f96bd987d77a05a887afda23c91062567a103a3bb6d4"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\before\\1440.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\before\\1440.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "87c9c00ee0fd983c0a71f025b5ffaf8f1dde5bdb46667427142b1d6455443e61",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\before\\390.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\before\\390.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "e25a7fa045cd2803f2bbdd4fe0a4370942d555304b782de3152aae1500886325",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\before\\observed.json",
+      "target": "docs\\supply-ui-20261105\\worker\\before\\observed.json",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "47a599a08339ba14a72d1607c10ef422222a5b2621ea674f950835460a6c902e",
+      "lfSha256": "47a599a08339ba14a72d1607c10ef422222a5b2621ea674f950835460a6c902e"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\before.mjs",
+      "target": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\worker-raw-scripts\\before.mjs",
+      "kind": "private-original-script",
+      "rawSha256": "6dbe5360247a7dfb0d3f4bce7aa0a83af40f07bc10f71a2d053a11753659a8b3",
+      "lfSha256": "0be6b1ce14e01a60bebaedef1b6c7b7c93848de155109ec20cff1b793eab3f93",
+      "reason": "Unchanged historical diagnostic script has a trailing empty line. Archived rather than editing frozen evidence or publishing a whitespace failure."
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-2\\results.json",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-2\\results.json",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "6cc1b0c1b2b5a89fc185f3fde1c3b68240913475e8274e5abad37a4076ad59ee",
+      "lfSha256": "6cc1b0c1b2b5a89fc185f3fde1c3b68240913475e8274e5abad37a4076ad59ee"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-2\\videos\\401-private-clear.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-2\\videos\\401-private-clear.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "3df7a43a5aeb334c85ef593aff1556236de1f96aa2dc4142d634926baac42ed6",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-2\\videos\\double-submit.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-2\\videos\\double-submit.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "a584e581644f8b1153f47f649c9234d51c866fe8cff2d76aff5761d0cfbf3b1b",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-2\\videos\\invalid-contract.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-2\\videos\\invalid-contract.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "5269414d403d0015ff1f3ab0ca4dfee679fc4363fedb51e19cb75389ae5757b1",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-2\\videos\\logout-late-reply.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-2\\videos\\logout-late-reply.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "08f961c6cf3ca7e6a08e1151c9c207143f56080472dc2e6fb60ef4b426cafb51",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-2\\videos\\lost-reload-1440.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-2\\videos\\lost-reload-1440.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "bbd07d232a423bdc08115bf1c8b8993cefb4af79d1a9823857ccab575e02bcd9",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-2\\videos\\lost-reload-390.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-2\\videos\\lost-reload-390.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "9ff24532d00caaa05cbff02ef746fda938d6b2793027f80d2bf25c2e1ad2e183",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-2\\videos\\partial-full-1440.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-2\\videos\\partial-full-1440.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "9c242e6f5f87e34bc5531da0b30804a0155d08403852eed8dcf850c3d495214e",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-2\\videos\\partial-full-390.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-2\\videos\\partial-full-390.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "c9203b3628b7c3b1189412c7d596b8545e4537e41ec9ce29d38c4c37a6389fb1",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-401\\results.json",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-401\\results.json",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "49cff2348f52130be4a3e73284708e04e5d5c9bbcc8d4d84acd49f6a474af428",
+      "lfSha256": "49cff2348f52130be4a3e73284708e04e5d5c9bbcc8d4d84acd49f6a474af428"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-401\\videos\\401-private-clear.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-401\\videos\\401-private-clear.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "ab89fdcdc91c3f91c7e55336903c569703719984e273a096b53238faa8d5b27b",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-bound\\results.json",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-bound\\results.json",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "72c1849511f567a6685dbc555555c8064d4f055e014d4e52bf4c04002137b529",
+      "lfSha256": "72c1849511f567a6685dbc555555c8064d4f055e014d4e52bf4c04002137b529"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-bound\\videos\\401-private-clear.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-bound\\videos\\401-private-clear.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "b074885b11ec327fc0192b1ca7d64f1bcf9b32063b57913e34573d57161d71a8",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-bound\\videos\\double-submit.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-bound\\videos\\double-submit.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "4f7febf923369efb1f8f6adb1adf42b5a59abfe2334743449b0d947921ccb687",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-bound\\videos\\invalid-contract.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-bound\\videos\\invalid-contract.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "dba80775c45b2c614c04d814fe6cde31d9bd26933f191d63f4e9e022f7f8028c",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-bound\\videos\\logout-late-reply.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-bound\\videos\\logout-late-reply.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "82e31b307dd0a4ba5f36bc2364433e43c1aed0bc88e57c4926ce547c46eb41d4",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-bound\\videos\\lost-reload-1440.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-bound\\videos\\lost-reload-1440.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "bc9b6c277a94f9a09ce151628a4c223b87b29197afaa9046a13284b1e1d90e92",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-bound\\videos\\lost-reload-390.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-bound\\videos\\lost-reload-390.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "143ca9d6fdf59a6599de4f2f24a9bba4304df094d650edb011d4348b184a6556",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-bound\\videos\\partial-full-1440.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-bound\\videos\\partial-full-1440.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "e5d29a652c42d746ca929a922330de10e9d2e980be82a7d31488d3b7c42545c8",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-bound\\videos\\partial-full-390.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-bound\\videos\\partial-full-390.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "5ea13f8e300efde9e86860e4a73f389658d8e7d0665239accada88b05a4126f6",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-final\\results.json",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-final\\results.json",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "d9d8cff16b7f54753f90016e37ff42fc26bef8079c7f4b701920920793204356",
+      "lfSha256": "d9d8cff16b7f54753f90016e37ff42fc26bef8079c7f4b701920920793204356"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-final\\videos\\401-private-clear.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-final\\videos\\401-private-clear.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "8baf5ddbe6c01e074b5618943144f621401e7f5a10195846381cc8cfdf328655",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-final\\videos\\double-submit.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-final\\videos\\double-submit.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "f26cf88ca308e8fa1256ac1d9082875528921cba8cd6d5bc40fadc6235c28523",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-final\\videos\\invalid-contract.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-final\\videos\\invalid-contract.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "4d41a055a863815599b0b2a353ca370b8748e27839b1a476d1c81992425e00e2",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-final\\videos\\logout-late-reply.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-final\\videos\\logout-late-reply.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "38ed8c3afe1c8df6d902ede2108d56e6af1a22bd3d5c2749b8c777b65fa1954f",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-final\\videos\\lost-reload-1440.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-final\\videos\\lost-reload-1440.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "e8c25e95db431dd0f4ebef0ebf8fe11a34e40c0cc8f28833cf08408455321c94",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-final\\videos\\lost-reload-390.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-final\\videos\\lost-reload-390.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "a26387faa48724c9361be801167fa7db1376eacd718f6516f67447f29c143b42",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-final\\videos\\partial-full-1440.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-final\\videos\\partial-full-1440.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "3d3dc452a6c24f20de528e9258108a1e3cb46fbcba895179732128f2c826c866",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-final\\videos\\partial-full-390.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-final\\videos\\partial-full-390.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "72a6546317f44abd5e653d65a19647e04a807f74dbdbcaf7b99b2e3b12176e71",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-focused\\results.json",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-focused\\results.json",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "2d93286d482f9278a3be31b8a3fe6b42e86311d7481ac9c3714eddbeb5cbd2c4",
+      "lfSha256": "2d93286d482f9278a3be31b8a3fe6b42e86311d7481ac9c3714eddbeb5cbd2c4"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-focused\\videos\\401-private-clear.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-focused\\videos\\401-private-clear.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "d09b18a8ffbcbacd74a4a68146bf5e834c1e13c04fde6ab707936744c7e56648",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-focused\\videos\\double-submit.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-focused\\videos\\double-submit.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "b3e30ebc4a3e26720134d09adf2181fc3ce1501c4ee207c0cf254da124cfce67",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-focused\\videos\\invalid-contract.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-focused\\videos\\invalid-contract.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "de0fb0e06b9c39e40b8aca6bed61ced923a369e2f37d81a5c36e14a7f7762e17",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-focused\\videos\\logout-late-reply.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-focused\\videos\\logout-late-reply.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "ccc684b0d54a4bcbd09d55e59d36d35691fbfa934318357cdc541b85b8772d93",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-focused\\videos\\lost-reload-1440.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-focused\\videos\\lost-reload-1440.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "1bc09bdae745edde84a83ce56384d0a792007951e05ba2d8e93cbc2d009a3e23",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-focused\\videos\\lost-reload-390.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-focused\\videos\\lost-reload-390.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "2633f132bb7c3a446268ddaa4232118bda1b9fe04559ae995e3082290ef571b3",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-focused\\videos\\partial-full-1440.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-focused\\videos\\partial-full-1440.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "73f2d9a3f4aeac44f034e1345e0c4f44122534a8f9a0382366cfbd88edfeafc9",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\browser-focused\\videos\\partial-full-390.webm",
+      "target": "docs\\supply-ui-20261105\\worker\\browser-focused\\videos\\partial-full-390.webm",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "7e0952c14adb121bc8d6a9368080edebfacf9253e5bc3d7ebbf1e356d516e287",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\dotnet-build.log",
+      "target": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\worker-raw-logs\\dotnet-build.log",
+      "kind": "private-raw-log",
+      "rawSha256": "60f049df3b1ccd4806aed1ab46c704bc2eb9592605c467e000490787e4b65e82",
+      "lfSha256": "60f049df3b1ccd4806aed1ab46c704bc2eb9592605c467e000490787e4b65e82"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\edit.py",
+      "target": "docs\\supply-ui-20261105\\worker\\edit.py",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "669fe4a11b42ac1121d177c818ddc64c46295d2a578c4a131c5b554f9dd788eb",
+      "lfSha256": "31d0b4072d82e2bd5a59b6d413d742e266d81ade975bb3a02002452812e7fa74"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\existing-browser\\browser-results.json",
+      "target": "docs\\supply-ui-20261105\\worker\\existing-browser\\browser-results.json",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "67855e3d0800c6674d0405ef74c1e12b48bd81bee086724cdfbee0d21b9aef81",
+      "lfSha256": "67855e3d0800c6674d0405ef74c1e12b48bd81bee086724cdfbee0d21b9aef81"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\existing-browser\\multiarticle-desktop-cart.png",
+      "target": "docs\\supply-ui-20261105\\worker\\existing-browser\\multiarticle-desktop-cart.png",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "a9d1794d72227ecaa8085db3211be2616a3a3716032f994c838e5c2db6f7108c",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\existing-browser\\multiarticle-desktop-receipt.png",
+      "target": "docs\\supply-ui-20261105\\worker\\existing-browser\\multiarticle-desktop-receipt.png",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "f69cb3aad655e5eb9f58fa6e239c6d5f10ec88ddcf3f5a7ebbfd1efa9e4bab8c",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\existing-browser\\multiarticle-mobile-cart.png",
+      "target": "docs\\supply-ui-20261105\\worker\\existing-browser\\multiarticle-mobile-cart.png",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "18bfa0b19f9ec8c46edaa1105b32d2f223e448396c47bee2ec5df52e1569037a",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\existing-browser\\multiarticle-mobile-receipt.png",
+      "target": "docs\\supply-ui-20261105\\worker\\existing-browser\\multiarticle-mobile-receipt.png",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "c8b4665f54c43cd4ba163d5ff1317a2053af73b11579f8dfa097344dea667ad4",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\existing-browser\\public-checkout-observation.json",
+      "target": "docs\\supply-ui-20261105\\worker\\existing-browser\\public-checkout-observation.json",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "b6590b939f917938c06a00854e8714f7197c97a2018c3900009c8129f4fa6c20",
+      "lfSha256": "b6590b939f917938c06a00854e8714f7197c97a2018c3900009c8129f4fa6c20"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\existing-browser\\stale-receipt-observation.json",
+      "target": "docs\\supply-ui-20261105\\worker\\existing-browser\\stale-receipt-observation.json",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "003fb893b7ca07e8abc855f0ccc1505b58b31c3451b15c36ca141a7a37fe84d5",
+      "lfSha256": "003fb893b7ca07e8abc855f0ccc1505b58b31c3451b15c36ca141a7a37fe84d5"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\existing-browser\\stale-receipt.png",
+      "target": "docs\\supply-ui-20261105\\worker\\existing-browser\\stale-receipt.png",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "5d5d21bc2a9cd5996b9ba71136b87c4432d34f4651372af382c3044c980b0df1",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\existing-browser.log",
+      "target": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\worker-raw-logs\\existing-browser.log",
+      "kind": "private-raw-log",
+      "rawSha256": "dcb00900370508bfa9d44178a0cbda1bd001bf6d688eee88384fc510a64b89e2",
+      "lfSha256": "dcb00900370508bfa9d44178a0cbda1bd001bf6d688eee88384fc510a64b89e2"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\existing-final\\browser-results.json",
+      "target": "docs\\supply-ui-20261105\\worker\\existing-final\\browser-results.json",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "134bf7d6b9aaf9eed202ba5ca06f1f7930c1eff7d4057514dd99a04a01ba6fae",
+      "lfSha256": "134bf7d6b9aaf9eed202ba5ca06f1f7930c1eff7d4057514dd99a04a01ba6fae"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\existing-final\\multiarticle-desktop-cart.png",
+      "target": "docs\\supply-ui-20261105\\worker\\existing-final\\multiarticle-desktop-cart.png",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "66f4d6ee3e21246c3ce90be375d8dcd35484bdd6b1d28ca2de08b0e047ee3d62",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\existing-final\\multiarticle-desktop-receipt.png",
+      "target": "docs\\supply-ui-20261105\\worker\\existing-final\\multiarticle-desktop-receipt.png",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "d1f250f86cd08722121024120fdab6ce747febdf917acf85eb22b704edf49aa5",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\existing-final\\multiarticle-mobile-cart.png",
+      "target": "docs\\supply-ui-20261105\\worker\\existing-final\\multiarticle-mobile-cart.png",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "a1bd18be35dfa1ad698a2903c2932efc9cce7dcf7de38e846ef00c46de4684ea",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\existing-final\\multiarticle-mobile-receipt.png",
+      "target": "docs\\supply-ui-20261105\\worker\\existing-final\\multiarticle-mobile-receipt.png",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "d4a71db0a10ea1958a21dc7e51e0f1f7fe7cf509a40d93fa5508f6616847969d",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\existing-final\\public-checkout-observation.json",
+      "target": "docs\\supply-ui-20261105\\worker\\existing-final\\public-checkout-observation.json",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "85517c43f4b4a0022e8550f1487c1168487120f35eba07fcf97cee8ca4682bdb",
+      "lfSha256": "85517c43f4b4a0022e8550f1487c1168487120f35eba07fcf97cee8ca4682bdb"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\existing-final\\stale-receipt-observation.json",
+      "target": "docs\\supply-ui-20261105\\worker\\existing-final\\stale-receipt-observation.json",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "003fb893b7ca07e8abc855f0ccc1505b58b31c3451b15c36ca141a7a37fe84d5",
+      "lfSha256": "003fb893b7ca07e8abc855f0ccc1505b58b31c3451b15c36ca141a7a37fe84d5"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\existing-final\\stale-receipt.png",
+      "target": "docs\\supply-ui-20261105\\worker\\existing-final\\stale-receipt.png",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "5d5d21bc2a9cd5996b9ba71136b87c4432d34f4651372af382c3044c980b0df1",
+      "lfSha256": null
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\existing-final.log",
+      "target": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\worker-raw-logs\\existing-final.log",
+      "kind": "private-raw-log",
+      "rawSha256": "2a25fb4e2559fe971a6be557dd225749cc6abced04c656f2ab20e826605f1343",
+      "lfSha256": "2a25fb4e2559fe971a6be557dd225749cc6abced04c656f2ab20e826605f1343"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\existing-focused\\browser-results.json",
+      "target": "docs\\supply-ui-20261105\\worker\\existing-focused\\browser-results.json",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "2c5e544006c27629557c6e50114f393607caac4be009b57e1e3e99ac39231afc",
+      "lfSha256": "2c5e544006c27629557c6e50114f393607caac4be009b57e1e3e99ac39231afc"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\finalize.py",
+      "target": "docs\\supply-ui-20261105\\worker\\finalize.py",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "326392899079cf9f0cc8682fa05d9726a30133d7296ad8137341b45608d88e13",
+      "lfSha256": "4f277551061748d12f73faf8a2925835451770fdabe943f15d327644639d3766"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\fixture.mjs",
+      "target": "docs\\supply-ui-20261105\\worker\\fixture.mjs",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "3ffb3ef3e41a7a07d5676123510d8136d4b3a5e30b7462ca6afa815e262ad13c",
+      "lfSha256": "3fd40fb587fedba7bec60f53bea5c8db44701ed2214a30c116113d41db364de4"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\focused-2.log",
+      "target": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\worker-raw-logs\\focused-2.log",
+      "kind": "private-raw-log",
+      "rawSha256": "1a3c5801c1e6e7241d9a1708870b5fccaa24ab77966d2d6bfda2c7e325b385e9",
+      "lfSha256": "1a3c5801c1e6e7241d9a1708870b5fccaa24ab77966d2d6bfda2c7e325b385e9"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\focused-final.log",
+      "target": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\worker-raw-logs\\focused-final.log",
+      "kind": "private-raw-log",
+      "rawSha256": "0fb6bad072a35283fef7d4b69586ab58e3592008408c2a4157215eaf715169e4",
+      "lfSha256": "0fb6bad072a35283fef7d4b69586ab58e3592008408c2a4157215eaf715169e4"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\focused.log",
+      "target": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\worker-raw-logs\\focused.log",
+      "kind": "private-raw-log",
+      "rawSha256": "9f0f84ffd5f6b0ebedc6ac9fc63dce9b465beb3dea84d7c3b522e522d95f3c0d",
+      "lfSha256": "9f0f84ffd5f6b0ebedc6ac9fc63dce9b465beb3dea84d7c3b522e522d95f3c0d"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\layout.json",
+      "target": "docs\\supply-ui-20261105\\worker\\layout.json",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "655de725d7193f3284dff3f81504b958a7e950ad8acfc34bca8dff759c0e6b0f",
+      "lfSha256": "655de725d7193f3284dff3f81504b958a7e950ad8acfc34bca8dff759c0e6b0f"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\layout.mjs",
+      "target": "docs\\supply-ui-20261105\\worker\\layout.mjs",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "94f9e7f0be1369a1d70f2801bf6cde567d2858596d3d83540b37f3bdb153e158",
+      "lfSha256": "68123bf2529d4285025e74fed07f16a928b16fc3dc40beefb43ddfe52a65e06d"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\negative-baseline.log",
+      "target": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\worker-raw-logs\\negative-baseline.log",
+      "kind": "private-raw-log",
+      "rawSha256": "0caf823f8831061ab8b3e70bda5fb73944b35b8e69f9ebd862c10f97356b3108",
+      "lfSha256": "0caf823f8831061ab8b3e70bda5fb73944b35b8e69f9ebd862c10f97356b3108"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\negative-controls.json",
+      "target": "docs\\supply-ui-20261105\\worker\\negative-controls.json",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "2cc83857808cf6a185aedde5b2b1c38ea19ceee8f2239d5c2270a9a21a5c1761",
+      "lfSha256": "80f970f15aff8c0a98a41ec60909bf968a300a726419291e1ea6cc08819c5718"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\negative-controls.py",
+      "target": "docs\\supply-ui-20261105\\worker\\negative-controls.py",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "99d54478fd6421f203d0265991a9f876ffc491695b827eaf569aff3ae16c185b",
+      "lfSha256": "0182bc1206d863ad61c06ea1ed9cd05e7eb892dce3b16ea08a6eb9c8ee9a3a78"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\negative-duplicate.log",
+      "target": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\worker-raw-logs\\negative-duplicate.log",
+      "kind": "private-raw-log",
+      "rawSha256": "1664fcc51c2d14e9835d11bf4f6d1260d9f75f15690c46a19cd98e28b31e88e6",
+      "lfSha256": "1664fcc51c2d14e9835d11bf4f6d1260d9f75f15690c46a19cd98e28b31e88e6"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\negative-identity.log",
+      "target": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\worker-raw-logs\\negative-identity.log",
+      "kind": "private-raw-log",
+      "rawSha256": "2ee7660e6c41573698a2131c5c9e7974268faf7562601d35fae25cfa2e834005",
+      "lfSha256": "2ee7660e6c41573698a2131c5c9e7974268faf7562601d35fae25cfa2e834005"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\README.md",
+      "target": "docs\\supply-ui-20261105\\worker\\README.md",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "f63f1f22fa521cbc50382ad661a8ec99646ea5c4f0bfc0c1acec448e535fe1af",
+      "lfSha256": "f73fb924e43d604837d5e57fce036735595659af2b02e9e9f7a25f2e4bd8f734"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\recordings.json",
+      "target": "docs\\supply-ui-20261105\\worker\\recordings.json",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "5e47a5fad1f3988f2110c84a8e79dea027e8440d49a3ee3a3a8154e59f066d68",
+      "lfSha256": "e7207364e10e6dd6fbb2e2b2fad82a0a7f19378f00f57e917c26e4b006481216"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\restored-duplicate.log",
+      "target": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\worker-raw-logs\\restored-duplicate.log",
+      "kind": "private-raw-log",
+      "rawSha256": "a2a18cb1432295380278aa82d8802de56735bc70c18a0842dc3a7b20d6802bc9",
+      "lfSha256": "a2a18cb1432295380278aa82d8802de56735bc70c18a0842dc3a7b20d6802bc9"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\restored-identity.log",
+      "target": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\worker-raw-logs\\restored-identity.log",
+      "kind": "private-raw-log",
+      "rawSha256": "aca3e42dcdc2b6adc96d00bd517e31f572059ef8a5bb5391c8707af450a89082",
+      "lfSha256": "aca3e42dcdc2b6adc96d00bd517e31f572059ef8a5bb5391c8707af450a89082"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\RESULT.json",
+      "target": "docs\\supply-ui-20261105\\worker\\RESULT.json",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "33294ded3f6016c8a8f86aef07e190ace7d125db98f542509563d63ebb10d242",
+      "lfSha256": "a7cc2630b77218a54a6723ffce6bbdde7313215ad76840d0337c5dd1f309fe4e"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\runner-final.log",
+      "target": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\worker-raw-logs\\runner-final.log",
+      "kind": "private-raw-log",
+      "rawSha256": "b3ef5a123e4556e9c6438a6c9f88454b766a3c038470bf1c1bc10e2b19b9e703",
+      "lfSha256": "b3ef5a123e4556e9c6438a6c9f88454b766a3c038470bf1c1bc10e2b19b9e703"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\runner.log",
+      "target": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\worker-raw-logs\\runner.log",
+      "kind": "private-raw-log",
+      "rawSha256": "0535d1796134118a7f9aa01eb4786b9fce85d0df0759e43290519a6738b5f73b",
+      "lfSha256": "0535d1796134118a7f9aa01eb4786b9fce85d0df0759e43290519a6738b5f73b"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\source-manifest.json",
+      "target": "docs\\supply-ui-20261105\\worker\\source-manifest.json",
+      "kind": "public-synthetic-evidence",
+      "rawSha256": "58f0037eea278a78fb5065e9ad56fdff211b096282fe06db41289df8fd9d464d",
+      "lfSha256": "b3e16215345bae84158e156464e323d8a6e6653abc0117076e5be202815b7996"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\staff-final.log",
+      "target": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\worker-raw-logs\\staff-final.log",
+      "kind": "private-raw-log",
+      "rawSha256": "8358cba95957bdd1d7143045188dae25d905e8b761cc4f1fb7ca013813217b67",
+      "lfSha256": "8358cba95957bdd1d7143045188dae25d905e8b761cc4f1fb7ca013813217b67"
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\docs\\supply-ui-20261105\\worker\\staff-full.log",
+      "target": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\worker-raw-logs\\staff-full.log",
+      "kind": "private-raw-log",
+      "rawSha256": "d4a93fcde3cb11dace37bc69d19aa7ae0a6140c2c840767a747ca328927e39a2",
+      "lfSha256": "d4a93fcde3cb11dace37bc69d19aa7ae0a6140c2c840767a747ca328927e39a2"
+    }
+  ],
+  "excluded": [
+    {
+      "source": "before/page@31aa3d3db994d65c720935b70d7287f8.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "e25a7fa045cd2803f2bbdd4fe0a4370942d555304b782de3152aae1500886325"
+    },
+    {
+      "source": "before/page@78d04d3bbf8d0931fa1b28b2b2c79c36.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "87c9c00ee0fd983c0a71f025b5ffaf8f1dde5bdb46667427142b1d6455443e61"
+    },
+    {
+      "source": "browser-2/videos/page@177a7ad3a09b3484ee69bcef787cfe32.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "08f961c6cf3ca7e6a08e1151c9c207143f56080472dc2e6fb60ef4b426cafb51"
+    },
+    {
+      "source": "browser-2/videos/page@44cdba558afee1a4cc5d04fa3dd3cec5.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "5269414d403d0015ff1f3ab0ca4dfee679fc4363fedb51e19cb75389ae5757b1"
+    },
+    {
+      "source": "browser-2/videos/page@6408f1344820b031b8e74f6e85011212.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "9ff24532d00caaa05cbff02ef746fda938d6b2793027f80d2bf25c2e1ad2e183"
+    },
+    {
+      "source": "browser-2/videos/page@9385956649db883d3043d94aa101612f.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "c9203b3628b7c3b1189412c7d596b8545e4537e41ec9ce29d38c4c37a6389fb1"
+    },
+    {
+      "source": "browser-2/videos/page@b8fc48fcd575f15646be97bb2f825e09.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "a584e581644f8b1153f47f649c9234d51c866fe8cff2d76aff5761d0cfbf3b1b"
+    },
+    {
+      "source": "browser-2/videos/page@dfc1307d47e806c8437efb22dddd47d0.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "9c242e6f5f87e34bc5531da0b30804a0155d08403852eed8dcf850c3d495214e"
+    },
+    {
+      "source": "browser-2/videos/page@ee930bff4b55b43e028216ea67e090ac.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "bbd07d232a423bdc08115bf1c8b8993cefb4af79d1a9823857ccab575e02bcd9"
+    },
+    {
+      "source": "browser-2/videos/page@f44266ca468ae087d93fd4f24807cd7d.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "3df7a43a5aeb334c85ef593aff1556236de1f96aa2dc4142d634926baac42ed6"
+    },
+    {
+      "source": "browser-401/videos/page@0df39e0274c6bbeb26bf31377ca6df39.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "ab89fdcdc91c3f91c7e55336903c569703719984e273a096b53238faa8d5b27b"
+    },
+    {
+      "source": "browser-bound/videos/page@159f26132715bd4b9529799deb98409e.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "b074885b11ec327fc0192b1ca7d64f1bcf9b32063b57913e34573d57161d71a8"
+    },
+    {
+      "source": "browser-bound/videos/page@1a9ab6b55f0c119ea1f0107755bc905e.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "82e31b307dd0a4ba5f36bc2364433e43c1aed0bc88e57c4926ce547c46eb41d4"
+    },
+    {
+      "source": "browser-bound/videos/page@8947bba3c8c0bae6293fd1f70e752894.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "5ea13f8e300efde9e86860e4a73f389658d8e7d0665239accada88b05a4126f6"
+    },
+    {
+      "source": "browser-bound/videos/page@b5e548dbd6d9e72d344faeb797646ba5.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "dba80775c45b2c614c04d814fe6cde31d9bd26933f191d63f4e9e022f7f8028c"
+    },
+    {
+      "source": "browser-bound/videos/page@c1d95dd347fd34ea31eaad7902a3b7b7.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "4f7febf923369efb1f8f6adb1adf42b5a59abfe2334743449b0d947921ccb687"
+    },
+    {
+      "source": "browser-bound/videos/page@c39a4518104de88569b7c563a628a518.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "e5d29a652c42d746ca929a922330de10e9d2e980be82a7d31488d3b7c42545c8"
+    },
+    {
+      "source": "browser-bound/videos/page@dacf95c2e2b8cd709954cd2518db904e.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "bc9b6c277a94f9a09ce151628a4c223b87b29197afaa9046a13284b1e1d90e92"
+    },
+    {
+      "source": "browser-bound/videos/page@ebcb72e62aaa039c93baecb5a1228046.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "143ca9d6fdf59a6599de4f2f24a9bba4304df094d650edb011d4348b184a6556"
+    },
+    {
+      "source": "browser-final/videos/page@1c3729124c8de497032e78bdd151bea4.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "e8c25e95db431dd0f4ebef0ebf8fe11a34e40c0cc8f28833cf08408455321c94"
+    },
+    {
+      "source": "browser-final/videos/page@6683ec70f37ae73cd337aeba957070fc.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "4d41a055a863815599b0b2a353ca370b8748e27839b1a476d1c81992425e00e2"
+    },
+    {
+      "source": "browser-final/videos/page@6cf8cef9e0f9fa9f34ed1c1b8615fd07.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "a26387faa48724c9361be801167fa7db1376eacd718f6516f67447f29c143b42"
+    },
+    {
+      "source": "browser-final/videos/page@7f792d2c63cd67de73955d99c2e67cd4.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "8baf5ddbe6c01e074b5618943144f621401e7f5a10195846381cc8cfdf328655"
+    },
+    {
+      "source": "browser-final/videos/page@857ce70f669c8e70aa4f9dbc486b1c1d.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "3d3dc452a6c24f20de528e9258108a1e3cb46fbcba895179732128f2c826c866"
+    },
+    {
+      "source": "browser-final/videos/page@a88f1dbb265460b5c4cdaea03b085126.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "f26cf88ca308e8fa1256ac1d9082875528921cba8cd6d5bc40fadc6235c28523"
+    },
+    {
+      "source": "browser-final/videos/page@be7ca79fc79fa97597a375135c54a0fe.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "72a6546317f44abd5e653d65a19647e04a807f74dbdbcaf7b99b2e3b12176e71"
+    },
+    {
+      "source": "browser-final/videos/page@ed0a530736fb12f88b92b1f2a51610c7.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "38ed8c3afe1c8df6d902ede2108d56e6af1a22bd3d5c2749b8c777b65fa1954f"
+    },
+    {
+      "source": "browser-focused/videos/page@59bd94dfbda2eb2a4787001b88e9a83e.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "1bc09bdae745edde84a83ce56384d0a792007951e05ba2d8e93cbc2d009a3e23"
+    },
+    {
+      "source": "browser-focused/videos/page@61beeb82955fd7f35198c97e70d39879.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "2633f132bb7c3a446268ddaa4232118bda1b9fe04559ae995e3082290ef571b3"
+    },
+    {
+      "source": "browser-focused/videos/page@815b1518bb1a54a255c4c64a09992995.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "73f2d9a3f4aeac44f034e1345e0c4f44122534a8f9a0382366cfbd88edfeafc9"
+    },
+    {
+      "source": "browser-focused/videos/page@90c31dd3d75131f70a5684faff1157b8.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "d09b18a8ffbcbacd74a4a68146bf5e834c1e13c04fde6ab707936744c7e56648"
+    },
+    {
+      "source": "browser-focused/videos/page@955959a6d876f32cd05f97ad4d896be7.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "de0fb0e06b9c39e40b8aca6bed61ced923a369e2f37d81a5c36e14a7f7762e17"
+    },
+    {
+      "source": "browser-focused/videos/page@aeab2b2a26dea1e3a41eaeee255fbf89.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "7e0952c14adb121bc8d6a9368080edebfacf9253e5bc3d7ebbf1e356d516e287"
+    },
+    {
+      "source": "browser-focused/videos/page@dc2638307b664387601934b36999fa25.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "b3e30ebc4a3e26720134d09adf2181fc3ce1501c4ee207c0cf254da124cfce67"
+    },
+    {
+      "source": "browser-focused/videos/page@eb2f33df187ccb8df8ef939f32f42abb.webm",
+      "reason": "Duplicate automatic recording; named recordings are retained",
+      "rawSha256": "ccc684b0d54a4bcbd09d55e59d36d35691fbfa934318357cdc541b85b8772d93"
+    }
+  ]
+}

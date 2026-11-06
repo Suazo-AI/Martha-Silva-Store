@@ -1,5 +1,6 @@
 // Private staff shell. Server identity and business contracts are required.
 // No fixture business data or local authentication. Only pending operation references persist per tab.
+import {mountSupply} from './supply.mjs';
 import {createStaffClient, validateSaleRequest} from './client.mjs';
 import {StaffRequestError, readStaff} from './login.mjs';
 const errorIds = new WeakMap();
@@ -130,11 +131,12 @@ export function mountStaffApp({document = globalThis.document, client = createSt
   const commerce = typeof client.recordSale === 'function' ? mountCommerce({document, client,
     getSession: () => state.phase === 'ready' ? state.session : null,
     onUnauthorized: () => requireAccess('La sesión venció. Volvé a ingresar para comprobar la venta.')}) : null;
+  const supply = typeof client.listPurchaseOrders === 'function' ? mountSupply({document, client, getSession: () => state.phase === 'ready' ? state.session : null, onUnauthorized: () => requireAccess('La sesión venció. Volvé a ingresar.') , onStock: () => commerce?.loadStock()}) : null;
   let epoch = 0, destroyed = false, commerceStarted = false;
   const reads = new Map();
   const newPage = () => ({q: '', includeInactive: false, skip: 0, take: 50, status: 'idle', confirmed: null});
   const pages = new Map([['clientes', newPage()], ['inventario', newPage()]]);
-  const canReadView = view => view !== 'clientes' || state.session?.role === 'Owner';
+  const canReadView = view => (view !== 'clientes' || state.session?.role === 'Owner') && (view !== 'abastecimiento' || ['Owner','Manager','Inventory'].includes(state.session?.role));
   const listen = (element, event, handler) => {
     element.addEventListener(event, handler);
     removers.push(() => element.removeEventListener(event, handler));
@@ -150,6 +152,7 @@ export function mountStaffApp({document = globalThis.document, client = createSt
   function clearPrivateView() {
     commerceStarted = false;
     commerce?.clear();
+    supply?.clear();
     for (const view of pages.keys()) pages.set(view, newPage());
     reads.clear();
     $$('[data-rows]').forEach(element => element.replaceChildren());
@@ -348,6 +351,7 @@ export function mountStaffApp({document = globalThis.document, client = createSt
       if (!commerceStarted) { commerceStarted = true; void commerce.start(); }
       else if (load && view === 'inventario') void commerce.loadStock();
     }
+    if (view === 'abastecimiento') void supply?.start();
     return true;
   }
   async function logout() {
@@ -396,7 +400,7 @@ export function mountStaffApp({document = globalThis.document, client = createSt
     ready, navigate, refresh: () => refreshSection(state.view),
     getState: () => ({phase: state.phase, busy: state.busy, view: state.view,
       authenticated: state.phase === 'ready' && !!state.session, role: state.session?.role || null}),
-    destroy() { destroyed = true; ++epoch; state.session = null; clearPrivateView(); commerce?.destroy(); lockActions(); setVisible($('#staff-shell'), false); removers.forEach(remove => remove()); },
+    destroy() { destroyed = true; ++epoch; state.session = null; clearPrivateView(); commerce?.destroy(); supply?.destroy(); lockActions(); setVisible($('#staff-shell'), false); removers.forEach(remove => remove()); },
   };
 }
 

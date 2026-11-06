@@ -1,0 +1,11 @@
+{
+  "status": "ASSERTION_DETECTED_PROCESS_INCOMPLETE",
+  "expectedAssertion": "Late receipt removed the original pending reference.",
+  "assertionObserved": true,
+  "sourceResultRawSha256": "3b725decd1690c2fb2a34252e72dc627ea83a2bb12bced86aa2c9129fd5c61a2",
+  "sourceResultPrivateOrUnpublished": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\supply-ui-20261105\\primary\\late-negative-final\\results.json",
+  "mutations": "Disposable fixture: disable client epoch check and replace stale confirmed-return with pending reference deletion. Does not isolate either guard.",
+  "process": "Timed out at35s after writing FAIL; no accepted exit1 or restored focused execution is claimed. Scratch sources restored in finally; canonical product never modified.",
+  "limit": "Shows sensitivity of this observed post-header/two-frame window to that joint injected regression. It does not prove every callback/scheduler order.",
+  "nextAction": "Independent reviewer assesses bounded observation against existing completed worker identity/duplicate controls. CI runs the intact current driver; primary must resolve any material remaining gap before acceptance."
+}

@@ -1,4 +1,5 @@
 // Protected directory and commerce contracts. Server prices and receipts are authoritative.
+import {createSupplyClient} from './supply.mjs';
 import {createAuthClient, StaffRequestError} from './login.mjs';
 const string = value => typeof value === 'string' && value.length > 0;
 function entity(value, kind) {
@@ -44,7 +45,7 @@ export function createStaffClient(options = {}) {
       || (kind === 'parties' && items.some(value => value.kind !== partyKind))) throw new StaffRequestError('response');
     return Object.freeze({items, total: response.total, skip: response.skip, take: response.take});
   }
-  return Object.freeze({getSession: auth.getSession, getVerifiedSession: auth.getVerifiedSession,
+  return Object.freeze({...createSupplyClient(auth), getSession: auth.getSession, getVerifiedSession: auth.getVerifiedSession,
     async listInventory(locationId, skip = 0) {
       if (!isId(locationId) || !Number.isSafeInteger(skip) || skip < 0) throw new StaffRequestError('invalid');
       const page = await auth.requestBusiness(`/internal/api/commerce/inventory?locationId=${locationId}&skip=${skip}&take=100`);

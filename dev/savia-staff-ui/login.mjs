@@ -126,12 +126,17 @@ export function createAuthClient({fetchImpl = globalThis.fetch, timeoutMs = 1000
       const sale = path === '/internal/api/commerce/sales' && method === 'POST';
       const read = method === 'GET' && (/^\/internal\/api\/commerce\/inventory\?locationId=[0-9a-f-]+&skip=\d+&take=100$/i.test(path)
         || /^\/internal\/api\/commerce\/sales\/[0-9a-f-]+$/i.test(path));
+      const supplyWrite = method === 'POST' && /^\/internal\/api\/supply\/purchase-orders\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\/receipts$/i.test(path);
+      const supplyRead = method === 'GET' && (/^\/internal\/api\/supply\/purchase-orders\?skip=\d+&take=50$/.test(path)
+        || /^\/internal\/api\/supply\/purchase-orders\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}(?:\/receipts\?skip=\d+&take=50)?$/i.test(path));
+      const supplyRecovery = method === 'GET' && path === '/internal/api/operations/supply.receipt.create';
+      if ((supplyWrite || supplyRead || supplyRecovery) && !['Owner','Manager','Inventory'].includes(session.role)) throw new StaffRequestError('forbidden',403);
       const recovery = method === 'GET' && path === '/internal/api/operations/commerce.sale.record';
-      if (!(sale || read || recovery) || ((sale || recovery) && !guid(key))) throw new StaffRequestError('invalid');
-      if (sale) await renewCsrf();
+      if (!(sale || read || recovery || supplyWrite || supplyRead || supplyRecovery) || ((sale || recovery || supplyWrite || supplyRecovery) && !guid(key))) throw new StaffRequestError('invalid');
+      if (sale || supplyWrite) await renewCsrf();
       current(generation);
       if (!session) throw new StaffRequestError('unauthorized', 401);
-      return request(path, {method, body, idempotencyKey: key, csrfToken: sale ? csrf : undefined});
+      return request(path, {method, body, idempotencyKey: key, csrfToken: (sale || supplyWrite) ? csrf : undefined});
     },
     getVerifiedSession: () => session,
     requestAuthenticated: async path => {

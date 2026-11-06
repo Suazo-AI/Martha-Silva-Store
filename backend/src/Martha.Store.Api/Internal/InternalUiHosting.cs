@@ -11,6 +11,7 @@ public static class InternalUiHosting
         routes.MapGet("/internal/", () => Resource("index.html", "text/html; charset=utf-8")).RequireAuthorization("internal.read");
         routes.MapGet("/internal/app.mjs", () => Resource("app.mjs", "text/javascript; charset=utf-8")).RequireAuthorization("internal.read");
         routes.MapGet("/internal/client.mjs", () => Resource("client.mjs", "text/javascript; charset=utf-8")).RequireAuthorization("internal.read");
+        routes.MapGet("/internal/supply.mjs", () => Resource("supply.mjs", "text/javascript; charset=utf-8")).RequireAuthorization("internal.read");
         return routes;
     }
     private static IResult Resource(string file, string contentType)

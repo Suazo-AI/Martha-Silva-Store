@@ -16,7 +16,7 @@ const {expect}=await import(pathToFileURL(path.join(pwPath,'test.mjs')).href);
 expect.setTimeout?.(5000);
 const sha=b=>createHash('sha256').update(b).digest('hex');
 const sources={};
-for(const name of ['app.mjs','client.mjs','login.mjs','login.html','index.html','styles.css']){
+for(const name of ['app.mjs','client.mjs','login.mjs','supply.mjs','login.html','index.html','styles.css']){
   sources[`dev/savia-staff-ui/${name}`]=sha(await readFile(path.join(root,'dev/savia-staff-ui',name)));
 }
 const mime={'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml','.jpg':'image/jpeg','.jpeg':'image/jpeg','.png':'image/png','.webp':'image/webp','.woff2':'font/woff2','.mp4':'video/mp4'};
@@ -87,6 +87,7 @@ async function setup(options={}){
       const key=req.headers()['idempotency-key'];const payload=req.postDataJSON();state.sales.push({key,payload});
       return json(route,receipt);
     }
+    if(p.endsWith('/supply/purchase-orders')&&method==='GET')return json(route,{items:[],skip,take,hasMore:false});
     if(p.includes('/operations/'))return json(route,{status:'completed',result:{success:true,value:receipt,error:null}});
     if(p.includes('/commerce/sales/'))return json(route,receipt);
     return json(route,{code:'unhandled_mock_route'},501);
@@ -379,7 +380,7 @@ try{
     await expect(s.page.locator('#auth-required')).toBeVisible();await expect(s.page.locator('#staff-shell')).toBeHidden();await expect(s.page.locator('#sale-receipt')).toBeHidden();
     assert.ok(s.state.calls.some(x=>x.path.endsWith('/sales/'+receipt.saleId)),'The receipt lookup was never attempted.');assert.equal(s.state.sales.length,0);
   }));
-  await test('Unimplemented purchasing and customer creation remain visibly unavailable',()=>withStaff({},async s=>{await ready(s);await expect(s.page.locator('[data-action="new-client"]')).toBeDisabled();await s.page.locator('[data-target="abastecimiento"][data-action="nav"]').click();await expect(s.page.locator('#purchasing-pending-note')).toBeVisible();return 'Coverage observation only: these workflows are not implemented in the frontend.';}));
+  await test('Supply receipt entry is usable while customer creation stays unavailable',()=>withStaff({},async s=>{await ready(s);await expect(s.page.locator('[data-action="new-client"]')).toBeDisabled();await s.page.locator('[data-target="abastecimiento"][data-action="nav"]').click();await expect(s.page.locator('#supply-refresh')).toBeEnabled();await expect(s.page.locator('#supply-orders')).toContainText('Sin compras registradas.');await expect(s.page.locator('#supply-submit')).toBeDisabled();assert.ok(s.state.calls.some(x=>x.path.endsWith('/supply/purchase-orders')));assert.equal(await s.page.getByRole('button',{name:'Nueva compra',exact:true}).count(),0);return 'Existing purchase receipt workflow has its own actual-Chrome mocked acceptance driver.';}));
   for(const mobile of [false,true])await test(`Staff visible screens have no document overflow at ${mobile?'390':'1440'}px`,()=>withStaff({mobile},async s=>{
     await ready(s);const measurements=[];for(const view of ['clientes','inventario','ventas','abastecimiento']){await s.page.locator(`[data-target="${view}"][data-action="nav"]`).click();const dims=await s.page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth}));measurements.push({view,...dims});assert.ok(dims.scroll<=dims.width+1,JSON.stringify(measurements));}return measurements;
   }));

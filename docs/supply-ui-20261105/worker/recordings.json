@@ -1,0 +1,110 @@
+[
+  {
+    "path": "docs/supply-ui-20261105/worker/before/1440.webm",
+    "exit": 0,
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "vp8",
+          "width": 1440,
+          "height": 1000
+        }
+      ],
+      "format": {
+        "duration": "1.080000"
+      }
+    }
+  },
+  {
+    "path": "docs/supply-ui-20261105/worker/before/390.webm",
+    "exit": 0,
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "vp8",
+          "width": 390,
+          "height": 844
+        }
+      ],
+      "format": {
+        "duration": "1.200000"
+      }
+    }
+  },
+  {
+    "path": "docs/supply-ui-20261105/worker/browser-bound/videos/partial-full-1440.webm",
+    "exit": 0,
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "vp8",
+          "width": 1440,
+          "height": 1000
+        }
+      ],
+      "format": {
+        "duration": "1.480000"
+      }
+    }
+  },
+  {
+    "path": "docs/supply-ui-20261105/worker/browser-bound/videos/partial-full-390.webm",
+    "exit": 0,
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "vp8",
+          "width": 390,
+          "height": 844
+        }
+      ],
+      "format": {
+        "duration": "1.360000"
+      }
+    }
+  },
+  {
+    "path": "docs/supply-ui-20261105/worker/browser-bound/videos/lost-reload-1440.webm",
+    "exit": 0,
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "vp8",
+          "width": 1440,
+          "height": 1000
+        }
+      ],
+      "format": {
+        "duration": "1.600000"
+      }
+    }
+  },
+  {
+    "path": "docs/supply-ui-20261105/worker/browser-bound/videos/lost-reload-390.webm",
+    "exit": 0,
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "vp8",
+          "width": 390,
+          "height": 844
+        }
+      ],
+      "format": {
+        "duration": "2.280000"
+      }
+    }
+  }
+]

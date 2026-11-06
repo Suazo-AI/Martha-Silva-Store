@@ -42,12 +42,12 @@
       "id": "SUPPLY-UI",
       "track": "prod",
       "owner": "jason",
-      "status": "doing",
+      "status": "review",
       "title": "Recepción de mercancía desde la pantalla de personal",
       "why": "La API de abastecimiento existe, pero la pantalla no permite recibir compras existentes.",
       "done_when": "Listado/detalle/recepción parcial y completa, intento durable y recuperación sin duplicados; Chrome con HTTP simulado, controles negativos, revisión independiente y CI del SHA integrado. API/SQL real y aceptación operativa permanecen gates separados.",
       "alternatives": "Conectar el contrato de recepción existente antes de crear otro simulador. No ampliar permisos del directorio ni inventar cobro, ajuste de stock o validez fiscal.",
-      "evidence": "docs/supply-ui-20261105/PLAN.md",
+      "evidence": "docs/supply-ui-20261105/primary-review.md",
       "paths": ["dev/savia-staff-ui/*", "backend/src/Martha.Store.Api/Internal/InternalUiHosting.cs", "backend/src/Martha.Store.Api/Martha.Store.Api.csproj", "tests/*supply*", "docs/supply-ui-20261105/*"]
     },
     {

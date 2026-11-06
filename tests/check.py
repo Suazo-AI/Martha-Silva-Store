@@ -77,6 +77,12 @@ def main(argv=None):
             raise ValueError('Missing jsdom: run python tests/check.py --install first.')
         run([node, '--version'])
         run([sys.executable, '--version'])
+        stage('Private staff UI regressions (DOM and mocked transport, no SQL)')
+        env['NODE_PATH'] = str(ROOT / 'tests/frontend-deps/node_modules')
+        staff_tests = sorted(str(p.relative_to(ROOT)) for p in (ROOT / 'dev/savia-staff-ui').glob('*.test.mjs'))
+        if not any(p.endswith('supply.test.mjs') for p in staff_tests):
+            raise ValueError('Missing portable supply regressions')
+        run([node, '--test', *staff_tests])
         stage('Reproducible snapshot build')
         run([sys.executable, 'tests/build.py'])
         stage('Recovered fixture')

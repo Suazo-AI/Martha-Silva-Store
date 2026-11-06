@@ -43,6 +43,33 @@ class RunnerTests(unittest.TestCase):
             self.assertEqual(run.call_count, 1)
             self.assertIn('--ignore-scripts', run.call_args.args[0])
 
+    def test_staff_suite_runs_before_build_with_locked_dependencies(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            dependency = root / 'tests/frontend-deps/node_modules/jsdom/package.json'
+            dependency.parent.mkdir(parents=True)
+            dependency.write_text('{}')
+            staff = root / 'dev/savia-staff-ui'
+            staff.mkdir(parents=True)
+            for name in ('supply.test.mjs', 'auth.test.mjs'):
+                (staff / name).write_text('')
+            calls = []
+            def run(command, **kwargs):
+                calls.append((command, kwargs))
+                if 'tests/build.py' in command:
+                    raise subprocess.CalledProcessError(7, command)
+            with mock.patch.object(check, 'ROOT', root), \
+                    mock.patch.object(check.shutil, 'which', return_value='node'), \
+                    mock.patch.object(check.subprocess, 'run', side_effect=run), \
+                    contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+                self.assertEqual(check.main([]), 7)
+            staff_calls = [(command, args) for command, args in calls if '--test' in command]
+            self.assertEqual(len(staff_calls), 1)
+            command, args = staff_calls[0]
+            self.assertEqual({Path(p).name for p in command[2:]}, {'auth.test.mjs', 'supply.test.mjs'})
+            self.assertEqual(args['env']['NODE_PATH'], str(root / 'tests/frontend-deps/node_modules'))
+            self.assertTrue(args['check'])
+
     def test_fixture_rejects_wrong_count_and_drift(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

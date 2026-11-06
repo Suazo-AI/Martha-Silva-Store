@@ -1,0 +1,79 @@
+{
+  "baseSha": "a4bdac69581ac0423a964dea6bc5c74d4e2bad28",
+  "status": "UNACCEPTED_REVIEW_CANDIDATE",
+  "policy": "LF replaces CRLF only; BOM retained. Raw values describe this original Windows working tree. Clean checkout/CI should verify LF; product overlays separate from historical worker evidence. Publication identity is the containing commit HEAD.",
+  "files": {
+    ".github/workflows/savia.yml": {
+      "rawSha256": "b2d28e6d91f027b46d9990582c1f72aea881665e8f264b2a996365288cb2310a",
+      "lfSha256": "dd978ae2f7cab4e2d967c491384ab5e0f26468514abab8d23b54339835badd70"
+    },
+    ".github/workflows/staff-ui-candidate.yml": {
+      "rawSha256": "39eaeb4afebe8b3296fa28f28137d507e81e662b0b1a3039246c6e7976f05eb8",
+      "lfSha256": "9345adc230e2445d4c582fe5a60381025c77bcdd867550e4ef6009d8296b348c"
+    },
+    "backend/src/Martha.Store.Api/Internal/InternalUiHosting.cs": {
+      "rawSha256": "06f3b59dd2545c06a5588985ac8bd11dd6fe62d653d0d6682c14fb560d30eea5",
+      "lfSha256": "fa9e6976fc6c221e0a278336e1e2dc3ab4d1852014112eeb9d92f2aceae8ddc3"
+    },
+    "backend/src/Martha.Store.Api/Martha.Store.Api.csproj": {
+      "rawSha256": "67918b858c54f58f25e32c41532ca37ab9da19d154e47e0fd8e75c5175da4259",
+      "lfSha256": "6070096536d919ec850175d7f256b770909483bc02011226b02c577b20c91f46"
+    },
+    "backend/tests/Martha.Store.Api.Tests/InternalSupplyUiTests.cs": {
+      "rawSha256": "c453442a78c60ed191a7ea6c5565c2195a5832eee9403da6a35dc7f543c92f51",
+      "lfSha256": "c453442a78c60ed191a7ea6c5565c2195a5832eee9403da6a35dc7f543c92f51"
+    },
+    "dev/savia-staff-ui/README.md": {
+      "rawSha256": "f5a61471af1930f5466f9fbce5f152dc3265943a54e1f2b5c82ef7bf547fbaff",
+      "lfSha256": "1c12048706cee466e9c435ef455b22e7cfdbd0457cc345179f84a0cc4e4be5b4"
+    },
+    "dev/savia-staff-ui/app.mjs": {
+      "rawSha256": "cc70f5adf216de28cf5a4b5efc1166d2df5fb6b6d22da9c6daee004c92237208",
+      "lfSha256": "7901d54f7ea18b09e6f50dfc8f7596a135ec3a951bd732e1a3435cb7d1185083"
+    },
+    "dev/savia-staff-ui/client.mjs": {
+      "rawSha256": "d435b0ec3752ad81630fc7a8368e3a0465654dce569a815e9b149cac5614dec3",
+      "lfSha256": "cdf34879fdd5e78d8141c23533de2d07155bb7451bcd7582b41e553cd71e2639"
+    },
+    "dev/savia-staff-ui/index.html": {
+      "rawSha256": "1b2b705b65461cdedf4360bc5c9a34271bef8b12461a5639181566d1b2dae45e",
+      "lfSha256": "234fa005e324a0cd20bd43936450b68b9d08d1152b4714db871e425577c6a859"
+    },
+    "dev/savia-staff-ui/login.mjs": {
+      "rawSha256": "67c005464ad8904de3a283bb1c0aa9a6564ed0f15a9e8cb8861795ca6b8bfbb3",
+      "lfSha256": "5d2bd800a550501c020a300b39d87c85c9abf06379609942e02bc39beb580297"
+    },
+    "dev/savia-staff-ui/supply-pagination.test.mjs": {
+      "rawSha256": "c8dcb1fdd12a0a73eea718b9faa4968ac9a0eb20993fe37fa68a35b54dbf1a89",
+      "lfSha256": "c53817ddc8891ffe3f0d8c3ce96439d52ca46656dae90f2cb0ed0b624fe34f68"
+    },
+    "dev/savia-staff-ui/supply.mjs": {
+      "rawSha256": "1695273b2135acddb900c821e62f872601bc2ea443312763ea879ff9da60246b",
+      "lfSha256": "2beb1f821afcbfe773968d00a9534158ca8ef4b5f124427377288be01182b71a"
+    },
+    "dev/savia-staff-ui/supply.test.mjs": {
+      "rawSha256": "b3f98a6cd260ee8bc7ac50cd0b615d973ca9319e3ff1fb97f3c977e693f04ba9",
+      "lfSha256": "07b25e860b9587cb0e20769bb12877787e5148c2f46534eeb9ea0d9c371912b8"
+    },
+    "tests/browser-mock-validation.mjs": {
+      "rawSha256": "0de9295d229a54c1315c125c13228f9b1b6df56dab2c051bdccbb30e99993125",
+      "lfSha256": "72f5edc736fce220da42116b32db71077c8e1524df01c5d7da9982d42e2151a9"
+    },
+    "tests/browser-supply-validation.mjs": {
+      "rawSha256": "d48bb956954ac1c7c3ac469f90d8b41ea1d17b96f31acdb4d096b23c3356ac50",
+      "lfSha256": "4d7621874ae56ef23a5d1eaa723788ed97f2c4f31925eb75d671f519863bfcbd"
+    },
+    "tests/check.py": {
+      "rawSha256": "a671546749ebeebb6c6f2587dc3334e35144c89a38ed36a3daff9dec9352a1e9",
+      "lfSha256": "c2401f4058b71553aef40a91508b6bb5b63a32e0f8bb12e5feb1ac497082bd68"
+    },
+    "tests/fixtures/supply-browser.mjs": {
+      "rawSha256": "ec6c71d06661315b7db643c9d735413a5d54929cc3aafb9a42a4049ff23cd3b6",
+      "lfSha256": "6d1b99ca427eee72e2030dc6d250fbdc053c4cca9fef080e2563d08994ac37bd"
+    },
+    "tests/test_check.py": {
+      "rawSha256": "63dc631eb9f349cb5ae969f2e2512ab791ae4c80cb30b8e42040481bd83c4c9e",
+      "lfSha256": "785967582905f35369d576efd7419c1bd3b7bb57bb4c7ca0b9f2f487d65f66bc"
+    }
+  }
+}

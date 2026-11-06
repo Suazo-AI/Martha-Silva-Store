@@ -1,0 +1,63 @@
+name: Staff UI candidate (no SQL)
+
+# Tony progress may be published before acceptance. This job does not deploy or start SQL.
+on:
+  push:
+    branches: [Tony]
+    paths:
+      - 'dev/savia-staff-ui/**'
+      - 'tests/browser-*-validation.mjs'
+      - 'tests/frontend-deps/**'
+      - 'tests/fixtures/supply-browser.mjs'
+      - 'backend/**'
+      - 'global.json'
+      - '.github/workflows/staff-ui-candidate.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  staff-and-resource-guards:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68
+        with:
+          dotnet-version: '10.0.402'
+      - name: Install locked DOM test dependencies without lifecycle scripts
+        run: npm ci --prefix tests/frontend-deps --ignore-scripts --no-audit --no-fund
+      - name: Staff DOM and mocked transport regressions
+        run: NODE_PATH="$PWD/tests/frontend-deps/node_modules" node --test dev/savia-staff-ui/*.test.mjs
+      - name: Install pinned Playwright library; use the runner's Chrome
+        run: |
+          mkdir -p "$RUNNER_TEMP/pw" && cd "$RUNNER_TEMP/pw"
+          npm init -y > /dev/null
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm install --no-audit --no-fund --ignore-scripts playwright@1.63.0
+          google-chrome --version
+      - name: Existing browser regressions (explicitly mocked HTTP)
+        run: node tests/browser-mock-validation.mjs "$RUNNER_TEMP/pw/node_modules/playwright" "$RUNNER_TEMP/staff-evidence/existing"
+      - name: Supply receipt browser regressions (explicitly mocked HTTP)
+        run: node tests/browser-supply-validation.mjs "$RUNNER_TEMP/pw/node_modules/playwright" "$RUNNER_TEMP/staff-evidence/supply"
+      - name: Restore locked backend test dependencies
+        run: dotnet restore backend/tests/Martha.Store.Api.Tests --locked-mode
+      - name: Compile resources and run database-independent guards only
+        run: |
+          export SAVIA_PILOT_EVIDENCE="$RUNNER_TEMP/savia-pilot-offline"
+          mkdir -p "$SAVIA_PILOT_EVIDENCE"
+          dotnet test backend/tests/Martha.Store.Api.Tests --no-restore --configuration Release --filter 'Category!=SqlServer'
+      - name: Upload synthetic browser evidence
+        if: ${{ always() }}
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: staff-candidate-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/staff-evidence/
+          if-no-files-found: error
+          retention-days: 7

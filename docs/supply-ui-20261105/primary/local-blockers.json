@@ -1,0 +1,37 @@
+{
+  "host": "SUAZO-PC",
+  "scope": "Primary verification harness, not demonstrated product defects",
+  "items": [
+    {
+      "failure": "Initial held-response probe required Response.finished(); request headers arrived, finished() did not resolve within the bound.",
+      "correction": "Use explicit valid200 response headers and same-document two-frame observation. Gates moved into a test-owned HTTP fixture; readiness waits bounded.",
+      "result": "Current focused exit0 and full supply8/8 exit0. Full callback completion or all scheduler orders not claimed.",
+      "owner": "primary",
+      "closure": "Exact-SHA intact driver in Linux CI and independent source/evidence review."
+    },
+    {
+      "failure": "Disposable joint negative assertion fired, but Node process did not exit before35s. An earlier diagnostic also reached final file output before its deadline.",
+      "correction": "Changed capture from pipes to direct file; repeated probe still timed out. No third blind capture retry. Product not mutated; scratch restored.",
+      "result": "Semantic detection recorded separately; not accepted as completed negative execution. Original worker controls remain [0,1,0,1,0].",
+      "owner": "primary",
+      "nextAction": "Use Linux and reviewer disposition before requiring more local browser runs.",
+      "closure": "Complete negative process with semantic failure and intact restore if independent review requires it."
+    },
+    {
+      "failure": "Primary existing-browser rerun exceeded120s.",
+      "observedRows": 43,
+      "correction": "Stopped the owned process at the bound; no product fix inferred. Existing worker50/50 remains tied to identical product sources.",
+      "result": "Primary rerun incomplete; no new50/50 claimed.",
+      "owner": "primary",
+      "nextAction": "New no-SQL Linux candidate workflow executes existing and supply browser suites.",
+      "closure": "Exit0 at exact integrated SHA with50 existing cases and8 supply cases."
+    },
+    {
+      "failure": "SDK10.0.402 absent locally; incomplete archive not installed.",
+      "correction": "New candidate workflow installs the pinned SDK and runs Category!=SqlServer only.",
+      "result": "Compiled resource test NOT RUN locally.",
+      "owner": "primary",
+      "closure": "Exact-SHA Linux test serves protected embedded bytes, denies anonymous request and matches source; zero SQL jobs."
+    }
+  ]
+}

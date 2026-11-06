@@ -1,0 +1,585 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-06T03:28:32.175254+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": ".github/workflows/savia.yml",
+      "change": "M",
+      "git_blob": "29706a87d5f36b9af61bd93d07a45e03014279f8"
+    },
+    {
+      "path": ".github/workflows/staff-ui-candidate.yml",
+      "change": "A",
+      "git_blob": "a9529a1f3ec57adb750c71cbcbf860a0db1a1453"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalUiHosting.cs",
+      "change": "M",
+      "git_blob": "8131b0e45003cddf40af54f653662e012a5bcc70"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Martha.Store.Api.csproj",
+      "change": "M",
+      "git_blob": "1a73429daba624ab2a74d59d542f6e614f3ecabc"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalSupplyUiTests.cs",
+      "change": "A",
+      "git_blob": "171006f6e29805db02d633ba71ff69568b0aa17c"
+    },
+    {
+      "path": "dev/savia-staff-ui/README.md",
+      "change": "M",
+      "git_blob": "9a3bef00c906a0424760932890782b05102a61c8"
+    },
+    {
+      "path": "dev/savia-staff-ui/app.mjs",
+      "change": "M",
+      "git_blob": "e5396e114f588066c0e085e125423730ddd908cf"
+    },
+    {
+      "path": "dev/savia-staff-ui/client.mjs",
+      "change": "M",
+      "git_blob": "3f73ebb610728190483d058c1c9c9efc56dd060f"
+    },
+    {
+      "path": "dev/savia-staff-ui/index.html",
+      "change": "M",
+      "git_blob": "47701fb7e4395bfb84b419040b14a4fdff2a10e2"
+    },
+    {
+      "path": "dev/savia-staff-ui/login.mjs",
+      "change": "M",
+      "git_blob": "9efd1fed45b53ac0bb5fc68e029c21e485045128"
+    },
+    {
+      "path": "dev/savia-staff-ui/supply-pagination.test.mjs",
+      "change": "A",
+      "git_blob": "11dba66e38a9d1d9730da1fc72ba0868d8468f9b"
+    },
+    {
+      "path": "dev/savia-staff-ui/supply.mjs",
+      "change": "A",
+      "git_blob": "cc8285c836b8837b28f5c221bb2062639c5bd6bc"
+    },
+    {
+      "path": "dev/savia-staff-ui/supply.test.mjs",
+      "change": "A",
+      "git_blob": "375b1175d11a58b1b92a4cf7614b92b913123002"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "0b51d383b8b83780dbe10932ef02dc163016ef51"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "change": "M",
+      "git_blob": "52025b8044f0f0468edd660cf0179bf8ccce56ae"
+    },
+    {
+      "path": "docs/supply-ui-20261105/CANDIDATE.json",
+      "change": "A",
+      "git_blob": "2f58f1f78f0cc732088897a840640880d0593e1d"
+    },
+    {
+      "path": "docs/supply-ui-20261105/IMPORT.json",
+      "change": "A",
+      "git_blob": "9e796b7a7892dd765879b6fa8af8ca4b5a4d3ff1"
+    },
+    {
+      "path": "docs/supply-ui-20261105/REVIEW-PACKET.md",
+      "change": "A",
+      "git_blob": "6306ef32744b6569516a22154a255062c6d49026"
+    },
+    {
+      "path": "docs/supply-ui-20261105/critic-access-blocked.md",
+      "change": "A",
+      "git_blob": "cb8427215bd60610c601454de1ba7c14d7246466"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary-review.md",
+      "change": "A",
+      "git_blob": "ec7a70c90761e5b9c3b58e82d40cc0be59eac8e1"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/browser-executions.json",
+      "change": "A",
+      "git_blob": "d897f95687e2fffeb4cfdd28e0353bc784ea4aaf"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/checks.json",
+      "change": "A",
+      "git_blob": "640857aedfc9bd27215f96ca2214406f03949c8c"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/late-window-observation.json",
+      "change": "A",
+      "git_blob": "67cc3d5e8acbe714877ee03185601bdfc422b0ce"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/local-blockers.json",
+      "change": "A",
+      "git_blob": "b038b21e5dbfb5c947a30adebda6c749c56886b6"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/logout-execution.json",
+      "change": "A",
+      "git_blob": "0389f3fd2d75b293a58952796fb06ff8b40cd84b"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/logout-headers-observed/results.json",
+      "change": "A",
+      "git_blob": "9adaea119f16af9a064499b4537542865f4ee084"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/logout-headers-observed/videos/logout-late-reply.webm",
+      "change": "A",
+      "git_blob": "7291ed964eae83abbfbd533399217174316517aa"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/registry-checks.json",
+      "change": "A",
+      "git_blob": "f95ded774721265e9fd22d73a4fc4f8fa189706b"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/supply-full/results.json",
+      "change": "A",
+      "git_blob": "017608dd89af4e98f24cdcfb660e0ffa6ef416ae"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/supply-full/videos/401-private-clear.webm",
+      "change": "A",
+      "git_blob": "951e68a9e46aded8af577a3c00d985d664ff6a02"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/supply-full/videos/double-submit.webm",
+      "change": "A",
+      "git_blob": "ad89dce7024c1fa04382fbacff0c4ea8b10fe8eb"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/supply-full/videos/invalid-contract.webm",
+      "change": "A",
+      "git_blob": "1cb3433164560f4691862d1af84ced2c088a55ef"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/supply-full/videos/logout-late-reply.webm",
+      "change": "A",
+      "git_blob": "887c6468bc3fd2359027918a47090edc89bffe29"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/supply-full/videos/lost-reload-1440.webm",
+      "change": "A",
+      "git_blob": "a974386184f4ff0cf88580129d916a9e0346674b"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/supply-full/videos/lost-reload-390.webm",
+      "change": "A",
+      "git_blob": "e4b405a5497f3bf86226d44507eedde9ac12c66b"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/supply-full/videos/partial-full-1440.webm",
+      "change": "A",
+      "git_blob": "808cfec208c68805dbec964e31d2ff8b9471c025"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/supply-full/videos/partial-full-390.webm",
+      "change": "A",
+      "git_blob": "5722050d6613e35b8b74eb5269067e5203147f70"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker-log-outcomes.json",
+      "change": "A",
+      "git_blob": "4f4ecae3b9a0483e03635f8f30a4ac9398d510ec"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/README.md",
+      "change": "A",
+      "git_blob": "0336e8b64404423d4f174966e390875a44604d5f"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/RESULT.json",
+      "change": "A",
+      "git_blob": "4e754044d91512e8bc6e8140eb04612759ed4460"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/after-1440.png",
+      "change": "A",
+      "git_blob": "2fa632369ea15908683e01f3a1b5b1975d688383"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/after-390.png",
+      "change": "A",
+      "git_blob": "eb1b891403ae57d3a498d2c790e1d1f25bdcf220"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/base-hashes.json",
+      "change": "A",
+      "git_blob": "57475b3210ab46fa4124343b9112bfc88ce3281d"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/before/1440.webm",
+      "change": "A",
+      "git_blob": "c5dc209471358104cfa00c6ca3581cd0ad329a91"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/before/390.webm",
+      "change": "A",
+      "git_blob": "1b6898a14a17c7f6a3067f9e12ca14d6d8a801d0"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/before/observed.json",
+      "change": "A",
+      "git_blob": "265147b09001b170b36d3913d44cabbf871d41ec"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-2/results.json",
+      "change": "A",
+      "git_blob": "a8d940628fd9bdf5aded85ced6901d355422600e"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-2/videos/401-private-clear.webm",
+      "change": "A",
+      "git_blob": "8c6597b97ebfe70533447a9c1b986cc48e193bba"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-2/videos/double-submit.webm",
+      "change": "A",
+      "git_blob": "2dc6b70bc6e44274fcc386fef173a8e3e47a1340"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-2/videos/invalid-contract.webm",
+      "change": "A",
+      "git_blob": "c3a3022c2f50c3fb385ddcead54d08f9c009f7e0"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-2/videos/logout-late-reply.webm",
+      "change": "A",
+      "git_blob": "6e32e0bd13f3346be2645eb414bb6cddf16a22a5"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-2/videos/lost-reload-1440.webm",
+      "change": "A",
+      "git_blob": "6bf9a5e1cffa321c5bd9a4761606c6710708cebe"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-2/videos/lost-reload-390.webm",
+      "change": "A",
+      "git_blob": "642f1b027c5624070552c21cd7cdf7f45b3a7384"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-2/videos/partial-full-1440.webm",
+      "change": "A",
+      "git_blob": "10d8eba47d262e7f3f6161c6cdad2adf4464e0ff"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-2/videos/partial-full-390.webm",
+      "change": "A",
+      "git_blob": "7a7d4fe7dc9797f822024806d48246845acb8463"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-401/results.json",
+      "change": "A",
+      "git_blob": "93138beb71aa1a1b39780a8908645168606434f0"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-401/videos/401-private-clear.webm",
+      "change": "A",
+      "git_blob": "db1c3f9b036dc6788dfeb8e6ae94b718a53a6798"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-bound/results.json",
+      "change": "A",
+      "git_blob": "1068df9cfb9a78ae43f78fcf2e2be17e473e0a42"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-bound/videos/401-private-clear.webm",
+      "change": "A",
+      "git_blob": "14eb286ac9791acc2a5096910b833c4f3ff965e8"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-bound/videos/double-submit.webm",
+      "change": "A",
+      "git_blob": "583f6c97559f76d7605f31a1a7c614cf3fb67dd9"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-bound/videos/invalid-contract.webm",
+      "change": "A",
+      "git_blob": "efe4d76784b0876fd3d6c66295f0e9d7f965b68d"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-bound/videos/logout-late-reply.webm",
+      "change": "A",
+      "git_blob": "eb9f3c1ad4e7c6cbd326734cc5c47cf242b721c6"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-bound/videos/lost-reload-1440.webm",
+      "change": "A",
+      "git_blob": "58966ad9887bec8a503f52957c6d50ac66b4e98d"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-bound/videos/lost-reload-390.webm",
+      "change": "A",
+      "git_blob": "c8aeebe5f750e2f0668da14248438100cd39088b"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-bound/videos/partial-full-1440.webm",
+      "change": "A",
+      "git_blob": "a003775dd008a284c802c13e4a6c071c3a6e245b"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-bound/videos/partial-full-390.webm",
+      "change": "A",
+      "git_blob": "5c7e65ffdfe2046cfc00380e7a024ba602ec3f51"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-final/results.json",
+      "change": "A",
+      "git_blob": "e307b6c64b77402b92d8d64882d3270467942fc4"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-final/videos/401-private-clear.webm",
+      "change": "A",
+      "git_blob": "b317c7a6b22cecc2c4ce09ea711a52da29850f0c"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-final/videos/double-submit.webm",
+      "change": "A",
+      "git_blob": "b2d5c0d15a0dae5a3ca7ee77f84e632efa08e71b"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-final/videos/invalid-contract.webm",
+      "change": "A",
+      "git_blob": "8589dcf7b0054fa9c88b659d43dc0decea5c369f"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-final/videos/logout-late-reply.webm",
+      "change": "A",
+      "git_blob": "b81928f5ce3db1c7f6de3a6ff39f2d8f9c58f1dc"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-final/videos/lost-reload-1440.webm",
+      "change": "A",
+      "git_blob": "58b08a084b2e43bd43cd67912102d0fbea801792"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-final/videos/lost-reload-390.webm",
+      "change": "A",
+      "git_blob": "8331ac388aa2303cb671d5e632f6955c18d022d1"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-final/videos/partial-full-1440.webm",
+      "change": "A",
+      "git_blob": "b9f493fff59061021de85e4c45b2434a464b2bf0"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-final/videos/partial-full-390.webm",
+      "change": "A",
+      "git_blob": "3fb06ae7133b42306b0491c769e0588f32a25f24"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-focused/results.json",
+      "change": "A",
+      "git_blob": "a663c9843a57892d87aed6798efb9b55ebc91123"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-focused/videos/401-private-clear.webm",
+      "change": "A",
+      "git_blob": "9555e4735886dbc1ef5dcf548220ac1814871147"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-focused/videos/double-submit.webm",
+      "change": "A",
+      "git_blob": "09a74ed5f44f0769fdec8d2cce2e409cd87b011e"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-focused/videos/invalid-contract.webm",
+      "change": "A",
+      "git_blob": "84c8c413219499e497ffe4c4af9af90470f7004c"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-focused/videos/logout-late-reply.webm",
+      "change": "A",
+      "git_blob": "146372e9335749e18a84104598afdd0765dda802"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-focused/videos/lost-reload-1440.webm",
+      "change": "A",
+      "git_blob": "b26e43c9e8c95a02d9e17b82225111ccb3492855"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-focused/videos/lost-reload-390.webm",
+      "change": "A",
+      "git_blob": "d2e50f6b6154fe085a000020c7abd9a9e6f2f85d"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-focused/videos/partial-full-1440.webm",
+      "change": "A",
+      "git_blob": "bc69879b0c700f96bbf095e51cf2f5aa792d9007"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/browser-focused/videos/partial-full-390.webm",
+      "change": "A",
+      "git_blob": "1d332b43a91066ee0582ca0bac7c66095a7b45c6"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/edit.py",
+      "change": "A",
+      "git_blob": "5d363483ed666e051373bd42e21a73e8c3ce958d"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/existing-browser/browser-results.json",
+      "change": "A",
+      "git_blob": "80d56e80c137d18680e11916714c4d04cfb5086c"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/existing-browser/multiarticle-desktop-cart.png",
+      "change": "A",
+      "git_blob": "e25a89a1696791baafc1ff0e3a2415b45b5fb409"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/existing-browser/multiarticle-desktop-receipt.png",
+      "change": "A",
+      "git_blob": "8c53b5035190067bea0943a53e4a70215ddc7ac1"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/existing-browser/multiarticle-mobile-cart.png",
+      "change": "A",
+      "git_blob": "bfd0518b6f0c4ec00fdd5257a4c71fa57c6c0f21"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/existing-browser/multiarticle-mobile-receipt.png",
+      "change": "A",
+      "git_blob": "6e94db37d4027c4d356e88ee26049200fc2e19d8"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/existing-browser/public-checkout-observation.json",
+      "change": "A",
+      "git_blob": "4f41a87b752e1f6793ec7b3591b30f91985edb3c"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/existing-browser/stale-receipt-observation.json",
+      "change": "A",
+      "git_blob": "cdd1e38a36545845ffd3981d90feb53d769bdacd"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/existing-browser/stale-receipt.png",
+      "change": "A",
+      "git_blob": "af78833f89a834ab1da158334c59d36ef55bd37e"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/existing-final/browser-results.json",
+      "change": "A",
+      "git_blob": "be82617781d0907063078b08035bc8579aa2a3e1"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/existing-final/multiarticle-desktop-cart.png",
+      "change": "A",
+      "git_blob": "a60e35fe4b6803b90975989ab2b4f5ba5c88f498"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/existing-final/multiarticle-desktop-receipt.png",
+      "change": "A",
+      "git_blob": "b7d78ca115d35a5f894ad0add62ac761f689cf30"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/existing-final/multiarticle-mobile-cart.png",
+      "change": "A",
+      "git_blob": "f7ab92b7033fae16694247b887bd012089f1dc09"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/existing-final/multiarticle-mobile-receipt.png",
+      "change": "A",
+      "git_blob": "f530060a11974a5fb8cbaed4a78f38956c1af782"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/existing-final/public-checkout-observation.json",
+      "change": "A",
+      "git_blob": "845b793237d822bfc99dee7facc86449f42bf37d"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/existing-final/stale-receipt-observation.json",
+      "change": "A",
+      "git_blob": "cdd1e38a36545845ffd3981d90feb53d769bdacd"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/existing-final/stale-receipt.png",
+      "change": "A",
+      "git_blob": "af78833f89a834ab1da158334c59d36ef55bd37e"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/existing-focused/browser-results.json",
+      "change": "A",
+      "git_blob": "60280377fac084cd488b694ca0fdd67a3d207af5"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/finalize.py",
+      "change": "A",
+      "git_blob": "f8ff79eee7c424b489442887424798d646292be6"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/fixture.mjs",
+      "change": "A",
+      "git_blob": "512d32a12da923d35db6f6e40d208a64b7f131ae"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/layout.json",
+      "change": "A",
+      "git_blob": "202355186e76a8dbdcddcb8f386646ce869b511b"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/layout.mjs",
+      "change": "A",
+      "git_blob": "e5dd8fd6fa37b1ec52fb2c8aa261c3ed8b97c2d8"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/negative-controls.json",
+      "change": "A",
+      "git_blob": "174e74cbcdbbb11744f67853f94b066d9380b1ea"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/negative-controls.py",
+      "change": "A",
+      "git_blob": "a7fcc58a6ba19fb3ade60ce037e6dab30f1f44f4"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/recordings.json",
+      "change": "A",
+      "git_blob": "545c1af8c481cf8766cfa3a382355b29cc66d74d"
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/source-manifest.json",
+      "change": "A",
+      "git_blob": "bf9b63e2011899c057e8eae4f706b52d47fac0cb"
+    },
+    {
+      "path": "tests/browser-mock-validation.mjs",
+      "change": "M",
+      "git_blob": "6ba0d955948b1b82553fdad8b31a515a3dc9c8ea"
+    },
+    {
+      "path": "tests/browser-supply-validation.mjs",
+      "change": "A",
+      "git_blob": "7f78d2e1c15244ddb65f15c6191962305e1afe37"
+    },
+    {
+      "path": "tests/check.py",
+      "change": "M",
+      "git_blob": "d1e3b24f419949fff591d53ceb9672050fdf0a8e"
+    },
+    {
+      "path": "tests/fixtures/supply-browser.mjs",
+      "change": "A",
+      "git_blob": "0324ac9da95d4354d099e01d3d3cf10b28c17b83"
+    },
+    {
+      "path": "tests/test_check.py",
+      "change": "M",
+      "git_blob": "4c416181e63a140e6428cf12db6e2ccd6f9418d8"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

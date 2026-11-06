@@ -1,0 +1,164 @@
+{
+  "layer": "Actual Chrome / explicitly mocked HTTP API / no SQL",
+  "browser": "156.0.8078.80",
+  "sources": {
+    "app.mjs": {
+      "RAW": "cc70f5adf216de28cf5a4b5efc1166d2df5fb6b6d22da9c6daee004c92237208",
+      "LF": "7901d54f7ea18b09e6f50dfc8f7596a135ec3a951bd732e1a3435cb7d1185083",
+      "ChromeDecoded": "cc70f5adf216de28cf5a4b5efc1166d2df5fb6b6d22da9c6daee004c92237208"
+    },
+    "client.mjs": {
+      "RAW": "d435b0ec3752ad81630fc7a8368e3a0465654dce569a815e9b149cac5614dec3",
+      "LF": "cdf34879fdd5e78d8141c23533de2d07155bb7451bcd7582b41e553cd71e2639",
+      "ChromeDecoded": "d435b0ec3752ad81630fc7a8368e3a0465654dce569a815e9b149cac5614dec3"
+    },
+    "login.mjs": {
+      "RAW": "67c005464ad8904de3a283bb1c0aa9a6564ed0f15a9e8cb8861795ca6b8bfbb3",
+      "LF": "5d2bd800a550501c020a300b39d87c85c9abf06379609942e02bc39beb580297",
+      "ChromeDecoded": "67c005464ad8904de3a283bb1c0aa9a6564ed0f15a9e8cb8861795ca6b8bfbb3"
+    },
+    "supply.mjs": {
+      "RAW": "1695273b2135acddb900c821e62f872601bc2ea443312763ea879ff9da60246b",
+      "LF": "2beb1f821afcbfe773968d00a9534158ca8ef4b5f124427377288be01182b71a",
+      "ChromeDecoded": "dab76f496003745e61365b34db5411621aff99edd5a7b0b32d8aaf4565a3cce0"
+    },
+    "index.html": {
+      "RAW": "1b2b705b65461cdedf4360bc5c9a34271bef8b12461a5639181566d1b2dae45e",
+      "LF": "234fa005e324a0cd20bd43936450b68b9d08d1152b4714db871e425577c6a859",
+      "ChromeDecoded": "1b2b705b65461cdedf4360bc5c9a34271bef8b12461a5639181566d1b2dae45e"
+    },
+    "styles.css": {
+      "RAW": "3be78159e11d127c91db22399fb306fcc35e9cb8886a556393a003b82c9c2622",
+      "LF": "e87afda331f5a2ce1a028eb65bafe12f4bb7a30b8d8577846e1435371df9df01",
+      "ChromeDecoded": "3be78159e11d127c91db22399fb306fcc35e9cb8886a556393a003b82c9c2622"
+    }
+  },
+  "results": [
+    {
+      "name": "logout-late-reply",
+      "status": "PASS",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "origin": "http://127.0.0.1:62991",
+      "calls": [
+        {
+          "path": "/internal/api/security/me",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/directory/parties",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010/receipts",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/security/csrf",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010/receipts",
+          "method": "POST",
+          "raw": "{\"receiptId\":\"55e2852d-82e3-48fa-8fc4-23622e11587b\",\"lines\":[{\"purchaseOrderLineId\":\"00000001-0000-0000-0000-000000000012\",\"quantity\":1}]}",
+          "key": "f1579d6c-c452-4d69-890d-c9eb64c1d44a",
+          "csrf": true
+        },
+        {
+          "path": "/internal/api/security/csrf",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/security/logout",
+          "method": "POST",
+          "raw": "",
+          "csrf": true
+        }
+      ],
+      "deliveries": 1,
+      "consoleErrors": [],
+      "served": [
+        {
+          "name": "index.html",
+          "ChromeDecoded": "1b2b705b65461cdedf4360bc5c9a34271bef8b12461a5639181566d1b2dae45e"
+        },
+        {
+          "name": "styles.css",
+          "ChromeDecoded": "3be78159e11d127c91db22399fb306fcc35e9cb8886a556393a003b82c9c2622"
+        },
+        {
+          "name": "app.mjs",
+          "ChromeDecoded": "cc70f5adf216de28cf5a4b5efc1166d2df5fb6b6d22da9c6daee004c92237208"
+        },
+        {
+          "name": "supply.mjs",
+          "ChromeDecoded": "dab76f496003745e61365b34db5411621aff99edd5a7b0b32d8aaf4565a3cce0"
+        },
+        {
+          "name": "client.mjs",
+          "ChromeDecoded": "d435b0ec3752ad81630fc7a8368e3a0465654dce569a815e9b149cac5614dec3"
+        },
+        {
+          "name": "login.mjs",
+          "ChromeDecoded": "67c005464ad8904de3a283bb1c0aa9a6564ed0f15a9e8cb8861795ca6b8bfbb3"
+        }
+      ],
+      "rawHTTP": [
+        {
+          "name": "app.mjs",
+          "RAW": "cc70f5adf216de28cf5a4b5efc1166d2df5fb6b6d22da9c6daee004c92237208"
+        },
+        {
+          "name": "client.mjs",
+          "RAW": "d435b0ec3752ad81630fc7a8368e3a0465654dce569a815e9b149cac5614dec3"
+        },
+        {
+          "name": "login.mjs",
+          "RAW": "67c005464ad8904de3a283bb1c0aa9a6564ed0f15a9e8cb8861795ca6b8bfbb3"
+        },
+        {
+          "name": "supply.mjs",
+          "RAW": "1695273b2135acddb900c821e62f872601bc2ea443312763ea879ff9da60246b"
+        },
+        {
+          "name": "index.html",
+          "RAW": "1b2b705b65461cdedf4360bc5c9a34271bef8b12461a5639181566d1b2dae45e"
+        },
+        {
+          "name": "styles.css",
+          "RAW": "3be78159e11d127c91db22399fb306fcc35e9cb8886a556393a003b82c9c2622"
+        }
+      ],
+      "networkFailures": [
+        {
+          "path": "/internal/api/security/logout",
+          "error": "net::ERR_ABORTED"
+        }
+      ]
+    }
+  ]
+}

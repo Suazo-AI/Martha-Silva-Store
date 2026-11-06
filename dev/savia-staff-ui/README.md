@@ -39,3 +39,25 @@ node --test dev/savia-staff-ui/*.test.mjs
 Consultar el [toolkit de navegador](../../docs/testing-20261103/README.md) para enfocar N5.
 La [entrada de agentes](../../docs/AGENT-START.md) y [N1–N10](../../docs/delivery-20261031/NEXT-INCREMENT.md)
 definen el siguiente trabajo. No se acredita aceptación visual, Safari/iPhone físico ni despliegue productivo.
+
+## Recepci?n de compras existentes (2026-11-05)
+
+`supply.mjs` permite Owner, Manager e Inventory consultar compras y entregas paginadas y recibir cantidades pendientes.
+El proveedor, ubicaci?n, moneda, costos y l?neas vienen del servidor.
+No crea compras ni edita proveedores.
+Cashier no opera abastecimiento; el servidor conserva autorizaci?n y ?mbito.
+
+Antes del POST se guarda `savia.supply.pending.v1` en sessionStorage con identidad f?sica, clave, actor/versi?n, compra, cuerpo y bytes JSON.
+No se env?a si falla el almacenamiento.
+Reload conserva la referencia; una respuesta perdida requiere **Comprobar recepci?n pendiente**.
+Solo un 404 de operaciones permite **Reenviar la misma recepci?n**, conservando identidad, clave y cuerpo.
+Un resultado desconocido o malformado conserva el bloqueo.
+Un rechazo confirmado de operaciones libera el intento; un 403/409/503 directo no lo elimina.
+Cambiar actor/versi?n no actualiza referencias hist?ricas.
+Logout y 401 limpian la UI privada y conservan la referencia durable.
+Confirmar una recepci?n consulta de nuevo compra, entregas y stock autorizado; no suma existencias localmente.
+
+El m?dulo tiene recurso .NET y ruta protegida expl?citos; queda fuera del Worker y `dist/`.
+Pruebas portables: `NODE_PATH=<locked node_modules> node --test dev/savia-staff-ui/*.test.mjs`.
+Chrome con API HTTP simulada: `node tests/browser-supply-validation.mjs <installed-playwright-directory> <evidence-directory>`.
+Evidencia y l?mites: [worker](../../docs/supply-ui-20261105/worker/README.md).

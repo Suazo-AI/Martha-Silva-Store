@@ -41,12 +41,16 @@ jobs:
           google-chrome --version
       - name: Real browser with synthetic API responses (includes the N5 regressions)
         run: node tests/browser-mock-validation.mjs "$RUNNER_TEMP/pw/node_modules/playwright" "$RUNNER_TEMP/browser-evidence"
+      - name: Purchase receipt browser regressions (synthetic HTTP, no SQL)
+        run: node tests/browser-supply-validation.mjs "$RUNNER_TEMP/pw/node_modules/playwright" "$RUNNER_TEMP/supply-browser-evidence"
       - name: Upload browser evidence (synthetic records only)
         if: ${{ always() }}
         uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: savia-browser-evidence-${{ github.run_id }}-${{ github.run_attempt }}
-          path: ${{ runner.temp }}/browser-evidence/
+          path: |
+            ${{ runner.temp }}/browser-evidence/
+            ${{ runner.temp }}/supply-browser-evidence/
           if-no-files-found: error
           retention-days: 7
 

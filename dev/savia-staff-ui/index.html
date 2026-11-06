@@ -96,7 +96,17 @@
         </section>
         <section data-view="abastecimiento" aria-labelledby="purchasing-title" hidden>
           <div class="page-header"><div><h2 id="purchasing-title">Abastecimiento</h2><p class="muted">Compras y recepción de mercancía.</p></div></div>
-          <div class="panel empty-state"><h3>Abastecimiento aún no disponible</h3><p id="purchasing-pending-note">La creación de compras y la recepción de mercancía están pendientes en esta pantalla.</p><button class="btn" type="button" aria-describedby="purchasing-pending-note" disabled>Nueva compra</button></div>
+          <div id="supply-panel" class="panel">
+            <div class="actions"><button id="supply-refresh" class="btn btn-secondary" type="button">Actualizar compras</button><button id="supply-prev" class="btn btn-secondary" type="button" disabled>Compras anteriores</button><button id="supply-next" class="btn btn-secondary" type="button" disabled>Más compras</button></div>
+            <p id="supply-status" role="status" aria-live="polite"></p>
+            <div id="supply-orders" class="actions"></div>
+            <div id="supply-detail"></div>
+            <form id="supply-form"><div id="supply-lines" class="form-grid"></div><button id="supply-submit" class="btn" type="submit" disabled>Confirmar recepción</button></form>
+            <div class="actions"><button id="supply-recover" class="btn btn-secondary" type="button" hidden>Comprobar recepción pendiente</button><button id="supply-retry" class="btn btn-secondary" type="button" hidden>Reenviar la misma recepción</button></div>
+            <div id="supply-result" role="status"></div>
+            <h3>Entregas registradas</h3><div id="supply-receipts"></div>
+            <div class="actions"><button id="supply-receipts-prev" class="btn btn-secondary" type="button" disabled>Entregas anteriores</button><button id="supply-receipts-next" class="btn btn-secondary" type="button" disabled>Más entregas</button></div>
+          </div>
         </section>
       </main>
     </div>
