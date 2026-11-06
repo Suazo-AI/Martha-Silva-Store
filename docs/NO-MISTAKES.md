@@ -1,76 +1,46 @@
-# Revisión opcional con no-mistakes
+# Verificar PR con no-mistakes
 
-**Binario verificado; puerta de revisión todavía inactiva.** Se verificó el binario oficial Linux v1.84.0 (4822244) en el entorno de trabajo el 2026-10-24. No hay daemon, remote, hook o credencial
-creados por esta integración. El ejemplo en `docs/no-mistakes.example.yaml` es
-inerte. CI funciona independientemente y no instala agentes en runners de PR.
+Este es el procedimiento de revisión de ramas de trabajo de Martha Silva/SAVIA. La política del repositorio queda vigente al integrar este cambio en la rama predeterminada. El equipo que ejecuta Codex y el verificador de GitHub tienen funciones diferentes.
 
-Proyecto solicitado: [kunchenguid/no-mistakes](https://github.com/kunchenguid/no-mistakes).
-Se revisaron sus fuentes oficiales el 2026-10-24; hay que contrastarlas de nuevo
-con la versión exacta que se instale.
+## Qué exige GitHub
 
-## Advertencia importante
+El workflow `.github/workflows/backend.yml` ejecuta la [acción oficial v1.106.1](https://github.com/kunchenguid/no-mistakes/tree/5732d1ed88a1572fa6115d6ede5d69bfec097946/.github/actions/require-no-mistakes) al abrir, editar, reabrir, actualizar o sacar de borrador un PR. Lee el cuerpo y el SHA **actuales**. Requiere review, test y document completados, sin exenciones por autor, rama o ruta. No hace checkout ni usa secretos del comercio.
 
-No es un linter de solo lectura: puede rebasar, editar, publicar ramas/PRs y
-vigilar CI. El instalador arranca un daemon; `init` añade remote, hooks y una skill
-a nivel de usuario. No ejecutar esos pasos como efecto secundario de una revisión.
-[Inicio oficial](https://kunchenguid.github.io/no-mistakes/start-here/quick-start/).
+En PRs hacia `main`, el job ya obligatorio `build-and-guards` comprueba explícitamente el resultado: si el verificador falla, se cancela o se omite, el job falla. Si pasa, aún debe ejecutar las pruebas originales. Se mantienen los otros seis checks exigidos en `main`; no se necesita sustituir la protección ni desactivar checks para adoptar este cambio. En otras ramas se informa el resultado; solo una rama protegida puede impedir el merge. Ni una declaración editable del autor ni un check verde demuestran que no haya errores.
 
-El runner Codex usa por defecto un bypass de aprobaciones/sandbox. Antes de
-cualquier ejecución, un operador autorizado debe revisar la configuración local
-`~/.no-mistakes/config.yaml` y establecer explícitamente:
+## Preparar el ejecutor Windows (SUAZO-PC)
 
-```yaml
-agent: codex
-agent_args_override:
-  codex:
-    - --sandbox
-    - workspace-write
-```
+Usar un clon independiente, bajo una cuenta de desarrollo sin secretos productivos. El checkout canónico de `Tony` conserva AUTO-SYNC y sus recibos. No usar un worktree que comparta su configuración Git. Si ya hay un daemon/servicio no-mistakes de otra versión o perfil bajo la misma cuenta, identificar su propietario y resolver el aislamiento antes de iniciar otro. No reemplazarlo.
 
-La documentación confirma que `--sandbox` suprime el bypass predeterminado.
-No copiar modelos, tokens ni flags de bypass. Revisar también argumentos ya
-existentes, configuración heredada y comando efectivo. Esto limita Codex, **no**
-convierte el daemon ni sus comandos de shell en un sandbox. Si el modo restringido
-no puede completar una fase, detenerse, no relanzar sin protección.
-[Referencia global](https://kunchenguid.github.io/no-mistakes/reference/global-config/).
+1. Obtener el instalador de este cambio revisado en `tools/install-no-mistakes.ps1`. Verifica el SHA256 del ZIP oficial apropiado para x64 o ARM64 y después versión/commit. La instalación no altera el PATH persistente, no autentica cuentas y no ejecuta agentes. En PowerShell:
 
-## Configuración del proyecto
+   ```powershell
+   $nm = (.\tools\install-no-mistakes.ps1).Executable
+   & $nm --version    # v1.106.1 (5732d1e)
+   $env:PATH = (Split-Path $nm) + ';' + $env:PATH
+   $env:NO_MISTAKES_TELEMETRY = '0'
+   $env:NO_MISTAKES_NO_UPDATE_CHECK = '1'
+   $env:NM_HOME = Join-Path $env:LOCALAPPDATA 'SAVIA-no-mistakes-state'
+   ```
 
-El ejemplo selecciona Codex y nuestra suite portable; mantiene CI obligatorio y
-no permite comandos provenientes de ramas no confiables. Para activarlo, revisar
-y llevarlo como `.no-mistakes.yaml` a la rama predeterminada: los controles de
-agente/comandos se leen de esa rama. Los presupuestos cero desactivan bucles de
-reparación, **no** todas las modificaciones iniciales. La intención no se publica
-en la descripción generada del PR.
-[Configuración oficial](https://kunchenguid.github.io/no-mistakes/reference/repo-config/).
+2. En este perfil privado de `NM_HOME` crear `config.yaml` con el siguiente contenido, o revisar el existente **sin sobrescribirlo**. Confirmar que no se hereda un bypass de sandbox y que el daemon y los comandos de shell solo tienen acceso de desarrollo. La restricción de Codex no aísla el daemon entero.
 
-## Una sola puerta de publicación
+   ```yaml
+   agent: codex
+   agent_args_override:
+     codex: ["--sandbox", "workspace-write"]
+   ```
 
-El autosync de `docs/AUTO-SYNC.md` queda **desactivado**. No instalar su
-`post-commit` ni ejecutar `tools/sync_progress.py` durante un flujo no-mistakes.
-Además, ese helper exige repo privado y no corresponde al período público de
-construcción. No quitar su control de visibilidad para forzar publicación.
+3. Comprobar Git, `gh auth status`, Codex autenticado, permisos del repositorio y URL de `origin` en el clon dedicado. No imprimir tokens. Revisar `git config --show-origin --get core.hooksPath`, `git config --get progress.autopush` y hooks instalados. Detenerse si existe otro publicador en el clon. Usar la misma configuración y binario en las sesiones posteriores.
+4. Desde ese clon, con su propia rama de trabajo, ejecutar `no-mistakes init --skip-user-skill`. **Esto sí inicia el daemon** y crea la puerta y el remote local; puede registrar un servicio. No ejecutar este paso en el checkout de Tony. Ejecutar `no-mistakes doctor` y revisar el texto: se necesita agente ejecutable, daemon operativo, Git y acceso efectivo a GitHub. Un código cero de doctor no basta.
+5. En la rama de un PR propio, ejecutar `git push no-mistakes <rama-de-trabajo>`. Revisar los hallazgos y el diff que se publicará; el proxy puede editar, actualizar el PR y publicar reparaciones. No dirigirlo a `main`, `Tony` ni ramas de otra persona. Cero reintentos de reparación en la política no impide todas las ediciones iniciales. No omitir fases ni escribir la atestación a mano.
 
-Antes de activar no-mistakes: inspeccionar `git config --show-origin --get
-core.hooksPath` y los hooks existentes. Si autosync estaba activo, restaurar con
-cuidado la configuración anterior según su documentación; no borrar hooks ajenos.
-Los worktrees pueden compartir configuración. No combinar ambos publicadores,
-no configurar hooks globales, no hacer doble push ni saltarse una puerta fallida.
+## Cierre verificable
 
-## Entrada explícita, solo tras autorización y preparación
+- Registrar URL del PR, SHA publicado, corrida del daemon y evidencia de la prueba específica del cambio. Para UI, revisar la captura antes de compartirla. Redactar datos personales y credenciales.
+- Verificar el check **PR must be raised via no-mistakes**, `build-and-guards` y los demás checks requeridos en el SHA del PR. Repetir la evaluación si se modifica el cuerpo o se añade un commit.
+- Antes del primer merge: ejercer un rechazo real sin declaración y un pase real producido por el CLI sobre la rama. Un fixture positivo solo verifica el parser. La política local de `.no-mistakes.yaml` se lee de `origin/main`; antes de su primera integración se usa el perfil seguro del operador.
+- Los PR abiertos antes de la adopción deben incorporar la base vigente y emitir los checks nuevos. En el corte de preparación, cuatro de los siete checks de `main` están definidos en el PR de integración SAVIA y no en la base antigua. No marcar pendientes como aprobados: coordinar la incorporación de esos workflows o apilar este cambio en la rama de integración para probar juntos el resultado antes del merge final.
+- Rollback: revertir este incremento mediante un PR revisado; ninguna regla de rama se reemplazó. En la máquina, `no-mistakes eject` pertenece solo al clon dedicado. No detener un servicio compartido ni borrar estado de otros proyectos.
 
-1. Revisar una release oficial, su integridad y efectos; acordar host y permisos
-   para instalación, daemon, autenticación, ediciones, rebase y publicación.
-2. Preparar el override seguro anterior. Verificar Codex autenticado y ejecutable,
-   Git/gh y transporte Git hacia `Suazo-AI/Martha-Silva-Store`, sin guardar secretos
-   en el repositorio. Desactivar telemetría con `NO_MISTAKES_TELEMETRY=0` en el host.
-3. Tras instalación autorizada: `no-mistakes doctor`; inspeccionar su resultado.
-   Solo entonces inicializar con `no-mistakes init` y verificar remote/hooks.
-4. En una **rama de trabajo**, con commits revisados, ejecutar explícitamente
-   `git push no-mistakes <rama>`. Esto inicia un flujo que puede publicar; no es
-   una prueba local inocua. Nunca iniciarlo en `main` ni con aprobación automática.
-5. Inspeccionar diferencias, responder hallazgos sin omitir fallos, verificar SHA
-   publicado, PR y ambos checks de CI. No afirmar revisión realizada antes.
-
-No se ejecutó esta secuencia. Bloqueo actual: falta confirmar el host definitivo y autenticar GitHub CLI, además de autorizar/verificar la inicialización con daemon y skill de usuario. El diagnóstico local verificó ejecutables/configuración, no una revisión completa. Hasta entonces usar la suite local y CI; no afirmar que
-no-mistakes aprobó el código ni sustituir revisión humana o reglas de rama.
+[Release e integridad](https://github.com/kunchenguid/no-mistakes/releases/tag/v1.106.1) · [configuración fijada](https://github.com/kunchenguid/no-mistakes/blob/5732d1ed88a1572fa6115d6ede5d69bfec097946/docs/src/content/docs/reference/repo-config.md) · [argumentos de Codex](https://github.com/kunchenguid/no-mistakes/blob/5732d1ed88a1572fa6115d6ede5d69bfec097946/docs/src/content/docs/reference/global-config.md). Las verificaciones históricas de v1.84.0 (Linux) y v1.57.0 (SUAZO-PC) no prueban la instalación de esta versión en Windows.

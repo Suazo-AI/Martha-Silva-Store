@@ -1,0 +1,27 @@
+# Local agent for feature branches. GitHub Actions independently verifies the PR.
+agent: codex
+allow_repo_commands: false
+pr:
+  base_branch: main
+  publish_intent: false
+ci:
+  revalidate_repairs: true
+  rerun_transient: 0
+rebase:
+  strategy: merge
+auto_fix:
+  review: 0
+  test: 0
+  rebase: 0
+  document: 0
+  lint: 0
+  ci: 0
+test:
+  instructions: |
+    Run the smallest real regression test relevant to the changed behavior.
+    Record the command, result and limitations. Keep the full product suites in CI.
+    Use synthetic data only. Do not start SQL on SUAZO-PC, deploy, or handle live payments.
+    For UI changes, capture the affected interaction. Keep raw recordings private until reviewed.
+  evidence:
+    store_in_repo: false
+    attach_media: false

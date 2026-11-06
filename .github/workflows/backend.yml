@@ -5,17 +5,44 @@ on:
   push:
     branches: [main]
   pull_request:
-    branches: [main]
+    types: [opened, reopened, synchronize, edited, ready_for_review]
   workflow_dispatch:
 
 permissions:
   contents: read
 
+# A body edit can revoke an attestation without changing the commit. Supersede
+# the older PR run so its slower build cannot replace the new verdict.
+concurrency:
+  group: backend-guards-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
+  no-mistakes:
+    name: PR must be raised via no-mistakes
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      # Fetch live PR metadata. Do not check out the head or pass PR text to a shell.
+      - uses: kunchenguid/no-mistakes/.github/actions/require-no-mistakes@5732d1ed88a1572fa6115d6ede5d69bfec097946 # v1.106.1
+
   build-and-guards:
+    needs: no-mistakes
+    # A skipped required job is not a rejection. Run the explicit assertion
+    # even if its prerequisite failed. Preserve the original main-only build.
+    if: always() && (github.event_name != 'pull_request' || github.base_ref == 'main')
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
+      - name: Reject a PR without a successful no-mistakes check
+        if: github.event_name == 'pull_request' && needs.no-mistakes.result != 'success'
+        run: |
+          echo '::error::Run no-mistakes on this PR branch and commit; do not write an attestation by hand.'
+          exit 1
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
