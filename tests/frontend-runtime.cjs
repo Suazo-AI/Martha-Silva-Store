@@ -56,6 +56,40 @@ test('only approved, dated, stocked promotions with consistent checkout price ap
  assert.deepEqual(b.errors,[]);
  b.close();
 });
+test('calendar-invalid seasonal dates never produce an offer, including non-leap February',async()=>{
+ const badWindows=[
+  ['2025-02-29','2099-12-31'],
+  ['2024-02-30','2099-12-31'],
+  ['2026-11-00','2099-12-31'],
+  ['2020-01-01','2026-11-31'],
+  ['2020-01-01','2099-13-01'],
+  ['2020-01-01','2099-00-01'],
+  ['0000-01-01','2099-12-31']
+ ];
+ for (const [start,end] of badWindows) {
+  const b=await boot('index.html',()=>{},catalog=>{
+   const product=catalog.products[0];
+   product.commercial_status='active';
+   product.seasonal_offer={approved:true,season:'graduaciones',previous_price_minor:20000,starts_on:start,ends_on:end};
+  });
+  try {
+   assert.equal(b.d.querySelectorAll('[data-seasonal-card]').length,0,`${start}..${end} must be rejected`);
+   assert.deepEqual(b.errors,[]);
+  } finally { b.close(); }
+ }
+});
+test('valid leap day in an approved seasonal window is accepted',async()=>{
+ const b=await boot('index.html',()=>{},catalog=>{
+  const product=catalog.products[0];
+  product.commercial_status='active';
+  product.seasonal_offer={approved:true,season:'graduaciones',previous_price_minor:20000,starts_on:'2024-02-29',ends_on:'2099-12-31'};
+ });
+ try {
+  assert.equal(b.d.querySelectorAll('[data-seasonal-card]').length,1);
+  assert.deepEqual(b.errors,[]);
+ } finally { b.close(); }
+});
+
 test('expired or non-reduced seasonal prices do not become promotions',async()=>{
  const b=await boot('index.html',()=>{},catalog=>{
   catalog.products.forEach((p,i)=>{
