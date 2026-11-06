@@ -1,0 +1,53 @@
+{
+  "schema": "savia-supply-acceptance/1",
+  "acceptedAtUtc": "2026-11-06",
+  "status": "PRIMARY_ACCEPTED_WITH_LIMITS",
+  "scope": "SUPPLY-UI: receive existing purchase orders. Browser HTTP is mocked. Production remains NO-GO.",
+  "primary": {"host": "SUAZO-PC", "harness": "T3 Code / Codex", "model": "gpt-6.1-sol", "reasoningEffort": "xhigh"},
+  "testedSourceSha": "f09fc7a3413aa28bf849f519886fa0967a2d11f6",
+  "publicationIdentity": "Containing documentation commit. This new commit does not claim a fresh source-workflow run. Product bindings remain those of testedSourceSha.",
+  "bindings": "CI-FOLLOWUP.json: 18 LF SHA256 bindings; CRLF to LF only, BOM retained. Historical CANDIDATE.json remains frozen.",
+  "ci": {
+    "runId": 42158232792,
+    "jobId": 127697397227,
+    "headSha": "f09fc7a3413aa28bf849f519886fa0967a2d11f6",
+    "branch": "Tony",
+    "status": "completed",
+    "conclusion": "success",
+    "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42158232792",
+    "workflow": ".github/workflows/staff-ui-candidate.yml",
+    "sdk": "10.0.402",
+    "sqlJobsStarted": 0,
+    "staff": {"passed": 124, "failed": 0, "skipped": 0},
+    "existingBrowser": {"passed": 50, "failed": 0},
+    "supplyBrowser": {"passed": 8, "failed": 0},
+    "backend": {
+      "passed": 526, "failed": 0, "skipped": 55, "total": 581,
+      "skipClassification": "All 55 are real-SQL opt-in facts. Missing authorized disposable connection or authorization sets Skip. Category!=SqlServer alone does not exclude all custom opt-in facts. None is counted as passed.",
+      "skippedClasses": {"InternalAcceptanceHttpSqlTests": 6, "InternalSecuritySqlTests": 7, "InternalBranchScopeSqlTests": 10, "InternalCommerceSqlTests": 6, "InternalSupplySqlServerTests": 7, "InternalCommerceCommandSqlTests": 8, "InternalRunnerSqlTests": 6, "PrivatePilotReleaseTests": 2, "InternalReleaseScriptTests": 1, "InternalJudgeTests": 2},
+      "skipAttributeSources": ["InternalSecuritySqlTests.cs:14-20", "InternalCommerceSqlTests.cs:13-19", "InternalSupplySqlServerTests.cs:274-281", "InternalJudgeTests.cs:575-583"]
+    },
+    "compiledResource": {
+      "test": "InternalSupplyUiTests.Supply_resource_is_embedded_protected_and_serves_the_source_bytes",
+      "proof": "Fresh SDK build and complete no-SQL test selection succeeded. This unconditional Fact has no Skip or SqlServer trait; SDK default source inclusion applies. It is absent from the exhaustive 55 skip names. The minimal logger does not print individual passing names; inclusion is established by source selection and the successful aggregate.",
+      "assertions": ["Anonymous /internal/supply.mjs returns 401", "Test-authenticated Owner receives JavaScript 200", "Response bytes equal SaviaStaff.supply.mjs embedded resource and checkout source"],
+      "limit": "TestServer with test-only authentication; no real cookie/session or SQL acceptance."
+    },
+    "otherApplicableRuns": [{"id": 42158232586, "workflow": "Progress digest", "conclusion": "success"}, {"id": 42158232725, "workflow": "Progress documentation", "conclusion": "success"}, {"id": 42158232704, "workflow": "Tony source snapshot", "conclusion": "success"}],
+    "rawLog": {"archive": "C:/Users/Jason/MARTHA-SILVA/test-runs/supply-ui-20261105/ci/42158232792-full.log", "bytes": 114188, "sha256": "f9f1c66a38c25934f05431d1748120748e21b28554c3b304e761e6e46852f210"},
+    "directOutcomeText": ["FFmpeg (playwright ffmpeg v1011) downloaded to /home/runner/.cache/ms-playwright/ffmpeg-1011", "tests 124; pass 124; fail 0; skipped 0", "Failed: 0, Passed: 526, Skipped: 55, Total: 581"]
+  },
+  "reviews": {
+    "critic": {"path": "docs/supply-ui-20261105/gemini-critic-candidate.md", "reviewedSha": "46e91b607102357abc026fe4542a67264184e9d9", "verdict": "ACCEPT WITH LIMITS", "requestedEffort": "high", "effectiveEffort": "unknown"},
+    "judge": {"source": "C:/Users/Jason/.t3/worktrees/github/t3-bf84b7e3/docs/supply-ui-20261105/astra-judge-candidate.md", "target": "docs/supply-ui-20261105/astra-judge-candidate.md", "originalRawSha256": "19f4d235ade54a05d7910912a00032417871382797633fc5d1b265a80a0e57e9", "reviewedSha": "f09fc7a3413aa28bf849f519886fa0967a2d11f6", "verdict": "APTO CON REPAROS", "requestedEffort": "high", "harnessEffort": "high", "providerInternalEffort": "unknown"}
+  },
+  "dispositions": {
+    "M1": "Resolved: primary checked exact-SHA CI, counts, explicit skips and compiled resource selection.",
+    "M2": "Accepted with declared timing limit. Headers plus two frames, direct-resolution unit guard and completed worker controls suffice for frozen increment. Local timed-out negative diagnostic is not a completed negative run. Response.finished hang cause remains a hypothesis.",
+    "M3": "Outside increment: real API/SQL persistence, locking, rollback and C2/C9/C10 remain open.",
+    "M4": "README accents corrected. Existing unavailable fallback copy remains a minor follow-up; no demonstrated permission failure."
+  },
+  "limits": ["sessionStorage pending reference lasts within the same tab lifetime, not cross-tab or indefinite durability", "Mocked receipt and stock success is not SQL persistence proof", "No proof of all scheduler orders or every invalidation guard in isolation", "No new SQL, Docker, certificate, TLS, payment, merge or deployment action", "Only the ten frozen PLAN.md criteria are accepted; production remains NO-GO"],
+  "next": {"owner": "Primary prepares; Jason/administrator authorizes the exact runtime boundary", "action": "Prepare a separately authorized browser-to-API-to-disposable-SQL acceptance run using the existing C9 procedure. Preserve the consumed TLS preflight; do not retry or change trust implicitly. Independently verify persisted receipt, stock movements, uniqueness and rollback before closing SQL gates."},
+  "lesson": "Declare browser recording dependencies explicitly in CI. Close environment failures only after the affected exact-SHA path passes, and report skipped SQL tests separately."
+}

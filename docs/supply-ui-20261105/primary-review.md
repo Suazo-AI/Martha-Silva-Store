@@ -142,3 +142,38 @@ CI `42156813073` failed before any supply scenario: Playwright could not find `f
 Correction adds the pinned Playwright CLI `install ffmpeg` to both browser CI setups. It does not install a new browser, change product runtime, SQL job conditions or deploy. README accents are restored as the critic requested. Historical CANDIDATE.json and original worker artifacts remain frozen. CI-FOLLOWUP.json binds the current 18 files and identifies the three changed files. Fifteen other LF bindings are unchanged; both YAML files parse.
 
 Owner: primary. Next: publish this correction, read the new exact-SHA no-SQL Linux run, then give its evidence and the critic to Astra/high. Close the dependency blocker only after FFmpeg install and affected supply suite finish successfully. Keep SUPPLY-UI in review and production NO-GO. Lesson: a browser binary does not supply Playwright recording dependencies; keep required video tooling explicit in CI.
+
+### 2026-11-06: final primary acceptance — SUPPLY-UI only
+
+**PRIMARY ACCEPTED WITH LIMITS.** The ten frozen criteria in PLAN.md are satisfied for receipt of existing purchase orders.
+SUPPLY-UI moves to `done`; its criterion is unchanged. Production remains **NO-GO**.
+
+Source `f09fc7a3413aa28bf849f519886fa0967a2d11f6` passed Linux run [42158232792](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42158232792).
+Primary read the completed job and full log: staff124/124, existing mocked Chrome50/50, supply mocked Chrome8/8.
+Backend:526 passed,0 failed,55 skipped,581 total. All55 are real-SQL opt-in facts; none is counted as passed.
+SDK10.0.402 compiled the embedded resource and included the unconditional InternalSupplyUiTests Fact.
+Selection is established from source and the complete aggregate; the minimal logger does not print individual passing names.
+[ACCEPTANCE.json](ACCEPTANCE.json) records counts, skip classification, curated outcomes, private-log hash and limits.
+FFmpeg installation and the affected supply/browser/backend path now pass. The earlier dependency blocker is closed.
+The same SHA passed Tony source snapshot and both progress workflows. No SQL job was started.
+
+Gemini's frozen report and [Astra's final report](astra-judge-candidate.md) have no unresolved material defect for this increment.
+Astra M1 is closed by fresh CI readback. M2 is accepted with bounded observation, the direct-resolution unit test and completed worker controls.
+The local35s negative probe remains incomplete. The local120s existing-browser timeout is not recast as a pass; Linux50/50 supplies the missing intact-suite result.
+The cause of the local Response.finished stall is **not experimentally established**. Any causal explanation remains a hypothesis.
+M3 stays outside this increment. M4 README accents are corrected; minor unavailable fallback copy remains follow-up work.
+The pending reference uses sessionStorage for the same tab lifetime. It is not indefinite or cross-tab persistence.
+
+Next: separately authorized browser→API→SQL persistence and recovery under the existing C9 procedure.
+Primary prepares the bounded procedure; Jason/administrator supplies exact runtime authority and resolves the existing TLS prerequisite.
+Do not repeat the consumed preflight, change certificate trust, start SQL/Docker or use real transactions implicitly.
+Completion requires independent reads of receipts, stock movements, uniqueness and rollback; C2/C9/C10 and operational acceptance stay open.
+No merge or deploy is included. This documentation publication must separately verify SYNCED, remote SHA and applicable documentation CI.
+
+Lesson applied: declare recording dependencies explicitly, then close an environment failure with an exact-SHA rerun.
+
+Closure checks on this ledger update all returned exit0: `python -X utf8 tools/delivery_status.py --check` (36 valid items),
+`python -X utf8 tests/test_progress.py` (23/23), and `python -X utf8 tools/export_progress.py --verify` (15 preserved hashes).
+The scoped sensitive-data scan passed all five publication paths. Only SUPPLY-UI changes state; all acceptance criteria remain unchanged.
+The existing C9 handoff is [CERTIFICATE-INVESTIGATION-SCOPE.md](../c9-recovery-20261103/CERTIFICATE-INVESTIGATION-SCOPE.md).
+Its consumed preflight and explicit new-authority requirement remain in the ledger; this acceptance does not reopen that boundary.

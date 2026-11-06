@@ -1,10 +1,11 @@
 # Estado vigente de Martha Silva / SAVIA
 
-Actualización recepción, 2026-11-06 UTC: candidato importado para revisión, sin aceptación.
-Staff124/124 y Chrome abastecimiento8/8 pasan en el primary; [evidencia, correcciones y límites](supply-ui-20261105/primary-review.md).
-El primer crítico no pudo leer el overlay; se publica el candidato para una revisión dentro de su propio checkout.
-CI Linux sin SQL verificará compilación, recurso protegido y regresiones. El ledger conserva SUPPLY-UI en `review`.
-No implica persistencia real, merge, despliegue ni producción.
+Actualización recepción, 2026-11-06 UTC: **SUPPLY-UI aceptado técnicamente con límites**; ledger `done`.
+Recepción de compras existentes: staff124/124, Chrome existente50/50 y abastecimiento8/8 con HTTP simulado.
+Backend Linux:526 PASS,0 FAIL,55 omitidos por SQL opt-in; recurso protegido compilado con SDK10.0.402.
+Crítico Gemini y juez Astra completados. El primary verificó CI exitoso del SHA `f09fc7a`.
+[Evidencia, aceptación y límites](supply-ui-20261105/primary-review.md) · [Recibo exacto](supply-ui-20261105/ACCEPTANCE.json).
+No acredita API→SQL real ni producción. Siguen C2/C9/C10; no hubo merge ni despliegue.
 
 Corte operativo: 2026-11-04 UTC. Host coordinador: SUAZO-PC. Checkout canónico `github`, rama `Tony`.
 **No listo para producción. C6/C8 y C11 pasan técnicamente; C9 sigue bloqueado por confianza TLS.**
