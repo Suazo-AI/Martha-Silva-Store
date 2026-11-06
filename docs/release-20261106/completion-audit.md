@@ -1,5 +1,7 @@
 # What remains before SAVIA and the storefront can ship
 
+Current disposition: [accepted process plan and exact ledger changes](process-acceptance.md). The inventory below is the original audit; seven TONY reviews and C1 settings are now closed. STOCK-EXCEPTION, TECH-TRIAL and store remediation remain explicit. Production stays NO-GO.
+
 2026-11-06. Primary assessment, pending independent process criticism and judgment.
 Host: SUAZO-PC. T3 Code / Codex / gpt-6.1-sol, xhigh.
 Baseline: `Tony@a77f705a6fd6a2778e4112c21aaa72ab8e478015` plus the explicit test-only LF correction in this publication.
@@ -19,7 +21,7 @@ Do not ask Jason to choose these again.
 - D-026/D-027: record a physical-garment stock exception; review it at day close. Never fabricate stock, receipts or reconciliation.
 - D-028: protect main with required checks and retain the deployment boundary.
 - D-029: use a guided synthetic walkthrough with Martha to establish operational facts.
-- D-030: keep Jason's frontend and Denis's images. Do not reopen the visual direction.
+- Keep Jason's frontend and Denis's images, as recorded in [SELECTED-REFERENCE](../hardening-20261106/combined/SELECTED-REFERENCE.md). D-030 is absent from committed DECISIONS; no uncommitted decision is claimed.
 - D-008/D-009: cards are required for public-store production. A catalog-only release needs a separate business decision.
 - The standing critic is Gemini 4 Argon/high. The judge is GPT-6 Astra/high. The primary accepts or rejects their advice.
 
@@ -61,7 +63,7 @@ Rows can share a ledger item. This is a map of unfinished work, not a claim that
 | P1 / public shop, S-BACKEND | Add authoritative public orders and connect approved stock/order rules | Browser-local demo orders are not durable business records; the internal API is not automatically the public backend | One backend owner implements the approved order/payment boundary, concurrency and recovery rules. Verify browser → API → durable order/payment/stock results, including retries. Use the existing stack rather than a new orchestration framework. |
 | P1 / both | Define and exercise the supported devices, accessibility and degraded network conditions | A few desktop/mobile mock checkouts do not establish usability on actual low-end equipment | Primary freezes a realistic device/network envelope with business input. Exercise key flows, keyboard/zoom, relevant accessibility checks and degraded/reconnected operation. Record exact devices and measured limits. No promise of every device or every connection. |
 | P1 / public shop | Confirm business/legal/fiscal facts and production content | Sample prices, contact details, refunds, data handling or receipt labels can mislead customers | Owner and qualified local adviser confirm applicable facts. Primary implements approved copy and data handling, then verifies displayed and charged values match. Fiscal acceptance is not an agent opinion. No new legal conclusion is asserted in this audit. |
-| P1 / public shop | Configure the actual public destination and truthful search metadata | Preview `noindex` is intentional. Publishing sample stock or wrong canonical URLs creates a different problem | After business facts and release authority, verify the selected Jason destination, domain/TLS, canonical/indexing/sitemap and truthful product data. Preserve the other publications. Do not reopen D-030. |
+| P1 / public shop | Configure the actual public destination and truthful search metadata | Preview `noindex` is intentional. Publishing sample stock or wrong canonical URLs creates a different problem | After business facts and release authority, verify the selected Jason destination, domain/TLS, canonical/indexing/sitemap and truthful product data. Preserve the other publications. Preserve the committed selected reference. |
 | P1 / SAVIA replacement | Establish initial inventory and any required migration/reconciliation | Replacing an existing system must not invent opening balances or lose agreed records | C2 identifies what must transfer. Prepare a sanitized mapping and a synthetic dry run now. Require approved opening counts, totals and rollback before importing real data. A trial can remain synthetic. |
 | P1 / security policy, SEC-CSRF | Close the same-user token/session policy | The old session cookie is rejected, but a token may survive the same user's new session. The ledger records a policy choice, not privilege escalation | Jason decides or explicitly accepts the recommendation to bind tokens to the session. If changed, require focused adversarial red/green checks. This is not evidence of a currently confirmed critical vulnerability. |
 | P2 / setup, API-BRANCH | Provide a supported one-branch creation procedure | Production setup currently needs direct SQL/EF; an operator needs a controlled procedure | Recommendation: a reviewed, tested administrator script while D-014 remains one branch. Build an Owner endpoint before actual multi-branch scope. Record the decision and test its guardrails. |

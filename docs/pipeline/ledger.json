@@ -29,6 +29,10 @@
   ],
   "targets": [
     {
+      "id": "TECH-TRIAL",
+      "name": "ensayo tecnico sintetico persistido (no produccion)"
+    },
+    {
       "id": "C12",
       "name": "cierre del sprint (merge a main)"
     },
@@ -100,15 +104,15 @@
       "order": 3,
       "track": "sprint",
       "owner": "jason",
-      "status": "todo",
+      "status": "done",
       "title": "Decisiones del lote y seguridad de merge",
-      "why": "D-028 activa main con siete checks requeridos; variables verificadas sin deploy habilitado el 2026-11-05; falta demostrar el mecanismo de stock antes de integrar",
+      "why": "D-028 merge settings are verified; the separate STOCK-EXCEPTION gate preserves the unimplemented D-026/D-027 obligation before integration.",
       "done_when": "Protección de main con checks requeridos leída de la API; valor de CLOUDFLARE_DEPLOY_ENABLED anotado; decisiones en docs/DECISIONS.md",
       "alternatives": "Fusionar sin protección confiando en revisión manual (rechazado: sin freno automático)",
       "needs": {
-        "decision": "D-026/D-027/D-028 adoptadas: excepción y revisión para ensayo; protección main aplicada y verificada. Variables leídas el 2026-11-05: ninguna en repo, dueño User y job sin environment; condición deploy no satisfecha. C1 no cerrada: mecanismo de stock pendiente.",
+        "decision": "D-028 adopted and settings verified. D-026/D-027 implementation is tracked separately as STOCK-EXCEPTION; it is not complete.",
         "decider": "jason",
-        "recommendation": "Conservar main protegida sin merge/deploy. Revalidar configuración puntual antes de integrar y demostrar mecanismo de stock. D-029 adopta reconstrucción guiada C2 con Martha usando datos ficticios; falta coordinar y obtener respuestas.",
+        "recommendation": "Recheck exact main settings before merge. No merge/deploy authority is granted. Keep STOCK-EXCEPTION before C12 and TECH-TRIAL.",
         "tool": "Configuración de GitHub (admin): protección de rama y variables de Actions"
       },
       "trello": "https://trello.com/c/e57qFLhJ",
@@ -116,7 +120,25 @@
         "docs/DECISIONS.md",
         ".github/workflows/ci.yml"
       ],
-      "prep": "D-028: main protected=true, siete checks app15368, strict y admins, PR, conversaciones, sin force-push/borrado; readback exacto. Sin merge/deploy. No rechazo adversarial ensayado. Readback 2026-11-05: cero variables de Actions, dueño User, deploy job sin environment; condición deploy no satisfecha. Mecanismo stock pendiente; C1 sigue todo. Recibos docs/stock-decision-20261104/decision-028-main-protection-receipt.json y docs/release-20261105/deploy-variable-readback.json."
+      "prep": "2026-11-06 read-only API: seven required checks app15368, strict/admins/PR/conversations enabled, force-push/deletion disabled. Actions variables collection total_count0; repository owner User. Current ci.yml deployment condition is not satisfied. No adversarial rejection or deployment executed. Stock implementation moved without waiver to STOCK-EXCEPTION and retained before C12/C10.",
+      "evidence": "docs/stock-decision-20261104/decision-028-main-protection-receipt.json; docs/release-20261105/deploy-variable-readback.json; docs/release-20261106/process-acceptance.md (fresh read-only GitHub confirmation)"
+    },
+    {
+      "id": "STOCK-EXCEPTION",
+      "order": 4,
+      "track": "sprint",
+      "owner": "suazo_pc",
+      "status": "todo",
+      "title": "Implementar entrega excepcional y revision independiente D-026/D-027",
+      "why": "La prenda fisica existe con registro0; la politica elegida aun no tiene un recorrido soportado y persistido.",
+      "done_when": "UI/API/SQL vinculan venta, articulo/talla/ubicacion/cantidad/actor/momento; motivo obligatorio; guardas normales no negativas y sin ajustes libres de cajera; atomicidad/idempotencia/rollback; reintento/concurrencia/fallo parcial y devolucion/reversion correctos; revisor distinto, suplente al cierre, evidencia/causa abierta/responsable/proxima revision persistidos. Sin recepcion, costo o saldo inventados. Recorrido real probado y aceptado.",
+      "paths": [
+        "backend/src/Martha.Store.Api/Internal/Commerce/*",
+        "dev/savia-staff-ui/*",
+        "tests/golden-path/*"
+      ],
+      "prep": "D026/D027 ya adoptadas. El puente artificial de stock no es una decision autorizada. Implementacion local reversible permitida; SQL/API/Docker/certificados requieren alcance propio. Un executor Sol/high; integracion serial del primary.",
+      "report": "docs/release-20261106/process-acceptance.md"
     },
     {
       "id": "C2",
@@ -276,6 +298,30 @@
       "evidence": "docs/c9-recovery-20261103/preflight-result.sanitized.json / docs/c9-recovery-20261103/CERTIFICATE-INVESTIGATION-SCOPE.md"
     },
     {
+      "id": "TECH-TRIAL",
+      "order": 11,
+      "track": "sprint",
+      "owner": "suazo_pc",
+      "status": "blocked",
+      "blocked_by": [
+        "C6",
+        "SUPPLY-UI",
+        "STOCK-EXCEPTION"
+      ],
+      "blocker": "Falta implementar STOCK-EXCEPTION y autorizar una campana integrada sobre el candidato congelado. Preparacion puede avanzar sin C2/C9.",
+      "title": "Ensayo tecnico sintetico persistido en SUAZO-PC",
+      "why": "Una pantalla simulada y una suite SQL separada no prueban juntas el recorrido real completo.",
+      "done_when": "Candidato congelado: navegador/API/SQL de recepcion, venta/reintento, excepcion y revision por otra persona pasan con oraculos independientes persistidos; identidad de fuentes, saneamiento y retiro comprobado de recursos propios. No sustituye tareas, tiempos o conteo fisico de C10.",
+      "needs": {
+        "tool": "SDK10.0.402 y arnes existente; SQL Server desechable solo con alcance autorizado.",
+        "test": "Conservar los17 checkpoints de recepcion y4 oraculos SQL existentes; anadir evidencia explicita de excepcion/revision/recuperacion.",
+        "decision": "Autorizar una campana concreta despues de congelar el candidato integrado. La aprobacion anterior esta consumida.",
+        "decider": "jason"
+      },
+      "prep": "Preparacion supply aceptada. --supply actual no prueba una excepcion futura. No se ejecuta ni autoriza runtime por cambiar este ledger.",
+      "report": "docs/release-20261106/process-acceptance.md"
+    },
+    {
       "id": "C10",
       "order": 12,
       "track": "sprint",
@@ -285,7 +331,8 @@
         "C1",
         "C2",
         "C6",
-        "C9"
+        "C9",
+        "TECH-TRIAL"
       ],
       "title": "Ensayo supervisado en la tienda",
       "why": "Solo quien vende puede demostrar que sirve; ninguna prueba sintética lo sustituye",
@@ -296,7 +343,7 @@
         "test": "30 mediciones p50/p95 en la caja real"
       },
       "trello": "https://trello.com/c/RYEhYexC",
-      "prep": "Guion de cinco tareas preparado; ensayo0. SUAZO-PC acepta (D-022) y aloja datos sintéticos (D-025). D-026/D-027: cajera registra excepción; encargada revisa al cierre, con suplente y causa abierta sin evidencia. Flujo no implementado ni probado. No sustituye tareas por quien vende,30mediciones ni conteo físico. C2/C9 y ejecución pendientes."
+      "prep": "Guion de cinco tareas preparado; ensayo0. SUAZO-PC acepta (D-022) y aloja datos sintéticos (D-025). D-026/D-027: cajera registra excepción; encargada revisa al cierre, con suplente y causa abierta sin evidencia. Flujo no implementado ni probado. No sustituye tareas por quien vende,30mediciones ni conteo físico. C2/C9 y ejecución pendientes. Ensayo tecnico separado en TECH-TRIAL; criterios operativos originales intactos."
     },
     {
       "id": "C11",
@@ -325,7 +372,8 @@
       "blocked_by": [
         "C1",
         "C3",
-        "C11"
+        "C11",
+        "STOCK-EXCEPTION"
       ],
       "title": "PR de integración a main y READY final",
       "why": "Cerrar el sprint con un SHA verificable en main sin despliegue no autorizado",
@@ -482,7 +530,6 @@
         "C12",
         "P-SEC",
         "P-OPS",
-        "P-LEGACY",
         "P-OWNER"
       ],
       "title": "Salida a producción de SAVIA interno",
@@ -569,107 +616,132 @@
       "id": "TONY-STATUS01",
       "track": "pipeline",
       "owner": "denis",
-      "status": "review",
+      "status": "done",
       "title": "Unknown target must not appear complete",
       "why": "An absent target rendered a completed critical path.",
       "done_when": "Unknown target fails CLI and emits an explicitly invalid digest.",
       "alternatives": "Prepared patch reviewed independently; integration remains with the existing canonical owner. No direct API push or control bypass.",
-      "evidence": "docs/sprint-20261104/TONY-PR2-FIXES.md",
+      "evidence": "docs/release-20261106/process-acceptance.md; docs/release-20261106/process-judge.md; docs/fix-pr2-denis-20261104/local-validation.json: delivery-status 24/24, unknown target invalid digest and nonzero CLI.",
       "paths": [
         "tools/delivery_status.py",
         "tests/test_delivery_status.py"
-      ]
+      ],
+      "prep": "Primary accepted against the original criterion. Historical integrated tree260b759/ec671f4, not new product acceptance. New supply/stock behavior needs separate real runtime proof."
     },
     {
       "id": "TONY-STATUS02",
       "track": "pipeline",
       "owner": "denis",
-      "status": "review",
+      "status": "done",
       "title": "Invalid dependencies must still produce an honest digest",
       "why": "Cycles or missing references prevented the diagnostic digest.",
       "done_when": "Cycle and missing-dependency regressions produce a nonzero result and useful invalid digest.",
       "alternatives": "Prepared patch reviewed independently; integration remains with the existing canonical owner. No direct API push or control bypass.",
-      "evidence": "docs/sprint-20261104/TONY-PR2-FIXES.md",
+      "evidence": "docs/release-20261106/process-acceptance.md; docs/release-20261106/process-judge.md; docs/fix-pr2-denis-20261104/local-validation.json: delivery-status 24/24, missing dependency and cycle diagnostic/nonzero cases.",
       "paths": [
         "tools/delivery_status.py",
         "tests/test_delivery_status.py"
-      ]
+      ],
+      "prep": "Primary accepted against the original criterion. Historical integrated tree260b759/ec671f4, not new product acceptance. New supply/stock behavior needs separate real runtime proof."
     },
     {
       "id": "TONY-STATUS03",
       "track": "pipeline",
       "owner": "denis",
-      "status": "review",
+      "status": "done",
       "title": "Use one dropped-prerequisite rule",
       "why": "A dropped prerequisite permitted starting but prevented completing downstream work.",
       "done_when": "Decision-backed dropped dependencies agree across validation, actionable items and critical path.",
       "alternatives": "Prepared patch reviewed independently; integration remains with the existing canonical owner. No direct API push or control bypass.",
-      "evidence": "docs/sprint-20261104/TONY-PR2-FIXES.md",
+      "evidence": "docs/release-20261106/process-acceptance.md; docs/release-20261106/process-judge.md; docs/fix-pr2-denis-20261104/local-validation.json: delivery-status 24/24, decision-backed dropped validation/actionable/critical-path agreement.",
       "paths": [
         "tools/delivery_status.py",
         "tests/test_delivery_status.py"
-      ]
+      ],
+      "prep": "Primary accepted against the original criterion. Historical integrated tree260b759/ec671f4, not new product acceptance. New supply/stock behavior needs separate real runtime proof."
     },
     {
       "id": "TONY-WF01",
       "track": "pipeline",
       "owner": "denis",
-      "status": "review",
+      "status": "done",
       "title": "Preserve per-event progress history",
       "why": "Delayed cross-branch publication overwrote global current-state issue body.",
       "done_when": "Append-only branch/SHA snapshots, cooperating publication serialization and honest stale-PR check limits.",
       "alternatives": "Prepared patch reviewed independently; integration remains with the existing canonical owner. No direct API push or control bypass.",
-      "evidence": "docs/sprint-20261104/TONY-PR2-FIXES.md",
+      "evidence": "docs/release-20261106/process-acceptance.md; docs/release-20261106/process-judge.md; docs/fix-pr2-denis-20261104/digest-publication.json: historical comment preserved; separate branch/SHA events and stale-PR metadata readback. GET/PATCH remains non-atomic.",
       "paths": [
         ".github/workflows/progress-digest.yml",
         "docs/pipeline/README.md"
-      ]
+      ],
+      "prep": "Primary accepted against the original criterion. Historical integrated tree260b759/ec671f4, not new product acceptance. New supply/stock behavior needs separate real runtime proof."
     },
     {
       "id": "TONY-HC01",
       "track": "pipeline",
       "owner": "denis",
-      "status": "review",
+      "status": "done",
       "title": "Scan exact evidence before publishing",
       "why": "The workflow could upload files after the harness secret scan failed.",
       "done_when": "Known-secret failure never publishes files/table; manifest tamper fails; same-SHA Actions verifies guarded summary/artifact.",
       "alternatives": "Prepared patch reviewed independently; integration remains with the existing canonical owner. No direct API push or control bypass.",
-      "evidence": "docs/sprint-20261104/TONY-PR2-FIXES.md",
+      "evidence": "docs/release-20261106/process-acceptance.md; docs/release-20261106/process-judge.md; docs/fix-pr2-denis-20261104/evidence-cli.json:6/6 exact-byte/tamper/secret/marker cases; local-validation.json safety17/17; ci-reconciled.json Golden41753825439 approved artifact hashes and guarded publication.",
       "paths": [
         "tests/golden-path/*",
         ".github/workflows/golden-path.yml",
         "tests/test_golden_path_safety.py"
-      ]
+      ],
+      "prep": "Primary accepted against the original criterion. Historical integrated tree260b759/ec671f4, not new product acceptance. New supply/stock behavior needs separate real runtime proof."
     },
     {
       "id": "TONY-HC02",
       "track": "pipeline",
       "owner": "denis",
-      "status": "review",
+      "status": "done",
       "title": "Do not report uncertain SQL creation as clean",
       "why": "Interrupted or generic failed creation could be reported not_created or authorize an unsafe drop.",
       "done_when": "Unit refusal/timeout/unknown cases fail safely without autodrop; real authorized SQL smoke and teardown readback pass on integrated SHA.",
       "alternatives": "Prepared patch reviewed independently; integration remains with the existing canonical owner. No direct API push or control bypass.",
-      "evidence": "docs/sprint-20261104/TONY-PR2-FIXES.md",
+      "evidence": "docs/release-20261106/process-acceptance.md; docs/release-20261106/process-judge.md; docs/fix-pr2-denis-20261104/local-validation.json safety17/17; ci-reconciled.json Golden19/19/API exit0/database drop/private-dir removal/container absence; backend599/599/restart1/1/container absence. Refusal/timeout/unknown use doubles; no SIGKILL or power-loss claim.",
       "paths": [
         "tests/golden-path/*",
         "tests/test_golden_path_safety.py"
-      ]
+      ],
+      "prep": "Primary accepted against the original criterion. Historical integrated tree260b759/ec671f4, not new product acceptance. New supply/stock behavior needs separate real runtime proof."
     },
     {
       "id": "TONY-STOCKDOC",
       "track": "pipeline",
       "owner": "denis",
-      "status": "review",
+      "status": "done",
       "title": "Preserve the existing physical-garment delivery instruction",
       "why": "The ledger reopened the settled delivery decision and recommended automatic stock-zero rejection.",
       "done_when": "Docs retain Denis delivery instruction while leaving alert/reconciliation acceptance explicit; no untested stock runtime change.",
       "alternatives": "Prepared patch reviewed independently; integration remains with the existing canonical owner. No direct API push or control bypass.",
-      "evidence": "docs/sprint-20261104/TONY-PR2-FIXES.md",
+      "evidence": "docs/release-20261106/process-acceptance.md; docs/sprint-20261104/TONY-PR2-FIXES.md and committed DECISIONS D026/D027 preserve physical delivery and pending review/reconciliation; no stock runtime change.",
       "paths": [
         "docs/DECISIONS.md",
         "docs/pipeline/ledger.json"
-      ]
+      ],
+      "prep": "Primary accepted against the original criterion. Historical integrated tree260b759/ec671f4, not new product acceptance. New supply/stock behavior needs separate real runtime proof."
+    },
+    {
+      "id": "S-LEGACY",
+      "order": 25,
+      "track": "store",
+      "owner": "suazo_pc",
+      "status": "todo",
+      "title": "Resolver contratos actuales de galeria del frontend elegido",
+      "why": "La clasificacion historica P-LEGACY esta completa; falta disponer solo las verificaciones actuales que no cubra la evidencia vigente.",
+      "done_when": "DG01/DG03 foco y slides inactivos, DG06/DG10 teclado/End y DG04 tamanos responsivos mapeados al frontend Jason elegido; reutilizar prueba actual aplicable y comprobar solo huecos. Expectativas obsoletas versionadas; issue4 actualizado con evidencia de cada disposicion. No llamar defecto visual actual a un fallo DOM historico.",
+      "paths": [
+        "src/app.js",
+        "tests/desktop-gallery.cjs",
+        "tests/green-header.cjs",
+        "tests/luxury-editorial.cjs"
+      ],
+      "report": "docs/p-legacy-20261104/CLASSIFICATION.md",
+      "prep": "Issue4 conserva seguimiento. No depende de implementar stock ni bloquea P-GO interno. No hay nuevo defecto demostrado. Requiere alcance antes de escribir en GitHub."
     }
   ]
 }

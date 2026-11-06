@@ -3,8 +3,11 @@
 Current primary assessment, 2026-11-06 UTC: production remains NO-GO.
 [Complete remaining work and proposed critical path](release-20261106/completion-audit.md).
 This assessment separates adopted decisions, missing implementation, unexecuted proof and external production prerequisites.
-Gemini process critique returned REVISE. Primary objections are recorded; Astra process adjudication remains pending.
-[Critique and primary response](release-20261106/process-response.md).
+Gemini REVISE and Astra PARTIAL are reconciled and accepted by the primary within their stated limits.
+Seven TONY items and C1 settings are closed against existing proof and fresh configuration readback.
+STOCK-EXCEPTION and TECH-TRIAL now track the missing technical journey; C10 operational criteria remain unchanged.
+P-LEGACY stays closed for classification; current storefront remediation is separate.
+[Accepted plan, evidence and next execution](release-20261106/process-acceptance.md).
 
 Supply receipt preparation: Astra ACCEPT WITH LIMITS returned and accepted by the primary.
 21/21 current source bindings match. No-SQL CI42169677581 passed on unchanged bindings.
