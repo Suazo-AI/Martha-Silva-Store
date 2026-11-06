@@ -133,8 +133,10 @@ export function createAuthClient({fetchImpl = globalThis.fetch, timeoutMs = 1000
         || /^\/internal\/api\/supply\/purchase-orders\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}(?:\/receipts\?skip=\d+&take=50)?$/i.test(path));
       const supplyRecovery = method === 'GET' && path === '/internal/api/operations/supply.receipt.create';
       if ((supplyWrite || supplyRead || supplyRecovery) && !['Owner','Manager','Inventory'].includes(session.role)) throw new StaffRequestError('forbidden',403);
+      const reviewRecovery = method === 'GET' && path === '/internal/api/operations/commerce.stock.review';
+      if (reviewRecovery && !['Owner','Manager'].includes(session.role)) throw new StaffRequestError('forbidden',403);
       const recovery = method === 'GET' && path === '/internal/api/operations/commerce.sale.record';
-      if (!(sale || read || recovery || supplyWrite || supplyRead || supplyRecovery || review) || ((sale || recovery || supplyWrite || supplyRecovery || (review && method==='POST')) && !guid(key))) throw new StaffRequestError('invalid');
+      if (!(sale || read || recovery || supplyWrite || supplyRead || supplyRecovery || review || reviewRecovery) || ((sale || recovery || supplyWrite || supplyRecovery || (review && method==='POST') || reviewRecovery) && !guid(key))) throw new StaffRequestError('invalid');
       if (sale || supplyWrite || (review && method==='POST')) await renewCsrf();
       current(generation);
       if (!session) throw new StaffRequestError('unauthorized', 401);

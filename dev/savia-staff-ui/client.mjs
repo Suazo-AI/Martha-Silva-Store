@@ -55,8 +55,34 @@ export function createStaffClient(options = {}) {
           || x.available !== x.onHand-x.reserved || x.onHand < 0 || x.reserved < 0)) throw new StaffRequestError('response');
       return page;
     },
-    async stockReviews(saleId) { if(!isId(saleId)) throw new StaffRequestError('invalid'); return auth.requestBusiness(`/internal/api/commerce/sales/${saleId}/stock-reviews`); },
-    async reviewStockException(saleId, key, body) { if(!isId(saleId)) throw new StaffRequestError('invalid'); return auth.requestBusiness(`/internal/api/commerce/sales/${saleId}/stock-reviews`,{method:'POST',key,body}); },
+    async stockReviews(saleId) {
+      if (!isId(saleId)) throw new StaffRequestError('invalid');
+      const values = await auth.requestBusiness(`/internal/api/commerce/sales/${saleId}/stock-reviews`);
+      if (!Array.isArray(values)) throw new StaffRequestError('response');
+      const reviews = values.map(value => readStockReview(value));
+      if (new Set(reviews.map(x => x.id.toLowerCase())).size !== reviews.length) throw new StaffRequestError('response');
+      return reviews;
+    },
+    async reviewStockException(saleId, key, body) {
+      if (!isId(saleId)) throw new StaffRequestError('invalid');
+      validateStockReviewRequest(body);
+      const reviewerId = auth.getVerifiedSession()?.id;
+      let result;
+      try {
+        result = await auth.requestBusiness(`/internal/api/commerce/sales/${saleId}/stock-reviews`, {method:'POST',key,body});
+      } catch (error) {
+        if (![400,403,404,409].includes(error.status)) throw error;
+        // A 4xx alone cannot release an uncertain operation. Read its durable outcome with the original key.
+        const operation = await auth.requestBusiness('/internal/api/operations/commerce.stock.review', {key});
+        if (operation?.status !== 'completed' || !operation.result) throw new StaffRequestError('response');
+        const outcome = operation.result;
+        if (outcome.success === false && outcome.value === null && typeof outcome.error === 'string'
+          && /^[a-z_]{1,80}$/.test(outcome.error)) throw new StaffRequestError('stock_review_rejected');
+        if (outcome.success !== true || outcome.error !== null) throw new StaffRequestError('response');
+        result = outcome.value;
+      }
+      return readStockReview(result, {body,reviewerId});
+    },
     async recordSale(key, body) { validateSaleRequest(body); return readReceipt(await auth.requestBusiness('/internal/api/commerce/sales', {method:'POST',key,body}), body); },
     async recoverSale(key, body) { validateSaleRequest(body); const v=await auth.requestBusiness('/internal/api/operations/commerce.sale.record',{key});
       if(v?.status !== 'completed' || !v.result) throw new StaffRequestError('response');
@@ -72,6 +98,24 @@ export function createStaffClient(options = {}) {
 }
 const isId = value => typeof value === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(value) && !/^0{8}-0{4}-0{4}-0{4}-0{12}$/.test(value);
 const auditText = (v,max) => typeof v==='string' && v.length<=max && v.trim().length>0 && !/[\x00-\x1f\x7f]/.test(v);
+export function validateStockReviewRequest(body) {
+  if (!body || !isId(body.saleLineId) || !isId(body.responsibleActorId)
+    || !auditText(body.evidence,500) || !auditText(body.outcome,500)
+    || typeof body.nextReviewAt !== 'string' || !Number.isFinite(Date.parse(body.nextReviewAt)))
+    throw new StaffRequestError('invalid');
+}
+export function readStockReview(value, expected) {
+  if (!value || !isId(value.id) || !isId(value.saleLineId) || !isId(value.reviewerId)
+    || !isId(value.responsibleActorId) || !auditText(value.evidence,500) || !auditText(value.outcome,500)
+    || value.causeState !== 'open' || typeof value.createdAt !== 'string' || !Number.isFinite(Date.parse(value.createdAt))
+    || typeof value.nextReviewAt !== 'string' || !Number.isFinite(Date.parse(value.nextReviewAt))
+    || Date.parse(value.nextReviewAt) <= Date.parse(value.createdAt)) throw new StaffRequestError('response');
+  if (expected && (value.saleLineId !== expected.body.saleLineId || value.reviewerId !== expected.reviewerId
+    || value.evidence !== expected.body.evidence.trim() || value.outcome !== expected.body.outcome.trim()
+    || value.responsibleActorId !== expected.body.responsibleActorId
+    || Date.parse(value.nextReviewAt) !== Date.parse(expected.body.nextReviewAt))) throw new StaffRequestError('response');
+  return value;
+}
 export function validateSaleRequest(body) {
   if (!body || !isId(body.locationId) || body.customerId !== null || !Array.isArray(body.lines)
     || body.lines.length < 1 || body.lines.length > 100

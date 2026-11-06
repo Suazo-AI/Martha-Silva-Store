@@ -62,7 +62,9 @@
       "exit": 0
     },
     "whitespace": {
-      "exit": 0
+      "exit": 0,
+      "scope": "Unstaged tracked product paths only; excludes then-untracked import",
+      "cached_import_check": "3 trailing EOF blanks in byte-preserved generated worker/current-release*.sql; no claim of cached exit 0"
     },
     "public_scan": "PASS; no raw logs, secrets, bin/obj caches imported",
     "progress_tests": {

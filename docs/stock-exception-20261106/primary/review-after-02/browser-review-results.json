@@ -1,0 +1,33 @@
+{
+  "sources": {
+    "app.mjs": "abfd6b29e6daf61cbad1f5c422b2e0583ee3afe8c76b0c38df5ea8b1d312d526",
+    "client.mjs": "8999819b79e9b8ead4151bef3fb542a6c63252efe1822dc03b967a1629950be7",
+    "login.mjs": "73911282fd1ac18b0de0785eb8c8b7c60dbd189cef14c68a28891a51fa9e88a4",
+    "index.html": "72193922c484ffe0fe2468ba897cfb2fc1bcf598528645b15311332b33d94b64",
+    "styles.css": "61db534591305d989d815c47999cc5706d7b8de6e00c1628d361e10edbb94ca0"
+  },
+  "results": [
+    {
+      "video": "videos\\page@77c41f21f1f64bb1d5e28b07df1bea59.webm",
+      "width": 1440,
+      "status": "PASS",
+      "sale_posts": 1,
+      "review_posts": 3,
+      "unique_reviews": 1,
+      "invalid_fields_editable": true,
+      "durable_rejection_editable": true,
+      "layer": "Actual Chrome / mocked HTTP / no SQL"
+    },
+    {
+      "video": "videos\\page@42b08c46a69c773e014acc78b8440cfe.webm",
+      "width": 390,
+      "status": "PASS",
+      "sale_posts": 1,
+      "review_posts": 3,
+      "unique_reviews": 1,
+      "invalid_fields_editable": true,
+      "durable_rejection_editable": true,
+      "layer": "Actual Chrome / mocked HTTP / no SQL"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 // Private staff shell. Server identity and business contracts are required.
 // No fixture business data or local authentication. Only pending operation references persist per tab.
 import {mountSupply} from './supply.mjs';
-import {createStaffClient, validateSaleRequest} from './client.mjs';
+import {createStaffClient, validateSaleRequest, validateStockReviewRequest, readStockReview} from './client.mjs';
 import {StaffRequestError, readStaff} from './login.mjs';
 const errorIds = new WeakMap();
 
@@ -647,11 +647,16 @@ export function mountStockReview({document,client,getSession,onUnauthorized}) {
   function fail(e){if(e.status===401){onUnauthorized();return;}status(pending?'Revisión sin confirmar. La referencia original se conserva.':'No se pudo consultar la venta.');}
   async function send(){if(busy||blocked||!pending||!allowed())return;const a=getSession(),e=epoch,op=pending;busy=true;lock();
     try{const result=await client.reviewStockException(op.saleId,op.key,op.body);if(!same(e,a))return;
-      if(!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(result.id)||!Number.isFinite(Date.parse(result.createdAt))||result.saleLineId!==op.body.saleLineId||result.reviewerId!==a.id||result.causeState!=='open'||result.evidence!==op.body.evidence.trim()||result.outcome!==op.body.outcome.trim()||result.responsibleActorId!==op.body.responsibleActorId||Date.parse(result.nextReviewAt)!==Date.parse(op.body.nextReviewAt))throw Error('response');
+      readStockReview(result,{body:op.body,reviewerId:a.id});
       storage().removeItem(storageKey(a));pending=null;status('Revisión confirmada. Causa abierta; seguimiento registrado.');
-    }catch(error){if(same(e,a))fail(error);}finally{if(same(e,a)){busy=false;lock();}}}
+    }catch(error){if(same(e,a)){
+      if(error.code==='stock_review_rejected'){
+        try{storage().removeItem(storageKey(a));pending=null;status('Revisión rechazada. Corregí los datos y volvé a enviar.');}
+        catch{blocked=true;status('No se pudo retirar la referencia rechazada.');}
+      }else fail(error);
+    }}finally{if(same(e,a)){busy=false;lock();}}}
   async function read(event){event.preventDefault();if(busy||pending||blocked||!allowed())return;const a=getSession(),e=epoch;busy=true;sale=null;lock();
-    try{const value=await client.getSale(load.elements.saleId.value.trim());const reviews=await client.stockReviews(value.saleId);if(!same(e,a))return;
+    try{const value=await client.getSale(load.elements.saleId.value.trim());const reviews=(await client.stockReviews(value.saleId)).map(value=>readStockReview(value));if(!same(e,a))return;
       $('stock-review-evidence').replaceChildren(
         textElement(document,'p',`Venta ${value.saleId} · Registró ${value.actorId} · ${value.createdAt}`),
         ...value.lines.filter(x=>x.exceptionReason).map(x=>textElement(document,'p',`${x.sku} · Talla ${x.size} · ${x.quantity} entregadas · ${x.returnedQuantity} revertidas · ${x.exceptionReason}`)),
@@ -661,8 +666,11 @@ export function mountStockReview({document,client,getSession,onUnauthorized}) {
       if(!lines.length)sale=null;status(lines.length?'Examiná la evidencia y registrá el seguimiento.':'La venta no contiene entregas excepcionales.');
     }catch(error){if(same(e,a))fail(error);}finally{if(same(e,a)){busy=false;lock();}}}
   function submit(event){event.preventDefault();if(busy||pending||blocked||!sale||!allowed()||!form.reportValidity())return;
-    try{const a=getSession(),f=form.elements,body={saleLineId:f.saleLineId.value,evidence:f.evidence.value,outcome:f.outcome.value,responsibleActorId:f.responsibleActorId.value.trim(),nextReviewAt:new Date(f.nextReviewAt.value).toISOString()};
-      const op={actorId:a.id,actorVersion:a.version,saleId:sale.saleId,key:document.defaultView.crypto.randomUUID(),body};const raw=JSON.stringify(op);storage().setItem(storageKey(a),raw);if(storage().getItem(storageKey(a))!==raw)throw Error('storage');pending=op;void send();
+    const a=getSession(),f=form.elements,next=new Date(f.nextReviewAt.value);
+    const body={saleLineId:f.saleLineId.value,evidence:f.evidence.value,outcome:f.outcome.value,responsibleActorId:f.responsibleActorId.value.trim(),nextReviewAt:Number.isFinite(next.getTime())?next.toISOString():''};
+    try{validateStockReviewRequest(body);if(next.getTime()<=Date.now())throw new StaffRequestError('invalid');}
+    catch{status(new StaffRequestError('invalid').message);return;}
+    try{const op={actorId:a.id,actorVersion:a.version,saleId:sale.saleId,key:document.defaultView.crypto.randomUUID(),body};const raw=JSON.stringify(op);storage().setItem(storageKey(a),raw);if(storage().getItem(storageKey(a))!==raw)throw Error('storage');pending=op;void send();
     }catch{blocked=true;status('No se pudo guardar la referencia. La revisión no se envió.');lock();}}
   const retry=()=>void send();load.addEventListener('submit',read);form.addEventListener('submit',submit);$('stock-review-retry').addEventListener('click',retry);
   return {start,clear,destroy(){clear();load.removeEventListener('submit',read);form.removeEventListener('submit',submit);$('stock-review-retry').removeEventListener('click',retry);}};

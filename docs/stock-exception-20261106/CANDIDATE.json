@@ -6,7 +6,10 @@
     "Request DTO conditional null omission preserves legacy replay fingerprint",
     "Legacy fingerprint regression test",
     "Manual workflow opt-in, pre-runtime combination guard, and no-SQL CI stock guards",
-    "Offline tests exercise invalid argument refusal and inspect workflow routing"
+    "Offline tests exercise invalid argument refusal and inspect workflow routing",
+    "M2: validate before persisting; reconcile definitive rejection via original-key durable outcome; retain unknown outcomes",
+    "L1: shared strict review request/response contracts; preserve replay after original review deadline",
+    "M1 disputed: D-027 distinguishes authorized independent reviewer from branch-authorized follow-up responsible actor; no backend policy change"
   ],
   "contracts": [
     {
@@ -119,14 +122,14 @@
     },
     {
       "path": "dev/savia-staff-ui/app.mjs",
-      "rawSha256": "cf3f032e986a11dc81bd769eb9c6ffafceddbd530cabb8de84b5cb44d12f6391",
-      "lfSha256": "cf3f032e986a11dc81bd769eb9c6ffafceddbd530cabb8de84b5cb44d12f6391",
+      "rawSha256": "abfd6b29e6daf61cbad1f5c422b2e0583ee3afe8c76b0c38df5ea8b1d312d526",
+      "lfSha256": "abfd6b29e6daf61cbad1f5c422b2e0583ee3afe8c76b0c38df5ea8b1d312d526",
       "baseGitBlob": "e5396e114f588066c0e085e125423730ddd908cf"
     },
     {
       "path": "dev/savia-staff-ui/client.mjs",
-      "rawSha256": "3eec3aeac1aedafbe982013848204117f2abff4040f1d1bcdc5d05202eb69f46",
-      "lfSha256": "ff4114da682949f4de0a957d28cf7b9a21828c88ecc32019c5bf0fd3e146da8f",
+      "rawSha256": "8999819b79e9b8ead4151bef3fb542a6c63252efe1822dc03b967a1629950be7",
+      "lfSha256": "8999819b79e9b8ead4151bef3fb542a6c63252efe1822dc03b967a1629950be7",
       "baseGitBlob": "3f73ebb610728190483d058c1c9c9efc56dd060f"
     },
     {
@@ -137,14 +140,14 @@
     },
     {
       "path": "dev/savia-staff-ui/login.mjs",
-      "rawSha256": "07c6a492a0519a60d04873853102731d287beafbebee3ba9609e16ec6740a11d",
-      "lfSha256": "d2100680b3f558002f0cf6c3273cdf2911eb1d560164fb3bb4ecde7e2d30f77f",
+      "rawSha256": "73911282fd1ac18b0de0785eb8c8b7c60dbd189cef14c68a28891a51fa9e88a4",
+      "lfSha256": "73911282fd1ac18b0de0785eb8c8b7c60dbd189cef14c68a28891a51fa9e88a4",
       "baseGitBlob": "9efd1fed45b53ac0bb5fc68e029c21e485045128"
     },
     {
       "path": "dev/savia-staff-ui/stock-exception.test.mjs",
-      "rawSha256": "194bdfcf42cff34534dd2b5b141d7af4ce629f6a99ace32593bf0bccfa5a9218",
-      "lfSha256": "194bdfcf42cff34534dd2b5b141d7af4ce629f6a99ace32593bf0bccfa5a9218",
+      "rawSha256": "850d85c0aa31bcb6d0b80c20df7b2078d00423f42f14aafb47974a17d8b867b9",
+      "lfSha256": "850d85c0aa31bcb6d0b80c20df7b2078d00423f42f14aafb47974a17d8b867b9",
       "baseGitBlob": null
     },
     {
@@ -207,5 +210,6 @@
       "lfSha256": "dbc792e894d35b7dde8e5ac9c07d51aeaf99e5f9efeb4bf983cc8939507cb9cb",
       "baseGitBlob": "aea6fc776740c4a19dbe0fb0a1fcc39bc026d32c"
     }
-  ]
+  ],
+  "revision_from": "e48b5accd6ba45473e64a949e993db497ed93b1e"
 }

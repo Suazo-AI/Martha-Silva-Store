@@ -57,3 +57,15 @@ Historical worker evidence remains separate: backend542/79 skipped; staff133; ha
 Production remains NO-GO. This increment does not close C2, C9, C10, payments, deployment or operational acceptance.
 
 [Import map](IMPORT.json) preserves public copies and private raw-log locations. [Current source bindings](CANDIDATE.json) use RAW and LF hashes. Original worker receipts remain unchanged. Primary logs and commands are indexed in [primary/CHECKS.json](primary/CHECKS.json).
+
+## Follow-up after Gemini REVISE
+
+The original [Gemini report](gemini-critic-candidate.md) remains unchanged.
+Primary reproduced and corrected the invalid-field pending lockup and added strict review contracts.
+The responsible-person role restriction is disputed because D-027 distinguishes that person from the independent reviewer.
+Server policy is unchanged pending Astra adjudication.
+
+Fresh staff results: **146/146**, zero skipped. Actual Chrome desktop/mobile verifies the corrected review path with HTTP mocks.
+Before/after recordings, original failures, conservative 4xx reconciliation and remaining gates are in [REVIEW-RESOLUTION.md](REVIEW-RESOLUTION.md).
+The old backend and harness counts above remain historical. They were not reattributed to these changed UI bytes.
+Preparation remains under review; production remains NO-GO.
