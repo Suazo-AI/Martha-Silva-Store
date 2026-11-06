@@ -69,3 +69,23 @@ Fresh staff results: **146/146**, zero skipped. Actual Chrome desktop/mobile ver
 Before/after recordings, original failures, conservative 4xx reconciliation and remaining gates are in [REVIEW-RESOLUTION.md](REVIEW-RESOLUTION.md).
 The old backend and harness counts above remain historical. They were not reattributed to these changed UI bytes.
 Preparation remains under review; production remains NO-GO.
+
+## Follow-up after Astra REVISE on 45aba76
+
+The original [Astra report](astra-judge-candidate.md) is imported byte for byte.
+Primary accepts its rejection of M1: D-027 distinguishes the independent reviewer from the follow-up responsible person.
+No backend authorization policy changed.
+
+Primary reproduced J1/J2 with five failing assertions and one passing valid-list control.
+UUID matching now compares validated identities without case sensitivity and does not rewrite persisted pending bytes.
+Reviews must belong to an exceptional line of the loaded sale before evidence is shown.
+The view clears earlier evidence when another lookup begins.
+
+Final staff: **152/152**, zero skipped. Chrome desktop/mobile verifies the same before/after actions with synthetic HTTP.
+Both direct replay and completed-success recovery confirm existing uppercase pending requests in unit tests.
+Different IDs remain rejected; historical reviewers and multiple exceptional lines remain accepted.
+
+Linux CI runs `42186722956` and `42186722928` succeeded on predecessor `45aba76`.
+They do not cover J1/J2. New exact-SHA CI and targeted independent adjudication remain pending.
+See [resolution](REVIEW-RESOLUTION.md) and [receipts](primary/JUDGE-CHECKS.json).
+SQL, real browser/API/SQL, C2/C9/C10 and production acceptance remain open.

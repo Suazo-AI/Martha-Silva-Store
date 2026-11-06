@@ -655,8 +655,10 @@ export function mountStockReview({document,client,getSession,onUnauthorized}) {
         catch{blocked=true;status('No se pudo retirar la referencia rechazada.');}
       }else fail(error);
     }}finally{if(same(e,a)){busy=false;lock();}}}
-  async function read(event){event.preventDefault();if(busy||pending||blocked||!allowed())return;const a=getSession(),e=epoch;busy=true;sale=null;lock();
+  async function read(event){event.preventDefault();if(busy||pending||blocked||!allowed())return;const a=getSession(),e=epoch;busy=true;sale=null;$('stock-review-evidence').replaceChildren();form.elements.saleLineId.replaceChildren();lock();
     try{const value=await client.getSale(load.elements.saleId.value.trim());const reviews=(await client.stockReviews(value.saleId)).map(value=>readStockReview(value));if(!same(e,a))return;
+      const exceptionalLines=new Set(value.lines.filter(x=>x.exceptionReason).map(x=>x.saleLineId.toLowerCase()));
+      if(reviews.some(x=>!exceptionalLines.has(x.saleLineId.toLowerCase())))throw new StaffRequestError('response');
       $('stock-review-evidence').replaceChildren(
         textElement(document,'p',`Venta ${value.saleId} · Registró ${value.actorId} · ${value.createdAt}`),
         ...value.lines.filter(x=>x.exceptionReason).map(x=>textElement(document,'p',`${x.sku} · Talla ${x.size} · ${x.quantity} entregadas · ${x.returnedQuantity} revertidas · ${x.exceptionReason}`)),

@@ -1,0 +1,125 @@
+{
+  "source_revision_from": "45aba761a9bc3d9faa6a1e940368df07af9770bf",
+  "primary": "SUAZO-PC / T3 Code / Codex / gpt-6.1-sol / xhigh",
+  "judge_report": {
+    "path": "docs/stock-exception-20261106/astra-judge-candidate.md",
+    "rawSha256": "93c3480bbd94776b9fac2d1445ff86555760bda62118650812bffa4bf64de0d1",
+    "verdict": "REVISE; M1 rejected, J1/J2 require corrections"
+  },
+  "checks": [
+    {
+      "log": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\judge-regressions-red.log",
+      "exit": 1,
+      "sha256": "edc1ffea490ead360e729fda9b4aca2860b19a500fd58f35344cc65384a531ab",
+      "classification": "Product red: five failures; one valid-list control passes",
+      "command": "node --test --test-name-pattern='UUID equality|uppercase pending|review list' dev/savia-staff-ui/stock-exception.test.mjs",
+      "NODE_PATH": "C:/Users/Jason/MARTHA-SILVA/github/tests/frontend-deps/node_modules"
+    },
+    {
+      "log": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\judge-browser-before.log",
+      "exit": 1,
+      "sha256": "136d7af3907474cc70ef37ed6a9971f2fc039c33c72449aef894e5aef593aeb9",
+      "classification": "Harness timing: assertion observed retry before asynchronous request; excluded from product red",
+      "command": "node docs/stock-exception-20261106/primary/browser-judge-regressions.mjs <installed-playwright> before"
+    },
+    {
+      "log": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\judge-browser-before-02.log",
+      "exit": 0,
+      "sha256": "785cee3fc468cee78666be8b7ca7a99ac4ef61473abb67616330c0127acc8a17",
+      "classification": "Both defects observed on original product, desktop/mobile",
+      "command": "node docs/stock-exception-20261106/primary/browser-judge-regressions.mjs <installed-playwright> before"
+    },
+    {
+      "log": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\judge-staff-green.log",
+      "exit": 0,
+      "sha256": "cca72fa24da8f111987e24aaf8583b407a58936abfc47d26a0f0e38a2b81fd58",
+      "classification": "Final staff 152/152; zero skipped",
+      "command": "node --test dev/savia-staff-ui/*.test.mjs",
+      "NODE_PATH": "C:/Users/Jason/MARTHA-SILVA/github/tests/frontend-deps/node_modules"
+    },
+    {
+      "log": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\judge-browser-after.log",
+      "exit": 0,
+      "sha256": "be4bc092490a53a6013d5c26d65920579a992e6b1e7778b7dcf7c5ac550dd565",
+      "classification": "Corrected Chrome desktop/mobile, synthetic HTTP",
+      "command": "node docs/stock-exception-20261106/primary/browser-judge-regressions.mjs <installed-playwright> after"
+    }
+  ],
+  "source_bindings": {
+    "candidate": "CANDIDATE.json",
+    "count": 33,
+    "before": {
+      "app.mjs": "Git blob RAW",
+      "client.mjs": "Git blob RAW",
+      "login.mjs": "Git blob RAW",
+      "index.html": "Git LF blob expanded to CRLF",
+      "styles.css": "Git blob RAW"
+    },
+    "after": "Exact RAW source hashes in judge-after/results.json"
+  },
+  "browser": {
+    "script": "docs/stock-exception-20261106/primary/browser-judge-regressions.mjs",
+    "command": "node docs/stock-exception-20261106/primary/browser-judge-regressions.mjs <installed-playwright> <before|after>",
+    "viewports": [
+      "1440x1000",
+      "390x844"
+    ],
+    "sequence": "Same actions on both original and corrected product; only expected assertions differ",
+    "observation": "Completed replay response plus two frames; direct UI unit tests independently cover success/recovery",
+    "layer": "Actual Chrome; mocked HTTP; no SQL",
+    "artifacts": [
+      {
+        "path": "docs/stock-exception-20261106/primary/judge-before/results.json",
+        "rawSha256": "1bda4a805134d7d49afc3a588d28f79bc771a8833da97ce78e0eb3ff45ec8005"
+      },
+      {
+        "path": "docs/stock-exception-20261106/primary/judge-before/videos/page@1f3f0b616cfa2c12c664fcfb9345d1f9.webm",
+        "rawSha256": "de94e94290c22a544371c0e712b38dc36d2fa97696d5bcd3df58c6a8504ae488"
+      },
+      {
+        "path": "docs/stock-exception-20261106/primary/judge-before/videos/page@2096cb1a7513e28a7d56ed65e45ba97a.webm",
+        "rawSha256": "69e6f58c225c458fef374596ca982c0cb108564d7b702797a72f9d33f18fcc1b"
+      },
+      {
+        "path": "docs/stock-exception-20261106/primary/judge-after/results.json",
+        "rawSha256": "7b15e0e9463738a5e8c3c377341175a4210148fbb738360f23349621aaaba7a4"
+      },
+      {
+        "path": "docs/stock-exception-20261106/primary/judge-after/videos/page@dc22e2d0968ff684a6cbdec28e58b882.webm",
+        "rawSha256": "dfbc00fb05dda5abf8772eed172eb4ef1e1d00187cc1ba6d380a2f6d9f5a6bd4"
+      },
+      {
+        "path": "docs/stock-exception-20261106/primary/judge-after/videos/page@79b0d3f8b0813eb96166a920b4329c5b.webm",
+        "rawSha256": "0eac200ac6347243c06ea9627c0356febd86f29b0bdcbc881a0aa38a8c305a97"
+      }
+    ],
+    "playwright_path": "C:/Users/Jason/AppData/Roaming/npm/node_modules/@playwright/cli/node_modules/playwright"
+  },
+  "historical_ci": {
+    "sha": "45aba761a9bc3d9faa6a1e940368df07af9770bf",
+    "runs": [
+      {
+        "id": 42186722956,
+        "workflow": "Staff UI candidate (no SQL)",
+        "conclusion": "success"
+      },
+      {
+        "id": 42186722928,
+        "workflow": "Tony source snapshot",
+        "conclusion": "success"
+      }
+    ],
+    "readback": "GitHub API queried this turn; these passes do not cover the J1/J2 corrections"
+  },
+  "current_ci": "Pending publication and exact-SHA completed readback",
+  "not_run": [
+    "SQL persistence and concurrency",
+    "Real browser -> API -> SQL",
+    "Full repository gate locally (historical WinError 1314)",
+    "Migration apply",
+    "Docker",
+    "Deployment",
+    "Payments",
+    "Operational acceptance"
+  ]
+}

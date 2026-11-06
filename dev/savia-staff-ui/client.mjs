@@ -97,6 +97,7 @@ export function createStaffClient(options = {}) {
     listItems: options => list('items', options), listLocations: options => list('locations', options)});
 }
 const isId = value => typeof value === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(value) && !/^0{8}-0{4}-0{4}-0{4}-0{12}$/.test(value);
+const sameId = (a,b) => isId(a) && isId(b) && a.toLowerCase() === b.toLowerCase();
 const auditText = (v,max) => typeof v==='string' && v.length<=max && v.trim().length>0 && !/[\x00-\x1f\x7f]/.test(v);
 export function validateStockReviewRequest(body) {
   if (!body || !isId(body.saleLineId) || !isId(body.responsibleActorId)
@@ -110,9 +111,9 @@ export function readStockReview(value, expected) {
     || value.causeState !== 'open' || typeof value.createdAt !== 'string' || !Number.isFinite(Date.parse(value.createdAt))
     || typeof value.nextReviewAt !== 'string' || !Number.isFinite(Date.parse(value.nextReviewAt))
     || Date.parse(value.nextReviewAt) <= Date.parse(value.createdAt)) throw new StaffRequestError('response');
-  if (expected && (value.saleLineId !== expected.body.saleLineId || value.reviewerId !== expected.reviewerId
+  if (expected && (!sameId(value.saleLineId,expected.body.saleLineId) || !sameId(value.reviewerId,expected.reviewerId)
     || value.evidence !== expected.body.evidence.trim() || value.outcome !== expected.body.outcome.trim()
-    || value.responsibleActorId !== expected.body.responsibleActorId
+    || !sameId(value.responsibleActorId,expected.body.responsibleActorId)
     || Date.parse(value.nextReviewAt) !== Date.parse(expected.body.nextReviewAt))) throw new StaffRequestError('response');
   return value;
 }

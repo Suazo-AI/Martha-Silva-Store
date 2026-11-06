@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {createRequire} from 'node:module';
 import {mountCommerce,mountStockReview} from './app.mjs';
-import {createStaffClient,readReceipt,validateSaleRequest} from './client.mjs';
+import {createStaffClient,readReceipt,readStockReview,validateSaleRequest} from './client.mjs';
 import {StaffRequestError,createAuthClient} from './login.mjs';
 const {JSDOM}=createRequire(import.meta.url)('jsdom');
 const html=await readFile(new URL('./index.html',import.meta.url),'utf8');
@@ -153,4 +153,49 @@ test('review outcome lookup requires an authorized role and the original valid k
  await auth.getSession();await assert.rejects(()=>auth.requestBusiness(path,{key:id(7)}),e=>e.code==='forbidden');assert.equal(calls.length,1);
  role='Manager';await auth.getSession();await assert.rejects(()=>auth.requestBusiness(path,{key:'invalid'}),e=>e.code==='invalid');assert.equal(calls.length,2);
  await auth.requestBusiness(path,{key:id(7)});assert.equal(calls.at(-1).options.headers['Idempotency-Key'],id(7));assert.equal(calls.at(-1).options.method,'GET');assert.equal(calls.at(-1).options.body,undefined);
+});
+
+test('review UUID equality accepts case variants but rejects different identities',()=>{
+ const ids=['ABCDEFAB-0000-0000-0000-000000000006','ABCDEFAB-0000-0000-0000-000000000008','ABCDEFAB-0000-0000-0000-000000000088'];
+ const request={...reviewBody,saleLineId:ids[0],responsibleActorId:ids[2]};
+ const value={...reviewResult(request),saleLineId:ids[0].toLowerCase(),reviewerId:ids[1].toLowerCase(),responsibleActorId:ids[2].toLowerCase()};
+ assert.equal(readStockReview(value,{body:request,reviewerId:ids[1]}),value);
+ for(const field of ['saleLineId','reviewerId','responsibleActorId'])assert.throws(()=>readStockReview({...value,[field]:id(99)},{body:request,reviewerId:ids[1]}),e=>e.code==='response');
+});
+
+for(const mode of ['direct','recovered'])test(`uppercase pending review confirms after ${mode} replay without rewriting bytes`,async t=>{
+ const request={...reviewBody,responsibleActorId:'ABCDEFAB-0000-0000-0000-000000000088'};
+ const result=reviewResult({...request,responsibleActorId:request.responsibleActorId.toLowerCase()});let attempts=0;
+ const {client,calls}=await transport(path=>{
+  if(path.includes('/operations/'))return [{status:'completed',result:{success:true,error:null,value:result}}];
+  if(++attempts===1)throw Error('lost');return mode==='direct'?[result]:[{},409];
+ });
+ const s=setup(t,{reviewStockException:(...args)=>client.reviewStockException(...args)});
+ const key=`savia.stock.review.pending.${actor.id}`,raw=JSON.stringify({actorId:actor.id,actorVersion:actor.version,saleId:receipt.saleId,key:id(7),body:request});
+ s.dom.window.sessionStorage.setItem(key,raw);s.app.start();s.document.getElementById('stock-review-retry').click();await flush();await flush();
+ assert.equal(s.dom.window.sessionStorage.getItem(key),raw);
+ s.remount();s.document.getElementById('stock-review-retry').click();await flush();await flush();
+ assert.equal(s.dom.window.sessionStorage.getItem(key),null);assert.match(s.document.getElementById('stock-review-status').textContent,/confirmada/);
+ const posts=calls.filter(x=>x.options.method==='POST');assert.equal(posts.length,2);
+ for(const p of posts){assert.equal(p.options.headers['Idempotency-Key'],id(7));assert.equal(p.options.body,JSON.stringify(request));}
+ assert.equal(calls.filter(x=>x.path.includes('/operations/')).length,mode==='recovered'?1:0);
+});
+
+for(const kind of ['foreign','ordinary'])test(`review list rejects a ${kind} sale line before displaying evidence`,async t=>{
+ const line={...receipt.lines[0],saleLineId:id(99),exceptionReason:null,size:null};
+ const s=setup(t,{getSale:async()=>({...receipt,lines:[...receipt.lines,...(kind==='ordinary'?[line]:[])]}),stockReviews:async()=>[{...reviewResult(reviewBody),saleLineId:id(99),evidence:'UNRELATED EVIDENCE'}]});
+ await s.load();assert.equal(s.document.getElementById('stock-review-evidence').textContent,'');
+ assert.equal(s.document.querySelector('#stock-review-form button').disabled,true);
+ assert.match(s.document.getElementById('stock-review-status').textContent,/No se pudo consultar/);
+});
+
+test('review list accepts all exceptional sale lines and preserves historical reviewers',async t=>{
+ const second={...receipt.lines[0],saleLineId:'ABCDEFAB-0000-0000-0000-000000000099'};
+ const s=setup(t,{getSale:async()=>({...receipt,lines:[...receipt.lines,second]}),stockReviews:async()=>[
+  {...reviewResult(reviewBody),reviewerId:id(77),evidence:'FIRST REVIEW'},
+  {...reviewResult(reviewBody),id:id(11),saleLineId:second.saleLineId.toLowerCase(),reviewerId:id(78),evidence:'SECOND REVIEW'}]});
+ await s.load();const text=s.document.getElementById('stock-review-evidence').textContent;
+ assert.match(text,/FIRST REVIEW/);assert.match(text,/SECOND REVIEW/);
+ assert.equal(s.document.getElementById('stock-review-form').elements.saleLineId.options.length,2);
+ assert.equal(s.document.querySelector('#stock-review-form button').disabled,false);
 });

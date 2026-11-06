@@ -79,7 +79,8 @@ The Windows aggregate gate has the recorded symlink-fixture `WinError 1314`; use
 ## Remaining gates and next action
 
 - Primary publishes only the listed source/evidence paths to Tony and verifies remote SHA.
-- Astra adjudicates M1 and checks M2/L1 against the corrected sources and frozen checks.
+- Astra rejected M1 and confirmed the M2 recovery design on `45aba76`, then required J1/J2 corrections below.
+- Targeted independent review must confirm those corrections against the new frozen sources and unchanged acceptance checks.
 - Primary reads completed no-SQL Linux CI for that same SHA before accepting preparation.
 - Real SQL persistence, concurrency and browser/API/SQL remain NOT RUN for this increment.
   The earlier one-run runtime authorization is consumed. After review, primary prepares one exact campaign for Jason's approval.
@@ -88,3 +89,47 @@ The Windows aggregate gate has the recorded symlink-fixture `WinError 1314`; use
 
 Lesson applied: a reviewer must separate a reproduced defect from an added business-policy assumption.
 Validate before persisting intent; use durable server evidence before releasing uncertain work.
+
+## Astra J1/J2 corrections
+
+Primary accepts the [Astra REVISE report](astra-judge-candidate.md) on `45aba761a9bc3d9faa6a1e940368df07af9770bf`.
+Its M1 disposition resolves the policy dispute: the follow-up responsible person need not be the reviewer or have the reviewer's role.
+Backend authorization remains unchanged.
+
+J1 reproduced: a valid uppercase UUID was rejected when a successful response used lowercase.
+Two additional tests reproduce an existing uppercase pending request failing direct replay and completed-success recovery.
+J2 reproduced: unrelated or ordinary sale-line reviews were displayed under the requested sale.
+The focused red command produced five failures and one passing control, exit 1:
+
+`node --test --test-name-pattern='UUID equality|uppercase pending|review list' dev/savia-staff-ui/stock-exception.test.mjs`
+
+`client.mjs` now compares validated line, reviewer and responsible UUIDs semantically.
+It preserves the original request body and idempotency key exactly, including case.
+Different UUIDs still fail validation. No pending-record migration or manual storage deletion is required for valid uppercase requests.
+
+`app.mjs` binds listed reviews to exceptional lines in the loaded sale before displaying evidence.
+It clears prior evidence and selected lines during lookup, so failed validation cannot leave an earlier sale presented as the new result.
+Multiple exceptional lines, case variants and historical reviewers remain valid.
+
+`NODE_PATH=tests/frontend-deps/node_modules node --test dev/savia-staff-ui/*.test.mjs` completed **152/152**, zero skips, exit 0.
+The actual Windows invocation and private raw-log hashes are in [JUDGE-CHECKS.json](primary/JUDGE-CHECKS.json).
+
+The same browser driver ran before and after the product change at 1440x1000 and 390x844.
+It captures an uppercase request, simulated response loss, reload, exact replay, foreign/ordinary list rejection and valid historical reviews.
+Before: both defects observed. After: confirmation succeeds and invalid lists remain hidden.
+Both runs recorded zero page exceptions and zero external requests. Chrome and fixture servers closed.
+Replay observation waits for the response body and two frames; it does not prove every possible scheduler ordering.
+Unit tests independently cover direct and recovered success and exact pending identity.
+
+One initial before-browser attempt checked the POST count before the asynchronous retry reached the route.
+The driver now installs the response wait before clicking. That harness failure and its partial recording are excluded from product red evidence.
+The successful before recording is the original product, not a reconstructed baseline.
+Four selected recordings and source hashes are bound in the receipt; no raw logs or failed clips are published.
+
+Predecessor Linux CI `42186722956` and `42186722928` completed successfully on `45aba76`.
+The new published SHA still needs completed no-SQL CI and targeted Astra review.
+SQL persistence/concurrency and real browser/API/SQL remain NOT RUN for this increment.
+Primary will prepare the exact isolated campaign after acceptance; Jason must authorize that new runtime.
+Production remains NO-GO. No deployment, migration apply, trust change, real data or payment occurred.
+
+Lesson applied: validate identifier identity separately from identifier spelling; preserve retry payload bytes.

@@ -9,7 +9,10 @@
     "Offline tests exercise invalid argument refusal and inspect workflow routing",
     "M2: validate before persisting; reconcile definitive rejection via original-key durable outcome; retain unknown outcomes",
     "L1: shared strict review request/response contracts; preserve replay after original review deadline",
-    "M1 disputed: D-027 distinguishes authorized independent reviewer from branch-authorized follow-up responsible actor; no backend policy change"
+    "M1 disputed: D-027 distinguishes authorized independent reviewer from branch-authorized follow-up responsible actor; no backend policy change",
+    "Astra rejected M1: D-027 does not restrict the separate follow-up responsible actor to Manager/Owner or exclude the cashier",
+    "J1: semantic case-insensitive review UUID equality without rewriting pending request bytes",
+    "J2: reject reviews outside the loaded sale exceptional lines before displaying evidence; clear stale evidence during lookup"
   ],
   "contracts": [
     {
@@ -122,14 +125,14 @@
     },
     {
       "path": "dev/savia-staff-ui/app.mjs",
-      "rawSha256": "abfd6b29e6daf61cbad1f5c422b2e0583ee3afe8c76b0c38df5ea8b1d312d526",
-      "lfSha256": "abfd6b29e6daf61cbad1f5c422b2e0583ee3afe8c76b0c38df5ea8b1d312d526",
+      "rawSha256": "c1c01336b60f9533c1aa92fd0a98fdef7a1a7745ac4df15ef2488fc162482264",
+      "lfSha256": "c1c01336b60f9533c1aa92fd0a98fdef7a1a7745ac4df15ef2488fc162482264",
       "baseGitBlob": "e5396e114f588066c0e085e125423730ddd908cf"
     },
     {
       "path": "dev/savia-staff-ui/client.mjs",
-      "rawSha256": "8999819b79e9b8ead4151bef3fb542a6c63252efe1822dc03b967a1629950be7",
-      "lfSha256": "8999819b79e9b8ead4151bef3fb542a6c63252efe1822dc03b967a1629950be7",
+      "rawSha256": "fa45879476a512d7fcaf9ecf375b412268869d45be31fec62f120fef1ef9e4da",
+      "lfSha256": "fa45879476a512d7fcaf9ecf375b412268869d45be31fec62f120fef1ef9e4da",
       "baseGitBlob": "3f73ebb610728190483d058c1c9c9efc56dd060f"
     },
     {
@@ -146,8 +149,8 @@
     },
     {
       "path": "dev/savia-staff-ui/stock-exception.test.mjs",
-      "rawSha256": "850d85c0aa31bcb6d0b80c20df7b2078d00423f42f14aafb47974a17d8b867b9",
-      "lfSha256": "850d85c0aa31bcb6d0b80c20df7b2078d00423f42f14aafb47974a17d8b867b9",
+      "rawSha256": "88b0db9d8a4879fedb0988a8f6f98e18d0b10e20d6dc0e755c4c79fe86e25dd3",
+      "lfSha256": "88b0db9d8a4879fedb0988a8f6f98e18d0b10e20d6dc0e755c4c79fe86e25dd3",
       "baseGitBlob": null
     },
     {
@@ -211,5 +214,5 @@
       "baseGitBlob": "aea6fc776740c4a19dbe0fb0a1fcc39bc026d32c"
     }
   ],
-  "revision_from": "e48b5accd6ba45473e64a949e993db497ed93b1e"
+  "revision_from": "45aba761a9bc3d9faa6a1e940368df07af9770bf"
 }
