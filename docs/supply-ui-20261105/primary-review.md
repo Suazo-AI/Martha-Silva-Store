@@ -132,3 +132,13 @@ All three commands completed with exit `0`: `python -X utf8 tools/delivery_statu
 Lesson: a reviewer must receive the actual frozen candidate inside its permitted checkout. The next managed review starts from the published candidate commit and uses the self-contained review packet. The previous access rejection remains preserved.
 
 Publication check found one trailing empty line in the frozen historical `worker/before.mjs`. Its exact bytes are preserved in the private archive recorded by `IMPORT.json`; the redundant diagnostic script is excluded from publication. Historical evidence was not rewritten. The staged publication must pass `git diff --cached --check` without exceptions.
+
+### 2026-11-06: critic return and CI dependency correction
+
+Gemini returned ACCEPT WITH LIMITS on `46e91b607102357abc026fe4542a67264184e9d9`. Imported its exact report; RAW SHA256 `70f72b093fb1490375c887e547bd8c8a0aec61000c53e78e1f2a08a45e417505`. Access gap is resolved. No further local disposable browser negative run is required by this critic; its bounded scheduling interpretation remains advisory until Astra and primary acceptance.
+
+CI `42156813073` failed before any supply scenario: Playwright could not find `ffmpeg-1011/ffmpeg-linux`. Staff and existing-browser steps passed; backend restore/tests were skipped. This is an environment failure, not product evidence. The Tony source snapshot and both progress workflows passed on that SHA. Full private log archive/hash and exact error are in [CI-FOLLOWUP.json](CI-FOLLOWUP.json).
+
+Correction adds the pinned Playwright CLI `install ffmpeg` to both browser CI setups. It does not install a new browser, change product runtime, SQL job conditions or deploy. README accents are restored as the critic requested. Historical CANDIDATE.json and original worker artifacts remain frozen. CI-FOLLOWUP.json binds the current 18 files and identifies the three changed files. Fifteen other LF bindings are unchanged; both YAML files parse.
+
+Owner: primary. Next: publish this correction, read the new exact-SHA no-SQL Linux run, then give its evidence and the critic to Astra/high. Close the dependency blocker only after FFmpeg install and affected supply suite finish successfully. Keep SUPPLY-UI in review and production NO-GO. Lesson: a browser binary does not supply Playwright recording dependencies; keep required video tooling explicit in CI.

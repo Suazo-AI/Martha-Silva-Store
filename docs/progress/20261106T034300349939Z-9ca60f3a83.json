@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-06T03:43:00.349939+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": ".github/workflows/savia.yml",
+      "change": "M",
+      "git_blob": "515cf3fe13ced6fcdcf092b3d6388e1d7671bafa"
+    },
+    {
+      "path": ".github/workflows/staff-ui-candidate.yml",
+      "change": "M",
+      "git_blob": "838b83c39b36492f49e551d7e2d689c48f52e461"
+    },
+    {
+      "path": "dev/savia-staff-ui/README.md",
+      "change": "M",
+      "git_blob": "fc13fc7b7c35b06b58e7c1132def367bb334a739"
+    },
+    {
+      "path": "docs/supply-ui-20261105/CI-FOLLOWUP.json",
+      "change": "A",
+      "git_blob": "a73ab9c241b489f70147189f17b25485c103b1e9"
+    },
+    {
+      "path": "docs/supply-ui-20261105/gemini-critic-candidate.md",
+      "change": "A",
+      "git_blob": "8e0426498d493236a5c1fb2f5b08b13124adec7e"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary-review.md",
+      "change": "M",
+      "git_blob": "81e2b9465f46c5717ac46a6db9a883e2678674de"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

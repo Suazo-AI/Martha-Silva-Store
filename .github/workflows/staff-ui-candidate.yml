@@ -41,6 +41,7 @@ jobs:
           mkdir -p "$RUNNER_TEMP/pw" && cd "$RUNNER_TEMP/pw"
           npm init -y > /dev/null
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm install --no-audit --no-fund --ignore-scripts playwright@1.63.0
+          node node_modules/playwright/cli.js install ffmpeg
           google-chrome --version
       - name: Existing browser regressions (explicitly mocked HTTP)
         run: node tests/browser-mock-validation.mjs "$RUNNER_TEMP/pw/node_modules/playwright" "$RUNNER_TEMP/staff-evidence/existing"
