@@ -47,3 +47,33 @@ The new Linux aggregate remains pending. A successful integrity job is not a suc
 The active Gemini storefront review remains attributed to its frozen a77f705 candidate.
 The primary must adjudicate this narrow test-only delta explicitly when accepting that review.
 The refreshed 27-path REVIEW-CANDIDATE describes current paths; historical manifests remain unchanged.
+## Gemini rejection, M1 readback and M2 checkout correction
+
+The independent [Gemini report](gemini-critic.md) rejects frozen a77f705 for M1 and M2.
+The primary imported its exact 15,044 bytes; SHA256 `dd59769667a5010ac4b7d4c7e27a6b572f0fa18e9d8249bed5f6866c1f74db1b`.
+This rejection is retained unchanged. The following is the primary disposition, not a replacement critic verdict.
+
+**M1 is resolved on 8e38d98.** Both publication integrity/build and historical portable regressions passed in
+[Linux run 42173233401](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42173233401).
+That green result predates the M2 fix; it is not CI evidence for the new changes.
+
+**M2 is reproduced and corrected locally.** The primary ran the original verifier in the critic's clean Windows checkout.
+It exited 1 with `Publication bytes differ from the recorded snapshot`.
+Git's Windows checkout filter returned 495-byte CRLF headers instead of the committed 486-byte LF headers.
+The primary expanded the existing recorder regression to include `_headers`.
+It failed before the fix because the recorder accepted the CRLF control file.
+
+The fix adds explicit LF checkout rules for both `_headers` paths.
+The recorder now applies its pre-write CRLF guard to control files too.
+The same regression passes, including proof that refused recording preserves the manifest.
+The direct canonical snapshot verifier and both static-header tests pass.
+The Windows checkout filter now returns the exact existing 486-byte LF headers for both paths.
+[Commands, logs, hashes and limits](CI-HEADERS-LF-FIX.json).
+
+No app, header response, dist, media or recorded snapshot bytes changed.
+The updated REVIEW-CANDIDATE binds 28 source paths, including `.gitattributes`.
+New Linux CI and bounded Astra adjudication must still confirm the corrected commit.
+The historical local/browser/runtime limits remain. No new production gate is closed.
+
+Lesson: a RAW-byte release needs checkout rules and recorder refusal for every publication control file.
+Correcting one file type without checking the other recorded types caused avoidable repair work.

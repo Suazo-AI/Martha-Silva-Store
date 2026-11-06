@@ -11,11 +11,13 @@ That run has 526 .NET passes and 55 skips, staff124/124 and mocked Chrome50/50 p
 [Preparation acceptance and limits](supply-real-20261106/PREPARATION-ACCEPTANCE.json).
 The prepared combined Browser -> API -> SQL receipt journey remains NOT RUN and needs its specific runtime scope.
 
-Combined Jason frontend / Denis images: local acceptance is recorded; Gemini storefront review is active on a77f705.
-Linux run42170897865 on a77f705 passed publication integrity/build, then failed a CRLF-specific exact-layout test expectation.
-The primary reproduced the failure and corrected only the test hash/comment. Focused test exits 0; altered-input control exits 1; restored test exits 0.
-No product source or images changed in this correction. New Linux aggregate and storefront judgment remain pending.
-[Exact failure and correction](hardening-20261106/combined/ci-correction.md).
+Combined Jason frontend / Denis images: [Gemini rejected a77f705](hardening-20261106/combined/gemini-critic.md) for two portability defects.
+M1 was corrected on 8e38d98. Linux run42173233401 passed both publication integrity/build and historical portable regressions.
+M2 is now reproduced and corrected locally: Git preserves LF headers, and the snapshot recorder rejects CRLF controls before overwriting evidence.
+The new recorder regression fails before the fix and passes after it. Direct snapshot verification and static-header tests pass.
+No app, headers, dist or media bytes changed in this correction.
+[Exact M2 proof and limits](hardening-20261106/combined/CI-HEADERS-LF-FIX.json).
+Corrected-commit Linux CI and Astra storefront adjudication remain pending. This does not accept production.
 
 The following sections retain earlier dated observations. Later accepted evidence above supersedes their pending-review statements.
 No merge, deployment or new SQL/API/Docker/certificate runtime occurred in this update.

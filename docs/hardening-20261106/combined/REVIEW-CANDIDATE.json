@@ -1,6 +1,6 @@
 {
-  "sourceBase": "a77f705a6fd6a2778e4112c21aaa72ab8e478015",
-  "status": "integrity-linux-pass-layout-test-lf-fix-local-pass-pending-linux-aggregate-and-review",
+  "sourceBase": "8e38d98dca394d0730ddd830ecd55bc834dbf366",
+  "status": "gemini-reject-m1-m2-corrected-local-pass-pending-corrected-linux-ci-and-astra",
   "host": "SUAZO-PC",
   "primary": {
     "provider": "codex",
@@ -132,14 +132,14 @@
     {
       "path": "tests/test_release_snapshot.py",
       "role": "changed",
-      "rawSha256": "f824d651f8e5b2c7d31edf7d21502c1e1e8094a14d4b6fc90c3b81aadfbbbe84",
-      "lfSha256": "f824d651f8e5b2c7d31edf7d21502c1e1e8094a14d4b6fc90c3b81aadfbbbe84"
+      "rawSha256": "42bf191926eb923ad7050c78bb276791ea37534523bb89dae45615eb42921ac2",
+      "lfSha256": "42bf191926eb923ad7050c78bb276791ea37534523bb89dae45615eb42921ac2"
     },
     {
       "path": "tools/verify_release_snapshot.py",
       "role": "changed",
-      "rawSha256": "b7db1ce0986632ec55d413df308792b3cf543d136431662d1a2b24c150c69e04",
-      "lfSha256": "0c7051220dca9c758c37c6fecd950120855fcba2553b76e6ae11d5d179686337"
+      "rawSha256": "afc0ad75d86bb2f9a882d4e2340e670aa68226c3a94158e48a00c29d011a4fb8",
+      "lfSha256": "aed9fe47890c5b8c495d7e28e5f72f239694355fda34ba4e0171c85e96a9afec"
     },
     {
       "path": ".github/workflows/staff-ui-candidate.yml",
@@ -170,10 +170,18 @@
       "role": "contract",
       "rawSha256": "5b3e9a407ffedc75e229a5eedd6b8aa669e8a095366f8ca9e17cd4393e334599",
       "lfSha256": "be98fa5c4badaad243be68197359d49ae7b5c0492cfbc3288dd0d2cdc3a12ac7"
+    },
+    {
+      "path": ".gitattributes",
+      "role": "checkout-policy",
+      "rawSha256": "6236e632ca51fef5b9d17918d579fd2b79c0311f9e88f5e48c42b30ac820dbea",
+      "lfSha256": "6236e632ca51fef5b9d17918d579fd2b79c0311f9e88f5e48c42b30ac820dbea"
     }
   ],
   "historicalCandidate": "CANDIDATE.json describes the original Windows integration at 8523523. This manifest describes the LF-safe correction.",
   "deltaFromPreviousManifest": [
-    "tests/responsive_images.py"
+    ".gitattributes",
+    "tools/verify_release_snapshot.py",
+    "tests/test_release_snapshot.py"
   ]
 }

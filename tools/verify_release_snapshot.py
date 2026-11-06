@@ -34,10 +34,10 @@ def verify(record=False):
         assert not source.is_symlink(), rel
         result = digest(path)
         assert result == digest(source), 'Canonical/dist drift: ' + rel
-        # These top-level application files use eol=lf in .gitattributes.
+        # Top-level application files and controls use eol=lf in .gitattributes.
         # Reject imported CRLF bytes before recording a Windows-only manifest.
         # Captured resources in subdirectories retain their original bytes.
-        if path.parent == ROOT / 'dist' and path.suffix in {'.html', '.js', '.css'}:
+        if rel in controls or (path.parent == ROOT / 'dist' and path.suffix in {'.html', '.js', '.css'}):
             assert b'\r\n' not in path.read_bytes(), 'Non-canonical CRLF publication input: ' + rel
     text = (ROOT / 'dist/catalog.js').read_text(encoding='utf-8')
     prefix = 'window.DEMO_CATALOG='

@@ -43,7 +43,7 @@ class SnapshotTests(unittest.TestCase):
                 # Git checks out these publication inputs as LF on every host.
                 # Refuse a Windows-only RAW snapshot before overwriting evidence.
                 frozen_manifest = manifest.read_bytes()
-                for rel in ('app.js', 'index.html', 'styles.css'):
+                for rel in ('app.js', 'index.html', 'styles.css', '_headers'):
                     canonical = root / 'src' / rel if rel == 'app.js' else static / rel
                     original_bytes = (dist / rel).read_bytes()
                     try:
