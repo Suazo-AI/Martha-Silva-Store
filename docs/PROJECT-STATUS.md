@@ -1,5 +1,10 @@
 # Estado vigente de Martha Silva / SAVIA
 
+Actualización SQL, 2026-11-06 UTC: **602/602 backend PASS, cero fallos u omitidos** en `Tony@708bdbb`.
+El primary verificó run42163110947, artefacto descargado de nuevo, backup/restore, reinicio y salida real de limpieza.
+[Aceptación técnica y límites](sql-ci-20261106/README.md). Una sola corrida autorizada; sin SQL local, merge ni despliegue.
+La recepción navegador→API→SQL combinada sigue pendiente. C2/C9/C10 y producción conservan sus gates.
+
 Actualización recepción, 2026-11-06 UTC: **SUPPLY-UI aceptado técnicamente con límites**; ledger `done`.
 Recepción de compras existentes: staff124/124, Chrome existente50/50 y abastecimiento8/8 con HTTP simulado.
 Backend Linux:526 PASS,0 FAIL,55 omitidos por SQL opt-in; recurso protegido compilado con SDK10.0.402.

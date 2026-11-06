@@ -1,0 +1,491 @@
+{
+  "task_id": "savia-isolated-sql-ci-708bdbb-20261106",
+  "status": "RETURNED",
+  "acceptance": "NOT ACCEPTED; primary independently reviews",
+  "identity": {
+    "host": "SUAZO-PC",
+    "provider": "codex",
+    "model": "gpt-6.1-sol",
+    "requested_reasoning": "high",
+    "effective_reasoning": "high",
+    "evidence": "T3 runtime instructions and agent-awareness metadata",
+    "isolation": "T3 managed worktree",
+    "workspace": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-82ef9694"
+  },
+  "dispatch": {
+    "count": 1,
+    "command": "npx --no-install gh-axi workflow run savia.yml --ref Tony --repo=Suazo-AI/Martha-Silva-Store",
+    "exit": 0,
+    "started_utc": "2026-11-06T04:32:22.9596165Z",
+    "own_head_and_remote_Tony": "708bdbbf2eff568d571b7593ed40d2422414c671"
+  },
+  "run": {
+    "conclusion": "success",
+    "created_at": "2026-11-06T04:32:28Z",
+    "event": "workflow_dispatch",
+    "head_branch": "Tony",
+    "head_sha": "708bdbbf2eff568d571b7593ed40d2422414c671",
+    "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42163110947",
+    "id": 42163110947,
+    "run_attempt": 1,
+    "run_started_at": "2026-11-06T04:32:28Z",
+    "status": "completed",
+    "updated_at": "2026-11-06T04:34:38Z"
+  },
+  "jobs": [
+    {
+      "completed_at": "2026-11-06T04:34:37Z",
+      "conclusion": "success",
+      "id": 127713213188,
+      "name": "Complete backend suite on disposable SQL Server",
+      "started_at": "2026-11-06T04:32:32Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completed_at": "2026-11-06T04:32:34Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "started_at": "2026-11-06T04:32:33Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T04:32:43Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd",
+          "number": 2,
+          "started_at": "2026-11-06T04:32:34Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T04:32:52Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68",
+          "number": 3,
+          "started_at": "2026-11-06T04:32:43Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T04:32:52Z",
+          "conclusion": "success",
+          "name": "Verify the evidence summarizer",
+          "number": 4,
+          "started_at": "2026-11-06T04:32:52Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T04:33:10Z",
+          "conclusion": "success",
+          "name": "Restore pinned dependencies and build",
+          "number": 5,
+          "started_at": "2026-11-06T04:32:52Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T04:33:25Z",
+          "conclusion": "success",
+          "name": "Start disposable SQL Server 2022 Developer",
+          "number": 6,
+          "started_at": "2026-11-06T04:33:10Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T04:33:30Z",
+          "conclusion": "success",
+          "name": "Wait for SQL and verify licensed edition and engine",
+          "number": 7,
+          "started_at": "2026-11-06T04:33:25Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T04:34:17Z",
+          "conclusion": "success",
+          "name": "Run every backend case against disposable SQL (restart proof held back)",
+          "number": 8,
+          "started_at": "2026-11-06T04:33:30Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T04:34:34Z",
+          "conclusion": "success",
+          "name": "Controlled container stop/start, then restart persistence proof",
+          "number": 9,
+          "started_at": "2026-11-06T04:34:17Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T04:34:34Z",
+          "conclusion": "success",
+          "name": "Require every case executed and passed; sanitize evidence",
+          "number": 10,
+          "started_at": "2026-11-06T04:34:34Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T04:34:35Z",
+          "conclusion": "success",
+          "name": "Upload sanitized outcomes only",
+          "number": 11,
+          "started_at": "2026-11-06T04:34:34Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T04:34:35Z",
+          "conclusion": "success",
+          "name": "Always destroy the disposable SQL container and raw logs",
+          "number": 12,
+          "started_at": "2026-11-06T04:34:35Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T04:34:36Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68",
+          "number": 23,
+          "started_at": "2026-11-06T04:34:35Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T04:34:36Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd",
+          "number": 24,
+          "started_at": "2026-11-06T04:34:36Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T04:34:36Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 25,
+          "started_at": "2026-11-06T04:34:36Z",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "completed_at": "2026-11-06T04:34:23Z",
+      "conclusion": "success",
+      "id": 127713213473,
+      "name": "Staff UI tests and real browser harness",
+      "started_at": "2026-11-06T04:32:32Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completed_at": "2026-11-06T04:32:35Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "started_at": "2026-11-06T04:32:33Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T04:32:50Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd",
+          "number": 2,
+          "started_at": "2026-11-06T04:32:35Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T04:32:51Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f",
+          "number": 3,
+          "started_at": "2026-11-06T04:32:50Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T04:32:53Z",
+          "conclusion": "success",
+          "name": "Install locked jsdom without lifecycle scripts",
+          "number": 4,
+          "started_at": "2026-11-06T04:32:51Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T04:32:57Z",
+          "conclusion": "success",
+          "name": "Staff UI tests (jsdom doubles, not a browser)",
+          "number": 5,
+          "started_at": "2026-11-06T04:32:53Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T04:33:00Z",
+          "conclusion": "success",
+          "name": "Install pinned Playwright library; the runner's Google Chrome is the browser",
+          "number": 6,
+          "started_at": "2026-11-06T04:32:57Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T04:34:08Z",
+          "conclusion": "success",
+          "name": "Real browser with synthetic API responses (includes the N5 regressions)",
+          "number": 7,
+          "started_at": "2026-11-06T04:33:00Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T04:34:18Z",
+          "conclusion": "success",
+          "name": "Purchase receipt browser regressions (synthetic HTTP, no SQL)",
+          "number": 8,
+          "started_at": "2026-11-06T04:34:08Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T04:34:20Z",
+          "conclusion": "success",
+          "name": "Upload browser evidence (synthetic records only)",
+          "number": 9,
+          "started_at": "2026-11-06T04:34:18Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T04:34:20Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f",
+          "number": 17,
+          "started_at": "2026-11-06T04:34:20Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T04:34:20Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd",
+          "number": 18,
+          "started_at": "2026-11-06T04:34:20Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T04:34:21Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 19,
+          "started_at": "2026-11-06T04:34:20Z",
+          "status": "completed"
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "created_at": "2026-11-06T04:34:20Z",
+      "digest": "sha256:c7a1e053d844375822f61c5064c8994c7dc8595bef69b4850b7005f879888c74",
+      "expired": false,
+      "id": 13477732309,
+      "name": "savia-browser-evidence-42163110947-1",
+      "size_in_bytes": 2888986,
+      "updated_at": "2026-11-06T04:34:20Z"
+    },
+    {
+      "created_at": "2026-11-06T04:34:35Z",
+      "digest": "sha256:d4fe4d6b73b6fee15dea7b087169be586f88b4b9450e205d848a4cd2f8f15982",
+      "expired": false,
+      "id": 13477468329,
+      "name": "savia-backend-outcomes-42163110947-1",
+      "size_in_bytes": 7595,
+      "updated_at": "2026-11-06T04:34:35Z"
+    }
+  ],
+  "counts": {
+    "backend": {
+      "cases": 602,
+      "passed": 602,
+      "notPassed": 0,
+      "omitted_or_NotExecuted_observed": 0,
+      "minimum": 601
+    },
+    "SQL_source_mapped": {
+      "cases": 76,
+      "passed": 76,
+      "groups": {
+        "InternalJudgeHttpSqlFact": 8,
+        "InternalCommerceSqlFact": 30,
+        "InternalSecuritySqlFact": 10,
+        "InternalSupplySqlFact": 7,
+        "SqlServerFact": 21
+      }
+    },
+    "staff_jsdom": {
+      "cases": 124,
+      "passed": 124,
+      "failed": 0,
+      "skipped": 0,
+      "cancelled": 0
+    },
+    "mocked_existingChrome": {
+      "cases": 50,
+      "passed": 50
+    },
+    "mocked_supplyChrome": {
+      "cases": 8,
+      "passed": 8
+    }
+  },
+  "required_methods": {
+    "Martha.Store.Api.Tests.InternalSupplyUiTests.Supply_resource_is_embedded_protected_and_serves_the_source_bytes": {
+      "cases": 1,
+      "passed": 1
+    },
+    "Martha.Store.Api.Tests.PrivatePilotReleaseTests.Real_migration_reapply_throwaway_down_up_and_actual_backup_restore": {
+      "cases": 1,
+      "passed": 1
+    },
+    "Martha.Store.Api.Tests.PrivatePilotReleaseTests.Frozen_fixture_survives_controlled_owned_container_stop_start": {
+      "cases": 1,
+      "passed": 1
+    }
+  },
+  "cleanup": {
+    "step_conclusion": "success",
+    "shell_exit": 0,
+    "actual_message": "PASS: disposable SQL container absence verified.",
+    "actual_message_utc": "2026-11-06T04:34:35.8745839Z"
+  },
+  "sql_engine": {
+    "image": "mcr.microsoft.com/mssql/server@sha256:cf8f0ab2ebe61feec2eed2629061a07d247f791c2a8ddda74a4ac9f06a291718",
+    "configured_version": "16.0.4305.5",
+    "observed_major_version": 16,
+    "observed_edition": "Developer (SQL gate checks prefix)",
+    "patch_version_runtime_readback": "NOT EXPOSED: 16.0.4305.5 is pinned-source identity; no SERVERPROPERTY patch output",
+    "gate_step_exit": 0,
+    "feature_opt_in_exports_observed": {
+      "SAVIA_INTERNAL_SQL_TESTS_AUTHORIZED": 1,
+      "SAVIA_INTERNAL_HTTP_SQL_TESTS_AUTHORIZED": 1
+    },
+    "runtime_confirmation": "76/76 source-mapped SQL cases passed, including 8 HTTP+SQL and 7 supply SQL cases"
+  },
+  "hashes": {
+    "outcomes.json": "55e473195951046a82f3d4fec232d1a147170fb392aa195baaec2ba8b788729b",
+    "originals": {
+      "backend_sanitized_original": "034d470778306acbb63ec14ce1b862b36bc04d0ca074f98c2c4dac1449c23e7e",
+      "workflow_raw_private": "48540638c6d67bfe10a0942fb71386ba5ef2d330dd7d6ec5edaba0044b077f6e",
+      "existingChrome": "adbd2ea175d387c4105ac453134fb43639b8399e1e68e5365ff18e8257cc6a4a",
+      "supplyChrome": "d5115adc42dac9da49196a1f86baa04ccb3e26212fe20b1415430cfd615829c8"
+    },
+    "source_manifest": {
+      ".github/workflows/savia.yml": {
+        "git_source_sha256": "73d8b1ed4b1c5d94e42f5c44ba0138d7f670eb096d8bc688ffe570652de6347c",
+        "working_file_sha256": "b14751c6ee986956013dbff3737298e1ada33cf0a087aec7775adb084769259d",
+        "git_blob": "515cf3fe13ced6fcdcf092b3d6388e1d7671bafa"
+      },
+      "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs": {
+        "git_source_sha256": "a2ad86527f08e0d8b20c08cf659ce4695b4faa1352ca836a5843a07fd5dfe0df",
+        "working_file_sha256": "9fbc9e14133b2f6601d7a0246a32cdb5045d4679cf7d84269dd801adfb2901ca",
+        "git_blob": "6a916232c6466eb6e85ee22bfd9488b01b178a88"
+      },
+      "backend/tests/Martha.Store.Api.Tests/InternalBranchScopeSqlTests.cs": {
+        "git_source_sha256": "8616f3a49d2831595de33c17b25012f7479ee8e2a04477d2dca8a92aeaa922e1",
+        "working_file_sha256": "239e0c17254d2d1fd685f842fddbd26585162735f8d37c6d7af066a9afb2a668",
+        "git_blob": "6c0b6852daead7234cf61c59ee935a1dc5a40a6a"
+      },
+      "backend/tests/Martha.Store.Api.Tests/InternalCommerceCommandSqlTests.cs": {
+        "git_source_sha256": "1335b58cb5fcc85088878e74e1740f0dd6e44c6763f9182b96d2764c01d8c291",
+        "working_file_sha256": "3776b2b33264c4f98ef83cb571de50ef6a608d9cd71c42eef3ad3e9b3b8a0454",
+        "git_blob": "1a5934262729b3ba7b2b198dc2b25196c3912f51"
+      },
+      "backend/tests/Martha.Store.Api.Tests/InternalCommerceSqlTests.cs": {
+        "git_source_sha256": "930afbe5606a8b38bfda019e03ebcd2cb3f2679c5c339f603fa56b8ba9bb6949",
+        "working_file_sha256": "deb9dd5d655ad980192f6109ef43efce06729b6d1a2b4f8a6283ea99cd0f1063",
+        "git_blob": "cc9419a1f68ef47bd8b9017ac24699640eb2eb0f"
+      },
+      "backend/tests/Martha.Store.Api.Tests/InternalJudgeTests.cs": {
+        "git_source_sha256": "f10676cbb8dd903246d2e640bda57f332714829c34d1cc846dca3c4e0a8600d7",
+        "working_file_sha256": "b7bba427e22f761f10a8cd6feb6b05e6ad028ee670ca13c64cc0e04429c705fd",
+        "git_blob": "878880a0f8154871e3933f732f7eddbf9e860d54"
+      },
+      "backend/tests/Martha.Store.Api.Tests/InternalReleaseScriptTests.cs": {
+        "git_source_sha256": "78aa138819598c9f0e83644f35ef2db0e2056ffd88e82c8c2cf04fd2e6ef5adf",
+        "working_file_sha256": "34b777dfddaf353836567cf7fe332b8973b35aeed8235507d0bcfecb19690909",
+        "git_blob": "1583e178d7da945c5ac12e411a39e18d92e76da3"
+      },
+      "backend/tests/Martha.Store.Api.Tests/InternalRunnerSqlTests.cs": {
+        "git_source_sha256": "4d7664caaf3ef3a33fe15cd1dc914965e032ecffcb4b1796092610a324857c73",
+        "working_file_sha256": "fe64c11a70d5052bd132ac2abfa343397ca2f8d49e3ecd69a9fdb348c4f2896f",
+        "git_blob": "52a6ce1b6b18f13ed40fc6282d14372cb26cb3a9"
+      },
+      "backend/tests/Martha.Store.Api.Tests/InternalSecuritySqlTests.cs": {
+        "git_source_sha256": "9a64295beaeae3340fc07e51f0ce0f473a773fb6043d80fc63b786b73e92223e",
+        "working_file_sha256": "e103961423d46599f0268bfda3dd737994d215f9e3b31cfc4a6392677b193a5e",
+        "git_blob": "a8bf083462777ca0344031fe11d7f5ea90d78153"
+      },
+      "backend/tests/Martha.Store.Api.Tests/InternalSupplySqlServerTests.cs": {
+        "git_source_sha256": "e6837b2997f6679042f6b2044ddfa39e9366c2f169ce0d8353fbc257230896ca",
+        "working_file_sha256": "f23058891efc942e101477cc9b0a5917127a398ca72d5c5e079736a93c2aa18b",
+        "git_blob": "3c25cd54da75d5f13247fbcab66b4e7a2d057196"
+      },
+      "backend/tests/Martha.Store.Api.Tests/InternalSupplyUiTests.cs": {
+        "git_source_sha256": "c453442a78c60ed191a7ea6c5565c2195a5832eee9403da6a35dc7f543c92f51",
+        "working_file_sha256": "3369f98093e15ff200e3eff1ffd1ea4ed93d59c023e27f3389e5b9aefb9232ac",
+        "git_blob": "171006f6e29805db02d633ba71ff69568b0aa17c"
+      },
+      "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs": {
+        "git_source_sha256": "0cc927b7f9196960569bd9b2356a6b7506804b0a4843af5546bd962bb0cb7bab",
+        "working_file_sha256": "1590caa23f8e1f7d616f9cc0f78bfdce34995572902196e432c7f62167bcadaa",
+        "git_blob": "a02283570ff44f7ef2e438df2dc413db6c9ba952"
+      },
+      "backend/tests/Martha.Store.Api.Tests/SaviaSqlServerIntegrationTests.cs": {
+        "git_source_sha256": "854a58e458edfef152c498c545b3c78d57338b213fb42573a1eeb17017406b56",
+        "working_file_sha256": "cde62f33100343452229786b0a6a3e1a7e67124ba1d23ef569a3c7d0dbe29f86",
+        "git_blob": "f285dba0f5338a11301dac8192cb31fd08ee6aeb"
+      },
+      "backend/tests/Martha.Store.Api.Tests/SqlServerIntegrationTests.cs": {
+        "git_source_sha256": "6147415cef0377b036a6de687859beb7b1175bae6f77ba5f10df47da60219f8c",
+        "working_file_sha256": "1f23705fef728af4de01a5c9567fe26e967706f085d4e3c80154de680d23a5f6",
+        "git_blob": "fb13ee751f012392f1f588ba4091d6bb8ed0a206"
+      },
+      "backend/tests/test_verify_full_suite.py": {
+        "git_source_sha256": "dba6bf4a3c5012750872aba89d4237ddabc2b0b1707aefc86284d4b9fb6d53d0",
+        "working_file_sha256": "5091fd543260157e45d0c1e92a61e18ed3149253b81a5d2b6338d6235a22a8ff",
+        "git_blob": "0be4ea1623ed3dc7d1f66b8ce11a2e516e8082ae"
+      },
+      "backend/tests/verify_full_suite.py": {
+        "git_source_sha256": "ab4b6ba0fd193c9ef88f63219ce2d3456a2f192b2ff1a0688349a6cc97f4cf11",
+        "working_file_sha256": "c57c88870e27366d87189ae1c73438ca940674f434360e1db61c599430a9d632",
+        "git_blob": "0a9f54c88e497f7ef30bdf8ea5ad02281fa54a18"
+      }
+    }
+  },
+  "private_archive": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\sql-ci-20261106\\42163110947",
+  "changed_paths": [
+    "docs/sql-ci-20261106/worker/README.md",
+    "docs/sql-ci-20261106/worker/RESULT.json",
+    "docs/sql-ci-20261106/worker/outcomes.json"
+  ],
+  "blockers": [],
+  "collection_corrections": [
+    {
+      "failure": "jobs metadata base64 decoding failed due to gh-axi truncation",
+      "correction": "Read-only API request repeated with --full; complete JSON parsed",
+      "resolved": true
+    },
+    {
+      "failure": "Public-artifact generator regex failed before writing due to shell Unicode conversion",
+      "correction": "Use ASCII-only patterns; run artifact assertions again",
+      "resolved": true
+    }
+  ],
+  "lesson": "Use --full for machine-readable gh-axi metadata and ASCII-only patterns in PowerShell pipelines.",
+  "limits": [
+    "No actual browser -> API -> SQL proof",
+    "No C9 local RTO/RPO acceptance",
+    "No C2/C10 operational acceptance",
+    "Not production-ready",
+    "Raw test/TRX files intentionally deleted by workflow; individual outcomes verified from sanitized artifact and pinned summarizer",
+    "No implementation, local SQL/Docker/TLS/certificate changes, stage, commit, push, PR, merge, deploy, rerun, second dispatch or golden-path workflow"
+  ],
+  "usage": {
+    "Actions_cost_USD": "unknown; not exposed",
+    "model_tokens": "unknown; not exposed",
+    "run_wall_seconds": 130,
+    "job_seconds": {
+      "Complete backend suite on disposable SQL Server": 125.0,
+      "Staff UI tests and real browser harness": 111.0
+    }
+  },
+  "next_owner": "primary T3 Codex thread",
+  "next_action": "Independently verify outcomes, bindings, hashes and limits; integrate only accepted sanitized documentation."
+}

@@ -1,0 +1,31 @@
+{
+  "status": "ACCEPTED_WITH_LIMITS",
+  "sourceSha": "708bdbbf2eff568d571b7593ed40d2422414c671",
+  "runId": 42163110947,
+  "runAttempt": 1,
+  "runUrl": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42163110947",
+  "primaryChecks": {
+    "freshGitHubRunAndJobs": "success, exact workflow/SHA/event/attempt",
+    "freshIndependentBackendArtifactDownload": "hash and outcomes match worker original",
+    "backendCases": 602,
+    "backendPassed": 602,
+    "backendNotPassed": 0,
+    "requiredResourceBackupRestoreAndRestartMethods": "each 1/1 PASS",
+    "gitSourceBindingsVerified": 16,
+    "cleanupActualOutputVerified": "PASS: disposable SQL container absence verified."
+  },
+  "importRawSha256": {
+    "README.md": "57e8f7d293ad87ee44ff2fd593f8f604a4cfcebf74db4a0081520e9804746883",
+    "RESULT.json": "45093264af508500e38a0f0033f00d800097d30b3119717e02f38f216ced49da",
+    "outcomes.json": "55e473195951046a82f3d4fec232d1a147170fb392aa195baaec2ba8b788729b"
+  },
+  "limits": [
+    "No actual browser -> API -> SQL proof",
+    "No C9 local RTO/RPO acceptance",
+    "No C2/C10 operational acceptance",
+    "Not production-ready",
+    "Raw test/TRX files intentionally deleted by workflow; individual outcomes verified from sanitized artifact and pinned summarizer",
+    "No implementation, local SQL/Docker/TLS/certificate changes, stage, commit, push, PR, merge, deploy, rerun, second dispatch or golden-path workflow"
+  ],
+  "publication": "PENDING_AT_ACCEPTANCE; remote documentation SHA and CI require separate readback"
+}
