@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-06T08:43:13.374503+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "028cfc26998d3b237a878183f4f855e1f624156c"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "change": "M",
+      "git_blob": "244ddd637ca10e6ab66356b7e53e3da7f0b458be"
+    },
+    {
+      "path": "docs/stock-exception-20261106/PREPARATION-ACCEPTANCE.json",
+      "change": "A",
+      "git_blob": "9c074023322b3bad84280f399f5219b858583bd4"
+    },
+    {
+      "path": "docs/stock-exception-20261106/PRIMARY-REVIEW.md",
+      "change": "M",
+      "git_blob": "448a531f14a603171a955f106543b475ea83fc8a"
+    },
+    {
+      "path": "docs/stock-exception-20261106/REVIEW-RESOLUTION.md",
+      "change": "M",
+      "git_blob": "1e1cba60beeb8c7fd5b0aaaf62d8d23495e18e9b"
+    },
+    {
+      "path": "docs/stock-exception-20261106/RUNTIME-CAMPAIGN.md",
+      "change": "A",
+      "git_blob": "68079e91454c3295cd3445a58a1bd0942a1f17d4"
+    },
+    {
+      "path": "docs/stock-exception-20261106/astra-judge-j1j2.md",
+      "change": "A",
+      "git_blob": "78132689e1bd8f07613b245725b3a8d2588ae8ab"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

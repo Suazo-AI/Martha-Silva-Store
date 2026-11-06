@@ -1,6 +1,6 @@
 # Stock exception candidate: primary review
 
-Status: REVIEW. This freezes implementation for independent advice. It does not accept STOCK-EXCEPTION, TECH-TRIAL or production.
+Status: PREPARATION ACCEPTED WITH LIMITS on `139c389`. STOCK-EXCEPTION remains in review until real SQL and combined-journey proof. TECH-TRIAL and production are not accepted.
 
 Base: `9597f19d0e1621c2b3984f8bf8878a0f7d58d906`. Primary: SUAZO-PC / T3 Code / Codex / gpt-6.1-sol / xhigh.
 Worker: Sol/high in T3-managed t3-92a93a5c. The primary verified all 31 returned RAW source hashes and canonical preimages before serial import.
@@ -89,3 +89,29 @@ Linux CI runs `42186722956` and `42186722928` succeeded on predecessor `45aba76`
 They do not cover J1/J2. New exact-SHA CI and targeted independent adjudication remain pending.
 See [resolution](REVIEW-RESOLUTION.md) and [receipts](primary/JUDGE-CHECKS.json).
 SQL, real browser/API/SQL, C2/C9/C10 and production acceptance remain open.
+
+## Final preparation acceptance, 2026-11-06
+
+Primary accepts the [targeted Astra report](astra-judge-j1j2.md) within its frontend scope.
+J1/J2 are resolved. All 33 current LF source bindings match both working files and Git blobs at `139c3898d1e76e66a07b89f179e50508672df473`.
+The eight frozen criteria above are unchanged. SQL-dependent claims remain unverified.
+
+Exact-SHA Linux run [42188326094](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42188326094) succeeded:
+staff152/152, zero skips; mocked Chrome50/50 plus8/8; backend543 PASS,58 skipped,0 failed.
+The real-journey helper compiled and database-independent resource guards passed.
+Snapshot run [42188327840](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42188327840) passed integrity/build and the historical portable regression gate.
+Both progress checks passed. Skips are not SQL proof.
+
+[Acceptance receipt](PREPARATION-ACCEPTANCE.json) records readback, report hash and proof boundaries.
+[Next isolated campaign](RUNTIME-CAMPAIGN.md) covers full SQL tests and the combined Chrome/API/SQL path.
+It is prepared for Jason's authorization; no workflow was dispatched.
+
+Blocker disposition: Windows symlink-fixture verification is resolved for Linux CI; host security is unchanged.
+Independent preparation review is complete. Real SQL, local operational acceptance, C2/C9/C10 and payments remain open.
+The original missing baseline video remains historical; later J1/J2 corrections have real before/after recordings.
+Ignored caches remain contained after the prior policy rejection. No new deletion was attempted.
+
+Lesson applied: close review gates with existing exact-SHA proof, then run the missing persistence layer instead of repeating mocked tests.
+
+Documentation publication checks: `python tests/test_progress.py`23/23 PASS; `python tools/export_progress.py --verify`15/15 preserved hashes; `python tools/delivery_status.py --check`valid39 items; `git diff --check`exit0.
+Every ledger status and `done_when` remains unchanged. Unrelated `AGENTS.md` and `docs/DECISIONS.md` retain their pre-task hashes and are excluded from publication.

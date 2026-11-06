@@ -2,7 +2,7 @@
 
 Source reviewed by Gemini: `e48b5accd6ba45473e64a949e993db497ed93b1e`.
 Primary: SUAZO-PC, T3 Code / Codex, `gpt-6.1-sol/xhigh`.
-Status: corrected candidate awaiting Astra adjudication and exact-SHA Linux CI.
+Status: preparation accepted with limits on `139c389`; Astra J1/J2 and exact-SHA Linux CI complete.
 Production remains NO-GO. No SQL, Docker, deployment or certificate changes occurred.
 
 ## M1: disputed business interpretation; server policy preserved
@@ -17,7 +17,7 @@ These are separate actors with separate checks.
 
 Gemini's proposed extra role and different-person restriction for the follow-up actor is not adopted.
 No server authorization was weakened. The original REVISE report is preserved unchanged.
-Astra must adjudicate this objection against D-027 and the direct server code.
+Astra rejected this objection against D-027 and the direct server code. The historical objection remains below for traceability.
 
 Sources: `docs/DECISIONS.md` D-027; `InternalStockExceptions.cs:72-85`;
 `InternalCommandRunner.cs:32`; `InternalBranchAccess.cs:27-35`.
@@ -133,3 +133,15 @@ Primary will prepare the exact isolated campaign after acceptance; Jason must au
 Production remains NO-GO. No deployment, migration apply, trust change, real data or payment occurred.
 
 Lesson applied: validate identifier identity separately from identifier spelling; preserve retry payload bytes.
+
+## Closure of preparation review
+
+Primary accepts [Astra J1/J2](astra-judge-j1j2.md). Its exact imported RAW hash is recorded in [PREPARATION-ACCEPTANCE.json](PREPARATION-ACCEPTANCE.json).
+Linux CI42188326094 and42188327840 succeeded on `139c3898d1e76e66a07b89f179e50508672df473`.
+Staff152/152, mocked Chrome50/50+8/8, backend543 PASS/58 skipped; snapshot integrity/build and portable regressions passed.
+Earlier pending-review statements above describe historical stages, not current blockers.
+
+STOCK-EXCEPTION stays in review because real SQL and combined-journey criteria remain unmet.
+The [two-workflow isolated campaign](RUNTIME-CAMPAIGN.md) is prepared, not authorized or executed.
+Jason owns runtime approval. Primary owns dispatch, exact-SHA readback, result adjudication and cleanup verification.
+Unknown legacy pending outcomes still require operator reconciliation; no uncertainty is discarded.

@@ -149,8 +149,8 @@
         "dev/savia-staff-ui/*",
         "tests/golden-path/*"
       ],
-      "prep": "Candidate imported from worker: mandatory reason/size, no fabricated balance/movement, different-person append-only review. Primary reproduced and fixed ordinary-sale fingerprint regression. Primary offline: backend543 pass/58 skip, staff133, harness46, helper build and Chrome1440/390 pass. SQL persistence/concurrency and independent acceptance NOT RUN. Original done_when unchanged.",
-      "report": "docs/stock-exception-20261106/PRIMARY-REVIEW.md"
+      "prep": "Preparation accepted with limits on 139c389 after Astra J1/J2 acceptance and exact-SHA Linux CI42188326094/42188327840. Staff152/152; mocked Chrome50/50+8/8; backend543 pass/58 SQL skips. SQL persistence/concurrency and real journey NOT RUN; status review and original done_when unchanged.",
+      "report": "docs/stock-exception-20261106/PREPARATION-ACCEPTANCE.json"
     },
     {
       "id": "C2",
@@ -320,7 +320,7 @@
         "SUPPLY-UI",
         "STOCK-EXCEPTION"
       ],
-      "blocker": "STOCK-EXCEPTION candidate is under independent review; integrated SQL/browser campaign is NOT RUN. Freeze and review before requesting runtime scope.",
+      "blocker": "Supply and stock preparation accepted with limits. Real integrated campaign NOT RUN; prior one-run runtime authority consumed. Exact two-workflow proposal prepared in docs/stock-exception-20261106/RUNTIME-CAMPAIGN.md; Jason authorization required before dispatch.",
       "title": "Ensayo tecnico sintetico persistido en SUAZO-PC",
       "why": "Una pantalla simulada y una suite SQL separada no prueban juntas el recorrido real completo.",
       "done_when": "Candidato congelado: navegador/API/SQL de recepcion, venta/reintento, excepcion y revision por otra persona pasan con oraculos independientes persistidos; identidad de fuentes, saneamiento y retiro comprobado de recursos propios. No sustituye tareas, tiempos o conteo fisico de C10.",
@@ -330,7 +330,7 @@
         "decision": "Autorizar una campana concreta despues de congelar el candidato integrado. La aprobacion anterior esta consumida.",
         "decider": "jason"
       },
-      "prep": "Preparacion supply aceptada. --supply actual no prueba una excepcion futura. No se ejecuta ni autoriza runtime por cambiar este ledger.",
+      "prep": "Existing 17 supply/browser checkpoints and four SQL identity oracles preserved; stock adds five checkpoints and one identity oracle. CI campaign would verify Linux only; SUAZO-PC and C10 operational acceptance remain separate. No runtime started.",
       "report": "docs/release-20261106/process-acceptance.md"
     },
     {
