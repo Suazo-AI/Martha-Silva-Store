@@ -40,6 +40,21 @@ class SnapshotTests(unittest.TestCase):
                 recorded = json.loads(manifest.read_text())
                 self.assertEqual(len(recorded), 1559)
                 self.assertEqual(recorded['_headers']['sha256'], snapshot.digest(dist / '_headers'))
+                # Git checks out these publication inputs as LF on every host.
+                # Refuse a Windows-only RAW snapshot before overwriting evidence.
+                frozen_manifest = manifest.read_bytes()
+                for rel in ('app.js', 'index.html', 'styles.css'):
+                    canonical = root / 'src' / rel if rel == 'app.js' else static / rel
+                    original_bytes = (dist / rel).read_bytes()
+                    try:
+                        (dist / rel).write_bytes(b'fixture\r\n')
+                        canonical.write_bytes(b'fixture\r\n')
+                        with self.assertRaisesRegex(AssertionError, 'Non-canonical CRLF'):
+                            snapshot.verify(record=True)
+                        self.assertEqual(manifest.read_bytes(), frozen_manifest)
+                    finally:
+                        (dist / rel).write_bytes(original_bytes)
+                        canonical.write_bytes(original_bytes)
                 original = (dist / '_headers').read_bytes()
                 (dist / '_headers').write_bytes(b'tampered')
                 with self.assertRaisesRegex(AssertionError, 'Canonical/dist drift'):

@@ -29,3 +29,7 @@ The new correction commit requires its own successful checks. A previous green r
 Lesson: preserve safe, specific diagnostic codes through each process boundary, and test unknown-text rejection beside known-code propagation.
 
 Next: publish the corrected candidate, read exact-commit CI, and obtain Astra's independent adjudication.
+
+## Automatic Linux readback on 8523523
+
+[CI-852.json](CI-852.json) binds all 21 source paths to successful no-SQL run 42169677581 on `8523523a41d490f7bdcca016bf34cc5fc2c04a37`. Helper Release build: zero warnings/errors. Staff: 124/124; mocked Chrome: 50/50 and 8/8. Database-independent .NET: 526 passed, 55 skipped, zero failed. These skipped tests remain explicit. This is preparation and source-lineage evidence; the combined real browser/API/SQL journey remains NOT RUN.

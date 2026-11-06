@@ -1,6 +1,13 @@
 # Estado vigente de Martha Silva / SAVIA
 
 
+Correcci?n de publicaci?n, 2026-11-06 UTC: `8523523` qued? SYNCED, pero su snapshot Linux fall? por CRLF/LF.
+Tres hashes registraban los bytes Windows previos a la conversi?n Git. El c?digo publicado ya era LF.
+Primary reprodujo el fallo, a?adi? una guarda con rojo/verde y registr? los hashes de esos mismos blobs Git.
+Snapshot y build1,560 pasan localmente. No cambi? el frontend publicado ni sus im?genes.
+[Correcci?n y manifiesto actual](hardening-20261106/combined/ci-correction.md). CI Linux corregida y revisiones independientes pendientes.
+
+
 Actualizaci?n integrada, 2026-11-06 UTC: frontend Jason con im?genes Denis importado y probado localmente.
 Los 3,126 archivos del candidato coinciden byte por byte; build reproducible de 1,560 archivos.
 DOM29/29, localizaci?n17/17, cat?logo27/27, im?genes1/1, headers2/2 y snapshot1/1 pasan.

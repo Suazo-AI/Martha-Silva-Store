@@ -1,5 +1,8 @@
 # Integrated storefront: primary review
 
+
+Current correction: [LF-safe snapshot and new manifest](ci-correction.md). The report below records the original 8523523 integration.
+
 Local checks pass. Independent review and exact-commit Linux CI remain pending. Production remains NO-GO.
 
 Host: SUAZO-PC. Primary: T3 Code / Codex / gpt-6.1-sol, xhigh.
