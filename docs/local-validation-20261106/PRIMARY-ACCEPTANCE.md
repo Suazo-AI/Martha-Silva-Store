@@ -104,3 +104,29 @@ Preserve raw diagnostics privately before any task-owned cleanup. Keep review an
 Full Windows repository verification is not claimed. Its known symlink-fixture blocker is `WinError 1314`.
 No host privilege change was attempted. Primary owns its Linux verification after the local runtime becomes available.
 Only owned test/evidence paths enter this publication; unrelated AGENTS.md and docs/DECISIONS.md remain excluded.
+
+## Independent review and exact chunk verifier
+
+Primary accepts Astra's `ACCEPT WITH LIMITS` for the three-file fingerprint correction at `857bea1`.
+The imported report matches RAW SHA256 `c106f7901755c799e7505111e7be5fe2cb6682f6d37a7aa8fb8f29a5d95ecda4`.
+The judge independently checked source, historical TRX evidence and A's targeted replacement.
+No SQL runtime conclusion follows from this acceptance.
+
+OpenCode/DeepSeek returned an optional exact-partition mode in the existing TRX verifier.
+Primary inspected both changed Python files and verified all three recorded LF bindings, including the unchanged manifest.
+Four executor artifacts and the judge report were imported byte for byte; see [IMPORT.json](partition-verifier/IMPORT.json).
+On the integrated bytes, `python -m unittest discover -s backend/tests -p test_verify_full_suite.py` passed 16 tests, exit 0.
+Publication checks: `python tests/test_progress.py` passed 23 tests, exit 0; `python tools/export_progress.py --verify` checked 15 preserved hashes, exit 0.
+The scoped `git diff --check` passed. No full Windows repository gate or SQL runtime is claimed.
+Those tests include an intact synthetic 552-case inventory and rejection after one missing occurrence.
+They also exercise the existing full-suite behavior, missing/extra methods, failed/skipped rows, duplicate test IDs and malformed manifests.
+These are verifier tests, not 552 newly executed backend cases.
+
+The Python change is published as a review candidate. Independent Astra/xhigh adjudication is still pending.
+The earlier Astra fingerprint verdict does not review this newly imported Python change.
+No acceptance criterion, frozen partition, product source or workflow was changed.
+
+Fresh runtime check: `docker info --format '{{.ServerVersion}}'` still exits 1 because `dockerDesktopLinuxEngine` is missing.
+No Docker launch or alternative launch route was attempted. Jason owns opening Docker Desktop; primary owns readiness verification afterwards.
+C77, D and E2 remain NOT RUN. The six historical SQL failures remain unexplained by runtime evidence.
+[Current routing, prerequisite evidence and manual alternatives](LOCAL-CONTINUATION.md).

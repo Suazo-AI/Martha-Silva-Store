@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-07T00:41:05.313868+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "backend/tests/test_verify_full_suite.py",
+      "change": "M",
+      "git_blob": "c3389c6fbebe0c51a38da8fc9310e932b01c2fe0"
+    },
+    {
+      "path": "backend/tests/verify_full_suite.py",
+      "change": "M",
+      "git_blob": "1c9de703e424c8b290907f43ab7e59fef8a233a3"
+    },
+    {
+      "path": "docs/local-validation-20261106/LOCAL-CONTINUATION.md",
+      "change": "A",
+      "git_blob": "8551aa852f67c198b11da63c67939f22ca512e6f"
+    },
+    {
+      "path": "docs/local-validation-20261106/PRIMARY-ACCEPTANCE.md",
+      "change": "M",
+      "git_blob": "715d3875c078bf94d52d1875e3627c13e496828c"
+    },
+    {
+      "path": "docs/local-validation-20261106/astra-fingerprint-judge.md",
+      "change": "A",
+      "git_blob": "e101b7930ce6dd5bfad680f76931bb0c76537d7e"
+    },
+    {
+      "path": "docs/local-validation-20261106/partition-verifier/IMPORT.json",
+      "change": "A",
+      "git_blob": "1ba6802841828fdf82ceaa35203db59203ce939d"
+    },
+    {
+      "path": "docs/local-validation-20261106/partition-verifier/README.md",
+      "change": "A",
+      "git_blob": "c94150f955a3115d110411de96c68a4c3467e0c6"
+    },
+    {
+      "path": "docs/local-validation-20261106/partition-verifier/RESULT.json",
+      "change": "A",
+      "git_blob": "da9009127d0f2c86db1c196975813cf9a4f6373e"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}
