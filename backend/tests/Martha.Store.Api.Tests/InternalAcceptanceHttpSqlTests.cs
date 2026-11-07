@@ -390,6 +390,82 @@ public sealed class InternalAcceptanceHttpSqlTests
         using (var me = await session.Send(Get, "/internal/api/security/me")) Assert.Equal(HttpStatusCode.OK, me.StatusCode);
         Assert.Equal(before, await f.Fingerprint());
 
+        // Same account, real logout/login, same antiforgery cookie: a role or auth failure is not CSRF proof.
+        var cashier = f.Staff["cashier"];
+        var oldSession = await f.Scalar($"SELECT Id FROM savia_internal.Sessions WHERE StaffId='{cashier.Id}' AND RevokedAt IS NULL");
+        var originalCsrfCookie = session.CookieHeader.Split("; ").Single(x => x.StartsWith("__Host-Savia.Csrf=", StringComparison.Ordinal));
+        using (var logout = await session.Send(Post, "/internal/api/security/logout", csrf: cashierToken)) Assert.Equal(HttpStatusCode.NoContent, logout.StatusCode);
+        await Login(session, cashier.LoginName);
+        var newSession = await f.Scalar($"SELECT Id FROM savia_internal.Sessions WHERE StaffId='{cashier.Id}' AND RevokedAt IS NULL");
+        Assert.NotEqual(oldSession, newSession);
+        Assert.Equal("1", await f.Scalar($"SELECT COUNT(*) FROM savia_internal.Sessions WHERE Id='{oldSession}' AND RevokedAt IS NOT NULL"));
+        Assert.Equal("1", await f.Scalar($"SELECT COUNT(*) FROM savia_internal.Sessions WHERE Id='{newSession}' AND SecurityVersion='{cashier.SecurityVersion}' AND RevokedAt IS NULL AND ExpiresAt>SYSUTCDATETIME()"));
+        Assert.Contains(originalCsrfCookie, session.CookieHeader.Split("; "));
+        using (var me = await session.Send(Get, "/internal/api/security/me"))
+            Assert.Equal(cashier.Id, (await Json(me, HttpStatusCode.OK)).GetProperty("id").GetGuid());
+        var sameBody = f.SaleBody(f.LocationA);
+        var sameKey = Key();
+        var stockBefore = int.Parse(await f.Scalar($"SELECT OnHand FROM savia_internal.StockBalances WHERE ItemId='{f.Database.Item}' AND LocationId='{f.LocationA}'"), CultureInfo.InvariantCulture);
+        var sameBefore = await f.Fingerprint();
+        await Rejected(session, HttpStatusCode.BadRequest, Post, "/internal/api/commerce/sales", sameBody, key: sameKey, csrf: cashierToken, code: "csrf_invalid");
+        Assert.Equal(sameBefore, await f.Fingerprint());
+        cashierToken = await Csrf(session);
+        Guid sameSale;
+        using (var sale = await session.Send(Post, "/internal/api/commerce/sales", sameBody, cashierToken, sameKey))
+        {
+            var receipt = await Json(sale, HttpStatusCode.OK);
+            sameSale = receipt.GetProperty("saleId").GetGuid();
+            Assert.Equal(cashier.Id, receipt.GetProperty("actorId").GetGuid());
+            Assert.Equal(f.LocationA, receipt.GetProperty("locationId").GetGuid());
+            var line = Assert.Single(receipt.GetProperty("lines").EnumerateArray());
+            Assert.Equal(1, line.GetProperty("quantity").GetInt32());
+        }
+        Assert.Equal("1", await f.Scalar($"SELECT COUNT(*) FROM savia_internal.Sales WHERE Id='{sameSale}' AND ActorId='{cashier.Id}' AND LocationId='{f.LocationA}' AND EXISTS (SELECT 1 FROM savia_internal.Locations WHERE Id=Sales.LocationId AND BranchId='{f.BranchA}')"));
+        Assert.Equal("1", await f.Scalar($"SELECT COUNT(*) FROM savia_internal.SaleLines WHERE SaleId='{sameSale}' AND ItemId='{f.Database.Item}' AND Quantity=1 AND UnitPriceMinor=(SELECT UnitPriceMinor FROM savia_internal.Items WHERE Id='{f.Database.Item}') AND TotalMinor=UnitPriceMinor"));
+        Assert.Equal("1", await f.Scalar($"SELECT COUNT(*) FROM savia_internal.StockMovements m JOIN savia_internal.Operations o ON o.Id=m.OperationId WHERE o.[Key]='{sameKey}' AND o.ActorId='{cashier.Id}' AND o.LocationId='{f.LocationA}' AND o.OriginalBranchId='{f.BranchA}' AND m.ItemId='{f.Database.Item}' AND m.LocationId='{f.LocationA}' AND m.ActorId='{cashier.Id}' AND m.OnHandDelta=-1 AND m.ReservedDelta=0 AND m.OnHandAfter={stockBefore - 1}"));
+        var sameAfter = await f.Fingerprint();
+        foreach (var table in new[] { "Sales", "SaleLines", "StockMovements", "Operations" })
+            Assert.Equal(Count(sameBefore, table) + 1, Count(sameAfter, table));
+        Assert.Equal(sameBefore.Where(x => x.Key is not ("Sales" or "SaleLines" or "StockMovements" or "Operations" or "StockBalances")),
+            sameAfter.Where(x => x.Key is not ("Sales" or "SaleLines" or "StockMovements" or "Operations" or "StockBalances")));
+        Assert.Equal((stockBefore - 1).ToString(CultureInfo.InvariantCulture), await f.Scalar($"SELECT OnHand FROM savia_internal.StockBalances WHERE ItemId='{f.Database.Item}' AND LocationId='{f.LocationA}'"));
+        using (var replay = await session.Send(Post, "/internal/api/commerce/sales", sameBody, cashierToken, sameKey))
+            Assert.Equal(sameSale, (await Json(replay, HttpStatusCode.OK)).GetProperty("saleId").GetGuid());
+        Assert.Equal(sameAfter, await f.Fingerprint());
+
+        using (var directoryOwner = await f.Login("owner"))
+        {
+            var oldOwnerToken = await Csrf(directoryOwner);
+            var ownerId = f.Staff["owner"].Id;
+            var ownerS1 = await f.Scalar($"SELECT Id FROM savia_internal.Sessions WHERE StaffId='{ownerId}' AND RevokedAt IS NULL");
+            var ownerCookie = directoryOwner.CookieHeader.Split("; ").Single(x => x.StartsWith("__Host-Savia.Csrf=", StringComparison.Ordinal));
+            using (var logout = await directoryOwner.Send(Post, "/internal/api/security/logout", csrf: oldOwnerToken)) Assert.Equal(HttpStatusCode.NoContent, logout.StatusCode);
+            await Login(directoryOwner, f.Staff["owner"].LoginName);
+            var ownerS2 = await f.Scalar($"SELECT Id FROM savia_internal.Sessions WHERE StaffId='{ownerId}' AND RevokedAt IS NULL");
+            Assert.NotEqual(ownerS1, ownerS2);
+            Assert.Equal("1", await f.Scalar($"SELECT COUNT(*) FROM savia_internal.Sessions WHERE Id='{ownerS2}' AND SecurityVersion='{f.Staff["owner"].SecurityVersion}' AND RevokedAt IS NULL AND ExpiresAt>SYSUTCDATETIME()"));
+            Assert.Equal("1", await f.Scalar($"SELECT COUNT(*) FROM savia_internal.Sessions WHERE Id='{ownerS1}' AND RevokedAt IS NOT NULL"));
+            Assert.Contains(ownerCookie, directoryOwner.CookieHeader.Split("; "));
+            var itemBody = new { sku = "N8-SESSION-BOUND", name = "Synthetic session item", unitPriceMinor = 100, currency = "USD" };
+            var itemKey = Key();
+            var directoryBefore = await f.Fingerprint();
+            await Rejected(directoryOwner, HttpStatusCode.BadRequest, Post, "/internal/api/directory/items", itemBody, key: itemKey, csrf: oldOwnerToken, code: "invalid_csrf");
+            Assert.Equal(directoryBefore, await f.Fingerprint());
+            var fresh = await Csrf(directoryOwner);
+            Guid itemId;
+            using (var created = await directoryOwner.Send(Post, "/internal/api/directory/items", itemBody, fresh, itemKey))
+                itemId = (await Json(created, HttpStatusCode.Created)).GetProperty("id").GetGuid();
+            Assert.Equal("1", await f.Scalar($"SELECT COUNT(*) FROM savia_internal.Items WHERE Id='{itemId}' AND Sku='N8-SESSION-BOUND' AND Name='Synthetic session item' AND UnitPriceMinor=100 AND Currency='USD' AND Active=1"));
+            Assert.Equal("1", await f.Scalar($"SELECT COUNT(*) FROM savia_internal.Operations WHERE [Key]='{itemKey}' AND ActorId='{ownerId}' AND Scope='directory.items.create'"));
+            var directoryAfter = await f.Fingerprint();
+            Assert.Equal(Count(directoryBefore, "Items") + 1, Count(directoryAfter, "Items"));
+            Assert.Equal(Count(directoryBefore, "Operations") + 1, Count(directoryAfter, "Operations"));
+            Assert.Equal(directoryBefore.Where(x => x.Key is not ("Items" or "Operations")), directoryAfter.Where(x => x.Key is not ("Items" or "Operations")));
+            using (var replay = await directoryOwner.Send(Post, "/internal/api/directory/items", itemBody, fresh, itemKey))
+                Assert.Equal(itemId, (await Json(replay, HttpStatusCode.Created)).GetProperty("id").GetGuid());
+            Assert.Equal(directoryAfter, await f.Fingerprint());
+        }
+
         // Identity change on the same browser: the previous user's token must not authorize the new user.
         using (var logout = await session.Send(Post, "/internal/api/security/logout", csrf: cashierToken)) Assert.Equal(HttpStatusCode.NoContent, logout.StatusCode);
         await Login(session, f.Staff["manager"].LoginName);

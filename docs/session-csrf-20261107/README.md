@@ -1,6 +1,6 @@
 # SEC-CSRF: session protection
 
-Status: decision adopted; implementation and runtime acceptance pending.
+Status: implementation imported; combined client proof, Astra review and SQL acceptance pending.
 Source reviewed: `584fcaa6a11a09c1dbdcc97df3205d3e85a0b8d8`.
 Host: `SUAZO-PC`. Primary: T3 Code / Codex / `gpt-6.1-sol`, requested/exposed `xhigh`.
 
@@ -102,3 +102,32 @@ Owner: primary. Next: consume the supported terminal notification, inspect any r
 then integrate useful bytes or diagnose the failed execution layer before another bounded assignment.
 Do not poll or start a replacement while termination is unconfirmed. SQL and production remain unverified.
 The session-CSRF acceptance checks above remain unchanged; the project goal stays active.
+
+## Primary integration, 2026-11-07
+
+The Sol/high worker returned four source changes and four public evidence files from `70e7549`.
+Primary imported them into canonical `Tony` over `92b9068` after checking destination drift.
+All 4 changed-source, 112 compiled-export and 17 unchanged-client LF bindings matched the worker files.
+The unchanged export and client inputs also matched the current canonical checkout.
+[Exact import receipt](primary-integration.json) includes both CSRF and independent runner imports.
+
+Primary parsed the original private TRX files, rather than relying on their reported labels.
+The stale-session regression failed twice before the provider, with unexpected HTTP 204 instead of 400.
+The final framework/security run passed 55/55, with zero failed or unexecuted cases.
+Both original TRX hashes match the frozen worker result. No security runtime was repeated by primary.
+The initial green failure was an anonymous Directory assertion expecting 400 instead of its existing 401;
+the worker records that correction separately. The initial failure is not hidden or counted as a pass.
+
+The application now adds the authenticated session claim to framework antiforgery validation.
+The client implementation is unchanged. Existing client checks do not yet close the frozen combined
+logout/relogin test for sale, supply and stock-review pending references.
+Next: complete that focused client proof, then obtain a fresh Astra/xhigh verdict on the integrated candidate.
+N8 SQL, a complete real journey, CI for the new SHA and production remain unverified.
+No new SQL, Docker campaign, account change, installation, merge or deployment was executed by primary.
+
+Canonical checks completed so far: staff 152/152 with zero skips; local-runner controls 39/39;
+`python tests/test_progress.py` 23/23; `python tools/export_progress.py --verify` preserved 15 hashes.
+The complete `python tests/check.py` also exited 0: staff 152/152, localization 17/17,
+reproducible build, catalog/media, headers, snapshot, portable regressions, HTML and JavaScript checks passed.
+The private log and its hash are recorded in the import receipt. No dependency installation was needed.
+These are offline checks; none closes N8 SQL or the combined client acceptance gap above.

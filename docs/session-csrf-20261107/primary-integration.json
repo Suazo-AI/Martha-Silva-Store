@@ -1,0 +1,157 @@
+{
+  "canonicalBase": "92b90683a3e8a1b1ba01f372fe33c115a58b2469",
+  "workerBase": "70e7549062e6919f36c0f36ba21d7a54999a7d9d",
+  "acceptance": "PENDING_ASTRA",
+  "policy": "copy original bytes; LF bindings ignore CRLF conversion only; imported worker claims remain historical",
+  "files": [
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurity.cs",
+      "rawSha256": "787011826ae99e86f50952d822c9d96c7429b13a19b0bf5547a1144e80177acf",
+      "lfSha256": "21ed34099bf549b60ec5171c1677b309eadf0518c465c8f25e9a6657110cbc52"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalSessionAntiforgeryAdditionalDataProvider.cs",
+      "rawSha256": "c858c783298cb989fd78c79907010b5cb90fb451cd0fd249219d2e43e6b2fe93",
+      "lfSha256": "9ddd1c0325e2fa3fa8246bdfd9234adc512b48241555f7890afd473491732117"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalSessionAntiforgeryTests.cs",
+      "rawSha256": "2e9a0be5e6acec88fa9e7c8dcb02f70a0396d1d3474c9dcf0aa5dda8503692ba",
+      "lfSha256": "d4544738ca9d75d991afa61d7db97d8eabb446f4e35ef7dc1643d1cdd932a380"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs",
+      "rawSha256": "418191606a16659844202da57ded885b97aa5d89609798d52d00723afd0a0734",
+      "lfSha256": "9d1bae635e9076cf293e1996dde6ac93e350e1b28fd54ea5efaded9591fc4fb5"
+    },
+    {
+      "path": "docs/session-csrf-20261107/worker/README.md",
+      "rawSha256": "cae2045c584483fea57395ef4f7cd73b0da563bca7ecb9a883bd98e5b5e86d70",
+      "lfSha256": "cae2045c584483fea57395ef4f7cd73b0da563bca7ecb9a883bd98e5b5e86d70"
+    },
+    {
+      "path": "docs/session-csrf-20261107/worker/RESULT.json",
+      "rawSha256": "db7f57468c327f6003e04d21f6fd6dc4f7c30b27acf4883e2feb4ce4cbc58cbd",
+      "lfSha256": "db7f57468c327f6003e04d21f6fd6dc4f7c30b27acf4883e2feb4ce4cbc58cbd"
+    },
+    {
+      "path": "docs/session-csrf-20261107/worker/SOURCE-MANIFEST.json",
+      "rawSha256": "b84ca8ca9dc9e267922eeb53bd791309d1d4647fbe492e55358187ac0b3eacd0",
+      "lfSha256": "b84ca8ca9dc9e267922eeb53bd791309d1d4647fbe492e55358187ac0b3eacd0"
+    },
+    {
+      "path": "docs/session-csrf-20261107/worker/TEST-INVENTORY.txt",
+      "rawSha256": "a579dc4a2db06c7b9aac857828f746ab0cd32fe44f9af527a09cf739dabdf4ca",
+      "lfSha256": "a579dc4a2db06c7b9aac857828f746ab0cd32fe44f9af527a09cf739dabdf4ca"
+    },
+    {
+      "path": "tools/run_local_validation.py",
+      "rawSha256": "659a78a24b2000cf067a465a16b4f1b1b25d68671cda013538f367f368926f2f",
+      "lfSha256": "659a78a24b2000cf067a465a16b4f1b1b25d68671cda013538f367f368926f2f"
+    },
+    {
+      "path": "tools/local-validation/Dockerfile",
+      "rawSha256": "86c65a020b06cf3706debff26b181fc8af3e3aacab43c682c399ae1a8225a0e4",
+      "lfSha256": "86c65a020b06cf3706debff26b181fc8af3e3aacab43c682c399ae1a8225a0e4"
+    },
+    {
+      "path": "tools/local-validation/run-stage.sh",
+      "rawSha256": "a68e165dcf7f613ae718ef67294a20d45d74327e74d2945416e9d1090d2fed3c",
+      "lfSha256": "a68e165dcf7f613ae718ef67294a20d45d74327e74d2945416e9d1090d2fed3c"
+    },
+    {
+      "path": "tools/local-validation/safety.py",
+      "rawSha256": "97eaaba1c8a343af18c44f16334042813110b0bc1cbcc7d52aec924c63cd1069",
+      "lfSha256": "97eaaba1c8a343af18c44f16334042813110b0bc1cbcc7d52aec924c63cd1069"
+    },
+    {
+      "path": "tools/local-validation/evidence_gate.py",
+      "rawSha256": "a6f366d76e07578793ed0f2bdb8293a65f8b7aa689e081de92b57df5822f4eb0",
+      "lfSha256": "a6f366d76e07578793ed0f2bdb8293a65f8b7aa689e081de92b57df5822f4eb0"
+    },
+    {
+      "path": "tools/local-validation/test_run_local_validation.py",
+      "rawSha256": "17cd1bcacb72176309b6d2d83e606df3daa127ec49aab3f1e1780e7e896330c7",
+      "lfSha256": "17cd1bcacb72176309b6d2d83e606df3daa127ec49aab3f1e1780e7e896330c7"
+    },
+    {
+      "path": "docs/completion-20261107/local-validation/runner-corrections/README.md",
+      "rawSha256": "b21c0e2138136a3092c66f661e6427010ce20edb94168487522c2e3be3f5d33c",
+      "lfSha256": "b21c0e2138136a3092c66f661e6427010ce20edb94168487522c2e3be3f5d33c"
+    },
+    {
+      "path": "docs/completion-20261107/local-validation/runner-corrections/RESULT.json",
+      "rawSha256": "153a3668d6ada218cb8491130d511ecc5f24aa0e1f30d51fa6435acd343cbae5",
+      "lfSha256": "153a3668d6ada218cb8491130d511ecc5f24aa0e1f30d51fa6435acd343cbae5"
+    }
+  ],
+  "verifiedPrivateTrx": {
+    "red": {
+      "passed": 0,
+      "failed": 2,
+      "sha256": "18bec4a06f21fb7da35557cbaea7d75a1cbb0ea7abb11ece8e99c479c6ad9a96"
+    },
+    "final": {
+      "passed": 55,
+      "failed": 0,
+      "sha256": "b37dbc5cf5928c61de32403dfceaa42cf500004d53c4d42e3ef7d0228929ec6f"
+    }
+  },
+  "primaryVerifiedBindings": {
+    "workerChangedSourceLf": 4,
+    "workerCompiledExportLf": 112,
+    "workerUnchangedClientLf": 17,
+    "canonicalUnchangedCompiledExport": "all matched",
+    "canonicalUnchangedClientLf": 17,
+    "destinationDrift": "none"
+  },
+  "primaryChecks": [
+    {
+      "command": "python tools/local-validation/test_run_local_validation.py",
+      "exit": 0,
+      "tests": 39,
+      "seconds": 44.309,
+      "log": "private-exports/integration-20261107/runner-tests.log",
+      "rawLogSha256": "b68ede0f532dac69f90d45aa957e0ece8ebfe64bc107529a8340a663f70adbbb"
+    },
+    {
+      "command": "python -m py_compile tools/run_local_validation.py tools/local-validation/safety.py tools/local-validation/evidence_gate.py tools/local-validation/test_run_local_validation.py",
+      "exit": 0
+    },
+    {
+      "command": "C:/Program Files/Git/bin/bash.exe --noprofile --norc -n tools/local-validation/run-stage.sh",
+      "exit": 0
+    },
+    {
+      "command": "python tests/test_progress.py",
+      "exit": 0,
+      "tests": 23,
+      "seconds": 93.414,
+      "log": "private-exports/integration-20261107/progress-tests.log",
+      "rawLogSha256": "ce74802e94b8e02da4b2bc282977b3c4b8768a70d3acc51f30288afff5a3aeb6"
+    },
+    {
+      "command": "python tools/export_progress.py --verify",
+      "exit": 0,
+      "preservedEvidenceHashes": 15
+    },
+    {
+      "command": "python tests/check.py",
+      "exit": 0,
+      "staff": {
+        "passed": 152,
+        "failed": 0,
+        "skipped": 0
+      },
+      "localization": {
+        "passed": 17,
+        "total": 17
+      },
+      "log": "private-exports/integration-20261107/repository-check.log",
+      "rawLogSha256": "0c3c75a995d8d8d9d6a7c8ef025e44a2f5afc9365332800b6e1d795d1763e137",
+      "browserLayoutClaim": false,
+      "sqlRun": false
+    }
+  ],
+  "summaryReaderCorrection": "The first CP1252 console summary failed on an info glyph; ASCII-escaped JSON succeeded. Product tests were not repeated."
+}

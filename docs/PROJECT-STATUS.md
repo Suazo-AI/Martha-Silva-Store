@@ -2,11 +2,20 @@
 
 Current primary assessment, 2026-11-07 UTC: production remains NO-GO.
 
-Latest execution diagnosis: OpenCode rejected the selected GLM free request with `Free usage limit reached`.
-The stale task is interrupted and its worktree is clean; no session-CSRF implementation was returned.
+Latest implementation: Sol/high returned session-bound CSRF and local-runner safety corrections.
+Primary imported both candidates after source-binding and destination-drift checks.
+CSRF: original private TRX confirms two red stale-session cases, then final 55/55 framework/security passes.
+Combined client logout/relogin proof and fresh Astra/xhigh review remain pending; N8 SQL is NOT RUN.
+[Integration and exact limits](session-csrf-20261107/README.md#primary-integration-2026-11-07).
+Runner: primary independently passed 39/39 offline safety controls. Its image is deliberately unqualified;
+dependency qualification, private evidence destination and runtime authorization remain prerequisites.
+[Runner evidence and next action](completion-20261107/local-validation/runner-corrections/PRIMARY.md).
+
+Historical execution diagnosis: OpenCode rejected the selected GLM free request with `Free usage limit reached`.
+That interrupted GLM task returned no implementation; the later Codex return above supersedes that state.
 [Direct evidence and exact resumption check](completion-20261107/opencode-execution-diagnosis.json).
 This is an upstream access failure, not demonstrated lack of Windows administrator rights.
-Jason authorized temporary Codex `gpt-6.1-sol/high` execution. Session-CSRF resumes first; Astra/xhigh remains the sole judge.
+Jason authorized temporary Codex `gpt-6.1-sol/high` execution. Astra/xhigh remains the sole judge.
 Cash source-only design is accepted after Astra/xhigh review; implementation and all CASH runtime checks remain pending.
 [Frozen controls and primary adjudication](cash-register-20261107/README.md#primary-acceptance-of-the-source-only-design-2026-11-07).
 

@@ -58,6 +58,8 @@ public static class InternalSecurity
             options.Cookie.SameSite = SameSiteMode.Strict;
             options.Cookie.IsEssential = true;
         });
+        services.Replace(ServiceDescriptor.Singleton<IAntiforgeryAdditionalDataProvider,
+            InternalSessionAntiforgeryAdditionalDataProvider>());
         return services;
     }
 
