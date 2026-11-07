@@ -115,3 +115,33 @@ P-OWNER publication `ae8ad5d23ad07d7aeee619f93eb98192db9f2f29` has three complet
 [Progress documentation](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42386089249), and
 [Tony source snapshot](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42386089300).
 These are exact-SHA documentation/publication checks; they do not execute Owner recovery or close P-OWNER.
+
+Terminal-task recovery, 2026-11-07: both cancelled tasks now report `interrupted`, with no pending child runs or questions.
+Only after that readback did the primary inspect their managed worktrees.
+The ended session-CSRF task left a clean checkout and no implementation or test result.
+The ended runtime-entry task left four untracked preparation files in `t3-ea4d8447`; no tracked changes or runtime proof.
+Its final editing command failed with `SyntaxError: unterminated string literal (detected at line 1)`.
+The cause of either task's inactivity remains unknown; these facts do not establish a provider or administrator-access failure.
+
+The runtime candidate is not accepted or imported. Direct source review found these preparation issues:
+
+- `run_local_validation.py:321` tests tar member permission bits as filesystem type bits; verify ordinary archive entries before correction.
+- Lines 485-486 allocate 25 minutes to each C block, rather than one shared C25 deadline.
+- Resource names derive from a deterministic scope; cleanup must verify unique run ownership before deleting resources.
+- Execution exports frozen source while building its Docker context from the working tree; bind both to one reviewed candidate.
+- Preparation files are absent from the pinned commit; the executable path must reject an incomplete frozen source.
+
+These are source findings, not reproduced runtime failures. No candidate execution, container creation, SQL or cleanup was attempted.
+Correction to the primary's earlier commentary: `run-stage.sh` already includes both `--supply` and `--stock-exception`.
+Do not remove either flag or report the supply flag as missing.
+Next: a bounded runner safety review and correction, then fresh focused checks before any runtime scope request.
+In parallel, resume session-CSRF implementation from its already adjudicated design in a new isolated OpenCode worktree.
+The Owner design review completed with conditions; primary accepted its bounded profile after direct source and hash verification.
+Its [adjudication and frozen F1-F13](../owner-recovery-20261107/README.md#primary-adjudication-of-the-fresh-design)
+separate an operational two-Owner gate from the existing server minimum, and reject disabled emergency targets.
+No Owner implementation or recovery execution was accepted.
+Primary owns integration and closure. C77, D, E2, Owner recovery and session-CSRF runtime acceptance remain open.
+
+This recovery/adjudication documentation passed delivery-status 24/24, ledger validation 39 items,
+progress 23/23, export verification 15 preserved hashes and `git diff --check`, all exit 0.
+No product check, database runtime or readiness claim follows from these documentation checks.
