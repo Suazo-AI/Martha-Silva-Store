@@ -1,0 +1,27 @@
+{
+  "sourceSha": "69d3268c63019d8b8299027789962a1089f91a58",
+  "primary": "T3 Code / Codex gpt-6.1-sol/xhigh",
+  "host": "SUAZO-PC",
+  "verification": "Existing independently reviewed exact verifier applied in memory to the actual fresh TRX; no test rerun",
+  "rawTrxSha256": "75703e343215a2b34ea26063ba46d4b184973719db7a7e2866cdd0ef68f53e98",
+  "partition": "A",
+  "cases": 552,
+  "passed": 552,
+  "notPassed": 0,
+  "methods": 195,
+  "uniqueTestIds": 552,
+  "uniqueExecutionIds": 552,
+  "missingMethods": [],
+  "unexpectedMethods": [],
+  "multiplicityMismatch": [],
+  "workerTrackedExecutionSourcesUnchanged": true,
+  "canonicalExecutionSourcesUnchanged": true,
+  "sanitizedReportSha256": "63b976960bab8f8a230df8e5bf41b1e487f7fa006ce616073485fb887c040f1d",
+  "acceptance": "Primary accepts offline A only; local runtime preparation remains incomplete, not authorized",
+  "notRun": [
+    "C77",
+    "D combined browser/API/SQL",
+    "E2 recovery",
+    "production"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "observedAtUtc": "2026-11-07T12:42:05Z",
+  "repository": "Suazo-AI/Martha-Silva-Store",
+  "sha": "69d3268c63019d8b8299027789962a1089f91a58",
+  "source": "GitHub REST check-runs and actions/runs queried read-only through gh-axi",
+  "workflowRuns": [
+    {"id": 42373027650, "name": "Progress documentation", "attempt": 1, "status": "completed", "conclusion": "success"},
+    {"id": 42373027682, "name": "Progress digest", "attempt": 1, "status": "completed", "conclusion": "success"},
+    {"id": 42373027622, "name": "Tony source snapshot", "attempt": 1, "status": "completed", "conclusion": "success"},
+    {"id": 42373027634, "name": "Staff UI candidate (no SQL)", "attempt": 1, "status": "completed", "conclusion": "success"}
+  ],
+  "checkRuns": [
+    {"id": 128404989600, "name": "Historical portable regression suite (known gaps retained)", "conclusion": "success"},
+    {"id": 128404953448, "name": "Optional AI narrator (read-only)", "conclusion": "skipped"},
+    {"id": 128404952507, "name": "Publish digest (sticky PR comment or issue log)", "conclusion": "success"},
+    {"id": 128404866930, "name": "Ledger check and deterministic digest", "conclusion": "success"},
+    {"id": 128404866623, "name": "Publication integrity and reproducible build", "conclusion": "success"},
+    {"id": 128404866553, "name": "staff-and-resource-guards", "conclusion": "success"},
+    {"id": 128404866311, "name": "Progress receipt and sync safety", "conclusion": "success"}
+  ],
+  "limits": ["No new workflow was dispatched.", "These workflows do not execute the real SQL campaign or deploy.", "The GitHub connector returned statuses: []; that response was not treated as green CI."]
+}

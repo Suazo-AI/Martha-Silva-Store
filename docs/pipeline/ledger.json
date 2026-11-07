@@ -1,6 +1,6 @@
 {
   "schema": "savia-delivery-ledger/1",
-  "updated": "2026-11-06",
+  "updated": "2026-11-07",
   "about": "Fuente única del estado de entrega. Un item pasa a done solo con evidencia verificable (run de CI, ruta en el repo o PR). tools/delivery_status.py valida este archivo en cada push y PR.",
   "people": {
     "jason": "Jason Suazo",
@@ -742,7 +742,7 @@
       "order": 25,
       "track": "store",
       "owner": "suazo_pc",
-      "status": "todo",
+      "status": "review",
       "title": "Resolver contratos actuales de galeria del frontend elegido",
       "why": "La clasificacion historica P-LEGACY esta completa; falta disponer solo las verificaciones actuales que no cubra la evidencia vigente.",
       "done_when": "DG01/DG03 foco y slides inactivos, DG06/DG10 teclado/End y DG04 tamanos responsivos mapeados al frontend Jason elegido; reutilizar prueba actual aplicable y comprobar solo huecos. Expectativas obsoletas versionadas; issue4 actualizado con evidencia de cada disposicion. No llamar defecto visual actual a un fallo DOM historico.",
@@ -752,8 +752,9 @@
         "tests/green-header.cjs",
         "tests/luxury-editorial.cjs"
       ],
-      "report": "docs/p-legacy-20261104/CLASSIFICATION.md",
-      "prep": "Issue4 conserva seguimiento. No depende de implementar stock ni bloquea P-GO interno. No hay nuevo defecto demostrado. Requiere alcance antes de escribir en GitHub."
+      "report": "docs/gallery-contracts-20261107/TECHNICAL-ACCEPTANCE.md",
+      "evidence": "Primary and Astra/xhigh accept bounded gallery proof at 69d3268; exact-SHA CI: four completed successful workflows, six successful checks and one optional narrator skipped. Issue4 update is prepared in docs/gallery-contracts-20261107/ISSUE-4-UPDATE.md, not published.",
+      "prep": "Technical proof accepted with limits; remains review because done_when requires issue4 update. External issue write awaits scope and exact readback. Does not block internal P-GO. P-LEGACY historical classification remains closed and unchanged."
     }
   ]
 }

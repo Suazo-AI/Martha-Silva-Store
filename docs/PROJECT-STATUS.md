@@ -1,6 +1,13 @@
 # Estado vigente de Martha Silva / SAVIA
 
-Current primary assessment, 2026-11-06 UTC: production remains NO-GO.
+Current primary assessment, 2026-11-07 UTC: production remains NO-GO.
+
+Gallery verification is technically accepted with limits on `69d3268`, after independent Astra/xhigh review and four successful exact-SHA CI workflows.
+[Acceptance](gallery-contracts-20261107/TECHNICAL-ACCEPTANCE.md). S-LEGACY remains review only for its unperformed issue #4 update; the text is prepared and external-write authority is pending.
+The fresh local site suite passed. Its earlier Windows symlink failure was not reproduced. This is not SQL or production acceptance.
+[Active completion work](completion-20261107/README.md) keeps A552, C77, the combined real journey and E2 recovery separate.
+Fresh local offline A: 552/552 Passed, zero failures/skips, 195/195 methods. Primary verified the actual TRX, unique IDs and exact multiplicities without rerunning tests.
+[Fresh evidence and acceptance limits](completion-20261107/local-validation/PRIMARY-VERIFICATION.json). The local runtime command preparation still needs completion before authorization.
 
 Local partition verifier: primary ACCEPT WITH LIMITS on `5f671dd`; Astra independently passed 21 tests and 39 probes. All four applicable CI workflows succeeded.
 [Exact acceptance and runtime handoff](local-validation-20261106/partition-verifier/ACCEPTANCE.json).

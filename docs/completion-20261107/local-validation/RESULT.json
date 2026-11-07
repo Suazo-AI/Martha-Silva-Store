@@ -1,0 +1,119 @@
+{
+  "task_id": "savia-local-A-and-runtime-prep-69d3268-20261107",
+  "status": "A PASS; runtime campaign PREPARED, NOT RUN; primary acceptance pending",
+  "mode": "VALIDATE/PREPARE",
+  "production_readiness": "NOT ESTABLISHED",
+  "identity": {
+    "host": "SUAZO-PC",
+    "provider": "opencode",
+    "model_requested": "opencode/deepseek-v4.1-flash-free",
+    "variant_requested": "high",
+    "agent": "build",
+    "effective_settings": "not exposed by runtime metadata",
+    "worktree": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-e850e03a",
+    "worktree_branch": "t3/savia-offline-a-runtime-prep",
+    "base_sha": "69d3268c63019d8b8299027789962a1089f91a58",
+    "base_sha_check": "Tony == origin/Tony == 69d3268c63019d8b8299027789962a1089f91a58",
+    "usage_tokens": "unknown",
+    "cost": "unknown"
+  },
+  "changed_paths": [
+    "docs/completion-20261107/local-validation/README.md",
+    "docs/completion-20261107/local-validation/RESULT.json"
+  ],
+  "changed_source_hashes": {
+    "docs/completion-20261107/local-validation/README.md": "BB1C326C0B16C4BB36D864F8D9E1C54BA7C943E2B761CD69724139D9C984757E"
+  },
+  "generated_private_ignored": "private-exports/completion-A-20261107/ (TRX, logs, pilot SQL)",
+  "sdk": {
+    "path": "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+    "version": "10.0.402",
+    "exit": 0
+  },
+  "partition_A": {
+    "manifest": "docs/local-validation-20261106/PARTITIONS.json",
+    "manifest_sha256": "b95a226931107e0143dcab19cd87c4973a13d22a690f76ecd7bb211642df07ad",
+    "manifest_hash_matches_historical": true,
+    "filter_length": 11424,
+    "commands": [
+      {"stage": "restore", "exit": 0, "seconds": 5.278, "argv": ["dotnet", "restore", "backend/tests/Martha.Store.Api.Tests", "--locked-mode"]},
+      {"stage": "build", "exit": 0, "seconds": 60.456, "warnings": 0, "argv": ["dotnet", "build", "backend/tests/Martha.Store.Api.Tests", "--no-restore", "--configuration", "Release"]},
+      {"stage": "test", "exit": 0, "seconds": 81.141, "argv": ["dotnet", "test", "backend/tests/Martha.Store.Api.Tests", "--no-build", "--no-restore", "--configuration", "Release", "--filter", "<partition A filter>", "--logger", "trx;LogFileName=A.trx"]},
+      {"stage": "verify", "exit": 0, "argv": ["python", "backend/tests/verify_full_suite.py", "--manifest", "docs/local-validation-20261106/PARTITIONS.json", "--partition", "A", "private-exports/completion-A-20261107/results"]}
+    ],
+    "outcome": {"cases": 552, "passed": 552, "failed": 0, "skipped": 0, "methods": 195},
+    "verifier_report": {
+      "status": "passed",
+      "expectedCases": 552,
+      "expectedMethods": 195,
+      "missingMethods": [],
+      "unexpectedMethods": [],
+      "multiplicityMismatch": []
+    },
+    "fresh_single_run": true,
+    "historical_551_plus_focused_replacement": false,
+    "raw_trx_sha256": "75703E343215A2B34EA26063BA46D4B184973719DB7A7E2866CDD0EF68F53E98"
+  },
+  "preparation": {
+    "savia_pilot_evidence_precreated": true,
+    "child_env_removed": [
+      "MARTHA_TEST_SQL_CONNECTION",
+      "MARTHA_INTERNAL_TEST_SQL_CONNECTION",
+      "SAVIA_INTERNAL_TEST_SQL_CONNECTION",
+      "SAVIA_INTERNAL_SQL_TESTS_AUTHORIZED",
+      "SAVIA_INTERNAL_HTTP_SQL_TESTS_AUTHORIZED",
+      "SAVIA_PILOT_PERSIST_DATABASE"
+    ],
+    "dotenv_loaded": false,
+    "sql_or_container_commands_issued": false,
+    "c_or_e_methods_executed": false,
+    "syntax_check": {"command": "python -m py_compile tests/golden-path/golden_path.py tests/golden-path/verify_evidence.py", "exit": 0}
+  },
+  "prerequisites_read_only": {
+    "docker_engine": "29.7.2 (exit 0)",
+    "sql_image": "mcr.microsoft.com/mssql/server@sha256:cf8f0ab2ebe61feec2eed2629061a07d247f791c2a8ddda74a4ac9f06a291718 (cached)",
+    "sdk_image": "mcr.microsoft.com/dotnet/sdk:10.0.402 (cached, sha256:747cbade5bfd918a175ac32f8f1d931edec2c7d0d5397a3de72eaef1ac1f66d2)",
+    "existing_savia_containers": "none",
+    "ports_14333_14337_14338": "free",
+    "runner_gap": "cached SDK image lacks python3, node/npm and Google Chrome; golden_path.py needs Linux pty/fcntl/termios and /proc; browser_path.mjs uses channel 'chrome'",
+    "runner_route_prepared": "one disposable runner image from the cached SDK image plus python3, Node 24, Google Chrome and playwright@1.63.0; requires execution-time authorization for network install",
+    "inspections_used": 6
+  },
+  "runtime_campaign": {
+    "status": "PREPARED, NOT RUN",
+    "requires_new_scope": "docs/DATABASE.md line 50; previous runtime approvals consumed",
+    "order": ["C77 (C1 first)", "D combined browser/HTTPS API/SQL with --supply --stock-exception", "E2 backup/restore + owned-container restart"],
+    "frozen_source": "69d3268c63019d8b8299027789962a1089f91a58",
+    "sql_image_digest": "sha256:cf8f0ab2ebe61feec2eed2629061a07d247f791c2a8ddda74a4ac9f06a291718",
+    "sdk_image_digest": "sha256:747cbade5bfd918a175ac32f8f1d931edec2c7d0d5397a3de72eaef1ac1f66d2",
+    "owned_resource_patterns": ["savia-local-a-<8hex>", "savia-local-runner-<8hex>", "savia-local-net-<8hex>"],
+    "loopback_port": "127.0.0.1:14337",
+    "database_naming": "test-generated SaviaInternalTest_(Pilot|Release|Commerce)_<32hex>; pre/post inventory diff only those names",
+    "credential_policy": "runtime-generated Aa1!<64 hex>, masked, child env or 0600 --sql-env-file only",
+    "trust_policy": "container-only TrustServerCertificate=true and ephemeral API cert SPKI pin; no host trust or SAVIATEST change",
+    "budgets_minutes": {"C77": 25, "D": 20, "E2": 15},
+    "sql_retries": "none automatic",
+    "cleanup": "retain private diagnostics, remove owned containers/network, read back absence",
+    "actions_dispatch": "forbidden"
+  },
+  "not_run": [
+    "SQL partition C77",
+    "six historical InternalAcceptanceHttpSqlTests at runtime",
+    "combined journey D",
+    "recovery E2",
+    "browser",
+    "CI dispatch",
+    "full Windows repository suite",
+    "production"
+  ],
+  "limitations": [
+    "Effective model settings are not exposed; requested values are recorded, not proven.",
+    "Raw TRX diagnostics remain private; the public summary is sanitized.",
+    "Theory display labels truncate individual argument identity; every row keeps unique IDs and exact method multiplicities.",
+    "The runtime campaign has no execution evidence; Docker readiness and cached images do not authorize SQL.",
+    "No SQL inventory was taken; existing SAVIATEST and host certificates were not inspected or changed."
+  ],
+  "next_action": "Primary reviews this A evidence and the prepared C77/D/E2 commands, then requests the separate runtime scope before any container start.",
+  "returned_utc": "2026-11-07T12:46:25Z",
+  "no_stage_commit_push": true
+}
