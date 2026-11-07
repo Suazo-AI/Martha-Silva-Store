@@ -1,0 +1,415 @@
+{
+  "task_id": "savia-cash-fixture-adaptation-20261107",
+  "status": "returned_for_primary_review",
+  "host": "SUAZO-PC",
+  "provider": "codex",
+  "model": "gpt-6.1-sol",
+  "requested_reasoning": "high",
+  "exposed_effective_reasoning": "high (T3 runtime metadata)",
+  "base_sha": "457a1576cd782874d1b3159c08e958bac96482eb",
+  "worktree": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-50af1896",
+  "checks": [
+    {
+      "name": "restore",
+      "command": [
+        "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+        "restore",
+        "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+        "--locked-mode"
+      ],
+      "exit": 0,
+      "seconds": 4.06,
+      "cleared_variables": [
+        "MARTHA_TEST_SQL_CONNECTION",
+        "MARTHA_INTERNAL_TEST_SQL_CONNECTION",
+        "SAVIA_INTERNAL_TEST_SQL_CONNECTION",
+        "SAVIA_INTERNAL_SQL_TESTS_AUTHORIZED",
+        "SAVIA_INTERNAL_HTTP_SQL_TESTS_AUTHORIZED",
+        "SAVIA_SQL_TESTS_AUTHORIZED"
+      ],
+      "pilot_precreated": true,
+      "log_binding": {
+        "bytes": 308,
+        "sha256_raw": "08a821a00ca6d14bd827eaceb1de059bd64b266767c30b009861b0844d0338a7",
+        "sha256_lf": "7ed40a23987ec0df38eebabda3c369c98dc9bbe947be9cf2cb921a33680145cc"
+      }
+    },
+    {
+      "name": "focused1",
+      "command": [
+        "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+        "test",
+        "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName~InternalCashSchemaOracleTests|FullyQualifiedName~InternalAcceptanceFingerprintTests|FullyQualifiedName~InternalMigrationTests|FullyQualifiedName~InternalAcceptanceWriteProjectionTests|FullyQualifiedName~InternalReleaseScriptTests.Checked_in|FullyQualifiedName~PrivatePilotReleaseTests.Offline|FullyQualifiedName~InternalCashTests",
+        "--logger",
+        "trx;LogFileName=focused1.trx",
+        "--results-directory",
+        "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-50af1896\\private-exports\\cash-register-20261107\\fixture-adaptation"
+      ],
+      "exit": 0,
+      "seconds": 53.21,
+      "cleared_variables": [
+        "MARTHA_TEST_SQL_CONNECTION",
+        "MARTHA_INTERNAL_TEST_SQL_CONNECTION",
+        "SAVIA_INTERNAL_TEST_SQL_CONNECTION",
+        "SAVIA_INTERNAL_SQL_TESTS_AUTHORIZED",
+        "SAVIA_INTERNAL_HTTP_SQL_TESTS_AUTHORIZED",
+        "SAVIA_SQL_TESTS_AUTHORIZED"
+      ],
+      "pilot_precreated": true,
+      "log_binding": {
+        "bytes": 793,
+        "sha256_raw": "1e185f75184f15332ae0dc9c99cad5d9a07ade5eba580bbc9c25b4ba38fe64dc",
+        "sha256_lf": "7329b2db67c392797abecea58b941c16755484a28af05fb77374a3ba1b344fbf"
+      },
+      "trx_binding": {
+        "bytes": 125863,
+        "sha256_raw": "be3a8d2ffee2e8c91eec4f21055f0b68053a8a54b497058753d32b53efb976a1",
+        "sha256_lf": "2c68c3982b2e933aae91424c034337a28bf7aaa5a0ce6027d50c999aaebb7f11"
+      },
+      "counters": {
+        "total": "82",
+        "executed": "82",
+        "passed": "82",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "result_outcomes": {
+        "Passed": 82
+      }
+    },
+    {
+      "name": "focused2",
+      "command": [
+        "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+        "test",
+        "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName~InternalCashSchemaOracleTests|FullyQualifiedName~InternalAcceptanceFingerprintTests|FullyQualifiedName~InternalMigrationTests|FullyQualifiedName~InternalAcceptanceWriteProjectionTests|FullyQualifiedName~InternalReleaseScriptTests.Checked_in|FullyQualifiedName~PrivatePilotReleaseTests.Offline|FullyQualifiedName~InternalCashTests",
+        "--logger",
+        "trx;LogFileName=focused2.trx",
+        "--results-directory",
+        "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-50af1896\\private-exports\\cash-register-20261107\\fixture-adaptation"
+      ],
+      "exit": 1,
+      "seconds": 3.47,
+      "cleared_variables": [
+        "MARTHA_TEST_SQL_CONNECTION",
+        "MARTHA_INTERNAL_TEST_SQL_CONNECTION",
+        "SAVIA_INTERNAL_TEST_SQL_CONNECTION",
+        "SAVIA_INTERNAL_SQL_TESTS_AUTHORIZED",
+        "SAVIA_INTERNAL_HTTP_SQL_TESTS_AUTHORIZED",
+        "SAVIA_SQL_TESTS_AUTHORIZED"
+      ],
+      "pilot_precreated": true,
+      "log_binding": {
+        "bytes": 462,
+        "sha256_raw": "710adc6da2c1066f7310fa2ad94dbbab484bb6fb8b3f2723da35585d5f1cbe4e",
+        "sha256_lf": "68acb5a7bd2b0da9306e30a8b290a122a460622afa015939267bb467600efaa1"
+      }
+    },
+    {
+      "name": "focused3",
+      "command": [
+        "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+        "test",
+        "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName~InternalCashSchemaOracleTests|FullyQualifiedName~InternalAcceptanceFingerprintTests|FullyQualifiedName~InternalMigrationTests|FullyQualifiedName~InternalAcceptanceWriteProjectionTests|FullyQualifiedName~InternalReleaseScriptTests.Checked_in|FullyQualifiedName~PrivatePilotReleaseTests.Offline|FullyQualifiedName~InternalCashTests",
+        "--logger",
+        "trx;LogFileName=focused3.trx",
+        "--results-directory",
+        "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-50af1896\\private-exports\\cash-register-20261107\\fixture-adaptation"
+      ],
+      "exit": 0,
+      "seconds": 13.79,
+      "cleared_variables": [
+        "MARTHA_TEST_SQL_CONNECTION",
+        "MARTHA_INTERNAL_TEST_SQL_CONNECTION",
+        "SAVIA_INTERNAL_TEST_SQL_CONNECTION",
+        "SAVIA_INTERNAL_SQL_TESTS_AUTHORIZED",
+        "SAVIA_INTERNAL_HTTP_SQL_TESTS_AUTHORIZED",
+        "SAVIA_SQL_TESTS_AUTHORIZED"
+      ],
+      "pilot_precreated": true,
+      "log_binding": {
+        "bytes": 793,
+        "sha256_raw": "15c39fabf32ad9d4c7519c198471e37c5341821d8d5b53d24f6c8befe4f17b3f",
+        "sha256_lf": "393afdb74c6acf25fc3dd41e61416917e6c3e32d49d9f034e32a2adb2bdc5b84"
+      },
+      "trx_binding": {
+        "bytes": 127395,
+        "sha256_raw": "03120b64ea0930cd24a4dec6f77262c16860e0541a505cdd2f7f3eca70c71e2b",
+        "sha256_lf": "a6fa20ae72d55cc748d72291be2be2ab51fe41e59e709593c2620b642cb4ca1e"
+      },
+      "counters": {
+        "total": "83",
+        "executed": "83",
+        "passed": "83",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "result_outcomes": {
+        "Passed": 83
+      }
+    },
+    {
+      "name": "focused4",
+      "command": [
+        "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+        "test",
+        "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName~InternalCashSchemaOracleTests|FullyQualifiedName~InternalAcceptanceFingerprintTests|FullyQualifiedName~InternalMigrationTests|FullyQualifiedName~InternalAcceptanceWriteProjectionTests|FullyQualifiedName~InternalReleaseScriptTests.Checked_in|FullyQualifiedName~PrivatePilotReleaseTests.Offline|FullyQualifiedName~InternalCashTests",
+        "--logger",
+        "trx;LogFileName=focused4.trx",
+        "--results-directory",
+        "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-50af1896\\private-exports\\cash-register-20261107\\fixture-adaptation"
+      ],
+      "exit": 0,
+      "seconds": 9.11,
+      "cleared_variables": [
+        "MARTHA_TEST_SQL_CONNECTION",
+        "MARTHA_INTERNAL_TEST_SQL_CONNECTION",
+        "SAVIA_INTERNAL_TEST_SQL_CONNECTION",
+        "SAVIA_INTERNAL_SQL_TESTS_AUTHORIZED",
+        "SAVIA_INTERNAL_HTTP_SQL_TESTS_AUTHORIZED",
+        "SAVIA_SQL_TESTS_AUTHORIZED"
+      ],
+      "pilot_precreated": true,
+      "log_binding": {
+        "bytes": 793,
+        "sha256_raw": "918c2e9daf0f14fbe0ea2e2f1a97a74458a8256c069210cac19ed1a6a52ddb72",
+        "sha256_lf": "4918c94630f5b1376d7eb001f8dd4d31fe66b17d091f3f7baea4a60a41996fc5"
+      },
+      "trx_binding": {
+        "bytes": 127395,
+        "sha256_raw": "2a6b2ac95c21b4ace369bda4c77a2906251ede4f247a682bef6e8b6cf816db86",
+        "sha256_lf": "c6c1b9fce03e23a9c09ace4b187e34917e4aafa839b5b501ac8590c0809e3805"
+      },
+      "counters": {
+        "total": "83",
+        "executed": "83",
+        "passed": "83",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "result_outcomes": {
+        "Passed": 83
+      }
+    },
+    {
+      "name": "focused5",
+      "command": [
+        "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+        "test",
+        "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName~InternalCashSchemaOracleTests|FullyQualifiedName~InternalAcceptanceFingerprintTests|FullyQualifiedName~InternalMigrationTests|FullyQualifiedName~InternalAcceptanceWriteProjectionTests|FullyQualifiedName~InternalReleaseScriptTests.Checked_in|FullyQualifiedName~PrivatePilotReleaseTests.Offline|FullyQualifiedName~InternalCashTests",
+        "--logger",
+        "trx;LogFileName=focused5.trx",
+        "--results-directory",
+        "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-50af1896\\private-exports\\cash-register-20261107\\fixture-adaptation"
+      ],
+      "exit": 1,
+      "seconds": 8.42,
+      "cleared_variables": [
+        "MARTHA_TEST_SQL_CONNECTION",
+        "MARTHA_INTERNAL_TEST_SQL_CONNECTION",
+        "SAVIA_INTERNAL_TEST_SQL_CONNECTION",
+        "SAVIA_INTERNAL_SQL_TESTS_AUTHORIZED",
+        "SAVIA_INTERNAL_HTTP_SQL_TESTS_AUTHORIZED",
+        "SAVIA_SQL_TESTS_AUTHORIZED"
+      ],
+      "pilot_precreated": true,
+      "log_binding": {
+        "bytes": 468,
+        "sha256_raw": "477abd6157ac3724173f90fd59b32a52d610c7df5ce76ad4c633d16b5ab0f1b8",
+        "sha256_lf": "f127c25977ab804559846a99e310686b121343d8c990a23231209801d8d2d7b9"
+      }
+    },
+    {
+      "name": "focused6",
+      "command": [
+        "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+        "test",
+        "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName~InternalCashSchemaOracleTests|FullyQualifiedName~InternalAcceptanceFingerprintTests|FullyQualifiedName~InternalMigrationTests|FullyQualifiedName~InternalAcceptanceWriteProjectionTests|FullyQualifiedName~InternalReleaseScriptTests.Checked_in|FullyQualifiedName~PrivatePilotReleaseTests.Offline|FullyQualifiedName~InternalCashTests",
+        "--logger",
+        "trx;LogFileName=focused6.trx",
+        "--results-directory",
+        "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-50af1896\\private-exports\\cash-register-20261107\\fixture-adaptation"
+      ],
+      "exit": 1,
+      "seconds": 6.88,
+      "cleared_variables": [
+        "MARTHA_TEST_SQL_CONNECTION",
+        "MARTHA_INTERNAL_TEST_SQL_CONNECTION",
+        "SAVIA_INTERNAL_TEST_SQL_CONNECTION",
+        "SAVIA_INTERNAL_SQL_TESTS_AUTHORIZED",
+        "SAVIA_INTERNAL_HTTP_SQL_TESTS_AUTHORIZED",
+        "SAVIA_SQL_TESTS_AUTHORIZED"
+      ],
+      "pilot_precreated": true,
+      "log_binding": {
+        "bytes": 2463,
+        "sha256_raw": "c01c4df1b747ec71a0cfccd80b27533c6fe1cb06b273990823a00822c34c4e3e",
+        "sha256_lf": "02f7c921d3b512210612632d9d18cb19449524bf612d791ec14d85a54e2c1e61"
+      },
+      "trx_binding": {
+        "bytes": 132440,
+        "sha256_raw": "6e948a5fc65ae524aa2385d5ba5a63bd6169401dae5ce3b0fa80a3c0e45a1310",
+        "sha256_lf": "16d15e363040552a03c047ece7becbedf0536c1066c16d4b01098ad2abfcd76a"
+      },
+      "counters": {
+        "total": "84",
+        "executed": "84",
+        "passed": "83",
+        "failed": "1",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "result_outcomes": {
+        "Passed": 83,
+        "Failed": 1
+      }
+    },
+    {
+      "name": "broad",
+      "command": [
+        "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+        "test",
+        "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "--filter",
+        "Category!=SqlServer",
+        "--logger",
+        "trx;LogFileName=broad.trx",
+        "--results-directory",
+        "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-50af1896\\private-exports\\cash-register-20261107\\fixture-adaptation"
+      ],
+      "exit": 0,
+      "seconds": 16.1,
+      "cleared_variables": [
+        "MARTHA_TEST_SQL_CONNECTION",
+        "MARTHA_INTERNAL_TEST_SQL_CONNECTION",
+        "SAVIA_INTERNAL_TEST_SQL_CONNECTION",
+        "SAVIA_INTERNAL_SQL_TESTS_AUTHORIZED",
+        "SAVIA_INTERNAL_HTTP_SQL_TESTS_AUTHORIZED",
+        "SAVIA_SQL_TESTS_AUTHORIZED"
+      ],
+      "pilot_precreated": true,
+      "log_binding": {
+        "bytes": 20779,
+        "sha256_raw": "3a1e80b91d432633a83313f303c369792c5c2d99e5731195a7faaf42c1ea5e2f",
+        "sha256_lf": "1dcc4c537e7acab8820d19bbfbb198873a36922d2dfebdac9b327e8fd2d2ade5"
+      },
+      "trx_binding": {
+        "bytes": 1436221,
+        "sha256_raw": "d408e057226cd18ece2839e960a09766f1272aecf0d2eda17384f16b664a075e",
+        "sha256_lf": "5200ebfcca8be6c225894810e504c8d680ceb0f5df58f21432a5f02b66261b68"
+      },
+      "counters": {
+        "total": "691",
+        "executed": "624",
+        "passed": "624",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "result_outcomes": {
+        "Passed": 624,
+        "NotExecuted": 67
+      }
+    }
+  ],
+  "final_focused_cases_rechecked_in_broad": 84,
+  "focused_invocations": 6,
+  "broad_invocations": 1,
+  "restore_invocations": 1,
+  "source_bound_prepared_sql": "NOT RUN",
+  "cost": "unknown",
+  "usage": "unknown",
+  "scope_check": "all eight source paths allowed; no product/generated SQL/frozen baseline changes",
+  "limits": [
+    "No SQL, Docker, browser, workflow dispatch, installs, staging, commit, push, merge, publish or deploy.",
+    "Returned is not independent acceptance, cash persistence proof or production READY.",
+    "Historical A552/C77/E2 and parent 65/607 evidence unchanged."
+  ],
+  "outcome_count_note": "Use UnitTestResult outcomes for skipped count; TRX aggregate notExecuted attribute is zero even when skipped result elements exist."
+}

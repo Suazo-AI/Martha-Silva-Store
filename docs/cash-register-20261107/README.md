@@ -11,7 +11,9 @@ Fresh focused integration: 65/65 PASS. Fresh non-SQL regression: 607 PASS, zero 
 The two initial integration failures are preserved and resolved: migration history and generated release script.
 `python tests/check.py` passed, exit 0. None of these results proves SQL cash persistence or the staff cash journey.
 [Commands, bindings, failures, corrections and next work](backend-integration/README.md).
-Next: adapt legacy SQL/N8 fixtures and independent schema expectations before implementation review and real runtime proof.
+Current: legacy SQL/N8 fixtures and independent cash schema expectations are integrated for verification.
+Primary found and corrected two false-positive check-expression cases; fresh offline result: 627 PASS, 67 NotExecuted, zero failures.
+[Primary evidence and limits](fixture-adaptation/primary-review.md). Next: [two isolated local SQL partitions](../sql-parallel-20261107/README.md), then Astra/xhigh acceptance.
 The historical partial return and generator prerequisite below are superseded by this integration, not erased.
 
 ## Primary acceptance of the source-only design, 2026-11-07

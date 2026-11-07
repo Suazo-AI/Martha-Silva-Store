@@ -1,0 +1,100 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-07T23:43:14.220612+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs",
+      "change": "M",
+      "git_blob": "6643ecd35fc2be3968a03dfec34a01b7d64cf2e4"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalBranchScopeSqlTests.cs",
+      "change": "M",
+      "git_blob": "f41d11b26c6f3763619cc5091395a578bca9cb38"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCashSchemaOracle.cs",
+      "change": "A",
+      "git_blob": "ee375af94ab9cd04972b35e6f1b4334102f94b2d"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCashSchemaOracleTests.cs",
+      "change": "A",
+      "git_blob": "7e2be0b2f78b1e3c349fd53019c0ed85c3128b46"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCommerceCommandSqlTests.cs",
+      "change": "M",
+      "git_blob": "1404086972b5f92295cec8ba6d0162be9b55c30c"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalReleaseScriptTests.cs",
+      "change": "M",
+      "git_blob": "fe8048f0287789f31caf2e7fd03d7fcc5bfeb221"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalStockExceptionSqlTests.cs",
+      "change": "M",
+      "git_blob": "051e3f4ac94816a70f2760fcd9bde68d0045ba16"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs",
+      "change": "M",
+      "git_blob": "905d1b3c5b6e2d46a7ab9ebdcfc48a06b83743e6"
+    },
+    {
+      "path": "docs/cash-register-20261107/README.md",
+      "change": "M",
+      "git_blob": "988215be764332ac23b8ad0007e9aaa55144bb29"
+    },
+    {
+      "path": "docs/cash-register-20261107/fixture-adaptation/MANIFEST.json",
+      "change": "A",
+      "git_blob": "84dd16e5c8c30d08cb2d23cfe669077e1c6b8a1b"
+    },
+    {
+      "path": "docs/cash-register-20261107/fixture-adaptation/PRIMARY-IMPORT.json",
+      "change": "A",
+      "git_blob": "00a5154f24eb3f9e4b19605c4728282f0a72a488"
+    },
+    {
+      "path": "docs/cash-register-20261107/fixture-adaptation/PRIMARY-REVIEW.json",
+      "change": "A",
+      "git_blob": "4ad3a1822a7a7141a88a96d018fd4edc7c7bc197"
+    },
+    {
+      "path": "docs/cash-register-20261107/fixture-adaptation/README.md",
+      "change": "A",
+      "git_blob": "00754e6f2b98799f39ad34a739a28aa2c68a1e07"
+    },
+    {
+      "path": "docs/cash-register-20261107/fixture-adaptation/RESULT.json",
+      "change": "A",
+      "git_blob": "4e0e9f89674216dbb42f8f8d512ee8942eb19406"
+    },
+    {
+      "path": "docs/cash-register-20261107/fixture-adaptation/primary-review.md",
+      "change": "A",
+      "git_blob": "f1405e3fcd9b463cffd0124bf3158c384f6defb3"
+    },
+    {
+      "path": "docs/cash-register-20261107/fixture-adaptation/run_checks.py",
+      "change": "A",
+      "git_blob": "4a0ce3245abe610ccb091d6daf26ae601ed4f923"
+    },
+    {
+      "path": "docs/sql-parallel-20261107/README.md",
+      "change": "A",
+      "git_blob": "03b2d50ba554b3743801cc9873373f98b292006f"
+    },
+    {
+      "path": "docs/sql-parallel-20261107/SQL-PARTITIONS.json",
+      "change": "A",
+      "git_blob": "a7abcf45fb64c347b79d2589b1b82aef80c90d1a"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

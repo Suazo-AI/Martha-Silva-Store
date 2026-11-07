@@ -97,7 +97,7 @@ public sealed class InternalBranchScopeSqlTests
         var request = new InternalSaleRequest(f.LocationA, null, [new(f.Database.Item, 1)]);
         InternalResult<InternalSaleReceipt> first;
         await using (var db = f.Database.Context())
-            first = await f.Commerce(db, f.Manager).RecordSale(request, f.ManagerId, key, default);
+            first = InternalResult<InternalSaleReceipt>.Ok(await InternalLegacySaleFixture.Seed(db, f.ManagerId, f.BranchA, request, key));
         Assert.True(first.Success, first.Error);
         string original;
         await using (var db = f.Database.Context())
@@ -198,7 +198,7 @@ public sealed class InternalBranchScopeSqlTests
         const string key = "bs-http-result-key01";
         await using (var db = f.Database.Context())
         {
-            var sale = await f.Commerce(db, f.Manager).RecordSale(new(f.LocationA, null, [new(f.Database.Item, 1)]), f.ManagerId, key, default);
+            var sale = InternalResult<InternalSaleReceipt>.Ok(await InternalLegacySaleFixture.Seed(db, f.ManagerId, f.BranchA, new(f.LocationA, null, [new(f.Database.Item, 1)]), key));
             Assert.True(sale.Success, sale.Error);
         }
         await using var host = await OperationsHost.Start(f);
@@ -313,7 +313,7 @@ public sealed class InternalBranchScopeSqlTests
         private BranchFixture(InternalCommerceSqlDatabase database) => Database = database;
         public static async Task<BranchFixture> Create()
         {
-            var f = new BranchFixture(await InternalCommerceSqlDatabase.Create());
+            var f = new BranchFixture(await InternalCommerceSqlDatabase.Create(migrate: true));
             try
             {
                 await using var db = f.Database.Context();
@@ -344,10 +344,9 @@ public sealed class InternalBranchScopeSqlTests
         public async Task<InternalSaleReceipt> SellAsOwner(Guid location, string key)
         {
             await using var db = Database.Context();
-            var result = await Commerce(db, InternalSecurityRules.Principal(Database.Staff, Database.Session))
-                .RecordSale(new(location, null, [new(Database.Item, 1)]), Database.Actor, key, default);
-            Assert.True(result.Success, result.Error);
-            return result.Value!;
+            // Genuine historical replay/reversal fixture; never a fresh unpaid success path.
+            return await InternalLegacySaleFixture.Seed(db, Database.Actor, location == LocationA ? BranchA : BranchB,
+                new(location, null, [new(Database.Item, 1)]), key);
         }
         public async Task ReassignManagerToB()
         {
@@ -386,6 +385,9 @@ public sealed class InternalBranchScopeSqlTests
                 Reversals = await db.Set<InternalSaleReversal>().Include(x => x.Lines.OrderBy(line => line.Id)).OrderBy(x => x.Id).ToArrayAsync(),
                 Movements = await db.Set<InternalStockMovement>().OrderBy(x => x.Id).ToArrayAsync(),
                 Receipts = await db.Set<InternalPurchaseReceipt>().Include(x => x.Lines.OrderBy(line => line.Id)).OrderBy(x => x.Id).ToArrayAsync(),
+                CashTills = await db.Set<InternalCashTill>().OrderBy(x => x.Id).ToArrayAsync(),
+                CashEntries = await db.Set<InternalCashEntry>().OrderBy(x => x.Id).ToArrayAsync(),
+                CashCloses = await db.Set<InternalCashClose>().OrderBy(x => x.Id).ToArrayAsync(),
                 Orders = await db.Set<InternalPurchaseOrder>().Include(x => x.Lines.OrderBy(line => line.Id)).OrderBy(x => x.Id).ToArrayAsync()
             });
         }

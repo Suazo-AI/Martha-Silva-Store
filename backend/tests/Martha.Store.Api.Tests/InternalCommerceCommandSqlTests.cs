@@ -12,21 +12,25 @@ public sealed class InternalCommerceCommandSqlTests
     [InternalCommerceSqlFact]
     public async Task Server_priced_multiline_sale_replays_immutable_receipt_after_price_change()
     {
-        await using var fixture = await InternalCommerceSqlDatabase.Create();
+        await using var fixture = await InternalCommerceSqlDatabase.Create(migrate: true);
         await Seed(fixture, fixture.Item, 10);
         await Seed(fixture, fixture.SecondItem, 10);
+        var till = await InternalCashFixture.Open(fixture);
         var request = new InternalSaleRequest(fixture.Location, null, [new(fixture.Item, 2), new(fixture.SecondItem, 3)]);
-        var first = await fixture.Execute(s => s.RecordSale(request, fixture.Actor, "sale-multiline-key-0001", default));
+        var first = await InternalCashFixture.Sell(fixture, till, request, "sale-multiline-key-0001");
         Assert.True(first.Success);
         Assert.Equal(1075, first.Value!.TotalMinor);
         Assert.Equal("USD", first.Value.Currency);
-        Assert.Equal("not_processed", first.Value.PaymentStatus);
+        Assert.Equal("paid", first.Value.PaymentStatus);
         await using (var db = fixture.Context())
             await db.Set<InternalItem>().Where(x => x.Id == fixture.Item).ExecuteUpdateAsync(set => set.SetProperty(x => x.UnitPriceMinor, 999));
-        var replay = await fixture.Execute(s => s.RecordSale(request, fixture.Actor, "sale-multiline-key-0001", default));
+        var replay = await InternalCashFixture.Sell(fixture, till, request, "sale-multiline-key-0001");
         Assert.Equal(JsonSerializer.Serialize(first), JsonSerializer.Serialize(replay));
         await using var verify = fixture.Context();
         Assert.Equal(1, await verify.Set<InternalSale>().CountAsync());
+        var payment = await verify.Set<InternalCashEntry>().SingleAsync(x => x.Kind == "sale");
+        Assert.Equal(1075L, payment.DeltaMinor); Assert.Equal(10000L, payment.ReceivedMinor); Assert.Equal(8925L, payment.ChangeMinor);
+        Assert.Equal(2, payment.Exponent); Assert.Equal("USD", payment.Currency);
         Assert.Equal(4, await verify.Set<InternalStockMovement>().CountAsync());
         Assert.Equal(8, (await verify.Set<InternalStockBalance>().SingleAsync(x => x.ItemId == fixture.Item)).OnHand);
         Assert.Equal(7, (await verify.Set<InternalStockBalance>().SingleAsync(x => x.ItemId == fixture.SecondItem)).OnHand);
@@ -35,21 +39,23 @@ public sealed class InternalCommerceCommandSqlTests
     [InternalCommerceSqlFact]
     public async Task Rejected_later_line_rolls_back_earlier_line_and_failure_replay_remains_immutable()
     {
-        await using var fixture = await InternalCommerceSqlDatabase.Create();
+        await using var fixture = await InternalCommerceSqlDatabase.Create(migrate: true);
         await Seed(fixture, fixture.Item, 1);
+        var till = await InternalCashFixture.Open(fixture);
         var request = new InternalSaleRequest(fixture.Location, null, [new(fixture.Item, 1), new(fixture.SecondItem, 1)]);
-        var first = await fixture.Execute(s => s.RecordSale(request, fixture.Actor, "sale-rollback-key-0001", default));
+        var first = await InternalCashFixture.Sell(fixture, till, request, "sale-rollback-key-0001");
         Assert.Equal("stock_unavailable", first.Error);
         await using (var verify = fixture.Context())
         {
             Assert.Equal(1, (await verify.Set<InternalStockBalance>().SingleAsync()).OnHand);
             Assert.Equal(1, await verify.Set<InternalStockMovement>().CountAsync());
             Assert.False(await verify.Set<InternalSale>().AnyAsync());
+            Assert.False(await verify.Set<InternalCashEntry>().AnyAsync(x => x.Kind == "sale"));
         }
         await Seed(fixture, fixture.SecondItem, 1);
-        var replay = await fixture.Execute(s => s.RecordSale(request, fixture.Actor, "sale-rollback-key-0001", default));
+        var replay = await InternalCashFixture.Sell(fixture, till, request, "sale-rollback-key-0001");
         Assert.Equal("stock_unavailable", replay.Error);
-        var fresh = await fixture.Execute(s => s.RecordSale(request, fixture.Actor, "sale-rollback-key-0002", default));
+        var fresh = await InternalCashFixture.Sell(fixture, till, request, "sale-rollback-key-0002");
         Assert.True(fresh.Success);
         await using var final = fixture.Context();
         Assert.All(await final.Set<InternalStockBalance>().ToListAsync(), balance => Assert.Equal(0, balance.OnHand));
@@ -60,8 +66,8 @@ public sealed class InternalCommerceCommandSqlTests
     [InternalCommerceSqlFact]
     public async Task Cancel_replays_and_different_key_cancel_cannot_restock_twice_or_refund_bank_money()
     {
-        await using var fixture = await InternalCommerceSqlDatabase.Create();
-        var sale = await Sell(fixture, 2);
+        await using var fixture = await InternalCommerceSqlDatabase.Create(migrate: true);
+        var sale = await HistoricalSale(fixture, 2);
         var request = new InternalSaleCancelRequest("record entered in error");
         var first = await fixture.Execute(s => s.CancelSale(sale.SaleId, request, fixture.Actor, "sale-cancel-key-0001", default));
         Assert.True(first.Success);
@@ -81,8 +87,8 @@ public sealed class InternalCommerceCommandSqlTests
     [InternalCommerceSqlFact]
     public async Task Partial_full_return_replay_and_excess_return_preserve_quantity_and_original_price()
     {
-        await using var fixture = await InternalCommerceSqlDatabase.Create();
-        var sale = await Sell(fixture, 3);
+        await using var fixture = await InternalCommerceSqlDatabase.Create(migrate: true);
+        var sale = await HistoricalSale(fixture, 3);
         var line = Assert.Single(sale.Lines);
         var request = new InternalSaleReturnRequest("returned to stock", [new(line.SaleLineId, 1)]);
         var partial = await fixture.Execute(s => s.ReturnSale(sale.SaleId, request, fixture.Actor, "sale-return-key-0001", default));
@@ -108,8 +114,8 @@ public sealed class InternalCommerceCommandSqlTests
     [InternalCommerceSqlFact]
     public async Task Concurrent_cancel_and_return_have_only_one_stock_reversal()
     {
-        await using var fixture = await InternalCommerceSqlDatabase.Create();
-        var sale = await Sell(fixture, 2);
+        await using var fixture = await InternalCommerceSqlDatabase.Create(migrate: true);
+        var sale = await HistoricalSale(fixture, 2);
         var line = Assert.Single(sale.Lines);
         var actor = fixture.Actor;
         var cancelRequest = new InternalSaleCancelRequest("cancel test");
@@ -168,12 +174,13 @@ public sealed class InternalCommerceCommandSqlTests
     [InternalCommerceSqlFact]
     public async Task Mixed_currency_sale_is_rejected_without_inventory_mutation()
     {
-        await using var fixture = await InternalCommerceSqlDatabase.Create();
+        await using var fixture = await InternalCommerceSqlDatabase.Create(migrate: true);
         await Seed(fixture, fixture.Item, 1);
         await Seed(fixture, fixture.SecondItem, 1);
         await using (var db = fixture.Context())
             await db.Set<InternalItem>().Where(x => x.Id == fixture.SecondItem).ExecuteUpdateAsync(set => set.SetProperty(x => x.Currency, "EUR"));
-        var result = await fixture.Execute(s => s.RecordSale(new(fixture.Location, null, [new(fixture.Item, 1), new(fixture.SecondItem, 1)]), fixture.Actor, "sale-mixed-currency-1", default));
+        var till = await InternalCashFixture.Open(fixture);
+        var result = await InternalCashFixture.Sell(fixture, till, new(fixture.Location, null, [new(fixture.Item, 1), new(fixture.SecondItem, 1)]), "sale-mixed-currency-1");
         Assert.Equal("currency_mismatch", result.Error);
         await using var verify = fixture.Context();
         Assert.All(await verify.Set<InternalStockBalance>().ToListAsync(), balance => Assert.Equal(1, balance.OnHand));
@@ -184,8 +191,8 @@ public sealed class InternalCommerceCommandSqlTests
     [InternalCommerceSqlFact]
     public async Task Historical_cancellation_can_restore_inactive_item_and_location()
     {
-        await using var fixture = await InternalCommerceSqlDatabase.Create();
-        var sale = await Sell(fixture, 2);
+        await using var fixture = await InternalCommerceSqlDatabase.Create(migrate: true);
+        var sale = await HistoricalSale(fixture, 2);
         await using (var db = fixture.Context())
         {
             await db.Set<InternalItem>().Where(x => x.Id == fixture.Item).ExecuteUpdateAsync(set => set.SetProperty(x => x.Active, false));
@@ -200,15 +207,39 @@ public sealed class InternalCommerceCommandSqlTests
     [InternalCommerceSqlFact]
     public async Task Same_sale_key_with_different_payload_is_a_conflict_not_a_second_sale()
     {
-        await using var fixture = await InternalCommerceSqlDatabase.Create();
+        await using var fixture = await InternalCommerceSqlDatabase.Create(migrate: true);
         await Seed(fixture, fixture.Item, 5);
-        var first = await fixture.Execute(s => s.RecordSale(new(fixture.Location, null, [new(fixture.Item, 1)]), fixture.Actor, "sale-key-conflict-001", default));
+        var till = await InternalCashFixture.Open(fixture);
+        var first = await InternalCashFixture.Sell(fixture, till, new(fixture.Location, null, [new(fixture.Item, 1)]), "sale-key-conflict-001");
         Assert.True(first.Success);
-        var conflict = await fixture.Execute(s => s.RecordSale(new(fixture.Location, null, [new(fixture.Item, 2)]), fixture.Actor, "sale-key-conflict-001", default));
+        var conflict = await InternalCashFixture.Sell(fixture, till, new(fixture.Location, null, [new(fixture.Item, 2)]), "sale-key-conflict-001");
         Assert.Equal("idempotency_conflict", conflict.Error);
         await using var verify = fixture.Context();
         Assert.Equal(4, (await verify.Set<InternalStockBalance>().SingleAsync()).OnHand);
         Assert.Equal(1, await verify.Set<InternalSale>().CountAsync());
+    }
+
+    [InternalCommerceSqlFact]
+    public async Task Fresh_unpaid_sale_is_rejected_but_recorded_legacy_key_still_replays()
+    {
+        await using var f = await InternalCommerceSqlDatabase.Create(migrate: true);
+        await Seed(f, f.Item, 5);
+        var request = new InternalSaleRequest(f.Location, null, [new(f.Item, 1)]);
+        var rejected = await f.Execute(s => s.RecordSale(request, f.Actor, "fresh-unpaid-reject-0001", default));
+        Assert.Equal("cash_payment_required", rejected.Error);
+        InternalSaleReceipt historical;
+        await using (var db = f.Context())
+        {
+            Assert.Empty(await db.Set<InternalSale>().ToListAsync());
+            Assert.Equal(5, (await db.Set<InternalStockBalance>().SingleAsync()).OnHand);
+            historical = await InternalLegacySaleFixture.Seed(db, f.Actor, null, request, "historical-recorded-0001");
+        }
+        var replay = await f.Execute(s => s.RecordSale(request, f.Actor, "historical-recorded-0001", default));
+        Assert.Equal(JsonSerializer.Serialize(historical), JsonSerializer.Serialize(replay.Value));
+        await using var verify = f.Context();
+        Assert.Single(await verify.Set<InternalSale>().ToListAsync());
+        Assert.Empty(await verify.Set<InternalCashEntry>().ToListAsync());
+        Assert.Equal(4, (await verify.Set<InternalStockBalance>().SingleAsync()).OnHand);
     }
 
     private static async Task Seed(InternalCommerceSqlDatabase fixture, Guid item, int quantity)
@@ -217,11 +248,11 @@ public sealed class InternalCommerceCommandSqlTests
         Assert.True(result.Success, result.Error);
     }
 
-    private static async Task<InternalSaleReceipt> Sell(InternalCommerceSqlDatabase fixture, int quantity)
+    private static async Task<InternalSaleReceipt> HistoricalSale(InternalCommerceSqlDatabase fixture, int quantity)
     {
         await Seed(fixture, fixture.Item, 5);
-        var result = await fixture.Execute(s => s.RecordSale(new(fixture.Location, null, [new(fixture.Item, quantity)]), fixture.Actor, "sale-" + Guid.NewGuid().ToString("N"), default));
-        Assert.True(result.Success, result.Error);
-        return result.Value!;
+        // Recorded pre-cash sale: these tests preserve legacy reversal and replay behavior.
+        await using var db = fixture.Context();
+        return await InternalLegacySaleFixture.Seed(db, fixture.Actor, null, new(fixture.Location, null, [new(fixture.Item, quantity)]), "historical-sale-" + Guid.NewGuid().ToString("N"));
     }
 }

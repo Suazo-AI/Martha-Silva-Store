@@ -1,0 +1,180 @@
+{
+  "base_sha": "457a1576cd782874d1b3159c08e958bac96482eb",
+  "worktree": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-50af1896",
+  "source_files": [
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs",
+      "base": {
+        "bytes": 57330,
+        "sha256_raw": "eb0020878406dbc1c3ee4d948551a8ef6dcbc19e45c35338b88e1709209306d4",
+        "sha256_lf": "eb0020878406dbc1c3ee4d948551a8ef6dcbc19e45c35338b88e1709209306d4"
+      },
+      "current": {
+        "bytes": 64186,
+        "sha256_raw": "9b7b715d04f5c20eb4636916e8123959a5ce26ff6961ebcc488dccf8bc21ed3a",
+        "sha256_lf": "b5b63723748b2abe4330902444b7b3bef34eb727db7d4c4b912e018cfb726ca7"
+      }
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCommerceCommandSqlTests.cs",
+      "base": {
+        "bytes": 14733,
+        "sha256_raw": "1335b58cb5fcc85088878e74e1740f0dd6e44c6763f9182b96d2764c01d8c291",
+        "sha256_lf": "1335b58cb5fcc85088878e74e1740f0dd6e44c6763f9182b96d2764c01d8c291"
+      },
+      "current": {
+        "bytes": 17087,
+        "sha256_raw": "45fb8506a0675e1cc514503a9c01a1450fef145ba7f41d0c47ba83e5585a2063",
+        "sha256_lf": "48a9eb29748bd83a99f68d5bbc5d382b1925a9fae5215e46eaa127bb00713f59"
+      }
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalBranchScopeSqlTests.cs",
+      "base": {
+        "bytes": 23329,
+        "sha256_raw": "8616f3a49d2831595de33c17b25012f7479ee8e2a04477d2dca8a92aeaa922e1",
+        "sha256_lf": "8616f3a49d2831595de33c17b25012f7479ee8e2a04477d2dca8a92aeaa922e1"
+      },
+      "current": {
+        "bytes": 24087,
+        "sha256_raw": "bc2d53488559de929599a21eb232f419c5f1db69e5dec73ccd8af879d759e294",
+        "sha256_lf": "ab54d957a7cfb97dc7454c071d23867fa79e699bb87496b24300892abce1153f"
+      }
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalStockExceptionSqlTests.cs",
+      "base": {
+        "bytes": 5361,
+        "sha256_raw": "d7c148a54817d115560eca350cedcfa2032c431d3652f8075020148f9a339b7f",
+        "sha256_lf": "d7c148a54817d115560eca350cedcfa2032c431d3652f8075020148f9a339b7f"
+      },
+      "current": {
+        "bytes": 6062,
+        "sha256_raw": "36b91dd8ef5783f6d55e23aaa8810ca4bfb88b0d81ba45c0d6dbb18cbe2c94ee",
+        "sha256_lf": "d43ebca4eda1e597a2b944ad192584eff7bfc3a9ad2a826c4fc089a67a161f1e"
+      }
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs",
+      "base": {
+        "bytes": 15356,
+        "sha256_raw": "0e90b15a61673c08733998402f2c425aaf3b27aaf8576f9606dd7b245456bb6b",
+        "sha256_lf": "0e90b15a61673c08733998402f2c425aaf3b27aaf8576f9606dd7b245456bb6b"
+      },
+      "current": {
+        "bytes": 17158,
+        "sha256_raw": "389efabdc76637cbba20cd5d22f49bb1a2948dc4a6dde380beba29098b21de5f",
+        "sha256_lf": "c6099cb516fbbc697d8f865d82a5d7a3268d8cd184a6dcf9bc6ada1e27a63072"
+      }
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalReleaseScriptTests.cs",
+      "base": {
+        "bytes": 14118,
+        "sha256_raw": "2d2cfae89bc64be883a9da1f8a4248efa076dd3bb331d37d611f4cb65dc9848c",
+        "sha256_lf": "2d2cfae89bc64be883a9da1f8a4248efa076dd3bb331d37d611f4cb65dc9848c"
+      },
+      "current": {
+        "bytes": 14651,
+        "sha256_raw": "8ba646a5451f196b14ec040426b063f643d53b675ea52ecdefe852d683f4f9a5",
+        "sha256_lf": "6df4800a1517f20cdbf952fcd250b0f652e4b4cd3aeef1a6dca354826d80e4b7"
+      }
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCashSchemaOracle.cs",
+      "base": null,
+      "current": {
+        "bytes": 14817,
+        "sha256_raw": "2f1c0675036fcf45d50db246991f9d24e77e4733988548c15e4a41e83d1ddbc0",
+        "sha256_lf": "1c9f8ddc84ffadb99864d53dce80bb8b5f34ea96e2f506158f8ec83c268d79b5"
+      }
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCashSchemaOracleTests.cs",
+      "base": null,
+      "current": {
+        "bytes": 7571,
+        "sha256_raw": "676fe1fc52d15d1c27454a276291482509334271e13152aa3fde6fac05f1ef99",
+        "sha256_lf": "9613dbe2ee1295918ab101b80b4e406a890bfe33a79e1d958ccfad7807a29548"
+      }
+    }
+  ],
+  "protected": [
+    {
+      "path": "backend/tests/fixtures/expected-invariants.model-derived.json",
+      "base": {
+        "bytes": 5280,
+        "sha256_raw": "4e3b7296aabddd94e9cdc2928246f74761438b72f944ed40eca74b418851a305",
+        "sha256_lf": "4e3b7296aabddd94e9cdc2928246f74761438b72f944ed40eca74b418851a305"
+      },
+      "current": {
+        "bytes": 5436,
+        "sha256_raw": "3015d5316e6c5090846c29f87e6d180bb72fa9964dea48b3f628251a601239d0",
+        "sha256_lf": "4e3b7296aabddd94e9cdc2928246f74761438b72f944ed40eca74b418851a305"
+      },
+      "unchanged_lf": true
+    },
+    {
+      "path": "AGENTS.md",
+      "base": {
+        "bytes": 3512,
+        "sha256_raw": "25b8d53e514543e8912b0781b08e00253b629ff63f5bcad7772c2acc15c6b0d3",
+        "sha256_lf": "25b8d53e514543e8912b0781b08e00253b629ff63f5bcad7772c2acc15c6b0d3"
+      },
+      "current": {
+        "bytes": 3555,
+        "sha256_raw": "664e28f1de4c034bfbbd865faa52558d9f4e21aa493696a37d971cf96bb9a1bb",
+        "sha256_lf": "25b8d53e514543e8912b0781b08e00253b629ff63f5bcad7772c2acc15c6b0d3"
+      },
+      "unchanged_lf": true
+    },
+    {
+      "path": "docs/DECISIONS.md",
+      "base": {
+        "bytes": 21233,
+        "sha256_raw": "06f71a6e326fc19eba4963dd08b0a0217f02691a7ab0e3a53ad3634c2c6edc6e",
+        "sha256_lf": "06f71a6e326fc19eba4963dd08b0a0217f02691a7ab0e3a53ad3634c2c6edc6e"
+      },
+      "current": {
+        "bytes": 21527,
+        "sha256_raw": "ef45d5b6be7aa26a8bc59048eb2fd02303a3f0db91123b26b1835a81610bf8ed",
+        "sha256_lf": "06f71a6e326fc19eba4963dd08b0a0217f02691a7ab0e3a53ad3634c2c6edc6e"
+      },
+      "unchanged_lf": true
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Migrations/20261107221938_FirstCashRegister.cs",
+      "base": {
+        "bytes": 11174,
+        "sha256_raw": "0f52e4e434f93f0004ef8c4c371be8be334736ec0f8b156bd20a15d8160de7bb",
+        "sha256_lf": "0f52e4e434f93f0004ef8c4c371be8be334736ec0f8b156bd20a15d8160de7bb"
+      },
+      "current": {
+        "bytes": 11390,
+        "sha256_raw": "d0d6a2cebfaf129a9ed855fdd7cdc4b25f7e2ee4d9917515a01902c9cfe27c56",
+        "sha256_lf": "0f52e4e434f93f0004ef8c4c371be8be334736ec0f8b156bd20a15d8160de7bb"
+      },
+      "unchanged_lf": true
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Migrations/InitialInternalSavia.idempotent.sql",
+      "base": {
+        "bytes": 40786,
+        "sha256_raw": "18d898e57d616c7c12e4c793843bd9e2e4d24f1fe946745dab783970cd1a1bc1",
+        "sha256_lf": "18d898e57d616c7c12e4c793843bd9e2e4d24f1fe946745dab783970cd1a1bc1"
+      },
+      "current": {
+        "bytes": 41787,
+        "sha256_raw": "e3b81102e6aee6073733a3f2f94e3938847b2377d3c37af907fdd57970492646",
+        "sha256_lf": "18d898e57d616c7c12e4c793843bd9e2e4d24f1fe946745dab783970cd1a1bc1"
+      },
+      "unchanged_lf": true
+    }
+  ],
+  "patch": {
+    "bytes": 76642,
+    "sha256_raw": "406440d1de060cbc6cf9dfc72a8eb64cdec37d2ab221d660dfda5118e7cbdd33",
+    "sha256_lf": "406440d1de060cbc6cf9dfc72a8eb64cdec37d2ab221d660dfda5118e7cbdd33",
+    "normalization": "LF patch; source RAW and LF hashes above bind actual files"
+  }
+}

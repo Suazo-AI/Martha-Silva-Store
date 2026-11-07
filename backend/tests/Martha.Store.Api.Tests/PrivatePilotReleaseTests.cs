@@ -59,14 +59,19 @@ public sealed class PrivatePilotReleaseTests
         facts["columns"] = await Rows(database, "SELECT t.name,c.name,TYPE_NAME(c.user_type_id),c.max_length,c.is_nullable,c.is_identity FROM sys.columns c JOIN sys.tables t ON t.object_id=c.object_id WHERE t.schema_id=SCHEMA_ID('savia_internal') ORDER BY t.name,c.column_id");
         facts["check_definitions"] = await Rows(database, "SELECT name,definition FROM sys.check_constraints WHERE schema_id=SCHEMA_ID('savia_internal') ORDER BY name");
         facts["index_columns"] = await Rows(database, "SELECT t.name,i.name,i.is_unique,c.name,ic.key_ordinal,ic.is_descending_key FROM sys.indexes i JOIN sys.tables t ON t.object_id=i.object_id JOIN sys.index_columns ic ON i.object_id=ic.object_id AND i.index_id=ic.index_id JOIN sys.columns c ON c.object_id=ic.object_id AND c.column_id=ic.column_id WHERE t.schema_id=SCHEMA_ID('savia_internal') ORDER BY t.name,i.name,ic.index_column_id");
+        facts["cash_indexes"] = await Rows(database, "SELECT t.name,i.name,i.is_unique,c.name,ic.key_ordinal,ic.is_descending_key,COALESCE(i.filter_definition,'') FROM sys.indexes i JOIN sys.tables t ON t.object_id=i.object_id JOIN sys.index_columns ic ON i.object_id=ic.object_id AND i.index_id=ic.index_id JOIN sys.columns c ON c.object_id=ic.object_id AND c.column_id=ic.column_id WHERE t.schema_id=SCHEMA_ID('savia_internal') AND t.name IN ('CashTills','CashEntries','CashCloses') ORDER BY t.name,i.name,ic.index_column_id");
+        facts["cash_foreign_keys"] = await Rows(database, "SELECT f.name,c.name,SCHEMA_NAME(rt.schema_id),rt.name,rc.name,fc.constraint_column_id,f.delete_referential_action FROM sys.foreign_keys f JOIN sys.foreign_key_columns fc ON f.object_id=fc.constraint_object_id JOIN sys.columns c ON c.object_id=fc.parent_object_id AND c.column_id=fc.parent_column_id JOIN sys.tables rt ON rt.object_id=fc.referenced_object_id JOIN sys.columns rc ON rc.object_id=fc.referenced_object_id AND rc.column_id=fc.referenced_column_id WHERE f.schema_id=SCHEMA_ID('savia_internal') AND OBJECT_NAME(f.parent_object_id) IN ('CashTills','CashEntries','CashCloses') ORDER BY f.name,fc.constraint_column_id");
+        facts["cash_collations"] = await Rows(database, "SELECT t.name,c.name,c.collation_name FROM sys.tables t JOIN sys.columns c ON c.object_id=t.object_id WHERE t.schema_id=SCHEMA_ID('savia_internal') AND t.name IN ('CashTills','CashEntries') AND c.name='Currency' ORDER BY t.name");
         return facts;
     }
-    private static void AssertSchema(SortedDictionary<string,string[]> facts)
+    internal static void AssertSchema(SortedDictionary<string,string[]> facts)
     {
         using var expected = JsonDocument.Parse(File.ReadAllText(Path.Combine(Evidence,"expected-invariants.json")));
         foreach (var key in new[] {"history","tables","checks","foreign_keys","indexes","primary_keys"})
-            Assert.Equal(InternalStockExceptionTests.Expected(expected.RootElement.GetProperty(key).EnumerateArray().Select(x=>x.GetString()), key).OrderBy(x=>x,StringComparer.Ordinal).ToArray(),facts[key].OrderBy(x=>x,StringComparer.Ordinal).ToArray());
-        Assert.Equal(21,facts["all_tables"].Length);
+            Assert.Equal(InternalCashSchemaOracle.Expected(expected.RootElement.GetProperty(key).EnumerateArray().Select(x=>x.GetString()), key).OrderBy(x=>x,StringComparer.Ordinal).ToArray(),facts[key].OrderBy(x=>x,StringComparer.Ordinal).ToArray());
+        InternalCashSchemaOracle.AssertNames(facts, expected.RootElement);
+        InternalCashSchemaOracle.AssertCash(facts);
+        Assert.Equal(24,facts["all_tables"].Length);
         Assert.Contains("dbo.__EFMigrationsHistory",facts["all_tables"]);
         Assert.All(facts["all_tables"],x=>Assert.True(x=="dbo.__EFMigrationsHistory" || x.StartsWith("savia_internal.")));
         Assert.All(facts["constraint_state"],x=>Assert.EndsWith("|False|False",x));

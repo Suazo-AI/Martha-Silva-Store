@@ -53,7 +53,7 @@ public sealed class InternalReleaseScriptTests
     public async Task Release_script_upgrades_empty_and_first_migration_databases_and_preserves_synthetic_rows()
     {
         const string first = "20261025085402_InitialInternalSavia";
-        string[] all = ["20261025085402_InitialInternalSavia", "20261027224500_InternalBranchScope", InternalStockExceptionTests.Migration];
+        string[] all = ["20261025085402_InitialInternalSavia", "20261027224500_InternalBranchScope", InternalStockExceptionTests.Migration, InternalCashSchemaOracle.Migration];
         var script = CheckedInScript();
         var empty = NewDatabase(); var upgraded = NewDatabase(); var migrated = NewDatabase();
         var created = new List<string>();
@@ -89,10 +89,11 @@ public sealed class InternalReleaseScriptTests
             var after = await Snapshot(upgraded, columnsBefore);
             Assert.Equal(JsonSerializer.Serialize(before), JsonSerializer.Serialize(after));
             // No inferred branch assignment or backfill: new scope columns stay NULL, new tables stay empty.
-            Assert.Equal(new[] { "0|0|0|0|0|0" }, await PrivatePilotReleaseTests.Rows(upgraded, """
+            Assert.Equal(new[] { "0|0|0|0|0|0|0|0|0" }, await PrivatePilotReleaseTests.Rows(upgraded, """
                 SELECT (SELECT COUNT(*) FROM savia_internal.Branches),(SELECT COUNT(*) FROM savia_internal.BranchAssignmentAudit),
                        (SELECT COUNT(*) FROM savia_internal.Staff WHERE BranchId IS NOT NULL),(SELECT COUNT(*) FROM savia_internal.Locations WHERE BranchId IS NOT NULL),
-                       (SELECT COUNT(*) FROM savia_internal.Operations WHERE LocationId IS NOT NULL),(SELECT COUNT(*) FROM savia_internal.Operations WHERE OriginalBranchId IS NOT NULL)
+                       (SELECT COUNT(*) FROM savia_internal.Operations WHERE LocationId IS NOT NULL),(SELECT COUNT(*) FROM savia_internal.Operations WHERE OriginalBranchId IS NOT NULL),
+                       (SELECT COUNT(*) FROM savia_internal.CashTills),(SELECT COUNT(*) FROM savia_internal.CashEntries),(SELECT COUNT(*) FROM savia_internal.CashCloses)
                 """));
             var upgradedSchema = await PrivatePilotReleaseTests.Inspect(upgraded);
             Assert.Equal(JsonSerializer.Serialize(emptySchema), JsonSerializer.Serialize(upgradedSchema));
@@ -129,8 +130,10 @@ public sealed class InternalReleaseScriptTests
     {
         using var expected = JsonDocument.Parse(File.ReadAllText(RepositoryFile("backend/tests/fixtures/expected-invariants.model-derived.json")));
         foreach (var key in new[] { "history", "tables", "checks", "foreign_keys", "indexes", "primary_keys" })
-            Assert.Equal(InternalStockExceptionTests.Expected(expected.RootElement.GetProperty(key).EnumerateArray().Select(x => x.GetString()), key).OrderBy(x => x, StringComparer.Ordinal).ToArray(),
+            Assert.Equal(InternalCashSchemaOracle.Expected(expected.RootElement.GetProperty(key).EnumerateArray().Select(x => x.GetString()), key).OrderBy(x => x, StringComparer.Ordinal).ToArray(),
                 facts[key].OrderBy(x => x, StringComparer.Ordinal).ToArray());
+        InternalCashSchemaOracle.AssertNames(facts, expected.RootElement);
+        InternalCashSchemaOracle.AssertCash(facts);
         Assert.All(facts["constraint_state"], x => Assert.EndsWith("|False|False", x));
     }
 
