@@ -197,3 +197,11 @@ Primary owns recovery after those notifications, followed by fresh Astra/xhigh c
 Completion requires the reviewed money/permission checks and real browser/API/SQL reconciliation; documentation alone cannot close this increment.
 D-032 verification completed: portable `tests/check.py` exit 0, progress 23/23, export 15 hashes and policy-document checks 33 PASS.
 Only the four owned documents are selected for publication; unrelated D-030 and `AGENTS.md` remain excluded.
+
+Till-organization decision, 2026-11-07: Jason selected one till per cashier and shift, with separate opening and closing.
+[D-033 and CASH-04/CASH-08](../cash-register-20261107/README.md) now require cashier/shift attribution and an unaffected second till.
+Sale/close races, repeated close and independent persisted-entry reconciliation belong to the proposed acceptance checks.
+Refund custody across tills or after close remains for review; no transfer or reopening policy was invented.
+The primary read back both successful snapshot jobs in D-032 run `42402503913`; that evidence applies to `1ddb022`, not cash runtime.
+The two cancellation requests still await terminal handoffs. No replacement was started; primary owns that recovery and the fresh Astra/xhigh review.
+Cash implementation and its real browser/API/SQL journey remain pending. D-033 grants no additional runtime or deployment authority.

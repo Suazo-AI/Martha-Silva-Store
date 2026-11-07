@@ -14,6 +14,10 @@ Jason also selected **controlled cash refunds by Owner or Manager** on 2026-11-0
 Each refund must reference the original paid sale, include a reason and record a cash outflow.
 Till close must include that outflow. [Decision D-032](../DECISIONS.md#d-032--devolución-controlada-de-efectivo).
 
+Jason selected **one till per cashier and shift**, with its own opening and closing, on 2026-11-07.
+Each till must identify who received and counted its cash.
+[Decision D-033](../DECISIONS.md#d-033--caja-por-cajero-y-turno).
+
 This is a SAVIA product choice, not an observation of Martha's current practice.
 Credit balances and later collection are outside this increment.
 Card payments remain a production requirement. This decision does not select a payment provider.
@@ -39,11 +43,11 @@ Use the existing architecture. Do not introduce a separate payment platform for 
 | CASH-01 | The server calculates the sale total. Cash received covers it. Change equals received minus total. | Boundary cases for underpayment, exact payment, excess tender, invalid amounts and overflow. Use integer minor units and an explicit currency. |
 | CASH-02 | A successful cash sale persists its sale, stock effect and cash entry together. | Real API/SQL readback plus a forced failure proving no partial business writes. |
 | CASH-03 | A retry or lost response cannot collect or decrement stock twice. | Retain the original key and body for uncertain outcomes. Recover the original receipt and prove one cash entry and one stock effect. |
-| CASH-04 | Sales use an open till in the actor's authorized location. Closing and simultaneous selling cannot create an unaccounted entry. | Permission and concurrency tests. Freeze till ownership and close rules in review before implementation. |
+| CASH-04 | Each cashier and shift has its own till, opening and closing. Sales use that cashier's open till in an authorized location. | Reject a sale charged to another cashier's or shift's till. Test simultaneous opening, sale versus close, and repeated close. Persist each accepted cash effect exactly once; reject writes after close. Freeze refund custody rules in review. |
 | CASH-05 | Close records the expected cash, actual counted cash and their difference. Historical entries remain auditable. | Independently sum persisted entries. Test both a balanced close and a shortage; preserve the shortage rather than forcing zero. |
 | CASH-06 | Only Owner or Manager can refund a paid cash sale. The original sale, reason and cash outflow remain linked and auditable. | Enforce the role on the server. Reject missing reasons, invalid sales and over-refunds without business writes. Prove one refund after response loss or concurrent retries, atomic money/stock effects, and the outflow in till close. A stock reversal alone never proves a refund. |
 | CASH-07 | Receipts and till records identify actor, location, sale, currency, amounts and time. Stale sessions cannot mutate them. | API/SQL evidence, authorization failures with no business writes, and affected session/CSRF regressions. |
-| CASH-08 | Authorized staff can complete the real journey from the staff screen. | Browser -> API -> SQL: open, sell multiple articles, receive cash, show change, recover a lost response, refund as Owner or Manager and close with a counted amount. Verify the Cashier cannot refund. Mocks remain separate. |
+| CASH-08 | Authorized staff can complete the real journey from the staff screen, with cash attributed to the correct cashier and shift. | Browser -> API -> SQL: open, sell multiple articles, receive cash, show change, recover a lost response, refund as Owner or Manager and close with a counted amount. Read back the cashier, shift and till. Verify the Cashier cannot refund and a second cashier's till remains unchanged. Mocks remain separate. |
 
 Synthetic accounting example, in one test currency's minor units:
 
@@ -62,7 +66,12 @@ Separate controlled-refund fixture:
 Review must cover a Cashier calling the refund API directly, missing or blank reasons,
 two requests attempting to refund the same remaining balance, and a lost response followed by retry.
 The balance must come from persisted paid/refunded amounts, not a client-supplied limit.
-Freeze open-till and close/refund concurrency rules during review. No automatic till reopening is implied.
+Review must specify which open till records an Owner or Manager's refund and how a closed original till is handled.
+Refund authorization does not itself determine cash custody. No transfer or automatic till reopening is implied.
+
+Isolation fixture: two cashiers open separate tills with `10000` and `20000` minor units.
+The first cashier's paid sale of `2500` produces expected balances of `12500` and `20000` respectively.
+Closing either till must preserve the other till's balance and history. Reconcile both from persisted entries.
 
 These values are test fixtures, not Martha's prices, opening balance or currency.
 The independent check must recompute these amounts from stored entries rather than reuse the write handler's calculation.
@@ -107,3 +116,16 @@ These checks preserve the existing automated baseline. They do not implement or 
 The first partial-staging patch failed without changing the index; passing explicit UTF-8/LF bytes instead of Windows text-mode stdin succeeded.
 Lesson applied and checked: stage only D-032 from the shared decisions file; retain the unrelated D-030 working-tree change.
 Next: terminal worker handoffs, fresh Astra/xhigh cash review, bounded OpenCode/high implementation and real money/permission reconciliation tests.
+
+## D-033 verification and continuation
+
+The primary read back successful run [42402503913](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42402503913)
+for D-032 commit `1ddb022ce8509c8f7a9452109f5c71b2f3a14dc5`.
+Both publication/build and historical portable-regression jobs passed. This is prior-commit evidence, not a cash runtime result.
+D-033 adds the per-cashier/shift contract and proposed isolation/concurrency checks; no cash code changed.
+The prior passing portable check remains attributed to D-032; unchanged product checks were not repeated.
+D-033 verification: read-only policy/UTF-8/local-link checks **159 PASS**, `git diff --check` exit `0`,
+`python tests/test_progress.py` **23/23 PASS** (76.813 s), and `python tools/export_progress.py --verify` **15 preserved hashes**, exit `0`.
+The test fixture's printed commit/SYNCED lines are simulated hook tests, not this checkout's publication receipt.
+Both earlier cancellation requests still lack a terminal handoff. Primary owns recovery through T3's completion notification;
+no running-child poll, replacement or acceptance is implied. Cash review awaits an available approved slot.

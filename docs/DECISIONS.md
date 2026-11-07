@@ -263,3 +263,17 @@ Esta decisión completa el alcance de D-031; no describe el proceso actual de Ma
 [Contrato y comprobaciones de caja](cash-register-20261107/README.md).
 Estado: política adoptada; implementación y pruebas de dinero, permisos y persistencia pendientes.
 No se ejecutaron devoluciones, cambios de cuentas, SQL, merge ni despliegue por esta decisión.
+
+## D-033 — Caja por cajero y turno
+
+Adoptada por Jason el 2026-11-07, America/Managua.
+Respuesta explícita: «Caja por cajero y turno (recomendado)».
+
+La primera caja de SAVIA se organiza por cajero y turno, con apertura y cierre propios.
+Cada caja debe identificar quién recibió y contó su efectivo.
+Esta decisión completa D-031 y D-032; no describe la práctica actual de Martha.
+
+[Contrato y comprobaciones de caja](cash-register-20261107/README.md).
+Estado: organización adoptada; implementación y pruebas de aislamiento, concurrencia y conciliación pendientes.
+Las reglas de devolución entre cajas o después del cierre requieren revisión; no se asumen transferencias ni reaperturas.
+No se ejecutaron movimientos de efectivo, cambios de cuentas, SQL, merge ni despliegue por esta decisión.
