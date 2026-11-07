@@ -1,0 +1,114 @@
+{
+  "sourceBase": "460c7720da51fa4689b7898c5f779a6555c60d7b",
+  "status": "CORRECTED CANDIDATE; new Astra xhigh review pending",
+  "primaryDisposition": "Accept F1/F2/F3 as reproduced; original partition candidate rejected",
+  "judgeReportSha256": "a295dab9317675d65a8659912a19189808c9df97ebc1a27d69b733f12fcdc2be",
+  "sourceBindings": {
+    "backend/tests/verify_full_suite.py": {
+      "lfSha256": "196a69c742b0cf9aa5619278626a8874877a196043b8bcacbebca1ce79088ead"
+    },
+    "backend/tests/test_verify_full_suite.py": {
+      "lfSha256": "94257dfacd0c3ffd57b77e19496045de7ecce291e70abbd5d61afe234383c144"
+    },
+    "docs/local-validation-20261106/PARTITIONS.json": {
+      "lfSha256": "d2feccd4c8af3b8358865b1bc23e15e287a28f852e4e70b3357a7d4f39caaad8"
+    }
+  },
+  "focused": {
+    "command": "python -m unittest discover -s backend/tests -p test_verify_full_suite.py",
+    "redExit": 1,
+    "finalExit": 0,
+    "finalTests": 21,
+    "skips": 0
+  },
+  "redNote": "Captured before the final CLI subtest directory isolation; includes one secondary artifact assertion. Do not interpret assertion failure count as independent defects.",
+  "cliProbes": [
+    {
+      "case": "A-intact",
+      "exit": 0,
+      "cases": 552,
+      "reason": null
+    },
+    {
+      "case": "A-equivalent-test-guids",
+      "exit": 1,
+      "cases": null,
+      "reason": "duplicate test case"
+    },
+    {
+      "case": "A-equivalent-execution-guids",
+      "exit": 1,
+      "cases": null,
+      "reason": "duplicate execution identity"
+    },
+    {
+      "case": "C-intact",
+      "exit": 0,
+      "cases": 77,
+      "reason": null
+    },
+    {
+      "case": "E-intact",
+      "exit": 0,
+      "cases": 2,
+      "reason": null
+    },
+    {
+      "case": "manifest-without-partition",
+      "exit": 2
+    },
+    {
+      "case": "legacy",
+      "exit": 0
+    }
+  ],
+  "privateEvidence": {
+    "red.log": {
+      "path": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\local-validation-20261106\\primary\\partition-corrections\\red.log",
+      "rawSha256": "2f9df73648f9ebd5d84ccfbab3619468c53143d6ec0504159bc643302b9a3c54"
+    },
+    "green-final.log": {
+      "path": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\local-validation-20261106\\primary\\partition-corrections\\green-final.log",
+      "rawSha256": "7ffd4bafd37142b000e6dbf2de105d8051967aae3f140ea1335a52304cdfafec"
+    },
+    "CLI-PROBES.json": {
+      "path": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\local-validation-20261106\\primary\\partition-corrections\\CLI-PROBES.json",
+      "rawSha256": "75de318560e8f640fabd883e566e46014e48202565679568fc3038551691ffed"
+    }
+  },
+  "priorCI": {
+    "sha": "460c7720da51fa4689b7898c5f779a6555c60d7b",
+    "allFourSuccess": true,
+    "runs": [
+      42319727562,
+      42319727678,
+      42319727578,
+      42319727602
+    ],
+    "notEvidenceForCorrectedBytes": true
+  },
+  "unchangedEvidence": {
+    "progressTests": {
+      "tests": 23,
+      "provenance": "previous publication 460c772; not rerun because tools, ledger and progress implementation are unchanged"
+    },
+    "preservedHashesFresh": 15
+  },
+  "notRun": [
+    "real C77",
+    "real D browser/API/SQL",
+    "real E2",
+    "six historical SQL failure reproduction",
+    "full Windows gate",
+    "new SHA Linux CI"
+  ],
+  "blocker": {
+    "artifact": "local Docker engine",
+    "evidence": "suazo-axi doctor: daemon-stopped",
+    "cause": "engine is not running; automatic launch previously blocked by policy",
+    "attemptThisTurn": "read-only doctor only; no launch/security/privilege change",
+    "nextAction": "Jason opens Docker Desktop normally; primary checks docker info exit 0 before any local isolated runtime",
+    "owner": "Jason then primary",
+    "completionCheck": "docker info --format {{.ServerVersion}} returns version and exit 0"
+  }
+}

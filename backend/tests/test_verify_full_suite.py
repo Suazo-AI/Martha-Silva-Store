@@ -1,7 +1,10 @@
+import contextlib
+import io
 import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 import verify_full_suite as verifier
 
@@ -83,6 +86,74 @@ class VerifyFullSuiteTests(unittest.TestCase):
     def test_unexpected_identity_fails(self):
         code, report, _ = self.run_dir([trx(('not-a-guid', 'Suite.Case', 'Passed'))], 1)
         self.assertEqual((code, report['reason']), (1, 'unexpected test identity'))
+
+    def test_equivalent_test_guids_fail_in_both_modes(self):
+        identity = 'abcdef00-0000-0000-0000-000000000001'
+        files = [trx((identity, 'Suite.Alpha', 'Passed')),
+                 trx((identity.upper(), 'Suite.Alpha', 'Passed'))]
+        for run in (lambda: self.run_dir(files, 2),
+                    lambda: self.run_partition(files, [('A', {'Suite.Alpha': 2})])):
+            code, report, _ = run()
+            self.assertEqual((code, report.get('reason')), (1, 'duplicate test case'))
+        malformed = '-' * 36
+        code, report, _ = self.run_dir([trx((malformed, 'Suite.Alpha', 'Passed'))], 1)
+        self.assertEqual((code, report.get('reason')), (1, 'unexpected test identity'))
+
+    def test_partition_execution_guids_are_validated_and_canonicalized(self):
+        identity = 'fedcba00-0000-0000-0000-000000000001'
+        parts = [('A', {'Suite.Alpha': 2})]
+        first = trx(case(1, name='Suite.Alpha')).replace(
+            '<UnitTestResult ', f'<UnitTestResult executionId="{identity}" ')
+        for second_id, reason in ((identity.upper(), 'duplicate execution identity'),
+                                  ('not-a-guid', 'unexpected execution identity')):
+            second = trx(case(2, name='Suite.Alpha')).replace(
+                '<UnitTestResult ', f'<UnitTestResult executionId="{second_id}" ')
+            code, report, _ = self.run_partition([first, second], parts)
+            self.assertEqual((code, report.get('reason')), (1, reason))
+
+    def test_cli_requires_complete_and_exclusive_partition_mode(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            combinations = [
+                ['--manifest', 'unused.json', '--min-tests', '1'],
+                ['--manifest', 'unused.json'],
+                ['--partition', 'A'],
+                ['--manifest', 'unused.json', '--partition', 'A', '--min-tests', '1'],
+            ]
+            for index, arguments in enumerate(combinations):
+                results = Path(tmp) / str(index)
+                with self.subTest(arguments=arguments), contextlib.redirect_stderr(io.StringIO()):
+                    with self.assertRaises(SystemExit) as result:
+                        verifier.main([*arguments, str(results)])
+                    self.assertEqual(result.exception.code, 2)
+                self.assertFalse((results / 'sanitized-results.json').exists())
+
+    def test_filesystem_diagnostics_never_reach_evidence_or_stdout(self):
+        marker = 'SYNTHETIC_ONLY_SECRET_MARKER'
+        for mode in ('legacy', 'partition'):
+            with self.subTest(mode=mode):
+                output = io.StringIO()
+                with patch.object(verifier.ET, 'parse', side_effect=FileNotFoundError(
+                        2, marker, marker + '.trx')), contextlib.redirect_stdout(output):
+                    if mode == 'legacy':
+                        code, report, text = self.run_dir([trx(case(1))], 1)
+                    else:
+                        code, report, text = self.run_partition(
+                            [trx(case(1, name='Suite.Alpha'))], [('A', {'Suite.Alpha': 1})])
+                self.assertEqual((code, report.get('reason')), (1, 'unreadable TRX evidence'))
+                self.assertNotIn(marker, text + output.getvalue())
+                self.assertNotIn('Errno', text + output.getvalue())
+
+    def test_output_filesystem_error_is_sanitized(self):
+        marker = 'SYNTHETIC_ONLY_SECRET_MARKER'
+        with tempfile.TemporaryDirectory() as tmp:
+            (Path(tmp) / 'valid.trx').write_text(trx(case(1)))
+            output = io.StringIO()
+            with patch.object(Path, 'write_text', side_effect=OSError(13, marker)), \
+                    contextlib.redirect_stdout(output), contextlib.redirect_stderr(output):
+                code = verifier.main(['--min-tests', '1', tmp])
+            self.assertEqual(code, 1)
+            self.assertEqual(output.getvalue(), 'Evidence output unavailable.\n')
+            self.assertNotIn(marker, output.getvalue())
 
     def test_partition_accepts_exact_method_multiplicity(self):
         parts = [('A', {'Suite.Alpha': 1, 'Suite.Beta': 2})]
@@ -180,6 +251,15 @@ class VerifyFullSuiteTests(unittest.TestCase):
         code, report, _ = self.run_partition(
             [trx(*rows[:half]), trx(*rows[half:])], None, manifest=manifest)
         self.assertEqual((code, report['cases'], report['expectedCases']), (0, 552, 552))
+        repeated = next(method for method, count in expected.items() if count > 1)
+        indexes = [i for i, row in enumerate(rows) if row[1] == repeated][:2]
+        duplicate_rows = list(rows)
+        identity = 'abcdef00-0000-0000-0000-000000000001'
+        for index, guid in zip(indexes, (identity, identity.upper())):
+            duplicate_rows[index] = (guid, repeated, 'Passed')
+        code, report, _ = self.run_partition(
+            [trx(*duplicate_rows)], None, manifest=manifest)
+        self.assertEqual((code, report.get('reason')), (1, 'duplicate test case'))
         code, report, _ = self.run_partition(
             [trx(*rows[:-1])], None, manifest=manifest)
         self.assertEqual((code, len(report['multiplicityMismatch'])), (1, 1))

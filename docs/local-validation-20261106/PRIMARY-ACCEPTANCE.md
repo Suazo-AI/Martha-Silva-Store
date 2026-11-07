@@ -130,3 +130,13 @@ Fresh runtime check: `docker info --format '{{.ServerVersion}}'` still exits 1 b
 No Docker launch or alternative launch route was attempted. Jason owns opening Docker Desktop; primary owns readiness verification afterwards.
 C77, D and E2 remain NOT RUN. The six historical SQL failures remain unexplained by runtime evidence.
 [Current routing, prerequisite evidence and manual alternatives](LOCAL-CONTINUATION.md).
+
+## Partition review correction, 2026-11-06 local
+
+Astra returned REVISE on `460c772`: equivalent GUIDs can bypass duplicate checks; incomplete CLI mode ignores the manifest; filesystem diagnostics can enter public output.
+Primary reproduced and accepts those findings. The previous partition candidate is rejected; its 16 green tests were insufficient.
+Small serial review corrections now pass 21 focused tests and seven synthetic CLI probes. A new independent Astra/xhigh review is pending.
+The accepted C# fingerprint correction remains separate and unchanged.
+[Corrections, evidence, limits and Docker handoff](partition-verifier/CORRECTIONS.md).
+All four CI workflows on the earlier `460c772` succeeded. Corrected bytes need their own CI.
+C77/D/E2 and the six historical SQL failures remain untested. Production remains NO-GO.

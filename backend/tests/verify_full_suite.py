@@ -11,10 +11,10 @@ import re
 import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
+from uuid import UUID
 
 NS = {'t': 'http://microsoft.com/schemas/VisualStudio/TeamTest/2010'}
 METHOD = re.compile(r'^[A-Za-z_][A-Za-z0-9_.]{0,300}$')
-TEST_ID = re.compile(r'^[0-9a-fA-F-]{36}$')
 PARTITION_GROUPS = ('A', 'C', 'E')
 
 
@@ -22,6 +22,16 @@ def _in_group(partition, group):
     if group == 'C':
         return partition == 'C1' or partition.startswith('C.')
     return partition == group
+
+
+def _canonical_guid(value, reason):
+    try:
+        identity = str(UUID(value))
+    except ValueError:
+        raise ValueError(reason) from None
+    if identity != value.lower():
+        raise ValueError(reason)
+    return identity
 
 
 def load_partition_expectations(manifest_path, group):
@@ -90,13 +100,15 @@ def summarize(trx_files, minimum, expected=None, partition=None):
         for result in root.iterfind('.//t:UnitTestResult', NS):
             test_id, name = result.get('testId', ''), result.get('testName', '')
             method = name.split('(', 1)[0]
-            if not TEST_ID.match(test_id) or not METHOD.match(method):
+            if not METHOD.fullmatch(method):
                 raise ValueError('unexpected test identity')
+            test_id = _canonical_guid(test_id, 'unexpected test identity')
             if test_id in cases:
                 raise ValueError('duplicate test case')
             if expected is not None:
                 execution_id = result.get('executionId', '')
                 if execution_id:
+                    execution_id = _canonical_guid(execution_id, 'unexpected execution identity')
                     if execution_id in executions:
                         raise ValueError('duplicate execution identity')
                     executions.add(execution_id)
@@ -144,11 +156,11 @@ def main(argv=None):
     parser.add_argument('--partition', choices=PARTITION_GROUPS)
     parser.add_argument('results_dir', type=Path)
     args = parser.parse_args(argv)
+    if (args.manifest is None) != (args.partition is None):
+        parser.error('--manifest and --partition are required together')
     if args.partition:
         if args.min_tests is not None:
-            parser.error('--min-tests cannot be combined with --partition')
-        if args.manifest is None:
-            parser.error('--manifest is required with --partition')
+            parser.error('--min-tests cannot be combined with --manifest/--partition')
     elif args.min_tests is None:
         parser.error('--min-tests is required')
     expected, minimum = None, args.min_tests
@@ -159,12 +171,17 @@ def main(argv=None):
         report = summarize(sorted(args.results_dir.glob('*.trx')), minimum,
                            expected=expected, partition=args.partition)
     except (ValueError, OSError) as error:
-        report = {'status': 'failed', 'minimumCases': minimum, 'reason': str(error)}
+        reason = 'unreadable TRX evidence' if isinstance(error, OSError) else str(error)
+        report = {'status': 'failed', 'minimumCases': minimum, 'reason': reason}
         if args.partition:
             report.update({'expectedCases': sum(expected.values()) if expected else None,
                            'partition': args.partition})
-    args.results_dir.mkdir(parents=True, exist_ok=True)
-    (args.results_dir / 'sanitized-results.json').write_text(json.dumps(report, indent=2) + '\n')
+    try:
+        args.results_dir.mkdir(parents=True, exist_ok=True)
+        (args.results_dir / 'sanitized-results.json').write_text(json.dumps(report, indent=2) + '\n')
+    except OSError:
+        print('Evidence output unavailable.')
+        return 1
     label = f"Partition {args.partition}" if args.partition else 'Backend suite'
     expected_cases = report.get('expectedCases') or report.get('minimumCases') or 0
     print(f"{label}: {report['status']}; {report.get('passed', 0)}/{report.get('cases', 0)} cases passed, "
