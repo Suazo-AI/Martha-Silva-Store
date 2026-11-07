@@ -96,3 +96,13 @@ This is design acceptance. It is not evidence that recovery works.
 Next: implement the reviewed seams with free OpenCode, verify offline controls in a bounded sandbox, then obtain Astra/xhigh review.
 Before any database recovery run, prepare its exact synthetic target, operator, backup/cleanup ownership and new runtime scope.
 No account, database, service, host security, schema, server invariant or production status changed during this adjudication.
+
+## Ledger correction after source readback
+
+Primary rechecked `InternalSecurityService.ResetPassword` and its Owner-only endpoint.
+The existing API permits self-reset with a valid Owner session; it does not cover loss of every Owner's login access.
+Updated only P-OWNER's `why` and `prep`; its status, dependencies and completion criterion remain unchanged.
+Verification: `python tests/test_progress.py` 23/23, `python tests/test_delivery_status.py` 24/24,
+`python tools/delivery_status.py --check` 39 valid items, and `python tools/export_progress.py --verify` 15 preserved hashes.
+All exited 0. The scoped comparison and `git diff --check` passed.
+No implementation, account reset, SQL or recovery runtime was executed for this documentation correction.

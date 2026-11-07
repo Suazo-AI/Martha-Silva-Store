@@ -519,10 +519,10 @@
       "owner": "suazo_pc",
       "status": "doing",
       "title": "Recuperación si se pierden todas las cuentas Owner",
-      "why": "Hallazgo de Tony/Codex en C9: el reset solo funciona con otro Owner vigente y el bootstrap no recupera cuentas existentes",
+      "why": "El reset exige una sesión Owner vigente y permite self-reset; no cubre la pérdida de todos los accesos Owner. El bootstrap no recupera cuentas existentes",
       "done_when": "Procedimiento revisado y probado en una base sintética, sin reabrir el bootstrap",
       "decision_ref": "docs/owner-recovery-20261107/README.md",
-      "prep": "2026-11-07 Jason adopted two enabled Owner accounts plus a synthetic-tested emergency recovery procedure. Source confirms current resets require another Owner and bootstrap remains closed. Requirements frozen for fresh Astra/xhigh design review; implementation and SQL runtime pending. No account, host security or database changed; original completion criterion retained.",
+      "prep": "2026-11-07 Jason adopted two enabled Owner accounts plus a synthetic-tested emergency recovery procedure. Primary accepted Astra/xhigh design controls F1-F13 and published the bounded execution contract at 03b7cec. Current API supports self-reset with a valid Owner session; emergency recovery implementation and SQL proof remain pending. Bootstrap remains closed. No account, host security or database changed; original completion criterion retained.",
       "trello": "https://trello.com/c/XMPIyKa8"
     },
     {
