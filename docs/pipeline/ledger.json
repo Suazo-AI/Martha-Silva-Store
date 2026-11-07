@@ -320,7 +320,7 @@
         "SUPPLY-UI",
         "STOCK-EXCEPTION"
       ],
-      "blocker": "Supply and stock preparation accepted with limits. Real integrated campaign NOT RUN; prior one-run runtime authority consumed. Exact two-workflow proposal prepared in docs/stock-exception-20261106/RUNTIME-CAMPAIGN.md; Jason authorization required before dispatch.",
+      "blocker": "Supply and stock preparation accepted with limits. Current C77, real browser/API/SQL journey D and recovery E2 remain NOT RUN. Jason selected local execution on SUAZO-PC; OpenCode owns bounded executable preparation from c07bd1b. Complete the commands and independent Astra/xhigh review before requesting the new runtime scope required by docs/DATABASE.md. The earlier two-workflow proposal is historical, not the current dispatch instruction.",
       "title": "Ensayo tecnico sintetico persistido en SUAZO-PC",
       "why": "Una pantalla simulada y una suite SQL separada no prueban juntas el recorrido real completo.",
       "done_when": "Candidato congelado: navegador/API/SQL de recepcion, venta/reintento, excepcion y revision por otra persona pasan con oraculos independientes persistidos; identidad de fuentes, saneamiento y retiro comprobado de recursos propios. No sustituye tareas, tiempos o conteo fisico de C10.",
@@ -330,8 +330,8 @@
         "decision": "Autorizar una campana concreta despues de congelar el candidato integrado. La aprobacion anterior esta consumida.",
         "decider": "jason"
       },
-      "prep": "Existing 17 supply/browser checkpoints and four SQL identity oracles preserved; stock adds five checkpoints and one identity oracle. CI campaign would verify Linux only; SUAZO-PC and C10 operational acceptance remain separate. No runtime started.",
-      "report": "docs/release-20261106/process-acceptance.md"
+      "prep": "Existing 17 supply/browser checkpoints and four SQL identity oracles preserved; stock adds five checkpoints and one identity oracle. Fresh offline A accepted: 552/552, 195/195 methods. Local C77 then D with --supply --stock-exception then E2 must preserve exact partition checks, private failure diagnostics and owned-resource cleanup. Executable commands and runner prerequisites remain under preparation; this entry grants no container, SQL, network-install or retry authority. C10 operational criteria remain separate.",
+      "report": "docs/completion-20261107/README.md"
     },
     {
       "id": "C10",
@@ -355,7 +355,7 @@
         "test": "30 mediciones p50/p95 en la caja real"
       },
       "trello": "https://trello.com/c/RYEhYexC",
-      "prep": "Guion de cinco tareas preparado; ensayo0. SUAZO-PC acepta (D-022) y aloja datos sintéticos (D-025). D-026/D-027: cajera registra excepción; encargada revisa al cierre, con suplente y causa abierta sin evidencia. Flujo no implementado ni probado. No sustituye tareas por quien vende,30mediciones ni conteo físico. C2/C9 y ejecución pendientes. Ensayo tecnico separado en TECH-TRIAL; criterios operativos originales intactos."
+      "prep": "Guion de cinco tareas preparado; ensayo0. SUAZO-PC acepta (D-022) y aloja datos sintéticos (D-025). D-026/D-027 estan implementados en el candidato; preparacion aceptada con limites en docs/stock-exception-20261106/PREPARATION-ACCEPTANCE.json tras correcciones J1/J2 y pruebas focales. La persistencia SQL y el recorrido combinado actual siguen NOT RUN. No sustituye tareas por quien vende,30mediciones ni conteo fisico. C2/C9 y ejecucion pendientes. Ensayo tecnico separado en TECH-TRIAL; criterios operativos originales intactos."
     },
     {
       "id": "C11",
