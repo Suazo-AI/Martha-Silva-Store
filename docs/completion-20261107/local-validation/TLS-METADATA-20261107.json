@@ -1,0 +1,49 @@
+{
+  "schema": "savia-local-tls-metadata/1",
+  "checkedAtUtc": "2026-11-07T13:21:05.8952760Z",
+  "host": "SUAZO-PC",
+  "sourceRevision": "847c63a3f5baffaa062d915c8e8f7192984247a6",
+  "executor": "T3 Code / Codex / gpt-6.1-sol / xhigh",
+  "scope": "Read-only Windows registry, filtered SQL startup log and service/process metadata. No SQL client connection.",
+  "observed": {
+    "effectiveAdministrator": true,
+    "instanceId": "MSSQL17.SAVIATEST",
+    "configuredCertificate": "",
+    "forceEncryption": 0,
+    "parametersKeyRead": "PASS; the earlier registry access denial did not recur",
+    "service": "MSSQL$SAVIATEST",
+    "serviceState": "Running",
+    "processId": 37724,
+    "processStartUtc": "2026-11-01T03:37:28.8252793Z",
+    "errorLogLastWriteUtc": "2026-11-07T10:14:08.2386499Z",
+    "startupLogLocalTime": "2026-10-31 21:37:30.39",
+    "startupLogMessage": "A self-generated certificate was successfully loaded for encryption."
+  },
+  "commands": [
+    "Get-ItemProperty -LiteralPath 'HKLM:\\SOFTWARE\\Microsoft\\Microsoft SQL Server\\Instance Names\\SQL'",
+    "Get-ItemProperty -LiteralPath 'HKLM:\\SOFTWARE\\Microsoft\\Microsoft SQL Server\\MSSQL17.SAVIATEST\\MSSQLServer\\SuperSocketNetLib'",
+    "Get-ItemProperty -LiteralPath 'HKLM:\\SOFTWARE\\Microsoft\\Microsoft SQL Server\\MSSQL17.SAVIATEST\\MSSQLServer\\Parameters'",
+    "Get-Content -LiteralPath $taskLogPath | Select-String -Pattern 'self-generated certificate|certificate.*loaded|certificate.*encrypt|Cert Hash|certificate.*fail' | Select-Object -Last 8",
+    "Get-CimInstance -ClassName Win32_Service -Filter \"Name='MSSQL`$SAVIATEST'\"",
+    "Get-Process -Id $taskService.ProcessId"
+  ],
+  "invocationExits": [0, 0],
+  "inference": "The startup entry is consistent with the historical certificate-chain rejection. It does not prove the exact certificate or chain presented to a new client.",
+  "sqlConnectionsOpened": 0,
+  "sqlStatementsIssued": 0,
+  "securityConfigurationChanges": 0,
+  "serviceActions": 0,
+  "notProven": [
+    "Presented certificate fingerprint, issuer, SAN, validity and chain",
+    "A new strict Encrypt=True;TrustServerCertificate=False connection",
+    "C9 backup/restore, measured RTO/RPO or Owner recovery"
+  ],
+  "nextAction": {
+    "owner": "Primary / Jason / SQL administrator",
+    "action": "Keep the shared instance unchanged. Prepare a separate certificate identity/trust and connection scope before any security correction or new SQL attempt.",
+    "completionCheck": "Under the separately approved scope, validate destination/certificate and current-session encryption, then execute the original C9 recovery checks.",
+    "correctionNotAttemptedBecause": "Certificate/trust/service changes and a new SQL connection require their separate authorization. This metadata check grants none.",
+    "localTrial": "Continue preparing nonce-owned disposable C77/D/E2 separately; this shared-instance diagnosis does not block that route."
+  },
+  "productionStatus": "NO-GO"
+}

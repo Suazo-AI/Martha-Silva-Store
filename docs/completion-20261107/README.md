@@ -57,3 +57,38 @@ valid 39 items; `python tests/test_progress.py` 23/23; `python tools/export_prog
 All commands exited 0. Direct comparison with the parent ledger confirms all 39 statuses, dependencies and completion
 criteria are unchanged; only TECH-TRIAL routing/preparation/report and C10 preparation changed. `git diff --check` passed.
 These checks prove documentation consistency and existing offline regressions, not SQL execution or production readiness.
+
+Read-only local prerequisite check, 2026-11-07: `wsl --list --quiet` lists only `docker-desktop`.
+`docker image ls --digests` confirms the pinned SQL Server and SDK images remain cached.
+`docker ps` confirms the engine responds; no container was started, stopped or changed.
+C77 and E2 use C# fixtures without the Linux journey harness. Preparing Windows SDK invocations is an alternative,
+not a verified runtime result. D still requires Linux: `golden_path.py` imports `fcntl`, `pty` and `termios`,
+uses `/proc`, and the browser driver selects Chrome. A complete journey runner is still required.
+
+Source correction sent to the existing OpenCode preparation task: the earlier database-name outline omitted fixtures.
+`SqlDatabase.cs` generates `MarthaSynthetic_Test_<32hex>`; `InternalSecuritySqlTests.cs` generates
+`MarthaInternal_Test_<32hex>`. Internal fixtures also generate `SaviaInternalTest_Commerce_<32hex>`,
+`SaviaInternalTest_Supply_<32hex>`, `SaviaInternalTest_Release_<32hex>` and `SaviaInternalTest_Pilot_<32hex>`.
+The real journey generates `SaviaInternalTest_Golden_<32hex>`. Here `<32hex>` means 32 lowercase hexadecimal digits.
+The executable plan must account for these exact fixture names inside its nonce-owned disposable SQL container.
+A name match alone never authorizes connecting to or deleting an existing host database.
+Primary owns acceptance of this correction in the returned entry point; Astra/xhigh reviews the frozen result.
+No runtime scope, existing acceptance criterion, test source or production status changed.
+
+SEC-CSRF is awaiting Jason's session-policy decision, requested through the question tool on 2026-11-07.
+Recommendation: reject mutation tokens from an earlier session, including the same user's later login.
+If approved, require the existing SQL red/green gate: an old token with a new valid session must reject without writes;
+a fresh token must work. Preserve anonymous login, logout, cross-user rejection and pending-receipt recovery.
+This is a separate production increment. It does not change the frozen local-trial source or authorize SQL execution.
+
+C9 metadata narrowed, 2026-11-07: the read-only registry inspection now succeeds with the effective administrator token.
+SAVIATEST has an empty configured certificate binding and `ForceEncryption=0`; its current startup log reports
+`A self-generated certificate was successfully loaded for encryption.` Service/process timestamps were captured.
+This is consistent with the earlier trust rejection; the presented fingerprint and chain remain unverified.
+[Exact metadata and limits](local-validation/TLS-METADATA-20261107.json). Both metadata invocations exited 0.
+No SQL connection, trust/certificate change or service action occurred. C9 remains blocked for its separate security/runtime scope.
+The owned disposable local trial remains independent of that shared-instance correction.
+
+Metadata integration checks: delivery-status 24/24; ledger valid 39; progress 23/23; export verification 15 preserved hashes.
+All exited 0. Only C9's blocker/evidence changed; all statuses, completion criteria and dependencies remain identical.
+Lesson: the administrator token resolved the registry-read failure. It does not establish certificate trust or pass a SQL test.

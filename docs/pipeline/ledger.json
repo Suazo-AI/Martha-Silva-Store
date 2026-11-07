@@ -305,9 +305,9 @@
         "tests/sql/*"
       ],
       "prep": "Procedimiento G0-G9 preparado. Unico preflight metadata 2026-11-04:1Open,0sesiones,0consultas,exit1 en88ms; cadena no confiable. Cierre/dispose completos, latch retenido,0reintentos/fallback y0mutaciones emitidas. Estado persistente igual no probado. Campos SQL/rutas/colisiones NOT RUN; C9 permanece0/5.",
-      "blocker": "Cliente rechazo la confianza de la cadena del certificado; certificado/CA efectivos desconocidos. No se intento correccion por quedar fuera del alcance consumido. Primary preparo investigacion OS de certificados sin conexion SQL; Jason/administrador decide alcance nuevo. Faltan metadata actual, coordinador Windows, restaurada con ventas/oraculos, RTO/RPO y recuperacion del ultimo Owner.",
+      "blocker": "El cliente rechazo la confianza de la cadena. Metadata OS 2026-11-07: lectura del registro ahora permitida como administrador; binding vacio, ForceEncryption=0 y arranque actual registra certificado autogenerado. Fingerprint/cadena presentados y nueva conexion estricta siguen sin verificar. No hubo conexion SQL ni cambios de seguridad o servicio. Jason/administrador decide alcance separado para certificado/confianza y conexion; C9 aun requiere restore con ventas/oraculos, RTO/RPO y recuperacion Owner. La ruta local desechable TECH-TRIAL no depende de corregir SAVIATEST.",
       "report": "docs/c9-recovery-20261103/PREFLIGHT-RESULT.md",
-      "evidence": "docs/c9-recovery-20261103/preflight-result.sanitized.json / docs/c9-recovery-20261103/CERTIFICATE-INVESTIGATION-SCOPE.md"
+      "evidence": "docs/c9-recovery-20261103/preflight-result.sanitized.json / docs/c9-recovery-20261103/CERTIFICATE-INVESTIGATION-SCOPE.md / docs/completion-20261107/local-validation/TLS-METADATA-20261107.json"
     },
     {
       "id": "TECH-TRIAL",

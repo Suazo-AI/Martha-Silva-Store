@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-07T13:24:58.859280+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/completion-20261107/README.md",
+      "change": "M",
+      "git_blob": "a577c4baab575c0b0c88e749a38181aad8e58d53"
+    },
+    {
+      "path": "docs/completion-20261107/local-validation/TLS-METADATA-20261107.json",
+      "change": "A",
+      "git_blob": "e194d584593605bb73e2c63175a13877764f3b6d"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "change": "M",
+      "git_blob": "2ab99fad3ad182bd6b746cbe0d58a1da40b518d2"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}
