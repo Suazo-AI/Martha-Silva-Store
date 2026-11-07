@@ -1,6 +1,6 @@
 # N8 successful-write oracle correction
 
-Status: prepared and locally verified; fresh Astra/xhigh recheck and SQL remain pending.
+Status: primary accepts the source/offline correction after Astra/xhigh recheck. N8 SQL remains pending.
 Base: `6708709b4bda8a2638acb995d9ae1b91fc60d257`. Host: SUAZO-PC.
 
 The primary confirms P2 in [the original REVISE report](../astra-implementation-judge.md).
@@ -49,3 +49,17 @@ Lesson applied and checked: exclude identified inserts, never entire tables, whe
 Documentation checks: `python tests/test_progress.py`, `python tools/export_progress.py --verify`,
 `python tests/test_delivery_status.py`, and `python tools/delivery_status.py --check` all exited 0.
 Their commands, elapsed times and private log hashes are in RESULT.json. These checks do not execute SQL.
+
+## Primary acceptance after independent recheck, 2026-11-07
+
+Primary verified the [Astra recheck](astra-recheck.md) and its RAW/LF hash,
+`9b6953185c74cd7542ad7d9bd7e1df65d0827f9963e6fecccc43ae62962bb550`.
+The report covers frozen `79d18c407f0de7650a83016093de15efcad10b39`.
+All 12 current LF bindings match canonical files and that commit. P2 is resolved for
+the same-account sale and Directory oracle. Primary accepts this bounded correction.
+The earlier receipt and REVISE remain historical. No tests were rerun for this report import.
+The older cross-user positive oracle remains outside this acceptance.
+N8 SQL, cash integration, runtime qualification and production remain separate gates.
+See [primary acceptance](PRIMARY-ACCEPTANCE.json) for exact disposition and continuation.
+
+Documentation acceptance checks: `python tests/test_progress.py` **23/23**, `python tools/export_progress.py --verify` **15 preserved hashes**, `python tests/test_delivery_status.py` **24/24**, and `python tools/delivery_status.py --check` **40 valid items**. All exited **0**. Commands, durations and private-log hashes are recorded in `PRIMARY-ACCEPTANCE.json`; no runtime tests were repeated for this report import.

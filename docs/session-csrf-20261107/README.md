@@ -168,3 +168,10 @@ The controls reproduce the old blind spot and detect existing-row corruption und
 The full repository check on `6708709` also passed: exit 0, 405.609 seconds.
 It precedes the C# test-only oracle correction and is recorded separately in [client PRIMARY](client/PRIMARY.json).
 Next: fresh Astra/xhigh recheck of the correction. Real N8 SQL remains NOT RUN; production remains NO-GO.
+
+## Primary acceptance of P2 correction, 2026-11-07
+
+Astra/xhigh accepted the corrected same-account sale and Directory oracle on `79d18c4` with limits.
+Primary verified the report hash and all 12 current source bindings against canonical bytes and frozen Git blobs.
+P2 is resolved at source/offline level. [Exact acceptance and remaining SQL gate](n8-correction/PRIMARY-ACCEPTANCE.json).
+No N8 SQL execution or production waiver is implied. The earlier REVISE and preparation receipts remain historical.

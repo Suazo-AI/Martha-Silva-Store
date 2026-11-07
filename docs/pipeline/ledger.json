@@ -422,7 +422,7 @@
       "done_when": "Decisión registrada; si se liga a la sesión, prueba roja-verde en InternalAcceptanceHttpSqlTests",
       "alternatives": "Dejarlo ligado al usuario (sin riesgo de escalada, más simple) · ligarlo a la sesión (N8 estricto, cambio pequeño en Security)",
       "decision_ref": "docs/session-csrf-20261107/README.md",
-      "review": "Per-session rule implemented with real offline framework red/green and client continuity proof. Astra/xhigh REVISE on 6708709: one successful-write oracle gap, no product defect. Primary correction compiles and passes 33/33 focused checks; fresh judge recheck and real N8 SQL remain pending. See docs/session-csrf-20261107/n8-correction/README.md. Historical A552/C77/E2 unchanged; no runtime or deployment waiver.",
+      "review": "Per-session rule implemented with real offline framework red/green and client continuity proof. Astra/xhigh accepted P2 correction on 79d18c4 with limits; primary verified report and all 12 canonical/Git LF bindings. Same-account sale and Directory oracle accepted at source/offline level; original 33/33 checks preserved. N8 SQL remains pending; older cross-user positive oracle is outside this bounded acceptance. See docs/session-csrf-20261107/n8-correction/PRIMARY-ACCEPTANCE.json. Historical A552/C77/E2 unchanged; no runtime or production waiver.",
       "paths": [
         "backend/src/Martha.Store.Api/Internal/Security/*"
       ],

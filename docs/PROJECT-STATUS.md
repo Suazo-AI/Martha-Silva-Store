@@ -8,12 +8,14 @@ CSRF: original private TRX confirms two red stale-session cases, then final 55/5
 Combined client logout/relogin proof: primary 13/13 PASS, zero skips; eight historical controls verified.
 Fresh Astra/xhigh review found one P2 in N8's successful-write oracle, with no product defect.
 Primary corrected the table exclusions and passed 33/33 focused checks, zero skips.
-Fresh independent recheck and N8 SQL remain pending.
+Astra/xhigh recheck on `79d18c4` accepted the correction with limits; primary verified and accepts it.
+N8 SQL remains pending. The older cross-user positive oracle is outside this scoped acceptance.
 [Correction, exact source bindings and continuation](session-csrf-20261107/n8-correction/README.md).
 The full repository check passed on `6708709`, exit 0 in 405.609 seconds; it predates this test-only correction.
 [Integration and exact limits](session-csrf-20261107/README.md#primary-integration-2026-11-07).
 Runner: primary independently passed 39/39 offline safety controls. Its image is deliberately unqualified;
 dependency qualification, private evidence destination and runtime authorization remain prerequisites.
+Fresh Astra/xhigh review of the corrected runner is the next independent safety gate.
 [Runner evidence and next action](completion-20261107/local-validation/runner-corrections/PRIMARY.md).
 
 Historical execution diagnosis: OpenCode rejected the selected GLM free request with `Free usage limit reached`.

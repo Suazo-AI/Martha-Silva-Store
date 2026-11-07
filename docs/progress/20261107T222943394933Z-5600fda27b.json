@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-07T22:29:43.394933+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "d4b5eae39d143e04e5df73c256dbf1d5e872bb7d"
+    },
+    {
+      "path": "docs/completion-20261107/README.md",
+      "change": "M",
+      "git_blob": "0246652c01a9605d6138a512eb88963263706f4f"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "change": "M",
+      "git_blob": "d2bac255b895216b3eff68cf82665edad45ce040"
+    },
+    {
+      "path": "docs/session-csrf-20261107/README.md",
+      "change": "M",
+      "git_blob": "66915bda143c2258fe4dbcf15a927bb38681c523"
+    },
+    {
+      "path": "docs/session-csrf-20261107/n8-correction/PRIMARY-ACCEPTANCE.json",
+      "change": "A",
+      "git_blob": "53329d61bbc4daef4c89e454116b1ae766bb99bb"
+    },
+    {
+      "path": "docs/session-csrf-20261107/n8-correction/README.md",
+      "change": "M",
+      "git_blob": "604172935ac36ede11429bc524a671db03d9277c"
+    },
+    {
+      "path": "docs/session-csrf-20261107/n8-correction/astra-recheck.md",
+      "change": "A",
+      "git_blob": "7afd4f7d460fe830468106969edc7c8435bd7508"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

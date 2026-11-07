@@ -4,7 +4,16 @@ Target: a reproducible technical trial with real receipt, sale, stock exception,
 Production acceptance remains separate. The public storefront still needs authoritative ordering and card payments.
 Source: [canonical ledger](../pipeline/ledger.json), [status](../PROJECT-STATUS.md), [database scope](../DATABASE.md).
 
-## Latest execution assignment, 2026-11-07
+## Current integration, 2026-11-07
+
+Session CSRF and runner corrections were integrated before `79d18c4`. The assignments below are historical.
+Primary accepts the source/offline N8 same-account sale and Directory correction after Astra/xhigh recheck.
+[Accepted evidence and remaining SQL gate](../session-csrf-20261107/n8-correction/PRIMARY-ACCEPTANCE.json).
+The corrected runner still needs its independent safety review, dependency/image qualification and real private destination proof.
+The cash backend is partial in its separate worker checkout; its pinned-tool migration continuation is assigned.
+No current N8 SQL, cash SQL or combined browser/API/SQL execution is claimed. Production remains NO-GO.
+
+## Historical execution assignment, 2026-11-07
 
 Jason authorized temporary Codex `gpt-6.1-sol/high` execution after OpenCode rejected the GLM free request.
 [Observed provider error and authorization](opencode-execution-diagnosis.json). Astra/xhigh remains the sole judge.
