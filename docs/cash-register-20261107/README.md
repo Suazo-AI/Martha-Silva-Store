@@ -10,6 +10,10 @@ Jason selected **fully paid sales first; credit later** on 2026-11-07.
 The question explicitly included cash received, change and till close.
 [Decision D-031](../DECISIONS.md#d-031--primera-caja-contado-crédito-después).
 
+Jason also selected **controlled cash refunds by Owner or Manager** on 2026-11-07.
+Each refund must reference the original paid sale, include a reason and record a cash outflow.
+Till close must include that outflow. [Decision D-032](../DECISIONS.md#d-032--devolución-controlada-de-efectivo).
+
 This is a SAVIA product choice, not an observation of Martha's current practice.
 Credit balances and later collection are outside this increment.
 Card payments remain a production requirement. This decision does not select a payment provider.
@@ -37,9 +41,9 @@ Use the existing architecture. Do not introduce a separate payment platform for 
 | CASH-03 | A retry or lost response cannot collect or decrement stock twice. | Retain the original key and body for uncertain outcomes. Recover the original receipt and prove one cash entry and one stock effect. |
 | CASH-04 | Sales use an open till in the actor's authorized location. Closing and simultaneous selling cannot create an unaccounted entry. | Permission and concurrency tests. Freeze till ownership and close rules in review before implementation. |
 | CASH-05 | Close records the expected cash, actual counted cash and their difference. Historical entries remain auditable. | Independently sum persisted entries. Test both a balanced close and a shortage; preserve the shortage rather than forcing zero. |
-| CASH-06 | A return or cancellation cannot silently claim that cash was refunded. | Review the existing reversal contract before enabling it for paid sales. Define the supported refund path and prove its money/stock effects, or leave that paid-sale action unavailable pending its policy. This document selects neither policy. |
+| CASH-06 | Only Owner or Manager can refund a paid cash sale. The original sale, reason and cash outflow remain linked and auditable. | Enforce the role on the server. Reject missing reasons, invalid sales and over-refunds without business writes. Prove one refund after response loss or concurrent retries, atomic money/stock effects, and the outflow in till close. A stock reversal alone never proves a refund. |
 | CASH-07 | Receipts and till records identify actor, location, sale, currency, amounts and time. Stale sessions cannot mutate them. | API/SQL evidence, authorization failures with no business writes, and affected session/CSRF regressions. |
-| CASH-08 | A cashier can complete the real journey from the staff screen. | Browser -> API -> SQL: open, sell multiple articles, receive cash, show change, recover a lost response and close with a counted amount. Mocks remain separate. |
+| CASH-08 | Authorized staff can complete the real journey from the staff screen. | Browser -> API -> SQL: open, sell multiple articles, receive cash, show change, recover a lost response, refund as Owner or Manager and close with a counted amount. Verify the Cashier cannot refund. Mocks remain separate. |
 
 Synthetic accounting example, in one test currency's minor units:
 
@@ -47,6 +51,18 @@ Synthetic accounting example, in one test currency's minor units:
 - Sale total: `2500`; received: `3000`; change: `500`.
 - Expected till cash: `10000 + 3000 - 500 = 12500`.
 - Counted cash: `12400`; difference: `12400 - 12500 = -100`.
+
+Separate controlled-refund fixture:
+
+- Opening cash: `10000`; net cash from the paid sale: `2500`.
+- Authorized refund: `1000`, linked to that sale and recorded once.
+- Expected till cash: `10000 + 2500 - 1000 = 11500`.
+- Counted cash: `11500`; difference: `0`; refundable sale balance: `1500`.
+
+Review must cover a Cashier calling the refund API directly, missing or blank reasons,
+two requests attempting to refund the same remaining balance, and a lost response followed by retry.
+The balance must come from persisted paid/refunded amounts, not a client-supplied limit.
+Freeze open-till and close/refund concurrency rules during review. No automatic till reopening is implied.
 
 These values are test fixtures, not Martha's prices, opening balance or currency.
 The independent check must recompute these amounts from stored entries rather than reuse the write handler's calculation.
@@ -58,12 +74,36 @@ Resolve its material findings and any product-only questions before an OpenCode/
 Two earlier worker assignments have cancellation requested but no terminal notification yet; do not overlap their ownership or exceed the three-agent limit.
 Use a managed worktree when the next slot is available. Keep the primary responsible for serial integration and independent acceptance.
 
-No cash code, migration, build, browser journey, SQL runtime, payment, merge or deployment was executed for this decision.
+No cash implementation, migration, cash browser journey, SQL runtime, payment, merge or deployment was executed for this decision.
 Existing runtime approvals are not renewed by the product choice. Production remains NO-GO.
 
-Documentation verification: the primary's read-only `python -` checker reported 16 PASS on 2026-11-07.
+Initial D-031 documentation verification: the primary's read-only `python -` checker reported 16 PASS on 2026-11-07.
 It checked four local links and the decision anchor, eight unique criteria, both arithmetic examples,
 the actual sale request/status sources, UTF-8 replacement characters, an empty index and `git diff --check`.
 The following command lookup found no global `gh-axi` command and made the combined shell invocation exit 1;
 that environment lookup is separate from the completed documentation checks. Use the existing cached CLI route for publication readback.
-No product test was run for this documentation-only scope record.
+No cash-specific product test was run for that initial scope record.
+
+## Publication evidence
+
+The primary read back completed successful workflows for scope commit `58aa4fac2e61166bf4f493c08f3dcff5d42b1ba4`:
+[Progress documentation](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42398605104),
+[Progress digest](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42398604925), and
+[Tony source snapshot](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42398604965).
+Both snapshot jobs succeeded: `Publication integrity and reproducible build` and
+`Historical portable regression suite (known gaps retained)`.
+These results cover the earlier scope commit. They do not test the new refund policy, cash implementation, SQL or production.
+
+## D-032 verification, 2026-11-07
+
+- Read-only `python -` policy/link/source checker: **33 PASS**, exit `0`.
+- `python tests/check.py`: **PASS**, exit `0`; includes the reproducible demo build, staff/DOM regressions, 17/17 localization cases, 47-page structure and syntax for 20 JavaScript files.
+- `python tests/test_progress.py`: **23/23 PASS**, exit `0`.
+- `python tools/export_progress.py --verify`: **15 preserved evidence hashes**, exit `0`.
+- `git diff --check` and explicit staging checks: exit `0`; unrelated D-030 and `AGENTS.md` excluded.
+
+The portable check's local log is ignored: `private-exports/cash-register-20261107/refund-decision/portable-check.log`.
+These checks preserve the existing automated baseline. They do not implement or prove cash collection or refunds.
+The first partial-staging patch failed without changing the index; passing explicit UTF-8/LF bytes instead of Windows text-mode stdin succeeded.
+Lesson applied and checked: stage only D-032 from the shared decisions file; retain the unrelated D-030 working-tree change.
+Next: terminal worker handoffs, fresh Astra/xhigh cash review, bounded OpenCode/high implementation and real money/permission reconciliation tests.

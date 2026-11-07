@@ -248,3 +248,18 @@ El contrato actual registra ventas con `PaymentStatus = "not_processed"`; eso no
 [Brecha comprobada y criterios de la primera caja](cash-register-20261107/README.md).
 Estado: alcance adoptado; diseño, implementación y prueba real de caja pendientes.
 No se ejecutaron cobros, cambios de cuentas, SQL, merge ni despliegue por esta decisión.
+
+## D-032 — Devolución controlada de efectivo
+
+Adoptada por Jason el 2026-11-07, America/Managua.
+Respuesta explícita: «Sí: devolución controlada por Owner o Manager (recomendado)».
+
+La primera caja de SAVIA permite devolver efectivo por una venta pagada.
+Solo Owner o Manager puede autorizar la devolución.
+Debe vincularse con la venta original, registrar el motivo y registrar la salida de dinero en caja.
+El cierre debe incluir esa salida. Una reversión de inventario, por sí sola, no acredita un reembolso.
+
+Esta decisión completa el alcance de D-031; no describe el proceso actual de Martha.
+[Contrato y comprobaciones de caja](cash-register-20261107/README.md).
+Estado: política adoptada; implementación y pruebas de dinero, permisos y persistencia pendientes.
+No se ejecutaron devoluciones, cambios de cuentas, SQL, merge ni despliegue por esta decisión.

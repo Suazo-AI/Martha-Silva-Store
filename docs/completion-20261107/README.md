@@ -185,3 +185,15 @@ The primary requested cancellation. The tool returned `cancel_requested`; no ter
 This supersedes the earlier statement that only CSRF had a cancellation request. Both assignments remain unsettled.
 Primary will inspect partial files only after terminal notification, verify owned-resource cleanup, and then integrate or diagnose.
 No replacement, SQL execution, source acceptance or provider fallback was performed.
+
+Cash-refund decision, 2026-11-07: Jason selected controlled refunds by Owner or Manager.
+[D-032 and CASH-06](../cash-register-20261107/README.md) now require the original paid sale, reason and recorded cash outflow in till close.
+The proposed tests cover server-side roles, excessive refunds, duplicate/concurrent attempts, lost responses and independent reconciliation.
+The earlier cash-scope publication `58aa4fac2e61166bf4f493c08f3dcff5d42b1ba4` has three successful completed workflows;
+both Tony snapshot jobs passed. The [cash-area evidence](../cash-register-20261107/README.md#publication-evidence) keeps this publication proof separate from money and SQL acceptance.
+No cash implementation or refund runtime was executed. The previous refund question is resolved.
+Two worker cancellation requests still lack terminal notifications. Their inactivity cause is unknown; no fallback or replacement was launched.
+Primary owns recovery after those notifications, followed by fresh Astra/xhigh cash review and bounded OpenCode/high implementation.
+Completion requires the reviewed money/permission checks and real browser/API/SQL reconciliation; documentation alone cannot close this increment.
+D-032 verification completed: portable `tests/check.py` exit 0, progress 23/23, export 15 hashes and policy-document checks 33 PASS.
+Only the four owned documents are selected for publication; unrelated D-030 and `AGENTS.md` remain excluded.
