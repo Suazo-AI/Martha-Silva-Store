@@ -1,6 +1,6 @@
 # Continuar Martha Silva / SAVIA
 
-Actualizado: 2026-11-04. Entrada común para cualquier agente; no requiere Graphify.
+Actualizado: 2026-11-07. Entrada común para cualquier agente; no requiere Graphify.
 Checkout: `C:/Users/Jason/MARTHA-SILVA/github`. Rama: `Tony`.
 Remoto: `Suazo-AI/Martha-Silva-Store`. No trabajar sobre las copias históricas del folder padre.
 
@@ -9,7 +9,7 @@ Remoto: `Suazo-AI/Martha-Silva-Store`. No trabajar sobre las copias históricas 
 1. Leer [AGENTS](../AGENTS.md) y las reglas aplicables del equipo anfitrión.
 2. Leer [estado](PROJECT-STATUS.md), [decisiones vigentes](DECISIONS.md) y `git status --short`.
 3. Localizar el área en [CODE-MAP](CODE-MAP.md); leer su fuente y contrato antes de editar.
-4. Para SQL, leer [DATABASE](DATABASE.md). Para pruebas, leer [la última validación](testing-20261103/README.md).
+4. Para SQL, leer [DATABASE](DATABASE.md). Para pruebas pendientes, leer la [validación local actual](completion-20261107/local-validation/README.md).
 
 ## Aprendizaje y tareas que Jason pospone
 
@@ -23,45 +23,34 @@ Prioridad de fuentes: instrucción vigente de Jason → contrato aprobado → c�
 → evidencia con fecha/hash → propuesta histórica. Un conflicto se registra; no se resuelve inventando capacidades.
 El índice y cualquier grafo son ayudas de navegación, nunca autoridad de permisos, esquema o aceptación.
 
-## Estado compartido entre agentes (2026-11-04)
-
-Incremento posterior: la venta multiartículo está validada técnicamente en Tony@922852c.
-Consultar [su evidencia y límites](multiarticle-20261104/README.md) antes de integrar este cambio en PR #2.
-No atribuir al incremento la CI del candidato anterior ni fusionarlo sin autorización de Jason.
-
-Todos los agentes (Claude, Codex/Tony y otros) parten del mismo lugar:
+## Estado compartido entre agentes
 
 1. **Estado:** [docs/pipeline/ledger.json](pipeline/ledger.json) es la fuente única. `python3 tools/delivery_status.py`
    muestra dónde vamos, el camino crítico, la siguiente acción por persona y las decisiones pendientes.
-   Trello muestra quién hace qué; si Trello y el ledger difieren, se corrige el ledger con evidencia.
-2. **Candidato:** rama `claude/funny-brahmagupta-5e5rj0`, [PR #2](https://github.com/Suazo-AI/Martha-Silva-Store/pull/2).
-   Partir del head más reciente del PR, no de `775f301` ni de `Tony@20932d5`: ya incluye N5, C4, C5, C7 y el flujo.
-3. **No repetir trabajo verificado:** N5, C3, C4, C5 y C7 están `done` con evidencia en el ledger. Si se duda de
-   algo, se reabre con una prueba que falle, no rehaciéndolo.
-4. **Registrar avance:** en el mismo PR, cambiar `status` y `evidence` del item; `done` sin evidencia o antes
-   que sus dependencias hace fallar el CI. Usar la [plantilla de PR](../.github/pull_request_template.md).
-   El workflow `progress-digest.yml` publica el estado en el PR y en el issue #3 sin intervención.
-5. **Hallazgos:** un hallazgo nuevo es un item nuevo del ledger (dueño, porqué, criterio de hecho,
-   alternativas, decisión si aplica), no solo un comentario de Trello o Slack.
-6. **Puertas de un solo sentido:** merge a `main`, despliegue, secretos, datos reales y cambios de
-   seguridad requieren a Jason. Ver [pipeline](pipeline/README.md) y [AGENTS](../AGENTS.md).
+2. **Candidato:** verificar `git branch --show-current`, `git rev-parse HEAD` y cambios locales en `Tony`.
+   Para un worker, fijar ese SHA y usar el worktree administrado por T3 con sus rutas asignadas.
+   La integración y publicación en el checkout canónico pertenecen al primary.
+3. **Evidencia:** reutilizar resultados aceptados cuando sus fuentes y alcance sigan vigentes.
+   Separar pruebas históricas, simuladas, SQL y navegador → API → SQL. Una CI anterior no cubre un SHA nuevo.
+4. **Registrar avance:** actualizar el documento del área y, cuando cambie su estado, el item del ledger.
+   Publicar en `Tony` mediante [AUTO-SYNC](AUTO-SYNC.md); verificar `SYNCED`, SHA remoto y CI aplicable.
+5. **Hallazgos:** registrar causa demostrada o hipótesis, evidencia, dueño, siguiente acción y comprobación de cierre.
+   Mantener los criterios aprobados; una entrega del worker no constituye aceptación del primary.
+6. **Permisos:** comprobar el alcance vigente antes de ejecutar SQL, recuperación, cambios de seguridad,
+   cuentas, merge o despliegue. La publicación documental no autoriza esas acciones.
 
-## Próxima tarea concreta
+## Elegir el siguiente trabajo
 
-> Actualización 2026-11-03: N5 está corregido en la rama `claude/funny-brahmagupta-5e5rj0` (PR de integración),
-> con evidencia en [sprint-20261104](sprint-20261104/README.md). No repetir esa corrección: integrarla y seguir
-> las tarjetas C1–C12 del sprint. El texto siguiente queda como antecedente.
+Partir del ledger y de la [continuación actual](completion-20261107/README.md), no de una tarea fechada antigua.
+Antes de cambiar rutas compartidas, comprobar actividad y propiedad con las reglas de coordinación de AGENTS.
 
-Corregir N5: la recuperación de un recibo confirmado con respuesta 404 crea un bloqueo de venta pendiente.
-Reproducción: caso `Stale confirmed receipt` de [browser-mock-validation.mjs](../tests/browser-mock-validation.mjs).
-Punto inicial: restauración del recibo en [app.mjs](../dev/savia-staff-ui/app.mjs).
+- Validación: [preparación local](completion-20261107/local-validation/README.md), con A, C, D y E separados.
+- Seguridad de sesión: [contrato CSRF](session-csrf-20261107/README.md).
+- Acceso de emergencia: [contrato Owner](owner-recovery-20261107/IMPLEMENTATION.md).
 
-Aceptar solo si el recibo obsoleto deja disponible una venta nueva, una venta realmente pendiente sigue
-bloqueando duplicados y una sesión revocada continúa invalidando el acceso. Conservar la clave del intento
-original en recuperación. Añadir/verificar la regresión y ejecutar las pruebas afectadas.
-Después preparar el recorrido navegador → API → SQL aislado del
-[incremento N1–N10](delivery-20261031/NEXT-INCREMENT.md), con una venta y un único débito persistidos.
-La autorización de sincronización no autoriza ese nuevo runtime SQL.
+La [validación del 3 de noviembre](testing-20261103/README.md), la [venta multiartículo](multiarticle-20261104/README.md)
+y el [sprint anterior](sprint-20261104/README.md) conservan sus cortes históricos.
+N5 ya fue corregido; consultar su [aceptación y límites](n5-browser-20261105/README.md) si cambia la recuperación.
 
 ## Ciclo de trabajo
 
@@ -75,7 +64,9 @@ La autorización de sincronización no autoriza ese nuevo runtime SQL.
 No ejecutar scripts históricos de arranque, bootstrap Owner, reinicio, migración o vigilancia por encontrar sus archivos.
 No repetir autorizaciones de un solo uso. No publicar sesiones, bases, certificados o logs privados.
 No activar un agente permanente ni instalar herramientas para suplir una tarea que Git y `rg` ya resuelven.
-Cada delegación requiere la selección de modelo/razonamiento de Jason para ese lote, según las reglas del proyecto.
+Antes de delegar, leer `C:/Users/Jason/AI-OS/rules/orchestration.md` y aplicar la selección vigente de Jason.
+Selección de este proyecto: executors gratuitos de OpenCode/high; único juez Astra/xhigh.
+Una selección ya aprobada no necesita otra confirmación; no autoriza sustituir proveedor ni ampliar permisos.
 
 ## Antes de entregar a otro agente
 

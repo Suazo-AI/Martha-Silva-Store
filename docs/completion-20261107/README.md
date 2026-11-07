@@ -145,3 +145,14 @@ Primary owns integration and closure. C77, D, E2, Owner recovery and session-CSR
 This recovery/adjudication documentation passed delivery-status 24/24, ledger validation 39 items,
 progress 23/23, export verification 15 preserved hashes and `git diff --check`, all exit 0.
 No product check, database runtime or readiness claim follows from these documentation checks.
+
+Agent navigation correction, 2026-11-07: the primary replaced stale PR-head and N5 repair instructions in
+`docs/AGENT-START.md`, and extended `docs/CODE-MAP.md` to the current supply, stock, fingerprint and local-validation sources.
+The cause was directly visible: the November 4 entrypoint still selected an old PR and described a resolved defect as next work.
+Historical evidence remains linked; runtime permissions and the current OpenCode/high executor plus Astra/xhigh judge selection remain explicit.
+Read-only validation through `python -` checked both documents: 70 local links exist, obsolete instructions are absent,
+permission boundaries remain, unrelated tracked changes are preserved and the index was empty; exit 0.
+The first checker attempt failed because Windows stdin replaced an accented assertion literal with `?`.
+Repeating the checker with ASCII/Unicode escapes passed; neither attempt ran product code.
+Next: integrate the bounded executor returns after terminal events, then obtain independent review of their actual candidate bytes.
+C77, D, E2, Owner recovery and session-CSRF runtime acceptance remain open.

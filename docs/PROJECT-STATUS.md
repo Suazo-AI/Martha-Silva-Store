@@ -2,6 +2,10 @@
 
 Current primary assessment, 2026-11-07 UTC: production remains NO-GO.
 
+Agent navigation updated 2026-11-07: [AGENT-START](AGENT-START.md) now routes work through Tony and the current ledger;
+[CODE-MAP](CODE-MAP.md) covers supply UI, stock exceptions, local partitions and the real-journey harness.
+The previous PR-head and already-corrected N5 instructions are historical. This documentation change adds no runtime proof.
+
 Gallery verification is technically accepted with limits on `69d3268`, after independent Astra/xhigh review and four successful exact-SHA CI workflows.
 [Acceptance](gallery-contracts-20261107/TECHNICAL-ACCEPTANCE.md). S-LEGACY remains review only for its unperformed issue #4 update; the text is prepared and external-write authority is pending.
 The fresh local site suite passed. Its earlier Windows symlink failure was not reproduced. This is not SQL or production acceptance.

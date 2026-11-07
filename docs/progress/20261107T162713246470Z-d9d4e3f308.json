@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-07T16:27:13.246470+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/AGENT-START.md",
+      "change": "M",
+      "git_blob": "3d0e3d2b966fe45d8f3f099eb915ff442681fa5c"
+    },
+    {
+      "path": "docs/CODE-MAP.md",
+      "change": "M",
+      "git_blob": "1a87a58d2b6f9924b3cf74e35eb77f2930caba68"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "5a8edacfc86b94bc3eb4258111022ef5481df855"
+    },
+    {
+      "path": "docs/completion-20261107/README.md",
+      "change": "M",
+      "git_blob": "ddcd56fa24fefd3192cb6577ede17f9379482008"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}
