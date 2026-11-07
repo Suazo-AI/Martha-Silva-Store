@@ -277,3 +277,18 @@ Esta decisión completa D-031 y D-032; no describe la práctica actual de Martha
 Estado: organización adoptada; implementación y pruebas de aislamiento, concurrencia y conciliación pendientes.
 Las reglas de devolución entre cajas o después del cierre requieren revisión; no se asumen transferencias ni reaperturas.
 No se ejecutaron movimientos de efectivo, cambios de cuentas, SQL, merge ni despliegue por esta decisión.
+
+## D-034 — Devolución desde la caja abierta que entrega el efectivo
+
+Adoptada por Jason el 2026-11-07, America/Managua.
+Respuesta explícita: «Caja abierta que entrega el dinero (recomendado)».
+
+Si la venta pertenece a un turno cerrado, la devolución sale de la caja abierta que entrega el efectivo.
+Se registra quién autoriza la devolución: Owner o Manager.
+La salida queda vinculada a la venta original y a la caja que entrega el dinero.
+El cierre del turno original se conserva intacto; la salida afecta el cierre de la caja que paga.
+
+Esta política completa D-032 y D-033; no acredita la práctica actual de Martha.
+[Contrato y comprobaciones de caja](cash-register-20261107/README.md).
+Estado: política adoptada; implementación, permisos, persistencia y conciliación pendientes.
+No se ejecutaron devoluciones, movimientos de efectivo, cambios de cuentas, SQL, merge ni despliegue.

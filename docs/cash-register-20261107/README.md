@@ -18,6 +18,11 @@ Jason selected **one till per cashier and shift**, with its own opening and clos
 Each till must identify who received and counted its cash.
 [Decision D-033](../DECISIONS.md#d-033--caja-por-cajero-y-turno).
 
+Jason selected **refund from the open till that pays**, including sales from a closed original shift.
+Record the Owner or Manager who authorizes it, the original sale and the paying till.
+Preserve the original close; include the outflow in the paying till's close.
+[Decision D-034](../DECISIONS.md#d-034--devolución-desde-la-caja-abierta-que-entrega-el-efectivo).
+
 This is a SAVIA product choice, not an observation of Martha's current practice.
 Credit balances and later collection are outside this increment.
 Card payments remain a production requirement. This decision does not select a payment provider.
@@ -43,9 +48,9 @@ Use the existing architecture. Do not introduce a separate payment platform for 
 | CASH-01 | The server calculates the sale total. Cash received covers it. Change equals received minus total. | Boundary cases for underpayment, exact payment, excess tender, invalid amounts and overflow. Use integer minor units and an explicit currency. |
 | CASH-02 | A successful cash sale persists its sale, stock effect and cash entry together. | Real API/SQL readback plus a forced failure proving no partial business writes. |
 | CASH-03 | A retry or lost response cannot collect or decrement stock twice. | Retain the original key and body for uncertain outcomes. Recover the original receipt and prove one cash entry and one stock effect. |
-| CASH-04 | Each cashier and shift has its own till, opening and closing. Sales use that cashier's open till in an authorized location. | Reject a sale charged to another cashier's or shift's till. Test simultaneous opening, sale versus close, and repeated close. Persist each accepted cash effect exactly once; reject writes after close. Freeze refund custody rules in review. |
+| CASH-04 | Each cashier and shift has its own till, opening and closing. Sales use that cashier's open till in an authorized location. | Reject a sale charged to another cashier's or shift's till. Test simultaneous opening, sale versus close, and repeated close. Persist each accepted cash effect exactly once; reject writes after close. A refund uses the open paying till under D-034. |
 | CASH-05 | Close records the expected cash, actual counted cash and their difference. Historical entries remain auditable. | Independently sum persisted entries. Test both a balanced close and a shortage; preserve the shortage rather than forcing zero. |
-| CASH-06 | Only Owner or Manager can refund a paid cash sale. The original sale, reason and cash outflow remain linked and auditable. | Enforce the role on the server. Reject missing reasons, invalid sales and over-refunds without business writes. Prove one refund after response loss or concurrent retries, atomic money/stock effects, and the outflow in till close. A stock reversal alone never proves a refund. |
+| CASH-06 | Only Owner or Manager can authorize a paid cash sale's refund. Link the original sale, reason, authorizer and open paying till. Preserve an earlier close. | Enforce authorization on the server. Reject missing reasons, invalid sales and over-refunds without business writes. Prove one refund after response loss or concurrent retries, atomic money/stock effects, the outflow in the paying till's close and an unchanged original close. A stock reversal alone never proves a refund. |
 | CASH-07 | Receipts and till records identify actor, location, sale, currency, amounts and time. Stale sessions cannot mutate them. | API/SQL evidence, authorization failures with no business writes, and affected session/CSRF regressions. |
 | CASH-08 | Authorized staff can complete the real journey from the staff screen, with cash attributed to the correct cashier and shift. | Browser -> API -> SQL: open, sell multiple articles, receive cash, show change, recover a lost response, refund as Owner or Manager and close with a counted amount. Read back the cashier, shift and till. Verify the Cashier cannot refund and a second cashier's till remains unchanged. Mocks remain separate. |
 
@@ -66,12 +71,17 @@ Separate controlled-refund fixture:
 Review must cover a Cashier calling the refund API directly, missing or blank reasons,
 two requests attempting to refund the same remaining balance, and a lost response followed by retry.
 The balance must come from persisted paid/refunded amounts, not a client-supplied limit.
-Review must specify which open till records an Owner or Manager's refund and how a closed original till is handled.
-Refund authorization does not itself determine cash custody. No transfer or automatic till reopening is implied.
+D-034 resolves refund custody: the open till that delivers cash records the outflow, even when the original shift is closed.
+The server must identify the authorizer and the paying till's responsible cashier. Do not reopen or rewrite the earlier close.
 
 Isolation fixture: two cashiers open separate tills with `10000` and `20000` minor units.
 The first cashier's paid sale of `2500` produces expected balances of `12500` and `20000` respectively.
 Closing either till must preserve the other till's balance and history. Reconcile both from persisted entries.
+
+Later-shift refund fixture: freeze the original till's `12500` close and a paid sale of `2500`.
+A new open till starts at `20000` and pays an authorized `1000` refund against that sale.
+Expected new-till cash is `19000`; remaining refundable sale balance is `1500`; original close stays `12500`.
+Read both closures and the original sale independently. Concurrent refund/close must either persist the outflow before close or reject it without business writes.
 
 These values are test fixtures, not Martha's prices, opening balance or currency.
 The independent check must recompute these amounts from stored entries rather than reuse the write handler's calculation.
@@ -129,3 +139,22 @@ D-033 verification: read-only policy/UTF-8/local-link checks **159 PASS**, `git 
 The test fixture's printed commit/SYNCED lines are simulated hook tests, not this checkout's publication receipt.
 Both earlier cancellation requests still lack a terminal handoff. Primary owns recovery through T3's completion notification;
 no running-child poll, replacement or acceptance is implied. Cash review awaits an available approved slot.
+
+## D-034 and the central release gate
+
+`CASH-REGISTER` now appears in [the canonical ledger](../pipeline/ledger.json) as pending work required by `P-GO`.
+Its completion requires reviewed implementation plus real browser/API/SQL cash reconciliation, not these decisions or mock success.
+The earlier technical-trial checkpoint contract remains unchanged; cash has its own acceptance journey.
+Direct source review found an exact 20-table fingerprint inventory in `InternalAcceptanceFingerprint.cs`.
+Any cash schema change must explicitly extend that independent inventory and affected partition manifests, preserving all no-write guards.
+Next: recover the two terminal worker handoffs, then run the fresh bounded Astra/xhigh preimplementation review on D-031 through D-034 and CASH-01 through CASH-08.
+No cash implementation or runtime has run. Provider, runtime and production gates remain unchanged.
+
+D-034 verification: `python tools/delivery_status.py --check` accepted 40 ledger items; `python tests/test_delivery_status.py` passed 24/24, exit `0`.
+A disposable negative fixture rejected `P-GO` marked done while `CASH-REGISTER` remained pending; the pending path includes both items.
+Policy, local links, UTF-8, refund arithmetic, unchanged prior gates and `git diff --check` passed, exit `0`.
+An initial fixture incorrectly requested a pending path from an already-done goal; correcting that fixture passed without changing ledger logic.
+The primary also read back three successful D-033 workflows on `42d41720e8464e0a7f1030562ecd1f8dedcb1ee8`, including both snapshot jobs.
+Those CI results cover D-033 documentation and the existing portable baseline, not cash implementation or runtime.
+Current progress checks: `python tests/test_progress.py` **23/23 PASS** (440.645 s) and `python tools/export_progress.py --verify` **15 preserved hashes**, exit `0`.
+Fixture publication messages from those tests are simulated; only the real hook and remote readback can prove publication.

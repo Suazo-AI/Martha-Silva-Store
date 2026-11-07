@@ -526,6 +526,22 @@
       "trello": "https://trello.com/c/XMPIyKa8"
     },
     {
+      "id": "CASH-REGISTER",
+      "order": 23.75,
+      "track": "prod",
+      "owner": "suazo_pc",
+      "status": "todo",
+      "title": "Primera caja de contado por cajero y turno, con devoluciones controladas",
+      "why": "La venta actual registra not_processed; no prueba cobro, vuelto, custodia del efectivo ni conciliacion de caja.",
+      "done_when": "D-031 a D-034 y CASH-01 a CASH-08 implementados y aceptados: cobro completo, vuelto exacto, apertura/cierre por cajero y turno, autorizacion Owner/Manager de devoluciones desde la caja abierta que paga, cierre original inmutable; permisos, atomicidad, idempotencia, concurrencia y conciliacion independiente. Recorrido real navegador/API/SQL con perdida de respuesta, dos cajas aisladas y devolucion de un turno anterior. Revision Astra/xhigh, pruebas adversariales, integracion serial y CI del SHA exacto. No sustituye tarjetas ni aceptacion operativa.",
+      "decision_ref": "docs/DECISIONS.md#d-034--devolución-desde-la-caja-abierta-que-entrega-el-efectivo",
+      "paths": [
+        "docs/cash-register-20261107/*"
+      ],
+      "prep": "Alcance adoptado; sin implementacion ni runtime de caja. Revision fresca Astra/xhigh pendiente de capacidad tras dos solicitudes de cancelacion sin retorno terminal. No renovar autorizaciones de SQL o despliegue ni asumir proveedor alternativo.",
+      "report": "docs/cash-register-20261107/README.md"
+    },
+    {
       "id": "P-GO",
       "order": 24,
       "track": "prod",
@@ -536,7 +552,8 @@
         "C12",
         "P-SEC",
         "P-OPS",
-        "P-OWNER"
+        "P-OWNER",
+        "CASH-REGISTER"
       ],
       "title": "Salida a producción de SAVIA interno",
       "why": "Uso real en la caja con respaldo, monitoreo y aceptación firmada",

@@ -205,3 +205,10 @@ Refund custody across tills or after close remains for review; no transfer or re
 The primary read back both successful snapshot jobs in D-032 run `42402503913`; that evidence applies to `1ddb022`, not cash runtime.
 The two cancellation requests still await terminal handoffs. No replacement was started; primary owns that recovery and the fresh Astra/xhigh review.
 Cash implementation and its real browser/API/SQL journey remain pending. D-033 grants no additional runtime or deployment authority.
+
+Later-shift refund decision: D-034 uses the open paying till, records Owner/Manager authorization and preserves the original close.
+The primary found the adopted cash scope missing from the central ledger and added `CASH-REGISTER` as a pending prerequisite of `P-GO`.
+Its own real browser/API/SQL journey must prove cross-shift refunds and independent till reconciliation; the earlier TECH-TRIAL contract is unchanged.
+Cash schema work must extend the independent exact-table fingerprint inventory rather than relax rejected-write assertions.
+Next: terminal handoffs for the two cancellation requests, fresh Astra/xhigh review, then bounded OpenCode/high implementation.
+The cancellation cause and terminal state remain unknown. This record claims neither running workers nor completed review or runtime.

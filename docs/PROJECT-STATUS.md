@@ -9,6 +9,8 @@ Cash-refund policy adopted: Owner or Manager only, with original paid sale, reas
 Cash and refund implementation, independent review and real persistence tests remain pending.
 Till organization adopted: one till per cashier and shift, with its own opening and closing (D-033).
 Isolation, sale/close concurrency and independent cash reconciliation remain proposed checks, not runtime proof.
+Later-shift refunds use the open till that pays, with Owner/Manager authorization and the original close preserved (D-034).
+The ledger now tracks `CASH-REGISTER` as a separate pending prerequisite of `P-GO`; no cash implementation is accepted.
 
 Agent navigation updated 2026-11-07: [AGENT-START](AGENT-START.md) now routes work through Tony and the current ledger;
 [CODE-MAP](CODE-MAP.md) covers supply UI, stock exceptions, local partitions and the real-journey harness.

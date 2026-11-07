@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-07T19:24:10.023912+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/DECISIONS.md",
+      "change": "M",
+      "git_blob": "8cebd638a4a83d8143e4a56f299646f36c78e05a"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "26f05a7d4ea7ad0271557a5de8cda8fda87b4938"
+    },
+    {
+      "path": "docs/cash-register-20261107/README.md",
+      "change": "M",
+      "git_blob": "0d39ff892771a168d499aa10db0b2a07a40c5b1c"
+    },
+    {
+      "path": "docs/completion-20261107/README.md",
+      "change": "M",
+      "git_blob": "bd91a3332c47d0b378ac3561aabffed3c62a3c5d"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "change": "M",
+      "git_blob": "bb6dd5fcb5c6b7d279335b484ed9863ef3ab8ee4"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}
