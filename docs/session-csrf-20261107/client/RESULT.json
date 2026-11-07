@@ -1,0 +1,56 @@
+{
+  "status": "returned",
+  "primaryAcceptance": false,
+  "sourceSha": "030b64f7cba87c6a0d710892deb9a8493ea8bbf4",
+  "identity": {
+    "host": "SUAZO-PC",
+    "harness": "T3 Code / Codex",
+    "model": "gpt-6.1-sol",
+    "requestedEffort": "high",
+    "exposedEffort": "high",
+    "internalReasoningUsage": "unknown",
+    "isolation": "assigned T3-managed worktree"
+  },
+  "usage": {
+    "tokens": "unknown",
+    "providerUsd": "unknown"
+  },
+  "completedUtc": "2026-11-07T21:34:31.426139+00:00",
+  "verification": {
+    "command": "NODE_PATH=C:/Users/Jason/MARTHA-SILVA/github/tests/frontend-deps/node_modules node --test dev/savia-staff-ui/session-transition.test.mjs",
+    "exit": 0,
+    "counts": {
+      "tests": 13,
+      "pass": 13,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "durationMs": 14715.7026,
+    "log": "private-exports/session-client-20261107/final.log",
+    "rawLogSha256": "824becb20da43916aa9ff132f1cb6c8a5f75fcfc2163f8af97489cf98da7a71b",
+    "initialPass": 13,
+    "focusedRevisionsAfterInitial": 2
+  },
+  "negativeControls": {
+    "command": "python docs/session-csrf-20261107/client/negative-controls.py",
+    "exit": 0,
+    "detected": 8,
+    "expectedFailingCases": 14,
+    "restoredCopiesExactly": true,
+    "trackedProductMutation": false
+  },
+  "productSourceUnchanged": true,
+  "evidenceCorrection": "Initial summary parser failed on a non-ASCII regex after PowerShell stdin encoding. ASCII word matching fixed the parser; product tests were not rerun.",
+  "blockers": [],
+  "notRun": [
+    "full website suite",
+    "SQL N8",
+    "Docker",
+    "browser",
+    "CI",
+    "production",
+    "independent Astra acceptance"
+  ],
+  "nextAction": "Primary inspect and integrate only new test and client evidence, then obtain fresh Astra/xhigh review."
+}

@@ -1,0 +1,176 @@
+{
+  "status": "integrated_for_independent_review",
+  "sourceSha": "030b64f7cba87c6a0d710892deb9a8493ea8bbf4",
+  "workerPath": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-292c5ebc",
+  "primary": {
+    "host": "SUAZO-PC",
+    "model": "gpt-6.1-sol",
+    "exposedEffort": "xhigh"
+  },
+  "unchangedProductBindings": 5,
+  "imported": [
+    {
+      "path": "dev/savia-staff-ui/session-transition.test.mjs",
+      "rawSha256": "ea5d321f23186e78d999313e7d228e0242e29425904ec5174b572a1ea880a384",
+      "lfSha256": "ea5d321f23186e78d999313e7d228e0242e29425904ec5174b572a1ea880a384"
+    },
+    {
+      "path": "docs/session-csrf-20261107/client/negative-controls.json",
+      "rawSha256": "e69de75f0ceddf15e89b4cb0f9967e1f36fd1709cb6c488dd402e54204630fd8",
+      "lfSha256": "e803bf8d985d7b8c31182ab420c5865e59d8aab799741c95e09c280586cd6b49"
+    },
+    {
+      "path": "docs/session-csrf-20261107/client/negative-controls.py",
+      "rawSha256": "04910b1955a783c1469eaf70c77c5af97814f86ecf97afb131b3d60271d74a84",
+      "lfSha256": "4f5cdd61a8061b5af73a00c85e9a0264367e51b9ef2b0d89d961aaa5bf1f7187"
+    },
+    {
+      "path": "docs/session-csrf-20261107/client/README.md",
+      "rawSha256": "c8f2f037d8343e3742706e712bde8ad8a5a82d0e8ef8dc7783427825a5dbdf2c",
+      "lfSha256": "fed5a753920e9caee2c89c525d26942cd18251a52fa328701ad857a99a88ae4a"
+    },
+    {
+      "path": "docs/session-csrf-20261107/client/RESULT.json",
+      "rawSha256": "6c03949a199c30c2d77f4b7e6950396c16fc96946424cae018f19aeb6caebdfd",
+      "lfSha256": "8f2506e9c9be6ebb83c209c3cf46bd5e89b3721006bb3300dff66ed94c665c8b"
+    },
+    {
+      "path": "docs/session-csrf-20261107/client/HASHES.json",
+      "rawSha256": "2c012647dc2615ca0f8144138fce0ae5eab92529dfe2494c24d99d6e1c6ed7c2",
+      "lfSha256": "c0a9d83a4cc21c895a4fe924d645a34a57f5012ff83efe9e73049929be9233f7"
+    }
+  ],
+  "historicalNegativeControlsVerified": [
+    {
+      "control": "auth-epoch",
+      "exit": 1,
+      "counts": {
+        "tests": 3,
+        "pass": 0,
+        "fail": 3,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "logHashMatches": true,
+      "restoredBytesMatch": true
+    },
+    {
+      "control": "commerce-generation",
+      "exit": 1,
+      "counts": {
+        "tests": 1,
+        "pass": 0,
+        "fail": 1,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "logHashMatches": true,
+      "restoredBytesMatch": true
+    },
+    {
+      "control": "supply-generation",
+      "exit": 1,
+      "counts": {
+        "tests": 1,
+        "pass": 0,
+        "fail": 1,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "logHashMatches": true,
+      "restoredBytesMatch": true
+    },
+    {
+      "control": "review-generation",
+      "exit": 1,
+      "counts": {
+        "tests": 1,
+        "pass": 0,
+        "fail": 1,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "logHashMatches": true,
+      "restoredBytesMatch": true
+    },
+    {
+      "control": "automatic-resend",
+      "exit": 1,
+      "counts": {
+        "tests": 1,
+        "pass": 0,
+        "fail": 1,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "logHashMatches": true,
+      "restoredBytesMatch": true
+    },
+    {
+      "control": "reference-rewrite",
+      "exit": 1,
+      "counts": {
+        "tests": 1,
+        "pass": 0,
+        "fail": 1,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "logHashMatches": true,
+      "restoredBytesMatch": true
+    },
+    {
+      "control": "key-rewrite",
+      "exit": 1,
+      "counts": {
+        "tests": 3,
+        "pass": 0,
+        "fail": 3,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "logHashMatches": true,
+      "restoredBytesMatch": true
+    },
+    {
+      "control": "skip-business-renewal",
+      "exit": 1,
+      "counts": {
+        "tests": 3,
+        "pass": 0,
+        "fail": 3,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "logHashMatches": true,
+      "restoredBytesMatch": true
+    }
+  ],
+  "workerFinalLogHashVerified": true,
+  "primaryFocused": {
+    "command": [
+      "node",
+      "--test",
+      "dev/savia-staff-ui/session-transition.test.mjs"
+    ],
+    "exit": 0,
+    "seconds": 12.032,
+    "counts": {
+      "tests": 13,
+      "pass": 13,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "log": "private-exports/session-client-primary-20261107/focused.log",
+    "rawSha256": "5cb60391ea96efbb0a4d96b61a92a064bb7c348595306bb3c0be534d6174fdb4"
+  },
+  "notRun": [
+    "SQL N8",
+    "browser",
+    "Docker",
+    "CI",
+    "production"
+  ],
+  "nextAction": "Astra/xhigh reviews integrated session-CSRF implementation, client proof and declared limits."
+}

@@ -5,7 +5,8 @@ Current primary assessment, 2026-11-07 UTC: production remains NO-GO.
 Latest implementation: Sol/high returned session-bound CSRF and local-runner safety corrections.
 Primary imported both candidates after source-binding and destination-drift checks.
 CSRF: original private TRX confirms two red stale-session cases, then final 55/55 framework/security passes.
-Combined client logout/relogin proof and fresh Astra/xhigh review remain pending; N8 SQL is NOT RUN.
+Combined client logout/relogin proof: primary 13/13 PASS, zero skips; eight historical controls verified.
+Fresh Astra/xhigh acceptance remains pending; N8 SQL is NOT RUN.
 [Integration and exact limits](session-csrf-20261107/README.md#primary-integration-2026-11-07).
 Runner: primary independently passed 39/39 offline safety controls. Its image is deliberately unqualified;
 dependency qualification, private evidence destination and runtime authorization remain prerequisites.

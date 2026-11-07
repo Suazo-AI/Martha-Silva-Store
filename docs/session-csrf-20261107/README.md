@@ -1,6 +1,6 @@
 # SEC-CSRF: session protection
 
-Status: implementation imported; combined client proof, Astra review and SQL acceptance pending.
+Status: implementation and client proof imported; Astra review and SQL acceptance pending.
 Source reviewed: `584fcaa6a11a09c1dbdcc97df3205d3e85a0b8d8`.
 Host: `SUAZO-PC`. Primary: T3 Code / Codex / `gpt-6.1-sol`, requested/exposed `xhigh`.
 
@@ -89,7 +89,7 @@ SQL gate and production remain open. A pre-review cannot close them.
 
 Lesson: hold the account and cookie constant to distinguish session binding from cookie rotation.
 
-## Current bounded assignment, 2026-11-07
+## Historical bounded assignment, 2026-11-07
 
 The approved GLM/high assignment was dispatched at `19:38:39.530 UTC` on `87ff799`.
 The primary recovered that timestamp from its own recorded dispatch, without polling the running child.
@@ -131,3 +131,24 @@ The complete `python tests/check.py` also exited 0: staff 152/152, localization 
 reproducible build, catalog/media, headers, snapshot, portable regressions, HTML and JavaScript checks passed.
 The private log and its hash are recorded in the import receipt. No dependency installation was needed.
 These are offline checks; none closes N8 SQL or the combined client acceptance gap above.
+
+## Combined client proof, 2026-11-07
+
+Primary imported one new test and five public evidence files from `030b64f`.
+The worker is terminal with no active run. Its five unchanged product inputs match canonical LF bytes.
+Primary verified all declared artifact hashes and the original private final log hash.
+All eight negative-control logs match their recorded hashes and counts: 14 expected failures, each process exit 1.
+The disposable mutated files match their original RAW hashes after restoration. Product source was not changed.
+
+Primary ran `node --test dev/savia-staff-ui/session-transition.test.mjs` with the existing jsdom cache.
+Result: 13/13 PASS, zero failures, cancellations or skips, exit 0 in 12.032 seconds.
+Sale, supply and stock-review references retain exact bytes across same-account logout/login and remount.
+Separate HTTP, mount-result and CSRF gates exercise old-session work after the new session is established.
+Explicit continuation uses the original key/body and a fresh token; failed renewal sends no business POST.
+These assertions use real client and mount modules with simulated HTTP, cookies and persistence.
+
+[Primary import and command evidence](client/PRIMARY.json) keeps historical controls separate from the fresh run.
+[Client scope and reproducible controls](client/README.md) records the test limits.
+The earlier combined-client gap is now covered locally, subject to independent Astra/xhigh acceptance.
+Next: review the frozen integrated candidate. N8 SQL, real browser/API/SQL and production remain NOT RUN.
+No new SQL, Docker, installation, account mutation, merge or deployment occurred in this integration.

@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-07T21:40:41.243399+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "dev/savia-staff-ui/session-transition.test.mjs",
+      "change": "A",
+      "git_blob": "d94c173aa149779b1c3f72ef97f65916a562df02"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "8e692538f4a698a5e32df32586c19b1b1611bb4b"
+    },
+    {
+      "path": "docs/session-csrf-20261107/CANDIDATE.json",
+      "change": "A",
+      "git_blob": "64e286e5d4ed9637cfaa759d5bf78096646581e4"
+    },
+    {
+      "path": "docs/session-csrf-20261107/README.md",
+      "change": "M",
+      "git_blob": "98595deb608b9c7c2a860f2ea18e7988cea973ff"
+    },
+    {
+      "path": "docs/session-csrf-20261107/client/HASHES.json",
+      "change": "A",
+      "git_blob": "8433bc01329239595dffb253f101c6c3474db2a6"
+    },
+    {
+      "path": "docs/session-csrf-20261107/client/PRIMARY.json",
+      "change": "A",
+      "git_blob": "5e5006c84286e29e0ed0c9e181077d64acf2fb3d"
+    },
+    {
+      "path": "docs/session-csrf-20261107/client/README.md",
+      "change": "A",
+      "git_blob": "333f24d094fdbe61850a78a5503d04482eaf02ad"
+    },
+    {
+      "path": "docs/session-csrf-20261107/client/RESULT.json",
+      "change": "A",
+      "git_blob": "7b5c178ad4fb10574adec5d491c7f0c0f22a9848"
+    },
+    {
+      "path": "docs/session-csrf-20261107/client/negative-controls.json",
+      "change": "A",
+      "git_blob": "81f0c63c35467d3d361fa127cb1fee887e249c86"
+    },
+    {
+      "path": "docs/session-csrf-20261107/client/negative-controls.py",
+      "change": "A",
+      "git_blob": "34cad019c8fc1d3521cc77b009405fdf0723f90c"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}
