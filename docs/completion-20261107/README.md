@@ -99,3 +99,19 @@ The [policy and review requirements](../owner-recovery-20261107/README.md) prese
 Current code prevents removal of the last Owner; it does not enforce the new operating minimum of two.
 Fresh Astra/xhigh design review, implementation and a separately scoped recovery test remain pending.
 Only P-OWNER's decision, owner and active preparation changed; its completion criterion and production gates remain intact.
+
+Execution-limit readback, 2026-11-07, 15:27:42 UTC: the runtime-entry task was launched at 12:54:07 UTC
+with a 25-minute budget. The session-CSRF task was launched at 14:22:49 UTC with a 45-minute budget.
+The primary verified these launch times and limits from the original tool records, then requested cancellation
+through `task_cancel`. Both requests returned `cancel_requested`; that response does not prove process termination.
+No active worker checkout was inspected, no partial code was accepted and no replacement task was launched.
+Next: receive the termination/completion event, recover the ended task's actual changed files and diagnostics,
+then review useful output before selecting the smallest remaining execution scope. Primary owns this handoff.
+SQL C77, combined journey D, recovery E2 and session-CSRF implementation verification remain NOT RUN.
+Lesson: enforce the agreed execution limit; an elapsed limit is not a diagnosis of the underlying failure.
+
+P-OWNER publication `ae8ad5d23ad07d7aeee619f93eb98192db9f2f29` has three completed successful workflows:
+[Progress digest](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42386089235),
+[Progress documentation](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42386089249), and
+[Tony source snapshot](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42386089300).
+These are exact-SHA documentation/publication checks; they do not execute Owner recovery or close P-OWNER.
