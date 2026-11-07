@@ -27,3 +27,9 @@ Lesson: exact counts are insufficient. Test semantic identity equivalence, incom
 
 Bindings, process exits and private log hashes: [CORRECTIONS.json](CORRECTIONS.json).
 Historical worker/import receipts remain unchanged and refer to their original source bytes.
+
+## Final bounded acceptance
+
+Primary accepts the corrected verifier at `5f671dd` after Astra independently passed 21 tests and 39 subprocess probes. All four CI workflows on that exact SHA succeeded.
+[Final acceptance, exact CI and runtime handoff](ACCEPTANCE.json).
+Earlier pending-review statements above describe the frozen candidate stage. No source or historical receipt was rewritten.

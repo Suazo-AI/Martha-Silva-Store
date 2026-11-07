@@ -1,0 +1,59 @@
+{
+  "status": "PRIMARY ACCEPT WITH LIMITS",
+  "reviewedSourceSha": "5f671dddf1ce25d5bef6669bb44e073f8c28f0ca",
+  "scope": "Exact local partition verifier and F1/F2/F3 corrections only",
+  "primaryVerification": "Read actual report; verified report RAW SHA256 and all three source bindings against working bytes and HEAD; read completed CI",
+  "sourceBindingReceipt": "CORRECTIONS.json.sourceBindings",
+  "judge": {
+    "provider": "codex",
+    "model": "gpt-6-astra",
+    "effectiveReasoning": "xhigh",
+    "report": "astra-judge-corrections.md",
+    "rawSha256": "7af275aa59ba4eaeb445b54ed534a6f993b8dbee6bf3f1ce91c6989d1f3702a0",
+    "observedTests": 21,
+    "observedSubprocessProbes": 39,
+    "verdict": "ACCEPT WITH LIMITS",
+    "sourceRawSha256": "1e2869f7d710dcaf588bdcb6ff80abfd19d1ea9a54b281f67b5fe8f9ade36c89",
+    "publicCopyTransformation": "Removed one trailing empty line for git diff --check; source report remains unchanged in judge worktree."
+  },
+  "findings": {
+    "F1": "closed: standard GUID validation and semantic duplicate rejection",
+    "F2": "closed: complete exclusive partition CLI mode",
+    "F3": "closed: constant input/output filesystem error diagnostics"
+  },
+  "ci": {
+    "sha": "5f671dddf1ce25d5bef6669bb44e073f8c28f0ca",
+    "runs": {
+      "42321055567": "success: Tony source snapshot",
+      "42321055572": "success: Staff UI candidate (no SQL)",
+      "42321055664": "success: Progress documentation",
+      "42321055592": "success: Progress digest"
+    },
+    "sourceSnapshotJobs": [
+      "Publication integrity and reproducible build: success",
+      "Historical portable regression suite (known gaps retained): success"
+    ]
+  },
+  "evidenceReuse": "Primary did not repeat unchanged 21-test suite; judge independently repeated it. No source changed during report integration.",
+  "runtimeBlocker": {
+    "freshCommand": "docker info --format '{{.ServerVersion}}'",
+    "exit": 1,
+    "observedError": "dockerDesktopLinuxEngine pipe missing: The system cannot find the file specified.",
+    "cause": "Local Linux Docker engine unavailable; this is an environment prerequisite, not evidence of a SQL defect.",
+    "correctionThisTurn": "Readiness check only; no launch, service, privilege, certificate or security mutation.",
+    "nextAction": "Jason opens Docker Desktop from Start normally and waits for engine readiness; primary verifies exit 0 and prerequisites before any authorized runtime.",
+    "owner": "Jason, then primary",
+    "completionCheck": "Docker reports a server version and exit 0. This alone does not satisfy SQL readiness.",
+    "priorLaunchConstraint": "Automatic approval review previously rejected the launch command with blocked by policy; no alternate launch was attempted."
+  },
+  "notRun": [
+    "real C77 SQL partition",
+    "real D Chrome/API/SQL journey",
+    "real E2 recovery partition",
+    "reproduction of six historical SQL failures",
+    "full Windows suite blocked by known WinError 1314"
+  ],
+  "production": "NO-GO; operational and production gates unchanged",
+  "publication": "Documentation-only continuation; exact publication SHA belongs to the progress receipt, not to reviewed source claims.",
+  "publicationLesson": "Check the staged imported report before publication; retain source and public hashes when whitespace normalization is necessary."
+}

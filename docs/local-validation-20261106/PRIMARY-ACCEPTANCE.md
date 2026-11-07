@@ -140,3 +140,13 @@ The accepted C# fingerprint correction remains separate and unchanged.
 [Corrections, evidence, limits and Docker handoff](partition-verifier/CORRECTIONS.md).
 All four CI workflows on the earlier `460c772` succeeded. Corrected bytes need their own CI.
 C77/D/E2 and the six historical SQL failures remain untested. Production remains NO-GO.
+
+## Exact partition verifier accepted, 2026-11-06 local
+
+Primary accepts the bounded verifier at `5f671dddf1ce25d5bef6669bb44e073f8c28f0ca`. Astra independently observed 21/21 tests and 39 subprocess probes; no material finding remains in scope.
+Primary inspected the report, verified its exact RAW hash, and verified all three source bindings against checkout bytes and committed blobs.
+Four applicable CI workflows succeeded on that exact SHA, including both Tony snapshot jobs. No unchanged test suite was repeated during report-only integration.
+[Final report and acceptance](partition-verifier/ACCEPTANCE.json). The earlier REVISE remains preserved as history; F1/F2/F3 are now closed.
+Fresh Docker readiness exits 1: the dockerDesktopLinuxEngine pipe does not exist. Jason owns opening Docker Desktop normally; primary owns verifying readiness and prerequisites before authorized runtime.
+No automatic launch was retried. No SQL, service, security, certificate or privilege change occurred.
+C77/D/E2, reproduction of the six historical SQL failures and operational gates remain open. This closes the verifier only. Production remains NO-GO.

@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-07T01:05:36.957394+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "f4fbb1678dfbad29a019a5e7b132ef6b2ef9f393"
+    },
+    {
+      "path": "docs/local-validation-20261106/PRIMARY-ACCEPTANCE.md",
+      "change": "M",
+      "git_blob": "e108d47a89ef627a37838c176a0492dbb5281d65"
+    },
+    {
+      "path": "docs/local-validation-20261106/partition-verifier/ACCEPTANCE.json",
+      "change": "A",
+      "git_blob": "43235a9b9c33bf541d47a066cfedef07192b4a98"
+    },
+    {
+      "path": "docs/local-validation-20261106/partition-verifier/CORRECTIONS.md",
+      "change": "M",
+      "git_blob": "a83585ef9d95ff5dd46cd02cb7739e65ec3b66ac"
+    },
+    {
+      "path": "docs/local-validation-20261106/partition-verifier/astra-judge-corrections.md",
+      "change": "A",
+      "git_blob": "acded64cd4d303baf8aff31de5928a2748638e79"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

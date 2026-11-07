@@ -1,6 +1,10 @@
 # Estado vigente de Martha Silva / SAVIA
 
 Current primary assessment, 2026-11-06 UTC: production remains NO-GO.
+
+Local partition verifier: primary ACCEPT WITH LIMITS on `5f671dd`; Astra independently passed 21 tests and 39 probes. All four applicable CI workflows succeeded.
+[Exact acceptance and runtime handoff](local-validation-20261106/partition-verifier/ACCEPTANCE.json).
+Real C77 SQL, D browser/API/SQL and E2 recovery remain NOT RUN. Fresh Docker readiness exits 1; Jason must open Docker Desktop before primary verifies local runtime prerequisites.
 [Complete remaining work and proposed critical path](release-20261106/completion-audit.md).
 This assessment separates adopted decisions, missing implementation, unexecuted proof and external production prerequisites.
 Gemini REVISE and Astra PARTIAL are reconciled and accepted by the primary within their stated limits.
