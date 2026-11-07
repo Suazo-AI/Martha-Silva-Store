@@ -1,0 +1,76 @@
+{
+  "fixture_binding": {
+    "slides": 4,
+    "photos": 3,
+    "videos": 1,
+    "asserted_at_boot": true,
+    "note": "Indices 0-3 and scenario indices 2/3 are valid only under this four-slide binding. Last/previous are computed from slides.length in the next/previous and restoration cases; the remaining literal 2/3 are explicit scenario positions, not derived claims."
+  },
+  "authority_note": "The historical quotation in docs/release-20261106/process-judge.md:19 concerns an earlier plan and explicitly asks for the observations that were missing then. It is not approval of this candidate or of any off-screen focus policy. Versioning alone preserves text, not executable coverage.",
+  "dispositions": {
+    "DG01": {
+      "historical_expectation": "Thumbnail/control selection scrolls only the gallery, keeps a usable focused control, and does not scroll the page.",
+      "candidate_assertion": "Selects the last slide, asserts gallery scrollLeft, current index, active element, zero vertical/page scroll, and selected-slide usability. Every photo button is asserted focusable. Inactive-slide attributes are recorded as an observation, not required absence.",
+      "evidence": [
+        "jsdom baseline: 'desktop thumbnail selects the slide, scrolls only the gallery and keeps a usable focused control' PASS",
+        "jsdom tabindex-zero: 14/14 PASS (harmless attribute equivalence)",
+        "Chrome desktop: thumbnails reachable in 3 Tab presses; Enter selects target 0, index 0, focus still on the nav control",
+        "Chrome mobile: dots reachable in 5 Tab presses; Enter selects target 0, index 0, focus still on the nav control"
+      ],
+      "disposition": "COVERED",
+      "remaining_condition": "Primary acceptance only. No mandatory absent-attribute assertion remains.",
+      "observed_vs_inferred": "Observed: selection, focus, scroll and usability in jsdom and real Chrome. Inferred: inactive-slide policy is acceptable because it is observed and not asserted."
+    },
+    "DG03": {
+      "historical_expectation": "Manual scrolling selects the nearest real offset and leaves focus on a usable gallery element; the focused-photo-while-scrolling case must be exercised.",
+      "candidate_assertion": "Nearest-offset selection from a real offset; active element may stay on the focused photo or move to the selected slide, but must be a usable gallery element. Chrome sets up a programmatic gallery scroll while photo 0 holds focus, then presses Tab.",
+      "evidence": [
+        "jsdom baseline: 'manual desktop scrolling selects the nearest real offset and leaves usable focus on a gallery element' PASS",
+        "Chrome desktop focusedPhotoScroll: index 2, scrollLeft 901, heldStillFocused true, heldVisible false; next Tab lands on a visible photo (451x601 at x=253,y=149)",
+        "Chrome mobile focusedPhotoScroll: index 2, scrollLeft 1560, heldStillFocused true, heldVisible false; next Tab lands on a visible photo (390x520 at x=0,y=141)"
+      ],
+      "disposition": "COVERED",
+      "remaining_condition": "Primary acceptance only. Neither focus transfer nor retention is required; usability is.",
+      "observed_vs_inferred": "Observed: focus is not stolen during the scroll and the next Tab reaches a visible photo. Inferred: an off-screen focused photo is acceptable because the product does not claim focus transfer."
+    },
+    "DG04": {
+      "historical_expectation": "The selected slide survives resize without a feedback loop, hints stay nonzero, and the responsive resource contract is justified.",
+      "candidate_assertion": "Independent hint parser resolves media conditions, px and vw; rejects hints below 100px; requires the hint to cover the drawn width. Chrome measures rendered width, DPR, sizes hint, currentSrc, density-corrected natural size, drawn bounds, the chosen srcset candidate, the smallest candidate that satisfies the hint at DPR, the next smaller candidate, and the local response status/type/bytes at both viewports and after a desktop resize.",
+      "evidence": [
+        "jsdom baseline: resize test PASS; hidden-geometry test PASS",
+        "jsdom bad-sizes: 11/14, exit 1; DG04, DG05, DG09 fail on sizes=1px",
+        "Chrome desktop 1280x900 DPR1: chosen 720w, hint 426.66px, neededHint 426.66px, rendered 400.66, drawn 400.7, currentSrc 01-front-v1-720.webp, 200 image/webp, 86518 bytes, next smaller 360w",
+        "Chrome desktop resize 1440x900: chosen 720w, hint 480.00px, neededHint 480.00px, rendered 400.66, drawn 400.4, 200, 86518 bytes, next smaller 360w; index 0 preserved",
+        "Chrome mobile 390x844 DPR2: chosen 1024w, hint 390px, neededHint 780px, rendered 390, drawn 346.7, currentSrc 01-front-v1-1024.webp, 200 image/webp, 140962 bytes, next smaller 720w",
+        "Raw webp dimensions verified with Pillow: 360x540, 720x1080, 1024x1536. naturalWidth/naturalHeight in the JSON are density-corrected per the srcset w-descriptor spec, not raw file pixels."
+      ],
+      "disposition": "COVERED",
+      "remaining_condition": "Primary acceptance only. No broad performance audit is claimed.",
+      "observed_vs_inferred": "Observed: selected candidate, response and bounds. Inferred: the selection is acceptable because the chosen candidate is the smallest that satisfies the hint at DPR and the next smaller under-resolves."
+    },
+    "DG06": {
+      "historical_expectation": "Modified and media keys do not change the gallery; real Tab/Enter/Space/Home operation must be proven; useful optional handlers must not be forbidden.",
+      "candidate_assertion": "Unmodified ArrowRight may stay or advance; Home may stay or reach first; Alt+ArrowRight and media ArrowRight never change the index. Chrome uses real Tab/Shift+Tab/Enter/Space/Home/End with a bounded tab budget.",
+      "evidence": [
+        "jsdom baseline: keyboard test PASS; tabindex-zero PASS; no-activation has 10 failures out of 14 cases",
+        "Chrome desktop: photo reachable in 33 Tab presses; zoom Enter opens and Escape returns focus (assertion passed); nav Enter selects, Space on next selects; Shift+Tab moves back; arrow Enter 1->0, Space 0->3; End/Home native (defaultPrevented false); Alt+ArrowRight unchanged; media ArrowRight on video unchanged",
+        "Chrome mobile: photo reachable in 9 Tab presses; nav Enter/Space select; Shift+Tab moves back; arrow Enter 1->2, Space 2->3; End/Home native; Alt and media unchanged"
+      ],
+      "disposition": "COVERED",
+      "remaining_condition": "Primary acceptance only. The zoom result is asserted but not serialized in browser-contracts.json; the corrected script returns it on the next run.",
+      "observed_vs_inferred": "Observed: real key presses and index/focus outcomes. Inferred: native Home/End is acceptable because the product does not implement custom Home/End and the test allows both branches."
+    },
+    "DG10": {
+      "historical_expectation": "Keyboard access to first/last/previous through the chosen controls; distinguish native End from a historical gallery End; preserve the two-command pending-destination race.",
+      "candidate_assertion": "Next/previous derive last and previous from slides.length and wrap 3->0 and 0->3. Chrome presses Enter and Space on real arrows and asserts the expected index; End may stay or reach last; Home may stay or reach first; the pending-destination race and control-focus checks remain.",
+      "evidence": [
+        "jsdom baseline: 'next and previous reach first/last through the original video view without losing an index' PASS; 'rapid navigation uses the requested destination and Home/End stay native or reach first/last' PASS",
+        "Chrome desktop: arrow Enter 1->0 (expected 0), Space 0->3 (expected 3); End before 3 after 3, native; Home before 3 after 3, native",
+        "Chrome mobile: arrow Enter 1->2 (expected 2), Space 2->3 (expected 3); End before 3 after 3, native; Home before 3 after 3, native"
+      ],
+      "disposition": "COVERED",
+      "remaining_condition": "Primary acceptance only. The native Home/End branch is explicit; no custom gallery Home/End is claimed.",
+      "observed_vs_inferred": "Observed: arrow outcomes and native Home/End (defaultPrevented false, page scroll changed). Inferred: staying at the current index under native Home/End satisfies the historical 'native or first/last' branch."
+    }
+  }
+}

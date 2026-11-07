@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-07T12:33:27.009101+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/completion-20261107/README.md",
+      "change": "A",
+      "git_blob": "9aa0562cc445f13e44980af61e31703e9d8f820c"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/astra-judge-corrections.md",
+      "change": "A",
+      "git_blob": "444cb59bfecebeb9a294ed27b1f45b4d80389f71"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/historical-expectations.json",
+      "change": "A",
+      "git_blob": "b17972ec6bd42474a37757fcccc2aa4712a51866"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/proof-corrections/README.md",
+      "change": "A",
+      "git_blob": "5d2fefa7332d9aebd13d8bfbc500879f3b612e1c"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/proof-corrections/RESULT.json",
+      "change": "A",
+      "git_blob": "aa87ad0ff2bccdfcd58bb40beb360f70f3009465"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/proof-corrections/browser/browser-contracts-desktop-1280x900.png",
+      "change": "A",
+      "git_blob": "79d47549665d4285e46161c87bfa75a7d9e51083"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/proof-corrections/browser/browser-contracts-mobile-390x844.png",
+      "change": "A",
+      "git_blob": "94e22156b061870e14bb896adfbf469aa9e38d61"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/proof-corrections/browser/browser-contracts.json",
+      "change": "A",
+      "git_blob": "0cd46f94b05d87e98e7a9dd901f8c5bb5206ed6a"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/proof-corrections/green.json",
+      "change": "A",
+      "git_blob": "a7a97d02ca1789e1e6bfc491e4193ccba30d805b"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/proof-corrections/red.json",
+      "change": "A",
+      "git_blob": "01f1bc629c4a472722df2f9cbaeb96ef27b42abf"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/proof-corrections/resource-origin-controls.cjs",
+      "change": "A",
+      "git_blob": "2c95fda655c0c66aed13fcf6fc4e158c501dcf41"
+    },
+    {
+      "path": "tests/desktop-gallery.cjs",
+      "change": "M",
+      "git_blob": "5a546057974e156b1c1a0859eddaf4a99e29ea10"
+    },
+    {
+      "path": "tests/gallery-browser-contracts.cjs",
+      "change": "A",
+      "git_blob": "90460bda5e44905ec0866ab9e988cd5ca8c16887"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}
