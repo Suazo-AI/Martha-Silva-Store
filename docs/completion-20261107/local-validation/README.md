@@ -95,3 +95,24 @@ certificates or unrelated containers. Do not dispatch GitHub Actions.
 C77, D and E2 remain NOT RUN on this candidate. The six historical SQL failures remain unexplained
 by runtime evidence. No SQL inventory, browser, CI or production claim is made here.
 Primary owns serial integration and acceptance.
+
+## 5. Independent runner red probes
+
+`python docs/completion-20261107/local-validation/probe_runner_inputs.py` returned
+**0 PASS / 3 FAIL, exit 1** against the frozen rejected input on 2026-11-07.
+This is defect reproduction, not a failed SQL campaign or a runner acceptance.
+
+- F1: two runs with the same scope generate identical resource names.
+- F2: the actual archive predicate rejects an ordinary regular file with mode `0644`.
+- F2: the same predicate rejects an ordinary directory with mode `0755`.
+
+The [result](primary-red-probes.json) binds the exact normalized source hash.
+The probe compiles only the pure naming function and the member predicate from the inert source.
+It never imports or executes the full runner, extracts an archive, creates resources or calls cleanup.
+No Docker, SQL, browser, network, account or security change occurred.
+
+Primary owns these independent acceptance probes. The implementation remains rejected on F1-F10.
+Next: the assigned Codex Sol/high worker corrects the runner in a separate managed worktree;
+its real corrected methods must pass these invariants plus the remaining adversarial cases.
+Preserve the frozen rejected inputs and this red evidence. A corrected runner still needs fresh
+Astra/xhigh review and separately scoped runtime authorization before execution.

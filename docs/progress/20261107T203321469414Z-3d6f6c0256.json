@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-07T20:33:21.469414+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/completion-20261107/README.md",
+      "change": "M",
+      "git_blob": "a3b4226454ef59ae768791d675f416c447c63d2e"
+    },
+    {
+      "path": "docs/completion-20261107/local-validation/README.md",
+      "change": "M",
+      "git_blob": "512dfda2094b4e839fc8ffdace6e4e7df5c442b8"
+    },
+    {
+      "path": "docs/completion-20261107/local-validation/primary-red-probes.json",
+      "change": "A",
+      "git_blob": "4f974a482c821e5ef7e343aaf39f129c2e586434"
+    },
+    {
+      "path": "docs/completion-20261107/local-validation/probe_runner_inputs.py",
+      "change": "A",
+      "git_blob": "879f4b7abfa36d829b30629b214bb156d203c9de"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

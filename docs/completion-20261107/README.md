@@ -4,13 +4,35 @@ Target: a reproducible technical trial with real receipt, sale, stock exception,
 Production acceptance remains separate. The public storefront still needs authoritative ordering and card payments.
 Source: [canonical ledger](../pipeline/ledger.json), [status](../PROJECT-STATUS.md), [database scope](../DATABASE.md).
 
+## Latest execution assignment, 2026-11-07
+
+Jason authorized temporary Codex `gpt-6.1-sol/high` execution after OpenCode rejected the GLM free request.
+[Observed provider error and authorization](opencode-execution-diagnosis.json). Astra/xhigh remains the sole judge.
+Two independent implementation assignments were submitted from `70e7549062e6919f36c0f36ba21d7a54999a7d9d` in separate T3-managed worktrees:
+
+- `savia-session-csrf-sol-70e7549-20261107-01`: session binding and real-framework offline red/green; SQL assertions prepared only.
+- `savia-runner-safety-sol-70e7549-20261107-01`: F1-F10 corrections and stateful offline controls; no Docker or SQL execution.
+
+No implementation return or independent acceptance is recorded here. Primary owns serial integration and source-bound review.
+These assignments supersede the historical OpenCode resumption instructions below. Neither consumes new SQL runtime authority.
+The existing [runner red probes](local-validation/README.md#5-independent-runner-red-probes) preserve the reproduced defects.
+Cash source-only design is accepted in [its area record](../cash-register-20261107/README.md); implementation follows these bounded increments.
+
+Exact-SHA publication readback: all three runs below completed with `success`, attempt 1, on `70e7549062e6919f36c0f36ba21d7a54999a7d9d`:
+[Progress digest](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42410882822),
+[Progress documentation](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42410882864), and
+[Tony source snapshot](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42410882849).
+Both snapshot jobs succeeded: publication integrity/reproducible build and historical portable regressions.
+Commands: `gh-axi run view 42410882849` and `gh-axi api repos/Suazo-AI/Martha-Silva-Store/actions/runs/<id>` for all three IDs.
+Each read exited 0. These are CI readbacks of the published documentation commit, not worker or production acceptance.
+
 | Work | Current evidence | Next action and completion check | Owner |
 |---|---|---|---|
 | Gallery verification | Primary and Astra/xhigh accept the bounded proof; exact-SHA CI green | Publish the prepared issue #4 update after authority; then close S-LEGACY | Primary |
 | Backend offline partition A | Fresh 552/552, 195/195 methods; primary verified actual TRX, unique IDs and exact multiplicities | Accepted for offline A only; evidence linked below | Primary |
-| Local SQL partition C77 | Corrected fingerprint proven offline; six historical SQL failures not confirmed at runtime | Prepare the existing scripts for a named disposable local runtime; obtain the required execution scope; run exact C77 | Primary + OpenCode |
-| Combined journey D | Preparation incomplete, not run | Finish runnable commands; then scope and prerequisites: Chrome -> HTTPS API -> SQL, supply and stock-exception flags, persisted oracles and cleanup | Primary + OpenCode |
-| Recovery E2 | Current candidate not run | Owned disposable backup/restore and restart; verify persistence and absence after cleanup | Primary + OpenCode |
+| Local SQL partition C77 | Corrected fingerprint proven offline; six historical SQL failures not confirmed at runtime | Prepare the existing scripts for a named disposable local runtime; obtain the required execution scope; run exact C77 | Primary + assigned executor |
+| Combined journey D | Preparation incomplete, not run | Finish runnable commands; then scope and prerequisites: Chrome -> HTTPS API -> SQL, supply and stock-exception flags, persisted oracles and cleanup | Primary + assigned executor |
+| Recovery E2 | Current candidate not run | Owned disposable backup/restore and restart; verify persistence and absence after cleanup | Primary + assigned executor |
 | Integration | Technical proof at 69d3268 accepted; documentation at c07bd1b synchronized with three successful exact-SHA workflows | Serial integration of returned work; no merge or deployment implied | Primary |
 
 Docker is ready: Linux engine 29.7.2. Required SQL Server and .NET SDK images are present locally.
@@ -212,3 +234,16 @@ Its own real browser/API/SQL journey must prove cross-shift refunds and independ
 Cash schema work must extend the independent exact-table fingerprint inventory rather than relax rejected-write assertions.
 Next: terminal handoffs for the two cancellation requests, fresh Astra/xhigh review, then bounded OpenCode/high implementation.
 The cancellation cause and terminal state remain unknown. This record claims neither running workers nor completed review or runtime.
+
+Terminal-state correction, 2026-11-07: this supersedes the unsettled-task statements above.
+Supported `task_cancel` readback and both task/thread records confirm `interrupted`, no active run and no pending child work.
+The CSRF assignment completed interruption at `2026-11-07T16:31:13.149Z`; the runner correction at `2026-11-07T17:48:27.450Z`.
+Their original managed worktrees (`t3-d197bd6c` and `t3-accf41b7`) retain their base HEADs, clean status and zero implementation diff.
+Recorded activity contains workspace preparation and interruption, with no intervening worker action.
+The cause of absent implementation remains unknown. Administrator access or a provider defect is not established.
+Primary waited too long for a notification after cancellation. The correction is authoritative task/thread readback and inspection only after terminal confirmation.
+Both assignments are closed without acceptance. No partial code exists to integrate from them.
+Next: resume the already adjudicated session-CSRF increment with the approved OpenCode GLM/high route in one managed worktree,
+then obtain fresh Astra/xhigh review of its actual returned code and tests. Runner safety F1-F10 remains a separate unimplemented task.
+Current security sources match the pre-reviewed `584fcaa6` scope byte for byte in Git; no second design review is needed.
+No SQL, service, certificate, account, deployment or new network-install authority follows from this recovery.
