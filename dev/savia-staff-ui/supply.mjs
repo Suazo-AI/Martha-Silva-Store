@@ -1,4 +1,4 @@
-﻿// Protected receipt workflow. No stock arithmetic and no purchase creation.
+// Protected receipt workflow. No stock arithmetic and no purchase creation.
 import {StaffRequestError} from './login.mjs';
 export const PENDING_SUPPLY = 'savia.supply.pending.v1';
 const fail = () => { throw new StaffRequestError('response'); };
