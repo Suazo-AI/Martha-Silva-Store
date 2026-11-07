@@ -10,7 +10,9 @@ Session CSRF and runner corrections were integrated before `79d18c4`. The assign
 Primary accepts the source/offline N8 same-account sale and Directory correction after Astra/xhigh recheck.
 [Accepted evidence and remaining SQL gate](../session-csrf-20261107/n8-correction/PRIMARY-ACCEPTANCE.json).
 Astra's runner recheck returned REVISE. Primary reproduced and corrected R1-R4; fresh offline controls pass 46/46.
-[Runner corrections, limits and pending independent re-review](local-validation/runner-corrections/revision-2/README.md).
+Astra accepted the other bounded corrections but found a final receipt persistence P2.
+Primary reproduced three red cases and passed 55/55 controls with the corrected publication boundary.
+[Receipt correction and pending independent re-review](local-validation/runner-corrections/revision-3/README.md).
 Dependency/image qualification and real private destination proof remain pending.
 The cash backend and generated migration are integrated; the regenerated release script and explicit history now agree.
 [Fresh cash integration](../cash-register-20261107/backend-integration/README.md): 65/65 focused; 607 non-SQL passes, 66 NotExecuted; repository check exit 0.

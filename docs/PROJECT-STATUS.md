@@ -17,8 +17,10 @@ Runner: primary independently passed 39/39 offline safety controls. Its image is
 dependency qualification, private evidence destination and runtime authorization remain prerequisites.
 Astra/xhigh returned REVISE: post-write deadlines, unproved cleanup absence, interruption handling and archive aliases.
 Primary reproduced the failures and corrected them; fresh offline controls pass 46/46, exit 0.
-Fresh independent re-review remains pending. This is not image or runtime qualification.
-[Corrections, evidence and next action](completion-20261107/local-validation/runner-corrections/revision-2/README.md).
+Astra's re-review accepted the other bounded corrections but reproduced a P2: final receipt close could leave PASS after failure.
+Primary reproduced all three cases, then passed 55/55 offline controls after correcting final publication.
+Fresh independent receipt re-review remains pending. This is not image or runtime qualification.
+[Receipt correction, evidence and next action](completion-20261107/local-validation/runner-corrections/revision-3/README.md).
 
 Historical execution diagnosis: OpenCode rejected the selected GLM free request with `Free usage limit reached`.
 That interrupted GLM task returned no implementation; the later Codex return above supersedes that state.

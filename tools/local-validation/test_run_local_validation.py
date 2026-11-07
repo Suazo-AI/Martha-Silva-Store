@@ -169,6 +169,7 @@ class SafetyTests(unittest.TestCase):
         self.assertEqual(self.t.stages,['build','c1','crest','d','e-release','e-restart'])
         self.assertFalse(self.t.resources)
         self.assertEqual((self.f.private/'logs/runner.log').read_text(),'stdoutstderr')
+        self.assertEqual(json.loads((self.f.private/'result.json').read_text()),r)
     def test_privacy_rejection_precedes_write_and_docker(self):
         def deny(p): raise S.SafetyError('insecure ACL')
         r=self.run_candidate(deny);self.assertEqual(r['status'],'FAILED');self.assertFalse(self.t.calls);self.assertFalse(list(self.f.private.iterdir()))
@@ -352,6 +353,97 @@ class SafetyTests(unittest.TestCase):
         with self.assertRaises(S.SafetyError):
             S.extract(archive(files),self.f.root/'alias',{'backend/x':hashlib.sha256(b'content').hexdigest()})
         self.assertFalse((self.f.root/'alias').exists())
+
+    def receipt_close_fault(self, fault):
+        original=Path.open;clock=self.clock
+        class CloseFault:
+            def __init__(self, stream): self.stream=stream
+            def __getattr__(self, name): return getattr(self.stream,name)
+            def __enter__(self): self.stream.__enter__();return self
+            def __exit__(self,*args):
+                self.stream.__exit__(*args)
+                if fault=='deadline': clock.now+=61
+                else: raise fault
+        def opened(path,*args,**kw):
+            stream=original(path,*args,**kw)
+            return CloseFault(stream) if args==('xb',) and path.name.startswith('result.') else stream
+        with patch.object(Path,'open',opened):
+            if fault=='deadline':
+                self.assertEqual(self.run_candidate()['status'],'FAILED')
+            else:
+                with self.assertRaises(type(fault)) as raised: self.run_candidate()
+                self.assertIs(raised.exception,fault)
+        receipt=self.f.private/'result.json'
+        if receipt.exists(): self.assertNotEqual(json.loads(receipt.read_text())['status'],'PASS')
+        self.assertFalse(self.t.resources)
+
+    def test_receipt_close_keyboard_interrupt_never_persists_pass(self):
+        self.receipt_close_fault(KeyboardInterrupt('receipt close'))
+
+    def test_receipt_close_system_exit_never_persists_pass(self):
+        self.receipt_close_fault(SystemExit('receipt close'))
+
+    def test_receipt_close_deadline_never_persists_pass(self):
+        self.receipt_close_fault('deadline')
+
+    def test_receipt_is_not_published_until_close(self):
+        original=Path.open;final=self.f.private/'result.json';observed=[]
+        class ObserveClose:
+            def __init__(self, stream): self.stream=stream
+            def __getattr__(self, name): return getattr(self.stream,name)
+            def __enter__(self): self.stream.__enter__();return self
+            def __exit__(self,*args):
+                observed.append(final.exists())
+                self.stream.__exit__(*args)
+                observed.append(final.exists())
+        def opened(path,*args,**kw):
+            stream=original(path,*args,**kw)
+            return ObserveClose(stream) if args==('xb',) and path.name=='result.pending.json' else stream
+        with patch.object(Path,'open',opened): result=self.run_candidate()
+        self.assertEqual(observed,[False,False]);self.assertEqual(result['status'],'PASS')
+        self.assertEqual(json.loads(final.read_text()),result)
+
+    def test_receipt_commit_interrupt_invalidates_own_file(self):
+        original=R.os.link;signal=KeyboardInterrupt('publication interrupted');observed=[]
+        def interrupt(source,target):
+            original(source,target);observed.append(target.exists());raise signal
+        with patch.object(R.os,'link',interrupt):
+            with self.assertRaises(KeyboardInterrupt) as raised: self.run_candidate()
+        self.assertIs(raised.exception,signal);self.assertEqual(observed,[True])
+        self.assertFalse((self.f.private/'result.json').exists());self.assertFalse(self.t.resources)
+
+    def test_receipt_commit_deadline_invalidates_own_file(self):
+        original=R.os.link
+        def expire(source,target): original(source,target);self.clock.now+=21
+        with patch.object(R.os,'link',expire): result=self.run_candidate()
+        self.assertEqual(result['status'],'FAILED')
+        self.assertEqual(result['failure'],{'stage':'receipt','type':'SafetyError'})
+        self.assertFalse((self.f.private/'result.json').exists());self.assertFalse(self.t.resources)
+
+    def test_receipt_unsupported_commit_is_failed_without_final(self):
+        with patch.object(R.os,'link',side_effect=OSError('unsupported filesystem')): result=self.run_candidate()
+        self.assertEqual(result['status'],'FAILED')
+        self.assertFalse((self.f.private/'result.json').exists());self.assertFalse(self.t.resources)
+
+    def test_receipt_commit_never_overwrites_or_removes_foreign_file(self):
+        original=R.os.link;foreign=b'foreign receipt'
+        def collision(source,target):
+            target.write_bytes(foreign);original(source,target)
+        with patch.object(R.os,'link',collision): result=self.run_candidate()
+        self.assertEqual(result['status'],'FAILED')
+        self.assertEqual((self.f.private/'result.json').read_bytes(),foreign)
+        self.assertFalse(self.t.resources)
+
+    def test_original_stage_interrupt_survives_receipt_interrupt(self):
+        original=self.t.call;signal=KeyboardInterrupt('original stage')
+        def interrupt(args,**kw):
+            if args[-1:]==['c1']: raise signal
+            return original(args,**kw)
+        self.t.call=interrupt
+        with patch.object(R.os,'link',side_effect=SystemExit('secondary receipt')):
+            with self.assertRaises(KeyboardInterrupt) as raised: self.run_candidate()
+        self.assertIs(raised.exception,signal)
+        self.assertFalse((self.f.private/'result.json').exists());self.assertFalse(self.t.resources)
 
 
 class HistoricalDefectControls(unittest.TestCase):

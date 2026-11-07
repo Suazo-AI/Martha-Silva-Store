@@ -1,0 +1,128 @@
+{
+  "baseSha": "457a1576cd782874d1b3159c08e958bac96482eb",
+  "status": "CANDIDATE_NOT_ACCEPTED",
+  "host": "SUAZO-PC",
+  "primary": "codex/gpt-6.1-sol/xhigh",
+  "red": {
+    "command": [
+      "python",
+      "tools/local-validation/test_run_local_validation.py",
+      "SafetyTests.test_receipt_close_keyboard_interrupt_never_persists_pass",
+      "SafetyTests.test_receipt_close_system_exit_never_persists_pass",
+      "SafetyTests.test_receipt_close_deadline_never_persists_pass"
+    ],
+    "exit": 1,
+    "seconds": 0.718,
+    "privateLog": "private-exports/runner-receipt-20261107/red.log",
+    "sha256": "15840d2793136ae8821644808fc4c7fe0ef6579812a8577bece58b0bc88a5bbf"
+  },
+  "green": {
+    "command": [
+      "python",
+      "tools/local-validation/test_run_local_validation.py"
+    ],
+    "exit": 0,
+    "seconds": 3.843,
+    "logSha256": "63a8c43fcd84a05008c9629d7574ccad230dc9fd2b5f2d325263b0c6ff4c0975",
+    "privateLog": "private-exports/runner-receipt-20261107/green.log",
+    "sha256": "63a8c43fcd84a05008c9629d7574ccad230dc9fd2b5f2d325263b0c6ff4c0975"
+  },
+  "bindings": [
+    {
+      "path": "tools/run_local_validation.py",
+      "rawSha256": "825bb558d957163a6571e9fea14585b84b8b34fe2dbdb11678ebe69563071513",
+      "lfSha256": "825bb558d957163a6571e9fea14585b84b8b34fe2dbdb11678ebe69563071513"
+    },
+    {
+      "path": "tools/local-validation/safety.py",
+      "rawSha256": "dd0c8b4d3277b690e7d92db2128fa8221d33e102455e024d6047df38f24a84ed",
+      "lfSha256": "dd0c8b4d3277b690e7d92db2128fa8221d33e102455e024d6047df38f24a84ed"
+    },
+    {
+      "path": "tools/local-validation/test_run_local_validation.py",
+      "rawSha256": "315043381e26d5ff32349976913eebeb60a554fc094fb609f200b46872c75b1b",
+      "lfSha256": "315043381e26d5ff32349976913eebeb60a554fc094fb609f200b46872c75b1b"
+    }
+  ],
+  "notRun": [
+    "Docker",
+    "SQL",
+    "image/dependency qualification",
+    "real protected destination",
+    "cash runtime",
+    "power-loss durability",
+    "CI on new SHA",
+    "production"
+  ],
+  "additionalPrimaryChecks": {
+    "repository": {
+      "command": [
+        "python",
+        "tests/check.py"
+      ],
+      "exit": 0,
+      "seconds": 267.562,
+      "logSha256": "1e4107be1ceb8f5823ef128cc78bc39a27858d961fe52b99aa2ce2c55bac3b24"
+    },
+    "documentationAndSyntax": [
+      {
+        "command": [
+          "python",
+          "tests/test_progress.py"
+        ],
+        "exit": 0,
+        "seconds": 81.609,
+        "logSha256": "f9071ff39381d70e29133ef7e64ba210b4f4d976a858d16dce6a56d40ec9faa5"
+      },
+      {
+        "command": [
+          "python",
+          "tools/export_progress.py",
+          "--verify"
+        ],
+        "exit": 0,
+        "seconds": 0.469,
+        "logSha256": "6bc37a5368f6e607e6a0932afb47bf96d5a6a014603732c4a3c3005c79e0ee56"
+      },
+      {
+        "command": [
+          "python",
+          "tests/test_delivery_status.py"
+        ],
+        "exit": 0,
+        "seconds": 0.953,
+        "logSha256": "a38a797fd3d44ed39decb628e346dfa67dc44089fb913a20493e6b7a599f1c3a"
+      },
+      {
+        "command": [
+          "python",
+          "tools/delivery_status.py",
+          "--check"
+        ],
+        "exit": 0,
+        "seconds": 0.219,
+        "logSha256": "2cbd72168e48a031ea75d2d7ccdfcaac53c270fa6ac915c072d07fd0be5883e0"
+      },
+      {
+        "command": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "exit": 0,
+        "seconds": 0.484,
+        "logSha256": "b0c86029fd9fccbbc0e52502fe3461085f78e26311e6506d6db6835024f47700"
+      },
+      {
+        "command": [
+          "node",
+          "--check",
+          "private-exports\\runner-receipt-20261107\\branch-example.js"
+        ],
+        "exit": 0
+      }
+    ],
+    "pythonCompile": "PASS: source compiled in memory; no runtime invoked",
+    "independentReview": "PENDING: fresh Astra/xhigh review of the committed correction"
+  }
+}

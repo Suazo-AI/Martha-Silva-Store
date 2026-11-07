@@ -171,6 +171,42 @@ class PrivateStore:
             out.write(content.encode() if isinstance(content, str) else content)
         self.deadline.left()
 
+    def publish_result(self, result):
+        """Only result.json is authoritative; a pending file is never acceptance."""
+        self.check()
+        pending = self.root / 'result.pending.json'
+        target = self.root / 'result.json'
+        content = (json.dumps(result, indent=2) + '\n').encode()
+        with pending.open('xb') as out:
+            info = os.fstat(out.fileno())
+            identity = (info.st_dev, info.st_ino)
+            if out.write(content) != len(content):
+                raise SafetyError('short result write')
+        # Closing/flushing and the budget/privacy checks all precede publication.
+        self.check()
+        from safety import linked
+        info = pending.lstat()
+        if linked(pending) or (info.st_dev, info.st_ino) != identity:
+            raise SafetyError('pending result identity changed')
+        try:
+            # A hard link publishes the closed file atomically without overwriting
+            # an existing destination. Unsupported filesystems fail closed.
+            os.link(pending, target)
+            self.deadline.left()
+        except BaseException:
+            # The commit operation itself can complete before raising/expiring.
+            # Invalidate only our exact inode in the still-protected directory.
+            self.deadline = Deadline(5, self.deadline.clock)
+            self.check()
+            try:
+                info = target.lstat()
+            except FileNotFoundError:
+                pass
+            else:
+                if not linked(target) and (info.st_dev, info.st_ino) == identity:
+                    target.unlink()
+            raise
+
 def load_gate(source):
     spec = importlib.util.spec_from_file_location('savia_evidence_gate', source / 'tools/local-validation/evidence_gate.py')
     m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
@@ -294,10 +330,15 @@ def execute(config, transport, *, clock=time.monotonic, git_read=git, privacy=No
                   'failure': failure, 'interruption': interruption, 'cleanup': outcomes, 'retention': retained,
                   'image': {'id': image_id, 'action': 'retained prequalified shared image; no owned tag/build'}, 'nonce': owned.nonce}
         if store:
-            try: store.write('result.json', json.dumps(result, indent=2) + '\n')
+            store.deadline = Deadline(20, clock)
+            try: store.publish_result(result)
             except BaseException as error:
                 result['status'] = 'FAILED'
-                if not isinstance(error, Exception) and interrupted_error is None: interrupted_error = error
+                if result['failure'] is None:
+                    result['failure'] = {'stage': 'receipt', 'type': type(error).__name__}
+                if not isinstance(error, Exception) and interrupted_error is None:
+                    result['interruption'] = {'stage': 'receipt', 'type': type(error).__name__}
+                    interrupted_error = error
     if interrupted_error is not None: raise interrupted_error
     return result
 
