@@ -1,0 +1,86 @@
+{
+  "status": "corrected_candidate_review_pending",
+  "parent": "754b67eedd70d4234db950f53262d652b83d616c",
+  "host": "SUAZO-PC",
+  "primary": "gpt-6.1-sol/xhigh",
+  "judge_report_sha256_raw_lf": "c68c8854a7e9a5f4cbd50b2e934bc0ac950ec77aa8a3bac6c6543d6e0bf0ccee",
+  "source": [
+    {
+      "path": "tools/run_local_validation.py",
+      "bytes": 19541,
+      "sha256_raw": "e57332b349a40d4bccf7e5f6f81eb4b5d8dd882a45feefe7a59c730e2a8d4995",
+      "sha256_lf": "e57332b349a40d4bccf7e5f6f81eb4b5d8dd882a45feefe7a59c730e2a8d4995"
+    },
+    {
+      "path": "tools/local-validation/safety.py",
+      "bytes": 9450,
+      "sha256_raw": "dd0c8b4d3277b690e7d92db2128fa8221d33e102455e024d6047df38f24a84ed",
+      "sha256_lf": "dd0c8b4d3277b690e7d92db2128fa8221d33e102455e024d6047df38f24a84ed"
+    },
+    {
+      "path": "tools/local-validation/test_run_local_validation.py",
+      "bytes": 28610,
+      "sha256_raw": "873de6f334c7fbf74922d9ad55b078bba955ac49709e5fc0455435ef7c289cff",
+      "sha256_lf": "873de6f334c7fbf74922d9ad55b078bba955ac49709e5fc0455435ef7c289cff"
+    }
+  ],
+  "red": {
+    "command": [
+      "python",
+      "tools/local-validation/test_run_local_validation.py",
+      "SafetyTests.test_log_write_exhaustion_blocks_next_budget",
+      "SafetyTests.test_private_store_write_checks_budget_after_io",
+      "SafetyTests.test_cleanup_unproved_listing_never_absent",
+      "SafetyTests.test_interrupt_stage_retains_failed_receipt_and_cleans",
+      "SafetyTests.test_cleanup_interrupt_attempts_remaining_and_preserves_stage_failure",
+      "SafetyTests.test_archive_aliases_rejected_before_extraction",
+      "SafetyTests.test_member_alias_rejected_with_canonical_allowlist"
+    ],
+    "exit": 1,
+    "methods": 7,
+    "assertion_failures": 9,
+    "errors": 1,
+    "limits": "Initial alias subtests reused a destination after expected rejection failed. Corrected to unique destinations and reran that method: all three aliases independently failed against old code.",
+    "corrected_alias_command": [
+      "python",
+      "tools/local-validation/test_run_local_validation.py",
+      "SafetyTests.test_archive_aliases_rejected_before_extraction"
+    ]
+  },
+  "green": {
+    "exit": 0,
+    "seconds": 2.922,
+    "log": "private-exports\\runner-recheck-20261107\\green.log",
+    "methods": 46,
+    "command": [
+      "python",
+      "tools/local-validation/test_run_local_validation.py"
+    ]
+  },
+  "log_bindings": [
+    {
+      "path": "private-exports/runner-recheck-20261107/red.log",
+      "bytes": 8968,
+      "sha256_raw": "b7683cfd7c9de97788a7e39980891e7464034786fd58b11aa746ce0ed83faece",
+      "sha256_lf": "5f01bf988b9943900eac23c0ffc924abfe500a9f0583216d5e2aa722a903b0bf"
+    },
+    {
+      "path": "private-exports/runner-recheck-20261107/red-alias-corrected-fixture.log",
+      "bytes": 2626,
+      "sha256_raw": "57b1fe2b125a1683632507aed2921dcce88a9d54a70ca0a135a394b84924bf37",
+      "sha256_lf": "a1406e5d34f2e14ad430b939dd477c5d5bec92831ca26bab12407eec5b5cdb0e"
+    },
+    {
+      "path": "private-exports/runner-recheck-20261107/green.log",
+      "bytes": 5241,
+      "sha256_raw": "29f3a61a82bd5f7cd9440c5a03406e21690eb8e7af67a6e4fe8f0e9deb227aab",
+      "sha256_lf": "6b1cccbefc515a455113bde6dc52c3533d73e445019f5bd199a9deb1ffe4b243"
+    }
+  ],
+  "limits": [
+    "Fake process/filesystem-boundary controls only; subprocess.run forbidden in tests.",
+    "No Docker/SQL/browser, installs, network dependency qualification, actual protected DACL or campaign ran.",
+    "Historical partition manifest is unchanged; new cash cases still require current inventory integration."
+  ],
+  "next": "Fresh Astra/xhigh review of R1-R4 on published exact source; runtime remains unqualified and unauthorized."
+}

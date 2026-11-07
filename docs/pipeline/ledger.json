@@ -538,9 +538,9 @@
       "paths": [
         "docs/cash-register-20261107/*"
       ],
-      "prep": "Source-only design accepted. Backend partial remains in the worker checkout: 158/158 offline, pending generated migration and fixture adaptation. Private pinned EF tool preparation is authorized; no SQL/database apply, deployment or production acceptance.",
+      "prep": "Backend and generated additive three-table migration imported into canonical checkout. Release SQL regenerated without database apply. Legacy SQL/N8/schema fixtures and current test inventory still require cash adaptation; staff cash UI and real journey remain pending.",
       "report": "docs/cash-register-20261107/README.md",
-      "review": "Design accepted. Sol/high backend partial returned; primary verified 158/158 offline checks, 3/3 prepared compile checks, and 4/5 integration checks. Generated migration missing; private pinned dotnet-ef prerequisite authorized within reversible local work. Product not integrated or accepted. Legacy SQL fixtures, UI, independent review and CASH runtime remain pending. See docs/cash-register-20261107/PRIMARY-PARTIAL.json."
+      "review": "Primary integration: 65/65 focused and fresh 607 non-SQL passes, zero failures; 66 NotExecuted excluded from pass evidence. Initial stale migration history and release-script failures resolved. Repository check exit 0. Independent implementation review and SQL cash persistence/concurrency remain pending. See docs/cash-register-20261107/backend-integration/README.md. No runtime or production acceptance."
     },
     {
       "id": "P-GO",

@@ -64,7 +64,9 @@ def private_directory(path, acl_reader=None, windows=None):
 def safe_name(name):
     p = PurePosixPath(name)
     if (not name or '\\' in name or ':' in name or p.is_absolute()
-            or '..' in p.parts or name.startswith('//') or '.git' in p.parts):
+            or '..' in p.parts or name.startswith('//') or '.git' in p.parts
+            or name != p.as_posix() or name == '.'
+            or any(part != part.rstrip(' .') for part in p.parts)):
         raise SafetyError('unsafe public path')
     if p.parts and (p.parts[0] in ('private-exports', 'customer-exports', 'order-exports', 'database-backups')
                     or any(part == '.env' or part.startswith('.env.') and not part.endswith('.example') for part in p.parts)):
@@ -81,6 +83,12 @@ def extract(archive, destination, files):
     for p in (destination.parent, *destination.parent.parents):
         if linked(p):
             raise SafetyError('export ancestor is link/reparse')
+    allowed = set()
+    for name in files:
+        identity = safe_name(name).as_posix().casefold()
+        if identity in allowed:
+            raise SafetyError('duplicate public destination')
+        allowed.add(identity)
     seen = set()
     with tarfile.open(fileobj=io.BytesIO(archive), mode='r:') as tar:
         members = tar.getmembers()
@@ -89,9 +97,10 @@ def extract(archive, destination, files):
             if (m.type not in (tarfile.REGTYPE, tarfile.AREGTYPE, tarfile.DIRTYPE)
                     or m.sparse is not None or any('sparse' in k.lower() for k in m.pax_headers)):
                 raise SafetyError('archive link/special/sparse member')
-            if m.name in seen:
+            identity = p.as_posix().casefold()
+            if identity in seen:
                 raise SafetyError('duplicate archive member')
-            seen.add(m.name)
+            seen.add(identity)
             if m.isfile():
                 if m.name not in files:
                     raise SafetyError('archive file outside public allowlist')
@@ -111,6 +120,7 @@ class Ownership:
         self.transport, self.nonce, self.scope = transport, nonce, scope
         self.receipts = []
         self.ambiguous = []
+        self.cleanup_outcomes = []
 
     @property
     def labels(self):
@@ -153,28 +163,41 @@ class Ownership:
             self.verify(kind, ident, name, deadline)
             self.receipts.append((kind, ident, name))
             return ident
-        except Exception:
+        except BaseException:
             self.ambiguous.append((kind, name))
             raise
 
     def cleanup(self, clock=time.monotonic):
         outcomes = []
+        interrupted = None
         # Each resource gets an independent slice; one transport failure cannot skip others.
         for kind, ident, name in reversed(self.receipts):
             d = Deadline(20, clock)
             state = 'unknown'
             try:
+                if kind not in ('container', 'network') or not re.fullmatch('[a-f0-9]{64}', ident):
+                    raise SafetyError('authoritative full-ID listing unavailable')
                 self.verify(kind, ident, name, d)
                 args = [kind, 'rm'] + (['--force', '--volumes'] if kind == 'container' else []) + [ident]
                 d.call(self.transport, args, check=False)
-                args = [kind, 'ls'] + (['--all'] if kind == 'container' else []) + ['--format', '{{json .}}']
+                args = [kind, 'ls'] + (['--all'] if kind == 'container' else []) + ['--no-trunc', '--format', '{{json .}}']
                 r = d.call(self.transport, args, check=False)
                 if r.returncode == 0:
                     rows = [json.loads(line) for line in r.stdout.splitlines() if line.strip()]
-                    state = 'present' if any(x.get('ID') == ident or x.get('Name', x.get('Names')) == name for x in rows) else 'absent'
-            except Exception:
-                pass
+                    for row in rows:
+                        if (not isinstance(row, dict) or not isinstance(row.get('ID'), str)
+                                or not re.fullmatch('[a-f0-9]{64}', row['ID'])
+                                or not isinstance(row.get('Name', row.get('Names')), str)
+                                or not row.get('Name', row.get('Names'))):
+                            raise SafetyError('malformed or abbreviated resource listing')
+                    state = 'present' if any(x['ID'] == ident or x.get('Name', x.get('Names')) == name for x in rows) else 'absent'
+            except BaseException as error:
+                if not isinstance(error, Exception) and interrupted is None:
+                    interrupted = error
             outcomes.append({'kind': kind, 'id': ident, 'name': name, 'state': state})
         for kind, name in self.ambiguous:
             outcomes.append({'kind': kind, 'name': name, 'state': 'unknown', 'reason': 'ambiguous creation; no deletion authority'})
+        self.cleanup_outcomes = outcomes
+        if interrupted is not None:
+            raise interrupted
         return outcomes

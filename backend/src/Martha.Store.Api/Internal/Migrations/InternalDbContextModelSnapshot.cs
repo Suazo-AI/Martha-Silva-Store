@@ -71,6 +71,162 @@ namespace Martha.Store.Api.Internal.Migrations
                     b.ToTable("BranchAssignmentAudit", "savia_internal");
                 });
 
+            modelBuilder.Entity("Martha.Store.Api.Internal.InternalCashClose", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ActorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<long>("CountedMinor")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<long>("DifferenceMinor")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("ExpectedMinor")
+                        .HasColumnType("bigint");
+
+                    b.Property<Guid>("TillId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ActorId");
+
+                    b.HasIndex("TillId")
+                        .IsUnique();
+
+                    b.ToTable("CashCloses", "savia_internal", t =>
+                        {
+                            t.HasCheckConstraint("CK_CashClose_Amounts", "[ExpectedMinor] BETWEEN 0 AND 9000000000000 AND [CountedMinor] BETWEEN 0 AND 9000000000000 AND [DifferenceMinor]=[CountedMinor]-[ExpectedMinor]");
+                        });
+                });
+
+            modelBuilder.Entity("Martha.Store.Api.Internal.InternalCashEntry", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ActorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CashierId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<long>("ChangeMinor")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Currency")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(3)")
+                        .UseCollation("Latin1_General_100_BIN2");
+
+                    b.Property<long>("DeltaMinor")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Exponent")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Kind")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(16)");
+
+                    b.Property<long>("ReceivedMinor")
+                        .HasColumnType("bigint");
+
+                    b.Property<Guid?>("ReversalId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("SaleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TillId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ActorId");
+
+                    b.HasIndex("ReversalId")
+                        .IsUnique()
+                        .HasFilter("[ReversalId] IS NOT NULL");
+
+                    b.HasIndex("SaleId")
+                        .IsUnique()
+                        .HasFilter("[Kind]='sale'");
+
+                    b.HasIndex("TillId")
+                        .IsUnique()
+                        .HasFilter("[Kind]='opening'");
+
+                    b.HasIndex("TillId", "CashierId", "Currency", "Exponent");
+
+                    b.ToTable("CashEntries", "savia_internal", t =>
+                        {
+                            t.HasCheckConstraint("CK_CashEntry_Bounds", "[DeltaMinor] BETWEEN -9000000000000 AND 9000000000000 AND [ReceivedMinor] BETWEEN 0 AND 9000000000000 AND [ChangeMinor] BETWEEN 0 AND 9000000000000");
+
+                            t.HasCheckConstraint("CK_CashEntry_Kind", "([Kind]='opening' AND [DeltaMinor]>=0 AND [ReceivedMinor]=0 AND [ChangeMinor]=0 AND [SaleId] IS NULL AND [ReversalId] IS NULL) OR ([Kind]='sale' AND [DeltaMinor]>=0 AND [ReceivedMinor]-[ChangeMinor]=[DeltaMinor] AND [SaleId] IS NOT NULL AND [ReversalId] IS NULL) OR ([Kind]='refund' AND [DeltaMinor]<0 AND [ReceivedMinor]=0 AND [ChangeMinor]=0 AND [SaleId] IS NOT NULL AND [ReversalId] IS NOT NULL)");
+                        });
+                });
+
+            modelBuilder.Entity("Martha.Store.Api.Internal.InternalCashTill", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CashierId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset?>("ClosedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Currency")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(3)")
+                        .UseCollation("Latin1_General_100_BIN2");
+
+                    b.Property<int>("Exponent")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("LocationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("OpenedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CashierId")
+                        .IsUnique()
+                        .HasFilter("[ClosedAt] IS NULL");
+
+                    b.HasIndex("LocationId");
+
+                    b.ToTable("CashTills", "savia_internal", t =>
+                        {
+                            t.HasCheckConstraint("CK_CashTill_Currency", "LEN([Currency])=3 AND [Currency] COLLATE Latin1_General_100_BIN2 NOT LIKE '%[^A-Z]%' AND [Exponent] BETWEEN 0 AND 6");
+
+                            t.HasCheckConstraint("CK_CashTill_Time", "[ClosedAt] IS NULL OR [ClosedAt]>=[OpenedAt]");
+                        });
+                });
+
             modelBuilder.Entity("Martha.Store.Api.Internal.InternalItem", b =>
                 {
                     b.Property<Guid>("Id")
@@ -917,6 +1073,62 @@ namespace Martha.Store.Api.Internal.Migrations
                     b.HasOne("Martha.Store.Api.Internal.InternalStaff", null)
                         .WithMany()
                         .HasForeignKey("StaffId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Martha.Store.Api.Internal.InternalCashClose", b =>
+                {
+                    b.HasOne("Martha.Store.Api.Internal.InternalStaff", null)
+                        .WithMany()
+                        .HasForeignKey("ActorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Martha.Store.Api.Internal.InternalCashTill", null)
+                        .WithMany()
+                        .HasForeignKey("TillId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Martha.Store.Api.Internal.InternalCashEntry", b =>
+                {
+                    b.HasOne("Martha.Store.Api.Internal.InternalStaff", null)
+                        .WithMany()
+                        .HasForeignKey("ActorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Martha.Store.Api.Internal.InternalSaleReversal", null)
+                        .WithMany()
+                        .HasForeignKey("ReversalId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Martha.Store.Api.Internal.InternalSale", null)
+                        .WithMany()
+                        .HasForeignKey("SaleId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Martha.Store.Api.Internal.InternalCashTill", null)
+                        .WithMany()
+                        .HasForeignKey("TillId", "CashierId", "Currency", "Exponent")
+                        .HasPrincipalKey("Id", "CashierId", "Currency", "Exponent")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Martha.Store.Api.Internal.InternalCashTill", b =>
+                {
+                    b.HasOne("Martha.Store.Api.Internal.InternalStaff", null)
+                        .WithMany()
+                        .HasForeignKey("CashierId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Martha.Store.Api.Internal.InternalLocation", null)
+                        .WithMany()
+                        .HasForeignKey("LocationId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

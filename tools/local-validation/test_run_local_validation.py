@@ -105,7 +105,7 @@ class Fake:
                 if name.startswith('savia-runner-'): assert args[-1]==IMAGE
             if self.foreign:
                 ident='foreign';labels={'savia.run':'foreign'}
-            else: ident=name if kind=='volume' else uuid.uuid4().hex
+            else: ident=name if kind=='volume' else uuid.uuid4().hex + uuid.uuid4().hex
             self.resources[kind,ident]={'Id':ident,'Name':name,'Labels':labels}
             if self.failure=='timeout-create': raise subprocess.TimeoutExpired('fake',timeout,output=b'partial',stderr=b'err')
             return result(out=ident+'\n')
@@ -261,6 +261,97 @@ class SafetyTests(unittest.TestCase):
         with self.assertRaises(ValueError):G.sequence(work,'crest')
     def test_real_transport_guard(self):
         with self.assertRaisesRegex(AssertionError,'REAL TRANSPORT FORBIDDEN'): R.Transport().call(['version'],timeout=1)
+
+    def test_log_write_exhaustion_blocks_next_budget(self):
+        original=R.PrivateStore.write
+        def slow(store, relative, content):
+            original(store, relative, content)
+            if relative=='logs/stage-crest.log': self.clock.now+=R.C_BUDGET
+        with patch.object(R.PrivateStore,'write',slow): r=self.run_candidate()
+        self.assertEqual(r['status'],'FAILED');self.assertNotIn('d',self.t.stages)
+        self.assertFalse(self.t.resources)
+
+    def test_private_store_write_checks_budget_after_io(self):
+        store=R.PrivateStore(self.f.private,self.f.privacy,S.Deadline(1,self.clock))
+        original=Path.open
+        clock=self.clock
+        class SlowWrite:
+            def __init__(self, stream): self.stream=stream
+            def __enter__(self): self.stream.__enter__();return self
+            def __exit__(self,*args): return self.stream.__exit__(*args)
+            def write(self,data): self.stream.write(data);clock.now+=2
+        def opened(path,*args,**kw):
+            stream=original(path,*args,**kw)
+            return SlowWrite(stream) if args==('xb',) else stream
+        with patch.object(Path,'open',opened):
+            with self.assertRaises(S.SafetyError): store.write('slow.log','content')
+
+    def test_cleanup_unproved_listing_never_absent(self):
+        original=self.t.call
+        for mode in ('renamed','short-id','malformed'):
+            with self.subTest(mode=mode):
+                def corrupt(args,**kw):
+                    if args[1:2]==['rm']:
+                        row=self.t.resources[args[0],args[-1]];row['Name']='renamed-'+args[-1][:8]
+                        return SimpleNamespace(returncode=1,stdout='',stderr='remove failed')
+                    if args[1:2]==['ls']:
+                        rows=[{'ID':i if mode=='renamed' else i[:12],'Name':v['Name']}
+                              for (kind,i),v in self.t.resources.items() if kind==args[0]]
+                        if mode=='malformed': rows=[{}]
+                        return SimpleNamespace(returncode=0,stdout='\n'.join(json.dumps(x) for x in rows),stderr='')
+                    return original(args,**kw)
+                self.t.call=corrupt
+                owner=S.Ownership(self.t,'nonce','scope');ident='a'*64;name='owned'
+                self.t.resources={('container',ident):{'Id':ident,'Name':name,'Labels':{'savia.run':'nonce','savia.scope':'scope'}}}
+                owner.receipts=[('container',ident,name)]
+                rows=owner.cleanup(self.clock)
+                self.assertEqual(rows[0]['state'],'present' if mode=='renamed' else 'unknown')
+        self.t.call=original
+
+    def test_interrupt_stage_retains_failed_receipt_and_cleans(self):
+        original=self.t.call
+        for interrupted in (KeyboardInterrupt, SystemExit):
+            with self.subTest(interrupted=interrupted.__name__):
+                if (self.f.private/'result.json').exists():
+                    shutil.rmtree(self.f.private);self.f.private.mkdir();self.t.stages=[]
+                def stop(args,**kw):
+                    if args[-1:]==['c1']: raise interrupted('test interrupt')
+                    return original(args,**kw)
+                self.t.call=stop
+                with self.assertRaises(interrupted): self.run_candidate()
+                receipt=json.loads((self.f.private/'result.json').read_text())
+                self.assertEqual(receipt['status'],'FAILED')
+                self.assertEqual(receipt['failure'],{'stage':'C','type':interrupted.__name__})
+                self.assertFalse(self.t.resources)
+
+    def test_cleanup_interrupt_attempts_remaining_and_preserves_stage_failure(self):
+        original=self.t.call;calls=[];self.t.failure='c1'
+        def stop(args,**kw):
+            if args[1:2]==['rm']:
+                calls.append(args[-1])
+                if len(calls)==1: raise KeyboardInterrupt('cleanup interrupted')
+            return original(args,**kw)
+        self.t.call=stop
+        with self.assertRaises(KeyboardInterrupt): self.run_candidate()
+        receipt=json.loads((self.f.private/'result.json').read_text())
+        self.assertEqual(len(calls),3);self.assertEqual(len(receipt['cleanup']),3)
+        self.assertEqual(receipt['status'],'FAILED')
+        self.assertEqual(receipt['failure'],{'stage':'C','type':'SafetyError'})
+        self.assertEqual(receipt['interruption'],{'stage':'cleanup','type':'KeyboardInterrupt'})
+
+    def test_archive_aliases_rejected_before_extraction(self):
+        for index,names in enumerate((('backend/x','backend/./x'),('backend/x','backend//x'),('backend/x','backend/X'))):
+            with self.subTest(names=names):
+                files=dict.fromkeys(names,b'content');hashes={n:hashlib.sha256(b).hexdigest() for n,b in files.items()}
+                target=self.f.root/('alias-'+str(index))
+                with self.assertRaises(S.SafetyError): S.extract(archive(files),target,hashes)
+                self.assertFalse(target.exists())
+
+    def test_member_alias_rejected_with_canonical_allowlist(self):
+        files={'backend/./x':b'content'}
+        with self.assertRaises(S.SafetyError):
+            S.extract(archive(files),self.f.root/'alias',{'backend/x':hashlib.sha256(b'content').hexdigest()})
+        self.assertFalse((self.f.root/'alias').exists())
 
 
 class HistoricalDefectControls(unittest.TestCase):

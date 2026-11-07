@@ -1,8 +1,18 @@
 # First functional SAVIA cash register
 
-Mode: BUILD preparation. Product scope adopted; source-only design accepted below. Implementation and runtime acceptance pending.
+Mode: BUILD. Backend and generated migration integrated; implementation acceptance and runtime remain pending.
 Owner: primary orchestrator. Host: SUAZO-PC.
 Inspected source: `Tony@dab891055072910b5af757d2e36714424b5ee378`.
+
+## Current integration, 2026-11-07
+
+Primary imported the source-bound backend and generated three-table migration, then regenerated the release SQL without applying it.
+Fresh focused integration: 65/65 PASS. Fresh non-SQL regression: 607 PASS, zero failures, 66 NotExecuted.
+The two initial integration failures are preserved and resolved: migration history and generated release script.
+`python tests/check.py` passed, exit 0. None of these results proves SQL cash persistence or the staff cash journey.
+[Commands, bindings, failures, corrections and next work](backend-integration/README.md).
+Next: adapt legacy SQL/N8 fixtures and independent schema expectations before implementation review and real runtime proof.
+The historical partial return and generator prerequisite below are superseded by this integration, not erased.
 
 ## Primary acceptance of the source-only design, 2026-11-07
 
@@ -234,7 +244,7 @@ Those CI results cover D-033 documentation and the existing portable baseline, n
 Current progress checks: `python tests/test_progress.py` **23/23 PASS** (440.645 s) and `python tools/export_progress.py --verify` **15 preserved hashes**, exit `0`.
 Fixture publication messages from those tests are simulated; only the real hook and remote readback can prove publication.
 
-## Backend partial returned and primary verification, 2026-11-07
+## Historical backend partial return and primary verification, 2026-11-07
 
 The Sol/high worker returned a backend candidate from `030b64f`; it has not been accepted or imported as product code.
 Primary verified 15/15 RAW and LF bindings and inspected the source and original private TRX files.

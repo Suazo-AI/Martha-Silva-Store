@@ -23,23 +23,23 @@ public sealed class InternalAcceptanceFingerprintTests
     public void Actual_fixture_guard_accepts_current_relational_model()
     {
         var tables = ModelTables();
-        Assert.Equal(20, tables.Length);
+        Assert.Equal(23, tables.Length);
         Assert.Contains("StockExceptionReviews", tables);
         InternalAcceptanceFingerprint.AssertTables(tables);
     }
 
     [Fact]
-    public void Actual_business_subset_keeps_all_seventeen_tables_and_review_hash()
+    public void Actual_business_subset_keeps_all_twenty_tables_and_review_hash()
     {
         var full = Fingerprint();
         var business = InternalAcceptanceFingerprint.Business(full);
-        Assert.Equal(17, business.Count);
-        Assert.Equal(new[] { "Branches", "Items", "Locations", "Operations", "Parties",
+        Assert.Equal(20, business.Count);
+        Assert.Equal(new[] { "Branches", "CashCloses", "CashEntries", "CashTills", "Items", "Locations", "Operations", "Parties",
             "PurchaseOrderLines", "PurchaseOrders", "PurchaseReceiptLines", "PurchaseReceipts",
             "SaleLines", "SaleReversalLines", "SaleReversals", "Sales", "StockAdjustments",
             "StockBalances", "StockExceptionReviews", "StockMovements" }, business.Keys.ToArray());
         Assert.Equal(full["StockExceptionReviews"], business["StockExceptionReviews"]);
-        Assert.Equal(20, full.Count); // Projection must not modify the captured full fingerprint.
+        Assert.Equal(23, full.Count); // Projection must not modify the captured full fingerprint.
     }
 
     [Theory]
@@ -62,6 +62,19 @@ public sealed class InternalAcceptanceFingerprintTests
         var after = Fingerprint();
         Assert.Equal(InternalAcceptanceFingerprint.Business(before), InternalAcceptanceFingerprint.Business(after));
         after["StockExceptionReviews"] = "1:synthetic-changed-review-row";
+        Assert.ThrowsAny<Xunit.Sdk.XunitException>(() =>
+            Assert.Equal(InternalAcceptanceFingerprint.Business(before), InternalAcceptanceFingerprint.Business(after)));
+    }
+
+    [Theory]
+    [InlineData("CashTills")]
+    [InlineData("CashEntries")]
+    [InlineData("CashCloses")]
+    public void Cash_table_change_fails_business_and_full_dictionary_comparison(string table)
+    {
+        var before = Fingerprint(); var after = Fingerprint();
+        after[table] = "1:synthetic-unauthorized-cash-write";
+        Assert.ThrowsAny<Xunit.Sdk.XunitException>(() => Assert.Equal(before, after));
         Assert.ThrowsAny<Xunit.Sdk.XunitException>(() =>
             Assert.Equal(InternalAcceptanceFingerprint.Business(before), InternalAcceptanceFingerprint.Business(after)));
     }

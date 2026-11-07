@@ -7,7 +7,7 @@ internal static class InternalAcceptanceFingerprint
 {
     private static readonly string[] ExpectedTables =
     [
-        "BranchAssignmentAudit", "Branches", "Items", "Locations", "Operations", "Parties",
+        "BranchAssignmentAudit", "Branches", "CashCloses", "CashEntries", "CashTills", "Items", "Locations", "Operations", "Parties",
         "PurchaseOrderLines", "PurchaseOrders", "PurchaseReceiptLines", "PurchaseReceipts",
         "SaleLines", "SaleReversalLines", "SaleReversals", "Sales", "Sessions", "Staff",
         "StockAdjustments", "StockBalances", "StockExceptionReviews", "StockMovements"

@@ -15,23 +15,27 @@ The full repository check passed on `6708709`, exit 0 in 405.609 seconds; it pre
 [Integration and exact limits](session-csrf-20261107/README.md#primary-integration-2026-11-07).
 Runner: primary independently passed 39/39 offline safety controls. Its image is deliberately unqualified;
 dependency qualification, private evidence destination and runtime authorization remain prerequisites.
-Fresh Astra/xhigh review of the corrected runner is the next independent safety gate.
-[Runner evidence and next action](completion-20261107/local-validation/runner-corrections/PRIMARY.md).
+Astra/xhigh returned REVISE: post-write deadlines, unproved cleanup absence, interruption handling and archive aliases.
+Primary reproduced the failures and corrected them; fresh offline controls pass 46/46, exit 0.
+Fresh independent re-review remains pending. This is not image or runtime qualification.
+[Corrections, evidence and next action](completion-20261107/local-validation/runner-corrections/revision-2/README.md).
 
 Historical execution diagnosis: OpenCode rejected the selected GLM free request with `Free usage limit reached`.
 That interrupted GLM task returned no implementation; the later Codex return above supersedes that state.
 [Direct evidence and exact resumption check](completion-20261107/opencode-execution-diagnosis.json).
 This is an upstream access failure, not demonstrated lack of Windows administrator rights.
 Jason authorized temporary Codex `gpt-6.1-sol/high` execution. Astra/xhigh remains the sole judge.
-Cash backend returned partial: primary verified 158/158 offline passes and a failing pending-model check.
-Cash product bytes remain in the worker checkout. The additive migration and legacy SQL fixture adaptation are incomplete.
-[Verified partial, blockers and next action](cash-register-20261107/PRIMARY-PARTIAL.json).
-Next: generate the migration with a private pinned EF tool; do not apply it to a database.
-Cash implementation acceptance and all CASH runtime checks remain pending.
+Cash backend and additive three-table migration are now integrated into the canonical checkout.
+Primary focused checks passed 65/65. A fresh non-SQL build/run passed 607 tests; 66 NotExecuted cases are not passes.
+Two integration failures were corrected: explicit migration history and the regenerated idempotent release script.
+The repository check passed, exit 0 in 251.782 seconds. No migration was applied.
+[Fresh integration proof, blockers and next action](cash-register-20261107/backend-integration/README.md).
+Next: adapt legacy SQL/N8/release-schema fixtures to cash, preserving security and recovery checks.
+The staff cash interface, current test inventory, independent implementation review and real CASH runtime remain pending.
 [Frozen controls and primary adjudication](cash-register-20261107/README.md#primary-acceptance-of-the-source-only-design-2026-11-07).
 
 First cash-register scope adopted, 2026-11-07: fully paid sales, cash received, change and till close; credit comes later.
-The current sale receipt still reports `not_processed`. Cash implementation and real persistence proof remain pending.
+Historical unpaid receipts retain `not_processed`. The cash backend candidate adds paid receipts; its UI and real persistence proof remain pending.
 [D-031 and source-based acceptance proposals](cash-register-20261107/README.md). This choice does not resolve Martha's process facts or waive card payments.
 Cash-refund policy adopted: Owner or Manager only, with original paid sale, reason and recorded cash outflow included in till close (D-032).
 Cash and refund implementation, independent review and real persistence tests remain pending.

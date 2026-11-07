@@ -1,0 +1,180 @@
+{
+  "task_id": "savia-cash-migration-continuation-030b64f-20261107",
+  "status": "migration generated; bounded offline checks passed; primary acceptance pending",
+  "base_sha": "030b64f7cba87c6a0d710892deb9a8493ea8bbf4",
+  "identity": {
+    "host": "SUAZO-PC",
+    "provider": "Codex",
+    "harness": "T3 Code / Codex",
+    "model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "effective_exposed_effort": "high",
+    "cost_usage": "unknown",
+    "isolation": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-49ff92f2"
+  },
+  "versions": {
+    "sdk": "10.0.402",
+    "ef_cli": "10.0.13",
+    "ef_design_sqlserver": "10.0.13"
+  },
+  "install_attempts": 1,
+  "environment": "DOTNET_ROOT and DOTNET_HOST_PATH child process only; PATH and parent environment untouched",
+  "commands": [
+    {
+      "command": "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe --version",
+      "exit": 0,
+      "result": "10.0.402"
+    },
+    {
+      "command": "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe tool install dotnet-ef --tool-path private-exports/cash-register-20261107/ef-tools --version 10.0.13 --configfile private-exports/cash-register-20261107/ef-tools/NuGet.Config",
+      "exit": 0,
+      "source": "Only https://api.nuget.org/v3/index.json; config clears other feeds"
+    },
+    {
+      "command": "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe build backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj --no-restore",
+      "exit": 0,
+      "warnings": 0,
+      "errors": 0
+    },
+    {
+      "command": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-49ff92f2\\private-exports\\cash-register-20261107\\ef-tools\\dotnet-ef.exe --version",
+      "exit": 0,
+      "log": "private-exports\\cash-register-20261107\\backend-worker\\migration\\tool-version.log"
+    },
+    {
+      "command": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-49ff92f2\\private-exports\\cash-register-20261107\\ef-tools\\dotnet-ef.exe migrations add FirstCashRegister --context InternalDbContext --project backend/src/Martha.Store.Api --startup-project backend/src/Martha.Store.Api --output-dir Internal/Migrations --configuration Debug --no-build",
+      "exit": 1,
+      "log": "private-exports\\cash-register-20261107\\backend-worker\\migration\\generate.log"
+    },
+    {
+      "command": "C:\\Users\\Jason\\MARTHA-SILVA\\validation\\resolution-20261028-jsdom\\.sdk-10.0.402\\dotnet.exe exec C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-49ff92f2\\private-exports\\cash-register-20261107\\ef-tools\\.store\\dotnet-ef\\10.0.13\\dotnet-ef\\10.0.13\\tools\\net8.0\\any\\dotnet-ef.dll migrations add FirstCashRegister --context InternalDbContext --project backend/src/Martha.Store.Api --startup-project backend/src/Martha.Store.Api --output-dir Internal/Migrations --configuration Debug --no-build --verbose",
+      "exit": 0,
+      "environment_scope": "child only; DOTNET_ROOT and DOTNET_HOST_PATH; PATH untouched"
+    },
+    {
+      "command": "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe test backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj --no-restore --filter \"FullyQualifiedName~InternalMigrationTests|FullyQualifiedName~InternalAcceptanceFingerprintTests|FullyQualifiedName~InternalCashTests\" --logger \"trx;LogFileName=cash-migration-focused.trx\" --results-directory private-exports/cash-register-20261107/backend-worker/migration",
+      "exit": 0,
+      "note": "Builds generated artifacts before testing; no restore"
+    },
+    {
+      "command": "python docs/cash-register-20261107/backend-worker/migration/verify_generated.py",
+      "exit": 0,
+      "checks": 30
+    },
+    {
+      "command": "git diff --check",
+      "exit": 0
+    }
+  ],
+  "focused_test_invocations": 1,
+  "trx_counters": {
+    "total": "41",
+    "executed": "41",
+    "passed": "41",
+    "failed": "0",
+    "error": "0",
+    "timeout": "0",
+    "aborted": "0",
+    "inconclusive": "0",
+    "passedButRunAborted": "0",
+    "notRunnable": "0",
+    "notExecuted": "0",
+    "disconnected": "0",
+    "warning": "0",
+    "completed": "0",
+    "inProgress": "0",
+    "pending": "0"
+  },
+  "groups": {
+    "InternalAcceptanceFingerprintTests": 12,
+    "InternalCashTests": 22,
+    "InternalMigrationTests": 7
+  },
+  "previous_failure": {
+    "test": "Internal_snapshot_matches_the_current_design_time_model_without_a_server",
+    "prior": "Failed - pending model changes",
+    "fresh": "Passed"
+  },
+  "frozen_original_bindings_verified": 15,
+  "schema_source_guards": {
+    "checks": 30,
+    "new_tables": [
+      "CashTills",
+      "CashCloses",
+      "CashEntries"
+    ],
+    "total_tables": 23,
+    "business_tables": 20,
+    "primary_keys": 3,
+    "alternate_keys": 1,
+    "restrictive_fks": 8,
+    "check_constraints": 5,
+    "indexes": 9,
+    "unique_indexes": 5,
+    "up_operations": "3 CreateTable + 9 CreateIndex",
+    "down_operations": "3 DropTable",
+    "unrelated_snapshot_changes": 0,
+    "historical_backfill": false
+  },
+  "raw_private_evidence": [
+    {
+      "path": "private-exports/cash-register-20261107/backend-worker/migration/cash-migration-focused.trx",
+      "bytes": 62779,
+      "sha256_raw": "7399ef3ea43740a3e6474700cab77c6207741b3f2a6328862272ea99ae4511ab",
+      "sha256_lf": "10df78cf218957d2cd681707c2886a7babff2cbaf1b3d1e640c0ed30b55c6432"
+    },
+    {
+      "path": "private-exports/cash-register-20261107/backend-worker/migration/generate-exact-host.log",
+      "bytes": 4921,
+      "sha256_raw": "3eece28a584faffac5629823e459b1035b0335551514129022a14867ffc5e536",
+      "sha256_lf": "f0365152e9d34582f2d801a182579a1ae5f6e3a9c5408188244618266329ed64"
+    },
+    {
+      "path": "private-exports/cash-register-20261107/backend-worker/migration/source-guards.log",
+      "bytes": 454,
+      "sha256_raw": "c63daacc23265ea160f03f040325b8e1cd975012a0ab141617fc4000854e4c50",
+      "sha256_lf": "c63daacc23265ea160f03f040325b8e1cd975012a0ab141617fc4000854e4c50"
+    }
+  ],
+  "not_run": [
+    "SQL/database update",
+    "Docker/services",
+    "8 prepared cash SQL fixtures",
+    "browser/API staff journey",
+    "full offline inventory",
+    "full website suite",
+    "primary N8 legacy fixture correction",
+    "Astra review",
+    "production acceptance"
+  ],
+  "blockers": [
+    {
+      "item": "SDK launcher resolution",
+      "evidence": "Initial generator exit 1: requested SDK 10.0.402 not found",
+      "cause": "Apphost child metadata command resolved another dotnet host",
+      "correction": "Exact SDK executes installed tool DLL; child DOTNET_HOST_PATH/DOTNET_ROOT",
+      "result": "Generation exit 0; snapshot check Passed",
+      "owner": "worker",
+      "state": "resolved"
+    },
+    {
+      "item": "integration/N8/independent review",
+      "evidence": "Generated artifact remains local in assigned checkout; primary-owned InternalAcceptanceHttpSqlTests.cs unchanged",
+      "correction_attempted": false,
+      "reason": "Explicit scope exclusion; primary owns integration and acceptance",
+      "owner": "primary then Astra/xhigh",
+      "next_action": "Serially import three generated files with frozen source bindings, perform N8 correction separately, rerun focused integration and request fresh Astra review",
+      "completion_check": "Fresh primary integration results and independent review against integrated hashes"
+    },
+    {
+      "item": "real persistence/concurrency/journey evidence",
+      "correction_attempted": false,
+      "reason": "SQL/services/browser excluded from this task",
+      "owner": "primary with separately authorized runtime campaign",
+      "next_action": "Schedule isolated SQL/concurrency and staff browser/API acceptance after integration",
+      "completion_check": "CASH-01..08 runtime evidence; no mocks/skips treated as persistence proof"
+    }
+  ],
+  "git_index": "empty",
+  "remote_mutations": false
+}

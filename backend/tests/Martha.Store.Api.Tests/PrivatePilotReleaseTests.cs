@@ -14,7 +14,7 @@ public sealed class PrivatePilotReleaseTests
 {
     private static string Evidence => Environment.GetEnvironmentVariable("SAVIA_PILOT_EVIDENCE")
         ?? throw new InvalidOperationException("Worker evidence path required");
-    private static readonly string[] History = ["20261025085402_InitialInternalSavia", "20261027224500_InternalBranchScope", InternalStockExceptionTests.Migration];
+    private static readonly string[] History = ["20261025085402_InitialInternalSavia", "20261027224500_InternalBranchScope", InternalStockExceptionTests.Migration, "20261107221938_FirstCashRegister"];
     internal static string Connection(string database)
     {
         Assert.Matches("^SaviaInternalTest_(?:Pilot|Release)_[a-f0-9]{32}$", database);

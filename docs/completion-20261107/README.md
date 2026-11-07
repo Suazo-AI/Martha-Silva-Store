@@ -9,8 +9,12 @@ Source: [canonical ledger](../pipeline/ledger.json), [status](../PROJECT-STATUS.
 Session CSRF and runner corrections were integrated before `79d18c4`. The assignments below are historical.
 Primary accepts the source/offline N8 same-account sale and Directory correction after Astra/xhigh recheck.
 [Accepted evidence and remaining SQL gate](../session-csrf-20261107/n8-correction/PRIMARY-ACCEPTANCE.json).
-The corrected runner still needs its independent safety review, dependency/image qualification and real private destination proof.
-The cash backend is partial in its separate worker checkout; its pinned-tool migration continuation is assigned.
+Astra's runner recheck returned REVISE. Primary reproduced and corrected R1-R4; fresh offline controls pass 46/46.
+[Runner corrections, limits and pending independent re-review](local-validation/runner-corrections/revision-2/README.md).
+Dependency/image qualification and real private destination proof remain pending.
+The cash backend and generated migration are integrated; the regenerated release script and explicit history now agree.
+[Fresh cash integration](../cash-register-20261107/backend-integration/README.md): 65/65 focused; 607 non-SQL passes, 66 NotExecuted; repository check exit 0.
+Next: adapt legacy SQL/N8/schema fixtures and current inventory, then cash UI and the real journey. Historical partitions remain frozen.
 No current N8 SQL, cash SQL or combined browser/API/SQL execution is claimed. Production remains NO-GO.
 
 ## Historical execution assignment, 2026-11-07

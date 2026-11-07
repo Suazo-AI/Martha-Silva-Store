@@ -34,13 +34,14 @@ public static class InternalHosting
         services.AddInternalSecurity();
         services.AddScoped<IInternalCommandRunner, InternalCommandRunner>();
         services.AddInternalCommerce();
+        services.AddInternalCash(configuration);
         services.AddInternalSupply();
         return services;
     }
 
     public static IEndpointRouteBuilder MapPrivateSavia(this IEndpointRouteBuilder routes)
     {
-        routes.MapInternalSecurity(); routes.MapInternalDirectory(); routes.MapInternalCommerce(); routes.MapInternalSupply();
+        routes.MapInternalCash(); routes.MapInternalSecurity(); routes.MapInternalDirectory(); routes.MapInternalCommerce(); routes.MapInternalSupply();
         // Existing /health/ready belongs to the legacy synthetic context; do not silently redefine it.
         routes.MapGet("/internal/api/readiness", async (HttpContext http, InternalDbContext db, CancellationToken ct) =>
         {

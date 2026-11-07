@@ -29,9 +29,9 @@ public static class InternalCommandAuthorization
             or "directory.locations.create" or "directory.locations.update" or "directory.locations.deactivate"
             or "directory.parties.create" or "directory.parties.update" or "directory.parties.deactivate" => ["Owner"],
             "supply.purchase.create" or "supply.purchase.cancel"
-            or "commerce.stock.review" or "commerce.sale.cancel" or "commerce.sale.return" => ["Owner", "Manager"],
+            or "cash.refund" or "commerce.stock.review" or "commerce.sale.cancel" or "commerce.sale.return" => ["Owner", "Manager"],
             "commerce.stock.adjust" or "supply.receipt.create" => ["Owner", "Manager", "Inventory"],
-            "commerce.sale.record" => ["Owner", "Manager", "Cashier"],
+            "cash.till.open" or "cash.sale" or "cash.till.close" or "commerce.sale.record" => ["Owner", "Manager", "Cashier"],
             _ => []
         };
         return principal.Identity?.IsAuthenticated == true && roles.Any(principal.IsInRole);
@@ -65,6 +65,12 @@ public sealed class InternalCommandRunner(InternalDbContext db, InternalSecurity
         try
         {
             await using var transaction = await db.Database.BeginTransactionAsync(IsolationLevel.Serializable, ct);
+            // Serialize open attempts before session reads can acquire shared cashier locks.
+            if (scope == "cash.till.open")
+            {
+                var cashierLock = "SaviaInternal:cashier:" + actorId.ToString("N");
+                await db.Database.ExecuteSqlInterpolatedAsync($"DECLARE @result int; EXEC @result=sys.sp_getapplock @Resource={cashierLock},@LockMode='Exclusive',@LockOwner='Transaction',@LockTimeout=10000; IF @result<0 THROW 51000,'Cashier lock unavailable',1;", ct);
+            }
             // Validate persisted session and current role in the SAME transaction as the business write.
             var current = await security.ValidateSession(principal, ct);
             if (current is null || InternalActor.Id(current) != actorId) return InternalResult<T>.Fail("unauthenticated");
@@ -83,6 +89,20 @@ public sealed class InternalCommandRunner(InternalDbContext db, InternalSecurity
             var prior = await db.Set<InternalOperation>().AsNoTracking()
                 .SingleOrDefaultAsync(x => x.ActorId == actorId && x.Scope == scope && x.Key == key, ct);
             var access = new InternalBranchAccess(db);
+            // Cash preflight follows sale -> till -> stock, acquiring update locks before shared reads.
+            // Recorded replays need access checks only and must remain valid after closure.
+            if (prior is null && commandResource is not null && scope.StartsWith("cash.", StringComparison.Ordinal))
+            {
+                if (scope == "cash.refund")
+                    await db.Set<InternalSale>().FromSqlInterpolated($"SELECT * FROM [savia_internal].[Sales] WITH (UPDLOCK,HOLDLOCK) WHERE [Id]={commandResource.Id}").AsNoTracking().ToListAsync(ct);
+                if (scope is "cash.sale" or "cash.refund" or "cash.till.close")
+                {
+                    var payingTill = scope == "cash.refund" ? commandResource.PayingTillId : commandResource.Id;
+                    await db.Set<InternalCashTill>().FromSqlInterpolated($"SELECT * FROM [savia_internal].[CashTills] WITH (UPDLOCK,HOLDLOCK) WHERE [Id]={payingTill}").AsNoTracking().ToListAsync(ct);
+                }
+            }
+            // Recheck current resource/custody on replay, while deliberately ignoring till openness.
+            if (!await access.CanUseCashResource(actorId, scope, commandResource, ct)) return InternalResult<T>.Fail("forbidden");
             if (prior is not null)
             {
                 if (!await access.CanReadOperation(actorId, prior, ct)) return InternalResult<T>.Fail("forbidden");

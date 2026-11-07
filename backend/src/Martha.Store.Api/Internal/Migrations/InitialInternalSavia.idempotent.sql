@@ -1,4 +1,4 @@
-IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+﻿IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
 BEGIN
     CREATE TABLE [__EFMigrationsHistory] (
         [MigrationId] nvarchar(150) NOT NULL,
@@ -839,6 +839,162 @@ IF NOT EXISTS (
 BEGIN
     INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
     VALUES (N'20261106071201_PhysicalStockException', N'10.0.13');
+END;
+
+COMMIT;
+GO
+
+BEGIN TRANSACTION;
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261107221938_FirstCashRegister'
+)
+BEGIN
+    CREATE TABLE [savia_internal].[CashTills] (
+        [Id] uniqueidentifier NOT NULL,
+        [CashierId] uniqueidentifier NOT NULL,
+        [LocationId] uniqueidentifier NOT NULL,
+        [Currency] varchar(3) COLLATE Latin1_General_100_BIN2 NOT NULL,
+        [Exponent] int NOT NULL,
+        [OpenedAt] datetimeoffset NOT NULL,
+        [ClosedAt] datetimeoffset NULL,
+        CONSTRAINT [PK_CashTills] PRIMARY KEY ([Id]),
+        CONSTRAINT [AK_CashTills_Id_CashierId_Currency_Exponent] UNIQUE ([Id], [CashierId], [Currency], [Exponent]),
+        CONSTRAINT [CK_CashTill_Currency] CHECK (LEN([Currency])=3 AND [Currency] COLLATE Latin1_General_100_BIN2 NOT LIKE '%[^A-Z]%' AND [Exponent] BETWEEN 0 AND 6),
+        CONSTRAINT [CK_CashTill_Time] CHECK ([ClosedAt] IS NULL OR [ClosedAt]>=[OpenedAt]),
+        CONSTRAINT [FK_CashTills_Locations_LocationId] FOREIGN KEY ([LocationId]) REFERENCES [savia_internal].[Locations] ([Id]) ON DELETE NO ACTION,
+        CONSTRAINT [FK_CashTills_Staff_CashierId] FOREIGN KEY ([CashierId]) REFERENCES [savia_internal].[Staff] ([Id]) ON DELETE NO ACTION
+    );
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261107221938_FirstCashRegister'
+)
+BEGIN
+    CREATE TABLE [savia_internal].[CashCloses] (
+        [Id] uniqueidentifier NOT NULL,
+        [TillId] uniqueidentifier NOT NULL,
+        [ActorId] uniqueidentifier NOT NULL,
+        [ExpectedMinor] bigint NOT NULL,
+        [CountedMinor] bigint NOT NULL,
+        [DifferenceMinor] bigint NOT NULL,
+        [CreatedAt] datetimeoffset NOT NULL,
+        CONSTRAINT [PK_CashCloses] PRIMARY KEY ([Id]),
+        CONSTRAINT [CK_CashClose_Amounts] CHECK ([ExpectedMinor] BETWEEN 0 AND 9000000000000 AND [CountedMinor] BETWEEN 0 AND 9000000000000 AND [DifferenceMinor]=[CountedMinor]-[ExpectedMinor]),
+        CONSTRAINT [FK_CashCloses_CashTills_TillId] FOREIGN KEY ([TillId]) REFERENCES [savia_internal].[CashTills] ([Id]) ON DELETE NO ACTION,
+        CONSTRAINT [FK_CashCloses_Staff_ActorId] FOREIGN KEY ([ActorId]) REFERENCES [savia_internal].[Staff] ([Id]) ON DELETE NO ACTION
+    );
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261107221938_FirstCashRegister'
+)
+BEGIN
+    CREATE TABLE [savia_internal].[CashEntries] (
+        [Id] uniqueidentifier NOT NULL,
+        [TillId] uniqueidentifier NOT NULL,
+        [CashierId] uniqueidentifier NOT NULL,
+        [ActorId] uniqueidentifier NOT NULL,
+        [Currency] varchar(3) COLLATE Latin1_General_100_BIN2 NOT NULL,
+        [Exponent] int NOT NULL,
+        [Kind] varchar(16) NOT NULL,
+        [DeltaMinor] bigint NOT NULL,
+        [ReceivedMinor] bigint NOT NULL,
+        [ChangeMinor] bigint NOT NULL,
+        [SaleId] uniqueidentifier NULL,
+        [ReversalId] uniqueidentifier NULL,
+        [CreatedAt] datetimeoffset NOT NULL,
+        CONSTRAINT [PK_CashEntries] PRIMARY KEY ([Id]),
+        CONSTRAINT [CK_CashEntry_Bounds] CHECK ([DeltaMinor] BETWEEN -9000000000000 AND 9000000000000 AND [ReceivedMinor] BETWEEN 0 AND 9000000000000 AND [ChangeMinor] BETWEEN 0 AND 9000000000000),
+        CONSTRAINT [CK_CashEntry_Kind] CHECK (([Kind]='opening' AND [DeltaMinor]>=0 AND [ReceivedMinor]=0 AND [ChangeMinor]=0 AND [SaleId] IS NULL AND [ReversalId] IS NULL) OR ([Kind]='sale' AND [DeltaMinor]>=0 AND [ReceivedMinor]-[ChangeMinor]=[DeltaMinor] AND [SaleId] IS NOT NULL AND [ReversalId] IS NULL) OR ([Kind]='refund' AND [DeltaMinor]<0 AND [ReceivedMinor]=0 AND [ChangeMinor]=0 AND [SaleId] IS NOT NULL AND [ReversalId] IS NOT NULL)),
+        CONSTRAINT [FK_CashEntries_CashTills_TillId_CashierId_Currency_Exponent] FOREIGN KEY ([TillId], [CashierId], [Currency], [Exponent]) REFERENCES [savia_internal].[CashTills] ([Id], [CashierId], [Currency], [Exponent]) ON DELETE NO ACTION,
+        CONSTRAINT [FK_CashEntries_SaleReversals_ReversalId] FOREIGN KEY ([ReversalId]) REFERENCES [savia_internal].[SaleReversals] ([Id]) ON DELETE NO ACTION,
+        CONSTRAINT [FK_CashEntries_Sales_SaleId] FOREIGN KEY ([SaleId]) REFERENCES [savia_internal].[Sales] ([Id]) ON DELETE NO ACTION,
+        CONSTRAINT [FK_CashEntries_Staff_ActorId] FOREIGN KEY ([ActorId]) REFERENCES [savia_internal].[Staff] ([Id]) ON DELETE NO ACTION
+    );
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261107221938_FirstCashRegister'
+)
+BEGIN
+    CREATE INDEX [IX_CashCloses_ActorId] ON [savia_internal].[CashCloses] ([ActorId]);
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261107221938_FirstCashRegister'
+)
+BEGIN
+    CREATE UNIQUE INDEX [IX_CashCloses_TillId] ON [savia_internal].[CashCloses] ([TillId]);
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261107221938_FirstCashRegister'
+)
+BEGIN
+    CREATE INDEX [IX_CashEntries_ActorId] ON [savia_internal].[CashEntries] ([ActorId]);
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261107221938_FirstCashRegister'
+)
+BEGIN
+    EXEC(N'CREATE UNIQUE INDEX [IX_CashEntries_ReversalId] ON [savia_internal].[CashEntries] ([ReversalId]) WHERE [ReversalId] IS NOT NULL');
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261107221938_FirstCashRegister'
+)
+BEGIN
+    EXEC(N'CREATE UNIQUE INDEX [IX_CashEntries_SaleId] ON [savia_internal].[CashEntries] ([SaleId]) WHERE [Kind]=''sale''');
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261107221938_FirstCashRegister'
+)
+BEGIN
+    EXEC(N'CREATE UNIQUE INDEX [IX_CashEntries_TillId] ON [savia_internal].[CashEntries] ([TillId]) WHERE [Kind]=''opening''');
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261107221938_FirstCashRegister'
+)
+BEGIN
+    CREATE INDEX [IX_CashEntries_TillId_CashierId_Currency_Exponent] ON [savia_internal].[CashEntries] ([TillId], [CashierId], [Currency], [Exponent]);
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261107221938_FirstCashRegister'
+)
+BEGIN
+    EXEC(N'CREATE UNIQUE INDEX [IX_CashTills_CashierId] ON [savia_internal].[CashTills] ([CashierId]) WHERE [ClosedAt] IS NULL');
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261107221938_FirstCashRegister'
+)
+BEGIN
+    CREATE INDEX [IX_CashTills_LocationId] ON [savia_internal].[CashTills] ([LocationId]);
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261107221938_FirstCashRegister'
+)
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20261107221938_FirstCashRegister', N'10.0.13');
 END;
 
 COMMIT;

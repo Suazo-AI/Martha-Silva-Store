@@ -150,7 +150,7 @@ class PrivateStore:
             raise SafetyError('private directory identity changed')
     def directory(self, relative):
         self.check()
-        safe_name(relative)
+        if relative != '.': safe_name(relative)
         p = self.root
         for component in Path(relative).parts:
             p = p / component
@@ -169,6 +169,7 @@ class PrivateStore:
         # Exclusive creation prevents following a preexisting destination link.
         with p.open('xb') as out:
             out.write(content.encode() if isinstance(content, str) else content)
+        self.deadline.left()
 
 def load_gate(source):
     spec = importlib.util.spec_from_file_location('savia_evidence_gate', source / 'tools/local-validation/evidence_gate.py')
@@ -178,6 +179,7 @@ def load_gate(source):
 def execute(config, transport, *, clock=time.monotonic, git_read=git, privacy=None):
     owned = Ownership(transport, secrets.token_hex(16), config.scope)
     store = None; failure = None; outcomes = []; retained = []
+    interruption = None; interrupted_error = None
     stage = 'preparation'
     prep = Deadline(PREP_BUDGET, clock)
     runner = sql = None
@@ -226,12 +228,15 @@ def execute(config, transport, *, clock=time.monotonic, git_read=git, privacy=No
             '--mount', f'type=bind,source={source},target=/source,readonly',
             *[arg for k in variables for arg in ('--env', k)], image_id], variables)
         run_stage(transport, store, runner, 'build', prep)
+        prep.left()
         stage = 'C'; c = Deadline(C_BUDGET, clock)
         store.deadline = c
         run_stage(transport, store, runner, 'c1', c)
         run_stage(transport, store, runner, 'crest', c)
+        c.left()
         stage = 'D'; store.deadline = Deadline(D_BUDGET, clock)
         run_stage(transport, store, runner, 'd', store.deadline)
+        store.deadline.left()
         stage = 'E'; e = Deadline(E_BUDGET, clock)
         store.deadline = e
         run_stage(transport, store, runner, 'e-release', e)
@@ -245,15 +250,19 @@ def execute(config, transport, *, clock=time.monotonic, git_read=git, privacy=No
         e.call(transport, ['start', sql])
         ready(transport, sql, password, e)
         run_stage(transport, store, runner, 'e-restart', e, {'SAVIA_PILOT_PERSIST_DATABASE': database})
-    except Exception as error:
+    except BaseException as error:
         failure = {'stage': stage, 'type': type(error).__name__}
+        if not isinstance(error, Exception):
+            interruption = failure.copy(); interrupted_error = error
         # Do not expose exception strings: arbitrary transport/filesystem data can contain secrets.
         if store:
             store.deadline = Deadline(20, clock)
             try:
                 def dec(v): return v.decode(errors='replace') if isinstance(v, bytes) else (v or '')
                 store.write('logs/failure-output.log', dec(getattr(error, 'stdout', None)) + dec(getattr(error, 'stderr', None)))
-            except Exception: pass
+            except BaseException as error:
+                if not isinstance(error, Exception) and interrupted_error is None:
+                    interruption = {'stage': 'failure-retention', 'type': type(error).__name__}; interrupted_error = error
     finally:
         # Independent bounded retention attempts, then independent cleanup slices (<=80 seconds).
         if store:
@@ -269,14 +278,27 @@ def execute(config, transport, *, clock=time.monotonic, git_read=git, privacy=No
                     r = Deadline(20, clock).call(transport, args, check=False)
                     if label != 'evidence': store.write('logs/' + label + '.log', (r.stdout or '') + (r.stderr or ''))
                     retained.append({'item': label, 'ok': r.returncode == 0})
-                except Exception: retained.append({'item': label, 'ok': False})
-        outcomes = owned.cleanup(clock)
+                except BaseException as error:
+                    retained.append({'item': label, 'ok': False})
+                    if not isinstance(error, Exception) and interrupted_error is None:
+                        interruption = {'stage': 'retention', 'type': type(error).__name__}; interrupted_error = error
+        try:
+            outcomes = owned.cleanup(clock)
+        except BaseException as error:
+            outcomes = owned.cleanup_outcomes
+            if failure is None: failure = {'stage': 'cleanup', 'type': type(error).__name__}
+            if not isinstance(error, Exception) and interrupted_error is None:
+                interruption = {'stage': 'cleanup', 'type': type(error).__name__}; interrupted_error = error
+        if interruption is not None and failure is None: failure = interruption.copy()
         result = {'status': 'FAILED' if failure or any(x['state'] != 'absent' for x in outcomes) or any(not x['ok'] for x in retained) else 'PASS',
-                  'failure': failure, 'cleanup': outcomes, 'retention': retained,
+                  'failure': failure, 'interruption': interruption, 'cleanup': outcomes, 'retention': retained,
                   'image': {'id': image_id, 'action': 'retained prequalified shared image; no owned tag/build'}, 'nonce': owned.nonce}
         if store:
             try: store.write('result.json', json.dumps(result, indent=2) + '\n')
-            except Exception: result['status'] = 'FAILED'
+            except BaseException as error:
+                result['status'] = 'FAILED'
+                if not isinstance(error, Exception) and interrupted_error is None: interrupted_error = error
+    if interrupted_error is not None: raise interrupted_error
     return result
 
 def ready(transport, sql, password, deadline):
@@ -294,6 +316,7 @@ def run_stage(transport, store, runner, stage, deadline, extra=None):
     args += [runner, 'timeout', '--signal=TERM', str(deadline.left()), 'bash', '/source/tools/local-validation/run-stage.sh', stage]
     r = deadline.call(transport, args, check=False)
     store.write('logs/stage-' + stage + '.log', (r.stdout or '') + (r.stderr or ''))
+    deadline.left()
     if r.returncode: raise SafetyError('stage failed')
 
 def main(argv=None):

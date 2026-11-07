@@ -33,8 +33,15 @@ public sealed partial class InternalCommerceService(InternalDbContext db, IInter
     {
         if (!ValidActorKey(actorId, key) || !InternalCommerceRules.ValidSale(request))
             return Task.FromResult(InternalResult<InternalSaleReceipt>.Fail("invalid_request"));
-        return commands.RunScoped(actorId, "commerce.sale.record", key, InternalRules.Fingerprint(request), new InternalCommandResource("location", request.LocationId), async token =>
-        {
+        // Keep old-key recovery in the runner, but admit no fresh unpaid sale.
+        return commands.RunScoped(actorId, "commerce.sale.record", key, InternalRules.Fingerprint(request),
+            new InternalCommandResource("location", request.LocationId),
+            _ => Task.FromResult(InternalResult<InternalSaleReceipt>.Fail("cash_payment_required")), ct);
+    }
+
+    // Caller owns the serializable transaction and idempotency record.
+    internal async Task<InternalResult<InternalSaleReceipt>> RecordSaleLocal(InternalSaleRequest request, Guid actorId, CancellationToken token)
+    {
             if (!await db.Set<InternalLocation>().AnyAsync(x => x.Id == request.LocationId && x.Active, token))
                 return InternalResult<InternalSaleReceipt>.Fail("location_not_found");
             if (request.CustomerId is { } customer && !await db.Set<InternalParty>().AnyAsync(x => x.Id == customer && x.Kind == "customer" && x.Active, token))
@@ -70,7 +77,6 @@ public sealed partial class InternalCommerceService(InternalDbContext db, IInter
             db.Set<InternalSale>().Add(sale);
             await db.SaveChangesAsync(token);
             return InternalResult<InternalSaleReceipt>.Ok(ToReceipt(sale));
-        }, ct);
     }
 
     public Task<InternalResult<InternalSaleReversalReceipt>> CancelSale(Guid saleId, InternalSaleCancelRequest request, Guid actorId, string key, CancellationToken ct)
@@ -81,6 +87,8 @@ public sealed partial class InternalCommerceService(InternalDbContext db, IInter
         {
             var sale = await LockSale(saleId, token);
             if (sale is null) return InternalResult<InternalSaleReversalReceipt>.Fail("sale_not_found");
+            if (await db.Set<InternalCashEntry>().AnyAsync(x => x.SaleId == saleId && x.Kind == "sale", token))
+                return InternalResult<InternalSaleReversalReceipt>.Fail("cash_refund_required");
             if (sale.State == "cancelled")
             {
                 var original = await db.Set<InternalSaleReversal>().AsNoTracking().Include(x => x.Lines)
@@ -112,9 +120,18 @@ public sealed partial class InternalCommerceService(InternalDbContext db, IInter
     {
         if (saleId == Guid.Empty || !ValidActorKey(actorId, key) || !InternalCommerceRules.ValidReturn(request))
             return Task.FromResult(InternalResult<InternalSaleReversalReceipt>.Fail("invalid_request"));
-        return commands.RunScoped(actorId, "commerce.sale.return", key, InternalRules.Fingerprint(new { saleId, request }), new InternalCommandResource("sale", saleId), async token =>
-        {
-            var sale = await LockSale(saleId, token);
+        return commands.RunScoped(actorId, "commerce.sale.return", key, InternalRules.Fingerprint(new { saleId, request }),
+            new InternalCommandResource("sale", saleId), async token => {
+                var sale = await LockSale(saleId, token);
+                if (await db.Set<InternalCashEntry>().AnyAsync(x => x.SaleId == saleId && x.Kind == "sale", token))
+                    return InternalResult<InternalSaleReversalReceipt>.Fail("cash_refund_required");
+                return await ReturnSaleLocal(sale, request, actorId, token);
+            }, ct);
+    }
+
+    internal async Task<InternalResult<InternalSaleReversalReceipt>> ReturnSaleLocal(InternalSale? sale,
+        InternalSaleReturnRequest request, Guid actorId, CancellationToken token)
+    {
             if (sale is null) return InternalResult<InternalSaleReversalReceipt>.Fail("sale_not_found");
             if (sale.State is not ("recorded" or "partially_returned"))
                 return InternalResult<InternalSaleReversalReceipt>.Fail("sale_state_conflict");
@@ -140,7 +157,6 @@ public sealed partial class InternalCommerceService(InternalDbContext db, IInter
             db.Set<InternalSaleReversal>().Add(reversal);
             await db.SaveChangesAsync(token);
             return InternalResult<InternalSaleReversalReceipt>.Ok(ToReceipt(reversal, sale));
-        }, ct);
     }
 
     public async Task<InternalCommercePage<InternalStockView>> Stock(Guid? locationId, int skip, int take, CancellationToken ct, Guid actorId = default)
@@ -172,7 +188,10 @@ public sealed partial class InternalCommerceService(InternalDbContext db, IInter
         var query = db.Set<InternalSale>().AsNoTracking().Where(x => locations.Any(l => l.Id == x.LocationId));
         var total = await query.CountAsync(ct);
         var items = await query.Include(x => x.Lines).OrderByDescending(x => x.CreatedAt).ThenBy(x => x.Id).Skip(skip).Take(take).ToListAsync(ct);
-        return new(items.Select(ToReceipt).ToArray(), total, skip, take);
+        var ids = items.Select(x => x.Id).ToArray();
+        var paid = await db.Set<InternalCashEntry>().AsNoTracking().Where(x => x.SaleId != null && ids.Contains(x.SaleId.Value) && x.Kind == "sale")
+            .Select(x => x.SaleId!.Value).ToListAsync(ct);
+        return new(items.Select(x => ToReceipt(x, paid.Contains(x.Id) ? "paid" : "not_processed")).ToArray(), total, skip, take);
     }
 
     public static bool ValidPage(int skip, int take, int maximum) => skip >= 0 && take >= 1 && take <= maximum;
@@ -185,7 +204,9 @@ public sealed partial class InternalCommerceService(InternalDbContext db, IInter
     {
         var locations = new InternalBranchAccess(db).Locations(actorId);
         var sale = await db.Set<InternalSale>().AsNoTracking().Where(x => locations.Any(l => l.Id == x.LocationId)).Include(x => x.Lines).SingleOrDefaultAsync(x => x.Id == id, ct);
-        return sale is null ? null : ToReceipt(sale);
+        if (sale is null) return null;
+        var paid = await db.Set<InternalCashEntry>().AnyAsync(x => x.SaleId == id && x.Kind == "sale", ct);
+        return ToReceipt(sale, paid ? "paid" : "not_processed");
     }
 
     public async Task<IReadOnlyList<InternalSaleReversalReceipt>?> Reversals(Guid id, CancellationToken ct, Guid actorId = default)
@@ -197,7 +218,7 @@ public sealed partial class InternalCommerceService(InternalDbContext db, IInter
             .OrderBy(x => x.CreatedAt).ThenBy(x => x.Id).ToListAsync(ct)).Select(x => ToReceipt(x, sale)).ToArray();
     }
 
-    private Task<InternalSale?> LockSale(Guid id, CancellationToken ct) => db.Set<InternalSale>()
+    internal Task<InternalSale?> LockSale(Guid id, CancellationToken ct) => db.Set<InternalSale>()
         .FromSqlInterpolated($"SELECT * FROM [savia_internal].[Sales] WITH (UPDLOCK,HOLDLOCK) WHERE [Id]={id}")
         .Include(x => x.Lines).SingleOrDefaultAsync(ct);
 
@@ -206,8 +227,8 @@ public sealed partial class InternalCommerceService(InternalDbContext db, IInter
         new() { Id = Guid.NewGuid(), SaleId = sale.Id, ActorId = actor, Kind = kind, Reason = reason.Trim(), CreatedAt = DateTimeOffset.UtcNow };
     private static InternalSaleReversalLine NewReversalLine(Guid reversalId, InternalSaleLine line, int quantity) =>
         new() { Id = Guid.NewGuid(), ReversalId = reversalId, SaleLineId = line.Id, Quantity = quantity, RecordedCreditMinor = checked(line.UnitPriceMinor * quantity) };
-    private static InternalSaleReceipt ToReceipt(InternalSale sale) =>
-        new(sale.Id, sale.LocationId, sale.CustomerId, sale.ActorId, sale.Currency, sale.TotalMinor, sale.State, "not_processed", sale.CreatedAt,
+    private static InternalSaleReceipt ToReceipt(InternalSale sale, string paymentStatus = "not_processed") =>
+        new(sale.Id, sale.LocationId, sale.CustomerId, sale.ActorId, sale.Currency, sale.TotalMinor, sale.State, paymentStatus, sale.CreatedAt,
             sale.Lines.OrderBy(x => x.ItemId).Select(x => new InternalSaleLineReceipt(x.Id, x.ItemId, x.Sku, x.Name, x.Quantity, x.ReturnedQuantity, x.UnitPriceMinor, x.TotalMinor, x.ExceptionReason, x.Size)).ToArray());
     private static InternalSaleReversalReceipt ToReceipt(InternalSaleReversal reversal, InternalSale sale) =>
         new(reversal.Id, sale.Id, reversal.ActorId, reversal.Kind, sale.State, sale.Currency, reversal.RecordedCreditMinor, "not_processed", reversal.Reason,
