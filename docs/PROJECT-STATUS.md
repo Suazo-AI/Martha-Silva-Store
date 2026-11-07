@@ -4,7 +4,9 @@ Current primary assessment, 2026-11-06 UTC: production remains NO-GO.
 
 Local partition verifier: primary ACCEPT WITH LIMITS on `5f671dd`; Astra independently passed 21 tests and 39 probes. All four applicable CI workflows succeeded.
 [Exact acceptance and runtime handoff](local-validation-20261106/partition-verifier/ACCEPTANCE.json).
-Real C77 SQL, D browser/API/SQL and E2 recovery remain NOT RUN. Fresh Docker readiness exits 1; Jason must open Docker Desktop before primary verifies local runtime prerequisites.
+Docker startup blocker resolved, independently checked 2026-11-07 UTC: `docker info --format '{{.ServerVersion}}'` returns `29.7.2`, exit 0.
+[Startup evidence and corrected diagnosis](local-validation-20261106/docker-resolution-20261107.md). The earlier manual-start handoff is historical.
+C77 SQL, D browser/API/SQL and E2 recovery have no newly accepted results in this update. Docker readiness does not establish their outcome.
 [Complete remaining work and proposed critical path](release-20261106/completion-audit.md).
 This assessment separates adopted decisions, missing implementation, unexecuted proof and external production prerequisites.
 Gemini REVISE and Astra PARTIAL are reconciled and accepted by the primary within their stated limits.
