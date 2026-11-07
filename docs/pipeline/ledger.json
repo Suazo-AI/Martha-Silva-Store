@@ -516,16 +516,13 @@
       "id": "P-OWNER",
       "order": 23.5,
       "track": "prod",
-      "owner": "jason",
-      "status": "todo",
+      "owner": "suazo_pc",
+      "status": "doing",
       "title": "Recuperación si se pierden todas las cuentas Owner",
       "why": "Hallazgo de Tony/Codex en C9: el reset solo funciona con otro Owner vigente y el bootstrap no recupera cuentas existentes",
       "done_when": "Procedimiento revisado y probado en una base sintética, sin reabrir el bootstrap",
-      "needs": {
-        "decision": "¿Procedimiento de emergencia por SQL controlado o mantener siempre 2 Owner activos?",
-        "decider": "jason",
-        "recommendation": "Exigir 2 Owner activos como regla operativa y documentar un procedimiento SQL de emergencia probado en sintético"
-      },
+      "decision_ref": "docs/owner-recovery-20261107/README.md",
+      "prep": "2026-11-07 Jason adopted two enabled Owner accounts plus a synthetic-tested emergency recovery procedure. Source confirms current resets require another Owner and bootstrap remains closed. Requirements frozen for fresh Astra/xhigh design review; implementation and SQL runtime pending. No account, host security or database changed; original completion criterion retained.",
       "trello": "https://trello.com/c/XMPIyKa8"
     },
     {

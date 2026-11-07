@@ -93,3 +93,9 @@ The owned disposable local trial remains independent of that shared-instance cor
 Metadata integration checks: delivery-status 24/24; ledger valid 39; progress 23/23; export verification 15 preserved hashes.
 All exited 0. Only C9's blocker/evidence changed; all statuses, completion criteria and dependencies remain identical.
 Lesson: the administrator token resolved the registry-read failure. It does not establish certificate trust or pass a SQL test.
+
+P-OWNER decision adopted, 2026-11-07: maintain two enabled Owner accounts and prepare a synthetic-tested emergency recovery procedure.
+The [policy and review requirements](../owner-recovery-20261107/README.md) preserve the closed bootstrap and private maintenance boundary.
+Current code prevents removal of the last Owner; it does not enforce the new operating minimum of two.
+Fresh Astra/xhigh design review, implementation and a separately scoped recovery test remain pending.
+Only P-OWNER's decision, owner and active preparation changed; its completion criterion and production gates remain intact.
