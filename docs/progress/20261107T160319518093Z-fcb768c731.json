@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-07T16:03:19.518093+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/completion-20261107/local-validation/RUNNER-PREREQUISITES.json",
+      "change": "A",
+      "git_blob": "de545f482281c1e84fec1e0af4f43c502b8676b4"
+    },
+    {
+      "path": "docs/completion-20261107/local-validation/RUNTIME-PREPARATION-REVIEW.md",
+      "change": "M",
+      "git_blob": "92060d4abd85670a64d7ef84b19d590bd6f2afb6"
+    },
+    {
+      "path": "docs/completion-20261107/local-validation/astra-runner-safety.md",
+      "change": "A",
+      "git_blob": "aa6c6a806d1543762933a56d77ffb6a2add9cf68"
+    },
+    {
+      "path": "docs/completion-20261107/local-validation/runner-inputs/IMPORT.json",
+      "change": "A",
+      "git_blob": "5e56643d27792b435b379d46d9d07e6595dce505"
+    },
+    {
+      "path": "docs/completion-20261107/local-validation/runner-inputs/tools/local-validation/Dockerfile.txt",
+      "change": "A",
+      "git_blob": "cd76498d35ffde25fb027d1580d011bdd4f4d79c"
+    },
+    {
+      "path": "docs/completion-20261107/local-validation/runner-inputs/tools/local-validation/run-stage.sh.txt",
+      "change": "A",
+      "git_blob": "dd7cab117c16b2069ea29e498eab2e1516c2fbc0"
+    },
+    {
+      "path": "docs/completion-20261107/local-validation/runner-inputs/tools/local-validation/test_run_local_validation.py.txt",
+      "change": "A",
+      "git_blob": "0939012bdf7c45bbdbfb114c6fc012726a1b35ff"
+    },
+    {
+      "path": "docs/completion-20261107/local-validation/runner-inputs/tools/run_local_validation.py.txt",
+      "change": "A",
+      "git_blob": "11786b479f05525fd57a040cc98c2231f94c7528"
+    },
+    {
+      "path": "docs/owner-recovery-20261107/IMPLEMENTATION.md",
+      "change": "A",
+      "git_blob": "adc2153614520a3d05f75cd9de5d25b17da64239"
+    },
+    {
+      "path": "docs/owner-recovery-20261107/README.md",
+      "change": "M",
+      "git_blob": "6e1778ef5317af6eb4d31f079e355dfb73b42abf"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

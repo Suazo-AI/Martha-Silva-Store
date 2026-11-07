@@ -1,0 +1,73 @@
+{
+  "checkedAtUtc": "2026-11-07T15:55:54Z",
+  "host": "SUAZO-PC",
+  "sourceSha": "cd955c05fe23f673643a0e399c6bb9b88f358b1b",
+  "scope": "official-publisher metadata, not binary installation or runtime compatibility",
+  "method": "Four parallel Python urllib HTTPS GETs; 22-second timeout and 262144-byte response limit each; no downloaded content executed.",
+  "candidate": {
+    "path": "C:/Users/Jason/.t3/worktrees/github/t3-ea4d8447/tools/local-validation/Dockerfile",
+    "rawSha256": "dff785e62048c2bb307fca2aad183fb2a023709d7aaa31293e9d92039b248fd2",
+    "status": "ended-worker partial candidate; not accepted"
+  },
+  "results": [
+    {
+      "name": "node",
+      "url": "https://nodejs.org/dist/v24.22.2/SHASUMS256.txt",
+      "httpStatus": 200,
+      "responseSha256": "aec92ae945293821c22aed4c37b97741688254bac353b861fc9fb25b81ce4567",
+      "responseBytes": 3171,
+      "lastModified": "Wed, 28 Oct 2026 18:35:19 GMT",
+      "version": "v24.22.2",
+      "archive": "node-v24.22.2-linux-x64.tar.xz",
+      "publishedSha256": "48cc0e21e048790e54c0cf5749c2725005313d652651c40b7a21feb9697aaf75",
+      "matchesCandidateArgument": true
+    },
+    {
+      "name": "playwright",
+      "url": "https://registry.npmjs.org/playwright/1.63.0",
+      "httpStatus": 200,
+      "responseSha256": "eea6f490174621c72c6713b73e883de373432e6254ab7a6ef0f1ca955208cd39",
+      "responseBytes": 2737,
+      "version": "1.63.0",
+      "nodeEngine": ">=20",
+      "dependencies": { "playwright-core": "1.63.0" },
+      "tarball": "https://registry.npmjs.org/playwright/-/playwright-1.63.0.tgz",
+      "integrity": "sha512-+7ziBLidS4NaNCdt57SUDT+wYmmd5fmiQejUic/kb+YsYSCPyOOE9sebzMjNmQrsnNpDJqd4WHvV/8lfKfUDUg=="
+    },
+    {
+      "name": "playwright-core",
+      "url": "https://registry.npmjs.org/playwright-core/1.63.0",
+      "httpStatus": 200,
+      "responseSha256": "166f23c4dbd19b986cf0fd8c82b0d9fb60b1c1f98144298d357950f2762e769f",
+      "responseBytes": 2393,
+      "version": "1.63.0",
+      "nodeEngine": ">=20",
+      "dependencies": null,
+      "tarball": "https://registry.npmjs.org/playwright-core/-/playwright-core-1.63.0.tgz",
+      "integrity": "sha512-rYCsBF/M5HjUch52bbtVONEFjv6Xu8sm8h72dNlR5bzIE1fvC/bxgspzkjSfU+MweEMmPM8KJebG6nnyxo5mCg=="
+    },
+    {
+      "name": "google-chrome-stable",
+      "url": "https://dl.google.com/linux/chrome/deb/dists/stable/main/binary-amd64/Packages",
+      "httpStatus": 200,
+      "responseSha256": "a0be2e2a55a077b06d3f2e9ef2e55852eeb722c146e4f42adb96d35c908b01e1",
+      "responseBytes": 6207,
+      "lastModified": "Sat, 07 Nov 2026 09:42:54 GMT",
+      "version": "157.0.8103.38-1",
+      "architecture": "amd64",
+      "filename": "pool/main/g/google-chrome-stable/google-chrome-stable_157.0.8103.38-1_amd64.deb",
+      "packageBytes": 147633324,
+      "publishedSha256": "a62b277dc03da2cff50cc04589deb66f6875be339c066d46adb49b49eedb629d"
+    }
+  ],
+  "verificationLimits": {
+    "binaryArchivesDownloaded": false,
+    "publisherSignaturesVerified": false,
+    "runnerImageBuilt": false,
+    "packagesInstalled": false,
+    "chromePlaywrightCompatibilityTested": false,
+    "sqlStarted": false,
+    "sourceProductChanged": false
+  },
+  "nextAction": "After the independent runner safety review, correct the existing candidate and bind its build inputs. A separately authorized build must verify downloaded bytes, record the resolved Chrome/package set and bind the resulting runner image digest before the real campaign."
+}

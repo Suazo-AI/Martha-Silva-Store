@@ -1,0 +1,58 @@
+# Disposable Linux runner for the SAVIA C77 -> D -> E2 local campaign.
+# Build context is this directory only; the Git source is mounted read-only at runtime.
+# Base is the cached .NET 10.0.402 SDK image (Ubuntu 24.04), pinned by digest.
+FROM mcr.microsoft.com/dotnet/sdk@sha256:747cbade5bfd918a175ac32f8f1d931edec2c7d0d5397a3de72eaef1ac1f66d2
+
+ARG NODE_VERSION=v24.22.2
+ARG NODE_SHA256=48cc0e21e048790e54c0cf5749c2725005313d652651c40b7a21feb9697aaf75
+ARG PLAYWRIGHT_VERSION=1.63.0
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    DOTNET_CLI_TELEMETRY_OPTOUT=1 \
+    DOTNET_NOLOGO=1 \
+    PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 \
+    NODE_PATH=/opt/savia-playwright/node_modules
+
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends \
+      ca-certificates curl gnupg xz-utils python3 openssl \
+      fonts-liberation libasound2t64 libatk-bridge2.0-0 libatk1.0-0 \
+      libcups2 libdrm2 libgbm1 libgtk-3-0 libnss3 libx11-xcb1 \
+      libxcomposite1 libxdamage1 libxfixes3 libxkbcommon0 libxrandr2 xdg-utils \
+ && rm -rf /var/lib/apt/lists/*
+
+# Node 24 from the official distribution tarball, verified against the published SHA-256.
+RUN curl -fsSLo /tmp/node.tar.xz "https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-linux-x64.tar.xz" \
+ && echo "${NODE_SHA256}  /tmp/node.tar.xz" | sha256sum -c - \
+ && tar -xJf /tmp/node.tar.xz -C /usr/local --strip-components=1 \
+ && rm /tmp/node.tar.xz \
+ && node --version && npm --version
+
+# Google Chrome from Google's signed apt repository; the build log records the resolved version.
+RUN install -d -m 0755 /etc/apt/keyrings \
+ && curl -fsSL https://dl.google.com/linux/linux_signing_key.pub \
+      | gpg --dearmor -o /etc/apt/keyrings/google-chrome.gpg \
+ && echo 'deb [arch=amd64 signed-by=/etc/apt/keyrings/google-chrome.gpg] https://dl.google.com/linux/chrome/deb/ stable main' \
+      > /etc/apt/sources.list.d/google-chrome.list \
+ && apt-get update \
+ && apt-get install -y --no-install-recommends google-chrome-stable \
+ && rm -rf /var/lib/apt/lists/* \
+ && google-chrome --version
+
+# Pinned Playwright library only; Chrome is the browser under test, not a downloaded bundle.
+RUN mkdir -p /opt/savia-playwright \
+ && cd /opt/savia-playwright \
+ && npm init -y >/dev/null \
+ && npm install --no-audit --no-fund --ignore-scripts "playwright@${PLAYWRIGHT_VERSION}" \
+ && node -e "const p=require('/opt/savia-playwright/node_modules/playwright/package.json'); if(p.version!=='${PLAYWRIGHT_VERSION}') process.exit(1)"
+
+RUN useradd --create-home --uid 1000 --shell /bin/bash savia \
+ && mkdir -p /work \
+ && chown savia:savia /work \
+ && chmod 0755 /work
+
+USER savia
+WORKDIR /work
+
+# The harness runs with a private HOME and no host trust-store changes.
+CMD ["sleep", "infinity"]

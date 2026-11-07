@@ -1,0 +1,36 @@
+{
+  "status": "REJECTED_INPUTS_NOT_EXECUTABLE",
+  "sourceBase": "c07bd1b0c579ead5b9bc39cd98d9c327f9f4ee41",
+  "reviewBase": "cd955c05fe23f673643a0e399c6bb9b88f358b1b",
+  "originWorktree": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-ea4d8447",
+  "files": [
+    {
+      "originalPath": "tools/run_local_validation.py",
+      "inertPath": "docs/completion-20261107/local-validation/runner-inputs/tools/run_local_validation.py.txt",
+      "rawSha256": "42bfdb8661a6b7285c2d55155c8afdc222fd4c7e30b03286eccd74ac9430650c",
+      "lfSha256": "42bfdb8661a6b7285c2d55155c8afdc222fd4c7e30b03286eccd74ac9430650c"
+    },
+    {
+      "originalPath": "tools/local-validation/Dockerfile",
+      "inertPath": "docs/completion-20261107/local-validation/runner-inputs/tools/local-validation/Dockerfile.txt",
+      "rawSha256": "dff785e62048c2bb307fca2aad183fb2a023709d7aaa31293e9d92039b248fd2",
+      "lfSha256": "dff785e62048c2bb307fca2aad183fb2a023709d7aaa31293e9d92039b248fd2"
+    },
+    {
+      "originalPath": "tools/local-validation/run-stage.sh",
+      "inertPath": "docs/completion-20261107/local-validation/runner-inputs/tools/local-validation/run-stage.sh.txt",
+      "rawSha256": "2d73cad7cd6b0b3aa426cf51ce407b1093cf7e2debe38e5fb40d64a334b1369c",
+      "lfSha256": "2d73cad7cd6b0b3aa426cf51ce407b1093cf7e2debe38e5fb40d64a334b1369c"
+    },
+    {
+      "originalPath": "tools/local-validation/test_run_local_validation.py",
+      "inertPath": "docs/completion-20261107/local-validation/runner-inputs/tools/local-validation/test_run_local_validation.py.txt",
+      "rawSha256": "8cc7019cee02f03067ef7d72685c8c40660e59832d2941ea6ee805676ae70482",
+      "lfSha256": "8cc7019cee02f03067ef7d72685c8c40660e59832d2941ea6ee805676ae70482"
+    }
+  ],
+  "reportRawSha256": "8efecc0f48e7512af4376d086a75c9009d128559e44e98041218e0eaebe953a2",
+  "runtimeAuthorized": false,
+  "reportPublicLfSha256": "1c86541add52cdbad00cc40c7c82664fa80a5f1e2f12e86472630f4553373b2a",
+  "reportPublicFormatting": "Removed one final blank line only; original raw hash remains reportRawSha256."
+}

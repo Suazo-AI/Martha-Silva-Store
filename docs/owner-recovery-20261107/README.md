@@ -62,6 +62,10 @@ Use an OpenCode executor for the reviewed implementation below. Preserve other w
 Then verify offline negative controls and request one concrete isolated SQL scope for the synthetic recovery proof.
 `P-OWNER` stays open until its original reviewed-and-tested completion criterion is met.
 
+The [execution contract](IMPLEMENTATION.md) fixes the next worker's seams, evidence order and remaining proof.
+Primary verified its links and the accepted report's exact hash and thirteen F1-F13 identifiers.
+This is local preparation, not an executed implementation, recovery or SQL run.
+
 Verified now: Jason's decision, current source behavior and frozen review requirements.
 Documentation checks: `python tests/test_delivery_status.py` 24/24; `python tools/delivery_status.py --check`
 validates 39 items; `python tests/test_progress.py` 23/23; `python tools/export_progress.py --verify`

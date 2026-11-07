@@ -1,0 +1,216 @@
+#!/usr/bin/env python3
+"""Offline gates for tools/run_local_validation.py; no Docker, SQL, browser or network."""
+from __future__ import annotations
+
+import importlib.util
+import json
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+from types import SimpleNamespace
+from unittest import mock
+
+HERE = Path(__file__).resolve().parent
+REPO = HERE.parents[1]
+
+
+def _load(name, path):
+    spec = importlib.util.spec_from_file_location(name, path)
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+TOOL = _load("run_local_validation", REPO / "tools" / "run_local_validation.py")
+VERIFIER = _load("verify_full_suite", REPO / "backend" / "tests" / "verify_full_suite.py")
+MANIFEST = REPO / "docs" / "local-validation-20261106" / "PARTITIONS.json"
+
+
+class FakeTransport:
+    def __init__(self, images=None, engine="29.7.2 linux/amd64",
+                 containers=(), networks=(), volumes=()):
+        self.images = set(images if images is not None else (TOOL.SDK_IMAGE, TOOL.SQL_IMAGE))
+        self.engine_value = engine
+        self.containers = set(containers)
+        self.networks = set(networks)
+        self.volumes = set(volumes)
+        self.mutations = []
+        self.queries = []
+
+    def engine(self):
+        self.queries.append(("engine",))
+        return self.engine_value
+
+    def image_present(self, reference):
+        self.queries.append(("image", reference))
+        return reference in self.images
+
+    def container_exists(self, name):
+        self.queries.append(("container", name))
+        return name in self.containers
+
+    def network_exists(self, name):
+        self.queries.append(("network", name))
+        return name in self.networks
+
+    def volume_exists(self, name):
+        self.queries.append(("volume", name))
+        return name in self.volumes
+
+    def mutate(self, args, **kwargs):
+        self.mutations.append(list(args))
+        return SimpleNamespace(returncode=0, stdout="", stderr="")
+
+
+def config(private, execute=True, scope=None, source_sha=TOOL.SOURCE_SHA):
+    return TOOL.Config(repo=REPO, source_sha=source_sha,
+                       scope=scope or TOOL.expected_scope(source_sha),
+                       execute=execute, private=Path(private), docker="docker")
+
+
+class PlanTests(unittest.TestCase):
+    def test_plan_is_read_only_and_concrete(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            transport = FakeTransport()
+            cfg = config(Path(tmp) / "private", execute=False)
+            findings = TOOL.preflight(cfg, transport)
+            output = TOOL.render_plan(cfg, findings)
+            self.assertEqual(transport.mutations, [])
+            self.assertEqual(TOOL.plan_status(findings), "READY")
+            self.assertNotIn("...", output)
+            self.assertIn(TOOL.SDK_IMAGE, output)
+            self.assertIn(TOOL.SQL_IMAGE, output)
+            self.assertIn(TOOL.expected_scope(TOOL.SOURCE_SHA), output)
+            self.assertIn("PLAN ONLY", output)
+
+    def test_plan_blocks_missing_image_without_pulling(self):
+        transport = FakeTransport(images=(TOOL.SDK_IMAGE,))
+        with tempfile.TemporaryDirectory() as tmp:
+            findings = TOOL.preflight(config(Path(tmp) / "private", execute=False), transport)
+        self.assertEqual(TOOL.plan_status(findings), "BLOCKED")
+        self.assertEqual(transport.mutations, [])
+
+    def test_plan_blocks_foreign_resources(self):
+        names = TOOL.resource_names(TOOL.expected_scope(TOOL.SOURCE_SHA))
+        transport = FakeTransport(containers=(names.sql,), networks=(names.network,))
+        with tempfile.TemporaryDirectory() as tmp:
+            findings = TOOL.preflight(config(Path(tmp) / "private", execute=False), transport)
+        self.assertEqual(TOOL.plan_status(findings), "BLOCKED")
+        self.assertEqual(transport.mutations, [])
+
+
+class ExecuteRefusalTests(unittest.TestCase):
+    def test_execute_requires_explicit_scope(self):
+        with mock.patch.object(TOOL, "DockerTransport", FakeTransport):
+            self.assertEqual(TOOL.main(["--execute"]), 2)
+
+    def test_execute_rejects_wrong_scope(self):
+        with mock.patch.object(TOOL, "DockerTransport", FakeTransport):
+            self.assertEqual(TOOL.main(["--execute", "--scope", "savia-local-runtime-deadbeef0000"]), 2)
+
+    def test_execute_refuses_missing_prerequisite_before_mutation(self):
+        transport = FakeTransport(images=(TOOL.SDK_IMAGE,))
+        with tempfile.TemporaryDirectory() as tmp:
+            self.assertEqual(TOOL.execute(config(Path(tmp) / "private"), transport), 1)
+        self.assertEqual(transport.mutations, [])
+
+    def test_execute_refuses_name_collision_before_mutation(self):
+        names = TOOL.resource_names(TOOL.expected_scope(TOOL.SOURCE_SHA))
+        transport = FakeTransport(containers=(names.runner,))
+        with tempfile.TemporaryDirectory() as tmp:
+            self.assertEqual(TOOL.execute(config(Path(tmp) / "private"), transport), 1)
+        self.assertEqual(transport.mutations, [])
+
+    def test_execute_refuses_unfrozen_source_before_mutation(self):
+        transport = FakeTransport()
+        with tempfile.TemporaryDirectory() as tmp:
+            cfg = config(Path(tmp) / "private", source_sha="0" * 40)
+            self.assertEqual(TOOL.execute(cfg, transport), 1)
+        self.assertEqual(transport.mutations, [])
+
+
+class ManifestTests(unittest.TestCase):
+    def test_c_partition_is_exactly_77_with_c1_six_first(self):
+        data = json.loads(MANIFEST.read_text(encoding="utf-8"))
+        entries = data["backend_methods"]
+        c1 = [e for e in entries if e["partition"] == "C1"]
+        crest = [e for e in entries if e["partition"].startswith("C.")]
+        self.assertEqual(sum(e["cases"] for e in c1), 6)
+        self.assertEqual(sum(e["cases"] for e in crest), 71)
+        self.assertEqual(sum(e["cases"] for e in c1 + crest), 77)
+        self.assertEqual(len({e["method"] for e in c1} | {e["method"] for e in crest}), 77)
+        self.assertFalse({e["method"] for e in c1} & {e["method"] for e in crest})
+
+    def test_verifier_accepts_exact_counts_and_rejects_partial_evidence(self):
+        expected = VERIFIER.load_partition_expectations(MANIFEST, "C")
+        self.assertEqual(sum(expected.values()), 77)
+        e_expected = VERIFIER.load_partition_expectations(MANIFEST, "E")
+        self.assertEqual(sum(e_expected.values()), 2)
+        trx = Path(tempfile.mkdtemp()) / "partial.trx"
+        trx.write_text(
+            '<?xml version="1.0" encoding="utf-8"?>'
+            '<TestRun xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">'
+            '<Results><UnitTestResult testId="11111111-1111-1111-1111-111111111111" '
+            'testName="Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N1_each_role_reads_only_its_server_scope_and_unassigned_user_has_no_global_access" '
+            'executionId="22222222-2222-2222-2222-222222222222" outcome="Passed" /></Results>'
+            '</TestRun>', encoding="utf-8")
+        report = VERIFIER.summarize([trx], 77, expected=expected, partition="C")
+        self.assertEqual(report["status"], "failed")
+        self.assertEqual(report["passed"], 1)
+
+    def test_verifier_rejects_duplicate_identities(self):
+        expected = VERIFIER.load_partition_expectations(MANIFEST, "E")
+        trx = Path(tempfile.mkdtemp()) / "duplicate.trx"
+        row = ('<UnitTestResult testId="11111111-1111-1111-1111-111111111111" '
+               'testName="Martha.Store.Api.Tests.PrivatePilotReleaseTests.Real_migration_reapply_throwaway_down_up_and_actual_backup_restore" '
+               'executionId="22222222-2222-2222-2222-222222222222" outcome="Passed" />')
+        trx.write_text(
+            '<?xml version="1.0" encoding="utf-8"?>'
+            '<TestRun xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">'
+            f'<Results>{row}{row}</Results></TestRun>', encoding="utf-8")
+        with self.assertRaises(ValueError):
+            VERIFIER.summarize([trx], 2, expected=expected, partition="E")
+
+
+class StageTests(unittest.TestCase):
+    def test_success_runs_each_stage_once_in_order(self):
+        transport = FakeTransport()
+        with tempfile.TemporaryDirectory() as tmp:
+            cfg = config(Path(tmp) / "private")
+
+            def fake_export(_config):
+                source = Path(_config.private) / "source"
+                source.mkdir(parents=True, exist_ok=True)
+                return source
+
+            with mock.patch.object(TOOL, "export_source", fake_export), \
+                    mock.patch.object(TOOL, "wait_sql"), \
+                    mock.patch.object(TOOL, "discover_release", return_value="SaviaInternalTest_Pilot_" + "a" * 32):
+                self.assertEqual(TOOL.execute(cfg, transport), 0)
+            stages = [call[7] for call in transport.mutations if len(call) > 8 and "run-stage.sh" in call]
+            self.assertEqual(stages, ["build", "c1", "crest", "d", "e-release", "e-restart"])
+            self.assertEqual(stages.count("e-restart"), 1)
+
+    def test_release_metadata_guards(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cfg = config(Path(tmp) / "private")
+            pilot = cfg.private / "evidence" / "e" / "pilot"
+            pilot.mkdir(parents=True)
+            payload = {
+                "source": "SaviaInternalTest_Pilot_" + "a" * 32,
+                "restored": "SaviaInternalTest_Pilot_" + "b" * 32,
+                "throwaway_down": "SaviaInternalTest_Pilot_" + "c" * 32,
+                "checks": {key: True for key in TOOL.RELEASE_CHECKS},
+            }
+            (pilot / "release-x.json").write_text(json.dumps(payload), encoding="utf-8")
+            self.assertEqual(TOOL.discover_release(cfg), payload["source"])
+            payload["checks"]["actual_restore"] = False
+            (pilot / "release-x.json").write_text(json.dumps(payload), encoding="utf-8")
+            with self.assertRaises(TOOL.RuntimeFailure):
+                TOOL.discover_release(cfg)
+
+
+if __name__ == "__main__":
+    unittest.main()
