@@ -1,0 +1,74 @@
+{
+  "status": "returned_partial_not_accepted",
+  "baseSha": "030b64f7cba87c6a0d710892deb9a8493ea8bbf4",
+  "workerPath": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-49ff92f2",
+  "imported": "public evidence only; no cash product code",
+  "sourceBindings": {
+    "raw": 15,
+    "lf": 15,
+    "mismatches": 0
+  },
+  "verifiedTrx": {
+    "cash-offline-final": {
+      "passed": 158,
+      "failed": 0,
+      "skipped": 0
+    },
+    "cash-integration-gap": {
+      "passed": 4,
+      "failed": 1,
+      "failure": "InternalMigrationTests.Internal_snapshot_matches_the_current_design_time_model_without_a_server"
+    },
+    "cash-prepared-compile": {
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "files": [
+    {
+      "path": "docs/cash-register-20261107/backend-worker/README.md",
+      "rawSha256": "7a108e65d3c0fdb2553f1e29bdcff57528421afa4ae70a6956bfb8b45dd35871",
+      "lfSha256": "7a108e65d3c0fdb2553f1e29bdcff57528421afa4ae70a6956bfb8b45dd35871"
+    },
+    {
+      "path": "docs/cash-register-20261107/backend-worker/verification.json",
+      "rawSha256": "b0f99002063fc27cbe0dea875a132f16bf5dcb4e7c00e8e5105dd4d3243af6b2",
+      "lfSha256": "213d1c8ba2fd84629427c13961829e6d9b99f67f51b318e07e752b44ef3c332b"
+    },
+    {
+      "path": "docs/cash-register-20261107/backend-worker/source-hashes.json",
+      "rawSha256": "d66eacad2b04a127984d59d6e5246fd863e70e96676967ce4ef21ac308c53903",
+      "lfSha256": "4a7c157764bc882e7f4489f1c240c540038950ce7b3ba4764c3ba97eff6d2472"
+    }
+  ],
+  "blockers": [
+    {
+      "id": "migration",
+      "cause": "Pinned dotnet-ef 10.0.13 is absent; model snapshot is not generated",
+      "owner": "primary / bounded Sol worker",
+      "correction": "Private version-pinned tool install and generated additive migration; no database apply",
+      "completionCheck": "Fresh pending-model check and generated migration review pass"
+    },
+    {
+      "id": "legacy-fixtures",
+      "cause": "Existing SQL fixtures create unpaid sales; candidate rejects fresh unpaid sales",
+      "owner": "primary after migration",
+      "correction": "Adapt fixtures to cash contracts without weakening authorization, rollback or replay assertions",
+      "completionCheck": "Fresh source-bound offline compilation and separately authorized SQL campaign"
+    },
+    {
+      "id": "cash-ui-runtime",
+      "cause": "UI excluded from backend task; SQL and real cash journey not executed",
+      "owner": "primary",
+      "correction": "Integrate accepted backend, implement staff cash flow, prepare bounded runtime scope",
+      "completionCheck": "CASH-01 through CASH-08 evidenced; real SQL/browser acceptance separate"
+    }
+  ],
+  "notRun": [
+    "SQL",
+    "browser to API to SQL cash flow",
+    "CI on integrated cash",
+    "production"
+  ]
+}

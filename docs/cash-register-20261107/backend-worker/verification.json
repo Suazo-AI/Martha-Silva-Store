@@ -1,0 +1,161 @@
+{
+  "status": "partial",
+  "migration": "NOT GENERATED",
+  "identity": {
+    "host": "SUAZO-PC",
+    "harness": "T3 Code / Codex",
+    "model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "exposed_effort": "high",
+    "cost_usage": "unknown"
+  },
+  "changed_source_paths": 13,
+  "commands": [
+    {
+      "command": "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe --version",
+      "exit": 0,
+      "result": "10.0.402"
+    },
+    {
+      "command": "dotnet.exe restore backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj --locked-mode --source C:/Users/Jason/.nuget/packages -p:NuGetAudit=false",
+      "exit": 0
+    },
+    {
+      "command": "dotnet.exe build backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj --no-restore",
+      "exit": 1,
+      "failure": "CS8604; repaired before focused tests"
+    },
+    {
+      "command": "dotnet.exe test backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj --no-restore --filter \"FullyQualifiedName~InternalCashTests|FullyQualifiedName~InternalAcceptanceFingerprintTests|FullyQualifiedName~InternalRunnerTests|FullyQualifiedName~InternalSessionAntiforgeryTests|FullyQualifiedName~InternalCommerceTests\" --logger \"trx;LogFileName=cash-offline-final.trx\" --results-directory private-exports/cash-register-20261107/backend-worker/",
+      "exit": 0
+    },
+    {
+      "command": "dotnet.exe test backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj --no-restore --filter \"FullyQualifiedName~Cash_table_change_fails_business_and_full_dictionary_comparison|FullyQualifiedName~Internal_snapshot_matches_the_current_design_time_model_without_a_server|FullyQualifiedName~Hosting_registers_real_scoped_runner_and_SQL_context_without_opening_connection\" --logger \"trx;LogFileName=cash-integration-gap.trx\" --results-directory private-exports/cash-register-20261107/backend-worker/",
+      "exit": 1,
+      "result": "4 passed; 1 pending-model failure; 0 skipped"
+    },
+    {
+      "command": "dotnet.exe test backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj --no-restore --filter \"FullyQualifiedName~Cash_table_change_fails_business_and_full_dictionary_comparison\" --logger \"trx;LogFileName=cash-prepared-compile.trx\" --results-directory private-exports/cash-register-20261107/backend-worker",
+      "exit": 0,
+      "result": "New SQL fixtures compile; only 3 offline cash hash tests executed; 3 PASS/0 FAIL/0 skipped"
+    }
+  ],
+  "trx_results": {
+    "cash-offline.trx": {
+      "counters": {
+        "total": "158",
+        "executed": "158",
+        "passed": "157",
+        "failed": "1",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "failed": [
+        "Martha.Store.Api.Tests.InternalCashTests.Close_rejects_unknown_and_noninteger_money(json: \"{\\\"countedMinor\\\":\\\"100\\\"}\")"
+      ]
+    },
+    "cash-offline-final.trx": {
+      "counters": {
+        "total": "158",
+        "executed": "158",
+        "passed": "158",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "failed": []
+    },
+    "cash-integration-gap.trx": {
+      "counters": {
+        "total": "5",
+        "executed": "5",
+        "passed": "4",
+        "failed": "1",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "failed": [
+        "Martha.Store.Api.Tests.InternalMigrationTests.Internal_snapshot_matches_the_current_design_time_model_without_a_server"
+      ]
+    },
+    "cash-prepared-compile.trx": {
+      "counters": {
+        "total": "3",
+        "executed": "3",
+        "passed": "3",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "failed": []
+    }
+  },
+  "sql": {
+    "executed": false,
+    "prepared_facts": 8,
+    "require_migration": true
+  },
+  "full_A_inventory": "NOT REDISCOVERED",
+  "blockers": [
+    {
+      "layer": "migration generator",
+      "evidence": "SDK 10.0.402 and EF Design 10.0.13 cached; dotnet-ef not in targeted cache; no tool install allowed",
+      "cause": "Pinned executable generator absent",
+      "attempt": "Targeted package/scaffolding inspection; no download or generated-file edit",
+      "result": "HasPendingModelChanges returns true in executed offline test",
+      "owner": "primary",
+      "next": "Provide supported dotnet-ef 10.0.13; generate FirstCashRegister and review additive Up/Down/snapshot",
+      "completion_check": "Pending-model test passes; migration chain independently matches exact 23 table inventory"
+    },
+    {
+      "layer": "remaining adversarial coverage",
+      "evidence": "README criterion accounting",
+      "owner": "primary/backend continuation",
+      "next": "Execute prepared three-boundary failures and postcommit-loss fixtures after migration/runtime authorization; finish remaining HTTP/concurrency fixtures before acceptance",
+      "completion_check": "Frozen CASH-01..08 criteria independently satisfied under separately authorized runtime"
+    }
+  ],
+  "git_diff_check": {
+    "exit": 0
+  }
+}

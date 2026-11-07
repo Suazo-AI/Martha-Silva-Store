@@ -406,7 +406,9 @@ public sealed class InternalAcceptanceHttpSqlTests
         var sameBody = f.SaleBody(f.LocationA);
         var sameKey = Key();
         var stockBefore = int.Parse(await f.Scalar($"SELECT OnHand FROM savia_internal.StockBalances WHERE ItemId='{f.Database.Item}' AND LocationId='{f.LocationA}'"), CultureInfo.InvariantCulture);
+        var reservedBefore = int.Parse(await f.Scalar($"SELECT Reserved FROM savia_internal.StockBalances WHERE ItemId='{f.Database.Item}' AND LocationId='{f.LocationA}'"), CultureInfo.InvariantCulture);
         var sameBefore = await f.Fingerprint();
+        var sameRemainderBefore = await f.Fingerprint(InternalAcceptanceWriteProjection.BeforeSale(f.Database.Item, f.LocationA));
         await Rejected(session, HttpStatusCode.BadRequest, Post, "/internal/api/commerce/sales", sameBody, key: sameKey, csrf: cashierToken, code: "csrf_invalid");
         Assert.Equal(sameBefore, await f.Fingerprint());
         cashierToken = await Csrf(session);
@@ -426,9 +428,14 @@ public sealed class InternalAcceptanceHttpSqlTests
         var sameAfter = await f.Fingerprint();
         foreach (var table in new[] { "Sales", "SaleLines", "StockMovements", "Operations" })
             Assert.Equal(Count(sameBefore, table) + 1, Count(sameAfter, table));
-        Assert.Equal(sameBefore.Where(x => x.Key is not ("Sales" or "SaleLines" or "StockMovements" or "Operations" or "StockBalances")),
-            sameAfter.Where(x => x.Key is not ("Sales" or "SaleLines" or "StockMovements" or "Operations" or "StockBalances")));
+        var sameLine = Guid.Parse(await f.Scalar($"SELECT Id FROM savia_internal.SaleLines WHERE SaleId='{sameSale}'"));
+        var sameOperation = Guid.Parse(await f.Scalar($"SELECT Id FROM savia_internal.Operations WHERE [Key]='{sameKey}' AND ActorId='{cashier.Id}'"));
+        var sameMovement = Guid.Parse(await f.Scalar($"SELECT Id FROM savia_internal.StockMovements WHERE OperationId='{sameOperation}'"));
+        Assert.Equal(sameRemainderBefore, await f.Fingerprint(InternalAcceptanceWriteProjection.AfterSale(
+            f.Database.Item, f.LocationA, sameSale, sameLine, sameMovement, sameOperation)));
         Assert.Equal((stockBefore - 1).ToString(CultureInfo.InvariantCulture), await f.Scalar($"SELECT OnHand FROM savia_internal.StockBalances WHERE ItemId='{f.Database.Item}' AND LocationId='{f.LocationA}'"));
+        Assert.Equal(reservedBefore.ToString(CultureInfo.InvariantCulture), await f.Scalar($"SELECT Reserved FROM savia_internal.StockBalances WHERE ItemId='{f.Database.Item}' AND LocationId='{f.LocationA}'"));
+        Assert.Equal((stockBefore - reservedBefore - 1).ToString(CultureInfo.InvariantCulture), await f.Scalar($"SELECT OnHand-Reserved FROM savia_internal.StockBalances WHERE ItemId='{f.Database.Item}' AND LocationId='{f.LocationA}'"));
         using (var replay = await session.Send(Post, "/internal/api/commerce/sales", sameBody, cashierToken, sameKey))
             Assert.Equal(sameSale, (await Json(replay, HttpStatusCode.OK)).GetProperty("saleId").GetGuid());
         Assert.Equal(sameAfter, await f.Fingerprint());
@@ -460,7 +467,8 @@ public sealed class InternalAcceptanceHttpSqlTests
             var directoryAfter = await f.Fingerprint();
             Assert.Equal(Count(directoryBefore, "Items") + 1, Count(directoryAfter, "Items"));
             Assert.Equal(Count(directoryBefore, "Operations") + 1, Count(directoryAfter, "Operations"));
-            Assert.Equal(directoryBefore.Where(x => x.Key is not ("Items" or "Operations")), directoryAfter.Where(x => x.Key is not ("Items" or "Operations")));
+            var itemOperation = Guid.Parse(await f.Scalar($"SELECT Id FROM savia_internal.Operations WHERE [Key]='{itemKey}' AND ActorId='{ownerId}'"));
+            Assert.Equal(directoryBefore, await f.Fingerprint(InternalAcceptanceWriteProjection.AfterItem(itemId, itemOperation)));
             using (var replay = await directoryOwner.Send(Post, "/internal/api/directory/items", itemBody, fresh, itemKey))
                 Assert.Equal(itemId, (await Json(replay, HttpStatusCode.Created)).GetProperty("id").GetGuid());
             Assert.Equal(directoryAfter, await f.Fingerprint());
@@ -692,7 +700,7 @@ public sealed class InternalAcceptanceHttpSqlTests
         public async Task<string> Scalar(string sql) => Assert.Single(await Rows(sql));
 
         // count:SHA-256 of every row of every savia_internal table, read with plain ADO.NET (not EF, not the API).
-        public async Task<SortedDictionary<string, string>> Fingerprint()
+        public async Task<SortedDictionary<string, string>> Fingerprint(InternalAcceptanceWriteProjection? projection = null)
         {
             var result = new SortedDictionary<string, string>(StringComparer.Ordinal);
             await using var c = new SqlConnection(connection); await c.OpenAsync();
@@ -711,7 +719,12 @@ public sealed class InternalAcceptanceHttpSqlTests
                 await using var reader = await cmd.ExecuteReaderAsync();
                 var rows = new List<string>();
                 while (await reader.ReadAsync())
-                    rows.Add(string.Join("|", Enumerable.Range(0, reader.FieldCount).Select(i => reader.GetName(i) + "=" + Format(reader.GetValue(i)))));
+                {
+                    IReadOnlyDictionary<string, object>? row = Enumerable.Range(0, reader.FieldCount)
+                        .ToDictionary(reader.GetName, reader.GetValue, StringComparer.Ordinal);
+                    if (projection is not null) row = projection.Apply(table, row);
+                    if (row is not null) rows.Add(string.Join("|", row.Select(c => c.Key + "=" + Format(c.Value))));
+                }
                 rows.Sort(StringComparer.Ordinal);
                 result[table] = rows.Count.ToString(CultureInfo.InvariantCulture) + ":" +
                     Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(string.Join("\n", rows))));

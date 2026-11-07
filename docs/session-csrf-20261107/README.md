@@ -152,3 +152,19 @@ These assertions use real client and mount modules with simulated HTTP, cookies 
 The earlier combined-client gap is now covered locally, subject to independent Astra/xhigh acceptance.
 Next: review the frozen integrated candidate. N8 SQL, real browser/API/SQL and production remain NOT RUN.
 No new SQL, Docker, installation, account mutation, merge or deployment occurred in this integration.
+
+## Implementation review and N8 correction, 2026-11-07
+
+Astra/xhigh returned REVISE on `6708709`: one P2 in the successful-write SQL oracle, no product-code defect.
+Primary confirmed that excluding entire tables could hide unrelated row changes.
+The [original judge report](astra-implementation-judge.md) is preserved byte-for-byte.
+The client's fresh 13/13 and historical negative controls are accepted within their simulated-HTTP scope.
+
+Primary replaced the exclusions with identified insert rows and one precisely normalized stock change.
+Fresh build and focused oracle/schema checks: 33/33 PASS, zero skips, exit 0.
+The controls reproduce the old blind spot and detect existing-row corruption under the new projection.
+[Source-bound correction, exact counters and remaining gates](n8-correction/README.md).
+
+The full repository check on `6708709` also passed: exit 0, 405.609 seconds.
+It precedes the C# test-only oracle correction and is recorded separately in [client PRIMARY](client/PRIMARY.json).
+Next: fresh Astra/xhigh recheck of the correction. Real N8 SQL remains NOT RUN; production remains NO-GO.

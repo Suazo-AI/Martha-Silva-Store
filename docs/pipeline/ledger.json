@@ -422,7 +422,7 @@
       "done_when": "Decisión registrada; si se liga a la sesión, prueba roja-verde en InternalAcceptanceHttpSqlTests",
       "alternatives": "Dejarlo ligado al usuario (sin riesgo de escalada, más simple) · ligarlo a la sesión (N8 estricto, cambio pequeño en Security)",
       "decision_ref": "docs/session-csrf-20261107/README.md",
-      "review": "Jason adopted per-session protection on 2026-11-07. Primary accepted Astra/xhigh preimplementation conditions at 584fcaa. Implementation and real SQL red/green remain pending; historical A552/C77/E2 unchanged. No additional runtime or deployment authority.",
+      "review": "Per-session rule implemented with real offline framework red/green and client continuity proof. Astra/xhigh REVISE on 6708709: one successful-write oracle gap, no product defect. Primary correction compiles and passes 33/33 focused checks; fresh judge recheck and real N8 SQL remain pending. See docs/session-csrf-20261107/n8-correction/README.md. Historical A552/C77/E2 unchanged; no runtime or deployment waiver.",
       "paths": [
         "backend/src/Martha.Store.Api/Internal/Security/*"
       ],
@@ -538,8 +538,9 @@
       "paths": [
         "docs/cash-register-20261107/*"
       ],
-      "prep": "Alcance adoptado; sin implementacion ni runtime de caja. Revision fresca Astra/xhigh pendiente de capacidad tras dos solicitudes de cancelacion sin retorno terminal. No renovar autorizaciones de SQL o despliegue ni asumir proveedor alternativo.",
-      "report": "docs/cash-register-20261107/README.md"
+      "prep": "Source-only design accepted. Backend partial remains in the worker checkout: 158/158 offline, pending generated migration and fixture adaptation. Private pinned EF tool preparation is authorized; no SQL/database apply, deployment or production acceptance.",
+      "report": "docs/cash-register-20261107/README.md",
+      "review": "Design accepted. Sol/high backend partial returned; primary verified 158/158 offline checks, 3/3 prepared compile checks, and 4/5 integration checks. Generated migration missing; private pinned dotnet-ef prerequisite authorized within reversible local work. Product not integrated or accepted. Legacy SQL fixtures, UI, independent review and CASH runtime remain pending. See docs/cash-register-20261107/PRIMARY-PARTIAL.json."
     },
     {
       "id": "P-GO",

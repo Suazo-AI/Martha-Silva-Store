@@ -6,7 +6,11 @@ Latest implementation: Sol/high returned session-bound CSRF and local-runner saf
 Primary imported both candidates after source-binding and destination-drift checks.
 CSRF: original private TRX confirms two red stale-session cases, then final 55/55 framework/security passes.
 Combined client logout/relogin proof: primary 13/13 PASS, zero skips; eight historical controls verified.
-Fresh Astra/xhigh acceptance remains pending; N8 SQL is NOT RUN.
+Fresh Astra/xhigh review found one P2 in N8's successful-write oracle, with no product defect.
+Primary corrected the table exclusions and passed 33/33 focused checks, zero skips.
+Fresh independent recheck and N8 SQL remain pending.
+[Correction, exact source bindings and continuation](session-csrf-20261107/n8-correction/README.md).
+The full repository check passed on `6708709`, exit 0 in 405.609 seconds; it predates this test-only correction.
 [Integration and exact limits](session-csrf-20261107/README.md#primary-integration-2026-11-07).
 Runner: primary independently passed 39/39 offline safety controls. Its image is deliberately unqualified;
 dependency qualification, private evidence destination and runtime authorization remain prerequisites.
@@ -17,7 +21,11 @@ That interrupted GLM task returned no implementation; the later Codex return abo
 [Direct evidence and exact resumption check](completion-20261107/opencode-execution-diagnosis.json).
 This is an upstream access failure, not demonstrated lack of Windows administrator rights.
 Jason authorized temporary Codex `gpt-6.1-sol/high` execution. Astra/xhigh remains the sole judge.
-Cash source-only design is accepted after Astra/xhigh review; implementation and all CASH runtime checks remain pending.
+Cash backend returned partial: primary verified 158/158 offline passes and a failing pending-model check.
+Cash product bytes remain in the worker checkout. The additive migration and legacy SQL fixture adaptation are incomplete.
+[Verified partial, blockers and next action](cash-register-20261107/PRIMARY-PARTIAL.json).
+Next: generate the migration with a private pinned EF tool; do not apply it to a database.
+Cash implementation acceptance and all CASH runtime checks remain pending.
 [Frozen controls and primary adjudication](cash-register-20261107/README.md#primary-acceptance-of-the-source-only-design-2026-11-07).
 
 First cash-register scope adopted, 2026-11-07: fully paid sales, cash received, change and till close; credit comes later.

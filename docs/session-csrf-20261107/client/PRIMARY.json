@@ -1,5 +1,5 @@
 {
-  "status": "integrated_for_independent_review",
+  "status": "client_proof_accepted_with_limits; server_review_requires_N8_oracle_correction",
   "sourceSha": "030b64f7cba87c6a0d710892deb9a8493ea8bbf4",
   "workerPath": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-292c5ebc",
   "primary": {
@@ -172,5 +172,16 @@
     "CI",
     "production"
   ],
-  "nextAction": "Astra/xhigh reviews integrated session-CSRF implementation, client proof and declared limits."
+  "nextAction": "Close the N8 successful-write oracle review finding, then obtain fresh Astra/xhigh acceptance. SQL stays separately gated.",
+  "fullRepositoryCheck": {
+    "sourceSha": "6708709b4bda8a2638acb995d9ae1b91fc60d257",
+    "command": [
+      "python",
+      "tests/check.py"
+    ],
+    "exit": 0,
+    "seconds": 405.609,
+    "log": "private-exports/session-client-primary-20261107/repository-check.log",
+    "sha256": "15f91e6467a787df914fdeacb0148e00eb22e17f47357fc9ddece4862261aa1b"
+  }
 }

@@ -42,7 +42,8 @@ OpenCode rejected the selected free model upstream. Jason then authorized tempor
 Session-CSRF is the first bounded increment on that route. Cash implementation follows; Astra/xhigh remains the sole judge.
 See [the diagnosed failure and permitted next action](../completion-20261107/opencode-execution-diagnosis.json).
 Owner: primary. Completion check: integrated backend, independent Astra/xhigh acceptance and the exact source-bound CASH checks.
-No cash worker is currently running. No cash implementation or runtime was executed by this review.
+At the design-review cut, no cash worker was running and this review executed no implementation or runtime.
+The returned partial candidate is recorded below.
 
 ## Adopted scope
 
@@ -232,3 +233,21 @@ The primary also read back three successful D-033 workflows on `42d41720e8464e0a
 Those CI results cover D-033 documentation and the existing portable baseline, not cash implementation or runtime.
 Current progress checks: `python tests/test_progress.py` **23/23 PASS** (440.645 s) and `python tools/export_progress.py --verify` **15 preserved hashes**, exit `0`.
 Fixture publication messages from those tests are simulated; only the real hook and remote readback can prove publication.
+
+## Backend partial returned and primary verification, 2026-11-07
+
+The Sol/high worker returned a backend candidate from `030b64f`; it has not been accepted or imported as product code.
+Primary verified 15/15 RAW and LF bindings and inspected the source and original private TRX files.
+Offline cash checks: 158/158 PASS. Prepared fixture compile checks: 3/3 PASS.
+The integration check is 4 PASS / 1 FAIL: the migration snapshot does not match the three new cash entities.
+
+[Worker evidence](backend-worker/README.md) and [primary partial receipt](PRIMARY-PARTIAL.json) preserve the failures and scope.
+The required generator is `dotnet-ef 10.0.13`; SDK 10.0.402 and EF Design 10.0.13 exist, but the pinned CLI is absent.
+Primary announced a private, pinned, no-charge tool installation as a reversible prerequisite within the approved goal.
+Use only the ignored candidate tool folder. Do not change global tools, PATH, accounts, trust or database state.
+Next: generate an additive three-table migration from a fresh source-bound build, then rerun the pending-model check.
+No generated file may be hand-edited. Do not run `database update`.
+
+Legacy SQL sale fixtures must then be adapted to the paid-cash contract without weakening their security or replay checks.
+UI, SQL persistence/concurrency, CASH-08 and independent implementation acceptance remain open.
+The primary owns serial integration; Astra/xhigh remains the only judge. Production stays NO-GO.

@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-07T22:12:11.611938+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs",
+      "change": "M",
+      "git_blob": "6193047d99eb1c6944ea69bf0f87be2b4c980b1a"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceWriteProjection.cs",
+      "change": "A",
+      "git_blob": "c798e6a4e1a221610c13db2bfed6f2c4591f4107"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceWriteProjectionTests.cs",
+      "change": "A",
+      "git_blob": "3ccea7af04dfa39a56782418fdf551d80914751e"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "b05d50c7e7f94dbaf0c4e98073efffd56d7926e3"
+    },
+    {
+      "path": "docs/cash-register-20261107/PRIMARY-PARTIAL.json",
+      "change": "A",
+      "git_blob": "126f5ea6b5208669c72e1cdbaf0464a3c4a31230"
+    },
+    {
+      "path": "docs/cash-register-20261107/README.md",
+      "change": "M",
+      "git_blob": "e09ddd31ccb42dd1a1fffbb168e2816d2fde4ac3"
+    },
+    {
+      "path": "docs/cash-register-20261107/backend-worker/README.md",
+      "change": "A",
+      "git_blob": "eca8f996488ac8c4f0656105df0bc99b4f9023de"
+    },
+    {
+      "path": "docs/cash-register-20261107/backend-worker/source-hashes.json",
+      "change": "A",
+      "git_blob": "6a43a64cd2d792ad2d6e4738dd9d36b8c5f8fe75"
+    },
+    {
+      "path": "docs/cash-register-20261107/backend-worker/verification.json",
+      "change": "A",
+      "git_blob": "4f9c3bf83cb31950a1df49a1659402a5e99fac4e"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "change": "M",
+      "git_blob": "cb314ba6c048987a84f0e2920f7b350420895f20"
+    },
+    {
+      "path": "docs/session-csrf-20261107/README.md",
+      "change": "M",
+      "git_blob": "a3d67fa2914cf0729c932617997ce0e05974c721"
+    },
+    {
+      "path": "docs/session-csrf-20261107/astra-implementation-judge.md",
+      "change": "A",
+      "git_blob": "cc0cad4f82340a20064664960e4e9439edecbb93"
+    },
+    {
+      "path": "docs/session-csrf-20261107/client/PRIMARY.json",
+      "change": "M",
+      "git_blob": "1e8b866db49b7f20c1c268a3aa8e885accb65228"
+    },
+    {
+      "path": "docs/session-csrf-20261107/n8-correction/README.md",
+      "change": "A",
+      "git_blob": "46ffd492cb29e8af5eb20e71b3a0b08f28ef6749"
+    },
+    {
+      "path": "docs/session-csrf-20261107/n8-correction/RESULT.json",
+      "change": "A",
+      "git_blob": "7876668103a371a84dca10ea7a49fd1f95acfe31"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}
