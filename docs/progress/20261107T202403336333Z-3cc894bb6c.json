@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-07T20:24:03.336333+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "f2e22f1c516dec03daca79a3a231e736222c120f"
+    },
+    {
+      "path": "docs/cash-register-20261107/README.md",
+      "change": "M",
+      "git_blob": "61d3db60aacc386ee095758fa49711eaa170e365"
+    },
+    {
+      "path": "docs/cash-register-20261107/astra-preimplementation.md",
+      "change": "A",
+      "git_blob": "b84bde4e19470d7dae0e08d011f90be01031f382"
+    },
+    {
+      "path": "docs/completion-20261107/opencode-execution-diagnosis.json",
+      "change": "A",
+      "git_blob": "fc67ae4c69f73e8ded6649b3a617e86b59103a1d"
+    },
+    {
+      "path": "docs/session-csrf-20261107/README.md",
+      "change": "M",
+      "git_blob": "3fbdc0c7d8104ad15acfa4d65db81275e2e55f00"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

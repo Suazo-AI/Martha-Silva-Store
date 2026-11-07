@@ -1,8 +1,48 @@
 # First functional SAVIA cash register
 
-Mode: DISCOVER. Product scope adopted; implementation and runtime acceptance pending.
+Mode: BUILD preparation. Product scope adopted; source-only design accepted below. Implementation and runtime acceptance pending.
 Owner: primary orchestrator. Host: SUAZO-PC.
 Inspected source: `Tony@dab891055072910b5af757d2e36714424b5ee378`.
+
+## Primary acceptance of the source-only design, 2026-11-07
+
+The primary accepts [Astra's preimplementation review](astra-preimplementation.md) as the bounded technical design.
+Reviewed source: `87ff7991967b2f9f2bd98cf447be5d0e843337c8`.
+The returned report SHA256 is `de15073c27c7c4d4a6e4c26b8aa3c902a2c75770f5a9a2085f2bb9c7c8bc8181`.
+The public copy removes only one final empty line for Git whitespace validation.
+Its LF SHA256 is `7f9530eb2d3b4cc67abd41786a3a8daf8ab579fabdd40f6e62f68c6ae26838ee`.
+This accepts design controls, not cash implementation, tests, SQL persistence or production.
+
+| Finding | Primary disposition before implementation |
+| --- | --- |
+| P1: recorded history is unpaid; old reversal routes could bypass cash | Preserve historical `not_processed`. Reject stock-only legacy reversal of a paid sale. Cash rollout must reject fresh unpaid creation while preserving authorized old-key recovery/replay. |
+| P1: runner scopes and resource resolution do not know tills | Add explicit cash scopes, till/sale resource checks, cashier custody and current replay authorization. Never trust client actor or total fields. |
+| P1: different keys can race refund or close | Lock existing sale, then paying till, then sorted balances. Serialize opens per cashier. Test refund/refund and sale/refund versus close on real SQL. |
+| P1: new ledger tables could escape mutation/fingerprint checks | Make cash entries/closes immutable. Extend the independent exact inventory from 20/17 to 23/20 tables if exactly three tables are added. Never derive expected names from EF. |
+| P2: old client accepts unpaid receipts and assumes two decimals | Add separately validated cash receipts with explicit currency exponent. Preserve legacy receipt validation and pending key/body identity. |
+
+Frozen backend seam for the synthetic increment:
+
+- Add `CashTills`, append-only `CashEntries` and immutable `CashCloses` through an additive generated migration. Never backfill payment history.
+- Till identity is shift identity. The server fixes cashier, location, currency, exponent and opening time. One cashier has at most one open till.
+- An opening is one ledger entry. Expected cash is the sum of persisted deltas, not opening plus that sum.
+- Use checked integer minor units bounded by `InternalRules.MaxMinor`. Configure currency/exponent explicitly; no assumed real currency, exchange or mixed tender.
+- Add idempotent open, cash-sale, quantity-based refund at original prices, and counted-close contracts under `/internal/api/cash`.
+- The server derives totals, change, refundable balance, actors and timestamps. Reject unknown fields and client-supplied authorizers/totals.
+- For this limited increment, a refund uses an open paying till at the original sale's location, with current Owner/Manager access and sufficient persisted cash. Cross-location transfers and reopening are outside scope.
+- A manager may authorize a refund from another cashier's paying till. Record both people. Preserve the original closed shift under D-034.
+- Reuse transaction-local sale/reversal logic. Never nest command runners. Money, stock, reversal and idempotent response commit together.
+- A successful original-key replay remains readable after till closure without new business writes. New writes to closed tills fail.
+- Enforce unique opening, payment, reversal and close references plus one open till per cashier. Use restrictive foreign keys and amount/sign/currency consistency checks.
+- Keep CASH-01–08 and the review's independent SQL, concurrency and negative-control checks. A mocked success cannot close any persistence criterion.
+
+These limits define the synthetic implementation, not Martha's business facts or permission to run migrations.
+Backend contracts precede staff UI changes; runtime inventory and combined journey follow serial backend integration.
+OpenCode rejected the selected free model upstream. Jason then authorized temporary Codex `gpt-6.1-sol/high` execution.
+Session-CSRF is the first bounded increment on that route. Cash implementation follows; Astra/xhigh remains the sole judge.
+See [the diagnosed failure and permitted next action](../completion-20261107/opencode-execution-diagnosis.json).
+Owner: primary. Completion check: integrated backend, independent Astra/xhigh acceptance and the exact source-bound CASH checks.
+No cash worker is currently running. No cash implementation or runtime was executed by this review.
 
 ## Adopted scope
 
@@ -90,8 +130,9 @@ The independent check must recompute these amounts from stored entries rather th
 
 Prepare one bounded fresh Astra/xhigh preimplementation review against this scope and the actual source.
 Resolve its material findings and any product-only questions before an OpenCode/high implementation worker starts.
-Two earlier worker assignments have cancellation requested but no terminal notification yet; do not overlap their ownership or exceed the three-agent limit.
-Use a managed worktree when the next slot is available. Keep the primary responsible for serial integration and independent acceptance.
+The two expired assignments are now terminal with clean worktrees; the [completion record](../completion-20261107/README.md) supersedes their earlier unsettled status.
+One approved OpenCode GLM/high worker owns session-CSRF. Use the remaining slot for a bounded Astra/xhigh cash preimplementation review in a separate managed worktree.
+Keep the primary responsible for serial integration and independent acceptance. Do not overlap source ownership or exceed the three-agent limit.
 
 No cash implementation, migration, cash browser journey, SQL runtime, payment, merge or deployment was executed for this decision.
 Existing runtime approvals are not renewed by the product choice. Production remains NO-GO.
@@ -147,8 +188,41 @@ Its completion requires reviewed implementation plus real browser/API/SQL cash r
 The earlier technical-trial checkpoint contract remains unchanged; cash has its own acceptance journey.
 Direct source review found an exact 20-table fingerprint inventory in `InternalAcceptanceFingerprint.cs`.
 Any cash schema change must explicitly extend that independent inventory and affected partition manifests, preserving all no-write guards.
-Next: recover the two terminal worker handoffs, then run the fresh bounded Astra/xhigh preimplementation review on D-031 through D-034 and CASH-01 through CASH-08.
+Next: run the fresh bounded Astra/xhigh preimplementation review on D-031 through D-034 and CASH-01 through CASH-08 at `87ff7991967b2f9f2bd98cf447be5d0e843337c8`.
 No cash implementation or runtime has run. Provider, runtime and production gates remain unchanged.
+
+Primary source verification for that review: `RecordSale` currently persists sale/stock through `InternalCommandRunner`,
+but its request has no tender or till and its receipt always returns `not_processed`.
+`ReturnSale` restores stock and records credit; it does not pay cash.
+The runner already wraps each operation in a serializable transaction and rechecks persisted session/role.
+The review must preserve that boundary and distinguish rejected business effects from the runner's durable rejection record.
+Any new cash scope/resource must also extend server authorization, location resolution and replay access checks.
+
+### Preimplementation review dispatch gap
+
+The new Astra/xhigh cash review did not start. T3 returned `OrchestratorMcpFailure`,
+code `parent_not_active`: `Delegated tasks require an active run owned by this MCP provider session.`
+No child or task was created. The supported parent-thread read confirmed `status: completed`
+and `activeRunId: null`; capabilities still list the requested model and settings.
+This is an orchestration lifecycle gap, not a cash defect or an unavailable-model finding.
+
+Primary owns resumption: start the bounded review from an active, app-owned T3 parent run,
+then verify that `delegate_task` returns a task ID and the requested Astra/xhigh target.
+Do not substitute providers, create a top-level thread or repeat dispatch without resolving that lifecycle gap.
+The independent review and cash implementation remain pending. No runtime authority was consumed.
+
+Resumption check: a later supported parent-thread read reports `status: running`, with an active
+app-owned run. The earlier `activeRunId: null` state no longer applies. Primary can now attempt
+one bounded dispatch through the original T3 tool, preserving Astra/xhigh and managed isolation.
+This readback resolves the missing lifecycle prerequisite; only a successful dispatch can prove
+that the review actually started. No application configuration or administrator setting changed.
+Lesson: revalidate the exact failed layer before repeating a dispatch or handing setup to Jason.
+
+The retry succeeded: T3 returned `status: running`, model `gpt-6-astra`,
+`reasoningEffort: xhigh` for task
+`savia-cash-design-astra-active-87ff799-20261107-01` in managed isolation.
+The independent cash review is now awaiting its completion notification; do not launch a duplicate.
+This closes dispatch admission only. No review verdict, cash code or runtime result is implied.
 
 D-034 verification: `python tools/delivery_status.py --check` accepted 40 ledger items; `python tests/test_delivery_status.py` passed 24/24, exit `0`.
 A disposable negative fixture rejected `P-GO` marked done while `CASH-REGISTER` remained pending; the pending path includes both items.

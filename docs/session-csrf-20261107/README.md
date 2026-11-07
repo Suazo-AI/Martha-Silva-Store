@@ -53,6 +53,24 @@ Do not add session IDs to idempotency keys or pending reference identity/version
 Keep A552/C77/E2 and their historical manifests unchanged. This increment has a new source/build and test inventory.
 The local runtime preparer owns different paths and resources; it must not silently consume this new candidate.
 
+## Latest execution diagnosis, 2026-11-07
+
+The GLM worker is now confirmed `interrupted`, with no active run or pending request.
+Its worktree at `87ff7991967b2f9f2bd98cf447be5d0e843337c8` is clean; there is no candidate to integrate.
+OpenCode's own log records `AI_APICallError: Free usage limit reached.` for `glm-5.3-flash-free`
+at `2026-11-07T19:41:33.551Z`. This supersedes the earlier unknown-cause/cancellation-request state below.
+T3 recorded successful prompt submission, but did not surface the stream error as a terminal failure before cancellation.
+The stopped session export contains zero assistant parts and reports zero input/output/reasoning tokens; billing remains unknown.
+Read-only diagnostics used existing T3 traces and OpenCode session export. No raw conversation or private log is published.
+[Sanitized observations, limitations, owner and completion check](../completion-20261107/opencode-execution-diagnosis.json).
+
+Primary stopped the stale run and verified the clean checkout. No retry, account change, upgrade or model substitution occurred.
+Administrator access does not address this observed upstream rejection. Reset time and other free-model availability remain unknown.
+Jason authorized temporary Codex `gpt-6.1-sol/high` execution: "Sí, usar Codex Sol/high temporalmente (recomendado)".
+Astra/xhigh remains the sole judge. The executor route changes; implementation and runtime limits remain in force.
+Primary also accepted the independent cash design and retained its frozen controls.
+Session-CSRF implementation, focused red/green proof and downstream SQL/browser verification remain pending.
+
 ## Verification and next action
 
 Verified: report hash; direct source inspection; decision and acceptance recorded. No product bytes changed.
@@ -64,9 +82,23 @@ The original imported report matched the reviewer hash; its public derivative is
 The initial staged check rejected that final blank line; removing it is the only report edit.
 `git diff --check` and the staged check passed after that correction.
 NOT RUN for this increment: builds, tests, SQL, browser, CI or deployed runtime.
-Next: bounded OpenCode/DeepSeek high implementation in a managed worktree, then primary verification and fresh Astra/xhigh.
+Next: bounded Codex `gpt-6.1-sol/high` implementation in a managed worktree, then primary verification and fresh Astra/xhigh.
 Use locally cached dependencies only. Security reproduction must use an OS-enforced, offline sandbox with bounded resources.
 If that cannot be provided, preserve the candidate and identify the exact missing control; do not claim a runtime pass.
 SQL gate and production remain open. A pre-review cannot close them.
 
 Lesson: hold the account and cookie constant to distinguish session binding from cookie rotation.
+
+## Current bounded assignment, 2026-11-07
+
+The approved GLM/high assignment was dispatched at `19:38:39.530 UTC` on `87ff799`.
+The primary recovered that timestamp from its own recorded dispatch, without polling the running child.
+At `20:08:52 UTC`, more than 30 minutes had elapsed since dispatch; the child's exact first-tool start remains unknown.
+The primary requested cancellation to bound orchestration time. T3 returned `cancel_requested`, not a terminal result.
+No implementation, cleanup, failure cause or free worker slot is inferred from that acknowledgement.
+The independent Astra/xhigh cash review has a separate 15-minute budget and was not cancelled.
+
+Owner: primary. Next: consume the supported terminal notification, inspect any returned source and owned-resource cleanup,
+then integrate useful bytes or diagnose the failed execution layer before another bounded assignment.
+Do not poll or start a replacement while termination is unconfirmed. SQL and production remain unverified.
+The session-CSRF acceptance checks above remain unchanged; the project goal stays active.

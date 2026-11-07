@@ -2,6 +2,14 @@
 
 Current primary assessment, 2026-11-07 UTC: production remains NO-GO.
 
+Latest execution diagnosis: OpenCode rejected the selected GLM free request with `Free usage limit reached`.
+The stale task is interrupted and its worktree is clean; no session-CSRF implementation was returned.
+[Direct evidence and exact resumption check](completion-20261107/opencode-execution-diagnosis.json).
+This is an upstream access failure, not demonstrated lack of Windows administrator rights.
+Jason authorized temporary Codex `gpt-6.1-sol/high` execution. Session-CSRF resumes first; Astra/xhigh remains the sole judge.
+Cash source-only design is accepted after Astra/xhigh review; implementation and all CASH runtime checks remain pending.
+[Frozen controls and primary adjudication](cash-register-20261107/README.md#primary-acceptance-of-the-source-only-design-2026-11-07).
+
 First cash-register scope adopted, 2026-11-07: fully paid sales, cash received, change and till close; credit comes later.
 The current sale receipt still reports `not_processed`. Cash implementation and real persistence proof remain pending.
 [D-031 and source-based acceptance proposals](cash-register-20261107/README.md). This choice does not resolve Martha's process facts or waive card payments.
