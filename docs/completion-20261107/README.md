@@ -75,9 +75,10 @@ A name match alone never authorizes connecting to or deleting an existing host d
 Primary owns acceptance of this correction in the returned entry point; Astra/xhigh reviews the frozen result.
 No runtime scope, existing acceptance criterion, test source or production status changed.
 
-SEC-CSRF is awaiting Jason's session-policy decision, requested through the question tool on 2026-11-07.
-Recommendation: reject mutation tokens from an earlier session, including the same user's later login.
-If approved, require the existing SQL red/green gate: an old token with a new valid session must reject without writes;
+SEC-CSRF: Jason adopted session-bound protection on 2026-11-07; the decision is no longer pending.
+Reject mutation tokens from an earlier session, including the same user's later login.
+Implementation is pending under the [recorded decision and frozen checks](../session-csrf-20261107/README.md).
+Retain the existing SQL red/green gate: an old token with a new valid session must reject without writes;
 a fresh token must work. Preserve anonymous login, logout, cross-user rejection and pending-receipt recovery.
 This is a separate production increment. It does not change the frozen local-trial source or authorize SQL execution.
 

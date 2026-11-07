@@ -415,17 +415,14 @@
       "id": "SEC-CSRF",
       "order": 15,
       "track": "sprint",
-      "owner": "jason",
-      "status": "todo",
+      "owner": "suazo_pc",
+      "status": "doing",
       "title": "CSRF emitido antes de una reasignación sigue válido tras re-login del mismo usuario",
       "why": "Hallazgo de C7: el token está ligado al usuario, no a la sesión; la cookie vieja sí da 401. No es escalada (mismo usuario), pero N8 estricto pediría ligarlo a la sesión",
       "done_when": "Decisión registrada; si se liga a la sesión, prueba roja-verde en InternalAcceptanceHttpSqlTests",
       "alternatives": "Dejarlo ligado al usuario (sin riesgo de escalada, más simple) · ligarlo a la sesión (N8 estricto, cambio pequeño en Security)",
-      "needs": {
-        "decision": "¿El token CSRF debe invalidarse al cerrar o revocar la sesión del mismo usuario?",
-        "decider": "jason",
-        "recommendation": "Ligarlo a la sesión antes de producción; no bloquea el ensayo del viernes"
-      },
+      "decision_ref": "docs/session-csrf-20261107/README.md",
+      "review": "Jason adopted per-session protection on 2026-11-07. Primary accepted Astra/xhigh preimplementation conditions at 584fcaa. Implementation and real SQL red/green remain pending; historical A552/C77/E2 unchanged. No additional runtime or deployment authority.",
       "paths": [
         "backend/src/Martha.Store.Api/Internal/Security/*"
       ],
