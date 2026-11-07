@@ -156,3 +156,32 @@ The first checker attempt failed because Windows stdin replaced an accented asse
 Repeating the checker with ASCII/Unicode escapes passed; neither attempt ran product code.
 Next: integrate the bounded executor returns after terminal events, then obtain independent review of their actual candidate bytes.
 C77, D, E2, Owner recovery and session-CSRF runtime acceptance remain open.
+
+Execution-budget enforcement, 2026-11-07, 16:31:12 UTC: the primary recovered the original delegate call
+from this thread's activity, rather than polling the running child.
+The CSRF offline assignment launched at 15:46:40 UTC with a 30-minute total budget; its deadline was 16:16:40 UTC.
+`task_cancel` returned `cancel_requested`. This acknowledges the request, not process termination or a diagnosis.
+Preserve any partial candidate; inspect it only after a terminal event. No replacement, retry or acceptance has occurred.
+The runner correction launched at 16:04:54 UTC with a 35-minute budget; its separate deadline is 16:39:54 UTC.
+It is not cancelled by the CSRF request. Owner implementation remains queued while these assigned slots are unsettled.
+Primary owns recovery of terminal output, diagnosis and serial integration. Runtime permission boundaries remain unchanged.
+
+Continuation boundary, 2026-11-07, 16:37 UTC: three consecutive goal turns produced no new implementation or terminal delegate result.
+This is not a verified live wait: neither a prior launch nor `cancel_requested` proves that a process remains active or has stopped.
+The supported T3 completion notification owns the next event; running-child polling and replacement before terminal confirmation remain excluded.
+Owner implementation cannot take a third assigned worker slot under the three-agent limit, and the cash/credit product question remains unanswered.
+Primary awaits those external events instead of repeating status-only turns or manufacturing another documentation/CI cycle.
+After a terminal notification, read the actual return, verify the worktree and cleanup, then integrate or diagnose before the next bounded dispatch.
+No task, SQL runtime, acceptance gate, provider selection or production status is changed by this boundary.
+
+Cash-scope decision, 2026-11-07: Jason answered the pending question with "Contado primero; crédito después (recomendado)".
+That product dependency is resolved. [D-031 and the proposed source-based checks](../cash-register-20261107/README.md)
+separate the existing `not_processed` sale from a future cash collection, change and till close.
+The document requires independent money reconciliation and real browser/API/SQL evidence before acceptance.
+Cash implementation remains pending fresh Astra/xhigh preimplementation review and an available bounded worker slot.
+
+Runner-budget enforcement, 2026-11-07, 17:48 UTC: its 35-minute limit from 16:04:54 UTC had expired.
+The primary requested cancellation. The tool returned `cancel_requested`; no terminal result or cause is established.
+This supersedes the earlier statement that only CSRF had a cancellation request. Both assignments remain unsettled.
+Primary will inspect partial files only after terminal notification, verify owned-resource cleanup, and then integrate or diagnose.
+No replacement, SQL execution, source acceptance or provider fallback was performed.

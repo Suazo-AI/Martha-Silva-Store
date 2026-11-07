@@ -233,3 +233,18 @@ SAVIA ni SISFAIN. Sin merge ni despliegue. C2 sigue abierta hasta respuestas y m
 C1/C9/C10 conservan sus brechas. Datos privados y respuestas sin sanear no se publican.
 
 [Recibo de Trello y verificación](stock-decision-20261104/decision-029-receipt.json).
+
+## D-031 — Primera caja: contado; crédito después
+
+Adoptada por Jason el 2026-11-07, America/Managua.
+Respuesta explícita: «Contado primero; crédito después (recomendado)».
+
+La primera caja funcional de SAVIA incluye ventas cobradas por completo, efectivo recibido, vuelto y cierre de caja.
+Las ventas a crédito quedan para un incremento posterior, con requisitos y pruebas propios.
+Esta decisión define el producto inicial; no declara cómo trabaja Martha actualmente ni resuelve C2.
+Tampoco elimina el requisito de tarjetas para producción ni decide pagos mixtos, divisas o reglas fiscales.
+
+El contrato actual registra ventas con `PaymentStatus = "not_processed"`; eso no prueba un cobro.
+[Brecha comprobada y criterios de la primera caja](cash-register-20261107/README.md).
+Estado: alcance adoptado; diseño, implementación y prueba real de caja pendientes.
+No se ejecutaron cobros, cambios de cuentas, SQL, merge ni despliegue por esta decisión.

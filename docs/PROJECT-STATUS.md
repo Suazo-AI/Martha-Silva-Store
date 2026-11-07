@@ -2,6 +2,10 @@
 
 Current primary assessment, 2026-11-07 UTC: production remains NO-GO.
 
+First cash-register scope adopted, 2026-11-07: fully paid sales, cash received, change and till close; credit comes later.
+The current sale receipt still reports `not_processed`. Cash implementation and real persistence proof remain pending.
+[D-031 and source-based acceptance proposals](cash-register-20261107/README.md). This choice does not resolve Martha's process facts or waive card payments.
+
 Agent navigation updated 2026-11-07: [AGENT-START](AGENT-START.md) now routes work through Tony and the current ledger;
 [CODE-MAP](CODE-MAP.md) covers supply UI, stock exceptions, local partitions and the real-journey harness.
 The previous PR-head and already-corrected N5 instructions are historical. This documentation change adds no runtime proof.
