@@ -1,9 +1,10 @@
 # Real cash journey: preparation, not execution
 
-State: **offline checks and exact-SHA no-SQL CI pass; Astra returned REVISE; corrections running; SQL runtime NOT authorized**.
+State: **F1-F3 corrected; primary offline checks pass; fresh Astra review and corrected-SHA CI pending; SQL runtime NOT authorized**.
 The worker prepared the harness from accepted cash UI source `54e76663cef0a43029dc87b7ecc27dcf9e8ec180`.
 Primary qualification is recorded in [PRIMARY-QUALIFICATION.json](PRIMARY-QUALIFICATION.json).
-The final SQL helper compiles, all 81 harness checks pass, and the repository check exits 0.
+The historical final SQL helper compiles. The corrected harness now passes 102 focused checks and the primary repository check, exit 0.
+[Correction provenance, exact commands, hashes and CI wiring](corrections/PRIMARY.json).
 These results do not prove a real cash transaction or change CASH-01–08.
 Astra found F1/F2 evidence-publication bypasses and F3 insufficient returned-row preservation.
 [Primary adjudication, correction owner and completion checks](REVIEW-STATUS.json).

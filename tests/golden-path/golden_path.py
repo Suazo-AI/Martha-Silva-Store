@@ -132,6 +132,10 @@ def supply_identity(notes, fixture, previous, step):
 UUID_PATTERN = re.compile(r'\A[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\Z')
 
 
+BROWSER_NOTE_FIELDS = {'dom', 'network', 'sale_posts', 'stock_total', 'stock_rows', 'quantity', 'total_minor',
+               'key', 'sale_id', 'runtime', 'source_hashes', 'external_requests', 'runtime_errors', 'receipt_posts', 'receipt_id', 'order_id', 'actor_id', 'location_id', 'review_id', 'review_key', 'sale_line_id', 'cash_commands', 'cash_pending_hash'}
+
+
 def browser_checkpoint(event, expected_step, secrets_seen):
     """An untrusted subprocess cannot add arbitrary strings to public evidence.
 
@@ -150,9 +154,7 @@ def browser_checkpoint(event, expected_step, secrets_seen):
         cash_commands(notes['cash_commands'])
         if 'cash_pending_hash' in notes:
             valid(isinstance(notes['cash_pending_hash'], str) and re.fullmatch(r'[a-f0-9]{64}', notes['cash_pending_hash']))
-    allowed = {'dom', 'network', 'sale_posts', 'stock_total', 'stock_rows', 'quantity', 'total_minor',
-               'key', 'sale_id', 'runtime', 'source_hashes', 'external_requests', 'runtime_errors', 'receipt_posts', 'receipt_id', 'order_id', 'actor_id', 'location_id', 'review_id', 'review_key', 'sale_line_id', 'cash_commands', 'cash_pending_hash'}
-    valid(isinstance(notes, dict) and set(notes) <= allowed
+    valid(isinstance(notes, dict) and set(notes) <= BROWSER_NOTE_FIELDS
           and {'dom', 'network', 'sale_posts', 'external_requests', 'runtime_errors'} <= set(notes))
     dom_labels = {'login_ready', 'shell', 'cashier', 'inventory', 'receipt', 'pending',
                   'sale_enabled', 'pending_key_preserved', 'same_receipt', 'stock_current', 'logged_out'}
@@ -311,6 +313,9 @@ def validate_cash_snapshot(commands, snap, users, ids, prior, step):
                     debit=[m for m in moves if m['OperationId']==sale['Id'] and m['ItemId']==line['itemId'] and m['Kind']=='sale']
                     if i==3: expect(not debit,'cash_fabricated_inventory')
                     else: one(debit,ActorId=actor,LocationId=ids['location'],OnHandDelta=-line['quantity'],ReservedDelta=0)
+                expected_state = ('returned' if all(l['ReturnedQuantity']==l['Quantity'] for l in actual)
+                                  else 'partially_returned' if any(l['ReturnedQuantity'] for l in actual) else 'recorded')
+                expect(sale.get('State') == expected_state, 'cash_sale_state')
                 e=one(entries,Id=c['effect_id'],TillId=till_id,ActorId=actor,CashierId=actor,Kind='sale',SaleId=sale['Id'],DeltaMinor=total,ReceivedMinor=tender,ChangeMinor=tender-total,ReversalId=None)
             elif kind=='refund':
                 original=one(lines,SaleId=commands[1]['result_id'],ItemId=ids['items'][0])
@@ -361,7 +366,14 @@ def validate_cash_snapshot(commands, snap, users, ids, prior, step):
         if step in SUPPLY_STEPS[1:3]: affected_items.add(ids['items'][0])
         for table,excluded in (('Sales',returned_sales),('SaleLines',returned_lines),('CashTills',closing)):
             for old in prior['rows'][table]:
-                if old['Id'] not in excluded: expect(old in rows[table],'cash_unrelated_row_changed')
+                if old['Id'] not in excluded:
+                    expect(old in rows[table],'cash_unrelated_row_changed')
+                else:
+                    # Refunds may change quantity/state; every other persisted field is immutable.
+                    mutable = {'Sales':{'State'}, 'SaleLines':{'ReturnedQuantity'}, 'CashTills':{'ClosedAt'}}[table]
+                    current = one(rows[table], Id=old['Id'])
+                    project = lambda row: {k:v for k,v in row.items() if k not in mutable}
+                    expect(project(old) == project(current), 'cash_immutable_row_changed')
         for old in prior['rows']['StockBalances']:
             if old['ItemId'] not in affected_items: expect(old in rows['StockBalances'],'cash_unrelated_row_changed')
         for t in prior['rows']['CashTills']:
@@ -414,7 +426,16 @@ def validate_cash_progress(records, complete=False):
     expect(len(records)<=len(CASH_STEPS) and [r['step'] for r in records]==list(CASH_STEPS[:len(records)]),'cash_checkpoint_order')
     if complete: expect(len(records)==len(CASH_STEPS),'cash_missing_checkpoints')
     previous=[]; observed=0; receipt_posts=0; supply_key=None; supply_receipt=None
+    source_hashes = None
     for r in records:
+        # Reuse the exact private-pipe admission schema for exported checkpoints.
+        notes = {k:v for k,v in r.items() if k in BROWSER_NOTE_FIELDS}
+        browser_checkpoint({'step':r['step'], 'notes':notes, 'secrets':[]}, r['step'], set())
+        if r['step'] == 'browser.start':
+            expect('runtime' in notes and 'source_hashes' in notes, 'cash_metadata_missing')
+            source_hashes = notes['source_hashes']
+        if r['step'] == 'browser.cashier_login':
+            expect(notes.get('source_hashes') == source_hashes, 'cash_source_mismatch')
         expect(r.get('external_requests')==r.get('runtime_errors')==0,'cash_network_guard')
         commands=cash_commands(r.get('cash_commands'))
         expect(len(commands)==CASH_LENGTHS[r['step']] and commands[:len(previous)]==previous,'cash_command_sequence')
@@ -443,6 +464,10 @@ def validate_cash_progress(records, complete=False):
         if r['step']=='browser.response_loss_committed':
             expect(any(x['path']=='/internal/api/cash/sales' and x['status']==200 and x['response_lost'] and x['key']==commands[2]['key'] for x in r['network']),'cash_loss_not_committed')
             expect(r.get('cash_pending_hash')==hashlib.sha256(json.dumps(commands[2]['body'],separators=(',',':')).encode()).hexdigest(),'cash_pending_body_changed')
+        if r['step'] in ('browser.response_loss_committed','browser.recover_after_reload','browser.repeated_reload'):
+            expect(r.get('sale_id') == commands[2]['result_id'], 'cash_recovery_sale_mismatch')
+            if r['step'] != 'browser.repeated_reload':
+                expect(r.get('key') == commands[2]['key'], 'cash_recovery_key_mismatch')
         if r['step']=='browser.recover_after_reload':
             expect(any(x['method']=='GET' and x['path']=='/internal/api/operations/cash.sale' and x['status']==200 and x['key']==commands[2]['key'] for x in r['network']),'cash_recovery_not_observed')
         if r['step']=='browser.cash_refund_refused':

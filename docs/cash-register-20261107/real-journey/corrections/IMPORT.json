@@ -1,0 +1,41 @@
+{
+  "sourceSha": "990e23a1bac2ef06e40df12ed87a1569586c9b2c",
+  "integrationParent": "3cc608751628264deb6b88aa931d41d4310a105b",
+  "imported": [
+    {
+      "path": "tests/golden-path/golden_path.py",
+      "rawSha256": "bc24f7fd81dd3293b14a0a35999f9bc0d3e8b5cedf6c7409b2b69acaf7f249f9",
+      "lfSha256": "bc24f7fd81dd3293b14a0a35999f9bc0d3e8b5cedf6c7409b2b69acaf7f249f9"
+    },
+    {
+      "path": "tests/golden-path/verify_evidence.py",
+      "rawSha256": "4067ef7d25c897b84b3698793bec774384e4b200a541de8266ce708643f33b96",
+      "lfSha256": "4067ef7d25c897b84b3698793bec774384e4b200a541de8266ce708643f33b96"
+    },
+    {
+      "path": "tests/test_golden_path_cash.py",
+      "rawSha256": "6743cbbceca5ae31b2c17565fb4aca841b3fa3f6b17803d99dbefd672dceebb2",
+      "lfSha256": "6743cbbceca5ae31b2c17565fb4aca841b3fa3f6b17803d99dbefd672dceebb2"
+    },
+    {
+      "path": "tests/test_golden_path_cash_evidence.py",
+      "rawSha256": "5583c19a9da209b185696c7e4a9c3d99aa592abc3ba65da5efce08c2582ffedd",
+      "lfSha256": "5583c19a9da209b185696c7e4a9c3d99aa592abc3ba65da5efce08c2582ffedd"
+    },
+    {
+      "path": "docs/cash-register-20261107/real-journey/corrections/README.md",
+      "rawSha256": "08648def04b3bedd25c6b8125cef9f77bc5c49557d285733db05f5de22c0e1ab",
+      "lfSha256": "08648def04b3bedd25c6b8125cef9f77bc5c49557d285733db05f5de22c0e1ab"
+    },
+    {
+      "path": "docs/cash-register-20261107/real-journey/corrections/RESULT.json",
+      "rawSha256": "372513a04de5fdeb8d12d86bee1e50ceda755439d861d5660f0706f01b765ffb",
+      "lfSha256": "372513a04de5fdeb8d12d86bee1e50ceda755439d861d5660f0706f01b765ffb"
+    }
+  ],
+  "workerLogsVerified": 8,
+  "bindingsVerified": 8,
+  "noProductDiff": true,
+  "primaryAcceptance": "PENDING",
+  "sql5": "D: REVIEW FIRST, DO NOT EXECUTE"
+}

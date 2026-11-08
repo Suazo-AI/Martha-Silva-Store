@@ -42,6 +42,18 @@ def publish(source, destination):
             raise ValueError('known secret in evidence')
         approved[name] = data
     evidence=json.loads(approved['evidence.json'])
+    # Discriminators precede semantic branches. A cash label cannot downgrade to smoke.
+    browser = evidence.get('browser', {})
+    if not isinstance(browser, dict):
+        raise ValueError('invalid browser metadata')
+    cash_claim = 'cash_protocol' in evidence or 'protocol' in browser
+    if cash_claim and (evidence.get('mode') != 'browser' or
+                       evidence.get('cash_protocol') != 'real-cash-v1' or
+                       browser.get('protocol') != 'real-cash-v1'):
+        raise ValueError('invalid cash discriminators')
+    if cash_claim and evidence.get('outcome') not in ('PASS','FAIL','STOPPED'):
+        raise ValueError('invalid cash outcome')
+    # Partial failure exports remain useful; they never enter the PASS branch.
     if evidence.get('mode')=='browser' and evidence.get('outcome')=='PASS':
         import importlib.util
         spec=importlib.util.spec_from_file_location('golden_cash_offline',Path(__file__).with_name('golden_path.py'))
@@ -52,9 +64,15 @@ def publish(source, destination):
         if any(r.get('status')!='PASS' or r.get('oracle_failures') for r in evidence['steps']):
             raise ValueError('incomplete evidence')
         module.validate_cash_progress(records,complete=True)
+        sources = browser.get('source_hashes')
+        if (not isinstance(sources, dict) or not set(module.BROWSER_SOURCES) <= set(sources)
+                or any(not isinstance(v,str) or module.re.fullmatch(r'[a-f0-9]{64}',v) is None for v in sources.values())
+                or records[0]['source_hashes'] != {k:sources[k] for k in module.BROWSER_SOURCES}
+                or browser.get('runtime') != records[0]['runtime']):
+            raise ValueError('missing or inconsistent run source/runtime metadata')
         cleanup=[r for r in evidence['steps'] if r['step']=='teardown.stop_api_drop_database']
         if len(cleanup)!=1 or cleanup[0] is not evidence['steps'][-1] or any(cleanup[0].get(k) is not True for k in
-                ('database_dropped','private_dir_removed','browser_processes_absent','browser_ownership_confirmed')) or cleanup[0].get('api_log_fail_or_crit')!=0:
+                ('database_dropped','private_dir_removed','browser_processes_absent','browser_ownership_confirmed')) or cleanup[0].get('api_log_fail_or_crit')!=0 or type(cleanup[0].get('api_exit')) is not int:
             raise ValueError('missing verified owned-resource cleanup')
         for record in records:
             counts=record.get('oracles',{})

@@ -1,9 +1,9 @@
 {
-  "state": "REVISE_CORRECTIONS_RUNNING",
+  "state": "CORRECTED_OFFLINE_VERIFIED_AWAITING_ASTRA",
   "sourceSha": "990e23a1bac2ef06e40df12ed87a1569586c9b2c",
   "review": "astra-preparation-review.md",
   "reportRawSha256": "51fc38d511c3f3e782dd5005f80f95b5ffba97683e677e423fa6d0c424acace7",
-  "primaryAdjudication": "F1, F2 and F3 are valid evidence defects. No demonstrated product corruption. Preparation is not accepted.",
+  "primaryAdjudication": "F1, F2 and F3 were valid evidence defects. Primary verified the corrected source and recorded red/green proof. Independent acceptance remains pending.",
   "findings": [
     {
       "id": "F1",
@@ -24,11 +24,11 @@
       "check": "Allow only intended quantity/state changes; immutable-field and incorrect derived-state mutations must reject."
     }
   ],
-  "attempt": "Assigned one bounded Codex gpt-6.1-sol/high executor in a separate T3-managed worktree from the reviewed SHA.",
+  "attempt": "Worker returned. Primary verified eight source bindings and eight private log hashes, imported six exact files, then passed 102 focused checks and the repository check.",
   "worker": "<t3-thread://v2/f8cf991c-9b66-41e9-8378-e40c6d6e0314/thread:delegated-task:command%3Amcp%3A13df77ce-5243-4c0a-bb0b-f16573212fa6%3Adelegate-task%3Af5fc90b1-83b9-4772-85b8-949bbe3ec875>",
-  "next": "Primary verifies OLD red and corrected green, integrates serially, then requests fresh Astra/xhigh review.",
+  "next": "Publish the frozen corrected source, request fresh Astra/xhigh review, then verify exact-SHA no-SQL CI.",
   "completionCheck": "All listed counterexamples rejected, valid complete proof accepted, affected offline groups pass, and independent re-review accepted.",
-  "owner": "Primary / Sol executor / Astra reviewer",
+  "owner": "Primary / Astra reviewer",
   "sql5": "D: REVIEW FIRST, DO NOT EXECUTE",
   "notRun": [
     "real cash browser/API/SQL journey",
@@ -74,5 +74,7 @@
       }
     ],
     "boundary": "These checks validate documentation, publication safeguards and status consistency. They do not qualify the corrected cash harness or execute runtime."
-  }
+  },
+  "correctionEvidence": "corrections/PRIMARY.json",
+  "workflowGuards": "Both relevant workflows now invoke the new evidence regressions; automatic staff path filtering includes the new test. Runtime settings unchanged; no dispatch."
 }

@@ -22,7 +22,7 @@ SQL5 remains **D: REVIEW FIRST, DO NOT EXECUTE**; the previous SQL scope is cons
 Full cash UI is accepted with limits. All four applicable no-SQL checks passed on `54e76663cef0a43029dc87b7ecc27dcf9e8ec180`.
 Mocked Chrome: cash **2/2**, existing **50/50**, supply **8/8**; backend **662 passed, 68 skipped**.
 [Exact CI and limits](../cash-register-20261107/ui-integration/CI-VERIFICATION.json). Primary verified all **22** artifact source bindings.
-Primary verified **81/81 offline passes** and final cash SQL helper compilation, exit **0**. Astra/xhigh returned **REVISE**: F1 discriminator bypass, F2 incomplete proof and F3 returned-row preservation. A bounded Sol/high correction is running. [Adjudication and exact completion checks](../cash-register-20261107/real-journey/REVIEW-STATUS.json).
+Astra/xhigh returned **REVISE** for F1 discriminator bypass, F2 incomplete proof and F3 returned-row preservation. Primary integrated the correction, independently passed **102/102** focused checks and the repository check, and wired the new regressions into CI. Fresh Astra/xhigh review and corrected-SHA CI remain pending. [Correction evidence](../cash-register-20261107/real-journey/corrections/PRIMARY.json). [Adjudication and exact completion checks](../cash-register-20261107/real-journey/REVIEW-STATUS.json).
 The complete real browser/API/SQL cash journey remains **NOT RUN**. Populated Cash backup/restore/restart is separate from legacy SQL5.
 
 Owner recovery source is integrated after ten source-binding and destination-drift checks.

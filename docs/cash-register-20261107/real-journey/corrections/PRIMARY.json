@@ -1,0 +1,187 @@
+{
+  "state": "OFFLINE_VERIFIED_AWAITING_ASTRA",
+  "integrationParent": "3cc608751628264deb6b88aa931d41d4310a105b",
+  "reviewedBase": "990e23a1bac2ef06e40df12ed87a1569586c9b2c",
+  "sourceBindings": [
+    {
+      "path": "tests/golden-path/golden_path.py",
+      "rawSha256": "bc24f7fd81dd3293b14a0a35999f9bc0d3e8b5cedf6c7409b2b69acaf7f249f9",
+      "lfSha256": "bc24f7fd81dd3293b14a0a35999f9bc0d3e8b5cedf6c7409b2b69acaf7f249f9"
+    },
+    {
+      "path": "tests/golden-path/verify_evidence.py",
+      "rawSha256": "4067ef7d25c897b84b3698793bec774384e4b200a541de8266ce708643f33b96",
+      "lfSha256": "4067ef7d25c897b84b3698793bec774384e4b200a541de8266ce708643f33b96"
+    },
+    {
+      "path": "tests/test_golden_path_cash.py",
+      "rawSha256": "6743cbbceca5ae31b2c17565fb4aca841b3fa3f6b17803d99dbefd672dceebb2",
+      "lfSha256": "6743cbbceca5ae31b2c17565fb4aca841b3fa3f6b17803d99dbefd672dceebb2"
+    },
+    {
+      "path": "tests/test_golden_path_cash_evidence.py",
+      "rawSha256": "5583c19a9da209b185696c7e4a9c3d99aa592abc3ba65da5efce08c2582ffedd",
+      "lfSha256": "5583c19a9da209b185696c7e4a9c3d99aa592abc3ba65da5efce08c2582ffedd"
+    },
+    {
+      "path": "tests/golden-path/browser_path.mjs",
+      "rawSha256": "4229e6f7573e775dd4995757313f2e528eccf6167b40de19d3b9df097da3fda0",
+      "lfSha256": "4229e6f7573e775dd4995757313f2e528eccf6167b40de19d3b9df097da3fda0"
+    },
+    {
+      "path": "tests/golden-path/GoldenPath.Sql/Program.cs",
+      "rawSha256": "9685983e5a8a83401d3878a0d2d24fb17981dfe16caaecfb3692d0edb5c2c3cb",
+      "lfSha256": "9685983e5a8a83401d3878a0d2d24fb17981dfe16caaecfb3692d0edb5c2c3cb"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceService.cs",
+      "rawSha256": "d3f72118e23b92d8a376a5cc5af2519cf30d0adc1aee5414ebccbe8034472248",
+      "lfSha256": "67758ba83e225fa32d2d32e1660ec3884483f59cb01ac133cacd02496930259f"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceModels.cs",
+      "rawSha256": "5bbbec25627ca52743c2b6e79f07b02a51fde661cb848897d2bffe606a7f3f7d",
+      "lfSha256": "9ce06ffc9aa504ec168aff25aa11cf4c95555bab513515399745f5bac6de8783"
+    },
+    {
+      "path": ".github/workflows/staff-ui-candidate.yml",
+      "rawSha256": "28e6d4685236b79d959b26a2ea8b9843482c85e0a682eb37312ad31bf78a07d5",
+      "lfSha256": "eca7fa08289353ee599f2e7e68f2523ba8a965949e9e1dbc6b338afccd0b4853"
+    },
+    {
+      "path": ".github/workflows/golden-path.yml",
+      "rawSha256": "654856f2a8c13a64e2938ddd636511a26db2e3fefb9b77b48029a4b3ccd84f4f",
+      "lfSha256": "930f15c32c06b6976bb33757eebfacac0e364fabbcc933577b83e26d8706f349"
+    }
+  ],
+  "bindingPolicy": "RAW binds working bytes. LF replaces CRLF with LF only. Git checkout conversion may alter RAW only.",
+  "workerEvidenceVerification": {
+    "sourceBindings": 8,
+    "privateLogHashes": 8,
+    "oldFinalTests": 21,
+    "oldFinalFailingAssertions": 29,
+    "oldExit": 1,
+    "correctedPass": 102,
+    "correctedFail": 0,
+    "correctedSkip": 0
+  },
+  "primaryChecks": [
+    {
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_golden_path_*.py",
+        "-v"
+      ],
+      "exit": 0,
+      "seconds": 2.453,
+      "log": "private-exports/owner-cash-qualification-20261108/review-corrections-focused.log",
+      "rawSha256": "e00dc3e295f7fbd75e4d6fd5983557db773037b61228f5fc769dbf9de5c92a94"
+    },
+    {
+      "command": [
+        "python",
+        "tests/check.py"
+      ],
+      "exit": 0,
+      "seconds": 188.875,
+      "log": "private-exports/owner-cash-qualification-20261108/review-corrections-repository.log",
+      "rawSha256": "0be0534b658ae3cd2c09631c8029f64fa5fd3616fb0f43257c85556e6f14c900"
+    }
+  ],
+  "primaryFocusedResult": {
+    "passed": 102,
+    "failed": 0,
+    "skipped": 0
+  },
+  "workflowVerification": {
+    "checks": [
+      {
+        "path": ".github/workflows/staff-ui-candidate.yml",
+        "yaml": "PASS",
+        "offlineCashGuards": "PASS",
+        "runtimeConfiguration": "unchanged"
+      },
+      {
+        "path": ".github/workflows/golden-path.yml",
+        "yaml": "PASS",
+        "offlineCashGuards": "PASS",
+        "runtimeConfiguration": "unchanged"
+      }
+    ],
+    "workflowDispatched": false
+  },
+  "productPreservation": {
+    "roots": [
+      "src",
+      "build-inputs",
+      "dist",
+      "dev/savia-staff-ui",
+      "backend/src"
+    ],
+    "gitDiffFromReviewedBaseAndWorkingTree": "empty",
+    "csharpHelperChanged": false
+  },
+  "independentAcceptance": "PENDING: fresh Astra/xhigh review",
+  "currentShaCI": "PENDING: not yet published",
+  "sql5": "D: REVIEW FIRST, DO NOT EXECUTE",
+  "notRun": [
+    "real browser/API/SQL cash journey",
+    "Owner recovery runtime",
+    "populated Cash backup/restore/restart",
+    "workflow dispatch",
+    "deployment"
+  ],
+  "production": "NO-GO",
+  "lesson": "Require semantic proof admission before PASS. Keep new counterexamples in CI so repaired guards remain exercised.",
+  "documentationChecks": [
+    {
+      "command": [
+        "python",
+        "tests/test_delivery_status.py"
+      ],
+      "exit": 0,
+      "seconds": 0.297,
+      "log": "private-exports/owner-cash-qualification-20261108/correction-docs-delivery.log",
+      "rawSha256": "de0545676b6766dabed60ac1706cae56a9de09cae3f2e93f5130a904a835d219"
+    },
+    {
+      "command": [
+        "python",
+        "tools/export_progress.py",
+        "--verify"
+      ],
+      "exit": 0,
+      "seconds": 0.109,
+      "log": "private-exports/owner-cash-qualification-20261108/correction-docs-export.log",
+      "rawSha256": "6bc37a5368f6e607e6a0932afb47bf96d5a6a014603732c4a3c3005c79e0ee56"
+    },
+    {
+      "command": [
+        "python",
+        "tools/delivery_status.py",
+        "--check"
+      ],
+      "exit": 0,
+      "seconds": 0.078,
+      "log": "private-exports/owner-cash-qualification-20261108/correction-docs-status.log",
+      "rawSha256": "2cbd72168e48a031ea75d2d7ccdfcaac53c270fa6ac915c072d07fd0be5883e0"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit": 0,
+      "seconds": 0.11,
+      "log": "private-exports/owner-cash-qualification-20261108/correction-docs-diff.log",
+      "rawSha256": "18fef0411fc050cdfe557008dc7d76a9b15086fffe03a467f9793854d0740896"
+    }
+  ]
+}

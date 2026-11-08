@@ -56,9 +56,15 @@ def records():
         if step=='browser.cash_refund_refused': network.append(dict(method='POST',path=f"/internal/api/cash/sales/{commands[1]['result_id']}/refunds",status=403,key=ident(999),response_lost=False))
         if step in GP.SUPPLY_STEPS[1:3]: network.append(dict(method='POST',path=f'/internal/api/supply/purchase-orders/{ident(1000)}/receipts',status=200,key=ident(1001),response_lost=step==GP.SUPPLY_STEPS[2]))
         if step==GP.SUPPLY_STEPS[3]:network.append(dict(method='GET',path='/internal/api/operations/supply.receipt.create',status=200,key=ident(1001),response_lost=False))
-        r=dict(step=step,cash_commands=selected,cash_oracles=proof,sale_posts=sum(c['kind']=='sale' for c in selected),network=network,external_requests=0,runtime_errors=0)
+        r=dict(step=step,dom=sorted(GP.BROWSER_DOM[step] | ({'shell'} if step in ('browser.cashier_login','browser.receipt_reload','browser.repeated_reload','browser.stock_reload') else set())),cash_commands=selected,cash_oracles=proof,sale_posts=sum(c['kind']=='sale' for c in selected),network=network,external_requests=0,runtime_errors=0)
         if step in GP.SUPPLY_STEPS[2:5]:r.update(key=ident(1001),receipt_id=ident(1002))
         if step=='browser.response_loss_committed': r['cash_pending_hash']=hashlib.sha256(json.dumps(commands[2]['body'],separators=(',',':')).encode()).hexdigest()
+        if step in ('browser.start','browser.cashier_login'):
+            r['source_hashes']={name:'a'*64 for name in GP.BROWSER_SOURCES}
+        if step=='browser.start':r['runtime']={'chrome':'Chrome/130','node':'v22','playwright':'1.50'}
+        if step in ('browser.response_loss_committed','browser.recover_after_reload','browser.repeated_reload'):
+            r['sale_id']=commands[2]['result_id']
+            if step!='browser.repeated_reload':r['key']=commands[2]['key']
         result.append(r)
     return result
 
@@ -73,9 +79,9 @@ def snapshot():
         if i==0: request={'LocationId':ids['location'],'Currency':'USD','OpeningMinor':10000}
         else: request={'TillId':commands[0]['result_id'],'CustomerId':None,'Lines':[{'ItemId':ids['items'][0],'Quantity':2},{'ItemId':ids['items'][1],'Quantity':1}],'Currency':'USD','ReceivedMinor':6000}
         rows['Operations'].append(dict(ActorId=c['actor'],Scope='cash.till.open' if i==0 else 'cash.sale',Key=c['key'],Fingerprint=hashlib.sha256(json.dumps(request,separators=(',',':')).encode()).hexdigest().upper(),ResultId=c['result_id'],EffectId=c['effect_id']))
-    rows['Sales']=[dict(Id=commands[1]['result_id'],ActorId=users['Cashier']['id'],LocationId=ids['location'],Currency='USD',TotalMinor=5900,CustomerId=None)]
+    rows['Sales']=[dict(Id=commands[1]['result_id'],ActorId=users['Cashier']['id'],LocationId=ids['location'],Currency='USD',TotalMinor=5900,CustomerId=None,State='recorded',CreatedAt='2099-01-01')]
     for j,(qty,price) in enumerate(((2,1250),(1,3400))):
-        rows['SaleLines'].append(dict(Id=ident(501+j),SaleId=commands[1]['result_id'],ItemId=ids['items'][j],Quantity=qty,ReturnedQuantity=0,UnitPriceMinor=price,TotalMinor=qty*price))
+        rows['SaleLines'].append(dict(Id=ident(501+j),SaleId=commands[1]['result_id'],ItemId=ids['items'][j],Quantity=qty,ReturnedQuantity=0,UnitPriceMinor=price,TotalMinor=qty*price,Sku=GP.ITEMS[j][0],Name=GP.ITEMS[j][1],ExceptionReason=None,Size=None))
         rows['StockMovements'].append(dict(OperationId=commands[1]['result_id'],ItemId=ids['items'][j],ActorId=users['Cashier']['id'],LocationId=ids['location'],OnHandDelta=-qty,ReservedDelta=0,Kind='sale'))
     rows['StockBalances']=[dict(ItemId=item,LocationId=ids['location'],OnHand=amount,Reserved=0) for item,amount in zip(ids['items'],(8,9,10))]
     return commands,dict(ok=True,rows=rows,hashes={k:[] for k in ('CashEntries','CashCloses','Operations','StockMovements','SaleReversals','SaleReversalLines','StockExceptionReviews','Items','PurchaseReceipts','PurchaseReceiptLines')}),users,ids
@@ -101,11 +107,11 @@ def full_snapshot(step):
         rows['Operations'].append(dict(ActorId=c['actor'],Scope={'open':'cash.till.open','sale':'cash.sale','refund':'cash.refund','close':'cash.till.close'}[kind],Key=c['key'],Fingerprint=hashlib.sha256(json.dumps(serialized,separators=(',',':')).encode()).hexdigest().upper(),ResultId=c['result_id'],EffectId=c['effect_id']))
         if kind=='sale':
             total={1:5900,2:4650,3:1250}[index]
-            rows['Sales'].append(dict(Id=c['result_id'],ActorId=c['actor'],LocationId=ids['location'],Currency='USD',TotalMinor=total,CustomerId=None))
+            rows['Sales'].append(dict(Id=c['result_id'],ActorId=c['actor'],LocationId=ids['location'],Currency='USD',TotalMinor=total,CustomerId=None,State='partially_returned' if index==1 and refunds else 'recorded',CreatedAt='2099-01-01'))
             for j,line in enumerate(b['lines']):
                 price=3400 if line['itemId']==ids['items'][1] else 1250
                 line_id=ident(501+j if index==1 else 600+index*10+j)
-                rows['SaleLines'].append(dict(Id=line_id,SaleId=c['result_id'],ItemId=line['itemId'],Quantity=line['quantity'],ReturnedQuantity=refunds if index==1 and j==0 else 0,UnitPriceMinor=price,TotalMinor=price*line['quantity']))
+                rows['SaleLines'].append(dict(Id=line_id,SaleId=c['result_id'],ItemId=line['itemId'],Quantity=line['quantity'],ReturnedQuantity=refunds if index==1 and j==0 else 0,UnitPriceMinor=price,TotalMinor=price*line['quantity'],Sku=GP.ITEMS[j][0],Name=GP.ITEMS[j][1],ExceptionReason=line.get('exceptionReason'),Size=line.get('size')))
                 if index!=3:rows['StockMovements'].append(dict(OperationId=c['result_id'],ItemId=line['itemId'],ActorId=c['actor'],LocationId=ids['location'],OnHandDelta=-line['quantity'],ReservedDelta=0,Kind='sale'))
         if kind=='refund':
             rows['SaleReversals'].append(dict(Id=c['result_id'],SaleId=b['saleId'],ActorId=c['actor'],Kind='return',Reason=b['reason'],RecordedCreditMinor=1250))
@@ -221,9 +227,9 @@ class CashControls(unittest.TestCase):
         import tempfile
         with tempfile.TemporaryDirectory() as tmp:
             src=Path(tmp)/'src';src.mkdir();dest=Path(tmp)/'dest'
-            data=dict(mode='browser',outcome='PASS',cash_protocol=GP.CASH_PROTOCOL,browser={'protocol':GP.CASH_PROTOCOL},steps=records())
+            data=dict(mode='browser',outcome='PASS',cash_protocol=GP.CASH_PROTOCOL,browser={'protocol':GP.CASH_PROTOCOL,'runtime':{'chrome':'Chrome/130','node':'v22','playwright':'1.50'},'source_hashes':{name:'a'*64 for name in GP.BROWSER_SOURCES}},steps=records())
             for row in data['steps']:row.update(status='PASS',oracle_failures=[],oracles={**dict.fromkeys(GP.ALWAYS_ZERO,0),'migrations_applied':4,**GP.cash_counts(row['step'])})
-            data['steps'].append(dict(step='teardown.stop_api_drop_database',status='PASS',database_dropped=True,private_dir_removed=True,browser_processes_absent=True,browser_ownership_confirmed=True,api_log_fail_or_crit=0))
+            data['steps'].append(dict(step='teardown.stop_api_drop_database',status='PASS',database_dropped=True,private_dir_removed=True,browser_processes_absent=True,browser_ownership_confirmed=True,api_log_fail_or_crit=0,api_exit=0))
             if mutate:mutate(data)
             (src/'evidence.json').write_text(json.dumps(data));(src/'oracles.md').write_text('synthetic')
             (src/'evidence-approved').write_text(json.dumps(dict(schema=1,files={name:hashlib.sha256((src/name).read_bytes()).hexdigest() for name in verifier.FILES})))
@@ -252,7 +258,7 @@ class CashControls(unittest.TestCase):
         import tempfile
         with tempfile.TemporaryDirectory() as tmp:
             src=Path(tmp)/'src';src.mkdir();dest=Path(tmp)/'dest'
-            data=dict(mode='browser',outcome='PASS',browser={'protocol':GP.CASH_PROTOCOL},steps=[])
+            data=dict(mode='browser',outcome='PASS',browser={'protocol':GP.CASH_PROTOCOL,'runtime':{'chrome':'Chrome/130','node':'v22','playwright':'1.50'},'source_hashes':{name:'a'*64 for name in GP.BROWSER_SOURCES}},steps=[])
             (src/'evidence.json').write_text(json.dumps(data));(src/'oracles.md').write_text('synthetic')
             (src/'evidence-approved').write_text(json.dumps(dict(schema=1,files={name:hashlib.sha256((src/name).read_bytes()).hexdigest() for name in verifier.FILES})))
             with self.assertRaises(Exception):verifier.publish(src,dest)

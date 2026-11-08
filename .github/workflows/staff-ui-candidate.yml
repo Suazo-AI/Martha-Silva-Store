@@ -15,6 +15,7 @@ on:
       - 'tests/test_golden_path*_safety.py'
       - 'tests/test_golden_path_stock_exception.py'
       - 'tests/test_golden_path_cash.py'
+      - 'tests/test_golden_path_cash_evidence.py'
       - 'backend/**'
       - 'global.json'
       - '.github/workflows/staff-ui-candidate.yml'
@@ -44,6 +45,7 @@ jobs:
           python3 tests/test_golden_path_browser_safety.py
           python3 tests/test_golden_path_stock_exception.py
           python3 tests/test_golden_path_cash.py
+          python3 tests/test_golden_path_cash_evidence.py
           node --check tests/golden-path/browser_path.mjs
       - name: Compile real-journey helper without starting API or SQL
         run: |

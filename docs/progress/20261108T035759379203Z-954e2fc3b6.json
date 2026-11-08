@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-08T03:57:59.379203+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": ".github/workflows/golden-path.yml",
+      "change": "M",
+      "git_blob": "5f4badedd79e48d6c2a5afefecd609b65836df25"
+    },
+    {
+      "path": ".github/workflows/staff-ui-candidate.yml",
+      "change": "M",
+      "git_blob": "370c8faea78dd414f4ab0949e9d63ad037dbec7d"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "1aa8dfb8962159ed39b3c66cebb183f17642aeb0"
+    },
+    {
+      "path": "docs/cash-register-20261107/real-journey/PREPARATION.md",
+      "change": "M",
+      "git_blob": "90cd76fed3ace4667e070bf48a2cd1ede8e46729"
+    },
+    {
+      "path": "docs/cash-register-20261107/real-journey/REVIEW-STATUS.json",
+      "change": "M",
+      "git_blob": "27607687711bc01d4e0fc0fbb756468a07dcd4c9"
+    },
+    {
+      "path": "docs/cash-register-20261107/real-journey/corrections/IMPORT.json",
+      "change": "A",
+      "git_blob": "4c717b7857b42ff8011af61c9a2e90ec4b41700d"
+    },
+    {
+      "path": "docs/cash-register-20261107/real-journey/corrections/PRIMARY.json",
+      "change": "A",
+      "git_blob": "951af84501b03459943894c64c6e37689c9665cd"
+    },
+    {
+      "path": "docs/cash-register-20261107/real-journey/corrections/README.md",
+      "change": "A",
+      "git_blob": "ceaaa7616c2c02471f3cb3d51f988136a438f976"
+    },
+    {
+      "path": "docs/cash-register-20261107/real-journey/corrections/RESULT.json",
+      "change": "A",
+      "git_blob": "5801696de6520f242a4d1d34e8476cbbb8205de2"
+    },
+    {
+      "path": "docs/completion-20261107/README.md",
+      "change": "M",
+      "git_blob": "02b8efb8ed9dffdd0b118789da44183bd4c76fc7"
+    },
+    {
+      "path": "tests/golden-path/golden_path.py",
+      "change": "M",
+      "git_blob": "d982d517e46a66ce87606ad0465d576e9429f02d"
+    },
+    {
+      "path": "tests/golden-path/verify_evidence.py",
+      "change": "M",
+      "git_blob": "6cf9326741955e895eb1068d66c45735e9b0d929"
+    },
+    {
+      "path": "tests/test_golden_path_cash.py",
+      "change": "M",
+      "git_blob": "884041c8f85bad4e005a4c622f540065ce8ed027"
+    },
+    {
+      "path": "tests/test_golden_path_cash_evidence.py",
+      "change": "A",
+      "git_blob": "a6bf0d5def6c422dbbba07c0f28193a28e186e42"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}
