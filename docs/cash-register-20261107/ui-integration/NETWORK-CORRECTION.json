@@ -1,0 +1,101 @@
+{
+  "state": "LOCAL_CORRECTION_VERIFIED_AWAITING_PUBLICATION_AND_EXACT_SHA_CI",
+  "sourceCommit": "b2d323e1cd8765b794274396b4acfabc842869cc",
+  "failedCi": {
+    "run": 42438758503,
+    "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42438758503",
+    "browserPassed": 50,
+    "browserFailed": 0,
+    "unexpectedLogoutAborts": 3,
+    "cashStep": "success",
+    "supplyAndBackendSteps": "skipped"
+  },
+  "cause": "Final network verdict excluded expected POST /internal/api/security/logout ERR_ABORTED after fixture session invalidation. Not a demonstrated product defect.",
+  "correction": "Shared exact-path/method classifier; logout requires invalidated fixture session and observed CSRF-protected logout. Eleven refusal cases. Product bytes unchanged.",
+  "checks": {
+    "red": {
+      "command": "node --test tests/browser-network-failures.test.mjs",
+      "passed": 9,
+      "failed": 5,
+      "exit": 1,
+      "log": "private-exports/cash-network-red.log",
+      "rawSha256": "d548b524f11f21103454474b2ad94af98827f906a9fefde35b2f6f3c339aff78"
+    },
+    "green": {
+      "command": "node --test tests/browser-network-failures.test.mjs",
+      "passed": 14,
+      "failed": 0,
+      "exit": 0,
+      "log": "private-exports/cash-network-green.log",
+      "rawSha256": "3e4e0dd0928d1ac2f99de7221bfc477359c3d3c91cbb7fd906d8b7a6e6d04912"
+    },
+    "browser": {
+      "command": [
+        "node",
+        "tests/browser-mock-validation.mjs",
+        "C:/Users/Jason/AppData/Roaming/npm/node_modules/@playwright/cli/node_modules/playwright",
+        "private-exports\\cash-network-correction-20261108\\browser"
+      ],
+      "exit": 0,
+      "seconds": 88.047,
+      "log": "private-exports\\cash-network-correction-20261108\\browser.log",
+      "logSha256": "02de4208e6147937e7398d064b30df32198b40338917253362b0074036f3c70d",
+      "passed": 50,
+      "failed": 0,
+      "pageErrors": 0,
+      "externalRequests": 0,
+      "unexpectedNetworkFailures": 0,
+      "logoutAbortsObserved": 0,
+      "boundSourcesVerified": 10,
+      "ownedOriginClosed": true,
+      "result": "private-exports\\cash-network-correction-20261108\\browser\\browser-results.json",
+      "rawSha256": "564b504ad87c4309a220ffb3e0acb1e01afbcebf053daef6b2bb594f7429e23f"
+    },
+    "yaml": "Both parsed with PyYAML; existing SQL triggers/job unchanged.",
+    "repository": {
+      "command": [
+        "python",
+        "tests/check.py"
+      ],
+      "exit": 0,
+      "seconds": 218.234,
+      "log": "private-exports\\cash-network-correction-20261108\\repository-check.log",
+      "logSha256": "e20a67cf010ee2e1f7e78599fb6f74e8f9a9c9e70d8190b99385abb7232e5656"
+    }
+  },
+  "sources": [
+    {
+      "path": "tests/browser-mock-validation.mjs",
+      "rawSha256": "c05b96165615500937e1370fa69e461ce57d945feca471719cbd84956593c34e",
+      "lfSha256": "c05b96165615500937e1370fa69e461ce57d945feca471719cbd84956593c34e"
+    },
+    {
+      "path": "tests/fixtures/browser-network-failures.mjs",
+      "rawSha256": "e4967b5659b5029687935c9d993012c7e50a05abfd897dc87ed6376df4103f93",
+      "lfSha256": "e4967b5659b5029687935c9d993012c7e50a05abfd897dc87ed6376df4103f93"
+    },
+    {
+      "path": "tests/browser-network-failures.test.mjs",
+      "rawSha256": "1e72bd047469e969067a5473f95eed761749d7e6b9a80087fda18afc1df2473c",
+      "lfSha256": "1e72bd047469e969067a5473f95eed761749d7e6b9a80087fda18afc1df2473c"
+    },
+    {
+      "path": ".github/workflows/savia.yml",
+      "rawSha256": "d99b1c734d61d3fb5637bca35a851796adc74d6c29d79788bddca0cbde8d2a66",
+      "lfSha256": "b73f2b17e815069997c25ce06151dd4b1e714cc9e3f11c7070d60e4e2aafd383"
+    },
+    {
+      "path": ".github/workflows/staff-ui-candidate.yml",
+      "rawSha256": "34c76f514a74e7f42fca5e0378796fd0cab655d9468699fc76c13ef42b15f183",
+      "lfSha256": "27d7cec1664c8e42b0b6c62314306547aa0c1a7bd72bfd20bfaaa2007c4242a3"
+    }
+  ],
+  "limits": [
+    "Windows browser emitted no logout abort. Captured Linux abort has a direct offline regression; Linux event classification awaits corrected-SHA CI.",
+    "SQL5: D REVIEW FIRST, DO NOT EXECUTE",
+    "No SQL, Docker, accounts, merge or deployment.",
+    "No additional full-Astra review for this narrow test-verdict correction; prior cash feature review remains attributed to its frozen source."
+  ],
+  "owner": "primary",
+  "next": "Publish explicit corrected paths through normal hooks; verify remote SHA and completed no-SQL CI. SQL5 remains held."
+}

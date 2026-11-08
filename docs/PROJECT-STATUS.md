@@ -2,6 +2,8 @@
 
 Current primary assessment, 2026-11-08 UTC: production remains NO-GO.
 
+Cash UI was published and synced as `b2d323e`. Linux staff CI `42438758503` reported 50/50 browser assertions but exited 1 on three expected logout cancellations. A test-only classifier correction now passes 14/14 refusal/admission checks and a fresh full Chrome 50/50; the repository check passed (exit 0, 218.234 seconds); corrected-SHA CI remains pending. [Cause, evidence and next check](cash-register-20261107/ui-integration/NETWORK-CORRECTION.json). SQL5 is still held.
+
 Current cash UI increment, accepted with limits pending exact-SHA no-SQL CI: primary repository check passed with **223/223 staff tests**.
 Fresh Chrome with synthetic HTTP passed cash **2/2**, legacy **50/50**, and supply **8/8**.
 Astra/xhigh and the primary accepted old-browser compatibility, mandatory cash CI steps and private-DOM cleanup corrections.

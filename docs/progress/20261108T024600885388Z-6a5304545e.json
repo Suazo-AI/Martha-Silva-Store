@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-08T02:46:00.885388+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": ".github/workflows/savia.yml",
+      "change": "M",
+      "git_blob": "5c0abb450f51723f1f9d75ee5a9508e2b45114a0"
+    },
+    {
+      "path": ".github/workflows/staff-ui-candidate.yml",
+      "change": "M",
+      "git_blob": "a9cb8e1d44604e78de9c8f8e166d759869520e40"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "43b60c5bb4d67c59e2e168e7d39a4384672f5496"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-integration/NETWORK-CORRECTION.json",
+      "change": "A",
+      "git_blob": "f3c9221b1bafdb8bdcc8fe99980cbcedde47ef8e"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-integration/README.md",
+      "change": "M",
+      "git_blob": "11c9d0bf40147e4bd5482d280ba0e0575f002136"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-integration/STATUS.json",
+      "change": "M",
+      "git_blob": "ecf042d76bcbd0fb7bdc42f2448762459e1b5504"
+    },
+    {
+      "path": "tests/browser-mock-validation.mjs",
+      "change": "M",
+      "git_blob": "8074ccb8d31790ea5f76d0067b822d6e2a06d79d"
+    },
+    {
+      "path": "tests/browser-network-failures.test.mjs",
+      "change": "A",
+      "git_blob": "e6d2389ccfdb5d853f67f5304f17edd0621e7233"
+    },
+    {
+      "path": "tests/fixtures/browser-network-failures.mjs",
+      "change": "A",
+      "git_blob": "7adcbfdb866fd94a3812e4a352865c28d0338bbf"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

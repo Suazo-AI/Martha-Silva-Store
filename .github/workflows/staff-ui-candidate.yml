@@ -9,6 +9,8 @@ on:
       - 'tests/browser-*-validation.mjs'
       - 'tests/frontend-deps/**'
       - 'tests/fixtures/supply-browser.mjs'
+      - 'tests/fixtures/browser-network-failures.mjs'
+      - 'tests/browser-network-failures.test.mjs'
       - 'tests/golden-path/**'
       - 'tests/test_golden_path*_safety.py'
       - 'tests/test_golden_path_stock_exception.py'
@@ -49,6 +51,8 @@ jobs:
         run: npm ci --prefix tests/frontend-deps --ignore-scripts --no-audit --no-fund
       - name: Staff DOM and mocked transport regressions
         run: NODE_PATH="$PWD/tests/frontend-deps/node_modules" node --test dev/savia-staff-ui/*.test.mjs
+      - name: Synthetic browser network failure classification
+        run: node --test tests/browser-network-failures.test.mjs
       - name: Install pinned Playwright library; use the runner's Chrome
         run: |
           mkdir -p "$RUNNER_TEMP/pw" && cd "$RUNNER_TEMP/pw"

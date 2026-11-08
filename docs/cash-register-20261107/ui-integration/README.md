@@ -41,3 +41,15 @@ Verified the complete returned report and its SHA256, then matched all 23 frozen
 The current proof is repository check exit 0, staff 223/223, mocked Chrome cash 2/2, legacy 50/50 and supply 8/8. Astra additionally ran cash 58/58 and two independent lifecycle probes. Automatic redisplay of an already confirmed cash receipt after another reload is absent; this acceptance does not claim that capability or SQL persistence.
 
 Next: publish this accepted increment to Tony and verify applicable no-SQL CI on the exact SHA. [Real cash harness preparation](../real-journey/PREPARATION.md) closes a separate proof gap. SQL5 remains D: review first, do not execute. Owner implementation, real cash runtime and operational acceptance remain separate.
+
+## Linux CI classification correction, 2026-11-08
+
+Published the accepted feature as `b2d323e1cd8765b794274396b4acfabc842869cc`; the hook reported SYNCED and the remote SHA matched. The source snapshot and documentation jobs passed. [Staff CI run 42438758503](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42438758503) failed despite 50/50 passing browser assertions: three `net::ERR_ABORTED` events on `/internal/api/security/logout` were classified as unexpected. Cash browser passed; downstream supply and backend steps were skipped. This was a test-verdict defect, not a demonstrated product defect.
+
+The observer and final verdict now share one classifier. Logout cancellation requires the exact path and method, plus fixture-confirmed session invalidation after an observed CSRF-protected POST. Other failures remain unexpected. Exact POST-only cash lost-response classification also replaces the former suffix-only match. Product bytes and all 50 browser assertions are unchanged.
+
+`node --test tests/browser-network-failures.test.mjs` reproduced the defect and overly broad previous admission: 9 PASS / 5 FAIL, exit 1. Corrected: 14/14, exit 0, with eleven refusal cases. The corrected complete Chrome driver passed 50/50, exit 0, in 88.047 seconds; zero page errors, external requests or unexpected failures. Ten source hashes matched and the owned origin was closed. No logout cancellation occurred in this Windows rerun; the precise Linux event is covered by the offline regression and still needs exact-SHA Linux confirmation.
+
+The corrected-source repository check passed, exit 0 in 218.234 seconds. Corrected-SHA CI remains pending. See [NETWORK-CORRECTION.json](NETWORK-CORRECTION.json) for retained commands, hashes and state. SQL5 remains held. No SQL, container, account mutation, merge or deployment occurred.
+
+Lesson: browser assertions and the network-error verdict are separate checks. Classify expected injected failures with request context, test refusal cases, and use the same classifier for evidence and exit status.

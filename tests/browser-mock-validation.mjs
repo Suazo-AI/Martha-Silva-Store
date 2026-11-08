@@ -6,6 +6,7 @@ import path from 'node:path';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 import {createHash} from 'node:crypto';
 import assert from 'node:assert/strict';
+import {classifyNetworkFailure} from './fixtures/browser-network-failures.mjs';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const [pwPath,outArg]=process.argv.slice(2);
@@ -20,6 +21,7 @@ for(const name of ['app.mjs','client.mjs','cash.mjs','login.mjs','supply.mjs','l
   sources[`dev/savia-staff-ui/${name}`]=sha(await readFile(path.join(root,'dev/savia-staff-ui',name)));
 }
 sources['tests/browser-mock-validation.mjs']=sha(await readFile(fileURLToPath(import.meta.url)));
+sources['tests/fixtures/browser-network-failures.mjs']=sha(await readFile(path.join(root,'tests/fixtures/browser-network-failures.mjs')));
 const mime={'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml','.jpg':'image/jpeg','.jpeg':'image/jpeg','.png':'image/png','.webp':'image/webp','.woff2':'font/woff2','.mp4':'video/mp4'};
 const server=createServer(async(req,res)=>{
   try{
@@ -67,7 +69,11 @@ async function setup(options={}){
   const currentActor=()=>({...actor,role:state.role,...state.identity});
   const json=(route,data,status=200)=>route.fulfill({status,contentType:'application/json',body:JSON.stringify(data)});
   page.on('pageerror',e=>runtime.push({test:state.label||'',error:e.message}));
-  page.on('requestfailed',r=>{const p=new URL(r.url()).pathname,error=r.failure()?.errorText;networkFailures.push({test:state.label||'',path:p,error,classification:error==='net::ERR_FAILED'&&p.endsWith('/cash/sales')?'intentional synthetic lost sale response':error==='net::ERR_ABORTED'&&p==='/internal/login'?'intentional logout navigation':'unexpected'});});
+  page.on('requestfailed',r=>{
+    const failure={test:state.label||'',path:new URL(r.url()).pathname,method:r.method(),error:r.failure()?.errorText,
+      logoutInvalidated:state.session===false&&state.calls.some(x=>x.method==='POST'&&x.path==='/internal/api/security/logout'&&x.hasCsrf)};
+    networkFailures.push({...failure,classification:classifyNetworkFailure(failure)});
+  });
   await ctx.route('**/*',async route=>{
     const req=route.request(),u=new URL(req.url());
     if(u.origin!==origin){externalRequests.push({origin:u.origin,path:u.pathname});return route.abort();}
@@ -441,5 +447,5 @@ try{
   });
 }finally{await save();await browser.close();await new Promise(r=>server.close(r));}
 console.log(JSON.stringify({passed:results.filter(x=>x.status==='PASS').length,failed:results.filter(x=>x.status==='FAIL').length,output:out}));
-const unexpectedNetwork=networkFailures.filter(x=>!((x.error==='net::ERR_FAILED'&&x.path.endsWith('/cash/sales'))||(x.error==='net::ERR_ABORTED'&&x.path==='/internal/login')));
+const unexpectedNetwork=networkFailures.filter(x=>classifyNetworkFailure(x)==='unexpected');
 process.exitCode=results.some(x=>x.status==='FAIL')||runtime.length||externalRequests.length||unexpectedNetwork.length?1:0;

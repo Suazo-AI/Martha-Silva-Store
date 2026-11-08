@@ -33,6 +33,8 @@ jobs:
         run: npm ci --prefix tests/frontend-deps --ignore-scripts --no-audit --no-fund
       - name: Staff UI tests (jsdom doubles, not a browser)
         run: NODE_PATH="$PWD/tests/frontend-deps/node_modules" node --test dev/savia-staff-ui/*.test.mjs
+      - name: Synthetic browser network failure classification
+        run: node --test tests/browser-network-failures.test.mjs
       - name: Install pinned Playwright library; the runner's Google Chrome is the browser
         run: |
           mkdir -p "$RUNNER_TEMP/pw" && cd "$RUNNER_TEMP/pw"
