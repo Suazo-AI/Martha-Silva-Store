@@ -16,9 +16,10 @@ const {expect}=await import(pathToFileURL(path.join(pwPath,'test.mjs')).href);
 expect.setTimeout?.(5000);
 const sha=b=>createHash('sha256').update(b).digest('hex');
 const sources={};
-for(const name of ['app.mjs','client.mjs','login.mjs','supply.mjs','login.html','index.html','styles.css']){
+for(const name of ['app.mjs','client.mjs','cash.mjs','login.mjs','supply.mjs','login.html','index.html','styles.css']){
   sources[`dev/savia-staff-ui/${name}`]=sha(await readFile(path.join(root,'dev/savia-staff-ui',name)));
 }
+sources['tests/browser-mock-validation.mjs']=sha(await readFile(fileURLToPath(import.meta.url)));
 const mime={'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml','.jpg':'image/jpeg','.jpeg':'image/jpeg','.png':'image/png','.webp':'image/webp','.woff2':'font/woff2','.mp4':'video/mp4'};
 const server=createServer(async(req,res)=>{
   try{
@@ -44,8 +45,14 @@ const item={id:id(2),sku:'SYN-S',name:'Synthetic dress S',active:true,unitPriceM
 const place={id:id(3),branchId:id(4),name:'Synthetic branch A',active:true};
 const body={locationId:place.id,customerId:null,lines:[{itemId:item.id,quantity:1}]};
 const receipt={saleId:id(5),actorId:actor.id,locationId:place.id,customerId:null,currency:'NIO',totalMinor:10000,state:'recorded',paymentStatus:'not_processed',createdAt:'2026-11-03T12:00:00Z',lines:[{saleLineId:id(6),itemId:item.id,sku:item.sku,name:item.name,quantity:1,returnedQuantity:0,unitPriceMinor:10000,totalMinor:10000}]};
+// Fresh operations use paid cash contracts. `receipt`/`body` remain legacy-only fixtures.
+const tillFor=state=>({id:id(80),cashierId:state.identity?.id||actor.id,locationId:place.id,currency:'NIO',exponent:2,openedAt:receipt.createdAt,closedAt:null});
+const cashBody={tillId:id(80),customerId:null,lines:body.lines,currency:'NIO',receivedMinor:30000};
+function cashReceipt(sale=receipt){const paid={...sale,paymentStatus:'paid'};return {sale:paid,
+  payment:{id:id(81),tillId:id(80),cashierId:paid.actorId,actorId:paid.actorId,currency:'NIO',exponent:2,kind:'sale',deltaMinor:paid.totalMinor,receivedMinor:30000,changeMinor:30000-paid.totalMinor,saleId:paid.saleId,reversalId:null,createdAt:paid.createdAt},
+  locationId:place.id,exponent:2,changeMinor:30000-paid.totalMinor,paymentStatus:'paid'};}
 const party={id:id(10),name:'Synthetic customer <img src=x onerror=alert(1)>',active:true,kind:'customer',email:'synthetic@example.invalid',phone:''};
-async function save(){await writeFile(path.join(out,'browser-results.json'),JSON.stringify({observedUtc:new Date().toISOString(),host:process.env.COMPUTERNAME,node:process.version,browser:browser.version(),layer:'Real Chromium browser; mocked staff API; public browser-local demo',origin,sourceHashes:sources,results,runtime,externalRequests,networkFailures},null,2));}
+async function save(){await writeFile(path.join(out,'browser-results.json'),JSON.stringify({observedUtc:new Date().toISOString(),host:process.env.COMPUTERNAME,node:process.version,ownedPid:process.pid,browser:browser.version(),layer:'Real Chromium browser; mocked staff API; public browser-local demo',origin,sourceHashes:sources,results,runtime,externalRequests,networkFailures},null,2));}
 async function test(name,fn){
   if(testMatch&&!name.includes(testMatch))return;
   const start=Date.now();try{const detail=await fn();results.push({name,status:'PASS',durationMs:Date.now()-start,...(detail?{detail}:{})});}
@@ -60,7 +67,7 @@ async function setup(options={}){
   const currentActor=()=>({...actor,role:state.role,...state.identity});
   const json=(route,data,status=200)=>route.fulfill({status,contentType:'application/json',body:JSON.stringify(data)});
   page.on('pageerror',e=>runtime.push({test:state.label||'',error:e.message}));
-  page.on('requestfailed',r=>networkFailures.push({test:state.label||'',path:new URL(r.url()).pathname,error:r.failure()?.errorText}));
+  page.on('requestfailed',r=>{const p=new URL(r.url()).pathname,error=r.failure()?.errorText;networkFailures.push({test:state.label||'',path:p,error,classification:error==='net::ERR_FAILED'&&p.endsWith('/cash/sales')?'intentional synthetic lost sale response':error==='net::ERR_ABORTED'&&p==='/internal/login'?'intentional logout navigation':'unexpected'});});
   await ctx.route('**/*',async route=>{
     const req=route.request(),u=new URL(req.url());
     if(u.origin!==origin){externalRequests.push({origin:u.origin,path:u.pathname});return route.abort();}
@@ -82,21 +89,29 @@ async function setup(options={}){
       const q=u.searchParams.get('q');if(q)rows=rows.filter(x=>x.name.includes(q)||x.sku?.includes(q));
       return json(route,{items:rows.slice(skip,skip+take),total:rows.length,skip,take});
     }
+    if(p.endsWith('/cash/context'))return json(route,{configuration:{currency:'NIO',exponent:2},ownTill:{till:tillFor(state),balanceMinor:100000},lastClose:null});
     if(p.endsWith('/commerce/inventory'))return json(route,{items:state.empty?[]:[{itemId:item.id,locationId:place.id,onHand:3-state.sales.length,reserved:0,available:3-state.sales.length}],total:state.empty?0:1,skip,take});
-    if(p.endsWith('/commerce/sales')&&method==='POST'){
+    if(p.endsWith('/cash/sales')&&method==='POST'){
       const key=req.headers()['idempotency-key'];const payload=req.postDataJSON();state.sales.push({key,payload});
-      return json(route,receipt);
+      return json(route,cashReceipt());
     }
     if(p.endsWith('/supply/purchase-orders')&&method==='GET')return json(route,{items:[],skip,take,hasMore:false});
-    if(p.includes('/operations/'))return json(route,{status:'completed',result:{success:true,value:receipt,error:null}});
-    if(p.includes('/commerce/sales/'))return json(route,receipt);
+    if(p.includes('/operations/'))return json(route,{status:'completed',result:{success:true,value:p.endsWith('/cash.sale')?cashReceipt():receipt,error:null}});
+    if(p.includes('/commerce/sales/'))return json(route,state.sales.length?{...receipt,paymentStatus:'paid'}:receipt);
     return json(route,{code:'unhandled_mock_route'},501);
   });
   return {ctx,page,state,json,close:async()=>{const video=page.video();await ctx.close();if(video&&state.label)await video.saveAs(path.join(out,'videos',state.label+'.webm'));}};
 }
 async function withStaff(options,fn){const s=await setup(options);try{return await fn(s);}finally{await s.close();}}
 async function ready(s){await s.page.goto(origin+'/internal/');await expect(s.page.locator('#staff-shell')).toBeVisible();}
-async function sales(s){await ready(s);await s.page.locator('[data-target="ventas"][data-action="nav"]').click();await expect(s.page.locator('#sale-submit')).toBeEnabled();}
+async function cashPending(s,expected=cashBody){const raw=await s.page.evaluate(k=>sessionStorage.getItem(k),`savia.cash.pending.${actor.id}`),op=JSON.parse(raw);assert.equal(op.scope,'cash.sale');assert.equal(op.path,'/internal/api/cash/sales');assert.deepEqual(op.body,expected);assert.equal(op.rawBody,JSON.stringify(expected));assert.equal(op.bodyHash,sha(op.rawBody));assert.equal(op.key,s.state.sales[0].key);return raw;}
+async function sales(s){await ready(s);await s.page.locator('[data-target="ventas"][data-action="nav"]').click();await expect(s.page.locator('#sale-submit')).toBeEnabled();await s.page.locator('#sale-received').fill('300');}
+// A completed cash receipt is not persisted in the current UI. Reload must never replay it;
+// its authoritative sale remains readable through the unchanged commerce read contract.
+async function confirmedReload(s,sale=receipt){await s.page.reload();await s.page.locator('[data-target="ventas"][data-action="nav"]').click();
+  await expect(s.page.locator('#sale-submit')).toBeEnabled();
+  const value=await s.page.evaluate(async saleId=>{const {readReceipt}=await import('/internal/client.mjs');return readReceipt(await (await fetch('/internal/api/commerce/sales/'+saleId)).json());},sale.saleId);
+  assert.deepEqual(value,{...sale,paymentStatus:'paid'});await expect(s.page.locator('#cash-receipt')).toBeHidden();}
 try{
   await test('Login posts CSRF and verifies server identity before opening staff',()=>withStaff({session:false},async s=>{
     await s.page.goto(origin+'/internal/login');await expect(s.page.locator('#login-submit')).toBeEnabled();
@@ -123,8 +138,8 @@ try{
   await test('Customer text is escaped instead of executing HTML',()=>withStaff({},async s=>{await ready(s);await expect(s.page.locator('#clients-rows')).toContainText('<img');assert.equal(await s.page.locator('#clients-rows img').count(),0);}));
   await test('Empty catalog disables sale without inventing stock',()=>withStaff({empty:true,role:'Cashier'},async s=>{await ready(s);await s.page.locator('[data-target="ventas"][data-action="nav"]').click();await expect(s.page.locator('#sale-submit')).toBeDisabled();assert.equal(s.state.sales.length,0);}));
   await test('Sale sends no price, preserves key, displays receipt and updated stock',()=>withStaff({},async s=>{
-    await sales(s);await s.page.locator('#sale-submit').click();await expect(s.page.locator('#sale-receipt')).toBeVisible();assert.deepEqual(s.state.sales[0].payload,body);assert.match(s.state.sales[0].key,/^[a-f0-9-]{36}$/);assert.equal(s.state.sales.length,1);assert.ok(s.state.calls.find(x=>x.method==='POST'&&x.path.endsWith('/sales')).hasCsrf);
-    await s.page.reload();await s.page.locator('[data-target="ventas"][data-action="nav"]').click();await expect(s.page.locator('#sale-receipt')).toBeVisible();assert.equal(s.state.sales.length,1);
+    await sales(s);await s.page.locator('#sale-submit').click();await expect(s.page.locator('#cash-receipt')).toBeVisible();assert.deepEqual(s.state.sales[0].payload,cashBody);assert.match(s.state.sales[0].key,/^[a-f0-9-]{36}$/);assert.equal(s.state.sales.length,1);assert.ok(s.state.calls.find(x=>x.method==='POST'&&x.path.endsWith('/sales')).hasCsrf);
+    await confirmedReload(s);assert.equal(s.state.sales.length,1);
   }));
   for(const mobile of [false,true])await test(`Multiarticle cart and lost response reload at ${mobile?'390':'1440'}px`,()=>withStaff({mobile,label:`multiarticle-${mobile?'mobile':'desktop'}`,override:async({route,p,method,state,req,json,u})=>{
     const extra={...item,id:id(20),sku:'SYN-M',name:'Synthetic dress M',unitPriceMinor:2500};
@@ -134,8 +149,8 @@ try{
     if(p.endsWith('/sales')&&method==='POST'){
       state.sales.push({key:req.headers()['idempotency-key'],payload:req.postDataJSON()}); await route.abort('failed');return true;
     }
-    if(p.includes('/operations/')){await json(route,{status:'completed',result:{success:true,value:result,error:null}});return true;}
-    if(p.includes('/commerce/sales/')){await json(route,result);return true;}
+    if(p.includes('/operations/')){await json(route,{status:'completed',result:{success:true,value:cashReceipt(result),error:null}});return true;}
+    if(p.includes('/commerce/sales/')){await json(route,{...result,paymentStatus:'paid'});return true;}
   }},async s=>{
     await sales(s);await s.page.locator('#sale-quantity').fill('2');await s.page.locator('#sale-add').click();
     await s.page.locator('#sale-quantity-2').fill('3');
@@ -148,64 +163,63 @@ try{
     assert.ok(await s.page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
     await s.page.screenshot({path:path.join(out,`multiarticle-${mobile?'mobile':'desktop'}-cart.png`),fullPage:true});
     await s.page.locator('#sale-submit').evaluate(el=>{el.click();el.click();});
-    await expect(s.page.locator('#sale-recover')).toBeEnabled();await expect(s.page.locator('#sale-add')).toBeDisabled();
+    await expect(s.page.locator('#cash-recover')).toBeEnabled();await expect(s.page.locator('#sale-add')).toBeDisabled();
     assert.equal(s.state.sales.length,1);
-    assert.deepEqual(s.state.sales[0].payload,{...body,lines:[{itemId:item.id,quantity:2},{itemId:id(20),quantity:3}]});
-    const originalKey=s.state.sales[0].key;
+    assert.deepEqual(s.state.sales[0].payload,{...cashBody,lines:[{itemId:item.id,quantity:2},{itemId:id(20),quantity:3}]});
+    const originalKey=s.state.sales[0].key;await cashPending(s,{...cashBody,lines:[{itemId:item.id,quantity:2},{itemId:id(20),quantity:3}]});
     await s.page.reload();await s.page.locator('[data-target="ventas"][data-action="nav"]').click();
-    await expect(s.page.locator('#sale-receipt')).toContainText('SYN-S');await expect(s.page.locator('#sale-receipt')).toContainText('SYN-M');
-    await expect(s.page.locator('#sale-receipt strong')).toContainText('275');
+    await expect(s.page.locator('#cash-receipt')).toContainText('SYN-S');await expect(s.page.locator('#cash-receipt')).toContainText('SYN-M');
+    await expect(s.page.locator('#cash-receipt')).toContainText('275');
     await expect(s.page.locator('#sale-item')).toHaveValue('');await expect(s.page.locator('[data-sale-line]')).toHaveCount(1);
     assert.equal(s.state.sales.length,1);assert.ok(s.state.calls.some(c=>c.path.includes('/operations/')&&c.key===originalKey));
-    await s.page.reload();await s.page.locator('[data-target="ventas"][data-action="nav"]').click();
-    await expect(s.page.locator('#sale-receipt')).toBeVisible();assert.equal(s.state.sales.length,1);
+    await confirmedReload(s,{...receipt,totalMinor:27500,lines:[{...receipt.lines[0],quantity:2,totalMinor:20000},{...receipt.lines[0],saleLineId:id(21),itemId:id(20),sku:'SYN-M',name:'Synthetic dress M',quantity:3,unitPriceMinor:2500,totalMinor:7500}]});assert.equal(s.state.sales.length,1);
     assert.ok(await s.page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
     await s.page.screenshot({path:path.join(out,`multiarticle-${mobile?'mobile':'desktop'}-receipt.png`),fullPage:true});
   }));
-  await test('Rapid double submit sends one request',()=>withStaff({override:async({route,p,method,state,req,json})=>{if(p.endsWith('/sales')&&method==='POST'){state.sales.push({key:req.headers()['idempotency-key'],payload:req.postDataJSON()});await new Promise(r=>setTimeout(r,150));await json(route,receipt);return true;}}},async s=>{
-    await sales(s);await s.page.locator('#sale-submit').evaluate(el=>{el.click();el.click();});await expect(s.page.locator('#sale-receipt')).toBeVisible();assert.equal(s.state.sales.length,1);
+  await test('Rapid double submit sends one request',()=>withStaff({override:async({route,p,method,state,req,json})=>{if(p.endsWith('/sales')&&method==='POST'){state.sales.push({key:req.headers()['idempotency-key'],payload:req.postDataJSON()});await new Promise(r=>setTimeout(r,150));await json(route,cashReceipt());return true;}}},async s=>{
+    await sales(s);await s.page.locator('#sale-submit').evaluate(el=>{el.click();el.click();});await expect(s.page.locator('#cash-receipt')).toBeVisible();assert.equal(s.state.sales.length,1);
   }));
   await test('Lost response recovers original operation without second POST',()=>withStaff({override:async({route,p,method,state,req})=>{if(p.endsWith('/sales')&&method==='POST'){state.sales.push({key:req.headers()['idempotency-key'],payload:req.postDataJSON()});await route.abort('failed');return true;}}},async s=>{
-    await sales(s);await s.page.locator('#sale-submit').click();await expect(s.page.locator('#sale-recover')).toBeEnabled();await expect(s.page.locator('#sale-submit')).toBeDisabled();await s.page.locator('#sale-recover').click();await expect(s.page.locator('#sale-receipt')).toBeVisible();assert.equal(s.state.sales.length,1);assert.equal(s.state.calls.find(x=>x.path.includes('/operations/')).key,s.state.sales[0].key);
+    await sales(s);await s.page.locator('#sale-submit').click();await expect(s.page.locator('#cash-recover')).toBeEnabled();await expect(s.page.locator('#sale-submit')).toBeDisabled();await s.page.locator('#cash-recover').click();await expect(s.page.locator('#cash-receipt')).toBeVisible();assert.equal(s.state.sales.length,1);assert.equal(s.state.calls.find(x=>x.path.includes('/operations/')).key,s.state.sales[0].key);
   }));
   for(const status of [401,403,500])await test(`Sale HTTP ${status} never shows invented success`,()=>withStaff({override:async({route,p,method,json})=>{if(p.endsWith('/sales')&&method==='POST'){await json(route,{code:'rejected'},status);return true;}}},async s=>{
-    await sales(s);await s.page.locator('#sale-submit').click();if(status===401){await expect(s.page.locator('#auth-required')).toBeVisible();await expect(s.page.locator('#stock-table')).toBeEmpty();}else{await expect(s.page.locator('#sale-status')).toContainText('sin confirmar');}
-    await expect(s.page.locator('#sale-receipt')).toBeHidden();assert.equal(s.state.sales.length,0);
+    await sales(s);await s.page.locator('#sale-submit').click();if(status===401){await expect(s.page.locator('#auth-required')).toBeVisible();await expect(s.page.locator('#stock-table')).toBeEmpty();}else{await expect(s.page.locator('#cash-status')).toContainText('sin confirmar');}
+    await expect(s.page.locator('#cash-receipt')).toBeHidden();assert.equal(s.state.sales.length,0);
   }));
-  await test('Malformed receipt leaves operation recoverable and blocks new sale',()=>withStaff({override:async({route,p,method,json})=>{if(p.endsWith('/sales')&&method==='POST'){await json(route,{...receipt,totalMinor:1});return true;}}},async s=>{await sales(s);await s.page.locator('#sale-submit').click();await expect(s.page.locator('#sale-status')).toContainText('contrato');await expect(s.page.locator('#sale-submit')).toBeDisabled();await expect(s.page.locator('#sale-receipt')).toBeHidden();}));
-  await test('Confirmed rejected recovery unlocks only the rejected attempt',()=>withStaff({override:async({route,p,method,json})=>{if(p.endsWith('/sales')&&method==='POST'){await route.abort();return true;}if(p.includes('/operations/')){await json(route,{status:'completed',result:{success:false,value:null,error:'stock_unavailable'}});return true;}}},async s=>{await sales(s);await s.page.locator('#sale-submit').click();await expect(s.page.locator('#sale-recover')).toBeEnabled();await s.page.locator('#sale-recover').click();await expect(s.page.locator('#sale-submit')).toBeEnabled();await expect(s.page.locator('#sale-receipt')).toBeHidden();}));
+  await test('Malformed receipt leaves operation recoverable and blocks new sale',()=>withStaff({override:async({route,p,method,json})=>{if(p.endsWith('/sales')&&method==='POST'){await json(route,{...cashReceipt(),changeMinor:1});return true;}}},async s=>{await sales(s);await s.page.locator('#sale-submit').click();await expect(s.page.locator('#cash-status')).toContainText('sin confirmar');await expect(s.page.locator('#sale-submit')).toBeDisabled();await expect(s.page.locator('#cash-receipt')).toBeHidden();}));
+  await test('Confirmed rejected recovery unlocks only the rejected attempt',()=>withStaff({override:async({route,p,method,json})=>{if(p.endsWith('/sales')&&method==='POST'){await route.abort();return true;}if(p.includes('/operations/')){await json(route,{status:'completed',result:{success:false,value:null,error:'stock_unavailable'}});return true;}}},async s=>{await sales(s);await s.page.locator('#sale-submit').click();await expect(s.page.locator('#cash-recover')).toBeEnabled();await s.page.locator('#cash-recover').click();await expect(s.page.locator('#sale-submit')).toBeEnabled();await expect(s.page.locator('#cash-receipt')).toBeHidden();}));
   await test('Logout uses CSRF, clears private view and returns to login',()=>withStaff({},async s=>{await ready(s);await s.page.locator('[data-action="logout"]').click();await s.page.waitForURL('**/internal/login');assert.ok(s.state.calls.find(x=>x.path.endsWith('/logout')).hasCsrf);assert.equal(s.state.session,false);}));
   for(const role of ['Cashier','Owner','Manager'])await test(`N2 ${role} reload recovers the same uncertain attempt without another sale (C8)`,()=>withStaff({role,label:`n2-${role.toLowerCase()}`,override:async({route,p,method,state,req})=>{
     if(p.endsWith('/sales')&&method==='POST'){state.sales.push({key:req.headers()['idempotency-key'],payload:req.postDataJSON()});await route.abort('failed');return true;}
   }},async s=>{
-    await sales(s);await s.page.locator('#sale-submit').click();await expect(s.page.locator('#sale-recover')).toBeEnabled();
-    const original=s.state.sales[0];assert.deepEqual(original.payload,body);
-    await s.page.reload();await s.page.locator('[data-target="ventas"][data-action="nav"]').click();await expect(s.page.locator('#sale-receipt')).toBeVisible();
+    await sales(s);await s.page.locator('#sale-submit').click();await expect(s.page.locator('#cash-recover')).toBeEnabled();
+    const original=s.state.sales[0];assert.deepEqual(original.payload,cashBody);await cashPending(s);
+    await s.page.reload();await s.page.locator('[data-target="ventas"][data-action="nav"]').click();await expect(s.page.locator('#cash-receipt')).toBeVisible();
     assert.equal(s.state.sales.length,1);assert.deepEqual(s.state.calls.filter(x=>x.path.includes('/operations/')).map(x=>x.key),[original.key]);
-    await expect(s.page.locator('#sale-receipt')).toContainText(receipt.saleId);await expect(s.page.locator('#sale-receipt')).toContainText('100');
-    await s.page.reload();await s.page.locator('[data-target="ventas"][data-action="nav"]').click();await expect(s.page.locator('#sale-receipt')).toContainText(receipt.saleId);
+    await expect(s.page.locator('#cash-receipt')).toContainText(receipt.saleId);await expect(s.page.locator('#cash-receipt')).toContainText('100');
+    await confirmedReload(s);
     assert.equal(s.state.sales.length,1);assert.equal(s.state.calls.filter(x=>x.path.includes('/operations/')).length,1);
     return {key:original.key,saleId:receipt.saleId,posts:s.state.sales.length};
   }));
   await test('N6 changing actor keeps the uncertain key private and never replays it as the new actor (C8)',()=>withStaff({role:'Cashier',label:'n6-other-actor',override:async({route,p,method,state,req})=>{
     if(p.endsWith('/sales')&&method==='POST'){state.sales.push({key:req.headers()['idempotency-key'],payload:req.postDataJSON()});await route.abort('failed');return true;}
   }},async s=>{
-    await sales(s);await s.page.locator('#sale-submit').click();await expect(s.page.locator('#sale-recover')).toBeEnabled();
-    const key=s.state.sales[0].key,storageKey=`savia.sale.pending.${actor.id}`;const original=await s.page.evaluate(k=>sessionStorage.getItem(k),storageKey);
+    await sales(s);await s.page.locator('#sale-submit').click();await expect(s.page.locator('#cash-recover')).toBeEnabled();
+    const key=s.state.sales[0].key,storageKey=`savia.cash.pending.${actor.id}`;const original=await s.page.evaluate(k=>sessionStorage.getItem(k),storageKey);
     s.state.identity={id:id(180),version:id(181),displayName:'Synthetic new cashier'};
     await s.page.reload();await s.page.locator('[data-target="ventas"][data-action="nav"]').click();await expect(s.page.locator('#sale-submit')).toBeEnabled();
-    await expect(s.page.locator('#sale-receipt')).toBeEmpty();await expect(s.page.locator('#sale-recover')).toBeHidden();
+    await expect(s.page.locator('#cash-receipt')).toBeEmpty();await expect(s.page.locator('#cash-recover')).toBeHidden();
     assert.equal(await s.page.evaluate(k=>sessionStorage.getItem(k),storageKey),original);assert.equal(s.state.sales.length,1);assert.equal(s.state.calls.filter(x=>x.path.includes('/operations/')).length,0);
-    const keys=await s.page.evaluate(()=>Object.keys(sessionStorage).filter(k=>k.startsWith('savia.sale.pending.')));assert.deepEqual(keys,[storageKey]);return {originalKey:key,pendingKeys:keys.length};
+    const keys=await s.page.evaluate(()=>Object.keys(sessionStorage).filter(k=>k.startsWith('savia.cash.pending.')));assert.deepEqual(keys,[storageKey]);return {originalKey:key,pendingKeys:keys.length};
   }));
   await test('N6 changed actor version preserves the attempt and blocks recovery and resend under the new scope (C8)',()=>withStaff({role:'Cashier',mobile:true,label:'n6-changed-version',override:async({route,p,method,state,req})=>{
     if(p.endsWith('/sales')&&method==='POST'){state.sales.push({key:req.headers()['idempotency-key'],payload:req.postDataJSON()});await route.abort('failed');return true;}
   }},async s=>{
-    await sales(s);await s.page.locator('#sale-submit').click();await expect(s.page.locator('#sale-recover')).toBeEnabled();
-    const storageKey=`savia.sale.pending.${actor.id}`,original=await s.page.evaluate(k=>sessionStorage.getItem(k),storageKey);
+    await sales(s);await s.page.locator('#sale-submit').click();await expect(s.page.locator('#cash-recover')).toBeEnabled();
+    const storageKey=`savia.cash.pending.${actor.id}`,original=await s.page.evaluate(k=>sessionStorage.getItem(k),storageKey);
     s.state.identity={version:id(182)};await s.page.reload();await s.page.locator('[data-target="ventas"][data-action="nav"]').click();await expect(s.page.locator('#sale-item option:not([value=""])')).toHaveCount(1);
-    await expect(s.page.locator('#sale-status')).toContainText('acceso cambió');await expect(s.page.locator('#sale-submit')).toBeDisabled();await expect(s.page.locator('#sale-recover')).toBeDisabled();await expect(s.page.locator('#sale-retry')).toBeDisabled();
-    await expect(s.page.locator('#sale-receipt')).toBeEmpty();assert.equal(await s.page.evaluate(k=>sessionStorage.getItem(k),storageKey),original);
+    await expect(s.page.locator('#cash-reference')).toContainText('El acceso cambió');await expect(s.page.locator('#sale-submit')).toBeDisabled();await expect(s.page.locator('#cash-recover')).toBeDisabled();await expect(s.page.locator('#cash-continue')).toBeDisabled();
+    await expect(s.page.locator('#cash-receipt')).toBeEmpty();assert.equal(await s.page.evaluate(k=>sessionStorage.getItem(k),storageKey),original);
     assert.equal(s.state.calls.filter(x=>x.path.includes('/operations/')).length,0);assert.equal(s.state.sales.length,1);
     return {preservedKey:JSON.parse(original).key,posts:s.state.sales.length};
   }));
@@ -229,13 +243,13 @@ try{
     // Start stock before the sale, then use an independent directory read to return 401.
     await s.page.locator('[data-target="inventario"][data-action="nav"]').click();await expect.poll(()=>!!releaseStock).toBe(true);
     await s.page.locator('[data-target="ventas"][data-action="nav"]').click();await s.page.locator('#sale-submit').click();await expect.poll(()=>csrfHeld).toBe(true);
-    const original=await s.page.evaluate(k=>sessionStorage.getItem(k),`savia.sale.pending.${actor.id}`);
+    const original=await s.page.evaluate(k=>sessionStorage.getItem(k),`savia.cash.pending.${actor.id}`);
     await s.page.locator('[data-target="inventario"][data-action="nav"]').click();await expect(s.page.locator('#auth-required')).toBeVisible();
     const csrfResponse=s.page.waitForResponse(r=>r.url().endsWith('/csrf'));releaseCsrf();await csrfResponse;
     const stockResponse=s.page.waitForResponse(r=>r.url().includes('/commerce/inventory'));releaseStock();await stockResponse;
-    await s.page.waitForLoadState('networkidle');await expect(s.page.locator('#staff-shell')).toBeHidden();await expect(s.page.locator('#stock-table')).toBeEmpty();await expect(s.page.locator('#sale-receipt')).toBeEmpty();
+    await s.page.waitForLoadState('networkidle');await expect(s.page.locator('#staff-shell')).toBeHidden();await expect(s.page.locator('#stock-table')).toBeEmpty();await expect(s.page.locator('#cash-receipt')).toBeEmpty();
     assert.equal(s.state.calls.slice(originalCalls).filter(x=>x.method==='POST'&&x.path.endsWith('/sales')).length,0,'A sale was sent after 401 while its CSRF request was in flight.');
-    assert.equal(await s.page.evaluate(k=>sessionStorage.getItem(k),`savia.sale.pending.${actor.id}`),original);assert.equal(s.state.sales.length,0);
+    assert.equal(await s.page.evaluate(k=>sessionStorage.getItem(k),`savia.cash.pending.${actor.id}`),original);assert.equal(s.state.sales.length,0);
     // Native controls and synthetic submits must remain closed after the denial.
     const calls=s.state.calls.length;await s.page.locator('#sale-form').dispatchEvent('submit');await s.page.waitForLoadState('networkidle');assert.equal(s.state.calls.length,calls);
     return {reason,layer:'mocked browser 401 only; API TimeProvider NOT RUN',preservedKey:JSON.parse(original).key};
@@ -252,7 +266,7 @@ try{
     // rather than networkidle, which cannot occur until that deliberately held logout completes.
     await s.page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
     assert.equal(s.state.calls.filter(x=>x.method==='POST'&&x.path.endsWith('/sales')).length,0,'A sale waiting for CSRF was sent after logout began.');
-    await expect(s.page.locator('#stock-table')).toBeEmpty();await expect(s.page.locator('#sale-receipt')).toBeEmpty();releaseLogout();await s.page.waitForURL('**/internal/login');
+    await expect(s.page.locator('#stock-table')).toBeEmpty();await expect(s.page.locator('#cash-receipt')).toBeEmpty();releaseLogout();await s.page.waitForURL('**/internal/login');
     assert.ok(s.state.calls.find(x=>x.path.endsWith('/logout')).hasCsrf);return {posts:s.state.sales.length};
   }));
   await test('Stale confirmed receipt 404 must not permanently block a fresh sale (N5)',()=>withStaff({role:'Cashier',override:async({route,p,json})=>{if(p.endsWith('/sales/'+receipt.saleId)){await json(route,{code:'not_found'},404);return true;}}},async s=>{
@@ -268,18 +282,19 @@ try{
   const gate=()=>{let release;const wait=new Promise(r=>release=r);return {wait,release};};
   const browserTurn=page=>page.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));
   const pendingBytes=s=>s.page.evaluate(k=>sessionStorage.getItem(k),`savia.sale.pending.${actor.id}`);
-  const salePosts=s=>s.state.calls.filter(c=>c.method==='POST'&&c.path.endsWith('/commerce/sales'));
+  const cashPendingBytes=s=>s.page.evaluate(k=>sessionStorage.getItem(k),`savia.cash.pending.${actor.id}`);
+  const salePosts=s=>s.state.calls.filter(c=>c.method==='POST'&&(c.path.endsWith('/commerce/sales')||c.path.endsWith('/cash/sales')));
   await test('N5 held operation recovery blocks native and synthetic submit without changing original bytes',()=>withStaff({role:'Cashier',label:'n5-held-recovery'},async s=>{
     const recovery=gate();let held=false;
     s.state.override=async({route,p,method,state,req,json})=>{
       if(p.endsWith('/sales')&&method==='POST'){
         state.sales.push({key:req.headers()['idempotency-key'],payload:req.postDataJSON()});await route.abort('failed');return true;
       }
-      if(p.includes('/operations/')){held=true;await recovery.wait;await json(route,{status:'completed',result:{success:true,value:receipt,error:null}});return true;}
+      if(p.includes('/operations/')){held=true;await recovery.wait;await json(route,{status:'completed',result:{success:true,value:cashReceipt(),error:null}});return true;}
     };
     try{
-      await sales(s);await s.page.locator('#sale-submit').click();await expect(s.page.locator('#sale-recover')).toBeEnabled();
-      const raw=await pendingBytes(s),original=JSON.parse(raw);assert.deepEqual(original.body,body);
+      await sales(s);await s.page.locator('#sale-submit').click();await expect(s.page.locator('#cash-recover')).toBeEnabled();
+      const raw=await cashPending(s),original=JSON.parse(raw);assert.deepEqual(original.body,cashBody);
       assert.equal(salePosts(s).length,1);assert.equal(s.state.sales[0].key,original.key);
       await s.page.reload();await s.page.locator('[data-target="ventas"][data-action="nav"]').click();await expect.poll(()=>held).toBe(true);
       const postsBefore= salePosts(s).length;
@@ -287,13 +302,13 @@ try{
       await s.page.locator('#sale-submit').evaluate(el=>el.click());
       await s.page.locator('#sale-form').dispatchEvent('submit');await browserTurn(s.page);
       assert.equal(salePosts(s).length-postsBefore,0,'Submit during held recovery sent a new sale.');
-      assert.equal(await pendingBytes(s),raw,'Original pending bytes changed during held recovery.');
-      assert.deepEqual(s.state.sales,[{key:original.key,payload:body}]);
+      assert.equal(await cashPendingBytes(s),raw,'Original pending bytes changed during held recovery.');
+      assert.deepEqual(s.state.sales,[{key:original.key,payload:cashBody}]);
       const lookups=s.state.calls.filter(c=>c.path.includes('/operations/'));
       assert.equal(lookups.length,1);assert.equal(lookups[0].method,'GET');assert.equal(lookups[0].key,original.key);
-      recovery.release();await expect(s.page.locator('#sale-receipt')).toContainText(receipt.saleId);
-      await expect(s.page.locator('#sale-submit')).toBeEnabled();assert.equal(await pendingBytes(s),null);
-      assert.equal(await storedReceipt(s),receipt.saleId);assert.equal(salePosts(s).length,1);
+      recovery.release();await expect(s.page.locator('#cash-receipt')).toContainText(receipt.saleId);
+      await expect(s.page.locator('#sale-submit')).toBeEnabled();assert.equal(await cashPendingBytes(s),null);
+      assert.equal(original.scope,'cash.sale');assert.equal(lookups[0].path,'/internal/api/operations/cash.sale');assert.equal(salePosts(s).length,1);
       return {originalKey:original.key,originalPendingSha256:sha(raw),body:original.body,heldRecoveryGet:1,postsWhileHeld:0,totalPosts:1};
     }finally{recovery.release();}
   }));
@@ -301,13 +316,13 @@ try{
     const extra={...item,id:id(220),sku:'SYN-M',name:'Synthetic dress M',unitPriceMinor:2500};
     const fresh={...receipt,saleId:id(221),totalMinor:27500,lines:[{...receipt.lines[0],quantity:2,totalMinor:20000},
       {...receipt.lines[0],saleLineId:id(222),itemId:extra.id,sku:extra.sku,name:extra.name,quantity:3,unitPriceMinor:2500,totalMinor:7500}]};
-    const expected={...body,lines:[{itemId:item.id,quantity:2},{itemId:extra.id,quantity:3}]};
+    const expected={...cashBody,lines:[{itemId:item.id,quantity:2},{itemId:extra.id,quantity:3}]};
     s.state.override=async({route,p,method,req,state,json,u})=>{
       if(p.endsWith('/sales/'+receipt.saleId)){await json(route,{code:'not_found'},404);return true;}
-      if(p.endsWith('/sales/'+fresh.saleId)){await json(route,fresh);return true;}
+      if(p.endsWith('/sales/'+fresh.saleId)){await json(route,{...fresh,paymentStatus:'paid'});return true;}
       if(p.endsWith('/directory/items')){await json(route,{items:[item,extra],total:2,skip:Number(u.searchParams.get('skip')),take:Number(u.searchParams.get('take'))});return true;}
-      if(p.endsWith('/commerce/inventory')){await json(route,{items:[item,extra].map((x,i)=>({itemId:x.id,locationId:place.id,onHand:10-(state.sales.length?(i?3:2):0),reserved:0,available:10-(state.sales.length?(i?3:2):0)})),total:2,skip:0,take:100});return true;}
-      if(p.endsWith('/sales')&&method==='POST'){state.sales.push({key:req.headers()['idempotency-key'],payload:req.postDataJSON()});await json(route,fresh);return true;}
+    if(p.endsWith('/commerce/inventory')){await json(route,{items:[item,extra].map((x,i)=>({itemId:x.id,locationId:place.id,onHand:10-(state.sales.length?(i?3:2):0),reserved:0,available:10-(state.sales.length?(i?3:2):0)})),total:2,skip:0,take:100});return true;}
+      if(p.endsWith('/sales')&&method==='POST'){state.sales.push({key:req.headers()['idempotency-key'],payload:req.postDataJSON()});await json(route,cashReceipt(fresh));return true;}
     };
     await seedSaleState(s);await ready(s);await s.page.locator('[data-target="ventas"][data-action="nav"]').click();
     await expect(s.page.locator('#sale-status')).toContainText('ya no está disponible');await expect(s.page.locator('#sale-submit')).toBeEnabled();
@@ -317,20 +332,19 @@ try{
     assert.deepEqual(stockBefore.map(row=>row.slice(-3)),[['10','0','10'],['10','0','10']]);
     await s.page.locator('#sale-item').selectOption(item.id);await s.page.locator('#sale-quantity').fill('2');await s.page.locator('#sale-add').click();
     await s.page.locator('#sale-item-2').selectOption(extra.id);await s.page.locator('#sale-quantity-2').fill('3');
-    const callsBefore=s.state.calls.length;await s.page.locator('#sale-submit').click();
-    await expect(s.page.locator('#sale-receipt')).toContainText(fresh.saleId);await expect(s.page.locator('#sale-receipt')).toContainText('SYN-S');await expect(s.page.locator('#sale-receipt')).toContainText('SYN-M');
+    const callsBefore=s.state.calls.length;await s.page.locator('#sale-received').fill('300');await s.page.locator('#sale-submit').click();
+    await expect(s.page.locator('#cash-receipt')).toContainText(fresh.saleId);await expect(s.page.locator('#cash-receipt')).toContainText('SYN-S');await expect(s.page.locator('#cash-receipt')).toContainText('SYN-M');
     await expect(s.page.locator('#sale-submit')).toBeEnabled();
     assert.equal(salePosts(s).length,1);assert.equal(s.state.sales.length,1);assert.deepEqual(s.state.sales[0].payload,expected);
     const key=s.state.sales[0].key;assert.match(key,/^[a-f0-9-]{36}$/);assert.ok(salePosts(s)[0].hasCsrf);
-    assert.equal(await storedReceipt(s),fresh.saleId);assert.equal(await pendingBytes(s),null);
+    assert.equal(await storedReceipt(s),null);assert.equal(await pendingBytes(s),null);
     const stockAfter=await s.page.locator('#stock-table tbody tr').evaluateAll(rows=>rows.map(row=>[...row.querySelectorAll('td')].map(td=>td.textContent)));
     assert.deepEqual(stockAfter.map(row=>row.slice(-3)),[['8','0','8'],['7','0','7']]);
     assert.ok(s.state.calls.slice(callsBefore).some(c=>c.path.endsWith('/commerce/inventory')));
     assert.equal(s.state.calls.filter(c=>c.path.includes('/operations/')).length,0);
-    await s.page.reload();await s.page.locator('[data-target="ventas"][data-action="nav"]').click();
-    await expect(s.page.locator('#sale-receipt')).toContainText(fresh.saleId);
+    await confirmedReload(s,fresh);
     assert.equal(s.state.calls.filter(c=>c.path.endsWith('/sales/'+receipt.saleId)).length,1);
-    assert.equal(await storedReceipt(s),fresh.saleId);
+    assert.equal(await storedReceipt(s),null);
     assert.equal(salePosts(s).length,1);
     return {obsoleteSaleId:receipt.saleId,newSaleId:fresh.saleId,newKey:key,body:expected,posts:1,stockBefore,stockAfter};
   }));
@@ -427,4 +441,5 @@ try{
   });
 }finally{await save();await browser.close();await new Promise(r=>server.close(r));}
 console.log(JSON.stringify({passed:results.filter(x=>x.status==='PASS').length,failed:results.filter(x=>x.status==='FAIL').length,output:out}));
-process.exitCode=results.some(x=>x.status==='FAIL')?1:0;
+const unexpectedNetwork=networkFailures.filter(x=>!((x.error==='net::ERR_FAILED'&&x.path.endsWith('/cash/sales'))||(x.error==='net::ERR_ABORTED'&&x.path==='/internal/login')));
+process.exitCode=results.some(x=>x.status==='FAIL')||runtime.length||externalRequests.length||unexpectedNetwork.length?1:0;

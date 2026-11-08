@@ -1,5 +1,6 @@
 // Private staff shell. Server identity and business contracts are required.
 // No fixture business data or local authentication. Only pending operation references persist per tab.
+import {mountCash,formatMinor} from './cash.mjs';
 import {mountSupply} from './supply.mjs';
 import {createStaffClient, validateSaleRequest, validateStockReviewRequest, readStockReview} from './client.mjs';
 import {StaffRequestError, readStaff} from './login.mjs';
@@ -128,7 +129,8 @@ export function mountStaffApp({document = globalThis.document, client = createSt
   const $$ = selector => [...document.querySelectorAll(selector)];
   const removers = [];
   const state = {phase: 'loading', session: null, busy: false, view: null};
-  const commerce = typeof client.recordSale === 'function' ? mountCommerce({document, client,
+  const cash=client.cash?mountCash({document,client,getSession:()=>state.phase==='ready'?state.session:null,onUnauthorized:()=>requireAccess('La sesión venció. Volvé a ingresar.'),onChange:()=>commerce?.updateCash(),onStock:()=>commerce?.loadStock(),onSale:()=>commerce?.clearCashSale()}):null;
+  const commerce = typeof client.recordSale === 'function' ? mountCommerce({document, client, cash,
     getSession: () => state.phase === 'ready' ? state.session : null,
     onUnauthorized: () => requireAccess('La sesión venció. Volvé a ingresar para comprobar la venta.')}) : null;
   const supply = typeof client.listPurchaseOrders === 'function' ? mountSupply({document, client, getSession: () => state.phase === 'ready' ? state.session : null, onUnauthorized: () => requireAccess('La sesión venció. Volvé a ingresar.') , onStock: () => commerce?.loadStock()}) : null;
@@ -152,7 +154,7 @@ export function mountStaffApp({document = globalThis.document, client = createSt
   }
   function clearPrivateView() {
     commerceStarted = false;
-    commerce?.clear();
+    commerce?.clear(); cash?.clear();
     supply?.clear(); stockReview?.clear();
     for (const view of pages.keys()) pages.set(view, newPage());
     reads.clear();
@@ -349,7 +351,7 @@ export function mountStaffApp({document = globalThis.document, client = createSt
     if (moveFocus) $('#staff-title')?.focus();
     if (load && ['clientes', 'inventario'].includes(view)) refreshSection(view);
     if (['inventario','ventas'].includes(view) && commerce) {
-      if (!commerceStarted) { commerceStarted = true; void commerce.start(); stockReview?.start(); }
+      if (!commerceStarted) { commerceStarted = true; void commerce.start(); void cash?.start(); stockReview?.start(); }
       else if (load && view === 'inventario') void commerce.loadStock();
     }
     if (view === 'abastecimiento') void supply?.start();
@@ -401,14 +403,15 @@ export function mountStaffApp({document = globalThis.document, client = createSt
     ready, navigate, refresh: () => refreshSection(state.view),
     getState: () => ({phase: state.phase, busy: state.busy, view: state.view,
       authenticated: state.phase === 'ready' && !!state.session, role: state.session?.role || null}),
-    destroy() { destroyed = true; ++epoch; state.session = null; clearPrivateView(); commerce?.destroy(); supply?.destroy(); stockReview?.destroy(); lockActions(); setVisible($('#staff-shell'), false); removers.forEach(remove => remove()); },
+    destroy() { destroyed = true; ++epoch; state.session = null; clearPrivateView(); commerce?.destroy(); cash?.destroy(); supply?.destroy(); stockReview?.destroy(); lockActions(); setVisible($('#staff-shell'), false); removers.forEach(remove => remove()); },
   };
 }
 
-export function mountCommerce({document, client, getSession, onUnauthorized}) {
+export function mountCommerce({document, client, cash, getSession, onUnauthorized}) {
   const $ = id => document.getElementById(id);
   const form = $('sale-form');
   if (!form) return {clear(){}, start(){}, loadStock(){}, destroy(){}};
+  if(!cash&&$('sale-received-field')){$('sale-received-field').hidden=true;$('sale-received').required=false;}
   let generation = 0, stockRead = 0, busy = false, pending = null, items = [], locations = [], actor = null;
   const removers = [];
   const listen = (el, event, fn) => { el.addEventListener(event, fn); removers.push(() => el.removeEventListener(event, fn)); };
@@ -461,7 +464,8 @@ export function mountCommerce({document, client, getSession, onUnauthorized}) {
   }
   function lock() {
     const allowed = !!actor && getSession()?.id === actor && ['Owner','Manager','Cashier'].includes(getSession()?.role);
-    for (const control of form.elements) control.disabled = !allowed || busy || !!pending || !items.length || !locations.length;
+    for (const control of form.elements) control.disabled = !allowed || busy || !!pending || !items.length || !locations.length || (!!cash&&!cash.canSell());
+    if(cash?.till()&&!pending){$('sale-location').value=cash.till().locationId;$('sale-location').disabled=true;}
     $('sale-add').disabled ||= cart().length >= Math.min(100,items.length);
     for(const remove of form.querySelectorAll('[data-sale-remove]')) remove.disabled ||= cart().length <= 1;
     $('stock-location').disabled = !actor || busy || !locations.length;
@@ -514,8 +518,8 @@ export function mountCommerce({document, client, getSession, onUnauthorized}) {
   function showReceipt(receipt) {
     const mount=$('sale-receipt'); mount.replaceChildren(textElement(document,'h3','Recibo confirmado'),
       textElement(document,'p',`Venta: ${receipt.saleId}`),textElement(document,'p',`Sucursal: ${locations.find(x=>x.id===receipt.locationId)?.name || receipt.locationId}`),
-      textElement(document,'p',`Estado: ${{recorded:'Registrada',cancelled:'Cancelada',returned:'Devuelta',partially_returned:'Devolución parcial'}[receipt.state]} · Sin cobro bancario`));
-    const money=value=>new Intl.NumberFormat('es-NI',{style:'currency',currency:receipt.currency}).format(value/100);
+      textElement(document,'p',`Estado: ${{recorded:'Registrada',cancelled:'Cancelada',returned:'Devuelta',partially_returned:'Devolución parcial'}[receipt.state]} · ${receipt.paymentStatus==='paid'?'Pagada en efectivo':'Sin pago procesado'}`));
+    const money=value=>formatMinor(value,receipt.exponent??null,receipt.currency);
     for(const line of receipt.lines) mount.append(textElement(document,'p',`${line.sku} · ${line.name} · ${line.quantity} × ${money(line.unitPriceMinor)} = ${money(line.totalMinor)}`));
     for(const line of receipt.lines.filter(x=>x.exceptionReason)) mount.append(textElement(document,'p',`Entrega excepcional · ${line.sku} · Talla: ${line.size} · Motivo: ${line.exceptionReason} · Causa abierta`));
     mount.append(textElement(document,'strong',`Total: ${money(receipt.totalMinor)}`)); mount.hidden=false;
@@ -601,6 +605,7 @@ export function mountCommerce({document, client, getSession, onUnauthorized}) {
       $('sale-status').textContent='Hay artículos repetidos. Usá una sola fila por artículo y sumá su cantidad.'; return;
     }
     try { validateSaleRequest(body); } catch(error) { fail(error); return; }
+    if(cash){void cash.sell(body.lines,$('sale-received').value);return;}
     const operation={key:document.defaultView.crypto.randomUUID(),body,actorVersion:getSession().version};
     try { storage().setItem(keyFor(actor),JSON.stringify(operation)); pending=operation; $('sale-receipt').hidden=true; void resolve('record'); }
     catch(error) { pending={}; fail(error); lock(); }
@@ -620,7 +625,7 @@ export function mountCommerce({document, client, getSession, onUnauthorized}) {
   });
   listen($('stock-location'),'change',()=>void loadStock()); listen($('stock-refresh'),'click',()=>void loadStock());
   listen($('sale-recover'),'click',()=>void resolve('recover')); listen($('sale-retry'),'click',()=>void resolve('record'));
-  return {clear,start,loadStock,destroy(){clear();removers.forEach(fn=>fn());}};
+  return {clear,start,loadStock,updateCash:lock,clearCashSale(){renderLines([{itemId:'',quantity:1}]);$('sale-received').value='';},destroy(){clear();removers.forEach(fn=>fn());}};
 }
 
 if (typeof document !== 'undefined' && document.querySelector('[data-staff-app]')) mountStaffApp();

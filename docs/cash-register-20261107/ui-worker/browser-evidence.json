@@ -1,0 +1,764 @@
+{
+  "privateRoot": "C:\\Users\\Jason\\AppData\\Local\\SaviaEvidence\\cash-ui-550b104",
+  "publicUpload": false,
+  "before": {
+    "observedUtc": "2026-11-08T00:37:06.269Z",
+    "host": "SUAZO-PC",
+    "node": "v24.18.0",
+    "browser": "156.0.8078.80",
+    "layer": "Real Chromium browser; mocked staff API; public browser-local demo",
+    "origin": "http://127.0.0.1:57677",
+    "sourceHashes": {
+      "dev/savia-staff-ui/app.mjs": "a50be2f7439e006cf0e459f757c5204c46844fabb9c1aa0db37ca6908b5b9b1a",
+      "dev/savia-staff-ui/client.mjs": "b3df8c5abb79fd75bb30a577403cbaf4091aec5ef96f73d06d0cfff81e5998e5",
+      "dev/savia-staff-ui/login.mjs": "60c0072f1fbc2375ef1b4244d2af642086cf2d7903b35b708c98ceba9977d389",
+      "dev/savia-staff-ui/supply.mjs": "f115ce8e96bffa4adf765333cd09f637f580bd71c8c315b6d2ac17c9579600ee",
+      "dev/savia-staff-ui/login.html": "4803ece2ef530d9e5161837209ac86591bfe1447e9876b0f38bf17baca9a8382",
+      "dev/savia-staff-ui/index.html": "72193922c484ffe0fe2468ba897cfb2fc1bcf598528645b15311332b33d94b64",
+      "dev/savia-staff-ui/styles.css": "a0d409e6e7fe23b308c005a63d9e38534554da37854ce8e5f96a30b87968df04"
+    },
+    "results": [
+      {
+        "name": "Multiarticle cart and lost response reload at 1440px",
+        "status": "PASS",
+        "durationMs": 19068
+      },
+      {
+        "name": "Multiarticle cart and lost response reload at 390px",
+        "status": "PASS",
+        "durationMs": 3202
+      }
+    ],
+    "runtime": [],
+    "externalRequests": [],
+    "networkFailures": [
+      {
+        "test": "multiarticle-desktop",
+        "path": "/internal/api/commerce/sales",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "test": "multiarticle-mobile",
+        "path": "/internal/api/commerce/sales",
+        "error": "net::ERR_FAILED"
+      }
+    ]
+  },
+  "after": {
+    "layer": "Chrome with synthetic HTTP; SQL NOT RUN",
+    "results": [
+      {
+        "viewport": {
+          "width": 1440,
+          "height": 1000
+        },
+        "passed": true,
+        "effects": {
+          "open": 1,
+          "sale": 1,
+          "refund": 1,
+          "close": 1
+        },
+        "balance": 27500,
+        "pendingKey": "22e29ef0-90ca-436b-a660-23cf5ec4d667",
+        "errors": [],
+        "expectedConsole": [
+          {
+            "classification": "deliberate insufficient_tender HTTP400",
+            "text": "Failed to load resource: the server responded with a status of 400 (Bad Request)"
+          }
+        ],
+        "network": [
+          {
+            "path": "/internal/",
+            "status": 200
+          },
+          {
+            "path": "/internal/styles.css",
+            "status": 200
+          },
+          {
+            "path": "/internal/app.mjs",
+            "status": 200
+          },
+          {
+            "path": "/internal/cash.mjs",
+            "status": 200
+          },
+          {
+            "path": "/internal/client.mjs",
+            "status": 200
+          },
+          {
+            "path": "/internal/login.mjs",
+            "status": 200
+          },
+          {
+            "path": "/internal/supply.mjs",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/security/me",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/directory/parties",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/directory/items",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/directory/locations",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/directory/locations",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/commerce/inventory",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/cash/context",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/security/csrf",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/cash/tills",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/cash/context",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/commerce/inventory",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/security/csrf",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/cash/sales",
+            "status": 400
+          },
+          {
+            "path": "/internal/api/operations/cash.sale",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/cash/context",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/security/csrf",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/cash/sales",
+            "status": 200
+          },
+          {
+            "path": "/internal/",
+            "status": 200
+          },
+          {
+            "path": "/internal/styles.css",
+            "status": 200
+          },
+          {
+            "path": "/internal/app.mjs",
+            "status": 200
+          },
+          {
+            "path": "/internal/cash.mjs",
+            "status": 200
+          },
+          {
+            "path": "/internal/supply.mjs",
+            "status": 200
+          },
+          {
+            "path": "/internal/login.mjs",
+            "status": 200
+          },
+          {
+            "path": "/internal/client.mjs",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/security/me",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/directory/parties",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/directory/items",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/directory/locations",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/directory/locations",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/commerce/inventory",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/cash/context",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/operations/cash.sale",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/cash/context",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/commerce/inventory",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/cash/sales/00000001-0000-0000-0000-000000000107/refund-context",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/security/csrf",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/cash/sales/00000001-0000-0000-0000-000000000107/refunds",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/cash/context",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/cash/sales/00000001-0000-0000-0000-000000000107/refund-context",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/commerce/inventory",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/security/csrf",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/cash/tills/00000001-0000-0000-0000-000000000101/close",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/cash/context",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/cash/sales/00000001-0000-0000-0000-000000000107/refund-context",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/commerce/inventory",
+            "status": 200
+          }
+        ],
+        "external": []
+      },
+      {
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "passed": true,
+        "effects": {
+          "open": 1,
+          "sale": 1,
+          "refund": 1,
+          "close": 1
+        },
+        "balance": 27500,
+        "pendingKey": "b1eb3625-cddd-4221-bdb1-fb35aaec2844",
+        "errors": [],
+        "expectedConsole": [
+          {
+            "classification": "deliberate insufficient_tender HTTP400",
+            "text": "Failed to load resource: the server responded with a status of 400 (Bad Request)"
+          }
+        ],
+        "network": [
+          {
+            "path": "/internal/",
+            "status": 200
+          },
+          {
+            "path": "/internal/styles.css",
+            "status": 200
+          },
+          {
+            "path": "/internal/app.mjs",
+            "status": 200
+          },
+          {
+            "path": "/internal/supply.mjs",
+            "status": 200
+          },
+          {
+            "path": "/internal/cash.mjs",
+            "status": 200
+          },
+          {
+            "path": "/internal/client.mjs",
+            "status": 200
+          },
+          {
+            "path": "/internal/login.mjs",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/security/me",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/directory/parties",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/directory/items",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/directory/locations",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/directory/locations",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/commerce/inventory",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/cash/context",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/security/csrf",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/cash/tills",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/cash/context",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/commerce/inventory",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/security/csrf",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/cash/sales",
+            "status": 400
+          },
+          {
+            "path": "/internal/api/operations/cash.sale",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/cash/context",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/security/csrf",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/cash/sales",
+            "status": 200
+          },
+          {
+            "path": "/internal/",
+            "status": 200
+          },
+          {
+            "path": "/internal/styles.css",
+            "status": 200
+          },
+          {
+            "path": "/internal/app.mjs",
+            "status": 200
+          },
+          {
+            "path": "/internal/cash.mjs",
+            "status": 200
+          },
+          {
+            "path": "/internal/supply.mjs",
+            "status": 200
+          },
+          {
+            "path": "/internal/client.mjs",
+            "status": 200
+          },
+          {
+            "path": "/internal/login.mjs",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/security/me",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/directory/parties",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/directory/items",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/directory/locations",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/directory/locations",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/commerce/inventory",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/cash/context",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/operations/cash.sale",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/cash/context",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/commerce/inventory",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/cash/sales/00000001-0000-0000-0000-000000000118/refund-context",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/security/csrf",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/cash/sales/00000001-0000-0000-0000-000000000118/refunds",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/cash/context",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/cash/sales/00000001-0000-0000-0000-000000000118/refund-context",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/commerce/inventory",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/security/csrf",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/cash/tills/00000001-0000-0000-0000-000000000112/close",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/cash/context",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/cash/sales/00000001-0000-0000-0000-000000000118/refund-context",
+            "status": 200
+          },
+          {
+            "path": "/internal/api/commerce/inventory",
+            "status": 200
+          }
+        ],
+        "external": []
+      }
+    ],
+    "sourceHashes": {
+      "app.mjs": "2105540c566d79cecbfc6ef28e6abbd07ace7a7fbff18ede81c507fa76651d56",
+      "client.mjs": "88a5615f33ba2b049a31a70a3f0d1f261399e22d3d0b7e1fe83847d6423be78b",
+      "cash.mjs": "6e3bb17e0e0521bb2b969813366bc324ca26e8e4a9e4d43a425b1329b38c6c86",
+      "login.mjs": "561e089a472daa12ce01f3e703167280f681df98d546f2515b31ba004895e1e0",
+      "index.html": "42defc18a76075b207a32c283180c032e135e557683beab58b58de5c35424bd1",
+      "styles.css": "a0d409e6e7fe23b308c005a63d9e38534554da37854ce8e5f96a30b87968df04"
+    }
+  },
+  "readbacks": [
+    {
+      "path": "C:\\Users\\Jason\\AppData\\Local\\SaviaEvidence\\cash-ui-550b104\\before\\browser-results.json",
+      "bytes": 1607,
+      "rawSha256": "f4f925ef8e9b829b7f2478d4011bad710b38afcb1140a67b720ba3440053176e",
+      "lfSha256": "f4f925ef8e9b829b7f2478d4011bad710b38afcb1140a67b720ba3440053176e"
+    },
+    {
+      "path": "C:\\Users\\Jason\\AppData\\Local\\SaviaEvidence\\cash-ui-550b104\\after-final-candidate\\browser-results.json",
+      "bytes": 11891,
+      "rawSha256": "dff6a299240c036b04a17fe6a2cec4aedd6488a6d48aa942090e6992d45b7fe7",
+      "lfSha256": "dff6a299240c036b04a17fe6a2cec4aedd6488a6d48aa942090e6992d45b7fe7"
+    },
+    {
+      "path": "C:\\Users\\Jason\\AppData\\Local\\SaviaEvidence\\cash-ui-550b104\\after-final-candidate\\mock-readback.json",
+      "bytes": 20668,
+      "rawSha256": "43369aff43861ec437db5bd36273fb1194b715aa746fc49000951b17381a41e5",
+      "lfSha256": "43369aff43861ec437db5bd36273fb1194b715aa746fc49000951b17381a41e5"
+    },
+    {
+      "path": "C:\\Users\\Jason\\AppData\\Local\\SaviaEvidence\\cash-ui-550b104\\legacy-final\\browser-results.json",
+      "bytes": 1350,
+      "rawSha256": "27cb1f7ea20fd627a4e31f22a8c0b0ae64ab39244cddae7e8401cd6231470a06",
+      "lfSha256": "27cb1f7ea20fd627a4e31f22a8c0b0ae64ab39244cddae7e8401cd6231470a06"
+    },
+    {
+      "path": "C:\\Users\\Jason\\AppData\\Local\\SaviaEvidence\\cash-ui-550b104\\supply-final\\browser-results.json",
+      "bytes": 1442,
+      "rawSha256": "973a9dea3d37fba1143b71d13cce4de5a9c77c3148abbcbe5db8ba2f2aff3d98",
+      "lfSha256": "973a9dea3d37fba1143b71d13cce4de5a9c77c3148abbcbe5db8ba2f2aff3d98"
+    },
+    {
+      "path": "C:\\Users\\Jason\\AppData\\Local\\SaviaEvidence\\cash-ui-550b104\\after-integrated-final\\desktop-readback.json",
+      "bytes": 50754,
+      "rawSha256": "83721014b134a4aac2ebf666f5e3573621a4c1f19099666f9abcfe731c8166ea",
+      "lfSha256": "9c6b66e2b3c6d6807df664ec403bab15215c1356c6ccf8504fef94a1bfe7ae61"
+    }
+  ],
+  "recordings": [
+    {
+      "path": "C:\\Users\\Jason\\AppData\\Local\\SaviaEvidence\\cash-ui-550b104\\before\\videos\\multiarticle-desktop.webm",
+      "bytes": 1394396,
+      "rawSha256": "678ab354255a0959988af7a26a91bd991674e650debfa90034b74bd2caad74f9",
+      "lfSha256": "c820fceb2fdc2a9ce11cecb53b374e69fa74ece5cf28183becde3bb3126efd5c",
+      "probeExit": 0,
+      "metadata": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "vp8",
+            "codec_type": "video",
+            "width": 1440,
+            "height": 1000
+          }
+        ],
+        "format": {
+          "duration": "8.360000"
+        }
+      },
+      "inspection": "Live browser interactions and final screenshots observed; recording files checked for hash/duration/video streams, not replayed in full."
+    },
+    {
+      "path": "C:\\Users\\Jason\\AppData\\Local\\SaviaEvidence\\cash-ui-550b104\\before\\videos\\multiarticle-mobile.webm",
+      "bytes": 335180,
+      "rawSha256": "250b73f6dd3b07a8ca19bbcfa66232dfccf0411c716813c0e2e72793708ca42f",
+      "lfSha256": "93ede6df3447f75abdc9a52a1c40da592f5c8a5b009ec131ee3b0b02d675a989",
+      "probeExit": 0,
+      "metadata": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "vp8",
+            "codec_type": "video",
+            "width": 390,
+            "height": 844
+          }
+        ],
+        "format": {
+          "duration": "3.680000"
+        }
+      },
+      "inspection": "Live browser interactions and final screenshots observed; recording files checked for hash/duration/video streams, not replayed in full."
+    },
+    {
+      "path": "C:\\Users\\Jason\\AppData\\Local\\SaviaEvidence\\cash-ui-550b104\\after-final-candidate\\videos\\page@7e6818dc944107d4ab16e64222cc1f3c.webm",
+      "bytes": 665609,
+      "rawSha256": "5abe81b9c79636f1e58bbdaa3cfad1b81406975bd83bb94d7a20477e2538e21f",
+      "lfSha256": "96a750db23aec81fbd26e11c50c56948c48361bbadf7d05af57078e525aca836",
+      "probeExit": 0,
+      "metadata": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "vp8",
+            "codec_type": "video",
+            "width": 1440,
+            "height": 1000
+          }
+        ],
+        "format": {
+          "duration": "2.320000"
+        }
+      },
+      "inspection": "Live browser interactions and final screenshots observed; recording files checked for hash/duration/video streams, not replayed in full."
+    },
+    {
+      "path": "C:\\Users\\Jason\\AppData\\Local\\SaviaEvidence\\cash-ui-550b104\\after-final-candidate\\videos\\page@f1748cff3994ec3ee349d0aea1c0fbe1.webm",
+      "bytes": 250878,
+      "rawSha256": "486b8ea75cd9e25afdbeda4d2d72b363dfa9c29ae0e9d2534eb86e8ccea786fc",
+      "lfSha256": "cb2d48a5bd290020eadfe2b96a2512348af4d77cf57b39d2e432d72aed9b601e",
+      "probeExit": 0,
+      "metadata": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "vp8",
+            "codec_type": "video",
+            "width": 390,
+            "height": 844
+          }
+        ],
+        "format": {
+          "duration": "2.280000"
+        }
+      },
+      "inspection": "Live browser interactions and final screenshots observed; recording files checked for hash/duration/video streams, not replayed in full."
+    },
+    {
+      "path": "C:\\Users\\Jason\\AppData\\Local\\SaviaEvidence\\cash-ui-550b104\\integrated-recordings\\desktop-v2.mp4",
+      "bytes": 2206341,
+      "rawSha256": "f30f66d3eaa56bb229e236aada4f777ddca6e967e28395c0570110f318f717ae",
+      "lfSha256": "2e36c38ceb0c44cf39a4adfa1932be181d7dbc94d693ca12958260fd82f03a97",
+      "probeExit": 0,
+      "metadata": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 2880,
+            "height": 2000
+          }
+        ],
+        "format": {
+          "duration": "8.020033"
+        }
+      },
+      "inspection": "Live browser interactions and final screenshots observed; recording files checked for hash/duration/video streams, not replayed in full."
+    },
+    {
+      "path": "C:\\Users\\Jason\\AppData\\Local\\SaviaEvidence\\cash-ui-550b104\\integrated-recordings\\mobile-v2.mp4",
+      "bytes": 754421,
+      "rawSha256": "8ff3097bf1e8cebbeaa128b7697bb22839e2d0221d8242e32ac7e2089992ff09",
+      "lfSha256": "742de92712f0ee4f224fd4ebff397b79cc3a8baa83de95c36e4d7378c03972c2",
+      "probeExit": 0,
+      "metadata": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 780,
+            "height": 1688
+          }
+        ],
+        "format": {
+          "duration": "7.457433"
+        }
+      },
+      "inspection": "Live browser interactions and final screenshots observed; recording files checked for hash/duration/video streams, not replayed in full."
+    }
+  ],
+  "integrated": [
+    {
+      "viewport": "desktop",
+      "observations": {
+        "path": "C:\\Users\\Jason\\AppData\\Local\\SaviaEvidence\\cash-ui-550b104\\after-integrated-final-v2\\desktop-observations.json",
+        "bytes": 2955,
+        "rawSha256": "c5ffd17b7b6f50de08ec6568cdd8099822532b1274b7cfeb16426b87b30ffd46",
+        "lfSha256": "fdc8d3c2883fdd959018d5b38608faf170d605d474de0b7aff0d6be938dba01d"
+      },
+      "readback": {
+        "path": "C:\\Users\\Jason\\AppData\\Local\\SaviaEvidence\\cash-ui-550b104\\after-integrated-final-v2\\desktop-readback.json",
+        "bytes": 20668,
+        "rawSha256": "6916593eec424f57e951a36ac03022b224e38a1b6accb40110f3d24f94d49598",
+        "lfSha256": "6916593eec424f57e951a36ac03022b224e38a1b6accb40110f3d24f94d49598"
+      },
+      "sourceCaveat": "Precedes final cash_payment_required rejection-code restoration and confirmed-cart reset. Final-bound Playwright recordings use exact frozen product bytes."
+    },
+    {
+      "viewport": "mobile",
+      "observations": {
+        "path": "C:\\Users\\Jason\\AppData\\Local\\SaviaEvidence\\cash-ui-550b104\\after-integrated-final-v2\\mobile-observations.json",
+        "bytes": 5996,
+        "rawSha256": "578c95ce87fdc74e795da6b6e06a3515babeb771762e3824b586b49d09cd1600",
+        "lfSha256": "786011b8ac8462441cbebec93c1c8c6da906d2ce41ab82192e57228193b6d015"
+      },
+      "readback": {
+        "path": "C:\\Users\\Jason\\AppData\\Local\\SaviaEvidence\\cash-ui-550b104\\after-integrated-final-v2\\mobile-readback.json",
+        "bytes": 20668,
+        "rawSha256": "b5e0fe8ddbc98c270863bfec796584d83f7a6d771dddb6d6b698381349b56d43",
+        "lfSha256": "b5e0fe8ddbc98c270863bfec796584d83f7a6d771dddb6d6b698381349b56d43"
+      },
+      "sourceCaveat": "Precedes final cash_payment_required rejection-code restoration and confirmed-cart reset. Final-bound Playwright recordings use exact frozen product bytes."
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "C:\\Users\\Jason\\AppData\\Local\\SaviaEvidence\\cash-ui-550b104\\after-final-candidate\\cart-1440.png",
+      "bytes": 124955,
+      "rawSha256": "a3a7aacf25f766927f9742194e8fdbc15682d82287d41120ee33d02510c19538",
+      "lfSha256": "e929cfe399d94db2f17b62dea16f6657b155e2ca313a4887c5beacdcc9080d76"
+    },
+    {
+      "path": "C:\\Users\\Jason\\AppData\\Local\\SaviaEvidence\\cash-ui-550b104\\after-final-candidate\\cart-390.png",
+      "bytes": 120059,
+      "rawSha256": "f700e52bcbe19f4f9b098efc42583f0d7dda59beb91a2fbbbc889d15bf3ae8c4",
+      "lfSha256": "052746922b577941648d89c92379171fab30ebbedbe6b9b815152a0165fc7be0"
+    },
+    {
+      "path": "C:\\Users\\Jason\\AppData\\Local\\SaviaEvidence\\cash-ui-550b104\\after-final-candidate\\cash-1440.png",
+      "bytes": 133798,
+      "rawSha256": "ba20f57c4b7e0346d24457c8605a188e1081482092bd0735b684d45cc0480079",
+      "lfSha256": "c2ea82b433872f099be56f1398b3f47bd6eb2114e9948d9221e7db0e4d097720"
+    },
+    {
+      "path": "C:\\Users\\Jason\\AppData\\Local\\SaviaEvidence\\cash-ui-550b104\\after-final-candidate\\cash-390.png",
+      "bytes": 131063,
+      "rawSha256": "616f9586b75214ac22790713834c42b4177d03fe1cdfbd602dca818118584eb8",
+      "lfSha256": "92843e3f661d33b18acab69911057cf3952c8a56c4196553892b42c23867524e"
+    }
+  ]
+}

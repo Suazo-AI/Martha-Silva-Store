@@ -45,35 +45,32 @@ export function createAuthClient({fetchImpl = globalThis.fetch, timeoutMs = 1000
       if (body !== undefined) headers['Content-Type'] = 'application/json';
       if (csrfToken) headers['X-CSRF-TOKEN'] = csrfToken;
       if (idempotencyKey) headers['Idempotency-Key'] = idempotencyKey;
+      const deadline = new Promise((_, reject) => { timer = setTimeout(() => { controller.abort(); reject(new StaffRequestError('unavailable')); }, timeoutMs); });
       const response = await Promise.race([
         fetchImpl(path, {method, headers, credentials: 'same-origin', redirect: 'error',
           cache: 'no-store', signal: controller.signal,
           ...(body === undefined ? {} : {body: JSON.stringify(body)})}),
-        new Promise((_, reject) => { timer = setTimeout(() => {
-          controller.abort(); reject(new StaffRequestError('unavailable'));
-        }, timeoutMs); }),
+        deadline,
       ]);
       current(generation);
-      if (response.status === 401) {
-        ++epoch; session = null; csrf = null; onUnauthorized();
-        const error = new StaffRequestError('unauthorized', 401);
-        if (path === SECURITY_PATHS.login) error.message = 'Usuario o contraseña inválidos. Revisá tus datos de acceso.';
+      if (!response.ok) {
+        let problem = null;
+        try { problem = await Promise.race([response.json(), deadline]); } catch (error) { current(generation); if (error instanceof StaffRequestError) throw error; }
+        current(generation);
+        const error = new StaffRequestError(response.status===401?'unauthorized':response.status===403?'forbidden':response.status===429?'rate_limited':response.status>=500?'unavailable':'invalid', response.status);
+        if (typeof problem?.code === 'string' && /^[a-z_]{1,80}$/.test(problem.code)) error.serverCode = problem.code;
+        if (response.status===401) { ++epoch; session=null; csrf=null; onUnauthorized();
+          if(path===SECURITY_PATHS.login) error.message='Usuario o contraseña inválidos. Revisá tus datos de acceso.'; }
+        if (response.status===429) { const seconds=Number(response.headers.get('retry-after'));
+          error.retryAfterSeconds=Number.isSafeInteger(seconds)&&seconds>0&&seconds<=3600?seconds:60;
+          error.message=`Esperá ${error.retryAfterSeconds} segundos antes de volver a ingresar.`; }
         throw error;
       }
-      if (response.status === 403) throw new StaffRequestError('forbidden', 403);
-      if (response.status === 429) {
-        const error = new StaffRequestError('rate_limited', 429);
-        const seconds = Number(response.headers.get('retry-after'));
-        error.retryAfterSeconds = Number.isSafeInteger(seconds) && seconds > 0 && seconds <= 3600 ? seconds : 60;
-        error.message = `Esperá ${error.retryAfterSeconds} segundos antes de volver a ingresar.`;
-        throw error;
-      }
-      if (!response.ok) throw new StaffRequestError(response.status >= 500 ? 'unavailable' : 'invalid', response.status);
       if (allowEmpty && response.status === 204) return null;
       const type = response.headers.get('content-type')?.split(';')[0].trim().toLowerCase();
       if (type !== 'application/json') throw new StaffRequestError('response', response.status);
       let value;
-      try { value = await response.json(); } catch { throw new StaffRequestError('response', response.status); }
+      try { value = await Promise.race([response.json(), deadline]); } catch (error) { current(generation); if(error instanceof StaffRequestError)throw error; throw new StaffRequestError('response', response.status); }
       current(generation);
       return value;
     } catch (error) {
@@ -136,11 +133,22 @@ export function createAuthClient({fetchImpl = globalThis.fetch, timeoutMs = 1000
       const reviewRecovery = method === 'GET' && path === '/internal/api/operations/commerce.stock.review';
       if (reviewRecovery && !['Owner','Manager'].includes(session.role)) throw new StaffRequestError('forbidden',403);
       const recovery = method === 'GET' && path === '/internal/api/operations/commerce.sale.record';
-      if (!(sale || read || recovery || supplyWrite || supplyRead || supplyRecovery || review || reviewRecovery) || ((sale || recovery || supplyWrite || supplyRecovery || (review && method==='POST') || reviewRecovery) && !guid(key))) throw new StaffRequestError('invalid');
-      if (sale || supplyWrite || (review && method==='POST')) await renewCsrf();
+      const cashKey = typeof key==='string' && /^[A-Za-z0-9_-]{16,128}$/.test(key);
+      const cashGuid='[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}';
+      const refundWrite = method==='POST' && new RegExp(`^/internal/api/cash/sales/${cashGuid}/refunds$`,'i').test(path);
+      const refundRead = method==='GET' && new RegExp(`^/internal/api/cash/sales/${cashGuid}/refund-context\\?skip=\\d+&take=50$`,'i').test(path);
+      const cashWrite = method==='POST' && (['/internal/api/cash/tills','/internal/api/cash/sales'].includes(path) || refundWrite || new RegExp(`^/internal/api/cash/tills/${cashGuid}/close$`,'i').test(path));
+      const cashRead = method==='GET' && (path==='/internal/api/cash/context' || refundRead);
+      const cashRecovery = method==='GET' && /^\/internal\/api\/operations\/cash\.(till\.open|sale|refund|till\.close)$/.test(path);
+      if ((cashRead||cashWrite||cashRecovery) && (!['Owner','Manager','Cashier'].includes(session.role) || ((refundWrite||refundRead||path==='/internal/api/operations/cash.refund')&&!['Owner','Manager'].includes(session.role)))) throw new StaffRequestError('forbidden',403);
+      if (!(sale || read || recovery || supplyWrite || supplyRead || supplyRecovery || review || reviewRecovery || cashRead || cashWrite || cashRecovery)
+        || ((cashWrite||cashRecovery)&&!cashKey)
+        || ((sale || recovery || supplyWrite || supplyRecovery || (review && method==='POST') || reviewRecovery) && !guid(key))) throw new StaffRequestError('invalid');
+      const write=sale || supplyWrite || (review && method==='POST') || cashWrite;
+      if (write) await renewCsrf();
       current(generation);
       if (!session) throw new StaffRequestError('unauthorized', 401);
-      return request(path, {method, body, idempotencyKey: key, csrfToken: (sale || supplyWrite || (review && method==='POST')) ? csrf : undefined});
+      return request(path, {method, body, idempotencyKey: key, csrfToken: write ? csrf : undefined});
     },
     getVerifiedSession: () => session,
     requestAuthenticated: async path => {

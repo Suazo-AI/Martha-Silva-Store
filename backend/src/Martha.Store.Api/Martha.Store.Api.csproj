@@ -20,5 +20,6 @@
     <EmbeddedResource Include="../../../dev/savia-staff-ui/client.mjs" LogicalName="SaviaStaff.client.mjs" />
     <EmbeddedResource Include="../../../dev/savia-staff-ui/login.mjs" LogicalName="SaviaStaff.login.mjs" />
     <EmbeddedResource Include="../../../dev/savia-staff-ui/supply.mjs" LogicalName="SaviaStaff.supply.mjs" />
+    <EmbeddedResource Include="../../../dev/savia-staff-ui/cash.mjs" LogicalName="SaviaStaff.cash.mjs" />
   </ItemGroup>
 </Project>

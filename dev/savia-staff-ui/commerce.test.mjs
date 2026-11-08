@@ -71,7 +71,8 @@ test('late stock response cannot repopulate a cleared session',async t=>{
 });
 test('receipt validation rejects mismatched quantity, actor-independent arithmetic and unknown payment status',()=>{
   assert.equal(readReceipt(receipt,body).saleId,receipt.saleId);
-  for(const wrong of [{...receipt,totalMinor:1},{...receipt,paymentStatus:'paid'},{...receipt,lines:[{...receipt.lines[0],quantity:2}]}]) assert.throws(()=>readReceipt(wrong,body),StaffRequestError);
+  assert.equal(readReceipt({...receipt,paymentStatus:'paid'},body).paymentStatus,'paid');
+  for(const wrong of [{...receipt,totalMinor:1},{...receipt,paymentStatus:'unknown'},{...receipt,lines:[{...receipt.lines[0],quantity:2}]}]) assert.throws(()=>readReceipt(wrong,body),StaffRequestError);
 });
 test('commerce transport uses fresh CSRF and original idempotency key without client prices',async()=>{
   const calls=[];const json=value=>new Response(JSON.stringify(value),{headers:{'Content-Type':'application/json'}});

@@ -1,6 +1,18 @@
 # Estado vigente de Martha Silva / SAVIA
 
-Current primary assessment, 2026-11-07 UTC: production remains NO-GO.
+Current primary assessment, 2026-11-08 UTC: production remains NO-GO.
+
+Current cash UI increment, accepted with limits pending exact-SHA no-SQL CI: primary repository check passed with **223/223 staff tests**.
+Fresh Chrome with synthetic HTTP passed cash **2/2**, legacy **50/50**, and supply **8/8**.
+Astra/xhigh and the primary accepted old-browser compatibility, mandatory cash CI steps and private-DOM cleanup corrections.
+[Current source-bound review state](cash-register-20261107/ui-integration/STATUS.json).
+These results do not prove real cash persistence. Older statements below describing the UI as unimplemented are historical.
+The existing real browser harness still uses unpaid sales and needs adaptation for the cash workflow.
+[Frozen preparation checks and runtime boundary](cash-register-20261107/real-journey/PREPARATION.md).
+Owner recovery is source-bound and awaits its independent review; implementation is not accepted or imported.
+[Owner checkpoint](owner-recovery-20261107/primary-review/STATUS.json).
+SQL5 remains **D: review the detailed plan first; do not execute yet**.
+[Exact five-test plan](sql-parallel-20261107/security-correction/MINIMUM-RERUN.md).
 
 Latest implementation: Sol/high returned session-bound CSRF and local-runner safety corrections.
 Primary imported both candidates after source-binding and destination-drift checks.

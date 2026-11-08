@@ -16,6 +16,57 @@ namespace Martha.Store.Api.Tests;
 public sealed class InternalCashSqlTests
 {
     [InternalCommerceSqlFact]
+    public async Task Cash_reads_follow_persisted_money_and_preserve_history_without_configuration()
+    {
+        await using var f = await InternalCommerceSqlDatabase.Create(migrate: true);
+        await Seed(f);
+        var empty = await Read(f, s => s.Context(InternalSecurityRules.Principal(f.Staff, f.Session), default));
+        Assert.True(empty.Success); Assert.Null(empty.Value!.OwnTill); Assert.Null(empty.Value.LastClose);
+        Assert.Equal(new InternalCashConfiguration("USD", 2), empty.Value.Configuration);
+        var open = await Run(f, s => s.Open(new(f.Location, "USD", 1000), f.Actor, "cash-read-open-key-0001", default));
+        Assert.True(open.Success);
+        var sale = await Run(f, s => s.Sell(new(open.Value!.Till.Id, null, [new(f.Item, 2)], "USD", 300), f.Actor, "cash-read-sale-key-0001", default));
+        Assert.True(sale.Success);
+        var current = await Read(f, s => s.Context(InternalSecurityRules.Principal(f.Staff, f.Session), default));
+        Assert.Equal(1250, current.Value!.OwnTill!.BalanceMinor);
+        var paid = await Read(f, s => s.RefundContext(sale.Value!.Sale.SaleId, 0, 50, InternalSecurityRules.Principal(f.Staff, f.Session), default));
+        Assert.True(paid.Success); Assert.Equal(250, paid.Value!.RefundableMinor); Assert.Equal("paid", paid.Value.PaymentStatus);
+        Assert.Equal(1250, Assert.Single(paid.Value.PayingTills.Items).BalanceMinor);
+        var closed = await Run(f, s => s.Close(open.Value!.Till.Id, new(1240), f.Actor, "cash-read-close-key-001", default));
+        Assert.True(closed.Success);
+        var noConfig = await Read(f, s => s.Context(InternalSecurityRules.Principal(f.Staff, f.Session), default), new("", -1));
+        Assert.True(noConfig.Success); Assert.Null(noConfig.Value!.Configuration); Assert.Null(noConfig.Value.OwnTill);
+        Assert.Equal(closed.Value!.Close.Id, noConfig.Value.LastClose!.Close.Id);
+        var next = await Run(f, s => s.Open(new(f.Location, "USD", 1000), f.Actor, "cash-read-next-key-0001", default));
+        Assert.True(next.Success);
+        var refunded = await Run(f, s => s.Refund(sale.Value!.Sale.SaleId,
+            new(next.Value!.Till.Id, "USD", "read test", [new(sale.Value.Sale.Lines.Single().SaleLineId, 1)]), f.Actor, "cash-read-refund-key-01", default));
+        Assert.True(refunded.Success);
+        var after = await Read(f, s => s.RefundContext(sale.Value!.Sale.SaleId, 0, 50, InternalSecurityRules.Principal(f.Staff, f.Session), default), new("EUR", 3));
+        Assert.True(after.Success); Assert.Equal(125, after.Value!.RefundedMinor); Assert.Equal(125, after.Value.RefundableMinor);
+        Assert.Equal("partially_refunded", after.Value.PaymentStatus); Assert.Equal("USD", after.Value.Payment.Currency);
+        Assert.Equal(875, Assert.Single(after.Value.PayingTills.Items).BalanceMinor);
+        var historical = await Read(f, s => s.Context(InternalSecurityRules.Principal(f.Staff, f.Session), default));
+        Assert.Equal(closed.Value.Close.Id, historical.Value!.LastClose!.Close.Id);
+        Assert.Equal(1250, historical.Value.LastClose.Close.ExpectedMinor);
+        await using var db = f.Context();
+        await db.InternalSessions.Where(x => x.Id == f.Session.Id).ExecuteUpdateAsync(x => x.SetProperty(y => y.RevokedAt, DateTimeOffset.UtcNow));
+        var revoked = await Read(f, s => s.Context(InternalSecurityRules.Principal(f.Staff, f.Session), default));
+        Assert.Equal("unauthenticated", revoked.Error);
+    }
+
+    private static async Task<T> Read<T>(InternalCommerceSqlDatabase f, Func<InternalCashReadService, Task<T>> action,
+        InternalCashOptions? configuration = null)
+    {
+        await using var db = f.Context();
+        var security = new InternalSecurityService(db, new PasswordHasher<InternalStaff>(), TimeProvider.System);
+        var http = new HttpContextAccessor { HttpContext = new DefaultHttpContext { User = InternalSecurityRules.Principal(f.Staff, f.Session) } };
+        var runner = new InternalCommandRunner(db, security, http, TimeProvider.System);
+        var commerce = new InternalCommerceService(db, runner, new InternalStockLedger(db));
+        return await action(new InternalCashReadService(db, security, configuration ?? new("USD", 2), commerce));
+    }
+
+    [InternalCommerceSqlFact]
     public async Task Paid_sale_close_later_shift_refund_preserves_original_close_and_replays()
     {
         await using var f = await InternalCommerceSqlDatabase.Create(migrate: true);

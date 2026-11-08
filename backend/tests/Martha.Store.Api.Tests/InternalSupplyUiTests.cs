@@ -17,6 +17,13 @@ public sealed class InternalSupplyUiTests
 {
     [Fact]
     public async Task Supply_resource_is_embedded_protected_and_serves_the_source_bytes()
+        => await AssertProtectedResource("supply.mjs");
+
+    [Fact]
+    public async Task Cash_resource_is_embedded_protected_and_serves_the_source_bytes()
+        => await AssertProtectedResource("cash.mjs");
+
+    private static async Task AssertProtectedResource(string module)
     {
         var builder = WebApplication.CreateBuilder(new WebApplicationOptions { EnvironmentName = "Test" });
         builder.WebHost.UseTestServer();
@@ -32,15 +39,15 @@ public sealed class InternalSupplyUiTests
         await app.StartAsync();
         using var client = app.GetTestClient();
 
-        using var anonymous = await client.GetAsync("/internal/supply.mjs");
+        using var anonymous = await client.GetAsync("/internal/" + module);
         Assert.Equal(HttpStatusCode.Unauthorized, anonymous.StatusCode);
         client.DefaultRequestHeaders.Add("X-Test-Authenticated", "yes");
-        using var response = await client.GetAsync("/internal/supply.mjs");
+        using var response = await client.GetAsync("/internal/" + module);
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         Assert.Equal("text/javascript", response.Content.Headers.ContentType?.MediaType);
         var actual = await response.Content.ReadAsByteArrayAsync();
         Assert.NotEmpty(actual);
-        await using var resource = typeof(InternalUiHosting).Assembly.GetManifestResourceStream("SaviaStaff.supply.mjs");
+        await using var resource = typeof(InternalUiHosting).Assembly.GetManifestResourceStream("SaviaStaff." + module);
         Assert.NotNull(resource);
         using var embedded = new MemoryStream();
         await resource.CopyToAsync(embedded);
@@ -48,10 +55,10 @@ public sealed class InternalSupplyUiTests
 
         // Compare the compiled resource with this checkout's source, including its BOM/line endings.
         var directory = new DirectoryInfo(AppContext.BaseDirectory);
-        while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "dev/savia-staff-ui/supply.mjs")))
+        while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "dev/savia-staff-ui", module)))
             directory = directory.Parent;
         Assert.NotNull(directory);
-        Assert.Equal(await File.ReadAllBytesAsync(Path.Combine(directory.FullName, "dev/savia-staff-ui/supply.mjs")), actual);
+        Assert.Equal(await File.ReadAllBytesAsync(Path.Combine(directory.FullName, "dev/savia-staff-ui", module)), actual);
     }
 
     // This test-only handler proves route authorization wiring, not real cookie/session validation.

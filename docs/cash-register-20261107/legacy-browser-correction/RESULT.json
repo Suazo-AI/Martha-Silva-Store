@@ -1,0 +1,386 @@
+{
+  "taskId": "savia-cash-legacy-browser-correction-39161ef-20261108-01",
+  "status": "VERIFIED_WITH_LIMITS_PRIMARY_REVIEW_PENDING",
+  "observedUtc": "2026-11-08T02:04:16.293270+00:00",
+  "identity": {
+    "requested": "codex/gpt-6.1-sol/high",
+    "effective": "T3 Code Codex harness/gpt-6.1-sol/high",
+    "host": "SUAZO-PC",
+    "evidence": "Harness runtime plus fresh agent-awareness task record",
+    "tokensAndCost": "unknown; not exposed",
+    "nestedAgents": 0
+  },
+  "worktree": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-8bceab19",
+  "baseSha": "39161ef8c5afcac1f7c9502cc5f38439608a8d70",
+  "inputManifestRawSha256": "30fddb277662bc6dcac6e628c879217d13555ec2543a80fab30f52af285ccfed",
+  "bindings": [
+    {
+      "path": "dev/savia-staff-ui/app.mjs",
+      "rawSha256": "2105540c566d79cecbfc6ef28e6abbd07ace7a7fbff18ede81c507fa76651d56",
+      "lfSha256": "2105540c566d79cecbfc6ef28e6abbd07ace7a7fbff18ede81c507fa76651d56",
+      "inputRawSha256": "2105540c566d79cecbfc6ef28e6abbd07ace7a7fbff18ede81c507fa76651d56",
+      "ownedDelta": false
+    },
+    {
+      "path": "dev/savia-staff-ui/client.mjs",
+      "rawSha256": "88a5615f33ba2b049a31a70a3f0d1f261399e22d3d0b7e1fe83847d6423be78b",
+      "lfSha256": "88a5615f33ba2b049a31a70a3f0d1f261399e22d3d0b7e1fe83847d6423be78b",
+      "inputRawSha256": "88a5615f33ba2b049a31a70a3f0d1f261399e22d3d0b7e1fe83847d6423be78b",
+      "ownedDelta": false
+    },
+    {
+      "path": "dev/savia-staff-ui/cash.mjs",
+      "rawSha256": "6e3bb17e0e0521bb2b969813366bc324ca26e8e4a9e4d43a425b1329b38c6c86",
+      "lfSha256": "6e3bb17e0e0521bb2b969813366bc324ca26e8e4a9e4d43a425b1329b38c6c86",
+      "inputRawSha256": "6e3bb17e0e0521bb2b969813366bc324ca26e8e4a9e4d43a425b1329b38c6c86",
+      "ownedDelta": false
+    },
+    {
+      "path": "dev/savia-staff-ui/login.mjs",
+      "rawSha256": "561e089a472daa12ce01f3e703167280f681df98d546f2515b31ba004895e1e0",
+      "lfSha256": "561e089a472daa12ce01f3e703167280f681df98d546f2515b31ba004895e1e0",
+      "inputRawSha256": "561e089a472daa12ce01f3e703167280f681df98d546f2515b31ba004895e1e0",
+      "ownedDelta": false
+    },
+    {
+      "path": "dev/savia-staff-ui/supply.mjs",
+      "rawSha256": "dab76f496003745e61365b34db5411621aff99edd5a7b0b32d8aaf4565a3cce0",
+      "lfSha256": "ad62c75f08efe2e0642d1ced245c47312b8673aa33d63edddaff7af249fb8270",
+      "inputRawSha256": "dab76f496003745e61365b34db5411621aff99edd5a7b0b32d8aaf4565a3cce0",
+      "ownedDelta": false
+    },
+    {
+      "path": "dev/savia-staff-ui/login.html",
+      "rawSha256": "4803ece2ef530d9e5161837209ac86591bfe1447e9876b0f38bf17baca9a8382",
+      "lfSha256": "b9068478b46b9786c18dbe54ffa1172e1fb325e283ca944f9c2a840b37d1a686",
+      "inputRawSha256": "4803ece2ef530d9e5161837209ac86591bfe1447e9876b0f38bf17baca9a8382",
+      "ownedDelta": false
+    },
+    {
+      "path": "dev/savia-staff-ui/index.html",
+      "rawSha256": "42defc18a76075b207a32c283180c032e135e557683beab58b58de5c35424bd1",
+      "lfSha256": "42defc18a76075b207a32c283180c032e135e557683beab58b58de5c35424bd1",
+      "inputRawSha256": "42defc18a76075b207a32c283180c032e135e557683beab58b58de5c35424bd1",
+      "ownedDelta": false
+    },
+    {
+      "path": "dev/savia-staff-ui/styles.css",
+      "rawSha256": "61db534591305d989d815c47999cc5706d7b8de6e00c1628d361e10edbb94ca0",
+      "lfSha256": "61db534591305d989d815c47999cc5706d7b8de6e00c1628d361e10edbb94ca0",
+      "inputRawSha256": "61db534591305d989d815c47999cc5706d7b8de6e00c1628d361e10edbb94ca0",
+      "ownedDelta": false
+    },
+    {
+      "path": "tests/browser-mock-validation.mjs",
+      "rawSha256": "3bc5b1468f4f6d245d403ad34e1690a44a91cec35b3ebea64b1ea7ace2ff6434",
+      "lfSha256": "3bc5b1468f4f6d245d403ad34e1690a44a91cec35b3ebea64b1ea7ace2ff6434",
+      "inputRawSha256": "4be238999465bb7ceafcf3b5b16020441b79145492b42f59caa1a66ca80729b4",
+      "ownedDelta": true
+    }
+  ],
+  "deliveredPaths": [
+    "tests/browser-mock-validation.mjs",
+    "docs/cash-register-20261107/legacy-browser-correction/README.md",
+    "docs/cash-register-20261107/legacy-browser-correction/RESULT.json"
+  ],
+  "overlayInputsAreNotDeliveredProductChanges": true,
+  "checks": [
+    {
+      "id": 1,
+      "status": "verified"
+    },
+    {
+      "id": 2,
+      "status": "verified"
+    },
+    {
+      "id": 3,
+      "status": "verified"
+    },
+    {
+      "id": 4,
+      "status": "verified"
+    },
+    {
+      "id": 5,
+      "status": "verified"
+    },
+    {
+      "id": 6,
+      "status": "verified"
+    }
+  ],
+  "runs": [
+    {
+      "artifact": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-8bceab19\\private-exports\\legacy-browser-correction-20261108\\focused-multiarticle\\browser-results.json",
+      "rawSha256": "5303f2265ecaa351624a362481d56736f59533d0c09d02c109c15ffcef952cee",
+      "exit": 0,
+      "match": "Multiarticle cart",
+      "pass": 2,
+      "fail": 0,
+      "pageErrors": 0,
+      "externalRequests": 0,
+      "networkFailures": [
+        {
+          "test": "multiarticle-desktop",
+          "path": "/internal/api/cash/sales",
+          "error": "net::ERR_FAILED"
+        },
+        {
+          "test": "multiarticle-mobile",
+          "path": "/internal/api/cash/sales",
+          "error": "net::ERR_FAILED"
+        }
+      ],
+      "origin": "http://127.0.0.1:56506",
+      "loopbackClosedVerified": true,
+      "ownedPid": null,
+      "note": "Completed",
+      "command": "$env:MARTHA_BROWSER_TEST_MATCH='Multiarticle cart'; node tests/browser-mock-validation.mjs C:/Users/Jason/AppData/Roaming/npm/node_modules/@playwright/cli/node_modules/playwright test-runs/legacy-browser-correction-20261108/focused-multiarticle",
+      "cwd": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-8bceab19"
+    },
+    {
+      "artifact": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-8bceab19\\private-exports\\legacy-browser-correction-20261108\\focused-n5\\browser-results.json",
+      "rawSha256": "c73b99f975c77063786d5ee8cb0ec57e2dd11a14a16eb197cea5aa040d96e933",
+      "exit": 1,
+      "match": "N5",
+      "pass": 2,
+      "fail": 0,
+      "pageErrors": 0,
+      "externalRequests": 0,
+      "networkFailures": [
+        {
+          "test": "n5-held-recovery",
+          "path": "/internal/api/cash/sales",
+          "error": "net::ERR_FAILED"
+        }
+      ],
+      "origin": "http://127.0.0.1:50991",
+      "loopbackClosedVerified": true,
+      "ownedPid": null,
+      "note": "Terminated by unhandled Route is already handled! after 2 PASS; corrected duplicate override, then reran N5.",
+      "command": "$env:MARTHA_BROWSER_TEST_MATCH='N5'; node tests/browser-mock-validation.mjs C:/Users/Jason/AppData/Roaming/npm/node_modules/@playwright/cli/node_modules/playwright test-runs/legacy-browser-correction-20261108/focused-n5",
+      "cwd": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-8bceab19"
+    },
+    {
+      "artifact": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-8bceab19\\private-exports\\legacy-browser-correction-20261108\\focused-n5-corrected\\browser-results.json",
+      "rawSha256": "0c5d3f9df95ea91ef455e6ff23cc53cd2e880de365dcba2f70654db89a152ba8",
+      "exit": 0,
+      "match": "N5",
+      "pass": 8,
+      "fail": 0,
+      "pageErrors": 0,
+      "externalRequests": 0,
+      "networkFailures": [
+        {
+          "test": "n5-held-recovery",
+          "path": "/internal/api/cash/sales",
+          "error": "net::ERR_FAILED"
+        }
+      ],
+      "origin": "http://127.0.0.1:52288",
+      "loopbackClosedVerified": true,
+      "ownedPid": null,
+      "note": "Completed",
+      "command": "$env:MARTHA_BROWSER_TEST_MATCH='N5'; node tests/browser-mock-validation.mjs C:/Users/Jason/AppData/Roaming/npm/node_modules/@playwright/cli/node_modules/playwright test-runs/legacy-browser-correction-20261108/focused-n5-corrected",
+      "cwd": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-8bceab19"
+    },
+    {
+      "artifact": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-8bceab19\\private-exports\\legacy-browser-correction-20261108\\full-1\\browser-results.json",
+      "rawSha256": "4c79708d3a1c36b5e74fe874888765cce62619be4b0e2a17ff6922391420855d",
+      "exit": 0,
+      "match": null,
+      "pass": 50,
+      "fail": 0,
+      "pageErrors": 0,
+      "externalRequests": 0,
+      "networkFailures": [
+        {
+          "test": "multiarticle-desktop",
+          "path": "/internal/api/cash/sales",
+          "error": "net::ERR_FAILED",
+          "classification": "intentional synthetic lost sale response"
+        },
+        {
+          "test": "multiarticle-mobile",
+          "path": "/internal/api/cash/sales",
+          "error": "net::ERR_FAILED",
+          "classification": "intentional synthetic lost sale response"
+        },
+        {
+          "test": "",
+          "path": "/internal/api/cash/sales",
+          "error": "net::ERR_FAILED",
+          "classification": "intentional synthetic lost sale response"
+        },
+        {
+          "test": "",
+          "path": "/internal/api/cash/sales",
+          "error": "net::ERR_FAILED",
+          "classification": "intentional synthetic lost sale response"
+        },
+        {
+          "test": "n2-cashier",
+          "path": "/internal/api/cash/sales",
+          "error": "net::ERR_FAILED",
+          "classification": "intentional synthetic lost sale response"
+        },
+        {
+          "test": "n2-owner",
+          "path": "/internal/api/cash/sales",
+          "error": "net::ERR_FAILED",
+          "classification": "intentional synthetic lost sale response"
+        },
+        {
+          "test": "n2-manager",
+          "path": "/internal/api/cash/sales",
+          "error": "net::ERR_FAILED",
+          "classification": "intentional synthetic lost sale response"
+        },
+        {
+          "test": "n6-other-actor",
+          "path": "/internal/api/cash/sales",
+          "error": "net::ERR_FAILED",
+          "classification": "intentional synthetic lost sale response"
+        },
+        {
+          "test": "n6-changed-version",
+          "path": "/internal/api/cash/sales",
+          "error": "net::ERR_FAILED",
+          "classification": "intentional synthetic lost sale response"
+        },
+        {
+          "test": "n5-held-recovery",
+          "path": "/internal/api/cash/sales",
+          "error": "net::ERR_FAILED",
+          "classification": "intentional synthetic lost sale response"
+        }
+      ],
+      "origin": "http://127.0.0.1:51390",
+      "loopbackClosedVerified": true,
+      "ownedPid": 18760,
+      "note": "Completed",
+      "command": "Remove-Item Env:MARTHA_BROWSER_TEST_MATCH -ErrorAction SilentlyContinue; node tests/browser-mock-validation.mjs C:/Users/Jason/AppData/Roaming/npm/node_modules/@playwright/cli/node_modules/playwright test-runs/legacy-browser-correction-20261108/full-1",
+      "cwd": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-8bceab19"
+    },
+    {
+      "artifact": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-8bceab19\\private-exports\\legacy-browser-correction-20261108\\negative-control\\results\\browser-results.json",
+      "rawSha256": "61daa784406fab289edf4c20cdf1bf522fb6a7ff2654fb7bed67dfd94c129044",
+      "exit": 1,
+      "match": "Multiarticle cart",
+      "pass": 0,
+      "fail": 2,
+      "pageErrors": 0,
+      "externalRequests": 0,
+      "networkFailures": [
+        {
+          "test": "multiarticle-desktop",
+          "path": "/internal/api/cash/sales",
+          "error": "net::ERR_FAILED",
+          "classification": "intentional synthetic lost sale response"
+        },
+        {
+          "test": "multiarticle-mobile",
+          "path": "/internal/api/cash/sales",
+          "error": "net::ERR_FAILED",
+          "classification": "intentional synthetic lost sale response"
+        }
+      ],
+      "origin": "http://127.0.0.1:50437",
+      "loopbackClosedVerified": true,
+      "ownedPid": 47904,
+      "note": "Wrong receivedMinor only in disposable recovery response; expected rejection.",
+      "command": "$env:MARTHA_BROWSER_TEST_MATCH='Multiarticle cart'; node test-runs/legacy-browser-correction-20261108/negative-control/wrong-cash-recovery.mjs C:/Users/Jason/AppData/Roaming/npm/node_modules/@playwright/cli/node_modules/playwright test-runs/legacy-browser-correction-20261108/negative-control/results",
+      "cwd": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-8bceab19"
+    }
+  ],
+  "browserInvocations": 5,
+  "wholeDriverInvocations": 1,
+  "browser": "156.0.8078.80",
+  "unchangedNamedDeclarations": 36,
+  "expandedCases": 50,
+  "caseNames": [
+    "Login posts CSRF and verifies server identity before opening staff",
+    "Login HTTP 401 stays closed with visible error",
+    "Login HTTP 429 stays closed with visible error",
+    "Login HTTP 503 stays closed with visible error",
+    "Anonymous session exposes no staff data",
+    "Owner navigation and sale permissions in browser",
+    "Manager navigation and sale permissions in browser",
+    "Cashier navigation and sale permissions in browser",
+    "Inventory navigation and sale permissions in browser",
+    "Customer pagination and search use actual network query",
+    "Customer text is escaped instead of executing HTML",
+    "Empty catalog disables sale without inventing stock",
+    "Sale sends no price, preserves key, displays receipt and updated stock",
+    "Multiarticle cart and lost response reload at 1440px",
+    "Multiarticle cart and lost response reload at 390px",
+    "Rapid double submit sends one request",
+    "Lost response recovers original operation without second POST",
+    "Sale HTTP 401 never shows invented success",
+    "Sale HTTP 403 never shows invented success",
+    "Sale HTTP 500 never shows invented success",
+    "Malformed receipt leaves operation recoverable and blocks new sale",
+    "Confirmed rejected recovery unlocks only the rejected attempt",
+    "Logout uses CSRF, clears private view and returns to login",
+    "N2 Cashier reload recovers the same uncertain attempt without another sale (C8)",
+    "N2 Owner reload recovers the same uncertain attempt without another sale (C8)",
+    "N2 Manager reload recovers the same uncertain attempt without another sale (C8)",
+    "N6 changing actor keeps the uncertain key private and never replays it as the new actor (C8)",
+    "N6 changed actor version preserves the attempt and blocks recovery and resend under the new scope (C8)",
+    "N6 legacy attempt outside the current authorized locations stays private and cannot be replayed (C8)",
+    "N7 revoked mocked 401 discards late stock and cancels a sale waiting for CSRF (C8)",
+    "N7 absolute-expiry mocked 401 discards late stock and cancels a sale waiting for CSRF (C8)",
+    "N7 logout cancels a sale awaiting CSRF and discards its late response (C8)",
+    "Stale confirmed receipt 404 must not permanently block a fresh sale (N5)",
+    "N5 held operation recovery blocks native and synthetic submit without changing original bytes",
+    "N5 discarded 404 receipt permits one complete fresh multiarticle sale and stock refresh",
+    "N5 late old receipt 404 after user logout preserves invalidated state and retained reference",
+    "Stale receipt 403 after reassignment is cleared and leaves a fresh sale available (N5)",
+    "Unavailable receipt lookup keeps its reference and does not invent a pending sale (N5)",
+    "Stale receipt never unlocks a real pending sale; recovery reuses the original key (N5)",
+    "Revoked session during receipt restore returns to sign-in without staff data (N5)",
+    "Supply receipt entry is usable while customer creation stays unavailable",
+    "Staff visible screens have no document overflow at 1440px",
+    "Staff visible screens have no document overflow at 390px",
+    "All 47 public pages mount in Chromium with no uncaught JavaScript errors",
+    "Public product, bag, translation and synthetic checkout approval work in browser",
+    "Staff source bytes unchanged during browser run",
+    "Public synthetic payment declined releases reservation and permits rebuilding order",
+    "Public synthetic payment cancelled releases reservation and permits rebuilding order",
+    "Public gallery actual geometry and controls at 1440px",
+    "Public gallery actual geometry and controls at 390px"
+  ],
+  "negativeControl": {
+    "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-8bceab19\\private-exports\\legacy-browser-correction-20261108\\negative-control\\wrong-cash-recovery.mjs",
+    "rawSha256": "7bc8f3558ef3a88434ecdfed23db821f526d645681c1a9a4cabb2cdd378952b7",
+    "mutation": "Only recovered payment.receivedMinor 30000 -> 29999; original body and change remain unchanged",
+    "sourceRestoration": "Main driver never mutated by negative control; final RAW hash equals full-run source binding; all 8 UI RAW/LF unchanged"
+  },
+  "limits": [
+    "Real Chrome with synthetic intercepted HTTP only; no SQL/API persistence/CI/production acceptance",
+    "Cash UI does not automatically redisplay a completed receipt on subsequent reload. New confirmedReload explicitly reads and validates the authoritative paid commerce receipt and verifies no replay; it does not claim automatic cash receipt persistence. Seeded legacy pending/receipt cases retain original storage/read behavior. Primary must review this semantic adaptation.",
+    "Input overlay is required base; integrate only delivered test delta and docs",
+    "Canonical checkout, workflows, privacy cleanup, ledger, commits and publication untouched"
+  ],
+  "blockers": [
+    {
+      "id": "fixture-double-route",
+      "status": "resolved",
+      "evidence": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-8bceab19\\private-exports\\legacy-browser-correction-20261108\\focused-n5\\browser-results.json",
+      "cause": "Override fulfilled /cash/context but returned no handled=true; outer handler fulfilled it again",
+      "correction": "Removed duplicate override; shared tillFor(state) uses actual fixture identity and removes out-of-scope currentActor",
+      "completionCheck": "N5 8/8 exit0 and full 50/50 exit0"
+    },
+    {
+      "id": "primary-acceptance",
+      "status": "pending",
+      "owner": "primary",
+      "cause": "Worker proof is not independent acceptance or integration proof",
+      "attemptedCorrection": "Owned test delta and source-bound evidence prepared; out-of-scope product writes avoided",
+      "nextAction": "Review confirmedReload adaptation, integrate test only with separate privacy correction, rerun affected checks and workflows",
+      "completionCheck": "Primary exact integrated source bindings and independent accepted checks"
+    }
+  ],
+  "lesson": "Return handled=true after fulfilling an intercepted route; use the shared state-derived cash context instead of duplicating it."
+}

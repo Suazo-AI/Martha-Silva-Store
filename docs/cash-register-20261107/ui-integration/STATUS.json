@@ -1,0 +1,37 @@
+{
+  "state": "PRIMARY_ACCEPTED_WITH_LIMITS_AWAITING_EXACT_SHA_CI",
+  "localIntegration": "Primary verified all 23 frozen RAW/LF bindings and accepts F1/F2/F3 corrections within source/test scope.",
+  "repositoryCheck": {
+    "exit": 0,
+    "staffPassed": 223
+  },
+  "mockedChrome": {
+    "cash": "2/2",
+    "existing": "50/50",
+    "supply": "8/8"
+  },
+  "review": {
+    "state": "completed",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "xhigh",
+    "candidate": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\cash-ui-primary-20261108\\review-corrections-inputs\\CANDIDATE.json",
+    "rawSha256": "fbf10c4d8c9ef7c9333be8668e3ea4e90f1fc334e3aa3514762916c53fff2903",
+    "sourceBindings": 23,
+    "threadLink": "<t3-thread://v2/f8cf991c-9b66-41e9-8378-e40c6d6e0314/thread:delegated-task:command%3Amcp%3A13df77ce-5243-4c0a-bb0b-f16573212fa6%3Adelegate-task%3Asavia-cash-corrections-39161ef-astra-20261108-01>",
+    "verdict": "ACCEPT WITH LIMITS",
+    "report": "astra-corrections-review.md",
+    "reportRawSha256": "8bf6dbc1821974c0a25c5c769e683f1d1d8cb9d7f8298606c4557147dd22495c",
+    "reviewerFreshTests": "58/58",
+    "reviewerIndependentProbes": "2/2"
+  },
+  "knownLimit": "Confirmed cash receipt does not automatically redisplay after an additional reload. Judge accepted this disclosed capability limit. Uncertain original-key recovery and seeded legacy receipt restoration remain tested.",
+  "sql5": "HELD: review first, do not execute",
+  "publication": "Prepared for explicit-path staging and Tony publication; exact-SHA CI pending.",
+  "next": "Publish accepted cash increment on Tony; verify no-SQL CI on exact SHA. Prepare real cash journey separately; SQL5 remains held.",
+  "primaryAcceptance": {
+    "atUtc": "2026-11-08T02:23:43.017828+00:00",
+    "verdict": "ACCEPT WITH LIMITS",
+    "sourceBindingsVerified": 23,
+    "production": "NO-GO"
+  }
+}

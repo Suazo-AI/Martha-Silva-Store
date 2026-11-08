@@ -1,0 +1,7 @@
+{
+  "workerDriverRawSha256": "3bc5b1468f4f6d245d403ad34e1690a44a91cec35b3ebea64b1ea7ace2ff6434",
+  "integratedDriverRawSha256": "23b428b2e10dfad8c5f286922c433350c65cb69d4811d2538c120e06ecdd1918",
+  "primaryDelta": "Removed one unreachable duplicate cash/context route. Shared tillFor context remains; original named declarations identical.",
+  "workerEvidence": "Historical worker Chrome evidence on worker bytes; current overlay browser verification follows.",
+  "sql5": "HELD: review first; do not execute"
+}

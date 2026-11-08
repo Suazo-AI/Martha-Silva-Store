@@ -1,0 +1,32 @@
+{
+  "layer": "Primary observations on the unaccepted local cash overlay; not SQL or production evidence",
+  "parentSha": "39161ef8c5afcac1f7c9502cc5f38439608a8d70",
+  "host": "SUAZO-PC",
+  "frozenBindings": {"verified": 16, "mismatches": 0, "policy": "CRLF to LF only"},
+  "repository": {
+    "command": "python tests/check.py",
+    "exit": 0,
+    "staffPassed": 221,
+    "log": "C:/Users/Jason/MARTHA-SILVA/test-runs/cash-ui-primary-20261108/repository.log",
+    "rawLogSha256": "c7049495ab53668c3bf022b91b827aefc745ae65ac576c3fa32518d108955919",
+    "limit": "Does not prove the complete mocked Chrome driver, SQL persistence or production"
+  },
+  "legacyBrowserDiagnostic": {
+    "environment": {"MARTHA_BROWSER_TEST_MATCH": "Multiarticle cart"},
+    "command": "node tests/browser-mock-validation.mjs C:/Users/Jason/AppData/Roaming/npm/node_modules/@playwright/cli/node_modules/playwright C:/Users/Jason/MARTHA-SILVA/test-runs/cash-ui-primary-20261108/legacy-multiarticle",
+    "exit": 1,
+    "passed": 0,
+    "failed": 2,
+    "viewports": ["1440x1000", "390x844"],
+    "assertion": "Expected #sale-recover enabled; actual legacy control hidden and disabled",
+    "pageErrors": 0,
+    "externalRequests": 0,
+    "networkFailures": 0,
+    "results": "C:/Users/Jason/MARTHA-SILVA/test-runs/cash-ui-primary-20261108/legacy-multiarticle/browser-results.json",
+    "disposition": "Confirmed old-driver compatibility gap; product-defect cause not established; supplied to the running independent judge",
+    "reruns": 0
+  },
+  "next": "Receive the existing Astra review, adjudicate findings, adapt affected browser fixtures and CI without weakening outcomes, then validate and publish accepted changes serially",
+  "held": "SQL5: Jason selected detailed plan review first. No SQL execution, backup, restore or restart",
+  "publication": "No commit, push or deployment of the local overlay"
+}

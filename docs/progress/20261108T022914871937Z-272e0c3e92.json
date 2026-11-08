@@ -1,0 +1,205 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-08T02:29:14.871937+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": ".github/workflows/savia.yml",
+      "change": "M",
+      "git_blob": "72f4ee231e020bfd6dd4463bfa51ceac1e60e365"
+    },
+    {
+      "path": ".github/workflows/staff-ui-candidate.yml",
+      "change": "M",
+      "git_blob": "ff510d5b9595347c63a358a0a6a94c262ed07475"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Cash/InternalCashEndpoints.cs",
+      "change": "M",
+      "git_blob": "e3edfb62cc9748ff3db2aa954b55976d67665d94"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Cash/InternalCashReadService.cs",
+      "change": "A",
+      "git_blob": "1ec22390ebd334a0038aaa89378f4b713eb5377a"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalUiHosting.cs",
+      "change": "M",
+      "git_blob": "69f1850c7c8f49b1539d15ea7b11ebddabec2518"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Martha.Store.Api.csproj",
+      "change": "M",
+      "git_blob": "bdbafd3f06da2b4d0ae747d27866095c978c4859"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCashReadTests.cs",
+      "change": "A",
+      "git_blob": "eb781734d50c50876cf7994373206185bdfee997"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCashSqlTests.cs",
+      "change": "M",
+      "git_blob": "1c3413d4960e5659f3981676330975756853f5e8"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalSupplyUiTests.cs",
+      "change": "M",
+      "git_blob": "fa038c122e8e9e77f80f0dc3b3032667c1c672e6"
+    },
+    {
+      "path": "dev/savia-staff-ui/app.mjs",
+      "change": "M",
+      "git_blob": "475cc0e3b8ce2770b90f8e3ce9cb6b7d53041fab"
+    },
+    {
+      "path": "dev/savia-staff-ui/cash.mjs",
+      "change": "A",
+      "git_blob": "ee74928b5c14e79c5fe84fb8ad35a4c958d8dd38"
+    },
+    {
+      "path": "dev/savia-staff-ui/cash.test.mjs",
+      "change": "A",
+      "git_blob": "14561c6d35009c8312b15010f2e79b7c7581fffe"
+    },
+    {
+      "path": "dev/savia-staff-ui/client.mjs",
+      "change": "M",
+      "git_blob": "6b2fd7ca5937b3aec9947ad729e94dda5d4c56a6"
+    },
+    {
+      "path": "dev/savia-staff-ui/commerce.test.mjs",
+      "change": "M",
+      "git_blob": "99fead9aad689786751f6c75ec47c816e6a34f4c"
+    },
+    {
+      "path": "dev/savia-staff-ui/index.html",
+      "change": "M",
+      "git_blob": "5417fc3516f9110d5b0a0580ebff2d26a4d5f83e"
+    },
+    {
+      "path": "dev/savia-staff-ui/login.mjs",
+      "change": "M",
+      "git_blob": "715e24c7e17119596b32bd2491876d60392255ba"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "4e37ef2568738c1385789388bcfb15909dedd8b2"
+    },
+    {
+      "path": "docs/cash-register-20261107/legacy-browser-correction/PRIMARY-IMPORT.json",
+      "change": "A",
+      "git_blob": "6186fd1655ed2c540c3d13c3fc690a69d0f0c655"
+    },
+    {
+      "path": "docs/cash-register-20261107/legacy-browser-correction/README.md",
+      "change": "A",
+      "git_blob": "eead31cbc8e009f619a246bcbd61fc4de886d789"
+    },
+    {
+      "path": "docs/cash-register-20261107/legacy-browser-correction/RESULT.json",
+      "change": "A",
+      "git_blob": "588bc042c2be72efc30f0496b3bf835b7eac309a"
+    },
+    {
+      "path": "docs/cash-register-20261107/real-journey/PREPARATION.md",
+      "change": "A",
+      "git_blob": "7c83dde35b5d407421932c2c67aaa4a14c88e024"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-integration/CANDIDATE.json",
+      "change": "A",
+      "git_blob": "3e373797fb6ce27ecf5108a434075aa4258c5b2c"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-integration/CORRECTIONS.json",
+      "change": "A",
+      "git_blob": "fd6523a4cd2a5b9220483ce2d349ed0d092f536c"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-integration/PRIMARY-ACCEPTANCE.json",
+      "change": "A",
+      "git_blob": "94b15b78f1bc465d4022757cb37869c391e031a4"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-integration/PRIMARY-CHECKS.json",
+      "change": "A",
+      "git_blob": "5fea8af5ace311899da2b1ab9a1dc423f3b79aca"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-integration/README.md",
+      "change": "A",
+      "git_blob": "9c158ee3825fa5a07eccf8de9b83bca7885cb655"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-integration/STATUS.json",
+      "change": "A",
+      "git_blob": "007281bb7b9f1ba88b471f2f10440895320e0ec2"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-integration/astra-candidate-review.md",
+      "change": "A",
+      "git_blob": "badf71226afc24104f303605b8559d240c8cb6c6"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-integration/astra-corrections-review.md",
+      "change": "A",
+      "git_blob": "b7bf5332852cc98a3799d5a4e81e6ff1da121f71"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/README.md",
+      "change": "A",
+      "git_blob": "b77d0db0ae98a427fff3bb66735d5d3fc9ab7907"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/RESULT.json",
+      "change": "A",
+      "git_blob": "9e4d79ac35610b8b3120a06d1812f3c1c0a5ed1d"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/browser-evidence.json",
+      "change": "A",
+      "git_blob": "bb53cdce5d9eb8dadf4bf3856d62ea1e664cbead"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/cleanup.json",
+      "change": "A",
+      "git_blob": "6eebb8aeb4287e7de7692e33914271d0be44dbf3"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/frontend-negative-controls-final.json",
+      "change": "A",
+      "git_blob": "a80ced75bb038a746bf87f0b4a135f931a27c0a8"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/frontend-negative-controls.json",
+      "change": "A",
+      "git_blob": "1fc51db78e20abcf749e0f5db07630a13d0a12f1"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/negative-controls.json",
+      "change": "A",
+      "git_blob": "2225cf55ec323cc0f51f7a56448cbc530d66d18e"
+    },
+    {
+      "path": "docs/owner-recovery-20261107/primary-review/STATUS.json",
+      "change": "A",
+      "git_blob": "0df1d4e9cc6be45f6ec74dd34d2645555c9b5ad8"
+    },
+    {
+      "path": "tests/browser-cash-validation.mjs",
+      "change": "A",
+      "git_blob": "71679c71a67c12afec514f5acef59b01c757429b"
+    },
+    {
+      "path": "tests/browser-mock-validation.mjs",
+      "change": "M",
+      "git_blob": "30b1730f9d4e05279add0e8a4270a0b7ebd65a67"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

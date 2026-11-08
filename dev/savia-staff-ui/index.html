@@ -82,13 +82,43 @@
         <section data-view="ventas" aria-labelledby="sales-title" hidden>
           <div class="page-header"><div><h2 id="sales-title">Ventas</h2><p class="muted">Registro de ventas del personal.</p></div></div>
           <div class="panel">
+            <section id="cash-panel" hidden aria-labelledby="cash-title">
+              <h3 id="cash-title">Caja del turno</h3>
+              <div id="cash-context"></div>
+              <button id="cash-refresh" class="btn btn-secondary" type="button">Actualizar caja</button>
+              <form id="cash-open" class="form-grid">
+                <label class="field">Sucursal<select id="cash-location" required></select></label>
+                <label class="field">Fondo de apertura<input id="cash-opening" inputmode="decimal" required autocomplete="off"></label>
+                <span id="cash-currency"></span><button class="btn">Abrir caja</button>
+              </form>
+              <form id="cash-close" class="form-grid">
+                <label class="field">Efectivo contado<input id="cash-counted" inputmode="decimal" required autocomplete="off"></label>
+                <button class="btn">Cerrar caja con conteo</button>
+              </form>
+              <section id="cash-refund-section" hidden aria-labelledby="cash-refund-title">
+                <h3 id="cash-refund-title">Devolución en efectivo</h3>
+                <form id="cash-refund-load" class="form-grid"><label class="field">Venta original (ID)<input id="cash-sale-id" required></label><button class="btn btn-secondary">Consultar devolución</button></form>
+                <p id="cash-refund-summary"></p>
+                <form id="cash-refund" class="form-grid">
+                  <div id="cash-refund-lines" class="field full"></div>
+                  <label class="field">Caja que entrega efectivo<select id="cash-paying-till" required></select></label>
+                  <label class="field">Motivo<textarea id="cash-reason" maxlength="500" required></textarea></label>
+                  <button class="btn">Confirmar devolución</button>
+                </form>
+                <div class="actions"><button id="cash-prev" class="btn btn-secondary" type="button">Cajas anteriores</button><button id="cash-next" class="btn btn-secondary" type="button">Más cajas</button></div><p id="cash-page"></p>
+              </section>
+              <p id="cash-status" role="status" aria-live="polite"></p><p id="cash-reference"></p>
+              <div class="actions"><button id="cash-recover" class="btn btn-secondary" type="button" hidden>Comprobar operación</button><button id="cash-continue" class="btn btn-secondary" type="button" hidden>Continuar misma operación</button></div>
+              <div id="cash-receipt" hidden></div>
+            </section>
             <form id="sale-form" class="form-grid" method="post">
               <div class="field"><label for="sale-location">Sucursal</label><select id="sale-location" required disabled></select></div>
               <div id="sale-lines" class="sale-lines field full"></div>
               <button id="sale-add" class="btn btn-secondary" type="button" disabled>Agregar artículo</button>
-              <button id="sale-submit" class="btn" type="submit" disabled>Registrar venta</button>
+              <label class="field" id="sale-received-field"><span id="sale-received-label">Efectivo recibido</span><input id="sale-received" inputmode="decimal" autocomplete="off" required disabled></label>
+              <button id="sale-submit" class="btn" type="submit" disabled>Cobrar venta en efectivo</button>
             </form>
-            <p>Registro interno; sin cobro bancario.</p>
+
             <p id="sale-status" role="status" aria-live="polite">Esperando datos del servidor.</p>
             <div class="actions"><button id="sale-recover" class="btn btn-secondary" type="button" hidden>Comprobar venta</button><button id="sale-retry" class="btn btn-secondary" type="button" hidden>Reintentar misma venta</button></div>
             <div id="sale-receipt" hidden></div>

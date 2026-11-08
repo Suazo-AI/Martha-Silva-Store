@@ -1,0 +1,23 @@
+{
+  "ownedTabClosed": true,
+  "ownedServerPid": 49764,
+  "ownedServerSession": 69750,
+  "shutdown": "Ctrl-C; exit 1 expected",
+  "ports": [
+    {
+      "port": 61230,
+      "acceptingConnections": false
+    },
+    {
+      "port": 65040,
+      "acceptingConnections": false
+    },
+    {
+      "port": 49827,
+      "acceptingConnections": false
+    }
+  ],
+  "sqlRelatedEnvNameCount": 0,
+  "otherProcessesTerminated": false,
+  "finalAutomaticServerPid": 40268
+}

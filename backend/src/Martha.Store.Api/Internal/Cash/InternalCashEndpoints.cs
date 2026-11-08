@@ -7,11 +7,19 @@ public static class InternalCashEndpoints
         // Explicit synthetic configuration; absence fails cash admission, never guesses real money.
         var currency = configuration["InternalSavia:Cash:Currency"] ?? "";
         var exponent = int.TryParse(configuration["InternalSavia:Cash:Exponent"], out var value) ? value : -1;
-        return services.AddSingleton(new InternalCashOptions(currency, exponent)).AddScoped<InternalCashService>();
+        return services.AddSingleton(new InternalCashOptions(currency, exponent)).AddScoped<InternalCashService>().AddScoped<InternalCashReadService>();
     }
     public static IEndpointRouteBuilder MapInternalCash(this IEndpointRouteBuilder endpoints)
     {
         var group = endpoints.MapGroup("/internal/api/cash").RequireAuthorization("internal.sell");
+        group.MapGet("/context", async (InternalCashReadService service, HttpContext http, CancellationToken ct) => {
+            http.Response.Headers.CacheControl = "no-store";
+            return Result(await service.Context(http.User, ct));
+        });
+        group.MapGet("/sales/{saleId:guid}/refund-context", async (Guid saleId, int? skip, int? take, InternalCashReadService service, HttpContext http, CancellationToken ct) => {
+            http.Response.Headers.CacheControl = "no-store";
+            return Result(await service.RefundContext(saleId, skip ?? 0, take ?? 50, http.User, ct));
+        }).RequireAuthorization("internal.manage");
         group.MapPost("/tills", async (InternalCashOpenRequest request, InternalCashService service, HttpContext http, CancellationToken ct) =>
             Result(await service.Open(request, InternalActor.Id(http.User), Key(http), ct))).RequireInternalCsrf();
         group.MapPost("/sales", async (InternalCashSaleRequest request, InternalCashService service, HttpContext http, CancellationToken ct) =>

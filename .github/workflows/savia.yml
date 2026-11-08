@@ -40,6 +40,8 @@ jobs:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm install --no-audit --no-fund --ignore-scripts playwright@1.63.0
           node node_modules/playwright/cli.js install ffmpeg
           google-chrome --version
+      - name: Cash register browser regressions (synthetic HTTP, no SQL)
+        run: node tests/browser-cash-validation.mjs "$RUNNER_TEMP/pw/node_modules/playwright" "$RUNNER_TEMP/cash-browser-evidence"
       - name: Real browser with synthetic API responses (includes the N5 regressions)
         run: node tests/browser-mock-validation.mjs "$RUNNER_TEMP/pw/node_modules/playwright" "$RUNNER_TEMP/browser-evidence"
       - name: Purchase receipt browser regressions (synthetic HTTP, no SQL)
@@ -52,6 +54,7 @@ jobs:
           path: |
             ${{ runner.temp }}/browser-evidence/
             ${{ runner.temp }}/supply-browser-evidence/
+            ${{ runner.temp }}/cash-browser-evidence/
           if-no-files-found: error
           retention-days: 7
 
