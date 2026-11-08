@@ -153,13 +153,13 @@ public static class InternalOwnerConsole
             .CreateInitialOwner(login, display, password, ct);
     }
 
-    private static bool SafeServer(string value) => value is { Length: >= 1 and <= 256 }
+    public static bool SafeServer(string value) => value is { Length: >= 1 and <= 256 }
         && value.All(c => char.IsAsciiLetterOrDigit(c) || c is '.' or '_' or '-' or '\\' or ',' or ':' or '(' or ')' or '[' or ']');
 
     private static string? ReadValue(IInternalOwnerConsole console, int maximum)
         => ReadValue(console, maximum, out _);
 
-    private static string? ReadValue(IInternalOwnerConsole console, int maximum,
+    public static string? ReadValue(IInternalOwnerConsole console, int maximum,
         out string? rejection, bool mask = false)
     {
         var buffer = new char[maximum];

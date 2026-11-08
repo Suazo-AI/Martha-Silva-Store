@@ -1,0 +1,124 @@
+{
+  "state": "BUILD_PASS_TEST_DISCOVERY_BLOCKED",
+  "parentHead": "85d5872ecb379e42e8ed59de346bf60933207c53",
+  "host": "SUAZO-PC",
+  "sdk": "10.0.402",
+  "commands": [
+    {
+      "name": "owner-restore",
+      "command": [
+        "C:\\Users\\Jason\\MARTHA-SILVA\\validation\\resolution-20261028-jsdom\\.sdk-10.0.402\\dotnet.exe",
+        "restore",
+        "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+        "--locked-mode",
+        "--source",
+        "<checkout>\\private-exports\\owner-cash-qualification-20261108\\empty-nuget",
+        "-p:NuGetAudit=false",
+        "--nologo"
+      ],
+      "exit": 0,
+      "seconds": 2.078,
+      "log": "private-exports\\owner-cash-qualification-20261108\\owner-restore.log",
+      "sha256": "d4710a5d175781be192c8fc506bab8866d7dfcdfda8b3542106c89b1203eb2f7"
+    },
+    {
+      "name": "owner-build",
+      "command": [
+        "C:\\Users\\Jason\\MARTHA-SILVA\\validation\\resolution-20261028-jsdom\\.sdk-10.0.402\\dotnet.exe",
+        "build",
+        "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "--nologo"
+      ],
+      "exit": 0,
+      "seconds": 14.922,
+      "log": "private-exports\\owner-cash-qualification-20261108\\owner-build.log",
+      "sha256": "b3c8c324da674ea67599dfb322ee92e874ef32f1075a973f596b4d3fd984c3d0"
+    },
+    {
+      "name": "owner-tests",
+      "command": [
+        "C:\\Users\\Jason\\MARTHA-SILVA\\validation\\resolution-20261028-jsdom\\.sdk-10.0.402\\dotnet.exe",
+        "test",
+        "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName~InternalOwnerRecoveryConsoleTests|FullyQualifiedName~InternalOwnerConsoleTests",
+        "--results-directory",
+        "<checkout>\\private-exports\\owner-cash-qualification-20261108",
+        "--logger",
+        "trx;LogFileName=owner.trx",
+        "--nologo"
+      ],
+      "exit": 1,
+      "seconds": 4.657,
+      "log": "private-exports\\owner-cash-qualification-20261108\\owner-tests.log",
+      "sha256": "e6de8c1f3adacbe5cf63c24e09d112b821d70240cca33e89dfff0887adcf1ca0"
+    }
+  ],
+  "sources": [
+    {
+      "path": "backend/src/Martha.Store.Api/Program.cs",
+      "lfSha256": "74e043cebd6242d9f114fef2cf30f9cf944e5f99dc602b7fd3309b095de14fe4"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalOwnerConsole.cs",
+      "lfSha256": "6c4471cd566bbe4620722e99c9f8a5efc41c71147c19891f4b45ccafc047bdd7"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalOwnerRecoveryConsole.cs",
+      "lfSha256": "bbe457d5247a348c5c9a18026783f7c0f8876c2661127852033c1bf8c437ea69"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalOwnerRecoveryService.cs",
+      "lfSha256": "d13a14717563c4f89dd2da881fe736fdde2f8bee2814a216581bbd3cd85d661c"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalOwnerRecoveryConsoleTests.cs",
+      "lfSha256": "96a275b89a276653d4d99c1709d6062c32c34236a7438e4f02f920e5b1426cd8"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalOwnerRecoverySqlTests.cs",
+      "lfSha256": "40695cb9fafb263c492487f2819d4471203b472d6052f62cbaee6793c714bd9e"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalSecuritySqlTests.cs",
+      "lfSha256": "ad2674aee310e5e7963e749c1db66c396c46572a4d1aeac05035a7c5aa62bb37"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs",
+      "lfSha256": "339266e8dfce6583b1c1ef0181ba42265b0753895d8e6920d8763305e0572b9e"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalOwnerRecoveryFixture.cs",
+      "lfSha256": "d2528bec753b5483d28475bb468ba5c3766798212e5cd8fd2e1008aa8daa178f"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalOwnerRecoveryDatabaseLease.cs",
+      "lfSha256": "c782d60e1ebd0700dbc9db8d061ad51020178048e806298e11c00d6a0ef5b8a0"
+    }
+  ],
+  "testResults": {
+    "executed": 0,
+    "passed": 0,
+    "failedCases": 0,
+    "processExit": 1,
+    "reason": "Application Control refused Martha.Store.Api.Tests.dll; 0x800711C7"
+  },
+  "diagnosis": "Read-only CodeIntegrity events 3033 and 3077 confirm signing-level denial; 3118 reports Smart App Control. SDK and runtime 10.0.13 exist. No access policy changed.",
+  "next": "Automatic staff-ui-candidate no-SQL Linux CI on published source; source/offline acceptance remains pending.",
+  "notRun": [
+    "SQL contention",
+    "Windows ACL/SID recovery boundary",
+    "actual recovery",
+    "accounts",
+    "backup/restore",
+    "restart"
+  ],
+  "sql5": "D: REVIEW FIRST, DO NOT EXECUTE"
+}

@@ -18,6 +18,7 @@ try
         ["create", var db] => await Create(db),
         ["branch", var db, var id] => await Branch(db, Guid.Parse(id)),
         ["oracles", var db] => await Oracles(db),
+        ["cash-snapshot", var db] => await CashSnapshot(db),
         ["receipt-identity", var db, var receipt, var actor, var order, var location, var item, var key, var quantity] =>
             await ReceiptIdentity(db, Guid.Parse(receipt), Guid.Parse(actor), Guid.Parse(order), Guid.Parse(location), Guid.Parse(item), Guid.Parse(key), int.Parse(quantity)),
         ["stock-identity", var db, var sale, var actor, var item, var location, var key, var reviewer, var reviewKey] =>
@@ -215,7 +216,7 @@ static async Task<int> Oracles(string database)
           (SELECT COUNT(*) FROM (SELECT ActorId, Scope, [Key] FROM savia_internal.Operations
                                  GROUP BY ActorId, Scope, [Key] HAVING COUNT(*) > 1) d) AS duplicate_idempotency_keys,
           (SELECT COUNT(*) FROM savia_internal.Operations) AS operations,
-          (SELECT COUNT(*) FROM savia_internal.Operations WHERE Scope = 'commerce.sale.record') AS sale_operations,
+          (SELECT COUNT(*) FROM savia_internal.Operations WHERE Scope IN ('commerce.sale.record','cash.sale')) AS sale_operations,
           (SELECT ISNULL(SUM(OnHand), 0) FROM savia_internal.StockBalances) AS on_hand_total,
           (SELECT COUNT(*) FROM savia_internal.StockBalances) AS balances,
           (SELECT COUNT(*) FROM savia_internal.Staff) AS staff,
@@ -270,8 +271,8 @@ static async Task<int> StockIdentity(string database, Guid sale, Guid actor, Gui
     command.CommandText = """
       SELECT
        (SELECT COUNT(*) FROM savia_internal.Sales s JOIN savia_internal.SaleLines l ON l.SaleId=s.Id
-        JOIN savia_internal.Operations op ON op.ActorId=s.ActorId AND op.Scope='commerce.sale.record' AND op.[Key]=@key
-          AND JSON_VALUE(op.ResultJson,'$.value.saleId')=CONVERT(nvarchar(36),s.Id)
+        JOIN savia_internal.Operations op ON op.ActorId=s.ActorId AND op.Scope='cash.sale' AND op.[Key]=@key
+          AND JSON_VALUE(op.ResultJson,'$.value.sale.saleId')=CONVERT(nvarchar(36),s.Id)
         WHERE s.Id=@sale AND s.ActorId=@actor AND s.LocationId=@location AND l.ItemId=@item
           AND l.Quantity=1 AND l.ReturnedQuantity=0 AND l.Size='S' AND l.ExceptionReason='SINTETICO physical garment present'
           AND s.TotalMinor=1250 AND l.TotalMinor=1250 AND l.UnitPriceMinor=1250
@@ -291,6 +292,36 @@ static async Task<int> StockIdentity(string database, Guid sale, Guid actor, Gui
     command.Parameters.AddWithValue("@key",key.ToString());command.Parameters.AddWithValue("@reviewKey",reviewKey.ToString());
     await using var reader=await command.ExecuteReaderAsync();await reader.ReadAsync();
     return Ok(new {ok=true,allocation_matches=reader.GetInt32(0),review_matches=reader.GetInt32(1)});
+}
+
+
+// Independent ADO.NET readback. Never call a product money calculator or infer tables from EF.
+static async Task<int> CashSnapshot(string database)
+{
+    Guarded(database);
+    string[] tables = ["BranchAssignmentAudit", "Branches", "CashCloses", "CashEntries", "CashTills", "Items", "Locations", "Operations", "Parties", "PurchaseOrderLines", "PurchaseOrders", "PurchaseReceiptLines", "PurchaseReceipts", "SaleLines", "SaleReversalLines", "SaleReversals", "Sales", "Sessions", "Staff", "StockAdjustments", "StockBalances", "StockExceptionReviews", "StockMovements"];
+    await using var connection = new SqlConnection(Connection(database)); await connection.OpenAsync();
+    async Task<string> Json(string sql) {
+        await using var command = connection.CreateCommand(); command.CommandText = sql; command.CommandTimeout = 60;
+        await using var reader = await command.ExecuteReaderAsync(); var value = new System.Text.StringBuilder();
+        while(await reader.ReadAsync()) value.Append(reader.GetString(0)); return value.ToString();
+    }
+    // SQL JSON objects are read explicitly, including exact inventory order.
+    using var names = JsonDocument.Parse(await Json("SELECT name FROM sys.tables WHERE schema_id=SCHEMA_ID('savia_internal') ORDER BY name FOR JSON PATH"));
+    if (!names.RootElement.EnumerateArray().Select(x=>x.GetProperty("name").GetString()).SequenceEqual(tables)) throw new Refusal("cash_table_inventory_mismatch");
+    var rows = new SortedDictionary<string, JsonElement>();
+    var hashes = new SortedDictionary<string, string[]>();
+    foreach (var table in tables.Where(x=>x is not "Sessions")) {
+        // Exact row hashes let successful writes preserve every old row of excluded tables.
+        var json = await Json($"SELECT * FROM savia_internal.[{table}] FOR JSON PATH, INCLUDE_NULL_VALUES");
+        using var document = JsonDocument.Parse(json);
+        hashes[table] = document.RootElement.EnumerateArray().Select(x=>Convert.ToHexString(SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(x.GetRawText())))).Order(StringComparer.Ordinal).ToArray();
+        if (new[]{"CashCloses","CashEntries","CashTills","Sales","SaleLines","SaleReversals","SaleReversalLines","StockMovements","StockBalances"}.Contains(table)) rows[table] = document.RootElement.Clone();
+    }
+    // No response bodies, private staff fields, tokens or credentials leave the helper.
+    using var operations = JsonDocument.Parse(await Json("SELECT ActorId,Scope,[Key],Fingerprint, COALESCE(JSON_VALUE(ResultJson,'$.value.sale.saleId'),JSON_VALUE(ResultJson,'$.value.reversal.reversalId'),JSON_VALUE(ResultJson,'$.value.till.id')) AS ResultId, COALESCE(JSON_VALUE(ResultJson,'$.value.payment.id'),JSON_VALUE(ResultJson,'$.value.refund.id'),JSON_VALUE(ResultJson,'$.value.opening.id'),JSON_VALUE(ResultJson,'$.value.close.id')) AS EffectId FROM savia_internal.Operations WHERE Scope LIKE 'cash.%' FOR JSON PATH"));
+    rows["Operations"] = operations.RootElement.Clone();
+    return Ok(new {ok=true, rows, hashes});
 }
 
 // Refusals carry only fixed codes written above, never server or request text.

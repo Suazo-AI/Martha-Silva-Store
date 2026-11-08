@@ -10,12 +10,18 @@ Ver tests/golden-path/README.md.
 """
 import argparse
 import base64
-import fcntl
+try:
+    import fcntl
+except ImportError:
+    fcntl = None
 import hashlib
 import http.client
 import json
 import os
-import pty
+try:
+    import pty
+except ImportError:
+    pty = None
 import re
 import secrets
 import select
@@ -26,9 +32,15 @@ import ssl
 import subprocess
 import sys
 import tempfile
-import termios
+try:
+    import termios
+except ImportError:
+    termios = None
 import time
-import tty
+try:
+    import tty
+except ImportError:
+    tty = None
 import uuid
 from pathlib import Path
 
@@ -36,13 +48,15 @@ ROOT = Path(__file__).resolve().parents[2]
 API_PROJECT = ROOT / 'backend/src/Martha.Store.Api'
 HELPER_PROJECT = ROOT / 'tests/golden-path/GoldenPath.Sql'
 DATABASE_PATTERN = re.compile(r'\ASaviaInternalTest_Golden_[a-f0-9]{32}\Z')
-EXPECTED_MIGRATIONS = 3  # InitialInternalSavia, InternalBranchScope, PhysicalStockException
+MIGRATIONS = ('20261025085402_InitialInternalSavia', '20261027224500_InternalBranchScope',
+              '20261106071201_PhysicalStockException', '20261107221938_FirstCashRegister')
+EXPECTED_MIGRATIONS = len(MIGRATIONS)
 SEED_STOCK = 10
 SALE_QUANTITY = 2
 ITEMS = [('SINTETICO-GOLDEN-01', 'SINTETICO Golden artículo 1', 1250),
          ('SINTETICO-GOLDEN-02', 'SINTETICO Golden artículo 2', 3400),
          ('SINTETICO-GOLDEN-03', 'SINTETICO Golden artículo 3', 990)]
-ROLES = ['Owner', 'Manager', 'Cashier', 'Inventory', 'Unassigned']
+ROLES = ['Owner', 'Manager', 'Cashier', 'Inventory', 'Unassigned', 'Cashier2']
 # Invariants that must hold after EVERY step once the schema exists.
 ALWAYS_ZERO = ['exception_movements', 'lines_without_exactly_one_movement', 'sale_movements_not_matching_a_line',
                'balance_vs_movement_sum_mismatch', 'balance_vs_last_movement_mismatch',
@@ -54,7 +68,7 @@ TABLE_COLUMNS = [('sales', 'ventas'), ('sale_operations', 'ops_venta'), ('moveme
                  ('duplicate_idempotency_keys', 'claves_dup'), ('active_sessions', 'sesiones')]
 BROWSER_SCRIPT = ROOT / 'tests/golden-path/browser_path.mjs'
 BROWSER_SOURCES = ['dev/savia-staff-ui/' + name for name in
-                   ('app.mjs', 'client.mjs', 'login.mjs', 'login.html', 'index.html', 'styles.css', 'supply.mjs')]
+                   ('app.mjs', 'client.mjs', 'login.mjs', 'login.html', 'index.html', 'styles.css', 'supply.mjs', 'cash.mjs')]
 BROWSER_STEPS = ('browser.start', 'browser.cashier_login', 'browser.inventory',
                  'browser.sale_confirmed', 'browser.receipt_reload', 'browser.stock_after_sale',
                  'browser.response_loss_committed', 'browser.recover_after_reload',
@@ -71,6 +85,14 @@ SUPPLY_STEPS = ('browser.supply_login', 'browser.supply_partial', 'browser.suppl
                 'browser.supply_recovered', 'browser.supply_reload', 'browser.supply_logout')
 BROWSER_DOM.update({name: {'logged_out'} if name.endswith('logout') else {'shell'} for name in STOCK_STEPS})
 BROWSER_DOM.update({name: {'logged_out'} if name.endswith('logout') else {'shell'} for name in SUPPLY_STEPS})
+
+CASH_PROTOCOL = 'real-cash-v1'
+CASH_OPEN = 'browser.cash_open'
+CASH_TAIL = ('browser.cash_second_till', 'browser.cash_refund_refused', 'browser.cash_refunded',
+             'browser.cash_closed_short', 'browser.cash_later_till', 'browser.cash_later_refund',
+             'browser.cash_later_close', 'browser.cash_logout')
+CASH_STEPS = (*BROWSER_STEPS[:2], CASH_OPEN, *BROWSER_STEPS[2:], *SUPPLY_STEPS, *STOCK_STEPS, *CASH_TAIL)
+BROWSER_DOM.update({name: {'logged_out'} if name.endswith('logout') else {'shell'} for name in (CASH_OPEN, *CASH_TAIL)})
 
 
 def supply_expected(step):
@@ -124,14 +146,19 @@ def browser_checkpoint(event, expected_step, secrets_seen):
     valid(all(isinstance(value, str) and len(value) <= 8192 for value in event['secrets']))
     secrets_seen.update(event['secrets'])
     notes = event['notes']
+    if isinstance(notes, dict) and 'cash_commands' in notes:
+        cash_commands(notes['cash_commands'])
+        if 'cash_pending_hash' in notes:
+            valid(isinstance(notes['cash_pending_hash'], str) and re.fullmatch(r'[a-f0-9]{64}', notes['cash_pending_hash']))
     allowed = {'dom', 'network', 'sale_posts', 'stock_total', 'stock_rows', 'quantity', 'total_minor',
-               'key', 'sale_id', 'runtime', 'source_hashes', 'external_requests', 'runtime_errors', 'receipt_posts', 'receipt_id', 'order_id', 'actor_id', 'location_id', 'review_id', 'review_key', 'sale_line_id'}
+               'key', 'sale_id', 'runtime', 'source_hashes', 'external_requests', 'runtime_errors', 'receipt_posts', 'receipt_id', 'order_id', 'actor_id', 'location_id', 'review_id', 'review_key', 'sale_line_id', 'cash_commands', 'cash_pending_hash'}
     valid(isinstance(notes, dict) and set(notes) <= allowed
           and {'dom', 'network', 'sale_posts', 'external_requests', 'runtime_errors'} <= set(notes))
     dom_labels = {'login_ready', 'shell', 'cashier', 'inventory', 'receipt', 'pending',
                   'sale_enabled', 'pending_key_preserved', 'same_receipt', 'stock_current', 'logged_out'}
+    required_dom = ({'shell'} if 'cash_commands' in notes and expected_step in ('browser.cashier_login', 'browser.receipt_reload', 'browser.repeated_reload', 'browser.stock_reload') else BROWSER_DOM[expected_step])
     valid(isinstance(notes['dom'], list) and all(value in dom_labels for value in notes['dom'])
-          and BROWSER_DOM[expected_step] <= set(notes['dom']))
+          and required_dom <= set(notes['dom']))
     for key in ('sale_posts', 'stock_total', 'stock_rows', 'quantity', 'total_minor', 'external_requests', 'runtime_errors', 'receipt_posts'):
         if key in notes:
             valid(type(notes[key]) is int and 0 <= notes[key] <= 100000)
@@ -146,7 +173,10 @@ def browser_checkpoint(event, expected_step, secrets_seen):
         valid(isinstance(notes['source_hashes'], dict) and set(notes['source_hashes']) == set(BROWSER_SOURCES))
         valid(all(isinstance(v, str) and re.fullmatch(r'[a-f0-9]{64}', v) for v in notes['source_hashes'].values()))
     paths = {'/internal/login', '/internal/', '/internal/app.mjs', '/internal/client.mjs',
-             '/internal/login.mjs', '/internal/styles.css', '/internal/supply.mjs', '/internal/api/security/csrf',
+             '/internal/login.mjs', '/internal/styles.css', '/internal/supply.mjs', '/internal/cash.mjs', '/internal/api/cash/context',
+             '/internal/api/cash/tills', '/internal/api/cash/sales',
+             '/internal/api/operations/cash.sale', '/internal/api/operations/cash.till.open',
+             '/internal/api/operations/cash.refund', '/internal/api/operations/cash.till.close', '/internal/api/security/csrf',
              '/internal/api/security/login', '/internal/api/security/me', '/internal/api/security/logout',
              '/internal/api/directory/items', '/internal/api/directory/locations',
              '/internal/api/commerce/inventory', '/internal/api/commerce/sales',
@@ -157,13 +187,282 @@ def browser_checkpoint(event, expected_step, secrets_seen):
         valid(isinstance(request, dict) and set(request) == {'method', 'path', 'status', 'key', 'response_lost'})
         valid(request['method'] in ('GET', 'POST'))
         path = request['path']
-        valid(isinstance(path, str) and (path in paths or (path.startswith('/internal/api/commerce/sales/')
+        valid(isinstance(path, str) and (path in paths or re.fullmatch(r'/internal/api/cash/(?:sales/[0-9a-f-]{36}/(?:refunds|refund-context)|tills/[0-9a-f-]{36}/close)', path) or (path.startswith('/internal/api/commerce/sales/')
               and (UUID_PATTERN.fullmatch(path.rsplit('/', 1)[-1]) is not None or re.fullmatch(r'/internal/api/commerce/sales/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/stock-reviews',path))) or re.fullmatch(
                   r'/internal/api/supply/purchase-orders/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}(?:/receipts)?', path)))
         valid(request['status'] is None or (type(request['status']) is int and 100 <= request['status'] <= 599))
         valid(type(request['response_lost']) is bool)
         valid(request['key'] is None or (isinstance(request['key'], str) and UUID_PATTERN.fullmatch(request['key']) is not None))
     return notes
+
+
+CASH_ORACLES = ('identities', 'amounts', 'unique_effects', 'stock_links', 'refund_links',
+                'close_sum', 'preserved_rows', 'operation_requests')
+CASH_LENGTHS = {name: (0 if i<2 else 1 if i<4 else 2 if i<7 else 3 if i<18 else 4 if i<23 else
+                              (5,5,6,7,8,9,10,10)[i-23]) for i,name in enumerate(CASH_STEPS)}
+
+
+def cash_commands(commands):
+    expect(isinstance(commands, list) and len(commands) <= 10, 'cash_commands_invalid')
+    for c in commands:
+        expect(isinstance(c, dict) and set(c) == {'kind','actor','key','body','result_id','effect_id'}, 'cash_commands_invalid')
+        expect(c['kind'] in ('open','sale','refund','close'), 'cash_commands_invalid')
+        expect(all(isinstance(c[k], str) and UUID_PATTERN.fullmatch(c[k]) for k in ('actor','key','result_id','effect_id')), 'cash_commands_invalid')
+        b=c['body']; expect(isinstance(b,dict), 'cash_commands_invalid')
+        fields={'open': {'locationId','currency','openingMinor'}, 'sale': {'tillId','customerId','lines','currency','receivedMinor'},
+                'refund': {'saleId','payingTillId','currency','reason','lines'}, 'close': {'tillId','countedMinor'}}[c['kind']]
+        expect(set(b)==fields, 'cash_commands_invalid')
+        for k,v in b.items():
+            if k in ('locationId','tillId','saleId','payingTillId'): expect(isinstance(v,str) and UUID_PATTERN.fullmatch(v), 'cash_commands_invalid')
+            elif k=='currency': expect(v=='USD','cash_commands_invalid')
+            elif k=='customerId': expect(v is None,'cash_commands_invalid')
+            elif k=='reason': expect(v=='SINTETICO cash return','cash_commands_invalid')
+            elif k=='lines':
+                expect(isinstance(v,list) and 1<=len(v)<=2,'cash_commands_invalid')
+                for line in v:
+                    expect(isinstance(line,dict) and set(line) in ({'itemId','quantity'}, {'saleLineId','quantity'}, {'itemId','quantity','exceptionReason','size'}),'cash_commands_invalid')
+                    expect(type(line.get('quantity')) is int and 1<=line['quantity']<=2,'cash_commands_invalid')
+                    for key,value in line.items():
+                        if key.endswith('Id'): expect(isinstance(value,str) and UUID_PATTERN.fullmatch(value),'cash_commands_invalid')
+                        if key=='size': expect(value=='S','cash_commands_invalid')
+                        if key=='exceptionReason': expect(value=='SINTETICO physical garment present','cash_commands_invalid')
+            else: expect(type(v) is int and 0<=v<=100000,'cash_commands_invalid')
+    expect(len({c['key'] for c in commands})==len(commands), 'cash_duplicate_key')
+    return commands
+
+
+def _cash_counts(step):
+    n=CASH_STEPS.index(step)
+    if step in SUPPLY_STEPS: return supply_expected(step)
+    if step in STOCK_STEPS: return {'sales':3,'sale_lines':5,'sale_movements':4,'sale_operations':3,
+        'exception_lines':1,'stock_reviews':int(STOCK_STEPS.index(step)>=2),'exception_movements':0,'movements':9,'on_hand_total':30}
+    if step in CASH_TAIL:
+        refunds=int(CASH_TAIL.index(step)>=2)+int(CASH_TAIL.index(step)>=5)
+        return {'sales':3,'sale_lines':5,'sale_movements':4,'sale_operations':3,'stock_reviews':1,
+                'exception_movements':0,'on_hand_total':30+refunds,'movements':9+refunds}
+    sales=2 if n>=CASH_STEPS.index('browser.response_loss_committed') else int(n>=CASH_STEPS.index('browser.sale_confirmed'))
+    return {'sales':sales,'sale_lines':2*sales,'sale_movements':2*sales,'sale_operations':sales,
+            'movements':3+2*sales,'on_hand_total':30-(0 if sales==0 else 3 if sales==1 else 5)}
+
+
+def cash_counts(step):
+    return {**_cash_counts(step), 'active_sessions':0 if step=='browser.start' or step.endswith('logout') else 1}
+
+
+def validate_cash_snapshot(commands, snap, users, ids, prior, step):
+    """Independent row oracle. Expected values originate in frozen requests/fixtures, never receipts."""
+    cash_commands(commands)
+    expect(len(commands)==CASH_LENGTHS[step], 'cash_command_sequence')
+    expect(snap.get('ok') is True and isinstance(snap.get('rows'),dict) and isinstance(snap.get('hashes'),dict), 'cash_snapshot_invalid')
+    rows=snap['rows']
+    # SQL FOR JSON and API Guid formatting may differ in letter case.
+    for table in rows.values():
+        for row in table:
+            for key,value in row.items():
+                if isinstance(value,str) and UUID_PATTERN.fullmatch(value.lower()): row[key]=value.lower()
+    entries=rows['CashEntries']; tills=rows['CashTills']; closes=rows['CashCloses']
+    for table in ('CashEntries','CashCloses','Sales','SaleLines','SaleReversals','SaleReversalLines'):
+        for row in rows[table]:
+            expect(all(type(v) is int for k,v in row.items() if k.endswith('Minor') or k in ('Quantity','ReturnedQuantity','Exponent')), 'cash_integer_amount')
+    ops=rows['Operations']; sales=rows['Sales']; lines=rows['SaleLines']; moves=rows['StockMovements']
+    def one(table, **criteria):
+        found=[r for r in table if all(r.get(k)==v for k,v in criteria.items())]
+        expect(len(found)==1,'cash_row_identity'); return found[0]
+    plan=[('open','Cashier'),('sale','Cashier'),('sale','Cashier'),('sale','Cashier'),('open','Cashier2'),
+          ('refund','Manager'),('close','Cashier'),('open','Cashier'),('refund','Manager'),('close','Cashier')]
+    expect(len(ops)==len(commands) and len(entries)==sum(c['kind']!='close' for c in commands)
+           and len(tills)==sum(c['kind']=='open' for c in commands) and len(closes)==sum(c['kind']=='close' for c in commands), 'cash_duplicate_effect')
+    for i,c in enumerate(commands):
+        kind,role=plan[i]; b=c['body']; actor=users[role]['id']
+        expect(c['kind']==kind and c['actor']==actor,'cash_actor_identity')
+        scope={'open':'cash.till.open','sale':'cash.sale','refund':'cash.refund','close':'cash.till.close'}[kind]
+        op=one(ops,ActorId=actor,Scope=scope,Key=c['key'],ResultId=c['result_id'],EffectId=c['effect_id'])
+        # Reproduce the public contract's JSON serialization, not a handler's calculation.
+        pascal=lambda body: {k[0].upper()+k[1:]: ([pascal(x) for x in v] if isinstance(v,list) else v) for k,v in body.items()}
+        request={k:v for k,v in b.items() if not (kind=='refund' and k=='saleId') and not (kind=='close' and k=='tillId')}
+        serialized=pascal(request)
+        if kind=='refund': serialized={'saleId':b['saleId'],'request':serialized}
+        if kind=='close': serialized={'tillId':b['tillId'],'request':serialized}
+        fingerprint=hashlib.sha256(json.dumps(serialized,separators=(',',':'),ensure_ascii=True).encode()).hexdigest().upper()
+        expect(op['Fingerprint']==fingerprint,'cash_request_binding')
+        if kind=='open':
+            amount=(10000,20000,10000)[[0,4,7].index(i)]
+            expect(b=={'locationId':ids['location'],'currency':'USD','openingMinor':amount},'cash_open_request')
+            t=one(tills,Id=c['result_id'],CashierId=actor,LocationId=ids['location'],Currency='USD',Exponent=2)
+            e=one(entries,Id=c['effect_id'],TillId=t['Id'],CashierId=actor,ActorId=actor,Kind='opening',DeltaMinor=amount,ReceivedMinor=0,ChangeMinor=0,SaleId=None,ReversalId=None)
+        else:
+            till_id=commands[7 if i>=8 else 0]['result_id']
+            expect(b.get('tillId',b.get('payingTillId'))==till_id,'cash_paying_till_identity')
+            t=one(tills,Id=till_id,CashierId=users['Cashier']['id'],LocationId=ids['location'],Currency='USD',Exponent=2)
+            if kind=='sale':
+                quantity=2 if i==1 else 1
+                expected_lines=([{'itemId':ids['exception_item'],'quantity':1,'exceptionReason':'SINTETICO physical garment present','size':'S'}] if i==3 else
+                    [{'itemId':ids['items'][0],'quantity':quantity},{'itemId':ids['items'][1],'quantity':1}])
+                total=1250 if i==3 else quantity*1250+3400
+                tender={1:6000,2:5000,3:2000}[i]
+                expect(b=={'tillId':till_id,'customerId':None,'lines':expected_lines,'currency':'USD','receivedMinor':tender},'cash_sale_request')
+                sale=one(sales,Id=c['result_id'],ActorId=actor,LocationId=ids['location'],Currency='USD',TotalMinor=total,CustomerId=None)
+                actual=[l for l in lines if l['SaleId']==sale['Id']]; expect(len(actual)==len(expected_lines),'cash_sale_lines')
+                for line in expected_lines:
+                    price=3400 if line['itemId']==ids['items'][1] else 1250
+                    l=one(actual,ItemId=line['itemId'],Quantity=line['quantity'],UnitPriceMinor=price,TotalMinor=price*line['quantity'])
+                    expected_returned=sum(x['kind']=='refund' for x in commands) if i==1 and line['itemId']==ids['items'][0] else 0
+                    expect(l['ReturnedQuantity']==expected_returned,'cash_return_quantity')
+                    debit=[m for m in moves if m['OperationId']==sale['Id'] and m['ItemId']==line['itemId'] and m['Kind']=='sale']
+                    if i==3: expect(not debit,'cash_fabricated_inventory')
+                    else: one(debit,ActorId=actor,LocationId=ids['location'],OnHandDelta=-line['quantity'],ReservedDelta=0)
+                e=one(entries,Id=c['effect_id'],TillId=till_id,ActorId=actor,CashierId=actor,Kind='sale',SaleId=sale['Id'],DeltaMinor=total,ReceivedMinor=tender,ChangeMinor=tender-total,ReversalId=None)
+            elif kind=='refund':
+                original=one(lines,SaleId=commands[1]['result_id'],ItemId=ids['items'][0])
+                expect(b=={'saleId':commands[1]['result_id'],'payingTillId':till_id,'currency':'USD','reason':'SINTETICO cash return','lines':[{'saleLineId':original['Id'],'quantity':1}]},'cash_refund_request')
+                r=one(rows['SaleReversals'],Id=c['result_id'],SaleId=b['saleId'],ActorId=actor,Kind='return',Reason=b['reason'],RecordedCreditMinor=1250)
+                one(rows['SaleReversalLines'],ReversalId=r['Id'],SaleLineId=original['Id'],Quantity=1,RecordedCreditMinor=1250)
+                one(moves,OperationId=r['Id'],ItemId=original['ItemId'],LocationId=ids['location'],ActorId=actor,Kind='sale_return',OnHandDelta=1,ReservedDelta=0)
+                e=one(entries,Id=c['effect_id'],TillId=till_id,CashierId=users['Cashier']['id'],ActorId=actor,Kind='refund',SaleId=b['saleId'],ReversalId=r['Id'],DeltaMinor=-1250,ReceivedMinor=0,ChangeMinor=0)
+            else:
+                expected=20550 if i==6 else 8750; counted=expected-100 if i==6 else expected
+                expect(b['countedMinor']==counted and t['ClosedAt'] is not None,'cash_close_request')
+                # Earlier close sums only entries that existed at its time. Closed till must never receive later entries.
+                total=sum(e['DeltaMinor'] for e in entries if e['TillId']==till_id)
+                expect(total==expected,'cash_independent_sum')
+                one(closes,Id=c['effect_id'],TillId=till_id,ActorId=actor,ExpectedMinor=total,CountedMinor=counted,DifferenceMinor=counted-total)
+                continue
+        expect(e['Currency']=='USD' and e['Exponent']==2,'cash_currency_identity')
+    stage=CASH_STEPS.index(step)
+    supplied=0 if stage<CASH_STEPS.index(SUPPLY_STEPS[1]) else 2 if stage<CASH_STEPS.index(SUPPLY_STEPS[2]) else 5
+    sold=sum(c['kind']=='sale' for c in commands)
+    refunds=sum(c['kind']=='refund' for c in commands)
+    expect(len(rows['StockBalances'])==len(ids['items'])==3,'cash_fabricated_inventory')
+    for item,expected in ((ids['items'][0],10-(0 if sold==0 else 2 if sold==1 else 3)+supplied+refunds),(ids['items'][1],10-min(sold,2)),(ids['items'][2],10)):
+        one(rows['StockBalances'],ItemId=item,LocationId=ids['location'],OnHand=expected,Reserved=0)
+    expect(not any(b['ItemId']==ids['exception_item'] for b in rows['StockBalances']), 'cash_fabricated_inventory')
+    expect(len(rows['SaleReversals'])==len(rows['SaleReversalLines'])==refunds,'cash_refund_duplicate')
+    if len(commands)>=2:
+        original=one(lines,SaleId=commands[1]['result_id'],ItemId=ids['items'][0])
+        expect(original['ReturnedQuantity']==refunds,'cash_return_quantity')
+    if prior:
+        changed={'open':{'CashTills','CashEntries','Operations'}, 'sale':{'Sales','SaleLines','StockMovements','StockBalances','CashEntries','Operations'},
+                 'refund':{'Sales','SaleLines','SaleReversals','SaleReversalLines','StockMovements','StockBalances','CashEntries','Operations'},'close':{'CashTills','CashCloses','Operations'}}
+        previous_count=len(prior['rows']['Operations'])
+        allowed=changed[commands[-1]['kind']] if len(commands)>previous_count else set()
+        if step in SUPPLY_STEPS[1:3]: allowed={'Operations','PurchaseReceipts','PurchaseReceiptLines','PurchaseOrderLines','PurchaseOrders','StockMovements','StockBalances'}
+        if step=='browser.stock_review': allowed={'Operations','StockExceptionReviews'}
+        for table,hashes in prior['hashes'].items():
+            if table not in allowed: expect(snap['hashes'][table]==hashes,'cash_unrelated_rows_changed')
+        # Immutable ledger/earlier close and another cashier's till survive every command.
+        for table in ('CashEntries','CashCloses','Operations','StockMovements','SaleReversals','SaleReversalLines','StockExceptionReviews','PurchaseReceipts','PurchaseReceiptLines'):
+            expect(set(prior['hashes'][table])<=set(snap['hashes'][table]),'cash_history_changed')
+        added=commands[previous_count:]
+        returned_sales={c['body']['saleId'] for c in added if c['kind']=='refund'}
+        returned_lines={l['saleLineId'] for c in added if c['kind']=='refund' for l in c['body']['lines']}
+        closing={c['body']['tillId'] for c in added if c['kind']=='close'}
+        affected_items={l['itemId'] for c in added if c['kind']=='sale' for l in c['body']['lines']}
+        affected_items|={l['ItemId'] for l in rows['SaleLines'] if l['Id'] in returned_lines}
+        if step in SUPPLY_STEPS[1:3]: affected_items.add(ids['items'][0])
+        for table,excluded in (('Sales',returned_sales),('SaleLines',returned_lines),('CashTills',closing)):
+            for old in prior['rows'][table]:
+                if old['Id'] not in excluded: expect(old in rows[table],'cash_unrelated_row_changed')
+        for old in prior['rows']['StockBalances']:
+            if old['ItemId'] not in affected_items: expect(old in rows['StockBalances'],'cash_unrelated_row_changed')
+        for t in prior['rows']['CashTills']:
+            if t['ClosedAt'] is not None or t['CashierId']==users['Cashier2']['id']:
+                expect(t in tills,'cash_other_shift_changed')
+    return {**{k:True for k in CASH_ORACLES}, 'money': cash_money(rows)}
+
+
+def cash_money(rows):
+    fields={'CashEntries':('Id','TillId','CashierId','ActorId','Kind','DeltaMinor','ReceivedMinor','ChangeMinor','SaleId','ReversalId'),
+            'CashCloses':('Id','TillId','ActorId','ExpectedMinor','CountedMinor','DifferenceMinor'),
+            'CashTills':('Id','CashierId','LocationId','Currency','Exponent')}
+    return {table:[{k:r[k] for k in columns} for r in rows[table]] for table,columns in fields.items()}
+
+
+def validate_cash_money(commands, money):
+    expect(isinstance(money,dict) and set(money)=={'CashEntries','CashCloses','CashTills'},'cash_money_missing')
+    expected_entries=[]; expected_closes=[]; expected_tills=[]
+    for i,c in enumerate(commands):
+        b=c['body']; kind=c['kind']; actor=c['actor']
+        if kind=='open':
+            expected_tills.append({'Id':c['result_id'],'CashierId':actor,'LocationId':b['locationId'],'Currency':'USD','Exponent':2})
+            till=c['result_id'];cashier=actor;delta=(10000 if i!=4 else 20000);received=change=0;sale=reversal=None
+            expect(b['openingMinor']==delta,'cash_opening_altered')
+        else:
+            till=commands[7 if i>=8 else 0]['result_id'];cashier=commands[0]['actor']
+            expect(b.get('tillId',b.get('payingTillId'))==till,'cash_till_altered')
+            if kind=='close':
+                total=sum(e['DeltaMinor'] for e in expected_entries if e['TillId']==till)
+                count=b['countedMinor']; difference=count-total
+                expect(difference==(-100 if i==6 else 0),'cash_arithmetic_invalid')
+                expected_closes.append({'Id':c['effect_id'],'TillId':till,'ActorId':actor,'ExpectedMinor':total,'CountedMinor':count,'DifferenceMinor':difference})
+                continue
+            if kind=='sale':
+                delta={1:5900,2:4650,3:1250}[i];received={1:6000,2:5000,3:2000}[i];change=received-delta;sale=c['result_id'];reversal=None
+            else:
+                delta=-1250;received=change=0;sale=commands[1]['result_id'];reversal=c['result_id']
+        expected_entries.append({'Id':c['effect_id'],'TillId':till,'CashierId':cashier,'ActorId':actor,'Kind':('opening' if kind=='open' else kind),
+                                 'DeltaMinor':delta,'ReceivedMinor':received,'ChangeMinor':change,'SaleId':sale,'ReversalId':reversal})
+    for name,expected in (('CashEntries',expected_entries),('CashCloses',expected_closes),('CashTills',expected_tills)):
+        actual=money[name]
+        expect(isinstance(actual,list) and len(actual)==len(expected),'cash_duplicate_effect')
+        for row in actual:
+            expect(isinstance(row,dict) and row in expected,'cash_money_mismatch')
+            expect(all(type(v) is int for k,v in row.items() if k.endswith('Minor') or k=='Exponent'),'cash_integer_amount')
+        expect(len({r['Id'] for r in actual})==len(actual),'cash_duplicate_effect')
+
+
+def validate_cash_progress(records, complete=False):
+    expect(len(records)<=len(CASH_STEPS) and [r['step'] for r in records]==list(CASH_STEPS[:len(records)]),'cash_checkpoint_order')
+    if complete: expect(len(records)==len(CASH_STEPS),'cash_missing_checkpoints')
+    previous=[]; observed=0; receipt_posts=0; supply_key=None; supply_receipt=None
+    for r in records:
+        expect(r.get('external_requests')==r.get('runtime_errors')==0,'cash_network_guard')
+        commands=cash_commands(r.get('cash_commands'))
+        expect(len(commands)==CASH_LENGTHS[r['step']] and commands[:len(previous)]==previous,'cash_command_sequence')
+        for i,c in enumerate(commands):
+            b=c['body']
+            kind,actor=(( 'open',0),('sale',0),('sale',0),('sale',0),('open',4),('refund',5),('close',0),('open',0),('refund',5),('close',0))[i]
+            expect(c['kind']==kind and c['actor']==commands[actor]['actor'],'cash_command_identity')
+            if len(commands)>4: expect(commands[4]['actor']!=commands[0]['actor'],'cash_second_cashier_identity')
+            if len(commands)>5: expect(commands[5]['actor'] not in (commands[0]['actor'],commands[4]['actor']),'cash_authorizer_identity')
+            if c['kind']=='sale': expect(b['receivedMinor']=={1:6000,2:5000,3:2000}[i], 'cash_tender_altered')
+            if c['kind']=='close': expect(b['countedMinor']==(20450 if i==6 else 8750),'cash_counted_altered')
+            if i in (1,2):
+                expect(len(b['lines'])==2 and b['lines'][0]['quantity']==(2 if i==1 else 1) and b['lines'][1]['quantity']==1
+                       and b['lines'][0]['itemId']!=b['lines'][1]['itemId'],'cash_sale_quantity_altered')
+                if i==2: expect([l['itemId'] for l in b['lines']]==[l['itemId'] for l in commands[1]['body']['lines']],'cash_item_identity')
+            if i==3: expect(len(b['lines'])==1 and b['lines'][0]['quantity']==1 and b['lines'][0].get('size')=='S'
+                            and b['lines'][0].get('exceptionReason')=='SINTETICO physical garment present','cash_exception_altered')
+            if kind=='refund':
+                expect(b['saleId']==commands[1]['result_id'] and len(b['lines'])==1 and b['lines'][0]['quantity']==1,'cash_refund_altered')
+                if i==8: expect(b['lines']==commands[5]['body']['lines'],'cash_refund_line_identity')
+        proof=r.get('cash_oracles',{})
+        expect(set(proof)==set(CASH_ORACLES)|{'money'} and all(proof[k] is True for k in CASH_ORACLES),'cash_missing_oracle')
+        validate_cash_money(commands,proof['money'])
+        observed+=sum(x['method']=='POST' and x['path']=='/internal/api/cash/sales' for x in r['network'])
+        expect(observed==sum(c['kind']=='sale' for c in commands)==r['sale_posts'],'cash_reposted_sale')
+        if r['step']=='browser.response_loss_committed':
+            expect(any(x['path']=='/internal/api/cash/sales' and x['status']==200 and x['response_lost'] and x['key']==commands[2]['key'] for x in r['network']),'cash_loss_not_committed')
+            expect(r.get('cash_pending_hash')==hashlib.sha256(json.dumps(commands[2]['body'],separators=(',',':')).encode()).hexdigest(),'cash_pending_body_changed')
+        if r['step']=='browser.recover_after_reload':
+            expect(any(x['method']=='GET' and x['path']=='/internal/api/operations/cash.sale' and x['status']==200 and x['key']==commands[2]['key'] for x in r['network']),'cash_recovery_not_observed')
+        if r['step']=='browser.cash_refund_refused':
+            expect(any(x['method']=='POST' and x['path'].endswith('/refunds') and x['status']==403 for x in r['network']),'cash_refusal_not_observed')
+        if r['step'] in SUPPLY_STEPS[1:3]:
+            expect(any(x['method']=='POST' and x['path'].endswith('/receipts') and x['status']==200 and x['response_lost']==(r['step']==SUPPLY_STEPS[2]) for x in r['network']),'cash_supply_commit_missing')
+        receipt_posts+=sum(x['method']=='POST' and x['path'].endswith('/receipts') for x in r['network'])
+        stage=CASH_STEPS.index(r['step'])
+        expect(receipt_posts==(0 if stage<CASH_STEPS.index(SUPPLY_STEPS[1]) else 1 if stage<CASH_STEPS.index(SUPPLY_STEPS[2]) else 2),'cash_supply_reposted')
+        if r['step']==SUPPLY_STEPS[2]:
+            supply_key=r.get('key');supply_receipt=r.get('receipt_id')
+            expect(supply_key and supply_receipt,'cash_supply_identity_missing')
+        if r['step'] in SUPPLY_STEPS[3:5]:
+            expect(r.get('key')==supply_key and r.get('receipt_id')==supply_receipt,'cash_supply_identity_changed')
+        if r['step']==SUPPLY_STEPS[3]:
+            expect(any(x['method']=='GET' and x['path']=='/internal/api/operations/supply.receipt.create' and x['key']==supply_key and x['status']==200 for x in r['network']),'cash_supply_recovery_missing')
+        for c in commands[len(previous):]:
+            path={'open':'/internal/api/cash/tills','sale':'/internal/api/cash/sales','refund':f"/internal/api/cash/sales/{c['body'].get('saleId')}/refunds",'close':f"/internal/api/cash/tills/{c['body'].get('tillId')}/close"}[c['kind']]
+            expect(sum(x['method']=='POST' and x['path']==path and x['key']==c['key'] and x['status']==200 for x in r['network'])==1,'cash_command_http_missing')
+        previous=commands
 
 
 class HarnessError(Exception):
@@ -496,12 +795,16 @@ class GoldenPath:
             'supply_journey': getattr(self.args, 'supply', False),
             'total_ms': round((time.monotonic() - self.started) * 1000),
             'steps': self.steps,
-            'not_proven': ([] if self.args.mode == 'browser' else ['real browser/UI (C6)']) + ['Windows/SUAZO-PC', 'production TLS/proxy', 'payments',
+            'not_proven': ([] if self.args.mode == 'browser' else ['real browser/UI (C6)']) + ['Windows/SUAZO-PC', 'production TLS/proxy', 'card/external payment providers' if getattr(self.args,'cash',False) else 'payments',
                            'concurrency/load', 'backup/restore', 'idempotent release SQL script'],
         }
+        if getattr(self.args, 'cash', False):
+            evidence['cash_protocol'] = CASH_PROTOCOL
         if self.args.mode == 'browser':
             evidence['browser'] = self.browser_evidence
             evidence['not_proven'] += ['mobile devices', 'visual acceptance', 'full accessibility audit']
+        if outcome == 'PASS' and getattr(self.args, 'cash', False):
+            validate_cash_progress([x for x in self.steps if x['step'] in CASH_STEPS], complete=True)
         table = self.table()
         # Scan the exact UTF-8 bytes before making either public file available.
         # Private staging is outside --out, so always() artifact steps cannot collect it.
@@ -587,6 +890,7 @@ class GoldenPath:
         return child_env({
             'ASPNETCORE_ENVIRONMENT': 'Development', 'DOTNET_ENVIRONMENT': 'Development',
             'InternalSavia__Enabled': 'true', 'Synthetic__Enabled': 'false',
+            'InternalSavia__Cash__Currency': 'USD', 'InternalSavia__Cash__Exponent': '2',
             'ConnectionStrings__InternalSavia': connection,
             # Legacy Store context is not used by /internal; an invalid guarded name keeps it closed.
             'ConnectionStrings__Store': 'Database=Forbidden_GoldenPath_NoStore',
@@ -653,7 +957,7 @@ class GoldenPath:
             self.drop_needed = True  # successful create acknowledgement from this run
             self.creation_state = 'acknowledged'
             self.database_created = True
-            expect(result['pending'] == 0 and len(result['applied']) == EXPECTED_MIGRATIONS, 'migraciones incompletas')
+            expect(result['pending'] == 0 and tuple(result['applied']) == MIGRATIONS, 'migraciones incompletas')
             return {'applied_migrations': result['applied'], 'method': result['method']}
         self.step('sql.migrate_release', migrate, {'staff': 0, 'migrations_applied': EXPECTED_MIGRATIONS})
 
@@ -733,7 +1037,7 @@ class GoldenPath:
             for role in ROLES[1:]:
                 u = self.users[role]
                 body = {'loginName': u['loginName'], 'displayName': u['displayName'],
-                        'role': 'Cashier' if role == 'Unassigned' else role, 'password': u['password'],
+                        'role': 'Cashier' if role in ('Unassigned', 'Cashier2') else role, 'password': u['password'],
                         'branchId': None if role == 'Unassigned' else self.ids['branch']}
                 status, created = self.owner.post('/internal/api/security/staff', body, None)
                 expect(status == 200 and created['branchId'] == body['branchId'], f'crear personal {role} HTTP {status}')
@@ -808,6 +1112,44 @@ class GoldenPath:
                 'lines': [{'itemId': self.ids['items'][0], 'quantity': SALE_QUANTITY}]}
 
     def smoke(self):
+        """API-only unpaid-v2: fresh unpaid sale refusal and original-key failure recovery.
+
+        The old successful-unpaid oracle remains below as historical_unpaid_smoke;
+        cash rollout rejects creating that history. No old success is relabeled paid.
+        """
+        for role in ('Manager','Inventory','Unassigned'):
+            def scope(role=role):
+                actor,codes,notes=self.role_scope(role, sale_expected_status=403 if role!='Manager' else None)
+                expect(actor.logout()==204,'api_unpaid_logout')
+                return {'http':codes,**notes}
+            self.step('api_unpaid.'+role.lower(),scope,{'sales':0,'sale_operations':0,'active_sessions':0})
+        actor,_,_=self.role_scope('Cashier')
+        key=new_key();body=self.sale_body()
+        before=self.helper('cash-snapshot',self.database)
+        def rejected():
+            status,problem=actor.post('/internal/api/commerce/sales',body,key)
+            expect(status==409 and problem.get('code')=='cash_payment_required','api_unpaid_refusal')
+            return {'http':[status],'code':'cash_payment_required'}
+        self.step('api_unpaid.fresh_rejected',rejected,{'sales':0,'sale_operations':1})
+        after=self.helper('cash-snapshot',self.database)
+        expect(all(before['hashes'][t]==after['hashes'][t] for t in before['hashes'] if t!='Operations'),'api_unpaid_business_write')
+        for action in ('replay','conflict','recover'):
+            def check(action=action):
+                if action=='recover':
+                    status,result=actor.request('GET','/internal/api/operations/commerce.sale.record',key=key)
+                    expect(status==200 and result['status']=='completed' and result['result']=={'success':False,'value':None,'error':'cash_payment_required'},'api_unpaid_recovery')
+                else:
+                    request=json.loads(json.dumps(body))
+                    if action=='conflict':request['lines'][0]['quantity']+=1
+                    status,result=actor.post('/internal/api/commerce/sales',request,key)
+                    expect(status==409 and result.get('code')==('idempotency_conflict' if action=='conflict' else 'cash_payment_required'),'api_unpaid_replay')
+                current=self.helper('cash-snapshot',self.database)
+                expect(current['hashes']==after['hashes'],'api_unpaid_readback_write')
+                return {'http':[status]}
+            self.step('api_unpaid.'+action,check,{'sales':0,'sale_operations':1},same_as_previous=('operations','movements','on_hand_total'))
+        expect(actor.logout()==204,'api_unpaid_logout')
+
+    def historical_unpaid_smoke(self):
         def manager():
             actor, codes, notes = self.role_scope('Manager')
             codes.append(actor.logout())
@@ -890,7 +1232,7 @@ class GoldenPath:
             'ca_cert': str(self.out / 'cert.pem'), 'database_name': self.database,
             'branch_id': self.ids['branch'], 'location_id': self.ids['location'], 'item_ids': self.ids['items'],
             'users': {role: {'loginName': u['loginName'], 'password': u['password'],
-                             'role': 'Cashier' if role == 'Unassigned' else role, 'assigned': role != 'Unassigned'}
+                             'role': 'Cashier' if role in ('Unassigned', 'Cashier2') else role, 'assigned': role != 'Unassigned'}
                       for role, u in self.users.items()},
         }
         credentials = self.out / 'session.json'
@@ -1023,6 +1365,8 @@ class GoldenPath:
             config.update(supply=self.supply_fixture, inventory=self.users['Inventory'])
         if getattr(self.args, 'stock_exception', False):
             config.update(stock_exception=True, exception_item_id=self.ids['exception_item'], manager=self.users['Manager'])
+        if getattr(self.args, 'cash', False):
+            config.update(cash=True, second_cashier=self.users['Cashier2'], manager=self.users['Manager'])
         process = subprocess.Popen([node, str(BROWSER_SCRIPT)], cwd=ROOT, env=child_env(),
                                    stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL,
                                    start_new_session=True)
@@ -1071,7 +1415,11 @@ class GoldenPath:
                                   'c6_supply_partial_http', 'c6_supply_partial_invalid',
                                   'c6_supply_pending_changed', 'c6_supply_pending_identity_invalid',
                                   'c6_supply_pending_not_cleared', 'c6_supply_recovery_invalid',
-                                  'c6_supply_reload_invalid', 'c6_supply_request_invalid'}
+                                  'c6_supply_reload_invalid', 'c6_supply_request_invalid',
+                                  'c6_cash_open', 'c6_cash_change', 'c6_cash_receipt_identity',
+                                  'c6_cash_request', 'c6_cash_lost_request', 'c6_cash_logout',
+                                  'c6_cash_action', 'c6_cash_refund_not_refused',
+                                  'c6_stock_sale_invalid', 'c6_stock_review_invalid'}
                 code = code if code in allowed_errors else 'browser_protocol_invalid'
                 if self.steps and self.steps[-1]['step'].startswith('browser.'):
                     self.steps[-1]['error_code'] = code
@@ -1086,7 +1434,34 @@ class GoldenPath:
                    'browser_process_identity_invalid')
             self.register_browser_group(ownership['owned_browser_pid'], chrome=True)
             send({'ok': True})
-            for name in (*BROWSER_STEPS, *(SUPPLY_STEPS if getattr(self.args, 'supply', False) else ()), *(STOCK_STEPS if getattr(self.args, 'stock_exception', False) else ())):
+            cash_state = None
+            cash_records = []
+            for name in (CASH_STEPS if getattr(self.args, 'cash', False) else (*BROWSER_STEPS, *(SUPPLY_STEPS if getattr(self.args, 'supply', False) else ()), *(STOCK_STEPS if getattr(self.args, 'stock_exception', False) else ()))):
+                if getattr(self.args, 'cash', False):
+                    event = receive()
+                    notes = browser_checkpoint(event, name, self.secrets_seen)
+                    snapshot = self.helper('cash-snapshot', self.database)
+                    if name in SUPPLY_STEPS:
+                        supply_identity(notes, self.supply_fixture, supply_previous, name)
+                        if name in SUPPLY_STEPS[1:5]:
+                            identity=self.helper('receipt-identity',self.database,notes['receipt_id'],notes['actor_id'],notes['order_id'],notes['location_id'],self.ids['items'][0],notes['key'],'2' if name==SUPPLY_STEPS[1] else '3')
+                            expect(identity.get('matches')==1,'supply_sql_identity_mismatch')
+                        supply_previous=notes
+                    if name in STOCK_STEPS:
+                        identity=self.helper('stock-identity',self.database,notes['sale_id'],self.users['Cashier']['id'],self.ids['exception_item'],self.ids['location'],notes['key'],self.users['Manager']['id'],notes.get('review_key',str(uuid.UUID(int=0))))
+                        expect(identity.get('allocation_matches')==1 and identity.get('review_matches')==int(STOCK_STEPS.index(name)>=2),'stock_exception_sql_identity_mismatch')
+                    proof = validate_cash_snapshot(notes['cash_commands'], snapshot, self.users, self.ids, cash_state, name)
+                    cash_state = snapshot
+                    notes['cash_oracles'] = proof
+                    if name in ('browser.start', 'browser.cashier_login'):
+                        expect(notes.get('source_hashes') == source_hashes, 'cash_source_mismatch')
+                    if name == 'browser.start':
+                        self.browser_evidence['runtime'] = notes['runtime']
+                    cash_records.append({'step': name, **notes})
+                    validate_cash_progress(cash_records)
+                    self.step(name, lambda: notes, cash_counts(name))
+                    send({'ok': True})
+                    continue
                 if name in STOCK_STEPS:
                     event = receive()
                     notes = browser_checkpoint(event, name, self.secrets_seen)
@@ -1182,6 +1557,9 @@ class GoldenPath:
                     return notes
                 self.step(name, checkpoint, expected, same_as_previous=BROWSER_READ_ONLY if read_only else ())
                 send({'ok': True})  # Never advance UI until the corresponding real SQL check passed.
+            if getattr(self.args, 'cash', False):
+                validate_cash_progress(cash_records, complete=True)
+                self.browser_evidence['protocol'] = CASH_PROTOCOL
             expect(process.wait(timeout=max(1, min(20, deadline - time.monotonic()))) == 0,
                    'browser_process_failed')
             expect(not buffered, 'browser_unexpected_trailing_output')
@@ -1246,6 +1624,7 @@ def main(argv=None):
     parser.add_argument('--out', required=True, help='directorio de evidencia saneada')
     parser.add_argument('--mode', choices=['smoke', 'serve', 'browser'], default='smoke')
     parser.add_argument('--playwright-directory', help='paquete Playwright ya instalado; obligatorio para --mode browser')
+    parser.add_argument('--cash', action='store_true', help='cash-v1 combined browser protocol; requires supply and stock exception')
     parser.add_argument('--stock-exception', action='store_true', help='opt-in physical delivery and independent review; requires --supply and separately authorized runtime')
     parser.add_argument('--supply', action='store_true', help='combined sale + staff receipt journey; requires separate runtime authorization')
     parser.add_argument('--no-build', action='store_true', help='usar binarios Release ya compilados')
@@ -1257,6 +1636,10 @@ def main(argv=None):
         parser.error('--stock-exception requires --supply --mode browser')
     if args.supply and args.mode != 'browser':
         parser.error('--supply requires --mode browser')
+    if args.cash and not (args.mode == 'browser' and args.supply and args.stock_exception):
+        parser.error('--cash requires --mode browser --supply --stock-exception')
+    if args.mode == 'browser' and not args.cash:
+        parser.error('current frontend requires --cash; historical unpaid browser protocol is not executable acceptance')
     if args.mode == 'browser' and not args.playwright_directory:
         parser.error('--mode browser requiere --playwright-directory (no instala dependencias)')
     if args.keep_private_log and Path(args.keep_private_log).resolve().is_relative_to(Path(args.out).resolve()):

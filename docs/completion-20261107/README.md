@@ -4,9 +4,9 @@ Target: a reproducible technical trial with real receipt, sale, stock exception,
 Production acceptance remains separate. The public storefront still needs authoritative ordering and card payments.
 Source: [canonical ledger](../pipeline/ledger.json), [status](../PROJECT-STATUS.md), [database scope](../DATABASE.md).
 
-## Current integration, 2026-11-07
+## Current integration, 2026-11-08 UTC
 
-Current source: `550b10456c10a2857da930913b397bd1a96949d2`. Production remains **NO-GO**.
+Published parent: `85d5872ecb379e42e8ed59de346bf60933207c53`. Current Owner source builds and cash-harness offline checks pass; Owner test execution is blocked by Windows Application Control and awaits Linux CI. Production remains **NO-GO**.
 The cash backend, migration, release script and fixture adaptations are integrated.
 [Business SQL](../sql-parallel-20261107/business/README.md): **39/39 passed**, including eight cash and three stock-exception cases.
 [Security SQL](../sql-parallel-20261107/PRIMARY-SECURITY.json): **23 passed, four failed, zero skipped** in initial27.
@@ -18,10 +18,18 @@ The four failures were reproduced and corrected in test infrastructure only: hos
 Astra/xhigh accepted the correction with limits. Primary verified five captured expressions and four source bindings.
 The [minimum scope](../sql-parallel-20261107/security-correction/MINIMUM-RERUN.md) is four corrected SQL methods plus one deferred restart.
 The 23 security and 39 business passes remain historical and reusable only under the stated equivalence conditions.
-New runtime authority is still pending; the previous SQL scope is consumed.
-The cash UI worker returned authoritative read endpoints only; primary verified four LF bindings and resumed the same worker.
-Opening, sale/change, refund, close, durable recovery and cash browser proof remain implementation work in its separate worktree.
-The complete real browser/API/SQL cash journey remains unrun.
+SQL5 remains **D: REVIEW FIRST, DO NOT EXECUTE**; the previous SQL scope is consumed.
+Full cash UI is accepted with limits. All four applicable no-SQL checks passed on `54e76663cef0a43029dc87b7ecc27dcf9e8ec180`.
+Mocked Chrome: cash **2/2**, existing **50/50**, supply **8/8**; backend **662 passed, 68 skipped**.
+[Exact CI and limits](../cash-register-20261107/ui-integration/CI-VERIFICATION.json). Primary verified all **22** artifact source bindings.
+Primary verified **81/81 offline passes** and compiled the exact final cash SQL helper, exit **0**. Astra/xhigh review remains pending.
+The complete real browser/API/SQL cash journey remains **NOT RUN**. Populated Cash backup/restore/restart is separate from legacy SQL5.
+
+Owner recovery source is integrated after ten source-binding and destination-drift checks.
+Astra/xhigh accepted the F8 contention-fixture correction as source preparation.
+[Current qualification and remaining runtime gaps](../owner-recovery-20261107/primary-review/STATUS.json).
+Integrated build passed with **zero warnings/errors**. Windows Application Control blocked DLL loading (`0x800711C7`): **zero tests executed**. Automatic no-SQL Linux CI is the qualification route; no host security changes are required.
+Actual SQL contention, Windows ACL/SID and emergency recovery remain **NOT RUN**.
 
 The optional local runner remains rejected: Windows reader locking can preserve a stale PASS receipt.
 Use the already exercised SDK plus nonce-owned disposable SQL route for scoped C/E work after authorization.

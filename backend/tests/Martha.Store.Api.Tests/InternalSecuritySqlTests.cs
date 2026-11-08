@@ -217,6 +217,56 @@ public sealed class InternalSecuritySqlTests
         }
     }
 
+    [InternalSecuritySqlFact]
+    public async Task Recovery_F7_authenticated_owner_self_reset_revokes_actor_session()
+    {
+        await using var fixture=new SecuritySqlDatabase(recovery:true);await fixture.Initialize();
+        var (id,owner)=await SeedStaff(fixture,"self-owner","Owner");
+        var version=Guid.Parse(owner.FindFirstValue(InternalSecurityRules.VersionClaim)!);
+        string connection;HashSet<Guid> revocable;
+        await using(var db=fixture.Context()){connection=db.Database.GetConnectionString()!;revocable=(await db.InternalSessions.Where(x=>x.StaffId==id&&x.RevokedAt==null).Select(x=>x.Id).ToArrayAsync()).ToHashSet();}
+        var preserved=await OwnerRecoveryOracle.Capture(connection,id,revocable);
+        await using(var db=fixture.Context())
+        { Assert.True((await Service(db).ResetPassword(owner,id,new("replacement-self-fixture-only",version),default)).Success); }
+        Assert.Equal(preserved,await OwnerRecoveryOracle.Capture(connection,id,revocable));
+        await using(var db=fixture.Context())
+        {
+            Assert.Null(await Service(db).ValidateSession(owner,default));
+            var staff=await db.InternalStaff.SingleAsync(x=>x.Id==id);
+            Assert.Equal("Owner",staff.Role);Assert.True(staff.Enabled);Assert.NotEqual(version,staff.SecurityVersion);
+            Assert.All(await db.InternalSessions.ToArrayAsync(),s=>Assert.NotNull(s.RevokedAt));
+        }
+        await using(var db=fixture.Context())
+            Assert.True((await Service(db).Login(new("self-owner","replacement-self-fixture-only"),default)).Success);
+    }
+    [InternalSecuritySqlFact]
+    public async Task Recovery_F7_second_owner_reset_preserves_disabled_state_and_stale_update_refuses()
+    {
+        await using var fixture=new SecuritySqlDatabase(recovery:true);await fixture.Initialize();
+        var (_,actor)=await SeedStaff(fixture,"actor-owner","Owner");
+        var (id,target)=await SeedStaff(fixture,"disabled-owner","Owner");
+        var version=Guid.Parse(target.FindFirstValue(InternalSecurityRules.VersionClaim)!);
+        await using(var db=fixture.Context())
+        { (await db.InternalStaff.SingleAsync(x=>x.Id==id)).Enabled=false;await db.SaveChangesAsync(); }
+        string connection;HashSet<Guid> revocable;
+        await using(var db=fixture.Context()){connection=db.Database.GetConnectionString()!;revocable=(await db.InternalSessions.Where(x=>x.StaffId==id&&x.RevokedAt==null).Select(x=>x.Id).ToArrayAsync()).ToHashSet();}
+        var preserved=await OwnerRecoveryOracle.Capture(connection,id,revocable);
+        await using(var db=fixture.Context())
+            Assert.True((await Service(db).ResetPassword(actor,id,new("replacement-disabled-only",version),default)).Success);
+        Assert.Equal(preserved,await OwnerRecoveryOracle.Capture(connection,id,revocable));
+        var fullBefore=await OwnerRecoveryOracle.Capture(connection);
+        await using(var db=fixture.Context())
+        {
+            var before=await db.InternalStaff.AsNoTracking().SingleAsync(x=>x.Id==id);
+            Assert.False(before.Enabled);
+            Assert.Equal("version_conflict",(await Service(db).UpdateStaff(actor,id,new("Changed","Owner",true,version),default)).Error);
+            db.ChangeTracker.Clear();var after=await db.InternalStaff.AsNoTracking().SingleAsync(x=>x.Id==id);
+            Assert.Equal(before.SecurityVersion,after.SecurityVersion);Assert.Equal(before.RowVersion,after.RowVersion);
+            Assert.Equal(before.PasswordHash,after.PasswordHash);Assert.False(after.Enabled);
+        }
+        Assert.Equal(fullBefore,await OwnerRecoveryOracle.Capture(connection));
+    }
+
     private static async Task<(Guid Id, ClaimsPrincipal Principal)> SeedStaff(SecuritySqlDatabase fixture, string loginName, string role)
     {
         // Direct synthetic fixtures only: intentionally never invoke InternalOwnerBootstrap.
@@ -239,11 +289,16 @@ public sealed class InternalSecuritySqlTests
         private readonly string adminConnection;
         private readonly string connection;
         private bool created;
-        public SecuritySqlDatabase()
+        private readonly bool recovery;
+        private OwnerRecoveryDatabaseLease? recoveryLease;
+        public SecuritySqlDatabase(bool recovery=false)
         {
+            this.recovery=recovery;
+            if(recovery)name="SaviaInternalTest_Recovery_"+Guid.NewGuid().ToString("N");
             var supplied = Environment.GetEnvironmentVariable("MARTHA_INTERNAL_TEST_SQL_CONNECTION")
                 ?? throw new InvalidOperationException("Explicit authorized disposable SQL Server required.");
             var builder = new SqlConnectionStringBuilder(supplied) { InitialCatalog = "master", Pooling = false };
+            if(recovery)builder.ConnectRetryCount=0;
             adminConnection = builder.ConnectionString;
             builder.InitialCatalog = name;
             connection = builder.ConnectionString;
@@ -254,14 +309,19 @@ public sealed class InternalSecuritySqlTests
             await using var master = new SqlConnection(adminConnection);
             await master.OpenAsync();
             await using var command = master.CreateCommand();
-            command.CommandText = $"CREATE DATABASE [{name}]"; // Exclusively generated above, never user-supplied SQL identifiers.
-            await command.ExecuteNonQueryAsync();
+            if(recovery)recoveryLease=await OwnerRecoveryDatabaseLease.Create(adminConnection,name);
+            else
+            {
+                command.CommandText = $"CREATE DATABASE [{name}]"; // Exclusively generated above, never user-supplied SQL identifiers.
+                await command.ExecuteNonQueryAsync();
+            }
             created = true;
             await using var db = Context();
             await db.Database.EnsureCreatedAsync(); // Relational model test, not evidence for the release migration procedure.
         }
         public async ValueTask DisposeAsync()
         {
+            if(recoveryLease is not null){await recoveryLease.DisposeAsync();created=false;return;}
             if (!created) return;
             await using var master = new SqlConnection(adminConnection);
             await master.OpenAsync();

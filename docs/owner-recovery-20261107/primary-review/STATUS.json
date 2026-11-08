@@ -1,5 +1,5 @@
 {
-  "state": "READY_FOR_INDEPENDENT_REVIEW",
+  "state": "SOURCE_INTEGRATED_BUILD_PASS_WINDOWS_TEST_LOAD_BLOCKED",
   "implementationAccepted": false,
   "privateCandidate": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\owner-recovery-primary-20261108\\review-inputs\\CANDIDATE.json",
   "candidateRawSha256": "699cd91ddec454f7207c4be3d0ae7d4ad07607e9c29416b96e20a6483bd77f3d",
@@ -8,6 +8,25 @@
   "trx": "84 PASS / 1 FAIL -> 89/89; final 38/38, distinct runs",
   "runtime": "NOT RUN: SQL, accounts, Windows ACL/SID, backup/restore and actual recovery",
   "owner": "primary",
-  "next": "Cash review and exact-SHA no-SQL CI are complete. Launch one fresh Astra/xhigh source-only review of the exact private ten-file overlay; no recovery or SQL runtime. Implementation remains outside canonical checkout.",
-  "sql5": "D: REVIEW FIRST, DO NOT EXECUTE"
+  "next": "Verify the automatic no-SQL Linux CI on the published source. No Windows policy changes or local test retry. Actual SQL contention, Windows ACL/SID and synthetic recovery remain NOT RUN. SQL5 held.",
+  "sql5": "D: REVIEW FIRST, DO NOT EXECUTE",
+  "review": "astra-implementation-review.md",
+  "reviewRawSha256": "19ce79eb37e06ef6551d57b2e7c05722a2957f6362766979466584817bc28461",
+  "correctedCandidate": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\owner-recovery-primary-20261108\\f8-correction-inputs\\CANDIDATE.json",
+  "correctedCandidateRawSha256": "cd5231a2fa373a50435f2cede2cdfe14a5dd33959e706a7031f8f62b7a5c9c56",
+  "f8SourceReview": "ACCEPT WITH LIMITS; preparation only",
+  "f8Review": "f8-correction/astra-recheck.md",
+  "f8ReviewRawSha256": "cf8e08747ff142d21b2370f4f1769053ad8f86d65c1686dcd4bbf681d7b5d4b0",
+  "integratedSourceBindings": 10,
+  "integratedBuild": {
+    "exit": 0,
+    "warnings": 0,
+    "errors": 0,
+    "sdk": "10.0.402"
+  },
+  "integratedOfflineTests": {
+    "exit": 1,
+    "executed": 0,
+    "cause": "Windows Application Control blocked assembly load, 0x800711C7; Code Integrity events 3033/3077/3118"
+  }
 }

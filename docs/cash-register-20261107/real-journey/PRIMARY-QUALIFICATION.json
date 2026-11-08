@@ -1,0 +1,195 @@
+{
+  "state": "QUALIFIED_OFFLINE_ASTRA_REVIEW_PENDING",
+  "parentHead": "85d5872ecb379e42e8ed59de346bf60933207c53",
+  "workerBase": "54e76663cef0a43029dc87b7ecc27dcf9e8ec180",
+  "host": "SUAZO-PC",
+  "harness": "T3 Code / Codex",
+  "model": "gpt-6.1-sol",
+  "reasoningEffort": "xhigh",
+  "sdk": "10.0.402",
+  "checks": [
+    {
+      "name": "helper-restore",
+      "command": [
+        "C:\\Users\\Jason\\MARTHA-SILVA\\validation\\resolution-20261028-jsdom\\.sdk-10.0.402\\dotnet.exe",
+        "restore",
+        "tests/golden-path/GoldenPath.Sql/GoldenPath.Sql.csproj",
+        "--locked-mode",
+        "--source",
+        "<checkout>\\private-exports\\owner-cash-qualification-20261108\\empty-nuget",
+        "-p:NuGetAudit=false",
+        "--nologo"
+      ],
+      "exit": 0,
+      "seconds": 2.687,
+      "log": "private-exports\\owner-cash-qualification-20261108\\helper-restore.log",
+      "sha256": "9d7bccf675b46dadd057ba70aaa01c61b9233a5b0a8b25359dd3ea4024a12082"
+    },
+    {
+      "name": "helper-build",
+      "command": [
+        "C:\\Users\\Jason\\MARTHA-SILVA\\validation\\resolution-20261028-jsdom\\.sdk-10.0.402\\dotnet.exe",
+        "build",
+        "tests/golden-path/GoldenPath.Sql/GoldenPath.Sql.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "--nologo"
+      ],
+      "exit": 0,
+      "seconds": 2.719,
+      "log": "private-exports\\owner-cash-qualification-20261108\\helper-build.log",
+      "sha256": "319379f2d1135a295a317776f3c2bf9a1497873f9bc54b53107d344c47a0f6e6"
+    },
+    {
+      "name": "golden-offline",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_golden_path_*.py"
+      ],
+      "exit": 0,
+      "seconds": 1.609,
+      "log": "private-exports\\owner-cash-qualification-20261108\\golden-offline.log",
+      "sha256": "6b9b1c88f760d0cfa890252535b899f65a67d4c3989e92bdbebe55a02ebf8edd"
+    },
+    {
+      "name": "repository",
+      "command": [
+        "python",
+        "tests/check.py"
+      ],
+      "exit": 0,
+      "seconds": 122.281,
+      "log": "private-exports\\owner-cash-qualification-20261108\\repository.log",
+      "sha256": "b8c3b1f93c6c5f3a52401ca1b55d6a65ca5c0e3d61ebe6a6bcaedc0bb4ddc1a1"
+    }
+  ],
+  "sources": [
+    {
+      "path": "tests/golden-path/browser_path.mjs",
+      "lfSha256": "4229e6f7573e775dd4995757313f2e528eccf6167b40de19d3b9df097da3fda0"
+    },
+    {
+      "path": "tests/golden-path/golden_path.py",
+      "lfSha256": "edc3df7862c624d890f5f7b917407a8dde06a6ff749678723d2c58647bd56afe"
+    },
+    {
+      "path": "tests/golden-path/verify_evidence.py",
+      "lfSha256": "dbf894faa1a07856310b17cdefdca29c58d30f80e2af0a1b53332fdb34d50299"
+    },
+    {
+      "path": "tests/golden-path/README.md",
+      "lfSha256": "832756baec730be0e9ceeb6d9f911cd9c346473c4079117c5e9814223ff65576"
+    },
+    {
+      "path": "tests/golden-path/oracles.md",
+      "lfSha256": "d60dc2164102934ceb20d5834478ac12ec2247f28f57f079c8a1e4a35d96fb27"
+    },
+    {
+      "path": "tests/golden-path/GoldenPath.Sql/Program.cs",
+      "lfSha256": "9685983e5a8a83401d3878a0d2d24fb17981dfe16caaecfb3692d0edb5c2c3cb"
+    },
+    {
+      "path": "tests/test_golden_path_cash.py",
+      "lfSha256": "3f94f75665e22a8d706e400b4bdb4cab9029b236b43cb81e42f56a98995b1c63"
+    },
+    {
+      "path": ".github/workflows/staff-ui-candidate.yml",
+      "lfSha256": "15a708e27e6846c60759ec9ac21f81f54ee7554f920986b12049f032fd2dc20f"
+    }
+  ],
+  "offlineCases": {
+    "safety": 17,
+    "browserSafety": 24,
+    "stockException": 5,
+    "cash": 35,
+    "total": 81,
+    "failed": 0,
+    "skipped": 0
+  },
+  "import": "Nine worker files copied by exact RAW hash; eight declared LF bindings verified. Historical worker evidence unchanged.",
+  "ciChange": "Existing no-SQL staff-ui-candidate job now invokes test_golden_path_cash.py; no new runtime job or workflow dispatch.",
+  "blockers": [
+    {
+      "item": "Final helper compilation",
+      "cause": "Worker build preceded final SQL-helper edit.",
+      "attempt": "Primary locked cache-only restore and Release build on integrated bytes.",
+      "result": "RESOLVED: exit 0.",
+      "completionCheck": "helper-build command and log hash above."
+    },
+    {
+      "item": "Independent preparation acceptance",
+      "cause": "New harness candidate requires frozen-source review.",
+      "attempt": "Primary compiled final helper and ran offline checks before review.",
+      "result": "PENDING",
+      "next": "Fresh Astra/xhigh review of the published source and REAL-CASH-01 through 07.",
+      "owner": "Primary / Astra"
+    },
+    {
+      "item": "Real cash persistence and recovery",
+      "cause": "Runtime outside preparation authorization; SQL5 explicitly held.",
+      "attempt": "Prepared existing harness; no runtime executed.",
+      "result": "NOT RUN",
+      "next": "After source acceptance, prepare exact isolated runtime plan for Jason review.",
+      "owner": "Primary / Jason",
+      "completionCheck": "Authorized real Chrome/API/SQL run with persisted-row checks and owned cleanup."
+    }
+  ],
+  "lesson": "A compile claim applies only to the exact compiled source. Resolve a post-build edit with a final build; preserve prior evidence.",
+  "notRun": [
+    "real browser/API/SQL cash journey",
+    "real SQL",
+    "account operations",
+    "backup/restore",
+    "restart",
+    "production"
+  ],
+  "sql5": "D: REVIEW FIRST, DO NOT EXECUTE",
+  "production": "NO-GO",
+  "documentChecks": [
+    {
+      "command": [
+        "python",
+        "tests/test_progress.py"
+      ],
+      "exit": 0,
+      "log": "private-exports\\owner-cash-qualification-20261108\\docs-check-1.log",
+      "sha256": "d130b456fd9fd81b884d8c41c7a1ac25f14917d7080a0048a3b9ab901978d99d"
+    },
+    {
+      "command": [
+        "python",
+        "tools/export_progress.py",
+        "--verify"
+      ],
+      "exit": 0,
+      "log": "private-exports\\owner-cash-qualification-20261108\\docs-check-2.log",
+      "sha256": "6bc37a5368f6e607e6a0932afb47bf96d5a6a014603732c4a3c3005c79e0ee56"
+    },
+    {
+      "command": [
+        "python",
+        "tests/test_delivery_status.py"
+      ],
+      "exit": 0,
+      "log": "private-exports\\owner-cash-qualification-20261108\\docs-check-3.log",
+      "sha256": "ae0a97f7067ff876007493d16291d6571a2ab5ef5a803d9e89c7fcbb36bf072e"
+    },
+    {
+      "command": [
+        "python",
+        "tools/delivery_status.py",
+        "--check"
+      ],
+      "exit": 0,
+      "log": "private-exports\\owner-cash-qualification-20261108\\docs-check-4.log",
+      "sha256": "2cbd72168e48a031ea75d2d7ccdfcaac53c270fa6ac915c072d07fd0be5883e0"
+    }
+  ]
+}

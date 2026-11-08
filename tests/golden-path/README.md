@@ -1,3 +1,65 @@
+# Current preparation: real-cash-v1 (2026-11-08; runtime NOT RUN)
+
+The current frontend requires cash-first sales. The executable browser command is:
+
+```sh
+# FUTURE EXECUTION ONLY: separate reviewed runtime authority is required.
+python3 tests/golden-path/golden_path.py --mode browser --cash --supply --stock-exception --no-build \
+  --playwright-directory /absolute/existing/node_modules/playwright \
+  --sql-env-file /private/approved-disposable-sql.env --out /private/real-cash-v1
+python3 tests/golden-path/verify_evidence.py --source /private/real-cash-v1 --destination /private/real-cash-v1-approved
+```
+
+Prerequisites: Linux with `/proc`, Python 3.9+, Node 24, Chrome, Playwright 1.63.0,
+OpenSSL, .NET 10.0.402, and Release API/helper binaries built from the reviewed source.
+Use existing dependencies; `--no-build` does not restore or install packages.
+The SQL server must be separately authorized and disposable. SQL5 D remains REVIEW FIRST.
+The command creates synthetic accounts, an ephemeral HTTPS API and browser profile,
+and one owned disposable database. These actions were NOT RUN during preparation.
+Cleanup must prove owned browser/API retirement, database deletion, and private-directory removal.
+
+Protocol `real-cash-v1` has exactly 31 ordered browser checkpoints.
+It adds `browser.cash_open` after login and eight `browser.cash_*` tail checkpoints
+after the six supply and five physical-exception checkpoints.
+The full ordered contract is `CASH_STEPS` in `golden_path.py`; independent amounts are in [oracles.md](oracles.md).
+The authenticated served-source hashes now include `cash.mjs` and all eight UI inputs.
+Only the explicit same-origin application/API paths are allowed.
+
+The real browser opens USD 100.00, sells two articles for USD 59.00 with USD 60.00 tender,
+then loses a second committed response at CDP's response stage.
+The original key/body remain pending until a real operation GET recovers the exact original receipt.
+No response is mocked and no sale POST is replayed.
+An already confirmed receipt is hidden after reload on the current UI; this is an accepted limit.
+It is distinct from uncertain-result recovery, which must display the original receipt.
+
+The helper checks the exact four migration names, including `FirstCashRegister`, and 23 internal tables.
+Independent SQL rows bind command fingerprints and persisted result IDs to cashier, till/shift,
+sale, payment, refund, original sale line, stock movement and close IDs.
+Private per-row hashes preserve excluded rows; only bounded cash-row projections enter public evidence.
+The evidence verifier independently checks ledger arithmetic, all required SQL counts,
+mandatory oracle results, checkpoint order, original-key recovery, and cleanup.
+Missing/false oracles or partial browser evidence cannot publish a PASS.
+
+API-only `--mode smoke` is versioned in code as `api_unpaid.*` (unpaid-v2).
+It checks the current `cash_payment_required` refusal, original-key replay/recovery,
+different-body conflict, role rejection, and no business writes.
+The old successful unpaid smoke code remains `historical_unpaid_smoke`; it is not current acceptance.
+Historical evidence files remain untouched.
+
+Offline checks require no runtime:
+
+```sh
+python -m unittest discover -s tests -p 'test_golden_path_*.py'
+node --check tests/golden-path/browser_path.mjs
+git diff --check
+```
+
+## Historical C5/C6 contract (retained verbatim; superseded browser command/counts)
+
+The sections below describe earlier unpaid protocols and their historical evidence.
+Their old browser commands, receipt redisplay and migration counts do not apply to the current frontend.
+Use only the explicit cash command above for a future current browser campaign.
+
 # Arnés del camino dorado: API real + SQL desechable (C5), Chrome (C6)
 
 Actualizado: 2026-11-03. Prueba reproducible del recorrido de personal **sin navegador**:

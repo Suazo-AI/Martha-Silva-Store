@@ -41,6 +41,26 @@ def publish(source, destination):
         if any(secret and secret in text for secret in known):
             raise ValueError('known secret in evidence')
         approved[name] = data
+    evidence=json.loads(approved['evidence.json'])
+    if evidence.get('mode')=='browser' and evidence.get('outcome')=='PASS':
+        import importlib.util
+        spec=importlib.util.spec_from_file_location('golden_cash_offline',Path(__file__).with_name('golden_path.py'))
+        module=importlib.util.module_from_spec(spec); spec.loader.exec_module(module)
+        if evidence.get('browser',{}).get('protocol')!=module.CASH_PROTOCOL or evidence.get('cash_protocol')!=module.CASH_PROTOCOL:
+            raise ValueError('cash protocol required for current browser evidence')
+        records=[r for r in evidence['steps'] if r['step'].startswith('browser.')]
+        if any(r.get('status')!='PASS' or r.get('oracle_failures') for r in evidence['steps']):
+            raise ValueError('incomplete evidence')
+        module.validate_cash_progress(records,complete=True)
+        cleanup=[r for r in evidence['steps'] if r['step']=='teardown.stop_api_drop_database']
+        if len(cleanup)!=1 or cleanup[0] is not evidence['steps'][-1] or any(cleanup[0].get(k) is not True for k in
+                ('database_dropped','private_dir_removed','browser_processes_absent','browser_ownership_confirmed')) or cleanup[0].get('api_log_fail_or_crit')!=0:
+            raise ValueError('missing verified owned-resource cleanup')
+        for record in records:
+            counts=record.get('oracles',{})
+            required={**dict.fromkeys(module.ALWAYS_ZERO,0), 'migrations_applied':module.EXPECTED_MIGRATIONS, **module.cash_counts(record['step'])}
+            if any(type(counts.get(k)) is not int or counts[k]!=v for k,v in required.items()):
+                raise ValueError('missing independent SQL oracle')
     # Write the bytes actually checked, never re-read the source after validation.
     for name, data in approved.items():
         (destination / name).write_bytes(data)

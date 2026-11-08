@@ -9,9 +9,9 @@ Fresh Chrome with synthetic HTTP passed cash **2/2**, legacy **50/50**, and supp
 Astra/xhigh and the primary accepted old-browser compatibility, mandatory cash CI steps and private-DOM cleanup corrections.
 [Current source-bound review state](cash-register-20261107/ui-integration/STATUS.json).
 These results do not prove real cash persistence. Older statements below describing the UI as unimplemented are historical.
-The existing real browser harness still uses unpaid sales and needs adaptation for the cash workflow.
+The real cash browser harness candidate is integrated for final offline qualification and independent review. Primary verified 81 offline passes and compiled the exact final SQL helper with SDK 10.0.402, exit 0. Independent review and actual browser/API/SQL execution remain pending.
 [Frozen preparation checks and runtime boundary](cash-register-20261107/real-journey/PREPARATION.md).
-Owner recovery is source-bound and awaits its independent review; implementation is not accepted or imported.
+Owner recovery source is integrated after ten source and destination checks. Astra/xhigh accepted the corrected F8 fixture as preparation. Integrated build passed with zero warnings/errors. Windows blocked test assembly loading with Application Control 0x800711C7; zero cases executed. Automatic no-SQL Linux CI must qualify the published source. SQL contention, Windows ACL/SID and actual recovery remain NOT RUN.
 [Owner checkpoint](owner-recovery-20261107/primary-review/STATUS.json).
 SQL5 remains **D: review the detailed plan first; do not execute yet**.
 [Exact five-test plan](sql-parallel-20261107/security-correction/MINIMUM-RERUN.md).

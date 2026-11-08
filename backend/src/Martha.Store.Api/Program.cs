@@ -4,6 +4,12 @@ using Martha.Store.Api.Internal;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 
+if (InternalOwnerRecoveryConsole.IsInvocation(args))
+{
+    Environment.ExitCode = await InternalOwnerRecoveryConsole.Run(args);
+    return;
+}
+
 // Explicit offline maintenance only: never build/start the web host on this path.
 if (InternalOwnerConsole.IsInvocation(args))
 {

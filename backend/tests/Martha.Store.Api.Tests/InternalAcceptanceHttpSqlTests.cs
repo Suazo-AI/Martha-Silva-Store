@@ -589,6 +589,80 @@ public sealed class InternalAcceptanceHttpSqlTests
         Assert.Equal(after, await f.Fingerprint());
     }
 
+    [OwnerRecoverySqlTheory]
+    [InlineData("emergency")] [InlineData("self")] [InlineData("second")]
+    public async Task Recovery_F6_F7_emergency_and_self_reset_cookie_login_authorization_matrix(string route)
+    {
+        await using var f=await OwnerRecoveryFixture.Create();
+        await using(var db=f.Context())
+        {
+            var target=await db.InternalStaff.SingleAsync(x=>x.Id==f.Target);target.FailedSignIns=0;target.LockedUntil=null;
+            foreach(var role in new[]{"Manager","Cashier","Inventory"})
+            {
+                var staff=new InternalStaff {Id=Guid.NewGuid(),LoginName=role.ToLowerInvariant(),NormalizedLoginName=role.ToUpperInvariant(),DisplayName="Synthetic",Role=role,Enabled=true,SecurityVersion=Guid.NewGuid(),CreatedAt=DateTimeOffset.UtcNow,UpdatedAt=DateTimeOffset.UtcNow};
+                staff.PasswordHash=new PasswordHasher<InternalStaff>().HashPassword(staff,OwnerRecoveryFixture.Old);db.Add(staff);
+            }
+            await db.SaveChangesAsync();
+        }
+        await using var factory=new JudgeFactory(connection:f.Connection);
+        async Task<HttpSession> SignIn(string login,string password)
+        {
+            var session=new HttpSession(Client(factory));
+            try {using var response=await session.Send(Post,"/internal/api/security/login",new {loginName=login,password},await Csrf(session));Assert.Equal(HttpStatusCode.OK,response.StatusCode);return session;}
+            catch {session.Dispose();throw;}
+        }
+        using var priorOwner=await SignIn("owner",OwnerRecoveryFixture.Old);
+        using var owner=await SignIn("owner",OwnerRecoveryFixture.Old);
+        using var other=await SignIn("other",OwnerRecoveryFixture.Old);
+        var oldCsrf=await Csrf(owner);var m=await f.Manifest();var path=$"/internal/api/security/staff/{f.Target}/password";
+        await using(var db=f.Context()){f.Revocable.UnionWith(await db.InternalSessions.Where(x=>x.StaffId==f.Target&&x.RevokedAt==null).Select(x=>x.Id).ToArrayAsync());}
+        var before=await f.Snapshot();var preserved=await f.Snapshot(true);
+        if(route=="emergency")
+        {await using var service=new InternalOwnerRecoveryService(m);await service.Inspect(default);Assert.Equal(OwnerRecoveryOutcome.Committed,await service.Recover("replacement-http-fixture-only",new RecoveryHttpJournal(),()=>true));}
+        else
+        {
+            var actor=route=="second"?other:owner;
+            await Rejected(actor,HttpStatusCode.BadRequest,Post,path,new {password="replacement-http-fixture-only",version=m.SecurityVersion},csrf:"");
+            Assert.Equal(before,await f.Snapshot());
+            using var response=await actor.Send(Post,path,new {password="replacement-http-fixture-only",version=m.SecurityVersion},route=="second"?await Csrf(other):oldCsrf);Assert.Equal(HttpStatusCode.OK,response.StatusCode);
+        }
+        // All 23 tables, unrelated Staff/Sessions, audit and immutable target columns before login probes.
+        Assert.Equal(preserved,await f.Snapshot(true));await f.AssertMigrations();
+        var after=await f.Snapshot();
+        foreach(var oldCookie in new[]{priorOwner,owner})
+        {using var response=await oldCookie.Send(Get,"/internal/api/security/me");Assert.Equal(HttpStatusCode.Unauthorized,response.StatusCode);}
+        Assert.Equal(after,await f.Snapshot());
+        using(var response=await owner.Send(Post,path,new {password="replacement-http-fixture-only",version=m.SecurityVersion},oldCsrf))Assert.Equal(HttpStatusCode.Unauthorized,response.StatusCode);
+        Assert.Equal(after,await f.Snapshot());
+        using(var anonymous=new HttpSession(Client(factory)))
+        {
+            anonymous.Header("X-Savia-Role","Owner");anonymous.Header("X-Savia-Actor",f.Target.ToString());
+            await Rejected(anonymous,HttpStatusCode.Unauthorized,Post,path,new {password="replacement-http-fixture-only",version=m.SecurityVersion});
+            Assert.Equal(after,await f.Snapshot());
+        }
+        using(var response=await other.Send(Get,"/internal/api/security/staff"))Assert.Equal(HttpStatusCode.OK,response.StatusCode);
+        using(var oldLogin=new HttpSession(Client(factory)))
+        {using var response=await oldLogin.Send(Post,"/internal/api/security/login",new {loginName="owner",password=OwnerRecoveryFixture.Old},await Csrf(oldLogin));Assert.Equal(HttpStatusCode.Unauthorized,response.StatusCode);}
+        using var fresh=await SignIn("owner","replacement-http-fixture-only");
+        using(var response=await fresh.Send(Get,"/internal/api/security/staff"))Assert.Equal(HttpStatusCode.OK,response.StatusCode);
+        var staleBefore=await f.Snapshot();
+        await Rejected(fresh,HttpStatusCode.BadRequest,Post,path,new {password="replacement-http-fixture-only",version=m.SecurityVersion},csrf:"");
+        Assert.Equal(staleBefore,await f.Snapshot());
+        await Rejected(fresh,HttpStatusCode.Conflict,Put,$"/internal/api/security/staff/{f.Target}",new {displayName="Changed",role="Owner",enabled=true,version=m.SecurityVersion});
+        Assert.Equal(staleBefore,await f.Snapshot());
+        foreach(var role in new[]{"manager","cashier","inventory"})
+        {
+            using var member=await SignIn(role,OwnerRecoveryFixture.Old);var deniedBefore=await f.Snapshot();
+            member.Header("X-Savia-Role","Owner");member.Header("X-Savia-Actor",f.Target.ToString());
+            await Rejected(member,HttpStatusCode.Forbidden,Post,path,new {password="replacement-http-fixture-only",version=m.SecurityVersion});
+            Assert.Equal(deniedBefore,await f.Snapshot());
+            using var response=await member.Send(Get,"/internal/api/security/me");Assert.Equal(HttpStatusCode.OK,response.StatusCode);
+        }
+        Guid currentVersion;await using(var db=f.Context())currentVersion=(await db.InternalStaff.AsNoTracking().SingleAsync(x=>x.Id==f.Target)).SecurityVersion;
+        using(var response=await fresh.Send(Put,$"/internal/api/security/staff/{f.Target}",new {displayName="Synthetic",role="Owner",enabled=true,version=currentVersion},await Csrf(fresh)))Assert.Equal(HttpStatusCode.OK,response.StatusCode);
+    }
+    private sealed class RecoveryHttpJournal:IOwnerRecoveryJournal {public void Write(string result,Guid operation,Guid proposedVersion){} }
+
     // ---- helpers ----
 
     private static string Key() => "acc-" + Guid.NewGuid().ToString("N");

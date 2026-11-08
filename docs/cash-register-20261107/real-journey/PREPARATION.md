@@ -1,17 +1,19 @@
 # Real cash journey: preparation, not execution
 
-State: **implementation preparation authorized; SQL runtime NOT authorized**.
-Primary source: `Tony@39161ef8c5afcac1f7c9502cc5f38439608a8d70` plus the frozen cash UI overlay.
-The overlay is identified by `ui-integration/STATUS.json` and its private candidate manifest.
-This document does not accept the UI or change CASH-01–08.
+State: **candidate integrated and qualified offline; Astra review pending; SQL runtime NOT authorized**.
+The worker prepared the harness from accepted cash UI source `54e76663cef0a43029dc87b7ecc27dcf9e8ec180`.
+Primary qualification is recorded in [PRIMARY-QUALIFICATION.json](PRIMARY-QUALIFICATION.json).
+The final SQL helper compiles, all 81 harness checks pass, and the repository check exits 0.
+These results do not prove a real cash transaction or change CASH-01–08.
 
-## Confirmed gap
+## Historical gap at preparation start
 
-The current browser driver still posts to `/internal/api/commerce/sales`, validates
+At `39161ef8c5afcac1f7c9502cc5f38439608a8d70`, the browser driver posted to `/internal/api/commerce/sales`, validated
 `paymentStatus === 'not_processed'`, and permits no `/internal/api/cash/*` requests.
-Its served-resource map also omits `cash.mjs`.
-Source: `tests/golden-path/browser_path.mjs`, inspected directly.
-It cannot prove the new cash workflow. Running SQL5 alone would not close this gap.
+Its served-resource map also omitted `cash.mjs`.
+Source: `tests/golden-path/browser_path.mjs`, inspected at that revision.
+The new candidate adds cash requests, resources, checkpoints and independent row checks.
+The real journey remains NOT RUN. Running SQL5 alone would not close this gap.
 
 ## Required artifact
 
