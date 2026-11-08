@@ -1,5 +1,5 @@
 {
-  "state": "LOCAL_CORRECTION_VERIFIED_AWAITING_PUBLICATION_AND_EXACT_SHA_CI",
+  "state": "PRIMARY_ACCEPTED_EXACT_SHA_NO_SQL_CI_VERIFIED",
   "sourceCommit": "b2d323e1cd8765b794274396b4acfabc842869cc",
   "failedCi": {
     "run": 42438758503,
@@ -91,11 +91,17 @@
     }
   ],
   "limits": [
-    "Windows browser emitted no logout abort. Captured Linux abort has a direct offline regression; Linux event classification awaits corrected-SHA CI.",
+    "Windows emitted no logout abort; exact-SHA Linux CI observed and correctly classified three logout cancellations. No unexpected network failures.",
     "SQL5: D REVIEW FIRST, DO NOT EXECUTE",
     "No SQL, Docker, accounts, merge or deployment.",
     "No additional full-Astra review for this narrow test-verdict correction; prior cash feature review remains attributed to its frozen source."
   ],
   "owner": "primary",
-  "next": "Publish explicit corrected paths through normal hooks; verify remote SHA and completed no-SQL CI. SQL5 remains held."
+  "next": "Complete prepared real cash harness and independent Owner recovery review; obtain runtime authority only after the detailed SQL plan is reviewed.",
+  "publication": {
+    "sha": "54e76663cef0a43029dc87b7ecc27dcf9e8ec180",
+    "sync": "SYNCED",
+    "remoteShaVerified": "54e76663cef0a43029dc87b7ecc27dcf9e8ec180"
+  },
+  "ciVerification": "CI-VERIFICATION.json"
 }

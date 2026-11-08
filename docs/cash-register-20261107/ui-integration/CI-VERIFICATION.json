@@ -1,0 +1,99 @@
+{
+  "state": "EXACT_SHA_NO_SQL_CI_VERIFIED",
+  "verifiedAtUtc": "2026-11-08T02:55:29.511488+00:00",
+  "featureSha": "54e76663cef0a43029dc87b7ecc27dcf9e8ec180",
+  "runs": [
+    {
+      "id": 42439915787,
+      "name": "Staff UI candidate (no SQL)",
+      "attempt": 1,
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42439915787"
+    },
+    {
+      "id": 42439915859,
+      "name": "Tony source snapshot",
+      "attempt": 1,
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42439915859"
+    },
+    {
+      "id": 42439915825,
+      "name": "Progress documentation",
+      "attempt": 1,
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42439915825"
+    },
+    {
+      "id": 42439915754,
+      "name": "Progress digest",
+      "attempt": 1,
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42439915754"
+    }
+  ],
+  "backend": {
+    "passed": 662,
+    "failed": 0,
+    "skipped": 68,
+    "total": 730,
+    "scope": "Database-independent tests only; skipped SQL is not passing persistence evidence."
+  },
+  "artifact": {
+    "id": 13601735681,
+    "name": "staff-candidate-42439915787-1",
+    "privateRoot": "C:/Users/Jason/MARTHA-SILVA/test-runs/cash-ui-primary-20261108/ci-artifact-42439915787",
+    "results": [
+      {
+        "file": "cash/browser-results.json",
+        "rawSha256": "7f1b9300d01253d7ff1485d18cc913fa1226a65af1017988786e87e9511ae089",
+        "counts": {
+          "PASS": 2
+        },
+        "sourceBindingsVerified": 6,
+        "caseErrors": 0
+      },
+      {
+        "file": "existing/browser-results.json",
+        "rawSha256": "b7667a98154c70267c27cb6a3bbe78691ccf0d2ce3630bf6b74f77a9ee20405f",
+        "counts": {
+          "PASS": 50
+        },
+        "sourceBindingsVerified": 10,
+        "externalRequests": 0,
+        "networkFailures": 13,
+        "networkClassificationCounts": {
+          "intentional synthetic lost sale response": 10,
+          "intentional logout navigation": 3
+        },
+        "logoutAbortCount": 3,
+        "pageErrors": 0,
+        "unexpectedNetworkFailures": 0
+      },
+      {
+        "file": "supply/results.json",
+        "rawSha256": "182837397b0800a48e8ae1e8208504fe794d70082a948fb92e50b307d936eb82",
+        "counts": {
+          "PASS": 8
+        },
+        "sourceBindingsVerified": 6
+      }
+    ]
+  },
+  "primaryAudit": {
+    "path": "private-exports/cash-network-correction-20261108/CI-ARTIFACT-AUDIT.json",
+    "rawSha256": "eab005265dc7bf76a0210d59d7ca72104a8550d654b5ff1dd5fa3c06e55d1a4e"
+  },
+  "acceptance": "Primary accepts the narrow classifier correction and closes the previous no-SQL CI failure. Existing cash feature review remains attributed to its frozen sources.",
+  "limits": [
+    "Cash, existing and supply browser journeys use synthetic HTTP.",
+    "No SQL persistence, real Browser-to-API-to-SQL, accounts, recovery or production proof.",
+    "SQL5 remains D: REVIEW FIRST, DO NOT EXECUTE.",
+    "No merge or deployment."
+  ],
+  "next": "Complete prepared real cash harness and independent Owner recovery review; obtain runtime authority only after the detailed SQL plan is reviewed."
+}

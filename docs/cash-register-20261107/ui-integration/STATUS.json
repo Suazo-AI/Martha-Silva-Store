@@ -1,5 +1,5 @@
 {
-  "state": "PRIMARY_ACCEPTED_FEATURE_CLASSIFIER_CORRECTION_LOCALLY_VERIFIED",
+  "state": "PRIMARY_ACCEPTED_EXACT_SHA_NO_SQL_CI_VERIFIED",
   "localIntegration": "Primary verified all 23 frozen RAW/LF bindings and accepts F1/F2/F3 corrections within source/test scope.",
   "repositoryCheck": {
     "exit": 0,
@@ -26,8 +26,8 @@
   },
   "knownLimit": "Confirmed cash receipt does not automatically redisplay after an additional reload. Judge accepted this disclosed capability limit. Uncertain original-key recovery and seeded legacy receipt restoration remain tested.",
   "sql5": "HELD: review first, do not execute",
-  "publication": "b2d323e1cd8765b794274396b4acfabc842869cc SYNCED; staff CI 42438758503 failed only network classification after 50/50 assertions.",
-  "next": "Publish the verified test-only correction through normal hooks; verify remote SHA and completed no-SQL CI. SQL5 remains held.",
+  "publication": "54e76663cef0a43029dc87b7ecc27dcf9e8ec180 SYNCED; four applicable checks completed successfully on this exact SHA.",
+  "next": "Complete prepared real cash harness and independent Owner recovery review; obtain runtime authority only after the detailed SQL plan is reviewed.",
   "primaryAcceptance": {
     "atUtc": "2026-11-08T02:23:43.017828+00:00",
     "verdict": "ACCEPT WITH LIMITS",
@@ -44,5 +44,6 @@
     "seconds": 218.234,
     "log": "private-exports\\cash-network-correction-20261108\\repository-check.log",
     "logSha256": "e20a67cf010ee2e1f7e78599fb6f74e8f9a9c9e70d8190b99385abb7232e5656"
-  }
+  },
+  "ciVerification": "CI-VERIFICATION.json"
 }

@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-08T02:56:20.218927+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "9889a29b6d6e569f114afcff6c00dc6efb8929f5"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-integration/CI-VERIFICATION.json",
+      "change": "A",
+      "git_blob": "5fab3b461a4dcdc690eac679e864f52f65c191f1"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-integration/NETWORK-CORRECTION.json",
+      "change": "M",
+      "git_blob": "d96fbbd892bbe1789161366fabd32df2af32a831"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-integration/README.md",
+      "change": "M",
+      "git_blob": "cc3e0d2c1d4713780e98944c154c1267cc9da2bd"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-integration/STATUS.json",
+      "change": "M",
+      "git_blob": "ca156201022c643fbf15f562bcd9698b3f4c3f9f"
+    },
+    {
+      "path": "docs/owner-recovery-20261107/primary-review/STATUS.json",
+      "change": "M",
+      "git_blob": "2bdd8f710e70b6bdbe5350ade1e38700ec442d09"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

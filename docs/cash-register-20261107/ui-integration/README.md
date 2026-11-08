@@ -1,6 +1,6 @@
 # Cash UI integration candidate
 
-Primary accepts the corrected increment with limits. Astra/xhigh resolved F1-F3. Exact-SHA no-SQL CI remains pending. Production remains NO-GO.
+Primary accepts the corrected increment with limits. Astra/xhigh resolved F1-F3. All four applicable checks passed on `54e76663cef0a43029dc87b7ecc27dcf9e8ec180`. Production remains NO-GO.
 
 The following baseline records are historical. Current acceptance is recorded at the end of this document.
 
@@ -53,3 +53,11 @@ The observer and final verdict now share one classifier. Logout cancellation req
 The corrected-source repository check passed, exit 0 in 218.234 seconds. Corrected-SHA CI remains pending. See [NETWORK-CORRECTION.json](NETWORK-CORRECTION.json) for retained commands, hashes and state. SQL5 remains held. No SQL, container, account mutation, merge or deployment occurred.
 
 Lesson: browser assertions and the network-error verdict are separate checks. Classify expected injected failures with request context, test refusal cases, and use the same classifier for evidence and exit status.
+
+## Exact-SHA CI closure, 2026-11-08
+
+All four applicable checks completed successfully on `54e76663cef0a43029dc87b7ecc27dcf9e8ec180`. [Staff run 42439915787](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42439915787) passed cash 2/2, existing 50/50 and supply 8/8 with synthetic HTTP. Backend: 662 passed, zero failed, 68 skipped, total 730. The skipped tests do not prove SQL persistence.
+
+Primary verified 22 recorded source bindings against the exact Git blobs. The existing browser result records zero page errors, external requests or unexpected network failures. Ten synthetic lost-sale responses and three logout cancellations received their expected classifications. The classifier failure is closed with fresh Linux evidence. [Exact runs, artifact hashes, acceptance and limits](CI-VERIFICATION.json).
+
+Next: finish real cash harness preparation and independently review the frozen Owner recovery candidate. SQL5 remains D: review the detailed plan first; do not execute. The custom runner remains rejected, Owner recovery unaccepted, and real cash persistence unproved. No merge or deployment occurred.

@@ -1,5 +1,5 @@
 {
-  "state": "FROZEN_FOR_REVIEW",
+  "state": "READY_FOR_INDEPENDENT_REVIEW",
   "implementationAccepted": false,
   "privateCandidate": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\owner-recovery-primary-20261108\\review-inputs\\CANDIDATE.json",
   "candidateRawSha256": "699cd91ddec454f7207c4be3d0ae7d4ad07607e9c29416b96e20a6483bd77f3d",
@@ -8,6 +8,6 @@
   "trx": "84 PASS / 1 FAIL -> 89/89; final 38/38, distinct runs",
   "runtime": "NOT RUN: SQL, accounts, Windows ACL/SID, backup/restore and actual recovery",
   "owner": "primary",
-  "next": "New independent Astra/xhigh review after the currently running cash corrections review; one judge at a time. Implementation remains outside canonical checkout.",
+  "next": "Cash review and exact-SHA no-SQL CI are complete. Launch one fresh Astra/xhigh source-only review of the exact private ten-file overlay; no recovery or SQL runtime. Implementation remains outside canonical checkout.",
   "sql5": "D: REVIEW FIRST, DO NOT EXECUTE"
 }
