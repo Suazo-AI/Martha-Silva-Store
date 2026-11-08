@@ -1,10 +1,14 @@
 # Real cash journey: preparation, not execution
 
-State: **candidate integrated and qualified offline; Astra review pending; SQL runtime NOT authorized**.
+State: **offline checks and exact-SHA no-SQL CI pass; Astra returned REVISE; corrections running; SQL runtime NOT authorized**.
 The worker prepared the harness from accepted cash UI source `54e76663cef0a43029dc87b7ecc27dcf9e8ec180`.
 Primary qualification is recorded in [PRIMARY-QUALIFICATION.json](PRIMARY-QUALIFICATION.json).
 The final SQL helper compiles, all 81 harness checks pass, and the repository check exits 0.
 These results do not prove a real cash transaction or change CASH-01–08.
+Astra found F1/F2 evidence-publication bypasses and F3 insufficient returned-row preservation.
+[Primary adjudication, correction owner and completion checks](REVIEW-STATUS.json).
+[Verified CI on 990e23a](CI-VERIFICATION.json): backend 700 passed, 82 skipped; staff 223/223; mocked browser cash 2/2, existing 50/50, supply 8/8.
+Preparation remains unaccepted until the listed counterexamples fail and corrected source passes independent re-review.
 
 ## Historical gap at preparation start
 
@@ -48,3 +52,25 @@ Owner: bounded Sol/high executor in a T3-managed worktree; primary owns serial i
 Independent acceptance: Astra/xhigh after preparation, one judge at a time.
 Completion of preparation requires source-bound offline evidence and an explicit NOT RUN runtime statement.
 Production remains **NO-GO**.
+
+
+## Next local runtime proposal: held, not an execution instruction
+
+Read-only preflight found Docker's Linux engine ready and the SQL Server and SDK images cached.
+No container was started. No SQL or account was accessed.
+The existing journey requires Linux PTY and /proc, Python, Node 24, Google Chrome,
+Playwright 1.63.0, OpenSSL and SDK 10.0.402. Native Windows is not a supported host for this harness.
+The cached SDK image does not establish those browser prerequisites.
+Qualify one existing Linux environment or prepare an exact dependency/image proposal before requesting runtime authority.
+No image build, pull, download, installation or host security change is covered by this preparation.
+
+After F1–F3 acceptance, freeze the corrected Git SHA and source hashes.
+The proposed existing harness uses browser mode with cash, supply and stock-exception flags.
+It requires 31 ordered checkpoints, independent persisted-row checks, private credentials and captured-resource cleanup.
+Its final evidence must pass the corrected publication verifier.
+Before execution, specify total/container deadlines, ownership, loopback ports, allowed databases,
+cleanup after failure and the terminal API/container absence checks in the runtime request.
+The old SQL5 plan is frozen at 550b104; changed Owner and harness inputs require an explicit equivalence check or revised source-bound plan.
+Do not treat its legacy recovery fixtures as populated Cash backup/restore proof.
+Actual Owner recovery and Windows ACL/SID validation remain separate checks.
+SQL5 is still **D: REVIEW FIRST, DO NOT EXECUTE**.

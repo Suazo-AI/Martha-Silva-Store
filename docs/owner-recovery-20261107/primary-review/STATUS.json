@@ -1,5 +1,5 @@
 {
-  "state": "SOURCE_INTEGRATED_BUILD_PASS_WINDOWS_TEST_LOAD_BLOCKED",
+  "state": "SOURCE_LINUX_OFFLINE_QUALIFIED_RUNTIME_PENDING",
   "implementationAccepted": false,
   "privateCandidate": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\owner-recovery-primary-20261108\\review-inputs\\CANDIDATE.json",
   "candidateRawSha256": "699cd91ddec454f7207c4be3d0ae7d4ad07607e9c29416b96e20a6483bd77f3d",
@@ -8,7 +8,7 @@
   "trx": "84 PASS / 1 FAIL -> 89/89; final 38/38, distinct runs",
   "runtime": "NOT RUN: SQL, accounts, Windows ACL/SID, backup/restore and actual recovery",
   "owner": "primary",
-  "next": "Verify the automatic no-SQL Linux CI on the published source. No Windows policy changes or local test retry. Actual SQL contention, Windows ACL/SID and synthetic recovery remain NOT RUN. SQL5 held.",
+  "next": "Prepare source-bound synthetic recovery and Windows ACL/SID validation. SQL5 remains held. Preserve the historical local Windows DLL-load failure; no policy bypass or retry.",
   "sql5": "D: REVIEW FIRST, DO NOT EXECUTE",
   "review": "astra-implementation-review.md",
   "reviewRawSha256": "19ce79eb37e06ef6551d57b2e7c05722a2957f6362766979466584817bc28461",
@@ -28,5 +28,15 @@
     "exit": 1,
     "executed": 0,
     "cause": "Windows Application Control blocked assembly load, 0x800711C7; Code Integrity events 3033/3077/3118"
+  },
+  "linuxOfflineQualification": {
+    "sourceSha": "990e23a1bac2ef06e40df12ed87a1569586c9b2c",
+    "runId": 42443076670,
+    "passed": 700,
+    "failed": 0,
+    "skipped": 82,
+    "total": 782,
+    "scope": "Category!=SqlServer; skipped cases are not runtime proof.",
+    "evidence": "../../cash-register-20261107/real-journey/CI-VERIFICATION.json"
   }
 }

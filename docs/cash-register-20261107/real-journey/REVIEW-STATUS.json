@@ -1,0 +1,78 @@
+{
+  "state": "REVISE_CORRECTIONS_RUNNING",
+  "sourceSha": "990e23a1bac2ef06e40df12ed87a1569586c9b2c",
+  "review": "astra-preparation-review.md",
+  "reportRawSha256": "51fc38d511c3f3e782dd5005f80f95b5ffba97683e677e423fa6d0c424acace7",
+  "primaryAdjudication": "F1, F2 and F3 are valid evidence defects. No demonstrated product corruption. Preparation is not accepted.",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "P1",
+      "cause": "Missing or contradictory mode bypasses cash semantics.",
+      "check": "Missing mode and smoke-mode cash PASS must reject."
+    },
+    {
+      "id": "F2",
+      "severity": "P1",
+      "cause": "Incomplete or contradictory browser, identity, network, source and cleanup proof can publish.",
+      "check": "Complete admitted schema must pass; each omitted or contradictory proof must reject."
+    },
+    {
+      "id": "F3",
+      "severity": "P2",
+      "cause": "Whole returned sale and line rows are exempted from preservation.",
+      "check": "Allow only intended quantity/state changes; immutable-field and incorrect derived-state mutations must reject."
+    }
+  ],
+  "attempt": "Assigned one bounded Codex gpt-6.1-sol/high executor in a separate T3-managed worktree from the reviewed SHA.",
+  "worker": "<t3-thread://v2/f8cf991c-9b66-41e9-8378-e40c6d6e0314/thread:delegated-task:command%3Amcp%3A13df77ce-5243-4c0a-bb0b-f16573212fa6%3Adelegate-task%3Af5fc90b1-83b9-4772-85b8-949bbe3ec875>",
+  "next": "Primary verifies OLD red and corrected green, integrates serially, then requests fresh Astra/xhigh review.",
+  "completionCheck": "All listed counterexamples rejected, valid complete proof accepted, affected offline groups pass, and independent re-review accepted.",
+  "owner": "Primary / Sol executor / Astra reviewer",
+  "sql5": "D: REVIEW FIRST, DO NOT EXECUTE",
+  "notRun": [
+    "real cash browser/API/SQL journey",
+    "Owner recovery runtime",
+    "populated Cash backup/restore/restart"
+  ],
+  "production": "NO-GO",
+  "lesson": "A hash-valid artifact is not semantically complete. Validate discriminators and the entire proof schema before accepting arithmetic.",
+  "documentationChecks": {
+    "checks": [
+      {
+        "command": [
+          "python",
+          "tests/test_progress.py"
+        ],
+        "exit": 0,
+        "seconds": 50.985,
+        "log": "private-exports/owner-cash-qualification-20261108/review-docs-progress-captured.log",
+        "rawSha256": "0d924a797975e0af7217b913464e57f2e28ddff27192c5cc4cc183561d1b1390",
+        "reason": "Recover the lost exit-code capture from the previous invocation; no product test repeated."
+      },
+      {
+        "command": [
+          "python",
+          "tools/export_progress.py",
+          "--verify"
+        ],
+        "exit": 0,
+        "seconds": 0.14,
+        "log": "private-exports/owner-cash-qualification-20261108/review-docs-final-export.log",
+        "rawSha256": "6bc37a5368f6e607e6a0932afb47bf96d5a6a014603732c4a3c3005c79e0ee56"
+      },
+      {
+        "command": [
+          "python",
+          "tools/delivery_status.py",
+          "--check"
+        ],
+        "exit": 0,
+        "seconds": 0.141,
+        "log": "private-exports/owner-cash-qualification-20261108/review-docs-final-delivery.log",
+        "rawSha256": "2cbd72168e48a031ea75d2d7ccdfcaac53c270fa6ac915c072d07fd0be5883e0"
+      }
+    ],
+    "boundary": "These checks validate documentation, publication safeguards and status consistency. They do not qualify the corrected cash harness or execute runtime."
+  }
+}

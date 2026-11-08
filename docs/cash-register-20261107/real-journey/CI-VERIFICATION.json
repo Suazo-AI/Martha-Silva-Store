@@ -1,0 +1,117 @@
+{
+  "state": "EXACT_SHA_NO_SQL_CI_VERIFIED",
+  "verifiedAtUtc": "2026-11-08T03:39:43.017284+00:00",
+  "featureSha": "990e23a1bac2ef06e40df12ed87a1569586c9b2c",
+  "runs": [
+    {
+      "id": 42443076670,
+      "name": "Staff UI candidate (no SQL)",
+      "conclusion": "success",
+      "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42443076670"
+    },
+    {
+      "id": 42443076777,
+      "name": "Tony source snapshot",
+      "conclusion": "success",
+      "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42443076777"
+    },
+    {
+      "id": 42443076626,
+      "name": "Progress documentation",
+      "conclusion": "success",
+      "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42443076626"
+    },
+    {
+      "id": 42443076672,
+      "name": "Progress digest",
+      "conclusion": "success",
+      "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42443076672"
+    }
+  ],
+  "backend": {
+    "passed": 700,
+    "failed": 0,
+    "skipped": 82,
+    "total": 782,
+    "scope": "Category!=SqlServer; 82 unexecuted cases do not prove SQL, recovery or Windows ACL/SID."
+  },
+  "staff": {
+    "passed": 223,
+    "failed": 0,
+    "skipped": 0
+  },
+  "networkClassifier": {
+    "passed": 14,
+    "failed": 0,
+    "skipped": 0
+  },
+  "realJourneyOffline": {
+    "safety": 17,
+    "browserSafety": 24,
+    "stockException": 5,
+    "cash": 35,
+    "total": 81
+  },
+  "helperBuild": {
+    "exit": 0,
+    "warnings": 0,
+    "errors": 0,
+    "sdk": "10.0.402"
+  },
+  "artifacts": [
+    {
+      "file": "cash/browser-results.json",
+      "rawSha256": "5dd0cc139094d0678b26c23f8fdf4a1d064ac24849534bca18f34ee2c95c13b0",
+      "passed": 2,
+      "failed": 0,
+      "sourceBindingsVerified": 6,
+      "pageErrors": 0,
+      "externalRequests": 0,
+      "transport": "synthetic HTTP"
+    },
+    {
+      "file": "existing/browser-results.json",
+      "rawSha256": "40fe7ee657a4e62c4eb971214e423fc7b30078f139327d59b03f8e77c03b947e",
+      "passed": 50,
+      "failed": 0,
+      "sourceBindingsVerified": 10,
+      "pageErrors": 0,
+      "externalRequests": 0,
+      "networkClassificationCounts": {
+        "intentional synthetic lost sale response": 10,
+        "intentional logout navigation": 3
+      },
+      "unexpectedNetworkFailures": 0,
+      "transport": "synthetic HTTP"
+    },
+    {
+      "file": "supply/results.json",
+      "rawSha256": "5506db19b252ba85d00ed98db43accd979beb0e209a7100f5f07e7651b36aa50",
+      "passed": 8,
+      "failed": 0,
+      "sourceBindingsVerified": 6,
+      "consoleErrors": 0,
+      "transport": "synthetic HTTP"
+    }
+  ],
+  "sourceChecks": {
+    "browserBindings": 22,
+    "integratedQualificationBindings": 18,
+    "policy": "Compared with Git blobs at featureSha; LF normalization only where declared."
+  },
+  "privateEvidence": {
+    "log": "private-exports/owner-cash-qualification-20261108/ci-990e23a/staff-full.log",
+    "rawSha256": "10d4adc6e40873c42678499c20437097ebad406587a5f2842854b327499a6b04",
+    "artifactId": 13602123816,
+    "artifactName": "staff-candidate-42443076670-1"
+  },
+  "acceptance": "Primary accepts no-SQL integrated qualification. Subsequent Astra review is REVISE; cash preparation is not accepted. Owner recovery runtime and Windows boundary remain unaccepted.",
+  "limits": [
+    "Browser results use synthetic HTTP.",
+    "Windows Application Control remains unchanged; Linux success does not prove Windows access.",
+    "SQL5 remains D: REVIEW FIRST, DO NOT EXECUTE.",
+    "Real cash persistence, populated Cash recovery, Owner recovery, merge and deployment were not run."
+  ],
+  "next": "Use the existing real-journey harness after independent preparation review and explicit reviewed local runtime scope.",
+  "subsequentReview": "Astra REVISE: F1/F2 evidence publication and F3 row preservation; see REVIEW-STATUS.json. Green CI does not accept this preparation."
+}

@@ -6,7 +6,7 @@ Source: [canonical ledger](../pipeline/ledger.json), [status](../PROJECT-STATUS.
 
 ## Current integration, 2026-11-08 UTC
 
-Published parent: `85d5872ecb379e42e8ed59de346bf60933207c53`. Current Owner source builds and cash-harness offline checks pass; Owner test execution is blocked by Windows Application Control and awaits Linux CI. Production remains **NO-GO**.
+Verified candidate: `990e23a1bac2ef06e40df12ed87a1569586c9b2c`. All four automatic no-SQL checks passed. Backend: **700 passed, zero failed, 82 skipped**; staff **223/223**. [CI evidence and limits](../cash-register-20261107/real-journey/CI-VERIFICATION.json). Linux qualified the integrated offline source; the historical Windows DLL-load block remains. Production remains **NO-GO**.
 The cash backend, migration, release script and fixture adaptations are integrated.
 [Business SQL](../sql-parallel-20261107/business/README.md): **39/39 passed**, including eight cash and three stock-exception cases.
 [Security SQL](../sql-parallel-20261107/PRIMARY-SECURITY.json): **23 passed, four failed, zero skipped** in initial27.
@@ -22,13 +22,13 @@ SQL5 remains **D: REVIEW FIRST, DO NOT EXECUTE**; the previous SQL scope is cons
 Full cash UI is accepted with limits. All four applicable no-SQL checks passed on `54e76663cef0a43029dc87b7ecc27dcf9e8ec180`.
 Mocked Chrome: cash **2/2**, existing **50/50**, supply **8/8**; backend **662 passed, 68 skipped**.
 [Exact CI and limits](../cash-register-20261107/ui-integration/CI-VERIFICATION.json). Primary verified all **22** artifact source bindings.
-Primary verified **81/81 offline passes** and compiled the exact final cash SQL helper, exit **0**. Astra/xhigh review remains pending.
+Primary verified **81/81 offline passes** and final cash SQL helper compilation, exit **0**. Astra/xhigh returned **REVISE**: F1 discriminator bypass, F2 incomplete proof and F3 returned-row preservation. A bounded Sol/high correction is running. [Adjudication and exact completion checks](../cash-register-20261107/real-journey/REVIEW-STATUS.json).
 The complete real browser/API/SQL cash journey remains **NOT RUN**. Populated Cash backup/restore/restart is separate from legacy SQL5.
 
 Owner recovery source is integrated after ten source-binding and destination-drift checks.
 Astra/xhigh accepted the F8 contention-fixture correction as source preparation.
 [Current qualification and remaining runtime gaps](../owner-recovery-20261107/primary-review/STATUS.json).
-Integrated build passed with **zero warnings/errors**. Windows Application Control blocked DLL loading (`0x800711C7`): **zero tests executed**. Automatic no-SQL Linux CI is the qualification route; no host security changes are required.
+Integrated build passed with **zero warnings/errors**. Windows Application Control blocked DLL loading (`0x800711C7`): **zero tests executed**. No-SQL Linux CI on 990e23a passed **700** cases with **82 skipped** and zero failures; no host security settings changed.
 Actual SQL contention, Windows ACL/SID and emergency recovery remain **NOT RUN**.
 
 The optional local runner remains rejected: Windows reader locking can preserve a stale PASS receipt.
