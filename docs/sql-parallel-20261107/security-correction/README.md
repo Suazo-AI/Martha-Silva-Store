@@ -1,6 +1,6 @@
 # Security SQL fixture correction
 
-Status: **CANDIDATE; independent review pending. Production NO-GO.**
+Status: **Primary ACCEPT WITH LIMITS for the test-only correction at 550b104. Corrected SQL runtime NOT RUN. Production NO-GO.**
 Host SUAZO-PC. Primary: T3 Code / Codex / gpt-6.1-sol, xhigh.
 Base: `0bda22a6cadd0deecc635c9a9649dd100bc1e96b`.
 Original SQL source: `f9ffa452bae7fc11a4a578ce24b57ecb72add139`.
@@ -52,12 +52,34 @@ Exact-SHA CI readback: all four workflows completed successfully, attempt 1:
 Both snapshot jobs and the staff/resource job succeeded. Read commands exited 0; no workflow was dispatched for this readback.
 These workflows do not execute the corrected SQL cases.
 
+## Independent review and primary acceptance
+
+[Astra/xhigh review](astra-judge.md): ACCEPT WITH LIMITS. Independent final offline run: **38/38 PASS**, zero skips.
+The reviewer also rejected **73 semantic mutations**. An earlier stale-assembly invocation remains explicitly invalid in the report.
+Primary verified the imported report SHA256 `cde66d65851f2b0095c212a95ad98df64cafcea65c92eaf777a4d912337970ea`.
+All four correction LF bindings match the reviewed Git revision and canonical files.
+The original private schema capture matches its recorded RAW hash. All **five of five** fixture expressions match that capture exactly.
+No complete schema, rows or connection values were imported.
+
+Primary accepts the test correction and [minimum rerun scope](MINIMUM-RERUN.md), subject to fresh runtime authorization.
+Rerun the **four failed SQL methods**, then **one deferred restart method** after an actual owned-container restart.
+Repeating security28 is redundant for this test-only delta. The **23 security + 39 business** passes remain historical and conditional.
+Relevant sources, migrations, shared fixtures, dependencies and pinned SQL configuration must remain equivalent.
+Future Cash read/UI changes require their own affected checks; this scope does not accept them.
+The existing backup/restart fixture checks four legacy business projections, not populated Cash rows.
+Cash recovery therefore still requires dedicated populated-row evidence.
+
+Documentation-only acceptance checks: `python tests/test_delivery_status.py` **24/24**, `python tests/test_progress.py` **23/23**,
+`python tools/delivery_status.py --check` **40 items valid**, and `python tools/export_progress.py --verify` **15 preserved hashes**; all exit 0.
+The primary also checked **38 local Markdown links**, parsed both JSON records and ran `git diff --check`, exit 0.
+No product suite, SQL runtime or browser run was repeated for these documentation edits.
+
 ## Blockers and next actions
 
 | Blocker | Evidence / attempted correction | Owner and completion check |
 |---|---|---|
-| Four original SQL failures | Fixture/oracle failures reproduced offline; focused red-to-green completed | Astra/xhigh reviews frozen 550b104 and adversarial coverage; primary retains acceptance |
-| Corrected SQL behavior | No SQL retry was executed under the exhausted one-shot scope | Astra adjudicates four corrected methods plus restart versus a wider affected set; primary prepares the exact runtime request after review |
+| Four original SQL failures | Fixture/oracle failures reproduced offline; focused red-to-green and Astra review accepted with limits | Primary verified five captured expressions and four source bindings; fresh SQL5 remains pending |
+| Corrected SQL behavior | No SQL retry was executed under the exhausted one-shot scope | Jason authorizes the bounded MINIMUM-RERUN plan; executor runs each method once and preserves exact identities |
 | Backup, restore and restart | Original run stopped before BACKUP; dependent restart prohibited | Authorized worker proves backup/restore first, then the owned-container restart and exact cleanup |
 | Cash release | Business SQL39 passed; staff cash UI and combined real journey remain pending | Primary completes source-reviewed UI and browser/API/SQL cash proof separately |
 

@@ -15,9 +15,12 @@ These runtime results belong to `f9ffa452bae7fc11a4a578ce24b57ecb72add139`; they
 
 The four failures were reproduced and corrected in test infrastructure only: host Cash registration and the SQL constraint parser.
 [Correction evidence](../sql-parallel-20261107/security-correction/README.md): **34/34 focused**, **641 offline passes**, repository check exit 0.
-Astra/xhigh is reviewing the correction and whether unchanged SQL evidence permits rerunning only the four failures plus restart.
-That smaller scope is a proposal, not accepted runtime authority. The previous SQL scope is consumed.
-The cash UI worker owns authoritative read endpoints and the opening, sale/change, refund and close screens in a separate worktree.
+Astra/xhigh accepted the correction with limits. Primary verified five captured expressions and four source bindings.
+The [minimum scope](../sql-parallel-20261107/security-correction/MINIMUM-RERUN.md) is four corrected SQL methods plus one deferred restart.
+The 23 security and 39 business passes remain historical and reusable only under the stated equivalence conditions.
+New runtime authority is still pending; the previous SQL scope is consumed.
+The cash UI worker returned authoritative read endpoints only; primary verified four LF bindings and resumed the same worker.
+Opening, sale/change, refund, close, durable recovery and cash browser proof remain implementation work in its separate worktree.
 The complete real browser/API/SQL cash journey remains unrun.
 
 The optional local runner remains rejected: Windows reader locking can preserve a stale PASS receipt.
@@ -67,10 +70,10 @@ Each read exited 0. These are CI readbacks of the published documentation commit
 |---|---|---|---|
 | Gallery verification | Primary and Astra/xhigh accept the bounded proof; exact-SHA CI green | Publish the prepared issue #4 update after authority; then close S-LEGACY | Primary |
 | Backend offline partition A | Fresh 552/552, 195/195 methods; primary verified actual TRX, unique IDs and exact multiplicities | Accepted for offline A only; evidence linked below | Primary |
-| Local SQL partitions | Business39 passed; security initial27 has 23 passes and four failures; N8 and all six HTTP acceptance methods passed | Await Astra review of the test-only correction and reduced rerun scope; authorize and rerun affected cases without repeating unchanged passes | Primary + Astra + authorized executor |
+| Local SQL partitions | Business39 passed; security initial27 has 23 passes and four failures; N8 and all six HTTP acceptance methods passed; correction accepted with limits | Authorize and run the four corrected methods, then actual restart and its one deferred method; preserve equivalent historical passes | Primary + authorized executor |
 | Combined journey D | Existing receipt, sale, stock-exception/review and recovery contract remains unproven end to end | Use the existing journey, runtime prerequisites and persisted oracles; preserve its frozen acceptance checks | Primary + authorized executor |
 | Cash journey | Cash SQL cases passed; staff UI implementation assigned separately | Integrate reviewed UI; prove opening, sale/change, response-loss recovery, refund and counted close through real browser/API/SQL | Primary + assigned executor |
-| Recovery E2 | Backup/restore stopped before BACKUP; dependent restart not run | After correction review and new runtime scope, prove backup/restore, then restart; verify persistence and owned-resource absence | Primary + authorized executor |
+| Recovery E2 | Backup/restore stopped before BACKUP; dependent restart not run | Under new runtime scope, prove backup/restore then actual restart and cleanup; existing fixture does not prove populated Cash recovery | Primary + authorized executor |
 | Integration | Four workflows successful on exact source 550b104; both snapshot jobs and staff/resource job passed | Serial integration of returned work and affected checks; no merge or deployment implied | Primary |
 
 Earlier preflight recorded Linux engine 29.7.2 and cached SQL Server/.NET SDK images. Recheck readiness at execution time.

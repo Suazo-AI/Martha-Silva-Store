@@ -1,7 +1,11 @@
 # Parallel local SQL validation
 
-Mode: VALIDATE. Status: business 39/39 verified; security 23 passed, 4 failed, 1 not run. Correction under review. Production: **NO-GO**.
+Mode: VALIDATE. Status: business 39/39 verified; security 23 passed, 4 failed, 1 not run. Test correction accepted with limits; SQL rerun pending. Production: **NO-GO**.
 Owner: primary. Executors: temporary authorized Codex `gpt-6.1-sol/high`. Sole judge: `gpt-6-astra/xhigh`.
+
+Current next action: authorize the [four corrected methods plus one deferred restart](security-correction/MINIMUM-RERUN.md).
+[Primary acceptance](security-correction/PRIMARY-ACCEPTANCE.json) verifies five captured constraint expressions and preserves historical result attribution.
+The original scope below is consumed; it does not authorize another execution. Cash read/UI work remains separate.
 
 ## Authorization and frozen scope
 
