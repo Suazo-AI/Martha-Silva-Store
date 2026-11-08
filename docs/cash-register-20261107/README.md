@@ -1,6 +1,6 @@
 # First functional SAVIA cash register
 
-Mode: BUILD. Backend and generated migration integrated; implementation acceptance and runtime remain pending.
+Mode: BUILD. Backend and migration integrated; business SQL 39/39 verified; independent cash acceptance and browser journey pending.
 Owner: primary orchestrator. Host: SUAZO-PC.
 Inspected source: `Tony@dab891055072910b5af757d2e36714424b5ee378`.
 
@@ -13,7 +13,9 @@ The two initial integration failures are preserved and resolved: migration histo
 [Commands, bindings, failures, corrections and next work](backend-integration/README.md).
 Current: legacy SQL/N8 fixtures and independent cash schema expectations are integrated for verification.
 Primary found and corrected two false-positive check-expression cases; fresh offline result: 627 PASS, 67 NotExecuted, zero failures.
-[Primary evidence and limits](fixture-adaptation/primary-review.md). Next: [two isolated local SQL partitions](../sql-parallel-20261107/README.md), then Astra/xhigh acceptance.
+[Primary offline evidence](fixture-adaptation/primary-review.md). Fresh local business SQL: 39/39 Passed, including eight cash cases; zero failures/skips.
+[Actual SQL proof and primary checks](../sql-parallel-20261107/PRIMARY-BUSINESS.json). Security28 return and Astra/xhigh acceptance remain pending.
+Staff cash UI and the real combined browser/API/SQL cash journey remain NOT RUN.
 The historical partial return and generator prerequisite below are superseded by this integration, not erased.
 
 ## Primary acceptance of the source-only design, 2026-11-07

@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-08T00:04:13.902129+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/cash-register-20261107/README.md",
+      "change": "M",
+      "git_blob": "ae33a06dd13072f57334fe582e454add0851b008"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-preparation/PLAN.md",
+      "change": "A",
+      "git_blob": "539c1451e74e267e2bc8612faf2beb0e5ebcc934"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "change": "M",
+      "git_blob": "07e1885abd30344ec88b07a33eadb59844d2e754"
+    },
+    {
+      "path": "docs/sql-parallel-20261107/PRIMARY-BUSINESS.json",
+      "change": "A",
+      "git_blob": "bbe3afb22308abcc05cc389ea73ae277163293cb"
+    },
+    {
+      "path": "docs/sql-parallel-20261107/README.md",
+      "change": "M",
+      "git_blob": "a83f1e1206a272836b715d5137ebc70a25179b71"
+    },
+    {
+      "path": "docs/sql-parallel-20261107/business/README.md",
+      "change": "A",
+      "git_blob": "d4c57ced58cfdc055708352d12257de13b3a5f64"
+    },
+    {
+      "path": "docs/sql-parallel-20261107/business/RESULT.json",
+      "change": "A",
+      "git_blob": "cce41945e697760206ddf22cc3ef28935c1dfc94"
+    },
+    {
+      "path": "docs/sql-parallel-20261107/business/sanitized-outcomes.json",
+      "change": "A",
+      "git_blob": "e90b3ed4cbf7c3e753878fb2d56a6d78f6bce3cf"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

@@ -538,9 +538,9 @@
       "paths": [
         "docs/cash-register-20261107/*"
       ],
-      "prep": "Backend and generated additive three-table migration imported into canonical checkout. Release SQL regenerated without database apply. Legacy SQL/N8/schema fixtures and current test inventory still require cash adaptation; staff cash UI and real journey remain pending.",
+      "prep": "Backend and additive three-table migration integrated. Legacy SQL/N8 fixtures and exact independent cash schema oracle adapted; fresh offline 627 Passed / 67 NotExecuted. Business SQL39 verified on f9ffa452bae7fc11a4a578ce24b57ecb72add139, including eight cash cases. Security28 return, staff cash UI and real combined journey pending.",
       "report": "docs/cash-register-20261107/README.md",
-      "review": "Primary integration: 65/65 focused and fresh 607 non-SQL passes, zero failures; 66 NotExecuted excluded from pass evidence. Initial stale migration history and release-script failures resolved. Repository check exit 0. Independent implementation review and SQL cash persistence/concurrency remain pending. See docs/cash-register-20261107/backend-integration/README.md. No runtime or production acceptance."
+      "review": "Primary independently checked original business TRX: 39/39 Passed, no skips/duplicates/missing/extra; 8 source LF bindings and 19 private hashes match; owned container absence confirmed. Source commit has four successful automatic CI workflows. Integrated repository check exit0. Astra/xhigh cash implementation acceptance, security/recovery return and browser/API/SQL cash journey remain pending. See docs/sql-parallel-20261107/PRIMARY-BUSINESS.json. Production NO-GO."
     },
     {
       "id": "P-GO",

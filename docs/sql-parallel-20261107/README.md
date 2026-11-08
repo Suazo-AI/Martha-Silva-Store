@@ -1,11 +1,11 @@
 # Parallel local SQL validation
 
-Mode: VALIDATE. Status: prepared for dispatch, not executed. Production: **NO-GO**.
+Mode: VALIDATE. Status: business 39/39 verified; security return and independent acceptance pending. Production: **NO-GO**.
 Owner: primary. Executors: temporary authorized Codex `gpt-6.1-sol/high`. Sole judge: `gpt-6-astra/xhigh`.
 
 ## Authorization and frozen scope
 
-Jason instructed: ??Por qu? es que no pod?s trabajar en esos casos de SQL en paralelo? Si lo pod?s hacer, hacelo para que avances en eso tambi?n de un solo?.
+Jason instructed: "¿Por qué es que no podés trabajar en esos casos de SQL en paralelo? Si lo podés hacer, hacelo para que avances en eso también de un solo".
 This authorizes the currently omitted 67 SQL cases in parallel on isolated local fictitious test resources.
 The published commit containing this document is frozen in each worker packet before execution.
 [Exact disjoint method inventory and source bindings](SQL-PARTITIONS.json).
@@ -53,3 +53,27 @@ A failed case is evidence, not permission to edit tests or retry. Preserve its e
 Backup/restore and restart results are separate claims. Browser-to-API-to-SQL and staff cash UI remain unproven by this run.
 Primary imports evidence serially and assigns Astra/xhigh independent review. Worker return is not primary acceptance.
 Next event: two asynchronous worker returns; the harness wakes this primary.
+
+## Business return: primary verification
+
+The worker completed one local real-SQL invocation: **39/39 Passed**, zero failures/skips.
+Primary mapped the original private TRX definitions to the frozen 39-method inventory and normalized result UUIDs.
+There are no duplicates, missing methods, extra methods or multiplicity differences.
+Eight LF source bindings, 19 private artifact hashes, public per-method outcomes and restore/build/test exits agree.
+Primary independently confirmed the captured owned container is absent. No SQL tests were repeated.
+[Worker evidence](business/README.md) and [primary verification/import receipt](PRIMARY-BUSINESS.json).
+
+Security28 is awaiting its existing delegate completion notification; it is not counted as passed.
+Next: verify that return, then request one combined Astra/xhigh review.
+The rejected custom runner and the real browser/cash journey remain separate unfinished work. Production stays **NO-GO**.
+
+Source-commit CI readback: all four automatic workflows completed successfully on `f9ffa452bae7fc11a4a578ce24b57ecb72add139`: progress digest `42426525692`, staff candidate/no SQL `42426525693`, progress documentation `42426525641`, source snapshot `42426525649`.
+The first shell query printed results but exited 1 because a `.cmd` wrapper split `&per_page`; one corrected single-parameter query exited 0.
+This is source-commit evidence, not CI for the forthcoming documentation commit.
+
+Integrated documentation check: `python tests/check.py`, exit 0, 212.078 seconds. Private log SHA256 `04d8f822373343e402fba10851d1a6e938250c051a293c68578cfd6e53a7c5d5`.
+Lesson: exact method/results mapping and owned-resource readback close this partition; a green worker label alone does not.
+
+Registry update: only CASH-REGISTER prep/review changed; its pending status and production gates remain.
+`python tests/test_progress.py`: 23/23, exit0, 113.047s; `python tools/export_progress.py --verify`: 15 preserved hashes; `python tools/delivery_status.py --check`: valid 40 items.
+[Next independent source review: staff cash workflow](../cash-register-20261107/ui-preparation/PLAN.md). No UI code was changed.
