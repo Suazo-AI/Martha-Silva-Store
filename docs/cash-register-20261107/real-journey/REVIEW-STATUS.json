@@ -1,34 +1,37 @@
 {
-  "state": "CORRECTED_OFFLINE_VERIFIED_AWAITING_ASTRA",
+  "state": "ACCEPTED_SOURCE_AND_OFFLINE_PREPARATION_WITH_LIMITS",
   "sourceSha": "990e23a1bac2ef06e40df12ed87a1569586c9b2c",
   "review": "astra-preparation-review.md",
   "reportRawSha256": "51fc38d511c3f3e782dd5005f80f95b5ffba97683e677e423fa6d0c424acace7",
-  "primaryAdjudication": "F1, F2 and F3 were valid evidence defects. Primary verified the corrected source and recorded red/green proof. Independent acceptance remains pending.",
+  "primaryAdjudication": "F1-F3 accepted as corrected source/offline proof preparation after independent Astra/xhigh review and exact-SHA no-SQL CI. Runtime remains NOT RUN.",
   "findings": [
     {
       "id": "F1",
       "severity": "P1",
       "cause": "Missing or contradictory mode bypasses cash semantics.",
-      "check": "Missing mode and smoke-mode cash PASS must reject."
+      "check": "Missing mode and smoke-mode cash PASS must reject.",
+      "disposition": "CLOSED for source/offline preparation"
     },
     {
       "id": "F2",
       "severity": "P1",
       "cause": "Incomplete or contradictory browser, identity, network, source and cleanup proof can publish.",
-      "check": "Complete admitted schema must pass; each omitted or contradictory proof must reject."
+      "check": "Complete admitted schema must pass; each omitted or contradictory proof must reject.",
+      "disposition": "CLOSED for source/offline preparation"
     },
     {
       "id": "F3",
       "severity": "P2",
       "cause": "Whole returned sale and line rows are exempted from preservation.",
-      "check": "Allow only intended quantity/state changes; immutable-field and incorrect derived-state mutations must reject."
+      "check": "Allow only intended quantity/state changes; immutable-field and incorrect derived-state mutations must reject.",
+      "disposition": "CLOSED for source/offline preparation"
     }
   ],
   "attempt": "Worker returned. Primary verified eight source bindings and eight private log hashes, imported six exact files, then passed 102 focused checks and the repository check.",
   "worker": "<t3-thread://v2/f8cf991c-9b66-41e9-8378-e40c6d6e0314/thread:delegated-task:command%3Amcp%3A13df77ce-5243-4c0a-bb0b-f16573212fa6%3Adelegate-task%3Af5fc90b1-83b9-4772-85b8-949bbe3ec875>",
-  "next": "Publish the frozen corrected source, request fresh Astra/xhigh review, then verify exact-SHA no-SQL CI.",
+  "next": "Prepare the minimum source-bound local runtime scope and populated-cash recovery proof. SQL5 remains held.",
   "completionCheck": "All listed counterexamples rejected, valid complete proof accepted, affected offline groups pass, and independent re-review accepted.",
-  "owner": "Primary / Astra reviewer",
+  "owner": "Primary",
   "sql5": "D: REVIEW FIRST, DO NOT EXECUTE",
   "notRun": [
     "real cash browser/API/SQL journey",
@@ -76,5 +79,9 @@
     "boundary": "These checks validate documentation, publication safeguards and status consistency. They do not qualify the corrected cash harness or execute runtime."
   },
   "correctionEvidence": "corrections/PRIMARY.json",
-  "workflowGuards": "Both relevant workflows now invoke the new evidence regressions; automatic staff path filtering includes the new test. Runtime settings unchanged; no dispatch."
+  "workflowGuards": "Both relevant workflows now invoke the new evidence regressions; automatic staff path filtering includes the new test. Runtime settings unchanged; no dispatch.",
+  "currentCandidate": "9d01fb66caf9f5a94561b909bb34529a954126e0",
+  "latestReview": "corrections/astra-recheck.md",
+  "latestReportRawSha256": "1f46bc84e8b5bbfbb03274739f9aabfc69777f7774c46c1c0f39dc4a921c38cc",
+  "acceptanceEvidence": "corrections/ACCEPTANCE.json"
 }

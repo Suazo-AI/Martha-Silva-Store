@@ -6,7 +6,7 @@ Source: [canonical ledger](../pipeline/ledger.json), [status](../PROJECT-STATUS.
 
 ## Current integration, 2026-11-08 UTC
 
-Verified candidate: `990e23a1bac2ef06e40df12ed87a1569586c9b2c`. All four automatic no-SQL checks passed. Backend: **700 passed, zero failed, 82 skipped**; staff **223/223**. [CI evidence and limits](../cash-register-20261107/real-journey/CI-VERIFICATION.json). Linux qualified the integrated offline source; the historical Windows DLL-load block remains. Production remains **NO-GO**.
+Current accepted preparation: `9d01fb66caf9f5a94561b909bb34529a954126e0`. Astra/xhigh and primary accepted F1-F3 corrections with limits. All four automatic no-SQL checks passed. Retrieved CI log: backend **700 passed, zero failed, 82 skipped**; existing mock browser **50/50**, supply **8/8**. [Current acceptance and limits](../cash-register-20261107/real-journey/corrections/ACCEPTANCE.json). [Historical 990e23a counts](../cash-register-20261107/real-journey/CI-VERIFICATION.json) remain separately attributed. The Windows DLL-load block and production **NO-GO** remain.
 The cash backend, migration, release script and fixture adaptations are integrated.
 [Business SQL](../sql-parallel-20261107/business/README.md): **39/39 passed**, including eight cash and three stock-exception cases.
 [Security SQL](../sql-parallel-20261107/PRIMARY-SECURITY.json): **23 passed, four failed, zero skipped** in initial27.
@@ -22,7 +22,7 @@ SQL5 remains **D: REVIEW FIRST, DO NOT EXECUTE**; the previous SQL scope is cons
 Full cash UI is accepted with limits. All four applicable no-SQL checks passed on `54e76663cef0a43029dc87b7ecc27dcf9e8ec180`.
 Mocked Chrome: cash **2/2**, existing **50/50**, supply **8/8**; backend **662 passed, 68 skipped**.
 [Exact CI and limits](../cash-register-20261107/ui-integration/CI-VERIFICATION.json). Primary verified all **22** artifact source bindings.
-Astra/xhigh returned **REVISE** for F1 discriminator bypass, F2 incomplete proof and F3 returned-row preservation. Primary integrated the correction, independently passed **102/102** focused checks and the repository check, and wired the new regressions into CI. Fresh Astra/xhigh review and corrected-SHA CI remain pending. [Correction evidence](../cash-register-20261107/real-journey/corrections/PRIMARY.json). [Adjudication and exact completion checks](../cash-register-20261107/real-journey/REVIEW-STATUS.json).
+Astra/xhigh accepted the corrected F1 discriminator checks, F2 complete evidence admission and F3 returned-row preservation. Primary **102/102** and the repository check passed. Fresh independent **102/102**, a separate semantic probe and exact-SHA CI passed. [Acceptance and exact limits](../cash-register-20261107/real-journey/corrections/ACCEPTANCE.json). [Next local runtime plan](../cash-register-20261107/real-journey/LOCAL-RUNTIME-PLAN.md).
 The complete real browser/API/SQL cash journey remains **NOT RUN**. Populated Cash backup/restore/restart is separate from legacy SQL5.
 
 Owner recovery source is integrated after ten source-binding and destination-drift checks.
@@ -80,9 +80,9 @@ Each read exited 0. These are CI readbacks of the published documentation commit
 | Backend offline partition A | Fresh 552/552, 195/195 methods; primary verified actual TRX, unique IDs and exact multiplicities | Accepted for offline A only; evidence linked below | Primary |
 | Local SQL partitions | Business39 passed; security initial27 has 23 passes and four failures; N8 and all six HTTP acceptance methods passed; correction accepted with limits | Authorize and run the four corrected methods, then actual restart and its one deferred method; preserve equivalent historical passes | Primary + authorized executor |
 | Combined journey D | Existing receipt, sale, stock-exception/review and recovery contract remains unproven end to end | Use the existing journey, runtime prerequisites and persisted oracles; preserve its frozen acceptance checks | Primary + authorized executor |
-| Cash journey | Cash SQL cases passed; staff UI implementation assigned separately | Integrate reviewed UI; prove opening, sale/change, response-loss recovery, refund and counted close through real browser/API/SQL | Primary + assigned executor |
+| Cash journey | UI and real-cash proof preparation accepted with limits; eight historical cash SQL cases passed | Qualify runtime, then prove opening, sale/change, recovery, refund and close through real browser/API/SQL; populated Cash recovery is separate | Primary + authorized executor |
 | Recovery E2 | Backup/restore stopped before BACKUP; dependent restart not run | Under new runtime scope, prove backup/restore then actual restart and cleanup; existing fixture does not prove populated Cash recovery | Primary + authorized executor |
-| Integration | Four workflows successful on exact source 550b104; both snapshot jobs and staff/resource job passed | Serial integration of returned work and affected checks; no merge or deployment implied | Primary |
+| Integration | Four workflows successful on accepted preparation 9d01fb6; source/offline acceptance recorded | Complete the held source-bound runtime proposal; preserve historical evidence and unrelated changes | Primary |
 
 Earlier preflight recorded Linux engine 29.7.2 and cached SQL Server/.NET SDK images. Recheck readiness at execution time.
 Existing SAVIATEST certificate trust failed; it will not be bypassed or changed.

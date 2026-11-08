@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-08T04:17:52.088811+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "6a2f504f83d851bc23b1096c71b3d1765796d252"
+    },
+    {
+      "path": "docs/cash-register-20261107/real-journey/LOCAL-RUNTIME-PLAN.md",
+      "change": "A",
+      "git_blob": "bb75bb77c366f169b873d995456eebc71284e1c8"
+    },
+    {
+      "path": "docs/cash-register-20261107/real-journey/PREPARATION.md",
+      "change": "M",
+      "git_blob": "a3fbc142e6dcd8eb6a7454221270206f2103eae7"
+    },
+    {
+      "path": "docs/cash-register-20261107/real-journey/REVIEW-STATUS.json",
+      "change": "M",
+      "git_blob": "c34e97baff32eda8ab5056ffe215f4d7367cccf0"
+    },
+    {
+      "path": "docs/cash-register-20261107/real-journey/corrections/ACCEPTANCE.json",
+      "change": "A",
+      "git_blob": "1efbbb9f11167b7f936db31a431de5f1968be353"
+    },
+    {
+      "path": "docs/cash-register-20261107/real-journey/corrections/astra-recheck.md",
+      "change": "A",
+      "git_blob": "67c7508d313603ee93e28c7b726b1c38d88f37cb"
+    },
+    {
+      "path": "docs/completion-20261107/README.md",
+      "change": "M",
+      "git_blob": "0f6bd2b71362d55862e23ed801a41c4f22006358"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

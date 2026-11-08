@@ -1,0 +1,180 @@
+{
+  "state": "ACCEPTED_SOURCE_AND_OFFLINE_PREPARATION_WITH_LIMITS",
+  "sourceSha": "9d01fb66caf9f5a94561b909bb34529a954126e0",
+  "primaryAcceptance": "F1-F3 are closed for prepared real-cash proof only. Product and runtime acceptance are unchanged.",
+  "independentReview": {
+    "path": "astra-recheck.md",
+    "rawSha256": "1f46bc84e8b5bbfbb03274739f9aabfc69777f7774c46c1c0f39dc4a921c38cc",
+    "lfSha256": "1f46bc84e8b5bbfbb03274739f9aabfc69777f7774c46c1c0f39dc4a921c38cc",
+    "verdict": "ACCEPT WITH LIMITS",
+    "model": "gpt-6-astra",
+    "requestedReasoning": "xhigh",
+    "exposedReasoning": "xhigh",
+    "host": "SUAZO-PC"
+  },
+  "evidence": {
+    "primaryExecutionReceipt": "PRIMARY.json",
+    "primaryFocused": {
+      "passed": 102,
+      "failed": 0,
+      "skipped": 0,
+      "exit": 0
+    },
+    "primaryRepositoryCheckExit": 0,
+    "reviewerFreshSuite": {
+      "passed": 102,
+      "failed": 0,
+      "skipped": 0,
+      "exit": 0
+    },
+    "reviewerSeparateProbe": {
+      "exit": 0,
+      "validEvidenceExports": 4,
+      "semanticRejections": 53,
+      "validRefundClosePairs": 4,
+      "rowMutationRejections": 45
+    }
+  },
+  "ci": {
+    "headSha": "9d01fb66caf9f5a94561b909bb34529a954126e0",
+    "readback": "All four runs and both snapshot jobs completed success on the exact source SHA. No manual workflow dispatch.",
+    "runs": [
+      {
+        "id": 42444860573,
+        "name": "Progress documentation",
+        "conclusion": "success"
+      },
+      {
+        "id": 42444860536,
+        "name": "Progress digest",
+        "conclusion": "success"
+      },
+      {
+        "id": 42444860537,
+        "name": "Tony source snapshot",
+        "conclusion": "success"
+      },
+      {
+        "id": 42444860558,
+        "name": "Staff UI candidate (no SQL)",
+        "conclusion": "success"
+      }
+    ],
+    "observedLogCounts": {
+      "backendPassed": 700,
+      "backendFailed": 0,
+      "backendSkipped": 82,
+      "existingMockBrowserPassed": 50,
+      "existingMockBrowserFailed": 0,
+      "supplyMockBrowserPassRows": 8
+    },
+    "privateLog": "private-exports/owner-cash-qualification-20261108/accepted-9d01fb6-staff-ci.log",
+    "privateLogRawSha256": "9125a885b404fa6186b15695a6bc133178aa7ea07b30b64a1b5a482af5272ba0",
+    "countLimit": "The retrieved log does not expose every workflow step. Do not infer fresh cash-browser or staff counts from configuration alone."
+  },
+  "historicalRecords": "PRIMARY.json and the original REVISE review remain unchanged. Their pending labels describe their recording time.",
+  "sql5": "D: REVIEW FIRST, DO NOT EXECUTE",
+  "notRun": [
+    "real cash browser/API/SQL journey",
+    "populated Cash backup/restore/restart",
+    "Owner recovery runtime",
+    "Windows ACL/SID runtime",
+    "deployment"
+  ],
+  "next": "Review the source-bound LOCAL-RUNTIME-PLAN.md. Prepare populated-cash recovery assertions in the existing fixtures before requesting a new runtime scope.",
+  "blockers": [
+    {
+      "id": "REAL-RUNTIME",
+      "evidence": "Prepared cash proof and no-SQL CI only; cached SDK image lacks verified browser prerequisites.",
+      "cause": "Runtime qualification and execution authority are absent.",
+      "attempt": "Read-only source and image inspection; no container started.",
+      "owner": "Primary / Jason",
+      "next": "Freeze an exact qualified runtime, source, limits and cleanup proposal.",
+      "completionCheck": "Approved real journey produces 31 checkpoints and independent persisted-row proof."
+    },
+    {
+      "id": "CASH-RECOVERY",
+      "evidence": "PrivatePilotReleaseTests.Business checks only four legacy projections.",
+      "cause": "Schema inclusion does not prove preservation of populated Cash rows.",
+      "attempt": "Direct fixture and cash-snapshot source inspection.",
+      "owner": "Primary / bounded executor",
+      "next": "Reuse existing recovery fixtures or harness; obtain a bounded source-only safety review.",
+      "completionCheck": "Populated till, entry and close state survives actual backup/restore and restart with an independent exact-row comparison."
+    },
+    {
+      "id": "OWNER-WINDOWS",
+      "evidence": "Windows Application Control 0x800711C7 blocked assembly loading; zero cases executed. Owner fixture requires Windows Integrated Security and trusted encrypted SQL.",
+      "cause": "Supported Windows execution and strict SQL prerequisites remain unqualified.",
+      "attempt": "Integrated build and Linux offline CI passed; host controls were preserved.",
+      "owner": "Primary / Windows policy administrator",
+      "next": "Prepare the supported policy-resolution and trusted test-SQL route; keep it separate from disposable Linux SQL.",
+      "completionCheck": "Windows fixture executes under approved policy with trusted TLS and real ACL/SID evidence."
+    }
+  ],
+  "production": "NO-GO",
+  "lesson": "Verify real recovery of populated money records. A schema check or an unpopulated-table backup is insufficient.",
+  "documentationChecks": [
+    {
+      "command": [
+        "python",
+        "tests/test_delivery_status.py"
+      ],
+      "exit": 0,
+      "seconds": 0.234,
+      "log": "private-exports/owner-cash-qualification-20261108/acceptance-docs/check-1.log",
+      "rawSha256": "73027d04bcb8545a279bcff4b15b52e439e0542fc11ef4be124f12578710796d"
+    },
+    {
+      "command": [
+        "python",
+        "tools/export_progress.py",
+        "--verify"
+      ],
+      "exit": 0,
+      "seconds": 0.094,
+      "log": "private-exports/owner-cash-qualification-20261108/acceptance-docs/check-2.log",
+      "rawSha256": "6bc37a5368f6e607e6a0932afb47bf96d5a6a014603732c4a3c3005c79e0ee56"
+    },
+    {
+      "command": [
+        "python",
+        "tools/delivery_status.py",
+        "--check"
+      ],
+      "exit": 0,
+      "seconds": 0.078,
+      "log": "private-exports/owner-cash-qualification-20261108/acceptance-docs/check-3.log",
+      "rawSha256": "2cbd72168e48a031ea75d2d7ccdfcaac53c270fa6ac915c072d07fd0be5883e0"
+    },
+    {
+      "command": [
+        "python",
+        "tests/test_progress.py"
+      ],
+      "exit": 0,
+      "seconds": 45.266,
+      "log": "private-exports/owner-cash-qualification-20261108/acceptance-docs/check-4.log",
+      "rawSha256": "f0c0c70f9f396925abf3edc5bd49a557735425d225e9c11887844e1293be1780"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit": 0,
+      "seconds": 0.094,
+      "log": "private-exports/owner-cash-qualification-20261108/acceptance-docs/check-5.log",
+      "rawSha256": "1063ffdf151da9781ccf9fc3e5d06c1d30ca0546594bfdd8a6210521d2000b04"
+    }
+  ],
+  "documentationIntegrity": {
+    "reportHash": "verified before import",
+    "historicalPrimaryReceipt": "unchanged",
+    "localLinksChecked": 133,
+    "missingLinks": 0,
+    "proposedChangedSQLMethodsFound": 2,
+    "productEdited": false,
+    "runtimeExecuted": false
+  }
+}

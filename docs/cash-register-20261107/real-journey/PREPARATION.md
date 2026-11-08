@@ -1,6 +1,7 @@
 # Real cash journey: preparation, not execution
 
-State: **F1-F3 corrected; primary offline checks pass; fresh Astra review and corrected-SHA CI pending; SQL runtime NOT authorized**.
+State: **F1-F3 accepted for source/offline preparation at 9d01fb6; exact-SHA no-SQL CI passed; runtime remains NOT RUN**.
+[Primary acceptance, fresh independent review and exact CI](corrections/ACCEPTANCE.json).
 The worker prepared the harness from accepted cash UI source `54e76663cef0a43029dc87b7ecc27dcf9e8ec180`.
 Primary qualification is recorded in [PRIMARY-QUALIFICATION.json](PRIMARY-QUALIFICATION.json).
 The historical final SQL helper compiles. The corrected harness now passes 102 focused checks and the primary repository check, exit 0.
@@ -9,7 +10,9 @@ These results do not prove a real cash transaction or change CASH-01–08.
 Astra found F1/F2 evidence-publication bypasses and F3 insufficient returned-row preservation.
 [Primary adjudication, correction owner and completion checks](REVIEW-STATUS.json).
 [Verified CI on 990e23a](CI-VERIFICATION.json): backend 700 passed, 82 skipped; staff 223/223; mocked browser cash 2/2, existing 50/50, supply 8/8.
-Preparation remains unaccepted until the listed counterexamples fail and corrected source passes independent re-review.
+The corrected source passed independent Astra/xhigh re-review: 102/102 and a separate semantic probe, exit 0.
+All four automatic checks passed on `9d01fb66caf9f5a94561b909bb34529a954126e0`.
+This accepts prepared proof only. It does not prove a real cash transaction.
 
 ## Historical gap at preparation start
 
@@ -65,7 +68,8 @@ The cached SDK image does not establish those browser prerequisites.
 Qualify one existing Linux environment or prepare an exact dependency/image proposal before requesting runtime authority.
 No image build, pull, download, installation or host security change is covered by this preparation.
 
-After F1–F3 acceptance, freeze the corrected Git SHA and source hashes.
+The accepted source is frozen at `9d01fb66caf9f5a94561b909bb34529a954126e0`.
+[Minimum local scope, remaining preparation and held authority](LOCAL-RUNTIME-PLAN.md).
 The proposed existing harness uses browser mode with cash, supply and stock-exception flags.
 It requires 31 ordered checkpoints, independent persisted-row checks, private credentials and captured-resource cleanup.
 Its final evidence must pass the corrected publication verifier.
