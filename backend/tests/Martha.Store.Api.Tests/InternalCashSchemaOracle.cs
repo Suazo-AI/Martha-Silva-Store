@@ -124,10 +124,11 @@ CK_CashClose_Amounts|[ExpectedMinor] BETWEEN 0 AND 9000000000000 AND [CountedMin
         internal CheckExpression(string expression)
         {
             expression = Regex.Replace(expression, @"(\[[A-Za-z]+\]) BETWEEN (-?\d+) AND (-?\d+)", "$1 >= $2 AND $1 <= $3", RegexOptions.IgnoreCase);
-            var matches = Regex.Matches(expression, @"\s+|\[[^\]]+\]|'(?:[^']|'')*'|\d+|[A-Za-z_][A-Za-z_0-9]*|>=|<=|<>|!=|[=<>+\-(),]");
+            var matches = Regex.Matches(expression, @"\s+|\[[^\]]+\]|'(?:[^']|'')*'|\d+\.?|[A-Za-z_][A-Za-z_0-9]*|>=|<=|<>|!=|[=<>+\-(),]");
             if (string.Concat(matches.Select(x => x.Value)) != expression) throw new FormatException("Unsupported cash constraint token.");
             tokens = matches.Select(x => x.Value).Where(x => !string.IsNullOrWhiteSpace(x))
-                .Select(x => x.StartsWith('\'') ? x : x.Trim('[', ']').ToLowerInvariant()).ToArray();
+                .Select(x => x.StartsWith('\'') ? x : Regex.IsMatch(x, @"\A\d+\.\z")
+                    ? x[..^1] : x.Trim('[', ']').ToLowerInvariant()).ToArray();
         }
         private string? Peek => at < tokens.Length ? tokens[at] : null;
         private string Take() => at < tokens.Length ? tokens[at++] : throw new FormatException("Incomplete cash constraint.");
@@ -153,6 +154,12 @@ CK_CashClose_Amounts|[ExpectedMinor] BETWEEN 0 AND 9000000000000 AND [CountedMin
             Node left;
             if (token == "(") { left = Expression(1); Require(")"); }
             else if (token == "-") left = new("neg", Expression(6));
+            else if (token == "not")
+            {
+                var operand = Expression(3);
+                if (operand.Value != "like") throw new FormatException("Unsupported cash constraint negation.");
+                left = new("notlike", operand.Children);
+            }
             else if (token == "len") { Require("("); left = new("len", Expression(1)); Require(")"); }
             else if (token.StartsWith('\'') || Regex.IsMatch(token, @"\A(?:[a-z_][a-z_0-9]*|\d+)\z")) left = new(token);
             else throw new FormatException("Unsupported cash constraint operand.");

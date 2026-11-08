@@ -20,6 +20,16 @@ namespace Martha.Store.Api.Tests;
 // EnsureCreated and synthetic sessions do NOT prove migrations, cookie login or browser behavior.
 public sealed class InternalBranchScopeSqlTests
 {
+    [Fact]
+    public async Task Operations_host_materializes_all_private_routes_without_sql()
+    {
+        await using var host = await OperationsHost.Start(
+            () => throw new InvalidOperationException("SQL must not be requested during route admission."),
+            new ClaimsPrincipal(new ClaimsIdentity()));
+        using var response = await host.Get("/__savia_fixture_admission__");
+        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+    }
+
     [InternalCommerceSqlFact]
     public async Task BS01_03_Unassigned_manager_fails_closed_while_owner_remains_global()
     {
@@ -267,18 +277,20 @@ public sealed class InternalBranchScopeSqlTests
     private sealed class OperationsHost(WebApplication app, HttpClient client, TestIdentity identity) : IAsyncDisposable
     {
         public TestIdentity Identity { get; } = identity;
-        public static async Task<OperationsHost> Start(BranchFixture fixture)
+        public static Task<OperationsHost> Start(BranchFixture fixture) => Start(fixture.Database.Context, fixture.Manager);
+        public static async Task<OperationsHost> Start(Func<InternalDbContext> context, ClaimsPrincipal principal)
         {
             var builder = WebApplication.CreateBuilder(new WebApplicationOptions { EnvironmentName = "Test" });
             builder.WebHost.UseTestServer();
             builder.Logging.ClearProviders();
             builder.Services.AddHttpContextAccessor();
-            builder.Services.AddScoped(_ => fixture.Database.Context());
+            builder.Services.AddScoped(_ => context());
             builder.Services.AddInternalSecurity();
             builder.Services.AddScoped<IInternalCommandRunner, InternalCommandRunner>();
             builder.Services.AddInternalCommerce();
+            builder.Services.AddInternalCash(builder.Configuration);
             builder.Services.AddInternalSupply();
-            var identity = new TestIdentity { Principal = fixture.Manager };
+            var identity = new TestIdentity { Principal = principal };
             builder.Services.AddSingleton(identity);
             builder.Services.AddAuthentication().AddScheme<AuthenticationSchemeOptions, BranchAuthentication>("BranchTest", _ => { });
             builder.Services.AddAuthorization(options => {

@@ -9,7 +9,8 @@ Combined client logout/relogin proof: primary 13/13 PASS, zero skips; eight hist
 Fresh Astra/xhigh review found one P2 in N8's successful-write oracle, with no product defect.
 Primary corrected the table exclusions and passed 33/33 focused checks, zero skips.
 Astra/xhigh recheck on `79d18c4` accepted the correction with limits; primary verified and accepts it.
-N8 SQL remains pending. The older cross-user positive oracle is outside this scoped acceptance.
+N8 passed in the real local security SQL partition on `f9ffa45`; the partition had four other failures.
+The older cross-user positive oracle is outside this scoped acceptance.
 [Correction, exact source bindings and continuation](session-csrf-20261107/n8-correction/README.md).
 The full repository check passed on `6708709`, exit 0 in 405.609 seconds; it predates this test-only correction.
 [Integration and exact limits](session-csrf-20261107/README.md#primary-integration-2026-11-07).
@@ -19,7 +20,8 @@ Astra/xhigh returned REVISE: post-write deadlines, unproved cleanup absence, int
 Primary reproduced the failures and corrected them; fresh offline controls pass 46/46, exit 0.
 Astra's re-review accepted the other bounded corrections but reproduced a P2: final receipt close could leave PASS after failure.
 Primary reproduced all three cases, then passed 55/55 offline controls after correcting final publication.
-Fresh independent receipt re-review remains pending. This is not image or runtime qualification.
+Independent receipt re-review reproduced a Windows file-lock failure that can leave a stale PASS receipt.
+The custom runner remains rejected and must not execute a campaign. This is not image or runtime qualification.
 [Receipt correction, evidence and next action](completion-20261107/local-validation/runner-corrections/revision-3/README.md).
 
 Historical execution diagnosis: OpenCode rejected the selected GLM free request with `Free usage limit reached`.
@@ -32,7 +34,11 @@ Primary focused checks passed 65/65. A fresh non-SQL build/run passed 607 tests;
 Two integration failures were corrected: explicit migration history and the regenerated idempotent release script.
 The repository check passed, exit 0 in 251.782 seconds. No migration was applied.
 [Fresh integration proof, blockers and next action](cash-register-20261107/backend-integration/README.md).
-Next: adapt legacy SQL/N8/release-schema fixtures to cash, preserving security and recovery checks.
+Legacy SQL/N8 fixtures are adapted. Real business SQL passed 39/39, including eight cash cases.
+Security SQL passed 23/27 initial cases; controlled restart was not run. Backup/restore stopped at the schema oracle.
+Primary reproduced and corrected test-host registration and SQL-metadata parsing failures offline: 34/34 focused tests pass.
+The wider offline run passed 641 cases; 67 SQL cases were not executed. Independent review and a fresh SQL rerun remain pending.
+[Original failures, correction and runtime boundaries](sql-parallel-20261107/README.md).
 The staff cash interface, current test inventory, independent implementation review and real CASH runtime remain pending.
 [Frozen controls and primary adjudication](cash-register-20261107/README.md#primary-acceptance-of-the-source-only-design-2026-11-07).
 

@@ -1,0 +1,680 @@
+{
+  "task_id": "savia-local-sql-security-f9ffa45-20261107-01",
+  "source_sha": "f9ffa452bae7fc11a4a578ce24b57ecb72add139",
+  "mode": "VALIDATE",
+  "status": "partial",
+  "host": "SUAZO-PC",
+  "provider": "codex",
+  "model": "gpt-6.1-sol",
+  "requestedEffort": "high",
+  "exposedEffort": "high (runtime and agent-awareness metadata)",
+  "runId": "security-4a58667f5135e8a1",
+  "commands": [
+    {
+      "name": "sdk",
+      "argv": [
+        "C:\\Users\\Jason\\MARTHA-SILVA\\validation\\resolution-20261028-jsdom\\.sdk-10.0.402\\dotnet.exe",
+        "--version"
+      ],
+      "exit": 0,
+      "seconds": 0.328,
+      "log": "private-exports\\sql-security-20261107-01\\sdk.log"
+    },
+    {
+      "name": "docker-info",
+      "argv": [
+        "docker",
+        "info",
+        "--format",
+        "{{.ServerVersion}} {{.MemTotal}}"
+      ],
+      "exit": 0,
+      "seconds": 0.609,
+      "log": "private-exports\\sql-security-20261107-01\\docker-info.log"
+    },
+    {
+      "name": "image",
+      "argv": [
+        "docker",
+        "image",
+        "inspect",
+        "sha256:cf8f0ab2ebe61feec2eed2629061a07d247f791c2a8ddda74a4ac9f06a291718",
+        "--format",
+        "{{.Id}}"
+      ],
+      "exit": 0,
+      "seconds": 0.11,
+      "log": "private-exports\\sql-security-20261107-01\\image.log"
+    },
+    {
+      "name": "create",
+      "argv": [
+        "docker",
+        "run",
+        "--detach",
+        "--pull=never",
+        "--name",
+        "savia-sql-security-4a58667f5135e8a1",
+        "--label",
+        "savia.validation.owner=security-4a58667f5135e8a1",
+        "--memory",
+        "2g",
+        "--cpus",
+        "2",
+        "--publish",
+        "127.0.0.1:14339:1433",
+        "--env",
+        "ACCEPT_EULA=Y",
+        "--env",
+        "MSSQL_PID=Developer",
+        "--env",
+        "MSSQL_SA_PASSWORD",
+        "sha256:cf8f0ab2ebe61feec2eed2629061a07d247f791c2a8ddda74a4ac9f06a291718"
+      ],
+      "exit": 0,
+      "seconds": 1.609,
+      "log": "private-exports\\sql-security-20261107-01\\create.log"
+    },
+    {
+      "name": "ownership-created",
+      "argv": [
+        "docker",
+        "inspect",
+        "--format",
+        "{{json .Id}} {{json (index .Config.Labels \"savia.validation.owner\")}}",
+        "370a13d9754f83485b67f5d7e01e01068da3f5b9a207cfeb48d42d20b51bc417"
+      ],
+      "exit": 0,
+      "seconds": 0.141,
+      "log": "private-exports\\sql-security-20261107-01\\ownership-created.log"
+    },
+    {
+      "name": "container-config",
+      "argv": [
+        "docker",
+        "inspect",
+        "--format",
+        "{{json .HostConfig.PortBindings}} {{json .HostConfig.Memory}} {{json .HostConfig.NanoCpus}} {{json .Mounts}} {{json .Image}}",
+        "370a13d9754f83485b67f5d7e01e01068da3f5b9a207cfeb48d42d20b51bc417"
+      ],
+      "exit": 0,
+      "seconds": 0.141,
+      "log": "private-exports\\sql-security-20261107-01\\container-config.log"
+    },
+    {
+      "name": "restore",
+      "argv": [
+        "C:\\Users\\Jason\\MARTHA-SILVA\\validation\\resolution-20261028-jsdom\\.sdk-10.0.402\\dotnet.exe",
+        "restore",
+        "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+        "--locked-mode"
+      ],
+      "exit": 0,
+      "seconds": 8.719,
+      "log": "private-exports\\sql-security-20261107-01\\restore.log"
+    },
+    {
+      "name": "build",
+      "argv": [
+        "C:\\Users\\Jason\\MARTHA-SILVA\\validation\\resolution-20261028-jsdom\\.sdk-10.0.402\\dotnet.exe",
+        "build",
+        "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore"
+      ],
+      "exit": 0,
+      "seconds": 52.937,
+      "log": "private-exports\\sql-security-20261107-01\\build.log"
+    },
+    {
+      "name": "initial27",
+      "argv": [
+        "C:\\Users\\Jason\\MARTHA-SILVA\\validation\\resolution-20261028-jsdom\\.sdk-10.0.402\\dotnet.exe",
+        "test",
+        "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName=Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N1_each_role_reads_only_its_server_scope_and_unassigned_user_has_no_global_access|FullyQualifiedName=Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N3_cashier_direct_commands_and_cost_reads_are_rejected_without_writes_or_cost_leaks|FullyQualifiedName=Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N4_foreign_location_ids_paging_and_operation_identity_are_denied_without_writes_or_leaks|FullyQualifiedName=Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N5_owner_branch_reassignment_rejects_original_cashier_cookie_and_preserves_sales_before_new_scope_login|FullyQualifiedName=Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N8_missing_wrong_or_stale_csrf_is_rejected_without_writes_and_a_valid_pair_still_works|FullyQualifiedName=Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N9_owner_adjustment_keeps_reason_actor_and_movement_while_cashier_same_action_changes_nothing|FullyQualifiedName=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS01_03_Unassigned_manager_fails_closed_while_owner_remains_global|FullyQualifiedName=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS04_06_Sales_and_stock_filter_before_count_and_pagination_not_by_creator|FullyQualifiedName=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS07_12_Foreign_sale_reads_and_reversals_do_not_expose_or_mutate_the_sale|FullyQualifiedName=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS20_22_Reassigned_manager_with_new_valid_session_cannot_replay_original_result|FullyQualifiedName=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS21_25_Operations_http_checks_persisted_scope_and_actor_before_returning_result|FullyQualifiedName=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS23_Receipt_dedup_with_new_key_cannot_return_original_branch_after_reassignment|FullyQualifiedName=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS24_Legacy_operation_fails_closed_for_manager_without_modifying_history|FullyQualifiedName=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS27_Inactive_location_allows_own_historical_reversal_but_not_foreign_reversal|FullyQualifiedName=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS28_Cashier_cannot_read_purchase_costs_through_any_supply_get|FullyQualifiedName=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS29_Historical_location_cannot_be_remapped_to_expose_another_branch|FullyQualifiedName=Martha.Store.Api.Tests.InternalJudgeTests.Real_program_sql_login_issues_cookie_and_logout_revokes_even_the_replayed_old_cookie|FullyQualifiedName=Martha.Store.Api.Tests.InternalJudgeTests.Real_program_sql_role_change_and_disablement_revoke_cookies_and_enforce_new_role|FullyQualifiedName=Martha.Store.Api.Tests.InternalReleaseScriptTests.Release_script_upgrades_empty_and_first_migration_databases_and_preserves_synthetic_rows|FullyQualifiedName=Martha.Store.Api.Tests.InternalSecuritySqlTests.Concurrent_owner_demotions_cannot_remove_every_enabled_owner|FullyQualifiedName=Martha.Store.Api.Tests.InternalSecuritySqlTests.Failed_login_lockout_is_persisted_across_scopes_and_correct_password_cannot_bypass_it|FullyQualifiedName=Martha.Store.Api.Tests.InternalSecuritySqlTests.Last_owner_cannot_be_disabled_or_demoted_and_non_owner_cannot_create_staff|FullyQualifiedName=Martha.Store.Api.Tests.InternalSecuritySqlTests.Owner_can_disable_staff_with_an_inactive_retained_branch_without_reassigning_it|FullyQualifiedName=Martha.Store.Api.Tests.InternalSecuritySqlTests.Owner_role_change_and_disablement_revoke_old_cookies_and_stale_versions_conflict|FullyQualifiedName=Martha.Store.Api.Tests.InternalSecuritySqlTests.Password_reset_rotates_version_and_revokes_sessions_without_exposing_hash|FullyQualifiedName=Martha.Store.Api.Tests.InternalSecuritySqlTests.Successful_login_is_persisted_replaces_previous_session_and_logout_revokes_it|FullyQualifiedName=Martha.Store.Api.Tests.PrivatePilotReleaseTests.Real_migration_reapply_throwaway_down_up_and_actual_backup_restore",
+        "--logger",
+        "trx;LogFileName=initial27.trx",
+        "--results-directory",
+        "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-4f8a34bb\\private-exports\\sql-security-20261107-01"
+      ],
+      "exit": 1,
+      "seconds": 154.063,
+      "log": "private-exports\\sql-security-20261107-01\\initial27.log"
+    },
+    {
+      "name": "ownership-before-cleanup",
+      "argv": [
+        "docker",
+        "inspect",
+        "--format",
+        "{{json .Id}} {{json (index .Config.Labels \"savia.validation.owner\")}}",
+        "370a13d9754f83485b67f5d7e01e01068da3f5b9a207cfeb48d42d20b51bc417"
+      ],
+      "exit": 0,
+      "seconds": 0.172,
+      "log": "private-exports\\sql-security-20261107-01\\ownership-before-cleanup.log"
+    },
+    {
+      "name": "cleanup-remove",
+      "argv": [
+        "docker",
+        "rm",
+        "--force",
+        "370a13d9754f83485b67f5d7e01e01068da3f5b9a207cfeb48d42d20b51bc417"
+      ],
+      "exit": 0,
+      "seconds": 0.578,
+      "log": "private-exports\\sql-security-20261107-01\\cleanup-remove.log"
+    },
+    {
+      "name": "cleanup-absence",
+      "argv": [
+        "docker",
+        "container",
+        "inspect",
+        "--format",
+        "{{.Id}}",
+        "370a13d9754f83485b67f5d7e01e01068da3f5b9a207cfeb48d42d20b51bc417"
+      ],
+      "exit": 1,
+      "seconds": 0.187,
+      "log": "private-exports\\sql-security-20261107-01\\cleanup-absence.log"
+    },
+    {
+      "name": "cleanup-inventory",
+      "argv": [
+        "docker",
+        "ps",
+        "-aq",
+        "--no-trunc"
+      ],
+      "exit": 0,
+      "seconds": 0.266,
+      "log": "private-exports\\sql-security-20261107-01\\cleanup-inventory.log"
+    }
+  ],
+  "restart": "NOT RUN",
+  "cleanup": {
+    "capturedId": "370a13d9754f83485b67f5d7e01e01068da3f5b9a207cfeb48d42d20b51bc417",
+    "inspectExit": 1,
+    "absent": true,
+    "ownershipVerified": true
+  },
+  "usage": {
+    "tokens": null,
+    "cost": null
+  },
+  "limits": [
+    "Local disposable SQL only; no browser-to-API-to-SQL or production acceptance",
+    "No historical failure cause established; primary and Astra acceptance pending"
+  ],
+  "sourceBindingsBefore": [
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs",
+      "lfSha256": "b5b63723748b2abe4330902444b7b3bef34eb727db7d4c4b912e018cfb726ca7",
+      "matches": true
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCommerceCommandSqlTests.cs",
+      "lfSha256": "48a9eb29748bd83a99f68d5bbc5d382b1925a9fae5215e46eaa127bb00713f59",
+      "matches": true
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalBranchScopeSqlTests.cs",
+      "lfSha256": "ab54d957a7cfb97dc7454c071d23867fa79e699bb87496b24300892abce1153f",
+      "matches": true
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalStockExceptionSqlTests.cs",
+      "lfSha256": "d43ebca4eda1e597a2b944ad192584eff7bfc3a9ad2a826c4fc089a67a161f1e",
+      "matches": true
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs",
+      "lfSha256": "c6099cb516fbbc697d8f865d82a5d7a3268d8cd184a6dcf9bc6ada1e27a63072",
+      "matches": true
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalReleaseScriptTests.cs",
+      "lfSha256": "6df4800a1517f20cdbf952fcd250b0f652e4b4cd3aeef1a6dca354826d80e4b7",
+      "matches": true
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCashSchemaOracle.cs",
+      "lfSha256": "f64ce209d0658a5cf8dc58e8aa4245bcfe5b368713bc20c0abc6602ad25b95b6",
+      "matches": true
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCashSchemaOracleTests.cs",
+      "lfSha256": "d83564a23883401fb6579f0726f07f5510f7de686858a1dba1fcb173777d5fad",
+      "matches": true
+    }
+  ],
+  "elapsedSeconds": 251.015,
+  "docker": "29.7.2 16550318080",
+  "containerId": "370a13d9754f83485b67f5d7e01e01068da3f5b9a207cfeb48d42d20b51bc417",
+  "containerConfig": "{\"1433/tcp\":[{\"HostIp\":\"127.0.0.1\",\"HostPort\":\"14339\"}]} 2147483648 2000000000 [] \"sha256:cf8f0ab2ebe61feec2eed2629061a07d247f791c2a8ddda74a4ac9f06a291718\"",
+  "initial-readiness": {
+    "ready": true,
+    "attempts": 8
+  },
+  "initial27": {
+    "minimumCases": 27,
+    "cases": 27,
+    "passed": 23,
+    "notPassed": 4,
+    "methodsNotPassed": [
+      "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS21_25_Operations_http_checks_persisted_scope_and_actor_before_returning_result",
+      "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS28_Cashier_cannot_read_purchase_costs_through_any_supply_get",
+      "Martha.Store.Api.Tests.InternalReleaseScriptTests.Release_script_upgrades_empty_and_first_migration_databases_and_preserves_synthetic_rows",
+      "Martha.Store.Api.Tests.PrivatePilotReleaseTests.Real_migration_reapply_throwaway_down_up_and_actual_backup_restore"
+    ],
+    "methods": {
+      "Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N1_each_role_reads_only_its_server_scope_and_unassigned_user_has_no_global_access": {
+        "cases": 1,
+        "passed": 1
+      },
+      "Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N3_cashier_direct_commands_and_cost_reads_are_rejected_without_writes_or_cost_leaks": {
+        "cases": 1,
+        "passed": 1
+      },
+      "Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N4_foreign_location_ids_paging_and_operation_identity_are_denied_without_writes_or_leaks": {
+        "cases": 1,
+        "passed": 1
+      },
+      "Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N5_owner_branch_reassignment_rejects_original_cashier_cookie_and_preserves_sales_before_new_scope_login": {
+        "cases": 1,
+        "passed": 1
+      },
+      "Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N8_missing_wrong_or_stale_csrf_is_rejected_without_writes_and_a_valid_pair_still_works": {
+        "cases": 1,
+        "passed": 1
+      },
+      "Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N9_owner_adjustment_keeps_reason_actor_and_movement_while_cashier_same_action_changes_nothing": {
+        "cases": 1,
+        "passed": 1
+      },
+      "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS01_03_Unassigned_manager_fails_closed_while_owner_remains_global": {
+        "cases": 1,
+        "passed": 1
+      },
+      "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS04_06_Sales_and_stock_filter_before_count_and_pagination_not_by_creator": {
+        "cases": 1,
+        "passed": 1
+      },
+      "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS07_12_Foreign_sale_reads_and_reversals_do_not_expose_or_mutate_the_sale": {
+        "cases": 1,
+        "passed": 1
+      },
+      "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS20_22_Reassigned_manager_with_new_valid_session_cannot_replay_original_result": {
+        "cases": 1,
+        "passed": 1
+      },
+      "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS21_25_Operations_http_checks_persisted_scope_and_actor_before_returning_result": {
+        "cases": 1,
+        "passed": 0
+      },
+      "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS23_Receipt_dedup_with_new_key_cannot_return_original_branch_after_reassignment": {
+        "cases": 1,
+        "passed": 1
+      },
+      "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS24_Legacy_operation_fails_closed_for_manager_without_modifying_history": {
+        "cases": 1,
+        "passed": 1
+      },
+      "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS27_Inactive_location_allows_own_historical_reversal_but_not_foreign_reversal": {
+        "cases": 1,
+        "passed": 1
+      },
+      "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS28_Cashier_cannot_read_purchase_costs_through_any_supply_get": {
+        "cases": 1,
+        "passed": 0
+      },
+      "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS29_Historical_location_cannot_be_remapped_to_expose_another_branch": {
+        "cases": 1,
+        "passed": 1
+      },
+      "Martha.Store.Api.Tests.InternalJudgeTests.Real_program_sql_login_issues_cookie_and_logout_revokes_even_the_replayed_old_cookie": {
+        "cases": 1,
+        "passed": 1
+      },
+      "Martha.Store.Api.Tests.InternalJudgeTests.Real_program_sql_role_change_and_disablement_revoke_cookies_and_enforce_new_role": {
+        "cases": 1,
+        "passed": 1
+      },
+      "Martha.Store.Api.Tests.InternalReleaseScriptTests.Release_script_upgrades_empty_and_first_migration_databases_and_preserves_synthetic_rows": {
+        "cases": 1,
+        "passed": 0
+      },
+      "Martha.Store.Api.Tests.InternalSecuritySqlTests.Concurrent_owner_demotions_cannot_remove_every_enabled_owner": {
+        "cases": 1,
+        "passed": 1
+      },
+      "Martha.Store.Api.Tests.InternalSecuritySqlTests.Failed_login_lockout_is_persisted_across_scopes_and_correct_password_cannot_bypass_it": {
+        "cases": 1,
+        "passed": 1
+      },
+      "Martha.Store.Api.Tests.InternalSecuritySqlTests.Last_owner_cannot_be_disabled_or_demoted_and_non_owner_cannot_create_staff": {
+        "cases": 1,
+        "passed": 1
+      },
+      "Martha.Store.Api.Tests.InternalSecuritySqlTests.Owner_can_disable_staff_with_an_inactive_retained_branch_without_reassigning_it": {
+        "cases": 1,
+        "passed": 1
+      },
+      "Martha.Store.Api.Tests.InternalSecuritySqlTests.Owner_role_change_and_disablement_revoke_old_cookies_and_stale_versions_conflict": {
+        "cases": 1,
+        "passed": 1
+      },
+      "Martha.Store.Api.Tests.InternalSecuritySqlTests.Password_reset_rotates_version_and_revokes_sessions_without_exposing_hash": {
+        "cases": 1,
+        "passed": 1
+      },
+      "Martha.Store.Api.Tests.InternalSecuritySqlTests.Successful_login_is_persisted_replaces_previous_session_and_logout_revokes_it": {
+        "cases": 1,
+        "passed": 1
+      },
+      "Martha.Store.Api.Tests.PrivatePilotReleaseTests.Real_migration_reapply_throwaway_down_up_and_actual_backup_restore": {
+        "cases": 1,
+        "passed": 0
+      }
+    },
+    "partition": "security",
+    "expectedCases": 27,
+    "expectedMethods": 27,
+    "missingMethods": [],
+    "unexpectedMethods": [],
+    "multiplicityMismatch": [],
+    "status": "failed",
+    "definitionBindingVerified": true
+  },
+  "verdict": "NOT PASS",
+  "blocker": {
+    "error": "initial27 failed; dependent restart NOT RUN",
+    "owner": "primary",
+    "nextAction": "Inspect private diagnostics and actual method outcomes; no retry authorized",
+    "completionCheck": "Primary adjudicates preserved evidence and authorizes any new attempt"
+  },
+  "sourceBindingsAfter": [
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs",
+      "lfSha256": "b5b63723748b2abe4330902444b7b3bef34eb727db7d4c4b912e018cfb726ca7",
+      "matches": true
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCommerceCommandSqlTests.cs",
+      "lfSha256": "48a9eb29748bd83a99f68d5bbc5d382b1925a9fae5215e46eaa127bb00713f59",
+      "matches": true
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalBranchScopeSqlTests.cs",
+      "lfSha256": "ab54d957a7cfb97dc7454c071d23867fa79e699bb87496b24300892abce1153f",
+      "matches": true
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalStockExceptionSqlTests.cs",
+      "lfSha256": "d43ebca4eda1e597a2b944ad192584eff7bfc3a9ad2a826c4fc089a67a161f1e",
+      "matches": true
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs",
+      "lfSha256": "c6099cb516fbbc697d8f865d82a5d7a3268d8cd184a6dcf9bc6ada1e27a63072",
+      "matches": true
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalReleaseScriptTests.cs",
+      "lfSha256": "6df4800a1517f20cdbf952fcd250b0f652e4b4cd3aeef1a6dca354826d80e4b7",
+      "matches": true
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCashSchemaOracle.cs",
+      "lfSha256": "f64ce209d0658a5cf8dc58e8aa4245bcfe5b368713bc20c0abc6602ad25b95b6",
+      "matches": true
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCashSchemaOracleTests.cs",
+      "lfSha256": "d83564a23883401fb6579f0726f07f5510f7de686858a1dba1fcb173777d5fad",
+      "matches": true
+    }
+  ],
+  "headAfter": "f9ffa452bae7fc11a4a578ce24b57ecb72add139",
+  "privateArtifacts": [
+    {
+      "path": "private-exports\\sql-security-20261107-01\\build.log",
+      "sha256": "76aafa5aad7c559d4a04ea950a4a6ad1f1498a86d5b1e4d1a91f4a51aa5786d6"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\cleanup-absence.log",
+      "sha256": "b7e448d7e459011356c80c24c5d3fb4e579a858f180bbcd946c631ed3e1a45d6"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\cleanup-inventory.log",
+      "sha256": "d734cd5af039bbc7ed8ea98ed6de071a131b6a47f8c8bbd285fd4be5add1f91e"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\cleanup-remove.log",
+      "sha256": "b3ee9ce0b4b4e544599fd0ddbb6e04df14c940700e4c25c973489adb994a7ab8"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\container-config.log",
+      "sha256": "8f913f7bb6e1bb1c7a5623588b91ca69d2e256c71adff44fcd22dbbadca3373d"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\create.log",
+      "sha256": "b3ee9ce0b4b4e544599fd0ddbb6e04df14c940700e4c25c973489adb994a7ab8"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\docker-info.log",
+      "sha256": "f71824f934db98dda831aaa01c5058550a2db146935c3980391eb41a0caf90c9"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\exact-diagnostics.json",
+      "sha256": "04d85f34c0535465bed1a0655401d49924f1e8a68b7ca3f7dad1b9973234a7ab"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\execute.py",
+      "sha256": "b0afe86e0c59b3786aec1a2fa5a98c502992fdcd6c60800a83bd2c22622a5225"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\image.log",
+      "sha256": "ec86d2c500ae3fb6bc9a43cf109ffa82de5137d05897e2658e53b1471a463ff3"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\independent_check.py",
+      "sha256": "c44aa85b4b0b703d053e4fabb37c160581570cc2c20115f2cec94c557574ea9a"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\initial-readiness-1.log",
+      "sha256": "a946e947100c72bc7510644edd5e54300343875ccfcd1afe47c06052beade898"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\initial-readiness-2.log",
+      "sha256": "a946e947100c72bc7510644edd5e54300343875ccfcd1afe47c06052beade898"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\initial-readiness-3.log",
+      "sha256": "a946e947100c72bc7510644edd5e54300343875ccfcd1afe47c06052beade898"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\initial-readiness-4.log",
+      "sha256": "a946e947100c72bc7510644edd5e54300343875ccfcd1afe47c06052beade898"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\initial-readiness-5.log",
+      "sha256": "a946e947100c72bc7510644edd5e54300343875ccfcd1afe47c06052beade898"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\initial-readiness-6.log",
+      "sha256": "a946e947100c72bc7510644edd5e54300343875ccfcd1afe47c06052beade898"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\initial-readiness-7.log",
+      "sha256": "06850eae4f84adde83febd42aa1c6333ecd36f4a02f4192ddac8868103e8441e"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\initial-readiness-8.log",
+      "sha256": "e4ba09bb09e9fceca1a524bebd57455bef864302e712fa1e63db3fc53c16dc5f"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\initial27.log",
+      "sha256": "66feedf4034e01add7d4cb65e9ba7063bbeef869b7053cd249b05047f6f7e973"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\initial27.trx",
+      "sha256": "f76871df7b23063be186b96931a77b5726b6b9b6f4e5be26c2dbfe8d203c4463"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\ownership-before-cleanup.log",
+      "sha256": "9760aa0592f4c3944a8420686889f1e31b791734daeb9f718d5fcf2493d77cd9"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\ownership-created.log",
+      "sha256": "9760aa0592f4c3944a8420686889f1e31b791734daeb9f718d5fcf2493d77cd9"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\restore.log",
+      "sha256": "b678e8c61fca37875690e6eb7431fbd4fffd4607f701f034616cafb12e8c9ca4"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\sdk.log",
+      "sha256": "6d5ab2a4ef35ceec908f01287257f530b0c0d68f0e84326df2ebcea641f9134b"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\pilot\\expected-invariants.json",
+      "sha256": "3015d5316e6c5090846c29f87e6d180bb72fa9964dea48b3f628251a601239d0"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\pilot\\schema-first-SaviaInternalTest_Pilot_6c644d49fad14fdfa3365756da673ba4.json",
+      "sha256": "f0c726bc6c84710c690e56d9a395eeb98ab74b9ac2304b430df05c8026aa124f"
+    }
+  ],
+  "independentLocalVerification": {
+    "actualCases": 27,
+    "outcomes": {
+      "Passed": 23,
+      "Failed": 4
+    },
+    "missing": [
+      "Martha.Store.Api.Tests.PrivatePilotReleaseTests.Frozen_fixture_survives_controlled_owned_container_stop_start"
+    ],
+    "extra": [],
+    "multiplicityMismatch": {},
+    "normalizedIdentityUniqueness": true,
+    "definitionResultAgreement": true,
+    "sourceBindings": [
+      {
+        "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs",
+        "matches": true
+      },
+      {
+        "path": "backend/tests/Martha.Store.Api.Tests/InternalCommerceCommandSqlTests.cs",
+        "matches": true
+      },
+      {
+        "path": "backend/tests/Martha.Store.Api.Tests/InternalBranchScopeSqlTests.cs",
+        "matches": true
+      },
+      {
+        "path": "backend/tests/Martha.Store.Api.Tests/InternalStockExceptionSqlTests.cs",
+        "matches": true
+      },
+      {
+        "path": "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs",
+        "matches": true
+      },
+      {
+        "path": "backend/tests/Martha.Store.Api.Tests/InternalReleaseScriptTests.cs",
+        "matches": true
+      },
+      {
+        "path": "backend/tests/Martha.Store.Api.Tests/InternalCashSchemaOracle.cs",
+        "matches": true
+      },
+      {
+        "path": "backend/tests/Martha.Store.Api.Tests/InternalCashSchemaOracleTests.cs",
+        "matches": true
+      }
+    ],
+    "headMatches": true,
+    "trackedChanges": [],
+    "containerAbsent": true,
+    "cleanupInspectExit": 1,
+    "pass": false,
+    "scope": "Separate local artifact verifier; not primary/Astra independent acceptance"
+  },
+  "preflightCorrection": {
+    "failure": "Python default Windows decoding raised UnicodeDecodeError ('charmap' byte 0x90)",
+    "scope": "Reading source definitions before any SQL container, restore/build or test invocation",
+    "correction": "Explicit UTF-8 for source reads",
+    "verification": "Successful source-method definition preflight on final execution",
+    "lesson": "Specify UTF-8 for repository source reads on Windows"
+  },
+  "failureAnalysis": [
+    {
+      "methods": [
+        "BS21_25",
+        "BS28"
+      ],
+      "observed": "System.InvalidOperationException : Failure to infer one or more parameters. request=Body (Inferred), service=UNKNOWN",
+      "sourceEvidence": [
+        "backend/tests/Martha.Store.Api.Tests/InternalBranchScopeSqlTests.cs:270-290",
+        "backend/src/Martha.Store.Api/Internal/InternalHosting.cs:37-44",
+        "backend/src/Martha.Store.Api/Internal/Cash/InternalCashEndpoints.cs:15-21"
+      ],
+      "cause": "OperationsHost maps all private endpoints, including Cash, without AddInternalCash; startup fails before the targeted HTTP checks",
+      "classification": "test-host dependency failure; production authorization behavior not adjudicated",
+      "attemptedCorrection": "None: source changes and method retries excluded",
+      "owner": "primary",
+      "nextAction": "Review dependency registration in fixture on a new candidate",
+      "completionCheck": "Independently review correction and authorize a fresh bounded exact-method run"
+    },
+    {
+      "methods": [
+        "Release_script_upgrades_empty_and_first_migration_databases_and_preserves_synthetic_rows",
+        "Real_migration_reapply_throwaway_down_up_and_actual_backup_restore"
+      ],
+      "observed": "System.FormatException : Unsupported cash constraint token.",
+      "sourceEvidence": [
+        "backend/tests/Martha.Store.Api.Tests/InternalCashSchemaOracle.cs:126-128",
+        "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs:117",
+        "backend/tests/Martha.Store.Api.Tests/InternalReleaseScriptTests.cs:69"
+      ],
+      "cause": "Captured actual SQL check definitions contain decimal-form integer bounds 9000000000000.; tokenizer grammar excludes the period. Local regex inspection identified unconsumed periods in CK_CashClose_Amounts and CK_CashEntry_Bounds",
+      "classification": "schema-oracle parsing failure; schema semantic equivalence remains unproved",
+      "attemptedCorrection": "None: source changes and method retries excluded",
+      "owner": "primary",
+      "nextAction": "Review fail-closed numeric grammar against actual captured SQL definitions",
+      "completionCheck": "Approve corrected oracle preserving meaning, then authorize new SQL release/backup/restart proof"
+    }
+  ],
+  "releaseStages": {
+    "initialMigration": "Reached",
+    "firstSchemaOracle": "FAILED",
+    "reapply": "NOT RUN",
+    "throwawayDownUp": "NOT RUN",
+    "backup": "NOT RUN",
+    "restore": "NOT RUN",
+    "controlledRestart": "NOT RUN",
+    "releaseReceiptCount": 0
+  },
+  "attempts": {
+    "lockedRestore": 1,
+    "releaseBuild": 1,
+    "initialExact27Invocation": 1,
+    "eachInitialMethod": 1,
+    "restartInvocation": 0,
+    "testRetry": 0
+  },
+  "workerStop": "Permitted stop: initial27 failed; dependent restart prohibited; no source fixes or new attempt authorized. All independent initial cases completed and owned container removed.",
+  "sourceChanges": false,
+  "evidenceHashes": {
+    "sanitized-outcomes.json": "8264cac37e55b2e1acbf14fe5f8d325cd15993bf49efbe0cce4cb56cea4160d3"
+  }
+}

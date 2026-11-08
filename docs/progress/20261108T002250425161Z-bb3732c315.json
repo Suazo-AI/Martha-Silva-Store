@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-08T00:22:50.425161+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalBranchScopeSqlTests.cs",
+      "change": "M",
+      "git_blob": "d756a489335143a23749b6f4e80417ad2ad3cf32"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCashSchemaOracle.cs",
+      "change": "M",
+      "git_blob": "4c1c309226c33b45bca9904fdd61e227d1b08dd3"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCashSchemaOracleTests.cs",
+      "change": "M",
+      "git_blob": "48ba13a9731dd77c714afa02a6123ded70c1203f"
+    },
+    {
+      "path": "backend/tests/fixtures/cash-checks.sqlserver2022.json",
+      "change": "A",
+      "git_blob": "4c74cfbe4d0852682f6026129e11f27f2baaa4c2"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "723369cd8aec7586b049d59a6699a374416efa2b"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-preparation/PLAN.md",
+      "change": "M",
+      "git_blob": "4a56ca538f53ca09f1d50d054a51ae174fbbecdc"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-preparation/astra-contract-review.md",
+      "change": "A",
+      "git_blob": "bda848ceb4ae3ec7f45eb55aa9c7ecce78f30e2a"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "change": "M",
+      "git_blob": "d636d19913bf073899ae7aae4070b449465f3b76"
+    },
+    {
+      "path": "docs/sql-parallel-20261107/PRIMARY-SECURITY.json",
+      "change": "A",
+      "git_blob": "b0100f105f22a3d007f2087e0e0bf5c7336b6a0e"
+    },
+    {
+      "path": "docs/sql-parallel-20261107/README.md",
+      "change": "M",
+      "git_blob": "370fbe45bbe979e22dab2492cb9f3501076c524c"
+    },
+    {
+      "path": "docs/sql-parallel-20261107/security-correction/README.md",
+      "change": "A",
+      "git_blob": "3e5b4e51f1593bea88793fc6b6e75c68480606b7"
+    },
+    {
+      "path": "docs/sql-parallel-20261107/security-correction/RESULT.json",
+      "change": "A",
+      "git_blob": "b737beeb941ca93cb042b3f72dcf49a88681627a"
+    },
+    {
+      "path": "docs/sql-parallel-20261107/security/README.md",
+      "change": "A",
+      "git_blob": "5439f264ae0a1b66f82c3bb2d995186c78bfce9a"
+    },
+    {
+      "path": "docs/sql-parallel-20261107/security/RESULT.json",
+      "change": "A",
+      "git_blob": "5e5486f09033396a15de8cdb5efc5f76b09e2b32"
+    },
+    {
+      "path": "docs/sql-parallel-20261107/security/sanitized-outcomes.json",
+      "change": "A",
+      "git_blob": "76c6bb84f0ff709f14ff1d675c8ed35d60b47b23"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

@@ -93,6 +93,41 @@ public sealed class InternalCashSchemaOracleTests
         var actual = InternalCashSchemaOracle.CheckShape.ToArray(); actual[1] = "CK_CashTill_Time|1=1";
         Assert.ThrowsAny<Exception>(() => InternalCashSchemaOracle.AssertShape(InternalCashSchemaOracle.CheckShape, actual));
     }
+
+    public static IEnumerable<object[]> CapturedCashChecks()
+    {
+        var path = InternalReleaseScriptTests.RepositoryFile("backend/tests/fixtures/cash-checks.sqlserver2022.json");
+        return JsonSerializer.Deserialize<string[]>(File.ReadAllText(path))!.Select(x => new object[] { x });
+    }
+
+    [Theory] [MemberData(nameof(CapturedCashChecks))]
+    public void Captured_sql_server_cash_check_matches_reviewed_meaning(string actual)
+    {
+        var name = actual.Split('|')[0];
+        var expected = InternalCashSchemaOracle.CheckShape.Single(x => x.StartsWith(name + "|", StringComparison.Ordinal));
+        InternalCashSchemaOracle.AssertShape([expected], [actual]);
+    }
+
+    [Theory]
+    [InlineData("9000000000000.", "9000000000001.")]
+    [InlineData("NOT ([Currency])", "([Currency])")]
+    [InlineData("Latin1_General_100_BIN2", "Latin1_General_100_CI_AS")]
+    [InlineData("'sale'", "'s ale'")]
+    public void Changed_captured_sql_meaning_is_rejected(string from, string to)
+    {
+        var rows = CapturedCashChecks().Select(x => (string)x[0]).Where(x => x.Contains(from, StringComparison.Ordinal)).ToArray();
+        Assert.NotEmpty(rows);
+        foreach (var row in rows)
+        {
+            var name = row.Split('|')[0];
+            var expected = InternalCashSchemaOracle.CheckShape.Single(x => x.StartsWith(name + "|", StringComparison.Ordinal));
+            Assert.Throws<Xunit.Sdk.EqualException>(() => InternalCashSchemaOracle.AssertShape([expected], [row.Replace(from, to)]));
+        }
+    }
+
+    [Theory] [InlineData("1.5")] [InlineData(".5")] [InlineData("1e2")] [InlineData("1..")]
+    public void Unreviewed_numeric_forms_fail_closed(string number) =>
+        Assert.Throws<FormatException>(() => InternalCashSchemaOracle.Canonical("CK_Test|[Amount]=" + number));
     [Fact] public void Cash_projection_removes_only_exact_payment_and_keeps_other_rows_and_tables()
     {
         var id = Guid.NewGuid(); var row = new Dictionary<string, object> { ["Id"] = id, ["DeltaMinor"] = 125L };

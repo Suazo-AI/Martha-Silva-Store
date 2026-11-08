@@ -1,6 +1,6 @@
 # Parallel local SQL validation
 
-Mode: VALIDATE. Status: business 39/39 verified; security return and independent acceptance pending. Production: **NO-GO**.
+Mode: VALIDATE. Status: business 39/39 verified; security 23 passed, 4 failed, 1 not run. Correction under review. Production: **NO-GO**.
 Owner: primary. Executors: temporary authorized Codex `gpt-6.1-sol/high`. Sole judge: `gpt-6-astra/xhigh`.
 
 ## Authorization and frozen scope
@@ -77,3 +77,18 @@ Lesson: exact method/results mapping and owned-resource readback close this part
 Registry update: only CASH-REGISTER prep/review changed; its pending status and production gates remain.
 `python tests/test_progress.py`: 23/23, exit0, 113.047s; `python tools/export_progress.py --verify`: 15 preserved hashes; `python tools/delivery_status.py --check`: valid 40 items.
 [Next independent source review: staff cash workflow](../cash-register-20261107/ui-preparation/PLAN.md). No UI code was changed.
+
+## Security return and primary correction
+
+Primary verified the original TRX: 27 exact initial methods, 23 passed, four failed, zero skipped or duplicate identities.
+All eight frozen source bindings and 27 private artifact hashes match. The owned container is absent.
+[Primary verification](PRIMARY-SECURITY.json) and [worker evidence](security/README.md).
+
+Two fixture hosts lacked Cash service registration. Two release tests stopped at the cash-schema oracle before backup.
+SQL Server emits integer constants with a trailing decimal point and prefix `NOT ... LIKE`; the limited oracle rejected these forms.
+The correction changes tests only. Fresh offline evidence: six failures/28 passes, then 34/34 passes.
+The wider offline run passed 641 cases; 67 SQL cases were not executed.
+[Correction, source bindings and remaining gates](security-correction/README.md).
+
+Backup, restore, controlled restart and the corrected SQL cases remain unproven.
+Primary prepares the frozen candidate for Astra/xhigh review before requesting a new bounded SQL execution.

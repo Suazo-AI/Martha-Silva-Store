@@ -1,0 +1,196 @@
+{
+  "source_sha": "f9ffa452bae7fc11a4a578ce24b57ecb72add139",
+  "status": "PARTIAL / NOT PASS",
+  "originalTrxSha256": "f76871df7b23063be186b96931a77b5726b6b9b6f4e5be26c2dbfe8d203c4463",
+  "cases": 27,
+  "outcomes": {
+    "Passed": 23,
+    "Failed": 4
+  },
+  "methodIdentity": "27 exact initial methods, once each; normalized UUIDs unique",
+  "failedMethods": [
+    "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS21_25_Operations_http_checks_persisted_scope_and_actor_before_returning_result",
+    "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS28_Cashier_cannot_read_purchase_costs_through_any_supply_get",
+    "Martha.Store.Api.Tests.InternalReleaseScriptTests.Release_script_upgrades_empty_and_first_migration_databases_and_preserves_synthetic_rows",
+    "Martha.Store.Api.Tests.PrivatePilotReleaseTests.Real_migration_reapply_throwaway_down_up_and_actual_backup_restore"
+  ],
+  "restart": "NOT RUN",
+  "backupRestore": "NOT REACHED",
+  "sourceBindings": [
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs",
+      "lfSha256": "b5b63723748b2abe4330902444b7b3bef34eb727db7d4c4b912e018cfb726ca7"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCommerceCommandSqlTests.cs",
+      "lfSha256": "48a9eb29748bd83a99f68d5bbc5d382b1925a9fae5215e46eaa127bb00713f59"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalBranchScopeSqlTests.cs",
+      "lfSha256": "ab54d957a7cfb97dc7454c071d23867fa79e699bb87496b24300892abce1153f"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalStockExceptionSqlTests.cs",
+      "lfSha256": "d43ebca4eda1e597a2b944ad192584eff7bfc3a9ad2a826c4fc089a67a161f1e"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs",
+      "lfSha256": "c6099cb516fbbc697d8f865d82a5d7a3268d8cd184a6dcf9bc6ada1e27a63072"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalReleaseScriptTests.cs",
+      "lfSha256": "6df4800a1517f20cdbf952fcd250b0f652e4b4cd3aeef1a6dca354826d80e4b7"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCashSchemaOracle.cs",
+      "lfSha256": "f64ce209d0658a5cf8dc58e8aa4245bcfe5b368713bc20c0abc6602ad25b95b6"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCashSchemaOracleTests.cs",
+      "lfSha256": "d83564a23883401fb6579f0726f07f5510f7de686858a1dba1fcb173777d5fad"
+    }
+  ],
+  "privateArtifacts": [
+    {
+      "path": "private-exports\\sql-security-20261107-01\\build.log",
+      "sha256": "76aafa5aad7c559d4a04ea950a4a6ad1f1498a86d5b1e4d1a91f4a51aa5786d6"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\cleanup-absence.log",
+      "sha256": "b7e448d7e459011356c80c24c5d3fb4e579a858f180bbcd946c631ed3e1a45d6"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\cleanup-inventory.log",
+      "sha256": "d734cd5af039bbc7ed8ea98ed6de071a131b6a47f8c8bbd285fd4be5add1f91e"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\cleanup-remove.log",
+      "sha256": "b3ee9ce0b4b4e544599fd0ddbb6e04df14c940700e4c25c973489adb994a7ab8"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\container-config.log",
+      "sha256": "8f913f7bb6e1bb1c7a5623588b91ca69d2e256c71adff44fcd22dbbadca3373d"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\create.log",
+      "sha256": "b3ee9ce0b4b4e544599fd0ddbb6e04df14c940700e4c25c973489adb994a7ab8"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\docker-info.log",
+      "sha256": "f71824f934db98dda831aaa01c5058550a2db146935c3980391eb41a0caf90c9"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\exact-diagnostics.json",
+      "sha256": "04d85f34c0535465bed1a0655401d49924f1e8a68b7ca3f7dad1b9973234a7ab"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\execute.py",
+      "sha256": "b0afe86e0c59b3786aec1a2fa5a98c502992fdcd6c60800a83bd2c22622a5225"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\image.log",
+      "sha256": "ec86d2c500ae3fb6bc9a43cf109ffa82de5137d05897e2658e53b1471a463ff3"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\independent_check.py",
+      "sha256": "c44aa85b4b0b703d053e4fabb37c160581570cc2c20115f2cec94c557574ea9a"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\initial-readiness-1.log",
+      "sha256": "a946e947100c72bc7510644edd5e54300343875ccfcd1afe47c06052beade898"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\initial-readiness-2.log",
+      "sha256": "a946e947100c72bc7510644edd5e54300343875ccfcd1afe47c06052beade898"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\initial-readiness-3.log",
+      "sha256": "a946e947100c72bc7510644edd5e54300343875ccfcd1afe47c06052beade898"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\initial-readiness-4.log",
+      "sha256": "a946e947100c72bc7510644edd5e54300343875ccfcd1afe47c06052beade898"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\initial-readiness-5.log",
+      "sha256": "a946e947100c72bc7510644edd5e54300343875ccfcd1afe47c06052beade898"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\initial-readiness-6.log",
+      "sha256": "a946e947100c72bc7510644edd5e54300343875ccfcd1afe47c06052beade898"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\initial-readiness-7.log",
+      "sha256": "06850eae4f84adde83febd42aa1c6333ecd36f4a02f4192ddac8868103e8441e"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\initial-readiness-8.log",
+      "sha256": "e4ba09bb09e9fceca1a524bebd57455bef864302e712fa1e63db3fc53c16dc5f"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\initial27.log",
+      "sha256": "66feedf4034e01add7d4cb65e9ba7063bbeef869b7053cd249b05047f6f7e973"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\initial27.trx",
+      "sha256": "f76871df7b23063be186b96931a77b5726b6b9b6f4e5be26c2dbfe8d203c4463"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\ownership-before-cleanup.log",
+      "sha256": "9760aa0592f4c3944a8420686889f1e31b791734daeb9f718d5fcf2493d77cd9"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\ownership-created.log",
+      "sha256": "9760aa0592f4c3944a8420686889f1e31b791734daeb9f718d5fcf2493d77cd9"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\restore.log",
+      "sha256": "b678e8c61fca37875690e6eb7431fbd4fffd4607f701f034616cafb12e8c9ca4"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\sdk.log",
+      "sha256": "6d5ab2a4ef35ceec908f01287257f530b0c0d68f0e84326df2ebcea641f9134b"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\pilot\\expected-invariants.json",
+      "sha256": "3015d5316e6c5090846c29f87e6d180bb72fa9964dea48b3f628251a601239d0"
+    },
+    {
+      "path": "private-exports\\sql-security-20261107-01\\pilot\\schema-first-SaviaInternalTest_Pilot_6c644d49fad14fdfa3365756da673ba4.json",
+      "sha256": "f0c726bc6c84710c690e56d9a395eeb98ab74b9ac2304b430df05c8026aa124f"
+    }
+  ],
+  "imports": [
+    {
+      "path": "docs/sql-parallel-20261107/security/README.md",
+      "rawSha256": "a87a382536571a51c62d67ddb4f69fd0bc38c562b8be690c54fa1b25bfe4d1ba",
+      "lfSha256": "063d122487959ac4b7535d068b70395109cc36e9088a271595ea3bfd7c6f9c8e"
+    },
+    {
+      "path": "docs/sql-parallel-20261107/security/RESULT.json",
+      "rawSha256": "8f1deeb0bd39196a9cde8f7c26b49a86aeec8dab19d85504fa10aecb495de40e",
+      "lfSha256": "532721c548526313b89e5f0d3155be84264baedbd79085a842a5961a0b75db04"
+    },
+    {
+      "path": "docs/sql-parallel-20261107/security/sanitized-outcomes.json",
+      "rawSha256": "8264cac37e55b2e1acbf14fe5f8d325cd15993bf49efbe0cce4cb56cea4160d3",
+      "lfSha256": "b1a97288441a897121362a4070964c7b8bf3fbfaaf0224d70baebc4abef1b366"
+    }
+  ],
+  "cleanup": {
+    "command": [
+      "docker",
+      "ps",
+      "-a",
+      "--no-trunc",
+      "--filter",
+      "id=370a13d9754f83485b67f5d7e01e01068da3f5b9a207cfeb48d42d20b51bc417",
+      "--format",
+      "{{.ID}}"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "ownedContainerAbsent": true
+  },
+  "limits": "No SQL rerun. Original failures directly inspected; correction requires independent review and fresh authorized SQL runtime."
+}
