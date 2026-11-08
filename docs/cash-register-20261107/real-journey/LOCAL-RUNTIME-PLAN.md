@@ -70,3 +70,7 @@ Do not request a rubber-stamp approval while the browser environment or populate
 Owner: primary prepares and integrates; bounded Sol/high executes approved work; Astra/xhigh reviews material risks.
 Completion: fresh real persisted-row evidence, verified cleanup and primary acceptance within the approved scope.
 No merge, deployment, real payments or production acceptance is implied.
+
+The source-only recovery review is accepted for [bounded implementation](../recovery-preparation/IMPLEMENTATION.md).
+It extends the two existing recovery methods and preserves this seven-method runtime selection.
+No runtime authority is added.
