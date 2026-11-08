@@ -22,7 +22,8 @@ Emergency recovery must never create an account, reactivate a disabled account, 
 
 ## Ownership and dispatch
 
-The next executor is `opencode/deepseek-v4.1-flash-free`, `variant=high`, `agent=build`.
+The next executor is `codex/gpt-6.1-sol`, `reasoningEffort=high`.
+Jason approved this temporary route after OpenCode reported its free usage limit.
 The independent judge is `codex/gpt-6-astra`, `reasoningEffort=xhigh`.
 Use a T3-managed worktree and a self-contained PROTOCOL packet.
 No nested delegation or model substitution.
@@ -92,13 +93,40 @@ No account change, certificate bypass, service restart, merge or deployment is a
 | Outcome | Current evidence | Next action / completion check | Owner |
 | --- | --- | --- | --- |
 | Policy and design | Adopted policy and accepted F1-F13 | Preserve exact controls through implementation and review | Primary |
-| Private console and transaction | Not implemented | Free OpenCode candidate; real service compiled; bounded offline assertions and negative controls | Next executor, then primary/Astra |
+| Private console and transaction | Not implemented | Approved Sol/high candidate; real service compiled; bounded offline assertions and negative controls | Next executor, then primary/Astra |
 | Windows operator and protected manifest/journal | Design only | Prove actual supported Windows checks; identify provisioning needs without changing host security | Primary / Jason for provisioning |
 | SQL persistence, races, rollback and UNKNOWN | NOT RUN | Separately authorized disposable SQL/API run satisfies F4-F13 and independent preservation oracles | Primary + assigned executor |
 | Two enabled Owners | Operational policy only | Two distinct identities and successful logins; named separate custodians | Primary / Jason |
 | Production acceptance | NO-GO | Original release gates plus accepted recovery evidence; no automatic deployment | Primary / Jason |
 
-Current dependency: the execution slots are assigned to CSRF and runner safety review.
-Continue with this contract when a child returns; do not duplicate either task or poll a running delegate.
-This is a scheduling dependency, not evidence of provider failure.
+Current separation: the cash workflow has its own assigned worktree and files.
+Recovery can use the remaining slot without touching that worktree or its cash/UI paths.
+Do not duplicate the cash task or poll a running delegate.
 The next executor owns the implementation. The primary owns integration and final acceptance.
+
+## Dispatch preparation at 2160fd0
+
+Primary compared the reviewed security service, bootstrap console and security model with design source
+`1761a9a94f9da2573778552ec3595d49e6d899ff`: no source difference.
+The accepted design hash above still matches. Reuse that design; retain F1-F13 without waiver.
+This check is not implementation or recovery proof.
+
+The bounded implementation packet may run cached SDK-only offline checks in an owned disposable sandbox.
+Use SDK image `mcr.microsoft.com/dotnet/sdk@sha256:747cbade5bfd918a175ac32f8f1d931edec2c7d0d5397a3de72eaef1ac1f66d2`.
+Primary verified that cached image and the local NuGet cache exist.
+Use no network, ports, SQL image, host credentials, Docker socket, installations or downloads.
+Keep source and package inputs read-only; use private bounded scratch, a non-root user, dropped capabilities,
+and explicit limits: 2 CPUs, 4 GiB memory, 256 processes and 20 combined container minutes including cleanup.
+Freeze exact mounts, scratch size, captured ownership ID and absence readback before starting that sandbox.
+An unavailable cache or unmet sandbox control stops target execution; report the concrete missing prerequisite.
+
+The worker has 80 minutes total and at most ten focused check invocations, with no automatic retries.
+Use the current allowance only. Preserve a continuation checkpoint if a required step remains.
+Jason chose D for the separate five-test SQL plan: review first, no execution.
+This implementation packet does not dispatch that plan, SQL, account recovery or any account change.
+
+Preparation verification: an inline Python check passed the design hash, thirteen control IDs,
+document links, route and D boundaries, unchanged source comparison, two preserved unrelated files and empty index.
+`git diff --check` exited 0. `git diff 1761a9a94f9da2573778552ec3595d49e6d899ff HEAD -- backend/src/Martha.Store.Api/Internal/Security/InternalSecurityService.cs backend/src/Martha.Store.Api/Internal/Security/InternalOwnerConsole.cs backend/src/Martha.Store.Api/Internal/Security/InternalSecurityModel.cs`
+returned no changes. No product code, sandbox, recovery, SQL or tests of recovery ran during this preparation.
+Next: dispatch the frozen implementation packet; primary inspects the returned candidate before independent Astra/xhigh review.

@@ -58,7 +58,8 @@ No schema change, privileged SQL script or new account path is selected by this 
 ## Next action and ownership
 
 Primary owns this decision record, serial integration and final acceptance.
-Use an OpenCode executor for the reviewed implementation below. Preserve other workers' separate paths and worktrees.
+Use the approved temporary Codex Sol/high executor for the reviewed implementation below.
+Preserve other workers' separate paths and worktrees.
 Then verify offline negative controls and request one concrete isolated SQL scope for the synthetic recovery proof.
 `P-OWNER` stays open until its original reviewed-and-tested completion criterion is met.
 
@@ -93,7 +94,7 @@ This is design acceptance. It is not evidence that recovery works.
 - Freeze F1-F13 from the report, including full-table no-write checks and preservation of BranchAssignmentAudit.
   Offline tests and source inspection cannot replace the separately authorized SQL, race, rollback and login evidence.
 
-Next: implement the reviewed seams with free OpenCode, verify offline controls in a bounded sandbox, then obtain Astra/xhigh review.
+Next: implement the reviewed seams with the approved temporary Sol/high route, verify offline controls in a bounded sandbox, then obtain Astra/xhigh review.
 Before any database recovery run, prepare its exact synthetic target, operator, backup/cleanup ownership and new runtime scope.
 No account, database, service, host security, schema, server invariant or production status changed during this adjudication.
 

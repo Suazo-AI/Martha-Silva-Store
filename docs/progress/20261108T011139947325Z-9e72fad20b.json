@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-08T01:11:39.947325+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/owner-recovery-20261107/IMPLEMENTATION.md",
+      "change": "M",
+      "git_blob": "0497d87ff9953e10c58649e983cc450e224ae7c9"
+    },
+    {
+      "path": "docs/owner-recovery-20261107/README.md",
+      "change": "M",
+      "git_blob": "4be23fde346dbb4a4530297664ab6f55c1aeb13b"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}
