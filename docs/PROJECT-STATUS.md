@@ -10,6 +10,8 @@ Fresh Astra/xhigh review found one P2 in N8's successful-write oracle, with no p
 Primary corrected the table exclusions and passed 33/33 focused checks, zero skips.
 Astra/xhigh recheck on `79d18c4` accepted the correction with limits; primary verified and accepts it.
 N8 passed in the real local security SQL partition on `f9ffa45`; the partition had four other failures.
+SEC-CSRF remains open: same-account framework RED and SQL N8 GREEN are verified; the ledger's same-test red/green criterion still needs reconciliation.
+[Current evidence review and exact gap](session-csrf-20261107/README.md#current-evidence-review-2026-11-07).
 The older cross-user positive oracle is outside this scoped acceptance.
 [Correction, exact source bindings and continuation](session-csrf-20261107/n8-correction/README.md).
 The full repository check passed on `6708709`, exit 0 in 405.609 seconds; it predates this test-only correction.

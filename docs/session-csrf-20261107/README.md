@@ -1,8 +1,44 @@
 # SEC-CSRF: session protection
 
-Status: implementation and client proof imported; Astra review and SQL acceptance pending.
+Status: implementation, client proof and real N8 SQL pass verified. SEC-CSRF remains open for its exact closure criterion.
 Source reviewed: `584fcaa6a11a09c1dbdcc97df3205d3e85a0b8d8`.
 Host: `SUAZO-PC`. Primary: T3 Code / Codex / `gpt-6.1-sol`, requested/exposed `xhigh`.
+
+## Current evidence review, 2026-11-07
+
+This section supersedes historical next actions below. Reviewed canonical source: `9554645846adffd961a8d889bbaa61760785fd19`.
+
+- Real-framework regression: two stale-session failures before the provider; final framework/security run 55/55 PASS.
+- Client continuity: fresh primary 13/13 PASS; eight historical negative controls detected 14 expected failures.
+- Astra/xhigh accepted the corrected same-account sale and Directory write oracle on `79d18c4`, with limits.
+- Real SQL N8 passed once on `f9ffa452bae7fc11a4a578ce24b57ecb72add139`.
+  Primary parsed its original private `initial27.trx`: exactly one N8 result, Passed, duration `00:00:15.0112310`.
+  TRX RAW SHA256: `f76871df7b23063be186b96931a77b5726b6b9b6f4e5be26c2dbfe8d203c4463`.
+  [Sanitized results and original artifact binding](../sql-parallel-20261107/security/RESULT.json).
+- Relevant production, N8, client and projection sources are unchanged from that real SQL execution.
+  `git diff --name-only f9ffa452bae7fc11a4a578ce24b57ecb72add139 HEAD` restricted to those inputs returned no paths.
+  Current N8 LF SHA256: `b5b63723748b2abe4330902444b7b3bef34eb727db7d4c4b912e018cfb726ca7`.
+
+The complete security partition remains 23 Passed / 4 Failed. An N8 pass does not make that batch PASS.
+The four corrections and deferred restart belong to the separate [minimum SQL plan](../sql-parallel-20261107/security-correction/MINIMUM-RERUN.md).
+Jason selected D: review first; do not execute. This review adds no SQL execution or new case to that plan.
+
+The ledger still requires red/green in `InternalAcceptanceHttpSqlTests`.
+The demonstrated same-account RED is in `InternalSessionAntiforgeryTests`; N8 has demonstrated SQL GREEN.
+The older C7 N8 mutation removed a CSRF filter; it does not demonstrate rejection after same-account session renewal.
+SEC-CSRF therefore stays `doing`; its criterion is unchanged. This is an evidence reconciliation gap, not a reproduced product defect.
+
+Owner: primary. Next: adjudicate this evidence against the original criterion before claiming closure.
+Completion check: a recorded disposition supporting that unchanged criterion, with any missing runtime separately authorized.
+No SQL, container, browser, account, trust, merge or deployment action was performed for this review.
+Cash and Owner recovery work do not depend on closing this documentary gap.
+
+This documentation update passed `python tests/test_progress.py` (23/23),
+`python tools/export_progress.py --verify` (15 preserved evidence hashes),
+`python tests/test_delivery_status.py` (24/24), `python tools/delivery_status.py --check` (40 valid items),
+and `git diff --check`; all exited 0. A focused evidence audit verified the original TRX and source equivalence.
+Only SEC-CSRF's `review` field changed in the ledger; status, criterion and all other item fields were preserved.
+No application tests were rerun for this documentation-only update.
 
 ## Decision
 
