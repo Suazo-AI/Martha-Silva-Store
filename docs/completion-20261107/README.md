@@ -6,18 +6,40 @@ Source: [canonical ledger](../pipeline/ledger.json), [status](../PROJECT-STATUS.
 
 ## Current integration, 2026-11-07
 
-Session CSRF and runner corrections were integrated before `79d18c4`. The assignments below are historical.
-Primary accepts the source/offline N8 same-account sale and Directory correction after Astra/xhigh recheck.
-[Accepted evidence and remaining SQL gate](../session-csrf-20261107/n8-correction/PRIMARY-ACCEPTANCE.json).
-Astra's runner recheck returned REVISE. Primary reproduced and corrected R1-R4; fresh offline controls pass 46/46.
-Astra accepted the other bounded corrections but found a final receipt persistence P2.
-Primary reproduced three red cases and passed 55/55 controls with the corrected publication boundary.
-[Receipt correction and pending independent re-review](local-validation/runner-corrections/revision-3/README.md).
-Dependency/image qualification and real private destination proof remain pending.
-The cash backend and generated migration are integrated; the regenerated release script and explicit history now agree.
-[Fresh cash integration](../cash-register-20261107/backend-integration/README.md): 65/65 focused; 607 non-SQL passes, 66 NotExecuted; repository check exit 0.
-Next: adapt legacy SQL/N8/schema fixtures and current inventory, then cash UI and the real journey. Historical partitions remain frozen.
-No current N8 SQL, cash SQL or combined browser/API/SQL execution is claimed. Production remains NO-GO.
+Current source: `550b10456c10a2857da930913b397bd1a96949d2`. Production remains **NO-GO**.
+The cash backend, migration, release script and fixture adaptations are integrated.
+[Business SQL](../sql-parallel-20261107/business/README.md): **39/39 passed**, including eight cash and three stock-exception cases.
+[Security SQL](../sql-parallel-20261107/PRIMARY-SECURITY.json): **23 passed, four failed, zero skipped** in initial27.
+N8 and all six HTTP acceptance methods passed. Backup/restore stopped before BACKUP; restart was not run.
+These runtime results belong to `f9ffa452bae7fc11a4a578ce24b57ecb72add139`; they are not reruns of every later commit.
+
+The four failures were reproduced and corrected in test infrastructure only: host Cash registration and the SQL constraint parser.
+[Correction evidence](../sql-parallel-20261107/security-correction/README.md): **34/34 focused**, **641 offline passes**, repository check exit 0.
+Astra/xhigh is reviewing the correction and whether unchanged SQL evidence permits rerunning only the four failures plus restart.
+That smaller scope is a proposal, not accepted runtime authority. The previous SQL scope is consumed.
+The cash UI worker owns authoritative read endpoints and the opening, sale/change, refund and close screens in a separate worktree.
+The complete real browser/API/SQL cash journey remains unrun.
+
+The optional local runner remains rejected: Windows reader locking can preserve a stale PASS receipt.
+Use the already exercised SDK plus nonce-owned disposable SQL route for scoped C/E work after authorization.
+Repairing that custom runner is not a prerequisite for those tests. D still needs the existing browser journey and its runtime prerequisites.
+Historical assignments and their original limits remain below.
+
+### Verification without redundant execution
+
+Reuse passing evidence only while its relevant sources, schema, dependencies and runtime assumptions remain unchanged.
+After a correction, rerun the failed path and affected behavior. Keep historical results attributed to their original revision.
+Run one integrated regression check on the final technical candidate. Documentation-only updates need documentation checks.
+Preserve real money, permission, persistence and recovery checks; mock responses do not replace those checks.
+Add another review or test when a changed risk or unresolved finding justifies it.
+
+Documentation correction checks: `python tests/test_delivery_status.py` **24/24**, exit 0;
+`python tools/delivery_status.py --check` valid **40 items**, exit 0;
+`python tests/test_progress.py` **23/23**, exit 0;
+`python tools/export_progress.py --verify` **15 preserved hashes**, exit 0.
+Seven current local links resolve. Item states, completion criteria and dependencies are unchanged.
+Lesson: update the active routing summary when runtime evidence arrives; stale NOT RUN claims cause duplicate work.
+No product suite, SQL runtime, container or deployment was executed for this documentation correction.
 
 ## Historical execution assignment, 2026-11-07
 
@@ -45,12 +67,13 @@ Each read exited 0. These are CI readbacks of the published documentation commit
 |---|---|---|---|
 | Gallery verification | Primary and Astra/xhigh accept the bounded proof; exact-SHA CI green | Publish the prepared issue #4 update after authority; then close S-LEGACY | Primary |
 | Backend offline partition A | Fresh 552/552, 195/195 methods; primary verified actual TRX, unique IDs and exact multiplicities | Accepted for offline A only; evidence linked below | Primary |
-| Local SQL partition C77 | Corrected fingerprint proven offline; six historical SQL failures not confirmed at runtime | Prepare the existing scripts for a named disposable local runtime; obtain the required execution scope; run exact C77 | Primary + assigned executor |
-| Combined journey D | Preparation incomplete, not run | Finish runnable commands; then scope and prerequisites: Chrome -> HTTPS API -> SQL, supply and stock-exception flags, persisted oracles and cleanup | Primary + assigned executor |
-| Recovery E2 | Current candidate not run | Owned disposable backup/restore and restart; verify persistence and absence after cleanup | Primary + assigned executor |
-| Integration | Technical proof at 69d3268 accepted; documentation at c07bd1b synchronized with three successful exact-SHA workflows | Serial integration of returned work; no merge or deployment implied | Primary |
+| Local SQL partitions | Business39 passed; security initial27 has 23 passes and four failures; N8 and all six HTTP acceptance methods passed | Await Astra review of the test-only correction and reduced rerun scope; authorize and rerun affected cases without repeating unchanged passes | Primary + Astra + authorized executor |
+| Combined journey D | Existing receipt, sale, stock-exception/review and recovery contract remains unproven end to end | Use the existing journey, runtime prerequisites and persisted oracles; preserve its frozen acceptance checks | Primary + authorized executor |
+| Cash journey | Cash SQL cases passed; staff UI implementation assigned separately | Integrate reviewed UI; prove opening, sale/change, response-loss recovery, refund and counted close through real browser/API/SQL | Primary + assigned executor |
+| Recovery E2 | Backup/restore stopped before BACKUP; dependent restart not run | After correction review and new runtime scope, prove backup/restore, then restart; verify persistence and owned-resource absence | Primary + authorized executor |
+| Integration | Four workflows successful on exact source 550b104; both snapshot jobs and staff/resource job passed | Serial integration of returned work and affected checks; no merge or deployment implied | Primary |
 
-Docker is ready: Linux engine 29.7.2. Required SQL Server and .NET SDK images are present locally.
+Earlier preflight recorded Linux engine 29.7.2 and cached SQL Server/.NET SDK images. Recheck readiness at execution time.
 Existing SAVIATEST certificate trust failed; it will not be bypassed or changed.
 The disposable route needs no host certificate or service mutation.
 `docs/DATABASE.md` requires scope for each new runtime execution; previous batch authority is consumed.

@@ -149,7 +149,7 @@
         "dev/savia-staff-ui/*",
         "tests/golden-path/*"
       ],
-      "prep": "Preparation accepted with limits on 139c389 after Astra J1/J2 acceptance and exact-SHA Linux CI42188326094/42188327840. Staff152/152; mocked Chrome50/50+8/8; backend543 pass/58 SQL skips. SQL persistence/concurrency and real journey NOT RUN; status review and original done_when unchanged.",
+      "prep": "Preparation accepted with limits on 139c389 after Astra J1/J2 acceptance and exact-SHA Linux CI. Business SQL39 on f9ffa452bae7fc11a4a578ce24b57ecb72add139 includes three passing stock-exception cases. Primary verified original runtime identities and source bindings. The real browser/API/SQL exception and different-person review journey remains unrun. Historical mocked/offline evidence stays attributed to its original revision; status review and original done_when unchanged.",
       "report": "docs/stock-exception-20261106/PREPARATION-ACCEPTANCE.json"
     },
     {
@@ -320,7 +320,7 @@
         "SUPPLY-UI",
         "STOCK-EXCEPTION"
       ],
-      "blocker": "Supply and stock preparation accepted with limits. Current C77, real browser/API/SQL journey D and recovery E2 remain NOT RUN. Jason selected local execution on SUAZO-PC; OpenCode owns bounded executable preparation from c07bd1b. Complete the commands and independent Astra/xhigh review before requesting the new runtime scope required by docs/DATABASE.md. The earlier two-workflow proposal is historical, not the current dispatch instruction.",
+      "blocker": "Local business SQL39 passed; security initial27 returned 23 Passed, four Failed, zero skipped on f9ffa452bae7fc11a4a578ce24b57ecb72add139. N8 and all six HTTP acceptance methods passed. Backup/restore stopped before BACKUP; dependent restart and combined journey D remain unrun. The four test-infrastructure failures were corrected offline in 550b104. Astra/xhigh owns correction review and reduced rerun adjudication; the cash UI worker owns a separate worktree. Request new bounded SQL runtime scope after review. The rejected optional runner is not a prerequisite for the already exercised SDK/owned-container C/E route.",
       "title": "Ensayo tecnico sintetico persistido en SUAZO-PC",
       "why": "Una pantalla simulada y una suite SQL separada no prueban juntas el recorrido real completo.",
       "done_when": "Candidato congelado: navegador/API/SQL de recepcion, venta/reintento, excepcion y revision por otra persona pasan con oraculos independientes persistidos; identidad de fuentes, saneamiento y retiro comprobado de recursos propios. No sustituye tareas, tiempos o conteo fisico de C10.",
@@ -330,7 +330,7 @@
         "decision": "Autorizar una campana concreta despues de congelar el candidato integrado. La aprobacion anterior esta consumida.",
         "decider": "jason"
       },
-      "prep": "Existing 17 supply/browser checkpoints and four SQL identity oracles preserved; stock adds five checkpoints and one identity oracle. Fresh offline A accepted: 552/552, 195/195 methods. Local C77 then D with --supply --stock-exception then E2 must preserve exact partition checks, private failure diagnostics and owned-resource cleanup. Executable commands and runner prerequisites remain under preparation; this entry grants no container, SQL, network-install or retry authority. C10 operational criteria remain separate.",
+      "prep": "Fresh historical A: 552/552, 195/195 methods. Business39 and 23 security passes are reusable only while their relevant sources, schema, dependencies and runtime assumptions remain unchanged. Four corrected SQL methods plus restart is a proposed minimum, subject to Astra review and new authorization, not an accepted runtime plan. Preserve the frozen 17 supply checkpoints/four SQL oracles and five stock checkpoints/one oracle for D. The separate CASH-REGISTER item owns opening, sale/change, refund and counted-close browser/API/SQL proof. Keep exact test identities, private diagnostics and owned-resource cleanup. No new SQL authority or C10 operational waiver.",
       "report": "docs/completion-20261107/README.md"
     },
     {
@@ -355,7 +355,7 @@
         "test": "30 mediciones p50/p95 en la caja real"
       },
       "trello": "https://trello.com/c/RYEhYexC",
-      "prep": "Guion de cinco tareas preparado; ensayo0. SUAZO-PC acepta (D-022) y aloja datos sintéticos (D-025). D-026/D-027 estan implementados en el candidato; preparacion aceptada con limites en docs/stock-exception-20261106/PREPARATION-ACCEPTANCE.json tras correcciones J1/J2 y pruebas focales. La persistencia SQL y el recorrido combinado actual siguen NOT RUN. No sustituye tareas por quien vende,30mediciones ni conteo fisico. C2/C9 y ejecucion pendientes. Ensayo tecnico separado en TECH-TRIAL; criterios operativos originales intactos."
+      "prep": "Guion de cinco tareas preparado; ensayo0. SUAZO-PC acepta (D-022) y aloja datos sinteticos (D-025). D-026/D-027 estan implementados y su preparacion fue aceptada con limites tras J1/J2. Business SQL39 en f9ffa452 incluye tres casos de excepcion aprobados; el recorrido combinado de excepcion/revision y la aceptacion operativa siguen pendientes. No sustituye tareas por quien vende, 30 mediciones ni conteo fisico. C2/C9 pendientes. TECH-TRIAL conserva el ensayo tecnico separado; criterios operativos originales intactos."
     },
     {
       "id": "C11",
@@ -422,7 +422,7 @@
       "done_when": "Decisión registrada; si se liga a la sesión, prueba roja-verde en InternalAcceptanceHttpSqlTests",
       "alternatives": "Dejarlo ligado al usuario (sin riesgo de escalada, más simple) · ligarlo a la sesión (N8 estricto, cambio pequeño en Security)",
       "decision_ref": "docs/session-csrf-20261107/README.md",
-      "review": "Per-session rule implemented with real offline framework red/green and client continuity proof. Astra/xhigh accepted P2 correction on 79d18c4 with limits; primary verified report and all 12 canonical/Git LF bindings. Same-account sale and Directory oracle accepted at source/offline level; original 33/33 checks preserved. N8 SQL remains pending; older cross-user positive oracle is outside this bounded acceptance. See docs/session-csrf-20261107/n8-correction/PRIMARY-ACCEPTANCE.json. Historical A552/C77/E2 unchanged; no runtime or production waiver.",
+      "review": "Per-session rule implemented with real offline framework red/green and client continuity proof. Astra/xhigh accepted P2 correction on 79d18c4 with limits; primary verified 12 canonical/Git LF bindings and original 33/33 checks. N8 and all six HTTP acceptance methods passed in the real local security run on f9ffa452bae7fc11a4a578ce24b57ecb72add139; primary verified original TRX identities/outcomes. The complete security batch is not PASS: four unrelated fixture/oracle failures were corrected offline in 550b104 and await review/runtime. See docs/sql-parallel-20261107/PRIMARY-SECURITY.json and security-correction/README.md. No combined browser journey, operator or production waiver.",
       "paths": [
         "backend/src/Martha.Store.Api/Internal/Security/*"
       ],

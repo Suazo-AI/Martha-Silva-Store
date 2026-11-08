@@ -43,15 +43,21 @@ Registration check: `python tests/test_progress.py`, exit 0, 84.265 seconds.
 `python tools/export_progress.py --verify`: 15 preserved hashes.
 `python tools/delivery_status.py --check`: valid, 40 items.
 `git diff --check`: exit 0. Product paths have no tracked diff.
-Parent `0bda22a` source-snapshot CI run `42428075026` completed with both jobs successful.
-That parent CI does not certify this forthcoming correction commit.
+Published correction: `550b10456c10a2857da930913b397bd1a96949d2`, Tony, synchronized with the remote.
+Exact-SHA CI readback: all four workflows completed successfully, attempt 1:
+[progress digest](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42429493338),
+[progress documentation](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42429493346),
+[Tony snapshot](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42429493327), and
+[staff/resource candidate](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42429493236).
+Both snapshot jobs and the staff/resource job succeeded. Read commands exited 0; no workflow was dispatched for this readback.
+These workflows do not execute the corrected SQL cases.
 
 ## Blockers and next actions
 
 | Blocker | Evidence / attempted correction | Owner and completion check |
 |---|---|---|
-| Four original SQL failures | Fixture/oracle failures reproduced offline; focused red-to-green completed | Primary freezes these bytes; Astra/xhigh checks the correction and adversarial coverage |
-| Corrected SQL behavior | No SQL retry was executed under the exhausted one-shot scope | Jason authorizes one bounded security28 rerun after review; exact methods must pass with zero skips |
+| Four original SQL failures | Fixture/oracle failures reproduced offline; focused red-to-green completed | Astra/xhigh reviews frozen 550b104 and adversarial coverage; primary retains acceptance |
+| Corrected SQL behavior | No SQL retry was executed under the exhausted one-shot scope | Astra adjudicates four corrected methods plus restart versus a wider affected set; primary prepares the exact runtime request after review |
 | Backup, restore and restart | Original run stopped before BACKUP; dependent restart prohibited | Authorized worker proves backup/restore first, then the owned-container restart and exact cleanup |
 | Cash release | Business SQL39 passed; staff cash UI and combined real journey remain pending | Primary completes source-reviewed UI and browser/API/SQL cash proof separately |
 
