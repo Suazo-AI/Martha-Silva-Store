@@ -1,6 +1,7 @@
 # Minimum SQL rerun: four corrections and one deferred restart
 
 Status: **PREPARED ONLY. New runtime authorization pending.**
+Jason selected **D: review the detailed plan first; do not execute yet**. See the [readable plan](review.html).
 Host: SUAZO-PC. Test source: `550b10456c10a2857da930913b397bd1a96949d2`.
 Later documentation-only commits may carry this plan only while all tested inputs remain identical to that source.
 [Astra review](astra-judge.md) and [primary acceptance](PRIMARY-ACCEPTANCE.json) support this bounded scope.

@@ -74,6 +74,16 @@ Documentation-only acceptance checks: `python tests/test_delivery_status.py` **2
 The primary also checked **38 local Markdown links**, parsed both JSON records and ran `git diff --check`, exit 0.
 No product suite, SQL runtime or browser run was repeated for these documentation edits.
 
+## Detailed-plan review: Jason selected D
+
+Jason chose: **review the detailed plan first; do not execute yet**. Runtime remains unauthorized.
+The [readable review](review.html) explains the five methods, dependencies, resource limits, stop conditions and cleanup.
+The visual system uses the staff UI's existing tokens, adapted to the thread theme. This is a new explanatory artifact, not a product UI change.
+Rendered previews at **728 px** and **390 px** showed readable wrapping, with no observed clipping and no console messages.
+A focused jsdom exercise verified all five sections, expand/collapse, `aria-expanded`, six scope boundaries and absence of command/network controls; exit 0.
+That DOM check is not visual acceptance. The rendered previews provide the bounded visual evidence; no before-state recording exists for this new artifact.
+`git diff --check`: exit 0. No SQL, Docker, account action, new installation or product suite was run for this review.
+
 ## Blockers and next actions
 
 | Blocker | Evidence / attempted correction | Owner and completion check |
