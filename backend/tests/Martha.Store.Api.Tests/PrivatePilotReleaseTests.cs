@@ -82,10 +82,10 @@ public sealed class PrivatePilotReleaseTests
         // Independent selects preserve each business column's actual collation; no UNION coercion.
         var rows = new List<string>();
         foreach (var query in new[] {
-            "SELECT 'item',Sku,Name,CONVERT(varchar(30),UnitPriceMinor),Currency FROM savia_internal.Items",
-            "SELECT 'stock',CONVERT(varchar(36),ItemId),CONVERT(varchar(36),LocationId),CONVERT(varchar(30),OnHand),CONVERT(varchar(30),Reserved) FROM savia_internal.StockBalances",
-            "SELECT 'staff',LoginName,DisplayName,Role,CONVERT(varchar(1),Enabled) FROM savia_internal.Staff",
-            "SELECT 'branch',Name,CONVERT(varchar(1),Active),'','' FROM savia_internal.Branches"})
+            "SELECT 'item',Sku,Name,CONVERT(varchar(30),UnitPriceMinor),Currency FROM savia_internal.Items WHERE Id='22222222-2222-2222-2222-222222222222'",
+            "SELECT 'stock',CONVERT(varchar(36),ItemId),CONVERT(varchar(36),LocationId),CONVERT(varchar(30),OnHand),CONVERT(varchar(30),Reserved) FROM savia_internal.StockBalances WHERE ItemId='22222222-2222-2222-2222-222222222222' AND LocationId='33333333-3333-3333-3333-333333333333'",
+            "SELECT 'staff',LoginName,DisplayName,Role,CONVERT(varchar(1),Enabled) FROM savia_internal.Staff WHERE Id='44444444-4444-4444-4444-444444444444'",
+            "SELECT 'branch',Name,CONVERT(varchar(1),Active),'','' FROM savia_internal.Branches WHERE Id='11111111-1111-1111-1111-111111111111'"})
             rows.AddRange(await Rows(database,query));
         return rows.OrderBy(x=>x,StringComparer.Ordinal).ToArray();
     }
@@ -111,6 +111,13 @@ public sealed class PrivatePilotReleaseTests
     [InternalSecuritySqlFact]
     public async Task Real_migration_reapply_throwaway_down_up_and_actual_backup_restore()
     {
+        // Resource acknowledgement is an admission prerequisite, before any database mutation.
+        var nonce=Environment.GetEnvironmentVariable("SAVIA_PILOT_RUN_NONCE") ?? throw new InvalidOperationException("Same-run nonce required");
+        var candidate=Environment.GetEnvironmentVariable("SAVIA_PILOT_CANDIDATE") ?? throw new InvalidOperationException("Frozen candidate SHA required");
+        Assert.Matches("^[a-f0-9]{32}$",nonce); Assert.Matches("^[a-f0-9]{40}$",candidate);
+        var owned=PilotRecoveryProof.Load<PilotRecoveryProof.Ownership>(Evidence,"owned-resources.json");
+        Assert.Equal(nonce,owned.Nonce); Assert.Equal(candidate,owned.Candidate); Assert.True(owned.CreationAcknowledged);
+        foreach(var id in new[]{owned.ContainerId,owned.NetworkId,owned.VolumeId}) Assert.False(string.IsNullOrWhiteSpace(id));
         var source=NewDatabase(); var restored=NewDatabase(); var down=NewDatabase();
         await Master($"CREATE DATABASE [{source}]; CREATE DATABASE [{down}]");
         await using(var db=Context(source)) await db.GetService<IMigrator>().MigrateAsync();
@@ -139,10 +146,20 @@ public sealed class PrivatePilotReleaseTests
         var before=await Business(source); Assert.Equal(4,before.Length);
         Assert.Contains("item|QA-PILOT-01|QA pilot item|1250|USD",before);
         Assert.Contains("stock|22222222-2222-2222-2222-222222222222|33333333-3333-3333-3333-333333333333|17|3",before);
+        var identities=await PilotCashFixture.Populate(source,nonce);
+        Assert.Equal(before,await Business(source));
+        var baseline=new PilotRecoveryProof.Baseline(nonce,candidate,source,restored,identities,await PilotRecoveryProof.Capture(source),owned,await PilotRecoveryProof.SqlStart(source));
+        // Immutable same-run expected hashes; never recaptured from a recovered database.
+        Write("recovery-baseline.json",baseline);
         var backup="/var/opt/mssql/data/"+source+".bak";
         await Master($"BACKUP DATABASE [{source}] TO DISK=N'{backup}' WITH INIT,CHECKSUM; RESTORE VERIFYONLY FROM DISK=N'{backup}' WITH CHECKSUM;");
         // Logical names equal the generated CREATE DATABASE name (SQL Server default); restore uses independent files.
         await Master($"RESTORE DATABASE [{restored}] FROM DISK=N'{backup}' WITH MOVE N'{source}' TO N'/var/opt/mssql/data/{restored}.mdf', MOVE N'{source}_log' TO N'/var/opt/mssql/data/{restored}_log.ldf', CHECKSUM;");
+        var receipt=await PilotRecoveryProof.RestoredReceipt(baseline);
+        Write("restore-receipt.json",receipt);
+        PilotRecoveryProof.Admit(baseline,receipt,nonce,candidate,restored,false);
+        PilotRecoveryProof.Equal(baseline.Snapshot,await PilotRecoveryProof.Capture(restored));
+        await PilotCashFixture.AssertMoney(restored,baseline.Identities);
         Assert.Equal(before,await Business(restored)); var restoredSchema=await Inspect(restored); AssertSchema(restoredSchema);
         Assert.Equal(JsonSerializer.Serialize(initial),JsonSerializer.Serialize(restoredSchema));
         await AssertRejects(restored);
@@ -160,6 +177,19 @@ public sealed class PrivatePilotReleaseTests
     public async Task Frozen_fixture_survives_controlled_owned_container_stop_start()
     {
         var database=Environment.GetEnvironmentVariable("SAVIA_PILOT_PERSIST_DATABASE") ?? throw new InvalidOperationException("Restart proof database required");
+        var baseline=PilotRecoveryProof.Load<PilotRecoveryProof.Baseline>(Evidence,"recovery-baseline.json");
+        var receipt=PilotRecoveryProof.Load<PilotRecoveryProof.Receipt>(Evidence,"restart-receipt.json");
+        var nonce=Environment.GetEnvironmentVariable("SAVIA_PILOT_RUN_NONCE") ?? throw new InvalidOperationException("Same-run nonce required");
+        var candidate=Environment.GetEnvironmentVariable("SAVIA_PILOT_CANDIDATE") ?? throw new InvalidOperationException("Frozen candidate SHA required");
+        // The orchestrator pins this hash from the pre-backup capture, independently of the baseline file.
+        Assert.Equal(Environment.GetEnvironmentVariable("SAVIA_PILOT_BASELINE_HASH") ?? throw new InvalidOperationException("Pinned pre-backup baseline hash required"),baseline.Hash);
+        var restoreReceipt=PilotRecoveryProof.Load<PilotRecoveryProof.Receipt>(Evidence,"restore-receipt.json");
+        PilotRecoveryProof.Admit(baseline,restoreReceipt,nonce,candidate,database,false);
+        Assert.Equal(restoreReceipt.BackupSetId,receipt.BackupSetId);
+        PilotRecoveryProof.Admit(baseline,receipt,nonce,candidate,database,true);
+        Assert.Equal(receipt.AfterSqlStart,await PilotRecoveryProof.SqlStart(database));
+        PilotRecoveryProof.Equal(baseline.Snapshot,await PilotRecoveryProof.Capture(database));
+        await PilotCashFixture.AssertMoney(database,baseline.Identities);
         AssertSchema(await Inspect(database)); var business=await Business(database);
         Assert.Equal(4,business.Length);
         Assert.Contains("item|QA-PILOT-01|QA pilot item|1250|USD",business);
