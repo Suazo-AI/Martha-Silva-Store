@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-10T22:41:00.774413+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalOwnerRecoveryManifestTests.cs",
+      "change": "A",
+      "git_blob": "a328135da4f8290a23bed597a291ff00d26b26f6"
+    },
+    {
+      "path": "docs/owner-recovery-20261107/runtime-20261110.md",
+      "change": "M",
+      "git_blob": "6ef632a8c8025468839b7675024f4f4b1da20fc1"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}
