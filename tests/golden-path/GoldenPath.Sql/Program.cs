@@ -303,8 +303,13 @@ static async Task<int> CashSnapshot(string database)
     await using var connection = new SqlConnection(Connection(database)); await connection.OpenAsync();
     async Task<string> Json(string sql) {
         await using var command = connection.CreateCommand(); command.CommandText = sql; command.CommandTimeout = 60;
-        await using var reader = await command.ExecuteReaderAsync(); var value = new System.Text.StringBuilder();
-        while(await reader.ReadAsync()) value.Append(reader.GetString(0)); return value.ToString();
+        await using var reader = await command.ExecuteReaderAsync();
+        // FOR JSON PATH returns an empty result set (never "[]") when the query matches zero rows,
+        // so an empty query must still produce a parseable JSON array for the callers below.
+        if (!await reader.ReadAsync()) return "[]";
+        var value = new System.Text.StringBuilder();
+        do value.Append(reader.GetString(0)); while (await reader.ReadAsync());
+        return value.ToString();
     }
     // SQL JSON objects are read explicitly, including exact inventory order.
     using var names = JsonDocument.Parse(await Json("SELECT name FROM sys.tables WHERE schema_id=SCHEMA_ID('savia_internal') ORDER BY name FOR JSON PATH"));
