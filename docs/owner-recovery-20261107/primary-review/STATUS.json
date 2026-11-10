@@ -1,14 +1,14 @@
 {
-  "state": "SOURCE_LINUX_OFFLINE_QUALIFIED_RUNTIME_PENDING",
+  "state": "SQL_RUNTIME_EXECUTED_2026_11_10_OPERATOR_EVIDENCE_PENDING",
   "implementationAccepted": false,
   "privateCandidate": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\owner-recovery-primary-20261108\\review-inputs\\CANDIDATE.json",
   "candidateRawSha256": "699cd91ddec454f7207c4be3d0ae7d4ad07607e9c29416b96e20a6483bd77f3d",
   "sourceBindings": 10,
   "compileInputBindings": 10,
   "trx": "84 PASS / 1 FAIL -> 89/89; final 38/38, distinct runs",
-  "runtime": "NOT RUN: SQL, accounts, Windows ACL/SID, backup/restore and actual recovery",
+  "runtime": "EXECUTED 2026-11-10: InternalOwnerRecoverySqlTests 25/25 passed, 0 failed, 0 skipped on the local Windows SQL instance with Integrated Security and trusted TLS (first real execution of these facts). Fixed three version-specific defects: DB_ID() returns smallint on SQL Server 2025 (product identity read), EF Core rewraps deadlock 1205, and T-SQL LIKE has no literal-bracket escape in the contention observer. Disposable databases created and dropped; zero SaviaInternalTest_Recovery_* remain; 103 ownership journals recorded. Windows operator ACL/SID evidence and two-Owner readiness remain NOT RUN. Evidence: docs/owner-recovery-20261107/runtime-20261110.md.",
   "owner": "primary",
-  "next": "Prepare source-bound synthetic recovery and Windows ACL/SID validation. SQL5 remains held. Preserve the historical local Windows DLL-load failure; no policy bypass or retry.",
+  "next": "Prepare the Windows operator ACL/SID evidence for the recovery console and the two-Owner readiness evidence. Re-run the same suite on the pinned SQL 2022 image before any production acceptance; the three defects were version-specific. Preserve the historical local Windows DLL-load failure; no policy bypass or retry.",
   "sql5": "D: REVIEW FIRST, DO NOT EXECUTE",
   "review": "astra-implementation-review.md",
   "reviewRawSha256": "19ce79eb37e06ef6551d57b2e7c05722a2957f6362766979466584817bc28461",
@@ -38,5 +38,18 @@
     "total": 782,
     "scope": "Category!=SqlServer; skipped cases are not runtime proof.",
     "evidence": "../../cash-register-20261107/real-journey/CI-VERIFICATION.json"
+  },
+  "sqlRuntime": {
+    "date": "2026-11-10",
+    "instance": "MSSQL",
+    "sqlVersion": "17.0.1000.7",
+    "passed": 25,
+    "failed": 0,
+    "skipped": 0,
+    "total": 25,
+    "durationSeconds": 89,
+    "transport": "Windows Integrated Security + trusted TLS (locally provisioned CA and leaf)",
+    "cleanup": "0 SaviaInternalTest_Recovery_* databases remain; backup files retained for the SQL-host custodian",
+    "report": "../../owner-recovery-20261107/runtime-20261110.md"
   }
 }
