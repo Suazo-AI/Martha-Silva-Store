@@ -1,0 +1,95 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-10T08:52:55.959131+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/cash-register-20261107/recovery-preparation/DELIVERY-20261110.md",
+      "change": "M",
+      "git_blob": "3a53b4b3e179d954f277cfcf79beb251884281dd"
+    },
+    {
+      "path": "docs/cash-register-20261107/recovery-preparation/sql-runtime-20261110/down-SaviaInternalTest_Pilot_39de27f03bc04a0ea7acd47afdc12073.json",
+      "change": "A",
+      "git_blob": "77fbb3f61e755fb2783b784805a5f6e6d37a5f1e"
+    },
+    {
+      "path": "docs/cash-register-20261107/recovery-preparation/sql-runtime-20261110/down-SaviaInternalTest_Pilot_987cacd5a5cf46f6a7b7f4335984e97c.json",
+      "change": "A",
+      "git_blob": "188a16f9c2d95ce547e3ecaf4ac17a87b3ab650e"
+    },
+    {
+      "path": "docs/cash-register-20261107/recovery-preparation/sql-runtime-20261110/down-SaviaInternalTest_Pilot_dac32d12b8f54134ab586142e9cd8584.json",
+      "change": "A",
+      "git_blob": "09cce038ac288e179d09de67fa94d97fbf9c7cfd"
+    },
+    {
+      "path": "docs/cash-register-20261107/recovery-preparation/sql-runtime-20261110/expected-invariants.json",
+      "change": "A",
+      "git_blob": "a410d59a362f225a386e88d39ea7b43efcfb425d"
+    },
+    {
+      "path": "docs/cash-register-20261107/recovery-preparation/sql-runtime-20261110/owned-resources.json",
+      "change": "A",
+      "git_blob": "ad6f51e0e4cf9395da1b34261c1ad5bb43d251b6"
+    },
+    {
+      "path": "docs/cash-register-20261107/recovery-preparation/sql-runtime-20261110/recovery-baseline.json",
+      "change": "A",
+      "git_blob": "9ea5660dc48ac310337a33a92358509b5690076c"
+    },
+    {
+      "path": "docs/cash-register-20261107/recovery-preparation/sql-runtime-20261110/release-SaviaInternalTest_Pilot_028a728fd4c6417f980af2ae2237905e.json",
+      "change": "A",
+      "git_blob": "2e740831dfd1817d9bddb47b37dc14be18868058"
+    },
+    {
+      "path": "docs/cash-register-20261107/recovery-preparation/sql-runtime-20261110/release-SaviaInternalTest_Pilot_39ff95640bc2487488c7df576ebb5e55.json",
+      "change": "A",
+      "git_blob": "51b19863d9b2bd104c5830373c01082a36d745d6"
+    },
+    {
+      "path": "docs/cash-register-20261107/recovery-preparation/sql-runtime-20261110/release-SaviaInternalTest_Pilot_ac79e83292bc407d9bd1f3effb48aa02.json",
+      "change": "A",
+      "git_blob": "721ad2564ba918e3d3a9ce80c4822f86bcd5281f"
+    },
+    {
+      "path": "docs/cash-register-20261107/recovery-preparation/sql-runtime-20261110/restart-persistence.json",
+      "change": "A",
+      "git_blob": "88ff1327e54f5cae74c4e8969e9127213b243665"
+    },
+    {
+      "path": "docs/cash-register-20261107/recovery-preparation/sql-runtime-20261110/restart-receipt.json",
+      "change": "A",
+      "git_blob": "2e5c95df5d76a5ff29be7c88c3e733a0ba2bba9e"
+    },
+    {
+      "path": "docs/cash-register-20261107/recovery-preparation/sql-runtime-20261110/restore-receipt.json",
+      "change": "A",
+      "git_blob": "fa34b587644e896c3bc2f33732da29a89cdc0511"
+    },
+    {
+      "path": "docs/cash-register-20261107/recovery-preparation/sql-runtime-20261110/run-summary.json",
+      "change": "A",
+      "git_blob": "750a1b22f2c8fdfc61b7d46ddfd6b5a10ef20096"
+    },
+    {
+      "path": "docs/cash-register-20261107/recovery-preparation/sql-runtime-20261110/schema-first-SaviaInternalTest_Pilot_028a728fd4c6417f980af2ae2237905e.json",
+      "change": "A",
+      "git_blob": "23cb1a38137d0fb1eefc169e33b49650974e173b"
+    },
+    {
+      "path": "docs/cash-register-20261107/recovery-preparation/sql-runtime-20261110/schema-first-SaviaInternalTest_Pilot_39ff95640bc2487488c7df576ebb5e55.json",
+      "change": "A",
+      "git_blob": "23cb1a38137d0fb1eefc169e33b49650974e173b"
+    },
+    {
+      "path": "docs/cash-register-20261107/recovery-preparation/sql-runtime-20261110/schema-first-SaviaInternalTest_Pilot_ac79e83292bc407d9bd1f3effb48aa02.json",
+      "change": "A",
+      "git_blob": "23cb1a38137d0fb1eefc169e33b49650974e173b"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

@@ -1,0 +1,63 @@
+{
+ "Nonce": "c19b54ee10f3413c52c63c7fc4b8f312",
+ "Candidate": "4827b23d525eb7eb0f8b174a6bd946fad079d8f9",
+ "BaselineHash": "ACF3CD5B345DDD320E3009B8FF4CEF514BBEF95D53D697680C8650F15BD4054E",
+ "Source": "SaviaInternalTest_Pilot_028a728fd4c6417f980af2ae2237905e",
+ "Restored": "SaviaInternalTest_Pilot_a784c7ccdf2747009f5d7dc61c614c15",
+ "ContainerId": "4750125b49974ec7ed626a1c51ff056f4f0289570cb7bff58e24b9478412cd3e",
+ "NetworkId": "20870b2fc0e8e4b66b95a3b8e087738f9e9f61bdb696a583cb72125ce5ac6b54",
+ "VolumeId": "saviaq_vol_saviaqc19b54",
+ "CreationAcknowledged": true,
+ "BackupPath": "/var/opt/mssql/data/SaviaInternalTest_Pilot_028a728fd4c6417f980af2ae2237905e.bak",
+ "BackupSetId": "6DE7ACB5-22F2-4EEA-AC32-E042A614DD62",
+ "BackupCatalog": "SaviaInternalTest_Pilot_028a728fd4c6417f980af2ae2237905e",
+ "BackupChecksum": true,
+ "VerifyOnly": true,
+ "RestoreCompleted": true,
+ "DataFile": "/var/opt/mssql/data/SaviaInternalTest_Pilot_a784c7ccdf2747009f5d7dc61c614c15.mdf",
+ "LogFile": "/var/opt/mssql/data/SaviaInternalTest_Pilot_a784c7ccdf2747009f5d7dc61c614c15_log.ldf",
+ "RestartContainerId": "4750125b49974ec7ed626a1c51ff056f4f0289570cb7bff58e24b9478412cd3e",
+ "States": [
+  "running",
+  "stopped",
+  "running"
+ ],
+ "BeforeSqlStart": "2026-11-10T08:44:10.037+00:00",
+ "AfterSqlStart": "2026-11-10T08:44:46.3470000+00:00",
+ "FreshRead": true,
+ "Reseeded": false,
+ "Migrated": false,
+ "Replaced": false,
+ "Results": [
+  {
+   "Name": "InternalBranchScopeSqlTests.BS21_25_Operations_http_checks_persisted_scope_and_actor_before_returning_result",
+   "Candidate": "4827b23d525eb7eb0f8b174a6bd946fad079d8f9",
+   "Outcome": "Passed"
+  },
+  {
+   "Name": "InternalBranchScopeSqlTests.BS28_Cashier_cannot_read_purchase_costs_through_any_supply_get",
+   "Candidate": "4827b23d525eb7eb0f8b174a6bd946fad079d8f9",
+   "Outcome": "Passed"
+  },
+  {
+   "Name": "InternalReleaseScriptTests.Release_script_upgrades_empty_and_first_migration_databases_and_preserves_synthetic_rows",
+   "Candidate": "4827b23d525eb7eb0f8b174a6bd946fad079d8f9",
+   "Outcome": "Passed"
+  },
+  {
+   "Name": "PrivatePilotReleaseTests.Real_migration_reapply_throwaway_down_up_and_actual_backup_restore",
+   "Candidate": "4827b23d525eb7eb0f8b174a6bd946fad079d8f9",
+   "Outcome": "Passed"
+  },
+  {
+   "Name": "InternalCashSqlTests.Cash_reads_follow_persisted_money_and_preserve_history_without_configuration",
+   "Candidate": "4827b23d525eb7eb0f8b174a6bd946fad079d8f9",
+   "Outcome": "Passed"
+  },
+  {
+   "Name": "InternalAcceptanceHttpSqlTests.N8_missing_wrong_or_stale_csrf_is_rejected_without_writes_and_a_valid_pair_still_works",
+   "Candidate": "4827b23d525eb7eb0f8b174a6bd946fad079d8f9",
+   "Outcome": "Passed"
+  }
+ ]
+}
