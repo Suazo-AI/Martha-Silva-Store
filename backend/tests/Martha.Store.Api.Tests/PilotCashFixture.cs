@@ -85,7 +85,7 @@ internal static class PilotCashFixture
           SELECT e.DeltaMinor,e.ReceivedMinor,e.ChangeMinor,s.TotalMinor,l.Quantity,l.UnitPriceMinor,l.TotalMinor,l.ReturnedQuantity
           FROM savia_internal.CashEntries e JOIN savia_internal.Sales s ON s.Id=e.SaleId JOIN savia_internal.SaleLines l ON l.SaleId=s.Id
           WHERE e.Id='{Id("payment")}' AND e.Kind='sale' AND e.TillId='{Id("tillA")}' AND e.CashierId='{Id("cashier")}' AND e.ActorId=e.CashierId
-            AND s.Id='{Id("sale")}' AND s.ActorId=e.ActorId AND s.LocationId='{Location}' AND s.Currency=e.Currency AND e.Currency='USD' AND e.Exponent=2
+            AND s.Id='{Id("sale")}' AND s.ActorId=e.ActorId AND s.LocationId='{Location}' AND s.Currency COLLATE Latin1_General_100_BIN2=e.Currency AND e.Currency='USD' AND e.Exponent=2
             AND l.Id='{Id("saleLine")}' AND l.ItemId='{Id("item")}'
           ""","2500|3000|500|2500|2|1250|2500|1");
         await One($"""
