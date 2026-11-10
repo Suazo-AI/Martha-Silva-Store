@@ -62,3 +62,5 @@ Continue with the bounded implementation, then freeze and review its actual byte
 Before any runtime request, complete the exact resource/dependency/deadline proposal in [the local plan](../real-journey/LOCAL-RUNTIME-PLAN.md).
 
 Lesson applied: a restored schema is insufficient proof that money rows survived. Compare populated, immutable records.
+
+Delivery follow-up 2026-11-10: the bounded implementation arrived and is source-reviewed and built by primary; the final offline filter is blocked by Smart App Control (ON). Read [the delivery report](DELIVERY-20261110.md) for evidence, limits and the pending Jason decision.
