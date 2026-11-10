@@ -121,7 +121,8 @@ jobs:
         run: |
           set -euo pipefail
           : "${MARTHA_TEST_SQL_CONNECTION:?C6 must not silently skip}"
-          receipt_args=()
+          # Browser acceptance is the current cash-first protocol; the harness refuses historical unpaid mode.
+          receipt_args=(--cash)
           if [ "$RUN_SUPPLY_RECEIPT" = "true" ]; then receipt_args+=(--supply); fi
           if [ "$RUN_STOCK_EXCEPTION" = "true" ]; then receipt_args+=(--stock-exception); fi
           python3 tests/golden-path/golden_path.py --mode browser --no-build "${receipt_args[@]}" \
