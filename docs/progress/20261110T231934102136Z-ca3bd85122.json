@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-10T23:19:34.102136+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/AGENT-START.md",
+      "change": "M",
+      "git_blob": "eae028d686b2bbe0a224a4aed5d0720c7db1629a"
+    },
+    {
+      "path": "docs/owner-recovery-20261107/primary-review/STATUS.json",
+      "change": "M",
+      "git_blob": "2cf32d0d6feb0b37e5addf9fcc7a6dcaad5ec053"
+    },
+    {
+      "path": "docs/owner-recovery-20261107/runtime-20261110.md",
+      "change": "M",
+      "git_blob": "0196634b9ad1ece4d4c50fca76183de0c80ca537"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "change": "M",
+      "git_blob": "0449edba2227940d7f45819d480577612b26a58b"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

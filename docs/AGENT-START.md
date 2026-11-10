@@ -23,6 +23,17 @@ Prioridad de fuentes: instrucción vigente de Jason → contrato aprobado → c�
 → evidencia con fecha/hash → propuesta histórica. Un conflicto se registra; no se resuelve inventando capacidades.
 El índice y cualquier grafo son ayudas de navegación, nunca autoridad de permisos, esquema o aceptación.
 
+## Cuando un paso requiere las manos de Jason
+
+Entregar **siempre** esos pasos como una guía visual interactiva en Lavish (`lavish-axi`), no como
+texto en el chat. Formato que Jason pidió explícitamente (2026-11-10): pasos numerados grandes, un
+to-do con casillas para marcar, botón de copiar en cada texto literal que hay que escribir o pegar,
+una barra de progreso, y al final qué hace el agente y qué decisiones quedan. Archivos de ejemplo:
+[owner-recovery-20261107/interactive-handoff-20261110.md](owner-recovery-20261107/interactive-handoff-20261110.md).
+Antes de pedirle un paso, dejar el preflight en verde: si el agente puede comprobar por código que el
+paso va a funcionar, primero lo comprueba, y solo entonces lo pide. Cada guía nueva va en un archivo
+propio bajo `.lavish/`; no reabrir una sesión cerrada.
+
 ## Estado compartido entre agentes
 
 1. **Estado:** [docs/pipeline/ledger.json](pipeline/ledger.json) es la fuente única. `python3 tools/delivery_status.py`

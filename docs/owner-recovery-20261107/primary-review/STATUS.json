@@ -1,14 +1,14 @@
 {
-  "state": "SQL_RUNTIME_EXECUTED_2026_11_10_OPERATOR_EVIDENCE_PENDING",
+  "state": "SQL_RUNTIME_AND_INTERACTIVE_RECOVERY_EXECUTED_2026_11_10",
   "implementationAccepted": false,
   "privateCandidate": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\owner-recovery-primary-20261108\\review-inputs\\CANDIDATE.json",
   "candidateRawSha256": "699cd91ddec454f7207c4be3d0ae7d4ad07607e9c29416b96e20a6483bd77f3d",
   "sourceBindings": 10,
   "compileInputBindings": 10,
   "trx": "84 PASS / 1 FAIL -> 89/89; final 38/38, distinct runs",
-  "runtime": "EXECUTED 2026-11-10: InternalOwnerRecoverySqlTests 25/25 passed, 0 failed, 0 skipped on the local Windows SQL instance with Integrated Security and trusted TLS (first real execution of these facts). Fixed three version-specific defects: DB_ID() returns smallint on SQL Server 2025 (product identity read), EF Core rewraps deadlock 1205, and T-SQL LIKE has no literal-bracket escape in the contention observer. Disposable databases created and dropped; zero SaviaInternalTest_Recovery_* remain; 103 ownership journals recorded. Windows operator ACL/SID evidence and two-Owner readiness remain NOT RUN. Evidence: docs/owner-recovery-20261107/runtime-20261110.md.",
+  "runtime": "EXECUTED 2026-11-10: InternalOwnerRecoverySqlTests 25/25 and the owner-recovery family 64/64 on the local Windows SQL instance with Integrated Security and trusted TLS. New HTTP fact F14 proves a second Owner recovering the first through the authorized API path (password reset, session revocation, old password dead, new login works, business tables unchanged, Manager refused). Interactive emergency recovery executed through the real private Windows console: the operator created the first Owner, the agent rotated its password to an unreadable value, and the operator recovered it with the exact RECOVER confirmation; the console answered Recovery committed; receipt flushed. Journal shows INTENT then COMMITTED with the same operation id and the security version in the database matches the journal. Three preparation defects were found and fixed (UTF-8 BOM in the manifest, SqlSid not hexadecimal, and a hand-built password hash with little-endian integers instead of the product hasher). Cleanup: disposable database dropped, C:\\ProgramData\\SAVIA removed, zero SaviaInternalTest_* databases remain. Evidence: docs/owner-recovery-20261107/runtime-20261110.md.",
   "owner": "primary",
-  "next": "Prepare the Windows operator ACL/SID evidence for the recovery console and the two-Owner readiness evidence. Re-run the same suite on the pinned SQL 2022 image before any production acceptance; the three defects were version-specific. Preserve the historical local Windows DLL-load failure; no policy bypass or retry.",
+  "next": "Name the two custodians and the production Windows operator account, decide whether the local TLS provisioning stays or is rolled back, and re-run the same suite on the pinned SQL 2022 image before any production acceptance. The emergency recovery proof is complete; production remains NO-GO.",
   "sql5": "D: REVIEW FIRST, DO NOT EXECUTE",
   "review": "astra-implementation-review.md",
   "reviewRawSha256": "19ce79eb37e06ef6551d57b2e7c05722a2957f6362766979466584817bc28461",
@@ -51,5 +51,19 @@
     "transport": "Windows Integrated Security + trusted TLS (locally provisioned CA and leaf)",
     "cleanup": "0 SaviaInternalTest_Recovery_* databases remain; backup files retained for the SQL-host custodian",
     "report": "../../owner-recovery-20261107/runtime-20261110.md"
+  },
+  "interactiveRecovery": {
+    "date": "2026-11-10",
+    "console": "private Windows console, operator typed in an unrecorded window",
+    "outcome": "Recovery committed; receipt flushed; exit code 0",
+    "journalRecords": [
+      "ABORTED (earlier malformed hash)",
+      "INTENT",
+      "COMMITTED"
+    ],
+    "securityVersionRotated": true,
+    "sessionsRevoked": true,
+    "businessTablesUnchanged": true,
+    "cleanup": "disposable database dropped, protected folder removed, zero leftover test databases"
   }
 }
