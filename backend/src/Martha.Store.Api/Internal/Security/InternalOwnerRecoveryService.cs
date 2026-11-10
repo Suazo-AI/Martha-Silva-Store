@@ -63,7 +63,7 @@ public sealed class InternalOwnerRecoveryService : IAsyncDisposable
         using var command = connection.CreateCommand();
         command.Transaction = transaction;
         command.CommandTimeout = 30;
-        command.CommandText = "SELECT CONVERT(nvarchar(256),SERVERPROPERTY('ServerName')), DB_NAME(), DB_ID(), database_guid, SUSER_SID() FROM sys.database_recovery_status WHERE database_id=DB_ID()";
+        command.CommandText = "SELECT CONVERT(nvarchar(256),SERVERPROPERTY('ServerName')), DB_NAME(), CONVERT(int, DB_ID()), database_guid, SUSER_SID() FROM sys.database_recovery_status WHERE database_id=DB_ID()";
         await using var reader = await command.ExecuteReaderAsync(ct);
         if (!await reader.ReadAsync(ct)) throw new InvalidOperationException();
         ValidateSqlIdentity(manifest, Enumerable.Range(0, reader.FieldCount).Select(reader.GetValue).ToArray());

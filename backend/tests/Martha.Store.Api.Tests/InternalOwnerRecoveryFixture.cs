@@ -36,6 +36,16 @@ namespace Martha.Store.Api.Tests;
                 await using var db=f.Context(); await db.Database.MigrateAsync();
                 f.MigrationBefore=(await db.Database.GetAppliedMigrationsAsync()).ToArray(); Assert.Equal(Migrations,f.MigrationBefore);
                 var now=DateTimeOffset.UtcNow;
+                // SQL Server 2025 removed the default guest connection; the reviewed F4 case requires an
+                // impersonated principal that may connect but cannot read data. This is scoped to the
+                // disposable fixture database that this lease creates and drops.
+                await using(var grant=new SqlConnection(f.connection))
+                {
+                    await grant.OpenAsync();
+                    await using var permitted=grant.CreateCommand();
+                    permitted.CommandText="GRANT CONNECT TO [guest]";
+                    await permitted.ExecuteNonQueryAsync();
+                }
                 var staff=new InternalStaff {Id=f.Target,LoginName="owner",NormalizedLoginName="OWNER",Role="Owner",Enabled=true,DisplayName="Synthetic",SecurityVersion=Guid.NewGuid(),CreatedAt=now,UpdatedAt=now,FailedSignIns=5,LockedUntil=now.AddHours(1)};
                 staff.PasswordHash=new PasswordHasher<InternalStaff>(Options.Create(new PasswordHasherOptions{IterationCount=210_000})).HashPassword(staff,Old);
                 var other=new InternalStaff {Id=f.Other,LoginName="other",NormalizedLoginName="OTHER",Role="Owner",Enabled=true,DisplayName="Other",SecurityVersion=Guid.NewGuid(),CreatedAt=now,UpdatedAt=now,PasswordHash=staff.PasswordHash};
@@ -56,7 +66,7 @@ namespace Martha.Store.Api.Tests;
         public async Task<OwnerRecoveryManifest> Manifest()
         {
             await using var c=new SqlConnection(connection);await c.OpenAsync();await using var cmd=c.CreateCommand();
-            cmd.CommandText="SELECT CONVERT(nvarchar(256),SERVERPROPERTY('ServerName')),DB_ID(),database_guid,SUSER_SID() FROM sys.database_recovery_status WHERE database_id=DB_ID()";
+            cmd.CommandText="SELECT CONVERT(nvarchar(256),SERVERPROPERTY('ServerName')),CONVERT(int,DB_ID()),database_guid,SUSER_SID() FROM sys.database_recovery_status WHERE database_id=DB_ID()";
             await using var r=await cmd.ExecuteReaderAsync();Assert.True(await r.ReadAsync());
             await using var db=Context();var staff=await db.InternalStaff.SingleAsync(x=>x.Id==Target);
             return new(r.GetString(0),name,r.GetInt32(1),r.GetGuid(2),"fixture-platform-policy-only",Convert.ToHexString((byte[])r[3]),Target,"OWNER",staff.SecurityVersion);

@@ -178,14 +178,16 @@ public sealed class InternalOwnerRecoverySqlTests
         do
         {
             await using var command=observer.CreateCommand();command.CommandTimeout=2;
+            // CHARINDEX, not LIKE: T-SQL LIKE has no literal-bracket escape, so a bracketed identifier
+            // is matched exactly instead of as a wildcard character class.
             command.CommandText="""
                 SELECT COUNT(*) FROM sys.dm_exec_requests r
                 CROSS APPLY sys.dm_exec_sql_text(r.sql_handle) sql_text
                 WHERE r.session_id=@contender AND r.blocking_session_id=@blocker
                   AND r.database_id=DB_ID() AND r.wait_type LIKE N'LCK[_]M[_]%'
-                  AND SUBSTRING(sql_text.text,(r.statement_start_offset/2)+1,
+                  AND CHARINDEX(N'[Staff]',SUBSTRING(sql_text.text,(r.statement_start_offset/2)+1,
                     ((CASE r.statement_end_offset WHEN -1 THEN DATALENGTH(sql_text.text)
-                      ELSE r.statement_end_offset END-r.statement_start_offset)/2)+1) LIKE N'%[[]Staff[]]%'
+                      ELSE r.statement_end_offset END-r.statement_start_offset)/2)+1))>0
                 """;
             command.Parameters.AddWithValue("@contender",contender);command.Parameters.AddWithValue("@blocker",blocker);
             if(Convert.ToInt32(await command.ExecuteScalarAsync(deadline.Token),CultureInfo.InvariantCulture)==1)return true;
@@ -310,6 +312,8 @@ public sealed class InternalOwnerRecoverySqlTests
             try{return (await new InternalSecurityService(db,new PasswordHasher<InternalStaff>(),TimeProvider.System).UpdateStaff(actor,id,new("Synthetic","Manager",true,version),default)).Success;}
             catch(SqlException error)when(error.Number==1205){return false;}
             catch(DbUpdateException error)when(error.InnerException is SqlException {Number:1205}){return false;}
+            // EF's execution strategy rewraps a deadlock as InvalidOperationException around the SqlException.
+            catch(InvalidOperationException error)when(error.InnerException is SqlException {Number:1205}){return false;}
         }
         var tasks=principals.Select(actor=>Task.Run(()=>Demote(actor))).ToArray();
         try{Assert.True(ready.Wait(TimeSpan.FromSeconds(10)));}finally{release.Set();await Task.WhenAll(tasks);}

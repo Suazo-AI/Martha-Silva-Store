@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-10T20:43:15.056533+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalOwnerRecoveryService.cs",
+      "change": "M",
+      "git_blob": "e3aa44333988b7e07612383595fb39111ac3be4b"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalOwnerRecoveryFixture.cs",
+      "change": "M",
+      "git_blob": "247d97ddd1d506d40c3d59e90807bcc8f5cd3b30"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalOwnerRecoverySqlTests.cs",
+      "change": "M",
+      "git_blob": "aef86d559c040d9bac7c9141f770abef636354fb"
+    },
+    {
+      "path": "docs/owner-recovery-20261107/runtime-20261110.md",
+      "change": "A",
+      "git_blob": "f99f86bcd02aeb378bde7fbe0190d342cd364d8f"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}
