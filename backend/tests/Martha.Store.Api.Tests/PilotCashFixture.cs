@@ -18,14 +18,14 @@ internal static class PilotCashFixture
     internal static async Task<string> Populate(string database, string nonce)
     {
         var time=new Clock(); var now=time.GetUtcNow(); var item=Guid.NewGuid();
-        InternalStaff Staff(string role)=>new() { Id=Guid.NewGuid(),LoginName=role+nonce[..16],NormalizedLoginName=(role+nonce[..16]).ToUpperInvariant(),
+        InternalStaff Staff(string role)=>new() { Id=Guid.NewGuid(),LoginName=role+nonce[..16].ToUpperInvariant(),NormalizedLoginName=(role+nonce[..16]).ToUpperInvariant(),
             DisplayName="Synthetic recovery "+role,PasswordHash="fictitious-not-a-password-hash",Role=role,Enabled=true,BranchId=Branch,
             SecurityVersion=Guid.NewGuid(),CreatedAt=now,UpdatedAt=now };
         InternalSession Session(InternalStaff s)=>new() { Id=Guid.NewGuid(),StaffId=s.Id,SecurityVersion=s.SecurityVersion,CreatedAt=now,ExpiresAt=now.Add(InternalSecurityRules.SessionLifetime) };
         var cashier=Staff("Cashier"); var manager=Staff("Manager"); var cs=Session(cashier); var ms=Session(manager);
         await using(var db=PrivatePilotReleaseTests.Context(database))
         {
-            db.Add(new InternalItem { Id=item,Sku="REC-"+nonce[..16],Name="Synthetic recovery item",UnitPriceMinor=1250,Currency="USD",Active=true });
+            db.Add(new InternalItem { Id=item,Sku="REC-"+nonce[..16].ToUpperInvariant(),Name="Synthetic recovery item",UnitPriceMinor=1250,Currency="USD",Active=true });
             db.AddRange(cashier,manager); db.AddRange(cs,ms); await db.SaveChangesAsync();
         }
         var operations=new List<object>();
