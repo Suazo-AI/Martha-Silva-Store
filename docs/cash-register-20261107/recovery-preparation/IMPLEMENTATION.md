@@ -51,6 +51,22 @@ The historical Dockerfile deliberately stops at `PREPARATION_INCOMPLETE`; it is 
 The SQL fixtures and browser journey can use separate qualified environments. Browser dependencies do not require repeating unaffected SQL cases.
 The image/dependency proposal remains pending; no image was built or package installed.
 
+## Store sheet exports (2026-11-11)
+
+Two spreadsheets the store used to keep by hand now come out of the system, from recorded facts only:
+
+| Export | Route | Content |
+| --- | --- | --- |
+| Reception note | `GET /internal/api/supply/reception-note.csv?from=&to=` | per received line: date, order, barcode, item, quantity, unit cost, total, **pending**, currency, order state, who received, fingerprint |
+| Closing report | `GET /internal/api/cash/closing-report.csv?from=&to=` | per till: opening, sales, refunds, expected, counted, difference, state, who closed, who was the cashier; plus a total row per currency |
+
+Both are read-only, both respect the branch scope of the caller, both are semicolon separated with a
+byte order mark so a spreadsheet opens them with the locale already set, and neither adds a
+dependency. The closing report is restricted to Owner and Manager. The proofs assert quantities,
+pending amounts, the receiver and the fingerprint against the real database, and a ten cent shortfall
+between expected and counted money. The frozen route inventory was updated to name the new read and
+its authorization.
+
 ## Verification and continuation
 
 Primary import check: report SHA256 and seven source bindings PASS; exact report bytes preserved.
