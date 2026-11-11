@@ -217,7 +217,7 @@ public sealed class InternalSecuritySqlTests
         }
     }
 
-    [InternalSecuritySqlFact]
+    [OwnerRecoverySqlFact]
     public async Task Recovery_F7_authenticated_owner_self_reset_revokes_actor_session()
     {
         await using var fixture=new SecuritySqlDatabase(recovery:true);await fixture.Initialize();
@@ -239,7 +239,7 @@ public sealed class InternalSecuritySqlTests
         await using(var db=fixture.Context())
             Assert.True((await Service(db).Login(new("self-owner","replacement-self-fixture-only"),default)).Success);
     }
-    [InternalSecuritySqlFact]
+    [OwnerRecoverySqlFact]
     public async Task Recovery_F7_second_owner_reset_preserves_disabled_state_and_stale_update_refuses()
     {
         await using var fixture=new SecuritySqlDatabase(recovery:true);await fixture.Initialize();

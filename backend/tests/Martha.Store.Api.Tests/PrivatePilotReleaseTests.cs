@@ -108,7 +108,7 @@ public sealed class PrivatePilotReleaseTests
         }
         File.WriteAllText(Path.Combine(Evidence,"current-release-down.sql"),migrator.GenerateScript(History[^1],Migration.InitialDatabase));
     }
-    [InternalSecuritySqlFact]
+    [OwnerRecoveryOrchestratorFact]
     public async Task Real_migration_reapply_throwaway_down_up_and_actual_backup_restore()
     {
         // Resource acknowledgement is an admission prerequisite, before any database mutation.
