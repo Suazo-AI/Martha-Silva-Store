@@ -229,9 +229,11 @@ def main(argv=None):
         return 1
     label = f"Partition {args.partition}" if args.partition else 'Backend suite'
     expected_cases = report.get('expectedCases') or report.get('minimumCases') or 0
-    skipped = sum(entry['cases'] - entry['passed'] for entry in report.get('methods', {}).values())
+    platform_cases = sum(entry['skipped'] for entry in report.get('platformSkipped', {}).values())
+    unexplained = len(report.get('methodsNotPassed', []))
     print(f"{label}: {report['status']}; {report.get('passed', 0)}/{report.get('cases', 0)} cases passed, "
-          f"expected {expected_cases}, {skipped} documented platform skips, no unexplained skip allowed.")
+          f"expected {expected_cases}, {platform_cases} documented platform skips, "
+          f"{unexplained} unexplained skips, no failure allowed.")
     for method in report.get('methodsNotPassed', []):
         print(f'Not passed: {method}')
     for method, entry in report.get('platformSkipped', {}).items():

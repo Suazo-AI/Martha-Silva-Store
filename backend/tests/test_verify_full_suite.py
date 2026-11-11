@@ -80,8 +80,23 @@ class VerifyFullSuiteTests(unittest.TestCase):
         name = 'Suite.Theory(value: &quot;SYNTHETIC-only-secret-marker&quot;)'
         code, report, text = self.run_dir([trx(case(1, name=name), case(2, name=name))], 2)
         self.assertEqual(code, 0)
-        self.assertEqual(report['methods'], {'Suite.Theory': {'cases': 2, 'passed': 2}})
+        self.assertEqual(report['methods'],
+                         {'Suite.Theory': {'cases': 2, 'passed': 2, 'skipped': 0, 'failed': 0}})
         self.assertNotIn('SYNTHETIC', text)
+
+    def test_documented_platform_skip_is_accepted_and_reported(self):
+        method = 'Martha.Store.Api.Tests.InternalOwnerRecoverySqlTests.Host_only_case'
+        code, report, _ = self.run_dir([trx(case(1, 'NotExecuted', name=method))], 1)
+        self.assertEqual((code, report['status']), (0, 'passed'))
+        self.assertIn(method, report['platformSkipped'])
+        self.assertEqual(report['platformSkipped'][method]['skipped'], 1)
+        self.assertNotIn(method, report['methodsNotPassed'])
+
+    def test_platform_skip_never_excuses_a_failure(self):
+        method = 'Martha.Store.Api.Tests.InternalOwnerRecoverySqlTests.Host_only_case'
+        code, report, _ = self.run_dir([trx(case(1, 'Failed', name=method))], 1)
+        self.assertEqual((code, report['status'], report['methodsNotPassed']), (1, 'failed', [method]))
+        self.assertNotIn(method, report['platformSkipped'])
 
     def test_unexpected_identity_fails(self):
         code, report, _ = self.run_dir([trx(('not-a-guid', 'Suite.Case', 'Passed'))], 1)
@@ -161,8 +176,8 @@ class VerifyFullSuiteTests(unittest.TestCase):
             [trx(case(1, name='Suite.Alpha'), case(2, name='Suite.Beta')),
              trx(case(3, name='Suite.Beta'))], parts)
         self.assertEqual((code, report['status'], report['cases']), (0, 'passed', 3))
-        self.assertEqual(report['methods'], {'Suite.Alpha': {'cases': 1, 'passed': 1},
-                                             'Suite.Beta': {'cases': 2, 'passed': 2}})
+        self.assertEqual(report['methods'], {'Suite.Alpha': {'cases': 1, 'passed': 1, 'skipped': 0, 'failed': 0},
+                                             'Suite.Beta': {'cases': 2, 'passed': 2, 'skipped': 0, 'failed': 0}})
 
     def test_partition_missing_method_or_occurrence_fails(self):
         parts = [('A', {'Suite.Alpha': 1, 'Suite.Beta': 2})]
@@ -228,7 +243,7 @@ class VerifyFullSuiteTests(unittest.TestCase):
             [trx(case(1, name=name), case(2, name=name))], parts)
         self.assertEqual(code, 0)
         self.assertNotIn('SYNTHETIC', text)
-        self.assertEqual(report['methods'], {'Suite.Theory': {'cases': 2, 'passed': 2}})
+        self.assertEqual(report['methods'], {'Suite.Theory': {'cases': 2, 'passed': 2, 'skipped': 0, 'failed': 0}})
 
     def test_partition_corrupted_fixture_exits_nonzero(self):
         parts = [('A', {'Suite.Alpha': 1, 'Suite.Beta': 1})]
