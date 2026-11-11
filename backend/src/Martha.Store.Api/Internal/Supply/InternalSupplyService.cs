@@ -224,6 +224,34 @@ public sealed class InternalSupplyService(InternalDbContext db, IInternalCommand
         var receivers = await db.Set<InternalStaff>().AsNoTracking()
             .Where(x => receipts.Select(receipt => receipt.ReceivedBy).Contains(x.Id)).ToDictionaryAsync(x => x.Id, ct);
         var rows = new List<string> { InternalSupplyReport.Row(InternalSupplyReport.ReceptionNoteColumns) };
+        // The review branches the store writes by hand: damaged goods written off and small
+        // replenishments. They are stock adjustments, and they belong in the same sheet.
+        var adjustments = await db.Set<InternalStockAdjustment>().AsNoTracking()
+            .Where(x => locations.Any(location => location.Id == x.LocationId)
+                && x.CreatedAt >= start && x.CreatedAt < end)
+            .OrderBy(x => x.CreatedAt).ThenBy(x => x.Id)
+            .ToListAsync(ct);
+        if (adjustments.Count > 0)
+        {
+            var itemIds = adjustments.Select(x => x.ItemId).Distinct().ToArray();
+            var items = await db.Set<InternalItem>().AsNoTracking()
+                .Where(x => itemIds.Contains(x.Id)).ToDictionaryAsync(x => x.Id, ct);
+            var actors = await db.Set<InternalStaff>().AsNoTracking()
+                .Where(x => adjustments.Select(adjustment => adjustment.ActorId).Contains(x.Id)).ToDictionaryAsync(x => x.Id, ct);
+            rows.Add(InternalSupplyReport.Row(["", "", "", "REVISION", "", "", "", "", "", "", "", ""]));
+            foreach (var adjustment in adjustments)
+            {
+                var item = items.TryGetValue(adjustment.ItemId, out var known) ? known : null;
+                rows.Add(InternalSupplyReport.Row([
+                    adjustment.CreatedAt.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture),
+                    "", item?.Sku ?? "", item?.Name ?? "",
+                    adjustment.OnHandDelta.ToString(CultureInfo.InvariantCulture),
+                    "", "", "", item?.Currency ?? "",
+                    adjustment.Reason,
+                    actors.TryGetValue(adjustment.ActorId, out var actor) ? actor.DisplayName : "",
+                    ""]));
+            }
+        }
         foreach (var receipt in receipts)
         {
             var order = orders[receipt.PurchaseOrderId];

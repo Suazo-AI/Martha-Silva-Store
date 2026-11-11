@@ -224,6 +224,26 @@ public sealed class InternalSupplySqlServerTests
         Assert.Single(empty.Split("\r\n", StringSplitOptions.RemoveEmptyEntries));
     }
 
+    [InternalSupplySqlFact]
+    public async Task Reception_note_also_lists_the_review_writedowns_and_small_replenishments()
+    {
+        await using var fixture = await SupplySqlFixture.Create();
+        var today = DateOnly.FromDateTime(DateTime.UtcNow);
+        // Stock first, so the write-off and the small replenishment are movements of real stock.
+        Assert.True((await fixture.RunCommerce(service => service.Adjust(new(SupplySqlFixture.FirstItem, SupplySqlFixture.Location, 20, "synthetic stock"), fixture.Actor.Id, "synthetic-stock-first-0001", default))).Success);
+        Assert.True((await fixture.RunCommerce(service => service.Adjust(new(SupplySqlFixture.SecondItem, SupplySqlFixture.Location, 20, "synthetic stock"), fixture.Actor.Id, "synthetic-stock-second-0001", default))).Success);
+        var written = await fixture.RunCommerce(service => service.Adjust(new(SupplySqlFixture.FirstItem, SupplySqlFixture.Location, -3, "desecho"), fixture.Actor.Id, "synthetic-waste-0001", default));
+        Assert.True(written.Success, written.Error);
+        var replenished = await fixture.RunCommerce(service => service.Adjust(new(SupplySqlFixture.SecondItem, SupplySqlFixture.Location, 2, "reposicion pequena"), fixture.Actor.Id, "synthetic-replenish-0001", default));
+        Assert.True(replenished.Success, replenished.Error);
+        var note = await fixture.Run(service => service.ReceptionNote(today.AddDays(-1), today.AddDays(1), default, fixture.Actor.Id));
+        var rows = note.Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
+        Assert.Contains(rows, row => row.Contains("REVISION"));
+        Assert.Contains(rows, row => row.Contains("SYNTH-SUPPLY-1") && row.Contains("-3") && row.Contains("desecho"));
+        Assert.Contains(rows, row => row.Contains("SYNTH-SUPPLY-2") && row.Contains("reposicion pequena"));
+        Assert.Contains(rows, row => row.Contains(fixture.Actor.DisplayName));
+    }
+
     private sealed class SupplySqlFixture : IAsyncDisposable
     {
         internal static readonly Guid FirstItem = Guid.Parse("10000000-0000-0000-0000-000000000001");
@@ -291,6 +311,15 @@ public sealed class InternalSupplySqlServerTests
             var security = new InternalSecurityService(db, new PasswordHasher<InternalStaff>(), TimeProvider.System);
             var runner = new InternalCommandRunner(db, security, http, TimeProvider.System);
             return await action(new InternalSupplyService(db, runner, new InternalStockLedger(db)));
+        }
+        // The same context and command runner, so a stock adjustment is recorded the real way.
+        public async Task<T> RunCommerce<T>(Func<InternalCommerceService, Task<T>> action)
+        {
+            await using var db = Context();
+            var http = new HttpContextAccessor { HttpContext = new DefaultHttpContext { User = InternalSecurityRules.Principal(Actor, Session) } };
+            var security = new InternalSecurityService(db, new PasswordHasher<InternalStaff>(), TimeProvider.System);
+            var runner = new InternalCommandRunner(db, security, http, TimeProvider.System);
+            return await action(new InternalCommerceService(db, runner, new InternalStockLedger(db)));
         }
         public async ValueTask DisposeAsync()
         {
