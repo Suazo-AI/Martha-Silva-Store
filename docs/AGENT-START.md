@@ -25,7 +25,9 @@ El índice y cualquier grafo son ayudas de navegación, nunca autoridad de permi
 
 ## Cuando un paso requiere las manos de Jason
 
-Entregar **siempre** esos pasos como una guía visual interactiva en Lavish (`lavish-axi`), no como
+Actualización 2026-11-11 (Jason): decisiones y pasos se presentan como Artifact publicado (herramienta Artifact
+por defecto). Lavish solo cuando Jason lo pida. Las rondas de decisión siguen el skill global `align`.
+Formato histórico: entregar esos pasos como una guía visual interactiva en Lavish (`lavish-axi`), no como
 texto en el chat. Formato que Jason pidió explícitamente (2026-11-10): pasos numerados grandes, un
 to-do con casillas para marcar, botón de copiar en cada texto literal que hay que escribir o pegar,
 una barra de progreso, y al final qué hace el agente y qué decisiones quedan. Archivos de ejemplo:
