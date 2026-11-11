@@ -234,6 +234,39 @@ public sealed class InternalCashSqlTests
         }
     }
 
+    [InternalCommerceSqlFact]
+    public async Task Closing_report_shows_each_till_with_sales_expected_counted_and_difference()
+    {
+        await using var f = await InternalCommerceSqlDatabase.Create(migrate: true);
+        await Seed(f);
+        var open = await Run(f, s => s.Open(new(f.Location, "USD", 1000), f.Actor, "cash-report-open-0001", default));
+        Assert.True(open.Success, open.Error);
+        var tillId = open.Value!.Till.Id;
+        var sale = await Run(f, s => s.Sell(new(tillId, null, [new(f.Item, 2)], "USD", 300), f.Actor, "cash-report-sale-0001", default));
+        Assert.True(sale.Success, sale.Error);
+        // Count 1240 while the drawer expects 1250: a ten cent shortfall, exactly the case the store reports.
+        var close = await Run(f, s => s.Close(tillId, new(1240), f.Actor, "cash-report-close-0001", default));
+        Assert.True(close.Success, close.Error);
+        var today = DateOnly.FromDateTime(DateTime.UtcNow);
+        var report = await Run(f, s => s.ClosingReport(today.AddDays(-1), today.AddDays(1), default, f.Actor));
+        var rows = report.Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
+        Assert.Equal(3, rows.Length); // Header, one till, one total.
+        Assert.Contains("Esperado", rows[0]);
+        var tillRow = rows.Single(row => row.StartsWith("caja;", StringComparison.Ordinal)).Split(';');
+        Assert.Equal("caja", tillRow[0]);
+        Assert.Equal("12.50", tillRow[8]); // Expected in the drawer.
+        Assert.Equal("12.40", tillRow[9]); // Counted.
+        Assert.Equal("-0.10", tillRow[10]); // Difference.
+        Assert.Equal("cerrada", tillRow[11]);
+        Assert.Contains(f.Staff.DisplayName, rows[1]);
+        var totalRow = rows.Single(row => row.StartsWith("total;", StringComparison.Ordinal)).Split(';');
+        Assert.Equal("12.50", totalRow[8]);
+        Assert.Equal("-0.10", totalRow[10]);
+        // A window without movements holds no till at all.
+        var empty = await Run(f, s => s.ClosingReport(today.AddDays(30), today.AddDays(31), default, f.Actor));
+        Assert.Single(empty.Split("\r\n", StringSplitOptions.RemoveEmptyEntries));
+    }
+
     private static async Task Seed(InternalCommerceSqlDatabase f)
     {
         Assert.True((await f.Execute(s => s.Adjust(new(f.Item, f.Location, 20, "synthetic stock"), f.Actor, "cash-stock-item-one-0001", default))).Success);

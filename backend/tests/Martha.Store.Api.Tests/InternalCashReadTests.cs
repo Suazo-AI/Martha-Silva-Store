@@ -55,11 +55,14 @@ public sealed class InternalCashReadTests
         await using var app = builder.Build(); app.MapInternalCash();
         var routes = ((IEndpointRouteBuilder)app).DataSources.SelectMany(x => x.Endpoints).OfType<RouteEndpoint>().ToArray();
         var reads = routes.Where(x => x.Metadata.GetMetadata<HttpMethodMetadata>()!.HttpMethods.Contains("GET")).ToArray();
-        Assert.Equal(2, reads.Length);
+        Assert.Equal(3, reads.Length);
         var context = Assert.Single(reads, x => x.RoutePattern.RawText == "/internal/api/cash/context");
         Assert.Contains(context.Metadata.GetOrderedMetadata<IAuthorizeData>(), x => x.Policy == "internal.sell");
         var refund = Assert.Single(reads, x => x.RoutePattern.RawText!.EndsWith("/refund-context"));
         Assert.Contains(refund.Metadata.GetOrderedMetadata<IAuthorizeData>(), x => x.Policy == "internal.manage");
+        // The closing report for the accountant is a read that only Owners and Managers may take.
+        var report = Assert.Single(reads, x => x.RoutePattern.RawText!.EndsWith("/closing-report.csv"));
+        Assert.Contains(report.Metadata.GetOrderedMetadata<IAuthorizeData>(), x => x.Policy == "internal.manage");
         Assert.Equal(4, routes.Count(x => x.Metadata.GetMetadata<HttpMethodMetadata>()!.HttpMethods.Contains("POST")));
     }
 

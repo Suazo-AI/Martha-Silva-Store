@@ -15,34 +15,11 @@ public static class InternalSupplyReport
         "Total", "Pendiente", "Moneda", "Estado", "Recibido por", "Huella"
     ];
 
-    public static string Money(long minor) =>
-        (minor / 100m).ToString("0.00", CultureInfo.InvariantCulture);
+    public static string Money(long minor) => InternalCsv.Money(minor);
 
-    public static string Escape(string? value)
-    {
-        var text = value ?? "";
-        if (text.IndexOfAny([';', '"', '\r', '\n']) < 0) return text;
-        return "\"" + text.Replace("\"", "\"\"") + "\"";
-    }
+    public static string Escape(string? value) => InternalCsv.Escape(value);
 
-    public static string Row(IEnumerable<string?> cells)
-    {
-        var builder = new StringBuilder();
-        var first = true;
-        foreach (var cell in cells)
-        {
-            if (!first) builder.Append(';');
-            builder.Append(Escape(cell));
-            first = false;
-        }
-        return builder.ToString();
-    }
+    public static string Row(IEnumerable<string?> cells) => InternalCsv.Row(cells);
 
-    public static string Document(IEnumerable<string> rows)
-    {
-        var builder = new StringBuilder();
-        builder.Append('\uFEFF'); // Byte order mark: spreadsheets read the file as UTF-8.
-        foreach (var row in rows) builder.Append(row).Append("\r\n");
-        return builder.ToString();
-    }
+    public static string Document(IEnumerable<string> rows) => InternalCsv.Document(rows);
 }

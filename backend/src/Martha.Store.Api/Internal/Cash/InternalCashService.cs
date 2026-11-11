@@ -1,3 +1,4 @@
+using System.Globalization;
 using Microsoft.EntityFrameworkCore;
 
 namespace Martha.Store.Api.Internal;
@@ -100,6 +101,76 @@ public sealed class InternalCashService(InternalDbContext db, IInternalCommandRu
             till.ClosedAt = close.CreatedAt; db.Add(close); await db.SaveChangesAsync(token);
             return InternalResult<InternalCashCloseReceipt>.Ok(new(till, close));
         }, ct);
+    }
+
+    // The closing report replaces the sheet the store hands to the accountant. It reads only
+    // recorded movements and closes, only the locations the actor may read, and changes nothing.
+    public async Task<string> ClosingReport(DateOnly from, DateOnly to, CancellationToken ct, Guid actorId = default)
+    {
+        var locations = new InternalBranchAccess(db).Locations(actorId);
+        var start = new DateTimeOffset(from.ToDateTime(TimeOnly.MinValue), TimeSpan.Zero);
+        var end = new DateTimeOffset(to.AddDays(1).ToDateTime(TimeOnly.MinValue), TimeSpan.Zero);
+        var tills = await db.Set<InternalCashTill>().AsNoTracking()
+            .Where(x => locations.Any(location => location.Id == x.LocationId)
+                && x.OpenedAt < end && (x.ClosedAt == null || x.ClosedAt >= start))
+            .OrderBy(x => x.OpenedAt).ThenBy(x => x.Id).ToListAsync(ct);
+        var tillIds = tills.Select(x => x.Id).ToArray();
+        var entries = await db.Set<InternalCashEntry>().AsNoTracking()
+            .Where(x => tillIds.Contains(x.TillId)).ToListAsync(ct);
+        var closes = await db.Set<InternalCashClose>().AsNoTracking()
+            .Where(x => tillIds.Contains(x.TillId)).ToDictionaryAsync(x => x.TillId, ct);
+        var placeIds = tills.Select(x => x.LocationId).Distinct().ToArray();
+        var places = await db.Set<InternalLocation>().AsNoTracking()
+            .Where(x => placeIds.Contains(x.Id)).ToDictionaryAsync(x => x.Id, ct);
+        var cashierIds = tills.Select(x => x.CashierId).Distinct().ToArray();
+        var closerIds = closes.Values.Select(x => x.ActorId).Distinct().ToArray();
+        var staff = await db.Set<InternalStaff>().AsNoTracking()
+            .Where(x => cashierIds.Contains(x.Id) || closerIds.Contains(x.Id)).ToDictionaryAsync(x => x.Id, ct);
+        var rows = new List<string> { InternalCsv.Row(InternalCashReport.ClosingReportColumns) };
+        var totals = new Dictionary<(string Currency, int Exponent), (long Opening, long Sales, long Refunds, long Expected, long Counted, long Difference)>();
+        foreach (var till in tills)
+        {
+            var own = entries.Where(entry => entry.TillId == till.Id).ToList();
+            long Sum(string kind) => own.Where(entry => entry.Kind == kind).Sum(entry => entry.DeltaMinor);
+            var opening = Sum("opening");
+            var sales = Sum("sale");
+            var refunds = -Sum("refund");
+            closes.TryGetValue(till.Id, out var close);
+            var expected = close?.ExpectedMinor;
+            var counted = close?.CountedMinor;
+            var difference = close?.DifferenceMinor;
+            var total = totals.GetValueOrDefault((till.Currency, till.Exponent));
+            totals[(till.Currency, till.Exponent)] = (total.Opening + opening, total.Sales + sales, total.Refunds + refunds,
+                total.Expected + (expected ?? 0), total.Counted + (counted ?? 0), total.Difference + (difference ?? 0));
+            rows.Add(InternalCsv.Row([
+                "caja",
+                (close?.CreatedAt ?? till.OpenedAt).ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture),
+                till.Id.ToString(),
+                places.TryGetValue(till.LocationId, out var place) ? place.Name : "",
+                till.Currency,
+                InternalCsv.Money(opening, till.Exponent),
+                InternalCsv.Money(sales, till.Exponent),
+                InternalCsv.Money(refunds, till.Exponent),
+                expected is null ? "" : InternalCsv.Money(expected.Value, till.Exponent),
+                counted is null ? "" : InternalCsv.Money(counted.Value, till.Exponent),
+                difference is null ? "" : InternalCsv.Money(difference.Value, till.Exponent),
+                close is null ? "abierta" : "cerrada",
+                close is not null && staff.TryGetValue(close.ActorId, out var closer) ? closer.DisplayName : "",
+                staff.TryGetValue(till.CashierId, out var cashier) ? cashier.DisplayName : ""]));
+        }
+        foreach (var total in totals.OrderBy(total => total.Key.Currency))
+        {
+            rows.Add(InternalCsv.Row([
+                "total", $"{from:yyyy-MM-dd} a {to:yyyy-MM-dd}", "", "TODAS", total.Key.Currency,
+                InternalCsv.Money(total.Value.Opening, total.Key.Exponent),
+                InternalCsv.Money(total.Value.Sales, total.Key.Exponent),
+                InternalCsv.Money(total.Value.Refunds, total.Key.Exponent),
+                InternalCsv.Money(total.Value.Expected, total.Key.Exponent),
+                InternalCsv.Money(total.Value.Counted, total.Key.Exponent),
+                InternalCsv.Money(total.Value.Difference, total.Key.Exponent),
+                "", "", ""]));
+        }
+        return InternalCsv.Document(rows);
     }
 
     private Task<InternalCashTill?> LockTill(Guid id, CancellationToken ct) => db.Set<InternalCashTill>()

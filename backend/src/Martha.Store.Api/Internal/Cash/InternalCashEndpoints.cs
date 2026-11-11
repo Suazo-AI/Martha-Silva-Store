@@ -1,3 +1,4 @@
+using System.Globalization;
 namespace Martha.Store.Api.Internal;
 
 public static class InternalCashEndpoints
@@ -28,7 +29,21 @@ public static class InternalCashEndpoints
             Result(await service.Refund(saleId, request, InternalActor.Id(http.User), Key(http), ct))).RequireAuthorization("internal.manage").RequireInternalCsrf();
         group.MapPost("/tills/{tillId:guid}/close", async (Guid tillId, InternalCashCloseRequest request, InternalCashService service, HttpContext http, CancellationToken ct) =>
             Result(await service.Close(tillId, request, InternalActor.Id(http.User), Key(http), ct))).RequireInternalCsrf();
+        group.MapGet("/closing-report.csv", async (string? from, string? to, InternalCashService service, HttpContext http, CancellationToken ct) =>
+        {
+            var today = DateOnly.FromDateTime(DateTime.UtcNow);
+            if (!TryDay(from, today.AddDays(-30), out var start) || !TryDay(to, today, out var end) || start > end)
+                return Results.BadRequest(new { error = "invalid_range" });
+            http.Response.Headers.CacheControl = "no-store";
+            return Results.Text(await service.ClosingReport(start, end, ct, InternalActor.Id(http.User)), "text/csv; charset=utf-8");
+        }).RequireAuthorization("internal.manage");
         return endpoints;
+    }
+
+    private static bool TryDay(string? value, DateOnly fallback, out DateOnly day)
+    {
+        if (string.IsNullOrWhiteSpace(value)) { day = fallback; return true; }
+        return DateOnly.TryParse(value, CultureInfo.InvariantCulture, DateTimeStyles.None, out day);
     }
     private static string Key(HttpContext http) => http.Request.Headers["Idempotency-Key"] is { Count: 1 } values ? values[0] ?? "" : "";
     private static IResult Result<T>(InternalResult<T> result) => result.Success ? Results.Ok(result.Value) : Results.Problem(
