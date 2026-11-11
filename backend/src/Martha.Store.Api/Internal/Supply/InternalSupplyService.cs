@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -200,6 +201,54 @@ public sealed class InternalSupplyService(InternalDbContext db, IInternalCommand
 
     private static string? ValidateCommand(Guid actorId, string key) => actorId == Guid.Empty
         ? "unauthenticated" : !InternalRules.ValidKey(key) ? "invalid_request" : null;
+
+    // The reception note replaces the sheet the store keeps by hand. It reads only recorded
+    // receipts, only the locations the actor may read, and never changes anything.
+    public async Task<string> ReceptionNote(DateOnly from, DateOnly to, CancellationToken ct, Guid actorId = default)
+    {
+        var locations = new InternalBranchAccess(db).Locations(actorId)
+            .Where(_ => db.InternalStaff.Any(staff => staff.Id == actorId && (staff.Role == "Owner" || staff.Role == "Manager" || staff.Role == "Inventory")));
+        var start = new DateTimeOffset(from.ToDateTime(TimeOnly.MinValue), TimeSpan.Zero);
+        var end = new DateTimeOffset(to.AddDays(1).ToDateTime(TimeOnly.MinValue), TimeSpan.Zero);
+        var receipts = await db.Set<InternalPurchaseReceipt>().AsNoTracking()
+            .Where(x => locations.Any(location => location.Id == x.LocationId)
+                && x.ReceivedAt >= start && x.ReceivedAt < end)
+            .Include(x => x.Lines)
+            .OrderBy(x => x.ReceivedAt).ThenBy(x => x.Id)
+            .ToListAsync(ct);
+        var orderIds = receipts.Select(x => x.PurchaseOrderId).Distinct().ToArray();
+        var orderLines = await db.Set<InternalPurchaseOrderLine>().AsNoTracking()
+            .Where(x => orderIds.Contains(x.PurchaseOrderId)).ToDictionaryAsync(x => x.Id, ct);
+        var orders = await db.Set<InternalPurchaseOrder>().AsNoTracking()
+            .Where(x => orderIds.Contains(x.Id)).ToDictionaryAsync(x => x.Id, ct);
+        var receivers = await db.Set<InternalStaff>().AsNoTracking()
+            .Where(x => receipts.Select(receipt => receipt.ReceivedBy).Contains(x.Id)).ToDictionaryAsync(x => x.Id, ct);
+        var rows = new List<string> { InternalSupplyReport.Row(InternalSupplyReport.ReceptionNoteColumns) };
+        foreach (var receipt in receipts)
+        {
+            var order = orders[receipt.PurchaseOrderId];
+            var receiver = receivers[receipt.ReceivedBy];
+            foreach (var line in receipt.Lines.OrderBy(line => line.PurchaseOrderLineId))
+            {
+                var ordered = orderLines[line.PurchaseOrderLineId];
+                var pending = Math.Max(0, ordered.Quantity - ordered.ReceivedQuantity);
+                rows.Add(InternalSupplyReport.Row([
+                    receipt.ReceivedAt.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture),
+                    order.Reference ?? order.Id.ToString(),
+                    ordered.ItemSku,
+                    ordered.ItemName,
+                    line.Quantity.ToString(CultureInfo.InvariantCulture),
+                    InternalSupplyReport.Money(line.UnitCostMinor),
+                    InternalSupplyReport.Money(line.Quantity * line.UnitCostMinor),
+                    pending.ToString(CultureInfo.InvariantCulture),
+                    receipt.Currency,
+                    receipt.OrderStatusAfter,
+                    receiver.DisplayName,
+                    receipt.Fingerprint]));
+            }
+        }
+        return InternalSupplyReport.Document(rows);
+    }
 
     private void RequireTransaction()
     {

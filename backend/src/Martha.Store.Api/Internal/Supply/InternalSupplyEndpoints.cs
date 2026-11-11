@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Data.Common;
 
 namespace Martha.Store.Api.Internal;
@@ -33,7 +34,21 @@ public static class InternalSupplyEndpoints
         group.MapPost("/purchase-orders/{id:guid}/cancel", async (Guid id, InternalPurchaseCancelRequest request, HttpContext http, InternalSupplyService service, CancellationToken ct) =>
             Respond(await service.Cancel(InternalActor.Id(http.User), Key(http), id, request, ct)))
             .RequireAuthorization("internal.manage").RequireInternalCsrf();
+        group.MapGet("/reception-note.csv", async (string? from, string? to, InternalSupplyService service, HttpContext http, CancellationToken ct) =>
+        {
+            var today = DateOnly.FromDateTime(DateTime.UtcNow);
+            if (!TryDay(from, today.AddDays(-30), out var start) || !TryDay(to, today, out var end) || start > end)
+                return Results.BadRequest(new { error = "invalid_range" });
+            return await Read(async () => Results.Text(
+                await service.ReceptionNote(start, end, ct, InternalActor.Id(http.User)), "text/csv; charset=utf-8"));
+        }).RequireAuthorization("internal.inventory");
         return endpoints;
+    }
+
+    private static bool TryDay(string? value, DateOnly fallback, out DateOnly day)
+    {
+        if (string.IsNullOrWhiteSpace(value)) { day = fallback; return true; }
+        return DateOnly.TryParse(value, CultureInfo.InvariantCulture, DateTimeStyles.None, out day);
     }
 
     private static bool ValidPage(int? skip, int? take) => (skip ?? 0) >= 0 && (take ?? 50) is >= 1 and <= 100;

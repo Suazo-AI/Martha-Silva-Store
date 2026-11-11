@@ -190,6 +190,40 @@ public sealed class InternalSupplySqlServerTests
         Assert.Empty(await db.Set<InternalStockMovement>().ToListAsync());
     }
 
+    [InternalSupplySqlFact]
+    public async Task Reception_note_lists_what_arrived_what_is_missing_and_who_signed()
+    {
+        await using var fixture = await SupplySqlFixture.Create();
+        var order = await fixture.Purchase();
+        var first = order.Lines.Single(x => x.ItemId == SupplySqlFixture.FirstItem);
+        var second = order.Lines.Single(x => x.ItemId == SupplySqlFixture.SecondItem);
+        var request = new InternalPurchaseReceiptRequest(Guid.NewGuid(), [new(first.Id, 2), new(second.Id, 5)]);
+        var receipt = await fixture.Run(service => service.Receive(fixture.Actor.Id, "synthetic-note-0001", order.Id, request, default));
+        Assert.True(receipt.Success, receipt.Error);
+        var today = DateOnly.FromDateTime(DateTime.UtcNow);
+        var note = await fixture.Run(service => service.ReceptionNote(today.AddDays(-1), today.AddDays(1), default, fixture.Actor.Id));
+        var rows = note.Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
+        Assert.Equal(3, rows.Length); // Header plus one row per received line.
+        Assert.StartsWith("\uFEFF", note);
+        Assert.Contains("Codigo de barras", rows[0]);
+        var firstRow = rows.Single(row => row.Contains("SYNTH-SUPPLY-1")).Split(';');
+        var secondRow = rows.Single(row => row.Contains("SYNTH-SUPPLY-2")).Split(';');
+        Assert.Equal(12, firstRow.Length);
+        Assert.Equal("2", firstRow[4]); // Quantity received on this receipt.
+        Assert.Equal("3", firstRow[7]); // Pending: ordered five, received two.
+        Assert.Equal("5", secondRow[4]);
+        Assert.Equal("0", secondRow[7]); // Fully received line has nothing pending.
+        Assert.Contains(fixture.Actor.DisplayName, rows[1]);
+        await using (var db = fixture.Context())
+        {
+            var stored = await db.Set<InternalPurchaseReceipt>().SingleAsync();
+            Assert.Contains(stored.Fingerprint, rows[1]);
+        }
+        // A note for a different window is empty apart from the header.
+        var empty = await fixture.Run(service => service.ReceptionNote(today.AddDays(30), today.AddDays(31), default, fixture.Actor.Id));
+        Assert.Single(empty.Split("\r\n", StringSplitOptions.RemoveEmptyEntries));
+    }
+
     private sealed class SupplySqlFixture : IAsyncDisposable
     {
         internal static readonly Guid FirstItem = Guid.Parse("10000000-0000-0000-0000-000000000001");
