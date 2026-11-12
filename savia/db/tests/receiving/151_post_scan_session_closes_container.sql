@@ -1,5 +1,5 @@
 -- TEST: a container whose reception was posted is closed, so the same container cannot be received again.
--- XFAIL: D-A-06 usp_PostScanSession never closes the ImportContainer: its status stays 'counting' after the receipt is posted.
+-- FIXED (V005): D-A-06 was: usp_PostScanSession never closes the ImportContainer: its status stays 'counting' after the receipt is posted.
 SET NOCOUNT ON; SET XACT_ABORT ON;
 DECLARE @loc uniqueidentifier=test.Id('locA'),@supplier uniqueidentifier=test.Id('supplier'),
   @actor uniqueidentifier=test.Id('cashierA'),@reviewer uniqueidentifier=test.Id('supervisorA'),

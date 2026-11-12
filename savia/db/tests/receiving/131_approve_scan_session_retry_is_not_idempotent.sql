@@ -1,5 +1,5 @@
 -- TEST: approving the same session again with the same ids keeps it approved and does not duplicate anything.
--- XFAIL: D-A-02 usp_ApproveScanSession is not idempotent: a retry with the same session id fails with 51307 instead of returning the approval.
+-- FIXED (V005): D-A-02 was: usp_ApproveScanSession is not idempotent: a retry with the same session id fails with 51307 instead of returning the approval.
 SET NOCOUNT ON; SET XACT_ABORT ON;
 DECLARE @loc uniqueidentifier=test.Id('locA'),@supplier uniqueidentifier=test.Id('supplier'),
   @actor uniqueidentifier=test.Id('cashierA'),@reviewer uniqueidentifier=test.Id('supervisorA'),

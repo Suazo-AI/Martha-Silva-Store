@@ -33,9 +33,11 @@ public static class DbErrors
     {
         [51102] = ("stock.insufficient", ErrorKind.Conflict),
         [51103] = ("stock.pool_frozen", ErrorKind.Conflict),
+        [51107] = ("inventory.approver_branch_access", ErrorKind.Forbidden),
         [51204] = ("catalog.code_taken", ErrorKind.Conflict),
         [51205] = ("catalog.code_taken", ErrorKind.Conflict),
         [51211] = ("catalog.item_id_reused", ErrorKind.Conflict),
+        [51212] = ("catalog.sku_taken", ErrorKind.Conflict),
         [51302] = ("receiving.scan_id_reused", ErrorKind.Conflict),
         [51303] = ("receiving.session_not_open", ErrorKind.Conflict),
         [51307] = ("receiving.cannot_approve", ErrorKind.Conflict),

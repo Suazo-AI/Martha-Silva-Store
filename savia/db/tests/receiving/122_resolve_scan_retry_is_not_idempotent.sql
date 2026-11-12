@@ -1,5 +1,5 @@
 -- TEST: resolving the same read again with the same ids is a no-op that keeps the resolution.
--- XFAIL: D-A-01 usp_ResolveScan is not idempotent: a retry with the same ids fails with 51305 instead of returning the resolution.
+-- FIXED (V005): D-A-01 was: usp_ResolveScan is not idempotent: a retry with the same ids fails with 51305 instead of returning the resolution.
 SET NOCOUNT ON; SET XACT_ABORT ON;
 DECLARE @loc uniqueidentifier=test.Id('locA'),@supplier uniqueidentifier=test.Id('supplier'),
   @actor uniqueidentifier=test.Id('cashierA'),@reviewer uniqueidentifier=test.Id('supervisorA'),@manager uniqueidentifier=test.Id('manager'),

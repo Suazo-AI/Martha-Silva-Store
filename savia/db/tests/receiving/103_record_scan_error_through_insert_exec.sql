@@ -1,5 +1,5 @@
 -- TEST: a read rejected inside the procedure reports the domain error 51303 even when the read is captured with INSERT ... EXEC, the pattern the test guide prescribes.
--- XFAIL: D-A-07 usp_RecordScan replaces its own validation error with Msg 3915 when the read is captured with INSERT ... EXEC.
+-- FIXED (V005): D-A-07 was: usp_RecordScan replaces its own validation error with Msg 3915 when the read is captured with INSERT ... EXEC.
 SET NOCOUNT ON; SET XACT_ABORT ON;
 DECLARE @loc uniqueidentifier=test.Id('locA'),@supplier uniqueidentifier=test.Id('supplier'),
   @actor uniqueidentifier=test.Id('cashierA'),@container uniqueidentifier=NEWID(),

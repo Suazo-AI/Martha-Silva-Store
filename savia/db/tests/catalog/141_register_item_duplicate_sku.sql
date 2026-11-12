@@ -1,5 +1,5 @@
 -- TEST: registering a variant whose internal SKU is already used by another variant is rejected with a catalog domain error, not with a raw SQL constraint violation.
--- XFAIL: D-A-04 usp_RegisterItem rejects a repeated internal SKU with raw SQL error 2627 instead of a catalog domain error like 51204/51205.
+-- FIXED (V005): D-A-04 was: usp_RegisterItem rejects a repeated internal SKU with raw SQL error 2627 instead of a catalog domain error like 51204/51205.
 SET NOCOUNT ON; SET XACT_ABORT ON;
 DECLARE @product uniqueidentifier=test.Id('product'),@item1 uniqueidentifier=NEWID(),
   @item2 uniqueidentifier=NEWID(),@actor uniqueidentifier=test.Id('manager'),

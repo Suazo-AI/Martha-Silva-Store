@@ -1,5 +1,5 @@
 -- TEST: a price change applied to an already active variant leaves a trace in the price history.
--- XFAIL: D-A-05 usp_ActivateItem changes the price of an active variant without writing any catalog.PriceHistory row.
+-- FIXED (V005): D-A-05 was: usp_ActivateItem changes the price of an active variant without writing any catalog.PriceHistory row.
 SET NOCOUNT ON; SET XACT_ABORT ON;
 DECLARE @item uniqueidentifier=test.Id('item'),@actor uniqueidentifier=test.Id('manager'),
   @node uniqueidentifier=test.Id('nodeA'),@event uniqueidentifier=NEWID(),@n bigint;

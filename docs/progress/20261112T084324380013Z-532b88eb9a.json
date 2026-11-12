@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-12T08:43:24.380013+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/db/migrations/V005__cp1a_procedure_fixes.sql",
+      "change": "A",
+      "git_blob": "055b2d049e8eb44d1924c287ebcba215494e84f0"
+    },
+    {
+      "path": "savia/db/tests/catalog/141_register_item_duplicate_sku.sql",
+      "change": "M",
+      "git_blob": "b82091af079fdba907f3197a9fadeb43a432694b"
+    },
+    {
+      "path": "savia/db/tests/catalog/142_activate_item_price_history.sql",
+      "change": "M",
+      "git_blob": "473a67011e46f94023727a7303b31610b4b91d8d"
+    },
+    {
+      "path": "savia/db/tests/inventory/112_post_adjustment_approver_branch_access.sql",
+      "change": "M",
+      "git_blob": "5541970c98889f628f64681d4df429f0676faa58"
+    },
+    {
+      "path": "savia/db/tests/receiving/103_record_scan_error_through_insert_exec.sql",
+      "change": "M",
+      "git_blob": "a2b38bbe31cd7a7f32082b923e5729af931e6a9f"
+    },
+    {
+      "path": "savia/db/tests/receiving/122_resolve_scan_retry_is_not_idempotent.sql",
+      "change": "M",
+      "git_blob": "a75163c037096f18912026a0d039a392dc562386"
+    },
+    {
+      "path": "savia/db/tests/receiving/131_approve_scan_session_retry_is_not_idempotent.sql",
+      "change": "M",
+      "git_blob": "30ab48b00c31d3755d84106176276c28584de320"
+    },
+    {
+      "path": "savia/db/tests/receiving/151_post_scan_session_closes_container.sql",
+      "change": "M",
+      "git_blob": "b0cc589e7a274605c3ecf334bbeb85e1c7291e51"
+    },
+    {
+      "path": "savia/docs/PLAN.md",
+      "change": "M",
+      "git_blob": "dec70d74c4052318a6094c481791888436ff4f2e"
+    },
+    {
+      "path": "savia/docs/bugs/BUG-003-009-cp1a.md",
+      "change": "A",
+      "git_blob": "ba034747310c21d094946ee63f7a43f0f8f39bd2"
+    },
+    {
+      "path": "savia/docs/bugs/evidence/BUG-003-009-green.txt",
+      "change": "A",
+      "git_blob": "edb6393ce1ed527d590afb57fac5f174bfd5efa4"
+    },
+    {
+      "path": "savia/docs/bugs/evidence/BUG-003-009-red.txt",
+      "change": "A",
+      "git_blob": "e89e90f62bb6fa6673c18d3e55bb3308cd556cc3"
+    },
+    {
+      "path": "savia/src/Savia.Domain/Errors.cs",
+      "change": "M",
+      "git_blob": "e078307ace262776ee184d1bb209ca0e3ffda486"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}
