@@ -84,7 +84,7 @@ Máximo dos tareas Codex en paralelo. Cada ejecutor en worktree propio. El prima
 
 | ID | Estado | Evidencia |
 | --- | --- | --- |
-| WP-A | en curso | — |
+| WP-A | integrado en `Tony`; activo solo para PR | 11 pruebas locales OK; demo A6 PASS/FAIL ([evidencia](../bug-pipeline/EVIDENCE.md)). A1 y A5 necesitan los workflows en `main` (rama por defecto): decisión de Jason. actionlint, .NET real y runtime GitHub NOT RUN. |
 | Crítica previa S/B/C/D | en curso | — |
 | WP-S, B, C, D, E | pendiente | — |
 | Cotización hosting (J-3) | lista, sin contratar | [hosting-quotes-20261111](../hosting-quotes-20261111/README.md) |

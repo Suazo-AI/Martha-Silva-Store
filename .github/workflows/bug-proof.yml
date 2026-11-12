@@ -1,0 +1,75 @@
+name: Bug proof
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, edited, labeled, unlabeled]
+permissions:
+  contents: read
+concurrency:
+  group: bug-proof-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    outputs:
+      required: ${{ steps.gate.outputs.required }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Determine proof requirement
+        id: gate
+        run: python tools/bugproof/github.py gate
+      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405
+        if: steps.gate.outputs.required == 'true'
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f
+        if: steps.gate.outputs.required == 'true'
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68
+        if: steps.gate.outputs.required == 'true'
+        with:
+          dotnet-version: '10.0.402'
+      - name: Fetch exact PR head
+        if: steps.gate.outputs.required == 'true'
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: git fetch origin "pull/$PR_NUMBER/head"
+      - name: Prove red then green
+        if: steps.gate.outputs.required == 'true'
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+        run: python tools/bugproof/prove.py --base "$BASE" --head "$HEAD"
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always() && steps.gate.outputs.required == 'true'
+        with:
+          name: bugproof-report
+          path: bugproof-report/
+          if-no-files-found: error
+  comment:
+    needs: proof
+    if: always() && needs.proof.outputs.required == 'true' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          persist-credentials: false
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0
+        with:
+          name: bugproof-report
+          path: bugproof-report
+      - name: Update one PR comment without executing PR code
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python tools/bugproof/github.py comment
