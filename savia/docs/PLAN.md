@@ -31,7 +31,7 @@ Cada fila de esta tabla es una prueba que puede fallar. Sin prueba ejecutada no 
 | --- | --- | --- | --- |
 | CP0 | SQL real en SQL Server 2022, línea base corregida | hecho | [cp0-sql-install](evidence/cp0-sql-install/README.md) |
 | CP1 | Arnés de pruebas de base y auditoría de los 41 procedimientos | en curso | `python savia/tools/db/saviadb.py test` |
-| CP2 | ADR-001 y crítica independiente previa al código de sync | crítica recibida; falta incorporarla | [ADR-001](adr/ADR-001-arquitectura.md), [crítica](adr/ADR-001-critica.md) |
+| CP2 | ADR-001 y crítica independiente previa al código de sync | revisión 2 con la crítica incorporada; F14 abierto | [ADR-001](adr/ADR-001-arquitectura.md), [crítica](adr/ADR-001-critica.md) |
 | CP3 | Slice vertical de la API con pruebas contra SQL real | hecho (un nodo) | [cp3-vertical-slice](evidence/cp3-vertical-slice/README.md) |
 | CP4 | Sync 1 nube + 3 sucursales, oráculo y simulador | pendiente | — |
 | CP5 | Clientes sobre el contrato generado | pendiente | — |
@@ -48,7 +48,7 @@ Cada worker trabaja en su worktree, no hace commit y entrega con comandos y cód
 
 - Contratar o desplegar Azure, gastar, fusionar a `main`, tocar datos reales.
 - Qué pasa con el piloto v1 mientras v2 madura.
-- Política de stock negativo, documento fiscal, impresora y escáner reales, pasarela de pago.
+- Devoluciones entre sucursales (hoy se rechazan), política de stock negativo, documento fiscal, impresora y escáner reales, pasarela de pago.
 
 ## Relación con el programa del 2026-11-11
 
@@ -65,4 +65,5 @@ CRM sobre `crm.Customers`, tiempo real sobre el outbox, sitio sobre `webstore` y
 | 2026-11-12 | Oráculo de conservación (V003): cero filas con libros sanos; detecta 5 tipos de corrupción | `a072b53` |
 | 2026-11-12 | BUG-001 y BUG-002 de concurrencia: prueba roja, causa del grafo de interbloqueo, V004, verde 3 veces, 0 interbloqueos ([detalle](bugs/BUG-001-002-concurrencia.md)) | `3f29469` |
 | 2026-11-12 | CP1-A: 41 pruebas de catálogo, recepción, etiquetas e inventario; crítica de ADR-001 (Opus) | `28c6305` |
-| 2026-11-12 | BUG-003 a BUG-009 (CP1-A): 7 rojas sin V005, 46 verdes con V005 ([detalle](bugs/BUG-003-009-cp1a.md)) | ver `git log savia/` |
+| 2026-11-12 | BUG-003 a BUG-009 (CP1-A): 7 rojas sin V005, 46 verdes con V005 ([detalle](bugs/BUG-003-009-cp1a.md)) | `ec87e47` |
+| 2026-11-12 | ADR-001 revisión 2 con los 15 hallazgos de la crítica; BUG-010 devolución entre sucursales: rojo sin V006, verde con V006 ([detalle](bugs/BUG-010-devolucion-otra-sucursal.md)) | ver `git log savia/` |

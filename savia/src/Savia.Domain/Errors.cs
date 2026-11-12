@@ -59,6 +59,7 @@ public static class DbErrors
         [51521] = ("cash.already_closed", ErrorKind.Conflict),
         [51522] = ("cash.till_not_open", ErrorKind.Conflict),
         [51523] = ("cash.count_missing", ErrorKind.Conflict),
+        [51535] = ("auth.branch_access", ErrorKind.Forbidden),
         [51542] = ("cash.count_id_reused", ErrorKind.Conflict),
         [51543] = ("cash.till_not_open", ErrorKind.Conflict),
         [51607] = ("credit.insufficient", ErrorKind.Conflict),
