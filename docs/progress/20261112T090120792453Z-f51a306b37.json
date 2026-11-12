@@ -1,0 +1,375 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-12T09:01:20.792453+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/db/migrations/V007__cp1b_procedure_fixes.sql",
+      "change": "A",
+      "git_blob": "80a82d42aca1d7b9acde5a3ded83054af35971d1"
+    },
+    {
+      "path": "savia/db/tests/accounting/100_queue_export_normal_and_retry.sql",
+      "change": "A",
+      "git_blob": "af75718e68873a4de137a5256474631215c0e552"
+    },
+    {
+      "path": "savia/db/tests/accounting/101_queue_export_format_validation.sql",
+      "change": "A",
+      "git_blob": "29c7951e0c69bace27319c88989bcacb5aa7d6ba"
+    },
+    {
+      "path": "savia/db/tests/accounting/110_mark_export_sent_states.sql",
+      "change": "A",
+      "git_blob": "c2b81bca67a5753c177ecc619216120a9b21450e"
+    },
+    {
+      "path": "savia/db/tests/accounting/111_mark_export_sent_invalid_targets.sql",
+      "change": "A",
+      "git_blob": "b5f66ad541c8e575c686a5b929840cb87c249b67"
+    },
+    {
+      "path": "savia/db/tests/accounting/120_post_journal_balanced_and_replay.sql",
+      "change": "A",
+      "git_blob": "6dc1bed13f0cd28e51aff513293c78f2c5059c28"
+    },
+    {
+      "path": "savia/db/tests/accounting/121_post_journal_validation.sql",
+      "change": "A",
+      "git_blob": "fd3105ee57d91ed58d7a3c3150dfb06dba65f19d"
+    },
+    {
+      "path": "savia/db/tests/cash/100_record_cash_entry_normal_and_retry.sql",
+      "change": "A",
+      "git_blob": "aa8c40ca1c9c05f87f077de29f301e9bf0684a47"
+    },
+    {
+      "path": "savia/db/tests/cash/101_record_cash_entry_validation.sql",
+      "change": "A",
+      "git_blob": "7a4251901fd10033d3862396d18ea8f3381470e8"
+    },
+    {
+      "path": "savia/db/tests/cash/102_record_cash_entry_foreign_branch.sql",
+      "change": "A",
+      "git_blob": "2c4ade1e10ca89e76cda7e25f3e7d52289aa5b14"
+    },
+    {
+      "path": "savia/db/tests/cash/103_record_cash_entry_replay_other_amount.sql",
+      "change": "A",
+      "git_blob": "2c7518b255b689b87ad9f80abbb31568e9e7b50b"
+    },
+    {
+      "path": "savia/db/tests/cash/110_submit_cash_count_normal_and_replay.sql",
+      "change": "A",
+      "git_blob": "d740d9718b4758516cd191ee824f4295b06c61bd"
+    },
+    {
+      "path": "savia/db/tests/cash/111_submit_cash_count_validation.sql",
+      "change": "A",
+      "git_blob": "94c1f3f588f42087aa5ed47f243321b81c8d2212"
+    },
+    {
+      "path": "savia/db/tests/cash/120_close_till_expected_from_entries.sql",
+      "change": "A",
+      "git_blob": "b57f7a202e6088b99334cbc09105a9df6e26a70a"
+    },
+    {
+      "path": "savia/db/tests/cash/121_close_till_retry_and_other_closure.sql",
+      "change": "A",
+      "git_blob": "5ffb6a9001ca94844b1066f3c601b163d4cef7d3"
+    },
+    {
+      "path": "savia/db/tests/cash/122_close_till_validation.sql",
+      "change": "A",
+      "git_blob": "493c8a29eac92dc8ee29d2bd2569da63aa6e6b12"
+    },
+    {
+      "path": "savia/db/tests/cash/123_close_document_totals.sql",
+      "change": "A",
+      "git_blob": "3fbc23ece0f5b7709c9b87888561d89e1a20a441"
+    },
+    {
+      "path": "savia/db/tests/cash/124_close_till_foreign_actor.sql",
+      "change": "A",
+      "git_blob": "5b5465ef5c8550a72258f903b0fee371d4a3c09b"
+    },
+    {
+      "path": "savia/db/tests/credits/010_issue_from_return_normal_retry_conservation.sql",
+      "change": "A",
+      "git_blob": "e2fc49a3543cd318def4d94df3d3ce53784883bf"
+    },
+    {
+      "path": "savia/db/tests/credits/020_issue_from_return_rejects_ineligible.sql",
+      "change": "A",
+      "git_blob": "737ce3a4bf1b542b7dd7708b51ed2bc62f0cb164"
+    },
+    {
+      "path": "savia/db/tests/credits/030_redeem_normal_retry_conservation.sql",
+      "change": "A",
+      "git_blob": "7481d80a86b069197fd9eb23b5f315387e339d99"
+    },
+    {
+      "path": "savia/db/tests/credits/040_redeem_rejections.sql",
+      "change": "A",
+      "git_blob": "6c3d4f4dadb974378e3ef5ee2170e38c8b353db9"
+    },
+    {
+      "path": "savia/db/tests/credits/050_redeem_cannot_touch_held.sql",
+      "change": "A",
+      "git_blob": "18b9523ab29062c922ca5d9da1c66436dfc5261e"
+    },
+    {
+      "path": "savia/db/tests/credits/060_transfer_request_rejections.sql",
+      "change": "A",
+      "git_blob": "34e3deab3a2ce5db658db65d1d8bbd0f20d343a8"
+    },
+    {
+      "path": "savia/db/tests/credits/070_transfer_approve_rejections.sql",
+      "change": "A",
+      "git_blob": "e55917a7e5d56769b0bfade193569b46fd621cb2"
+    },
+    {
+      "path": "savia/db/tests/credits/080_transfer_order_strict.sql",
+      "change": "A",
+      "git_blob": "84a49300c8ac1bc7787a12e43e5534f2b9793ec7"
+    },
+    {
+      "path": "savia/db/tests/credits/090_transfer_lock_normal_and_retries.sql",
+      "change": "A",
+      "git_blob": "db35905528103cbd92e9a65afe5f858ebc3d4d48"
+    },
+    {
+      "path": "savia/db/tests/credits/100_commit_proof_and_azure_rules.sql",
+      "change": "A",
+      "git_blob": "0a8a16af5b91d9b50b6ae51997bb280dd1bf0ce3"
+    },
+    {
+      "path": "savia/db/tests/credits/110_full_transfer_flow_conservation.sql",
+      "change": "A",
+      "git_blob": "4bb5d16dccf4c38951f5711c47198adde9f999c0"
+    },
+    {
+      "path": "savia/db/tests/credits/120_held_in_transit_not_redeemable.sql",
+      "change": "A",
+      "git_blob": "7abd6088ecac77c2b3dd9fa11681716a7af81976"
+    },
+    {
+      "path": "savia/db/tests/credits/130_cancel_transfer.sql",
+      "change": "A",
+      "git_blob": "3b9c729fc27e1bdac843e4bab1e72cc279cadb67"
+    },
+    {
+      "path": "savia/db/tests/outbox/010_enqueue_normal_retry.sql",
+      "change": "A",
+      "git_blob": "84ffece904c90e6b3081ee62aae35873661dc4c9"
+    },
+    {
+      "path": "savia/db/tests/outbox/020_enqueue_rejections.sql",
+      "change": "A",
+      "git_blob": "67db02f67e5442fdc35232db63f178be8c5da8bd"
+    },
+    {
+      "path": "savia/db/tests/outbox/030_route_event_rules.sql",
+      "change": "A",
+      "git_blob": "94b3dd79c3552f3ecebbdae8bbc93f7dffd0a38f"
+    },
+    {
+      "path": "savia/db/tests/outbox/040_pull_events.sql",
+      "change": "A",
+      "git_blob": "72af177ca38a254eb38c6632ac753f90af9058cc"
+    },
+    {
+      "path": "savia/db/tests/outbox/050_ack_deliveries.sql",
+      "change": "A",
+      "git_blob": "e211af2d7b146daa7b7b0c1f7b139fb147d9166b"
+    },
+    {
+      "path": "savia/db/tests/outbox/060_inbox_rules.sql",
+      "change": "A",
+      "git_blob": "3e972220b86b43602ee58cf77521d74199f32100"
+    },
+    {
+      "path": "savia/db/tests/outbox/070_cursor_rules.sql",
+      "change": "A",
+      "git_blob": "abeb9f504f6f6491b11dc251c92fe8b0c45ad07e"
+    },
+    {
+      "path": "savia/db/tests/sales/100_open_till_opening_entry_and_retry.sql",
+      "change": "A",
+      "git_blob": "59c2c729d9a805409c3b1eff8316589f0e26e0ed"
+    },
+    {
+      "path": "savia/db/tests/sales/101_open_till_validation.sql",
+      "change": "A",
+      "git_blob": "3d6ac92ebf2c0da077b1d42986596d272d558259"
+    },
+    {
+      "path": "savia/db/tests/sales/102_open_till_one_open_till_per_register.sql",
+      "change": "A",
+      "git_blob": "7b0739362db4703275e03cd393ceaf7c43a49260"
+    },
+    {
+      "path": "savia/db/tests/sales/103_open_till_replay_other_opening.sql",
+      "change": "A",
+      "git_blob": "cba77ec9e8780fb172a15df2eb23541b88993b4a"
+    },
+    {
+      "path": "savia/db/tests/sales/110_post_sale_totals_and_tax_per_line.sql",
+      "change": "A",
+      "git_blob": "15087094db10fbc00230496d5fe60982d8a88f0c"
+    },
+    {
+      "path": "savia/db/tests/sales/111_post_sale_retry_same_request.sql",
+      "change": "A",
+      "git_blob": "4367de5b4c45c5fdbea3a45606e90e130110aeb9"
+    },
+    {
+      "path": "savia/db/tests/sales/112_post_sale_reused_id_other_content.sql",
+      "change": "A",
+      "git_blob": "74bfa60a8b6612b5ddb9829fd4b9839c8923ccb9"
+    },
+    {
+      "path": "savia/db/tests/sales/113_post_sale_line_validation.sql",
+      "change": "A",
+      "git_blob": "d5d733d4153796e8db689ada8164082c802f9e17"
+    },
+    {
+      "path": "savia/db/tests/sales/114_post_sale_tender_validation.sql",
+      "change": "A",
+      "git_blob": "0d64d58ff13bfcd9d3777250656c19202f4e89ba"
+    },
+    {
+      "path": "savia/db/tests/sales/115_post_sale_total_mismatch.sql",
+      "change": "A",
+      "git_blob": "40018a972fbd79142eb6b5dd60075ac25a16bb88"
+    },
+    {
+      "path": "savia/db/tests/sales/116_post_sale_location_and_cashier.sql",
+      "change": "A",
+      "git_blob": "87e0a4c85b1e412a4026b99bdb8a2f9f3c17bddb"
+    },
+    {
+      "path": "savia/db/tests/sales/117_post_sale_till_mismatch.sql",
+      "change": "A",
+      "git_blob": "a174c1d993690f34d03b50303d31c5dd99541582"
+    },
+    {
+      "path": "savia/db/tests/sales/118_post_sale_price_and_item_state.sql",
+      "change": "A",
+      "git_blob": "79732a14789acf51e0194cc54e3e681e5f25cbdd"
+    },
+    {
+      "path": "savia/db/tests/sales/119_post_sale_insufficient_stock_stores_nothing.sql",
+      "change": "A",
+      "git_blob": "e96d583b379956483084bdfe36c56561cd0b38a8"
+    },
+    {
+      "path": "savia/db/tests/sales/120_post_sale_stock_once_per_line.sql",
+      "change": "A",
+      "git_blob": "62a12c9919ca04e42c655da1e68e6fe9c54e295b"
+    },
+    {
+      "path": "savia/db/tests/sales/121_post_sale_mixed_tenders.sql",
+      "change": "A",
+      "git_blob": "8a58f839839878fced75bfa24073c624627fd72f"
+    },
+    {
+      "path": "savia/db/tests/sales/130_credit_return_normal.sql",
+      "change": "A",
+      "git_blob": "2cebbbeb5280e0e8dff339085ae0276437580c35"
+    },
+    {
+      "path": "savia/db/tests/sales/131_credit_return_partial_then_rest_exact.sql",
+      "change": "A",
+      "git_blob": "0c97f3c649937c4924eb31a55fa7caddfb8b0252"
+    },
+    {
+      "path": "savia/db/tests/sales/132_credit_return_retry_no_change.sql",
+      "change": "A",
+      "git_blob": "e8293767c52754d67987fa875091ebe8bea0950b"
+    },
+    {
+      "path": "savia/db/tests/sales/133_credit_return_over_return_rejected.sql",
+      "change": "A",
+      "git_blob": "3a92732b71ea019d18793e653d5eede595911af1"
+    },
+    {
+      "path": "savia/db/tests/sales/134_credit_return_validation.sql",
+      "change": "A",
+      "git_blob": "7989929ba30d4b298bc27084189e060529ad38d2"
+    },
+    {
+      "path": "savia/db/tests/sales/135_credit_return_pool_quarantine.sql",
+      "change": "A",
+      "git_blob": "e058ff82dd25dcda962d4aee60f9e96513ec8011"
+    },
+    {
+      "path": "savia/db/tests/sales/136_credit_return_replay_other_lines.sql",
+      "change": "A",
+      "git_blob": "babc20a51e61c33e8f1e2d93f7b6b2dd830633d5"
+    },
+    {
+      "path": "savia/db/tests/webstore/010_create_reserved_order_normal_retry.sql",
+      "change": "A",
+      "git_blob": "131770b2f1c54fb876502465229b2a492a80d817"
+    },
+    {
+      "path": "savia/db/tests/webstore/020_create_order_rejections.sql",
+      "change": "A",
+      "git_blob": "761d3b62e0b8704ff54c9c1cf50d443de70f97b6"
+    },
+    {
+      "path": "savia/db/tests/webstore/030_web_pool_only_and_stock_limit.sql",
+      "change": "A",
+      "git_blob": "ece2b1b155636285deda49cbdc97bdde13553eb9"
+    },
+    {
+      "path": "savia/db/tests/webstore/040_payment_normal_retry.sql",
+      "change": "A",
+      "git_blob": "41115a734da7567ce2cf296de574aa2795ac4e5c"
+    },
+    {
+      "path": "savia/db/tests/webstore/050_payment_rejections.sql",
+      "change": "A",
+      "git_blob": "81d3a5b23589447d07d95d5334dd70dcf0aa3a13"
+    },
+    {
+      "path": "savia/db/tests/webstore/060_fulfill_normal_retry_rejections.sql",
+      "change": "A",
+      "git_blob": "69b2fe8ab96ed16d9f45c8fa1b8351700ec56566"
+    },
+    {
+      "path": "savia/docs/PLAN.md",
+      "change": "M",
+      "git_blob": "056d2ba11a177168d7a43ce0fd3e162572795963"
+    },
+    {
+      "path": "savia/docs/bugs/BUG-011-015-cp1b.md",
+      "change": "A",
+      "git_blob": "85db6c3234a77cc3d3913dd25bf08fc73cf981ad"
+    },
+    {
+      "path": "savia/docs/bugs/evidence/BUG-011-015-green.txt",
+      "change": "A",
+      "git_blob": "85d584964d13b8dc05e80f411591d36cb8583691"
+    },
+    {
+      "path": "savia/docs/bugs/evidence/BUG-011-015-red.txt",
+      "change": "A",
+      "git_blob": "f8f5a6c6d5dd849fca8d6cd98ff741aadbd3f2c4"
+    },
+    {
+      "path": "savia/docs/evidence/cp1-proc-audit/worker-b.md",
+      "change": "A",
+      "git_blob": "09fc849936492200a80dff7307f86eecb10b5d59"
+    },
+    {
+      "path": "savia/src/Savia.Domain/Errors.cs",
+      "change": "M",
+      "git_blob": "771ea84906333e14b31dce39e0e0d72a1efc2b4a"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

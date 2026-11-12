@@ -30,7 +30,7 @@ Cada fila de esta tabla es una prueba que puede fallar. Sin prueba ejecutada no 
 | CP | Entrega | Estado | Evidencia |
 | --- | --- | --- | --- |
 | CP0 | SQL real en SQL Server 2022, línea base corregida | hecho | [cp0-sql-install](evidence/cp0-sql-install/README.md) |
-| CP1 | Arnés de pruebas de base y auditoría de los 41 procedimientos | en curso | `python savia/tools/db/saviadb.py test` |
+| CP1 | Arnés de pruebas de base y auditoría de los 44 procedimientos | hecho: 113 pruebas, los 44 tienen prueba; revisión escrita de anticipos y web pendiente | `python savia/tools/db/saviadb.py test` |
 | CP2 | ADR-001 y crítica independiente previa al código de sync | revisión 2 con la crítica incorporada; F14 abierto | [ADR-001](adr/ADR-001-arquitectura.md), [crítica](adr/ADR-001-critica.md) |
 | CP3 | Slice vertical de la API con pruebas contra SQL real | hecho (un nodo) | [cp3-vertical-slice](evidence/cp3-vertical-slice/README.md) |
 | CP4 | Sync 1 nube + 3 sucursales, oráculo y simulador | pendiente | — |
@@ -67,3 +67,4 @@ CRM sobre `crm.Customers`, tiempo real sobre el outbox, sitio sobre `webstore` y
 | 2026-11-12 | CP1-A: 41 pruebas de catálogo, recepción, etiquetas e inventario; crítica de ADR-001 (Opus) | `28c6305` |
 | 2026-11-12 | BUG-003 a BUG-009 (CP1-A): 7 rojas sin V005, 46 verdes con V005 ([detalle](bugs/BUG-003-009-cp1a.md)) | `ec87e47` |
 | 2026-11-12 | ADR-001 revisión 2 con los 15 hallazgos de la crítica; BUG-010 devolución entre sucursales: rojo sin V006, verde con V006 ([detalle](bugs/BUG-010-devolucion-otra-sucursal.md)) | ver `git log savia/` |
+| 2026-11-12 | CP1-B y CP1-C: 66 pruebas de caja, ventas, contabilidad, anticipos, web y outbox; BUG-011 a BUG-015: 5 rojas sin V007, 113 verdes con V007 ([detalle](bugs/BUG-011-015-cp1b.md)) | ver `git log savia/` |
