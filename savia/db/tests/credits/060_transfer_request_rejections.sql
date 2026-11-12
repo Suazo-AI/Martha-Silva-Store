@@ -1,4 +1,4 @@
--- TEST: a request is written by the destination node: same branch, non-positive amount, blank reason, reused id with other content, inactive credit or no balance at origin, foreign node and requester without access to the destination are rejected with their exact error; a retry creates one row.
+-- TEST: a request is written by the origin or destination node (V010): same branch, non-positive amount, blank reason, reused id with other content, inactive credit or no balance at origin, foreign node and requester without access to the destination are rejected with their exact error; a retry creates one row.
 -- FIXED (V009): rewritten for the transition procedures; the legacy procedure now throws 51719.
 SET NOCOUNT ON; SET XACT_ABORT ON;
 DECLARE @flag bigint,@n bigint;
@@ -29,9 +29,9 @@ END TRY
 BEGIN CATCH IF ERROR_NUMBER()<>51720 THROW; END CATCH;
 BEGIN TRY
   EXEC credits.usp_TransferRequest @TransferId=@t1,@CreditId=@credit,@FromBranchId=@branchA,@ToBranchId=@branchB,@AmountMinor=50000,@RequestedBy=@cashierB,@Reason=N'Canje en B',@NodeId=@nodeA;
-  THROW 59002,'ASSERT FAIL: request from the origin node accepted',1;
+  THROW 59002,'ASSERT FAIL: destination staff on the origin node accepted',1;
 END TRY
-BEGIN CATCH IF ERROR_NUMBER()<>51723 THROW; END CATCH;
+BEGIN CATCH IF ERROR_NUMBER()<>51724 THROW; END CATCH;  -- CHANGED (V010): either branch may request; cashier B has no access to A.
 BEGIN TRY
   EXEC credits.usp_TransferRequest @TransferId=@t1,@CreditId=@credit,@FromBranchId=@branchA,@ToBranchId=@branchB,@AmountMinor=50000,@RequestedBy=@cashierB,@Reason=N'Canje en B',@NodeId=@nodeCloud;
   THROW 59002,'ASSERT FAIL: request from the cloud accepted',1;

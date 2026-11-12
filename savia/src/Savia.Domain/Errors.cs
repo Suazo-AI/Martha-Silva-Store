@@ -81,6 +81,7 @@ public static class DbErrors
         [51730] = ("credit.transfer_not_dispatched", ErrorKind.Conflict),
         [51731] = ("credit.transfer_already_dispatched", ErrorKind.Conflict),
         [51732] = ("credit.allocation_inactive", ErrorKind.Conflict),
+        [51733] = ("credit.search_too_short", ErrorKind.Validation),
         // V008: sync foundation.
         [51806] = ("sync.local_node_taken", ErrorKind.Conflict),
         [51807] = ("sync.node_unknown", ErrorKind.NotFound),

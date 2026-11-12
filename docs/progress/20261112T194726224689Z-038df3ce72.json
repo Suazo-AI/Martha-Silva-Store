@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-12T19:47:26.224689+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/db/migrations/V010__credit_transfer_decisions.sql",
+      "change": "A",
+      "git_blob": "d4221120437161dde767f05111cd24b7efa73432"
+    },
+    {
+      "path": "savia/db/tests/credits/060_transfer_request_rejections.sql",
+      "change": "M",
+      "git_blob": "6d3ff0f24ae9068dafc23b49c9e4eb3a57dbf393"
+    },
+    {
+      "path": "savia/db/tests/credits/150_dispatch_wins_over_cancel.sql",
+      "change": "A",
+      "git_blob": "4ab75468858d818f35b72c71bcf9192b20017c56"
+    },
+    {
+      "path": "savia/db/tests/credits/160_request_from_either_branch.sql",
+      "change": "A",
+      "git_blob": "90ef9cb1482183861cb18b5e7e78126256119e68"
+    },
+    {
+      "path": "savia/db/tests/credits/170_find_customer_credits.sql",
+      "change": "A",
+      "git_blob": "62c270cda94154569dfe63e10e54816664c88a9e"
+    },
+    {
+      "path": "savia/docs/evidence/cp4-f2-credit-transfer/README.md",
+      "change": "M",
+      "git_blob": "45d28ceba0af485323aba267ee60a7cc493ba17b"
+    },
+    {
+      "path": "savia/docs/evidence/cp4-f2-credit-transfer/v010-green.txt",
+      "change": "A",
+      "git_blob": "995509f78b6affdb0aab59a4b1609027a2b8f249"
+    },
+    {
+      "path": "savia/docs/evidence/cp4-f2-credit-transfer/v010-red.txt",
+      "change": "A",
+      "git_blob": "e35efcd60d7454d1e71ae7ed9d6866dd51ecd731"
+    },
+    {
+      "path": "savia/src/Savia.Domain/Errors.cs",
+      "change": "M",
+      "git_blob": "8628f74c3329b68a3ebceb4e48b79396ff8b0e84"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

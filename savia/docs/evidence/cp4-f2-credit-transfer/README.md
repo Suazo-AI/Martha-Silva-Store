@@ -72,3 +72,18 @@ Aplicado sobre `db0bb31`, que ya trae V008. Corrido por el orquestador, no por e
 - La prueba de restauración de V008 sigue pasando con V009.
 - Revisión de V009: los `UPDATE` tocan solo la fila de la sucursal que actúa. `credits.Credits.Status` sigue con varios escritores (ver Límites).
 - Pendiente: `@NodeId` todavía llega por parámetro; falta validarlo contra `sync.LocalNode` (V008).
+
+## Decisiones de Jason (2026-11-12) y V010
+
+1. **Gana el despacho.** Si la nube cancela y la sucursal A, sin internet, ya despachó, el dinero sigue a B.
+   `credits.vw_TransferStatus` muestra `in_transit` o `received` y `CancelOverridden=1`. `usp_TransferReceive` nunca miró cancelaciones.
+   Prueba `credits/150`: copia las filas del despacho como lo haría el sincronizador, B recibe 50000 y el oráculo queda limpio.
+2. **La clienta puede pedir en cualquiera de las dos sucursales.** El cajero o gerente de origen o destino crea la solicitud en su propio nodo.
+   Una tercera sucursal o la nube dan 51723; un usuario sin acceso a la sucursal del nodo da 51724. Pruebas `credits/060` (ajustada) y `credits/160`.
+3. **Búsqueda fácil.** `credits.usp_FindCustomerCredits @Query,@ActorId` busca por nombre, teléfono en cualquier formato, correo o código.
+   Devuelve una fila por saldo de sucursal. Menos de 2 caracteres da 51733; `%` y `_` son literales. Prueba `credits/170`.
+
+Rojo sin V010: 4 de 17 fallan ([v010-red.txt](v010-red.txt)). En `credits/150` el rojo es la vista que faltaba; la recepción ya funcionaba.
+Verde con V010: `check.py` da `RESULT PASS`, 123 T-SQL y 13 .NET ([v010-green.txt](v010-green.txt)).
+
+Límites: una sucursal solo encuentra anticipos que ya llegaron por sync. No hay pantalla ni endpoint todavía. La búsqueda no usa índice de texto; sirve para miles de clientes, no millones.

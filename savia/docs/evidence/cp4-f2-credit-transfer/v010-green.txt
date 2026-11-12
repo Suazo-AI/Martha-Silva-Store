@@ -1,0 +1,13 @@
+PASS  baseline is generated from the handoff  (0s)
+      OK: V001__baseline.sql matches the generator output.
+PASS  no DELETE or TRUNCATE on synced tables  (0s)
+      6 synced tables, 0 physical deletes
+PASS  database container  (0s)
+      16.0.4305.5 Developer Edition (64-bit)
+PASS  T-SQL tests  (103s)
+      SUMMARY PASS=123  logs: .out\dbtests
+PASS  .NET build  (11s)
+      Time Elapsed 00:00:10.42
+PASS  .NET tests on real SQL  (34s)
+      Passed!  - Failed:     0, Passed:    13, Skipped:     0, Total:    13, Duration: 31 s - Savia.Tests.dll (net10.0)
+RESULT PASS

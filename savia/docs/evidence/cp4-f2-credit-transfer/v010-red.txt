@@ -1,0 +1,18 @@
+PASS    credits/010_issue_from_return_normal_retry_conservation.sql
+PASS    credits/020_issue_from_return_rejects_ineligible.sql
+PASS    credits/030_redeem_normal_retry_conservation.sql
+PASS    credits/040_redeem_rejections.sql
+PASS    credits/050_redeem_cannot_touch_held.sql
+FAIL    credits/060_transfer_request_rejections.sql  -- Msg 51723, Level 16, State 1, Server 23b66448cd53, Procedure credits.usp_TransferRequest, Line 25
+PASS    credits/070_transfer_approve_rejections.sql
+PASS    credits/080_transfer_order_strict.sql
+PASS    credits/090_transfer_lock_normal_and_retries.sql
+PASS    credits/100_commit_proof_and_azure_rules.sql
+PASS    credits/110_full_transfer_flow_conservation.sql
+PASS    credits/120_held_in_transit_not_redeemable.sql
+PASS    credits/130_cancel_transfer.sql
+PASS    credits/140_transfer_one_writer_per_row.sql
+FAIL    credits/150_dispatch_wins_over_cancel.sql  -- Msg 208, Level 16, State 1, Server 23b66448cd53, Line 23
+FAIL    credits/160_request_from_either_branch.sql  -- Msg 51723, Level 16, State 1, Server 23b66448cd53, Procedure credits.usp_TransferRequest, Line 25
+FAIL    credits/170_find_customer_credits.sql  -- Msg 2812, Level 16, State 62, Server 23b66448cd53, Line 15
+SUMMARY FAIL=4 PASS=13  logs: .out\dbtests
