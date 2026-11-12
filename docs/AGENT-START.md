@@ -67,6 +67,8 @@ N5 ya fue corregido; consultar su [aceptación y límites](n5-browser-20261105/R
 
 ## Ciclo de trabajo
 
+Guía de mantenimiento y diagnóstico offline: [MAINTENANCE](MAINTENANCE.md).
+
 - Fijar candidato, resultado observable, límites y comprobación antes de cambiar código.
 - Reproducir el fallo; cambiar lo mínimo; verificar fallo corregido y comportamiento afectado.
 - Actualizar el documento del área y PROJECT-STATUS con comando, resultado y límites.
