@@ -1,0 +1,180 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-12T07:59:03.973249+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/.gitattributes",
+      "change": "A",
+      "git_blob": "d5a1ef76e6b4e81d089a3bce3a5aca63b440744b"
+    },
+    {
+      "path": "savia/.gitignore",
+      "change": "A",
+      "git_blob": "7da3818a1ea2ec85c523184ff74865fde847c133"
+    },
+    {
+      "path": "savia/README.md",
+      "change": "A",
+      "git_blob": "06eaf4fe81abb01a503e43c1adf8d829631c12bd"
+    },
+    {
+      "path": "savia/db/handoff-20261112/EVIDENCE.md",
+      "change": "A",
+      "git_blob": "b9bee6bc04f61a2602c950ef60cd6bddc4681d70"
+    },
+    {
+      "path": "savia/db/handoff-20261112/HANDOFF_FABLE.md",
+      "change": "A",
+      "git_blob": "52969f834bcdbc679145dae62cc3f09d2621782c"
+    },
+    {
+      "path": "savia/db/handoff-20261112/SAVIA_DB_AzureSQL_Instalar_En_BD_Existente.sql",
+      "change": "A",
+      "git_blob": "fa1f7b1b436c958cbd3c21b7e1a0a633c969609f"
+    },
+    {
+      "path": "savia/db/handoff-20261112/SAVIA_DB_GUIA_INSTALACION.md",
+      "change": "A",
+      "git_blob": "d071d74737a721c1f353b9f96c168739416fd7bc"
+    },
+    {
+      "path": "savia/db/handoff-20261112/SAVIA_DB_Prueba_Smoke_Rollback.sql",
+      "change": "A",
+      "git_blob": "6880b33376d6b3599a14778c06e35d545b62ed50"
+    },
+    {
+      "path": "savia/db/handoff-20261112/SAVIA_DB_SQLServer2022_COMPLETA.sql",
+      "change": "A",
+      "git_blob": "a740b60dd8082bebf16c6ff03887ff1e42521811"
+    },
+    {
+      "path": "savia/db/handoff-20261112/SAVIA_DB_Verificar_Instalacion.sql",
+      "change": "A",
+      "git_blob": "1b447258fa24b8f154e8a0d1109fe44d1a6db085"
+    },
+    {
+      "path": "savia/db/handoff-20261112/Texto pegado.txt",
+      "change": "A",
+      "git_blob": "e689b7ea5c371a3bfcef1fd00b2530863c498158"
+    },
+    {
+      "path": "savia/db/handoff-20261112/infra-original/NOTA.md",
+      "change": "A",
+      "git_blob": "61e51c874ce97a68430ec88170b58e5a3503a74f"
+    },
+    {
+      "path": "savia/db/handoff-20261112/infra-original/README_DEV_DOCKER.md",
+      "change": "A",
+      "git_blob": "6d1c6079789b8ba7a728b48c6b8cebf22618ca37"
+    },
+    {
+      "path": "savia/db/handoff-20261112/infra-original/docker-compose.dev.yml",
+      "change": "A",
+      "git_blob": "df9fb0e4f1aa88ea50e84f6db4284fd3f6715923"
+    },
+    {
+      "path": "savia/db/handoff-20261112/infra-original/dot-env.example",
+      "change": "A",
+      "git_blob": "830c3aea8e69e574c31a2b95884863f6c70308bf"
+    },
+    {
+      "path": "savia/db/migrations/V001__baseline.sql",
+      "change": "A",
+      "git_blob": "d005d52b00c469856cd1053174a4b4099bf23c12"
+    },
+    {
+      "path": "savia/db/tests/README.md",
+      "change": "A",
+      "git_blob": "47bd8c508257bab316cfe85bd77dbfd39c9e8fcf"
+    },
+    {
+      "path": "savia/db/tests/_fixture.sql",
+      "change": "A",
+      "git_blob": "12186dded3a07846717578d039a85947e4267a88"
+    },
+    {
+      "path": "savia/db/tests/receiving/010_hundred_scans_one_line.sql",
+      "change": "A",
+      "git_blob": "fa34de01df4148a4e248c85dab4e25e17b71793e"
+    },
+    {
+      "path": "savia/db/tests/sales/010_cash_sale_idempotent_and_till_close.sql",
+      "change": "A",
+      "git_blob": "66e089d8006c2ff4c37f5110a6eab95211437759"
+    },
+    {
+      "path": "savia/docs/PLAN.md",
+      "change": "A",
+      "git_blob": "457b927a4fd3789b33d4c55ef35703efddc92f7f"
+    },
+    {
+      "path": "savia/docs/adr/ADR-001-arquitectura.md",
+      "change": "A",
+      "git_blob": "d84e3f3e9a6d301214e1b2eee8edf8c6abe0061f"
+    },
+    {
+      "path": "savia/docs/evidence/cp0-sql-install/README.md",
+      "change": "A",
+      "git_blob": "bc3487e92960765ee8454770b23721bbe8d343a6"
+    },
+    {
+      "path": "savia/docs/evidence/cp0-sql-install/run-A-sqlcmd-default.txt",
+      "change": "A",
+      "git_blob": "c430e9f0867e2ecccc5bb7e7b1e9d9a35681c380"
+    },
+    {
+      "path": "savia/docs/evidence/cp0-sql-install/run-B-sqlcmd-quoted-identifier-on.txt",
+      "change": "A",
+      "git_blob": "a54261654126c5049d60afc56e78738636d32f09"
+    },
+    {
+      "path": "savia/docs/evidence/cp0-sql-install/run-C-baseline-install.txt",
+      "change": "A",
+      "git_blob": "e25523354baabb8974431d648367aabebf624688"
+    },
+    {
+      "path": "savia/docs/evidence/cp0-sql-install/run-C-smoke-quoted-identifier-on.txt",
+      "change": "A",
+      "git_blob": "96f08e1b1b75450d1f1863de42e1cd5d1cf40d2a"
+    },
+    {
+      "path": "savia/docs/evidence/cp0-sql-install/run-C-smoke.txt",
+      "change": "A",
+      "git_blob": "9c625defb5f553c8ecc35c5006fe838ec054232b"
+    },
+    {
+      "path": "savia/docs/evidence/cp0-sql-install/run-C-verify.txt",
+      "change": "A",
+      "git_blob": "d5a19d51faf413001b654fa107c6f036334569ee"
+    },
+    {
+      "path": "savia/docs/evidence/cp0-sql-install/schema-columns.txt",
+      "change": "A",
+      "git_blob": "6a42effd4d742cbfd2676f0565cc732501b2d4b8"
+    },
+    {
+      "path": "savia/infra/docker-compose.dev.yml",
+      "change": "A",
+      "git_blob": "256ab573c9f9d05e818488cb60e7748f54da8678"
+    },
+    {
+      "path": "savia/infra/env.example",
+      "change": "A",
+      "git_blob": "e68329910b131c345094f4767f034164ab154af5"
+    },
+    {
+      "path": "savia/tools/db/build_baseline.py",
+      "change": "A",
+      "git_blob": "ccae6d5c1f05bb415837d9d31743daf8de00698a"
+    },
+    {
+      "path": "savia/tools/db/saviadb.py",
+      "change": "A",
+      "git_blob": "5bb376510cdfac58c81ab67f5a1aa0b7a942cea4"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

@@ -1,0 +1,17 @@
+# Solo desarrollo. No usar SQL Server Developer ni 'sa' como configuración productiva.
+services:
+  savia-sqlserver-dev:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: savia-sqlserver-dev
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Developer"
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD:?Definir MSSQL_SA_PASSWORD en el entorno}
+    ports:
+      - "127.0.0.1:1433:1433"
+    volumes:
+      - savia_sql_data:/var/opt/mssql
+    restart: unless-stopped
+
+volumes:
+  savia_sql_data:

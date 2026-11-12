@@ -1,0 +1,5 @@
+Schemas     Tables      ForeignKeys CheckConstraints AdditionalIndexes StoredProcedures Views       TableTypes  AppRoles   
+----------- ----------- ----------- ---------------- ----------------- ---------------- ----------- ----------- -----------
+         15          77         153              151                68               41           5           4           9
+Msg 53000, Level 16, State 1, Server 23b66448cd53, Line 36
+SAVIA: objetos faltantes o recuento distinto al baseline; revisar mensajes anteriores.

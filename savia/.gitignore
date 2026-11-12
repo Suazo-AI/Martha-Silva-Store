@@ -1,0 +1,8 @@
+# Build and test output of the SAVIA v2 tree.
+bin/
+obj/
+.out/
+TestResults/
+*.trx
+# Local development secret (also ignored by the root .gitignore).
+infra/.env
