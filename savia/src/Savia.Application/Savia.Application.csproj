@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="../Savia.Domain/Savia.Domain.csproj" />
+    <ProjectReference Include="../Savia.Contracts/Savia.Contracts.csproj" />
+  </ItemGroup>
+</Project>

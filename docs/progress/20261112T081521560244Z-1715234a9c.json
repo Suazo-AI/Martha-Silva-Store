@@ -1,0 +1,200 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-12T08:15:21.560244+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/.gitattributes",
+      "change": "M",
+      "git_blob": "3458c67dc7dac19c9bfdd40fd0b62120fb47bb9e"
+    },
+    {
+      "path": "savia/Directory.Build.props",
+      "change": "A",
+      "git_blob": "279a7b1290179b3c9aecef1f493510fab3663b0f"
+    },
+    {
+      "path": "savia/README.md",
+      "change": "M",
+      "git_blob": "8198524d02b9dea6d8b651c53da61401084880ce"
+    },
+    {
+      "path": "savia/Savia.slnx",
+      "change": "A",
+      "git_blob": "ae5a3c7362f7c8b80787c336d840928b46231ae5"
+    },
+    {
+      "path": "savia/db/migrations/V002__api_support.sql",
+      "change": "A",
+      "git_blob": "5532ff9cf89eba97f26ffb8789494c937f29ffb6"
+    },
+    {
+      "path": "savia/db/tests/_fixture.sql",
+      "change": "M",
+      "git_blob": "e53ea3ec59d4399e32837c799b4f8512b69fdd0a"
+    },
+    {
+      "path": "savia/db/tests/receiving/020_open_scan_session.sql",
+      "change": "A",
+      "git_blob": "3103e7b18eb50fcb0b9dfacda2c7842765dc3c46"
+    },
+    {
+      "path": "savia/db/tests/sales/020_record_cash_count.sql",
+      "change": "A",
+      "git_blob": "a4e5f2947faf634290fbd508e8bdf9b60f6b0fc0"
+    },
+    {
+      "path": "savia/docs/PLAN.md",
+      "change": "M",
+      "git_blob": "2ca3c33b47907083850cb475ac027a1f3a6f2596"
+    },
+    {
+      "path": "savia/docs/evidence/cp3-vertical-slice/README.md",
+      "change": "A",
+      "git_blob": "a0a46ea64ae5be675e3b5275f51b2a1292721d13"
+    },
+    {
+      "path": "savia/src/Savia.Api/Endpoints.cs",
+      "change": "A",
+      "git_blob": "913386d3e1684e920c788accb4701333803d1499"
+    },
+    {
+      "path": "savia/src/Savia.Api/Program.cs",
+      "change": "A",
+      "git_blob": "2b39d3d416fefc67637a8f4e1a323c95ecc0a8ac"
+    },
+    {
+      "path": "savia/src/Savia.Api/Savia.Api.csproj",
+      "change": "A",
+      "git_blob": "04f353db390aeeb74bfdd483e5dfbc05175b0ac0"
+    },
+    {
+      "path": "savia/src/Savia.Api/packages.lock.json",
+      "change": "A",
+      "git_blob": "5474bc060509b9ddcbc24bea5cb66c3290759788"
+    },
+    {
+      "path": "savia/src/Savia.Application/Auth.cs",
+      "change": "A",
+      "git_blob": "9a28a0e5c99b7e91ef259a3b3ce579248b74b4b3"
+    },
+    {
+      "path": "savia/src/Savia.Application/Core.cs",
+      "change": "A",
+      "git_blob": "c8c87ca8d46e1419f347da1b06a99f1e62b67107"
+    },
+    {
+      "path": "savia/src/Savia.Application/Modules.cs",
+      "change": "A",
+      "git_blob": "38c284a60f0be7c3368fada7670226334671725a"
+    },
+    {
+      "path": "savia/src/Savia.Application/Savia.Application.csproj",
+      "change": "A",
+      "git_blob": "4676c811d2da3de6e8496b23db05d1faee35ae63"
+    },
+    {
+      "path": "savia/src/Savia.Application/packages.lock.json",
+      "change": "A",
+      "git_blob": "86cdd72abdbadf7356c023006c75545401f8c456"
+    },
+    {
+      "path": "savia/src/Savia.Contracts/Contracts.cs",
+      "change": "A",
+      "git_blob": "6042b15f25cce4b27b8ac8a1ee4625ee02118e23"
+    },
+    {
+      "path": "savia/src/Savia.Contracts/Savia.Contracts.csproj",
+      "change": "A",
+      "git_blob": "35e3d8428b7cfcc172d63391c605ca228f0e4703"
+    },
+    {
+      "path": "savia/src/Savia.Contracts/packages.lock.json",
+      "change": "A",
+      "git_blob": "4a91a8cd78fbfd79345585bb9bdbb8099ec40383"
+    },
+    {
+      "path": "savia/src/Savia.Domain/Errors.cs",
+      "change": "A",
+      "git_blob": "e55600efd98c503b6578c08a4378cc597440b035"
+    },
+    {
+      "path": "savia/src/Savia.Domain/Node.cs",
+      "change": "A",
+      "git_blob": "761ba5f17a305607048e14e7ca4c47a5f1c521e5"
+    },
+    {
+      "path": "savia/src/Savia.Domain/Savia.Domain.csproj",
+      "change": "A",
+      "git_blob": "35e3d8428b7cfcc172d63391c605ca228f0e4703"
+    },
+    {
+      "path": "savia/src/Savia.Domain/packages.lock.json",
+      "change": "A",
+      "git_blob": "4a91a8cd78fbfd79345585bb9bdbb8099ec40383"
+    },
+    {
+      "path": "savia/src/Savia.Infrastructure/Auth.cs",
+      "change": "A",
+      "git_blob": "a783eb85a9869c7c4e790b727651e51016f4b491"
+    },
+    {
+      "path": "savia/src/Savia.Infrastructure/Savia.Infrastructure.csproj",
+      "change": "A",
+      "git_blob": "fe7e88a6bb66d83ddc5e8890afd3f7fc97958390"
+    },
+    {
+      "path": "savia/src/Savia.Infrastructure/ServiceRegistration.cs",
+      "change": "A",
+      "git_blob": "1573738bdfdebc5ac90a0377fc545ce792a7dc73"
+    },
+    {
+      "path": "savia/src/Savia.Infrastructure/SqlGateway.cs",
+      "change": "A",
+      "git_blob": "ad449e4d84134ac92415150fb0cab07f8a18b1f1"
+    },
+    {
+      "path": "savia/src/Savia.Infrastructure/Stores.cs",
+      "change": "A",
+      "git_blob": "9509749d75fcaa5ddf01ac6a113b10c635180385"
+    },
+    {
+      "path": "savia/src/Savia.Infrastructure/packages.lock.json",
+      "change": "A",
+      "git_blob": "f8be1561f2266a150824bd3f88224d1854b56bc4"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/ArchitectureTests.cs",
+      "change": "A",
+      "git_blob": "bba83e6709defe627a8bfcdb76222158d8723b68"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/Savia.Tests.csproj",
+      "change": "A",
+      "git_blob": "048589490560880f0cb3caea3a9d92cce60f2fae"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/TestSupport.cs",
+      "change": "A",
+      "git_blob": "35a76ae8d298b9513febc463ba1b204c6f9c9e82"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/VerticalSliceTests.cs",
+      "change": "A",
+      "git_blob": "77d740479985acfb5d840022ea72716b11b156ea"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/packages.lock.json",
+      "change": "A",
+      "git_blob": "37057832f8e98c8129db5663e510bf9962cb56f0"
+    },
+    {
+      "path": "savia/tools/check.py",
+      "change": "A",
+      "git_blob": "d93464c6a804028b7a07a747d1acca56c62f3217"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

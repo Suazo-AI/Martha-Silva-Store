@@ -127,3 +127,9 @@ AS BEGIN
        @CurrencyCode='NIO',@ReceiptId=@receipt OUTPUT;
 END;
 GO
+/* Roles by code (ids are fixed since V002): cashiers sell, supervisors manage their branch, the manager owns. */
+INSERT INTO security.StaffRoles(StaffId,RoleId,AssignedAt)
+SELECT i.Id,r.Id,SYSUTCDATETIME() FROM test.Ids i JOIN security.Roles r ON r.Code=
+  CASE WHEN i.Name LIKE 'cashier%' THEN 'CASHIER' WHEN i.Name LIKE 'supervisor%' THEN 'MANAGER' ELSE 'OWNER' END
+WHERE i.Name LIKE 'cashier%' OR i.Name LIKE 'supervisor%' OR i.Name='manager';
+GO

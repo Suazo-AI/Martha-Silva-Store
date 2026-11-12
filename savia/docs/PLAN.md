@@ -14,12 +14,12 @@ Cada fila de esta tabla es una prueba que puede fallar. Sin prueba ejecutada no 
 | --- | --- | --- | --- | --- |
 | A-01 | El SQL instala desde cero sin errores | Un procedimiento no compila | `saviadb.py` + CP0 | verificado en una base |
 | A-02 | 100 lecturas del mismo código suman 100 en una línea | 100 SKU, o stock antes de aprobar | `db/tests/receiving/010` | verificado en una base |
-| A-03 | La caja vende con la nube apagada y deja registro para sincronizar | Espera a la nube o no deja registro | Integración .NET | pendiente |
+| A-03 | La caja vende con la nube apagada y deja registro para sincronizar | Espera a la nube o no deja registro | `VerticalSliceTests` | verificado en una base |
 | A-04 | Reintentar una sincronización no repite efectos | Doble stock o doble venta | Simulador con semillas | pendiente |
 | A-05 | Un anticipo transferido no se gasta en origen y destino | Doble canje | Simulador con semillas | pendiente |
 | A-06 | Arqueo y documento contable se registran una sola vez | Ingreso duplicado o segunda factura | `db/tests/sales/010` | verificado en una base |
 | A-07 | La etiqueta lleva el código original y la tienda; un trabajo no se pierde en silencio | Código alterado o trabajo descartado | `db/tests/receiving/010` (cola); impresora real | cola verificada; impresora NO probada |
-| A-08 | Una cajera de A no cambia datos de B | Acceso entre sucursales | Integración .NET | pendiente |
+| A-08 | Una cajera de A no cambia datos de B | Acceso entre sucursales | `VerticalSliceTests` | verificado en el host de sucursal; falta la nube |
 | A-09 | Restaurar un respaldo viejo no revive derechos gastados | Saldo viejo canjeado otra vez | Simulador con semillas | pendiente |
 | A-10 | Rendimiento medido con 50 000 productos y 250 000 variantes | Solo afirmaciones teóricas | Prueba de carga | pendiente |
 
@@ -32,7 +32,7 @@ Cada fila de esta tabla es una prueba que puede fallar. Sin prueba ejecutada no 
 | CP0 | SQL real en SQL Server 2022, línea base corregida | hecho | [cp0-sql-install](evidence/cp0-sql-install/README.md) |
 | CP1 | Arnés de pruebas de base y auditoría de los 41 procedimientos | en curso | `python savia/tools/db/saviadb.py test` |
 | CP2 | ADR-001 y crítica independiente previa al código de sync | en curso | [ADR-001](adr/ADR-001-arquitectura.md) |
-| CP3 | Slice vertical de la API con pruebas contra SQL real | pendiente | — |
+| CP3 | Slice vertical de la API con pruebas contra SQL real | hecho (un nodo) | [cp3-vertical-slice](evidence/cp3-vertical-slice/README.md) |
 | CP4 | Sync 1 nube + 3 sucursales, oráculo y simulador | pendiente | — |
 | CP5 | Clientes sobre el contrato generado | pendiente | — |
 | CP6 | Carga, respaldos, permisos y preparación de Azure sin desplegar | pendiente | — |
@@ -60,4 +60,5 @@ CRM sobre `crm.Customers`, tiempo real sobre el outbox, sitio sobre `webstore` y
 
 | Fecha | Hecho | Commit |
 | --- | --- | --- |
-| 2026-11-12 | CP0: el instalador falla tal como viene (23 errores); línea base V001 con 7 correcciones; smoke original pasa | ver `git log savia/` |
+| 2026-11-12 | CP0: el instalador falla tal como viene (23 errores); línea base V001 con 7 correcciones; smoke original pasa | `915044e` |
+| 2026-11-12 | CP3: API .NET 10 en capas; slice recepción → venta → arqueo; 8 pruebas contra SQL real | ver `git log savia/` |

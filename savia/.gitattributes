@@ -9,3 +9,5 @@ db/handoff-20261112/** -text
 *.cs text eol=lf
 *.csproj text eol=lf
 *.json text eol=lf
+*.props text eol=lf
+*.slnx text eol=lf
