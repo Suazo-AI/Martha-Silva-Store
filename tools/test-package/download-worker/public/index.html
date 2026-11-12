@@ -1,0 +1,12 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>SAVIA prueba</title>
+<style>body{font:16px system-ui,sans-serif;max-width:560px;margin:48px auto;padding:0 16px;color:#1d1d1f;background:#fff}button{font:inherit;padding:12px 20px;border:0;border-radius:8px;background:#1d1d1f;color:#fff;cursor:pointer}button:disabled{opacity:.5}#s{margin-top:16px;font-family:ui-monospace,monospace;font-size:14px}code{background:#f2f2f2;padding:1px 4px;border-radius:4px}</style></head>
+<body><h1>SAVIA · paquete de prueba</h1>
+<p>Commit <code>a8a4dc1</code> · Windows x64 · 55 MB. Las instrucciones vienen en <code>LEEME.md</code> dentro del zip.</p>
+<button id="b">Descargar</button><div id="s"></div>
+<script>
+const SHA='e56fc8568a0cb952382346a43d2688120ae631832b86c35114dc1dcc38d6ae86',s=document.getElementById('s'),b=document.getElementById('b');
+b.onclick=async()=>{b.disabled=true;try{const parts=[];for(let i=0;i<3;i++){s.textContent='Bajando parte '+(i+1)+' de 3…';const r=await fetch('part'+i+'.bin',{cache:'no-store'});if(!r.ok)throw Error('parte '+i+': HTTP '+r.status);parts.push(await r.arrayBuffer())}
+s.textContent='Verificando…';const blob=new Blob(parts,{type:'application/zip'});const h=[...new Uint8Array(await crypto.subtle.digest('SHA-256',await blob.arrayBuffer()))].map(x=>x.toString(16).padStart(2,'0')).join('');
+if(h!==SHA)throw Error('el archivo llegó dañado, intentá de nuevo');const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='SAVIA-a8a4dc1.zip';a.click();s.textContent='Listo. SHA-256 verificado.'}catch(e){s.textContent='Error: '+e.message;b.disabled=false}};
+</script></body></html>
