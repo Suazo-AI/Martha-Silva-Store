@@ -75,6 +75,22 @@ Los paquetes de riesgo alto pasan primero por el crítico, antes de escribir có
 - E1: `python tools/doctor.py` corre todas las comprobaciones locales y dice qué falla y qué archivo leer.
 - E2: un agente nuevo con solo `AGENT-START.md` y `MAINTENANCE.md` reproduce y corrige un bug sembrado.
 
+## Enmienda tras la crítica previa (2026-11-11)
+
+El crítico (`gpt-6-astra` xhigh, base `391041e`) halló 10 riesgos P1 y 2 P2: [critic-pre-impl.md](critic-pre-impl.md).
+El primary verificó dos citas en fuente: `InternalCommandRunner.cs:119` (savepoint) y `InternalDirectoryModels.cs:113` (email no es identidad).
+Se adopta la tabla "Proposed edits to the frozen checks" del informe. Reemplaza S1–S3, B1–B4, C1–C4 y D1–D5 de arriba.
+Se agregan S4, S5, D6 y la puerta de integración serial.
+
+Valores por defecto del arquitecto para S4 y C2, reversibles hasta que Martha decida:
+- El email se normaliza (recorte, NFC, minúsculas invariantes). No es único para clientas creadas por personal: hogares comparten email.
+- Si la cajera registra un email que ya existe, ve las coincidencias mínimas y elige una o crea otra de forma explícita. Nunca hay fusión automática.
+- Una cuenta del sitio es única por email normalizado y se enlaza a una clienta. La respuesta pública es siempre genérica.
+- La búsqueda de la cajera es global (todas las sucursales), con DTO mínimo, consulta exacta o prefijo acotado y límite de tasa.
+- Duplicados históricos: se dejan intactos y se listan para revisión del Owner.
+
+Orden revisado: WP-S incluye S5 (contratos congelados de B, C y D). Luego B y C en paralelo; D después de C, porque comparte identidad.
+
 ## Roles
 
 Ejecutor: `codex` `gpt-6.1-sol` high. Crítico y juez: `codex` `gpt-6-astra` xhigh (política vigente 2026-11-07).
@@ -85,6 +101,6 @@ Máximo dos tareas Codex en paralelo. Cada ejecutor en worktree propio. El prima
 | ID | Estado | Evidencia |
 | --- | --- | --- |
 | WP-A | integrado en `Tony`; activo solo para PR | 11 pruebas locales OK; demo A6 PASS/FAIL ([evidencia](../bug-pipeline/EVIDENCE.md)). A1 y A5 necesitan los workflows en `main` (rama por defecto): decisión de Jason. actionlint, .NET real y runtime GitHub NOT RUN. |
-| Crítica previa S/B/C/D | en curso | — |
+| Crítica previa S/B/C/D | hecha; checks enmendados | [critic-pre-impl.md](critic-pre-impl.md) |
 | WP-S, B, C, D, E | pendiente | — |
 | Cotización hosting (J-3) | lista, sin contratar | [hosting-quotes-20261111](../hosting-quotes-20261111/README.md) |
