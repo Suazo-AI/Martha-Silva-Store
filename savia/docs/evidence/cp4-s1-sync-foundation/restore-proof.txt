@@ -1,0 +1,13 @@
+fork before backup                            C1245A07-0C1B-45EE-80CA-11A4A9EC0694
+fork before restore                           C1245A07-0C1B-45EE-80CA-11A4A9EC0694
+fork after restore                            4693C216-FEFC-495E-9E34-3E802DA166E1
+version at backup                             1
+version receiver has (cursor)                 3
+version right after restore                   1
+version after new till t3                     3
+t3 visible to a version-only cursor at v2     0
+ClassifyCursor with (fork, version)           recover
+PASS  fork changes on restore
+PASS  versions are reused after restore (E3)
+PASS  a version-only cursor misses the new till
+PASS  the (fork, version) cursor says recover

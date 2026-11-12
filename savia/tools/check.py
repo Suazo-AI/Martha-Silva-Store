@@ -48,6 +48,7 @@ def main():
     py = sys.executable
     ok = True
     ok &= run("baseline is generated from the handoff", [py, "tools/db/build_baseline.py", "--check"], "savia/tools/db/build_baseline.py")
+    ok &= run("no DELETE or TRUNCATE on synced tables", [py, "tools/db/no_physical_delete.py"], "savia/tools/db/no_physical_delete.py")
     ok &= run("database container", [py, "tools/db/saviadb.py", "status"], "savia/README.md (Empezar)")
     ok &= run("T-SQL tests", [py, "tools/db/saviadb.py", "test", "--jobs", "4"], "savia/db/tests/README.md and savia/.out/dbtests/")
     if quick:

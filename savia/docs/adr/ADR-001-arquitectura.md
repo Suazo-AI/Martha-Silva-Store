@@ -128,17 +128,17 @@ Descartado: PWA con Capacitor (T-4 anterior). El handoff pide escáner e impreso
 
 | Hallazgo | Severidad | Decisión | Estado |
 | --- | --- | --- | --- |
-| F1 restauración reutiliza versiones | P0 | Cursor `(fork, versión)` | adoptado; prueba en el simulador pendiente |
+| F1 restauración reutiliza versiones | P0 | Cursor `(fork, versión)` | V008; restauración real da `recover` ([evidencia](../evidence/cp4-s1-sync-foundation/README.md)); simulador pendiente |
 | F2 filas con varios escritores | P0 | Filas de transición; filtro por dueño | adoptado; rediseño de anticipos y web pendiente |
 | F3 devolución entre sucursales | P1 | Rechazar en el procedimiento | adoptado; ver [BUG-010](../bugs/BUG-010-devolucion-otra-sucursal.md) |
 | F4 aplicador no usa procedimientos | P1 | Aplicador SQL generado, solo copia | adoptado |
 | F5 instantánea apagada | P1 | Lectura en `SNAPSHOT` | resuelto por V004 |
-| F6 CT se reinicia | P1 | Reinicialización por tabla; sin `TRUNCATE` | adoptado |
+| F6 CT se reinicia | P1 | Reinicialización por tabla; sin `TRUNCATE` | V008 clasifica `reinit`; `check.py` rechaza `TRUNCATE`/`DELETE` en tablas con CT |
 | F7 retención | P1 | Retención mayor que el offline máximo, alerta | adoptado; valor exacto pendiente |
 | F8 atrasos grandes | P1 | Orden topológico, paginado, cursor al final | adoptado |
 | F9 contenedor bloqueado | P1 | Publicación parcial; grants por nodo | adoptado; código pendiente |
-| F10 tablas sin dueño o sin creador | P1 | Mapa normativo, `sync.LocalNode`, procedimientos de creación | adoptado; `CashCounts` y `ScanSessions` ya tienen procedimiento (V002) |
-| F11 borrados | P2 | Sin `DELETE` físico | adoptado |
+| F10 tablas sin dueño o sin creador | P1 | Mapa normativo, `sync.LocalNode`, procedimientos de creación | `CashCounts` y `ScanSessions` con procedimiento (V002); `sync.LocalNode` en V008 |
+| F11 borrados | P2 | Sin `DELETE` físico | escáner en `check.py` (solo migraciones) |
 | F12 Developer vs Express | P2 | CI con Express; esquema N-1 | suite completa pasa en Express local ([evidencia](../evidence/f12-express/README.md)); CI pendiente |
 | F13 oráculo | P2 | V003 y R1 | V003 hecho; R1 pendiente |
 | F14 CT en Express y Azure | P2 | Probar antes de aceptar D5 | Express probado ([evidencia](../evidence/f12-express/README.md)); Azure abierto, necesita autorización de Jason |

@@ -66,6 +66,10 @@ public static class DbErrors
         [51542] = ("cash.count_id_reused", ErrorKind.Conflict),
         [51543] = ("cash.till_not_open", ErrorKind.Conflict),
         [51607] = ("credit.insufficient", ErrorKind.Conflict),
+        [51806] = ("sync.local_node_taken", ErrorKind.Conflict),
+        [51807] = ("sync.node_unknown", ErrorKind.NotFound),
+        [51808] = ("sync.cursor_invalid", ErrorKind.Conflict),
+        [51809] = ("sync.table_not_tracked", ErrorKind.Validation),
     };
 
     /// <param name="number">SQL Server error number.</param>

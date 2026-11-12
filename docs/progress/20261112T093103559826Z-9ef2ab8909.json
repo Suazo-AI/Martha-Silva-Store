@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-12T09:31:03.559826+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/db/migrations/V008__sync_foundation.sql",
+      "change": "A",
+      "git_blob": "0d1497ce047ff254678c46f8c950eac3d71078d8"
+    },
+    {
+      "path": "savia/db/tests/sync/100_local_node_set_once.sql",
+      "change": "A",
+      "git_blob": "8b09d0fee4e415fb0eefbb579e7ba09ec54802c6"
+    },
+    {
+      "path": "savia/db/tests/sync/110_change_tracking_sees_a_sale.sql",
+      "change": "A",
+      "git_blob": "c750307e6a77269ad9074f88be3fd4d8e084e367"
+    },
+    {
+      "path": "savia/db/tests/sync/120_classify_cursor_rules.sql",
+      "change": "A",
+      "git_blob": "c32fe3d92a5474d892bcd5f47bd1453d75fcf9e4"
+    },
+    {
+      "path": "savia/db/tests/sync/130_advance_cursor_rules.sql",
+      "change": "A",
+      "git_blob": "9f42229dafebd40d84369c7ee8ce25c6e2e39480"
+    },
+    {
+      "path": "savia/db/tests/sync/140_source_state.sql",
+      "change": "A",
+      "git_blob": "eec36e93005274af2faaee801d88c24b15a5e6f1"
+    },
+    {
+      "path": "savia/docs/PLAN.md",
+      "change": "M",
+      "git_blob": "a271e922e538c51ba95e8104cac7261b27be93ad"
+    },
+    {
+      "path": "savia/docs/adr/ADR-001-arquitectura.md",
+      "change": "M",
+      "git_blob": "024b7bf079e79563670f12fc7ad688e58bd0820b"
+    },
+    {
+      "path": "savia/docs/evidence/cp4-s1-sync-foundation/README.md",
+      "change": "A",
+      "git_blob": "78a603efafd6d8c1a90f0d854e2cc7ff55bbcfe3"
+    },
+    {
+      "path": "savia/docs/evidence/cp4-s1-sync-foundation/restore-proof.txt",
+      "change": "A",
+      "git_blob": "7aa5cb3e4ac304aa3f7d0b128995ca080d3964b9"
+    },
+    {
+      "path": "savia/src/Savia.Domain/Errors.cs",
+      "change": "M",
+      "git_blob": "be88d215d7d7f24fec2f8c4f065c8d89d6a92b56"
+    },
+    {
+      "path": "savia/tools/check.py",
+      "change": "M",
+      "git_blob": "1659c3dd76597f77b77d45be08107b8e6cb123f3"
+    },
+    {
+      "path": "savia/tools/db/no_physical_delete.py",
+      "change": "A",
+      "git_blob": "b21f967992f07898d7711028bc7f3c05aed21d31"
+    },
+    {
+      "path": "savia/tools/db/restore_proof.py",
+      "change": "A",
+      "git_blob": "104a507cf8b948ea23cff061d0ee8f8d21d1609f"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

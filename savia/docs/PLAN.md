@@ -33,7 +33,7 @@ Cada fila de esta tabla es una prueba que puede fallar. Sin prueba ejecutada no 
 | CP1 | Arnés de pruebas de base y auditoría de los 44 procedimientos | hecho: 113 pruebas, los 44 tienen prueba; revisión escrita de anticipos y web pendiente | `python savia/tools/db/saviadb.py test` |
 | CP2 | ADR-001 y crítica independiente previa al código de sync | revisión 2 con la crítica incorporada; F14 abierto | [ADR-001](adr/ADR-001-arquitectura.md), [crítica](adr/ADR-001-critica.md) |
 | CP3 | Slice vertical de la API con pruebas contra SQL real | hecho (un nodo) | [cp3-vertical-slice](evidence/cp3-vertical-slice/README.md) |
-| CP4 | Sync 1 nube + 3 sucursales, oráculo y simulador | pendiente | — |
+| CP4 | Sync 1 nube + 3 sucursales, oráculo y simulador | en curso: S1 base de sync (V008) | [S1](evidence/cp4-s1-sync-foundation/README.md) |
 | CP5 | Clientes sobre el contrato generado | pendiente | — |
 | CP6 | Carga, respaldos, permisos y preparación de Azure sin desplegar | pendiente | — |
 
@@ -69,3 +69,4 @@ CRM sobre `crm.Customers`, tiempo real sobre el outbox, sitio sobre `webstore` y
 | 2026-11-12 | ADR-001 revisión 2 con los 15 hallazgos de la crítica; BUG-010 devolución entre sucursales: rojo sin V006, verde con V006 ([detalle](bugs/BUG-010-devolucion-otra-sucursal.md)) | ver `git log savia/` |
 | 2026-11-12 | CP1-B y CP1-C: 66 pruebas de caja, ventas, contabilidad, anticipos, web y outbox; BUG-011 a BUG-015: 5 rojas sin V007, 113 verdes con V007 ([detalle](bugs/BUG-011-015-cp1b.md)) | ver `git log savia/` |
 | 2026-11-12 | F12/F14 Express: 113 pruebas T-SQL pasan en SQL Server Express; Change Tracking con `SNAPSHOT` funciona ([evidencia](evidence/f12-express/README.md)); Azure sin probar | ver `git log savia/` |
+| 2026-11-12 | CP4-S1: V008 base de sync; restauración real cambia el fork y reutiliza versiones, el cursor `(fork, versión)` da `recover` ([evidencia](evidence/cp4-s1-sync-foundation/README.md)) | ver `git log savia/` |
