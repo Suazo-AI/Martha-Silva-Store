@@ -102,7 +102,7 @@ Máximo dos tareas Codex en paralelo. Cada ejecutor en worktree propio. El prima
 | --- | --- | --- |
 | WP-A | integrado en `Tony`; activo solo para PR | 11 pruebas locales OK; demo A6 PASS/FAIL ([evidencia](../bug-pipeline/EVIDENCE.md)). A1 y A5 necesitan los workflows en `main` (rama por defecto): decisión de Jason. actionlint, .NET real y runtime GitHub NOT RUN. |
 | Crítica previa S/B/C/D | hecha; checks enmendados | [critic-pre-impl.md](critic-pre-impl.md) |
-| WP-S | entregado; juez en curso; SQL NOT RUN | `docs/program-20261111/wp-s/EVIDENCE.md` en el worktree del worker |
+| WP-S | entregado, sin integrar; juez bloqueado (cuota Codex agotada hasta 2026-11-13 13:37); SQL NOT RUN. Candidato staged en worktree `t3-fc8d21c3-d24f2eb60e2efe33` | `docs/program-20261111/wp-s/EVIDENCE.md` en el worktree del worker |
 | WP-E | E1 integrado; E2 pendiente | `python tests/test_doctor.py` OK (primary). doctor: 53 PASS / 2 FAIL / 20 SKIPPED; los 2 FAIL son `WinError 1314` (symlinks en Windows sin privilegio), no producto. [MAINTENANCE](../MAINTENANCE.md) |
 | WP-B, C, D | pendiente de WP-S aceptado | — |
 | Cotización hosting (J-3) | lista, sin contratar | [hosting-quotes-20261111](../hosting-quotes-20261111/README.md) |

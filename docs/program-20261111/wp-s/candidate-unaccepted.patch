@@ -1,0 +1,2802 @@
+diff --git a/backend/src/Martha.Store.Api/Internal/Cash/InternalCashService.cs b/backend/src/Martha.Store.Api/Internal/Cash/InternalCashService.cs
+index d0f9767..141e653 100644
+--- a/backend/src/Martha.Store.Api/Internal/Cash/InternalCashService.cs
++++ b/backend/src/Martha.Store.Api/Internal/Cash/InternalCashService.cs
+@@ -49,6 +49,7 @@ public sealed class InternalCashService(InternalDbContext db, IInternalCommandRu
+             var entry = Entry(till, actor, "sale", sale.TotalMinor);
+             entry.SaleId = sale.SaleId; entry.ReceivedMinor = request.ReceivedMinor; entry.ChangeMinor = change;
+             db.Add(entry); await db.SaveChangesAsync(token);
++            await InternalOutboxWriter.PaidSale(db, sale.SaleId, till.LocationId, time.GetUtcNow(), token);
+             return InternalResult<InternalCashSaleReceipt>.Ok(new(sale with { PaymentStatus = "paid" }, entry,
+                 till.LocationId, till.Exponent, change, "paid"));
+         }, ct);
+diff --git a/backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryModels.cs b/backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryModels.cs
+index e74a0a0..0f437de 100644
+--- a/backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryModels.cs
++++ b/backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryModels.cs
+@@ -27,7 +27,9 @@ public sealed class InternalParty
+     public Guid Id { get; set; }
+     public string Kind { get; set; } = "";
+     public string Name { get; set; } = "";
+-    public string? Email { get; set; }
++    private string? email;
++    public string? Email { get => email; set { email = value; NormalizedEmail = InternalCustomerEmail.Normalize(value); } }
++    public string? NormalizedEmail { get; private set; }
+     public string? Phone { get; set; }
+     public bool Active { get; set; } = true;
+ }
+@@ -75,6 +77,7 @@ public sealed partial class InternalDbContext
+ 
+     partial void ConfigureDirectory(ModelBuilder model)
+     {
++        ConfigureEvents(model);
+         var items = model.Entity<InternalItem>();
+         items.ToTable("Items", table =>
+         {
+@@ -109,6 +112,8 @@ public sealed partial class InternalDbContext
+         parties.Property(x => x.Kind).IsRequired().IsUnicode(false).HasMaxLength(8).UseCollation("Latin1_General_100_BIN2");
+         parties.Property(x => x.Name).IsRequired().HasMaxLength(200);
+         parties.Property(x => x.Email).HasMaxLength(254);
++        parties.Property(x => x.NormalizedEmail).HasMaxLength(254).UseCollation("Latin1_General_100_BIN2");
++        parties.HasIndex(x => x.NormalizedEmail); // Deliberately non-unique, including inactive parties.
+         parties.Property(x => x.Phone).HasMaxLength(32);
+         // Names and contact details are NOT identities: households and different people
+         // may share them. Never silently merge parties or impose email/name uniqueness.
+diff --git a/backend/src/Martha.Store.Api/Internal/Events/InternalEventModels.cs b/backend/src/Martha.Store.Api/Internal/Events/InternalEventModels.cs
+new file mode 100644
+index 0000000..d028f42
+--- /dev/null
++++ b/backend/src/Martha.Store.Api/Internal/Events/InternalEventModels.cs
+@@ -0,0 +1,95 @@
++using System.Text;
++using Microsoft.EntityFrameworkCore;
++
++namespace Martha.Store.Api.Internal;
++
++public static class InternalCustomerEmail
++{
++    public static string? Normalize(string? value) => string.IsNullOrWhiteSpace(value)
++        ? null : value.Trim().Normalize(NormalizationForm.FormC).ToLowerInvariant();
++}
++
++public sealed class InternalOutboxEvent
++{
++    public Guid EventId { get; set; }
++    public long? PublicationPosition { get; set; }
++    public string Type { get; set; } = "";
++    public int SchemaVersion { get; set; } = 1;
++    public Guid ResourceId { get; set; }
++    public Guid? OriginalBranchId { get; set; }
++    public DateTimeOffset OccurredAt { get; set; }
++    public string PayloadJson { get; set; } = "{}";
++    public string PublisherState { get; set; } = "pending";
++}
++
++public sealed class InternalCustomerConsent
++{
++    public Guid Id { get; set; }
++    public Guid PartyId { get; set; }
++    public string Purpose { get; set; } = "";
++    public string PolicyVersion { get; set; } = "";
++    public DateTimeOffset RecordedAt { get; set; }
++    public string ActorType { get; set; } = "";
++    public string Source { get; set; } = "";
++    public Guid? StaffActorId { get; set; }
++    public DateTimeOffset? WithdrawnAt { get; set; }
++}
++
++// A claimed email is not verified ownership. Public admission must never link an existing Party by email alone.
++public sealed class InternalWebsiteAccount
++{
++    public Guid Id { get; set; }
++    public Guid PartyId { get; set; }
++    private string normalizedEmail = "";
++    public string NormalizedEmail { get => normalizedEmail; set => normalizedEmail = InternalCustomerEmail.Normalize(value) ?? ""; }
++    public DateTimeOffset CreatedAt { get; set; }
++    public DateTimeOffset? VerifiedAt { get; set; }
++    public DateTimeOffset? DisabledAt { get; set; }
++}
++
++public sealed partial class InternalDbContext
++{
++    private static void ConfigureEvents(ModelBuilder model)
++    {
++        model.Entity<InternalOutboxEvent>(e =>
++        {
++            e.ToTable("EventOutbox", t =>
++            {
++                t.HasCheckConstraint("CK_EventOutbox_Version", "[SchemaVersion] > 0");
++                t.HasCheckConstraint("CK_EventOutbox_Payload", "ISJSON([PayloadJson]) = 1");
++                t.HasCheckConstraint("CK_EventOutbox_Publication", "([PublisherState] = 'pending' AND [PublicationPosition] IS NULL) OR ([PublisherState] = 'published' AND [PublicationPosition] > 0)");
++            });
++            e.HasKey(x => x.EventId); e.Property(x => x.EventId).ValueGeneratedNever();
++            e.Property(x => x.PublicationPosition).ValueGeneratedNever();
++            e.HasIndex(x => x.PublicationPosition).IsUnique().HasFilter("[PublicationPosition] IS NOT NULL");
++            e.Property(x => x.Type).HasMaxLength(80).IsUnicode(false).UseCollation("Latin1_General_100_BIN2");
++            e.HasIndex(x => new { x.Type, x.ResourceId }).IsUnique(); // One event per semantic change/type.
++            e.Property(x => x.PublisherState).HasMaxLength(16).IsUnicode(false).UseCollation("Latin1_General_100_BIN2");
++            e.Property(x => x.PayloadJson).HasMaxLength(2048).IsRequired();
++        });
++        model.Entity<InternalCustomerConsent>(e =>
++        {
++            e.ToTable("CustomerConsents", t =>
++            {
++                t.HasCheckConstraint("CK_CustomerConsents_Actor", "([ActorType] = 'staff' AND [StaffActorId] IS NOT NULL) OR ([ActorType] IN ('anonymous', 'customer') AND [StaffActorId] IS NULL)");
++                t.HasCheckConstraint("CK_CustomerConsents_Purpose", "LEN(LTRIM(RTRIM([Purpose]))) > 0 AND LEN(LTRIM(RTRIM([PolicyVersion]))) > 0 AND LEN(LTRIM(RTRIM([Source]))) > 0");
++                t.HasCheckConstraint("CK_CustomerConsents_Withdrawal", "[WithdrawnAt] IS NULL OR [WithdrawnAt] >= [RecordedAt]");
++            });
++            e.HasKey(x => x.Id); e.Property(x => x.Id).ValueGeneratedNever();
++            e.Property(x => x.Purpose).HasMaxLength(80); e.Property(x => x.PolicyVersion).HasMaxLength(80);
++            e.Property(x => x.ActorType).HasMaxLength(16).IsUnicode(false).UseCollation("Latin1_General_100_BIN2");
++            e.Property(x => x.Source).HasMaxLength(80);
++            e.HasIndex(x => new { x.PartyId, x.Purpose });
++            e.HasOne<InternalParty>().WithMany().HasForeignKey(x => x.PartyId).OnDelete(DeleteBehavior.Restrict);
++            e.HasOne<InternalStaff>().WithMany().HasForeignKey(x => x.StaffActorId).OnDelete(DeleteBehavior.Restrict);
++        });
++        model.Entity<InternalWebsiteAccount>(e =>
++        {
++            e.ToTable("WebsiteAccounts", t => t.HasCheckConstraint("CK_WebsiteAccounts_Email", "LEN(LTRIM(RTRIM([NormalizedEmail]))) > 0"));
++            e.HasKey(x => x.Id); e.Property(x => x.Id).ValueGeneratedNever();
++            e.Property(x => x.NormalizedEmail).HasMaxLength(254).UseCollation("Latin1_General_100_BIN2");
++            e.HasIndex(x => x.NormalizedEmail).IsUnique();
++            e.HasOne<InternalParty>().WithMany().HasForeignKey(x => x.PartyId).OnDelete(DeleteBehavior.Restrict);
++        });
++    }
++}
+diff --git a/backend/src/Martha.Store.Api/Internal/Events/InternalOutboxWriter.cs b/backend/src/Martha.Store.Api/Internal/Events/InternalOutboxWriter.cs
+new file mode 100644
+index 0000000..9fd58db
+--- /dev/null
++++ b/backend/src/Martha.Store.Api/Internal/Events/InternalOutboxWriter.cs
+@@ -0,0 +1,34 @@
++using System.Data;
++using Microsoft.EntityFrameworkCore;
++
++namespace Martha.Store.Api.Internal;
++
++public static class InternalOutboxWriter
++{
++    // Invoke ONLY inside the runner action, after a new paid sale has been persisted.
++    // RollbackToSavepoint + ChangeTracker.Clear remove saved AND unsaved events.
++    public static async Task PaidSale(InternalDbContext db, Guid saleId, Guid locationId,
++        DateTimeOffset occurredAt, CancellationToken ct)
++    {
++        if (db.Database.CurrentTransaction is null) throw new InvalidOperationException("Outbox requires the business transaction.");
++        var branch = await db.InternalLocations.Where(x => x.Id == locationId).Select(x => x.BranchId).SingleAsync(ct);
++        db.Add(new InternalOutboxEvent { EventId = saleId, Type = "sale.paid", ResourceId = saleId,
++            OriginalBranchId = branch, OccurredAt = occurredAt }); // Empty frozen payload: invalidation only.
++    }
++
++    // Publisher primitive; WP-B supplies scheduling, transport and retention. No network inside this transaction.
++    // Every publisher uses the same transaction-owned SQL application lock, across processes.
++    // MAX is safe only under this lock and while the highest position is retained (see CONTRACTS).
++    public static async Task<int> AssignPublicationPositions(InternalDbContext db, CancellationToken ct)
++    {
++        if (db.Database.CurrentTransaction is not null) throw new InvalidOperationException("Publisher must run after source commit in a separate context.");
++        await using var tx = await db.Database.BeginTransactionAsync(IsolationLevel.ReadCommitted, ct);
++        await db.Database.ExecuteSqlRawAsync("DECLARE @r int; EXEC @r=sys.sp_getapplock @Resource='SaviaInternal:outbox-publisher:v1',@LockMode='Exclusive',@LockOwner='Transaction',@LockTimeout=10000; IF @r<0 THROW 51000,'Publisher lock unavailable',1;", ct);
++        var position = await db.Set<InternalOutboxEvent>().MaxAsync(x => x.PublicationPosition, ct) ?? 0;
++        var pending = await db.Set<InternalOutboxEvent>().Where(x => x.PublicationPosition == null)
++            .OrderBy(x => x.OccurredAt).ThenBy(x => x.EventId).Take(100).ToListAsync(ct);
++        foreach (var row in pending) { row.PublicationPosition = checked(++position); row.PublisherState = "published"; }
++        await db.SaveChangesAsync(ct); await tx.CommitAsync(ct);
++        return pending.Count;
++    }
++}
+diff --git a/backend/src/Martha.Store.Api/Internal/Migrations/20261112004549_CustomerEventContracts.Designer.cs b/backend/src/Martha.Store.Api/Internal/Migrations/20261112004549_CustomerEventContracts.Designer.cs
+new file mode 100644
+index 0000000..1c94e5d
+--- /dev/null
++++ b/backend/src/Martha.Store.Api/Internal/Migrations/20261112004549_CustomerEventContracts.Designer.cs
+@@ -0,0 +1,1549 @@
++﻿// <auto-generated />
++using System;
++using Martha.Store.Api.Internal;
++using Microsoft.EntityFrameworkCore;
++using Microsoft.EntityFrameworkCore.Infrastructure;
++using Microsoft.EntityFrameworkCore.Metadata;
++using Microsoft.EntityFrameworkCore.Migrations;
++using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
++
++#nullable disable
++
++namespace Martha.Store.Api.Internal.Migrations
++{
++    [DbContext(typeof(InternalDbContext))]
++    [Migration("20261112004549_CustomerEventContracts")]
++    partial class CustomerEventContracts
++    {
++        /// <inheritdoc />
++        protected override void BuildTargetModel(ModelBuilder modelBuilder)
++        {
++#pragma warning disable 612, 618
++            modelBuilder
++                .HasDefaultSchema("savia_internal")
++                .HasAnnotation("ProductVersion", "10.0.13")
++                .HasAnnotation("Relational:MaxIdentifierLength", 128);
++
++            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalBranch", b =>
++                {
++                    b.Property<Guid>("Id")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<bool>("Active")
++                        .HasColumnType("bit");
++
++                    b.Property<string>("Name")
++                        .IsRequired()
++                        .HasMaxLength(120)
++                        .HasColumnType("nvarchar(120)");
++
++                    b.HasKey("Id");
++
++                    b.ToTable("Branches", "savia_internal");
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalBranchAssignmentAudit", b =>
++                {
++                    b.Property<Guid>("Id")
++                        .ValueGeneratedOnAdd()
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<Guid>("ActorId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<Guid?>("BranchId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<DateTimeOffset>("CreatedAt")
++                        .HasColumnType("datetimeoffset");
++
++                    b.Property<Guid?>("PreviousBranchId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<Guid>("StaffId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.HasKey("Id");
++
++                    b.HasIndex("ActorId");
++
++                    b.HasIndex("StaffId");
++
++                    b.ToTable("BranchAssignmentAudit", "savia_internal");
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalCashClose", b =>
++                {
++                    b.Property<Guid>("Id")
++                        .ValueGeneratedOnAdd()
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<Guid>("ActorId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<long>("CountedMinor")
++                        .HasColumnType("bigint");
++
++                    b.Property<DateTimeOffset>("CreatedAt")
++                        .HasColumnType("datetimeoffset");
++
++                    b.Property<long>("DifferenceMinor")
++                        .HasColumnType("bigint");
++
++                    b.Property<long>("ExpectedMinor")
++                        .HasColumnType("bigint");
++
++                    b.Property<Guid>("TillId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.HasKey("Id");
++
++                    b.HasIndex("ActorId");
++
++                    b.HasIndex("TillId")
++                        .IsUnique();
++
++                    b.ToTable("CashCloses", "savia_internal", t =>
++                        {
++                            t.HasCheckConstraint("CK_CashClose_Amounts", "[ExpectedMinor] BETWEEN 0 AND 9000000000000 AND [CountedMinor] BETWEEN 0 AND 9000000000000 AND [DifferenceMinor]=[CountedMinor]-[ExpectedMinor]");
++                        });
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalCashEntry", b =>
++                {
++                    b.Property<Guid>("Id")
++                        .ValueGeneratedOnAdd()
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<Guid>("ActorId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<Guid>("CashierId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<long>("ChangeMinor")
++                        .HasColumnType("bigint");
++
++                    b.Property<DateTimeOffset>("CreatedAt")
++                        .HasColumnType("datetimeoffset");
++
++                    b.Property<string>("Currency")
++                        .IsRequired()
++                        .HasMaxLength(3)
++                        .IsUnicode(false)
++                        .HasColumnType("varchar(3)")
++                        .UseCollation("Latin1_General_100_BIN2");
++
++                    b.Property<long>("DeltaMinor")
++                        .HasColumnType("bigint");
++
++                    b.Property<int>("Exponent")
++                        .HasColumnType("int");
++
++                    b.Property<string>("Kind")
++                        .IsRequired()
++                        .HasMaxLength(16)
++                        .IsUnicode(false)
++                        .HasColumnType("varchar(16)");
++
++                    b.Property<long>("ReceivedMinor")
++                        .HasColumnType("bigint");
++
++                    b.Property<Guid?>("ReversalId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<Guid?>("SaleId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<Guid>("TillId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.HasKey("Id");
++
++                    b.HasIndex("ActorId");
++
++                    b.HasIndex("ReversalId")
++                        .IsUnique()
++                        .HasFilter("[ReversalId] IS NOT NULL");
++
++                    b.HasIndex("SaleId")
++                        .IsUnique()
++                        .HasFilter("[Kind]='sale'");
++
++                    b.HasIndex("TillId")
++                        .IsUnique()
++                        .HasFilter("[Kind]='opening'");
++
++                    b.HasIndex("TillId", "CashierId", "Currency", "Exponent");
++
++                    b.ToTable("CashEntries", "savia_internal", t =>
++                        {
++                            t.HasCheckConstraint("CK_CashEntry_Bounds", "[DeltaMinor] BETWEEN -9000000000000 AND 9000000000000 AND [ReceivedMinor] BETWEEN 0 AND 9000000000000 AND [ChangeMinor] BETWEEN 0 AND 9000000000000");
++
++                            t.HasCheckConstraint("CK_CashEntry_Kind", "([Kind]='opening' AND [DeltaMinor]>=0 AND [ReceivedMinor]=0 AND [ChangeMinor]=0 AND [SaleId] IS NULL AND [ReversalId] IS NULL) OR ([Kind]='sale' AND [DeltaMinor]>=0 AND [ReceivedMinor]-[ChangeMinor]=[DeltaMinor] AND [SaleId] IS NOT NULL AND [ReversalId] IS NULL) OR ([Kind]='refund' AND [DeltaMinor]<0 AND [ReceivedMinor]=0 AND [ChangeMinor]=0 AND [SaleId] IS NOT NULL AND [ReversalId] IS NOT NULL)");
++                        });
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalCashTill", b =>
++                {
++                    b.Property<Guid>("Id")
++                        .ValueGeneratedOnAdd()
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<Guid>("CashierId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<DateTimeOffset?>("ClosedAt")
++                        .HasColumnType("datetimeoffset");
++
++                    b.Property<string>("Currency")
++                        .IsRequired()
++                        .HasMaxLength(3)
++                        .IsUnicode(false)
++                        .HasColumnType("varchar(3)")
++                        .UseCollation("Latin1_General_100_BIN2");
++
++                    b.Property<int>("Exponent")
++                        .HasColumnType("int");
++
++                    b.Property<Guid>("LocationId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<DateTimeOffset>("OpenedAt")
++                        .HasColumnType("datetimeoffset");
++
++                    b.HasKey("Id");
++
++                    b.HasIndex("CashierId")
++                        .IsUnique()
++                        .HasFilter("[ClosedAt] IS NULL");
++
++                    b.HasIndex("LocationId");
++
++                    b.ToTable("CashTills", "savia_internal", t =>
++                        {
++                            t.HasCheckConstraint("CK_CashTill_Currency", "LEN([Currency])=3 AND [Currency] COLLATE Latin1_General_100_BIN2 NOT LIKE '%[^A-Z]%' AND [Exponent] BETWEEN 0 AND 6");
++
++                            t.HasCheckConstraint("CK_CashTill_Time", "[ClosedAt] IS NULL OR [ClosedAt]>=[OpenedAt]");
++                        });
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalCustomerConsent", b =>
++                {
++                    b.Property<Guid>("Id")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<string>("ActorType")
++                        .IsRequired()
++                        .HasMaxLength(16)
++                        .IsUnicode(false)
++                        .HasColumnType("varchar(16)")
++                        .UseCollation("Latin1_General_100_BIN2");
++
++                    b.Property<Guid>("PartyId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<string>("PolicyVersion")
++                        .IsRequired()
++                        .HasMaxLength(80)
++                        .HasColumnType("nvarchar(80)");
++
++                    b.Property<string>("Purpose")
++                        .IsRequired()
++                        .HasMaxLength(80)
++                        .HasColumnType("nvarchar(80)");
++
++                    b.Property<DateTimeOffset>("RecordedAt")
++                        .HasColumnType("datetimeoffset");
++
++                    b.Property<string>("Source")
++                        .IsRequired()
++                        .HasMaxLength(80)
++                        .HasColumnType("nvarchar(80)");
++
++                    b.Property<Guid?>("StaffActorId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<DateTimeOffset?>("WithdrawnAt")
++                        .HasColumnType("datetimeoffset");
++
++                    b.HasKey("Id");
++
++                    b.HasIndex("StaffActorId");
++
++                    b.HasIndex("PartyId", "Purpose");
++
++                    b.ToTable("CustomerConsents", "savia_internal", t =>
++                        {
++                            t.HasCheckConstraint("CK_CustomerConsents_Actor", "([ActorType] = 'staff' AND [StaffActorId] IS NOT NULL) OR ([ActorType] IN ('anonymous', 'customer') AND [StaffActorId] IS NULL)");
++
++                            t.HasCheckConstraint("CK_CustomerConsents_Purpose", "LEN(LTRIM(RTRIM([Purpose]))) > 0 AND LEN(LTRIM(RTRIM([PolicyVersion]))) > 0 AND LEN(LTRIM(RTRIM([Source]))) > 0");
++
++                            t.HasCheckConstraint("CK_CustomerConsents_Withdrawal", "[WithdrawnAt] IS NULL OR [WithdrawnAt] >= [RecordedAt]");
++                        });
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalItem", b =>
++                {
++                    b.Property<Guid>("Id")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<bool>("Active")
++                        .HasColumnType("bit");
++
++                    b.Property<string>("Currency")
++                        .IsRequired()
++                        .HasMaxLength(3)
++                        .IsUnicode(false)
++                        .HasColumnType("varchar(3)")
++                        .UseCollation("Latin1_General_100_BIN2");
++
++                    b.Property<string>("Name")
++                        .IsRequired()
++                        .HasMaxLength(200)
++                        .HasColumnType("nvarchar(200)");
++
++                    b.Property<string>("Sku")
++                        .IsRequired()
++                        .HasMaxLength(64)
++                        .IsUnicode(false)
++                        .HasColumnType("varchar(64)")
++                        .UseCollation("Latin1_General_100_BIN2");
++
++                    b.Property<long>("UnitPriceMinor")
++                        .HasColumnType("bigint");
++
++                    b.HasKey("Id");
++
++                    b.HasIndex("Sku")
++                        .IsUnique();
++
++                    b.HasIndex("Active", "Name");
++
++                    b.ToTable("Items", "savia_internal", t =>
++                        {
++                            t.HasCheckConstraint("CK_InternalItems_Currency", "DATALENGTH([Currency]) = 3 AND [Currency] COLLATE Latin1_General_100_BIN2 NOT LIKE '%[^A-Z]%' AND [Currency] <> 'XXX'");
++
++                            t.HasCheckConstraint("CK_InternalItems_Name", "LEN(LTRIM(RTRIM([Name]))) > 0");
++
++                            t.HasCheckConstraint("CK_InternalItems_Price", "[UnitPriceMinor] >= 0 AND [UnitPriceMinor] <= 9000000000000");
++
++                            t.HasCheckConstraint("CK_InternalItems_Sku", "LEN([Sku]) BETWEEN 1 AND 64 AND DATALENGTH([Sku]) = LEN([Sku]) AND [Sku] COLLATE Latin1_General_100_BIN2 NOT LIKE '%[^A-Z0-9_.-]%'");
++                        });
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalLocation", b =>
++                {
++                    b.Property<Guid>("Id")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<bool>("Active")
++                        .HasColumnType("bit");
++
++                    b.Property<Guid?>("BranchId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<string>("Name")
++                        .IsRequired()
++                        .HasMaxLength(120)
++                        .HasColumnType("nvarchar(120)");
++
++                    b.HasKey("Id");
++
++                    b.HasIndex("BranchId");
++
++                    b.HasIndex("Active", "Name");
++
++                    b.ToTable("Locations", "savia_internal", t =>
++                        {
++                            t.HasCheckConstraint("CK_InternalLocations_Name", "LEN(LTRIM(RTRIM([Name]))) > 0");
++                        });
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalOperation", b =>
++                {
++                    b.Property<Guid>("Id")
++                        .ValueGeneratedOnAdd()
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<Guid>("ActorId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<DateTimeOffset>("CreatedAt")
++                        .HasColumnType("datetimeoffset");
++
++                    b.Property<string>("Fingerprint")
++                        .IsRequired()
++                        .HasMaxLength(64)
++                        .IsUnicode(false)
++                        .HasColumnType("varchar(64)")
++                        .UseCollation("Latin1_General_100_BIN2");
++
++                    b.Property<string>("Key")
++                        .IsRequired()
++                        .HasMaxLength(128)
++                        .IsUnicode(false)
++                        .HasColumnType("varchar(128)")
++                        .UseCollation("Latin1_General_100_BIN2");
++
++                    b.Property<Guid?>("LocationId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<Guid?>("OriginalBranchId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<string>("ResultJson")
++                        .IsRequired()
++                        .HasColumnType("nvarchar(max)");
++
++                    b.Property<string>("Scope")
++                        .IsRequired()
++                        .HasMaxLength(80)
++                        .IsUnicode(false)
++                        .HasColumnType("varchar(80)")
++                        .UseCollation("Latin1_General_100_BIN2");
++
++                    b.HasKey("Id");
++
++                    b.HasIndex("OriginalBranchId");
++
++                    b.HasIndex("ActorId", "Scope", "Key")
++                        .IsUnique();
++
++                    b.ToTable("Operations", "savia_internal");
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalOutboxEvent", b =>
++                {
++                    b.Property<Guid>("EventId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<DateTimeOffset>("OccurredAt")
++                        .HasColumnType("datetimeoffset");
++
++                    b.Property<Guid?>("OriginalBranchId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<string>("PayloadJson")
++                        .IsRequired()
++                        .HasMaxLength(2048)
++                        .HasColumnType("nvarchar(2048)");
++
++                    b.Property<long?>("PublicationPosition")
++                        .HasColumnType("bigint");
++
++                    b.Property<string>("PublisherState")
++                        .IsRequired()
++                        .HasMaxLength(16)
++                        .IsUnicode(false)
++                        .HasColumnType("varchar(16)")
++                        .UseCollation("Latin1_General_100_BIN2");
++
++                    b.Property<Guid>("ResourceId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<int>("SchemaVersion")
++                        .HasColumnType("int");
++
++                    b.Property<string>("Type")
++                        .IsRequired()
++                        .HasMaxLength(80)
++                        .IsUnicode(false)
++                        .HasColumnType("varchar(80)")
++                        .UseCollation("Latin1_General_100_BIN2");
++
++                    b.HasKey("EventId");
++
++                    b.HasIndex("PublicationPosition")
++                        .IsUnique()
++                        .HasFilter("[PublicationPosition] IS NOT NULL");
++
++                    b.HasIndex("Type", "ResourceId")
++                        .IsUnique();
++
++                    b.ToTable("EventOutbox", "savia_internal", t =>
++                        {
++                            t.HasCheckConstraint("CK_EventOutbox_Payload", "ISJSON([PayloadJson]) = 1");
++
++                            t.HasCheckConstraint("CK_EventOutbox_Publication", "([PublisherState] = 'pending' AND [PublicationPosition] IS NULL) OR ([PublisherState] = 'published' AND [PublicationPosition] > 0)");
++
++                            t.HasCheckConstraint("CK_EventOutbox_Version", "[SchemaVersion] > 0");
++                        });
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalParty", b =>
++                {
++                    b.Property<Guid>("Id")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<bool>("Active")
++                        .HasColumnType("bit");
++
++                    b.Property<string>("Email")
++                        .HasMaxLength(254)
++                        .HasColumnType("nvarchar(254)");
++
++                    b.Property<string>("Kind")
++                        .IsRequired()
++                        .HasMaxLength(8)
++                        .IsUnicode(false)
++                        .HasColumnType("varchar(8)")
++                        .UseCollation("Latin1_General_100_BIN2");
++
++                    b.Property<string>("Name")
++                        .IsRequired()
++                        .HasMaxLength(200)
++                        .HasColumnType("nvarchar(200)");
++
++                    b.Property<string>("NormalizedEmail")
++                        .HasMaxLength(254)
++                        .HasColumnType("nvarchar(254)")
++                        .UseCollation("Latin1_General_100_BIN2");
++
++                    b.Property<string>("Phone")
++                        .HasMaxLength(32)
++                        .HasColumnType("nvarchar(32)");
++
++                    b.HasKey("Id");
++
++                    b.HasIndex("NormalizedEmail");
++
++                    b.HasIndex("Kind", "Active", "Name");
++
++                    b.ToTable("Parties", "savia_internal", t =>
++                        {
++                            t.HasCheckConstraint("CK_InternalParties_Kind", "[Kind] IN ('customer', 'supplier')");
++
++                            t.HasCheckConstraint("CK_InternalParties_Name", "LEN(LTRIM(RTRIM([Name]))) > 0");
++                        });
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalPurchaseOrder", b =>
++                {
++                    b.Property<Guid>("Id")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<string>("CancellationReason")
++                        .HasMaxLength(500)
++                        .HasColumnType("nvarchar(500)");
++
++                    b.Property<DateTimeOffset?>("CancelledAt")
++                        .HasColumnType("datetimeoffset");
++
++                    b.Property<Guid?>("CancelledBy")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<DateTimeOffset>("CreatedAt")
++                        .HasColumnType("datetimeoffset");
++
++                    b.Property<Guid>("CreatedBy")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<string>("Currency")
++                        .IsRequired()
++                        .HasMaxLength(3)
++                        .IsUnicode(false)
++                        .HasColumnType("varchar(3)");
++
++                    b.Property<Guid>("LocationId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<string>("Reference")
++                        .HasMaxLength(100)
++                        .HasColumnType("nvarchar(100)");
++
++                    b.Property<string>("Status")
++                        .IsRequired()
++                        .HasMaxLength(24)
++                        .IsUnicode(false)
++                        .HasColumnType("varchar(24)");
++
++                    b.Property<Guid>("SupplierId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<string>("SupplierName")
++                        .IsRequired()
++                        .HasMaxLength(200)
++                        .HasColumnType("nvarchar(200)");
++
++                    b.Property<long>("TotalMinor")
++                        .HasColumnType("bigint");
++
++                    b.Property<DateTimeOffset>("UpdatedAt")
++                        .HasColumnType("datetimeoffset");
++
++                    b.Property<Guid>("UpdatedBy")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.HasKey("Id");
++
++                    b.HasIndex("LocationId");
++
++                    b.HasIndex("SupplierId");
++
++                    b.HasIndex("CreatedAt", "Id");
++
++                    b.ToTable("PurchaseOrders", "savia_internal", t =>
++                        {
++                            t.HasCheckConstraint("CK_InternalPurchaseOrder_Cancel", "([Status] = 'cancelled' AND [CancelledBy] IS NOT NULL AND [CancelledAt] IS NOT NULL AND [CancellationReason] IS NOT NULL) OR ([Status] <> 'cancelled' AND [CancelledBy] IS NULL AND [CancelledAt] IS NULL AND [CancellationReason] IS NULL)");
++
++                            t.HasCheckConstraint("CK_InternalPurchaseOrder_Currency", "[Currency] COLLATE Latin1_General_100_BIN2 LIKE '[A-Z][A-Z][A-Z]' AND [Currency] <> 'XXX'");
++
++                            t.HasCheckConstraint("CK_InternalPurchaseOrder_Status", "[Status] IN ('open','partially_received','received','cancelled')");
++
++                            t.HasCheckConstraint("CK_InternalPurchaseOrder_Total", "[TotalMinor] >= 0 AND [TotalMinor] <= 9000000000000");
++                        });
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalPurchaseOrderLine", b =>
++                {
++                    b.Property<Guid>("Id")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<Guid>("ItemId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<string>("ItemName")
++                        .IsRequired()
++                        .HasMaxLength(200)
++                        .HasColumnType("nvarchar(200)");
++
++                    b.Property<string>("ItemSku")
++                        .IsRequired()
++                        .HasMaxLength(64)
++                        .HasColumnType("nvarchar(64)");
++
++                    b.Property<Guid>("PurchaseOrderId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<int>("Quantity")
++                        .HasColumnType("int");
++
++                    b.Property<int>("ReceivedQuantity")
++                        .HasColumnType("int");
++
++                    b.Property<long>("UnitCostMinor")
++                        .HasColumnType("bigint");
++
++                    b.HasKey("Id");
++
++                    b.HasIndex("ItemId");
++
++                    b.HasIndex("PurchaseOrderId", "ItemId")
++                        .IsUnique();
++
++                    b.ToTable("PurchaseOrderLines", "savia_internal", t =>
++                        {
++                            t.HasCheckConstraint("CK_InternalPurchaseLine_Cost", "[UnitCostMinor] >= 0 AND [UnitCostMinor] <= 9000000000000 / [Quantity]");
++
++                            t.HasCheckConstraint("CK_InternalPurchaseLine_Quantity", "[Quantity] BETWEEN 1 AND 1000000 AND [ReceivedQuantity] BETWEEN 0 AND [Quantity]");
++                        });
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalPurchaseReceipt", b =>
++                {
++                    b.Property<Guid>("Id")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<string>("Currency")
++                        .IsRequired()
++                        .HasMaxLength(3)
++                        .IsUnicode(false)
++                        .HasColumnType("varchar(3)");
++
++                    b.Property<string>("Fingerprint")
++                        .IsRequired()
++                        .HasMaxLength(64)
++                        .IsUnicode(false)
++                        .HasColumnType("varchar(64)");
++
++                    b.Property<Guid>("LocationId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<string>("OrderStatusAfter")
++                        .IsRequired()
++                        .HasMaxLength(24)
++                        .IsUnicode(false)
++                        .HasColumnType("varchar(24)");
++
++                    b.Property<Guid>("PurchaseOrderId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<DateTimeOffset>("ReceivedAt")
++                        .HasColumnType("datetimeoffset");
++
++                    b.Property<Guid>("ReceivedBy")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<long>("TotalMinor")
++                        .HasColumnType("bigint");
++
++                    b.HasKey("Id");
++
++                    b.HasIndex("LocationId");
++
++                    b.HasIndex("PurchaseOrderId", "ReceivedAt");
++
++                    b.ToTable("PurchaseReceipts", "savia_internal", t =>
++                        {
++                            t.HasCheckConstraint("CK_InternalPurchaseReceipt_Currency", "[Currency] COLLATE Latin1_General_100_BIN2 LIKE '[A-Z][A-Z][A-Z]' AND [Currency] <> 'XXX'");
++
++                            t.HasCheckConstraint("CK_InternalPurchaseReceipt_Status", "[OrderStatusAfter] IN ('partially_received','received')");
++
++                            t.HasCheckConstraint("CK_InternalPurchaseReceipt_Total", "[TotalMinor] >= 0 AND [TotalMinor] <= 9000000000000");
++                        });
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalPurchaseReceiptLine", b =>
++                {
++                    b.Property<Guid>("Id")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<Guid>("ItemId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<Guid>("PurchaseOrderId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<Guid>("PurchaseOrderLineId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<int>("Quantity")
++                        .HasColumnType("int");
++
++                    b.Property<Guid>("ReceiptId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<long>("UnitCostMinor")
++                        .HasColumnType("bigint");
++
++                    b.HasKey("Id");
++
++                    b.HasIndex("ItemId");
++
++                    b.HasIndex("ReceiptId", "PurchaseOrderId");
++
++                    b.HasIndex("ReceiptId", "PurchaseOrderLineId")
++                        .IsUnique();
++
++                    b.HasIndex("PurchaseOrderId", "PurchaseOrderLineId", "ItemId");
++
++                    b.ToTable("PurchaseReceiptLines", "savia_internal", t =>
++                        {
++                            t.HasCheckConstraint("CK_InternalReceiptLine_Cost", "[UnitCostMinor] >= 0 AND [UnitCostMinor] <= 9000000000000 / [Quantity]");
++
++                            t.HasCheckConstraint("CK_InternalReceiptLine_Quantity", "[Quantity] BETWEEN 1 AND 1000000");
++                        });
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalSale", b =>
++                {
++                    b.Property<Guid>("Id")
++                        .ValueGeneratedOnAdd()
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<Guid>("ActorId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<DateTimeOffset>("CreatedAt")
++                        .HasColumnType("datetimeoffset");
++
++                    b.Property<string>("Currency")
++                        .IsRequired()
++                        .HasMaxLength(3)
++                        .HasColumnType("nvarchar(3)");
++
++                    b.Property<Guid?>("CustomerId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<Guid>("LocationId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<string>("State")
++                        .IsRequired()
++                        .HasMaxLength(24)
++                        .HasColumnType("nvarchar(24)");
++
++                    b.Property<long>("TotalMinor")
++                        .HasColumnType("bigint");
++
++                    b.HasKey("Id");
++
++                    b.HasIndex("CreatedAt");
++
++                    b.HasIndex("CustomerId");
++
++                    b.HasIndex("LocationId");
++
++                    b.ToTable("Sales", "savia_internal", t =>
++                        {
++                            t.HasCheckConstraint("CK_InternalSale_Currency", "LEN([Currency]) = 3 AND [Currency] COLLATE Latin1_General_100_BIN2 NOT LIKE '%[^A-Z]%' AND [Currency] <> 'XXX'");
++
++                            t.HasCheckConstraint("CK_InternalSale_State", "[State] IN ('recorded','partially_returned','returned','cancelled')");
++
++                            t.HasCheckConstraint("CK_InternalSale_Total", "[TotalMinor] >= 0 AND [TotalMinor] <= 9000000000000");
++                        });
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalSaleLine", b =>
++                {
++                    b.Property<Guid>("Id")
++                        .ValueGeneratedOnAdd()
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<string>("ExceptionReason")
++                        .HasMaxLength(500)
++                        .HasColumnType("nvarchar(500)");
++
++                    b.Property<Guid>("ItemId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<string>("Name")
++                        .IsRequired()
++                        .HasMaxLength(200)
++                        .HasColumnType("nvarchar(200)");
++
++                    b.Property<int>("Quantity")
++                        .HasColumnType("int");
++
++                    b.Property<int>("ReturnedQuantity")
++                        .HasColumnType("int");
++
++                    b.Property<Guid>("SaleId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<string>("Size")
++                        .HasMaxLength(80)
++                        .HasColumnType("nvarchar(80)");
++
++                    b.Property<string>("Sku")
++                        .IsRequired()
++                        .HasMaxLength(80)
++                        .HasColumnType("nvarchar(80)");
++
++                    b.Property<long>("TotalMinor")
++                        .HasColumnType("bigint");
++
++                    b.Property<long>("UnitPriceMinor")
++                        .HasColumnType("bigint");
++
++                    b.HasKey("Id");
++
++                    b.HasIndex("ItemId");
++
++                    b.HasIndex("SaleId", "ItemId")
++                        .IsUnique();
++
++                    b.ToTable("SaleLines", "savia_internal", t =>
++                        {
++                            t.HasCheckConstraint("CK_InternalSaleLine_Amounts", "[UnitPriceMinor] >= 0 AND [UnitPriceMinor] <= 9000000000000 AND [TotalMinor] >= 0 AND [TotalMinor] <= 9000000000000 AND CAST([UnitPriceMinor] AS decimal(28,0)) * [Quantity] = [TotalMinor]");
++
++                            t.HasCheckConstraint("CK_InternalSaleLine_Exception", "([ExceptionReason] IS NULL AND [Size] IS NULL) OR ([ExceptionReason] IS NOT NULL AND [Size] IS NOT NULL AND LEN(LTRIM(RTRIM([ExceptionReason]))) > 0 AND LEN(LTRIM(RTRIM([Size]))) > 0)");
++
++                            t.HasCheckConstraint("CK_InternalSaleLine_Quantity", "[Quantity] >= 1 AND [Quantity] <= 1000000 AND [ReturnedQuantity] >= 0 AND [ReturnedQuantity] <= [Quantity]");
++                        });
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalSaleReversal", b =>
++                {
++                    b.Property<Guid>("Id")
++                        .ValueGeneratedOnAdd()
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<Guid>("ActorId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<DateTimeOffset>("CreatedAt")
++                        .HasColumnType("datetimeoffset");
++
++                    b.Property<string>("Kind")
++                        .IsRequired()
++                        .HasMaxLength(16)
++                        .HasColumnType("nvarchar(16)");
++
++                    b.Property<string>("Reason")
++                        .IsRequired()
++                        .HasMaxLength(500)
++                        .HasColumnType("nvarchar(500)");
++
++                    b.Property<long>("RecordedCreditMinor")
++                        .HasColumnType("bigint");
++
++                    b.Property<Guid>("SaleId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.HasKey("Id");
++
++                    b.HasIndex("SaleId");
++
++                    b.ToTable("SaleReversals", "savia_internal", t =>
++                        {
++                            t.HasCheckConstraint("CK_InternalReversal_Amount", "[RecordedCreditMinor] >= 0 AND [RecordedCreditMinor] <= 9000000000000");
++
++                            t.HasCheckConstraint("CK_InternalReversal_Kind", "[Kind] IN ('cancel','return')");
++                        });
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalSaleReversalLine", b =>
++                {
++                    b.Property<Guid>("Id")
++                        .ValueGeneratedOnAdd()
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<int>("Quantity")
++                        .HasColumnType("int");
++
++                    b.Property<long>("RecordedCreditMinor")
++                        .HasColumnType("bigint");
++
++                    b.Property<Guid>("ReversalId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<Guid>("SaleLineId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.HasKey("Id");
++
++                    b.HasIndex("SaleLineId");
++
++                    b.HasIndex("ReversalId", "SaleLineId")
++                        .IsUnique();
++
++                    b.ToTable("SaleReversalLines", "savia_internal", t =>
++                        {
++                            t.HasCheckConstraint("CK_InternalReversalLine_Bounds", "[Quantity] >= 1 AND [Quantity] <= 1000000 AND [RecordedCreditMinor] >= 0 AND [RecordedCreditMinor] <= 9000000000000");
++                        });
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalSession", b =>
++                {
++                    b.Property<Guid>("Id")
++                        .ValueGeneratedOnAdd()
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<DateTimeOffset>("CreatedAt")
++                        .HasColumnType("datetimeoffset");
++
++                    b.Property<DateTimeOffset>("ExpiresAt")
++                        .HasColumnType("datetimeoffset");
++
++                    b.Property<DateTimeOffset?>("RevokedAt")
++                        .HasColumnType("datetimeoffset");
++
++                    b.Property<Guid>("SecurityVersion")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<Guid>("StaffId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.HasKey("Id");
++
++                    b.HasIndex("StaffId", "ExpiresAt");
++
++                    b.ToTable("Sessions", "savia_internal", t =>
++                        {
++                            t.HasCheckConstraint("CK_InternalSession_Expiry", "[ExpiresAt] > [CreatedAt]");
++                        });
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalStaff", b =>
++                {
++                    b.Property<Guid>("Id")
++                        .ValueGeneratedOnAdd()
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<Guid?>("BranchId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<DateTimeOffset>("CreatedAt")
++                        .HasColumnType("datetimeoffset");
++
++                    b.Property<string>("DisplayName")
++                        .IsRequired()
++                        .HasMaxLength(120)
++                        .HasColumnType("nvarchar(120)");
++
++                    b.Property<bool>("Enabled")
++                        .HasColumnType("bit");
++
++                    b.Property<int>("FailedSignIns")
++                        .HasColumnType("int");
++
++                    b.Property<DateTimeOffset?>("LockedUntil")
++                        .HasColumnType("datetimeoffset");
++
++                    b.Property<string>("LoginName")
++                        .IsRequired()
++                        .HasMaxLength(64)
++                        .HasColumnType("nvarchar(64)");
++
++                    b.Property<string>("NormalizedLoginName")
++                        .IsRequired()
++                        .HasMaxLength(64)
++                        .HasColumnType("nvarchar(64)");
++
++                    b.Property<string>("PasswordHash")
++                        .IsRequired()
++                        .HasMaxLength(512)
++                        .HasColumnType("nvarchar(512)");
++
++                    b.Property<string>("Role")
++                        .IsRequired()
++                        .HasMaxLength(20)
++                        .HasColumnType("nvarchar(20)");
++
++                    b.Property<byte[]>("RowVersion")
++                        .IsConcurrencyToken()
++                        .IsRequired()
++                        .ValueGeneratedOnAddOrUpdate()
++                        .HasColumnType("rowversion");
++
++                    b.Property<Guid>("SecurityVersion")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<DateTimeOffset>("UpdatedAt")
++                        .HasColumnType("datetimeoffset");
++
++                    b.HasKey("Id");
++
++                    b.HasIndex("BranchId");
++
++                    b.HasIndex("NormalizedLoginName")
++                        .IsUnique();
++
++                    b.ToTable("Staff", "savia_internal", t =>
++                        {
++                            t.HasCheckConstraint("CK_InternalStaff_FailedSignIns", "[FailedSignIns] >= 0 AND [FailedSignIns] <= 5");
++
++                            t.HasCheckConstraint("CK_InternalStaff_Role", "[Role] IN ('Owner','Manager','Cashier','Inventory')");
++                        });
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalStockAdjustment", b =>
++                {
++                    b.Property<Guid>("Id")
++                        .ValueGeneratedOnAdd()
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<Guid>("ActorId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<DateTimeOffset>("CreatedAt")
++                        .HasColumnType("datetimeoffset");
++
++                    b.Property<Guid>("ItemId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<Guid>("LocationId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<int>("OnHandDelta")
++                        .HasColumnType("int");
++
++                    b.Property<string>("Reason")
++                        .IsRequired()
++                        .HasMaxLength(500)
++                        .HasColumnType("nvarchar(500)");
++
++                    b.HasKey("Id");
++
++                    b.HasIndex("ItemId", "LocationId");
++
++                    b.ToTable("StockAdjustments", "savia_internal");
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalStockBalance", b =>
++                {
++                    b.Property<Guid>("ItemId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<Guid>("LocationId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<int>("OnHand")
++                        .HasColumnType("int");
++
++                    b.Property<int>("Reserved")
++                        .HasColumnType("int");
++
++                    b.Property<DateTimeOffset>("UpdatedAt")
++                        .HasColumnType("datetimeoffset");
++
++                    b.HasKey("ItemId", "LocationId");
++
++                    b.HasIndex("LocationId");
++
++                    b.ToTable("StockBalances", "savia_internal", t =>
++                        {
++                            t.HasCheckConstraint("CK_InternalBalance_Bounds", "[OnHand] >= 0 AND [OnHand] <= 1000000000 AND [Reserved] >= 0 AND [Reserved] <= [OnHand]");
++                        });
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalStockExceptionReview", b =>
++                {
++                    b.Property<Guid>("Id")
++                        .ValueGeneratedOnAdd()
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<string>("CauseState")
++                        .IsRequired()
++                        .HasMaxLength(16)
++                        .HasColumnType("nvarchar(16)");
++
++                    b.Property<DateTimeOffset>("CreatedAt")
++                        .HasColumnType("datetimeoffset");
++
++                    b.Property<string>("Evidence")
++                        .IsRequired()
++                        .HasMaxLength(500)
++                        .HasColumnType("nvarchar(500)");
++
++                    b.Property<DateTimeOffset>("NextReviewAt")
++                        .HasColumnType("datetimeoffset");
++
++                    b.Property<string>("Outcome")
++                        .IsRequired()
++                        .HasMaxLength(500)
++                        .HasColumnType("nvarchar(500)");
++
++                    b.Property<Guid>("ResponsibleActorId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<Guid>("ReviewerId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<Guid>("SaleLineId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.HasKey("Id");
++
++                    b.HasIndex("ResponsibleActorId");
++
++                    b.HasIndex("ReviewerId");
++
++                    b.HasIndex("SaleLineId");
++
++                    b.ToTable("StockExceptionReviews", "savia_internal", t =>
++                        {
++                            t.HasCheckConstraint("CK_InternalStockReview_Next", "[NextReviewAt] > [CreatedAt]");
++
++                            t.HasCheckConstraint("CK_InternalStockReview_Open", "[CauseState] = 'open'");
++                        });
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalStockMovement", b =>
++                {
++                    b.Property<Guid>("Id")
++                        .ValueGeneratedOnAdd()
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<Guid>("ActorId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<DateTimeOffset>("CreatedAt")
++                        .HasColumnType("datetimeoffset");
++
++                    b.Property<Guid>("ItemId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<string>("Kind")
++                        .IsRequired()
++                        .HasMaxLength(40)
++                        .HasColumnType("nvarchar(40)");
++
++                    b.Property<Guid>("LocationId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<int>("OnHandAfter")
++                        .HasColumnType("int");
++
++                    b.Property<int>("OnHandDelta")
++                        .HasColumnType("int");
++
++                    b.Property<Guid>("OperationId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<int>("ReservedAfter")
++                        .HasColumnType("int");
++
++                    b.Property<int>("ReservedDelta")
++                        .HasColumnType("int");
++
++                    b.HasKey("Id");
++
++                    b.HasIndex("OperationId");
++
++                    b.HasIndex("ItemId", "LocationId", "CreatedAt");
++
++                    b.ToTable("StockMovements", "savia_internal", t =>
++                        {
++                            t.HasCheckConstraint("CK_InternalMovement_After", "[OnHandAfter] >= 0 AND [OnHandAfter] <= 1000000000 AND [ReservedAfter] >= 0 AND [ReservedAfter] <= [OnHandAfter]");
++
++                            t.HasCheckConstraint("CK_InternalMovement_Nonzero", "[OnHandDelta] <> 0 OR [ReservedDelta] <> 0");
++                        });
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalWebsiteAccount", b =>
++                {
++                    b.Property<Guid>("Id")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<DateTimeOffset>("CreatedAt")
++                        .HasColumnType("datetimeoffset");
++
++                    b.Property<DateTimeOffset?>("DisabledAt")
++                        .HasColumnType("datetimeoffset");
++
++                    b.Property<string>("NormalizedEmail")
++                        .IsRequired()
++                        .HasMaxLength(254)
++                        .HasColumnType("nvarchar(254)")
++                        .UseCollation("Latin1_General_100_BIN2");
++
++                    b.Property<Guid>("PartyId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<DateTimeOffset?>("VerifiedAt")
++                        .HasColumnType("datetimeoffset");
++
++                    b.HasKey("Id");
++
++                    b.HasIndex("NormalizedEmail")
++                        .IsUnique();
++
++                    b.HasIndex("PartyId");
++
++                    b.ToTable("WebsiteAccounts", "savia_internal", t =>
++                        {
++                            t.HasCheckConstraint("CK_WebsiteAccounts_Email", "LEN(LTRIM(RTRIM([NormalizedEmail]))) > 0");
++                        });
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalBranchAssignmentAudit", b =>
++                {
++                    b.HasOne("Martha.Store.Api.Internal.InternalStaff", null)
++                        .WithMany()
++                        .HasForeignKey("ActorId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++
++                    b.HasOne("Martha.Store.Api.Internal.InternalStaff", null)
++                        .WithMany()
++                        .HasForeignKey("StaffId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalCashClose", b =>
++                {
++                    b.HasOne("Martha.Store.Api.Internal.InternalStaff", null)
++                        .WithMany()
++                        .HasForeignKey("ActorId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++
++                    b.HasOne("Martha.Store.Api.Internal.InternalCashTill", null)
++                        .WithMany()
++                        .HasForeignKey("TillId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalCashEntry", b =>
++                {
++                    b.HasOne("Martha.Store.Api.Internal.InternalStaff", null)
++                        .WithMany()
++                        .HasForeignKey("ActorId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++
++                    b.HasOne("Martha.Store.Api.Internal.InternalSaleReversal", null)
++                        .WithMany()
++                        .HasForeignKey("ReversalId")
++                        .OnDelete(DeleteBehavior.Restrict);
++
++                    b.HasOne("Martha.Store.Api.Internal.InternalSale", null)
++                        .WithMany()
++                        .HasForeignKey("SaleId")
++                        .OnDelete(DeleteBehavior.Restrict);
++
++                    b.HasOne("Martha.Store.Api.Internal.InternalCashTill", null)
++                        .WithMany()
++                        .HasForeignKey("TillId", "CashierId", "Currency", "Exponent")
++                        .HasPrincipalKey("Id", "CashierId", "Currency", "Exponent")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalCashTill", b =>
++                {
++                    b.HasOne("Martha.Store.Api.Internal.InternalStaff", null)
++                        .WithMany()
++                        .HasForeignKey("CashierId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++
++                    b.HasOne("Martha.Store.Api.Internal.InternalLocation", null)
++                        .WithMany()
++                        .HasForeignKey("LocationId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalCustomerConsent", b =>
++                {
++                    b.HasOne("Martha.Store.Api.Internal.InternalParty", null)
++                        .WithMany()
++                        .HasForeignKey("PartyId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++
++                    b.HasOne("Martha.Store.Api.Internal.InternalStaff", null)
++                        .WithMany()
++                        .HasForeignKey("StaffActorId")
++                        .OnDelete(DeleteBehavior.Restrict);
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalLocation", b =>
++                {
++                    b.HasOne("Martha.Store.Api.Internal.InternalBranch", null)
++                        .WithMany()
++                        .HasForeignKey("BranchId")
++                        .OnDelete(DeleteBehavior.Restrict);
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalOperation", b =>
++                {
++                    b.HasOne("Martha.Store.Api.Internal.InternalStaff", null)
++                        .WithMany()
++                        .HasForeignKey("ActorId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalPurchaseOrder", b =>
++                {
++                    b.HasOne("Martha.Store.Api.Internal.InternalLocation", null)
++                        .WithMany()
++                        .HasForeignKey("LocationId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++
++                    b.HasOne("Martha.Store.Api.Internal.InternalParty", null)
++                        .WithMany()
++                        .HasForeignKey("SupplierId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalPurchaseOrderLine", b =>
++                {
++                    b.HasOne("Martha.Store.Api.Internal.InternalItem", null)
++                        .WithMany()
++                        .HasForeignKey("ItemId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++
++                    b.HasOne("Martha.Store.Api.Internal.InternalPurchaseOrder", null)
++                        .WithMany("Lines")
++                        .HasForeignKey("PurchaseOrderId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalPurchaseReceipt", b =>
++                {
++                    b.HasOne("Martha.Store.Api.Internal.InternalLocation", null)
++                        .WithMany()
++                        .HasForeignKey("LocationId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++
++                    b.HasOne("Martha.Store.Api.Internal.InternalPurchaseOrder", null)
++                        .WithMany()
++                        .HasForeignKey("PurchaseOrderId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalPurchaseReceiptLine", b =>
++                {
++                    b.HasOne("Martha.Store.Api.Internal.InternalItem", null)
++                        .WithMany()
++                        .HasForeignKey("ItemId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++
++                    b.HasOne("Martha.Store.Api.Internal.InternalPurchaseReceipt", null)
++                        .WithMany("Lines")
++                        .HasForeignKey("ReceiptId", "PurchaseOrderId")
++                        .HasPrincipalKey("Id", "PurchaseOrderId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++
++                    b.HasOne("Martha.Store.Api.Internal.InternalPurchaseOrderLine", null)
++                        .WithMany()
++                        .HasForeignKey("PurchaseOrderId", "PurchaseOrderLineId", "ItemId")
++                        .HasPrincipalKey("PurchaseOrderId", "Id", "ItemId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalSale", b =>
++                {
++                    b.HasOne("Martha.Store.Api.Internal.InternalParty", null)
++                        .WithMany()
++                        .HasForeignKey("CustomerId")
++                        .OnDelete(DeleteBehavior.Restrict);
++
++                    b.HasOne("Martha.Store.Api.Internal.InternalLocation", null)
++                        .WithMany()
++                        .HasForeignKey("LocationId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalSaleLine", b =>
++                {
++                    b.HasOne("Martha.Store.Api.Internal.InternalItem", null)
++                        .WithMany()
++                        .HasForeignKey("ItemId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++
++                    b.HasOne("Martha.Store.Api.Internal.InternalSale", null)
++                        .WithMany("Lines")
++                        .HasForeignKey("SaleId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalSaleReversal", b =>
++                {
++                    b.HasOne("Martha.Store.Api.Internal.InternalSale", null)
++                        .WithMany()
++                        .HasForeignKey("SaleId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalSaleReversalLine", b =>
++                {
++                    b.HasOne("Martha.Store.Api.Internal.InternalSaleReversal", null)
++                        .WithMany("Lines")
++                        .HasForeignKey("ReversalId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++
++                    b.HasOne("Martha.Store.Api.Internal.InternalSaleLine", null)
++                        .WithMany()
++                        .HasForeignKey("SaleLineId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalSession", b =>
++                {
++                    b.HasOne("Martha.Store.Api.Internal.InternalStaff", null)
++                        .WithMany()
++                        .HasForeignKey("StaffId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalStaff", b =>
++                {
++                    b.HasOne("Martha.Store.Api.Internal.InternalBranch", null)
++                        .WithMany()
++                        .HasForeignKey("BranchId")
++                        .OnDelete(DeleteBehavior.Restrict);
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalStockAdjustment", b =>
++                {
++                    b.HasOne("Martha.Store.Api.Internal.InternalStockBalance", null)
++                        .WithMany()
++                        .HasForeignKey("ItemId", "LocationId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalStockBalance", b =>
++                {
++                    b.HasOne("Martha.Store.Api.Internal.InternalItem", null)
++                        .WithMany()
++                        .HasForeignKey("ItemId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++
++                    b.HasOne("Martha.Store.Api.Internal.InternalLocation", null)
++                        .WithMany()
++                        .HasForeignKey("LocationId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalStockExceptionReview", b =>
++                {
++                    b.HasOne("Martha.Store.Api.Internal.InternalStaff", null)
++                        .WithMany()
++                        .HasForeignKey("ResponsibleActorId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++
++                    b.HasOne("Martha.Store.Api.Internal.InternalStaff", null)
++                        .WithMany()
++                        .HasForeignKey("ReviewerId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++
++                    b.HasOne("Martha.Store.Api.Internal.InternalSaleLine", null)
++                        .WithMany()
++                        .HasForeignKey("SaleLineId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalStockMovement", b =>
++                {
++                    b.HasOne("Martha.Store.Api.Internal.InternalStockBalance", null)
++                        .WithMany()
++                        .HasForeignKey("ItemId", "LocationId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalWebsiteAccount", b =>
++                {
++                    b.HasOne("Martha.Store.Api.Internal.InternalParty", null)
++                        .WithMany()
++                        .HasForeignKey("PartyId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalPurchaseOrder", b =>
++                {
++                    b.Navigation("Lines");
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalPurchaseReceipt", b =>
++                {
++                    b.Navigation("Lines");
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalSale", b =>
++                {
++                    b.Navigation("Lines");
++                });
++
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalSaleReversal", b =>
++                {
++                    b.Navigation("Lines");
++                });
++#pragma warning restore 612, 618
++        }
++    }
++}
+diff --git a/backend/src/Martha.Store.Api/Internal/Migrations/20261112004549_CustomerEventContracts.cs b/backend/src/Martha.Store.Api/Internal/Migrations/20261112004549_CustomerEventContracts.cs
+new file mode 100644
+index 0000000..41d04b0
+--- /dev/null
++++ b/backend/src/Martha.Store.Api/Internal/Migrations/20261112004549_CustomerEventContracts.cs
+@@ -0,0 +1,181 @@
++﻿using System;
++using Microsoft.EntityFrameworkCore.Migrations;
++
++#nullable disable
++
++namespace Martha.Store.Api.Internal.Migrations
++{
++    /// <inheritdoc />
++    public partial class CustomerEventContracts : Migration
++    {
++        /// <inheritdoc />
++        protected override void Up(MigrationBuilder migrationBuilder)
++        {
++            migrationBuilder.AddColumn<string>(
++                name: "NormalizedEmail",
++                schema: "savia_internal",
++                table: "Parties",
++                type: "nvarchar(254)",
++                maxLength: 254,
++                nullable: true,
++                collation: "Latin1_General_100_BIN2");
++
++            migrationBuilder.CreateTable(
++                name: "CustomerConsents",
++                schema: "savia_internal",
++                columns: table => new
++                {
++                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
++                    PartyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
++                    Purpose = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
++                    PolicyVersion = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
++                    RecordedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
++                    ActorType = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false, collation: "Latin1_General_100_BIN2"),
++                    Source = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
++                    StaffActorId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
++                    WithdrawnAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
++                },
++                constraints: table =>
++                {
++                    table.PrimaryKey("PK_CustomerConsents", x => x.Id);
++                    table.CheckConstraint("CK_CustomerConsents_Actor", "([ActorType] = 'staff' AND [StaffActorId] IS NOT NULL) OR ([ActorType] IN ('anonymous', 'customer') AND [StaffActorId] IS NULL)");
++                    table.CheckConstraint("CK_CustomerConsents_Purpose", "LEN(LTRIM(RTRIM([Purpose]))) > 0 AND LEN(LTRIM(RTRIM([PolicyVersion]))) > 0 AND LEN(LTRIM(RTRIM([Source]))) > 0");
++                    table.CheckConstraint("CK_CustomerConsents_Withdrawal", "[WithdrawnAt] IS NULL OR [WithdrawnAt] >= [RecordedAt]");
++                    table.ForeignKey(
++                        name: "FK_CustomerConsents_Parties_PartyId",
++                        column: x => x.PartyId,
++                        principalSchema: "savia_internal",
++                        principalTable: "Parties",
++                        principalColumn: "Id",
++                        onDelete: ReferentialAction.Restrict);
++                    table.ForeignKey(
++                        name: "FK_CustomerConsents_Staff_StaffActorId",
++                        column: x => x.StaffActorId,
++                        principalSchema: "savia_internal",
++                        principalTable: "Staff",
++                        principalColumn: "Id",
++                        onDelete: ReferentialAction.Restrict);
++                });
++
++            migrationBuilder.CreateTable(
++                name: "EventOutbox",
++                schema: "savia_internal",
++                columns: table => new
++                {
++                    EventId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
++                    PublicationPosition = table.Column<long>(type: "bigint", nullable: true),
++                    Type = table.Column<string>(type: "varchar(80)", unicode: false, maxLength: 80, nullable: false, collation: "Latin1_General_100_BIN2"),
++                    SchemaVersion = table.Column<int>(type: "int", nullable: false),
++                    ResourceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
++                    OriginalBranchId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
++                    OccurredAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
++                    PayloadJson = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
++                    PublisherState = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false, collation: "Latin1_General_100_BIN2")
++                },
++                constraints: table =>
++                {
++                    table.PrimaryKey("PK_EventOutbox", x => x.EventId);
++                    table.CheckConstraint("CK_EventOutbox_Payload", "ISJSON([PayloadJson]) = 1");
++                    table.CheckConstraint("CK_EventOutbox_Publication", "([PublisherState] = 'pending' AND [PublicationPosition] IS NULL) OR ([PublisherState] = 'published' AND [PublicationPosition] > 0)");
++                    table.CheckConstraint("CK_EventOutbox_Version", "[SchemaVersion] > 0");
++                });
++
++            migrationBuilder.CreateTable(
++                name: "WebsiteAccounts",
++                schema: "savia_internal",
++                columns: table => new
++                {
++                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
++                    PartyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
++                    NormalizedEmail = table.Column<string>(type: "nvarchar(254)", maxLength: 254, nullable: false, collation: "Latin1_General_100_BIN2"),
++                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
++                    VerifiedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
++                    DisabledAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
++                },
++                constraints: table =>
++                {
++                    table.PrimaryKey("PK_WebsiteAccounts", x => x.Id);
++                    table.CheckConstraint("CK_WebsiteAccounts_Email", "LEN(LTRIM(RTRIM([NormalizedEmail]))) > 0");
++                    table.ForeignKey(
++                        name: "FK_WebsiteAccounts_Parties_PartyId",
++                        column: x => x.PartyId,
++                        principalSchema: "savia_internal",
++                        principalTable: "Parties",
++                        principalColumn: "Id",
++                        onDelete: ReferentialAction.Restrict);
++                });
++
++            migrationBuilder.CreateIndex(
++                name: "IX_Parties_NormalizedEmail",
++                schema: "savia_internal",
++                table: "Parties",
++                column: "NormalizedEmail");
++
++            migrationBuilder.CreateIndex(
++                name: "IX_CustomerConsents_PartyId_Purpose",
++                schema: "savia_internal",
++                table: "CustomerConsents",
++                columns: new[] { "PartyId", "Purpose" });
++
++            migrationBuilder.CreateIndex(
++                name: "IX_CustomerConsents_StaffActorId",
++                schema: "savia_internal",
++                table: "CustomerConsents",
++                column: "StaffActorId");
++
++            migrationBuilder.CreateIndex(
++                name: "IX_EventOutbox_PublicationPosition",
++                schema: "savia_internal",
++                table: "EventOutbox",
++                column: "PublicationPosition",
++                unique: true,
++                filter: "[PublicationPosition] IS NOT NULL");
++
++            migrationBuilder.CreateIndex(
++                name: "IX_EventOutbox_Type_ResourceId",
++                schema: "savia_internal",
++                table: "EventOutbox",
++                columns: new[] { "Type", "ResourceId" },
++                unique: true);
++
++            migrationBuilder.CreateIndex(
++                name: "IX_WebsiteAccounts_NormalizedEmail",
++                schema: "savia_internal",
++                table: "WebsiteAccounts",
++                column: "NormalizedEmail",
++                unique: true);
++
++            migrationBuilder.CreateIndex(
++                name: "IX_WebsiteAccounts_PartyId",
++                schema: "savia_internal",
++                table: "WebsiteAccounts",
++                column: "PartyId");
++        }
++
++        /// <inheritdoc />
++        protected override void Down(MigrationBuilder migrationBuilder)
++        {
++            migrationBuilder.DropTable(
++                name: "CustomerConsents",
++                schema: "savia_internal");
++
++            migrationBuilder.DropTable(
++                name: "EventOutbox",
++                schema: "savia_internal");
++
++            migrationBuilder.DropTable(
++                name: "WebsiteAccounts",
++                schema: "savia_internal");
++
++            migrationBuilder.DropIndex(
++                name: "IX_Parties_NormalizedEmail",
++                schema: "savia_internal",
++                table: "Parties");
++
++            migrationBuilder.DropColumn(
++                name: "NormalizedEmail",
++                schema: "savia_internal",
++                table: "Parties");
++        }
++    }
++}
+diff --git a/backend/src/Martha.Store.Api/Internal/Migrations/InitialInternalSavia.idempotent.sql b/backend/src/Martha.Store.Api/Internal/Migrations/InitialInternalSavia.idempotent.sql
+index 1ee511b..b3d789e 100644
+--- a/backend/src/Martha.Store.Api/Internal/Migrations/InitialInternalSavia.idempotent.sql
++++ b/backend/src/Martha.Store.Api/Internal/Migrations/InitialInternalSavia.idempotent.sql
+@@ -999,3 +999,145 @@ END;
+ 
+ COMMIT;
+ GO
++
++BEGIN TRANSACTION;
++IF NOT EXISTS (
++    SELECT * FROM [__EFMigrationsHistory]
++    WHERE [MigrationId] = N'20261112004549_CustomerEventContracts'
++)
++BEGIN
++    ALTER TABLE [savia_internal].[Parties] ADD [NormalizedEmail] nvarchar(254) COLLATE Latin1_General_100_BIN2 NULL;
++END;
++
++IF NOT EXISTS (
++    SELECT * FROM [__EFMigrationsHistory]
++    WHERE [MigrationId] = N'20261112004549_CustomerEventContracts'
++)
++BEGIN
++    CREATE TABLE [savia_internal].[CustomerConsents] (
++        [Id] uniqueidentifier NOT NULL,
++        [PartyId] uniqueidentifier NOT NULL,
++        [Purpose] nvarchar(80) NOT NULL,
++        [PolicyVersion] nvarchar(80) NOT NULL,
++        [RecordedAt] datetimeoffset NOT NULL,
++        [ActorType] varchar(16) COLLATE Latin1_General_100_BIN2 NOT NULL,
++        [Source] nvarchar(80) NOT NULL,
++        [StaffActorId] uniqueidentifier NULL,
++        [WithdrawnAt] datetimeoffset NULL,
++        CONSTRAINT [PK_CustomerConsents] PRIMARY KEY ([Id]),
++        CONSTRAINT [CK_CustomerConsents_Actor] CHECK (([ActorType] = 'staff' AND [StaffActorId] IS NOT NULL) OR ([ActorType] IN ('anonymous', 'customer') AND [StaffActorId] IS NULL)),
++        CONSTRAINT [CK_CustomerConsents_Purpose] CHECK (LEN(LTRIM(RTRIM([Purpose]))) > 0 AND LEN(LTRIM(RTRIM([PolicyVersion]))) > 0 AND LEN(LTRIM(RTRIM([Source]))) > 0),
++        CONSTRAINT [CK_CustomerConsents_Withdrawal] CHECK ([WithdrawnAt] IS NULL OR [WithdrawnAt] >= [RecordedAt]),
++        CONSTRAINT [FK_CustomerConsents_Parties_PartyId] FOREIGN KEY ([PartyId]) REFERENCES [savia_internal].[Parties] ([Id]) ON DELETE NO ACTION,
++        CONSTRAINT [FK_CustomerConsents_Staff_StaffActorId] FOREIGN KEY ([StaffActorId]) REFERENCES [savia_internal].[Staff] ([Id]) ON DELETE NO ACTION
++    );
++END;
++
++IF NOT EXISTS (
++    SELECT * FROM [__EFMigrationsHistory]
++    WHERE [MigrationId] = N'20261112004549_CustomerEventContracts'
++)
++BEGIN
++    CREATE TABLE [savia_internal].[EventOutbox] (
++        [EventId] uniqueidentifier NOT NULL,
++        [PublicationPosition] bigint NULL,
++        [Type] varchar(80) COLLATE Latin1_General_100_BIN2 NOT NULL,
++        [SchemaVersion] int NOT NULL,
++        [ResourceId] uniqueidentifier NOT NULL,
++        [OriginalBranchId] uniqueidentifier NULL,
++        [OccurredAt] datetimeoffset NOT NULL,
++        [PayloadJson] nvarchar(2048) NOT NULL,
++        [PublisherState] varchar(16) COLLATE Latin1_General_100_BIN2 NOT NULL,
++        CONSTRAINT [PK_EventOutbox] PRIMARY KEY ([EventId]),
++        CONSTRAINT [CK_EventOutbox_Payload] CHECK (ISJSON([PayloadJson]) = 1),
++        CONSTRAINT [CK_EventOutbox_Publication] CHECK (([PublisherState] = 'pending' AND [PublicationPosition] IS NULL) OR ([PublisherState] = 'published' AND [PublicationPosition] > 0)),
++        CONSTRAINT [CK_EventOutbox_Version] CHECK ([SchemaVersion] > 0)
++    );
++END;
++
++IF NOT EXISTS (
++    SELECT * FROM [__EFMigrationsHistory]
++    WHERE [MigrationId] = N'20261112004549_CustomerEventContracts'
++)
++BEGIN
++    CREATE TABLE [savia_internal].[WebsiteAccounts] (
++        [Id] uniqueidentifier NOT NULL,
++        [PartyId] uniqueidentifier NOT NULL,
++        [NormalizedEmail] nvarchar(254) COLLATE Latin1_General_100_BIN2 NOT NULL,
++        [CreatedAt] datetimeoffset NOT NULL,
++        [VerifiedAt] datetimeoffset NULL,
++        [DisabledAt] datetimeoffset NULL,
++        CONSTRAINT [PK_WebsiteAccounts] PRIMARY KEY ([Id]),
++        CONSTRAINT [CK_WebsiteAccounts_Email] CHECK (LEN(LTRIM(RTRIM([NormalizedEmail]))) > 0),
++        CONSTRAINT [FK_WebsiteAccounts_Parties_PartyId] FOREIGN KEY ([PartyId]) REFERENCES [savia_internal].[Parties] ([Id]) ON DELETE NO ACTION
++    );
++END;
++
++IF NOT EXISTS (
++    SELECT * FROM [__EFMigrationsHistory]
++    WHERE [MigrationId] = N'20261112004549_CustomerEventContracts'
++)
++BEGIN
++    CREATE INDEX [IX_Parties_NormalizedEmail] ON [savia_internal].[Parties] ([NormalizedEmail]);
++END;
++
++IF NOT EXISTS (
++    SELECT * FROM [__EFMigrationsHistory]
++    WHERE [MigrationId] = N'20261112004549_CustomerEventContracts'
++)
++BEGIN
++    CREATE INDEX [IX_CustomerConsents_PartyId_Purpose] ON [savia_internal].[CustomerConsents] ([PartyId], [Purpose]);
++END;
++
++IF NOT EXISTS (
++    SELECT * FROM [__EFMigrationsHistory]
++    WHERE [MigrationId] = N'20261112004549_CustomerEventContracts'
++)
++BEGIN
++    CREATE INDEX [IX_CustomerConsents_StaffActorId] ON [savia_internal].[CustomerConsents] ([StaffActorId]);
++END;
++
++IF NOT EXISTS (
++    SELECT * FROM [__EFMigrationsHistory]
++    WHERE [MigrationId] = N'20261112004549_CustomerEventContracts'
++)
++BEGIN
++    EXEC(N'CREATE UNIQUE INDEX [IX_EventOutbox_PublicationPosition] ON [savia_internal].[EventOutbox] ([PublicationPosition]) WHERE [PublicationPosition] IS NOT NULL');
++END;
++
++IF NOT EXISTS (
++    SELECT * FROM [__EFMigrationsHistory]
++    WHERE [MigrationId] = N'20261112004549_CustomerEventContracts'
++)
++BEGIN
++    CREATE UNIQUE INDEX [IX_EventOutbox_Type_ResourceId] ON [savia_internal].[EventOutbox] ([Type], [ResourceId]);
++END;
++
++IF NOT EXISTS (
++    SELECT * FROM [__EFMigrationsHistory]
++    WHERE [MigrationId] = N'20261112004549_CustomerEventContracts'
++)
++BEGIN
++    CREATE UNIQUE INDEX [IX_WebsiteAccounts_NormalizedEmail] ON [savia_internal].[WebsiteAccounts] ([NormalizedEmail]);
++END;
++
++IF NOT EXISTS (
++    SELECT * FROM [__EFMigrationsHistory]
++    WHERE [MigrationId] = N'20261112004549_CustomerEventContracts'
++)
++BEGIN
++    CREATE INDEX [IX_WebsiteAccounts_PartyId] ON [savia_internal].[WebsiteAccounts] ([PartyId]);
++END;
++
++IF NOT EXISTS (
++    SELECT * FROM [__EFMigrationsHistory]
++    WHERE [MigrationId] = N'20261112004549_CustomerEventContracts'
++)
++BEGIN
++    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
++    VALUES (N'20261112004549_CustomerEventContracts', N'10.0.13');
++END;
++
++COMMIT;
++GO
++
+diff --git a/backend/src/Martha.Store.Api/Internal/Migrations/InternalDbContextModelSnapshot.cs b/backend/src/Martha.Store.Api/Internal/Migrations/InternalDbContextModelSnapshot.cs
+index aea03da..899bae4 100644
+--- a/backend/src/Martha.Store.Api/Internal/Migrations/InternalDbContextModelSnapshot.cs
++++ b/backend/src/Martha.Store.Api/Internal/Migrations/InternalDbContextModelSnapshot.cs
+@@ -227,6 +227,61 @@ namespace Martha.Store.Api.Internal.Migrations
+                         });
+                 });
+ 
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalCustomerConsent", b =>
++                {
++                    b.Property<Guid>("Id")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<string>("ActorType")
++                        .IsRequired()
++                        .HasMaxLength(16)
++                        .IsUnicode(false)
++                        .HasColumnType("varchar(16)")
++                        .UseCollation("Latin1_General_100_BIN2");
++
++                    b.Property<Guid>("PartyId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<string>("PolicyVersion")
++                        .IsRequired()
++                        .HasMaxLength(80)
++                        .HasColumnType("nvarchar(80)");
++
++                    b.Property<string>("Purpose")
++                        .IsRequired()
++                        .HasMaxLength(80)
++                        .HasColumnType("nvarchar(80)");
++
++                    b.Property<DateTimeOffset>("RecordedAt")
++                        .HasColumnType("datetimeoffset");
++
++                    b.Property<string>("Source")
++                        .IsRequired()
++                        .HasMaxLength(80)
++                        .HasColumnType("nvarchar(80)");
++
++                    b.Property<Guid?>("StaffActorId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<DateTimeOffset?>("WithdrawnAt")
++                        .HasColumnType("datetimeoffset");
++
++                    b.HasKey("Id");
++
++                    b.HasIndex("StaffActorId");
++
++                    b.HasIndex("PartyId", "Purpose");
++
++                    b.ToTable("CustomerConsents", "savia_internal", t =>
++                        {
++                            t.HasCheckConstraint("CK_CustomerConsents_Actor", "([ActorType] = 'staff' AND [StaffActorId] IS NOT NULL) OR ([ActorType] IN ('anonymous', 'customer') AND [StaffActorId] IS NULL)");
++
++                            t.HasCheckConstraint("CK_CustomerConsents_Purpose", "LEN(LTRIM(RTRIM([Purpose]))) > 0 AND LEN(LTRIM(RTRIM([PolicyVersion]))) > 0 AND LEN(LTRIM(RTRIM([Source]))) > 0");
++
++                            t.HasCheckConstraint("CK_CustomerConsents_Withdrawal", "[WithdrawnAt] IS NULL OR [WithdrawnAt] >= [RecordedAt]");
++                        });
++                });
++
+             modelBuilder.Entity("Martha.Store.Api.Internal.InternalItem", b =>
+                 {
+                     b.Property<Guid>("Id")
+@@ -357,6 +412,64 @@ namespace Martha.Store.Api.Internal.Migrations
+                     b.ToTable("Operations", "savia_internal");
+                 });
+ 
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalOutboxEvent", b =>
++                {
++                    b.Property<Guid>("EventId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<DateTimeOffset>("OccurredAt")
++                        .HasColumnType("datetimeoffset");
++
++                    b.Property<Guid?>("OriginalBranchId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<string>("PayloadJson")
++                        .IsRequired()
++                        .HasMaxLength(2048)
++                        .HasColumnType("nvarchar(2048)");
++
++                    b.Property<long?>("PublicationPosition")
++                        .HasColumnType("bigint");
++
++                    b.Property<string>("PublisherState")
++                        .IsRequired()
++                        .HasMaxLength(16)
++                        .IsUnicode(false)
++                        .HasColumnType("varchar(16)")
++                        .UseCollation("Latin1_General_100_BIN2");
++
++                    b.Property<Guid>("ResourceId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<int>("SchemaVersion")
++                        .HasColumnType("int");
++
++                    b.Property<string>("Type")
++                        .IsRequired()
++                        .HasMaxLength(80)
++                        .IsUnicode(false)
++                        .HasColumnType("varchar(80)")
++                        .UseCollation("Latin1_General_100_BIN2");
++
++                    b.HasKey("EventId");
++
++                    b.HasIndex("PublicationPosition")
++                        .IsUnique()
++                        .HasFilter("[PublicationPosition] IS NOT NULL");
++
++                    b.HasIndex("Type", "ResourceId")
++                        .IsUnique();
++
++                    b.ToTable("EventOutbox", "savia_internal", t =>
++                        {
++                            t.HasCheckConstraint("CK_EventOutbox_Payload", "ISJSON([PayloadJson]) = 1");
++
++                            t.HasCheckConstraint("CK_EventOutbox_Publication", "([PublisherState] = 'pending' AND [PublicationPosition] IS NULL) OR ([PublisherState] = 'published' AND [PublicationPosition] > 0)");
++
++                            t.HasCheckConstraint("CK_EventOutbox_Version", "[SchemaVersion] > 0");
++                        });
++                });
++
+             modelBuilder.Entity("Martha.Store.Api.Internal.InternalParty", b =>
+                 {
+                     b.Property<Guid>("Id")
+@@ -381,12 +494,19 @@ namespace Martha.Store.Api.Internal.Migrations
+                         .HasMaxLength(200)
+                         .HasColumnType("nvarchar(200)");
+ 
++                    b.Property<string>("NormalizedEmail")
++                        .HasMaxLength(254)
++                        .HasColumnType("nvarchar(254)")
++                        .UseCollation("Latin1_General_100_BIN2");
++
+                     b.Property<string>("Phone")
+                         .HasMaxLength(32)
+                         .HasColumnType("nvarchar(32)");
+ 
+                     b.HasKey("Id");
+ 
++                    b.HasIndex("NormalizedEmail");
++
+                     b.HasIndex("Kind", "Active", "Name");
+ 
+                     b.ToTable("Parties", "savia_internal", t =>
+@@ -1062,6 +1182,42 @@ namespace Martha.Store.Api.Internal.Migrations
+                         });
+                 });
+ 
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalWebsiteAccount", b =>
++                {
++                    b.Property<Guid>("Id")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<DateTimeOffset>("CreatedAt")
++                        .HasColumnType("datetimeoffset");
++
++                    b.Property<DateTimeOffset?>("DisabledAt")
++                        .HasColumnType("datetimeoffset");
++
++                    b.Property<string>("NormalizedEmail")
++                        .IsRequired()
++                        .HasMaxLength(254)
++                        .HasColumnType("nvarchar(254)")
++                        .UseCollation("Latin1_General_100_BIN2");
++
++                    b.Property<Guid>("PartyId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<DateTimeOffset?>("VerifiedAt")
++                        .HasColumnType("datetimeoffset");
++
++                    b.HasKey("Id");
++
++                    b.HasIndex("NormalizedEmail")
++                        .IsUnique();
++
++                    b.HasIndex("PartyId");
++
++                    b.ToTable("WebsiteAccounts", "savia_internal", t =>
++                        {
++                            t.HasCheckConstraint("CK_WebsiteAccounts_Email", "LEN(LTRIM(RTRIM([NormalizedEmail]))) > 0");
++                        });
++                });
++
+             modelBuilder.Entity("Martha.Store.Api.Internal.InternalBranchAssignmentAudit", b =>
+                 {
+                     b.HasOne("Martha.Store.Api.Internal.InternalStaff", null)
+@@ -1133,6 +1289,20 @@ namespace Martha.Store.Api.Internal.Migrations
+                         .IsRequired();
+                 });
+ 
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalCustomerConsent", b =>
++                {
++                    b.HasOne("Martha.Store.Api.Internal.InternalParty", null)
++                        .WithMany()
++                        .HasForeignKey("PartyId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++
++                    b.HasOne("Martha.Store.Api.Internal.InternalStaff", null)
++                        .WithMany()
++                        .HasForeignKey("StaffActorId")
++                        .OnDelete(DeleteBehavior.Restrict);
++                });
++
+             modelBuilder.Entity("Martha.Store.Api.Internal.InternalLocation", b =>
+                 {
+                     b.HasOne("Martha.Store.Api.Internal.InternalBranch", null)
+@@ -1342,6 +1512,15 @@ namespace Martha.Store.Api.Internal.Migrations
+                         .IsRequired();
+                 });
+ 
++            modelBuilder.Entity("Martha.Store.Api.Internal.InternalWebsiteAccount", b =>
++                {
++                    b.HasOne("Martha.Store.Api.Internal.InternalParty", null)
++                        .WithMany()
++                        .HasForeignKey("PartyId")
++                        .OnDelete(DeleteBehavior.Restrict)
++                        .IsRequired();
++                });
++
+             modelBuilder.Entity("Martha.Store.Api.Internal.InternalPurchaseOrder", b =>
+                 {
+                     b.Navigation("Lines");
+diff --git a/backend/tests/Martha.Store.Api.Tests/InternalEventContractTests.cs b/backend/tests/Martha.Store.Api.Tests/InternalEventContractTests.cs
+new file mode 100644
+index 0000000..d2147b2
+--- /dev/null
++++ b/backend/tests/Martha.Store.Api.Tests/InternalEventContractTests.cs
+@@ -0,0 +1,138 @@
++using System.Text.Json;
++using Martha.Store.Api.Internal;
++using Microsoft.AspNetCore.Http;
++using Microsoft.AspNetCore.Identity;
++using Microsoft.EntityFrameworkCore;
++using Microsoft.EntityFrameworkCore.Infrastructure;
++using Microsoft.EntityFrameworkCore.Metadata;
++using Microsoft.EntityFrameworkCore.Migrations;
++using Microsoft.EntityFrameworkCore.Migrations.Operations;
++using Xunit;
++
++namespace Martha.Store.Api.Tests;
++
++public sealed class InternalEventContractTests
++{
++    [Theory]
++    [InlineData("  CLIENT@EXAMPLE.COM  ", "client@example.com")]
++    [InlineData(" E\u0301@EXAMPLE.COM ", "é@example.com")]
++    [InlineData(" ", null)]
++    [InlineData(null, null)]
++    public void Normalization_preserves_identity_policy(string? raw, string? expected)
++    {
++        var party = new InternalParty { Email = raw };
++        Assert.Equal(expected, party.NormalizedEmail);
++        Assert.Equal(expected, InternalCustomerEmail.Normalize(raw));
++        Assert.Equal(expected ?? "", new InternalWebsiteAccount { NormalizedEmail = raw! }.NormalizedEmail);
++        party.Email = null;
++        Assert.Null(party.NormalizedEmail);
++    }
++
++    [Fact]
++    public void Contract_migration_is_additive_and_contains_no_legacy_data_rewrite()
++    {
++        using var db = new InternalDbContextFactory().CreateDbContext([]);
++        var assembly = db.GetService<IMigrationsAssembly>();
++        var migration = assembly.CreateMigration(assembly.Migrations["20261112004549_CustomerEventContracts"], db.Database.ProviderName!);
++        Assert.All(migration.UpOperations, op => Assert.True(op is AddColumnOperation or CreateTableOperation or CreateIndexOperation));
++        Assert.Single(migration.UpOperations.OfType<AddColumnOperation>());
++        Assert.Equal(3, migration.UpOperations.OfType<CreateTableOperation>().Count());
++        Assert.DoesNotContain(migration.UpOperations, op => op is SqlOperation or InsertDataOperation or UpdateDataOperation or DeleteDataOperation);
++    }
++
++    [Fact]
++    public void Consent_and_account_metadata_do_not_opt_in_or_merge_legacy_parties()
++    {
++        using var db = new InternalDbContextFactory().CreateDbContext([]);
++        var model = db.GetService<IDesignTimeModel>().Model;
++        var consent = model.FindEntityType(typeof(InternalCustomerConsent))!;
++        Assert.Empty(consent.GetSeedData());
++        Assert.True(consent.FindProperty("StaffActorId")!.IsNullable);
++        Assert.True(consent.FindProperty("WithdrawnAt")!.IsNullable);
++        foreach (var name in new[] { "Purpose", "PolicyVersion", "RecordedAt", "ActorType", "Source" })
++            Assert.False(consent.FindProperty(name)!.IsNullable);
++        Assert.DoesNotContain(model.FindEntityType(typeof(InternalParty))!.GetIndexes(), x => x.IsUnique);
++        Assert.Contains(model.FindEntityType(typeof(InternalWebsiteAccount))!.GetIndexes(),
++            x => x.IsUnique && x.Properties.Single().Name == "NormalizedEmail");
++    }
++
++    [Fact]
++    public void Rejection_cleanup_removes_unsaved_event_from_actual_tracker()
++    {
++        using var db = new InternalDbContextFactory().CreateDbContext([]);
++        db.Add(Event(Guid.NewGuid()));
++        Assert.Single(db.ChangeTracker.Entries<InternalOutboxEvent>());
++        db.ChangeTracker.Clear(); // The actual runner's rejection cleanup; persisted rollback is SQL-gated below.
++        Assert.Empty(db.ChangeTracker.Entries<InternalOutboxEvent>());
++    }
++
++    [Fact]
++    public async Task Writer_rejects_calls_outside_business_transaction()
++    {
++        using var db = new InternalDbContextFactory().CreateDbContext([]);
++        await Assert.ThrowsAsync<InvalidOperationException>(() => InternalOutboxWriter.PaidSale(db,
++            Guid.NewGuid(), Guid.NewGuid(), DateTimeOffset.UtcNow, default));
++    }
++
++    [Fact]
++    public void Legacy_replay_retains_contact_after_party_only_anonymization_documented_limit()
++    {
++        var party = new InternalParty { Id = Guid.NewGuid(), Name = "Synthetic Customer", Email = "synthetic@example.invalid", Phone = "5550100" };
++        var json = JsonSerializer.Serialize(InternalResult<InternalPartyView>.Ok(new(party.Id, "customer", party.Name, party.Email, party.Phone, true)));
++        party.Name = "Anonymized"; party.Email = null; party.Phone = null; party.Active = false;
++        var replay = JsonSerializer.Deserialize<InternalResult<InternalPartyView>>(json)!;
++        Assert.Equal("synthetic@example.invalid", replay.Value!.Email);
++        Assert.Equal("5550100", replay.Value.Phone);
++        // Explicit retained-copy test, NOT a claim that Party-only erasure is safe. See CONTRACTS erasure gate.
++    }
++
++    [Fact]
++    public void New_script_objects_are_guarded_and_positions_are_not_precommit_identity()
++    {
++        var sql = InternalReleaseScriptTests.CheckedInScript();
++        foreach (var table in new[] { "EventOutbox", "CustomerConsents", "WebsiteAccounts" })
++            Assert.Contains($"CREATE TABLE [savia_internal].[{table}]", sql);
++        Assert.Contains("[PublicationPosition] bigint NULL", sql);
++        Assert.Contains("[NormalizedEmail] nvarchar(254) COLLATE Latin1_General_100_BIN2 NULL", sql);
++        Assert.Contains("WHERE [PublicationPosition] IS NOT NULL", sql);
++        using var db = new InternalDbContextFactory().CreateDbContext([]);
++        Assert.Equal(ValueGenerated.Never, db.Model.FindEntityType(typeof(InternalOutboxEvent))!.FindProperty("PublicationPosition")!.ValueGenerated);
++    }
++
++    [InternalCommerceSqlFact]
++    public async Task Runner_savepoint_rejection_removes_persisted_event_but_keeps_rejection_receipt()
++    {
++        await using var fixture = await InternalCommerceSqlDatabase.Create();
++        await using var db = fixture.Context();
++        var principal = InternalSecurityRules.Principal(fixture.Staff, fixture.Session);
++        var runner = new InternalCommandRunner(db, new(db, new PasswordHasher<InternalStaff>(), TimeProvider.System),
++            new HttpContextAccessor { HttpContext = new DefaultHttpContext { User = principal } }, TimeProvider.System);
++        var outcome = await runner.Run<string>(fixture.Actor, "directory.items.create", "outbox-rollback-0001",
++            InternalRules.Fingerprint(new { Test = "rollback" }), async ct => {
++                db.Add(Event(Guid.NewGuid())); await db.SaveChangesAsync(ct);
++                return InternalResult<string>.Fail("invalid_request");
++            }, default);
++        Assert.Equal("invalid_request", outcome.Error);
++        await using var verify = fixture.Context();
++        Assert.False(await verify.Set<InternalOutboxEvent>().AnyAsync());
++        Assert.Single(await verify.Set<InternalOperation>().ToListAsync());
++    }
++
++    [InternalCommerceSqlFact]
++    public async Task Publisher_late_source_gets_later_position_and_retry_preserves_positions()
++    {
++        await using var fixture = await InternalCommerceSqlDatabase.Create();
++        var early = Event(Guid.NewGuid()); var late = Event(Guid.NewGuid());
++        late.OccurredAt = early.OccurredAt.AddMinutes(-1); // Timestamp order differs from visibility order.
++        await using (var db = fixture.Context()) { db.Add(early); await db.SaveChangesAsync(); }
++        await using (var publisher = fixture.Context()) Assert.Equal(1, await InternalOutboxWriter.AssignPublicationPositions(publisher, default));
++        await using (var db = fixture.Context()) { db.Add(late); await db.SaveChangesAsync(); }
++        await using (var publisher = fixture.Context()) Assert.Equal(1, await InternalOutboxWriter.AssignPublicationPositions(publisher, default));
++        await using (var publisher = fixture.Context()) Assert.Equal(0, await InternalOutboxWriter.AssignPublicationPositions(publisher, default));
++        await using var verify = fixture.Context();
++        Assert.Equal(new long?[] { 1, 2 }, await verify.Set<InternalOutboxEvent>().OrderBy(x => x.PublicationPosition).Select(x => x.PublicationPosition).ToArrayAsync());
++        Assert.Equal(late.EventId, (await verify.Set<InternalOutboxEvent>().SingleAsync(x => x.PublicationPosition == 2)).EventId);
++    }
++
++    private static InternalOutboxEvent Event(Guid id) => new() { EventId = id, ResourceId = id, Type = "sale.paid", OccurredAt = DateTimeOffset.UtcNow };
++}
+diff --git a/backend/tests/Martha.Store.Api.Tests/InternalReleaseScriptTests.cs b/backend/tests/Martha.Store.Api.Tests/InternalReleaseScriptTests.cs
+index fe8048f..653d558 100644
+--- a/backend/tests/Martha.Store.Api.Tests/InternalReleaseScriptTests.cs
++++ b/backend/tests/Martha.Store.Api.Tests/InternalReleaseScriptTests.cs
+@@ -53,7 +53,7 @@ public sealed class InternalReleaseScriptTests
+     public async Task Release_script_upgrades_empty_and_first_migration_databases_and_preserves_synthetic_rows()
+     {
+         const string first = "20261025085402_InitialInternalSavia";
+-        string[] all = ["20261025085402_InitialInternalSavia", "20261027224500_InternalBranchScope", InternalStockExceptionTests.Migration, InternalCashSchemaOracle.Migration];
++        string[] all = ["20261025085402_InitialInternalSavia", "20261027224500_InternalBranchScope", InternalStockExceptionTests.Migration, InternalCashSchemaOracle.Migration, "20261112004549_CustomerEventContracts"];
+         var script = CheckedInScript();
+         var empty = NewDatabase(); var upgraded = NewDatabase(); var migrated = NewDatabase();
+         var created = new List<string>();
+@@ -113,6 +113,36 @@ public sealed class InternalReleaseScriptTests
+ 
+     private static string NewDatabase() => "SaviaInternalTest_Release_" + Guid.NewGuid().ToString("N");
+ 
++    [InternalSecuritySqlFact]
++    public async Task Release_script_upgrades_current_cash_schema_with_legacy_duplicate_contacts_without_opt_in()
++    {
++        var name = NewDatabase();
++        await PrivatePilotReleaseTests.Master($"CREATE DATABASE [{name}]");
++        try
++        {
++            await using (var db = PrivatePilotReleaseTests.Context(name))
++                await db.GetService<IMigrator>().MigrateAsync(InternalCashSchemaOracle.Migration);
++            await PrivatePilotReleaseTests.Execute(name, """
++                INSERT INTO savia_internal.Parties (Id,Kind,Name,Email,Phone,Active) VALUES
++                ('a0000000-0000-0000-0000-000000000001','customer',N'Synthetic A',N'SHARED@example.invalid',NULL,1),
++                ('a0000000-0000-0000-0000-000000000002','customer',N'Synthetic B',N'SHARED@example.invalid',NULL,1),
++                ('a0000000-0000-0000-0000-000000000003','supplier',N'Synthetic supplier',NULL,NULL,1);
++                """);
++            var columns = await Columns(name, await PrivatePilotReleaseTests.Rows(name,
++                "SELECT name FROM sys.tables WHERE schema_id=SCHEMA_ID('savia_internal') ORDER BY name"));
++            var before = JsonSerializer.Serialize(await Snapshot(name, columns));
++            await Apply(name, CheckedInScript()); await Apply(name, CheckedInScript());
++            Assert.Equal(before, JsonSerializer.Serialize(await Snapshot(name, columns)));
++            Assert.Equal(new[] { "0|0|0" }, await PrivatePilotReleaseTests.Rows(name,
++                "SELECT (SELECT COUNT(*) FROM savia_internal.CustomerConsents),(SELECT COUNT(*) FROM savia_internal.WebsiteAccounts),(SELECT COUNT(*) FROM savia_internal.Parties WHERE NormalizedEmail IS NOT NULL)"));
++            AssertModelOracle(await PrivatePilotReleaseTests.Inspect(name));
++        }
++        finally
++        {
++            await PrivatePilotReleaseTests.Master($"IF DB_ID(N'{name}') IS NOT NULL BEGIN ALTER DATABASE [{name}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE; DROP DATABASE [{name}]; END");
++        }
++    }
++
+     private static async Task Apply(string database, string script)
+     {
+         await using var connection = new SqlConnection(PrivatePilotReleaseTests.Connection(database));
+@@ -130,13 +160,24 @@ public sealed class InternalReleaseScriptTests
+     {
+         using var expected = JsonDocument.Parse(File.ReadAllText(RepositoryFile("backend/tests/fixtures/expected-invariants.model-derived.json")));
+         foreach (var key in new[] { "history", "tables", "checks", "foreign_keys", "indexes", "primary_keys" })
+-            Assert.Equal(InternalCashSchemaOracle.Expected(expected.RootElement.GetProperty(key).EnumerateArray().Select(x => x.GetString()), key).OrderBy(x => x, StringComparer.Ordinal).ToArray(),
++            Assert.Equal(InternalCashSchemaOracle.Expected(expected.RootElement.GetProperty(key).EnumerateArray().Select(x => x.GetString()), key).Concat(ContractDelta(key)).OrderBy(x => x, StringComparer.Ordinal).ToArray(),
+                 facts[key].OrderBy(x => x, StringComparer.Ordinal).ToArray());
+-        InternalCashSchemaOracle.AssertNames(facts, expected.RootElement);
++        Assert.Equal(26, facts["tables"].Length);
++        Assert.Equal(facts["tables"].Select(x => "savia_internal." + x).Append("dbo.__EFMigrationsHistory").OrderBy(x => x, StringComparer.Ordinal), facts["all_tables"].OrderBy(x => x, StringComparer.Ordinal));
+         InternalCashSchemaOracle.AssertCash(facts);
+         Assert.All(facts["constraint_state"], x => Assert.EndsWith("|False|False", x));
+     }
+ 
++    private static string[] ContractDelta(string key) => key switch
++    {
++        "history" => ["20261112004549_CustomerEventContracts"],
++        "tables" => ["CustomerConsents", "EventOutbox", "WebsiteAccounts"],
++        "checks" => ["CK_CustomerConsents_Actor", "CK_CustomerConsents_Purpose", "CK_CustomerConsents_Withdrawal", "CK_EventOutbox_Version", "CK_EventOutbox_Payload", "CK_EventOutbox_Publication", "CK_WebsiteAccounts_Email"],
++        "foreign_keys" => ["FK_CustomerConsents_Parties_PartyId", "FK_CustomerConsents_Staff_StaffActorId", "FK_WebsiteAccounts_Parties_PartyId"],
++        "indexes" => ["IX_Parties_NormalizedEmail", "IX_CustomerConsents_PartyId_Purpose", "IX_CustomerConsents_StaffActorId", "IX_EventOutbox_PublicationPosition", "IX_EventOutbox_Type_ResourceId", "IX_WebsiteAccounts_NormalizedEmail", "IX_WebsiteAccounts_PartyId"],
++        "primary_keys" => ["PK_CustomerConsents", "PK_EventOutbox", "PK_WebsiteAccounts"], _ => []
++    };
++
+     // Column sets of the tables as they existed before the upgrade.
+     private static async Task<SortedDictionary<string, string[]>> Columns(string database, string[] tables)
+     {
+diff --git a/docs/program-20261111/CONTRACTS.md b/docs/program-20261111/CONTRACTS.md
+new file mode 100644
+index 0000000..4f89580
+--- /dev/null
++++ b/docs/program-20261111/CONTRACTS.md
+@@ -0,0 +1,159 @@
++# WP-S contracts v1 — 2026-11-11
++
++Source: PLAN amendment and critic findings 1–12 at base `de30ccfa5f999e37b14fcd5ee9dbf4566e373154`.
++These contracts freeze implementation seams for B/C/D. Endpoints below are contracts, not implemented routes.
++InternalDbContext remains authoritative. StoreDbContext and the public simulator remain separate.
++
++## WP-B: publication and SSE
++
++`EventOutbox`: EventId (unique GUID), Type, SchemaVersion, ResourceId, OriginalBranchId,
++OccurredAt, PayloadJson, nullable PublicationPosition (bigint), PublisherState (pending/published).
++EventId identifies a semantic change; position identifies publication order. They are never interchangeable.
++Unique (Type, ResourceId) uses the change ID: sale ID for sale.paid, reversal ID for refunds,
++movement/receipt/adjustment ID for stock, till ID for open/close. Do not use an item ID for repeat changes.
++Payload v1 is `{}`: an invalidation, never a receipt, customer, amount, or contact snapshot.
++Branchless events are stored but denied by the staff stream. Do not infer a branch later.
++
++The reference producer is cash.sale, inside its existing runner callback after payment SaveChanges.
++Its deterministic EventId is SaleId. Exceptions/rejections roll back with the action/savepoint.
++Same-key replay bypasses the callback. No network delivery occurs inside the financial transaction.
++No runner refactor is needed: existing rollback plus ChangeTracker.Clear already covers the new tracked row.
++Other producers belong to B and must distinguish a new semantic change from a successful no-op.
++
++Use `InternalOutboxWriter.AssignPublicationPositions` with a fresh context after source commits.
++All publisher instances acquire transaction-owned SQL lock `SaviaInternal:outbox-publisher:v1`.
++Under that lock, read MAX published position, scan up to 100 pending rows, assign increasing positions,
++save and commit atomically. SQL ReadCommitted exposes only committed source rows; it may wait on writers.
++A source committing late remains pending and receives a later position on the next scan.
++OccurredAt/GUID sort selects a batch, never defines a replay checkpoint. No READPAST over allocated positions.
++Retry after uncertain commit reloads durable state; assigned positions never change.
++Do not delete the row holding the highest published position. Retention must preserve this high-water sentinel,
++even if its event expires from replay. Removing all published rows would reuse positions and violates this contract.
++Only this publisher may assign positions; no direct producer assignment or sequence/identity default.
++SSE reads committed rows with assigned positions, not only rows newly marked published.
++
++GET `/internal/api/events`; cookie authentication; no URL credentials.
++Cursor: `v1:<positive decimal bigint>` in Last-Event-ID and SSE id. Parse as Int64 on server and string in JS.
++No cursor means authorized refresh plus current high-water checkpoint before consuming subsequent invalidations.
++Transport is at least once. UI deduplicates positions/event IDs and refetches authoritative authorized projections.
++No financial delta application. Reconnect must subscribe to the durable log through the same high-water handoff.
++Retain replay for 7 days; max 100 rows/page, 256 buffered frames/client, 4 streams/session, 100 streams/host.
++Disconnect slow clients on overflow. Invalid/unknown/future/expired cursors get `reset` with no private data;
++client clears its checkpoint, refreshes authorized state, then reconnects. Never silently skip a range.
++The retained sentinel is not replayable after expiry. B owns cleanup and a retention-floor test.
++
++| Topic | Owner | Manager | Cashier | Inventory | Anonymous |
++| --- | --- | --- | --- | --- | --- |
++| sale.paid, sale.refunded, sale.returned, sale.cancelled | Any active branch | Current branch | Current branch, own till/resource only | Deny | Deny |
++| stock.changed, stock.received | Any active branch | Current branch | Current branch | Current branch | Deny |
++| till.opened, till.closed | Any active branch | Current branch | Current branch, own till only | Deny | Deny |
++| customer.changed | Deny (use authorized CRM read) | Deny | Deny | Deny | Deny |
++| Unknown or branchless topic | Deny | Deny | Deny | Deny | Deny |
++
++For every batch, resolve resource custody from server state and compare original event branch to current membership.
++Manager cannot opt into another branch. Owner global is explicit, never an inferred default for other roles.
++Revalidate persisted session, security version, staff enabled/role, active branch and resource before each batch
++and at idle intervals ≤1 second. On storage error or revocation, close without sending another batch.
++Revocation bound: ≤1 second after persisted revocation becomes observable; already-sent bytes cannot be recalled.
++Browser closes on logout/session epoch change and ignores stale callbacks. B tests busy and idle streams,
++Owner recovery, reassignment, expiry, two clients, two branches, commit inversion and crash recovery.
++
++## WP-C: staff customer admission
++
++Policy name: `internal.customer-admission`. Roles Owner, Manager, Cashier; deny Inventory/anonymous/revoked sessions.
++Search is global across branches, intentionally limited to DTO `{id,name,email,phone}` for active customers.
++Never expose purchases, spend, notes, address, consent history, suppliers, or staff. No bulk listing or total count.
++GET `/internal/api/customers/search?kind=email|name&mode=exact|prefix&q=...&take=...`.
++Email uses canonical normalization below. Name uses trimmed NFC. Exact email or name prefix ≥3 characters;
++maximum q length 254, take default 10/max 20, no offset, wildcards or empty query.
++Exact name is permitted with ≥3 characters. Match prefixes as escaped literals. 30 searches/min/session, 300/host;
++limiter returns 429/Retry-After. Bound concurrency and never trust forwarded IP without configured proxies.
++
++POST `/internal/api/customers`: `{name,email,phone?,choice:"create-new"|"choose-existing",existingId?}`.
++Require same-session CSRF and actor-bound idempotency. Normal registration requires nonempty validated name/email.
++Search exact normalized email first; show minimal matches and require an explicit selection or explicit create-new.
++Never automatically merge. Choosing requires an active customer returned under the same authorization rules;
++recheck at write time. Optional customer on sale stays optional. Existing Owner directory authority stays unchanged.
++New cash admission command scope must be added explicitly by C; the current runner does not yet grant it.
++Responses use the minimal DTO only; avoid adding new immutable PII receipts (see erasure gate).
++
++Canonical email: Trim → NFC → ToLowerInvariant. Preserve plus tags and dots; never infer provider aliases.
++Parties.NormalizedEmail has a non-unique binary index. Existing shared/null/supplier contacts remain legal.
++The Email setter maintains normalized values for new application writes. Existing migration rows remain NULL:
++SQL cannot reproduce .NET NFC safely. C owns an explicit bounded application backfill before indexed search activation,
++with old contact bytes preserved and historical duplicates reported to Owner, never merged.
++Do not treat NULL normalization as absence of a legacy match. Until backfill completes, admission/search stays gated.
++WebsiteAccounts has a separate unique binary NormalizedEmail index, linked to Party with Restrict deletion.
++C/D normalize with InternalCustomerEmail before insert and use SQL uniqueness as the final concurrency barrier.
++An anonymous claim never attaches an account to a preexisting Party by email alone.
++Account email remains reserved after disable/withdrawal, preventing retries from silently restoring consent.
++
++## WP-D: public catalog and signup
++
++GET `/api/catalog`: allowlist `{items:[{id,sku,name,unitPriceMinor,currency,available}],asOf}`.
++Only active items explicitly included in an Owner-approved publication map. Empty map publishes zero items.
++Map placeholder (configuration, not inferred): public product/variant ID → InternalItemId + allowed active LocationIds.
++D owns the map implementation and an approval artifact; no historical website ID matching by guess.
++Availability = sum(OnHand - Reserved) over mapped active locations only. Missing balance is zero.
++Include exception allocation effects only through authoritative balances; never invent reservations absent from Internal.
++No costs, internal location/branch names, customers, staff, supplier, till, ledger or operation data.
++Money uses integer minor units plus explicit ISO currency; no conversion. Reject mixed-currency aggregation.
++Page size max 100; bounded polling ≤5 seconds, cache timestamp/age, stale/offline state visibly identified.
++Public catalog does not consume the private staff SSE endpoint. Latency/Web Vitals require real browser proof in D.
++
++POST `/api/customer-signups`: `{name,email,phone?,consent:{purpose,policyVersion,accepted}}` only.
++Reject unknown fields and client-supplied IDs, roles, branch, staff actor, verification or internal flags.
++Purpose allowlist starts with `customer-registration`; marketing requires its own explicit approved policy and opt-in.
++Server records time, anonymous actor type, source `website`; StaffActorId stays null.
++Account state is unverified until a separate proof of ownership flow is approved and implemented.
++Use a dedicated anonymous service, never a fabricated staff session or InternalCommandRunner bypass.
++One SQL transaction inserts normalized unique account + new Party + explicit consent. On uniqueness race, rollback
++and return the same generic result; do not overwrite contact, attach to a legacy Party, or regrant withdrawn consent.
++All syntactically valid new/existing/inactive/withdrawn requests return 202 `{"status":"received"}`.
++Invalid bodies return generic 400; max body 4 KiB, name 200/email 254/phone 32.
++Rate limits: 5/min/client, 100/min/host, max 4 concurrent admissions, bounded limiter state and 429/Retry-After.
++No staff cookies/CSRF authority on this endpoint; enforce configured origin and proxy trust explicitly.
++Replayed signup must not change consent or restore disabled/anonymized records. D tests concurrent C/D writes.
++
++## Consent, anonymization and retained replay copies
++
++No existing Party gets consent automatically. No consent row means unknown/not granted.
++Consent records purpose, policy version, server timestamp, actor type/source, nullable real staff actor and withdrawal.
++Withdrawal must be one-way at the service layer and must not be reset by retries; C/D own this service enforcement.
++This schema alone does not enforce all lifecycle transitions or provide an anonymization endpoint.
++
++Anonymization primitive design: preserve Party.Id as an inactive tombstone with neutral name, clear Email,
++NormalizedEmail and Phone, disable website admission and withdraw consent. Never delete sale/customer FKs,
++payments, refunds, cash close totals or stock/item snapshots. This is accounting pseudonymization.
++The current append-only Operations.ResultJson contains historical InternalPartyView name/email/phone.
++Party-only anonymization leaves those copies accessible through original-key replay. The focused retained-copy test
++records this exact limitation. The fingerprint is also retained as an irreversible request hash, not raw request text.
++Retention reason today: immutable replay/audit contract and GuardAudit; no approved selective erasure implementation exists.
++Do not advertise erasure or activate an anonymization endpoint while replay still returns these contacts.
++Required follow-on by primary/C: narrow audited operation-erasure overlay or PII-free receipt plus current projection,
++applied to both command replay and recovery GET, including old operation JSON. Do not relax GuardAudit globally.
++WebsiteAccounts.NormalizedEmail also remains identifying data; reserve a keyed tombstone rather than raw email
++only after an approved lookup/retention design. No keys or salts belong in this repository.
++Existing exports, browser caches, logs, backups and legal retention are UNKNOWN; Owner must inventory them.
++Outbox v1 adds no contact payload. Resource GUID linkage remains pseudonymous accounting data.
++
++## Shared-file owners and integration order
++
++| Files/seam | Owner | Integration rule |
++| --- | --- | --- |
++| Internal/Migrations/** and release script | S | Sole schema writer; new schema needs return to S |
++| Directory/InternalDirectoryModels.cs | S then C | C must preserve non-unique staff email rule |
++| Events/InternalEventModels.cs | S then B | No incompatible payload/schema change without contract version |
++| Events/InternalOutboxWriter.cs | S then B | Preserve serialized publication and high-water sentinel |
++| InternalCommandRunner.cs | Primary | S uses existing savepoint; C scope/replay changes integrated serially |
++| Cash/InternalCashService.cs | S then B | S paid producer; B adds other producers without duplicate events |
++| InternalHosting.cs, Program.cs, policy/rate registration | Primary | B/C/D submit bounded patches; primary integrates serially |
++| Directory customer endpoints/services | C | Freeze identity and admission before D begins |
++| Public catalog/signup services, src/integration-adapters.js | D | Depends on C identity/backfill/admission gates |
++| dev/savia-staff-ui/app.mjs, client.mjs, cash.mjs | Primary | B/C submit patches; one writer at a time |
++| backend focused tests | Respective package | Historical cash oracle remains scoped to cash; S extends release oracle |
++| CONTRACTS.md | Primary after S | Contract changes precede dependent implementation |
++
++Integration: S → B and C on separate worktrees → C accepted → D → E. Primary owns independent acceptance.
++SQL migration safety, simultaneous publication, full paid-sale fault injection, privacy erasure and browser latency
++remain distinct checks; offline metadata success does not establish any of them.
+diff --git a/docs/program-20261111/wp-s/EVIDENCE.md b/docs/program-20261111/wp-s/EVIDENCE.md
+new file mode 100644
+index 0000000..e643eb1
+--- /dev/null
++++ b/docs/program-20261111/wp-s/EVIDENCE.md
+@@ -0,0 +1,102 @@
++# wp-s-schema-contracts-20261111
++
++Status: implementation staged for primary review; offline checks PASS. SQL acceptance NOT RUN.
++Host SUAZO-PC; T3 Code / Codex harness; actual model gpt-6.1-sol, reasoning high.
++Base verified: `de30ccfa5f999e37b14fcd5ee9dbf4566e373154`.
++Branch: `t3/wp-s-schema-contracts`. Initial index/worktree clean. No commit, push, PR, Docker or production SQL.
++Only this assigned managed worker was reported against this worktree by agent-awareness (checked twice).
++
++## Result by amended check
++
++| Check | Implemented and verified locally | NOT RUN / remaining limit |
++| --- | --- | --- |
++| S1 | EF-generated additive migration, snapshot, idempotent script; exact EF-script equivalence, additive-operation test and no pending model changes PASS | SQL application twice on empty/first/current populated schemas NOT RUN. Current upgrade fixture covers duplicate/null/supplier contacts, not a fully populated cash/refund/exception matrix. Disposable failure recovery remains unimplemented validation work before operational approval. |
++| S2 | Unique EventId, semantic type/resource uniqueness, nullable durable bigint position, original branch, schema version, minimal payload and publisher state; paid-sale callback producer; tracker-clear check PASS | Real savepoint rollback, simultaneous publishers, true overlapping commit inversion, crash/restart and paid-sale fault injection NOT RUN. Added gated rollback and late-visible source/retry tests. No SSE transport implemented (B). |
++| S3 | Explicit consent metadata, anonymous actor with nullable real staff FK, withdrawal timestamp, no seed/default legacy consent; retained replay-copy regression test PASS | Anonymization is a documented primitive design, not an executable erasure service. Existing operation JSON retains name/email/phone after Party-only erasure. Website account email also retained. No claim of complete anonymization; gate and owner in CONTRACTS. |
++| S4 | Trim/NFC/invariant lower helper; Party setter and website-account setter; nullable non-unique Party index and unique separate account index; shared household rule preserved; normalization/model tests PASS | Existing normalized columns stay NULL. C must backfill with the application helper before search activation. SQL duplicate race, account admission, verification and withdrawal/retry enforcement remain C/D runtime checks. |
++| S5 | CONTRACTS freezes B cursor/topics/role/branch matrix/revocation bound, C DTO/search/selection/policy/endpoints, D public allowlist/availability/publication map/signup/limits, and shared-file owners | Contracts are proposed implementation routes, not currently enabled endpoints. Primary independently reviews and accepts before B/C/D. |
++
++## Mechanism and source seam
++
++Publication positions are assigned after source commit by a SQL-lock-serialized publisher, not a precommit sequence.
++Every publisher transaction takes `SaviaInternal:outbox-publisher:v1`, reads committed pending rows and persists
++new positions atomically. A late committed row gets a higher position in a later batch. Existing positions survive retries.
++MAX requires retaining the highest published row forever as a high-water sentinel; CONTRACTS makes this mandatory.
++The expired sentinel is excluded from replay by B. No network runs inside source or assignment transactions.
++This is a source-level safety argument; concurrency SQL proof remains pending.
++
++The reference writer runs in cash.sale after the payment SaveChanges and inside the existing runner callback.
++EventId and ResourceId equal SaleId. The existing savepoint and tracker cleanup need no runner modification.
++Same-key replay returns before the callback. Exceptional sales follow the same paid path without requiring a stock movement.
++No other producers were added. Frozen payload is `{}`; no receipt or contact fields are broadcast.
++
++## Exact commands and exits
++
++Commands below ran from the worktree root unless specified. The existing SDK is reused read-only:
++
++```powershell
++$env:DOTNET_ROOT='C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402'
++$env:PATH="$env:DOTNET_ROOT;$env:PATH"
++```
++
++No files under validation/ or outputs/ were changed. The official EF CLI was installed into the task TEMP directory.
++
++| Command | Exit | Result |
++| --- | --- | --- |
++| `git rev-parse HEAD` | 0 | Required base matches |
++| `python C:/Users/Jason/AI-OS/bin/agent-awareness.py --workspace "C:/Users/Jason/.t3/worktrees/github/t3-fc8d21c3-d24f2eb60e2efe33"` | 0 | At start and before first mutation |
++| `& C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe --version` | 0 | 10.0.402 |
++| `dotnet tool install dotnet-ef --version 10.0.13 --tool-path "$env:TEMP/wp-s-ef-10.0.13"` | 0 | Official matching EF tool installed |
++| `dotnet restore backend/Martha.Store.slnx --locked-mode --disable-parallel -m:1` | 0 | Both projects restored |
++| `dotnet build backend/Martha.Store.slnx --no-restore -c Release -m:1 -p:UseSharedCompilation=false` | 0 | Final build: 0 warnings, 0 errors |
++| `& "$env:TEMP/wp-s-ef-10.0.13/dotnet-ef.exe" migrations add CustomerEventContracts --context InternalDbContext --project backend/src/Martha.Store.Api --startup-project backend/src/Martha.Store.Api --output-dir Internal/Migrations --configuration Release --no-build` | 0 | Generated 20261112004549_CustomerEventContracts, designer and snapshot through EF |
++| `& "$env:TEMP/wp-s-ef-10.0.13/dotnet-ef.exe" migrations script 0 --idempotent --context InternalDbContext --project backend/src/Martha.Store.Api --startup-project backend/src/Martha.Store.Api --configuration Release --no-build --output backend/src/Martha.Store.Api/Internal/Migrations/InitialInternalSavia.idempotent.sql` | 0 | Regenerated release script; subsequent exact-generation test PASS |
++| `& "$env:TEMP/wp-s-ef-10.0.13/dotnet-ef.exe" migrations has-pending-model-changes --context InternalDbContext --project backend/src/Martha.Store.Api --startup-project backend/src/Martha.Store.Api --configuration Release --no-build` | 0 | No pending model changes |
++| `dotnet test backend/tests/Martha.Store.Api.Tests --no-build --no-restore -c Release --filter "FullyQualifiedName~InternalEventContractTests\|FullyQualifiedName~InternalReleaseScriptTests\|FullyQualifiedName~InternalMigrationTests\|FullyQualifiedName~InternalDirectoryModelTests\|FullyQualifiedName~InternalCashTests\|FullyQualifiedName~InternalDirectoryValidationTests"` | 0 | Final: 90 PASS, 4 SKIP, 0 FAIL. The backslashes before pipes in this Markdown table are display escapes; actual PowerShell filter uses literal pipes inside the quoted string. |
++
++No generated snapshot/designer/migration was edited by hand. Release SQL is the unchanged EF generator output.
++The generator leaves a blank EOF line, reported by ordinary `git diff --check`; content equivalence test passes.
++
++## Failed checks and corrections
++
++1. Initial PATH `dotnet ef --version` failed: SDK 10.0.402 absent from PATH (only system 8.0.422).
++   Direct repository evidence identified the installed SDK above; version/build verified. No SDK install or global.json edit.
++2. First test build exited 1: CS0246 IDesignTimeModel missing namespace in the new test file.
++   Added Microsoft.EntityFrameworkCore.Metadata. Final build exited 0.
++3. A subsequent no-build test command mistakenly used stale test binaries from before migration generation:
++   3 FAIL, 8 PASS, 1 SKIP (snapshot/table/script mismatch). These results are invalid for the final source.
++   Rebuilt both projects, regenerated SQL, and reran: 20 PASS/3 SKIP; final expanded check 90 PASS/4 SKIP.
++   Lesson applied: no-build validation must follow a successful build containing the generated migration.
++
++## SQL gate and blockers
++
++`MARTHA_INTERNAL_TEST_SQL_CONNECTION` is absent. No endpoint was invented or copied from historical evidence.
++The final test invocation discovers four SQL-gated cases and skips them; no SQL Server connection was opened.
++No Docker, server startup, production migration, seed, account creation, or runtime configuration change occurred.
++
++Owner primary: provide an authorized disposable SQL endpoint via the documented variable, then run the same filter.
++Completion: all four gated cases pass, plus adversarial concurrent publication/paid-sale fault injection and the full
++populated-current-cash upgrade/recovery matrix required by amended S1/S2. Preserve production gates.
++Rollback for disposable validation: fixtures delete only their generated SaviaInternalTest_Release_* databases.
++Do not apply migration Down to a live system; it drops the new tables and requires a separate data-retention decision.
++
++Owner primary/C: replay privacy is deliberately unresolved because the assigned runner scope permits only an outbox hook.
++The exact retained-copy behavior is tested. Prepare the selective erasure overlay/current-projection design before enabling erasure.
++Owner C: backfill legacy normalization before enabling indexed CRM search. Compare original contact bytes and duplicates afterward.
++
++## Staged paths (explicit scope)
++
++- backend/src/Martha.Store.Api/Internal/Cash/InternalCashService.cs
++- backend/src/Martha.Store.Api/Internal/Directory/InternalDirectoryModels.cs
++- backend/src/Martha.Store.Api/Internal/Events/InternalEventModels.cs
++- backend/src/Martha.Store.Api/Internal/Events/InternalOutboxWriter.cs
++- backend/src/Martha.Store.Api/Internal/Migrations/20261112004549_CustomerEventContracts.cs
++- backend/src/Martha.Store.Api/Internal/Migrations/20261112004549_CustomerEventContracts.Designer.cs
++- backend/src/Martha.Store.Api/Internal/Migrations/InternalDbContextModelSnapshot.cs
++- backend/src/Martha.Store.Api/Internal/Migrations/InitialInternalSavia.idempotent.sql
++- backend/tests/Martha.Store.Api.Tests/InternalEventContractTests.cs
++- backend/tests/Martha.Store.Api.Tests/InternalReleaseScriptTests.cs
++- docs/program-20261111/CONTRACTS.md
++- docs/program-20261111/wp-s/EVIDENCE.md
++
++Next action: primary reviews this staged artifact and CONTRACTS before integrating WP-S; do not treat local PASS as SQL acceptance.
