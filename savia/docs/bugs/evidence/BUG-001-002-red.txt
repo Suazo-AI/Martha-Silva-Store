@@ -1,0 +1,17 @@
+# RED run before V004 (2026-11-12). Command: dotnet test tests/Savia.Tests --filter FullyQualifiedName~ConcurrencyTests
+  Failed Savia.Tests.ConcurrencyTests.Sixty_parallel_sales_of_thirty_units_sell_exactly_thirty [17 s]
+  Passed Savia.Tests.ConcurrencyTests.Parallel_scans_count_each_scan_id_once [2 s]
+  Failed Savia.Tests.ConcurrencyTests.Ten_parallel_closes_of_one_till_close_it_once [721 ms]
+  Passed Savia.Tests.ConcurrencyTests.The_same_sale_sent_twenty_times_at_once_is_posted_once [1 s]
+Total tests: 4
+     Passed: 2
+     Failed: 2
+
+# First failure messages (truncated)
+[xUnit.net 00:00:23.56]       unexpected answers: 503 {"code":"db.busy","message":"La base de datos está ocupada. Reintente.","traceId":"0HNQ0IOKG4S3M"} | 503 {"code":"db.busy","message":"La base de datos está ocupada. Reintente.","traceId":"0HNQ0IOKG4S3Q"} | 503 {"code":"db.busy","message":"La base de datos está ocupada. Reintente.","traceId":"0HNQ0IOKG4S3R"} | 503 {"code":"db.busy","message":"La base de datos es
+   unexpected answers: 503 {"code":"db.busy","message":"La base de datos está ocupada. Reintente.","traceId":"0HNQ0IOKG4S3M"} | 503 {"code":"db.busy","message":"La base de datos está ocupada. Reintente.","traceId":"0HNQ0IOKG4S3Q"} | 503 {"code":"db.busy","message":"La base de datos está ocupada. Reintente.","traceId":"0HNQ0IOKG4S3R"} | 503 {"code":"db.busy","message":"La base de datos está ocupada. Reintente.","t
+
+# SQL Server deadlock graph, latest report (system_health), summarized:
+process A waits U lock on inventory.StockBalances (PK_StockBalances) in inventory.usp_ApplyMovement line 31
+process B waits S lock on sales.SaleLines (PK_SaleLines) in sales.usp_PostSale line 123
+deadlock reports recorded by the engine after the red runs: 82

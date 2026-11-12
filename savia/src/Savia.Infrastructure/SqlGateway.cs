@@ -33,22 +33,47 @@ public sealed class SqlGateway(string connectionString)
     public async Task<T?> FirstAsync<T>(string sql, Func<SqlDataReader, T> map, CancellationToken ct, params SqlParameter[] parameters)
         where T : class => (await QueryAsync(sql, map, ct, parameters)).FirstOrDefault();
 
+    private const int MaxAttempts = 4;
+
     public async Task<TResult> RunAsync<TResult>(string text, CommandType type, SqlParameter[] parameters,
         Func<SqlCommand, Task<TResult>> work, CancellationToken ct)
     {
-        try
+        for (var attempt = 1; ; attempt++)
         {
-            await using var connection = new SqlConnection(connectionString);
-            await connection.OpenAsync(ct);
-            await using var command = new SqlCommand(text, connection) { CommandType = type, CommandTimeout = 30 };
-            command.Parameters.AddRange(parameters);
-            return await work(command);
-        }
-        catch (SqlException ex)
-        {
-            throw Translate(ex);
+            try
+            {
+                await using var connection = new SqlConnection(connectionString);
+                await connection.OpenAsync(ct);
+                await using var command = new SqlCommand(text, connection) { CommandType = type, CommandTimeout = 30 };
+                command.Parameters.AddRange(parameters);
+                try
+                {
+                    return await work(command);
+                }
+                finally
+                {
+                    command.Parameters.Clear();   // the same parameter objects go into the next attempt
+                }
+            }
+            catch (SqlException ex) when (attempt < MaxAttempts && IsTransient(ex, attempt))
+            {
+                await Task.Delay(Random.Shared.Next(15, 60) * attempt, ct);
+            }
+            catch (SqlException ex)
+            {
+                throw Translate(ex);
+            }
         }
     }
+
+    /// <summary>
+    /// Every write is a procedure that is idempotent by client-supplied ids and atomic, so running it again is safe.
+    /// 1205: this call was the deadlock victim and nothing was stored.
+    /// 2601/2627: two identical requests raced to insert the same id; the second attempt finds the row and
+    /// takes the idempotent path. A real duplicate fails again and is reported.
+    /// </summary>
+    private static bool IsTransient(SqlException ex, int attempt) =>
+        ex.Number == 1205 || (attempt == 1 && ex.Number is 2601 or 2627);
 
     private static async Task<List<T>> ReadAllAsync<T>(SqlCommand command, Func<SqlDataReader, T> map, CancellationToken ct)
     {

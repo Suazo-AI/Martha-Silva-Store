@@ -1,0 +1,21 @@
+# GREEN runs after V004 + gateway retry (2026-11-12), 3 consecutive runs of the same command
+run 1: Test Run Successful. Total tests: 5  Passed: 5 
+  Passed Savia.Tests.ConcurrencyTests.Sixty_parallel_sales_of_thirty_units_sell_exactly_thirty [1 s]
+  Passed Savia.Tests.ConcurrencyTests.Parallel_scans_count_each_scan_id_once [1 s]
+  Passed Savia.Tests.ConcurrencyTests.Ten_parallel_closes_of_one_till_close_it_once [2 s]
+  Passed Savia.Tests.ConcurrencyTests.Ten_parallel_opens_of_one_till_open_it_once [589 ms]
+  Passed Savia.Tests.ConcurrencyTests.The_same_sale_sent_twenty_times_at_once_is_posted_once [1 s]
+run 2: Test Run Successful. Total tests: 5  Passed: 5 
+  Passed Savia.Tests.ConcurrencyTests.Sixty_parallel_sales_of_thirty_units_sell_exactly_thirty [2 s]
+  Passed Savia.Tests.ConcurrencyTests.Parallel_scans_count_each_scan_id_once [867 ms]
+  Passed Savia.Tests.ConcurrencyTests.Ten_parallel_closes_of_one_till_close_it_once [1 s]
+  Passed Savia.Tests.ConcurrencyTests.Ten_parallel_opens_of_one_till_open_it_once [598 ms]
+  Passed Savia.Tests.ConcurrencyTests.The_same_sale_sent_twenty_times_at_once_is_posted_once [1 s]
+run 3: Test Run Successful. Total tests: 5  Passed: 5 
+  Passed Savia.Tests.ConcurrencyTests.Sixty_parallel_sales_of_thirty_units_sell_exactly_thirty [3 s]
+  Passed Savia.Tests.ConcurrencyTests.Parallel_scans_count_each_scan_id_once [3 s]
+  Passed Savia.Tests.ConcurrencyTests.Ten_parallel_closes_of_one_till_close_it_once [1 s]
+  Passed Savia.Tests.ConcurrencyTests.Ten_parallel_opens_of_one_till_open_it_once [804 ms]
+  Passed Savia.Tests.ConcurrencyTests.The_same_sale_sent_twenty_times_at_once_is_posted_once [2 s]
+
+deadlock reports recorded by the engine during the 3 green runs (180 parallel sales): 0

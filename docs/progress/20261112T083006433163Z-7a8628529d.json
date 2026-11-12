@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-12T08:30:06.433163+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/db/migrations/V004__concurrency_fixes.sql",
+      "change": "A",
+      "git_blob": "12955c864a67731212bdafe2b2e710f507250d35"
+    },
+    {
+      "path": "savia/docs/PLAN.md",
+      "change": "M",
+      "git_blob": "01ba3a9602b5e46d074a0955aece0b28a0be75ac"
+    },
+    {
+      "path": "savia/docs/bugs/BUG-001-002-concurrencia.md",
+      "change": "A",
+      "git_blob": "46728439118119317f2e8e59873ffac9c7da7871"
+    },
+    {
+      "path": "savia/docs/bugs/evidence/BUG-001-002-green.txt",
+      "change": "A",
+      "git_blob": "415622ecb42e8ad9bff3b548feff2f98266e7585"
+    },
+    {
+      "path": "savia/docs/bugs/evidence/BUG-001-002-red.txt",
+      "change": "A",
+      "git_blob": "07cb1fcbb7e1e3aa1f0fe429394780b95dbe2f96"
+    },
+    {
+      "path": "savia/src/Savia.Infrastructure/SqlGateway.cs",
+      "change": "M",
+      "git_blob": "e4b37d292b6a733ee52777daf22f94221aa9c86c"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/ConcurrencyTests.cs",
+      "change": "A",
+      "git_blob": "88c9e751546fe75e12092f1e203d02a6649fea5d"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}
