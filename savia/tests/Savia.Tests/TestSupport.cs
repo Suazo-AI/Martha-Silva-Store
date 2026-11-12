@@ -115,7 +115,8 @@ public static class TestSql
 }
 
 /// <summary>One SAVIA node hosted in memory over its own database: the same program the branch PC runs.</summary>
-public sealed class SaviaNode(string database, NodeKind kind, Guid nodeId, Guid? branchId, Guid? locationId)
+public sealed class SaviaNode(string database, NodeKind kind, Guid nodeId, Guid? branchId, Guid? locationId,
+    IReadOnlyDictionary<string, string?>? extra = null)
     : WebApplicationFactory<Program>
 {
     public string Database => database;
@@ -134,7 +135,7 @@ public sealed class SaviaNode(string database, NodeKind kind, Guid nodeId, Guid?
             ["Savia:Node:BranchId"] = branchId?.ToString(),
             ["Savia:Node:LocationId"] = locationId?.ToString(),
             ["Savia:Sql:ConnectionString"] = TestSql.ConnectionFor(database),
-        }));
+        }).AddInMemoryCollection(extra ?? new Dictionary<string, string?>()));
     }
 
     /// <summary>Gives a fixture staff member the test password and returns a signed-in client.</summary>

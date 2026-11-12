@@ -51,8 +51,8 @@ def check_name(name):
     return name
 
 
-def run_sql(db, text, timeout=600):
-    """Run a SQL script (sqlcmd -b -I). Returns (exit_code, output)."""
+def run_sql(db, text, timeout=600, opts=""):
+    """Run a SQL script (sqlcmd -b -I, plus extra sqlcmd options). Returns (exit_code, output)."""
     remote = f"/tmp/saviadb-{uuid.uuid4().hex}.sql"
     code, out = docker(["exec", "-i", CONTAINER, "bash", "-c", f"cat > {remote}"],
                        data=text.encode("utf-8"))
@@ -60,7 +60,7 @@ def run_sql(db, text, timeout=600):
         return code, out
     try:
         return docker(["exec", CONTAINER, "bash", "-c",
-                       f"{SQLCMD} -b -I -d {db} -i {remote}"], timeout=timeout)
+                       f"{SQLCMD} -b -I {opts} -d {db} -i {remote}"], timeout=timeout)
     finally:
         docker(["exec", CONTAINER, "rm", "-f", remote])
 

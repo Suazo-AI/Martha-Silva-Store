@@ -5,7 +5,8 @@ namespace Savia.Application;
 /// <summary>Who this process is. Set once from configuration at start-up.</summary>
 /// <param name="BranchId">The only branch a Branch node may operate. Null on the cloud node.</param>
 /// <param name="LocationId">Default stock location of a Branch node.</param>
-public sealed record NodeContext(NodeKind Kind, Guid NodeId, Guid? BranchId, Guid? LocationId)
+/// <param name="LocalCatalog">Explicit single-branch pilot exception to cloud catalog ownership. Defaults to false.</param>
+public sealed record NodeContext(NodeKind Kind, Guid NodeId, Guid? BranchId, Guid? LocationId, bool LocalCatalog = false)
 {
     public Guid RequireBranch() => BranchId ?? throw new SaviaException(Errors.WrongNode);
     public Guid RequireLocation() => LocationId ?? throw new SaviaException(Errors.WrongNode);

@@ -1,0 +1,132 @@
+// Shell, session and router of the SAVIA staff web.
+import * as api from './api.mjs';
+import { device, replace, h } from './ui.mjs';
+import login from './screens/login.mjs';
+import reception from './screens/reception.mjs';
+import review from './screens/review.mjs';
+import sale from './screens/sale.mjs';
+import cash from './screens/cash.mjs';
+import inventory from './screens/inventory.mjs';
+
+const ROUTES = {
+  'venta': sale,
+  'caja': cash,
+  'recepcion': reception,
+  'recepcion/revisar': review,
+  'inventario': inventory,
+};
+const APPROVER_ROLES = ['MANAGER', 'OWNER'];
+const $ = id => document.getElementById(id);
+
+const ctx = {
+  me: null,
+  get roles() { return ctx.me?.roles ?? []; },
+  get isApprover() { return ctx.roles.some(r => APPROVER_ROLES.includes(r)); },
+  get branchName() {
+    return ctx.me?.branchName || null;
+  },
+  notify(text) { $('notice').textContent = text || ''; },
+  go(route) { location.hash = '#/' + route; },
+  till: {
+    get() { return device.get('till'); },
+    set(value) { device.set('till', value); renderTillState(); },
+  },
+  refreshTill: () => renderTillState(),
+};
+
+let current = null;   // { route, handle }
+
+/** The one entry point for scanners: the active screen decides what a code means. */
+export function handleScan(code) {
+  return current?.handle?.handleScan?.(code);
+}
+globalThis.savia = { handleScan };
+
+function applyPalette(value) {
+  const palette = ['bosque', 'tinta', 'malva'].includes(value) ? value : 'bosque';
+  if (palette === 'bosque') delete document.documentElement.dataset.palette;
+  else document.documentElement.dataset.palette = palette;
+  const radio = document.querySelector(`input[name="savia-palette"][value="${palette}"]`);
+  if (radio) radio.checked = true;
+}
+
+function renderTillState() {
+  const el = $('till-state');
+  const till = ctx.till.get();
+  el.textContent = till ? 'Caja abierta' : 'Caja cerrada';
+  el.dataset.state = till ? 'open' : 'closed';
+}
+
+function renderHeader() {
+  $('operator-label').textContent = ctx.me ? `${ctx.me.displayName} · ${ctx.roles.map(roleName).join(', ')}` : '';
+  $('branch-label').textContent = ctx.branchName ?? 'Sucursal';
+  $('sample-tag').hidden = false;
+  renderTillState();
+}
+
+export function roleName(code) {
+  return { CASHIER: 'Caja', MANAGER: 'Supervisión', OWNER: 'Dueña', INVENTORY: 'Bodega' }[code] ?? code;
+}
+
+async function route() {
+  const name = (location.hash.replace(/^#\/?/, '') || 'venta').split('?')[0];
+  current?.handle?.unmount?.();
+  current = null;
+  ctx.notify('');
+  if (!api.getToken() || !ctx.me) {
+    $('shell').hidden = true;
+    $('access').hidden = false;
+    current = { route: 'ingreso', handle: login.mount($('access'), ctx, onSignedIn) };
+    return;
+  }
+  const screen = ROUTES[name] ?? sale;
+  $('access').hidden = true;
+  $('shell').hidden = false;
+  renderHeader();
+  for (const link of document.querySelectorAll('#nav a')) {
+    const active = name === link.dataset.route || name.startsWith(link.dataset.route + '/');
+    if (active) link.setAttribute('aria-current', 'page'); else link.removeAttribute('aria-current');
+  }
+  $('title').textContent = screen.title;
+  document.title = `SAVIA · ${screen.title}`;
+  const root = $('screen');
+  replace(root);
+  current = { route: name, handle: await screen.mount(root, ctx) };
+}
+
+async function onSignedIn(loginResponse) {
+  api.setToken(loginResponse.token);
+  ctx.me = await api.me();
+  if (!location.hash || location.hash === '#/ingreso') location.hash = '#/venta';
+  else route();
+}
+
+async function start() {
+  applyPalette(device.get('palette'));
+  $('palette-picker').addEventListener('change', event => {
+    device.set('palette', event.target.value);
+    applyPalette(event.target.value);
+  });
+  $('logout').addEventListener('click', async () => {
+    try { await api.logout(); } catch { /* the token dies on the server or expires; sign out here either way */ }
+    api.setToken(null);
+    ctx.me = null;
+    ctx.till.set(null);
+    route();
+  });
+  api.setUnauthorizedHandler(() => {
+    api.setToken(null);
+    ctx.me = null;
+    ctx.till.set(null);
+    route();
+  });
+  window.addEventListener('hashchange', route);
+  if (api.getToken()) {
+    try { ctx.me = await api.me(); } catch { api.setToken(null); ctx.me = null; }
+  }
+  route();
+}
+
+start().catch(error => {
+  replace(document.body, h('p', { class: 'error', role: 'alert' }, `No se pudo iniciar: ${error.message}`));
+});

@@ -29,6 +29,36 @@ public sealed class CatalogStore(SqlGateway sql) : ICatalogStore
             P("@EventId", Guid.NewGuid()), P("@SizeId", request.SizeId), P("@ColorId", request.ColorId),
             P("@Barcode", request.Barcode), P("@SupplierId", request.SupplierId), P("@SupplierSku", request.SupplierSku),
             P("@UnitCostMinor", request.UnitCostMinor), P("@ActorId", actorId));
+
+    // Accent- and case-insensitive containment over product name, variant name, SKU and active codes.
+    // Stock is the sellable 'store' pool of this node's location; the cloud node has no location and returns null.
+    public async Task<IReadOnlyList<ProductSearchRow>> SearchAsync(string text, Guid? locationId, int limit, CancellationToken ct)
+    {
+        var pattern = "%" + text.Replace("\\", "\\\\").Replace("%", "\\%").Replace("_", "\\_").Replace("[", "\\[") + "%";
+        return await sql.QueryAsync("""
+            SELECT TOP (@limit) i.Id,i.Sku,p.Name,i.VariantName,sz.Code,co.Code,
+              (SELECT TOP (1) x.RawCode FROM catalog.ItemIdentifiers x
+                WHERE x.ItemId=i.Id AND x.Kind='barcode' AND x.IsActive=1 ORDER BY x.IsPrimary DESC,x.CreatedAt,x.Id),
+              i.UnitPriceMinor,i.CurrencyCode,i.Status,
+              CASE WHEN @location IS NULL THEN NULL ELSE ISNULL(st.OnHand,0) END,
+              CASE WHEN @location IS NULL THEN NULL ELSE ISNULL(st.Available,0) END
+            FROM catalog.Items i
+            JOIN catalog.Products p ON p.Id=i.ProductId
+            LEFT JOIN catalog.Sizes sz ON sz.Id=i.SizeId
+            LEFT JOIN catalog.Colors co ON co.Id=i.ColorId
+            OUTER APPLY (SELECT SUM(v.OnHand) AS OnHand,SUM(v.Available) AS Available FROM inventory.vw_StockAvailable v
+                         WHERE v.ItemId=i.Id AND v.LocationId=@location AND v.Pool='store') st
+            WHERE i.Status IN ('active','draft')
+              AND (p.Name COLLATE Latin1_General_100_CI_AI LIKE @pattern ESCAPE '\'
+                OR i.VariantName COLLATE Latin1_General_100_CI_AI LIKE @pattern ESCAPE '\'
+                OR i.Sku COLLATE Latin1_General_100_CI_AI LIKE @pattern ESCAPE '\'
+                OR EXISTS (SELECT 1 FROM catalog.ItemIdentifiers x WHERE x.ItemId=i.Id AND x.IsActive=1
+                           AND x.RawCode COLLATE Latin1_General_100_CI_AI LIKE @pattern ESCAPE '\'))
+            ORDER BY p.Name,i.Sku
+            """, r => new ProductSearchRow(r.GetGuid(0), r.GetString(1), r.GetString(2), r.GetString(3), r.StringOrNull(4),
+                r.StringOrNull(5), r.StringOrNull(6), r.GetInt64(7), r.GetString(8), r.GetString(9), r.IntOrNull(10), r.IntOrNull(11)),
+            ct, P("@limit", limit), P("@location", locationId), P("@pattern", pattern));
+    }
 }
 
 public sealed class ReceivingStore(SqlGateway sql) : IReceivingStore
@@ -63,6 +93,51 @@ public sealed class ReceivingStore(SqlGateway sql) : IReceivingStore
         "SELECT ScanSessionId,ContainerId,Reference,Status,ScanEvents,MatchedUnits,UnitsPendingReview FROM receiving.vw_SessionProgress WHERE ScanSessionId=@id AND LocationId=@location",
         r => new ScanSessionProgress(r.GetGuid(0), r.GetGuid(1), r.GetString(2), r.GetString(3), r.GetInt32(4), r.GetInt64(5), r.GetInt64(6)),
         ct, P("@id", sessionId), P("@location", locationId));
+
+    public async Task<IReadOnlyList<ScanSessionSummary>> ListSessionsAsync(Guid locationId, bool openOnly, int limit, CancellationToken ct) =>
+        await sql.QueryAsync("""
+            SELECT TOP (@limit) v.ScanSessionId,v.ContainerId,v.Reference,v.Status,c.SupplierId,su.DisplayName,s.CreatedAt,
+                   v.ScanEvents,v.MatchedUnits,v.UnitsPendingReview
+            FROM receiving.vw_SessionProgress v
+            JOIN receiving.ScanSessions s ON s.Id=v.ScanSessionId
+            JOIN receiving.ImportContainers c ON c.Id=v.ContainerId
+            JOIN sourcing.Suppliers su ON su.Id=c.SupplierId
+            WHERE v.LocationId=@location AND (@open=0 OR v.Status NOT IN ('posted','cancelled'))
+            ORDER BY s.CreatedAt DESC,s.Id
+            """, r => new ScanSessionSummary(r.GetGuid(0), r.GetGuid(1), r.GetString(2), r.GetString(3), r.GetGuid(4), r.GetString(5),
+                r.Utc(6), r.GetInt32(7), r.GetInt64(8), r.GetInt64(9)),
+            ct, P("@limit", limit), P("@location", locationId), P("@open", openOnly));
+
+    // Matched readings collapse to one line per variant and code. Any other reading stays its own line with its id,
+    // because a reviewer resolves readings one by one.
+    public async Task<IReadOnlyList<ScanSessionLine>> GetLinesAsync(Guid sessionId, CancellationToken ct) => await sql.QueryAsync("""
+        SELECT ScanId,ItemId,RawCode,MatchStatus,Quantity,Scans,Sku,VariantName FROM (
+          SELECT CAST(NULL AS uniqueidentifier) AS ScanId,e.ItemId,e.RawCode,e.MatchStatus,CAST(SUM(e.Quantity) AS bigint) AS Quantity,
+                 COUNT(*) AS Scans,i.Sku,i.VariantName,MIN(e.CreatedAt) AS FirstAt
+          FROM receiving.ScanEvents e JOIN catalog.Items i ON i.Id=e.ItemId
+          WHERE e.ScanSessionId=@id AND e.MatchStatus='matched'
+          GROUP BY e.ItemId,e.RawCode,e.MatchStatus,i.Sku,i.VariantName
+          UNION ALL
+          SELECT e.Id,e.ItemId,e.RawCode,e.MatchStatus,CAST(e.Quantity AS bigint),1,NULL,NULL,e.CreatedAt
+          FROM receiving.ScanEvents e WHERE e.ScanSessionId=@id AND e.MatchStatus<>'matched') x
+        ORDER BY FirstAt,RawCode,ScanId
+        """, r => new ScanSessionLine(r.GuidOrNull(0), r.GuidOrNull(1), r.GetString(2), r.GetString(3), r.GetInt64(4), r.GetInt32(5),
+            r.StringOrNull(6), r.StringOrNull(7)), ct, P("@id", sessionId));
+
+    public async Task<bool> ScanInSessionAsync(Guid scanId, Guid sessionId, CancellationToken ct) =>
+        (await sql.QueryAsync("SELECT 1 FROM receiving.ScanEvents WHERE Id=@scan AND ScanSessionId=@session", _ => 1, ct,
+            P("@scan", scanId), P("@session", sessionId))).Count == 1;
+
+    public Task ResolveScanAsync(Guid scanId, Guid itemId, Guid reviewerId, string reason, CancellationToken ct) =>
+        sql.ExecProcAsync("receiving.usp_ResolveScan", ct, P("@ScanId", scanId), P("@ItemId", itemId),
+            P("@ReviewerId", reviewerId), P("@Reason", reason));
+
+    public Task RejectScanAsync(Guid scanId, Guid reviewerId, string reason, CancellationToken ct) =>
+        sql.ExecProcAsync("receiving.usp_RejectScan", ct, P("@ScanId", scanId), P("@ReviewerId", reviewerId), P("@Reason", reason));
+
+    public async Task<IReadOnlyList<SupplierRow>> ListSuppliersAsync(CancellationToken ct) => await sql.QueryAsync(
+        "SELECT Id,DisplayName FROM sourcing.Suppliers WHERE IsActive=1 ORDER BY DisplayName,Id",
+        r => new SupplierRow(r.GetGuid(0), r.GetString(1)), ct);
 }
 
 public sealed class InventoryStore(SqlGateway sql) : IInventoryStore
@@ -153,4 +228,49 @@ public sealed class SalesStore(SqlGateway sql) : ISalesStore
             r => r.GetGuid(0), ct, P("@id", registerId));
         return rows.Count == 1 ? rows[0] : null;
     }
+
+    public async Task<IReadOnlyList<RegisterRow>> ListRegistersAsync(Guid branchId, CancellationToken ct) => await sql.QueryAsync("""
+        SELECT r.Id,r.Code,r.Name,r.LocationId,t.Id,t.CashierId FROM sales.CashRegisters r
+        OUTER APPLY (SELECT TOP (1) ct.Id,ct.CashierId FROM sales.CashTills ct
+                     WHERE ct.RegisterId=r.Id AND ct.Status='open' ORDER BY ct.OpenedAt DESC,ct.Id) t
+        WHERE r.BranchId=@branch AND r.IsActive=1 ORDER BY r.Code,r.Id
+        """, r => new RegisterRow(r.GetGuid(0), r.GetString(1), r.GetString(2), r.GetGuid(3), r.GuidOrNull(4), r.GuidOrNull(5)),
+        ct, P("@branch", branchId));
+
+    public async Task<Guid?> FindOpenTillAsync(Guid cashierId, Guid branchId, CancellationToken ct)
+    {
+        var rows = await sql.QueryAsync("""
+            SELECT TOP (1) t.Id FROM sales.CashTills t JOIN sales.CashRegisters r ON r.Id=t.RegisterId
+            WHERE t.CashierId=@cashier AND r.BranchId=@branch AND t.Status='open' ORDER BY t.OpenedAt DESC,t.Id
+            """, r => r.GetGuid(0), ct, P("@cashier", cashierId), P("@branch", branchId));
+        return rows.Count == 1 ? rows[0] : null;
+    }
+
+    // Expected cash is the sum of every cash entry of the till, the figure sales.usp_CloseTill stores.
+    public Task<TillSummary?> GetTillSummaryAsync(Guid tillId, Guid branchId, CancellationToken ct) => sql.FirstAsync("""
+        SELECT t.Id,t.RegisterId,r.Name,t.CashierId,st.DisplayName,t.Status,t.CurrencyCode,t.OpenedAt,
+               ISNULL(e.Opening,0),ISNULL(e.Sales,0),ISNULL(e.Refunds,0),ISNULL(e.Other,0),ISNULL(e.Expected,0),
+               s.SaleCount,s.SalesTotal,(SELECT TOP (1) cc.Id FROM sales.CashClosures cc WHERE cc.TillId=t.Id)
+        FROM sales.CashTills t
+        JOIN sales.CashRegisters r ON r.Id=t.RegisterId
+        JOIN security.Staff st ON st.Id=t.CashierId
+        OUTER APPLY (SELECT SUM(CASE WHEN Kind='opening' THEN DeltaMinor ELSE 0 END) AS Opening,
+                            SUM(CASE WHEN Kind='sale' THEN DeltaMinor ELSE 0 END) AS Sales,
+                            SUM(CASE WHEN Kind='refund' THEN DeltaMinor ELSE 0 END) AS Refunds,
+                            SUM(CASE WHEN Kind NOT IN ('opening','sale','refund') THEN DeltaMinor ELSE 0 END) AS Other,
+                            SUM(DeltaMinor) AS Expected
+                     FROM sales.CashEntries WHERE TillId=t.Id) e
+        OUTER APPLY (SELECT COUNT(*) AS SaleCount,ISNULL(SUM(TotalMinor),0) AS SalesTotal
+                     FROM sales.Sales WHERE TillId=t.Id AND Status<>'cancelled') s
+        WHERE t.Id=@id AND r.BranchId=@branch
+        """, r => new TillSummary(r.GetGuid(0), r.GetGuid(1), r.GetString(2), r.GetGuid(3), r.GetString(4), r.GetString(5),
+            r.GetString(6), r.Utc(7), r.GetInt64(8), r.GetInt64(9), r.GetInt64(10), r.GetInt64(11), r.GetInt64(12), r.GetInt32(13),
+            r.GetInt64(14), r.GuidOrNull(15)), ct, P("@id", tillId), P("@branch", branchId));
+}
+
+public sealed class SiteStore(SqlGateway sql) : ISiteStore
+{
+    public Task<SiteInfo?> GetSiteAsync(Guid branchId, Guid? locationId, CancellationToken ct) => sql.FirstAsync(
+        "SELECT b.Name,b.StoreDisplayName,l.Name FROM core.Branches b LEFT JOIN core.Locations l ON l.Id=@location AND l.BranchId=b.Id WHERE b.Id=@branch",
+        r => new SiteInfo(r.GetString(0), r.GetString(1), r.StringOrNull(2)), ct, P("@branch", branchId), P("@location", locationId));
 }

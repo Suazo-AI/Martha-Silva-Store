@@ -95,4 +95,6 @@ internal static class ReaderExtensions
 {
     public static Guid? GuidOrNull(this SqlDataReader r, int i) => r.IsDBNull(i) ? null : r.GetGuid(i);
     public static string? StringOrNull(this SqlDataReader r, int i) => r.IsDBNull(i) ? null : r.GetString(i);
+    public static int? IntOrNull(this SqlDataReader r, int i) => r.IsDBNull(i) ? null : r.GetInt32(i);
+    public static DateTimeOffset Utc(this SqlDataReader r, int i) => new(DateTime.SpecifyKind(r.GetDateTime(i), DateTimeKind.Utc));
 }

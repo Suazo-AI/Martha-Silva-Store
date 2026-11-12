@@ -67,16 +67,15 @@ public static class SaviaEndpoints
             await auth.LogoutAsync(Http.BearerToken(http), ct);
             return Results.NoContent();
         }).WithTags("auth");
-        api.MapGet("/me", (HttpContext http) =>
-        {
-            var actor = http.Actor();
-            return new MeResponse(actor.StaffId, actor.DisplayName, [.. actor.Roles.Order()], node.Kind.ToString(), node.NodeId, node.BranchId);
-        }).WithTags("auth");
+        api.MapGet("/me", async (HttpContext http, SiteService site, CancellationToken ct) =>
+            await site.GetMeAsync(http.Actor(), ct)).Produces<MeResponse>().WithTags("auth");
 
-        // ---- catalog: read everywhere, write only in the cloud (ADR-001 D6)
+        // ---- catalog: cloud writer, with an explicit single-branch pilot exception
         api.MapGet("/catalog/lookup", async (string code, Guid? supplierId, HttpContext http, CatalogService catalog, CancellationToken ct) =>
             await catalog.LookupAsync(http.Actor(), code, supplierId, ct)).Produces<ItemLookup[]>().WithTags("catalog");
-        if (node.Kind == NodeKind.Cloud)
+        api.MapGet("/catalog/search", async (string q, int? limit, HttpContext http, CatalogService catalog, CancellationToken ct) =>
+            await catalog.SearchAsync(http.Actor(), q, limit, ct)).Produces<ProductSearchRow[]>().WithTags("catalog");
+        if (node.Kind == NodeKind.Cloud || node.LocalCatalog)
         {
             api.MapPost("/catalog/products", async (RegisterProductRequest request, HttpContext http, CatalogService catalog, CancellationToken ct) =>
             {
@@ -103,6 +102,22 @@ public static class SaviaEndpoints
         }).WithTags("receiving");
         api.MapPost("/receiving/sessions/{sessionId:guid}/scans", async (Guid sessionId, RecordScanRequest request, HttpContext http, ReceivingService receiving, CancellationToken ct) =>
             await receiving.RecordScanAsync(http.Actor(), sessionId, request, ct)).WithTags("receiving");
+        api.MapGet("/receiving/sessions", async (bool? open, int? limit, HttpContext http, ReceivingService receiving, CancellationToken ct) =>
+            await receiving.ListSessionsAsync(http.Actor(), open ?? true, limit, ct)).Produces<ScanSessionSummary[]>().WithTags("receiving");
+        api.MapGet("/receiving/sessions/{sessionId:guid}/lines", async (Guid sessionId, HttpContext http, ReceivingService receiving, CancellationToken ct) =>
+            await receiving.GetLinesAsync(http.Actor(), sessionId, ct)).Produces<ScanSessionLine[]>().WithTags("receiving");
+        api.MapPost("/receiving/sessions/{sessionId:guid}/scans/{scanId:guid}/resolve", async (Guid sessionId, Guid scanId, ResolveScanRequest request, HttpContext http, ReceivingService receiving, CancellationToken ct) =>
+        {
+            await receiving.ResolveScanAsync(http.Actor(), sessionId, scanId, request, ct);
+            return Results.NoContent();
+        }).WithTags("receiving");
+        api.MapPost("/receiving/sessions/{sessionId:guid}/scans/{scanId:guid}/reject", async (Guid sessionId, Guid scanId, RejectScanRequest request, HttpContext http, ReceivingService receiving, CancellationToken ct) =>
+        {
+            await receiving.RejectScanAsync(http.Actor(), sessionId, scanId, request, ct);
+            return Results.NoContent();
+        }).WithTags("receiving");
+        api.MapGet("/suppliers", async (HttpContext http, ReceivingService receiving, CancellationToken ct) =>
+            await receiving.ListSuppliersAsync(http.Actor(), ct)).Produces<SupplierRow[]>().WithTags("receiving");
         api.MapGet("/receiving/sessions/{sessionId:guid}", async (Guid sessionId, HttpContext http, ReceivingService receiving, CancellationToken ct) =>
             await receiving.GetProgressAsync(http.Actor(), sessionId, ct)).WithTags("receiving");
         api.MapPost("/receiving/sessions/{sessionId:guid}/approve", async (Guid sessionId, HttpContext http, ReceivingService receiving, CancellationToken ct) =>
@@ -121,6 +136,12 @@ public static class SaviaEndpoints
             return Results.NoContent();
         }).WithTags("labels");
 
+        api.MapGet("/cash/registers", async (HttpContext http, SalesService sales, CancellationToken ct) =>
+            await sales.ListRegistersAsync(http.Actor(), ct)).Produces<RegisterRow[]>().WithTags("cash");
+        api.MapGet("/cash/tills/current", async (HttpContext http, SalesService sales, CancellationToken ct) =>
+            await sales.GetCurrentTillAsync(http.Actor(), ct)).Produces<TillSummary>().WithTags("cash");
+        api.MapGet("/cash/tills/{tillId:guid}/summary", async (Guid tillId, HttpContext http, SalesService sales, CancellationToken ct) =>
+            await sales.GetTillSummaryAsync(http.Actor(), tillId, ct)).Produces<TillSummary>().WithTags("cash");
         api.MapPost("/cash/tills", async (OpenTillRequest request, HttpContext http, SalesService sales, CancellationToken ct) =>
         {
             await sales.OpenTillAsync(http.Actor(), request, ct);

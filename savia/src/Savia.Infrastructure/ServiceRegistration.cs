@@ -11,6 +11,7 @@ public static class ServiceRegistration
     /// Registers the node identity, the SQL gateway, the ports and the use cases.
     /// Configuration keys: <c>Savia:Node:Kind</c> (Cloud or Branch), <c>Savia:Node:NodeId</c>,
     /// <c>Savia:Node:BranchId</c>, <c>Savia:Node:LocationId</c> and <c>Savia:Sql:ConnectionString</c>.
+    /// <c>Savia:Pilot:LocalCatalog</c> defaults to false; the local single-branch pilot enables it explicitly.
     /// Values are read when first needed, so a host (or a test) may add configuration sources late.
     /// The connection string never lives in the repository.
     /// </summary>
@@ -31,11 +32,13 @@ public static class ServiceRegistration
         services.AddSingleton<IReceivingStore, ReceivingStore>();
         services.AddSingleton<IInventoryStore, InventoryStore>();
         services.AddSingleton<ISalesStore, SalesStore>();
+        services.AddSingleton<ISiteStore, SiteStore>();
         services.AddSingleton<AuthService>();
         services.AddSingleton<CatalogService>();
         services.AddSingleton<ReceivingService>();
         services.AddSingleton<InventoryService>();
         services.AddSingleton<SalesService>();
+        services.AddSingleton<SiteService>();
         return services;
     }
 
@@ -45,7 +48,8 @@ public static class ServiceRegistration
             ? parsed : throw new InvalidOperationException("Savia:Node:Kind must be Cloud or Branch.");
         Guid? branchId = kind == NodeKind.Branch ? RequiredGuid(config, "Savia:Node:BranchId") : null;
         Guid? locationId = kind == NodeKind.Branch ? RequiredGuid(config, "Savia:Node:LocationId") : null;
-        return new NodeContext(kind, RequiredGuid(config, "Savia:Node:NodeId"), branchId, locationId);
+        return new NodeContext(kind, RequiredGuid(config, "Savia:Node:NodeId"), branchId, locationId,
+            config.GetValue<bool>("Savia:Pilot:LocalCatalog"));
     }
 
     private static Guid RequiredGuid(IConfiguration config, string key) =>
