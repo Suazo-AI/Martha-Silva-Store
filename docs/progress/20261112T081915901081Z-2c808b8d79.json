@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-12T08:19:15.901081+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/db/migrations/V003__conservation_oracle.sql",
+      "change": "A",
+      "git_blob": "d481d41d3b6f605cbbceab62b9ed57a9aac55dd9"
+    },
+    {
+      "path": "savia/db/tests/audit/010_conservation_oracle_detects_corruption.sql",
+      "change": "A",
+      "git_blob": "c5eb0b03cb47a8e998d672da207f405aba9ec279"
+    },
+    {
+      "path": "savia/docs/PLAN.md",
+      "change": "M",
+      "git_blob": "51345d29a80ddf735c3eccddd0c65900581ef724"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/TestSupport.cs",
+      "change": "M",
+      "git_blob": "68c45786096ad590e9638f206eca6b9eaa679440"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/VerticalSliceTests.cs",
+      "change": "M",
+      "git_blob": "c39273ea3f3ac0328c96b4f630362097d3cf6439"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

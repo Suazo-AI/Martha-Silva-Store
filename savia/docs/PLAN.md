@@ -61,4 +61,5 @@ CRM sobre `crm.Customers`, tiempo real sobre el outbox, sitio sobre `webstore` y
 | Fecha | Hecho | Commit |
 | --- | --- | --- |
 | 2026-11-12 | CP0: el instalador falla tal como viene (23 errores); línea base V001 con 7 correcciones; smoke original pasa | `915044e` |
-| 2026-11-12 | CP3: API .NET 10 en capas; slice recepción → venta → arqueo; 8 pruebas contra SQL real | ver `git log savia/` |
+| 2026-11-12 | CP3: API .NET 10 en capas; slice recepción → venta → arqueo; 8 pruebas contra SQL real | `5c204e1` |
+| 2026-11-12 | Oráculo de conservación (V003): cero filas con libros sanos; detecta 5 tipos de corrupción | ver `git log savia/` |

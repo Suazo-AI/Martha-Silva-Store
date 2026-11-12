@@ -65,6 +65,16 @@ public static class TestSql
         return (T)Convert.ChangeType((await command.ExecuteScalarAsync())!, typeof(T));
     }
 
+    /// <summary>Runs the conservation oracle (V003). Any violation fails the test with the first one in the message.</summary>
+    public static async Task AssertConservationAsync(string database)
+    {
+        await using var connection = new SqlConnection(ConnectionFor(database));
+        await connection.OpenAsync();
+        await using var command = new SqlCommand("EXEC audit.usp_CheckConservation @Throw=1", connection);
+        await using var reader = await command.ExecuteReaderAsync();   // throws 59100 when the books do not add up
+        while (await reader.NextResultAsync()) { }
+    }
+
     private static string Python => Environment.GetEnvironmentVariable("SAVIA_PYTHON") ?? "python";
 
     private static string ResolveServer()

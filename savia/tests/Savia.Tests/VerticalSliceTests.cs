@@ -113,6 +113,9 @@ public sealed class VerticalSliceTests : IAsyncLifetime
         // --- a closed till sells nothing
         var late = sale with { SaleId = Guid.NewGuid() };
         await HttpAssert.ProblemAsync(await _cashier.PostAsJsonAsync("/api/v1/sales", late), HttpStatusCode.Conflict, "cash.till_mismatch");
+
+        // --- after everything, accepted and rejected, the books of the node still add up
+        await TestSql.AssertConservationAsync(_database);
     }
 
     [Fact]
@@ -130,6 +133,7 @@ public sealed class VerticalSliceTests : IAsyncLifetime
         Assert.Empty(await HttpAssert.OkAsync<ItemLookup[]>(await _cashier.GetAsync("/api/v1/catalog/lookup?code=0009999999999")));
         var known = await HttpAssert.OkAsync<ItemLookup[]>(await _cashier.GetAsync($"/api/v1/catalog/lookup?code={Ids.ItemBarcode}"));
         Assert.Equal(Ids.Item, Assert.Single(known).ItemId);
+        await TestSql.AssertConservationAsync(_database);
     }
 
     [Fact]
