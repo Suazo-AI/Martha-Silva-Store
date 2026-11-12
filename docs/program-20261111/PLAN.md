@@ -87,3 +87,4 @@ Máximo dos tareas Codex en paralelo. Cada ejecutor en worktree propio. El prima
 | WP-A | en curso | — |
 | Crítica previa S/B/C/D | en curso | — |
 | WP-S, B, C, D, E | pendiente | — |
+| Cotización hosting (J-3) | lista, sin contratar | [hosting-quotes-20261111](../hosting-quotes-20261111/README.md) |

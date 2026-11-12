@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-12T00:28:55.744904+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/hosting-quotes-20261111/README.md",
+      "change": "A",
+      "git_blob": "d0aa36323231bbda4bf65adb1c8895bee250021a"
+    },
+    {
+      "path": "docs/program-20261111/PLAN.md",
+      "change": "M",
+      "git_blob": "ff0cfbfe5aec188ffea77c03081d7589a22d766d"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}
