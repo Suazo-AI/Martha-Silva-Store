@@ -19,6 +19,7 @@ import argparse
 import concurrent.futures
 import hashlib
 import json
+import os
 import re
 import subprocess
 import sys
@@ -29,7 +30,10 @@ ROOT = Path(__file__).resolve().parents[2]          # .../savia
 MIGRATIONS = ROOT / "db" / "migrations"
 TESTS = ROOT / "db" / "tests"
 OUT = ROOT / ".out" / "dbtests"
-CONTAINER = "savia-sqlserver-dev"
+# SAVIA_SQL_CONTAINER selects another local SAVIA container, e.g. savia-sqlserver-express (F12).
+CONTAINER = os.environ.get("SAVIA_SQL_CONTAINER", "savia-sqlserver-dev")
+if not re.fullmatch(r"savia-sqlserver-[a-z0-9-]{1,40}", CONTAINER):
+    sys.exit(f"SAVIA_SQL_CONTAINER must look like savia-sqlserver-x, got {CONTAINER!r}")
 SQLCMD = '/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$MSSQL_SA_PASSWORD" -C'
 NAME_RE = re.compile(r"^SAVIA_(DEV|T|SIM)_[A-Za-z0-9_]{1,90}$")
 DATA_DIR = "/var/opt/mssql/data"

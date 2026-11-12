@@ -68,3 +68,4 @@ CRM sobre `crm.Customers`, tiempo real sobre el outbox, sitio sobre `webstore` y
 | 2026-11-12 | BUG-003 a BUG-009 (CP1-A): 7 rojas sin V005, 46 verdes con V005 ([detalle](bugs/BUG-003-009-cp1a.md)) | `ec87e47` |
 | 2026-11-12 | ADR-001 revisión 2 con los 15 hallazgos de la crítica; BUG-010 devolución entre sucursales: rojo sin V006, verde con V006 ([detalle](bugs/BUG-010-devolucion-otra-sucursal.md)) | ver `git log savia/` |
 | 2026-11-12 | CP1-B y CP1-C: 66 pruebas de caja, ventas, contabilidad, anticipos, web y outbox; BUG-011 a BUG-015: 5 rojas sin V007, 113 verdes con V007 ([detalle](bugs/BUG-011-015-cp1b.md)) | ver `git log savia/` |
+| 2026-11-12 | F12/F14 Express: 113 pruebas T-SQL pasan en SQL Server Express; Change Tracking con `SNAPSHOT` funciona ([evidencia](evidence/f12-express/README.md)); Azure sin probar | ver `git log savia/` |

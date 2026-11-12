@@ -139,9 +139,9 @@ Descartado: PWA con Capacitor (T-4 anterior). El handoff pide escáner e impreso
 | F9 contenedor bloqueado | P1 | Publicación parcial; grants por nodo | adoptado; código pendiente |
 | F10 tablas sin dueño o sin creador | P1 | Mapa normativo, `sync.LocalNode`, procedimientos de creación | adoptado; `CashCounts` y `ScanSessions` ya tienen procedimiento (V002) |
 | F11 borrados | P2 | Sin `DELETE` físico | adoptado |
-| F12 Developer vs Express | P2 | CI con Express; esquema N-1 | adoptado; CI pendiente |
+| F12 Developer vs Express | P2 | CI con Express; esquema N-1 | suite completa pasa en Express local ([evidencia](../evidence/f12-express/README.md)); CI pendiente |
 | F13 oráculo | P2 | V003 y R1 | V003 hecho; R1 pendiente |
-| F14 CT en Express y Azure | P2 | Probar antes de aceptar D5 | abierto (Azure necesita autorización de Jason) |
+| F14 CT en Express y Azure | P2 | Probar antes de aceptar D5 | Express probado ([evidencia](../evidence/f12-express/README.md)); Azure abierto, necesita autorización de Jason |
 | F15 restaurar la nube | P3 | Fork por par también en la nube | adoptado |
 
 ## Lo que no decide el arquitecto

@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-12T09:07:49.465948+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/docs/PLAN.md",
+      "change": "M",
+      "git_blob": "77a4423a93f28ba7716813bcbcb171e2adf52120"
+    },
+    {
+      "path": "savia/docs/adr/ADR-001-arquitectura.md",
+      "change": "M",
+      "git_blob": "c8bdc68c2b9a4b90883c6579555543497905dadd"
+    },
+    {
+      "path": "savia/docs/evidence/f12-express/README.md",
+      "change": "A",
+      "git_blob": "1c13491bd9fd2be4f4500fdb4fed4f7f63e4cce1"
+    },
+    {
+      "path": "savia/docs/evidence/f12-express/ct-probe-result.txt",
+      "change": "A",
+      "git_blob": "7a8804d42d29973d75f03e8096eebd825587aa74"
+    },
+    {
+      "path": "savia/docs/evidence/f12-express/ct-probe.sql",
+      "change": "A",
+      "git_blob": "429c8a9da9db54d0d68a75646074bd2c07b71c17"
+    },
+    {
+      "path": "savia/docs/evidence/f12-express/express-tests.txt",
+      "change": "A",
+      "git_blob": "a6e95cc1b9183c16c03d6f1acb4fa5be02b85b99"
+    },
+    {
+      "path": "savia/infra/docker-compose.express.yml",
+      "change": "A",
+      "git_blob": "9e3ac29a366df7df11ca1a323764a57fcc71928d"
+    },
+    {
+      "path": "savia/tools/db/saviadb.py",
+      "change": "M",
+      "git_blob": "5249e60cd1e6a4c0ced3c670c00c767e06a96a81"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}
