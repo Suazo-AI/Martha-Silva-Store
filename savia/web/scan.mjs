@@ -10,7 +10,7 @@ export function readScan(raw) {
   return code.length > 0 && code.length <= 128 ? code : null;
 }
 
-const TEXT_INPUT_TYPES = new Set(['text', 'search', 'number', 'password', 'email', 'tel', 'url', '']);
+const TEXT_INPUT_TYPES = new Set(['text', 'search', 'number', 'password', 'email', 'tel', 'url', 'date', '']);
 
 /**
  * True when the scan field should take focus back from `active`.

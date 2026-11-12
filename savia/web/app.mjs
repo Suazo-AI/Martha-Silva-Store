@@ -7,6 +7,12 @@ import review from './screens/review.mjs';
 import sale from './screens/sale.mjs';
 import cash from './screens/cash.mjs';
 import inventory from './screens/inventory.mjs';
+import history from './screens/history.mjs';
+import receipt from './screens/receipt.mjs';
+import returns from './screens/return.mjs';
+import customers from './screens/customers.mjs';
+import report from './screens/report.mjs';
+import { canAccess } from './roles.mjs';
 
 const ROUTES = {
   'venta': sale,
@@ -14,6 +20,11 @@ const ROUTES = {
   'recepcion': reception,
   'recepcion/revisar': review,
   'inventario': inventory,
+  'historial': history,
+  'recibo': receipt,
+  'devolucion': returns,
+  'clientes': customers,
+  'reporte': report,
 };
 const APPROVER_ROLES = ['MANAGER', 'OWNER'];
 const $ = id => document.getElementById(id);
@@ -84,6 +95,7 @@ async function route() {
   $('shell').hidden = false;
   renderHeader();
   for (const link of document.querySelectorAll('#nav a')) {
+    link.hidden = !canAccess(link.dataset.route, ctx.roles);
     const active = name === link.dataset.route || name.startsWith(link.dataset.route + '/');
     if (active) link.setAttribute('aria-current', 'page'); else link.removeAttribute('aria-current');
   }
@@ -91,6 +103,10 @@ async function route() {
   document.title = `SAVIA · ${screen.title}`;
   const root = $('screen');
   replace(root);
+  if (!canAccess(name, ctx.roles)) {
+    replace(root, h('div', { class: 'page' }, h('p', { class: 'error', role: 'alert' }, 'Su cuenta no tiene acceso a esta pantalla.')));
+    return;
+  }
   current = { route: name, handle: await screen.mount(root, ctx) };
 }
 

@@ -247,6 +247,12 @@ public sealed class SalesService(ISalesStore store, NodeContext node)
         if (request.Lines.Select(l => l.LineNumber).Distinct().Count() != request.Lines.Length ||
             request.Tenders.Select(t => t.TenderNumber).Distinct().Count() != request.Tenders.Length)
             throw Errors.Invalid("sale.duplicate_line", "Números de línea o de pago repetidos.");
+        foreach (var tender in request.Tenders)
+        {
+            Guard.Text(tender.TenderKind, "tenderKind", 20);
+            if (tender.Reference?.Length > 120)
+                throw Errors.Invalid("input.text", "La referencia admite hasta 120 caracteres.");
+        }
         await store.PostSaleAsync(request, branch, node.RequireLocation(), actor.StaffId, node.NodeId, ct);
         return await store.GetSaleAsync(request.SaleId, branch, ct)
             ?? throw Errors.NotFound("sale.not_found", "La venta no quedó registrada.");

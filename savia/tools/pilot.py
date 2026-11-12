@@ -12,13 +12,15 @@ Commands:
 Secrets:
   The SQL password is read from savia/infra/.env (MSSQL_SA_PASSWORD), or SAVIA_ENV_FILE, or the dev container's
   own environment. It reaches the API only through its process environment and is never printed.
-  The sample staff password comes from SAVIA_PILOT_PASSWORD, or a hidden prompt on a terminal. Never from a file
-  in the repository. Sample logins: duena.muestra, supervisora.muestra, cajera.muestra.
+  Each sample staff password comes from SAVIA_PILOT_PASSWORD_CAJERA / _SUPERVISORA / _DUENA, or a hidden prompt.
+  Shared SAVIA_PILOT_PASSWORD is refused unless SAVIA_PILOT_ALLOW_SHARED=1. up --no-provision only checks hashes.
+  Passwords never come from a file in the repository. Sample logins: duena.muestra, supervisora.muestra, cajera.muestra.
 """
 import argparse
 import getpass
 import json
 import os
+import re
 import subprocess
 import sys
 import time
@@ -71,7 +73,10 @@ def env_file_values():
         for line in path.read_text(encoding="utf-8").splitlines():
             if "=" in line and not line.lstrip().startswith("#"):
                 key, value = line.split("=", 1)
-                values[key.strip()] = value.strip().strip('"').strip("'")
+                value = value.strip()
+                if len(value) >= 2 and value[0] == value[-1] and value[0] in ('"', "'"):
+                    value = value[1:-1]
+                values[key.strip()] = value
     return values
 
 
@@ -88,7 +93,8 @@ def connection_string():
     port = out.strip().splitlines()[0].rsplit(":", 1)[-1] if code == 0 and out.strip() else values.get("SAVIA_SQL_PORT")
     if not port:
         raise SystemExit("pilot: cannot find the SQL port of the dev container.")
-    return (f"Server=127.0.0.1,{port};Database={DB};User ID=sa;Password={password};"
+    quoted_password = '"' + password.replace('"', '""') + '"'
+    return (f"Server=127.0.0.1,{port};Database={DB};User ID=sa;Password={quoted_password};"
             "Encrypt=True;TrustServerCertificate=True;Connect Timeout=15")
 
 
@@ -123,8 +129,23 @@ def api_pid():
         pid = int(PID_FILE.read_text().strip())
     except (OSError, ValueError):
         return None
-    out = subprocess.run(["tasklist", "/FI", f"PID eq {pid}", "/FO", "CSV", "/NH"], capture_output=True, text=True).stdout
-    return pid if "dotnet" in out.lower() else None
+    if pid <= 0:
+        return None
+    # PID reuse must never allow us to stop another .NET service. Read command line locally.
+    if os.name == "nt":
+        command = f"(Get-CimInstance Win32_Process -Filter 'ProcessId = {pid}').CommandLine"
+        result = subprocess.run(["powershell", "-NoProfile", "-NonInteractive", "-Command", command],
+                                capture_output=True, text=True)
+        out = result.stdout.strip()
+    else:
+        try:
+            out = Path(f"/proc/{pid}/cmdline").read_bytes().decode().replace('\x00', ' ')
+        except OSError:
+            return None
+    # Require the full, exact DLL argument, including its directory.
+    args = re.findall(r'"([^"]*)"|(\S+)', out)
+    expected = str(API_DLL).replace('\\', '/').casefold()
+    return pid if any((a or b).replace('\\', '/').casefold() == expected for a, b in args) else None
 
 
 def stop_api():
@@ -139,14 +160,23 @@ def stop_api():
     PID_FILE.unlink(missing_ok=True)
 
 
-def pilot_password():
-    password = os.environ.get("SAVIA_PILOT_PASSWORD")
-    if not password and sys.stdin.isatty():
-        password = getpass.getpass("Sample staff password (10+ chars, not stored): ")
-    return password or ""
+def pilot_passwords(roles=("CAJERA", "SUPERVISORA", "DUENA")):
+    shared = os.environ.get("SAVIA_PILOT_PASSWORD")
+    if shared and os.environ.get("SAVIA_PILOT_ALLOW_SHARED") != "1":
+        raise SystemExit("pilot: SAVIA_PILOT_PASSWORD requires SAVIA_PILOT_ALLOW_SHARED=1; use one password per login.")
+    passwords = {}
+    for role in roles:
+        key = "SAVIA_PILOT_PASSWORD_" + role
+        value = os.environ.get(key) or shared
+        if not value and sys.stdin.isatty():
+            value = getpass.getpass(f"Sample {role} password (10+ chars, not stored): ")
+        if not value:
+            raise SystemExit(f"pilot: set {key} or use up --no-provision for existing hashes.")
+        passwords[key] = value
+    return passwords
 
 
-def cmd_up(_):
+def cmd_up(args):
     require_container()
     dn = dotnet()
     if dn is None:
@@ -180,18 +210,21 @@ def cmd_up(_):
     for key in [k for k in env if k.upper().startswith(("KESTREL__", "ASPNETCORE_URLS", "ASPNETCORE_HTTP_PORTS",
                                                          "ASPNETCORE_HTTPS_PORTS", "DOTNET_URLS", "URLS"))]:
         env.pop(key)
-    password = pilot_password()
-    provision_env = {**env, "Savia__Provision__Logins": LOGINS, "SAVIA_PILOT_PASSWORD": password}
+    passwords = {} if args.no_provision else pilot_passwords()
+    provision_env = {**env, **passwords, "Savia__Provision__Logins": LOGINS,
+                     "Savia__Provision__CheckOnly": str(args.no_provision).lower()}
     prov = subprocess.run([dn, str(API_DLL), "provision-passwords"], cwd=API_PROJECT, env=provision_env,
                           capture_output=True, text=True)
     for line in (prov.stdout + prov.stderr).splitlines():
         if line.startswith("provision:"):
             say(line[len("provision: "):])
     if prov.returncode != 0:
-        raise SystemExit("pilot: password provisioning failed (set SAVIA_PILOT_PASSWORD, 10+ characters).")
+        raise SystemExit("pilot: password provisioning failed; all sample logins need hashes for --no-provision.")
 
     STATE.mkdir(parents=True, exist_ok=True)
-    env.pop("SAVIA_PILOT_PASSWORD", None)
+    for key in list(env):
+        if key.startswith("SAVIA_PILOT_PASSWORD") or key == "SAVIA_PILOT_ALLOW_SHARED":
+            env.pop(key)
     log = open(LOG_FILE, "ab")
     flags = subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP if os.name == "nt" else 0
     proc = subprocess.Popen([dn, str(API_DLL), "--urls", URL], cwd=API_PROJECT, env=env, stdout=log,
@@ -245,6 +278,7 @@ def cmd_counts(_):
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("command", choices=["up", "down", "reset", "status", "counts"])
+    parser.add_argument("--no-provision", action="store_true", help="up: verify all sample password hashes without changing them")
     args = parser.parse_args()
     return {"up": cmd_up, "down": cmd_down, "reset": cmd_reset, "status": cmd_status, "counts": cmd_counts}[args.command](args)
 

@@ -9,8 +9,11 @@ All data is sample data labelled MUESTRA; it is not inventory, staff or customer
 Needs Docker Desktop with the container `savia-sqlserver-dev` running, and the .NET SDK from `global.json`.
 
 ```bash
-export SAVIA_PILOT_PASSWORD='<a local password, 10+ characters>'   # or omit it and type it at the prompt
+export SAVIA_PILOT_PASSWORD_CAJERA='<local password, 10+ characters>'
+export SAVIA_PILOT_PASSWORD_SUPERVISORA='<another local password, 10+ characters>'
+export SAVIA_PILOT_PASSWORD_DUENA='<another local password, 10+ characters>'
 python savia/tools/pilot.py up        # create or reuse SAVIA_DEV_pilot, migrate, seed, set passwords, start the API
+python savia/tools/pilot.py up --no-provision # unattended start; requires existing hashes for ALL three sample logins
 python savia/tools/pilot.py status    # database, seed counts, API pid and /health
 python savia/tools/pilot.py counts    # seed row counts on one line
 python savia/tools/pilot.py down      # stop the API
@@ -21,7 +24,10 @@ python savia/tools/pilot_smoke.py     # full flow against the running pilot; exi
 - API: `http://127.0.0.1:5080`; log in `savia/.out/pilot/api.log`.
 - The SQL password is read from `savia/infra/.env`, or `SAVIA_ENV_FILE`, or the dev container's environment.
 - It reaches the API only through the process environment and is never printed.
-- The staff password comes from `SAVIA_PILOT_PASSWORD` or a hidden prompt.
+- Each sample login has its own password environment variable above, or its own hidden prompt.
+- Legacy `SAVIA_PILOT_PASSWORD` is refused unless `SAVIA_PILOT_ALLOW_SHARED=1`; it is then only a fallback for missing per-login variables.
+- `--no-provision` checks all three hashes without changing passwords or invalidating sessions; missing hashes fail startup.
+- `down` verifies that the PID's command line contains the exact pilot DLL path before stopping it.
 - `pilot.py` sets it through the real hasher (`Savia.Api provision-passwords`); a matching hash is left alone.
 - `up` is idempotent: the seed inserts only missing rows, and catalog rows go through `catalog.usp_RegisterProduct` and `usp_RegisterItem`.
 - Stop the API (`down`) before `python savia/tools/check.py`; a running API locks `Savia.Api.dll` and the build fails.
@@ -182,12 +188,157 @@ Error responses use the exact JSON shape below (`traceId` identifies the request
 | `GET /api/v1/cash/tills/current` | C M O | none | `TillSummary` of the caller's newest open till | 404 `cash.no_open_till` |
 | `GET /api/v1/cash/tills/{tillId}/summary` | C M O | none | `TillSummary { tillId, registerId, registerName, cashierId, cashierName, status, currencyCode, openedAt, openingMinor, cashSalesMinor, cashRefundsMinor, otherCashMinor, expectedCashMinor, saleCount, salesTotalMinor, closureId }` | 404 `cash.till_not_found` |
 | `POST /api/v1/sales` | C M O | `PostSaleRequest { saleId, tillId, currencyCode, lines[{ lineNumber, itemId, quantity, unitPriceMinor, discountMinor }], tenders[{ tenderNumber, tenderKind, amountMinor, receivedMinor, changeMinor }] }` | `SaleResponse` | 409 `stock.insufficient`, 409 `cash.till_mismatch`, 409 `sale.id_reused` |
-| `GET /api/v1/sales/{saleId}` | C M O | none | `SaleResponse` | 404 |
+| `GET /api/v1/sales/{saleId}` | C M O | none | `SaleDetailResponse` below | 404 `sale.not_found` |
 | `POST /api/v1/cash/tills/{tillId}/counts` | C M O | `{ cashCountId, lines[{ denominationMinor, quantity }] }` | 204 | 404, 409 |
 | `POST /api/v1/cash/tills/{tillId}/close` | M O | `{ closureId, cashCountId }` | `CloseTillResponse { closureId, expectedMinor, countedMinor, differenceMinor }` | 403 `auth.role_required`, 409 |
 
 `expectedCashMinor` is the sum of every cash entry of the till, the same figure `sales.usp_CloseTill` stores.
 A cashier sees only her own tills; a manager or owner sees every till of the branch.
+
+### Sales history, returns, customers and day report (backend contract)
+
+All paths below have the prefix `/api/v1`. All amounts are integer minor units. All ids are GUID strings.
+Every new endpoint requires authentication (401 `auth.required`) and access to this node's branch
+(403 `auth.branch_access`). History, detail, customers and credits allow C/M/O. Returns and reports allow M/O;
+C receives 403 `auth.role_required` for these writes/reports. An approver id supplied in JSON is never trusted.
+
+`GET /sales?from=2026-11-12&to=2026-11-12&q=fragment&page=1&pageSize=25`
+returns HTTP 200:
+
+```text
+SalesPage { page: int, pageSize: int, total: int, items: SaleHistoryRow[] }
+SaleHistoryRow { saleId, createdAt, status, currencyCode, totalMinor, customerId: GUID|null,
+  customerName: string|null, cashierId, cashierName, tillId: GUID|null }
+```
+
+All query parameters are optional. `page` defaults to 1 (1..1000000); `pageSize` defaults to 25 (1..100).
+`from` and `to` are inclusive business dates in Nicaragua (UTC-06:00). Missing bounds mean no bound.
+`q` is a literal fragment, at most 100 characters, of sale id, line SKU/name or customer name/code.
+There is no separate receipt number in the schema: the receipt identifier is `saleId`.
+Results include returned sales and sort by `createdAt DESC, saleId DESC`; `total` is the count before pagination.
+Invalid ranges/pages return 422 `report.range`; overlong queries return 422 `input.text`.
+Malformed dates, GUIDs or integers are rejected by ASP.NET binding with HTTP 400 before the handler.
+
+`GET /sales/{saleId}` returns HTTP 200 with all the old totals plus detail:
+
+```text
+SaleDetailResponse { saleId, subtotalMinor, discountMinor, taxMinor, totalMinor, status,
+  currencyCode, createdAt, customerId: GUID|null, customerName: string|null,
+  cashierId, cashierName, tillId: GUID|null, registerName: string|null,
+  lines: SaleDetailLine[], tenders: SaleDetailTender[], reversals: SaleReversal[] }
+SaleDetailLine { saleLineId, lineNumber, itemId, sku, name, sizeCode: string|null,
+  quantity: int, returnedQuantity: int, unitPriceMinor, discountMinor, taxMinor, totalMinor }
+SaleDetailTender { tenderId, tenderKind, amountMinor, receivedMinor: long|null,
+  changeMinor: long|null, reference: string|null, creditId: GUID|null, status }
+SaleReversal { reversalId, kind, settlementKind, reason, creditMinor, currencyCode, status,
+  createdAt, approvedBy: GUID|null, actorId, tillId: GUID|null, creditId: GUID|null,
+  lines: [{ saleLineId, quantity: int, creditMinor, restockPool }] }
+```
+
+`sku` and `name` are sale snapshots; size is the current catalog size because SQL has no size snapshot.
+SQL timestamps are UTC (returned without an offset); interpret them as UTC.
+Arrays are always present, including empty arrays. A sale outside this branch returns 404 `sale.not_found`.
+
+`POST /sales/{saleId}/returns/credit` uses **only** existing `sales.usp_PostCreditReturn`:
+
+```json
+{
+  "reversalId": "11111111-1111-4111-8111-111111111111",
+  "creditId": "22222222-2222-4222-8222-222222222222",
+  "tillId": "33333333-3333-4333-8333-333333333333",
+  "customerId": "44444444-4444-4444-8444-444444444444",
+  "reason": "Cambio de talla MUESTRA",
+  "lines": [{ "saleLineId": "55555555-5555-4555-8555-555555555555", "quantity": 1, "restockPool": "quarantine" }]
+}
+```
+
+Success is 200 `SaleReversal` as above (`settlementKind: "credit"`, `status: "approved"`).
+The caller must be M/O and have SQL `CanApproveReturns=1` for this branch.
+The authenticated caller is both actor and approver. No separate approver login/password is sent in this body.
+The sale must already have the same verified customer; anonymous sales cannot be returned through this procedure.
+An open till at this node's location is required. `restockPool` is `store` or `quarantine`.
+Reason is nonblank, at most 500 characters; quantity must be positive and not exceed the unreturned balance.
+Use fresh client-generated `reversalId` and `creditId`, and retry the same request after a connection failure.
+SQL preserves the original reversal on retry; it compares credit id, sale id and line ids/quantities.
+It does not compare reason/pool/till/approver on that retry. The API returns the original record.
+There is no cash-return endpoint: `usp_RecordCashEntry` accepts only manual payout/deposit/adjustment,
+and cannot create a complete sale return. No cash return procedure exists in the migrations.
+
+| Status | Code | Meaning |
+| --- | --- | --- |
+| 403 | `auth.role_required` | Caller is not M/O |
+| 403 | `return.approval_required` | Supervisor lacks SQL return approval permission |
+| 403 | `auth.branch_access` | SQL rejects a sale from another branch (51535) |
+| 403 | `return.location` | Return location is outside this branch |
+| 409 | `cash.till_not_open` | Return till is missing, closed or at another location |
+| 409 | `return.customer_or_sale` | Customer is missing/mismatched, or sale is missing, cancelled or fully returned |
+| 409 | `return.id_reused`, `sale.reversal_id_reused` | Reversal or credit ids conflict with an earlier request |
+| 409 | `return.quantity` | Line is outside this sale or quantity exceeds its remaining units |
+| 409 | `return.amount`, `return.zero_credit` | Credit exceeds original value or has zero value |
+| 422 | `input.text`, `return.lines`, `return.empty` | Invalid reason, pool, quantity, empty or duplicate lines |
+
+`POST /sales` already accepts every SQL tender kind: `cash`, `card`, `transfer`, `credit`, `other`.
+The top-level body is `{ saleId, tillId, currencyCode, customerId?: GUID|null, lines, tenders }`.
+Lines are `{ lineNumber, itemId, quantity, unitPriceMinor, discountMinor?: 0 }`.
+Each tender is `{ tenderNumber, tenderKind, amountMinor, receivedMinor?: null, changeMinor?: null,
+reference?: null, creditId?: null }`. Examples:
+
+```json
+[
+  { "tenderNumber": 1, "tenderKind": "cash", "amountMinor": 10000, "receivedMinor": 20000, "changeMinor": 10000 },
+  { "tenderNumber": 2, "tenderKind": "card", "amountMinor": 10000, "reference": "AUTH-MUESTRA" },
+  { "tenderNumber": 3, "tenderKind": "transfer", "amountMinor": 10000, "reference": "TRANSFER-MUESTRA" },
+  { "tenderNumber": 4, "tenderKind": "credit", "amountMinor": 10000, "creditId": "22222222-2222-4222-8222-222222222222" },
+  { "tenderNumber": 5, "tenderKind": "other", "amountMinor": 10000, "reference": "OTRO-MUESTRA" }
+]
+```
+
+This illustrates fields; tender totals must equal the actual SQL sale total.
+`card`/`transfer` require a nonblank reference (maximum 120 characters). Send no card numbers or payment credentials.
+Non-cash tenders require null/omitted received/change; only `credit` accepts/requires `creditId`.
+Credit requires top-level `customerId`, matching customer/currency and enough allocation at this branch.
+SQL redeems credit atomically inside `usp_PostSale`; there is no separate redemption endpoint and no gateway.
+200 response remains `SaleResponse { saleId, subtotalMinor, discountMinor, taxMinor, totalMinor, status }`.
+Invalid tenders: 422 `rule.51509`; total mismatch: 422 `sale.tender_mismatch`;
+customer/currency mismatch: 409 `credit.customer_or_currency`; insufficient credit: 409 `credit.insufficient`.
+Other sale errors remain unchanged (including 409 `sale.id_reused`, `stock.insufficient`, `sale.price_changed`, `cash.till_mismatch`).
+
+`GET /customers?q=fragment` returns 200 `CustomerRow[]`:
+`{ customerId, customerCode: string|null, displayName, phone: string|null, email: string|null }`.
+Search is literal against active customer name/code/phone/email, 2..100 characters, maximum 50 rows.
+422 `customer.search_too_short` or `input.text` rejects invalid queries. Customers are shared catalog data;
+the search requires local branch access and does not assert that a customer belongs exclusively to Masaya.
+
+`GET /credits/search?q=fragment` calls `credits.usp_FindCustomerCredits` without reimplementing its search:
+200 `CustomerCreditRow[] { customerId, displayName, phone: string|null, email: string|null,
+creditId, currencyCode, branchId, branchName, availableMinor }`.
+SQL returns up to 50 positive, active branch allocations across branches. Show each branch explicitly;
+only the local branch allocation is redeemable here. Search uses customer name/code/email or at least six phone digits.
+422 `credit.search_too_short` or `input.text`; 403 `auth.branch_access`.
+
+`GET /reports/day?date=2026-11-12` requires M/O and returns 200:
+
+```text
+DayReport { date: "YYYY-MM-DD", branchId, salesCount: int, unitsSold: long,
+  totals: [{ currencyCode, saleCount: int, totalMinor }],
+  tenders: [{ currencyCode, tenderKind, saleCount: int, totalMinor }],
+  returns: [{ reversalId, saleId, currencyCode, settlementKind, creditMinor, unitsReturned: long }],
+  tills: [{ tillId, cashierId, cashierName, registerName, currencyCode, status, openedAt, closedAt: UTC|null,
+    expectedMinor, countedMinor: long|null, differenceMinor: long|null, closureId: GUID|null,
+    accountingDocumentId: GUID|null, documentNumber: string|null, accountingStatus: string|null,
+    saleGrossMinor: long|null, returnGrossMinor: long|null, netSalesMinor: long|null }],
+  topItems: [{ itemId, sku, name, unitsSold: long }] }
+```
+
+All computation occurs in `sales.usp_GetDayReport` (V013), not C#.
+The day is `[06:00 UTC on date, 06:00 UTC next date)`. Sales and units are gross for sales created that day,
+excluding cancelled sales; a later return does not rewrite a prior day's sales total. Tenders count captured payments;
+a mixed sale counts once in each tender kind. Amounts are grouped by currency and are never added across currencies.
+Returns are approved reversals created that day, even when the original sale was earlier.
+Tills opened OR closed that day are listed once; expected cash is the closure snapshot or current sum of cash entries.
+Closed tills expose stored accounting close document figures; open tills have null count/difference/document fields.
+Top items are the five largest gross unit quantities, ordered by quantity descending then item id.
+Empty days return zero counts and empty arrays. Invalid range: 422 `report.range`.
 
 ### Labels
 
@@ -197,7 +348,61 @@ A cashier sees only her own tills; a manager or owner sees every till of the bra
 
 - Pilot only: one branch, one PC, loopback, sample data. Not a production deployment.
 - Local catalog registration is enabled only by the pilot flag; multi-node catalog ownership remains outside this pilot.
-- `pilot_smoke.py` uses the API for catalog registration, resolve and reject. Its sole SQL call runs the conservation audit.
+- `pilot_smoke.py` uses the API for catalog, receiving, cash/card sales, a store-credit return and the day report. Its only SQL operation runs the conservation audit, after the return and after closure.
 - Sync events queue in `sync.Outbox` for the cloud node and are never delivered in the pilot.
-- `sales.usp_OpenTill` allows more than one open till per register; the client should check `openTillId` first.
-- Card payments, printing to a real label printer, and visual, mobile or accessibility QA are not covered.
+- SQL permits only one open till per register; the client should check `openTillId` first.
+- Card/transfer references record an externally completed payment. Gateway processing, real label printing, and visual, mobile or accessibility QA are not covered by backend tests.
+
+## Worker A verification — 2026-11-12
+
+Result: backend acceptance passed locally against the existing `savia-sqlserver-dev` container.
+No container, external integration, deployment, commit or push was created. V001 is unchanged.
+The API was stopped through `pilot.py down` after acceptance.
+
+| Command / check | Exit | Evidence |
+| --- | --- | --- |
+| `python savia/tests/test_pilot_runner.py` before fixes | 1 | Red: unquoted ADO.NET password and unrelated dotnet PID accepted; shared-password helper absent |
+| `dotnet test savia/tests/Savia.Tests --no-restore --filter FullyQualifiedName~PilotSalesTests -v q` before endpoints | 1 | Four new read routes returned 404 instead of authenticated route responses |
+| New empty-result API tests before the SQL correction | 1 | Two tests exposed missing arrays; V013 now uses explicit empty JSON arrays |
+| `python savia/tests/test_pilot_runner.py` after fixes | 0 | Five runner safeguard tests passed |
+| `python savia/tools/check.py` | 0 | `RESULT PASS`; 128 SQL tests, 34 .NET tests, no skips; baseline generator and no-physical-delete checks passed |
+| `python savia/tools/pilot.py reset` | 0 | Sample pilot database recreated; no business-table DELETE/TRUNCATE |
+| `python savia/tools/pilot.py up` | 0 | V001–V013 applied; sample seed and separate per-login provisioning passed; loopback health 200 |
+| `python savia/tools/pilot_smoke.py` — first run | 0 | Receiving, cash sale, supervised credit return + retry, card sale + retry, count, balanced closure, accounting day report |
+| `python savia/tools/pilot_smoke.py` — second run | 0 | Same flow passed again without reset |
+| `EXEC audit.usp_CheckConservation @Throw=1;` through both smoke runs | 0 | Passed immediately after each return and again after each closure |
+| `python savia/tools/pilot.py down` then `python savia/tools/pilot.py up --no-provision` | 0 / 0 | No password variables supplied to unattended startup; all staff password hashes/security versions unchanged; an existing bearer session still returned `/me` 200 |
+| `python savia/tools/pilot.py down` | 0 | Verified pilot DLL PID stopped; loopback API no longer answers |
+
+The `dotnet` commands used the existing SDK selected by `savia/tools/check.py`; no packages were added.
+An intermediate concurrent test invocation collided while preparing the shared SQL template.
+The final acceptance command runs SQL preparation before .NET tests and passed.
+Raw local logs are ignored outputs: `savia/.out/worker-a-check.log`, `savia/.out/worker-a-acceptance.log`,
+`savia/.out/pilot-sales-red.log` and `savia/.out/pilot-sales-detail.log`.
+Acceptance used temporary passwords in process memory; none were printed or written to tracked files.
+
+Explicit Worker A staging scope (17 files):
+
+```text
+savia/db/migrations/V013__pilot_sales_read_models.sql
+savia/db/tests/sales/140_pilot_read_models.sql
+savia/db/tests/sales/141_pilot_read_model_guards.sql
+savia/src/Savia.Api/Endpoints.cs
+savia/src/Savia.Api/Provisioning.cs
+savia/src/Savia.Application/Modules.cs
+savia/src/Savia.Application/PilotSales.cs
+savia/src/Savia.Contracts/PilotSales.cs
+savia/src/Savia.Domain/Errors.cs
+savia/src/Savia.Infrastructure/PilotSales.cs
+savia/src/Savia.Infrastructure/ServiceRegistration.cs
+savia/tests/Savia.Tests/PilotProvisioningTests.cs
+savia/tests/Savia.Tests/PilotSalesTests.cs
+savia/tests/test_pilot_runner.py
+savia/tools/pilot.py
+savia/tools/pilot_smoke.py
+savia/docs/pilot/API-PILOT.md
+```
+
+Limits: store-credit returns only; no cash-return procedure exists. No browser, mobile, accessibility,
+printer, gateway or production verification was performed by Worker A. Web and backup/autostart files
+belong to the other workers and are outside this staging scope.

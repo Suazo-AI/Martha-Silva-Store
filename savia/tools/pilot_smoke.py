@@ -3,9 +3,9 @@
 
 Flow: sign in -> receive known and unknown codes -> register a product and item through the local
 catalog API -> resolve one unknown and reject another -> approve -> post -> assert both item stocks ->
-open till -> cash sale -> count -> close -> audit.usp_CheckConservation @Throw=1.
+open till -> cash sale -> store-credit return + retry -> audit -> card sale + retry -> count -> close -> day report -> audit.
 
-Exit 0 = pass. The staff password comes from SAVIA_PILOT_PASSWORD (or a hidden prompt); it is never printed.
+Exit 0 = pass. Per-login passwords use the same environment variables and shared opt-in as pilot.py; never printed.
 """
 import getpass
 import json
@@ -19,6 +19,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools" / "db"))
 import saviadb                                        # noqa: E402
+from pilot import pilot_passwords                     # noqa: E402
 
 DB = "SAVIA_DEV_pilot"
 URL = os.environ.get("SAVIA_PILOT_URL", "http://127.0.0.1:5080")
@@ -80,12 +81,11 @@ def sql(text):
 
 
 def main():
-    password = os.environ.get("SAVIA_PILOT_PASSWORD") or (getpass.getpass("Sample staff password: ") if sys.stdin.isatty() else "")
-    if not password:
-        raise Fail("set SAVIA_PILOT_PASSWORD")
+    passwords = pilot_passwords(("CAJERA", "SUPERVISORA"))
     status, _ = call("GET", "/health")
     check(status == 200, "GET /health 200")
-    cashier, supervisor = login("cajera.muestra", password), login("supervisora.muestra", password)
+    cashier = login("cajera.muestra", passwords["SAVIA_PILOT_PASSWORD_CAJERA"])
+    supervisor = login("supervisora.muestra", passwords["SAVIA_PILOT_PASSWORD_SUPERVISORA"])
     _, me = call("GET", "/api/v1/me", token=cashier)
     check(me["branchName"] == "Masaya" and me["locationId"], f"cashier signed in at {me['branchName']} / {me['locationName']}")
 
@@ -156,12 +156,36 @@ def main():
              "currencyCode": "NIO", "openingMinor": 100000}, cashier)
     _, current = call("GET", "/api/v1/cash/tills/current", token=cashier)
     check(current["tillId"] == till and current["status"] == "open", "till open for the cashier")
+    _, customers = call("GET", "/api/v1/customers?q=MUESTRA", token=cashier)
+    customer = next(c["customerId"] for c in customers if c["customerCode"] == "CLI-MUESTRA")
     total = 2 * price
-    call("POST", "/api/v1/sales", {"saleId": str(uuid.uuid4()), "tillId": till, "currencyCode": "NIO",
+    sale = str(uuid.uuid4())
+    call("POST", "/api/v1/sales", {"saleId": sale, "tillId": till, "currencyCode": "NIO", "customerId": customer,
          "lines": [{"lineNumber": 1, "itemId": item, "quantity": 2, "unitPriceMinor": price}],
          "tenders": [{"tenderNumber": 1, "tenderKind": "cash", "amountMinor": total, "receivedMinor": total, "changeMinor": 0}]}, cashier)
     stock2 = on_hand(cashier, item)
     check(stock2 == stock1 - 2, f"cash sale of 2 dropped stock by 2 ({stock1} -> {stock2})")
+    _, detail = call("GET", f"/api/v1/sales/{sale}", token=cashier)
+    return_body = {"reversalId": str(uuid.uuid4()), "creditId": str(uuid.uuid4()), "tillId": till,
+                   "customerId": customer, "reason": "Cambio de talla MUESTRA smoke",
+                   "lines": [{"saleLineId": detail["lines"][0]["saleLineId"], "quantity": 1, "restockPool": "store"}]}
+    return_path = f"/api/v1/sales/{sale}/returns/credit"
+    call("POST", return_path, return_body, cashier, expect=(403,))
+    _, reversal = call("POST", return_path, return_body, supervisor)
+    _, retry = call("POST", return_path, return_body, supervisor)
+    check(reversal["reversalId"] == retry["reversalId"] and reversal["creditMinor"] == price,
+          "supervisor store-credit return and identical retry")
+    check(on_hand(cashier, item) == stock2 + 1, "return restores exactly one unit")
+    sql("EXEC audit.usp_CheckConservation @Throw=1;")
+    check(True, "conservation passes immediately after return")
+    _, credits = call("GET", "/api/v1/credits/search?q=MUESTRA", token=cashier)
+    check(any(c["creditId"] == return_body["creditId"] and c["availableMinor"] == price for c in credits), "customer credit is searchable")
+    card = {"saleId": str(uuid.uuid4()), "tillId": till, "currencyCode": "NIO", "customerId": customer,
+            "lines": [{"lineNumber": 1, "itemId": item, "quantity": 1, "unitPriceMinor": price}],
+            "tenders": [{"tenderNumber": 1, "tenderKind": "card", "amountMinor": price, "reference": "AUTH-MUESTRA-" + run}]}
+    call("POST", "/api/v1/sales", card, cashier)
+    call("POST", "/api/v1/sales", card, cashier)
+    check(on_hand(cashier, item) == stock2, "card sale and retry consume exactly one unit")
     _, summary = call("GET", f"/api/v1/cash/tills/{till}/summary", token=cashier)
     check(summary["cashSalesMinor"] >= total, f"till summary expects {summary['expectedCashMinor']}")
     count_id = str(uuid.uuid4())
@@ -171,6 +195,11 @@ def main():
           f"till closed: expected {closure['expectedMinor']}, counted {closure['countedMinor']}, difference 0")
     status, _ = call("GET", "/api/v1/cash/tills/current", token=cashier, expect=(404,))
     check(status == 404, "no open till after close")
+    from datetime import datetime, timedelta, timezone
+    date = datetime.now(timezone.utc).astimezone(timezone(timedelta(hours=-6))).date().isoformat()
+    _, report = call("GET", f"/api/v1/reports/day?date={date}", token=supervisor)
+    check(any(t["tillId"] == till and t["differenceMinor"] == 0 and t["accountingDocumentId"] for t in report["tills"]),
+          "day report includes balanced closure and accounting document")
 
     sql("EXEC audit.usp_CheckConservation @Throw=1;")
     check(True, f"audit.usp_CheckConservation @Throw=1 passed on {DB}")

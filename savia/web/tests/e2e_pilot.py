@@ -1,6 +1,6 @@
 """Real local pilot browser flow, using agent-browser and direct API read-backs.
 
-Start with pilot.py reset then up, with SAVIA_PILOT_PASSWORD set in the environment.
+Start with pilot.py reset then up, with three per-account pilot passwords in the environment.
 No mocked endpoints, optional steps, packages, external services or stored plaintext credentials.
 Each run creates distinct sample codes and can run again against the same seeded pilot.
 """
@@ -23,10 +23,20 @@ API = WEB + "/api/v1"
 SESSION = "savia-e2e"
 SUPERVISOR = "supervisora.muestra"
 CASHIER = "cajera.muestra"
-PASSWORD = os.environ.get("SAVIA_PILOT_PASSWORD")
+OWNER = "duena.muestra"
+PASSWORDS = {
+    CASHIER: os.environ.get("SAVIA_PILOT_PASSWORD_CAJERA"),
+    SUPERVISOR: os.environ.get("SAVIA_PILOT_PASSWORD_SUPERVISORA"),
+    OWNER: os.environ.get("SAVIA_PILOT_PASSWORD_DUENA"),
+}
 CODE = "7500001000014"
 SHOTS = Path(__file__).resolve().parents[2] / "docs" / "pilot" / "screens"
 AB = shutil.which("agent-browser")
+if AB and Path(AB).suffix.lower() in (".cmd", ".bat"):
+    # The npm CMD shim reparses quotes/metacharacters in eval. Invoke the same CLI's Rust binary.
+    native = Path(AB).parent / "node_modules" / "agent-browser" / "bin" / "agent-browser-win32-x64.exe"
+    if native.is_file():
+        AB = str(native)
 results = []
 
 class StepFailed(Exception):
@@ -45,7 +55,7 @@ def ab(*args: str, timeout: int = 45, secret_input: str | None = None) -> str:
         out.seek(0)
         output = out.read().decode("utf-8", "replace").strip()
     if code != 0:
-        raise StepFailed(f"agent-browser {' '.join(args[:2])}: {output}"[:400])
+        raise StepFailed(f"agent-browser {args[0]}: {output}"[:1200])
     return output
 
 
@@ -76,7 +86,7 @@ def go(route: str, ready_selector: str):
 
 def action_ref(selector: str):
     """Take a fresh accessibility snapshot before each interaction, then use its ref."""
-    target = js(f"const e=document.querySelector({json.dumps(selector)}); if (!e) return null; return {{name:e.getAttribute('aria-label') || [...(e.labels || [])].map(l=>l.textContent.trim()).join(' ') || e.textContent.trim(), role:e.tagName==='BUTTON'?'button':e.tagName==='SELECT'?'combobox':e.type==='search'?'searchbox':'textbox'}};")
+    target = js(f"const e=document.querySelector({json.dumps(selector)}); if (!e) return null; const label = [...(e.labels || [])].map(l=>{{const c=l.cloneNode(true);c.querySelectorAll('input,select,textarea,button').forEach(n=>n.remove());return c.textContent.trim();}}).join(' '); return {{name:e.getAttribute('aria-label') || label || e.textContent.trim(), role:['BUTTON','SUMMARY'].includes(e.tagName)?'button':e.tagName==='SELECT'?'combobox':e.type==='search'?'searchbox':e.type==='number'?'spinbutton':'textbox'}};")
     check(target is not None, f"No element for {selector}")
     refs = json.loads(ab("snapshot", "-i", "--json"))["data"]["refs"]
     matches = [key for key, node in refs.items() if node.get("name") == target["name"] and node.get("role") == target["role"]]
@@ -166,7 +176,7 @@ def login_ui(user: str):
     profile = SESSION + "-login"
     ab("auth", "save", profile, "--url", WEB + "/", "--username", user,
        "--password-stdin", "--username-selector", "#login-user", "--password-selector", "#login-pass",
-       "--submit-selector", "#access button[type=submit]", secret_input=PASSWORD)
+       "--submit-selector", "#access button[type=submit]", secret_input=PASSWORDS[user])
     try:
         ab("auth", "login", profile, "--no-navigate")
     finally:
@@ -176,12 +186,12 @@ def login_ui(user: str):
 
 def main() -> int:
     sys.stdout.reconfigure(encoding="utf-8")
-    if not AB or not PASSWORD:
-        print("Need agent-browser and SAVIA_PILOT_PASSWORD.", file=sys.stderr)
+    if not AB or not all(PASSWORDS.values()):
+        print("Need agent-browser and SAVIA_PILOT_PASSWORD_CAJERA / _SUPERVISORA / _DUENA.", file=sys.stderr)
         return 2
     if not WEB.startswith(("http://127.0.0.1:", "http://localhost:")):
         raise StepFailed("Only local pilot URLs are allowed")
-    status, body = call("POST", "/auth/login", {"loginName": SUPERVISOR, "password": PASSWORD})
+    status, body = call("POST", "/auth/login", {"loginName": SUPERVISOR, "password": PASSWORDS[SUPERVISOR]})
     check(status == 200, f"API login status {status}")
     token = body["token"]
     item = call("GET", f"/catalog/lookup?code={CODE}", token=token)[1][0]
@@ -337,17 +347,214 @@ def main() -> int:
             ab("press", "Enter")
         wait_for(f"document.querySelector('#qty-{item_id}')?.value === '2'", "ticket quantity 2")
         check(text("#total") == money(2 * read('/catalog/lookup?code=' + CODE)[0]["unitPriceMinor"]), "ticket price differs")
+        # This CLI omits native DisclosureTriangle nodes from refs, even in a full snapshot.
+        # Use its semantic text action for this native disclosure; all form controls use fresh refs.
+        ab("snapshot", "--json")
+        ab("find", "text", "Cliente y anticipos (opcional)", "click")
+        fill("#sale-customer-search", "MUESTRA")
+        click("#sale-customer-panel > button")
+        wait_for("document.querySelector('#sale-customers button')", "customer search")
+        click("#sale-customers button:first-child")
+        wait_for("document.querySelector('#sale-customer-status')?.className === 'ok'", "customer selected")
         fill("#received", "3000")
         shot("venta-2")
         click("#pay")
         wait_for("!document.querySelector('#receipt').hidden", "sale receipt")
         sale_id = re.search(r"Venta ([0-9a-fA-F-]{36})", text("#receipt")).group(1)
+        state["cash_sale"] = sale_id
         sale = read("/sales/" + sale_id)
+        check(sale["customerId"] is not None, "customer was not attached to cash sale")
         check(text("#receipt-total") == money(sale["totalMinor"]), "receipt total differs")
         check(text("#receipt-change") == money(300000 - sale["totalMinor"]), "change differs")
         check(on_hand(token, item_id) == state["stock1"] - 2, "sale stock differs")
         shot("venta-3")
         return f"sale of 2; screen=API total {sale['totalMinor']}; change {300000 - sale['totalMinor']}"
+
+    def s_card():
+        fill("#sale-search", CODE)
+        ab("press", "Enter")
+        wait_for(f"document.querySelector('#qty-{item_id}')?.value === '1'", "card ticket")
+        fill(f"#qty-{item_id}", "2")
+        ab("press", "Tab")
+        wait_for(f"document.querySelector('#total')?.textContent === {json.dumps(money(2 * item['unitPriceMinor']))}", "edited ticket quantity")
+        fill(f"#qty-{item_id}", "1")
+        ab("press", "Tab")
+        wait_for(f"document.querySelector('#total')?.textContent === {json.dumps(money(item['unitPriceMinor']))}", "restored ticket quantity")
+        select("#payment-0-kind", "transfer")
+        check(js("return document.querySelector('#pay').disabled;"), "transfer accepted without reference")
+        fill("#payment-0-reference", "TRANSFER-MUESTRA-" + run)
+        check(not js("return document.querySelector('#pay').disabled;"), "transfer with reference unavailable")
+        check(text("#balance") == money(0), "transfer must not produce cash change")
+        shot("venta-transferencia")
+        click("#split-payment")
+        select("#payment-0-kind", "cash")
+        fill("#payment-0-amount", "299")
+        fill("#received", "500")
+        fill("#payment-1-amount", "300")
+        fill("#payment-1-reference", "AUTH-SPLIT-MUESTRA-" + run)
+        check(text("#balance") == money(20100), "split payment preview must apply change to cash only")
+        shot("venta-dividida")
+        click("#payment-rows .payment-row:last-child button")
+        select("#payment-0-kind", "card")
+        fill("#payment-0-reference", "AUTH-MUESTRA-" + run)
+        before = read(f"/cash/tills/{state['till']['tillId']}/summary")
+        check(text("#balance") == money(0), "card must not produce cash change")
+        check(not js("return Boolean(document.querySelector('#received'));"), "card must not ask for cash received")
+        shot("venta-tarjeta")
+        click("#pay")
+        wait_for("!document.querySelector('#receipt').hidden", "card receipt")
+        sale_id = re.search(r"Venta ([0-9a-fA-F-]{36})", text("#receipt")).group(1)
+        state["card_sale"] = sale_id
+        sale = read("/sales/" + sale_id)
+        check(text("#receipt-total") == money(sale["totalMinor"]), "card receipt total differs")
+        check(text("#receipt-change") == money(0), "card receipt change must be zero")
+        after = read(f"/cash/tills/{state['till']['tillId']}/summary")
+        check(after["expectedCashMinor"] == before["expectedCashMinor"], "card changed expected cash")
+        check(on_hand(token, item_id) == state["stock1"] - 3, "card stock differs")
+        return "card sale persisted; stock -1; expected cash unchanged; change zero"
+
+    def s_history():
+        go("historial", "#history-search")
+        fill("#history-search", state["cash_sale"])
+        ab("press", "Enter")
+        selector = f"#history-rows [data-sale='{state['cash_sale']}']"
+        wait_for(f"document.querySelector({json.dumps(selector)})", "history receipt match")
+        check(js("return document.querySelectorAll('#history-rows article').length;") == 1, "receipt search must have one sale")
+        check(item["sku"] in text(selector) and "Talla" in text(selector), "history garment details missing")
+        check(js(f"return Boolean(document.querySelector({json.dumps(selector + ' img')}));"), "history photo missing")
+        shot("historial")
+        click(selector + " button.primary")
+        wait_for("document.querySelector('#reprint')", "receipt screen")
+        sale = read("/sales/" + state["cash_sale"])
+        check(text("#receipt-total") == money(sale["totalMinor"]), "history receipt differs from API")
+        check(item["sku"] in text("#receipt"), "receipt garment details missing")
+        # Invoke the action with a local print spy so headless Chrome does not open a blocking dialog.
+        js("window.__printCalls=0; window.print=()=>window.__printCalls++; return true;")
+        click("#reprint")
+        check(js("return window.__printCalls;") == 1, "Reimprimir did not invoke browser print")
+        check(js("const walk = rules => [...rules].flatMap(r=>[r,...(r.cssRules ? walk(r.cssRules) : [])]); return [...document.styleSheets].flatMap(s=>walk(s.cssRules)).some(r=>r.type===CSSRule.PAGE_RULE && r.style.size.startsWith('80mm'));"),
+              "browser did not accept the receipt's 80 mm page size")
+        shot("recibo")
+        go("historial", "#history-search")
+        fill("#history-search", item["sku"])
+        ab("press", "Enter")
+        wait_for(f"document.querySelector({json.dumps(selector)})", "SKU history match")
+        # History searches the sale's recorded garment name, not a later catalog label.
+        fill("#history-search", sale["lines"][0]["name"])
+        ab("press", "Enter")
+        wait_for(f"document.querySelector({json.dumps(selector)})", "garment name history match")
+        return "receipt, SKU and garment search; photo/details; receipt total=API; Reimprimir invokes print"
+
+    def s_return():
+        go("historial", "#history-search")
+        fill("#history-search", state["cash_sale"])
+        ab("press", "Enter")
+        selector = f"#history-rows [data-sale='{state['cash_sale']}']"
+        wait_for(f"document.querySelector({json.dumps(selector)})", "sale to return")
+        click(selector + " button:last-child")
+        wait_for("document.querySelector('#return-qty-1')", "return line")
+        fill("#return-qty-1", "1")
+        fill("#return-reason", "Cambio de talla MUESTRA")
+        select("#refund-method", "credit")
+        before = read(f"/cash/tills/{state['till']['tillId']}/summary")
+        js("window.scrollTo(0,0); return true;")
+        check(js("const r=document.querySelector('#return-submit').getBoundingClientRect(); return r.top>=0 && r.bottom<=innerHeight;"),
+              "return confirmation must be visible at 1024x768 without scrolling")
+        shot("devolucion")
+        click("#return-submit")
+        wait_for("document.querySelector('dialog[open] #approval-user')", "supervisor approval")
+        shot("devolucion-aprobacion")
+        profile = SESSION + "-approval"
+        ab("auth", "save", profile, "--url", WEB + "/", "--username", SUPERVISOR,
+           "--password-stdin", "--username-selector", "#approval-user", "--password-selector", "#approval-pass",
+           "--submit-selector", "#modal button[type=submit]", secret_input=PASSWORDS[SUPERVISOR])
+        try:
+            ab("auth", "login", profile, "--no-navigate")
+        finally:
+            ab("auth", "delete", profile)
+        wait_for("!document.querySelector('#return-result').hidden", "return result")
+        wait_for("document.querySelector('#return-cash')", "return cash read-back")
+        after = read(f"/cash/tills/{state['till']['tillId']}/summary")
+        check(after["cashRefundsMinor"] == before["cashRefundsMinor"], "credit return must not create a cash refund")
+        check(after["expectedCashMinor"] == before["expectedCashMinor"], "credit return must not change expected cash")
+        returned = next(row for row in read("/sales/" + state["cash_sale"])["reversals"] if row["reversalId"] == text("#return-id"))
+        state["credit"] = returned["creditId"]
+        check(returned["creditMinor"] == item["unitPriceMinor"] and returned["lines"][0]["quantity"] == 1, "return record differs")
+        check(text("#return-total") == money(item["unitPriceMinor"]), "return total differs")
+        check(money(after["expectedCashMinor"]) in text("#return-cash"), "return cash screen differs from API")
+        stock = on_hand(token, item_id)
+        check(stock == state["stock1"] - 2, "return did not restock exactly 1")
+        check(text(f"#return-result [data-item='{item_id}']").endswith(str(stock)), "return stock screen differs from API")
+        check("cajera" in text("#operator-label").lower(), "approval replaced cashier session")
+        shot("devolucion-resultado")
+        return "one unit restocked; store credit issued; cash unchanged; stock and cash screen=API; cashier session retained"
+
+    def s_customers():
+        go("clientes", "#customer-search")
+        fill("#customer-search", "MUESTRA")
+        ab("press", "Enter")
+        wait_for("document.querySelector('#customer-rows button')", "seeded customers")
+        customer_id = js("return document.querySelector('#customer-rows tr').dataset.customer;")
+        click("#customer-rows tr:first-child button")
+        wait_for("!document.querySelector('#customer-balance').hidden", "customer credit balance")
+        credits = [row for row in read("/credits/search?q=MUESTRA") if row["customerId"] == customer_id]
+        check(any(row["creditId"] == state["credit"] for row in credits), "new return credit missing from API")
+        for credit in credits:
+            selector = f"#customer-balance [data-credit='{credit['creditId']}'][data-branch='{credit['branchId']}']"
+            check(text(selector + " .credit-balance") == money(credit["availableMinor"]), "customer balance differs from API")
+            check(credit["branchName"] in text(selector), "credit branch missing")
+        shot("clientes")
+        return "sample customer credit read from API"
+
+    def s_credit_sale():
+        go("venta", "#sale-search")
+        fill("#sale-search", CODE)
+        ab("press", "Enter")
+        wait_for(f"document.querySelector('#qty-{item_id}')?.value === '1'", "credit ticket")
+        select("#payment-0-kind", "credit")
+        fill("#sale-customer-search", "MUESTRA")
+        click("#sale-customer-panel > button")
+        wait_for("document.querySelector('#sale-customers button')", "credit customer search")
+        click("#sale-customers button:first-child")
+        wait_for("document.querySelector('#sale-customer-status')?.className === 'ok'", "credit customer selected")
+        select("#payment-0-credit", state["credit"])
+        before = read(f"/cash/tills/{state['till']['tillId']}/summary")
+        check(text("#balance") == money(0), "credit must not produce change")
+        shot("venta-anticipo")
+        click("#pay")
+        wait_for("!document.querySelector('#receipt').hidden", "credit sale receipt")
+        sale_id = re.search(r"Venta ([0-9a-fA-F-]{36})", text("#receipt")).group(1)
+        sale = read("/sales/" + sale_id)
+        check(sale["tenders"][0]["creditId"] == state["credit"], "sale did not redeem selected credit")
+        check(text("#receipt-total") == money(sale["totalMinor"]) and text("#receipt-change") == money(0), "credit receipt differs")
+        credits = read("/credits/search?q=MUESTRA")
+        check(not any(row["creditId"] == state["credit"] for row in credits), "fully redeemed credit remains available")
+        after = read(f"/cash/tills/{state['till']['tillId']}/summary")
+        check(after["expectedCashMinor"] == before["expectedCashMinor"], "credit redemption changed cash")
+        check(on_hand(token, item_id) == state["stock1"] - 3, "credit sale stock differs")
+        return "selected customer credit redeemed atomically; stock -1; cash unchanged; change zero"
+
+    def s_report():
+        go("reporte", "#day-report")
+        wait_for("document.querySelector('#report-sale-count')", "day report totals")
+        date = js("return document.querySelector('#report-date').value;")
+        report = read("/reports/day?date=" + date)
+        for row in report["totals"]:
+            check(text("#report-total-" + row["currencyCode"]) == money(row["totalMinor"]), "day report gross total differs")
+        check(text("#report-sale-count") == str(report["salesCount"]), "day report sale count differs")
+        check(text("#report-unit-count") == str(report["unitsSold"]), "day report units differ")
+        for row in report["tenders"]:
+            selector = f"#report-tenders [data-kind='{row['tenderKind']}'][data-currency='{row['currencyCode']}']"
+            check(text(selector + " td:last-child") == money(row["totalMinor"]), "day report tender differs")
+        for row in report["returns"]:
+            check(money(row["creditMinor"]) in text(f"#report-returns [data-reversal='{row['reversalId']}']"), "day report return differs")
+        for till in report["tills"]:
+            for key in ("expectedMinor", "countedMinor", "differenceMinor", "saleGrossMinor", "returnGrossMinor", "netSalesMinor"):
+                expected = "—" if till[key] is None else money(till[key])
+                check(text(f"#day-report [data-till='{till['tillId']}'] [data-field='{key}']") == expected, f"day report {key} differs")
+        check(report["salesCount"] >= 2, "day report missed new sales")
+        shot("reporte-dia")
+        return "day report totals and count equal API values"
 
     def s_count():
         go("caja", "#counted")
@@ -386,8 +593,10 @@ def main() -> int:
         ("five scans", s_scan), ("register and reject", s_unknowns),
         ("inventory unchanged", lambda: inventory(state["stock0"], "inventario-pending")),
         ("approve and post", s_post), ("inventory after post", lambda: inventory(state["stock1"], "inventario-2")),
-        ("cashier open till", s_till), ("cash sale", s_sale), ("count and close", s_count),
-        ("final inventory", lambda: inventory(state["stock1"] - 2, "inventario-3"))]
+        ("cashier open till", s_till), ("cash sale", s_sale), ("card sale", s_card),
+        ("history and receipt", s_history), ("return one unit", s_return), ("customers and credit", s_customers), ("credit sale", s_credit_sale),
+        ("count and close", s_count), ("day report", s_report),
+        ("final inventory", lambda: inventory(state["stock1"] - 3, "inventario-3"))]
     try:
         for name, fn in steps:
             if not step(name, fn):

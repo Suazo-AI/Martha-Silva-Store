@@ -32,6 +32,8 @@ public static class ServiceRegistration
         services.AddSingleton<IReceivingStore, ReceivingStore>();
         services.AddSingleton<IInventoryStore, InventoryStore>();
         services.AddSingleton<ISalesStore, SalesStore>();
+        services.AddSingleton<IPilotSalesStore, PilotSalesStore>();
+        services.AddSingleton<PilotSalesService>();
         services.AddSingleton<ISiteStore, SiteStore>();
         services.AddSingleton<AuthService>();
         services.AddSingleton<CatalogService>();

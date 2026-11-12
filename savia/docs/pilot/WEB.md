@@ -1,70 +1,136 @@
 # SAVIA pilot staff web
 
-Run `python savia/tools/pilot.py up` from the repository root with Docker and the development SQL container available.
-The runner asks for the sample staff password if `SAVIA_PILOT_PASSWORD` is absent.
-Open <http://127.0.0.1:5080/> on the same PC.
-The API serves the web and `/api/v1` on the same origin.
-No separate web server, package installation, CDN or deployment is needed.
-Use `supervisora.muestra` for receiving, product registration, rejection, approval, posting and till closure.
-Use `cajera.muestra` for till opening, cash sales and cash counts.
-The optional owner login is `duena.muestra`.
-All three sample users use the password supplied to the pilot runner.
-All data is MUESTRA sample data.
+Local acceptance passed on 2026-11-12. The API is stopped.
+The final browser check passed twice in succession: 18 checks per run, zero failures, zero console errors and zero page errors.
+This is the uncommitted working tree based on `d1ec8584a150e479dd298e5647ca4925ac9fe6c5`.
+No commit, push, deployment, external service call, container creation or dependency installation was performed by Worker B.
 
-## Screens
+## Run locally
 
-- Ingreso signs in and then shows the operator and branch returned by `/me`.
-- Recepción opens or resumes a reception and accepts the scan field plus Enter or a keyboard scanner burst after focus is lost.
-- Registrar producto creates a product and variant with a price and approved cost, then resolves the original scan.
-- Rechazar lectura requires a reason and retains the rejected reading in the reception.
-- Revisar recepción shows server quantities, approves the session and posts it to inventory in separate actions.
-- Venta opens an available register, adds scanned or searched products and records a cash sale with change.
-- Caja shows the API cash summary, saves a denomination count and lets a supervisor close the till.
-- Inventario displays physical, reserved and available stock returned by the API.
+Use the existing `savia-sqlserver-dev` container.
+Set three different temporary passwords in the current shell, without printing them:
+`SAVIA_PILOT_PASSWORD_CAJERA`, `SAVIA_PILOT_PASSWORD_SUPERVISORA` and `SAVIA_PILOT_PASSWORD_DUENA`.
+Each password must have at least ten characters.
+Run `python savia/tools/pilot.py up` and open <http://127.0.0.1:5080/> on the same PC.
+The API hosts the web and `/api/v1` on the same origin. No separate web server is needed.
+See [API-PILOT](API-PILOT.md) for provisioning and the final endpoint contract.
 
-## Verification
+Use `supervisora.muestra` for reception approval, posting and till closure.
+Use `cajera.muestra` for opening a till, selling and counting cash.
+`duena.muestra` is the owner account. All data is synthetic MUESTRA data.
 
-Run `node --test "savia/web/tests/*.test.mjs"` for the web unit tests.
-Run `node --test "savia/web/scanner/*.test.mjs"` for the unchanged scanner module tests.
-Set `SAVIA_PILOT_PASSWORD` in the current shell before running the browser check.
-Run `python savia/tools/pilot.py reset` and then `python savia/tools/pilot.py up` to start with fresh sample data.
-Run `python savia/web/tests/e2e_pilot.py` twice without resetting between these two runs.
-The browser check uses the installed agent-browser CLI with fresh accessibility refs and direct API read-backs.
-It requires every step and fails on any browser console error or page error.
-It compares one grouped line of five seeded scans, original-scan registration, rejection, unchanged pending stock, posted stock, a sale of two, change and zero till difference.
-The no-focus scan is an emulated keyboard burst through the real scanner listener.
-Screenshots are overwritten at 1024×768 in [screens](screens/).
-Each run uses unique sample codes and closes its browser session.
-Credentials enter the CLI vault through stdin and the temporary encrypted credential profile is deleted after each login.
+## Screens and behavior
 
-## Limits
+| Screen | Result |
+| --- | --- |
+| Ingreso and navigation | `/me` supplies branch, operator and roles. Sales links require C/M/O; the day report requires M/O. The API remains the permission authority. |
+| Recepción and review | Existing scan, registration, rejection, approval and stock-posting flows remain intact. Keyboard bursts work without input focus. |
+| Venta | Editable ticket quantities; cash, card, transfer, customer credit and other tenders; split payment. Card/transfer require a reference. Only cash has received/change fields. |
+| Cliente in Venta | Optional customer search also associates a cash/card sale with a customer. A credit payment requires a selected local NIO credit allocation. Selection keeps the customer's name visible and collapses the search. |
+| Historial | Receipt id, recorded garment name or SKU search; inclusive Nicaragua date filter; server pagination. Every line has its SKU photo, recorded name, size, quantity, unit price and server line total. |
+| Recibo | Full API lines and tenders after a sale and from Historial. Reimprimir calls `window.print()`. The print sheet uses an 80 mm page, with photos and navigation hidden. |
+| Devolución | Opens from Historial. Quantities cannot exceed sold minus returned. Reason, credit refund and store/quarantine choice. Cashiers use a second login dialog for a real supervisor session; their own session stays in place. |
+| Clientes y anticipos | Search customers, then show each positive credit allocation with its amount, currency and branch. Allocations from another branch are identified. |
+| Reporte del día | SQL counts, currency totals, tender totals, reversals and stored till/accounting figures. The browser does not reconstruct financial totals. Printable on A4. |
+| Caja and Inventario | Existing API cash summary, denomination count, supervised closure and physical/reserved/available stock views remain intact. |
 
-This pilot covers one PC, one branch and cash in NIO.
-The local catalog flag must be enabled by the pilot runner.
-New variants have no size or color classification because this API has no classification list endpoint.
-Persistent stock, reception quantities, prices, till summaries and sale or closure results come from the API.
-Ticket totals, change previews and denomination totals are calculations over pending staff input and API prices.
-Sale read-back contains totals but no tender details, so change is checked as entered cash minus the API sale total.
-The same browser keeps submitted denomination input and count identifiers for the cashier-to-supervisor handoff because the API has no count read endpoint.
-Clearing browser storage requires a new count before closure.
-No physical scanner, printer, card payment, multi-node sync, mobile, accessibility or performance acceptance is claimed.
-No external calls, deployments, commits or pushes are part of this work.
+All HTTP calls remain in `savia/web/api.mjs`. Screens are ES modules and expose `handleScan`.
+Money stays in integer minor units. Ticket, change and denomination previews use pending input and API prices.
+All persisted sales, returns, stock, balances, cash and report figures come from the API.
+New screens use the existing SAVIA 08 tablet tokens, panels, garment photos and rows.
+The approved reference folder was read-only. No product image was imported or replaced.
 
-## Local evidence
+## Contract boundaries
 
-The candidate is the working tree based on `33f033b543ef0c06007f5b027e2847fb320dc1c6`.
-The web unit suite passed 24 tests with exit 0.
-The unchanged scanner suite passed 16 tests with exit 0.
-The first complete real-browser run passed 12 checks with zero console errors and zero page errors.
-The initial empty-stock assertion was corrected to compare the API's absent stock row with the screen's empty state.
-No API defect was found in that complete run.
-On 2026-11-12, `python savia/tools/pilot.py reset` and `python savia/tools/pilot.py up` both exited 0 after the backend completion marker appeared.
-Two consecutive final executions of `python savia/web/tests/e2e_pilot.py` each exited 0 with `SUMMARY: 12 passed; 0 failed`.
-Each final execution reported `console errors: 0; page errors: 0`.
-The first final run checked seeded stock `0 → 5 → 3` and the second checked `3 → 8 → 6`.
-Each final run checked a sale total of `119800` minor units, change of `180200`, and till closure difference `0`.
-The current captures cover login, receiving, registration, rejection, review, posted stock, sale, cashier count, closure and final inventory.
-The API remains running locally at <http://127.0.0.1:5080/> after verification.
-The work is staged with explicit source, test, documentation and screenshot paths and has no new commit or push.
-Repository-wide checks, CI, SQL conservation audit and physical device testing were not run by this web worker.
-The next action is integration review of the staged web against the staged pilot API changes.
+- Returns support **store credit only**. No cash-return SQL procedure or API endpoint exists. This is a documented contract limit, not a defect found in these web checks.
+- The sale must already have its verified customer. Anonymous sales cannot use this return procedure.
+- Restock selected means `store`; unselected means `quarantine`. The form describes both choices. A credit return does not reduce till cash.
+- Approval is the authenticated supervisor. The web never submits a trusted approver id or modifies the cashier's roles/token. Its temporary approval token is logged out after use.
+- Card/transfer references record a payment completed outside this application. There is no bank gateway or card-number collection.
+- History uses sale snapshots. A catalog product label can differ from the recorded garment name. Size is the current catalog size because SQL has no size snapshot.
+- SQL timestamps without offsets are interpreted as UTC. History filters and report dates use Nicaragua business dates.
+- This UI pilot sells in NIO. Credit allocation views retain each API currency and branch; report currency groups are shown separately.
+- New product variants remain unclassified because the API has no size/color-list endpoint.
+- The same browser retains denomination input and count ids for cashier-to-supervisor closure handoff. Clearing its storage requires a new count.
+
+## Verification and evidence
+
+Worker B polled the required `a.done` marker every 60 seconds. It was present by 16:39 local time (UTC-06:00), within the 45-minute limit.
+No build, pilot runner or port 5080 request was made before the marker.
+Worker B then read the final API documentation and `savia/src/Savia.Api/Endpoints.cs` before binding the web.
+
+| Command/check | Exit | Result |
+| --- | --- | --- |
+| `node --test savia/web/tests/payments.test.mjs` before the builder fix | 1 | Red: two card/split assertions; the old builder substituted cash and invalid change. |
+| `node --test savia/web/tests/date-focus.test.mjs` before the focus fix | 1 | Red: the scanner helper took focus from the date filter. |
+| Agent-browser CSS parser probe before/after the print fix | 1 / 0 | Chrome rejected `80mm auto`; accepted the final named 80 mm page. |
+| Spanish report-title probe before/after correction | 1 / 0 | A PowerShell pipe had corrupted accented source text; the UTF-8 patch restored it. |
+| Return-footer image check before/after the tablet correction | 1 / 0 | Primary-button pixels in the lower viewport: 1,468 → 50,836. The final browser check also asserts the button's viewport bounds. |
+| `node --test "savia/web/tests/*.test.mjs"` | 0 | 37 passed, zero failed. Includes token isolation, payment validation, return bounds and business dates. |
+| `node --test "savia/web/scanner/*.test.mjs"` | 0 | 16 passed, zero failed. |
+| `python savia/tools/pilot.py reset` | 0 | Fresh sample pilot database. Existing container only. |
+| `python savia/tools/pilot.py up` | 0 | Migration/seed/build and three separate in-memory passwords; loopback API ready. |
+| `python savia/web/tests/e2e_pilot.py` — final run 1 | 0 | 18 passed; console 0; page errors 0. Seeded stock starts at 0 and ends at 2. |
+| `python savia/web/tests/e2e_pilot.py` — final run 2, without reset | 0 | 18 passed; console 0; page errors 0. Seeded stock starts at 2 and ends at 4. |
+| `python savia/tools/pilot.py down` | 0 | Pilot API stopped. A separate loopback health probe confirmed connection refusal. |
+| `git diff --check -- savia/web savia/docs/pilot/WEB.md` | 0 | No whitespace errors. |
+
+Each final browser run checks receiving five units, original-scan registration, rejection, unchanged pending stock, posting, a two-unit cash sale, a one-unit card sale, receipt/SKU/name search, receipt printing invocation, a supervised one-unit credit return, credit balances, credit redemption, cash count, balanced closure and the API day report.
+The cash sale total is `119800` minor units, change is `180200`, and closure difference is `0`.
+The return restocks exactly one unit. Card, credit return and credit redemption leave expected cash unchanged.
+Transfer and split-payment input previews are exercised; their actual submission is covered by request/unit checks, not a persisted browser sale.
+
+The CLI's native Windows executable avoids CMD reparsing of quoted JavaScript.
+Forms use fresh accessibility refs. Native disclosure nodes have no refs in this CLI, so their opening uses its semantic text action after a fresh snapshot.
+Early driver/fixture failures were corrected before the final pair: disclosure refs, inline select-label extraction, CMD quoting and catalog-label versus receipt-snapshot name.
+There were no API defects found in the final web flow. No API source was edited by Worker B.
+Credentials enter the temporary encrypted CLI vault through stdin. Login profiles are deleted after use; passwords are not printed or stored in evidence.
+
+The 29 current captures emitted by the browser check are 1024×768, including every new screen and payment variation.
+Reviewed captures are in [screens](screens/); hashes, exact paths and source bindings are in [WEB-VERIFICATION.json](screens/WEB-VERIFICATION.json).
+`ingreso-2.png` and `inventario-fotos.png` are older captures and are excluded from the current verification manifest.
+
+## Explicit staging scope and next action
+
+Only the following web paths, this document, the verification manifest and its listed current captures are staged by Worker B:
+
+```text
+savia/web/API-NEEDS.md
+savia/web/api.mjs
+savia/web/app.css
+savia/web/app.mjs
+savia/web/index.html
+savia/web/roles.mjs
+savia/web/scan.mjs
+savia/web/screens/customers.mjs
+savia/web/screens/history.mjs
+savia/web/screens/payment-logic.mjs
+savia/web/screens/payments.mjs
+savia/web/screens/receipt.mjs
+savia/web/screens/report.mjs
+savia/web/screens/return-logic.mjs
+savia/web/screens/return.mjs
+savia/web/screens/sale-logic.mjs
+savia/web/screens/sale-view.mjs
+savia/web/screens/sale.mjs
+savia/web/tests/all.mjs
+savia/web/tests/api-contract.test.mjs
+savia/web/tests/date-focus.test.mjs
+savia/web/tests/e2e_pilot.py
+savia/web/tests/payments.test.mjs
+savia/web/tests/receipt.test.mjs
+savia/web/tests/returns.test.mjs
+savia/web/tests/roles.test.mjs
+savia/docs/pilot/WEB.md
+savia/docs/pilot/screens/WEB-VERIFICATION.json
+```
+
+Unchanged captures explicitly passed to staging create no new Git diff. Other workers' staged paths are preserved.
+Next action: integration review of this staged web with Worker A's staged API. The API remains stopped.
+
+## Not verified by Worker B
+
+No repository-wide check, CI run, SQL conservation audit, physical scanner/printer, bank gateway, multi-node sync, mobile, accessibility or performance acceptance was performed by this worker.
+The owner account's browser flow, pagination across more than 25 sales, date-filter interaction, quarantine return and persisted transfer/split/other sales were not exercised end to end.
+Unit/request checks cover the relevant input and date mappings; these are not substitutes for browser or physical-device acceptance.
+Headless printing uses a spy for the `window.print()` action and verifies the browser-accepted stylesheet. Paper output and a physical print dialog were not tested.

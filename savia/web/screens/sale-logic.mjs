@@ -18,13 +18,13 @@ export const removeLine = (lines, itemId) => lines.filter(l => l.itemId !== item
 
 export const ticketTotal = lines => lines.reduce((sum, l) => sum + lineTotal(l.unitPriceMinor, l.quantity), 0);
 
-/** Body of POST /sales for a cash sale. */
-export function saleRequest({ saleId, tillId, lines, receivedMinor }) {
+/** Body of POST /sales. Tenders are prepared from pending input, never stored balances. */
+export function saleRequest({ saleId, tillId, lines, receivedMinor, tenders, customerId }) {
   const total = ticketTotal(lines);
   return {
-    saleId, tillId, currencyCode: 'NIO',
+    saleId, tillId, currencyCode: 'NIO', ...(customerId ? { customerId } : {}),
     lines: lines.map((l, i) => ({ lineNumber: i + 1, itemId: l.itemId, quantity: l.quantity, unitPriceMinor: l.unitPriceMinor, discountMinor: 0 })),
-    tenders: [{ tenderNumber: 1, tenderKind: 'cash', amountMinor: total, receivedMinor, changeMinor: receivedMinor - total }],
+    tenders: tenders ?? [{ tenderNumber: 1, tenderKind: 'cash', amountMinor: total, receivedMinor, changeMinor: receivedMinor - total }],
   };
 }
 

@@ -2,9 +2,11 @@
 import * as api from '../api.mjs';
 import { h, replace, photo, showError, clearMessage, flash } from '../ui.mjs';
 import { attachScanField, serialQueue } from '../scan.mjs';
-import { formatMoney, cashChange, lineTotal } from '../money.mjs';
+import { formatMoney, lineTotal } from '../money.mjs';
 import { addToTicket, setQuantity, removeLine, ticketTotal, saleRequest, itemFromLookup } from './sale-logic.mjs';
 import { openTillPanel, syncTill } from './till-open.mjs';
+import { paymentsPanel } from './payments.mjs';
+import { receiptContent } from './sale-view.mjs';
 
 export default {
   title: 'Venta',
@@ -30,12 +32,12 @@ export default {
       const cards = h('div', { class: 'cards', id: 'cards', 'aria-live': 'polite' });
       const ticketLines = h('div', { id: 'ticket-lines' });
       const total = h('strong', { id: 'total', 'aria-live': 'polite' });
-      const received = h('input', { id: 'received', inputmode: 'decimal', autocomplete: 'off', placeholder: '0.00' });
       const balanceLabel = h('span', { id: 'balance-label' }, 'Cambio');
       const balance = h('strong', { id: 'balance' });
       const payMessage = h('p', { class: 'error', role: 'alert' });
       const pay = h('button', { class: 'primary big', type: 'button', id: 'pay' }, 'Cobrar');
-      const receipt = h('section', { class: 'panel', id: 'receipt', hidden: true, 'aria-live': 'polite' });
+      const receipt = h('section', { class: 'panel receipt-paper', id: 'receipt', hidden: true, 'aria-live': 'polite' });
+      const payments = paymentsPanel({ kinds: api.saleTenderKinds, branchId: ctx.me.branchId, getTotal: () => ticketTotal(lines), onChange: () => { attempt = null; drawBalance(); } });
 
       const drawTicket = () => {
         replace(ticketLines, lines.length === 0 ? h('p', { class: 'muted' }, 'Escanee una prenda para empezar.') : lines.map(line =>
@@ -62,14 +64,18 @@ export default {
       };
 
       const drawBalance = () => {
-        const t = ticketTotal(lines);
-        const change = cashChange(t, received.value);
-        balance.classList.toggle('short', change.kind === 'short');
-        if (change.kind === 'change') { balanceLabel.textContent = 'Cambio'; balance.textContent = formatMoney(change.changeMinor); }
-        else if (change.kind === 'short') { balanceLabel.textContent = 'Falta'; balance.textContent = formatMoney(change.missingMinor); }
-        else if (change.kind === 'invalid') { balanceLabel.textContent = 'Cambio'; balance.textContent = 'Monto no válido'; }
-        else { balanceLabel.textContent = 'Cambio'; balance.textContent = '—'; }
-        pay.disabled = lines.length === 0 || change.kind !== 'change';
+        balanceLabel.textContent = 'Cambio';
+        try {
+          const draft = payments.draft();
+          balance.textContent = formatMoney(draft.changeMinor);
+          balance.classList.remove('short');
+          pay.disabled = !lines.length;
+          payMessage.textContent = '';
+        } catch (error) {
+          balance.textContent = '—';
+          pay.disabled = true;
+          payMessage.textContent = lines.length ? error.message : '';
+        }
       };
 
       const update = next => {
@@ -118,22 +124,29 @@ export default {
       const queue = serialQueue(find);
       handle.handleScan = code => queue.push(code);
 
-      received.addEventListener('input', () => { attempt = null; drawBalance(); });
       pay.addEventListener('click', async () => {
-        const t = ticketTotal(lines);
-        const change = cashChange(t, received.value);
-        if (change.kind !== 'change') return;
-        const key = JSON.stringify([lines.map(l => [l.itemId, l.quantity, l.unitPriceMinor]), change.receivedMinor]);
+        let draft;
+        try { draft = payments.draft(); } catch (error) { showError(payMessage, error); return; }
+        const key = JSON.stringify([lines.map(l => [l.itemId, l.quantity, l.unitPriceMinor]), draft.tenders, payments.customerId]);
         if (!attempt || attempt.key !== key) attempt = { saleId: api.uuid(), key };
         pay.disabled = true;
         clearMessage(payMessage);
         try {
-          const response = await api.postSale(saleRequest({ saleId: attempt.saleId, tillId: till.tillId, lines, receivedMinor: change.receivedMinor }));
-          showReceipt(response, change.receivedMinor);
+          const response = await api.postSale(saleRequest({ saleId: attempt.saleId, tillId: till.tillId, lines, tenders: draft.tenders, customerId: payments.customerId }));
+          showReceipt(response, draft.changeMinor);
           lines = [];
           attempt = null;
-          received.value = '';
+          payments.reset();
           drawTicket();
+          try {
+            const detail = await api.saleReceipt(response.saleId);
+            replace(receipt, h('h2', {}, 'Venta registrada'), ...receiptContent({ ...detail, branchName: ctx.branchName }),
+              h('div', { class: 'actions no-print' },
+                h('button', { type: 'button', onclick: () => window.print() }, 'Reimprimir'),
+                h('button', { type: 'button', id: 'open-receipt', onclick: () => ctx.go(`recibo?sale=${encodeURIComponent(response.saleId)}`) }, 'Ver recibo')));
+          } catch (error) {
+            receipt.append(h('p', { class: 'warning' }, `La venta está registrada. Abra el recibo para consultar el detalle. ${error.message}`));
+          }
         } catch (error) {
           const next = {
             'stock.insufficient': 'Quite prendas sin existencia o revise el inventario.',
@@ -147,15 +160,16 @@ export default {
         }
       });
 
-      const showReceipt = (sale, receivedMinor) => {
+      const showReceipt = (sale, changeMinor) => {
         receipt.hidden = false;
         replace(receipt,
           h('h2', {}, 'Venta registrada'),
           h('div', { class: 'row' }, h('span', {}, 'Subtotal'), h('strong', { class: 'num' }, formatMoney(sale.subtotalMinor))),
           sale.taxMinor ? h('div', { class: 'row' }, h('span', {}, 'Impuesto'), h('strong', { class: 'num' }, formatMoney(sale.taxMinor))) : null,
           h('div', { class: 'row' }, h('span', {}, 'Total cobrado'), h('strong', { class: 'num', id: 'receipt-total' }, formatMoney(sale.totalMinor))),
-          h('div', { class: 'row' }, h('span', {}, 'Cambio a entregar'), h('strong', { class: 'num', id: 'receipt-change' }, formatMoney(receivedMinor - sale.totalMinor))),
-          h('p', { class: 'muted num' }, `Venta ${sale.saleId}`));
+          h('div', { class: 'row' }, h('span', {}, 'Cambio a entregar'), h('strong', { class: 'num', id: 'receipt-change' }, formatMoney(changeMinor))),
+          h('p', { class: 'muted num' }, `Venta ${sale.saleId}`),
+          h('button', { type: 'button', class: 'primary', id: 'open-receipt', onclick: () => ctx.go(`recibo?sale=${encodeURIComponent(sale.saleId)}`) }, 'Ver recibo'));
         flash(receipt);
       };
 
@@ -168,7 +182,7 @@ export default {
           ticketLines,
           h('div', { class: 'checkout' },
             h('div', { class: 'total' }, h('span', {}, 'Total'), total),
-            h('label', { class: 'money-row', for: 'received' }, 'Efectivo recibido', received),
+            payments.node,
             h('div', { class: 'money-row', 'aria-live': 'polite', 'aria-atomic': 'true' }, balanceLabel, balance),
             payMessage, pay),
           receipt)));

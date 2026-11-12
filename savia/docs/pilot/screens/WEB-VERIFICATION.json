@@ -1,0 +1,298 @@
+{
+  "scope": "Worker B WEB; local sample pilot only",
+  "recordedAtUtc": "2026-11-12T23:04:54.320469+00:00",
+  "baseCommit": "d1ec8584a150e479dd298e5647ca4925ac9fe6c5",
+  "candidate": "Uncommitted working tree; no push or deployment",
+  "backendMarkerObservedBeforeRuntime": true,
+  "apiState": "stopped; health connection refused after pilot.py down",
+  "checks": [
+    {
+      "command": "node --test \"savia/web/tests/*.test.mjs\"",
+      "exitCode": 0,
+      "passed": 37,
+      "failed": 0
+    },
+    {
+      "command": "node --test \"savia/web/scanner/*.test.mjs\"",
+      "exitCode": 0,
+      "passed": 16,
+      "failed": 0
+    },
+    {
+      "command": "python savia/tools/pilot.py reset",
+      "exitCode": 0
+    },
+    {
+      "command": "python savia/tools/pilot.py up",
+      "exitCode": 0,
+      "passwordHandling": "Three distinct temporary passwords in process environment; not printed or saved"
+    },
+    {
+      "command": "python savia/web/tests/e2e_pilot.py",
+      "run": 1,
+      "exitCode": 0,
+      "passed": 18,
+      "failed": 0,
+      "consoleErrors": 0,
+      "pageErrors": 0,
+      "seededStockStart": 0,
+      "seededStockEnd": 2
+    },
+    {
+      "command": "python savia/web/tests/e2e_pilot.py",
+      "run": 2,
+      "resetBetweenRuns": false,
+      "exitCode": 0,
+      "passed": 18,
+      "failed": 0,
+      "consoleErrors": 0,
+      "pageErrors": 0,
+      "seededStockStart": 2,
+      "seededStockEnd": 4
+    },
+    {
+      "command": "python savia/tools/pilot.py down",
+      "exitCode": 0
+    },
+    {
+      "command": "loopback health probe",
+      "exitCode": 0,
+      "result": "ConnectionRefusedError"
+    },
+    {
+      "command": "git diff --check -- savia/web savia/docs/pilot/WEB.md",
+      "exitCode": 0
+    }
+  ],
+  "browserReadbacks": [
+    "posted stock",
+    "cash sale and change",
+    "card sale and unchanged cash",
+    "receipt and name/SKU/id history search",
+    "one supervised credit return and stock/cash results",
+    "customer allocations",
+    "credit redemption",
+    "balanced closure",
+    "all displayed report currency/tender/return/till figures"
+  ],
+  "apiDefectsFound": [],
+  "limits": [
+    "Store-credit returns only; API has no cash-return procedure",
+    "Transfer/split/other submission not persisted by this browser flow",
+    "Owner login, multi-page pagination, date input interaction and quarantine return not exercised end to end",
+    "No physical printer/scanner, gateway, mobile, accessibility, performance, repository-wide CI or conservation audit by Worker B"
+  ],
+  "sources": {
+    "savia/web/API-NEEDS.md": "f5ab2daad31e5e363ecdf5759df7c8006a75172f9e52f48dfeb62799163af0c9",
+    "savia/web/api.mjs": "12b130e897deb0c665dedcb91779941a56f929acf9a6d1804444e08bacb24a18",
+    "savia/web/app.css": "a76b76b9da0243cccd8ce02f6c639979415f2165918e94a3a3a31767efa288f0",
+    "savia/web/app.mjs": "a446e5a0d6d55c06cc1be6eda2448d4c8d3affa9d75534bf295d052847a06289",
+    "savia/web/index.html": "e810faeaf841c315dfb8852750720474dd843719dd5cd6a9ed6d1040f8edc02f",
+    "savia/web/roles.mjs": "d488933583492783de6eee8e34d3f23778d238f7b6a6776a9095c68739536636",
+    "savia/web/scan.mjs": "92cb5f4a2a314d538047c768be6257cc7d1c09838f99010c4ece98f75faa3e94",
+    "savia/web/screens/customers.mjs": "59d82062f8144b822700678d96a9719c0e1df95bd9fedbb7e50d77612a458057",
+    "savia/web/screens/history.mjs": "a78cc7a69bcb340f08f4fdc7c7bbca567baca6a2c7a87611dbd3d805eb7b2d58",
+    "savia/web/screens/payment-logic.mjs": "782fb49ae45fee18275a3cbbd2930f2154f4c7d2e7314a7231280672524f26dd",
+    "savia/web/screens/payments.mjs": "13e96f4c3b9507d8db85c93343b7ff5dc439b832caf61a538a3aa6c8533a72f2",
+    "savia/web/screens/receipt.mjs": "10a88074338cb14a57fcb301c9acb3f2dacd9d9959c7594ac524541a5bbfa1b6",
+    "savia/web/screens/report.mjs": "6c6043a1207fe5bfb36128bb87762b2af6f31c4a7d02a504c74f5a93e7df90a8",
+    "savia/web/screens/return-logic.mjs": "87a48bc42d4765aeb7359cc63d3c6c7190f277c2ce89b0dfe35868ea8213edeb",
+    "savia/web/screens/return.mjs": "6894cea884ef4594f788f29179521f1092e9275406d35b2f559743d35ef0a2f7",
+    "savia/web/screens/sale-logic.mjs": "62d57907cc381f85b38821b6702c68401c39d23fc1f8aca2bee72af81aedc001",
+    "savia/web/screens/sale-view.mjs": "780961a0d7acb82c61b030c2c025e1a8920ac699a0a3d76ad58fdb0072bd1d89",
+    "savia/web/screens/sale.mjs": "68b1cf25499fcbd36a0950a8fcc7f63665775fab4adb505ebf85554a9f118cab",
+    "savia/web/tests/all.mjs": "f0c0c1c1d7710010e7c300267d220a441be758942e02074d35b4c30a0b7b1d35",
+    "savia/web/tests/api-contract.test.mjs": "97803568a3c6e9a67241fa78ca679ba9e0a998ab37b86d2e69673dd7d62ff12e",
+    "savia/web/tests/date-focus.test.mjs": "6840f3365995af79ffba1248b5e7f5969bf16f7fec0f347913fca609e65b5220",
+    "savia/web/tests/e2e_pilot.py": "f7756e8cbd81cece0cc03c91f2bf301c69ac52471863b9dc1b519eb4e2f280ce",
+    "savia/web/tests/payments.test.mjs": "cd4fe6fe7c8d52db5d0fe762ee8756e78a27baf50f26266b55e6ee14ae6e6619",
+    "savia/web/tests/receipt.test.mjs": "bd87d6f2a15619913c289b0b464a415f9ff7b1972a3727ef53f391ff90206699",
+    "savia/web/tests/returns.test.mjs": "141b3beb6fbf52dd17afc38c355b56cd7ded75479b273babd186cae338899e71",
+    "savia/web/tests/roles.test.mjs": "c7ce2b4c20fc7f33fc24fddb20ce9a955dc2a9cc771f3016b2daffae8de20101",
+    "savia/docs/pilot/WEB.md": "3390a4c91a700c09e1c5d596945a67480fb0525959aaa258b8d941c1d8979f26"
+  },
+  "apiContractReadOnly": {
+    "savia/docs/pilot/API-PILOT.md": "d7cb42e2a9b803face2766d43c38482298ce1acc498d8ccc6721617f92bd9bd1",
+    "savia/src/Savia.Api/Endpoints.cs": "eab146c4192f36f881fb16d1f50fb639ea298f1313994422d3c7e72669d47606"
+  },
+  "captures": [
+    {
+      "path": "savia/docs/pilot/screens/caja-1.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "525364173880db7112bef8ade1b5addbde81cf421aaa86246a4f12b0f6a02b6d"
+    },
+    {
+      "path": "savia/docs/pilot/screens/caja-2.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "5f50d5bf28b620a4bb06397e02623768d01412fee917e5071b82aee563832af9"
+    },
+    {
+      "path": "savia/docs/pilot/screens/clientes.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "32023e54933972b43378a01d6993c2eeb24aaca8132f397f5d932854d3991cec"
+    },
+    {
+      "path": "savia/docs/pilot/screens/devolucion-aprobacion.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "1110a6cabb684cd159e49518eb150bca773ea5e11f1e38493ea68da1d703a658"
+    },
+    {
+      "path": "savia/docs/pilot/screens/devolucion-resultado.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "a3518303dd3570e9eb0fe83ee659b634a1ebe59417624a84a5f4176461c770fe"
+    },
+    {
+      "path": "savia/docs/pilot/screens/devolucion.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "59411fca0edc3c3c7548d5638551d5f288816bbd2eb6d5170f0be9db6cb4a489"
+    },
+    {
+      "path": "savia/docs/pilot/screens/historial.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "74de847fbf4bb7cf04a5720a6709ae6c3dc09dc5a8dc7b6c726249c2ff8e1c10"
+    },
+    {
+      "path": "savia/docs/pilot/screens/ingreso-1.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "ead65eb66f5a23a2765fcc836892b7db8ef3a9476f3fb0bd5b4d2dd2c70a7c6e"
+    },
+    {
+      "path": "savia/docs/pilot/screens/inventario-1.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "679cddf814b8bc791c2bbc33005b30a3719db9482de998f574616db6f3884d67"
+    },
+    {
+      "path": "savia/docs/pilot/screens/inventario-2.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "14c2e6005edfac7917b2847a15e41b3576ff4ca989b362d51f5ec12f2de83e53"
+    },
+    {
+      "path": "savia/docs/pilot/screens/inventario-3.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "b8a8aad37c93357703d015a541b9433ae669351d0fae6eedc2c09e1923d81665"
+    },
+    {
+      "path": "savia/docs/pilot/screens/inventario-pending.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "679cddf814b8bc791c2bbc33005b30a3719db9482de998f574616db6f3884d67"
+    },
+    {
+      "path": "savia/docs/pilot/screens/recepcion-1.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "781da00ddf020141b35e25fdee57a11803c6292f495844e28c3cf25b3d704d10"
+    },
+    {
+      "path": "savia/docs/pilot/screens/recepcion-2.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "92ce69f05eb7c731ffdda44288898429fa71a4a1f12389efdcbabbc209618899"
+    },
+    {
+      "path": "savia/docs/pilot/screens/recepcion-3-codigo-nuevo.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "1ddc44bcb11b25434e406fe4240d25af4e265e63291f185ea912f4617167e3e4"
+    },
+    {
+      "path": "savia/docs/pilot/screens/recepcion-3.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "0d03023bcfc1124dbe41f71b573c2bfa59b52586865d0c1c2becca235c8cd5c5"
+    },
+    {
+      "path": "savia/docs/pilot/screens/recepcion-4-registrar.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "974d13938d220dc4f59f4e8e1b522c44eb9ab3ccabb20fe25b63acb08291c8b2"
+    },
+    {
+      "path": "savia/docs/pilot/screens/recepcion-rechazar.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "56ac6f73cab220499e5260f1c4e08f94ae46a1400d7f2f881fedbb430b5094ff"
+    },
+    {
+      "path": "savia/docs/pilot/screens/recibo.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "4a9752a86c7b88447d60d53f626e3dc2045c743c20ebbfbeafc9fb409c1d54bb"
+    },
+    {
+      "path": "savia/docs/pilot/screens/reporte-dia.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "c1345959efaced9a2e264c789423570cfb01b4097a798a05f120e8d2b71c4e08"
+    },
+    {
+      "path": "savia/docs/pilot/screens/revisar-1.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "112a34cb24de82b0fd2bb6122c96d7904bfdb0bfcc28bcc0c09a4838d40a45e0"
+    },
+    {
+      "path": "savia/docs/pilot/screens/revisar-2.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "041a767cbc9ce19cdff3e4248078d2e4fd4b0c116a07c26a9ca6d082b94d9e5f"
+    },
+    {
+      "path": "savia/docs/pilot/screens/venta-1.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "86f3483cf65a88ecde3a8b75d85078e9a1dfad0c251c75b8017044656187ed5c"
+    },
+    {
+      "path": "savia/docs/pilot/screens/venta-2.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "0d41db8f23fe38fa41b890cde66ec578b18e62560adc2c07ac6e0ef55420fc93"
+    },
+    {
+      "path": "savia/docs/pilot/screens/venta-3.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "a238e4c72cb65195a01c3a3053f71e01a5f41a394cd56710fe7a3942a7c9d93a"
+    },
+    {
+      "path": "savia/docs/pilot/screens/venta-anticipo.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "ab4ea1b13951e7f02e32ae6a6ceca6242768f1eb6f98a0b1e79ee2ce7442db12"
+    },
+    {
+      "path": "savia/docs/pilot/screens/venta-dividida.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "5e1ccd06900e693eef92db32a0f15fd16982c3008465620e537267364a10b26f"
+    },
+    {
+      "path": "savia/docs/pilot/screens/venta-tarjeta.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "c58ab5b0251e0ad75c8418d3cecd59001cf17520d821d3cd9bd3502bb27802ec"
+    },
+    {
+      "path": "savia/docs/pilot/screens/venta-transferencia.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "30ac9badb1360aca824f79d7cffbc11ee27122884ddb39ea6cce2c4b8653ea56"
+    }
+  ],
+  "historicalCapturesExcluded": [
+    "savia/docs/pilot/screens/ingreso-2.png",
+    "savia/docs/pilot/screens/inventario-fotos.png"
+  ]
+}

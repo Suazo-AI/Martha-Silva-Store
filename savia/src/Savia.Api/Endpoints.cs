@@ -157,7 +157,17 @@ public static class SaviaEndpoints
 
         api.MapPost("/sales", async (PostSaleRequest request, HttpContext http, SalesService sales, CancellationToken ct) =>
             await sales.PostSaleAsync(http.Actor(), request, ct)).WithTags("sales");
-        api.MapGet("/sales/{saleId:guid}", async (Guid saleId, HttpContext http, SalesService sales, CancellationToken ct) =>
-            await sales.GetSaleAsync(http.Actor(), saleId, ct)).WithTags("sales");
+        api.MapGet("/sales/{saleId:guid}", async (Guid saleId, HttpContext http, PilotSalesService sales, CancellationToken ct) =>
+            await sales.DetailAsync(http.Actor(), saleId, ct)).Produces<SaleDetailResponse>().WithTags("sales");
+        api.MapGet("/sales", async (DateOnly? from, DateOnly? to, string? q, int? page, int? pageSize, HttpContext http, PilotSalesService sales, CancellationToken ct) =>
+            await sales.SearchAsync(http.Actor(), from, to, q, page, pageSize, ct)).Produces<SalesPage>().WithTags("sales");
+        api.MapPost("/sales/{saleId:guid}/returns/credit", async (Guid saleId, PostCreditReturnRequest request, HttpContext http, PilotSalesService sales, CancellationToken ct) =>
+            await sales.ReturnAsync(http.Actor(), saleId, request, ct)).Produces<SaleReversal>().WithTags("sales");
+        api.MapGet("/customers", async (string q, HttpContext http, PilotSalesService sales, CancellationToken ct) =>
+            await sales.CustomersAsync(http.Actor(), q, ct)).Produces<CustomerRow[]>().WithTags("sales");
+        api.MapGet("/credits/search", async (string q, HttpContext http, PilotSalesService sales, CancellationToken ct) =>
+            await sales.CreditsAsync(http.Actor(), q, ct)).Produces<CustomerCreditRow[]>().WithTags("sales");
+        api.MapGet("/reports/day", async (DateOnly date, HttpContext http, PilotSalesService sales, CancellationToken ct) =>
+            await sales.DayAsync(http.Actor(), date, ct)).Produces<DayReport>().WithTags("sales");
     }
 }

@@ -37,9 +37,8 @@ export async function toError(response) {
     message: `El servidor respondió ${response.status}. Reintente; si se repite, avise a soporte.` });
 }
 
-export async function request(method, path, body, { fetchImpl = globalThis.fetch } = {}) {
+export async function request(method, path, body, { fetchImpl = globalThis.fetch, token = getToken(), notifyUnauthorized = true } = {}) {
   const headers = { Accept: 'application/json' };
-  const token = getToken();
   if (token) headers.Authorization = `Bearer ${token}`;
   if (body !== undefined) headers['Content-Type'] = 'application/json';
   let response;
@@ -51,7 +50,7 @@ export async function request(method, path, body, { fetchImpl = globalThis.fetch
   }
   if (!response.ok) {
     const error = await toError(response);
-    if (response.status === 401 && path !== '/auth/login') onUnauthorized(error);
+    if (response.status === 401 && path !== '/auth/login' && notifyUnauthorized) onUnauthorized(error);
     throw error;
   }
   if (response.status === 204) return null;
@@ -115,3 +114,14 @@ export const getSale = saleId => request('GET', path`/sales/${saleId}`);
 
 export const resolveScan = (sessionId, scanId, itemId, reason) => request('POST', path`/receiving/sessions/${sessionId}/scans/${scanId}/resolve`, { itemId, reason });
 export const rejectScan = (sessionId, scanId, reason) => request('POST', path`/receiving/sessions/${sessionId}/scans/${scanId}/reject`, { reason });
+
+// ---- final pilot sales contract (V013). All money remains in server minor units.
+export const saleTenderKinds = ['cash', 'card', 'transfer', 'credit', 'other'];
+export const saleReceipt = getSale;
+export const searchSales = ({ q: query, date, page = 1 } = {}) => request('GET', '/sales' + q({ q: query, from: date, to: date, page, pageSize: 25 }));
+export const searchCustomers = query => request('GET', '/customers' + q({ q: query }));
+export const searchCredits = query => request('GET', '/credits/search' + q({ q: query }));
+export const dayReport = date => request('GET', '/reports/day' + q({ date }));
+export const postCreditReturn = (saleId, body, token) => request('POST', path`/sales/${saleId}/returns/credit`, body,
+  token ? { token, notifyUnauthorized: false } : {});
+export const endApproval = token => request('POST', '/auth/logout', undefined, { token, notifyUnauthorized: false });
