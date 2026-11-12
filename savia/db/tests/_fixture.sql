@@ -133,3 +133,71 @@ SELECT i.Id,r.Id,SYSUTCDATETIME() FROM test.Ids i JOIN security.Roles r ON r.Cod
   CASE WHEN i.Name LIKE 'cashier%' THEN 'CASHIER' WHEN i.Name LIKE 'supervisor%' THEN 'MANAGER' ELSE 'OWNER' END
 WHERE i.Name LIKE 'cashier%' OR i.Name LIKE 'supervisor%' OR i.Name='manager';
 GO
+/* test.SeedCredit: issue a 120000 NIO credit at branch A for 'customer' through the real flow
+   (seed 1 unit, cash sale, credit return). Reuses an open till of register A. Added for V009. */
+CREATE PROCEDURE test.SeedCredit @CreditId uniqueidentifier
+AS BEGIN
+  SET NOCOUNT ON; SET XACT_ABORT ON;
+  DECLARE @branchA uniqueidentifier=test.Id('branchA'),@locA uniqueidentifier=test.Id('locA'),
+    @cashierA uniqueidentifier=test.Id('cashierA'),@registerA uniqueidentifier=test.Id('registerA'),
+    @manager uniqueidentifier=test.Id('manager'),@customer uniqueidentifier=test.Id('customer'),
+    @item uniqueidentifier=test.Id('item'),@nodeA uniqueidentifier=test.Id('nodeA'),
+    @till uniqueidentifier,@sale uniqueidentifier=NEWID(),@rev uniqueidentifier=NEWID(),@lineId uniqueidentifier;
+  EXEC test.SeedStock @item,@locA,1;
+  SET @till=(SELECT TOP(1) Id FROM sales.CashTills WHERE RegisterId=@registerA AND Status='open');
+  IF @till IS NULL
+  BEGIN
+    SET @till=NEWID();
+    EXEC sales.usp_OpenTill @TillId=@till,@RegisterId=@registerA,@CashierId=@cashierA,
+         @CurrencyCode='NIO',@OpeningMinor=100000,@OriginNodeId=@nodeA;
+  END;
+  DECLARE @lines sales.SaleLineRequest,@tenders sales.SaleTenderRequest,@ret sales.ReturnLineRequest;
+  INSERT INTO @lines(LineNumber,ItemId,Quantity,UnitPriceMinor,DiscountMinor) VALUES(1,@item,1,120000,0);
+  INSERT INTO @tenders(TenderNumber,TenderKind,AmountMinor,ReceivedMinor,ChangeMinor) VALUES(1,'cash',120000,120000,0);
+  EXEC sales.usp_PostSale @SaleId=@sale,@BranchId=@branchA,@LocationId=@locA,@CashierId=@cashierA,
+       @CurrencyCode='NIO',@CustomerId=@customer,@TillId=@till,@OriginNodeId=@nodeA,@Lines=@lines,@Tenders=@tenders;
+  SET @lineId=(SELECT Id FROM sales.SaleLines WHERE SaleId=@sale AND LineNumber=1);
+  INSERT INTO @ret(SaleLineId,Quantity,RestockPool) VALUES(@lineId,1,'quarantine');
+  EXEC sales.usp_PostCreditReturn @ReversalId=@rev,@CreditId=@CreditId,@SaleId=@sale,@BranchId=@branchA,
+       @ReturnLocationId=@locA,@TillId=@till,@ActorId=@cashierA,@ApprovedBy=@manager,@CustomerId=@customer,
+       @Reason=N'Talla equivocada',@OriginNodeId=@nodeA,@Lines=@ret;
+END;
+GO
+/* test.ChangedBranches: compare credit balances now with a snapshot taken before one call.
+   Returns how many branches changed and the lowest changed branch id. */
+CREATE TYPE test.AllocationSnapshot AS TABLE(BranchId uniqueidentifier PRIMARY KEY, Av bigint NOT NULL, He bigint NOT NULL);
+GO
+CREATE PROCEDURE test.ChangedBranches @CreditId uniqueidentifier,@Before test.AllocationSnapshot READONLY,
+  @Count bigint OUTPUT,@Branch uniqueidentifier OUTPUT
+AS BEGIN
+  SET NOCOUNT ON;
+  SELECT @Count=COUNT(*),@Branch=CONVERT(uniqueidentifier,MIN(CONVERT(char(36),COALESCE(a.BranchId,b.BranchId))))
+  FROM (SELECT BranchId,AvailableMinor Av,HeldMinor He FROM credits.CreditAllocations WHERE CreditId=@CreditId) a
+  FULL JOIN @Before b ON b.BranchId=a.BranchId
+  WHERE COALESCE(a.Av,0)<>COALESCE(b.Av,0) OR COALESCE(a.He,0)<>COALESCE(b.He,0);
+END;
+GO
+/* test.SeedSale: one 120000 NIO cash sale of 'item' to 'customer' at branch 'A', 'B' or 'C'.
+   Reuses an open till of that branch's register. Added for V009. */
+CREATE PROCEDURE test.SeedSale @SaleId uniqueidentifier,@Key char(1)
+AS BEGIN
+  SET NOCOUNT ON; SET XACT_ABORT ON;
+  DECLARE @branch uniqueidentifier=test.Id(CONCAT('branch',@Key)),@loc uniqueidentifier=test.Id(CONCAT('loc',@Key)),
+    @cashier uniqueidentifier=test.Id(CONCAT('cashier',@Key)),@register uniqueidentifier=test.Id(CONCAT('register',@Key)),
+    @node uniqueidentifier=test.Id(CONCAT('node',@Key)),@customer uniqueidentifier=test.Id('customer'),
+    @item uniqueidentifier=test.Id('item'),@till uniqueidentifier;
+  EXEC test.SeedStock @item,@loc,1;
+  SET @till=(SELECT TOP(1) Id FROM sales.CashTills WHERE RegisterId=@register AND Status='open');
+  IF @till IS NULL
+  BEGIN
+    SET @till=NEWID();
+    EXEC sales.usp_OpenTill @TillId=@till,@RegisterId=@register,@CashierId=@cashier,
+         @CurrencyCode='NIO',@OpeningMinor=100000,@OriginNodeId=@node;
+  END;
+  DECLARE @lines sales.SaleLineRequest,@tenders sales.SaleTenderRequest;
+  INSERT INTO @lines(LineNumber,ItemId,Quantity,UnitPriceMinor,DiscountMinor) VALUES(1,@item,1,120000,0);
+  INSERT INTO @tenders(TenderNumber,TenderKind,AmountMinor,ReceivedMinor,ChangeMinor) VALUES(1,'cash',120000,120000,0);
+  EXEC sales.usp_PostSale @SaleId=@SaleId,@BranchId=@branch,@LocationId=@loc,@CashierId=@cashier,
+       @CurrencyCode='NIO',@CustomerId=@customer,@TillId=@till,@OriginNodeId=@node,@Lines=@lines,@Tenders=@tenders;
+END;
+GO

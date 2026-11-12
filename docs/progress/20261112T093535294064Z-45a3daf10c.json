@@ -1,0 +1,110 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-12T09:35:35.294064+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/db/migrations/V009__credit_transfer_transitions.sql",
+      "change": "A",
+      "git_blob": "88ddeb0779e65257445a808ec5f05122991af95b"
+    },
+    {
+      "path": "savia/db/tests/_fixture.sql",
+      "change": "M",
+      "git_blob": "9410aabc071e5f8dc450f41b1c37dc2c07ed0c69"
+    },
+    {
+      "path": "savia/db/tests/audit/020_conservation_oracle_transfer_in_transit.sql",
+      "change": "A",
+      "git_blob": "76010ca0e8a875482391529c9540db590721f23f"
+    },
+    {
+      "path": "savia/db/tests/credits/050_redeem_cannot_touch_held.sql",
+      "change": "M",
+      "git_blob": "3198c64e483c3e5c253caa214d921b475f90d75f"
+    },
+    {
+      "path": "savia/db/tests/credits/060_transfer_request_rejections.sql",
+      "change": "M",
+      "git_blob": "7df7c835a85ae7f17e02f7fa77b7095e396687d4"
+    },
+    {
+      "path": "savia/db/tests/credits/070_transfer_approve_rejections.sql",
+      "change": "M",
+      "git_blob": "9630ae39327e48072a9b83fe6c3deb9e9403306b"
+    },
+    {
+      "path": "savia/db/tests/credits/080_transfer_order_strict.sql",
+      "change": "M",
+      "git_blob": "5eec508ea214af8be8fc601ea0b3b2b6896fb875"
+    },
+    {
+      "path": "savia/db/tests/credits/090_transfer_lock_normal_and_retries.sql",
+      "change": "M",
+      "git_blob": "7aac53e3988adae15da9813207e4c83c7c54612f"
+    },
+    {
+      "path": "savia/db/tests/credits/100_commit_proof_and_azure_rules.sql",
+      "change": "M",
+      "git_blob": "6371162dfa5c02d3d6ee142215913a62d5318061"
+    },
+    {
+      "path": "savia/db/tests/credits/110_full_transfer_flow_conservation.sql",
+      "change": "M",
+      "git_blob": "751a8a3ffe0ec902fe470280754bd101677076ad"
+    },
+    {
+      "path": "savia/db/tests/credits/120_held_in_transit_not_redeemable.sql",
+      "change": "M",
+      "git_blob": "f1e5faa06e021e3174f97fb37a3bd397469296e4"
+    },
+    {
+      "path": "savia/db/tests/credits/130_cancel_transfer.sql",
+      "change": "M",
+      "git_blob": "28dbb18aec29b7503e78b26b331f4d16f45407a5"
+    },
+    {
+      "path": "savia/db/tests/credits/140_transfer_one_writer_per_row.sql",
+      "change": "A",
+      "git_blob": "13b38d80767d6529a7546baf2934a980799863f7"
+    },
+    {
+      "path": "savia/docs/PLAN.md",
+      "change": "M",
+      "git_blob": "23c7156419e0c18e6ea20d901aaa3f68bc5e4b44"
+    },
+    {
+      "path": "savia/docs/adr/ADR-001-arquitectura.md",
+      "change": "M",
+      "git_blob": "ddf91688db64ea6e971744a3f4091f33d2d47383"
+    },
+    {
+      "path": "savia/docs/evidence/cp4-f2-credit-transfer/README.md",
+      "change": "A",
+      "git_blob": "f5d2fed6782ddf19951f08554fc1f00ac468e723"
+    },
+    {
+      "path": "savia/docs/evidence/cp4-f2-credit-transfer/green.txt",
+      "change": "A",
+      "git_blob": "4d5c694e9826e343563278ca1abc620a3f5b4a94"
+    },
+    {
+      "path": "savia/docs/evidence/cp4-f2-credit-transfer/red-orchestrator.txt",
+      "change": "A",
+      "git_blob": "ce376e04cbb11df56b32801abbe9cc089c6a4a3b"
+    },
+    {
+      "path": "savia/docs/evidence/cp4-f2-credit-transfer/red.txt",
+      "change": "A",
+      "git_blob": "cdcaf814bbc8b58ce1e7ebd04f9223f8c1b45feb"
+    },
+    {
+      "path": "savia/src/Savia.Domain/Errors.cs",
+      "change": "M",
+      "git_blob": "fd54fb0ab6acba3dde531c8d8c35385ecad1d518"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

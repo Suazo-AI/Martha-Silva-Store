@@ -129,7 +129,7 @@ Descartado: PWA con Capacitor (T-4 anterior). El handoff pide escáner e impreso
 | Hallazgo | Severidad | Decisión | Estado |
 | --- | --- | --- | --- |
 | F1 restauración reutiliza versiones | P0 | Cursor `(fork, versión)` | V008; restauración real da `recover` ([evidencia](../evidence/cp4-s1-sync-foundation/README.md)); simulador pendiente |
-| F2 filas con varios escritores | P0 | Filas de transición; filtro por dueño | adoptado; rediseño de anticipos y web pendiente |
+| F2 filas con varios escritores | P0 | Filas de transición; filtro por dueño | traslado de anticipos en V009 ([evidencia](../evidence/cp4-f2-credit-transfer/README.md)); `Credits.Status` y stock web pendientes |
 | F3 devolución entre sucursales | P1 | Rechazar en el procedimiento | adoptado; ver [BUG-010](../bugs/BUG-010-devolucion-otra-sucursal.md) |
 | F4 aplicador no usa procedimientos | P1 | Aplicador SQL generado, solo copia | adoptado |
 | F5 instantánea apagada | P1 | Lectura en `SNAPSHOT` | resuelto por V004 |

@@ -1,82 +1,59 @@
--- TEST: transfer order is strict: locking before approval, committing before lock and accepting before commit are rejected; a locked transfer cannot be cancelled.
+-- TEST: transition order is strict: dispatch before approval, receipt before dispatch, dispatch after cancel and cancel after dispatch are rejected; unknown transfers are rejected at every step.
+-- FIXED (V009): rewritten for the transition procedures; the legacy procedure now throws 51719.
 SET NOCOUNT ON; SET XACT_ABORT ON;
-DECLARE @flag bigint; DECLARE @tmp uniqueidentifier=NEWID();
+DECLARE @flag bigint,@n bigint;
 DECLARE @branchA uniqueidentifier=test.Id('branchA'),@branchB uniqueidentifier=test.Id('branchB'),
-  @locA uniqueidentifier=test.Id('locA'),
-  @cashierA uniqueidentifier=test.Id('cashierA'),@registerA uniqueidentifier=test.Id('registerA'),
-  @manager uniqueidentifier=test.Id('manager'),@customer uniqueidentifier=test.Id('customer'),
-  @item uniqueidentifier=test.Id('item'),
+  @branchC uniqueidentifier=test.Id('branchC'),
+  @cashierA uniqueidentifier=test.Id('cashierA'),@cashierB uniqueidentifier=test.Id('cashierB'),
+  @supervisorA uniqueidentifier=test.Id('supervisorA'),@supervisorB uniqueidentifier=test.Id('supervisorB'),
+  @manager uniqueidentifier=test.Id('manager'),
   @nodeA uniqueidentifier=test.Id('nodeA'),@nodeB uniqueidentifier=test.Id('nodeB'),
   @nodeCloud uniqueidentifier=test.Id('nodeCloud'),
-  @till uniqueidentifier=NEWID(),@sale uniqueidentifier=NEWID(),@rev uniqueidentifier=NEWID(),
-  @credit uniqueidentifier=NEWID(),@t1 uniqueidentifier=NEWID(),@t2 uniqueidentifier=NEWID(),
-  @requestEvent uniqueidentifier=NEWID(),@approveEvent uniqueidentifier=NEWID(),
-  @lockEvent uniqueidentifier=NEWID(),@e2 uniqueidentifier=NEWID(),
-  @n bigint,@lineId uniqueidentifier,@status varchar(20);
+  @credit uniqueidentifier=NEWID(),@t1 uniqueidentifier=NEWID(),@t2 uniqueidentifier=NEWID(),@t3 uniqueidentifier=NEWID();
+EXEC test.SeedCredit @credit;  -- 120000 available at A
 
-EXEC test.SeedStock @item,@locA,5;
-EXEC sales.usp_OpenTill @TillId=@till,@RegisterId=@registerA,@CashierId=@cashierA,
-     @CurrencyCode='NIO',@OpeningMinor=100000,@OriginNodeId=@nodeA;
-DECLARE @lines sales.SaleLineRequest,@tenders sales.SaleTenderRequest;
-INSERT INTO @lines(LineNumber,ItemId,Quantity,UnitPriceMinor,DiscountMinor) VALUES(1,@item,1,120000,0);
-INSERT INTO @tenders(TenderNumber,TenderKind,AmountMinor,ReceivedMinor,ChangeMinor) VALUES(1,'cash',120000,120000,0);
-EXEC sales.usp_PostSale @SaleId=@sale,@BranchId=@branchA,@LocationId=@locA,@CashierId=@cashierA,
-     @CurrencyCode='NIO',@CustomerId=@customer,@TillId=@till,@OriginNodeId=@nodeA,@Lines=@lines,@Tenders=@tenders;
-SET @lineId=(SELECT Id FROM sales.SaleLines WHERE SaleId=@sale AND LineNumber=1);
-DECLARE @ret sales.ReturnLineRequest;
-INSERT INTO @ret(SaleLineId,Quantity,RestockPool) VALUES(@lineId,1,'quarantine');
-EXEC sales.usp_PostCreditReturn @ReversalId=@rev,@CreditId=@credit,@SaleId=@sale,@BranchId=@branchA,
-     @ReturnLocationId=@locA,@TillId=@till,@ActorId=@cashierA,@ApprovedBy=@manager,@CustomerId=@customer,
-     @Reason=N'Talla equivocada',@OriginNodeId=@nodeA,@Lines=@ret;
-
-EXEC credits.usp_RequestTransfer @TransferId=@t1,@CreditId=@credit,
-  @FromBranchId=@branchA,@ToBranchId=@branchB,@AmountMinor=50000,
-  @RequestedBy=@cashierA,@Reason=N'Canje en otra sucursal',@OriginNodeId=@nodeA,@EventId=@requestEvent;
-
--- Lock before approval.
 BEGIN TRY
-  EXEC credits.usp_LockTransferAtOrigin @TransferId=@t1,
-       @OriginLockEventId=@lockEvent,@OriginNodeId=@nodeA,@ActorId=@cashierA;
-  THROW 59002,'ASSERT FAIL: lock before approval was accepted',1;
+  EXEC credits.usp_TransferDispatch @TransferId=@t1,@ActorId=@cashierA,@NodeId=@nodeA;
+  THROW 59002,'ASSERT FAIL: dispatch of an unknown transfer accepted',1;
 END TRY
-BEGIN CATCH IF ERROR_NUMBER()<>51615 THROW; END CATCH;
-
--- Commit before lock.
+BEGIN CATCH IF ERROR_NUMBER()<>51725 THROW; END CATCH;
 BEGIN TRY
-  EXEC credits.usp_CommitTransfer @TransferId=@t1,@ActorId=@manager,
-       @OriginNodeId=@nodeCloud,@EventId=@e2;
-  THROW 59002,'ASSERT FAIL: commit before lock was accepted',1;
+  EXEC credits.usp_TransferReceive @TransferId=@t1,@ActorId=@cashierB,@NodeId=@nodeB;
+  THROW 59002,'ASSERT FAIL: receipt of an unknown transfer accepted',1;
 END TRY
-BEGIN CATCH IF ERROR_NUMBER()<>51618 THROW; END CATCH;
-
--- Accept before commit.
+BEGIN CATCH IF ERROR_NUMBER()<>51725 THROW; END CATCH;
 BEGIN TRY
-  EXEC credits.usp_AcceptTransfer @TransferId=@t1,@ActorId=@manager,
-       @OriginNodeId=@nodeB,@EventId=@e2;
-  THROW 59002,'ASSERT FAIL: accept before commit was accepted',1;
+  EXEC credits.usp_TransferCancel @TransferId=@t1,@ActorId=@manager,@Reason=N'Ya no se necesita',@NodeId=@nodeCloud;
+  THROW 59002,'ASSERT FAIL: cancel of an unknown transfer accepted',1;
 END TRY
-BEGIN CATCH IF ERROR_NUMBER()<>51621 THROW; END CATCH;
-
-EXEC credits.usp_ApproveTransfer @TransferId=@t1,@ApproverId=@manager,
-  @OriginNodeId=@nodeA,@EventId=@approveEvent;
-EXEC credits.usp_LockTransferAtOrigin @TransferId=@t1,
-  @OriginLockEventId=@lockEvent,@OriginNodeId=@nodeA,@ActorId=@cashierA;
-
--- Cancel after the lock is rejected.
+BEGIN CATCH IF ERROR_NUMBER()<>51725 THROW; END CATCH;
+EXEC credits.usp_TransferRequest @TransferId=@t1,@CreditId=@credit,@FromBranchId=@branchA,@ToBranchId=@branchB,@AmountMinor=50000,@RequestedBy=@cashierB,@Reason=N'Canje en B',@NodeId=@nodeB;
 BEGIN TRY
-  EXEC credits.usp_CancelUnblockedTransfer @TransferId=@t1,@ActorId=@manager;
-  THROW 59002,'ASSERT FAIL: cancel after lock was accepted',1;
+  EXEC credits.usp_TransferDispatch @TransferId=@t1,@ActorId=@cashierA,@NodeId=@nodeA;
+  THROW 59002,'ASSERT FAIL: dispatch without approval accepted',1;
 END TRY
-BEGIN CATCH IF ERROR_NUMBER()<>51623 THROW; END CATCH;
-SET @status=(SELECT Status FROM credits.CreditTransfers WHERE Id=@t1);
-SET @flag=CASE WHEN @status='origin_locked' THEN 1 ELSE 0 END;
-EXEC test.AssertEq N'locked transfer not cancelled',1,@flag;
-
--- The held amount survives the rejected cancel.
-SET @n=(SELECT HeldMinor FROM credits.CreditAllocations WHERE CreditId=@credit AND BranchId=@branchA);
-EXEC test.AssertEq N'held intact after rejected cancel',50000,@n;
-SET @n=(SELECT c.OriginalMinor-COALESCE((SELECT SUM(a.AvailableMinor+a.HeldMinor) FROM credits.CreditAllocations a WHERE a.CreditId=c.Id),0)
-       -COALESCE((SELECT SUM(r.AmountMinor) FROM credits.CreditRedemptions r WHERE r.CreditId=c.Id AND r.Status='posted'),0)
-  FROM credits.Credits c WHERE c.Id=@credit);
-EXEC test.AssertEq N'credit conservation after order violations',0,@n;
+BEGIN CATCH IF ERROR_NUMBER()<>51728 THROW; END CATCH;
+EXEC credits.usp_TransferApprove @TransferId=@t1,@ApproverId=@manager,@NodeId=@nodeCloud;
+BEGIN TRY
+  EXEC credits.usp_TransferReceive @TransferId=@t1,@ActorId=@cashierB,@NodeId=@nodeB;
+  THROW 59002,'ASSERT FAIL: receipt without dispatch accepted',1;
+END TRY
+BEGIN CATCH IF ERROR_NUMBER()<>51730 THROW; END CATCH;
+EXEC credits.usp_TransferDispatch @TransferId=@t1,@ActorId=@cashierA,@NodeId=@nodeA;
+BEGIN TRY
+  EXEC credits.usp_TransferCancel @TransferId=@t1,@ActorId=@manager,@Reason=N'Ya no se necesita',@NodeId=@nodeCloud;
+  THROW 59002,'ASSERT FAIL: cancel after dispatch accepted',1;
+END TRY
+BEGIN CATCH IF ERROR_NUMBER()<>51731 THROW; END CATCH;
+EXEC credits.usp_TransferRequest @TransferId=@t2,@CreditId=@credit,@FromBranchId=@branchA,@ToBranchId=@branchB,@AmountMinor=10000,@RequestedBy=@cashierB,@Reason=N'Canje en B',@NodeId=@nodeB;
+EXEC credits.usp_TransferApprove @TransferId=@t2,@ApproverId=@manager,@NodeId=@nodeCloud;
+EXEC credits.usp_TransferCancel @TransferId=@t2,@ActorId=@manager,@Reason=N'Ya no se necesita',@NodeId=@nodeCloud;
+BEGIN TRY
+  EXEC credits.usp_TransferDispatch @TransferId=@t2,@ActorId=@cashierA,@NodeId=@nodeA;
+  THROW 59002,'ASSERT FAIL: dispatch after cancel accepted',1;
+END TRY
+BEGIN CATCH IF ERROR_NUMBER()<>51726 THROW; END CATCH;
+SET @n=(SELECT AvailableMinor FROM credits.CreditAllocations WHERE CreditId=@credit AND BranchId=@branchA);
+EXEC test.AssertEq N'A available: only the first dispatch left',70000,@n;
+EXEC audit.usp_CheckConservation @Throw=1;
 PRINT 'PASS';

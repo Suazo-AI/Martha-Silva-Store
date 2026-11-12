@@ -1,122 +1,67 @@
--- TEST: the full transfer A->B keeps credit conservation at every step and installs exactly 50000 in B; accepting twice changes nothing.
+-- TEST: the full transfer A->B (request B, approve cloud, dispatch A, receive B) keeps the conservation oracle green at every step, including while the amount is in transit; receiving twice is a no-op and a foreign node, foreign actor or other content is rejected.
+-- FIXED (V009): rewritten for the transition procedures; the legacy procedure now throws 51719.
 SET NOCOUNT ON; SET XACT_ABORT ON;
-DECLARE @flag bigint; DECLARE @tmp uniqueidentifier=NEWID();
+DECLARE @flag bigint,@n bigint;
 DECLARE @branchA uniqueidentifier=test.Id('branchA'),@branchB uniqueidentifier=test.Id('branchB'),
-  @locA uniqueidentifier=test.Id('locA'),
-  @cashierA uniqueidentifier=test.Id('cashierA'),@registerA uniqueidentifier=test.Id('registerA'),
-  @manager uniqueidentifier=test.Id('manager'),@customer uniqueidentifier=test.Id('customer'),
-  @item uniqueidentifier=test.Id('item'),
+  @branchC uniqueidentifier=test.Id('branchC'),
+  @cashierA uniqueidentifier=test.Id('cashierA'),@cashierB uniqueidentifier=test.Id('cashierB'),
+  @supervisorA uniqueidentifier=test.Id('supervisorA'),@supervisorB uniqueidentifier=test.Id('supervisorB'),
+  @manager uniqueidentifier=test.Id('manager'),
   @nodeA uniqueidentifier=test.Id('nodeA'),@nodeB uniqueidentifier=test.Id('nodeB'),
   @nodeCloud uniqueidentifier=test.Id('nodeCloud'),
-  @till uniqueidentifier=NEWID(),@sale uniqueidentifier=NEWID(),@rev uniqueidentifier=NEWID(),
-  @credit uniqueidentifier=NEWID(),@transfer uniqueidentifier=NEWID(),
-  @requestEvent uniqueidentifier=NEWID(),@approveEvent uniqueidentifier=NEWID(),
-  @lockEvent uniqueidentifier=NEWID(),@commitEvent uniqueidentifier=NEWID(),
-  @acceptEvent uniqueidentifier=NEWID(),@e2 uniqueidentifier=NEWID(),
-  @n bigint,@lineId uniqueidentifier,@lockPayload nvarchar(max),@status varchar(20);
+  @credit uniqueidentifier=NEWID(),@t1 uniqueidentifier=NEWID(),@t2 uniqueidentifier=NEWID(),@t3 uniqueidentifier=NEWID();
+EXEC test.SeedCredit @credit;  -- 120000 available at A
 
-EXEC test.SeedStock @item,@locA,5;
-EXEC sales.usp_OpenTill @TillId=@till,@RegisterId=@registerA,@CashierId=@cashierA,
-     @CurrencyCode='NIO',@OpeningMinor=100000,@OriginNodeId=@nodeA;
-DECLARE @lines sales.SaleLineRequest,@tenders sales.SaleTenderRequest;
-INSERT INTO @lines(LineNumber,ItemId,Quantity,UnitPriceMinor,DiscountMinor) VALUES(1,@item,1,120000,0);
-INSERT INTO @tenders(TenderNumber,TenderKind,AmountMinor,ReceivedMinor,ChangeMinor) VALUES(1,'cash',120000,120000,0);
-EXEC sales.usp_PostSale @SaleId=@sale,@BranchId=@branchA,@LocationId=@locA,@CashierId=@cashierA,
-     @CurrencyCode='NIO',@CustomerId=@customer,@TillId=@till,@OriginNodeId=@nodeA,@Lines=@lines,@Tenders=@tenders;
-SET @lineId=(SELECT Id FROM sales.SaleLines WHERE SaleId=@sale AND LineNumber=1);
-DECLARE @ret sales.ReturnLineRequest;
-INSERT INTO @ret(SaleLineId,Quantity,RestockPool) VALUES(@lineId,1,'quarantine');
-EXEC sales.usp_PostCreditReturn @ReversalId=@rev,@CreditId=@credit,@SaleId=@sale,@BranchId=@branchA,
-     @ReturnLocationId=@locA,@TillId=@till,@ActorId=@cashierA,@ApprovedBy=@manager,@CustomerId=@customer,
-     @Reason=N'Talla equivocada',@OriginNodeId=@nodeA,@Lines=@ret;
-SET @n=(SELECT c.OriginalMinor-COALESCE((SELECT SUM(a.AvailableMinor+a.HeldMinor) FROM credits.CreditAllocations a WHERE a.CreditId=c.Id),0)
-       -COALESCE((SELECT SUM(r.AmountMinor) FROM credits.CreditRedemptions r WHERE r.CreditId=c.Id AND r.Status='posted'),0)
-  FROM credits.Credits c WHERE c.Id=@credit);
-EXEC test.AssertEq N'conservation after issue',0,@n;
-
-EXEC credits.usp_RequestTransfer @TransferId=@transfer,@CreditId=@credit,
-  @FromBranchId=@branchA,@ToBranchId=@branchB,@AmountMinor=50000,
-  @RequestedBy=@cashierA,@Reason=N'Canje en otra sucursal',@OriginNodeId=@nodeA,@EventId=@requestEvent;
-SET @n=(SELECT c.OriginalMinor-COALESCE((SELECT SUM(a.AvailableMinor+a.HeldMinor) FROM credits.CreditAllocations a WHERE a.CreditId=c.Id),0)
-       -COALESCE((SELECT SUM(r.AmountMinor) FROM credits.CreditRedemptions r WHERE r.CreditId=c.Id AND r.Status='posted'),0)
-  FROM credits.Credits c WHERE c.Id=@credit);
-EXEC test.AssertEq N'conservation after request',0,@n;
-
-EXEC credits.usp_ApproveTransfer @TransferId=@transfer,@ApproverId=@manager,
-  @OriginNodeId=@nodeA,@EventId=@approveEvent;
-SET @n=(SELECT c.OriginalMinor-COALESCE((SELECT SUM(a.AvailableMinor+a.HeldMinor) FROM credits.CreditAllocations a WHERE a.CreditId=c.Id),0)
-       -COALESCE((SELECT SUM(r.AmountMinor) FROM credits.CreditRedemptions r WHERE r.CreditId=c.Id AND r.Status='posted'),0)
-  FROM credits.Credits c WHERE c.Id=@credit);
-EXEC test.AssertEq N'conservation after approval',0,@n;
-
-EXEC credits.usp_LockTransferAtOrigin @TransferId=@transfer,
-  @OriginLockEventId=@lockEvent,@OriginNodeId=@nodeA,@ActorId=@cashierA;
-SET @n=(SELECT AvailableMinor FROM credits.CreditAllocations WHERE CreditId=@credit AND BranchId=@branchA);
-EXEC test.AssertEq N'A available 70000 after lock',70000,@n;
-SET @n=(SELECT HeldMinor FROM credits.CreditAllocations WHERE CreditId=@credit AND BranchId=@branchA);
-EXEC test.AssertEq N'A held 50000 after lock',50000,@n;
-SET @n=(SELECT c.OriginalMinor-COALESCE((SELECT SUM(a.AvailableMinor+a.HeldMinor) FROM credits.CreditAllocations a WHERE a.CreditId=c.Id),0)
-       -COALESCE((SELECT SUM(r.AmountMinor) FROM credits.CreditRedemptions r WHERE r.CreditId=c.Id AND r.Status='posted'),0)
-  FROM credits.Credits c WHERE c.Id=@credit);
-EXEC test.AssertEq N'conservation after lock',0,@n;
-
-BEGIN TRANSACTION;
-SET @lockPayload=(SELECT PayloadJson FROM sync.Outbox WHERE EventId=@lockEvent);
-EXEC sync.usp_RecordAppliedInbox @EventId=@lockEvent,@OriginNodeId=@nodeA,
-  @AggregateType='credit_transfer',@AggregateId=@transfer,@PayloadJson=@lockPayload;
-COMMIT;
-
-EXEC credits.usp_CommitTransfer @TransferId=@transfer,@ActorId=@manager,
-  @OriginNodeId=@nodeCloud,@EventId=@commitEvent;
-SET @n=(SELECT AvailableMinor FROM credits.CreditAllocations WHERE CreditId=@credit AND BranchId=@branchA);
-EXEC test.AssertEq N'A available 70000 after commit',70000,@n;
-SET @n=(SELECT HeldMinor FROM credits.CreditAllocations WHERE CreditId=@credit AND BranchId=@branchA);
-EXEC test.AssertEq N'A held 0 after commit',0,@n;
-SET @n=(SELECT HeldMinor FROM credits.CreditAllocations WHERE CreditId=@credit AND BranchId=@branchB);
-EXEC test.AssertEq N'B held 50000 after commit',50000,@n;
-SET @n=(SELECT c.OriginalMinor-COALESCE((SELECT SUM(a.AvailableMinor+a.HeldMinor) FROM credits.CreditAllocations a WHERE a.CreditId=c.Id),0)
-       -COALESCE((SELECT SUM(r.AmountMinor) FROM credits.CreditRedemptions r WHERE r.CreditId=c.Id AND r.Status='posted'),0)
-  FROM credits.Credits c WHERE c.Id=@credit);
-EXEC test.AssertEq N'conservation after commit',0,@n;
-
--- Accept from the wrong node is rejected.
+EXEC credits.usp_TransferRequest @TransferId=@t1,@CreditId=@credit,@FromBranchId=@branchA,@ToBranchId=@branchB,@AmountMinor=50000,@RequestedBy=@cashierB,@Reason=N'Canje en B',@NodeId=@nodeB;
+EXEC audit.usp_CheckConservation @Throw=1;
+EXEC credits.usp_TransferApprove @TransferId=@t1,@ApproverId=@manager,@NodeId=@nodeCloud;
+EXEC audit.usp_CheckConservation @Throw=1;
+EXEC credits.usp_TransferDispatch @TransferId=@t1,@ActorId=@cashierA,@NodeId=@nodeA;
+-- In transit: 50000 is in no balance; the oracle counts it as dispatched-not-received.
+EXEC audit.usp_CheckConservation @Throw=1;
+SET @n=(SELECT COUNT(*) FROM credits.CreditAllocations WHERE CreditId=@credit AND BranchId=@branchB);
+EXEC test.AssertEq N'B has no balance row before receipt',0,@n;
 BEGIN TRY
-  EXEC credits.usp_AcceptTransfer @TransferId=@transfer,@ActorId=@manager,
-       @OriginNodeId=@nodeA,@EventId=@acceptEvent;
-  THROW 59002,'ASSERT FAIL: accept from a non-destination node was accepted',1;
+  EXEC credits.usp_TransferReceive @TransferId=@t1,@ActorId=@cashierA,@NodeId=@nodeA;
+  THROW 59002,'ASSERT FAIL: receipt from the origin node accepted',1;
 END TRY
-BEGIN CATCH IF ERROR_NUMBER()<>51629 THROW; END CATCH;
-
--- Accept from Azure without EventId is rejected.
+BEGIN CATCH IF ERROR_NUMBER()<>51723 THROW; END CATCH;
 BEGIN TRY
-  EXEC credits.usp_AcceptTransfer @TransferId=@transfer,@ActorId=@manager,
-       @OriginNodeId=@nodeB,@EventId=NULL;
-  THROW 59002,'ASSERT FAIL: accept without EventId was accepted',1;
+  EXEC credits.usp_TransferReceive @TransferId=@t1,@ActorId=@manager,@NodeId=@nodeCloud;
+  THROW 59002,'ASSERT FAIL: receipt from the cloud accepted',1;
 END TRY
-BEGIN CATCH IF ERROR_NUMBER()<>51630 THROW; END CATCH;
-
--- Normal accept at the destination branch.
-EXEC credits.usp_AcceptTransfer @TransferId=@transfer,@ActorId=@manager,
-  @OriginNodeId=@nodeB,@EventId=@acceptEvent;
+BEGIN CATCH IF ERROR_NUMBER()<>51723 THROW; END CATCH;
+BEGIN TRY
+  EXEC credits.usp_TransferReceive @TransferId=@t1,@ActorId=@cashierA,@NodeId=@nodeB;
+  THROW 59002,'ASSERT FAIL: receipt by an actor without destination access accepted',1;
+END TRY
+BEGIN CATCH IF ERROR_NUMBER()<>51724 THROW; END CATCH;
+EXEC credits.usp_TransferReceive @TransferId=@t1,@ActorId=@cashierB,@NodeId=@nodeB;
+EXEC audit.usp_CheckConservation @Throw=1;
+SET @n=(SELECT AvailableMinor FROM credits.CreditAllocations WHERE CreditId=@credit AND BranchId=@branchA);
+EXEC test.AssertEq N'A available after receipt',70000,@n;
 SET @n=(SELECT AvailableMinor FROM credits.CreditAllocations WHERE CreditId=@credit AND BranchId=@branchB);
-EXEC test.AssertEq N'B available 50000 after accept',50000,@n;
-SET @n=(SELECT HeldMinor FROM credits.CreditAllocations WHERE CreditId=@credit AND BranchId=@branchB);
-EXEC test.AssertEq N'B held 0 after accept',0,@n;
-SET @n=(SELECT COUNT(*) FROM credits.CreditMovements WHERE CreditId=@credit AND Kind='accept' AND AvailableDeltaMinor=50000 AND HeldDeltaMinor=-50000);
-EXEC test.AssertEq N'accept movement recorded once',1,@n;
-SET @n=(SELECT c.OriginalMinor-COALESCE((SELECT SUM(a.AvailableMinor+a.HeldMinor) FROM credits.CreditAllocations a WHERE a.CreditId=c.Id),0)
-       -COALESCE((SELECT SUM(r.AmountMinor) FROM credits.CreditRedemptions r WHERE r.CreditId=c.Id AND r.Status='posted'),0)
-  FROM credits.Credits c WHERE c.Id=@credit);
-EXEC test.AssertEq N'conservation after accept',0,@n;
-
--- Retry of the accept (lost reply): nothing changes.
-EXEC credits.usp_AcceptTransfer @TransferId=@transfer,@ActorId=@manager,
-  @OriginNodeId=@nodeB,@EventId=@e2;
-SET @n=(SELECT COUNT(*) FROM credits.CreditMovements WHERE CreditId=@credit AND Kind='accept');
-EXEC test.AssertEq N'no duplicate accept movement after retry',1,@n;
+EXEC test.AssertEq N'B available after receipt',50000,@n;
+EXEC credits.usp_TransferReceive @TransferId=@t1,@ActorId=@cashierB,@NodeId=@nodeB;
 SET @n=(SELECT AvailableMinor FROM credits.CreditAllocations WHERE CreditId=@credit AND BranchId=@branchB);
-EXEC test.AssertEq N'B available unchanged after retry',50000,@n;
-SET @status=(SELECT Status FROM credits.CreditTransfers WHERE Id=@transfer);
-SET @flag=CASE WHEN @status='accepted' THEN 1 ELSE 0 END;
-EXEC test.AssertEq N'transfer accepted',1,@flag;
+EXEC test.AssertEq N'B unchanged after receipt retry',50000,@n;
+SET @n=(SELECT COUNT(*) FROM credits.CreditMovements WHERE SourceId=@t1 AND Kind='transfer_in');
+EXEC test.AssertEq N'one transfer_in after retry',1,@n;
+SET @n=(SELECT COUNT(*) FROM credits.TransferReceipts WHERE TransferId=@t1);
+EXEC test.AssertEq N'one receipt row after retry',1,@n;
+BEGIN TRY
+  EXEC credits.usp_TransferReceive @TransferId=@t1,@ActorId=@supervisorB,@NodeId=@nodeB;
+  THROW 59002,'ASSERT FAIL: second receipt by another actor accepted',1;
+END TRY
+BEGIN CATCH IF ERROR_NUMBER()<>51721 THROW; END CATCH;
+-- A second transfer into an existing B balance row adds to it.
+EXEC credits.usp_TransferRequest @TransferId=@t2,@CreditId=@credit,@FromBranchId=@branchA,@ToBranchId=@branchB,@AmountMinor=20000,@RequestedBy=@cashierB,@Reason=N'Canje en B',@NodeId=@nodeB;
+EXEC credits.usp_TransferApprove @TransferId=@t2,@ApproverId=@manager,@NodeId=@nodeCloud;
+EXEC credits.usp_TransferDispatch @TransferId=@t2,@ActorId=@cashierA,@NodeId=@nodeA;
+EXEC credits.usp_TransferReceive @TransferId=@t2,@ActorId=@cashierB,@NodeId=@nodeB;
+SET @n=(SELECT AvailableMinor FROM credits.CreditAllocations WHERE CreditId=@credit AND BranchId=@branchA);
+EXEC test.AssertEq N'A after second transfer',50000,@n;
+SET @n=(SELECT AvailableMinor FROM credits.CreditAllocations WHERE CreditId=@credit AND BranchId=@branchB);
+EXEC test.AssertEq N'B after second transfer',70000,@n;
+EXEC audit.usp_CheckConservation @Throw=1;
 PRINT 'PASS';

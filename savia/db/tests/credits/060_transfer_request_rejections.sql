@@ -1,102 +1,72 @@
--- TEST: transfer requests are rejected with their exact error for same-branch, non-positive amount, blank reason, duplicated id with other content, inactive credit, and an origin branch without allocation; a retry with the same ids creates only one row.
+-- TEST: a request is written by the destination node: same branch, non-positive amount, blank reason, reused id with other content, inactive credit or no balance at origin, foreign node and requester without access to the destination are rejected with their exact error; a retry creates one row.
+-- FIXED (V009): rewritten for the transition procedures; the legacy procedure now throws 51719.
 SET NOCOUNT ON; SET XACT_ABORT ON;
-DECLARE @flag bigint; DECLARE @tmp uniqueidentifier=NEWID();
+DECLARE @flag bigint,@n bigint;
 DECLARE @branchA uniqueidentifier=test.Id('branchA'),@branchB uniqueidentifier=test.Id('branchB'),
-  @locA uniqueidentifier=test.Id('locA'),
-  @cashierA uniqueidentifier=test.Id('cashierA'),@registerA uniqueidentifier=test.Id('registerA'),
-  @manager uniqueidentifier=test.Id('manager'),@customer uniqueidentifier=test.Id('customer'),
-  @item uniqueidentifier=test.Id('item'),@nodeA uniqueidentifier=test.Id('nodeA'),
-  @till uniqueidentifier=NEWID(),@sale uniqueidentifier=NEWID(),@rev uniqueidentifier=NEWID(),
-  @credit uniqueidentifier=NEWID(),@t1 uniqueidentifier=NEWID(),@t2 uniqueidentifier=NEWID(),
-  @requestEvent uniqueidentifier=NEWID(),@e2 uniqueidentifier=NEWID(),
-  @n bigint,@lineId uniqueidentifier;
+  @branchC uniqueidentifier=test.Id('branchC'),
+  @cashierA uniqueidentifier=test.Id('cashierA'),@cashierB uniqueidentifier=test.Id('cashierB'),
+  @supervisorA uniqueidentifier=test.Id('supervisorA'),@supervisorB uniqueidentifier=test.Id('supervisorB'),
+  @manager uniqueidentifier=test.Id('manager'),
+  @nodeA uniqueidentifier=test.Id('nodeA'),@nodeB uniqueidentifier=test.Id('nodeB'),
+  @nodeCloud uniqueidentifier=test.Id('nodeCloud'),
+  @credit uniqueidentifier=NEWID(),@t1 uniqueidentifier=NEWID(),@t2 uniqueidentifier=NEWID(),@t3 uniqueidentifier=NEWID();
+EXEC test.SeedCredit @credit;  -- 120000 available at A
 
-EXEC test.SeedStock @item,@locA,5;
-EXEC sales.usp_OpenTill @TillId=@till,@RegisterId=@registerA,@CashierId=@cashierA,
-     @CurrencyCode='NIO',@OpeningMinor=100000,@OriginNodeId=@nodeA;
-DECLARE @lines sales.SaleLineRequest,@tenders sales.SaleTenderRequest;
-INSERT INTO @lines(LineNumber,ItemId,Quantity,UnitPriceMinor,DiscountMinor) VALUES(1,@item,1,120000,0);
-INSERT INTO @tenders(TenderNumber,TenderKind,AmountMinor,ReceivedMinor,ChangeMinor) VALUES(1,'cash',120000,120000,0);
-EXEC sales.usp_PostSale @SaleId=@sale,@BranchId=@branchA,@LocationId=@locA,@CashierId=@cashierA,
-     @CurrencyCode='NIO',@CustomerId=@customer,@TillId=@till,@OriginNodeId=@nodeA,@Lines=@lines,@Tenders=@tenders;
-SET @lineId=(SELECT Id FROM sales.SaleLines WHERE SaleId=@sale AND LineNumber=1);
-DECLARE @ret sales.ReturnLineRequest;
-INSERT INTO @ret(SaleLineId,Quantity,RestockPool) VALUES(@lineId,1,'quarantine');
-EXEC sales.usp_PostCreditReturn @ReversalId=@rev,@CreditId=@credit,@SaleId=@sale,@BranchId=@branchA,
-     @ReturnLocationId=@locA,@TillId=@till,@ActorId=@cashierA,@ApprovedBy=@manager,@CustomerId=@customer,
-     @Reason=N'Talla equivocada',@OriginNodeId=@nodeA,@Lines=@ret;
-
--- Same origin and destination.
 BEGIN TRY
-  EXEC credits.usp_RequestTransfer @TransferId=@tmp,@CreditId=@credit,
-    @FromBranchId=@branchA,@ToBranchId=@branchA,@AmountMinor=50000,
-    @RequestedBy=@cashierA,@Reason=N'mismo lugar',@OriginNodeId=@nodeA,@EventId=@e2;
-  THROW 59002,'ASSERT FAIL: same-branch request was accepted',1;
+  EXEC credits.usp_TransferRequest @TransferId=@t1,@CreditId=@credit,@FromBranchId=@branchA,@ToBranchId=@branchA,@AmountMinor=50000,@RequestedBy=@cashierA,@Reason=N'Canje en B',@NodeId=@nodeA;
+  THROW 59002,'ASSERT FAIL: same-branch request accepted',1;
 END TRY
-BEGIN CATCH IF ERROR_NUMBER()<>51608 THROW; END CATCH;
-
--- Non-positive amount.
+BEGIN CATCH IF ERROR_NUMBER()<>51720 THROW; END CATCH;
 BEGIN TRY
-  EXEC credits.usp_RequestTransfer @TransferId=@tmp,@CreditId=@credit,
-    @FromBranchId=@branchA,@ToBranchId=@branchB,@AmountMinor=0,
-    @RequestedBy=@cashierA,@Reason=N'cero',@OriginNodeId=@nodeA,@EventId=@e2;
-  THROW 59002,'ASSERT FAIL: zero-amount request was accepted',1;
+  EXEC credits.usp_TransferRequest @TransferId=@t1,@CreditId=@credit,@FromBranchId=@branchA,@ToBranchId=@branchB,@AmountMinor=0,@RequestedBy=@cashierB,@Reason=N'Canje en B',@NodeId=@nodeB;
+  THROW 59002,'ASSERT FAIL: zero amount accepted',1;
 END TRY
-BEGIN CATCH IF ERROR_NUMBER()<>51608 THROW; END CATCH;
-
--- Blank reason.
+BEGIN CATCH IF ERROR_NUMBER()<>51720 THROW; END CATCH;
 BEGIN TRY
-  EXEC credits.usp_RequestTransfer @TransferId=@tmp,@CreditId=@credit,
-    @FromBranchId=@branchA,@ToBranchId=@branchB,@AmountMinor=50000,
-    @RequestedBy=@cashierA,@Reason=N'   ',@OriginNodeId=@nodeA,@EventId=@e2;
-  THROW 59002,'ASSERT FAIL: blank-reason request was accepted',1;
+  EXEC credits.usp_TransferRequest @TransferId=@t1,@CreditId=@credit,@FromBranchId=@branchA,@ToBranchId=@branchB,@AmountMinor=50000,@RequestedBy=@cashierB,@Reason=N'   ',@NodeId=@nodeB;
+  THROW 59002,'ASSERT FAIL: blank reason accepted',1;
 END TRY
-BEGIN CATCH IF ERROR_NUMBER()<>51608 THROW; END CATCH;
-
--- Inactive / unknown credit.
+BEGIN CATCH IF ERROR_NUMBER()<>51720 THROW; END CATCH;
 BEGIN TRY
-  EXEC credits.usp_RequestTransfer @TransferId=@tmp,@CreditId=@tmp,
-    @FromBranchId=@branchA,@ToBranchId=@branchB,@AmountMinor=50000,
-    @RequestedBy=@cashierA,@Reason=N'anticipo falso',@OriginNodeId=@nodeA,@EventId=@e2;
-  THROW 59002,'ASSERT FAIL: request for an unknown credit was accepted',1;
+  EXEC credits.usp_TransferRequest @TransferId=@t1,@CreditId=@credit,@FromBranchId=@branchA,@ToBranchId=@branchB,@AmountMinor=50000,@RequestedBy=@cashierB,@Reason=N'Canje en B',@NodeId=@nodeA;
+  THROW 59002,'ASSERT FAIL: request from the origin node accepted',1;
 END TRY
-BEGIN CATCH IF ERROR_NUMBER()<>51610 THROW; END CATCH;
-
--- Origin branch without an allocation of this credit.
+BEGIN CATCH IF ERROR_NUMBER()<>51723 THROW; END CATCH;
 BEGIN TRY
-  EXEC credits.usp_RequestTransfer @TransferId=@tmp,@CreditId=@credit,
-    @FromBranchId=@branchB,@ToBranchId=@branchA,@AmountMinor=50000,
-    @RequestedBy=@cashierA,@Reason=N'no hay saldo aca',@OriginNodeId=@nodeA,@EventId=@e2;
-  THROW 59002,'ASSERT FAIL: request from a branch without allocation was accepted',1;
+  EXEC credits.usp_TransferRequest @TransferId=@t1,@CreditId=@credit,@FromBranchId=@branchA,@ToBranchId=@branchB,@AmountMinor=50000,@RequestedBy=@cashierB,@Reason=N'Canje en B',@NodeId=@nodeCloud;
+  THROW 59002,'ASSERT FAIL: request from the cloud accepted',1;
 END TRY
-BEGIN CATCH IF ERROR_NUMBER()<>51611 THROW; END CATCH;
-
--- Normal request, then a retry with the same ids and content: one row only.
-EXEC credits.usp_RequestTransfer @TransferId=@t1,@CreditId=@credit,
-  @FromBranchId=@branchA,@ToBranchId=@branchB,@AmountMinor=50000,
-  @RequestedBy=@cashierA,@Reason=N'Canje en otra sucursal',@OriginNodeId=@nodeA,@EventId=@requestEvent;
-EXEC credits.usp_RequestTransfer @TransferId=@t1,@CreditId=@credit,
-  @FromBranchId=@branchA,@ToBranchId=@branchB,@AmountMinor=50000,
-  @RequestedBy=@cashierA,@Reason=N'Canje en otra sucursal',@OriginNodeId=@nodeA,@EventId=@requestEvent;
-SET @n=(SELECT COUNT(*) FROM credits.CreditTransfers WHERE Id=@t1);
-EXEC test.AssertEq N'one transfer row after retry',1,@n;
-
--- Duplicated transfer id with different content.
+BEGIN CATCH IF ERROR_NUMBER()<>51723 THROW; END CATCH;
 BEGIN TRY
-  EXEC credits.usp_RequestTransfer @TransferId=@t1,@CreditId=@credit,
-    @FromBranchId=@branchA,@ToBranchId=@branchB,@AmountMinor=60000,
-    @RequestedBy=@cashierA,@Reason=N'Canje en otra sucursal',@OriginNodeId=@nodeA,@EventId=@e2;
-  THROW 59002,'ASSERT FAIL: transfer id reused with another amount was accepted',1;
+  EXEC credits.usp_TransferRequest @TransferId=@t1,@CreditId=@credit,@FromBranchId=@branchA,@ToBranchId=@branchB,@AmountMinor=50000,@RequestedBy=@cashierA,@Reason=N'Canje en B',@NodeId=@nodeB;
+  THROW 59002,'ASSERT FAIL: requester without access to the destination accepted',1;
 END TRY
-BEGIN CATCH IF ERROR_NUMBER()<>51609 THROW; END CATCH;
-
--- The request itself moves no money.
-SET @n=(SELECT COUNT(*) FROM credits.CreditTransfers WHERE Id=@t2);
-EXEC test.AssertEq N'no phantom transfer rows',0,@n;
-SET @n=(SELECT AvailableMinor FROM credits.CreditAllocations WHERE CreditId=@credit AND BranchId=@branchA);
-EXEC test.AssertEq N'available unchanged by request',120000,@n;
-SET @n=(SELECT c.OriginalMinor-COALESCE((SELECT SUM(a.AvailableMinor+a.HeldMinor) FROM credits.CreditAllocations a WHERE a.CreditId=c.Id),0)
-       -COALESCE((SELECT SUM(r.AmountMinor) FROM credits.CreditRedemptions r WHERE r.CreditId=c.Id AND r.Status='posted'),0)
-  FROM credits.Credits c WHERE c.Id=@credit);
-EXEC test.AssertEq N'credit conservation after requests',0,@n;
+BEGIN CATCH IF ERROR_NUMBER()<>51724 THROW; END CATCH;
+BEGIN TRY
+  EXEC credits.usp_TransferRequest @TransferId=@t1,@CreditId=@credit,@FromBranchId=@branchC,@ToBranchId=@branchB,@AmountMinor=50000,@RequestedBy=@cashierB,@Reason=N'Canje en B',@NodeId=@nodeB;
+  THROW 59002,'ASSERT FAIL: request from a branch without balance accepted',1;
+END TRY
+BEGIN CATCH IF ERROR_NUMBER()<>51722 THROW; END CATCH;
+DECLARE @ghost uniqueidentifier=NEWID();
+BEGIN TRY
+  EXEC credits.usp_TransferRequest @TransferId=@t1,@CreditId=@ghost,@FromBranchId=@branchA,@ToBranchId=@branchB,@AmountMinor=50000,@RequestedBy=@cashierB,@Reason=N'Canje en B',@NodeId=@nodeB;
+  THROW 59002,'ASSERT FAIL: request for an unknown credit accepted',1;
+END TRY
+BEGIN CATCH IF ERROR_NUMBER()<>51722 THROW; END CATCH;
+EXEC credits.usp_TransferRequest @TransferId=@t1,@CreditId=@credit,@FromBranchId=@branchA,@ToBranchId=@branchB,@AmountMinor=50000,@RequestedBy=@cashierB,@Reason=N'Canje en B',@NodeId=@nodeB;
+EXEC credits.usp_TransferRequest @TransferId=@t1,@CreditId=@credit,@FromBranchId=@branchA,@ToBranchId=@branchB,@AmountMinor=50000,@RequestedBy=@cashierB,@Reason=N'Canje en B',@NodeId=@nodeB;
+SET @n=(SELECT COUNT(*) FROM credits.TransferRequests WHERE Id=@t1);
+EXEC test.AssertEq N'one request row after retry',1,@n;
+BEGIN TRY
+  EXEC credits.usp_TransferRequest @TransferId=@t1,@CreditId=@credit,@FromBranchId=@branchA,@ToBranchId=@branchB,@AmountMinor=40000,@RequestedBy=@cashierB,@Reason=N'Canje en B',@NodeId=@nodeB;
+  THROW 59002,'ASSERT FAIL: same id with another amount accepted',1;
+END TRY
+BEGIN CATCH IF ERROR_NUMBER()<>51721 THROW; END CATCH;
+BEGIN TRY
+  EXEC credits.usp_TransferRequest @TransferId=@t1,@CreditId=@credit,@FromBranchId=@branchA,@ToBranchId=@branchB,@AmountMinor=50000,@RequestedBy=@cashierB,@Reason=N'Otro motivo',@NodeId=@nodeB;
+  THROW 59002,'ASSERT FAIL: same id with another reason accepted',1;
+END TRY
+BEGIN CATCH IF ERROR_NUMBER()<>51721 THROW; END CATCH;
+SET @n=(SELECT COUNT(*) FROM credits.CreditTransfers);
+EXEC test.AssertEq N'no legacy transfer row written',0,@n;
 PRINT 'PASS';

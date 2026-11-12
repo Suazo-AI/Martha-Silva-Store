@@ -1,0 +1,27 @@
+# RED 1: F2 on current code (no V009). HEAD 03d309d, 2026-11-12T09:12:45Z
+$ python savia/tools/db/saviadb.py test credits/140
+FAIL    credits/140_transfer_one_writer_per_row.sql  -- ASSERT FAIL: branches whose balance one usp_CommitTransfer call changed expected=1 actual=2
+SUMMARY FAIL=1  logs: .out\dbtests
+
+# RED 2: V009 stage 1 (transition procedures, oracle not yet extended). In-transit money breaks credit.conservation.
+$ python savia/tools/db/saviadb.py test credits --jobs 3
+PASS    credits/010_issue_from_return_normal_retry_conservation.sql
+PASS    credits/020_issue_from_return_rejects_ineligible.sql
+PASS    credits/030_redeem_normal_retry_conservation.sql
+PASS    credits/040_redeem_rejections.sql
+FAIL    credits/050_redeem_cannot_touch_held.sql  -- CONSERVATION FAIL: credit.conservation key=770D26BF-60E8-47F6-AD8D-72CC6BC22051 expected=120000 actual=70000 (1 violations)
+PASS    credits/060_transfer_request_rejections.sql
+PASS    credits/070_transfer_approve_rejections.sql
+FAIL    credits/080_transfer_order_strict.sql  -- CONSERVATION FAIL: credit.conservation key=4F94EA82-A836-4969-9C9C-1DCCB3BD8725 expected=120000 actual=70000 (1 violations)
+FAIL    credits/090_transfer_lock_normal_and_retries.sql  -- CONSERVATION FAIL: credit.conservation key=A7501665-B1E4-4231-B13C-F29918737EE8 expected=120000 actual=70000 (1 violations)
+PASS    credits/100_commit_proof_and_azure_rules.sql
+FAIL    credits/110_full_transfer_flow_conservation.sql  -- CONSERVATION FAIL: credit.conservation key=EEE80713-6F67-4588-BC7C-345FC0FB8550 expected=120000 actual=70000 (1 violations)
+FAIL    credits/120_held_in_transit_not_redeemable.sql  -- CONSERVATION FAIL: credit.conservation key=E205B736-8305-49E2-9D1F-92408D200FAB expected=120000 actual=70000 (1 violations)
+PASS    credits/130_cancel_transfer.sql
+PASS    credits/140_transfer_one_writer_per_row.sql
+SUMMARY FAIL=5 PASS=9  logs: .out\dbtests
+
+# RED 3: V009 stage 2 (oracle extended). usp_RedeemCredit marks the credit exhausted while 50000 is in transit, so B could never spend it after receipt.
+$ python savia/tools/db/saviadb.py test credits/120
+FAIL    credits/120_held_in_transit_not_redeemable.sql  -- ASSERT FAIL: credit stays active while 50000 is in transit expected=1 actual=0
+SUMMARY FAIL=1  logs: .out\dbtests
