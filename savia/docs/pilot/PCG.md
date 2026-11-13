@@ -82,9 +82,14 @@ Los nombres de empleados y clientes vistos u oídos se omiten aquí.
 La tienda fija precios en dólares y cobra en córdobas o dólares a la tasa del día.
 SAVIA solo maneja córdobas. Es la siguiente pieza a construir.
 
+Diseño: [DOLARES](../design/DOLARES.md).
+
+## Respuestas de la dueña (2026-11-13, vía Jason)
+
+- El precio base casi siempre es en dólares y el córdoba se calcula; a veces no.
+- La tasa la ponen la gerente o la dueña, y vale para las 3 sucursales.
+
 ## Preguntas para la dueña
 
-1. ¿Quién cambia la tasa si deja de ser fija, y aplica igual a las 3 sucursales?
-2. ¿El precio base del producto es en dólares y el córdoba se calcula, o al revés?
-3. ¿Aplican retención de Fisco 2% y Alcaldía 1% en tienda, o solo a empresas?
-4. ¿Usan proforma, pedido, consignación o "guardar en espera" en Masaya?
+1. ¿Aplican retención de Fisco 2% y Alcaldía 1% en tienda, o solo a empresas?
+2. ¿Usan proforma, pedido, consignación o "guardar en espera" en Masaya?
