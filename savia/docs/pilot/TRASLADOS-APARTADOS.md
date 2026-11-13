@@ -16,6 +16,18 @@ El sistema la aparta para ese cliente mientras viaja y espera.
 3. Datos del cliente: solo nombre y teléfono, y solo en traslados y apartados. La venta normal no pide datos.
 4. Comisión: es para el vendedor que cerró la venta, en la sucursal donde la cerró.
 
+## Diseño revisado con un modelo (2026-11-13)
+
+Modelo y reglas: [formal/apartado](../../formal/apartado/README.md). Comando: `python savia/tools/formal.py check` (6 de 6).
+El modelo fijó tres puntos de diseño: el plazo cuenta desde la llegada; origen tiene plazo para despachar; ese plazo lo cierra origen.
+
+Preguntas abiertas para la dueña:
+
+1. ¿Cuántos días tiene la tienda origen para despachar?
+2. Al vencer o cancelar, ¿el anticipo se devuelve en efectivo, queda como crédito, o se pierde?
+3. Una prenda que llegó y ya no tiene cliente, ¿se queda en la tienda destino o regresa?
+4. ¿Autoriza el gerente de la tienda donde el cliente pide, el de la tienda que envía, o los dos?
+
 ## Pendiente para construir
 
 - Depende de la sincronización entre sucursales (hub), que todavía no existe.

@@ -1,0 +1,79 @@
+name: SAVIA v2 check
+
+# Every push to Tony that touches savia/ runs the same checks an agent runs locally:
+# architecture rules, tool tests, web tests, T-SQL tests and .NET tests on a disposable SQL Server.
+# Synthetic data only. No deploy, no secrets, no account outside the throwaway container.
+# Not covered here yet: the browser e2e and the live tag OCR (savia/docs/UNTANGLE.md, F8).
+on:
+  push:
+    branches: [Tony]
+    paths:
+      - 'savia/**'
+      - '.github/workflows/savia-v2.yml'
+  pull_request:
+    branches: [main, Tony]
+    paths:
+      - 'savia/**'
+      - '.github/workflows/savia-v2.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: savia-v2-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DOTNET_VERSION: '10.0.402'
+  DOTNET_NOLOGO: '1'
+  DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+
+jobs:
+  check:
+    name: Rules, web, T-SQL and .NET on real SQL
+    # Licensed SQL runs only for this repository's own branches; fork PRs cannot start it.
+    if: >-
+      github.repository == 'Suazo-AI/Martha-Silva-Store' &&
+      (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        with:
+          node-version: '24'
+      - name: Architecture rules
+        run: python3 savia/tools/rules.py
+      - name: Tool tests
+        run: python3 -m unittest discover -s savia/tests -p "test_*.py"
+      - name: Web tests
+        run: node --test "savia/web/tests/*.test.mjs" "savia/web/scanner/*.test.mjs"
+      - name: Start disposable SQL Server 2022 Developer
+        shell: bash
+        run: |
+          set -euo pipefail
+          password="Aa1!$(openssl rand -hex 32)"
+          echo "::add-mask::$password"
+          printf 'MSSQL_SA_PASSWORD=%s\n' "$password" > savia/infra/.env
+          docker compose -f savia/infra/docker-compose.dev.yml --env-file savia/infra/.env up --detach --wait --wait-timeout 180
+      - name: Restore locked dependencies
+        run: dotnet restore savia/Savia.slnx --locked-mode
+      - name: Full check (baseline, no-delete, T-SQL, build, .NET tests)
+        run: python3 savia/tools/check.py
+      - name: Upload database test logs
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        with:
+          name: savia-v2-dbtests
+          path: savia/.out/dbtests
+          if-no-files-found: ignore
+          retention-days: 7
+      - name: Always remove the disposable container and its volume
+        if: ${{ always() }}
+        run: docker compose -f savia/infra/docker-compose.dev.yml --env-file savia/infra/.env down --volumes || true
