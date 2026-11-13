@@ -4,5 +4,7 @@ obj/
 .out/
 TestResults/
 *.trx
+# Local OCR runtime and models (tools/ocr/setup_ocr.py). Downloaded once, never committed.
+.ocr/
 # Local development secret (also ignored by the root .gitignore).
 infra/.env

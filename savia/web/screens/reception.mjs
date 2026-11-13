@@ -60,7 +60,8 @@ export default {
         } }, `${s.reference} · ${s.supplierName}`)));
         if (!sessions.length) resume.append(h('p', { class: 'muted' }, 'No hay recepciones pendientes.'));
       } catch (error) { showError(message, error); }
-      replace(root, h('div', { class: 'page' }, form, resume));
+      const phone = h('p', {}, h('a', { href: 'etiqueta/' }, 'Foto de etiqueta (teléfono)'));   // docs/pilot/ETIQUETA.md
+      replace(root, h('div', { class: 'page' }, form, resume, phone));
       handle.handleScan = () => ctx.notify('Primero empiece la recepción.');
       reference.focus();
     };

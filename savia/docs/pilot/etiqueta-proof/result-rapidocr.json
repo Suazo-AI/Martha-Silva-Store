@@ -1,0 +1,279 @@
+{
+  "engine": "rapidocr-onnxruntime 1.4.4 (local CPU)",
+  "perField": {
+    "barcode": 6,
+    "sku": 6,
+    "name": 5,
+    "brand": 6,
+    "size": 6,
+    "color": 6,
+    "priceMinor": 6,
+    "composition": 6
+  },
+  "photos": [
+    {
+      "file": "tag1.png",
+      "seconds": 3.04,
+      "barcode": {
+        "expected": "7501234567893",
+        "extracted": "7501234567893",
+        "ok": true
+      },
+      "sku": {
+        "expected": "BL-2041-AZ",
+        "extracted": "BL-2041-AZ",
+        "ok": true
+      },
+      "name": {
+        "expected": "Blusa manga corta",
+        "extracted": "Blusa manga corta",
+        "ok": true
+      },
+      "brand": {
+        "expected": "ALMA TEXTIL",
+        "extracted": "ALMA TEXTIL",
+        "ok": true
+      },
+      "size": {
+        "expected": "M",
+        "extracted": "M",
+        "ok": true
+      },
+      "color": {
+        "expected": "Azul",
+        "extracted": "Azul",
+        "ok": true
+      },
+      "priceMinor": {
+        "expected": "125000",
+        "extracted": "125000",
+        "ok": true
+      },
+      "composition": {
+        "expected": "95% Algod\u00F3n 5% Elastano",
+        "extracted": "95% Algod\u00F3n 5% Elastano",
+        "ok": true
+      }
+    },
+    {
+      "file": "tag2.png",
+      "seconds": 4.59,
+      "barcode": {
+        "expected": "7894561230128",
+        "extracted": "7894561230128",
+        "ok": true
+      },
+      "sku": {
+        "expected": "PJ-3310-NG",
+        "extracted": "PJ-3310-NG",
+        "ok": true
+      },
+      "name": {
+        "expected": "Pantal\u00F3n jeans recto",
+        "extracted": "Pantalon jeans recto",
+        "ok": true
+      },
+      "brand": {
+        "expected": "RIO VERDE",
+        "extracted": "RIO VERDE",
+        "ok": true
+      },
+      "size": {
+        "expected": "32",
+        "extracted": "32",
+        "ok": true
+      },
+      "color": {
+        "expected": "Negro",
+        "extracted": "Negro",
+        "ok": true
+      },
+      "priceMinor": {
+        "expected": null,
+        "extracted": null,
+        "ok": true
+      },
+      "composition": {
+        "expected": "98% Algod\u00F3n 2% Elastano",
+        "extracted": "98% Algod\u00F3n 2% Elastano",
+        "ok": true
+      }
+    },
+    {
+      "file": "tag3.png",
+      "seconds": 4.86,
+      "barcode": {
+        "expected": "8400123456784",
+        "extracted": "8400123456784",
+        "ok": true
+      },
+      "sku": {
+        "expected": "88213-04",
+        "extracted": "88213-04",
+        "ok": true
+      },
+      "name": {
+        "expected": "Vestido largo floral",
+        "extracted": "Vestido largo floral",
+        "ok": true
+      },
+      "brand": {
+        "expected": "COSTA NORTE",
+        "extracted": "COSTA NORTE",
+        "ok": true
+      },
+      "size": {
+        "expected": "L",
+        "extracted": "L",
+        "ok": true
+      },
+      "color": {
+        "expected": "Rojo",
+        "extracted": "Rojo",
+        "ok": true
+      },
+      "priceMinor": {
+        "expected": "89000",
+        "extracted": "89000",
+        "ok": true
+      },
+      "composition": {
+        "expected": "100% Poli\u00E9ster",
+        "extracted": "100% Poli\u00E9ster",
+        "ok": true
+      }
+    },
+    {
+      "file": "tag4.png",
+      "seconds": 4.9,
+      "barcode": {
+        "expected": "7620001234551",
+        "extracted": "7620001234551",
+        "ok": true
+      },
+      "sku": {
+        "expected": "CM-5521-BL",
+        "extracted": "CM-5521-BL",
+        "ok": true
+      },
+      "name": {
+        "expected": "Camisa oxford",
+        "extracted": "Camisaoxford",
+        "ok": false
+      },
+      "brand": {
+        "expected": "LUNA MODA",
+        "extracted": "LUNA MODA",
+        "ok": true
+      },
+      "size": {
+        "expected": "XL",
+        "extracted": "XL",
+        "ok": true
+      },
+      "color": {
+        "expected": "Blanco",
+        "extracted": "Blanco",
+        "ok": true
+      },
+      "priceMinor": {
+        "expected": "149900",
+        "extracted": "149900",
+        "ok": true
+      },
+      "composition": {
+        "expected": "60% Algod\u00F3n 40% Poli\u00E9ster",
+        "extracted": "60% Algod\u00F3n 40% Poli\u00E9ster",
+        "ok": true
+      }
+    },
+    {
+      "file": "tag5.png",
+      "seconds": 4.32,
+      "barcode": {
+        "expected": "5901234123457",
+        "extracted": "5901234123457",
+        "ok": true
+      },
+      "sku": {
+        "expected": "FP-1180-VD",
+        "extracted": "FP-1180-VD",
+        "ok": true
+      },
+      "name": {
+        "expected": "Falda plisada",
+        "extracted": "Falda plisada",
+        "ok": true
+      },
+      "brand": {
+        "expected": "BRISA",
+        "extracted": "BRISA",
+        "ok": true
+      },
+      "size": {
+        "expected": "S",
+        "extracted": "S",
+        "ok": true
+      },
+      "color": {
+        "expected": "Verde",
+        "extracted": "Verde",
+        "ok": true
+      },
+      "priceMinor": {
+        "expected": "75000",
+        "extracted": "75000",
+        "ok": true
+      },
+      "composition": {
+        "expected": "100% Viscosa",
+        "extracted": "100% Viscosa",
+        "ok": true
+      }
+    },
+    {
+      "file": "tag6.png",
+      "seconds": 5.14,
+      "barcode": {
+        "expected": "7460012345675",
+        "extracted": "7460012345675",
+        "ok": true
+      },
+      "sku": {
+        "expected": "SW-7702-GR",
+        "extracted": "SW-7702-GR",
+        "ok": true
+      },
+      "name": {
+        "expected": "Su\u00E9ter de punto",
+        "extracted": "Sueter de punto",
+        "ok": true
+      },
+      "brand": {
+        "expected": "SOL DE MAYO",
+        "extracted": "SOL DE MAYO",
+        "ok": true
+      },
+      "size": {
+        "expected": "XXL",
+        "extracted": "XXL",
+        "ok": true
+      },
+      "color": {
+        "expected": "Gris",
+        "extracted": "Gris",
+        "ok": true
+      },
+      "priceMinor": {
+        "expected": "210000",
+        "extracted": "210000",
+        "ok": true
+      },
+      "composition": {
+        "expected": "70% Acr\u00EDlico 30% Lana",
+        "extracted": "70% Acr\u00EDlico 30% Lana",
+        "ok": true
+      }
+    }
+  ]
+}

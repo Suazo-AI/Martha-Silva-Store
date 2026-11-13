@@ -9,6 +9,10 @@ Commands:
   status   database, seed counts, API process and /health
   counts   seed row counts as one line (used to prove `up` is idempotent)
 
+  up --lan also listens on this PC's private LAN IPv4 (10/8, 172.16/12, 192.168/16) so a phone on the shop
+  Wi-Fi can open http://<lan-ip>:5080/etiqueta/. Any other address is refused. Default stays loopback only.
+  Windows asks once to allow dotnet on private networks (docs/pilot/ETIQUETA.md). SAVIA_PILOT_LAN_IP picks the IP.
+
 Secrets:
   The SQL password is read from savia/infra/.env (MSSQL_SA_PASSWORD), or SAVIA_ENV_FILE, or the dev container's
   own environment. It reaches the API only through its process environment and is never printed.
@@ -18,9 +22,11 @@ Secrets:
 """
 import argparse
 import getpass
+import ipaddress
 import json
 import os
 import re
+import socket
 import subprocess
 import sys
 import time
@@ -37,6 +43,7 @@ DB = "SAVIA_DEV_pilot"
 HOST, PORT = "127.0.0.1", 5080
 URL = f"http://{HOST}:{PORT}"
 SEED = ROOT / "db" / "pilot" / "seed_masaya.sql"
+PRIVATE_LAN = [ipaddress.ip_network(n) for n in ("10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16")]
 API_PROJECT = ROOT / "src" / "Savia.Api"
 API_DLL = API_PROJECT / "bin" / "Debug" / "net10.0" / "Savia.Api.dll"
 STATE = ROOT / ".out" / "pilot"
@@ -176,7 +183,37 @@ def pilot_passwords(roles=("DUENA", "GERENTE", "VENDEDOR1", "VENDEDOR2", "BODEGA
     return passwords
 
 
+def private_lan_ip(text):
+    """Returns the address when it is a private LAN IPv4 (RFC 1918); refuses public, loopback and everything else."""
+    try:
+        ip = ipaddress.ip_address((text or "").strip())
+    except ValueError:
+        raise SystemExit(f"pilot: --lan refused: '{text}' is not an IP address.")
+    if ip.version != 4 or not any(ip in net for net in PRIVATE_LAN):
+        raise SystemExit(f"pilot: --lan refused: {ip} is not a private LAN IPv4 (10/8, 172.16/12, 192.168/16).")
+    return str(ip)
+
+
+def detect_lan_ip():
+    """The IPv4 of the interface that routes outward. A UDP connect sends no packet; it only selects the route."""
+    chosen = os.environ.get("SAVIA_PILOT_LAN_IP")
+    if chosen:
+        return private_lan_ip(chosen)
+    with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as probe:
+        try:
+            probe.connect(("192.0.2.1", 9))           # TEST-NET-1, never reached
+            address = probe.getsockname()[0]
+        except OSError:
+            raise SystemExit("pilot: --lan: no network interface found. Connect the PC to the shop Wi-Fi.")
+    return private_lan_ip(address)
+
+
+def listen_urls(lan_ip=None):
+    return URL if lan_ip is None else f"{URL};http://{private_lan_ip(lan_ip)}:{PORT}"
+
+
 def cmd_up(args):
+    lan_ip = detect_lan_ip() if getattr(args, "lan", False) else None
     require_container()
     dn = dotnet()
     if dn is None:
@@ -205,7 +242,7 @@ def cmd_up(args):
 
     env = {**os.environ, **NODE, "Savia__Sql__ConnectionString": connection_string(),
            "Savia__Web__Root": str(ROOT / "web"), "ASPNETCORE_ENVIRONMENT": "Development",
-           "DOTNET_CLI_TELEMETRY_OPTOUT": "1"}
+           "DOTNET_CLI_TELEMETRY_OPTOUT": "1", "Savia__Tags__WarmUp": "true"}
     # Loopback only: drop inherited ASP.NET endpoint settings that would override --urls (review finding, 2026-11-12).
     for key in [k for k in env if k.upper().startswith(("KESTREL__", "ASPNETCORE_URLS", "ASPNETCORE_HTTP_PORTS",
                                                          "ASPNETCORE_HTTPS_PORTS", "DOTNET_URLS", "URLS"))]:
@@ -227,12 +264,14 @@ def cmd_up(args):
             env.pop(key)
     log = open(LOG_FILE, "ab")
     flags = subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP if os.name == "nt" else 0
-    proc = subprocess.Popen([dn, str(API_DLL), "--urls", URL], cwd=API_PROJECT, env=env, stdout=log,
+    proc = subprocess.Popen([dn, str(API_DLL), "--urls", listen_urls(lan_ip)], cwd=API_PROJECT, env=env, stdout=log,
                             stderr=subprocess.STDOUT, stdin=subprocess.DEVNULL, creationflags=flags)
     PID_FILE.write_text(str(proc.pid))
     for _ in range(150):
         if health() == 200:
             say(f"API up at {URL} pid {proc.pid} (log: {LOG_FILE.relative_to(ROOT)})")
+            if lan_ip:
+                say(f"phone (same Wi-Fi): http://{lan_ip}:{PORT}/etiqueta/")
             return 0
         if proc.poll() is not None:
             break
@@ -289,6 +328,7 @@ def main():
     parser.add_argument("command", choices=["up", "down", "reset", "status", "counts"])
     parser.add_argument("--no-provision", action="store_true", help="up: verify all sample password hashes without changing them")
     parser.add_argument("--demo", action="store_true", help="reset: migrate, seed and write 60 days of invented history in SAVIA_DEV_pilot")
+    parser.add_argument("--lan", action="store_true", help="up: also listen on this PC's private LAN IPv4 for the phone tag page")
     args = parser.parse_args()
     return {"up": cmd_up, "down": cmd_down, "reset": cmd_reset, "status": cmd_status, "counts": cmd_counts}[args.command](args)
 

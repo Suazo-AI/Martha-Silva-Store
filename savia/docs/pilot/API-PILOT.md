@@ -100,6 +100,30 @@ Manager/owner reports: `GET /reports/summary?period=&date=`, `/reports/summary.c
 `/reports/day?date=`. Summary includes `costOfGoodsMinor` and `grossMarginMinor` from SQL snapshots.
 The demo catalog has zero tax. Full accounting/tax acceptance is outside this local pilot.
 
+## Tag photo -> suggested fields
+
+`POST /api/v1/inventory/tag-extract` reads a garment tag photo on this PC and suggests the fields of a new product.
+It writes nothing; the client still calls the catalog and reception endpoints above. Details: [ETIQUETA.md](ETIQUETA.md).
+
+- Roles: INVENTORY, CASHIER, MANAGER, OWNER (the receiving roles); others get 403 `auth.role_required`.
+- Body: `multipart/form-data` with `image` (JPEG, PNG or WebP, at most 6 MB) and optional `barcode` (the phone's reading).
+- 422 `tag.image_missing`, `tag.image_too_large` or `tag.image_type`; 503 `tag.ocr_missing` when the local OCR is not installed.
+- A valid `barcode` (or an OCR barcode/SKU) that matches one item returns it in `matchedItem`; with the phone barcode, OCR is skipped.
+- OCR failure or timeout still returns 200 with `source: "none"`, the fields known so far and a Spanish `warning`.
+
+```json
+{
+  "barcode": "7501234567893", "sku": "BL-2041-AZ", "name": "Blusa manga corta", "brand": "ALMA TEXTIL",
+  "size": "M", "color": "Azul", "priceMinor": 125000, "composition": "95% Algodón 5% Elastano",
+  "confidence": { "barcode": 0.99, "sku": 0.98, "name": 0.62, "brand": 0.6, "size": 0.97, "color": 0.95, "priceMinor": 0.96, "composition": 0.9 },
+  "rawText": "ALMA TEXTIL\nBlusa manga corta\n...", "matchedItem": null,
+  "source": "ocr", "engine": "rapidocr-onnxruntime 1.4.4 (local CPU)", "elapsedMs": 1840, "warning": null
+}
+```
+
+`source` is `match`, `ocr` or `none`. `matchedItem` has `itemId`, `sku`, `productName`, `variantName`, `sizeCode`, `colorCode`, `unitPriceMinor` and `matchedBy` (`barcode` or `sku`).
+Every field may be null. A confidence below 0.7 means "check this field".
+
 ## Reception and quality
 
 Inventory/manager/owner open a session with `POST /receiving/sessions`:

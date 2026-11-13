@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- One-off production migration runner. Same ledger and checksum rules as savia/tools/db/saviadb.py. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>Savia.Migrator</AssemblyName>
+    <RootNamespace>Savia.Migrator</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- Same versions as Savia.Infrastructure; SqlClient brings Entra ID (managed identity) authentication. -->
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.7" />
+    <PackageReference Include="System.Security.Cryptography.Pkcs" Version="10.0.13" />
+  </ItemGroup>
+</Project>

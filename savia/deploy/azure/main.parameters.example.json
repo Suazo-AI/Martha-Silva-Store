@@ -1,0 +1,20 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": { "value": "mexicocentral" },
+    "prefix": { "value": "savia" },
+    "deployApps": { "value": false },
+    "apiImage": { "value": "" },
+    "migratorImage": { "value": "" },
+    "hubNodeId": { "value": "REPLACE-WITH-A-NEW-GUID-FOR-THE-CLOUD-NODE" },
+    "sqlSku": { "value": { "name": "Basic", "tier": "Basic", "capacity": 5 } },
+    "backupRetentionDays": { "value": 7 },
+    "backupRedundancy": { "value": "Geo" },
+    "apiMinReplicas": { "value": 0 },
+    "githubRepository": { "value": "Suazo-AI/Martha-Silva-Store" },
+    "githubEnvironment": { "value": "production" },
+    "alertEmail": { "value": "REPLACE-WITH-OWNER-ALERT-EMAIL" },
+    "logDailyCapGb": { "value": 1 }
+  }
+}

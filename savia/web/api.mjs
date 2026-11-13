@@ -78,6 +78,20 @@ export const searchProducts = text => request('GET', '/catalog/search' + q({ q: 
 /** Branch writes require the local pilot catalog flag and an approving role. */
 export const registerProduct = (productId, name) => request('POST', '/catalog/products', { productId, name });
 export const registerItem = item => request('POST', '/catalog/items', item);
+/** Tag photo -> suggested fields, read on the branch PC (docs/pilot/ETIQUETA.md). image: Blob; barcode: phone reading or null. */
+export async function tagExtract(image, barcode, { fetchImpl = globalThis.fetch } = {}) {
+  const form = new FormData();
+  form.append('image', image, 'etiqueta.jpg');
+  if (barcode) form.append('barcode', barcode);
+  let response;
+  try {
+    response = await fetchImpl(BASE + '/inventory/tag-extract', { method: 'POST', headers: { Accept: 'application/json', Authorization: `Bearer ${getToken()}` }, body: form });
+  } catch {
+    throw new ApiError({ status: 0, code: 'network', network: true, message: 'Sin conexión con la computadora de la sucursal. Complete los datos a mano o reintente.' });
+  }
+  if (!response.ok) throw await toError(response);
+  return response.json();
+}
 
 // ---- receiving
 export const suppliers = () => request('GET', '/suppliers');

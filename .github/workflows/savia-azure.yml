@@ -1,0 +1,227 @@
+name: SAVIA Azure hub
+
+# Pull requests: build the .NET solution and both container images, migrate a disposable SQL Server twice
+# with the production migrator, then run the API image as a least-privilege user and smoke-test it.
+# Manual run (workflow_dispatch): the same checks, then a deploy that waits for approval on the
+# "production" environment and signs in to Azure with OIDC (no stored Azure secret).
+# Runbook: savia/docs/deploy/AZURE.md and savia/docs/deploy/CHECKLIST.md.
+on:
+  pull_request:
+    branches: [main, Tony]
+    paths:
+      - 'savia/**'
+      - '.github/workflows/savia-azure.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: savia-azure-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  DOTNET_VERSION: '10.0.402'
+  # Same immutable image as savia.yml: SQL Server 2022 Developer, approved for non-production CI only.
+  SQL_IMAGE: mcr.microsoft.com/mssql/server@sha256:cf8f0ab2ebe61feec2eed2629061a07d247f791c2a8ddda74a4ac9f06a291718
+
+jobs:
+  build-and-prove:
+    name: Build, images, migration and container smoke
+    # Licensed SQL runs only for this repository's own branches; fork PRs cannot start it.
+    if: >-
+      github.repository == 'Suazo-AI/Martha-Silva-Store' &&
+      (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      CI_NET: savia-ci-${{ github.run_id }}-${{ github.run_attempt }}
+      SQL_CONTAINER: savia-ci-sql-${{ github.run_id }}-${{ github.run_attempt }}
+      API_CONTAINER: savia-ci-api-${{ github.run_id }}-${{ github.run_attempt }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      - name: Restore locked dependencies and build the solution and the migrator
+        run: |
+          dotnet restore savia/Savia.slnx --locked-mode
+          dotnet build savia/Savia.slnx --no-restore --configuration Release
+          dotnet restore savia/deploy/migrator/Savia.Migrator.csproj --locked-mode
+          dotnet build savia/deploy/migrator/Savia.Migrator.csproj --no-restore --configuration Release
+      - name: Build the API and migrator images
+        run: |
+          docker build --target migrator --tag savia-migrator:ci savia
+          docker build --target api --tag savia-api:ci savia
+      - name: Start disposable SQL Server 2022 Developer
+        shell: bash
+        run: |
+          set -euo pipefail
+          password="Aa1!$(openssl rand -hex 32)"
+          echo "::add-mask::$password"
+          printf 'SQLCMDPASSWORD=%s\n' "$password" >> "$GITHUB_ENV"
+          docker network create "$CI_NET" > /dev/null
+          MSSQL_SA_PASSWORD="$password" docker run --detach --name "$SQL_CONTAINER" --network "$CI_NET" \
+            --memory 4g --cpus 2 --env ACCEPT_EULA=Y --env MSSQL_PID=Developer --env MSSQL_SA_PASSWORD \
+            "$SQL_IMAGE" > /dev/null
+          for attempt in $(seq 1 60); do
+            if docker exec --env SQLCMDPASSWORD "$SQL_CONTAINER" /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -C -l 2 -t 3 -b \
+              -Q "SET NOCOUNT ON; SELECT 1" > /dev/null 2>&1; then
+              exit 0
+            fi
+            sleep 2
+          done
+          echo '::error::Disposable SQL Server did not become ready.'
+          exit 1
+      - name: Migrate an empty database twice (second run must apply nothing)
+        shell: bash
+        run: |
+          set -euo pipefail
+          sql() { docker exec --env SQLCMDPASSWORD "$SQL_CONTAINER" /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -C -b -Q "$1" > /dev/null; }
+          api_password="Aa1!$(openssl rand -hex 24)"
+          echo "::add-mask::$api_password"
+          printf 'API_SQL_PASSWORD=%s\n' "$api_password" >> "$GITHUB_ENV"
+          sql "CREATE DATABASE SAVIA_CI; CREATE LOGIN savia_ci_api WITH PASSWORD = N'$api_password';"
+          migrate() {
+            docker run --rm --network "$CI_NET" \
+              --env "Savia__Sql__ConnectionString=Server=$SQL_CONTAINER,1433;Database=SAVIA_CI;User ID=sa;Password=$SQLCMDPASSWORD;Encrypt=true;TrustServerCertificate=true" \
+              savia-migrator:ci "$@"
+          }
+          migrate --plan | tee "$RUNNER_TEMP/plan.txt"
+          migrate --grant-app-user savia_ci_api | tee "$RUNNER_TEMP/first.txt"
+          migrate | tee "$RUNNER_TEMP/second.txt"
+          grep -q 'ledger complete' "$RUNNER_TEMP/first.txt"
+          grep -q 'applied now: nothing new' "$RUNNER_TEMP/second.txt"
+      - name: Run the API image as the least-privilege user and smoke-test it
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker run --detach --name "$API_CONTAINER" --network "$CI_NET" --publish 127.0.0.1:5090:8080 \
+            --env Savia__Node__Kind=Cloud --env Savia__Node__NodeId=5a000000-0000-0000-0000-0000000c1c1d \
+            --env "Savia__Sql__ConnectionString=Server=$SQL_CONTAINER,1433;Database=SAVIA_CI;User ID=savia_ci_api;Password=$API_SQL_PASSWORD;Encrypt=true;TrustServerCertificate=true" \
+            savia-api:ci > /dev/null
+          pwsh -NoProfile -File savia/deploy/smoke.ps1 -BaseUrl http://127.0.0.1:5090 -RetrySeconds 120
+          test "$(docker inspect --format '{{.Config.User}}' "$API_CONTAINER")" != "0"
+      - name: Always remove the disposable containers and network
+        if: ${{ always() }}
+        shell: bash
+        run: |
+          docker rm --force "$API_CONTAINER" "$SQL_CONTAINER" > /dev/null 2>&1 || true
+          docker network rm "$CI_NET" > /dev/null 2>&1 || true
+
+  deploy:
+    name: Deploy to Azure (manual approval)
+    needs: build-and-prove
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    # Required reviewers and allowed branches are set on this environment in GitHub (CHECKLIST.md).
+    environment: production
+    permissions:
+      contents: read
+      id-token: write
+    concurrency:
+      group: savia-azure-production
+      cancel-in-progress: false
+    env:
+      RG: ${{ vars.SAVIA_RESOURCE_GROUP }}
+      ACR: ${{ vars.SAVIA_ACR_NAME }}
+      APP: ${{ vars.SAVIA_API_APP }}
+      JOB: ${{ vars.SAVIA_MIGRATE_JOB }}
+      SQL_SERVER: ${{ vars.SAVIA_SQL_SERVER }}
+      SQL_DATABASE: ${{ vars.SAVIA_SQL_DATABASE }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: Require the environment variables
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in RG ACR APP JOB SQL_SERVER SQL_DATABASE; do
+            if [ -z "${!name}" ]; then echo "::error::GitHub environment variable for $name is not set."; exit 1; fi
+          done
+      - name: Sign in to Azure with OIDC
+        uses: azure/login@a641126d1b8aa4d1fa005f4f92df94a3a4c4c906 # v3.1.0
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      - name: Build and push the images tagged with the commit
+        id: images
+        shell: bash
+        run: |
+          set -euo pipefail
+          server="$(az acr show --name "$ACR" --query loginServer -o tsv)"
+          az acr login --name "$ACR" --only-show-errors
+          docker build --target migrator --tag "$server/savia-migrator:$GITHUB_SHA" savia
+          docker build --target api --tag "$server/savia-api:$GITHUB_SHA" savia
+          docker push "$server/savia-migrator:$GITHUB_SHA"
+          docker push "$server/savia-api:$GITHUB_SHA"
+          echo "api=$server/savia-api:$GITHUB_SHA" >> "$GITHUB_OUTPUT"
+          echo "migrator=$server/savia-migrator:$GITHUB_SHA" >> "$GITHUB_OUTPUT"
+      - name: Pin all traffic to the current revision
+        id: previous
+        shell: bash
+        run: |
+          set -euo pipefail
+          previous="$(az containerapp ingress traffic show --name "$APP" --resource-group "$RG" \
+            --query "[?weight > \`0\` && revisionName != null].revisionName | [0]" -o tsv)"
+          if [ -z "$previous" ]; then
+            previous="$(az containerapp show --name "$APP" --resource-group "$RG" --query properties.latestReadyRevisionName -o tsv)"
+          fi
+          if [ -z "$previous" ]; then echo "::error::No live revision found."; exit 1; fi
+          az containerapp ingress traffic set --name "$APP" --resource-group "$RG" --revision-weight "$previous=100" --only-show-errors > /dev/null
+          echo "revision=$previous" >> "$GITHUB_OUTPUT"
+          echo "Previous live revision: \`$previous\`" >> "$GITHUB_STEP_SUMMARY"
+      - name: Back up, then run the migration job
+        shell: pwsh
+        run: >-
+          ./savia/deploy/migrate.ps1 -ResourceGroup $env:RG -JobName $env:JOB -SqlServer $env:SQL_SERVER
+          -Database $env:SQL_DATABASE -MigratorImage '${{ steps.images.outputs.migrator }}'
+          -RunId "${{ github.run_id }}-${{ github.run_attempt }}"
+      - name: Create the new revision with no traffic
+        id: candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          suffix="g${GITHUB_SHA:0:7}-${GITHUB_RUN_ATTEMPT}"
+          az containerapp update --name "$APP" --resource-group "$RG" \
+            --image "${{ steps.images.outputs.api }}" --revision-suffix "$suffix" --only-show-errors > /dev/null
+          revision="$APP--$suffix"
+          echo "revision=$revision" >> "$GITHUB_OUTPUT"
+          for attempt in $(seq 1 60); do
+            state="$(az containerapp revision show --name "$APP" --resource-group "$RG" --revision "$revision" --query properties.provisioningState -o tsv)"
+            [ "$state" = "Provisioned" ] && break
+            [ "$state" = "Failed" ] && { echo "::error::Revision $revision failed to provision."; exit 1; }
+            sleep 5
+          done
+          fqdn="$(az containerapp revision show --name "$APP" --resource-group "$RG" --revision "$revision" --query properties.fqdn -o tsv)"
+          echo "fqdn=$fqdn" >> "$GITHUB_OUTPUT"
+      - name: Smoke-test the new revision on its own URL
+        shell: pwsh
+        run: ./savia/deploy/smoke.ps1 -BaseUrl 'https://${{ steps.candidate.outputs.fqdn }}'
+      - name: Send all traffic to the new revision and smoke-test the app URL
+        shell: bash
+        run: |
+          set -euo pipefail
+          az containerapp ingress traffic set --name "$APP" --resource-group "$RG" \
+            --revision-weight "${{ steps.candidate.outputs.revision }}=100" --only-show-errors > /dev/null
+          fqdn="$(az containerapp show --name "$APP" --resource-group "$RG" --query properties.configuration.ingress.fqdn -o tsv)"
+          pwsh -NoProfile -File savia/deploy/smoke.ps1 -BaseUrl "https://$fqdn"
+          echo "Live revision: \`${{ steps.candidate.outputs.revision }}\` at https://$fqdn" >> "$GITHUB_STEP_SUMMARY"
+      - name: Roll back to the previous revision
+        if: ${{ failure() && steps.previous.outputs.revision != '' }}
+        shell: bash
+        run: |
+          set -uo pipefail
+          az containerapp ingress traffic set --name "$APP" --resource-group "$RG" \
+            --revision-weight "${{ steps.previous.outputs.revision }}=100" --only-show-errors > /dev/null
+          if [ -n "${{ steps.candidate.outputs.revision }}" ]; then
+            az containerapp revision deactivate --name "$APP" --resource-group "$RG" \
+              --revision "${{ steps.candidate.outputs.revision }}" --only-show-errors > /dev/null || true
+          fi
+          echo "Rolled back: traffic is on \`${{ steps.previous.outputs.revision }}\`. Database changes are not reverted (migrations are additive; see AZURE.md)." >> "$GITHUB_STEP_SUMMARY"
+          exit 1
