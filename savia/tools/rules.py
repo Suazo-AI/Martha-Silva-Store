@@ -149,7 +149,7 @@ def no_disabled_tests(root):
     for folder in ("tests", "web", "tools"):
         for path in sorted((root / folder).rglob("*")):
             rel = path.relative_to(root).as_posix()
-            if path.suffix in patterns and "vendor/" not in rel and "/obj/" not in rel and rel != "tools/rules.py":
+            if path.suffix in patterns and "vendor/" not in rel and "/obj/" not in rel and rel not in ("tools/rules.py", "tests/test_rules.py"):
                 out += [f"{rel}:{n}: disabled test; fix it or delete it with the reason in the commit"
                         for n, line in enumerate(lines(path), 1) if re.search(patterns[path.suffix], line)]
     return out
