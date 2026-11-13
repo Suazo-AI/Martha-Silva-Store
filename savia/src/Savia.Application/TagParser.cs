@@ -9,89 +9,6 @@ public static partial class TagParser
 {
     private const double Heuristic = 0.6;   // weight of a value found without its label
 
-    private static readonly string[] SkuLabels = ["SKU", "REF", "REFERENCIA", "CODIGO", "COD", "ART", "ARTICULO", "ESTILO", "STYLE", "MODELO", "MOD", "ITEM"];
-    private static readonly string[] SizeLabels = ["TALLA", "SIZE", "TALLE", "TAL", "TLL"];
-    private static readonly string[] ColorLabels = ["COLOR", "COLOUR", "COL"];
-    private static readonly string[] BrandLabels = ["MARCA", "BRAND"];
-    private static readonly string[] NameLabels = ["DESCRIPCION", "DESC", "PRODUCTO", "PRENDA", "DESCRIPTION"];
-    private static readonly string[] PriceLabels = ["PRECIO", "PRICE", "PVP"];
-    private static readonly HashSet<string> Sizes = ["XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL"];
-
-    private static readonly Dictionary<string, string> Colors = new(StringComparer.Ordinal)
-    {
-        ["AZUL"] = "Azul",
-        ["BLUE"] = "Azul",
-        ["NAVY"] = "Azul marino",
-        ["NEGRO"] = "Negro",
-        ["BLACK"] = "Negro",
-        ["ROJO"] = "Rojo",
-        ["RED"] = "Rojo",
-        ["BLANCO"] = "Blanco",
-        ["WHITE"] = "Blanco",
-        ["VERDE"] = "Verde",
-        ["GREEN"] = "Verde",
-        ["GRIS"] = "Gris",
-        ["GREY"] = "Gris",
-        ["GRAY"] = "Gris",
-        ["AMARILLO"] = "Amarillo",
-        ["YELLOW"] = "Amarillo",
-        ["ROSADO"] = "Rosado",
-        ["ROSA"] = "Rosado",
-        ["PINK"] = "Rosado",
-        ["MORADO"] = "Morado",
-        ["PURPLE"] = "Morado",
-        ["CAFE"] = "Café",
-        ["MARRON"] = "Café",
-        ["BROWN"] = "Café",
-        ["BEIGE"] = "Beige",
-        ["NARANJA"] = "Naranja",
-        ["ORANGE"] = "Naranja",
-        ["CELESTE"] = "Celeste",
-        ["CREMA"] = "Crema",
-        ["VINO"] = "Vino",
-        ["DORADO"] = "Dorado",
-        ["PLATEADO"] = "Plateado",
-        ["TURQUESA"] = "Turquesa",
-        ["FUCSIA"] = "Fucsia",
-        ["LILA"] = "Lila",
-        ["KAKI"] = "Kaki",
-        ["KHAKI"] = "Kaki",
-        ["MOSTAZA"] = "Mostaza",
-        ["CORAL"] = "Coral",
-        ["AZUL MARINO"] = "Azul marino",
-    };
-
-    private static readonly Dictionary<string, string> Materials = new(StringComparer.Ordinal)
-    {
-        ["ALGODON"] = "Algodón",
-        ["COTTON"] = "Algodón",
-        ["POLIESTER"] = "Poliéster",
-        ["POLYESTER"] = "Poliéster",
-        ["ELASTANO"] = "Elastano",
-        ["ELASTANE"] = "Elastano",
-        ["SPANDEX"] = "Elastano",
-        ["LYCRA"] = "Elastano",
-        ["VISCOSA"] = "Viscosa",
-        ["VISCOSE"] = "Viscosa",
-        ["RAYON"] = "Rayón",
-        ["ACRILICO"] = "Acrílico",
-        ["ACRYLIC"] = "Acrílico",
-        ["ACRILIC"] = "Acrílico",
-        ["LANA"] = "Lana",
-        ["WOOL"] = "Lana",
-        ["LINO"] = "Lino",
-        ["LINEN"] = "Lino",
-        ["SEDA"] = "Seda",
-        ["SILK"] = "Seda",
-        ["NYLON"] = "Nailon",
-        ["NAILON"] = "Nailon",
-        ["POLIAMIDA"] = "Poliamida",
-        ["POLYAMIDE"] = "Poliamida",
-        ["MODAL"] = "Modal",
-        ["CUERO"] = "Cuero",
-        ["LEATHER"] = "Cuero",
-    };
-
     public static TagFields Parse(IReadOnlyList<OcrLine> raw, string? barcodeHint = null)
     {
         var lines = raw.Select(l => l with { Text = Clean(l.Text) }).Where(l => l.Text.Length > 0)
@@ -128,7 +45,10 @@ public static partial class TagParser
                 if (Sizes.Contains(line.Text.ToUpperInvariant().Replace(" ", "")))
                 { size = Set("size", SizeValue(line.Text), line.Score * Heuristic); used.Add(line); break; }
 
-        var color = Labeled(lines, used, ColorLabels, ColorValue) is { } c ? Set("color", c.Value, c.Score) : null;
+        // After a COLOR label any short word counts: stores name colors the list does not know (Caqui, Terracota).
+        // Such a word may also be a misread (Caaui), so it gets heuristic weight and the phone marks it "Revisar".
+        var color = Labeled(lines, used, ColorLabels, v => ColorValue(v) ?? FreeColor(v)) is { } c
+            ? Set("color", c.Value, ColorValue(c.Value) is null ? c.Score * Heuristic : c.Score) : null;
         if (color is null)
             foreach (var line in lines.Where(l => !used.Contains(l)))
                 if (ColorValue(line.Text) is { } known) { color = Set("color", known, line.Score * Heuristic); used.Add(line); break; }
@@ -202,6 +122,16 @@ public static partial class TagParser
         if (string.IsNullOrWhiteSpace(text)) return null;
         var key = Fold(text).Trim();
         return Colors.TryGetValue(key, out var color) ? color : null;
+    }
+
+    /// <summary>One to three words of letters, as written on the tag with only the first letter capital.</summary>
+    private static string? FreeColor(string text)
+    {
+        var t = text.Trim();
+        if (t.Length is < 3 or > 24 || !t.All(c => char.IsLetter(c) || c is ' ' or '-' or '/') || t.Split(' ', StringSplitOptions.RemoveEmptyEntries).Length > 3
+            || IsLabel(t) || SizeValue(t) is not null) return null;
+        var lower = t.ToLowerInvariant();
+        return char.ToUpperInvariant(lower[0]) + lower[1..];
     }
 
     private static string? SkuValue(string text)

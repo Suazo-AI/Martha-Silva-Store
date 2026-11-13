@@ -30,7 +30,10 @@ if (raw is not null)
 }
 else
 {
-    var root = Path.GetFullPath(Path.Combine(dir, "..", "..", ".."));
+    // The savia/ folder: the first parent of the photo folder that holds the sidecar (photos may sit in a subfolder).
+    var root = dir;
+    while (!File.Exists(Path.Combine(root, "tools", "ocr", "tag_ocr_sidecar.py")))
+        root = Path.GetDirectoryName(root) ?? throw new InvalidOperationException($"No savia/ folder above {dir}");
     using var extractor = new RapidOcrSidecarExtractor(Path.Combine(root, ".ocr", "venv", "Scripts", "python.exe"),
         Path.Combine(root, "tools", "ocr", "tag_ocr_sidecar.py"));
     engineName = extractor.Engine;

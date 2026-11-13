@@ -87,6 +87,20 @@ public sealed class TagExtractTests
         Assert.True(f.Confidence["brand"] < 0.8);            // found without a label: shown as "revisar"
     }
 
+    [Theory]   // generated phone photo of 2026-11-13 (etiqueta-proof/generated/tag2.png) read "COLOR: Caqui" and kept no color
+    [InlineData("COLOR: Caqui", "Caqui")]
+    [InlineData("Color: TERRACOTA", "Terracota")]
+    [InlineData("Color: verde menta", "Verde menta")]
+    [InlineData("COLOR: Azul", "Azul")]
+    [InlineData("COLOR: 12345", null)]
+    public void A_labeled_color_keeps_a_word_the_list_does_not_know(string text, string? color)
+    {
+        var f = TagParser.Parse([L(text, 0, 0, 300, 30)]);
+        Assert.Equal(color, f.Color);
+        // A known color is trusted; an unknown word may be a misread, so the phone marks it "Revisar" (below 0.7).
+        if (color is not null) Assert.Equal(TagParser.ColorValue(color) is not null, f.Confidence["color"] >= 0.7);
+    }
+
     [Fact]
     public void Parser_uses_the_phone_barcode_and_inline_labels()
     {

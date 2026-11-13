@@ -102,6 +102,20 @@ Fix: the start has its own 90 s limit and is not cut by a photo; an answer witho
 Test: `TagExtractTests.Sidecar_json_maps_to_lines_with_boxes` failed before the fix and passes after it.
 Green: right after `pilot.py up`, then again, 6 of 6 tags gave barcode, SKU, size, color and price equal to `expected.json`; a seller got 403.
 
+### Generated phone photos (2026-11-13)
+
+Two photos made with ChatGPT Images, with text chosen in advance: `etiqueta-proof/generated/tag1.png`, `tag2.png` (1086×1448).
+tag1: hand-held, warm light, small angle. tag2: 20°, dim cool light, glare, creased tag, cluttered rack.
+Before use, the printed text of both was checked by eye against `generated/expected.json`; it matched character for character.
+They are closer to a phone photo than the rendered tags, but they are still generated images, not real tags.
+
+Red: `TagProof` gave 14 of 16 fields. The color "Caqui" came back empty: a labeled color was kept only if the list knew it.
+Fix: after a `COLOR` label any short word is kept, with heuristic weight, so the phone marks it "Revisar"; `CAQUI` added to the list.
+Test: `TagExtractTests.A_labeled_color_keeps_a_word_the_list_does_not_know`: 3 cases failed before the fix, 34 of 34 pass after it.
+Green through the real API (`tools/tag_live.py`, now also reads `generated/`): 9 of 9, the six rendered tags, both photos and the seller 403.
+Still wrong, left to the clerk: tag1 brand "ESTRELLADELSUR" (OCR drops the spaces of wide bold capitals); tag2 color "Caaui" (the crease).
+Seconds per photo: 2.66 mean in `TagProof` with the CPU at 32%; 5.1 and 9.0 s through the API with other agents running.
+
 ### Page check in a browser (2026-11-12)
 
 agent-browser (desktop Chromium, 390×844) opened `/etiqueta/` from a scratch static server that faked the API on port 5199.
@@ -116,12 +130,13 @@ Not covered: the real API behind the page, a real phone camera, iOS Safari, Andr
 - SKU: value beside or below `SKU`, `REF`, `ESTILO`, `STYLE`, `ART`, `MODELO`; else a code with letters, digits and hyphens.
 - Size: XXS to XXXL (2XL→XXL, 3XL→XXXL) or 1 to 2 digits (`32`, `10/12`).
 - Price: `C$ 1,250.00`, `1.250,00`, `890` → minor units (125000, 125000, 89000).
-- Color: Spanish or English names, answered in Spanish. Composition: `NN% material`, accents restored.
+- Color: Spanish or English names, answered in Spanish; after a `COLOR` label an unknown word is kept and marked "Revisar".
+- Composition: `NN% material`, accents restored.
 - Brand and name: the first lines with words when no label is printed; confidence ×0.7, so the form marks them "Revisar".
 
 ## Limits
 
-- Tested only with six synthetic tags rendered in a browser. No real garment tag, real phone camera or real Wi-Fi was tested.
+- Tested with six rendered tags and two generated photos. No real garment tag, real phone camera or real Wi-Fi was tested.
 - The PC does not decode barcode bars itself. It uses the phone reading, or the printed digits read by OCR.
 - ZXing-js and `BarcodeDetector` were not exercised on a real phone. The headless browser check used ZXing on desktop Chromium.
 - OCR drops accents ("Pantalon", "Sueter"). The form shows what was read; the clerk corrects it.

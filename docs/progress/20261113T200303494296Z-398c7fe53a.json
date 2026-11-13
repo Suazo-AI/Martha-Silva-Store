@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-13T20:03:03.494296+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/docs/PLAN.md",
+      "change": "M",
+      "git_blob": "e90352a0e5bb1cf61af29e9f1ee85a894fcddafa"
+    },
+    {
+      "path": "savia/docs/pilot/ETIQUETA.md",
+      "change": "M",
+      "git_blob": "e14fe141d3dd78535e0617ee6d16984056a3a9a1"
+    },
+    {
+      "path": "savia/docs/pilot/etiqueta-proof/generated/expected.json",
+      "change": "A",
+      "git_blob": "6a9975b507ed59270c3acb707258e11abb43814c"
+    },
+    {
+      "path": "savia/docs/pilot/etiqueta-proof/generated/result-rapidocr.json",
+      "change": "A",
+      "git_blob": "c8996d667928984c85c1d801704f12bff32269cd"
+    },
+    {
+      "path": "savia/docs/pilot/etiqueta-proof/generated/tag1.png",
+      "change": "A",
+      "git_blob": "670e6ae9b38c043fd1839b806b407bff1a41c38d"
+    },
+    {
+      "path": "savia/docs/pilot/etiqueta-proof/generated/tag2.png",
+      "change": "A",
+      "git_blob": "285ce55c2e01f402b8438ac31c815f8d95cf793a"
+    },
+    {
+      "path": "savia/src/Savia.Application/TagParser.cs",
+      "change": "M",
+      "git_blob": "e1876e23224dbe114b44f79af152e74be9fc0ae7"
+    },
+    {
+      "path": "savia/src/Savia.Application/TagWords.cs",
+      "change": "A",
+      "git_blob": "1667e900423c2db9bd4b83f1e5dad63e2cd42d2b"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/TagExtractTests.cs",
+      "change": "M",
+      "git_blob": "d96bb4f32eb9f9d44f8613ce6c4662130cc0af90"
+    },
+    {
+      "path": "savia/tools/ocr/TagProof/Program.cs",
+      "change": "M",
+      "git_blob": "c09ce95aa0a8f2748fc8c3bf5062a04c4095e382"
+    },
+    {
+      "path": "savia/tools/tag_live.py",
+      "change": "M",
+      "git_blob": "abe17b1e764651289346702f69587a92a682d3aa"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}
