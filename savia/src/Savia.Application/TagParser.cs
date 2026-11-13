@@ -46,12 +46,15 @@ public static partial class TagParser
                 { size = Set("size", SizeValue(line.Text), line.Score * Heuristic); used.Add(line); break; }
 
         // After a COLOR label any short word counts: stores name colors the list does not know (Caqui, Terracota).
-        // Such a word may also be a misread (Caaui), so it gets heuristic weight and the phone marks it "Revisar".
-        var color = Labeled(lines, used, ColorLabels, v => ColorValue(v) ?? FreeColor(v)) is { } c
-            ? Set("color", c.Value, ColorValue(c.Value) is null ? c.Score * Heuristic : c.Score) : null;
+        // A word one letter off a known color is that color (OCR read ROSADO as ROSADD, Caqui as Caaui).
+        // Anything but an exact known color gets heuristic weight, so the phone marks it "Revisar".
+        var exact = false;
+        string? ColorOf(string v) => (exact = ColorValue(v) is not null) ? ColorValue(v) : NearColor(v) ?? FreeColor(v);
+        var color = Labeled(lines, used, ColorLabels, ColorOf) is { } c ? Set("color", c.Value, exact ? c.Score : c.Score * Heuristic) : null;
         if (color is null)
             foreach (var line in lines.Where(l => !used.Contains(l)))
-                if (ColorValue(line.Text) is { } known) { color = Set("color", known, line.Score * Heuristic); used.Add(line); break; }
+                if ((ColorValue(line.Text) ?? NearColor(line.Text)) is { } known)
+                { color = Set("color", known, line.Score * Heuristic); used.Add(line); break; }
 
         long? price = null;
         foreach (var line in lines)
@@ -122,6 +125,28 @@ public static partial class TagParser
         if (string.IsNullOrWhiteSpace(text)) return null;
         var key = Fold(text).Trim();
         return Colors.TryGetValue(key, out var color) ? color : null;
+    }
+
+    /// <summary>One word of five or more letters exactly one edit away from a single known color; null otherwise.</summary>
+    private static string? NearColor(string text)
+    {
+        var t = Fold(text);
+        if (t.Length < 5 || !t.All(char.IsAsciiLetterUpper)) return null;
+        var near = Colors.Where(k => k.Key.Length >= 5 && OneEdit(t, k.Key)).Select(k => k.Value).Distinct().ToList();
+        return near.Count == 1 ? near[0] : null;
+    }
+
+    private static bool OneEdit(string a, string b)
+    {
+        if (a == b || Math.Abs(a.Length - b.Length) > 1) return false;
+        int i = 0, j = 0, edits = 0;
+        while (i < a.Length && j < b.Length)
+        {
+            if (a[i] == b[j]) { i++; j++; continue; }
+            if (++edits > 1) return false;
+            if (a.Length > b.Length) i++; else if (b.Length > a.Length) j++; else { i++; j++; }
+        }
+        return edits + (a.Length - i) + (b.Length - j) == 1;
     }
 
     /// <summary>One to three words of letters, as written on the tag with only the first letter capital.</summary>
@@ -207,7 +232,8 @@ public static partial class TagParser
 
     private static bool IsWordy(string text) =>
         text.Length >= 3 && text.All(c => char.IsLetter(c) || c is ' ' or '-' or '\'' or '&' or '.') && text.Count(char.IsLetter) >= 3
-        && !IsLabel(text) && ColorValue(text) is null && SizeValue(text) is null;
+        && !IsLabel(text) && ColorValue(text) is null && SizeValue(text) is null
+        && !OriginPrefixes.Any(p => Fold(text).StartsWith(p, StringComparison.Ordinal));
 
     /// <summary>Full-width digits to ASCII (NFKC), collapsed spaces.</summary>
     private static string Clean(string text) => Regex.Replace(text.Normalize(NormalizationForm.FormKC), @"\s+", " ").Trim();

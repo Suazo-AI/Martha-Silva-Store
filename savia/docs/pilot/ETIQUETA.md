@@ -116,6 +116,44 @@ Green through the real API (`tools/tag_live.py`, now also reads `generated/`): 9
 Still wrong, left to the clerk: tag1 brand "ESTRELLADELSUR" (OCR drops the spaces of wide bold capitals); tag2 color "Caaui" (the crease).
 Seconds per photo: 2.66 mean in `TagProof` with the CPU at 32%; 5.1 and 9.0 s through the API with other agents running.
 
+### Real tags from the store (2026-11-13)
+
+Jason sent two real photos of one garment (crop top, style LT1558, pink, size M).
+They stay out of Git: real store material. Local copy for re-runs: `savia/.ocr/real-tags/` (ignored), with `expected.json`.
+- Store sticker, upright: internal code + short name, `MSILVA C$ 2,161 (59)`, `TALLA: M`, `ROSADO`, `LA ROS`, thin barcode, `LT1558ROSM`.
+- Supplier tag, photographed turned 90°: `Style No: LT1558`, `Size: M`, `Color: PINK`, `Made In China`.
+
+The store code `LT1558ROSM` is the supplier style + 3 letters of color + size.
+
+Red, before the fixes:
+- Supplier tag: size empty. RapidOCR turns tall crops but not the square "M", and read it as "W". Brand "Made In China".
+- Store sticker: color empty. OCR read `ROSADO` as `ROSADD`.
+- A generated tag turned left (`generated/tag1-ccw.png`) gave 0 of 8 fields; turned right (`tag1-cw.png`) gave 8 of 8.
+
+Fixes:
+- Sidecar: when most text boxes are tall, the photo is sideways. Every box is cut out, turned upright and recognized again.
+  Detection, the slow half, runs once. Boxes move to the upright frame so the parser's layout rules still hold.
+- Parser: a word one letter off a single known color is that color, marked "Revisar" (`ROSADD`→Rosado, `Caaui`→Caqui).
+- Parser: lines starting `MADE IN`, `HECHO EN` or `FABRICADO EN` are never brand or name.
+
+Tests: `A_color_one_letter_off_a_known_color_is_that_color_marked_for_review` and `Made_in_lines_are_neither_brand_nor_name`.
+Both failed before the fix (2 of 36); 36 of 36 pass after it.
+
+Green in `TagProof`:
+- Supplier tag: SKU `LT1558`, size `M`, color Rosado, no brand, no name.
+- Generated, 4 photos (2 upright, 2 sideways): 31 of 32 fields; only the old "ESTRELLADELSUR" brand.
+- Six rendered tags: unchanged, 47 of 48 (name "Camisaoxford" as before).
+
+Still wrong on the store sticker, left to the clerk:
+- SKU `LT155880SM` instead of `LT1558ROSM` (R read as 8, O as 0).
+- The code+name line read as `HUTINESI CROP TOPLA` and went to brand; name got `CROS`.
+- The barcode is too thin and blurred for the phone reader in this photo.
+A store sticker means the garment is already in the catalog; scanning its barcode is the right path, not a photo.
+
+Time: one OCR pass took 4.4 to 4.8 s on this PC today (2.7 s earlier, other agents were running).
+The sideways re-read added 0.3 to 2 s. Sideways photos through the API may near the 12 s timeout on a busy PC.
+Through the real API (`tools/tag_live.py`): 11 of 11; `tag1-cw` 4.7 s, `tag1-ccw` 2.7 s (`verify.py` 13 of 13).
+
 ### Page check in a browser (2026-11-12)
 
 agent-browser (desktop Chromium, 390×844) opened `/etiqueta/` from a scratch static server that faked the API on port 5199.
@@ -131,12 +169,16 @@ Not covered: the real API behind the page, a real phone camera, iOS Safari, Andr
 - Size: XXS to XXXL (2XL→XXL, 3XL→XXXL) or 1 to 2 digits (`32`, `10/12`).
 - Price: `C$ 1,250.00`, `1.250,00`, `890` → minor units (125000, 125000, 89000).
 - Color: Spanish or English names, answered in Spanish; after a `COLOR` label an unknown word is kept and marked "Revisar".
+- Color: a word one letter off a single known color becomes that color, marked "Revisar".
+- Sideways photo: the sidecar turns each text box upright and reads it again.
 - Composition: `NN% material`, accents restored.
 - Brand and name: the first lines with words when no label is printed; confidence ×0.7, so the form marks them "Revisar".
+- `Made in ...` lines are never brand or name.
 
 ## Limits
 
-- Tested with six rendered tags and two generated photos. No real garment tag, real phone camera or real Wi-Fi was tested.
+- Tested with six rendered tags, four generated photos and two real photos of one garment (sent by Jason).
+- No real phone camera, upload over real Wi-Fi or upside-down photo was tested.
 - The PC does not decode barcode bars itself. It uses the phone reading, or the printed digits read by OCR.
 - ZXing-js and `BarcodeDetector` were not exercised on a real phone. The headless browser check used ZXing on desktop Chromium.
 - OCR drops accents ("Pantalon", "Sueter"). The form shows what was read; the clerk corrects it.

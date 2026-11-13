@@ -9,6 +9,7 @@ public static partial class TagParser
     private static readonly string[] BrandLabels = ["MARCA", "BRAND"];
     private static readonly string[] NameLabels = ["DESCRIPCION", "DESC", "PRODUCTO", "PRENDA", "DESCRIPTION"];
     private static readonly string[] PriceLabels = ["PRECIO", "PRICE", "PVP"];
+    private static readonly string[] OriginPrefixes = ["MADE IN", "HECHO EN", "FABRICADO EN"];   // country of origin, never brand or name
     private static readonly HashSet<string> Sizes = ["XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL"];
 
     private static readonly Dictionary<string, string> Colors = new(StringComparer.Ordinal)

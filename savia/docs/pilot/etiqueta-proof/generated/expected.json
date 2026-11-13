@@ -1,5 +1,50 @@
 [
-  {"file": "tag1.png", "kind": "foto generada: mano, luz cálida, poco ángulo", "barcode": "7460098765435", "sku": "BL-4471-RS", "name": "Blusa de lino", "brand": "ESTRELLA DEL SUR", "size": "M", "color": "Rosado", "priceMinor": 135000, "composition": "55% Lino 45% Algodón"},
-  {"file": "tag2.png", "kind": "foto generada: 20°, luz fría tenue, reflejo, arrugada", "barcode": "7460055512348", "sku": "PC-9023-KH", "name": "Pantalón cargo", "brand": "MARINA BLUE", "size": "34", "color": "Caqui", "priceMinor": 98000, "composition": "100% Algodón",
-   "knownMisreads": {"color": "RapidOCR 1.4.4 reads the creased 'Caqui' as 'Caaui'; the phone marks it Revisar"}}
+  {
+    "file": "tag1.png",
+    "kind": "foto generada: mano, luz cálida, poco ángulo",
+    "barcode": "7460098765435",
+    "sku": "BL-4471-RS",
+    "name": "Blusa de lino",
+    "brand": "ESTRELLA DEL SUR",
+    "size": "M",
+    "color": "Rosado",
+    "priceMinor": 135000,
+    "composition": "55% Lino 45% Algodón"
+  },
+  {
+    "file": "tag2.png",
+    "kind": "foto generada: 20°, luz fría tenue, reflejo, arrugada",
+    "barcode": "7460055512348",
+    "sku": "PC-9023-KH",
+    "name": "Pantalón cargo",
+    "brand": "MARINA BLUE",
+    "size": "34",
+    "color": "Caqui",
+    "priceMinor": 98000,
+    "composition": "100% Algodón"
+  },
+  {
+    "file": "tag1-cw.png",
+    "kind": "tag1 girada 90° a la derecha",
+    "barcode": "7460098765435",
+    "sku": "BL-4471-RS",
+    "name": "Blusa de lino",
+    "brand": "ESTRELLA DEL SUR",
+    "size": "M",
+    "color": "Rosado",
+    "priceMinor": 135000,
+    "composition": "55% Lino 45% Algodón"
+  },
+  {
+    "file": "tag1-ccw.png",
+    "kind": "tag1 girada 90° a la izquierda",
+    "barcode": "7460098765435",
+    "sku": "BL-4471-RS",
+    "name": "Blusa de lino",
+    "brand": "ESTRELLA DEL SUR",
+    "size": "M",
+    "color": "Rosado",
+    "priceMinor": 135000,
+    "composition": "55% Lino 45% Algodón"
+  }
 ]

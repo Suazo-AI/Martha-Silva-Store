@@ -101,6 +101,31 @@ public sealed class TagExtractTests
         if (color is not null) Assert.Equal(TagParser.ColorValue(color) is not null, f.Confidence["color"] >= 0.7);
     }
 
+    [Fact]   // real store sticker of 2026-11-13, OCR lines as RapidOCR 1.4.4 read them
+    public void A_color_one_letter_off_a_known_color_is_that_color_marked_for_review()
+    {
+        var f = TagParser.Parse([
+            L("HUTINESI CROP TOPLA", 0, 0, 400, 30, 0.73), L("MSILVA C$ 2,161(59)", 0, 40, 400, 70, 0.86),
+            L("TALLA:M", 0, 80, 150, 110, 0.96), L("ROSADD", 0, 120, 150, 150, 0.73), L("CROS", 0, 160, 120, 190, 0.71),
+            L("LT155880SM", 0, 240, 300, 270, 0.85),
+        ]);
+        Assert.Equal(("M", "Rosado", 216100L), (f.Size, f.Color, f.PriceMinor));
+        Assert.True(f.Confidence["color"] < 0.7);
+        Assert.Equal("Caqui", TagParser.Parse([L("COLOR: Caaui", 0, 0, 300, 30)]).Color);   // generated tag2 misread
+        Assert.Null(TagParser.Parse([L("BLUSA", 0, 0, 200, 30)]).Color);   // two letters from "Blue": a word, not a color
+    }
+
+    [Fact]   // real supplier tag of 2026-11-13 (photographed sideways), upright reading
+    public void Made_in_lines_are_neither_brand_nor_name()
+    {
+        var f = TagParser.Parse([
+            L("Style No:", 0, 0, 200, 30), L("LT1558", 0, 40, 160, 70), L("Size:M", 0, 80, 140, 110),
+            L("Color:", 0, 120, 120, 150), L("PINK", 0, 160, 100, 190), L("Made In China", 0, 200, 260, 230),
+        ]);
+        Assert.Equal(("LT1558", "M", "Rosado"), (f.Sku, f.Size, f.Color));
+        Assert.Equal((null, null), (f.Brand, f.Name));
+    }
+
     [Fact]
     public void Parser_uses_the_phone_barcode_and_inline_labels()
     {
