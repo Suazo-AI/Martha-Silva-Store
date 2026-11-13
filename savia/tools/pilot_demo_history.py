@@ -51,7 +51,11 @@ DECLARE @previous uniqueidentifier=NULL,@sale uniqueidentifier,@till uniqueident
 DECLARE @lines sales.SaleLineRequest,@tenders sales.SaleTenderRequest,@returnLines sales.ReturnLineRequest;
 WHILE @day<60
 BEGIN
- SET @at=DATEADD(hour,15,CONVERT(datetime2,DATEADD(day,@day-59,@today)));EXEC core.usp_SetDemoDate @at;
+ SET @at=DATEADD(hour,15,CONVERT(datetime2,DATEADD(day,@day-59,@today)));
+ -- Before 15:00 UTC the last day would be in the future; keep it in today's Nicaragua date, just before now.
+ IF @at>DATEADD(millisecond,-10,SYSUTCDATETIME()) SET @at=DATEADD(millisecond,-10,SYSUTCDATETIME());
+ IF @day=59 AND @at<DATEADD(hour,6,CONVERT(datetime2,@today)) SET @at=DATEADD(hour,6,CONVERT(datetime2,@today));
+ EXEC core.usp_SetDemoDate @at;
  SET @till=NEWID();EXEC sales.usp_OpenTillCounted @till,@register,@manager,'NIO',100000,@node,N'[{"denominationMinor":50000,"quantity":2}]';
  -- Replenishment with a damaged and a missing unit; only the three good units are sellable.
  IF @day%7=0

@@ -66,7 +66,10 @@ SET @n=(SELECT CashDifferenceMinor FROM accounting.CloseDocuments WHERE Id=@doc)
 EXEC test.AssertEq N'diferencia de caja',0,@n;
 
 SET @n=(SELECT COUNT(*) FROM accounting.CloseDocumentLines WHERE CloseDocumentId=@doc);
-EXEC test.AssertEq N'lineas del documento',11,@n;
+-- V024 adds one line per return kind; this till has one credit return.
+EXEC test.AssertEq N'lineas del documento',12,@n;
+SET @n=(SELECT AmountMinor FROM accounting.CloseDocumentLines WHERE CloseDocumentId=@doc AND ConceptCode='REFUND_CREDIT');
+EXEC test.AssertEq N'linea de devoluciones por anticipo',-293239,@n;
 SET @n=(SELECT AmountMinor FROM accounting.CloseDocumentLines WHERE CloseDocumentId=@doc AND ConceptCode='EXPECTED_CASH');
 EXEC test.AssertEq N'linea de efectivo esperado',600000,@n;
 SET @n=(SELECT AmountMinor FROM accounting.CloseDocumentLines WHERE CloseDocumentId=@doc AND ConceptCode='SALE_GROSS');

@@ -96,6 +96,16 @@ public static class DbErrors
         [52004] = ("input.id_reused", ErrorKind.Conflict),
         [52005] = ("sale.customer_not_needed", ErrorKind.Validation),
         [52006] = ("receiving.quality", ErrorKind.Validation),
+        // V024: shared sales, return outcomes and window, catalog import.
+        [52009] = ("sale.too_many_sellers", ErrorKind.Validation),
+        [52020] = ("return.outcome", ErrorKind.Validation),
+        [52021] = ("return.transfer_reference", ErrorKind.Validation),
+        [52022] = ("return.exchange_lines", ErrorKind.Validation),
+        [52023] = ("return.window_expired", ErrorKind.Conflict),
+        [52024] = ("return.till_cash_short", ErrorKind.Conflict),
+        [52025] = ("return.difference_kind", ErrorKind.Validation),
+        [52030] = ("import.file", ErrorKind.Validation),
+        [52031] = ("import.row_errors", ErrorKind.Conflict),
         [51901] = ("customer.search_too_short", ErrorKind.Validation),
         // V009: credit transfer as transition rows, one writer per row.
         [51719] = ("credit.transfer_retired", ErrorKind.NotFound),

@@ -16,6 +16,7 @@ import exceptions from './screens/exceptions.mjs';
 import approvals from './screens/approvals.mjs';
 import commissions from './screens/commissions.mjs';
 import prices from './screens/prices.mjs';
+import importer from './screens/import.mjs';
 import qualityReport from './screens/quality-report.mjs';
 import settings, { applyPalette } from './screens/settings.mjs';
 import { syncTill } from './screens/till-open.mjs';
@@ -37,6 +38,7 @@ const ROUTES = {
   'aprobaciones': approvals,
   'comisiones': commissions,
   'precios': prices,
+  'importar': importer,
   'calidad': qualityReport,
 };
 const APPROVER_ROLES = ['MANAGER', 'OWNER'];

@@ -27,6 +27,8 @@ OWNER = "duena.muestra"
 PASSWORDS = {name+'.muestra':os.environ.get('SAVIA_PILOT_PASSWORD_'+name.upper()) for name in ('duena','gerente','vendedor1','vendedor2','bodega')}
 
 CODE = "7500001000014"
+IMPORT_CSV = Path(__file__).resolve().parents[2] / "docs" / "pilot" / "import-samples" / "catalogo-ejemplo.csv"
+IMPORT_OK = {'Codigo ya registrado.', 'SKU repetido o ya registrado.'}
 SHOTS = Path(__file__).resolve().parents[2] / "docs" / "pilot" / "screens"
 AB = shutil.which("agent-browser")
 if AB and Path(AB).suffix.lower() in (".cmd", ".bat"):
@@ -163,7 +165,7 @@ def go(route: str, ready_selector: str):
 
 def action_ref(selector: str):
     """Take a fresh accessibility snapshot before each interaction, then use its ref."""
-    target = js(f"const e=document.querySelector({json.dumps(selector)}); if (!e) return null; const label = [...(e.labels || [])].map(l=>{{const c=l.cloneNode(true);c.querySelectorAll('input,select,textarea,button').forEach(n=>n.remove());return c.textContent.trim();}}).join(' '); return {{name:e.getAttribute('aria-label') || label || e.textContent.trim(), role:['BUTTON','SUMMARY'].includes(e.tagName)?'button':e.tagName==='SELECT'?'combobox':e.type==='search'?'searchbox':e.type==='number'?'spinbutton':'textbox'}};")
+    target = js(f"const e=document.querySelector({json.dumps(selector)}); if (!e) return null; const label = [...(e.labels || [])].map(l=>{{const c=l.cloneNode(true);c.querySelectorAll('input,select,textarea,button').forEach(n=>n.remove());return c.textContent.trim();}}).join(' '); return {{name:e.getAttribute('aria-label') || label || e.textContent.trim(), role:e.getAttribute('role')||(['BUTTON','SUMMARY'].includes(e.tagName)?'button':e.tagName==='SELECT'?'combobox':e.type==='search'?'searchbox':e.type==='number'?'spinbutton':'textbox')}};")
     check(target is not None, f"No element for {selector}")
     refs = json.loads(ab("snapshot", "-i", "--json"))["data"]["refs"]
     matches = [key for key, node in refs.items() if node.get("name") == target["name"] and node.get("role") == target["role"]]
@@ -197,11 +199,13 @@ def layout_check():
     check(js("return [...document.querySelectorAll('.ticket input,.ticket button')].filter(e=>e.getClientRects().length).every(e=>{const p=e.closest('.ticket').getBoundingClientRect(),r=e.getBoundingClientRect();return r.left>=p.left && r.right<=p.right+1;});"), 'ticket control is clipped horizontally')
 
 
-def shot(name: str):
+def shot(name: str, view: str | None = None):
     layout_check()
     ab('set','viewport','1440','900')
     layout_check()
     ab('set','viewport','1024','768')
+    if view:
+        js(f"document.querySelector({json.dumps(view)}).scrollIntoView({{block:'center'}});return true;")
     SHOTS.mkdir(parents=True, exist_ok=True)
     ab("screenshot", str(SHOTS / f"{name}.png"))
 
@@ -294,9 +298,9 @@ def main() -> int:
     try:
         ab('open',WEB+'/');BROWSER_RUNTIME=json.loads(ab('session','info','--json',timeout=5))['data'];ab('set','viewport','1024','768')
         expected={
-          'duena.muestra':{'venta','caja','historial','recepcion','inventario','clientes','ajustes','excepciones','reporte','aprobaciones','comisiones','precios','calidad'},
+          'duena.muestra':{'venta','caja','historial','recepcion','inventario','clientes','ajustes','excepciones','reporte','aprobaciones','comisiones','precios','calidad','importar'},
           'gerente.muestra':{'venta','caja','historial','recepcion','inventario','clientes','ajustes','excepciones','reporte','comisiones','calidad'},
-          'vendedor1.muestra':{'ajustes','comisiones'},'vendedor2.muestra':{'ajustes','comisiones'},
+          'vendedor1.muestra':{'ajustes','comisiones','reporte'},'vendedor2.muestra':{'ajustes','comisiones','reporte'},
           'bodega.muestra':{'recepcion','inventario','ajustes','calidad'},
         }
         for name,routes in expected.items():
@@ -306,6 +310,10 @@ def main() -> int:
             if name.startswith('vendedor'):
                 check(js("return document.querySelector('#till-state').hidden;"),'seller cannot see till')
                 status,_=call('GET','/cash/registers',token=tokens[name]);check(status==403,'seller API till denied')
+                # Reportes for a seller: only the Equipo tab and only her own row, as SQL returns it.
+                go('reporte','#kpi-sellers tbody tr')
+                check(js("return !document.querySelector('#tab-negocio') && document.querySelectorAll('#kpi-sellers tbody tr').length===1;"),'seller sees only her team row')
+                status,_=call('GET','/reports/kpi/business?period=day&date='+today,token=tokens[name]);check(status==403,'seller business KPIs denied')
             print('PASS role '+name,flush=True)
         # A stock worker classifies real expected units; cancellation is read back before any write.
         suppliers=get('/suppliers',warehouse);catalog=get('/catalog/items')
@@ -328,29 +336,73 @@ def main() -> int:
         login_ui('gerente.muestra');post(f'/receiving/sessions/{session}/approve');post(f'/receiving/sessions/{session}/post')
         registers=get('/cash/registers');check(not registers[0]['openTillId'],'closed till before browser sale')
         till=str(uuid.uuid4());post('/cash/tills',{'tillId':till,'registerId':registers[0]['registerId'],'currencyCode':'NIO','openingMinor':100000,'lines':[{'denominationMinor':50000,'quantity':2}]})
-        go('venta','#seller-chips');wait_for("document.querySelectorAll('#seller-chips button').length===2",'seller chips')
-        wait_for("document.querySelector('#cards button.product')",'sale catalog')
+        # Shared sale: the manager adds a second seller; each line keeps its own seller on one receipt and one payment.
+        go('venta','#sale-seller');wait_for("document.querySelector('#cards button.product')",'sale catalog')
         check(js("return !document.querySelector('#sale-customer-search');"),'no customer field in normal Venta')
-        sellers=get('/sellers')
-        click('#seller-chips button[data-seller="'+sellers[0]['sellerId']+'"]')
-        js('savia.handleScan('+json.dumps(first['barcode'])+');return true;');wait_for("document.querySelectorAll('.tline').length===1",'first seller line')
-        click('#seller-chips button[data-seller="'+sellers[1]['sellerId']+'"]')
-        js('savia.handleScan('+json.dumps(second['barcode'])+');return true;');wait_for("document.querySelectorAll('.tline').length===2",'second seller line')
-        shot('venta-vendedoras')
+        sellers=get('/sellers');check(len(sellers)>=2,'two active sellers')
+        select('#sale-seller',sellers[0]['sellerId'])
+        click('#shared-sale');wait_for("document.querySelector('#sale-seller-2')",'second seller slot')
+        select('#sale-seller-2',sellers[1]['sellerId'])
+        js('savia.handleScan('+json.dumps(first['barcode'])+');return true;');wait_for("document.querySelectorAll('.tline').length===1",'first line')
+        js('savia.handleScan('+json.dumps(second['barcode'])+');return true;');wait_for("document.querySelectorAll('.tline').length===2",'second line')
+        check(js("return [...document.querySelectorAll('.tline select.line-seller')].map(s=>s.value);")==[sellers[0]['sellerId']]*2,'new lines default to the first seller')
+        label=js("return document.querySelectorAll('.tline select.line-seller')[1].getAttribute('aria-label');")
+        select('select[aria-label='+json.dumps(label,ensure_ascii=False)+']',sellers[1]['sellerId'])
+        wait_for("[...document.querySelectorAll('.tline select.line-seller')].map(s=>s.value).join()==="+json.dumps(sellers[0]['sellerId']+','+sellers[1]['sellerId']),'second line seller')
+        shot('venta-compartida')
         amount=first['unitPriceMinor']+second['unitPriceMinor'];fill('#received',str(amount/100))
         click('#pay');wait_for("document.querySelector('#receipt') && !document.querySelector('#receipt').hidden",'sale receipt')
         saleid=js("return document.querySelector('#receipt .num.muted')?.textContent?.match(/[0-9a-f-]{36}/i)?.[0] ?? document.querySelector('#receipt').textContent.match(/[0-9a-f-]{36}/i)?.[0];")
         detail=get('/sales/'+saleid);check(detail['customerId'] is None,'normal sale API has no customer')
-        check([l['sellerId'].lower() for l in detail['lines']]==[s['sellerId'].lower() for s in sellers],'ticket seller attribution persisted')
-        # A return generates an advance; customer identity is used only for that advance.
+        check([l['sellerId'].lower() for l in detail['lines']]==[s['sellerId'].lower() for s in sellers[:2]],'per-line sellers persisted')
+        check(len(detail['tenders'])==1,'one payment for the shared sale')
+        shown=js("return [...document.querySelectorAll('#receipt .line-seller-name')].map(e=>e.textContent.trim());")
+        check(shown==['Vendedor: '+l['sellerName'] for l in detail['lines']],'receipt shows the seller per line')
+        print('PASS shared sale with two sellers, one receipt and one payment',flush=True)
+        # Returns: the four outcomes are offered; a bank transfer is recorded with its reference and leaves the till untouched.
+        cash_before=get('/cash/tills/'+till+'/summary')['expectedCashMinor']
+        line1=detail['lines'][0]
+        go('devolucion?sale='+saleid,'#refund-outcomes')
+        check(js("return [...document.querySelectorAll('#refund-outcomes input[type=radio]')].map(r=>r.value).join();")=='exchange,credit,cash,transfer','four return outcomes')
+        fill('#return-qty-1','1');fill('#return-reason','Talla equivocada E2E')
+        ab('click','#outcome-transfer');wait_for("document.querySelector('#return-reference')",'transfer reference field')
+        reference='TRF-E2E-'+uuid.uuid4().hex[:6].upper();fill('#return-reference',reference)
+        shot('devolucion-resultados','#refund-outcomes')
+        click('#return-submit');wait_for("document.querySelector('#confirm-yes')",'return confirmation')
+        click('#confirm-no');check(not any(r['settlementKind']=='transfer' for r in get('/sales/'+saleid)['reversals']),'No volver leaves returns unchanged')
+        click('#return-submit');click('#confirm-yes');wait_for("document.querySelector('#return-result') && !document.querySelector('#return-result').hidden",'return result')
+        reversal=next(r for r in get('/sales/'+saleid)['reversals'] if r['settlementKind']=='transfer')
+        check(text('#return-total')==money(reversal['creditMinor']),'return total equals API')
+        check(get('/cash/tills/'+till+'/summary')['expectedCashMinor']==cash_before,'transfer refund leaves the till untouched')
+        shot('devolucion-transferencia')
+        # The second seller's line goes back as store credit through the API; both reversals reverse commission.
         customers=get('/customers?q=Clienta')
-        post('/sales/'+saleid+'/returns/credit',{'reversalId':str(uuid.uuid4()),'creditId':str(uuid.uuid4()),'tillId':till,'customerId':customers[0]['customerId'],'reason':'Cambio de talla E2E','lines':[{'saleLineId':detail['lines'][0]['saleLineId'],'quantity':1,'restockPool':'store'}]})
-        go('comisiones','#commissions');wait_for("document.querySelectorAll('#commissions article').length===2",'commission rows')
-        report=get('/reports/commissions?period=day&date='+today)
-        for row in report:
+        post('/sales/'+saleid+'/returns/credit',{'reversalId':str(uuid.uuid4()),'creditId':str(uuid.uuid4()),'tillId':till,'customerId':customers[0]['customerId'],'reason':'Cambio de talla E2E','lines':[{'saleLineId':detail['lines'][1]['saleLineId'],'quantity':1,'restockPool':'store'}]})
+        print('PASS four outcomes offered; transfer refund with reference; till unchanged',flush=True)
+        go('comisiones','#commissions');wait_for("document.querySelectorAll('#commissions article').length>=2",'commission rows')
+        commissions=get('/reports/commissions?period=day&date='+today)
+        for row in commissions:
             shown=text('#commissions [data-seller="'+row['sellerId']+'"] .commission-payable')
             check(shown=='Por pagar '+money(row['commissionPayableMinor']),'web commission equals API')
-        shot('comisiones');print('PASS two sellers and return; commissions equal API',flush=True)
+        shot('comisiones')
+        # Reportes: every figure on screen is the API value.
+        go('reporte','#kpi-business');team=get('/reports/kpi/team?period=day&date='+today);business=get('/reports/kpi/business?period=day&date='+today)
+        for key,fmt in (('netSalesMinor',money),('salesCount',str),('averageTicketMinor',money),('grossMarginMinor',money),('stockValueAtCostMinor',money)):
+            check(text('#kpi-'+key)==fmt(business[key]),'Negocio '+key+' equals API')
+        for row in business['refundsByKind']:
+            check(text('#kpi-refunds [data-kind="'+row['kind']+'"] [data-field="amountMinor"]')==money(row['amountMinor']),'refunds by kind equal API')
+        check({r['kind'] for r in business['refundsByKind']}>={'transfer','credit'},'Negocio lists transfer and credit refunds')
+        check(js("return document.querySelectorAll('#report-refunds-by-kind tbody tr').length;")==len(get('/reports/day?date='+today)['refundsByKind']),'day report refunds by kind equal API')
+        shot('reportes-negocio')
+        click('#tab-equipo');wait_for("document.querySelector('#kpi-sellers')",'Equipo tab')
+        payable={r['sellerId'].lower():r['commissionPayableMinor'] for r in commissions}
+        for row in team['sellers']:
+            for key in ('netSalesMinor','discountsMinor','commissionPayableMinor'):
+                check(text('#kpi-sellers [data-seller="'+row['sellerId']+'"] [data-field="'+key+'"]')==money(row[key]),'Equipo '+key+' equals API')
+            check(text('#kpi-sellers [data-seller="'+row['sellerId']+'"] [data-field="tickets"]')==str(row['tickets']),'Equipo tickets equals API')
+            if row['sellerId'].lower() in payable: check(row['commissionPayableMinor']==payable[row['sellerId'].lower()],'Equipo commission equals commission report')
+        check(all(r['sellerId'].lower() in {t['sellerId'].lower() for t in team['sellers']} for r in commissions),'every paid seller appears in Equipo')
+        shot('reportes-equipo');print('PASS Reportes Negocio and Equipo equal the API; commissions equal API',flush=True)
         # Only the owner edits values. Cancellation and acceptance both have authoritative API reads.
         values=get('/catalog/values?q='+first['sku']);old=values[0]
         status,_=call('POST','/catalog/items/'+first['itemId']+'/values',{'changeId':str(uuid.uuid4()),'priceMinor':old['priceMinor']+100,'costMinor':old['costMinor'],'reason':'No autorizado'},manager)
@@ -368,6 +420,20 @@ def main() -> int:
         newbody={'saleId':str(uuid.uuid4()),'tillId':till,'currencyCode':'NIO','lines':[{'lineNumber':1,'itemId':first['itemId'],'quantity':1,'unitPriceMinor':newprice,'sellerId':sellers[0]['sellerId']}],'tenders':[{'tenderNumber':1,'tenderKind':'card','amountMinor':newprice}]}
         post('/sales',newbody);check(get('/sales/'+newbody['saleId'])['lines'][0]['unitPriceMinor']==newprice,'next sale uses owner price')
         go('aprobaciones','#approval-list');wait_for("document.querySelector('#approval-list article')",'approvals');shot('aprobaciones')
+        # Owner import: the first run creates the sample batch; later runs must show every row as already registered.
+        go('importar','#import-file');ab('upload','#import-file',str(IMPORT_CSV))
+        wait_for("document.querySelector('#import-map') && !document.querySelector('#import-map').hidden",'import mapping')
+        check(js("return ['code','sku','name','price','stock'].map(f=>document.querySelector('#map-'+f).value).join();")=='0,1,2,7,8','Spanish headers mapped')
+        click('#import-preview-button');wait_for("document.querySelector('#import-rowsCount')",'import preview')
+        check(text('#import-rowsCount')=='4','four sample rows')
+        if text('#import-errorCount')=='0':
+            click('#import-confirm');click('#confirm-yes');wait_for("document.querySelector('#import-batch')",'import result')
+            check(text('#import-created')=='4 prendas · 10 unidades','import result')
+        else:
+            messages=set(js("return [...document.querySelectorAll('#import-errors tbody td:last-child')].map(e=>e.textContent);"))
+            check(messages and messages<=IMPORT_OK and not js("return document.querySelector('#import-confirm');"),'repeat import refused as already registered')
+        imported=get('/catalog/search?q=7459990001017',owner);check(len(imported)==1 and imported[0]['unitPriceMinor']==98000,'imported item readable through the API')
+        shot('importar-catalogo','#import-preview');print('PASS owner catalog import',flush=True)
         count=get('/cash/tills/'+till+'/summary')['expectedCashMinor'];denominations=get('/cash/denominations');remaining=count;lines=[]
         for d in denominations:
             q,remaining=divmod(remaining,d);lines.append({'denominationMinor':d,'quantity':q})

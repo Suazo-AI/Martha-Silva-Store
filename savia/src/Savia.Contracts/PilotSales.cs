@@ -20,7 +20,19 @@ public sealed record CustomerRow(Guid CustomerId, string? CustomerCode, string D
 public sealed record CustomerCreditRow(Guid CustomerId, string DisplayName, string? Phone, string? Email, Guid CreditId,
     string CurrencyCode, Guid BranchId, string BranchName, long AvailableMinor);
 public sealed record DayReport(DateOnly Date, Guid BranchId, int SalesCount, long UnitsSold, DayTotal[] Totals,
-    DayTenderTotal[] Tenders, DayReturn[] Returns, DayTill[] Tills, DayTopItem[] TopItems);
+    DayTenderTotal[] Tenders, DayReturn[] Returns, DayTill[] Tills, DayTopItem[] TopItems, DayRefundKind[]? RefundsByKind = null);
+/// <summary>Returns of one day grouped by till and outcome: credit, cash, transfer or exchange.</summary>
+public sealed record DayRefundKind(Guid? TillId, string Kind, int ReturnsCount, long AmountMinor, long CashOutMinor);
+/// <summary>Cash refund, bank transfer refund or exchange. Store credit keeps <see cref="PostCreditReturnRequest"/>.</summary>
+public sealed record PostReturnOutcomeRequest(Guid ReversalId, string Outcome, Guid TillId, string Reason, ReturnLine[] Lines,
+    string? Reference = null, Guid? ExchangeSaleId = null, SaleLine[]? NewLines = null, SaleTender[]? NewTenders = null,
+    string? DifferenceKind = null, string? DifferenceReference = null);
+public sealed record ReturnWindowRequest(Guid ChangeId, int WindowDays, string Reason);
+public sealed record ImportFileRequest(string FileName, string ContentBase64);
+public sealed record ImportFile(string FileName, string[] Headers, string[][] Rows);
+public sealed record ImportRow(int Row, string? Code, string? Sku, string? Name, string? Type, string? Size, string? Color,
+    string? Cost, string? Price, string? Stock);
+public sealed record ImportCatalogRequest(Guid BatchId, string FileName, ImportRow[] Rows);
 public sealed record DayTotal(string CurrencyCode, int SaleCount, long TotalMinor);
 public sealed record DayTenderTotal(string CurrencyCode, string TenderKind, int SaleCount, long TotalMinor);
 public sealed record DayReturn(Guid ReversalId, Guid SaleId, string CurrencyCode, string SettlementKind, long CreditMinor, long UnitsReturned);

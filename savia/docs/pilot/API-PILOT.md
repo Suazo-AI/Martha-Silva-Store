@@ -73,6 +73,14 @@ Cash received minus change must match the tender amount.
 | GET /sales?from=&to=&q=&page=&pageSize= | MANAGER, OWNER | History |
 | GET /sales/{id} | MANAGER, OWNER | Detail, seller attribution, tenders, reversals |
 | POST /sales/{id}/returns/credit | MANAGER, OWNER | `{reversalId,creditId,tillId,customerId,reason,lines[{saleLineId,quantity,restockPool}]}` |
+| POST /sales/{id}/returns/outcome | MANAGER, OWNER | `{reversalId,outcome:cash\|transfer\|exchange,tillId,reason,lines,reference?,exchangeSaleId?,newLines?,newTenders?,differenceKind?,differenceReference?}` |
+| GET /returns/policy | SELLER, MANAGER, OWNER | `{windowDays}` (default 30) |
+| POST /returns/policy | OWNER | `{changeId,windowDays,reason}` |
+| GET /reports/kpi/business(.csv)?period=&date= | MANAGER, OWNER | Negocio KPIs from `sales.usp_KpiBusiness` |
+| GET /reports/kpi/team(.csv)?period=&date= | SELLER, MANAGER, OWNER | Equipo KPIs; a seller gets only her row |
+| POST /catalog/import/file | OWNER | `{fileName,contentBase64}` -> `{fileName,headers,rows}`; CSV or XLSX, 5 MB, 5000 rows |
+| POST /catalog/import/preview | OWNER | `{batchId,fileName,rows[{row,code,sku,name,type,size,color,cost,price,stock}]}` -> counts, errors, sample |
+| POST /catalog/import | OWNER | Same body; one transaction; 409 `import.row_errors` when any row fails |
 
 Commission rows include `sellerId,name,rateBps,salesLines,units,netSoldMinor,returnedUnits,returnsMinor,
 commissionEarnedMinor,commissionReversedMinor,commissionPayableMinor`.
@@ -81,8 +89,31 @@ Partial returns allocate the original commission cumulatively so a full return r
 Reversal belongs to the return period. Rate changes do not rewrite sale snapshots.
 Periods use Nicaragua dates and Monday weeks. Return customer identity belongs to the issued advance;
 the original anonymous sale remains anonymous. Restock pool is store or quarantine.
-The available reversal procedure is `sales.usp_PostCreditReturn`; it is a credit return, not a void or exchange.
-There is no complete layaway, exchange or sale-void workflow in this delivery.
+Shared sale (V024): a ticket has up to 3 sellers. Commission goes to each line's seller.
+SQL rejects a line without seller or with an inactive seller (`sale.seller_required`, 422).
+SQL rejects a fourth seller (`sale.too_many_sellers`, 422).
+
+Returns (V024): `sales.usp_PostCreditReturn` issues store credit. `sales.usp_PostReturnOutcome` handles the other three outcomes.
+Cash is refused with 409 `return.till_cash_short` when the till lacks the cash.
+Transfer requires a reference (422 `return.transfer_reference`) and leaves the till untouched.
+Exchange posts the return and a new sale in one transaction.
+The customer pays a difference with `newTenders`; `differenceKind` cash or transfer pays a difference back.
+SQL refuses a sale older than the owner's window (409 `return.window_expired`). Every outcome reverses commission.
+`sales.ReturnSettlements` records the money per return.
+The conservation oracle checks that settlements equal the returned value and cash refunds equal till entries.
+It also checks that exchange tenders pay their sale.
+The day report adds `refundsByKind` (`tillId,kind,returnsCount,amountMinor,cashOutMinor`); till close lines list returns by kind.
+
+KPIs (V024) are computed in SQL for Nicaragua day/week/month/year periods; CSV uses the same response.
+Ratios are basis points (`...Bps`, 10000 = 100%) and `unitsPerTicketX100`.
+
+Catalog import (V025, `catalog.usp_ImportCatalog`): the API only parses the file.
+XLSX is read with `System.IO.Compression.ZipArchive` and `System.Xml.Linq`: shared strings, inline strings, and numbers without scientific notation.
+`System.IO.Packaging` is not in the shared framework, and no package was added.
+SQL validates EAN/UPC check digits, duplicates in the file and the database, name, price, cost and stock.
+It then creates products, items, barcodes and opening stock adjustments tied to `catalog.ImportBatches` in one transaction.
+A repeated batch id with the same content replays; different content is refused.
+There is no layaway, transfer between branches or sale-void workflow in this delivery.
 
 ## Price, cost and owner oversight
 
@@ -156,6 +187,7 @@ Customer/credit search is for advances: `/customers?q=`, `/credits/search?q=`.
 
 `pilot_demo_history.py` writes exclusively into SAVIA_DEV_pilot through real procedures.
 It uses the connection-scoped `core.usp_SetDemoDate`; the setter refuses other databases.
+Each demo day runs at 15:00 UTC. Before 15:00 UTC, the last day runs just before now, so `reset --demo` works at any hour.
 V022 changes selected business timestamp defaults to `core.ufn_BusinessNow`. Authentication/session
 timestamps stay real UTC. Without a demo context, business time is real UTC everywhere.
 No HTTP caller can set this clock. No original migration was edited.

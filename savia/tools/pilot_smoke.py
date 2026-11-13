@@ -2,7 +2,8 @@
 """End-to-end smoke test of the running Masaya pilot (start it with `python savia/tools/pilot.py up`).
 
 Flow: five roles -> receive/classify -> owner registers a new code -> manager resolves/rejects ->
-post -> two sellers and a card sale -> return advance -> commissions -> owner price -> till close -> audit.
+post -> two sellers and a card sale -> return advance -> commissions -> transfer and exchange returns -> KPIs ->
+import preview -> owner price -> till close -> audit.
 
 Exit 0 = pass. Per-login passwords use the same environment variables and shared opt-in as pilot.py; never printed.
 """
@@ -146,6 +147,46 @@ def main():
         check(current['commissionPayableMinor']-byid[row['sellerId']]['commissionPayableMinor']==earned-reversed,'commission snapshot and return reversal agree')
     for name in ('VENDEDOR1','VENDEDOR2'):
         _,own=call('GET',path,token=users[name]);check(len(own)==1,'seller sees only own commissions')
+    # Return outcomes: bank transfer (till untouched) and an even exchange that keeps the seller.
+    _,policy=call('GET','/api/v1/returns/policy',token=manager);check(policy['windowDays']>0,'return window is a server rule')
+    _,cash_before=call('GET',f'/api/v1/cash/tills/{till}/summary',token=manager)
+    transfer={'reversalId':str(uuid.uuid4()),'outcome':'transfer','tillId':till,'reason':'Reembolso por transferencia','reference':'TRF-SMOKE-'+uuid.uuid4().hex[:6],
+      'lines':[{'saleLineId':detail['lines'][1]['saleLineId'],'quantity':1,'restockPool':'store'}]}
+    call('POST',f'/api/v1/sales/{sale}/returns/outcome',{**transfer,'reference':None},manager,expect=(422,))
+    call('POST',f'/api/v1/sales/{sale}/returns/outcome',transfer,users['VENDEDOR1'],expect=(403,))
+    _,done=call('POST',f'/api/v1/sales/{sale}/returns/outcome',transfer,manager)
+    _,cash_after=call('GET',f'/api/v1/cash/tills/{till}/summary',token=manager)
+    check(done['settlementKind']=='transfer' and cash_after['expectedCashMinor']==cash_before['expectedCashMinor'],'transfer refund recorded; till untouched')
+    exchange_sale=str(uuid.uuid4())
+    exchange={'reversalId':str(uuid.uuid4()),'outcome':'exchange','tillId':till,'reason':'Cambio por otra talla','exchangeSaleId':exchange_sale,
+      'lines':[{'saleLineId':detail['lines'][0]['saleLineId'],'quantity':1,'restockPool':'store'}],
+      'newLines':[{'lineNumber':1,'itemId':item,'quantity':1,'unitPriceMinor':price,'discountMinor':0,'sellerId':sellers[0]['sellerId']}],'newTenders':[]}
+    _,done=call('POST',f'/api/v1/sales/{sale}/returns/outcome',exchange,manager)
+    _,swap=call('GET','/api/v1/sales/'+exchange_sale,token=manager)
+    check(done['settlementKind']=='exchange' and swap['lines'][0]['sellerId'].lower()==sellers[0]['sellerId'].lower(),'even exchange in one operation keeps the seller')
+    # KPIs: team commission equals the commission report; a seller sees only her row.
+    for period in ('day','week','month','year'):
+        _,business=call('GET',f'/api/v1/reports/kpi/business?period={period}&date={today}',token=owner)
+        check('netSalesMinor' in business and 'refundsByKind' in business,f'business KPIs for {period}')
+    _,team=call('GET',f'/api/v1/reports/kpi/team?period=day&date={today}',token=manager);_,paid=call('GET',path,token=manager)
+    payable={r['sellerId'].lower():r['commissionPayableMinor'] for r in paid}
+    check(all(r['commissionPayableMinor']==payable.get(r['sellerId'].lower(),0) for r in team['sellers']),'team KPI commission equals commission report')
+    for name in ('VENDEDOR1','VENDEDOR2'):
+        _,own=call('GET',f'/api/v1/reports/kpi/team?period=day&date={today}',token=users[name]);check(len(own['sellers'])==1 and not own['managers'],'seller sees only her KPI row')
+        call('GET',f'/api/v1/reports/kpi/business?period=day&date={today}',token=users[name],expect=(403,))
+    # Import: owner-only parse and preview of both samples; nothing is committed here.
+    import base64
+    samples=ROOT/'docs'/'pilot'/'import-samples'
+    for name,count in (('catalogo-ejemplo.csv',4),('inventario-ejemplo.xlsx',3)):
+        upload={'fileName':name,'contentBase64':base64.b64encode((samples/name).read_bytes()).decode()}
+        call('POST','/api/v1/catalog/import/file',upload,manager,expect=(403,))
+        _,parsed=call('POST','/api/v1/catalog/import/file',upload,owner)
+        check(len(parsed['headers'])==9 and len(parsed['rows'])==count,f'{name} parsed')
+    fields=('code','sku','name','type','size','color','cost','price','stock')
+    order=[5,8,0,7,2,3,6,1,4]
+    rows=[{'row':i+2,**{f:(row[c] or None) for f,c in zip(fields,order)}} for i,row in enumerate(parsed['rows'])]
+    _,preview=call('POST','/api/v1/catalog/import/preview',{'batchId':str(uuid.uuid4()),'fileName':'inventario-ejemplo.xlsx','rows':rows},owner)
+    check(preview['rowsCount']==3 and preview['unitsCount']==6,'XLSX preview with a different column order')
     values={'changeId':str(uuid.uuid4()),'priceMinor':price+100,'costMinor':28000,'reason':'Precio aprobado smoke'}
     call('POST',f'/api/v1/catalog/items/{item}/values',values,manager,expect=(403,))
     call('POST',f'/api/v1/catalog/items/{item}/values',values,owner)

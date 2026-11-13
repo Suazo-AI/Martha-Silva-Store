@@ -1,0 +1,47 @@
+-- TEST: business and team KPIs match the sales, returns and commissions they summarize.
+SET NOCOUNT ON;SET XACT_ABORT ON;
+DECLARE @branch uniqueidentifier=test.Id('branchA'),@loc uniqueidentifier=test.Id('locA'),@item uniqueidentifier=test.Id('item'),
+ @node uniqueidentifier=test.Id('nodeA'),@owner uniqueidentifier=test.Id('manager'),@manager uniqueidentifier=test.Id('supervisorA'),@cashier uniqueidentifier=test.Id('cashierA'),
+ @register uniqueidentifier=test.Id('registerA'),@till uniqueidentifier=NEWID(),@n bigint,@s nvarchar(max),@a uniqueidentifier=NEWID(),@b uniqueidentifier=NEWID();
+INSERT security.Staff(Id,LoginName,NormalizedLoginName,DisplayName) VALUES(@a,'k_a','K_A',N'Ana'),(@b,'k_b','K_B',N'Bea');
+INSERT security.StaffRoles(StaffId,RoleId) SELECT x.Id,r.Id FROM (VALUES(@a),(@b)) x(Id) CROSS JOIN security.Roles r WHERE r.Code='SELLER';
+INSERT security.StaffBranchAccess(StaffId,BranchId) VALUES(@a,@branch),(@b,@branch);
+EXEC test.SeedStock @item,@loc,10;
+EXEC sales.usp_OpenTill @till,@register,@cashier,'NIO',0,@node;
+DECLARE @lines sales.SaleLineRequest,@tenders sales.SaleTenderRequest,@sale uniqueidentifier=NEWID(),@sale2 uniqueidentifier=NEWID();
+INSERT @lines VALUES(1,@item,2,120000,12000),(2,@item,1,120000,0);
+INSERT @tenders(TenderNumber,TenderKind,AmountMinor) VALUES(1,'card',348000);
+SET @s=(SELECT v.lineNumber,v.sellerId FROM (VALUES(1,@a),(2,@b)) v(lineNumber,sellerId) FOR JSON PATH);
+EXEC sales.usp_PostSale @sale,@branch,@loc,@cashier,'NIO',@node,@lines,@tenders,@TillId=@till,@DiscountApproverId=@manager,@DiscountReason=N'Oferta',@SellersJson=@s;
+DELETE @lines;DELETE @tenders;INSERT @lines VALUES(1,@item,1,120000,0);INSERT @tenders(TenderNumber,TenderKind,AmountMinor,ReceivedMinor,ChangeMinor) VALUES(1,'cash',120000,120000,0);
+SET @s=(SELECT 1 AS lineNumber,@b AS sellerId FOR JSON PATH);
+EXEC sales.usp_PostSale @sale2,@branch,@loc,@cashier,'NIO',@node,@lines,@tenders,@TillId=@till,@SellersJson=@s;
+DECLARE @r sales.ReturnLineRequest,@none sales.SaleLineRequest,@noTender sales.SaleTenderRequest,@rev uniqueidentifier=NEWID();
+INSERT @r SELECT Id,1,'store' FROM sales.SaleLines WHERE SaleId=@sale2;
+EXEC sales.usp_PostReturnOutcome @rev,@sale2,@branch,@loc,@till,@manager,'cash',N'Talla',NULL,@node,@r,NULL,@none,@noTender;
+DECLARE @today date=CONVERT(date,DATEADD(hour,-6,core.ufn_BusinessNow()));
+DECLARE @biz TABLE(Json nvarchar(max));INSERT @biz EXEC sales.usp_KpiBusiness @branch,@owner,'month',@today;
+SET @n=(SELECT TRY_CONVERT(bigint,JSON_VALUE(Json,'$.salesCount')) FROM @biz);EXEC test.AssertEq N'sales count',2,@n;
+SET @n=(SELECT TRY_CONVERT(bigint,JSON_VALUE(Json,'$.netSalesMinor')) FROM @biz);EXEC test.AssertEq N'net sales = sold - returned',348000,@n;
+SET @n=(SELECT TRY_CONVERT(bigint,JSON_VALUE(Json,'$.averageTicketMinor')) FROM @biz);EXEC test.AssertEq N'average ticket',234000,@n;
+SET @n=(SELECT TRY_CONVERT(bigint,JSON_VALUE(Json,'$.unitsPerTicketX100')) FROM @biz);EXEC test.AssertEq N'units per ticket x100',200,@n;
+SET @n=(SELECT TRY_CONVERT(bigint,JSON_VALUE(Json,'$.grossMarginMinor')) FROM @biz);EXEC test.AssertEq N'margin = revenue - net cost',168000,@n;
+SET @n=(SELECT TRY_CONVERT(bigint,JSON_VALUE(Json,'$.discountsBps')) FROM @biz);EXEC test.AssertEq N'discounts share of gross',250,@n;
+SET @n=(SELECT TRY_CONVERT(bigint,JSON_VALUE(Json,'$.refundsByKind[0].amountMinor')) FROM @biz);EXEC test.AssertEq N'cash refunds',120000,@n;
+SET @n=(SELECT TRY_CONVERT(bigint,JSON_VALUE(Json,'$.stockUnits')) FROM @biz);EXEC test.AssertEq N'stock units: 10 seeded, 4 sold, 1 returned',7,@n;
+BEGIN TRY INSERT @biz EXEC sales.usp_KpiBusiness @branch,@a,'day',@today;THROW 59002,'ASSERT FAIL: seller saw business KPIs',1;END TRY BEGIN CATCH IF ERROR_NUMBER()<>52001 THROW;END CATCH;
+DECLARE @team TABLE(Json nvarchar(max));INSERT @team EXEC sales.usp_KpiTeam @branch,@owner,'day',@today;
+SET @n=(SELECT COUNT(*) FROM @team CROSS APPLY OPENJSON(Json,'$.sellers'));EXEC test.AssertEq N'owner sees both sellers',2,@n;
+SET @n=(SELECT TRY_CONVERT(bigint,JSON_VALUE(value,'$.commissionPayableMinor')) FROM @team CROSS APPLY OPENJSON(Json,'$.sellers') WHERE JSON_VALUE(value,'$.sellerId')=CONVERT(nvarchar(36),@b));
+DECLARE @com TABLE(Json nvarchar(max));INSERT @com EXEC sales.usp_GetCommissions @branch,@owner,'day',@today;
+DECLARE @expected bigint=(SELECT TRY_CONVERT(bigint,JSON_VALUE(value,'$.commissionPayableMinor')) FROM @com CROSS APPLY OPENJSON(Json) WHERE JSON_VALUE(value,'$.sellerId')=CONVERT(nvarchar(36),@b));
+EXEC test.AssertEq N'team commission equals commission report',@expected,@n;
+SET @n=(SELECT TRY_CONVERT(bigint,JSON_VALUE(value,'$.returnsBps')) FROM @team CROSS APPLY OPENJSON(Json,'$.sellers') WHERE JSON_VALUE(value,'$.sellerId')=CONVERT(nvarchar(36),@b));
+EXEC test.AssertEq N'returns share of seller B',5000,@n;
+SET @n=(SELECT TRY_CONVERT(bigint,JSON_VALUE(value,'$.approvalsCount')) FROM @team CROSS APPLY OPENJSON(Json,'$.managers') WHERE JSON_VALUE(value,'$.staffId')=CONVERT(nvarchar(36),@manager));
+EXEC test.AssertEq N'manager approvals: one discount and one return',2,@n;
+DELETE @team;INSERT @team EXEC sales.usp_KpiTeam @branch,@a,'day',@today;
+SET @n=(SELECT COUNT(*) FROM @team CROSS APPLY OPENJSON(Json,'$.sellers'));EXEC test.AssertEq N'seller sees only her row',1,@n;
+SET @n=(SELECT COUNT(*) FROM @team CROSS APPLY OPENJSON(Json,'$.managers'));EXEC test.AssertEq N'seller sees no managers',0,@n;
+EXEC audit.usp_CheckConservation @Throw=1;
+PRINT 'PASS';

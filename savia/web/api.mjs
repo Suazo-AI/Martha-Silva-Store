@@ -165,4 +165,15 @@ async function exportReport(path,period,date,name) {
 }
 export const postCreditReturn = (saleId, body, token) => request('POST', path`/sales/${saleId}/returns/credit`, body,
   token ? { token, notifyUnauthorized: false } : {});
+export const postReturnOutcome = (saleId, body, token) => request('POST', path`/sales/${saleId}/returns/outcome`, body,
+  token ? { token, notifyUnauthorized: false } : {});
+export const returnPolicy = () => request('GET', '/returns/policy');
+export const setReturnWindow = body => request('POST', '/returns/policy', body);
+export const kpiBusiness = (period, date) => request('GET', '/reports/kpi/business' + q({ period, date }));
+export const kpiTeam = (period, date) => request('GET', '/reports/kpi/team' + q({ period, date }));
+export const exportKpiBusiness = (period, date) => exportReport('/reports/kpi/business.csv', period, date, 'negocio');
+export const exportKpiTeam = (period, date) => exportReport('/reports/kpi/team.csv', period, date, 'equipo');
+export const importFile = (fileName, contentBase64) => request('POST', '/catalog/import/file', { fileName, contentBase64 });
+export const previewImport = body => request('POST', '/catalog/import/preview', body);
+export const importCatalog = body => request('POST', '/catalog/import', body);
 export const endApproval = token => request('POST', '/auth/logout', undefined, { token, notifyUnauthorized: false });

@@ -25,6 +25,12 @@ public interface IPilotSalesStore
     Task RecordQualityAsync(Guid session, QualityRequest request, Guid actor, Guid location, CancellationToken ct);
     Task<JsonElement> QualityAsync(Guid session, Guid location, CancellationToken ct);
     Task<JsonElement> QualityReportAsync(Guid branch, DateOnly from, DateOnly to, CancellationToken ct);
+    Task ReturnOutcomeAsync(Guid branch, Guid location, Guid sale, PostReturnOutcomeRequest request, Guid actor, Guid node, CancellationToken ct);
+    Task<JsonElement> ReturnPolicyAsync(Guid branch, CancellationToken ct);
+    Task SetReturnWindowAsync(Guid branch, ReturnWindowRequest request, Guid actor, CancellationToken ct);
+    Task<JsonElement> KpiBusinessAsync(Guid branch, Guid actor, string period, DateOnly date, CancellationToken ct);
+    Task<JsonElement> KpiTeamAsync(Guid branch, Guid actor, string period, DateOnly date, CancellationToken ct);
+    Task<JsonElement> ImportCatalogAsync(Guid branch, Guid location, ImportCatalogRequest request, Guid actor, Guid node, bool commit, CancellationToken ct);
 }
 
 public sealed class PilotSalesService(IPilotSalesStore store, NodeContext node)
@@ -150,6 +156,62 @@ public sealed class PilotSalesService(IPilotSalesStore store, NodeContext node)
     {
         Seller(actor);
         return store.CreditsAsync(Guard.Text(q, "q", 100).Trim(), actor.StaffId, ct);
+    }
+    private static readonly string[] Outcomes = ["cash", "transfer", "exchange"];
+    public async Task<SaleReversal> ReturnOutcomeAsync(Actor actor, Guid sale, PostReturnOutcomeRequest request, CancellationToken ct)
+    {
+        var branch = Seller(actor);
+        Guard.Role(actor, Roles.Manager, Roles.Owner);
+        Guard.Text(request.Reason, "reason", 500);
+        if (!Outcomes.Contains(request.Outcome)) throw Errors.Invalid("return.outcome", "Elija cambio, efectivo o transferencia; el credito usa la devolucion a credito.");
+        if (request.Lines is not { Length: > 0 } || request.Lines.Select(l => l.SaleLineId).Distinct().Count() != request.Lines.Length)
+            throw Errors.Invalid("return.lines", "Indique lineas de devolucion sin duplicados.");
+        foreach (var line in request.Lines) Guard.Text(line.RestockPool, "restockPool", 12);
+        if (request.Reference?.Length > 120 || request.DifferenceReference?.Length > 120) throw Errors.Invalid("input.text", "La referencia admite hasta 120 caracteres.");
+        if (request.NewLines?.Length > 50 || request.NewTenders?.Length > 10) throw Errors.Invalid("return.exchange_lines", "Demasiadas lineas en el cambio.");
+        await store.ReturnOutcomeAsync(branch, node.RequireLocation(), sale, request, actor.StaffId, node.NodeId, ct);
+        var detail = await DetailAsync(actor, sale, ct);
+        return detail.Reversals.Single(r => r.ReversalId == request.ReversalId);
+    }
+    public Task<JsonElement> ReturnPolicyAsync(Actor actor, CancellationToken ct) => store.ReturnPolicyAsync(Seller(actor), ct);
+    public Task SetReturnWindowAsync(Actor actor, ReturnWindowRequest request, CancellationToken ct)
+    {
+        var branch = Owner(actor);
+        Guard.Text(request.Reason, "reason", 250);
+        return store.SetReturnWindowAsync(branch, request, actor.StaffId, ct);
+    }
+    private static string Period(string period) =>
+        period is "day" or "week" or "month" or "year" ? period : throw Errors.Invalid("report.range", "Periodo invalido.");
+    public Task<JsonElement> KpiBusinessAsync(Actor actor, string period, DateOnly date, CancellationToken ct) =>
+        store.KpiBusinessAsync(Manager(actor), actor.StaffId, Period(period), date, ct);
+    public Task<JsonElement> KpiTeamAsync(Actor actor, string period, DateOnly date, CancellationToken ct)
+    {
+        var branch = Guard.Branch(actor, node);
+        Guard.Role(actor, Roles.Seller, Roles.Manager, Roles.Owner);
+        return store.KpiTeamAsync(branch, actor.StaffId, Period(period), date, ct);
+    }
+    private Guid Owner(Actor actor)
+    {
+        var branch = Guard.Branch(actor, node);
+        Guard.Role(actor, Roles.Owner);
+        return branch;
+    }
+    public ImportFile ParseImport(Actor actor, ImportFileRequest request)
+    {
+        Owner(actor);
+        Guard.Text(request.FileName, "fileName", 200);
+        byte[] content;
+        try { content = Convert.FromBase64String(request.ContentBase64 ?? ""); }
+        catch (FormatException) { throw Errors.Invalid("import.format", "El archivo no se pudo leer."); }
+        return CatalogFile.Parse(request.FileName, content);
+    }
+    public Task<JsonElement> ImportCatalogAsync(Actor actor, ImportCatalogRequest request, bool commit, CancellationToken ct)
+    {
+        var branch = Owner(actor);
+        Guard.Text(request.FileName, "fileName", 200);
+        if (request.Rows is not { Length: > 0 } || request.Rows.Length > CatalogFile.MaxRows)
+            throw Errors.Invalid("import.size", $"El archivo debe tener entre 1 y {CatalogFile.MaxRows} filas.");
+        return store.ImportCatalogAsync(branch, node.RequireLocation(), request, actor.StaffId, node.NodeId, commit, ct);
     }
     public Task<DayReport> DayAsync(Actor actor, DateOnly date, CancellationToken ct)
     {

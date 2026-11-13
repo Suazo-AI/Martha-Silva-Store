@@ -21,6 +21,7 @@ export function receiptCashTotals(tenders) {
 export function garmentLine(line) {
   return h('div', { class: 'sale-item', dataset: { line: line.lineNumber } }, h('div', {}, h('strong', {}, line.name),
       h('p', { class: 'muted' }, `SKU ${line.sku} · Talla ${line.sizeCode ?? '—'}`),
+      line.sellerName ? h('p', { class: 'line-seller-name' }, `Vendedor: ${line.sellerName}`) : null,
       h('p', {}, `${line.quantity} × ${formatMoney(line.unitPriceMinor)}`),
       line.returnedQuantity ? h('small', {}, `Devueltas: ${line.returnedQuantity}`) : null),
     h('strong', { class: 'num' }, formatMoney(line.totalMinor)));

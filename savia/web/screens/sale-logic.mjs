@@ -49,6 +49,16 @@ export function discountedLines(lines, ticketPercent = 0) {
     return { ...line, discountMinor: line.discountAmountMinor ?? Math.floor(line.unitPriceMinor * line.quantity * percent / 100) };
   });
 }
+export const MAX_SELLERS = 3;
+/** Lines whose seller left the ticket go to the first ticket seller; a replaced seller hands her lines to the new one. */
+export function alignSellers(lines, ticketSellers, replaced = null) {
+  return lines.map(line => {
+    const sellerId = replaced && line.sellerId === replaced.from ? replaced.to : line.sellerId;
+    return { ...line, sellerId: ticketSellers.includes(sellerId) ? sellerId : ticketSellers[0] };
+  });
+}
+/** Sellers still free for another "Venta compartida" slot. */
+export const freeSellers = (sellers, ticketSellers, current = null) => sellers.filter(s => s.sellerId === current || !ticketSellers.includes(s.sellerId));
 export const needsDiscountApproval = lines => lines.some(l => (l.discountMinor ?? 0) > 0);
 export const catalogMatches = (product, { type = '', size = '', query = '' } = {}) =>
   (!type || product.type === type) && product.variants.some(v => (!size || v.sizeCode === size) &&

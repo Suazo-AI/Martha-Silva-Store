@@ -33,5 +33,28 @@ public static class OwnerPilotEndpoints
             await pilot.SetSellerRateAsync(http.Actor(),sellerId,request,ct);
             return Results.NoContent();
         }).WithTags("pilot");
+        api.MapPost("/sales/{saleId:guid}/returns/outcome",async (Guid saleId,PostReturnOutcomeRequest request,HttpContext http,PilotSalesService pilot,CancellationToken ct) =>
+            await pilot.ReturnOutcomeAsync(http.Actor(),saleId,request,ct)).WithTags("pilot");
+        api.MapGet("/returns/policy",async (HttpContext http,PilotSalesService pilot,CancellationToken ct) =>
+            await pilot.ReturnPolicyAsync(http.Actor(),ct)).WithTags("pilot");
+        api.MapPost("/returns/policy",async (ReturnWindowRequest request,HttpContext http,PilotSalesService pilot,CancellationToken ct) =>
+        {
+            await pilot.SetReturnWindowAsync(http.Actor(),request,ct);
+            return Results.NoContent();
+        }).WithTags("pilot");
+        api.MapGet("/reports/kpi/business",async (string period,DateOnly date,HttpContext http,PilotSalesService pilot,CancellationToken ct) =>
+            await pilot.KpiBusinessAsync(http.Actor(),period,date,ct)).WithTags("pilot");
+        api.MapGet("/reports/kpi/business.csv",async (string period,DateOnly date,HttpContext http,PilotSalesService pilot,CancellationToken ct) =>
+            Results.File(PilotSalesService.SummaryCsv(await pilot.KpiBusinessAsync(http.Actor(),period,date,ct)),"text/csv; charset=utf-8",$"negocio-{period}-{date}.csv")).WithTags("pilot");
+        api.MapGet("/reports/kpi/team",async (string period,DateOnly date,HttpContext http,PilotSalesService pilot,CancellationToken ct) =>
+            await pilot.KpiTeamAsync(http.Actor(),period,date,ct)).WithTags("pilot");
+        api.MapGet("/reports/kpi/team.csv",async (string period,DateOnly date,HttpContext http,PilotSalesService pilot,CancellationToken ct) =>
+            Results.File(PilotSalesService.SummaryCsv(await pilot.KpiTeamAsync(http.Actor(),period,date,ct)),"text/csv; charset=utf-8",$"equipo-{period}-{date}.csv")).WithTags("pilot");
+        api.MapPost("/catalog/import/file",(ImportFileRequest request,HttpContext http,PilotSalesService pilot) =>
+            pilot.ParseImport(http.Actor(),request)).WithTags("pilot");
+        api.MapPost("/catalog/import/preview",async (ImportCatalogRequest request,HttpContext http,PilotSalesService pilot,CancellationToken ct) =>
+            await pilot.ImportCatalogAsync(http.Actor(),request,false,ct)).WithTags("pilot");
+        api.MapPost("/catalog/import",async (ImportCatalogRequest request,HttpContext http,PilotSalesService pilot,CancellationToken ct) =>
+            await pilot.ImportCatalogAsync(http.Actor(),request,true,ct)).WithTags("pilot");
     }
 }

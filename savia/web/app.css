@@ -266,8 +266,16 @@ dialog::backdrop { background: #12231cb3 }
 .sale-item,.rline { overflow-wrap:anywhere }
 @media print { .sale,.ticket,#ticket-lines { height:auto !important; overflow:visible !important } }
 /* Seller attribution and quality reuse the existing staff interface. */
-#seller-chips { flex-wrap:wrap; margin-block:10px; }
-#seller-chips button[aria-pressed="true"] { background:var(--accent, #294d3f); color:white; }
+.seller-panel { display:flex; flex-wrap:wrap; align-items:flex-end; gap:8px; margin-block:10px }
+.seller-slot { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:4px 6px; font-size:.85rem; font-weight:650; flex:1 1 180px; min-width:0 }
+.seller-slot select { grid-column:1; width:100%; min-width:0 }
+.line-seller-name { font-size:.85rem }
+.tabs { display:flex; gap:6px; margin-block:8px }
+.tabs button[aria-selected="true"] { background:var(--accent, #294d3f); color:white }
+.outcomes { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:6px; border:0; padding:0; margin:0 }
+.outcomes label { display:flex; gap:6px; align-items:center; border:1px solid var(--line); border-radius:8px; padding:8px }
+.import-map { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:8px }
+.import-map label { display:grid; gap:4px; font-size:.85rem; font-weight:650 }
 .line-seller { max-width:100%; min-width:0; }
 .quality-check { grid-column:1 / -1; grid-row:2; min-width:0; }
 .quality-check > .form { display:grid; grid-template-columns:repeat(auto-fit,minmax(110px,1fr)); gap:8px; padding-block:12px; }

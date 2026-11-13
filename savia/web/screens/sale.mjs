@@ -4,7 +4,7 @@ import { confirmAction } from '../confirm.mjs';
 import { h, replace, showError, clearMessage, flash, device, openModal } from '../ui.mjs';
 import { attachScanField, serialQueue } from '../scan.mjs';
 import { formatMoney, lineTotal } from '../money.mjs';
-import { addToTicket, setQuantity, removeLine, ticketTotal, saleRequest, itemFromLookup, discountedLines, needsDiscountApproval, catalogMatches } from './sale-logic.mjs';
+import { addToTicket, setQuantity, removeLine, ticketTotal, saleRequest, itemFromLookup, discountedLines, needsDiscountApproval, catalogMatches, alignSellers, freeSellers, MAX_SELLERS } from './sale-logic.mjs';
 import { openTillPanel, syncTill } from './till-open.mjs';
 import { paymentsPanel } from './payments.mjs';
 import { supervisorApproval } from './return.mjs';
@@ -28,13 +28,20 @@ export default {
       let lines = [];
       let catalog = [];
       let sellers = [];
-      let selectedSeller = null;
-      const sellerChips = h('div', {id:'seller-chips',class:'actions','aria-label':'Vendedora de la próxima prenda'});
-      const drawSellers = () => replace(sellerChips, sellers.map(seller => h('button', {
-        type:'button', 'aria-pressed':String(selectedSeller === seller.sellerId),
-        dataset:{seller:seller.sellerId}, onclick:()=>{selectedSeller=seller.sellerId;drawSellers();}
-      },seller.name)));
-      api.sellers().then(rows=>{sellers=rows;selectedSeller=rows[0]?.sellerId;drawSellers();}).catch(error=>showError(status,error));
+      // One to three sellers per ticket. The first is the default for every garment; "Venta compartida" (supervision) adds more.
+      let ticketSellers = [];
+      const sellerPanel = h('div', { id:'seller-panel', class:'seller-panel' });
+      const setSellers = (next, replaced = null) => { ticketSellers = next; lines = alignSellers(lines, ticketSellers, replaced); attempt = null; drawSellers(); drawTicket(); };
+      const drawSellers = () => replace(sellerPanel,
+        ticketSellers.map((sellerId, index) => h('label', { class:'seller-slot' }, index === 0 ? 'Vendedor' : `Vendedor ${index + 1}`,
+          h('select', { id: index === 0 ? 'sale-seller' : `sale-seller-${index + 1}`, class:'sale-seller', 'aria-label': index === 0 ? 'Vendedor' : `Vendedor ${index + 1}`,
+            onchange: e => setSellers(ticketSellers.map((id, i) => i === index ? e.target.value : id), { from: sellerId, to: e.target.value }) },
+            freeSellers(sellers, ticketSellers, sellerId).map(s => h('option', { value:s.sellerId, selected:s.sellerId === sellerId }, s.name))),
+          index > 0 ? h('button', { type:'button', class:'remove-seller', 'aria-label':`Quitar vendedor ${index + 1}`, onclick: () => setSellers(ticketSellers.filter((_, i) => i !== index)) }, 'Quitar') : null)),
+        ctx.isApprover && ticketSellers.length < MAX_SELLERS && freeSellers(sellers, ticketSellers).length
+          ? h('button', { type:'button', id:'shared-sale', onclick: () => setSellers([...ticketSellers, freeSellers(sellers, ticketSellers)[0].sellerId]) }, ticketSellers.length === 1 ? 'Venta compartida' : 'Agregar vendedor')
+          : null);
+      api.sellers().then(rows => { sellers = rows; ticketSellers = rows.length ? [rows[0].sellerId] : []; drawSellers(); }).catch(error => showError(status, error));
       let ticketPercent = 0;
       const effectiveLines = () => discountedLines(lines, ticketPercent);
       const effectiveTotal = () => ticketTotal(effectiveLines());
@@ -58,8 +65,8 @@ export default {
           h('div', { class: 'tline', dataset: { item: line.itemId } },
             h('div', { class: 'line-meta' },
               h('strong', {}, line.name),
-              h('label', {}, 'Vendedora', h('select', {class:'line-seller','aria-label':`Vendedora de ${line.name}`,onchange:e=>update(lines.map(l=>l.ticketKey===line.ticketKey ? {...l,sellerId:e.target.value} : l))},
-                sellers.map(seller=>h('option',{value:seller.sellerId,selected:seller.sellerId===line.sellerId},seller.name)))),
+              ticketSellers.length > 1 ? h('label', {}, 'Vendedor', h('select', { class:'line-seller', 'aria-label':`Vendedor de ${line.name}`, onchange: e => update(lines.map(l => l.ticketKey === line.ticketKey ? { ...l, sellerId:e.target.value } : l)) },
+                sellers.filter(s => ticketSellers.includes(s.sellerId)).map(seller => h('option', { value:seller.sellerId, selected:seller.sellerId === line.sellerId }, seller.name)))) : null,
               h('span', { class: 'num' }, formatMoney(lineTotal(line.unitPriceMinor, line.quantity) - (effectiveLines().find(l => (l.ticketKey ?? l.itemId) === (line.ticketKey ?? line.itemId))?.discountMinor ?? 0)))),
             h('div', { class: 'line-meta' },
               h('small', {}, [line.size ? `Talla ${line.size}` : null, `SKU ${line.sku}`, `${formatMoney(line.unitPriceMinor)} c/u`].filter(Boolean).join(' · ')),
@@ -119,8 +126,8 @@ export default {
         }
         clearMessage(status);
         receipt.hidden = true;
-        if (!selectedSeller) { status.textContent='Elija una vendedora antes de agregar la prenda.';return; }
-        await update(addToTicket(lines, {...itemFromLookup(row),sellerId:selectedSeller}));
+        if (!ticketSellers.length) { status.textContent='Elija el vendedor antes de agregar la prenda.';return; }
+        await update(addToTicket(lines, {...itemFromLookup(row),sellerId:ticketSellers[0]}));
         const el = ticketLines.querySelector(`[data-item="${row.itemId}"]`);
         if (el) flash(el);
       };
@@ -215,7 +222,7 @@ export default {
           const response = await api.postSale({ ...saleRequest({ saleId: attempt.saleId, tillId: till.tillId, lines:postedLines, tenders: draft.tenders, customerId: payments.customerId }),
             discountReason: discountReason || null, stockExceptionNote: physicalConfirmed ? 'El sistema decía 0 y había existencia física. Confirmado en tienda.' : null }, approvalToken);
           showReceipt(response, draft.changeMinor);
-          lines = []; physicalConfirmed = false; discountReasonInput.value = '';
+          lines = []; physicalConfirmed = false; discountReasonInput.value = ''; ticketSellers = ticketSellers.slice(0, 1); drawSellers();
           ticketPercent = 0; discountInput.value = 0;
           attempt = null;
           payments.reset();
@@ -268,12 +275,12 @@ export default {
         ticketPercent=value; lines=lines.map(line=>({...line,discountAmountMinor:undefined})); attempt=null; drawTicket();
       } });
       const parked = () => { const saved = device.get('parkedTickets'); return saved?.tillId === till.tillId ? saved.tickets : []; };
-      const clearTicket = () => { lines=[]; physicalConfirmed=false; ticketPercent=0; discountInput.value=0; attempt=null; payments.reset(); drawTicket(); };
+      const clearTicket = () => { lines=[]; ticketSellers=ticketSellers.slice(0, 1); drawSellers(); physicalConfirmed=false; ticketPercent=0; discountInput.value=0; attempt=null; payments.reset(); drawTicket(); };
       const ticketActions = h('div', { class:'actions ticket-actions' },
         h('button', { type:'button', id:'park-ticket', onclick: () => {
           if (!lines.length) { status.textContent='Agregue una prenda antes de guardar.'; return; }
           const tickets=parked();
-          tickets.push({ id:api.uuid(), name:`Ticket ${tickets.length+1}`, lines:structuredClone(lines), ticketPercent, payment:payments.snapshot() });
+          tickets.push({ id:api.uuid(), name:`Ticket ${tickets.length+1}`, lines:structuredClone(lines), sellers:[...ticketSellers], ticketPercent, payment:payments.snapshot() });
           device.set('parkedTickets', { tillId:till.tillId, tickets }); clearTicket(); status.textContent='Ticket guardado. Abra Tickets guardados para recuperarlo.';
         } }, 'Guardar ticket'),
         h('button', { type:'button', id:'saved-tickets', onclick: () => {
@@ -282,6 +289,9 @@ export default {
             parked().length ? parked().map(saved => h('button', { type:'button', class:'restore-ticket', onclick:async () => {
               try {
                 await loadCatalog(); lines=structuredClone(saved.lines); ticketPercent=saved.ticketPercent; discountInput.value=ticketPercent;
+                ticketSellers=(saved.sellers ?? [...new Set(lines.map(l => l.sellerId).filter(Boolean))]).filter(id => sellers.some(s => s.sellerId === id)).slice(0, MAX_SELLERS);
+                if (!ticketSellers.length && sellers.length) ticketSellers=[sellers[0].sellerId];
+                lines=alignSellers(lines, ticketSellers); drawSellers();
                 await payments.restore(saved.payment); attempt=null; drawTicket();
                 device.set('parkedTickets', { tillId:till.tillId, tickets:parked().filter(t => t.id !== saved.id) }); close();
               } catch(error) { showError(status,error,'Revise el cliente antes de cobrar.'); close(); }
@@ -293,7 +303,7 @@ export default {
       replace(root, h('div', { class: 'sale' },
         h('section', { class: 'catalog', 'aria-label': 'Buscar prendas' },
           h('label', { for: 'sale-search', class: 'sr' }, 'Escanear o buscar por SKU o nombre'),
-          field, fieldNote, sellerChips, filters, status, cards),
+          field, fieldNote, sellerPanel, filters, status, cards),
         h('aside', { class: 'ticket', 'aria-labelledby': 'ticket-heading' },
           h('h2', { id: 'ticket-heading' }, 'Ticket'), ticketActions,
           ticketLines,
