@@ -38,13 +38,16 @@ Cada diseño descartado está en `formal.py` como una revisión que **debe falla
 
 Dos fallas sembradas (`Falla`) prueban que `AnticipoResuelto` y `ApartadaSoloConPedido` detectan el error que cuidan.
 
-## Supuestos pendientes de la dueña
+## Decisiones de la dueña que el modelo sigue
 
-El modelo los asume; no están decididos (ver `docs/pilot/TRASLADOS-APARTADOS.md`).
+Decididas el 2026-11-13 (ver `docs/pilot/TRASLADOS-APARTADOS.md`).
 
-- Al vencer o cancelar, el anticipo se devuelve.
+- Al vencer o cancelar, el anticipo queda como crédito en la tienda.
 - Una prenda que llegó y ya no tiene cliente se queda en venta en destino; no regresa a origen.
 - Autoriza el gerente de la tienda donde el cliente pide; origen solo reserva y despacha.
+- La tienda origen tiene 2 días para despachar.
+
+Supuesto sin decidir: si la tienda no puede cumplir, el anticipo se devuelve al cliente.
 
 ## Límites
 

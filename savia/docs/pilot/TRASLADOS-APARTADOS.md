@@ -21,12 +21,14 @@ El sistema la aparta para ese cliente mientras viaja y espera.
 Modelo y reglas: [formal/apartado](../../formal/apartado/README.md). Comando: `python savia/tools/formal.py check` (6 de 6).
 El modelo fijó tres puntos de diseño: el plazo cuenta desde la llegada; origen tiene plazo para despachar; ese plazo lo cierra origen.
 
-Preguntas abiertas para la dueña:
+Decisiones del 2026-11-13 (respuesta de Jason):
 
-1. ¿Cuántos días tiene la tienda origen para despachar?
-2. Al vencer o cancelar, ¿el anticipo se devuelve en efectivo, queda como crédito, o se pierde?
-3. Una prenda que llegó y ya no tiene cliente, ¿se queda en la tienda destino o regresa?
-4. ¿Autoriza el gerente de la tienda donde el cliente pide, el de la tienda que envía, o los dos?
+5. La tienda origen tiene 2 días para despachar. Leído de "ponerle que va" sobre la sugerencia de 2 días; confirmar el número.
+6. Si el apartado vence o el cliente cancela, el anticipo queda como crédito en la tienda.
+7. Una prenda que llegó y ya no tiene cliente se queda en venta en la tienda destino.
+8. Autoriza el gerente de la tienda donde el cliente pide. La tienda origen solo reserva y despacha.
+
+Supuesto sin decidir: si la tienda no puede cumplir (la prenda ya se vendió o no se despachó a tiempo), el anticipo se devuelve al cliente.
 
 ## Pendiente para construir
 

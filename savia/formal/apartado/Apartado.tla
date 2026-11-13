@@ -32,7 +32,7 @@ TypeOK ==
     /\ pedido \in {"sin_pedido", "pedido"} \cup Cerrado
     /\ origen \in EstadosOrigen
     /\ prenda \in Reposo \cup {"reservada_origen", "en_camino", "apartada_destino"}
-    /\ anticipo \in {"sin_anticipo", "cobrado", "aplicado", "devuelto"}
+    /\ anticipo \in {"sin_anticipo", "cobrado", "aplicado", "devuelto", "credito"}
     /\ relojActivo \in BOOLEAN /\ diasRestantes \in 0..DiasApartado /\ espera \in 0..PlazoOrigen
     /\ llego \in BOOLEAN /\ origenVioPedido \in BOOLEAN /\ origenVioCierre \in BOOLEAN
     /\ destinoVe \in EstadosOrigen
@@ -42,7 +42,8 @@ Init ==
     /\ anticipo = "sin_anticipo" /\ relojActivo = FALSE /\ diasRestantes = DiasApartado /\ espera = 0
     /\ llego = FALSE /\ origenVioPedido = FALSE /\ origenVioCierre = FALSE /\ destinoVe = "sin_enterarse"
 
-Devuelve(a) == IF a = "cobrado" THEN "devuelto" ELSE a
+Devuelve(a) == IF a = "cobrado" THEN "devuelto" ELSE a   \* la tienda no pudo cumplir: el dinero regresa al cliente
+ACredito(a) == IF a = "cobrado" THEN "credito" ELSE a    \* el cliente no llevo la prenda: queda como credito en tienda
 SueltaPrenda(p) == IF p = "apartada_destino" THEN "en_venta_destino" ELSE p
 
 ----------------------------------------------------------------------------
@@ -91,7 +92,7 @@ ClienteCompra ==    \* la comision es del vendedor que cierra esta venta
 
 ClienteCancela ==
     /\ pedido = "pedido"
-    /\ pedido' = "cancelado" /\ anticipo' = Devuelve(anticipo) /\ relojActivo' = FALSE
+    /\ pedido' = "cancelado" /\ anticipo' = ACredito(anticipo) /\ relojActivo' = FALSE
     /\ prenda' = IF Falla = "no_libera_prenda" THEN prenda ELSE SueltaPrenda(prenda)
     /\ UNCHANGED <<origen, diasRestantes, espera, llego, origenVioPedido, origenVioCierre, destinoVe>>
 
@@ -155,7 +156,7 @@ PasaUnDia ==
 
 VenceApartado ==
     /\ pedido = "pedido" /\ relojActivo /\ diasRestantes = 0
-    /\ pedido' = "vencido" /\ anticipo' = Devuelve(anticipo) /\ relojActivo' = FALSE
+    /\ pedido' = "vencido" /\ anticipo' = ACredito(anticipo) /\ relojActivo' = FALSE
     /\ prenda' = SueltaPrenda(prenda)
     /\ UNCHANGED <<origen, diasRestantes, espera, llego, origenVioPedido, origenVioCierre, destinoVe>>
 
@@ -189,10 +190,11 @@ Spec == Init /\ [][Next]_vars /\ WF_vars(Sistema)
 ----------------------------------------------------------------------------
 (* Reglas *)
 
-\* El anticipo nunca queda en el aire: se aplica a la venta o se devuelve.
+\* El anticipo nunca queda en el aire: se aplica a la venta, queda como credito, o se devuelve si la tienda no cumplio.
 AnticipoResuelto ==
-    /\ pedido \in Cerrado \ {"vendido"} => anticipo \in {"sin_anticipo", "devuelto"}
     /\ pedido = "vendido" => anticipo \in {"sin_anticipo", "aplicado"}
+    /\ pedido \in {"cancelado", "vencido"} => anticipo \in {"sin_anticipo", "credito"}
+    /\ pedido \in {"sin_respuesta", "no_disponible"} => anticipo \in {"sin_anticipo", "devuelto"}
 
 \* Una prenda apartada siempre tiene un cliente esperandola.
 ApartadaSoloConPedido == prenda = "apartada_destino" => pedido = "pedido"
