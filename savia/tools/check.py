@@ -43,10 +43,10 @@ def run(name, command, read_next):
 
 def main():
     quick = "--quick" in sys.argv
-    env = dict(os.environ, DOTNET_CLI_TELEMETRY_OPTOUT="1", DOTNET_NOLOGO="1")
+    env = dict(os.environ, DOTNET_CLI_TELEMETRY_OPTOUT="1", DOTNET_NOLOGO="1", MSBUILDDISABLENODEREUSE="1")
     os.environ.update(env)
     py = sys.executable
-    ok = True
+    ok = run("pilot stopped before checks", [py, "tools/pilot.py", "down"], "savia/tools/pilot.py")
     ok &= run("baseline is generated from the handoff", [py, "tools/db/build_baseline.py", "--check"], "savia/tools/db/build_baseline.py")
     ok &= run("no DELETE or TRUNCATE on synced tables", [py, "tools/db/no_physical_delete.py"], "savia/tools/db/no_physical_delete.py")
     ok &= run("database container", [py, "tools/db/saviadb.py", "status"], "savia/README.md (Empezar)")
@@ -57,7 +57,7 @@ def main():
         print("FAIL  .NET SDK not found  -> set SAVIA_DOTNET (see global.json for the version)")
         ok = False
     else:
-        ok &= run(".NET build", [dotnet(), "build", "Savia.slnx", "-v", "q"], "the first error line above")
+        ok &= run(".NET build", [dotnet(), "build", "Savia.slnx", "--no-restore", "-v", "q"], "the first error line above")
         ok &= run(".NET tests on real SQL", [dotnet(), "test", "tests/Savia.Tests", "--no-build", "-v", "q"], "savia/tests/Savia.Tests/")
     print("RESULT " + ("PASS" if ok else "FAIL"))
     return 0 if ok else 1

@@ -23,7 +23,7 @@ test('pending split cash and card: only cash has received and change', () => {
 });
 test('pending input rejects short/overallocated split, absent reference or customer, and unsupported kind', () => {
   for (const rows of [[], [{ kind: 'cash', received: '1197.99' }], [{ kind: 'transfer', reference: ' ' }],
-    [{ kind: 'card' }], [{ kind: 'card', amount: '600', reference: 'AUTH-1' }, { kind: 'card', amount: '599', reference: 'AUTH-2' }], [{ kind: 'bitcoin' }]]) {
+     [{ kind: 'card', amount: '600', reference: 'AUTH-1' }, { kind: 'card', amount: '599', reference: 'AUTH-2' }], [{ kind: 'bitcoin' }]]) {
     assert.throws(() => paymentDraft(119800, rows, options));
   }
   assert.throws(() => paymentDraft(119800, [{ kind: 'credit' }], { supportedKinds: options.supportedKinds }));

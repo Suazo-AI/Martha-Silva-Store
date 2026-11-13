@@ -1,5 +1,35 @@
 # Operación local de SAVIA en Masaya
 
+## Usuarios y funciones del piloto actual (2026-11-12)
+
+Los nombres son inventados. No corresponden al personal real de la tienda.
+
+| Usuario | Nombre | Función |
+| --- | --- | --- |
+| duena.muestra | María Elena López | Dueña: precios, costos, porcentajes y todas las pantallas |
+| gerente.muestra | Claudia Reyes | Gerente y cajera: cobra, abre/cierra caja y autoriza acciones |
+| vendedor1.muestra | Ana Lucía Pérez | Vendedora: solo sus comisiones; no cobra ni ve caja |
+| vendedor2.muestra | Rosa Isabel Gutiérrez | Vendedora: solo sus comisiones; no cobra ni ve caja |
+| bodega.muestra | Marta Solís | Bodega: recepción, calidad e inventario; sin caja, precios ni costos |
+
+Cada usuario requiere una contraseña independiente desde su variable `SAVIA_PILOT_PASSWORD_*`.
+Nunca escriba contraseñas en documentos ni las comparta en capturas.
+Una venta normal no pide nombre ni teléfono. Elija la vendedora antes de agregar cada prenda.
+La identidad de cliente se usa para anticipos. Tarjeta solo registra el pago hecho en el POS externo.
+Antes de una acción sensible, lea el importe y elija Si, confirmar o No, volver.
+La dueña revisa Aprobaciones porque la gerente también autoriza sus propias acciones.
+En Recepción, clasifique todas las unidades. Solo Buena entra a la existencia disponible.
+Dañada, Manchada y Mal olor quedan en cuarentena. Faltante no entra al inventario.
+
+Para preparar datos inventados: `python savia/tools/pilot.py reset --demo`.
+Este comando reemplaza solo SAVIA_DEV_pilot. Después use `up` con las cinco variables de contraseña.
+No ejecutar reset sobre inventario real. Este piloto no es una instalación de producción.
+Estado y evidencia actuales: [OWNER-ROLES-VERIFICATION](OWNER-ROLES-VERIFICATION.md).
+
+## Referencia anterior de respaldo e inicio automático
+
+# Operación local de SAVIA en Masaya
+
 El respaldo y la restauración se probaron en bases temporales el 12 de noviembre de 2026.
 La prueba terminó con `restore-test PASS` y conteos iguales a los del respaldo.
 No se consultó ni modificó `SAVIA_DEV_pilot` durante esta entrega.

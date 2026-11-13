@@ -1,87 +1,60 @@
-# SAVIA pilot staff web
+# SAVIA Masaya staff web
 
-Owner decisions, 2026-11-12. Local Masaya pilot only. Work continues in the canonical checkout.
-No deployment, external service, new dependency, container, commit or push.
+Owner decisions, 2026-11-12. Local static modules served by the .NET API.
+No new dependency, Playwright, external service or deployment.
+See [API-PILOT](API-PILOT.md) for roles, environment variables and contracts.
+Current command evidence: [OWNER-ROLES-VERIFICATION](OWNER-ROLES-VERIFICATION.md).
 
-## Run locally
+## Roles and navigation
 
-Use the running `savia-sqlserver-dev` container. Set distinct temporary passwords in the shell:
-`SAVIA_PILOT_PASSWORD_CAJERA`, `SAVIA_PILOT_PASSWORD_SUPERVISORA`, `SAVIA_PILOT_PASSWORD_DUENA`.
-Run `python savia/tools/pilot.py reset` then `python savia/tools/pilot.py up`.
-Open http://127.0.0.1:5080/. The API serves static files and `/api/v1` on loopback.
-Login names remain `cajera.muestra`, `supervisora.muestra`, `duena.muestra`.
-See [API-PILOT](API-PILOT.md) for the SQL and HTTP contracts.
+Dueña sees everything, plus Precios and Aprobaciones.
+Gerente also operates the till and approves discounts, credit returns and stock exceptions.
+Vendedoras see only Comisiones and Ajustes. They do not see the header till link or Caja.
+Bodega sees Recepción, Inventario and Ajustes, with prices redacted by the API.
+Navigation redirects a newly signed-in account to a module its role can use.
+API and SQL authorization remain necessary; hidden navigation is not security.
 
-## Venta without photos
+## Venta and commissions
 
-Every garment screen uses text. Product image assets, the photo helper, its CSS and Sin foto
-placeholders are removed. The Venta grid remains beside the ticket. Cards show name, sizes,
-price and local available stock. Type/size filters intersect with name/SKU search. Scanning
-adds the exact variant. Multiple variants open a size picker with each size's price and stock.
+Venta has one seller chip per active local seller. The selected chip applies to the next garment.
+Each ticket line has a seller selector. The same garment can have separate lines for two sellers.
+The request sends sellerId per line. SQL owns commission, discount, price, stock and cost validation.
+Comisiones has day/week/month/year periods and a date. Values and CSV come from SQL.
+Sellers see only their own row. Manager/owner see all. The owner may change future rates with a reason.
+Return reversals retain the sale's original seller/rate and appear in the return period.
 
-Zero-stock cards say Sin existencia en sistema and stay selectable. Adding above the available
-quantity asks: El sistema muestra 0. Confirmar que la prenda está en la tienda. Cancel leaves the
-ticket unchanged. Confirm records the physical-stock note with the sale. SQL creates a traced
-positive adjustment for the short quantity before the normal negative sale movement. A manager
-reviews the pending exception from Excepciones de inventario and enters the result before Revisado.
+A normal sale has no customer field. Customer selection appears only when an advance payment is chosen.
+Card tender is a manual POS record. Its voucher number is optional. No card data is collected.
+Split payments remain. Discounts require a manager and reason. The owner can inspect self-approval.
+Parked tickets remain local drafts, reserve no stock and need current SQL validation when restored.
 
-Ticket quantity and discount controls wrap within their column. The complete ticket can scroll
-vertically. Horizontal content and controls must remain within the ticket and page at 1024x768
-and 1440x900. No image column remains in reception, review, inventory, history, returns or receipts.
+## Prices and oversight
 
-## Cash and discounts
+Owner Precios supports search, current price/cost, reason and append-only history.
+The next sale must use the current SQL price. The history remains unchanged by later edits.
+Manager/owner inventory shows cost. Period reports include SQL cost of goods and gross margin.
+Aprobaciones lists recorded discounts, returns, stock exceptions and price changes.
+Layaway, exchange and void workflows are not implemented; the available reversal is a credit return.
 
-Abrir caja counts every NIO denomination from `GET /cash/denominations`. Each row shows quantity
-and line total. The opening total is read-only. SQL rejects a separately supplied total that does
-not match the breakdown. Till summaries and Cierre show the stored opening breakdown. Closing
-uses the same denomination component and SQL-owned list. Opening counts cannot close the till.
+## Confirmation and quality
 
-Every discount requires a manager/owner. There is no 10% cashier allowance. Line/ticket percentage
-fields are only requests and previews. On Cobrar a cashier gets a second real sign-in. The manager
-can change each line's discount amount in cordobas and must enter a reason. The API authenticates
-the live manager session separately. SQL independently checks the role and records who approved
-and why. A manager selling directly supplies a reason on the ticket. Approval tokens are held in
-memory, excluded from parked tickets, and logged out after submission.
-A full authorized discount needs no payment. SQL accepts the zero total with an empty tender list.
+The reusable in-page dialog states the consequence and has “Si, confirmar” and “No, volver”.
+It guards receipt posting, new garment acceptance, scan rejection, return submission,
+ticket clearing, till closing, price changes, exception review and quality classification.
+The component has a unit test. Browser tests cancel a quality write, read unchanged API state,
+then confirm it and read the stored classification. No window.confirm is used.
+Reception classifies expected units as Buena, Dañada, Manchada, Mal olor or Faltante.
+Good units enter sellable stock. Defects enter quarantine. Missing units never enter stock.
+The report endpoint aggregates quality per supplier/date range.
 
-Guardar ticket, Tickets guardados and the in-page Vaciar ticket confirmation remain. Drafts are
-local to this browser and till. They survive reload, reserve no stock and create no server sale.
-Closing/replacing the till clears them when the browser next synchronizes. Restored tickets still
-need current SQL stock/price checks and fresh approval. Clearing browser storage loses drafts.
+## Verification and limits
 
-## Reports and receipts
+`e2e_pilot.py` uses agent-browser, a real browser and the real loopback API.
+It signs in all five roles, checks navigation, two sellers on one ticket, commissions against the API,
+owner-only price changes and the next sale, quality, confirmation cancel/accept and anonymous sales.
+It inspects console/page errors and captures 1024x768 images; layout also checks 1440x900.
+Credentials use the CLI encrypted vault through stdin and are removed after sign-in.
+Close retries are bounded. A persistent session falls back to stopping only its verified daemon.
+Cleanup cannot conceal an earlier flow failure.
 
-Reportes has Día, Semana, Mes and Año views. All summary values come from SQL. The day view also
-keeps the prior till/accounting detail. Week starts Monday; dates use Nicaragua time. Exportar CSV
-exports the same API values in minor units. Imprimir reporte uses the report print stylesheet.
-Customers served are distinct identified customers; new customers have no earlier sale here.
-
-Recibo is a simple store receipt with a sequential branch number. It has no tax breakdown.
-Reimprimir retains the 80 mm stylesheet. A browser print check does not test a physical printer.
-
-## Preserved work and boundaries
-
-Ajustes keeps the Bosque, Tinta and Malva palettes and their persistence on this device. Its notice
-says Datos de prueba: los productos, precios y personas son ejemplos. Seed display labels omit
-MUESTRA; login names stay unchanged. The header shows branch, operator, till state and till cashier.
-Reception retains registration, resolution, rejection, approval, posting and labels. Customer
-selection, credit returns and split tenders remain. Card and transfer references describe external
-payments; there is no gateway. Returns still issue supervised store credit, not cash refunds.
-Local storage is not production security. No SISFAIN backend is claimed.
-
-## Verification
-
-Acceptance passed: 129 SQL tests, 43 .NET tests, 42 web unit tests, smoke and two consecutive
-browser runs with zero console/page errors. Commands, exits and limits are recorded in
-[OWNER-VERIFICATION](OWNER-VERIFICATION.md). The first focused .NET run reproduced three failures:
-opening mismatch accepted, unapproved cashier discount accepted, and zero-stock sale rejected.
-An intermediate count test exposed the old one-submitted-count-per-till index. V015 separates
-opening and closing kinds and preserves V007's close authorization guard.
-
-The browser suite uses only agent-browser against the real local API. Each captured state checks
-1024x768 and 1440x900 for page/ticket overflow and product images. It covers opening breakdown
-read-back, manager-approved discounts, zero-stock exception and review, reports equal to API,
-reception, inventory, customer credit, parked tickets and close. Current captures are in [screens](screens/).
-
-Not verified: production, deployment, bank gateway, physical scanner/printer, multi-node sync,
-mobile, full accessibility or performance acceptance. No public URL or remote delivery is claimed.
+Not verified: production, deployment, bank gateway, physical devices, mobile, full accessibility or performance.

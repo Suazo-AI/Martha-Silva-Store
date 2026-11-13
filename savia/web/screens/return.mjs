@@ -1,3 +1,4 @@
+import { confirmAction } from '../confirm.mjs';
 import * as api from '../api.mjs';
 import { h, replace, showError, openModal } from '../ui.mjs';
 import { formatMoney, parseMoney } from '../money.mjs';
@@ -54,7 +55,13 @@ export default {
       const id = routeSaleId();
       if (!id) throw new Error('Elija una venta desde Historial.');
       const sale = await api.saleReceipt(id);
-      if (!sale.customerId) throw new Error('Esta venta no tiene cliente. El reembolso disponible requiere el cliente registrado en la venta.');
+      let creditCustomerId=sale.customerId;
+      const creditCustomer=h('input',{id:'return-credit-customer',type:'search',placeholder:'Nombre para emitir el anticipo'});
+      const customerChoices=h('div',{class:'actions'});
+      const chooseCustomer=h('div',{class:'form'},h('label',{},'Destinataria del anticipo',creditCustomer),h('button',{type:'button',onclick:async()=>{
+        try { const customers=await api.searchCustomers(creditCustomer.value);replace(customerChoices,customers.map(customer=>h('button',{type:'button',onclick:()=>{creditCustomerId=customer.customerId;creditCustomer.value=customer.displayName;replace(customerChoices);}},customer.displayName))); }
+        catch(error){showError(status,error);}
+      }},'Buscar destinataria'),customerChoices);
       const { till } = await syncTill(ctx);
       if (!till) throw new Error('Abra una caja desde Venta antes de registrar la devolución.');
       const quantities = {};
@@ -84,10 +91,12 @@ export default {
         try {
           const lines = selectedReturnLines(sale.lines, quantities);
           if (!reason.value.trim()) throw new Error('Indique el motivo de la devolución.');
+          if(!creditCustomerId) throw new Error('Elija la destinataria del anticipo. La venta original no requiere cliente.');
           if (!attempt) attempt = { reversalId: api.uuid(), creditId: api.uuid(), tillId: till.tillId,
-            customerId: sale.customerId, reason: reason.value.trim(),
+            customerId: creditCustomerId, reason: reason.value.trim(),
             lines: lines.map(selected => ({ saleLineId: sale.lines.find(row => row.lineNumber === selected.saleLineNumber).saleLineId,
               quantity: selected.quantity, restockPool: restock.checked ? 'store' : 'quarantine' })) };
+          if(!await confirmAction(`Se devolverán las unidades seleccionadas por un importe estimado de ${total.textContent}. Se emitirá un anticipo y se revertirá su comisión.`)) return;
           let response;
           if (!ctx.isApprover) {
             const token = await supervisorApproval();
@@ -111,7 +120,7 @@ export default {
           }
         } catch (error) { showError(status, error); }
         finally { submit.disabled = false; }
-      } }, ...lineRows,
+      } }, ...lineRows, sale.customerId ? null : chooseCustomer,
       h('div', { class: 'return-options' }, h('div', { class: 'form' },
         h('label', {}, 'Motivo de la devolución', reason), h('label', {}, 'Método de reembolso', method),
         h('label', { class: 'check' }, restock, 'Reingresar al stock disponible'),

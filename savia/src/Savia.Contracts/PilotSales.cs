@@ -8,7 +8,7 @@ public sealed record SaleDetailResponse(Guid SaleId, long SubtotalMinor, long Di
     string Status, string CurrencyCode, DateTime CreatedAt, Guid? CustomerId, string? CustomerName, Guid CashierId,
     string CashierName, Guid? TillId, string? RegisterName, SaleDetailLine[] Lines, SaleDetailTender[] Tenders, SaleReversal[] Reversals, string? ReceiptNumber = null, Guid? DiscountApprovedBy = null, string? DiscountReason = null);
 public sealed record SaleDetailLine(Guid SaleLineId, int LineNumber, Guid ItemId, string Sku, string Name, string? SizeCode,
-    int Quantity, int ReturnedQuantity, long UnitPriceMinor, long DiscountMinor, long TaxMinor, long TotalMinor);
+    int Quantity, int ReturnedQuantity, long UnitPriceMinor, long DiscountMinor, long TaxMinor, long TotalMinor, Guid? SellerId = null, string? SellerName = null);
 public sealed record SaleDetailTender(Guid TenderId, string TenderKind, long AmountMinor, long? ReceivedMinor, long? ChangeMinor,
     string? Reference, Guid? CreditId, string Status);
 public sealed record ReturnLine(Guid SaleLineId, int Quantity, string RestockPool);

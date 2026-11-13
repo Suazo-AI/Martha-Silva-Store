@@ -247,7 +247,8 @@ public sealed class PilotSalesTests : IAsyncLifetime
         var insufficient = new PostSaleRequest(Guid.NewGuid(), till, "NIO", [new(1, Ids.Item, 1, 120000)], [new(1, "credit", 120000, CreditId: ret.CreditId)], Customer);
         await HttpAssert.ProblemAsync(await _cashier.PostAsJsonAsync("/api/v1/sales", insufficient), HttpStatusCode.Conflict, "credit.insufficient");
         await HttpAssert.ProblemAsync(await _node.CreateClient().PostAsJsonAsync("/api/v1/sales", insufficient), HttpStatusCode.Unauthorized, "auth.required");
-        foreach (var kind in new[] { "card", "transfer" })
+        // A transfer needs a reference. The external card POS voucher is optional by owner decision.
+        foreach (var kind in new[] { "transfer" })
             await HttpAssert.ProblemAsync(await _cashier.PostAsJsonAsync("/api/v1/sales", insufficient with
             { SaleId = Guid.NewGuid(), Tenders = [new(1, kind, 120000)] }), HttpStatusCode.UnprocessableEntity, "rule.51509");
         await HttpAssert.ProblemAsync(await _cashier.PostAsJsonAsync("/api/v1/sales", insufficient with

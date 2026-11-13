@@ -101,6 +101,15 @@ export const labelJobs = status => request('GET', '/labels/jobs' + q({ status })
 
 // ---- cash and sales
 export const registers = () => request('GET', '/cash/registers');
+export const approvals = () => request('GET', '/approvals');
+export const sellers = () => request('GET','/sellers');
+export const quality = session => request('GET',path`/receiving/sessions/${session}/quality`);
+export const recordQuality = (session,body) => request('POST',path`/receiving/sessions/${session}/quality`,body);
+export const qualityReport = (from,to) => request('GET','/reports/receiving-quality'+q({from,to}));
+export const itemValues = query => request('GET','/catalog/values'+q({q:query}));
+export const setItemValues = (itemId,body) => request('POST',path`/catalog/items/${itemId}/values`,body);
+export const commissions = (period,date) => request('GET','/reports/commissions'+q({period,date}));
+export const setSellerRate = (sellerId,body) => request('POST',path`/sellers/${sellerId}/rate`,body);
 export const denominations = () => request('GET', '/cash/denominations');
 export const openTill = ({ tillId, registerId, currencyCode = 'NIO', openingMinor, lines }) =>
   request('POST', '/cash/tills', { tillId, registerId, currencyCode, openingMinor, lines });
@@ -129,11 +138,15 @@ export const summaryReport = (period, date) => request('GET', '/reports/summary'
 export const stockExceptions = () => request('GET', '/stock/exceptions');
 export const reviewStockException = (id, reason) => request('POST', path`/stock/exceptions/${id}/review`, { reason });
 export async function exportSummary(period, date) {
-  const response = await fetch(BASE + '/reports/summary.csv' + q({ period, date }), { headers: { Authorization: `Bearer ${getToken()}` } });
+  return exportReport('/reports/summary.csv',period,date,'reporte');
+}
+export const exportCommissions = (period,date) => exportReport('/reports/commissions.csv',period,date,'comisiones');
+async function exportReport(path,period,date,name) {
+  const response = await fetch(BASE + path + q({ period, date }), { headers: { Authorization: `Bearer ${getToken()}` } });
   if (!response.ok) throw await toError(response);
   const url = URL.createObjectURL(await response.blob());
   const link = document.createElement('a');
-  link.href = url; link.download = `reporte-${period}-${date}.csv`; link.click();
+  link.href = url; link.download = `${name}-${period}-${date}.csv`; link.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 export const postCreditReturn = (saleId, body, token) => request('POST', path`/sales/${saleId}/returns/credit`, body,

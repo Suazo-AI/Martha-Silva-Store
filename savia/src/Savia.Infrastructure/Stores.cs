@@ -200,7 +200,8 @@ public sealed class SalesStore(SqlGateway sql) : ISalesStore
         return sql.ExecProcAsync("sales.usp_PostSale", ct, P("@SaleId", request.SaleId), P("@BranchId", branchId),
             P("@LocationId", locationId), P("@CashierId", cashierId), P("@CurrencyCode", request.CurrencyCode),
             P("@OriginNodeId", nodeId), Table("@Lines", "sales.SaleLineRequest", lines),
-            Table("@Tenders", "sales.SaleTenderRequest", tenders), P("@CustomerId", request.CustomerId), P("@TillId", request.TillId), P("@DiscountApproverId", discountApproverId), P("@DiscountReason", request.DiscountReason), P("@StockExceptionNote", request.StockExceptionNote));
+            Table("@Tenders", "sales.SaleTenderRequest", tenders), P("@CustomerId", request.CustomerId), P("@TillId", request.TillId), P("@DiscountApproverId", discountApproverId), P("@DiscountReason", request.DiscountReason), P("@StockExceptionNote", request.StockExceptionNote),
+            P("@SellersJson",request.Lines.Any(l=>l.SellerId is not null) ? JsonSerializer.Serialize(request.Lines.OrderBy(l=>l.LineNumber).Select(l=>new {l.LineNumber,l.SellerId}),Camel) : null));
     }
 
     public Task<SaleResponse?> GetSaleAsync(Guid saleId, Guid branchId, CancellationToken ct) => sql.FirstAsync(

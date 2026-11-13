@@ -6,8 +6,9 @@ DECLARE @cashier uniqueidentifier=test.Id('cashierA'),@node uniqueidentifier=tes
   @n bigint;
 EXEC sales.usp_OpenTill @TillId=@till,@RegisterId=@register,@CashierId=@cashier,
      @CurrencyCode='NIO',@OpeningMinor=100000,@OriginNodeId=@node;
-INSERT INTO sales.CashTills(Id,RegisterId,CashierId,CurrencyCode,Status,ClosedAt)
-  VALUES(@closedTill,@register,@cashier,'NIO','closed',SYSUTCDATETIME());
+DECLARE @closedAt datetime2(3)=SYSUTCDATETIME();
+INSERT INTO sales.CashTills(Id,RegisterId,CashierId,CurrencyCode,Status,OpenedAt,ClosedAt)
+  VALUES(@closedTill,@register,@cashier,'NIO','closed',@closedAt,@closedAt);
 
 -- 51505 tipo de operacion no manual
 BEGIN TRY

@@ -13,12 +13,16 @@ EXEC sales.usp_OpenTill @TillId=@till,@RegisterId=@register,@CashierId=@cashier,
 -- Turno de la sucursal B y turno cerrado sembrado directamente.
 EXEC sales.usp_OpenTill @TillId=@tillB,@RegisterId=@registerB,@CashierId=@cashierB,
      @CurrencyCode='NIO',@OpeningMinor=0,@OriginNodeId=@nodeB;
-INSERT INTO sales.CashTills(Id,RegisterId,CashierId,CurrencyCode,Status,ClosedAt)
-  VALUES(@closedTill,@register,@cashier,'NIO','closed',SYSUTCDATETIME());
+DECLARE @closedAt datetime2(3)=SYSUTCDATETIME();
+INSERT INTO sales.CashTills(Id,RegisterId,CashierId,CurrencyCode,Status,OpenedAt,ClosedAt)
+  VALUES(@closedTill,@register,@cashier,'NIO','closed',@closedAt,@closedAt);
 
 DECLARE @lines sales.SaleLineRequest,@tenders sales.SaleTenderRequest;
 INSERT INTO @lines(LineNumber,ItemId,Quantity,UnitPriceMinor,DiscountMinor) VALUES(1,@item,1,120000,0);
 INSERT INTO @tenders(TenderNumber,TenderKind,AmountMinor,ReceivedMinor,ChangeMinor) VALUES(1,'cash',120000,120000,0);
+-- Give this isolated fixture a valid seller so the manager case reaches the till rule.
+INSERT security.StaffRoles(StaffId,RoleId) SELECT @cashier,Id FROM security.Roles WHERE Code='SELLER';
+DECLARE @sellers nvarchar(max)=(SELECT 1 AS lineNumber,@cashier AS sellerId FOR JSON PATH);
 
 -- 51514 venta POS sin turno
 BEGIN TRY
@@ -31,7 +35,7 @@ BEGIN CATCH IF ERROR_NUMBER()<>51514 THROW; END CATCH;
 -- 51515 el turno pertenece a otra cajera (la supervisora si tiene acceso a la sucursal)
 BEGIN TRY
   EXEC sales.usp_PostSale @SaleId=@sale,@BranchId=@branch,@LocationId=@loc,@CashierId=@super,
-       @CurrencyCode='NIO',@TillId=@till,@OriginNodeId=@node,@Lines=@lines,@Tenders=@tenders;
+       @CurrencyCode='NIO',@TillId=@till,@OriginNodeId=@node,@Lines=@lines,@Tenders=@tenders,@SellersJson=@sellers;
   THROW 59002,'ASSERT FAIL: venta con el turno de otra cajera aceptada',1;
 END TRY
 BEGIN CATCH IF ERROR_NUMBER()<>51515 THROW; END CATCH;

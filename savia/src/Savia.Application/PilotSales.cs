@@ -16,10 +16,66 @@ public interface IPilotSalesStore
     Task<JsonElement> ExceptionsAsync(Guid branch, CancellationToken ct);
     Task ReviewExceptionAsync(Guid branch, Guid exceptionId, Guid actor, string reason, CancellationToken ct);
     Task<IReadOnlyList<long>> DenominationsAsync(CancellationToken ct);
+    Task<JsonElement> ApprovalsAsync(Guid branch, Guid actor, CancellationToken ct);
+    Task<JsonElement> SellersAsync(Guid branch, CancellationToken ct);
+    Task<JsonElement> CommissionsAsync(Guid branch, Guid actor, string period, DateOnly date, CancellationToken ct);
+    Task SetSellerRateAsync(Guid seller, SellerRateRequest request, Guid actor, CancellationToken ct);
+    Task<JsonElement> ItemValuesAsync(Guid branch, Guid actor, string query, CancellationToken ct);
+    Task SetItemValuesAsync(Guid item, ItemValuesRequest request, Guid actor, Guid node, CancellationToken ct);
+    Task RecordQualityAsync(Guid session, QualityRequest request, Guid actor, Guid location, CancellationToken ct);
+    Task<JsonElement> QualityAsync(Guid session, Guid location, CancellationToken ct);
+    Task<JsonElement> QualityReportAsync(Guid branch, DateOnly from, DateOnly to, CancellationToken ct);
 }
 
 public sealed class PilotSalesService(IPilotSalesStore store, NodeContext node)
 {
+    private Guid StockWorker(Actor actor)
+    {
+        var branch=Guard.Branch(actor,node);Guard.Role(actor,Roles.Inventory,Roles.Manager,Roles.Owner);return branch;
+    }
+    public Task RecordQualityAsync(Actor actor,Guid session,QualityRequest request,CancellationToken ct)
+    {
+        StockWorker(actor);Guard.Text(request.Reason,"reason",250);
+        return store.RecordQualityAsync(session,request,actor.StaffId,node.RequireLocation(),ct);
+    }
+    public Task<JsonElement> QualityAsync(Actor actor,Guid session,CancellationToken ct)
+    {
+        StockWorker(actor);return store.QualityAsync(session,node.RequireLocation(),ct);
+    }
+    public Task<JsonElement> QualityReportAsync(Actor actor,DateOnly from,DateOnly to,CancellationToken ct)=>
+        store.QualityReportAsync(StockWorker(actor),from,to,ct);
+    public Task<JsonElement> ItemValuesAsync(Actor actor,string? query,CancellationToken ct) =>
+        store.ItemValuesAsync(Manager(actor),actor.StaffId,query?.Trim() ?? "",ct);
+    public Task SetItemValuesAsync(Actor actor,Guid item,ItemValuesRequest request,CancellationToken ct)
+    {
+        Guard.Branch(actor,node); Guard.Role(actor,Roles.Owner); Guard.Text(request.Reason,"reason",250);
+        return store.SetItemValuesAsync(item,request,actor.StaffId,node.NodeId,ct);
+    }
+    public Task<JsonElement> SellersAsync(Actor actor, CancellationToken ct)
+    {
+        var branch = Guard.Branch(actor, node);
+        Guard.Role(actor, Roles.Seller, Roles.Manager, Roles.Owner, Roles.Cashier);
+        return store.SellersAsync(branch, ct);
+    }
+    public Task<JsonElement> CommissionsAsync(Actor actor, string period, DateOnly date, CancellationToken ct)
+    {
+        var branch = Guard.Branch(actor, node);
+        Guard.Role(actor, Roles.Seller, Roles.Manager, Roles.Owner);
+        return store.CommissionsAsync(branch, actor.StaffId, period, date, ct);
+    }
+    public Task SetSellerRateAsync(Actor actor, Guid seller, SellerRateRequest request, CancellationToken ct)
+    {
+        Guard.Branch(actor, node);
+        Guard.Role(actor, Roles.Owner);
+        Guard.Text(request.Reason,"reason",250);
+        return store.SetSellerRateAsync(seller,request,actor.StaffId,ct);
+    }
+    public Task<JsonElement> ApprovalsAsync(Actor actor, CancellationToken ct)
+    {
+        var branch = Guard.Branch(actor, node);
+        Guard.Role(actor, Roles.Owner);
+        return store.ApprovalsAsync(branch, actor.StaffId, ct);
+    }
     private Guid Manager(Actor actor)
     {
         var branch = Guard.Branch(actor, node);

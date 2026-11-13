@@ -61,7 +61,7 @@ export function paymentsPanel({ kinds, getTotal, onChange, branchId }) {
       return h('div', { class: 'payment-row' }, h('label', {}, `Método de pago ${index + 1}`, kind),
         payments.length > 1 ? input(`Importe del pago ${index + 1}`, `${id}-amount`, 'amount') : null,
         payment.kind === 'cash' ? input(`Efectivo recibido${payments.length > 1 ? ` ${index + 1}` : ''}`, index === 0 ? 'received' : `${id}-received`, 'received') : null,
-        ['card', 'transfer'].includes(payment.kind) ? input(`Referencia del pago ${index + 1}`, `${id}-reference`, 'reference', 'text') : null,
+        ['card', 'transfer'].includes(payment.kind) ? input(payment.kind === 'card' ? 'Número de voucher del POS (opcional)' : `Referencia del pago ${index + 1}`, `${id}-reference`, 'reference', 'text') : null,
         payment.kind === 'credit' ? h('label', {}, `Anticipo del pago ${index + 1}`, h('select', { id: `${id}-credit`, onchange: e => { payment.creditId = e.target.value; onChange(); } },
           h('option', { value: '' }, 'Elija un anticipo'), credits.map(credit => h('option', { value: credit.creditId, selected: credit.creditId === payment.creditId },
             `${credit.branchName} · ${formatMoney(credit.availableMinor)} · ${credit.creditId.slice(0, 8)}`)))) : null,
@@ -69,12 +69,17 @@ export function paymentsPanel({ kinds, getTotal, onChange, branchId }) {
     }));
     customerSummary.textContent = customer ? `Cliente: ${customer.displayName}` : 'Cliente y anticipos (opcional)';
     if (payments.some(row => row.kind === 'credit') && !customer) customerPanel.open = true;
+    if(payments.some(row=>row.kind==='credit')) {
+      if(!customerPanel.parentNode) node.append(customerPanel);
+    } else {
+      customerPanel.remove();customer=null;credits=[];
+    }
   }
   const node = h('div', { class: 'form', id: 'payments' }, rows,
     h('button', { type: 'button', id: 'split-payment', onclick: () => {
       payments.push({ kind: kinds.includes('card') ? 'card' : kinds[0], amount: '', received: '', reference: '' });
       draw(); onChange();
-    } }, 'Dividir pago'), customerPanel);
+    } }, 'Dividir pago'));
   draw();
   return { node,
     snapshot() { return { payments: structuredClone(payments), customer: customer ? structuredClone(customer) : null }; },

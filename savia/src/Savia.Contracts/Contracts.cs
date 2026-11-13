@@ -14,11 +14,11 @@ public sealed record MeResponse(Guid StaffId, string DisplayName, string[] Roles
     Guid? LocationId = null, string? BranchName = null, string? StoreDisplayName = null, string? LocationName = null);
 
 // ---- catalog
-public sealed record ItemLookup(Guid ItemId, string Sku, string VariantName, long UnitPriceMinor, string CurrencyCode,
+public sealed record ItemLookup(Guid ItemId, string Sku, string VariantName, long? UnitPriceMinor, string CurrencyCode,
     string Status, string ProductName, string? SizeCode, string? ColorCode);
 /// <summary>One variant found by name, SKU or code fragment. Stock is the store pool of this node's location; null on the cloud.</summary>
 public sealed record ProductSearchRow(Guid ItemId, string Sku, string ProductName, string VariantName, string? SizeCode,
-    string? ColorCode, string? Barcode, long UnitPriceMinor, string CurrencyCode, string Status, int? OnHand, int? Available);
+    string? ColorCode, string? Barcode, long? UnitPriceMinor, string CurrencyCode, string Status, int? OnHand, int? Available);
 public sealed record RegisterProductRequest(Guid ProductId, string Name);
 public sealed record RegisterItemRequest(Guid ItemId, Guid ProductId, string Sku, string VariantName, string CurrencyCode,
     long UnitPriceMinor, long? UnitCostMinor, string? Barcode, Guid? SizeId = null, Guid? ColorId = null,
@@ -51,7 +51,10 @@ public sealed record AckPrintRequest(Guid AttemptId, int AttemptNo, bool Success
 
 // ---- cash and sales
 public sealed record OpenTillRequest(Guid TillId, Guid RegisterId, string CurrencyCode, long OpeningMinor, CashCountLine[]? Lines = null);
-public sealed record SaleLine(int LineNumber, Guid ItemId, int Quantity, long UnitPriceMinor, long DiscountMinor = 0);
+public sealed record SaleLine(int LineNumber, Guid ItemId, int Quantity, long UnitPriceMinor, long DiscountMinor = 0, Guid? SellerId = null);
+public sealed record SellerRateRequest(Guid ChangeId, int RateBps, string Reason);
+public sealed record ItemValuesRequest(Guid ChangeId, long PriceMinor, long CostMinor, string Reason);
+public sealed record QualityRequest(Guid CheckId, Guid ItemId, int Buena, int Danada, int Manchada, int MalOlor, int Faltante, string Reason);
 public sealed record SaleTender(int TenderNumber, string TenderKind, long AmountMinor, long? ReceivedMinor = null,
     long? ChangeMinor = null, string? Reference = null, Guid? CreditId = null);
 public sealed record PostSaleRequest(Guid SaleId, Guid TillId, string CurrencyCode, SaleLine[] Lines, SaleTender[] Tenders, Guid? CustomerId = null, string? DiscountReason = null, string? StockExceptionNote = null);

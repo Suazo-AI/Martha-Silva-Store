@@ -265,3 +265,15 @@ dialog::backdrop { background: #12231cb3 }
 .exception-item { display:grid; gap:10px; overflow-wrap:anywhere }
 .sale-item,.rline { overflow-wrap:anywhere }
 @media print { .sale,.ticket,#ticket-lines { height:auto !important; overflow:visible !important } }
+/* Seller attribution and quality reuse the existing staff interface. */
+#seller-chips { flex-wrap:wrap; margin-block:10px; }
+#seller-chips button[aria-pressed="true"] { background:var(--accent, #294d3f); color:white; }
+.line-seller { max-width:100%; min-width:0; }
+.quality-check { grid-column:1 / -1; grid-row:2; min-width:0; }
+.quality-check > .form { display:grid; grid-template-columns:repeat(auto-fit,minmax(110px,1fr)); gap:8px; padding-block:12px; }
+.quality-check input { width:100%; min-width:0; }
+.rline > .qty { grid-column:2; grid-row:1; }
+#price-list .actions { flex-wrap:wrap; }
+#price-list label { min-width:0; max-width:100%; }
+#price-list input { width:160px; max-width:100%; }
+.rail { max-height:100vh; position:sticky; top:0; overflow-y:auto; }

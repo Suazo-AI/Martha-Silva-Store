@@ -13,6 +13,10 @@ import returns from './screens/return.mjs';
 import customers from './screens/customers.mjs';
 import report from './screens/report.mjs';
 import exceptions from './screens/exceptions.mjs';
+import approvals from './screens/approvals.mjs';
+import commissions from './screens/commissions.mjs';
+import prices from './screens/prices.mjs';
+import qualityReport from './screens/quality-report.mjs';
 import settings, { applyPalette } from './screens/settings.mjs';
 import { syncTill } from './screens/till-open.mjs';
 import { canAccess } from './roles.mjs';
@@ -30,6 +34,10 @@ const ROUTES = {
   'clientes': customers,
   'reporte': report,
   'excepciones': exceptions,
+  'aprobaciones': approvals,
+  'comisiones': commissions,
+  'precios': prices,
+  'calidad': qualityReport,
 };
 const APPROVER_ROLES = ['MANAGER', 'OWNER'];
 const $ = id => document.getElementById(id);
@@ -60,6 +68,7 @@ globalThis.savia = { handleScan };
 
 function renderTillState() {
   const el = $('till-state');
+  el.hidden = !ctx.roles.some(r => ['MANAGER','OWNER'].includes(r));
   const till = ctx.till.get();
   el.textContent = till ? `Caja abierta · ${till.cashierName ?? ctx.me?.displayName ?? ''}` : 'Caja cerrada · Abra la caja para vender';
   el.dataset.state = till ? 'open' : 'closed';
@@ -72,7 +81,7 @@ function renderHeader() {
 }
 
 export function roleName(code) {
-  return { CASHIER: 'Caja', MANAGER: 'Supervisión', OWNER: 'Dueña', INVENTORY: 'Bodega' }[code] ?? code;
+  return { CASHIER: 'Caja', MANAGER: 'Gerente', SELLER: 'Vendedora', OWNER: 'Dueña', INVENTORY: 'Bodega' }[code] ?? code;
 }
 
 async function route() {
@@ -89,7 +98,7 @@ async function route() {
   const screen = ROUTES[name] ?? sale;
   $('access').hidden = true;
   $('shell').hidden = false;
-  if (ctx.roles.some(role => ['CASHIER','MANAGER','OWNER'].includes(role))) await syncTill(ctx);
+  if (ctx.roles.some(role => ['MANAGER','OWNER'].includes(role))) await syncTill(ctx);
   renderHeader();
   for (const link of document.querySelectorAll('#nav a')) {
     link.hidden = !canAccess(link.dataset.route, ctx.roles);
@@ -110,7 +119,7 @@ async function route() {
 async function onSignedIn(loginResponse) {
   api.setToken(loginResponse.token);
   ctx.me = await api.me();
-  if (!location.hash || location.hash === '#/ingreso') location.hash = '#/venta';
+  if (!location.hash || location.hash === '#/ingreso' || !canAccess(location.hash.replace(/^#\/?/,''),ctx.roles)) location.hash = ctx.roles.includes('SELLER') ? '#/comisiones' : ctx.roles.includes('INVENTORY') ? '#/recepcion' : '#/venta';
   else route();
 }
 

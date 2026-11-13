@@ -6,6 +6,7 @@ public enum NodeKind { Cloud, Branch }
 public static class Roles
 {
     public const string Owner = "OWNER";
+    public const string Seller = "SELLER";
     public const string Manager = "MANAGER";
     public const string Cashier = "CASHIER";
     public const string Inventory = "INVENTORY";

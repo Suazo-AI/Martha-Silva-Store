@@ -90,6 +90,12 @@ public static class DbErrors
         [51534] = ("return.zero_credit", ErrorKind.Conflict),
         [51606] = ("credit.customer_or_currency", ErrorKind.Conflict),
         [51900] = ("report.range", ErrorKind.Validation),
+        [52001] = ("auth.role_required", ErrorKind.Forbidden),
+        [52002] = ("sale.seller_required", ErrorKind.Validation),
+        [52003] = ("commission.rate", ErrorKind.Validation),
+        [52004] = ("input.id_reused", ErrorKind.Conflict),
+        [52005] = ("sale.customer_not_needed", ErrorKind.Validation),
+        [52006] = ("receiving.quality", ErrorKind.Validation),
         [51901] = ("customer.search_too_short", ErrorKind.Validation),
         // V009: credit transfer as transition rows, one writer per row.
         [51719] = ("credit.transfer_retired", ErrorKind.NotFound),

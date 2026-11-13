@@ -40,16 +40,6 @@ BEGIN TRY
 END TRY
 BEGIN CATCH IF ERROR_NUMBER()<>51509 THROW; END CATCH;
 
--- Tarjeta sin referencia de autorizacion.
-DECLARE @d sales.SaleTenderRequest;
-INSERT INTO @d(TenderNumber,TenderKind,AmountMinor) VALUES(1,'card',120000);
-BEGIN TRY
-  EXEC sales.usp_PostSale @SaleId=@sale,@BranchId=@branch,@LocationId=@loc,@CashierId=@cashier,
-       @CurrencyCode='NIO',@TillId=@till,@OriginNodeId=@node,@Lines=@lines,@Tenders=@d;
-  THROW 59002,'ASSERT FAIL: tarjeta sin referencia aceptada',1;
-END TRY
-BEGIN CATCH IF ERROR_NUMBER()<>51509 THROW; END CATCH;
-
 -- Transferencia sin referencia.
 DECLARE @e sales.SaleTenderRequest;
 INSERT INTO @e(TenderNumber,TenderKind,AmountMinor) VALUES(1,'transfer',120000);

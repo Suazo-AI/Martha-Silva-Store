@@ -1,3 +1,4 @@
+import { confirmAction } from '../confirm.mjs';
 // Caja · Cierre: count cash by denomination, show expected vs counted, close once.
 import * as api from '../api.mjs';
 import { h, replace, showError, showOk, clearMessage, device } from '../ui.mjs';
@@ -46,6 +47,7 @@ export default {
         clearMessage(message);
         close.disabled = true;
         try {
+          if(!await confirmAction(`Se cerrará la caja con un conteo de ${formatMoney(countTotal(lines()))}.`)) { close.disabled=false; return; }
           const ids = await saveCount();
           const closure = await api.closeTill(till.tillId, { closureId: ids.closureId, cashCountId: ids.cashCountId });
           device.set('parkedTickets', null);

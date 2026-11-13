@@ -11,6 +11,7 @@ public sealed class LocalCatalogRejectTests : IAsyncLifetime
     private SaviaNode _node = null!;
     private HttpClient _manager = null!;
     private HttpClient _cashier = null!;
+    private HttpClient _owner = null!;
 
     public async Task InitializeAsync()
     {
@@ -18,6 +19,7 @@ public sealed class LocalCatalogRejectTests : IAsyncLifetime
         _node = new SaviaNode(_database, NodeKind.Branch, Ids.NodeA, Ids.BranchA, Ids.LocA,
             new Dictionary<string, string?> { ["Savia:Pilot:LocalCatalog"] = "true" });
         _manager = await _node.SignInAsync(Ids.SupervisorA, "t_super_a");
+        _owner = await _node.SignInAsync(Ids.Manager, "t_manager");
         _cashier = await _node.SignInAsync(Ids.CashierA, "t_cashier_a");
     }
 
@@ -62,10 +64,10 @@ public sealed class LocalCatalogRejectTests : IAsyncLifetime
         await HttpAssert.ProblemAsync(await outsider.PostAsJsonAsync("/api/v1/catalog/products", product), HttpStatusCode.Forbidden, "auth.branch_access");
         await HttpAssert.ProblemAsync(await outsider.PostAsJsonAsync("/api/v1/catalog/items", item), HttpStatusCode.Forbidden, "auth.branch_access");
         await HttpAssert.OkAsync(await _manager.PostAsJsonAsync("/api/v1/catalog/products", product));
-        await HttpAssert.OkAsync(await _manager.PostAsJsonAsync("/api/v1/catalog/items", item));
+        await HttpAssert.OkAsync(await _owner.PostAsJsonAsync("/api/v1/catalog/items", item));
         // Existing procedure retries and barcode ownership rules still apply.
-        await HttpAssert.OkAsync(await _manager.PostAsJsonAsync("/api/v1/catalog/items", item));
-        await HttpAssert.ProblemAsync(await _manager.PostAsJsonAsync("/api/v1/catalog/items", item with { ItemId = Guid.NewGuid(), Sku = "OTHER" }), HttpStatusCode.Conflict, "catalog.code_taken");
+        await HttpAssert.OkAsync(await _owner.PostAsJsonAsync("/api/v1/catalog/items", item));
+        await HttpAssert.ProblemAsync(await _owner.PostAsJsonAsync("/api/v1/catalog/items", item with { ItemId = Guid.NewGuid(), Sku = "OTHER" }), HttpStatusCode.Conflict, "catalog.code_taken");
     }
 
     [Theory]
@@ -125,7 +127,7 @@ public sealed class LocalCatalogRejectTests : IAsyncLifetime
         var product = new RegisterProductRequest(Guid.NewGuid(), "New sample");
         var item = new RegisterItemRequest(Guid.NewGuid(), product.ProductId, "NEW-SAMPLE", "New sample", "NIO", 50000, 20000, "NEW-LOCAL-BARCODE");
         await HttpAssert.OkAsync(await _manager.PostAsJsonAsync("/api/v1/catalog/products", product));
-        await HttpAssert.OkAsync(await _manager.PostAsJsonAsync("/api/v1/catalog/items", item));
+        await HttpAssert.OkAsync(await _owner.PostAsJsonAsync("/api/v1/catalog/items", item));
         await HttpAssert.OkAsync(await _manager.PostAsJsonAsync($"/api/v1/receiving/sessions/{session}/scans/{unknown.ScanId}/resolve", new ResolveScanRequest(item.ItemId, "registered locally")));
         var line = Assert.Single(await HttpAssert.OkAsync<ScanSessionLine[]>(await _manager.GetAsync($"/api/v1/receiving/sessions/{session}/lines")));
         Assert.Equal((item.ItemId, "matched", 1L), (line.ItemId!.Value, line.MatchStatus, line.Quantity));

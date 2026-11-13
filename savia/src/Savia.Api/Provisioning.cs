@@ -35,13 +35,7 @@ public static class Provisioning
         var failed = 0;
         foreach (var login in logins)
         {
-            var variable = login.ToLowerInvariant() switch
-            {
-                "cajera.muestra" => "SAVIA_PILOT_PASSWORD_CAJERA",
-                "supervisora.muestra" => "SAVIA_PILOT_PASSWORD_SUPERVISORA",
-                "duena.muestra" => "SAVIA_PILOT_PASSWORD_DUENA",
-                _ => "SAVIA_PILOT_PASSWORD_" + login.ToUpperInvariant().Replace('.', '_'),
-            };
+            var variable = "SAVIA_PILOT_PASSWORD_" + login.Split('.')[0].ToUpperInvariant();
             var password = checkOnly ? null : Environment.GetEnvironmentVariable(variable) ?? shared;
             var staff = await store.FindStaffAsync(login.ToUpperInvariant(), ct);
             if (staff is null)

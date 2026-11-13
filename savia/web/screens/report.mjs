@@ -60,10 +60,10 @@ export default {
 };
 
 export function summaryContent(report) {
-  const moneyKeys = new Set(['grossMinor','discountsMinor','netMinor','returnsMinor','averageTicketMinor']);
+  const moneyKeys = new Set(['grossMinor','discountsMinor','netMinor','returnsMinor','averageTicketMinor','grossMarginMinor','costOfGoodsMinor']);
   const labels = [['salesCount','Ventas'],['unitsSold','Prendas vendidas'],['grossMinor','Venta bruta'],
     ['discountsMinor','Descuentos'],['netMinor','Venta neta después de devoluciones'],['returnsMinor','Devoluciones'],
-    ['averageTicketMinor','Ticket promedio'],['customersServed','Clientes atendidos'],['newCustomers','Clientes nuevos'],['stockExceptionsCount','Excepciones de inventario']];
+    ['grossMarginMinor','Margen bruto'],['costOfGoodsMinor','Costo de lo vendido'],['averageTicketMinor','Ticket promedio'],['stockExceptionsCount','Excepciones de inventario']];
   const table = (title, rows, columns) => h('section', {}, h('h3',{},title),
     rows.length ? h('div',{class:'table-wrap'},h('table',{},h('thead',{},h('tr',{},columns.map(([key,label])=>h('th',{},label)))),
       h('tbody',{},rows.map(row=>h('tr',{},columns.map(([key])=>h('td',{},key.endsWith('Minor') ? formatMoney(row[key]) : key==='tenderKind' ? tenderName(row[key]) : row[key]))))))) : h('p',{},'Sin movimientos en este período.'));

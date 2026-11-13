@@ -9,9 +9,27 @@ namespace Savia.Infrastructure;
 
 public sealed class PilotSalesStore(SqlGateway sql) : IPilotSalesStore
 {
+    public Task RecordQualityAsync(Guid session, QualityRequest request, Guid actor, Guid location, CancellationToken ct) =>
+        sql.ExecProcAsync("receiving.usp_RecordQuality",ct,P("@CheckId",request.CheckId),P("@ScanSessionId",session),P("@ItemId",request.ItemId),P("@Good",request.Buena),P("@Damaged",request.Danada),P("@Stained",request.Manchada),P("@Odor",request.MalOlor),P("@Missing",request.Faltante),P("@Reason",request.Reason),P("@ActorId",actor),P("@LocationId",location));
+    public Task<JsonElement> QualityAsync(Guid session, Guid location, CancellationToken ct)=>
+        ReadElement("receiving.usp_GetQuality",ct,P("@ScanSessionId",session),P("@LocationId",location));
+    public Task<JsonElement> QualityReportAsync(Guid branch, DateOnly from, DateOnly to, CancellationToken ct)=>
+        ReadElement("receiving.usp_QualityReport",ct,P("@BranchId",branch),P("@From",from.ToDateTime(TimeOnly.MinValue)),P("@To",to.ToDateTime(TimeOnly.MinValue)));
+    public Task<JsonElement> ItemValuesAsync(Guid branch, Guid actor, string query, CancellationToken ct) =>
+        ReadElement("catalog.usp_GetItemValues",ct,P("@BranchId",branch),P("@ActorId",actor),P("@Query",query));
+    public Task SetItemValuesAsync(Guid item, ItemValuesRequest request, Guid actor, Guid node, CancellationToken ct) =>
+        sql.ExecProcAsync("catalog.usp_SetItemValues",ct,P("@ChangeId",request.ChangeId),P("@ItemId",item),P("@NewPriceMinor",request.PriceMinor),P("@NewCostMinor",request.CostMinor),P("@ActorId",actor),P("@OriginNodeId",node),P("@Reason",request.Reason));
+    public Task<JsonElement> SellersAsync(Guid branch, CancellationToken ct) =>
+        ReadElement("sales.usp_ListSellers", ct, P("@BranchId", branch));
+    public Task<JsonElement> CommissionsAsync(Guid branch, Guid actor, string period, DateOnly date, CancellationToken ct) =>
+        ReadElement("sales.usp_GetCommissions", ct, P("@BranchId", branch),P("@ActorId",actor),P("@Period",period),P("@Date",date.ToDateTime(TimeOnly.MinValue)));
+    public Task SetSellerRateAsync(Guid seller, SellerRateRequest request, Guid actor, CancellationToken ct) =>
+        sql.ExecProcAsync("sales.usp_SetSellerRate", ct,P("@SellerId",seller),P("@ChangeId",request.ChangeId),P("@RateBps",request.RateBps),P("@Reason",request.Reason),P("@ActorId",actor));
+    public Task<JsonElement> ApprovalsAsync(Guid branch, Guid actor, CancellationToken ct) =>
+        ReadElement("security.usp_ListApprovals", ct, P("@BranchId", branch), P("@ActorId", actor));
     private async Task<JsonElement> ReadElement(string proc, CancellationToken ct, params SqlParameter[] args)
     {
-        var rows = await sql.QueryProcAsync(proc, r => r.GetString(0), ct, args);
+        var rows = await sql.QueryProcAsync(proc, r => r.IsDBNull(0) ? "[]" : r.GetString(0), ct, args);
         using var document = JsonDocument.Parse(rows.Single());
         return document.RootElement.Clone();
     }

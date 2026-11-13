@@ -1,115 +1,50 @@
 {
-  "scope": "Owner decisions 2026-11-12; local Masaya synthetic pilot only",
-  "recordedAtUtc": "2026-11-13T02:08:34.486341+00:00",
-  "baseCommit": "443f4be5037ada8db2c6242dd94a7d062f4a2e00",
-  "candidate": "Uncommitted canonical working tree; staged explicit paths; no commit or push",
-  "apiState": "stopped and loopback health refused",
-  "checks": [
-    {
-      "command": "python savia/tools/check.py",
-      "exitCode": 0,
-      "sqlPassed": 129,
-      "dotnetPassed": 43
-    },
-    {
-      "command": "node --test \"savia/web/tests/*.test.mjs\"",
-      "exitCode": 0,
-      "passed": 42
-    },
-    {
-      "command": "python savia/tests/test_pilot_browser_cleanup.py",
-      "exitCode": 0,
-      "passed": 3
-    },
-    {
-      "command": "python -u savia/tools/pilot_smoke.py",
-      "exitCode": 0
-    },
-    {
-      "command": "python savia/.out/owner_receipt_probe.py",
-      "exitCode": 0,
-      "consoleErrors": 0,
-      "pageErrors": 0
-    },
-    {
-      "command": "python -u savia/web/tests/e2e_pilot.py",
-      "run": 1,
-      "exitCode": 0,
-      "passed": 23,
-      "failed": 0,
-      "consoleErrors": 0,
-      "pageErrors": 0
-    },
-    {
-      "command": "python -u savia/web/tests/e2e_pilot.py",
-      "run": 2,
-      "exitCode": 0,
-      "passed": 23,
-      "failed": 0,
-      "consoleErrors": 0,
-      "pageErrors": 0
-    },
-    {
-      "command": "EXEC audit.usp_CheckConservation @Throw=1",
-      "exitCode": 0,
-      "violations": 0
-    }
-  ],
-  "viewportsChecked": [
-    [
-      1024,
-      768
-    ],
-    [
-      1440,
-      900
-    ]
-  ],
+  "scope": "Local Masaya synthetic pilot, owner decisions 2026-11-12",
+  "baseCommit": "b33091bb0a9405cbe30c123d510f226c1a9a35c3",
+  "candidate": "Uncommitted canonical working tree; no push or deployment",
+  "recordedAtUtc": "2026-11-13T04:20:53.731136+00:00",
+  "checks": {
+    "fullCheckConsecutivePasses": 3,
+    "sqlTestsEach": 131,
+    "dotnetTestsEach": 45,
+    "webUnitTests": 44,
+    "pythonRunnerCleanupTests": 11,
+    "demoConservationViolations": 0,
+    "browserAcceptance": "INCOMPLETE: last completed e2e exit 1 at case-sensitive GUID assertion; corrected assertion not rerun to completion",
+    "latestCompletedSmokeExit": 1
+  },
   "screenshots": [
     {
-      "file": "abrir-caja.png",
+      "file": "venta-vendedoras.png",
       "width": 1024,
       "height": 768,
-      "sha256": "d231c7fb2c32b4ba14b283d8287e1f5eaef7e6c80b2edc376d13a403e4e3bd84"
+      "sha256": "3a6690c5542f0511c4a1f0603ebac84b8728ad5352bf298b32d1785268f525e0"
     },
     {
-      "file": "cierre.png",
+      "file": "recepcion-calidad.png",
       "width": 1024,
       "height": 768,
-      "sha256": "4268903960224fe6fd3d4836dbc2789fe5a63937615ee8d3a9d0e61518ab96a6"
+      "sha256": "d7d99f94df32afc3e8900243b5aaeb5f307cce8d58b58cb22a09ca672ff02531"
     },
     {
-      "file": "excepciones.png",
+      "file": "confirmacion.png",
       "width": 1024,
       "height": 768,
-      "sha256": "64de23b7fcb23df12297d0dd63bd771737cf5e3a49f12df9e3420aff3fb1a24e"
-    },
-    {
-      "file": "recibo.png",
-      "width": 1024,
-      "height": 768,
-      "sha256": "11e734fe550c8b72f57045024faa5986970e3a7cbad57a0aac3fd18249b77ab2"
-    },
-    {
-      "file": "reportes.png",
-      "width": 1024,
-      "height": 768,
-      "sha256": "614f717e73cf97d963ad6face09db1204b9689375b75f4f81f71d36d14c8a855"
-    },
-    {
-      "file": "venta.png",
-      "width": 1024,
-      "height": 768,
-      "sha256": "16b9b1e2b481c639753870cad07549cc2ddaa16c59932ddc5d23851ebe7cd397"
+      "sha256": "3dcf832e1f28df81e0bd880f8ab78e672cfb09956cf7223078708e88a1e54fb2"
     }
   ],
   "notVerified": [
     "production",
-    "deployment",
-    "gateway",
-    "physical scanner or printer",
+    "external payments",
+    "physical devices",
     "mobile",
-    "full accessibility or performance",
-    "multi-node synchronization"
+    "full accessibility",
+    "performance"
+  ],
+  "apiState": "stopped",
+  "missingScreenshots": [
+    "comisiones.png",
+    "precios.png",
+    "aprobaciones.png"
   ]
 }

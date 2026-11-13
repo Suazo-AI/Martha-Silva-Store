@@ -1,3 +1,4 @@
+import { confirmAction } from '../confirm.mjs';
 // Recepción · Revisar y aprobar. A supervisor approves, then posts; stock changes only on post.
 import * as api from '../api.mjs';
 import { h, replace, showError, showOk, clearMessage } from '../ui.mjs';
@@ -84,6 +85,7 @@ export default {
       event.currentTarget.disabled = true;
       clearMessage(message);
       try {
+        if(!await confirmAction(`Se registrará esta recepción en inventario: ${state.progress.matchedUnits} unidades esperadas.`)) return;
         const receipt = await api.postReception(session.sessionId);
         await reload();
         await showResult(receipt);

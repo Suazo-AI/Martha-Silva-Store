@@ -1,3 +1,4 @@
+import { confirmAction } from '../confirm.mjs';
 import * as api from '../api.mjs';
 import { h, replace, showError } from '../ui.mjs';
 import { saleDate } from './sale-view.mjs';
@@ -19,7 +20,7 @@ export default {
               h('button', { type:'button', onclick:async e => {
                 if (!reason.value.trim()) { status.textContent='Indique el resultado de la revisión.'; reason.focus(); return; }
                 e.target.disabled=true;
-                try { await api.reviewStockException(row.id, reason.value.trim()); await load(); }
+                try { if(!await confirmAction(`Se marcará como revisada la excepción de ${row.quantityShort} unidades: ${reason.value.trim()}.`)) return;await api.reviewStockException(row.id, reason.value.trim()); await load(); }
                 catch(error) { showError(status,error); e.target.disabled=false; }
               } }, 'Revisado')));
         }) : h('p', {}, 'No hay excepciones de inventario pendientes.'));

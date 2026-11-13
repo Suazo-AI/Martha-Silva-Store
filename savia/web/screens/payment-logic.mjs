@@ -15,7 +15,7 @@ export function paymentDraft(totalMinor, rows, { supportedKinds, customerId } = 
       changeMinor = receivedMinor - amountMinor;
     }
     const reference = row.reference?.trim();
-    if (['card', 'transfer'].includes(row.kind) && !reference) throw new Error('Indique la referencia del pago con tarjeta o transferencia.');
+    if (row.kind === 'transfer' && !reference) throw new Error('Indique la referencia de la transferencia.');
     if (row.kind === 'credit' && (!customerId || !row.creditId)) throw new Error('Busque y elija un anticipo disponible del cliente.');
     return { tenderNumber: index + 1, tenderKind: row.kind, amountMinor, receivedMinor, changeMinor,
       ...(reference ? { reference } : {}), ...(row.kind === 'credit' ? { creditId: row.creditId } : {}) };

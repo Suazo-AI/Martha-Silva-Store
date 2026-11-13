@@ -12,8 +12,9 @@ EXEC sales.usp_OpenTill @TillId=@till,@RegisterId=@register,@CashierId=@cashier,
      @CurrencyCode='NIO',@OpeningMinor=0,@OriginNodeId=@node;
 EXEC sales.usp_OpenTill @TillId=@tillB,@RegisterId=@registerB,@CashierId=@cashierB,
      @CurrencyCode='NIO',@OpeningMinor=0,@OriginNodeId=@nodeB;
-INSERT INTO sales.CashTills(Id,RegisterId,CashierId,CurrencyCode,Status,ClosedAt)
-  VALUES(@closedTill,@register,@cashier,'NIO','closed',SYSUTCDATETIME());
+DECLARE @closedAt datetime2(3)=SYSUTCDATETIME();
+INSERT INTO sales.CashTills(Id,RegisterId,CashierId,CurrencyCode,Status,OpenedAt,ClosedAt)
+  VALUES(@closedTill,@register,@cashier,'NIO','closed',@closedAt,@closedAt);
 -- Arqueo presentado del turno B, para probar que no sirve para el turno A.
 INSERT INTO sales.CashCounts(Id,TillId,CountedBy,Status,CreatedBy) VALUES(@countB,@tillB,@cashierB,'draft',@cashierB);
 INSERT INTO sales.CashCountLines(CashCountId,DenominationMinor,Quantity) VALUES(@countB,10000,1);

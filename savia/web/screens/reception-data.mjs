@@ -2,6 +2,7 @@
 import * as api from '../api.mjs';
 import { h, device } from '../ui.mjs';
 import { linesFromServer, totalsText } from './reception-logic.mjs';
+import { qualityForm } from './quality.mjs';
 
 export const current = {
   get: () => device.get('reception'),
@@ -15,6 +16,12 @@ export const current = {
 export async function loadState(session) {
   const progress = await api.receptionProgress(session.sessionId);
   const lines = linesFromServer(await api.receptionLines(session.sessionId));
+  const quality = await api.quality(session.sessionId);
+  for (const [index,line] of lines.entries()) {
+    line.sessionId=session.sessionId; line.quality=quality.find(q=>q.itemId===line.itemId);
+    line.qualityQuantity=lines.filter(row=>row.itemId===line.itemId).reduce((n,row)=>n+row.quantity,0);
+    line.canCheck=progress.status==='counting' && lines.findIndex(row=>row.itemId===line.itemId)===index;
+  }
   return { progress, lines, totals: totalsText(lines.length, progress) };
 }
 
@@ -28,6 +35,7 @@ export function lineView(line, { onRegister, onReject } = {}) {
         h('span', { class: 'tag new' }, 'Sin registrar'),
         onRegister ? h('button', { type: 'button', onclick: () => onRegister(line) }, 'Registrar producto') : null,
         onReject ? h('button', { type: 'button', onclick: () => onReject(line) }, 'Rechazar') : null) : null),
+    line.matchStatus==='matched' && line.canCheck ? qualityForm({...line,quantity:line.qualityQuantity},line.sessionId,line.quality) : null,
     h('span', { class: 'qty', 'aria-label': line.quantity == null ? 'Cantidad no disponible' : `Cantidad ${line.quantity}` },
       line.quantity == null ? '—' : String(line.quantity)));
 }

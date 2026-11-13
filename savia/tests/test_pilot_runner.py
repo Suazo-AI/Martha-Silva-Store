@@ -35,13 +35,13 @@ class PilotRunnerTests(unittest.TestCase):
             self.assertIsNone(pilot.api_pid())
 
     def test_per_login_variables_and_explicit_shared_fallback(self):
-        values = {f'SAVIA_PILOT_PASSWORD_{role}': role * 4 for role in ('CAJERA', 'SUPERVISORA', 'DUENA')}
+        values = {f'SAVIA_PILOT_PASSWORD_{role}': role * 4 for role in ('DUENA','GERENTE','VENDEDOR1','VENDEDOR2','BODEGA')}
         with patch.dict(os.environ, values, clear=True):
             self.assertEqual(values, pilot.pilot_passwords())
         with patch.dict(os.environ, {'SAVIA_PILOT_PASSWORD': 'shared-test-value', 'SAVIA_PILOT_ALLOW_SHARED': '1',
-                                    'SAVIA_PILOT_PASSWORD_CAJERA': 'per-login-test-value'}, clear=True):
+                                    'SAVIA_PILOT_PASSWORD_GERENTE': 'per-login-test-value'}, clear=True):
             result = pilot.pilot_passwords()
-            self.assertEqual('per-login-test-value', result['SAVIA_PILOT_PASSWORD_CAJERA'])
+            self.assertEqual('per-login-test-value', result['SAVIA_PILOT_PASSWORD_GERENTE'])
             self.assertEqual('shared-test-value', result['SAVIA_PILOT_PASSWORD_DUENA'])
 
 

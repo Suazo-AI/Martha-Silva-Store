@@ -2,8 +2,8 @@
 import { lineTotal } from '../money.mjs';
 
 export function addToTicket(lines, item, quantity = 1) {
-  const index = lines.findIndex(l => l.itemId === item.itemId);
-  if (index === -1) return [...lines, { ...item, quantity }];
+  const index = lines.findIndex(l => l.itemId === item.itemId && l.sellerId === item.sellerId);
+  if (index === -1) return [...lines, { ...item, ...(item.sellerId ? {ticketKey:crypto.randomUUID()} : {}), quantity }];
   return lines.map((l, i) => i === index ? { ...l, quantity: l.quantity + quantity } : l);
 }
 
@@ -11,10 +11,10 @@ export function addToTicket(lines, item, quantity = 1) {
 export function setQuantity(lines, itemId, value) {
   const quantity = Number(value);
   if (!Number.isInteger(quantity) || quantity < 1 || quantity > 9999) return lines;
-  return lines.map(l => l.itemId === itemId ? { ...l, quantity } : l);
+  return lines.map(l => (l.ticketKey ?? l.itemId) === itemId ? { ...l, quantity } : l);
 }
 
-export const removeLine = (lines, itemId) => lines.filter(l => l.itemId !== itemId);
+export const removeLine = (lines, itemId) => lines.filter(l => (l.ticketKey ?? l.itemId) !== itemId);
 
 export const ticketTotal = lines => lines.reduce((sum, l) => sum + lineTotal(l.unitPriceMinor, l.quantity) - (l.discountMinor ?? 0), 0);
 
@@ -23,7 +23,7 @@ export function saleRequest({ saleId, tillId, lines, receivedMinor, tenders, cus
   const total = ticketTotal(lines);
   return {
     saleId, tillId, currencyCode: 'NIO', ...(customerId ? { customerId } : {}),
-    lines: lines.map((l, i) => ({ lineNumber: i + 1, itemId: l.itemId, quantity: l.quantity, unitPriceMinor: l.unitPriceMinor, discountMinor: l.discountMinor ?? 0 })),
+    lines: lines.map((l, i) => ({ lineNumber: i + 1, itemId: l.itemId, quantity: l.quantity, unitPriceMinor: l.unitPriceMinor, discountMinor: l.discountMinor ?? 0, ...(l.sellerId ? {sellerId:l.sellerId} : {}) })),
     tenders: tenders ?? [{ tenderNumber: 1, tenderKind: 'cash', amountMinor: total, receivedMinor, changeMinor: receivedMinor - total }],
   };
 }

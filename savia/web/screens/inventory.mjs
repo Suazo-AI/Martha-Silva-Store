@@ -3,13 +3,15 @@ import * as api from '../api.mjs';
 import { h, replace, showError, clearMessage } from '../ui.mjs';
 import { attachScanField } from '../scan.mjs';
 import { filterStock } from './inventory-logic.mjs';
+import { formatMoney } from '../money.mjs';
 
-const POOL = { store: 'Tienda', web: 'Web', reserved: 'Reservado' };
+const POOL = { store: 'Tienda', web: 'Web', reserved: 'Reservado', quarantine:'Cuarentena' };
 
 export default {
   title: 'Inventario',
   async mount(root, ctx) {
     let rows = [];
+    let values=[];
     const search = h('input', { id: 'inv-search', type: 'search', autocomplete: 'off', spellcheck: 'false', placeholder: 'Buscar por SKU o nombre' });
     const status = h('p', { class: 'error', role: 'alert' });
     const count = h('p', { class: 'muted', id: 'inv-count', 'aria-live': 'polite' });
@@ -23,7 +25,8 @@ export default {
         ? h('tr', {}, h('td', { colspan: '5' }, rows.length === 0 ? 'El servidor no reporta existencias en esta sucursal. Registre una recepción para ingresar prendas.' : 'Sin resultados. Cambie el nombre o SKU de la búsqueda.'))
         : shown.map(r => h('tr', { dataset: { item: r.itemId } },
           h('td', {}, h('div', { class: 'stock-name' }, h('div', {},
-            h('strong', {}, r.variantName), h('br'), h('small', {}, `SKU ${r.sku}`)))),
+            h('strong', {}, r.variantName), h('br'), h('small', {}, `SKU ${r.sku}`),
+            ctx.isApprover ? h('p',{},values.find(v=>v.itemId===r.itemId)?.costMinor!=null ? `Costo ${formatMoney(values.find(v=>v.itemId===r.itemId).costMinor)}` : 'Costo sin aprobar') : null))),
           h('td', {}, POOL[r.pool] ?? r.pool),
           h('td', { class: 'n onhand' }, String(r.onHand)),
           h('td', { class: 'n' }, String(r.reserved)),
@@ -33,7 +36,7 @@ export default {
     const load = async () => {
       clearMessage(status);
       refresh.disabled = true;
-      try { rows = await api.stock(); draw(); }
+      try { rows = await api.stock(); if(ctx.isApprover) values=await api.itemValues(''); draw(); }
       catch (error) { showError(status, error, 'Pulse Actualizar para reintentar.'); }
       finally { refresh.disabled = false; }
     };

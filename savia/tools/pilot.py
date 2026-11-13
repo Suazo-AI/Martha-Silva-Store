@@ -12,9 +12,9 @@ Commands:
 Secrets:
   The SQL password is read from savia/infra/.env (MSSQL_SA_PASSWORD), or SAVIA_ENV_FILE, or the dev container's
   own environment. It reaches the API only through its process environment and is never printed.
-  Each sample staff password comes from SAVIA_PILOT_PASSWORD_CAJERA / _SUPERVISORA / _DUENA, or a hidden prompt.
+  Each staff password comes from SAVIA_PILOT_PASSWORD_DUENA / _GERENTE / _VENDEDOR1 / _VENDEDOR2 / _BODEGA, or a hidden prompt.
   Shared SAVIA_PILOT_PASSWORD is refused unless SAVIA_PILOT_ALLOW_SHARED=1. up --no-provision only checks hashes.
-  Passwords never come from a file in the repository. Sample logins: duena.muestra, supervisora.muestra, cajera.muestra.
+  Passwords never come from a file in the repository. Logins: duena.muestra, gerente.muestra, vendedor1.muestra, vendedor2.muestra, bodega.muestra.
 """
 import argparse
 import getpass
@@ -49,7 +49,7 @@ NODE = {
     "Savia__Node__BranchId": "5A000000-0000-0000-0000-000000000B01",
     "Savia__Node__LocationId": "5A000000-0000-0000-0000-000000000A01",
 }
-LOGINS = "duena.muestra,supervisora.muestra,cajera.muestra"
+LOGINS = "duena.muestra,gerente.muestra,vendedor1.muestra,vendedor2.muestra,bodega.muestra"
 COUNTS_SQL = """SET NOCOUNT ON;
 SELECT CONCAT('branches=',(SELECT COUNT(*) FROM core.Branches),
  ' locations=',(SELECT COUNT(*) FROM core.Locations),' registers=',(SELECT COUNT(*) FROM sales.CashRegisters),
@@ -160,7 +160,7 @@ def stop_api():
     PID_FILE.unlink(missing_ok=True)
 
 
-def pilot_passwords(roles=("CAJERA", "SUPERVISORA", "DUENA")):
+def pilot_passwords(roles=("DUENA", "GERENTE", "VENDEDOR1", "VENDEDOR2", "BODEGA")):
     shared = os.environ.get("SAVIA_PILOT_PASSWORD")
     if shared and os.environ.get("SAVIA_PILOT_ALLOW_SHARED") != "1":
         raise SystemExit("pilot: SAVIA_PILOT_PASSWORD requires SAVIA_PILOT_ALLOW_SHARED=1; use one password per login.")
@@ -198,7 +198,7 @@ def cmd_up(args):
     stop_api()
     if health() is not None:
         raise SystemExit(f"pilot: {URL} answers but is not the pilot API started here. Stop that process first.")
-    build = subprocess.run([dn, "build", str(API_PROJECT), "-nologo", "-v", "q"], cwd=ROOT, capture_output=True, text=True)
+    build = subprocess.run([dn, "build", str(API_PROJECT), "--no-restore", "-nologo", "-v", "q"], cwd=ROOT, capture_output=True, text=True)
     if build.returncode != 0:
         raise SystemExit("pilot: build failed\n" + build.stdout[-3000:])
     say("build ok")
@@ -245,14 +245,23 @@ def cmd_down(_):
     return 0
 
 
-def cmd_reset(_):
+def cmd_reset(args):
     require_container()
     stop_api()
     for step in (saviadb.drop, saviadb.create):
         code, out = step(DB)
         if code != 0:
             raise SystemExit(f"pilot: {step.__name__} failed\n{out}")
-    say(f"{DB} dropped and recreated (empty). Next: python savia/tools/pilot.py up")
+    if args.demo:
+        code,out=saviadb.migrate(DB)
+        if code: raise SystemExit("pilot: migrate failed\n"+out)
+        code,out=saviadb.run_sql(DB,SEED.read_text(encoding="utf-8"))
+        if code: raise SystemExit("pilot: seed failed\n"+out)
+        from pilot_demo_history import run
+        run()
+        say(f"{DB} recreated with invented demo history. Next: python savia/tools/pilot.py up")
+    else:
+        say(f"{DB} dropped and recreated (empty). Next: python savia/tools/pilot.py up")
     return 0
 
 
@@ -279,6 +288,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("command", choices=["up", "down", "reset", "status", "counts"])
     parser.add_argument("--no-provision", action="store_true", help="up: verify all sample password hashes without changing them")
+    parser.add_argument("--demo", action="store_true", help="reset: migrate, seed and write 60 days of invented history in SAVIA_DEV_pilot")
     args = parser.parse_args()
     return {"up": cmd_up, "down": cmd_down, "reset": cmd_reset, "status": cmd_status, "counts": cmd_counts}[args.command](args)
 

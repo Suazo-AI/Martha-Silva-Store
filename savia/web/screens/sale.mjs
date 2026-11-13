@@ -1,5 +1,6 @@
 // Venta: scan or search to add garments, ticket always visible, cash received and change, Cobrar.
 import * as api from '../api.mjs';
+import { confirmAction } from '../confirm.mjs';
 import { h, replace, showError, clearMessage, flash, device, openModal } from '../ui.mjs';
 import { attachScanField, serialQueue } from '../scan.mjs';
 import { formatMoney, lineTotal } from '../money.mjs';
@@ -26,6 +27,14 @@ export default {
       const till = ctx.till.get();
       let lines = [];
       let catalog = [];
+      let sellers = [];
+      let selectedSeller = null;
+      const sellerChips = h('div', {id:'seller-chips',class:'actions','aria-label':'Vendedora de la próxima prenda'});
+      const drawSellers = () => replace(sellerChips, sellers.map(seller => h('button', {
+        type:'button', 'aria-pressed':String(selectedSeller === seller.sellerId),
+        dataset:{seller:seller.sellerId}, onclick:()=>{selectedSeller=seller.sellerId;drawSellers();}
+      },seller.name)));
+      api.sellers().then(rows=>{sellers=rows;selectedSeller=rows[0]?.sellerId;drawSellers();}).catch(error=>showError(status,error));
       let ticketPercent = 0;
       const effectiveLines = () => discountedLines(lines, ticketPercent);
       const effectiveTotal = () => ticketTotal(effectiveLines());
@@ -49,22 +58,24 @@ export default {
           h('div', { class: 'tline', dataset: { item: line.itemId } },
             h('div', { class: 'line-meta' },
               h('strong', {}, line.name),
-              h('span', { class: 'num' }, formatMoney(lineTotal(line.unitPriceMinor, line.quantity) - (effectiveLines().find(l => l.itemId === line.itemId)?.discountMinor ?? 0)))),
+              h('label', {}, 'Vendedora', h('select', {class:'line-seller','aria-label':`Vendedora de ${line.name}`,onchange:e=>update(lines.map(l=>l.ticketKey===line.ticketKey ? {...l,sellerId:e.target.value} : l))},
+                sellers.map(seller=>h('option',{value:seller.sellerId,selected:seller.sellerId===line.sellerId},seller.name)))),
+              h('span', { class: 'num' }, formatMoney(lineTotal(line.unitPriceMinor, line.quantity) - (effectiveLines().find(l => (l.ticketKey ?? l.itemId) === (line.ticketKey ?? line.itemId))?.discountMinor ?? 0)))),
             h('div', { class: 'line-meta' },
               h('small', {}, [line.size ? `Talla ${line.size}` : null, `SKU ${line.sku}`, `${formatMoney(line.unitPriceMinor)} c/u`].filter(Boolean).join(' · ')),
               h('span', { class: 'stepper' },
-                h('button', { type: 'button', 'aria-label': `Quitar una de ${line.name}`, onclick: () => update(setQuantity(lines, line.itemId, line.quantity - 1)) }, '−'),
-                h('label', { class: 'sr', for: `qty-${line.itemId}` }, `Cantidad de ${line.name}`),
-                h('input', { id: `qty-${line.itemId}`, class: 'qty-input', inputmode: 'numeric', value: String(line.quantity),
+                h('button', { type: 'button', 'aria-label': `Quitar una de ${line.name}`, onclick: () => update(setQuantity(lines, line.ticketKey ?? line.itemId, line.quantity - 1)) }, '−'),
+                h('label', { class: 'sr', for: `qty-${line.ticketKey ?? line.itemId}` }, `Cantidad de ${line.name}`),
+                h('input', { id: `qty-${line.ticketKey ?? line.itemId}`, class: 'qty-input', inputmode: 'numeric', value: String(line.quantity),
                   onchange: event => {
-                    const next = setQuantity(lines, line.itemId, event.target.value.trim());
+                    const next = setQuantity(lines, line.ticketKey ?? line.itemId, event.target.value.trim());
                     if (next === lines) { event.target.value = String(line.quantity); status.textContent = 'La cantidad debe ser un número entero de 1 o más.'; }
                     update(next);
                   } }),
-                h('button', { type: 'button', 'aria-label': `Agregar una de ${line.name}`, onclick: () => update(setQuantity(lines, line.itemId, line.quantity + 1)) }, '+'),
-                h('button', { type: 'button', class: 'remove', 'aria-label': `Quitar ${line.name} del ticket`, onclick: () => update(removeLine(lines, line.itemId)) }, 'Quitar')),
-              h('label', { class: 'line-discount' }, 'Descuento de línea (%)', h('input', { id: `discount-${line.itemId}`, 'aria-label': `Descuento de ${line.name} (%)`, type:'number', min:0, max:100, value: line.discountPercent ?? 0,
-                onchange: e => { const value = Number(e.target.value); if (value < 0 || value + ticketPercent > 100 || !Number.isFinite(value)) { e.target.value = line.discountPercent ?? 0; status.textContent = 'El descuento combinado debe estar entre 0 y 100 %.'; return; } update(lines.map(l => l.itemId === line.itemId ? { ...l, discountAmountMinor:undefined, discountPercent:value } : l)); } })))))
+                h('button', { type: 'button', 'aria-label': `Agregar una de ${line.name}`, onclick: () => update(setQuantity(lines, line.ticketKey ?? line.itemId, line.quantity + 1)) }, '+'),
+                h('button', { type: 'button', class: 'remove', 'aria-label': `Quitar ${line.name} del ticket`, onclick: () => update(removeLine(lines, line.ticketKey ?? line.itemId)) }, 'Quitar')),
+              h('label', { class: 'line-discount' }, 'Descuento de línea (%)', h('input', { id: `discount-${line.ticketKey ?? line.itemId}`, 'aria-label': `Descuento de ${line.name} (%)`, type:'number', min:0, max:100, value: line.discountPercent ?? 0,
+                onchange: e => { const value = Number(e.target.value); if (value < 0 || value + ticketPercent > 100 || !Number.isFinite(value)) { e.target.value = line.discountPercent ?? 0; status.textContent = 'El descuento combinado debe estar entre 0 y 100 %.'; return; } update(lines.map(l => (l.ticketKey ?? l.itemId) === (line.ticketKey ?? line.itemId) ? { ...l, discountAmountMinor:undefined, discountPercent:value } : l)); } })))))
 
         );
         total.textContent = formatMoney(effectiveTotal());
@@ -86,16 +97,11 @@ export default {
         }
       };
 
-      const confirmPhysical = () => openModal((body, close) => replace(body,
-        h('h2', { id:'modal-title' }, 'Confirmar existencia física'),
-        h('p', {}, 'El sistema muestra 0. Confirmar que la prenda está en la tienda'),
-        h('p', { class:'muted' }, 'La venta dejará una excepción para revisión de supervisión.'),
-        h('div', { class:'actions' }, h('button', { type:'button', onclick:() => close(false) }, 'Cancelar'),
-          h('button', { id:'confirm-stock', type:'button', class:'primary', onclick:() => close(true) }, 'Confirmar existencia física'))));
       let physicalConfirmed = false;
       const update = async next => {
-        if (next.some(line => line.quantity > (catalog.flatMap(p => p.variants).find(v => v.itemId === line.itemId)?.available ?? 0) && line.quantity > (lines.find(l => l.itemId === line.itemId)?.quantity ?? 0))) {
-          if (!await confirmPhysical()) { drawTicket(); return; }
+        const units=(rows,itemId)=>rows.filter(l=>l.itemId===itemId).reduce((sum,l)=>sum+l.quantity,0);
+        if (next.some(line => units(next,line.itemId) > (catalog.flatMap(p => p.variants).find(v => v.itemId === line.itemId)?.available ?? 0) && units(next,line.itemId) > units(lines,line.itemId))) {
+          if (!await confirmAction('La cantidad supera la existencia del sistema. Se registrará una excepción de inventario al cobrar. Confirme que la prenda está en la tienda.')) { drawTicket(); return; }
           physicalConfirmed = true;
         }
         if (next !== lines) attempt = null;
@@ -113,7 +119,8 @@ export default {
         }
         clearMessage(status);
         receipt.hidden = true;
-        await update(addToTicket(lines, itemFromLookup(row)));
+        if (!selectedSeller) { status.textContent='Elija una vendedora antes de agregar la prenda.';return; }
+        await update(addToTicket(lines, {...itemFromLookup(row),sellerId:selectedSeller}));
         const el = ticketLines.querySelector(`[data-item="${row.itemId}"]`);
         if (el) flash(el);
       };
@@ -188,7 +195,7 @@ export default {
         let discountReason = discountReasonInput.value.trim();
         try {
           if (!physicalConfirmed && postedLines.some(line => line.quantity > (catalog.flatMap(p => p.variants).find(v => v.itemId === line.itemId)?.available ?? 0))) {
-            if (!await confirmPhysical()) { drawBalance(); return; }
+            if (!await confirmAction('La cantidad supera la existencia del sistema. Se registrará una excepción de inventario al cobrar. Confirme que la prenda está en la tienda.')) { drawBalance(); return; }
             physicalConfirmed = true;
           }
           if (needsDiscountApproval(effectiveLines()) && !ctx.isApprover) {
@@ -262,9 +269,6 @@ export default {
       } });
       const parked = () => { const saved = device.get('parkedTickets'); return saved?.tillId === till.tillId ? saved.tickets : []; };
       const clearTicket = () => { lines=[]; physicalConfirmed=false; ticketPercent=0; discountInput.value=0; attempt=null; payments.reset(); drawTicket(); };
-      const confirmClear = h('div', { class:'warning actions', id:'confirm-empty', hidden:true }, '¿Vaciar el ticket actual?',
-        h('button', { type:'button', id:'confirm-empty-yes', onclick: () => { clearTicket(); confirmClear.hidden=true; } }, 'Sí, vaciar'),
-        h('button', { type:'button', onclick: () => { confirmClear.hidden=true; } }, 'Conservar ticket'));
       const ticketActions = h('div', { class:'actions ticket-actions' },
         h('button', { type:'button', id:'park-ticket', onclick: () => {
           if (!lines.length) { status.textContent='Agregue una prenda antes de guardar.'; return; }
@@ -284,14 +288,14 @@ export default {
             } }, `${saved.name} · ${saved.lines.reduce((sum,l)=>sum+l.quantity,0)} prendas`)) : h('p', {}, 'No hay tickets guardados. Agregue prendas y pulse Guardar ticket.'),
             h('button', { type:'button', onclick:() => close() }, 'Volver')));
         } }, 'Tickets guardados'),
-        h('button', { type:'button', id:'empty-ticket', onclick:() => { confirmClear.hidden=false; } }, 'Vaciar ticket'));
+        h('button', { type:'button', id:'empty-ticket', onclick:async () => { if(await confirmAction(`Se vaciará el ticket de ${formatMoney(effectiveTotal())}.`)) clearTicket(); } }, 'Vaciar ticket'));
 
       replace(root, h('div', { class: 'sale' },
         h('section', { class: 'catalog', 'aria-label': 'Buscar prendas' },
           h('label', { for: 'sale-search', class: 'sr' }, 'Escanear o buscar por SKU o nombre'),
-          field, fieldNote, filters, status, cards),
+          field, fieldNote, sellerChips, filters, status, cards),
         h('aside', { class: 'ticket', 'aria-labelledby': 'ticket-heading' },
-          h('h2', { id: 'ticket-heading' }, 'Ticket'), ticketActions, confirmClear,
+          h('h2', { id: 'ticket-heading' }, 'Ticket'), ticketActions,
           ticketLines,
           h('div', { class: 'checkout' },
             h('label', { class:'ticket-discount' }, 'Descuento solicitado (%)', discountInput),

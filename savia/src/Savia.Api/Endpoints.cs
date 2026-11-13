@@ -102,6 +102,10 @@ public static class SaviaEndpoints
 
         if (node.Kind != NodeKind.Branch) return;
 
+        api.MapGet("/approvals", async (HttpContext http, PilotSalesService pilot, CancellationToken ct) =>
+            await pilot.ApprovalsAsync(http.Actor(), ct)).WithTags("pilot");
+        OwnerPilotEndpoints.Map(api);
+
         // ---- everything below runs only on a branch node, against the local database of that branch
         api.MapPost("/receiving/sessions", async (OpenScanSessionRequest request, HttpContext http, ReceivingService receiving, CancellationToken ct) =>
         {

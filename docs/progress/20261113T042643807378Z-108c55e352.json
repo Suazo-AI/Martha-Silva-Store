@@ -1,0 +1,430 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-13T04:26:43.807378+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/db/migrations/V017__real_roles_and_approvals.sql",
+      "change": "A",
+      "git_blob": "0ea173f3e97ea439bd04241ccedbbf90a867a6bc"
+    },
+    {
+      "path": "savia/db/migrations/V018__seller_commissions.sql",
+      "change": "A",
+      "git_blob": "89e89cd65a9fa8fd0d8687bf225edeab857e7901"
+    },
+    {
+      "path": "savia/db/migrations/V019__owner_prices_costs_margin.sql",
+      "change": "A",
+      "git_blob": "b9742ff57a0b72d6047190d169b4eb291ea1c627"
+    },
+    {
+      "path": "savia/db/migrations/V020__receiving_quality.sql",
+      "change": "A",
+      "git_blob": "c08d45a66885bd44aada459d2f8405d9f4c29f43"
+    },
+    {
+      "path": "savia/db/migrations/V021__scan_parent_lock_order.sql",
+      "change": "A",
+      "git_blob": "29f1e756918c8f4732f92002c9323a79a4853834"
+    },
+    {
+      "path": "savia/db/migrations/V022__development_demo_clock.sql",
+      "change": "A",
+      "git_blob": "2cf48ad2f863e2ec29b46b310b9aa1d2f064bc96"
+    },
+    {
+      "path": "savia/db/migrations/V023__anonymous_sale_return_advance.sql",
+      "change": "A",
+      "git_blob": "5ac64b7d849db46400317c049882c176aa856927"
+    },
+    {
+      "path": "savia/db/pilot/seed_masaya.sql",
+      "change": "M",
+      "git_blob": "a6d23ca4970c652e2c248fdd863e4eb47b446fd7"
+    },
+    {
+      "path": "savia/db/pilot/verify_demo.sql",
+      "change": "A",
+      "git_blob": "d5f44cc08ba704e2e78eefb2f5b3e9c9cd7414e1"
+    },
+    {
+      "path": "savia/db/tests/cash/101_record_cash_entry_validation.sql",
+      "change": "M",
+      "git_blob": "144bd76aa57ce787671b14c4014ae3240e90f9a3"
+    },
+    {
+      "path": "savia/db/tests/cash/111_submit_cash_count_validation.sql",
+      "change": "M",
+      "git_blob": "687e9a0d753f86cf19ae54e8b5499c568a67d51f"
+    },
+    {
+      "path": "savia/db/tests/cash/122_close_till_validation.sql",
+      "change": "M",
+      "git_blob": "f68e347e33c0cb6830b44f54d8d3bfc8813c46dd"
+    },
+    {
+      "path": "savia/db/tests/receiving/160_quality.sql",
+      "change": "A",
+      "git_blob": "1ef75bc27707714b0ad2f02053ab5634debc7f3c"
+    },
+    {
+      "path": "savia/db/tests/sales/114_post_sale_tender_validation.sql",
+      "change": "M",
+      "git_blob": "47936f4fa8c7bfb3e4fbf571b536c3918675723e"
+    },
+    {
+      "path": "savia/db/tests/sales/117_post_sale_till_mismatch.sql",
+      "change": "M",
+      "git_blob": "dee765e17f31d60fb045a61838f725336989eb08"
+    },
+    {
+      "path": "savia/db/tests/sales/160_seller_commissions.sql",
+      "change": "A",
+      "git_blob": "958ad419089f476154cd20b18c3c0c97a9cd64ea"
+    },
+    {
+      "path": "savia/docs/pilot/API-PILOT.md",
+      "change": "M",
+      "git_blob": "e2af7fc998792abf2ac95c7d2bb4e676a8f9f1cf"
+    },
+    {
+      "path": "savia/docs/pilot/OPERACION.md",
+      "change": "M",
+      "git_blob": "1a1ea7cc1052cb6399ed99587e8102f294ce0c9c"
+    },
+    {
+      "path": "savia/docs/pilot/OWNER-ROLES-VERIFICATION.md",
+      "change": "A",
+      "git_blob": "71a4b3406520be3e98f8ba31878a7ede6e8efba7"
+    },
+    {
+      "path": "savia/docs/pilot/WEB.md",
+      "change": "M",
+      "git_blob": "2ae5cde97a52af7f6d68034a8a9898a3fba52f12"
+    },
+    {
+      "path": "savia/docs/pilot/screens/WEB-VERIFICATION.json",
+      "change": "M",
+      "git_blob": "f34236162aaa150e24e791f0a479e2016ab71848"
+    },
+    {
+      "path": "savia/docs/pilot/screens/abrir-caja.png",
+      "change": "D",
+      "git_blob": null
+    },
+    {
+      "path": "savia/docs/pilot/screens/aprobaciones.png",
+      "change": "A",
+      "git_blob": "500ea14442cd92386adbf349ffa52ff3c00f5c0e"
+    },
+    {
+      "path": "savia/docs/pilot/screens/cierre.png",
+      "change": "D",
+      "git_blob": null
+    },
+    {
+      "path": "savia/docs/pilot/screens/comisiones.png",
+      "change": "A",
+      "git_blob": "b783ca676f721f72b891964a3898b4d086b54385"
+    },
+    {
+      "path": "savia/docs/pilot/screens/confirmacion.png",
+      "change": "A",
+      "git_blob": "ce1a395919c9f069b9f7bcdfcbc8c1c2e05525dd"
+    },
+    {
+      "path": "savia/docs/pilot/screens/excepciones.png",
+      "change": "D",
+      "git_blob": null
+    },
+    {
+      "path": "savia/docs/pilot/screens/precios.png",
+      "change": "A",
+      "git_blob": "17fab7065d580c3c5510566c8cf291dcf5e01ca3"
+    },
+    {
+      "path": "savia/docs/pilot/screens/recepcion-calidad.png",
+      "change": "A",
+      "git_blob": "9875d0954f71a4ab4bc72b32bda6e86fac7cb7e1"
+    },
+    {
+      "path": "savia/docs/pilot/screens/recibo.png",
+      "change": "D",
+      "git_blob": null
+    },
+    {
+      "path": "savia/docs/pilot/screens/reportes.png",
+      "change": "D",
+      "git_blob": null
+    },
+    {
+      "path": "savia/docs/pilot/screens/venta-vendedoras.png",
+      "change": "A",
+      "git_blob": "102acd1acbb2a9036f412ddc46d60449dfe72cab"
+    },
+    {
+      "path": "savia/docs/pilot/screens/venta.png",
+      "change": "D",
+      "git_blob": null
+    },
+    {
+      "path": "savia/src/Savia.Api/Endpoints.cs",
+      "change": "M",
+      "git_blob": "6f04e8d0f31799802b2fbffc14833972c34492d2"
+    },
+    {
+      "path": "savia/src/Savia.Api/OwnerPilotEndpoints.cs",
+      "change": "A",
+      "git_blob": "04afbae5cc7cc5da39f6ec64312a85d4d2d9c472"
+    },
+    {
+      "path": "savia/src/Savia.Api/Provisioning.cs",
+      "change": "M",
+      "git_blob": "a77ee8c08fde65635fdcb76d799b675a699538f0"
+    },
+    {
+      "path": "savia/src/Savia.Application/Modules.cs",
+      "change": "M",
+      "git_blob": "3ed8d823f532558e384249d9d6879a3024cc1611"
+    },
+    {
+      "path": "savia/src/Savia.Application/PilotSales.cs",
+      "change": "M",
+      "git_blob": "e01f51d4f753eee145365708155197f40be8de7f"
+    },
+    {
+      "path": "savia/src/Savia.Contracts/Contracts.cs",
+      "change": "M",
+      "git_blob": "f78d2c472244df372166711d37ba7c4df7a2b85e"
+    },
+    {
+      "path": "savia/src/Savia.Contracts/PilotSales.cs",
+      "change": "M",
+      "git_blob": "3d29a61b878d32205433f83a914c3aa5856a65b7"
+    },
+    {
+      "path": "savia/src/Savia.Domain/Errors.cs",
+      "change": "M",
+      "git_blob": "1a55afb77ba662d1036082ae6fd1ec03ef9c8d8f"
+    },
+    {
+      "path": "savia/src/Savia.Domain/Node.cs",
+      "change": "M",
+      "git_blob": "60b21becb8ffefb038a9c8a4f7786ffc093cc523"
+    },
+    {
+      "path": "savia/src/Savia.Infrastructure/PilotSales.cs",
+      "change": "M",
+      "git_blob": "0a0d5a36d1c102e7ccb06d9727f46c270a8b0faa"
+    },
+    {
+      "path": "savia/src/Savia.Infrastructure/Stores.cs",
+      "change": "M",
+      "git_blob": "a7eaeeb2b45072b3fc079937b54efca1270dbdcb"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/LocalCatalogRejectTests.cs",
+      "change": "M",
+      "git_blob": "3a1173a2949bc993c920ebc60301c40cd9faad61"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/OwnerPilotTests.cs",
+      "change": "A",
+      "git_blob": "e74ae79df1c345342c0a1e4d3e9f91c64e82d729"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/PilotProvisioningTests.cs",
+      "change": "M",
+      "git_blob": "fb38893aa9a8ccb7c443fae3e9232401609a4fca"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/PilotSalesTests.cs",
+      "change": "M",
+      "git_blob": "ef08625912c2087a59b0dc7d5ecdc0a0b687b6c4"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/ScanLockOrderTests.cs",
+      "change": "A",
+      "git_blob": "14c374bb0524d243e32c03629313bec7f2886c53"
+    },
+    {
+      "path": "savia/tests/test_pilot_browser_cleanup.py",
+      "change": "M",
+      "git_blob": "8ec00c152c41673982c7abddd4df7abaf6b502e2"
+    },
+    {
+      "path": "savia/tests/test_pilot_cleanup_retry.py",
+      "change": "A",
+      "git_blob": "0543633319ed2d744d6e8c08ddb625e0d4bc62e0"
+    },
+    {
+      "path": "savia/tests/test_pilot_runner.py",
+      "change": "M",
+      "git_blob": "1ab7a49562a686ddccb6196669b4346f4c7cbb40"
+    },
+    {
+      "path": "savia/tools/check.py",
+      "change": "M",
+      "git_blob": "f4035514f6f773b1abf09116126c064731e19527"
+    },
+    {
+      "path": "savia/tools/pilot.py",
+      "change": "M",
+      "git_blob": "1743b002e3bbd93f697426b4032b126501a9129a"
+    },
+    {
+      "path": "savia/tools/pilot_demo_history.py",
+      "change": "A",
+      "git_blob": "ffd0c3895b758347c40ad4cc30c337ecaecd51d2"
+    },
+    {
+      "path": "savia/tools/pilot_smoke.py",
+      "change": "M",
+      "git_blob": "4646d49a7166c801a76dd7b64c479dc2cbbd648b"
+    },
+    {
+      "path": "savia/web/api.mjs",
+      "change": "M",
+      "git_blob": "f30f028f4dfdbe25db8e29fc25e44f5155389972"
+    },
+    {
+      "path": "savia/web/app.css",
+      "change": "M",
+      "git_blob": "3616af4b215c454cc60a95b41fa40bef491efcd8"
+    },
+    {
+      "path": "savia/web/app.mjs",
+      "change": "M",
+      "git_blob": "3825db645d7105b223e2ff42d80518126080d909"
+    },
+    {
+      "path": "savia/web/confirm.mjs",
+      "change": "A",
+      "git_blob": "275e58f789c1069e887bc68a22a248ab4e91c985"
+    },
+    {
+      "path": "savia/web/index.html",
+      "change": "M",
+      "git_blob": "816882b03204e243f0523b66d6799a2a90a75ac9"
+    },
+    {
+      "path": "savia/web/roles.mjs",
+      "change": "M",
+      "git_blob": "3292b1b1356afe5f69fc44351919cd2c1f1a65af"
+    },
+    {
+      "path": "savia/web/screens/approvals.mjs",
+      "change": "A",
+      "git_blob": "11f07160df19edd5fe5a8232c04505909c7dd76f"
+    },
+    {
+      "path": "savia/web/screens/cash.mjs",
+      "change": "M",
+      "git_blob": "d5e3737f14730d929e869f51dd9bb467523f33e3"
+    },
+    {
+      "path": "savia/web/screens/commissions.mjs",
+      "change": "A",
+      "git_blob": "ebcd6f33f77d52e494a4fc34126419fa2712d279"
+    },
+    {
+      "path": "savia/web/screens/exceptions.mjs",
+      "change": "M",
+      "git_blob": "69cf676dcaff89ccaa58bb76aafc376183562d9b"
+    },
+    {
+      "path": "savia/web/screens/inventory.mjs",
+      "change": "M",
+      "git_blob": "dcd80c39ad167f34f8ad24178801659da091cf38"
+    },
+    {
+      "path": "savia/web/screens/payment-logic.mjs",
+      "change": "M",
+      "git_blob": "9b315b190839f0cfd00bf54f846e5ad471a80786"
+    },
+    {
+      "path": "savia/web/screens/payments.mjs",
+      "change": "M",
+      "git_blob": "b89b2cb41f428c05f29a5c301e596a49bca47f28"
+    },
+    {
+      "path": "savia/web/screens/prices.mjs",
+      "change": "A",
+      "git_blob": "7d6afe1b84de4066ddd2980914f4e14ce832332c"
+    },
+    {
+      "path": "savia/web/screens/quality-report.mjs",
+      "change": "A",
+      "git_blob": "0b78ed3685900a992920c505ccf624eb5fd5a21c"
+    },
+    {
+      "path": "savia/web/screens/quality.mjs",
+      "change": "A",
+      "git_blob": "0b888e5dcf925040e63e2f4cb00f0152133245aa"
+    },
+    {
+      "path": "savia/web/screens/reception-data.mjs",
+      "change": "M",
+      "git_blob": "940edb6dd0be7687ad050d0ba720405ca8ed2081"
+    },
+    {
+      "path": "savia/web/screens/reception.mjs",
+      "change": "M",
+      "git_blob": "47d7796442b88328e21afc75bef916ce6581a194"
+    },
+    {
+      "path": "savia/web/screens/report.mjs",
+      "change": "M",
+      "git_blob": "1c6a25439c1b93650e0646af053cddc976fa3feb"
+    },
+    {
+      "path": "savia/web/screens/return.mjs",
+      "change": "M",
+      "git_blob": "4c8971f799fd95df4bfbb62f642e81746cdc0e68"
+    },
+    {
+      "path": "savia/web/screens/review.mjs",
+      "change": "M",
+      "git_blob": "2dc71a690c2a3af79d45687e6367df0fcb720dc6"
+    },
+    {
+      "path": "savia/web/screens/sale-logic.mjs",
+      "change": "M",
+      "git_blob": "b4806930c34d72ddf187b820feb36f43a9d036c1"
+    },
+    {
+      "path": "savia/web/screens/sale.mjs",
+      "change": "M",
+      "git_blob": "20de83668c883ebca9efd54aff3d007f1b708d56"
+    },
+    {
+      "path": "savia/web/tests/catalog-ticket.test.mjs",
+      "change": "M",
+      "git_blob": "afdb7fbf69341c45135603698aaf6e13738e2f5e"
+    },
+    {
+      "path": "savia/web/tests/confirm.test.mjs",
+      "change": "A",
+      "git_blob": "f5bad6015d108d0ee504adaf29eac0a920369acb"
+    },
+    {
+      "path": "savia/web/tests/e2e_pilot.py",
+      "change": "M",
+      "git_blob": "f04901c474fce532cea913b980d5e4fd8409add7"
+    },
+    {
+      "path": "savia/web/tests/payments.test.mjs",
+      "change": "M",
+      "git_blob": "a00c9d35b19929bae2b28a5f9f73a67e762ea534"
+    },
+    {
+      "path": "savia/web/tests/roles.test.mjs",
+      "change": "M",
+      "git_blob": "cb99a58ae43de9d477f08a46e7656bf44b7bf25a"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

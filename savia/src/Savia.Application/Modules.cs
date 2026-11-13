@@ -19,27 +19,31 @@ public interface ICatalogStore
 
 public sealed class CatalogService(ICatalogStore store, NodeContext node)
 {
-    public Task<IReadOnlyList<CatalogProduct>> ListAsync(Actor actor, CancellationToken ct)
+    private static bool HidePrice(Actor actor) => actor.Roles.Contains(Roles.Inventory) && !actor.Roles.Contains(Roles.Owner) && !actor.Roles.Contains(Roles.Manager);
+    public async Task<IReadOnlyList<CatalogProduct>> ListAsync(Actor actor, CancellationToken ct)
     {
         Guard.Branch(actor, node);
-        return store.ListAsync(node.RequireLocation(), ct);
+        var rows=await store.ListAsync(node.RequireLocation(), ct);
+        return HidePrice(actor) ? rows.Select(p=>p with {Variants=p.Variants.Select(v=>v with {UnitPriceMinor=null}).ToArray()}).ToArray() : rows;
     }
 
     /// <summary>Returns every variant the code may mean. The caller must not pick one when there are several.</summary>
-    public Task<IReadOnlyList<ItemLookup>> LookupAsync(Actor actor, string rawCode, Guid? supplierId, CancellationToken ct)
+    public async Task<IReadOnlyList<ItemLookup>> LookupAsync(Actor actor, string rawCode, Guid? supplierId, CancellationToken ct)
     {
-        _ = actor;
-        return store.LookupAsync(Guard.Text(rawCode, "code", 128), supplierId, ct);
+        if(node.Kind==NodeKind.Branch) Guard.Branch(actor,node);
+        var rows=await store.LookupAsync(Guard.Text(rawCode, "code", 128), supplierId, ct);
+        return HidePrice(actor) ? rows.Select(v=>v with {UnitPriceMinor=null}).ToArray() : rows;
     }
 
     /// <summary>Finds variants by a fragment of name, SKU or code, with stock of this node's store location.</summary>
-    public Task<IReadOnlyList<ProductSearchRow>> SearchAsync(Actor actor, string text, int? limit, CancellationToken ct)
+    public async Task<IReadOnlyList<ProductSearchRow>> SearchAsync(Actor actor, string text, int? limit, CancellationToken ct)
     {
         if (node.Kind == NodeKind.Branch) Guard.Branch(actor, node);
         else Guard.Role(actor, Roles.Owner, Roles.Manager, Roles.Accountant);
         var q = Guard.Text(text, "q", 100).Trim();
         if (q.Length < 2) throw Errors.Invalid("catalog.search_too_short", "Escriba al menos 2 caracteres.");
-        return store.SearchAsync(q, node.LocationId, Math.Clamp(limit ?? 25, 1, 100), ct);
+        var rows=await store.SearchAsync(q, node.LocationId, Math.Clamp(limit ?? 25, 1, 100), ct);
+        return HidePrice(actor) ? rows.Select(v=>v with {UnitPriceMinor=null}).ToArray() : rows;
     }
 
     // The catalog has one writer: cloud normally, or this branch during the explicit local pilot.
@@ -60,6 +64,7 @@ public sealed class CatalogService(ICatalogStore store, NodeContext node)
     public Task RegisterItemAsync(Actor actor, RegisterItemRequest request, CancellationToken ct)
     {
         RequireCatalogWriter(actor);
+        Guard.Role(actor, Roles.Owner);
         Guard.Text(request.Sku, "sku", 100);
         Guard.Text(request.VariantName, "variantName", 200);
         return store.RegisterItemAsync(request, actor.StaffId, node.NodeId, ct);
@@ -126,6 +131,7 @@ public sealed class ReceivingService(IReceivingStore store, NodeContext node)
     public async Task<ScanSessionProgress> GetProgressAsync(Actor actor, Guid sessionId, CancellationToken ct)
     {
         Guard.Branch(actor, node);
+        Guard.Role(actor, Counters);
         return await RequireSessionHereAsync(sessionId, ct);
     }
 
