@@ -2,6 +2,7 @@ import { parseMoney } from '../money.mjs';
 
 /** Convert pending form fields to integer minor units. SQL validates the submitted sale. */
 export function paymentDraft(totalMinor, rows, { supportedKinds, customerId } = {}) {
+  if (totalMinor === 0) return { tenders: [], changeMinor: 0 };
   const tenders = rows.map((row, index) => {
     if (!supportedKinds.includes(row.kind)) throw new Error('Elija un método de pago disponible.');
     const amountMinor = rows.length === 1 ? totalMinor : parseMoney(row.amount);

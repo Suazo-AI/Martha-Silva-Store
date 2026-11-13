@@ -50,11 +50,11 @@ public sealed record LabelJob(Guid Id, Guid ItemId, string StoreName, string Sku
 public sealed record AckPrintRequest(Guid AttemptId, int AttemptNo, bool Successful, string? PrinterResponse = null);
 
 // ---- cash and sales
-public sealed record OpenTillRequest(Guid TillId, Guid RegisterId, string CurrencyCode, long OpeningMinor);
+public sealed record OpenTillRequest(Guid TillId, Guid RegisterId, string CurrencyCode, long OpeningMinor, CashCountLine[]? Lines = null);
 public sealed record SaleLine(int LineNumber, Guid ItemId, int Quantity, long UnitPriceMinor, long DiscountMinor = 0);
 public sealed record SaleTender(int TenderNumber, string TenderKind, long AmountMinor, long? ReceivedMinor = null,
     long? ChangeMinor = null, string? Reference = null, Guid? CreditId = null);
-public sealed record PostSaleRequest(Guid SaleId, Guid TillId, string CurrencyCode, SaleLine[] Lines, SaleTender[] Tenders, Guid? CustomerId = null);
+public sealed record PostSaleRequest(Guid SaleId, Guid TillId, string CurrencyCode, SaleLine[] Lines, SaleTender[] Tenders, Guid? CustomerId = null, string? DiscountReason = null, string? StockExceptionNote = null);
 public sealed record SaleResponse(Guid SaleId, long SubtotalMinor, long DiscountMinor, long TaxMinor, long TotalMinor, string Status);
 public sealed record CashCountLine(long DenominationMinor, int Quantity);
 public sealed record RecordCashCountRequest(Guid CashCountId, CashCountLine[] Lines);
@@ -64,4 +64,6 @@ public sealed record RegisterRow(Guid RegisterId, string Code, string Name, Guid
 /// <summary>Cash of one till. ExpectedCashMinor is the sum of its cash entries, the same figure the close uses.</summary>
 public sealed record TillSummary(Guid TillId, Guid RegisterId, string RegisterName, Guid CashierId, string CashierName, string Status,
     string CurrencyCode, DateTimeOffset OpenedAt, long OpeningMinor, long CashSalesMinor, long CashRefundsMinor, long OtherCashMinor,
-    long ExpectedCashMinor, int SaleCount, long SalesTotalMinor, Guid? ClosureId);
+    long ExpectedCashMinor, int SaleCount, long SalesTotalMinor, Guid? ClosureId, CashCountLine[]? OpeningLines = null);
+
+public sealed record CatalogProduct(Guid ProductId, string Name, string Type, ProductSearchRow[] Variants);

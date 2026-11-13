@@ -2,7 +2,8 @@
 
 Single-branch pilot on one PC.
 The API runs as a branch node on loopback only and serves the browser client from `savia/web/`.
-All data is sample data labelled MUESTRA; it is not inventory, staff or customers of any real store.
+All data is synthetic sample data; it is not inventory, staff or customers of any real store.
+Staff-facing names have no sample suffix. The single notice is in Ajustes. Login names are unchanged.
 
 ## Run
 
@@ -82,6 +83,7 @@ Roles: C = CASHIER, I = INVENTORY, M = MANAGER, O = OWNER.
 | --- | --- | --- | --- | --- |
 | `POST /api/v1/catalog/products` | M O; local flag required on branch | `RegisterProductRequest` below | 204, empty body | 403 role/branch, 422 input, 404 if flag disabled |
 | `POST /api/v1/catalog/items` | M O; local flag required on branch | `RegisterItemRequest` below | 204, empty body | 403 role/branch, 409 `catalog.code_taken`, `catalog.item_id_reused`, `catalog.sku_taken` |
+| `GET /api/v1/catalog/items` | branch staff | none | `CatalogProduct[] { productId, name, type, variants: ProductSearchRow[] }` | 401 auth; 403 branch |
 | `GET /api/v1/catalog/search?q=&limit=25` | branch staff | `q`: 2-100 chars of name, SKU or code; `limit` 1-100 | `ProductSearchRow[] { itemId, sku, productName, variantName, sizeCode, colorCode, barcode, unitPriceMinor, currencyCode, status, onHand, available }` | 422 `catalog.search_too_short`, 422 `input.text`, 403 `auth.branch_access` |
 | `GET /api/v1/catalog/lookup?code=&supplierId=` | branch staff | exact scanned code | `ItemLookup[]` | 403 |
 | `GET /api/v1/stock?itemId=` | branch staff | optional item | `StockRow[] { itemId, sku, variantName, locationId, pool, onHand, reserved, available }` | 403 |
@@ -184,7 +186,7 @@ Error responses use the exact JSON shape below (`traceId` identifies the request
 | Method and path | Roles | Request | Response | Errors |
 | --- | --- | --- | --- | --- |
 | `GET /api/v1/cash/registers` | C M O | none | `RegisterRow[] { registerId, code, name, locationId, openTillId, openTillCashierId }` | 403 |
-| `POST /api/v1/cash/tills` | C M O | `{ tillId, registerId, currencyCode, openingMinor }` | 204 | 404 `cash.register_not_found` |
+| `POST /api/v1/cash/tills` | C M O | `{ tillId, registerId, currencyCode, openingMinor, lines[{ denominationMinor, quantity }] }` | 204 | 404 `cash.register_not_found` |
 | `GET /api/v1/cash/tills/current` | C M O | none | `TillSummary` of the caller's newest open till | 404 `cash.no_open_till` |
 | `GET /api/v1/cash/tills/{tillId}/summary` | C M O | none | `TillSummary { tillId, registerId, registerName, cashierId, cashierName, status, currencyCode, openedAt, openingMinor, cashSalesMinor, cashRefundsMinor, otherCashMinor, expectedCashMinor, saleCount, salesTotalMinor, closureId }` | 404 `cash.till_not_found` |
 | `POST /api/v1/sales` | C M O | `PostSaleRequest { saleId, tillId, currencyCode, lines[{ lineNumber, itemId, quantity, unitPriceMinor, discountMinor }], tenders[{ tenderNumber, tenderKind, amountMinor, receivedMinor, changeMinor }] }` | `SaleResponse` | 409 `stock.insufficient`, 409 `cash.till_mismatch`, 409 `sale.id_reused` |
@@ -214,7 +216,7 @@ SaleHistoryRow { saleId, createdAt, status, currencyCode, totalMinor, customerId
 All query parameters are optional. `page` defaults to 1 (1..1000000); `pageSize` defaults to 25 (1..100).
 `from` and `to` are inclusive business dates in Nicaragua (UTC-06:00). Missing bounds mean no bound.
 `q` is a literal fragment, at most 100 characters, of sale id, line SKU/name or customer name/code.
-There is no separate receipt number in the schema: the receipt identifier is `saleId`.
+`receiptNumber` is a sequential human-readable branch receipt number. `saleId` remains the write/retry identifier.
 Results include returned sales and sort by `createdAt DESC, saleId DESC`; `total` is the count before pagination.
 Invalid ranges/pages return 422 `report.range`; overlong queries return 422 `input.text`.
 Malformed dates, GUIDs or integers are rejected by ASP.NET binding with HTTP 400 before the handler.
@@ -406,3 +408,75 @@ savia/docs/pilot/API-PILOT.md
 Limits: store-credit returns only; no cash-return procedure exists. No browser, mobile, accessibility,
 printer, gateway or production verification was performed by Worker A. Web and backup/autostart files
 belong to the other workers and are outside this staging scope.
+
+## Tablet owner changes - 2026-11-12
+
+`GET /api/v1/catalog/items` requires authentication and local branch access. It calls
+`catalog.usp_ListSaleCatalog` in V014. SQL groups all active variants by product and returns
+`productId`, `name`, `type`, and `variants`. Each variant has `itemId`, `sku`, `productName`,
+`variantName`, nullable `sizeCode`, `unitPriceMinor`, `currencyCode`, `status`, `onHand`, and
+`available`. The stock is only the local location's `store` pool. Missing stock is zero.
+`colorCode` and `barcode` are null on this listing. There is no search minimum or hidden row limit.
+Type derives in SQL from the existing product name with accent-insensitive matching:
+Blusas, Vestidos, Faldas, Pantalones, Jeans, Tops, Cardigans; other names become Otras prendas.
+No new garment-type column or seed lookup is needed.
+
+Every discount, including one cent, requires a local enabled MANAGER/OWNER. There is no fixed
+percentage allowance for a cashier. A discount must remain between zero and its gross line value.
+A full authorized discount posts a zero-total sale with `tenders: []`; SQL still validates the total.
+The cashier sends the second sign-in's live session in `X-Savia-Approval`; the main bearer stays
+the cashier. JSON approver ids are never trusted. The manager can set each line's amount in the
+approval dialog. `discountReason` is required. SQL records `DiscountApprovedBy` and `DiscountReason`.
+An authenticated manager/owner seller can approve their own discount with a reason.
+Missing approval returns 403 `sale.discount_approval_required`; a cashier approval bearer returns
+403 `auth.role_required`; invalid/expired approval returns 401. A retry preserves the first audit.
+Approval tokens stay in memory and are logged out after submission.
+
+## Owner decisions: counted cash, physical stock, reports and receipts (2026-11-12)
+
+Migrations V015 and V016 supersede V014's discount allowance. V001 is unchanged.
+All mutations and report arithmetic stay in SQL procedures (ADR-001 D2).
+
+- `GET /api/v1/cash/denominations`: C/M/O. Returns the descending SQL-owned NIO denomination
+  list in minor units: notes 1000, 500, 200, 100, 50, 20, 10 cordobas; coins 5, 1, .50, .25, .10.
+- `POST /cash/tills` adds required `lines`. `openingMinor` must equal their sum in SQL. Missing,
+  duplicate, unsupported, negative or mismatched lines return 422 `cash.opening_breakdown`.
+  Zero cash uses valid zero-quantity lines. The web total is read-only. `sales.usp_OpenTillCounted`
+  opens and saves the count in one transaction, with `CashCounts.CountKind='opening'`.
+  The opening count id equals the till id. Identical retries are safe; changed breakdowns conflict.
+- Till summaries include `openingLines: [{ denominationMinor, quantity }]`. Opening and closing
+  use the same list. A closing count has `CountKind='closing'`. The submitted-count index includes
+  the kind. An opening count cannot close a till. The latest close procedure retains V007's access guard.
+- `POST /sales` adds `discountReason` and `stockExceptionNote`. A shortage can be sold only with
+  a nonblank physical-stock note. SQL locks local stock and records the exact shortage per sale line
+  in `sales.StockExceptions`: item, quantity short, cashier, UTC time, note and later review fields.
+  Accounting: an `adjust` movement of +shortage has source `stock_exception` and its exception id;
+  the normal sale movement remains -sold quantity with source `sale`. Reserved stock is preserved.
+  Both movements, sale and exception commit together. The conservation oracle remains unchanged.
+  A retry creates neither another adjustment nor another exception.
+- `GET /stock/exceptions`: M/O. Local branch exceptions, pending first, including review fields.
+  `POST /stock/exceptions/{id}/review` accepts `{ reason }`, requires M/O, and records the first
+  review in both the exception and `sales.StockExceptionReviews`. A retry preserves that review.
+- `GET /reports/summary?period=day|week|month|year&date=YYYY-MM-DD`: M/O, local branch, NIO.
+  Periods use Nicaragua calendar dates (UTC-06:00), Monday weeks, calendar months and years.
+  The supplied date selects its containing period. `startDate` and `endDate` are inclusive.
+  SQL returns `salesCount`, `unitsSold`, `grossMinor` (subtotal before discount), `discountsMinor`,
+  `salesMinor` (sales total), `netMinor` (sales less period returns), `returnsCount`, `returnsMinor`,
+  `averageTicketMinor` (integer mean of sale totals), `customersServed` (distinct identified buyers),
+  `newCustomers` (buyers with no earlier posted sale at this branch), `stockExceptionsCount`,
+  and `tenders`, `returns`, `topItems`, `salesByDay`, `cashiers` arrays. Anonymous buyers are not
+  counted as identified customers. Day rows include days with sales. Returns use their own date.
+  The summary is a SQL read model for later CRM use; no CRM integration is deployed.
+- `GET /reports/summary.csv` takes the same parameters and role. It serializes every leaf of the
+  same SQL response as UTF-8 CSV `campo,valor`, with quoted paths and values. Money stays in minor
+  units. Array paths carry row indices. No arithmetic is repeated in C# or the export.
+- Sale detail adds `receiptNumber`, `discountApprovedBy`, `discountReason`. Branch receipts use
+  the branch code plus a sequence of at least six digits. A branch row lock serializes allocation;
+  rolled-back sales use no number and identical retries return the same one. Earlier rows are
+  assigned stable numbers during migration. The receipt says Recibo and prints no tax breakdown.
+
+Seed display labels no longer contain MUESTRA. Login names remain cajera.muestra,
+supervisora.muestra and duena.muestra. The synthetic supplier/customer codes are PROV-PILOTO and
+CLI-PILOTO. Use pilot reset then up to replace an already seeded database's old labels.
+
+Verification for this change is recorded in [WEB](WEB.md), including commands, exits and limits.

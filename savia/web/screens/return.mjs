@@ -1,32 +1,46 @@
 import * as api from '../api.mjs';
 import { h, replace, showError, openModal } from '../ui.mjs';
-import { formatMoney } from '../money.mjs';
+import { formatMoney, parseMoney } from '../money.mjs';
 import { garmentLine } from './sale-view.mjs';
 import { routeSaleId } from './receipt.mjs';
 import { remainingQuantity, selectedReturnLines } from './return-logic.mjs';
 import { syncTill } from './till-open.mjs';
 
 /** A second real login. The cashier's session and token stay in place. */
-export function supervisorApproval() {
+export function supervisorApproval(action = 'devolución', lines = []) {
   return openModal((body, close) => {
     const user = h('input', { id: 'approval-user', autocomplete: 'username', required: true });
     const pass = h('input', { id: 'approval-pass', type: 'password', autocomplete: 'current-password', required: true });
     document.getElementById('modal').addEventListener('close', () => { pass.value = ''; }, { once: true });
     const error = h('p', { role: 'alert' });
-    const submit = h('button', { type: 'submit', class: 'primary' }, 'Autorizar devolución');
+    const reason = h('input', { id: 'approval-reason', maxlength: 250, required: true });
+    const discounts = lines.map((line, index) => ({ line, input: h('input', {
+      id: `approval-discount-${index}`, inputmode: 'decimal', value: ((line.discountMinor ?? 0) / 100).toFixed(2) }) }));
+    const submit = h('button', { type: 'submit', class: 'primary' }, `Autorizar ${action}`);
     const form = h('form', { class: 'form', onsubmit: async event => {
       event.preventDefault();
       submit.disabled = true;
       try {
+        if (action === 'descuento' && (!reason.value.trim() || discounts.some(({ line, input }) =>
+          parseMoney(input.value) == null || parseMoney(input.value) > line.unitPriceMinor * line.quantity))) {
+          throw new Error('Indique el motivo y un descuento válido para cada prenda.');
+        }
         const approval = await api.login(user.value.trim(), pass.value);
         pass.value = '';
+        if (!approval.roles.some(role => ['MANAGER','OWNER'].includes(role))) {
+          await api.endApproval(approval.token);
+          throw new Error('Use una cuenta de supervisión o de la dueña para autorizar.');
+        }
         if (!document.getElementById('modal').open) { await api.endApproval(approval.token); return; }
-        close(approval.token);
+        close(action === 'descuento' ? { token: approval.token, reason: reason.value.trim(),
+          lines: discounts.map(({ line, input }) => ({ ...line, discountMinor: parseMoney(input.value) })) } : approval.token);
       } catch (failure) { pass.value = ''; showError(error, failure); submit.disabled = false; }
-    } }, h('label', {}, 'Usuario de supervisión', user), h('label', {}, 'Contraseña de supervisión', pass), error,
+    } }, h('label', {}, 'Usuario de supervisión', user), h('label', {}, 'Contraseña de supervisión', pass),
+    action === 'descuento' ? discounts.map(({ line, input }) => h('label', {}, `Descuento en C$ · ${line.name}`, input)) : null,
+    action === 'descuento' ? h('label', {}, 'Motivo del descuento', reason) : null, error,
     h('div', { class: 'actions' }, h('button', { type: 'button', onclick: () => { pass.value = ''; close(); } }, 'Cancelar'), submit));
     replace(body, h('h2', { id: 'modal-title' }, 'Aprobación de supervisión'),
-      h('p', {}, 'La devolución necesita autorización. Ingrese la cuenta de supervisión o de la dueña.'), form);
+      h('p', {}, `${action === 'descuento' ? 'El descuento' : 'La devolución'} necesita autorización. Ingrese la cuenta de supervisión o de la dueña.`), form);
   });
 }
 

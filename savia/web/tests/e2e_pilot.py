@@ -66,6 +66,27 @@ def js(expression: str):
     return json.loads(value) if isinstance(value, str) else value
 
 
+def close_browser(timeout=5):
+    failure = None
+    try:
+        ab("close")
+    except StepFailed as error:
+        failure = error
+    # On Windows the daemon can exit before acknowledging close (10060).
+    # Verify the actual postcondition. A live session still fails the run.
+    deadline = time.monotonic() + timeout
+    while True:
+        sessions = json.loads(ab("session", "list", "--json"))["data"]["sessions"]
+        active = any(s == SESSION or isinstance(s, dict) and (s.get("name") == SESSION or s.get("session") == SESSION) for s in sessions)
+        if not active:
+            break
+        if time.monotonic() >= deadline:
+            raise failure or StepFailed("agent-browser session remains active after close")
+        time.sleep(0.1)
+    if failure:
+        print("browser close acknowledgement lost; session list confirms it stopped", flush=True)
+
+
 def text(selector: str):
     return js(f"const e = document.querySelector({json.dumps(selector)}); return e ? e.textContent.trim() : null;")
 
@@ -113,7 +134,18 @@ def scan(selector: str, code: str):
     ab("press", "Enter")
 
 
+def layout_check():
+    check(js("return !document.querySelector('img');"), 'product image found')
+    check(js("return !document.body.textContent.includes('Sin foto');"), 'photo placeholder found')
+    check(js("return [document.documentElement,document.body,document.querySelector('#screen'),document.querySelector('.ticket')].filter(Boolean).every(e=>e.scrollWidth<=e.clientWidth);"), 'page or ticket has horizontal overflow')
+    check(js("return [...document.querySelectorAll('.ticket input,.ticket button')].filter(e=>e.getClientRects().length).every(e=>{const p=e.closest('.ticket').getBoundingClientRect(),r=e.getBoundingClientRect();return r.left>=p.left && r.right<=p.right+1;});"), 'ticket control is clipped horizontally')
+
+
 def shot(name: str):
+    layout_check()
+    ab('set','viewport','1440','900')
+    layout_check()
+    ab('set','viewport','1024','768')
     SHOTS.mkdir(parents=True, exist_ok=True)
     ab("screenshot", str(SHOTS / f"{name}.png"))
 
@@ -274,7 +306,7 @@ def main() -> int:
         shot("recepcion-3-codigo-nuevo")
         click(row + " button")
         wait_for("document.querySelector('dialog[open] #reg-name')", "registration dialog")
-        fill("#reg-name", "Producto web " + run + " MUESTRA")
+        fill("#reg-name", "Producto web " + run + "")
         fill("#reg-price", "499")
         fill("#reg-cost", "200")
         shot("recepcion-4-registrar")
@@ -293,7 +325,7 @@ def main() -> int:
         wait_for(f"document.querySelector({json.dumps(row)})", "second unknown")
         click(row + " button:last-child")
         wait_for("document.querySelector('dialog[open] #reject-reason')", "reject dialog")
-        fill("#reject-reason", "Etiqueta ilegible MUESTRA")
+        fill("#reject-reason", "Etiqueta ilegible")
         shot("recepcion-rechazar")
         click("#modal button[type=submit]")
         wait_for(f"document.querySelector({json.dumps(row)})?.dataset.status === 'rejected'", "rejected line")
@@ -331,14 +363,15 @@ def main() -> int:
         go("venta", "#till-register")
         register = next(r for r in read("/cash/registers") if not r["openTillId"])
         select("#till-register", register["registerId"])
-        fill("#till-opening", "1000")
-        shot("venta-1")
+        fill("#open-den-100000", "1")
+        shot("abrir-caja")
         click("#screen form button[type=submit]")
         wait_for("document.querySelector('#sale-search')", "sale screen")
         state["till"] = js("return JSON.parse(localStorage.getItem('savia.device.till'));")
         summary = read(f"/cash/tills/{state['till']['tillId']}/summary")
         check(summary["openingMinor"] == state["till"]["openingMinor"] == 100000, "opening differs")
-        check(text("#till-state") == "Caja abierta" and summary["status"] == "open", "till status differs")
+        check(sum(l['denominationMinor']*l['quantity'] for l in summary['openingLines']) == 100000, 'opening denomination read-back differs')
+        check(text("#till-state")  .startswith("Caja abierta") and summary["status"] == "open", "till status differs")
         return "cajera.muestra opened till; API opening 100000"
 
     def s_sale():
@@ -351,7 +384,7 @@ def main() -> int:
         # Use its semantic text action for this native disclosure; all form controls use fresh refs.
         ab("snapshot", "--json")
         ab("find", "text", "Cliente y anticipos (opcional)", "click")
-        fill("#sale-customer-search", "MUESTRA")
+        fill("#sale-customer-search", "Clienta")
         click("#sale-customer-panel > button")
         wait_for("document.querySelector('#sale-customers button')", "customer search")
         click("#sale-customers button:first-child")
@@ -382,7 +415,7 @@ def main() -> int:
         wait_for(f"document.querySelector('#total')?.textContent === {json.dumps(money(item['unitPriceMinor']))}", "restored ticket quantity")
         select("#payment-0-kind", "transfer")
         check(js("return document.querySelector('#pay').disabled;"), "transfer accepted without reference")
-        fill("#payment-0-reference", "TRANSFER-MUESTRA-" + run)
+        fill("#payment-0-reference", "TRANSFER-" + run)
         check(not js("return document.querySelector('#pay').disabled;"), "transfer with reference unavailable")
         check(text("#balance") == money(0), "transfer must not produce cash change")
         shot("venta-transferencia")
@@ -391,12 +424,12 @@ def main() -> int:
         fill("#payment-0-amount", "299")
         fill("#received", "500")
         fill("#payment-1-amount", "300")
-        fill("#payment-1-reference", "AUTH-SPLIT-MUESTRA-" + run)
+        fill("#payment-1-reference", "AUTH-SPLIT-" + run)
         check(text("#balance") == money(20100), "split payment preview must apply change to cash only")
         shot("venta-dividida")
         click("#payment-rows .payment-row:last-child button")
         select("#payment-0-kind", "card")
-        fill("#payment-0-reference", "AUTH-MUESTRA-" + run)
+        fill("#payment-0-reference", "AUTH-" + run)
         before = read(f"/cash/tills/{state['till']['tillId']}/summary")
         check(text("#balance") == money(0), "card must not produce cash change")
         check(not js("return Boolean(document.querySelector('#received'));"), "card must not ask for cash received")
@@ -421,7 +454,7 @@ def main() -> int:
         wait_for(f"document.querySelector({json.dumps(selector)})", "history receipt match")
         check(js("return document.querySelectorAll('#history-rows article').length;") == 1, "receipt search must have one sale")
         check(item["sku"] in text(selector) and "Talla" in text(selector), "history garment details missing")
-        check(js(f"return Boolean(document.querySelector({json.dumps(selector + ' img')}));"), "history photo missing")
+        check(not js("return Boolean(document.querySelector('img'));"), "history contains image")
         shot("historial")
         click(selector + " button.primary")
         wait_for("document.querySelector('#reprint')", "receipt screen")
@@ -443,7 +476,7 @@ def main() -> int:
         fill("#history-search", sale["lines"][0]["name"])
         ab("press", "Enter")
         wait_for(f"document.querySelector({json.dumps(selector)})", "garment name history match")
-        return "receipt, SKU and garment search; photo/details; receipt total=API; Reimprimir invokes print"
+        return "receipt, SKU and garment search; text details; receipt total=API; Reimprimir invokes print"
 
     def s_return():
         go("historial", "#history-search")
@@ -454,7 +487,7 @@ def main() -> int:
         click(selector + " button:last-child")
         wait_for("document.querySelector('#return-qty-1')", "return line")
         fill("#return-qty-1", "1")
-        fill("#return-reason", "Cambio de talla MUESTRA")
+        fill("#return-reason", "Cambio de talla")
         select("#refund-method", "credit")
         before = read(f"/cash/tills/{state['till']['tillId']}/summary")
         js("window.scrollTo(0,0); return true;")
@@ -491,13 +524,13 @@ def main() -> int:
 
     def s_customers():
         go("clientes", "#customer-search")
-        fill("#customer-search", "MUESTRA")
+        fill("#customer-search", "Clienta")
         ab("press", "Enter")
         wait_for("document.querySelector('#customer-rows button')", "seeded customers")
         customer_id = js("return document.querySelector('#customer-rows tr').dataset.customer;")
         click("#customer-rows tr:first-child button")
         wait_for("!document.querySelector('#customer-balance').hidden", "customer credit balance")
-        credits = [row for row in read("/credits/search?q=MUESTRA") if row["customerId"] == customer_id]
+        credits = [row for row in read("/credits/search?q=Clienta") if row["customerId"] == customer_id]
         check(any(row["creditId"] == state["credit"] for row in credits), "new return credit missing from API")
         for credit in credits:
             selector = f"#customer-balance [data-credit='{credit['creditId']}'][data-branch='{credit['branchId']}']"
@@ -512,7 +545,7 @@ def main() -> int:
         ab("press", "Enter")
         wait_for(f"document.querySelector('#qty-{item_id}')?.value === '1'", "credit ticket")
         select("#payment-0-kind", "credit")
-        fill("#sale-customer-search", "MUESTRA")
+        fill("#sale-customer-search", "Clienta")
         click("#sale-customer-panel > button")
         wait_for("document.querySelector('#sale-customers button')", "credit customer search")
         click("#sale-customers button:first-child")
@@ -527,7 +560,7 @@ def main() -> int:
         sale = read("/sales/" + sale_id)
         check(sale["tenders"][0]["creditId"] == state["credit"], "sale did not redeem selected credit")
         check(text("#receipt-total") == money(sale["totalMinor"]) and text("#receipt-change") == money(0), "credit receipt differs")
-        credits = read("/credits/search?q=MUESTRA")
+        credits = read("/credits/search?q=Clienta")
         check(not any(row["creditId"] == state["credit"] for row in credits), "fully redeemed credit remains available")
         after = read(f"/cash/tills/{state['till']['tillId']}/summary")
         check(after["expectedCashMinor"] == before["expectedCashMinor"], "credit redemption changed cash")
@@ -553,8 +586,16 @@ def main() -> int:
                 expected = "—" if till[key] is None else money(till[key])
                 check(text(f"#day-report [data-till='{till['tillId']}'] [data-field='{key}']") == expected, f"day report {key} differs")
         check(report["salesCount"] >= 2, "day report missed new sales")
-        shot("reporte-dia")
-        return "day report totals and count equal API values"
+        for period in ['week','month','year']:
+            select('#report-period',period)
+            wait_for(f"document.querySelector('#summary-totals')?.dataset.period === '{period}'", 'period report')
+            summary=read('/reports/summary?period='+period+'&date='+date)
+            for key in ['salesCount','unitsSold','customersServed','newCustomers','stockExceptionsCount']:
+                check(text('#summary-'+key)==str(summary[key]),period+' '+key+' differs from API')
+            for key in ['grossMinor','discountsMinor','netMinor','returnsMinor','averageTicketMinor']:
+                check(text('#summary-'+key)==money(summary[key]),period+' '+key+' differs from API')
+        shot('reportes')
+        return 'day, week, month and year totals equal API values'
 
     def s_count():
         go("caja", "#counted")
@@ -572,7 +613,7 @@ def main() -> int:
         click("#save-count")
         wait_for("document.querySelector('#screen .ok')", "saved count")
         state["count"] = js("return JSON.parse(localStorage.getItem('savia.device.count.' + " + json.dumps(state['till']['tillId']) + "));")
-        shot("caja-1")
+        shot("cierre")
         login_ui(SUPERVISOR)
         go("caja", "#close-till")
         check(text("#counted") == text("#expected") == money(expected), "supervisor did not recover cashier count")
@@ -589,14 +630,198 @@ def main() -> int:
         shot("caja-2")
         return "cashier count; supervisor closure; screen=API difference 0"
 
+    def s_grid():
+        wait_for("document.querySelector('#cards .product')", "catalog cards")
+        products = read('/catalog/items')
+        garment = next(p for p in products if any(v['itemId'] == item_id for v in p['variants']))
+        state['product_id'] = garment['productId']
+        check(len(products) >= 7, 'catalog missing seeded garments')
+        check(js("return !document.querySelector('#cards .product:disabled');"), 'out-of-stock card must stay selectable')
+        check(js("return document.querySelector('.catalog').getBoundingClientRect().right <= document.querySelector('.ticket').getBoundingClientRect().left + 1;"), 'ticket must stay beside catalog')
+        check(not js("return document.querySelector('#palette-picker') !== null;"), 'palette is outside Ajustes')
+        shot('venta-grid')
+        select('#sale-type', 'Blusas')
+        check(js("return [...document.querySelectorAll('#cards .product')].every(e=>e.dataset.type === 'Blusas');"), 'type filter failed')
+        select('#sale-size', 'S')
+        shot('venta-filtros')
+        select('#sale-size', '')
+        click(f"#cards [data-product='{garment['productId']}']")
+        wait_for("document.querySelector('#sale-sizes')", 'size picker')
+        check('disponibles' in text('#sale-sizes') and 'Sin existencia' in text('#sale-sizes'), 'size stocks missing')
+        shot('venta-tallas')
+        click(f"#sale-sizes [data-item='{item_id}']")
+        check(js(f"return document.querySelector('#qty-{item_id}').value === '1';"), 'tap did not add garment')
+        shot('venta')
+        check(js("const a=document.querySelector('#ticket-lines').getBoundingClientRect(), l=document.querySelector('#ticket-lines .tline').getBoundingClientRect(); return l.top>=a.top && l.bottom<=a.bottom+1;"), 'single ticket line controls are clipped')
+        layout_check()
+        fill(f'#discount-{item_id}', '5')
+        ab('press', 'Tab')
+        fill('#ticket-discount', '5')
+        ab('press', 'Tab')
+        expected = item['unitPriceMinor'] * 90 // 100
+        check(text('#total') == money(expected), 'combined line and ticket discount preview')
+        click('#park-ticket')
+        check(not js("return document.querySelector('#ticket-lines .tline') !== null;"), 'park did not clear ticket')
+        # The parked ticket also survives a reload of the same open till.
+        ab('reload')
+        wait_for("document.querySelector('#saved-tickets')", 'ticket actions after reload')
+        click('#saved-tickets')
+        wait_for("document.querySelector('.restore-ticket')", 'saved ticket')
+        click('.restore-ticket')
+        wait_for(f"document.querySelector('#qty-{item_id}')", 'restored line')
+        check(text('#total') == money(expected), 'restored discount differs')
+        click('#empty-ticket')
+        check(js(f"return document.querySelector('#qty-{item_id}') !== null;"), 'empty must require confirmation')
+        click('#confirm-empty-yes')
+        check(not js("return document.querySelector('#ticket-lines .tline') !== null;"), 'confirmed empty failed')
+        select('#sale-type', '')
+        shot('venta-encabezado')
+        return 'grid tap, size/stock, type/size filters, combined discount, park/reload/restore, in-page empty'
+
+    def s_settings():
+        go('ajustes', '#palette-picker')
+        ab('snapshot', '-i')
+        ab('find', 'label', 'Malva', 'check')
+        check(js("return document.documentElement.dataset.palette === 'malva';"), 'palette did not change')
+        ab('reload')
+        wait_for("document.querySelector('#palette-picker')", 'settings reload')
+        check(js("return document.documentElement.dataset.palette === 'malva' && document.querySelector('input[value=malva]').checked;"), 'palette not persisted')
+        check(js("return document.querySelector('a[href=\"/scanner/scanner-test.html\"]') !== null;"), 'scanner link missing')
+        check('Datos de prueba' in text('#sample-notice'), 'sample notice absent')
+        shot('ajustes')
+        ab('snapshot', '-i')
+        ab('find', 'label', 'Bosque', 'check')
+        return 'Ajustes palette survives reload; sample notice and local scanner link'
+
+    def count_lines(amount):
+        lines=[]
+        for d in read('/cash/denominations'):
+            q,amount=divmod(amount,d)
+            lines.append({'denominationMinor':d,'quantity':q})
+        check(amount==0,'cash cannot be counted in supported denominations')
+        return lines
+
+    def s_zero_stock():
+        product_id,new_id=str(uuid.uuid4()),str(uuid.uuid4())
+        code='ZERO-'+run
+        status,_=call('POST','/catalog/products',{'productId':product_id,'name':'Prenda física '+run},token=token)
+        check(status==204,'zero-stock product registration')
+        status,_=call('POST','/catalog/items',{'itemId':new_id,'productId':product_id,'sku':code,'variantName':'Prenda física talla única '+run,
+            'currencyCode':'NIO','unitPriceMinor':20000,'unitCostMinor':10000,'barcode':code},token=token)
+        check(status==204,'zero-stock item registration')
+        login_ui(CASHIER)
+        go('venta','#till-register')
+        click('#screen form button[type=submit]')
+        wait_for("document.querySelector('#cards .product')",'zero-stock catalog')
+        till=js("return JSON.parse(localStorage.getItem('savia.device.till'));")
+        fill('#sale-search',code)
+        check('Sin existencia en sistema' in text('#cards'),'zero stock state missing')
+        click(f"#cards [data-product='{product_id}']")
+        wait_for("document.querySelector('#confirm-stock')",'physical-stock confirmation')
+        check('Confirmar que la prenda está en la tienda' in text('#modal'),'physical confirmation message')
+        click('#confirm-stock')
+        wait_for(f"document.querySelector('#qty-{new_id}')",'zero-stock ticket line')
+        fill('#received','200')
+        shot('venta-excepcion')
+        click('#pay')
+        wait_for("!document.querySelector('#receipt').hidden",'zero-stock receipt')
+        sale_id=re.search(r'Venta ([0-9a-fA-F-]{36})',text('#receipt')).group(1)
+        exceptions=read('/stock/exceptions')
+        mine=[e for e in exceptions if uuid.UUID(e['saleId'])==uuid.UUID(sale_id)]
+        check(len(mine)==1 and mine[0]['quantityShort']==1 and uuid.UUID(mine[0]['itemId'])==uuid.UUID(new_id),'one zero-stock exception expected')
+        check(on_hand(token,new_id)==0,'adjustment and sale must conserve stock')
+        login_ui(SUPERVISOR)
+        go('excepciones','#stock-exceptions')
+        row=f"[data-exception='{mine[0]['id']}']"
+        fill(row+' input','Revisado: existencia física confirmada')
+        shot('excepciones')
+        click(row+' button')
+        wait_for(f"document.querySelector({json.dumps(row)})?.dataset.reviewed === 'true'",'exception review persisted')
+        reviewed=next(e for e in read('/stock/exceptions') if e['id']==mine[0]['id'])
+        check(reviewed['reviewedBy'] and reviewed['reviewNote']=='Revisado: existencia física confirmada','review audit missing')
+        count_id=str(uuid.uuid4())
+        status,_=call('POST',f"/cash/tills/{till['tillId']}/counts",{'cashCountId':count_id,'lines':count_lines(20000)},token=token)
+        check(status==204,'exception till count')
+        status,closure=call('POST',f"/cash/tills/{till['tillId']}/close",{'closureId':str(uuid.uuid4()),'cashCountId':count_id},token=token)
+        check(status==200 and closure['differenceMinor']==0,'exception till close')
+        return 'zero-system-stock sale, one traced exception, manager review and zero final stock'
+
+    def s_discount_sale():
+        login_ui(CASHIER)
+        go('venta', '#till-register')
+        select('#till-register', next(r['registerId'] for r in read('/cash/registers') if not r['openTillId']))
+        fill('#open-den-100000', '0')
+        click('#screen form button[type=submit]')
+        wait_for("document.querySelector('#cards .product')", 'discount catalog')
+        till = js("return JSON.parse(localStorage.getItem('savia.device.till'));")
+        click(f"#cards [data-product='{state['product_id']}']")
+        wait_for("document.querySelector('#sale-sizes')", 'discount size picker')
+        click(f"#sale-sizes [data-item='{item_id}']")
+        fill('#ticket-discount', '20')
+        ab('press', 'Tab')
+        fill('#received', '1000')
+        before = read(f"/cash/tills/{till['tillId']}/summary")
+        auth_status, auth_body = call('POST','/auth/login',{'loginName':CASHIER,'password':PASSWORDS[CASHIER]})
+        check(auth_status == 200, 'cashier server discount test login failed')
+        discount = item['unitPriceMinor'] // 5
+        amount = item['unitPriceMinor'] - discount
+        refused_status, refused = call('POST','/sales',{'saleId':str(uuid.uuid4()),'tillId':till['tillId'],'currencyCode':'NIO',
+          'lines':[{'lineNumber':1,'itemId':item_id,'quantity':1,'unitPriceMinor':item['unitPriceMinor'],'discountMinor':discount}],
+          'tenders':[{'tenderNumber':1,'tenderKind':'cash','amountMinor':amount,'receivedMinor':amount,'changeMinor':0}]},token=auth_body['token'])
+        check(refused_status == 403 and refused['code'] == 'sale.discount_approval_required','server accepted unapproved 20 percent')
+        call('POST','/auth/logout',token=auth_body['token'])
+        click('#pay')
+        wait_for("document.querySelector('#modal').open && document.querySelector('#approval-user')", 'discount supervisor sign-in')
+        # No credentials: Cancel refuses the sale without changing stock or cash.
+        click('#modal button[type=button]')
+        after = read(f"/cash/tills/{till['tillId']}/summary")
+        check(after['saleCount'] == before['saleCount'] == 0, 'unapproved 20 percent was sold')
+        fill('#ticket-discount', '10')
+        ab('press', 'Tab')
+        click('#pay')
+        wait_for("document.querySelector('#modal').open && document.querySelector('#approval-reason')", 'all discounts require approval')
+        fill('#approval-reason','Atención autorizada por supervisión')
+        fill('#approval-discount-0','120')
+        profile=SESSION+'-approval'
+        ab('auth','save',profile,'--url',WEB+'/','--username',SUPERVISOR,'--password-stdin',
+           '--username-selector','#approval-user','--password-selector','#approval-pass',
+           '--submit-selector','#modal form button[type=submit]',secret_input=PASSWORDS[SUPERVISOR])
+        try:
+            ab('auth','login',profile,'--no-navigate')
+        finally:
+            ab('auth','delete',profile)
+        wait_for("!document.querySelector('#receipt').hidden", 'manager approved receipt')
+        sale_id = re.search(r"Venta ([0-9a-fA-F-]{36})", text('#receipt')).group(1)
+        sale = read('/sales/' + sale_id)
+        check(sale['discountMinor'] == 12000, 'SQL did not persist the amount selected by the manager')
+        check(sale['cashierId'] == till['cashierId'], 'discount changed seller')
+        check(sale['discountApprovedBy'] and sale['discountReason']=='Atención autorizada por supervisión','approval audit missing')
+        shot('venta-descuento')
+        # Parked work must be discarded when this till closes.
+        js("localStorage.setItem('savia.device.parkedTickets', JSON.stringify({tillId:" + json.dumps(till['tillId']) + ",tickets:[{id:'closure-probe'}]})); return true;")
+        count_id = str(uuid.uuid4())
+        status, _ = call('POST', f"/cash/tills/{till['tillId']}/counts", {'cashCountId':count_id,'lines':count_lines(sale['totalMinor'])}, token=token)
+        check(status == 204, 'discount count failed')
+        status, closure = call('POST', f"/cash/tills/{till['tillId']}/close", {'closureId':str(uuid.uuid4()),'cashCountId':count_id}, token=token)
+        check(status == 200 and closure['differenceMinor'] == 0, 'discount till closure failed')
+        go('ajustes', '#palette-picker')
+        check(js("return localStorage.getItem('savia.device.parkedTickets') === null;"), 'closed-till parked ticket survived synchronization')
+        return 'cashier discount rejected; cancel preserves till; manager approved discount and reason persisted; closed-till drafts cleared'
+
+    def s_no_sample():
+        for route, ready in [('venta','#till-register'),('inventario','#stock-body'),('historial','#history-search'),('clientes','#customer-search'),('ajustes','#sample-notice')]:
+            go(route, ready)
+            check(js("return ![...document.querySelectorAll('body *')].some(e=>e.children.length===0 && e.getClientRects().length && !e.closest('#sample-notice') && /MUESTRA/i.test(e.textContent));"), 'visible MUESTRA outside Ajustes: ' + route)
+        return 'no visible MUESTRA on staff screens'
+
     steps = [("login", s_login), ("inventory before", lambda: inventory(state["stock0"], "inventario-1")),
         ("five scans", s_scan), ("register and reject", s_unknowns),
         ("inventory unchanged", lambda: inventory(state["stock0"], "inventario-pending")),
         ("approve and post", s_post), ("inventory after post", lambda: inventory(state["stock1"], "inventario-2")),
-        ("cashier open till", s_till), ("cash sale", s_sale), ("card sale", s_card),
+        ("cashier open till", s_till), ("catalog grid and tickets", s_grid), ("cash sale", s_sale), ("card sale", s_card),
         ("history and receipt", s_history), ("return one unit", s_return), ("customers and credit", s_customers), ("credit sale", s_credit_sale),
         ("count and close", s_count), ("day report", s_report),
-        ("final inventory", lambda: inventory(state["stock1"] - 3, "inventario-3"))]
+        ("final inventory", lambda: inventory(state["stock1"] - 3, "inventario-3")), ("settings persistence", s_settings), ("cashier discounts", s_discount_sale), ("physical stock exception", s_zero_stock), ("no sample labels", s_no_sample)]
     try:
         for name, fn in steps:
             if not step(name, fn):
@@ -610,7 +835,7 @@ def main() -> int:
         for e in console_errors + errors:
             print(str(e)[:400])
         results.append(("console", "FAIL" if console_errors or errors else "PASS", "zero required"))
-        ab("close")
+        close_browser()
     print(f"SUMMARY: {sum(v == 'PASS' for _,v,_ in results)} passed; {sum(v == 'FAIL' for _,v,_ in results)} failed", flush=True)
     return 1 if any(v == "FAIL" for _,v,_ in results) else 0
 

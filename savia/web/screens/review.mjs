@@ -1,6 +1,6 @@
 // Recepción · Revisar y aprobar. A supervisor approves, then posts; stock changes only on post.
 import * as api from '../api.mjs';
-import { h, replace, showError, showOk, clearMessage, photo } from '../ui.mjs';
+import { h, replace, showError, showOk, clearMessage } from '../ui.mjs';
 import { current, loadState, lineView } from './reception-data.mjs';
 
 const STATUS = { counting: 'Contando', approved: 'Aprobada', posted: 'Registrada en inventario', closed: 'Cerrada' };
@@ -106,8 +106,7 @@ export default {
         h('h2', {}, 'Resultado'),
         h('p', { class: 'muted num' }, `Recibo ${receipt.receiptId}`),
         h('h3', {}, 'Inventario ahora'),
-        h('div', { class: 'lines', id: 'post-stock' }, stockRows.map(row => h('div', { class: 'rline' }, photo(row.sku),
-          h('div', {}, h('strong', {}, row.variantName), h('p', { class: 'num' }, `SKU ${row.sku} · ${row.pool === 'store' ? 'Tienda' : row.pool}`)),
+        h('div', { class: 'lines', id: 'post-stock' }, stockRows.map(row => h('div', { class: 'rline' }, h('div', {}, h('strong', {}, row.variantName), h('p', { class: 'num' }, `SKU ${row.sku} · ${row.pool === 'store' ? 'Tienda' : row.pool}`)),
           h('span', { class: 'qty', dataset: { item: row.itemId }, 'aria-label': `Existencia ${row.onHand}` }, String(row.onHand))))),
         h('h3', {}, 'Etiquetas en cola'),
         jobsError ? h('p', { class: 'error' }, jobsError.message) : null,

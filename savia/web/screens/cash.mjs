@@ -1,8 +1,9 @@
 // Caja · Cierre: count cash by denomination, show expected vs counted, close once.
 import * as api from '../api.mjs';
 import { h, replace, showError, showOk, clearMessage, device } from '../ui.mjs';
-import { formatMoney, countTotal, NIO_DENOMINATIONS } from '../money.mjs';
+import { formatMoney, countTotal } from '../money.mjs';
 import { openTillPanel, syncTill } from './till-open.mjs';
+import { denominationCount, openingBreakdown } from './denominations.mjs';
 import { differenceView } from './cash-logic.mjs';
 
 export default {
@@ -16,30 +17,14 @@ export default {
         await openTillPanel(ctx, () => ctx.go('venta')))));
     };
 
-    const renderTill = (till, summary) => {
-      const quantities = new Map(NIO_DENOMINATIONS.map(d => [d, 0]));
-      const counted = h('strong', { class: 'num', id: 'counted' });
+    const renderTill = async (till, summary) => {
       const message = h('p', { class: 'error', role: 'alert' });
       const expected = summary.expectedCashMinor;
       const saved = device.get('count.' + till.tillId);
       const pending = saved?.pending ?? { cashCountId: null, closureId: null, key: null };
-      for (const line of saved?.lines ?? []) quantities.set(line.denominationMinor, line.quantity);
-
-      const lines = () => [...quantities].filter(([, q]) => q > 0).map(([denominationMinor, quantity]) => ({ denominationMinor, quantity }));
-      const drawCounted = () => { counted.textContent = formatMoney(countTotal(lines())); };
-
-      const inputs = NIO_DENOMINATIONS.map(d => {
-        const id = `den-${d}`;
-        const input = h('input', { id, inputmode: 'numeric', autocomplete: 'off', value: String(quantities.get(d)) });
-        input.addEventListener('input', () => {
-          const q = Number(input.value.trim() || '0');
-          input.setAttribute('aria-invalid', String(!Number.isInteger(q) || q < 0));
-          if (Number.isInteger(q) && q >= 0) quantities.set(d, q);
-          drawCounted();
-        });
-        input.addEventListener('focus', () => input.select());
-        return h('label', { for: id }, h('span', { class: 'num' }, formatMoney(d)), input);
-      });
+      const count = await denominationCount({ saved: saved?.lines ?? [] });
+      const lines = count.lines;
+      const counted = count.total;
 
       const saveCount = async () => {
         const countLines = lines();
@@ -63,6 +48,7 @@ export default {
         try {
           const ids = await saveCount();
           const closure = await api.closeTill(till.tillId, { closureId: ids.closureId, cashCountId: ids.cashCountId });
+          device.set('parkedTickets', null);
           ctx.till.set(null);
           device.set('count.' + till.tillId, null);
           await renderNoTill(closure);
@@ -75,7 +61,7 @@ export default {
 
       replace(root, h('div', { class: 'page' }, h('div', { class: 'split' },
         h('section', { class: 'panel ledger', 'aria-labelledby': 'ledger-title' },
-          h('h2', { id: 'ledger-title' }, 'Caja del turno'),
+          h('h2', { id: 'ledger-title' }, 'Caja del turno'), openingBreakdown(summary),
           h('div', { class: 'row' }, h('span', {}, 'Fondo inicial'), h('strong', {}, formatMoney(summary.openingMinor))),
           summary ? h('div', { class: 'row' }, h('span', {}, 'Ventas en efectivo'), h('strong', {}, formatMoney(summary.cashSalesMinor))) : null,
           summary?.cashRefundsMinor ? h('div', { class: 'row' }, h('span', {}, 'Devoluciones'), h('strong', {}, formatMoney(summary.cashRefundsMinor))) : null,
@@ -84,12 +70,12 @@ export default {
           h('p', { class: 'muted' }, `${summary.registerName} · ${summary.cashierName}`)),
         h('section', { class: 'panel', 'aria-labelledby': 'count-title' },
           h('h2', { id: 'count-title' }, 'Efectivo contado'),
-          h('div', { class: 'denoms' }, inputs),
+          count.node,
           h('div', { class: 'row total' }, h('span', {}, 'Su conteo'), counted),
           message,
           h('div', { class: 'actions' }, save),
           ctx.isApprover ? close : h('p', { class: 'muted' }, 'Guarde el conteo. Una supervisora cierra la caja.')))));
-      drawCounted();
+
     };
 
     const { till, summary } = await syncTill(ctx);
@@ -97,7 +83,7 @@ export default {
     if (till?.tillId && !liveSummary) {
       try { liveSummary = await api.tillSummary(till.tillId); } catch { liveSummary = null; }
     }
-    if (till?.tillId) renderTill(till, liveSummary); else await renderNoTill(null);
+    if (till?.tillId) await renderTill(till, liveSummary); else await renderNoTill(null);
     return handle;
   },
 };

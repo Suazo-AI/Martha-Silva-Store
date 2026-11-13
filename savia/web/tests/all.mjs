@@ -9,3 +9,5 @@ import './returns.test.mjs';
 import './roles.test.mjs';
 import './receipt.test.mjs';
 import './date-focus.test.mjs';
+
+import './catalog-ticket.test.mjs';

@@ -1,5 +1,6 @@
 using Savia.Contracts;
 using Savia.Domain;
+using System.Text.Json;
 
 namespace Savia.Application;
 
@@ -11,10 +12,50 @@ public interface IPilotSalesStore
     Task<IReadOnlyList<CustomerRow>> CustomersAsync(string query, CancellationToken ct);
     Task<IReadOnlyList<CustomerCreditRow>> CreditsAsync(string query, Guid actor, CancellationToken ct);
     Task<DayReport> DayAsync(Guid branch, DateOnly date, CancellationToken ct);
+    Task<JsonElement> SummaryAsync(Guid branch, string period, DateOnly date, CancellationToken ct);
+    Task<JsonElement> ExceptionsAsync(Guid branch, CancellationToken ct);
+    Task ReviewExceptionAsync(Guid branch, Guid exceptionId, Guid actor, string reason, CancellationToken ct);
+    Task<IReadOnlyList<long>> DenominationsAsync(CancellationToken ct);
 }
 
 public sealed class PilotSalesService(IPilotSalesStore store, NodeContext node)
 {
+    private Guid Manager(Actor actor)
+    {
+        var branch = Guard.Branch(actor, node);
+        Guard.Role(actor, Roles.Manager, Roles.Owner);
+        return branch;
+    }
+    public Task<JsonElement> SummaryAsync(Actor actor, string period, DateOnly date, CancellationToken ct) =>
+        store.SummaryAsync(Manager(actor), Guard.Text(period, "period", 8), date, ct);
+    public Task<JsonElement> ExceptionsAsync(Actor actor, CancellationToken ct) => store.ExceptionsAsync(Manager(actor), ct);
+    public Task ReviewExceptionAsync(Actor actor, Guid id, ResolveExceptionRequest request, CancellationToken ct) =>
+        store.ReviewExceptionAsync(Manager(actor), id, actor.StaffId, Guard.Text(request.Reason, "reason", 500), ct);
+    public Task<IReadOnlyList<long>> DenominationsAsync(Actor actor, CancellationToken ct)
+    {
+        Seller(actor);
+        return store.DenominationsAsync(ct);
+    }
+
+    // Serialize every leaf of the same SQL response. No totals are recalculated in the export.
+    public static byte[] SummaryCsv(JsonElement report)
+    {
+        var rows = new List<string> { "campo,valor" };
+        static string Cell(string value) => "\"" + value.Replace("\"", "\"\"") + "\"";
+        void Walk(JsonElement value, string path)
+        {
+            if (value.ValueKind == JsonValueKind.Object)
+                foreach (var property in value.EnumerateObject()) Walk(property.Value, path.Length == 0 ? property.Name : path + "." + property.Name);
+            else if (value.ValueKind == JsonValueKind.Array)
+            {
+                var index = 0;
+                foreach (var entry in value.EnumerateArray()) Walk(entry, path + "[" + index++ + "]");
+            }
+            else rows.Add(Cell(path) + "," + Cell(value.ToString()));
+        }
+        Walk(report, "");
+        return System.Text.Encoding.UTF8.GetBytes("\uFEFF" + string.Join("\r\n", rows) + "\r\n");
+    }
     private Guid Seller(Actor actor)
     {
         var branch = Guard.Branch(actor, node);

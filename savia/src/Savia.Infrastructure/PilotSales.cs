@@ -9,6 +9,20 @@ namespace Savia.Infrastructure;
 
 public sealed class PilotSalesStore(SqlGateway sql) : IPilotSalesStore
 {
+    private async Task<JsonElement> ReadElement(string proc, CancellationToken ct, params SqlParameter[] args)
+    {
+        var rows = await sql.QueryProcAsync(proc, r => r.GetString(0), ct, args);
+        using var document = JsonDocument.Parse(rows.Single());
+        return document.RootElement.Clone();
+    }
+    public Task<JsonElement> SummaryAsync(Guid branch, string period, DateOnly date, CancellationToken ct) =>
+        ReadElement("sales.usp_GetPeriodSummary", ct, P("@BranchId", branch), P("@Period", period), P("@Date", date.ToDateTime(TimeOnly.MinValue)));
+    public Task<JsonElement> ExceptionsAsync(Guid branch, CancellationToken ct) =>
+        ReadElement("sales.usp_ListStockExceptions", ct, P("@BranchId", branch));
+    public Task ReviewExceptionAsync(Guid branch, Guid exceptionId, Guid actor, string reason, CancellationToken ct) =>
+        sql.ExecProcAsync("sales.usp_ReviewStockException", ct, P("@BranchId", branch), P("@ExceptionId", exceptionId), P("@ActorId", actor), P("@Reason", reason));
+    public async Task<IReadOnlyList<long>> DenominationsAsync(CancellationToken ct) =>
+        await sql.QueryAsync("SELECT DenominationMinor FROM sales.CashDenominations ORDER BY DenominationMinor DESC", r => r.GetInt64(0), ct);
     private static readonly JsonSerializerOptions Json = new(JsonSerializerDefaults.Web);
     private async Task<T?> ReadJson<T>(string proc, CancellationToken ct, params SqlParameter[] args) where T : class
     {

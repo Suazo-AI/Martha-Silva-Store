@@ -1,7 +1,8 @@
 // "Abrir caja": used by Venta and Caja when this device has no open till.
 import * as api from '../api.mjs';
 import { h, showError, clearMessage, device, GUID_RE } from '../ui.mjs';
-import { parseMoney } from '../money.mjs';
+import { countTotal } from '../money.mjs';
+import { denominationCount } from './denominations.mjs';
 
 export async function openTillPanel(ctx, onOpened) {
   const message = h('p', { class: 'error', role: 'alert' });
@@ -11,22 +12,24 @@ export async function openTillPanel(ctx, onOpened) {
     const available = list.filter(r => !r.openTillId);
     registerControl.append(...available.map(r => h('option', { value: r.registerId,
       selected: r.registerId === device.get('registerId') }, `${r.code} · ${r.name}`)));
-    if (!available.length) message.textContent = 'Todas las cajas tienen un turno abierto.';
+    if (!available.length) message.textContent = 'Todas las cajas tienen un turno abierto. Solicite a supervisión que revise o cierre el turno.';
   } catch (error) { showError(message, error); }
-  const opening = h('input', { id: 'till-opening', inputmode: 'decimal', autocomplete: 'off', placeholder: '0.00' });
+  const count = await denominationCount({ prefix: 'open-den' });
   const submit = h('button', { class: 'primary big', type: 'submit' }, 'Abrir caja');
   let pending = null;   // same TillId on a retry
   return h('form', { class: 'panel form', 'aria-labelledby': 'open-title', novalidate: true, onsubmit: async event => {
     event.preventDefault();
     clearMessage(message);
     const registerId = registerControl.value.trim();
-    const openingMinor = parseMoney(opening.value);
+    let lines;
+    try { lines = count.lines(); } catch (error) { showError(message, error); return; }
+    const openingMinor = countTotal(lines);
     if (!GUID_RE.test(registerId)) { message.textContent = 'Elija una caja disponible.'; registerControl.focus(); return; }
-    if (openingMinor == null) { message.textContent = 'Escriba el efectivo inicial, por ejemplo 1000.00.'; opening.focus(); return; }
-    if (!pending || pending.registerId !== registerId || pending.openingMinor !== openingMinor) pending = { tillId: api.uuid(), registerId, openingMinor };
+    const key = JSON.stringify([registerId, lines]);
+    if (!pending || pending.key !== key) pending = { tillId: api.uuid(), key };
     submit.disabled = true;
     try {
-      await api.openTill({ tillId: pending.tillId, registerId, currencyCode: 'NIO', openingMinor });
+      await api.openTill({ tillId: pending.tillId, registerId, currencyCode: 'NIO', openingMinor, lines });
       device.set('registerId', registerId);
       ctx.till.set(await api.tillSummary(pending.tillId));
       await onOpened();
@@ -39,7 +42,7 @@ export async function openTillPanel(ctx, onOpened) {
     h('h2', { id: 'open-title' }, 'Abrir caja'),
     h('p', {}, 'No hay caja abierta en este equipo. Cuente el efectivo inicial y ábrala para vender.'),
     h('label', { for: 'till-register' }, 'Caja'), registerControl,
-    h('label', { for: 'till-opening' }, 'Efectivo inicial (C$)'), opening,
+    count.node, h('div', { class: 'row total' }, 'Fondo inicial', count.total),
     message, submit);
 }
 
@@ -51,7 +54,9 @@ export async function syncTill(ctx) {
   const local = ctx.till.get();
   const register = allowed.find(r => r.openTillId === local?.tillId) ??
     allowed.find(r => r.openTillCashierId === ctx.me.staffId) ?? allowed[0];
-  if (!register) { ctx.till.set(null); return { till: null, known: true }; }
+  if (!register) { device.set('parkedTickets', null); ctx.till.set(null); return { till: null, known: true }; }
+  const saved = device.get('parkedTickets');
+  if (saved && saved.tillId !== register.openTillId) device.set('parkedTickets', null);
   const summary = await api.tillSummary(register.openTillId);
   ctx.till.set(summary);
   return { till: summary, summary, known: true };

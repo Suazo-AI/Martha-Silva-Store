@@ -16,14 +16,14 @@ export function setQuantity(lines, itemId, value) {
 
 export const removeLine = (lines, itemId) => lines.filter(l => l.itemId !== itemId);
 
-export const ticketTotal = lines => lines.reduce((sum, l) => sum + lineTotal(l.unitPriceMinor, l.quantity), 0);
+export const ticketTotal = lines => lines.reduce((sum, l) => sum + lineTotal(l.unitPriceMinor, l.quantity) - (l.discountMinor ?? 0), 0);
 
 /** Body of POST /sales. Tenders are prepared from pending input, never stored balances. */
 export function saleRequest({ saleId, tillId, lines, receivedMinor, tenders, customerId }) {
   const total = ticketTotal(lines);
   return {
     saleId, tillId, currencyCode: 'NIO', ...(customerId ? { customerId } : {}),
-    lines: lines.map((l, i) => ({ lineNumber: i + 1, itemId: l.itemId, quantity: l.quantity, unitPriceMinor: l.unitPriceMinor, discountMinor: 0 })),
+    lines: lines.map((l, i) => ({ lineNumber: i + 1, itemId: l.itemId, quantity: l.quantity, unitPriceMinor: l.unitPriceMinor, discountMinor: l.discountMinor ?? 0 })),
     tenders: tenders ?? [{ tenderNumber: 1, tenderKind: 'cash', amountMinor: total, receivedMinor, changeMinor: receivedMinor - total }],
   };
 }
@@ -40,3 +40,16 @@ export function itemFromLookup(row) {
     isSample: row.isSample ?? null,
   };
 }
+
+/** Pending-input preview. SQL validates the combined discount and records final totals. */
+export function discountedLines(lines, ticketPercent = 0) {
+  return lines.map(line => {
+    const percent = Number(line.discountPercent ?? 0) + Number(ticketPercent);
+    if (!Number.isFinite(percent) || percent < 0 || percent > 100) throw new Error('El descuento combinado debe estar entre 0 y 100 %.');
+    return { ...line, discountMinor: line.discountAmountMinor ?? Math.floor(line.unitPriceMinor * line.quantity * percent / 100) };
+  });
+}
+export const needsDiscountApproval = lines => lines.some(l => (l.discountMinor ?? 0) > 0);
+export const catalogMatches = (product, { type = '', size = '', query = '' } = {}) =>
+  (!type || product.type === type) && product.variants.some(v => (!size || v.sizeCode === size) &&
+    (!query || [product.name, v.sku, v.variantName].join(' ').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().includes(query.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase())));

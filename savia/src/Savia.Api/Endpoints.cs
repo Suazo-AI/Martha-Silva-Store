@@ -73,6 +73,8 @@ public static class SaviaEndpoints
         // ---- catalog: cloud writer, with an explicit single-branch pilot exception
         api.MapGet("/catalog/lookup", async (string code, Guid? supplierId, HttpContext http, CatalogService catalog, CancellationToken ct) =>
             await catalog.LookupAsync(http.Actor(), code, supplierId, ct)).Produces<ItemLookup[]>().WithTags("catalog");
+        api.MapGet("/catalog/items", async (HttpContext http, CatalogService catalog, CancellationToken ct) =>
+            await catalog.ListAsync(http.Actor(), ct)).Produces<CatalogProduct[]>().WithTags("catalog");
         api.MapGet("/catalog/search", async (string q, int? limit, HttpContext http, CatalogService catalog, CancellationToken ct) =>
             await catalog.SearchAsync(http.Actor(), q, limit, ct)).Produces<ProductSearchRow[]>().WithTags("catalog");
         if (node.Kind == NodeKind.Cloud || node.LocalCatalog)
@@ -87,6 +89,12 @@ public static class SaviaEndpoints
                 await catalog.RegisterItemAsync(http.Actor(), request, ct);
                 return Results.NoContent();
             }).WithTags("catalog");
+        }
+
+        else
+        {
+            // GET shares this path; preserve the disabled write contract (404 rather than 405).
+            open.MapPost("/catalog/items", () => Results.NotFound()).ExcludeFromDescription();
         }
 
         api.MapGet("/stock", async (Guid? itemId, HttpContext http, InventoryService inventory, CancellationToken ct) =>
@@ -155,8 +163,12 @@ public static class SaviaEndpoints
         api.MapPost("/cash/tills/{tillId:guid}/close", async (Guid tillId, CloseTillRequest request, HttpContext http, SalesService sales, CancellationToken ct) =>
             await sales.CloseTillAsync(http.Actor(), tillId, request, ct)).WithTags("cash");
 
-        api.MapPost("/sales", async (PostSaleRequest request, HttpContext http, SalesService sales, CancellationToken ct) =>
-            await sales.PostSaleAsync(http.Actor(), request, ct)).WithTags("sales");
+        api.MapPost("/sales", async (PostSaleRequest request, HttpContext http, SalesService sales, AuthService auth, CancellationToken ct) =>
+        {
+            var token = http.Request.Headers["X-Savia-Approval"].ToString();
+            var approval = string.IsNullOrEmpty(token) ? null : await auth.AuthenticateAsync(token, ct);
+            return await sales.PostSaleAsync(http.Actor(), request, ct, approval);
+        }).WithTags("sales");
         api.MapGet("/sales/{saleId:guid}", async (Guid saleId, HttpContext http, PilotSalesService sales, CancellationToken ct) =>
             await sales.DetailAsync(http.Actor(), saleId, ct)).Produces<SaleDetailResponse>().WithTags("sales");
         api.MapGet("/sales", async (DateOnly? from, DateOnly? to, string? q, int? page, int? pageSize, HttpContext http, PilotSalesService sales, CancellationToken ct) =>
@@ -169,5 +181,18 @@ public static class SaviaEndpoints
             await sales.CreditsAsync(http.Actor(), q, ct)).Produces<CustomerCreditRow[]>().WithTags("sales");
         api.MapGet("/reports/day", async (DateOnly date, HttpContext http, PilotSalesService sales, CancellationToken ct) =>
             await sales.DayAsync(http.Actor(), date, ct)).Produces<DayReport>().WithTags("sales");
+        api.MapGet("/cash/denominations", async (HttpContext http, PilotSalesService sales, CancellationToken ct) =>
+            await sales.DenominationsAsync(http.Actor(), ct)).WithTags("cash");
+        api.MapGet("/reports/summary", async (string period, DateOnly date, HttpContext http, PilotSalesService sales, CancellationToken ct) =>
+            await sales.SummaryAsync(http.Actor(), period, date, ct)).WithTags("sales");
+        api.MapGet("/reports/summary.csv", async (string period, DateOnly date, HttpContext http, PilotSalesService sales, CancellationToken ct) =>
+            Results.File(PilotSalesService.SummaryCsv(await sales.SummaryAsync(http.Actor(), period, date, ct)), "text/csv; charset=utf-8", $"reporte-{period}-{date:yyyy-MM-dd}.csv")).WithTags("sales");
+        api.MapGet("/stock/exceptions", async (HttpContext http, PilotSalesService sales, CancellationToken ct) =>
+            await sales.ExceptionsAsync(http.Actor(), ct)).WithTags("sales");
+        api.MapPost("/stock/exceptions/{exceptionId:guid}/review", async (Guid exceptionId, ResolveExceptionRequest request, HttpContext http, PilotSalesService sales, CancellationToken ct) =>
+        {
+            await sales.ReviewExceptionAsync(http.Actor(), exceptionId, request, ct);
+            return Results.NoContent();
+        }).WithTags("sales");
     }
 }

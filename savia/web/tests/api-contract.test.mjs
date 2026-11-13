@@ -70,3 +70,17 @@ test('expired secondary approval does not sign out the cashier', async () => {
     assert.equal(signedOut, false);
   } finally { api.setUnauthorizedHandler(() => {}); }
 });
+
+test('sale approval keeps cashier bearer and passes supervisor separately', async () => {
+ const original=globalThis.fetch; const previous=api.getToken(); const calls=[];
+ globalThis.fetch=async (url,options)=>{calls.push({url,headers:options.headers});return {ok:true,status:204};};
+ try {
+  api.setToken('cashier-test-token');
+  await api.catalogItems();
+  await api.postSale({saleId:'sale'},'approval-test-token');
+  assert.equal(calls[0].url,'/api/v1/catalog/items');
+  assert.equal(calls[1].headers.Authorization,'Bearer cashier-test-token');
+  assert.equal(calls[1].headers['X-Savia-Approval'],'approval-test-token');
+  assert.equal(api.getToken(),'cashier-test-token');
+ } finally {globalThis.fetch=original;api.setToken(previous);}
+});

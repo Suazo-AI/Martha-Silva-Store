@@ -37,9 +37,10 @@ export async function toError(response) {
     message: `El servidor respondió ${response.status}. Reintente; si se repite, avise a soporte.` });
 }
 
-export async function request(method, path, body, { fetchImpl = globalThis.fetch, token = getToken(), notifyUnauthorized = true } = {}) {
+export async function request(method, path, body, { fetchImpl = globalThis.fetch, token = getToken(), notifyUnauthorized = true, approvalToken } = {}) {
   const headers = { Accept: 'application/json' };
   if (token) headers.Authorization = `Bearer ${token}`;
+  if (approvalToken) headers['X-Savia-Approval'] = approvalToken;
   if (body !== undefined) headers['Content-Type'] = 'application/json';
   let response;
   try {
@@ -72,6 +73,7 @@ export const me = () => request('GET', '/me');
 // ---- catalog
 /** Existing: exact barcode or supplier code. ItemLookup[] */
 export const lookup = (code, supplierId) => request('GET', '/catalog/lookup' + q({ code, supplierId }));
+export const catalogItems = () => request('GET', '/catalog/items');
 export const searchProducts = text => request('GET', '/catalog/search' + q({ q: text }));
 /** Branch writes require the local pilot catalog flag and an approving role. */
 export const registerProduct = (productId, name) => request('POST', '/catalog/products', { productId, name });
@@ -99,8 +101,9 @@ export const labelJobs = status => request('GET', '/labels/jobs' + q({ status })
 
 // ---- cash and sales
 export const registers = () => request('GET', '/cash/registers');
-export const openTill = ({ tillId, registerId, currencyCode = 'NIO', openingMinor }) =>
-  request('POST', '/cash/tills', { tillId, registerId, currencyCode, openingMinor });
+export const denominations = () => request('GET', '/cash/denominations');
+export const openTill = ({ tillId, registerId, currencyCode = 'NIO', openingMinor, lines }) =>
+  request('POST', '/cash/tills', { tillId, registerId, currencyCode, openingMinor, lines });
 export const currentTill = () => request('GET', '/cash/tills/current');
 export const tillSummary = tillId => request('GET', path`/cash/tills/${tillId}/summary`);
 export const recordCashCount = (tillId, { cashCountId, lines }) =>
@@ -109,7 +112,7 @@ export const recordCashCount = (tillId, { cashCountId, lines }) =>
 export const closeTill = (tillId, { closureId, cashCountId }) =>
   request('POST', path`/cash/tills/${tillId}/close`, { closureId, cashCountId });
 /** Existing: { saleId, subtotalMinor, discountMinor, taxMinor, totalMinor, status } */
-export const postSale = sale => request('POST', '/sales', sale);
+export const postSale = (sale, approvalToken) => request('POST', '/sales', sale, { approvalToken, notifyUnauthorized: !approvalToken });
 export const getSale = saleId => request('GET', path`/sales/${saleId}`);
 
 export const resolveScan = (sessionId, scanId, itemId, reason) => request('POST', path`/receiving/sessions/${sessionId}/scans/${scanId}/resolve`, { itemId, reason });
@@ -122,6 +125,17 @@ export const searchSales = ({ q: query, date, page = 1 } = {}) => request('GET',
 export const searchCustomers = query => request('GET', '/customers' + q({ q: query }));
 export const searchCredits = query => request('GET', '/credits/search' + q({ q: query }));
 export const dayReport = date => request('GET', '/reports/day' + q({ date }));
+export const summaryReport = (period, date) => request('GET', '/reports/summary' + q({ period, date }));
+export const stockExceptions = () => request('GET', '/stock/exceptions');
+export const reviewStockException = (id, reason) => request('POST', path`/stock/exceptions/${id}/review`, { reason });
+export async function exportSummary(period, date) {
+  const response = await fetch(BASE + '/reports/summary.csv' + q({ period, date }), { headers: { Authorization: `Bearer ${getToken()}` } });
+  if (!response.ok) throw await toError(response);
+  const url = URL.createObjectURL(await response.blob());
+  const link = document.createElement('a');
+  link.href = url; link.download = `reporte-${period}-${date}.csv`; link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
 export const postCreditReturn = (saleId, body, token) => request('POST', path`/sales/${saleId}/returns/credit`, body,
   token ? { token, notifyUnauthorized: false } : {});
 export const endApproval = token => request('POST', '/auth/logout', undefined, { token, notifyUnauthorized: false });

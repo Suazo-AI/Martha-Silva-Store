@@ -29,17 +29,6 @@ export function replace(el, ...children) {
   return el;
 }
 
-/** Sample photos shipped with the pilot, keyed by the first 11 characters of the SKU (MAS-XXX-YYY). */
-const SAMPLE_PHOTOS = new Set(['MAS-BLU-LIN', 'MAS-VES-MID', 'MAS-FAL-PLI', 'MAS-PAN-PAL', 'MAS-JEA-SKI', 'MAS-TOP-BAS', 'MAS-CAR-TEJ']);
-
-/** Photo slot beside each garment. Shows the sample photo of the SKU when one exists, else "Sin foto". */
-export function photo(sku) {
-  const key = typeof sku === 'string' ? sku.slice(0, 11).toUpperCase() : '';
-  if (!SAMPLE_PHOTOS.has(key)) return h('span', { class: 'photo', 'aria-hidden': 'true' }, 'Sin foto');
-  return h('span', { class: 'photo has-img', 'aria-hidden': 'true' },
-    h('img', { src: `/img/products/${key}.webp`, alt: '', loading: 'lazy', width: '640', height: '640' }));
-}
-
 /** Shows an ApiError (or any error) in a live region. Input fields are never cleared here. */
 export function showError(el, error, nextStep) {
   const message = error?.message || 'Ocurrió un error.';
@@ -88,8 +77,9 @@ export function openModal(build) {
   const body = document.getElementById('modal-body');
   body.replaceChildren();
   return new Promise(resolve => {
-    const close = value => { resolve(value); dialog.close(); };
-    dialog.addEventListener('close', () => resolve(undefined), { once: true });
+    const onClose = () => { if (!dialog.open) { dialog.removeEventListener('close', onClose); resolve(undefined); } };
+    const close = value => { dialog.removeEventListener('close', onClose); dialog.close(); resolve(value); };
+    dialog.addEventListener('close', onClose);
     build(body, close);
     dialog.showModal();
     const first = body.querySelector('input,select,textarea,button');

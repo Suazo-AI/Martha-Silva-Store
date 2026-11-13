@@ -9,6 +9,7 @@ namespace Savia.Application;
 // ------------------------------------------------------------------ catalog
 public interface ICatalogStore
 {
+    Task<IReadOnlyList<CatalogProduct>> ListAsync(Guid locationId, CancellationToken ct);
     Task<IReadOnlyList<ItemLookup>> LookupAsync(string rawCode, Guid? supplierId, CancellationToken ct);
     /// <summary>Active or draft variants whose product name, variant name, SKU or a code contains the text.</summary>
     Task<IReadOnlyList<ProductSearchRow>> SearchAsync(string text, Guid? locationId, int limit, CancellationToken ct);
@@ -18,6 +19,12 @@ public interface ICatalogStore
 
 public sealed class CatalogService(ICatalogStore store, NodeContext node)
 {
+    public Task<IReadOnlyList<CatalogProduct>> ListAsync(Actor actor, CancellationToken ct)
+    {
+        Guard.Branch(actor, node);
+        return store.ListAsync(node.RequireLocation(), ct);
+    }
+
     /// <summary>Returns every variant the code may mean. The caller must not pick one when there are several.</summary>
     public Task<IReadOnlyList<ItemLookup>> LookupAsync(Actor actor, string rawCode, Guid? supplierId, CancellationToken ct)
     {
@@ -206,7 +213,7 @@ public sealed class InventoryService(IInventoryStore store, NodeContext node)
 public interface ISalesStore
 {
     Task OpenTillAsync(OpenTillRequest request, Guid cashierId, Guid nodeId, CancellationToken ct);
-    Task PostSaleAsync(PostSaleRequest request, Guid branchId, Guid locationId, Guid cashierId, Guid nodeId, CancellationToken ct);
+    Task PostSaleAsync(PostSaleRequest request, Guid branchId, Guid locationId, Guid cashierId, Guid nodeId, Guid? discountApproverId, CancellationToken ct);
     Task<SaleResponse?> GetSaleAsync(Guid saleId, Guid branchId, CancellationToken ct);
     Task RecordCashCountAsync(Guid tillId, RecordCashCountRequest request, Guid actorId, CancellationToken ct);
     Task CloseTillAsync(Guid tillId, CloseTillRequest request, Guid actorId, Guid nodeId, CancellationToken ct);
@@ -238,11 +245,11 @@ public sealed class SalesService(ISalesStore store, NodeContext node)
     /// Posts a sale in the local database of the branch. It never calls the cloud.
     /// The same <c>SaleId</c> with the same content is accepted again and changes nothing.
     /// </summary>
-    public async Task<SaleResponse> PostSaleAsync(Actor actor, PostSaleRequest request, CancellationToken ct)
+    public async Task<SaleResponse> PostSaleAsync(Actor actor, PostSaleRequest request, CancellationToken ct, Actor? approval = null)
     {
         var branch = Guard.Branch(actor, node);
         Guard.Role(actor, Sellers);
-        if (request.Lines is not { Length: > 0 } || request.Tenders is not { Length: > 0 })
+        if (request.Lines is not { Length: > 0 } || request.Tenders is null)
             throw Errors.Invalid("sale.empty", "La venta necesita al menos un artículo y un pago.");
         if (request.Lines.Select(l => l.LineNumber).Distinct().Count() != request.Lines.Length ||
             request.Tenders.Select(t => t.TenderNumber).Distinct().Count() != request.Tenders.Length)
@@ -253,7 +260,12 @@ public sealed class SalesService(ISalesStore store, NodeContext node)
             if (tender.Reference?.Length > 120)
                 throw Errors.Invalid("input.text", "La referencia admite hasta 120 caracteres.");
         }
-        await store.PostSaleAsync(request, branch, node.RequireLocation(), actor.StaffId, node.NodeId, ct);
+        if (approval is not null)
+        {
+            Guard.Role(approval, Roles.Manager, Roles.Owner);
+            Guard.Branch(approval, node);
+        }
+        await store.PostSaleAsync(request, branch, node.RequireLocation(), actor.StaffId, node.NodeId, approval?.StaffId, ct);
         return await store.GetSaleAsync(request.SaleId, branch, ct)
             ?? throw Errors.NotFound("sale.not_found", "La venta no quedó registrada.");
     }

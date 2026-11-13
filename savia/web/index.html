@@ -21,26 +21,21 @@
       <a href="#/recepcion" data-route="recepcion">Recepción</a>
       <a href="#/inventario" data-route="inventario">Inventario</a>
       <a href="#/clientes" data-route="clientes">Clientes</a>
-      <a href="#/reporte" data-route="reporte">Reporte del día</a>
+      <a href="#/ajustes" data-route="ajustes">Ajustes</a>
+      <a href="#/excepciones" data-route="excepciones">Excepciones</a>
+        <a href="#/reporte" data-route="reporte">Reportes</a>
     </nav>
   </aside>
   <div class="workspace">
     <header class="top">
       <h1 id="title" tabindex="-1"></h1>
       <div class="context">
-        <span class="tag sample" id="sample-tag" hidden>MUESTRA</span>
         <span id="branch-label"></span>
         <span id="operator-label"></span>
         <a href="#/caja" class="till-state" id="till-state"></a>
         <button type="button" id="logout">Salir</button>
       </div>
     </header>
-    <fieldset class="palette-picker" id="palette-picker">
-      <legend class="sr">Paleta</legend>
-      <label><input type="radio" name="savia-palette" value="bosque" checked><span>Bosque</span></label>
-      <label><input type="radio" name="savia-palette" value="tinta"><span>Tinta</span></label>
-      <label><input type="radio" name="savia-palette" value="malva"><span>Malva</span></label>
-    </fieldset>
     <p id="notice" class="notice" role="status" aria-atomic="true"></p>
     <main id="screen"></main>
   </div>

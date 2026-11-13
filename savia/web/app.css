@@ -15,7 +15,6 @@
   --warning-bg: #fff2df;
   --danger: #9b1c22;
   --danger-bg: #fde9e9;
-  --photo: #eae4dc;
   font: 16px/1.45 system-ui, "Segoe UI", Roboto, sans-serif;
 }
 :root[data-palette="tinta"] {
@@ -96,19 +95,15 @@ small,.muted { color: var(--muted) }
 .actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center }
 .form { display: grid; gap: 10px }
 .form label { display: grid; gap: 4px; font-weight: 600 }
-.photo { display: grid; place-items: center; aspect-ratio: 1 / 1.1; background: var(--photo); border-radius: 6px; color: var(--muted); font-size: .72rem; font-weight: 650; text-align: center; padding: 4px }
-
 /* scanning */
 .scan-field label { font-weight: 700 }
 .scan-field input { width: 100%; min-height: 60px; font-size: 1.35rem; letter-spacing: .04em; border-width: 2px; border-color: var(--primary) }
-.last-scan { display: grid; grid-template-columns: 84px minmax(0,1fr) auto; gap: 14px; align-items: center }
-.last-scan .photo { width: 84px }
+.last-scan { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 14px; align-items: center }
 .last-scan .count { font-size: clamp(3.5rem, 9vw, 5.5rem); font-weight: 800; line-height: 1; color: var(--primary); font-variant-numeric: tabular-nums; text-align: right }
 .last-scan .count small { display: block; font-size: .85rem; font-weight: 600; text-align: right }
 .lines { display: grid; gap: 0 }
-.rline { display: grid; grid-template-columns: 56px minmax(0,1fr) auto; gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line) }
+.rline { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line) }
 .rline:last-child { border-bottom: 0 }
-.rline .photo { width: 56px }
 .rline .qty { font-size: 1.6rem; font-weight: 800; font-variant-numeric: tabular-nums; min-width: 3ch; text-align: right }
 .rline p { font-size: .9rem }
 .totals { font-size: 1.15rem; font-weight: 750 }
@@ -121,7 +116,6 @@ small,.muted { color: var(--muted) }
 .catalog > input,.catalog .scan-field input { width: 100% }
 .cards { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; margin-top: 10px }
 .product { padding: 0; text-align: left; overflow: hidden; background: var(--surface); font-size: .87rem; display: grid }
-.product .photo { border-radius: 0; aspect-ratio: 1 / .8 }
 .product .product-info { display: grid; padding: 6px 8px 8px }
 .ticket { background: var(--surface); border-left: 1px solid var(--line); position: sticky; top: 0; display: grid; gap: 8px }
 .tline { border-bottom: 1px solid var(--line); padding: 8px 0; display: grid; gap: 6px }
@@ -153,7 +147,6 @@ table { border-collapse: collapse; width: 100%; text-align: left }
 th,td { padding: 8px; border-bottom: 1px solid var(--line); vertical-align: middle }
 td.n,th.n { text-align: right; font-variant-numeric: tabular-nums }
 .stock-name { display: flex; align-items: center; gap: 10px }
-.stock-name .photo { width: 44px; flex: none }
 .out { color: var(--danger); font-weight: 700 }
 
 dialog { width: min(520px,calc(100% - 32px)); border: 1px solid var(--line); border-radius: 12px; padding: 20px; color: var(--ink) }
@@ -177,14 +170,10 @@ dialog::backdrop { background: #12231cb3 }
   *,*::before,*::after { animation: none !important; transition: none !important }
 }
 
-.photo.has-img { padding: 0; overflow: hidden }
-.photo.has-img img { width: 100%; height: 100%; object-fit: cover; display: block }
-
 /* New screens keep the approved tablet's rows, panels, and existing tokens. */
 .history-sale { display: grid; gap: 10px; padding: 14px 0; border-top: 1px solid var(--line) }
 .history-sale h2,.receipt-paper h2 { overflow-wrap: anywhere }
-.sale-item { display: grid; grid-template-columns: 72px minmax(0,1fr) auto; gap: 10px; align-items: center; padding: 8px; border: 1px solid var(--line); border-radius: 8px }
-.sale-item .photo { width: 72px; border-radius: 5px }
+.sale-item { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 10px; align-items: center; padding: 8px; border: 1px solid var(--line); border-radius: 8px }
 .sale-item p { font-size: .88rem }
 .return-item { display: grid; gap: 8px }
 .return-item label { display: flex; align-items: center; justify-content: space-between; gap: 10px }
@@ -217,8 +206,7 @@ dialog::backdrop { background: #12231cb3 }
   .report-paper { page: day-report }
   .sale,.sale .ticket { display: block; border: 0; padding: 0; position: static; min-height: 0 }
   .sale .catalog,.sale .ticket > :not(#receipt) { display: none !important }
-  .receipt-paper .photo { display: none }
-  .receipt-paper .sale-item { grid-template-columns: minmax(0,1fr) auto; border: 0; border-bottom: 1px dashed black; border-radius: 0; padding: 2mm 0; break-inside: avoid }
+.receipt-paper .sale-item { grid-template-columns: minmax(0,1fr) auto; border: 0; border-bottom: 1px dashed black; border-radius: 0; padding: 2mm 0; break-inside: avoid }
   .receipt-paper h2 { font-size: 12pt }
   .receipt-paper .total,.report-paper .total { background: white; color: black; padding: 2mm 0; border-radius: 0; font-size: 11pt }
   .receipt-paper .total strong { font-size: 12pt }
@@ -227,3 +215,53 @@ dialog::backdrop { background: #12231cb3 }
   .report-paper table { font-size: 8pt }
   .report-paper th,.report-paper td { padding: 1mm }
 }
+
+/* SAVIA 08 tablet: catalog and ticket have independent scroll areas. */
+@media screen and (min-width: 761px) {
+  .shell { height:100vh; overflow:hidden }
+  .workspace { min-height:0; display:flex; flex-direction:column }
+  #screen { flex:1; min-height:0; overflow:auto }
+  .sale { height:100%; min-height:0; grid-template-columns:minmax(0,1.18fr) minmax(350px,1fr) }
+  .catalog,.ticket { overflow-y:auto; height:100%; position:static }
+  .ticket { display:flex; flex-direction:column; gap:8px }
+  #ticket-lines { flex:1; min-height:64px; overflow:auto }
+  .ticket .checkout { flex:none; gap:6px; margin-top:0 }
+}
+.catalog-filters { display:grid; grid-template-columns:1.4fr 1fr; gap:8px; margin:10px 0 }
+.catalog-filters label { display:grid; gap:4px; font-size:.85rem; font-weight:650 }
+.catalog-filters select { width:100% }
+.product:disabled { opacity:.72 }
+.product .stock-available { color:var(--primary); font-weight:650 }
+.line-discount { display:flex; align-items:center; justify-content:space-between; gap:8px; font-size:.8rem }
+.line-discount input,.ticket-discount input { width:72px; min-height:36px }
+.ticket-discount { display:flex; justify-content:space-between; align-items:center; gap:8px; font-size:.85rem }
+.ticket-actions { gap:4px }
+.ticket-actions button { font-size:.78rem; padding:4px 7px; min-height:36px }
+.sizes { display:grid; gap:8px }
+.sizes button { text-align:left }
+#palette-picker { background:var(--canvas); border:1px solid var(--line); padding:12px; border-radius:8px }
+#settings-role,#sample-notice { max-width:70ch }
+
+/* Text catalog and narrow ticket controls. Content wraps; no control is hidden to fit. */
+.product { min-height:160px; align-content:start; border-top:3px solid var(--primary); padding:12px }
+.product .product-info { padding:0; gap:8px; overflow-wrap:anywhere }
+.product .product-info strong:first-child { font-size:1rem; line-height:1.35 }
+.product .product-info small { font-size:.8rem }
+.product .out { font-size:.8rem }
+.line-meta { min-width:0; align-items:flex-start }
+.line-meta > * { min-width:0; max-width:100%; overflow-wrap:anywhere }
+.tline > .line-meta:last-child { display:grid; grid-template-columns:minmax(0,1fr); gap:8px }
+.stepper { flex-wrap:wrap; justify-content:flex-start }
+.line-discount { display:flex; width:100% }
+.line-discount input { flex:0 0 72px }
+.ticket > * { flex-shrink:0; min-width:0; max-width:100% }
+#ticket-lines { flex:0 0 auto; overflow:visible }
+.denoms { grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 16px }
+.denoms label { grid-template-columns:minmax(0,1fr) 72px; font-size:.88rem }
+.denoms output { grid-column:1 / -1; text-align:right; font-size:.8rem; color:var(--muted) }
+.form[aria-labelledby="open-title"] .denoms { grid-template-columns:repeat(3,minmax(0,1fr)) }
+.opening-lines { display:grid; gap:6px; padding:10px 0 }
+.opening-lines .row { font-size:.9rem; padding:4px }
+.exception-item { display:grid; gap:10px; overflow-wrap:anywhere }
+.sale-item,.rline { overflow-wrap:anywhere }
+@media print { .sale,.ticket,#ticket-lines { height:auto !important; overflow:visible !important } }

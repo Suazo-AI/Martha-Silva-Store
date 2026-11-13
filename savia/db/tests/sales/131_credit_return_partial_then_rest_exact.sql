@@ -16,7 +16,7 @@ INSERT INTO @lines(LineNumber,ItemId,Quantity,UnitPriceMinor,DiscountMinor) VALU
 INSERT INTO @tenders(TenderNumber,TenderKind,AmountMinor,ReceivedMinor,ChangeMinor) VALUES(1,'cash',293239,293239,0);
 EXEC sales.usp_PostSale @SaleId=@sale,@BranchId=@branch,@LocationId=@loc,@CashierId=@cashier,
      @CurrencyCode='NIO',@TillId=@till,@OriginNodeId=@node,@Lines=@lines,@Tenders=@tenders,
-     @CustomerId=@customer;
+     @CustomerId=@customer,@DiscountApproverId='A0000000-0000-0000-0000-0000000000A5',@DiscountReason=N'Autorizado para prueba';
 SET @line=(SELECT Id FROM sales.SaleLines WHERE SaleId=@sale AND LineNumber=1);
 
 DECLARE @p1 sales.ReturnLineRequest;

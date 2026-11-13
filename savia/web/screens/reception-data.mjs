@@ -1,6 +1,6 @@
 // Shared by Recepción (scan) and Recepción (revisar): the current session on this device and its server state.
 import * as api from '../api.mjs';
-import { h, photo, device } from '../ui.mjs';
+import { h, device } from '../ui.mjs';
 import { linesFromServer, totalsText } from './reception-logic.mjs';
 
 export const current = {
@@ -21,7 +21,6 @@ export async function loadState(session) {
 export function lineView(line, { onRegister, onReject } = {}) {
   const isNew = ['unknown', 'ambiguous'].includes(line.matchStatus);
   return h('div', { class: 'rline', dataset: { code: line.code, scan: line.scanId, status: line.matchStatus } },
-    photo(line.sku),
     h('div', {},
       h('strong', {}, isNew ? 'Código nuevo' : line.matchStatus === 'rejected' ? 'Lectura rechazada' : (line.name ?? 'Producto')),
       h('p', {}, line.size ? `Talla ${line.size} · ` : '', h('span', { class: 'num' }, line.code), line.sku && line.sku !== line.code ? ` · SKU ${line.sku}` : ''),

@@ -152,7 +152,7 @@ public sealed class PilotEndpointsTests : IAsyncLifetime
         await HttpAssert.ProblemAsync(await _cashier.GetAsync("/api/v1/cash/tills/current"), HttpStatusCode.NotFound, "cash.no_open_till");
 
         var till = Guid.NewGuid();
-        await HttpAssert.OkAsync(await _cashier.PostAsJsonAsync("/api/v1/cash/tills", new OpenTillRequest(till, Ids.RegisterA, "NIO", 100_000)));
+        await HttpAssert.OkAsync(await _cashier.PostAsJsonAsync("/api/v1/cash/tills", new OpenTillRequest(till, Ids.RegisterA, "NIO", 100_000, [new(100000, 1)])));
         register = Assert.Single(await HttpAssert.OkAsync<RegisterRow[]>(await _cashier.GetAsync("/api/v1/cash/registers")));
         Assert.Equal(((Guid?)till, (Guid?)Ids.CashierA), (register.OpenTillId, register.OpenTillCashierId));
         await HttpAssert.OkAsync<SaleResponse>(await _cashier.PostAsJsonAsync("/api/v1/sales", new PostSaleRequest(Guid.NewGuid(), till, "NIO",

@@ -32,13 +32,126 @@ public sealed class PilotSalesTests : IAsyncLifetime
     public async Task New_reads_require_authentication(string path) =>
         await HttpAssert.ProblemAsync(await _node.CreateClient().GetAsync(path), HttpStatusCode.Unauthorized, "auth.required");
 
+    [Fact]
+    public async Task Catalog_grid_is_authenticated_grouped_and_local()
+    {
+        await HttpAssert.ProblemAsync(await _node.CreateClient().GetAsync("/api/v1/catalog/items"), HttpStatusCode.Unauthorized, "auth.required");
+        var response = await _cashier.GetAsync("/api/v1/catalog/items");
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        var groups = await response.Content.ReadFromJsonAsync<JsonElement>();
+        var product = Assert.Single(groups.EnumerateArray(), p => p.GetProperty("variants").EnumerateArray().Any(v => v.GetProperty("itemId").GetGuid() == Ids.Item));
+        Assert.Equal("Blusas", product.GetProperty("type").GetString());
+        Assert.All(product.GetProperty("variants").EnumerateArray(), v => Assert.Equal(0, v.GetProperty("available").GetInt32()));
+        await Exec($"EXEC test.SeedStock @ItemId='{Ids.Item}',@LocationId='{Ids.LocA}',@Quantity=20;");
+        groups = await (await _cashier.GetAsync("/api/v1/catalog/items")).Content.ReadFromJsonAsync<JsonElement>();
+        Assert.Contains(groups.EnumerateArray().SelectMany(p => p.GetProperty("variants").EnumerateArray()), v => v.GetProperty("itemId").GetGuid() == Ids.Item && v.GetProperty("available").GetInt32() == 20);
+        var noAccess = await _node.SignInAsync(new("C0000000-0000-0000-0000-0000000000C5"), "t_super_c");
+        await HttpAssert.ProblemAsync(await noAccess.GetAsync("/api/v1/catalog/items"), HttpStatusCode.Forbidden, "auth.branch_access");
+    }
+
+    [Fact]
+    public async Task Cashier_discount_requires_live_local_supervisor()
+    {
+        var till = await OpenTill();
+        PostSaleRequest Request(long discount) => new(Guid.NewGuid(), till, "NIO", [new(1, Ids.Item, 1, 120000, discount)], [new(1, "cash", 120000-discount, 120000-discount, 0)]);
+        await HttpAssert.ProblemAsync(await _cashier.PostAsJsonAsync("/api/v1/sales", Request(24000)), HttpStatusCode.Forbidden, "sale.discount_approval_required");
+        await HttpAssert.ProblemAsync(await _cashier.PostAsJsonAsync("/api/v1/sales", Request(12000)), HttpStatusCode.Forbidden, "sale.discount_approval_required");
+        _cashier.DefaultRequestHeaders.Add("X-Savia-Approval", _cashier.DefaultRequestHeaders.Authorization!.Parameter);
+        await HttpAssert.ProblemAsync(await _cashier.PostAsJsonAsync("/api/v1/sales", Request(24000)), HttpStatusCode.Forbidden, "auth.role_required");
+        _cashier.DefaultRequestHeaders.Remove("X-Savia-Approval");
+        _cashier.DefaultRequestHeaders.Add("X-Savia-Approval", _supervisor.DefaultRequestHeaders.Authorization!.Parameter);
+        var approvedRequest = Request(24000) with { DiscountReason = "Atencion autorizada" };
+        var approved = await HttpAssert.OkAsync<SaleResponse>(await _cashier.PostAsJsonAsync("/api/v1/sales", approvedRequest));
+        Assert.Equal(96000, approved.TotalMinor);
+        var approvedDetail = await HttpAssert.OkAsync<SaleDetailResponse>(await _cashier.GetAsync($"/api/v1/sales/{approved.SaleId}"));
+        Assert.Equal(Ids.SupervisorA, approvedDetail.DiscountApprovedBy);
+        Assert.Equal("Atencion autorizada", approvedDetail.DiscountReason);
+        Assert.NotNull(approvedDetail.ReceiptNumber);
+        Assert.Equal(Ids.CashierA, (await HttpAssert.OkAsync<SaleDetailResponse>(await _cashier.GetAsync($"/api/v1/sales/{approved.SaleId}"))).CashierId);
+        await HttpAssert.OkAsync(await _cashier.PostAsJsonAsync("/api/v1/sales", approvedRequest));
+        var full = Request(120000) with { Tenders = [], DiscountReason = "Cortesia autorizada" };
+        var free = await HttpAssert.OkAsync<SaleResponse>(await _cashier.PostAsJsonAsync("/api/v1/sales", full));
+        Assert.Equal(0, free.TotalMinor);
+        _cashier.DefaultRequestHeaders.Remove("X-Savia-Approval");
+        _cashier.DefaultRequestHeaders.Add("X-Savia-Approval", new string('x', 32));
+        await HttpAssert.ProblemAsync(await _cashier.PostAsJsonAsync("/api/v1/sales", Request(24000)), HttpStatusCode.Unauthorized, "auth.required");
+    }
+
     private static readonly Guid Customer = new("00000000-0000-0000-0000-00000000C051");
+    [Theory]
+    [InlineData("day")]
+    [InlineData("week")]
+    [InlineData("month")]
+    [InlineData("year")]
+    public async Task Period_reports_and_csv_use_sql_totals_and_require_manager(string period)
+    {
+        var till = await OpenTill();
+        await Sale(till, 2);
+        var path = $"/api/v1/reports/summary?period={period}&date={Today}";
+        await HttpAssert.ProblemAsync(await _cashier.GetAsync(path), HttpStatusCode.Forbidden, "auth.role_required");
+        var report = await HttpAssert.OkAsync<JsonElement>(await _supervisor.GetAsync(path));
+        Assert.Equal(1, report.GetProperty("salesCount").GetInt32());
+        Assert.Equal(2, report.GetProperty("unitsSold").GetInt32());
+        Assert.Equal(240000, report.GetProperty("grossMinor").GetInt64());
+        Assert.Equal(240000, report.GetProperty("netMinor").GetInt64());
+        Assert.Equal(1, report.GetProperty("customersServed").GetInt32());
+        Assert.Single(report.GetProperty("salesByDay").EnumerateArray());
+        var csv=await _supervisor.GetAsync($"/api/v1/reports/summary.csv?period={period}&date={Today}");
+        Assert.Equal(HttpStatusCode.OK,csv.StatusCode);
+        Assert.Equal("text/csv",csv.Content.Headers.ContentType!.MediaType);
+        Assert.Contains("\"netMinor\",\"240000\"",await csv.Content.ReadAsStringAsync());
+        await HttpAssert.ProblemAsync(await _supervisor.GetAsync($"/api/v1/reports/summary?period=bad&date={Today}"), HttpStatusCode.UnprocessableEntity, "report.range");
+    }
+    [Fact]
+    public async Task Opening_amount_must_equal_denominations()
+    {
+        var response = await _cashier.PostAsJsonAsync("/api/v1/cash/tills", new {
+            tillId=Guid.NewGuid(), registerId=Ids.RegisterA, currencyCode="NIO", openingMinor=100000,
+            lines=new[]{new {denominationMinor=50000,quantity=1}} });
+        Assert.Equal(HttpStatusCode.UnprocessableEntity, response.StatusCode);
+    }
+    [Fact]
+    public async Task Opening_breakdown_round_trips_and_cannot_be_changed_on_retry()
+    {
+        var denominations=await HttpAssert.OkAsync<long[]>(await _cashier.GetAsync("/api/v1/cash/denominations"));
+        Assert.Equal(new long[]{100000,50000,20000,10000,5000,2000,1000,500,100,50,25,10},denominations);
+        var lines=denominations.Select(d=>new CashCountLine(d,1)).ToArray();
+        var request=new OpenTillRequest(Guid.NewGuid(),Ids.RegisterA,"NIO",denominations.Sum(),lines);
+        await HttpAssert.OkAsync(await _cashier.PostAsJsonAsync("/api/v1/cash/tills",request));
+        await HttpAssert.OkAsync(await _cashier.PostAsJsonAsync("/api/v1/cash/tills",request));
+        var summary=await HttpAssert.OkAsync<TillSummary>(await _cashier.GetAsync($"/api/v1/cash/tills/{request.TillId}/summary"));
+        Assert.Equal(lines,summary.OpeningLines);
+        Assert.Equal(lines.Sum(l=>l.DenominationMinor*l.Quantity),summary.OpeningMinor);
+        var changed=request with {Lines=[new(100000,1)],OpeningMinor=100000};
+        await HttpAssert.ProblemAsync(await _cashier.PostAsJsonAsync("/api/v1/cash/tills",changed),HttpStatusCode.Conflict,"cash.till_id_reused");
+        await HttpAssert.ProblemAsync(await _supervisor.PostAsJsonAsync($"/api/v1/cash/tills/{request.TillId}/close",new CloseTillRequest(Guid.NewGuid(),request.TillId)),HttpStatusCode.Conflict,"cash.count_missing");
+        await TestSql.AssertConservationAsync(_db);
+    }
+    [Fact]
+    public async Task Zero_stock_sale_records_exception_and_keeps_conservation()
+    {
+        var till=Guid.NewGuid();
+        await HttpAssert.OkAsync(await _cashier.PostAsJsonAsync("/api/v1/cash/tills", new {
+            tillId=till,registerId=Ids.RegisterA,currencyCode="NIO",openingMinor=0,
+            lines=new[]{new {denominationMinor=100000,quantity=0}} }));
+        var sale=Guid.NewGuid();
+        await HttpAssert.OkAsync(await _cashier.PostAsJsonAsync("/api/v1/sales", new {
+            saleId=sale,tillId=till,currencyCode="NIO",stockExceptionNote="Existencia fisica confirmada",
+            lines=new[]{new {lineNumber=1,itemId=Ids.Item,quantity=1,unitPriceMinor=120000}},
+            tenders=new[]{new {tenderNumber=1,tenderKind="cash",amountMinor=120000,receivedMinor=120000,changeMinor=0}} }));
+        await TestSql.AssertConservationAsync(_db);
+        var pending=await HttpAssert.OkAsync<JsonElement>(await _supervisor.GetAsync("/api/v1/stock/exceptions"));
+        var exception=Assert.Single(pending.EnumerateArray());
+        Assert.Equal(sale,exception.GetProperty("saleId").GetGuid());
+        await HttpAssert.ProblemAsync(await _cashier.PostAsJsonAsync($"/api/v1/stock/exceptions/{exception.GetProperty("id").GetGuid()}/review",new {reason="Revisado"}),HttpStatusCode.Forbidden,"auth.role_required");
+        await HttpAssert.OkAsync(await _supervisor.PostAsJsonAsync($"/api/v1/stock/exceptions/{exception.GetProperty("id").GetGuid()}/review",new {reason="Revisado"}));
+    }
     private static string Today => DateTime.UtcNow.AddHours(-6).ToString("yyyy-MM-dd");
     private async Task<Guid> OpenTill()
     {
         await Exec($"EXEC test.SeedStock @ItemId='{Ids.Item}',@LocationId='{Ids.LocA}',@Quantity=20;");
         var till = Guid.NewGuid();
-        await HttpAssert.OkAsync(await _cashier.PostAsJsonAsync("/api/v1/cash/tills", new OpenTillRequest(till, Ids.RegisterA, "NIO", 100000)));
+        await HttpAssert.OkAsync(await _cashier.PostAsJsonAsync("/api/v1/cash/tills", new OpenTillRequest(till, Ids.RegisterA, "NIO", 100000, [new(100000, 1)])));
         return till;
     }
     private async Task<Guid> Sale(Guid till, int quantity = 2, SaleTender[]? tenders = null)

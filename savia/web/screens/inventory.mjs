@@ -1,6 +1,6 @@
 // Inventario: stock of this branch as the server reports it, with search by SKU or name.
 import * as api from '../api.mjs';
-import { h, replace, photo, showError, clearMessage } from '../ui.mjs';
+import { h, replace, showError, clearMessage } from '../ui.mjs';
 import { attachScanField } from '../scan.mjs';
 import { filterStock } from './inventory-logic.mjs';
 
@@ -20,11 +20,10 @@ export default {
       const shown = filterStock(rows, search.value);
       count.textContent = `${shown.length} de ${rows.length} filas del servidor`;
       replace(body, shown.length === 0
-        ? h('tr', {}, h('td', { colspan: '5' }, rows.length === 0 ? 'El servidor no reporta existencias en esta sucursal.' : 'Sin resultados.'))
+        ? h('tr', {}, h('td', { colspan: '5' }, rows.length === 0 ? 'El servidor no reporta existencias en esta sucursal. Registre una recepción para ingresar prendas.' : 'Sin resultados. Cambie el nombre o SKU de la búsqueda.'))
         : shown.map(r => h('tr', { dataset: { item: r.itemId } },
-          h('td', {}, h('div', { class: 'stock-name' }, photo(r.sku), h('div', {},
-            h('strong', {}, r.variantName), h('br'), h('small', {}, `SKU ${r.sku}`),
-            r.isSample ? [' ', h('span', { class: 'tag sample' }, 'MUESTRA')] : null))),
+          h('td', {}, h('div', { class: 'stock-name' }, h('div', {},
+            h('strong', {}, r.variantName), h('br'), h('small', {}, `SKU ${r.sku}`)))),
           h('td', {}, POOL[r.pool] ?? r.pool),
           h('td', { class: 'n onhand' }, String(r.onHand)),
           h('td', { class: 'n' }, String(r.reserved)),

@@ -1,136 +1,87 @@
 # SAVIA pilot staff web
 
-Local acceptance passed on 2026-11-12. The API is stopped.
-The final browser check passed twice in succession: 18 checks per run, zero failures, zero console errors and zero page errors.
-This is the uncommitted working tree based on `d1ec8584a150e479dd298e5647ca4925ac9fe6c5`.
-No commit, push, deployment, external service call, container creation or dependency installation was performed by Worker B.
+Owner decisions, 2026-11-12. Local Masaya pilot only. Work continues in the canonical checkout.
+No deployment, external service, new dependency, container, commit or push.
 
 ## Run locally
 
-Use the existing `savia-sqlserver-dev` container.
-Set three different temporary passwords in the current shell, without printing them:
-`SAVIA_PILOT_PASSWORD_CAJERA`, `SAVIA_PILOT_PASSWORD_SUPERVISORA` and `SAVIA_PILOT_PASSWORD_DUENA`.
-Each password must have at least ten characters.
-Run `python savia/tools/pilot.py up` and open <http://127.0.0.1:5080/> on the same PC.
-The API hosts the web and `/api/v1` on the same origin. No separate web server is needed.
-See [API-PILOT](API-PILOT.md) for provisioning and the final endpoint contract.
+Use the running `savia-sqlserver-dev` container. Set distinct temporary passwords in the shell:
+`SAVIA_PILOT_PASSWORD_CAJERA`, `SAVIA_PILOT_PASSWORD_SUPERVISORA`, `SAVIA_PILOT_PASSWORD_DUENA`.
+Run `python savia/tools/pilot.py reset` then `python savia/tools/pilot.py up`.
+Open http://127.0.0.1:5080/. The API serves static files and `/api/v1` on loopback.
+Login names remain `cajera.muestra`, `supervisora.muestra`, `duena.muestra`.
+See [API-PILOT](API-PILOT.md) for the SQL and HTTP contracts.
 
-Use `supervisora.muestra` for reception approval, posting and till closure.
-Use `cajera.muestra` for opening a till, selling and counting cash.
-`duena.muestra` is the owner account. All data is synthetic MUESTRA data.
+## Venta without photos
 
-## Screens and behavior
+Every garment screen uses text. Product image assets, the photo helper, its CSS and Sin foto
+placeholders are removed. The Venta grid remains beside the ticket. Cards show name, sizes,
+price and local available stock. Type/size filters intersect with name/SKU search. Scanning
+adds the exact variant. Multiple variants open a size picker with each size's price and stock.
 
-| Screen | Result |
-| --- | --- |
-| Ingreso and navigation | `/me` supplies branch, operator and roles. Sales links require C/M/O; the day report requires M/O. The API remains the permission authority. |
-| Recepción and review | Existing scan, registration, rejection, approval and stock-posting flows remain intact. Keyboard bursts work without input focus. |
-| Venta | Editable ticket quantities; cash, card, transfer, customer credit and other tenders; split payment. Card/transfer require a reference. Only cash has received/change fields. |
-| Cliente in Venta | Optional customer search also associates a cash/card sale with a customer. A credit payment requires a selected local NIO credit allocation. Selection keeps the customer's name visible and collapses the search. |
-| Historial | Receipt id, recorded garment name or SKU search; inclusive Nicaragua date filter; server pagination. Every line has its SKU photo, recorded name, size, quantity, unit price and server line total. |
-| Recibo | Full API lines and tenders after a sale and from Historial. Reimprimir calls `window.print()`. The print sheet uses an 80 mm page, with photos and navigation hidden. |
-| Devolución | Opens from Historial. Quantities cannot exceed sold minus returned. Reason, credit refund and store/quarantine choice. Cashiers use a second login dialog for a real supervisor session; their own session stays in place. |
-| Clientes y anticipos | Search customers, then show each positive credit allocation with its amount, currency and branch. Allocations from another branch are identified. |
-| Reporte del día | SQL counts, currency totals, tender totals, reversals and stored till/accounting figures. The browser does not reconstruct financial totals. Printable on A4. |
-| Caja and Inventario | Existing API cash summary, denomination count, supervised closure and physical/reserved/available stock views remain intact. |
+Zero-stock cards say Sin existencia en sistema and stay selectable. Adding above the available
+quantity asks: El sistema muestra 0. Confirmar que la prenda está en la tienda. Cancel leaves the
+ticket unchanged. Confirm records the physical-stock note with the sale. SQL creates a traced
+positive adjustment for the short quantity before the normal negative sale movement. A manager
+reviews the pending exception from Excepciones de inventario and enters the result before Revisado.
 
-All HTTP calls remain in `savia/web/api.mjs`. Screens are ES modules and expose `handleScan`.
-Money stays in integer minor units. Ticket, change and denomination previews use pending input and API prices.
-All persisted sales, returns, stock, balances, cash and report figures come from the API.
-New screens use the existing SAVIA 08 tablet tokens, panels, garment photos and rows.
-The approved reference folder was read-only. No product image was imported or replaced.
+Ticket quantity and discount controls wrap within their column. The complete ticket can scroll
+vertically. Horizontal content and controls must remain within the ticket and page at 1024x768
+and 1440x900. No image column remains in reception, review, inventory, history, returns or receipts.
 
-## Contract boundaries
+## Cash and discounts
 
-- Returns support **store credit only**. No cash-return SQL procedure or API endpoint exists. This is a documented contract limit, not a defect found in these web checks.
-- The sale must already have its verified customer. Anonymous sales cannot use this return procedure.
-- Restock selected means `store`; unselected means `quarantine`. The form describes both choices. A credit return does not reduce till cash.
-- Approval is the authenticated supervisor. The web never submits a trusted approver id or modifies the cashier's roles/token. Its temporary approval token is logged out after use.
-- Card/transfer references record a payment completed outside this application. There is no bank gateway or card-number collection.
-- History uses sale snapshots. A catalog product label can differ from the recorded garment name. Size is the current catalog size because SQL has no size snapshot.
-- SQL timestamps without offsets are interpreted as UTC. History filters and report dates use Nicaragua business dates.
-- This UI pilot sells in NIO. Credit allocation views retain each API currency and branch; report currency groups are shown separately.
-- New product variants remain unclassified because the API has no size/color-list endpoint.
-- The same browser retains denomination input and count ids for cashier-to-supervisor closure handoff. Clearing its storage requires a new count.
+Abrir caja counts every NIO denomination from `GET /cash/denominations`. Each row shows quantity
+and line total. The opening total is read-only. SQL rejects a separately supplied total that does
+not match the breakdown. Till summaries and Cierre show the stored opening breakdown. Closing
+uses the same denomination component and SQL-owned list. Opening counts cannot close the till.
 
-## Verification and evidence
+Every discount requires a manager/owner. There is no 10% cashier allowance. Line/ticket percentage
+fields are only requests and previews. On Cobrar a cashier gets a second real sign-in. The manager
+can change each line's discount amount in cordobas and must enter a reason. The API authenticates
+the live manager session separately. SQL independently checks the role and records who approved
+and why. A manager selling directly supplies a reason on the ticket. Approval tokens are held in
+memory, excluded from parked tickets, and logged out after submission.
+A full authorized discount needs no payment. SQL accepts the zero total with an empty tender list.
 
-Worker B polled the required `a.done` marker every 60 seconds. It was present by 16:39 local time (UTC-06:00), within the 45-minute limit.
-No build, pilot runner or port 5080 request was made before the marker.
-Worker B then read the final API documentation and `savia/src/Savia.Api/Endpoints.cs` before binding the web.
+Guardar ticket, Tickets guardados and the in-page Vaciar ticket confirmation remain. Drafts are
+local to this browser and till. They survive reload, reserve no stock and create no server sale.
+Closing/replacing the till clears them when the browser next synchronizes. Restored tickets still
+need current SQL stock/price checks and fresh approval. Clearing browser storage loses drafts.
 
-| Command/check | Exit | Result |
-| --- | --- | --- |
-| `node --test savia/web/tests/payments.test.mjs` before the builder fix | 1 | Red: two card/split assertions; the old builder substituted cash and invalid change. |
-| `node --test savia/web/tests/date-focus.test.mjs` before the focus fix | 1 | Red: the scanner helper took focus from the date filter. |
-| Agent-browser CSS parser probe before/after the print fix | 1 / 0 | Chrome rejected `80mm auto`; accepted the final named 80 mm page. |
-| Spanish report-title probe before/after correction | 1 / 0 | A PowerShell pipe had corrupted accented source text; the UTF-8 patch restored it. |
-| Return-footer image check before/after the tablet correction | 1 / 0 | Primary-button pixels in the lower viewport: 1,468 → 50,836. The final browser check also asserts the button's viewport bounds. |
-| `node --test "savia/web/tests/*.test.mjs"` | 0 | 37 passed, zero failed. Includes token isolation, payment validation, return bounds and business dates. |
-| `node --test "savia/web/scanner/*.test.mjs"` | 0 | 16 passed, zero failed. |
-| `python savia/tools/pilot.py reset` | 0 | Fresh sample pilot database. Existing container only. |
-| `python savia/tools/pilot.py up` | 0 | Migration/seed/build and three separate in-memory passwords; loopback API ready. |
-| `python savia/web/tests/e2e_pilot.py` — final run 1 | 0 | 18 passed; console 0; page errors 0. Seeded stock starts at 0 and ends at 2. |
-| `python savia/web/tests/e2e_pilot.py` — final run 2, without reset | 0 | 18 passed; console 0; page errors 0. Seeded stock starts at 2 and ends at 4. |
-| `python savia/tools/pilot.py down` | 0 | Pilot API stopped. A separate loopback health probe confirmed connection refusal. |
-| `git diff --check -- savia/web savia/docs/pilot/WEB.md` | 0 | No whitespace errors. |
+## Reports and receipts
 
-Each final browser run checks receiving five units, original-scan registration, rejection, unchanged pending stock, posting, a two-unit cash sale, a one-unit card sale, receipt/SKU/name search, receipt printing invocation, a supervised one-unit credit return, credit balances, credit redemption, cash count, balanced closure and the API day report.
-The cash sale total is `119800` minor units, change is `180200`, and closure difference is `0`.
-The return restocks exactly one unit. Card, credit return and credit redemption leave expected cash unchanged.
-Transfer and split-payment input previews are exercised; their actual submission is covered by request/unit checks, not a persisted browser sale.
+Reportes has Día, Semana, Mes and Año views. All summary values come from SQL. The day view also
+keeps the prior till/accounting detail. Week starts Monday; dates use Nicaragua time. Exportar CSV
+exports the same API values in minor units. Imprimir reporte uses the report print stylesheet.
+Customers served are distinct identified customers; new customers have no earlier sale here.
 
-The CLI's native Windows executable avoids CMD reparsing of quoted JavaScript.
-Forms use fresh accessibility refs. Native disclosure nodes have no refs in this CLI, so their opening uses its semantic text action after a fresh snapshot.
-Early driver/fixture failures were corrected before the final pair: disclosure refs, inline select-label extraction, CMD quoting and catalog-label versus receipt-snapshot name.
-There were no API defects found in the final web flow. No API source was edited by Worker B.
-Credentials enter the temporary encrypted CLI vault through stdin. Login profiles are deleted after use; passwords are not printed or stored in evidence.
+Recibo is a simple store receipt with a sequential branch number. It has no tax breakdown.
+Reimprimir retains the 80 mm stylesheet. A browser print check does not test a physical printer.
 
-The 29 current captures emitted by the browser check are 1024×768, including every new screen and payment variation.
-Reviewed captures are in [screens](screens/); hashes, exact paths and source bindings are in [WEB-VERIFICATION.json](screens/WEB-VERIFICATION.json).
-`ingreso-2.png` and `inventario-fotos.png` are older captures and are excluded from the current verification manifest.
+## Preserved work and boundaries
 
-## Explicit staging scope and next action
+Ajustes keeps the Bosque, Tinta and Malva palettes and their persistence on this device. Its notice
+says Datos de prueba: los productos, precios y personas son ejemplos. Seed display labels omit
+MUESTRA; login names stay unchanged. The header shows branch, operator, till state and till cashier.
+Reception retains registration, resolution, rejection, approval, posting and labels. Customer
+selection, credit returns and split tenders remain. Card and transfer references describe external
+payments; there is no gateway. Returns still issue supervised store credit, not cash refunds.
+Local storage is not production security. No SISFAIN backend is claimed.
 
-Only the following web paths, this document, the verification manifest and its listed current captures are staged by Worker B:
+## Verification
 
-```text
-savia/web/API-NEEDS.md
-savia/web/api.mjs
-savia/web/app.css
-savia/web/app.mjs
-savia/web/index.html
-savia/web/roles.mjs
-savia/web/scan.mjs
-savia/web/screens/customers.mjs
-savia/web/screens/history.mjs
-savia/web/screens/payment-logic.mjs
-savia/web/screens/payments.mjs
-savia/web/screens/receipt.mjs
-savia/web/screens/report.mjs
-savia/web/screens/return-logic.mjs
-savia/web/screens/return.mjs
-savia/web/screens/sale-logic.mjs
-savia/web/screens/sale-view.mjs
-savia/web/screens/sale.mjs
-savia/web/tests/all.mjs
-savia/web/tests/api-contract.test.mjs
-savia/web/tests/date-focus.test.mjs
-savia/web/tests/e2e_pilot.py
-savia/web/tests/payments.test.mjs
-savia/web/tests/receipt.test.mjs
-savia/web/tests/returns.test.mjs
-savia/web/tests/roles.test.mjs
-savia/docs/pilot/WEB.md
-savia/docs/pilot/screens/WEB-VERIFICATION.json
-```
+Acceptance passed: 129 SQL tests, 43 .NET tests, 42 web unit tests, smoke and two consecutive
+browser runs with zero console/page errors. Commands, exits and limits are recorded in
+[OWNER-VERIFICATION](OWNER-VERIFICATION.md). The first focused .NET run reproduced three failures:
+opening mismatch accepted, unapproved cashier discount accepted, and zero-stock sale rejected.
+An intermediate count test exposed the old one-submitted-count-per-till index. V015 separates
+opening and closing kinds and preserves V007's close authorization guard.
 
-Unchanged captures explicitly passed to staging create no new Git diff. Other workers' staged paths are preserved.
-Next action: integration review of this staged web with Worker A's staged API. The API remains stopped.
+The browser suite uses only agent-browser against the real local API. Each captured state checks
+1024x768 and 1440x900 for page/ticket overflow and product images. It covers opening breakdown
+read-back, manager-approved discounts, zero-stock exception and review, reports equal to API,
+reception, inventory, customer credit, parked tickets and close. Current captures are in [screens](screens/).
 
-## Not verified by Worker B
-
-No repository-wide check, CI run, SQL conservation audit, physical scanner/printer, bank gateway, multi-node sync, mobile, accessibility or performance acceptance was performed by this worker.
-The owner account's browser flow, pagination across more than 25 sales, date-filter interaction, quarantine return and persisted transfer/split/other sales were not exercised end to end.
-Unit/request checks cover the relevant input and date mappings; these are not substitutes for browser or physical-device acceptance.
-Headless printing uses a spy for the `window.print()` action and verifies the browser-accepted stylesheet. Paper output and a physical print dialog were not tested.
+Not verified: production, deployment, bank gateway, physical scanner/printer, multi-node sync,
+mobile, full accessibility or performance acceptance. No public URL or remote delivery is claimed.

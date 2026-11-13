@@ -18,7 +18,7 @@ INSERT INTO @l1(LineNumber,ItemId,Quantity,UnitPriceMinor,DiscountMinor)
 INSERT INTO @t1(TenderNumber,TenderKind,AmountMinor,ReceivedMinor,ChangeMinor)
   VALUES(1,'cash',533239,600000,66761);
 EXEC sales.usp_PostSale @SaleId=@sale1,@BranchId=@branch,@LocationId=@loc,@CashierId=@cashier,
-     @CurrencyCode='NIO',@TillId=@till,@OriginNodeId=@node,@Lines=@l1,@Tenders=@t1;
+     @CurrencyCode='NIO',@TillId=@till,@OriginNodeId=@node,@Lines=@l1,@Tenders=@t1,@DiscountApproverId='A0000000-0000-0000-0000-0000000000A5',@DiscountReason=N'Autorizado para prueba';
 
 SET @n=(SELECT SubtotalMinor FROM sales.Sales WHERE Id=@sale1);
 EXEC test.AssertEq N'subtotal 2x120000 + 3x85000',495000,@n;
@@ -51,7 +51,7 @@ INSERT INTO @l2(LineNumber,ItemId,Quantity,UnitPriceMinor,DiscountMinor)
 INSERT INTO @t2(TenderNumber,TenderKind,AmountMinor,ReceivedMinor,ChangeMinor)
   VALUES(1,'cash',195478,195478,0);
 EXEC sales.usp_PostSale @SaleId=@sale2,@BranchId=@branch,@LocationId=@loc,@CashierId=@cashier,
-     @CurrencyCode='NIO',@TillId=@till,@OriginNodeId=@node,@Lines=@l2,@Tenders=@t2;
+     @CurrencyCode='NIO',@TillId=@till,@OriginNodeId=@node,@Lines=@l2,@Tenders=@t2,@DiscountApproverId='A0000000-0000-0000-0000-0000000000A5',@DiscountReason=N'Autorizado para prueba';
 SET @n=(SELECT TaxMinor FROM sales.Sales WHERE Id=@sale2);
 EXEC test.AssertEq N'IVA redondeado por linea 12749+12749',25498,@n;
 SET @n=(SELECT TotalMinor FROM sales.Sales WHERE Id=@sale2);

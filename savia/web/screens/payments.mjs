@@ -77,6 +77,13 @@ export function paymentsPanel({ kinds, getTotal, onChange, branchId }) {
     } }, 'Dividir pago'), customerPanel);
   draw();
   return { node,
+    snapshot() { return { payments: structuredClone(payments), customer: customer ? structuredClone(customer) : null }; },
+    async restore(saved) {
+      payments = saved?.payments?.length ? structuredClone(saved.payments) : [{ kind: 'cash', amount: '', received: '', reference: '' }];
+      customer = saved?.customer ?? null;
+      credits = customer ? (await api.searchCredits(customer.customerCode ?? customer.displayName)).filter(c => c.customerId === customer.customerId && c.branchId === branchId && c.currencyCode === 'NIO') : [];
+      customerRevision++; draw(); onChange();
+    },
     get customerId() { return customer?.customerId; },
     draft() { return paymentDraft(getTotal(), payments, { supportedKinds: kinds, customerId: customer?.customerId }); },
     reset() { payments = [{ kind: 'cash', amount: '', received: '', reference: '' }]; customer = null; credits = []; customerRevision++; customerStatus.textContent = ''; customerField.value = ''; customerPanel.open = false; replace(customerRows); draw(); },

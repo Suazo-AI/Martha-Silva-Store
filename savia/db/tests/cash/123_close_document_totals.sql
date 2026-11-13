@@ -20,7 +20,7 @@ INSERT INTO @tenders(TenderNumber,TenderKind,AmountMinor,ReceivedMinor,ChangeMin
   VALUES(1,'cash',500000,500000,0,NULL),(2,'card',33239,NULL,NULL,N'AUTH-77');
 EXEC sales.usp_PostSale @SaleId=@sale,@BranchId=@branch,@LocationId=@loc,@CashierId=@cashier,
      @CurrencyCode='NIO',@TillId=@till,@OriginNodeId=@node,@Lines=@lines,@Tenders=@tenders,
-     @CustomerId=@customer;
+     @CustomerId=@customer,@DiscountApproverId=@super,@DiscountReason=N'Descuento autorizado para prueba contable';
 SET @line2=(SELECT Id FROM sales.SaleLines WHERE SaleId=@sale AND LineNumber=2);
 
 -- Devolucion completa de la linea con IVA: 293239.

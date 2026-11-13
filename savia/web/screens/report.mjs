@@ -32,8 +32,9 @@ export function reportContent(report) {
 }
 
 export default {
-  title: 'Reporte del día',
+  title: 'Reportes',
   async mount(root, ctx) {
+    const period = h('select', { id:'report-period', onchange:() => load() }, [['day','Día'],['week','Semana'],['month','Mes'],['year','Año']].map(([value,label])=>h('option',{value},label)));
     const date = h('input', { id: 'report-date', type: 'date', value: businessDate() });
     const status = h('p', { role: 'alert' });
     const paper = h('section', { class: 'panel report-paper', id: 'day-report' });
@@ -41,17 +42,36 @@ export default {
     const load = async () => {
       const current = ++revision;
       try {
-        const report = await api.dayReport(date.value);
+        const summary = await api.summaryReport(period.value, date.value);
+        const report = period.value === 'day' ? await api.dayReport(date.value) : null;
         if (current !== revision) return;
-        replace(paper, ...reportContent(report));
+        replace(paper, ...summaryContent(summary), ...(report ? reportContent(report) : []));
         status.textContent = '';
       } catch (error) { if (current === revision) showError(status, error); }
     };
     replace(root, h('div', { class: 'page' },
-      h('form', { class: 'row no-print', onsubmit: e => { e.preventDefault(); load(); } }, h('label', {}, 'Fecha del reporte', date),
+      h('form', { class: 'row no-print', onsubmit: e => { e.preventDefault(); load(); } }, h('label', {}, 'Período', period), h('label', {}, 'Fecha del reporte', date),
         h('div', { class: 'actions' }, h('button', { type: 'submit' }, 'Consultar reporte'),
+          h('button', { type:'button', id:'export-report', onclick:async () => { try { await api.exportSummary(period.value,date.value); } catch(error) { showError(status,error); } } }, 'Exportar CSV'),
           h('button', { type: 'button', id: 'print-report', onclick: () => window.print() }, 'Imprimir reporte'))), status, paper));
     await load();
     return { handleScan: () => ctx.notify('El reporte muestra los totales del servidor.'), unmount() { revision++; } };
   },
 };
+
+export function summaryContent(report) {
+  const moneyKeys = new Set(['grossMinor','discountsMinor','netMinor','returnsMinor','averageTicketMinor']);
+  const labels = [['salesCount','Ventas'],['unitsSold','Prendas vendidas'],['grossMinor','Venta bruta'],
+    ['discountsMinor','Descuentos'],['netMinor','Venta neta después de devoluciones'],['returnsMinor','Devoluciones'],
+    ['averageTicketMinor','Ticket promedio'],['customersServed','Clientes atendidos'],['newCustomers','Clientes nuevos'],['stockExceptionsCount','Excepciones de inventario']];
+  const table = (title, rows, columns) => h('section', {}, h('h3',{},title),
+    rows.length ? h('div',{class:'table-wrap'},h('table',{},h('thead',{},h('tr',{},columns.map(([key,label])=>h('th',{},label)))),
+      h('tbody',{},rows.map(row=>h('tr',{},columns.map(([key])=>h('td',{},key.endsWith('Minor') ? formatMoney(row[key]) : key==='tenderKind' ? tenderName(row[key]) : row[key]))))))) : h('p',{},'Sin movimientos en este período.'));
+  return [h('h2',{},`Reportes · ${report.startDate} al ${report.endDate}`),
+    h('div',{class:'report-totals',id:'summary-totals',dataset:{period:report.period}},labels.map(([key,label])=>metric(label,
+      moneyKeys.has(key) ? formatMoney(report[key]) : String(report[key]),`summary-${key}`))),
+    table('Cobros por método',report.tenders,[['tenderKind','Método'],['saleCount','Ventas'],['totalMinor','Total']]),
+    table('Ventas por día',report.salesByDay,[['date','Día'],['salesCount','Ventas'],['totalMinor','Total']]),
+    table('Ventas por cajera',report.cashiers,[['name','Cajera'],['salesCount','Ventas'],['totalMinor','Total']]),
+    table('Prendas más vendidas',report.topItems,[['sku','SKU'],['name','Prenda'],['unitsSold','Unidades'],['totalMinor','Total']])];
+}

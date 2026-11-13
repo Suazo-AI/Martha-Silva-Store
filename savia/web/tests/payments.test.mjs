@@ -2,6 +2,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { saleRequest } from '../screens/sale-logic.mjs';
 import { paymentDraft } from '../screens/payment-logic.mjs';
+test('a full manager discount needs no tender or cash received', () => {
+  assert.deepEqual(paymentDraft(0, [{kind:'cash',received:''}], {supportedKinds:['cash']}), {tenders:[],changeMinor:0});
+});
 
 const lines = [{ itemId: 'i', quantity: 2, unitPriceMinor: 59900 }];
 test('card sale preserves its tender and never creates cash change', () => {

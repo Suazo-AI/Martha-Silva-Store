@@ -21,7 +21,7 @@ BEGIN TRANSACTION;
 IF NOT EXISTS(SELECT 1 FROM core.Currencies WHERE Code='NIO')
   INSERT INTO core.Currencies(Code,Name,Exponent) VALUES('NIO',N'Córdoba nicaragüense',2);
 IF NOT EXISTS(SELECT 1 FROM core.Branches WHERE Id=@branch)
-  INSERT INTO core.Branches(Id,Code,Name,StoreDisplayName) VALUES(@branch,'MASAYA',N'Masaya',N'SAVIA Masaya (MUESTRA)');
+  INSERT INTO core.Branches(Id,Code,Name,StoreDisplayName) VALUES(@branch,'MASAYA',N'Masaya',N'SAVIA Masaya');
 IF NOT EXISTS(SELECT 1 FROM core.Locations WHERE Id=@loc)
   INSERT INTO core.Locations(Id,BranchId,Code,Name,Kind) VALUES(@loc,@branch,'MASAYA_TIENDA',N'Tienda Masaya','store');
 IF NOT EXISTS(SELECT 1 FROM sales.CashRegisters WHERE Id=@register)
@@ -33,11 +33,11 @@ IF NOT EXISTS(SELECT 1 FROM sync.Nodes WHERE Id=@node)
   INSERT INTO sync.Nodes(Id,BranchId,NodeCode,Kind) VALUES(@node,@branch,N'PILOT_MASAYA','branch');
 
 IF NOT EXISTS(SELECT 1 FROM security.Staff WHERE Id=@owner)
-  INSERT INTO security.Staff(Id,LoginName,NormalizedLoginName,DisplayName) VALUES(@owner,N'duena.muestra',N'DUENA.MUESTRA',N'Dueña (MUESTRA)');
+  INSERT INTO security.Staff(Id,LoginName,NormalizedLoginName,DisplayName) VALUES(@owner,N'duena.muestra',N'DUENA.MUESTRA',N'Dueña');
 IF NOT EXISTS(SELECT 1 FROM security.Staff WHERE Id=@super)
-  INSERT INTO security.Staff(Id,LoginName,NormalizedLoginName,DisplayName) VALUES(@super,N'supervisora.muestra',N'SUPERVISORA.MUESTRA',N'Supervisora (MUESTRA)');
+  INSERT INTO security.Staff(Id,LoginName,NormalizedLoginName,DisplayName) VALUES(@super,N'supervisora.muestra',N'SUPERVISORA.MUESTRA',N'Supervisora');
 IF NOT EXISTS(SELECT 1 FROM security.Staff WHERE Id=@cashier)
-  INSERT INTO security.Staff(Id,LoginName,NormalizedLoginName,DisplayName) VALUES(@cashier,N'cajera.muestra',N'CAJERA.MUESTRA',N'Cajera (MUESTRA)');
+  INSERT INTO security.Staff(Id,LoginName,NormalizedLoginName,DisplayName) VALUES(@cashier,N'cajera.muestra',N'CAJERA.MUESTRA',N'Cajera');
 INSERT INTO security.StaffRoles(StaffId,RoleId)
   SELECT v.StaffId,r.Id FROM (VALUES(@owner,'OWNER'),(@super,'MANAGER'),(@cashier,'CASHIER')) v(StaffId,Code)
   JOIN security.Roles r ON r.Code=v.Code
@@ -47,9 +47,9 @@ INSERT INTO security.StaffBranchAccess(StaffId,BranchId,CanApproveTransfers,CanA
   WHERE NOT EXISTS(SELECT 1 FROM security.StaffBranchAccess x WHERE x.StaffId=v.StaffId AND x.BranchId=@branch);
 
 IF NOT EXISTS(SELECT 1 FROM sourcing.Suppliers WHERE Id=@supplier)
-  INSERT INTO sourcing.Suppliers(Id,SupplierCode,DisplayName) VALUES(@supplier,N'PROV-MUESTRA',N'Proveedor MUESTRA');
+  INSERT INTO sourcing.Suppliers(Id,SupplierCode,DisplayName) VALUES(@supplier,N'PROV-PILOTO',N'Proveedor');
 IF NOT EXISTS(SELECT 1 FROM crm.Customers WHERE Id=@customer)
-  INSERT INTO crm.Customers(Id,CustomerCode,DisplayName,Email) VALUES(@customer,N'CLI-MUESTRA',N'Clienta MUESTRA',N'clienta.muestra@example.test');
+  INSERT INTO crm.Customers(Id,CustomerCode,DisplayName,Email) VALUES(@customer,N'CLI-PILOTO',N'Clienta',N'clienta@example.test');
 
 INSERT INTO catalog.Sizes(Id,Code,Name,SortOrder)
   SELECT v.Id,v.Code,v.Name,v.SortOrder FROM (VALUES
@@ -77,13 +77,13 @@ DECLARE @cloud uniqueidentifier='5A000000-0000-0000-0000-000000000D00',
   @supplier uniqueidentifier='5A000000-0000-0000-0000-000000000F01';
 DECLARE @products TABLE(Id uniqueidentifier PRIMARY KEY, Name nvarchar(200));
 INSERT INTO @products VALUES
- ('5A000000-0000-0000-0000-000000000101',N'Blusa de lino MUESTRA'),
- ('5A000000-0000-0000-0000-000000000102',N'Vestido midi floral MUESTRA'),
- ('5A000000-0000-0000-0000-000000000103',N'Falda plisada MUESTRA'),
- ('5A000000-0000-0000-0000-000000000104',N'Pantalón palazzo MUESTRA'),
- ('5A000000-0000-0000-0000-000000000105',N'Jeans skinny MUESTRA'),
- ('5A000000-0000-0000-0000-000000000106',N'Top básico MUESTRA'),
- ('5A000000-0000-0000-0000-000000000107',N'Cárdigan tejido MUESTRA');
+ ('5A000000-0000-0000-0000-000000000101',N'Blusa de lino'),
+ ('5A000000-0000-0000-0000-000000000102',N'Vestido midi floral'),
+ ('5A000000-0000-0000-0000-000000000103',N'Falda plisada'),
+ ('5A000000-0000-0000-0000-000000000104',N'Pantalón palazzo'),
+ ('5A000000-0000-0000-0000-000000000105',N'Jeans skinny'),
+ ('5A000000-0000-0000-0000-000000000106',N'Top básico'),
+ ('5A000000-0000-0000-0000-000000000107',N'Cárdigan tejido');
 DECLARE @items TABLE(RowNo int PRIMARY KEY, Id uniqueidentifier, ProductId uniqueidentifier, Sku nvarchar(100),
   VariantName nvarchar(200), SizeCode nvarchar(10), ColorCode nvarchar(10), PriceMinor bigint, CostMinor bigint, Barcode nvarchar(128));
 INSERT INTO @items VALUES

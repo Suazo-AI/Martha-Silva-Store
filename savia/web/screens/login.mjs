@@ -34,7 +34,6 @@ export default {
       h('div', { class: 'brand' }, 'SAVIA'),
       h('h1', { id: 'access-title' }, 'Ingreso de personal'),
       branch,
-      h('p', { class: 'branch' }, h('span', { class: 'tag sample' }, 'MUESTRA'), ' Piloto con datos de prueba'),
       h('label', { for: 'login-user' }, 'Usuario de trabajo'), user,
       h('label', { for: 'login-pass' }, 'Contraseña'), pass,
       message,

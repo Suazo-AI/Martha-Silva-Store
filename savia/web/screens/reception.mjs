@@ -1,6 +1,6 @@
 // Recepción · Escanear. Each reading posts to the session; the screen shows only what the server answers.
 import * as api from '../api.mjs';
-import { h, replace, photo, showError, clearMessage, flash, device, openModal, GUID_RE } from '../ui.mjs';
+import { h, replace, showError, clearMessage, flash, device, openModal, GUID_RE } from '../ui.mjs';
 import { attachScanField, serialQueue } from '../scan.mjs';
 import { parseMoney } from '../money.mjs';
 import { current, loadState, lineView } from './reception-data.mjs';
@@ -94,7 +94,6 @@ export default {
         replace(lastScan,
           h('h2', { id: 'last-title' }, 'Último escaneo'),
           h('div', { class: 'last-scan' },
-            photo(line?.sku),
             h('div', {},
               h('strong', {}, rejected ? 'Lectura rechazada' : known ? (line.name ?? 'Producto') : 'Código nuevo'),
               h('p', { class: 'num' }, lastCode, line?.size ? ` · Talla ${line.size}` : ''),

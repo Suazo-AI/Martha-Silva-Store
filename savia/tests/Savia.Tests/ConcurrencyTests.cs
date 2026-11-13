@@ -116,7 +116,7 @@ public sealed class ConcurrencyTests : IAsyncLifetime
     [Fact]
     public async Task Ten_parallel_opens_of_one_till_open_it_once()
     {
-        var open = new OpenTillRequest(Guid.NewGuid(), Ids.RegisterA, "NIO", 50_000);
+        var open = new OpenTillRequest(Guid.NewGuid(), Ids.RegisterA, "NIO", 50_000, [new(50000, 1)]);
 
         var responses = await Task.WhenAll(Enumerable.Range(0, 10).Select(_ => _cashier.PostAsJsonAsync("/api/v1/cash/tills", open)));
         var answers = await Task.WhenAll(responses.Select(async r => $"{(int)r.StatusCode} {await r.Content.ReadAsStringAsync()}"));
@@ -133,7 +133,7 @@ public sealed class ConcurrencyTests : IAsyncLifetime
     private async Task<Guid> OpenTillAsync()
     {
         var till = Guid.NewGuid();
-        await HttpAssert.OkAsync(await _cashier.PostAsJsonAsync("/api/v1/cash/tills", new OpenTillRequest(till, Ids.RegisterA, "NIO", 50_000)));
+        await HttpAssert.OkAsync(await _cashier.PostAsJsonAsync("/api/v1/cash/tills", new OpenTillRequest(till, Ids.RegisterA, "NIO", 50_000, [new(50000, 1)])));
         return till;
     }
 

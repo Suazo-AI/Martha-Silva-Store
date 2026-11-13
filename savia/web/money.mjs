@@ -55,6 +55,3 @@ export function cashChange(totalMinor, receivedText) {
 export function countTotal(lines) {
   return lines.reduce((sum, l) => sum + lineTotal(l.denominationMinor, l.quantity), 0);
 }
-
-/** Nicaraguan córdoba bills and coins used for the cash count, largest first. */
-export const NIO_DENOMINATIONS = [100000, 50000, 20000, 10000, 5000, 2000, 1000, 500, 100, 50, 25, 10];

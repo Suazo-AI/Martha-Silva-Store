@@ -12,6 +12,12 @@ namespace Savia.Infrastructure;
 
 public sealed class CatalogStore(SqlGateway sql) : ICatalogStore
 {
+    public async Task<IReadOnlyList<CatalogProduct>> ListAsync(Guid locationId, CancellationToken ct)
+    {
+        var rows = await sql.QueryProcAsync("catalog.usp_ListSaleCatalog", r => r.GetString(0), ct, P("@LocationId", locationId));
+        return JsonSerializer.Deserialize<CatalogProduct[]>(string.Concat(rows), new JsonSerializerOptions(JsonSerializerDefaults.Web)) ?? [];
+    }
+
     public async Task<IReadOnlyList<ItemLookup>> LookupAsync(string rawCode, Guid? supplierId, CancellationToken ct) =>
         await sql.QueryProcAsync("catalog.usp_LookupByScan",
             r => new ItemLookup(r.GetGuid(0), r.GetString(1), r.GetString(2), r.GetInt64(3), r.GetString(4), r.GetString(5),
@@ -169,11 +175,11 @@ public sealed class SalesStore(SqlGateway sql) : ISalesStore
     private static readonly JsonSerializerOptions Camel = new(JsonSerializerDefaults.Web);
 
     public async Task OpenTillAsync(OpenTillRequest request, Guid cashierId, Guid nodeId, CancellationToken ct) =>
-        await sql.ExecProcAsync("sales.usp_OpenTill", ct, P("@TillId", request.TillId), P("@RegisterId", request.RegisterId),
+        await sql.ExecProcAsync("sales.usp_OpenTillCounted", ct, P("@TillId", request.TillId), P("@RegisterId", request.RegisterId),
             P("@CashierId", cashierId), P("@CurrencyCode", request.CurrencyCode), P("@OpeningMinor", request.OpeningMinor),
-            P("@OriginNodeId", nodeId));
+            P("@OriginNodeId", nodeId), P("@LinesJson", JsonSerializer.Serialize(request.Lines, Camel)));
 
-    public Task PostSaleAsync(PostSaleRequest request, Guid branchId, Guid locationId, Guid cashierId, Guid nodeId, CancellationToken ct)
+    public Task PostSaleAsync(PostSaleRequest request, Guid branchId, Guid locationId, Guid cashierId, Guid nodeId, Guid? discountApproverId, CancellationToken ct)
     {
         var lines = new DataTable();
         lines.Columns.Add("LineNumber", typeof(int)); lines.Columns.Add("ItemId", typeof(Guid));
@@ -194,7 +200,7 @@ public sealed class SalesStore(SqlGateway sql) : ISalesStore
         return sql.ExecProcAsync("sales.usp_PostSale", ct, P("@SaleId", request.SaleId), P("@BranchId", branchId),
             P("@LocationId", locationId), P("@CashierId", cashierId), P("@CurrencyCode", request.CurrencyCode),
             P("@OriginNodeId", nodeId), Table("@Lines", "sales.SaleLineRequest", lines),
-            Table("@Tenders", "sales.SaleTenderRequest", tenders), P("@CustomerId", request.CustomerId), P("@TillId", request.TillId));
+            Table("@Tenders", "sales.SaleTenderRequest", tenders), P("@CustomerId", request.CustomerId), P("@TillId", request.TillId), P("@DiscountApproverId", discountApproverId), P("@DiscountReason", request.DiscountReason), P("@StockExceptionNote", request.StockExceptionNote));
     }
 
     public Task<SaleResponse?> GetSaleAsync(Guid saleId, Guid branchId, CancellationToken ct) => sql.FirstAsync(
@@ -250,7 +256,8 @@ public sealed class SalesStore(SqlGateway sql) : ISalesStore
     public Task<TillSummary?> GetTillSummaryAsync(Guid tillId, Guid branchId, CancellationToken ct) => sql.FirstAsync("""
         SELECT t.Id,t.RegisterId,r.Name,t.CashierId,st.DisplayName,t.Status,t.CurrencyCode,t.OpenedAt,
                ISNULL(e.Opening,0),ISNULL(e.Sales,0),ISNULL(e.Refunds,0),ISNULL(e.Other,0),ISNULL(e.Expected,0),
-               s.SaleCount,s.SalesTotal,(SELECT TOP (1) cc.Id FROM sales.CashClosures cc WHERE cc.TillId=t.Id)
+               s.SaleCount,s.SalesTotal,(SELECT TOP (1) cc.Id FROM sales.CashClosures cc WHERE cc.TillId=t.Id),
+               (SELECT l.DenominationMinor AS denominationMinor,l.Quantity AS quantity FROM sales.CashCounts c JOIN sales.CashCountLines l ON l.CashCountId=c.Id WHERE c.TillId=t.Id AND c.CountKind='opening' ORDER BY l.DenominationMinor DESC FOR JSON PATH)
         FROM sales.CashTills t
         JOIN sales.CashRegisters r ON r.Id=t.RegisterId
         JOIN security.Staff st ON st.Id=t.CashierId
@@ -265,7 +272,7 @@ public sealed class SalesStore(SqlGateway sql) : ISalesStore
         WHERE t.Id=@id AND r.BranchId=@branch
         """, r => new TillSummary(r.GetGuid(0), r.GetGuid(1), r.GetString(2), r.GetGuid(3), r.GetString(4), r.GetString(5),
             r.GetString(6), r.Utc(7), r.GetInt64(8), r.GetInt64(9), r.GetInt64(10), r.GetInt64(11), r.GetInt64(12), r.GetInt32(13),
-            r.GetInt64(14), r.GuidOrNull(15)), ct, P("@id", tillId), P("@branch", branchId));
+            r.GetInt64(14), r.GuidOrNull(15), JsonSerializer.Deserialize<CashCountLine[]>(r.GetString(16), Camel)), ct, P("@id", tillId), P("@branch", branchId));
 }
 
 public sealed class SiteStore(SqlGateway sql) : ISiteStore

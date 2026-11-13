@@ -12,10 +12,14 @@ import receipt from './screens/receipt.mjs';
 import returns from './screens/return.mjs';
 import customers from './screens/customers.mjs';
 import report from './screens/report.mjs';
+import exceptions from './screens/exceptions.mjs';
+import settings, { applyPalette } from './screens/settings.mjs';
+import { syncTill } from './screens/till-open.mjs';
 import { canAccess } from './roles.mjs';
 
 const ROUTES = {
   'venta': sale,
+  'ajustes': settings,
   'caja': cash,
   'recepcion': reception,
   'recepcion/revisar': review,
@@ -25,6 +29,7 @@ const ROUTES = {
   'devolucion': returns,
   'clientes': customers,
   'reporte': report,
+  'excepciones': exceptions,
 };
 const APPROVER_ROLES = ['MANAGER', 'OWNER'];
 const $ = id => document.getElementById(id);
@@ -53,25 +58,16 @@ export function handleScan(code) {
 }
 globalThis.savia = { handleScan };
 
-function applyPalette(value) {
-  const palette = ['bosque', 'tinta', 'malva'].includes(value) ? value : 'bosque';
-  if (palette === 'bosque') delete document.documentElement.dataset.palette;
-  else document.documentElement.dataset.palette = palette;
-  const radio = document.querySelector(`input[name="savia-palette"][value="${palette}"]`);
-  if (radio) radio.checked = true;
-}
-
 function renderTillState() {
   const el = $('till-state');
   const till = ctx.till.get();
-  el.textContent = till ? 'Caja abierta' : 'Caja cerrada';
+  el.textContent = till ? `Caja abierta · ${till.cashierName ?? ctx.me?.displayName ?? ''}` : 'Caja cerrada · Abra la caja para vender';
   el.dataset.state = till ? 'open' : 'closed';
 }
 
 function renderHeader() {
   $('operator-label').textContent = ctx.me ? `${ctx.me.displayName} · ${ctx.roles.map(roleName).join(', ')}` : '';
   $('branch-label').textContent = ctx.branchName ?? 'Sucursal';
-  $('sample-tag').hidden = false;
   renderTillState();
 }
 
@@ -93,6 +89,7 @@ async function route() {
   const screen = ROUTES[name] ?? sale;
   $('access').hidden = true;
   $('shell').hidden = false;
+  if (ctx.roles.some(role => ['CASHIER','MANAGER','OWNER'].includes(role))) await syncTill(ctx);
   renderHeader();
   for (const link of document.querySelectorAll('#nav a')) {
     link.hidden = !canAccess(link.dataset.route, ctx.roles);
@@ -104,7 +101,7 @@ async function route() {
   const root = $('screen');
   replace(root);
   if (!canAccess(name, ctx.roles)) {
-    replace(root, h('div', { class: 'page' }, h('p', { class: 'error', role: 'alert' }, 'Su cuenta no tiene acceso a esta pantalla.')));
+    replace(root, h('div', { class: 'page' }, h('p', { class: 'error', role: 'alert' }, 'Su cuenta no tiene acceso. Elija una pantalla del menú o solicite ayuda a supervisión.')));
     return;
   }
   current = { route: name, handle: await screen.mount(root, ctx) };
@@ -119,10 +116,6 @@ async function onSignedIn(loginResponse) {
 
 async function start() {
   applyPalette(device.get('palette'));
-  $('palette-picker').addEventListener('change', event => {
-    device.set('palette', event.target.value);
-    applyPalette(event.target.value);
-  });
   $('logout').addEventListener('click', async () => {
     try { await api.logout(); } catch { /* the token dies on the server or expires; sign out here either way */ }
     api.setToken(null);

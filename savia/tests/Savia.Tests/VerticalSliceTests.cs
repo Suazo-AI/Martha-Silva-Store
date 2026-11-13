@@ -72,7 +72,7 @@ public sealed class VerticalSliceTests : IAsyncLifetime
 
         // --- sell: two units, cash. The same request again changes nothing.
         var till = Guid.NewGuid();
-        await HttpAssert.OkAsync(await _cashier.PostAsJsonAsync("/api/v1/cash/tills", new OpenTillRequest(till, Ids.RegisterA, "NIO", 100_000)));
+        await HttpAssert.OkAsync(await _cashier.PostAsJsonAsync("/api/v1/cash/tills", new OpenTillRequest(till, Ids.RegisterA, "NIO", 100_000, [new(100000, 1)])));
         var sale = new PostSaleRequest(Guid.NewGuid(), till, "NIO",
             [new SaleLine(1, Ids.Item, 2, 120_000)],
             [new SaleTender(1, "cash", 240_000, ReceivedMinor: 300_000, ChangeMinor: 60_000)]);
@@ -142,14 +142,14 @@ public sealed class VerticalSliceTests : IAsyncLifetime
         // Cashier B has a valid account, but this host serves branch A only.
         var cashierB = await _branchA.SignInAsync(Ids.CashierB, "t_cashier_b");
         await HttpAssert.ProblemAsync(await cashierB.PostAsJsonAsync("/api/v1/cash/tills",
-            new OpenTillRequest(Guid.NewGuid(), Ids.RegisterA, "NIO", 0)), HttpStatusCode.Forbidden, "auth.branch_access");
+            new OpenTillRequest(Guid.NewGuid(), Ids.RegisterA, "NIO", 0, [new(100000, 0)])), HttpStatusCode.Forbidden, "auth.branch_access");
         await HttpAssert.ProblemAsync(await cashierB.GetAsync("/api/v1/stock"), HttpStatusCode.Forbidden, "auth.branch_access");
         await HttpAssert.ProblemAsync(await cashierB.PostAsJsonAsync("/api/v1/receiving/sessions",
             new OpenScanSessionRequest(Guid.NewGuid(), Guid.NewGuid(), "CONT-B", Ids.Supplier)), HttpStatusCode.Forbidden, "auth.branch_access");
 
         // Cashier A cannot open a till on a register of branch B through the branch A host.
         await HttpAssert.ProblemAsync(await _cashier.PostAsJsonAsync("/api/v1/cash/tills",
-            new OpenTillRequest(Guid.NewGuid(), Ids.RegisterB, "NIO", 0)), HttpStatusCode.NotFound, "cash.register_not_found");
+            new OpenTillRequest(Guid.NewGuid(), Ids.RegisterB, "NIO", 0, [new(100000, 0)])), HttpStatusCode.NotFound, "cash.register_not_found");
         Assert.Equal(0, await TestSql.ScalarAsync<int>(_database, "SELECT COUNT(*) FROM sales.CashTills"));
     }
 

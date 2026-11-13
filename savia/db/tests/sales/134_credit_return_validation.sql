@@ -21,7 +21,7 @@ INSERT INTO @lines(LineNumber,ItemId,Quantity,UnitPriceMinor,DiscountMinor) VALU
 INSERT INTO @tenders(TenderNumber,TenderKind,AmountMinor,ReceivedMinor,ChangeMinor) VALUES(1,'cash',360000,360000,0);
 EXEC sales.usp_PostSale @SaleId=@sale,@BranchId=@branch,@LocationId=@loc,@CashierId=@cashier,
      @CurrencyCode='NIO',@TillId=@till,@OriginNodeId=@node,@Lines=@lines,@Tenders=@tenders,
-     @CustomerId=@customer;
+     @CustomerId=@customer,@DiscountApproverId='A0000000-0000-0000-0000-0000000000A5',@DiscountReason=N'Autorizado para prueba';
 SET @line=(SELECT Id FROM sales.SaleLines WHERE SaleId=@sale AND LineNumber=1);
 
 -- 51525 devolucion sin prendas
@@ -108,7 +108,7 @@ DECLARE @zlines sales.SaleLineRequest,@ztenders sales.SaleTenderRequest;
 INSERT INTO @zlines(LineNumber,ItemId,Quantity,UnitPriceMinor,DiscountMinor) VALUES(1,@item,1,120000,120000);
 EXEC sales.usp_PostSale @SaleId=@zeroSale,@BranchId=@branch,@LocationId=@loc,@CashierId=@cashier,
      @CurrencyCode='NIO',@TillId=@till,@OriginNodeId=@node,@Lines=@zlines,@Tenders=@ztenders,
-     @CustomerId=@customer;
+     @CustomerId=@customer,@DiscountApproverId=@super,@DiscountReason=N'Autorizado para prueba';
 SET @zeroLine=(SELECT Id FROM sales.SaleLines WHERE SaleId=@zeroSale AND LineNumber=1);
 DECLARE @zeroRet sales.ReturnLineRequest;
 INSERT INTO @zeroRet(SaleLineId,Quantity,RestockPool) VALUES(@zeroLine,1,'store');
