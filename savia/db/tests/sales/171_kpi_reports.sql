@@ -23,6 +23,8 @@ DECLARE @today date=CONVERT(date,DATEADD(hour,-6,core.ufn_BusinessNow()));
 DECLARE @biz TABLE(Json nvarchar(max));INSERT @biz EXEC sales.usp_KpiBusiness @branch,@owner,'month',@today;
 SET @n=(SELECT TRY_CONVERT(bigint,JSON_VALUE(Json,'$.salesCount')) FROM @biz);EXEC test.AssertEq N'sales count',2,@n;
 SET @n=(SELECT TRY_CONVERT(bigint,JSON_VALUE(Json,'$.netSalesMinor')) FROM @biz);EXEC test.AssertEq N'net sales = sold - returned',348000,@n;
+SET @n=(SELECT TRY_CONVERT(bigint,JSON_VALUE(Json,'$.grossSalesMinor')) FROM @biz);EXEC test.AssertEq N'sold before returns (V026)',468000,@n;
+SET @n=(SELECT TRY_CONVERT(bigint,JSON_VALUE(Json,'$.grossSalesMinor'))-TRY_CONVERT(bigint,JSON_VALUE(Json,'$.returnsMinor'))-TRY_CONVERT(bigint,JSON_VALUE(Json,'$.netSalesMinor')) FROM @biz);EXEC test.AssertEq N'sold - returns - net = 0',0,@n;
 SET @n=(SELECT TRY_CONVERT(bigint,JSON_VALUE(Json,'$.averageTicketMinor')) FROM @biz);EXEC test.AssertEq N'average ticket',234000,@n;
 SET @n=(SELECT TRY_CONVERT(bigint,JSON_VALUE(Json,'$.unitsPerTicketX100')) FROM @biz);EXEC test.AssertEq N'units per ticket x100',200,@n;
 SET @n=(SELECT TRY_CONVERT(bigint,JSON_VALUE(Json,'$.grossMarginMinor')) FROM @biz);EXEC test.AssertEq N'margin = revenue - net cost',168000,@n;

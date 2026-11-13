@@ -37,8 +37,9 @@ def steps(quick):
     yield "check", [PY, "tools/check.py"], None
     yield "pilot-reset-demo", [PY, "tools/pilot.py", "reset", "--demo"], None
     yield "pilot-up", [PY, "tools/pilot.py", "up"], None
-    yield "smoke", [PY, "tools/pilot_smoke.py"], None
     browser = None if shutil.which("agent-browser") else "agent-browser is not installed"
+    yield "demo-rehearsal", [PY, "tools/demo_rehearsal.py"], browser   # read only, on the untouched demo data
+    yield "smoke", [PY, "tools/pilot_smoke.py"], None
     yield "e2e-1", [PY, "web/tests/e2e_pilot.py"], browser
     yield "e2e-2", [PY, "web/tests/e2e_pilot.py"], browser
     yield "tag-live", [PY, "tools/tag_live.py"], None if (ROOT / ".ocr").is_dir() else "local OCR is not installed (tools/ocr/setup_ocr.py)"

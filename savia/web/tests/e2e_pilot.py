@@ -388,7 +388,7 @@ def main() -> int:
         shot('comisiones')
         # Reportes: every figure on screen is the API value.
         go('reporte','#kpi-business');team=get('/reports/kpi/team?period=day&date='+today);business=get('/reports/kpi/business?period=day&date='+today)
-        for key,fmt in (('netSalesMinor',money),('salesCount',str),('averageTicketMinor',money),('grossMarginMinor',money),('stockValueAtCostMinor',money)):
+        for key,fmt in (('grossSalesMinor',money),('returnsMinor',money),('netSalesMinor',money),('salesCount',str),('averageTicketMinor',money),('grossMarginMinor',money),('stockValueAtCostMinor',money)):
             check(text('#kpi-'+key)==fmt(business[key]),'Negocio '+key+' equals API')
         for row in business['refundsByKind']:
             check(text('#kpi-refunds [data-kind="'+row['kind']+'"] [data-field="amountMinor"]')==money(row['amountMinor']),'refunds by kind equal API')

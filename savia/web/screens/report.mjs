@@ -149,6 +149,8 @@ export function reportContent(report) {
 /** "Negocio": SQL-computed KPIs for the period. */
 export function businessContent(kpi) {
   const cards = [
+    ['grossSalesMinor', 'Vendido', money],
+    ['returnsMinor', 'Devoluciones', money],
     ['netSalesMinor', 'Venta neta', money],
     ['salesCount', 'Ventas', String],
     ['averageTicketMinor', 'Ticket promedio', money],
@@ -226,7 +228,7 @@ export function teamContent(team) {
       team.sellers,
       [
         ['name', 'Vendedor'],
-        ['netSalesMinor', 'Venta neta', money],
+        ['netSalesMinor', 'Vendido', money],
         ['units', 'Prendas'],
         ['tickets', 'Tickets'],
         ['averageTicketMinor', 'Ticket promedio', money],

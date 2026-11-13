@@ -1,0 +1,70 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-13T19:36:34.139794+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "CLAUDE.md",
+      "change": "A",
+      "git_blob": "b51208e5cda004a8365335223120e4a49c86895e"
+    },
+    {
+      "path": "savia/db/migrations/MANIFEST.sha256",
+      "change": "M",
+      "git_blob": "a1370de10b7889bd7a4d1da215c891b6054ed6de"
+    },
+    {
+      "path": "savia/db/migrations/V026__kpi_gross_sales.sql",
+      "change": "A",
+      "git_blob": "ce942d09429540163169ee375d214935eeb894d4"
+    },
+    {
+      "path": "savia/db/tests/sales/171_kpi_reports.sql",
+      "change": "M",
+      "git_blob": "e57cfc659279cfe85fde41da952b2587e9ea55e4"
+    },
+    {
+      "path": "savia/docs/PLAN.md",
+      "change": "M",
+      "git_blob": "6c25e73438197435f9e64c800553986be806f07e"
+    },
+    {
+      "path": "savia/docs/pilot/DEMO.md",
+      "change": "A",
+      "git_blob": "30396734a1ada10fd0bda7adab3db68b294e16f8"
+    },
+    {
+      "path": "savia/tools/demo_rehearsal.py",
+      "change": "A",
+      "git_blob": "23535460caa2882d0521f2f70d813c234df59a8a"
+    },
+    {
+      "path": "savia/tools/pilot_demo_history.py",
+      "change": "M",
+      "git_blob": "86a0c1985af306ef066a024bc9f687a34b4ef99a"
+    },
+    {
+      "path": "savia/tools/verify.py",
+      "change": "M",
+      "git_blob": "1656aa405ef7aab7b9ed534aff228973335dc3d4"
+    },
+    {
+      "path": "savia/web/screens/prices.mjs",
+      "change": "M",
+      "git_blob": "c2d807ccb198905c86ae8395c1463316e9ad5f6d"
+    },
+    {
+      "path": "savia/web/screens/report.mjs",
+      "change": "M",
+      "git_blob": "42ac0aa48c842eb1d3391a7d78ebc0b06886326a"
+    },
+    {
+      "path": "savia/web/tests/e2e_pilot.py",
+      "change": "M",
+      "git_blob": "7b33882a713fb65b5a69ebbbcd61617939ad7371"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

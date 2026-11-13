@@ -49,6 +49,7 @@ EXEC receiving.usp_PostScanSession @session,@manager,@node,@receipt OUTPUT,'NIO'
 DECLARE @previous uniqueidentifier=NULL,@sale uniqueidentifier,@till uniqueidentifier,@count uniqueidentifier,@closure uniqueidentifier,
  @line uniqueidentifier,@reverse uniqueidentifier,@credit uniqueidentifier,@j int,@total bigint,@price2 bigint,@item2 uniqueidentifier,@discount bigint,@kind varchar(20),@cash bigint,@difference bigint,@countJson nvarchar(max),@sellers nvarchar(max),@shortNote nvarchar(500);
 DECLARE @lines sales.SaleLineRequest,@tenders sales.SaleTenderRequest,@returnLines sales.ReturnLineRequest;
+DECLARE @weekday int,@perDay int,@saleAt datetime2(3),@first uniqueidentifier,@second uniqueidentifier,@shared bit,@hasTwo bit;
 WHILE @day<60
 BEGIN
  SET @at=DATEADD(hour,15,CONVERT(datetime2,DATEADD(day,@day-59,@today)));
@@ -80,21 +81,32 @@ BEGIN
    N'@json nvarchar(max),@reversal uniqueidentifier,@credit uniqueidentifier,@sale uniqueidentifier,@branch uniqueidentifier,@loc uniqueidentifier,@till uniqueidentifier,@manager uniqueidentifier,@customer uniqueidentifier,@node uniqueidentifier',@returnJson,@reverse,@credit,@previous,@branch,@loc,@till,@manager,@customer,@node;
  END;
  SET @j=0;
- WHILE @j<4
+ -- Invented rhythm, the same on every run: busier Friday to Sunday, 3 to 8 tickets a day spread over the day,
+ -- one or two garments, about one ticket in three shared by the two sellers, and Ana opens 3 of every 5 tickets.
+ SET @weekday=DATEDIFF(day,'19000101',CONVERT(date,DATEADD(hour,-6,@at)))%7;   -- 0 = Monday
+ SET @perDay=3+(@day*5)%3+CASE @weekday WHEN 5 THEN 3 WHEN 4 THEN 2 WHEN 6 THEN 1 ELSE 0 END;
+ WHILE @j<@perDay
  BEGIN
+  SET @saleAt=DATEADD(minute,50*@j+(@day*13)%40,@at);
+  IF @saleAt>DATEADD(millisecond,-10,SYSUTCDATETIME()) SET @saleAt=DATEADD(millisecond,-10,SYSUTCDATETIME());
+  EXEC core.usp_SetDemoDate @saleAt;
+  SET @first=CASE WHEN (@day*2+@j)%5 IN (0,2,3) THEN @seller1 ELSE @seller2 END;
+  SET @shared=CASE WHEN (@day+@j*2)%3=0 THEN 1 ELSE 0 END;
+  SET @hasTwo=CASE WHEN @shared=1 OR (@day+@j)%4=1 THEN 1 ELSE 0 END;
+  SET @second=CASE WHEN @shared=0 THEN @first WHEN @first=@seller1 THEN @seller2 ELSE @seller1 END;
   SELECT @item=Id,@price=Price FROM @items WHERE n=1+((@day*3+@j)%@max);
   SELECT @item2=Id,@price2=Price FROM @items WHERE n=1+((@day*3+@j+17)%@max);
-  SET @discount=CASE WHEN (@day+@j)%7=0 THEN @price/10 ELSE 0 END;SET @total=@price+@price2-@discount;
+  SET @discount=CASE WHEN (@day+@j)%7=0 THEN @price/10 ELSE 0 END;SET @total=@price-@discount+CASE WHEN @hasTwo=1 THEN @price2 ELSE 0 END;
   SET @kind=CASE (@day+@j)%3 WHEN 0 THEN 'cash' WHEN 1 THEN 'card' ELSE 'transfer' END;
   SET @sale=NEWID();SET @shortNote=N'Gerente confirmó existencia física al atender';
-  SET @sellers=(SELECT v.lineNumber,v.sellerId FROM (VALUES(1,@seller1),(2,@seller2)) v(lineNumber,sellerId) FOR JSON PATH);
+  SET @sellers=(SELECT v.lineNumber,v.sellerId FROM (VALUES(1,@first),(2,@second)) v(lineNumber,sellerId) WHERE v.lineNumber=1 OR @hasTwo=1 FOR JSON PATH);
   -- Each execution gets fresh typed table variables; no physical DELETE on business or staging tables.
   EXEC sys.sp_executesql N'DECLARE @l sales.SaleLineRequest,@t sales.SaleTenderRequest;
-   INSERT @l VALUES(1,@one,1,@p1,@disc),(2,@two,1,@p2,0);
+   INSERT @l VALUES(1,@one,1,@p1,@disc);IF @hasTwo=1 INSERT @l VALUES(2,@two,1,@p2,0);
    INSERT @t(TenderNumber,TenderKind,AmountMinor,ReceivedMinor,ChangeMinor,Reference) VALUES(1,@kind,@total,CASE WHEN @kind=''cash'' THEN @total ELSE NULL END,CASE WHEN @kind=''cash'' THEN 0 ELSE NULL END,CASE WHEN @kind=''transfer'' THEN N''Comprobante de tienda'' ELSE NULL END);
    EXEC sales.usp_PostSale @SaleId=@sale,@BranchId=@branch,@LocationId=@loc,@CashierId=@manager,@CurrencyCode=''NIO'',@OriginNodeId=@node,@Lines=@l,@Tenders=@t,@TillId=@till,@DiscountReason=N''Atención comercial de gerente'',@StockExceptionNote=@note,@SellersJson=@sellers;',
-   N'@one uniqueidentifier,@two uniqueidentifier,@p1 bigint,@p2 bigint,@disc bigint,@kind varchar(20),@total bigint,@sale uniqueidentifier,@branch uniqueidentifier,@loc uniqueidentifier,@manager uniqueidentifier,@node uniqueidentifier,@till uniqueidentifier,@note nvarchar(500),@sellers nvarchar(max)',
-   @item,@item2,@price,@price2,@discount,@kind,@total,@sale,@branch,@loc,@manager,@node,@till,@shortNote,@sellers;
+   N'@one uniqueidentifier,@two uniqueidentifier,@p1 bigint,@p2 bigint,@disc bigint,@kind varchar(20),@total bigint,@sale uniqueidentifier,@branch uniqueidentifier,@loc uniqueidentifier,@manager uniqueidentifier,@node uniqueidentifier,@till uniqueidentifier,@note nvarchar(500),@sellers nvarchar(max),@hasTwo bit',
+   @item,@item2,@price,@price2,@discount,@kind,@total,@sale,@branch,@loc,@manager,@node,@till,@shortNote,@sellers,@hasTwo;
   SET @previous=@sale;SET @j+=1;
  END;
  SELECT @cash=SUM(DeltaMinor) FROM sales.CashEntries WHERE TillId=@till;

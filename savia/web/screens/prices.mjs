@@ -70,8 +70,9 @@ export default {
               h(
                 'details',
                 {},
-                h('summary', {}, `Historial (${item.history.length})`),
-                item.history.map(row =>
+                h('summary', {}, `Historial (${(item.history ?? []).length})`),
+                // SQL sends null, not [], for an item whose price never changed.
+                (item.history ?? []).map(row =>
                   h(
                     'p',
                     {},
