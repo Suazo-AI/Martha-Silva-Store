@@ -86,8 +86,12 @@ public static class TestSql
         var port = RunAsync("docker", "port savia-sqlserver-dev 1433/tcp").GetAwaiter().GetResult().Trim().Split(':')[^1];
         return new SqlConnectionStringBuilder
         {
-            DataSource = $"127.0.0.1,{port}", UserID = "sa", Password = password,
-            Encrypt = true, TrustServerCertificate = true, ConnectTimeout = 15,
+            DataSource = $"127.0.0.1,{port}",
+            UserID = "sa",
+            Password = password,
+            Encrypt = true,
+            TrustServerCertificate = true,
+            ConnectTimeout = 15,
         }.ConnectionString;
     }
 
@@ -102,7 +106,10 @@ public static class TestSql
     {
         using var process = Process.Start(new ProcessStartInfo(file, arguments)
         {
-            RedirectStandardOutput = true, RedirectStandardError = true, UseShellExecute = false, CreateNoWindow = true,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            UseShellExecute = false,
+            CreateNoWindow = true,
         }) ?? throw new InvalidOperationException($"Cannot start {file}.");
         var output = process.StandardOutput.ReadToEndAsync();
         var error = process.StandardError.ReadToEndAsync();

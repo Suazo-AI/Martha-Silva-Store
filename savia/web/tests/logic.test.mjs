@@ -1,12 +1,21 @@
-import test from 'node:test';
 import assert from 'node:assert/strict';
-import { addToTicket, setQuantity, removeLine, ticketTotal, saleRequest, itemFromLookup } from '../screens/sale-logic.mjs';
-import { linesFromServer, totalsText } from '../screens/reception-logic.mjs';
+import test from 'node:test';
+import { ApiError, request, toError } from '../api.mjs';
 import { differenceView } from '../screens/cash-logic.mjs';
 import { filterStock } from '../screens/inventory-logic.mjs';
-import { toError, request, ApiError } from '../api.mjs';
+import { linesFromServer, totalsText } from '../screens/reception-logic.mjs';
+import { addToTicket, itemFromLookup, removeLine, saleRequest, setQuantity, ticketTotal } from '../screens/sale-logic.mjs';
 
-const lookupRow = { itemId: 'i1', sku: 'T-SKU-0001', variantName: 'Blusa Negra M', unitPriceMinor: 120000, currencyCode: 'NIO', status: 'active', productName: 'Blusa Test', sizeCode: 'M' };
+const lookupRow = {
+  itemId: 'i1',
+  sku: 'T-SKU-0001',
+  variantName: 'Blusa Negra M',
+  unitPriceMinor: 120000,
+  currencyCode: 'NIO',
+  status: 'active',
+  productName: 'Blusa Test',
+  sizeCode: 'M',
+};
 
 test('ticket: same item twice is one line with quantity 2; total and change in minor units', () => {
   let lines = addToTicket([], itemFromLookup(lookupRow));
@@ -29,8 +38,10 @@ test('ticket: editable quantity rejects 0, negatives and decimals', () => {
 });
 
 test('reception: server lines preserve quantity, scan id and rejection status', () => {
-  const rows = linesFromServer([{ rawCode: '7500001000014', quantity: 5, matchStatus: 'matched', scanId: null },
-    { rawCode: 'unknown', quantity: 1, matchStatus: 'rejected', scanId: 'scan-1' }]);
+  const rows = linesFromServer([
+    { rawCode: '7500001000014', quantity: 5, matchStatus: 'matched', scanId: null },
+    { rawCode: 'unknown', quantity: 1, matchStatus: 'rejected', scanId: 'scan-1' },
+  ]);
   assert.equal(rows[0].quantity, 5);
   assert.equal(rows[1].scanId, 'scan-1');
   assert.equal(rows[1].matchStatus, 'rejected');
@@ -49,10 +60,19 @@ test('cash difference has words, not only color', () => {
 });
 
 test('inventory filter matches SKU or name without accents', () => {
-  const rows = [{ sku: 'T-SKU-0001', variantName: 'Blusa Negra M' }, { sku: 'X-2', variantName: 'Pantalón' }];
+  const rows = [
+    { sku: 'T-SKU-0001', variantName: 'Blusa Negra M' },
+    { sku: 'X-2', variantName: 'Pantalón' },
+  ];
   assert.equal(filterStock(rows, '').length, 2);
-  assert.deepEqual(filterStock(rows, 'sku-0001').map(r => r.sku), ['T-SKU-0001']);
-  assert.deepEqual(filterStock(rows, 'pantalon').map(r => r.sku), ['X-2']);
+  assert.deepEqual(
+    filterStock(rows, 'sku-0001').map(r => r.sku),
+    ['T-SKU-0001'],
+  );
+  assert.deepEqual(
+    filterStock(rows, 'pantalon').map(r => r.sku),
+    ['X-2'],
+  );
 });
 
 const response = (status, body) => ({ ok: status < 400, status, text: async () => body });
@@ -72,8 +92,14 @@ test('api: an unmapped route keeps its HTTP status', async () => {
 });
 
 test('api: a network failure becomes a retryable error', async () => {
-  await assert.rejects(request('GET', '/me', undefined, { fetchImpl: async () => { throw new TypeError('fetch failed'); } }),
-    e => e.network === true && e.code === 'network');
+  await assert.rejects(
+    request('GET', '/me', undefined, {
+      fetchImpl: async () => {
+        throw new TypeError('fetch failed');
+      },
+    }),
+    e => e.network === true && e.code === 'network',
+  );
 });
 
 test('api: 204 gives null and JSON is parsed', async () => {

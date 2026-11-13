@@ -29,7 +29,8 @@ PASSWORDS = {name+'.muestra':os.environ.get('SAVIA_PILOT_PASSWORD_'+name.upper()
 CODE = "7500001000014"
 IMPORT_CSV = Path(__file__).resolve().parents[2] / "docs" / "pilot" / "import-samples" / "catalogo-ejemplo.csv"
 IMPORT_OK = {'Codigo ya registrado.', 'SKU repetido o ya registrado.'}
-SHOTS = Path(__file__).resolve().parents[2] / "docs" / "pilot" / "screens"
+# Screenshots are evidence of this run. SAVIA_E2E_SHOTS sends them elsewhere; docs/pilot/screens is updated on purpose only.
+SHOTS = Path(os.environ.get("SAVIA_E2E_SHOTS") or Path(__file__).resolve().parents[2] / ".out" / "e2e-screens")
 AB = shutil.which("agent-browser")
 if AB and Path(AB).suffix.lower() in (".cmd", ".bat"):
     # The npm CMD shim reparses quotes/metacharacters in eval. Invoke the same CLI's Rust binary.

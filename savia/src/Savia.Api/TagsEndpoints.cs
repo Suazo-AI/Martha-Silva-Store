@@ -5,16 +5,15 @@ using Savia.Domain;
 namespace Savia.Api;
 
 /// <summary>POST /api/v1/inventory/tag-extract: phone photo of a hanging tag -> editable new-product fields (docs/pilot/ETIQUETA.md).</summary>
-public static class TagEndpoints
+public static class TagsEndpoints
 {
-    public static void MapTagEndpoints(this WebApplication app)
+    public static void Map(RouteGroupBuilder api, WebApplication app)
     {
         var keepPhotos = app.Configuration.GetValue("Savia:Tags:KeepPhotos", false);
         var photoFolder = Path.GetFullPath(app.Configuration["Savia:Tags:PhotoFolder"]
             ?? Path.Combine(app.Environment.ContentRootPath, "..", "..", ".out", "tags"));
 
-        app.MapGroup("/api/v1").AddEndpointFilter<ActorFilter>()
-            .MapPost("/inventory/tag-extract", async (HttpContext http, TagExtractionService tags, CancellationToken ct) =>
+        api.MapPost("/inventory/tag-extract", async (HttpContext http, TagExtractionService tags, CancellationToken ct) =>
             {
                 // Read the form by hand: bearer-token API (no cookies), so no antiforgery token is involved.
                 if (!http.Request.HasFormContentType)
@@ -30,12 +29,13 @@ public static class TagEndpoints
                 if (keepPhotos)
                 {
                     Directory.CreateDirectory(photoFolder);
-                    await File.WriteAllBytesAsync(Path.Combine(photoFolder, $"{DateTime.UtcNow:yyyyMMddHHmmss}-{Guid.NewGuid():N}.img"), image.ToArray(), ct);
+                    await File.WriteAllBytesAsync(
+                        Path.Combine(photoFolder, $"{DateTime.UtcNow:yyyyMMddHHmmss}-{Guid.NewGuid():N}.img"), image.ToArray(), ct);
                 }
                 return Results.Ok(result);
             })
             .Accepts<IFormFile>("multipart/form-data")
             .Produces<TagExtractResponse>()
-            .WithTags("inventory");
+            .WithTags("tags");
     }
 }

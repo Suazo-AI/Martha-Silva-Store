@@ -1,6 +1,6 @@
-import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readScan, shouldReclaimFocus, attachScanField, serialQueue } from '../scan.mjs';
+import test from 'node:test';
+import { attachScanField, readScan, serialQueue, shouldReclaimFocus } from '../scan.mjs';
 
 test('readScan keeps leading zeros and strips scanner noise', () => {
   assert.equal(readScan('0000123456789'), '0000123456789');
@@ -29,17 +29,38 @@ function fakeDom() {
   const listeners = {};
   const doc = {
     activeElement: null,
-    addEventListener: (t, fn) => { (listeners['doc:' + t] ||= []).push(fn); },
-    removeEventListener: (t, fn) => { listeners['doc:' + t] = (listeners['doc:' + t] || []).filter(f => f !== fn); },
+    addEventListener: (t, fn) => {
+      listeners[`doc:${t}`] ??= [];
+      listeners[`doc:${t}`].push(fn);
+    },
+    removeEventListener: (t, fn) => {
+      listeners[`doc:${t}`] = (listeners[`doc:${t}`] || []).filter(f => f !== fn);
+    },
   };
   const input = {
-    tagName: 'INPUT', type: 'text', value: '', isConnected: true, disabled: false, closest: () => null,
-    addEventListener: (t, fn) => { (listeners[t] ||= []).push(fn); },
-    removeEventListener: (t, fn) => { listeners[t] = (listeners[t] || []).filter(f => f !== fn); },
-    focus() { doc.activeElement = input; },
+    tagName: 'INPUT',
+    type: 'text',
+    value: '',
+    isConnected: true,
+    disabled: false,
+    closest: () => null,
+    addEventListener: (t, fn) => {
+      listeners[t] ??= [];
+      listeners[t].push(fn);
+    },
+    removeEventListener: (t, fn) => {
+      listeners[t] = (listeners[t] || []).filter(f => f !== fn);
+    },
+    focus() {
+      doc.activeElement = input;
+    },
   };
-  const fire = (t, event = {}) => (listeners[t] || []).forEach(fn => fn(event));
-  const fireDoc = (t, event = {}) => (listeners['doc:' + t] || []).forEach(fn => fn(event));
+  const fire = (t, event = {}) => {
+    for (const fn of listeners[t] || []) fn(event);
+  };
+  const fireDoc = (t, event = {}) => {
+    for (const fn of listeners[`doc:${t}`] || []) fn(event);
+  };
   return { doc, input, fire, fireDoc, listeners };
 }
 
@@ -51,7 +72,12 @@ test('attachScanField: Enter sends the code and clears the field at once', () =>
   for (let i = 0; i < 5; i++) {
     input.value = '0000123456789';
     let prevented = false;
-    fire('keydown', { key: 'Enter', preventDefault: () => { prevented = true; } });
+    fire('keydown', {
+      key: 'Enter',
+      preventDefault: () => {
+        prevented = true;
+      },
+    });
     assert.equal(prevented, true);
     assert.equal(input.value, '');
   }
@@ -90,8 +116,14 @@ test('scanner burst without focus reports once; focused burst does not duplicate
   const detach = attachScanField(input, code => codes.push(code), { doc, keepFocus: false });
   const burst = target => {
     for (const key of '7500001000014') fireDoc('keydown', { key, target });
-    const event = { key: 'Enter', target, defaultPrevented: false,
-      preventDefault() { this.defaultPrevented = true; } };
+    const event = {
+      key: 'Enter',
+      target,
+      defaultPrevented: false,
+      preventDefault() {
+        this.defaultPrevented = true;
+      },
+    };
     fireDoc('keydown', event);
     return event;
   };
@@ -101,8 +133,14 @@ test('scanner burst without focus reports once; focused burst does not duplicate
     fireDoc('keydown', { key, target: input });
     input.value += key;
   }
-  const enter = { key: 'Enter', target: input, defaultPrevented: false,
-    preventDefault() { this.defaultPrevented = true; } };
+  const enter = {
+    key: 'Enter',
+    target: input,
+    defaultPrevented: false,
+    preventDefault() {
+      this.defaultPrevented = true;
+    },
+  };
   fireDoc('keydown', enter);
   fire('keydown', enter);
   assert.deepEqual(codes, ['7500001000014', '7500001000014']);
@@ -122,7 +160,10 @@ test('serialQueue keeps arrival order even when early work is slow', async () =>
 
 test('serialQueue continues after a failure', async () => {
   const done = [];
-  const queue = serialQueue(async n => { if (n === 1) throw new Error('x'); done.push(n); });
+  const queue = serialQueue(async n => {
+    if (n === 1) throw new Error('x');
+    done.push(n);
+  });
   await assert.rejects(queue.push(1));
   await queue.push(2);
   assert.deepEqual(done, [2]);

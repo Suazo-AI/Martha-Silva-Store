@@ -16,7 +16,7 @@ Cada usuario requiere una contraseña independiente desde su variable `SAVIA_PIL
 Nunca escriba contraseñas en documentos ni las comparta en capturas.
 Una venta normal no pide nombre ni teléfono. Elija la vendedora antes de agregar cada prenda.
 La identidad de cliente se usa para anticipos. Tarjeta solo registra el pago hecho en el POS externo.
-Antes de una acción sensible, lea el importe y elija Si, confirmar o No, volver.
+Antes de una acción sensible, lea el importe y elija Sí, confirmar o No, volver.
 La dueña revisa Aprobaciones porque la gerente también autoriza sus propias acciones.
 En Recepción, clasifique todas las unidades. Solo Buena entra a la existencia disponible.
 Dañada, Manchada y Mal olor quedan en cuarentena. Faltante no entra al inventario.

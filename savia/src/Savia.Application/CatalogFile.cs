@@ -97,7 +97,8 @@ public static class CatalogFile
             var relId = first?.Attribute(rel + "id")?.Value;
             if (relId is not null && zip.GetEntry("xl/_rels/workbook.xml.rels") is not null)
             {
-                var target = Part("xl/_rels/workbook.xml.rels").Root!.Elements(pkg + "Relationship").FirstOrDefault(r => r.Attribute("Id")?.Value == relId)?.Attribute("Target")?.Value;
+                var target = Part("xl/_rels/workbook.xml.rels").Root!.Elements(pkg + "Relationship")
+                    .FirstOrDefault(r => r.Attribute("Id")?.Value == relId)?.Attribute("Target")?.Value;
                 if (target is not null) sheetPath = target.StartsWith('/') ? target.TrimStart('/') : "xl/" + target;
             }
             var rows = new List<List<string>>();

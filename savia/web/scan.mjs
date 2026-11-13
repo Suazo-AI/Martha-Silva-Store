@@ -6,7 +6,9 @@ import { createScanner } from './scanner/scanner.mjs';
 export function readScan(raw) {
   if (raw == null) return null;
   // Scanners may add CR/LF/TAB or stray control characters; codes keep their leading zeros.
-  const code = String(raw).replace(/[\u0000-\u001f\u007f]/g, '').trim();
+  const code = String(raw)
+    .replace(/[\u0000-\u001f\u007f]/g, '')
+    .trim();
   return code.length > 0 && code.length <= 128 ? code : null;
 }
 
@@ -50,7 +52,9 @@ export function attachScanField(input, onCode, { keepFocus = true, doc = globalT
   const listeners = new Map();
   const target = {
     addEventListener(type, fn, capture) {
-      const wrapped = event => { if (!doc.querySelector?.('dialog[open]')) fn(event); };
+      const wrapped = event => {
+        if (!doc.querySelector?.('dialog[open]')) fn(event);
+      };
       listeners.set(fn, wrapped);
       doc.addEventListener(type, wrapped, capture);
     },
@@ -59,7 +63,10 @@ export function attachScanField(input, onCode, { keepFocus = true, doc = globalT
       listeners.delete(fn);
     },
   };
-  const scanner = createScanner({ target, allowManual: false, minLength: 2,
+  const scanner = createScanner({
+    target,
+    allowManual: false,
+    minLength: 2,
     onScan: scan => {
       // Dialog fields are ordinary form input. Keep their values and Enter behavior.
       if (doc.querySelector?.('dialog[open]')) return;
@@ -74,7 +81,7 @@ export function attachScanField(input, onCode, { keepFocus = true, doc = globalT
   input.addEventListener('keydown', onKey);
   input.addEventListener('blur', reclaim);
   doc.addEventListener('click', reclaim);
-  doc.addEventListener('close', reclaim, true);   // a dialog closed
+  doc.addEventListener('close', reclaim, true); // a dialog closed
   if (keepFocus) input.focus({ preventScroll: true });
   return () => {
     clearTimeout(timer);
@@ -96,10 +103,16 @@ export function serialQueue(worker) {
   return {
     push(item) {
       pending += 1;
-      const run = chain.then(() => worker(item)).finally(() => { pending -= 1; });
+      const run = chain
+        .then(() => worker(item))
+        .finally(() => {
+          pending -= 1;
+        });
       chain = run.catch(() => {});
       return run;
     },
-    get pending() { return pending; },
+    get pending() {
+      return pending;
+    },
   };
 }

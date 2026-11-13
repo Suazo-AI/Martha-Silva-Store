@@ -10,7 +10,6 @@ public sealed record TagExtractResponse(
     string? Barcode, string? Sku, string? Name, string? Brand, string? Size, string? Color, long? PriceMinor,
     string? Composition, IReadOnlyDictionary<string, double> Confidence, string RawText, TagMatchedItem? MatchedItem,
     string Source, string Engine, int ElapsedMs, string? Warning);
-
 /// <summary>An existing variant found by barcode or SKU. <see cref="MatchedBy"/> is "barcode" or "sku".</summary>
 public sealed record TagMatchedItem(Guid ItemId, string Sku, string ProductName, string VariantName, string? SizeCode,
     string? ColorCode, long? UnitPriceMinor, string MatchedBy);

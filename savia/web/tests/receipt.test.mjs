@@ -1,13 +1,16 @@
-import test from 'node:test';
 import assert from 'node:assert/strict';
-import { receiptCashTotals, businessDate, saleDate } from '../screens/sale-view.mjs';
+import test from 'node:test';
+import { businessDate, receiptCashTotals, saleDate } from '../screens/sale-view.mjs';
 
 test('receipt uses recorded cash received/change; card and transfer create no cash change', () => {
-  assert.deepEqual(receiptCashTotals([
-    { tenderKind: 'cash', amountMinor: 59800, receivedMinor: 100000, changeMinor: 40200 },
-    { tenderKind: 'card', amountMinor: 30000, receivedMinor: null, changeMinor: null },
-    { tenderKind: 'transfer', amountMinor: 30000, receivedMinor: null, changeMinor: null },
-  ]), { receivedMinor: 100000, changeMinor: 40200 });
+  assert.deepEqual(
+    receiptCashTotals([
+      { tenderKind: 'cash', amountMinor: 59800, receivedMinor: 100000, changeMinor: 40200 },
+      { tenderKind: 'card', amountMinor: 30000, receivedMinor: null, changeMinor: null },
+      { tenderKind: 'transfer', amountMinor: 30000, receivedMinor: null, changeMinor: null },
+    ]),
+    { receivedMinor: 100000, changeMinor: 40200 },
+  );
   assert.deepEqual(receiptCashTotals([{ tenderKind: 'card', amountMinor: 119800 }]), { receivedMinor: 0, changeMinor: 0 });
 });
 

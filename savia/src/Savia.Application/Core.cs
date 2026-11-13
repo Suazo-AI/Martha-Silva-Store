@@ -15,10 +15,14 @@ public sealed record NodeContext(NodeKind Kind, Guid NodeId, Guid? BranchId, Gui
 /// <summary>The signed-in staff member, loaded from the database on every request.</summary>
 public sealed record Actor(Guid StaffId, string DisplayName, IReadOnlySet<string> Roles, IReadOnlySet<Guid> BranchIds);
 
+// Use cases live in one file per module (Catalog.cs, Sales.cs, ...): a port `I<Module>Store` and a `<Module>Service`.
+// Each use case authorizes, checks the shape of the input and calls one port.
+// Stock, cash and sale rules are NOT there: they live in the SQL procedures behind the ports (ADR-001 D2).
+
 /// <summary>Authorization checks. They run before any procedure is called.</summary>
 public static class Guard
 {
-    public static void Role(Actor actor, params string[] allowed)
+    public static void Role(Actor actor, string[] allowed)
     {
         if (!allowed.Any(actor.Roles.Contains)) throw new SaviaException(Errors.RoleRequired);
     }
@@ -28,6 +32,14 @@ public static class Guard
     {
         var branch = node.RequireBranch();
         if (!actor.BranchIds.Contains(branch)) throw new SaviaException(Errors.BranchAccess);
+        return branch;
+    }
+
+    /// <summary>Branch access first, then the role set. Returns the branch id.</summary>
+    public static Guid BranchRole(Actor actor, NodeContext node, string[] roles)
+    {
+        var branch = Branch(actor, node);
+        Role(actor, roles);
         return branch;
     }
 

@@ -1,11 +1,33 @@
 // Column mapping for "Importar catalogo". SQL validates every row again; this is only the preview input.
-export const FIELDS = [['code', 'Código de barras'], ['sku', 'Referencia (SKU)'], ['name', 'Descripción'], ['type', 'Tipo de prenda'],
-  ['size', 'Talla'], ['color', 'Color'], ['cost', 'Costo'], ['price', 'Precio'], ['stock', 'Existencia inicial']];
+export const FIELDS = [
+  ['code', 'Código de barras'],
+  ['sku', 'Referencia (SKU)'],
+  ['name', 'Descripción'],
+  ['type', 'Tipo de prenda'],
+  ['size', 'Talla'],
+  ['color', 'Color'],
+  ['cost', 'Costo'],
+  ['price', 'Precio'],
+  ['stock', 'Existencia inicial'],
+];
 
-const fold = text => String(text ?? '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
-const HINTS = [['code', ['codigo', 'barras', 'ean', 'upc']], ['sku', ['sku', 'referencia', 'ref']], ['name', ['descripcion', 'nombre', 'prenda']],
-  ['type', ['tipo', 'categoria']], ['size', ['talla', 'size']], ['color', ['color']], ['cost', ['costo', 'cost']],
-  ['price', ['precio', 'price', 'pvp']], ['stock', ['existencia', 'stock', 'cantidad', 'inventario']]];
+const fold = text =>
+  String(text ?? '')
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase()
+    .trim();
+const HINTS = [
+  ['code', ['codigo', 'barras', 'ean', 'upc']],
+  ['sku', ['sku', 'referencia', 'ref']],
+  ['name', ['descripcion', 'nombre', 'prenda']],
+  ['type', ['tipo', 'categoria']],
+  ['size', ['talla', 'size']],
+  ['color', ['color']],
+  ['cost', ['costo', 'cost']],
+  ['price', ['precio', 'price', 'pvp']],
+  ['stock', ['existencia', 'stock', 'cantidad', 'inventario']],
+];
 
 /** Field -> column index (or -1). Each column is used once; the first matching hint wins. */
 export function guessMapping(headers) {

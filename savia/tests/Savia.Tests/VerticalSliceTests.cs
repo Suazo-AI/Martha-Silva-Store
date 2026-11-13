@@ -89,11 +89,18 @@ public sealed class VerticalSliceTests : IAsyncLifetime
             """));
 
         // --- rejected sales leave nothing behind
-        var tooMany = sale with { SaleId = Guid.NewGuid(), Lines = [new SaleLine(1, Ids.Item, 1_000, 120_000)],
-            Tenders = [new SaleTender(1, "cash", 120_000_000, ReceivedMinor: 120_000_000, ChangeMinor: 0)] };
+        var tooMany = sale with
+        {
+            SaleId = Guid.NewGuid(),
+            Lines = [new SaleLine(1, Ids.Item, 1_000, 120_000)],
+            Tenders = [new SaleTender(1, "cash", 120_000_000, ReceivedMinor: 120_000_000, ChangeMinor: 0)]
+        };
         await HttpAssert.ProblemAsync(await _cashier.PostAsJsonAsync("/api/v1/sales", tooMany), HttpStatusCode.Conflict, "stock.insufficient");
-        var changed = sale with { Lines = [new SaleLine(1, Ids.Item, 1, 120_000)],
-            Tenders = [new SaleTender(1, "cash", 120_000, ReceivedMinor: 120_000, ChangeMinor: 0)] };
+        var changed = sale with
+        {
+            Lines = [new SaleLine(1, Ids.Item, 1, 120_000)],
+            Tenders = [new SaleTender(1, "cash", 120_000, ReceivedMinor: 120_000, ChangeMinor: 0)]
+        };
         await HttpAssert.ProblemAsync(await _cashier.PostAsJsonAsync("/api/v1/sales", changed), HttpStatusCode.Conflict, "sale.id_reused");
         Assert.Equal(98, Assert.Single(await StockAsync()).OnHand);
         Assert.Equal(1, await TestSql.ScalarAsync<int>(_database, "SELECT COUNT(*) FROM sales.Sales"));

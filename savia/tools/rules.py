@@ -123,7 +123,9 @@ def layers_point_inward(root):
 
 
 def route(text):
-    return re.sub(r"\{[^}]*\}|\$\{[^}]*\}", "{}", text.split("?")[0]).rstrip("/")
+    """A route template with every parameter as {}; a query (?x=1 or ${q({...})}) is not part of the route."""
+    path = re.split(r"\?|\$\{q\(", text)[0]
+    return re.sub(r"\{[^}]*\}|\$\{[^}]*\}", "{}", path).rstrip("/")
 
 
 def web_calls_real_routes(root):
@@ -144,7 +146,7 @@ def web_calls_real_routes(root):
 
 def no_disabled_tests(root):
     """A failing test is fixed or deleted with a reason, never skipped. A platform condition (skipUnless) is allowed."""
-    patterns = {".cs": r"Skip\s*=", ".mjs": r"\b(test|it|describe)\.(skip|only|todo)\(", ".py": r"@unittest\.skip\(|@unittest\.skipIf\(True|pytest\.mark\.skip(?!if)"}
+    patterns = {".cs": r"Skip\s*=", ".mjs": r"\b(test|it|describe)\.(skip|only|todo)\(", ".py": r"@unittest\.skip\(|@unittest\.skipIf\(True|pytest\.mark\.skip\b(?!if)"}
     out = []
     for folder in ("tests", "web", "tools"):
         for path in sorted((root / folder).rglob("*")):
@@ -155,7 +157,55 @@ def no_disabled_tests(root):
     return out
 
 
-RULES = [migrations_are_frozen, web_dialogs_and_http, web_logic_is_pure, layers_point_inward, web_calls_real_routes, no_disabled_tests]
+def source_files(root):
+    for path in sorted((root / "src").rglob("*.cs")):
+        rel = path.relative_to(root).as_posix()
+        if "/obj/" not in rel and "/bin/" not in rel:
+            yield path, rel
+
+
+def guards_use_named_role_sets(root):
+    """A guard passes one named set of Savia.Domain Roles (Roles.Approvers), never a list of roles or a literal."""
+    out = []
+    for path, rel in source_files(root):
+        text = path.read_text(encoding="utf-8", errors="replace")
+        for call in re.finditer(r"Guard\.(?:Role|BranchRole)\(([^;]*?)\)\s*[;,)]", text):
+            number = text.count("\n", 0, call.start()) + 1
+            args = call.group(1)
+            if '"' in args or "[" in args or len(re.findall(r"\bRoles\.\w+", args)) > 1:
+                out.append(f"{rel}:{number}: guard spells its roles; add or reuse a named set in src/Savia.Domain/Roles.cs and pass Roles.<Set>")
+        if "/Savia.Domain/" not in rel:
+            out += [f"{rel}:{number}: role list outside Savia.Domain; move it to src/Savia.Domain/Roles.cs as a named set"
+                    for number, line in enumerate(lines(path), 1) if re.search(r"string\[\]\s+\w+\s*=\s*(\[|new\b)[^;]*\bRoles\.", code(line))]
+    return out
+
+
+def source_stays_readable(root, max_lines=300, max_width=160):
+    """No C# file over 300 lines and no line over 160 characters."""
+    out = []
+    for path, rel in source_files(root):
+        rows = lines(path)
+        if len(rows) > max_lines:
+            out.append(f"{rel}:{max_lines + 1}: {len(rows)} lines (limit {max_lines}); split the file by responsibility inside its module")
+        out += [f"{rel}:{number}: {len(row)} characters (limit {max_width}); break the line by hand"
+                for number, row in enumerate(rows, 1) if len(row) > max_width]
+    return out
+
+
+def no_pilot_names(root):
+    """Types and files are named after the product noun they serve, never after the pilot round."""
+    out = []
+    for path, rel in source_files(root):
+        if "Pilot" in path.name:
+            out.append(f"{rel}:1: file name contains 'Pilot'; name it after its module (Sales, Returns, Reports, ...)")
+        out += [f"{rel}:{number}: type {found.group(1)} contains 'Pilot'; name it after its module (Sales, Returns, Reports, ...)"
+                for number, line in enumerate(lines(path), 1)
+                if (found := re.search(r"\b(?:class|interface|record|struct|enum)\s+(\w*Pilot\w*)", code(line)))]
+    return out
+
+
+RULES = [migrations_are_frozen, web_dialogs_and_http, web_logic_is_pure, layers_point_inward, web_calls_real_routes, no_disabled_tests,
+         guards_use_named_role_sets, source_stays_readable, no_pilot_names]
 
 
 def main(argv):

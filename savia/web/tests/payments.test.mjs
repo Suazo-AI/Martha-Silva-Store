@@ -1,29 +1,51 @@
-import test from 'node:test';
 import assert from 'node:assert/strict';
-import { saleRequest } from '../screens/sale-logic.mjs';
+import test from 'node:test';
 import { paymentDraft } from '../screens/payment-logic.mjs';
+import { saleRequest } from '../screens/sale-logic.mjs';
+
 test('a full manager discount needs no tender or cash received', () => {
-  assert.deepEqual(paymentDraft(0, [{kind:'cash',received:''}], {supportedKinds:['cash']}), {tenders:[],changeMinor:0});
+  assert.deepEqual(paymentDraft(0, [{ kind: 'cash', received: '' }], { supportedKinds: ['cash'] }), { tenders: [], changeMinor: 0 });
 });
 
 const lines = [{ itemId: 'i', quantity: 2, unitPriceMinor: 59900 }];
 test('card sale preserves its tender and never creates cash change', () => {
-  const tenders = [{ tenderNumber: 1, tenderKind: 'card', amountMinor: 119800, receivedMinor: null, changeMinor: null, reference: 'AUTH-MUESTRA' }];
+  const tenders = [
+    { tenderNumber: 1, tenderKind: 'card', amountMinor: 119800, receivedMinor: null, changeMinor: null, reference: 'AUTH-MUESTRA' },
+  ];
   assert.deepEqual(saleRequest({ saleId: 's', tillId: 't', lines, tenders }).tenders, tenders);
 });
 
 const options = { supportedKinds: ['cash', 'card', 'transfer', 'credit'], customerId: 'customer' };
 test('pending split cash and card: only cash has received and change', () => {
-  assert.deepEqual(paymentDraft(119800, [{ kind: 'cash', amount: '598', received: '1000' }, { kind: 'card', amount: '600', received: '9000', reference: 'AUTH-MUESTRA' }], options), {
-    tenders: [
-      { tenderNumber: 1, tenderKind: 'cash', amountMinor: 59800, receivedMinor: 100000, changeMinor: 40200 },
-      { tenderNumber: 2, tenderKind: 'card', amountMinor: 60000, receivedMinor: null, changeMinor: null, reference: 'AUTH-MUESTRA' },
-    ], changeMinor: 40200,
-  });
+  assert.deepEqual(
+    paymentDraft(
+      119800,
+      [
+        { kind: 'cash', amount: '598', received: '1000' },
+        { kind: 'card', amount: '600', received: '9000', reference: 'AUTH-MUESTRA' },
+      ],
+      options,
+    ),
+    {
+      tenders: [
+        { tenderNumber: 1, tenderKind: 'cash', amountMinor: 59800, receivedMinor: 100000, changeMinor: 40200 },
+        { tenderNumber: 2, tenderKind: 'card', amountMinor: 60000, receivedMinor: null, changeMinor: null, reference: 'AUTH-MUESTRA' },
+      ],
+      changeMinor: 40200,
+    },
+  );
 });
 test('pending input rejects short/overallocated split, absent reference or customer, and unsupported kind', () => {
-  for (const rows of [[], [{ kind: 'cash', received: '1197.99' }], [{ kind: 'transfer', reference: ' ' }],
-     [{ kind: 'card', amount: '600', reference: 'AUTH-1' }, { kind: 'card', amount: '599', reference: 'AUTH-2' }], [{ kind: 'bitcoin' }]]) {
+  for (const rows of [
+    [],
+    [{ kind: 'cash', received: '1197.99' }],
+    [{ kind: 'transfer', reference: ' ' }],
+    [
+      { kind: 'card', amount: '600', reference: 'AUTH-1' },
+      { kind: 'card', amount: '599', reference: 'AUTH-2' },
+    ],
+    [{ kind: 'bitcoin' }],
+  ]) {
     assert.throws(() => paymentDraft(119800, rows, options));
   }
   assert.throws(() => paymentDraft(119800, [{ kind: 'credit' }], { supportedKinds: options.supportedKinds }));

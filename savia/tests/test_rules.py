@@ -75,6 +75,9 @@ class RulesTest(unittest.TestCase):
         self.broken(rules.layers_point_inward, {"src/Savia.Api/Endpoints.cs": "using Microsoft.Data.SqlClient;\n"}, "Savia.Api must not use")
 
     def test_web_calls_real_routes(self):
+        query = {"web/api.mjs": "export const sale = id => request('GET', `/sales/${id}${q({ page, pageSize })}`);\n"}
+        self.assertEqual(rules.web_calls_real_routes(self.tree(query)), [], "a query built with q() is not part of the route")
+        self.broken(rules.web_calls_real_routes, {"web/api.mjs": "export const x = () => request('GET', `/sale${q({ page })}`);\n"}, "/sale is not mapped")
         self.broken(rules.web_calls_real_routes, {"web/api.mjs": "export const x = () => request('GET', '/sale');\n"}, "/sale is not mapped")
         self.broken(rules.web_calls_real_routes, {"web/api.mjs": "export const x = id => request('POST', path`/sales/${id}/void`);\n"}, "/sales/{}/void is not mapped")
 
@@ -84,6 +87,31 @@ class RulesTest(unittest.TestCase):
         self.broken(rules.no_disabled_tests, {"tests/test_x.py": "@unittest.skip('later')\ndef test_x(): pass\n"}, "disabled test")
         platform = {"tests/test_x.py": "@unittest.skipUnless(os.name == 'nt', 'Windows only')\ndef test_x(): pass\n"}
         self.assertEqual(rules.no_disabled_tests(self.tree(platform)), [])
+
+    def test_guards_use_named_role_sets(self):
+        app = "src/Savia.Application/Sales.cs"
+        self.broken(rules.guards_use_named_role_sets, {app: "x;\nGuard.Role(actor, Roles.Manager, Roles.Owner);\n"}, "Sales.cs:2: guard spells its roles")
+        self.broken(rules.guards_use_named_role_sets, {app: 'var b = Guard.BranchRole(actor, node, "OWNER");\n'}, "Sales.cs:1: guard spells its roles")
+        self.broken(rules.guards_use_named_role_sets, {app: "f(Guard.BranchRole(actor, node, [Roles.Owner]), ct);\n"}, "guard spells its roles")
+        self.broken(rules.guards_use_named_role_sets, {app: "Guard.Role(actor,\n    Roles.Seller,\n    Roles.Owner);\n"}, "Sales.cs:1: guard spells")
+        self.broken(rules.guards_use_named_role_sets, {app: "private static readonly string[] Sellers = [Roles.Cashier, Roles.Owner];\n"}, "role list outside")
+        named = {app: "var branch = Guard.BranchRole(actor, node, Roles.TillOperators);\nGuard.Role(approval, Roles.Approvers);\n",
+                 "src/Savia.Domain/Roles.cs": "public static readonly string[] Approvers = [Manager, Owner];\n"}
+        self.assertEqual(rules.guards_use_named_role_sets(self.tree(named)), [])
+
+    def test_source_stays_readable(self):
+        app = "src/Savia.Application/Sales.cs"
+        self.broken(rules.source_stays_readable, {app: "x;\n" * 301}, "Sales.cs:301: 301 lines")
+        self.broken(rules.source_stays_readable, {app: "x;\n" + "y" * 161 + "\n"}, "Sales.cs:2: 161 characters")
+        self.assertEqual(rules.source_stays_readable(self.tree({app: ("y" * 160 + "\n") * 300})), [])
+        self.assertEqual(rules.source_stays_readable(self.tree({"src/Savia.Api/obj/Generated.cs": "y" * 500 + "\n"})), [], "build output is not source")
+
+    def test_no_pilot_names(self):
+        self.broken(rules.no_pilot_names, {"src/Savia.Api/OwnerPilotEndpoints.cs": "namespace Savia.Api;\n"}, "OwnerPilotEndpoints.cs:1: file name")
+        self.broken(rules.no_pilot_names, {"src/Savia.Application/Sales.cs": "x;\npublic sealed class PilotSalesService(IStore s)\n"}, "Sales.cs:2: type PilotSalesService")
+        self.broken(rules.no_pilot_names, {"src/Savia.Application/Sales.cs": "public interface IPilotSalesStore\n"}, "type IPilotSalesStore")
+        allowed = {"src/Savia.Application/Sales.cs": 'var on = config["Savia:Pilot:LocalCatalog"];   // the pilot class of 2026\n'}
+        self.assertEqual(rules.no_pilot_names(self.tree(allowed)), [])
 
 
 if __name__ == "__main__":

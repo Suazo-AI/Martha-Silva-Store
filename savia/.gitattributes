@@ -1,13 +1,3 @@
-# The handoff package is kept byte-exact: its SHA-256 values are part of the evidence.
-db/handoff-20261112/** -text
-# SQL and scripts are piped into a Linux container: keep LF on every platform.
-*.sql text eol=lf
-*.py text eol=lf
-*.sh text eol=lf
-*.yml text eol=lf
-*.md text eol=lf
+# Machine formatters own these files; LF everywhere so a Windows checkout does not fail the format checks.
 *.cs text eol=lf
-*.csproj text eol=lf
-*.json text eol=lf
-*.props text eol=lf
-*.slnx text eol=lf
+*.mjs text eol=lf

@@ -178,8 +178,10 @@ internal sealed class TagHost : WebApplicationFactory<Program>
         builder.UseEnvironment("Testing");
         builder.ConfigureAppConfiguration((_, config) => config.AddInMemoryCollection(new Dictionary<string, string?>
         {
-            ["Savia:Node:Kind"] = "Branch", ["Savia:Node:NodeId"] = Ids.NodeA.ToString(),
-            ["Savia:Node:BranchId"] = Ids.BranchA.ToString(), ["Savia:Node:LocationId"] = Ids.LocA.ToString(),
+            ["Savia:Node:Kind"] = "Branch",
+            ["Savia:Node:NodeId"] = Ids.NodeA.ToString(),
+            ["Savia:Node:BranchId"] = Ids.BranchA.ToString(),
+            ["Savia:Node:LocationId"] = Ids.LocA.ToString(),
             ["Savia:Sql:ConnectionString"] = "Server=127.0.0.1,1;Database=none;Connect Timeout=1",   // never opened here
         }));
         builder.ConfigureTestServices(services =>

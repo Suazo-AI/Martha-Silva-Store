@@ -22,7 +22,9 @@ export function formatMoney(minor, currency = 'NIO') {
  */
 export function parseMoney(text) {
   if (text == null) return null;
-  const clean = String(text).replace(/C\$|US\$|\s/g, '').replace(/,/g, '');
+  const clean = String(text)
+    .replace(/C\$|US\$|\s/g, '')
+    .replace(/,/g, '');
   const match = /^(\d{1,12})(?:\.(\d{0,2}))?$/.exec(clean);
   if (!match) return null;
   const units = Number(match[1]);

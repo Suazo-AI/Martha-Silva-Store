@@ -27,6 +27,8 @@ LOGINS = ("DUENA", "GERENTE", "VENDEDOR1", "VENDEDOR2", "BODEGA")
 def steps(quick):
     yield "rules", [PY, "tools/rules.py"], None
     yield "tool-tests", [PY, "-m", "unittest", "discover", "-s", "tests", "-p", "test_*.py"], None
+    biome = ROOT / "node_modules" / "@biomejs" / "biome" / "bin" / "biome"
+    yield "web-format-lint", ["node", str(biome), "check", "web"], None if biome.exists() else "Biome is not installed (npm ci in savia/)"
     yield "web-tests", ["node", "--test", "web/tests/*.test.mjs", "web/scanner/*.test.mjs"], None
     formal = ROOT / ".out" / "tools" / "formal" / "tla2tools.jar"
     yield "formal", [PY, "tools/formal.py", "check"], None if formal.exists() else "TLA+ tools are not installed (tools/formal.py setup)"
@@ -61,8 +63,9 @@ def main():
                 verdict, skip = "BLOCKED", "an earlier step failed"
             elif not skip:
                 start = time.time()
+                step_env = dict(env, SAVIA_E2E_SHOTS=str(out / f"{number:02d}-{name}-screens"))
                 with (out / f"{number:02d}-{name}.log").open("wb") as log:
-                    code = subprocess.run(command, cwd=ROOT, env=env, stdout=log, stderr=subprocess.STDOUT).returncode
+                    code = subprocess.run(command, cwd=ROOT, env=step_env, stdout=log, stderr=subprocess.STDOUT).returncode
                 seconds, verdict = round(time.time() - start), "PASS" if code == 0 else "FAIL"
                 blocked = code != 0 and name in ("check", "pilot-reset-demo", "pilot-up")
             results.append({"step": name, "verdict": verdict, "exitCode": code, "seconds": seconds, "reason": skip})

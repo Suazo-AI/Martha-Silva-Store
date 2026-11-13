@@ -1,120 +1,8 @@
-using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
-using Savia.Contracts;
-using Savia.Domain;
 
 namespace Savia.Application;
-
-/// <summary>One text line read from the photo. The box is axis-aligned in image pixels.</summary>
-public sealed record OcrLine(string Text, double Score, double Left, double Top, double Right, double Bottom)
-{
-    public double CenterY => (Top + Bottom) / 2;
-    public double Height => Math.Max(1, Bottom - Top);
-}
-
-public sealed record OcrResult(IReadOnlyList<OcrLine> Lines, string Engine);
-
-/// <summary>
-/// Reads the text of a tag photo. The pilot implementation runs on this PC only (RapidOCR sidecar, Infrastructure).
-/// Tests use a fake. No cloud or paid implementation exists, by owner decision (docs/pilot/ETIQUETA.md).
-/// </summary>
-public interface ITagExtractor
-{
-    string Engine { get; }
-    Task<OcrResult> ReadAsync(ReadOnlyMemory<byte> image, CancellationToken ct);
-}
-
-/// <summary>Fields parsed from the OCR lines with plain rules. Each value has a 0..1 confidence.</summary>
-public sealed record TagFields(string? Barcode, string? Sku, string? Name, string? Brand, string? Size, string? Color,
-    long? PriceMinor, string? Composition, IReadOnlyDictionary<string, double> Confidence, string RawText);
-
-public sealed class TagExtractionOptions
-{
-    public const long MaxImageBytes = 6 * 1024 * 1024;
-    public TimeSpan OcrTimeout { get; init; } = TimeSpan.FromSeconds(12);
-}
-
-public sealed class TagExtractionService(ITagExtractor extractor, ICatalogStore catalog, NodeContext node, TagExtractionOptions options)
-{
-    // Same roles that may count merchandise in a reception (ReceivingService).
-    private static readonly string[] Receivers = [Roles.Inventory, Roles.Cashier, Roles.Manager, Roles.Owner];
-
-    public async Task<TagExtractResponse> ExtractAsync(Actor actor, ReadOnlyMemory<byte> image, string? barcodeHint, CancellationToken ct)
-    {
-        if (node.Kind == NodeKind.Branch) Guard.Branch(actor, node);
-        Guard.Role(actor, Receivers);
-        if (image.Length == 0) throw Errors.Invalid("tag.image_missing", "Falta la foto de la etiqueta.");
-        if (image.Length > TagExtractionOptions.MaxImageBytes)
-            throw Errors.Invalid("tag.image_too_large", "La foto supera 6 MB. Tómela de nuevo.");
-        if (!IsSupportedImage(image.Span))
-            throw Errors.Invalid("tag.image_type", "La foto debe ser JPEG, PNG o WebP.");
-
-        var clock = Stopwatch.StartNew();
-        var hint = TagParser.ValidBarcode(barcodeHint);
-        if (hint is not null && await FindAsync(hint, null, ct) is { } known)
-            return Response(Empty(hint), known, "match", extractor.Engine, (int)clock.ElapsedMilliseconds, null);
-
-        TagFields fields;
-        var source = "ocr";
-        string? warning = null;
-        try
-        {
-            using var timeout = CancellationTokenSource.CreateLinkedTokenSource(ct);
-            timeout.CancelAfter(options.OcrTimeout);
-            var ocr = await extractor.ReadAsync(image, timeout.Token);
-            fields = TagParser.Parse(ocr.Lines, hint);
-        }
-        catch (Exception ex) when (!ct.IsCancellationRequested && ex is not SaviaException { Error.Kind: ErrorKind.Forbidden })
-        {
-            // Slow or failed OCR never blocks the worker: the form opens with the barcode only.
-            fields = Empty(hint);
-            source = "none";
-            warning = ex is OperationCanceledException
-                ? "La lectura tardó demasiado. Complete los datos a mano."
-                : "No se pudo leer la etiqueta. Complete los datos a mano.";
-        }
-        var match = await FindAsync(fields.Barcode, fields.Sku, ct);
-        return Response(fields, match, source, extractor.Engine, (int)clock.ElapsedMilliseconds, warning);
-    }
-
-    private async Task<TagMatchedItem?> FindAsync(string? barcode, string? sku, CancellationToken ct)
-    {
-        if (barcode is not null)
-        {
-            var hits = await catalog.LookupAsync(barcode, null, ct);
-            if (hits.Count == 1)
-            {
-                var i = hits[0];
-                return new TagMatchedItem(i.ItemId, i.Sku, i.ProductName, i.VariantName, i.SizeCode, i.ColorCode, i.UnitPriceMinor, "barcode");
-            }
-        }
-        if (sku is { Length: >= 2 })
-        {
-            var rows = (await catalog.SearchAsync(sku, node.LocationId, 10, ct))
-                .Where(r => string.Equals(r.Sku, sku, StringComparison.OrdinalIgnoreCase)).ToList();
-            if (rows.Count == 1)
-            {
-                var r = rows[0];
-                return new TagMatchedItem(r.ItemId, r.Sku, r.ProductName, r.VariantName, r.SizeCode, r.ColorCode, r.UnitPriceMinor, "sku");
-            }
-        }
-        return null;
-    }
-
-    private static TagFields Empty(string? barcode) => new(barcode, null, null, null, null, null, null, null,
-        barcode is null ? new Dictionary<string, double>() : new Dictionary<string, double> { ["barcode"] = 1.0 }, "");
-
-    private static TagExtractResponse Response(TagFields f, TagMatchedItem? match, string source, string engine, int ms, string? warning) =>
-        new(f.Barcode, f.Sku, f.Name, f.Brand, f.Size, f.Color, f.PriceMinor, f.Composition, f.Confidence, f.RawText,
-            match, source, engine, ms, warning);
-
-    public static bool IsSupportedImage(ReadOnlySpan<byte> b) =>
-        (b.Length > 3 && b[0] == 0xFF && b[1] == 0xD8 && b[2] == 0xFF)
-        || (b.Length > 8 && b[..8].SequenceEqual(new byte[] { 0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A }))
-        || (b.Length > 12 && b[..4].SequenceEqual("RIFF"u8) && b[8..12].SequenceEqual("WEBP"u8));
-}
 
 /// <summary>Rules that turn OCR lines into tag fields. Pure; unit tested.</summary>
 public static partial class TagParser
@@ -131,24 +19,77 @@ public static partial class TagParser
 
     private static readonly Dictionary<string, string> Colors = new(StringComparer.Ordinal)
     {
-        ["AZUL"] = "Azul", ["BLUE"] = "Azul", ["NAVY"] = "Azul marino", ["NEGRO"] = "Negro", ["BLACK"] = "Negro",
-        ["ROJO"] = "Rojo", ["RED"] = "Rojo", ["BLANCO"] = "Blanco", ["WHITE"] = "Blanco", ["VERDE"] = "Verde", ["GREEN"] = "Verde",
-        ["GRIS"] = "Gris", ["GREY"] = "Gris", ["GRAY"] = "Gris", ["AMARILLO"] = "Amarillo", ["YELLOW"] = "Amarillo",
-        ["ROSADO"] = "Rosado", ["ROSA"] = "Rosado", ["PINK"] = "Rosado", ["MORADO"] = "Morado", ["PURPLE"] = "Morado",
-        ["CAFE"] = "Café", ["MARRON"] = "Café", ["BROWN"] = "Café", ["BEIGE"] = "Beige", ["NARANJA"] = "Naranja",
-        ["ORANGE"] = "Naranja", ["CELESTE"] = "Celeste", ["CREMA"] = "Crema", ["VINO"] = "Vino", ["DORADO"] = "Dorado",
-        ["PLATEADO"] = "Plateado", ["TURQUESA"] = "Turquesa", ["FUCSIA"] = "Fucsia", ["LILA"] = "Lila", ["KAKI"] = "Kaki",
-        ["KHAKI"] = "Kaki", ["MOSTAZA"] = "Mostaza", ["CORAL"] = "Coral", ["AZUL MARINO"] = "Azul marino",
+        ["AZUL"] = "Azul",
+        ["BLUE"] = "Azul",
+        ["NAVY"] = "Azul marino",
+        ["NEGRO"] = "Negro",
+        ["BLACK"] = "Negro",
+        ["ROJO"] = "Rojo",
+        ["RED"] = "Rojo",
+        ["BLANCO"] = "Blanco",
+        ["WHITE"] = "Blanco",
+        ["VERDE"] = "Verde",
+        ["GREEN"] = "Verde",
+        ["GRIS"] = "Gris",
+        ["GREY"] = "Gris",
+        ["GRAY"] = "Gris",
+        ["AMARILLO"] = "Amarillo",
+        ["YELLOW"] = "Amarillo",
+        ["ROSADO"] = "Rosado",
+        ["ROSA"] = "Rosado",
+        ["PINK"] = "Rosado",
+        ["MORADO"] = "Morado",
+        ["PURPLE"] = "Morado",
+        ["CAFE"] = "Café",
+        ["MARRON"] = "Café",
+        ["BROWN"] = "Café",
+        ["BEIGE"] = "Beige",
+        ["NARANJA"] = "Naranja",
+        ["ORANGE"] = "Naranja",
+        ["CELESTE"] = "Celeste",
+        ["CREMA"] = "Crema",
+        ["VINO"] = "Vino",
+        ["DORADO"] = "Dorado",
+        ["PLATEADO"] = "Plateado",
+        ["TURQUESA"] = "Turquesa",
+        ["FUCSIA"] = "Fucsia",
+        ["LILA"] = "Lila",
+        ["KAKI"] = "Kaki",
+        ["KHAKI"] = "Kaki",
+        ["MOSTAZA"] = "Mostaza",
+        ["CORAL"] = "Coral",
+        ["AZUL MARINO"] = "Azul marino",
     };
 
     private static readonly Dictionary<string, string> Materials = new(StringComparer.Ordinal)
     {
-        ["ALGODON"] = "Algodón", ["COTTON"] = "Algodón", ["POLIESTER"] = "Poliéster", ["POLYESTER"] = "Poliéster",
-        ["ELASTANO"] = "Elastano", ["ELASTANE"] = "Elastano", ["SPANDEX"] = "Elastano", ["LYCRA"] = "Elastano",
-        ["VISCOSA"] = "Viscosa", ["VISCOSE"] = "Viscosa", ["RAYON"] = "Rayón", ["ACRILICO"] = "Acrílico", ["ACRYLIC"] = "Acrílico",
-        ["ACRILIC"] = "Acrílico", ["LANA"] = "Lana", ["WOOL"] = "Lana", ["LINO"] = "Lino", ["LINEN"] = "Lino", ["SEDA"] = "Seda",
-        ["SILK"] = "Seda", ["NYLON"] = "Nailon", ["NAILON"] = "Nailon", ["POLIAMIDA"] = "Poliamida", ["POLYAMIDE"] = "Poliamida",
-        ["MODAL"] = "Modal", ["CUERO"] = "Cuero", ["LEATHER"] = "Cuero",
+        ["ALGODON"] = "Algodón",
+        ["COTTON"] = "Algodón",
+        ["POLIESTER"] = "Poliéster",
+        ["POLYESTER"] = "Poliéster",
+        ["ELASTANO"] = "Elastano",
+        ["ELASTANE"] = "Elastano",
+        ["SPANDEX"] = "Elastano",
+        ["LYCRA"] = "Elastano",
+        ["VISCOSA"] = "Viscosa",
+        ["VISCOSE"] = "Viscosa",
+        ["RAYON"] = "Rayón",
+        ["ACRILICO"] = "Acrílico",
+        ["ACRYLIC"] = "Acrílico",
+        ["ACRILIC"] = "Acrílico",
+        ["LANA"] = "Lana",
+        ["WOOL"] = "Lana",
+        ["LINO"] = "Lino",
+        ["LINEN"] = "Lino",
+        ["SEDA"] = "Seda",
+        ["SILK"] = "Seda",
+        ["NYLON"] = "Nailon",
+        ["NAILON"] = "Nailon",
+        ["POLIAMIDA"] = "Poliamida",
+        ["POLYAMIDE"] = "Poliamida",
+        ["MODAL"] = "Modal",
+        ["CUERO"] = "Cuero",
+        ["LEATHER"] = "Cuero",
     };
 
     public static TagFields Parse(IReadOnlyList<OcrLine> raw, string? barcodeHint = null)
@@ -241,7 +182,8 @@ public static partial class TagParser
         var cents = isDecimal ? s[(sep + 1)..] : "";
         whole = whole.Replace(".", "").Replace(",", "");
         if (whole.Length == 0 || whole.Length > 9) return null;
-        return long.Parse(whole, CultureInfo.InvariantCulture) * 100 + (cents.Length == 0 ? 0 : int.Parse(cents.PadRight(2, '0'), CultureInfo.InvariantCulture));
+        return long.Parse(whole, CultureInfo.InvariantCulture) * 100
+            + (cents.Length == 0 ? 0 : int.Parse(cents.PadRight(2, '0'), CultureInfo.InvariantCulture));
     }
 
     /// <summary>XS..XXXL (2XL -> XXL) or a numeric size such as 32 or 10. Null otherwise.</summary>
@@ -315,7 +257,8 @@ public static partial class TagParser
             {
                 var word = Fold(m.Groups["m"].Value).Replace('0', 'O');
                 var material = Materials.TryGetValue(word, out var known) ? known
-                    : Materials.FirstOrDefault(k => word.StartsWith(k.Key, StringComparison.Ordinal) || k.Key.StartsWith(word, StringComparison.Ordinal) && word.Length >= 5).Value;
+                    : Materials.FirstOrDefault(k => word.StartsWith(k.Key, StringComparison.Ordinal)
+                        || k.Key.StartsWith(word, StringComparison.Ordinal) && word.Length >= 5).Value;
                 if (material is not null) parts.Add((int.Parse(m.Groups["p"].Value, CultureInfo.InvariantCulture), material));
             }
             used.Add(line);

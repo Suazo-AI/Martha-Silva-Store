@@ -52,6 +52,10 @@ jobs:
         run: python3 savia/tools/rules.py
       - name: Tool tests
         run: python3 -m unittest discover -s savia/tests -p "test_*.py"
+      - name: Web format and lint
+        run: |
+          npm ci --prefix savia --ignore-scripts --no-audit --no-fund
+          node savia/node_modules/@biomejs/biome/bin/biome check savia/web
       - name: Web tests
         run: node --test "savia/web/tests/*.test.mjs" "savia/web/scanner/*.test.mjs"
       - name: Start disposable SQL Server 2022 Developer

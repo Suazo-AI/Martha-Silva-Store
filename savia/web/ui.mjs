@@ -59,13 +59,20 @@ export function flash(el) {
 /** Device-level settings (this tablet): register, supplier, current work. Never money or stock. */
 export const device = {
   get(key) {
-    try { const raw = localStorage.getItem('savia.device.' + key); return raw ? JSON.parse(raw) : null; } catch { return null; }
+    try {
+      const raw = localStorage.getItem(`savia.device.${key}`);
+      return raw ? JSON.parse(raw) : null;
+    } catch {
+      return null;
+    }
   },
   set(key, value) {
     try {
-      if (value === null || value === undefined) localStorage.removeItem('savia.device.' + key);
-      else localStorage.setItem('savia.device.' + key, JSON.stringify(value));
-    } catch { /* private mode: work continues without remembering */ }
+      if (value === null || value === undefined) localStorage.removeItem(`savia.device.${key}`);
+      else localStorage.setItem(`savia.device.${key}`, JSON.stringify(value));
+    } catch {
+      /* private mode: work continues without remembering */
+    }
   },
 };
 
@@ -77,8 +84,17 @@ export function openModal(build) {
   const body = document.getElementById('modal-body');
   body.replaceChildren();
   return new Promise(resolve => {
-    const onClose = () => { if (!dialog.open) { dialog.removeEventListener('close', onClose); resolve(undefined); } };
-    const close = value => { dialog.removeEventListener('close', onClose); dialog.close(); resolve(value); };
+    const onClose = () => {
+      if (!dialog.open) {
+        dialog.removeEventListener('close', onClose);
+        resolve(undefined);
+      }
+    };
+    const close = value => {
+      dialog.removeEventListener('close', onClose);
+      dialog.close();
+      resolve(value);
+    };
     dialog.addEventListener('close', onClose);
     build(body, close);
     dialog.showModal();

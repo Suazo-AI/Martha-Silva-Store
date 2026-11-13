@@ -17,8 +17,15 @@ export function paymentDraft(totalMinor, rows, { supportedKinds, customerId } = 
     const reference = row.reference?.trim();
     if (row.kind === 'transfer' && !reference) throw new Error('Indique la referencia de la transferencia.');
     if (row.kind === 'credit' && (!customerId || !row.creditId)) throw new Error('Busque y elija un anticipo disponible del cliente.');
-    return { tenderNumber: index + 1, tenderKind: row.kind, amountMinor, receivedMinor, changeMinor,
-      ...(reference ? { reference } : {}), ...(row.kind === 'credit' ? { creditId: row.creditId } : {}) };
+    return {
+      tenderNumber: index + 1,
+      tenderKind: row.kind,
+      amountMinor,
+      receivedMinor,
+      changeMinor,
+      ...(reference ? { reference } : {}),
+      ...(row.kind === 'credit' ? { creditId: row.creditId } : {}),
+    };
   });
   if (!tenders.length || tenders.reduce((sum, tender) => sum + tender.amountMinor, 0) !== totalMinor) {
     throw new Error('La suma de los pagos debe coincidir con el total del ticket.');

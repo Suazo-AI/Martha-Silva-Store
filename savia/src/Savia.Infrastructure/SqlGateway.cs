@@ -4,6 +4,9 @@ using Savia.Domain;
 
 namespace Savia.Infrastructure;
 
+// Each `<Module>Store` implements its port with stored procedures (writes) and plain SELECT (reads).
+// A write never touches an operational table directly: the procedure owns the rule (ADR-001 D2).
+
 /// <summary>
 /// The only door to SQL Server. Opens one connection per call and turns SQL errors into
 /// <see cref="SaviaException"/> with a stable code. It holds no business rule.

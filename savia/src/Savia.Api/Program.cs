@@ -16,7 +16,6 @@ app.UseSaviaWeb(builder.Configuration["Savia:Web:Root"]);
 app.MapOpenApi();                     // GET /openapi/v1.json: the contract every client is generated from
 app.MapGet("/health", () => Results.Ok(new { status = "ok" })).ExcludeFromDescription();
 app.MapSaviaEndpoints();
-app.MapTagEndpoints();
 app.Run();
 return 0;
 

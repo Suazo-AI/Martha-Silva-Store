@@ -59,6 +59,8 @@ def main():
         ok = False
     else:
         ok &= run(".NET build", [dotnet(), "build", "Savia.slnx", "--no-restore", "-v", "q"], "the first error line above")
+        ok &= run("C# format", [dotnet(), "format", "Savia.slnx", "--verify-no-changes", "--no-restore"],
+                  "run: dotnet format Savia.slnx (savia/.editorconfig)")
         ok &= run(".NET tests on real SQL", [dotnet(), "test", "tests/Savia.Tests", "--no-build", "-v", "q"], "savia/tests/Savia.Tests/")
     print("RESULT " + ("PASS" if ok else "FAIL"))
     return 0 if ok else 1

@@ -53,7 +53,7 @@ public sealed class PilotSalesTests : IAsyncLifetime
     public async Task Cashier_discount_requires_live_local_supervisor()
     {
         var till = await OpenTill();
-        PostSaleRequest Request(long discount) => new(Guid.NewGuid(), till, "NIO", [new(1, Ids.Item, 1, 120000, discount)], [new(1, "cash", 120000-discount, 120000-discount, 0)]);
+        PostSaleRequest Request(long discount) => new(Guid.NewGuid(), till, "NIO", [new(1, Ids.Item, 1, 120000, discount)], [new(1, "cash", 120000 - discount, 120000 - discount, 0)]);
         await HttpAssert.ProblemAsync(await _cashier.PostAsJsonAsync("/api/v1/sales", Request(24000)), HttpStatusCode.Forbidden, "sale.discount_approval_required");
         await HttpAssert.ProblemAsync(await _cashier.PostAsJsonAsync("/api/v1/sales", Request(12000)), HttpStatusCode.Forbidden, "sale.discount_approval_required");
         _cashier.DefaultRequestHeaders.Add("X-Savia-Approval", _cashier.DefaultRequestHeaders.Authorization!.Parameter);
@@ -96,55 +96,70 @@ public sealed class PilotSalesTests : IAsyncLifetime
         Assert.Equal(240000, report.GetProperty("netMinor").GetInt64());
         Assert.Equal(1, report.GetProperty("customersServed").GetInt32());
         Assert.Single(report.GetProperty("salesByDay").EnumerateArray());
-        var csv=await _supervisor.GetAsync($"/api/v1/reports/summary.csv?period={period}&date={Today}");
-        Assert.Equal(HttpStatusCode.OK,csv.StatusCode);
-        Assert.Equal("text/csv",csv.Content.Headers.ContentType!.MediaType);
-        Assert.Contains("\"netMinor\",\"240000\"",await csv.Content.ReadAsStringAsync());
+        var csv = await _supervisor.GetAsync($"/api/v1/reports/summary.csv?period={period}&date={Today}");
+        Assert.Equal(HttpStatusCode.OK, csv.StatusCode);
+        Assert.Equal("text/csv", csv.Content.Headers.ContentType!.MediaType);
+        Assert.Contains("\"netMinor\",\"240000\"", await csv.Content.ReadAsStringAsync());
         await HttpAssert.ProblemAsync(await _supervisor.GetAsync($"/api/v1/reports/summary?period=bad&date={Today}"), HttpStatusCode.UnprocessableEntity, "report.range");
     }
     [Fact]
     public async Task Opening_amount_must_equal_denominations()
     {
-        var response = await _cashier.PostAsJsonAsync("/api/v1/cash/tills", new {
-            tillId=Guid.NewGuid(), registerId=Ids.RegisterA, currencyCode="NIO", openingMinor=100000,
-            lines=new[]{new {denominationMinor=50000,quantity=1}} });
+        var response = await _cashier.PostAsJsonAsync("/api/v1/cash/tills", new
+        {
+            tillId = Guid.NewGuid(),
+            registerId = Ids.RegisterA,
+            currencyCode = "NIO",
+            openingMinor = 100000,
+            lines = new[] { new { denominationMinor = 50000, quantity = 1 } }
+        });
         Assert.Equal(HttpStatusCode.UnprocessableEntity, response.StatusCode);
     }
     [Fact]
     public async Task Opening_breakdown_round_trips_and_cannot_be_changed_on_retry()
     {
-        var denominations=await HttpAssert.OkAsync<long[]>(await _cashier.GetAsync("/api/v1/cash/denominations"));
-        Assert.Equal(new long[]{100000,50000,20000,10000,5000,2000,1000,500,100,50,25,10},denominations);
-        var lines=denominations.Select(d=>new CashCountLine(d,1)).ToArray();
-        var request=new OpenTillRequest(Guid.NewGuid(),Ids.RegisterA,"NIO",denominations.Sum(),lines);
-        await HttpAssert.OkAsync(await _cashier.PostAsJsonAsync("/api/v1/cash/tills",request));
-        await HttpAssert.OkAsync(await _cashier.PostAsJsonAsync("/api/v1/cash/tills",request));
-        var summary=await HttpAssert.OkAsync<TillSummary>(await _cashier.GetAsync($"/api/v1/cash/tills/{request.TillId}/summary"));
-        Assert.Equal(lines,summary.OpeningLines);
-        Assert.Equal(lines.Sum(l=>l.DenominationMinor*l.Quantity),summary.OpeningMinor);
-        var changed=request with {Lines=[new(100000,1)],OpeningMinor=100000};
-        await HttpAssert.ProblemAsync(await _cashier.PostAsJsonAsync("/api/v1/cash/tills",changed),HttpStatusCode.Conflict,"cash.till_id_reused");
-        await HttpAssert.ProblemAsync(await _supervisor.PostAsJsonAsync($"/api/v1/cash/tills/{request.TillId}/close",new CloseTillRequest(Guid.NewGuid(),request.TillId)),HttpStatusCode.Conflict,"cash.count_missing");
+        var denominations = await HttpAssert.OkAsync<long[]>(await _cashier.GetAsync("/api/v1/cash/denominations"));
+        Assert.Equal(new long[] { 100000, 50000, 20000, 10000, 5000, 2000, 1000, 500, 100, 50, 25, 10 }, denominations);
+        var lines = denominations.Select(d => new CashCountLine(d, 1)).ToArray();
+        var request = new OpenTillRequest(Guid.NewGuid(), Ids.RegisterA, "NIO", denominations.Sum(), lines);
+        await HttpAssert.OkAsync(await _cashier.PostAsJsonAsync("/api/v1/cash/tills", request));
+        await HttpAssert.OkAsync(await _cashier.PostAsJsonAsync("/api/v1/cash/tills", request));
+        var summary = await HttpAssert.OkAsync<TillSummary>(await _cashier.GetAsync($"/api/v1/cash/tills/{request.TillId}/summary"));
+        Assert.Equal(lines, summary.OpeningLines);
+        Assert.Equal(lines.Sum(l => l.DenominationMinor * l.Quantity), summary.OpeningMinor);
+        var changed = request with { Lines = [new(100000, 1)], OpeningMinor = 100000 };
+        await HttpAssert.ProblemAsync(await _cashier.PostAsJsonAsync("/api/v1/cash/tills", changed), HttpStatusCode.Conflict, "cash.till_id_reused");
+        await HttpAssert.ProblemAsync(await _supervisor.PostAsJsonAsync($"/api/v1/cash/tills/{request.TillId}/close", new CloseTillRequest(Guid.NewGuid(), request.TillId)), HttpStatusCode.Conflict, "cash.count_missing");
         await TestSql.AssertConservationAsync(_db);
     }
     [Fact]
     public async Task Zero_stock_sale_records_exception_and_keeps_conservation()
     {
-        var till=Guid.NewGuid();
-        await HttpAssert.OkAsync(await _cashier.PostAsJsonAsync("/api/v1/cash/tills", new {
-            tillId=till,registerId=Ids.RegisterA,currencyCode="NIO",openingMinor=0,
-            lines=new[]{new {denominationMinor=100000,quantity=0}} }));
-        var sale=Guid.NewGuid();
-        await HttpAssert.OkAsync(await _cashier.PostAsJsonAsync("/api/v1/sales", new {
-            saleId=sale,tillId=till,currencyCode="NIO",stockExceptionNote="Existencia fisica confirmada",
-            lines=new[]{new {lineNumber=1,itemId=Ids.Item,quantity=1,unitPriceMinor=120000}},
-            tenders=new[]{new {tenderNumber=1,tenderKind="cash",amountMinor=120000,receivedMinor=120000,changeMinor=0}} }));
+        var till = Guid.NewGuid();
+        await HttpAssert.OkAsync(await _cashier.PostAsJsonAsync("/api/v1/cash/tills", new
+        {
+            tillId = till,
+            registerId = Ids.RegisterA,
+            currencyCode = "NIO",
+            openingMinor = 0,
+            lines = new[] { new { denominationMinor = 100000, quantity = 0 } }
+        }));
+        var sale = Guid.NewGuid();
+        await HttpAssert.OkAsync(await _cashier.PostAsJsonAsync("/api/v1/sales", new
+        {
+            saleId = sale,
+            tillId = till,
+            currencyCode = "NIO",
+            stockExceptionNote = "Existencia fisica confirmada",
+            lines = new[] { new { lineNumber = 1, itemId = Ids.Item, quantity = 1, unitPriceMinor = 120000 } },
+            tenders = new[] { new { tenderNumber = 1, tenderKind = "cash", amountMinor = 120000, receivedMinor = 120000, changeMinor = 0 } }
+        }));
         await TestSql.AssertConservationAsync(_db);
-        var pending=await HttpAssert.OkAsync<JsonElement>(await _supervisor.GetAsync("/api/v1/stock/exceptions"));
-        var exception=Assert.Single(pending.EnumerateArray());
-        Assert.Equal(sale,exception.GetProperty("saleId").GetGuid());
-        await HttpAssert.ProblemAsync(await _cashier.PostAsJsonAsync($"/api/v1/stock/exceptions/{exception.GetProperty("id").GetGuid()}/review",new {reason="Revisado"}),HttpStatusCode.Forbidden,"auth.role_required");
-        await HttpAssert.OkAsync(await _supervisor.PostAsJsonAsync($"/api/v1/stock/exceptions/{exception.GetProperty("id").GetGuid()}/review",new {reason="Revisado"}));
+        var pending = await HttpAssert.OkAsync<JsonElement>(await _supervisor.GetAsync("/api/v1/stock/exceptions"));
+        var exception = Assert.Single(pending.EnumerateArray());
+        Assert.Equal(sale, exception.GetProperty("saleId").GetGuid());
+        await HttpAssert.ProblemAsync(await _cashier.PostAsJsonAsync($"/api/v1/stock/exceptions/{exception.GetProperty("id").GetGuid()}/review", new { reason = "Revisado" }), HttpStatusCode.Forbidden, "auth.role_required");
+        await HttpAssert.OkAsync(await _supervisor.PostAsJsonAsync($"/api/v1/stock/exceptions/{exception.GetProperty("id").GetGuid()}/review", new { reason = "Revisado" }));
     }
     private static string Today => DateTime.UtcNow.AddHours(-6).ToString("yyyy-MM-dd");
     private async Task<Guid> OpenTill()
@@ -252,10 +267,10 @@ public sealed class PilotSalesTests : IAsyncLifetime
             await HttpAssert.ProblemAsync(await _cashier.PostAsJsonAsync("/api/v1/sales", insufficient with
             { SaleId = Guid.NewGuid(), Tenders = [new(1, kind, 120000)] }), HttpStatusCode.UnprocessableEntity, "rule.51509");
         await HttpAssert.ProblemAsync(await _cashier.PostAsJsonAsync("/api/v1/sales", insufficient with
-            { SaleId = Guid.NewGuid(), CustomerId = new Guid("00000000-0000-0000-0000-00000000C052"), Tenders = [new(1, "credit", 120000, CreditId: ret.CreditId)] }),
+        { SaleId = Guid.NewGuid(), CustomerId = new Guid("00000000-0000-0000-0000-00000000C052"), Tenders = [new(1, "credit", 120000, CreditId: ret.CreditId)] }),
             HttpStatusCode.Conflict, "credit.customer_or_currency");
         await HttpAssert.ProblemAsync(await _cashier.PostAsJsonAsync("/api/v1/sales", insufficient with
-            { SaleId = Guid.NewGuid(), Tenders = [new(1, "card", 120000, Reference: new string('x', 121))] }), HttpStatusCode.UnprocessableEntity, "input.text");
+        { SaleId = Guid.NewGuid(), Tenders = [new(1, "card", 120000, Reference: new string('x', 121))] }), HttpStatusCode.UnprocessableEntity, "input.text");
         await HttpAssert.ProblemAsync(await _cashier.GetAsync($"/api/v1/reports/day?date={Today}"), HttpStatusCode.Forbidden, "auth.role_required");
         var report = await HttpAssert.OkAsync<DayReport>(await _supervisor.GetAsync($"/api/v1/reports/day?date={Today}"));
         Assert.Equal((2, 3L, 360000L), (report.SalesCount, report.UnitsSold, Assert.Single(report.Totals).TotalMinor));

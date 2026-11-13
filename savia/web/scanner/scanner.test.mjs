@@ -1,6 +1,7 @@
 // Emulated tests: fake event target + fake clock. No physical scanner was used.
-import { test, mock, afterEach } from 'node:test';
+
 import assert from 'node:assert/strict';
+import { afterEach, mock, test } from 'node:test';
 import { createScanner, isValidEan13 } from './scanner.mjs';
 
 const BODY = { tagName: 'BODY' };
@@ -9,22 +10,49 @@ function setup(extra = {}) {
   mock.timers.enable({ apis: ['setTimeout'] });
   const handlers = new Map();
   const target = {
-    addEventListener(type, fn) { (handlers.get(type) || handlers.set(type, new Set()).get(type)).add(fn); },
-    removeEventListener(type, fn) { handlers.get(type)?.delete(fn); },
-    emit(type, evt) { for (const fn of [...(handlers.get(type) || [])]) fn(evt); return evt; },
-    count() { let n = 0; for (const s of handlers.values()) n += s.size; return n; },
+    addEventListener(type, fn) {
+      (handlers.get(type) || handlers.set(type, new Set()).get(type)).add(fn);
+    },
+    removeEventListener(type, fn) {
+      handlers.get(type)?.delete(fn);
+    },
+    emit(type, evt) {
+      for (const fn of [...(handlers.get(type) || [])]) fn(evt);
+      return evt;
+    },
+    count() {
+      let n = 0;
+      for (const s of handlers.values()) n += s.size;
+      return n;
+    },
   };
   const clock = { t: 1000 };
   const scans = [];
   const rejects = [];
   const scanner = createScanner({
-    target, now: () => clock.t,
-    onScan: (s) => scans.push(s), onReject: (r) => rejects.push(r), ...extra,
+    target,
+    now: () => clock.t,
+    onScan: s => scans.push(s),
+    onReject: r => rejects.push(r),
+    ...extra,
   });
-  const advance = (ms) => { clock.t += ms; mock.timers.tick(ms); };
+  const advance = ms => {
+    clock.t += ms;
+    mock.timers.tick(ms);
+  };
   const key = (k, o = {}) => {
-    const evt = { type: 'keydown', key: k, repeat: false, isComposing: false, target: BODY,
-      defaultPrevented: false, preventDefault() { this.defaultPrevented = true; }, ...o };
+    const evt = {
+      type: 'keydown',
+      key: k,
+      repeat: false,
+      isComposing: false,
+      target: BODY,
+      defaultPrevented: false,
+      preventDefault() {
+        this.defaultPrevented = true;
+      },
+      ...o,
+    };
     return target.emit('keydown', evt);
   };
   // Types text with `step` ms between keys; capitals send Shift first, like a real keyboard.
@@ -68,7 +96,11 @@ test('1b Tab suffix also works and is prevented', () => {
 test('2 slow typing in focused input plus Enter is manual (not prevented)', () => {
   const s = setup();
   const inp = input();
-  for (const ch of '12345') { inp.value += ch; s.key(ch, { target: inp }); s.advance(300); }
+  for (const ch of '12345') {
+    inp.value += ch;
+    s.key(ch, { target: inp });
+    s.advance(300);
+  }
   const enter = s.key('Enter', { target: inp });
   assert.equal(s.scans.length, 1);
   assert.equal(s.scans[0].source, 'manual');
@@ -85,7 +117,10 @@ test('2b allowManual false ignores manual entry', () => {
 
 test('2c slow keys with no focused input are ignored and never accumulate', () => {
   const s = setup();
-  for (const ch of 'abcdef') { s.key(ch); s.advance(300); }
+  for (const ch of 'abcdef') {
+    s.key(ch);
+    s.advance(300);
+  }
   s.key('Enter');
   assert.equal(s.scans.length, 0);
   assert.equal(s.rejects.length, 0);
@@ -98,7 +133,11 @@ test('3 burst in a focused input: reported once, restoreValue is the value befor
   const s = setup();
   const inp = input('ab');
   // The browser types each char into the input; the module sees keydown before insertion.
-  for (const ch of '4006381333931') { s.key(ch, { target: inp }); inp.value += ch; s.advance(5); }
+  for (const ch of '4006381333931') {
+    s.key(ch, { target: inp });
+    inp.value += ch;
+    s.advance(5);
+  }
   const enter = s.key('Enter', { target: inp });
   assert.equal(s.scans.length, 1);
   assert.equal(s.scans[0].code, '4006381333931');
@@ -112,22 +151,39 @@ test('3 burst in a focused input: reported once, restoreValue is the value befor
 
 test('4 Shift capitals, CapsLock, non-printables; leading zeros kept as string', () => {
   const s = setup();
-  s.key('CapsLock'); s.advance(5);
+  s.key('CapsLock');
+  s.advance(5);
   s.type('ABc0012');
   assert.equal(s.scans[0].code, 'ABc0012');
   assert.equal(typeof s.scans[0].code, 'string');
   s.type('000123');
   assert.equal(s.scans[1].code, '000123');
   // A non-printable key in the middle of a burst discards it, no crash, no partial scan.
-  s.key('1'); s.advance(5); s.key('2'); s.advance(5); s.key('ArrowLeft'); s.advance(5);
-  s.key('3'); s.advance(5); s.key('Enter');
+  s.key('1');
+  s.advance(5);
+  s.key('2');
+  s.advance(5);
+  s.key('ArrowLeft');
+  s.advance(5);
+  s.key('3');
+  s.advance(5);
+  s.key('Enter');
   assert.equal(s.scans.length, 2);
 });
 
 test('4b Dead key inside a burst rejects invalid_chars', () => {
   const s = setup();
-  s.key('1'); s.advance(5); s.key('Dead'); s.advance(5); s.key('2'); s.advance(5);
-  s.key('3'); s.advance(5); s.key('4'); s.advance(5); s.key('Enter');
+  s.key('1');
+  s.advance(5);
+  s.key('Dead');
+  s.advance(5);
+  s.key('2');
+  s.advance(5);
+  s.key('3');
+  s.advance(5);
+  s.key('4');
+  s.advance(5);
+  s.key('Enter');
   assert.equal(s.scans.length, 0);
   assert.equal(s.rejects[0].reason, 'invalid_chars');
 });
@@ -161,21 +217,27 @@ test('6 two scans back to back in order', () => {
   const s = setup();
   s.type('AAAA1111', { step: 5 });
   s.type('BBBB2222', { step: 5 }); // starts immediately after the suffix, no pause
-  assert.deepEqual(s.scans.map((x) => x.code), ['AAAA1111', 'BBBB2222']);
+  assert.deepEqual(
+    s.scans.map(x => x.code),
+    ['AAAA1111', 'BBBB2222'],
+  );
 });
 
 test('6b 100 identical emulated scans give exactly 100 onScan calls', () => {
   const s = setup();
   for (let i = 0; i < 100; i++) s.type('7501234567890', { step: 2 });
   assert.equal(s.scans.length, 100);
-  assert.ok(s.scans.every((x) => x.code === '7501234567890' && x.source === 'scanner'));
+  assert.ok(s.scans.every(x => x.code === '7501234567890' && x.source === 'scanner'));
   assert.equal(s.scanner.stats().scans, 100);
   assert.equal(s.rejects.length, 0);
 });
 
 test('6c slow keys then a fast burst yield only the burst as the code', () => {
   const s = setup();
-  for (const ch of 'xyz') { s.key(ch); s.advance(400); }
+  for (const ch of 'xyz') {
+    s.key(ch);
+    s.advance(400);
+  }
   s.type('55512345');
   assert.equal(s.scans.length, 1);
   assert.equal(s.scans[0].code, '55512345');
@@ -183,18 +245,29 @@ test('6c slow keys then a fast burst yield only the burst as the code', () => {
 
 test('7 composition events and key repeat do not corrupt the buffer', () => {
   const s = setup();
-  for (const ch of '12') { s.key(ch); s.advance(5); }
-  s.key('3', { repeat: true }); s.advance(5);
-  s.key('Process', { keyCode: 229 }); s.advance(5);
-  s.key('x', { isComposing: true }); s.advance(5);
-  for (const ch of '34') { s.key(ch); s.advance(5); }
+  for (const ch of '12') {
+    s.key(ch);
+    s.advance(5);
+  }
+  s.key('3', { repeat: true });
+  s.advance(5);
+  s.key('Process', { keyCode: 229 });
+  s.advance(5);
+  s.key('x', { isComposing: true });
+  s.advance(5);
+  for (const ch of '34') {
+    s.key(ch);
+    s.advance(5);
+  }
   s.key('Enter');
   assert.equal(s.scans.length, 1);
   assert.equal(s.scans[0].code, '1234');
   // composition resets the buffer; keys during composition are ignored
-  s.key('9'); s.advance(5);
+  s.key('9');
+  s.advance(5);
   s.target.emit('compositionstart', {});
-  s.key('8', { isComposing: true }); s.advance(5);
+  s.key('8', { isComposing: true });
+  s.advance(5);
   s.target.emit('compositionend', {});
   s.type('5678');
   assert.equal(s.scans.at(-1).code, '5678');

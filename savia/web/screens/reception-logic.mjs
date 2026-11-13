@@ -7,7 +7,9 @@ export function linesFromServer(rows) {
     code: r.rawCode,
     itemId: r.itemId ?? null,
     matchStatus: r.matchStatus,
-    name: r.productName ? `${r.productName}${r.variantName && r.variantName !== r.productName ? ' · ' + r.variantName : ''}` : (r.variantName ?? null),
+    name: r.productName
+      ? `${r.productName}${r.variantName && r.variantName !== r.productName ? ` · ${r.variantName}` : ''}`
+      : (r.variantName ?? null),
     size: r.sizeCode ?? null,
     sku: r.sku ?? null,
     quantity: Number.isInteger(r.quantity) ? r.quantity : null,

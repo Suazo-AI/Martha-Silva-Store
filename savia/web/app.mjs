@@ -1,66 +1,82 @@
 // Shell, session and router of the SAVIA staff web.
 import * as api from './api.mjs';
-import { device, replace, h } from './ui.mjs';
+import { canAccess, isApprover, isOwner, landing, roleName, SCREENS } from './roles.mjs';
+import approvals from './screens/approvals.mjs';
+import cash from './screens/cash.mjs';
+import commissions from './screens/commissions.mjs';
+import customers from './screens/customers.mjs';
+import exceptions from './screens/exceptions.mjs';
+import history from './screens/history.mjs';
+import importer from './screens/import.mjs';
+import inventory from './screens/inventory.mjs';
 import login from './screens/login.mjs';
+import prices from './screens/prices.mjs';
+import qualityReport from './screens/quality-report.mjs';
+import receipt from './screens/receipt.mjs';
 import reception from './screens/reception.mjs';
+import report from './screens/report.mjs';
+import returns from './screens/return.mjs';
 import review from './screens/review.mjs';
 import sale from './screens/sale.mjs';
-import cash from './screens/cash.mjs';
-import inventory from './screens/inventory.mjs';
-import history from './screens/history.mjs';
-import receipt from './screens/receipt.mjs';
-import returns from './screens/return.mjs';
-import customers from './screens/customers.mjs';
-import report from './screens/report.mjs';
-import exceptions from './screens/exceptions.mjs';
-import approvals from './screens/approvals.mjs';
-import commissions from './screens/commissions.mjs';
-import prices from './screens/prices.mjs';
-import importer from './screens/import.mjs';
-import qualityReport from './screens/quality-report.mjs';
 import settings, { applyPalette } from './screens/settings.mjs';
 import { syncTill } from './screens/till-open.mjs';
-import { canAccess } from './roles.mjs';
+import { device, h, replace } from './ui.mjs';
 
-const ROUTES = {
-  'venta': sale,
-  'ajustes': settings,
-  'caja': cash,
-  'recepcion': reception,
+/** The module of each route in roles.mjs SCREENS; start() refuses to run when the two disagree. */
+const MODULES = {
+  venta: sale,
+  ajustes: settings,
+  caja: cash,
+  recepcion: reception,
   'recepcion/revisar': review,
-  'inventario': inventory,
-  'historial': history,
-  'recibo': receipt,
-  'devolucion': returns,
-  'clientes': customers,
-  'reporte': report,
-  'excepciones': exceptions,
-  'aprobaciones': approvals,
-  'comisiones': commissions,
-  'precios': prices,
-  'importar': importer,
-  'calidad': qualityReport,
+  inventario: inventory,
+  historial: history,
+  recibo: receipt,
+  devolucion: returns,
+  clientes: customers,
+  reporte: report,
+  excepciones: exceptions,
+  aprobaciones: approvals,
+  comisiones: commissions,
+  precios: prices,
+  importar: importer,
+  calidad: qualityReport,
 };
-const APPROVER_ROLES = ['MANAGER', 'OWNER'];
 const $ = id => document.getElementById(id);
 
 const ctx = {
   me: null,
-  get roles() { return ctx.me?.roles ?? []; },
-  get isApprover() { return ctx.roles.some(r => APPROVER_ROLES.includes(r)); },
+  get roles() {
+    return ctx.me?.roles ?? [];
+  },
+  get isApprover() {
+    return isApprover(ctx.roles);
+  },
+  get isOwner() {
+    return isOwner(ctx.roles);
+  },
   get branchName() {
     return ctx.me?.branchName || null;
   },
-  notify(text) { $('notice').textContent = text || ''; },
-  go(route) { location.hash = '#/' + route; },
+  notify(text) {
+    $('notice').textContent = text || '';
+  },
+  go(route) {
+    location.hash = `#/${route}`;
+  },
   till: {
-    get() { return device.get('till'); },
-    set(value) { device.set('till', value); renderTillState(); },
+    get() {
+      return device.get('till');
+    },
+    set(value) {
+      device.set('till', value);
+      renderTillState();
+    },
   },
   refreshTill: () => renderTillState(),
 };
 
-let current = null;   // { route, handle }
+let current = null; // { route, handle }
 
 /** The one entry point for scanners: the active screen decides what a code means. */
 export function handleScan(code) {
@@ -70,7 +86,7 @@ globalThis.savia = { handleScan };
 
 function renderTillState() {
   const el = $('till-state');
-  el.hidden = !ctx.roles.some(r => ['MANAGER','OWNER'].includes(r));
+  el.hidden = !ctx.isApprover;
   const till = ctx.till.get();
   el.textContent = till ? `Caja abierta · ${till.cashierName ?? ctx.me?.displayName ?? ''}` : 'Caja cerrada · Abra la caja para vender';
   el.dataset.state = till ? 'open' : 'closed';
@@ -80,10 +96,6 @@ function renderHeader() {
   $('operator-label').textContent = ctx.me ? `${ctx.me.displayName} · ${ctx.roles.map(roleName).join(', ')}` : '';
   $('branch-label').textContent = ctx.branchName ?? 'Sucursal';
   renderTillState();
-}
-
-export function roleName(code) {
-  return { CASHIER: 'Caja', MANAGER: 'Gerente', SELLER: 'Vendedora', OWNER: 'Dueña', INVENTORY: 'Bodega' }[code] ?? code;
 }
 
 async function route() {
@@ -97,22 +109,30 @@ async function route() {
     current = { route: 'ingreso', handle: login.mount($('access'), ctx, onSignedIn) };
     return;
   }
-  const screen = ROUTES[name] ?? sale;
+  const screen = MODULES[name] ?? sale;
   $('access').hidden = true;
   $('shell').hidden = false;
-  if (ctx.roles.some(role => ['MANAGER','OWNER'].includes(role))) await syncTill(ctx);
+  if (ctx.isApprover) await syncTill(ctx);
   renderHeader();
   for (const link of document.querySelectorAll('#nav a')) {
     link.hidden = !canAccess(link.dataset.route, ctx.roles);
-    const active = name === link.dataset.route || name.startsWith(link.dataset.route + '/');
-    if (active) link.setAttribute('aria-current', 'page'); else link.removeAttribute('aria-current');
+    const active = name === link.dataset.route || name.startsWith(`${link.dataset.route}/`);
+    if (active) link.setAttribute('aria-current', 'page');
+    else link.removeAttribute('aria-current');
   }
   $('title').textContent = screen.title;
   document.title = `SAVIA · ${screen.title}`;
   const root = $('screen');
   replace(root);
   if (!canAccess(name, ctx.roles)) {
-    replace(root, h('div', { class: 'page' }, h('p', { class: 'error', role: 'alert' }, 'Su cuenta no tiene acceso. Elija una pantalla del menú o solicite ayuda a supervisión.')));
+    replace(
+      root,
+      h(
+        'div',
+        { class: 'page' },
+        h('p', { class: 'error', role: 'alert' }, 'Su cuenta no tiene acceso. Elija una pantalla del menú o pida ayuda a la gerente.'),
+      ),
+    );
     return;
   }
   current = { route: name, handle: await screen.mount(root, ctx) };
@@ -121,14 +141,26 @@ async function route() {
 async function onSignedIn(loginResponse) {
   api.setToken(loginResponse.token);
   ctx.me = await api.me();
-  if (!location.hash || location.hash === '#/ingreso' || !canAccess(location.hash.replace(/^#\/?/,''),ctx.roles)) location.hash = ctx.roles.includes('SELLER') ? '#/comisiones' : ctx.roles.includes('INVENTORY') ? '#/recepcion' : '#/venta';
+  if (!location.hash || location.hash === '#/ingreso' || !canAccess(location.hash.replace(/^#\/?/, ''), ctx.roles))
+    location.hash = `#/${landing(ctx.roles)}`;
   else route();
 }
 
 async function start() {
+  const routes = SCREENS.map(s => s.route);
+  const odd = [...routes.filter(r => !MODULES[r]), ...Object.keys(MODULES).filter(r => !routes.includes(r))];
+  if (odd.length) throw new Error(`roles.mjs y app.mjs no coinciden en: ${odd.join(', ')}`);
+  replace(
+    $('nav'),
+    SCREENS.filter(s => s.label).map(s => h('a', { href: `#/${s.route}`, dataset: { route: s.route } }, s.label)),
+  );
   applyPalette(device.get('palette'));
   $('logout').addEventListener('click', async () => {
-    try { await api.logout(); } catch { /* the token dies on the server or expires; sign out here either way */ }
+    try {
+      await api.logout();
+    } catch {
+      /* the token dies on the server or expires; sign out here either way */
+    }
     api.setToken(null);
     ctx.me = null;
     ctx.till.set(null);
@@ -142,7 +174,12 @@ async function start() {
   });
   window.addEventListener('hashchange', route);
   if (api.getToken()) {
-    try { ctx.me = await api.me(); } catch { api.setToken(null); ctx.me = null; }
+    try {
+      ctx.me = await api.me();
+    } catch {
+      api.setToken(null);
+      ctx.me = null;
+    }
   }
   route();
 }

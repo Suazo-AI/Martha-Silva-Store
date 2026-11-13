@@ -73,7 +73,7 @@ Layaway, exchange and void workflows are not implemented; the available reversal
 
 ## Confirmation and quality
 
-The reusable in-page dialog states the consequence and has “Si, confirmar” and “No, volver”.
+The reusable in-page dialog states the consequence and has “Sí, confirmar” and “No, volver”.
 It guards receipt posting, new garment acceptance, scan rejection, return submission,
 ticket clearing, till closing, price changes, exception review and quality classification.
 The component has a unit test. Browser tests cancel a quality write, read unchanged API state,

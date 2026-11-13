@@ -31,7 +31,7 @@ public sealed class PilotProvisioningTests
                 UPDATE security.Staff SET LoginName=N'vendedor1.muestra',NormalizedLoginName=N'VENDEDOR1.MUESTRA' WHERE Id='{Ids.Manager}';
                 """, c);
             await rename.ExecuteNonQueryAsync();
-            await using(var extra=new SqlCommand("INSERT security.Staff(LoginName,NormalizedLoginName,DisplayName) VALUES('vendedor2.muestra','VENDEDOR2.MUESTRA','Rosa'),('bodega.muestra','BODEGA.MUESTRA','Marta')",c)) await extra.ExecuteNonQueryAsync();
+            await using (var extra = new SqlCommand("INSERT security.Staff(LoginName,NormalizedLoginName,DisplayName) VALUES('vendedor2.muestra','VENDEDOR2.MUESTRA','Rosa'),('bodega.muestra','BODEGA.MUESTRA','Marta')", c)) await extra.ExecuteNonQueryAsync();
             await using var node = SaviaNode.BranchA(db);
             var config = new ConfigurationBuilder().AddInMemoryCollection(new Dictionary<string, string?>
             { ["Savia:Provision:Logins"] = "gerente.muestra,duena.muestra,vendedor1.muestra,vendedor2.muestra,bodega.muestra", ["Savia:Provision:CheckOnly"] = "true" }).Build();

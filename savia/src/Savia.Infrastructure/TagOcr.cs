@@ -103,9 +103,13 @@ public sealed class RapidOcrSidecarExtractor(string python, string script) : ITa
         var ct = limit.Token;
         var info = new ProcessStartInfo(python)
         {
-            RedirectStandardInput = true, RedirectStandardOutput = true, RedirectStandardError = false,
-            UseShellExecute = false, CreateNoWindow = true,
-            StandardOutputEncoding = new UTF8Encoding(false), StandardInputEncoding = new UTF8Encoding(false),
+            RedirectStandardInput = true,
+            RedirectStandardOutput = true,
+            RedirectStandardError = false,
+            UseShellExecute = false,
+            CreateNoWindow = true,
+            StandardOutputEncoding = new UTF8Encoding(false),
+            StandardInputEncoding = new UTF8Encoding(false),
         };
         info.ArgumentList.Add("-I");          // isolated: ignore PYTHONPATH and the user site
         info.ArgumentList.Add(script);

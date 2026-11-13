@@ -1,9 +1,9 @@
 // Pure rules of the phone tag page (/etiqueta/). No DOM, so node --test covers them.
 import { formatMoney, parseMoney } from '../money.mjs';
 
-export const MAX_SIDE = 1600;          // the phone sends at most 1600 px on the long side
+export const MAX_SIDE = 1600; // the phone sends at most 1600 px on the long side
 export const JPEG_QUALITY = 0.85;
-export const LOW_CONFIDENCE = 0.7;     // below this a filled field is marked "Revisar"
+export const LOW_CONFIDENCE = 0.7; // below this a filled field is marked "Revisar"
 export const FIELDS = ['barcode', 'sku', 'name', 'brand', 'size', 'color', 'price', 'composition'];
 const KEEP_FOR_OTHER_SIZES = ['name', 'brand', 'color', 'composition'];
 
@@ -31,8 +31,14 @@ export function toForm(answer, previous = {}) {
   const a = answer ?? {};
   const confidence = a.confidence ?? {};
   const values = {
-    barcode: a.barcode ?? '', sku: a.sku ?? '', name: a.name ?? '', brand: a.brand ?? '', size: a.size ?? '',
-    color: a.color ?? '', price: priceText(a.priceMinor), composition: a.composition ?? '',
+    barcode: a.barcode ?? '',
+    sku: a.sku ?? '',
+    name: a.name ?? '',
+    brand: a.brand ?? '',
+    size: a.size ?? '',
+    color: a.color ?? '',
+    price: priceText(a.priceMinor),
+    composition: a.composition ?? '',
   };
   // Another size of the same model: the tag may omit what the first photo already gave.
   for (const key of KEEP_FOR_OTHER_SIZES) if (!values[key] && previous[key]) values[key] = previous[key];
@@ -49,7 +55,10 @@ export function keepForNextSize(values) {
   return Object.fromEntries(KEEP_FOR_OTHER_SIZES.map(key => [key, values[key] ?? '']));
 }
 
-const clean = text => String(text ?? '').trim().replace(/\s+/g, ' ');
+const clean = text =>
+  String(text ?? '')
+    .trim()
+    .replace(/\s+/g, ' ');
 
 /**
  * Form -> bodies of the existing catalog endpoints. The catalog has no brand or composition column:
@@ -57,7 +66,10 @@ const clean = text => String(text ?? '').trim().replace(/\s+/g, ' ');
  */
 export function registration(values, { productId, itemId, costText }) {
   const errors = [];
-  const name = clean(values.name), brand = clean(values.brand), size = clean(values.size).toUpperCase(), color = clean(values.color);
+  const name = clean(values.name),
+    brand = clean(values.brand),
+    size = clean(values.size).toUpperCase(),
+    color = clean(values.color);
   const barcode = barcodeHint(values.barcode);
   const sku = clean(values.sku) || barcode || '';
   const unitPriceMinor = parseMoney(values.price ?? '');
@@ -73,8 +85,16 @@ export function registration(values, { productId, itemId, costText }) {
   return {
     errors,
     product: { productId, name: productName.slice(0, 200) },
-    item: { itemId, productId, sku: sku.slice(0, 100), variantName: variantName.slice(0, 200), currencyCode: 'NIO',
-      unitPriceMinor, unitCostMinor, barcode: barcode ?? null },
+    item: {
+      itemId,
+      productId,
+      sku: sku.slice(0, 100),
+      variantName: variantName.slice(0, 200),
+      currencyCode: 'NIO',
+      unitPriceMinor,
+      unitCostMinor,
+      barcode: barcode ?? null,
+    },
     scanCode: barcode ?? sku,
   };
 }

@@ -14,8 +14,21 @@
 // Extra scan fields beyond the contract: `input`, `restoreValue`.
 
 const MODIFIERS = new Set([
-  'Shift', 'Control', 'Alt', 'AltGraph', 'Meta', 'CapsLock', 'NumLock', 'ScrollLock',
-  'Fn', 'FnLock', 'Hyper', 'Super', 'Symbol', 'SymbolLock', 'OS',
+  'Shift',
+  'Control',
+  'Alt',
+  'AltGraph',
+  'Meta',
+  'CapsLock',
+  'NumLock',
+  'ScrollLock',
+  'Fn',
+  'FnLock',
+  'Hyper',
+  'Super',
+  'Symbol',
+  'SymbolLock',
+  'OS',
 ]);
 const TEXT_TYPES = new Set(['', 'text', 'search', 'tel', 'number', 'url', 'email', 'password']);
 const CONTROL_CHARS = /[\u0000-\u001f\u007f-\u009f]/;
@@ -41,8 +54,7 @@ export function isValidEan13(code) {
 }
 
 function isTextInput(el) {
-  return !!el && el.tagName === 'INPUT' && typeof el.value === 'string'
-    && TEXT_TYPES.has(String(el.type || '').toLowerCase());
+  return !!el && el.tagName === 'INPUT' && typeof el.value === 'string' && TEXT_TYPES.has(String(el.type || '').toLowerCase());
 }
 
 export function createScanner(options = {}) {
@@ -65,17 +77,27 @@ export function createScanner(options = {}) {
   }
 
   function clearTimer() {
-    if (timer !== null) { globalThis.clearTimeout(timer); timer = null; }
+    if (timer !== null) {
+      globalThis.clearTimeout(timer);
+      timer = null;
+    }
   }
 
   function clearBuf() {
     clearTimer();
-    buf = []; times = []; bad = false; startInput = null; startValue = null;
+    buf = [];
+    times = [];
+    bad = false;
+    startInput = null;
+    startValue = null;
   }
 
   function arm() {
     clearTimer();
-    timer = globalThis.setTimeout(() => { timer = null; abandon(); }, 3 * opts.maxInterKeyMs);
+    timer = globalThis.setTimeout(() => {
+      timer = null;
+      abandon();
+    }, 3 * opts.maxInterKeyMs);
     if (timer && typeof timer.unref === 'function') timer.unref();
   }
 
@@ -122,8 +144,12 @@ export function createScanner(options = {}) {
       const raw = buf.join('');
       const durationMs = t - times[0];
       const meta = {
-        bad, durationMs, avgInterKeyMs: durationMs / n, suffixKey: e.key,
-        input: startInput, restoreValue: startValue,
+        bad,
+        durationMs,
+        avgInterKeyMs: durationMs / n,
+        suffixKey: e.key,
+        input: startInput,
+        restoreValue: startValue,
       };
       clearBuf();
       finish('scanner', raw, meta);
@@ -132,8 +158,12 @@ export function createScanner(options = {}) {
     clearBuf();
     if (opts.allowManual && e.key === 'Enter' && isTextInput(e.target) && e.target.value) {
       finish('manual', e.target.value, {
-        bad: false, durationMs: 0, avgInterKeyMs: 0, suffixKey: 'Enter',
-        input: e.target, restoreValue: null,
+        bad: false,
+        durationMs: 0,
+        avgInterKeyMs: 0,
+        suffixKey: 'Enter',
+        input: e.target,
+        restoreValue: null,
       });
     }
   }
@@ -145,13 +175,26 @@ export function createScanner(options = {}) {
     if (typeof key !== 'string' || MODIFIERS.has(key)) return;
     const t = opts.now();
     if (buf.length && t - lastT > opts.maxInterKeyMs) abandon();
-    if (e.ctrlKey || e.metaKey) { clearBuf(); return; }
-    if (key === 'Dead' || key === 'Unidentified') {
-      if (buf.length) { bad = true; lastT = t; arm(); }
+    if (e.ctrlKey || e.metaKey) {
+      clearBuf();
       return;
     }
-    if (opts.suffixKeys.includes(key)) { onSuffix(e, t); return; }
-    if ([...key].length !== 1) { clearBuf(); return; }
+    if (key === 'Dead' || key === 'Unidentified') {
+      if (buf.length) {
+        bad = true;
+        lastT = t;
+        arm();
+      }
+      return;
+    }
+    if (opts.suffixKeys.includes(key)) {
+      onSuffix(e, t);
+      return;
+    }
+    if ([...key].length !== 1) {
+      clearBuf();
+      return;
+    }
     if (buf.length === 0) {
       const editable = isTextInput(e.target);
       startInput = editable ? e.target : null;
@@ -163,8 +206,14 @@ export function createScanner(options = {}) {
     arm();
   }
 
-  function onCompositionStart() { composing = true; clearBuf(); }
-  function onCompositionEnd() { composing = false; clearBuf(); }
+  function onCompositionStart() {
+    composing = true;
+    clearBuf();
+  }
+  function onCompositionEnd() {
+    composing = false;
+    clearBuf();
+  }
 
   function attach() {
     const target = opts.target || (typeof document !== 'undefined' ? document : null);
@@ -187,13 +236,23 @@ export function createScanner(options = {}) {
   attach();
 
   return {
-    stop() { detach(); clearBuf(); composing = false; },
+    stop() {
+      detach();
+      clearBuf();
+      composing = false;
+    },
     configure(partial = {}) {
       const retarget = partial.target !== undefined && partial.target !== opts.target;
       apply(partial);
-      if (retarget && attached) { detach(); clearBuf(); attach(); }
+      if (retarget && attached) {
+        detach();
+        clearBuf();
+        attach();
+      }
       if (buf.length) arm();
     },
-    stats() { return { ...counters }; },
+    stats() {
+      return { ...counters };
+    },
   };
 }

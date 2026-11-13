@@ -67,7 +67,7 @@ public sealed class AuthService(IAuthStore store, IPasswordHasher hasher, TimePr
     /// <summary>Owner or manager sets a staff password. A real deployment adds a reset flow on top.</summary>
     public Task SetPasswordAsync(Actor actor, Guid staffId, string password, CancellationToken ct)
     {
-        Guard.Role(actor, Roles.Owner, Roles.Manager);
+        Guard.Role(actor, Roles.Approvers);
         return SetPasswordUncheckedAsync(staffId, password, ct);
     }
 

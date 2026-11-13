@@ -1,6 +1,11 @@
 // Pure filter for Inventario. Filters server rows; never changes a number.
 
-const fold = text => String(text ?? '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
+const fold = text =>
+  String(text ?? '')
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase()
+    .trim();
 
 export function filterStock(rows, query) {
   const q = fold(query);
