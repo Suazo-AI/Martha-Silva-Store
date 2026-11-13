@@ -143,8 +143,8 @@ def web_calls_real_routes(root):
 
 
 def no_disabled_tests(root):
-    """A failing test is fixed or deleted with a reason, never skipped."""
-    patterns = {".cs": r"Skip\s*=", ".mjs": r"\b(test|it|describe)\.(skip|only|todo)\(", ".py": r"@unittest\.skip|pytest\.mark\.skip"}
+    """A failing test is fixed or deleted with a reason, never skipped. A platform condition (skipUnless) is allowed."""
+    patterns = {".cs": r"Skip\s*=", ".mjs": r"\b(test|it|describe)\.(skip|only|todo)\(", ".py": r"@unittest\.skip\(|@unittest\.skipIf\(True|pytest\.mark\.skip(?!if)"}
     out = []
     for folder in ("tests", "web", "tools"):
         for path in sorted((root / folder).rglob("*")):

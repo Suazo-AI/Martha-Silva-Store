@@ -81,6 +81,9 @@ class RulesTest(unittest.TestCase):
     def test_no_disabled_tests(self):
         self.broken(rules.no_disabled_tests, {"tests/Savia.Tests/SaleTests.cs": '[Fact(Skip = "flaky")] public void Sells() {}\n'}, "disabled test")
         self.broken(rules.no_disabled_tests, {"web/tests/sale.test.mjs": "test.skip('total', () => {});\n"}, "disabled test")
+        self.broken(rules.no_disabled_tests, {"tests/test_x.py": "@unittest.skip('later')\ndef test_x(): pass\n"}, "disabled test")
+        platform = {"tests/test_x.py": "@unittest.skipUnless(os.name == 'nt', 'Windows only')\ndef test_x(): pass\n"}
+        self.assertEqual(rules.no_disabled_tests(self.tree(platform)), [])
 
 
 if __name__ == "__main__":

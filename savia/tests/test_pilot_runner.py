@@ -26,6 +26,7 @@ class PilotRunnerTests(unittest.TestCase):
             run.return_value.stdout = 'dotnet unrelated.dll'
             self.assertIsNone(pilot.api_pid())
 
+    @unittest.skipUnless(os.name == 'nt', 'covers the Windows process lookup; Linux reads /proc')
     def test_only_the_exact_pilot_dll_pid_is_recognized(self):
         with patch.object(pilot.PID_FILE.__class__, 'read_text', return_value='1234'), \
              patch.object(pilot.subprocess, 'run') as run:

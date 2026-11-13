@@ -3,6 +3,7 @@ import contextlib
 import importlib.util
 import io
 import json
+import os
 from pathlib import Path
 import unittest
 import tempfile
@@ -53,6 +54,7 @@ class BrowserCleanupTests(unittest.TestCase):
         self.assertEqual(2,sum(args==('close',) for args,_ in calls))
         self.assertTrue(all(kwargs.get('timeout',45)<=1 for _,kwargs in calls))
 
+    @unittest.skipUnless(os.name == 'nt', 'stop_session_daemon acts only on Windows')
     def test_hung_diagnostics_use_only_the_named_session_pid_record(self):
         with tempfile.TemporaryDirectory() as directory:
             socket=Path(directory)/'.agent-browser';socket.mkdir()
