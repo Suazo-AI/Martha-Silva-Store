@@ -46,7 +46,7 @@ BEGIN
 END;
 EXEC receiving.usp_ApproveScanSession @session,@manager;
 EXEC receiving.usp_PostScanSession @session,@manager,@node,@receipt OUTPUT,'NIO';
-DECLARE @previous uniqueidentifier=NULL,@sale uniqueidentifier,@till uniqueidentifier,@count uniqueidentifier,@closure uniqueidentifier,
+DECLARE @previous uniqueidentifier=NULL,@sale uniqueidentifier,@till uniqueidentifier,@count uniqueidentifier,@usdCount uniqueidentifier,@closure uniqueidentifier,
  @line uniqueidentifier,@reverse uniqueidentifier,@credit uniqueidentifier,@j int,@total bigint,@price2 bigint,@item2 uniqueidentifier,@discount bigint,@kind varchar(20),@cash bigint,@difference bigint,@countJson nvarchar(max),@sellers nvarchar(max),@shortNote nvarchar(500);
 DECLARE @lines sales.SaleLineRequest,@tenders sales.SaleTenderRequest,@returnLines sales.ReturnLineRequest;
 DECLARE @weekday int,@perDay int,@saleAt datetime2(3),@first uniqueidentifier,@second uniqueidentifier,@shared bit,@hasTwo bit;
@@ -115,11 +115,11 @@ BEGIN
  DECLARE @denoms TABLE(d bigint,q int);
  -- A fresh scope prevents count rows from accumulating between days.
  SET @countJson=N'[';
- DECLARE denom CURSOR LOCAL FAST_FORWARD FOR SELECT DenominationMinor FROM sales.CashDenominations ORDER BY DenominationMinor DESC;
+ DECLARE denom CURSOR LOCAL FAST_FORWARD FOR SELECT DenominationMinor FROM sales.CashDenominations WHERE CurrencyCode='NIO' ORDER BY DenominationMinor DESC;
  DECLARE @d bigint,@q int;OPEN denom;FETCH NEXT FROM denom INTO @d;
  WHILE @@FETCH_STATUS=0 BEGIN SET @q=@remaining/@d;SET @remaining=@remaining-@q*@d;SET @countJson+=CASE WHEN LEN(@countJson)>1 THEN N',' ELSE N'' END+CONCAT(N'{"denominationMinor":',@d,N',"quantity":',@q,N'}');FETCH NEXT FROM denom INTO @d;END;
  CLOSE denom;DEALLOCATE denom;SET @countJson+=N']';
- SET @count=NEWID();SET @closure=NEWID();EXEC sales.usp_RecordCashCount @count,@till,@manager,@countJson;EXEC sales.usp_CloseTill @closure,@till,@count,@manager,@node;
+ SET @count=NEWID();SET @usdCount=NEWID();SET @closure=NEWID();EXEC sales.usp_RecordCashCount @count,@till,@manager,@countJson,@usdCount,N'[{"denominationMinor":100,"quantity":0}]';EXEC sales.usp_CloseTill @closure,@till,@count,@manager,@node,@usdCount;
  SET @day+=1;
 END;
 DECLARE @exception uniqueidentifier;

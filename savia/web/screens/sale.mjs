@@ -26,6 +26,12 @@ import { openTillPanel, syncTill } from './till-open.mjs';
 export default {
   title: 'Venta',
   async mount(root, ctx) {
+    let rate = null;
+    try {
+      rate = await api.exchangeRate();
+    } catch (error) {
+      if (error.status !== 404) throw error;
+    }
     let detach = () => {};
     const handle = { handleScan: () => ctx.notify('Abra la caja antes de vender.'), unmount: () => detach() };
 
@@ -126,6 +132,7 @@ export default {
       const cards = h('div', { class: 'cards', id: 'cards', 'aria-live': 'polite' });
       const ticketLines = h('div', { id: 'ticket-lines' });
       const total = h('strong', { id: 'total', 'aria-live': 'polite' });
+      const usdTotal = h('div', { id: 'usd-total', class: 'num' });
       const balanceLabel = h('span', { id: 'balance-label' }, 'Cambio');
       const balance = h('strong', { id: 'balance' });
       const payMessage = h('p', { class: 'error', role: 'alert' });
@@ -133,6 +140,7 @@ export default {
       const receipt = h('section', { class: 'panel receipt-paper', id: 'receipt', hidden: true, 'aria-live': 'polite' });
       const payments = paymentsPanel({
         kinds: api.saleTenderKinds,
+        rate: till.usdExpectedMinor == null ? null : rate,
         branchId: ctx.me.branchId,
         getTotal: effectiveTotal,
         onChange: () => {
@@ -274,10 +282,12 @@ export default {
               ),
         );
         total.textContent = formatMoney(effectiveTotal());
+        usdTotal.textContent = rate ? formatMoney(Math.round(effectiveTotal() / rate.rate), 'USD') : '';
         drawBalance();
       };
 
       const drawBalance = () => {
+        payments.refresh();
         balanceLabel.textContent = 'Cambio';
         try {
           const draft = payments.draft();
@@ -785,6 +795,7 @@ export default {
                 ? h('label', {}, 'Motivo del descuento', discountReasonInput)
                 : h('small', {}, 'Todo descuento requiere aprobación de la gerente.'),
               h('div', { class: 'total' }, h('span', {}, 'Total'), total),
+              usdTotal,
               payments.node,
               h('div', { class: 'money-row', 'aria-live': 'polite', 'aria-atomic': 'true' }, balanceLabel, balance),
               payMessage,

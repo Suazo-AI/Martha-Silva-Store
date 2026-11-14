@@ -72,7 +72,8 @@ public sealed class VerticalSliceTests : IAsyncLifetime
 
         // --- sell: two units, cash. The same request again changes nothing.
         var till = Guid.NewGuid();
-        await HttpAssert.OkAsync(await _cashier.PostAsJsonAsync("/api/v1/cash/tills", new OpenTillRequest(till, Ids.RegisterA, "NIO", 100_000, [new(100000, 1)])));
+        await HttpAssert.OkAsync(await _cashier.PostAsJsonAsync("/api/v1/cash/tills", new OpenTillRequest(till, Ids.RegisterA, "NIO", 100_000,
+            [new(100000, 1)])));
         var sale = new PostSaleRequest(Guid.NewGuid(), till, "NIO",
             [new SaleLine(1, Ids.Item, 2, 120_000)],
             [new SaleTender(1, "cash", 240_000, ReceivedMinor: 300_000, ChangeMinor: 60_000)]);
@@ -106,16 +107,17 @@ public sealed class VerticalSliceTests : IAsyncLifetime
         Assert.Equal(1, await TestSql.ScalarAsync<int>(_database, "SELECT COUNT(*) FROM sales.Sales"));
 
         // --- count and close: expected = opening 100000 + cash sale 240000
-        var count = new RecordCashCountRequest(Guid.NewGuid(), [new CashCountLine(100_000, 3), new CashCountLine(10_000, 4)]);
+        var count = new RecordCashCountRequest(Guid.NewGuid(), [new CashCountLine(100_000, 3), new CashCountLine(10_000, 4)],
+            UsdCashCountId: Guid.NewGuid(), UsdLines: [new(100, 0)]);
         await HttpAssert.OkAsync(await _cashier.PostAsJsonAsync($"/api/v1/cash/tills/{till}/counts", count));
-        var close = new CloseTillRequest(Guid.NewGuid(), count.CashCountId);
+        var close = new CloseTillRequest(Guid.NewGuid(), count.CashCountId, count.UsdCashCountId);
         await HttpAssert.ProblemAsync(await _cashier.PostAsJsonAsync($"/api/v1/cash/tills/{till}/close", close),
             HttpStatusCode.Forbidden, "auth.role_required");
         var closure = await HttpAssert.OkAsync<CloseTillResponse>(await _supervisor.PostAsJsonAsync($"/api/v1/cash/tills/{till}/close", close));
         Assert.Equal((340_000L, 340_000L, 0L), (closure.ExpectedMinor, closure.CountedMinor, closure.DifferenceMinor));
         Assert.Equal(closure, await HttpAssert.OkAsync<CloseTillResponse>(await _supervisor.PostAsJsonAsync($"/api/v1/cash/tills/{till}/close", close)));
-        Assert.Equal(1, await TestSql.ScalarAsync<int>(_database, "SELECT COUNT(*) FROM accounting.CloseDocuments"));
-        Assert.Equal(1, await TestSql.ScalarAsync<int>(_database, "SELECT COUNT(*) FROM accounting.ExportJobs"));
+        Assert.Equal(2, await TestSql.ScalarAsync<int>(_database, "SELECT COUNT(*) FROM accounting.CloseDocuments"));
+        Assert.Equal(2, await TestSql.ScalarAsync<int>(_database, "SELECT COUNT(*) FROM accounting.ExportJobs"));
 
         // --- a closed till sells nothing
         var late = sale with { SaleId = Guid.NewGuid() };

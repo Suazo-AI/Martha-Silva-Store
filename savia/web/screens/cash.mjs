@@ -34,16 +34,27 @@ export default {
       const saved = device.get(`count.${till.tillId}`);
       const pending = saved?.pending ?? { cashCountId: null, closureId: null, key: null };
       const count = await denominationCount({ saved: saved?.lines ?? [] });
+      const usdCount =
+        summary.usdExpectedMinor == null
+          ? null
+          : await denominationCount({ prefix: 'close-usd', currency: 'USD', saved: saved?.usdLines ?? [] });
       const lines = count.lines;
       const counted = count.total;
 
       const saveCount = async () => {
         const countLines = lines();
         if (countLines.length === 0) throw Object.assign(new Error('Escriba cuántos billetes y monedas hay.'), { local: true });
-        const key = JSON.stringify(countLines);
-        if (pending.key !== key) Object.assign(pending, { cashCountId: api.uuid(), closureId: api.uuid(), key });
-        await api.recordCashCount(till.tillId, { cashCountId: pending.cashCountId, lines: countLines });
-        device.set(`count.${till.tillId}`, { pending, lines: countLines });
+        const usdLines = usdCount?.lines();
+        const key = JSON.stringify([countLines, usdLines]);
+        if (pending.key !== key)
+          Object.assign(pending, { cashCountId: api.uuid(), usdCashCountId: usdCount ? api.uuid() : null, closureId: api.uuid(), key });
+        await api.recordCashCount(till.tillId, {
+          cashCountId: pending.cashCountId,
+          lines: countLines,
+          usdCashCountId: pending.usdCashCountId,
+          usdLines,
+        });
+        device.set(`count.${till.tillId}`, { pending, lines: countLines, usdLines });
         return pending;
       };
 
@@ -75,12 +86,17 @@ export default {
             clearMessage(message);
             close.disabled = true;
             try {
-              if (!(await confirmAction(`Se cerrará la caja con un conteo de ${formatMoney(countTotal(lines()))}.`))) {
+              const totals = `${formatMoney(countTotal(lines()))}${usdCount ? ` y ${formatMoney(countTotal(usdCount.lines()), 'USD')}` : ''}`;
+              if (!(await confirmAction(`Se cerrará la caja con un conteo de ${totals}.`))) {
                 close.disabled = false;
                 return;
               }
               const ids = await saveCount();
-              const closure = await api.closeTill(till.tillId, { closureId: ids.closureId, cashCountId: ids.cashCountId });
+              const closure = await api.closeTill(till.tillId, {
+                closureId: ids.closureId,
+                cashCountId: ids.cashCountId,
+                usdCashCountId: ids.usdCashCountId,
+              });
               device.set('parkedTickets', null);
               ctx.till.set(null);
               device.set(`count.${till.tillId}`, null);
@@ -135,8 +151,13 @@ export default {
               'section',
               { class: 'panel', 'aria-labelledby': 'count-title' },
               h('h2', { id: 'count-title' }, 'Efectivo contado'),
+              h('h3', {}, 'Córdobas'),
               count.node,
               h('div', { class: 'row total' }, h('span', {}, 'Su conteo'), counted),
+              usdCount ? h('h3', {}, 'Dólares') : null,
+              usdCount?.node,
+              usdCount ? h('div', { class: 'row' }, 'Esperado US$', formatMoney(summary.usdExpectedMinor, 'USD')) : null,
+              usdCount ? h('div', { class: 'row total' }, 'Contado US$', usdCount.total) : null,
               message,
               h('div', { class: 'actions' }, save),
               ctx.isApprover ? close : h('p', { class: 'muted' }, 'Guarde el conteo. La gerente cierra la caja.'),
@@ -179,7 +200,12 @@ function closurePanel(closure) {
       h('span', {}, 'Efectivo contado'),
       h('strong', { id: 'closure-counted' }, formatMoney(closure.countedMinor)),
     ),
-    h('p', {}, 'Diferencia'),
+    closure.usdExpectedMinor == null ? null : h('div', { class: 'row' }, 'Esperado US$', formatMoney(closure.usdExpectedMinor, 'USD')),
+    closure.usdCountedMinor == null ? null : h('div', { class: 'row' }, 'Contado US$', formatMoney(closure.usdCountedMinor, 'USD')),
+    closure.usdDifferenceMinor == null
+      ? null
+      : h('div', { class: 'row' }, 'Diferencia US$', formatMoney(closure.usdDifferenceMinor, 'USD')),
+    h('p', {}, 'Diferencia C$'),
     h('div', { class: `diff ${diff.tone}`, id: 'closure-difference' }, `${diff.label}: ${formatMoney(closure.differenceMinor)}`),
   );
 }

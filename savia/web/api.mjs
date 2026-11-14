@@ -186,16 +186,18 @@ export const itemValues = query => request('GET', `/catalog/values${q({ q: query
 export const setItemValues = (itemId, body) => request('POST', path`/catalog/items/${itemId}/values`, body);
 export const commissions = (period, date) => request('GET', `/reports/commissions${q({ period, date })}`);
 export const setSellerRate = (sellerId, body) => request('POST', path`/sellers/${sellerId}/rate`, body);
+export const exchangeRate = () => request('GET', '/exchange-rate');
+export const setExchangeRate = body => request('POST', '/exchange-rates', body);
 export const denominations = () => request('GET', '/cash/denominations');
-export const openTill = ({ tillId, registerId, currencyCode = 'NIO', openingMinor, lines }) =>
-  request('POST', '/cash/tills', { tillId, registerId, currencyCode, openingMinor, lines });
+export const openTill = ({ tillId, registerId, currencyCode = 'NIO', openingMinor, lines, usdLines }) =>
+  request('POST', '/cash/tills', { tillId, registerId, currencyCode, openingMinor, lines, ...(usdLines ? { usdLines } : {}) });
 export const currentTill = () => request('GET', '/cash/tills/current');
 export const tillSummary = tillId => request('GET', path`/cash/tills/${tillId}/summary`);
-export const recordCashCount = (tillId, { cashCountId, lines }) =>
-  request('POST', path`/cash/tills/${tillId}/counts`, { cashCountId, lines });
+export const recordCashCount = (tillId, { cashCountId, lines, usdCashCountId, usdLines }) =>
+  request('POST', path`/cash/tills/${tillId}/counts`, { cashCountId, lines, ...(usdLines ? { usdCashCountId, usdLines } : {}) });
 /** { closureId, expectedMinor, countedMinor, differenceMinor } */
-export const closeTill = (tillId, { closureId, cashCountId }) =>
-  request('POST', path`/cash/tills/${tillId}/close`, { closureId, cashCountId });
+export const closeTill = (tillId, { closureId, cashCountId, usdCashCountId }) =>
+  request('POST', path`/cash/tills/${tillId}/close`, { closureId, cashCountId, ...(usdCashCountId ? { usdCashCountId } : {}) });
 /** { saleId, subtotalMinor, discountMinor, taxMinor, totalMinor, status } */
 export const postSale = (sale, approvalToken) => request('POST', '/sales', sale, { approvalToken, notifyUnauthorized: !approvalToken });
 export const getSale = saleId => request('GET', path`/sales/${saleId}`);

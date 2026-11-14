@@ -1,5 +1,6 @@
 import { roleSummary } from '../roles.mjs';
 import { device, h, replace } from '../ui.mjs';
+import { ratePanel } from './rates.mjs';
 export function applyPalette(value) {
   const palette = ['bosque', 'tinta', 'malva'].includes(value) ? value : 'bosque';
   if (palette === 'bosque') delete document.documentElement.dataset.palette;
@@ -7,7 +8,7 @@ export function applyPalette(value) {
 }
 export default {
   title: 'Ajustes',
-  mount(root, ctx) {
+  async mount(root, ctx) {
     const palette = device.get('palette') ?? 'bosque';
     const picker = h(
       'fieldset',
@@ -40,6 +41,7 @@ export default {
           'section',
           { class: 'panel' },
           h('h2', {}, 'Preferencias'),
+          ctx.isApprover ? await ratePanel() : null,
           picker,
           h('p', {}, 'El color se conserva en este equipo.'),
           h(

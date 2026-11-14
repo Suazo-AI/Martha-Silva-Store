@@ -72,6 +72,8 @@ public static class SaviaEndpoints
 
         ReceivingEndpoints.Map(api);
         CashEndpoints.Map(api);
+        ExchangeRateEndpoints.Map(api);
+        ExchangeRateEndpoints.Map(app.MapGroup("/api").AddEndpointFilter<ActorFilter>());
         SalesEndpoints.Map(api);
         ReturnsEndpoints.Map(api);
         CustomersEndpoints.Map(api);

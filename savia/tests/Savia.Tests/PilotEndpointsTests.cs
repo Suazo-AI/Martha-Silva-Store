@@ -152,7 +152,8 @@ public sealed class PilotEndpointsTests : IAsyncLifetime
         await HttpAssert.ProblemAsync(await _cashier.GetAsync("/api/v1/cash/tills/current"), HttpStatusCode.NotFound, "cash.no_open_till");
 
         var till = Guid.NewGuid();
-        await HttpAssert.OkAsync(await _cashier.PostAsJsonAsync("/api/v1/cash/tills", new OpenTillRequest(till, Ids.RegisterA, "NIO", 100_000, [new(100000, 1)])));
+        await HttpAssert.OkAsync(await _cashier.PostAsJsonAsync("/api/v1/cash/tills", new OpenTillRequest(till, Ids.RegisterA, "NIO", 100_000,
+            [new(100000, 1)])));
         register = Assert.Single(await HttpAssert.OkAsync<RegisterRow[]>(await _cashier.GetAsync("/api/v1/cash/registers")));
         Assert.Equal(((Guid?)till, (Guid?)Ids.CashierA), (register.OpenTillId, register.OpenTillCashierId));
         await HttpAssert.OkAsync<SaleResponse>(await _cashier.PostAsJsonAsync("/api/v1/sales", new PostSaleRequest(Guid.NewGuid(), till, "NIO",
@@ -163,14 +164,16 @@ public sealed class PilotEndpointsTests : IAsyncLifetime
             (current.TillId, current.Status, current.RegisterName, current.CashierName, current.OpeningMinor, current.CashSalesMinor,
              current.CashRefundsMinor, current.OtherCashMinor, current.ExpectedCashMinor, current.SaleCount, current.SalesTotalMinor, current.ClosureId));
 
-        var count = new RecordCashCountRequest(Guid.NewGuid(), [new CashCountLine(100_000, 3), new CashCountLine(10_000, 4)]);
+        var count = new RecordCashCountRequest(Guid.NewGuid(), [new CashCountLine(100_000, 3), new CashCountLine(10_000, 4)],
+            UsdCashCountId: Guid.NewGuid(), UsdLines: [new(100, 0)]);
         await HttpAssert.OkAsync(await _cashier.PostAsJsonAsync($"/api/v1/cash/tills/{till}/counts", count));
         var closure = await HttpAssert.OkAsync<CloseTillResponse>(await _supervisor.PostAsJsonAsync($"/api/v1/cash/tills/{till}/close",
-            new CloseTillRequest(Guid.NewGuid(), count.CashCountId)));
+            new CloseTillRequest(Guid.NewGuid(), count.CashCountId, count.UsdCashCountId)));
         var closed = await HttpAssert.OkAsync<TillSummary>(await _supervisor.GetAsync($"/api/v1/cash/tills/{till}/summary"));
         Assert.Equal(("closed", closure.ExpectedMinor, (Guid?)closure.ClosureId), (closed.Status, closed.ExpectedCashMinor, closed.ClosureId));
         await HttpAssert.ProblemAsync(await _cashier.GetAsync("/api/v1/cash/tills/current"), HttpStatusCode.NotFound, "cash.no_open_till");
-        await HttpAssert.ProblemAsync(await _supervisor.GetAsync($"/api/v1/cash/tills/{Guid.NewGuid()}/summary"), HttpStatusCode.NotFound, "cash.till_not_found");
+        await HttpAssert.ProblemAsync(await _supervisor.GetAsync($"/api/v1/cash/tills/{Guid.NewGuid()}/summary"), HttpStatusCode.NotFound,
+            "cash.till_not_found");
 
         // A cashier sees only her own tills; a till of another branch does not exist here.
         await ExecAsync($"""

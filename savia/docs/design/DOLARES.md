@@ -1,6 +1,6 @@
 # Cobro en dólares a la tasa del día
 
-Estado: diseño revisado tras el crítico (GPT-6 Astra, xhigh; veredicto NO-GO con 12 casos). Base: `2579a09`.
+Estado: implementado en V027 e integrado en `Tony`; 26/26 pruebas USD, 134/134 SQL, 109/109 .NET y `verify.py` completo 13 de 13 con venta en US$ en el navegador. Base: `f3caf57`. Evidencia: [USD](../evidence/usd-cash/README.md).
 Fuente: [PCG](../pilot/PCG.md) y respuestas de la dueña el 2026-11-13.
 Cada caso del crítico tiene su resolución en la tabla final.
 

@@ -1,0 +1,255 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-14T00:02:52.577928+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/DATABASE.md",
+      "change": "M",
+      "git_blob": "c5a965273fb1ac0262e05efb4fa3f7f24802448a"
+    },
+    {
+      "path": "savia/db/migrations/MANIFEST.sha256",
+      "change": "M",
+      "git_blob": "b3b315dac5539ab66e53c71163c9889109ed49af"
+    },
+    {
+      "path": "savia/db/migrations/V027__usd_cash.sql",
+      "change": "A",
+      "git_blob": "1adc0874f0a066e5c6689f7c08e9945b1d484551"
+    },
+    {
+      "path": "savia/db/tests/cash/121_close_till_retry_and_other_closure.sql",
+      "change": "M",
+      "git_blob": "037db9ac1c84982322d35a9a60ca1ef581a81375"
+    },
+    {
+      "path": "savia/db/tests/cash/123_close_document_totals.sql",
+      "change": "M",
+      "git_blob": "2bcbf869421b8254e972dfcbc4d34b3a07bfe228"
+    },
+    {
+      "path": "savia/docs/PLAN.md",
+      "change": "M",
+      "git_blob": "4a4417725d2e5d3cf50b7cd249b4582c6eb5dd3f"
+    },
+    {
+      "path": "savia/docs/design/DOLARES.md",
+      "change": "M",
+      "git_blob": "d946d057789c17a4abf9372dff7ec7fd6bc41d45"
+    },
+    {
+      "path": "savia/docs/evidence/usd-cash/README.md",
+      "change": "A",
+      "git_blob": "65615dc221fa9063d92fe25b75930984adb1b9b7"
+    },
+    {
+      "path": "savia/src/Savia.Api/Endpoints.cs",
+      "change": "M",
+      "git_blob": "6f50800b70d1c6d4097c2dda4b00eccf7760686c"
+    },
+    {
+      "path": "savia/src/Savia.Api/ExchangeRateEndpoints.cs",
+      "change": "A",
+      "git_blob": "fad7f8d2dcd63240b91e547d82c79cf6e6ce9384"
+    },
+    {
+      "path": "savia/src/Savia.Application/ExchangeRates.cs",
+      "change": "A",
+      "git_blob": "f5e22746c3c31b465df1601c88ce476d39d74a00"
+    },
+    {
+      "path": "savia/src/Savia.Application/ForeignCash.cs",
+      "change": "A",
+      "git_blob": "72f9358ed2c043c63c8282beb7107af78f4f7970"
+    },
+    {
+      "path": "savia/src/Savia.Application/Returns.cs",
+      "change": "M",
+      "git_blob": "1256164a125367f2b22bd0de4f20c1d868cec82e"
+    },
+    {
+      "path": "savia/src/Savia.Application/Sales.cs",
+      "change": "M",
+      "git_blob": "f2c8fe48b72d91ab382110c557c73ea78628a179"
+    },
+    {
+      "path": "savia/src/Savia.Contracts/Cash.cs",
+      "change": "M",
+      "git_blob": "d565c95f776944b3efa1e08ad75e3be653fb9515"
+    },
+    {
+      "path": "savia/src/Savia.Contracts/ExchangeRates.cs",
+      "change": "A",
+      "git_blob": "dee82807ba657161cfe3a049e8ee550ca98e6ad3"
+    },
+    {
+      "path": "savia/src/Savia.Contracts/Reports.cs",
+      "change": "M",
+      "git_blob": "b930dc208864fea52d3937ea8fb87d29a5220966"
+    },
+    {
+      "path": "savia/src/Savia.Contracts/Sales.cs",
+      "change": "M",
+      "git_blob": "1d3182fb92bb5c76f7c5a476a1de793023af01f0"
+    },
+    {
+      "path": "savia/src/Savia.Domain/Errors.cs",
+      "change": "M",
+      "git_blob": "762401782d31a76d38d0f1005cd374f34679faa6"
+    },
+    {
+      "path": "savia/src/Savia.Infrastructure/CashStore.cs",
+      "change": "M",
+      "git_blob": "b08edf377526c2f6c5d131250e4e5c66bbebc552"
+    },
+    {
+      "path": "savia/src/Savia.Infrastructure/ExchangeRateStore.cs",
+      "change": "A",
+      "git_blob": "a87888149e86ad9b4a7efec4d5bedac3472a98fe"
+    },
+    {
+      "path": "savia/src/Savia.Infrastructure/SalesStore.cs",
+      "change": "M",
+      "git_blob": "4cd07b902ec172f90d156e3cde2a90c6eddf04f0"
+    },
+    {
+      "path": "savia/src/Savia.Infrastructure/ServiceRegistration.cs",
+      "change": "M",
+      "git_blob": "ea68dcb0fcf2bcfd63c92c8a2718dcfd234d1bb1"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/ConcurrencyTests.cs",
+      "change": "M",
+      "git_blob": "0dbfb7981475c6c7c921ea81736b02165aeee610"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/PilotEndpointsTests.cs",
+      "change": "M",
+      "git_blob": "e256c71341aa0e4cf4b74e1a9cbdc5489920fd0c"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/PilotSalesTests.cs",
+      "change": "M",
+      "git_blob": "ec65e807252bddf9afac0b99b1d0fee232125f30"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/SaleAccountingTests.cs",
+      "change": "A",
+      "git_blob": "6a902149db1b53e1e4108464ff4e75b8ff1d300d"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/UsdAcceptanceTests.cs",
+      "change": "A",
+      "git_blob": "606ae2f36f9bd5415e0f77c26b6d6f3466d2fe3a"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/UsdCashTests.cs",
+      "change": "A",
+      "git_blob": "79df166a211f605dc08c7c95f6d65683571f6ede"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/UsdFixture.cs",
+      "change": "A",
+      "git_blob": "efcf97548802a77f21703e0316d345a3ada184b1"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/UsdVerifyTests.cs",
+      "change": "A",
+      "git_blob": "878aa9916d80658dbed6552f12ce83a599b2d6be"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/VerticalSliceTests.cs",
+      "change": "M",
+      "git_blob": "c35413c0059059f366509f33b15fc19c5e6c5920"
+    },
+    {
+      "path": "savia/tools/check.py",
+      "change": "M",
+      "git_blob": "fc0c7a6eff4abe9c92f39c230302ddd84c3d7b3d"
+    },
+    {
+      "path": "savia/tools/pilot_demo_history.py",
+      "change": "M",
+      "git_blob": "f09b9c12a95f437f199ddb854c62e207710425d2"
+    },
+    {
+      "path": "savia/tools/pilot_smoke.py",
+      "change": "M",
+      "git_blob": "2d3e0c823fad413b1841176160e0258d002708ab"
+    },
+    {
+      "path": "savia/web/api.mjs",
+      "change": "M",
+      "git_blob": "b676bc155f14532f4c14b9edf5a0184b1aab1651"
+    },
+    {
+      "path": "savia/web/screens/cash.mjs",
+      "change": "M",
+      "git_blob": "07e0e82665f2e6665763f1d9f99f4326df784488"
+    },
+    {
+      "path": "savia/web/screens/denominations.mjs",
+      "change": "M",
+      "git_blob": "f4e3de0d344ae6766eccea8c76e50f1ef3170f23"
+    },
+    {
+      "path": "savia/web/screens/payment-logic.mjs",
+      "change": "M",
+      "git_blob": "6e846a98f6d03c17d9fcf7778b08c089bea9c0b8"
+    },
+    {
+      "path": "savia/web/screens/payments.mjs",
+      "change": "M",
+      "git_blob": "6236c69d939e1af013a0692f52c57216072d8bcb"
+    },
+    {
+      "path": "savia/web/screens/rates.mjs",
+      "change": "A",
+      "git_blob": "ddd78a2794ea62604e9c22217366e2afab60edbf"
+    },
+    {
+      "path": "savia/web/screens/report.mjs",
+      "change": "M",
+      "git_blob": "16b1328eef67281db2d16245c3c4b3559fd2473b"
+    },
+    {
+      "path": "savia/web/screens/sale-view.mjs",
+      "change": "M",
+      "git_blob": "b76801f7f5012a6eaa68d9e5f289517e9552bca1"
+    },
+    {
+      "path": "savia/web/screens/sale.mjs",
+      "change": "M",
+      "git_blob": "ecaff4d4a7e4d3542756831aa7b86f373ad3909a"
+    },
+    {
+      "path": "savia/web/screens/settings.mjs",
+      "change": "M",
+      "git_blob": "b32a5111fa600d65a147803d2097f885dee03384"
+    },
+    {
+      "path": "savia/web/screens/till-open.mjs",
+      "change": "M",
+      "git_blob": "0cc77b6213a7047b73212d5006761f1d7f24d77a"
+    },
+    {
+      "path": "savia/web/screens/usd-logic.mjs",
+      "change": "A",
+      "git_blob": "608dc345d93ec2dbbd1497eeef948dc7d9f7b7a1"
+    },
+    {
+      "path": "savia/web/tests/e2e_pilot.py",
+      "change": "M",
+      "git_blob": "9525605e305223f84693220ba3dbd2bd61e07ee5"
+    },
+    {
+      "path": "savia/web/tests/usd.test.mjs",
+      "change": "A",
+      "git_blob": "1b754b0ba82343ee8d2e869adf3d7ef3a147a58a"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

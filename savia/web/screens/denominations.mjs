@@ -3,20 +3,25 @@ import { countTotal, formatMoney } from '../money.mjs';
 import { h } from '../ui.mjs';
 
 // Opening and closing use the same SQL-owned list and the same input validation.
-export async function denominationCount({ prefix = 'den', saved = [], onChange = () => {} } = {}) {
-  const denominations = await api.denominations();
+export async function denominationCount({ prefix = 'den', saved = [], currency = 'NIO', onChange = () => {} } = {}) {
+  const denominations = currency === 'USD' ? [10000, 5000, 2000, 1000, 500, 200, 100] : await api.denominations();
+  const money = value => formatMoney(value, currency);
   const values = new Map(denominations.map(d => [d, saved.find(l => l.denominationMinor === d)?.quantity ?? 0]));
-  const total = h('strong', { id: prefix === 'open-den' ? 'till-opening' : 'counted', class: 'num', 'aria-live': 'polite' });
+  const total = h('strong', {
+    id: currency === 'USD' ? `${prefix}-counted` : prefix === 'open-den' ? 'till-opening' : 'counted',
+    class: 'num',
+    'aria-live': 'polite',
+  });
   const lines = () => [...values].map(([denominationMinor, quantity]) => ({ denominationMinor, quantity }));
   const inputs = [];
   const node = h(
     'div',
     { class: 'denoms' },
     denominations.map(d => {
-      const subtotal = h('output', { class: 'num', id: `${prefix}-total-${d}` }, formatMoney(d * values.get(d)));
+      const subtotal = h('output', { class: 'num', id: `${prefix}-total-${d}` }, money(d * values.get(d)));
       const input = h('input', {
         id: `${prefix}-${d}`,
-        'aria-label': `Cantidad de ${formatMoney(d)}`,
+        'aria-label': `Cantidad de ${money(d)}`,
         type: 'number',
         min: 0,
         max: 1000000,
@@ -30,16 +35,16 @@ export async function denominationCount({ prefix = 'den', saved = [], onChange =
           const valid = e.target.value.trim() !== '' && Number.isInteger(q) && q >= 0 && q <= 1000000;
           e.target.setAttribute('aria-invalid', String(!valid));
           values.set(d, valid ? q : 0);
-          subtotal.textContent = valid ? formatMoney(d * q) : 'Revise la cantidad';
-          total.textContent = formatMoney(countTotal(lines()));
+          subtotal.textContent = valid ? money(d * q) : 'Revise la cantidad';
+          total.textContent = money(countTotal(lines()));
           onChange();
         },
       });
       inputs.push(input);
-      return h('label', { for: `${prefix}-${d}` }, h('span', { class: 'num' }, formatMoney(d)), input, subtotal);
+      return h('label', { for: `${prefix}-${d}` }, h('span', { class: 'num' }, money(d)), input, subtotal);
     }),
   );
-  total.textContent = formatMoney(countTotal(lines()));
+  total.textContent = money(countTotal(lines()));
   return {
     node,
     total,

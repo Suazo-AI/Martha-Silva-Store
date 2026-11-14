@@ -33,6 +33,8 @@ public sealed class SalesStore(SqlGateway sql) : ISalesStore
             Table("@Tenders", "sales.SaleTenderRequest", tenders), P("@CustomerId", request.CustomerId), P("@TillId", request.TillId),
             P("@DiscountApproverId", discountApproverId), P("@DiscountReason", request.DiscountReason),
             P("@StockExceptionNote", request.StockExceptionNote),
+            P("@FxJson", request.Tenders.Any(ForeignCash.HasFields)
+                ? JsonSerializer.Serialize(request.Tenders.Where(ForeignCash.HasFields), SqlJson.Web) : null),
             P("@SellersJson", request.Lines.Any(l => l.SellerId is not null)
                 ? JsonSerializer.Serialize(request.Lines.OrderBy(l => l.LineNumber).Select(l => new { l.LineNumber, l.SellerId }), SqlJson.Web) : null));
     }

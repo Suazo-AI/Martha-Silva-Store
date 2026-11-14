@@ -28,10 +28,13 @@ public sealed class SalesService(ISalesStore store, NodeContext node)
             throw Errors.Invalid("sale.duplicate_line", "Números de línea o de pago repetidos.");
         foreach (var tender in request.Tenders)
         {
+            ForeignCash.Validate(tender);
             Guard.Text(tender.TenderKind, "tenderKind", 20);
             if (tender.Reference?.Length > 120)
                 throw Errors.Invalid("input.text", "La referencia admite hasta 120 caracteres.");
         }
+        if (request.Tenders.Count(ForeignCash.HasFields) > 1)
+            throw Errors.Invalid("sale.fx", "Solo se admite un pago en dólares.");
         if (approval is not null)
         {
             Guard.Role(approval, Roles.Approvers);

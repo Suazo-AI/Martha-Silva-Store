@@ -130,6 +130,8 @@ export function reportContent(report) {
         ].map(([label, key]) =>
           h('div', { class: 'row' }, label, h('strong', { dataset: { field: key } }, amount(till[key], till.currencyCode))),
         ),
+        till.usdExpectedMinor == null ? null : h('div', { class: 'row' }, 'Esperado US$', formatMoney(till.usdExpectedMinor, 'USD')),
+        till.usdDifferenceMinor == null ? null : h('div', { class: 'row' }, 'Diferencia US$', formatMoney(till.usdDifferenceMinor, 'USD')),
         ...(report.refundsByKind ?? [])
           .filter(row => row.tillId === till.tillId)
           .map(row =>
@@ -164,7 +166,8 @@ export function businessContent(kpi) {
     ['stockExceptionsCount', 'Excepciones de inventario', String],
     ['qualityRejects', 'Rechazos de calidad', String],
     ['tillClosuresWithDifference', 'Cierres con diferencia', String],
-    ['tillDifferenceMinor', 'Diferencia de caja', money],
+    ['tillDifferenceMinor', 'Diferencia de caja C$', money],
+    ['usdTillDifferenceMinor', 'Diferencia de caja US$', value => (value == null ? '—' : formatMoney(value, 'USD'))],
   ];
   return [
     h('h2', {}, `Negocio · ${kpi.startDate} al ${kpi.endDate}`),
@@ -247,7 +250,8 @@ export function teamContent(team) {
           [
             ['name', 'Nombre'],
             ['tillClosures', 'Cierres'],
-            ['tillDifferenceMinor', 'Diferencia de caja', money],
+            ['tillDifferenceMinor', 'Diferencia de caja C$', money],
+            ['usdTillDifferenceMinor', 'Diferencia de caja US$', value => (value == null ? '—' : formatMoney(value, 'USD'))],
             ['approvalsCount', 'Aprobaciones'],
             ['approvalsMinor', 'Monto aprobado', money],
           ],

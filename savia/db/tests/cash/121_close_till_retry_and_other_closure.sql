@@ -25,7 +25,7 @@ SET @n=(SELECT COUNT(*) FROM accounting.ExportJobs e JOIN accounting.CloseDocume
 EXEC test.AssertEq N'trabajos de exportacion',1,@n;
 SET @n=(SELECT COUNT(*) FROM accounting.CloseDocumentLines WHERE CloseDocumentId=
         (SELECT Id FROM accounting.CloseDocuments WHERE ClosureId=@close));
-EXEC test.AssertEq N'lineas del documento contable',11,@n;
+EXEC test.AssertEq N'lineas del documento contable',12,@n;
 SET @n=(SELECT COUNT(*) FROM sync.Outbox WHERE AggregateId=@close AND EventType='cash.till_closed');
 EXEC test.AssertEq N'eventos de cierre',1,@n;
 
@@ -42,4 +42,7 @@ SET @n=(SELECT COUNT(*) FROM accounting.CloseDocuments WHERE ClosureId=@other);
 EXEC test.AssertEq N'el segundo documento no existe',0,@n;
 SET @n=(SELECT COUNT(*) FROM sales.CashClosures);
 EXEC test.AssertEq N'cierres guardados',1,@n;
+SET @n=(SELECT COUNT(*) FROM accounting.CloseDocumentLines l JOIN accounting.CloseDocuments d ON d.Id=l.CloseDocumentId
+        WHERE d.ClosureId=@close AND l.ConceptCode='CASH_ROUNDING' AND l.AmountMinor=0);
+EXEC test.AssertEq N'redondeo NIO sin pagos USD',1,@n;
 PRINT 'PASS';

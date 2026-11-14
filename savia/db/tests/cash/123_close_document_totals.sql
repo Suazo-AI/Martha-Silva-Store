@@ -67,7 +67,7 @@ EXEC test.AssertEq N'diferencia de caja',0,@n;
 
 SET @n=(SELECT COUNT(*) FROM accounting.CloseDocumentLines WHERE CloseDocumentId=@doc);
 -- V024 adds one line per return kind; this till has one credit return.
-EXEC test.AssertEq N'lineas del documento',12,@n;
+EXEC test.AssertEq N'lineas del documento',13,@n;
 SET @n=(SELECT AmountMinor FROM accounting.CloseDocumentLines WHERE CloseDocumentId=@doc AND ConceptCode='REFUND_CREDIT');
 EXEC test.AssertEq N'linea de devoluciones por anticipo',-293239,@n;
 SET @n=(SELECT AmountMinor FROM accounting.CloseDocumentLines WHERE CloseDocumentId=@doc AND ConceptCode='EXPECTED_CASH');
@@ -90,4 +90,7 @@ SET @n=(SELECT COUNT(*) FROM accounting.ExportJobs WHERE CloseDocumentId=@doc
 EXEC test.AssertEq N'trabajo pendiente para el contador en PDF',1,@n;
 SET @n=(SELECT OnHand FROM inventory.StockBalances WHERE ItemId=@item2 AND LocationId=@loc AND Pool='store');
 EXEC test.AssertEq N'stock del articulo devuelto',10,@n;
+SET @n=(SELECT COUNT(*) FROM accounting.CloseDocumentLines l JOIN accounting.CloseDocuments d ON d.Id=l.CloseDocumentId
+        WHERE d.ClosureId=@close AND l.ConceptCode='CASH_ROUNDING' AND l.AmountMinor=0);
+EXEC test.AssertEq N'redondeo NIO sin pagos USD',1,@n;
 PRINT 'PASS';

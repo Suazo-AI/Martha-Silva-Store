@@ -1,5 +1,20 @@
 # SQL: configuración, evidencia y límites
 
+## SAVIA v2: efectivo USD (V027)
+
+Esta base SQL independiente vive en `savia/db`; no usa las migraciones EF del backend anterior.
+[V027](../savia/db/migrations/V027__usd_cash.sql) agrega `core.ExchangeRates`, las columnas FX de
+`sales.SaleTenders` y `sales.CashTills.ParentTillId`. `sales.CashDenominations` usa moneda y denominacion.
+`CashEntries` incorpora `change`; su indice unico usa `(SaleTenderId, Kind)`.
+
+`core.usp_SetExchangeRate` crea tasas inmutables. `sales.usp_OpenTillCounted`, `usp_RecordCashCount`
+y `usp_CloseTill` operan sobre el padre NIO y su hijo USD en una transaccion.
+`usp_RecordDrawerCount` y `usp_CloseDrawer` son auxiliares internos para cada gaveta.
+`usp_PostSale`, las devoluciones, `usp_RecordCashEntry`, `usp_GetSaleDetail`, los KPIs,
+`usp_GetDayReport` y `audit.usp_CheckConservation` incorporan el contrato USD.
+Ver [diseno](../savia/docs/design/DOLARES.md) y [pruebas](../savia/docs/evidence/usd-cash/README.md).
+
+
 Actualizado: 2026-11-03. Esta entrega documenta SQL; no consulta ni modifica las bases de la aplicación.
 Jason eligió índice para agentes y documentación de SQL. No se afirma que la API o SQL estén activos ahora.
 

@@ -38,6 +38,8 @@ public static class ServiceRegistration
         services.AddSingleton<ReceivingService>();
         services.AddSingleton<IInventoryStore, InventoryStore>();
         services.AddSingleton<InventoryService>();
+        services.AddSingleton<IExchangeRateStore, ExchangeRateStore>();
+        services.AddSingleton<ExchangeRateService>();
         services.AddSingleton<ICashStore, CashStore>();
         services.AddSingleton<CashService>();
         services.AddSingleton<ISalesStore, SalesStore>();

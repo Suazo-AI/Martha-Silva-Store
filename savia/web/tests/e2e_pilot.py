@@ -337,6 +337,10 @@ def main() -> int:
         login_ui('gerente.muestra');post(f'/receiving/sessions/{session}/approve');post(f'/receiving/sessions/{session}/post')
         registers=get('/cash/registers');check(not registers[0]['openTillId'],'closed till before browser sale')
         till=str(uuid.uuid4());post('/cash/tills',{'tillId':till,'registerId':registers[0]['registerId'],'currencyCode':'NIO','openingMinor':100000,'lines':[{'denominationMinor':50000,'quantity':2}]})
+        # The manager sets today's dollar rate once; Venta reads it when the screen opens.
+        status,_=call('GET','/exchange-rate',token=manager)
+        if status==404: post('/exchange-rates',{'id':str(uuid.uuid4()),'effectiveFrom':today,'rate':36.6243,'reason':'Tasa E2E'})
+        rate=get('/exchange-rate');rate4=round(rate['rate']*10000)
         # Shared sale: the manager adds a second seller; each line keeps its own seller on one receipt and one payment.
         go('venta','#sale-seller');wait_for("document.querySelector('#cards button.product')",'sale catalog')
         check(js("return !document.querySelector('#sale-customer-search');"),'no customer field in normal Venta')
@@ -360,6 +364,21 @@ def main() -> int:
         shown=js("return [...document.querySelectorAll('#receipt .line-seller-name')].map(e=>e.textContent.trim());")
         check(shown==['Vendedor: '+l['sellerName'] for l in detail['lines']],'receipt shows the seller per line')
         print('PASS shared sale with two sellers, one receipt and one payment',flush=True)
+        # USD cash: whole dollars at the day's rate; change in whole córdobas, the rest is cash rounding.
+        price=first['unitPriceMinor'];dollars=1
+        while (dollars*100*rate4+5000)//10000<price: dollars+=1
+        dollars+=1;received=(dollars*100*rate4+5000)//10000;extra=received-price;change=extra//100*100
+        js('savia.handleScan('+json.dumps(first['barcode'])+');return true;');wait_for("document.querySelectorAll('.tline').length===1",'USD sale line')
+        click('#cash-usd');wait_for("document.querySelector('#received')",'dollars field');fill('#received',str(dollars))
+        wait_for("[...document.querySelectorAll('output')].some(o=>o.textContent.includes('Vuelto'))",'USD equivalent shown');shot('venta-dolares')
+        click('#pay');wait_for("document.querySelector('#receipt') && !document.querySelector('#receipt').hidden",'USD sale receipt')
+        usdsale=js("return document.querySelector('#receipt').textContent.match(/[0-9a-f-]{36}/i)?.[0];")
+        tender=get('/sales/'+usdsale)['tenders'][0]
+        check(tender['foreignCurrencyCode']=='USD' and tender['foreignReceivedMinor']==dollars*100,'USD received persisted')
+        check(tender['receivedMinor']==received and tender['changeMinor']==change and tender['roundingMinor']==extra-change,'USD equivalent, change and rounding')
+        check(tender['receivedMinor']-tender['changeMinor']-tender['roundingMinor']==tender['amountMinor']==price,'received minus change minus rounding equals the sale')
+        check(get('/cash/tills/'+till+'/summary')['usdExpectedMinor']==dollars*100,'USD drawer expects the dollars received')
+        print('PASS USD cash sale at the day rate',flush=True)
         # Returns: the four outcomes are offered; a bank transfer is recorded with its reference and leaves the till untouched.
         cash_before=get('/cash/tills/'+till+'/summary')['expectedCashMinor']
         line1=detail['lines'][0]
@@ -435,11 +454,13 @@ def main() -> int:
             check(messages and messages<=IMPORT_OK and not js("return document.querySelector('#import-confirm');"),'repeat import refused as already registered')
         imported=get('/catalog/search?q=7459990001017',owner);check(len(imported)==1 and imported[0]['unitPriceMinor']==98000,'imported item readable through the API')
         shot('importar-catalogo','#import-preview');print('PASS owner catalog import',flush=True)
-        count=get('/cash/tills/'+till+'/summary')['expectedCashMinor'];denominations=get('/cash/denominations');remaining=count;lines=[]
+        summary=get('/cash/tills/'+till+'/summary');count=summary['expectedCashMinor'];denominations=get('/cash/denominations');remaining=count;lines=[]
+        usd=summary.get('usdExpectedMinor') or 0;check(usd%100==0,'USD drawer counted in whole dollars')
         for d in denominations:
             q,remaining=divmod(remaining,d);lines.append({'denominationMinor':d,'quantity':q})
-        check(remaining==0,'count exactly representable');countid=str(uuid.uuid4());post('/cash/tills/'+till+'/counts',{'cashCountId':countid,'lines':lines})
-        post('/cash/tills/'+till+'/close',{'closureId':str(uuid.uuid4()),'cashCountId':countid})
+        check(remaining==0,'count exactly representable');countid=str(uuid.uuid4());usdcount=str(uuid.uuid4())
+        post('/cash/tills/'+till+'/counts',{'cashCountId':countid,'lines':lines,'usdCashCountId':usdcount,'usdLines':[{'denominationMinor':100,'quantity':usd//100}]})
+        post('/cash/tills/'+till+'/close',{'closureId':str(uuid.uuid4()),'cashCountId':countid,'usdCashCountId':usdcount})
         print('PASS owner price, approvals and till close',flush=True)
     except Exception as error:
         errors.append(str(error));print('FAIL '+str(error),flush=True)

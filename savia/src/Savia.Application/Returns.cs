@@ -43,6 +43,8 @@ public sealed class ReturnsService(IReturnsStore store, SalesService sales, Node
         if (request.Reference?.Length > 120 || request.DifferenceReference?.Length > 120)
             throw Errors.Invalid("input.text", "La referencia admite hasta 120 caracteres.");
         if (request.NewLines?.Length > 50 || request.NewTenders?.Length > 10) throw Errors.Invalid("return.exchange_lines", "Demasiadas lineas en el cambio.");
+        if (request.NewTenders?.Any(ForeignCash.HasFields) == true)
+            throw Errors.Invalid("return.fx", "El cambio no admite dólares.");
         await store.ReturnOutcomeAsync(branch, node.RequireLocation(), sale, request, actor.StaffId, node.NodeId, ct);
         var detail = await sales.DetailAsync(actor, sale, ct);
         return detail.Reversals.Single(r => r.ReversalId == request.ReversalId);

@@ -20,6 +20,7 @@ export async function openTillPanel(ctx, onOpened) {
     showError(message, error);
   }
   const count = await denominationCount({ prefix: 'open-den' });
+  const usdCount = await denominationCount({ prefix: 'open-usd', currency: 'USD' });
   const submit = h('button', { class: 'primary big', type: 'submit' }, 'Abrir caja');
   const ids = api.retryIds('tillId');
   return h(
@@ -33,8 +34,10 @@ export async function openTillPanel(ctx, onOpened) {
         clearMessage(message);
         const registerId = registerControl.value.trim();
         let lines;
+        let usdLines;
         try {
           lines = count.lines();
+          usdLines = usdCount.lines();
         } catch (error) {
           showError(message, error);
           return;
@@ -45,10 +48,10 @@ export async function openTillPanel(ctx, onOpened) {
           registerControl.focus();
           return;
         }
-        const { tillId } = ids([registerId, lines]);
+        const { tillId } = ids([registerId, lines, usdLines]);
         submit.disabled = true;
         try {
-          await api.openTill({ tillId, registerId, currencyCode: 'NIO', openingMinor, lines });
+          await api.openTill({ tillId, registerId, currencyCode: 'NIO', openingMinor, lines, usdLines });
           device.set('registerId', registerId);
           ctx.till.set(await api.tillSummary(tillId));
           await onOpened();
@@ -63,8 +66,12 @@ export async function openTillPanel(ctx, onOpened) {
     h('p', {}, 'No hay caja abierta en este equipo. Cuente el efectivo inicial y ábrala para vender.'),
     h('label', { for: 'till-register' }, 'Caja'),
     registerControl,
+    h('h3', {}, 'Córdobas'),
     count.node,
     h('div', { class: 'row total' }, 'Fondo inicial', count.total),
+    h('h3', {}, 'Dólares'),
+    usdCount.node,
+    h('div', { class: 'row total' }, 'Fondo inicial US$', usdCount.total),
     message,
     submit,
   );

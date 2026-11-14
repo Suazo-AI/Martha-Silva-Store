@@ -1,12 +1,15 @@
 import * as api from '../api.mjs';
-import { formatMoney } from '../money.mjs';
+import { formatMoney, parseMoney } from '../money.mjs';
 import { h, replace, showError } from '../ui.mjs';
 import { paymentDraft } from './payment-logic.mjs';
 import { tenderName } from './sale-view.mjs';
+import { usdCash } from './usd-logic.mjs';
 
 /** Payment inputs stay within the existing ticket. No bank/card details are collected. */
-export function paymentsPanel({ kinds, getTotal, onChange, branchId }) {
+export function paymentsPanel({ kinds, getTotal, onChange, branchId, rate }) {
+  if (rate) kinds = [...kinds, 'cash_usd'];
   let payments = [{ kind: 'cash', amount: '', received: '', reference: '' }];
+  let refreshers = [];
   let customer = null;
   let credits = [];
   let customerRevision = 0;
@@ -92,6 +95,7 @@ export function paymentsPanel({ kinds, getTotal, onChange, branchId }) {
   });
 
   function draw() {
+    refreshers = [];
     replace(
       rows,
       payments.map((payment, index) => {
@@ -109,6 +113,18 @@ export function paymentsPanel({ kinds, getTotal, onChange, branchId }) {
           kinds.map(value => h('option', { value }, tenderName(value))),
         );
         kind.value = payment.kind;
+        const equivalent = h('output', { class: 'muted', 'aria-live': 'polite' });
+        const updateEquivalent = () => {
+          if (payment.kind !== 'cash_usd') return;
+          try {
+            const fx = usdCash(payments.length === 1 ? getTotal() : parseMoney(payment.amount), payment.received, rate);
+            equivalent.textContent = `Equivalente ${formatMoney(fx.receivedMinor)} · Vuelto ${formatMoney(fx.changeMinor)} · Redondeo ${formatMoney(fx.roundingMinor)}`;
+          } catch (error) {
+            equivalent.textContent = error.message;
+          }
+        };
+        updateEquivalent();
+        refreshers.push(updateEquivalent);
         const input = (label, name, key, mode = 'decimal') =>
           h(
             'label',
@@ -122,6 +138,7 @@ export function paymentsPanel({ kinds, getTotal, onChange, branchId }) {
               maxlength: key === 'reference' ? '120' : undefined,
               oninput: e => {
                 payment[key] = e.target.value;
+                updateEquivalent();
                 onChange();
               },
             }),
@@ -131,13 +148,14 @@ export function paymentsPanel({ kinds, getTotal, onChange, branchId }) {
           { class: 'payment-row' },
           h('label', {}, `Método de pago ${index + 1}`, kind),
           payments.length > 1 ? input(`Importe del pago ${index + 1}`, `${id}-amount`, 'amount') : null,
-          payment.kind === 'cash'
+          ['cash', 'cash_usd'].includes(payment.kind)
             ? input(
-                `Efectivo recibido${payments.length > 1 ? ` ${index + 1}` : ''}`,
+                `${payment.kind === 'cash_usd' ? 'Dólares recibidos US$' : 'Efectivo recibido'}${payments.length > 1 ? ` ${index + 1}` : ''}`,
                 index === 0 ? 'received' : `${id}-received`,
                 'received',
               )
             : null,
+          payment.kind === 'cash_usd' ? equivalent : null,
           ['card', 'transfer'].includes(payment.kind)
             ? input(
                 payment.kind === 'card' ? 'Número de voucher del POS (opcional)' : `Referencia del pago ${index + 1}`,
@@ -202,6 +220,22 @@ export function paymentsPanel({ kinds, getTotal, onChange, branchId }) {
     'div',
     { class: 'form', id: 'payments' },
     rows,
+    rate
+      ? h(
+          'button',
+          {
+            type: 'button',
+            id: 'cash-usd',
+            onclick: () => {
+              payments[0].kind = 'cash_usd';
+              draw();
+              onChange();
+              rows.querySelector('input')?.focus();
+            },
+          },
+          'Efectivo US$',
+        )
+      : null,
     h(
       'button',
       {
@@ -219,6 +253,9 @@ export function paymentsPanel({ kinds, getTotal, onChange, branchId }) {
   draw();
   return {
     node,
+    refresh() {
+      for (const refresh of refreshers) refresh();
+    },
     snapshot() {
       return { payments: structuredClone(payments), customer: customer ? structuredClone(customer) : null };
     },
@@ -238,7 +275,7 @@ export function paymentsPanel({ kinds, getTotal, onChange, branchId }) {
       return customer?.customerId;
     },
     draft() {
-      return paymentDraft(getTotal(), payments, { supportedKinds: kinds, customerId: customer?.customerId });
+      return paymentDraft(getTotal(), payments, { supportedKinds: kinds, customerId: customer?.customerId, rate });
     },
     reset() {
       payments = [{ kind: 'cash', amount: '', received: '', reference: '' }];

@@ -2,6 +2,7 @@
 """One command that runs every SAVIA v2 check and says what failed.
 
   python savia/tools/check.py            # everything
+  python savia/tools/check.py --isolated # preserve a pilot owned by another checkout
   python savia/tools/check.py --quick    # skip the .NET build and tests
 
 Needs the dev database container (python savia/tools/db/saviadb.py up).
@@ -46,7 +47,11 @@ def main():
     env = dict(os.environ, DOTNET_CLI_TELEMETRY_OPTOUT="1", DOTNET_NOLOGO="1", MSBUILDDISABLENODEREUSE="1")
     os.environ.update(env)
     py = sys.executable
-    ok = run("pilot stopped before checks", [py, "tools/pilot.py", "down"], "savia/tools/pilot.py")
+    if "--isolated" in sys.argv:
+        print("SKIP  pilot stop (--isolated: throwaway databases only)")
+        ok = True
+    else:
+        ok = run("pilot stopped before checks", [py, "tools/pilot.py", "down"], "savia/tools/pilot.py")
     ok &= run("architecture rules", [py, "tools/rules.py"], "the file:line and the fix named in each message")
     ok &= run("baseline is generated from the handoff", [py, "tools/db/build_baseline.py", "--check"], "savia/tools/db/build_baseline.py")
     ok &= run("no DELETE or TRUNCATE on synced tables", [py, "tools/db/no_physical_delete.py"], "savia/tools/db/no_physical_delete.py")

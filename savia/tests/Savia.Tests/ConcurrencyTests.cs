@@ -100,16 +100,18 @@ public sealed class ConcurrencyTests : IAsyncLifetime
         await SeedStockAsync(3);
         var till = await OpenTillAsync();
         await HttpAssert.OkAsync<SaleResponse>(await _cashier.PostAsJsonAsync("/api/v1/sales", OneUnit(Guid.NewGuid(), till)));
-        var count = new RecordCashCountRequest(Guid.NewGuid(), [new CashCountLine(10_000, 17)]);     // 50000 opening + 120000 sale
+        var count = new RecordCashCountRequest(Guid.NewGuid(), [new CashCountLine(10_000, 17)], UsdCashCountId: Guid.NewGuid(), UsdLines: [new(100,
+            0)]);     // 50000 opening + 120000 sale
         await HttpAssert.OkAsync(await _cashier.PostAsJsonAsync($"/api/v1/cash/tills/{till}/counts", count));
-        var close = new CloseTillRequest(Guid.NewGuid(), count.CashCountId);
+        var close = new CloseTillRequest(Guid.NewGuid(), count.CashCountId, count.UsdCashCountId);
 
         var responses = await Task.WhenAll(Enumerable.Range(0, 10).Select(_ => _supervisor.PostAsJsonAsync($"/api/v1/cash/tills/{till}/close", close)));
         var answers = await Task.WhenAll(responses.Select(async r => $"{(int)r.StatusCode} {await r.Content.ReadAsStringAsync()}"));
 
-        Assert.True(responses.All(r => r.StatusCode == HttpStatusCode.OK), "every retry of the same close must succeed: " + string.Join(" | ", answers.Distinct()));
-        Assert.Equal(1, await TestSql.ScalarAsync<int>(_database, "SELECT COUNT(*) FROM sales.CashClosures"));
-        Assert.Equal(1, await TestSql.ScalarAsync<int>(_database, "SELECT COUNT(*) FROM accounting.CloseDocuments"));
+        Assert.True(responses.All(r => r.StatusCode == HttpStatusCode.OK), "every retry of the same close must succeed: " + string.Join(" | ",
+            answers.Distinct()));
+        Assert.Equal(2, await TestSql.ScalarAsync<int>(_database, "SELECT COUNT(*) FROM sales.CashClosures"));
+        Assert.Equal(2, await TestSql.ScalarAsync<int>(_database, "SELECT COUNT(*) FROM accounting.CloseDocuments"));
         await TestSql.AssertConservationAsync(_database);
     }
 
@@ -122,7 +124,7 @@ public sealed class ConcurrencyTests : IAsyncLifetime
         var answers = await Task.WhenAll(responses.Select(async r => $"{(int)r.StatusCode} {await r.Content.ReadAsStringAsync()}"));
 
         Assert.True(responses.All(r => r.IsSuccessStatusCode), "every retry of the same opening must succeed: " + string.Join(" | ", answers.Distinct()));
-        Assert.Equal(1, await TestSql.ScalarAsync<int>(_database, "SELECT COUNT(*) FROM sales.CashTills"));
+        Assert.Equal(2, await TestSql.ScalarAsync<int>(_database, "SELECT COUNT(*) FROM sales.CashTills"));
         Assert.Equal(50_000L, await TestSql.ScalarAsync<long>(_database, "SELECT SUM(DeltaMinor) FROM sales.CashEntries WHERE Kind='opening'"));
         await TestSql.AssertConservationAsync(_database);
     }
@@ -133,7 +135,8 @@ public sealed class ConcurrencyTests : IAsyncLifetime
     private async Task<Guid> OpenTillAsync()
     {
         var till = Guid.NewGuid();
-        await HttpAssert.OkAsync(await _cashier.PostAsJsonAsync("/api/v1/cash/tills", new OpenTillRequest(till, Ids.RegisterA, "NIO", 50_000, [new(50000, 1)])));
+        await HttpAssert.OkAsync(await _cashier.PostAsJsonAsync("/api/v1/cash/tills", new OpenTillRequest(till, Ids.RegisterA, "NIO", 50_000,
+            [new(50000, 1)])));
         return till;
     }
 

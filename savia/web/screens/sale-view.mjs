@@ -4,7 +4,9 @@ import { formatMoney } from '../money.mjs';
 import { h } from '../ui.mjs';
 
 export const tenderName = kind =>
-  ({ cash: 'Efectivo', card: 'Tarjeta', transfer: 'Transferencia', credit: 'Anticipo / crédito', other: 'Otro' })[kind] ?? kind;
+  ({ cash: 'Efectivo', cash_usd: 'Efectivo US$', card: 'Tarjeta', transfer: 'Transferencia', credit: 'Anticipo / crédito', other: 'Otro' })[
+    kind
+  ] ?? kind;
 export const saleStatusName = status =>
   ({ posted: 'Confirmada', paid: 'Pagada', returned: 'Devuelta', partially_returned: 'Devolución parcial', voided: 'Anulada' })[status] ??
   'Registrada';
@@ -68,8 +70,15 @@ export function receiptContent(sale) {
       h(
         'div',
         { class: 'row' },
-        tenderName(tender.tenderKind),
+        tenderName(tender.foreignCurrencyCode ? 'cash_usd' : tender.tenderKind),
         h('strong', {}, formatMoney(tender.amountMinor)),
+        tender.foreignCurrencyCode
+          ? h(
+              'small',
+              {},
+              `${formatMoney(tender.foreignReceivedMinor, 'USD')} × ${tender.exchangeRate} = ${formatMoney(tender.receivedMinor)} · Vuelto ${formatMoney(tender.changeMinor)} · Redondeo ${formatMoney(tender.roundingMinor)}`,
+            )
+          : null,
         tender.reference ? h('small', {}, `Referencia ${tender.reference}`) : null,
       ),
     ),
