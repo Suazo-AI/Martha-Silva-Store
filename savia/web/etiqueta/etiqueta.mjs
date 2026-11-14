@@ -113,7 +113,7 @@ async function renderHome() {
   input.addEventListener('change', () => {
     const file = input.files?.[0];
     input.value = '';
-    if (file) readPhoto(file);
+    if (file) readPhoto(file).catch(error => showError(message, error));
   });
   replace(
     root,

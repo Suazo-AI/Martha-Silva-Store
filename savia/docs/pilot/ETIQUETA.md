@@ -154,6 +154,17 @@ Time: one OCR pass took 4.4 to 4.8 s on this PC today (2.7 s earlier, other agen
 The sideways re-read added 0.3 to 2 s. Sideways photos through the API may near the 12 s timeout on a busy PC.
 Through the real API (`tools/tag_live.py`): 11 of 11; `tag1-cw` 4.7 s, `tag1-ccw` 2.7 s (`verify.py` 13 of 13).
 
+### First real phone: iPhone on home Wi-Fi (2026-11-13)
+
+Red: the page loaded over `http://192.168.1.40:5080/etiqueta/` and the login worked. After each photo the page went back to the start.
+The API log showed no request after the photo. Cause: `api.uuid()` called `crypto.randomUUID()`.
+Browsers omit it outside a secure context (HTTPS or localhost). The error was thrown before the form appeared and was not shown.
+Fix: `uuid()` falls back to `crypto.getRandomValues` (RFC 4122 v4); a failed photo now shows its error.
+Test: `web/tests/uuid.test.mjs` failed with `TypeError: crypto.randomUUID is not a function`, passes after the fix; web 80/80, Biome clean.
+Browser check: agent-browser on `http://192.168.1.40:5080/etiqueta/` (`isSecureContext` false, no `randomUUID`) as `bodega.muestra`.
+`generated/tag1.png` uploaded: tag-extract 200 in 2.8 s; barcode, SKU, name, size, color, price and composition filled.
+Not yet: the same photo flow on the iPhone after the fix. `screens/sale-logic.mjs` still calls `crypto.randomUUID`; the PC screens run on localhost.
+
 ### Page check in a browser (2026-11-12)
 
 agent-browser (desktop Chromium, 390×844) opened `/etiqueta/` from a scratch static server that faked the API on port 5199.
