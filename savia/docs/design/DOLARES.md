@@ -1,6 +1,7 @@
 # Cobro en dólares a la tasa del día
 
-Estado: V027 implementado; revisión V028 (vuelto completo en C$ y US$, monedas de dólar) en diseño. Crítico 1 y 2: NO-GO. Crítico 3: GO-WITH-FIXES, aplicadas abajo. Listo para construir.
+Estado: V027 y V028 implementados. V028: vuelto completo en C$, en US$ o en las dos, y monedas de dólar. Diseño: crítico 1 y 2 NO-GO, crítico 3 GO-WITH-FIXES aplicadas.
+V028: integrado en `Tony`; SQL 134/134, .NET 145/145, `verify.py` completo 13 de 13. Evidencia: [vuelto USD](../evidence/usd-change/README.md).
 V027: implementado e integrado en `Tony`; 26/26 pruebas USD, 134/134 SQL, 109/109 .NET y `verify.py` completo 13 de 13 con venta en US$ en el navegador. Base: `f3caf57`. Evidencia: [USD](../evidence/usd-cash/README.md).
 Fuente: [PCG](../pilot/PCG.md) y respuestas de la dueña el 2026-11-13 (dos rondas).
 Cada caso del crítico tiene su resolución en la tabla final.

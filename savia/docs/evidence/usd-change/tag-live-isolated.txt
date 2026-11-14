@@ -1,0 +1,23 @@
+pilot: reusing SAVIA_DEV_pilot
+pilot: migrate exit=0 applied: nothing new
+pilot: seed ok: branches=1 locations=1 registers=1 nodes=2 localnode=1 staff=5 staffroles=5 access=5 suppliers=2 customers=1 sizes=4 colors=6 products=19 items=65 identifiers=65 outbox=603
+pilot: build ok
+pilot: duena.muestra set
+pilot: gerente.muestra set
+pilot: vendedor1.muestra set
+pilot: vendedor2.muestra set
+pilot: bodega.muestra set
+pilot: API up at http://127.0.0.1:5080 pid 46560 (log: .out\pilot\api.log)
+FAIL tag1.png source=none 12415 ms wrong: barcode, sku, size, color, priceMinor warning: La lectura tardó demasiado. Complete los datos a mano.
+FAIL tag2.png source=none 12175 ms wrong: barcode, sku, size, color warning: La lectura tardó demasiado. Complete los datos a mano.
+FAIL tag3.png source=none 12259 ms wrong: barcode, sku, size, color, priceMinor warning: La lectura tardó demasiado. Complete los datos a mano.
+FAIL tag4.png source=none 12030 ms wrong: barcode, sku, size, color, priceMinor warning: La lectura tardó demasiado. Complete los datos a mano.
+FAIL tag5.png source=none 12528 ms wrong: barcode, sku, size, color, priceMinor warning: La lectura tardó demasiado. Complete los datos a mano.
+FAIL tag6.png source=none 12149 ms wrong: barcode, sku, size, color, priceMinor warning: La lectura tardó demasiado. Complete los datos a mano.
+FAIL generated\tag1.png source=none 12127 ms wrong: barcode, sku, size, color, priceMinor warning: La lectura tardó demasiado. Complete los datos a mano.
+FAIL generated\tag2.png source=none 12243 ms wrong: barcode, sku, size, color, priceMinor warning: La lectura tardó demasiado. Complete los datos a mano.
+FAIL generated\tag1-cw.png source=none 12028 ms wrong: barcode, sku, size, color, priceMinor warning: La lectura tardó demasiado. Complete los datos a mano.
+FAIL generated\tag1-ccw.png source=none 12369 ms wrong: barcode, sku, size, color, priceMinor warning: La lectura tardó demasiado. Complete los datos a mano.
+ok   a seller gets 403 (got 403)
+TAG LIVE FAIL: 1 of 11
+pilot: stopped API pid 46560

@@ -1,0 +1,129 @@
+Build started 11/13/2026 8:27:06 PM.
+Test run for C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia\tests\Savia.Tests\bin\Debug\net10.0\Savia.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v4.0.1+0f7d528729 (64-bit .NET 10.0.13)
+[xUnit.net 00:00:00.19]   Discovering: Savia.Tests
+[xUnit.net 00:00:00.34]   Discovered:  Savia.Tests
+[xUnit.net 00:00:00.39]   Starting:    Savia.Tests
+  Passed Savia.Tests.UsdChangeTests.Spec1e5_oracle_detects_usd_change_corruption(mutation: "extra") [8 s]
+dotnet.exe : [xUnit.net 00:00:15.81]     
+Savia.Tests.UsdChangeTests.Spec1e5_oracle_detects_usd_change_corruption(mutation: "currency") [FAIL]
+At line:2 char:1
++ & 'C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/. ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([xUnit.net 00:0...rrency") [FAIL]:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[xUnit.net 00:00:15.81]       Microsoft.Data.SqlClient.SqlException : The UPDATE statement conflicted with the FOREIGN KEY constraint "FK_CashEntries_TillCurrency". The conflict occurred in database "SAVIA_T_usd_e848cdd2547b47e398543fc284f6aed1", table "sales.CashTills".
+[xUnit.net 00:00:15.81]       The statement has been terminated.
+[xUnit.net 00:00:15.81]       Stack Trace:
+[xUnit.net 00:00:15.82]            at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+[xUnit.net 00:00:15.82]            at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+[xUnit.net 00:00:15.82]            at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+[xUnit.net 00:00:15.82]            at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+[xUnit.net 00:00:15.82]            at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+[xUnit.net 00:00:15.82]            at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+[xUnit.net 00:00:15.82]            at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+[xUnit.net 00:00:15.82]            at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__193_1(IAsyncResult asyncResult)
+[xUnit.net 00:00:15.82]            at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+[xUnit.net 00:00:15.82]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:15.82]         C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia\tests\Savia.Tests\UsdFixture.cs(36,0): at Savia.Tests.UsdFixture.Execute(String text)
+[xUnit.net 00:00:15.82]         C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia\tests\Savia.Tests\UsdFixture.cs(36,0): at Savia.Tests.UsdFixture.Execute(String text)
+[xUnit.net 00:00:15.82]         C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia\tests\Savia.Tests\UsdFixture.cs(36,0): at Savia.Tests.UsdFixture.Execute(String text)
+[xUnit.net 00:00:15.82]         C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia\tests\Savia.Tests\UsdChangeTests.cs(202,0): at Savia.Tests.UsdChangeTests.Spec1e5_oracle_detects_usd_change_corruption(String mutation)
+[xUnit.net 00:00:15.82]         C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia\tests\Savia.Tests\UsdChangeTests.cs(207,0): at Savia.Tests.UsdChangeTests.Spec1e5_oracle_detects_usd_change_corruption(String mutation)
+[xUnit.net 00:00:15.82]         --- End of stack trace from previous location ---
+  Failed Savia.Tests.UsdChangeTests.Spec1e5_oracle_detects_usd_change_corruption(mutation: "currency") [7 s]
+  Error Message:
+   Microsoft.Data.SqlClient.SqlException : The UPDATE statement conflicted with the FOREIGN KEY constraint "FK_CashEntries_TillCurrency". The conflict occurred in database "SAVIA_T_usd_e848cdd2547b47e398543fc284f6aed1", table "sales.CashTills".
+The statement has been terminated.
+  Stack Trace:
+     at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__193_1(IAsyncResult asyncResult)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at Savia.Tests.UsdFixture.Execute(String text) in C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia\tests\Savia.Tests\UsdFixture.cs:line 36
+   at Savia.Tests.UsdFixture.Execute(String text) in C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia\tests\Savia.Tests\UsdFixture.cs:line 36
+   at Savia.Tests.UsdFixture.Execute(String text) in C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia\tests\Savia.Tests\UsdFixture.cs:line 36
+   at Savia.Tests.UsdChangeTests.Spec1e5_oracle_detects_usd_change_corruption(String mutation) in C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia\tests\Savia.Tests\UsdChangeTests.cs:line 202
+   at Savia.Tests.UsdChangeTests.Spec1e5_oracle_detects_usd_change_corruption(String mutation) in C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia\tests\Savia.Tests\UsdChangeTests.cs:line 207
+--- End of stack trace from previous location ---
+  Passed Savia.Tests.UsdChangeTests.Spec1e5_oracle_detects_usd_change_corruption(mutation: "amount") [6 s]
+[xUnit.net 00:00:29.37]     Savia.Tests.UsdChangeTests.Spec1e5_oracle_detects_usd_change_corruption(mutation: "till") 
+[FAIL]
+[xUnit.net 00:00:29.37]       Microsoft.Data.SqlClient.SqlException : The UPDATE statement conflicted with the FOREIGN KEY constraint "FK_CashEntries_TillCurrency". The conflict occurred in database "SAVIA_T_usd_c965569bd68f4cf2a4cbba47362646d4", table "sales.CashTills".
+[xUnit.net 00:00:29.37]       The statement has been terminated.
+[xUnit.net 00:00:29.37]       Stack Trace:
+[xUnit.net 00:00:29.37]            at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+[xUnit.net 00:00:29.37]            at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+[xUnit.net 00:00:29.37]            at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+[xUnit.net 00:00:29.37]            at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+[xUnit.net 00:00:29.37]            at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+[xUnit.net 00:00:29.37]            at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+[xUnit.net 00:00:29.37]            at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+[xUnit.net 00:00:29.37]            at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__193_1(IAsyncResult asyncResult)
+[xUnit.net 00:00:29.37]            at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+[xUnit.net 00:00:29.37]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:29.37]         C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia\tests\Savia.Tests\UsdFixture.cs(36,0): at Savia.Tests.UsdFixture.Execute(String text)
+[xUnit.net 00:00:29.38]         C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia\tests\Savia.Tests\UsdFixture.cs(36,0): at Savia.Tests.UsdFixture.Execute(String text)
+[xUnit.net 00:00:29.38]         C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia\tests\Savia.Tests\UsdFixture.cs(36,0): at Savia.Tests.UsdFixture.Execute(String text)
+[xUnit.net 00:00:29.38]         C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia\tests\Savia.Tests\UsdChangeTests.cs(203,0): at Savia.Tests.UsdChangeTests.Spec1e5_oracle_detects_usd_change_corruption(String mutation)
+[xUnit.net 00:00:29.38]         C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia\tests\Savia.Tests\UsdChangeTests.cs(207,0): at Savia.Tests.UsdChangeTests.Spec1e5_oracle_detects_usd_change_corruption(String mutation)
+[xUnit.net 00:00:29.38]         --- End of stack trace from previous location ---
+  Failed Savia.Tests.UsdChangeTests.Spec1e5_oracle_detects_usd_change_corruption(mutation: "till") [6 s]
+  Error Message:
+   Microsoft.Data.SqlClient.SqlException : The UPDATE statement conflicted with the FOREIGN KEY constraint "FK_CashEntries_TillCurrency". The conflict occurred in database "SAVIA_T_usd_c965569bd68f4cf2a4cbba47362646d4", table "sales.CashTills".
+The statement has been terminated.
+  Stack Trace:
+     at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__193_1(IAsyncResult asyncResult)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at Savia.Tests.UsdFixture.Execute(String text) in C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia\tests\Savia.Tests\UsdFixture.cs:line 36
+   at Savia.Tests.UsdFixture.Execute(String text) in C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia\tests\Savia.Tests\UsdFixture.cs:line 36
+   at Savia.Tests.UsdFixture.Execute(String text) in C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia\tests\Savia.Tests\UsdFixture.cs:line 36
+   at Savia.Tests.UsdChangeTests.Spec1e5_oracle_detects_usd_change_corruption(String mutation) in C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia\tests\Savia.Tests\UsdChangeTests.cs:line 203
+   at Savia.Tests.UsdChangeTests.Spec1e5_oracle_detects_usd_change_corruption(String mutation) in C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia\tests\Savia.Tests\UsdChangeTests.cs:line 207
+--- End of stack trace from previous location ---
+[xUnit.net 00:03:00.48]     Savia.Tests.UsdVerifyTests.Spec17_quick_verification_preserves_pilot [FAIL]
+[xUnit.net 00:03:00.48]       System.Threading.Tasks.TaskCanceledException : A task was canceled.
+[xUnit.net 00:03:00.48]       Stack Trace:
+[xUnit.net 00:03:00.48]            at System.Diagnostics.Process.WaitForExitAsync(CancellationToken cancellationToken)
+[xUnit.net 00:03:00.48]         C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia\tests\Savia.Tests\UsdVerifyTests.cs(24,0): at Savia.Tests.UsdVerifyTests.Spec17_quick_verification_preserves_pilot()
+[xUnit.net 00:03:00.48]         --- End of stack trace from previous location ---
+[xUnit.net 00:03:00.49]   Finished:    Savia.Tests
+  Failed Savia.Tests.UsdVerifyTests.Spec17_quick_verification_preserves_pilot [3 m]
+  Error Message:
+   System.Threading.Tasks.TaskCanceledException : A task was canceled.
+  Stack Trace:
+     at System.Diagnostics.Process.WaitForExitAsync(CancellationToken cancellationToken)
+   at Savia.Tests.UsdVerifyTests.Spec17_quick_verification_preserves_pilot() in C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia\tests\Savia.Tests\UsdVerifyTests.cs:line 24
+--- End of stack trace from previous location ---
+
+Test Run Failed.
+Total tests: 5
+     Passed: 2
+     Failed: 3
+ Total time: 3.0199 Minutes
+     1>Project "C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia\tests\Savia.Tests\Savia.Tests.csproj" on node 1 (VSTest target(s)).
+     1>_VSTestConsole:
+         MSB4181: The "VSTestTask" task returned false but did not log an error.
+     1>Done Building Project "C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia\tests\Savia.Tests\Savia.Tests.csproj" (VSTest target(s)) -- FAILED.
+
+Build FAILED.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:03:02.11

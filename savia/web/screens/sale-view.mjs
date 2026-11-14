@@ -76,7 +76,7 @@ export function receiptContent(sale) {
           ? h(
               'small',
               {},
-              `${formatMoney(tender.foreignReceivedMinor, 'USD')} × ${tender.exchangeRate} = ${formatMoney(tender.receivedMinor)} · Vuelto ${formatMoney(tender.changeMinor)} · Redondeo ${formatMoney(tender.roundingMinor)}`,
+              `${formatMoney(tender.foreignReceivedMinor, 'USD')} × ${tender.exchangeRate} = ${formatMoney(tender.receivedMinor)} · Vuelto ${formatMoney(tender.changeMinor)} + ${formatMoney(tender.foreignChangeMinor ?? 0, 'USD')} (${formatMoney(tender.foreignChangeNioMinor ?? 0)}) · Redondeo ${formatMoney(tender.roundingMinor)}`,
             )
           : null,
         tender.reference ? h('small', {}, `Referencia ${tender.reference}`) : null,

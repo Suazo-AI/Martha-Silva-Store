@@ -1,0 +1,14 @@
+PASS    rules  (1s)
+PASS    tool-tests  (2s)
+PASS    web-format-lint  (0s)
+PASS    web-tests  (1s)
+PASS    formal  (11s)
+PASS    check  (599s)
+PASS    pilot-reset-demo  (80s)
+PASS    pilot-up  (34s)
+PASS    demo-rehearsal  (78s)
+PASS    smoke  (4s)
+PASS    e2e-1  (107s)
+PASS    e2e-2  (113s)
+FAIL    tag-live  (101s)  -> read C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia\.out\verify\20261114T023551Z\13-tag-live.log
+VERIFY FAIL: 12 passed, 1 failed, 0 not run. Evidence: C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia\.out\verify\20261114T023551Z

@@ -1,0 +1,105 @@
+{
+  "result": "FAIL",
+  "mode": "full",
+  "commit": "1cb1a7872df16d8caafa2f126d572b9b9c6d0b9b",
+  "uncommittedFiles": 20,
+  "counts": {
+    "PASS": 12,
+    "FAIL": 1,
+    "SKIP": 0,
+    "BLOCKED": 0
+  },
+  "steps": [
+    {
+      "step": "rules",
+      "verdict": "PASS",
+      "exitCode": 0,
+      "seconds": 1,
+      "reason": null
+    },
+    {
+      "step": "tool-tests",
+      "verdict": "PASS",
+      "exitCode": 0,
+      "seconds": 2,
+      "reason": null
+    },
+    {
+      "step": "web-format-lint",
+      "verdict": "PASS",
+      "exitCode": 0,
+      "seconds": 0,
+      "reason": null
+    },
+    {
+      "step": "web-tests",
+      "verdict": "PASS",
+      "exitCode": 0,
+      "seconds": 1,
+      "reason": null
+    },
+    {
+      "step": "formal",
+      "verdict": "PASS",
+      "exitCode": 0,
+      "seconds": 11,
+      "reason": null
+    },
+    {
+      "step": "check",
+      "verdict": "PASS",
+      "exitCode": 0,
+      "seconds": 599,
+      "reason": null
+    },
+    {
+      "step": "pilot-reset-demo",
+      "verdict": "PASS",
+      "exitCode": 0,
+      "seconds": 80,
+      "reason": null
+    },
+    {
+      "step": "pilot-up",
+      "verdict": "PASS",
+      "exitCode": 0,
+      "seconds": 34,
+      "reason": null
+    },
+    {
+      "step": "demo-rehearsal",
+      "verdict": "PASS",
+      "exitCode": 0,
+      "seconds": 78,
+      "reason": null
+    },
+    {
+      "step": "smoke",
+      "verdict": "PASS",
+      "exitCode": 0,
+      "seconds": 4,
+      "reason": null
+    },
+    {
+      "step": "e2e-1",
+      "verdict": "PASS",
+      "exitCode": 0,
+      "seconds": 107,
+      "reason": null
+    },
+    {
+      "step": "e2e-2",
+      "verdict": "PASS",
+      "exitCode": 0,
+      "seconds": 113,
+      "reason": null
+    },
+    {
+      "step": "tag-live",
+      "verdict": "FAIL",
+      "exitCode": 1,
+      "seconds": 101,
+      "reason": null
+    }
+  ]
+}

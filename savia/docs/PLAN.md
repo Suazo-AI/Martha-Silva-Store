@@ -60,6 +60,7 @@ CRM sobre `crm.Customers`, tiempo real sobre el outbox, sitio sobre `webstore` y
 
 | Fecha | Hecho | Commit |
 | --- | --- | --- |
+| 2026-11-13 | USD V028: vuelto completo en C$, US$ o ambos, monedas de dólar, migración en una transacción; SQL 134/134, .NET 145/145, `verify.py` 13 de 13 en `Tony`; red-first incompleta ([evidencia y límites](evidence/usd-change/README.md)) | ver `git log savia/` |
 | 2026-11-13 | USD: V027, tasa inmutable, gavetas NIO/USD, cobro, arqueo, cierre y reportes; SQL 134/134, .NET 109/109; integrado por el primary: 3 clientes del cierre corregidos (demo, smoke, e2e), venta en US$ en el navegador; `verify.py` 13 de 13 ([evidencia y limites](evidence/usd-cash/README.md)) | ver `git log savia/` |
 | 2026-11-12 | CP0: el instalador falla tal como viene (23 errores); línea base V001 con 7 correcciones; smoke original pasa | `915044e` |
 | 2026-11-12 | CP3: API .NET 10 en capas; slice recepción → venta → arqueo; 8 pruebas contra SQL real | `5c204e1` |

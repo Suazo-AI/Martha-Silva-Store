@@ -4,7 +4,7 @@ import { h } from '../ui.mjs';
 
 // Opening and closing use the same SQL-owned list and the same input validation.
 export async function denominationCount({ prefix = 'den', saved = [], currency = 'NIO', onChange = () => {} } = {}) {
-  const denominations = currency === 'USD' ? [10000, 5000, 2000, 1000, 500, 200, 100] : await api.denominations();
+  const denominations = currency === 'USD' ? [10000, 5000, 2000, 1000, 500, 200, 100, 50, 25, 10, 5, 1] : await api.denominations();
   const money = value => formatMoney(value, currency);
   const values = new Map(denominations.map(d => [d, saved.find(l => l.denominationMinor === d)?.quantity ?? 0]));
   const total = h('strong', {

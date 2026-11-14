@@ -95,7 +95,7 @@ public sealed class UsdAcceptanceTests
             await f.Exec($"UPDATE sales.CashEntries SET TillId=(SELECT Id FROM sales.CashTills WHERE ParentTillId='{other}') WHERE Kind='sale'");
         }
         if (kind == "rate") await f.Exec("DISABLE TRIGGER core.tr_ExchangeRates_Immutable ON core.ExchangeRates; UPDATE core.ExchangeRates SET Rate=37");
-        if (kind == "change") await f.Exec("DROP INDEX UX_CashEntries_Tender ON sales.CashEntries; " +
+        if (kind == "change") await f.Exec("DROP INDEX UX_CashEntries_Change ON sales.CashEntries; " +
             "INSERT sales.CashEntries(Id,TillId,CurrencyCode,Kind,DeltaMinor,SaleTenderId,ActorId,CreatedBy) " +
             "SELECT NEWID(),TillId,CurrencyCode,Kind,DeltaMinor,SaleTenderId,ActorId,CreatedBy FROM sales.CashEntries WHERE Kind='change'");
         Assert.True(await f.Scalar("DECLARE @v TABLE(CheckName varchar(100),KeyText nvarchar(250),Expected bigint,Actual " +
@@ -117,7 +117,7 @@ public sealed class UsdAcceptanceTests
         Assert.Equal(posted, replay);
         var detail = await HttpAssert.OkAsync<SaleDetailResponse>(await manager.GetAsync($"/api/v1/sales/{sale}"));
         Assert.Equal(6000, detail.Tenders[0].ForeignReceivedMinor);
-        Assert.Equal(46, detail.Tenders[0].RoundingMinor);
+        Assert.Equal(1, detail.Tenders[0].RoundingMinor);
         Assert.Equal(f.Rate, detail.Tenders[0].ExchangeRateId);
         Assert.Equal(36.6243m, detail.Tenders[0].ExchangeRate);
         Assert.Equal(6000, await f.Scalar("SELECT CONVERT(bigint,JSON_VALUE(PayloadJson,'$.tenders[0].ForeignReceivedMinor')) FROM " +

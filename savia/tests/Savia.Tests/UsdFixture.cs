@@ -11,14 +11,14 @@ internal sealed class UsdFixture(string database) : IAsyncDisposable
     public Guid UsdCount { get; } = Guid.NewGuid();
     public Guid Closure { get; } = Guid.NewGuid();
 
-    public static async Task<UsdFixture> Create(long nio = 100000, long usd = 0)
+    public static async Task<UsdFixture> Create(long nio = 100000, long usd = 0, string? usdLines = null)
     {
         var f = new UsdFixture(await TestSql.CloneAsync("usd"));
         try
         {
             await f.Exec($"UPDATE catalog.Items SET UnitPriceMinor=216100,TaxRateBps=0 WHERE Id='{Ids.Item}'; EXEC " +
                 $"test.SeedStock '{Ids.Item}','{Ids.LocA}',20;");
-            await f.Exec(f.OpenSql(f.Till, $"[{{\"denominationMinor\":100,\"quantity\":{usd / 100}}}]", nio));
+            await f.Exec(f.OpenSql(f.Till, usdLines ?? $"[{{\"denominationMinor\":100,\"quantity\":{usd / 100}}}]", nio));
             await f.Exec($"INSERT core.ExchangeRates(Id,CurrencyCode,EffectiveFrom,Rate,SetBy,Reason) " +
                 $"VALUES('{f.Rate}','USD',CAST(DATEADD(hour,-6,core.ufn_BusinessNow()) AS " +
                 $"date),36.6243,'{Ids.Manager}',N'Prueba');");

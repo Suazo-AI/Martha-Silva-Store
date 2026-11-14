@@ -1,0 +1,15 @@
+python : test_marked_file_and_registry_share_session 
+(test_usd_change_migration.MigrationEnvelopeTests.test_marked_file_and_registry_share_session) ... ok
+At line:2 char:1
++ python -m unittest discover -s savia/tests -p test_usd_change_migrati ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (test_marked_fil...session) ... ok:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+test_failure_after_index_drop (test_usd_change_migration.RecoveryTests.test_failure_after_index_drop) ... ok
+test_registry_insert_failure (test_usd_change_migration.RecoveryTests.test_registry_insert_failure) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 199.029s
+
+OK

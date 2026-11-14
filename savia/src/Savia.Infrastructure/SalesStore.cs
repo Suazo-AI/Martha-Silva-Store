@@ -11,6 +11,7 @@ public sealed class SalesStore(SqlGateway sql) : ISalesStore
     public Task PostSaleAsync(PostSaleRequest request, Guid branchId, Guid locationId, Guid cashierId, Guid nodeId,
         Guid? discountApproverId, CancellationToken ct)
     {
+        foreach (var tender in request.Tenders) ForeignCash.Validate(tender);
         var lines = new DataTable();
         lines.Columns.Add("LineNumber", typeof(int)); lines.Columns.Add("ItemId", typeof(Guid));
         lines.Columns.Add("Quantity", typeof(int)); lines.Columns.Add("UnitPriceMinor", typeof(long));
@@ -34,9 +35,20 @@ public sealed class SalesStore(SqlGateway sql) : ISalesStore
             P("@DiscountApproverId", discountApproverId), P("@DiscountReason", request.DiscountReason),
             P("@StockExceptionNote", request.StockExceptionNote),
             P("@FxJson", request.Tenders.Any(ForeignCash.HasFields)
-                ? JsonSerializer.Serialize(request.Tenders.Where(ForeignCash.HasFields), SqlJson.Web) : null),
+                ? FxJson(request.Tenders) : null),
             P("@SellersJson", request.Lines.Any(l => l.SellerId is not null)
                 ? JsonSerializer.Serialize(request.Lines.OrderBy(l => l.LineNumber).Select(l => new { l.LineNumber, l.SellerId }), SqlJson.Web) : null));
+    }
+
+    private static string FxJson(SaleTender[] tenders)
+    {
+        var rows = tenders.Where(ForeignCash.HasFields).Select(t =>
+        {
+            var row = JsonSerializer.SerializeToNode(t, SqlJson.Web)!.AsObject();
+            if (t.ForeignChangeMinor is null or 0) row.Remove("foreignChangeMinor");
+            return row;
+        });
+        return JsonSerializer.Serialize(rows, SqlJson.Web);
     }
 
     public Task<SaleResponse?> GetSaleAsync(Guid saleId, Guid branchId, CancellationToken ct) => sql.FirstAsync(

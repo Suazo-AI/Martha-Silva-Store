@@ -25,7 +25,7 @@ export function paymentDraft(totalMinor, rows, { supportedKinds, customerId, rat
       amountMinor,
       receivedMinor,
       changeMinor,
-      ...(row.kind === 'cash_usd' ? usdCash(amountMinor, row.received, rate) : {}),
+      ...(row.kind === 'cash_usd' ? usdCash(amountMinor, row.received, rate, row.foreignChange ?? '0') : {}),
       ...(reference ? { reference } : {}),
       ...(row.kind === 'credit' ? { creditId: row.creditId } : {}),
     };

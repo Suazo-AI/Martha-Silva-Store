@@ -4,7 +4,7 @@ public sealed record SaleLine(int LineNumber, Guid ItemId, int Quantity, long Un
 public sealed record SaleTender(int TenderNumber, string TenderKind, long AmountMinor, long? ReceivedMinor = null,
     long? ChangeMinor = null, string? Reference = null, Guid? CreditId = null,
     string? ForeignCurrencyCode = null, long? ForeignReceivedMinor = null, Guid? ExchangeRateId = null,
-    decimal? ExchangeRate = null, long? RoundingMinor = null);
+    decimal? ExchangeRate = null, long? RoundingMinor = null, long? ForeignChangeMinor = null);
 public sealed record PostSaleRequest(Guid SaleId, Guid TillId, string CurrencyCode, SaleLine[] Lines, SaleTender[] Tenders,
     Guid? CustomerId = null, string? DiscountReason = null, string? StockExceptionNote = null);
 public sealed record SaleResponse(Guid SaleId, long SubtotalMinor, long DiscountMinor, long TaxMinor, long TotalMinor, string Status);
@@ -20,7 +20,7 @@ public sealed record SaleDetailLine(Guid SaleLineId, int LineNumber, Guid ItemId
     Guid? SellerId = null, string? SellerName = null);
 public sealed record SaleDetailTender(Guid TenderId, string TenderKind, long AmountMinor, long? ReceivedMinor, long? ChangeMinor,
     string? Reference, Guid? CreditId, string Status, string? ForeignCurrencyCode = null, long? ForeignReceivedMinor = null, Guid? ExchangeRateId = null,
-    decimal? ExchangeRate = null, long? RoundingMinor = null);
+    decimal? ExchangeRate = null, long? RoundingMinor = null, long? ForeignChangeMinor = null, long? ForeignChangeNioMinor = null);
 public sealed record SaleReversal(Guid ReversalId, string Kind, string SettlementKind, string Reason, long CreditMinor,
     string CurrencyCode, string Status, DateTime CreatedAt, Guid? ApprovedBy, Guid ActorId, Guid? TillId, Guid? CreditId, ReversalLine[] Lines);
 public sealed record ReversalLine(Guid SaleLineId, int Quantity, long CreditMinor, string RestockPool);

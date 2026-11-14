@@ -1,0 +1,17 @@
+{
+  "branch": "t3/savia-v028-usd-change",
+  "head": "1cb1a7872df16d8caafa2f126d572b9b9c6d0b9b",
+  "sourceHashesMatched": 19,
+  "priorMigrationsUnchangedNormalized": 27,
+  "logsUtf8AndSaSecretScanPassed": 18,
+  "full": {
+    "PASS": 12,
+    "FAIL": 1,
+    "SKIP": 0,
+    "BLOCKED": 0
+  },
+  "redFirst": "INCOMPLETE",
+  "commit": "BLOCKED by Tony-only publishing hook; no commit attempted",
+  "push": "NOT RUN",
+  "specQuestions": []
+}

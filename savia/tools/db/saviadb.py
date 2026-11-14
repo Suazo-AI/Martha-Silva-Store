@@ -124,10 +124,17 @@ IF OBJECT_ID(N'dbo.SaviaMigrations') IS NULL
             continue
         if applied != "none":
             return 1, f"{path.name}: already applied with a different checksum. Migrations are immutable."
-        code, out = run_sql(name, path.read_text(encoding="utf-8"))
+        script = path.read_text(encoding="utf-8")
+        registry = f"INSERT INTO dbo.SaviaMigrations(Version,FileName,Sha256) VALUES('{version}',N'{path.name}','{sha}');"
+        transactional = script.startswith("-- savia:transactional")
+        if transactional:
+            script = ("SET XACT_ABORT ON; BEGIN TRAN;\nGO\n" + script +
+                      "\nGO\nIF @@TRANCOUNT <> 1 OR XACT_STATE() <> 1 THROW 52200,'Migration transaction invalid.',1;\n" +
+                      registry + "\nCOMMIT;\n")
+        code, out = run_sql(name, script)
         if code != 0:
             return code, f"{path.name} FAILED\n{out}"
-        code, out = run_sql(name, f"INSERT INTO dbo.SaviaMigrations(Version,FileName,Sha256) VALUES('{version}',N'{path.name}','{sha}');")
+        code, out = (0, "") if transactional else run_sql(name, registry)
         if code != 0:
             return code, out
         log.append(path.name)

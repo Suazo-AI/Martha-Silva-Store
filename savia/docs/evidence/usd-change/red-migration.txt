@@ -1,0 +1,57 @@
+python : test_marked_file_and_registry_share_session 
+(test_usd_change_migration.MigrationEnvelopeTests.test_marked_file_and_registry_share_session) ... FAIL
+At line:9 char:6
++ '@ | python *> savia/docs/evidence/usd-change/red-migration.log
++      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (test_marked_fil...ssion) ... FAIL:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+test_failure_after_index_drop (test_usd_change_migration.RecoveryTests.test_failure_after_index_drop) ... FAIL
+test_registry_insert_failure (test_usd_change_migration.RecoveryTests.test_registry_insert_failure) ... FAIL
+
+======================================================================
+FAIL: test_marked_file_and_registry_share_session 
+(test_usd_change_migration.MigrationEnvelopeTests.test_marked_file_and_registry_share_session)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia/tests\test_usd_change_migration.py", 
+line 28, in test_marked_file_and_registry_share_session
+    self.assertIn(required, script)
+AssertionError: 'SET XACT_ABORT ON' not found in '-- savia:transactional\nCREATE TABLE dbo.Probe(Id int);\nGO\n'
+
+======================================================================
+FAIL: test_failure_after_index_drop (test_usd_change_migration.RecoveryTests.test_failure_after_index_drop)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia/tests\test_usd_change_migration.py", 
+line 69, in test_failure_after_index_drop
+    self.run_case('index')
+  File "C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia/tests\test_usd_change_migration.py", 
+line 56, in run_case
+    self.assertEqual('1', db.scalar(name, "SELECT COUNT(*) FROM sys.indexes WHERE 
+object_id=OBJECT_ID('sales.CashEntries') AND name='UX_CashEntries_Tender'"))
+AssertionError: '1' != '0'
+- 1
++ 0
+
+
+======================================================================
+FAIL: test_registry_insert_failure (test_usd_change_migration.RecoveryTests.test_registry_insert_failure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia/tests\test_usd_change_migration.py", 
+line 72, in test_registry_insert_failure
+    self.run_case('registry')
+  File "C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia/tests\test_usd_change_migration.py", 
+line 57, in run_case
+    self.assertEqual('0', db.scalar(name, "SELECT COUNT(*) FROM sys.columns WHERE 
+object_id=OBJECT_ID('sales.SaleTenders') AND name='ForeignChangeMinor'"))
+AssertionError: '0' != '1'
+- 0
++ 1
+
+
+----------------------------------------------------------------------
+Ran 3 tests in 115.671s
+
+FAILED (failures=3)

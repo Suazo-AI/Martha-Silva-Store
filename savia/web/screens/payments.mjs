@@ -3,7 +3,7 @@ import { formatMoney, parseMoney } from '../money.mjs';
 import { h, replace, showError } from '../ui.mjs';
 import { paymentDraft } from './payment-logic.mjs';
 import { tenderName } from './sale-view.mjs';
-import { usdCash } from './usd-logic.mjs';
+import { usdCash, wholeUsdChange } from './usd-logic.mjs';
 
 /** Payment inputs stay within the existing ticket. No bank/card details are collected. */
 export function paymentsPanel({ kinds, getTotal, onChange, branchId, rate }) {
@@ -100,6 +100,7 @@ export function paymentsPanel({ kinds, getTotal, onChange, branchId, rate }) {
       rows,
       payments.map((payment, index) => {
         const id = `payment-${index}`;
+        if (payment.kind === 'cash_usd') payment.foreignChange ??= '0';
         const kind = h(
           'select',
           {
@@ -117,7 +118,12 @@ export function paymentsPanel({ kinds, getTotal, onChange, branchId, rate }) {
         const updateEquivalent = () => {
           if (payment.kind !== 'cash_usd') return;
           try {
-            const fx = usdCash(payments.length === 1 ? getTotal() : parseMoney(payment.amount), payment.received, rate);
+            const fx = usdCash(
+              payments.length === 1 ? getTotal() : parseMoney(payment.amount),
+              payment.received,
+              rate,
+              payment.foreignChange ?? '0',
+            );
             equivalent.textContent = `Equivalente ${formatMoney(fx.receivedMinor)} · Vuelto ${formatMoney(fx.changeMinor)} · Redondeo ${formatMoney(fx.roundingMinor)}`;
           } catch (error) {
             equivalent.textContent = error.message;
@@ -153,6 +159,27 @@ export function paymentsPanel({ kinds, getTotal, onChange, branchId, rate }) {
                 `${payment.kind === 'cash_usd' ? 'Dólares recibidos US$' : 'Efectivo recibido'}${payments.length > 1 ? ` ${index + 1}` : ''}`,
                 index === 0 ? 'received' : `${id}-received`,
                 'received',
+              )
+            : null,
+          payment.kind === 'cash_usd'
+            ? input('Vuelto en US$', index === 0 ? 'foreign-change' : `${id}-foreign-change`, 'foreignChange')
+            : null,
+          payment.kind === 'cash_usd'
+            ? h(
+                'button',
+                {
+                  type: 'button',
+                  onclick: () => {
+                    payment.foreignChange = wholeUsdChange(
+                      payments.length === 1 ? getTotal() : parseMoney(payment.amount),
+                      payment.received,
+                      rate,
+                    );
+                    draw();
+                    onChange();
+                  },
+                },
+                'Vuelto en US$',
               )
             : null,
           payment.kind === 'cash_usd' ? equivalent : null,

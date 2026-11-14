@@ -1,0 +1,14 @@
+PASS    rules  (0s)
+PASS    tool-tests  (198s)
+PASS    web-format-lint  (1s)
+PASS    web-tests  (1s)
+PASS    formal  (9s)
+FAIL    check  (662s)  -> read C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia\.out\verify\20261114T021151Z\06-check.log
+BLOCKED pilot-reset-demo  (0s)  an earlier step failed
+BLOCKED pilot-up  (0s)  an earlier step failed
+BLOCKED demo-rehearsal  (0s)  an earlier step failed
+BLOCKED smoke  (0s)  an earlier step failed
+BLOCKED e2e-1  (0s)  an earlier step failed
+BLOCKED e2e-2  (0s)  an earlier step failed
+BLOCKED tag-live  (0s)  an earlier step failed
+VERIFY FAIL: 5 passed, 1 failed, 7 not run. Evidence: C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia\.out\verify\20261114T021151Z

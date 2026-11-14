@@ -1,0 +1,11 @@
+python : ...
+At line:2 char:1
++ python -u -m unittest discover -s tests -p test_usd_change_migration. ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+----------------------------------------------------------------------
+Ran 3 tests in 293.114s
+
+OK

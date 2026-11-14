@@ -1,0 +1,7 @@
+python : Progress sync BLOCKED: This hook only publishes Tony; select the approved branch. Local work is preserved.
+At line:2 char:1
++ python tools/progress.py pre-commit *> savia/docs/evidence/usd-change ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Progress sync B...k is preserved.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 

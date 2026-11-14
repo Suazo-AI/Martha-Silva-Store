@@ -5,7 +5,7 @@ namespace Savia.Tests;
 public sealed class UsdCashTests
 {
     [Theory]
-    [InlineData(6000, 219746, 3600, 46)]
+    [InlineData(6000, 219746, 3645, 1)]
     [InlineData(5900, 216083, 0, -17)]
     public async Task Spec01_02_conversion_and_physical_cash(long dollars, long received, long change, long rounding)
     {
@@ -55,7 +55,7 @@ public sealed class UsdCashTests
     [Fact]
     public async Task Spec05_concurrent_change_is_serialized()
     {
-        await using var f = await UsdFixture.Create(nio: 3600);
+        await using var f = await UsdFixture.Create(nio: 5000);
         async Task<bool> Attempt() { try { await f.Sale(6000); return true; } catch (SqlException) { return false; } }
         var results = await Task.WhenAll(Attempt(), Attempt());
         Assert.Single(results, x => x);
@@ -100,7 +100,7 @@ public sealed class UsdCashTests
     public async Task Spec08_open_rolls_back_and_close_requires_both_counts()
     {
         await using var f = await UsdFixture.Create();
-        await Assert.ThrowsAsync<SqlException>(() => f.Exec(f.OpenSql(Guid.NewGuid(), "[{\"denominationMinor\":25,\"quantity\":1}]")
+        await Assert.ThrowsAsync<SqlException>(() => f.Exec(f.OpenSql(Guid.NewGuid(), "[{\"denominationMinor\":3,\"quantity\":1}]")
             .Replace(Ids.RegisterA.ToString(), Ids.RegisterB.ToString()).Replace(Ids.CashierA.ToString(), Ids.CashierB.ToString())
             .Replace(Ids.NodeA.ToString(), Ids.NodeB.ToString())));
         Assert.Equal(2, await f.Scalar("SELECT COUNT(*) FROM sales.CashTills"));
@@ -116,11 +116,11 @@ public sealed class UsdCashTests
         await f.Sale(6000);
         await f.CountAndClose();
         Assert.Equal(6100, await f.Scalar("SELECT ExpectedMinor FROM sales.CashClosures c JOIN sales.CashTills t ON t.Id=c.TillId WHERE t.CurrencyCode='USD'"));
-        Assert.Equal(96400, await f.Scalar("SELECT ExpectedMinor FROM sales.CashClosures c JOIN sales.CashTills t ON t.Id=c.TillId " +
+        Assert.Equal(96355, await f.Scalar("SELECT ExpectedMinor FROM sales.CashClosures c JOIN sales.CashTills t ON t.Id=c.TillId " +
             "WHERE t.CurrencyCode='NIO'"));
         Assert.Equal(3, await f.Scalar("SELECT COUNT(*) FROM accounting.CloseDocumentLines l " +
             "JOIN accounting.CloseDocuments d ON d.Id=l.CloseDocumentId WHERE d.CurrencyCode='USD'"));
-        Assert.Equal(46, await f.Scalar("SELECT AmountMinor FROM accounting.CloseDocumentLines WHERE ConceptCode='CASH_ROUNDING'"));
+        Assert.Equal(1, await f.Scalar("SELECT AmountMinor FROM accounting.CloseDocumentLines WHERE ConceptCode='CASH_ROUNDING'"));
     }
 
     [Fact]

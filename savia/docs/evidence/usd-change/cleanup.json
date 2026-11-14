@@ -1,0 +1,10 @@
+{
+  "identifiedFromOwnLogs": 3,
+  "leftoversFound": [
+    "SAVIA_T_TEMPLATE_3e71ba6163d8"
+  ],
+  "removed": [
+    "SAVIA_T_TEMPLATE_3e71ba6163d8"
+  ],
+  "scope": "Only exact SAVIA_T names found in this task evidence logs; no template, pilot or other database removed."
+}

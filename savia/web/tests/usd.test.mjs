@@ -1,12 +1,12 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { paymentDraft } from '../screens/payment-logic.mjs';
-import { usdCash } from '../screens/usd-logic.mjs';
+import { usdCash, wholeUsdChange } from '../screens/usd-logic.mjs';
 
 const rate = { id: 'rate', rate: 36.6243 };
 test('USD conversion, whole córdoba change and both rounding signs', () => {
   const a = usdCash(216100, '60', rate);
-  assert.deepEqual([a.receivedMinor, a.changeMinor, a.roundingMinor], [219746, 3600, 46]);
+  assert.deepEqual([a.receivedMinor, a.changeMinor, a.roundingMinor], [219746, 3645, 1]);
   const b = usdCash(216100, '59', rate);
   assert.deepEqual([b.receivedMinor, b.changeMinor, b.roundingMinor], [216083, 0, -17]);
   assert.throws(() => usdCash(216100, '58', rate));
@@ -22,4 +22,15 @@ test('USD draft keeps integer server fields and rejects duplicate USD payments',
   assert.equal(draft.tenders[0].foreignReceivedMinor, 2000);
   assert.equal(draft.tenders[0].exchangeRateId, rate.id);
   assert.throws(() => paymentDraft(216100, [rows[0], rows[0]], { supportedKinds: ['cash_usd'], rate }));
+});
+
+test('V028 separate conversions and USD button boundaries', () => {
+  const a = usdCash(216100, '100', rate, '40');
+  assert.deepEqual([a.changeMinor, a.roundingMinor, a.foreignChangeMinor], [3645, 1, 4000]);
+  assert.throws(() => usdCash(216100, '100', rate, '41.02'));
+  assert.throws(() => usdCash(216100, '100', rate, '-1'));
+  assert.throws(() => usdCash(216100, '59', rate, '1'));
+  assert.deepEqual([usdCash(183121, '100', rate, '50').changeMinor, usdCash(183121, '100', rate, '50').roundingMinor], [0, 0]);
+  assert.equal(wholeUsdChange(3663, '2', rate), '1');
+  assert.equal(wholeUsdChange(216100, '59', rate), '0');
 });
