@@ -88,6 +88,8 @@ Diseño: [DOLARES](../design/DOLARES.md).
 
 - El precio base casi siempre es en dólares y el córdoba se calcula; a veces no.
 - La tasa la ponen la gerente o la dueña, y vale para las 3 sucursales.
+- El vuelto se da completo, en córdobas, en dólares o en las dos, según lo que hay en caja y lo que pide el cliente.
+- Se aceptan monedas de dólar.
 
 ## Preguntas para la dueña
 
