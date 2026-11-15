@@ -1,0 +1,593 @@
+{
+  "build": {
+    "pass": true,
+    "files": 58
+  },
+  "scenarios": [
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "light",
+      "page": "/",
+      "role": "OWNER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 390,
+      "title": "SAVIA · Venta",
+      "token": true,
+      "width": 390
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "light",
+      "page": "/",
+      "role": "MANAGER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 390,
+      "title": "SAVIA · Venta",
+      "token": true,
+      "width": 390
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "light",
+      "page": "/",
+      "role": "SELLER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 390,
+      "title": "SAVIA · Comisiones",
+      "token": true,
+      "width": 390
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "light",
+      "page": "/",
+      "role": "INVENTORY",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 390,
+      "title": "SAVIA · Recepción",
+      "token": true,
+      "width": 390
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "light",
+      "page": "/etiqueta/",
+      "role": "OWNER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 390,
+      "title": "SAVIA · Venta",
+      "token": true,
+      "width": 390
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "light",
+      "page": "/etiqueta/",
+      "role": "MANAGER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 390,
+      "title": "SAVIA · Venta",
+      "token": true,
+      "width": 390
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "light",
+      "page": "/etiqueta/",
+      "role": "SELLER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 390,
+      "title": "SAVIA · Comisiones",
+      "token": true,
+      "width": 390
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "light",
+      "page": "/etiqueta/",
+      "role": "INVENTORY",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 390,
+      "title": "SAVIA · Recepción",
+      "token": true,
+      "width": 390
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "dark",
+      "page": "/",
+      "role": "OWNER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 390,
+      "title": "SAVIA · Venta",
+      "token": true,
+      "width": 390
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "dark",
+      "page": "/",
+      "role": "MANAGER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 390,
+      "title": "SAVIA · Venta",
+      "token": true,
+      "width": 390
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "dark",
+      "page": "/",
+      "role": "SELLER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 390,
+      "title": "SAVIA · Comisiones",
+      "token": true,
+      "width": 390
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "dark",
+      "page": "/",
+      "role": "INVENTORY",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 390,
+      "title": "SAVIA · Recepción",
+      "token": true,
+      "width": 390
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "dark",
+      "page": "/etiqueta/",
+      "role": "OWNER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 390,
+      "title": "SAVIA · Venta",
+      "token": true,
+      "width": 390
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "dark",
+      "page": "/etiqueta/",
+      "role": "MANAGER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 390,
+      "title": "SAVIA · Venta",
+      "token": true,
+      "width": 390
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "dark",
+      "page": "/etiqueta/",
+      "role": "SELLER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 390,
+      "title": "SAVIA · Comisiones",
+      "token": true,
+      "width": 390
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "dark",
+      "page": "/etiqueta/",
+      "role": "INVENTORY",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 390,
+      "title": "SAVIA · Recepción",
+      "token": true,
+      "width": 390
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "theme": "light",
+      "page": "/",
+      "role": "OWNER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 1440,
+      "title": "SAVIA · Venta",
+      "token": true,
+      "width": 1440
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "theme": "light",
+      "page": "/",
+      "role": "MANAGER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 1440,
+      "title": "SAVIA · Venta",
+      "token": true,
+      "width": 1440
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "theme": "light",
+      "page": "/",
+      "role": "SELLER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 1440,
+      "title": "SAVIA · Comisiones",
+      "token": true,
+      "width": 1440
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "theme": "light",
+      "page": "/",
+      "role": "INVENTORY",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 1440,
+      "title": "SAVIA · Recepción",
+      "token": true,
+      "width": 1440
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "theme": "light",
+      "page": "/etiqueta/",
+      "role": "OWNER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 1440,
+      "title": "SAVIA · Venta",
+      "token": true,
+      "width": 1440
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "theme": "light",
+      "page": "/etiqueta/",
+      "role": "MANAGER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 1440,
+      "title": "SAVIA · Venta",
+      "token": true,
+      "width": 1440
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "theme": "light",
+      "page": "/etiqueta/",
+      "role": "SELLER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 1440,
+      "title": "SAVIA · Comisiones",
+      "token": true,
+      "width": 1440
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "theme": "light",
+      "page": "/etiqueta/",
+      "role": "INVENTORY",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 1440,
+      "title": "SAVIA · Recepción",
+      "token": true,
+      "width": 1440
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "theme": "dark",
+      "page": "/",
+      "role": "OWNER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 1440,
+      "title": "SAVIA · Venta",
+      "token": true,
+      "width": 1440
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "theme": "dark",
+      "page": "/",
+      "role": "MANAGER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 1440,
+      "title": "SAVIA · Venta",
+      "token": true,
+      "width": 1440
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "theme": "dark",
+      "page": "/",
+      "role": "SELLER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 1440,
+      "title": "SAVIA · Comisiones",
+      "token": true,
+      "width": 1440
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "theme": "dark",
+      "page": "/",
+      "role": "INVENTORY",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 1440,
+      "title": "SAVIA · Recepción",
+      "token": true,
+      "width": 1440
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "theme": "dark",
+      "page": "/etiqueta/",
+      "role": "OWNER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 1440,
+      "title": "SAVIA · Venta",
+      "token": true,
+      "width": 1440
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "theme": "dark",
+      "page": "/etiqueta/",
+      "role": "MANAGER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 1440,
+      "title": "SAVIA · Venta",
+      "token": true,
+      "width": 1440
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "theme": "dark",
+      "page": "/etiqueta/",
+      "role": "SELLER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 1440,
+      "title": "SAVIA · Comisiones",
+      "token": true,
+      "width": 1440
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "theme": "dark",
+      "page": "/etiqueta/",
+      "role": "INVENTORY",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 1440,
+      "title": "SAVIA · Recepción",
+      "token": true,
+      "width": 1440
+    }
+  ],
+  "fixture_only": true,
+  "before_recording": "NOT RUN",
+  "failures": [],
+  "bridge": {
+    "empty": true,
+    "form": true,
+    "json": true,
+    "passThrough": true,
+    "request": true
+  },
+  "errors": [],
+  "console_errors": [],
+  "network": {
+    "requests": 2932,
+    "urls": [
+      "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNSIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJXaW5kb3dUZXh0IiBkPSJNMjAgM2gtMVYxaC0ydjJIN1YxSDV2Mkg0Yy0xLjEgMC0yIC45LTIgMnYxNmMwIDEuMS45IDIgMiAyaDE2YzEuMSAwIDItLjkgMi0yVjVjMC0xLjEtLjktMi0yLTJ6bTAgMThINFY4aDE2djEzeiIvPjxwYXRoIGZpbGw9Im5vbmUiIGQ9Ik0wIDBoMjR2MjRIMHoiLz48L3N2Zz4=",
+      "http://127.0.0.1:61270/",
+      "http://127.0.0.1:61270/api.mjs",
+      "http://127.0.0.1:61270/app.css",
+      "http://127.0.0.1:61270/app.mjs",
+      "http://127.0.0.1:61270/confirm.mjs",
+      "http://127.0.0.1:61270/demo/api/index.mjs",
+      "http://127.0.0.1:61270/demo/site/banner.css",
+      "http://127.0.0.1:61270/demo/site/boot.mjs",
+      "http://127.0.0.1:61270/etiqueta/",
+      "http://127.0.0.1:61270/etiqueta/etiqueta-logic.mjs",
+      "http://127.0.0.1:61270/etiqueta/etiqueta.css",
+      "http://127.0.0.1:61270/etiqueta/etiqueta.mjs",
+      "http://127.0.0.1:61270/money.mjs",
+      "http://127.0.0.1:61270/roles.mjs",
+      "http://127.0.0.1:61270/scan.mjs",
+      "http://127.0.0.1:61270/scanner/scanner.mjs",
+      "http://127.0.0.1:61270/screens/approvals.mjs",
+      "http://127.0.0.1:61270/screens/cash-logic.mjs",
+      "http://127.0.0.1:61270/screens/cash.mjs",
+      "http://127.0.0.1:61270/screens/commissions.mjs",
+      "http://127.0.0.1:61270/screens/customers.mjs",
+      "http://127.0.0.1:61270/screens/denominations.mjs",
+      "http://127.0.0.1:61270/screens/exceptions.mjs",
+      "http://127.0.0.1:61270/screens/history.mjs",
+      "http://127.0.0.1:61270/screens/import-logic.mjs",
+      "http://127.0.0.1:61270/screens/import.mjs",
+      "http://127.0.0.1:61270/screens/inventory-logic.mjs",
+      "http://127.0.0.1:61270/screens/inventory.mjs",
+      "http://127.0.0.1:61270/screens/login.mjs",
+      "http://127.0.0.1:61270/screens/payment-logic.mjs",
+      "http://127.0.0.1:61270/screens/payments.mjs",
+      "http://127.0.0.1:61270/screens/prices.mjs",
+      "http://127.0.0.1:61270/screens/quality-report.mjs",
+      "http://127.0.0.1:61270/screens/quality.mjs",
+      "http://127.0.0.1:61270/screens/rates.mjs",
+      "http://127.0.0.1:61270/screens/receipt.mjs",
+      "http://127.0.0.1:61270/screens/reception-data.mjs",
+      "http://127.0.0.1:61270/screens/reception-logic.mjs",
+      "http://127.0.0.1:61270/screens/reception.mjs",
+      "http://127.0.0.1:61270/screens/report-logic.mjs",
+      "http://127.0.0.1:61270/screens/report.mjs",
+      "http://127.0.0.1:61270/screens/return-logic.mjs",
+      "http://127.0.0.1:61270/screens/return.mjs",
+      "http://127.0.0.1:61270/screens/review.mjs",
+      "http://127.0.0.1:61270/screens/sale-logic.mjs",
+      "http://127.0.0.1:61270/screens/sale-view.mjs",
+      "http://127.0.0.1:61270/screens/sale.mjs",
+      "http://127.0.0.1:61270/screens/settings.mjs",
+      "http://127.0.0.1:61270/screens/till-open.mjs",
+      "http://127.0.0.1:61270/screens/usd-logic.mjs",
+      "http://127.0.0.1:61270/ui.mjs"
+    ],
+    "external": [],
+    "api_http": []
+  },
+  "pass": true,
+  "server_stopped": true
+}
