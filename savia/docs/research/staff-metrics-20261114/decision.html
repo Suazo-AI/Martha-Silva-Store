@@ -34,8 +34,9 @@ section{display:grid;gap:18px;min-width:0}
 .verdict span{color:var(--muted);font-size:.93rem}
 figure{margin:0;display:grid;gap:10px}
 .shots{display:grid;grid-template-columns:minmax(0,3.4fr) minmax(0,1fr);gap:14px;align-items:start}
-.shots img{display:block;width:100%;border:1px solid var(--line);border-radius:8px;background:#fff}
-.phone{max-height:640px;overflow:hidden;border-radius:8px}
+.shots img{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:8px;background:#fff}
+.phone{max-height:640px;overflow:hidden;border-radius:8px;position:relative}
+.phone::after{content:"";position:absolute;inset:auto 0 0;height:56px;background:linear-gradient(transparent,var(--bg))}
 figcaption{font-size:.88rem;color:var(--muted)}
 .cta{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:8px;background:var(--primary);color:var(--bg);font-weight:600;text-decoration:none;justify-self:start}
 .cta:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
@@ -66,7 +67,8 @@ footer{font-size:.85rem;color:var(--muted);display:grid;gap:6px;border-top:1px s
 @media (max-width:760px){
   .verdict,.two{grid-template-columns:1fr}
   .shots{grid-template-columns:1fr}
-  .phone{max-width:300px;max-height:520px}
+  .desk{display:none}
+  .phone{max-width:390px;max-height:1500px;justify-self:center;width:100%}
   .stage{grid-template-columns:1fr;gap:8px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
@@ -92,7 +94,7 @@ footer{font-size:.85rem;color:var(--muted);display:grid;gap:6px;border-top:1px s
   <h2 id="vis">Cómo se vería</h2>
   <figure>
     <div class="shots">
-      <img src="mockup-1440.png" alt="Reporte Equipo con barra de mix por categoría para tres vendedoras, tabla por categoría y detalle de la Vendedora A" width="1440" height="1146">
+      <a class="desk" href="mockup-1440.png"><img src="mockup-1440.png" alt="Reporte Equipo con barra de mix por categoría para tres vendedoras, tabla por categoría y detalle de la Vendedora A" width="1440" height="1146"></a>
       <div class="phone"><img src="mockup-390.png" alt="El mismo reporte en un teléfono, con cada vendedora como ficha" width="390" height="3339"></div>
     </div>
     <figcaption>Datos de ejemplo. Vendedora B vende sobre todo fiesta y novia; Vendedora C, casual y accesorios. Con un solo número de ventas eso no se ve.</figcaption>

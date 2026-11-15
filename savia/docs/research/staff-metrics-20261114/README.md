@@ -36,3 +36,4 @@ El reporte Equipo llama «venta neta» a un valor que no resta devoluciones (`V0
 
 La dueña responde las 5 preguntas de `decision.html`.
 Después: especificación de etapa 1 y crítica previa con `gpt-6-astra` xhigh, porque toca datos de ventas.
+- 2026-11-14: `decision.html` corregida en teléfono: las imágenes se estiraban (faltaba `height:auto`); a 390 px se muestra la versión móvil. Verificado con agent-browser a 390 y 1440, scrollWidth igual a innerWidth.
