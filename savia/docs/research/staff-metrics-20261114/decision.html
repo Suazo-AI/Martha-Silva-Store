@@ -62,6 +62,14 @@ li{max-width:65ch}
 .stage.first{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
 code{font-family:var(--mono);font-size:.85em;background:var(--soft);padding:1px 5px;border-radius:4px}
 .qs li{padding-left:4px}
+h3{margin:8px 0 0;font-size:1rem}
+h4{margin:0;font-size:1rem}
+.done li b{color:var(--primary)}
+.note,.eg{font-size:.92rem;color:var(--muted)}
+.ask{display:grid;gap:10px;padding:18px;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+.opt{display:grid;gap:6px;padding:14px;border:1px solid var(--line);border-radius:8px;min-width:0}
+.opt span{font-size:.92rem}
+.opt.rec{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
 footer{font-size:.85rem;color:var(--muted);display:grid;gap:6px;border-top:1px solid var(--line);padding-top:20px}
 .num{font-variant-numeric:tabular-nums}
 @media (max-width:760px){
@@ -78,7 +86,7 @@ footer{font-size:.85rem;color:var(--muted);display:grid;gap:6px;border-top:1px s
 <header>
   <span class="eyebrow">SAVIA · Propuesta para la dueña · 14 nov 2026</span>
   <h1>Ventas por vendedora y por categoría</h1>
-  <p class="lead">Hoy SAVIA sabe cuánto vende cada vendedora, pero no qué vende. La propuesta es registrar la categoría de cada prenda (fiesta/noche, novia, casual, accesorios) y ver el mix de cada vendedora.</p>
+  <p class="lead">Hoy SAVIA sabe cuánto vende cada vendedora, pero no qué vende. La propuesta es registrar la categoría de cada prenda (fiesta/noche, novia, casual, accesorios, calzado) y ver el mix de cada vendedora.</p>
 </header>
 
 <section aria-labelledby="v">
@@ -97,7 +105,7 @@ footer{font-size:.85rem;color:var(--muted);display:grid;gap:6px;border-top:1px s
       <a class="desk" href="mockup-1440.png"><img src="mockup-1440.png" alt="Reporte Equipo con barra de mix por categoría para tres vendedoras, tabla por categoría y detalle de la Vendedora A" width="1440" height="1146"></a>
       <div class="phone"><img src="mockup-390.png" alt="El mismo reporte en un teléfono, con cada vendedora como ficha" width="390" height="3339"></div>
     </div>
-    <figcaption>Datos de ejemplo. Vendedora B vende sobre todo fiesta y novia; Vendedora C, casual y accesorios. Con un solo número de ventas eso no se ve.</figcaption>
+    <figcaption>Datos de ejemplo. Vendedora B vende sobre todo fiesta y novia; Vendedora C, casual y accesorios. Con un solo número de ventas eso no se ve. Este ejemplo todavía no incluye calzado.</figcaption>
   </figure>
   <a class="cta" href="mockup.html">Abrir el visual interactivo</a>
 </section>
@@ -157,11 +165,12 @@ footer{font-size:.85rem;color:var(--muted);display:grid;gap:6px;border-top:1px s
         <li>% de ventas sin categoría o sin vendedora. Mide la calidad del dato.</li>
         <li>Devoluciones por categoría, ligadas a la venta original.</li>
         <li>Ticket promedio y prendas por ticket por categoría. Un vestido de novia no debe esconder una venta casual floja.</li>
+        <li>Ganancia por vendedora. Solo para quien la dueña autorice.</li>
       </ol>
     </div>
     <div class="stage">
       <div class="when"><b>Etapa 2</b><span>Requiere un registro simple</span></div>
-      <ol start="5">
+      <ol start="6">
         <li>Venta por hora trabajada. Compara turnos de martes con sábados de forma justa.</li>
         <li>Conversión de citas de novia y fiesta: citas que terminan en compra.</li>
         <li>Accesorios con vestido: tickets de vestido que también llevan accesorio.</li>
@@ -169,8 +178,7 @@ footer{font-size:.85rem;color:var(--muted);display:grid;gap:6px;border-top:1px s
     </div>
     <div class="stage">
       <div class="when"><b>Etapa 3</b><span>Cuando lo anterior sea confiable</span></div>
-      <ol start="8">
-        <li>Margen por categoría.</li>
+      <ol start="9">
         <li>Sell-through por categoría y sucursal. Es para gerencia, no para calificar a una vendedora.</li>
         <li>Clientas que vuelven a comprar.</li>
       </ol>
@@ -194,13 +202,41 @@ footer{font-size:.85rem;color:var(--muted);display:grid;gap:6px;border-top:1px s
 
 <section aria-labelledby="q">
   <h2 id="q">Decisiones para la dueña</h2>
-  <ol class="qs">
-    <li>¿Sirven estas 4 categorías: fiesta/noche, novia, moda casual y accesorios? ¿O separamos fiesta de noche, o agregamos otras?</li>
-    <li>¿Cada prenda lleva una sola categoría principal, aunque sirva para varias ocasiones?</li>
-    <li>Al clasificar prendas viejas, ¿pueden cambiar los reportes pasados, o la categoría queda fija como estaba al vender?</li>
-    <li>¿“Venta neta” debe restar las devoluciones del período?</li>
-    <li>¿La gerente sigue viendo a todo su equipo, o solo la dueña?</li>
-  </ol>
+
+  <h3>Ya decidido (15 nov)</h3>
+  <ul class="done">
+    <li><b>Categorías:</b> fiesta/noche, novia, moda casual, accesorios y <b>calzado</b>. “Sin categoría” sigue visible.</li>
+    <li><b>Venta neta:</b> resta las devoluciones de la vendedora.</li>
+    <li><b>Ganancia por vendedora:</b> venta menos costo de las prendas que vendió. No es para todos; ver pregunta 3.</li>
+    <li><b>Gerente:</b> ve las métricas de su equipo, solo de su tienda. No ve otras tiendas.</li>
+  </ul>
+  <p class="note">SAVIA ya guarda el costo de cada prenda en el momento de la venta, y no deja vender una prenda sin costo. La ganancia por vendedora no necesita datos nuevos.</p>
+  <p class="note">Propuesta: una devolución se descuenta a la vendedora que hizo la venta original, en el mes de la devolución.</p>
+
+  <h3>Falta decidir</h3>
+  <div class="ask">
+    <h4>1. ¿Cada prenda lleva una sola categoría?</h4>
+    <p>Una prenda puede servir para varias ocasiones. Un vestido largo negro sirve para gala y para invitada de boda. Unas sandalias doradas para novia son calzado, pero también son de novia.</p>
+    <div class="two">
+      <div class="opt rec"><b>A. Una sola categoría (recomendada)</b><span>Cada venta cuenta una vez. Las categorías suman el 100% de la venta. Regla simple: calzado y accesorios van por lo que son; los vestidos, por su ocasión principal.</span></div>
+      <div class="opt"><b>B. Varias etiquetas</b><span>El vestido negro cuenta en fiesta y en novia. Si vende ese vestido en C$ 3,000, el reporte suma C$ 3,000 en fiesta y C$ 3,000 en novia: C$ 6,000 por una venta de C$ 3,000.</span></div>
+    </div>
+    <p class="eg">Con A: sandalias doradas de novia → <b>calzado</b>. Vestido largo negro → <b>fiesta/noche</b>.</p>
+  </div>
+  <div class="ask">
+    <h4>2. Si clasificas prendas ya vendidas, ¿cambian los reportes de meses pasados?</h4>
+    <p>Hoy muchas prendas no tienen categoría. Ejemplo: en noviembre la Vendedora A vende 10 prendas sin categoría. En diciembre las clasificas como fiesta.</p>
+    <div class="two">
+      <div class="opt rec"><b>A. Queda como estaba al vender (recomendada)</b><span>Noviembre sigue mostrando 10 “sin categoría”. Desde diciembre salen como fiesta. Un reporte que ya usaste para evaluar o pagar no cambia después. El precio funciona igual hoy: si lo cambias, las ventas viejas guardan el precio de ese día.</span></div>
+      <div class="opt"><b>B. Los reportes viejos se actualizan</b><span>Noviembre pasa a mostrar 10 de fiesta. El historial queda más completo, pero un mes cerrado puede cambiar sin aviso.</span></div>
+    </div>
+  </div>
+  <div class="ask">
+    <h4>3. ¿Quién ve la ganancia?</h4>
+    <p>Tu comentario se puede leer de dos formas: solo dueña y admin, o también la gerente para su tienda.</p>
+    <p>Además, SAVIA no tiene un rol “admin”. Hoy existen: dueña, gerente, cajera, inventario, contadora y vendedora. ¿“Admin” es la contadora o un rol nuevo?</p>
+    <p class="eg">Recomendación: dueña siempre; gerente solo la de su tienda; contadora sí; vendedora y cajera no. Es tu decisión.</p>
+  </div>
 </section>
 
 <footer>

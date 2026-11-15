@@ -32,8 +32,18 @@ El reporte Equipo llama «venta neta» a un valor que no resta devoluciones (`V0
 - La investigación de Antigravity citó redirecciones de búsqueda y reportes de empleados; se usó solo como contraste.
 - Taxonomía y aceptación visual pendientes de la dueña.
 
+## Decisiones de la dueña (comentarios en el artifact, 2026-11-15)
+
+- Categorías: fiesta/noche, novia, moda casual, accesorios y calzado, más «Sin categoría» visible.
+- Venta neta de la vendedora resta devoluciones.
+- Ganancia por vendedora (venta menos costo) es privada; quién la ve sigue abierto.
+- La gerente ve las métricas de su equipo solo en su tienda.
+- Comprobado en código: la venta guarda costo (`V027__usd_cash.sql:209`, `V028__usd_change.sql:192-194`) y rechaza prendas sin costo (`V028__usd_change.sql:154`). No existe rol ADMIN (`V001__baseline.sql:1969-1971`, `V002__api_support.sql:19-24`, `V017`).
+- Revisión independiente (Claude Sonnet, solo lectura) marcó dos inferencias como decisiones; se movieron a propuesta (artifact versión 4).
+
 ## Siguiente acción
 
-La dueña responde las 5 preguntas de `decision.html`.
+La dueña decide: una categoría por prenda o varias; si la categoría queda fija al vender; quién ve la ganancia y qué es «admin».
 Después: especificación de etapa 1 y crítica previa con `gpt-6-astra` xhigh, porque toca datos de ventas.
+El visual de ejemplo todavía no incluye calzado; se agrega al integrar la galería de gráficos.
 - 2026-11-14: `decision.html` corregida en teléfono: las imágenes se estiraban (faltaba `height:auto`); a 390 px se muestra la versión móvil. Verificado con agent-browser a 390 y 1440, scrollWidth igual a innerWidth.
