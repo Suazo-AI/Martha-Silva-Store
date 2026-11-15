@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-15T00:29:25.033598+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/docs/research/staff-metrics-20261114/DATA-AUDIT.md",
+      "change": "A",
+      "git_blob": "77172887cf697783cf98b7fa1881b65e382b48ba"
+    },
+    {
+      "path": "savia/docs/research/staff-metrics-20261114/README.md",
+      "change": "A",
+      "git_blob": "ee164948a491d9cf2b412fcfc5baa09b4ade3c24"
+    },
+    {
+      "path": "savia/docs/research/staff-metrics-20261114/RESEARCH.md",
+      "change": "A",
+      "git_blob": "ec45be89dca846f8568ea4a46de81fe502afcdf3"
+    },
+    {
+      "path": "savia/docs/research/staff-metrics-20261114/decision.html",
+      "change": "A",
+      "git_blob": "e0d27c7529e8b89d8a8a75c4294695774cc64a5e"
+    },
+    {
+      "path": "savia/docs/research/staff-metrics-20261114/mockup-1440.png",
+      "change": "A",
+      "git_blob": "4a1d638669b56cff08195287dd92a021e485aebf"
+    },
+    {
+      "path": "savia/docs/research/staff-metrics-20261114/mockup-390.png",
+      "change": "A",
+      "git_blob": "438e182c1bdb52187a6caf84991e6bfb5847e024"
+    },
+    {
+      "path": "savia/docs/research/staff-metrics-20261114/mockup.html",
+      "change": "A",
+      "git_blob": "3dc779b4730f4aa6b14618e324f9d213f9367d1c"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

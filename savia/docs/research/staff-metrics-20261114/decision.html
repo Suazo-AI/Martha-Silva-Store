@@ -1,0 +1,209 @@
+<title>Métricas del equipo SAVIA</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: one reading column (64rem) — verdict, the visual, evidence, plan, decisions. SAVIA's own green tokens. */
+:root{
+  --bg:#f6f5f1; --surface:#ffffff; --ink:#182921; --muted:#55645c; --line:#dcded6;
+  --primary:#124b2d; --accent:#257252; --soft:#e7efe9; --warn:#7a4a12; --warn-bg:#fdf1e1; --bad:#9b2c1f;
+  --font:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"Cascadia Mono",Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1713; --surface:#16211b; --ink:#e6ece8; --muted:#9db0a5; --line:#2a3a31;
+  --primary:#7fc79d; --accent:#5fb185; --soft:#1c2c23; --warn:#f0c48a; --warn-bg:#2e2416; --bad:#f29c8f; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1713; --surface:#16211b; --ink:#e6ece8; --muted:#9db0a5; --line:#2a3a31;
+  --primary:#7fc79d; --accent:#5fb185; --soft:#1c2c23; --warn:#f0c48a; --warn-bg:#2e2416; --bad:#f29c8f; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 var(--font);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:40px 64px}
+.wrap{max-width:64rem;margin:0 auto;display:grid;gap:48px}
+h1,h2,h3{text-wrap:balance;margin:0;line-height:1.2}
+h1{font-size:clamp(1.9rem,4.5vw,2.7rem);letter-spacing:-.02em;color:var(--primary)}
+h2{font-size:1.4rem}
+h3{font-size:1rem}
+p{margin:0;max-width:65ch}
+a{color:var(--accent)}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px}
+.eyebrow{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+header{display:grid;gap:12px}
+.lead{font-size:1.15rem;color:var(--muted)}
+section{display:grid;gap:18px;min-width:0}
+.verdict{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.verdict div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;display:grid;gap:6px;align-content:start}
+.verdict b{color:var(--primary);font-size:1.02rem}
+.verdict span{color:var(--muted);font-size:.93rem}
+figure{margin:0;display:grid;gap:10px}
+.shots{display:grid;grid-template-columns:minmax(0,3.4fr) minmax(0,1fr);gap:14px;align-items:start}
+.shots img{display:block;width:100%;border:1px solid var(--line);border-radius:8px;background:#fff}
+.phone{max-height:640px;overflow:hidden;border-radius:8px}
+figcaption{font-size:.88rem;color:var(--muted)}
+.cta{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:8px;background:var(--primary);color:var(--bg);font-weight:600;text-decoration:none;justify-self:start}
+.cta:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.93rem}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+td.src{white-space:nowrap;font-size:.85rem}
+.tag{display:inline-block;font-size:.72rem;font-weight:700;padding:1px 8px;border-radius:99px;white-space:nowrap}
+.yes{background:var(--soft);color:var(--primary)}
+.part{background:var(--warn-bg);color:var(--warn)}
+.no{background:var(--warn-bg);color:var(--bad)}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;display:grid;gap:10px;align-content:start;min-width:0}
+ul,ol{margin:0;padding-left:1.2em;display:grid;gap:6px}
+li{max-width:65ch}
+.stages{display:grid;gap:14px}
+.stage{display:grid;grid-template-columns:9rem minmax(0,1fr);gap:16px;padding:16px 18px;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+.stage .when{display:grid;gap:4px;align-content:start}
+.stage .when b{color:var(--primary)}
+.stage .when span{font-size:.85rem;color:var(--muted)}
+.stage.first{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+code{font-family:var(--mono);font-size:.85em;background:var(--soft);padding:1px 5px;border-radius:4px}
+.qs li{padding-left:4px}
+footer{font-size:.85rem;color:var(--muted);display:grid;gap:6px;border-top:1px solid var(--line);padding-top:20px}
+.num{font-variant-numeric:tabular-nums}
+@media (max-width:760px){
+  .verdict,.two{grid-template-columns:1fr}
+  .shots{grid-template-columns:1fr}
+  .phone{max-width:300px;max-height:520px}
+  .stage{grid-template-columns:1fr;gap:8px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="wrap">
+<header>
+  <span class="eyebrow">SAVIA · Propuesta para la dueña · 14 nov 2026</span>
+  <h1>Ventas por vendedora y por categoría</h1>
+  <p class="lead">Hoy SAVIA sabe cuánto vende cada vendedora, pero no qué vende. La propuesta es registrar la categoría de cada prenda (fiesta/noche, novia, casual, accesorios) y ver el mix de cada vendedora.</p>
+</header>
+
+<section aria-labelledby="v">
+  <h2 id="v">Veredicto</h2>
+  <div class="verdict">
+    <div><b>Primero, clasificar cada prenda.</b><span>Recepción y la foto de etiqueta crean productos sin categoría. Sin eso, cualquier reporte por categoría sale incompleto.</span></div>
+    <div><b>Medir antes de cambiar comisiones.</b><span>Las tiendas líderes separan medir el mix de cambiar incentivos. Primero ver los datos 1–2 meses.</span></div>
+    <div><b>Corregir “venta neta”.</b><span>El reporte Equipo llama “venta neta” a un número que no descuenta devoluciones.</span></div>
+  </div>
+</section>
+
+<section aria-labelledby="vis">
+  <h2 id="vis">Cómo se vería</h2>
+  <figure>
+    <div class="shots">
+      <img src="mockup-1440.png" alt="Reporte Equipo con barra de mix por categoría para tres vendedoras, tabla por categoría y detalle de la Vendedora A" width="1440" height="1146">
+      <div class="phone"><img src="mockup-390.png" alt="El mismo reporte en un teléfono, con cada vendedora como ficha" width="390" height="3339"></div>
+    </div>
+    <figcaption>Datos de ejemplo. Vendedora B vende sobre todo fiesta y novia; Vendedora C, casual y accesorios. Con un solo número de ventas eso no se ve.</figcaption>
+  </figure>
+  <a class="cta" href="mockup.html">Abrir el visual interactivo</a>
+</section>
+
+<section aria-labelledby="t">
+  <h2 id="t">Qué miden las tiendas líderes</h2>
+  <p>Fuentes oficiales: vacantes, informes y presentaciones de cada empresa. Son metas o descripciones de puesto, no benchmarks universales.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Tienda</th><th>Qué miden o piden</th><th>Fuente</th></tr></thead>
+    <tbody>
+      <tr><td>Selfridges</td><td>Ventas vs. plan, margen, prendas por ticket, ticket promedio, venta por hora, captura de datos de la clienta.</td><td class="src"><a href="https://jobsearch.selfridges.com/jobs/job/Sales-Manager-Accessorises/7021">Vacante</a></td></tr>
+      <tr><td>Harrods</td><td>Venta mínima por hora, metas individuales, ofrecer productos relacionados.</td><td class="src"><a href="https://www.harrodscareers.com/job/sales-associate-harrods-shop-in-various-jid-6881">Vacante</a></td></tr>
+      <tr><td>Sephora</td><td>Conversión, artículos por cesta, cesta media, satisfacción.</td><td class="src"><a href="https://jobs.sephora.com/Nordics/job/Gothenburg-Beauty-Advisor,-G%C3%B6teborg-temp-Christmas-Assistant/1370621155/">Vacante</a></td></tr>
+      <tr><td>Kleinfeld</td><td>Conversión de citas de novia; vender vestido, tocado y accesorios como conjunto.</td><td class="src"><a href="https://kleinfeldbridal.com/pages/careers-at-kleinfeld-bridal-kleinfeld-bridal">Empleos</a></td></tr>
+      <tr><td>David’s Bridal</td><td>Conversión de <span class="num">65%</span> o más. Metas de complementos: tocado <span class="num">75%</span>, prendas de base <span class="num">10%</span>, zapatos <span class="num">20%</span>.</td><td class="src"><a href="https://careers.davidsbridal.com/details/160355/Part-Time-Bridal-Sales-">Vacante</a></td></tr>
+      <tr><td>Pronovias</td><td>Objetivos de venta y eficiencia, citas preparadas, cartera de clientas.</td><td class="src"><a href="https://careers.pronovias.com/en/jobs/6171709-bridal-sales-stylist">Vacante</a></td></tr>
+      <tr><td>Neiman Marcus · NET-A-PORTER</td><td>Clientas que vuelven, cartera, citas, gasto por clienta.</td><td class="src"><a href="https://neimanmarcus.referrals.selectminds.com/neiman-marcus/jobs/client-relationship-lead-24330">NM</a> · <a href="https://career.net-a-porter.com/open-positions/job-detail/personal-shopper-net-a-porter-r-17351">NAP</a></td></tr>
+      <tr><td>Louis Vuitton · LVMH</td><td>Asesoras por categoría; ventas y sell-through por categoría; conversión y retención.</td><td class="src"><a href="https://www.lvmh.com/en/join-us/discover-our-metiers/retail/">LVMH</a> · <a href="https://www.lvmh.com/join-us/our-job-offers/LVM34098">LV</a></td></tr>
+      <tr><td>Inditex / Zara</td><td>Comisión mensual de tienda ligada a resultados, no solo individual. Extracto parcial del informe.</td><td class="src"><a href="https://www.inditex.com/itxcomweb/api/media/d6d06b5c-4a2f-431d-915f-ce8ca9e95181/Sustainabilityreport2024.pdf">Informe 2024</a></td></tr>
+      <tr><td>Uniqlo</td><td>Ventas por empleado y satisfacción por tienda. Dato declarado por la empresa.</td><td class="src"><a href="https://www.fastretailing.com/eng/ir/library/pdf/20250410_Wakabayashi_en.pdf">Presentación</a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section aria-labelledby="c">
+  <h2 id="c">Crítica de SAVIA hoy</h2>
+  <div class="two">
+    <div class="box">
+      <h3>Lo que ya está bien</h3>
+      <ul>
+        <li>Ventas, prendas, tickets, ticket promedio y prendas por ticket por vendedora.</li>
+        <li>Comisión guardada por línea, con reverso cuando hay devolución.</li>
+        <li>Cada devolución vuelve a la vendedora que hizo la venta.</li>
+        <li>Una vendedora solo ve su propia fila. Eso se mantiene.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>Lo que falta o confunde</h3>
+      <ul>
+        <li>No hay categoría por venta. Solo la importación del catálogo la guarda, y es opcional.</li>
+        <li>“Venta neta” no resta devoluciones.</li>
+        <li>Devoluciones % mezcla devoluciones de ventas viejas con ventas del período.</li>
+        <li>Si dos vendedoras atienden un ticket, se cuenta para las dos.</li>
+        <li>No hay horas trabajadas, citas de novia ni clienta identificada en cada ticket.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="m">
+  <h2 id="m">Qué medir, en orden</h2>
+  <div class="stages">
+    <div class="stage first">
+      <div class="when"><b>Etapa 1</b><span>Con datos que SAVIA casi tiene</span></div>
+      <ol>
+        <li>Ventas y prendas por vendedora × categoría, con “Sin categoría” siempre visible.</li>
+        <li>% de ventas sin categoría o sin vendedora. Mide la calidad del dato.</li>
+        <li>Devoluciones por categoría, ligadas a la venta original.</li>
+        <li>Ticket promedio y prendas por ticket por categoría. Un vestido de novia no debe esconder una venta casual floja.</li>
+      </ol>
+    </div>
+    <div class="stage">
+      <div class="when"><b>Etapa 2</b><span>Requiere un registro simple</span></div>
+      <ol start="5">
+        <li>Venta por hora trabajada. Compara turnos de martes con sábados de forma justa.</li>
+        <li>Conversión de citas de novia y fiesta: citas que terminan en compra.</li>
+        <li>Accesorios con vestido: tickets de vestido que también llevan accesorio.</li>
+      </ol>
+    </div>
+    <div class="stage">
+      <div class="when"><b>Etapa 3</b><span>Cuando lo anterior sea confiable</span></div>
+      <ol start="8">
+        <li>Margen por categoría.</li>
+        <li>Sell-through por categoría y sucursal. Es para gerencia, no para calificar a una vendedora.</li>
+        <li>Clientas que vuelven a comprar.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="r">
+  <h2 id="r">Riesgos y cómo evitarlos</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Riesgo</th><th>Cómo evitarlo</th></tr></thead>
+    <tbody>
+      <tr><td>Ignorar a la clienta casual esperando una novia.</td><td>Una parte del bono por equipo, como hace Inditex. Mostrar ventas casual por separado.</td></tr>
+      <tr><td>La vendedora A atiende la prueba y la B cobra la venta.</td><td>Registrar quién atendió la prueba. Repartir el crédito sin duplicar el monto.</td></tr>
+      <tr><td>Vestidos devueltos después de usarlos en una fiesta.</td><td>Devoluciones por categoría y por vendedora, ligadas a la venta original.</td></tr>
+      <tr><td>Rankings injustos por turnos o sucursal.</td><td>Comparar dentro de la misma sucursal. Mirar tendencias de semanas, no un día.</td></tr>
+      <tr><td>Reclasificar una prenda cambia reportes pasados.</td><td>Guardar la categoría al momento de vender.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section aria-labelledby="q">
+  <h2 id="q">Decisiones para la dueña</h2>
+  <ol class="qs">
+    <li>¿Sirven estas 4 categorías: fiesta/noche, novia, moda casual y accesorios? ¿O separamos fiesta de noche, o agregamos otras?</li>
+    <li>¿Cada prenda lleva una sola categoría principal, aunque sirva para varias ocasiones?</li>
+    <li>Al clasificar prendas viejas, ¿pueden cambiar los reportes pasados, o la categoría queda fija como estaba al vender?</li>
+    <li>¿“Venta neta” debe restar las devoluciones del período?</li>
+    <li>¿La gerente sigue viendo a todo su equipo, o solo la dueña?</li>
+  </ol>
+</section>
+
+<footer>
+  <p>Investigación: dos agentes independientes (Codex gpt-6.1-sol y Gemini 4 Argon) con fuentes públicas consultadas el 14 nov 2026. Revisión final por Claude. Las cifras de David’s Bridal fueron comprobadas directamente en la vacante.</p>
+  <p>Auditoría de SAVIA: lectura del código; no se consultó ninguna base de datos. Cuántas prendas reales están sin categoría todavía no se sabe.</p>
+  <p>Nada de esto está construido en SAVIA. Es una propuesta con datos de ejemplo.</p>
+</footer>
+</div>
