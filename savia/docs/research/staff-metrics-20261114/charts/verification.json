@@ -1,0 +1,62 @@
+{
+  "mobile": {
+    "sw": 390,
+    "w": 390
+  },
+  "data": {
+    "categories": [
+      57000,
+      30000,
+      18000,
+      7000,
+      2000
+    ],
+    "totals": [
+      57000,
+      38000,
+      19000
+    ],
+    "waffles": [
+      100,
+      100,
+      100
+    ],
+    "webgl": true
+  },
+  "interactions": {
+    "1": "Vendedora A · Fiesta / noche: C$ 28,500 · 50% del neto.",
+    "2": "Vendedora A · Fiesta / noche: C$ 28,500 · 50% del neto.",
+    "3": "Vendedora A · Fiesta / noche: C$ 28,500 · 50% del neto. Devoluciones de la vendedora: 5% (todas las categorías).",
+    "4": "Vendedora A · Fiesta / noche: C$ 28,500 · 50% del neto."
+  },
+  "morph_grouped": {
+    "duration": "0.3s, 0.3s, 0.3s, 0.3s",
+    "easing": "ease-out, ease-out, ease-out, ease-out",
+    "pressed": "true",
+    "x": "0"
+  },
+  "morph_stacked": "false",
+  "rotation_button": true,
+  "rotation_keyboard": true,
+  "fallback": {
+    "bars": 15,
+    "visible": true
+  },
+  "reduced_motion": {
+    "duration": "0s",
+    "matches": true
+  },
+  "dark": {
+    "canvas": "rgb(17, 26, 21)",
+    "sw": 390,
+    "w": 390
+  },
+  "desktop": {
+    "sw": 1440,
+    "w": 1440
+  },
+  "errors": "",
+  "console": "",
+  "runtime_errors": [],
+  "session_close": "✓ Browser closed"
+}

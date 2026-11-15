@@ -45,5 +45,5 @@ El reporte Equipo llama «venta neta» a un valor que no resta devoluciones (`V0
 
 La dueña decide: una categoría por prenda o varias; si la categoría queda fija al vender; quién ve la ganancia y qué es «admin».
 Después: especificación de etapa 1 y crítica previa con `gpt-6-astra` xhigh, porque toca datos de ventas.
-El visual de ejemplo todavía no incluye calzado; se agrega al integrar la galería de gráficos.
+Galería de 6 gráficos con calzado y veredicto 3D: `charts/gallery.html`, artifact https://claude.ai/artifact/FYvdMxZTwr6VU5RvhDCApt. Recomendado: pequeños múltiples. Falta que la dueña elija.
 - 2026-11-14: `decision.html` corregida en teléfono: las imágenes se estiraban (faltaba `height:auto`); a 390 px se muestra la versión móvil. Verificado con agent-browser a 390 y 1440, scrollWidth igual a innerWidth.
