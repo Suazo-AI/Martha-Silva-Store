@@ -1,0 +1,10 @@
+{
+  "sources": {
+    "app.mjs": "7c12b429e72b292d2e8dac5bd8a893ba01ba7b0366cefcb86681d6e411878a6f",
+    "client.mjs": "8999819b79e9b8ead4151bef3fb542a6c63252efe1822dc03b967a1629950be7",
+    "login.mjs": "73911282fd1ac18b0de0785eb8c8b7c60dbd189cef14c68a28891a51fa9e88a4",
+    "index.html": "72193922c484ffe0fe2468ba897cfb2fc1bcf598528645b15311332b33d94b64",
+    "styles.css": "61db534591305d989d815c47999cc5706d7b8de6e00c1628d361e10edbb94ca0"
+  },
+  "results": []
+}

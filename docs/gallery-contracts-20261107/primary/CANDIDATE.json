@@ -1,0 +1,145 @@
+{
+  "sourceHead": "7bce17f65b6a49b64443349d76f3a98b76e4b347",
+  "candidateRoot": "C:\\Users\\Jason\\MARTHA-SILVA\\github",
+  "policy": "RAW bytes for binary; raw and CRLF-to-LF only for text. UTF-16 logs remain RAW; historical files retain recorded provenance. Manifest excludes itself.",
+  "files": [
+    {
+      "path": "docs/gallery-contracts-20261107/browser-contracts-desktop-1280x900.png",
+      "rawSha256": "4bb1f65faecb9b438fbb45a18803a3d1e1105f1c0111997436e68abc4008bce2",
+      "lfSha256": null,
+      "bytes": 444493
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/browser-contracts-mobile-390x844.png",
+      "rawSha256": "5c95a7b570213918c65bc2cd086b570c42a1cbbb19acba264b1733f61519ef25",
+      "lfSha256": null,
+      "bytes": 1049633
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/browser-contracts.json",
+      "rawSha256": "56e89210015f16d90464a1dc119cfd82f7406128c81e10bd12d187b4c98dc237",
+      "lfSha256": "56e89210015f16d90464a1dc119cfd82f7406128c81e10bd12d187b4c98dc237",
+      "bytes": 13056
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/controls/check-variant.cjs",
+      "rawSha256": "ca53fd283feee6f6125e864e3ae868697b0d4738a9c893608c912de875ba0581",
+      "lfSha256": "ca53fd283feee6f6125e864e3ae868697b0d4738a9c893608c912de875ba0581",
+      "bytes": 2987
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/controls/logs/bad-sizes.log",
+      "rawSha256": "75e89176516ea24b7e61b50ae281ac871f2c3e9206a36852d28b0666be1d2358",
+      "lfSha256": "75e89176516ea24b7e61b50ae281ac871f2c3e9206a36852d28b0666be1d2358",
+      "bytes": 7006
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/controls/logs/baseline.log",
+      "rawSha256": "f200222cca6e3559b5235864c16109105cd0c1eac35015f296fce62a8a9ffe1c",
+      "lfSha256": "f200222cca6e3559b5235864c16109105cd0c1eac35015f296fce62a8a9ffe1c",
+      "bytes": 3204
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/controls/logs/no-activation.log",
+      "rawSha256": "0b7f405fdd3992675e330907d00b2ed7f4b26eed1d13e73124e51d60fc9a7f83",
+      "lfSha256": "0b7f405fdd3992675e330907d00b2ed7f4b26eed1d13e73124e51d60fc9a7f83",
+      "bytes": 11382
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/controls/observed-runs.json",
+      "rawSha256": "afbebcf0b294e38b11419fa537ee78e0b1d2ca4c5b8c0a8ada7f1e43e3354391",
+      "lfSha256": "afbebcf0b294e38b11419fa537ee78e0b1d2ca4c5b8c0a8ada7f1e43e3354391",
+      "bytes": 2323
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/controls/README.md",
+      "rawSha256": "b6af2e7304b4fc5eb20ea38c15ba5f289829e784ca2fd8926c94089b12b4d31e",
+      "lfSha256": "b6af2e7304b4fc5eb20ea38c15ba5f289829e784ca2fd8926c94089b12b4d31e",
+      "bytes": 1577
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/historical-expectations.json",
+      "rawSha256": "a4b86eaa529dbb912663ef532dda17c6c1dc08b138fb2e8705c59715623131d1",
+      "lfSha256": "a4b86eaa529dbb912663ef532dda17c6c1dc08b138fb2e8705c59715623131d1",
+      "bytes": 8347
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/browser/browser-contracts-desktop-1280x900.png",
+      "rawSha256": "4bb1f65faecb9b438fbb45a18803a3d1e1105f1c0111997436e68abc4008bce2",
+      "lfSha256": null,
+      "bytes": 444493
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/browser/browser-contracts-mobile-390x844.png",
+      "rawSha256": "5c95a7b570213918c65bc2cd086b570c42a1cbbb19acba264b1733f61519ef25",
+      "lfSha256": null,
+      "bytes": 1049633
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/browser/browser-contracts.json",
+      "rawSha256": "16091e49d25c67653d45df199ebc5b8fe99c757e99fff563d03e5da26ce8f9c7",
+      "lfSha256": "16091e49d25c67653d45df199ebc5b8fe99c757e99fff563d03e5da26ce8f9c7",
+      "bytes": 13344
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/browser.log",
+      "rawSha256": "a671d53e9da598036b5cd8813b9627a628e47f34f567e9d9672d16c8887b5f1d",
+      "lfSha256": "a671d53e9da598036b5cd8813b9627a628e47f34f567e9d9672d16c8887b5f1d",
+      "bytes": 3292
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/IMPORT.json",
+      "rawSha256": "4e3844988ddc603eb7ff9b5861f6e21d86ff82b09aa42d9efa0e2f1ccbc3234f",
+      "lfSha256": "896089f4d4889b3a66a25c9d316144a7a2b8f7365623a552dc089130ea141aad",
+      "bytes": 2172
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/positive-controls.json",
+      "rawSha256": "715358d30866a2b3b6aec01cdc7026d4af0513cbe637d022351c040dfe64ef04",
+      "lfSha256": "37d1ae679719741db9a84170c0a440378a15c2aa7c4a4da6eed898946130d831",
+      "bytes": 883
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/tabindex-zero.log",
+      "rawSha256": "c27a01117e5bfd3ed8d79c916a818d5cedf071c1539134a74d6fe21c4fbd3649",
+      "lfSha256": "38c4b2b3db3b243afdaa864d91b4894f6016c55a2caf1496d4ca8751d48b6906",
+      "bytes": 1611
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/valid-measured-sizes.log",
+      "rawSha256": "09e2ff838cb8ab543a8645f21d6c97df082784840778c4765fae1d82e6fb65b1",
+      "lfSha256": "40a6368447572210b790433d8717f6c55abd9b2d861fda789ae41570cd6c4095",
+      "bytes": 1625
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary-review.md",
+      "rawSha256": "7e616b9536f5893856e1a2f3419a675a4836f361337ca9ec5593deaa1b86df9c",
+      "lfSha256": "6d02978bf3773157fecf4b90ca19d466d80cb273df573dd318516b43633c2b60",
+      "bytes": 5580
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/README.md",
+      "rawSha256": "5040e720d1973d0a04dd15c07527775deed59b2a771f2eaf4acb9ef575bcc08d",
+      "lfSha256": "5040e720d1973d0a04dd15c07527775deed59b2a771f2eaf4acb9ef575bcc08d",
+      "bytes": 3925
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/RESULT.json",
+      "rawSha256": "fecb7413dc76a08f5d9976bd587f813e6030a2a413da1c7a5571fa054d64f273",
+      "lfSha256": "fecb7413dc76a08f5d9976bd587f813e6030a2a413da1c7a5571fa054d64f273",
+      "bytes": 11644
+    },
+    {
+      "path": "tests/desktop-gallery.cjs",
+      "rawSha256": "58258777f44e7c48827584129cf5dba3b7537ee307485896962ddc18fcd68c7a",
+      "lfSha256": "58258777f44e7c48827584129cf5dba3b7537ee307485896962ddc18fcd68c7a",
+      "bytes": 21406
+    },
+    {
+      "path": "tests/gallery-browser-contracts.cjs",
+      "rawSha256": "5dd68125720a09c9a2b5b387c1c2f8dfefd42af13fd638c04769509de0bbcc94",
+      "lfSha256": "5dd68125720a09c9a2b5b387c1c2f8dfefd42af13fd638c04769509de0bbcc94",
+      "bytes": 21790
+    }
+  ]
+}

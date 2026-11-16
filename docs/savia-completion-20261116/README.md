@@ -2,7 +2,7 @@
 
 Updated 2026-11-16 on SUAZO-PC. Primary: T3 Code / Codex / `gpt-6.1-sol/max`.
 
-**The accepted UX is published. A verification-tool correction is integrated locally. Production remains NO-GO.**
+**UX and the verification-tool correction are published at Tony@2587712b. All four applicable workflows passed. Production remains NO-GO.**
 This record separates SAVIA v2 in `savia/` from the earlier backend in `backend/` and the public storefront.
 The [SAVIA v2 plan](../../savia/docs/PLAN.md) owns its completion criteria. Earlier evidence keeps its original scope.
 
@@ -38,7 +38,7 @@ Result: **4/4 PASS, exit 0**, including the real web step and full-mode failure/
 Worker evidence remains distinct: real regression 3 PASS / 1 FAIL → 4/4 PASS; unchanged Spec17 1/1 PASS.
 Its final quick run included 30/30 Python tests and 98/98 web tests. Formal was explicitly SKIP because tools were absent.
 The historical CI omitted the inner quick diagnostic. Its exact original cause is unconfirmed; the local defect and correction are proven.
-Primary accepts this narrow local correction. Remote CI of the corrected source is not yet accepted.
+Primary accepts this narrow correction and its completed exact-source CI: web 98/98 and .NET 145/145, zero failures or skips.
 
 Lesson applied: exercise a failing wrapper through its actual command and working directory before repeating the broad suite.
 
@@ -47,7 +47,7 @@ It stopped in `tests/asset-audit.py`: three fixture errors reported `WinError 13
 This is a Windows privilege failure; it is not a passing full suite or a reproduced defect in the changed verifier.
 Raw log SHA256: `9ae3a42c4e00b34e4c566ba04c8d642d902441084bcce476871b59c2fd779d3b`.
 The authorized publication runs the existing Linux snapshot workflow, including `python tests/check.py --install`.
-Primary must read that exact-SHA result before closing this check. No Windows privilege or security setting was changed.
+That Linux check passed on `2587712b8399eb1b4ac59fcf7dfd6de9852b1f79`. No Windows privilege or security setting was changed.
 
 ## Pull requests: verified routing before merge
 
@@ -94,7 +94,7 @@ Resolve that edition label in any future execution packet. No simulator, contain
 
 | Item | Evidence, cause or gap | Next action and owner | Completion check |
 | --- | --- | --- | --- |
-| Corrected-SHA CI | Local regression is green; previous SQL CI failed | Primary publishes under the applicable runtime scope and reads completed checks | Exact remote SHA and successful applicable CI; no automatic retries |
+| Corrected-SHA CI CLOSED | Four workflows succeeded on `2587712b`; web 98/98 and .NET 145/145, zero failures or skips | Primary verified the remote SHA and completed checks | [Source-bound readback](publication/CI-2587712.json); historical failed CI remains preserved |
 | Three-branch synchronization | A-04, A-05 and A-09 remain pending; the source review found implementation and oracle gaps | Primary adopted the contract above; executor corrects source, then independent judge and separately scoped runtime | Accepted multi-node evidence, real transport and conserved money/stock |
 | Current real cash journey | UX Chrome proof uses synthetic HTTP | Primary prepares the isolated browser→API→SQL sale, lookup, refund and close journey | Browser actions match persisted rows and accounting totals |
 | Operational readiness | Current-source restore, access, monitoring and deployment qualification are incomplete | Primary verifies existing artifacts and prepares only missing operational checks | Scoped recovery proof, access evidence, release/rollback and authorized target readback |
@@ -111,5 +111,6 @@ Historical reports, acceptance receipts and hashes retain their original meaning
 The imported worker report remains unedited; this page records primary acceptance separately.
 
 Only explicit reviewed paths enter the commit. Raw logs, private exports, caches, credentials, local review pages and the untracked third-party skill bundle stay outside publication.
-Existing `docs/DECISIONS.md` changes concerning an old preview destination remain separate; this update grants no deployment authority.
+The subsequent full-progress publication includes D-030 as Jason's historical frontend/images decision. It executes no deployment.
+[Publication reconciliation](publication/README.md) covers 49 historical public files, two byte-exact archival copies and preserved local exclusions.
 [Repository update scope and checks](REPOSITORY-UPDATE.md) records the final publication boundary.

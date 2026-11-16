@@ -1,0 +1,44 @@
+{
+  "observedUtc": "2026-11-03T23:27:11.345Z",
+  "host": "SUAZO-PC",
+  "layer": "Real Chromium browser; mocked staff API; public browser-local demo",
+  "origin": "http://127.0.0.1:62208",
+  "sourceHashes": {
+    "dev/savia-staff-ui/app.mjs": "6df74c24a246ee3539ef4f07839620df15129ceb6d3750253b61ed63bf62b130",
+    "dev/savia-staff-ui/client.mjs": "9dd4ee88c9f34f5948ec38d31f73bde976acffcc03c7bdfa99b5996dcc87243d",
+    "dev/savia-staff-ui/login.mjs": "6d493acf575f0312d56d39f290804c323209aa99715eced002cc4089a8a6d1a0",
+    "dev/savia-staff-ui/login.html": "4803ece2ef530d9e5161837209ac86591bfe1447e9876b0f38bf17baca9a8382",
+    "dev/savia-staff-ui/index.html": "b10cb0d2e7ea628a616e4b514b8cb188942e0332157410d5cac7cc3e398b8a6c",
+    "dev/savia-staff-ui/styles.css": "9f9bca25769c903c3b886b5e7ff2b4570f4893e44e80219fe34d2acb949c070b"
+  },
+  "results": [
+    {
+      "name": "Stale confirmed receipt 404 must not permanently block a fresh sale (N5)",
+      "status": "PASS",
+      "durationMs": 953
+    },
+    {
+      "name": "Stale receipt 403 after reassignment is cleared and leaves a fresh sale available (N5)",
+      "status": "PASS",
+      "durationMs": 464
+    },
+    {
+      "name": "Unavailable receipt lookup keeps its reference and does not invent a pending sale (N5)",
+      "status": "PASS",
+      "durationMs": 482
+    },
+    {
+      "name": "Stale receipt never unlocks a real pending sale; recovery reuses the original key (N5)",
+      "status": "PASS",
+      "durationMs": 477
+    },
+    {
+      "name": "Revoked session during receipt restore returns to sign-in without staff data (N5)",
+      "status": "PASS",
+      "durationMs": 459
+    }
+  ],
+  "runtime": [],
+  "externalRequests": [],
+  "networkFailures": []
+}

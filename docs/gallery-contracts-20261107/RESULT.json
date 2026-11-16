@@ -1,0 +1,202 @@
+{
+  "task": "savia-gallery-outcomes-c5ee743-20261107-01",
+  "mode": ["BUILD", "VALIDATE"],
+  "status": "candidate_ready_for_primary_acceptance",
+  "identity": {
+    "host": "SUAZO-PC",
+    "os": "Windows",
+    "harness": "T3 Code",
+    "requested_model": "opencode/deepseek-v4.1-flash-free",
+    "variant": "high",
+    "agent_build": "opencode",
+    "usage_tokens_billing": "unexposed; unknown",
+    "nested_delegation": false
+  },
+  "base": {
+    "worktree": "C:/Users/Jason/.t3/worktrees/github/t3-8de63f6e",
+    "head": "c5ee743242cb2d360ef4c4e94a61548e1180748b",
+    "head_equals_source_sha": true,
+    "git_status_at_start": "clean"
+  },
+  "read_only_bindings": {
+    "candidate": {
+      "path": "C:/Users/Jason/.t3/worktrees/github/t3-c1a5a005/tests/desktop-gallery.cjs",
+      "raw_sha256": "206923a203ade60d53b7bfd808fcf2d6acdb701a66be2b6d40c72bdd7860db84",
+      "lf_sha256": "5ec567512aac9b6bfc28361e09f68a1e2f3d7688155de2598f1bae2a4d689940",
+      "unchanged": true
+    },
+    "judge_report": {
+      "path": "C:/Users/Jason/.t3/worktrees/github/t3-e18fd1f5/docs/gallery-contracts-20261107/astra-judge.md",
+      "raw_sha256": "50b69c56d7491668a5e104ced4ca297afccfdddcae9f416d12e6eb1d92d239a7",
+      "unchanged": true
+    },
+    "canonical_primary_review": "C:/Users/Jason/MARTHA-SILVA/github/docs/gallery-contracts-20261107/primary-review.md"
+  },
+  "changed_files": {
+    "tests/desktop-gallery.cjs": {
+      "raw_sha256": "58258777f44e7c48827584129cf5dba3b7537ee307485896962ddc18fcd68c7a",
+      "lf_sha256": "58258777f44e7c48827584129cf5dba3b7537ee307485896962ddc18fcd68c7a",
+      "line_endings": "LF"
+    },
+    "tests/gallery-browser-contracts.cjs": {
+      "raw_sha256": "cad2d2fa5f87e4863658ec4439edda85039d6a5e35bc4c0dfd8a34c1fa915c07",
+      "lf_sha256": "cad2d2fa5f87e4863658ec4439edda85039d6a5e35bc4c0dfd8a34c1fa915c07",
+      "line_endings": "LF"
+    },
+    "docs/gallery-contracts-20261107/controls/check-variant.cjs": {
+      "raw_sha256": "ca53fd283feee6f6125e864e3ae868697b0d4738a9c893608c912de875ba0581",
+      "lf_sha256": "ca53fd283feee6f6125e864e3ae868697b0d4738a9c893608c912de875ba0581",
+      "line_endings": "LF"
+    }
+  },
+  "evidence": {
+    "jsdom": {
+      "baseline": {
+        "passed": 14,
+        "total": 14,
+        "exit": 0,
+        "log": "docs/gallery-contracts-20261107/controls/logs/baseline.log"
+      },
+      "controls": {
+        "tabindex-zero": {"passed": 14, "total": 14, "exit": 0, "persisted_log": false},
+        "valid-measured-sizes": {"passed": 14, "total": 14, "exit": 0, "persisted_log": false},
+        "bad-sizes": {"passed": 11, "total": 14, "exit": 1, "failed_ids": ["DG04", "DG05", "DG09"], "log": "docs/gallery-contracts-20261107/controls/logs/bad-sizes.log"},
+        "no-activation": {"passed": 4, "total": 14, "exit": 1, "log": "docs/gallery-contracts-20261107/controls/logs/no-activation.log"}
+      },
+      "detail": "docs/gallery-contracts-20261107/controls/observed-runs.json"
+    },
+    "browser": {
+      "chrome": "C:/Program Files/Google/Chrome/Application/chrome.exe",
+      "chrome_version": "156.0.8078.80",
+      "node": "v24.18.0",
+      "mode": "headless",
+      "server": "127.0.0.1:18433 serving this worktree's immutable dist/",
+      "artifacts": {
+        "json": "docs/gallery-contracts-20261107/browser-contracts.json",
+        "desktop_screenshot": "docs/gallery-contracts-20261107/browser-contracts-desktop-1280x900.png",
+        "mobile_screenshot": "docs/gallery-contracts-20261107/browser-contracts-mobile-390x844.png"
+      },
+      "summary": {"runs": 2, "failed": 0},
+      "desktop_1280x900_dpr1": {
+        "nav": "thumbnails",
+        "initial": {"index": 0, "slideCount": 4, "scrollLeft": 0, "clientWidth": 401},
+        "resource": {
+          "chosenWidth": 720,
+          "hintPx": 426.66,
+          "neededHint": 426.66,
+          "renderedWidth": 400.66,
+          "drawnWidth": 400.7,
+          "dpr": 1,
+          "currentSrc": "http://127.0.0.1:18433/responsive-images/verde-brillo-cuello-cruzado/01-front-v1-720.webp",
+          "smallestCandidateAtLeastHint": 720,
+          "nextSmallerCandidate": 360,
+          "response": {"status": 200, "contentType": "image/webp", "bytes": 86518}
+        },
+        "resize_1440x900": {
+          "beforeIndex": 0,
+          "afterIndex": 0,
+          "scrollLeft": 0,
+          "chosenWidth": 720,
+          "hintPx": 480.0,
+          "neededHint": 480.0,
+          "renderedWidth": 400.66,
+          "drawnWidth": 400.4,
+          "response": {"status": 200, "contentType": "image/webp", "bytes": 86518}
+        },
+        "keyboard": {
+          "reachPhotoTabs": 33,
+          "focusedPhotoScroll": {"index": 2, "scrollLeft": 901, "heldStillFocused": true, "heldVisible": false, "afterTab": {"tag": "BUTTON", "photo": true, "visible": true, "rect": {"x": 253, "y": 149, "w": 451, "h": 601}}},
+          "reachNavTabs": 3,
+          "navEnter": {"target": 0, "index": 0, "focusStillOnNav": true},
+          "navSpace": {"target": 1, "index": 1},
+          "shiftTabGo": "0",
+          "reachArrowTabs": 4,
+          "arrowEnter": {"before": 1, "after": 0, "expected": 0},
+          "arrowSpace": {"after": 3, "expected": 3},
+          "end": {"before": 3, "after": 3, "defaultPrevented": false, "pageScrollYBefore": 38, "pageScrollYAfter": 2602},
+          "home": {"before": 3, "after": 3, "defaultPrevented": false},
+          "altArrowRight": {"before": 3, "after": 3},
+          "media": {"reached": true, "tabs": 5, "before": 3, "after": 3},
+          "finalIndex": 3
+        },
+        "blockedRequests": 0,
+        "httpErrors": [],
+        "failedRequests": []
+      },
+      "mobile_390x844_dpr2": {
+        "nav": "dots",
+        "initial": {"index": 0, "slideCount": 4, "scrollLeft": 780, "clientWidth": 390},
+        "resource": {
+          "chosenWidth": 1024,
+          "hintPx": 390,
+          "neededHint": 780,
+          "renderedWidth": 390,
+          "drawnWidth": 346.7,
+          "dpr": 2,
+          "currentSrc": "http://127.0.0.1:18433/responsive-images/verde-brillo-cuello-cruzado/01-front-v1-1024.webp",
+          "smallestCandidateAtLeastHint": 1024,
+          "nextSmallerCandidate": 720,
+          "response": {"status": 200, "contentType": "image/webp", "bytes": 140962}
+        },
+        "keyboard": {
+          "reachPhotoTabs": 9,
+          "focusedPhotoScroll": {"index": 2, "scrollLeft": 1560, "heldStillFocused": true, "heldVisible": false, "afterTab": {"tag": "BUTTON", "photo": true, "visible": true, "rect": {"x": 0, "y": 141, "w": 390, "h": 520}}},
+          "reachNavTabs": 5,
+          "navEnter": {"target": 0, "index": 0, "focusStillOnNav": true},
+          "navSpace": {"target": 1, "index": 1},
+          "shiftTabGo": "0",
+          "reachArrowTabs": 1,
+          "arrowEnter": {"before": 1, "after": 2, "expected": 2},
+          "arrowSpace": {"after": 3, "expected": 3},
+          "end": {"before": 3, "after": 3, "defaultPrevented": false, "pageScrollYBefore": 0, "pageScrollYAfter": 2973},
+          "home": {"before": 3, "after": 3, "defaultPrevented": false},
+          "altArrowRight": {"before": 3, "after": 3},
+          "media": {"reached": true, "tabs": 2, "before": 3, "after": 3},
+          "finalIndex": 3
+        },
+        "blockedRequests": 0,
+        "httpErrors": [],
+        "failedRequests": []
+      },
+      "raw_webp_dimensions": {
+        "source": "Pillow 11 on dist/responsive-images/verde-brillo-cuello-cruzado",
+        "01-front-v1-360.webp": "360x540",
+        "01-front-v1-720.webp": "720x1080",
+        "01-front-v1-1024.webp": "1024x1536",
+        "note": "naturalWidth/naturalHeight in browser-contracts.json are density-corrected per the srcset w-descriptor spec, not raw file pixels."
+      },
+      "screenshots_verified": "Both PNGs were read back and show the gallery (photo/video, thumbnails or dots, arrows), not the footer."
+    }
+  },
+  "acceptance": {
+    "1_preserve_geometry_wrap_video_resize_bfcache_race_identity_commerce": {"status": "PASS", "evidence": "jsdom baseline 14/14 exit 0; fixture binding 4/3/1 asserted at boot; geometry model preserved"},
+    "2_replace_absence_assertions_with_outcomes": {"status": "PASS", "evidence": "tabindex-zero 14/14 exit 0; no-activation 4/14 exit 1"},
+    "3_individual_dispositions_dg01_03_04_06_10": {"status": "PASS", "evidence": "docs/gallery-contracts-20261107/historical-expectations.json"},
+    "4_real_chrome_real_keys_focused_photo_scroll": {"status": "PASS", "evidence": "browser-contracts.json; Tab/Shift+Tab/Enter/Space/Home/End/Alt/media; focusedPhotoScroll; no DOM click/focus activation"},
+    "5_resource_bounds_dpr_hint_currentsrc_dims_response_resize": {"status": "PASS", "evidence": "desktop 720w/426.66px, resize 720w/480px, mobile 1024w/780px; 200 webp; raw dims verified; bad-sizes fails"},
+    "6_bad_sizes_fails_loss_of_activation_fails_equivalents_pass": {"status": "PASS", "evidence": "bad-sizes 11/14 exit 1; no-activation 4/14 exit 1; tabindex-zero and valid-measured-sizes 14/14 exit 0"},
+    "7_gallery_focus_evidence_not_footer_observed_vs_inferred": {"status": "PASS", "evidence": "screenshots show the gallery; historical-expectations.json separates observed and inferred"},
+    "8_product_bytes_unchanged": {"status": "PASS", "evidence": "git status clean for src/build-inputs/dist; blobs match HEAD"}
+  },
+  "product_bytes_unchanged": {
+    "git_status_product_paths": "",
+    "blobs": {
+      "src/app.js": {"head": "5f80501d63e7a8fb81ba68374bc610c48142d6b4", "worktree": "5f80501d63e7a8fb81ba68374bc610c48142d6b4"},
+      "build-inputs/static/producto-verde-brillo-cuello-cruzado.html": {"head": "411829a6cedc55c84643be14629288fc98cb057f", "worktree": "411829a6cedc55c84643be14629288fc98cb057f"},
+      "build-inputs/static/styles.css": {"head": "40164637dbef0072ddcb9a73634063724914ff3f", "worktree": "40164637dbef0072ddcb9a73634063724914ff3f"},
+      "dist/producto-verde-brillo-cuello-cruzado.html": {"head": "411829a6cedc55c84643be14629288fc98cb057f", "worktree": "411829a6cedc55c84643be14629288fc98cb057f"}
+    },
+    "changed_paths_only": ["tests/desktop-gallery.cjs", "tests/gallery-browser-contracts.cjs", "docs/gallery-contracts-20261107/"]
+  },
+  "dispositions_ref": "docs/gallery-contracts-20261107/historical-expectations.json",
+  "limitations": [
+    "Zoom evidence passed in the browser run (exit 0) but the zoom result was not serialized in browser-contracts.json because openAndCloseZoom had no return value during that run; the script now returns it on the next run.",
+    "tabindex-zero and valid-measured-sizes were observed 14/14 exit 0 in earlier invocations without a persisted log; reproduce with the command in controls/README.md.",
+    "naturalWidth/naturalHeight are density-corrected per the srcset w-descriptor spec; raw webp dimensions were verified separately with Pillow.",
+    "Chrome was headless at the two requested viewports; no headed device, mobile hardware, full visual regression, or accessibility audit is claimed.",
+    "Port 18433 showed stale PID-0 LISTENING entries after the runs; no live process was found and each run bound and closed its server.",
+    "No product defect is asserted. S-LEGACY closure is the primary's decision. Issue #4 disposition evidence remains a primary integration responsibility.",
+    "NOT RUN: full suite/631 aggregate, backend/.NET, staff UI, SQL, Docker, services, CI, issue writes, publication, merge or deployment."
+  ],
+  "next_action": "Primary reviews this candidate and, if accepted, closes S-LEGACY; optionally re-run tests/gallery-browser-contracts.cjs once to persist the zoom field and capture a pre-End screenshot."
+}

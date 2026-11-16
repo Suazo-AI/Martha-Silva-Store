@@ -1,0 +1,310 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-16T20:52:24.736506+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "README.md",
+      "change": "M",
+      "git_blob": "8ab2c78a0aa6311a7d42ce1664ae2a6644bad086"
+    },
+    {
+      "path": "docs/DECISIONS.md",
+      "change": "M",
+      "git_blob": "c092627d78bedc7e4ab8828ee167532b0dc706b1"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "f51af2cb3e50c30a448e4ed6cb5d92b7787c9506"
+    },
+    {
+      "path": "docs/branch-choice-20261107/README.md",
+      "change": "A",
+      "git_blob": "e5fa87782235a352402cdae77d86abae7556f71c"
+    },
+    {
+      "path": "docs/branch-choice-20261107/build.py",
+      "change": "A",
+      "git_blob": "745d074ca2de6825975c126dc238bbff72e81279"
+    },
+    {
+      "path": "docs/branch-choice-20261107/choice.json",
+      "change": "A",
+      "git_blob": "372d331b9fb370c14f3220658096a968152a5433"
+    },
+    {
+      "path": "docs/branch-choice-20261107/decision.html",
+      "change": "A",
+      "git_blob": "996f3bd94eeaf761c25c353617abf0ee3d2d69fc"
+    },
+    {
+      "path": "docs/branch-choice-20261107/preview-check.json",
+      "change": "A",
+      "git_blob": "0add725cafd70affcf71d7e24c6156236083da4e"
+    },
+    {
+      "path": "docs/c3-n5-20261103/CLOSURE.md",
+      "change": "A",
+      "git_blob": "df0cb1a8e5a1d9ee7b5c161e09cd544ded0ec23e"
+    },
+    {
+      "path": "docs/c3-n5-20261103/PR-REVIEW-READY.txt",
+      "change": "A",
+      "git_blob": "4339adf1a710798a21072b73e48f5ca7f5b52823"
+    },
+    {
+      "path": "docs/c3-n5-20261103/README.md",
+      "change": "A",
+      "git_blob": "3adb1ea65c684eb637fc66721f17355b558c4ef8"
+    },
+    {
+      "path": "docs/c3-n5-20261103/before.json",
+      "change": "A",
+      "git_blob": "9bac387e601829c357136b658a4790141b7eddf5"
+    },
+    {
+      "path": "docs/c3-n5-20261103/fixed-run.json",
+      "change": "A",
+      "git_blob": "3b2dc5f434c4767d60de8af50b2a47343cb86b75"
+    },
+    {
+      "path": "docs/c3-n5-20261103/fixed/browser-results.json",
+      "change": "A",
+      "git_blob": "192a6aefd7397b90b9c9be516a9c7e42a56d8e21"
+    },
+    {
+      "path": "docs/c3-n5-20261103/report.md",
+      "change": "A",
+      "git_blob": "c6edfe809deaf32e7ba854fa02039229befa01ff"
+    },
+    {
+      "path": "docs/c3-n5-20261103/restored-state.json",
+      "change": "A",
+      "git_blob": "9c67f5eaab5ed9a8cc2b6d17a3b3d4cb993df31e"
+    },
+    {
+      "path": "docs/c3-n5-20261103/reverted-run.json",
+      "change": "A",
+      "git_blob": "34683e54dfcde3086f04d59afb2202f7c469ef54"
+    },
+    {
+      "path": "docs/c3-n5-20261103/reverted-state.json",
+      "change": "A",
+      "git_blob": "d7e341a9a1ae3de380e647266a1b2f389c475055"
+    },
+    {
+      "path": "docs/c3-n5-20261103/reverted/browser-results.json",
+      "change": "A",
+      "git_blob": "b0b6af410e3eed813536a25aba441b66cacb4aa5"
+    },
+    {
+      "path": "docs/c3-n5-20261103/summary.json",
+      "change": "A",
+      "git_blob": "3106737a4ca3506adf63a7e81566b8543e155b04"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/README.md",
+      "change": "A",
+      "git_blob": "765b5e238c84dfdf644aacda81678678ed402756"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/RESULT.json",
+      "change": "A",
+      "git_blob": "bafa7ad4ff90ea8727567b806d22db2b539ce326"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/browser-contracts-desktop-1280x900.png",
+      "change": "A",
+      "git_blob": "6f9eed7a86c91bd6309c22193ed307f8c105ea1b"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/browser-contracts-mobile-390x844.png",
+      "change": "A",
+      "git_blob": "94e22156b061870e14bb896adfbf469aa9e38d61"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/browser-contracts.json",
+      "change": "A",
+      "git_blob": "f22654f94c9b608be765b87199a192717c69c997"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/controls/README.md",
+      "change": "A",
+      "git_blob": "c5ed23a543ccae5e4f6bce4f9cab507d6925162b"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/controls/check-variant.cjs",
+      "change": "A",
+      "git_blob": "7293e364800deb853a5d1131465a47721850bbc2"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/controls/observed-runs.json",
+      "change": "A",
+      "git_blob": "2af2e47f9abc831b198f498e656aac3f8fad88ac"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary-review.md",
+      "change": "A",
+      "git_blob": "33eb2f95a5476d26758b3a80ccc0d65c22f1fbf9"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/CANDIDATE.json",
+      "change": "A",
+      "git_blob": "d0fa61cf2c6569ebd2581629c688bfedafd56e29"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/IMPORT.json",
+      "change": "A",
+      "git_blob": "e8bb008c251d18dd6d28fb58a62de5da52f33519"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/browser/browser-contracts-desktop-1280x900.png",
+      "change": "A",
+      "git_blob": "6f9eed7a86c91bd6309c22193ed307f8c105ea1b"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/browser/browser-contracts-mobile-390x844.png",
+      "change": "A",
+      "git_blob": "94e22156b061870e14bb896adfbf469aa9e38d61"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/browser/browser-contracts.json",
+      "change": "A",
+      "git_blob": "1708581bb975efa6e5d72a8b27e5b240d4a77b93"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/positive-controls.json",
+      "change": "A",
+      "git_blob": "825ff0e248e39196eeda42210042b50950233f29"
+    },
+    {
+      "path": "docs/hardening-20261105/FRONTEND-CORRECTION.md",
+      "change": "A",
+      "git_blob": "efb0e449ff957c76c517ab86b45fe95b706c5c6f"
+    },
+    {
+      "path": "docs/hardening-20261105/PREVIEW-COMPARISON.md",
+      "change": "A",
+      "git_blob": "aa3c14a062d122da2a5e57fa1c02d8926cba20ef"
+    },
+    {
+      "path": "docs/hardening-20261105/README.md",
+      "change": "A",
+      "git_blob": "b4d448c905d37a9f9993c86888b94296d1bbf27f"
+    },
+    {
+      "path": "docs/pr2-review-20261103/README.md",
+      "change": "A",
+      "git_blob": "2c96cfb032afa09f32b8f9cfd834ae09c8c41611"
+    },
+    {
+      "path": "docs/pr2-review-20261103/independent-review.md",
+      "change": "A",
+      "git_blob": "f2dfeb3e8cdec5a594c297bce1de0891732ae163"
+    },
+    {
+      "path": "docs/release-20261105/GATE.md",
+      "change": "A",
+      "git_blob": "2ddfb87d4c13cc42bc06c73fd1339c13787927fa"
+    },
+    {
+      "path": "docs/savia-completion-20261116/README.md",
+      "change": "M",
+      "git_blob": "64ac7ca784a1d345f6aa84428c81b3f4458e5211"
+    },
+    {
+      "path": "docs/savia-completion-20261116/REPOSITORY-UPDATE.md",
+      "change": "M",
+      "git_blob": "c2441f4d1d1c5d5f4980365f60ebeb6936771658"
+    },
+    {
+      "path": "docs/savia-completion-20261116/publication/CI-2587712.json",
+      "change": "A",
+      "git_blob": "e2f1b128049a09a8c9acc3aa530d51f195b5e3b3"
+    },
+    {
+      "path": "docs/savia-completion-20261116/publication/IMPORT.json",
+      "change": "A",
+      "git_blob": "f48a4fd68763422d39c11df55b115b56c00a7485"
+    },
+    {
+      "path": "docs/savia-completion-20261116/publication/README.md",
+      "change": "A",
+      "git_blob": "2724297f4b2d54b8ad0a4f0f71e948f8aaecb7b7"
+    },
+    {
+      "path": "docs/savia-completion-20261116/publication/cp4-incomplete-basic-run.txt",
+      "change": "A",
+      "git_blob": "45a1d6c58f2473451cde851a928db73366cfbcc6"
+    },
+    {
+      "path": "docs/savia-completion-20261116/publication/devolucion-transferencia.png",
+      "change": "A",
+      "git_blob": "8d2bf59c62082085872664c6b9ffde8d1dd6bdaf"
+    },
+    {
+      "path": "docs/savia-ux-20261116/README.md",
+      "change": "M",
+      "git_blob": "58ecc2234a3780e369c36b0dbd22419c01538370"
+    },
+    {
+      "path": "docs/stock-exception-20261106/primary/review-after/browser-review-results.json",
+      "change": "A",
+      "git_blob": "a4226086b4bcea651c6a26bde2acda8b977412d2"
+    },
+    {
+      "path": "docs/storefront-motion-20261114/sequence.sh",
+      "change": "A",
+      "git_blob": "4adcb3f4689c09025236493a8ab68a182512c438"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/existing-full/browser-results.json",
+      "change": "A",
+      "git_blob": "44dfbb179fc04af3988d0de520a7cfa502a626d3"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/existing-full/multiarticle-desktop-cart.png",
+      "change": "A",
+      "git_blob": "95cebb005eda29b648bba237b5b3fcabebd2d278"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/existing-full/multiarticle-desktop-receipt.png",
+      "change": "A",
+      "git_blob": "089c8eeaa680eaa1ad0137e66386cdddbbc29df9"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/existing-full/multiarticle-mobile-cart.png",
+      "change": "A",
+      "git_blob": "f7ab92b7033fae16694247b887bd012089f1dc09"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/existing-full/multiarticle-mobile-receipt.png",
+      "change": "A",
+      "git_blob": "e6cd1a6ff6dea4f25531a8a8b91afd1a1feef614"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/existing-full/stale-receipt-observation.json",
+      "change": "A",
+      "git_blob": "cdd1e38a36545845ffd3981d90feb53d769bdacd"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/existing-full/stale-receipt.png",
+      "change": "A",
+      "git_blob": "af78833f89a834ab1da158334c59d36ef55bd37e"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/late-negative-final/results.json",
+      "change": "A",
+      "git_blob": "8853a7de3bc8b074884dd50d5697ac22a7028524"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/late-negative/results.json",
+      "change": "A",
+      "git_blob": "8ff4e3731c15f7da86365d06ba9d5523a39ed312"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

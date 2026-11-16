@@ -1,0 +1,147 @@
+{
+  "taskId": "c3-n5-20261103",
+  "verdict": "PASS differential N5 verification",
+  "host": "SUAZO-PC",
+  "agent": {
+    "model": "gpt-6.1-sol",
+    "reasoning": "high",
+    "source": "authorized batch task packet"
+  },
+  "head": "775f301bc195c43baedc68c86f4e71affe92ef95",
+  "base": "20932d5c97f2caaafad7dc888879957791907f36",
+  "worktree": "C:/Users/Jason/MARTHA-SILVA/test-runs/c3-n5-775f301-20261103",
+  "evidenceDirectory": "C:/Users/Jason/MARTHA-SILVA/test-runs/c3-n5-775f301-20261103-evidence",
+  "versions": {
+    "node": "v24.18.0",
+    "playwright": "1.62.1",
+    "chrome": "156.0.8078.80"
+  },
+  "hashes": {
+    "fixedApp": "6df74c24a246ee3539ef4f07839620df15129ceb6d3750253b61ed63bf62b130",
+    "revertedApp": "46dbf8aa0d2f8f962b2868d3893a6dd7ef3eeab49d30b317e42350ea80f74fd9",
+    "restoredApp": "6df74c24a246ee3539ef4f07839620df15129ceb6d3750253b61ed63bf62b130",
+    "testBefore": "28d29a5722239e5ede1e5d6f7f2d6e7801028425506f317fd7920602e3e93956",
+    "testReverted": "28d29a5722239e5ede1e5d6f7f2d6e7801028425506f317fd7920602e3e93956",
+    "testRestored": "28d29a5722239e5ede1e5d6f7f2d6e7801028425506f317fd7920602e3e93956",
+    "fixedResults": "d53133b5fcef06cc578af9b84e481286fbaa69f3b56d2eb99f298f4719f8eb02",
+    "revertedResults": "e82756fc9bd5e59201b81cd576e7e93199afeca5c3284472b4a7f28e1b782958"
+  },
+  "checks": {
+    "exactlyTwoInvocations": true,
+    "exactlyFiveCasesEach": true,
+    "identicalCaseNames": true,
+    "fixedAllPass": true,
+    "revertedThreeFailTwoPass": true,
+    "testBytesInvariant": true,
+    "onlyProductFileChanged": true,
+    "otherBrowserSourcesInvariant": true,
+    "browserRanExpectedProductBytes": true,
+    "productBytesRestored": true,
+    "headRestored": true,
+    "finalStatusClean": true,
+    "ownedResourcesClosed": true,
+    "noRuntimeOrExternalRequests": true
+  },
+  "runs": [
+    {
+      "invocation": 1,
+      "phase": "fixed",
+      "startedUtc": "2026-11-03T23:27:07.4587887Z",
+      "finishedUtc": "2026-11-03T23:27:11.6160387Z",
+      "exitCode": 0,
+      "match": "(N5)",
+      "resultFile": "fixed/browser-results.json",
+      "origin": "http://127.0.0.1:62208",
+      "results": [
+        {
+          "name": "Stale confirmed receipt 404 must not permanently block a fresh sale (N5)",
+          "status": "PASS",
+          "durationMs": 953
+        },
+        {
+          "name": "Stale receipt 403 after reassignment is cleared and leaves a fresh sale available (N5)",
+          "status": "PASS",
+          "durationMs": 464
+        },
+        {
+          "name": "Unavailable receipt lookup keeps its reference and does not invent a pending sale (N5)",
+          "status": "PASS",
+          "durationMs": 482
+        },
+        {
+          "name": "Stale receipt never unlocks a real pending sale; recovery reuses the original key (N5)",
+          "status": "PASS",
+          "durationMs": 477
+        },
+        {
+          "name": "Revoked session during receipt restore returns to sign-in without staff data (N5)",
+          "status": "PASS",
+          "durationMs": 459
+        }
+      ]
+    },
+    {
+      "invocation": 2,
+      "phase": "reverted",
+      "startedUtc": "2026-11-03T23:27:34.4212207Z",
+      "finishedUtc": "2026-11-03T23:27:47.8755145Z",
+      "exitCode": 1,
+      "match": "(N5)",
+      "resultFile": "reverted/browser-results.json",
+      "origin": "http://127.0.0.1:55167",
+      "results": [
+        {
+          "name": "Stale confirmed receipt 404 must not permanently block a fresh sale (N5)",
+          "status": "FAIL",
+          "durationMs": 786,
+          "error": "Confirmed receipt became unavailable; new authorized sale is locked, with no recoverable pending operation.\n\ntrue !== false\n"
+        },
+        {
+          "name": "Stale receipt 403 after reassignment is cleared and leaves a fresh sale available (N5)",
+          "status": "FAIL",
+          "durationMs": 5464,
+          "error": "expect(locator).toBeEnabled() failed\n\nLocator:  locator('#sale-submit')\nExpected: enabled\nReceived: disabled\nTimeout:  5000ms\n\nCall log:\n  - Expect \"to.be.enabled\" with timeout 5000ms\n  - waiting for locator('#sale-submit')\n    14 × locator resolved to <button disabled class=\"btn\" type=\"submit\" id=\"sale-submit\">Registrar venta</button>\n       - unexpected value \"disabled\"\n"
+        },
+        {
+          "name": "Unavailable receipt lookup keeps its reference and does not invent a pending sale (N5)",
+          "status": "FAIL",
+          "durationMs": 5411,
+          "error": "expect(locator).toBeEnabled() failed\n\nLocator:  locator('#sale-submit')\nExpected: enabled\nReceived: disabled\nTimeout:  5000ms\n\nCall log:\n  - Expect \"to.be.enabled\" with timeout 5000ms\n  - waiting for locator('#sale-submit')\n    14 × locator resolved to <button disabled class=\"btn\" type=\"submit\" id=\"sale-submit\">Registrar venta</button>\n       - unexpected value \"disabled\"\n"
+        },
+        {
+          "name": "Stale receipt never unlocks a real pending sale; recovery reuses the original key (N5)",
+          "status": "PASS",
+          "durationMs": 447
+        },
+        {
+          "name": "Revoked session during receipt restore returns to sign-in without staff data (N5)",
+          "status": "PASS",
+          "durationMs": 415
+        }
+      ]
+    }
+  ],
+  "restoredState": {
+    "observedUtc": "2026-11-03T23:28:04.7408335Z",
+    "head": "775f301bc195c43baedc68c86f4e71affe92ef95",
+    "status": [],
+    "appSha256": "6df74c24a246ee3539ef4f07839620df15129ceb6d3750253b61ed63bf62b130",
+    "testSha256": "28d29a5722239e5ede1e5d6f7f2d6e7801028425506f317fd7920602e3e93956",
+    "chromeProcesses": [],
+    "ownedHarnessProcesses": [],
+    "listeners": []
+  },
+  "blockers": [],
+  "limitations": [
+    "Chrome real con API sintética; no browser -> API real -> SQL.",
+    "No prueba aceptación del producto, producción, móvil, accesibilidad ni rendimiento.",
+    "No hubo grabación visual; la reversión es un baseline reconstruido para comparación conductual.",
+    "No commit, push, merge, deploy, SQL, Docker, instalación ni cambios de seguridad."
+  ],
+  "lesson": "Una suite verde demuestra más cuando las mismas pruebas fallan al retirar solamente la corrección y el hash del arnés permanece constante.",
+  "nextAction": {
+    "owner": "primary /root",
+    "action": "Verificar este reporte y conservar evidencia curada en el checkout canónico.",
+    "completionCheck": "Lectura directa de ambos browser-results.json, hashes y estado limpio."
+  }
+}

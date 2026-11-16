@@ -1,0 +1,8 @@
+setup: 4 databases, tills open, 500 units per branch, credits ['35BF992D-C9E9-4616-A12E-7696A6CECC1B', 'E4B06CE6-0741-47A8-BCE4-2C8218072E8C'] (120000 each at A)
+scenario basic: one sale per branch, one credit transfer A->B, everything online
+  sync a->cloud [normal] sent=34 changed=34 plan={'initial': 18}
+  sync b->cloud [normal] sent=9 changed=9 plan={'initial': 18}
+  sync c->cloud [normal] sent=9 changed=9 plan={'initial': 18}
+  sync cloud->a [normal] sent=18 changed=18 plan={'initial': 18}
+  sync cloud->b [normal] sent=43 changed=43 plan={'initial': 18}
+  sync cloud->c [normal] sent=43 changed=43 plan={'initial': 18}

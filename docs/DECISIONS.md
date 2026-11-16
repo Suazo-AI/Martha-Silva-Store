@@ -234,6 +234,28 @@ C1/C9/C10 conservan sus brechas. Datos privados y respuestas sin sanear no se pu
 
 [Recibo de Trello y verificación](stock-decision-20261104/decision-029-receipt.json).
 
+## D-030 — Frontend de Jason, imágenes de Denis y preview en la cuenta Jason
+
+Fecha: 2026-11-05. Actor: Jason. Alcance: tienda pública de demostración.
+
+Jason aclaró expresamente: conservar el estilo, layout y frontend de su demo actual.
+De Denis se conservan únicamente todas las imágenes; su composición visual no es la referencia elegida.
+Referencia del frontend: `https://martha-silva-demo.jason-suazof.workers.dev/`.
+Referencia de imágenes: `https://martha-silva-preview.martha-silva-denis.workers.dev/`.
+La interpretación anterior del primary sobre conservar el look de Denis queda corregida.
+Integrar esa combinación sobre el proyecto actual, preservando comportamiento y optimizaciones verificados.
+Una única preview activa en la cuenta Jason sigue siendo el destino seleccionado.
+Crear `martha-silva-preview` en la cuenta `66ee81b7eafd0371097df646a80865bd` después de revisar y verificar el candidato.
+Conservar las dos publicaciones existentes; no se autoriza borrarlas ni reemplazar el Worker original.
+
+La dirección esperada es `martha-silva-preview.jason-suazof.workers.dev`.
+Permanece propuesta hasta el readback del proveedor. No se ha desplegado el candidato.
+El primary debe registrar versión, SHA, CI, comprobación pública y rollback del destino exacto.
+Este permiso no cierra pagos, backend, TLS, aceptación operativa ni los gates de producción de SAVIA.
+
+Jason pidió comparativas HTML y plain English para explicaciones técnicas, con claridad inspirada en ASD-STE100.
+Regla guardada en `AGENTS.md`. [Evidencia y siguiente acción](hardening-20261105/README.md).
+
 ## D-031 — Primera caja: contado; crédito después
 
 Adoptada por Jason el 2026-11-07, America/Managua.

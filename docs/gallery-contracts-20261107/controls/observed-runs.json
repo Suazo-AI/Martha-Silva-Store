@@ -1,0 +1,63 @@
+{
+  "script": "docs/gallery-contracts-20261107/controls/check-variant.cjs",
+  "env": {
+    "MARTHA_JSDOM_PATH": "C:/Users/Jason/MARTHA-SILVA/github/tests/frontend-deps/node_modules/jsdom"
+  },
+  "transformations": "memory only; candidate test source and product bytes are read-only",
+  "variants": {
+    "baseline": {
+      "intended": "14/14, exit 0, no transform",
+      "exit": 0,
+      "passed": 14,
+      "total": 14,
+      "log": "logs/baseline.log",
+      "persisted": true
+    },
+    "tabindex-zero": {
+      "intended": "14/14, exit 0; harmless equivalent keyboard access",
+      "exit": 0,
+      "passed": 14,
+      "total": 14,
+      "log": null,
+      "persisted": false,
+      "observed": "14/14 exit 0 in an earlier invocation; reproduce with the command in README.md"
+    },
+    "valid-measured-sizes": {
+      "intended": "14/14, exit 0; equivalent valid resource hint",
+      "exit": 0,
+      "passed": 14,
+      "total": 14,
+      "log": null,
+      "persisted": false,
+      "observed": "14/14 exit 0 in an earlier invocation; reproduce with the command in README.md"
+    },
+    "bad-sizes": {
+      "intended": "exit 1; sizes=1px must be rejected",
+      "exit": 1,
+      "passed": 11,
+      "total": 14,
+      "failed_ids": ["DG04", "DG05", "DG09"],
+      "failed": [
+        "desktop resize retains the selected slide, keeps valid hints and creates no feedback loop",
+        "returning to mobile keeps navigation, reachable photos and valid hints",
+        "temporarily hidden geometry never replaces responsive sizes with zero and recovers the selected slide"
+      ],
+      "log": "logs/bad-sizes.log",
+      "persisted": true
+    },
+    "no-activation": {
+      "intended": "exit 1; losing gallery activation must be detected",
+      "exit": 1,
+      "passed": 4,
+      "total": 14,
+      "passed_cases": [
+        "manual desktop scrolling selects the nearest real offset and leaves usable focus on a gallery element",
+        "keyboard either navigates or stays native without hijacking modified or media keys",
+        "zoom opens the selected authentic source and closes back to its photo button",
+        "gallery navigation preserves photo identity, commercial selection, Share and the removed footer link"
+      ],
+      "log": "logs/no-activation.log",
+      "persisted": true
+    }
+  }
+}

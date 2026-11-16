@@ -1,0 +1,20 @@
+﻿[
+    {
+        "summary":  [
+                        "14/14 DOM cases passed; layout, real keyboard and native browser behavior not established here.",
+                        "CONTROL_RESULT variant=tabindex-zero exit=0 htmlTransforms=14 appTransforms=0"
+                    ],
+        "variant":  "tabindex-zero",
+        "log":  "docs/gallery-contracts-20261107/primary/tabindex-zero.log",
+        "exit":  0
+    },
+    {
+        "summary":  [
+                        "14/14 DOM cases passed; layout, real keyboard and native browser behavior not established here.",
+                        "CONTROL_RESULT variant=valid-measured-sizes exit=0 htmlTransforms=14 appTransforms=0"
+                    ],
+        "variant":  "valid-measured-sizes",
+        "log":  "docs/gallery-contracts-20261107/primary/valid-measured-sizes.log",
+        "exit":  0
+    }
+]

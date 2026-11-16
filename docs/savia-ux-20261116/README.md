@@ -1,6 +1,6 @@
 # SAVIA: simpler staff workflows
 
-Status: primary ACCEPT WITH LIMITS for the UX increment. Published on Tony at `63a8b1e9bfe50e9426295cb22097514fc15155e7`. Its SQL CI failed in Spec17; a local verification-tool correction is now integrated. Corrected-SHA CI remains pending. See [current continuation](../savia-completion-20261116/README.md) and [historical local acceptance](ACCEPTANCE.md).
+Status: primary ACCEPT WITH LIMITS for the UX increment. Published on Tony at `63a8b1e9bfe50e9426295cb22097514fc15155e7`. Its SQL CI failed in Spec17. The verification-tool correction is published at `2587712b`: all four workflows passed, including web 98/98 and .NET 145/145 with zero failures or skips. See [current continuation](../savia-completion-20261116/README.md) and [historical local acceptance](ACCEPTANCE.md).
 Base: `Tony@2c96904f49d2df913850bc13cf53b3b03ceebacf`.
 Primary: SUAZO-PC / T3 Code / Codex / `gpt-6.1-sol/max`.
 Executors: three separate tool-managed worktrees, `gpt-6.1-sol/high`.
@@ -85,8 +85,8 @@ Lesson: test through the router and session/reset boundaries. A directly mounted
 | Blocker | Evidence / cause | Attempt / next action | Owner and completion check |
 | --- | --- | --- | --- |
 | Combined independent acceptance ? CLOSED locally | Final Astra/xhigh verdict: ACCEPT WITH LIMITS; 98/98 tests and 24/24 adversarial scenarios, exit 0 | Primary verified the report hash, 20 source bindings, six artifact bindings and 115 frozen paths; acceptance recorded | Primary: [ACCEPTANCE.md](ACCEPTANCE.md) |
-| Required repository gate | `python tests/check.py` exits 1 on three symlink fixtures with `WinError 1314`; no product failure established by those errors | All earlier stages passed. Preserve Windows permissions; verify this gate in the existing Linux CI | Primary: applicable exact-SHA Linux checks pass |
-| Publication CLOSED; corrected-SHA CI pending | UX was published with scoped runtime authorization. Its CI failed in Spec17 | Local correction passes; any new SQL execution retains its runtime gate | Primary: exact remote SHA and applicable CI readback |
+| Required repository gate CLOSED on Linux | The local Windows run failed in symlink fixtures with `WinError 1314`; Linux passed the full gate on `2587712b` | Primary verified the completed Linux snapshot workflow; Windows permissions remain unchanged | [Source-bound readback](../savia-completion-20261116/publication/CI-2587712.json) |
+| Publication and corrected-SHA CI CLOSED | The original Spec17 failure is preserved; corrected source at `2587712b` passed all four workflows | Primary verified the remote SHA and completed checks; new SQL runtime retains its gate | [Completed source-bound readback](../savia-completion-20261116/publication/CI-2587712.json) |
 
 The following continuation supersedes the pre-publication checkpoint. No merge or deployment was performed.
 NOT RUN for the current UX: combined browser→API→SQL, physical scanner/devices, complete accessibility audit, real-user usability validation or production. Separate real SQL CI results are recorded below.
@@ -110,7 +110,7 @@ Live readback of [SAVIA v2 CI run 43943782960](https://github.com/Suazo-AI/Marth
 
 | Workstream | Current evidence / cause | Next authorized action | Owner / closure check |
 | --- | --- | --- | --- |
-| CI failure | Local reproduction confirms a nested working-directory error. The historical inner log remains unavailable | Primary integrated the correction and passed 4/4 focused regressions; unchanged worker Spec17 passes 1/1. Remote CI pending | [Source-bound worker evidence](../savia-completion-20261116/ci-worker/README.md); primary owns exact-SHA CI acceptance |
+| CI failure resolved | Local reproduction confirms a nested working-directory error. The historical inner log remains unavailable | Correction passed 4/4 focused regressions; corrected source at `2587712b` passed web 98/98 and .NET 145/145 in CI | [Source-bound worker evidence](../savia-completion-20261116/ci-worker/README.md); [completed CI](../savia-completion-20261116/publication/CI-2587712.json) |
 | Three-branch synchronization | Existing simulator and SQL foundation exist; one untracked historical basic-run log is incomplete | Fresh Astra/xhigh source review of replay, disconnected branches, transfer conservation and stale-backup recovery; freeze minimum acceptance checks | Astra/xhigh advises; primary accepts and assigns isolated implementation/runtime work |
 | Current UX with real persistence | Latest UX has synthetic-HTTP Chrome proof; this CI does not execute its real browser journey | Prepare isolated browser→API→SQL sale, receipt lookup, refund and till-close proof, preserving the existing pilot | Primary; exact source, owned resources and database readbacks |
 | Production operations | Backup/access/deployment preparation is separate from UX acceptance | Verify existing operational artifacts against current source and identify only material unproved gates | Primary; runnable recovery evidence and explicit external-deployment scope |

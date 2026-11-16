@@ -1,0 +1,47 @@
+{
+  "observedUtc": "2026-11-03T23:27:47.638Z",
+  "host": "SUAZO-PC",
+  "layer": "Real Chromium browser; mocked staff API; public browser-local demo",
+  "origin": "http://127.0.0.1:55167",
+  "sourceHashes": {
+    "dev/savia-staff-ui/app.mjs": "46dbf8aa0d2f8f962b2868d3893a6dd7ef3eeab49d30b317e42350ea80f74fd9",
+    "dev/savia-staff-ui/client.mjs": "9dd4ee88c9f34f5948ec38d31f73bde976acffcc03c7bdfa99b5996dcc87243d",
+    "dev/savia-staff-ui/login.mjs": "6d493acf575f0312d56d39f290804c323209aa99715eced002cc4089a8a6d1a0",
+    "dev/savia-staff-ui/login.html": "4803ece2ef530d9e5161837209ac86591bfe1447e9876b0f38bf17baca9a8382",
+    "dev/savia-staff-ui/index.html": "b10cb0d2e7ea628a616e4b514b8cb188942e0332157410d5cac7cc3e398b8a6c",
+    "dev/savia-staff-ui/styles.css": "9f9bca25769c903c3b886b5e7ff2b4570f4893e44e80219fe34d2acb949c070b"
+  },
+  "results": [
+    {
+      "name": "Stale confirmed receipt 404 must not permanently block a fresh sale (N5)",
+      "status": "FAIL",
+      "durationMs": 786,
+      "error": "Confirmed receipt became unavailable; new authorized sale is locked, with no recoverable pending operation.\n\ntrue !== false\n"
+    },
+    {
+      "name": "Stale receipt 403 after reassignment is cleared and leaves a fresh sale available (N5)",
+      "status": "FAIL",
+      "durationMs": 5464,
+      "error": "expect(locator).toBeEnabled() failed\n\nLocator:  locator('#sale-submit')\nExpected: enabled\nReceived: disabled\nTimeout:  5000ms\n\nCall log:\n  - Expect \"to.be.enabled\" with timeout 5000ms\n  - waiting for locator('#sale-submit')\n    14 × locator resolved to <button disabled class=\"btn\" type=\"submit\" id=\"sale-submit\">Registrar venta</button>\n       - unexpected value \"disabled\"\n"
+    },
+    {
+      "name": "Unavailable receipt lookup keeps its reference and does not invent a pending sale (N5)",
+      "status": "FAIL",
+      "durationMs": 5411,
+      "error": "expect(locator).toBeEnabled() failed\n\nLocator:  locator('#sale-submit')\nExpected: enabled\nReceived: disabled\nTimeout:  5000ms\n\nCall log:\n  - Expect \"to.be.enabled\" with timeout 5000ms\n  - waiting for locator('#sale-submit')\n    14 × locator resolved to <button disabled class=\"btn\" type=\"submit\" id=\"sale-submit\">Registrar venta</button>\n       - unexpected value \"disabled\"\n"
+    },
+    {
+      "name": "Stale receipt never unlocks a real pending sale; recovery reuses the original key (N5)",
+      "status": "PASS",
+      "durationMs": 447
+    },
+    {
+      "name": "Revoked session during receipt restore returns to sign-in without staff data (N5)",
+      "status": "PASS",
+      "durationMs": 415
+    }
+  ],
+  "runtime": [],
+  "externalRequests": [],
+  "networkFailures": []
+}

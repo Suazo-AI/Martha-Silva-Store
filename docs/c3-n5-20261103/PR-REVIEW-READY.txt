@@ -1,0 +1,17 @@
+Revisión de C3 sobre 775f301bc195c43baedc68c86f4e71affe92ef95.
+
+N5 verificado en SUAZO-PC con Chrome 156.0.8078.80, Playwright 1.62.1 y Node v24.18.0.
+Cinco casos con el arreglo: 5 PASS, exit 0.
+Mismas pruebas con solo app.mjs revertido: 3 FAIL (404, 403, 503), 2 PASS (pendiente real, sesión revocada), exit 1.
+Pruebas intactas; candidato restaurado y worktree limpio.
+CI del head: 5 passed, 0 failed, 0 pending, 3 skipped por condiciones del PR.
+Run SAVIA: https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41732265496
+
+Revisión independiente del delta y rutas críticas: sin defecto técnico bloqueante confirmado en las fuentes inspeccionadas.
+Reparos no bloqueantes actuales: verificador por mínimo de casos, oráculo parcial de esquema.
+Esta aprobación se limita a C3; no acepta uso en tienda, recorrido API real → SQL ni producción.
+C1 permanece como puerta separada antes del merge. No autoriza merge ni despliegue.
+
+Evidencia local:
+C:/Users/Jason/MARTHA-SILVA/github/docs/c3-n5-20261103/report.md
+C:/Users/Jason/MARTHA-SILVA/github/docs/pr2-review-20261103/README.md

@@ -36,3 +36,12 @@ No hook bypass, force push, merge, deployment or automatic retry is part of this
 
 Remote completion requires `SYNCED`, a matching Tony SHA and readback of applicable checks.
 A pending CI result is reported as pending. The previous failed CI remains part of the record.
+
+## Subsequent full-progress push requested by Jason
+
+The original correction was published as `2587712b8399eb1b4ac59fcf7dfd6de9852b1f79`, with `SYNCED` and an independently matching remote SHA.
+All four applicable workflows succeeded, including SAVIA v2 and the Linux repository checker.
+[Publication reconciliation](publication/README.md) records 49 historical public files, D-030 and two byte-exact documentation copies.
+The earlier exclusion list describes the original checkpoint; the new manifest changes only publication disposition.
+Historical results retain their original meaning. Product source and workflows remain unchanged in this subsequent push.
+Raw logs, TRX, duplicate patches/videos, caches, local tool bundles and private exports remain local.

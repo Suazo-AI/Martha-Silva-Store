@@ -1,0 +1,63 @@
+{
+  "head": "2587712b8399eb1b4ac59fcf7dfd6de9852b1f79",
+  "branch": "Tony",
+  "publication": "SYNCED",
+  "runs": [
+    {
+      "id": 43950552359,
+      "name": "SAVIA v2 check",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 43950552396,
+      "name": "Tony source snapshot",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 43950552547,
+      "name": "Progress documentation",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 43950552494,
+      "name": "Progress digest",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "saviaJob": 133591566745,
+  "observedLogs": {
+    "web": {
+      "passed": 98,
+      "failed": 0,
+      "skipped": 0
+    },
+    "dotnet": {
+      "passed": 145,
+      "failed": 0,
+      "skipped": 0
+    },
+    "cleanup": [
+      "Container savia-sqlserver-dev Removed",
+      "Volume savia-dev_savia_sql_data Removed",
+      "Network savia-dev_default Removed"
+    ]
+  },
+  "limits": [
+    "No Tony-to-main PR or merged candidate tested",
+    "PR5 and PR6 not fully reviewed",
+    "Detailed main protection API returned HTTP403",
+    "No merge or deployment performed",
+    "Production readiness not established"
+  ],
+  "localRepositoryCheck": {
+    "exit": 1,
+    "error": "WinError 1314 in symlink fixtures",
+    "linuxAlternative": 43950552396
+  },
+  "readbackDate": "2026-11-16",
+  "scope": "Completed checks of the corrected product at this exact source SHA; not a new runtime."
+}

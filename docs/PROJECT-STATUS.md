@@ -9,7 +9,9 @@
 - UX aceptado con límites y publicado en `Tony@63a8b1e9bfe50e9426295cb22097514fc15155e7`.
 - [CI 43943782960](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/43943782960): T-SQL `PASS=134`; .NET 144 PASS, 1 FAIL, cero skips.
 - El fallo es `UsdVerifyTests.Spec17_quick_verification_preserves_pilot`. La ruta incorrecta del verificador se reprodujo y corrigió localmente.
-- La integración canónica pasó 4/4 regresiones. El worker conserva Spec17 1/1 y web 98/98. La CI del código corregido sigue pendiente.
+- La corrección está publicada en `Tony@2587712b8399eb1b4ac59fcf7dfd6de9852b1f79`: cuatro workflows success.
+- [CI corregida](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/43950552359): web 98/98 y .NET 145/145, cero fallos y omisiones. Linux pasó también el checker completo.
+- [Publicación y evidencia histórica recuperada](savia-completion-20261116/publication/README.md) registra alcance, hashes y exclusiones.
 - Siguen pendientes la sincronización entre tres sucursales, el recorrido actual navegador→API→SQL y la calificación operativa.
 
 La actualización del repositorio no declara despliegue, pagos reales ni aceptación productiva.

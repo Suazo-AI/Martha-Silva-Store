@@ -2,8 +2,8 @@
 
 **Estado al 2026-11-16: SAVIA v2 en construcción; producción NO-GO.**
 El producto actual vive en [savia/](savia/README.md). Su [plan](savia/docs/PLAN.md) conserva los criterios pendientes.
-Los cambios de UX están publicados en `Tony@63a8b1e`. Su CI detectó una falla del verificador.
-La corrección tiene regresión local verde; su validación remota sigue pendiente.
+Los cambios de UX y la corrección del verificador están publicados en `Tony@2587712b`.
+Su CI pasó: 98/98 pruebas web y 145/145 de .NET, sin fallos ni omisiones.
 Ver [avance actual, pruebas y pendientes](docs/savia-completion-20261116/README.md).
 
 La tienda pública, SAVIA v2 y el backend anterior tienen fuentes y pruebas diferentes.
