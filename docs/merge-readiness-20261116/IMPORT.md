@@ -19,3 +19,7 @@ The other ten imported worker evidence files remain byte-identical to their sour
 ## Independent merge-route review
 
 `astra-merge-route.md` was copied from the reviewer's exact owned report path in `t3-ee501791-40773bf60626b84a`. RAW SHA256 `4fb31b91e50fcfc0aed3c6a3dcba3b25c2062c3e7e681303033f39eedfbb2942` is identical before and after import. No other worker file was copied. The report records source-only advice at `670d4a8`; the primary's later source preflight, gate correction and prepared runtime packet are separate evidence.
+
+## Final independent preflight review
+
+`astra-final-preflight.md` was copied byte for byte from the reviewer's owned `docs/merge-readiness-20261116/astra-final-preflight.md` in `t3-9af55c6a-eec87f7c56c44215`. Original RAW SHA256: `b6605e53cec76c4859bdaf98ac71b255b349b160274e1e98a20ed3bc1e116713`. The first staged whitespace check rejected the original extra blank line at EOF. The public derivative removes only that blank line; public RAW SHA256: `119c6e64b740de90efab7e4ae058e94f839879a7e0f1dc488ac0deb67d0d7d69`. The exact original remains in `private-exports/merge-readiness-20261116/preflight-acceptance/astra-final-preflight-original.md` and the reviewer worktree. No other worker file was copied. Its verdict applies to source `edd2e097f6b4f22c9dbbffa897e9ed7f7a063055`; primary's acceptance and exact-head CI readback are recorded separately in PLAN and OUTCOMES. Raw CI logs remain under ignored private exports. This import does not start SQL or create a PR.

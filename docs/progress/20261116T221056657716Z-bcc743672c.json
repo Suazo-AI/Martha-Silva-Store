@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-16T22:10:56.657716+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/merge-readiness-20261116/IMPORT.md",
+      "change": "M",
+      "git_blob": "bf0df93ecd2a108d191c14061013877b2b5e0512"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/OUTCOMES.json",
+      "change": "M",
+      "git_blob": "80e7cb6fa8d5bb5e8ae62a69fbb028ca1ee35ea5"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/PLAN.md",
+      "change": "M",
+      "git_blob": "d418d0ce278a881b20d97b136e82f8049965430b"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/astra-final-preflight.md",
+      "change": "A",
+      "git_blob": "9ae098698e1313a5196bbd31b12a0822b3b510b0"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}
