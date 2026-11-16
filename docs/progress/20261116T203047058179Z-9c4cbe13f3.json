@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-16T20:30:47.058179+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "change": "M",
+      "git_blob": "0b0d8099f000b0ac9cdbdcd027059430908cbe3d"
+    },
+    {
+      "path": "README.md",
+      "change": "M",
+      "git_blob": "1bf0c1535c1e06c1eaed56bc7043a52bc0649e65"
+    },
+    {
+      "path": "docs/AGENT-START.md",
+      "change": "M",
+      "git_blob": "edf0ad55194a5effbdd18477f05f4abfbe289ce6"
+    },
+    {
+      "path": "docs/CODE-MAP.md",
+      "change": "M",
+      "git_blob": "5d438cead1d0891310fdebe4cb3bdf293ff82dda"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "ac5435943fbeff881b3bb9478f507dff2255a0f1"
+    },
+    {
+      "path": "docs/savia-completion-20261116/README.md",
+      "change": "A",
+      "git_blob": "1a5d3ed3ef6f7e1de9dc90486a5984b6ee664b7b"
+    },
+    {
+      "path": "docs/savia-completion-20261116/REPOSITORY-UPDATE.md",
+      "change": "A",
+      "git_blob": "9ff777e793c6198878396f9280c0690917776d23"
+    },
+    {
+      "path": "docs/savia-completion-20261116/ci-worker/README.md",
+      "change": "A",
+      "git_blob": "f0ca7cebb8ed00410e3ff9930a7380d3075ff7c1"
+    },
+    {
+      "path": "docs/savia-completion-20261116/ci-worker/RESULT.json",
+      "change": "A",
+      "git_blob": "66add132571e242470162750bd02744de93dbba8"
+    },
+    {
+      "path": "docs/savia-completion-20261116/sync-preimplementation.md",
+      "change": "A",
+      "git_blob": "42de27843fc8d5bc28c36176b45278379b87b53f"
+    },
+    {
+      "path": "docs/savia-ux-20261116/README.md",
+      "change": "M",
+      "git_blob": "b47667562860d5160ac212735d581cd7eb5b2f4c"
+    },
+    {
+      "path": "savia/README.md",
+      "change": "M",
+      "git_blob": "afe31194d612b40f348cc3f03d11142cc944e284"
+    },
+    {
+      "path": "savia/docs/PLAN.md",
+      "change": "M",
+      "git_blob": "0a59283dd158a053a5c5241ef562786c78b4c6b7"
+    },
+    {
+      "path": "savia/tests/test_verify.py",
+      "change": "A",
+      "git_blob": "0d7b1449d3684d643bef14aff5f5bc4c8cdacbc4"
+    },
+    {
+      "path": "savia/tools/verify.py",
+      "change": "M",
+      "git_blob": "f1c883333bd4aa235ac3dfeafe92b46bf331d0f1"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

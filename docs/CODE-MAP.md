@@ -1,10 +1,13 @@
 # Mapa de fuentes para agentes
 
-Corte de navegación: 2026-11-07. Consultar Git para cambios posteriores.
-Estado y aceptación: [ledger](pipeline/ledger.json) y [continuación actual](completion-20261107/README.md).
+Corte de navegación: 2026-11-16. Consultar Git para cambios posteriores.
+SAVIA v2: [plan](../savia/docs/PLAN.md) y [avance actual](savia-completion-20261116/README.md).
+Backend anterior: [ledger](pipeline/ledger.json) y [continuación histórica](completion-20261107/README.md).
 
 | Necesidad | Fuente / contrato | Comprobación |
 | --- | --- | --- |
+| SAVIA v2: API y reglas | [savia/src](../savia/src/), [arquitectura](../savia/docs/adr/ADR-001-arquitectura.md) | [tests](../savia/tests/), `python savia/tools/check.py` requiere runtime autorizado |
+| SAVIA v2: web, demo y SQL | [web](../savia/web/), [demo](../savia/demo/), [db](../savia/db/) | [plan y límites](../savia/docs/PLAN.md), [UX](savia-ux-20261116/README.md) |
 | Tienda pública y build | [src](../src/), [entradas](../build-inputs/static/), [prepare.py](../prepare.py) | [tests](../tests/README.md), `python tests/build.py` |
 | Staff: sesión, venta, recibo y recuperación | [UI](../dev/savia-staff-ui/README.md), [app.mjs](../dev/savia-staff-ui/app.mjs), [client.mjs](../dev/savia-staff-ui/client.mjs) | `dev/savia-staff-ui/*.test.mjs`, [navegador sintético](../tests/browser-mock-validation.mjs) |
 | Montaje HTTP y separación de autoridades | [Program.cs](../backend/src/Martha.Store.Api/Program.cs), [InternalHosting.cs](../backend/src/Martha.Store.Api/Internal/InternalHosting.cs) | [HTTP guards](../tests/run-http-guards.mjs), pruebas HTTP de backend |

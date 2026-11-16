@@ -1,5 +1,12 @@
 # Reglas del repositorio
 
+## Technical explanations for Jason
+
+Use plain English and ASD-STE100 clarity principles for technical explanations.
+State the result first. Keep one idea per sentence. Define necessary technical terms.
+Use an HTML comparison when it makes a choice easier to understand.
+Keep exact commands, identifiers, evidence and limits in linked details.
+
 Entrada común para continuar: [docs/AGENT-START.md](docs/AGENT-START.md).
 Estado y decisiones vigentes: [PROJECT-STATUS](docs/PROJECT-STATUS.md), [DECISIONS](docs/DECISIONS.md).
 Para ubicar código usar [CODE-MAP](docs/CODE-MAP.md); antes de SQL leer [DATABASE](docs/DATABASE.md).

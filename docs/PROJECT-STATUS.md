@@ -1,5 +1,22 @@
 # Estado vigente de Martha Silva / SAVIA
 
+## Estado actual: 2026-11-16
+
+**SAVIA v2 sigue en construcción. Producción NO-GO.** El código actual vive en `savia/`.
+[Pruebas, fuentes y siguientes acciones](savia-completion-20261116/README.md) reúne el corte vigente.
+[PLAN de SAVIA v2](../savia/docs/PLAN.md) conserva los criterios de finalización.
+
+- UX aceptado con límites y publicado en `Tony@63a8b1e9bfe50e9426295cb22097514fc15155e7`.
+- [CI 43943782960](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/43943782960): T-SQL `PASS=134`; .NET 144 PASS, 1 FAIL, cero skips.
+- El fallo es `UsdVerifyTests.Spec17_quick_verification_preserves_pilot`. La ruta incorrecta del verificador se reprodujo y corrigió localmente.
+- La integración canónica pasó 4/4 regresiones. El worker conserva Spec17 1/1 y web 98/98. La CI del código corregido sigue pendiente.
+- Siguen pendientes la sincronización entre tres sucursales, el recorrido actual navegador→API→SQL y la calificación operativa.
+
+La actualización del repositorio no declara despliegue, pagos reales ni aceptación productiva.
+El ledger anterior sigue disponible para su propio alcance; no sustituye los criterios de SAVIA v2.
+
+## Historial del backend anterior
+
 Current primary assessment, 2026-11-08 UTC: production remains NO-GO.
 
 Cash UI and the classifier correction are accepted within scope. All four applicable checks passed on `54e76663cef0a43029dc87b7ecc27dcf9e8ec180`. Linux CI verified mocked Chrome cash **2/2**, existing **50/50** and supply **8/8**. Backend: **662 passed, zero failed, 68 skipped**. Primary verified **22 source bindings** and the three expected logout cancellations. [Exact CI, artifacts and limits](cash-register-20261107/ui-integration/CI-VERIFICATION.json). SQL5 is still held.

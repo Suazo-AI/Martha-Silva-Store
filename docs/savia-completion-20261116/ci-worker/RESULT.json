@@ -1,0 +1,291 @@
+{
+  "task_id": "savia-ci-quick-failure-63a8b1e-20261116-01",
+  "status": "returned",
+  "acceptance": "pending primary inspection; worker RETURNED is not acceptance",
+  "source_sha": "63a8b1e9bfe50e9426295cb22097514fc15155e7",
+  "result_sha": null,
+  "worktree": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-8c088bba-2d861df68297f7e2",
+  "branch": "t3/fix-savia-ci-quick-failure",
+  "identity": {
+    "host": "SUAZO-PC",
+    "requested": {
+      "provider": "codex",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high"
+    },
+    "runtime_exposed": {
+      "harness": "T3 Code / Codex",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high"
+    },
+    "internal_telemetry": "unknown"
+  },
+  "sdk": "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+  "versions": {
+    "python": "3.11.9",
+    "node": "24.18.0",
+    "npm": "11.17.0",
+    "dotnet": "10.0.402",
+    "biome": "2.6.4",
+    "historical_ci_node": "24.22.2"
+  },
+  "cause": {
+    "verified_local": "web-tests ran from savia, but sale-lifecycle imports resolve savia/web relative to cwd, yielding savia/savia/web/api.mjs",
+    "distinguishing_check": "same lifecycle test passes 7/7 from repository root; actual production runner regression red before and green after cwd correction",
+    "historical_ci": "job confirms SHA and Spec17 failure (144 passed / 1 failed); inner quick log not uploaded, so identical historical root diagnostic remains unconfirmed"
+  },
+  "changed_paths": [
+    "savia/tools/verify.py",
+    "savia/tests/test_verify.py",
+    "docs/savia-completion-20261116/ci-worker/README.md",
+    "docs/savia-completion-20261116/ci-worker/RESULT.json"
+  ],
+  "source_bindings": {
+    "savia/tools/verify.py": {
+      "source_lf_sha256": "9feb895396aa5af2c9e520ccade65dd11847adf66a9d5b6652ec6a92bcf764ee",
+      "returned_lf_sha256": "c7722a9517f8fc11b562cd937aec664afc146f44886b8c63722aefe8ea601b69"
+    },
+    "savia/tests/Savia.Tests/UsdVerifyTests.cs": {
+      "source_lf_sha256": "31a13a7fbeab5ba84c4a79fddd3c96f18c301a0da7bbd0fca4bb2973e8511b82",
+      "returned_lf_sha256": "31a13a7fbeab5ba84c4a79fddd3c96f18c301a0da7bbd0fca4bb2973e8511b82"
+    },
+    "savia/tools/check.py": {
+      "source_lf_sha256": "3a176966679e2a3354e174b812ece72de6751bc41a0dc432d67d4ab27dd9a472",
+      "returned_lf_sha256": "3a176966679e2a3354e174b812ece72de6751bc41a0dc432d67d4ab27dd9a472"
+    },
+    ".github/workflows/savia-v2.yml": {
+      "source_lf_sha256": "3c7132e81075ee7fd0d7f7f5cfebd8edc5a3d56560bb966e6944aa3d1b198003",
+      "returned_lf_sha256": "3c7132e81075ee7fd0d7f7f5cfebd8edc5a3d56560bb966e6944aa3d1b198003"
+    },
+    "savia/web/tests/sale-lifecycle.test.mjs": {
+      "source_lf_sha256": "2cd224c4f305ca582a971966fcb4a588e8a0d1b6c9412576910c68bd7f6e0146",
+      "returned_lf_sha256": "2cd224c4f305ca582a971966fcb4a588e8a0d1b6c9412576910c68bd7f6e0146"
+    },
+    "savia/package-lock.json": {
+      "source_lf_sha256": "5159585ae05e983f3d71ef1c63a714e8774a0fc4474e6df7249b8a6a043867e6",
+      "returned_lf_sha256": "5159585ae05e983f3d71ef1c63a714e8774a0fc4474e6df7249b8a6a043867e6"
+    },
+    "savia/tests/test_verify.py": {
+      "source_lf_sha256": null,
+      "returned_lf_sha256": "a5524b4ca42d8116b6e69a50aecf250dbc8a0fb7a779d0518d71a14fb1042102"
+    }
+  },
+  "commands": [
+    {
+      "command": "python savia/tools/verify.py --quick",
+      "exit": 1,
+      "phase": "before",
+      "evidence": "savia/.out/private-exports/ci-worker/quick-before.log"
+    },
+    {
+      "command": "node --test savia/web/tests/sale-lifecycle.test.mjs",
+      "cwd": "repository root",
+      "exit": 0,
+      "counts": "7/7",
+      "phase": "distinguishing probe",
+      "evidence": "savia/.out/private-exports/ci-worker/lifecycle-root.log"
+    },
+    {
+      "command": "npm ci --ignore-scripts --no-audit --no-fund",
+      "cwd": "savia",
+      "exit": 0,
+      "phase": "locked development dependencies"
+    },
+    {
+      "command": "SDK/dotnet.exe restore savia/Savia.slnx --locked-mode",
+      "exit": 0,
+      "evidence": "savia/.out/private-exports/ci-worker/restore.log"
+    },
+    {
+      "command": "python -m unittest discover -s savia/tests -p test_verify.py -v",
+      "exit": 1,
+      "phase": "regression before fix",
+      "counts": "3 passed, 1 failed",
+      "evidence": "savia/.out/private-exports/ci-worker/regression-red.log"
+    },
+    {
+      "command": "python -m unittest discover -s savia/tests -p test_verify.py -v",
+      "exit": 0,
+      "phase": "regression after fix",
+      "counts": "4 passed",
+      "evidence": "savia/.out/private-exports/ci-worker/regression-green.log"
+    },
+    {
+      "command": "SDK/dotnet.exe test savia/tests/Savia.Tests --no-restore --filter FullyQualifiedName~UsdVerifyTests.Spec17_quick_verification_preserves_pilot --logger 'trx;LogFileName=spec17.trx' --results-directory savia/.out/private-exports/ci-worker -v q",
+      "exit": 0,
+      "counts": "1 passed, 0 failed, 0 skipped",
+      "evidence": "savia/.out/private-exports/ci-worker/spec17.trx",
+      "note": "Build included; this original test invoked the sole final complete quick run."
+    },
+    {
+      "command": "git diff --exit-code -- savia/web demo savia/db savia/src .github/workflows savia/tools/check.py savia/tests/Savia.Tests/UsdVerifyTests.cs",
+      "exit": 0
+    },
+    {
+      "command": "git diff --check",
+      "exit": 0
+    }
+  ],
+  "before": {
+    "result": "FAIL",
+    "mode": "quick",
+    "commit": "63a8b1e9bfe50e9426295cb22097514fc15155e7",
+    "uncommittedFiles": 0,
+    "counts": {
+      "PASS": 2,
+      "FAIL": 1,
+      "SKIP": 2,
+      "BLOCKED": 0
+    },
+    "steps": [
+      {
+        "step": "rules",
+        "verdict": "PASS",
+        "exitCode": 0,
+        "seconds": 4,
+        "reason": null
+      },
+      {
+        "step": "tool-tests",
+        "verdict": "PASS",
+        "exitCode": 0,
+        "seconds": 1,
+        "reason": null
+      },
+      {
+        "step": "web-format-lint",
+        "verdict": "SKIP",
+        "exitCode": null,
+        "seconds": 0,
+        "reason": "Biome is not installed (npm ci in savia/)"
+      },
+      {
+        "step": "web-tests",
+        "verdict": "FAIL",
+        "exitCode": 1,
+        "seconds": 1,
+        "reason": null
+      },
+      {
+        "step": "formal",
+        "verdict": "SKIP",
+        "exitCode": null,
+        "seconds": 0,
+        "reason": "TLA+ tools are not installed (tools/formal.py setup)"
+      }
+    ]
+  },
+  "after": {
+    "result": "PASS",
+    "mode": "quick",
+    "commit": "63a8b1e9bfe50e9426295cb22097514fc15155e7",
+    "uncommittedFiles": 2,
+    "counts": {
+      "PASS": 4,
+      "FAIL": 0,
+      "SKIP": 1,
+      "BLOCKED": 0
+    },
+    "steps": [
+      {
+        "step": "rules",
+        "verdict": "PASS",
+        "exitCode": 0,
+        "seconds": 0,
+        "reason": null
+      },
+      {
+        "step": "tool-tests",
+        "verdict": "PASS",
+        "exitCode": 0,
+        "seconds": 2,
+        "reason": null
+      },
+      {
+        "step": "web-format-lint",
+        "verdict": "PASS",
+        "exitCode": 0,
+        "seconds": 1,
+        "reason": null
+      },
+      {
+        "step": "web-tests",
+        "verdict": "PASS",
+        "exitCode": 0,
+        "seconds": 1,
+        "reason": null
+      },
+      {
+        "step": "formal",
+        "verdict": "SKIP",
+        "exitCode": null,
+        "seconds": 0,
+        "reason": "TLA+ tools are not installed (tools/formal.py setup)"
+      }
+    ]
+  },
+  "coverage": {
+    "focused_regression": "4/4 actual web-step regression plus simulated subprocess boundary guards",
+    "final_tool_tests": "30/30",
+    "final_web_tests": "98/98",
+    "biome": "65 files, no fixes",
+    "original_spec17": "1/1; no C# edits",
+    "full_mode": "mocked process checks preserve reset/up/down and failed-prerequisite blocking; runtime NOT RUN"
+  },
+  "timing": {
+    "recorded_at_utc": "2026-11-16T20:10:24.693990+00:00",
+    "spec17_trx_times": {
+      "creation": "2026-11-16T14:08:42.7198030-06:00",
+      "queuing": "2026-11-16T14:08:42.7198039-06:00",
+      "start": "2026-11-16T14:08:36.8368772-06:00",
+      "finish": "2026-11-16T14:08:42.7286263-06:00"
+    },
+    "regression_red_seconds": 0.702,
+    "regression_green_seconds": 0.681,
+    "quick_before_step_seconds": 6,
+    "quick_after_step_seconds": 4
+  },
+  "limits": {
+    "focused_invocations": 5,
+    "max_focused_invocations": 12,
+    "complete_quick_runs_after_fix": 1,
+    "ci_retries": 0,
+    "tokens": "unknown",
+    "provider_usd": "unknown"
+  },
+  "cleanup": {
+    "services_started": false,
+    "database_or_api_access": false,
+    "docker_commands": false,
+    "shared_config_changes": false,
+    "temporary_mock_directories": "automatically removed",
+    "private_outputs": "retained ignored under savia/.out",
+    "dependencies": "local savia/node_modules from existing lockfile; retained ignored",
+    "staged_committed_pushed": false
+  },
+  "not_run": [
+    "TLA+ formal: tools missing; honest SKIP",
+    "full verify / SQL / Docker / API / browser / pilot runtime",
+    "remote CI retry or dispatch",
+    "primary review and independent acceptance"
+  ],
+  "blockers": [
+    {
+      "item": "historical inner quick diagnostic unavailable",
+      "evidence": "check.py prints only final 12 lines; job log lacks inner web-test error",
+      "attempt": "retrieved exact job 133567900269 logs and reproduced locally",
+      "owner": "primary",
+      "next_action": "accept bounded local reproduction evidence or obtain original runner .out/verify logs if retained",
+      "completion_check": "historical inner log read; not needed for established local bug fix"
+    },
+    {
+      "item": "formal tools missing",
+      "cause": "savia/.out/tools/formal/tla2tools.jar absent",
+      "correction": "none; installing formal tools unnecessary for scoped correction",
+      "owner": "primary",
+      "next_action": "retain explicit NOT RUN; provision only under separate scope",
+      "completion_check": "formal tools provisioned and separately executed if required"
+    }
+  ],
+  "lesson": "Match verification subprocess working directory to the workflow contract. Import paths can make a root-level test green while its nested verification wrapper is red."
+}

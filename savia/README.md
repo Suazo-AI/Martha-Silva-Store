@@ -4,6 +4,7 @@ POS, inventario, CRM y tienda en línea para tiendas de ropa con sucursales que 
 Una sola lógica de negocio, una API, tres clientes (Windows, móvil, web).
 
 Estado: en construcción. Lo verificado está en [docs/PLAN.md](docs/PLAN.md).
+Último corte: [avance del 16 de noviembre, CI y pendientes](../docs/savia-completion-20261116/README.md).
 Decisiones: [docs/adr/ADR-001-arquitectura.md](docs/adr/ADR-001-arquitectura.md).
 
 ## Mapa

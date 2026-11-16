@@ -1,6 +1,6 @@
 # SAVIA: simpler staff workflows
 
-Status: primary ACCEPT WITH LIMITS for the local UX increment. Independent review is complete. Publication and exact-SHA Linux CI remain pending. See [primary acceptance](ACCEPTANCE.md).
+Status: primary ACCEPT WITH LIMITS for the UX increment. Published on Tony at `63a8b1e9bfe50e9426295cb22097514fc15155e7`. Its SQL CI failed in Spec17; a local verification-tool correction is now integrated. Corrected-SHA CI remains pending. See [current continuation](../savia-completion-20261116/README.md) and [historical local acceptance](ACCEPTANCE.md).
 Base: `Tony@2c96904f49d2df913850bc13cf53b3b03ceebacf`.
 Primary: SUAZO-PC / T3 Code / Codex / `gpt-6.1-sol/max`.
 Executors: three separate tool-managed worktrees, `gpt-6.1-sol/high`.
@@ -86,8 +86,34 @@ Lesson: test through the router and session/reset boundaries. A directly mounted
 | --- | --- | --- | --- |
 | Combined independent acceptance ? CLOSED locally | Final Astra/xhigh verdict: ACCEPT WITH LIMITS; 98/98 tests and 24/24 adversarial scenarios, exit 0 | Primary verified the report hash, 20 source bindings, six artifact bindings and 115 frozen paths; acceptance recorded | Primary: [ACCEPTANCE.md](ACCEPTANCE.md) |
 | Required repository gate | `python tests/check.py` exits 1 on three symlink fixtures with `WinError 1314`; no product failure established by those errors | All earlier stages passed. Preserve Windows permissions; verify this gate in the existing Linux CI | Primary: applicable exact-SHA Linux checks pass |
-| Publication also starts runtime | `.github/workflows/savia-v2.yml` automatically starts disposable SQL on a `Tony` push touching `savia/**` | Local review proceeds first. Check standing runtime authority before that push; this no-SQL UX batch alone does not grant it | Primary: scoped authority plus exact remote SHA and CI readback |
+| Publication CLOSED; corrected-SHA CI pending | UX was published with scoped runtime authorization. Its CI failed in Spec17 | Local correction passes; any new SQL execution retains its runtime gate | Primary: exact remote SHA and applicable CI readback |
 
-No commit, push, merge or deployment has occurred for this increment.
-NOT RUN: real API/SQL, physical scanner/devices, complete accessibility audit, real-user usability validation, production or exact-SHA CI.
+The following continuation supersedes the pre-publication checkpoint. No merge or deployment was performed.
+NOT RUN for the current UX: combined browser→API→SQL, physical scanner/devices, complete accessibility audit, real-user usability validation or production. Separate real SQL CI results are recorded below.
 The result is an accepted local UX increment with explicit test limits. Production readiness is not established.
+
+## Completion continuation — 2026-11-16
+
+The preceding publication and NOT RUN statements describe the pre-publication checkpoint.
+The primary subsequently published the accepted UX on `Tony` at `63a8b1e9bfe50e9426295cb22097514fc15155e7` and verified the same remote SHA.
+This continuation preserves that accepted UX while closing the remaining technical gaps.
+
+Live readback of [SAVIA v2 CI run 43943782960](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/43943782960), attempt 1:
+
+- Architecture, tool tests, web lint/tests, generated SQL baseline, no-delete guard, build and C# formatting passed.
+- Real T-SQL: `SUMMARY PASS=134`.
+- Real .NET suite: **144 passed, 1 failed, 0 skipped, 145 total**.
+- The failing method is `UsdVerifyTests.Spec17_quick_verification_preserves_pilot`.
+- The full-check command exited `1`. The job log alone does not expose the underlying quick-check assertion.
+- Cleanup logs explicitly record the disposable container, data volume and network being removed. No separate post-cleanup absence query was recorded.
+- Progress digest, progress documentation and Tony source snapshot workflows passed on the same SHA.
+
+| Workstream | Current evidence / cause | Next authorized action | Owner / closure check |
+| --- | --- | --- | --- |
+| CI failure | Local reproduction confirms a nested working-directory error. The historical inner log remains unavailable | Primary integrated the correction and passed 4/4 focused regressions; unchanged worker Spec17 passes 1/1. Remote CI pending | [Source-bound worker evidence](../savia-completion-20261116/ci-worker/README.md); primary owns exact-SHA CI acceptance |
+| Three-branch synchronization | Existing simulator and SQL foundation exist; one untracked historical basic-run log is incomplete | Fresh Astra/xhigh source review of replay, disconnected branches, transfer conservation and stale-backup recovery; freeze minimum acceptance checks | Astra/xhigh advises; primary accepts and assigns isolated implementation/runtime work |
+| Current UX with real persistence | Latest UX has synthetic-HTTP Chrome proof; this CI does not execute its real browser journey | Prepare isolated browser→API→SQL sale, receipt lookup, refund and till-close proof, preserving the existing pilot | Primary; exact source, owned resources and database readbacks |
+| Production operations | Backup/access/deployment preparation is separate from UX acceptance | Verify existing operational artifacts against current source and identify only material unproved gates | Primary; runnable recovery evidence and explicit external-deployment scope |
+
+No automatic retry of the failed GitHub run was requested. No merge, deployment, native SQL change or real transaction was performed in this continuation.
+Lesson applied: diagnose the one failed path before rerunning a broad suite. Successful SQL business tests do not hide a failed verification tool.

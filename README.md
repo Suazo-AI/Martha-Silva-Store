@@ -1,9 +1,13 @@
 # Martha Silva Store / SAVIA
 
-**Estado al 2026-11-05: candidato probado por capas; no listo para producción.**
-La tienda pública y la aplicación interna de personal tienen alcances y autoridades separados.
-N5 está corregido. Su cobertura adicional de recuperación está aceptada con límites;
-siguen las validaciones y decisiones operativas del [estado vigente](docs/PROJECT-STATUS.md).
+**Estado al 2026-11-16: SAVIA v2 en construcción; producción NO-GO.**
+El producto actual vive en [savia/](savia/README.md). Su [plan](savia/docs/PLAN.md) conserva los criterios pendientes.
+Los cambios de UX están publicados en `Tony@63a8b1e`. Su CI detectó una falla del verificador.
+La corrección tiene regresión local verde; su validación remota sigue pendiente.
+Ver [avance actual, pruebas y pendientes](docs/savia-completion-20261116/README.md).
+
+La tienda pública, SAVIA v2 y el backend anterior tienen fuentes y pruebas diferentes.
+Los resultados del backend anterior no acreditan automáticamente SAVIA v2.
 
 Entrada para cualquier agente: [AGENT-START](docs/AGENT-START.md).
 Estado vigente: [PROJECT-STATUS](docs/PROJECT-STATUS.md).
@@ -17,7 +21,7 @@ Los hooks registran y sincronizan commits autorizados; [AUTO-SYNC](docs/AUTO-SYN
 La [reconciliación](docs/reconciliation-20261103/README.md) vincula código probado, documentación y exclusiones.
 Push, despliegue y aceptación son estados diferentes. Las copias vecinas no son el checkout activo.
 
-**Demo:** <https://martha-silva-preview.martha-silva-denis.workers.dev/>.
+**Tienda histórica:** <https://martha-silva-preview.martha-silva-denis.workers.dev/>.
 Ultimo recibo conservado: version `601268a3-81ce-4277-a8ef-cb2e84d2fbb1`, publicada
 2026-10-30 a las 04:50:10 UTC. `dist/` reproduce sus 1081 archivos publicos;
 `README.txt` es un auxiliar adicional excluido del manifiesto publico.
@@ -32,6 +36,8 @@ No hay pagos bancarios productivos implementados.
 
 | Contenido | Ubicacion |
 | --- | --- |
+| SAVIA v2: API, SQL, web y demo con datos ficticios | [savia/](savia/README.md) |
+| Evidencia actual y trabajo pendiente | [Continuación del 16 de noviembre](docs/savia-completion-20261116/README.md) |
 | Comportamiento editable | `src/` |
 | HTML, CSS, catalogo y medios | `build-inputs/static/` |
 | Salida ensamblada | `dist/` y `prepare.py` |
@@ -40,7 +46,7 @@ No hay pagos bancarios productivos implementados.
 | Hashes, imagenes y recibos | [Entregas](evidence/releases/20261030/) |
 | Comprobaciones reproducibles | [SYNC-VERIFICATION](docs/SYNC-VERIFICATION.md) |
 | Original separado e inerte | [Procedencia del original](evidence/original-preview/README.md) |
-| SAVIA staff | [SAVIA-INTERNAL](SAVIA-INTERNAL.md), `backend/`, `contracts/`, `dev/savia-staff-ui/` |
+| SAVIA interno anterior: código y evidencia histórica | [SAVIA-INTERNAL](SAVIA-INTERNAL.md), `backend/`, `contracts/`, `dev/savia-staff-ui/` |
 | Seguridad y contribuciones | [SECURITY](docs/SECURITY.md), [AGENTS](AGENTS.md) |
 
 Se conservan fotografias historicas y derivados. La ultima demo tambien contiene
@@ -83,7 +89,7 @@ y procedencia editorial. Las dependencias de medios tienen versiones fijadas.
 El snapshot actual se genera explícitamente con
 `python tools/verify_release_snapshot.py --record`; el registro de octubre se conserva.
 
-## SAVIA y publicación
+## SAVIA interno anterior y publicación
 
 SAVIA tiene sesión, permisos, directorio, stock, venta y recuperación implementados en el candidato.
 Existe evidencia histórica de una venta Owner desde navegador a SQL. La validación reciente separó

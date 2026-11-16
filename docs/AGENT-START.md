@@ -1,6 +1,6 @@
 # Continuar Martha Silva / SAVIA
 
-Actualizado: 2026-11-07. Entrada común para cualquier agente; no requiere Graphify.
+Actualizado: 2026-11-16. Entrada común para cualquier agente; no requiere Graphify.
 Checkout: `C:/Users/Jason/MARTHA-SILVA/github`. Rama: `Tony`.
 Remoto: `Suazo-AI/Martha-Silva-Store`. No trabajar sobre las copias históricas del folder padre.
 
@@ -9,7 +9,8 @@ Remoto: `Suazo-AI/Martha-Silva-Store`. No trabajar sobre las copias históricas 
 1. Leer [AGENTS](../AGENTS.md) y las reglas aplicables del equipo anfitrión.
 2. Leer [estado](PROJECT-STATUS.md), [decisiones vigentes](DECISIONS.md) y `git status --short`.
 3. Localizar el área en [CODE-MAP](CODE-MAP.md); leer su fuente y contrato antes de editar.
-4. Para SQL, leer [DATABASE](DATABASE.md). Para pruebas pendientes, leer la [validación local actual](completion-20261107/local-validation/README.md).
+4. Para SAVIA v2, leer [PLAN](../savia/docs/PLAN.md) y [avance actual](savia-completion-20261116/README.md).
+5. Para SQL, leer [DATABASE](DATABASE.md) y el contrato del área. La [validación local de noviembre 7](completion-20261107/local-validation/README.md) corresponde al backend anterior.
 
 ## Aprendizaje y tareas que Jason pospone
 
@@ -17,7 +18,7 @@ Cuando Jason posponga una tarea, registrarla en el [backlog de aprendizaje](lear
 Leer [su contrato](learning/README.md) antes de actualizar el registro: conservar prioridad, objetivo, criterio de finalización y siguiente acción.
 No marcar una habilidad como demostrada por una explicación o una entrega del agente.
 Los cambios del navegador requieren exportación para que el agente pueda incorporarlos; no afirmar sincronización automática.
-El ledger de producción sigue siendo la autoridad del proyecto.
+Los criterios de producción se consultan en el plan del producto afectado.
 
 Prioridad de fuentes: instrucción vigente de Jason → contrato aprobado → código del candidato
 → evidencia con fecha/hash → propuesta histórica. Un conflicto se registra; no se resuelve inventando capacidades.
@@ -38,14 +39,14 @@ propio bajo `.lavish/`; no reabrir una sesión cerrada.
 
 ## Estado compartido entre agentes
 
-1. **Estado:** [docs/pipeline/ledger.json](pipeline/ledger.json) es la fuente única. `python3 tools/delivery_status.py`
-   muestra dónde vamos, el camino crítico, la siguiente acción por persona y las decisiones pendientes.
+1. **Estado:** para SAVIA v2, consultar [PLAN](../savia/docs/PLAN.md) y [avance actual](savia-completion-20261116/README.md).
+   El [ledger](pipeline/ledger.json) y `python3 tools/delivery_status.py` conservan el alcance del backend anterior.
 2. **Candidato:** verificar `git branch --show-current`, `git rev-parse HEAD` y cambios locales en `Tony`.
    Para un worker, fijar ese SHA y usar el worktree administrado por T3 con sus rutas asignadas.
    La integración y publicación en el checkout canónico pertenecen al primary.
 3. **Evidencia:** reutilizar resultados aceptados cuando sus fuentes y alcance sigan vigentes.
    Separar pruebas históricas, simuladas, SQL y navegador → API → SQL. Una CI anterior no cubre un SHA nuevo.
-4. **Registrar avance:** actualizar el documento del área y, cuando cambie su estado, el item del ledger.
+4. **Registrar avance:** actualizar el documento del área y el plan o ledger de ese producto cuando cambie su estado.
    Publicar en `Tony` mediante [AUTO-SYNC](AUTO-SYNC.md); verificar `SYNCED`, SHA remoto y CI aplicable.
 5. **Hallazgos:** registrar causa demostrada o hipótesis, evidencia, dueño, siguiente acción y comprobación de cierre.
    Mantener los criterios aprobados; una entrega del worker no constituye aceptación del primary.
@@ -54,7 +55,8 @@ propio bajo `.lavish/`; no reabrir una sesión cerrada.
 
 ## Elegir el siguiente trabajo
 
-Partir del ledger y de la [continuación actual](completion-20261107/README.md), no de una tarea fechada antigua.
+Partir del plan del producto y del [avance actual](savia-completion-20261116/README.md).
+La [continuación de noviembre 7](completion-20261107/README.md) conserva el historial del backend anterior.
 Antes de cambiar rutas compartidas, comprobar actividad y propiedad con las reglas de coordinación de AGENTS.
 
 - Validación: [preparación local](completion-20261107/local-validation/README.md), con A, C, D y E separados.

@@ -1,5 +1,8 @@
 # Plan de SAVIA v2
 
+Actualización 2026-11-16: [avance, UX publicado y corrección del verificador](../../docs/savia-completion-20261116/README.md).
+Los criterios entre sucursales de la tabla siguen pendientes. La evidencia de una base no los cierra.
+
 Inicio: 2026-11-12. Orquestador: agente primary. Modo: BUILD.
 Revenue link: un sistema que Martha puede operar en 3 sucursales sin internet y que un agente puede mantener.
 Fuente del mandato: mensaje de Jason del 2026-11-12 y [HANDOFF_FABLE.md](../db/handoff-20261112/HANDOFF_FABLE.md).
