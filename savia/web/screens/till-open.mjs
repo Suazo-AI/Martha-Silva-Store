@@ -5,6 +5,7 @@ import { clearMessage, device, GUID_RE, h, showError } from '../ui.mjs';
 import { denominationCount } from './denominations.mjs';
 
 export async function openTillPanel(ctx, onOpened) {
+  const current = () => ctx.isCurrent?.() !== false;
   const message = h('p', { class: 'error', role: 'alert' });
   const registerControl = h('select', { id: 'till-register', required: true });
   try {
@@ -21,6 +22,7 @@ export async function openTillPanel(ctx, onOpened) {
   }
   const count = await denominationCount({ prefix: 'open-den' });
   const usdCount = await denominationCount({ prefix: 'open-usd', currency: 'USD' });
+  if (!current()) return null;
   const submit = h('button', { class: 'primary big', type: 'submit' }, 'Abrir caja');
   const ids = api.retryIds('tillId');
   return h(
@@ -31,6 +33,7 @@ export async function openTillPanel(ctx, onOpened) {
       novalidate: true,
       onsubmit: async event => {
         event.preventDefault();
+        if (!current()) return;
         clearMessage(message);
         const registerId = registerControl.value.trim();
         let lines;
@@ -52,8 +55,11 @@ export async function openTillPanel(ctx, onOpened) {
         submit.disabled = true;
         try {
           await api.openTill({ tillId, registerId, currencyCode: 'NIO', openingMinor, lines, usdLines });
+          if (!current()) return;
+          const summary = await api.tillSummary(tillId);
+          if (!current()) return;
           device.set('registerId', registerId);
-          ctx.till.set(await api.tillSummary(tillId));
+          ctx.till.set(summary);
           await onOpened();
         } catch (error) {
           showError(message, error, 'Revise los datos y vuelva a intentar.');
@@ -80,6 +86,7 @@ export async function openTillPanel(ctx, onOpened) {
 /** Registers identify an accessible open till without an expected 404 request. */
 export async function syncTill(ctx) {
   const registers = await api.registers();
+  if (ctx.isCurrent?.() === false) return { till: null, known: false };
   const allowed = registers.filter(r => r.openTillId && (r.openTillCashierId === ctx.me.staffId || ctx.isApprover));
   const local = ctx.till.get();
   const register =
@@ -89,9 +96,10 @@ export async function syncTill(ctx) {
     ctx.till.set(null);
     return { till: null, known: true };
   }
+  const summary = await api.tillSummary(register.openTillId);
+  if (ctx.isCurrent?.() === false) return { till: null, known: false };
   const saved = device.get('parkedTickets');
   if (saved && saved.tillId !== register.openTillId) device.set('parkedTickets', null);
-  const summary = await api.tillSummary(register.openTillId);
   ctx.till.set(summary);
   return { till: summary, summary, known: true };
 }

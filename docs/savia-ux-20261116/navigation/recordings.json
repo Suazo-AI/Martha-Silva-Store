@@ -1,0 +1,62 @@
+[
+  {
+    "file": "after-1440.mp4",
+    "probe_exit": 0,
+    "decode_exit": 0,
+    "stream": [
+      {
+        "width": 1246,
+        "height": 1124,
+        "duration": "4.349233",
+        "nb_read_frames": "17"
+      }
+    ],
+    "decode_error": "[null @ 000001cee9677880] Application provided invalid, non monotonically increasing dts to muxer in stream 0: 12 >= 12\n[null @ 000001cee9677880] Application provided invalid, non monotonically increasing dts to muxer in stream 0: 17 >= 17\n    Last message repeated 1 times",
+    "sha256": "fb253823c3db6e445e1161840b9ab72eb070070fcb6455e59c54e42177f19aa7"
+  },
+  {
+    "file": "after-390.mp4",
+    "probe_exit": 0,
+    "decode_exit": 0,
+    "stream": [
+      {
+        "width": 488,
+        "height": 1054,
+        "duration": "4.265967",
+        "nb_read_frames": "18"
+      }
+    ],
+    "decode_error": "[null @ 000001e61b9de140] Application provided invalid, non monotonically increasing dts to muxer in stream 0: 4 >= 4\n[null @ 000001e61b9de140] Application provided invalid, non monotonically increasing dts to muxer in stream 0: 12 >= 12\n[null @ 000001e61b9de140] Application provided invalid, non monotonically increasing dts to muxer in stream 0: 18 >= 18",
+    "sha256": "9cabe0ca5679979409feee41a90495a13a2427af47108c04fa95e02c1d976931"
+  },
+  {
+    "file": "before-1440.mp4",
+    "probe_exit": 0,
+    "decode_exit": 0,
+    "stream": [
+      {
+        "width": 1246,
+        "height": 1124,
+        "duration": "4.411267",
+        "nb_read_frames": "17"
+      }
+    ],
+    "decode_error": "[null @ 0000016a91301040] Application provided invalid, non monotonically increasing dts to muxer in stream 0: 2 >= 2\n[null @ 0000016a91301040] Application provided invalid, non monotonically increasing dts to muxer in stream 0: 4 >= 4\n[null @ 0000016a91301040] Application provided invalid, non monotonically increasing dts to muxer in stream 0: 9 >= 9\n[null @ 0000016a91301040] Application provided invalid, non monotonically increasing dts to muxer in stream 0: 12 >= 12",
+    "sha256": "87ff00269cf52a2ca780e1007b5623138eb0b0ab76a395d391b8ce8900d7e65e"
+  },
+  {
+    "file": "before-390.mp4",
+    "probe_exit": 0,
+    "decode_exit": 0,
+    "stream": [
+      {
+        "width": 488,
+        "height": 1054,
+        "duration": "4.482667",
+        "nb_read_frames": "17"
+      }
+    ],
+    "decode_error": "[null @ 0000020a474b00c0] Application provided invalid, non monotonically increasing dts to muxer in stream 0: 1 >= 1\n[null @ 0000020a474b00c0] Application provided invalid, non monotonically increasing dts to muxer in stream 0: 5 >= 5\n[null @ 0000020a474b00c0] Application provided invalid, non monotonically increasing dts to muxer in stream 0: 9 >= 9\n[null @ 0000020a474b00c0] Application provided invalid, non monotonically increasing dts to muxer in stream 0: 12 >= 12\n[null @ 0000020a474b00c0] Application provided invalid, non monotonically increasing dts to muxer in stream 0: 17 >= 17",
+    "sha256": "537955a6218b74aa260d576e605fa2bc29069beb3ef9e8e355c43610a8281d3c"
+  }
+]

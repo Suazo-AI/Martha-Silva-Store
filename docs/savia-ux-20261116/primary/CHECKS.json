@@ -1,0 +1,96 @@
+{
+  "base": "2c96904f49d2df913850bc13cf53b3b03ceebacf",
+  "host": "SUAZO-PC",
+  "runtime": "T3 Code / Codex / gpt-6.1-sol / max",
+  "fictionalDataOnly": true,
+  "checks": [
+    {
+      "command": [
+        "node",
+        "--test",
+        "savia/web/tests/*.test.mjs",
+        "savia/web/scanner/scanner.test.mjs"
+      ],
+      "cwd": ".",
+      "exit": 0,
+      "seconds": 0.532,
+      "log": "private-exports/savia-ux-20261116-primary/web-final.log",
+      "sha256": "7a2dc348825cca766335f5516cd796f904d3d013b0bdbe1dda2fc6aa18948481"
+    },
+    {
+      "command": [
+        "node",
+        "node_modules/@biomejs/biome/bin/biome",
+        "check",
+        "web"
+      ],
+      "cwd": "savia",
+      "exit": 0,
+      "seconds": 0.141,
+      "log": "private-exports/savia-ux-20261116-primary/biome-clean.log",
+      "sha256": "f260560d67c63fbd96ac2c955fef1ee524ee15d9aa2603a729be48ba229389ba"
+    },
+    {
+      "command": [
+        "python",
+        "savia/tools/build_demo.py"
+      ],
+      "cwd": ".",
+      "exit": 0,
+      "seconds": 0.234,
+      "log": "private-exports/savia-ux-20261116-primary/demo-build-final.log",
+      "sha256": "66dae0ef4f71511c7bc6207b5f530e574d4838892357468fe46241e2c8529211"
+    },
+    {
+      "command": [
+        "python",
+        "docs/savia-ux-20261116/primary/browser.py"
+      ],
+      "exit": 0,
+      "seconds": 12.39,
+      "log": "private-exports/savia-ux-20261116-primary/browser-final.log",
+      "sha256": "879c27fec800004d758a58fe862f350bf86b6306d8b5f6935820587832b065ef"
+    },
+    {
+      "command": [
+        "node",
+        "--test",
+        "savia/demo/site/entry.test.mjs"
+      ],
+      "exit": 0,
+      "seconds": 32.172,
+      "log": "private-exports/savia-ux-20261116-primary/entry-final.log",
+      "sha256": "bfe4002321b02fdd152c4b09834c820b53dd349dc180e0de10479ef497c1a155"
+    },
+    {
+      "command": [
+        "python",
+        "savia/tools/rules.py"
+      ],
+      "cwd": ".",
+      "exit": 0,
+      "seconds": 0.265,
+      "log": "private-exports/savia-ux-20261116-primary/rules-final.log",
+      "sha256": "2de87318481d79c344baee2450ab8548870ffbc7dd6d966be1cf8823ef384d8a"
+    },
+    {
+      "command": [
+        "python",
+        "tests/check.py"
+      ],
+      "exit": 1,
+      "seconds": 109.782,
+      "log": "private-exports\\savia-ux-20261116-primary\\repository-check.log",
+      "sha256": "45e8ddf17b8b77621f358ea210a7a619512691c2241701f3cd082e02b14bf603"
+    }
+  ],
+  "browserEvidence": "browser.json",
+  "entryEvidence": "../demo/real-browser.json",
+  "rawLogs": "Ignored private-exports paths; no raw logs published.",
+  "limits": [
+    "No real API or SQL",
+    "No deployment",
+    "Windows repository gate failed on symlink fixtures",
+    "Independent review pending"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "source_sha": "2c96904f49d2df913850bc13cf53b3b03ceebacf",
+  "sha256": {
+    "savia/demo/site/boot.mjs": "ea1349e4c691a9a6f3d081c7e86f32ed468c863cde48581fe1a38ea50bd0235f",
+    "savia/demo/site/banner.css": "83c00c759cb79031a33eee9c170e32d5588ae8854a6e977e303f25ccbaf552ec",
+    "savia/demo/site/verify.py": "dacc3667bffe99b6d44c84e175f6a6cfbe1074ded2b21c65a3910245543a1e99",
+    "savia/demo/site/entry.test.mjs": "83c713b7a9c5ee8a5d6d42dcba10dae84aab3eb9280ac2eee35f1d6113a31b8c",
+    "savia/web/screens/login.mjs": "378be8061ef31a3af97d122d7d5d870c9741b60cecf936426cbf32a8557d0228",
+    "savia/web/app.mjs": "ae9bb736a27e9afc2c7bfd1cc95c81f187361aa6b89b56fcd2028d94d724b309",
+    "savia/web/api.mjs": "54f5165cc1dbda8abd43a2a86cacb4a155ecb1a8cecfa8275a0633ce2c06070f",
+    "savia/web/roles.mjs": "2f7217ffa61e3f9ffd2ddd79ebb3ab7d1ac134721e850001b4b62c4b15eb1213",
+    "savia/web/etiqueta/etiqueta.mjs": "b7d1a6e0dae83384fe3b762ae8bde8e966b5264dbf0020207fc1bcf9ceca8f70",
+    "savia/demo/api/index.mjs": "9d5bd9b21a3c42a00b0b0f8f81629eaeaa2fe2413231dbe47ea6712ceefb7365"
+  }
+}

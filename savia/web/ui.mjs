@@ -34,9 +34,24 @@ export function showError(el, error, nextStep) {
   const message = error?.message || 'Ocurrió un error.';
   const parts = [message];
   if (nextStep) parts.push(nextStep);
-  if (error?.code && !error.missing && !error.network) parts.push(`(${error.code})`);
   el.className = 'error';
   el.textContent = parts.join(' ');
+  if (error?.code || error?.traceId) {
+    const diagnostic = h('span', { hidden: true }, [error.code, error.traceId].filter(Boolean).join(' · '));
+    const toggle = h(
+      'button',
+      {
+        type: 'button',
+        'aria-expanded': 'false',
+        onclick: () => {
+          diagnostic.hidden = !diagnostic.hidden;
+          toggle.setAttribute('aria-expanded', String(!diagnostic.hidden));
+        },
+      },
+      'Detalles técnicos',
+    );
+    el.append(' ', toggle, diagnostic);
+  }
 }
 
 export function showOk(el, text) {

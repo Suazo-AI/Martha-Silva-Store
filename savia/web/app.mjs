@@ -1,6 +1,6 @@
 // Shell, session and router of the SAVIA staff web.
 import * as api from './api.mjs';
-import { canAccess, isApprover, isOwner, landing, roleName, SCREENS } from './roles.mjs';
+import { canAccess, isApprover, isOwner, landing, navigation, roleName, SCREENS } from './roles.mjs';
 import approvals from './screens/approvals.mjs';
 import cash from './screens/cash.mjs';
 import commissions from './screens/commissions.mjs';
@@ -77,6 +77,7 @@ const ctx = {
 };
 
 let current = null; // { route, handle }
+let routeGeneration = 0;
 
 /** The one entry point for scanners: the active screen decides what a code means. */
 export function handleScan(code) {
@@ -98,7 +99,41 @@ function renderHeader() {
   renderTillState();
 }
 
+function renderNavigation(name) {
+  const opened = new Set([...document.querySelectorAll('#nav details[open]')].map(group => group.dataset.group));
+  const active = route => name === route || name.startsWith(`${route}/`);
+  const link = screen =>
+    h(
+      'a',
+      {
+        href: `#/${screen.route}`,
+        dataset: { route: screen.route },
+        ...(active(screen.route) ? { 'aria-current': 'page' } : {}),
+      },
+      screen.label,
+    );
+  replace(
+    $('nav'),
+    navigation(ctx.roles).map(group => {
+      if (!group.label) return group.screens.map(link);
+      const current = group.screens.some(screen => active(screen.route));
+      return h(
+        'details',
+        {
+          class: 'nav-group',
+          dataset: { group: group.label, active: String(current) },
+          open: current || opened.has(group.label),
+        },
+        h('summary', {}, group.label),
+        h('div', { class: 'nav-group-links' }, group.screens.map(link)),
+      );
+    }),
+  );
+}
+
 async function route() {
+  const generation = ++routeGeneration;
+  const hash = location.hash;
   const name = (location.hash.replace(/^#\/?/, '') || 'venta').split('?')[0];
   current?.handle?.unmount?.();
   current = null;
@@ -110,16 +145,33 @@ async function route() {
     return;
   }
   const screen = MODULES[name] ?? sale;
+  const actor = ctx.me;
+  const token = api.getToken();
+  const isCurrent = () => generation === routeGeneration && ctx.me === actor && api.getToken() === token && location.hash === hash;
+  const screenCtx = Object.create(ctx);
+  screenCtx.isCurrent = isCurrent;
+  screenCtx.notify = text => {
+    if (isCurrent()) ctx.notify(text);
+  };
+  screenCtx.go = target => {
+    if (isCurrent()) ctx.go(target);
+  };
+  screenCtx.till = {
+    get: ctx.till.get,
+    set: value => {
+      if (isCurrent()) ctx.till.set(value);
+    },
+  };
+  screenCtx.refreshTill = () => {
+    if (isCurrent()) ctx.refreshTill();
+  };
   $('access').hidden = true;
   $('shell').hidden = false;
-  if (ctx.isApprover) await syncTill(ctx);
+  // Sale recovery must mount before any till, catalog or exchange-rate dependency.
+  if (ctx.isApprover && screen !== sale) await syncTill(screenCtx);
+  if (!isCurrent()) return;
   renderHeader();
-  for (const link of document.querySelectorAll('#nav a')) {
-    link.hidden = !canAccess(link.dataset.route, ctx.roles);
-    const active = name === link.dataset.route || name.startsWith(`${link.dataset.route}/`);
-    if (active) link.setAttribute('aria-current', 'page');
-    else link.removeAttribute('aria-current');
-  }
+  renderNavigation(name);
   $('title').textContent = screen.title;
   document.title = `SAVIA · ${screen.title}`;
   const root = $('screen');
@@ -135,12 +187,16 @@ async function route() {
     );
     return;
   }
-  current = { route: name, handle: await screen.mount(root, ctx) };
+  const handle = await screen.mount(root, screenCtx);
+  if (isCurrent()) current = { route: name, handle };
+  else handle?.unmount?.();
 }
 
 async function onSignedIn(loginResponse) {
   api.setToken(loginResponse.token);
-  ctx.me = await api.me();
+  const actor = await api.me();
+  if (api.getToken() !== loginResponse.token) return;
+  ctx.me = actor;
   if (!location.hash || location.hash === '#/ingreso' || !canAccess(location.hash.replace(/^#\/?/, ''), ctx.roles))
     location.hash = `#/${landing(ctx.roles)}`;
   else route();
@@ -150,21 +206,18 @@ async function start() {
   const routes = SCREENS.map(s => s.route);
   const odd = [...routes.filter(r => !MODULES[r]), ...Object.keys(MODULES).filter(r => !routes.includes(r))];
   if (odd.length) throw new Error(`roles.mjs y app.mjs no coinciden en: ${odd.join(', ')}`);
-  replace(
-    $('nav'),
-    SCREENS.filter(s => s.label).map(s => h('a', { href: `#/${s.route}`, dataset: { route: s.route } }, s.label)),
-  );
   applyPalette(device.get('palette'));
   $('logout').addEventListener('click', async () => {
-    try {
-      await api.logout();
-    } catch {
-      /* the token dies on the server or expires; sign out here either way */
-    }
+    const retiring = api.logout();
     api.setToken(null);
     ctx.me = null;
     ctx.till.set(null);
     route();
+    try {
+      await retiring;
+    } catch {
+      /* the token dies on the server or expires; sign out here either way */
+    }
   });
   api.setUnauthorizedHandler(() => {
     api.setToken(null);
@@ -174,11 +227,15 @@ async function start() {
   });
   window.addEventListener('hashchange', route);
   if (api.getToken()) {
+    const token = api.getToken();
     try {
-      ctx.me = await api.me();
+      const actor = await api.me();
+      if (api.getToken() === token) ctx.me = actor;
     } catch {
-      api.setToken(null);
-      ctx.me = null;
+      if (api.getToken() === token) {
+        api.setToken(null);
+        ctx.me = null;
+      }
     }
   }
   route();

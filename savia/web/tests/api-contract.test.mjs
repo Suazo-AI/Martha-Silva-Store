@@ -106,6 +106,78 @@ test('expired secondary approval does not sign out the cashier', async () => {
   }
 });
 
+test('a delayed logout rejection cannot invalidate a newer login', async () => {
+  const original = globalThis.fetch;
+  const previous = api.getToken();
+  let release;
+  let notified = 0;
+  let authorization;
+  globalThis.fetch = async (_url, options) => {
+    authorization = options.headers.Authorization;
+    return new Promise(resolve => {
+      release = resolve;
+    });
+  };
+  api.setUnauthorizedHandler(() => {
+    notified++;
+    api.setToken(null);
+  });
+  try {
+    api.setToken('fictional-old-session');
+    const retiring = api.logout();
+    api.setToken('fictional-new-session');
+    release(new Response('{"code":"auth.required"}', { status: 401 }));
+    await assert.rejects(retiring, error => error.status === 401);
+    assert.equal(authorization, 'Bearer fictional-old-session');
+    assert.equal(notified, 0);
+    assert.equal(api.getToken(), 'fictional-new-session');
+  } finally {
+    globalThis.fetch = original;
+    api.setUnauthorizedHandler(() => {});
+    api.setToken(previous);
+  }
+});
+
+for (const phase of ['headers', 'error body']) {
+  test(`a delayed ${phase} rejection cannot invalidate a newer login`, async () => {
+    const previous = api.getToken();
+    let release;
+    let notified = 0;
+    const held = new Promise(resolve => {
+      release = resolve;
+    });
+    const response = {
+      ok: false,
+      status: 401,
+      text: async () => {
+        if (phase === 'error body') await held;
+        return '{"code":"auth.required"}';
+      },
+    };
+    api.setUnauthorizedHandler(() => {
+      notified++;
+      api.setToken(null);
+    });
+    try {
+      api.setToken('fictional-old-session');
+      const pending = api.request('GET', '/cash/registers', undefined, {
+        fetchImpl: async () => {
+          if (phase === 'headers') await held;
+          return response;
+        },
+      });
+      api.setToken('fictional-new-session');
+      release();
+      await assert.rejects(pending, error => error.status === 401);
+      assert.equal(notified, 0);
+      assert.equal(api.getToken(), 'fictional-new-session');
+    } finally {
+      api.setUnauthorizedHandler(() => {});
+      api.setToken(previous);
+    }
+  });
+}
+
 test('sale approval keeps cashier bearer and passes supervisor separately', async () => {
   const original = globalThis.fetch;
   const previous = api.getToken();

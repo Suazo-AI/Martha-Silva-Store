@@ -1,0 +1,36 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/savia/web/app.css"><title>Sale scoped fixture</title><main id="screen"></main><dialog id="modal"><section id="modal-body"></section></dialog><script type="module">
+const {default:sale}=await import(location.search.includes('baseline') ? './baseline.mjs' : '/savia/web/screens/sale.mjs');
+const id=n=>`00000000-0000-4000-8000-${String(n).padStart(12,'0')}`;
+window.fixture={id, posts:[], mode:'ok', calls:[]};
+const me={staffId:id(1),nodeId:id(2),branchId:id(3),locationId:id(4),nodeKind:'branch'};
+const till={tillId:id(5),usdExpectedMinor:null};
+const variant={itemId:id(8),sku:'DEMO-1',variantName:'Blusa demo',sizeCode:'M',unitPriceMinor:10000,available:10,status:'active'};
+const receipt=body=>({...body,status:'posted',subtotalMinor:body.lines.reduce((a,l)=>a+l.quantity*l.unitPriceMinor,0),discountMinor:body.lines.reduce((a,l)=>a+l.discountMinor,0),taxMinor:0,totalMinor:body.lines.reduce((a,l)=>a+l.quantity*l.unitPriceMinor-l.discountMinor,0),cashierId:id(1),lines:[],tenders:body.tenders});
+window.fetch=async (url,opts={})=>{
+ fixture.calls.push(url);
+ let value;
+ if(url.endsWith('/auth/login'))value={token:'fictional-supervisor',roles:['MANAGER']};
+ else if(url.endsWith('/sales')&&opts.method==='POST') {
+ const body=JSON.parse(opts.body);fixture.auth=opts.headers;fixture.posts.push(body);if(fixture.mode==='preloss')throw Error('lost before commit');if(fixture.mode==='expiry')return new Response(JSON.stringify({code:'auth.approval_expired',message:'Aprobación vencida.'}),{status:403});if(fixture.mode==='reject')return new Response(JSON.stringify({code:'sale.seller_inactive',message:'El vendedor ya no está activo.'}),{status:400});fixture.committed=receipt(body);
+ if(fixture.mode==='loss')throw Error('lost');
+ if(fixture.mode==='hold')await new Promise(r=>fixture.release=r);
+ if(fixture.mode==='500')return new Response('{}',{status:500});
+ if(fixture.mode==='empty')return new Response('');
+ if(fixture.mode==='bad')return new Response('{');
+ value=fixture.committed;
+ }else if(url.includes('/sales/')){if(fixture.mode==='ancillary')return new Response('{}',{status:500});if(fixture.mode==='403')return new Response('{}',{status:403});if(fixture.mode==='404')return new Response('{}',{status:404});value=fixture.committed;}
+ else if(url.endsWith('/exchange-rate'))return new Response('{}',{status:404});
+ else if(url.endsWith('/cash/registers'))value=[{registerId:id(9),openTillId:id(5),openTillCashierId:id(1)}];
+ else if(url.endsWith('/summary'))value=till;
+ else if(url.endsWith('/sellers')&&fixture.mode==='sellerfail')return new Response('{}',{status:500});
+ else if(url.endsWith('/sellers')&&fixture.mode==='sellersEmpty')value=[];
+ else if(url.endsWith('/sellers'))value=[{sellerId:id(6),name:'Ana demo'},{sellerId:id(1),name:'Cajera demo'},{sellerId:id(12),name:'Sara demo'}];
+ else if(url.endsWith('/catalog/items'))value=[{productId:id(7),name:'Blusa demo',type:'Blusa',variants:[variant]}];
+ else if(url.includes('/catalog/lookup'))value=[variant];
+ else value=[];
+ return new Response(JSON.stringify(value),{headers:{'Content-Type':'application/json'}});
+};
+window.ctx={me,isApprover:true,branchName:'Demo',notify:()=>{},go:()=>{},till:{get:()=>till,set:()=>{}}};
+window.remount=async()=>{window.handle?.unmount();window.handle=await sale.mount(document.querySelector('#screen'),ctx)};
+await remount();
+</script></html>

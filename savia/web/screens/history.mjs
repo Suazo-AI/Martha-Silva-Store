@@ -60,11 +60,12 @@ export default {
                     h(
                       'div',
                       {},
-                      h('h2', {}, sale.saleId),
+                      h('h2', {}, sale.receiptNumber?.trim() ? `Recibo ${sale.receiptNumber}` : 'Venta sin número de recibo'),
                       h('p', { class: 'muted' }, `${saleDate(sale.createdAt)} · ${saleStatusName(sale.status)}`),
                     ),
                     h('strong', { class: 'num' }, formatMoney(sale.totalMinor)),
                   ),
+                  h('details', {}, h('summary', {}, 'Detalles de soporte'), h('p', { class: 'muted' }, `ID de venta: ${sale.saleId}`)),
                   ...sale.lines.map(garmentLine),
                   h(
                     'div',

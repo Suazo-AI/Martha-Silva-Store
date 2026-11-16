@@ -110,6 +110,21 @@ test('attachScanField: detach removes every listener', () => {
   assert.equal(left, 0);
 });
 
+test('scanner keeps keyboard focus on disclosure summaries and navigation links', async () => {
+  const { doc, input, fire } = fakeDom();
+  const detach = attachScanField(input, () => {}, { doc });
+  try {
+    for (const control of [el('SUMMARY'), el('A', { closest: selector => (selector === 'nav' ? {} : null) })]) {
+      doc.activeElement = control;
+      fire('blur');
+      await new Promise(resolve => setTimeout(resolve, 5));
+      assert.equal(doc.activeElement, control, `${control.tagName} lost keyboard focus to scanner`);
+    }
+  } finally {
+    detach();
+  }
+});
+
 test('scanner burst without focus reports once; focused burst does not duplicate Enter', () => {
   const { doc, input, fireDoc, fire } = fakeDom();
   const codes = [];

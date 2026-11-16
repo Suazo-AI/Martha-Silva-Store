@@ -1,0 +1,111 @@
+{
+  "schema": "savia-ux-review-v1",
+  "base": "2c96904f49d2df913850bc13cf53b3b03ceebacf",
+  "status": "locally verified; independent acceptance pending",
+  "bytePolicy": "RAW describes current disk bytes. LF replaces only CRLF with LF, retaining BOM if present. Git object identity is provided separately by the review task tree.",
+  "sources": [
+    {
+      "path": "savia/demo/site/banner.css",
+      "rawSha256": "83c00c759cb79031a33eee9c170e32d5588ae8854a6e977e303f25ccbaf552ec",
+      "lfSha256": "59661fa4112a1970002ab88f86234654c5c95b8c43bf4a45cfd378681e930968",
+      "baseGitBlobSha256": "c47cf66c470490cba7e14cbf2bfdeee920b3dee264b8be534fea9b285f07a407"
+    },
+    {
+      "path": "savia/demo/site/boot.mjs",
+      "rawSha256": "ea1349e4c691a9a6f3d081c7e86f32ed468c863cde48581fe1a38ea50bd0235f",
+      "lfSha256": "ea1349e4c691a9a6f3d081c7e86f32ed468c863cde48581fe1a38ea50bd0235f",
+      "baseGitBlobSha256": "4d6ab615d4a3f27ce5b54d2ace0582f97ca17ac024260a576290eec6ab65325b"
+    },
+    {
+      "path": "savia/demo/site/verify.py",
+      "rawSha256": "dacc3667bffe99b6d44c84e175f6a6cfbe1074ded2b21c65a3910245543a1e99",
+      "lfSha256": "9efb46efd2cca15e02a68e103eab1320374ecf807ae074709cab5e6eb4f1785d",
+      "baseGitBlobSha256": "efeef0d71471ad952fc8da30c500edb86e991530224ac61793c36adc89b54475"
+    },
+    {
+      "path": "savia/demo/site/entry.test.mjs",
+      "rawSha256": "0999043dc4d75826667e3d2c958d61099fa7ecbd67dd50207146636f364d412d",
+      "lfSha256": "0999043dc4d75826667e3d2c958d61099fa7ecbd67dd50207146636f364d412d",
+      "baseGitBlobSha256": null
+    },
+    {
+      "path": "savia/web/app.css",
+      "rawSha256": "7170934adb17dce102714b9097cfe510f563ef625f6d7002a373f86c8ce8d6ad",
+      "lfSha256": "991defaa314c45bb6dfe8f26f5b278a4b7b62b76d63652b91e45832227f0e760",
+      "baseGitBlobSha256": "02978616544077c48ee689f874d9f71c9c08e1587c349bd59c04a8984be88ad5"
+    },
+    {
+      "path": "savia/web/app.mjs",
+      "rawSha256": "a5f1255c0e67d0443e98919eb57a15e2afdce519188138e4c32eb088b13427d8",
+      "lfSha256": "a5f1255c0e67d0443e98919eb57a15e2afdce519188138e4c32eb088b13427d8",
+      "baseGitBlobSha256": "ae9bb736a27e9afc2c7bfd1cc95c81f187361aa6b89b56fcd2028d94d724b309"
+    },
+    {
+      "path": "savia/web/roles.mjs",
+      "rawSha256": "b7d270531e7c9a5df1b1888d816e280e9526ed0f1f4d8d60fe1f197998dd5651",
+      "lfSha256": "b7d270531e7c9a5df1b1888d816e280e9526ed0f1f4d8d60fe1f197998dd5651",
+      "baseGitBlobSha256": "2f7217ffa61e3f9ffd2ddd79ebb3ab7d1ac134721e850001b4b62c4b15eb1213"
+    },
+    {
+      "path": "savia/web/scan.mjs",
+      "rawSha256": "3e88319593566bcf6a728e59b35e4a9ff09781fab8c243fbe0680afae8020e33",
+      "lfSha256": "3e88319593566bcf6a728e59b35e4a9ff09781fab8c243fbe0680afae8020e33",
+      "baseGitBlobSha256": "9c93e42a4827267fb8985671c8a2e9d3ee690538c16d7880f7291be80260b4b9"
+    },
+    {
+      "path": "savia/web/screens/history.mjs",
+      "rawSha256": "fd2ccf877492e24475c42e74957988ae9356fd0320083434b9b78897e19ca0f8",
+      "lfSha256": "fd2ccf877492e24475c42e74957988ae9356fd0320083434b9b78897e19ca0f8",
+      "baseGitBlobSha256": "0beec5f3106dda9c44c66de12a60af2450d96e7495797ffeb78289e6786da945"
+    },
+    {
+      "path": "savia/web/screens/sale.mjs",
+      "rawSha256": "3225c0b0bcb617d94d45ded25b51daf6bd586a2cc02beff2963b09eaa38068de",
+      "lfSha256": "3225c0b0bcb617d94d45ded25b51daf6bd586a2cc02beff2963b09eaa38068de",
+      "baseGitBlobSha256": "bc51464ff33dbeaf650c8db2da47fe5d2a3cc67966082b06df6971f8bf33d328"
+    },
+    {
+      "path": "savia/web/ui.mjs",
+      "rawSha256": "906fe9b654625298196b6aa66217d0c4ff8358ade1100dd405d777a1f743ba4c",
+      "lfSha256": "906fe9b654625298196b6aa66217d0c4ff8358ade1100dd405d777a1f743ba4c",
+      "baseGitBlobSha256": "874b8d1b89d4dc05bb61c0852023c780c71b04e98d490fbed8a85593ba0ae7ec"
+    },
+    {
+      "path": "savia/web/sale-recovery.mjs",
+      "rawSha256": "0db3c8f84cb5486690ae9e0e9891f1364f07205d6f860a953a6704eadc8c82f5",
+      "lfSha256": "0db3c8f84cb5486690ae9e0e9891f1364f07205d6f860a953a6704eadc8c82f5",
+      "baseGitBlobSha256": null
+    },
+    {
+      "path": "savia/web/tests/scan.test.mjs",
+      "rawSha256": "8eafce1935cacc567f790553d94a917bcfaa3bc8e37ed4fd3adce2828c2234c2",
+      "lfSha256": "8eafce1935cacc567f790553d94a917bcfaa3bc8e37ed4fd3adce2828c2234c2",
+      "baseGitBlobSha256": "39ab4a8b79439c99a3ced5c12be5c465e1bea243702ff416fdded39a89fe5d68"
+    },
+    {
+      "path": "savia/web/tests/navigation-ux.test.mjs",
+      "rawSha256": "831550529940d56a9c15a283b65e08d77a4a480b260f17229d11ca20e55b6c02",
+      "lfSha256": "831550529940d56a9c15a283b65e08d77a4a480b260f17229d11ca20e55b6c02",
+      "baseGitBlobSha256": null
+    },
+    {
+      "path": "savia/web/tests/sale-recovery.test.mjs",
+      "rawSha256": "4bf621e27a52a47d0fa0e30befa1fed4cd87f4373e4d75851c6b59d91c3fa1ab",
+      "lfSha256": "4bf621e27a52a47d0fa0e30befa1fed4cd87f4373e4d75851c6b59d91c3fa1ab",
+      "baseGitBlobSha256": null
+    },
+    {
+      "path": "savia/web/tests/sale-ux.browser.mjs",
+      "rawSha256": "351709bbd51c45a1af60c9f4586c782ea3d737cbd436582ba45c12eb15529c5a",
+      "lfSha256": "351709bbd51c45a1af60c9f4586c782ea3d737cbd436582ba45c12eb15529c5a",
+      "baseGitBlobSha256": null
+    }
+  ],
+  "acceptance": "../sale-preimplementation.md; all ten adopted checks plus navigation/demo outcomes in ../README.md",
+  "noChanges": [
+    "API/SQL/contracts",
+    "Real login",
+    "External services or deployment",
+    "Dependencies"
+  ]
+}

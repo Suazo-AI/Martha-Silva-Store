@@ -285,3 +285,17 @@ dialog::backdrop { background: #12231cb3 }
 #price-list label { min-width:0; max-width:100%; }
 #price-list input { width:160px; max-width:100%; }
 .rail { max-height:100vh; position:sticky; top:0; overflow-y:auto; }
+
+/* Native disclosure keeps work groups operable with touch and keyboard. */
+.nav-group { min-width: 0; max-width: 100% }
+.nav-group > summary { min-height: 48px; padding: 12px 8px; border: 1px solid transparent; border-radius: 8px; cursor: pointer; font-weight: 650; overflow-wrap: anywhere }
+.nav-group > summary:hover { border-color: var(--line) }
+.nav-group[data-active="true"] > summary { background: var(--secondary); color: var(--primary) }
+.nav-group-links { display: grid; gap: 4px; padding-left: 8px; border-left: 2px solid var(--line) }
+.rail nav a { overflow-wrap: anywhere; min-width: 0 }
+.history-sale > details { overflow-wrap: anywhere }
+.history-sale > details > summary { min-height: 44px; padding: 10px 0; cursor: pointer; color: var(--muted) }
+@media (max-width:1100px) {
+  .rail nav { width: 100%; min-width: 0 }
+  .nav-group { flex: 1 1 150px }
+}

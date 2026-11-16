@@ -16,12 +16,13 @@ const TEXT_INPUT_TYPES = new Set(['text', 'search', 'number', 'password', 'email
 
 /**
  * True when the scan field should take focus back from `active`.
- * Another text field, a select, a textarea or anything inside an open dialog keeps its focus.
+ * Text fields, disclosure summaries, navigation and open dialogs keep their focus.
  */
 export function shouldReclaimFocus(active, field) {
   if (!active || active === field) return active !== field;
   if (typeof active.closest === 'function' && active.closest('dialog[open]')) return false;
   const tag = (active.tagName || '').toUpperCase();
+  if (tag === 'SUMMARY' || active.closest?.('nav')) return false;
   if (tag === 'TEXTAREA' || tag === 'SELECT') return false;
   if (tag === 'INPUT') return !TEXT_INPUT_TYPES.has((active.type || '').toLowerCase());
   if (active.isContentEditable) return false;

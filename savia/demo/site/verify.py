@@ -11,8 +11,8 @@ import tempfile
 from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parents[2]
-EVIDENCE = Path(__file__).parent / 'evidence'
-SESSION = 'savia-shell-acceptance'
+EVIDENCE = ROOT.parent / 'docs/savia-ux-20261116/demo/shell-evidence'
+SESSION = 'savia-entry-20261116-shell'
 CLI = shutil.which('agent-browser.cmd') or shutil.which('agent-browser')
 
 
@@ -38,7 +38,7 @@ class Quiet(SimpleHTTPRequestHandler):
 
 
 def main():
-    EVIDENCE.mkdir(exist_ok=True)
+    EVIDENCE.mkdir(parents=True, exist_ok=True)
     output = ROOT / '.out' / 'demo-site'
     files = [p.relative_to(output).as_posix() for p in output.rglob('*') if p.is_file()]
     assert '_headers' in files and 'index.html' in files and 'etiqueta/index.html' in files
@@ -56,7 +56,7 @@ def main():
     recording = False
     try:
         browser('open', origin)
-        browser('wait', '#login-user')
+        browser('wait', '#demo-entry')
         browser('record', 'start', EVIDENCE / 'after.webm')
         recording = True
         for width, height in [(390, 844), (1440, 900)]:
@@ -65,11 +65,16 @@ def main():
                 browser('set', 'media', theme)
                 for page in ('/', '/etiqueta/'):
                     browser('open', origin + page)
-                    browser('wait', '#login-user')
+                    browser('wait', '#demo-entry')
                     for role, route, name in [('OWNER', 'venta', 'Dueña de muestra'), ('MANAGER', 'venta', 'Gerente de muestra'),
                                                ('SELLER', 'comisiones', 'Vendedora de muestra'), ('INVENTORY', 'recepcion', 'Bodega de muestra')]:
-                        browser('select', '#demo-role', role)
-                        browser('wait', '--fn', f"location.hash === '#/{route}' && document.querySelector('#operator-label')?.textContent.includes('{name}')")
+                        browser('open', origin + page)
+                        browser('wait', '#demo-entry')
+                        browser('click', f'[data-demo-role={role}]')
+                        if page == '/etiqueta/' and role != 'SELLER':
+                            browser('wait', '#tag-session')
+                        else:
+                            browser('wait', '--fn', f"location.hash === '#/{route}' && document.querySelector('#operator-label')?.textContent.includes('{name}')")
                         browser('wait', '--load', 'networkidle')
                         state = evaluate("""(() => {
                           const banner = document.querySelector('#demo-banner');
@@ -80,17 +85,24 @@ def main():
                             alerts: [...document.querySelectorAll('[role=alert]')].filter(x => x.offsetHeight && x.textContent).map(x => x.textContent)};
                         })()""")
                         assert state['width'] == state['scrollWidth'] and state['bannerVisible'] and state['token']
-                        assert not state['alerts'], state
+                        expected = ['No hay recepciones abiertas. Ábrala en Recepción para sumar prendas.'] if page == '/etiqueta/' and role != 'SELLER' else []
+                        assert all(alert in expected for alert in state['alerts']), state
                         if role == 'OWNER' and page == '/':
                             browser('screenshot', EVIDENCE / f'home-{width}-{theme}.png')
-                        if page == '/etiqueta/':
+                        if page == '/etiqueta/' and role != 'SELLER':
                             browser('open', origin + page)
                             browser('wait', '--load', 'networkidle')
                             assert evaluate("document.querySelector('#demo-banner').getBoundingClientRect().top === 0 && document.documentElement.scrollWidth === innerWidth && !document.querySelector('#login-user')")
                             if role == 'OWNER':
                                 browser('screenshot', EVIDENCE / f'etiqueta-{width}-{theme}.png')
-                        browser('click', '#demo-banner button')
-                        browser('wait', '#login-user')
+                        before_reset = evaluate("JSON.stringify({local:{...localStorage},session:{...sessionStorage}})")
+                        browser('click', '#demo-reset')
+                        browser('wait', '#confirm-no')
+                        browser('click', '#confirm-no')
+                        assert evaluate("JSON.stringify({local:{...localStorage},session:{...sessionStorage}})") == before_reset
+                        browser('click', '#demo-reset')
+                        browser('click', '#confirm-yes')
+                        browser('wait', '#demo-entry')
                         assert evaluate("!sessionStorage.getItem('savia.token') && !localStorage.getItem('shell.fixture.user')")
                         results['scenarios'].append({'viewport': [width, height], 'theme': theme, 'page': page,
                                                      'role': role, 'login_home_reset': True, **state})

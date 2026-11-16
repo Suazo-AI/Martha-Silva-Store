@@ -1,0 +1,12 @@
+{
+  "source": "2c96904f49d2df913850bc13cf53b3b03ceebacf",
+  "route": "fixture.html?baseline",
+  "observed": {
+    "posts": 1,
+    "firstRequestQuantity": 1,
+    "editedQuantity": 2,
+    "payEnabledDuringHeldPost": true,
+    "firstSellerWasFirstRow": true
+  },
+  "limits": "No second POST sent; synthetic HTTP only. Captured from actual probe tool output."
+}

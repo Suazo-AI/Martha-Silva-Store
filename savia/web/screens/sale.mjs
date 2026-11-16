@@ -2,13 +2,22 @@
 import * as api from '../api.mjs';
 import { confirmAction } from '../confirm.mjs';
 import { formatMoney, lineTotal } from '../money.mjs';
+import {
+  actorScope,
+  clearPending,
+  matchesReceipt,
+  persistPending,
+  readPending,
+  sameGuid,
+  sameScope,
+  validResponse,
+} from '../sale-recovery.mjs';
 import { attachScanField, serialQueue } from '../scan.mjs';
 import { clearMessage, device, flash, h, openModal, replace, showError } from '../ui.mjs';
 import { paymentsPanel } from './payments.mjs';
 import { supervisorApproval } from './return.mjs';
 import {
   addToTicket,
-  alignSellers,
   catalogMatches,
   discountedLines,
   freeSellers,
@@ -23,102 +32,252 @@ import {
 import { receiptContent } from './sale-view.mjs';
 import { openTillPanel, syncTill } from './till-open.mjs';
 
+const mounts = new WeakMap();
+
 export default {
   title: 'Venta',
   async mount(root, ctx) {
-    let rate = null;
-    try {
-      rate = await api.exchangeRate();
-    } catch (error) {
-      if (error.status !== 404) throw error;
-    }
+    const actor = ctx.me;
+    const mountId = {};
+    mounts.set(root, mountId);
+    const token = api.getToken();
+    const scope = actorScope(actor);
+    let alive = true;
+    const current = () =>
+      alive &&
+      ctx.isCurrent?.() !== false &&
+      mounts.get(root) === mountId &&
+      ctx.me === actor &&
+      api.getToken() === token &&
+      sameScope(scope, actorScope(ctx.me));
+    const tillCtx = Object.create(ctx);
+    tillCtx.isCurrent = current;
     let detach = () => {};
-    const handle = { handleScan: () => ctx.notify('Abra la caja antes de vender.'), unmount: () => detach() };
-
-    const renderOpen = async () => {
+    const handle = {
+      handleScan: () => {},
+      unmount: () => {
+        alive = false;
+        detach();
+      },
+    };
+    const recovery = record => {
       detach();
-      replace(root, h('div', { class: 'page' }, await openTillPanel(ctx, renderSale)));
+      handle.handleScan = () => {};
+      const message = h('p', { role: 'alert' }, 'Venta pendiente. No vuelva a cobrar. Consulte el recibo o avise a la gerente.');
+      const lookup = h(
+        'button',
+        {
+          type: 'button',
+          id: 'consult-receipt',
+          onclick: async () => {
+            if (!current()) return;
+            lookup.disabled = true;
+            try {
+              const detail = await api.getSale(record.body.saleId);
+              if (!current()) return;
+              if (!matchesReceipt(detail, record)) throw new Error('El recibo no coincide con la caja y cajera originales.');
+              replace(
+                root,
+                h(
+                  'section',
+                  { class: 'panel receipt-paper', role: 'status' },
+                  h('h2', {}, 'Venta registrada'),
+                  ...receiptContent({ ...detail, branchName: ctx.branchName }),
+                  h('p', {}, `Cambio registrado: ${formatMoney(record.changeMinor)}`),
+                  h(
+                    'button',
+                    {
+                      type: 'button',
+                      id: 'finish-recovery',
+                      onclick: async () => {
+                        if (!current()) return;
+                        try {
+                          clearPending(record);
+                          await startSale();
+                        } catch (error) {
+                          showError(message, error);
+                          root.append(message);
+                        }
+                      },
+                    },
+                    'Continuar',
+                  ),
+                ),
+              );
+            } catch (error) {
+              if (current())
+                showError(
+                  message,
+                  new Error('La venta sigue pendiente. Avise a la gerente con el identificador; no vuelva a cobrar.'),
+                  `Venta ${record.body.saleId}. ${error.message}`,
+                );
+            } finally {
+              if (current()) lookup.disabled = false;
+            }
+          },
+        },
+        'Consultar recibo',
+      );
+      replace(
+        root,
+        h(
+          'section',
+          { class: 'panel' },
+          h('h2', {}, 'Venta pendiente'),
+          message,
+          h('p', { class: 'num' }, `Venta ${record.body.saleId} · Caja original ${record.body.tillId}`),
+          sameScope(scope, record.scope)
+            ? lookup
+            : h(
+                'p',
+                { role: 'alert' },
+                'Registro de otra cuenta, sucursal o dispositivo. Ingrese con la cuenta original y avise a la gerente.',
+              ),
+        ),
+      );
+    };
+    let pending;
+    try {
+      pending = readPending();
+    } catch {
+      replace(
+        root,
+        h(
+          'p',
+          { class: 'error', role: 'alert' },
+          'No se puede verificar el almacenamiento de ventas. Avise a la gerente; no vuelva a cobrar.',
+        ),
+      );
+      return handle;
+    }
+    let rate = null;
+    const renderOpen = async () => {
+      if (!current()) return;
+      detach();
+      const panel = await openTillPanel(tillCtx, renderSale);
+      if (!current()) return;
+      replace(root, h('div', { class: 'page' }, panel));
       root.querySelector('#till-opening')?.focus();
     };
 
     const renderSale = () => {
+      if (!current()) return;
       detach();
       const till = ctx.till.get();
       let lines = [];
       let catalog = [];
       let sellers = [];
       // One to three sellers per ticket. The first is the default for every garment; "Venta compartida" (supervision) adds more.
-      let ticketSellers = [];
+      let ticketSellers = [''];
+      let busy = false;
+      let sellersReady = false;
+      const sellersValid = () =>
+        sellersReady &&
+        ticketSellers.length > 0 &&
+        ticketSellers.every(id => sellers.some(s => sameGuid(s.sellerId, id))) &&
+        lines.every(l => ticketSellers.some(id => sameGuid(id, l.sellerId)));
+      const locked = () => busy || !current();
+      const lock = value => {
+        busy = value;
+        root.querySelectorAll('input,select,button,textarea').forEach(el => {
+          el.disabled = value;
+        });
+        if (!value) drawBalance();
+      };
       const sellerPanel = h('div', { id: 'seller-panel', class: 'seller-panel' });
       const setSellers = (next, replaced = null) => {
+        if (locked()) return;
+        const previous = ticketSellers;
         ticketSellers = next;
-        lines = alignSellers(lines, ticketSellers, replaced);
-        saleIds.reset();
+        lines = lines.map(line => ({
+          ...line,
+          sellerId:
+            replaced && (line.sellerId === replaced.from || sameGuid(line.sellerId, replaced.from))
+              ? replaced.to
+              : previous.some(id => sameGuid(id, line.sellerId)) && !next.some(id => sameGuid(id, line.sellerId))
+                ? next[0]
+                : line.sellerId,
+        }));
         drawSellers();
         drawTicket();
       };
-      const drawSellers = () =>
+      const drawSellers = () => {
         replace(
           sellerPanel,
           ticketSellers.map((sellerId, index) =>
             h(
-              'label',
-              { class: 'seller-slot' },
-              index === 0 ? 'Vendedor' : `Vendedor ${index + 1}`,
+              index === 0 ? 'div' : 'details',
+              {},
+              index === 0 ? null : h('summary', {}, `Vendedor ${index + 1}`),
               h(
-                'select',
-                {
-                  id: index === 0 ? 'sale-seller' : `sale-seller-${index + 1}`,
-                  class: 'sale-seller',
-                  'aria-label': index === 0 ? 'Vendedor' : `Vendedor ${index + 1}`,
-                  onchange: e =>
-                    setSellers(
-                      ticketSellers.map((id, i) => (i === index ? e.target.value : id)),
-                      { from: sellerId, to: e.target.value },
-                    ),
-                },
-                freeSellers(sellers, ticketSellers, sellerId).map(s =>
-                  h('option', { value: s.sellerId, selected: s.sellerId === sellerId }, s.name),
+                'label',
+                { class: 'seller-slot' },
+                index === 0 ? 'Vendedor' : `Vendedor ${index + 1}`,
+                h(
+                  'select',
+                  {
+                    id: index === 0 ? 'sale-seller' : `sale-seller-${index + 1}`,
+                    class: 'sale-seller',
+                    'aria-label': index === 0 ? 'Vendedor' : `Vendedor ${index + 1}`,
+                    onchange: e =>
+                      setSellers(
+                        ticketSellers.map((id, i) => (i === index ? e.target.value : id)),
+                        { from: sellerId, to: e.target.value },
+                      ),
+                  },
+                  h('option', { value: '', selected: !sellers.some(s => sameGuid(s.sellerId, sellerId)) }, 'Elija vendedor'),
+                  freeSellers(sellers, ticketSellers, sellerId).map(s =>
+                    h('option', { value: s.sellerId, selected: s.sellerId === sellerId }, s.name),
+                  ),
                 ),
+                index > 0
+                  ? h(
+                      'button',
+                      {
+                        type: 'button',
+                        class: 'remove-seller',
+                        'aria-label': `Quitar vendedor ${index + 1}`,
+                        onclick: () => setSellers(ticketSellers.filter((_, i) => i !== index)),
+                      },
+                      'Quitar',
+                    )
+                  : null,
               ),
-              index > 0
-                ? h(
-                    'button',
-                    {
-                      type: 'button',
-                      class: 'remove-seller',
-                      'aria-label': `Quitar vendedor ${index + 1}`,
-                      onclick: () => setSellers(ticketSellers.filter((_, i) => i !== index)),
-                    },
-                    'Quitar',
-                  )
-                : null,
             ),
           ),
           ctx.isApprover && ticketSellers.length < MAX_SELLERS && freeSellers(sellers, ticketSellers).length
             ? h(
-                'button',
-                {
-                  type: 'button',
-                  id: 'shared-sale',
-                  onclick: () => setSellers([...ticketSellers, freeSellers(sellers, ticketSellers)[0].sellerId]),
-                },
-                ticketSellers.length === 1 ? 'Venta compartida' : 'Agregar vendedor',
+                'details',
+                {},
+                h('summary', {}, 'Compartir venta'),
+                h(
+                  'button',
+                  {
+                    type: 'button',
+                    id: 'shared-sale',
+                    onclick: () => setSellers([...ticketSellers, '']),
+                  },
+                  ticketSellers.length === 1 ? 'Venta compartida' : 'Agregar vendedor',
+                ),
               )
             : null,
         );
+      };
       api
         .sellers()
         .then(rows => {
+          if (!current()) return;
           sellers = rows;
-          ticketSellers = rows.length ? [rows[0].sellerId] : [];
+          sellersReady = true;
+          ticketSellers = [rows.find(s => sameGuid(s.sellerId, actor.staffId))?.sellerId ?? ''];
           drawSellers();
+          drawBalance();
         })
         .catch(error => showError(status, error));
       let ticketPercent = 0;
       const effectiveLines = () => discountedLines(lines, ticketPercent);
       const effectiveTotal = () => ticketTotal(effectiveLines());
-      const saleIds = api.retryIds('saleId'); // the same ticket keeps its saleId, so a retry is safe
+      // Pending writes use the durable final request; mutable drafts have no retry key.
 
       const field = h('input', {
         id: 'sale-search',
@@ -144,7 +303,6 @@ export default {
         branchId: ctx.me.branchId,
         getTotal: effectiveTotal,
         onChange: () => {
-          saleIds.reset();
           drawBalance();
         },
       });
@@ -250,32 +408,37 @@ export default {
                       ),
                     ),
                     h(
-                      'label',
-                      { class: 'line-discount' },
-                      'Descuento de línea (%)',
-                      h('input', {
-                        id: `discount-${line.ticketKey ?? line.itemId}`,
-                        'aria-label': `Descuento de ${line.name} (%)`,
-                        type: 'number',
-                        min: 0,
-                        max: 100,
-                        value: line.discountPercent ?? 0,
-                        onchange: e => {
-                          const value = Number(e.target.value);
-                          if (value < 0 || value + ticketPercent > 100 || !Number.isFinite(value)) {
-                            e.target.value = line.discountPercent ?? 0;
-                            status.textContent = 'El descuento combinado debe estar entre 0 y 100 %.';
-                            return;
-                          }
-                          update(
-                            lines.map(l =>
-                              (l.ticketKey ?? l.itemId) === (line.ticketKey ?? line.itemId)
-                                ? { ...l, discountAmountMinor: undefined, discountPercent: value }
-                                : l,
-                            ),
-                          );
-                        },
-                      }),
+                      'details',
+                      {},
+                      h('summary', {}, 'Descuento de línea'),
+                      h(
+                        'label',
+                        { class: 'line-discount' },
+                        'Descuento de línea (%)',
+                        h('input', {
+                          id: `discount-${line.ticketKey ?? line.itemId}`,
+                          'aria-label': `Descuento de ${line.name} (%)`,
+                          type: 'number',
+                          min: 0,
+                          max: 100,
+                          value: line.discountPercent ?? 0,
+                          onchange: e => {
+                            const value = Number(e.target.value);
+                            if (value < 0 || value + ticketPercent > 100 || !Number.isFinite(value)) {
+                              e.target.value = line.discountPercent ?? 0;
+                              status.textContent = 'El descuento combinado debe estar entre 0 y 100 %.';
+                              return;
+                            }
+                            update(
+                              lines.map(l =>
+                                (l.ticketKey ?? l.itemId) === (line.ticketKey ?? line.itemId)
+                                  ? { ...l, discountAmountMinor: undefined, discountPercent: value }
+                                  : l,
+                              ),
+                            );
+                          },
+                        }),
+                      ),
                     ),
                   ),
                 ),
@@ -284,6 +447,7 @@ export default {
         total.textContent = formatMoney(effectiveTotal());
         usdTotal.textContent = rate ? formatMoney(Math.round(effectiveTotal() / rate.rate), 'USD') : '';
         drawBalance();
+        if (busy) lock(true);
       };
 
       const drawBalance = () => {
@@ -293,7 +457,7 @@ export default {
           const draft = payments.draft();
           balance.textContent = formatMoney(draft.changeMinor);
           balance.classList.remove('short');
-          pay.disabled = !lines.length;
+          pay.disabled = locked() || !sellersValid() || !lines.length;
           payMessage.textContent = '';
         } catch (error) {
           balance.textContent = '—';
@@ -304,6 +468,7 @@ export default {
 
       let physicalConfirmed = false;
       const update = async next => {
+        if (locked()) return;
         const units = (rows, itemId) => rows.filter(l => l.itemId === itemId).reduce((sum, l) => sum + l.quantity, 0);
         if (
           next.some(
@@ -322,12 +487,17 @@ export default {
           }
           physicalConfirmed = true;
         }
-        if (next !== lines) saleIds.reset();
+        if (locked()) return;
         lines = next;
         drawTicket();
       };
 
       const add = async row => {
+        if (locked()) return;
+        if (!sellersValid()) {
+          status.textContent = 'Elija vendedores activos antes de agregar prendas.';
+          return;
+        }
         const current = catalog.flatMap(p => p.variants).find(v => v.itemId === row.itemId);
         if (!current) {
           status.textContent = 'Vuelva a cargar el catálogo para consultar la prenda.';
@@ -358,6 +528,7 @@ export default {
         h('label', {}, 'Talla', sizeFilter),
       );
       const choose = async product => {
+        if (locked()) return;
         const variants = product.variants.filter(v => !sizeFilter.value || v.sizeCode === sizeFilter.value);
         if (variants.length === 1) {
           await add(variants[0]);
@@ -422,7 +593,9 @@ export default {
       };
       const loadCatalog = async () => {
         try {
-          catalog = await api.catalogItems();
+          const loaded = await api.catalogItems();
+          if (!current()) return;
+          catalog = loaded;
           const selectedType = typeFilter.value,
             selectedSize = sizeFilter.value;
           replace(
@@ -451,9 +624,11 @@ export default {
       };
 
       const find = async text => {
+        if (locked()) return;
         clearMessage(status);
         try {
           const found = await api.lookup(text);
+          if (locked()) return;
           if (found.length === 1) {
             await add(found[0]);
             field.value = '';
@@ -492,8 +667,11 @@ export default {
           showError(payMessage, error);
           return;
         }
-        const { saleId } = saleIds([effectiveLines(), draft.tenders, payments.customerId]);
-        pay.disabled = true;
+        if (locked() || !sellersValid() || !lines.length) return;
+        lock(true);
+        let record = null;
+        let sent = false;
+        let confirmed = false;
         clearMessage(payMessage);
         let approvalToken;
         let postedLines = effectiveLines();
@@ -508,7 +686,7 @@ export default {
                 'La cantidad supera la existencia del sistema. Se registrará una excepción de inventario al cobrar. Confirme que la prenda está en la tienda.',
               ))
             ) {
-              drawBalance();
+              lock(false);
               return;
             }
             physicalConfirmed = true;
@@ -516,7 +694,7 @@ export default {
           if (needsDiscountApproval(effectiveLines()) && !ctx.isApprover) {
             const approval = await supervisorApproval('descuento', postedLines);
             if (!approval) {
-              drawBalance();
+              lock(false);
               return;
             }
             approvalToken = approval.token;
@@ -531,16 +709,30 @@ export default {
               draft = payments.draft();
             }
           }
-          if (needsDiscountApproval(postedLines) && !discountReason) throw new Error('Indique el motivo del descuento.');
-          const response = await api.postSale(
-            {
-              ...saleRequest({ saleId, tillId: till.tillId, lines: postedLines, tenders: draft.tenders, customerId: payments.customerId }),
-              discountReason: discountReason || null,
-              stockExceptionNote: physicalConfirmed ? 'El sistema decía 0 y había existencia física. Confirmado en tienda.' : null,
-            },
-            approvalToken,
-          );
+          if (!current()) return;
+          if (needsDiscountApproval(postedLines) && !discountReason) {
+            advanced.open = true;
+            lock(false);
+            discountReasonInput.focus();
+            throw new Error('Indique el motivo del descuento.');
+          }
+          draft = payments.draft();
+          const saleId = api.uuid();
+          const body = {
+            ...saleRequest({ saleId, tillId: till.tillId, lines: postedLines, tenders: draft.tenders, customerId: payments.customerId }),
+            discountReason: discountReason || null,
+            stockExceptionNote: physicalConfirmed ? 'El sistema decía 0 y había existencia física. Confirmado en tienda.' : null,
+          };
+          record = persistPending({ version: 1, scope, body, changeMinor: draft.changeMinor });
+          if (!current()) return;
+          sent = true;
+          const response = await api.postSale(record.body, approvalToken);
+          if (!current()) return;
+          if (!validResponse(response, saleId)) throw new Error('La respuesta no confirma la venta.');
+          confirmed = true;
           showReceipt(response, draft.changeMinor);
+          clearPending(record);
+          lock(false);
           lines = [];
           physicalConfirmed = false;
           discountReasonInput.value = '';
@@ -548,12 +740,12 @@ export default {
           drawSellers();
           ticketPercent = 0;
           discountInput.value = 0;
-          saleIds.reset();
           payments.reset();
           drawTicket();
           await loadCatalog();
           try {
             const detail = await api.getSale(response.saleId);
+            if (!current()) return;
             replace(
               receipt,
               h('h2', {}, 'Venta registrada'),
@@ -575,20 +767,44 @@ export default {
             );
           }
         } catch (error) {
-          const next =
-            {
-              'stock.insufficient': 'Confirme la existencia física y vuelva a cobrar.',
-              'sale.price_changed': 'El precio cambió. Quite la prenda y vuelva a escanearla.',
-              'cash.till_not_open': 'Abra la caja de nuevo.',
-              'cash.till_mismatch': 'Abra la caja de nuevo.',
-            }[error.code] ?? (error.network ? 'Pulse Cobrar otra vez: la venta no se duplica.' : 'Revise el ticket y vuelva a intentar.');
-          drawBalance();
-          if (error.code === 'stock.insufficient') {
-            await loadCatalog();
-            physicalConfirmed = false;
+          if (!current()) return;
+          if (confirmed) {
+            showError(payMessage, new Error('Venta registrada. Consulte el recibo antes de continuar.'), error.message);
+            return;
           }
-          showError(payMessage, error, next);
-          if (error.code === 'cash.till_not_open' || error.code === 'cash.till_mismatch') ctx.till.set(null);
+          // Only an explicit first-response domain rejection can release this attempt.
+          const rejected =
+            sent &&
+            error.status >= 400 &&
+            error.status < 500 &&
+            error.code &&
+            !error.code.startsWith('http.') &&
+            !['sale.id_reused'].includes(error.code);
+          if (record && sent && !rejected) {
+            recovery(record);
+            return;
+          }
+          if (record && rejected) {
+            try {
+              clearPending(record);
+            } catch {
+              recovery(record);
+              return;
+            }
+          }
+          // A failed write/readback can leave a marker. Never unlock over it.
+          try {
+            const saved = readPending();
+            if (saved) {
+              recovery(saved);
+              return;
+            }
+          } catch {
+            showError(payMessage, new Error('No se puede verificar el almacenamiento. Avise a la gerente.'));
+            return;
+          }
+          lock(false);
+          showError(payMessage, error, 'Revise los datos antes de cobrar.');
         } finally {
           if (approvalToken) {
             try {
@@ -649,7 +865,6 @@ export default {
           }
           ticketPercent = value;
           lines = lines.map(line => ({ ...line, discountAmountMinor: undefined }));
-          saleIds.reset();
           drawTicket();
         },
       });
@@ -658,13 +873,13 @@ export default {
         return saved?.tillId === till.tillId ? saved.tickets : [];
       };
       const clearTicket = () => {
+        if (locked()) return;
         lines = [];
         ticketSellers = ticketSellers.slice(0, 1);
         drawSellers();
         physicalConfirmed = false;
         ticketPercent = 0;
         discountInput.value = 0;
-        saleIds.reset();
         payments.reset();
         drawTicket();
       };
@@ -677,6 +892,7 @@ export default {
             type: 'button',
             id: 'park-ticket',
             onclick: () => {
+              if (locked()) return;
               if (!lines.length) {
                 status.textContent = 'Agregue una prenda antes de guardar.';
                 return;
@@ -703,6 +919,7 @@ export default {
             type: 'button',
             id: 'saved-tickets',
             onclick: () => {
+              if (locked()) return;
               if (lines.length) {
                 status.textContent = 'Guarde o vacíe el ticket actual antes de restaurar otro.';
                 return;
@@ -721,17 +938,24 @@ export default {
                             onclick: async () => {
                               try {
                                 await loadCatalog();
-                                lines = structuredClone(saved.lines);
+                                if (locked()) {
+                                  close();
+                                  return;
+                                }
+                                lines = structuredClone(saved.lines).map(line => ({
+                                  ...line,
+                                  sellerId: sellers.find(s => sameGuid(s.sellerId, line.sellerId))?.sellerId ?? line.sellerId,
+                                }));
                                 ticketPercent = saved.ticketPercent;
                                 discountInput.value = ticketPercent;
                                 ticketSellers = (saved.sellers ?? [...new Set(lines.map(l => l.sellerId).filter(Boolean))])
-                                  .filter(id => sellers.some(s => s.sellerId === id))
+                                  .map(id => sellers.find(s => sameGuid(s.sellerId, id))?.sellerId ?? id)
                                   .slice(0, MAX_SELLERS);
-                                if (!ticketSellers.length && sellers.length) ticketSellers = [sellers[0].sellerId];
-                                lines = alignSellers(lines, ticketSellers);
+                                if (!ticketSellers.length) ticketSellers = [''];
+                                ticketSellers = [...new Set(lines.map(l => l.sellerId ?? '').concat(ticketSellers))].slice(0, MAX_SELLERS);
+                                if (!sellersValid()) status.textContent = 'Reasigne los vendedores que ya no están activos.';
                                 drawSellers();
                                 await payments.restore(saved.payment);
-                                saleIds.reset();
                                 drawTicket();
                                 device.set('parkedTickets', { tillId: till.tillId, tickets: parked().filter(t => t.id !== saved.id) });
                                 close();
@@ -765,6 +989,18 @@ export default {
         ),
       );
 
+      const advanced = h(
+        'details',
+        { id: 'sale-advanced' },
+        h('summary', {}, 'Opciones de venta'),
+        ticketActions,
+        h('label', { class: 'ticket-discount' }, 'Descuento solicitado (%)', discountInput),
+        ctx.isApprover
+          ? h('label', {}, 'Motivo del descuento', discountReasonInput)
+          : h('small', {}, 'Todo descuento requiere aprobación de la gerente.'),
+      );
+      // Native disclosure keeps its focus; the scanner reclaims focus only from non-controls.
+      detach = () => {};
       replace(
         root,
         h(
@@ -785,15 +1021,12 @@ export default {
             'aside',
             { class: 'ticket', 'aria-labelledby': 'ticket-heading' },
             h('h2', { id: 'ticket-heading' }, 'Ticket'),
-            ticketActions,
+            advanced,
             ticketLines,
             h(
               'div',
               { class: 'checkout' },
-              h('label', { class: 'ticket-discount' }, 'Descuento solicitado (%)', discountInput),
-              ctx.isApprover
-                ? h('label', {}, 'Motivo del descuento', discountReasonInput)
-                : h('small', {}, 'Todo descuento requiere aprobación de la gerente.'),
+
               h('div', { class: 'total' }, h('span', {}, 'Total'), total),
               usdTotal,
               payments.node,
@@ -806,14 +1039,36 @@ export default {
         ),
       );
       field.setAttribute('aria-describedby', 'sale-search-help');
-      detach = attachScanField(field, code => handle.handleScan(code));
+      const stopScan = attachScanField(field, code => handle.handleScan(code), { keepFocus: false });
+      const keepDisclosureFocus = event => {
+        if (event.target.closest?.('summary,button')) event.stopPropagation();
+      };
+      root.addEventListener('click', keepDisclosureFocus);
+      detach = () => {
+        stopScan();
+        root.removeEventListener('click', keepDisclosureFocus);
+      };
       drawTicket();
       loadCatalog();
     };
 
-    const { till } = await syncTill(ctx);
-    if (till?.tillId) renderSale();
-    else await renderOpen();
+    const startSale = async () => {
+      try {
+        rate = await api.exchangeRate();
+      } catch (error) {
+        if (error.status !== 404) throw error;
+      }
+      if (!current()) return;
+      const { till } = await syncTill(tillCtx);
+      if (!current()) return;
+      if (till?.tillId) renderSale();
+      else await renderOpen();
+    };
+    if (pending) {
+      recovery(pending);
+      return handle;
+    }
+    await startSale();
     return handle;
   },
 };

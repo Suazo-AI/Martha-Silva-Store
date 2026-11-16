@@ -10,6 +10,9 @@ body { padding-top: var(--demo-height, 104px) }
 #demo-banner label { display: flex; align-items: center; gap: 6px; font-size: 0 }
 #demo-banner select, #demo-banner button { font-size: 13px; min-height: 44px; padding: 4px 8px }
 #demo-banner [role=alert] { flex-basis: 100%; color: var(--danger) }
+#demo-entry { width: 100%; max-width: 520px; margin-inline: auto }
+#demo-entry button { width: 100%; white-space: normal }
+#demo-current-role:empty { display: none }
 @media (max-width: 500px) {
   #demo-banner strong { flex-basis: 100%; text-align: center }
 }

@@ -1,0 +1,15 @@
+✓ Recording started: docs\savia-ux-20261116\sale\before-desktop.webm (10 fps)
+
+✓ Recording saved to docs\savia-ux-20261116\sale\before-desktop.webm (10 fps)
+
+✓ Recording started: docs\savia-ux-20261116\sale\before-mobile.webm (10 fps)
+
+✓ Recording saved to docs\savia-ux-20261116\sale\before-mobile.webm (10 fps)
+
+✓ Recording started: docs\savia-ux-20261116\sale\after-desktop.webm (10 fps)
+
+✓ Recording saved to docs\savia-ux-20261116\sale\after-desktop.webm (10 fps)
+
+✓ Recording started: docs\savia-ux-20261116\sale\after-mobile.webm (10 fps)
+
+✓ Recording saved to docs\savia-ux-20261116\sale\after-mobile.webm (10 fps)

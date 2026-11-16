@@ -1,0 +1,171 @@
+{
+  "route": "T3 preview (session precedence)",
+  "fixture": "local fictional demo",
+  "checks": [
+    {
+      "failures": [],
+      "groups": [
+        "Mercadería",
+        "Consultas",
+        "Administración"
+      ],
+      "role": "OWNER",
+      "routes": [
+        "venta",
+        "caja",
+        "inventario",
+        "historial",
+        "recepcion",
+        "calidad",
+        "precios",
+        "importar",
+        "clientes",
+        "comisiones",
+        "reporte",
+        "aprobaciones",
+        "excepciones",
+        "ajustes"
+      ],
+      "width": 390
+    },
+    {
+      "failures": [],
+      "groups": [
+        "Mercadería",
+        "Consultas",
+        "Administración"
+      ],
+      "role": "MANAGER",
+      "routes": [
+        "venta",
+        "caja",
+        "inventario",
+        "historial",
+        "recepcion",
+        "calidad",
+        "clientes",
+        "comisiones",
+        "reporte",
+        "excepciones",
+        "ajustes"
+      ],
+      "width": 390
+    },
+    {
+      "failures": [],
+      "groups": [
+        "Consultas",
+        "Administración"
+      ],
+      "role": "SELLER",
+      "routes": [
+        "comisiones",
+        "reporte",
+        "ajustes"
+      ],
+      "width": 390
+    },
+    {
+      "failures": [],
+      "groups": [
+        "Mercadería",
+        "Administración"
+      ],
+      "role": "INVENTORY",
+      "routes": [
+        "inventario",
+        "recepcion",
+        "calidad",
+        "ajustes"
+      ],
+      "width": 390
+    },
+    {
+      "failures": [],
+      "groups": [
+        "Mercadería",
+        "Consultas",
+        "Administración"
+      ],
+      "role": "OWNER",
+      "routes": [
+        "venta",
+        "caja",
+        "inventario",
+        "historial",
+        "recepcion",
+        "calidad",
+        "precios",
+        "importar",
+        "clientes",
+        "comisiones",
+        "reporte",
+        "aprobaciones",
+        "excepciones",
+        "ajustes"
+      ],
+      "width": 1440
+    },
+    {
+      "failures": [
+        "inventario:active",
+        "historial:active",
+        "recepcion:active",
+        "calidad:active",
+        "clientes:active",
+        "comisiones:active",
+        "excepciones:active",
+        "ajustes:active"
+      ],
+      "groups": [
+        "Mercadería",
+        "Consultas",
+        "Administración"
+      ],
+      "role": "MANAGER",
+      "routes": [
+        "venta",
+        "caja",
+        "inventario",
+        "historial",
+        "recepcion",
+        "calidad",
+        "clientes",
+        "comisiones",
+        "reporte",
+        "excepciones",
+        "ajustes"
+      ],
+      "width": 1440
+    },
+    {
+      "failures": [],
+      "groups": [
+        "Consultas",
+        "Administración"
+      ],
+      "role": "SELLER",
+      "routes": [
+        "comisiones",
+        "reporte",
+        "ajustes"
+      ],
+      "width": 1440
+    },
+    {
+      "failures": [],
+      "groups": [
+        "Mercadería",
+        "Administración"
+      ],
+      "role": "INVENTORY",
+      "routes": [
+        "inventario",
+        "recepcion",
+        "calidad",
+        "ajustes"
+      ],
+      "width": 1440
+    }
+  ]
+}

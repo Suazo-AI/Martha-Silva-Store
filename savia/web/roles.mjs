@@ -56,3 +56,16 @@ export const roleSummary = roles =>
     .map(code => ROLES[code].can);
 /** Where a user lands after signing in. */
 export const landing = roles => (roles.includes('SELLER') ? 'comisiones' : roles.includes('INVENTORY') ? 'recepcion' : 'venta');
+
+/** Work groups change presentation only; SCREENS remains the permission authority. */
+const NAVIGATION = [
+  { routes: ['venta', 'caja', 'inventario', 'historial'] },
+  { label: 'Mercadería', routes: ['recepcion', 'calidad', 'precios', 'importar'] },
+  { label: 'Consultas', routes: ['clientes', 'comisiones', 'reporte'] },
+  { label: 'Administración', routes: ['aprobaciones', 'excepciones', 'ajustes'] },
+];
+export const navigation = roles =>
+  NAVIGATION.map(group => ({
+    label: group.label,
+    screens: group.routes.map(route => SCREENS.find(s => s.route === route)).filter(s => s.label && canAccess(s.route, roles)),
+  })).filter(group => group.screens.length);

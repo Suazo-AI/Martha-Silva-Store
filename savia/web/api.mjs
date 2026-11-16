@@ -118,7 +118,8 @@ async function send(
   }
   if (!response.ok) {
     const error = await toError(response);
-    if (response.status === 401 && path !== '/auth/login' && notifyUnauthorized) onUnauthorized(error);
+    // A response from a retired session cannot invalidate the account that signed in afterward.
+    if (response.status === 401 && path !== '/auth/login' && notifyUnauthorized && token === getToken()) onUnauthorized(error);
     throw error;
   }
   return response;
@@ -140,7 +141,7 @@ const path = (strings, ...values) => strings.reduce((out, s, i) => out + s + (i 
 
 // ---- auth
 export const login = (loginName, password) => request('POST', '/auth/login', { loginName, password });
-export const logout = () => request('POST', '/auth/logout');
+export const logout = () => request('POST', '/auth/logout', undefined, { notifyUnauthorized: false });
 export const me = () => request('GET', '/me');
 
 // ---- catalog

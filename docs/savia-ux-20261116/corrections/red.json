@@ -1,0 +1,78 @@
+{
+  "checks": [
+    {
+      "name": "recovery-register-hold-shell-mounts-recovery",
+      "pass": false,
+      "observed": false
+    },
+    {
+      "name": "recovery-register-fail-shell-mounts-recovery",
+      "pass": false,
+      "observed": false
+    },
+    {
+      "name": "recovery-summary-hold-shell-mounts-recovery",
+      "pass": false,
+      "observed": false
+    },
+    {
+      "name": "recovery-summary-fail-shell-mounts-recovery",
+      "pass": false,
+      "observed": false
+    },
+    {
+      "name": "navigation-retired-mount-cannot-overwrite",
+      "pass": false,
+      "observed": false
+    },
+    {
+      "name": "navigation-current-scanner-handle",
+      "pass": false,
+      "observed": false
+    },
+    {
+      "name": "logout-retired-mount-cannot-overwrite",
+      "pass": false,
+      "observed": false
+    },
+    {
+      "name": "logout-keeps-login-and-token-cleared",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "account-retired-mount-cannot-overwrite",
+      "pass": false,
+      "observed": false
+    },
+    {
+      "name": "account-current-scanner-handle",
+      "pass": false,
+      "observed": false
+    },
+    {
+      "name": "reset-cancel-preserves-pending-and-all-storage",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "reset-clears-only-demo-pending",
+      "pass": false,
+      "observed": false
+    },
+    {
+      "name": "reset-role-reentry-is-usable",
+      "pass": false,
+      "observed": false
+    },
+    {
+      "name": "reset-preserves-real-origin-quarantine-byte-for-byte",
+      "pass": true,
+      "observed": true
+    }
+  ],
+  "fictional_only": true,
+  "passed": false,
+  "browser_closed": true,
+  "servers_closed": 2
+}
