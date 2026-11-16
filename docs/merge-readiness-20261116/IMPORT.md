@@ -15,3 +15,7 @@ Two public evidence derivatives are declared explicitly:
 - `pr6/main-protection.json`: doubled carriage returns were normalized to LF only. Original RAW SHA256: `f5a53219609f56c58afea1c6e3489f17d6b8ebe7f3d079bf3bcceafce4ce05ad`; public LF SHA256: `80c4cdba5ef3585e63d5ff7a27522a82e71f425c5e7f774070d1fe7e1b55bd88`. Its original bytes remain in `private-exports/merge-readiness-20261116/import-originals/pr6/main-protection.json`.
 
 The other ten imported worker evidence files remain byte-identical to their sources. `PLAN.md`, this import map and `OUTCOMES.json` are primary-owned. No product, pipeline or branch-protection setting changed.
+
+## Independent merge-route review
+
+`astra-merge-route.md` was copied from the reviewer's exact owned report path in `t3-ee501791-40773bf60626b84a`. RAW SHA256 `4fb31b91e50fcfc0aed3c6a3dcba3b25c2062c3e7e681303033f39eedfbb2942` is identical before and after import. No other worker file was copied. The report records source-only advice at `670d4a8`; the primary's later source preflight, gate correction and prepared runtime packet are separate evidence.

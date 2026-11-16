@@ -51,5 +51,71 @@
       "privateArchive": "private-exports/merge-readiness-20261116/worker-raw/pr5/tony-dom.log",
       "public": "excluded: raw logs prohibited by tools/progress.py"
     }
-  ]
+  ],
+  "primaryPreflight": {
+    "sourceBeforeCorrection": "670d4a8e6fab650ef1ee2b0fba64d7e810b7dbe3",
+    "metadata": {
+      "repository": "Suazo-AI/Martha-Silva-Store",
+      "visibility": "public",
+      "ownerType": "User",
+      "defaultBranch": "main",
+      "secretNames": [],
+      "variableNames": []
+    },
+    "runtime": "NOT RUN",
+    "prCreation": "NOT RUN",
+    "judgeReportRawSha256": "4fb31b91e50fcfc0aed3c6a3dcba3b25c2062c3e7e681303033f39eedfbb2942",
+    "bootstrapRed": {
+      "methodCount": 1,
+      "failed": 1,
+      "exit": 1,
+      "workflowChildExit": 2,
+      "cause": "main has no trusted tools/bugproof scripts"
+    },
+    "bootstrapGreen": {
+      "tests": 14,
+      "exit": 0
+    },
+    "yamlParses": {
+      "files": [
+        "bug-proof.yml",
+        "savia-v2.yml",
+        "savia-azure.yml"
+      ],
+      "passed": 3,
+      "exit": 0
+    },
+    "sqlJobTimeoutsMinutes": [
+      25,
+      20,
+      45,
+      30
+    ],
+    "prEnvelopes": {
+      "expectedJobMinutes": 225,
+      "withConditionalBugComment": 230,
+      "notElapsedMinutes": true
+    },
+    "cleanup": "legacy workflows require readback; v2/Azure individual absence NOT PROVEN, hosted-only boundary disclosed for authorization",
+    "finalIndependentReview": "PENDING",
+    "repositoryCheck": {
+      "command": "python tests/check.py",
+      "exit": 1,
+      "seconds": 131.813,
+      "cause": "WinError 1314: symlink privilege missing; three asset-audit fixture errors",
+      "log": "private-exports/merge-readiness-20261116/bootstrap/repository-check.log",
+      "rawSha256": "60a7b7f620127a9906b017f9c6ad73c853dae29e397112539974f4dabbb9a146",
+      "workaround": "Verify existing Linux historical-regressions job on exact published SHA; no test weakening or Windows security change",
+      "linuxResult": "PENDING",
+      "owner": "primary"
+    },
+    "progressChecks": {
+      "tests": 23,
+      "testExit": 0,
+      "preservedHashes": 15,
+      "exportExit": 0,
+      "prBodyRequiredSections": 4,
+      "prBodyExit": 0
+    }
+  }
 }

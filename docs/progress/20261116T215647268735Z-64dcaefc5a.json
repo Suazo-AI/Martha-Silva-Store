@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-16T21:56:47.268735+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": ".github/workflows/bug-proof.yml",
+      "change": "M",
+      "git_blob": "3c3321bf0e1978e8ed17ab29cdef3d0f42a0eb15"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/IMPORT.md",
+      "change": "M",
+      "git_blob": "fd6de8e39f65f9de6d531c1d35f757b0f18ecfd1"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/OUTCOMES.json",
+      "change": "M",
+      "git_blob": "96cdb5dd32b7ad57bf04e73618104065514bfbc9"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/PLAN.md",
+      "change": "M",
+      "git_blob": "962ea87db87df576a4653a0ae9013d627b991c23"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/PR-BODY.md",
+      "change": "A",
+      "git_blob": "665d0308e656537550742bb36cb9af1d676e2172"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/RUNTIME.md",
+      "change": "A",
+      "git_blob": "2c33324450b82e672ede97413f90fd9601cc5d7d"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/astra-merge-route.md",
+      "change": "A",
+      "git_blob": "cd80dc6a0b265ef82f31346840c0830246c972b5"
+    },
+    {
+      "path": "tests/bugproof/test_control.py",
+      "change": "M",
+      "git_blob": "c432b3ff3a272e81d31967006b21a7b1096dd208"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

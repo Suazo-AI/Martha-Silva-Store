@@ -2,7 +2,11 @@ import importlib.util
 import json
 import os
 from pathlib import Path
+import shlex
+import subprocess
+import sys
 import tempfile
+import textwrap
 import unittest
 from unittest.mock import patch
 
@@ -13,6 +17,49 @@ spec.loader.exec_module(control)
 
 
 class ControlTests(unittest.TestCase):
+    def workflow_gate(self, labels, body, base_tools):
+        workflow = (ROOT / '.github/workflows/bug-proof.yml').read_text(encoding='utf-8')
+        step = workflow.split('        id: gate\n', 1)[1].split('      - uses:', 1)[0]
+        if "python - <<'PY'" in step:
+            code = textwrap.dedent(step.split("python - <<'PY'\n", 1)[1].rsplit('          PY', 1)[0])
+            command = [sys.executable, '-c', code]
+        else:
+            command = [sys.executable, *shlex.split(step.split('run:', 1)[1].strip())[1:]]
+        with tempfile.TemporaryDirectory() as tmp:
+            directory = Path(tmp)
+            if base_tools:
+                for name in ('github.py', 'prove.py'):
+                    target = directory / 'tools/bugproof' / name
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    target.write_text('')
+            event = directory / 'event.json'
+            event.write_text(json.dumps({'pull_request': {'labels': labels, 'body': body}}))
+            output = directory / 'out'
+            result = subprocess.run(command, cwd=tmp,
+                env={**os.environ, 'GITHUB_EVENT_PATH': str(event), 'GITHUB_OUTPUT': str(output)},
+                capture_output=True, text=True)
+            return result, output.read_text() if output.exists() else ''
+
+    def test_workflow_bootstrap_ordinary_rollup_needs_no_base_scripts(self):
+        result, output = self.workflow_gate([], 'Current product integration', False)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(output, 'required=false\n')
+
+    def test_workflow_bootstrap_cannot_bypass_required_bug_proof(self):
+        for labels, body in [([{'name': 'bug'}], ''), ([], 'Fixes #12'), ([], 'CLOSES #1')]:
+            with self.subTest(labels=labels, body=body):
+                result, _ = self.workflow_gate(labels, body, False)
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn('Base branch lacks trusted bug-proof tooling', result.stdout)
+
+    def test_workflow_gate_preserves_original_requirement(self):
+        for labels, body, required in [([], None, False), ([], 'Fixes #12', True),
+                                      ([{'name': 'bug'}], '', True), ([], 'ordinary change', False)]:
+            with self.subTest(labels=labels, body=body):
+                result, output = self.workflow_gate(labels, body, True)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertEqual(output, 'required=' + str(required).lower() + '\n')
+
     def test_gate_label_and_reference(self):
         with tempfile.TemporaryDirectory() as tmp:
             output = Path(tmp) / 'out'

@@ -21,7 +21,25 @@ jobs:
           persist-credentials: false
       - name: Determine proof requirement
         id: gate
-        run: python tools/bugproof/github.py gate
+        # The first integration can target a base without the new control scripts.
+        # Read event metadata only; never execute PR-head code with comment authority.
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          import re
+
+          pr = json.loads(Path(os.environ['GITHUB_EVENT_PATH']).read_text())['pull_request']
+          required = any(label['name'] == 'bug' for label in pr['labels'])
+          required |= bool(re.search(r'\b(?:fixes|closes)\s+#\d+', pr.get('body') or '', re.I))
+          if required and not all(Path(name).is_file() for name in
+                                  ('tools/bugproof/github.py', 'tools/bugproof/prove.py')):
+              print('::error::Base branch lacks trusted bug-proof tooling; required proof cannot run.')
+              raise SystemExit(1)
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write('required=' + str(required).lower() + '\n')
+          PY
       - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405
         if: steps.gate.outputs.required == 'true'
         with:
