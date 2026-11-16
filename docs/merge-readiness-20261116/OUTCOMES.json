@@ -1,0 +1,55 @@
+{
+  "source": "historical worker runs; independently source-bound by primary, not rerun",
+  "pr5": {
+    "tonyDOM": {
+      "passed": 29,
+      "exit": 0
+    },
+    "prDOM": {
+      "passed": 16,
+      "exit": 0
+    },
+    "predicateTimezone": {
+      "assertions": 27,
+      "exit": 0
+    },
+    "supplemental": "four-season selection and simulated cart price 17500 cents",
+    "exactPatchApplicability": {
+      "diffExit": 0,
+      "applyCheckExit": 1,
+      "failedCurrentPaths": 4,
+      "limit": "not a three-way merge simulation"
+    }
+  },
+  "pr6": {
+    "rejectionControls": 11,
+    "configurationChecks": 12,
+    "authenticPipeline": "NOT RUN"
+  },
+  "excludedRawLogs": [
+    {
+      "worker_file": "pr5/apply-check.log",
+      "originalRawSha256": "21ba3c3ff7018eb93606b6ea51a13b4593bff994499a487e0ab357dfe5a00638",
+      "privateArchive": "private-exports/merge-readiness-20261116/worker-raw/pr5/apply-check.log",
+      "public": "excluded: raw logs prohibited by tools/progress.py"
+    },
+    {
+      "worker_file": "pr5/pr5-dom.log",
+      "originalRawSha256": "e82d2901548c09e4deba11ac14bdb5a7e83c783ef20ff26b759173c6d428b7aa",
+      "privateArchive": "private-exports/merge-readiness-20261116/worker-raw/pr5/pr5-dom.log",
+      "public": "excluded: raw logs prohibited by tools/progress.py"
+    },
+    {
+      "worker_file": "pr5/probe.log",
+      "originalRawSha256": "63517de448a7dbad105e287c3d066d6465c61851c4e961b74af02aa894f8987a",
+      "privateArchive": "private-exports/merge-readiness-20261116/worker-raw/pr5/probe.log",
+      "public": "excluded: raw logs prohibited by tools/progress.py"
+    },
+    {
+      "worker_file": "pr5/tony-dom.log",
+      "originalRawSha256": "baf1aeb41568e1c67f13c71a2f87b6a3709cdef0653cb0ffa12886faed463ac1",
+      "privateArchive": "private-exports/merge-readiness-20261116/worker-raw/pr5/tony-dom.log",
+      "public": "excluded: raw logs prohibited by tools/progress.py"
+    }
+  ]
+}

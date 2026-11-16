@@ -1,0 +1,18 @@
+{
+  "src/app.js == dist/app.js": true,
+  "build-inputs/static/index.html == dist/index.html": true,
+  "build-inputs/static/styles.css == dist/styles.css": true,
+  "current_feature_absent": true,
+  "current_contract_doc_absent": true,
+  "current_tracked_product_diff": [],
+  "owned_files": [
+    "docs\\merge-readiness-20261116\\pr5\\apply-check.log",
+    "docs\\merge-readiness-20261116\\pr5\\pr5-dom.log",
+    "docs\\merge-readiness-20261116\\pr5\\probe.cjs",
+    "docs\\merge-readiness-20261116\\pr5\\probe.log",
+    "docs\\merge-readiness-20261116\\pr5\\README.md",
+    "docs\\merge-readiness-20261116\\pr5\\review_snapshots.py",
+    "docs\\merge-readiness-20261116\\pr5\\snapshot-receipt.json",
+    "docs\\merge-readiness-20261116\\pr5\\tony-dom.log"
+  ]
+}
