@@ -162,6 +162,18 @@ class BrowserSafetyTests(unittest.TestCase):
                 self.assertEqual(harness.steps[-1]['error_code'], expected)
                 harness.stop_browser.assert_called_once()
 
+    def test_cash_child_phases_are_reported_not_replaced(self):
+        source = (GP.ROOT / 'tests/golden-path/browser_path.mjs').read_text(encoding='utf-8')
+        cash = source[source.index('if(config.cash){'):]
+        phases = set(re.findall(r"failurePhase='(c6_cash_[a-z_]+)'", cash))
+        self.assertGreaterEqual(len(phases), 9)
+        for code in sorted(phases):
+            with self.subTest(code=code):
+                harness, process, _ = self.prepare()
+                with self.assertRaisesRegex(GP.HarnessError, '^' + code + '$'):
+                    self.run_child(harness, process, [(json.dumps({'error': code}) + '\n').encode()])
+                self.assertEqual(harness.steps[-1]['error_code'], code)
+
     def owned_processes(self):
         harness, process, _ = self.prepare()
         del harness.stop_browser

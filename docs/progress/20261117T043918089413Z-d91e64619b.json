@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-17T04:39:18.089413+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/merge-readiness-20261116/corrections/STATUS.md",
+      "change": "M",
+      "git_blob": "492070b63006414d543606a781294644a56ce32f"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/ci-9879d5c/README.md",
+      "change": "A",
+      "git_blob": "1cdfe2c22d09596283841d9f01009ae5f9bdf5b0"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/ci-9879d5c/checks.tsv",
+      "change": "A",
+      "git_blob": "e6f859ceffad40f106e1fb850f00fef06eff1534"
+    },
+    {
+      "path": "savia/db/tests/sales/172_return_retry_safety.sql",
+      "change": "M",
+      "git_blob": "e62f234ea8b19189c739bfb232e98b8d9d49ccc3"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/ReturnRetrySafetyTests.cs",
+      "change": "M",
+      "git_blob": "a01f2d50d314013164d88f4dc623526c8cdcb843"
+    },
+    {
+      "path": "tests/golden-path/browser_path.mjs",
+      "change": "M",
+      "git_blob": "d0cfdd480ed14a93c00b80383ad21413e963182b"
+    },
+    {
+      "path": "tests/golden-path/golden_path.py",
+      "change": "M",
+      "git_blob": "2fa297e94d3159815387a183f8cbce0506c89b72"
+    },
+    {
+      "path": "tests/test_golden_path_browser_safety.py",
+      "change": "M",
+      "git_blob": "76da1c51661f1232ee55f179126f0b94a5fd6cc3"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

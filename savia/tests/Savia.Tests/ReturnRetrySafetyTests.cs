@@ -145,7 +145,7 @@ public sealed class ReturnRetrySafetyTests
             OPEN snapshots; FETCH NEXT FROM snapshots INTO @object,@name;
             WHILE @@FETCH_STATUS=0
             BEGIN
-              SET @order=NULL;
+              SET @order=NULL; SET @rows=NULL; -- an empty table yields NULL JSON and must not blank the whole image
               SELECT @order=STRING_AGG(CONVERT(nvarchar(max),QUOTENAME(c.name)),N',')
                 WITHIN GROUP(ORDER BY ic.key_ordinal)
               FROM sys.indexes i JOIN sys.index_columns ic ON ic.object_id=i.object_id AND ic.index_id=i.index_id
@@ -154,7 +154,7 @@ public sealed class ReturnRetrySafetyTests
               IF @order IS NULL THROW 59002,'Snapshot needs primary key',1;
               SET @sql=N'SELECT @r=(SELECT * FROM '+@name+N' ORDER BY '+@order+N' FOR JSON PATH,INCLUDE_NULL_VALUES);';
               EXEC sys.sp_executesql @sql,N'@r nvarchar(max) OUTPUT',@r=@rows OUTPUT;
-              SET @image+=@name+N':'+CONVERT(nvarchar(20),DATALENGTH(@rows))+N':'+@rows;
+              SET @image+=@name+N':'+CONVERT(nvarchar(20),COALESCE(DATALENGTH(@rows),0))+N':'+COALESCE(@rows,N'');
               FETCH NEXT FROM snapshots INTO @object,@name;
             END;
             CLOSE snapshots; DEALLOCATE snapshots;

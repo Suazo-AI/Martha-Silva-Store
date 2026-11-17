@@ -146,6 +146,9 @@ BEGIN
   EXEC test.ReturnSafetySnapshot @after OUTPUT;
   IF CONVERT(varbinary(max),@before)<>CONVERT(varbinary(max),@after) THROW 59002,'ASSERT FAIL: FX changed rows',1;
  END;
+ -- The credit actor (cashierA) has no access to branchB. Current authorization runs before the identity check,
+ -- so that replay is refused with 51529, not 51538. The manager, used elsewhere, has access to every branch.
+ IF @scenario=2 UPDATE @cases SET Expected=51529 WHERE Label='branch';
  SELECT @case=MIN(Id),@count=MAX(Id) FROM @cases;
  WHILE @case<=@count
  BEGIN
@@ -153,7 +156,7 @@ BEGIN
   SET @retry=JSON_MODIFY(@request,@path,@value);SET @caught=0;
   EXEC test.ReturnSafetySnapshot @before OUTPUT;
   BEGIN TRY EXEC test.CallReturnSafety @retry; END TRY BEGIN CATCH SET @caught=ERROR_NUMBER(); END CATCH;
-  IF @caught<>@expected BEGIN PRINT @label; THROW 59002,'ASSERT FAIL: mutation did not throw 51538',1; END;
+  IF @caught<>@expected BEGIN PRINT CONCAT(@label,' scenario=',@scenario,' expected=',@expected,' caught=',@caught); THROW 59002,'ASSERT FAIL: mutation did not throw the expected error',1; END;
   EXEC test.ReturnSafetySnapshot @after OUTPUT;
   IF CONVERT(varbinary(max),@before)<>CONVERT(varbinary(max),@after) BEGIN PRINT @label; THROW 59002,'ASSERT FAIL: mutation changed rows',1; END;
   SET @case+=1;
