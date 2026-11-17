@@ -1446,7 +1446,7 @@ class GoldenPath:
                                   'c6_cash_action', 'c6_cash_refund_not_refused',
                                   'c6_cash_login', 'c6_cash_logout_wait', 'c6_cash_click', 'c6_cash_response',
                                   'c6_cash_confirmation', 'c6_cash_refresh', 'c6_cash_refund_form',
-                                  'c6_cash_count', 'c6_cash_open_form',
+                                  'c6_cash_count', 'c6_cash_open_form', 'c6_cash_login_cooldown', 'c6_cash_login_http',
                                   'c6_stock_sale_invalid', 'c6_stock_review_invalid'}
                 code = code if code in allowed_errors else 'browser_protocol_invalid'
                 if self.steps and self.steps[-1]['step'].startswith('browser.'):

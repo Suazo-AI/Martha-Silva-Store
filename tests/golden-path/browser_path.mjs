@@ -502,7 +502,14 @@ try {
 
   if(config.cash){
     // Each awaited UI step names its own fixed phase; a timeout must not report an earlier block's phase.
-    const login=async user=>{failurePhase='c6_cash_login';cashActor=user.id;await page.locator('#login-name').fill(user.loginName);await page.locator('#login-password').fill(user.password);await page.locator('#login-submit').click();await expect(page.locator('#staff-shell')).toBeVisible();await nav('ventas');await expect(page.locator('#cash-refresh')).toBeEnabled();};
+    // The API admits 10 logins per address per minute. This journey makes more than 10 from 127.0.0.1, so a fast
+    // run can hit the limit. On 429 the screen locks for Retry-After; wait for the product's own unlock, then retry once.
+    const submitLogin=async user=>{await page.locator('#login-name').fill(user.loginName);await page.locator('#login-password').fill(user.password);
+      const wait=page.waitForResponse(r=>new URL(r.url()).pathname==='/internal/api/security/login'&&r.request().method()==='POST');wait.catch(()=>{});
+      await page.locator('#login-submit').click();return (await wait).status();};
+    const login=async user=>{failurePhase='c6_cash_login';cashActor=user.id;let status=await submitLogin(user);
+      if(status===429){failurePhase='c6_cash_login_cooldown';await expect(page.locator('#login-submit')).toBeEnabled({timeout:75000});failurePhase='c6_cash_login';status=await submitLogin(user);}
+      check(status===200,'c6_cash_login_http');await expect(page.locator('#staff-shell')).toBeVisible();await nav('ventas');await expect(page.locator('#cash-refresh')).toBeEnabled();};
     const logout=async()=>{failurePhase='c6_cash_logout_wait';const wait=page.waitForResponse(r=>new URL(r.url()).pathname==='/internal/api/security/logout');await page.locator('[data-action="logout"]').click({noWaitAfter:true});check((await wait).status()===204,'c6_cash_logout');await page.waitForURL(`${origin.origin}/internal/login`);};
     const cp=step=>checkpoint(step,{dom:step.endsWith('logout')?['logged_out']:['shell']});
     const action=async(kind,selector,pathname)=>{failurePhase='c6_cash_click';const wait=page.waitForResponse(r=>new URL(r.url()).pathname===pathname&&r.request().method()==='POST');wait.catch(()=>{});await page.locator(selector).click();failurePhase='c6_cash_response';const r=await wait;check(r.status()===200,'c6_cash_action');const value=await r.json();remember(kind,r.request(),value);failurePhase='c6_cash_confirmation';await expect(page.locator('#cash-status')).toHaveText('Operaci\u00f3n confirmada por el servidor.');failurePhase='c6_cash_refresh';await expect(page.locator('#cash-refresh')).toBeEnabled();return value;};

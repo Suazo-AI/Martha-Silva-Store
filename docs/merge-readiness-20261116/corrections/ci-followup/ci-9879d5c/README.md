@@ -125,3 +125,18 @@ Change: the C6 cash helpers set a fixed phase before each wait: `c6_cash_login`,
 New test `test_cash_child_phases_are_reported_not_replaced` in `tests/test_golden_path_browser_safety.py`.
 Red, against the unchanged allowlist: `FAILED (failures=9)`. Green: the six stdlib golden suites print `OK`. `node --check` passes.
 It does not fix the failure. It makes the next CI run name the exact failing wait.
+
+## CI on ec11e64 (2026-11-17)
+
+Published once as authorized: Tony = `ec11e6447e30a4a88e6cc71cf3b4a4ca0f13985a`, hook `SYNCED`, remote SHA read back.
+The golden path failed again, now with the exact phase: `c6_cash_login`, after `browser.cash_later_refund` (run 44018689092).
+
+**Probable cause: the login rate limit, not cash logic.**
+- `InternalLoginLimiter.cs:13,27`: at most 10 login attempts per remote address in a fixed 1-minute window. The 11th gets `429 login_rate_limited`, `Retry-After: 60`.
+- Every login in the run comes from 127.0.0.1. The browser journey makes 10 logins; the failing one is the 10th. The harness also logs in the Owner through the API during setup (`golden_path.py:1011`). So the failing login is at least the 11th attempt.
+- The window starts at the first attempt. Whether the 11th attempt falls inside it depends on run speed. That explains pass, fail, fail on identical sources.
+- `login.mjs:190-198`: on 429 the screen enters a 60-second cooldown, locks the form and clears the password. The harness then times out waiting for `#staff-shell`.
+Limit: not reproduced here (no Linux runner). The CI run did not record the HTTP status of that login.
+
+**Harness correction, local only.** The C6 cash login helper waits for the login response. On 429 it waits for the screen's own unlock (up to 75 s), submits once more and requires HTTP 200 (`c6_cash_login_http`). New phase `c6_cash_login_cooldown`. No product file changed; the limiter stays as is.
+`node --check` passes; the six stdlib golden suites print `OK`. Proof needs one CI run.

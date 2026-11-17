@@ -1,6 +1,6 @@
 # Current correction status after ac0bb9f CI
 
-CI on `9879d5c` (2026-11-17): 15 pass, 3 fail, 6 skipped. Two failures were test defects (T-SQL 172 expectation, .NET snapshot NULL), corrected and passing on local SQL: T-SQL 135/135, .NET 181/181, C# format pass. The golden path failed twice at the same cash close step; cause unknown. This publication adds a harness diagnostic that names the failing wait. [CI on 9879d5c](ci-followup/ci-9879d5c/README.md).
+CI on `9879d5c` (2026-11-17): 15 pass, 3 fail, 6 skipped. Two failures were test defects (T-SQL 172 expectation, .NET snapshot NULL), corrected and passing on local SQL: T-SQL 135/135, .NET 181/181, C# format pass. The golden path failed twice at the same cash close step; cause unknown. On `ec11e64` CI: 18 pass, 1 fail, 6 skipped; the return fixes pass. The golden path now names `c6_cash_login`: the journey exceeds the API login limit of 10 per minute from 127.0.0.1. This publication makes the harness wait for the product's cooldown and retry once. [CI on 9879d5c](ci-followup/ci-9879d5c/README.md).
 
 Published Tony SHA: `ac0bb9f47f5a12ffc0626f7737a347dea9b37900`. All seven required checks passed. All 25 check-runs completed; Azure migration and v2 validation still failed.
 
