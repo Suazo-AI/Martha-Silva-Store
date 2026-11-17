@@ -1,0 +1,9 @@
+{
+  "command": [
+    "node",
+    "docs\\merge-readiness-20261116\\corrections\\final-combined\\lifecycle-correction\\browser\\run.mjs",
+    "run1"
+  ],
+  "exit": 1,
+  "seconds": 22.5
+}

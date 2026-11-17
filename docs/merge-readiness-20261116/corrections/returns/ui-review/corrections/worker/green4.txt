@@ -1,0 +1,30 @@
+✔ lost response freezes immutable intent through edit and remount; 404 never unlocks (63.0994ms)
+✔ account switch while confirmation is held cannot POST (6.8964ms)
+✔ explicit replay after 404 keeps exact body; malformed 200 stays unresolved (15.3749ms)
+✔ wrong IDs, lines, credit, till and malformed receipt cannot confirm (17.4411ms)
+✔ storage denied, corrupt, and missing Web Locks block sending (13.2217ms)
+✔ double submit while confirmation held sends zero; cancel removes never sent draft (8.6237ms)
+✔ foreign actor recovery is generic and loads no dependencies (5.3953ms)
+✔ late POST and lookup cannot render or clear after retirement (9.569ms)
+✔ competing mounts cannot replace durable reservation; readback failure and tamper fail closed (4.645ms)
+✔ all supported outcomes reserve complete bodies and preserve exact replay (15.6022ms)
+✔ temporary approval revoked on failed POST and late approval; cashier session retained (8.5462ms)
+✔ cancelled approval cannot close or authorize a replacement dialog (1.7389ms)
+✔ held origin lock rejects a competing mount submit without allocating or sending (1.6139ms)
+✔ F2 rejects malformed reversal fields independently (17.1462ms)
+✔ F1 exact successful exchange POST and explicit replay confirm durably (9.926ms)
+✔ F1 wrong POST status stays unresolved; API default return shape preserved (6.0588ms)
+✔ F3 remounted draft cancellation verifies removal and restores editable form (7.1346ms)
+✔ F3 cancellation cannot clear a competitor or sending record; removal failure retains editing lock (3.0521ms)
+✔ F5 retirement revokes immediately during held POST, single shot even on failed logout (6.725ms)
+✔ F4 ordinary outcomes preserve monetary result and receipts through reload without refresh (7.8624ms)
+✔ F2 legacy missing currency remains recoverable but cannot confirm or fabricate expectations (2.1184ms)
+✔ F2 validator accepts unordered exact lines and different supervisor; rejects malformed fields (5.0227ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 411.4437

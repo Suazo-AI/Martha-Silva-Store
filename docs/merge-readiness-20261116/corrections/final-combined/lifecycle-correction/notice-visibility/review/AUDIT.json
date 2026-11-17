@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "sourceBindings": 18,
+  "artifactBindings": 17,
+  "archiveEntries": 58,
+  "servedRawBindings": 48,
+  "priorUnchangedSourceBindings": 15,
+  "packetSha256": "fe07a82b37007def7aa0db0a4f8778bf8d7bcd0dfd03bf24998c3cca1c1923d5",
+  "archiveSha256": "c08db183ca673f5d54ba012f6de3466fccd17c6270210f3aaa572e9a8171264c",
+  "gitIndexSha256": "31a47141509c6052b3e25aa09b1072613204c852e09e24d27bc4b9a25150b1f1",
+  "diffCheckExit": 0,
+  "limits": "Packaging audit, not a new test/runtime result."
+}

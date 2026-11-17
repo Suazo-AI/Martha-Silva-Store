@@ -1,0 +1,13 @@
+✔ CF1 routed initial return uses inherited actor and role getters (38.8349ms)
+✔ CF1 routed draft-cancel restores editable form without POST (6.3813ms)
+✔ CF1 routed replay-confirm-cancel restores editable form without POST (3.9615ms)
+✔ CF2 routed retirement reports generic cleanup failure while suppressing stale notices (6.1897ms)
+✔ PRIMARY-BROWSER-01 verified replay clears an earlier unresolved lookup warning (5.729ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 172.3992

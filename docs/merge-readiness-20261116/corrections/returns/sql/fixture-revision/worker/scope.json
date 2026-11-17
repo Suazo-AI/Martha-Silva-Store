@@ -1,0 +1,26 @@
+{
+  "source": "ba8ff2ba10935e99fc268ebbe5eae130f72c1cca",
+  "branch": "t3/pr7-return-fixture-revision",
+  "changed": [
+    "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/README.md",
+    "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/RESULT.json",
+    "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/audit-initial-failure.txt",
+    "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/audit.py",
+    "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/baseline.json",
+    "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/build.log",
+    "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/corrected.json",
+    "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/final-delta.patch",
+    "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/final-offline.json",
+    "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/hashes.json",
+    "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/restore.log",
+    "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/scope.json",
+    "savia/db/migrations/MANIFEST.sha256",
+    "savia/db/migrations/V029__return_retry_safety.sql",
+    "savia/db/tests/sales/134_credit_return_validation.sql",
+    "savia/db/tests/sales/172_return_retry_safety.sql",
+    "savia/tests/Savia.Tests/ReturnRetrySafetyTests.cs",
+    "savia/tests/test_return_retry_safety.py"
+  ],
+  "indexUnchanged": true,
+  "frozenUnchanged": true
+}

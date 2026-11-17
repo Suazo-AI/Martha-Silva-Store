@@ -1,0 +1,10 @@
+{
+  "externalResources": [],
+  "report": "reportApprovalCleanupFailure() {\n    $('approval-cleanup-notice').textContent = 'No se pudo cerrar la autorizaci\\u00f3n temporal. Pida revisi\\u00f3n a la gerente.';\n  }",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) T3CodeBeta/0.1.9 Chrome/152.0.7977.169 Electron/44.10.1 Safari/537.36",
+  "viewport": {
+    "dpr": 1.25,
+    "height": 844,
+    "width": 390
+  }
+}

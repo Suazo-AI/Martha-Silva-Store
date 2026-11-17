@@ -1,0 +1,3206 @@
+[
+  {
+    "viewport": {
+      "name": "desktop",
+      "width": 1280,
+      "height": 900,
+      "dpr": 1
+    },
+    "name": "ordinary-credit",
+    "status": "PASS",
+    "posts": [
+      {
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/credit",
+        "raw": "{\"reversalId\":\"85b0177c-73c5-4759-a3ab-25eaefd9121a\",\"creditId\":\"72bc93d9-3a96-4ae3-9653-d28ccc1426e2\",\"tillId\":\"00000000-0000-4000-8000-000000000006\",\"customerId\":\"00000000-0000-4000-8000-000000000007\",\"reason\":\"Fixture return\",\"lines\":[{\"saleLineId\":\"00000000-0000-4000-8000-000000000008\",\"quantity\":1,\"restockPool\":\"store\"}]}",
+        "body": {
+          "reversalId": "85b0177c-73c5-4759-a3ab-25eaefd9121a",
+          "creditId": "72bc93d9-3a96-4ae3-9653-d28ccc1426e2",
+          "tillId": "00000000-0000-4000-8000-000000000006",
+          "customerId": "00000000-0000-4000-8000-000000000007",
+          "reason": "Fixture return",
+          "lines": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store"
+            }
+          ]
+        },
+        "pendingAtDispatch": {
+          "version": 1,
+          "state": "sending",
+          "scope": {
+            "origin": "http://127.0.0.1:62880",
+            "staffId": "00000000-0000-4000-8000-000000000001",
+            "nodeId": "00000000-0000-4000-8000-000000000002",
+            "branchId": "00000000-0000-4000-8000-000000000003",
+            "locationId": "00000000-0000-4000-8000-000000000004"
+          },
+          "saleId": "00000000-0000-4000-8000-000000000005",
+          "saleTillId": "00000000-0000-4000-8000-000000000006",
+          "currencyCode": "NIO",
+          "endpoint": "credit",
+          "body": {
+            "reversalId": "85b0177c-73c5-4759-a3ab-25eaefd9121a",
+            "creditId": "72bc93d9-3a96-4ae3-9653-d28ccc1426e2",
+            "tillId": "00000000-0000-4000-8000-000000000006",
+            "customerId": "00000000-0000-4000-8000-000000000007",
+            "reason": "Fixture return",
+            "lines": [
+              {
+                "saleLineId": "00000000-0000-4000-8000-000000000008",
+                "quantity": 1,
+                "restockPool": "store"
+              }
+            ]
+          },
+          "expected": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store",
+              "creditMinor": 12345
+            }
+          ]
+        }
+      }
+    ],
+    "calls": [
+      {
+        "method": "GET",
+        "path": "/sales/00000000-0000-4000-8000-000000000005"
+      },
+      {
+        "method": "GET",
+        "path": "/returns/policy"
+      },
+      {
+        "method": "GET",
+        "path": "/sellers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/registers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/tills/00000000-0000-4000-8000-000000000006/summary"
+      },
+      {
+        "method": "POST",
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/credit"
+      }
+    ],
+    "revoked": 0,
+    "pending": {
+      "version": 1,
+      "state": "confirmed",
+      "scope": {
+        "origin": "http://127.0.0.1:62880",
+        "staffId": "00000000-0000-4000-8000-000000000001",
+        "nodeId": "00000000-0000-4000-8000-000000000002",
+        "branchId": "00000000-0000-4000-8000-000000000003",
+        "locationId": "00000000-0000-4000-8000-000000000004"
+      },
+      "saleId": "00000000-0000-4000-8000-000000000005",
+      "saleTillId": "00000000-0000-4000-8000-000000000006",
+      "currencyCode": "NIO",
+      "endpoint": "credit",
+      "body": {
+        "reversalId": "85b0177c-73c5-4759-a3ab-25eaefd9121a",
+        "creditId": "72bc93d9-3a96-4ae3-9653-d28ccc1426e2",
+        "tillId": "00000000-0000-4000-8000-000000000006",
+        "customerId": "00000000-0000-4000-8000-000000000007",
+        "reason": "Fixture return",
+        "lines": [
+          {
+            "saleLineId": "00000000-0000-4000-8000-000000000008",
+            "quantity": 1,
+            "restockPool": "store"
+          }
+        ]
+      },
+      "expected": [
+        {
+          "saleLineId": "00000000-0000-4000-8000-000000000008",
+          "quantity": 1,
+          "restockPool": "store",
+          "creditMinor": 12345
+        }
+      ]
+    },
+    "focus": "",
+    "errors": []
+  },
+  {
+    "viewport": {
+      "name": "desktop",
+      "width": 1280,
+      "height": 900,
+      "dpr": 1
+    },
+    "name": "ordinary-cash",
+    "status": "PASS",
+    "posts": [
+      {
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/outcome",
+        "raw": "{\"reversalId\":\"8b406a84-e2f9-4d7f-a29a-80fa74a31cf6\",\"outcome\":\"cash\",\"tillId\":\"00000000-0000-4000-8000-000000000006\",\"reason\":\"Fixture return\",\"lines\":[{\"saleLineId\":\"00000000-0000-4000-8000-000000000008\",\"quantity\":1,\"restockPool\":\"store\"}]}",
+        "body": {
+          "reversalId": "8b406a84-e2f9-4d7f-a29a-80fa74a31cf6",
+          "outcome": "cash",
+          "tillId": "00000000-0000-4000-8000-000000000006",
+          "reason": "Fixture return",
+          "lines": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store"
+            }
+          ]
+        },
+        "pendingAtDispatch": {
+          "version": 1,
+          "state": "sending",
+          "scope": {
+            "origin": "http://127.0.0.1:62880",
+            "staffId": "00000000-0000-4000-8000-000000000001",
+            "nodeId": "00000000-0000-4000-8000-000000000002",
+            "branchId": "00000000-0000-4000-8000-000000000003",
+            "locationId": "00000000-0000-4000-8000-000000000004"
+          },
+          "saleId": "00000000-0000-4000-8000-000000000005",
+          "saleTillId": "00000000-0000-4000-8000-000000000006",
+          "currencyCode": "NIO",
+          "endpoint": "outcome",
+          "body": {
+            "reversalId": "8b406a84-e2f9-4d7f-a29a-80fa74a31cf6",
+            "outcome": "cash",
+            "tillId": "00000000-0000-4000-8000-000000000006",
+            "reason": "Fixture return",
+            "lines": [
+              {
+                "saleLineId": "00000000-0000-4000-8000-000000000008",
+                "quantity": 1,
+                "restockPool": "store"
+              }
+            ]
+          },
+          "expected": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store",
+              "creditMinor": 12345
+            }
+          ]
+        }
+      }
+    ],
+    "calls": [
+      {
+        "method": "GET",
+        "path": "/sales/00000000-0000-4000-8000-000000000005"
+      },
+      {
+        "method": "GET",
+        "path": "/returns/policy"
+      },
+      {
+        "method": "GET",
+        "path": "/sellers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/registers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/tills/00000000-0000-4000-8000-000000000006/summary"
+      },
+      {
+        "method": "POST",
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/outcome"
+      }
+    ],
+    "revoked": 0,
+    "pending": {
+      "version": 1,
+      "state": "confirmed",
+      "scope": {
+        "origin": "http://127.0.0.1:62880",
+        "staffId": "00000000-0000-4000-8000-000000000001",
+        "nodeId": "00000000-0000-4000-8000-000000000002",
+        "branchId": "00000000-0000-4000-8000-000000000003",
+        "locationId": "00000000-0000-4000-8000-000000000004"
+      },
+      "saleId": "00000000-0000-4000-8000-000000000005",
+      "saleTillId": "00000000-0000-4000-8000-000000000006",
+      "currencyCode": "NIO",
+      "endpoint": "outcome",
+      "body": {
+        "reversalId": "8b406a84-e2f9-4d7f-a29a-80fa74a31cf6",
+        "outcome": "cash",
+        "tillId": "00000000-0000-4000-8000-000000000006",
+        "reason": "Fixture return",
+        "lines": [
+          {
+            "saleLineId": "00000000-0000-4000-8000-000000000008",
+            "quantity": 1,
+            "restockPool": "store"
+          }
+        ]
+      },
+      "expected": [
+        {
+          "saleLineId": "00000000-0000-4000-8000-000000000008",
+          "quantity": 1,
+          "restockPool": "store",
+          "creditMinor": 12345
+        }
+      ]
+    },
+    "focus": "",
+    "errors": []
+  },
+  {
+    "viewport": {
+      "name": "desktop",
+      "width": 1280,
+      "height": 900,
+      "dpr": 1
+    },
+    "name": "ordinary-transfer",
+    "status": "PASS",
+    "posts": [
+      {
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/outcome",
+        "raw": "{\"reversalId\":\"f059d1e3-2ab7-4654-a5ab-a09ab9a6a8b6\",\"outcome\":\"transfer\",\"tillId\":\"00000000-0000-4000-8000-000000000006\",\"reason\":\"Fixture return\",\"lines\":[{\"saleLineId\":\"00000000-0000-4000-8000-000000000008\",\"quantity\":1,\"restockPool\":\"store\"}],\"reference\":\"FIXTURE-REF\"}",
+        "body": {
+          "reversalId": "f059d1e3-2ab7-4654-a5ab-a09ab9a6a8b6",
+          "outcome": "transfer",
+          "tillId": "00000000-0000-4000-8000-000000000006",
+          "reason": "Fixture return",
+          "lines": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store"
+            }
+          ],
+          "reference": "FIXTURE-REF"
+        },
+        "pendingAtDispatch": {
+          "version": 1,
+          "state": "sending",
+          "scope": {
+            "origin": "http://127.0.0.1:62880",
+            "staffId": "00000000-0000-4000-8000-000000000001",
+            "nodeId": "00000000-0000-4000-8000-000000000002",
+            "branchId": "00000000-0000-4000-8000-000000000003",
+            "locationId": "00000000-0000-4000-8000-000000000004"
+          },
+          "saleId": "00000000-0000-4000-8000-000000000005",
+          "saleTillId": "00000000-0000-4000-8000-000000000006",
+          "currencyCode": "NIO",
+          "endpoint": "outcome",
+          "body": {
+            "reversalId": "f059d1e3-2ab7-4654-a5ab-a09ab9a6a8b6",
+            "outcome": "transfer",
+            "tillId": "00000000-0000-4000-8000-000000000006",
+            "reason": "Fixture return",
+            "lines": [
+              {
+                "saleLineId": "00000000-0000-4000-8000-000000000008",
+                "quantity": 1,
+                "restockPool": "store"
+              }
+            ],
+            "reference": "FIXTURE-REF"
+          },
+          "expected": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store",
+              "creditMinor": 12345
+            }
+          ]
+        }
+      }
+    ],
+    "calls": [
+      {
+        "method": "GET",
+        "path": "/sales/00000000-0000-4000-8000-000000000005"
+      },
+      {
+        "method": "GET",
+        "path": "/returns/policy"
+      },
+      {
+        "method": "GET",
+        "path": "/sellers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/registers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/tills/00000000-0000-4000-8000-000000000006/summary"
+      },
+      {
+        "method": "POST",
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/outcome"
+      }
+    ],
+    "revoked": 0,
+    "pending": {
+      "version": 1,
+      "state": "confirmed",
+      "scope": {
+        "origin": "http://127.0.0.1:62880",
+        "staffId": "00000000-0000-4000-8000-000000000001",
+        "nodeId": "00000000-0000-4000-8000-000000000002",
+        "branchId": "00000000-0000-4000-8000-000000000003",
+        "locationId": "00000000-0000-4000-8000-000000000004"
+      },
+      "saleId": "00000000-0000-4000-8000-000000000005",
+      "saleTillId": "00000000-0000-4000-8000-000000000006",
+      "currencyCode": "NIO",
+      "endpoint": "outcome",
+      "body": {
+        "reversalId": "f059d1e3-2ab7-4654-a5ab-a09ab9a6a8b6",
+        "outcome": "transfer",
+        "tillId": "00000000-0000-4000-8000-000000000006",
+        "reason": "Fixture return",
+        "lines": [
+          {
+            "saleLineId": "00000000-0000-4000-8000-000000000008",
+            "quantity": 1,
+            "restockPool": "store"
+          }
+        ],
+        "reference": "FIXTURE-REF"
+      },
+      "expected": [
+        {
+          "saleLineId": "00000000-0000-4000-8000-000000000008",
+          "quantity": 1,
+          "restockPool": "store",
+          "creditMinor": 12345
+        }
+      ]
+    },
+    "focus": "",
+    "errors": []
+  },
+  {
+    "viewport": {
+      "name": "desktop",
+      "width": 1280,
+      "height": 900,
+      "dpr": 1
+    },
+    "name": "exchange-initial-200",
+    "status": "PASS",
+    "posts": [
+      {
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/outcome",
+        "raw": "{\"reversalId\":\"4abe75ba-4d69-4e11-ab2a-acc5611ee681\",\"outcome\":\"exchange\",\"tillId\":\"00000000-0000-4000-8000-000000000006\",\"reason\":\"Fixture return\",\"lines\":[{\"saleLineId\":\"00000000-0000-4000-8000-000000000008\",\"quantity\":1,\"restockPool\":\"store\"}],\"exchangeSaleId\":\"b24e32a1-cf53-40f8-851e-1afa0d81573b\",\"newLines\":[{\"lineNumber\":1,\"itemId\":\"00000000-0000-4000-8000-000000000012\",\"quantity\":1,\"unitPriceMinor\":15000,\"discountMinor\":0,\"sellerId\":\"00000000-0000-4000-8000-000000000001\"}],\"newTenders\":[{\"tenderNumber\":1,\"tenderKind\":\"transfer\",\"amountMinor\":2655,\"reference\":\"PAY-REF\"}]}",
+        "body": {
+          "reversalId": "4abe75ba-4d69-4e11-ab2a-acc5611ee681",
+          "outcome": "exchange",
+          "tillId": "00000000-0000-4000-8000-000000000006",
+          "reason": "Fixture return",
+          "lines": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store"
+            }
+          ],
+          "exchangeSaleId": "b24e32a1-cf53-40f8-851e-1afa0d81573b",
+          "newLines": [
+            {
+              "lineNumber": 1,
+              "itemId": "00000000-0000-4000-8000-000000000012",
+              "quantity": 1,
+              "unitPriceMinor": 15000,
+              "discountMinor": 0,
+              "sellerId": "00000000-0000-4000-8000-000000000001"
+            }
+          ],
+          "newTenders": [
+            {
+              "tenderNumber": 1,
+              "tenderKind": "transfer",
+              "amountMinor": 2655,
+              "reference": "PAY-REF"
+            }
+          ]
+        },
+        "pendingAtDispatch": {
+          "version": 1,
+          "state": "sending",
+          "scope": {
+            "origin": "http://127.0.0.1:62880",
+            "staffId": "00000000-0000-4000-8000-000000000001",
+            "nodeId": "00000000-0000-4000-8000-000000000002",
+            "branchId": "00000000-0000-4000-8000-000000000003",
+            "locationId": "00000000-0000-4000-8000-000000000004"
+          },
+          "saleId": "00000000-0000-4000-8000-000000000005",
+          "saleTillId": "00000000-0000-4000-8000-000000000006",
+          "currencyCode": "NIO",
+          "endpoint": "outcome",
+          "body": {
+            "reversalId": "4abe75ba-4d69-4e11-ab2a-acc5611ee681",
+            "outcome": "exchange",
+            "tillId": "00000000-0000-4000-8000-000000000006",
+            "reason": "Fixture return",
+            "lines": [
+              {
+                "saleLineId": "00000000-0000-4000-8000-000000000008",
+                "quantity": 1,
+                "restockPool": "store"
+              }
+            ],
+            "exchangeSaleId": "b24e32a1-cf53-40f8-851e-1afa0d81573b",
+            "newLines": [
+              {
+                "lineNumber": 1,
+                "itemId": "00000000-0000-4000-8000-000000000012",
+                "quantity": 1,
+                "unitPriceMinor": 15000,
+                "discountMinor": 0,
+                "sellerId": "00000000-0000-4000-8000-000000000001"
+              }
+            ],
+            "newTenders": [
+              {
+                "tenderNumber": 1,
+                "tenderKind": "transfer",
+                "amountMinor": 2655,
+                "reference": "PAY-REF"
+              }
+            ]
+          },
+          "expected": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store",
+              "creditMinor": 12345
+            }
+          ]
+        }
+      }
+    ],
+    "calls": [
+      {
+        "method": "GET",
+        "path": "/sales/00000000-0000-4000-8000-000000000005"
+      },
+      {
+        "method": "GET",
+        "path": "/returns/policy"
+      },
+      {
+        "method": "GET",
+        "path": "/sellers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/registers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/tills/00000000-0000-4000-8000-000000000006/summary"
+      },
+      {
+        "method": "GET",
+        "path": "/catalog/lookup"
+      },
+      {
+        "method": "POST",
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/outcome"
+      }
+    ],
+    "revoked": 0,
+    "pending": {
+      "version": 1,
+      "state": "confirmed",
+      "scope": {
+        "origin": "http://127.0.0.1:62880",
+        "staffId": "00000000-0000-4000-8000-000000000001",
+        "nodeId": "00000000-0000-4000-8000-000000000002",
+        "branchId": "00000000-0000-4000-8000-000000000003",
+        "locationId": "00000000-0000-4000-8000-000000000004"
+      },
+      "saleId": "00000000-0000-4000-8000-000000000005",
+      "saleTillId": "00000000-0000-4000-8000-000000000006",
+      "currencyCode": "NIO",
+      "endpoint": "outcome",
+      "body": {
+        "reversalId": "4abe75ba-4d69-4e11-ab2a-acc5611ee681",
+        "outcome": "exchange",
+        "tillId": "00000000-0000-4000-8000-000000000006",
+        "reason": "Fixture return",
+        "lines": [
+          {
+            "saleLineId": "00000000-0000-4000-8000-000000000008",
+            "quantity": 1,
+            "restockPool": "store"
+          }
+        ],
+        "exchangeSaleId": "b24e32a1-cf53-40f8-851e-1afa0d81573b",
+        "newLines": [
+          {
+            "lineNumber": 1,
+            "itemId": "00000000-0000-4000-8000-000000000012",
+            "quantity": 1,
+            "unitPriceMinor": 15000,
+            "discountMinor": 0,
+            "sellerId": "00000000-0000-4000-8000-000000000001"
+          }
+        ],
+        "newTenders": [
+          {
+            "tenderNumber": 1,
+            "tenderKind": "transfer",
+            "amountMinor": 2655,
+            "reference": "PAY-REF"
+          }
+        ]
+      },
+      "expected": [
+        {
+          "saleLineId": "00000000-0000-4000-8000-000000000008",
+          "quantity": 1,
+          "restockPool": "store",
+          "creditMinor": 12345
+        }
+      ]
+    },
+    "focus": "",
+    "errors": []
+  },
+  {
+    "viewport": {
+      "name": "desktop",
+      "width": 1280,
+      "height": 900,
+      "dpr": 1
+    },
+    "name": "exchange-loss-remount-404-get-replay",
+    "status": "PASS",
+    "posts": [
+      {
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/outcome",
+        "raw": "{\"reversalId\":\"108dc145-9f1c-4add-a23f-e79acf638404\",\"outcome\":\"exchange\",\"tillId\":\"00000000-0000-4000-8000-000000000006\",\"reason\":\"Fixture return\",\"lines\":[{\"saleLineId\":\"00000000-0000-4000-8000-000000000008\",\"quantity\":1,\"restockPool\":\"store\"}],\"exchangeSaleId\":\"f379de71-af51-4aa6-bf04-da1ac2bacd4e\",\"newLines\":[{\"lineNumber\":1,\"itemId\":\"00000000-0000-4000-8000-000000000012\",\"quantity\":1,\"unitPriceMinor\":15000,\"discountMinor\":0,\"sellerId\":\"00000000-0000-4000-8000-000000000001\"}],\"newTenders\":[{\"tenderNumber\":1,\"tenderKind\":\"transfer\",\"amountMinor\":2655,\"reference\":\"PAY-REF\"}]}",
+        "body": {
+          "reversalId": "108dc145-9f1c-4add-a23f-e79acf638404",
+          "outcome": "exchange",
+          "tillId": "00000000-0000-4000-8000-000000000006",
+          "reason": "Fixture return",
+          "lines": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store"
+            }
+          ],
+          "exchangeSaleId": "f379de71-af51-4aa6-bf04-da1ac2bacd4e",
+          "newLines": [
+            {
+              "lineNumber": 1,
+              "itemId": "00000000-0000-4000-8000-000000000012",
+              "quantity": 1,
+              "unitPriceMinor": 15000,
+              "discountMinor": 0,
+              "sellerId": "00000000-0000-4000-8000-000000000001"
+            }
+          ],
+          "newTenders": [
+            {
+              "tenderNumber": 1,
+              "tenderKind": "transfer",
+              "amountMinor": 2655,
+              "reference": "PAY-REF"
+            }
+          ]
+        },
+        "pendingAtDispatch": {
+          "version": 1,
+          "state": "sending",
+          "scope": {
+            "origin": "http://127.0.0.1:62880",
+            "staffId": "00000000-0000-4000-8000-000000000001",
+            "nodeId": "00000000-0000-4000-8000-000000000002",
+            "branchId": "00000000-0000-4000-8000-000000000003",
+            "locationId": "00000000-0000-4000-8000-000000000004"
+          },
+          "saleId": "00000000-0000-4000-8000-000000000005",
+          "saleTillId": "00000000-0000-4000-8000-000000000006",
+          "currencyCode": "NIO",
+          "endpoint": "outcome",
+          "body": {
+            "reversalId": "108dc145-9f1c-4add-a23f-e79acf638404",
+            "outcome": "exchange",
+            "tillId": "00000000-0000-4000-8000-000000000006",
+            "reason": "Fixture return",
+            "lines": [
+              {
+                "saleLineId": "00000000-0000-4000-8000-000000000008",
+                "quantity": 1,
+                "restockPool": "store"
+              }
+            ],
+            "exchangeSaleId": "f379de71-af51-4aa6-bf04-da1ac2bacd4e",
+            "newLines": [
+              {
+                "lineNumber": 1,
+                "itemId": "00000000-0000-4000-8000-000000000012",
+                "quantity": 1,
+                "unitPriceMinor": 15000,
+                "discountMinor": 0,
+                "sellerId": "00000000-0000-4000-8000-000000000001"
+              }
+            ],
+            "newTenders": [
+              {
+                "tenderNumber": 1,
+                "tenderKind": "transfer",
+                "amountMinor": 2655,
+                "reference": "PAY-REF"
+              }
+            ]
+          },
+          "expected": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store",
+              "creditMinor": 12345
+            }
+          ]
+        }
+      },
+      {
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/outcome",
+        "raw": "{\"reversalId\":\"108dc145-9f1c-4add-a23f-e79acf638404\",\"outcome\":\"exchange\",\"tillId\":\"00000000-0000-4000-8000-000000000006\",\"reason\":\"Fixture return\",\"lines\":[{\"saleLineId\":\"00000000-0000-4000-8000-000000000008\",\"quantity\":1,\"restockPool\":\"store\"}],\"exchangeSaleId\":\"f379de71-af51-4aa6-bf04-da1ac2bacd4e\",\"newLines\":[{\"lineNumber\":1,\"itemId\":\"00000000-0000-4000-8000-000000000012\",\"quantity\":1,\"unitPriceMinor\":15000,\"discountMinor\":0,\"sellerId\":\"00000000-0000-4000-8000-000000000001\"}],\"newTenders\":[{\"tenderNumber\":1,\"tenderKind\":\"transfer\",\"amountMinor\":2655,\"reference\":\"PAY-REF\"}]}",
+        "body": {
+          "reversalId": "108dc145-9f1c-4add-a23f-e79acf638404",
+          "outcome": "exchange",
+          "tillId": "00000000-0000-4000-8000-000000000006",
+          "reason": "Fixture return",
+          "lines": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store"
+            }
+          ],
+          "exchangeSaleId": "f379de71-af51-4aa6-bf04-da1ac2bacd4e",
+          "newLines": [
+            {
+              "lineNumber": 1,
+              "itemId": "00000000-0000-4000-8000-000000000012",
+              "quantity": 1,
+              "unitPriceMinor": 15000,
+              "discountMinor": 0,
+              "sellerId": "00000000-0000-4000-8000-000000000001"
+            }
+          ],
+          "newTenders": [
+            {
+              "tenderNumber": 1,
+              "tenderKind": "transfer",
+              "amountMinor": 2655,
+              "reference": "PAY-REF"
+            }
+          ]
+        },
+        "pendingAtDispatch": {
+          "version": 1,
+          "state": "sending",
+          "scope": {
+            "origin": "http://127.0.0.1:62880",
+            "staffId": "00000000-0000-4000-8000-000000000001",
+            "nodeId": "00000000-0000-4000-8000-000000000002",
+            "branchId": "00000000-0000-4000-8000-000000000003",
+            "locationId": "00000000-0000-4000-8000-000000000004"
+          },
+          "saleId": "00000000-0000-4000-8000-000000000005",
+          "saleTillId": "00000000-0000-4000-8000-000000000006",
+          "currencyCode": "NIO",
+          "endpoint": "outcome",
+          "body": {
+            "reversalId": "108dc145-9f1c-4add-a23f-e79acf638404",
+            "outcome": "exchange",
+            "tillId": "00000000-0000-4000-8000-000000000006",
+            "reason": "Fixture return",
+            "lines": [
+              {
+                "saleLineId": "00000000-0000-4000-8000-000000000008",
+                "quantity": 1,
+                "restockPool": "store"
+              }
+            ],
+            "exchangeSaleId": "f379de71-af51-4aa6-bf04-da1ac2bacd4e",
+            "newLines": [
+              {
+                "lineNumber": 1,
+                "itemId": "00000000-0000-4000-8000-000000000012",
+                "quantity": 1,
+                "unitPriceMinor": 15000,
+                "discountMinor": 0,
+                "sellerId": "00000000-0000-4000-8000-000000000001"
+              }
+            ],
+            "newTenders": [
+              {
+                "tenderNumber": 1,
+                "tenderKind": "transfer",
+                "amountMinor": 2655,
+                "reference": "PAY-REF"
+              }
+            ]
+          },
+          "expected": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store",
+              "creditMinor": 12345
+            }
+          ]
+        }
+      }
+    ],
+    "calls": [
+      {
+        "method": "GET",
+        "path": "/sales/00000000-0000-4000-8000-000000000005"
+      },
+      {
+        "method": "GET",
+        "path": "/returns/policy"
+      },
+      {
+        "method": "GET",
+        "path": "/sellers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/registers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/tills/00000000-0000-4000-8000-000000000006/summary"
+      },
+      {
+        "method": "GET",
+        "path": "/catalog/lookup"
+      },
+      {
+        "method": "POST",
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/outcome"
+      },
+      {
+        "method": "GET",
+        "path": "/sales/00000000-0000-4000-8000-000000000005"
+      },
+      {
+        "method": "GET",
+        "path": "/sales/00000000-0000-4000-8000-000000000005"
+      },
+      {
+        "method": "POST",
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/outcome"
+      }
+    ],
+    "revoked": 0,
+    "pending": {
+      "version": 1,
+      "state": "confirmed",
+      "scope": {
+        "origin": "http://127.0.0.1:62880",
+        "staffId": "00000000-0000-4000-8000-000000000001",
+        "nodeId": "00000000-0000-4000-8000-000000000002",
+        "branchId": "00000000-0000-4000-8000-000000000003",
+        "locationId": "00000000-0000-4000-8000-000000000004"
+      },
+      "saleId": "00000000-0000-4000-8000-000000000005",
+      "saleTillId": "00000000-0000-4000-8000-000000000006",
+      "currencyCode": "NIO",
+      "endpoint": "outcome",
+      "body": {
+        "reversalId": "108dc145-9f1c-4add-a23f-e79acf638404",
+        "outcome": "exchange",
+        "tillId": "00000000-0000-4000-8000-000000000006",
+        "reason": "Fixture return",
+        "lines": [
+          {
+            "saleLineId": "00000000-0000-4000-8000-000000000008",
+            "quantity": 1,
+            "restockPool": "store"
+          }
+        ],
+        "exchangeSaleId": "f379de71-af51-4aa6-bf04-da1ac2bacd4e",
+        "newLines": [
+          {
+            "lineNumber": 1,
+            "itemId": "00000000-0000-4000-8000-000000000012",
+            "quantity": 1,
+            "unitPriceMinor": 15000,
+            "discountMinor": 0,
+            "sellerId": "00000000-0000-4000-8000-000000000001"
+          }
+        ],
+        "newTenders": [
+          {
+            "tenderNumber": 1,
+            "tenderKind": "transfer",
+            "amountMinor": 2655,
+            "reference": "PAY-REF"
+          }
+        ]
+      },
+      "expected": [
+        {
+          "saleLineId": "00000000-0000-4000-8000-000000000008",
+          "quantity": 1,
+          "restockPool": "store",
+          "creditMinor": 12345
+        }
+      ]
+    },
+    "focus": "",
+    "errors": [
+      {
+        "viewport": "desktop",
+        "console": "Failed to load resource: net::ERR_CONTENT_LENGTH_MISMATCH",
+        "expected": true
+      },
+      {
+        "viewport": "desktop",
+        "console": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "expected": true
+      }
+    ]
+  },
+  {
+    "viewport": {
+      "name": "desktop",
+      "width": 1280,
+      "height": 900,
+      "dpr": 1
+    },
+    "name": "draft-remount-cancel-keyboard",
+    "status": "PASS",
+    "posts": [],
+    "calls": [
+      {
+        "method": "GET",
+        "path": "/sales/00000000-0000-4000-8000-000000000005"
+      },
+      {
+        "method": "GET",
+        "path": "/returns/policy"
+      },
+      {
+        "method": "GET",
+        "path": "/sellers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/registers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/tills/00000000-0000-4000-8000-000000000006/summary"
+      },
+      {
+        "method": "GET",
+        "path": "/sales/00000000-0000-4000-8000-000000000005"
+      },
+      {
+        "method": "GET",
+        "path": "/returns/policy"
+      },
+      {
+        "method": "GET",
+        "path": "/sellers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/registers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/tills/00000000-0000-4000-8000-000000000006/summary"
+      }
+    ],
+    "revoked": 0,
+    "pending": null,
+    "focus": "",
+    "errors": []
+  },
+  {
+    "viewport": {
+      "name": "desktop",
+      "width": 1280,
+      "height": 900,
+      "dpr": 1
+    },
+    "name": "wrong-post-status-preserves-uncertainty",
+    "status": "PASS",
+    "posts": [
+      {
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/credit",
+        "raw": "{\"reversalId\":\"322eaa93-8782-4c3d-b1f9-f06b36b3f186\",\"creditId\":\"472fed4f-0c24-4f74-9e8d-cf89bef70caf\",\"tillId\":\"00000000-0000-4000-8000-000000000006\",\"customerId\":\"00000000-0000-4000-8000-000000000007\",\"reason\":\"Fixture return\",\"lines\":[{\"saleLineId\":\"00000000-0000-4000-8000-000000000008\",\"quantity\":1,\"restockPool\":\"store\"}]}",
+        "body": {
+          "reversalId": "322eaa93-8782-4c3d-b1f9-f06b36b3f186",
+          "creditId": "472fed4f-0c24-4f74-9e8d-cf89bef70caf",
+          "tillId": "00000000-0000-4000-8000-000000000006",
+          "customerId": "00000000-0000-4000-8000-000000000007",
+          "reason": "Fixture return",
+          "lines": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store"
+            }
+          ]
+        },
+        "pendingAtDispatch": {
+          "version": 1,
+          "state": "sending",
+          "scope": {
+            "origin": "http://127.0.0.1:62880",
+            "staffId": "00000000-0000-4000-8000-000000000001",
+            "nodeId": "00000000-0000-4000-8000-000000000002",
+            "branchId": "00000000-0000-4000-8000-000000000003",
+            "locationId": "00000000-0000-4000-8000-000000000004"
+          },
+          "saleId": "00000000-0000-4000-8000-000000000005",
+          "saleTillId": "00000000-0000-4000-8000-000000000006",
+          "currencyCode": "NIO",
+          "endpoint": "credit",
+          "body": {
+            "reversalId": "322eaa93-8782-4c3d-b1f9-f06b36b3f186",
+            "creditId": "472fed4f-0c24-4f74-9e8d-cf89bef70caf",
+            "tillId": "00000000-0000-4000-8000-000000000006",
+            "customerId": "00000000-0000-4000-8000-000000000007",
+            "reason": "Fixture return",
+            "lines": [
+              {
+                "saleLineId": "00000000-0000-4000-8000-000000000008",
+                "quantity": 1,
+                "restockPool": "store"
+              }
+            ]
+          },
+          "expected": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store",
+              "creditMinor": 12345
+            }
+          ]
+        }
+      }
+    ],
+    "calls": [
+      {
+        "method": "GET",
+        "path": "/sales/00000000-0000-4000-8000-000000000005"
+      },
+      {
+        "method": "GET",
+        "path": "/returns/policy"
+      },
+      {
+        "method": "GET",
+        "path": "/sellers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/registers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/tills/00000000-0000-4000-8000-000000000006/summary"
+      },
+      {
+        "method": "POST",
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/credit"
+      }
+    ],
+    "revoked": 0,
+    "pending": {
+      "version": 1,
+      "state": "unresolved",
+      "scope": {
+        "origin": "http://127.0.0.1:62880",
+        "staffId": "00000000-0000-4000-8000-000000000001",
+        "nodeId": "00000000-0000-4000-8000-000000000002",
+        "branchId": "00000000-0000-4000-8000-000000000003",
+        "locationId": "00000000-0000-4000-8000-000000000004"
+      },
+      "saleId": "00000000-0000-4000-8000-000000000005",
+      "saleTillId": "00000000-0000-4000-8000-000000000006",
+      "currencyCode": "NIO",
+      "endpoint": "credit",
+      "body": {
+        "reversalId": "322eaa93-8782-4c3d-b1f9-f06b36b3f186",
+        "creditId": "472fed4f-0c24-4f74-9e8d-cf89bef70caf",
+        "tillId": "00000000-0000-4000-8000-000000000006",
+        "customerId": "00000000-0000-4000-8000-000000000007",
+        "reason": "Fixture return",
+        "lines": [
+          {
+            "saleLineId": "00000000-0000-4000-8000-000000000008",
+            "quantity": 1,
+            "restockPool": "store"
+          }
+        ]
+      },
+      "expected": [
+        {
+          "saleLineId": "00000000-0000-4000-8000-000000000008",
+          "quantity": 1,
+          "restockPool": "store",
+          "creditMinor": 12345
+        }
+      ]
+    },
+    "focus": "",
+    "errors": []
+  },
+  {
+    "viewport": {
+      "name": "desktop",
+      "width": 1280,
+      "height": 900,
+      "dpr": 1
+    },
+    "name": "held-post-retire-cleanup-false",
+    "status": "PASS",
+    "posts": [
+      {
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/credit",
+        "raw": "{\"reversalId\":\"19f3897e-60f4-459a-af16-df779c819577\",\"creditId\":\"bdf44cac-9e8d-4e56-b57e-51faafff3203\",\"tillId\":\"00000000-0000-4000-8000-000000000006\",\"customerId\":\"00000000-0000-4000-8000-000000000007\",\"reason\":\"Fixture return\",\"lines\":[{\"saleLineId\":\"00000000-0000-4000-8000-000000000008\",\"quantity\":1,\"restockPool\":\"store\"}]}",
+        "body": {
+          "reversalId": "19f3897e-60f4-459a-af16-df779c819577",
+          "creditId": "bdf44cac-9e8d-4e56-b57e-51faafff3203",
+          "tillId": "00000000-0000-4000-8000-000000000006",
+          "customerId": "00000000-0000-4000-8000-000000000007",
+          "reason": "Fixture return",
+          "lines": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store"
+            }
+          ]
+        },
+        "pendingAtDispatch": {
+          "version": 1,
+          "state": "sending",
+          "scope": {
+            "origin": "http://127.0.0.1:62880",
+            "staffId": "00000000-0000-4000-8000-000000000001",
+            "nodeId": "00000000-0000-4000-8000-000000000002",
+            "branchId": "00000000-0000-4000-8000-000000000003",
+            "locationId": "00000000-0000-4000-8000-000000000004"
+          },
+          "saleId": "00000000-0000-4000-8000-000000000005",
+          "saleTillId": "00000000-0000-4000-8000-000000000006",
+          "currencyCode": "NIO",
+          "endpoint": "credit",
+          "body": {
+            "reversalId": "19f3897e-60f4-459a-af16-df779c819577",
+            "creditId": "bdf44cac-9e8d-4e56-b57e-51faafff3203",
+            "tillId": "00000000-0000-4000-8000-000000000006",
+            "customerId": "00000000-0000-4000-8000-000000000007",
+            "reason": "Fixture return",
+            "lines": [
+              {
+                "saleLineId": "00000000-0000-4000-8000-000000000008",
+                "quantity": 1,
+                "restockPool": "store"
+              }
+            ]
+          },
+          "expected": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store",
+              "creditMinor": 12345
+            }
+          ]
+        }
+      }
+    ],
+    "calls": [
+      {
+        "method": "GET",
+        "path": "/sales/00000000-0000-4000-8000-000000000005"
+      },
+      {
+        "method": "GET",
+        "path": "/returns/policy"
+      },
+      {
+        "method": "GET",
+        "path": "/sellers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/registers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/tills/00000000-0000-4000-8000-000000000006/summary"
+      },
+      {
+        "method": "POST",
+        "path": "/auth/login"
+      },
+      {
+        "method": "POST",
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/credit"
+      },
+      {
+        "method": "POST",
+        "path": "/auth/logout"
+      }
+    ],
+    "revoked": 1,
+    "pending": {
+      "version": 1,
+      "state": "sending",
+      "scope": {
+        "origin": "http://127.0.0.1:62880",
+        "staffId": "00000000-0000-4000-8000-000000000001",
+        "nodeId": "00000000-0000-4000-8000-000000000002",
+        "branchId": "00000000-0000-4000-8000-000000000003",
+        "locationId": "00000000-0000-4000-8000-000000000004"
+      },
+      "saleId": "00000000-0000-4000-8000-000000000005",
+      "saleTillId": "00000000-0000-4000-8000-000000000006",
+      "currencyCode": "NIO",
+      "endpoint": "credit",
+      "body": {
+        "reversalId": "19f3897e-60f4-459a-af16-df779c819577",
+        "creditId": "bdf44cac-9e8d-4e56-b57e-51faafff3203",
+        "tillId": "00000000-0000-4000-8000-000000000006",
+        "customerId": "00000000-0000-4000-8000-000000000007",
+        "reason": "Fixture return",
+        "lines": [
+          {
+            "saleLineId": "00000000-0000-4000-8000-000000000008",
+            "quantity": 1,
+            "restockPool": "store"
+          }
+        ]
+      },
+      "expected": [
+        {
+          "saleLineId": "00000000-0000-4000-8000-000000000008",
+          "quantity": 1,
+          "restockPool": "store",
+          "creditMinor": 12345
+        }
+      ]
+    },
+    "focus": "",
+    "errors": []
+  },
+  {
+    "viewport": {
+      "name": "desktop",
+      "width": 1280,
+      "height": 900,
+      "dpr": 1
+    },
+    "name": "held-post-retire-cleanup-true",
+    "status": "PASS",
+    "posts": [
+      {
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/credit",
+        "raw": "{\"reversalId\":\"a68f7f3a-19a4-492a-adc9-4c473d3196c2\",\"creditId\":\"78091d1f-2f8b-4ddd-b3ba-7772f8d48117\",\"tillId\":\"00000000-0000-4000-8000-000000000006\",\"customerId\":\"00000000-0000-4000-8000-000000000007\",\"reason\":\"Fixture return\",\"lines\":[{\"saleLineId\":\"00000000-0000-4000-8000-000000000008\",\"quantity\":1,\"restockPool\":\"store\"}]}",
+        "body": {
+          "reversalId": "a68f7f3a-19a4-492a-adc9-4c473d3196c2",
+          "creditId": "78091d1f-2f8b-4ddd-b3ba-7772f8d48117",
+          "tillId": "00000000-0000-4000-8000-000000000006",
+          "customerId": "00000000-0000-4000-8000-000000000007",
+          "reason": "Fixture return",
+          "lines": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store"
+            }
+          ]
+        },
+        "pendingAtDispatch": {
+          "version": 1,
+          "state": "sending",
+          "scope": {
+            "origin": "http://127.0.0.1:62880",
+            "staffId": "00000000-0000-4000-8000-000000000001",
+            "nodeId": "00000000-0000-4000-8000-000000000002",
+            "branchId": "00000000-0000-4000-8000-000000000003",
+            "locationId": "00000000-0000-4000-8000-000000000004"
+          },
+          "saleId": "00000000-0000-4000-8000-000000000005",
+          "saleTillId": "00000000-0000-4000-8000-000000000006",
+          "currencyCode": "NIO",
+          "endpoint": "credit",
+          "body": {
+            "reversalId": "a68f7f3a-19a4-492a-adc9-4c473d3196c2",
+            "creditId": "78091d1f-2f8b-4ddd-b3ba-7772f8d48117",
+            "tillId": "00000000-0000-4000-8000-000000000006",
+            "customerId": "00000000-0000-4000-8000-000000000007",
+            "reason": "Fixture return",
+            "lines": [
+              {
+                "saleLineId": "00000000-0000-4000-8000-000000000008",
+                "quantity": 1,
+                "restockPool": "store"
+              }
+            ]
+          },
+          "expected": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store",
+              "creditMinor": 12345
+            }
+          ]
+        }
+      }
+    ],
+    "calls": [
+      {
+        "method": "GET",
+        "path": "/sales/00000000-0000-4000-8000-000000000005"
+      },
+      {
+        "method": "GET",
+        "path": "/returns/policy"
+      },
+      {
+        "method": "GET",
+        "path": "/sellers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/registers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/tills/00000000-0000-4000-8000-000000000006/summary"
+      },
+      {
+        "method": "POST",
+        "path": "/auth/login"
+      },
+      {
+        "method": "POST",
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/credit"
+      },
+      {
+        "method": "POST",
+        "path": "/auth/logout"
+      }
+    ],
+    "revoked": 1,
+    "pending": {
+      "version": 1,
+      "state": "sending",
+      "scope": {
+        "origin": "http://127.0.0.1:62880",
+        "staffId": "00000000-0000-4000-8000-000000000001",
+        "nodeId": "00000000-0000-4000-8000-000000000002",
+        "branchId": "00000000-0000-4000-8000-000000000003",
+        "locationId": "00000000-0000-4000-8000-000000000004"
+      },
+      "saleId": "00000000-0000-4000-8000-000000000005",
+      "saleTillId": "00000000-0000-4000-8000-000000000006",
+      "currencyCode": "NIO",
+      "endpoint": "credit",
+      "body": {
+        "reversalId": "a68f7f3a-19a4-492a-adc9-4c473d3196c2",
+        "creditId": "78091d1f-2f8b-4ddd-b3ba-7772f8d48117",
+        "tillId": "00000000-0000-4000-8000-000000000006",
+        "customerId": "00000000-0000-4000-8000-000000000007",
+        "reason": "Fixture return",
+        "lines": [
+          {
+            "saleLineId": "00000000-0000-4000-8000-000000000008",
+            "quantity": 1,
+            "restockPool": "store"
+          }
+        ]
+      },
+      "expected": [
+        {
+          "saleLineId": "00000000-0000-4000-8000-000000000008",
+          "quantity": 1,
+          "restockPool": "store",
+          "creditMinor": 12345
+        }
+      ]
+    },
+    "focus": "",
+    "errors": [
+      {
+        "viewport": "desktop",
+        "console": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+        "expected": true
+      }
+    ]
+  },
+  {
+    "viewport": {
+      "name": "desktop",
+      "width": 1280,
+      "height": 900,
+      "dpr": 1
+    },
+    "name": "late-approval-retire-no-post",
+    "status": "PASS",
+    "posts": [],
+    "calls": [
+      {
+        "method": "GET",
+        "path": "/sales/00000000-0000-4000-8000-000000000005"
+      },
+      {
+        "method": "GET",
+        "path": "/returns/policy"
+      },
+      {
+        "method": "GET",
+        "path": "/sellers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/registers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/tills/00000000-0000-4000-8000-000000000006/summary"
+      },
+      {
+        "method": "POST",
+        "path": "/auth/login"
+      },
+      {
+        "method": "POST",
+        "path": "/auth/logout"
+      }
+    ],
+    "revoked": 1,
+    "pending": {
+      "version": 1,
+      "state": "draft",
+      "scope": {
+        "origin": "http://127.0.0.1:62880",
+        "staffId": "00000000-0000-4000-8000-000000000001",
+        "nodeId": "00000000-0000-4000-8000-000000000002",
+        "branchId": "00000000-0000-4000-8000-000000000003",
+        "locationId": "00000000-0000-4000-8000-000000000004"
+      },
+      "saleId": "00000000-0000-4000-8000-000000000005",
+      "saleTillId": "00000000-0000-4000-8000-000000000006",
+      "currencyCode": "NIO",
+      "endpoint": "credit",
+      "body": {
+        "reversalId": "37fca1dd-79dd-48c6-9cbe-99f8175c406d",
+        "creditId": "7f7c798f-bc02-440c-afe9-8cb1a8c6bf53",
+        "tillId": "00000000-0000-4000-8000-000000000006",
+        "customerId": "00000000-0000-4000-8000-000000000007",
+        "reason": "Fixture return",
+        "lines": [
+          {
+            "saleLineId": "00000000-0000-4000-8000-000000000008",
+            "quantity": 1,
+            "restockPool": "store"
+          }
+        ]
+      },
+      "expected": [
+        {
+          "saleLineId": "00000000-0000-4000-8000-000000000008",
+          "quantity": 1,
+          "restockPool": "store",
+          "creditMinor": 12345
+        }
+      ]
+    },
+    "focus": "",
+    "errors": []
+  },
+  {
+    "viewport": {
+      "name": "desktop",
+      "width": 1280,
+      "height": 900,
+      "dpr": 1
+    },
+    "name": "held-lookup-retire-no-ui-effect",
+    "status": "PASS",
+    "posts": [
+      {
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/credit",
+        "raw": "{\"reversalId\":\"700c6cce-8dfc-4b70-a685-fcb0ff373afc\",\"creditId\":\"a9f53a5c-7a6b-4ea0-ae73-e035710f40e6\",\"tillId\":\"00000000-0000-4000-8000-000000000006\",\"customerId\":\"00000000-0000-4000-8000-000000000007\",\"reason\":\"Fixture return\",\"lines\":[{\"saleLineId\":\"00000000-0000-4000-8000-000000000008\",\"quantity\":1,\"restockPool\":\"store\"}]}",
+        "body": {
+          "reversalId": "700c6cce-8dfc-4b70-a685-fcb0ff373afc",
+          "creditId": "a9f53a5c-7a6b-4ea0-ae73-e035710f40e6",
+          "tillId": "00000000-0000-4000-8000-000000000006",
+          "customerId": "00000000-0000-4000-8000-000000000007",
+          "reason": "Fixture return",
+          "lines": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store"
+            }
+          ]
+        },
+        "pendingAtDispatch": {
+          "version": 1,
+          "state": "sending",
+          "scope": {
+            "origin": "http://127.0.0.1:62880",
+            "staffId": "00000000-0000-4000-8000-000000000001",
+            "nodeId": "00000000-0000-4000-8000-000000000002",
+            "branchId": "00000000-0000-4000-8000-000000000003",
+            "locationId": "00000000-0000-4000-8000-000000000004"
+          },
+          "saleId": "00000000-0000-4000-8000-000000000005",
+          "saleTillId": "00000000-0000-4000-8000-000000000006",
+          "currencyCode": "NIO",
+          "endpoint": "credit",
+          "body": {
+            "reversalId": "700c6cce-8dfc-4b70-a685-fcb0ff373afc",
+            "creditId": "a9f53a5c-7a6b-4ea0-ae73-e035710f40e6",
+            "tillId": "00000000-0000-4000-8000-000000000006",
+            "customerId": "00000000-0000-4000-8000-000000000007",
+            "reason": "Fixture return",
+            "lines": [
+              {
+                "saleLineId": "00000000-0000-4000-8000-000000000008",
+                "quantity": 1,
+                "restockPool": "store"
+              }
+            ]
+          },
+          "expected": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store",
+              "creditMinor": 12345
+            }
+          ]
+        }
+      }
+    ],
+    "calls": [
+      {
+        "method": "GET",
+        "path": "/sales/00000000-0000-4000-8000-000000000005"
+      },
+      {
+        "method": "GET",
+        "path": "/returns/policy"
+      },
+      {
+        "method": "GET",
+        "path": "/sellers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/registers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/tills/00000000-0000-4000-8000-000000000006/summary"
+      },
+      {
+        "method": "POST",
+        "path": "/auth/login"
+      },
+      {
+        "method": "POST",
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/credit"
+      },
+      {
+        "method": "POST",
+        "path": "/auth/logout"
+      },
+      {
+        "method": "GET",
+        "path": "/sales/00000000-0000-4000-8000-000000000005"
+      }
+    ],
+    "revoked": 1,
+    "pending": {
+      "version": 1,
+      "state": "unresolved",
+      "scope": {
+        "origin": "http://127.0.0.1:62880",
+        "staffId": "00000000-0000-4000-8000-000000000001",
+        "nodeId": "00000000-0000-4000-8000-000000000002",
+        "branchId": "00000000-0000-4000-8000-000000000003",
+        "locationId": "00000000-0000-4000-8000-000000000004"
+      },
+      "saleId": "00000000-0000-4000-8000-000000000005",
+      "saleTillId": "00000000-0000-4000-8000-000000000006",
+      "currencyCode": "NIO",
+      "endpoint": "credit",
+      "body": {
+        "reversalId": "700c6cce-8dfc-4b70-a685-fcb0ff373afc",
+        "creditId": "a9f53a5c-7a6b-4ea0-ae73-e035710f40e6",
+        "tillId": "00000000-0000-4000-8000-000000000006",
+        "customerId": "00000000-0000-4000-8000-000000000007",
+        "reason": "Fixture return",
+        "lines": [
+          {
+            "saleLineId": "00000000-0000-4000-8000-000000000008",
+            "quantity": 1,
+            "restockPool": "store"
+          }
+        ]
+      },
+      "expected": [
+        {
+          "saleLineId": "00000000-0000-4000-8000-000000000008",
+          "quantity": 1,
+          "restockPool": "store",
+          "creditMinor": 12345
+        }
+      ]
+    },
+    "focus": "",
+    "errors": [
+      {
+        "viewport": "desktop",
+        "console": "Failed to load resource: net::ERR_CONTENT_LENGTH_MISMATCH",
+        "expected": true
+      }
+    ]
+  },
+  {
+    "viewport": {
+      "name": "mobile",
+      "width": 390,
+      "height": 844,
+      "dpr": 2
+    },
+    "name": "ordinary-credit",
+    "status": "PASS",
+    "posts": [
+      {
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/credit",
+        "raw": "{\"reversalId\":\"93dbaf12-8d5b-4ced-954e-ffcd4cd05332\",\"creditId\":\"7bad1f14-127b-41fa-8d6c-647e822e37d9\",\"tillId\":\"00000000-0000-4000-8000-000000000006\",\"customerId\":\"00000000-0000-4000-8000-000000000007\",\"reason\":\"Fixture return\",\"lines\":[{\"saleLineId\":\"00000000-0000-4000-8000-000000000008\",\"quantity\":1,\"restockPool\":\"store\"}]}",
+        "body": {
+          "reversalId": "93dbaf12-8d5b-4ced-954e-ffcd4cd05332",
+          "creditId": "7bad1f14-127b-41fa-8d6c-647e822e37d9",
+          "tillId": "00000000-0000-4000-8000-000000000006",
+          "customerId": "00000000-0000-4000-8000-000000000007",
+          "reason": "Fixture return",
+          "lines": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store"
+            }
+          ]
+        },
+        "pendingAtDispatch": {
+          "version": 1,
+          "state": "sending",
+          "scope": {
+            "origin": "http://127.0.0.1:62880",
+            "staffId": "00000000-0000-4000-8000-000000000001",
+            "nodeId": "00000000-0000-4000-8000-000000000002",
+            "branchId": "00000000-0000-4000-8000-000000000003",
+            "locationId": "00000000-0000-4000-8000-000000000004"
+          },
+          "saleId": "00000000-0000-4000-8000-000000000005",
+          "saleTillId": "00000000-0000-4000-8000-000000000006",
+          "currencyCode": "NIO",
+          "endpoint": "credit",
+          "body": {
+            "reversalId": "93dbaf12-8d5b-4ced-954e-ffcd4cd05332",
+            "creditId": "7bad1f14-127b-41fa-8d6c-647e822e37d9",
+            "tillId": "00000000-0000-4000-8000-000000000006",
+            "customerId": "00000000-0000-4000-8000-000000000007",
+            "reason": "Fixture return",
+            "lines": [
+              {
+                "saleLineId": "00000000-0000-4000-8000-000000000008",
+                "quantity": 1,
+                "restockPool": "store"
+              }
+            ]
+          },
+          "expected": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store",
+              "creditMinor": 12345
+            }
+          ]
+        }
+      }
+    ],
+    "calls": [
+      {
+        "method": "GET",
+        "path": "/sales/00000000-0000-4000-8000-000000000005"
+      },
+      {
+        "method": "GET",
+        "path": "/returns/policy"
+      },
+      {
+        "method": "GET",
+        "path": "/sellers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/registers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/tills/00000000-0000-4000-8000-000000000006/summary"
+      },
+      {
+        "method": "POST",
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/credit"
+      }
+    ],
+    "revoked": 0,
+    "pending": {
+      "version": 1,
+      "state": "confirmed",
+      "scope": {
+        "origin": "http://127.0.0.1:62880",
+        "staffId": "00000000-0000-4000-8000-000000000001",
+        "nodeId": "00000000-0000-4000-8000-000000000002",
+        "branchId": "00000000-0000-4000-8000-000000000003",
+        "locationId": "00000000-0000-4000-8000-000000000004"
+      },
+      "saleId": "00000000-0000-4000-8000-000000000005",
+      "saleTillId": "00000000-0000-4000-8000-000000000006",
+      "currencyCode": "NIO",
+      "endpoint": "credit",
+      "body": {
+        "reversalId": "93dbaf12-8d5b-4ced-954e-ffcd4cd05332",
+        "creditId": "7bad1f14-127b-41fa-8d6c-647e822e37d9",
+        "tillId": "00000000-0000-4000-8000-000000000006",
+        "customerId": "00000000-0000-4000-8000-000000000007",
+        "reason": "Fixture return",
+        "lines": [
+          {
+            "saleLineId": "00000000-0000-4000-8000-000000000008",
+            "quantity": 1,
+            "restockPool": "store"
+          }
+        ]
+      },
+      "expected": [
+        {
+          "saleLineId": "00000000-0000-4000-8000-000000000008",
+          "quantity": 1,
+          "restockPool": "store",
+          "creditMinor": 12345
+        }
+      ]
+    },
+    "focus": "",
+    "errors": []
+  },
+  {
+    "viewport": {
+      "name": "mobile",
+      "width": 390,
+      "height": 844,
+      "dpr": 2
+    },
+    "name": "ordinary-cash",
+    "status": "PASS",
+    "posts": [
+      {
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/outcome",
+        "raw": "{\"reversalId\":\"d785601b-ea61-4177-b4b9-3bb8416ce821\",\"outcome\":\"cash\",\"tillId\":\"00000000-0000-4000-8000-000000000006\",\"reason\":\"Fixture return\",\"lines\":[{\"saleLineId\":\"00000000-0000-4000-8000-000000000008\",\"quantity\":1,\"restockPool\":\"store\"}]}",
+        "body": {
+          "reversalId": "d785601b-ea61-4177-b4b9-3bb8416ce821",
+          "outcome": "cash",
+          "tillId": "00000000-0000-4000-8000-000000000006",
+          "reason": "Fixture return",
+          "lines": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store"
+            }
+          ]
+        },
+        "pendingAtDispatch": {
+          "version": 1,
+          "state": "sending",
+          "scope": {
+            "origin": "http://127.0.0.1:62880",
+            "staffId": "00000000-0000-4000-8000-000000000001",
+            "nodeId": "00000000-0000-4000-8000-000000000002",
+            "branchId": "00000000-0000-4000-8000-000000000003",
+            "locationId": "00000000-0000-4000-8000-000000000004"
+          },
+          "saleId": "00000000-0000-4000-8000-000000000005",
+          "saleTillId": "00000000-0000-4000-8000-000000000006",
+          "currencyCode": "NIO",
+          "endpoint": "outcome",
+          "body": {
+            "reversalId": "d785601b-ea61-4177-b4b9-3bb8416ce821",
+            "outcome": "cash",
+            "tillId": "00000000-0000-4000-8000-000000000006",
+            "reason": "Fixture return",
+            "lines": [
+              {
+                "saleLineId": "00000000-0000-4000-8000-000000000008",
+                "quantity": 1,
+                "restockPool": "store"
+              }
+            ]
+          },
+          "expected": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store",
+              "creditMinor": 12345
+            }
+          ]
+        }
+      }
+    ],
+    "calls": [
+      {
+        "method": "GET",
+        "path": "/sales/00000000-0000-4000-8000-000000000005"
+      },
+      {
+        "method": "GET",
+        "path": "/returns/policy"
+      },
+      {
+        "method": "GET",
+        "path": "/sellers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/registers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/tills/00000000-0000-4000-8000-000000000006/summary"
+      },
+      {
+        "method": "POST",
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/outcome"
+      }
+    ],
+    "revoked": 0,
+    "pending": {
+      "version": 1,
+      "state": "confirmed",
+      "scope": {
+        "origin": "http://127.0.0.1:62880",
+        "staffId": "00000000-0000-4000-8000-000000000001",
+        "nodeId": "00000000-0000-4000-8000-000000000002",
+        "branchId": "00000000-0000-4000-8000-000000000003",
+        "locationId": "00000000-0000-4000-8000-000000000004"
+      },
+      "saleId": "00000000-0000-4000-8000-000000000005",
+      "saleTillId": "00000000-0000-4000-8000-000000000006",
+      "currencyCode": "NIO",
+      "endpoint": "outcome",
+      "body": {
+        "reversalId": "d785601b-ea61-4177-b4b9-3bb8416ce821",
+        "outcome": "cash",
+        "tillId": "00000000-0000-4000-8000-000000000006",
+        "reason": "Fixture return",
+        "lines": [
+          {
+            "saleLineId": "00000000-0000-4000-8000-000000000008",
+            "quantity": 1,
+            "restockPool": "store"
+          }
+        ]
+      },
+      "expected": [
+        {
+          "saleLineId": "00000000-0000-4000-8000-000000000008",
+          "quantity": 1,
+          "restockPool": "store",
+          "creditMinor": 12345
+        }
+      ]
+    },
+    "focus": "",
+    "errors": []
+  },
+  {
+    "viewport": {
+      "name": "mobile",
+      "width": 390,
+      "height": 844,
+      "dpr": 2
+    },
+    "name": "ordinary-transfer",
+    "status": "PASS",
+    "posts": [
+      {
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/outcome",
+        "raw": "{\"reversalId\":\"2977b915-abf6-414c-9050-7cad3d158132\",\"outcome\":\"transfer\",\"tillId\":\"00000000-0000-4000-8000-000000000006\",\"reason\":\"Fixture return\",\"lines\":[{\"saleLineId\":\"00000000-0000-4000-8000-000000000008\",\"quantity\":1,\"restockPool\":\"store\"}],\"reference\":\"FIXTURE-REF\"}",
+        "body": {
+          "reversalId": "2977b915-abf6-414c-9050-7cad3d158132",
+          "outcome": "transfer",
+          "tillId": "00000000-0000-4000-8000-000000000006",
+          "reason": "Fixture return",
+          "lines": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store"
+            }
+          ],
+          "reference": "FIXTURE-REF"
+        },
+        "pendingAtDispatch": {
+          "version": 1,
+          "state": "sending",
+          "scope": {
+            "origin": "http://127.0.0.1:62880",
+            "staffId": "00000000-0000-4000-8000-000000000001",
+            "nodeId": "00000000-0000-4000-8000-000000000002",
+            "branchId": "00000000-0000-4000-8000-000000000003",
+            "locationId": "00000000-0000-4000-8000-000000000004"
+          },
+          "saleId": "00000000-0000-4000-8000-000000000005",
+          "saleTillId": "00000000-0000-4000-8000-000000000006",
+          "currencyCode": "NIO",
+          "endpoint": "outcome",
+          "body": {
+            "reversalId": "2977b915-abf6-414c-9050-7cad3d158132",
+            "outcome": "transfer",
+            "tillId": "00000000-0000-4000-8000-000000000006",
+            "reason": "Fixture return",
+            "lines": [
+              {
+                "saleLineId": "00000000-0000-4000-8000-000000000008",
+                "quantity": 1,
+                "restockPool": "store"
+              }
+            ],
+            "reference": "FIXTURE-REF"
+          },
+          "expected": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store",
+              "creditMinor": 12345
+            }
+          ]
+        }
+      }
+    ],
+    "calls": [
+      {
+        "method": "GET",
+        "path": "/sales/00000000-0000-4000-8000-000000000005"
+      },
+      {
+        "method": "GET",
+        "path": "/returns/policy"
+      },
+      {
+        "method": "GET",
+        "path": "/sellers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/registers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/tills/00000000-0000-4000-8000-000000000006/summary"
+      },
+      {
+        "method": "POST",
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/outcome"
+      }
+    ],
+    "revoked": 0,
+    "pending": {
+      "version": 1,
+      "state": "confirmed",
+      "scope": {
+        "origin": "http://127.0.0.1:62880",
+        "staffId": "00000000-0000-4000-8000-000000000001",
+        "nodeId": "00000000-0000-4000-8000-000000000002",
+        "branchId": "00000000-0000-4000-8000-000000000003",
+        "locationId": "00000000-0000-4000-8000-000000000004"
+      },
+      "saleId": "00000000-0000-4000-8000-000000000005",
+      "saleTillId": "00000000-0000-4000-8000-000000000006",
+      "currencyCode": "NIO",
+      "endpoint": "outcome",
+      "body": {
+        "reversalId": "2977b915-abf6-414c-9050-7cad3d158132",
+        "outcome": "transfer",
+        "tillId": "00000000-0000-4000-8000-000000000006",
+        "reason": "Fixture return",
+        "lines": [
+          {
+            "saleLineId": "00000000-0000-4000-8000-000000000008",
+            "quantity": 1,
+            "restockPool": "store"
+          }
+        ],
+        "reference": "FIXTURE-REF"
+      },
+      "expected": [
+        {
+          "saleLineId": "00000000-0000-4000-8000-000000000008",
+          "quantity": 1,
+          "restockPool": "store",
+          "creditMinor": 12345
+        }
+      ]
+    },
+    "focus": "",
+    "errors": []
+  },
+  {
+    "viewport": {
+      "name": "mobile",
+      "width": 390,
+      "height": 844,
+      "dpr": 2
+    },
+    "name": "exchange-initial-200",
+    "status": "PASS",
+    "posts": [
+      {
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/outcome",
+        "raw": "{\"reversalId\":\"dcafe4e8-1714-4175-a1c1-7d1ae4a59ca1\",\"outcome\":\"exchange\",\"tillId\":\"00000000-0000-4000-8000-000000000006\",\"reason\":\"Fixture return\",\"lines\":[{\"saleLineId\":\"00000000-0000-4000-8000-000000000008\",\"quantity\":1,\"restockPool\":\"store\"}],\"exchangeSaleId\":\"73300df9-88cf-43e0-8054-d3ce07eb8e1f\",\"newLines\":[{\"lineNumber\":1,\"itemId\":\"00000000-0000-4000-8000-000000000012\",\"quantity\":1,\"unitPriceMinor\":15000,\"discountMinor\":0,\"sellerId\":\"00000000-0000-4000-8000-000000000001\"}],\"newTenders\":[{\"tenderNumber\":1,\"tenderKind\":\"transfer\",\"amountMinor\":2655,\"reference\":\"PAY-REF\"}]}",
+        "body": {
+          "reversalId": "dcafe4e8-1714-4175-a1c1-7d1ae4a59ca1",
+          "outcome": "exchange",
+          "tillId": "00000000-0000-4000-8000-000000000006",
+          "reason": "Fixture return",
+          "lines": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store"
+            }
+          ],
+          "exchangeSaleId": "73300df9-88cf-43e0-8054-d3ce07eb8e1f",
+          "newLines": [
+            {
+              "lineNumber": 1,
+              "itemId": "00000000-0000-4000-8000-000000000012",
+              "quantity": 1,
+              "unitPriceMinor": 15000,
+              "discountMinor": 0,
+              "sellerId": "00000000-0000-4000-8000-000000000001"
+            }
+          ],
+          "newTenders": [
+            {
+              "tenderNumber": 1,
+              "tenderKind": "transfer",
+              "amountMinor": 2655,
+              "reference": "PAY-REF"
+            }
+          ]
+        },
+        "pendingAtDispatch": {
+          "version": 1,
+          "state": "sending",
+          "scope": {
+            "origin": "http://127.0.0.1:62880",
+            "staffId": "00000000-0000-4000-8000-000000000001",
+            "nodeId": "00000000-0000-4000-8000-000000000002",
+            "branchId": "00000000-0000-4000-8000-000000000003",
+            "locationId": "00000000-0000-4000-8000-000000000004"
+          },
+          "saleId": "00000000-0000-4000-8000-000000000005",
+          "saleTillId": "00000000-0000-4000-8000-000000000006",
+          "currencyCode": "NIO",
+          "endpoint": "outcome",
+          "body": {
+            "reversalId": "dcafe4e8-1714-4175-a1c1-7d1ae4a59ca1",
+            "outcome": "exchange",
+            "tillId": "00000000-0000-4000-8000-000000000006",
+            "reason": "Fixture return",
+            "lines": [
+              {
+                "saleLineId": "00000000-0000-4000-8000-000000000008",
+                "quantity": 1,
+                "restockPool": "store"
+              }
+            ],
+            "exchangeSaleId": "73300df9-88cf-43e0-8054-d3ce07eb8e1f",
+            "newLines": [
+              {
+                "lineNumber": 1,
+                "itemId": "00000000-0000-4000-8000-000000000012",
+                "quantity": 1,
+                "unitPriceMinor": 15000,
+                "discountMinor": 0,
+                "sellerId": "00000000-0000-4000-8000-000000000001"
+              }
+            ],
+            "newTenders": [
+              {
+                "tenderNumber": 1,
+                "tenderKind": "transfer",
+                "amountMinor": 2655,
+                "reference": "PAY-REF"
+              }
+            ]
+          },
+          "expected": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store",
+              "creditMinor": 12345
+            }
+          ]
+        }
+      }
+    ],
+    "calls": [
+      {
+        "method": "GET",
+        "path": "/sales/00000000-0000-4000-8000-000000000005"
+      },
+      {
+        "method": "GET",
+        "path": "/returns/policy"
+      },
+      {
+        "method": "GET",
+        "path": "/sellers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/registers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/tills/00000000-0000-4000-8000-000000000006/summary"
+      },
+      {
+        "method": "GET",
+        "path": "/catalog/lookup"
+      },
+      {
+        "method": "POST",
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/outcome"
+      }
+    ],
+    "revoked": 0,
+    "pending": {
+      "version": 1,
+      "state": "confirmed",
+      "scope": {
+        "origin": "http://127.0.0.1:62880",
+        "staffId": "00000000-0000-4000-8000-000000000001",
+        "nodeId": "00000000-0000-4000-8000-000000000002",
+        "branchId": "00000000-0000-4000-8000-000000000003",
+        "locationId": "00000000-0000-4000-8000-000000000004"
+      },
+      "saleId": "00000000-0000-4000-8000-000000000005",
+      "saleTillId": "00000000-0000-4000-8000-000000000006",
+      "currencyCode": "NIO",
+      "endpoint": "outcome",
+      "body": {
+        "reversalId": "dcafe4e8-1714-4175-a1c1-7d1ae4a59ca1",
+        "outcome": "exchange",
+        "tillId": "00000000-0000-4000-8000-000000000006",
+        "reason": "Fixture return",
+        "lines": [
+          {
+            "saleLineId": "00000000-0000-4000-8000-000000000008",
+            "quantity": 1,
+            "restockPool": "store"
+          }
+        ],
+        "exchangeSaleId": "73300df9-88cf-43e0-8054-d3ce07eb8e1f",
+        "newLines": [
+          {
+            "lineNumber": 1,
+            "itemId": "00000000-0000-4000-8000-000000000012",
+            "quantity": 1,
+            "unitPriceMinor": 15000,
+            "discountMinor": 0,
+            "sellerId": "00000000-0000-4000-8000-000000000001"
+          }
+        ],
+        "newTenders": [
+          {
+            "tenderNumber": 1,
+            "tenderKind": "transfer",
+            "amountMinor": 2655,
+            "reference": "PAY-REF"
+          }
+        ]
+      },
+      "expected": [
+        {
+          "saleLineId": "00000000-0000-4000-8000-000000000008",
+          "quantity": 1,
+          "restockPool": "store",
+          "creditMinor": 12345
+        }
+      ]
+    },
+    "focus": "",
+    "errors": []
+  },
+  {
+    "viewport": {
+      "name": "mobile",
+      "width": 390,
+      "height": 844,
+      "dpr": 2
+    },
+    "name": "exchange-loss-remount-404-get-replay",
+    "status": "PASS",
+    "posts": [
+      {
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/outcome",
+        "raw": "{\"reversalId\":\"3b3e890c-9eff-4a6f-b60e-59c57be42ec7\",\"outcome\":\"exchange\",\"tillId\":\"00000000-0000-4000-8000-000000000006\",\"reason\":\"Fixture return\",\"lines\":[{\"saleLineId\":\"00000000-0000-4000-8000-000000000008\",\"quantity\":1,\"restockPool\":\"store\"}],\"exchangeSaleId\":\"cd0f63f5-04a5-4ab0-a7fe-ab065c7acff7\",\"newLines\":[{\"lineNumber\":1,\"itemId\":\"00000000-0000-4000-8000-000000000012\",\"quantity\":1,\"unitPriceMinor\":15000,\"discountMinor\":0,\"sellerId\":\"00000000-0000-4000-8000-000000000001\"}],\"newTenders\":[{\"tenderNumber\":1,\"tenderKind\":\"transfer\",\"amountMinor\":2655,\"reference\":\"PAY-REF\"}]}",
+        "body": {
+          "reversalId": "3b3e890c-9eff-4a6f-b60e-59c57be42ec7",
+          "outcome": "exchange",
+          "tillId": "00000000-0000-4000-8000-000000000006",
+          "reason": "Fixture return",
+          "lines": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store"
+            }
+          ],
+          "exchangeSaleId": "cd0f63f5-04a5-4ab0-a7fe-ab065c7acff7",
+          "newLines": [
+            {
+              "lineNumber": 1,
+              "itemId": "00000000-0000-4000-8000-000000000012",
+              "quantity": 1,
+              "unitPriceMinor": 15000,
+              "discountMinor": 0,
+              "sellerId": "00000000-0000-4000-8000-000000000001"
+            }
+          ],
+          "newTenders": [
+            {
+              "tenderNumber": 1,
+              "tenderKind": "transfer",
+              "amountMinor": 2655,
+              "reference": "PAY-REF"
+            }
+          ]
+        },
+        "pendingAtDispatch": {
+          "version": 1,
+          "state": "sending",
+          "scope": {
+            "origin": "http://127.0.0.1:62880",
+            "staffId": "00000000-0000-4000-8000-000000000001",
+            "nodeId": "00000000-0000-4000-8000-000000000002",
+            "branchId": "00000000-0000-4000-8000-000000000003",
+            "locationId": "00000000-0000-4000-8000-000000000004"
+          },
+          "saleId": "00000000-0000-4000-8000-000000000005",
+          "saleTillId": "00000000-0000-4000-8000-000000000006",
+          "currencyCode": "NIO",
+          "endpoint": "outcome",
+          "body": {
+            "reversalId": "3b3e890c-9eff-4a6f-b60e-59c57be42ec7",
+            "outcome": "exchange",
+            "tillId": "00000000-0000-4000-8000-000000000006",
+            "reason": "Fixture return",
+            "lines": [
+              {
+                "saleLineId": "00000000-0000-4000-8000-000000000008",
+                "quantity": 1,
+                "restockPool": "store"
+              }
+            ],
+            "exchangeSaleId": "cd0f63f5-04a5-4ab0-a7fe-ab065c7acff7",
+            "newLines": [
+              {
+                "lineNumber": 1,
+                "itemId": "00000000-0000-4000-8000-000000000012",
+                "quantity": 1,
+                "unitPriceMinor": 15000,
+                "discountMinor": 0,
+                "sellerId": "00000000-0000-4000-8000-000000000001"
+              }
+            ],
+            "newTenders": [
+              {
+                "tenderNumber": 1,
+                "tenderKind": "transfer",
+                "amountMinor": 2655,
+                "reference": "PAY-REF"
+              }
+            ]
+          },
+          "expected": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store",
+              "creditMinor": 12345
+            }
+          ]
+        }
+      },
+      {
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/outcome",
+        "raw": "{\"reversalId\":\"3b3e890c-9eff-4a6f-b60e-59c57be42ec7\",\"outcome\":\"exchange\",\"tillId\":\"00000000-0000-4000-8000-000000000006\",\"reason\":\"Fixture return\",\"lines\":[{\"saleLineId\":\"00000000-0000-4000-8000-000000000008\",\"quantity\":1,\"restockPool\":\"store\"}],\"exchangeSaleId\":\"cd0f63f5-04a5-4ab0-a7fe-ab065c7acff7\",\"newLines\":[{\"lineNumber\":1,\"itemId\":\"00000000-0000-4000-8000-000000000012\",\"quantity\":1,\"unitPriceMinor\":15000,\"discountMinor\":0,\"sellerId\":\"00000000-0000-4000-8000-000000000001\"}],\"newTenders\":[{\"tenderNumber\":1,\"tenderKind\":\"transfer\",\"amountMinor\":2655,\"reference\":\"PAY-REF\"}]}",
+        "body": {
+          "reversalId": "3b3e890c-9eff-4a6f-b60e-59c57be42ec7",
+          "outcome": "exchange",
+          "tillId": "00000000-0000-4000-8000-000000000006",
+          "reason": "Fixture return",
+          "lines": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store"
+            }
+          ],
+          "exchangeSaleId": "cd0f63f5-04a5-4ab0-a7fe-ab065c7acff7",
+          "newLines": [
+            {
+              "lineNumber": 1,
+              "itemId": "00000000-0000-4000-8000-000000000012",
+              "quantity": 1,
+              "unitPriceMinor": 15000,
+              "discountMinor": 0,
+              "sellerId": "00000000-0000-4000-8000-000000000001"
+            }
+          ],
+          "newTenders": [
+            {
+              "tenderNumber": 1,
+              "tenderKind": "transfer",
+              "amountMinor": 2655,
+              "reference": "PAY-REF"
+            }
+          ]
+        },
+        "pendingAtDispatch": {
+          "version": 1,
+          "state": "sending",
+          "scope": {
+            "origin": "http://127.0.0.1:62880",
+            "staffId": "00000000-0000-4000-8000-000000000001",
+            "nodeId": "00000000-0000-4000-8000-000000000002",
+            "branchId": "00000000-0000-4000-8000-000000000003",
+            "locationId": "00000000-0000-4000-8000-000000000004"
+          },
+          "saleId": "00000000-0000-4000-8000-000000000005",
+          "saleTillId": "00000000-0000-4000-8000-000000000006",
+          "currencyCode": "NIO",
+          "endpoint": "outcome",
+          "body": {
+            "reversalId": "3b3e890c-9eff-4a6f-b60e-59c57be42ec7",
+            "outcome": "exchange",
+            "tillId": "00000000-0000-4000-8000-000000000006",
+            "reason": "Fixture return",
+            "lines": [
+              {
+                "saleLineId": "00000000-0000-4000-8000-000000000008",
+                "quantity": 1,
+                "restockPool": "store"
+              }
+            ],
+            "exchangeSaleId": "cd0f63f5-04a5-4ab0-a7fe-ab065c7acff7",
+            "newLines": [
+              {
+                "lineNumber": 1,
+                "itemId": "00000000-0000-4000-8000-000000000012",
+                "quantity": 1,
+                "unitPriceMinor": 15000,
+                "discountMinor": 0,
+                "sellerId": "00000000-0000-4000-8000-000000000001"
+              }
+            ],
+            "newTenders": [
+              {
+                "tenderNumber": 1,
+                "tenderKind": "transfer",
+                "amountMinor": 2655,
+                "reference": "PAY-REF"
+              }
+            ]
+          },
+          "expected": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store",
+              "creditMinor": 12345
+            }
+          ]
+        }
+      }
+    ],
+    "calls": [
+      {
+        "method": "GET",
+        "path": "/sales/00000000-0000-4000-8000-000000000005"
+      },
+      {
+        "method": "GET",
+        "path": "/returns/policy"
+      },
+      {
+        "method": "GET",
+        "path": "/sellers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/registers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/tills/00000000-0000-4000-8000-000000000006/summary"
+      },
+      {
+        "method": "GET",
+        "path": "/catalog/lookup"
+      },
+      {
+        "method": "POST",
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/outcome"
+      },
+      {
+        "method": "GET",
+        "path": "/sales/00000000-0000-4000-8000-000000000005"
+      },
+      {
+        "method": "GET",
+        "path": "/sales/00000000-0000-4000-8000-000000000005"
+      },
+      {
+        "method": "POST",
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/outcome"
+      }
+    ],
+    "revoked": 0,
+    "pending": {
+      "version": 1,
+      "state": "confirmed",
+      "scope": {
+        "origin": "http://127.0.0.1:62880",
+        "staffId": "00000000-0000-4000-8000-000000000001",
+        "nodeId": "00000000-0000-4000-8000-000000000002",
+        "branchId": "00000000-0000-4000-8000-000000000003",
+        "locationId": "00000000-0000-4000-8000-000000000004"
+      },
+      "saleId": "00000000-0000-4000-8000-000000000005",
+      "saleTillId": "00000000-0000-4000-8000-000000000006",
+      "currencyCode": "NIO",
+      "endpoint": "outcome",
+      "body": {
+        "reversalId": "3b3e890c-9eff-4a6f-b60e-59c57be42ec7",
+        "outcome": "exchange",
+        "tillId": "00000000-0000-4000-8000-000000000006",
+        "reason": "Fixture return",
+        "lines": [
+          {
+            "saleLineId": "00000000-0000-4000-8000-000000000008",
+            "quantity": 1,
+            "restockPool": "store"
+          }
+        ],
+        "exchangeSaleId": "cd0f63f5-04a5-4ab0-a7fe-ab065c7acff7",
+        "newLines": [
+          {
+            "lineNumber": 1,
+            "itemId": "00000000-0000-4000-8000-000000000012",
+            "quantity": 1,
+            "unitPriceMinor": 15000,
+            "discountMinor": 0,
+            "sellerId": "00000000-0000-4000-8000-000000000001"
+          }
+        ],
+        "newTenders": [
+          {
+            "tenderNumber": 1,
+            "tenderKind": "transfer",
+            "amountMinor": 2655,
+            "reference": "PAY-REF"
+          }
+        ]
+      },
+      "expected": [
+        {
+          "saleLineId": "00000000-0000-4000-8000-000000000008",
+          "quantity": 1,
+          "restockPool": "store",
+          "creditMinor": 12345
+        }
+      ]
+    },
+    "focus": "",
+    "errors": [
+      {
+        "viewport": "mobile",
+        "console": "Failed to load resource: net::ERR_CONTENT_LENGTH_MISMATCH",
+        "expected": true
+      },
+      {
+        "viewport": "mobile",
+        "console": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "expected": true
+      }
+    ]
+  },
+  {
+    "viewport": {
+      "name": "mobile",
+      "width": 390,
+      "height": 844,
+      "dpr": 2
+    },
+    "name": "draft-remount-cancel-keyboard",
+    "status": "PASS",
+    "posts": [],
+    "calls": [
+      {
+        "method": "GET",
+        "path": "/sales/00000000-0000-4000-8000-000000000005"
+      },
+      {
+        "method": "GET",
+        "path": "/returns/policy"
+      },
+      {
+        "method": "GET",
+        "path": "/sellers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/registers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/tills/00000000-0000-4000-8000-000000000006/summary"
+      },
+      {
+        "method": "GET",
+        "path": "/sales/00000000-0000-4000-8000-000000000005"
+      },
+      {
+        "method": "GET",
+        "path": "/returns/policy"
+      },
+      {
+        "method": "GET",
+        "path": "/sellers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/registers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/tills/00000000-0000-4000-8000-000000000006/summary"
+      }
+    ],
+    "revoked": 0,
+    "pending": null,
+    "focus": "",
+    "errors": []
+  },
+  {
+    "viewport": {
+      "name": "mobile",
+      "width": 390,
+      "height": 844,
+      "dpr": 2
+    },
+    "name": "wrong-post-status-preserves-uncertainty",
+    "status": "PASS",
+    "posts": [
+      {
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/credit",
+        "raw": "{\"reversalId\":\"3cf2476c-2f03-407b-99b3-94c7a5e45a8e\",\"creditId\":\"3658b950-08c7-4076-b587-30c58885ffec\",\"tillId\":\"00000000-0000-4000-8000-000000000006\",\"customerId\":\"00000000-0000-4000-8000-000000000007\",\"reason\":\"Fixture return\",\"lines\":[{\"saleLineId\":\"00000000-0000-4000-8000-000000000008\",\"quantity\":1,\"restockPool\":\"store\"}]}",
+        "body": {
+          "reversalId": "3cf2476c-2f03-407b-99b3-94c7a5e45a8e",
+          "creditId": "3658b950-08c7-4076-b587-30c58885ffec",
+          "tillId": "00000000-0000-4000-8000-000000000006",
+          "customerId": "00000000-0000-4000-8000-000000000007",
+          "reason": "Fixture return",
+          "lines": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store"
+            }
+          ]
+        },
+        "pendingAtDispatch": {
+          "version": 1,
+          "state": "sending",
+          "scope": {
+            "origin": "http://127.0.0.1:62880",
+            "staffId": "00000000-0000-4000-8000-000000000001",
+            "nodeId": "00000000-0000-4000-8000-000000000002",
+            "branchId": "00000000-0000-4000-8000-000000000003",
+            "locationId": "00000000-0000-4000-8000-000000000004"
+          },
+          "saleId": "00000000-0000-4000-8000-000000000005",
+          "saleTillId": "00000000-0000-4000-8000-000000000006",
+          "currencyCode": "NIO",
+          "endpoint": "credit",
+          "body": {
+            "reversalId": "3cf2476c-2f03-407b-99b3-94c7a5e45a8e",
+            "creditId": "3658b950-08c7-4076-b587-30c58885ffec",
+            "tillId": "00000000-0000-4000-8000-000000000006",
+            "customerId": "00000000-0000-4000-8000-000000000007",
+            "reason": "Fixture return",
+            "lines": [
+              {
+                "saleLineId": "00000000-0000-4000-8000-000000000008",
+                "quantity": 1,
+                "restockPool": "store"
+              }
+            ]
+          },
+          "expected": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store",
+              "creditMinor": 12345
+            }
+          ]
+        }
+      }
+    ],
+    "calls": [
+      {
+        "method": "GET",
+        "path": "/sales/00000000-0000-4000-8000-000000000005"
+      },
+      {
+        "method": "GET",
+        "path": "/returns/policy"
+      },
+      {
+        "method": "GET",
+        "path": "/sellers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/registers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/tills/00000000-0000-4000-8000-000000000006/summary"
+      },
+      {
+        "method": "POST",
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/credit"
+      }
+    ],
+    "revoked": 0,
+    "pending": {
+      "version": 1,
+      "state": "unresolved",
+      "scope": {
+        "origin": "http://127.0.0.1:62880",
+        "staffId": "00000000-0000-4000-8000-000000000001",
+        "nodeId": "00000000-0000-4000-8000-000000000002",
+        "branchId": "00000000-0000-4000-8000-000000000003",
+        "locationId": "00000000-0000-4000-8000-000000000004"
+      },
+      "saleId": "00000000-0000-4000-8000-000000000005",
+      "saleTillId": "00000000-0000-4000-8000-000000000006",
+      "currencyCode": "NIO",
+      "endpoint": "credit",
+      "body": {
+        "reversalId": "3cf2476c-2f03-407b-99b3-94c7a5e45a8e",
+        "creditId": "3658b950-08c7-4076-b587-30c58885ffec",
+        "tillId": "00000000-0000-4000-8000-000000000006",
+        "customerId": "00000000-0000-4000-8000-000000000007",
+        "reason": "Fixture return",
+        "lines": [
+          {
+            "saleLineId": "00000000-0000-4000-8000-000000000008",
+            "quantity": 1,
+            "restockPool": "store"
+          }
+        ]
+      },
+      "expected": [
+        {
+          "saleLineId": "00000000-0000-4000-8000-000000000008",
+          "quantity": 1,
+          "restockPool": "store",
+          "creditMinor": 12345
+        }
+      ]
+    },
+    "focus": "",
+    "errors": []
+  },
+  {
+    "viewport": {
+      "name": "mobile",
+      "width": 390,
+      "height": 844,
+      "dpr": 2
+    },
+    "name": "held-post-retire-cleanup-false",
+    "status": "PASS",
+    "posts": [
+      {
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/credit",
+        "raw": "{\"reversalId\":\"09bd9c82-2303-4ae2-b021-6950d92465ae\",\"creditId\":\"bf3ab84e-b6b3-4eaf-aa5d-7118cda65f18\",\"tillId\":\"00000000-0000-4000-8000-000000000006\",\"customerId\":\"00000000-0000-4000-8000-000000000007\",\"reason\":\"Fixture return\",\"lines\":[{\"saleLineId\":\"00000000-0000-4000-8000-000000000008\",\"quantity\":1,\"restockPool\":\"store\"}]}",
+        "body": {
+          "reversalId": "09bd9c82-2303-4ae2-b021-6950d92465ae",
+          "creditId": "bf3ab84e-b6b3-4eaf-aa5d-7118cda65f18",
+          "tillId": "00000000-0000-4000-8000-000000000006",
+          "customerId": "00000000-0000-4000-8000-000000000007",
+          "reason": "Fixture return",
+          "lines": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store"
+            }
+          ]
+        },
+        "pendingAtDispatch": {
+          "version": 1,
+          "state": "sending",
+          "scope": {
+            "origin": "http://127.0.0.1:62880",
+            "staffId": "00000000-0000-4000-8000-000000000001",
+            "nodeId": "00000000-0000-4000-8000-000000000002",
+            "branchId": "00000000-0000-4000-8000-000000000003",
+            "locationId": "00000000-0000-4000-8000-000000000004"
+          },
+          "saleId": "00000000-0000-4000-8000-000000000005",
+          "saleTillId": "00000000-0000-4000-8000-000000000006",
+          "currencyCode": "NIO",
+          "endpoint": "credit",
+          "body": {
+            "reversalId": "09bd9c82-2303-4ae2-b021-6950d92465ae",
+            "creditId": "bf3ab84e-b6b3-4eaf-aa5d-7118cda65f18",
+            "tillId": "00000000-0000-4000-8000-000000000006",
+            "customerId": "00000000-0000-4000-8000-000000000007",
+            "reason": "Fixture return",
+            "lines": [
+              {
+                "saleLineId": "00000000-0000-4000-8000-000000000008",
+                "quantity": 1,
+                "restockPool": "store"
+              }
+            ]
+          },
+          "expected": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store",
+              "creditMinor": 12345
+            }
+          ]
+        }
+      }
+    ],
+    "calls": [
+      {
+        "method": "GET",
+        "path": "/sales/00000000-0000-4000-8000-000000000005"
+      },
+      {
+        "method": "GET",
+        "path": "/returns/policy"
+      },
+      {
+        "method": "GET",
+        "path": "/sellers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/registers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/tills/00000000-0000-4000-8000-000000000006/summary"
+      },
+      {
+        "method": "POST",
+        "path": "/auth/login"
+      },
+      {
+        "method": "POST",
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/credit"
+      },
+      {
+        "method": "POST",
+        "path": "/auth/logout"
+      }
+    ],
+    "revoked": 1,
+    "pending": {
+      "version": 1,
+      "state": "sending",
+      "scope": {
+        "origin": "http://127.0.0.1:62880",
+        "staffId": "00000000-0000-4000-8000-000000000001",
+        "nodeId": "00000000-0000-4000-8000-000000000002",
+        "branchId": "00000000-0000-4000-8000-000000000003",
+        "locationId": "00000000-0000-4000-8000-000000000004"
+      },
+      "saleId": "00000000-0000-4000-8000-000000000005",
+      "saleTillId": "00000000-0000-4000-8000-000000000006",
+      "currencyCode": "NIO",
+      "endpoint": "credit",
+      "body": {
+        "reversalId": "09bd9c82-2303-4ae2-b021-6950d92465ae",
+        "creditId": "bf3ab84e-b6b3-4eaf-aa5d-7118cda65f18",
+        "tillId": "00000000-0000-4000-8000-000000000006",
+        "customerId": "00000000-0000-4000-8000-000000000007",
+        "reason": "Fixture return",
+        "lines": [
+          {
+            "saleLineId": "00000000-0000-4000-8000-000000000008",
+            "quantity": 1,
+            "restockPool": "store"
+          }
+        ]
+      },
+      "expected": [
+        {
+          "saleLineId": "00000000-0000-4000-8000-000000000008",
+          "quantity": 1,
+          "restockPool": "store",
+          "creditMinor": 12345
+        }
+      ]
+    },
+    "focus": "",
+    "errors": []
+  },
+  {
+    "viewport": {
+      "name": "mobile",
+      "width": 390,
+      "height": 844,
+      "dpr": 2
+    },
+    "name": "held-post-retire-cleanup-true",
+    "status": "PASS",
+    "posts": [
+      {
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/credit",
+        "raw": "{\"reversalId\":\"063e7d5e-78e2-45ad-a785-d34ce0393006\",\"creditId\":\"fabd91bf-229a-494c-84d7-ca999cf29a76\",\"tillId\":\"00000000-0000-4000-8000-000000000006\",\"customerId\":\"00000000-0000-4000-8000-000000000007\",\"reason\":\"Fixture return\",\"lines\":[{\"saleLineId\":\"00000000-0000-4000-8000-000000000008\",\"quantity\":1,\"restockPool\":\"store\"}]}",
+        "body": {
+          "reversalId": "063e7d5e-78e2-45ad-a785-d34ce0393006",
+          "creditId": "fabd91bf-229a-494c-84d7-ca999cf29a76",
+          "tillId": "00000000-0000-4000-8000-000000000006",
+          "customerId": "00000000-0000-4000-8000-000000000007",
+          "reason": "Fixture return",
+          "lines": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store"
+            }
+          ]
+        },
+        "pendingAtDispatch": {
+          "version": 1,
+          "state": "sending",
+          "scope": {
+            "origin": "http://127.0.0.1:62880",
+            "staffId": "00000000-0000-4000-8000-000000000001",
+            "nodeId": "00000000-0000-4000-8000-000000000002",
+            "branchId": "00000000-0000-4000-8000-000000000003",
+            "locationId": "00000000-0000-4000-8000-000000000004"
+          },
+          "saleId": "00000000-0000-4000-8000-000000000005",
+          "saleTillId": "00000000-0000-4000-8000-000000000006",
+          "currencyCode": "NIO",
+          "endpoint": "credit",
+          "body": {
+            "reversalId": "063e7d5e-78e2-45ad-a785-d34ce0393006",
+            "creditId": "fabd91bf-229a-494c-84d7-ca999cf29a76",
+            "tillId": "00000000-0000-4000-8000-000000000006",
+            "customerId": "00000000-0000-4000-8000-000000000007",
+            "reason": "Fixture return",
+            "lines": [
+              {
+                "saleLineId": "00000000-0000-4000-8000-000000000008",
+                "quantity": 1,
+                "restockPool": "store"
+              }
+            ]
+          },
+          "expected": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store",
+              "creditMinor": 12345
+            }
+          ]
+        }
+      }
+    ],
+    "calls": [
+      {
+        "method": "GET",
+        "path": "/sales/00000000-0000-4000-8000-000000000005"
+      },
+      {
+        "method": "GET",
+        "path": "/returns/policy"
+      },
+      {
+        "method": "GET",
+        "path": "/sellers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/registers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/tills/00000000-0000-4000-8000-000000000006/summary"
+      },
+      {
+        "method": "POST",
+        "path": "/auth/login"
+      },
+      {
+        "method": "POST",
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/credit"
+      },
+      {
+        "method": "POST",
+        "path": "/auth/logout"
+      }
+    ],
+    "revoked": 1,
+    "pending": {
+      "version": 1,
+      "state": "sending",
+      "scope": {
+        "origin": "http://127.0.0.1:62880",
+        "staffId": "00000000-0000-4000-8000-000000000001",
+        "nodeId": "00000000-0000-4000-8000-000000000002",
+        "branchId": "00000000-0000-4000-8000-000000000003",
+        "locationId": "00000000-0000-4000-8000-000000000004"
+      },
+      "saleId": "00000000-0000-4000-8000-000000000005",
+      "saleTillId": "00000000-0000-4000-8000-000000000006",
+      "currencyCode": "NIO",
+      "endpoint": "credit",
+      "body": {
+        "reversalId": "063e7d5e-78e2-45ad-a785-d34ce0393006",
+        "creditId": "fabd91bf-229a-494c-84d7-ca999cf29a76",
+        "tillId": "00000000-0000-4000-8000-000000000006",
+        "customerId": "00000000-0000-4000-8000-000000000007",
+        "reason": "Fixture return",
+        "lines": [
+          {
+            "saleLineId": "00000000-0000-4000-8000-000000000008",
+            "quantity": 1,
+            "restockPool": "store"
+          }
+        ]
+      },
+      "expected": [
+        {
+          "saleLineId": "00000000-0000-4000-8000-000000000008",
+          "quantity": 1,
+          "restockPool": "store",
+          "creditMinor": 12345
+        }
+      ]
+    },
+    "focus": "",
+    "errors": [
+      {
+        "viewport": "mobile",
+        "console": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+        "expected": true
+      }
+    ]
+  },
+  {
+    "viewport": {
+      "name": "mobile",
+      "width": 390,
+      "height": 844,
+      "dpr": 2
+    },
+    "name": "late-approval-retire-no-post",
+    "status": "PASS",
+    "posts": [],
+    "calls": [
+      {
+        "method": "GET",
+        "path": "/sales/00000000-0000-4000-8000-000000000005"
+      },
+      {
+        "method": "GET",
+        "path": "/returns/policy"
+      },
+      {
+        "method": "GET",
+        "path": "/sellers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/registers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/tills/00000000-0000-4000-8000-000000000006/summary"
+      },
+      {
+        "method": "POST",
+        "path": "/auth/login"
+      },
+      {
+        "method": "POST",
+        "path": "/auth/logout"
+      }
+    ],
+    "revoked": 1,
+    "pending": {
+      "version": 1,
+      "state": "draft",
+      "scope": {
+        "origin": "http://127.0.0.1:62880",
+        "staffId": "00000000-0000-4000-8000-000000000001",
+        "nodeId": "00000000-0000-4000-8000-000000000002",
+        "branchId": "00000000-0000-4000-8000-000000000003",
+        "locationId": "00000000-0000-4000-8000-000000000004"
+      },
+      "saleId": "00000000-0000-4000-8000-000000000005",
+      "saleTillId": "00000000-0000-4000-8000-000000000006",
+      "currencyCode": "NIO",
+      "endpoint": "credit",
+      "body": {
+        "reversalId": "9a840a75-0cac-408a-bfba-f10a08667b8f",
+        "creditId": "b04df6fe-8f20-4d24-9c21-9ef40b48e768",
+        "tillId": "00000000-0000-4000-8000-000000000006",
+        "customerId": "00000000-0000-4000-8000-000000000007",
+        "reason": "Fixture return",
+        "lines": [
+          {
+            "saleLineId": "00000000-0000-4000-8000-000000000008",
+            "quantity": 1,
+            "restockPool": "store"
+          }
+        ]
+      },
+      "expected": [
+        {
+          "saleLineId": "00000000-0000-4000-8000-000000000008",
+          "quantity": 1,
+          "restockPool": "store",
+          "creditMinor": 12345
+        }
+      ]
+    },
+    "focus": "",
+    "errors": []
+  },
+  {
+    "viewport": {
+      "name": "mobile",
+      "width": 390,
+      "height": 844,
+      "dpr": 2
+    },
+    "name": "held-lookup-retire-no-ui-effect",
+    "status": "PASS",
+    "posts": [
+      {
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/credit",
+        "raw": "{\"reversalId\":\"4e329fac-c798-43b1-98e2-7820ad1cb152\",\"creditId\":\"48af3bc5-83d6-4b6f-856e-4156c4ae3890\",\"tillId\":\"00000000-0000-4000-8000-000000000006\",\"customerId\":\"00000000-0000-4000-8000-000000000007\",\"reason\":\"Fixture return\",\"lines\":[{\"saleLineId\":\"00000000-0000-4000-8000-000000000008\",\"quantity\":1,\"restockPool\":\"store\"}]}",
+        "body": {
+          "reversalId": "4e329fac-c798-43b1-98e2-7820ad1cb152",
+          "creditId": "48af3bc5-83d6-4b6f-856e-4156c4ae3890",
+          "tillId": "00000000-0000-4000-8000-000000000006",
+          "customerId": "00000000-0000-4000-8000-000000000007",
+          "reason": "Fixture return",
+          "lines": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store"
+            }
+          ]
+        },
+        "pendingAtDispatch": {
+          "version": 1,
+          "state": "sending",
+          "scope": {
+            "origin": "http://127.0.0.1:62880",
+            "staffId": "00000000-0000-4000-8000-000000000001",
+            "nodeId": "00000000-0000-4000-8000-000000000002",
+            "branchId": "00000000-0000-4000-8000-000000000003",
+            "locationId": "00000000-0000-4000-8000-000000000004"
+          },
+          "saleId": "00000000-0000-4000-8000-000000000005",
+          "saleTillId": "00000000-0000-4000-8000-000000000006",
+          "currencyCode": "NIO",
+          "endpoint": "credit",
+          "body": {
+            "reversalId": "4e329fac-c798-43b1-98e2-7820ad1cb152",
+            "creditId": "48af3bc5-83d6-4b6f-856e-4156c4ae3890",
+            "tillId": "00000000-0000-4000-8000-000000000006",
+            "customerId": "00000000-0000-4000-8000-000000000007",
+            "reason": "Fixture return",
+            "lines": [
+              {
+                "saleLineId": "00000000-0000-4000-8000-000000000008",
+                "quantity": 1,
+                "restockPool": "store"
+              }
+            ]
+          },
+          "expected": [
+            {
+              "saleLineId": "00000000-0000-4000-8000-000000000008",
+              "quantity": 1,
+              "restockPool": "store",
+              "creditMinor": 12345
+            }
+          ]
+        }
+      }
+    ],
+    "calls": [
+      {
+        "method": "GET",
+        "path": "/sales/00000000-0000-4000-8000-000000000005"
+      },
+      {
+        "method": "GET",
+        "path": "/returns/policy"
+      },
+      {
+        "method": "GET",
+        "path": "/sellers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/registers"
+      },
+      {
+        "method": "GET",
+        "path": "/cash/tills/00000000-0000-4000-8000-000000000006/summary"
+      },
+      {
+        "method": "POST",
+        "path": "/auth/login"
+      },
+      {
+        "method": "POST",
+        "path": "/sales/00000000-0000-4000-8000-000000000005/returns/credit"
+      },
+      {
+        "method": "POST",
+        "path": "/auth/logout"
+      },
+      {
+        "method": "GET",
+        "path": "/sales/00000000-0000-4000-8000-000000000005"
+      }
+    ],
+    "revoked": 1,
+    "pending": {
+      "version": 1,
+      "state": "unresolved",
+      "scope": {
+        "origin": "http://127.0.0.1:62880",
+        "staffId": "00000000-0000-4000-8000-000000000001",
+        "nodeId": "00000000-0000-4000-8000-000000000002",
+        "branchId": "00000000-0000-4000-8000-000000000003",
+        "locationId": "00000000-0000-4000-8000-000000000004"
+      },
+      "saleId": "00000000-0000-4000-8000-000000000005",
+      "saleTillId": "00000000-0000-4000-8000-000000000006",
+      "currencyCode": "NIO",
+      "endpoint": "credit",
+      "body": {
+        "reversalId": "4e329fac-c798-43b1-98e2-7820ad1cb152",
+        "creditId": "48af3bc5-83d6-4b6f-856e-4156c4ae3890",
+        "tillId": "00000000-0000-4000-8000-000000000006",
+        "customerId": "00000000-0000-4000-8000-000000000007",
+        "reason": "Fixture return",
+        "lines": [
+          {
+            "saleLineId": "00000000-0000-4000-8000-000000000008",
+            "quantity": 1,
+            "restockPool": "store"
+          }
+        ]
+      },
+      "expected": [
+        {
+          "saleLineId": "00000000-0000-4000-8000-000000000008",
+          "quantity": 1,
+          "restockPool": "store",
+          "creditMinor": 12345
+        }
+      ]
+    },
+    "focus": "",
+    "errors": [
+      {
+        "viewport": "mobile",
+        "console": "Failed to load resource: net::ERR_CONTENT_LENGTH_MISMATCH",
+        "expected": true
+      }
+    ]
+  }
+]

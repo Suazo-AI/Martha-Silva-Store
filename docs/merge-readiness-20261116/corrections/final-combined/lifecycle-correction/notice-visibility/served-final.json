@@ -1,0 +1,239 @@
+{
+  "calls": [
+    {
+      "authorization": null,
+      "method": "POST",
+      "path": "/api/v1/auth/login"
+    },
+    {
+      "authorization": "Bearer fictional-manager",
+      "method": "GET",
+      "path": "/api/v1/me"
+    },
+    {
+      "authorization": "Bearer fictional-manager",
+      "method": "GET",
+      "path": "/api/v1/cash/registers"
+    },
+    {
+      "authorization": "Bearer fictional-manager",
+      "method": "GET",
+      "path": "/api/v1/exchange-rate"
+    },
+    {
+      "authorization": "Bearer fictional-approval",
+      "method": "POST",
+      "path": "/api/v1/auth/logout"
+    },
+    {
+      "authorization": "Bearer fictional-manager",
+      "method": "POST",
+      "path": "/api/v1/auth/logout"
+    },
+    {
+      "authorization": null,
+      "method": "POST",
+      "path": "/api/v1/auth/login"
+    },
+    {
+      "authorization": "Bearer fictional-seller",
+      "method": "GET",
+      "path": "/api/v1/me"
+    }
+  ],
+  "held": false,
+  "served": {
+    "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/probe.mjs": {
+      "bytes": 4284,
+      "rawSha256": "f4756fd6f20c18f79647566cbab8254cf2b94dd53adec0ba600e1b6cffe7eb72"
+    },
+    "savia/web/api.mjs": {
+      "bytes": 13384,
+      "rawSha256": "d30bf2f0bee090cb505c64a1f672cc83c253444f3878ffa6f7ee46dee45b59c6"
+    },
+    "savia/web/app.css": {
+      "bytes": 20172,
+      "rawSha256": "7170934adb17dce102714b9097cfe510f563ef625f6d7002a373f86c8ce8d6ad"
+    },
+    "savia/web/app.mjs": {
+      "bytes": 7869,
+      "rawSha256": "dce8a33e3e19f5941575afa257f7de21ff8bd8a9f620749ee9ee93ccc4e29c09"
+    },
+    "savia/web/confirm.mjs": {
+      "bytes": 716,
+      "rawSha256": "c2b627620305dda7c21c2dc652df5891838dddaa099a3711b0560fadbe5d0725"
+    },
+    "savia/web/index.html": {
+      "bytes": 1204,
+      "rawSha256": "3440201f738021133edd092ef97fa70585c6845acf01adb28b7a67869fc95049"
+    },
+    "savia/web/money.mjs": {
+      "bytes": 2513,
+      "rawSha256": "bbe83527cb028c8fb8fc23841e8908450387cba08c7d0cd992a661b770551797"
+    },
+    "savia/web/roles.mjs": {
+      "bytes": 3922,
+      "rawSha256": "b7d270531e7c9a5df1b1888d816e280e9526ed0f1f4d8d60fe1f197998dd5651"
+    },
+    "savia/web/sale-recovery.mjs": {
+      "bytes": 5633,
+      "rawSha256": "0db3c8f84cb5486690ae9e0e9891f1364f07205d6f860a953a6704eadc8c82f5"
+    },
+    "savia/web/scan.mjs": {
+      "bytes": 4332,
+      "rawSha256": "3e88319593566bcf6a728e59b35e4a9ff09781fab8c243fbe0680afae8020e33"
+    },
+    "savia/web/scanner/scanner.mjs": {
+      "bytes": 6994,
+      "rawSha256": "c19b2793ddafe1cf3ba277e4f391fec1220d9789b9bc467cc65b44de912fbdf8"
+    },
+    "savia/web/screens/approvals.mjs": {
+      "bytes": 1553,
+      "rawSha256": "b2d23bc43a08b84b38c708feaa02d9f33e0bc28ccde2bccea9c665047429c198"
+    },
+    "savia/web/screens/cash-logic.mjs": {
+      "bytes": 399,
+      "rawSha256": "433ca09037b0ebfdba046dc208e54f7bf2840af0e6bc63f874cf44a1a2a2134a"
+    },
+    "savia/web/screens/cash.mjs": {
+      "bytes": 8253,
+      "rawSha256": "0c5b4aca56f63568c33adb2ec9bb41544bd66e9ccafc3645f565bed578867ec8"
+    },
+    "savia/web/screens/commissions.mjs": {
+      "bytes": 4506,
+      "rawSha256": "fe5cdb1bcecd068dc5da4acba38f6e0418b0051013bda7c07c1a82bff415c90f"
+    },
+    "savia/web/screens/customers.mjs": {
+      "bytes": 3902,
+      "rawSha256": "27e9e3dfd9230a950cffa658bace3f7e3c429bb08488e2aa3e0308cb739ee8d0"
+    },
+    "savia/web/screens/denominations.mjs": {
+      "bytes": 2870,
+      "rawSha256": "96db44e8dffbfb9242dd77e9e699abcf8a3b516b25452e650f52588a51526900"
+    },
+    "savia/web/screens/exceptions.mjs": {
+      "bytes": 3328,
+      "rawSha256": "a3ce8bf4e32b523a89416bbba2974fbdd1f32e0cca949c78141b4ade82e268b1"
+    },
+    "savia/web/screens/history.mjs": {
+      "bytes": 4329,
+      "rawSha256": "fd2ccf877492e24475c42e74957988ae9356fd0320083434b9b78897e19ca0f8"
+    },
+    "savia/web/screens/import-logic.mjs": {
+      "bytes": 2227,
+      "rawSha256": "3d82de0e2375de3cc0e2e7857b048c4c5b71a4b61c6f8ade34aec5f3eb6d4c6b"
+    },
+    "savia/web/screens/import.mjs": {
+      "bytes": 7873,
+      "rawSha256": "fbbd79f1a47e3ccc220f775ceb797e4d5582114f3c431c254be613c42481bb2c"
+    },
+    "savia/web/screens/inventory-logic.mjs": {
+      "bytes": 418,
+      "rawSha256": "fab1c89e41ff638ef46a0571a5eb8117c9c1c420cd36614303cf4b898cbd9884"
+    },
+    "savia/web/screens/inventory.mjs": {
+      "bytes": 4997,
+      "rawSha256": "6209a0fbb4184a0a80afcfdf2f834137375b12474171b17a77922201f5b52b59"
+    },
+    "savia/web/screens/login.mjs": {
+      "bytes": 2099,
+      "rawSha256": "378be8061ef31a3af97d122d7d5d870c9741b60cecf936426cbf32a8557d0228"
+    },
+    "savia/web/screens/payment-logic.mjs": {
+      "bytes": 2098,
+      "rawSha256": "6856f40ad75027e3503fdfa4c0cd1314c725844be9579eca0d57976e2868067f"
+    },
+    "savia/web/screens/payments.mjs": {
+      "bytes": 11296,
+      "rawSha256": "4e71c7afa9993e5acfbdd65188539530a803a4f111b6dc4dcd982fa6fc44e261"
+    },
+    "savia/web/screens/prices.mjs": {
+      "bytes": 4115,
+      "rawSha256": "d8ad1c18bba4c9d7567be44826ec39fd9bf2fe9fbb5f20f09aeab8f2a32f3b25"
+    },
+    "savia/web/screens/quality-report.mjs": {
+      "bytes": 1750,
+      "rawSha256": "bfdb33a68f9ca783497cc2a50f79670e98e89a0042033dc3e6b2ac279f415098"
+    },
+    "savia/web/screens/quality.mjs": {
+      "bytes": 2483,
+      "rawSha256": "735b6fd96a67a5a15c07c804cbfcd42fd4b8b82a48ec892f7e0f266d8319131f"
+    },
+    "savia/web/screens/rates.mjs": {
+      "bytes": 1864,
+      "rawSha256": "e106c2871f1f731ceac9f4c6f74b8b0ffde3a598bd00ffc88787b35b9f4ad8f3"
+    },
+    "savia/web/screens/receipt.mjs": {
+      "bytes": 1379,
+      "rawSha256": "b025b1f52afd31f1cc8dc6d914de7b7d2818daea7884954092ec74688851562a"
+    },
+    "savia/web/screens/reception-data.mjs": {
+      "bytes": 2711,
+      "rawSha256": "648fe8ff459c7c352e2067195aab8f92efa66079876d9e3b283aa981d17c39b3"
+    },
+    "savia/web/screens/reception-logic.mjs": {
+      "bytes": 1201,
+      "rawSha256": "c82e7b8ec6b7d94459de3de24caf9dfa141e2546c8d0b58e4dfbe85a57bab901"
+    },
+    "savia/web/screens/reception.mjs": {
+      "bytes": 15310,
+      "rawSha256": "433f42ffad275b7efe50c5b80ebc127830454275c0f2236f9d572c21c276e7fb"
+    },
+    "savia/web/screens/report-logic.mjs": {
+      "bytes": 722,
+      "rawSha256": "8bc6d641893a8d46aabd6b9db40595030d83fbc38af33739216519884b883df5"
+    },
+    "savia/web/screens/report.mjs": {
+      "bytes": 16136,
+      "rawSha256": "195c89c8d9141f73140ed6c3ba2d9953586dc52a1759be6d32f788a922f150d6"
+    },
+    "savia/web/screens/return-intent.mjs": {
+      "bytes": 6818,
+      "rawSha256": "96f95f5c45ee6d9edf0478b78dcce20d180b379429745ebe4624c6c79c6bb049"
+    },
+    "savia/web/screens/return-logic.mjs": {
+      "bytes": 3934,
+      "rawSha256": "5e7a0861982bf0164ea156ea3d0fb8cbf992b39514efc91485bb41123b1873b9"
+    },
+    "savia/web/screens/return.mjs": {
+      "bytes": 27875,
+      "rawSha256": "69198b30c9e16e221cc8c589ca9ebefc20b8dcfa148ab44268624f86d9f66cda"
+    },
+    "savia/web/screens/review.mjs": {
+      "bytes": 8685,
+      "rawSha256": "f9c599e75a0ea96ae8e1723c028e6183a8f762c06889659eff41000ff78ad068"
+    },
+    "savia/web/screens/sale-logic.mjs": {
+      "bytes": 4180,
+      "rawSha256": "ba169c19e3aa25187c4749dacde347c1c8bab32c98472aebe0b136be111138fc"
+    },
+    "savia/web/screens/sale-view.mjs": {
+      "bytes": 3945,
+      "rawSha256": "16b753fdffa328ab0485f3fccf81300646bb5faf4a65231ca6bad8bf8c0d86ee"
+    },
+    "savia/web/screens/sale.mjs": {
+      "bytes": 41531,
+      "rawSha256": "4f73ba40afc917ce0b20e24dbb86e41b8c8b33c4e04f1663fa6908e4a5621a15"
+    },
+    "savia/web/screens/settings.mjs": {
+      "bytes": 1821,
+      "rawSha256": "5aac527bc301180ae424a9d2e10b535f320026d0f87c89547b978fd837cd29ce"
+    },
+    "savia/web/screens/till-open.mjs": {
+      "bytes": 4202,
+      "rawSha256": "a12dd759bcc6f63f0628f1db4cafb0fa03db5fedad6ffc9dbe6b882f7b655265"
+    },
+    "savia/web/screens/usd-logic.mjs": {
+      "bytes": 2126,
+      "rawSha256": "d81b4d43b4fddd260232f6d3e100de3316b83ef4bc37508bb72c59e5d47a9348"
+    },
+    "savia/web/ui.mjs": {
+      "bytes": 3801,
+      "rawSha256": "906fe9b654625298196b6aa66217d0c4ff8358ade1100dd405d777a1f743ba4c"
+    },
+    "savia/web/uuid-logic.mjs": {
+      "bytes": 493,
+      "rawSha256": "8e93aa30b7239fc7576e1cb29cf991c11a1d951475b1cc56219047fa6ef97813"
+    }
+  }
+}

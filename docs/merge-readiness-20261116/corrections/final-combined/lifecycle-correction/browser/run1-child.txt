@@ -1,0 +1,23 @@
+desktop PASS ordinary-credit
+desktop PASS ordinary-cash
+desktop PASS ordinary-transfer
+desktop PASS exchange-initial-200
+desktop PASS exchange-loss-remount-404-get-replay
+desktop FAIL draft-remount-cancel-keyboard
+desktop PASS wrong-post-status-preserves-uncertainty
+desktop PASS held-post-retire-cleanup-false
+desktop PASS held-post-retire-cleanup-true
+desktop PASS late-approval-retire-no-post
+desktop PASS held-lookup-retire-no-ui-effect
+mobile PASS ordinary-credit
+mobile PASS ordinary-cash
+mobile PASS ordinary-transfer
+mobile PASS exchange-initial-200
+mobile PASS exchange-loss-remount-404-get-replay
+mobile PASS draft-remount-cancel-keyboard
+mobile PASS wrong-post-status-preserves-uncertainty
+mobile PASS held-post-retire-cleanup-false
+mobile PASS held-post-retire-cleanup-true
+mobile PASS late-approval-retire-no-post
+mobile PASS held-lookup-retire-no-ui-effect
+RESULT FAIL; 21/22; source unchanged=true; port closed=true

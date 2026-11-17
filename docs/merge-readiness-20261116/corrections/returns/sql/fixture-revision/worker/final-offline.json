@@ -1,0 +1,19 @@
+{
+  "test_return_retry_safety.py": {
+    "tests": 8,
+    "failures": 0,
+    "errors": 0,
+    "output": "test_actual_migration_uses_existing_atomic_envelope (test_return_retry_safety.ReturnRetrySourceTests.test_actual_migration_uses_existing_atomic_envelope) ... ok\ntest_all_financial_fields_projected (test_return_retry_safety.ReturnRetrySourceTests.test_all_financial_fields_projected) ... ok\ntest_authorization_serialization_and_replay_before_eligibility (test_return_retry_safety.ReturnRetrySourceTests.test_authorization_serialization_and_replay_before_eligibility) ... ok\ntest_deterministic_arrays_and_explicit_nulls (test_return_retry_safety.ReturnRetrySourceTests.test_deterministic_arrays_and_explicit_nulls) ... ok\ntest_negative_control_pool_omission_is_detected (test_return_retry_safety.ReturnRetrySourceTests.test_negative_control_pool_omission_is_detected) ... ok\ntest_negative_omitted_enabled_staff (test_return_retry_safety.ReturnRetrySourceTests.test_negative_omitted_enabled_staff) ... ok\ntest_negative_split_endpoint_namespace (test_return_retry_safety.ReturnRetrySourceTests.test_negative_split_endpoint_namespace) ... ok\ntest_shared_lock_and_enabled_staff (test_return_retry_safety.ReturnRetrySourceTests.test_shared_lock_and_enabled_staff) ... ok\n\n----------------------------------------------------------------------\nRan 8 tests in 0.007s\n\nOK\n"
+  },
+  "test_rules.py": {
+    "tests": 10,
+    "failures": 0,
+    "errors": 0,
+    "output": "test_good_tree_passes_every_rule (test_rules.RulesTest.test_good_tree_passes_every_rule) ... ok\ntest_guards_use_named_role_sets (test_rules.RulesTest.test_guards_use_named_role_sets) ... ok\ntest_layers (test_rules.RulesTest.test_layers) ... ok\ntest_migrations (test_rules.RulesTest.test_migrations) ... ok\ntest_no_disabled_tests (test_rules.RulesTest.test_no_disabled_tests) ... ok\ntest_no_pilot_names (test_rules.RulesTest.test_no_pilot_names) ... ok\ntest_source_stays_readable (test_rules.RulesTest.test_source_stays_readable) ... ok\ntest_web_calls_real_routes (test_rules.RulesTest.test_web_calls_real_routes) ... ok\ntest_web_dialogs_and_http (test_rules.RulesTest.test_web_dialogs_and_http) ... ok\ntest_web_logic_is_pure (test_rules.RulesTest.test_web_logic_is_pure) ... ok\n\n----------------------------------------------------------------------\nRan 10 tests in 1.416s\n\nOK\n"
+  },
+  "sql134_source": {
+    "old_51538_guard": false,
+    "new_51538_guard": true,
+    "preserved_delta": "comment and catch only"
+  }
+}

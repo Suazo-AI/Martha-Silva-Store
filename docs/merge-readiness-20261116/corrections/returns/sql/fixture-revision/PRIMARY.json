@@ -1,0 +1,126 @@
+{
+  "status": "IMPORTED_NOT_ACCEPTED",
+  "sourceSha": "ba8ff2ba10935e99fc268ebbe5eae130f72c1cca",
+  "worker": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-216b8947-4e46f448a3babbc5",
+  "sources": [
+    {
+      "path": "savia/db/migrations/V029__return_retry_safety.sql",
+      "previousRawSha256": "6041e3880fb4cb02c595504e394701e52408e426767c67c2b575914402b353cc",
+      "rawSha256": "6041e3880fb4cb02c595504e394701e52408e426767c67c2b575914402b353cc",
+      "lfSha256": "6041e3880fb4cb02c595504e394701e52408e426767c67c2b575914402b353cc",
+      "changed": false
+    },
+    {
+      "path": "savia/db/migrations/MANIFEST.sha256",
+      "previousRawSha256": "2e878b9e3c3eea5c1135ad0f1c2ac22a24f771aa5e41cba66665be79691eefe0",
+      "rawSha256": "2e878b9e3c3eea5c1135ad0f1c2ac22a24f771aa5e41cba66665be79691eefe0",
+      "lfSha256": "2e878b9e3c3eea5c1135ad0f1c2ac22a24f771aa5e41cba66665be79691eefe0",
+      "changed": false
+    },
+    {
+      "path": "savia/db/tests/sales/172_return_retry_safety.sql",
+      "previousRawSha256": "50dc06558f36da331afe4ddbf45112d7b90c7e08c9983958863b764a78e591b3",
+      "rawSha256": "1c816dfdf60c45a8e71865222d3718f9d0ca552075fc73dddba15e11567a47ee",
+      "lfSha256": "1c816dfdf60c45a8e71865222d3718f9d0ca552075fc73dddba15e11567a47ee",
+      "changed": true
+    },
+    {
+      "path": "savia/tests/Savia.Tests/ReturnRetrySafetyTests.cs",
+      "previousRawSha256": "b35dda2fef4a8dc8fc6a3750d213cffce50fbb8827f5c5ba5e43e7e49c390097",
+      "rawSha256": "3fe76573de23dd884534e6fb2d8414737ef2344221f70d9e319b1acceee68b37",
+      "lfSha256": "3fe76573de23dd884534e6fb2d8414737ef2344221f70d9e319b1acceee68b37",
+      "changed": true
+    },
+    {
+      "path": "savia/tests/test_return_retry_safety.py",
+      "previousRawSha256": "d142b60596c5e97e86d88f66a4805bf75116e383d45c6060c71d898200c6c687",
+      "rawSha256": "1a919e950ff349ed514a98d90a60bbd4d6fbdf663192d0f99a8ce42f301f4e66",
+      "lfSha256": "1a919e950ff349ed514a98d90a60bbd4d6fbdf663192d0f99a8ce42f301f4e66",
+      "changed": true
+    },
+    {
+      "path": "savia/db/tests/sales/134_credit_return_validation.sql",
+      "previousRawSha256": "991a1c004d226c459a9a23e77e4b6900846601506446654b8d493206bf8f5567",
+      "rawSha256": "a243bc9d3c05e9e12744a02fd31193caaf62cee9566acd748d4772d57127575c",
+      "lfSha256": "c331b7564647612297ba977ee872dc40aa625c4a6b618d6296333d98a7639fca",
+      "changed": true
+    }
+  ],
+  "publicEvidence": [
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/README.md",
+      "rawSha256": "1b127bb045673858cd54752be1359f3c5ce1c458daee8c1cbd831cbe72280952",
+      "lfSha256": "1b127bb045673858cd54752be1359f3c5ce1c458daee8c1cbd831cbe72280952"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/RESULT.json",
+      "rawSha256": "295775b9339aff68320cd555a34d0ac4f745b17872aa16dcffd34f1aef587c74",
+      "lfSha256": "295775b9339aff68320cd555a34d0ac4f745b17872aa16dcffd34f1aef587c74"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/hashes.json",
+      "rawSha256": "63214aab814a5a64a0bcf98d48c89e24b3452784c1a01f7b86eaaf42af0a4ba9",
+      "lfSha256": "8c18fa82bc2c6325c74cddae0149e9430374d35a14991bf02b3e22b5e83db1d5"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/scope.json",
+      "rawSha256": "f65caeee93ee544d14b2ce8993e43717300c13c70189ce8a1270ffb4744ddf2c",
+      "lfSha256": "923979357ee3db3dad351e97240275923569e4f53adcb35e6fb006f1228a49c3"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/baseline.json",
+      "rawSha256": "e1126c5967c6bab280115f771e467548a4d94f595808ab4cc63990d68d1b6d80",
+      "lfSha256": "b5be7090d98d2451918c5afeef4dd8a3bcb741ad9ab8498d625409625f720974"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/corrected.json",
+      "rawSha256": "5d3297821240de9b2e0195114605f33968cc11b3726d96eccf55264251a54fde",
+      "lfSha256": "a3af0e68d650f0ffe5b8ec14add3ad080732b54ca25c434615804f59bbc85058"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/final-offline.json",
+      "rawSha256": "8e114bc0ea40703c0b88f28d940a6b53003b4a8d80b2b53757b9cfe364a83c28",
+      "lfSha256": "15e7ee51d9a09d188157830137b17b51ab3a5ecd588d6416d3f01830f419cc5b"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/final-delta.patch",
+      "rawSha256": "c85c9dfbe6c28da1f5b9f7d9f8c81203f3ea0f2f0ec80c9e3f502e0a2495436b",
+      "lfSha256": "fd9c09e0a819bf030dc70aaceb04661438eaa029b36639a2e1f50bb4880f6898"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/audit.py",
+      "rawSha256": "230be49bbd3f29b879904f39428e2dcb8c60a2820542c4afda1ca6493c23c34e",
+      "lfSha256": "230be49bbd3f29b879904f39428e2dcb8c60a2820542c4afda1ca6493c23c34e"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/audit-initial-failure.txt",
+      "rawSha256": "87bf402029f93814c3b26fc3779e8e20864b705200183ac48e8623fe31cbf061",
+      "lfSha256": "67297fec5383fd82a87cf9b4bb74bcd3677b9623b2b493cf906208a0410b037c"
+    }
+  ],
+  "privateLogs": [
+    {
+      "file": "private-exports/merge-readiness-20261116/corrections/returns-sql-fixture/restore.log",
+      "rawSha256": "9d91157a9759ae4fd7891c7769ea1215a235aef51313c8a145867f7be3aec9cf"
+    },
+    {
+      "file": "private-exports/merge-readiness-20261116/corrections/returns-sql-fixture/build.log",
+      "rawSha256": "70dc50ad2e7e249c2a2d01cfe1b6905551de8eb8ba3d630ddc7dbd0a3c4b3679"
+    }
+  ],
+  "workerReported": {
+    "returnGuards": 8,
+    "rules": 10,
+    "buildExit": 0,
+    "warnings": 0,
+    "errors": 0
+  },
+  "independentChecks": {
+    "primarySourceBindings": "6/6 RAW and LF verified before archive",
+    "indexUnchanged": true,
+    "freshOfflineExecution": "Pending isolated Astra review; unchanged worker evidence reused without another build",
+    "reviewPacket": "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/REVIEW.json"
+  },
+  "sql": "NOT RUN",
+  "indexUnchanged": true
+}

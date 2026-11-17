@@ -1,0 +1,60 @@
+{
+  "base": "ba8ff2ba10935e99fc268ebbe5eae130f72c1cca",
+  "sha256": "a80eeb8f2ef8ccb0222cdab1035ac22c11ed2209919998a66d2954695f5dcfe8",
+  "files": [
+    {
+      "path": "savia/web/app.mjs",
+      "rawSha256": "c0f673d033ccad4d153835eccfec16ce505fbacf22ea0acc7377ea6fa2d58129",
+      "lfSha256": "c0f673d033ccad4d153835eccfec16ce505fbacf22ea0acc7377ea6fa2d58129",
+      "source": "returned-worker"
+    },
+    {
+      "path": "savia/web/screens/return.mjs",
+      "rawSha256": "2ef7b896b0f01cc37b0c25a27519ba8b68770833616d5fe1cd943cc88cb70da2",
+      "lfSha256": "2ef7b896b0f01cc37b0c25a27519ba8b68770833616d5fe1cd943cc88cb70da2",
+      "source": "returned-worker"
+    },
+    {
+      "path": "savia/web/screens/return-intent.mjs",
+      "rawSha256": "397bc81c7c35f1ed94e10b1bcb02fa7893ea7470cd2f4126d1d7d6aae5d26a27",
+      "lfSha256": "397bc81c7c35f1ed94e10b1bcb02fa7893ea7470cd2f4126d1d7d6aae5d26a27",
+      "source": "returned-worker"
+    },
+    {
+      "path": "savia/web/tests/return-lifecycle.test.mjs",
+      "rawSha256": "64cfddbaff6f98fe3a1f5ce2eeb3b036ade5c2ef356dbca995da98daf46dc2a1",
+      "lfSha256": "64cfddbaff6f98fe3a1f5ce2eeb3b036ade5c2ef356dbca995da98daf46dc2a1",
+      "source": "returned-worker"
+    },
+    {
+      "path": "savia/web/api.mjs",
+      "rawSha256": "3878b2a1ccd8f873cda3de73c0876c4ab1451f637630b0937a0d843263591a1a",
+      "lfSha256": "3878b2a1ccd8f873cda3de73c0876c4ab1451f637630b0937a0d843263591a1a",
+      "source": "primary-overlay"
+    },
+    {
+      "path": "savia/web/uuid-logic.mjs",
+      "rawSha256": "8e93aa30b7239fc7576e1cb29cf991c11a1d951475b1cc56219047fa6ef97813",
+      "lfSha256": "8e93aa30b7239fc7576e1cb29cf991c11a1d951475b1cc56219047fa6ef97813",
+      "source": "primary-overlay"
+    },
+    {
+      "path": "savia/web/screens/sale-logic.mjs",
+      "rawSha256": "ba169c19e3aa25187c4749dacde347c1c8bab32c98472aebe0b136be111138fc",
+      "lfSha256": "ba169c19e3aa25187c4749dacde347c1c8bab32c98472aebe0b136be111138fc",
+      "source": "primary-overlay"
+    },
+    {
+      "path": "savia/web/tests/uuid.test.mjs",
+      "rawSha256": "0e2bf69aeb4b95e993669984a99c6889d5b77f90b051808c6be251b5445012bd",
+      "lfSha256": "0e2bf69aeb4b95e993669984a99c6889d5b77f90b051808c6be251b5445012bd",
+      "source": "primary-overlay"
+    }
+  ],
+  "authority": "Review only; no SQL, Docker, builds, network, runtime, commits or publication.",
+  "observations": [
+    "Exchange lookup always throws after matching reversal, including successful POST; cannot complete.",
+    "Detailed outcome summary removed. Cancel reserves a draft before any POST; inspect safe cancel behavior."
+  ],
+  "proposedRoute": "Evaluate exact validated POST acknowledgement as authoritative for exchange under V029 atomic immutable identity; GET alone lacks exchange linkage. Do not infer acceptance."
+}

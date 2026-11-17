@@ -1,0 +1,13 @@
+F
+======================================================================
+FAIL: test_negative_omitted_credit_approver_enabled (savia.tests.test_return_retry_safety.ReturnRetrySourceTests.test_negative_omitted_credit_approver_enabled)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Jason\MARTHA-SILVA\github\savia\tests\test_return_retry_safety.py", line 60, in test_negative_omitted_credit_approver_enabled
+    with self.assertRaisesRegex(AssertionError, '@ApprovedBy'):
+AssertionError: AssertionError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (failures=1)

@@ -1,9 +1,10 @@
 // Pure ticket logic for Venta. Integer minor units only.
 import { lineTotal } from '../money.mjs';
+import { uuid } from '../uuid-logic.mjs';
 
 export function addToTicket(lines, item, quantity = 1) {
   const index = lines.findIndex(l => l.itemId === item.itemId && l.sellerId === item.sellerId);
-  if (index === -1) return [...lines, { ...item, ...(item.sellerId ? { ticketKey: crypto.randomUUID() } : {}), quantity }];
+  if (index === -1) return [...lines, { ...item, ...(item.sellerId ? { ticketKey: uuid() } : {}), quantity }];
   return lines.map((l, i) => (i === index ? { ...l, quantity: l.quantity + quantity } : l));
 }
 

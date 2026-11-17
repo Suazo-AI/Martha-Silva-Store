@@ -1,0 +1,44 @@
+{
+  "base": "ba8ff2ba10935e99fc268ebbe5eae130f72c1cca",
+  "archive": "docs/merge-readiness-20261116/corrections/returns/sql/review-overlay.zip",
+  "archiveSha256": "70f89bbd047e4e28148f27ce9bbbc092152187d49f80bd66d96488a8710b18a7",
+  "files": [
+    {
+      "path": "savia/db/migrations/V029__return_retry_safety.sql",
+      "rawSha256": "6041e3880fb4cb02c595504e394701e52408e426767c67c2b575914402b353cc",
+      "lfSha256": "6041e3880fb4cb02c595504e394701e52408e426767c67c2b575914402b353cc"
+    },
+    {
+      "path": "savia/db/migrations/MANIFEST.sha256",
+      "rawSha256": "2e878b9e3c3eea5c1135ad0f1c2ac22a24f771aa5e41cba66665be79691eefe0",
+      "lfSha256": "2e878b9e3c3eea5c1135ad0f1c2ac22a24f771aa5e41cba66665be79691eefe0"
+    },
+    {
+      "path": "savia/db/tests/sales/172_return_retry_safety.sql",
+      "rawSha256": "50dc06558f36da331afe4ddbf45112d7b90c7e08c9983958863b764a78e591b3",
+      "lfSha256": "50dc06558f36da331afe4ddbf45112d7b90c7e08c9983958863b764a78e591b3"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/ReturnRetrySafetyTests.cs",
+      "rawSha256": "b35dda2fef4a8dc8fc6a3750d213cffce50fbb8827f5c5ba5e43e7e49c390097",
+      "lfSha256": "b35dda2fef4a8dc8fc6a3750d213cffce50fbb8827f5c5ba5e43e7e49c390097"
+    },
+    {
+      "path": "savia/tests/test_return_retry_safety.py",
+      "rawSha256": "d142b60596c5e97e86d88f66a4805bf75116e383d45c6060c71d898200c6c687",
+      "lfSha256": "d142b60596c5e97e86d88f66a4805bf75116e383d45c6060c71d898200c6c687"
+    }
+  ],
+  "checks": [
+    "versioned complete SQL-typed canonical financial identity for both return endpoints, ordering/default/null semantics explicit",
+    "current authorization and same-ID serialization; equivalent replay zero writes after closure; changed financial request conflicts with full rollback",
+    "legacy unprovable retry is lookup-only; no fabricated identity",
+    "historical financial procedure body and migrations remain unchanged except scoped replay controls",
+    "migration registration and transaction wrapper correct",
+    "SQL fixtures exercise real paths; exact-row preservation and concurrency claims bounded, no false-positive test",
+    "compatibility of new source with current API and existing tests; no secrets or permission expansion"
+  ],
+  "authority": "source and offline review only; SQL/runtime not authorized",
+  "primaryEvidence": "PRIMARY.json",
+  "output": "astra-sql-review.md"
+}

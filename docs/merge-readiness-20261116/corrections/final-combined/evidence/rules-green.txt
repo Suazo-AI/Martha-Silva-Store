@@ -1,0 +1,15 @@
+test_good_tree_passes_every_rule (test_rules.RulesTest.test_good_tree_passes_every_rule) ... ok
+test_guards_use_named_role_sets (test_rules.RulesTest.test_guards_use_named_role_sets) ... ok
+test_layers (test_rules.RulesTest.test_layers) ... ok
+test_migrations (test_rules.RulesTest.test_migrations) ... ok
+test_no_disabled_tests (test_rules.RulesTest.test_no_disabled_tests) ... ok
+test_no_pilot_names (test_rules.RulesTest.test_no_pilot_names) ... ok
+test_source_stays_readable (test_rules.RulesTest.test_source_stays_readable) ... ok
+test_web_calls_real_routes (test_rules.RulesTest.test_web_calls_real_routes) ... ok
+test_web_dialogs_and_http (test_rules.RulesTest.test_web_dialogs_and_http) ... ok
+test_web_logic_is_pure (test_rules.RulesTest.test_web_logic_is_pure) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 1.200s
+
+OK

@@ -1,0 +1,65 @@
+{
+  "base_sha": "ba8ff2ba10935e99fc268ebbe5eae130f72c1cca",
+  "host": "SUAZO-PC",
+  "python": "3.11.9",
+  "files": {
+    ".github/workflows/golden-path.yml": {
+      "raw_sha256": "ac232cbd55a4df86a90661ce907c067d041916e5d729122660067ba1615e3fc9",
+      "lf_sha256": "e9b63cd3c06dd67e26ba36fe3ad298908c95b2e1a0b8ab7cbd43ed6662c33622",
+      "base_git_blob_sha256": "670a9567fa85d344c0e96c13104d2c00fbff912f14ee9ba828288453f7911c3e",
+      "unchanged_lf_from_base": false
+    },
+    "tests/test_golden_path_workflow.py": {
+      "raw_sha256": "813d700f335162fe03476dd9a133f9b079cb739f5c3359fce295862d96c215b2",
+      "lf_sha256": "813d700f335162fe03476dd9a133f9b079cb739f5c3359fce295862d96c215b2",
+      "base_git_blob_sha256": null,
+      "unchanged_lf_from_base": null
+    },
+    "tests/golden-path/golden_path.py": {
+      "raw_sha256": "9598a4dc8bfce82ae1b61fcf44049ba96e5f21644077bc8c323a785ed2509133",
+      "lf_sha256": "bc24f7fd81dd3293b14a0a35999f9bc0d3e8b5cedf6c7409b2b69acaf7f249f9",
+      "base_git_blob_sha256": "bc24f7fd81dd3293b14a0a35999f9bc0d3e8b5cedf6c7409b2b69acaf7f249f9",
+      "unchanged_lf_from_base": true
+    },
+    "tests/golden-path/verify_evidence.py": {
+      "raw_sha256": "53cbe393f7a47616af96ffc8a340cd43d449ea10f50c4eb47d0dd71e104e5141",
+      "lf_sha256": "4067ef7d25c897b84b3698793bec774384e4b200a541de8266ce708643f33b96",
+      "base_git_blob_sha256": "4067ef7d25c897b84b3698793bec774384e4b200a541de8266ce708643f33b96",
+      "unchanged_lf_from_base": true
+    },
+    "tests/test_golden_path_safety.py": {
+      "raw_sha256": "a40147c12d58c98becc409d423971ef75b5445c653ba0297f8e750f488fdf170",
+      "lf_sha256": "06e11db0a2c1f0acea63b6f0c1bae0e751a56a8df057ac5ea6c536a0d856dd1e",
+      "base_git_blob_sha256": "06e11db0a2c1f0acea63b6f0c1bae0e751a56a8df057ac5ea6c536a0d856dd1e",
+      "unchanged_lf_from_base": true
+    },
+    "tests/test_golden_path_browser_safety.py": {
+      "raw_sha256": "dce2178a5b13662bf850a42868a6571f237223a87f1143d527ba510452700b3b",
+      "lf_sha256": "5bca935f9d1af9c50686291e423147bba289ba4310123cc9c0d506acc7f35317",
+      "base_git_blob_sha256": "5bca935f9d1af9c50686291e423147bba289ba4310123cc9c0d506acc7f35317",
+      "unchanged_lf_from_base": true
+    },
+    "tests/test_golden_path_stock_exception.py": {
+      "raw_sha256": "aaaf13f9d2ed9360227f8a8faa121cda6128a6d97cb92c3efdf84627cee6c8a8",
+      "lf_sha256": "f77382bf36c31a6a0599a5c7f50106d2fa1ac91877c41d40e282a192fe031128",
+      "base_git_blob_sha256": "f77382bf36c31a6a0599a5c7f50106d2fa1ac91877c41d40e282a192fe031128",
+      "unchanged_lf_from_base": true
+    },
+    "tests/test_golden_path_cash.py": {
+      "raw_sha256": "1b9bca50eacb7145698e9cbf41c6ce170339235d4d33ed139fcf0ade58d5080c",
+      "lf_sha256": "6743cbbceca5ae31b2c17565fb4aca841b3fa3f6b17803d99dbefd672dceebb2",
+      "base_git_blob_sha256": "6743cbbceca5ae31b2c17565fb4aca841b3fa3f6b17803d99dbefd672dceebb2",
+      "unchanged_lf_from_base": true
+    },
+    "tests/test_golden_path_cash_evidence.py": {
+      "raw_sha256": "a2801da9568072158153706b94e68dba8edf9754608b7dd49933f8a00e38a64c",
+      "lf_sha256": "5583c19a9da209b185696c7e4a9c3d99aa592abc3ba65da5efce08c2582ffedd",
+      "base_git_blob_sha256": "5583c19a9da209b185696c7e4a9c3d99aa592abc3ba65da5efce08c2582ffedd",
+      "unchanged_lf_from_base": true
+    }
+  },
+  "original_workflow": {
+    "raw_sha256": "f37fdbed2ab3b0d8eacc43d6c516ff8b846faae4c200a63e5c6ee87ce9b2d4ca",
+    "lf_sha256": "670a9567fa85d344c0e96c13104d2c00fbff912f14ee9ba828288453f7911c3e"
+  }
+}

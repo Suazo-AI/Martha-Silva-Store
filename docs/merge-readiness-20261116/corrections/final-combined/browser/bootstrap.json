@@ -1,0 +1,109 @@
+{
+  "head": "ba8ff2ba10935e99fc268ebbe5eae130f72c1cca",
+  "archiveSha256": "ac0465e96c6a0f2a5b95023d0bc1cc3b46d7a96235dad2f665ac581fb0a742e9",
+  "entriesVerified": 53,
+  "sourceHashes": [
+    {
+      "path": ".github/workflows/golden-path.yml",
+      "rawSha256": "ac232cbd55a4df86a90661ce907c067d041916e5d729122660067ba1615e3fc9",
+      "lfSha256": "e9b63cd3c06dd67e26ba36fe3ad298908c95b2e1a0b8ab7cbd43ed6662c33622",
+      "bytes": 10879
+    },
+    {
+      "path": "dev/savia-staff-ui/cash.test.mjs",
+      "rawSha256": "c9d7c550bb7e39b0a7eadcead62daede16f43e9e968e4cfbf62527b4fd65ed61",
+      "lfSha256": "2993c86ba4517ad3a87d729fc9e51bc0c8bfdf3c8b64eebf5a5a69d698f4a258",
+      "bytes": 26330
+    },
+    {
+      "path": "savia/db/migrations/MANIFEST.sha256",
+      "rawSha256": "2e878b9e3c3eea5c1135ad0f1c2ac22a24f771aa5e41cba66665be79691eefe0",
+      "lfSha256": "2e878b9e3c3eea5c1135ad0f1c2ac22a24f771aa5e41cba66665be79691eefe0",
+      "bytes": 2803
+    },
+    {
+      "path": "savia/db/migrations/V029__return_retry_safety.sql",
+      "rawSha256": "6041e3880fb4cb02c595504e394701e52408e426767c67c2b575914402b353cc",
+      "lfSha256": "6041e3880fb4cb02c595504e394701e52408e426767c67c2b575914402b353cc",
+      "bytes": 23115
+    },
+    {
+      "path": "savia/db/tests/sales/134_credit_return_validation.sql",
+      "rawSha256": "a243bc9d3c05e9e12744a02fd31193caaf62cee9566acd748d4772d57127575c",
+      "lfSha256": "c331b7564647612297ba977ee872dc40aa625c4a6b618d6296333d98a7639fca",
+      "bytes": 8837
+    },
+    {
+      "path": "savia/db/tests/sales/172_return_retry_safety.sql",
+      "rawSha256": "1c816dfdf60c45a8e71865222d3718f9d0ca552075fc73dddba15e11567a47ee",
+      "lfSha256": "1c816dfdf60c45a8e71865222d3718f9d0ca552075fc73dddba15e11567a47ee",
+      "bytes": 20807
+    },
+    {
+      "path": "savia/tests/Savia.Tests/ReturnRetrySafetyTests.cs",
+      "rawSha256": "3fe76573de23dd884534e6fb2d8414737ef2344221f70d9e319b1acceee68b37",
+      "lfSha256": "3fe76573de23dd884534e6fb2d8414737ef2344221f70d9e319b1acceee68b37",
+      "bytes": 9916
+    },
+    {
+      "path": "savia/tests/test_return_retry_safety.py",
+      "rawSha256": "6a180e8c8d27900a203bd94c338260863dc45e157c1e351302eceff02af9a9f5",
+      "lfSha256": "6a180e8c8d27900a203bd94c338260863dc45e157c1e351302eceff02af9a9f5",
+      "bytes": 6498
+    },
+    {
+      "path": "savia/web/app.mjs",
+      "rawSha256": "c0f673d033ccad4d153835eccfec16ce505fbacf22ea0acc7377ea6fa2d58129",
+      "lfSha256": "c0f673d033ccad4d153835eccfec16ce505fbacf22ea0acc7377ea6fa2d58129",
+      "bytes": 7605
+    },
+    {
+      "path": "savia/web/api.mjs",
+      "rawSha256": "d30bf2f0bee090cb505c64a1f672cc83c253444f3878ffa6f7ee46dee45b59c6",
+      "lfSha256": "b0a2fe70bddb20de4b0745c06257bf05c9e60afd1d16611a6b1ed748133367f6",
+      "bytes": 13384
+    },
+    {
+      "path": "savia/web/screens/return.mjs",
+      "rawSha256": "b16fdac727c33391c52df88813b8a404e6e09d8511804541aa4f274828644fe1",
+      "lfSha256": "b16fdac727c33391c52df88813b8a404e6e09d8511804541aa4f274828644fe1",
+      "bytes": 27645
+    },
+    {
+      "path": "savia/web/screens/return-intent.mjs",
+      "rawSha256": "96f95f5c45ee6d9edf0478b78dcce20d180b379429745ebe4624c6c79c6bb049",
+      "lfSha256": "96f95f5c45ee6d9edf0478b78dcce20d180b379429745ebe4624c6c79c6bb049",
+      "bytes": 6818
+    },
+    {
+      "path": "savia/web/screens/sale-logic.mjs",
+      "rawSha256": "ba169c19e3aa25187c4749dacde347c1c8bab32c98472aebe0b136be111138fc",
+      "lfSha256": "ba169c19e3aa25187c4749dacde347c1c8bab32c98472aebe0b136be111138fc",
+      "bytes": 4180
+    },
+    {
+      "path": "savia/web/uuid-logic.mjs",
+      "rawSha256": "8e93aa30b7239fc7576e1cb29cf991c11a1d951475b1cc56219047fa6ef97813",
+      "lfSha256": "8e93aa30b7239fc7576e1cb29cf991c11a1d951475b1cc56219047fa6ef97813",
+      "bytes": 493
+    },
+    {
+      "path": "savia/web/tests/uuid.test.mjs",
+      "rawSha256": "0e2bf69aeb4b95e993669984a99c6889d5b77f90b051808c6be251b5445012bd",
+      "lfSha256": "0e2bf69aeb4b95e993669984a99c6889d5b77f90b051808c6be251b5445012bd",
+      "bytes": 2484
+    },
+    {
+      "path": "savia/web/tests/return-lifecycle.test.mjs",
+      "rawSha256": "d3514ec44a4e626aa5f0e092eed8769ce3cf6adc042a16a82e250ddcb85fac19",
+      "lfSha256": "d3514ec44a4e626aa5f0e092eed8769ce3cf6adc042a16a82e250ddcb85fac19",
+      "bytes": 24841
+    },
+    {
+      "path": "tests/test_golden_path_workflow.py",
+      "rawSha256": "813d700f335162fe03476dd9a133f9b079cb739f5c3359fce295862d96c215b2",
+      "lfSha256": "813d700f335162fe03476dd9a133f9b079cb739f5c3359fce295862d96c215b2",
+      "bytes": 11438
+    }
+  ]
+}

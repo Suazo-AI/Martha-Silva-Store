@@ -1,0 +1,245 @@
+{
+  "task_id": "savia-pr7-return-ui-f1f5-ba8ff2b-20261116-01",
+  "status": "RETURNED_LOCAL_CANDIDATE_WITH_LIMITS",
+  "acceptance": "Primary and fresh Astra/xhigh pending",
+  "workspace": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-15d6bca1-a85d144e511e673a",
+  "base": "ba8ff2ba10935e99fc268ebbe5eae130f72c1cca",
+  "branch": "t3/fix-return-ui",
+  "identity": {
+    "host": "SUAZO-PC",
+    "harness": "T3 Code / Codex",
+    "requested": {
+      "provider": "codex",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high"
+    },
+    "runtimeExposed": {
+      "provider": "codex",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "evidence": "runtime instructions plus agent-awareness task metadata"
+    },
+    "costUSD": null,
+    "tokens": null
+  },
+  "scope": {
+    "modifiedOwnedProductPaths": [
+      "savia/web/api.mjs",
+      "savia/web/screens/return.mjs",
+      "savia/web/screens/return-intent.mjs",
+      "savia/web/tests/return-lifecycle.test.mjs"
+    ],
+    "preservedOverlayPaths": [
+      "savia/web/app.mjs",
+      "savia/web/uuid-logic.mjs",
+      "savia/web/screens/sale-logic.mjs",
+      "savia/web/tests/uuid.test.mjs"
+    ],
+    "overlayFiles": 8,
+    "gitStatus": " M savia/web/api.mjs\n M savia/web/app.mjs\n M savia/web/screens/return.mjs\n M savia/web/screens/sale-logic.mjs\n M savia/web/tests/uuid.test.mjs\n?? docs/merge-readiness-20261116/corrections/\n?? savia/web/screens/return-intent.mjs\n?? savia/web/tests/return-lifecycle.test.mjs\n?? savia/web/uuid-logic.mjs\n",
+    "index": "unchanged; cached diff empty",
+    "HEAD": "unchanged"
+  },
+  "finalBindings": [
+    {
+      "path": "savia/web/app.mjs",
+      "rawSha256": "c0f673d033ccad4d153835eccfec16ce505fbacf22ea0acc7377ea6fa2d58129",
+      "lfSha256": "c0f673d033ccad4d153835eccfec16ce505fbacf22ea0acc7377ea6fa2d58129"
+    },
+    {
+      "path": "savia/web/screens/return.mjs",
+      "rawSha256": "b16fdac727c33391c52df88813b8a404e6e09d8511804541aa4f274828644fe1",
+      "lfSha256": "b16fdac727c33391c52df88813b8a404e6e09d8511804541aa4f274828644fe1"
+    },
+    {
+      "path": "savia/web/screens/return-intent.mjs",
+      "rawSha256": "96f95f5c45ee6d9edf0478b78dcce20d180b379429745ebe4624c6c79c6bb049",
+      "lfSha256": "96f95f5c45ee6d9edf0478b78dcce20d180b379429745ebe4624c6c79c6bb049"
+    },
+    {
+      "path": "savia/web/tests/return-lifecycle.test.mjs",
+      "rawSha256": "d3514ec44a4e626aa5f0e092eed8769ce3cf6adc042a16a82e250ddcb85fac19",
+      "lfSha256": "d3514ec44a4e626aa5f0e092eed8769ce3cf6adc042a16a82e250ddcb85fac19"
+    },
+    {
+      "path": "savia/web/api.mjs",
+      "rawSha256": "d30bf2f0bee090cb505c64a1f672cc83c253444f3878ffa6f7ee46dee45b59c6",
+      "lfSha256": "b0a2fe70bddb20de4b0745c06257bf05c9e60afd1d16611a6b1ed748133367f6"
+    },
+    {
+      "path": "savia/web/uuid-logic.mjs",
+      "rawSha256": "8e93aa30b7239fc7576e1cb29cf991c11a1d951475b1cc56219047fa6ef97813",
+      "lfSha256": "8e93aa30b7239fc7576e1cb29cf991c11a1d951475b1cc56219047fa6ef97813"
+    },
+    {
+      "path": "savia/web/screens/sale-logic.mjs",
+      "rawSha256": "ba169c19e3aa25187c4749dacde347c1c8bab32c98472aebe0b136be111138fc",
+      "lfSha256": "ba169c19e3aa25187c4749dacde347c1c8bab32c98472aebe0b136be111138fc"
+    },
+    {
+      "path": "savia/web/tests/uuid.test.mjs",
+      "rawSha256": "0e2bf69aeb4b95e993669984a99c6889d5b77f90b051808c6be251b5445012bd",
+      "lfSha256": "0e2bf69aeb4b95e993669984a99c6889d5b77f90b051808c6be251b5445012bd"
+    }
+  ],
+  "verification": {
+    "focusedInvocations": 7,
+    "finalFullSuiteInvocations": 1,
+    "browserScenarioInvocations": 0,
+    "finalCommand": "node --test savia/web/tests/*.test.mjs",
+    "finalExit": 0,
+    "tests": 110,
+    "pass": 110,
+    "fail": 0,
+    "skipped": 0,
+    "negativeControls": {
+      "command": "node --test --test-name-pattern \"F2 rejects malformed|F1 wrong POST status|F3 remounted draft|F5 retirement revokes\" savia/web/tests/return-lifecycle.test.mjs",
+      "exit": 1,
+      "tests": 4,
+      "fail": 4,
+      "restoration": "byte exact in finally; all original source bytes restored",
+      "reportingFailure": "Outer Python command exit 1 from cp1252 UnicodeEncodeError while printing diagnostics; test results persisted and source restoration verified."
+    },
+    "logs": [
+      {
+        "artifact": "docs/merge-readiness-20261116/corrections/returns/ui-review/corrections/worker/final-web.txt",
+        "counts": {
+          "tests": 110,
+          "pass": 110,
+          "fail": 0,
+          "skipped": 0
+        }
+      },
+      {
+        "artifact": "docs/merge-readiness-20261116/corrections/returns/ui-review/corrections/worker/green1.txt",
+        "counts": {
+          "tests": 15,
+          "pass": 14,
+          "fail": 1,
+          "skipped": 0
+        }
+      },
+      {
+        "artifact": "docs/merge-readiness-20261116/corrections/returns/ui-review/corrections/worker/green2.txt",
+        "counts": {
+          "tests": 15,
+          "pass": 14,
+          "fail": 1,
+          "skipped": 0
+        }
+      },
+      {
+        "artifact": "docs/merge-readiness-20261116/corrections/returns/ui-review/corrections/worker/green3.txt",
+        "counts": {
+          "tests": 15,
+          "pass": 15,
+          "fail": 0,
+          "skipped": 0
+        }
+      },
+      {
+        "artifact": "docs/merge-readiness-20261116/corrections/returns/ui-review/corrections/worker/green4.txt",
+        "counts": {
+          "tests": 22,
+          "pass": 22,
+          "fail": 0,
+          "skipped": 0
+        }
+      },
+      {
+        "artifact": "docs/merge-readiness-20261116/corrections/returns/ui-review/corrections/worker/green5.txt",
+        "counts": {
+          "tests": 26,
+          "pass": 26,
+          "fail": 0,
+          "skipped": 0
+        }
+      },
+      {
+        "artifact": "docs/merge-readiness-20261116/corrections/returns/ui-review/corrections/worker/negative-controls.txt",
+        "counts": {
+          "tests": 4,
+          "pass": 0,
+          "fail": 4,
+          "skipped": 0
+        }
+      },
+      {
+        "artifact": "docs/merge-readiness-20261116/corrections/returns/ui-review/corrections/worker/red.txt",
+        "counts": {
+          "tests": 15,
+          "pass": 12,
+          "fail": 3,
+          "skipped": 0
+        }
+      }
+    ],
+    "syntaxCommands": [
+      "node --check savia/web/api.mjs",
+      "node --check savia/web/screens/return.mjs",
+      "node --check savia/web/screens/return-intent.mjs"
+    ],
+    "syntaxExit": 0,
+    "diffCommand": "git diff --check",
+    "diffExit": 0
+  },
+  "findings": {
+    "F1": "HTTP200 exact POST acknowledgement validates reversal and exact durable record under exclusive lock; exchange GET remains insufficient; confirmation persists before Finish.",
+    "F2": "Shared strict reversal validator; authoritative currency captured before dispatch; legacy missing expectation cannot confirm; GET and POST status checked.",
+    "F3": "Exact draft-only removal with readback under lock; initial and remounted cancellation; sending persisted before POST; uncertainty never discarded.",
+    "F4": "Immutable amount/outcome/reference and exchange balance/tender summaries; receipt links and confirmation survive reload. No optional refresh dependency. Native form/buttons retained; browser keyboard proof pending.",
+    "F5": "Mount registry initiates single-shot revocation on retirement and terminal paths; late approval revoked; cleanup failures notify without credentials."
+  },
+  "blockers": [
+    {
+      "check": "Real browser BEFORE/AFTER desktop/mobile recordings and keyboard proof",
+      "evidence": "node require.resolve for playwright and puppeteer: MODULE_NOT_FOUND; savia/node_modules/playwright and savia/web/tests/node_modules/playwright absent",
+      "cause": "No project browser automation dependency resolved in managed checkout",
+      "attempt": "Checked existing project browser test and dependency locations; no install authorized",
+      "result": "NOT RUN. No reconstructed original BEFORE",
+      "owner": "primary",
+      "nextAction": "Use an existing authorized browser runner with frozen candidate and same viewport/sequence; obtain original BEFORE separately if available",
+      "completionCheck": "Playable original before/after plus desktop/mobile keyboard assertions; source-bound"
+    },
+    {
+      "check": "V029 runtime guarantees",
+      "evidence": "Canonical migration SHA256 verified 6041e3880fb4cb02c595504e394701e52408e426767c67c2b575914402b353cc; ReturnsEndpoints, ReturnsService and SaleReversal read only",
+      "cause": "SQL/Docker/runtime authority explicitly excluded; prior one-shot approval consumed",
+      "attempt": "No SQL correction or execution attempted under this packet",
+      "owner": "primary and SQL fixture worker",
+      "nextAction": "Separate authorized runtime packet for identity/replay/authorization/atomicity/concurrency tests",
+      "completionCheck": "Actual SQL assertions on installed V029; fake HTTP is insufficient"
+    },
+    {
+      "check": "Primary integration and fresh independent review",
+      "evidence": "Local candidate only; no canonical writes",
+      "owner": "primary",
+      "nextAction": "Import exact final bindings serially, independently verify combined overlay, obtain Astra/xhigh review",
+      "completionCheck": "Primary acceptance plus independent findings disposition"
+    }
+  ],
+  "NOT_RUN": [
+    "SQL",
+    "Docker",
+    "network installs",
+    "real backend requests",
+    "browser recordings",
+    "desktop/mobile keyboard QA",
+    "repository-wide legacy checker requiring installs",
+    "build",
+    "commit",
+    "push",
+    "PR checks/reviews refresh",
+    "workflow dispatch",
+    "merge",
+    "deploy",
+    "paid APIs"
+  ],
+  "cleanup": {
+    "ownedProcessesStarted": 0,
+    "ownedServersStarted": 0,
+    "temporaryMutations": "restored byte exact",
+    "credentials": "fixture-only; no real credentials used or persisted"
+  },
+  "lesson": "Completion and uncertainty guards must be tested together; exact POST authority still depends on separately proven backend atomicity."
+}

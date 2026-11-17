@@ -1,0 +1,73 @@
+{
+  "base": "ba8ff2ba10935e99fc268ebbe5eae130f72c1cca",
+  "worker": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-84a947fe-3e4a084275ffd036",
+  "status": "primary source verified and imported; independent review pending",
+  "entries": [
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-84a947fe-3e4a084275ffd036\\docs\\merge-readiness-20261116\\corrections\\staff\\README.md",
+      "destination": "docs\\merge-readiness-20261116\\corrections\\staff\\README.md",
+      "sha256": "a110ed7345b67da50ee2fd265875ff9304f5055e2920951a38ec99aaf7b7a099",
+      "public": true
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-84a947fe-3e4a084275ffd036\\docs\\merge-readiness-20261116\\corrections\\staff\\RESULT.json",
+      "destination": "docs\\merge-readiness-20261116\\corrections\\staff\\RESULT.json",
+      "sha256": "bb7a9ec5445b4fd8123c290644869a86094e2f7ad64d30908541dd39ea56f4dc",
+      "public": true
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-84a947fe-3e4a084275ffd036\\docs\\merge-readiness-20261116\\corrections\\staff\\control.py",
+      "destination": "docs\\merge-readiness-20261116\\corrections\\staff\\control.py",
+      "sha256": "a315096c61a76b772c82cd1f5bddd76b7e1a62480cfbb2f10bc2e85cfb15a0dd",
+      "public": true
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-84a947fe-3e4a084275ffd036\\docs\\merge-readiness-20261116\\corrections\\staff\\negative.json",
+      "destination": "docs\\merge-readiness-20261116\\corrections\\staff\\negative.json",
+      "sha256": "314f2a5625e1c8f2c069d27d5d523c1bf2b31d1e803d8c71c946a4a7f8502097",
+      "public": true
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-84a947fe-3e4a084275ffd036\\docs\\merge-readiness-20261116\\corrections\\staff\\red.json",
+      "destination": "docs\\merge-readiness-20261116\\corrections\\staff\\red.json",
+      "sha256": "782a39fe5e21302b3b75e255cf62e413322e5f263381c1748f0d6ad73703a89b",
+      "public": true
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-84a947fe-3e4a084275ffd036\\docs\\merge-readiness-20261116\\corrections\\staff\\staff-files.json",
+      "destination": "docs\\merge-readiness-20261116\\corrections\\staff\\staff-files.json",
+      "sha256": "6f93ad8477d56223980fa392164662edd6c7159e018bb81347a04553261719ce",
+      "public": true
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-84a947fe-3e4a084275ffd036\\docs\\merge-readiness-20261116\\corrections\\staff\\cash-suite.log",
+      "destination": "private-exports\\merge-readiness-20261116\\corrections\\staff-logs\\cash-suite.log",
+      "sha256": "11c6eb3c04fb9180c9e8a871845c505bc40f3b0ec640a92596779e87a148ee1e",
+      "public": false
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-84a947fe-3e4a084275ffd036\\docs\\merge-readiness-20261116\\corrections\\staff\\delayed-green.log",
+      "destination": "private-exports\\merge-readiness-20261116\\corrections\\staff-logs\\delayed-green.log",
+      "sha256": "753e3062b8e9b0849da4f734222d9e92601532068b227d70214f8d697664c218",
+      "public": false
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-84a947fe-3e4a084275ffd036\\docs\\merge-readiness-20261116\\corrections\\staff\\negative.log",
+      "destination": "private-exports\\merge-readiness-20261116\\corrections\\staff-logs\\negative.log",
+      "sha256": "f3a8f6bb046f81d82fa4caed273ae40be111d0fc602723eeccfb94f67b682c38",
+      "public": false
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-84a947fe-3e4a084275ffd036\\docs\\merge-readiness-20261116\\corrections\\staff\\red.log",
+      "destination": "private-exports\\merge-readiness-20261116\\corrections\\staff-logs\\red.log",
+      "sha256": "9631aa396e0d69e0b91dff32ae1362722d5640e10a9af7b9c56df8942fa002b2",
+      "public": false
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-84a947fe-3e4a084275ffd036\\docs\\merge-readiness-20261116\\corrections\\staff\\staff-suite.log",
+      "destination": "private-exports\\merge-readiness-20261116\\corrections\\staff-logs\\staff-suite.log",
+      "sha256": "c4621428c80fed0f48e47d285c185a969911be285e4f8208838eb86fa6a3ca42",
+      "public": false
+    }
+  ]
+}

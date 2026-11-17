@@ -1,0 +1,28 @@
+✖ CF2 routed retirement reports generic cleanup failure while suppressing stale notices (58.1109ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 249.1089
+
+✖ failing tests:
+
+test at savia\web\tests\return-lifecycle.test.mjs:6:27
+✖ CF2 routed retirement reports generic cleanup failure while suppressing stale notices (58.1109ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /temporal/. Input:
+  
+  ''
+  
+      at TestContext.<anonymous> (file:///C:/Users/Jason/MARTHA-SILVA/github/savia/web/tests/return-lifecycle.test.mjs:393:42)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '',
+    expected: /temporal/,
+    operator: 'match',
+    diff: 'simple'
+  }

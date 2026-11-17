@@ -1,0 +1,40 @@
+{
+  "base": "ba8ff2ba10935e99fc268ebbe5eae130f72c1cca",
+  "archive": "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/review-overlay.zip",
+  "archiveSha256": "2a65122436f781b15cdd1eb001faeff99832d1ec56c8ecba42d2820b4031b69d",
+  "files": [
+    {
+      "path": "savia/db/migrations/V029__return_retry_safety.sql",
+      "rawSha256": "6041e3880fb4cb02c595504e394701e52408e426767c67c2b575914402b353cc",
+      "lfSha256": "6041e3880fb4cb02c595504e394701e52408e426767c67c2b575914402b353cc"
+    },
+    {
+      "path": "savia/db/migrations/MANIFEST.sha256",
+      "rawSha256": "2e878b9e3c3eea5c1135ad0f1c2ac22a24f771aa5e41cba66665be79691eefe0",
+      "lfSha256": "2e878b9e3c3eea5c1135ad0f1c2ac22a24f771aa5e41cba66665be79691eefe0"
+    },
+    {
+      "path": "savia/db/tests/sales/172_return_retry_safety.sql",
+      "rawSha256": "1c816dfdf60c45a8e71865222d3718f9d0ca552075fc73dddba15e11567a47ee",
+      "lfSha256": "1c816dfdf60c45a8e71865222d3718f9d0ca552075fc73dddba15e11567a47ee"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/ReturnRetrySafetyTests.cs",
+      "rawSha256": "3fe76573de23dd884534e6fb2d8414737ef2344221f70d9e319b1acceee68b37",
+      "lfSha256": "3fe76573de23dd884534e6fb2d8414737ef2344221f70d9e319b1acceee68b37"
+    },
+    {
+      "path": "savia/tests/test_return_retry_safety.py",
+      "rawSha256": "1a919e950ff349ed514a98d90a60bbd4d6fbdf663192d0f99a8ce42f301f4e66",
+      "lfSha256": "1a919e950ff349ed514a98d90a60bbd4d6fbdf663192d0f99a8ce42f301f4e66"
+    },
+    {
+      "path": "savia/db/tests/sales/134_credit_return_validation.sql",
+      "rawSha256": "a243bc9d3c05e9e12744a02fd31193caaf62cee9566acd748d4772d57127575c",
+      "lfSha256": "c331b7564647612297ba977ee872dc40aa625c4a6b618d6296333d98a7639fca"
+    }
+  ],
+  "contract": "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/PLAN.md",
+  "scope": "Four test corrections; V029 and manifest unchanged. Fresh isolated recheck required.",
+  "sql": "NOT RUN"
+}

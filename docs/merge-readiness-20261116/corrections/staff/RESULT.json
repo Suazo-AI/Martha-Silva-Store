@@ -1,0 +1,225 @@
+{
+  "task_id": "savia-pr7-staff-correction-ba8ff2b-20261116-01",
+  "status": "returned",
+  "acceptance": "pending primary and Astra/xhigh",
+  "base_sha": "ba8ff2ba10935e99fc268ebbe5eae130f72c1cca",
+  "identity": {
+    "host": "SUAZO-PC",
+    "provider": "codex",
+    "model": "gpt-6.1-sol",
+    "requested_reasoning": "high",
+    "exposed_reasoning": "high",
+    "isolation": "T3 tool-managed worktree",
+    "usage": "unknown"
+  },
+  "verification_invocations": 8,
+  "budget": 8,
+  "results": [
+    {
+      "name": "old held digest",
+      "tests": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "node_exit": 1,
+      "wrapper_exit": 1,
+      "expected_failure": true,
+      "wrapper_error": "console UnicodeEncodeError after saved result"
+    },
+    {
+      "name": "corrected held digest",
+      "tests": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "exit": 0
+    },
+    {
+      "name": "removed synchronous lock",
+      "tests": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "node_exit": 1,
+      "wrapper_exit": 0,
+      "expected_failure": true
+    },
+    {
+      "name": "cash suite",
+      "tests": 58,
+      "passed": 58,
+      "failed": 0,
+      "skipped": 0,
+      "exit": 0
+    },
+    {
+      "name": "staff suite",
+      "files": 11,
+      "tests": 223,
+      "passed": 223,
+      "failed": 0,
+      "skipped": 0,
+      "exit": 0
+    }
+  ],
+  "diff_check_exit": 0,
+  "product_bytes_unchanged": true,
+  "bindings": [
+    {
+      "path": "dev/savia-staff-ui/app.mjs",
+      "base_blob_sha256": "2105540c566d79cecbfc6ef28e6abbd07ace7a7fbff18ede81c507fa76651d56",
+      "raw_sha256": "fa485a2897fe843a1ffa114eb7f71eefd10ca42d65ad92c01781e398183745b4",
+      "lf_sha256": "2105540c566d79cecbfc6ef28e6abbd07ace7a7fbff18ede81c507fa76651d56",
+      "base_lf_matches": true
+    },
+    {
+      "path": "dev/savia-staff-ui/auth.test.mjs",
+      "base_blob_sha256": "5c22810478f361d06ed019636239b31df13a7991c09215b507ad3ec8a40b31d2",
+      "raw_sha256": "7c6b890b25b8c27e4f2fcda44549db2ca3f2f67552c7c7b6a2e3afa14b16bab6",
+      "lf_sha256": "5c22810478f361d06ed019636239b31df13a7991c09215b507ad3ec8a40b31d2",
+      "base_lf_matches": true
+    },
+    {
+      "path": "dev/savia-staff-ui/branch-compat.test.mjs",
+      "base_blob_sha256": "3dce7f02187829d3d05523418b4a1fc61c055b278e168f32e2fc36813f22dcd2",
+      "raw_sha256": "12e8d1feae913a910b052497eb14260565f81ab972ddc34062eafac0f0f25932",
+      "lf_sha256": "3dce7f02187829d3d05523418b4a1fc61c055b278e168f32e2fc36813f22dcd2",
+      "base_lf_matches": true
+    },
+    {
+      "path": "dev/savia-staff-ui/cash.mjs",
+      "base_blob_sha256": "a0a4e7b44e93bc2aa6e9c7c1cf5b1c28af04808084cab5607ce8cf01c1fe483f",
+      "raw_sha256": "66db9ad5eb97bf312da613fa5a17fdb6a933316189ce7e0e7569041d0405f366",
+      "lf_sha256": "a0a4e7b44e93bc2aa6e9c7c1cf5b1c28af04808084cab5607ce8cf01c1fe483f",
+      "base_lf_matches": true
+    },
+    {
+      "path": "dev/savia-staff-ui/cash.test.mjs",
+      "base_blob_sha256": "6ecb549596062c2688f74684d09c9673f21c785c1d1e496698eaa73eaafd8236",
+      "raw_sha256": "c9d7c550bb7e39b0a7eadcead62daede16f43e9e968e4cfbf62527b4fd65ed61",
+      "lf_sha256": "2993c86ba4517ad3a87d729fc9e51bc0c8bfdf3c8b64eebf5a5a69d698f4a258",
+      "base_lf_matches": false
+    },
+    {
+      "path": "dev/savia-staff-ui/client.mjs",
+      "base_blob_sha256": "88a5615f33ba2b049a31a70a3f0d1f261399e22d3d0b7e1fe83847d6423be78b",
+      "raw_sha256": "b1dcc0c51c17010ff29daf56c92f9160e4d77b6d49a4a5a8274f5eeb58fe04d5",
+      "lf_sha256": "88a5615f33ba2b049a31a70a3f0d1f261399e22d3d0b7e1fe83847d6423be78b",
+      "base_lf_matches": true
+    },
+    {
+      "path": "dev/savia-staff-ui/commerce.test.mjs",
+      "base_blob_sha256": "db76e7981a5e81e87be25e88896163b91c8fb8be492e93cdc4380ea9dad3ebbc",
+      "raw_sha256": "847348495b0ebde68ce2e2d6d3c0c3a068eefcb7ecf9e0525010f83f5577869b",
+      "lf_sha256": "db76e7981a5e81e87be25e88896163b91c8fb8be492e93cdc4380ea9dad3ebbc",
+      "base_lf_matches": true
+    },
+    {
+      "path": "dev/savia-staff-ui/dom.test.mjs",
+      "base_blob_sha256": "3f86ede5fd94139c7073100ca3e29f49f43a06e374fb40b113216ebf2090a196",
+      "raw_sha256": "1dc5c848f105464f69f01802ca8247f7bc473e8831d0e9366626019985ebe993",
+      "lf_sha256": "3f86ede5fd94139c7073100ca3e29f49f43a06e374fb40b113216ebf2090a196",
+      "base_lf_matches": true
+    },
+    {
+      "path": "dev/savia-staff-ui/failure-simulation.test.mjs",
+      "base_blob_sha256": "491a8f3b0f516fefd81fa5cc426c0c002470f3ef183e3d1eeb8dc08deef5d9d8",
+      "raw_sha256": "0c66bea4d4e338fcf240c34e65adafff7b1db921e918f39d3666ae9e0d32866c",
+      "lf_sha256": "491a8f3b0f516fefd81fa5cc426c0c002470f3ef183e3d1eeb8dc08deef5d9d8",
+      "base_lf_matches": true
+    },
+    {
+      "path": "dev/savia-staff-ui/index.html",
+      "base_blob_sha256": "42defc18a76075b207a32c283180c032e135e557683beab58b58de5c35424bd1",
+      "raw_sha256": "9c654db6b2092091d540ebb4fd2404022f565ab902e66dba3c54e569cf50bce7",
+      "lf_sha256": "42defc18a76075b207a32c283180c032e135e557683beab58b58de5c35424bd1",
+      "base_lf_matches": true
+    },
+    {
+      "path": "dev/savia-staff-ui/login.html",
+      "base_blob_sha256": "b9068478b46b9786c18dbe54ffa1172e1fb325e283ca944f9c2a840b37d1a686",
+      "raw_sha256": "4803ece2ef530d9e5161837209ac86591bfe1447e9876b0f38bf17baca9a8382",
+      "lf_sha256": "b9068478b46b9786c18dbe54ffa1172e1fb325e283ca944f9c2a840b37d1a686",
+      "base_lf_matches": true
+    },
+    {
+      "path": "dev/savia-staff-ui/login.mjs",
+      "base_blob_sha256": "561e089a472daa12ce01f3e703167280f681df98d546f2515b31ba004895e1e0",
+      "raw_sha256": "4cb2e5fe4897bd26c4d2297a6e6156a7caaa80d73a3dd06c5e6a6ffbcf28fbf4",
+      "lf_sha256": "561e089a472daa12ce01f3e703167280f681df98d546f2515b31ba004895e1e0",
+      "base_lf_matches": true
+    },
+    {
+      "path": "dev/savia-staff-ui/pagination.test.mjs",
+      "base_blob_sha256": "3e87ede9ded5b869e4f7010232966e4a8d6c768ed581231e272de11d4256a480",
+      "raw_sha256": "e0509c9ecbf644f374f13e37be5f0647e47dabacb53d9dc57ef238079c8f1a85",
+      "lf_sha256": "3e87ede9ded5b869e4f7010232966e4a8d6c768ed581231e272de11d4256a480",
+      "base_lf_matches": true
+    },
+    {
+      "path": "dev/savia-staff-ui/session-transition.test.mjs",
+      "base_blob_sha256": "ea5d321f23186e78d999313e7d228e0242e29425904ec5174b572a1ea880a384",
+      "raw_sha256": "667681ad93d4cd249ce7612cde1eb50c8ac1e74bcb203efc6f7951591a2dda0a",
+      "lf_sha256": "ea5d321f23186e78d999313e7d228e0242e29425904ec5174b572a1ea880a384",
+      "base_lf_matches": true
+    },
+    {
+      "path": "dev/savia-staff-ui/stock-exception.test.mjs",
+      "base_blob_sha256": "88b0db9d8a4879fedb0988a8f6f98e18d0b10e20d6dc0e755c4c79fe86e25dd3",
+      "raw_sha256": "64f5fc1c6aedc71a8270482c4434d9429ab5d15361e105abf3c08fed40305824",
+      "lf_sha256": "88b0db9d8a4879fedb0988a8f6f98e18d0b10e20d6dc0e755c4c79fe86e25dd3",
+      "base_lf_matches": true
+    },
+    {
+      "path": "dev/savia-staff-ui/supply-pagination.test.mjs",
+      "base_blob_sha256": "c53817ddc8891ffe3f0d8c3ce96439d52ca46656dae90f2cb0ed0b624fe34f68",
+      "raw_sha256": "57786f5d16338fb4c05c52ce2cc0d79557278380c025749a4a67c0d25ee12365",
+      "lf_sha256": "c53817ddc8891ffe3f0d8c3ce96439d52ca46656dae90f2cb0ed0b624fe34f68",
+      "base_lf_matches": true
+    },
+    {
+      "path": "dev/savia-staff-ui/supply.mjs",
+      "base_blob_sha256": "ad62c75f08efe2e0642d1ced245c47312b8673aa33d63edddaff7af249fb8270",
+      "raw_sha256": "f115ce8e96bffa4adf765333cd09f637f580bd71c8c315b6d2ac17c9579600ee",
+      "lf_sha256": "ad62c75f08efe2e0642d1ced245c47312b8673aa33d63edddaff7af249fb8270",
+      "base_lf_matches": true
+    },
+    {
+      "path": "dev/savia-staff-ui/supply.test.mjs",
+      "base_blob_sha256": "07b25e860b9587cb0e20769bb12877787e5148c2f46534eeb9ea0d9c371912b8",
+      "raw_sha256": "b3f98a6cd260ee8bc7ac50cd0b615d973ca9319e3ff1fb97f3c977e693f04ba9",
+      "lf_sha256": "07b25e860b9587cb0e20769bb12877787e5148c2f46534eeb9ea0d9c371912b8",
+      "base_lf_matches": true
+    }
+  ],
+  "blockers": [],
+  "limits": [
+    "offline jsdom only",
+    "no independent acceptance",
+    "no GitHub operations",
+    "no SQL runtime",
+    "repository-wide static-site checker NOT RUN"
+  ],
+  "next_action": "primary serial integration and Astra/xhigh review",
+  "final_verification": {
+    "exit": 0,
+    "tracked_changes": [
+      "dev/savia-staff-ui/cash.test.mjs"
+    ],
+    "untracked_changes": [
+      "docs/merge-readiness-20261116/corrections/staff/README.md",
+      "docs/merge-readiness-20261116/corrections/staff/RESULT.json",
+      "docs/merge-readiness-20261116/corrections/staff/cash-suite.log",
+      "docs/merge-readiness-20261116/corrections/staff/control.py",
+      "docs/merge-readiness-20261116/corrections/staff/delayed-green.log",
+      "docs/merge-readiness-20261116/corrections/staff/negative.json",
+      "docs/merge-readiness-20261116/corrections/staff/negative.log",
+      "docs/merge-readiness-20261116/corrections/staff/red.json",
+      "docs/merge-readiness-20261116/corrections/staff/red.log",
+      "docs/merge-readiness-20261116/corrections/staff/staff-files.json",
+      "docs/merge-readiness-20261116/corrections/staff/staff-suite.log"
+    ],
+    "source_hashes_match": true,
+    "disposable_cleanup_verified": true
+  }
+}

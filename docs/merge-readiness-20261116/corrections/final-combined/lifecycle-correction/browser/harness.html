@@ -1,0 +1,24 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="data:,"><link rel="stylesheet" href="/savia/web/app.css"><title>SAVIA routed return context — simulated HTTP</title><body><p id="notice" role="status"></p><main id="screen"></main><dialog id="modal" aria-labelledby="modal-title"><div id="modal-body"></div></dialog><script type="module">
+import returns from '/savia/web/screens/return.mjs';
+import * as api from '/savia/web/api.mjs';
+const id=n=>`00000000-0000-4000-8000-${String(n).padStart(12,'0')}`;
+// Execute the current shell's actual context declarations, without booting the app.
+const source=await fetch('/savia/web/app.mjs').then(r=>r.text());
+const rootStart=source.indexOf('const ctx = {'),rootEnd=source.indexOf('\nlet current =',rootStart);
+const routeStart=source.indexOf('  const screenCtx = Object.create(ctx);'),routeEnd=source.indexOf("  $('access').hidden = true;",routeStart);
+if(rootStart<0||rootEnd<=rootStart||routeStart<0||routeEnd<=routeStart)throw Error('Shell context declarations not found');
+const rootContext=new Function('api','device','renderTillState','$','isApprover','isOwner',source.slice(rootStart,rootEnd)+'\nreturn ctx;');
+const routeContext=new Function('ctx','isCurrent',source.slice(routeStart,routeEnd)+'\nreturn screenCtx;');
+let handle,active=true;
+window.notices=[];
+window.mount=async(approver=true)=>{
+ handle?.unmount();active=true;api.setToken('fictional-session');location.hash=`#/devolucion?sale=${id(5)}`;
+ const notice={set textContent(m){window.notices.push(m);document.querySelector('#notice').textContent=m;}};
+ const shell=rootContext(api,{get:()=>({tillId:id(6)}),set(){}},()=>{},()=>notice,roles=>roles.includes('MANAGER'),roles=>roles.includes('OWNER'));
+ shell.me={staffId:id(1),nodeId:id(2),branchId:id(3),locationId:id(4),roles:approver?['MANAGER']:['CASHIER']};
+ window.screenContext=routeContext(shell,()=>active);
+ handle=await returns.mount(document.querySelector('#screen'),window.screenContext);
+};
+window.retire=()=>{active=false;handle?.unmount();window.screenContext?.notify('STALE PRIVATE DETAILS');document.querySelector('#screen').textContent='CURRENT SCREEN';};
+window.ready=true;
+</script></body></html>

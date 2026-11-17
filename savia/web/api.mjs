@@ -1,5 +1,7 @@
 // Every HTTP call of the staff web lives here. Same origin: the API hosts savia/web/ at "/".
 // Routes and bodies follow docs/pilot/API-PILOT.md and Savia.Contracts.
+import { uuid } from './uuid-logic.mjs';
+export { uuid } from './uuid-logic.mjs';
 
 const BASE = '/api/v1';
 const TOKEN_KEY = 'savia.token';
@@ -9,16 +11,6 @@ export class ApiError extends Error {
     super(message);
     Object.assign(this, { status, code, traceId, missing, network });
   }
-}
-
-/** RFC 4122 v4. Browsers omit crypto.randomUUID on plain HTTP (the phone page on the shop LAN); getRandomValues stays. */
-export function uuid() {
-  if (typeof crypto.randomUUID === 'function') return crypto.randomUUID();
-  const b = crypto.getRandomValues(new Uint8Array(16));
-  b[6] = (b[6] & 0x0f) | 0x40;
-  b[8] = (b[8] & 0x3f) | 0x80;
-  const hex = Array.from(b, x => x.toString(16).padStart(2, '0')).join('');
-  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
 }
 
 /**
@@ -128,9 +120,9 @@ async function send(
 /** JSON in, JSON out. options: token, approvalToken, notifyUnauthorized, form (multipart instead of a JSON body). */
 export async function request(method, path, body, options = {}) {
   const response = await send(method, path, { ...options, body });
-  if (response.status === 204) return null;
-  const text = await response.text();
-  return text ? JSON.parse(text) : null;
+  const text = response.status === 204 ? '' : await response.text();
+  const data = text ? JSON.parse(text) : null;
+  return options.withStatus ? {status: response.status, data} : data;
 }
 
 const q = params => {

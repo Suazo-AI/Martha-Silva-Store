@@ -1,0 +1,162 @@
+[
+  {
+    "path": "savia/db/migrations/V001__baseline.sql",
+    "raw_sha256": "800db6d93299794adf2485ca90fa4c436bdb1bc9f3e9b769dc0dad33471a14a3",
+    "lf_sha256": "1021226d0ac1022a622f6acb88ae27361e164ab381869ddd4bcb17c4ef41693d"
+  },
+  {
+    "path": "savia/db/migrations/V002__api_support.sql",
+    "raw_sha256": "553362f59400dbcc0bd989f247b26e4e9eadf832968752c805f7799f1e2c0eb2",
+    "lf_sha256": "da99d77d4e6d82570f182989492d604e37dca7757f5bb4885c8d2470ea2c7484"
+  },
+  {
+    "path": "savia/db/migrations/V003__conservation_oracle.sql",
+    "raw_sha256": "77eb1fc40cc489f77b60a125a6a434b6befc6f02de3716dbc22bc0edd1ca76b6",
+    "lf_sha256": "9f0e40c9e2fc8d03d2e1e9d1db46828373af9d805506298a26a38d0f329c6228"
+  },
+  {
+    "path": "savia/db/migrations/V004__concurrency_fixes.sql",
+    "raw_sha256": "522636b22b343bf77d90da38035e626029f59231cf82ccd6ac1cad279179c9f5",
+    "lf_sha256": "c760887d2d9ff67514401764141c1adf9131d45061f16601524e596826a3f983"
+  },
+  {
+    "path": "savia/db/migrations/V005__cp1a_procedure_fixes.sql",
+    "raw_sha256": "3868f485b2c5f4f0426a999a2ba9654313ddd877c459609147a8b55ff7269f00",
+    "lf_sha256": "3ebfcff5c7c11b3cc61b04efdc842cb803083ad5d07f4d17d9b7f6693ae8d1a8"
+  },
+  {
+    "path": "savia/db/migrations/V006__return_same_branch_only.sql",
+    "raw_sha256": "258d68dfd7a44d6abe5fcdb9f8e5eb125c59b0647dcc0e00da9de22331571629",
+    "lf_sha256": "e315e8447e6b3420b21697503cc9d70ce7a9f2c4afb84a57d88ca68107d36c71"
+  },
+  {
+    "path": "savia/db/migrations/V007__cp1b_procedure_fixes.sql",
+    "raw_sha256": "5f4da42742b14a56c61f7fae2b14dc8ff1ac531641286af63c64251f65e28048",
+    "lf_sha256": "18ee8c932caa41e514cd6074016e9b114eed11cdc1462bcf61d7f7691c5d7d96"
+  },
+  {
+    "path": "savia/db/migrations/V008__sync_foundation.sql",
+    "raw_sha256": "80656422637eb74bb4d27c3297bcfae09ebaf52caed2577eecde71c054431759",
+    "lf_sha256": "bcb6a75fa026392374956b3f69cf02556ec229ebf74d4367ded71f5c333ae777"
+  },
+  {
+    "path": "savia/db/migrations/V009__credit_transfer_transitions.sql",
+    "raw_sha256": "e3b6e34e1c02340ed12ab7cbf4369cfb936bda4d0d40bef9612f2e086ab21c06",
+    "lf_sha256": "a25d75ff92b3fdd296acf89d7178b0c4946f186ccd9b473d927e799a791de16f"
+  },
+  {
+    "path": "savia/db/migrations/V010__credit_transfer_decisions.sql",
+    "raw_sha256": "57905a789e8240b2eae2c563bb1d99c05ccb3e55ce6637105ca671489e97d313",
+    "lf_sha256": "3ab0d8d69fabfa62a5d4c7ff21b87c871164badf1cdf3b050cec044b5922fd0a"
+  },
+  {
+    "path": "savia/db/migrations/V011__sync_tracking_all_owned.sql",
+    "raw_sha256": "94a3f61dd41f54b38d355908e763e028741a4c303f7df09a5674cbcdf7285238",
+    "lf_sha256": "e93e934cc7e958ceb13b4bfdcd7f442ff93527b69d1cd8e724e1183322cbf88e"
+  },
+  {
+    "path": "savia/db/migrations/V012__reject_scan.sql",
+    "raw_sha256": "30ab62e7dd3403be396b117f86a3c6c20f724ed0eff9cb7707f1a996f1f53211",
+    "lf_sha256": "825662ed6ca6bc86025d5f6a1f0fb599ef4890d7af2430e7a41147de7c05a7f2"
+  },
+  {
+    "path": "savia/db/migrations/V013__pilot_sales_read_models.sql",
+    "raw_sha256": "471b3c062f8806e99dc11321dca46fd64b4185fe0e30479825a8b68542865cc3",
+    "lf_sha256": "2bf8e5febe31e6afbb24e1169cccf7d24f2f7d934ca36f9d81b04da2d66849be"
+  },
+  {
+    "path": "savia/db/migrations/V014__catalog_grid_discount_approval.sql",
+    "raw_sha256": "c219318905bee34b0d320beb2d8a2f2a29d0193923701984fc175a8544acc71c",
+    "lf_sha256": "8636431133d862bc2b9367e3e58c7e193907c15fb10941beb4347aae0711be99"
+  },
+  {
+    "path": "savia/db/migrations/V015__owner_pilot_rules.sql",
+    "raw_sha256": "a2568787a5e693f3d6312e65f1e3ed94d43156c50d341aa2869358f021f1a331",
+    "lf_sha256": "d100d1d7cbbf803fdd2d959db2d0add45933322f0773c7f524e8f3c96b6d108c"
+  },
+  {
+    "path": "savia/db/migrations/V016__pilot_reports_and_exception_review.sql",
+    "raw_sha256": "5857c61068490af923e1f27c37e626d2b9871666263cb70fddc9ea0e557625a3",
+    "lf_sha256": "d409e321667cf1bd8762788ea8e72535917184c8067bae38fb4bcdd8a65270fd"
+  },
+  {
+    "path": "savia/db/migrations/V017__real_roles_and_approvals.sql",
+    "raw_sha256": "daa32d1b0c4842f63ea0b39336925ca3fdabcb8e5e9feb9e2df00086354e9cae",
+    "lf_sha256": "9a93951fac6fe5ca6ea3f3244713f4279bbc26d8ceb48c66c90787d4283d42fd"
+  },
+  {
+    "path": "savia/db/migrations/V018__seller_commissions.sql",
+    "raw_sha256": "4630a3917e774bb983787e73e79d03fb420a2425ff3675915e934b02de5806ca",
+    "lf_sha256": "a6812a79b671a09b197d61477f8bd99ca29a0e189d03feed896db3df45693d48"
+  },
+  {
+    "path": "savia/db/migrations/V019__owner_prices_costs_margin.sql",
+    "raw_sha256": "fb6791e799e19fac3dab45039f32ba680dbbae7f1e33346c286d1d561e8a65e5",
+    "lf_sha256": "7c0858a891ae5af0eb8c2d136aaf54adc43762284cd2d13e47aa897e9c45774b"
+  },
+  {
+    "path": "savia/db/migrations/V020__receiving_quality.sql",
+    "raw_sha256": "6a3e8172bb2d5f8ad0caee4aa61c38eae3653f25aa0f4c6c812e75b0c4cbbb1c",
+    "lf_sha256": "e9972c9e71b6e4fc02c195844f9f632614fa1abb9fa6afabbefe34b5217db0e2"
+  },
+  {
+    "path": "savia/db/migrations/V021__scan_parent_lock_order.sql",
+    "raw_sha256": "f1cb32694fd90c348029fcc5b4f3ca878dda5887237a42db662904c9d22acf09",
+    "lf_sha256": "fe2eb039ffb312737c74a5bce169dbe4080fc3908179194b60dae55d2cf5f3d9"
+  },
+  {
+    "path": "savia/db/migrations/V022__development_demo_clock.sql",
+    "raw_sha256": "706c0ca2b80dc1bde785b89ff9f5339fbf5d4a441c0e4bb01b75c2296cfbda2c",
+    "lf_sha256": "6e4d7dfaa77a39bc1b39de6a4694d31591772c7c553bc4646ff4f0507046a615"
+  },
+  {
+    "path": "savia/db/migrations/V023__anonymous_sale_return_advance.sql",
+    "raw_sha256": "66cc0082975e65d0040b126b245ff9a97cfb99eab23a42f136f17d2edb23bbeb",
+    "lf_sha256": "6ae09fd87f32bcf5e2c018cbcf9edb6f172f34c6a210aa6de6caaf8fc668b933"
+  },
+  {
+    "path": "savia/db/migrations/V024__shared_sale_returns_kpis.sql",
+    "raw_sha256": "f8b064aefa7b037f2452490c0a7d1805103f76214115cbc6ff1772a3b03d151c",
+    "lf_sha256": "b50d341f40be88b521f5c5da4a4d2053b06bb50fa9c788a89d7a280e6af4406e"
+  },
+  {
+    "path": "savia/db/migrations/V025__catalog_import.sql",
+    "raw_sha256": "d12432827f79397fefe293d9bcf068deaffbf9e50ae3673d275488e61e50b5a4",
+    "lf_sha256": "e90e181d37b499d0b5e831089cdb78a47e16b9caa5c9be631b924e53e85caec4"
+  },
+  {
+    "path": "savia/db/migrations/V026__kpi_gross_sales.sql",
+    "raw_sha256": "f4c750e9d1e2f561d658ea32e3f0a3c744739f6b6d884ee9efb73923f561779e",
+    "lf_sha256": "f8765449bdc78bde925afe81fb21f788926de68968ca750fe60a428253d7ac90"
+  },
+  {
+    "path": "savia/db/migrations/V027__usd_cash.sql",
+    "raw_sha256": "83f4fd9665b69d7187b768b90ce60a8a895cccee0feed7f816e4c70c97b85aa7",
+    "lf_sha256": "4ce4971c29a646da2788d97b3b822ca116614d3c5fce0d6b4fad72058ca6e0d2"
+  },
+  {
+    "path": "savia/db/migrations/V028__usd_change.sql",
+    "raw_sha256": "fd82e158f129261c4d877e557ffa4cdf3074123bb8671f9b7316225f07420666",
+    "lf_sha256": "03f3eb6ee0328910c58fdf70ae2f0f9cd138488e0397b7395ebde507d14cb3d5"
+  },
+  {
+    "path": "savia/db/tests/sales/170_return_outcomes.sql",
+    "raw_sha256": "fab0c36e7065f0d952ea8453dc9714e3eca2c51904b1b6a1944d478fb4dc9253",
+    "lf_sha256": "b0b04a162b450b31f2ae1824606c46f198674ce349dca5a52861084ce359cc9b"
+  },
+  {
+    "path": "savia/db/tests/sales/136_credit_return_replay_other_lines.sql",
+    "raw_sha256": "c60a8c9d75c2105dbfae320101c54f96cec16e4d7a189d1c6ea4258d46a50111",
+    "lf_sha256": "f0399e87ba135c05df25c1c6b2a605d8bec97ce126f10e292cc76067836960eb"
+  },
+  {
+    "path": "savia/src/Savia.Application/Returns.cs",
+    "raw_sha256": "8663e9eb2b7212bcd324457820815f281f98663d207f395073169306b87d6a60",
+    "lf_sha256": "8663e9eb2b7212bcd324457820815f281f98663d207f395073169306b87d6a60"
+  },
+  {
+    "path": "savia/src/Savia.Infrastructure/ReturnsStore.cs",
+    "raw_sha256": "4135e6a3c8cdb8bb0d33f54414e4bd436f8e4182d41e8380c68b47a3bc49a5c9",
+    "lf_sha256": "4135e6a3c8cdb8bb0d33f54414e4bd436f8e4182d41e8380c68b47a3bc49a5c9"
+  }
+]

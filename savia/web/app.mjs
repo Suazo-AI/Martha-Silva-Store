@@ -61,6 +61,10 @@ const ctx = {
   notify(text) {
     $('notice').textContent = text || '';
   },
+  // Cleanup can fail after its screen retires. Report only this fixed, non-private notice.
+  reportApprovalCleanupFailure() {
+    $('approval-cleanup-notice').textContent = 'No se pudo cerrar la autorizaci\u00f3n temporal. Pida revisi\u00f3n a la gerente.';
+  },
   go(route) {
     location.hash = `#/${route}`;
   },
@@ -167,8 +171,8 @@ async function route() {
   };
   $('access').hidden = true;
   $('shell').hidden = false;
-  // Sale recovery must mount before any till, catalog or exchange-rate dependency.
-  if (ctx.isApprover && screen !== sale) await syncTill(screenCtx);
+  // Sale and return recovery must mount before any till, catalog or exchange-rate dependency.
+  if (ctx.isApprover && screen !== sale && screen !== returns) await syncTill(screenCtx);
   if (!isCurrent()) return;
   renderHeader();
   renderNavigation(name);

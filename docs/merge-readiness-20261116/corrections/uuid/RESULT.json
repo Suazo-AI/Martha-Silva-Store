@@ -1,0 +1,77 @@
+{
+  "sourceHead": "ba8ff2ba10935e99fc268ebbe5eae130f72c1cca",
+  "host": "SUAZO-PC",
+  "harness": "T3 Code/Codex",
+  "model": "gpt-6.1-sol",
+  "reasoning": "xhigh",
+  "red": {
+    "command": "node --test savia/web/tests/uuid.test.mjs",
+    "exit": 1,
+    "passed": 1,
+    "failed": 1
+  },
+  "limits": [
+    "Node only; crypto.randomUUID removed to model unavailable API",
+    "No real LAN/browser/SQL/CI execution",
+    "Independent acceptance pending"
+  ],
+  "bindings": [
+    {
+      "path": "savia/web/api.mjs",
+      "rawSha256": "3878b2a1ccd8f873cda3de73c0876c4ab1451f637630b0937a0d843263591a1a",
+      "lfSha256": "3878b2a1ccd8f873cda3de73c0876c4ab1451f637630b0937a0d843263591a1a"
+    },
+    {
+      "path": "savia/web/uuid-logic.mjs",
+      "rawSha256": "8e93aa30b7239fc7576e1cb29cf991c11a1d951475b1cc56219047fa6ef97813",
+      "lfSha256": "8e93aa30b7239fc7576e1cb29cf991c11a1d951475b1cc56219047fa6ef97813"
+    },
+    {
+      "path": "savia/web/screens/sale-logic.mjs",
+      "rawSha256": "ba169c19e3aa25187c4749dacde347c1c8bab32c98472aebe0b136be111138fc",
+      "lfSha256": "ba169c19e3aa25187c4749dacde347c1c8bab32c98472aebe0b136be111138fc"
+    },
+    {
+      "path": "savia/web/tests/uuid.test.mjs",
+      "rawSha256": "0e2bf69aeb4b95e993669984a99c6889d5b77f90b051808c6be251b5445012bd",
+      "lfSha256": "0e2bf69aeb4b95e993669984a99c6889d5b77f90b051808c6be251b5445012bd"
+    }
+  ],
+  "historicalGreen": {
+    "command": "node --test savia/web/tests/*.test.mjs",
+    "exit": 0,
+    "passed": 83,
+    "failed": 0,
+    "skipped": 0
+  },
+  "architectureCorrection": {
+    "red": "web logic is pure: sale-logic.mjs imported HTTP module api.mjs",
+    "redExit": 1,
+    "correction": "Extract existing UUID generator to uuid-logic.mjs; api.mjs preserves its export; sale logic imports the isolated generator.",
+    "checks": [
+      {
+        "name": "web",
+        "command": [
+          "node",
+          "--test",
+          "savia/web/tests/*.test.mjs"
+        ],
+        "exit": 0,
+        "seconds": 0.578,
+        "log": "private-exports\\merge-readiness-20261116\\corrections\\primary-followup\\web.log",
+        "sha256": "9b0eb9d589aa5d8211455af057371f583f5906eaea87e5e248b1eddaf8d4f1f4"
+      },
+      {
+        "name": "rules",
+        "command": [
+          "python",
+          "savia/tools/rules.py"
+        ],
+        "exit": 0,
+        "seconds": 0.375,
+        "log": "private-exports\\merge-readiness-20261116\\corrections\\primary-followup\\rules.log",
+        "sha256": "2de87318481d79c344baee2450ab8548870ffbc7dd6d966be1cf8823ef384d8a"
+      }
+    ]
+  }
+}

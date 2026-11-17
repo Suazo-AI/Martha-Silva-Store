@@ -1,0 +1,11 @@
+{
+  "command": [
+    "node",
+    "docs\\merge-readiness-20261116\\corrections\\final-combined\\browser\\run.mjs",
+    "run2"
+  ],
+  "exit": 1,
+  "elapsedSeconds": 51.78846549987793,
+  "stdout": "desktop PASS ordinary-credit\ndesktop PASS ordinary-cash\ndesktop PASS ordinary-transfer\ndesktop PASS exchange-initial-200\ndesktop PASS exchange-loss-remount-404-get-replay\ndesktop FAIL draft-remount-cancel-keyboard\ndesktop PASS wrong-post-status-preserves-uncertainty\ndesktop FAIL held-post-retire-cleanup-false\ndesktop FAIL held-post-retire-cleanup-true\ndesktop FAIL late-approval-retire-no-post\ndesktop FAIL held-lookup-retire-no-ui-effect\nmobile PASS ordinary-credit\nmobile PASS ordinary-cash\nmobile PASS ordinary-transfer\nmobile PASS exchange-initial-200\nmobile PASS exchange-loss-remount-404-get-replay\nmobile FAIL draft-remount-cancel-keyboard\nmobile PASS wrong-post-status-preserves-uncertainty\nmobile FAIL held-post-retire-cleanup-false\nmobile FAIL held-post-retire-cleanup-true\nmobile FAIL late-approval-retire-no-post\nmobile FAIL held-lookup-retire-no-ui-effect\nRESULT FAIL; 12/22; source unchanged=true; port closed=true\n",
+  "stderr": ""
+}

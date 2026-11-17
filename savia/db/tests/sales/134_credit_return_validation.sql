@@ -120,7 +120,7 @@ BEGIN TRY
 END TRY
 BEGIN CATCH IF ERROR_NUMBER()<>51534 THROW; END CATCH;
 
--- 51526 la devolucion ya existe con otro anticipo
+-- 51538 la identidad financiera cambia con otro anticipo
 EXEC sales.usp_PostCreditReturn @ReversalId=@rev2,@CreditId=@credit2,@SaleId=@sale,@BranchId=@branch,
   @ReturnLocationId=@loc,@TillId=@till,@ActorId=@cashier,@ApprovedBy=@super,@CustomerId=@customer,
   @Reason=N'devolucion valida',@OriginNodeId=@node,@Lines=@one;
@@ -131,7 +131,7 @@ BEGIN TRY
     @Reason=N'otro anticipo',@OriginNodeId=@node,@Lines=@one;
   THROW 59002,'ASSERT FAIL: se emitio otro anticipo para la misma devolucion',1;
 END TRY
-BEGIN CATCH IF ERROR_NUMBER()<>51526 THROW; END CATCH;
+BEGIN CATCH IF ERROR_NUMBER()<>51538 THROW; END CATCH;
 
 -- Solo la devolucion valida quedo guardada.
 SET @n=(SELECT COUNT(*) FROM sales.SaleReversals);

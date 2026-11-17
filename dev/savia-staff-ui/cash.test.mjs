@@ -60,11 +60,39 @@ test('timeout covers response body, and late body after logout cannot expose val
 test('legacy unpaid recovery refuses paid receipt while normal read supports stock review',async()=>{const c=createStaffClient({fetchImpl:async path=>path.endsWith('/me')?json(actor):path.includes('/operations/')?json({status:'completed',result:{success:true,value:sale,error:null}}):json(sale)});await c.getSession();assert.equal((await c.getSale(sale.saleId)).paymentStatus,'paid');await assert.rejects(c.recoverSale(id(9),{locationId:till.locationId,customerId:null,lines:bodies.sale.lines}));});
 const html=await readFile(new URL('./index.html',import.meta.url),'utf8');
 const tick=()=>new Promise(r=>setTimeout(r,10));
-async function mounted(t,extra={}){const dom=new JSDOM(html,{url:'http://127.0.0.1/internal/'});Object.defineProperty(dom.window.crypto,'subtle',{value:webcrypto.subtle});let reads=0,writes=0,session=actor;
+async function mounted(t,extra={},subtle=webcrypto.subtle){const dom=new JSDOM(html,{url:'http://127.0.0.1/internal/'});Object.defineProperty(dom.window.crypto,'subtle',{value:subtle});let reads=0,writes=0,session=actor;
  const client={cash:{context:async()=>{reads++;return structuredClone(context);},refundContext:async()=>({sale,payment:receipt('sale').payment,refundedMinor:0,refundableMinor:2500,paymentStatus:'paid',payingTills:{items:[context.ownTill],skip:0,take:50,hasMore:false}}),send:async p=>{writes++;return readCashReceipt(receipt(p.kind),p);},recover:async p=>readCashReceipt(receipt(p.kind),p),...extra},listLocations:async()=>({items:[{id:till.locationId,name:'Synthetic',active:true,branchId:id(90)}],total:1})};
  const app=mountCash({document:dom.window.document,client,getSession:()=>session,onUnauthorized:()=>{session=null;app.clear();}});t.after(()=>{app.destroy();dom.window.close();});await app.start();return {app,dom,d:dom.window.document,reads:()=>reads,writes:()=>writes,session:a=>session=a};}
 test('mounted invalid quantity refund stays editable and cannot dispatch',async t=>{const s=await mounted(t);s.d.getElementById('cash-sale-id').value=sale.saleId;s.d.getElementById('cash-refund-load').dispatchEvent(new s.dom.window.Event('submit',{cancelable:true}));await tick();s.d.getElementById('cash-reason').value='Reason';s.d.getElementById('cash-refund').dispatchEvent(new s.dom.window.Event('submit',{cancelable:true}));await tick();assert.equal(s.writes(),0);assert.equal(s.d.getElementById('cash-reason').disabled,false);s.d.querySelector('[data-refund-line]').value='1';s.d.getElementById('cash-refund').dispatchEvent(new s.dom.window.Event('submit',{cancelable:true}));await tick();await tick();assert.equal(s.writes(),1);assert.match(s.d.getElementById('cash-receipt').textContent,/1250|1.250/);});
-test('mounted cash sale double submit locks synchronously and refreshes current reads',async t=>{let release;const s=await mounted(t,{send:()=>new Promise(r=>release=r)});const first=s.app.sell(bodies.sale.lines,'3.000');void s.app.sell(bodies.sale.lines,'3.000');await tick();assert.equal(s.app.canSell(),false);release(receipt('sale'));await first;assert.equal(s.reads(),2);assert.match(s.d.getElementById('cash-receipt').textContent,/Cambio 0.500 NIO/);assert.equal(s.app.canSell(),true);});
+test('mounted cash sale double submit locks synchronously and refreshes current reads',{timeout:5000},async t=>{
+ let release,releaseDigest,preparationStarted,sendStarted,dispatches=0,digests=0;
+ const preparing=new Promise(r=>preparationStarted=r),digestGate=new Promise(r=>releaseDigest=r),sending=new Promise(r=>sendStarted=r);
+ // Hold the real preparation seam. Elapsed time never signals send readiness.
+ const subtle={async digest(...args){digests++;preparationStarted();await digestGate;return webcrypto.subtle.digest(...args);}};
+ const s=await mounted(t,{send:()=>{dispatches++;return new Promise(r=>{release=r;sendStarted();});}},subtle);
+ t.after(()=>{releaseDigest();release?.(receipt('sale'));});
+ assert.equal(s.app.canSell(),true);
+ const first=s.app.sell(bodies.sale.lines,'3.000');
+ assert.equal(s.app.canSell(),false,'sale locks before awaiting preparation');
+ const second=s.app.sell(bodies.sale.lines,'3.000');
+ await preparing;
+ await second;
+ assert.equal(digests,1,'duplicate submit cannot prepare another intent');
+ assert.equal(dispatches,0,'send waits for the held digest');
+ assert.equal(release,undefined);
+ assert.equal(s.reads(),1);
+ releaseDigest();
+ // The test deadline bounds this handshake; it is a failure limit, not a sleep.
+ await sending;
+ assert.equal(dispatches,1,'only one sale dispatches');
+ assert.equal(s.app.canSell(),false);
+ release(receipt('sale'));
+ await first;
+ assert.equal(dispatches,1);
+ assert.equal(s.reads(),2);
+ assert.match(s.d.getElementById('cash-receipt').textContent,/Cambio 0.500 NIO/);
+ assert.equal(s.app.canSell(),true);
+});
 test('mounted pending recovery refreshes current balance instead of reusing immutable receipt',async t=>{const dom=new JSDOM(html,{url:'http://127.0.0.1/internal/'});Object.defineProperty(dom.window.crypto,'subtle',{value:webcrypto.subtle});dom.window.sessionStorage.setItem(`savia.cash.pending.${actor.id}`,JSON.stringify({...op('sale'),dispatchState:'uncertain'}));let reads=0,posts=0;const client={cash:{context:async()=>{reads++;return {...context,ownTill:{till,balanceMinor:9999}};},recover:async()=>receipt('sale'),send:async()=>{posts++;}},listLocations:async()=>({items:[],total:0})};const app=mountCash({document:dom.window.document,client,getSession:()=>actor,onUnauthorized(){}});t.after(()=>{app.destroy();dom.window.close();});await app.start();assert.equal(reads,2);assert.equal(posts,0);assert.match(dom.window.document.getElementById('cash-context').textContent,/9.999/);assert.equal(dom.window.sessionStorage.getItem(`savia.cash.pending.${actor.id}`),null);});
 test('known persisted business failure is recovered automatically with original scope and key',async()=>{const calls=[];const a=createStaffClient({fetchImpl:async(path,options)=>{calls.push({path,...options});if(path.endsWith('/me'))return json(actor);if(path.endsWith('/csrf'))return json({headerName:'X-CSRF-TOKEN',token:'synthetic'});if(path.endsWith('/cash/sales'))return json({code:'insufficient_tender'},400);return json({status:'completed',result:{success:false,value:null,error:'insufficient_tender'}});}});await a.getSession();await assert.rejects(a.cash.send(op('sale')),e=>e.code==='cash_rejected');assert.deepEqual(calls.slice(-2).map(x=>[x.path,x.headers['Idempotency-Key']]),[['/internal/api/cash/sales',id(9)],['/internal/api/operations/cash.sale',id(9)]]);});
 test('late error from mounted refund read cannot render after session clear',async t=>{let reject;const s=await mounted(t,{refundContext:()=>new Promise((_,r)=>reject=r)});s.d.getElementById('cash-sale-id').value=sale.saleId;s.d.getElementById('cash-refund-load').dispatchEvent(new s.dom.window.Event('submit',{cancelable:true}));await tick();s.app.clear();s.session({...actor,id:id(98)});reject(new StaffRequestError('response'));await tick();assert.equal(s.d.getElementById('cash-status').textContent,'');assert.equal(s.d.getElementById('cash-receipt').textContent,'');});

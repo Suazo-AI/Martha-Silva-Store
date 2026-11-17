@@ -1,0 +1,59 @@
+{
+  "exit": 0,
+  "sourceBindings": 17,
+  "servedBindings": 18,
+  "passed": 22,
+  "failed": 0,
+  "external": 0,
+  "expectedConsoleEvents": 8,
+  "allEventsExpected": true,
+  "sourceUnchanged": true,
+  "loopbackClosed": true,
+  "videos": [
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run2/desktop-AFTER.webm",
+      "exit": 0,
+      "metadata": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "vp8",
+            "width": 1280,
+            "height": 900
+          }
+        ],
+        "format": {
+          "duration": "6.480000"
+        }
+      }
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run2/mobile-AFTER.webm",
+      "exit": 0,
+      "metadata": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "vp8",
+            "width": 390,
+            "height": 844
+          }
+        ],
+        "format": {
+          "duration": "7.360000"
+        }
+      }
+    }
+  ],
+  "changesSinceReview": [
+    "savia/web/app.mjs",
+    "savia/web/screens/return.mjs",
+    "savia/web/tests/return-lifecycle.test.mjs"
+  ],
+  "head": "ba8ff2ba10935e99fc268ebbe5eae130f72c1cca",
+  "indexSha256": "4e90c396799e748b8296e445d9ef6e56fc953d3f80365f872bc9b1d064b0ea83",
+  "pixelInspection": "Mobile recovered exchange screenshot: both receipt links, correct amounts and no obsolete uncertainty warning. Full video timeline not inspected.",
+  "auditCommandCorrection": "Initial audit used dict.items() on the sourceHashes list and exited 1 before verification; corrected iteration passed."
+}
