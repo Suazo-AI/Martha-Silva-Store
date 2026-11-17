@@ -1,0 +1,402 @@
+{
+  "status": "F1_CORRECTED_OFFLINE_RECHECK_SQL_CI_PENDING",
+  "baseSha": "ac0bb9f47f5a12ffc0626f7737a347dea9b37900",
+  "host": "SUAZO-PC",
+  "primary": "T3 Code/Codex gpt-6.1-sol/xhigh",
+  "recordedAtUtc": "2026-11-17T02:19:21.285278+00:00",
+  "remote": {
+    "headSha": "ac0bb9f47f5a12ffc0626f7737a347dea9b37900",
+    "all25ChecksCompleted": true,
+    "requiredChecksPassed": 7,
+    "additionalFailures": [
+      {
+        "name": "Build, images, migration and container smoke",
+        "conclusion": "failure",
+        "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/43996099832/job/133748432080"
+      },
+      {
+        "name": "Rules, web, T-SQL and .NET on real SQL",
+        "conclusion": "failure",
+        "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/43996100000/job/133748431980"
+      },
+      {
+        "name": "Rules, web, T-SQL and .NET on real SQL",
+        "conclusion": "failure",
+        "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/43996090039/job/133748402873"
+      }
+    ],
+    "merged": false
+  },
+  "checks": [
+    {
+      "name": "biome-final-recorded",
+      "command": [
+        "node",
+        "node_modules/@biomejs/biome/bin/biome",
+        "check",
+        "web"
+      ],
+      "cwd": "savia",
+      "exit": 0,
+      "seconds": 0.344,
+      "log": "private-exports\\merge-readiness-20261116\\corrections\\ci-followup\\biome-final-recorded.log",
+      "sha256": "0fb3a10717dcd29cb614fe1476e0a6112a0c071fa081cc969c0c4bcc246f6c94",
+      "tail": [
+        "Checked 68 files in 175ms. No fixes applied."
+      ]
+    },
+    {
+      "name": "web-scanner-final",
+      "command": [
+        "node",
+        "--test",
+        "savia/web/tests/*.test.mjs",
+        "savia/web/scanner/*.test.mjs"
+      ],
+      "cwd": ".",
+      "exit": 0,
+      "seconds": 1.281,
+      "log": "private-exports\\merge-readiness-20261116\\corrections\\ci-followup\\web-scanner-final.log",
+      "sha256": "72304fd297229fbd52851a98261fd6d6f2635834c7bb1843290badd3338e499e"
+    },
+    {
+      "name": "v029-batch-green",
+      "command": [
+        "python",
+        "-B",
+        "savia/tests/test_return_retry_safety.py"
+      ],
+      "exit": 0,
+      "seconds": 1.344,
+      "summary": [
+        "Ran 11 tests in 0.138s",
+        "OK"
+      ],
+      "log": "private-exports\\merge-readiness-20261116\\corrections\\ci-followup\\v029-batch-green.log",
+      "sha256": "0925b70cc3f66ce1f531d31f370f602f8cbc13f029aab012423c38bd56878582"
+    },
+    {
+      "name": "usd-migration",
+      "command": [
+        "python",
+        "-B",
+        "savia/tests/test_usd_change_migration.py"
+      ],
+      "exit": 0,
+      "seconds": 1.172,
+      "summary": [
+        "Ran 1 test in 0.020s",
+        "OK"
+      ],
+      "log": "private-exports\\merge-readiness-20261116\\corrections\\ci-followup\\usd-migration.log",
+      "sha256": "14b5c4937f4a7d72fd70d44ec0551e9463f6ee756308ee34d3af33da71985933"
+    },
+    {
+      "name": "rules-tests",
+      "command": [
+        "python",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "savia/tests",
+        "-p",
+        "test_rules.py"
+      ],
+      "exit": 0,
+      "seconds": 3.453,
+      "summary": [
+        "Ran 10 tests in 2.956s",
+        "OK"
+      ],
+      "log": "private-exports\\merge-readiness-20261116\\corrections\\ci-followup\\rules-tests.log",
+      "sha256": "b82d6bb6884e08c220c8d3b482e89d077e30cbd7d01e500596b5283e06a3ffd5"
+    },
+    {
+      "name": "rules-final",
+      "command": [
+        "python",
+        "-B",
+        "savia/tools/rules.py"
+      ],
+      "exit": 0,
+      "seconds": 3.828,
+      "summary": [
+        "PASS  migrations are frozen  (A recorded migration never changes: write a new V0NN file instead.)",
+        "PASS  web dialogs and http  (In-page confirmation only (web/confirm.mjs); every HTTP call lives in web/api.mjs.)",
+        "PASS  web logic is pure  (*-logic.mjs, money.mjs and roles.mjs run in node tests: no DOM, no storage, no HTTP, no impure import.)",
+        "PASS  layers point inward  (Domain and Contracts know nothing; Application knows no SQL and no HTTP; only Infrastructure talks to SQL.)",
+        "PASS  web calls real routes  (Every path web/api.mjs calls is mapped by the API (Savia.Api/*.cs).)",
+        "PASS  no disabled tests  (A failing test is fixed or deleted with a reason, never skipped. A platform condition (skipUnless) is allowed.)",
+        "PASS  guards use named role sets  (A guard passes one named set of Savia.Domain Roles (Roles.Approvers), never a list of roles or a literal.)",
+        "PASS  source stays readable  (No C# file over 300 lines and no line over 160 characters.)",
+        "PASS  no pilot names  (Types and files are named after the product noun they serve, never after the pilot round.)",
+        "RULES PASS: 9 of 9 rules hold"
+      ],
+      "log": "private-exports\\merge-readiness-20261116\\corrections\\ci-followup\\rules-final.log",
+      "sha256": "2de87318481d79c344baee2450ab8548870ffbc7dd6d966be1cf8823ef384d8a"
+    }
+  ],
+  "sourceChecks": {
+    "formatEquivalence": [
+      {
+        "path": "savia/web/api.mjs",
+        "formatterExit": 0,
+        "formattedHeadEqualsCandidate": true,
+        "lfSha256": "247696d41b2e4939c618a88cbfd2fb10d2b9e9bd319cb151201893fac9ae931d"
+      },
+      {
+        "path": "savia/web/screens/return-intent.mjs",
+        "formatterExit": 0,
+        "formattedHeadEqualsCandidate": true,
+        "lfSha256": "930bc9537baa5b5a7dfe095c5df85a504d530fa2e58b091f9d76b617bd8e3207"
+      },
+      {
+        "path": "savia/web/screens/return.mjs",
+        "formatterExit": 0,
+        "formattedHeadEqualsCandidate": true,
+        "lfSha256": "1e5294432c2e10864d7a0e45703ae439d5ea2bc62a8cfe2f8fd5d5d31968d490"
+      },
+      {
+        "path": "savia/web/tests/uuid.test.mjs",
+        "formatterExit": 0,
+        "formattedHeadEqualsCandidate": true,
+        "lfSha256": "63a855ce2651bf215b9dc42bcccbbce478ee9945fe40705aa25bdcfbb41348e2"
+      }
+    ],
+    "diffCheckExit": 0
+  },
+  "sourceBindings": [
+    {
+      "path": "savia/db/migrations/MANIFEST.sha256",
+      "rawSha256": "211faf4029a8214be5ecd945479824a318a4fe368b7fc60c1a73e25b1aba9148",
+      "lfSha256": "211faf4029a8214be5ecd945479824a318a4fe368b7fc60c1a73e25b1aba9148",
+      "baseGitBlobSha256": "2e878b9e3c3eea5c1135ad0f1c2ac22a24f771aa5e41cba66665be79691eefe0"
+    },
+    {
+      "path": "savia/db/migrations/V029__return_retry_safety.sql",
+      "rawSha256": "68ae40dbbfbc4f14f80dbc5e3896ed153298786765dc8f16e3cd3410d180eb0f",
+      "lfSha256": "68ae40dbbfbc4f14f80dbc5e3896ed153298786765dc8f16e3cd3410d180eb0f",
+      "baseGitBlobSha256": "6041e3880fb4cb02c595504e394701e52408e426767c67c2b575914402b353cc"
+    },
+    {
+      "path": "savia/tests/test_return_retry_safety.py",
+      "rawSha256": "b14cebde601936f0bd7db2c1a99c47f0872e41bc242b181c39fbbc25d75a98a6",
+      "lfSha256": "b14cebde601936f0bd7db2c1a99c47f0872e41bc242b181c39fbbc25d75a98a6",
+      "baseGitBlobSha256": "6a180e8c8d27900a203bd94c338260863dc45e157c1e351302eceff02af9a9f5"
+    },
+    {
+      "path": "savia/web/api.mjs",
+      "rawSha256": "247696d41b2e4939c618a88cbfd2fb10d2b9e9bd319cb151201893fac9ae931d",
+      "lfSha256": "247696d41b2e4939c618a88cbfd2fb10d2b9e9bd319cb151201893fac9ae931d",
+      "baseGitBlobSha256": "b0a2fe70bddb20de4b0745c06257bf05c9e60afd1d16611a6b1ed748133367f6"
+    },
+    {
+      "path": "savia/web/screens/return-intent.mjs",
+      "rawSha256": "930bc9537baa5b5a7dfe095c5df85a504d530fa2e58b091f9d76b617bd8e3207",
+      "lfSha256": "930bc9537baa5b5a7dfe095c5df85a504d530fa2e58b091f9d76b617bd8e3207",
+      "baseGitBlobSha256": "96f95f5c45ee6d9edf0478b78dcce20d180b379429745ebe4624c6c79c6bb049"
+    },
+    {
+      "path": "savia/web/screens/return.mjs",
+      "rawSha256": "1e5294432c2e10864d7a0e45703ae439d5ea2bc62a8cfe2f8fd5d5d31968d490",
+      "lfSha256": "1e5294432c2e10864d7a0e45703ae439d5ea2bc62a8cfe2f8fd5d5d31968d490",
+      "baseGitBlobSha256": "69198b30c9e16e221cc8c589ca9ebefc20b8dcfa148ab44268624f86d9f66cda"
+    },
+    {
+      "path": "savia/web/tests/return-lifecycle.test.mjs",
+      "rawSha256": "edfa5d0623959d908ad2b414936e3507e030672851d00c7a915f1dfa42a88c4f",
+      "lfSha256": "edfa5d0623959d908ad2b414936e3507e030672851d00c7a915f1dfa42a88c4f",
+      "baseGitBlobSha256": "989c7dcd53f52010188c57d501ac3f89cf82d4d1f9e5aaf8e7d88cd2cb776d83"
+    },
+    {
+      "path": "savia/web/tests/uuid.test.mjs",
+      "rawSha256": "63a855ce2651bf215b9dc42bcccbbce478ee9945fe40705aa25bdcfbb41348e2",
+      "lfSha256": "63a855ce2651bf215b9dc42bcccbbce478ee9945fe40705aa25bdcfbb41348e2",
+      "baseGitBlobSha256": "0e2bf69aeb4b95e993669984a99c6889d5b77f90b051808c6be251b5445012bd"
+    },
+    {
+      "path": "savia/deploy/migrator/Program.cs",
+      "rawSha256": "0a89b762ddad718469beed18eb4fa65dfbb79c0be21b36a2bc52ec7389cb1522",
+      "lfSha256": "2552840e40095490ee943192e4b512be7d9293dede77c397da3b7fcc016ed220",
+      "baseGitBlobSha256": "5d38b49d9b7efe350a1f66f7f4fd1cedb1bb01dbf9defb36322dacd07383f5ee"
+    },
+    {
+      "path": "savia/deploy/migrator/MigrationExecution.cs",
+      "rawSha256": "fdffab36bee24327107849bada013ca6218792b8c712b4c6adc9408e40358f72",
+      "lfSha256": "4a1e613d046b9ad745b914b7ee5db8c75973966361208ec0ae52e46ec92cda25",
+      "baseGitBlobSha256": null
+    },
+    {
+      "path": "savia/tests/Savia.Tests/Savia.Tests.csproj",
+      "rawSha256": "229188de590a454b3cc7c0ee7f231abc5f780cc85462e9edc538d6315bf5bfdc",
+      "lfSha256": "353336eeeb28f9affeda497b9c531c40cbc05c2e0e582e8c37bcff4a330effa8",
+      "baseGitBlobSha256": "5a58d6bab1a6518ee163371e4c5696fd34371214928ee0ab534faf2b6d84884e"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/MigratorExecutionTests.cs",
+      "rawSha256": "09030de1d36709235a756c7644ab7c88562a072e12e741a43f8c42625e24e453",
+      "lfSha256": "c8693919acdfb0a64e40d944c9d57a1011688037ed5b3307c07e5ef7a012a5fb",
+      "baseGitBlobSha256": null
+    }
+  ],
+  "reviewImport": {
+    "path": "docs/merge-readiness-20261116/corrections/ci-followup/v029/astra-preimplementation.md",
+    "rawSha256": "28794758204ad9174dc5b3acbc49c835d8bebaee3f3810f8cd5fa90de8262494",
+    "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-45e9e662-ae3edc461400a173\\docs\\merge-readiness-20261116\\corrections\\ci-followup\\v029\\astra-preimplementation.md"
+  },
+  "v029": {
+    "correction": "Exactly one GO after column ADD; procedure bodies and V001..V028 unchanged",
+    "oldLfSha256": "6041e3880fb4cb02c595504e394701e52408e426767c67c2b575914402b353cc",
+    "newLfSha256": "68ae40dbbfbc4f14f80dbc5e3896ed153298786765dc8f16e3cd3410d180eb0f",
+    "red": {
+      "exit": 1,
+      "passed": 10,
+      "failed": 1,
+      "scope": "offline source batch contract",
+      "log": "private-exports/merge-readiness-20261116/corrections/ci-followup/v029-batch-red.log"
+    },
+    "green": {
+      "exit": 0,
+      "passed": 11,
+      "failed": 0
+    }
+  },
+  "harnessFailure": {
+    "scope": "first web receipt wrapper only",
+    "error": "re.error: nothing to repeat at position 5",
+    "cause": "Unicode output marker was damaged by PowerShell stdin encoding",
+    "resolution": "ASCII-only wrapper saved actual exit before output parsing; Biome repeated once to retain its exit; web suite ran once",
+    "productDefect": false
+  },
+  "worker": {
+    "status": "completed; four source files inspected and imported exactly",
+    "taskId": "node:delegated-task:command%3Amcp%3Ae4303c9f-0d3d-48a1-8844-0bd89ed3e639%3Adelegate-task%3Ab8ba18c1-ec55-41e8-8238-f24fd421aed3",
+    "role": "marked .NET migrator atomic envelope and executable offline controls",
+    "acceptance": "local source inspection and focused tests pass; independent acceptance pending",
+    "importReceipt": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/IMPORT.json",
+    "historicalTests": {
+      "passed": 24,
+      "failed": 0,
+      "notExecuted": 0
+    },
+    "negativeControls": "three mutants failed, exact sources restored; historical worker evidence, not a SQL run"
+  },
+  "authority": {
+    "previousPublicationConsumed": true,
+    "newCommitPush": false,
+    "sqlDockerWorkflow": false,
+    "merge": false,
+    "deployment": false
+  },
+  "notRun": [
+    "Corrected V029 against real SQL",
+    "Corrected production migrator against SQL",
+    "New candidate CI",
+    "New browser run",
+    "Commit, push, merge or deployment"
+  ],
+  "next": "Freeze this 12-source overlay and obtain a fresh isolated Astra/xhigh review. Prepare the minimal SQL/publication packet only after source acceptance.",
+  "primaryMigrator": {
+    "checks": [
+      {
+        "name": "restore-migrator",
+        "command": [
+          "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+          "restore",
+          "savia/deploy/migrator/Savia.Migrator.csproj",
+          "--locked-mode",
+          "--source",
+          "C:/Users/Jason/.nuget/packages",
+          "-p:NuGetAudit=false"
+        ],
+        "exit": 0,
+        "seconds": 1.922,
+        "log": "private-exports/merge-readiness-20261116/corrections/ci-followup/primary-migrator/restore-migrator.log",
+        "sha256": "af9fb90552bb28a9730a2f520f0393a37ecdd16de58fae5340dbb7fcb0c6ca01"
+      },
+      {
+        "name": "build-migrator",
+        "command": [
+          "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+          "build",
+          "savia/deploy/migrator/Savia.Migrator.csproj",
+          "--no-restore",
+          "-c",
+          "Release",
+          "-v",
+          "minimal"
+        ],
+        "exit": 0,
+        "seconds": 4.406,
+        "log": "private-exports/merge-readiness-20261116/corrections/ci-followup/primary-migrator/build-migrator.log",
+        "sha256": "32d856df0d02c71de772f37dedaad9be1abb538c486f026613527f211aaa7cee"
+      },
+      {
+        "name": "focused-tests",
+        "command": [
+          "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+          "test",
+          "savia/tests/Savia.Tests/Savia.Tests.csproj",
+          "--no-restore",
+          "-c",
+          "Release",
+          "--filter",
+          "FullyQualifiedName~MigratorExecutionTests",
+          "--logger",
+          "trx;LogFileName=primary.trx",
+          "--results-directory",
+          "C:\\Users\\Jason\\MARTHA-SILVA\\github\\private-exports\\merge-readiness-20261116\\corrections\\ci-followup\\primary-migrator",
+          "-v",
+          "minimal"
+        ],
+        "exit": 0,
+        "seconds": 16.391,
+        "log": "private-exports/merge-readiness-20261116/corrections/ci-followup/primary-migrator/focused-tests.log",
+        "sha256": "9d8c10de769900d052d3858d183c02cb6bfa66547aadf6f8a12a3e06635569ea"
+      }
+    ],
+    "trx": {
+      "path": "private-exports/merge-readiness-20261116/corrections/ci-followup/primary-migrator/primary.trx",
+      "rawSha256": "06948bd45024f5b9f101553a647870216be31603c7eaf4e6552670f76ee7ae42",
+      "total": 24,
+      "passed": 24,
+      "failed": 0,
+      "notExecuted": 0
+    },
+    "productionBuild": {
+      "exit": 0,
+      "warnings": 0,
+      "errors": 0
+    },
+    "sqlConnection": "RecordingConnection fake only; production executable compiled but not started"
+  },
+  "repositoryCheck": {
+    "name": "repository-check",
+    "command": [
+      "python",
+      "tests/check.py"
+    ],
+    "exit": 1,
+    "seconds": 146.781,
+    "timedOut": false,
+    "log": "private-exports/merge-readiness-20261116/corrections/ci-followup/repository-check.log",
+    "sha256": "5d73b254340a9ee1a339a57721b55c1d95725a552ba60189ff038882e69caf65",
+    "status": "BLOCKED_ENVIRONMENT",
+    "error": "WinError 1314: A required privilege is not held by the client",
+    "affected": "three symlink fixture errors in tests/asset-audit.py",
+    "cause": "The Windows Python process cannot create the symbolic links required by these unchanged fixtures.",
+    "attemptedCorrection": "No permission or test changes. One complete aggregate attempt retained; no repeat of the same Windows failure.",
+    "passedBeforeStop": "Staff 223/223; reproducible build; header/release, original catalog, responsive image/font and editorial groups passed.",
+    "notRun": "Groups after the asset-audit stop were not reached in this invocation.",
+    "workaround": "Use a clean Linux aggregate on the exact accepted candidate. New publication/CI scope is required; no workflow dispatched.",
+    "owner": "Primary prepares exact candidate and runtime packet; Jason authorizes the new CI; primary verifies actual job exit.",
+    "completionCheck": "python tests/check.py exits 0 in the authorized Linux job on the exact candidate."
+  },
+  "f1Correction": {
+    "record": "command-disposal/RESULT.json",
+    "astraVerdict": "REVISE, one P2 (F1)",
+    "state": "corrected; primary verified offline; fresh independent recheck NOT RUN"
+  }
+}

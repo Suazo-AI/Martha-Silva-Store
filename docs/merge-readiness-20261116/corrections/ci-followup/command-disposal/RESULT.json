@@ -1,0 +1,238 @@
+{
+  "task": "savia-pr7-f1-command-disposal-20261117",
+  "status": "F1_ACCEPTED_WITH_LIMITS_PUBLICATION_AUTHORIZED_ONCE",
+  "recordedAtUtc": "2026-11-17T03:36:44.984011+00:00",
+  "base": "ac0bb9f47f5a12ffc0626f7737a347dea9b37900",
+  "host": "SUAZO-PC",
+  "primary": "T3 Code / Claude Code, claude-fable-5-2",
+  "finding": "Astra F1 (P2): command disposal can replace the original operation error.",
+  "frozenPacketRawSha256": "cba7b397f4f7b9ebf344cd24ab21d0c760fbc5c984fd33f125c27cf779f31dbd",
+  "importedReview": {
+    "path": "docs/merge-readiness-20261116/corrections/ci-followup/review/astra-integrated-review.md",
+    "rawSha256": "a182ff6c9cea7bdec3d730e181c9bf01e2fe474367667d4811feebf8ff0f05de"
+  },
+  "sourceBindings": [
+    {
+      "path": "savia/db/migrations/MANIFEST.sha256",
+      "rawSha256": "211faf4029a8214be5ecd945479824a318a4fe368b7fc60c1a73e25b1aba9148",
+      "lfSha256": "211faf4029a8214be5ecd945479824a318a4fe368b7fc60c1a73e25b1aba9148",
+      "inFrozenPacket": true,
+      "frozenRawSha256": "211faf4029a8214be5ecd945479824a318a4fe368b7fc60c1a73e25b1aba9148",
+      "contentChangedSincePacket": false
+    },
+    {
+      "path": "savia/db/migrations/V029__return_retry_safety.sql",
+      "rawSha256": "68ae40dbbfbc4f14f80dbc5e3896ed153298786765dc8f16e3cd3410d180eb0f",
+      "lfSha256": "68ae40dbbfbc4f14f80dbc5e3896ed153298786765dc8f16e3cd3410d180eb0f",
+      "inFrozenPacket": true,
+      "frozenRawSha256": "68ae40dbbfbc4f14f80dbc5e3896ed153298786765dc8f16e3cd3410d180eb0f",
+      "contentChangedSincePacket": false
+    },
+    {
+      "path": "savia/tests/test_return_retry_safety.py",
+      "rawSha256": "b14cebde601936f0bd7db2c1a99c47f0872e41bc242b181c39fbbc25d75a98a6",
+      "lfSha256": "b14cebde601936f0bd7db2c1a99c47f0872e41bc242b181c39fbbc25d75a98a6",
+      "inFrozenPacket": true,
+      "frozenRawSha256": "b14cebde601936f0bd7db2c1a99c47f0872e41bc242b181c39fbbc25d75a98a6",
+      "contentChangedSincePacket": false
+    },
+    {
+      "path": "savia/web/api.mjs",
+      "rawSha256": "247696d41b2e4939c618a88cbfd2fb10d2b9e9bd319cb151201893fac9ae931d",
+      "lfSha256": "247696d41b2e4939c618a88cbfd2fb10d2b9e9bd319cb151201893fac9ae931d",
+      "inFrozenPacket": true,
+      "frozenRawSha256": "247696d41b2e4939c618a88cbfd2fb10d2b9e9bd319cb151201893fac9ae931d",
+      "contentChangedSincePacket": false
+    },
+    {
+      "path": "savia/web/screens/return-intent.mjs",
+      "rawSha256": "930bc9537baa5b5a7dfe095c5df85a504d530fa2e58b091f9d76b617bd8e3207",
+      "lfSha256": "930bc9537baa5b5a7dfe095c5df85a504d530fa2e58b091f9d76b617bd8e3207",
+      "inFrozenPacket": true,
+      "frozenRawSha256": "930bc9537baa5b5a7dfe095c5df85a504d530fa2e58b091f9d76b617bd8e3207",
+      "contentChangedSincePacket": false
+    },
+    {
+      "path": "savia/web/screens/return.mjs",
+      "rawSha256": "1e5294432c2e10864d7a0e45703ae439d5ea2bc62a8cfe2f8fd5d5d31968d490",
+      "lfSha256": "1e5294432c2e10864d7a0e45703ae439d5ea2bc62a8cfe2f8fd5d5d31968d490",
+      "inFrozenPacket": true,
+      "frozenRawSha256": "1e5294432c2e10864d7a0e45703ae439d5ea2bc62a8cfe2f8fd5d5d31968d490",
+      "contentChangedSincePacket": false
+    },
+    {
+      "path": "savia/web/tests/return-lifecycle.test.mjs",
+      "rawSha256": "edfa5d0623959d908ad2b414936e3507e030672851d00c7a915f1dfa42a88c4f",
+      "lfSha256": "edfa5d0623959d908ad2b414936e3507e030672851d00c7a915f1dfa42a88c4f",
+      "inFrozenPacket": true,
+      "frozenRawSha256": "edfa5d0623959d908ad2b414936e3507e030672851d00c7a915f1dfa42a88c4f",
+      "contentChangedSincePacket": false
+    },
+    {
+      "path": "savia/web/tests/uuid.test.mjs",
+      "rawSha256": "63a855ce2651bf215b9dc42bcccbbce478ee9945fe40705aa25bdcfbb41348e2",
+      "lfSha256": "63a855ce2651bf215b9dc42bcccbbce478ee9945fe40705aa25bdcfbb41348e2",
+      "inFrozenPacket": true,
+      "frozenRawSha256": "63a855ce2651bf215b9dc42bcccbbce478ee9945fe40705aa25bdcfbb41348e2",
+      "contentChangedSincePacket": false
+    },
+    {
+      "path": "savia/deploy/migrator/Program.cs",
+      "rawSha256": "0a89b762ddad718469beed18eb4fa65dfbb79c0be21b36a2bc52ec7389cb1522",
+      "lfSha256": "2552840e40095490ee943192e4b512be7d9293dede77c397da3b7fcc016ed220",
+      "inFrozenPacket": true,
+      "frozenRawSha256": "0a89b762ddad718469beed18eb4fa65dfbb79c0be21b36a2bc52ec7389cb1522",
+      "contentChangedSincePacket": false
+    },
+    {
+      "path": "savia/deploy/migrator/MigrationExecution.cs",
+      "rawSha256": "1b4d6663aa5aa0e3f8bfff9f98c4cf82b83d2707f567efa2c232e1c09a0bda50",
+      "lfSha256": "1b4d6663aa5aa0e3f8bfff9f98c4cf82b83d2707f567efa2c232e1c09a0bda50",
+      "inFrozenPacket": true,
+      "frozenRawSha256": "fdffab36bee24327107849bada013ca6218792b8c712b4c6adc9408e40358f72",
+      "contentChangedSincePacket": true
+    },
+    {
+      "path": "savia/tests/Savia.Tests/Savia.Tests.csproj",
+      "rawSha256": "229188de590a454b3cc7c0ee7f231abc5f780cc85462e9edc538d6315bf5bfdc",
+      "lfSha256": "353336eeeb28f9affeda497b9c531c40cbc05c2e0e582e8c37bcff4a330effa8",
+      "inFrozenPacket": true,
+      "frozenRawSha256": "229188de590a454b3cc7c0ee7f231abc5f780cc85462e9edc538d6315bf5bfdc",
+      "contentChangedSincePacket": false
+    },
+    {
+      "path": "savia/tests/Savia.Tests/MigratorExecutionTests.cs",
+      "rawSha256": "9359fd415695ff97b7de22a9be053dd7c7560d7f7f7205802656ee8f343ae9c3",
+      "lfSha256": "9359fd415695ff97b7de22a9be053dd7c7560d7f7f7205802656ee8f343ae9c3",
+      "inFrozenPacket": true,
+      "frozenRawSha256": "09030de1d36709235a756c7644ab7c88562a072e12e741a43f8c42625e24e453",
+      "contentChangedSincePacket": true
+    },
+    {
+      "path": "savia/tests/Savia.Tests/ReturnRetrySafetyTests.cs",
+      "rawSha256": "8d58b19500267ea8908c119d8c882ff934c9d0b1753eff6d3ed43de673d05c6e",
+      "lfSha256": "8d58b19500267ea8908c119d8c882ff934c9d0b1753eff6d3ed43de673d05c6e",
+      "inFrozenPacket": false,
+      "frozenRawSha256": null,
+      "contentChangedSincePacket": true
+    }
+  ],
+  "checks": {
+    "red": {
+      "command": "dotnet test savia/tests/Savia.Tests/Savia.Tests.csproj --no-restore -c Release --filter FullyQualifiedName~MigratorExecutionTests",
+      "exit": 1,
+      "passed": 27,
+      "failed": 3,
+      "failedCases": "Command_disposal_failure_preserves_original_operation_error: batch1, ledger, validate"
+    },
+    "green": {
+      "command": "same",
+      "exit": 0,
+      "passed": 30,
+      "failed": 0,
+      "skipped": 0
+    },
+    "migratorBuild": {
+      "command": "dotnet build savia/deploy/migrator/Savia.Migrator.csproj --no-restore -c Release",
+      "exit": 0,
+      "warnings": 0,
+      "errors": 0
+    },
+    "astraAdversarialProbe": {
+      "source": "Astra Adversarial.cs, byte-identical copy, compiled against the corrected helper",
+      "before": "17 pass / 3 fail",
+      "after": "20 pass / 0 fail",
+      "exit": 0
+    },
+    "final": {
+      "focusedTests": {
+        "exit": 0,
+        "passed": 30,
+        "failed": 0,
+        "skipped": 0
+      },
+      "slnxReleaseBuild": {
+        "exit": 0,
+        "warnings": 0,
+        "errors": 0
+      },
+      "migratorReleaseBuild": {
+        "exit": 0,
+        "warnings": 0,
+        "errors": 0
+      },
+      "astraAdversarialProbe": {
+        "exit": 0,
+        "passed": 20,
+        "failed": 0
+      },
+      "csharpFormat": {
+        "exit": 0
+      },
+      "architectureRules": {
+        "exit": 0,
+        "result": "9 of 9"
+      },
+      "baselineCheck": {
+        "exit": 0
+      },
+      "noPhysicalDelete": {
+        "exit": 0
+      },
+      "pythonUnittestSaviaTests": {
+        "exit": 0,
+        "ran": 41,
+        "skipped": 0
+      }
+    }
+  },
+  "privateEvidenceSha256": {
+    "Adversarial.cs": "149b5f57c3f870bd49a56e74246e01f7053517de1c22d2f3d64be27536db0346",
+    "astra-probe-after.log": "4080789a40238a21c1b0895c52e3ed35ec60ec33ddc2b295bf48bf6262b9503a",
+    "baseline.json": "781abea27f9822b930081258efec0b48734a050c644928ecf10b20dc76c3d92a",
+    "baseline.log": "5da39d6d65140e8d435ac5cc060b05517661917dfae7efb6147437023b31e772",
+    "final.log": "23bad63bbaacce0b889d6bd861dca3453b3720d00d31fc4277cc1b2959a1c9d7",
+    "final.trx": "978651ae5d9b60d69f00262fd3e4d1717b6a0b6a9d8c381aa7690f017bb2e94e",
+    "format-after.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "format-apply.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "format.log": "245e4d94aafce9f9cba1b84a53a307445817e91ad16d589dd462cf8a99b3dfae",
+    "green.log": "f7c23ba9e3d916424e6cbb9572c2a9119724445c33b7edf970f0a41c366c8152",
+    "green.trx": "be459d311a8c53f4646e783e527a6a57ad45db67d07ce03466f5a0181a01bd3f",
+    "migrator-build-final.log": "9f0b2d9c9c0de8a43bd23967de783fe85c366dae425fd2297558ff1e6a9be3e7",
+    "migrator-build.log": "775dda8caf7e1976bfe974a1fab1f94927e41dd87175267de1056b2d3f461630",
+    "nodelete.log": "821f6f4edfa6122f816c7bf0d7eadd54c27cd5cfe25a737da6c093b7bb34eb1c",
+    "py-unittest.log": "c326be9ed2b9bdc2038b3fd7f1264503e7df5da519735230e270f817d9c553aa",
+    "red.log": "1f7053c5c320b395ba3d67ef362d82013958d72a82f70b6fea3ea9d41b06f246",
+    "red.trx": "ca41ad372a93c5e8ea93d977a97438ff7df41bbbd5c170a2975fb73d742759f8",
+    "rules.log": "2de87318481d79c344baee2450ab8548870ffbc7dd6d966be1cf8823ef384d8a",
+    "slnx-build-final.log": "453258ef758072e417b0967d539241fa39a5b40dbe0562024991263c75144f03",
+    "slnx-build.log": "3bdbe841b3733fb23b6d5ef4040e39594e09f2ba5c724da50f881f5ca65d0073"
+  },
+  "notRun": [
+    "real SQL",
+    "exact-candidate CI",
+    "Linux aggregate python tests/check.py"
+  ],
+  "indexEmpty": true,
+  "lineEndings": "MigrationExecution.cs and MigratorExecutionTests.cs were converted from CRLF to LF in the working copy, matching savia/.editorconfig and the bytes Git stores. Content is unchanged by that step.",
+  "formatFinding": {
+    "gate": "savia/tools/check.py runs: dotnet format Savia.slnx --verify-no-changes --no-restore",
+    "before": "exit 2: one WHITESPACE error at ReturnRetrySafetyTests.cs(58,59), already present in ac0bb9f, plus 452 ENDOFLINE reports caused by CRLF working copies of the two new files",
+    "correction": "dotnet format Savia.slnx --no-restore --include tests/Savia.Tests/ReturnRetrySafetyTests.cs: one object initializer moved to its own line. No token changed.",
+    "after": "exit 0, no output"
+  },
+  "astraRecheck": {
+    "verdict": "ACCEPT WITH LIMITS; F1 closed; no new findings",
+    "model": "gpt-6-astra/xhigh",
+    "report": "docs/merge-readiness-20261116/corrections/ci-followup/command-disposal/astra-f1-recheck.md",
+    "rawSha256": "22e4c318fbbd2ce54c309f5743f046c45e5b2dfbc5f5ab6286310a3545f2f7af",
+    "fresh": "focused tests 30/30; extended adversarial probe 37/37",
+    "packetRawSha256": "2f286ef7f3ae96da7968c6cd6447a9e736e63e92fc1c3b02c82c0297758defa1"
+  },
+  "primaryAcceptance": {
+    "by": "claude-fable-5-2 (primary)",
+    "decision": "ACCEPTED WITH LIMITS for the local 13-source candidate",
+    "at": "2026-11-17T03:36:44.984011+00:00",
+    "limits": "Fakes and builds only. Real SQL, exact-candidate CI and the Linux aggregate are NOT RUN."
+  }
+}

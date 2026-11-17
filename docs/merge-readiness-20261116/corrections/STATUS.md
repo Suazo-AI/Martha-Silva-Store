@@ -1,3 +1,17 @@
+# Current correction status after ac0bb9f CI
+
+Published Tony SHA: `ac0bb9f47f5a12ffc0626f7737a347dea9b37900`. All seven required checks passed. All 25 check-runs completed; Azure migration and v2 validation still failed.
+
+[Current follow-up](ci-followup/README.md) supersedes the pre-publication snapshot below. Local Biome passes on 68 files; web/scanner passes 134/134. V029 batch-source checks pass 11/11 after a one-GO correction. Real SQL remains pending. The .NET transaction correction is integrated locally. Production build passes with zero warnings/errors; primary focused tests pass 24/24 using a fake connection. Independent Astra review and actual SQL remain pending.
+
+No new publication, SQL runtime, merge or deployment is authorized by these results. Previous one-shot authority is consumed. The integrated repository check stopped at three unchanged symlink fixtures with WinError 1314; preceding groups passed. Primary sends the frozen 12-source candidate to Astra/xhigh. Linux aggregate, SQL runtime and exact-candidate CI remain pending. No push or SQL attempt has occurred.
+
+Update 2026-11-17: Astra/xhigh returned REVISE with one P2 finding, F1: command disposal could replace the original migration error. Primary changed to Claude Code `claude-fable-5-2` after Codex hit its usage limit (back 2026-11-20 14:03). F1 is corrected in `MigrationExecution.cs`: focused tests red 27/3, green 30/30; migrator build 0 warnings/errors; Astra's own adversarial probe 20/20 (was 17/3). [F1 record](ci-followup/command-disposal/README.md). A second gap was found and corrected: the CI C# format gate failed on one line of `ReturnRetrySafetyTests.cs`, already in `ac0bb9f`; `dotnet format --verify-no-changes` now exits 0. The candidate is 13 sources. A fresh independent recheck of F1, real SQL, the Linux aggregate and exact-candidate CI are still NOT RUN. Nothing is published; the Git index is empty. Jason answered at 2026-11-17T03:28:36.880181+00:00: Astra has usage again, so Astra/xhigh rechecks F1; and "Publicar una vez (Recommended)" for one Tony publication of the 13-source candidate with its automatic CI, bounds as in [PUBLICATION-RUNTIME.md](PUBLICATION-RUNTIME.md): maximum 330 cumulative job minutes, no retry, no paid AI, no merge, no deployment. Astra recheck task `savia-pr7-f1-recheck-ac0bb9f-20261117` is running on [the frozen F1 packet](ci-followup/command-disposal/PACKET.json). Astra/xhigh returned **ACCEPT WITH LIMITS**: F1 closed, no new findings, fresh 30/30 tests and 37/37 probe ([recheck](ci-followup/command-disposal/astra-f1-recheck.md)). Primary accepts the local 13-source candidate with limits. Next: one publication from [the allowlist](ci-followup/PUBLICATION.json), then every CI result is read. Real SQL and exact-candidate CI are NOT RUN until that publication.
+
+---
+
+## Historical pre-publication snapshot
+
 # PR7 correction status
 
 Base: `ba8ff2ba10935e99fc268ebbe5eae130f72c1cca`. Branch: `Tony`.

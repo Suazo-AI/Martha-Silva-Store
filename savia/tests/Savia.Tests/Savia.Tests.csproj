@@ -11,6 +11,7 @@
   </ItemGroup>
   <ItemGroup>
     <Using Include="Xunit" />
+    <Compile Include="../../deploy/migrator/MigrationExecution.cs" Link="Migrator/MigrationExecution.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../../src/Savia.Api/Savia.Api.csproj" />

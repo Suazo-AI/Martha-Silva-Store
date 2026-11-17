@@ -1,0 +1,132 @@
+{
+  "task": "savia-pr7-f1-recheck-ac0bb9f-20261117",
+  "base": "ac0bb9f47f5a12ffc0626f7737a347dea9b37900",
+  "recordedAtUtc": "2026-11-17T03:28:04.625249+00:00",
+  "previousPacketRawSha256": "cba7b397f4f7b9ebf344cd24ab21d0c760fbc5c984fd33f125c27cf779f31dbd",
+  "previousReviewRawSha256": "a182ff6c9cea7bdec3d730e181c9bf01e2fe474367667d4811feebf8ff0f05de",
+  "archive": {
+    "path": "private-exports/merge-readiness-20261116/corrections/ci-followup/command-disposal/review-candidate-f1.zip",
+    "rawSha256": "244295a95840901859bfd440408d457994c413d2a3f872601230dc75db4974c6",
+    "entries": 13
+  },
+  "sourceBindings": [
+    {
+      "path": "savia/db/migrations/MANIFEST.sha256",
+      "rawSha256": "211faf4029a8214be5ecd945479824a318a4fe368b7fc60c1a73e25b1aba9148",
+      "lfSha256": "211faf4029a8214be5ecd945479824a318a4fe368b7fc60c1a73e25b1aba9148",
+      "previousPacketLfSha256": "211faf4029a8214be5ecd945479824a318a4fe368b7fc60c1a73e25b1aba9148",
+      "contentChangedSincePreviousPacket": false
+    },
+    {
+      "path": "savia/db/migrations/V029__return_retry_safety.sql",
+      "rawSha256": "68ae40dbbfbc4f14f80dbc5e3896ed153298786765dc8f16e3cd3410d180eb0f",
+      "lfSha256": "68ae40dbbfbc4f14f80dbc5e3896ed153298786765dc8f16e3cd3410d180eb0f",
+      "previousPacketLfSha256": "68ae40dbbfbc4f14f80dbc5e3896ed153298786765dc8f16e3cd3410d180eb0f",
+      "contentChangedSincePreviousPacket": false
+    },
+    {
+      "path": "savia/tests/test_return_retry_safety.py",
+      "rawSha256": "b14cebde601936f0bd7db2c1a99c47f0872e41bc242b181c39fbbc25d75a98a6",
+      "lfSha256": "b14cebde601936f0bd7db2c1a99c47f0872e41bc242b181c39fbbc25d75a98a6",
+      "previousPacketLfSha256": "b14cebde601936f0bd7db2c1a99c47f0872e41bc242b181c39fbbc25d75a98a6",
+      "contentChangedSincePreviousPacket": false
+    },
+    {
+      "path": "savia/web/api.mjs",
+      "rawSha256": "247696d41b2e4939c618a88cbfd2fb10d2b9e9bd319cb151201893fac9ae931d",
+      "lfSha256": "247696d41b2e4939c618a88cbfd2fb10d2b9e9bd319cb151201893fac9ae931d",
+      "previousPacketLfSha256": "247696d41b2e4939c618a88cbfd2fb10d2b9e9bd319cb151201893fac9ae931d",
+      "contentChangedSincePreviousPacket": false
+    },
+    {
+      "path": "savia/web/screens/return-intent.mjs",
+      "rawSha256": "930bc9537baa5b5a7dfe095c5df85a504d530fa2e58b091f9d76b617bd8e3207",
+      "lfSha256": "930bc9537baa5b5a7dfe095c5df85a504d530fa2e58b091f9d76b617bd8e3207",
+      "previousPacketLfSha256": "930bc9537baa5b5a7dfe095c5df85a504d530fa2e58b091f9d76b617bd8e3207",
+      "contentChangedSincePreviousPacket": false
+    },
+    {
+      "path": "savia/web/screens/return.mjs",
+      "rawSha256": "1e5294432c2e10864d7a0e45703ae439d5ea2bc62a8cfe2f8fd5d5d31968d490",
+      "lfSha256": "1e5294432c2e10864d7a0e45703ae439d5ea2bc62a8cfe2f8fd5d5d31968d490",
+      "previousPacketLfSha256": "1e5294432c2e10864d7a0e45703ae439d5ea2bc62a8cfe2f8fd5d5d31968d490",
+      "contentChangedSincePreviousPacket": false
+    },
+    {
+      "path": "savia/web/tests/return-lifecycle.test.mjs",
+      "rawSha256": "edfa5d0623959d908ad2b414936e3507e030672851d00c7a915f1dfa42a88c4f",
+      "lfSha256": "edfa5d0623959d908ad2b414936e3507e030672851d00c7a915f1dfa42a88c4f",
+      "previousPacketLfSha256": "edfa5d0623959d908ad2b414936e3507e030672851d00c7a915f1dfa42a88c4f",
+      "contentChangedSincePreviousPacket": false
+    },
+    {
+      "path": "savia/web/tests/uuid.test.mjs",
+      "rawSha256": "63a855ce2651bf215b9dc42bcccbbce478ee9945fe40705aa25bdcfbb41348e2",
+      "lfSha256": "63a855ce2651bf215b9dc42bcccbbce478ee9945fe40705aa25bdcfbb41348e2",
+      "previousPacketLfSha256": "63a855ce2651bf215b9dc42bcccbbce478ee9945fe40705aa25bdcfbb41348e2",
+      "contentChangedSincePreviousPacket": false
+    },
+    {
+      "path": "savia/deploy/migrator/Program.cs",
+      "rawSha256": "0a89b762ddad718469beed18eb4fa65dfbb79c0be21b36a2bc52ec7389cb1522",
+      "lfSha256": "2552840e40095490ee943192e4b512be7d9293dede77c397da3b7fcc016ed220",
+      "previousPacketLfSha256": "2552840e40095490ee943192e4b512be7d9293dede77c397da3b7fcc016ed220",
+      "contentChangedSincePreviousPacket": false
+    },
+    {
+      "path": "savia/deploy/migrator/MigrationExecution.cs",
+      "rawSha256": "1b4d6663aa5aa0e3f8bfff9f98c4cf82b83d2707f567efa2c232e1c09a0bda50",
+      "lfSha256": "1b4d6663aa5aa0e3f8bfff9f98c4cf82b83d2707f567efa2c232e1c09a0bda50",
+      "previousPacketLfSha256": "4a1e613d046b9ad745b914b7ee5db8c75973966361208ec0ae52e46ec92cda25",
+      "contentChangedSincePreviousPacket": true
+    },
+    {
+      "path": "savia/tests/Savia.Tests/Savia.Tests.csproj",
+      "rawSha256": "229188de590a454b3cc7c0ee7f231abc5f780cc85462e9edc538d6315bf5bfdc",
+      "lfSha256": "353336eeeb28f9affeda497b9c531c40cbc05c2e0e582e8c37bcff4a330effa8",
+      "previousPacketLfSha256": "353336eeeb28f9affeda497b9c531c40cbc05c2e0e582e8c37bcff4a330effa8",
+      "contentChangedSincePreviousPacket": false
+    },
+    {
+      "path": "savia/tests/Savia.Tests/MigratorExecutionTests.cs",
+      "rawSha256": "9359fd415695ff97b7de22a9be053dd7c7560d7f7f7205802656ee8f343ae9c3",
+      "lfSha256": "9359fd415695ff97b7de22a9be053dd7c7560d7f7f7205802656ee8f343ae9c3",
+      "previousPacketLfSha256": "c8693919acdfb0a64e40d944c9d57a1011688037ed5b3307c07e5ef7a012a5fb",
+      "contentChangedSincePreviousPacket": true
+    },
+    {
+      "path": "savia/tests/Savia.Tests/ReturnRetrySafetyTests.cs",
+      "rawSha256": "8d58b19500267ea8908c119d8c882ff934c9d0b1753eff6d3ed43de673d05c6e",
+      "lfSha256": "8d58b19500267ea8908c119d8c882ff934c9d0b1753eff6d3ed43de673d05c6e",
+      "previousPacketLfSha256": null,
+      "contentChangedSincePreviousPacket": true
+    }
+  ],
+  "changedSincePreviousPacket": [
+    "savia/deploy/migrator/MigrationExecution.cs",
+    "savia/tests/Savia.Tests/MigratorExecutionTests.cs",
+    "savia/tests/Savia.Tests/ReturnRetrySafetyTests.cs"
+  ],
+  "acceptanceChecks": [
+    "F1 closed: a failed batch, ledger INSERT and state SELECT keep the original exception identity when command disposal also fails.",
+    "A disposal failure after a successful operation still propagates and the transaction rolls back.",
+    "No behavior change outside command disposal: SQL text, timeouts, parameters, transaction ownership, XACT_ABORT handling, unmarked path.",
+    "ReturnRetrySafetyTests.cs differs from base only by one line break before an object initializer.",
+    "The 10 other sources are byte-identical (LF) to the previous frozen packet."
+  ],
+  "primaryEvidence": {
+    "red": "27 pass / 3 fail, exit 1",
+    "green": "30/30, exit 0",
+    "slnxReleaseBuild": "0 warnings, 0 errors",
+    "migratorReleaseBuild": "0 warnings, 0 errors",
+    "astraAdversarialProbeRerun": "20 pass / 0 fail (was 17/3)",
+    "csharpFormat": "dotnet format Savia.slnx --verify-no-changes --no-restore exit 0 (was exit 2)",
+    "rules": "9 of 9",
+    "pythonUnittest": "41 OK"
+  },
+  "notRun": [
+    "real SQL",
+    "exact-candidate CI",
+    "Linux aggregate"
+  ]
+}

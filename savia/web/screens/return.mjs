@@ -1,10 +1,21 @@
-import { actorScope, sameScope, readIntent, reserveIntent, changeIntent, finishIntent, cancelDraft, validReversal, matchingReversal, withIntentLock } from './return-intent.mjs';
 import * as api from '../api.mjs';
 import { confirmAction } from '../confirm.mjs';
 import { formatMoney, parseMoney } from '../money.mjs';
 import { isApprover } from '../roles.mjs';
 import { h, openModal, replace, showError } from '../ui.mjs';
 import { routeSaleId } from './receipt.mjs';
+import {
+  actorScope,
+  cancelDraft,
+  changeIntent,
+  finishIntent,
+  matchingReversal,
+  readIntent,
+  reserveIntent,
+  sameScope,
+  validReversal,
+  withIntentLock,
+} from './return-intent.mjs';
 import { exchangeBalance, OUTCOMES, outcomeRequest, remainingQuantity, returnValue, selectedReturnLines } from './return-logic.mjs';
 import { itemFromLookup } from './sale-logic.mjs';
 import { garmentLine, tenderName } from './sale-view.mjs';
@@ -72,7 +83,10 @@ export function supervisorApproval(action = 'devolución', lines = [], current =
             );
           } catch (failure) {
             pass.value = '';
-            if (current() && form.isConnected) { showError(error, failure); submit.disabled = false; }
+            if (current() && form.isConnected) {
+              showError(error, failure);
+              submit.disabled = false;
+            }
           }
         },
       },
@@ -114,67 +128,171 @@ export function supervisorApproval(action = 'devolución', lines = [], current =
 export default {
   title: 'Devolución',
   async mount(root, ctx) {
-    const actor = ctx.me, session = api.getToken(), hash = location.hash, scope = actorScope(actor);
-    let disposed = false, replacement = null;
-    let retired = false, busy = false, pending = null, ownedContent = null;
+    const actor = ctx.me,
+      session = api.getToken(),
+      hash = location.hash,
+      scope = actorScope(actor);
+    let disposed = false,
+      replacement = null;
+    let retired = false,
+      busy = false,
+      pending = null,
+      ownedContent = null;
     const approvals = new Map();
     const revoke = token => {
-      if(approvals.has(token))return approvals.get(token);
-      const task=api.endApproval(token).catch(()=>{
-        if(ctx.reportApprovalCleanupFailure)ctx.reportApprovalCleanupFailure();
+      if (approvals.has(token)) return approvals.get(token);
+      const task = api.endApproval(token).catch(() => {
+        if (ctx.reportApprovalCleanupFailure) ctx.reportApprovalCleanupFailure();
         else ctx.notify('No se pudo cerrar la autorizaci\u00f3n temporal. Pida revisi\u00f3n a la gerente.');
       });
-      approvals.set(token,task);return task;
+      approvals.set(token, task);
+      return task;
     };
     const activeApprovals = new Set();
-    const cleanup = () => {for(const token of activeApprovals)void revoke(token);};
-    const current = () => !retired && ctx.isCurrent?.() !== false && ctx.me === actor && api.getToken() === session && location.hash === hash && sameScope(scope, actorScope(ctx.me));
-    const handle = { unmount() { disposed = true; retired = true; replacement?.unmount?.(); cleanup(); if (ownedContent?.isConnected && document.getElementById('modal').open) document.getElementById('modal').close(); }, handleScan(code) { if(replacement)return replacement.handleScan?.(code); if(current()) ctx.notify(`Para un cambio, escriba ${code} en Prenda nueva.`); } };
+    const cleanup = () => {
+      for (const token of activeApprovals) void revoke(token);
+    };
+    const current = () =>
+      !retired &&
+      ctx.isCurrent?.() !== false &&
+      ctx.me === actor &&
+      api.getToken() === session &&
+      location.hash === hash &&
+      sameScope(scope, actorScope(ctx.me));
+    const handle = {
+      unmount() {
+        disposed = true;
+        retired = true;
+        replacement?.unmount?.();
+        cleanup();
+        if (ownedContent?.isConnected && document.getElementById('modal').open) document.getElementById('modal').close();
+      },
+      handleScan(code) {
+        if (replacement) return replacement.handleScan?.(code);
+        if (current()) ctx.notify(`Para un cambio, escriba ${code} en Prenda nueva.`);
+      },
+    };
     const status = h('p', { role: 'alert', id: 'return-status' });
     const panel = h('section', { class: 'panel' });
     replace(root, h('div', { class: 'page' }, panel, status));
     const summary = r => {
-      const b=r.body, amount=r.expected.reduce((sum,l)=>sum+l.creditMinor,0);
-      const money = value => r.currencyCode ? formatMoney(value,r.currencyCode) : `${value} unidades menores (moneda sin verificar)`;
-      const outcome=OUTCOMES.find(([key])=>key===(b.outcome??'credit'))?.[1];
-      const details=[`${outcome}: ${money(amount)}.`, `Motivo: ${b.reason}.`];
-      if(b.reference)details.push(`Referencia: ${b.reference}.`);
-      if(b.creditId)details.push(`Anticipo: ${b.creditId}.`);
-      if(b.outcome==='exchange'){
-        const balance=exchangeBalance(amount,b.newLines);
-        details.push(`Prendas nuevas: ${money(balance.newMinor)}. La clienta paga: ${money(balance.dueMinor)}. Se devuelve: ${money(balance.backMinor)}.`);
-        for(const t of b.newTenders)details.push(`${tenderName(t.tenderKind)}: ${money(t.amountMinor)}${t.reference ? ` \u00b7 ${t.reference}` : ''}.`);
-        if(balance.backMinor)details.push(`${tenderName(b.differenceKind)}${b.differenceReference ? ` \u00b7 ${b.differenceReference}` : ''}.`);
+      const b = r.body,
+        amount = r.expected.reduce((sum, l) => sum + l.creditMinor, 0);
+      const money = value => (r.currencyCode ? formatMoney(value, r.currencyCode) : `${value} unidades menores (moneda sin verificar)`);
+      const outcome = OUTCOMES.find(([key]) => key === (b.outcome ?? 'credit'))?.[1];
+      const details = [`${outcome}: ${money(amount)}.`, `Motivo: ${b.reason}.`];
+      if (b.reference) details.push(`Referencia: ${b.reference}.`);
+      if (b.creditId) details.push(`Anticipo: ${b.creditId}.`);
+      if (b.outcome === 'exchange') {
+        const balance = exchangeBalance(amount, b.newLines);
+        details.push(
+          `Prendas nuevas: ${money(balance.newMinor)}. La clienta paga: ${money(balance.dueMinor)}. Se devuelve: ${money(balance.backMinor)}.`,
+        );
+        for (const t of b.newTenders)
+          details.push(`${tenderName(t.tenderKind)}: ${money(t.amountMinor)}${t.reference ? ` \u00b7 ${t.reference}` : ''}.`);
+        if (balance.backMinor)
+          details.push(`${tenderName(b.differenceKind)}${b.differenceReference ? ` \u00b7 ${b.differenceReference}` : ''}.`);
       }
       return details.join(' ');
     };
     const cancelPending = () => {
-      if(!current() || pending?.state!=='draft')return;
-      cancelDraft(pending);pending=null;cleanup();
+      if (!current() || pending?.state !== 'draft') return;
+      cancelDraft(pending);
+      pending = null;
+      cleanup();
     };
     const recovery = () => {
       if (!current()) return;
-      if (!sameScope(scope, pending.scope)) { replace(panel, h('p', {role:'alert'}, 'Hay una devolución pendiente. Pida revisión a la gerente.')); return; }
-      replace(panel, h('h2', {}, pending.state === 'confirmed' ? 'Devolución verificada' : 'Devolución pendiente'),
+      if (!sameScope(scope, pending.scope)) {
+        replace(panel, h('p', { role: 'alert' }, 'Hay una devolución pendiente. Pida revisión a la gerente.'));
+        return;
+      }
+      replace(
+        panel,
+        h('h2', {}, pending.state === 'confirmed' ? 'Devolución verificada' : 'Devolución pendiente'),
         h('p', {}, `Operación ${pending.body.reversalId}`),
-        h('p', {id:'return-result'}, summary(pending)),
-        h('a', {href:`#/recibo?sale=${encodeURIComponent(pending.saleId)}`}, 'Recibo original'),
-        pending.state==='confirmed' && pending.body.exchangeSaleId ? h('a',{href:`#/recibo?sale=${encodeURIComponent(pending.body.exchangeSaleId)}`},'Recibo del cambio') : null,
-        pending.state==='draft' ? h('button',{type:'button',id:'return-cancel',onclick:async()=>{if(!current()||busy)return;busy=true;try{await withIntentLock(()=>cancelPending());if(current()&&!pending){retired=true;replacement=await this.mount(root,Object.assign(Object.create(ctx),{isCurrent:()=>!disposed && ctx.isCurrent?.()!==false && ctx.me===actor && api.getToken()===session && location.hash===hash && sameScope(scope,actorScope(ctx.me))}));}}catch(e){if(current())showError(status,e);}finally{busy=false;}}},'Cancelar devoluci\u00f3n') : null,
-        pending.body.outcome === 'exchange' && pending.state!=='confirmed' ? h('p', {}, 'El recibo permite verificar lo devuelto. El vínculo del cambio requiere revisión de la gerente.') : null,
-        h('button', {type:'button',id:'return-lookup',onclick:()=>runRecovery(false)}, 'Consultar resultado'),
-        pending.state !== 'confirmed' ? h('button', {type:'button',id:'return-replay',onclick:()=>runRecovery(true)}, 'Reenviar misma operación') :
-        h('button',{type:'button',id:'return-finish',onclick:async()=>{if(!current()||busy)return;busy=true;try{await withIntentLock(()=>{if(!current())return;finishIntent(pending);ctx.go('historial');});}catch(e){if(current())showError(status,e);}finally{busy=false;}}},'Terminar'));
+        h('p', { id: 'return-result' }, summary(pending)),
+        h('a', { href: `#/recibo?sale=${encodeURIComponent(pending.saleId)}` }, 'Recibo original'),
+        pending.state === 'confirmed' && pending.body.exchangeSaleId
+          ? h('a', { href: `#/recibo?sale=${encodeURIComponent(pending.body.exchangeSaleId)}` }, 'Recibo del cambio')
+          : null,
+        pending.state === 'draft'
+          ? h(
+              'button',
+              {
+                type: 'button',
+                id: 'return-cancel',
+                onclick: async () => {
+                  if (!current() || busy) return;
+                  busy = true;
+                  try {
+                    await withIntentLock(() => cancelPending());
+                    if (current() && !pending) {
+                      retired = true;
+                      replacement = await this.mount(
+                        root,
+                        Object.assign(Object.create(ctx), {
+                          isCurrent: () =>
+                            !disposed &&
+                            ctx.isCurrent?.() !== false &&
+                            ctx.me === actor &&
+                            api.getToken() === session &&
+                            location.hash === hash &&
+                            sameScope(scope, actorScope(ctx.me)),
+                        }),
+                      );
+                    }
+                  } catch (e) {
+                    if (current()) showError(status, e);
+                  } finally {
+                    busy = false;
+                  }
+                },
+              },
+              'Cancelar devoluci\u00f3n',
+            )
+          : null,
+        pending.body.outcome === 'exchange' && pending.state !== 'confirmed'
+          ? h('p', {}, 'El recibo permite verificar lo devuelto. El vínculo del cambio requiere revisión de la gerente.')
+          : null,
+        h('button', { type: 'button', id: 'return-lookup', onclick: () => runRecovery(false) }, 'Consultar resultado'),
+        pending.state !== 'confirmed'
+          ? h('button', { type: 'button', id: 'return-replay', onclick: () => runRecovery(true) }, 'Reenviar misma operación')
+          : h(
+              'button',
+              {
+                type: 'button',
+                id: 'return-finish',
+                onclick: async () => {
+                  if (!current() || busy) return;
+                  busy = true;
+                  try {
+                    await withIntentLock(() => {
+                      if (!current()) return;
+                      finishIntent(pending);
+                      ctx.go('historial');
+                    });
+                  } catch (e) {
+                    if (current()) showError(status, e);
+                  } finally {
+                    busy = false;
+                  }
+                },
+              },
+              'Terminar',
+            ),
+      );
     };
     const lookup = async () => {
       if (!current()) return;
-      const response = await api.request('GET', `/sales/${encodeURIComponent(pending.saleId)}`, undefined, {withStatus:true});
-      const receipt = response.status===200 ? response.data : null;
+      const response = await api.request('GET', `/sales/${encodeURIComponent(pending.saleId)}`, undefined, { withStatus: true });
+      const receipt = response.status === 200 ? response.data : null;
       if (!current()) return;
       const match = matchingReversal(receipt, pending);
       if (!match) throw Error('El resultado no confirma esta devolución. Mantenga la operación pendiente.');
       // A partial readmodel cannot establish the complete exchange identity.
-      if (pending.body.outcome === 'exchange') throw Error('Devolución encontrada. La gerente debe conciliar el vínculo y el pago del cambio.');
+      if (pending.body.outcome === 'exchange')
+        throw Error('Devolución encontrada. La gerente debe conciliar el vínculo y el pago del cambio.');
       pending = changeIntent(pending, 'confirmed');
       status.textContent = '';
       recovery();
@@ -185,25 +303,39 @@ export default {
       ownedContent = document.getElementById('modal-title');
       const confirmed = await confirmation;
       if (!current()) return;
-      if (!confirmed) { cancelPending(); return; }
+      if (!confirmed) {
+        cancelPending();
+        return;
+      }
       let approval;
       try {
         if (!ctx.isApprover) {
           const authorization = supervisorApproval(undefined, [], current, revoke);
           ownedContent = document.getElementById('modal-title');
           approval = await authorization;
-          if(approval){activeApprovals.add(approval);if(!current())void revoke(approval);}
+          if (approval) {
+            activeApprovals.add(approval);
+            if (!current()) void revoke(approval);
+          }
           if (!current()) return;
-          if (!approval) {cancelPending();return;}
+          if (!approval) {
+            cancelPending();
+            return;
+          }
         }
         if (!current()) return;
         pending = changeIntent(pending, 'sending');
         if (!current()) return;
         // Explicit captured authorization; a retired actor can never borrow a replacement bearer.
-        const response = await api.request('POST', `/sales/${encodeURIComponent(pending.saleId)}/returns/${pending.endpoint}`, pending.body,
-          {token: approval || session, notifyUnauthorized: !approval, withStatus:true});
+        const response = await api.request(
+          'POST',
+          `/sales/${encodeURIComponent(pending.saleId)}/returns/${pending.endpoint}`,
+          pending.body,
+          { token: approval || session, notifyUnauthorized: !approval, withStatus: true },
+        );
         if (!current()) return;
-        if(response.status!==200 || !validReversal(response.data,pending))throw Error('Respuesta sin confirmar. Consulte el resultado.');
+        if (response.status !== 200 || !validReversal(response.data, pending))
+          throw Error('Respuesta sin confirmar. Consulte el resultado.');
         // changeIntent checks exact durable ownership while the exclusive lock is held.
         pending = changeIntent(pending, 'confirmed');
         status.textContent = '';
@@ -216,23 +348,43 @@ export default {
       }
     };
     const runRecovery = async replay => {
-      if (!current() || busy || !sameScope(scope,pending.scope)) return;
+      if (!current() || busy || !sameScope(scope, pending.scope)) return;
       if (replay && pending.state === 'confirmed') return;
-      busy=true;
+      busy = true;
       try {
-        await withIntentLock(async()=>{
-          if(!current())return;
-          const saved=readIntent();
-          if(JSON.stringify(saved)!==JSON.stringify(pending))throw Error('La operación cambió en otra pantalla. Vuelva a abrir Devolución.');
-          if(replay) await sendPending(); else await lookup();
-          if(!current())return;
+        await withIntentLock(async () => {
+          if (!current()) return;
+          const saved = readIntent();
+          if (JSON.stringify(saved) !== JSON.stringify(pending))
+            throw Error('La operación cambió en otra pantalla. Vuelva a abrir Devolución.');
+          if (replay) await sendPending();
+          else await lookup();
+          if (!current()) return;
         });
-      } catch(e) { if(current())showError(status,e,'La operación sigue guardada. No registre otra devolución.'); }
-      finally { busy=false; if(current()){if(pending)recovery();else {retired=true;replacement=await this.mount(root,Object.assign(Object.create(ctx),{isCurrent:()=>!disposed && ctx.isCurrent?.()!==false && ctx.me===actor && api.getToken()===session}));}} }
+      } catch (e) {
+        if (current()) showError(status, e, 'La operación sigue guardada. No registre otra devolución.');
+      } finally {
+        busy = false;
+        if (current()) {
+          if (pending) recovery();
+          else {
+            retired = true;
+            replacement = await this.mount(
+              root,
+              Object.assign(Object.create(ctx), {
+                isCurrent: () => !disposed && ctx.isCurrent?.() !== false && ctx.me === actor && api.getToken() === session,
+              }),
+            );
+          }
+        }
+      }
     };
     try {
       pending = readIntent();
-      if(pending) { recovery(); return handle; }
+      if (pending) {
+        recovery();
+        return handle;
+      }
       const id = routeSaleId();
       if (!id) throw new Error('Elija una venta desde Historial.');
       const sale = await api.getSale(id);
@@ -282,7 +434,7 @@ export default {
         ),
         customerChoices,
       );
-      const { till } = await syncTill(Object.assign(Object.create(ctx), {isCurrent:current}));
+      const { till } = await syncTill(Object.assign(Object.create(ctx), { isCurrent: current }));
       if (!current()) return handle;
       if (!till) throw new Error('Abra una caja desde Venta antes de registrar la devolución.');
       const quantities = {};
@@ -490,58 +642,67 @@ export default {
           onsubmit: async event => {
             event.preventDefault();
             if (!current() || busy || pending) return;
-            const disabledBefore = new Map([...form.querySelectorAll('input,select,textarea,button')].map(el=>[el,!!el.disabled]));
+            const disabledBefore = new Map([...form.querySelectorAll('input,select,textarea,button')].map(el => [el, !!el.disabled]));
             busy = true;
             submit.disabled = true;
             status.textContent = '';
             try {
               await withIntentLock(async () => {
-              if (!current()) return;
-              if (readIntent()) throw Error('Hay una devoluci\u00f3n pendiente. Vuelva a abrir Devoluci\u00f3n.');
-              if(typeof sale.currencyCode!=='string'||!/^[A-Z]{3}$/.test(sale.currencyCode))throw Error('La venta no tiene una moneda verificable.');
-              const lines = selectedReturnLines(sale.lines, quantities);
-              if (!reason.value.trim()) throw new Error('Indique el motivo de la devolución.');
-              if (outcome === 'credit' && !creditCustomerId)
-                throw new Error('Elija la destinataria del anticipo. La venta original no requiere cliente.');
-              const returned = lines.map(selected => ({
-                saleLineId: sale.lines.find(row => row.lineNumber === selected.saleLineNumber).saleLineId,
-                quantity: selected.quantity,
-                restockPool: restock.checked ? 'store' : 'quarantine',
-              }));
-              if (!attempt)
-                attempt =
-                  outcome === 'credit'
-                    ? {
-                        reversalId: api.uuid(),
-                        creditId: api.uuid(),
-                        tillId: till.tillId,
-                        customerId: creditCustomerId,
-                        reason: reason.value.trim(),
-                        lines: returned,
-                      }
-                    : outcomeRequest({
-                        reversalId: api.uuid(),
-                        outcome,
-                        tillId: till.tillId,
-                        reason: reason.value.trim(),
-                        lines: returned,
-                        reference: reference.value,
-                        exchangeSaleId: api.uuid(),
-                        newLines,
-                        sellerId: exchangeSeller.value || null,
-                        tenderKind: tenderKind.value,
-                        tenderReference: tenderReference.value,
-                        differenceKind: differenceKind.value,
-                        differenceReference: differenceReference.value,
-                        returnMinor: returnMinor(),
-                      });
-                pending = reserveIntent({version:1,state:'draft',scope,saleId:id,saleTillId:sale.tillId,currencyCode:sale.currencyCode,
-                  endpoint:outcome==='credit'?'credit':'outcome',body:attempt,
-                  expected:returned.map(line=>{
-                    const original=sale.lines.find(l=>l.saleLineId===line.saleLineId);
-                    return {...line,creditMinor:returnValue({...sale,lines:[original]}, {[original.lineNumber]:line.quantity})};
-                  })});
-                for (const el of form.querySelectorAll('input,select,textarea,button')) el.disabled=true;
+                if (!current()) return;
+                if (readIntent()) throw Error('Hay una devoluci\u00f3n pendiente. Vuelva a abrir Devoluci\u00f3n.');
+                if (typeof sale.currencyCode !== 'string' || !/^[A-Z]{3}$/.test(sale.currencyCode))
+                  throw Error('La venta no tiene una moneda verificable.');
+                const lines = selectedReturnLines(sale.lines, quantities);
+                if (!reason.value.trim()) throw new Error('Indique el motivo de la devolución.');
+                if (outcome === 'credit' && !creditCustomerId)
+                  throw new Error('Elija la destinataria del anticipo. La venta original no requiere cliente.');
+                const returned = lines.map(selected => ({
+                  saleLineId: sale.lines.find(row => row.lineNumber === selected.saleLineNumber).saleLineId,
+                  quantity: selected.quantity,
+                  restockPool: restock.checked ? 'store' : 'quarantine',
+                }));
+                if (!attempt)
+                  attempt =
+                    outcome === 'credit'
+                      ? {
+                          reversalId: api.uuid(),
+                          creditId: api.uuid(),
+                          tillId: till.tillId,
+                          customerId: creditCustomerId,
+                          reason: reason.value.trim(),
+                          lines: returned,
+                        }
+                      : outcomeRequest({
+                          reversalId: api.uuid(),
+                          outcome,
+                          tillId: till.tillId,
+                          reason: reason.value.trim(),
+                          lines: returned,
+                          reference: reference.value,
+                          exchangeSaleId: api.uuid(),
+                          newLines,
+                          sellerId: exchangeSeller.value || null,
+                          tenderKind: tenderKind.value,
+                          tenderReference: tenderReference.value,
+                          differenceKind: differenceKind.value,
+                          differenceReference: differenceReference.value,
+                          returnMinor: returnMinor(),
+                        });
+                pending = reserveIntent({
+                  version: 1,
+                  state: 'draft',
+                  scope,
+                  saleId: id,
+                  saleTillId: sale.tillId,
+                  currencyCode: sale.currencyCode,
+                  endpoint: outcome === 'credit' ? 'credit' : 'outcome',
+                  body: attempt,
+                  expected: returned.map(line => {
+                    const original = sale.lines.find(l => l.saleLineId === line.saleLineId);
+                    return { ...line, creditMinor: returnValue({ ...sale, lines: [original] }, { [original.lineNumber]: line.quantity }) };
+                  }),
+                });
+                for (const el of form.querySelectorAll('input,select,textarea,button')) el.disabled = true;
                 await sendPending();
                 if (!current()) return;
               });
@@ -549,7 +710,14 @@ export default {
               if (current()) showError(status, error, pending ? 'La operación sigue guardada. No registre otra devolución.' : undefined);
             } finally {
               busy = false;
-              if (current()) { if(pending) recovery(); else {for(const [el,disabled] of disabledBefore)el.disabled=disabled;submit.disabled=false;attempt=null;} }
+              if (current()) {
+                if (pending) recovery();
+                else {
+                  for (const [el, disabled] of disabledBefore) el.disabled = disabled;
+                  submit.disabled = false;
+                  attempt = null;
+                }
+              }
             }
           },
         },
@@ -571,7 +739,16 @@ export default {
         h(
           'div',
           { class: 'actions return-actions' },
-          h('button', { type: 'button', onclick: () => { if (current()) ctx.go('historial'); } }, 'Volver'),
+          h(
+            'button',
+            {
+              type: 'button',
+              onclick: () => {
+                if (current()) ctx.go('historial');
+              },
+            },
+            'Volver',
+          ),
           submit,
         ),
       );

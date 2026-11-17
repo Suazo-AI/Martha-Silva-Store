@@ -1,6 +1,7 @@
 // Every HTTP call of the staff web lives here. Same origin: the API hosts savia/web/ at "/".
 // Routes and bodies follow docs/pilot/API-PILOT.md and Savia.Contracts.
 import { uuid } from './uuid-logic.mjs';
+
 export { uuid } from './uuid-logic.mjs';
 
 const BASE = '/api/v1';
@@ -122,7 +123,7 @@ export async function request(method, path, body, options = {}) {
   const response = await send(method, path, { ...options, body });
   const text = response.status === 204 ? '' : await response.text();
   const data = text ? JSON.parse(text) : null;
-  return options.withStatus ? {status: response.status, data} : data;
+  return options.withStatus ? { status: response.status, data } : data;
 }
 
 const q = params => {

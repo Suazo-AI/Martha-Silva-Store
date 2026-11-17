@@ -2,6 +2,7 @@
 -- V029: canonical request identity v1. Legacy NULL identities remain lookup-only.
 -- No policy/price reconstruction or retry backfill. Execute through saviadb migration envelope.
 ALTER TABLE sales.SaleReversals ADD RequestIdentityVersion smallint NULL, RequestIdentityHash varbinary(32) NULL;
+GO
 ALTER TABLE sales.SaleReversals ADD CONSTRAINT CK_Reversals_RequestIdentity CHECK(
  (RequestIdentityVersion IS NULL AND RequestIdentityHash IS NULL) OR
  (RequestIdentityVersion IS NOT NULL AND RequestIdentityVersion=1 AND RequestIdentityHash IS NOT NULL AND DATALENGTH(RequestIdentityHash)=32));

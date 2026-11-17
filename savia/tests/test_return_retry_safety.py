@@ -12,6 +12,13 @@ SQL = MIGRATION.read_text(encoding='utf-8')
 def procedures(sql):
     return re.split(r'CREATE OR ALTER PROCEDURE ', sql)[1:]
 
+def assert_identity_batch_boundary(sql):
+    batches = re.split(r'(?im)^[ \t]*GO[ \t]*$', sql)
+    columns = [i for i, batch in enumerate(batches) if 'ADD RequestIdentityVersion smallint NULL, RequestIdentityHash varbinary(32) NULL;' in batch]
+    constraints = [i for i, batch in enumerate(batches) if 'ADD CONSTRAINT CK_Reversals_RequestIdentity CHECK(' in batch]
+    if len(columns) != 1 or len(constraints) != 1 or columns[0] >= constraints[0]:
+        raise AssertionError('new identity columns require a separate earlier batch')
+
 def assert_identity_coverage(sql):
     expected = [
         ['@SaleId', '@BranchId', '@LocationId', '@OriginNodeId', '@TillId', '@Reason', '@Outcome', '@Reference', '@ExchangeSaleId', '@DifferenceKind', '@DifferenceReference',
@@ -44,6 +51,15 @@ def assert_lock_and_enabled_contract(sql):
                 raise AssertionError('enabled staff and active access missing: ' + staff)
 
 class ReturnRetrySourceTests(unittest.TestCase):
+    def test_new_columns_bind_in_an_earlier_batch(self):
+        assert_identity_batch_boundary(SQL)
+
+    def test_negative_same_batch_identity_constraint(self):
+        mutated = re.sub(r'(RequestIdentityHash varbinary\(32\) NULL;\s*)GO[ \t]*\n', r'\1', SQL, count=1, flags=re.IGNORECASE)
+        self.assertNotEqual(SQL, mutated)
+        with self.assertRaisesRegex(AssertionError, 'separate earlier batch'):
+            assert_identity_batch_boundary(mutated)
+
     def test_shared_lock_and_enabled_staff(self):
         assert_lock_and_enabled_contract(SQL)
 

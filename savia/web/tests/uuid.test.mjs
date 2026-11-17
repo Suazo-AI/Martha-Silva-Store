@@ -30,12 +30,27 @@ test('seller ticket lines stay editable and attributed without crypto.randomUUID
     assert.notEqual(first, second);
     lines = addToTicket(lines, { ...item, sellerId: 'seller-a' });
     assert.equal(lines[0].ticketKey, first);
-    assert.deepEqual(lines.map(line => line.quantity), [2, 1]);
+    assert.deepEqual(
+      lines.map(line => line.quantity),
+      [2, 1],
+    );
     lines = setQuantity(lines, second, 3);
-    assert.deepEqual(lines.map(line => line.quantity), [2, 3]);
+    assert.deepEqual(
+      lines.map(line => line.quantity),
+      [2, 3],
+    );
     const request = saleRequest({ saleId: 'sale', tillId: 'till', lines, receivedMinor: 6000 });
-    assert.deepEqual(request.lines.map(line => [line.sellerId, line.quantity]), [['seller-a', 2], ['seller-b', 3]]);
-    assert.deepEqual(removeLine(lines, first).map(line => line.ticketKey), [second]);
+    assert.deepEqual(
+      request.lines.map(line => [line.sellerId, line.quantity]),
+      [
+        ['seller-a', 2],
+        ['seller-b', 3],
+      ],
+    );
+    assert.deepEqual(
+      removeLine(lines, first).map(line => line.ticketKey),
+      [second],
+    );
   } finally {
     Object.defineProperty(prototype, 'randomUUID', original);
   }

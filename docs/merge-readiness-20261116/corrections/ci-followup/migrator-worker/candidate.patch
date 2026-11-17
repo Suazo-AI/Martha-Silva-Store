@@ -1,0 +1,506 @@
+diff --git a/savia/deploy/migrator/Program.cs b/savia/deploy/migrator/Program.cs
+index d6e2acb..a401c18 100644
+--- a/savia/deploy/migrator/Program.cs
++++ b/savia/deploy/migrator/Program.cs
+@@ -1,5 +1,3 @@
+-using System.Security.Cryptography;
+-using System.Text;
+ using System.Text.RegularExpressions;
+ using Microsoft.Data.SqlClient;
+ 
+@@ -91,11 +89,7 @@ try
+     foreach (var migration in pending)
+     {
+         Console.WriteLine($"migrate: applying {migration.FileName}");
+-        foreach (var batch in migration.Batches())
+-            await Exec(connection, batch, timeoutSeconds: 1800);
+-        await Exec(connection, "INSERT INTO dbo.SaviaMigrations(Version,FileName,Sha256) VALUES(@v,@f,@s);", 30,
+-            new SqlParameter("@v", migration.Version), new SqlParameter("@f", migration.FileName),
+-            new SqlParameter("@s", migration.Sha256));
++        await MigrationExecution.ApplyAsync(connection, migration);
+     }
+ 
+     var after = await ReadLedger(connection);
+@@ -172,62 +166,3 @@ static async Task GrantAppUser(SqlConnection connection, string user, bool exter
+         IF IS_ROLEMEMBER(N'savia_api_host', N'{user}') = 0 ALTER ROLE [savia_api_host] ADD MEMBER {quoted};
+         """);
+ }
+-
+-sealed class Migration
+-{
+-    private static readonly Regex Go = new(@"^[ \t]*GO[ \t]*$", RegexOptions.IgnoreCase);
+-    private static readonly Regex GoWithCount = new(@"^[ \t]*GO[ \t]+\d+[ \t]*$", RegexOptions.IgnoreCase);
+-
+-    public Migration(string path)
+-    {
+-        Path = path;
+-        FileName = System.IO.Path.GetFileName(path);
+-        Version = FileName.Split("__")[0];
+-        var bytes = File.ReadAllBytes(path);
+-        Sha256 = Convert.ToHexStringLower(SHA256.HashData(NormalizeNewlines(bytes)));
+-    }
+-
+-    public string Path { get; }
+-    public string FileName { get; }
+-    public string Version { get; }
+-    public string Sha256 { get; }
+-
+-    /// <summary>
+-    /// sqlcmd batches: the lines between lines that contain only GO, each line kept with its newline,
+-    /// so module definitions are byte-identical to what saviadb.py (sqlcmd) stores. "GO n" is refused.
+-    /// </summary>
+-    public List<string> Batches()
+-    {
+-        var text = File.ReadAllText(Path, Encoding.UTF8).Replace("\r\n", "\n");
+-        var lines = text.Split('\n');
+-        var count = text.EndsWith('\n') ? lines.Length - 1 : lines.Length;
+-        var batches = new List<string>();
+-        var batch = new StringBuilder();
+-        for (var i = 0; i < count; i++)
+-        {
+-            if (GoWithCount.IsMatch(lines[i]))
+-                throw new InvalidOperationException($"{FileName}: 'GO <count>' is not supported by the production runner.");
+-            if (Go.IsMatch(lines[i]))
+-            {
+-                batches.Add(batch.ToString());
+-                batch.Clear();
+-                continue;
+-            }
+-            batch.Append(lines[i]).Append('\n');
+-        }
+-        batches.Add(batch.ToString());
+-        return batches.Where(b => !string.IsNullOrWhiteSpace(b)).ToList();
+-    }
+-
+-    private static byte[] NormalizeNewlines(byte[] bytes)
+-    {
+-        var output = new List<byte>(bytes.Length);
+-        for (var i = 0; i < bytes.Length; i++)
+-        {
+-            if (bytes[i] == (byte)'\r' && i + 1 < bytes.Length && bytes[i + 1] == (byte)'\n')
+-                continue;
+-            output.Add(bytes[i]);
+-        }
+-        return output.ToArray();
+-    }
+-}
+diff --git a/savia/tests/Savia.Tests/Savia.Tests.csproj b/savia/tests/Savia.Tests/Savia.Tests.csproj
+index 0485894..6d12b72 100644
+--- a/savia/tests/Savia.Tests/Savia.Tests.csproj
++++ b/savia/tests/Savia.Tests/Savia.Tests.csproj
+@@ -11,6 +11,7 @@
+   </ItemGroup>
+   <ItemGroup>
+     <Using Include="Xunit" />
++    <Compile Include="../../deploy/migrator/MigrationExecution.cs" Link="Migrator/MigrationExecution.cs" />
+   </ItemGroup>
+   <ItemGroup>
+     <ProjectReference Include="../../src/Savia.Api/Savia.Api.csproj" />
+diff --git a/savia/deploy/migrator/MigrationExecution.cs b/savia/deploy/migrator/MigrationExecution.cs
+new file mode 100644
+index 0000000..15fd6ed
+--- /dev/null
++++ b/savia/deploy/migrator/MigrationExecution.cs
+@@ -0,0 +1,159 @@
++using System.Data.Common;
++using System.Security.Cryptography;
++using System.Text;
++using System.Text.RegularExpressions;
++
++// Kept independent of SqlClient so offline tests execute this exact production orchestration.
++internal static class MigrationExecution
++{
++    internal static async Task ApplyAsync(DbConnection connection, Migration migration)
++    {
++        var batches = migration.Batches();
++        if (!migration.Transactional)
++        {
++            foreach (var batch in batches)
++                await Execute(connection, null, batch, 1800);
++            await Register(connection, null, migration);
++            return;
++        }
++
++        var xactAbort = Convert.ToInt32(await Scalar(connection, null, "SELECT @@OPTIONS & 16384;")) != 0;
++        DbTransaction? transaction = null;
++        Exception? failure = null;
++        try
++        {
++            await Execute(connection, null, "SET XACT_ABORT ON;", 60);
++            transaction = await connection.BeginTransactionAsync();
++            foreach (var batch in batches)
++                await Execute(connection, transaction, batch, 1800);
++            await Validate(connection, transaction);
++            await Register(connection, transaction, migration);
++            await Validate(connection, transaction);
++            await transaction.CommitAsync();
++        }
++        catch (Exception error)
++        {
++            failure = error;
++            if (transaction is not null)
++            {
++                try { await transaction.RollbackAsync(); }
++                catch { /* Preserve the original failure, including an uncertain commit outcome. */ }
++            }
++            throw;
++        }
++        finally
++        {
++            try
++            {
++                if (transaction is not null) await transaction.DisposeAsync();
++            }
++            catch when (failure is not null) { }
++            // SET options survive rollback. Preserve later unmarked migrations' session behavior.
++            try { await Execute(connection, null, xactAbort ? "SET XACT_ABORT ON;" : "SET XACT_ABORT OFF;", 60); }
++            catch when (failure is not null) { }
++        }
++    }
++
++    private static async Task Validate(DbConnection connection, DbTransaction transaction)
++    {
++        var valid = await Scalar(connection, transaction,
++            "SELECT CASE WHEN @@TRANCOUNT = 1 AND XACT_STATE() = 1 THEN 1 ELSE 0 END;");
++        if (Convert.ToInt32(valid) != 1)
++            throw new InvalidOperationException("Migration transaction invalid.");
++    }
++
++    private static async Task Register(DbConnection connection, DbTransaction? transaction, Migration migration)
++    {
++        await using var command = connection.CreateCommand();
++        command.Transaction = transaction;
++        command.CommandTimeout = 30;
++        command.CommandText = "INSERT INTO dbo.SaviaMigrations(Version,FileName,Sha256) VALUES(@v,@f,@s);";
++        foreach (var (name, value) in new[] { ("@v", migration.Version), ("@f", migration.FileName), ("@s", migration.Sha256) })
++        {
++            var parameter = command.CreateParameter();
++            parameter.ParameterName = name;
++            parameter.Value = value;
++            command.Parameters.Add(parameter);
++        }
++        await command.ExecuteNonQueryAsync();
++    }
++
++    private static async Task Execute(DbConnection connection, DbTransaction? transaction, string sql, int timeout)
++    {
++        await using var command = connection.CreateCommand();
++        command.Transaction = transaction;
++        command.CommandText = sql;
++        command.CommandTimeout = timeout;
++        await command.ExecuteNonQueryAsync();
++    }
++
++    private static async Task<object?> Scalar(DbConnection connection, DbTransaction? transaction, string sql)
++    {
++        await using var command = connection.CreateCommand();
++        command.Transaction = transaction;
++        command.CommandText = sql;
++        command.CommandTimeout = 90;
++        return await command.ExecuteScalarAsync();
++    }
++}
++
++sealed class Migration
++{
++    private static readonly Regex Go = new(@"^[ \t]*GO[ \t]*$", RegexOptions.IgnoreCase);
++    private static readonly Regex GoWithCount = new(@"^[ \t]*GO[ \t]+\d+[ \t]*$", RegexOptions.IgnoreCase);
++
++    public Migration(string path)
++    {
++        Path = path;
++        FileName = System.IO.Path.GetFileName(path);
++        Version = FileName.Split("__")[0];
++        var bytes = File.ReadAllBytes(path);
++        Transactional = Encoding.UTF8.GetString(bytes).StartsWith("-- savia:transactional", StringComparison.Ordinal);
++        Sha256 = Convert.ToHexStringLower(SHA256.HashData(NormalizeNewlines(bytes)));
++    }
++
++    public bool Transactional { get; }
++    public string Path { get; }
++    public string FileName { get; }
++    public string Version { get; }
++    public string Sha256 { get; }
++
++    /// <summary>
++    /// sqlcmd batches: the lines between lines that contain only GO, each line kept with its newline,
++    /// so module definitions are byte-identical to what saviadb.py (sqlcmd) stores. "GO n" is refused.
++    /// </summary>
++    public List<string> Batches()
++    {
++        var text = File.ReadAllText(Path, Encoding.UTF8).Replace("\r\n", "\n");
++        var lines = text.Split('\n');
++        var count = text.EndsWith('\n') ? lines.Length - 1 : lines.Length;
++        var batches = new List<string>();
++        var batch = new StringBuilder();
++        for (var i = 0; i < count; i++)
++        {
++            if (GoWithCount.IsMatch(lines[i]))
++                throw new InvalidOperationException($"{FileName}: 'GO <count>' is not supported by the production runner.");
++            if (Go.IsMatch(lines[i]))
++            {
++                batches.Add(batch.ToString());
++                batch.Clear();
++                continue;
++            }
++            batch.Append(lines[i]).Append('\n');
++        }
++        batches.Add(batch.ToString());
++        return batches.Where(b => !string.IsNullOrWhiteSpace(b)).ToList();
++    }
++
++    private static byte[] NormalizeNewlines(byte[] bytes)
++    {
++        var output = new List<byte>(bytes.Length);
++        for (var i = 0; i < bytes.Length; i++)
++        {
++            if (bytes[i] == (byte)'\r' && i + 1 < bytes.Length && bytes[i + 1] == (byte)'\n')
++                continue;
++            output.Add(bytes[i]);
++        }
++        return output.ToArray();
++    }
++}
+diff --git a/savia/tests/Savia.Tests/MigratorExecutionTests.cs b/savia/tests/Savia.Tests/MigratorExecutionTests.cs
+new file mode 100644
+index 0000000..68cb636
+--- /dev/null
++++ b/savia/tests/Savia.Tests/MigratorExecutionTests.cs
+@@ -0,0 +1,237 @@
++using System.Data;
++using System.Data.Common;
++using System.Diagnostics.CodeAnalysis;
++using Microsoft.Data.SqlClient;
++
++namespace Savia.Tests;
++
++public sealed class MigratorExecutionTests
++{
++    [Fact]
++    public async Task Marked_success_encloses_batches_and_parameterized_ledger_in_one_transaction()
++    {
++        using var file = new Script("-- savia:transactional\nfirst\nGO\nsecond\n");
++        var db = new RecordingConnection();
++        await MigrationExecution.ApplyAsync(db, file.Migration);
++        Assert.Equal(new[] { "options", "abort-on", "begin", "batch1", "batch2", "validate", "ledger", "validate", "commit", "dispose", "abort-off" }, db.Trace);
++        Assert.Equal(new[] { "batch1", "batch2", "ledger" }, db.Persisted);
++        Assert.All(db.WorkTransactions, t => Assert.Same(db.Transaction, t));
++        Assert.Equal(new[] { file.Migration.Version, file.Migration.FileName, file.Migration.Sha256 }, db.LedgerValues);
++        Assert.Equal(new[] { 1800, 1800, 30 }, db.WorkTimeouts);
++    }
++
++    [Theory]
++    [InlineData("batch1")]
++    [InlineData("batch2")]
++    [InlineData("ledger")]
++    [InlineData("commit")]
++    public async Task Failure_rolls_back_all_pending_effects_and_preserves_original(string point)
++    {
++        using var file = new Script("-- savia:transactional\nfirst\nGO\nsecond\n");
++        var db = new RecordingConnection { FailAt = point };
++        Assert.Same(db.Original, await Assert.ThrowsAsync<InvalidOperationException>(() => MigrationExecution.ApplyAsync(db, file.Migration)));
++        Assert.Empty(db.Persisted);
++        Assert.Contains("rollback", db.Trace);
++        Assert.Equal("abort-off", db.Trace.Last());
++    }
++
++    [Theory]
++    [InlineData(0, 0)]
++    [InlineData(1, -1)]
++    [InlineData(2, 1)]
++    [InlineData(1, 0)]
++    public async Task Invalid_state_blocks_registration_and_commit(int count, int state)
++    {
++        using var file = new Script("-- savia:transactional\nfirst\nGO\nsecond\n");
++        var db = new RecordingConnection { TransactionCount = count, TransactionState = state };
++        await Assert.ThrowsAsync<InvalidOperationException>(() => MigrationExecution.ApplyAsync(db, file.Migration));
++        Assert.DoesNotContain("ledger", db.Trace);
++        Assert.DoesNotContain("commit", db.Trace);
++        Assert.Contains("rollback", db.Trace);
++        Assert.Empty(db.Persisted);
++    }
++
++    [Fact]
++    public async Task Invalid_state_after_registration_blocks_commit()
++    {
++        using var file = new Script("-- savia:transactional\nfirst\nGO\nsecond\n");
++        var db = new RecordingConnection { InvalidateAfterLedger = true };
++        await Assert.ThrowsAsync<InvalidOperationException>(() => MigrationExecution.ApplyAsync(db, file.Migration));
++        Assert.Contains("ledger", db.Trace);
++        Assert.DoesNotContain("commit", db.Trace);
++        Assert.Contains("rollback", db.Trace);
++        Assert.Empty(db.Persisted);
++    }
++
++    [Theory]
++    [InlineData("rollback")]
++    [InlineData("dispose")]
++    [InlineData("restore")]
++    public async Task Cleanup_failure_does_not_replace_original(string point)
++    {
++        using var file = new Script("-- savia:transactional\nfirst\nGO\nsecond\n");
++        var db = new RecordingConnection { FailAt = "batch2", CleanupFailure = point };
++        Assert.Same(db.Original, await Assert.ThrowsAsync<InvalidOperationException>(() => MigrationExecution.ApplyAsync(db, file.Migration)));
++        Assert.DoesNotContain("commit", db.Trace);
++    }
++
++    [Fact]
++    public async Task Unknown_commit_outcome_is_never_reported_success()
++    {
++        using var file = new Script("-- savia:transactional\nfirst\nGO\nsecond\n");
++        var db = new RecordingConnection { FailAt = "commit", CleanupFailure = "rollback" };
++        Assert.Same(db.Original, await Assert.ThrowsAsync<InvalidOperationException>(() => MigrationExecution.ApplyAsync(db, file.Migration)));
++        Assert.Contains("rollback", db.Trace);
++    }
++
++    [Theory]
++    [InlineData(false)]
++    [InlineData(true)]
++    public async Task Restores_prior_xact_abort_setting(bool enabled)
++    {
++        using var file = new Script("-- savia:transactional\nfirst\nGO\nsecond\n");
++        var db = new RecordingConnection { XactAbort = enabled };
++        await MigrationExecution.ApplyAsync(db, file.Migration);
++        Assert.Equal(enabled ? "abort-on" : "abort-off", db.Trace.Last());
++    }
++
++    [Fact]
++    public async Task Unmarked_preserves_independent_commands_and_partial_failure_semantics()
++    {
++        using var file = new Script("first\nGO\nsecond\n");
++        var db = new RecordingConnection();
++        await MigrationExecution.ApplyAsync(db, file.Migration);
++        Assert.Equal(new[] { "batch1", "batch2", "ledger" }, db.Trace);
++        Assert.All(db.WorkTransactions, Assert.Null);
++        var failed = new RecordingConnection { FailAt = "batch2" };
++        await Assert.ThrowsAsync<InvalidOperationException>(() => MigrationExecution.ApplyAsync(failed, file.Migration));
++        Assert.Equal(new[] { "batch1" }, failed.Persisted);
++        Assert.DoesNotContain("rollback", failed.Trace);
++    }
++
++    [Theory]
++    [InlineData("-- savia:transactional\n", true)]
++    [InlineData("-- savia:transactional\r\n", true)]
++    [InlineData("\uFEFF-- savia:transactional\n", false)]
++    [InlineData("-- savia:transactional-extra\n", true)]
++    [InlineData(" -- savia:transactional\n", false)]
++    [InlineData("\n-- savia:transactional\n", false)]
++    [InlineData("-- SAVIA:transactional\n", false)]
++    public void Marker_matches_python_leading_startswith_rule(string prefix, bool marked)
++    {
++        using var file = new Script(prefix + "first\r\nGO\r\nsecond\r\n");
++        Assert.Equal(marked, file.Migration.Transactional);
++        Assert.Equal(new[] { prefix.Replace("\r\n", "\n") + "first\n", "second\n" }, file.Migration.Batches());
++    }
++
++    private sealed class Script : IDisposable
++    {
++        private readonly string path = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "V028__" + Guid.NewGuid().ToString("N") + ".sql");
++        public Migration Migration { get; }
++        public Script(string sql) { File.WriteAllText(path, sql); Migration = new Migration(path); }
++        public void Dispose() => File.Delete(path);
++    }
++
++    // Records actual DbCommand.Transaction assignments and models pending versus committed effects.
++    // This is an offline oracle, not SQL Server transaction or DDL proof.
++    private sealed class RecordingConnection : DbConnection
++    {
++        public List<string> Trace { get; } = [];
++        public List<string> Persisted { get; } = [];
++        public List<string> Pending { get; } = [];
++        public List<DbTransaction?> WorkTransactions { get; } = [];
++        public List<int> WorkTimeouts { get; } = [];
++        public string[] LedgerValues { get; private set; } = [];
++        public string? FailAt { get; init; }
++        public string? CleanupFailure { get; init; }
++        public int TransactionCount { get; init; } = 1;
++        public int TransactionState { get; init; } = 1;
++        public bool InvalidateAfterLedger { get; init; }
++        public bool XactAbort { get; init; }
++        public InvalidOperationException Original { get; } = new("original injected failure");
++        public RecordingTransaction? Transaction { get; private set; }
++        private int batch;
++        [AllowNull] public override string ConnectionString { get; set; } = "";
++        public override string Database => "offline";
++        public override string DataSource => "offline";
++        public override string ServerVersion => "offline";
++        public override ConnectionState State => ConnectionState.Open;
++        public override void ChangeDatabase(string databaseName) => throw new NotSupportedException();
++        public override void Close() { }
++        public override void Open() => throw new NotSupportedException("No runtime connections allowed");
++        protected override DbCommand CreateDbCommand() => new RecordingCommand(this);
++        protected override DbTransaction BeginDbTransaction(IsolationLevel isolationLevel)
++        {
++            Trace.Add("begin");
++            return Transaction = new RecordingTransaction(this);
++        }
++        public object Run(RecordingCommand command)
++        {
++            var sql = command.CommandText;
++            if (sql == "SELECT @@OPTIONS & 16384;") { Trace.Add("options"); return XactAbort ? 16384 : 0; }
++            if (sql.StartsWith("SET XACT_ABORT"))
++            {
++                var restore = Trace.Contains("dispose");
++                Trace.Add(sql.Contains(" ON;") ? "abort-on" : "abort-off");
++                if (restore && CleanupFailure == "restore") throw new Exception("restore failed");
++                return 0;
++            }
++            if (sql.StartsWith("SELECT CASE"))
++            {
++                Trace.Add("validate");
++                Assert.Contains("@@TRANCOUNT = 1 AND XACT_STATE() = 1", sql);
++                Assert.Same(Transaction, command.AssignedTransaction);
++                return TransactionCount == 1 && TransactionState == 1 && !(InvalidateAfterLedger && Trace.Contains("ledger")) ? 1 : 0;
++            }
++            var step = sql.StartsWith("INSERT INTO dbo.SaviaMigrations") ? "ledger" : "batch" + ++batch;
++            Trace.Add(step);
++            WorkTransactions.Add(command.AssignedTransaction);
++            WorkTimeouts.Add(command.CommandTimeout);
++            if (step == "ledger") LedgerValues = command.Parameters.Cast<DbParameter>().Select(p => (string)p.Value!).ToArray();
++            if (FailAt == step) throw Original;
++            (command.AssignedTransaction is null ? Persisted : Pending).Add(step);
++            return 1;
++        }
++        public sealed class RecordingTransaction(RecordingConnection db) : DbTransaction
++        {
++            public override IsolationLevel IsolationLevel => IsolationLevel.ReadCommitted;
++            protected override DbConnection DbConnection => db;
++            public override void Commit()
++            {
++                db.Trace.Add("commit");
++                if (db.FailAt == "commit") throw db.Original;
++                db.Persisted.AddRange(db.Pending); db.Pending.Clear();
++            }
++            public override void Rollback()
++            {
++                db.Trace.Add("rollback");
++                if (db.CleanupFailure == "rollback") throw new Exception("rollback failed");
++                db.Pending.Clear();
++            }
++            protected override void Dispose(bool disposing)
++            {
++                db.Trace.Add("dispose");
++                if (db.CleanupFailure == "dispose") throw new Exception("dispose failed");
++            }
++        }
++        public sealed class RecordingCommand(RecordingConnection db) : DbCommand
++        {
++            private readonly SqlCommand parameters = new();
++            public DbTransaction? AssignedTransaction => DbTransaction;
++            [AllowNull] public override string CommandText { get; set; } = "";
++            public override int CommandTimeout { get; set; }
++            public override CommandType CommandType { get; set; }
++            public override bool DesignTimeVisible { get; set; }
++            public override UpdateRowSource UpdatedRowSource { get; set; }
++            protected override DbConnection? DbConnection { get; set; } = db;
++            protected override DbTransaction? DbTransaction { get; set; }
++            protected override DbParameterCollection DbParameterCollection => parameters.Parameters;
++            public override void Cancel() => throw new NotSupportedException();
++            public override int ExecuteNonQuery() => (int)db.Run(this);
++            public override object ExecuteScalar() => db.Run(this);
++            public override void Prepare() => throw new NotSupportedException();
++            protected override DbParameter CreateDbParameter() => new SqlParameter();
++            protected override DbDataReader ExecuteDbDataReader(CommandBehavior behavior) => throw new NotSupportedException();
++        }
++    }
++}

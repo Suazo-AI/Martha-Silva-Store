@@ -1,5 +1,3 @@
-using System.Security.Cryptography;
-using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.Data.SqlClient;
 
@@ -91,11 +89,7 @@ try
     foreach (var migration in pending)
     {
         Console.WriteLine($"migrate: applying {migration.FileName}");
-        foreach (var batch in migration.Batches())
-            await Exec(connection, batch, timeoutSeconds: 1800);
-        await Exec(connection, "INSERT INTO dbo.SaviaMigrations(Version,FileName,Sha256) VALUES(@v,@f,@s);", 30,
-            new SqlParameter("@v", migration.Version), new SqlParameter("@f", migration.FileName),
-            new SqlParameter("@s", migration.Sha256));
+        await MigrationExecution.ApplyAsync(connection, migration);
     }
 
     var after = await ReadLedger(connection);
@@ -171,63 +165,4 @@ static async Task GrantAppUser(SqlConnection connection, string user, bool exter
         GRANT UPDATE ON OBJECT::[security].[Staff] TO [savia_api_host];
         IF IS_ROLEMEMBER(N'savia_api_host', N'{user}') = 0 ALTER ROLE [savia_api_host] ADD MEMBER {quoted};
         """);
-}
-
-sealed class Migration
-{
-    private static readonly Regex Go = new(@"^[ \t]*GO[ \t]*$", RegexOptions.IgnoreCase);
-    private static readonly Regex GoWithCount = new(@"^[ \t]*GO[ \t]+\d+[ \t]*$", RegexOptions.IgnoreCase);
-
-    public Migration(string path)
-    {
-        Path = path;
-        FileName = System.IO.Path.GetFileName(path);
-        Version = FileName.Split("__")[0];
-        var bytes = File.ReadAllBytes(path);
-        Sha256 = Convert.ToHexStringLower(SHA256.HashData(NormalizeNewlines(bytes)));
-    }
-
-    public string Path { get; }
-    public string FileName { get; }
-    public string Version { get; }
-    public string Sha256 { get; }
-
-    /// <summary>
-    /// sqlcmd batches: the lines between lines that contain only GO, each line kept with its newline,
-    /// so module definitions are byte-identical to what saviadb.py (sqlcmd) stores. "GO n" is refused.
-    /// </summary>
-    public List<string> Batches()
-    {
-        var text = File.ReadAllText(Path, Encoding.UTF8).Replace("\r\n", "\n");
-        var lines = text.Split('\n');
-        var count = text.EndsWith('\n') ? lines.Length - 1 : lines.Length;
-        var batches = new List<string>();
-        var batch = new StringBuilder();
-        for (var i = 0; i < count; i++)
-        {
-            if (GoWithCount.IsMatch(lines[i]))
-                throw new InvalidOperationException($"{FileName}: 'GO <count>' is not supported by the production runner.");
-            if (Go.IsMatch(lines[i]))
-            {
-                batches.Add(batch.ToString());
-                batch.Clear();
-                continue;
-            }
-            batch.Append(lines[i]).Append('\n');
-        }
-        batches.Add(batch.ToString());
-        return batches.Where(b => !string.IsNullOrWhiteSpace(b)).ToList();
-    }
-
-    private static byte[] NormalizeNewlines(byte[] bytes)
-    {
-        var output = new List<byte>(bytes.Length);
-        for (var i = 0; i < bytes.Length; i++)
-        {
-            if (bytes[i] == (byte)'\r' && i + 1 < bytes.Length && bytes[i + 1] == (byte)'\n')
-                continue;
-            output.Add(bytes[i]);
-        }
-        return output.ToArray();
-    }
 }

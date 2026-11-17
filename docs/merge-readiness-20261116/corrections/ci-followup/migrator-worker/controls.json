@@ -1,0 +1,82 @@
+{
+  "results": [
+    {
+      "name": "missing-rollback",
+      "command": [
+        "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+        "test",
+        "savia/tests/Savia.Tests",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName~MigratorExecutionTests",
+        "--logger",
+        "trx;LogFileName=missing-rollback.trx",
+        "--results-directory",
+        "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-d027758a-581f6d3ad87e6883\\docs\\merge-readiness-20261116\\corrections\\ci-followup\\migrator-worker",
+        "-v",
+        "q"
+      ],
+      "exit": 1,
+      "expected_exit": 1
+    },
+    {
+      "name": "missing-state-validation",
+      "command": [
+        "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+        "test",
+        "savia/tests/Savia.Tests",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName~MigratorExecutionTests",
+        "--logger",
+        "trx;LogFileName=missing-state-validation.trx",
+        "--results-directory",
+        "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-d027758a-581f6d3ad87e6883\\docs\\merge-readiness-20261116\\corrections\\ci-followup\\migrator-worker",
+        "-v",
+        "q"
+      ],
+      "exit": 1,
+      "expected_exit": 1
+    },
+    {
+      "name": "ledger-outside-transaction",
+      "command": [
+        "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+        "test",
+        "savia/tests/Savia.Tests",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName~MigratorExecutionTests",
+        "--logger",
+        "trx;LogFileName=ledger-outside-transaction.trx",
+        "--results-directory",
+        "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-d027758a-581f6d3ad87e6883\\docs\\merge-readiness-20261116\\corrections\\ci-followup\\migrator-worker",
+        "-v",
+        "q"
+      ],
+      "exit": 1,
+      "expected_exit": 1
+    },
+    {
+      "name": "final",
+      "command": [
+        "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+        "test",
+        "savia/tests/Savia.Tests",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName~MigratorExecutionTests",
+        "--logger",
+        "trx;LogFileName=final.trx",
+        "--results-directory",
+        "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-d027758a-581f6d3ad87e6883\\docs\\merge-readiness-20261116\\corrections\\ci-followup\\migrator-worker",
+        "-v",
+        "q"
+      ],
+      "exit": 1,
+      "expected_exit": 0
+    }
+  ],
+  "restored_sha256": "fdffab36bee24327107849bada013ca6218792b8c712b4c6adc9408e40358f72",
+  "restoration_exact": true
+}

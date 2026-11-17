@@ -1,0 +1,254 @@
+{
+  "schema": 1,
+  "status": "AUTHORIZED_ONCE_PUBLICATION_PENDING",
+  "recordedAtUtc": "2026-11-17T03:37:02.290903+00:00",
+  "host": "SUAZO-PC",
+  "primary": "T3 Code / Claude Code, claude-fable-5-2",
+  "authorization": {
+    "by": "Jason",
+    "answer": "Publicar una vez (Recommended)",
+    "scope": "This packet only. No retry, paid AI, merge or deployment."
+  },
+  "repository": "Suazo-AI/Martha-Silva-Store",
+  "branch": "Tony",
+  "prNumber": 7,
+  "expectedParent": "ac0bb9f47f5a12ffc0626f7737a347dea9b37900",
+  "prBase": "3b0049163ece2d9431cee01f1bea624a66d9d8d4",
+  "stagingRule": "Only files[].path, this file and the normal generated docs/progress receipt. Git stores text as LF: compare staged blobs with lfSha256.",
+  "files": [
+    {
+      "path": "savia/db/migrations/MANIFEST.sha256",
+      "kind": "source",
+      "rawSha256": "211faf4029a8214be5ecd945479824a318a4fe368b7fc60c1a73e25b1aba9148",
+      "lfSha256": "211faf4029a8214be5ecd945479824a318a4fe368b7fc60c1a73e25b1aba9148"
+    },
+    {
+      "path": "savia/db/migrations/V029__return_retry_safety.sql",
+      "kind": "source",
+      "rawSha256": "68ae40dbbfbc4f14f80dbc5e3896ed153298786765dc8f16e3cd3410d180eb0f",
+      "lfSha256": "68ae40dbbfbc4f14f80dbc5e3896ed153298786765dc8f16e3cd3410d180eb0f"
+    },
+    {
+      "path": "savia/tests/test_return_retry_safety.py",
+      "kind": "source",
+      "rawSha256": "b14cebde601936f0bd7db2c1a99c47f0872e41bc242b181c39fbbc25d75a98a6",
+      "lfSha256": "b14cebde601936f0bd7db2c1a99c47f0872e41bc242b181c39fbbc25d75a98a6"
+    },
+    {
+      "path": "savia/web/api.mjs",
+      "kind": "source",
+      "rawSha256": "247696d41b2e4939c618a88cbfd2fb10d2b9e9bd319cb151201893fac9ae931d",
+      "lfSha256": "247696d41b2e4939c618a88cbfd2fb10d2b9e9bd319cb151201893fac9ae931d"
+    },
+    {
+      "path": "savia/web/screens/return-intent.mjs",
+      "kind": "source",
+      "rawSha256": "930bc9537baa5b5a7dfe095c5df85a504d530fa2e58b091f9d76b617bd8e3207",
+      "lfSha256": "930bc9537baa5b5a7dfe095c5df85a504d530fa2e58b091f9d76b617bd8e3207"
+    },
+    {
+      "path": "savia/web/screens/return.mjs",
+      "kind": "source",
+      "rawSha256": "1e5294432c2e10864d7a0e45703ae439d5ea2bc62a8cfe2f8fd5d5d31968d490",
+      "lfSha256": "1e5294432c2e10864d7a0e45703ae439d5ea2bc62a8cfe2f8fd5d5d31968d490"
+    },
+    {
+      "path": "savia/web/tests/return-lifecycle.test.mjs",
+      "kind": "source",
+      "rawSha256": "edfa5d0623959d908ad2b414936e3507e030672851d00c7a915f1dfa42a88c4f",
+      "lfSha256": "edfa5d0623959d908ad2b414936e3507e030672851d00c7a915f1dfa42a88c4f"
+    },
+    {
+      "path": "savia/web/tests/uuid.test.mjs",
+      "kind": "source",
+      "rawSha256": "63a855ce2651bf215b9dc42bcccbbce478ee9945fe40705aa25bdcfbb41348e2",
+      "lfSha256": "63a855ce2651bf215b9dc42bcccbbce478ee9945fe40705aa25bdcfbb41348e2"
+    },
+    {
+      "path": "savia/deploy/migrator/Program.cs",
+      "kind": "source",
+      "rawSha256": "0a89b762ddad718469beed18eb4fa65dfbb79c0be21b36a2bc52ec7389cb1522",
+      "lfSha256": "2552840e40095490ee943192e4b512be7d9293dede77c397da3b7fcc016ed220"
+    },
+    {
+      "path": "savia/deploy/migrator/MigrationExecution.cs",
+      "kind": "source",
+      "rawSha256": "1b4d6663aa5aa0e3f8bfff9f98c4cf82b83d2707f567efa2c232e1c09a0bda50",
+      "lfSha256": "1b4d6663aa5aa0e3f8bfff9f98c4cf82b83d2707f567efa2c232e1c09a0bda50"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/Savia.Tests.csproj",
+      "kind": "source",
+      "rawSha256": "229188de590a454b3cc7c0ee7f231abc5f780cc85462e9edc538d6315bf5bfdc",
+      "lfSha256": "353336eeeb28f9affeda497b9c531c40cbc05c2e0e582e8c37bcff4a330effa8"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/MigratorExecutionTests.cs",
+      "kind": "source",
+      "rawSha256": "9359fd415695ff97b7de22a9be053dd7c7560d7f7f7205802656ee8f343ae9c3",
+      "lfSha256": "9359fd415695ff97b7de22a9be053dd7c7560d7f7f7205802656ee8f343ae9c3"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/ReturnRetrySafetyTests.cs",
+      "kind": "source",
+      "rawSha256": "8d58b19500267ea8908c119d8c882ff934c9d0b1753eff6d3ed43de673d05c6e",
+      "lfSha256": "8d58b19500267ea8908c119d8c882ff934c9d0b1753eff6d3ed43de673d05c6e"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/STATUS.md",
+      "kind": "evidence",
+      "rawSha256": "c112ab1abc9976f9346c2c1d654a976434e13730d0b7f5fc1dd9f162b3a86766",
+      "lfSha256": "d79b099afde583d3f4f4ad7d9b2bc4d8f7f81f83f9572f48e3621a80392a6894"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/README.md",
+      "kind": "evidence",
+      "rawSha256": "3402dc01d7a842032c2c636914aec6cad897c60a67a90c3a4225ae392d203047",
+      "lfSha256": "0f0988257b67ca260fc641f1c0f57410d92c619c459333f5ead702707d339bda"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/RESULT.json",
+      "kind": "evidence",
+      "rawSha256": "d8b590e67baf4a439aa29d860059c40f605035db12ce92f82aef14bb7a54dd09",
+      "lfSha256": "605e9b95d709f5680ed884c31209ffb931690969f610a115eacba7adccfef254"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/command-disposal/PACKET.json",
+      "kind": "evidence",
+      "rawSha256": "2f286ef7f3ae96da7968c6cd6447a9e736e63e92fc1c3b02c82c0297758defa1",
+      "lfSha256": "d69309014f3211f1a7e78e4f80697f3c3e2edd96c1c0bc6c164b5066d3eb21c6"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/command-disposal/README.md",
+      "kind": "evidence",
+      "rawSha256": "f2f397e19ff1416fefc43b3a7e04c6e2023d2271e69db6cfadd172ace3557783",
+      "lfSha256": "d9f30f1b51a6c80c43790800a1ff132113b0619c93ae0cfe0dde6600173b211e"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/command-disposal/RESULT.json",
+      "kind": "evidence",
+      "rawSha256": "07ffc15eb23ba3b79af019435099c8c8c6efd4b55e1bc879c9ff0b36a058317c",
+      "lfSha256": "37804458726997b2f695031913169877230ac4c18dd185e43e124a0fe5a22a03"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/command-disposal/astra-f1-recheck.md",
+      "kind": "evidence",
+      "rawSha256": "22e4c318fbbd2ce54c309f5743f046c45e5b2dfbc5f5ab6286310a3545f2f7af",
+      "lfSha256": "37602a37450bfb5d3b49bdfa252356498fd4a96c4cbab200de62f4ce845d6348"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/IMPORT.json",
+      "kind": "evidence",
+      "rawSha256": "99a0d71d3187d124631bb7078a7f3211056bf971d5846f5b22d5151880e5a09f",
+      "lfSha256": "2298aeb7069bd91c182754bd239d3f24e24ae9c7fd02be2385769281348d38b1"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/README.md",
+      "kind": "evidence",
+      "rawSha256": "76fec7afa8c0e2ae23c7eba7a68e7cae0d5ec998f3e80d16812a4d913f4407b3",
+      "lfSha256": "ed4a06f63bb4eb0ae69f98ef11411c28f9fc2dc417ee26364634e61fc0ca6dc3"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/RESULT.json",
+      "kind": "evidence",
+      "rawSha256": "9ebe8f1cb72a432817e105814f741ef4e5a487611459eba79839395e0c50025f",
+      "lfSha256": "87b388906963b36df499f3e9e05068c3bd4a00f716a5a102dee4fd89570fcb6e"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/candidate.patch",
+      "kind": "evidence",
+      "rawSha256": "ac599347ab6ddd430e333fbeeb8ac6c20b83d2020180ac0ed8a2512fc0153ae9",
+      "lfSha256": "ac599347ab6ddd430e333fbeeb8ac6c20b83d2020180ac0ed8a2512fc0153ae9"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/controls.json",
+      "kind": "evidence",
+      "rawSha256": "6687e12cdac513e8fd1d2142990f6f3aa7e2e8cd0d7b0bf0d0373a820598ed34",
+      "lfSha256": "c34ec1d69a352ad37f7b98241751d0ab79faa5c81561c2caa21ee95ac9bb64bb"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/preservation.json",
+      "kind": "evidence",
+      "rawSha256": "da4bda9a510a2b8e62a3931048ece33482c57c680f44366c6ee8f496565613f9",
+      "lfSha256": "eb2dcab587b9202d838927c699fe94f1812840a69c8f8883f7b7d0886e4ea7e5"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/run-controls.py",
+      "kind": "evidence",
+      "rawSha256": "62ccf8674e42bd2821fd7a797a140cecd1df074e8cd438e3084407c6f6d7591e",
+      "lfSha256": "4d760e21792d7680048e82a77f3aa987613d42326e0b1b6a15328f2079b96a51"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/source-hashes.json",
+      "kind": "evidence",
+      "rawSha256": "ee3221315085cbff4d6b3de00a98c324a4332294aa2a7ab3f4928325b94d2a52",
+      "lfSha256": "4fd6eb5a35dbe6df26203206573076d3c7bfb5eca94de9420e23fddfd4e3171a"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/review/PACKET.json",
+      "kind": "evidence",
+      "rawSha256": "cba7b397f4f7b9ebf344cd24ab21d0c760fbc5c984fd33f125c27cf779f31dbd",
+      "lfSha256": "03b270b9ec8aefcf94464dbb9daae5f2f5a495f98cd11620696d4f43b38c4dc7"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/review/astra-integrated-review.md",
+      "kind": "evidence",
+      "rawSha256": "a182ff6c9cea7bdec3d730e181c9bf01e2fe474367667d4811feebf8ff0f05de",
+      "lfSha256": "a182ff6c9cea7bdec3d730e181c9bf01e2fe474367667d4811feebf8ff0f05de"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/v029/astra-preimplementation.md",
+      "kind": "evidence",
+      "rawSha256": "28794758204ad9174dc5b3acbc49c835d8bebaee3f3810f8cd5fa90de8262494",
+      "lfSha256": "28794758204ad9174dc5b3acbc49c835d8bebaee3f3810f8cd5fa90de8262494"
+    }
+  ],
+  "excluded": [
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/final-fixture-correction.trx",
+      "rawSha256": "b621214a0890f996202becb7a7a22e8fa09fa83da48e3d2f96530a92b705057e",
+      "reason": "TRX: the existing hook blocks this type. Kept locally."
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/final.trx",
+      "rawSha256": "2b8ebbe345afc1f7ab1afdd734b43d21545d5117a31f7fb5f1b38845ee3512ba",
+      "reason": "TRX: the existing hook blocks this type. Kept locally."
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/green.trx",
+      "rawSha256": "2ed2e7f21f1762d9ce5d0bf065379e65a24edf06646bda02945ecfe5f5d77810",
+      "reason": "TRX: the existing hook blocks this type. Kept locally."
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/ledger-outside-transaction.trx",
+      "rawSha256": "dcbd694b71b2c31050dcf630a8d5cbca8b59d01cbc32950f4c3dcf67659d38a6",
+      "reason": "TRX: the existing hook blocks this type. Kept locally."
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/missing-rollback.trx",
+      "rawSha256": "277ea78479c8bb2556d377241a83f1da20c17e77dd39471723fa711083f1dcf1",
+      "reason": "TRX: the existing hook blocks this type. Kept locally."
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/missing-state-validation.trx",
+      "rawSha256": "ff4bc7c0a72b90816ffdd5c63587d41d097d2a2c9acb17d1f2dfc11d559b95e9",
+      "reason": "TRX: the existing hook blocks this type. Kept locally."
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/original-semantics.trx",
+      "rawSha256": "80e4025accbf005d15b2d619c4ccc594f9fd17f59449650806b1413e9f6bf93c",
+      "reason": "TRX: the existing hook blocks this type. Kept locally."
+    }
+  ],
+  "githubPreflight": {
+    "actionsSecrets": 0,
+    "actionsVariables": 0,
+    "pr7State": "OPEN",
+    "pr7Labels": [],
+    "pr7ClosingIssues": [],
+    "checkedAtUtc": "2026-11-17T03:37:02.290903+00:00"
+  },
+  "runtimeEnvelope": "Same as ../PUBLICATION-RUNTIME.md: one Tony push, automatic push and PR jobs, maximum 330 cumulative job minutes, no retry, no manual dispatch, no merge, no deployment.",
+  "whatCiProves": "Corrected V029 installs on SQL Server 2022; 172_return_retry_safety.sql and the six ReturnRetrySafetyTests run on real SQL; all required contexts on the exact candidate.",
+  "whatCiDoesNotProve": "Failure injection during V029, upgrade of a populated V028 database, and the cross-runner no-op. No workflow runs them."
+}

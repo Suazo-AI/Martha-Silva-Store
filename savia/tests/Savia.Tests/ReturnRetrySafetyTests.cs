@@ -55,7 +55,8 @@ public sealed class ReturnRetrySafetyTests
         await using var transaction = (SqlTransaction)await winner.BeginTransactionAsync();
         await using var win = new SqlCommand(Request(credit, f.Till, "store"), winner, transaction) { CommandTimeout = 20 };
         await using var send = new SqlCommand(Request(mixed ? !credit : credit, mixed ? otherTill : f.Till,
-            mismatch ? "quarantine" : "store"), contender) { CommandTimeout = 20 };
+            mismatch ? "quarantine" : "store"), contender)
+        { CommandTimeout = 20 };
         Task<int>? pending = null;
         Exception? original = null;
         try

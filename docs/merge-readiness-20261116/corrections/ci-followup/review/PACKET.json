@@ -1,0 +1,179 @@
+{
+  "status": "FROZEN_SOURCE_ASTRA_PENDING_AGGREGATE_WINDOWS_BLOCKED",
+  "baseSha": "ac0bb9f47f5a12ffc0626f7737a347dea9b37900",
+  "host": "SUAZO-PC",
+  "archive": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\private-exports\\merge-readiness-20261116\\corrections\\ci-followup\\review-candidate.zip",
+  "archiveRawSha256": "7f253523a696eea97c7fef703dcc12fbfd19940775091117dfd9bd2b344b95dd",
+  "archiveEntries": [
+    "savia/db/migrations/MANIFEST.sha256",
+    "savia/db/migrations/V029__return_retry_safety.sql",
+    "savia/tests/test_return_retry_safety.py",
+    "savia/web/api.mjs",
+    "savia/web/screens/return-intent.mjs",
+    "savia/web/screens/return.mjs",
+    "savia/web/tests/return-lifecycle.test.mjs",
+    "savia/web/tests/uuid.test.mjs",
+    "savia/deploy/migrator/Program.cs",
+    "savia/deploy/migrator/MigrationExecution.cs",
+    "savia/tests/Savia.Tests/Savia.Tests.csproj",
+    "savia/tests/Savia.Tests/MigratorExecutionTests.cs"
+  ],
+  "sourceBindings": [
+    {
+      "path": "savia/db/migrations/MANIFEST.sha256",
+      "rawSha256": "211faf4029a8214be5ecd945479824a318a4fe368b7fc60c1a73e25b1aba9148",
+      "lfSha256": "211faf4029a8214be5ecd945479824a318a4fe368b7fc60c1a73e25b1aba9148",
+      "baseGitBlobSha256": "2e878b9e3c3eea5c1135ad0f1c2ac22a24f771aa5e41cba66665be79691eefe0"
+    },
+    {
+      "path": "savia/db/migrations/V029__return_retry_safety.sql",
+      "rawSha256": "68ae40dbbfbc4f14f80dbc5e3896ed153298786765dc8f16e3cd3410d180eb0f",
+      "lfSha256": "68ae40dbbfbc4f14f80dbc5e3896ed153298786765dc8f16e3cd3410d180eb0f",
+      "baseGitBlobSha256": "6041e3880fb4cb02c595504e394701e52408e426767c67c2b575914402b353cc"
+    },
+    {
+      "path": "savia/tests/test_return_retry_safety.py",
+      "rawSha256": "b14cebde601936f0bd7db2c1a99c47f0872e41bc242b181c39fbbc25d75a98a6",
+      "lfSha256": "b14cebde601936f0bd7db2c1a99c47f0872e41bc242b181c39fbbc25d75a98a6",
+      "baseGitBlobSha256": "6a180e8c8d27900a203bd94c338260863dc45e157c1e351302eceff02af9a9f5"
+    },
+    {
+      "path": "savia/web/api.mjs",
+      "rawSha256": "247696d41b2e4939c618a88cbfd2fb10d2b9e9bd319cb151201893fac9ae931d",
+      "lfSha256": "247696d41b2e4939c618a88cbfd2fb10d2b9e9bd319cb151201893fac9ae931d",
+      "baseGitBlobSha256": "b0a2fe70bddb20de4b0745c06257bf05c9e60afd1d16611a6b1ed748133367f6"
+    },
+    {
+      "path": "savia/web/screens/return-intent.mjs",
+      "rawSha256": "930bc9537baa5b5a7dfe095c5df85a504d530fa2e58b091f9d76b617bd8e3207",
+      "lfSha256": "930bc9537baa5b5a7dfe095c5df85a504d530fa2e58b091f9d76b617bd8e3207",
+      "baseGitBlobSha256": "96f95f5c45ee6d9edf0478b78dcce20d180b379429745ebe4624c6c79c6bb049"
+    },
+    {
+      "path": "savia/web/screens/return.mjs",
+      "rawSha256": "1e5294432c2e10864d7a0e45703ae439d5ea2bc62a8cfe2f8fd5d5d31968d490",
+      "lfSha256": "1e5294432c2e10864d7a0e45703ae439d5ea2bc62a8cfe2f8fd5d5d31968d490",
+      "baseGitBlobSha256": "69198b30c9e16e221cc8c589ca9ebefc20b8dcfa148ab44268624f86d9f66cda"
+    },
+    {
+      "path": "savia/web/tests/return-lifecycle.test.mjs",
+      "rawSha256": "edfa5d0623959d908ad2b414936e3507e030672851d00c7a915f1dfa42a88c4f",
+      "lfSha256": "edfa5d0623959d908ad2b414936e3507e030672851d00c7a915f1dfa42a88c4f",
+      "baseGitBlobSha256": "989c7dcd53f52010188c57d501ac3f89cf82d4d1f9e5aaf8e7d88cd2cb776d83"
+    },
+    {
+      "path": "savia/web/tests/uuid.test.mjs",
+      "rawSha256": "63a855ce2651bf215b9dc42bcccbbce478ee9945fe40705aa25bdcfbb41348e2",
+      "lfSha256": "63a855ce2651bf215b9dc42bcccbbce478ee9945fe40705aa25bdcfbb41348e2",
+      "baseGitBlobSha256": "0e2bf69aeb4b95e993669984a99c6889d5b77f90b051808c6be251b5445012bd"
+    },
+    {
+      "path": "savia/deploy/migrator/Program.cs",
+      "rawSha256": "0a89b762ddad718469beed18eb4fa65dfbb79c0be21b36a2bc52ec7389cb1522",
+      "lfSha256": "2552840e40095490ee943192e4b512be7d9293dede77c397da3b7fcc016ed220",
+      "baseGitBlobSha256": "5d38b49d9b7efe350a1f66f7f4fd1cedb1bb01dbf9defb36322dacd07383f5ee"
+    },
+    {
+      "path": "savia/deploy/migrator/MigrationExecution.cs",
+      "rawSha256": "fdffab36bee24327107849bada013ca6218792b8c712b4c6adc9408e40358f72",
+      "lfSha256": "4a1e613d046b9ad745b914b7ee5db8c75973966361208ec0ae52e46ec92cda25",
+      "baseGitBlobSha256": null
+    },
+    {
+      "path": "savia/tests/Savia.Tests/Savia.Tests.csproj",
+      "rawSha256": "229188de590a454b3cc7c0ee7f231abc5f780cc85462e9edc538d6315bf5bfdc",
+      "lfSha256": "353336eeeb28f9affeda497b9c531c40cbc05c2e0e582e8c37bcff4a330effa8",
+      "baseGitBlobSha256": "5a58d6bab1a6518ee163371e4c5696fd34371214928ee0ab534faf2b6d84884e"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/MigratorExecutionTests.cs",
+      "rawSha256": "09030de1d36709235a756c7644ab7c88562a072e12e741a43f8c42625e24e453",
+      "lfSha256": "c8693919acdfb0a64e40d944c9d57a1011688037ed5b3307c07e5ef7a012a5fb",
+      "baseGitBlobSha256": null
+    }
+  ],
+  "references": [
+    "docs/merge-readiness-20261116/corrections/ci-followup/v029/astra-preimplementation.md",
+    "docs/merge-readiness-20261116/corrections/ci-followup/RESULT.json",
+    "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/IMPORT.json"
+  ],
+  "scope": "Review only the 12-source overlay on ac0bb9f. No SQL, Docker, runtime, network, installs, Git writes or publication.",
+  "acceptance": [
+    "Marked migrations use one actual transaction for every batch and ledger insert, with XACT_ABORT and transaction-state checks. Failure cannot report success; original errors survive cleanup failures. Unmarked path stays compatible.",
+    "GO parsing, marker recognition, hash mismatch refusal, session lock, plan, grants and final ledger remain compatible. Check V028 as another marked migration.",
+    "V029 adds exactly one standalone GO after column ADD. Both procedure bodies and V001..V028 are unchanged; only its manifest digest changes under a documented fresh-candidate exception. Unknown installed targets block deployment; no ledger rewrite.",
+    "Keep current return authorization, deterministic identity, replay refusal 51538, legacy NULL lookup-only and financial/sync invariants. Formatting changes have no product behavior changes.",
+    "Assess actual helper tests and negative controls adversarially. Compilation/fake tests must not be labeled SQL atomicity proof. State remaining minimum real-SQL checks explicitly."
+  ],
+  "repositoryCheck": {
+    "name": "repository-check",
+    "command": [
+      "python",
+      "tests/check.py"
+    ],
+    "exit": 1,
+    "seconds": 146.781,
+    "timedOut": false,
+    "log": "private-exports/merge-readiness-20261116/corrections/ci-followup/repository-check.log",
+    "sha256": "5d73b254340a9ee1a339a57721b55c1d95725a552ba60189ff038882e69caf65",
+    "status": "BLOCKED_ENVIRONMENT",
+    "error": "WinError 1314: A required privilege is not held by the client",
+    "affected": "three symlink fixture errors in tests/asset-audit.py",
+    "cause": "The Windows Python process cannot create the symbolic links required by these unchanged fixtures.",
+    "attemptedCorrection": "No permission or test changes. One complete aggregate attempt retained; no repeat of the same Windows failure.",
+    "passedBeforeStop": "Staff 223/223; reproducible build; header/release, original catalog, responsive image/font and editorial groups passed.",
+    "notRun": "Groups after the asset-audit stop were not reached in this invocation.",
+    "workaround": "Use a clean Linux aggregate on the exact accepted candidate. New publication/CI scope is required; no workflow dispatched.",
+    "owner": "Primary prepares exact candidate and runtime packet; Jason authorizes the new CI; primary verifies actual job exit.",
+    "completionCheck": "python tests/check.py exits 0 in the authorized Linux job on the exact candidate."
+  },
+  "primaryChecksSummary": {
+    "actualStandaloneMigratorBuild": {
+      "exit": 0,
+      "warnings": 0,
+      "errors": 0
+    },
+    "fakeConnectionTests": {
+      "passed": 24,
+      "failed": 0,
+      "skipped": 0,
+      "exit": 0
+    },
+    "webAndScanner": {
+      "passed": 134,
+      "failed": 0,
+      "skipped": 0,
+      "exit": 0
+    },
+    "v029SourceGuard": {
+      "red": {
+        "passed": 10,
+        "failed": 1,
+        "exit": 1
+      },
+      "green": {
+        "passed": 11,
+        "failed": 0,
+        "exit": 0
+      }
+    },
+    "biome": {
+      "files": 68,
+      "exit": 0
+    }
+  },
+  "referencesBindings": [
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/v029/astra-preimplementation.md",
+      "rawSha256": "28794758204ad9174dc5b3acbc49c835d8bebaee3f3810f8cd5fa90de8262494"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/RESULT.json",
+      "rawSha256": "108612af34b235ba0359e86956cb597c0f065cb4dfbd743abd0e311d06fb9a1a"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/IMPORT.json",
+      "rawSha256": "99a0d71d3187d124631bb7078a7f3211056bf971d5846f5b22d5151880e5a09f"
+    }
+  ]
+}

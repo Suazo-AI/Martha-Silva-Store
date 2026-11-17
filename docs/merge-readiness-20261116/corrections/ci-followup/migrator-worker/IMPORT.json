@@ -1,0 +1,162 @@
+{
+  "base": "ac0bb9f47f5a12ffc0626f7737a347dea9b37900",
+  "source": [
+    {
+      "path": "savia/deploy/migrator/Program.cs",
+      "rawSha256": "0a89b762ddad718469beed18eb4fa65dfbb79c0be21b36a2bc52ec7389cb1522",
+      "lfSha256": "2552840e40095490ee943192e4b512be7d9293dede77c397da3b7fcc016ed220"
+    },
+    {
+      "path": "savia/deploy/migrator/MigrationExecution.cs",
+      "rawSha256": "fdffab36bee24327107849bada013ca6218792b8c712b4c6adc9408e40358f72",
+      "lfSha256": "4a1e613d046b9ad745b914b7ee5db8c75973966361208ec0ae52e46ec92cda25"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/Savia.Tests.csproj",
+      "rawSha256": "229188de590a454b3cc7c0ee7f231abc5f780cc85462e9edc538d6315bf5bfdc",
+      "lfSha256": "353336eeeb28f9affeda497b9c531c40cbc05c2e0e582e8c37bcff4a330effa8"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/MigratorExecutionTests.cs",
+      "rawSha256": "09030de1d36709235a756c7644ab7c88562a072e12e741a43f8c42625e24e453",
+      "lfSha256": "c8693919acdfb0a64e40d944c9d57a1011688037ed5b3307c07e5ef7a012a5fb"
+    }
+  ],
+  "publicEvidence": [
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/candidate.patch",
+      "sha256": "ac599347ab6ddd430e333fbeeb8ac6c20b83d2020180ac0ed8a2512fc0153ae9",
+      "bytes": 23113
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/controls.json",
+      "sha256": "6687e12cdac513e8fd1d2142990f6f3aa7e2e8cd0d7b0bf0d0373a820598ed34",
+      "bytes": 2826
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/final-fixture-correction.trx",
+      "sha256": "b621214a0890f996202becb7a7a22e8fa09fa83da48e3d2f96530a92b705057e",
+      "bytes": 38655
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/final.trx",
+      "sha256": "2b8ebbe345afc1f7ab1afdd734b43d21545d5117a31f7fb5f1b38845ee3512ba",
+      "bytes": 36262
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/green.trx",
+      "sha256": "2ed2e7f21f1762d9ce5d0bf065379e65a24edf06646bda02945ecfe5f5d77810",
+      "bytes": 33264
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/ledger-outside-transaction.trx",
+      "sha256": "dcbd694b71b2c31050dcf630a8d5cbca8b59d01cbc32950f4c3dcf67659d38a6",
+      "bytes": 43144
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/missing-rollback.trx",
+      "sha256": "277ea78479c8bb2556d377241a83f1da20c17e77dd39471723fa711083f1dcf1",
+      "bytes": 54197
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/missing-state-validation.trx",
+      "sha256": "ff4bc7c0a72b90816ffdd5c63587d41d097d2a2c9acb17d1f2dfc11d559b95e9",
+      "bytes": 47723
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/original-semantics.trx",
+      "sha256": "80e4025accbf005d15b2d619c4ccc594f9fd17f59449650806b1413e9f6bf93c",
+      "bytes": 52275
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/preservation.json",
+      "sha256": "da4bda9a510a2b8e62a3931048ece33482c57c680f44366c6ee8f496565613f9",
+      "bytes": 347
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/README.md",
+      "sha256": "76fec7afa8c0e2ae23c7eba7a68e7cae0d5ec998f3e80d16812a4d913f4407b3",
+      "bytes": 3552
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/RESULT.json",
+      "sha256": "9ebe8f1cb72a432817e105814f741ef4e5a487611459eba79839395e0c50025f",
+      "bytes": 5301
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/run-controls.py",
+      "sha256": "62ccf8674e42bd2821fd7a797a140cecd1df074e8cd438e3084407c6f6d7591e",
+      "bytes": 1870
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/source-hashes.json",
+      "sha256": "ee3221315085cbff4d6b3de00a98c324a4332294aa2a7ab3f4928325b94d2a52",
+      "bytes": 2279
+    }
+  ],
+  "privateLogs": [
+    {
+      "path": "private-exports/merge-readiness-20261116/corrections/ci-followup/migrator-worker/final-fixture-correction.log",
+      "sha256": "8a7fe990b9779f5f6034f52c3546de41a681aa1dac0ff6a2254c12227f71f911",
+      "bytes": 669
+    },
+    {
+      "path": "private-exports/merge-readiness-20261116/corrections/ci-followup/migrator-worker/final.log",
+      "sha256": "f7303fc99b4fc157b78bbe3c5cd1cc1c4207d16b9f34de0b2121e5289d3470c2",
+      "bytes": 1364
+    },
+    {
+      "path": "private-exports/merge-readiness-20261116/corrections/ci-followup/migrator-worker/green.log",
+      "sha256": "81f3078cf7eda1978951ce400a34e9a9fcd65b964dca9f876cad7ded43c6553b",
+      "bytes": 1002
+    },
+    {
+      "path": "private-exports/merge-readiness-20261116/corrections/ci-followup/migrator-worker/ledger-outside-transaction.log",
+      "sha256": "a914c4d1d0f009a124d4a6922bfdfcb9f1a7c57fb71e6dba395d77465a96bad8",
+      "bytes": 1105
+    },
+    {
+      "path": "private-exports/merge-readiness-20261116/corrections/ci-followup/migrator-worker/missing-rollback.log",
+      "sha256": "3228b9ec358479f2960732aaae7ded12298cf0bfcb3a0cb234ac8dc665c3157f",
+      "bytes": 2063
+    },
+    {
+      "path": "private-exports/merge-readiness-20261116/corrections/ci-followup/migrator-worker/missing-state-validation.log",
+      "sha256": "933b6f93eec0a2b78d715f9fc738a941508830805041b93d3865761ca86dc89c",
+      "bytes": 1498
+    },
+    {
+      "path": "private-exports/merge-readiness-20261116/corrections/ci-followup/migrator-worker/original-semantics.log",
+      "sha256": "6cb3ffc6069ab4ca1ace895ab257b2d025f41b0bf77915ec67dac9528ff32f95",
+      "bytes": 5306
+    },
+    {
+      "path": "private-exports/merge-readiness-20261116/corrections/ci-followup/migrator-worker/restore.log",
+      "sha256": "ca2352d4c938749eecd22102d1d34c1f85df0eb9960db05922b53dbc540bba70",
+      "bytes": 1736
+    }
+  ],
+  "recordedWorkerTrx": {
+    "total": "24",
+    "executed": "24",
+    "passed": "24",
+    "failed": "0",
+    "error": "0",
+    "timeout": "0",
+    "aborted": "0",
+    "inconclusive": "0",
+    "passedButRunAborted": "0",
+    "notRunnable": "0",
+    "notExecuted": "0",
+    "disconnected": "0",
+    "warning": "0",
+    "completed": "0",
+    "inProgress": "0",
+    "pending": "0"
+  },
+  "indexUnchanged": true,
+  "importDiagnostic": {
+    "firstAttempt": "Source copy completed; evidence import stopped on .log extension allowlist. No product correction required.",
+    "resolution": "Preflighted file types; public synthetic receipts imported; raw logs archived privately."
+  }
+}
