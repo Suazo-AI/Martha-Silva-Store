@@ -26,3 +26,9 @@
 ## 2026-11-18 — Avoid duplicate fast CI
 
 - Observed the same head SHA produced both a spike `push` and a PR run with identical G1/G2 test families. This doubles runner scheduling and log noise without increasing distinct coverage. Removed the spike push trigger. The PR `synchronize` event remains mandatory; existing full mainline push workflows are unchanged.
+
+## 2026-11-18 — Paid-agent authorization hardening
+
+- Existing `bug-agent.yml` would start a write-capable Opus action on any owner-visible `bug` label if a credential was present. Changed to opt-in only: `AI_BUG_AGENT_ENABLED=true`, actor `Suazo-AI`, and `agent-approved` label on a real `bug` issue, or explicit manual dispatch authorization.
+- Added offline direct-expression tests for all 64 combinations. No secret was added, no agent was invoked, and the issue-triggered action remains inactive until the workflow is integrated onto default main.
+- Activation still requires the owner to approve spending and ensure a real provider budget cap; Boolean flags are not a billing limit.

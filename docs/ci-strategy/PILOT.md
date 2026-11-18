@@ -79,3 +79,7 @@ The initial pilot had four important defects despite green CI: GitHub PR synthet
 ## Reducing duplicate CI
 
 The first pilot ran two identical selected-test suites per commit (one `push` and one `pull_request`). The final candidate removes the spike push trigger and runs the fast advisory workflow once per PR update. Existing trusted branch/mainline push workflows remain unchanged. This prevents duplicate advisory jobs without skipping the PR event. A pre-PR branch push alone does not trigger this pilot; that is deliberate.
+
+## Safe agent-hook preparation
+
+To prevent accidental paid execution when the existing `bug-agent.yml` is eventually integrated onto default `main`, this candidate hardens the existing workflow rather than creating a second worker. See [AGENT-AUTHORIZATION.md](AGENT-AUTHORIZATION.md). Merely labeling an issue `bug` must not start a model; explicit owner approval is required for every issue/run and a separate repository enable flag must be set. This PR does not set the flag, import secrets or activate the workflow on main.

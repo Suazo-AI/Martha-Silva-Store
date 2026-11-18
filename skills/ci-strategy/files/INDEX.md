@@ -23,3 +23,6 @@
 | `docs/ci-strategy/THREAT-MODEL.md` | Threats, mitigations, external-evidence boundaries | No deploy authorization |
 | `docs/ci-strategy/HISTORY-AUDIT.md` | 20 actual Tony commits with one sampled path each | Not a full PR test-recall benchmark |
 | `tools/ci_strategy.py audit-main --sha SHA` | Independently fetch GitHub API check metadata for current main | Never validates artifact content or business consent |
+| `.github/workflows/bug-agent.yml` | Existing issue repair agent with owner opt-in and variable gate | Not active on default main; no token or spending configured by this PR |
+| `tests/test_ci_strategy_agent_gate.py` | Evaluates actual agent-job predicate across 64 authorized/denied combinations | No agent model invocation |
+| `docs/ci-strategy/AGENT-AUTHORIZATION.md` | Explicit activation/rollback and spend approval conditions | Manual owner action required |

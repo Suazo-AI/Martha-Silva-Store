@@ -19,6 +19,8 @@ Date: 2026-11-18. Target: `spike/ci-strategy-20261118`, base `Tony`.
 | Paid agent wakes from an issue label | Token usage or untrusted-code execution without owner approval | Existing bug agent remains unactivated on default branch; do not enable without approved scope, explicit opt-in and budget |
 | Rollout errors on card charge or inventory | Silent loss/duplicate operation impacts money or customer data | Forbid canary and fix-forward without payment, SQL, rollback and business proofs |
 
+| Paid agent starts when CI auto-labels `bug` | Unapproved Opus consumption and write-capable PR authoring | Explicit repo enable flag, owner actor and per-issue `agent-approved`/manual approval; 64 predicate combinations tested; still disabled on main |
+
 ## Proof classes
 
 1. **Structural:** Changed-path classifier and fixed test selection. Does not prove correct domain behavior.

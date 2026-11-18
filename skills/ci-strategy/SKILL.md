@@ -70,3 +70,7 @@ Every handoff: `STATUS / DONE / NEXT / BLOCKER / EVIDENCE` plus commit SHA, bran
 ## Adversarial hardening — 2026-11-18
 
 See [threat model](../../docs/ci-strategy/THREAT-MODEL.md) and [historical path calibration](../../docs/ci-strategy/HISTORY-AUDIT.md). Four mandatory regression classes: PR checkout identity, selected-but-skipped G2, forged G4 receipts, and renames of sensitive files. Do not claim merge enforcement without reviewed and activated branch protection.
+
+### Mandatory paid-agent authorization
+
+The existing `bug-agent.yml` may be brought to default `main` only after explicit owner approval. Its predicate requires `vars.AI_BUG_AGENT_ENABLED == 'true'`, actor `Suazo-AI`, and an explicit approved `agent-approved` issue label or `authorize_paid_agent=true` manual dispatch. A `bug` label alone must never cause paid execution. See [agent authorization](../../docs/ci-strategy/AGENT-AUTHORIZATION.md) and its 64-case direct-workflow predicate test. This is a source-only safety control; runtime paid behavior stays NOT_RUN without approved credentials and budget.
