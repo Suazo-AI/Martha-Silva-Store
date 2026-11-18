@@ -32,3 +32,9 @@
 - Existing `bug-agent.yml` would start a write-capable Opus action on any owner-visible `bug` label if a credential was present. Changed to opt-in only: `AI_BUG_AGENT_ENABLED=true`, actor `Suazo-AI`, and `agent-approved` label on a real `bug` issue, or explicit manual dispatch authorization.
 - Added offline direct-expression tests for all 64 combinations. No secret was added, no agent was invoked, and the issue-triggered action remains inactive until the workflow is integrated onto default main.
 - Activation still requires the owner to approve spending and ensure a real provider budget cap; Boolean flags are not a billing limit.
+
+## 2026-11-18 — Agent policy harness red-to-green correction
+
+- Red evidence: PR commit `0538c07660ac547238b75ac6b33fb1cdbdfc49f8` G1 job `135121411519` failed the 64-combination test (65 failures) because the offline GitHub-expression evaluator treated the literal `true` as an unsupported Python Name. The workflow itself was never executed.
+- Correction: translate the unquoted GitHub boolean comparison `== true` into Python `== True` only, keeping the repository flag string `'true'` intact; also report unexpected AST node classes. All existing positive/negative authorization combinations remain unchanged.
+- Re-run exact SHA CI. Do not claim agent activation or spending approval.

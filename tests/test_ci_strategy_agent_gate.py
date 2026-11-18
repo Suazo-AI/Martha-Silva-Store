@@ -25,11 +25,14 @@ def live_predicate(enabled, actor, event, label, labels, approve):
     for name, value in values:
         expression = expression.replace(name, value)
     expression = expression.replace("&&", " and ").replace("||", " or ")
+    # GitHub Actions booleans are lowercase; preserve the quoted string value of the enable flag.
+    expression = expression.replace("== true", "== True").replace("== false", "== False")
     tree = ast.parse(expression, mode="eval")
     allowed = (ast.Expression, ast.BoolOp, ast.And, ast.Or, ast.Compare,
                ast.Eq, ast.Constant, ast.Load)
-    if any(not isinstance(node, allowed) for node in ast.walk(tree)):
-        raise AssertionError("Unrecognized or unsafe policy expression")
+    unexpected = {type(node).__name__ for node in ast.walk(tree) if not isinstance(node, allowed)}
+    if unexpected:
+        raise AssertionError("Unrecognized workflow node types: " + ", ".join(sorted(unexpected)))
     return bool(eval(compile(tree, "<agent-workflow>", "eval"), {"__builtins__": {}}, {}))
 
 
