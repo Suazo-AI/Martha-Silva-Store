@@ -27,24 +27,33 @@ export default {
     const previewPanel = h('section', { class: 'panel', id: 'import-preview', hidden: true });
     let file = null;
     let mapping = {};
-    let request = null;
+    let revision = 0;
+    const isCurrent = started => started === revision && ctx.isCurrent?.() !== false;
+    const invalidatePreview = () => {
+      status.textContent = '';
+      previewPanel.hidden = true;
+      return ++revision;
+    };
     const input = h('input', {
       id: 'import-file',
       type: 'file',
       accept: '.csv,.xlsx,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       onchange: async () => {
-        status.textContent = '';
-        previewPanel.hidden = true;
-        request = null;
+        const started = invalidatePreview();
+        file = null;
+        mapPanel.hidden = true;
         try {
           const chosen = input.files?.[0];
           if (!chosen) return;
-          file = await api.importFile(chosen.name, toBase64(new Uint8Array(await chosen.arrayBuffer())));
+          const bytes = await chosen.arrayBuffer();
+          if (!isCurrent(started)) return;
+          const parsed = await api.importFile(chosen.name, toBase64(new Uint8Array(bytes)));
+          if (!isCurrent(started)) return;
+          file = parsed;
           mapping = { ...guessMapping(file.headers), ...(remembered(file.headers) ?? {}) };
           drawMap();
         } catch (error) {
-          mapPanel.hidden = true;
-          showError(status, error);
+          if (isCurrent(started)) showError(status, error);
         }
       },
     });
@@ -67,8 +76,7 @@ export default {
                   id: `map-${field}`,
                   onchange: e => {
                     mapping = { ...mapping, [field]: Number(e.target.value) };
-                    request = null;
-                    previewPanel.hidden = true;
+                    invalidatePreview();
                   },
                 },
                 h('option', { value: '-1' }, 'Sin columna'),
@@ -87,11 +95,13 @@ export default {
       );
     };
     const preview = async () => {
-      status.textContent = '';
+      if (!file || ctx.isCurrent?.() === false) return;
+      const started = invalidatePreview();
       try {
         remember(file.headers, mapping);
-        request = { batchId: api.uuid(), fileName: file.fileName, rows: mapRows(file.rows, mapping) };
+        const request = { batchId: api.uuid(), fileName: file.fileName, rows: mapRows(file.rows, mapping) };
         const result = await api.previewImport(request);
+        if (!isCurrent(started)) return;
         previewPanel.hidden = false;
         replace(
           previewPanel,
@@ -186,25 +196,25 @@ export default {
               ? h('p', {}, 'Corrija el archivo o el mapeo y vuelva a revisar.')
               : h(
                   'button',
-                  { type: 'button', id: 'import-confirm', class: 'primary big', onclick: () => commit(result) },
+                  { type: 'button', id: 'import-confirm', class: 'primary big', onclick: () => commit(result, request, started) },
                   'Importar catálogo',
                 ),
           ),
         );
       } catch (error) {
-        showError(status, error);
+        if (isCurrent(started)) showError(status, error);
       }
     };
-    const commit = async summary => {
+    const commit = async (summary, request, started) => {
+      if (!isCurrent(started)) return;
       status.textContent = '';
       try {
-        if (
-          !(await confirmAction(
-            `Se crearán ${summary.rowsCount} prendas con ${summary.unitsCount} unidades de existencia inicial en un solo lote.`,
-          ))
-        )
-          return;
+        const confirmed = await confirmAction(
+          `Se crearán ${summary.rowsCount} prendas con ${summary.unitsCount} unidades de existencia inicial en un solo lote.`,
+        );
+        if (!confirmed || !isCurrent(started)) return;
         const done = await api.importCatalog(request);
+        if (!isCurrent(started)) return;
         replace(
           previewPanel,
           h('h2', {}, 'Catálogo importado'),
@@ -215,7 +225,7 @@ export default {
         mapPanel.hidden = true;
         input.value = '';
       } catch (error) {
-        showError(status, error);
+        if (isCurrent(started)) showError(status, error);
       }
     };
     replace(

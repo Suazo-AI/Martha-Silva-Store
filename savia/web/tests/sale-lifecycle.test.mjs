@@ -120,6 +120,7 @@ globalThis.window = globalThis;
 const load = p => import(pathToFileURL(resolve(p)).href);
 const api = await load('savia/web/api.mjs');
 const { default: sale } = await load('savia/web/screens/sale.mjs');
+const { RECOVERY_KEY, readPending } = await load('savia/web/sale-recovery.mjs');
 const id = n => `00000000-0000-4000-8000-${String(n).padStart(12, '0')}`;
 const actor = { staffId: id(1), nodeId: id(2), branchId: id(3), locationId: id(4), roles: ['MANAGER'] };
 const variants = [
@@ -127,6 +128,135 @@ const variants = [
   { itemId: id(9), sku: 'A', sizeCode: 'M', available: 5, unitPriceMinor: 100 },
 ];
 const tick = () => new Promise(r => setImmediate(r));
+
+for (const source of ['catalog', 'scan', 'search', 'parked', 'legacy parked', 'changed tax parked']) {
+  test(`taxed sale amounts and submitted payload survive ${source}`, async () => {
+    localStorage.clear();
+    sessionStorage.clear();
+    api.setToken('session-A');
+    location.hash = '#/venta';
+    const root = new Element('main');
+    const modal = new Element('dialog');
+    modal.id = 'modal';
+    const modalBody = new Element('div');
+    modalBody.id = 'modal-body';
+    modal.append(modalBody);
+    document.body.replaceChildren(root, modal);
+
+    const lookup = { itemId: id(8), sku: 'TAX', productName: 'Taxed fixture', unitPriceMinor: 85000 };
+    const catalog = [{ productId: id(6), name: lookup.productName, variants: [{ ...lookup, available: 5, taxRateBps: 1500 }] }];
+    const calls = [];
+    globalThis.fetch = async (url, opts) => {
+      const path = String(url).replace('/api/v1', '');
+      calls.push({ path, ...opts });
+      if (path === '/exchange-rate') return new Response('{}', { status: 404 });
+      if (path === '/sales' && opts.method === 'POST') throw new TypeError('Response lost');
+      if (path.startsWith('/sales/')) return new Response('{}', { status: 404 });
+      if (path.startsWith('/catalog/lookup?')) return Response.json(source === 'scan' ? [lookup] : []);
+      if (path.startsWith('/catalog/search?')) return Response.json([{ ...lookup, taxRateBps: null }]);
+      const data = {
+        '/cash/registers': [{ registerId: id(7), openTillId: id(5), openTillCashierId: id(1) }],
+        [`/cash/tills/${id(5)}/summary`]: { tillId: id(5) },
+        '/sellers': [{ sellerId: id(1), name: 'A' }],
+        '/catalog/items': catalog,
+      }[path];
+      assert.ok(data, `Unexpected request ${path}`);
+      return Response.json(data);
+    };
+    let till = null;
+    const ctx = {
+      me: actor,
+      isApprover: true,
+      branchName: 'Fixture',
+      till: { get: () => till, set: value => (till = value) },
+      notify() {},
+      go() {},
+      refreshTill() {},
+    };
+    let handle = await sale.mount(root, ctx);
+    const changedTax = source === 'changed tax parked';
+    const total = changedTax ? 'C$ 850.00' : 'C$ 977.50';
+    const find = selector => root.querySelector(selector);
+    await tick();
+    try {
+      if (source === 'scan' || source === 'search') {
+        await handle.handleScan(source === 'scan' ? lookup.sku : lookup.productName);
+        assert.ok(calls.some(c => c.path.startsWith(`/catalog/${source === 'scan' ? 'lookup' : 'search'}?`)));
+      }
+      if (source !== 'scan') await find('.product').fire('click');
+      if (source.endsWith('parked')) {
+        await find('#park-ticket').fire('click');
+        const key = 'savia.device.parkedTickets';
+        const saved = JSON.parse(localStorage.getItem(key));
+        if (source === 'legacy parked') {
+          delete saved.tickets[0].lines[0].taxRateBps;
+          localStorage.setItem(key, JSON.stringify(saved));
+        } else {
+          assert.equal(saved.tickets[0].lines[0].taxRateBps, 1500);
+        }
+        assert.equal(find('#total').textContent, 'C$ 0.00');
+        if (changedTax) {
+          handle.unmount();
+          catalog[0].variants[0].taxRateBps = 0;
+          handle = await sale.mount(root, ctx);
+          await tick();
+        }
+        await find('#saved-tickets').fire('click');
+        await modalBody.querySelector('.restore-ticket').fire('click');
+      }
+      assert.equal(find('#total').textContent, total);
+      assert.equal(find('.tline').querySelector('.num').textContent, total);
+      find('#received').value = '1000';
+      await find('#received').fire('input');
+      assert.equal(find('#balance').textContent, changedTax ? 'C$ 150.00' : 'C$ 22.50');
+      assert.equal(find('#pay').disabled, false);
+      await find('#pay').fire('click');
+
+      const post = calls.find(c => c.path === '/sales' && c.method === 'POST');
+      assert.ok(post, 'valid taxed tender reaches POST');
+      const raw = localStorage.getItem(RECOVERY_KEY);
+      assert.ok(raw, 'uncertain POST remains pending');
+      const pending = readPending();
+      assert.equal(JSON.stringify(pending.body), post.body);
+      assert.deepEqual(pending.body.lines, [
+        { lineNumber: 1, itemId: lookup.itemId, quantity: 1, unitPriceMinor: 85000, discountMinor: 0, sellerId: actor.staffId },
+      ]);
+      assert.deepEqual(pending.body.tenders, [
+        { tenderNumber: 1, tenderKind: 'cash', amountMinor: changedTax ? 85000 : 97750, receivedMinor: 100000, changeMinor: changedTax ? 15000 : 2250 },
+      ]);
+      if (source === 'catalog') {
+        for (const rates of [undefined, [], [0]]) {
+          const edited = JSON.stringify({ ...pending, lineTaxRatesBps: rates });
+          assert.throws(() => readPending({ getItem: () => edited }));
+        }
+        const invalidRate = JSON.stringify({
+          ...pending,
+          lineTaxRatesBps: [10001],
+          body: {
+            ...pending.body,
+            tenders: [{ ...pending.body.tenders[0], amountMinor: 170009, receivedMinor: 170009, changeMinor: 0 }],
+          },
+        });
+        assert.throws(() => readPending({ getItem: () => invalidRate }));
+      }
+
+      handle.unmount();
+      const remounted = await sale.mount(root, ctx);
+      try {
+        await find('#consult-receipt').fire('click');
+        assert.equal(calls.at(-1).path, `/sales/${pending.body.saleId}`);
+        assert.equal(calls.filter(c => c.method === 'POST').length, 1);
+        assert.equal(localStorage.getItem(RECOVERY_KEY), raw);
+      } finally {
+        remounted.unmount();
+      }
+    } finally {
+      modal.close();
+      handle.unmount();
+    }
+  });
+}
+
 for (const action of ['active-control', 'navigation', 'logout', 'account', 'navigation-click', 'logout-click', 'account-click']) {
   test(`catalog lookup/modal respects lifecycle: ${action}`, async () => {
     localStorage.clear();

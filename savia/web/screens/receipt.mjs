@@ -13,6 +13,7 @@ export default {
       const id = routeSaleId();
       if (!id) throw new Error('Abra una venta desde Historial.');
       const sale = await api.getSale(id);
+      if (ctx.isCurrent?.() === false) return;
       replace(
         root,
         h(

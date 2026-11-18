@@ -17,7 +17,16 @@ export function setQuantity(lines, itemId, value) {
 
 export const removeLine = (lines, itemId) => lines.filter(l => (l.ticketKey ?? l.itemId) !== itemId);
 
-export const ticketTotal = lines => lines.reduce((sum, l) => sum + lineTotal(l.unitPriceMinor, l.quantity) - (l.discountMinor ?? 0), 0);
+export function saleLineTotal(line) {
+  const netMinor = lineTotal(line.unitPriceMinor, line.quantity) - (line.discountMinor ?? 0);
+  const rate = line.taxRateBps ?? 0;
+  if (rate === 0) return netMinor;
+  // SQL rounds the tax on the full discounted line. Integer arithmetic keeps half-cent ties exact.
+  const taxMinor = Number((BigInt(netMinor) * BigInt(rate) + 5000n) / 10000n);
+  return netMinor + taxMinor;
+}
+
+export const ticketTotal = lines => lines.reduce((sum, line) => sum + saleLineTotal(line), 0);
 
 /** Body of POST /sales. Tenders are prepared from pending input, never stored balances. */
 export function saleRequest({ saleId, tillId, lines, receivedMinor, tenders, customerId }) {
@@ -50,6 +59,7 @@ export function itemFromLookup(row) {
     size: row.sizeCode ?? null,
     sku: row.sku,
     unitPriceMinor: row.unitPriceMinor,
+    taxRateBps: row.taxRateBps ?? 0,
     currencyCode: row.currencyCode ?? 'NIO',
     isSample: row.isSample ?? null,
   };

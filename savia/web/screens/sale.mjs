@@ -1,7 +1,7 @@
 // Venta: scan or search to add garments, ticket always visible, cash received and change, Cobrar.
 import * as api from '../api.mjs';
 import { confirmAction } from '../confirm.mjs';
-import { formatMoney, lineTotal } from '../money.mjs';
+import { formatMoney } from '../money.mjs';
 import {
   actorScope,
   clearPending,
@@ -25,6 +25,7 @@ import {
   MAX_SELLERS,
   needsDiscountApproval,
   removeLine,
+  saleLineTotal,
   saleRequest,
   setQuantity,
   ticketTotal,
@@ -166,6 +167,7 @@ export default {
       const till = ctx.till.get();
       let lines = [];
       let catalog = [];
+      const catalogVariant = itemId => catalog.flatMap(p => p.variants).find(v => v.itemId === itemId);
       let sellers = [];
       // One to three sellers per ticket. The first is the default for every garment; "Venta compartida" (supervision) adds more.
       let ticketSellers = [''];
@@ -312,7 +314,7 @@ export default {
           ticketLines,
           lines.length === 0
             ? h('p', { class: 'muted' }, 'Toque una prenda o escanee su código para empezar.')
-            : lines.map(line =>
+            : effectiveLines().map(line =>
                 h(
                   'div',
                   { class: 'tline', dataset: { item: line.itemId } },
@@ -341,14 +343,7 @@ export default {
                           ),
                         )
                       : null,
-                    h(
-                      'span',
-                      { class: 'num' },
-                      formatMoney(
-                        lineTotal(line.unitPriceMinor, line.quantity) -
-                          (effectiveLines().find(l => (l.ticketKey ?? l.itemId) === (line.ticketKey ?? line.itemId))?.discountMinor ?? 0),
-                      ),
-                    ),
+                    h('span', { class: 'num' }, formatMoney(saleLineTotal(line))),
                   ),
                   h(
                     'div',
@@ -473,7 +468,7 @@ export default {
         if (
           next.some(
             line =>
-              units(next, line.itemId) > (catalog.flatMap(p => p.variants).find(v => v.itemId === line.itemId)?.available ?? 0) &&
+              units(next, line.itemId) > (catalogVariant(line.itemId)?.available ?? 0) &&
               units(next, line.itemId) > units(lines, line.itemId),
           )
         ) {
@@ -498,12 +493,12 @@ export default {
           status.textContent = 'Elija vendedores activos antes de agregar prendas.';
           return;
         }
-        const current = catalog.flatMap(p => p.variants).find(v => v.itemId === row.itemId);
-        if (!current) {
+        const variant = catalogVariant(row.itemId);
+        if (!variant) {
           status.textContent = 'Vuelva a cargar el catálogo para consultar la prenda.';
           return;
         }
-        row = { ...row, ...current };
+        row = { ...row, ...variant };
         if (row.status && row.status !== 'active') {
           status.textContent = `${row.variantName ?? row.sku} no está a la venta (estado: ${row.status}).`;
           return;
@@ -639,7 +634,7 @@ export default {
             field.value = '';
             choose({
               name: 'Elija una prenda',
-              variants: found.map(row => ({ ...row, ...catalog.flatMap(p => p.variants).find(v => v.itemId === row.itemId) })),
+              variants: found.map(row => ({ ...row, ...catalogVariant(row.itemId) })),
             });
             return;
           }
@@ -677,10 +672,7 @@ export default {
         let postedLines = effectiveLines();
         let discountReason = discountReasonInput.value.trim();
         try {
-          if (
-            !physicalConfirmed &&
-            postedLines.some(line => line.quantity > (catalog.flatMap(p => p.variants).find(v => v.itemId === line.itemId)?.available ?? 0))
-          ) {
+          if (!physicalConfirmed && postedLines.some(line => line.quantity > (catalogVariant(line.itemId)?.available ?? 0))) {
             if (
               !(await confirmAction(
                 'La cantidad supera la existencia del sistema. Se registrará una excepción de inventario al cobrar. Confirme que la prenda está en la tienda.',
@@ -723,7 +715,14 @@ export default {
             discountReason: discountReason || null,
             stockExceptionNote: physicalConfirmed ? 'El sistema decía 0 y había existencia física. Confirmado en tienda.' : null,
           };
-          record = persistPending({ version: 1, scope, body, changeMinor: draft.changeMinor });
+          const lineTaxRatesBps = postedLines.map(line => line.taxRateBps ?? 0);
+          record = persistPending({
+            version: 1,
+            scope,
+            body,
+            changeMinor: draft.changeMinor,
+            ...(lineTaxRatesBps.some(rate => rate !== 0) ? { lineTaxRatesBps } : {}),
+          });
           if (!current()) return;
           sent = true;
           const response = await api.postSale(record.body, approvalToken);
@@ -944,6 +943,7 @@ export default {
                                 }
                                 lines = structuredClone(saved.lines).map(line => ({
                                   ...line,
+                                  taxRateBps: catalogVariant(line.itemId)?.taxRateBps ?? line.taxRateBps ?? 0,
                                   sellerId: sellers.find(s => sameGuid(s.sellerId, line.sellerId))?.sellerId ?? line.sellerId,
                                 }));
                                 ticketPercent = saved.ticketPercent;

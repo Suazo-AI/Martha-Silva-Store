@@ -1,4 +1,5 @@
 // One origin-local pending write. Never stores authentication or supervisor credentials.
+import { saleLineTotal } from './screens/sale-logic.mjs';
 import { GUID_RE } from './ui.mjs';
 export const RECOVERY_KEY = 'savia.sale.pending.v1';
 const guid = value => typeof value === 'string' && GUID_RE.test(value);
@@ -16,8 +17,9 @@ const only = (obj, keys) => obj && typeof obj === 'object' && !Array.isArray(obj
 const integer = n => Number.isSafeInteger(n) && n >= 0;
 export function validateRecord(r) {
   const body = r?.body;
+  const rates = r?.lineTaxRatesBps;
   if (
-    !only(r, ['version', 'scope', 'body', 'changeMinor']) ||
+    !only(r, ['version', 'scope', 'body', 'changeMinor', 'lineTaxRatesBps']) ||
     r.version !== 1 ||
     !only(r.scope, ['origin', 'staffId', 'nodeId', 'branchId', 'locationId']) ||
     typeof r.scope.origin !== 'string' ||
@@ -32,6 +34,10 @@ export function validateRecord(r) {
     !Array.isArray(body.lines) ||
     !body.lines.length ||
     body.lines.length > 1000 ||
+    (rates !== undefined &&
+      (!Array.isArray(rates) ||
+        rates.length !== body.lines.length ||
+        !body.lines.every((_, i) => integer(rates[i]) && rates[i] <= 10000))) ||
     !body.lines.every(
       l =>
         only(l, ['lineNumber', 'itemId', 'quantity', 'unitPriceMinor', 'discountMinor', 'sellerId']) &&
@@ -82,7 +88,8 @@ export function validateRecord(r) {
   ) {
     throw new Error('No se pudo verificar el registro pendiente. Avise a la gerente; no vuelva a cobrar.');
   }
-  const total = body.lines.reduce((sum, l) => sum + l.unitPriceMinor * l.quantity - l.discountMinor, 0);
+  // Rates verify the amount offline without altering the stored POST body. Older records had no tax.
+  const total = body.lines.reduce((sum, line, i) => sum + saleLineTotal({ ...line, taxRateBps: rates?.[i] }), 0);
   if (
     !integer(total) ||
     body.tenders.reduce((sum, t) => sum + t.amountMinor, 0) !== total ||
@@ -116,7 +123,7 @@ export function clearPending(record, storage = localStorage) {
 export function validResponse(sale, saleId) {
   return (
     sameGuid(sale?.saleId, saleId) &&
-    sale.status === 'posted' &&
+    (sale.status === 'recorded' || sale.status === 'posted') &&
     ['subtotalMinor', 'discountMinor', 'taxMinor', 'totalMinor'].every(k => integer(sale[k]))
   );
 }

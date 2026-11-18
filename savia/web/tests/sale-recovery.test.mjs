@@ -104,6 +104,8 @@ test('receipt match binds cashier and original till, account/node/location chang
       status: 'posted',
     };
   assert.equal(matchesReceipt(sale, r), true);
+  assert.equal(matchesReceipt({ ...sale, status: 'recorded' }, r), true);
+  assert.equal(matchesReceipt({ ...sale, status: 'cancelled' }, r), false);
   for (const k of ['saleId', 'cashierId', 'tillId']) assert.equal(matchesReceipt({ ...sale, [k]: id(99) }, r), false);
   for (const k of ['staffId', 'nodeId', 'branchId', 'locationId', 'origin'])
     assert.equal(sameScope(scope, { ...scope, [k]: 'other' }), false);

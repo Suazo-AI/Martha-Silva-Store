@@ -1,8 +1,9 @@
 """Real local pilot browser flow, using agent-browser and direct API read-backs.
 
-Start with pilot.py reset then up, with three per-account pilot passwords in the environment.
+Start with pilot.py reset then up, with five per-account pilot passwords in the environment.
 No mocked endpoints, optional steps, packages, external services or stored plaintext credentials.
 Each run creates distinct sample codes and can run again against the same seeded pilot.
+For an isolated pilot, set SAVIA_E2E_WEB, SAVIA_E2E_DB and SAVIA_E2E_SESSION together.
 """
 from __future__ import annotations
 import json
@@ -20,7 +21,8 @@ from pathlib import Path
 
 WEB = os.environ.get("SAVIA_E2E_WEB", "http://127.0.0.1:5080").rstrip("/")
 API = WEB + "/api/v1"
-SESSION = "savia-owner-e2e"
+SESSION = os.environ.get("SAVIA_E2E_SESSION", "savia-owner-e2e")
+DATABASE = os.environ.get("SAVIA_E2E_DB", "SAVIA_DEV_pilot")
 SUPERVISOR = "gerente.muestra"
 CASHIER = "gerente.muestra"
 OWNER = "duena.muestra"
@@ -284,6 +286,10 @@ def main() -> int:
     global BROWSER_RUNTIME
     sys.stdout.reconfigure(encoding='utf-8')
     check(AB and all(PASSWORDS.values()),'agent-browser and five environment passwords are required')
+    check(re.fullmatch(r'[A-Za-z0-9_-]{1,64}', SESSION), 'invalid browser session name')
+    sys.path.insert(0,str(Path(__file__).resolve().parents[2]/'tools'/'db'))
+    import saviadb
+    saviadb.check_name(DATABASE)
     tokens={}
     for name in PASSWORDS:
         status,body=call('POST','/auth/login',{'loginName':name,'password':PASSWORDS[name]})
@@ -346,7 +352,9 @@ def main() -> int:
         check(js("return !document.querySelector('#sale-customer-search');"),'no customer field in normal Venta')
         sellers=get('/sellers');check(len(sellers)>=2,'two active sellers')
         select('#sale-seller',sellers[0]['sellerId'])
+        ab('click', 'details:has(> #shared-sale) > summary')
         click('#shared-sale');wait_for("document.querySelector('#sale-seller-2')",'second seller slot')
+        ab('click', 'details:has(#sale-seller-2) > summary')
         select('#sale-seller-2',sellers[1]['sellerId'])
         js('savia.handleScan('+json.dumps(first['barcode'])+');return true;');wait_for("document.querySelectorAll('.tline').length===1",'first line')
         js('savia.handleScan('+json.dumps(second['barcode'])+');return true;');wait_for("document.querySelectorAll('.tline').length===2",'second line')
@@ -356,7 +364,7 @@ def main() -> int:
         wait_for("[...document.querySelectorAll('.tline select.line-seller')].map(s=>s.value).join()==="+json.dumps(sellers[0]['sellerId']+','+sellers[1]['sellerId']),'second line seller')
         shot('venta-compartida')
         amount=first['unitPriceMinor']+second['unitPriceMinor'];fill('#received',str(amount/100))
-        click('#pay');wait_for("document.querySelector('#receipt') && !document.querySelector('#receipt').hidden",'sale receipt')
+        click('#pay');wait_for("document.querySelector('#receipt:not([hidden]) .line-seller-name')",'sale receipt with seller details')
         saleid=js("return document.querySelector('#receipt .num.muted')?.textContent?.match(/[0-9a-f-]{36}/i)?.[0] ?? document.querySelector('#receipt').textContent.match(/[0-9a-f-]{36}/i)?.[0];")
         detail=get('/sales/'+saleid);check(detail['customerId'] is None,'normal sale API has no customer')
         check([l['sellerId'].lower() for l in detail['lines']]==[s['sellerId'].lower() for s in sellers[:2]],'per-line sellers persisted')
@@ -380,9 +388,7 @@ def main() -> int:
         check(tender['receivedMinor']-tender['changeMinor']-tender['foreignChangeNioMinor']-tender['roundingMinor']==tender['amountMinor']==price,'received minus change minus rounding equals the sale')
         check(get('/cash/tills/'+till+'/summary')['usdExpectedMinor']==dollars*100-usdchange,'USD drawer nets dollars received and returned')
         check(tender['foreignChangeMinor']==usdchange and tender['foreignChangeNioMinor']==convertedchange,'both USD change fields persisted')
-        sys.path.insert(0,str(Path(__file__).resolve().parents[2]/'tools'/'db'))
-        import saviadb
-        entries=json.loads(saviadb.scalar('SAVIA_DEV_pilot',f"SELECT e.CurrencyCode AS currency,e.Kind AS kind,e.DeltaMinor AS amount FROM sales.CashEntries e JOIN sales.SaleTenders t ON t.Id=e.SaleTenderId WHERE t.SaleId='{usdsale}' FOR JSON PATH"))
+        entries=json.loads(saviadb.scalar(DATABASE,f"SELECT e.CurrencyCode AS currency,e.Kind AS kind,e.DeltaMinor AS amount FROM sales.CashEntries e JOIN sales.SaleTenders t ON t.Id=e.SaleTenderId WHERE t.SaleId='{usdsale}' FOR JSON PATH"))
         check(sorted((e['currency'],e['kind'],e['amount']) for e in entries)==sorted([('USD','sale',dollars*100),('USD','change',-usdchange),('NIO','change',-change)]),'read back entries from both drawers')
         print('PASS USD cash sale with USD and NIO change',flush=True)
         # Returns: the four outcomes are offered; a bank transfer is recorded with its reference and leaves the till untouched.
@@ -396,9 +402,11 @@ def main() -> int:
         shot('devolucion-resultados','#refund-outcomes')
         click('#return-submit');wait_for("document.querySelector('#confirm-yes')",'return confirmation')
         click('#confirm-no');check(not any(r['settlementKind']=='transfer' for r in get('/sales/'+saleid)['reversals']),'No volver leaves returns unchanged')
-        click('#return-submit');click('#confirm-yes');wait_for("document.querySelector('#return-result') && !document.querySelector('#return-result').hidden",'return result')
+        click('#return-submit');click('#confirm-yes');wait_for("document.querySelector('#return-finish')",'verified return result')
         reversal=next(r for r in get('/sales/'+saleid)['reversals'] if r['settlementKind']=='transfer')
-        check(text('#return-total')==money(reversal['creditMinor']),'return total equals API')
+        result=text('#return-result')
+        check(result.startswith('Transferencia bancaria: '+money(reversal['creditMinor'])+'.'),'return total equals API')
+        check(f'Referencia: {reference}.' in result,'return shows the transfer reference')
         check(get('/cash/tills/'+till+'/summary')['expectedCashMinor']==cash_before,'transfer refund leaves the till untouched')
         shot('devolucion-transferencia')
         # The second seller's line goes back as store credit through the API; both reversals reverse commission.

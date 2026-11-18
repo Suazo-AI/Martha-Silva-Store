@@ -1,10 +1,13 @@
+using System.Text.Json.Serialization;
+
 namespace Savia.Contracts;
 
 public sealed record ItemLookup(Guid ItemId, string Sku, string VariantName, long? UnitPriceMinor, string CurrencyCode,
     string Status, string ProductName, string? SizeCode, string? ColorCode);
 /// <summary>One variant found by name, SKU or code fragment. Stock is the store pool of this node's location; null on the cloud.</summary>
 public sealed record ProductSearchRow(Guid ItemId, string Sku, string ProductName, string VariantName, string? SizeCode,
-    string? ColorCode, string? Barcode, long? UnitPriceMinor, string CurrencyCode, string Status, int? OnHand, int? Available);
+    string? ColorCode, string? Barcode, long? UnitPriceMinor, string CurrencyCode, string Status, int? OnHand, int? Available,
+    [property: JsonPropertyName("taxRateBps")] int? TaxRateBps = null);
 public sealed record CatalogProduct(Guid ProductId, string Name, string Type, ProductSearchRow[] Variants);
 public sealed record RegisterProductRequest(Guid ProductId, string Name);
 public sealed record RegisterItemRequest(Guid ItemId, Guid ProductId, string Sku, string VariantName, string CurrencyCode,

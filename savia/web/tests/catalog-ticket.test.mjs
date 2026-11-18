@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { addToTicket, saleRequest, ticketTotal } from '../screens/sale-logic.mjs';
+import { addToTicket, itemFromLookup, saleRequest, ticketTotal } from '../screens/sale-logic.mjs';
 
 test('two sellers of the same garment keep separate sale lines and attribution', () => {
   let lines = addToTicket([], { itemId: 'item', sellerId: 'seller1', unitPriceMinor: 59900 });
@@ -23,6 +23,20 @@ test('line discounts reach SQL and lower the tender total', () => {
 });
 
 import { catalogMatches, discountedLines, needsDiscountApproval } from '../screens/sale-logic.mjs';
+
+test('tax rounds once per full line after discounts, with zero-tax and exempted totals preserved', () => {
+  const taxed = itemFromLookup({ itemId: 'taxed', unitPriceMinor: 1, taxRateBps: 5000 });
+  const lines = addToTicket([], taxed, 3);
+  assert.equal(ticketTotal(lines), 5);
+  assert.equal(ticketTotal(discountedLines(lines, 34)), 3);
+  assert.equal(ticketTotal(discountedLines(lines, 100)), 0);
+  assert.equal(ticketTotal([{ ...lines[0], taxRateBps: 0 }]), 3);
+  assert.equal(ticketTotal([{ itemId: 'old', unitPriceMinor: 1, quantity: 3 }]), 3);
+  assert.equal(ticketTotal([lines[0], { ...lines[0], quantity: 1 }]), 7);
+  const request = saleRequest({ saleId: 's', tillId: 't', lines, receivedMinor: 10 });
+  assert.deepEqual(request.tenders, [{ tenderNumber: 1, tenderKind: 'cash', amountMinor: 5, receivedMinor: 10, changeMinor: 5 }]);
+  assert.deepEqual(request.lines, [{ lineNumber: 1, itemId: 'taxed', quantity: 3, unitPriceMinor: 1, discountMinor: 0 }]);
+});
 
 test('ticket and line percentages combine without bypassing manager approval', () => {
   const base = [{ itemId: 'a', quantity: 2, unitPriceMinor: 59900, discountPercent: 5 }];

@@ -140,3 +140,52 @@ Limit: not reproduced here (no Linux runner). The CI run did not record the HTTP
 
 **Harness correction, local only.** The C6 cash login helper waits for the login response. On 429 it waits for the screen's own unlock (up to 75 s), submits once more and requires HTTP 200 (`c6_cash_login_http`). New phase `c6_cash_login_cooldown`. No product file changed; the limiter stays as is.
 `node --check` passes; the six stdlib golden suites print `OK`. Proof needs one CI run.
+
+## Codex review on ec11e64: 3 new P2 findings (unverified)
+
+Source: PR 7 comment 6938689660. Only a static source read was done. Nothing was reproduced or fixed.
+- **Cash recount fails after "Guardar conteo".** `savia/web/screens/cash.mjs:48-51` creates new count IDs when the lines change. `usp_RecordDrawerCount` (`V027__usd_cash.sql:298`) inserts and submits each new count. `usp_SubmitCashCount` does not supersede an earlier submitted count. `UX_CashCounts_TillSubmitted` (`V015__owner_pilot_rules.sql:8`) allows one submitted count per till and kind. Static read: plausible product defect.
+- **USD differences missing from `tillClosuresWithDifference`.** `V027__usd_cash.sql:1091-1092` counts only NIO parent closures. Static read: plausible.
+- **Late receipt response overwrites the current screen.** `savia/web/screens/receipt.mjs:15-17` replaces the root after `await api.getSale` with no `ctx.isCurrent()` check. Static read: plausible.
+Next: reproduce each red before any fix. Each fix is product work and needs its own authority.
+
+## CI on 16ab6f2: container smoke failure (2026-11-17)
+
+Job "Build, images, migration and container smoke" (run 44020881428) failed at "Migrate an empty database twice".
+The readiness loop (`savia-azure.yml:69-75`) got one successful `SELECT 1`. The next `sqlcmd` got `Login failed for user 'sa'` and `TCP Provider: Error code 0x2749`.
+Inference: SQL Server was still restarting during its first startup. A single successful probe does not prove the server is stable.
+The 16ab6f2 diff touches only `tests/golden-path/` and docs, not this job's inputs. The same job passed on ec11e64.
+Not fixed and not rerun. A rerun or a readiness fix (for example, several consecutive successful probes) needs authority.
+
+## CI on 16ab6f2: golden path passes (2026-11-17)
+
+"Real API + disposable SQL golden path" passed (run 44020881516, 3m57s). All 7 required checks pass.
+Limit: the log does not show whether the `c6_cash_login_cooldown` branch ran. This is one pass; earlier history on identical sources was pass, fail, fail. It does not prove the rate-limit cause.
+Still failing: container smoke (SQL startup flake, above). Still running at this note: "Rules, web, T-SQL and .NET on real SQL".
+
+## Codex review on 16ab6f2: 2 more P2 findings (unverified)
+
+Source: PR 7 comment 6939029490. Static source read only.
+- **Customer sent on a sale without credit.** `sale.mjs:722` passes `payments.customerId`, and `sale-logic.mjs:29` keeps it whenever it is set. `V028__usd_change.sql:44-46` throws 52005 if a customer is present with no credit tender and the cashier lacks the `CASHIER` role. Static read: plausible checkout failure for non-cashier roles. Whether the UI keeps `customerId` after a switch away from credit is not checked.
+- **Historical sell-through changes after later returns.** `V027__usd_cash.sql:1079-1080` subtracts `ReturnedQuantity`, which counts all returns to date. Receipts and sales are bounded by `@end`, but returns are not. Static read: plausible.
+
+## Red reproduction of the 8 Codex findings (2026-11-17, local, uncommitted)
+
+Requested by Jason: "reproducí los 8 hallazgos de Codex en rojo". No product file changed.
+SQL ran on the local dev container `savia-sqlserver-dev` with fixture data; the container was stopped afterward.
+CI note: "Rules, web, T-SQL and .NET on real SQL" passed on 16ab6f2 (7m30s).
+
+| # | Finding | Test | Result |
+|---|---|---|---|
+| 1 | Taxed item cannot be paid at the catalog amount | `savia/db/tests/sales/184_sale_taxed_item_catalog_amount.sql` | RED: `Msg 51517 ... usp_PostSale` (Pagos no coinciden con total). The catalog returns 85000 and no tax rate; SQL needs 97750. |
+| 2 | Report subtracts tax-inclusive returns from tax-exclusive revenue | `savia/db/tests/sales/182_kpi_taxed_return_revenue.sql` | RED: `revenue excludes refunded tax expected=0 actual=-12750`. Net sales and net cost are 0. |
+| 3 | Stale import preview confirms the newer request | `savia/web/tests/pr7-codex-findings.test.mjs` (import) | RED: the older preview (111 rows) is displayed; the posted batch is the newer request's batch. |
+| 4 | Saved cash count cannot be corrected | `savia/db/tests/sales/180_cash_recount_before_close.sql` | RED: `Msg 2601 ... usp_SubmitCashCount`, duplicate key in `UX_CashCounts_TillSubmitted` (till, closing). |
+| 5 | USD-only closing difference not counted | `savia/db/tests/sales/181_kpi_usd_closure_difference.sql` | RED: `closure with a USD difference is counted expected=1 actual=0`. Setup asserts NIO difference 0 and USD -500. |
+| 6 | Late receipt response replaces the current screen | `savia/web/tests/pr7-codex-findings.test.mjs` (receipt) | RED: after navigation, root shows the receipt instead of `CURRENT SCREEN`. Active control passes. |
+| 7 | Customer sent on a sale without credit | `savia/web/tests/pr7-codex-findings.test.mjs` (payments) | NOT REPRODUCED: 2 scenarios green. `payments.mjs` `draw()` clears the customer when no row is credit, also when the kind changes during the credit lookup. The customer panel appears only with a credit row. |
+| 8 | Past sell-through changes after a later return | `savia/db/tests/sales/183_kpi_sell_through_later_return.sql` | RED: `past period keeps its sold unit after a later return expected=1 actual=0`. Sale and receipt moved to yesterday; return today. |
+
+Commands: `python savia/tools/db/saviadb.py test "sales/18"` (5 FAIL, as expected) and `node --test --test-reporter=tap savia/web/tests/pr7-codex-findings.test.mjs` (3 pass, 2 fail).
+Limits: finding 7 was tested at the payments component, not through the full sale screen or the API. Tests are plain red, without `XFAIL` markers; they must not be committed as-is because they would fail CI.
+Next: fixes are product changes and need Jason's authority. Each fix must turn its test green without changing the assertion.
