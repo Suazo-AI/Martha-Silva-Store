@@ -56,8 +56,9 @@ def main(argv=None):
                 raise ValueError('Missing npm: install npm and add it to PATH.')
             run([npm, 'ci', '--prefix', 'tests/frontend-deps',
                  '--registry=https://registry.npmjs.org', '--ignore-scripts', '--no-audit', '--no-fund'])
-        if not (ROOT / 'tests/frontend-deps/node_modules/jsdom/package.json').is_file():
-            raise ValueError('Missing jsdom: run python tests/check.py --install first.')
+        for dependency in ('jsdom', 'fast-check'):
+            if not (ROOT / 'tests/frontend-deps/node_modules' / dependency / 'package.json').is_file():
+                raise ValueError(f'Missing {dependency}: run python tests/check.py --install first.')
         run([node, '--version'])
         run([sys.executable, '--version'])
         stage('Reproducible snapshot build')
@@ -66,6 +67,8 @@ def main(argv=None):
         check_fixture(ROOT)
         stage('Backend simulation')
         run([node, '--test', 'tests/backend.cjs'])
+        stage('Checkout state-machine properties (local demo only)')
+        run([node, '--test', 'tests/checkout-properties.cjs'])
         stage('Catalog expansion regression')
         run([node, '--test', 'tests/catalog-migration.cjs'])
         stage('Asset audit regression (not full catalog completion)')
