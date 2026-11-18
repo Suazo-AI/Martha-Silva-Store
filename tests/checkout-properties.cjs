@@ -157,3 +157,25 @@ test('duplicate payment calls cannot double debit stock in one JS instance',asyn
     assert.equal(row.reserved,0);
   }),{seed:seed+1,numRuns:runs,...pathOption});
 });
+test('full returns and refund retries preserve stock for varied quantities',async()=>{
+  await fc.assert(fc.asyncProperty(fc.integer({min:1,max:3}),fc.boolean(),async(q,restock)=>{
+    const r=setup();
+    await r.api('/api/cart/items',{variant_id:r.vid,quantity:q},'PATCH');
+    const quote=await r.api('/api/quote',{delivery_zone:'managua'});
+    const {order}=await r.api('/api/orders',{quote_id:quote.id,idempotency_key:'refund-fixture',contact,address});
+    await r.api('/api/orders/'+order.id+'/test-payment',{outcome:'approved'});
+    for(const status of ['preparing','shipped','delivered'])
+      await r.api('/api/admin/orders/'+order.id+'/fulfill',{status,tracking:'FIXTURE'});
+    const requested=await r.api('/api/orders/'+order.id+'/returns',{reason:'Fixture',lines:[{variant_id:r.vid,quantity:q}]});
+    await r.api('/api/admin/orders/'+order.id+'/returns/'+requested.return.id+'/receive',{});
+    const body={return_id:requested.return.id,restock};
+    const result=await r.api('/api/admin/orders/'+order.id+'/refund',body);
+    assert.equal(result.order.status,'refunded');
+    const before=(await r.api('/api/admin/inventory')).variants.find(v=>v.id===r.vid);
+    assert.equal(before.stock,r.initial-q+(restock?q:0));
+    await r.api('/api/admin/orders/'+order.id+'/refund',{return_id:requested.return.id,restock:!restock});
+    const after=(await r.api('/api/admin/inventory')).variants.find(v=>v.id===r.vid);
+    assert.equal(after.stock,before.stock);
+    assert.equal(after.reserved,0);
+  }),{seed:seed+2,numRuns:runs,...pathOption});
+});
