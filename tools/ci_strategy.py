@@ -114,11 +114,12 @@ def classify(paths: list[str]) -> dict:
         if risk:
             critical.append(p)
     # Cross-cutting changes and unknown paths exercise both fixed fast-test families.
-    cross = bool(areas & {"platform"}) and bool(
-        critical or unknown
-    ) and any(p.startswith((".github/", ".githooks/", "tools/")) or p in (
-        "AGENTS.md", "global.json", "package.json", "package-lock.json", "wrangler.jsonc"
-    ) for p in unique)
+    # Unknown paths always exercise both fixed suites rather than a silent skip.
+    cross = bool(unknown) or any(
+        p.startswith((".github/", ".githooks/", "tools/")) or p in (
+            "AGENTS.md", "global.json", "package.json", "package-lock.json", "wrangler.jsonc"
+        ) for p in unique
+    )
     storefront = "storefront" in areas or "backend" in areas or cross
     savia = bool(areas & {"savia-web", "savia-core"}) or cross
     return {

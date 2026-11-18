@@ -16,3 +16,9 @@
 - Initial selector misrouted `tests/golden-path/` and omitted SAVIA fast tests for `savia/demo/` and `savia/deploy/`; add explicit mappings and 20 representative historical samples.
 - Initial rename and parent-symlink handling could hide sensitive old paths or leave checkout; include both rename paths, reject ancestor symlinks and casefold collisions.
 - Existing full CI, rulesets, agent credentials and deployments remain untouched; independent branch rules still require owner approval.
+
+## 2026-11-18 — Red/green CI correction (route classification)
+
+- Red proof: G1 on PR run `44392626090` / job `135114013758`, head `81dbdfc`, executed 32 tests; `test_workflow_and_unknown_changes_are_cross_cutting` failed because `unknown/entry.py` was critical but selected neither storefront nor SAVIA. The push job reproduced the same failure.
+- Corrective change: unknown paths now select both fixed fast-test families. Keep the negative regression test unchanged and rerun GitHub Actions against a fresh exact SHA.
+- Separate process issue: `Progress digest` run `44392626162` failed because the PR had moved out of draft and lacked mandatory headings (`Por qué`, `Alternativas`, `Evidencia`, `Qué falta`). Updated PR description; do not change the progress validator to pass.
