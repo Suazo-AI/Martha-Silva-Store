@@ -160,6 +160,8 @@ class SelectionHardening(unittest.TestCase):
         self.assertIn("tools/ci_strategy.py gate2-check", workflow)
         self.assertIn("permissions:\n  contents: read", workflow)
         self.assertNotIn("pull_request_target:", workflow)
+        self.assertIn("  pull_request:\n    branches: [Tony, main]", workflow)
+        self.assertNotIn("  push:\n", workflow)
 
 
 class ReleaseHardening(unittest.TestCase):

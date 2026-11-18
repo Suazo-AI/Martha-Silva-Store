@@ -22,3 +22,7 @@
 - Red proof: G1 on PR run `44392626090` / job `135114013758`, head `81dbdfc`, executed 32 tests; `test_workflow_and_unknown_changes_are_cross_cutting` failed because `unknown/entry.py` was critical but selected neither storefront nor SAVIA. The push job reproduced the same failure.
 - Corrective change: unknown paths now select both fixed fast-test families. Keep the negative regression test unchanged and rerun GitHub Actions against a fresh exact SHA.
 - Separate process issue: `Progress digest` run `44392626162` failed because the PR had moved out of draft and lacked mandatory headings (`Por qué`, `Alternativas`, `Evidencia`, `Qué falta`). Updated PR description; do not change the progress validator to pass.
+
+## 2026-11-18 — Avoid duplicate fast CI
+
+- Observed the same head SHA produced both a spike `push` and a PR run with identical G1/G2 test families. This doubles runner scheduling and log noise without increasing distinct coverage. Removed the spike push trigger. The PR `synchronize` event remains mandatory; existing full mainline push workflows are unchanged.

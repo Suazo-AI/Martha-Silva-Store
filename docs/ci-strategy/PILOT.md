@@ -6,7 +6,7 @@
 
 | Stage | Proposed execution | Activation state |
 | --- | --- | --- |
-| G1 | Exact PR-head SHA verification, rename-aware changed-path classifier, source syntax, whitespace and adversarial gate tests | New `ci-strategy-pilot.yml`, active on its own `spike/ci-strategy-*` branch after workflow commit; other branches only after approved integration |
+| G1 | Exact PR-head SHA verification, rename-aware changed-path classifier, source syntax, whitespace and adversarial gate tests | New `ci-strategy-pilot.yml`, PR-only check, active for this PR to Tony; after integration, active for other PRs to Tony/main |
 | G2 | Selected storefront or SAVIA architecture/Node tests with 5-minute limits; selected-but-skipped jobs fail | New pilot, **advisory**; existing full PR workflows remain authoritative |
 | G3 | Existing `ci.yml`, `backend.yml`, `savia-v2.yml`, `savia.yml`, `golden-path.yml` and any approved merge queue | Not changed; verify required outcomes on *exact* integration commit |
 | G4 | Read-only `release-check` always rejects unauthenticated JSON; `audit-main` checks current main and remote check metadata without certifying release | No release, canary, deployment, or automatic artifact promotion |
@@ -75,3 +75,7 @@ EVIDENCE: GitHub commit/CI links must be attached after an actual run; local com
 ## Hardening version 2
 
 The initial pilot had four important defects despite green CI: GitHub PR synthetic-merge checkout could be confused with its reported head SHA; selected G2 jobs could be skipped without failing the summary; renames omitted old sensitive file paths; and hand-written JSON could appear to certify release readiness. The revised checks explicitly fail for those cases. [Threat model](THREAT-MODEL.md), [20-commit path sample](HISTORY-AUDIT.md), and `tests/test_ci_strategy_hardening.py` document the evidence and limitations. The pilot remains advisory; existing deep SQL/browser/authorization checks remain the merge-quality authority.
+
+## Reducing duplicate CI
+
+The first pilot ran two identical selected-test suites per commit (one `push` and one `pull_request`). The final candidate removes the spike push trigger and runs the fast advisory workflow once per PR update. Existing trusted branch/mainline push workflows remain unchanged. This prevents duplicate advisory jobs without skipping the PR event. A pre-PR branch push alone does not trigger this pilot; that is deliberate.

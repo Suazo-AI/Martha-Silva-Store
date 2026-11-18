@@ -1,11 +1,9 @@
 name: AI-native CI pilot (G1 + G2)
 
 # G1/G2 only. G3 uses existing integration suites. G4 is manual, never deploys here.
-# The isolated spike branch trigger verifies the candidate without modifying Tony/main.
+# Only PR events: pushing a branch with an open PR must not run duplicate CI.
+# Direct trusted integration/mainline pushes keep their pre-existing full workflows.
 on:
-  push:
-    branches:
-      - 'spike/ci-strategy-*'
   pull_request:
     branches: [Tony, main]
 
