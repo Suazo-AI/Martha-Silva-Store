@@ -18,3 +18,8 @@
 | `docs/ci-strategy/PILOT.md` | Rollout and verification procedure | Pilot boundaries and required owner decisions |
 
 `examples/` is intentionally absent. Add only user-approved examples. Avoid copying runner logs into policy files or creating another publisher.
+
+| `tests/test_ci_strategy_hardening.py` | Adversarial cases: symlinks, renames, exact SHA, skipped jobs, forged receipts, representative historic paths | Runs with all CI-strategy unit tests in G1 |
+| `docs/ci-strategy/THREAT-MODEL.md` | Threats, mitigations, external-evidence boundaries | No deploy authorization |
+| `docs/ci-strategy/HISTORY-AUDIT.md` | 20 actual Tony commits with one sampled path each | Not a full PR test-recall benchmark |
+| `tools/ci_strategy.py audit-main --sha SHA` | Independently fetch GitHub API check metadata for current main | Never validates artifact content or business consent |

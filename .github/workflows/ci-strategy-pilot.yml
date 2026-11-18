@@ -30,12 +30,17 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
+          # GitHub PR defaults to refs/pull/N/merge; bind source code to the reported head SHA.
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 1
       - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
           python-version: '3.12'
+      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        with:
+          node-version: '24'
       - name: Test the gate itself (stdlib, no network)
-        run: python3 -m unittest discover -s tests -p 'test_ci_strategy.py' -v
+        run: python3 -m unittest discover -s tests -p 'test_ci_strategy*.py' -v
       - name: Select impacted checks and run syntax verification
         id: select
         shell: bash
@@ -47,6 +52,7 @@ jobs:
           base="$EVENT_BASE"
           head="$EVENT_HEAD"
           [[ "$head" =~ ^[a-fA-F0-9]{40}$ ]] || exit 2
+          [[ "$(git rev-parse HEAD)" == "$head" ]] || { echo "::error::Checked-out tree differs from declared head SHA"; exit 2; }
           if [[ ! "$base" =~ ^[a-fA-F0-9]{40}$ ]] || [[ "$base" =~ ^0{40}$ ]]; then
             # New spike branch: compare against current Tony, not the empty before SHA.
             base="$(git ls-remote origin refs/heads/Tony | cut -f1)"
@@ -74,6 +80,7 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:
           persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
           node-version: '24'
@@ -95,13 +102,18 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:
           persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405
         with:
           python-version: '3.12'
-      - name: Architecture and tool checks (no SQL)
+      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        with:
+          node-version: '24'
+      - name: Architecture, tools and selected browser-free JS regressions (no SQL)
         run: |
           python3 savia/tools/rules.py
           python3 -m unittest discover -s savia/tests -p 'test_*.py'
+          node --test savia/web/tests/uuid.test.mjs savia/web/tests/sale-recovery.test.mjs
 
   gate2-result:
     name: G2 selected-test summary (advisory)
@@ -115,7 +127,13 @@ jobs:
       SAVIA_RESULT: ${{ needs['gate2-savia'].result }}
       RISK: ${{ needs.gate1.outputs.risk }}
       FULL_REQUIRED: ${{ needs.gate1.outputs.requires_full }}
+      SELECT_FRONT: ${{ needs.gate1.outputs.run_storefront }}
+      SELECT_SAVIA: ${{ needs.gate1.outputs.run_savia }}
     steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - name: Block a falsely green fast pipeline
         shell: bash
         run: |
@@ -128,6 +146,7 @@ jobs:
             echo "Full validation additionally required: $FULL_REQUIRED"
             echo 'This pilot is NOT a required branch protection check or a release certificate.'
           } >> "$GITHUB_STEP_SUMMARY"
-          test "$G1_RESULT" = success
-          [[ "$FRONT_RESULT" = success || "$FRONT_RESULT" = skipped ]]
-          [[ "$SAVIA_RESULT" = success || "$SAVIA_RESULT" = skipped ]]
+          python3 tools/ci_strategy.py gate2-check \
+            --g1 "$G1_RESULT" --storefront-selected "$SELECT_FRONT" \
+            --savia-selected "$SELECT_SAVIA" --storefront-result "$FRONT_RESULT" \
+            --savia-result "$SAVIA_RESULT"

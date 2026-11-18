@@ -6,10 +6,10 @@
 
 | Stage | Proposed execution | Activation state |
 | --- | --- | --- |
-| G1 | Changed-path classifier, source syntax, diff whitespace, unit tests of gates | New `ci-strategy-pilot.yml`, active on its own `spike/ci-strategy-*` branch after workflow commit; other branches only after approved integration |
-| G2 | Selected storefront or SAVIA architecture tests with 5-minute limits | New pilot, **advisory**; existing full PR workflows remain authoritative |
+| G1 | Exact PR-head SHA verification, rename-aware changed-path classifier, source syntax, whitespace and adversarial gate tests | New `ci-strategy-pilot.yml`, active on its own `spike/ci-strategy-*` branch after workflow commit; other branches only after approved integration |
+| G2 | Selected storefront or SAVIA architecture/Node tests with 5-minute limits; selected-but-skipped jobs fail | New pilot, **advisory**; existing full PR workflows remain authoritative |
 | G3 | Existing `ci.yml`, `backend.yml`, `savia-v2.yml`, `savia.yml`, `golden-path.yml` and any approved merge queue | Not changed; verify required outcomes on *exact* integration commit |
-| G4 | Read-only `release-check` rejects stale SHA, missing evidence, skipped check and missing approval | No release, canary, deployment, or automatic artifact promotion |
+| G4 | Read-only `release-check` always rejects unauthenticated JSON; `audit-main` checks current main and remote check metadata without certifying release | No release, canary, deployment, or automatic artifact promotion |
 | Failure loop | Existing bug-intake → issue dedup → bug-agent → bugproof → isolated draft PR | Depends on default-branch integration and explicit approved agent authentication; not activated by this PR |
 | Ongoing prioritization | Existing six-hour ChatGPT development task | Reuse it; no new schedule |
 
@@ -28,7 +28,8 @@ printf '["src/demo-api.js","docs/CI-CD.md"]' > /tmp/changed-paths.json
 python3 tools/ci_strategy.py plan --files-json /tmp/changed-paths.json
 
 # Read-only release evaluation against a private receipt (does not deploy)
-python3 tools/ci_strategy.py release-check --receipt /path/to/private-receipt.json
+python3 tools/ci_strategy.py release-check --receipt /path/to/private-receipt.json  # always returns nonzero
+python3 tools/ci_strategy.py audit-main --sha <MAIN_SHA>  # read-only GitHub check metadata
 ```
 
 ## Risk-aware selection contract
@@ -44,7 +45,7 @@ python3 tools/ci_strategy.py release-check --receipt /path/to/private-receipt.js
 
 The offline `release-check` expects a JSON object with a `main` branch, exact `commit_sha`/`artifact_sha`, completed successful check runs bound to that SHA, and booleans explicitly confirming: human approval, tested rollback, business acceptance, telemetry, SQL runtime, and payment sandbox verification. Its required check names are fixed in `tools/ci_strategy.py`.
 
-**Warning:** A user-supplied receipt is not an authenticated source. Even a structurally passing receipt is only **eligible for manual review**. Real release acceptance also requires fetching check runs from trusted GitHub API, verifying artifact content/digest, owner sign-off and the production plan. This pilot does none of those external actions.
+**Warning:** User-supplied JSON never authenticates check runs, artifacts or sign-offs; release-check always returns nonzero. Even a passing read-only audit-main never authorizes a release. Real release acceptance also requires fetching check runs from trusted GitHub API, verifying artifact content/digest, owner sign-off and the production plan. This pilot does none of those external actions.
 
 ## Adopt in phases, never silently replace CI
 
@@ -61,7 +62,7 @@ The offline `release-check` expects a JSON object with a `main` branch, exact `c
 - A stale, skipped, duplicate or missing check produces nonzero release-check exit.
 - Empty test selection fails rather than silently skipping every check.
 - No production source files, SQL migrations, tokens or deployment workflow are modified.
-- GitHub PR remains draft and both CI results and the SHA are independently inspected before handoff.
+- GitHub PR remains open and unmerged (draft status may change). Inspect both CI results and the exact SHA before handoff.
 
 ## Handoff
 
@@ -70,3 +71,7 @@ DONE: Fixed-rule risk selector, syntax guard, sample impact tests, offline relea
 NEXT: Validate the isolated workflow in GitHub; review false negatives; integrate only with approval.
 BLOCKER: Main/Tony integration, branch policy, provider authorization, real SQL/browser/payment acceptance.
 EVIDENCE: GitHub commit/CI links must be attached after an actual run; local commands are not remote evidence.
+
+## Hardening version 2
+
+The initial pilot had four important defects despite green CI: GitHub PR synthetic-merge checkout could be confused with its reported head SHA; selected G2 jobs could be skipped without failing the summary; renames omitted old sensitive file paths; and hand-written JSON could appear to certify release readiness. The revised checks explicitly fail for those cases. [Threat model](THREAT-MODEL.md), [20-commit path sample](HISTORY-AUDIT.md), and `tests/test_ci_strategy_hardening.py` document the evidence and limitations. The pilot remains advisory; existing deep SQL/browser/authorization checks remain the merge-quality authority.

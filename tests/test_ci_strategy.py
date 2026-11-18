@@ -24,7 +24,8 @@ class PlanTests(unittest.TestCase):
     def test_frontend_selects_adapter_tests(self):
         p = ci.classify(['src/demo-api.js', 'build-inputs/static/index.html'])
         self.assertTrue(p['run_storefront'])
-        self.assertEqual(p['risk'], 'normal')
+        self.assertEqual(p['risk'], 'critical')
+        self.assertTrue(p['requires_full'])
 
     def test_security_payments_and_db_cannot_skip_full_tests(self):
         for path in ('savia/db/migrations/V034.sql', 'backend/src/Orders.cs',
@@ -88,8 +89,10 @@ class ReleaseTests(unittest.TestCase):
                     commercial_acceptance=True, telemetry_ready=True,
                     sql_real_verified=True, payment_sandbox_verified=True)
 
-    def test_full_synthetic_receipt_is_structurally_eligible_but_does_not_deploy(self):
-        self.assertEqual(ci.evaluate_release(self.receipt()), (True, []))
+    def test_all_green_self_attested_receipt_is_still_rejected(self):
+        allowed, issues = ci.evaluate_release(self.receipt())
+        self.assertFalse(allowed)
+        self.assertIn(ci.RELEASE_BLOCKER, issues)
 
     def test_stale_duplicated_or_skipped_check_fails(self):
         for mode in ('stale', 'skip', 'duplicate', 'missing'):
@@ -123,7 +126,7 @@ class ReleaseTests(unittest.TestCase):
             receipt.write_text(json.dumps({'commit_sha': 'x'}))
             result = subprocess.run([sys.executable, str(SCRIPT), 'release-check', '--receipt', str(receipt)], capture_output=True, text=True)
             self.assertEqual(result.returncode, 2)
-            self.assertFalse(json.loads(result.stdout)['eligible_for_manual_review'])
+            self.assertFalse(json.loads(result.stdout)['release_authorized'])
 
 
 if __name__ == '__main__':
