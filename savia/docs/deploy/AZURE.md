@@ -153,6 +153,8 @@ Full suite on `4a8c563` with the dev SQL container: 184 of 185 passed; the API r
 First Azure migration, 2026-11-20: V001-V030 applied on Azure SQL Basic, including the Change Tracking files V008 and V011 (F14 closed).
 The grant step then failed with SQL error 33134: `FROM EXTERNAL PROVIDER ... WITH OBJECT_ID` still needs a server identity with Directory Readers.
 The migrator now takes `--client-id` and runs `CREATE USER ... WITH SID = <client id bytes>, TYPE = E`, the same rule the server admin uses.
+Second Azure run on `9a55759`, 2026-11-20: migration job `caj-savia-migrate-446uc0l` succeeded, including the API user grant.
+Live checks: `smoke.ps1` PASS; `/health` 200; `/health/ready` 200; CSP and HSTS present; 10 bad sign-ins from one address in a minute, then 429.
 ACR Tasks are blocked on the trial subscription (`TasksOperationsNotAllowed`), so images are built with local Docker and pushed.
 
 | ID | File | Change | Reason |
