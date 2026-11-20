@@ -10,7 +10,7 @@
     "hubNodeId": { "value": "REPLACE-WITH-A-NEW-GUID-FOR-THE-CLOUD-NODE" },
     "sqlSku": { "value": { "name": "Basic", "tier": "Basic", "capacity": 5 } },
     "backupRetentionDays": { "value": 7 },
-    "backupRedundancy": { "value": "Geo" },
+    "backupRedundancy": { "value": "Zone" },
     "apiMinReplicas": { "value": 0 },
     "githubRepository": { "value": "Suazo-AI/Martha-Silva-Store" },
     "githubEnvironment": { "value": "production" },

@@ -96,7 +96,8 @@ If cookies are ever added, they must be `Secure`, `HttpOnly` and `SameSite=Stric
 ## Database backups and restore
 
 Azure SQL takes automatic backups; the template keeps 7 days of point-in-time restore (PITR), the Basic maximum.
-Backup storage is geo-redundant by default, so a restore is possible after a regional outage.
+Backup storage is zone-redundant in `mexicocentral`: Azure refuses geo-redundant backups there (`ProvisioningDisabled`, 2026-11-20).
+Zone backups survive the loss of one datacenter, not of the whole region; pick a paired region and `Geo` if that risk matters.
 Before every migration, `savia/deploy/migrate.ps1` records the PITR timestamp and makes a full database copy named `savia-premig-<run>`.
 To undo a bad migration, restore that copy or restore to the recorded timestamp into a new database, then point the app at it.
 Branch backups stay local in each store, as described in OPERACION.md.
@@ -144,7 +145,11 @@ A manual rollback is one command: `az containerapp ingress traffic set --revisio
 
 ## Code patches needed in existing files
 
-These files belong to the area another agent is editing, so this change does not touch them.
+Status on 2026-11-20, branch `savia/azure-hardening`: P1, P3 and P4 are done in `savia/src/Savia.Api/Hosting.cs`.
+The CSP also allows `blob:` and `data:` images, because the tag reader previews photos from `blob:` URLs.
+The proxy trust and the login limit are off by default; `main.bicep` turns them on (10 sign-ins per minute per address).
+Evidence: `dotnet test --filter HostingTests` passes 4 of 4 with SDK 10.0.402; the limiter test failed first, when options were read before `Build()`.
+Not proven locally: the SQL-backed suite, because Docker was down; CI runs it.
 
 | ID | File | Change | Reason |
 | --- | --- | --- | --- |

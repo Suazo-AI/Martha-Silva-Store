@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-20T10:36:44.600051+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/deploy/azure/main.bicep",
+      "change": "M",
+      "git_blob": "90fe4c1b24a19bc7ed7927c36f7cff044bff0422"
+    },
+    {
+      "path": "savia/deploy/azure/main.parameters.example.json",
+      "change": "M",
+      "git_blob": "539d0c7bb47e1b04938f6664af6bce53b8b27651"
+    },
+    {
+      "path": "savia/docs/deploy/AZURE.md",
+      "change": "M",
+      "git_blob": "d6f7459f800d599b8f6c939d4252700eb0523a15"
+    },
+    {
+      "path": "savia/docs/deploy/GAPS-20261120.md",
+      "change": "A",
+      "git_blob": "379567fcd2d8bdf8ae174448c9768500db32338f"
+    },
+    {
+      "path": "savia/src/Savia.Api/AuthEndpoints.cs",
+      "change": "M",
+      "git_blob": "9d70e4bf2ac0018df2aecacb1acc7b25d775171b"
+    },
+    {
+      "path": "savia/src/Savia.Api/Hosting.cs",
+      "change": "A",
+      "git_blob": "f11ba543fdaec10cf10d652a50d0875fbb26efb1"
+    },
+    {
+      "path": "savia/src/Savia.Api/Program.cs",
+      "change": "M",
+      "git_blob": "04e9972721b28c89117df98ad90d4cb9cc0cefc5"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/HostingTests.cs",
+      "change": "A",
+      "git_blob": "5727fa496c36a8c5c0c260a0ea207052a3859f8c"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

@@ -350,6 +350,14 @@ resource api 'Microsoft.App/containerApps@2024-03-01' = if (deployApps) {
               value: apiIdentity.properties.clientId
             }
             {
+              name: 'Savia__Proxy__TrustForwardedHeaders'
+              value: 'true'
+            }
+            {
+              name: 'Savia__Auth__LoginPerMinute'
+              value: '10'
+            }
+            {
               name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
               value: appInsights.properties.ConnectionString
             }
@@ -367,7 +375,7 @@ resource api 'Microsoft.App/containerApps@2024-03-01' = if (deployApps) {
             {
               type: 'Readiness'
               httpGet: {
-                path: '/health'
+                path: '/health/ready'
                 port: 8080
               }
               periodSeconds: 10
