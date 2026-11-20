@@ -14,18 +14,19 @@ using Microsoft.Data.SqlClient;
 // Connection string: environment variable Savia__Sql__ConnectionString. In Azure it carries no
 // secret ("Authentication=Active Directory Managed Identity"). It is never printed.
 //
-// Usage: Savia.Migrator [--plan] [--migrations DIR] [--grant-app-user NAME [--external [--object-id GUID]]]
+// Usage: Savia.Migrator [--plan] [--migrations DIR] [--grant-app-user NAME [--external [--client-id GUID]]]
 //   --plan                 report applied / pending / changed files; change nothing
 //   --grant-app-user NAME  after migrating, give database user NAME the API host permissions
 //   --external             create NAME as an Entra ID user (CREATE USER ... FROM EXTERNAL PROVIDER)
-//   --object-id GUID       with --external: the identity's object id, so SQL needs no Microsoft Graph lookup
+//   --client-id GUID       with --external: the identity's client id; the user is created from its SID
+//                          (TYPE = E), so the SQL server needs no Directory Readers role for a Graph lookup
 // Exit codes: 0 ok, 1 migration or check failed, 2 bad usage or configuration.
 
 var plan = args.Contains("--plan");
 var external = args.Contains("--external");
 var migrationsDir = Option("--migrations") ?? Environment.GetEnvironmentVariable("SAVIA_MIGRATIONS_DIR") ?? Path.Combine(AppContext.BaseDirectory, "migrations");
 var appUser = Option("--grant-app-user");
-var objectId = Option("--object-id");
+var clientId = Option("--client-id");
 var connectionString = Environment.GetEnvironmentVariable("Savia__Sql__ConnectionString");
 
 if (string.IsNullOrWhiteSpace(connectionString))
@@ -34,8 +35,8 @@ if (!Directory.Exists(migrationsDir))
     return Fail(2, $"migrations folder not found: {migrationsDir}");
 if (appUser is not null && !Regex.IsMatch(appUser, "^[A-Za-z0-9_.-]{1,120}$"))
     return Fail(2, "--grant-app-user must be 1-120 letters, digits, '_', '.' or '-'.");
-if (objectId is not null && (!external || !Guid.TryParse(objectId, out _)))
-    return Fail(2, "--object-id needs --external and a GUID.");
+if (clientId is not null && (!external || !Guid.TryParse(clientId, out _)))
+    return Fail(2, "--client-id needs --external and a GUID.");
 
 var files = Directory.GetFiles(migrationsDir, "V*.sql")
     .Select(path => new Migration(path))
@@ -101,7 +102,7 @@ try
 
     if (appUser is not null)
     {
-        await GrantAppUser(connection, appUser, external, objectId);
+        await GrantAppUser(connection, appUser, external, clientId);
         Console.WriteLine($"migrate: API host permissions ensured for user {appUser}");
     }
     return 0;
@@ -151,11 +152,16 @@ static async Task<Dictionary<string, string>> ReadLedger(SqlConnection connectio
 // Least privilege for the API host, derived from savia/src: it reads views and tables, executes
 // procedures, and writes security.Sessions and the sign-in columns of security.Staff directly
 // (savia/src/Savia.Infrastructure/Auth.cs). It never runs DDL. Idempotent.
-static async Task GrantAppUser(SqlConnection connection, string user, bool external, string? objectId)
+static async Task GrantAppUser(SqlConnection connection, string user, bool external, string? clientId)
 {
     var quoted = "[" + user.Replace("]", "]]") + "]";
-    var withObjectId = objectId is null ? "" : $" WITH OBJECT_ID = '{Guid.Parse(objectId)}'";
-    var create = external ? $"CREATE USER {quoted} FROM EXTERNAL PROVIDER{withObjectId};" : $"CREATE USER {quoted} FOR LOGIN {quoted};";
+    var create = (external, clientId) switch
+    {
+        (true, null) => $"CREATE USER {quoted} FROM EXTERNAL PROVIDER;",
+        // Entra SID of a service principal = its client id bytes, the same rule the server admin uses in main.bicep.
+        (true, _) => $"CREATE USER {quoted} WITH SID = 0x{Convert.ToHexString(Guid.Parse(clientId).ToByteArray())}, TYPE = E;",
+        _ => $"CREATE USER {quoted} FOR LOGIN {quoted};",
+    };
     await Exec(connection, $"""
         IF DATABASE_PRINCIPAL_ID(N'{user}') IS NULL {create}
         IF DATABASE_PRINCIPAL_ID(N'savia_api_host') IS NULL CREATE ROLE [savia_api_host] AUTHORIZATION [dbo];

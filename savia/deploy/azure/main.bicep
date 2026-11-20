@@ -449,8 +449,8 @@ resource migrateJob 'Microsoft.App/jobs@2024-03-01' = if (deployApps) {
             '--grant-app-user'
             apiIdentity.name
             '--external'
-            '--object-id'
-            apiIdentity.properties.principalId
+            '--client-id'
+            apiIdentity.properties.clientId
           ]
           resources: {
             cpu: json('0.5')

@@ -24,6 +24,20 @@ public sealed class SqlGateway(string connectionString)
     public Task ExecProcAsync(string procedure, CancellationToken ct, params SqlParameter[] parameters) =>
         RunAsync(procedure, CommandType.StoredProcedure, parameters, async cmd => { await cmd.ExecuteNonQueryAsync(ct); return 0; }, ct);
 
+    /// <summary>True when SQL answers <c>SELECT 1</c>; the readiness probe uses it.</summary>
+    public async Task<bool> CanConnectAsync(CancellationToken ct)
+    {
+        try
+        {
+            await ExecAsync("SELECT 1", ct);
+            return true;
+        }
+        catch (Exception) when (!ct.IsCancellationRequested)
+        {
+            return false;
+        }
+    }
+
     public Task<int> ExecAsync(string sql, CancellationToken ct, params SqlParameter[] parameters) =>
         RunAsync(sql, CommandType.Text, parameters, cmd => cmd.ExecuteNonQueryAsync(ct), ct);
 

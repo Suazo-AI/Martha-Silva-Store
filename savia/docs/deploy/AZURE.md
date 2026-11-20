@@ -149,7 +149,11 @@ Status on 2026-11-20, branch `savia/azure-hardening`: P1, P3 and P4 are done in 
 The CSP also allows `blob:` and `data:` images, because the tag reader previews photos from `blob:` URLs.
 The proxy trust and the login limit are off by default; `main.bicep` turns them on (10 sign-ins per minute per address).
 Evidence: `dotnet test --filter HostingTests` passes 4 of 4 with SDK 10.0.402; the limiter test failed first, when options were read before `Build()`.
-Not proven locally: the SQL-backed suite, because Docker was down; CI runs it.
+Full suite on `4a8c563` with the dev SQL container: 184 of 185 passed; the API referenced SqlClient, so the ping moved into `SqlGateway.CanConnectAsync`.
+First Azure migration, 2026-11-20: V001-V030 applied on Azure SQL Basic, including the Change Tracking files V008 and V011 (F14 closed).
+The grant step then failed with SQL error 33134: `FROM EXTERNAL PROVIDER ... WITH OBJECT_ID` still needs a server identity with Directory Readers.
+The migrator now takes `--client-id` and runs `CREATE USER ... WITH SID = <client id bytes>, TYPE = E`, the same rule the server admin uses.
+ACR Tasks are blocked on the trial subscription (`TasksOperationsNotAllowed`), so images are built with local Docker and pushed.
 
 | ID | File | Change | Reason |
 | --- | --- | --- | --- |

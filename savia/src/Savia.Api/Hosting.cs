@@ -69,17 +69,9 @@ public static class SaviaHosting
     public static void MapSaviaHealth(this WebApplication app)
     {
         app.MapGet("/health", () => Results.Ok(new { status = "ok" })).ExcludeFromDescription();
-        app.MapGet("/health/ready", async (SqlGateway sql, CancellationToken ct) =>
-        {
-            try
-            {
-                await sql.ExecAsync("SELECT 1", ct);
-                return Results.Ok(new { status = "ready" });
-            }
-            catch (Exception) when (!ct.IsCancellationRequested)
-            {
-                return Results.Json(new { status = "database unavailable" }, statusCode: StatusCodes.Status503ServiceUnavailable);
-            }
-        }).ExcludeFromDescription();
+        app.MapGet("/health/ready", async (SqlGateway sql, CancellationToken ct) => await sql.CanConnectAsync(ct)
+            ? Results.Ok(new { status = "ready" })
+            : Results.Json(new { status = "database unavailable" }, statusCode: StatusCodes.Status503ServiceUnavailable))
+            .ExcludeFromDescription();
     }
 }
