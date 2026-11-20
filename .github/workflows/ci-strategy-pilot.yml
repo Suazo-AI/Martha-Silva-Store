@@ -1,0 +1,150 @@
+name: AI-native CI pilot (G1 + G2)
+
+# G1/G2 only. G3 uses existing integration suites. G4 is manual, never deploys here.
+# Only PR events: pushing a branch with an open PR must not run duplicate CI.
+# Direct trusted integration/mainline pushes keep their pre-existing full workflows.
+on:
+  pull_request:
+    branches: [Tony, main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-strategy-pilot-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gate1:
+    name: G1 policy, syntax and impact
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      run_storefront: ${{ steps.select.outputs.run_storefront }}
+      run_savia: ${{ steps.select.outputs.run_savia }}
+      requires_full: ${{ steps.select.outputs.requires_full }}
+      risk: ${{ steps.select.outputs.risk }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+          # GitHub PR defaults to refs/pull/N/merge; bind source code to the reported head SHA.
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 1
+      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        with:
+          node-version: '24'
+      - name: Test the gate itself (stdlib, no network)
+        run: python3 -m unittest discover -s tests -p 'test_ci_strategy*.py' -v
+      - name: Select impacted checks and run syntax verification
+        id: select
+        shell: bash
+        env:
+          EVENT_BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+          EVENT_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          base="$EVENT_BASE"
+          head="$EVENT_HEAD"
+          [[ "$head" =~ ^[a-fA-F0-9]{40}$ ]] || exit 2
+          [[ "$(git rev-parse HEAD)" == "$head" ]] || { echo "::error::Checked-out tree differs from declared head SHA"; exit 2; }
+          if [[ ! "$base" =~ ^[a-fA-F0-9]{40}$ ]] || [[ "$base" =~ ^0{40}$ ]]; then
+            # New spike branch: compare against current Tony, not the empty before SHA.
+            base="$(git ls-remote origin refs/heads/Tony | cut -f1)"
+          fi
+          [[ "$base" =~ ^[a-fA-F0-9]{40}$ ]] || exit 2
+          git fetch --no-tags --depth=1 origin "$base" "$head"
+          python3 tools/ci_strategy.py plan --base "$base" --head "$head" --output "$GITHUB_OUTPUT" > "$RUNNER_TEMP/ci-plan.json"
+          python3 tools/ci_strategy.py static --base "$base" --head "$head"
+          git diff --check "$base" "$head"
+          {
+            echo '### Gate 1 - changed-path risk and fixed test selection'
+            echo '~~~json'
+            cat "$RUNNER_TEMP/ci-plan.json"
+            echo '~~~'
+            echo 'Gate 3 full suites and Gate 4 release approval remain separate.'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  gate2-storefront:
+    name: G2 impacted storefront tests
+    needs: gate1
+    if: needs.gate1.outputs.run_storefront == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405
+        with:
+          python-version: '3.12'
+      - name: Local backend and catalog behavior, without jsdom or a live service
+        run: |
+          node --test tests/backend.cjs tests/catalog-migration.cjs
+          python3 tests/test_check.py
+
+  gate2-savia:
+    name: G2 impacted SAVIA architecture and tool tests
+    needs: gate1
+    if: needs.gate1.outputs.run_savia == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        with:
+          node-version: '24'
+      - name: Architecture, tools and selected browser-free JS regressions (no SQL)
+        run: |
+          python3 savia/tools/rules.py
+          python3 -m unittest discover -s savia/tests -p 'test_*.py'
+          node --test savia/web/tests/uuid.test.mjs savia/web/tests/sale-recovery.test.mjs
+
+  gate2-result:
+    name: G2 selected-test summary (advisory)
+    needs: [gate1, gate2-storefront, gate2-savia]
+    if: always()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    env:
+      G1_RESULT: ${{ needs.gate1.result }}
+      FRONT_RESULT: ${{ needs['gate2-storefront'].result }}
+      SAVIA_RESULT: ${{ needs['gate2-savia'].result }}
+      RISK: ${{ needs.gate1.outputs.risk }}
+      FULL_REQUIRED: ${{ needs.gate1.outputs.requires_full }}
+      SELECT_FRONT: ${{ needs.gate1.outputs.run_storefront }}
+      SELECT_SAVIA: ${{ needs.gate1.outputs.run_savia }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Block a falsely green fast pipeline
+        shell: bash
+        run: |
+          set -euo pipefail
+          {
+            echo "Gate 1: $G1_RESULT"
+            echo "Gate 2 storefront: $FRONT_RESULT"
+            echo "Gate 2 SAVIA: $SAVIA_RESULT"
+            echo "Risk classification: $RISK"
+            echo "Full validation additionally required: $FULL_REQUIRED"
+            echo 'This pilot is NOT a required branch protection check or a release certificate.'
+          } >> "$GITHUB_STEP_SUMMARY"
+          python3 tools/ci_strategy.py gate2-check \
+            --g1 "$G1_RESULT" --storefront-selected "$SELECT_FRONT" \
+            --savia-selected "$SELECT_SAVIA" --storefront-result "$FRONT_RESULT" \
+            --savia-result "$SAVIA_RESULT"
