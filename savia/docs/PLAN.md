@@ -18,12 +18,12 @@ Cada fila de esta tabla es una prueba que puede fallar. Sin prueba ejecutada no 
 | A-01 | El SQL instala desde cero sin errores | Un procedimiento no compila | `saviadb.py` + CP0 | verificado en una base |
 | A-02 | 100 lecturas del mismo código suman 100 en una línea | 100 SKU, o stock antes de aprobar | `db/tests/receiving/010` | verificado en una base |
 | A-03 | La caja vende con la nube apagada y deja registro para sincronizar | Espera a la nube o no deja registro | `VerticalSliceTests` | verificado en una base |
-| A-04 | Reintentar una sincronización no repite efectos | Doble stock o doble venta | Simulador con semillas | pendiente |
-| A-05 | Un anticipo transferido no se gasta en origen y destino | Doble canje | Simulador con semillas | pendiente |
+| A-04 | Reintentar una sincronización no repite efectos | Doble stock o doble venta | Simulador con semillas | pendiente: el simulador aún no repite lotes |
+| A-05 | Un anticipo transferido no se gasta en origen y destino | Doble canje | Simulador con semillas | verificado en el simulador: 3 semillas y `cancel_vs_dispatch` ([evidencia](evidence/cp4-sim-20261120/README.md)); transporte real pendiente |
 | A-06 | Arqueo y documento contable se registran una sola vez | Ingreso duplicado o segunda factura | `db/tests/sales/010` | verificado en una base |
 | A-07 | La etiqueta lleva el código original y la tienda; un trabajo no se pierde en silencio | Código alterado o trabajo descartado | `db/tests/receiving/010` (cola); impresora real | cola verificada; impresora NO probada |
 | A-08 | Una cajera de A no cambia datos de B | Acceso entre sucursales | `VerticalSliceTests` | verificado en el host de sucursal; falta la nube |
-| A-09 | Restaurar un respaldo viejo no revive derechos gastados | Saldo viejo canjeado otra vez | Simulador con semillas | pendiente |
+| A-09 | Restaurar un respaldo viejo no revive derechos gastados | Saldo viejo canjeado otra vez | Simulador con semillas | parcial: el saldo no revive; falta el evento de outbox de ventas recuperadas ([evidencia](evidence/cp4-sim-20261120/README.md)) |
 | A-10 | Rendimiento medido con 50 000 productos y 250 000 variantes | Solo afirmaciones teóricas | Prueba de carga | pendiente |
 
 "Verificado en una base" significa que la regla se cumple dentro de un nodo. Entre nodos falta CP4.
@@ -79,6 +79,7 @@ CRM sobre `crm.Customers`, tiempo real sobre el outbox, sitio sobre `webstore` y
 | 2026-11-12 | V010: decisiones de Jason sobre traslados (gana el despacho, pide cualquiera de las dos sucursales, búsqueda de anticipos) | `33f033b` |
 | 2026-11-12 | Piloto Masaya en localhost: API sirve la web del diseño 08, base de muestra, registro local de producto y rechazo de lectura (V012), módulo de escáner; flujo completo en navegador 12/12, 126 T-SQL, 26 .NET ([web](pilot/WEB.md), [API](pilot/API-PILOT.md), [escáner](pilot/SCANNER.md)); escáner físico, impresora y sync entre sucursales NO probados | ver `git log savia/` |
 | 2026-11-12 | CP4 simulador (en pausa, sin aceptar): V011 rastrea las 18 tablas sincronizadas; `tools/db/simulator.py` copia filas entre 4 bases; hallazgo abierto: el oráculo exige un evento de outbox local por cada venta replicada | ver `git log savia/` |
+| 2026-11-20 | CP4 simulador: V031 el oráculo exige evento de outbox solo para ventas del nodo local (rojo `audit/030`, 144 T-SQL); `basic`, `cancel_vs_dispatch` y semillas 1, 7, 42 pasan R1 y CONS; `restore_naive` falla como control rojo; `restore` deja un hallazgo abierto: ventas propias recuperadas sin evento ([evidencia](evidence/cp4-sim-20261120/README.md)) | ver `git log savia/` |
 | 2026-11-12 | Piloto ronda 2: historial, recibo, devolución con anticipo, pagos con tarjeta/transferencia/anticipo (simulados), clientes, reporte del día, una contraseña por cuenta, respaldo con restauración probada y script de arranque; 128 T-SQL, 34 .NET, navegador 18/18 ([operación](pilot/OPERACION.md)); devolución en efectivo NO existe en SQL | ver `git log savia/` |
 | 2026-11-12 | Roles reales, comisiones, historia de 60 días ([verificación](pilot/OWNER-ROLES-VERIFICATION.md)) | `7741309` |
 | 2026-11-12 | Foto de etiqueta con OCR local (6/6 por la API real, [ETIQUETA](pilot/ETIQUETA.md)) y Azure preparado sin desplegar ([AZURE](deploy/AZURE.md)); decisiones de traslados y apartados ([doc](pilot/TRASLADOS-APARTADOS.md)); teléfono real, escáner e impresora NO probados | ver `git log savia/` |

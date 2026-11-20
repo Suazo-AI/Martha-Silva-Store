@@ -147,13 +147,14 @@ EXEC sales.usp_OpenTill @TillId='{self.till[b]}',@RegisterId={self.i('register' 
         for c in self.credits:
             self.sql("a", f"EXEC test.SeedCredit @CreditId='{c}';")
         self.say(f"setup: 4 databases, tills open, 500 units per branch, credits {self.credits} (120000 each at A)")
+        self.converge()  # every node starts from the same rows, so a branch can see another branch's credit
 
     def load_meta(self):
         values = ",".join(f"(N'{t}')" for t, _ in TABLES)
         rows = self.fetch("cloud", f"""
 SET @out=(SELECT v.tn AS t,
   (SELECT d.name AS n,d.system_type_name AS ty FROM sys.dm_exec_describe_first_result_set(N'SELECT * FROM '+v.tn,NULL,0) d
-    WHERE d.system_type_name NOT IN ('timestamp','rowversion') ORDER BY d.column_ordinal FOR JSON PATH) AS c,
+    WHERE d.system_type_name NOT IN ('timestamp','rowversion') AND d.is_computed_column=0 ORDER BY d.column_ordinal FOR JSON PATH) AS c,
   (SELECT c.name AS n FROM sys.indexes i JOIN sys.index_columns ic ON ic.object_id=i.object_id AND ic.index_id=i.index_id
      JOIN sys.columns c ON c.object_id=ic.object_id AND c.column_id=ic.column_id
     WHERE i.object_id=OBJECT_ID(v.tn) AND i.is_primary_key=1 ORDER BY ic.key_ordinal FOR JSON PATH) AS k
@@ -292,6 +293,7 @@ SET @out=CONCAT(N'[',@changed,N']');""")
         except SqlError as e:
             if 50000 <= e.number <= 59999:
                 self.stats[f"rejected_{label}_{e.number}"] += 1
+                self.say(f"  {label} at {node}: rejected {e.number} {str(e).strip().splitlines()[-1][:160]}")
                 return False
             raise
 

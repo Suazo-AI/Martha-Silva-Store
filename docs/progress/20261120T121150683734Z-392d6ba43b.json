@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-20T12:11:50.683734+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/db/migrations/MANIFEST.sha256",
+      "change": "M",
+      "git_blob": "77d155ae30bc604aabb50881ee6123a5b5a897cd"
+    },
+    {
+      "path": "savia/db/migrations/V031__oracle_replicated_sales.sql",
+      "change": "A",
+      "git_blob": "d10da02af5e06cab5ad2661cfd50ea8bfa88a70a"
+    },
+    {
+      "path": "savia/db/tests/audit/030_conservation_oracle_replicated_sale.sql",
+      "change": "A",
+      "git_blob": "82b8612fc5408e13aa86d7452eeb40c442892170"
+    },
+    {
+      "path": "savia/docs/PLAN.md",
+      "change": "M",
+      "git_blob": "5a333b8ebcc84d85f8822bd3cd7b0ace85ce9f9d"
+    },
+    {
+      "path": "savia/docs/deploy/GAPS-20261120.md",
+      "change": "M",
+      "git_blob": "17da9be371e4001a0ea93860d917c66645a3501f"
+    },
+    {
+      "path": "savia/docs/evidence/cp4-sim-20261120/README.md",
+      "change": "A",
+      "git_blob": "4e9849b5e3194d2a4d4d056464001e44d2a8de5c"
+    },
+    {
+      "path": "savia/docs/evidence/cp4-sim-20261120/sim-basic.txt",
+      "change": "A",
+      "git_blob": "c268f4f4db3c476287355a6959f19e5b4b9998f8"
+    },
+    {
+      "path": "savia/docs/evidence/cp4-sim-20261120/sim-cancel_vs_dispatch.txt",
+      "change": "A",
+      "git_blob": "bce502493dfeaba1bd6d042cc90d7545b5e611dd"
+    },
+    {
+      "path": "savia/docs/evidence/cp4-sim-20261120/sim-random-1.txt",
+      "change": "A",
+      "git_blob": "8115479dee69092de0c2215f3548c85360ffbbb9"
+    },
+    {
+      "path": "savia/docs/evidence/cp4-sim-20261120/sim-random-42.txt",
+      "change": "A",
+      "git_blob": "abcfcaab5790e600bc0df19feafd86f06ab852c2"
+    },
+    {
+      "path": "savia/docs/evidence/cp4-sim-20261120/sim-random-7.txt",
+      "change": "A",
+      "git_blob": "91f7a75379579cf03975df8db1c088d6a8a71ec6"
+    },
+    {
+      "path": "savia/docs/evidence/cp4-sim-20261120/sim-restore.txt",
+      "change": "A",
+      "git_blob": "cbb3f42f44370ed9d87e5f38589a269d92d1556e"
+    },
+    {
+      "path": "savia/docs/evidence/cp4-sim-20261120/sim-restore_naive.txt",
+      "change": "A",
+      "git_blob": "31feadf2a70ddf1a4710fee834c1e0d813553ee8"
+    },
+    {
+      "path": "savia/tools/db/simulator.py",
+      "change": "M",
+      "git_blob": "184a6fa8db7b288d930d95b2866b53305da03ca6"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}
