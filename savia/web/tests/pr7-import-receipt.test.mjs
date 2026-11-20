@@ -2,8 +2,8 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import * as api from '../api.mjs';
-import receipt from '../screens/receipt.mjs';
 import importScreen from '../screens/import.mjs';
+import receipt from '../screens/receipt.mjs';
 
 class Element {
   constructor(tag = 'div', text = '') {
@@ -191,7 +191,11 @@ async function importFixture() {
     const body = opts.body ? JSON.parse(opts.body) : null;
     if (p === '/catalog/import/file')
       return new Response(
-        JSON.stringify({ fileName: 'f.csv', headers: ['Código de barras', 'Referencia (SKU)', 'Descripción'], rows: [['1', 'A', 'Blusa']] }),
+        JSON.stringify({
+          fileName: 'f.csv',
+          headers: ['Código de barras', 'Referencia (SKU)', 'Descripción'],
+          rows: [['1', 'A', 'Blusa']],
+        }),
       );
     if (p === '/catalog/import/preview') {
       const h = held();

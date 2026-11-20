@@ -194,7 +194,11 @@ test('import confirmation submits the request that produced the displayed previe
     const body = opts.body ? JSON.parse(opts.body) : null;
     if (p === '/catalog/import/file')
       return new Response(
-        JSON.stringify({ fileName: 'f.csv', headers: ['Código de barras', 'Referencia (SKU)', 'Descripción'], rows: [['1', 'A', 'Blusa']] }),
+        JSON.stringify({
+          fileName: 'f.csv',
+          headers: ['Código de barras', 'Referencia (SKU)', 'Descripción'],
+          rows: [['1', 'A', 'Blusa']],
+        }),
       );
     if (p === '/catalog/import/preview') {
       const h = held();
@@ -247,7 +251,8 @@ for (const timing of ['after-selection', 'during-credit-lookup']) {
     const credits = held();
     globalThis.fetch = async url => {
       const p = String(url).replace('/api/v1', '');
-      if (p.startsWith('/customers')) return new Response(JSON.stringify([{ customerId: id(30), displayName: 'Ana', customerCode: 'C-1' }]));
+      if (p.startsWith('/customers'))
+        return new Response(JSON.stringify([{ customerId: id(30), displayName: 'Ana', customerCode: 'C-1' }]));
       if (p.startsWith('/credits/search')) return credits.promise;
       throw Error(`Unexpected request ${p}`);
     };

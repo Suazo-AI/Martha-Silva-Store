@@ -9,3 +9,9 @@ The pilot driver opens the shared-sale controls, checks the seller shown on each
 Local raw evidence lives under `savia/.out/journey-e83aa4f9/`. See `run-04.log`, `run-04-source-manifest.json`, `run-04-source-readback.log` and `final-cleanup.log`. Cleanup verified absence of the test database, owned container, browser sessions and API listener.
 
 GitHub job `133829831783` failed at SQL login on the published base. Its readiness step wrote the password for future steps but did not export it to its own probe. The corrected step exports the password and requires a SQL response marker. Four local shell controls distinguished missing output and authenticated success. The corrected workflow still needs remote execution on the published candidate before merge.
+
+## Publication on Tony at 0147124
+
+GitHub completed all 12 workflows on attempt 1. Ten passed, including SAVIA Azure hub and SAVIA golden path. Both SAVIA v2 checks failed. [Push and PR run](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/44221668207) and [companion run](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/44221657918).
+
+Biome reported five formatting and import-order diagnostics across four test files. After formatting those files locally, the workflow command `node node_modules/@biomejs/biome/bin/biome check web` passed on all 71 candidate files. The focused Node suite passed 26/26 with zero skips. Remaining merge check: publish this correction to Tony after approval for one new CI cycle and verify downstream jobs on its commit.

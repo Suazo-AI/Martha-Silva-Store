@@ -42,7 +42,10 @@ class Element {
     this.handlers.set(type, [...(this.handlers.get(type) ?? []), fn]);
   }
   removeEventListener(type, fn) {
-    this.handlers.set(type, (this.handlers.get(type) ?? []).filter(handler => handler !== fn));
+    this.handlers.set(
+      type,
+      (this.handlers.get(type) ?? []).filter(handler => handler !== fn),
+    );
   }
   async fire(type) {
     for (const fn of this.handlers.get(type) ?? []) await fn({ target: this, stopPropagation() {} });
@@ -100,7 +103,12 @@ for (const scenario of ['keep credit', 'switch to cash after selection', 'switch
     const ctx = {
       me: actor,
       branchName: 'Fixture',
-      till: { get: () => till, set: value => { till = value; } },
+      till: {
+        get: () => till,
+        set: value => {
+          till = value;
+        },
+      },
     };
     const posts = [];
     let creditLookups = 0;
@@ -111,7 +119,8 @@ for (const scenario of ['keep credit', 'switch to cash after selection', 'switch
       if (pathname === '/api/v1/cash/registers') return Response.json([{ openTillId: tillId, openTillCashierId: actor.staffId }]);
       if (pathname === `/api/v1/cash/tills/${tillId}/summary`) return Response.json({ tillId });
       if (pathname === '/api/v1/sellers') return Response.json([{ sellerId: actor.staffId, name: 'Seller' }]);
-      if (pathname === '/api/v1/catalog/items') return Response.json([{ productId: id(9), name: 'Fixture', type: 'Dress', variants: [item] }]);
+      if (pathname === '/api/v1/catalog/items')
+        return Response.json([{ productId: id(9), name: 'Fixture', type: 'Dress', variants: [item] }]);
       if (pathname === '/api/v1/customers') return Response.json([customer]);
       if (pathname === '/api/v1/credits/search') {
         creditLookups++;
@@ -121,7 +130,14 @@ for (const scenario of ['keep credit', 'switch to cash after selection', 'switch
       if (pathname === '/api/v1/sales' && options.method === 'POST') {
         const body = JSON.parse(options.body);
         posts.push(body);
-        return Response.json({ saleId: body.saleId, status: 'posted', subtotalMinor: 10000, discountMinor: 0, taxMinor: 0, totalMinor: 10000 });
+        return Response.json({
+          saleId: body.saleId,
+          status: 'posted',
+          subtotalMinor: 10000,
+          discountMinor: 0,
+          taxMinor: 0,
+          totalMinor: 10000,
+        });
       }
       if (pathname === `/api/v1/sales/${posts[0]?.saleId}` && options.method === 'GET') return Response.json({}, { status: 404 });
       assert.fail(`Unexpected fixture request ${options.method} ${pathname}`);

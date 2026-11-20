@@ -222,7 +222,13 @@ for (const source of ['catalog', 'scan', 'search', 'parked', 'legacy parked', 'c
         { lineNumber: 1, itemId: lookup.itemId, quantity: 1, unitPriceMinor: 85000, discountMinor: 0, sellerId: actor.staffId },
       ]);
       assert.deepEqual(pending.body.tenders, [
-        { tenderNumber: 1, tenderKind: 'cash', amountMinor: changedTax ? 85000 : 97750, receivedMinor: 100000, changeMinor: changedTax ? 15000 : 2250 },
+        {
+          tenderNumber: 1,
+          tenderKind: 'cash',
+          amountMinor: changedTax ? 85000 : 97750,
+          receivedMinor: 100000,
+          changeMinor: changedTax ? 15000 : 2250,
+        },
       ]);
       if (source === 'catalog') {
         for (const rates of [undefined, [], [0]]) {
