@@ -48,7 +48,9 @@ def verify(record=False):
     assert len(products) == len(ids) == 40
     assert sum(len(p['variants']) for p in products) == 120
     pages = {p.name for p in (ROOT / 'dist').glob('*.html')}
-    assert pages == {f'producto-{pid}.html' for pid in ids} | {'index.html', 'catalogo.html', 'bolsa.html', 'checkout.html', 'pedido.html', 'ayuda.html', 'admin.html'}
+    site_pages = set(json.loads((ROOT / 'tests/site-pages.json').read_text(encoding='utf-8')))
+    assert pages == site_pages, 'Published pages differ from tests/site-pages.json'
+    assert {p for p in pages if p.startswith('producto-')} == {f'producto-{pid}.html' for pid in ids}, 'Product pages differ from catalog'
     assert not any(p.startswith(('savia/', 'internal/', 'backend/', 'dev/')) for p in public)
     observed = {rel: {'sha256': digest(actual[rel]), 'bytes': actual[rel].stat().st_size}
                 for rel in sorted(public | controls)}
@@ -60,7 +62,7 @@ def verify(record=False):
     manifest = json.loads(SNAPSHOT.read_text(encoding='utf-8'))
     assert public | controls == set(manifest), 'Public/control paths differ from recorded publication'
     assert observed == manifest, 'Publication bytes differ from the recorded snapshot'
-    print(f'PASS: {len(public)} public paths and {len(controls)} control file match recorded bytes; all {len(actual)} dist files match canonical inputs; 47 pages / 40 products / 120 variants; no staff runtime paths')
+    print(f'PASS: {len(public)} public paths and {len(controls)} control file match recorded bytes; all {len(actual)} dist files match canonical inputs; {len(pages)} pages / 40 products / 120 variants; no staff runtime paths')
 
 
 if __name__ == '__main__':

@@ -16,12 +16,13 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parent.parent
+SITE_PAGES = json.loads((ROOT / 'tests/site-pages.json').read_text(encoding='utf-8'))
 
 
 def check_fixture(root):
     pages = sorted((root / 'dist').glob('*.html'))
-    if len(pages) != 47:
-        raise ValueError(f'Expected 47 recovered pages, found {len(pages)}')
+    if len(pages) != len(SITE_PAGES):
+        raise ValueError(f'Expected {len(SITE_PAGES)} recovered pages, found {len(pages)}')
     catalog_text = (root / 'dist/catalog.js').read_text(encoding='utf-8')
     prefix = 'window.DEMO_CATALOG='
     if not catalog_text.startswith(prefix):
@@ -31,15 +32,14 @@ def check_fixture(root):
     product_ids = {product['id'] for product in products}
     if len(products) != 40 or len(product_ids) != 40 or sum(len(p['variants']) for p in products) != 120:
         raise ValueError('Expected 40 unique sample products and 120 variants')
-    expected_pages = {'index.html', 'catalogo.html', 'bolsa.html', 'checkout.html',
-                      'pedido.html', 'ayuda.html', 'admin.html'}
+    expected_pages = {name for name in SITE_PAGES if not name.startswith('producto-')}
     expected_pages.update(f'producto-{product_id}.html' for product_id in product_ids)
     if {page.name for page in pages} != expected_pages:
-        raise ValueError('Published pages do not match the 40 original product IDs and seven shared pages')
+        raise ValueError('Published pages do not match the 40 original product IDs and the shared pages in tests/site-pages.json')
     for name in ('app.js', 'demo-api.js', 'integration-adapters.js'):
         if (root / 'src' / name).read_bytes() != (root / 'dist' / name).read_bytes():
             raise ValueError(f'src/dist drift: {name}')
-    print('PASS: 47 pages / 40 sample products / 120 variants; src/dist app.js, demo-api.js and integration-adapters.js match', flush=True)
+    print(f'PASS: {len(pages)} pages / 40 sample products / 120 variants; src/dist app.js, demo-api.js and integration-adapters.js match', flush=True)
 
 
 def clean_environment():

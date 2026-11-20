@@ -21,6 +21,8 @@ class SnapshotTests(unittest.TestCase):
             static.mkdir(parents=True)
             dist.mkdir()
             (root / 'src').mkdir()
+            (root / 'tests').mkdir()
+            (root / 'tests/site-pages.json').write_bytes((ROOT / 'tests/site-pages.json').read_bytes())
             # Keep the actual frozen path identities, with tiny inert fixture bytes.
             for source in (ROOT / 'dist').rglob('*'):
                 if not source.is_file():

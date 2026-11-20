@@ -100,7 +100,7 @@ Cerrar ubicación|Close location
 Tu ubicación|Your location
 Entrega de prueba en Nicaragua.|Demo delivery in Nicaragua.
 Los precios se muestran en USD.|Prices are shown in USD.
-Managua: US$5.00. Resto de Nicaragua: US$8.00.|Managua: US$5.00. Rest of Nicaragua: US$8.00.
+Managua: $5.00. Resto de Nicaragua: $8.00.|Managua: $5.00. Rest of Nicaragua: $8.00.
 Continuar en Nicaragua|Continue in Nicaragua
 Agregada a tu bolsa|Added to your bag
 Bolsa vacía|Empty bag
@@ -427,6 +427,12 @@ Referencia de pedido inválida.|Invalid order reference.
 Referencia de devolución inválida.|Invalid return reference.
 prenda|item
 prendas|items
+Página no encontrada · Martha Silva Store|Page not found · Martha Silva Store
+Página no encontrada en Martha Silva Store.|Page not found on Martha Silva Store.
+Esta página no existe|This page does not exist
+La dirección no coincide con ninguna página de la tienda.|The address does not match any page in the store.
+Ir al inicio|Go to the home page
+Ver el catálogo|View the catalog
 `.trim();
   const messages = Object.fromEntries(pairs.split('\n').map(line => { const at = line.indexOf('|'); return [line.slice(0, at), line.slice(at + 1)]; }));
   const products = `
@@ -487,6 +493,6 @@ novias-encaje|Lace sample|Sample, not Martha Silva inventory. Wedding dress with
     }
   }
   window.MARTHA_PRODUCT_EN = byId;
-  Object.assign(messages, {'Noche de': 'A night of', 'gala': 'gala', 'COMPRAR AHORA': 'SHOP NOW', 'Destacados': 'Highlights', 'Elegir destacado': 'Choose a highlight', 'Destacado 1': 'Highlight 1', 'Destacado 2': 'Highlight 2', 'Destacado 3': 'Highlight 3', 'Pausar': 'Pause', 'Reproducir': 'Play', 'Prendas por fila': 'Items per row', '2 por fila': '2 per row', '3 por fila': '3 per row', '4 por fila': '4 per row', '1 por fila': '1 per row', 'Agregar rápido': 'Quick add'});
+  Object.assign(messages, {'Noche de': 'A night of', 'gala': 'gala', 'COMPRAR AHORA': 'SHOP NOW', 'Destacados': 'Highlights', 'Elegir destacado': 'Choose a highlight', 'Destacado 1': 'Highlight 1', 'Destacado 2': 'Highlight 2', 'Destacado 3': 'Highlight 3', 'Pausar': 'Pause', 'Reproducir': 'Play', 'Prendas por fila': 'Items per row', '2 por fila': '2 per row', '3 por fila': '3 per row', '4 por fila': '4 per row', '1 por fila': '1 per row', 'Agregar rápido': 'Quick add', 'Categorías': 'Categories', 'Aviso de demostración': 'Demo notice', 'Referencia:': 'Reference:', 'Ver': 'View'});
   window.MARTHA_EN = messages;
 })();

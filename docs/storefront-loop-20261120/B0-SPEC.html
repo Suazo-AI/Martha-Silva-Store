@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Spec B0 Martha Silva</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f5f2;--card:#fff;--ink:#241d19;--muted:#6c6c6c;--line:#e4dfd8;--cream:#f3f0eb;--dark:#141414;--accent:#8a6a4f;--ok:#2f6b3a;--warn:#9a5b00;--r:22px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141210;--card:#1d1a17;--ink:#f1ece6;--muted:#a59d94;--line:#332e29;--cream:#26221e;--dark:#000;--accent:#c9a27e;--ok:#7fc28a;--warn:#e0a24a}}
+:root[data-theme="dark"]{--bg:#141210;--card:#1d1a17;--ink:#f1ece6;--muted:#a59d94;--line:#332e29;--cream:#26221e;--dark:#000;--accent:#c9a27e;--ok:#7fc28a;--warn:#e0a24a}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);font:15px/1.55 Manrope,system-ui,sans-serif}
+main{max-width:1120px;margin:auto;padding:8px 0 40px}
+h1,h2,.serif{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500}
+h1{font-size:44px;line-height:1.05;margin:0 0 8px}
+h2{font-size:30px;margin:56px 0 12px;border-top:1px solid var(--line);padding-top:28px}
+h3{font-size:15px;margin:0 0 6px}
+p{margin:0 0 10px}
+.muted{color:var(--muted)}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.scroll{overflow-x:auto}
+.tag{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;border:1px solid var(--line)}
+.ok{color:var(--ok)}.warn{color:var(--warn)}
+.decision{border-left:3px solid var(--accent)}
+.decision b{display:block;margin-bottom:4px}
+ol.dec{padding-left:20px;margin:0}ol.dec li{margin:0 0 14px}
+/* mockup frames */
+.phone{width:160px;height:320px;border-radius:26px;border:6px solid var(--dark);position:relative;overflow:hidden;background:#fff;color:#241d19;flex:none}
+.desk{width:100%;max-width:640px;aspect-ratio:16/10;border-radius:10px;border:5px solid var(--dark);position:relative;overflow:hidden;background:#fff;color:#241d19}
+.row{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start}
+.cap{font-size:12px;color:var(--muted);margin-top:6px;max-width:260px}
+.ph{background:linear-gradient(160deg,#d9cfc4,#b9a998);border-radius:4px}
+.ph.b{background:linear-gradient(160deg,#cfd6d8,#9fb0b4)}
+.ph.c{background:linear-gradient(160deg,#e4d3d6,#c49aa3)}
+.txt{height:6px;background:#d9d4ce;border-radius:3px;margin:4px 0}
+.pill{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);width:148px;height:42px;white-space:nowrap;border-radius:var(--r);background:rgba(255,255,255,.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.7);box-shadow:0 6px 24px rgba(0,0,0,.18);display:flex;align-items:center;justify-content:space-between;padding:0 6px 0 14px;font:500 12px "Cormorant Garamond",serif;letter-spacing:.06em}
+.pill i{width:30px;height:30px;border-radius:12px;background:#241d19;display:grid;place-items:center;color:#fff;font-style:normal;font-family:Manrope;font-size:13px}
+.pill.open{height:240px;width:140px;flex-direction:column;align-items:stretch;justify-content:flex-end;padding:14px}
+.pill.open .links{font:400 17px/1.25 "Cormorant Garamond",serif;letter-spacing:0;margin-bottom:auto}
+.pill.open .foot{display:flex;justify-content:space-between;align-items:center;font-size:12px}
+.hero{position:absolute;inset:0}
+.win{position:absolute;left:50%;bottom:0;transform:translateX(-50%);background:linear-gradient(160deg,#cfd6d8,#8fa3a8);border-radius:var(--r);display:grid;place-items:center;color:#fff;font:500 16px "Cormorant Garamond",serif}
+.loader{position:absolute;inset:0;background:#f3f0eb;display:flex;align-items:center;justify-content:center;gap:6px;font:500 17px "Cormorant Garamond",serif;letter-spacing:.06em;white-space:nowrap}
+.loader .gap{width:26px;height:18px;border-radius:4px}
+.foot-mock{position:absolute;inset:auto 0 0 0;height:56%;background:#141414;color:#eee;padding:14px}
+.foot-mock .cols{display:flex;gap:28px;font-size:10px;opacity:.8}
+.wordmark{position:absolute;left:8px;right:8px;bottom:6px;font:500 13.3cqw/0.9 "Cormorant Garamond",serif;letter-spacing:-.01em;white-space:nowrap;color:#f3f0eb}
+.cq{container-type:inline-size}
+.brands{position:absolute;inset:0;background:#141414;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:auto repeat(2,1fr);gap:1px;padding:16px}
+.brands h4{grid-column:1/-1;margin:0 0 8px;color:#f3f0eb;font:500 18px "Cormorant Garamond",serif}
+.brands span{display:grid;place-items:center;color:#d8d2ca;font:500 13px "Cormorant Garamond",serif;letter-spacing:.12em;border:1px solid #2a2a2a}
+.brands span.swap{color:#fff;background:#1f1f1f}
+.hdr{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:62%;height:34px;border-radius:var(--r);background:rgba(255,255,255,.5);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.7);display:flex;align-items:center;justify-content:space-between;padding:0 14px;font:500 12px "Cormorant Garamond",serif;letter-spacing:.08em;box-shadow:0 6px 20px rgba(0,0,0,.12)}
+.hdr small{font:400 9px Manrope;letter-spacing:0;display:flex;gap:10px}
+.cols{display:grid;gap:6px;padding:10px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.tabs span{font-size:12px;border:1px solid var(--line);border-radius:99px;padding:3px 10px}
+.kv{display:grid;grid-template-columns:max-content 1fr;gap:4px 14px;font-size:14px}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0}
+</style>
+</head>
+<body>
+<main>
+<h1>Spec B0 · motion y SEO</h1>
+<p class="muted">Martha Silva storefront · 2026-11-20 · nada de esto está construido; espera tu aprobación.</p>
+
+<h2>Lo que necesito que decidas</h2>
+<div class="card decision">
+<ol class="dec">
+<li><b>Selector de cuadrícula: animar el que ya existe.</b>El catálogo ya tiene "Ver 2 · 3 · 4" (escritorio) y "1 · 2" (móvil) y funciona. Recomiendo no agregar "Grande/Pequeña": le sumo la animación FLIP del video 4 y que recuerde la elección. ¿Sí?</li>
+<li><b>Header de escritorio con glass: ¿sí o no?</b>Mockup abajo. Recomiendo NO: el header negro actual es parte de tu estilo (D-030); el glass queda en la píldora móvil.</li>
+<li><b>Transición de ventana solo entre inicio, catálogo y producto.</b>Bolsa, checkout, ayuda y pedido cargan completas (sin transición) para no tocar el flujo de compra. ¿Ok?</li>
+<li><b>Título de la pestaña al salir.</b>Con bolsa: "Tu bolsa te espera · MARTHA SILVA". Sin bolsa: "Vuelve pronto · MARTHA SILVA". EN: "Your bag is waiting" / "Come back soon". ¿Ok o cambiás el texto?</li>
+<li><b>Dominio para SEO.</b>Canonical, sitemap y Open Graph necesitan la URL final. Hasta tenerla, todo se genera con <code>indexable:false</code> y sin datos de negocio (NAP/GMB vacío).</li>
+</ol>
+</div>
+
+<h2>Videos verificados</h2>
+<p>Los 8 archivos coinciden en bytes, SHA256 y duración con la tabla del prompt. Contact sheets a 6 fps revisados; ventanas de 3 videos inspeccionadas cuadro a cuadro.</p>
+<div class="scroll"><table>
+<tr><th>#</th><th>Video</th><th>Qué hace (observado)</th><th>Dónde va</th><th>Adaptación</th></tr>
+<tr><td>1</td><td>Masked window</td><td>Ventana redondeada sube del centro inferior, card centrada, llena la pantalla con la página nueva (0.2–0.9 s)</td><td>Transición de página</td><td>≤ 700 ms, solo hacia adelante; atrás mantiene el fade actual</td></tr>
+<tr><td>2</td><td>Bottom nav</td><td>Píldora logo + botón se expande hacia arriba en card con links grandes; botón pasa a X</td><td>Menú móvil (&lt; 1024 px)</td><td>Usa el mismo <code>&lt;dialog&gt;</code> actual: Esc y foco intactos</td></tr>
+<tr><td>3</td><td>Glass</td><td>Píldora con blur y tinte legible sobre contenido</td><td>Material de la píldora</td><td>Sólida si el navegador no soporta blur o pide menos transparencia</td></tr>
+<tr><td>4</td><td>Grid flip</td><td>Cards se mueven y escalan ~0.5 s con stagger leve</td><td>Selector 2·3·4 existente</td><td>FLIP con GSAP core, sin plugin; texto solo fade</td></tr>
+<tr><td>5</td><td>Willem loader</td><td>Palabra sube de máscara, se abre un hueco con imágenes, la última llena la pantalla</td><td>Primera visita al inicio</td><td>MARTHA ▢ SILVA, ≤ 1.6 s, cualquier tecla/tap lo corta</td></tr>
+<tr><td>6</td><td>Footer parallax</td><td>Footer aparece debajo con parallax y velo; wordmark gigante</td><td>Footer</td><td>Sticky reveal en CSS + wordmark a ancho completo</td></tr>
+<tr><td>7</td><td>Logo wall</td><td>Grilla 4×2 sobre negro, una celda cambia cada ~1 s</td><td>Descartado</td><td>Jason quitó la sección de marcas (2026-11-20)</td></tr>
+<tr><td>8</td><td>Title on leave</td><td>Al salir de la pestaña cambia el título; al volver lo restaura</td><td>Título de pestaña</td><td>El <code>&lt;title&gt;</code> HTML no cambia: SEO intacto</td></tr>
+</table></div>
+
+<h2>Mockups</h2>
+<h3>Menú móvil glass · 390</h3>
+<div class="row">
+<div><div class="phone"><div class="hero ph"></div><div class="pill"><span>MARTHA SILVA</span><i>≡</i></div></div><p class="cap">Cerrado: píldora fija abajo al centro, 44 px de alto mínimo, respeta el área segura.</p></div>
+<div><div class="phone"><div class="hero ph"></div><div class="pill open"><div class="links">Todas las prendas<br>Vestidos de fiesta<br>Novias<br>Moda femenina<br>El edit de Martha</div><div class="foot"><span>MARTHA SILVA</span><i>✕</i></div></div></div><p class="cap">Abierto: crece hacia arriba; los links entran en cascada; mismo radio que la ventana de transición.</p></div>
+</div>
+
+<h3 style="margin-top:28px">Transición de página · 3 cuadros</h3>
+<div class="row">
+<div><div class="phone"><div class="hero" style="background:#fff;padding:14px"><div class="ph" style="height:110px"></div><div class="txt" style="width:70%"></div><div class="txt" style="width:40%"></div></div><div class="win" style="width:50px;height:34px;bottom:16px">·</div></div><p class="cap">25 %: la ventana nace abajo al centro; la página actual queda quieta.</p></div>
+<div><div class="phone"><div class="hero" style="background:#fff;padding:14px"><div class="ph" style="height:110px"></div><div class="txt" style="width:70%"></div></div><div class="win" style="width:120px;height:180px;bottom:56px">Producto</div></div><p class="cap">50 %: card centrada con la página nueva ya traducida y pintada.</p></div>
+<div><div class="phone"><div class="win" style="width:100%;height:100%;border-radius:0">Producto</div></div><p class="cap">100 %: llena la pantalla; recién ahí vuelve el scroll arriba.</p></div>
+</div>
+
+<h3 style="margin-top:28px">Loader · primera visita al inicio</h3>
+<div class="row">
+<div><div class="phone"><div class="loader"><span>MARTHA</span><span>SILVA</span></div></div><p class="cap">0–0.3 s: las dos palabras suben de una máscara.</p></div>
+<div><div class="phone"><div class="loader"><span>MARTHA</span><span class="gap ph c"></span><span>SILVA</span></div></div><p class="cap">0.4–1.1 s: se abre un hueco y rota 3 fotos reales del catálogo.</p></div>
+<div><div class="phone"><div class="hero ph"></div><div style="position:absolute;left:12px;bottom:70px;color:#fff;font:500 19px 'Cormorant Garamond',serif">El edit de novias</div></div><p class="cap">1.2–1.6 s: la última foto (la del hero) llena la pantalla y entra la página.</p></div>
+</div>
+
+<h3 style="margin-top:28px">Cuadrícula del catálogo · animar "Ver 2 · 3 · 4"</h3>
+<div class="grid g2">
+<div><div class="desk"><div class="cols" style="grid-template-columns:repeat(2,1fr)"><div class="ph" style="height:150px"></div><div class="ph b" style="height:150px"></div><div class="ph c" style="height:150px"></div><div class="ph" style="height:150px"></div></div></div><p class="cap">Ver 2.</p></div>
+<div><div class="desk"><div class="cols" style="grid-template-columns:repeat(4,1fr)"><div class="ph" style="height:90px"></div><div class="ph b" style="height:90px"></div><div class="ph c" style="height:90px"></div><div class="ph" style="height:90px"></div><div class="ph b" style="height:90px"></div><div class="ph c" style="height:90px"></div><div class="ph" style="height:90px"></div><div class="ph b" style="height:90px"></div></div></div><p class="cap">Ver 4: las cards se deslizan a su nuevo lugar en ≤ 500 ms; con movimiento reducido el cambio es instantáneo.</p></div>
+</div>
+
+<h3 style="margin-top:28px">Footer · 1440</h3>
+<div class="desk cq"><div class="hero ph" style="height:44%"></div><div class="foot-mock"><div class="cols"><span>Ayuda<br>Entregas<br>Devoluciones</span><span>Catálogo<br>Novias<br>Fiesta</span><span>Newsletter<br>tu@correo</span></div><div class="wordmark">MARTHA SILVA</div></div></div>
+<p class="cap">El footer se revela debajo del contenido; el wordmark ocupa 98–100 % del ancho a cualquier tamaño, sin JS.</p>
+
+
+<h3 style="margin-top:28px">Opcional · header glass en escritorio (recomiendo no)</h3>
+<div class="desk"><div class="hero ph b"></div><div class="hdr"><span>MARTHA SILVA</span><small><span>Prendas</span><span>Fiesta</span><span>Novias</span><span>Bolsa</span></small></div></div>
+
+<h2>SEO, AIEO y GMB</h2>
+<div class="grid g2">
+<div class="card"><h3>Hoy (medido)</h3><dl class="kv"><dt>Canonical</dt><dd>0 / 48 páginas</dd><dt>Open Graph</dt><dd>0 / 48</dd><dt>JSON-LD</dt><dd>0 / 48</dd><dt>Meta description</dt><dd>48 / 48</dd><dt>sitemap · robots · llms.txt</dt><dd>no existen</dd></dl></div>
+<div class="card"><h3>Propuesta (B1)</h3><p>Todo generado desde <code>catalog.js</code> y un <code>site.config.json</code>, nunca a mano:</p><p>canonical, Open Graph y Twitter con fotos reales · JSON-LD Organization, WebSite, BreadcrumbList, ItemList y Product con una oferta por talla y su stock real · sitemap.xml, robots.txt, llms.txt · un linter offline que falla si un precio del JSON-LD no coincide con el catálogo.</p></div>
+</div>
+
+<h2>Presupuesto y estado</h2>
+<div class="grid g3">
+<div class="card"><h3>Track A <span class="tag ok">hecho</span></h3><p>0 errores de accesibilidad, 0 textos en español en EN, 0 precios mal formateados, 404 real, Lenis y ScrollTrigger fuera.</p></div>
+<div class="card"><h3>JS por página</h3><p>557 KB → 495 KB. Todo lo nuevo debe caber sin volver a subir de 557 KB.</p></div>
+<div class="card"><h3>Pendiente fuera de alcance <span class="tag warn">deploy</span></h3><p>Cloudflare no sirve <code>404.html</code> hasta cambiar <code>not_found_handling</code> en <code>wrangler.jsonc</code>.</p></div>
+</div>
+</main>
+</body>
+</html>

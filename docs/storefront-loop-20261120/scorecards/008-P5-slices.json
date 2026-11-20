@@ -1,0 +1,252 @@
+{
+ "grid": {
+  "pass": true,
+  "1440": {
+   "pass": true,
+   "before": 4,
+   "after": 2,
+   "reload": 2,
+   "pressed": "true",
+   "movingAt120ms": 3,
+   "reducedMoving": 0,
+   "stored": {
+    "cd": "2"
+   },
+   "overflowX": false
+  },
+  "390": {
+   "pass": true,
+   "before": 2,
+   "after": 1,
+   "reload": 1,
+   "pressed": "true",
+   "movingAt120ms": 3,
+   "reducedMoving": 0,
+   "stored": {
+    "cm": "1"
+   },
+   "overflowX": false
+  }
+ },
+ "footer": {
+  "pass": true,
+  "320": {
+   "pass": true,
+   "ratio": 0.991,
+   "ariaHidden": "true",
+   "text": "MARTHA SILVA",
+   "font": "\"Cormorant Garamond\", Georgia, serif",
+   "overflowX": false
+  },
+  "390": {
+   "pass": true,
+   "ratio": 0.991,
+   "ariaHidden": "true",
+   "text": "MARTHA SILVA",
+   "font": "\"Cormorant Garamond\", Georgia, serif",
+   "overflowX": false
+  },
+  "768": {
+   "pass": true,
+   "ratio": 0.991,
+   "ariaHidden": "true",
+   "text": "MARTHA SILVA",
+   "font": "\"Cormorant Garamond\", Georgia, serif",
+   "overflowX": false
+  },
+  "1024": {
+   "pass": true,
+   "ratio": 0.991,
+   "ariaHidden": "true",
+   "text": "MARTHA SILVA",
+   "font": "\"Cormorant Garamond\", Georgia, serif",
+   "overflowX": false
+  },
+  "1440": {
+   "pass": true,
+   "ratio": 0.991,
+   "ariaHidden": "true",
+   "text": "MARTHA SILVA",
+   "font": "\"Cormorant Garamond\", Georgia, serif",
+   "overflowX": false
+  },
+  "1920": {
+   "pass": true,
+   "ratio": 0.991,
+   "ariaHidden": "true",
+   "text": "MARTHA SILVA",
+   "font": "\"Cormorant Garamond\", Georgia, serif",
+   "overflowX": false
+  },
+  "reducedMotion": {
+   "pass": true,
+   "ratio": 0.991,
+   "ariaHidden": "true",
+   "text": "MARTHA SILVA",
+   "font": "\"Cormorant Garamond\", Georgia, serif",
+   "overflowX": false
+  },
+  "newsletter": {
+   "pass": true
+  },
+  "reach390": {
+   "pass": true,
+   "controls": 15,
+   "missed": []
+  },
+  "reach1440": {
+   "pass": true,
+   "controls": 16,
+   "missed": []
+  }
+ },
+ "title": {
+  "pass": true,
+  "es": {
+   "pass": true,
+   "original": "La colección · Martha Silva Store",
+   "away": "Vuelve pronto · MARTHA SILVA",
+   "back": "La colección · Martha Silva Store",
+   "awayBag": "Tu bolsa te espera · MARTHA SILVA",
+   "backBag": "Vestido negro con abertura · Martha Silva Store",
+   "pageTitle": "Vestido negro con abertura · Martha Silva Store",
+   "navBack": "La colección · Martha Silva Store"
+  },
+  "en": {
+   "pass": true,
+   "original": "The collection · Martha Silva Store",
+   "away": "Come back soon · MARTHA SILVA",
+   "back": "The collection · Martha Silva Store",
+   "awayBag": "Your bag is waiting · MARTHA SILVA",
+   "backBag": "Black slit dress · Martha Silva Store",
+   "pageTitle": "Black slit dress · Martha Silva Store",
+   "navBack": "The collection · Martha Silva Store"
+  }
+ },
+ "pill": {
+  "pass": true,
+  "closed390": {
+   "pass": true,
+   "toggles": 1,
+   "fixed": true,
+   "centerOff": 0,
+   "bottomGap": 16,
+   "btnW": 44,
+   "btnH": 44,
+   "bg": "rgb(17, 17, 17)",
+   "alpha": 1,
+   "dark": true,
+   "backdrop": "none",
+   "contrast": 18.88,
+   "pill": [
+    63,
+    772,
+    327,
+    828
+   ]
+  },
+  "closed1023": {
+   "pass": true,
+   "toggles": 1,
+   "fixed": true,
+   "centerOff": 0,
+   "bottomGap": 16,
+   "btnW": 44,
+   "btnH": 44,
+   "bg": "rgb(17, 17, 17)",
+   "alpha": 1,
+   "dark": true,
+   "backdrop": "none",
+   "contrast": 18.88,
+   "pill": [
+    379,
+    828,
+    644,
+    884
+   ]
+  },
+  "none1024": {
+   "pass": true,
+   "toggles": 0
+  },
+  "none1440": {
+   "pass": true,
+   "toggles": 0
+  },
+  "dialog": {
+   "pass": true,
+   "openAtClick": true,
+   "areaAt60ms": 19488,
+   "areaFinal": 214800,
+   "openAt60msAfterEsc": true,
+   "opened": {
+    "open": true,
+    "expanded": "true",
+    "focusIn": true,
+    "links": 6,
+    "overflowX": false
+   },
+   "closed": {
+    "open": false,
+    "focusBack": true,
+    "expanded": "false"
+   }
+  },
+  "dialogReduced": {
+   "pass": true,
+   "openAtClick": true,
+   "areaAt60ms": 214800,
+   "areaFinal": 214800,
+   "openAt60msAfterEsc": false,
+   "opened": {
+    "open": true,
+    "expanded": "true",
+    "focusIn": true,
+    "links": 6,
+    "overflowX": false
+   },
+   "closed": {
+    "open": false,
+    "focusBack": true,
+    "expanded": "false"
+   }
+  },
+  "toast": {
+   "pass": true,
+   "toast": [
+    65,
+    718,
+    325,
+    760
+   ],
+   "overlap": false,
+   "above": true,
+   "pill": true
+  },
+  "focus-index.html": {
+   "pass": true,
+   "checked": 207,
+   "obscured": [],
+   "count": 0
+  },
+  "focus-catalogo.html": {
+   "pass": true,
+   "checked": 196,
+   "obscured": [],
+   "count": 0
+  },
+  "focus-producto-negro.html": {
+   "pass": true,
+   "checked": 275,
+   "obscured": [],
+   "count": 0
+  },
+  "focus-bolsa.html": {
+   "pass": true,
+   "checked": 23,
+   "obscured": [],
+   "count": 0
+  }
+ },
+ "pass": true
+}

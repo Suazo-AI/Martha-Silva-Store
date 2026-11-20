@@ -1,0 +1,346 @@
+{
+ "390 /": {
+  "v": [
+   [
+    "region",
+    "moderate",
+    1,
+    "<div class=\"test-banner\">Demo independiente · datos locales · sin cobros</div>"
+   ]
+  ],
+  "incomplete": [
+   [
+    "color-contrast",
+    146
+   ],
+   [
+    "video-caption",
+    32
+   ]
+  ]
+ },
+ "390 /catalogo.html": {
+  "v": [
+   [
+    "color-contrast",
+    "serious",
+    2,
+    "<button type=\"button\" data-category-tab=\"Gala\" aria-pressed=\"false\">Vestidos de fiesta</bu"
+   ],
+   [
+    "heading-order",
+    "moderate",
+    1,
+    "<h3 class=\"plp-name\"><a href=\"/producto-rosa-empolvado-pedreria.html\">Vestido rosa empolva"
+   ],
+   [
+    "region",
+    "moderate",
+    1,
+    "<div class=\"test-banner\">Demo independiente · datos locales · sin cobros</div>"
+   ]
+  ],
+  "incomplete": [
+   [
+    "color-contrast",
+    4
+   ]
+  ]
+ },
+ "390 /producto-negro.html": {
+  "v": [
+   [
+    "region",
+    "moderate",
+    1,
+    "<div class=\"test-banner\">Demo independiente · datos locales · sin cobros</div>"
+   ]
+  ],
+  "incomplete": [
+   [
+    "color-contrast",
+    234
+   ],
+   [
+    "video-caption",
+    46
+   ]
+  ]
+ },
+ "390 /bolsa.html": {
+  "v": [
+   [
+    "heading-order",
+    "moderate",
+    1,
+    "<h3><a href=\"/producto-negro.html\">Vestido negro con abertura</a></h3>"
+   ],
+   [
+    "region",
+    "moderate",
+    1,
+    "<div class=\"test-banner\">Demo independiente · datos locales · sin cobros</div>"
+   ]
+  ],
+  "incomplete": []
+ },
+ "390 /checkout.html": {
+  "v": [
+   [
+    "region",
+    "moderate",
+    1,
+    "<div class=\"test-banner\">Demo independiente · datos locales · sin cobros</div>"
+   ]
+  ],
+  "incomplete": []
+ },
+ "390 /pedido.html": {
+  "v": [
+   [
+    "region",
+    "moderate",
+    1,
+    "<div class=\"test-banner\">Demo independiente · datos locales · sin cobros</div>"
+   ]
+  ],
+  "incomplete": []
+ },
+ "390 /ayuda.html": {
+  "v": [
+   [
+    "region",
+    "moderate",
+    1,
+    "<div class=\"test-banner\">Demo independiente · datos locales · sin cobros</div>"
+   ]
+  ],
+  "incomplete": []
+ },
+ "390 /?lang=en": {
+  "v": [
+   [
+    "region",
+    "moderate",
+    1,
+    "<div class=\"test-banner\">Independent demo · local data · no charges</div>"
+   ]
+  ],
+  "incomplete": [
+   [
+    "color-contrast",
+    146
+   ],
+   [
+    "video-caption",
+    32
+   ]
+  ]
+ },
+ "390 /catalogo.html?lang=en": {
+  "v": [
+   [
+    "color-contrast",
+    "serious",
+    3,
+    "<button type=\"button\" data-category-tab=\"Gala\" aria-pressed=\"false\">Occasion dresses</butt"
+   ],
+   [
+    "heading-order",
+    "moderate",
+    1,
+    "<h3 class=\"plp-name\"><a href=\"/producto-rosa-empolvado-pedreria.html\">Dusty pink embellish"
+   ],
+   [
+    "region",
+    "moderate",
+    1,
+    "<div class=\"test-banner\">Independent demo · local data · no charges</div>"
+   ]
+  ],
+  "incomplete": [
+   [
+    "color-contrast",
+    3
+   ]
+  ]
+ },
+ "1440 /": {
+  "v": [
+   [
+    "color-contrast",
+    "serious",
+    2,
+    "<h2>El edit de novias</h2>"
+   ],
+   [
+    "region",
+    "moderate",
+    1,
+    "<div class=\"test-banner\">Demo independiente · datos locales · sin cobros</div>"
+   ]
+  ],
+  "incomplete": [
+   [
+    "color-contrast",
+    126
+   ],
+   [
+    "video-caption",
+    32
+   ]
+  ]
+ },
+ "1440 /catalogo.html": {
+  "v": [
+   [
+    "color-contrast",
+    "serious",
+    3,
+    "<button type=\"button\" data-category-tab=\"Gala\" aria-pressed=\"false\">Vestidos de fiesta</bu"
+   ],
+   [
+    "heading-order",
+    "moderate",
+    1,
+    "<h3 class=\"plp-name\"><a href=\"/producto-rosa-empolvado-pedreria.html\">Vestido rosa empolva"
+   ],
+   [
+    "region",
+    "moderate",
+    1,
+    "<div class=\"test-banner\">Demo independiente · datos locales · sin cobros</div>"
+   ]
+  ],
+  "incomplete": [
+   [
+    "color-contrast",
+    3
+   ]
+  ]
+ },
+ "1440 /producto-negro.html": {
+  "v": [
+   [
+    "region",
+    "moderate",
+    1,
+    "<div class=\"test-banner\">Demo independiente · datos locales · sin cobros</div>"
+   ]
+  ],
+  "incomplete": [
+   [
+    "color-contrast",
+    222
+   ],
+   [
+    "video-caption",
+    46
+   ]
+  ]
+ },
+ "1440 /bolsa.html": {
+  "v": [
+   [
+    "heading-order",
+    "moderate",
+    1,
+    "<h3><a href=\"/producto-negro.html\">Vestido negro con abertura</a></h3>"
+   ],
+   [
+    "region",
+    "moderate",
+    1,
+    "<div class=\"test-banner\">Demo independiente · datos locales · sin cobros</div>"
+   ]
+  ],
+  "incomplete": []
+ },
+ "1440 /checkout.html": {
+  "v": [
+   [
+    "region",
+    "moderate",
+    1,
+    "<div class=\"test-banner\">Demo independiente · datos locales · sin cobros</div>"
+   ]
+  ],
+  "incomplete": []
+ },
+ "1440 /pedido.html": {
+  "v": [
+   [
+    "region",
+    "moderate",
+    1,
+    "<div class=\"test-banner\">Demo independiente · datos locales · sin cobros</div>"
+   ]
+  ],
+  "incomplete": []
+ },
+ "1440 /ayuda.html": {
+  "v": [
+   [
+    "region",
+    "moderate",
+    1,
+    "<div class=\"test-banner\">Demo independiente · datos locales · sin cobros</div>"
+   ]
+  ],
+  "incomplete": []
+ },
+ "1440 /?lang=en": {
+  "v": [
+   [
+    "color-contrast",
+    "serious",
+    2,
+    "<h2>The bridal edit</h2>"
+   ],
+   [
+    "region",
+    "moderate",
+    1,
+    "<div class=\"test-banner\">Independent demo · local data · no charges</div>"
+   ]
+  ],
+  "incomplete": [
+   [
+    "color-contrast",
+    126
+   ],
+   [
+    "video-caption",
+    32
+   ]
+  ]
+ },
+ "1440 /catalogo.html?lang=en": {
+  "v": [
+   [
+    "color-contrast",
+    "serious",
+    3,
+    "<button type=\"button\" data-category-tab=\"Gala\" aria-pressed=\"false\">Occasion dresses</butt"
+   ],
+   [
+    "heading-order",
+    "moderate",
+    1,
+    "<h3 class=\"plp-name\"><a href=\"/producto-rosa-empolvado-pedreria.html\">Dusty pink embellish"
+   ],
+   [
+    "region",
+    "moderate",
+    1,
+    "<div class=\"test-banner\">Independent demo · local data · no charges</div>"
+   ]
+  ],
+  "incomplete": [
+   [
+    "color-contrast",
+    3
+   ]
+  ]
+ }
+}

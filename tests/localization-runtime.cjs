@@ -134,9 +134,9 @@ test('language switching persists, restores Spanish, and leaves catalog data unt
   });
 });
 
-test('all 47 templates expose the language controls and English navigation', async () => {
+test('every template exposes the language controls and English navigation', async () => {
   const pages = fs.readdirSync(root).filter(name => name.endsWith('.html')).sort();
-  assert.equal(pages.length, 47);
+  assert.deepEqual(pages, JSON.parse(fs.readFileSync(path.resolve(__dirname, 'site-pages.json'), 'utf8')));
   for (const page of pages) {
     await withPage(page, {language: 'en', app: false}, async b => {
       assert.equal(b.d.documentElement.lang, 'en', page);
@@ -188,13 +188,13 @@ test('mixed text fragments and running totals remain English after dynamic inser
   await withPage('index.html', {language: 'en', app: false}, async b => {
     const status = b.d.createElement('p');
     status.innerHTML = '<span translate="no">Rosa</span> · Solicitud recibida';
-    const summary = b.d.createElement('strong'); summary.textContent = 'Total sin entrega USD 185.00';
+    const summary = b.d.createElement('strong'); summary.textContent = 'Total sin entrega $185.00';
     b.d.querySelector('main').append(status, summary); await tick();
     assert.match(text(status), /^Rosa · /);
     assert.doesNotMatch(text(status), /Solicitud recibida|Pink/);
     assert.match(text(status), /request received/i);
     assert.match(text(summary), /total before delivery/i);
-    assert.ok(text(summary).includes('USD 185.00'));
+    assert.ok(text(summary).includes('$185.00'));
   });
 });
 
@@ -279,6 +279,30 @@ test('English product search and color filters retain Spanish data keys', async 
       }
     }
     assert.match(text(b.d.querySelector('[data-result-count]')), /item|garment|piece/i);
+  });
+});
+
+test('English catalog card, category tab, grid label and hero slide labels contain no Spanish', async () => {
+  await withPage('catalogo.html', {language: 'en'}, async b => {
+    const labels = [...b.d.querySelectorAll('[aria-label]')].map(element => element.getAttribute('aria-label'));
+    assert.ok(labels.some(label => /^Choose a size for /.test(label)), 'card size group label');
+    assert.ok(labels.some(label => /^Quick add /.test(label)), 'quick-add label');
+    assert.ok(labels.includes('Categories'), 'category tabs label');
+    assert.deepEqual(labels.filter(label => /^(Elegí talla|Agregar rápido|Categorías)/.test(label)), []);
+    assert.equal(text(b.d.querySelector('.grid-views > span')), 'View');
+    const sizeL = b.d.querySelector('select[name=size] option[value=L]');
+    assert.equal(sizeL.disabled, true);
+    assert.equal(text(sizeL), 'L · Sold out');
+    assert.equal(b.d.querySelector('select[name=size] option[value=S]').disabled, false);
+  });
+  await withPage('producto-novias-velo.html', {language: 'en'}, async b => {
+    const code = b.d.querySelector('.product-code');
+    assert.equal(text(code), 'Reference: NOVIAS-VELO');
+    assert.equal(code.querySelector('[translate=no]').textContent, 'NOVIAS-VELO');
+  });
+  await withPage('index.html', {language: 'en'}, async b => {
+    const slides = [...b.d.querySelectorAll('.ho-slide')].map(slide => slide.getAttribute('aria-label'));
+    assert.deepEqual(slides, slides.map((_, index) => `${index + 1} of ${slides.length}`));
   });
 });
 
@@ -422,6 +446,23 @@ test('static photo dimensions match the independent image-header inventory', asy
     });
   }
   assert.ok(checked > 1000, 'shared templates and product galleries should all be checked');
+});
+
+test('one price format: $ symbol, comma thousands and two decimals in both languages', async () => {
+  for (const language of ['es', 'en']) {
+    await withPage('bolsa.html', {language, setup: async w => {
+      const api = w.MarthaIntegrations.createDemoAdapter({mode: 'savia', catalog: w.DEMO_CATALOG, storage: w.localStorage, createDemoApi: w.createMarthaDemoApi});
+      let minor = 0;
+      for (const product of w.DEMO_CATALOG.products) {
+        const variant = product.variants.find(v => v.stock > 0);
+        if (minor < 100000 && variant) { await api('/api/cart/items', {variant_id: variant.id, quantity: 1}); minor += product.price_minor; }
+      }
+    }}, async b => {
+      const body = text(b.d.querySelector('main'));
+      assert.match(body, /\$1,\d{3}\.\d{2}/, language + ' thousands separator');
+      assert.doesNotMatch(body, /USD \d|US\$|\$\d{4,}/, language + ' no code prefix or ungrouped thousands');
+    });
+  }
 });
 
 (async () => {

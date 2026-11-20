@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 from html.parser import HTMLParser
 from urllib.parse import urlparse
@@ -44,7 +45,7 @@ for file in ROOT.glob('*.html'):
     dom.feed(file.read_text(encoding='utf-8'))
     pages[file.name] = dom
 
-assert len(pages) == 47, ('expected 47 original page templates', len(pages))
+assert sorted(pages) == json.loads((ROOT.parent / 'tests/site-pages.json').read_text(encoding='utf-8')), ('pages differ from tests/site-pages.json', len(pages))
 for name, dom in pages.items():
     assert all(count == 1 for count in Counter(dom.ids).values()), (name, 'duplicate IDs')
     assert all(reference in dom.ids for reference in dom.refs), (name, 'dangling ARIA', dom.refs)

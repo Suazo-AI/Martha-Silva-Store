@@ -21,11 +21,11 @@ def build(output: Path) -> None:
     catalog, _ = json.JSONDecoder().raw_decode(catalog_text[len(prefix):])
     products = catalog['products']
     product_ids = {product['id'] for product in products}
-    expected_pages = {'index.html', 'catalogo.html', 'bolsa.html', 'checkout.html',
-                      'pedido.html', 'ayuda.html', 'admin.html'}
-    expected_pages.update(f'producto-{product_id}.html' for product_id in product_ids)
+    expected_pages = set(json.loads((ROOT / 'tests' / 'site-pages.json').read_text(encoding='utf-8')))
+    if {p for p in expected_pages if p.startswith('producto-')} != {f'producto-{product_id}.html' for product_id in product_ids}:
+        raise ValueError('tests/site-pages.json product pages differ from the catalog')
     if len(products) != 40 or len(product_ids) != 40 or {p.name for p in pages} != expected_pages:
-        raise ValueError('Expected 40 sample products and their 47 recovered templates')
+        raise ValueError('Expected 40 sample products and their recovered templates in tests/site-pages.json')
     sources = [(p, p.relative_to(static)) for p in sorted(static.rglob('*')) if p.is_file()]
     sources += [(ROOT / 'src' / name, Path(name)) for name in ('app.js', 'demo-api.js', 'integration-adapters.js')]
     for source, _ in sources:

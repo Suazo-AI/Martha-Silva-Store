@@ -1,0 +1,925 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-20T21:57:26.970097+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "change": "M",
+      "git_blob": "99d53f3505181d846a9d3f9cb076df51aeb30ad9"
+    },
+    {
+      "path": "build-inputs/static/404.html",
+      "change": "A",
+      "git_blob": "f58a54b7a41dfbe18b5dabaae72cee4bd7d2642b"
+    },
+    {
+      "path": "build-inputs/static/_headers",
+      "change": "M",
+      "git_blob": "219518316012f38ffaebe3e190d6d3aba1de8d01"
+    },
+    {
+      "path": "build-inputs/static/admin.html",
+      "change": "M",
+      "git_blob": "35efbd55a13121f14628d8dbb84092ec8170dcd5"
+    },
+    {
+      "path": "build-inputs/static/ayuda.html",
+      "change": "M",
+      "git_blob": "c1f36241c50f5679846c63681af1763564fec29c"
+    },
+    {
+      "path": "build-inputs/static/bolsa.html",
+      "change": "M",
+      "git_blob": "9b7fe50f282cb97aa6fc399f92de324f4f0a7399"
+    },
+    {
+      "path": "build-inputs/static/catalogo.html",
+      "change": "M",
+      "git_blob": "9a26eafb8024b2cf525eeb487e1419b9eb25138f"
+    },
+    {
+      "path": "build-inputs/static/checkout.html",
+      "change": "M",
+      "git_blob": "ce6d1de17bebb439f13fe40db5465a54e8bd449d"
+    },
+    {
+      "path": "build-inputs/static/i18n.js",
+      "change": "M",
+      "git_blob": "e9e7d20c8a2986333f6a6adf8a3eb7055deb30ee"
+    },
+    {
+      "path": "build-inputs/static/index.html",
+      "change": "M",
+      "git_blob": "0c937e4dbedf52c2019328564110a07f3a3e8a06"
+    },
+    {
+      "path": "build-inputs/static/llms.txt",
+      "change": "A",
+      "git_blob": "d59c3b6bc3e9b3a6c948bc7bf9023ddbc812392a"
+    },
+    {
+      "path": "build-inputs/static/locale-en.js",
+      "change": "M",
+      "git_blob": "71602d4b81035dd82ddb3edea051a63ef9e98541"
+    },
+    {
+      "path": "build-inputs/static/pedido.html",
+      "change": "M",
+      "git_blob": "3295b79447aaa180a552f99560314fd4068b3ba5"
+    },
+    {
+      "path": "build-inputs/static/producto-amarillo.html",
+      "change": "M",
+      "git_blob": "7f6337abc7547417caa5f2d130eedd4df5bb312f"
+    },
+    {
+      "path": "build-inputs/static/producto-azul-floral-un-hombro.html",
+      "change": "M",
+      "git_blob": "73720be0f48ed63ad8d2dababab0dbe2a8943f33"
+    },
+    {
+      "path": "build-inputs/static/producto-azul-gris-flores-falda.html",
+      "change": "M",
+      "git_blob": "031107c1368fd6389bce1d8659f228a3f6844d24"
+    },
+    {
+      "path": "build-inputs/static/producto-azul-gris-un-hombro.html",
+      "change": "M",
+      "git_blob": "8cbe0717dd8f98982168c8bab8807b54bf43535c"
+    },
+    {
+      "path": "build-inputs/static/producto-blanco-perlado-sirena.html",
+      "change": "M",
+      "git_blob": "9b09c06a94dfeca9d79b5a661d98124e33e16085"
+    },
+    {
+      "path": "build-inputs/static/producto-burdeos-encaje-volantes-midi.html",
+      "change": "M",
+      "git_blob": "024c5c923e2d7c6b93a304c78a80c368fa75161e"
+    },
+    {
+      "path": "build-inputs/static/producto-burdeos-top-pantalon-corto.html",
+      "change": "M",
+      "git_blob": "8d94b76f13b9fbb93c6e224d0ae4a70b4e100671"
+    },
+    {
+      "path": "build-inputs/static/producto-champagne.html",
+      "change": "M",
+      "git_blob": "c39a3716030ceea6503aac3dbe3a0995abb3f813"
+    },
+    {
+      "path": "build-inputs/static/producto-crema-flores-naranjas-halter.html",
+      "change": "M",
+      "git_blob": "a1c3cfb1aa5ab750a59cc96871af3825aa19f9d0"
+    },
+    {
+      "path": "build-inputs/static/producto-crema-flores-volante-asimetrico.html",
+      "change": "M",
+      "git_blob": "66386818ecb313359716c8203aaad8b97dd7bf69"
+    },
+    {
+      "path": "build-inputs/static/producto-dorado.html",
+      "change": "M",
+      "git_blob": "87b3018ecdfa4761d02dd24d5358798308571997"
+    },
+    {
+      "path": "build-inputs/static/producto-fucsia-halter-pliegues.html",
+      "change": "M",
+      "git_blob": "6ac049eda0c889011bfd637bd9e8a68bdf1804ad"
+    },
+    {
+      "path": "build-inputs/static/producto-fucsia-un-hombro-volantes.html",
+      "change": "M",
+      "git_blob": "c2f02a848a167d6fc75edd24bddd3718d45de3fb"
+    },
+    {
+      "path": "build-inputs/static/producto-gala-destello.html",
+      "change": "M",
+      "git_blob": "bfbd0f16111fc64c8b53d5a272c6efd43422d615"
+    },
+    {
+      "path": "build-inputs/static/producto-gala-oro.html",
+      "change": "M",
+      "git_blob": "1a6c2083911329ef83a12ce5a4dbf0562a6bbc46"
+    },
+    {
+      "path": "build-inputs/static/producto-gala-rubi.html",
+      "change": "M",
+      "git_blob": "165e6d5f6245b3c5e9d2617040b553fcfbf0bf0c"
+    },
+    {
+      "path": "build-inputs/static/producto-gris-perla-hombros.html",
+      "change": "M",
+      "git_blob": "0acb0015533aea9e7b05d8787a200f8fcc9410d1"
+    },
+    {
+      "path": "build-inputs/static/producto-midi-estampado-burdeos.html",
+      "change": "M",
+      "git_blob": "5e04f4841f1502d666f9502a934915004b38c12e"
+    },
+    {
+      "path": "build-inputs/static/producto-napoleon.html",
+      "change": "M",
+      "git_blob": "347b796edd2e758b072ba50d949b21943c35bb79"
+    },
+    {
+      "path": "build-inputs/static/producto-negro-blanco-lunares-midi.html",
+      "change": "M",
+      "git_blob": "68cae132179c5e187cf0e5ff57d85dcccf1b5765"
+    },
+    {
+      "path": "build-inputs/static/producto-negro-brillo-pantalon-amplio.html",
+      "change": "M",
+      "git_blob": "f6f9d75e258ff344a51fada532134cdadc3f7901"
+    },
+    {
+      "path": "build-inputs/static/producto-negro-escote-puntas-abertura.html",
+      "change": "M",
+      "git_blob": "a10c87561cc3ad98d8fbfbe6c4b445030757620a"
+    },
+    {
+      "path": "build-inputs/static/producto-negro-lunares-beige-hombros.html",
+      "change": "M",
+      "git_blob": "f8605c8e1f0157ab70e049ed551da6942aed40c6"
+    },
+    {
+      "path": "build-inputs/static/producto-negro.html",
+      "change": "M",
+      "git_blob": "306d1fe32aa9e7c9cd4e0e7b600b0dab672fadf7"
+    },
+    {
+      "path": "build-inputs/static/producto-novia-satinada-abertura.html",
+      "change": "M",
+      "git_blob": "4fd6d6096a81291bd7f3a4cf1519de2bb0df6e6d"
+    },
+    {
+      "path": "build-inputs/static/producto-novia-tirantes-encaje.html",
+      "change": "M",
+      "git_blob": "b5b4d996db833da314f0332c4c611231eba08bb6"
+    },
+    {
+      "path": "build-inputs/static/producto-novia.html",
+      "change": "M",
+      "git_blob": "84713378db0b5230072bcb5a988cc967e823ee2d"
+    },
+    {
+      "path": "build-inputs/static/producto-novias-alba.html",
+      "change": "M",
+      "git_blob": "630c5c23c802bd60da3e35e9833861e887bb4324"
+    },
+    {
+      "path": "build-inputs/static/producto-novias-encaje.html",
+      "change": "M",
+      "git_blob": "368cb4085bec94df3ded4e7d4a27bb424956bcf7"
+    },
+    {
+      "path": "build-inputs/static/producto-novias-velo.html",
+      "change": "M",
+      "git_blob": "0240e7259abcb698138337c890efeaa05a1c434e"
+    },
+    {
+      "path": "build-inputs/static/producto-plata-tirantes-copas-pedreria.html",
+      "change": "M",
+      "git_blob": "fa0b6b3633842dbb04d79f3a0380d9d0523e6d48"
+    },
+    {
+      "path": "build-inputs/static/producto-rojo-tirantes-falda-amplia.html",
+      "change": "M",
+      "git_blob": "64c455da4e74780177ed6daf2c79bea6fa634cc7"
+    },
+    {
+      "path": "build-inputs/static/producto-rosa-bronce-pedreria.html",
+      "change": "M",
+      "git_blob": "4119b00ba56c34198947e27b4a11569ab30be230"
+    },
+    {
+      "path": "build-inputs/static/producto-rosa-claro-flores-doradas.html",
+      "change": "M",
+      "git_blob": "a6b571d7656282613ad14a7a1ea36cbe04f86e1a"
+    },
+    {
+      "path": "build-inputs/static/producto-rosa-empolvado-pedreria.html",
+      "change": "M",
+      "git_blob": "bef8e8bac07e3321a359a4259ce16aed831ad0e2"
+    },
+    {
+      "path": "build-inputs/static/producto-rosa-flores-fucsias-halter.html",
+      "change": "M",
+      "git_blob": "eca7430229ecea1c430d322c95f5875abede01e1"
+    },
+    {
+      "path": "build-inputs/static/producto-rosa-marron-chaqueta-falda.html",
+      "change": "M",
+      "git_blob": "709a221c8b358abcf53815cb235b26ae7e5c0117"
+    },
+    {
+      "path": "build-inputs/static/producto-rosa.html",
+      "change": "M",
+      "git_blob": "a73d1316b86dba14e7b448001b99b5d8b09481eb"
+    },
+    {
+      "path": "build-inputs/static/producto-verde-brillo-cuello-cruzado.html",
+      "change": "M",
+      "git_blob": "41779ec2319821e8d8268420aa72d316df5e888e"
+    },
+    {
+      "path": "build-inputs/static/producto-verde-esmeralda-tirantes-cruzados.html",
+      "change": "M",
+      "git_blob": "bf854c78afce2b3c9983dc5f917f1abe24825804"
+    },
+    {
+      "path": "build-inputs/static/prototypes/vendor/ScrollTrigger.min.js",
+      "change": "D",
+      "git_blob": null
+    },
+    {
+      "path": "build-inputs/static/prototypes/vendor/lenis.css",
+      "change": "D",
+      "git_blob": null
+    },
+    {
+      "path": "build-inputs/static/prototypes/vendor/lenis.min.js",
+      "change": "D",
+      "git_blob": null
+    },
+    {
+      "path": "build-inputs/static/robots.txt",
+      "change": "A",
+      "git_blob": "1f53798bb4fe33c86020be7f10c44f29486fd190"
+    },
+    {
+      "path": "build-inputs/static/styles.css",
+      "change": "M",
+      "git_blob": "b5125cde8f9f2f2150bf97c8ef44f495115d9302"
+    },
+    {
+      "path": "dist/404.html",
+      "change": "A",
+      "git_blob": "f58a54b7a41dfbe18b5dabaae72cee4bd7d2642b"
+    },
+    {
+      "path": "dist/_headers",
+      "change": "M",
+      "git_blob": "219518316012f38ffaebe3e190d6d3aba1de8d01"
+    },
+    {
+      "path": "dist/admin.html",
+      "change": "M",
+      "git_blob": "35efbd55a13121f14628d8dbb84092ec8170dcd5"
+    },
+    {
+      "path": "dist/app.js",
+      "change": "M",
+      "git_blob": "492102bd7a3e8d8c4ecf987afdb0c943f0e5584f"
+    },
+    {
+      "path": "dist/ayuda.html",
+      "change": "M",
+      "git_blob": "c1f36241c50f5679846c63681af1763564fec29c"
+    },
+    {
+      "path": "dist/bolsa.html",
+      "change": "M",
+      "git_blob": "9b7fe50f282cb97aa6fc399f92de324f4f0a7399"
+    },
+    {
+      "path": "dist/catalogo.html",
+      "change": "M",
+      "git_blob": "9a26eafb8024b2cf525eeb487e1419b9eb25138f"
+    },
+    {
+      "path": "dist/checkout.html",
+      "change": "M",
+      "git_blob": "ce6d1de17bebb439f13fe40db5465a54e8bd449d"
+    },
+    {
+      "path": "dist/i18n.js",
+      "change": "M",
+      "git_blob": "e9e7d20c8a2986333f6a6adf8a3eb7055deb30ee"
+    },
+    {
+      "path": "dist/index.html",
+      "change": "M",
+      "git_blob": "0c937e4dbedf52c2019328564110a07f3a3e8a06"
+    },
+    {
+      "path": "dist/llms.txt",
+      "change": "A",
+      "git_blob": "d59c3b6bc3e9b3a6c948bc7bf9023ddbc812392a"
+    },
+    {
+      "path": "dist/locale-en.js",
+      "change": "M",
+      "git_blob": "71602d4b81035dd82ddb3edea051a63ef9e98541"
+    },
+    {
+      "path": "dist/pedido.html",
+      "change": "M",
+      "git_blob": "3295b79447aaa180a552f99560314fd4068b3ba5"
+    },
+    {
+      "path": "dist/producto-amarillo.html",
+      "change": "M",
+      "git_blob": "7f6337abc7547417caa5f2d130eedd4df5bb312f"
+    },
+    {
+      "path": "dist/producto-azul-floral-un-hombro.html",
+      "change": "M",
+      "git_blob": "73720be0f48ed63ad8d2dababab0dbe2a8943f33"
+    },
+    {
+      "path": "dist/producto-azul-gris-flores-falda.html",
+      "change": "M",
+      "git_blob": "031107c1368fd6389bce1d8659f228a3f6844d24"
+    },
+    {
+      "path": "dist/producto-azul-gris-un-hombro.html",
+      "change": "M",
+      "git_blob": "8cbe0717dd8f98982168c8bab8807b54bf43535c"
+    },
+    {
+      "path": "dist/producto-blanco-perlado-sirena.html",
+      "change": "M",
+      "git_blob": "9b09c06a94dfeca9d79b5a661d98124e33e16085"
+    },
+    {
+      "path": "dist/producto-burdeos-encaje-volantes-midi.html",
+      "change": "M",
+      "git_blob": "024c5c923e2d7c6b93a304c78a80c368fa75161e"
+    },
+    {
+      "path": "dist/producto-burdeos-top-pantalon-corto.html",
+      "change": "M",
+      "git_blob": "8d94b76f13b9fbb93c6e224d0ae4a70b4e100671"
+    },
+    {
+      "path": "dist/producto-champagne.html",
+      "change": "M",
+      "git_blob": "c39a3716030ceea6503aac3dbe3a0995abb3f813"
+    },
+    {
+      "path": "dist/producto-crema-flores-naranjas-halter.html",
+      "change": "M",
+      "git_blob": "a1c3cfb1aa5ab750a59cc96871af3825aa19f9d0"
+    },
+    {
+      "path": "dist/producto-crema-flores-volante-asimetrico.html",
+      "change": "M",
+      "git_blob": "66386818ecb313359716c8203aaad8b97dd7bf69"
+    },
+    {
+      "path": "dist/producto-dorado.html",
+      "change": "M",
+      "git_blob": "87b3018ecdfa4761d02dd24d5358798308571997"
+    },
+    {
+      "path": "dist/producto-fucsia-halter-pliegues.html",
+      "change": "M",
+      "git_blob": "6ac049eda0c889011bfd637bd9e8a68bdf1804ad"
+    },
+    {
+      "path": "dist/producto-fucsia-un-hombro-volantes.html",
+      "change": "M",
+      "git_blob": "c2f02a848a167d6fc75edd24bddd3718d45de3fb"
+    },
+    {
+      "path": "dist/producto-gala-destello.html",
+      "change": "M",
+      "git_blob": "bfbd0f16111fc64c8b53d5a272c6efd43422d615"
+    },
+    {
+      "path": "dist/producto-gala-oro.html",
+      "change": "M",
+      "git_blob": "1a6c2083911329ef83a12ce5a4dbf0562a6bbc46"
+    },
+    {
+      "path": "dist/producto-gala-rubi.html",
+      "change": "M",
+      "git_blob": "165e6d5f6245b3c5e9d2617040b553fcfbf0bf0c"
+    },
+    {
+      "path": "dist/producto-gris-perla-hombros.html",
+      "change": "M",
+      "git_blob": "0acb0015533aea9e7b05d8787a200f8fcc9410d1"
+    },
+    {
+      "path": "dist/producto-midi-estampado-burdeos.html",
+      "change": "M",
+      "git_blob": "5e04f4841f1502d666f9502a934915004b38c12e"
+    },
+    {
+      "path": "dist/producto-napoleon.html",
+      "change": "M",
+      "git_blob": "347b796edd2e758b072ba50d949b21943c35bb79"
+    },
+    {
+      "path": "dist/producto-negro-blanco-lunares-midi.html",
+      "change": "M",
+      "git_blob": "68cae132179c5e187cf0e5ff57d85dcccf1b5765"
+    },
+    {
+      "path": "dist/producto-negro-brillo-pantalon-amplio.html",
+      "change": "M",
+      "git_blob": "f6f9d75e258ff344a51fada532134cdadc3f7901"
+    },
+    {
+      "path": "dist/producto-negro-escote-puntas-abertura.html",
+      "change": "M",
+      "git_blob": "a10c87561cc3ad98d8fbfbe6c4b445030757620a"
+    },
+    {
+      "path": "dist/producto-negro-lunares-beige-hombros.html",
+      "change": "M",
+      "git_blob": "f8605c8e1f0157ab70e049ed551da6942aed40c6"
+    },
+    {
+      "path": "dist/producto-negro.html",
+      "change": "M",
+      "git_blob": "306d1fe32aa9e7c9cd4e0e7b600b0dab672fadf7"
+    },
+    {
+      "path": "dist/producto-novia-satinada-abertura.html",
+      "change": "M",
+      "git_blob": "4fd6d6096a81291bd7f3a4cf1519de2bb0df6e6d"
+    },
+    {
+      "path": "dist/producto-novia-tirantes-encaje.html",
+      "change": "M",
+      "git_blob": "b5b4d996db833da314f0332c4c611231eba08bb6"
+    },
+    {
+      "path": "dist/producto-novia.html",
+      "change": "M",
+      "git_blob": "84713378db0b5230072bcb5a988cc967e823ee2d"
+    },
+    {
+      "path": "dist/producto-novias-alba.html",
+      "change": "M",
+      "git_blob": "630c5c23c802bd60da3e35e9833861e887bb4324"
+    },
+    {
+      "path": "dist/producto-novias-encaje.html",
+      "change": "M",
+      "git_blob": "368cb4085bec94df3ded4e7d4a27bb424956bcf7"
+    },
+    {
+      "path": "dist/producto-novias-velo.html",
+      "change": "M",
+      "git_blob": "0240e7259abcb698138337c890efeaa05a1c434e"
+    },
+    {
+      "path": "dist/producto-plata-tirantes-copas-pedreria.html",
+      "change": "M",
+      "git_blob": "fa0b6b3633842dbb04d79f3a0380d9d0523e6d48"
+    },
+    {
+      "path": "dist/producto-rojo-tirantes-falda-amplia.html",
+      "change": "M",
+      "git_blob": "64c455da4e74780177ed6daf2c79bea6fa634cc7"
+    },
+    {
+      "path": "dist/producto-rosa-bronce-pedreria.html",
+      "change": "M",
+      "git_blob": "4119b00ba56c34198947e27b4a11569ab30be230"
+    },
+    {
+      "path": "dist/producto-rosa-claro-flores-doradas.html",
+      "change": "M",
+      "git_blob": "a6b571d7656282613ad14a7a1ea36cbe04f86e1a"
+    },
+    {
+      "path": "dist/producto-rosa-empolvado-pedreria.html",
+      "change": "M",
+      "git_blob": "bef8e8bac07e3321a359a4259ce16aed831ad0e2"
+    },
+    {
+      "path": "dist/producto-rosa-flores-fucsias-halter.html",
+      "change": "M",
+      "git_blob": "eca7430229ecea1c430d322c95f5875abede01e1"
+    },
+    {
+      "path": "dist/producto-rosa-marron-chaqueta-falda.html",
+      "change": "M",
+      "git_blob": "709a221c8b358abcf53815cb235b26ae7e5c0117"
+    },
+    {
+      "path": "dist/producto-rosa.html",
+      "change": "M",
+      "git_blob": "a73d1316b86dba14e7b448001b99b5d8b09481eb"
+    },
+    {
+      "path": "dist/producto-verde-brillo-cuello-cruzado.html",
+      "change": "M",
+      "git_blob": "41779ec2319821e8d8268420aa72d316df5e888e"
+    },
+    {
+      "path": "dist/producto-verde-esmeralda-tirantes-cruzados.html",
+      "change": "M",
+      "git_blob": "bf854c78afce2b3c9983dc5f917f1abe24825804"
+    },
+    {
+      "path": "dist/prototypes/vendor/ScrollTrigger.min.js",
+      "change": "D",
+      "git_blob": null
+    },
+    {
+      "path": "dist/prototypes/vendor/lenis.css",
+      "change": "D",
+      "git_blob": null
+    },
+    {
+      "path": "dist/prototypes/vendor/lenis.min.js",
+      "change": "D",
+      "git_blob": null
+    },
+    {
+      "path": "dist/robots.txt",
+      "change": "A",
+      "git_blob": "1f53798bb4fe33c86020be7f10c44f29486fd190"
+    },
+    {
+      "path": "dist/styles.css",
+      "change": "M",
+      "git_blob": "b5125cde8f9f2f2150bf97c8ef44f495115d9302"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/B0-SPEC.html",
+      "change": "A",
+      "git_blob": "60619fc66eefe3b480bcf4fe2ddc6dac3d6db68e"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/LOOP-LOG.md",
+      "change": "A",
+      "git_blob": "497eed8ef205e38b0c13b71f543a91104937aadb"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/PATCHES.sha256",
+      "change": "A",
+      "git_blob": "abdb9730b320e0d4d0d99ea734bbb00c707b4ef8"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/PROMPT.md",
+      "change": "A",
+      "git_blob": "c46af417057d021169cd55f91c59e963bb4e0d78"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/STATE.md",
+      "change": "A",
+      "git_blob": "efe6697e487095b2afe3f20493c908a9ac10717d"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/baseline-20261119/README.md",
+      "change": "A",
+      "git_blob": "eec4865e407770a08c3f5b67ebd2ac961ee4f98a"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/baseline-20261119/axe.json",
+      "change": "A",
+      "git_blob": "b05a950136409108668581c4b4c15ea567722943"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/baseline-20261119/axe.py",
+      "change": "A",
+      "git_blob": "25b6b4d2e72562ed2dfc59ef2bbb2ce20e72072d"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/baseline-20261119/csp_server.py",
+      "change": "A",
+      "git_blob": "031f405fd9993e608981613a62b2754cf6c3f35f"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/baseline-20261119/drive.py",
+      "change": "A",
+      "git_blob": "6dd5b871c12c0d5e00cc6dea32fb40573992e14e"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/baseline-20261119/drive7.py",
+      "change": "A",
+      "git_blob": "9448a895e285e9a2b493c710ee7f25d91b2efa59"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/baseline-20261119/en-scan2.json",
+      "change": "A",
+      "git_blob": "78d266681ed627d7836e26e21d077ca41ca0de9d"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/baseline-20261119/en_scan.py",
+      "change": "A",
+      "git_blob": "79f15875d49c409677c06edfbc3d232e15c58e5c"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/baseline-20261119/en_scan_js.py",
+      "change": "A",
+      "git_blob": "1e08ce8c396cae40560cfbf34151d3b08ba67f35"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/baseline-20261119/results-es-csp.json",
+      "change": "A",
+      "git_blob": "69a4ca565fade6ef48921d2167c7b4bd21ee7488"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/baseline-20261119/results.json",
+      "change": "A",
+      "git_blob": "91ac22648124e46280929fff924d37b97570aa8d"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/baseline-20261119/results2.json",
+      "change": "A",
+      "git_blob": "113a66da5cb944186e00d119fdc7e9908fa3d638"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/baseline-20261119/storefront-gaps.html",
+      "change": "A",
+      "git_blob": "b1c859ad118b6b9baaec338173dbec10672f5912"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/packets/P1-A1-A5.md",
+      "change": "A",
+      "git_blob": "398d4c68964392e2d7ac947e3d36e7a0aa788f78"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/packets/P2-A6.md",
+      "change": "A",
+      "git_blob": "36af715be177c5fad4b04c799e0760d3426d18df"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/packets/P3-A7-A8.md",
+      "change": "A",
+      "git_blob": "e6ca4c663473c8735140314f31aeae3500485cfc"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/packets/P4-grid-footer-title.md",
+      "change": "A",
+      "git_blob": "d0d088e9b6b5d1982a6daeb5c11a1ef5a043555d"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/packets/P5-black-pill.md",
+      "change": "A",
+      "git_blob": "bd57e5d8df482442c78d661f8d730d6c6ed40efa"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/packets/P6-transition.md",
+      "change": "A",
+      "git_blob": "3eff309ca7dff933ca490aaed23a3ab485225b45"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/packets/P7-loader.md",
+      "change": "A",
+      "git_blob": "446b441ca87e38ff20e3abf435c54b69ed2ebff2"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/packets/P8-seo.md",
+      "change": "A",
+      "git_blob": "7804e3253277cea5e80ce8ea2a643334d89ff229"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/scorecards/000-baseline.json",
+      "change": "A",
+      "git_blob": "c81499f78ec7abdb89301b0aded5b1f08b30c108"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/scorecards/001-P1.json",
+      "change": "A",
+      "git_blob": "5cfb75cf3843ab5f60c2cb5a2cac1783034a358b"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/scorecards/002-P2.json",
+      "change": "A",
+      "git_blob": "bd9aa446944bd5308b7869d53a32b06b5c42b406"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/scorecards/003-P3.json",
+      "change": "A",
+      "git_blob": "d493d634c99a8370236f3a74ae92208391f29b54"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/scorecards/006-P4-slices.json",
+      "change": "A",
+      "git_blob": "6452db91bf1ccf27b65fdda8125056f90cc4a71b"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/scorecards/006-P4.json",
+      "change": "A",
+      "git_blob": "a425063391ccf5ef2a1e94b4ad6fd51c0e8e4a7d"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/scorecards/008-P5-slices.json",
+      "change": "A",
+      "git_blob": "d053c3dd46ba53a2583300039f838bfa498d45c8"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/scorecards/008-P5.json",
+      "change": "A",
+      "git_blob": "22d1dcf9771f216da9a45c65f74f9e6c3082e642"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/scorecards/010-P6-slices.json",
+      "change": "A",
+      "git_blob": "439638727cce01abd903224bfbfae726b2639424"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/scorecards/010-P6.json",
+      "change": "A",
+      "git_blob": "917bb700ad02535df2b733af4c6a3221163991af"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/scorecards/012-P7-slices.json",
+      "change": "A",
+      "git_blob": "cadb8ef50bb16c5063116e8f9ff6ecb7f49dd7c1"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/scorecards/012-P7.json",
+      "change": "A",
+      "git_blob": "d35efc14da4d09ae14baf75e7c5813d96bb58705"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/scorecards/014-P8-slices.json",
+      "change": "A",
+      "git_blob": "5e8d6faeaf88bb28b1451da6f4d205247e12bb9a"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/scorecards/014-P8.json",
+      "change": "A",
+      "git_blob": "57a0c53e4dfe7235a9021934915db2ac989b4bae"
+    },
+    {
+      "path": "evidence/releases/20261105/responsive-runtime-sha256.json",
+      "change": "M",
+      "git_blob": "b25013e9c007df76e4dae97a7ef3985a94e0fd0f"
+    },
+    {
+      "path": "prepare.py",
+      "change": "M",
+      "git_blob": "51407360f9c3d071aa001c2748049162e00f7b23"
+    },
+    {
+      "path": "site.config.json",
+      "change": "A",
+      "git_blob": "5d47097d3bc3f02405f4e26baa24eb7e107673a8"
+    },
+    {
+      "path": "src/app.js",
+      "change": "M",
+      "git_blob": "492102bd7a3e8d8c4ecf987afdb0c943f0e5584f"
+    },
+    {
+      "path": "tests/check.py",
+      "change": "M",
+      "git_blob": "828d1dcc1a39dfa6e71db40e6862dfd531d174a6"
+    },
+    {
+      "path": "tests/desktop-gallery.cjs",
+      "change": "M",
+      "git_blob": "ca6336b5c4ba7475cb4d2516fc3d414a27b730c5"
+    },
+    {
+      "path": "tests/frontend-runtime.cjs",
+      "change": "M",
+      "git_blob": "dd2d45408ceab3fccca852447fdd9effc4360c55"
+    },
+    {
+      "path": "tests/localization-runtime.cjs",
+      "change": "M",
+      "git_blob": "ea5e9056475c66abc93ae8ed7adc4dc9930edfbc"
+    },
+    {
+      "path": "tests/page-hashes.json",
+      "change": "A",
+      "git_blob": "70ed46b288f714bc687e2f268b5a957332255a24"
+    },
+    {
+      "path": "tests/responsive_images.py",
+      "change": "M",
+      "git_blob": "4126ea593c58c19a4f6e644887ab7a36651e006c"
+    },
+    {
+      "path": "tests/site-pages.json",
+      "change": "A",
+      "git_blob": "364effd58469d7200c19159460db8cb9897b87d3"
+    },
+    {
+      "path": "tests/static_headers.py",
+      "change": "M",
+      "git_blob": "18607951de06a3d27acf5581a06fd0998bdb35c5"
+    },
+    {
+      "path": "tests/storefront_scorecard/MANIFEST.sha256",
+      "change": "A",
+      "git_blob": "a74621e81f6b923b57651fa84d821ece02d23bb3"
+    },
+    {
+      "path": "tests/storefront_scorecard/scorecard.py",
+      "change": "A",
+      "git_blob": "520087d398b411edb57e6e236648cdeba1f3fa85"
+    },
+    {
+      "path": "tests/storefront_scorecard/slices.py",
+      "change": "A",
+      "git_blob": "d2c360f5e3e5be6420f566eaf6e978c4fdb021cb"
+    },
+    {
+      "path": "tests/structure.py",
+      "change": "M",
+      "git_blob": "9e680497d8648816aa2aeebe8af80ba40c466359"
+    },
+    {
+      "path": "tests/test_check.py",
+      "change": "M",
+      "git_blob": "ba5568cbacd26fe2414f2d9d5249745c7cf8ff2d"
+    },
+    {
+      "path": "tests/test_release_snapshot.py",
+      "change": "M",
+      "git_blob": "64b7d07463a50d82d2c66911f07897259d788055"
+    },
+    {
+      "path": "tools/footer_wordmark_codemod.py",
+      "change": "A",
+      "git_blob": "cff35675acc4e31be56d893788656cc78c68b861"
+    },
+    {
+      "path": "tools/loader_codemod.py",
+      "change": "A",
+      "git_blob": "fc7a2a81772cf3618d193151cea852dc719854ee"
+    },
+    {
+      "path": "tools/menu_pill_codemod.py",
+      "change": "A",
+      "git_blob": "9ffde83ce67b08c148cb82e30699d8e80da84aa3"
+    },
+    {
+      "path": "tools/pin_page_hashes.py",
+      "change": "A",
+      "git_blob": "882e1949f27843125a9e316b5173e7132ed9b045"
+    },
+    {
+      "path": "tools/price_format.py",
+      "change": "A",
+      "git_blob": "d8c94da0f45df179005e495c7e6f05b6a8e371a8"
+    },
+    {
+      "path": "tools/remove_dead_vendor.py",
+      "change": "A",
+      "git_blob": "cc7cf952530fe2a24939fe0359c6aecc668e17f1"
+    },
+    {
+      "path": "tools/seo_generate.py",
+      "change": "A",
+      "git_blob": "9c8c33987d304520a97efdd18d92bed61e5be683"
+    },
+    {
+      "path": "tools/storefront_markup_codemod.py",
+      "change": "A",
+      "git_blob": "f1d2bece0d04e472d4bd56633ee6c11a3dc3098c"
+    },
+    {
+      "path": "tools/verify_release_snapshot.py",
+      "change": "M",
+      "git_blob": "02770d9085ff1656372b94ffb1592ed076a32f5f"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

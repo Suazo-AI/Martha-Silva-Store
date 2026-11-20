@@ -284,7 +284,7 @@ test('Back after another viewport width restores the same photo instead of a raw
  b.w.history.pushState({},'', '/catalogo.html?category=Gala');await b.resize(400);
  b.w.history.replaceState(saved,'','/producto-verde-brillo-cuello-cruzado.html?lang=es');
  const data={trigger:'back',event:{type:'popstate',state:saved},current:{container:main},next:{container:main}};
- await router.leave(data);router.enter(data);await router.after(data);await settle();await settle();
+ await router.leave(data);await router.beforeEnter(data);router.enter(data);await router.after(data);await settle();await settle();
  assert.equal(b.viewport.scrollLeft,800);assert.equal(b.current(),2);
 }));
 
@@ -296,7 +296,7 @@ test('native Back then Forward preserves the outgoing gallery without pagehide o
   b.w.history.replaceState(state,'',url);
   const event=new b.w.PopStateEvent('popstate',{state});b.w.dispatchEvent(event);
   const data={trigger,event,current:{container:main},next:{container:main}};
-  await router.leave(data);main.dataset.page=page;router.enter(data);await router.after(data);await settle();await settle();
+  await router.leave(data);main.dataset.page=page;await router.beforeEnter(data);router.enter(data);await router.after(data);await settle();await settle();
  }
  await traverse(catalog,'/catalogo.html','catalog','back');
  await b.resize(420);

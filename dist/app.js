@@ -2,11 +2,26 @@
 (() => {
   'use strict';
   window.STORE_MEDIA=window.STORE_MEDIA || {};
-  const $ = (s, root = document) => root.querySelector(s);
-  const $$ = (s, root = document) => [...root.querySelectorAll(s)];
+  // While the next page mounts in the transition window, page queries skip the outgoing page.
+  let outgoing = null;
+  const live = element => !outgoing || !outgoing.contains(element);
+  const $ = (s, root = document) => outgoing && root === document ? [...root.querySelectorAll(s)].find(live) || null : root.querySelector(s);
+  const $$ = (s, root = document) => outgoing && root === document ? [...root.querySelectorAll(s)].filter(live) : [...root.querySelectorAll(s)];
+  // Motion tokens: read once from the --ms-* custom properties in styles.css; effect code uses only these.
+  const MOTION = (() => {
+    let css = {getPropertyValue: () => ''};
+    try { css = getComputedStyle(document.documentElement); } catch {}
+    const raw = name => String(css.getPropertyValue(name) || '').trim();
+    const seconds = (name, fallback) => { const v = raw(name), n = parseFloat(v); return Number.isFinite(n) ? (/ms$/.test(v) ? n / 1000 : n) : fallback; };
+    const curve = (raw('--ms-ease').match(/cubic-bezier\(([^)]+)\)/)?.[1] || '.22,1,.36,1').split(',').map(Number);
+    const at = (a, b, t) => 3 * a * (1 - t) * (1 - t) * t + 3 * b * (1 - t) * t * t + t * t * t;
+    const ease = x => { if (x <= 0 || x >= 1) return x; let lo = 0, hi = 1, t = x; for (let i = 0; i < 24 && Math.abs(at(curve[0], curve[2], t) - x) > 1e-5; i++) { at(curve[0], curve[2], t) < x ? lo = t : hi = t; t = (lo + hi) / 2; } return at(curve[1], curve[3], t); };
+    return Object.freeze({ease, durS: seconds('--ms-dur-s', .28), durM: seconds('--ms-dur-m', .48), durL: seconds('--ms-dur-l', .64), radius: raw('--ms-radius') || '14px', loaderMax: seconds('--ms-loader-max', 1.6)});
+  })();
   const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const locale = () => window.MarthaI18n?.language === 'en' ? 'en-US' : 'es-NI';
-  const money = n => new Intl.NumberFormat(locale(), {style:'currency',currency:'USD',currencyDisplay:'code'}).format(n / 100);
+  const priceFormat = new Intl.NumberFormat('en-US', {style:'currency',currency:'USD'});
+  const money = n => priceFormat.format(Math.abs(n) / 100);
   const uuid = () => crypto.randomUUID();
   // Per-entry editorial view state; leaves native scrollRestoration unchanged.
   const viewHistory = (() => {
@@ -201,7 +216,7 @@
   })();
   window.MarthaViewHistory = viewHistory;
 
-  let products = [], cart = null, pageScope, lenis, raf, currentOrder, adminOrders = [], inventory = [], checkout = {}, quote, productObserver, productAdding = false;
+  let products = [], cart = null, pageScope, raf, currentOrder, adminOrders = [], inventory = [], checkout = {}, quote, productObserver, productAdding = false;
   const MODE_KEY = 'martha-integration-mode-v1';
   const integrationInstances = new Map();
   let memoryOnlyIntegration = false;
@@ -347,7 +362,7 @@
     const saved=favorites.includes(p.id), stock=p.variants.reduce((n,v)=>n+v.stock,0);
     const photo=(src,cls='')=>{const i=p.images.indexOf(src),dimensions=window.STORE_IMAGE_DIMENSIONS?.[p.jpeg_images?.[i] || src] || [900,1200];return `<picture class="${cls}">${src.startsWith('/generated-luxury/') && src.endsWith('.png') ? `<source type="image/webp" srcset="${[360,720,dimensions[0]].filter((w,n,a)=>w<=dimensions[0]&&a.indexOf(w)===n).map(w=>esc(src.replace('/generated-luxury/','/responsive-images/').replace(/\.png$/, '-'+w+'.webp'))+' '+w+'w').join(', ')}" sizes="(max-width:599px) 50vw,25vw">` : ''}<source type="${src.endsWith('.png') ? 'image/png' : 'image/webp'}" srcset="${esc(p.image_sets?.[i] || src+' 900w')}" sizes="(max-width:599px) 50vw,25vw"><img class="${cls}" src="${esc(p.jpeg_images?.[i] || src)}" srcset="${esc(p.jpeg_sets?.[i] || src+' 900w')}" sizes="(max-width:599px) 50vw,25vw" width="${dimensions[0]}" height="${dimensions[1]}" alt="${esc(p.name)}${src.startsWith('/generated-luxury/') ? ' · Imagen generada con IA' : ''}" loading="lazy" decoding="async"></picture>`;};
     const sizes=p.variants.map(v=>`<button type="button" data-quick-size="${esc(v.id)}"${v.stock>0?'':` disabled aria-label="Talla ${esc(v.size)} agotada"`}>${esc(v.size)}</button>`).join('');
-    return `<article class="product-card plp-card" data-id="${esc(p.id)}"><div class="plp-media"><a href="/producto-${esc(p.id)}.html" tabindex="-1" aria-hidden="true">${photo(p.images[0],'plp-a'+(p.images[1]?' has-b':''))}${p.images[1]?photo(p.images[1],'plp-b'):''}</a>${stock===0?'<p class="plp-sold">AGOTADO</p>':''}<div class="plp-sizes" role="group" aria-label="Elegí talla de ${esc(p.name)}">${sizes}</div></div><div class="plp-info"><p class="plp-color">${esc(p.color)}</p><button class="plp-fav" type="button" data-favorite="${esc(p.id)}" aria-label="Guardar en favoritos: ${esc(p.name)}" aria-pressed="${saved}"><svg viewBox="0 0 24 24" fill="${saved?'currentColor':'none'}" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M20.8 4.7a5.5 5.5 0 0 0-7.8 0L12 5.8l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.5a5.5 5.5 0 0 0 0-7.8Z"/></svg></button><h3 class="plp-name"><a href="/producto-${esc(p.id)}.html">${esc(p.name)}</a></h3><p class="plp-price">${money(p.price_minor)}${p.sample_image?' <span class="plp-badge">Muestra</span>':''}</p>${stock===0?'':`<button class="plp-quick" type="button" data-quick aria-expanded="false" aria-label="Agregar rápido ${esc(p.name)}"><span>Agregar rápido</span></button>`}</div></article>`;
+    return `<article class="product-card plp-card" data-id="${esc(p.id)}"><div class="plp-media"><a href="/producto-${esc(p.id)}.html" tabindex="-1" aria-hidden="true">${photo(p.images[0],'plp-a'+(p.images[1]?' has-b':''))}${p.images[1]?photo(p.images[1],'plp-b'):''}</a>${stock===0?'<p class="plp-sold">AGOTADO</p>':''}<div class="plp-sizes" role="group" aria-label="Elegí talla de ${esc(p.name)}">${sizes}</div></div><div class="plp-info"><p class="plp-color">${esc(p.color)}</p><button class="plp-fav" type="button" data-favorite="${esc(p.id)}" aria-label="Guardar en favoritos: ${esc(p.name)}" aria-pressed="${saved}"><svg viewBox="0 0 24 24" fill="${saved?'currentColor':'none'}" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M20.8 4.7a5.5 5.5 0 0 0-7.8 0L12 5.8l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.5a5.5 5.5 0 0 0 0-7.8Z"/></svg></button><h2 class="plp-name"><a href="/producto-${esc(p.id)}.html">${esc(p.name)}</a></h2><p class="plp-price">${money(p.price_minor)}${p.sample_image?' <span class="plp-badge">Muestra</span>':''}</p>${stock===0?'':`<button class="plp-quick" type="button" data-quick aria-expanded="false" aria-label="Agregar rápido ${esc(p.name)}"><span>Agregar rápido</span></button>`}</div></article>`;
   }
   function closeQuick(c) { c.classList.remove('picking'); $('[data-quick]',c)?.setAttribute('aria-expanded','false'); }
 
@@ -369,6 +384,7 @@
     const form = $('#catalog-filters'); if (!form) return;
     $$('[data-category-tab]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.categoryTab===(new URLSearchParams(location.search).get('category')||''))));
     const params = new URLSearchParams(location.search);
+    $$('select[name="size"] option[value]:not([value=""])',form).forEach(option=>{const sellable=products.some(p=>p.variants.some(v=>v.size===option.value&&v.stock>0));option.disabled=!sellable;option.textContent=sellable?option.value:option.value+' · Agotada';});
     for (const key of ['q','category','size','color','sort']) if (form.elements[key]) form.elements[key].value = params.get(key) || (key === 'sort' ? 'selection' : '');
     const query = (params.get('q') || '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
     let matches = products.filter(p => {
@@ -379,12 +395,51 @@
     });
     if (params.get('sort') === 'price-asc') matches.sort((a,b) => a.price_minor-b.price_minor);
     if (params.get('sort') === 'price-desc') matches.sort((a,b) => b.price_minor-a.price_minor);
-    $('[data-catalog-grid]').innerHTML = matches.map(card).join('') || '<div class="empty-state"><h2>No encontramos prendas con estos filtros.</h2><p>Probá otra talla, color o colección.</p><button class="button secondary" data-clear-filters>Ver todas las prendas</button></div>';
+    const catalogGrid = $('[data-catalog-grid]'), catalogHtml = matches.map(card).join('') || '<div class="empty-state"><h2>No encontramos prendas con estos filtros.</h2><p>Probá otra talla, color o colección.</p><button class="button secondary" data-clear-filters>Ver todas las prendas</button></div>';
+    flipGrid(catalogGrid, () => { catalogGrid.innerHTML = catalogHtml; });
     $('[data-result-count]').textContent = `${matches.length} ${matches.length === 1 ? 'prenda':'prendas'}${params.has('favoritos') ? ' en favoritos':''}`;
     let chips = $('[data-filter-chips]');
     if (!chips) { chips = document.createElement('div'); chips.className = 'filter-chips'; chips.dataset.filterChips = ''; form.after(chips); }
     $('.catalog-status')?.classList.toggle('has-filters',[...params.keys()].some(k=>!['sort','lang'].includes(k)));
     chips.innerHTML = [...params.entries()].filter(([k]) => !['sort','lang'].includes(k)).map(([key,value]) => `<button class="filter-chip" data-remove-filter="${esc(key)}"><span ${key === 'q' ? 'translate="no"' : ''}>${esc(key === 'favoritos' ? 'Favoritos':value)}</span> <span aria-hidden="true">×</span><span class="sr-only"> Quitar filtro</span></button>`).join('');
+  }
+  // Catalog grid: manual FLIP with GSAP core. Cards move, the image scales, text only fades.
+  const GRID_KEY = 'martha-grid-v1';
+  let flipContext;
+  function gridStored() { try { const v = JSON.parse(localStorage.getItem(GRID_KEY)); return v && typeof v === 'object' ? v : {}; } catch { return {}; } }
+  function flipGrid(grid, mutate) {
+    const still = !window.gsap || !gsap.context || matchMedia('(prefers-reduced-motion: reduce)').matches;
+    flipContext?.revert(); flipContext = null;
+    const before = new Map($$('.plp-card', grid).map(card => [card.dataset.id, card.getBoundingClientRect()]));
+    mutate();
+    if (still || !before.size) return;
+    const near = r => r.bottom > -100 && r.top < innerHeight + 100;
+    const moves = $$('.plp-card', grid).map(card => ({card, from: before.get(card.dataset.id), to: card.getBoundingClientRect()}))
+      .filter(m => near(m.to) || (m.from && near(m.from)));
+    const spread = MOTION.durM / 4, last = Math.max(moves.length - 1, 1);
+    flipContext = gsap.context(() => moves.forEach(({card, from, to}, i) => {
+      const delay = spread * i / last, base = {ease: MOTION.ease, delay};
+      if (!from) { gsap.fromTo(card, {opacity: 0}, {opacity: 1, duration: MOTION.durS, ...base}); return; }
+      const dx = from.left - to.left, dy = from.top - to.top, scale = from.width / to.width;
+      if (Math.abs(dx) < 1 && Math.abs(dy) < 1 && Math.abs(scale - 1) < .01) return;
+      const duration = MOTION.durM - spread;
+      gsap.fromTo(card, {x: dx, y: dy}, {x: 0, y: 0, duration, ...base});
+      gsap.fromTo($('.plp-media', card), {scale, transformOrigin: '0 0'}, {scale: 1, duration, ...base});
+      gsap.fromTo($('.plp-info', card), {opacity: 0}, {opacity: 1, duration: MOTION.durS, ...base});
+    }), grid);
+  }
+  function gridView() {
+    const grid = $('[data-catalog-grid]'), group = $('.grid-views'); if (!grid || !group) return;
+    const signal = pageScope.signal;
+    const set = (key, value) => { grid.style.setProperty('--' + key, value); $$('[data-cols-key="' + key + '"]', group).forEach(b => b.setAttribute('aria-pressed', String(b.dataset.cols === String(value)))); };
+    const saved = gridStored();
+    ['cd', 'cm'].forEach(key => { if ($('[data-cols-key="' + key + '"][data-cols="' + saved[key] + '"]', group)) set(key, saved[key]); });
+    group.addEventListener('click', event => {
+      const b = event.target.closest('[data-cols]'); if (!b || b.getAttribute('aria-pressed') === 'true') return;
+      flipGrid(grid, () => set(b.dataset.colsKey, b.dataset.cols));
+      try { localStorage.setItem(GRID_KEY, JSON.stringify({...gridStored(), [b.dataset.colsKey]: b.dataset.cols})); } catch {}
+    }, {signal});
+    signal.addEventListener('abort', () => { flipContext?.revert(); flipContext = null; }, {once: true});
   }
   function totals(q, cta = '') { return `<dl class="totals"><div><dt>Subtotal</dt><dd>${money(q.subtotal_minor)}</dd></div>${q.discount_minor ? `<div><dt>Descuento</dt><dd>−${money(q.discount_minor)}</dd></div>`:''}<div><dt>Entrega${q.shipping_minor === undefined ? ' estimada':''}</dt><dd>${q.shipping_minor === undefined ? 'Desde '+money(500):money(q.shipping_minor)}</dd></div><div><dt>Impuestos de prueba</dt><dd>${money(q.tax_minor || 0)}</dd></div><div class="total-row"><dt>Total${q.total_minor === undefined ? ' sin entrega':''}</dt><dd>${money(q.total_minor ?? q.subtotal_minor)}</dd></div></dl>${cta}`; }
   function runningSummary(q, lines, label) {
@@ -413,7 +468,7 @@
     panel.addEventListener('keydown',event=>{if(event.key!=='Tab')return;const items=$$('button:not(:disabled),select:not(:disabled),input:not(:disabled)',panel);const first=items[0],last=items.at(-1);if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}},{signal:pageScope.signal});
 
   }
-  function lineView(line, edit = false) { return `<article class="cart-line"><a href="/producto-${esc(line.product_id)}.html"><img src="${esc(line.image)}" alt="${esc(line.name)}" loading="lazy" width="${window.STORE_IMAGE_DIMENSIONS?.[line.image]?.[0] || 900}" height="${window.STORE_IMAGE_DIMENSIONS?.[line.image]?.[1] || 1200}"></a><div><p class="product-category">MARTHA SILVA</p><h3><a href="/producto-${esc(line.product_id)}.html">${esc(line.name)}</a></h3><p>${esc(line.color)} · Talla ${esc(line.size)}</p>${edit ? `<label class="quantity-label">Cantidad <select data-quantity="${esc(line.variant_id)}" aria-label="Cantidad de ${esc(line.name)}, talla ${esc(line.size)}">${Array.from({length:10},(_,i) => `<option value="${i+1}" ${line.quantity === i+1 ? 'selected':''}>${i+1}</option>`).join('')}</select></label><button class="text-button" data-remove-item="${esc(line.variant_id)}" aria-label="Retirar ${esc(line.name)}, talla ${esc(line.size)}">Retirar</button><button class="text-button" data-move-favorite="${esc(line.variant_id)}" data-product="${esc(line.product_id)}" aria-label="Guardar en favoritos ${esc(line.name)}, talla ${esc(line.size)}">Guardar en favoritos</button>`:`<p>Cantidad: ${line.quantity}</p>`}</div><strong>${money(line.line_total_minor)}</strong></article>`; }
+  function lineView(line, edit = false) { return `<article class="cart-line"><a href="/producto-${esc(line.product_id)}.html"><img src="${esc(line.image)}" alt="${esc(line.name)}" loading="lazy" width="${window.STORE_IMAGE_DIMENSIONS?.[line.image]?.[0] || 900}" height="${window.STORE_IMAGE_DIMENSIONS?.[line.image]?.[1] || 1200}"></a><div><p class="product-category">MARTHA SILVA</p><h2><a href="/producto-${esc(line.product_id)}.html">${esc(line.name)}</a></h2><p>${esc(line.color)} · Talla ${esc(line.size)}</p>${edit ? `<label class="quantity-label">Cantidad <select data-quantity="${esc(line.variant_id)}" aria-label="Cantidad de ${esc(line.name)}, talla ${esc(line.size)}">${Array.from({length:10},(_,i) => `<option value="${i+1}" ${line.quantity === i+1 ? 'selected':''}>${i+1}</option>`).join('')}</select></label><button class="text-button" data-remove-item="${esc(line.variant_id)}" aria-label="Retirar ${esc(line.name)}, talla ${esc(line.size)}">Retirar</button><button class="text-button" data-move-favorite="${esc(line.variant_id)}" data-product="${esc(line.product_id)}" aria-label="Guardar en favoritos ${esc(line.name)}, talla ${esc(line.size)}">Guardar en favoritos</button>`:`<p>Cantidad: ${line.quantity}</p>`}</div><strong>${money(line.line_total_minor)}</strong></article>`; }
   function cartActionFocus(button) {
     const dialog = button.closest('#mini-bag');
     const root = dialog ? $('[data-mini-bag-lines]',dialog) : $('[data-cart-lines]');
@@ -477,7 +532,7 @@
     [adminOrders,inventory] = await Promise.all([api('/api/admin/orders').then(r => r.orders),api('/api/admin/inventory').then(r => r.variants)]);
     mount.innerHTML = `<div class="admin-toolbar"><h2>Pedidos e inventario</h2><button class="text-button" data-admin-refresh>Actualizar</button><button class="text-button" data-admin-logout>Cerrar sesión</button></div><p class="notice">Demo de prueba. Los cambios se guardan solo en este navegador. No es un inventario de producción ni está sincronizado con la tienda original.</p><nav class="admin-tabs"><a href="#admin-orders">Pedidos (${adminOrders.length})</a><a href="#admin-stock">Inventario</a></nav><section id="admin-orders"><h2>Pedidos</h2>${adminOrders.length ? adminOrders.map(order => `<details class="admin-order"><summary>${esc(order.code)} · ${statusLabel[order.status] || esc(order.status)} · ${money(order.total_minor)}</summary><div>${orderView(order,true)}${['paid','preparing','shipped'].includes(order.status) ? `<form data-fulfillment="${esc(order.id)}"><input type="hidden" name="status" value="${({paid:'preparing',preparing:'shipped',shipped:'delivered'})[order.status]}">${order.status === 'preparing' ? '<label class="field"><span>Número de seguimiento</span><input name="tracking" required maxlength="120"></label>':''}<p data-error class="error" role="alert" hidden></p><button class="button secondary">${({paid:'Preparar pedido',preparing:'Registrar envío',shipped:'Registrar entrega'})[order.status]}</button></form>`:''}</div></details>`).join(''):'<p>No hay pedidos todavía.</p>'}</section><section id="admin-stock"><h2>Inventario por talla</h2><div class="inventory-table"><table><thead><tr><th>Prenda / talla</th><th>Físico</th><th>Reservado</th><th>Disponible</th><th>Ajustar</th></tr></thead><tbody>${inventory.map(v => `<tr><th>${esc(v.name)} · ${esc(v.size)}</th><td>${v.stock}</td><td>${v.reserved}</td><td>${v.available}</td><td><form data-stock="${esc(v.id)}"><label class="sr-only" for="stock-${esc(v.id)}">Nuevo stock de ${esc(v.name)} ${esc(v.size)}</label><input id="stock-${esc(v.id)}" name="quantity" type="number" min="${v.reserved}" max="100000" required value="${v.stock}" aria-label="Nuevo stock ${esc(v.name)} ${esc(v.size)}"><input name="reason" placeholder="Motivo del ajuste" aria-label="Motivo del ajuste ${esc(v.name)} ${esc(v.size)}" required maxlength="200"><button class="button secondary">Guardar</button><p data-error class="error" role="alert" hidden></p></form></td></tr>`).join('')}</tbody></table></div></section>`;
   }
-  function stopMotion() { if (raf) cancelAnimationFrame(raf); raf=null; lenis?.destroy(); lenis=null; }
+  function stopMotion() { if (raf) cancelAnimationFrame(raf); raf=null; }
   let mediaObserver;
   const allowVideo = () => !matchMedia('(prefers-reduced-motion: reduce)').matches && !navigator.connection?.saveData;
   function loadVideoSource(video) {
@@ -502,12 +557,91 @@
   }
   function motion() {
     stopMotion(); videoMotion(); if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    if(window.gsap) gsap.from($$('[data-intro]'),{opacity:0,duration:.2,clearProps:'all'});
+    if (loaderHold) introDue = true; else playIntro();
+  }
+  // Home loader: the head gate sets html.ms-loading; this drives it, then plays [data-intro].
+  let loaderHold = false, introDue = false;
+  function playIntro() {
+    const intro = $$('[data-intro]'); if (!window.gsap || !intro.length) return;
+    intro.forEach(element => { element.style.transition = 'none'; });
+    gsap.from(intro, {opacity: 0, duration: MOTION.durS, ease: MOTION.ease, clearProps: 'all'});
+  }
+  function initLoader() {
+    const root = document.documentElement, node = document.querySelector('.ms-loader');
+    const started = root.classList.contains('ms-loading') && performance.getEntriesByName?.('ms-loader-start')[0];
+    if (!node || !started) { node?.remove(); root.classList.remove('ms-loading'); return; }
+    const elapsed = () => (performance.now() - started.startTime) / 1000, ac = new AbortController(), {signal} = ac;
+    let done = false, timeline = null, backstop = 0;
+    const release = () => { loaderHold = false; if (introDue) { introDue = false; playIntro(); } };
+    const end = () => {
+      if (done) return; done = true; ac.abort(); clearTimeout(backstop); timeline?.kill(); node.remove(); root.classList.remove('ms-loading');
+      try { performance.mark('ms-loader-end'); } catch {}
+      release();
+    };
+    loaderHold = true;
+    if (!window.gsap || elapsed() >= MOTION.loaderMax) { end(); return; }
+    backstop = setTimeout(end, Math.max(0, MOTION.loaderMax - MOTION.durS / 8 - elapsed()) * 1000);
+    for (const type of ['pointerdown', 'keydown', 'wheel', 'touchmove', 'pagehide']) window.addEventListener(type, end, {passive: true, signal});
+    window.addEventListener('pageshow', event => { if (event.persisted) end(); }, {signal});
+    const gap = node.querySelector('.ms-loader-gap'), pics = [...gap.querySelectorAll('img')], layer = node.querySelector('.ms-loader-hero'), frames = [...layer.children];
+    // The layer mirrors the active hero slide (same file, crop, scale) for a pixel-aligned hand-off.
+    const slots = $$('.ho-slide[data-active] .ho-m').filter(item => getComputedStyle(item).display !== 'none').slice(0, frames.length), art = frames.slice(0, slots.length).map(frame => frame.firstChild);
+    frames.slice(slots.length).forEach(frame => { frame.style.display = 'none'; });
+    const settle = image => Promise.race([image.decode ? image.decode().catch(() => {}) : 0, new Promise(resolve => setTimeout(resolve, MOTION.durS * 1000))]);
+    Promise.all([...pics, ...art].map(settle)).then(() => {
+      if (done) return;
+      const rects = slots.map(slot => slot.getBoundingClientRect()), view = {left: 0, top: 0, right: innerWidth, bottom: innerHeight};
+      const box = rects.length && rects.every(r => r.width && r.height) ? {left: Math.min(...rects.map(r => r.left)), top: Math.min(...rects.map(r => r.top)), right: Math.max(...rects.map(r => r.right)), bottom: Math.max(...rects.map(r => r.bottom))} : view;
+      box.width = box.right - box.left; box.height = box.bottom - box.top;
+      const spot = gap.getBoundingClientRect();
+      const inset = (outer, inner, radius) => `inset(${inner.top - outer.top}px ${outer.right - inner.right}px ${outer.bottom - inner.bottom}px ${inner.left - outer.left}px round ${radius})`;
+      Object.assign(layer.style, {left: box.left + 'px', top: box.top + 'px', width: box.width + 'px', height: box.height + 'px', clipPath: inset(box, spot, MOTION.radius)});
+      art.forEach((image, index) => {
+        const look = getComputedStyle($('img', slots[index])), rect = rects[index];
+        Object.assign(image.parentNode.style, {left: rect.left - box.left + 'px', top: rect.top - box.top + 'px', width: rect.width + 'px', height: rect.height + 'px'});
+        Object.assign(image.style, {objectPosition: look.objectPosition, transform: look.transform === 'none' ? '' : look.transform});
+      });
+      const step = MOTION.durS / 2, open = Math.max(0, MOTION.durM / 2 - elapsed()), grow = open + MOTION.durS / 2 + step * pics.length, fade = grow + MOTION.durM - step;
+      timeline = gsap.timeline({onComplete: end});
+      timeline.call(() => node.setAttribute('data-open', ''), null, open);
+      pics.forEach((pic, index) => timeline.call(() => pics.forEach(other => other.toggleAttribute('data-on', other === pic)), null, open + MOTION.durS / 2 + step * index));
+      timeline.set(layer, {visibility: 'visible'}, grow)
+        .fromTo(layer, {clipPath: layer.style.clipPath}, {clipPath: 'inset(0px 0px 0px 0px round 0px)', duration: MOTION.durM, ease: MOTION.ease, immediateRender: false}, grow)
+        .call(release, null, fade)
+        .to(node, {opacity: 0, duration: MOTION.durS, ease: MOTION.ease}, fade);
+      const room = MOTION.loaderMax - MOTION.durS / 4 - elapsed();
+      if (room <= 0) end(); else if (timeline.duration() > room) timeline.timeScale(timeline.duration() / room);
+    }).catch(end);
   }
   function openDialog(dialog, trigger=document.activeElement) {
     if(!dialog || dialog.open)return;
     dialog.returnFocus=trigger; dialog.showModal();
     dialog.addEventListener('close',()=>{if(dialog.id==='newsletter-dialog')localStorage.setItem('martha-parity-newsletter-dismissed','true');trigger?.setAttribute('aria-expanded','false');if(trigger?.isConnected)trigger.focus({preventScroll:true});},{once:true});
+  }
+  // Mobile menu: the card grows from the bottom pill and shrinks back before dialog.close(); instant under reduced motion or without GSAP.
+  let menuTimeline = null, menuClosing = false;
+  const menuParts = dialog => [$('.mobile-menu-inner', dialog), ...$$('.drawer-heading, .mobile-menu-inner > a', dialog)];
+  const menuAnimated = () => { const pill = $('.menu-pill'); return !!window.gsap && !!pill && getComputedStyle(pill).display !== 'none' && !matchMedia('(prefers-reduced-motion: reduce)').matches; };
+  function menuOpen(toggle) {
+    const dialog = $('#mobile-menu'); if (!dialog || dialog.open) return;
+    toggle?.setAttribute('aria-expanded', 'true'); openDialog(dialog, toggle);
+    if (!menuAnimated()) return;
+    const from = $('.menu-pill').getBoundingClientRect(), to = dialog.getBoundingClientRect(), base = {ease: MOTION.ease};
+    menuTimeline?.kill(); menuClosing = false;
+    menuTimeline = gsap.timeline()
+      .fromTo(dialog, {width: from.width}, {width: to.width, duration: MOTION.durM, ...base}, 0)
+      .fromTo(dialog, {height: from.height}, {height: to.height, duration: MOTION.durM, clearProps: 'width,height', ...base}, MOTION.durM / 2)
+      .from($$('.drawer-heading, .mobile-menu-inner > a', dialog), {opacity: 0, yPercent: 40, duration: MOTION.durS, stagger: MOTION.durS / 4, clearProps: 'all', ...base}, MOTION.durM / 2);
+  }
+  function menuClose() {
+    const dialog = $('#mobile-menu'); if (!dialog?.open || menuClosing) return;
+    if (!menuAnimated()) { dialog.close(); return; }
+    menuClosing = true; menuTimeline?.kill();
+    const to = $('.menu-pill').getBoundingClientRect(), base = {ease: MOTION.ease};
+    menuTimeline = gsap.timeline({onComplete: () => { menuClosing = false; dialog.close(); gsap.set([dialog, ...menuParts(dialog)], {clearProps: 'all'}); }})
+      .to($('.mobile-menu-inner', dialog), {opacity: 0, duration: MOTION.durS, ...base}, 0)
+      .to(dialog, {height: to.height, duration: MOTION.durM, ...base}, MOTION.durS / 2)
+      .to(dialog, {width: to.width, duration: MOTION.durM, ...base}, MOTION.durM / 2);
   }
   function miniBag(trigger) {
     const dialog=$('#mini-bag'); if(!dialog || !cart || (!dialog.open && !trigger))return;
@@ -672,7 +806,7 @@
     try {
       if (!products.length || ['catalog','product'].includes(page)) products=(await api('/api/catalog')).products.map(p=>({...p,...window.STORE_MEDIA?.[p.id]}));
       await refreshCart(); updateHearts();
-      if (page === 'catalog') {catalog();filterPanel();}
+      if (page === 'catalog') {gridView();catalog();filterPanel();}
       if (page === 'cart') renderCart();
       if (page === 'checkout') {
         quote=null;
@@ -693,13 +827,12 @@
   }
   document.addEventListener('click', async event => {
     const b = event.target.closest('button,a'); if (!b) return;
-    if(b.matches('[data-cols]')){const grid=$('[data-catalog-grid]'),key=b.dataset.colsKey;grid?.style.setProperty('--'+key,b.dataset.cols);$$('[data-cols-key="'+key+'"]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));return;}
     if(b.matches('[data-category-tab]')){const params=new URLSearchParams(location.search);if(b.dataset.categoryTab)params.set('category',b.dataset.categoryTab);else params.delete('category');setCatalogParams(params);catalog();return;}
     if (b.matches('[data-product-share]')) { await shareProduct(b); return; }
     if (b.matches('[data-integration-mode]')) { await switchIntegration(b.dataset.integrationMode); return; }
     if (b.matches('[data-integration-retry]')) { if (!pendingApi && !busyActions && !mountJobs && !modeSwitching) { $$('[data-error]').forEach(element => element.hidden = true); createIntegration(); await mountPage(); } return; }
     if (modeSwitching) { event.preventDefault(); return; }
-    if(b.matches('[data-menu-toggle]')){b.setAttribute('aria-expanded','true');openDialog($('#mobile-menu'),b);return;}
+    if(b.matches('[data-menu-toggle]')){menuOpen(b);return;}
     if (b.matches('[data-filters-open]')) {openDialog($('#filter-panel'),b);b.setAttribute('aria-expanded','true');$('[data-filters-close]').focus();return;}
     if (b.matches('[data-filters-close], [data-filters-apply]')) {$('#filter-panel').close();return;}
     if(b.matches('[data-location]')){openDialog($('#location-dialog'),b);return;}
@@ -709,7 +842,7 @@
     if(b.matches('[data-sort]')){const params=new URLSearchParams(location.search);params.set('sort',b.dataset.sort);setCatalogParams(params);$('#sort-options').hidden=true;$('[data-sort-toggle]').setAttribute('aria-expanded','false');$('[data-sort-toggle]').focus();catalog();return;}
     if(b.matches('[data-carousel-prev],[data-carousel-next]')){const root=b.closest('.carousel-section,.carousel-wrap'),track=$('[data-carousel]',root);track?.scrollBy({left:(b.hasAttribute('data-carousel-next')?1:-1)*track.clientWidth,behavior:reduced.matches?'instant':'smooth'});return;}
     if (b.matches('[data-search-open]')) { openDialog($('#search-dialog'),b); $('#search-dialog input')?.focus(); return; }
-    if (b.matches('[data-close-dialog]')) { const dialog=b.closest('dialog');if(dialog?.id==='newsletter-dialog')localStorage.setItem('martha-parity-newsletter-dismissed','true');dialog?.close(); return; }
+    if (b.matches('[data-close-dialog]')) { const dialog=b.closest('dialog');if(dialog?.id==='mobile-menu'){menuClose();return;}if(dialog?.id==='newsletter-dialog')localStorage.setItem('martha-parity-newsletter-dismissed','true');dialog?.close(); return; }
     if (b.matches('[data-zoom]')) { $('#image-dialog img').src=b.dataset.zoom || $('img',b)?.src; $('#image-dialog img').alt=window.MarthaI18n?.originalAttribute($('img',b),'alt') || $('img',b)?.alt || 'Fotografía ampliada'; openDialog($('#image-dialog'),b); return; }
     if (b.matches('[data-favorite]')) { const id=b.dataset.favorite; favorites=favorites.includes(id) ? favorites.filter(n=>n!==id):[...favorites,id]; localStorage.setItem('martha-parity-favorites',JSON.stringify(favorites)); updateHearts(); if (new URLSearchParams(location.search).has('favoritos')) catalog(); notify(favorites.includes(id)?'Prenda guardada en favoritos.':'Prenda retirada de favoritos.'); return; }
     if (b.matches('[data-clear-filters], [data-remove-filter]')) { event.preventDefault(); const params = new URLSearchParams(location.search); if (b.matches('[data-clear-filters]')) [...params.keys()].filter(k=>k!=='lang').forEach(k=>params.delete(k)); else params.delete(b.dataset.removeFilter); setCatalogParams(params); catalog(); return; }
@@ -728,7 +861,7 @@
     if (b.matches('[data-admin-logout]')) { await withButton(b,async()=>{await api('/api/admin/logout',{}); await renderAdmin();}); return; }
     if (b.matches('[data-receive-return]')) { await withButton(b,async()=>{await api(`/api/admin/orders/${b.dataset.order}/returns/${b.dataset.receiveReturn}/receive`,{}); await renderAdmin();}); return; }
     if (b.matches('[data-refund]')) { await withButton(b,async()=>{const id=b.dataset.refund; await api(`/api/admin/orders/${b.dataset.order}/refund`,{return_id:id,restock:!!$$('[data-restock]').find(input=>input.dataset.restock===id)?.checked}); await renderAdmin();}); return; }
-    if (b.tagName === 'A') { viewHistory.capture(true); $('#mobile-menu')?.close(); $('[data-menu-toggle]')?.setAttribute('aria-expanded','false'); if (b.closest('#search-dialog')) $('#search-dialog').close(); }
+    if (b.tagName === 'A') { viewHistory.capture(true); menuClose(); $('[data-menu-toggle]')?.setAttribute('aria-expanded','false'); if (b.closest('#search-dialog')) $('#search-dialog').close(); }
   });
   document.addEventListener('change',async event=>{
     const el=event.target; if (modeSwitching) return;
@@ -797,9 +930,95 @@
   }
   syncCampaignViewport();
   const reduced = matchMedia('(prefers-reduced-motion: reduce)'); reduced.addEventListener('change',motion);
+  // Page transition: the next page mounts in a clipped window that grows from the bottom center over the still outgoing page.
+  const HISTORY_FADE = .12; // existing back/forward fade (s), not a set-piece token
+  function pageTransition() {
+    let run = null;
+    const wait = seconds => new Promise(resolve => setTimeout(resolve, seconds * 1000));
+    const frames = count => new Promise(resolve => { const step = () => --count > 0 ? requestAnimationFrame(step) : resolve(); requestAnimationFrame(step); });
+    const traversal = data => viewHistory.historyTrigger(data);
+    const lock = (elements, on) => elements.forEach(element => element && (on ? element.setAttribute('inert','') : element.removeAttribute('inert')));
+    const clip = (inset, radius) => `inset(${inset} round ${radius})`;
+    function closeOverlays() {
+      const menu = $('#mobile-menu');
+      if (menu) {
+        menuTimeline?.kill(); menuClosing = false; menu.returnFocus = null;
+        if (menu.open) { menu.close(); if (window.gsap) gsap.set([menu, ...menuParts(menu)], {clearProps:'all'}); }
+      }
+      $$('[data-menu-toggle]').forEach(toggle => toggle.setAttribute('aria-expanded','false'));
+      const search = $('#search-dialog'); if (search?.open) search.close();
+    }
+    async function decodeVisible(root) {
+      const images = $$('img', root).filter(image => { const box = image.getBoundingClientRect(); return box.width > 0 && box.bottom > 0 && box.top < innerHeight; });
+      images.forEach(image => { if (image.loading === 'lazy') image.loading = 'eager'; });
+      await Promise.race([Promise.all(images.map(image => image.decode ? image.decode().catch(() => {}) : null)), wait(MOTION.durM)]);
+    }
+    // One frame: drop the outgoing page, return the next page to flow, reset the scroll.
+    function swap() {
+      if (!run || run.swapped) return;
+      run.swapped = true;
+      if (run.current !== run.next) run.current.remove();
+      if (run.holder?.isConnected) run.holder.replaceWith(run.next);
+      document.documentElement.removeAttribute('data-page-transition');
+      if (!traversal(run.data)) window.scrollTo({top:0, left:0, behavior:'instant'});
+      lock(run.locked, false);
+    }
+    function cleanup() {
+      if (!run) return;
+      if (run.holder) swap();
+      lock(run.locked, false); document.documentElement.removeAttribute('data-page-transition');
+      run.ctx?.revert(); outgoing = null; run = null;
+    }
+    return {
+      name: 'editorial',
+      beforeLeave(data) {
+        run = {data, current: data.current.container, next: null, holder: null, ctx: null, swapped: false, windowed: !!window.gsap && !reduced.matches && !traversal(data), locked: []};
+        closeOverlays();
+        run.locked = [run.current, $('.site-header'), $('.menu-pill')];
+        lock(run.locked, true);
+      },
+      async leave(data) {
+        viewHistory.begin(data); stopMotion();
+        if (window.gsap && !reduced.matches && traversal(data)) await gsap.to(data.current.container, {opacity:0, duration:HISTORY_FADE});
+      },
+      async beforeEnter(data) {
+        const current = data.current.container, next = data.next.container;
+        try {
+          if (!run?.windowed) { if (current !== next) current.remove(); await mountPage(false); return; }
+          run.next = next;
+          const holder = run.holder = document.createElement('div');
+          holder.className = 'page-window';
+          next.before(holder); holder.append(next);
+          document.documentElement.setAttribute('data-page-transition','');
+          outgoing = current;
+          const mounted = mountPage(false).catch(() => {}).finally(() => { outgoing = null; });
+          await Promise.race([mounted, wait(MOTION.durL * 3)]);
+          window.MarthaI18n?.apply(next);
+          await decodeVisible(next);
+          await Promise.race([frames(2), wait(MOTION.durS)]);
+        } catch (error) { console.error(error); swap(); }
+      },
+      async enter(data) {
+        if (!run?.holder) { if (!traversal(data)) window.scrollTo(0,0); return; }
+        try {
+          if (run.swapped) return;
+          const holder = run.holder;
+          const done = new Promise(resolve => { run.ctx = gsap.context(() => { gsap.fromTo(holder, {clipPath: clip('100% 50% 0% 50%', MOTION.radius)}, {clipPath: clip('0% 0% 0% 0%', '0px'), duration: MOTION.durL, ease: MOTION.ease, onComplete: resolve}); }); });
+          await Promise.race([done, wait(MOTION.durL * 3)]);
+        } catch (error) { console.error(error); }
+        swap();
+      },
+      after(data) {
+        const main = $('main'), active = document.activeElement;
+        if (main && (viewHistory.shouldFocus(data) || !active || active === document.body || !active.isConnected)) main.focus({preventScroll:true});
+        viewHistory.finish(data);
+        cleanup();
+      }
+    };
+  }
   if (window.barba && $('[data-barba="container"]')) {
     const editorial = /^\/(?:index|catalogo|producto-[a-z0-9-]+)\.html$|^\/$/;
-    barba.init({timeout:4000,preventRunning:true,prevent:({href,el})=>{const url=new URL(href,location.href);return el.hasAttribute('data-barba-prevent')||url.origin!==location.origin||!editorial.test(url.pathname)||!['home','catalog','product'].includes($('main')?.dataset.page);},transitions:[{name:'editorial',async leave(data){viewHistory.begin(data);stopMotion(); if(window.gsap && !reduced.matches) await gsap.to(data.current.container,{opacity:0,duration:.12});},enter(data){if(!viewHistory.historyTrigger(data))window.scrollTo(0,0);},async after(data){await mountPage(()=>viewHistory.shouldFocus(data));viewHistory.finish(data);}}]});
+    barba.init({timeout:4000,preventRunning:true,prevent:({href,el})=>{const url=new URL(href,location.href);return el.hasAttribute('data-barba-prevent')||url.origin!==location.origin||!editorial.test(url.pathname)||!['home','catalog','product'].includes($('main')?.dataset.page);},transitions:[pageTransition()]});
   }
   const mega=$('#mega-menu'),trigger=$('[data-mega-trigger]'),header=$('.site-header');
   const toggleMega=open=>{if(!mega)return;mega.hidden=!open;trigger?.setAttribute('aria-expanded',String(open));};
@@ -809,10 +1028,26 @@
   document.addEventListener('pointerover',e=>{const video=e.target.closest('.product-image')?.querySelector('video');if(video&&matchMedia('(hover:hover) and (min-width:1024px)').matches)playVideo(video);});
   document.addEventListener('pointerout',e=>{const image=e.target.closest('.product-image');if(image&&!image.contains(e.relatedTarget))image.querySelector('video')?.pause();});
   document.addEventListener('click',e=>{if(!e.target.closest('.sort-field')){$('#sort-options')?.setAttribute('hidden','');$('[data-sort-toggle]')?.setAttribute('aria-expanded','false');}});
-  $$('dialog').forEach(d=>{d.addEventListener('cancel',()=>{if(d.id==='newsletter-dialog')localStorage.setItem('martha-parity-newsletter-dismissed','true');});d.addEventListener('click',e=>{if(e.target===d){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom){if(d.id==='newsletter-dialog')localStorage.setItem('martha-parity-newsletter-dismissed','true');d.close();}}});});
+  $$('dialog').forEach(d=>{d.addEventListener('cancel',()=>{if(d.id==='newsletter-dialog')localStorage.setItem('martha-parity-newsletter-dismissed','true');});d.addEventListener('click',e=>{if(e.target===d){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom){if(d.id==='newsletter-dialog')localStorage.setItem('martha-parity-newsletter-dismissed','true');d.id==='mobile-menu'?menuClose():d.close();}}});});
+  $('#mobile-menu')?.addEventListener('cancel',event=>{event.preventDefault();menuClose();});
+  matchMedia('(min-width:1024px)').addEventListener?.('change',event=>{if(event.matches){menuTimeline?.kill();menuClosing=false;$('#mobile-menu')?.close();}});
+  // Tab title: away message while the tab is hidden; the saved title returns only if the away title still shows.
+  let tabSaved = null, tabAway = '';
+  function tabTitle() {
+    if (document.hidden) {
+      const en = String(window.MarthaI18n?.language || document.documentElement.lang).toLowerCase().startsWith('en');
+      tabAway = (cart?.lines?.length ? en ? 'Your bag is waiting' : 'Tu bolsa te espera' : en ? 'Come back soon' : 'Vuelve pronto') + ' · MARTHA SILVA';
+      if (document.title !== tabAway) { tabSaved = document.title; document.title = tabAway; }
+    } else if (tabSaved !== null) {
+      if (document.title === tabAway) document.title = tabSaved;
+      tabSaved = null;
+    }
+  }
   navigator.connection?.addEventListener('change',videoMotion);
   document.addEventListener('visibilitychange',videoMotion);
+  document.addEventListener('visibilitychange',tabTitle);
   viewHistory.activate();
+  initLoader();
   mountPage().then(()=>viewHistory.initialMount());
 
 

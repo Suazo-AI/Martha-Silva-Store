@@ -1,0 +1,127 @@
+{
+ "grid": {
+  "pass": true,
+  "1440": {
+   "pass": true,
+   "before": 4,
+   "after": 2,
+   "reload": 2,
+   "pressed": "true",
+   "movingAt120ms": 3,
+   "reducedMoving": 0,
+   "stored": {
+    "cd": "2"
+   },
+   "overflowX": false
+  },
+  "390": {
+   "pass": true,
+   "before": 2,
+   "after": 1,
+   "reload": 1,
+   "pressed": "true",
+   "movingAt120ms": 3,
+   "reducedMoving": 0,
+   "stored": {
+    "cm": "1"
+   },
+   "overflowX": false
+  }
+ },
+ "footer": {
+  "pass": true,
+  "320": {
+   "pass": true,
+   "ratio": 0.991,
+   "ariaHidden": "true",
+   "text": "MARTHA SILVA",
+   "font": "\"Cormorant Garamond\", Georgia, serif",
+   "overflowX": false
+  },
+  "390": {
+   "pass": true,
+   "ratio": 0.991,
+   "ariaHidden": "true",
+   "text": "MARTHA SILVA",
+   "font": "\"Cormorant Garamond\", Georgia, serif",
+   "overflowX": false
+  },
+  "768": {
+   "pass": true,
+   "ratio": 0.991,
+   "ariaHidden": "true",
+   "text": "MARTHA SILVA",
+   "font": "\"Cormorant Garamond\", Georgia, serif",
+   "overflowX": false
+  },
+  "1024": {
+   "pass": true,
+   "ratio": 0.991,
+   "ariaHidden": "true",
+   "text": "MARTHA SILVA",
+   "font": "\"Cormorant Garamond\", Georgia, serif",
+   "overflowX": false
+  },
+  "1440": {
+   "pass": true,
+   "ratio": 0.991,
+   "ariaHidden": "true",
+   "text": "MARTHA SILVA",
+   "font": "\"Cormorant Garamond\", Georgia, serif",
+   "overflowX": false
+  },
+  "1920": {
+   "pass": true,
+   "ratio": 0.991,
+   "ariaHidden": "true",
+   "text": "MARTHA SILVA",
+   "font": "\"Cormorant Garamond\", Georgia, serif",
+   "overflowX": false
+  },
+  "reducedMotion": {
+   "pass": true,
+   "ratio": 0.991,
+   "ariaHidden": "true",
+   "text": "MARTHA SILVA",
+   "font": "\"Cormorant Garamond\", Georgia, serif",
+   "overflowX": false
+  },
+  "newsletter": {
+   "pass": true
+  },
+  "reach390": {
+   "pass": true,
+   "controls": 15,
+   "missed": []
+  },
+  "reach1440": {
+   "pass": true,
+   "controls": 16,
+   "missed": []
+  }
+ },
+ "title": {
+  "pass": true,
+  "es": {
+   "pass": true,
+   "original": "La colección · Martha Silva Store",
+   "away": "Vuelve pronto · MARTHA SILVA",
+   "back": "La colección · Martha Silva Store",
+   "awayBag": "Tu bolsa te espera · MARTHA SILVA",
+   "backBag": "Vestido negro con abertura · Martha Silva Store",
+   "pageTitle": "Vestido negro con abertura · Martha Silva Store",
+   "navBack": "La colección · Martha Silva Store"
+  },
+  "en": {
+   "pass": true,
+   "original": "The collection · Martha Silva Store",
+   "away": "Come back soon · MARTHA SILVA",
+   "back": "The collection · Martha Silva Store",
+   "awayBag": "Your bag is waiting · MARTHA SILVA",
+   "backBag": "Black slit dress · Martha Silva Store",
+   "pageTitle": "Black slit dress · Martha Silva Store",
+   "navBack": "The collection · Martha Silva Store"
+  }
+ },
+ "pass": true
+}

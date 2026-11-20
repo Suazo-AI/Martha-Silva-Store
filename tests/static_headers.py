@@ -5,10 +5,12 @@ the portable runner, which does not require root deployment dependencies.
 """
 import argparse
 import hashlib
+import base64
 import importlib.util
 import json
 import os
 from pathlib import Path
+import re
 import shutil
 import socket
 import subprocess
@@ -20,15 +22,19 @@ from urllib.request import urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
 POLICY = ROOT / 'build-inputs/static/_headers'
+STATIC = ROOT / 'build-inputs/static'
+SCRIPT_SRC = re.compile(r"script-src 'self'( 'sha256-[A-Za-z0-9+/=]+')?")
 
 
 def validate(headers, marker=False, missing=False):
     headers = {key.lower(): value for key, value in headers.items()}
     csp = headers.get('content-security-policy', '')
-    for directive in ("default-src 'self'", "script-src 'self'", "object-src 'none'",
+    for directive in ("default-src 'self'", "object-src 'none'",
                       "base-uri 'self'", "frame-ancestors 'none'", "form-action 'self'"):
         assert directive in csp.split('; '), (directive, csp)
-    assert 'unsafe-eval' not in csp
+    script = next((d for d in csp.split('; ') if d.startswith('script-src')), '')
+    assert SCRIPT_SRC.fullmatch(script), script
+    assert 'unsafe-eval' not in csp and 'unsafe-inline' not in script
     assert headers.get('x-content-type-options') == 'nosniff'
     assert headers.get('referrer-policy') == 'strict-origin-when-cross-origin'
     assert headers.get('x-robots-tag') == 'noindex, nofollow'
@@ -48,6 +54,20 @@ class PolicyTests(unittest.TestCase):
         self.assertNotIn('unsafe-eval', text)
         self.assertEqual(POLICY.read_bytes(), (ROOT / 'dist/_headers').read_bytes())
 
+    def test_script_src_allows_only_the_inline_loader_gate_by_hash(self):
+        inline = {}
+        for page in sorted(STATIC.glob('*.html')):
+            for body in re.findall(r'<script(?![^>]*src=)(?![^>]*application/ld\+json)[^>]*>(.*?)</script>', page.read_text(encoding='utf-8'), re.S):
+                if body.strip():
+                    inline.setdefault(page.name, []).append(body)
+        self.assertEqual(list(inline), ['index.html'])
+        self.assertEqual(len(inline['index.html']), 1)
+        head = (STATIC / 'index.html').read_text(encoding='utf-8').split('</head>')[0]
+        self.assertIn('<script>' + inline['index.html'][0] + '</script>', head)
+        digest = base64.b64encode(hashlib.sha256(inline['index.html'][0].encode('utf-8')).digest()).decode()
+        csp = next(line.split(': ', 1)[1] for line in POLICY.read_text().splitlines() if line.strip().startswith('Content-Security-Policy'))
+        self.assertIn("script-src 'self' 'sha256-" + digest + "'", csp.split('; '))
+
     def test_fail_closed_when_policy_missing_or_weakened(self):
         with self.assertRaises(AssertionError):
             validate({})
@@ -55,7 +75,9 @@ class PolicyTests(unittest.TestCase):
                 'X-Content-Type-Options': 'nosniff', 'Referrer-Policy': 'strict-origin-when-cross-origin',
                 'X-Robots-Tag': 'noindex, nofollow', 'Cache-Control': 'public, max-age=0, must-revalidate'}
         validate(good)
+        validate(dict(good, **{'Content-Security-Policy': good['Content-Security-Policy'].replace("script-src 'self'", "script-src 'self' 'sha256-AAAA'")}))
         for key, value in [('Content-Security-Policy', "default-src *"),
+                           ('Content-Security-Policy', good['Content-Security-Policy'].replace("script-src 'self'", "script-src 'self' 'unsafe-inline'")),
                            ('Cache-Control', 'public, max-age=31536000, immutable'),
                            ('Access-Control-Allow-Origin', '*')]:
             with self.subTest(key=key), self.assertRaises(AssertionError):

@@ -75,10 +75,10 @@ class RunnerTests(unittest.TestCase):
             root = Path(directory)
             (root / 'dist').mkdir()
             (root / 'src').mkdir()
-            with self.assertRaisesRegex(ValueError, 'Expected 47'):
+            with self.assertRaisesRegex(ValueError, f'Expected {len(check.SITE_PAGES)}'):
                 check.check_fixture(root)
             products = [{'id': f'fixture-{i}', 'variants': [{}, {}, {}]} for i in range(40)]
-            pages = ['index', 'catalogo', 'bolsa', 'checkout', 'pedido', 'ayuda', 'admin']
+            pages = [name[:-5] for name in check.SITE_PAGES if not name.startswith('producto-')]
             pages += [f'producto-{product["id"]}' for product in products]
             for name in pages:
                 (root / 'dist' / f'{name}.html').write_text('')
@@ -96,7 +96,7 @@ class RunnerTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             (root / 'dist').mkdir()
-            for i in range(47):
+            for i in range(len(check.SITE_PAGES)):
                 (root / 'dist' / f'{i}.html').write_text('')
             products = [{'id': f'fixture-{i}', 'variants': [{}, {}, {}]} for i in range(40)]
             catalog = root / 'dist/catalog.js'

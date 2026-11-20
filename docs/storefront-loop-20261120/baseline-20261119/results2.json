@@ -1,0 +1,1166 @@
+{
+ "en_repro": [
+  {
+   "before_select": [
+    "Add to bag"
+   ]
+  },
+  {
+   "after_select": [
+    "Add to bag"
+   ]
+  },
+  {
+   "right_after_add": [
+    "Add to bag"
+   ]
+  },
+  {
+   "1s_after_add": [
+    "Add to bag"
+   ]
+  },
+  {
+   "header_before_scroll": [
+    "Search",
+    ""
+   ]
+  },
+  {
+   "header_after_scroll": [
+    "Search",
+    ""
+   ]
+  }
+ ],
+ "clicks": [
+  {
+   "step": "open menu",
+   "sel": "[data-menu-toggle]",
+   "out": "✓ Done",
+   "url": "/?lang=es"
+  },
+  {
+   "step": "menu link to catalog",
+   "sel": "#mobile-menu a[href*=\"catalogo\"]",
+   "out": "✓ Done",
+   "url": "/catalogo.html?lang=es"
+  },
+  {
+   "step": "first catalog card link",
+   "sel": "[data-catalog-grid] .plp-card a[href^=\"/producto-\"]:not([tabindex=\"-1\"])",
+   "out": "✓ Done",
+   "url": "/producto-rosa-empolvado-pedreria.html?lang=es"
+  },
+  {
+   "step": "choose size",
+   "sel": "[data-product-form] label.size-option:not(.sold-out)",
+   "out": "✓ Done",
+   "url": "/producto-rosa-empolvado-pedreria.html?lang=es"
+  },
+  {
+   "step": "add to bag",
+   "sel": "[data-product-form] [data-add]",
+   "out": "✓ Done",
+   "url": "/producto-rosa-empolvado-pedreria.html?lang=es"
+  },
+  {
+   "step": "mini-bag checkout link",
+   "sel": "dialog[open] a[href*=\"checkout\"]",
+   "out": "✓ Done",
+   "url": "/checkout.html?lang=es"
+  },
+  {
+   "step": "contact submit",
+   "sel": "[data-checkout-form] button.button",
+   "out": "✓ Done",
+   "url": "/checkout.html?lang=es"
+  },
+  {
+   "step": "delivery submit",
+   "sel": "[data-checkout-form] button.button",
+   "out": "✓ Done",
+   "url": "/checkout.html?lang=es"
+  },
+  {
+   "step": "create order",
+   "sel": "[data-create-order]",
+   "out": "✓ Done",
+   "url": "/checkout.html?lang=es"
+  },
+  {
+   "step": "approve test payment",
+   "sel": "[data-test-payment=\"approved\"]",
+   "out": "✓ Done",
+   "url": "/pedido.html?id=savia~618e157d-982e-4f56-91a6-c401a7182075"
+  },
+  {
+   "step": "Back after order",
+   "url": "/checkout.html?lang=es",
+   "text": "Compra de prueba\nAgregá una prenda para continuar.\nVer la colección"
+  }
+ ],
+ "features": [
+  {
+   "step": "filters open",
+   "sel": "[data-filters-open]",
+   "out": "✓ Done",
+   "url": "/catalogo.html"
+  },
+  {
+   "step": "filter options",
+   "result": []
+  },
+  {
+   "step": "filters apply",
+   "sel": "[data-filters-apply]",
+   "out": "✓ Done",
+   "url": "/catalogo.html"
+  },
+  {
+   "step": "filtered count",
+   "result": {
+    "before": 40,
+    "after": 40,
+    "url": ""
+   }
+  },
+  {
+   "step": "filter reset",
+   "sel": "[data-filter-reset],[data-clear-filters]",
+   "out": "✗ Element '[data-filter-reset],[data-clear-filters]' is covered by <div.test-banner> at its click point, so the input would land on that element instead. Dismiss or interact with the covering element ",
+   "url": "/catalogo.html"
+  },
+  {
+   "step": "sort toggle",
+   "sel": "[data-sort-toggle]",
+   "out": "✓ Done",
+   "url": "/catalogo.html"
+  },
+  {
+   "step": "sort option",
+   "sel": "[data-sort]:not([data-sort=\"\"])",
+   "out": "✓ Done",
+   "url": "/catalogo.html?sort=selection"
+  },
+  {
+   "step": "sorted",
+   "result": {
+    "url": "?sort=selection",
+    "first": [
+     "Rosa empolvado / Vestido rosa empolvado con pedrería / USD 175.00",
+     "Gris perla / Vestido gris perla de hombros descubiertos / USD 175.00",
+     "Blanco perlado / Vestido blanco perlado con escote en V / USD 175.00"
+    ]
+   }
+  },
+  {
+   "step": "quick add",
+   "sel": "[data-catalog-grid] .plp-card [data-quick]",
+   "out": "✓ Done",
+   "url": "/catalogo.html?sort=selection"
+  },
+  {
+   "step": "quick size",
+   "sel": "[data-catalog-grid] .plp-card.picking [data-quick-size]:not([disabled])",
+   "out": "✓ Done",
+   "url": "/catalogo.html?sort=selection"
+  },
+  {
+   "step": "bag count after quick add",
+   "result": {
+    "badge": [
+     "1"
+    ],
+    "dialog": false
+   }
+  },
+  {
+   "step": "favorite on card",
+   "sel": "[data-catalog-grid] .plp-card [data-favorite]",
+   "out": "✓ Done",
+   "url": "/catalogo.html?sort=selection"
+  },
+  {
+   "step": "favorite pressed",
+   "result": [
+    "true"
+   ]
+  },
+  {
+   "step": "favorites open",
+   "sel": "header [data-favorites-open]",
+   "out": "✓ Done",
+   "url": "/catalogo.html?sort=selection"
+  },
+  {
+   "step": "favorites list",
+   "result": "no dialog"
+  },
+  {
+   "step": "search open",
+   "sel": "header [data-search-open]",
+   "out": "✓ Done",
+   "url": "/catalogo.html?sort=selection"
+  },
+  {
+   "step": "search result",
+   "result": {
+    "url": "/catalogo.html",
+    "count": 40,
+    "text": "La colección\n\nVestidos de gala, novias y moda femenina.\n\nTodo\nVestidos de fiesta\nNovias\nModa femenina\nVestidos de fiesta"
+   }
+  },
+  {
+   "step": "sold-out size",
+   "result": [
+    "S:false:3",
+    "M:false:3",
+    "L\nAgotada:true:0"
+   ]
+  },
+  {
+   "step": "gallery next",
+   "sel": "[data-gallery-next]",
+   "out": "✓ Done",
+   "url": "/producto-negro.html"
+  },
+  {
+   "step": "gallery index",
+   "result": [
+    "<button class=\"gallery-photo\" type=\"button\" data-gallery-index=\"0\" data-zoom=\"/g",
+    "<button class=\"gallery-photo\" type=\"button\" data-gallery-index=\"1\" data-zoom=\"/g",
+    "<button type=\"button\" data-gallery-go=\"0\" aria-label=\"Ver fotografía 1\" aria-cur"
+   ]
+  },
+  {
+   "step": "zoom open",
+   "sel": "[data-zoom]",
+   "out": "✓ Done",
+   "url": "/producto-negro.html"
+  },
+  {
+   "step": "zoom dialog",
+   "result": {
+    "open": false,
+    "active": "<main id=\"main\" tabindex=\"-1\" data-page=\"product\" data-product-id=\"negro\" data-b"
+   }
+  },
+  {
+   "step": "zoom closed focus",
+   "result": {
+    "open": false,
+    "active": "<main id=\"main\" tabindex=\"-1\" data-page=\"product\" data-product-id=\"negro\" data-b"
+   }
+  },
+  {
+   "step": "size guide",
+   "sel": "[data-size-guide]",
+   "out": "✓ Done",
+   "url": "/producto-negro.html"
+  },
+  {
+   "step": "size guide dialog",
+   "result": "Guía de tallas\n\nElegí la talla que usás normalmente. Las medidas de cada prenda están pendientes de confirmar.\n\nTallas disponibles en esta demo\nTalla\tMedidas de"
+  },
+  {
+   "step": "size guide button 2 visibility",
+   "result": [
+    {
+     "text": "Guía de tallas",
+     "inner": "Guía de tallas",
+     "w": 86,
+     "h": 18,
+     "vis": "visible",
+     "disp": "block",
+     "op": "1",
+     "top": 442
+    },
+    {
+     "text": "Consultar guía de tallas",
+     "inner": "",
+     "w": 152,
+     "h": 18,
+     "vis": "visible",
+     "disp": "inline-block",
+     "op": "1",
+     "top": 1040
+    }
+   ]
+  },
+  {
+   "step": "choose size",
+   "sel": "[data-product-form] label.size-option:not(.sold-out)",
+   "out": "✓ Done",
+   "url": "/producto-negro.html"
+  },
+  {
+   "step": "add",
+   "sel": "[data-product-form] [data-add]",
+   "out": "✓ Done",
+   "url": "/producto-negro.html"
+  },
+  {
+   "step": "quantity 2",
+   "result": {
+    "total": "Subtotal\nUSD 515.00\nEntrega estimada\nDesde USD 5.00\nImpuestos de prueba\nUSD 0.00\nTotal sin entrega\nUSD 515.00"
+   }
+  },
+  {
+   "step": "quantity 10 (over stock?)",
+   "result": {
+    "total": "Subtotal\nUSD 515.00\nEntrega estimada\nDesde USD 5.00\nImpuestos de prueba\nUSD 0.00\nTotal sin entrega\nUSD 515.00",
+    "val": "2",
+    "msg": [
+     "No hay suficientes unidades de esta talla.",
+     "Prenda agregada a tu bolsa."
+    ]
+   }
+  }
+ ],
+ "filled": [
+  {
+   "w": 390,
+   "state": "bag",
+   "audit": {
+    "title": "Tu bolsa · Martha Silva Store",
+    "lang": "es-NI",
+    "h1": 1,
+    "overflowX": false,
+    "scrollWidth": 390,
+    "innerWidth": 390,
+    "images": 4,
+    "broken": [],
+    "noAlt": 0,
+    "unnamed": [
+     "<a href=\"/producto-negro.html\">Vestido negro con abertura</a>"
+    ],
+    "unnamedCount": 1,
+    "smallTargets": 3,
+    "smallSample": [
+     "<a href=\"/producto-negro.html\">Vestido negro con abertura</a>",
+     "<a href=\"/producto-negro.html\">Vestido negro con abertura</a>",
+     "<a href=\"/ayuda.html\">Ver entrega y devoluciones</a>"
+    ],
+    "spanishInEn": [
+     "Elegí",
+     "Talla",
+     "Continuar",
+     "Resumen"
+    ],
+    "skip": true,
+    "main": true
+   }
+  },
+  {
+   "w": 390,
+   "state": "checkout-contact",
+   "audit": {
+    "title": "Compra de prueba · Martha Silva Store",
+    "lang": "es-NI",
+    "h1": 1,
+    "overflowX": false,
+    "scrollWidth": 390,
+    "innerWidth": 390,
+    "images": 3,
+    "broken": [],
+    "noAlt": 0,
+    "unnamed": [
+     "<a href=\"/producto-negro.html\">Vestido negro con abertura</a>"
+    ],
+    "unnamedCount": 1,
+    "smallTargets": 5,
+    "smallSample": [
+     "<a class=\"checkout-back\" href=\"/bolsa.html\" data-barba-prevent=\"\">← Volver a la ",
+     "<a href=\"/producto-negro.html\">Vestido negro con abertura</a>",
+     "<a href=\"/producto-negro.html\">Vestido negro con abertura</a>",
+     "<a href=\"/ayuda.html\" data-barba-prevent=\"\">Entrega y devoluciones</a>"
+    ],
+    "spanishInEn": [
+     "Talla",
+     "Continuar"
+    ],
+    "skip": true,
+    "main": true
+   }
+  },
+  {
+   "w": 390,
+   "state": "checkout-delivery",
+   "audit": {
+    "title": "Compra de prueba · Martha Silva Store",
+    "lang": "es-NI",
+    "h1": 1,
+    "overflowX": false,
+    "scrollWidth": 390,
+    "innerWidth": 390,
+    "images": 3,
+    "broken": [],
+    "noAlt": 0,
+    "unnamed": [
+     "<a href=\"/producto-negro.html\">Vestido negro con abertura</a>"
+    ],
+    "unnamedCount": 1,
+    "smallTargets": 5,
+    "smallSample": [
+     "<a class=\"checkout-back\" href=\"/bolsa.html\" data-barba-prevent=\"\">← Volver a la ",
+     "<a href=\"/producto-negro.html\">Vestido negro con abertura</a>",
+     "<a href=\"/producto-negro.html\">Vestido negro con abertura</a>",
+     "<a href=\"/ayuda.html\" data-barba-prevent=\"\">Entrega y devoluciones</a>"
+    ],
+    "spanishInEn": [
+     "Talla"
+    ],
+    "skip": true,
+    "main": true
+   }
+  },
+  {
+   "w": 390,
+   "state": "checkout-review",
+   "audit": {
+    "title": "Compra de prueba · Martha Silva Store",
+    "lang": "es-NI",
+    "h1": 1,
+    "overflowX": false,
+    "scrollWidth": 390,
+    "innerWidth": 390,
+    "images": 3,
+    "broken": [],
+    "noAlt": 0,
+    "unnamed": [
+     "<a href=\"/producto-negro.html\">Vestido negro con abertura</a>"
+    ],
+    "unnamedCount": 1,
+    "smallTargets": 5,
+    "smallSample": [
+     "<a class=\"checkout-back\" href=\"/bolsa.html\" data-barba-prevent=\"\">← Volver a la ",
+     "<a href=\"/producto-negro.html\">Vestido negro con abertura</a>",
+     "<a href=\"/producto-negro.html\">Vestido negro con abertura</a>",
+     "<a href=\"/ayuda.html\" data-barba-prevent=\"\">Entrega y devoluciones</a>"
+    ],
+    "spanishInEn": [
+     "Talla",
+     "Continuar"
+    ],
+    "skip": true,
+    "main": true
+   }
+  },
+  {
+   "w": 390,
+   "state": "checkout-payment",
+   "audit": {
+    "title": "Compra de prueba · Martha Silva Store",
+    "lang": "es-NI",
+    "h1": 1,
+    "overflowX": false,
+    "scrollWidth": 390,
+    "innerWidth": 390,
+    "images": 3,
+    "broken": [],
+    "noAlt": 0,
+    "unnamed": [
+     "<a href=\"/producto-negro.html\">Vestido negro con abertura</a>"
+    ],
+    "unnamedCount": 1,
+    "smallTargets": 5,
+    "smallSample": [
+     "<a class=\"checkout-back\" href=\"/bolsa.html\" data-barba-prevent=\"\">← Volver a la ",
+     "<a href=\"/producto-negro.html\">Vestido negro con abertura</a>",
+     "<a href=\"/producto-negro.html\">Vestido negro con abertura</a>",
+     "<a href=\"/ayuda.html\" data-barba-prevent=\"\">Entrega y devoluciones</a>"
+    ],
+    "spanishInEn": [
+     "Talla",
+     "Pago de prueba"
+    ],
+    "skip": true,
+    "main": true
+   }
+  },
+  {
+   "w": 390,
+   "state": "order-declined",
+   "audit": {
+    "title": "Tu pedido · Martha Silva Store",
+    "lang": "es-NI",
+    "h1": 1,
+    "overflowX": false,
+    "scrollWidth": 390,
+    "innerWidth": 390,
+    "images": 3,
+    "broken": [],
+    "noAlt": 0,
+    "unnamed": [],
+    "unnamedCount": 0,
+    "smallTargets": 3,
+    "smallSample": [
+     "<a href=\"/producto-negro.html\">Vestido negro con abertura</a>",
+     "<a class=\"text-button\" href=\"/catalogo.html\">Seguir explorando la colección</a>",
+     "<a href=\"/ayuda.html\">Ver entrega y devoluciones</a>"
+    ],
+    "spanishInEn": [
+     "Talla",
+     "Pedido",
+     "Pago de prueba",
+     "Resumen"
+    ],
+    "skip": true,
+    "main": true
+   },
+   "text": "Tu pedido de prueba\n\nConsultá el estado y los detalles de tu pedido de prueba.\n\nPEDIDO DEMO-0001\n\nPago de prueba rechazado\nPago de prueba rechazado\n\nPedido de prueba guardado. No confirma un cobro ni "
+  },
+  {
+   "w": 1440,
+   "state": "bag",
+   "audit": {
+    "title": "Tu bolsa · Martha Silva Store",
+    "lang": "es-NI",
+    "h1": 1,
+    "overflowX": false,
+    "scrollWidth": 1440,
+    "innerWidth": 1440,
+    "images": 4,
+    "broken": [],
+    "noAlt": 0,
+    "unnamed": [],
+    "unnamedCount": 0,
+    "smallTargets": 4,
+    "smallSample": [
+     "<a href=\"/producto-negro.html\">Vestido negro con abertura</a>",
+     "<button class=\"text-button\" data-remove-item=\"negro-S\" aria-label=\"Retirar Vesti",
+     "<button class=\"text-button\" data-move-favorite=\"negro-S\" data-product=\"negro\" ar",
+     "<a href=\"/ayuda.html\">Ver entrega y devoluciones</a>"
+    ],
+    "spanishInEn": [
+     "Elegí",
+     "Talla",
+     "Continuar",
+     "Resumen"
+    ],
+    "skip": true,
+    "main": true
+   }
+  },
+  {
+   "w": 1440,
+   "state": "checkout-contact",
+   "audit": {
+    "title": "Compra de prueba · Martha Silva Store",
+    "lang": "es-NI",
+    "h1": 1,
+    "overflowX": false,
+    "scrollWidth": 1440,
+    "innerWidth": 1440,
+    "images": 3,
+    "broken": [],
+    "noAlt": 0,
+    "unnamed": [],
+    "unnamedCount": 0,
+    "smallTargets": 4,
+    "smallSample": [
+     "<a class=\"checkout-back\" href=\"/bolsa.html\" data-barba-prevent=\"\">← Volver a la ",
+     "<a href=\"/producto-negro.html\">Vestido negro con abertura</a>",
+     "<a href=\"/ayuda.html\" data-barba-prevent=\"\">Entrega y devoluciones</a>",
+     "<a href=\"/ayuda.html\">Ver entrega y devoluciones</a>"
+    ],
+    "spanishInEn": [
+     "Talla",
+     "Continuar"
+    ],
+    "skip": true,
+    "main": true
+   }
+  },
+  {
+   "w": 1440,
+   "state": "checkout-delivery",
+   "audit": {
+    "title": "Compra de prueba · Martha Silva Store",
+    "lang": "es-NI",
+    "h1": 1,
+    "overflowX": false,
+    "scrollWidth": 1440,
+    "innerWidth": 1440,
+    "images": 3,
+    "broken": [],
+    "noAlt": 0,
+    "unnamed": [],
+    "unnamedCount": 0,
+    "smallTargets": 5,
+    "smallSample": [
+     "<a class=\"checkout-back\" href=\"/bolsa.html\" data-barba-prevent=\"\">← Volver a la ",
+     "<button class=\"text-button\" data-checkout-back=\"contact\">← Editar contacto</butt",
+     "<a href=\"/producto-negro.html\">Vestido negro con abertura</a>",
+     "<a href=\"/ayuda.html\" data-barba-prevent=\"\">Entrega y devoluciones</a>"
+    ],
+    "spanishInEn": [
+     "Talla"
+    ],
+    "skip": true,
+    "main": true
+   }
+  },
+  {
+   "w": 1440,
+   "state": "checkout-review",
+   "audit": {
+    "title": "Compra de prueba · Martha Silva Store",
+    "lang": "es-NI",
+    "h1": 1,
+    "overflowX": false,
+    "scrollWidth": 1440,
+    "innerWidth": 1440,
+    "images": 3,
+    "broken": [],
+    "noAlt": 0,
+    "unnamed": [],
+    "unnamedCount": 0,
+    "smallTargets": 5,
+    "smallSample": [
+     "<a class=\"checkout-back\" href=\"/bolsa.html\" data-barba-prevent=\"\">← Volver a la ",
+     "<button class=\"text-button\" data-checkout-back=\"delivery\">← Editar entrega</butt",
+     "<a href=\"/producto-negro.html\">Vestido negro con abertura</a>",
+     "<a href=\"/ayuda.html\" data-barba-prevent=\"\">Entrega y devoluciones</a>"
+    ],
+    "spanishInEn": [
+     "Talla",
+     "Continuar"
+    ],
+    "skip": true,
+    "main": true
+   }
+  },
+  {
+   "w": 1440,
+   "state": "checkout-payment",
+   "audit": {
+    "title": "Compra de prueba · Martha Silva Store",
+    "lang": "es-NI",
+    "h1": 1,
+    "overflowX": false,
+    "scrollWidth": 1440,
+    "innerWidth": 1440,
+    "images": 3,
+    "broken": [],
+    "noAlt": 0,
+    "unnamed": [],
+    "unnamedCount": 0,
+    "smallTargets": 6,
+    "smallSample": [
+     "<a class=\"checkout-back\" href=\"/bolsa.html\" data-barba-prevent=\"\">← Volver a la ",
+     "<button class=\"text-button\" data-test-payment=\"declined\">Probar pago rechazado</",
+     "<button class=\"text-button\" data-test-payment=\"cancelled\">Cancelar pedido</butto",
+     "<a href=\"/producto-negro.html\">Vestido negro con abertura</a>"
+    ],
+    "spanishInEn": [
+     "Talla",
+     "Pago de prueba"
+    ],
+    "skip": true,
+    "main": true
+   }
+  },
+  {
+   "w": 1440,
+   "state": "order-cancelled",
+   "audit": {
+    "title": "Tu pedido · Martha Silva Store",
+    "lang": "es-NI",
+    "h1": 1,
+    "overflowX": false,
+    "scrollWidth": 1440,
+    "innerWidth": 1440,
+    "images": 3,
+    "broken": [],
+    "noAlt": 0,
+    "unnamed": [],
+    "unnamedCount": 0,
+    "smallTargets": 3,
+    "smallSample": [
+     "<a href=\"/producto-negro.html\">Vestido negro con abertura</a>",
+     "<a class=\"text-button\" href=\"/catalogo.html\">Seguir explorando la colección</a>",
+     "<a href=\"/ayuda.html\">Ver entrega y devoluciones</a>"
+    ],
+    "spanishInEn": [
+     "Talla",
+     "Pedido",
+     "Pago de prueba",
+     "Resumen"
+    ],
+    "skip": true,
+    "main": true
+   },
+   "text": "Tu pedido de prueba\n\nConsultá el estado y los detalles de tu pedido de prueba.\n\nPEDIDO DEMO-0001\n\nPedido cancelado\nPedido cancelado\n\nPedido de prueba guardado. No confirma un cobro ni una entrega real"
+  }
+ ],
+ "products": [
+  {
+   "id": "amarillo",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "azul-floral-un-hombro",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "azul-gris-flores-falda",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "azul-gris-un-hombro",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "blanco-perlado-sirena",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "burdeos-encaje-volantes-midi",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "burdeos-top-pantalon-corto",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "champagne",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "crema-flores-naranjas-halter",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "crema-flores-volante-asimetrico",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "dorado",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "fucsia-halter-pliegues",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "fucsia-un-hombro-volantes",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "gala-destello",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "gala-oro",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "gala-rubi",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "gris-perla-hombros",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "midi-estampado-burdeos",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "napoleon",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "negro",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "negro-blanco-lunares-midi",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "negro-brillo-pantalon-amplio",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "negro-escote-puntas-abertura",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "negro-lunares-beige-hombros",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "novia",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "novia-satinada-abertura",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "novia-tirantes-encaje",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "novias-alba",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "novias-encaje",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "novias-velo",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "plata-tirantes-copas-pedreria",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "rojo-tirantes-falda-amplia",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "rosa",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "rosa-bronce-pedreria",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "rosa-claro-flores-doradas",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "rosa-empolvado-pedreria",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "rosa-flores-fucsias-halter",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "rosa-marron-chaqueta-falda",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "verde-brillo-cuello-cruzado",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  },
+  {
+   "id": "verde-esmeralda-tirantes-cruzados",
+   "overflowX": false,
+   "broken": [],
+   "h1": 1,
+   "console": []
+  }
+ ],
+ "console": [
+  {
+   "at": "en_repro",
+   "lines": []
+  },
+  {
+   "at": "real_click_390",
+   "lines": []
+  },
+  {
+   "at": "features_catalog",
+   "lines": []
+  },
+  {
+   "at": "features_product",
+   "lines": []
+  },
+  {
+   "at": "filled_390",
+   "lines": []
+  },
+  {
+   "at": "filled_1440",
+   "lines": []
+  },
+  {
+   "at": "product amarillo",
+   "lines": []
+  },
+  {
+   "at": "product azul-floral-un-hombro",
+   "lines": []
+  },
+  {
+   "at": "product azul-gris-flores-falda",
+   "lines": []
+  },
+  {
+   "at": "product azul-gris-un-hombro",
+   "lines": []
+  },
+  {
+   "at": "product blanco-perlado-sirena",
+   "lines": []
+  },
+  {
+   "at": "product burdeos-encaje-volantes-midi",
+   "lines": []
+  },
+  {
+   "at": "product burdeos-top-pantalon-corto",
+   "lines": []
+  },
+  {
+   "at": "product champagne",
+   "lines": []
+  },
+  {
+   "at": "product crema-flores-naranjas-halter",
+   "lines": []
+  },
+  {
+   "at": "product crema-flores-volante-asimetrico",
+   "lines": []
+  },
+  {
+   "at": "product dorado",
+   "lines": []
+  },
+  {
+   "at": "product fucsia-halter-pliegues",
+   "lines": []
+  },
+  {
+   "at": "product fucsia-un-hombro-volantes",
+   "lines": []
+  },
+  {
+   "at": "product gala-destello",
+   "lines": []
+  },
+  {
+   "at": "product gala-oro",
+   "lines": []
+  },
+  {
+   "at": "product gala-rubi",
+   "lines": []
+  },
+  {
+   "at": "product gris-perla-hombros",
+   "lines": []
+  },
+  {
+   "at": "product midi-estampado-burdeos",
+   "lines": []
+  },
+  {
+   "at": "product napoleon",
+   "lines": []
+  },
+  {
+   "at": "product negro",
+   "lines": []
+  },
+  {
+   "at": "product negro-blanco-lunares-midi",
+   "lines": []
+  },
+  {
+   "at": "product negro-brillo-pantalon-amplio",
+   "lines": []
+  },
+  {
+   "at": "product negro-escote-puntas-abertura",
+   "lines": []
+  },
+  {
+   "at": "product negro-lunares-beige-hombros",
+   "lines": []
+  },
+  {
+   "at": "product novia",
+   "lines": []
+  },
+  {
+   "at": "product novia-satinada-abertura",
+   "lines": []
+  },
+  {
+   "at": "product novia-tirantes-encaje",
+   "lines": []
+  },
+  {
+   "at": "product novias-alba",
+   "lines": []
+  },
+  {
+   "at": "product novias-encaje",
+   "lines": []
+  },
+  {
+   "at": "product novias-velo",
+   "lines": []
+  },
+  {
+   "at": "product plata-tirantes-copas-pedreria",
+   "lines": []
+  },
+  {
+   "at": "product rojo-tirantes-falda-amplia",
+   "lines": []
+  },
+  {
+   "at": "product rosa",
+   "lines": []
+  },
+  {
+   "at": "product rosa-bronce-pedreria",
+   "lines": []
+  },
+  {
+   "at": "product rosa-claro-flores-doradas",
+   "lines": []
+  },
+  {
+   "at": "product rosa-empolvado-pedreria",
+   "lines": []
+  },
+  {
+   "at": "product rosa-flores-fucsias-halter",
+   "lines": []
+  },
+  {
+   "at": "product rosa-marron-chaqueta-falda",
+   "lines": []
+  },
+  {
+   "at": "product verde-brillo-cuello-cruzado",
+   "lines": []
+  },
+  {
+   "at": "product verde-esmeralda-tirantes-cruzados",
+   "lines": []
+  }
+ ]
+}
