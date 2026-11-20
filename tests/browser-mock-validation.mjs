@@ -404,8 +404,8 @@ try{
   for(const mobile of [false,true])await test(`Staff visible screens have no document overflow at ${mobile?'390':'1440'}px`,()=>withStaff({mobile},async s=>{
     await ready(s);const measurements=[];for(const view of ['clientes','inventario','ventas','abastecimiento']){await s.page.locator(`[data-target="${view}"][data-action="nav"]`).click();const dims=await s.page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth}));measurements.push({view,...dims});assert.ok(dims.scroll<=dims.width+1,JSON.stringify(measurements));}return measurements;
   }));
-  await test('All 47 public pages mount in Chromium with no uncaught JavaScript errors',async()=>{
-    const s=await setup({});const before=runtime.length;const pages=(await readdir(path.join(root,'dist'))).filter(x=>x.endsWith('.html'));assert.equal(pages.length,47);
+  await test('All public pages in tests/site-pages.json mount in Chromium with no uncaught JavaScript errors',async()=>{
+    const s=await setup({});const before=runtime.length;const pages=(await readdir(path.join(root,'dist'))).filter(x=>x.endsWith('.html')).sort();const expected=JSON.parse(await readFile(path.join(root,'tests/site-pages.json'),'utf8')).sort();assert.deepEqual(pages,expected);
     try{for(const name of pages){const response=await s.page.goto(origin+'/'+name);assert.equal(response.status(),200,name);await s.page.waitForLoadState('networkidle');assert.ok(await s.page.locator('main').count(),name);}assert.deepEqual(runtime.slice(before),[]);return {pages:pages.length};}finally{await s.close();}
   });
   await test('Public product, bag, translation and synthetic checkout approval work in browser',async()=>{

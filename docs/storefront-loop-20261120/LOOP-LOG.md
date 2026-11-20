@@ -141,3 +141,5 @@ Limits: a click within ~50 ms of Esc lands on the modal backdrop and does not re
 - `python tests/check.py`: stops at `tests/asset-audit.py` with 3 `WinError 1314` symlink-privilege errors (Windows host, file unchanged). Later stages run by hand: test_check, test_sync_progress, test_delivery_status, delivery_status --check, structure, frontend-runtime, localization-runtime and JS syntax pass; `catalog-staging.py` has the same 2 symlink errors.
 - `patches/*.patch` stay local (002 is 10.3 MB, over the 8 MiB hook limit, and all duplicate this commit). `PATCHES.sha256` records their hashes.
 - Next: EN meta descriptions, then B3 micro-interactions, then B5 polish.
+- CI on `81b8cc8`: Recovered demo CI, Backend synthetic slice, SAVIA Azure hub, Bug proof and Progress digest pass. SAVIA judge failed: `tests/browser-mock-validation.mjs` asserted exactly 47 public pages; P4 added `404.html` (48).
+- Fix: the test now compares `dist/*.html` with `tests/site-pages.json`, the same list `verify_release_snapshot` uses. Local run with Playwright: 50 passed, 0 failed, the 404 page mounts without errors.
