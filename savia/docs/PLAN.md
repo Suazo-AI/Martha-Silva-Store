@@ -18,7 +18,7 @@ Cada fila de esta tabla es una prueba que puede fallar. Sin prueba ejecutada no 
 | A-01 | El SQL instala desde cero sin errores | Un procedimiento no compila | `saviadb.py` + CP0 | verificado en una base |
 | A-02 | 100 lecturas del mismo código suman 100 en una línea | 100 SKU, o stock antes de aprobar | `db/tests/receiving/010` | verificado en una base |
 | A-03 | La caja vende con la nube apagada y deja registro para sincronizar | Espera a la nube o no deja registro | `VerticalSliceTests` | verificado en una base |
-| A-04 | Reintentar una sincronización no repite efectos | Doble stock o doble venta | Simulador con semillas | pendiente: el simulador aún no repite lotes |
+| A-04 | Reintentar una sincronización no repite efectos | Doble stock o doble venta | Simulador con semillas | verificado en simulador y transporte P9 (2026-11-20, V034): escenario `replay`, T-SQL `sync/210` y pruebas .NET `Sync*` pasan; hub desplegado sin P9 todavía; ver [P9-SPEC](sync/P9-SPEC.md) |
 | A-05 | Un anticipo transferido no se gasta en origen y destino | Doble canje | Simulador con semillas | verificado en el simulador: 3 semillas y `cancel_vs_dispatch` ([evidencia](evidence/cp4-sim-20261120/README.md)); transporte real pendiente |
 | A-06 | Arqueo y documento contable se registran una sola vez | Ingreso duplicado o segunda factura | `db/tests/sales/010` | verificado en una base |
 | A-07 | La etiqueta lleva el código original y la tienda; un trabajo no se pierde en silencio | Código alterado o trabajo descartado | `db/tests/receiving/010` (cola); impresora real | cola verificada; impresora NO probada |

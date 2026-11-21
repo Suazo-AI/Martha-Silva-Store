@@ -1,0 +1,75 @@
+task_id: savia-p9-sync-20261120-run2
+status: partial
+changed:
+  - savia/db/migrations/V032__sync_transport.sql (new; sync tables, credentials, read/apply procedures, errors 51850-51863; accepted)
+  - savia/db/migrations/V033__sync_rebuild_token.sql (new; rebuild token so a served-but-unapplied rebuild does not open the hub; accepted)
+  - savia/db/migrations/MANIFEST.sha256 (V032 and V033 added by rules.py --accept-migrations)
+  - savia/db/tests/sync/200..230 (new T-SQL tests; 230 asserts token-less and wrong-token pushes are refused with 51854)
+  - savia/src/Savia.Domain/Errors.cs (sync error mappings, sync.unauthorized, sync.malformed)
+  - savia/src/Savia.Application/Sync.cs (ISyncStore, ISyncHub, NodeCredential, SyncHubService, BranchSync)
+  - savia/src/Savia.Infrastructure/SyncStore.cs (SyncStore over the procedures, HttpSyncHub) and ServiceRegistration.cs
+  - savia/src/Savia.Api/SyncEndpoints.cs (/sync/v1/* on the cloud node only, SyncNodeFilter, SyncWorker), Endpoints.cs, Program.cs
+  - savia/tests/Savia.Tests/SyncFixture.cs, SyncTransportTests.cs, SyncWorkerTests.cs (new; real HTTP, real SQL)
+  - savia/tools/db/simulator.py (calls the V032 procedures; new replay scenario)
+  - savia/docs/sync/P9-SPEC.md (spec, acceptance table, open questions, Progress log), savia/docs/sync/evidence/*
+  - savia/docs/PLAN.md (A-04 row)
+verification:
+  - command: python savia/tools/check.py
+    result: "exit 0; rules 9/9; T-SQL SUMMARY PASS=148; C# format PASS; .NET 194 passed, 0 failed"
+    evidence: savia/docs/sync/evidence/check-full-v033.txt
+  - command: python savia/tools/db/saviadb.py test sync/2
+    result: "SUMMARY PASS=4 on V033"
+  - command: dotnet test tests/Savia.Tests --filter "FullyQualifiedName~Savia.Tests.Sync"
+    result: "9 passed, 0 failed on V033; the lost-rebuild test was red on V032"
+    evidence: [savia/docs/sync/evidence/dotnet-sync-v033.txt, savia/docs/sync/evidence/dotnet-sync-lost-rebuild-red.txt]
+  - command: python savia/tools/db/simulator.py scenario replay|restore|restore_naive (V033)
+    result: "replay RESULT PASS; restore RESULT FAIL (1) only sale.outbox_event on a; restore_naive refused with Msg 51854 as designed"
+    evidence: savia/docs/sync/evidence/sim-v033-*.txt
+  - A-04: "closed for duplicate, retried, lost-answer and late batches: simulator replay, T-SQL sync/210, .NET Duplicate/Retry/Dropped/Late tests PASS"
+identity:
+  host: SUAZO-PC
+  provider: Anthropic
+  model: claude-opus-5-5
+  effort: unknown
+  worktree: C:\Users\Jason\.t3\worktrees\github\t3-ea3f49fe-92f9416a8627c6bd
+  source_sha: 2ad4713bd5f0f6b1d72d0f8c7d7c7a813601df8b
+limits:
+  static_pass: [rules 9/9, C# format, build]
+  runtime_pass: [T-SQL 148 incl. sync/200-230, .NET 194 incl. 9 Sync tests, simulator replay on V033]
+  runtime_fail:
+    - "simulator restore: sale.outbox_event missing on the restored branch for the sale the rebuild brings back (known finding, pinned in the .NET restore test)"
+    - "sale made after a restore and before the first rebuild: rebuild fails on UX_OpenTill_Register (2601); reproduced red, not fixed"
+  not_run:
+    - "simulator basic, cancel_vs_dispatch, random seeds 1/7/42 on V033 (rerun by the primary on V034: PASS)"
+  notes:
+    - "Tests run as sa; restricted SQL role unverified"
+    - "No paging; one transaction per batch; procedure timeout 300 s"
+    - "Restore tests leave .bak files in the SQL Server default backup folder"
+    - "Rebuild token proves receipt, not apply"
+usage: unknown (7-day window reported at 99% by the limit hook)
+unverified:
+  - "SyncWorker hosted loop and config gate; tests drive BranchSync directly"
+  - "A malformed Savia:Sync:HubUrl or IntervalSeconds: fixed by the primary (log and turn sync off); no test"
+  - "Normal-mode hub-to-branch relay of another branch's rows in .NET (simulator covers it)"
+  - "Hub restore (F15)"
+blockers: []
+open_questions_for_jason:
+  - "Recovery lock: block sales, tills, credits and transfers on a restored node until the rebuild ran? Recommended; needed to fix the 2601 failure."
+  - "Outbox for recovered sales: record recovered sale ids and have the oracle expect no local event for them? Recommended."
+  - "Credential issue path: who runs provisioning and who holds the node secret?"
+  - "Paging above 5,000 rows per table, and schema-skew rule (same latest migration on both nodes)."
+next_action: "Primary reviews and integrates; after Jason approves, build the recovery lock (open question 1)."
+primary_review_20261120:
+  reviewer: "fresh Claude subagent (Jason's choice)"
+  fixed:
+    - "V034: ApplyBatch refuses a row whose stored key belongs to another owner (51851); red sql-240-red-v033.txt"
+    - "BranchSync asks the push plan first and rebuilds before any normal pull; red dotnet-rebuild-first-red-v033.txt"
+    - "V034: rebuild retires old forks and writes the token under the apply lock before the snapshot read"
+    - "V034: CHANGE_TRACKING_CURRENT_VERSION() read first in the snapshot (no two-session test)"
+    - "SyncWorker: bad HubUrl or IntervalSeconds logs instead of stopping the host (no test)"
+  not_fixed:
+    - "Credits.Status has two writers (P9-SPEC open question 6)"
+    - "Same-fork recover batch is skipped (P9-SPEC open question 7)"
+  evidence:
+    check: "python savia/tools/check.py exit 0: rules 9/9, T-SQL PASS=149, C# format PASS, .NET 195 passed (evidence/check-full-v034.txt)"
+    simulator: "replay, basic, cancel_vs_dispatch, seeds 1/7/42 PASS; restore FAIL only sale.outbox_event on a; restore_naive refused 51854 (evidence/sim-v034-*.txt)"

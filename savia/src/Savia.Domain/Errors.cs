@@ -14,6 +14,8 @@ public sealed class SaviaException(SaviaError error, Exception? inner = null) : 
 public static class Errors
 {
     public static readonly SaviaError Unauthorized = new("auth.required", ErrorKind.Unauthorized, "Inicie sesión.");
+    public static readonly SaviaError NodeUnauthorized = new("sync.unauthorized", ErrorKind.Unauthorized, "Nodo no autenticado.");
+    public static readonly SaviaError SyncMalformed = new("sync.malformed", ErrorKind.Validation, "Mensaje de sincronización inválido.");
     public static readonly SaviaError BadCredentials = new("auth.bad_credentials", ErrorKind.Unauthorized, "Usuario o contraseña incorrectos.");
     public static readonly SaviaError RoleRequired = new("auth.role_required", ErrorKind.Forbidden, "Su rol no permite esta operación.");
     public static readonly SaviaError BranchAccess = new("auth.branch_access", ErrorKind.Forbidden, "No tiene acceso a esta sucursal.");
@@ -134,6 +136,21 @@ public static class DbErrors
         [51807] = ("sync.node_unknown", ErrorKind.NotFound),
         [51808] = ("sync.cursor_invalid", ErrorKind.Conflict),
         [51809] = ("sync.table_not_tracked", ErrorKind.Validation),
+        // V032: sync transport (P9).
+        [51850] = ("sync.wrong_peer", ErrorKind.Forbidden),
+        [51851] = ("sync.foreign_row", ErrorKind.Forbidden),
+        [51852] = ("sync.gap", ErrorKind.Conflict),
+        [51853] = ("sync.retired_fork", ErrorKind.Conflict),
+        [51854] = ("sync.rebuild_required", ErrorKind.Conflict),
+        [51855] = ("sync.local_node_missing", ErrorKind.Conflict),
+        [51856] = ("sync.schema_mismatch", ErrorKind.Conflict),
+        [51857] = ("sync.in_transaction", ErrorKind.Internal),
+        [51858] = ("sync.fork_changed", ErrorKind.Conflict),
+        [51859] = ("sync.changes_cleaned", ErrorKind.Conflict),
+        [51860] = ("sync.physical_delete", ErrorKind.Conflict),
+        [51861] = ("sync.malformed", ErrorKind.Validation),
+        [51862] = ("sync.credential_target", ErrorKind.Validation),
+        [51863] = ("sync.busy", ErrorKind.Unavailable),
     };
 
     /// <param name="number">SQL Server error number.</param>

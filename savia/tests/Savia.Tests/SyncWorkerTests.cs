@@ -1,0 +1,175 @@
+using System.Net;
+using System.Text.Json.Nodes;
+using Microsoft.Data.SqlClient;
+
+namespace Savia.Tests;
+
+/// <summary>
+/// The production branch round (<c>BranchSync</c> + <c>HttpSyncHub</c>) against the in-memory hub, on real SQL.
+/// Faults are injected between the worker and the hub; every case ends with the conservation oracle on both nodes.
+/// </summary>
+public sealed class SyncWorkerTests
+{
+    private static readonly CancellationToken None = CancellationToken.None;
+
+    [Fact]
+    public async Task Initial_then_incremental_rounds_move_only_new_rows()
+    {
+        await using var f = await SyncFixture.CreateAsync();
+        var first = await f.SellAsync();
+        var initial = await f.Round().RunOnceAsync(None);
+        Assert.True(initial.Pushed > 0);
+        Assert.False(initial.Rebuilt);
+        Assert.Equal(1, await f.SaleCountAsync(f.CloudDb, first));
+
+        var idle = await f.Round().RunOnceAsync(None);
+        Assert.Equal((0, 0), (idle.Pulled, idle.Pushed));
+
+        var second = await f.SellAsync();
+        var incremental = await f.Round().RunOnceAsync(None);
+        Assert.True(incremental.Pushed > 0);
+        Assert.Equal(1, await f.SaleCountAsync(f.CloudDb, second));
+        var batch = JsonNode.Parse(f.LastPush)!;
+        Assert.All(batch["tables"]!.AsArray(), t => Assert.Equal("incremental", (string)t!["a"]!));
+        Assert.Single(batch["tables"]!.AsArray().Single(t => (string)t!["t"]! == "[sales].[Sales]")!["rows"]!.AsArray());
+        await f.AssertConservationAsync();
+    }
+
+    [Fact]
+    public async Task Retry_after_a_lost_answer_repeats_no_effect()
+    {
+        await using var f = await SyncFixture.CreateAsync();
+        var sale = await f.SellAsync();
+        f.Faults.LoseAnswer = SyncFixture.PushPath;   // the hub commits; the branch never hears back
+        await Assert.ThrowsAsync<HttpRequestException>(() => f.Round().RunOnceAsync(None));
+        Assert.Equal(1, await f.SaleCountAsync(f.CloudDb, sale));
+
+        var retry = await f.Round().RunOnceAsync(None);
+        Assert.Equal(0, retry.Pushed);
+        Assert.Equal(1, await f.SaleCountAsync(f.CloudDb, sale));
+        await f.AssertConservationAsync();
+    }
+
+    [Fact]
+    public async Task Dropped_push_is_delivered_by_the_next_round()
+    {
+        await using var f = await SyncFixture.CreateAsync();
+        var sale = await f.SellAsync();
+        f.Faults.DropBefore = SyncFixture.PushPath;
+        await Assert.ThrowsAsync<HttpRequestException>(() => f.Round().RunOnceAsync(None));
+        Assert.Equal(0, await f.SaleCountAsync(f.CloudDb, sale));
+
+        var next = await f.Round().RunOnceAsync(None);
+        Assert.True(next.Pushed > 0);
+        Assert.Equal(1, await f.SaleCountAsync(f.CloudDb, sale));
+        await f.AssertConservationAsync();
+    }
+
+    [Fact]
+    public async Task Late_batch_from_an_earlier_round_changes_nothing()
+    {
+        await using var f = await SyncFixture.CreateAsync();
+        await f.SellAsync();
+        await f.Round().RunOnceAsync(None);
+        var early = f.LastPush;
+        var later = await f.SellAsync();
+        await f.Round().RunOnceAsync(None);
+        var stock = await f.CountAsync(f.CloudDb, $"SELECT SUM(OnHand) FROM inventory.StockBalances WHERE LocationId='{Ids.LocA}'");
+
+        var late = await f.PostAsync(SyncFixture.PushPath, early, Ids.NodeA, SyncFixture.SecretA);
+        Assert.Equal(HttpStatusCode.OK, late.StatusCode);
+        Assert.Equal(0, (int)JsonNode.Parse(await late.Content.ReadAsStringAsync())!["changed"]!);
+        Assert.Equal(1, await f.SaleCountAsync(f.CloudDb, later));
+        Assert.Equal(stock, await f.CountAsync(f.CloudDb, $"SELECT SUM(OnHand) FROM inventory.StockBalances WHERE LocationId='{Ids.LocA}'"));
+        await f.AssertConservationAsync();
+    }
+
+    [Fact]
+    public async Task Lost_rebuild_answer_does_not_open_the_hub_to_the_restored_fork()
+    {
+        await using var f = await SyncFixture.CreateAsync();
+        var backup = $"{f.BranchDb}.bak";
+        await SyncFixture.ExecAsync("master", $"BACKUP DATABASE [{f.BranchDb}] TO DISK=N'{backup}' WITH INIT, FORMAT, COPY_ONLY;");
+        var lost = await f.SellAsync();
+        await f.Round().RunOnceAsync(None);
+        await RestoreAsync(f.BranchDb, backup);
+
+        // The hub serves the rebuild, but the branch never receives it, so it never applies it.
+        f.Faults.LoseAnswerIfBodyHas = "\"mode\":\"rebuild\"";
+        await Assert.ThrowsAsync<HttpRequestException>(() => f.Round().RunOnceAsync(None));
+        Assert.Equal(0, await f.SaleCountAsync(f.BranchDb, lost));
+
+        // The next round must still rebuild before the restored fork may push.
+        var next = await f.Round().RunOnceAsync(None);
+        Assert.True(next.Rebuilt, "a push from the restored fork was accepted before the branch applied any rebuild");
+        Assert.Equal(1, await f.SaleCountAsync(f.BranchDb, lost));
+        await TestSql.AssertConservationAsync(f.CloudDb);
+    }
+
+    private static async Task RestoreAsync(string database, string backup)
+    {
+        SqlConnection.ClearAllPools();
+        await SyncFixture.ExecAsync("master", $"""
+            ALTER DATABASE [{database}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+            RESTORE DATABASE [{database}] FROM DISK=N'{backup}' WITH REPLACE, RECOVERY;
+            ALTER DATABASE [{database}] SET MULTI_USER;
+            """);
+        SqlConnection.ClearAllPools();
+    }
+
+    [Fact]
+    public async Task Restored_branch_rebuilds_before_any_normal_pull()
+    {
+        // A normal pull leaves out the branch's own rows. After a restore, rows of other branches can point to rows the
+        // branch lost (a transferred credit), so a normal pull would fail on a foreign key every round and never rebuild.
+        await using var f = await SyncFixture.CreateAsync();
+        var backup = $"{f.BranchDb}.bak";
+        await SyncFixture.ExecAsync("master", $"BACKUP DATABASE [{f.BranchDb}] TO DISK=N'{backup}' WITH INIT, FORMAT, COPY_ONLY;");
+        await f.SellAsync();
+        await f.Round().RunOnceAsync(None);
+        await RestoreAsync(f.BranchDb, backup);
+
+        f.Faults.Posts.Clear();
+        var recovery = await f.Round().RunOnceAsync(None);
+        Assert.True(recovery.Rebuilt);
+        var firstPull = f.Faults.Posts.First(p => p.Path == "/sync/v1/pull");
+        Assert.Contains("\"mode\":\"rebuild\"", firstPull.Body, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public async Task Restored_branch_rebuilds_from_the_hub_before_it_pushes()
+    {
+        await using var f = await SyncFixture.CreateAsync();
+        var backup = $"{f.BranchDb}.bak";   // the server's default backup folder
+        await SyncFixture.ExecAsync("master", $"BACKUP DATABASE [{f.BranchDb}] TO DISK=N'{backup}' WITH INIT, FORMAT, COPY_ONLY;");
+        var lost = await f.SellAsync();
+        await f.Round().RunOnceAsync(None);
+        var preRestore = f.LastPush;
+        Assert.Equal(1, await f.SaleCountAsync(f.CloudDb, lost));
+
+        // The branch PC comes back from the backup: the sale the hub holds is gone locally.
+        await RestoreAsync(f.BranchDb, backup);
+        Assert.Equal(0, await f.SaleCountAsync(f.BranchDb, lost));
+
+        // The worker rebuilds before any local work (P9-SPEC open question 2: a sale made before this round opens a second
+        // till, and the rebuild then fails on UX_OpenTill_Register; evidence/dotnet-sync-restore-sell-before-rebuild-red.txt).
+        var recovery = await f.Round().RunOnceAsync(None);
+        Assert.True(recovery.Rebuilt, "the hub refuses the new fork until it served a rebuild");
+        Assert.Equal(1, await f.SaleCountAsync(f.BranchDb, lost));
+        var after = await f.SellAsync();
+        Assert.True((await f.Round().RunOnceAsync(None)).Pushed > 0);
+        Assert.Equal(1, await f.SaleCountAsync(f.CloudDb, after));
+
+        // The batch read before the restore belongs to a retired fork.
+        await HttpAssert.ProblemAsync(await f.PostAsync(SyncFixture.PushPath, preRestore, Ids.NodeA, SyncFixture.SecretA),
+            HttpStatusCode.Conflict, "sync.retired_fork");
+        var idle = await f.Round().RunOnceAsync(None);
+        Assert.False(idle.Rebuilt);
+        Assert.Equal(0, idle.Pushed);
+        await TestSql.AssertConservationAsync(f.CloudDb);
+
+        // Known finding (P9-SPEC, open question): sync.Outbox does not travel, so the sale the rebuild brings back has no
+        // sale_posted event on the branch. The oracle stays strict; this pins that exact gap and fails on any other one.
+        Assert.Equal([$"sale.outbox_event {lost.ToString().ToUpperInvariant()}"], await SyncFixture.ViolationsAsync(f.BranchDb));
+    }
+}

@@ -1,0 +1,2 @@
+FAIL    sync/240_apply_batch_refuses_existing_foreign_rows.sql  -- ASSERT FAIL: hub refuses a push that reuses the key of a row owned by another branch expected=51851 actual=2601
+SUMMARY FAIL=1  logs: .out\dbtests

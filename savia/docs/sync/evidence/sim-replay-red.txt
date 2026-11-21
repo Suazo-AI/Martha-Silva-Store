@@ -1,0 +1,51 @@
+setup: 4 databases, tills open, 500 units per branch, credits ['35BF992D-C9E9-4616-A12E-7696A6CECC1B', 'E4B06CE6-0741-47A8-BCE4-2C8218072E8C'] (120000 each at A)
+  sync a->cloud [normal] sent=29 changed=29 plan={'initial': 18}
+  sync b->cloud [normal] sent=4 changed=4 plan={'initial': 18}
+  sync c->cloud [normal] sent=4 changed=4 plan={'initial': 18}
+  sync cloud->a [normal] sent=8 changed=8 plan={'initial': 18}
+  sync cloud->b [normal] sent=33 changed=33 plan={'initial': 18}
+  sync cloud->c [normal] sent=33 changed=33 plan={'initial': 18}
+scenario replay (A-04): duplicate, late, crashed, unacknowledged and pre-restore batches from A to the cloud
+  sync a->cloud [normal] sent=6 changed=6 plan={'incremental': 18}
+PASS first batch applies
+  sync a->cloud [normal] sent=6 changed=0 plan={'incremental': 18}
+PASS duplicate batch: no error and 0 changes
+  sync a->cloud [normal] sent=6 changed=6 plan={'incremental': 18}
+FAIL late batch (older than the cursor): no error and 0 changes
+     changed=None error=51808
+PASS late batch did not move rows back
+PASS crash before COMMIT: nothing applied
+  sync a->cloud [normal] sent=6 changed=6 plan={'incremental': 18}
+PASS retry after the crash applies
+  sync a->cloud [normal] sent=6 changed=6 plan={'incremental': 18}
+PASS lost acknowledgement: the next plan sends nothing old
+  sync cloud->b [normal] sent=21 changed=21 plan={'incremental': 18}
+  sync cloud->c [normal] sent=21 changed=21 plan={'incremental': 18}
+  A restored; it rebuilds from the cloud, then the old in-flight batch arrives
+  sync cloud->a [all] sent=57 changed=0 plan={'rebuild': 18}
+  sync a->cloud [normal] sent=49 changed=0 plan={'recover': 18}
+  sync a->cloud [normal] sent=6 changed=6 plan={'incremental': 18}
+FAIL pre-restore batch after recovery is refused
+     changed=6 error=None
+  sync a->cloud [normal] sent=49 changed=1 plan={'recover': 18}
+  sync cloud->b [normal] sent=6 changed=5 plan={'incremental': 18}
+  sync cloud->c [normal] sent=6 changed=5 plan={'incremental': 18}
+FAIL R1 replicas identical
+     sales.Sales key=('05B6E6E3-07D4-4EDC-9143-1193E6C3F339',) node=a: missing
+     sales.SaleLines key=('04394808-1C89-4CED-9EC6-2F70A1BC4FE1',) node=a: missing
+     sales.SaleTenders key=('83214D9C-3917-4366-AB67-A006A81B7B87',) node=a: missing
+     sales.CashEntries key=('2B43654C-85B3-446B-A6D6-C580640E156A',) node=a: missing
+     inventory.StockMovements key=('DDA6BBFC-AED2-442F-9413-C966D5328D55',) node=a: missing
+FAIL CONS conservation on cloud
+     stock.onhand_vs_movements 00000000-0000-0000-0000-0000000017E1/A0000000-0000-0000-0000-0000000000A1/store expected=495 actual=496
+     (1 violations)
+PASS CONS on a: 0 violations
+FAIL CONS conservation on b
+     stock.onhand_vs_movements 00000000-0000-0000-0000-0000000017E1/A0000000-0000-0000-0000-0000000000A1/store expected=495 actual=496
+     (1 violations)
+FAIL CONS conservation on c
+     stock.onhand_vs_movements 00000000-0000-0000-0000-0000000017E1/A0000000-0000-0000-0000-0000000000A1/store expected=495 actual=496
+     (1 violations)
+stats: pulls=49 rows_sent=356 rows_changed=194 sql_calls=236 ops={'ok_sale': 5}
+RESULT FAIL (6): late batch (older than the cursor): no error and 0 changes; pre-restore batch after recovery is refused; R1 replicas identical; CONS conservation on cloud; CONS conservation on b; CONS conservation on c
+elapsed 109s

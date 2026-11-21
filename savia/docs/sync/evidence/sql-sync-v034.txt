@@ -1,0 +1,6 @@
+PASS    sync/200_sync_tables_match_change_tracking.sql
+PASS    sync/210_apply_batch_is_idempotent.sql
+PASS    sync/220_apply_batch_refuses_foreign_rows.sql
+PASS    sync/230_restored_sender_rules.sql
+PASS    sync/240_apply_batch_refuses_existing_foreign_rows.sql
+SUMMARY PASS=5  logs: .out\dbtests

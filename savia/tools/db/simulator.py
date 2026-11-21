@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """CP4 simulator: one cloud and three branches, each node its own database on the local dev SQL Server.
 
-Nodes never read each other's database. Rows move only as JSON payloads:
+Nodes never read each other's database. Rows move only as JSON batches through the V032 procedures
+(sync.usp_PlanJson, usp_ReadBatch, usp_ApplyBatch), the same code the P9 .NET transport runs:
 the sender reads Change Tracking in one SNAPSHOT transaction, the receiver applies with MERGE
 and advances its (fork, version) cursor after every table is applied (ADR-001 D5, F1, F5, F8).
 Topology: hub. A branch sends only the rows it owns. The cloud relays every row except the target's own.
@@ -13,7 +14,7 @@ Oracles after convergence:
   plus the scenario's own checks.
 
 Usage (from the repository root):
-  python savia/tools/db/simulator.py scenario basic|cancel_vs_dispatch|restore|restore_naive
+  python savia/tools/db/simulator.py scenario basic|cancel_vs_dispatch|restore|restore_naive|replay
   python savia/tools/db/simulator.py random --seed 7 --steps 120
 Exit 0 = every oracle passed. Databases SAVIA_SIM_cloud/_a/_b/_c are recreated on each run.
 """
@@ -73,12 +74,6 @@ class SqlError(Exception):
         m = re.search(r"Msg (\d+)", out)
         self.number = int(m.group(1)) if m else 0
         super().__init__(f"{node}: {out.strip()[-1200:]}")
-
-
-def owner_node(expr):
-    if expr is None:
-        return "t.NodeId"
-    return f"(SELECT n.Id FROM sync.Nodes n WHERE n.Kind='branch' AND n.BranchId={expr})"
 
 
 def lit(s):
@@ -162,106 +157,45 @@ SET @out=(SELECT v.tn AS t,
         self.meta = {r["t"]: ([(c["n"], c["ty"]) for c in r["c"]], [k["n"] for k in r["k"]]) for r in rows}
 
     # ---------- sync ----------
+    # Every rule runs in the V032 procedures, the same code the .NET transport calls (P9-SPEC.md).
     def pull(self, tgt, src, mode="normal"):
-        """tgt pulls from src. mode normal | all (restored branch rebuilds from the cloud, no owner filter)."""
-        state = self.fetch(src, """
-DECLARE @s TABLE(NodeId uniqueidentifier,ForkGuid uniqueidentifier,CurrentVersion bigint,TableName sysname,MinValidVersion bigint);
-INSERT @s EXEC sync.usp_GetSourceState;
-SET @out=(SELECT * FROM @s FOR JSON PATH, INCLUDE_NULL_VALUES);""")
-        st = {r["TableName"]: r for r in state}
-        fork = state[0]["ForkGuid"]
-        src_node = self.node_id(src)
-        def mv(t):
-            v = st[bt(t)]["MinValidVersion"]
-            return "NULL" if v is None else str(v)
-        calls = "\n".join(
-            f"INSERT @r EXEC sync.usp_ClassifyCursor @PeerNodeId='{src_node}',@TableName=N'{bt(t)}',"
-            f"@SourceForkGuid='{fork}',@SourceCurrentVersion={st[bt(t)]['CurrentVersion']},@SourceMinValidVersion={mv(t)};\n"
-            f"INSERT @c(t,a,f) SELECT N'{bt(t)}',a,f FROM @r; DELETE @r;"
-            for t, _ in TABLES)
-        plan = self.fetch(tgt, f"""
-DECLARE @r TABLE(a varchar(20),f bigint); DECLARE @c TABLE(t sysname,a varchar(20),f bigint);
-{calls}
-SET @out=(SELECT t,a,f FROM @c FOR JSON PATH, INCLUDE_NULL_VALUES);""")
-        plan = {p["t"]: p for p in plan}
-        if mode == "all":
-            for p in plan.values():
-                p["a"], p["f"] = "rebuild", None
+        """tgt pulls from src. mode normal | all (restored branch rebuilds from the cloud, its own rows included)."""
+        return self.apply_batch(tgt, self.read_batch(tgt, src, mode))
 
-        # Sender: one SNAPSHOT transaction for every table (F5).
-        parts, keys = [], []
-        for k, (t, owner) in enumerate(TABLES):
-            cols, pk = self.meta[t]
-            sel = ",".join(f"t.[{c}]" for c, _ in cols)
-            if mode == "all":
-                flt = "1=1"
-            elif src == "cloud":
-                flt = f"{owner_node(owner)}<>@target"
-            else:
-                flt = f"{owner_node(owner)}=@me"
-            p = plan[bt(t)]
-            if p["a"] == "incremental":
-                on = " AND ".join(f"ct.[{c}]=t.[{c}]" for c in pk)
-                parts.append(f"""
-IF CHANGE_TRACKING_MIN_VALID_VERSION(OBJECT_ID(N'{t}'))>{p['f']} THROW 51891,'Cambios ya depurados durante la sincronizacion.',1;
-IF EXISTS(SELECT 1 FROM CHANGETABLE(CHANGES {t},{p['f']}) ct WHERE ct.SYS_CHANGE_OPERATION='D')
-  THROW 51892,'Borrado fisico en una tabla sincronizada ({t}).',1;
-SET @j{k}=(SELECT {sel} FROM CHANGETABLE(CHANGES {t},{p['f']}) ct JOIN {t} t ON {on}
-           WHERE ct.SYS_CHANGE_VERSION<=@to AND {flt} FOR JSON PATH, INCLUDE_NULL_VALUES);""")
-            else:
-                parts.append(f"SET @j{k}=(SELECT {sel} FROM {t} t WHERE {flt} FOR JSON PATH, INCLUDE_NULL_VALUES);")
-            keys.append(f"JSON_QUERY(ISNULL(@j{k},N'[]')) AS [t{k}]")
-        decl = ",".join(f"@j{k} nvarchar(max)" for k in range(len(TABLES)))
-        payload = self.fetch(src, f"""
-SET TRANSACTION ISOLATION LEVEL SNAPSHOT; BEGIN TRANSACTION;
-DECLARE @me uniqueidentifier=(SELECT NodeId FROM sync.LocalNode),@target uniqueidentifier='{self.node_id(tgt)}',
-  @fork uniqueidentifier=(SELECT recovery_fork_guid FROM sys.database_recovery_status WHERE database_id=DB_ID()),
-  @to bigint=CHANGE_TRACKING_CURRENT_VERSION(),{decl};
-IF @fork<>'{fork}' THROW 51890,'El fork del emisor cambio durante la sincronizacion.',1;
-{''.join(parts)}
-SET @out=(SELECT @fork AS fork,@to AS [to],{','.join(keys)} FOR JSON PATH, WITHOUT_ARRAY_WRAPPER, INCLUDE_NULL_VALUES);
-COMMIT;""")
+    def state(self, node):
+        return self.fetch(node, "EXEC sync.usp_SourceStateJson @Json=@out OUTPUT;")
 
-        # Receiver: apply every table, then advance every cursor, in one transaction (F8).
-        stmts, sent = [], 0
-        for k, (t, _) in enumerate(TABLES):
-            rows = payload[f"t{k}"]
-            if not rows:
-                continue
-            sent += len(rows)
-            cols, pk = self.meta[t]
-            names = [c for c, _ in cols]
-            with_ = ",".join(f"[{c}] {ty}" for c, ty in cols)
-            on = " AND ".join(f"t.[{c}]=s.[{c}]" for c in pk)
-            nonpk = [c for c in names if c not in pk]
-            upd = ""
-            if nonpk:
-                upd = (f"WHEN MATCHED AND EXISTS(SELECT {','.join(f's.[{c}]' for c in nonpk)} "
-                       f"EXCEPT SELECT {','.join(f't.[{c}]' for c in nonpk)}) THEN UPDATE SET "
-                       + ",".join(f"t.[{c}]=s.[{c}]" for c in nonpk))
-            stmts.append(f"""
-SET @j={lit(json.dumps(rows, ensure_ascii=False))};
-MERGE {t} WITH (HOLDLOCK) AS t USING (SELECT * FROM OPENJSON(@j) WITH ({with_})) AS s ON {on}
-{upd}
-WHEN NOT MATCHED BY TARGET THEN INSERT ({','.join(f'[{c}]' for c in names)}) VALUES ({','.join(f's.[{c}]' for c in names)});
-SET @changed+=@@ROWCOUNT;""")
-        adv = "\n".join(
-            f"EXEC sync.usp_AdvancePeerCursor @PeerNodeId='{src_node}',@TableName=N'{bt(t)}',"
-            f"@ForkGuid='{payload['fork']}',@Version={payload['to']};" for t, _ in TABLES)
+    def read_batch(self, tgt, src, mode="normal"):
+        """Plan on the receiver, then read on the sender in one SNAPSHOT transaction. Returns the batch to apply."""
+        state = self.state(src)
+        sql_mode = "rebuild" if mode == "all" else "normal"
+        plan = self.fetch(tgt, f"EXEC sync.usp_PlanJson @PeerNodeId='{self.node_id(src)}',@StateJson={lit(json.dumps(state))},"
+                               f"@Mode='{sql_mode}',@Json=@out OUTPUT;")
+        fork = f"'{self.state(tgt)['fork']}'" if sql_mode == "rebuild" else "NULL"
+        payload = self.fetch(src, f"EXEC sync.usp_ReadBatch @TargetNodeId='{self.node_id(tgt)}',@PlanJson={lit(json.dumps(plan))},"
+                                  f"@TargetForkGuid={fork},@Json=@out OUTPUT;")
+        return {"src": src, "mode": mode, "plan": {p["t"]: p for p in plan["tables"]}, "payload": payload}
+
+    @staticmethod
+    def rows_in(batch):
+        return sum(len(t["rows"] or []) for t in batch["payload"]["tables"])
+
+    def apply_batch(self, tgt, batch, fail_before_commit=False):
+        """Receiver: usp_ApplyBatch applies every table, then advances every cursor, in one transaction (F8)."""
+        src, mode, plan = batch["src"], batch["mode"], batch["plan"]
         res = self.fetch(tgt, f"""
-DECLARE @j nvarchar(max),@changed int=0;
 BEGIN TRANSACTION;
-{''.join(stmts)}
-{adv}
-COMMIT;
-SET @out=CONCAT(N'[',@changed,N']');""")
-        changed = res[0]
+EXEC sync.usp_ApplyBatch @PeerNodeId='{self.node_id(src)}',@BatchJson={lit(json.dumps(batch["payload"], ensure_ascii=False))},
+     @Json=@out OUTPUT;
+{"THROW 51899,'Fallo inyectado antes del COMMIT.',1;" if fail_before_commit else ""}
+COMMIT;""")
+        changed, sent = res["changed"], self.rows_in(batch)
         actions = Counter(p["a"] for p in plan.values())
         self.stats["rows_sent"] += sent
         self.stats["rows_changed"] += changed
         self.stats["pulls"] += 1
         if sent or any(a != "incremental" for a in actions):
-            self.say(f"  sync {src}->{tgt} [{mode}] sent={sent} changed={changed} plan={dict(actions)}")
+            self.say(f"  sync {src}->{tgt} [{mode}] sent={sent} changed={changed} skipped={res['skipped']} plan={dict(actions)}")
         return changed
 
     def sync_round(self):
@@ -524,6 +458,65 @@ def scenario_restore_naive(s):
     s.converge()
 
 
+def _try_apply(s, tgt, batch, **kw):
+    """Apply a captured batch again. Returns (changed, None) or (None, SQL error number)."""
+    try:
+        return s.apply_batch(tgt, batch, **kw), None
+    except SqlError as e:
+        return None, e.number
+
+
+def _same(s, a, b, tables=("sales.Sales", "sales.CashTills", "inventory.StockBalances", "credits.CreditAllocations")):
+    ha, hb = s.table_hashes(a), s.table_hashes(b)
+    return [t for t in tables if ha[t] != hb[t]]
+
+
+def scenario_replay(s):
+    s.say("scenario replay (A-04): duplicate, late, crashed, unacknowledged and pre-restore batches from A to the cloud")
+    s.sale("a")
+    p1 = s.read_batch("cloud", "a")
+    s.expect("first batch applies", (s.apply_batch("cloud", p1) or 0) > 0)
+    changed, err = _try_apply(s, "cloud", p1)
+    s.expect("duplicate batch: no error and 0 changes", err is None and changed == 0, f"changed={changed} error={err}")
+    s.sale("a")
+    s.apply_batch("cloud", s.read_batch("cloud", "a"))
+    changed, err = _try_apply(s, "cloud", p1)
+    s.expect("late batch (older than the cursor): no error and 0 changes", err is None and changed == 0,
+             f"changed={changed} error={err}")
+    diff = _same(s, "cloud", "a")
+    s.expect("late batch did not move rows back", not diff, f"tables differ: {diff}")
+    before = s.table_hashes("cloud")["sales.Sales"]
+    s.sale("a")
+    p3 = s.read_batch("cloud", "a")
+    changed, err = _try_apply(s, "cloud", p3, fail_before_commit=True)
+    s.expect("crash before COMMIT: nothing applied", err == 51899 and s.table_hashes("cloud")["sales.Sales"] == before,
+             f"error={err}")
+    changed, err = _try_apply(s, "cloud", p3)
+    s.expect("retry after the crash applies", err is None and changed > 0, f"changed={changed} error={err}")
+    s.sale("a")
+    s.apply_batch("cloud", s.read_batch("cloud", "a"))  # committed, but A never hears back
+    again = s.read_batch("cloud", "a")
+    resent = s.rows_in(again)
+    s.expect("lost acknowledgement: the next plan sends nothing old", resent == 0, f"rows={resent}")
+    s.converge()
+    code, out = db.run_sql("master", f"BACKUP DATABASE [{DBN['a']}] TO DISK=N'{BAK}' WITH INIT, FORMAT;")
+    if code != 0:
+        raise SystemExit(out)
+    s.sale("a")
+    p5 = s.read_batch("cloud", "a")  # in flight when A is restored; delivered after A recovered
+    code, out = db.run_sql("master", f"ALTER DATABASE [{DBN['a']}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE; "
+                                     f"RESTORE DATABASE [{DBN['a']}] FROM DISK=N'{BAK}' WITH REPLACE, RECOVERY; "
+                                     f"ALTER DATABASE [{DBN['a']}] SET MULTI_USER;")
+    if code != 0:
+        raise SystemExit(out)
+    s.say("  A restored; it rebuilds from the cloud, then the old in-flight batch arrives")
+    s.pull("a", "cloud", mode="all")
+    s.converge()
+    changed, err = _try_apply(s, "cloud", p5)
+    s.expect("pre-restore batch after recovery is refused (51853 retired fork)", err == 51853, f"changed={changed} error={err}")
+    s.converge()
+
+
 def scenario_random(s, steps):
     s.say(f"scenario random: seed={s.seed} steps={steps}")
     rng = s.rng
@@ -577,7 +570,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
     sc = sub.add_parser("scenario")
-    sc.add_argument("name", choices=["basic", "cancel_vs_dispatch", "restore", "restore_naive"])
+    sc.add_argument("name", choices=["basic", "cancel_vs_dispatch", "restore", "restore_naive", "replay"])
     sc.add_argument("--seed", type=int, default=1)
     rd = sub.add_parser("random")
     rd.add_argument("--seed", type=int, default=7)
