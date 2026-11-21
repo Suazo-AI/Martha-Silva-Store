@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-21T03:34:42.005933+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/docs/sync/P9-REPORT.yaml",
+      "change": "M",
+      "git_blob": "f71b77260f9d76bcb780516005db11e6f664428b"
+    },
+    {
+      "path": "savia/docs/sync/P9-SPEC.md",
+      "change": "M",
+      "git_blob": "e8f21ab4ef407e807ca2f111f15f73bfffb73bd9"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

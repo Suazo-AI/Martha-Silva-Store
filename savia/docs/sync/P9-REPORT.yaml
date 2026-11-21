@@ -49,7 +49,7 @@ limits:
 usage: unknown (7-day window reported at 99% by the limit hook)
 unverified:
   - "SyncWorker hosted loop and config gate; tests drive BranchSync directly"
-  - "A malformed Savia:Sync:HubUrl or IntervalSeconds: fixed by the primary (log and turn sync off); no test"
+  - "A malformed Savia:Sync:HubUrl or IntervalSeconds: fixed by the primary (bad HubUrl turns sync off; bad IntervalSeconds uses 60 s); no test"
   - "Normal-mode hub-to-branch relay of another branch's rows in .NET (simulator covers it)"
   - "Hub restore (F15)"
 blockers: []
