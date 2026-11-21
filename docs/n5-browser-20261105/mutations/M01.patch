@@ -1,0 +1,11 @@
+--- a/dev/savia-staff-ui/app.mjs
++++ b/dev/savia-staff-ui/app.mjs
+@@ -575,7 +575,7 @@
+   }
+   listen(form,'submit',event=>{
+     event.preventDefault();
+-    if(busy || pending || !actor || !['Owner','Manager','Cashier'].includes(getSession()?.role) || !validateForm(form)) return;
++    if(!actor || !['Owner','Manager','Cashier'].includes(getSession()?.role) || !validateForm(form)) return;
+     const body={locationId:$('sale-location').value,customerId:null,lines:cart()};
+     if(new Set(body.lines.map(line=>line.itemId.toLowerCase())).size !== body.lines.length) {
+       $('sale-status').textContent='Hay artículos repetidos. Usá una sola fila por artículo y sumá su cantidad.'; return;

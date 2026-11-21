@@ -1,0 +1,20 @@
+{
+  "baseline": {
+    "tests": 5,
+    "failures": 0,
+    "errors": 0,
+    "output": ".....\n----------------------------------------------------------------------\nRan 5 tests in 0.037s\n\nOK\n"
+  },
+  "split_namespace": {
+    "tests": 5,
+    "failures": 0,
+    "errors": 0,
+    "output": ".....\n----------------------------------------------------------------------\nRan 5 tests in 0.005s\n\nOK\n"
+  },
+  "omit_enabled": {
+    "tests": 5,
+    "failures": 0,
+    "errors": 0,
+    "output": ".....\n----------------------------------------------------------------------\nRan 5 tests in 0.006s\n\nOK\n"
+  }
+}

@@ -1,0 +1,14 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="data:,"><link rel="stylesheet" href="/savia/web/app.css"><title>SAVIA return — simulated HTTP</title><body><main id="screen"></main><dialog id="modal" aria-labelledby="modal-title"><div id="modal-body"></div></dialog><script type="module">
+import returns from '/savia/web/screens/return.mjs';
+import * as api from '/savia/web/api.mjs';
+const id=n=>`00000000-0000-4000-8000-${String(n).padStart(12,'0')}`;
+let handle, active=true;
+window.notices=[];
+window.mount=async(approver=true)=>{
+ handle?.unmount();active=true;api.setToken('fictional-session');location.hash=`#/devolucion?sale=${id(5)}`;
+ const ctx={me:{staffId:id(1),nodeId:id(2),branchId:id(3),locationId:id(4),roles:approver?['MANAGER']:['CASHIER']},isApprover:approver,isCurrent:()=>active,till:{get:()=>({tillId:id(6)}),set(){}},notify:m=>window.notices.push(m),go(){},refreshTill(){throw Error('Optional refresh deliberately unavailable');}};
+ handle=await returns.mount(document.querySelector('#screen'),ctx);
+};
+window.retire=()=>{active=false;handle?.unmount();document.querySelector('#screen').textContent='CURRENT SCREEN';};
+window.ready=true;
+</script></body></html>

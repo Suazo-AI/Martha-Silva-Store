@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-13T21:09:19.768420+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/docs/PLAN.md",
+      "change": "M",
+      "git_blob": "cab304f3174689340333465e529786081cbf3167"
+    },
+    {
+      "path": "savia/docs/pilot/PCG.md",
+      "change": "M",
+      "git_blob": "229d0f18154556200362665885d66a38992c1282"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

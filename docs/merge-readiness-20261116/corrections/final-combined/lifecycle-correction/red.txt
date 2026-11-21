@@ -1,0 +1,89 @@
+✖ CF1 routed initial return uses inherited actor and role getters (34.6914ms)
+✖ CF1 routed draft-cancel restores editable form without POST (17.191ms)
+✖ CF1 routed replay-confirm-cancel restores editable form without POST (4.1996ms)
+✖ CF2 routed retirement reports generic cleanup failure while suppressing stale notices (1.8441ms)
+✖ PRIMARY-BROWSER-01 verified replay clears an earlier unresolved lookup warning (8.28ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 0
+ℹ fail 5
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 222.3013
+
+✖ failing tests:
+
+test at savia\web\tests\return-lifecycle.test.mjs:6:27
+✖ CF1 routed initial return uses inherited actor and role getters (34.6914ms)
+  AssertionError [ERR_ASSERTION]: open till must render an editable return
+      at TestContext.<anonymous> (file:///C:/Users/Jason/MARTHA-SILVA/github/savia/web/tests/return-lifecycle.test.mjs:363:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at savia\web\tests\return-lifecycle.test.mjs:6:27
+✖ CF1 routed draft-cancel restores editable form without POST (17.191ms)
+  AssertionError [ERR_ASSERTION]: draft cancellation must restore inherited context
+      at TestContext.<anonymous> (file:///C:/Users/Jason/MARTHA-SILVA/github/savia/web/tests/return-lifecycle.test.mjs:377:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at savia\web\tests\return-lifecycle.test.mjs:6:27
+✖ CF1 routed replay-confirm-cancel restores editable form without POST (4.1996ms)
+  TypeError: Cannot read properties of undefined (reading 'staffId')
+      at actorScope (file:///C:/Users/Jason/MARTHA-SILVA/github/savia/web/sale-recovery.mjs:8:15)
+      at Object.mount (file:///C:/Users/Jason/MARTHA-SILVA/github/savia/web/screens/return.mjs:117:83)
+      at runRecovery (file:///C:/Users/Jason/MARTHA-SILVA/github/savia/web/screens/return.mjs:228:107)
+      at async Element.fire (file:///C:/Users/Jason/MARTHA-SILVA/github/savia/web/tests/return-lifecycle.test.mjs:63:57)
+      at async TestContext.<anonymous> (file:///C:/Users/Jason/MARTHA-SILVA/github/savia/web/tests/return-lifecycle.test.mjs:375:141)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+
+test at savia\web\tests\return-lifecycle.test.mjs:6:27
+✖ CF2 routed retirement reports generic cleanup failure while suppressing stale notices (1.8441ms)
+  AssertionError [ERR_ASSERTION]: #return-qty-1
+      at input (file:///C:/Users/Jason/MARTHA-SILVA/github/savia/web/tests/return-lifecycle.test.mjs:177:66)
+      at Object.prepare (file:///C:/Users/Jason/MARTHA-SILVA/github/savia/web/tests/return-lifecycle.test.mjs:178:32)
+      at TestContext.<anonymous> (file:///C:/Users/Jason/MARTHA-SILVA/github/savia/web/tests/return-lifecycle.test.mjs:390:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at savia\web\tests\return-lifecycle.test.mjs:6:27
+✖ PRIMARY-BROWSER-01 verified replay clears an earlier unresolved lookup warning (8.28ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'Respuesta sin confirmar. Consulte el resultado. La operación sigue guardada. No registre otra devolución.'
+  - ''
+  
+      at TestContext.<anonymous> (file:///C:/Users/Jason/MARTHA-SILVA/github/savia/web/tests/return-lifecycle.test.mjs:404:79)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Respuesta sin confirmar. Consulte el resultado. La operación sigue guardada. No registre otra devolución.',
+    expected: '',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

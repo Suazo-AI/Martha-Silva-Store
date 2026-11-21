@@ -1,0 +1,18 @@
+{
+  "run_id": 41765611979,
+  "attempt": 1,
+  "head": "e4b7910835bf2c9901aa06989e296997875a3636",
+  "job_id": 126363153242,
+  "checkout_sha": "f1a0bb1d0cd0258838f920ec8f811315820c7587",
+  "checkout_readback": [
+    "2026-11-04T03:12:16.9463709Z [command]/usr/bin/git log -1 --format=%H",
+    "2026-11-04T03:12:16.9502245Z f1a0bb1d0cd0258838f920ec8f811315820c7587"
+  ],
+  "container_absence_readback": [
+    "2026-11-04T03:13:56.7059623Z PASS: disposable SQL container absence verified."
+  ],
+  "capture_wrapper_sha256": "b583bd86fc3265fee3ba6e4c02f3777ad438168e4495e1089fdb84b572668008",
+  "full_log_file_sha256": "8daecf05e610c6195d2ff0c6ad210a895a1c6506dba44d6bdbba66622c237846",
+  "full_log_decoded_utf8_sha256": "8daecf05e610c6195d2ff0c6ad210a895a1c6506dba44d6bdbba66622c237846",
+  "source": "gh-axi full_log file, not truncated TOON capture; raw logs excluded"
+}

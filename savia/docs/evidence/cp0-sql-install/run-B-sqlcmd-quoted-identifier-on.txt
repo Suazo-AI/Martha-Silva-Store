@@ -1,0 +1,15 @@
+Changed database context to 'SAVIA_DB'.
+Msg 102, Level 15, State 1, Server 23b66448cd53, Procedure usp_PostSale, Line 26
+Incorrect syntax near ')'.
+Msg 102, Level 15, State 1, Server 23b66448cd53, Procedure usp_PostSale, Line 94
+Incorrect syntax near '@qty'.
+Msg 156, Level 15, State 1, Server 23b66448cd53, Procedure usp_CloseTill, Line 60
+Incorrect syntax near the keyword 'LineNo'.
+Msg 102, Level 15, State 1, Server 23b66448cd53, Procedure usp_AllocateToWeb, Line 20
+Incorrect syntax near '@Quantity'.
+Msg 102, Level 15, State 1, Server 23b66448cd53, Procedure usp_FulfillPaidOrder, Line 27
+Incorrect syntax near '@qty'.
+Msg 102, Level 15, State 1, Server 23b66448cd53, Procedure usp_ReleaseQuarantine, Line 25
+Incorrect syntax near '@Quantity'.
+Msg 15151, Level 16, State 1, Server 23b66448cd53, Line 2
+Cannot find the object 'usp_PostSale', because it does not exist or you do not have permission.

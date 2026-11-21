@@ -1,0 +1,617 @@
+{
+  "build": {
+    "pass": true,
+    "files": 60
+  },
+  "scenarios": [
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "light",
+      "page": "/",
+      "role": "OWNER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 390,
+      "title": "SAVIA · Venta",
+      "token": true,
+      "width": 390
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "light",
+      "page": "/",
+      "role": "MANAGER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 390,
+      "title": "SAVIA · Venta",
+      "token": true,
+      "width": 390
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "light",
+      "page": "/",
+      "role": "SELLER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 390,
+      "title": "SAVIA · Comisiones",
+      "token": true,
+      "width": 390
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "light",
+      "page": "/",
+      "role": "INVENTORY",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 390,
+      "title": "SAVIA · Recepción",
+      "token": true,
+      "width": 390
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "light",
+      "page": "/etiqueta/",
+      "role": "OWNER",
+      "login_home_reset": true,
+      "alerts": [
+        "No hay recepciones abiertas. Ábrala en Recepción para sumar prendas."
+      ],
+      "bannerVisible": true,
+      "scrollWidth": 390,
+      "title": "SAVIA · Etiqueta",
+      "token": true,
+      "width": 390
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "light",
+      "page": "/etiqueta/",
+      "role": "MANAGER",
+      "login_home_reset": true,
+      "alerts": [
+        "No hay recepciones abiertas. Ábrala en Recepción para sumar prendas."
+      ],
+      "bannerVisible": true,
+      "scrollWidth": 390,
+      "title": "SAVIA · Etiqueta",
+      "token": true,
+      "width": 390
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "light",
+      "page": "/etiqueta/",
+      "role": "SELLER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 390,
+      "title": "SAVIA · Comisiones",
+      "token": true,
+      "width": 390
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "light",
+      "page": "/etiqueta/",
+      "role": "INVENTORY",
+      "login_home_reset": true,
+      "alerts": [
+        "No hay recepciones abiertas. Ábrala en Recepción para sumar prendas."
+      ],
+      "bannerVisible": true,
+      "scrollWidth": 390,
+      "title": "SAVIA · Etiqueta",
+      "token": true,
+      "width": 390
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "dark",
+      "page": "/",
+      "role": "OWNER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 390,
+      "title": "SAVIA · Venta",
+      "token": true,
+      "width": 390
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "dark",
+      "page": "/",
+      "role": "MANAGER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 390,
+      "title": "SAVIA · Venta",
+      "token": true,
+      "width": 390
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "dark",
+      "page": "/",
+      "role": "SELLER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 390,
+      "title": "SAVIA · Comisiones",
+      "token": true,
+      "width": 390
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "dark",
+      "page": "/",
+      "role": "INVENTORY",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 390,
+      "title": "SAVIA · Recepción",
+      "token": true,
+      "width": 390
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "dark",
+      "page": "/etiqueta/",
+      "role": "OWNER",
+      "login_home_reset": true,
+      "alerts": [
+        "No hay recepciones abiertas. Ábrala en Recepción para sumar prendas."
+      ],
+      "bannerVisible": true,
+      "scrollWidth": 390,
+      "title": "SAVIA · Etiqueta",
+      "token": true,
+      "width": 390
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "dark",
+      "page": "/etiqueta/",
+      "role": "MANAGER",
+      "login_home_reset": true,
+      "alerts": [
+        "No hay recepciones abiertas. Ábrala en Recepción para sumar prendas."
+      ],
+      "bannerVisible": true,
+      "scrollWidth": 390,
+      "title": "SAVIA · Etiqueta",
+      "token": true,
+      "width": 390
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "dark",
+      "page": "/etiqueta/",
+      "role": "SELLER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 390,
+      "title": "SAVIA · Comisiones",
+      "token": true,
+      "width": 390
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "dark",
+      "page": "/etiqueta/",
+      "role": "INVENTORY",
+      "login_home_reset": true,
+      "alerts": [
+        "No hay recepciones abiertas. Ábrala en Recepción para sumar prendas."
+      ],
+      "bannerVisible": true,
+      "scrollWidth": 390,
+      "title": "SAVIA · Etiqueta",
+      "token": true,
+      "width": 390
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "theme": "light",
+      "page": "/",
+      "role": "OWNER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 1440,
+      "title": "SAVIA · Venta",
+      "token": true,
+      "width": 1440
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "theme": "light",
+      "page": "/",
+      "role": "MANAGER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 1440,
+      "title": "SAVIA · Venta",
+      "token": true,
+      "width": 1440
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "theme": "light",
+      "page": "/",
+      "role": "SELLER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 1440,
+      "title": "SAVIA · Comisiones",
+      "token": true,
+      "width": 1440
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "theme": "light",
+      "page": "/",
+      "role": "INVENTORY",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 1440,
+      "title": "SAVIA · Recepción",
+      "token": true,
+      "width": 1440
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "theme": "light",
+      "page": "/etiqueta/",
+      "role": "OWNER",
+      "login_home_reset": true,
+      "alerts": [
+        "No hay recepciones abiertas. Ábrala en Recepción para sumar prendas."
+      ],
+      "bannerVisible": true,
+      "scrollWidth": 1440,
+      "title": "SAVIA · Etiqueta",
+      "token": true,
+      "width": 1440
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "theme": "light",
+      "page": "/etiqueta/",
+      "role": "MANAGER",
+      "login_home_reset": true,
+      "alerts": [
+        "No hay recepciones abiertas. Ábrala en Recepción para sumar prendas."
+      ],
+      "bannerVisible": true,
+      "scrollWidth": 1440,
+      "title": "SAVIA · Etiqueta",
+      "token": true,
+      "width": 1440
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "theme": "light",
+      "page": "/etiqueta/",
+      "role": "SELLER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 1440,
+      "title": "SAVIA · Comisiones",
+      "token": true,
+      "width": 1440
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "theme": "light",
+      "page": "/etiqueta/",
+      "role": "INVENTORY",
+      "login_home_reset": true,
+      "alerts": [
+        "No hay recepciones abiertas. Ábrala en Recepción para sumar prendas."
+      ],
+      "bannerVisible": true,
+      "scrollWidth": 1440,
+      "title": "SAVIA · Etiqueta",
+      "token": true,
+      "width": 1440
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "theme": "dark",
+      "page": "/",
+      "role": "OWNER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 1440,
+      "title": "SAVIA · Venta",
+      "token": true,
+      "width": 1440
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "theme": "dark",
+      "page": "/",
+      "role": "MANAGER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 1440,
+      "title": "SAVIA · Venta",
+      "token": true,
+      "width": 1440
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "theme": "dark",
+      "page": "/",
+      "role": "SELLER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 1440,
+      "title": "SAVIA · Comisiones",
+      "token": true,
+      "width": 1440
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "theme": "dark",
+      "page": "/",
+      "role": "INVENTORY",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 1440,
+      "title": "SAVIA · Recepción",
+      "token": true,
+      "width": 1440
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "theme": "dark",
+      "page": "/etiqueta/",
+      "role": "OWNER",
+      "login_home_reset": true,
+      "alerts": [
+        "No hay recepciones abiertas. Ábrala en Recepción para sumar prendas."
+      ],
+      "bannerVisible": true,
+      "scrollWidth": 1440,
+      "title": "SAVIA · Etiqueta",
+      "token": true,
+      "width": 1440
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "theme": "dark",
+      "page": "/etiqueta/",
+      "role": "MANAGER",
+      "login_home_reset": true,
+      "alerts": [
+        "No hay recepciones abiertas. Ábrala en Recepción para sumar prendas."
+      ],
+      "bannerVisible": true,
+      "scrollWidth": 1440,
+      "title": "SAVIA · Etiqueta",
+      "token": true,
+      "width": 1440
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "theme": "dark",
+      "page": "/etiqueta/",
+      "role": "SELLER",
+      "login_home_reset": true,
+      "alerts": [],
+      "bannerVisible": true,
+      "scrollWidth": 1440,
+      "title": "SAVIA · Comisiones",
+      "token": true,
+      "width": 1440
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "theme": "dark",
+      "page": "/etiqueta/",
+      "role": "INVENTORY",
+      "login_home_reset": true,
+      "alerts": [
+        "No hay recepciones abiertas. Ábrala en Recepción para sumar prendas."
+      ],
+      "bannerVisible": true,
+      "scrollWidth": 1440,
+      "title": "SAVIA · Etiqueta",
+      "token": true,
+      "width": 1440
+    }
+  ],
+  "fixture_only": true,
+  "before_recording": "NOT RUN",
+  "failures": [],
+  "bridge": {
+    "empty": true,
+    "form": true,
+    "json": true,
+    "passThrough": true,
+    "request": true
+  },
+  "errors": [],
+  "console_errors": [],
+  "network": {
+    "requests": 3604,
+    "urls": [
+      "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNSIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJXaW5kb3dUZXh0IiBkPSJNMjAgM2gtMVYxaC0ydjJIN1YxSDV2Mkg0Yy0xLjEgMC0yIC45LTIgMnYxNmMwIDEuMS45IDIgMiAyaDE2YzEuMSAwIDItLjkgMi0yVjVjMC0xLjEtLjktMi0yLTJ6bTAgMThINFY4aDE2djEzeiIvPjxwYXRoIGZpbGw9Im5vbmUiIGQ9Ik0wIDBoMjR2MjRIMHoiLz48L3N2Zz4=",
+      "http://127.0.0.1:54930/",
+      "http://127.0.0.1:54930/api.mjs",
+      "http://127.0.0.1:54930/app.css",
+      "http://127.0.0.1:54930/app.mjs",
+      "http://127.0.0.1:54930/confirm.mjs",
+      "http://127.0.0.1:54930/demo/api/index.mjs",
+      "http://127.0.0.1:54930/demo/site/banner.css",
+      "http://127.0.0.1:54930/demo/site/boot.mjs",
+      "http://127.0.0.1:54930/etiqueta/",
+      "http://127.0.0.1:54930/etiqueta/etiqueta-logic.mjs",
+      "http://127.0.0.1:54930/etiqueta/etiqueta.css",
+      "http://127.0.0.1:54930/etiqueta/etiqueta.mjs",
+      "http://127.0.0.1:54930/money.mjs",
+      "http://127.0.0.1:54930/roles.mjs",
+      "http://127.0.0.1:54930/scan.mjs",
+      "http://127.0.0.1:54930/scanner/scanner.mjs",
+      "http://127.0.0.1:54930/screens/approvals.mjs",
+      "http://127.0.0.1:54930/screens/cash-logic.mjs",
+      "http://127.0.0.1:54930/screens/cash.mjs",
+      "http://127.0.0.1:54930/screens/commissions.mjs",
+      "http://127.0.0.1:54930/screens/customers.mjs",
+      "http://127.0.0.1:54930/screens/denominations.mjs",
+      "http://127.0.0.1:54930/screens/exceptions.mjs",
+      "http://127.0.0.1:54930/screens/history.mjs",
+      "http://127.0.0.1:54930/screens/import-logic.mjs",
+      "http://127.0.0.1:54930/screens/import.mjs",
+      "http://127.0.0.1:54930/screens/inventory-logic.mjs",
+      "http://127.0.0.1:54930/screens/inventory.mjs",
+      "http://127.0.0.1:54930/screens/login.mjs",
+      "http://127.0.0.1:54930/screens/payment-logic.mjs",
+      "http://127.0.0.1:54930/screens/payments.mjs",
+      "http://127.0.0.1:54930/screens/prices.mjs",
+      "http://127.0.0.1:54930/screens/quality-report.mjs",
+      "http://127.0.0.1:54930/screens/quality.mjs",
+      "http://127.0.0.1:54930/screens/rates.mjs",
+      "http://127.0.0.1:54930/screens/receipt.mjs",
+      "http://127.0.0.1:54930/screens/reception-data.mjs",
+      "http://127.0.0.1:54930/screens/reception-logic.mjs",
+      "http://127.0.0.1:54930/screens/reception.mjs",
+      "http://127.0.0.1:54930/screens/report-logic.mjs",
+      "http://127.0.0.1:54930/screens/report.mjs",
+      "http://127.0.0.1:54930/screens/return-logic.mjs",
+      "http://127.0.0.1:54930/screens/return.mjs",
+      "http://127.0.0.1:54930/screens/review.mjs",
+      "http://127.0.0.1:54930/screens/sale-logic.mjs",
+      "http://127.0.0.1:54930/screens/sale-view.mjs",
+      "http://127.0.0.1:54930/screens/sale.mjs",
+      "http://127.0.0.1:54930/screens/settings.mjs",
+      "http://127.0.0.1:54930/screens/till-open.mjs",
+      "http://127.0.0.1:54930/screens/usd-logic.mjs",
+      "http://127.0.0.1:54930/ui.mjs"
+    ],
+    "external": [],
+    "api_http": []
+  },
+  "pass": true,
+  "server_stopped": true
+}

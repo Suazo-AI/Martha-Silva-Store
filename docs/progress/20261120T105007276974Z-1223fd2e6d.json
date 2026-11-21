@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-20T10:50:07.276974+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/deploy/azure/main.bicep",
+      "change": "M",
+      "git_blob": "93082012b77f1a9de98c800fd991cc09cca7a013"
+    },
+    {
+      "path": "savia/deploy/migrator/Program.cs",
+      "change": "M",
+      "git_blob": "380096d23c84929b7f35a67e2f647caef2c1531d"
+    },
+    {
+      "path": "savia/docs/deploy/AZURE.md",
+      "change": "M",
+      "git_blob": "c11e626fbd306dd13245a86df165483a69451d0f"
+    },
+    {
+      "path": "savia/docs/deploy/GAPS-20261120.md",
+      "change": "M",
+      "git_blob": "20067fe5475e61a40b47d3ca014c76c836e4a4be"
+    },
+    {
+      "path": "savia/src/Savia.Api/Hosting.cs",
+      "change": "M",
+      "git_blob": "85d1399eeed8c8b307d41edb585d1a1f12247720"
+    },
+    {
+      "path": "savia/src/Savia.Infrastructure/SqlGateway.cs",
+      "change": "M",
+      "git_blob": "4e1ac661391d98c3be1c90afc26849b9523c9abc"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

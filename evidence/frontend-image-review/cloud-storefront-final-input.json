@@ -1,0 +1,14 @@
+{
+  "input": "/workspace/scratch/14cff504045e/attachments/2c9f1cbe-f383-49b5-acf4-8de2a52913bb/storefront-test-demo-transition.json",
+  "bytes": 27822,
+  "sha256": "d462c52550ded3c705c26797ae812b9dac696b1ba8a6c1162ff1341ad55a9640",
+  "inner_path": "tests/frontend-runtime.cjs",
+  "inner_bytes": 27339,
+  "inner_sha256": "18f9a165dd83ae8d6511049e488412ac1d37703dcd27e85e109b81dfd0e2b032",
+  "changed_paths": [
+    "tests/frontend-runtime.cjs"
+  ],
+  "other_54_source_files_identical": true,
+  "all_52_dist_files_identical": true,
+  "dependency_tree_identical": true
+}

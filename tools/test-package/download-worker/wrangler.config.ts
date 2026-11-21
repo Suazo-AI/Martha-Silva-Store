@@ -1,0 +1,1 @@
+export default { assetsDirectory: './public' };

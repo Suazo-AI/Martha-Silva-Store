@@ -1,0 +1,21 @@
+{
+  "results": [
+    {
+      "name": "recorded-exponent",
+      "exit": 0,
+      "expectedNonzero": true
+    },
+    {
+      "name": "same-key",
+      "exit": 1,
+      "expectedNonzero": true
+    },
+    {
+      "name": "session-epoch",
+      "exit": 0,
+      "expectedNonzero": true
+    }
+  ],
+  "restored": true,
+  "sha256Raw": "6ee37f9546cca7efb709beefe9cc77843437580bf1131c90cb3b95ed896d8746"
+}

@@ -1,0 +1,24 @@
+.github/workflows/savia.yml	Complete backend suite on disposable SQL Server	SUCCESS	https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/44011518444/job/133799387444
+.github/workflows/savia.yml	Staff UI tests and real browser harness	SUCCESS	https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/44011518444/job/133799387020
+Backend synthetic slice	build-and-guards	SUCCESS	https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/44011518292/job/133799386115
+Backend synthetic slice	sql-server-integration	SKIPPED	https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/44011518292/job/133799849550
+Bug proof	comment	SKIPPED	https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/44011518293/job/133799506939
+Bug proof	proof	SUCCESS	https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/44011518293/job/133799386187
+Progress digest	Ledger check and deterministic digest	SUCCESS	https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/44011510274/job/133799359914
+Progress digest	Ledger check and deterministic digest	SUCCESS	https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/44011518441/job/133799387647
+Progress digest	Optional AI narrator (read-only)	SKIPPED	https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/44011510274/job/133799476182
+Progress digest	Optional AI narrator (read-only)	SUCCESS	https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/44011518441/job/133799483417
+Progress digest	Publish digest (sticky PR comment or issue log)	SUCCESS	https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/44011510274/job/133799475437
+Progress digest	Publish digest (sticky PR comment or issue log)	SUCCESS	https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/44011518441/job/133799573975
+Progress documentation	Progress receipt and sync safety	SUCCESS	https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/44011510376/job/133799359749
+Recovered demo CI	Build artifact (not deployment)	SKIPPED	https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/44011518253/job/133800315411
+Recovered demo CI	Deploy isolated Cloudflare preview	SKIPPED	https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/44011518253/job/133800315612
+Recovered demo CI	Portable checks (ubuntu-latest)	SUCCESS	https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/44011518253/job/133799386140
+Recovered demo CI	Portable checks (windows-latest)	SUCCESS	https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/44011518253/job/133799386506
+SAVIA Azure hub	Build, images, migration and container smoke	SUCCESS	https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/44011518403/job/133799386861
+SAVIA Azure hub	Deploy to Azure (manual approval)	SKIPPED	https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/44011518403/job/133800111243
+SAVIA golden path	Real API + disposable SQL golden path	FAILURE	https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/44011518265/job/133799386274
+SAVIA v2 check	Rules, web, T-SQL and .NET on real SQL	FAILURE	https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/44011509974/job/133799359058
+SAVIA v2 check	Rules, web, T-SQL and .NET on real SQL	FAILURE	https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/44011518431/job/133799388000
+Tony source snapshot	Historical portable regression suite (known gaps retained)	SUCCESS	https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/44011510071/job/133799518961
+Tony source snapshot	Publication integrity and reproducible build	SUCCESS	https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/44011510071/job/133799359054

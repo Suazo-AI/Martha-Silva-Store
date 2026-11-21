@@ -1,0 +1,155 @@
+{
+  "frozen_before_run": true,
+  "families": [
+    {
+      "id": "A01",
+      "family": "cash shortfall",
+      "reuse": "S12-S14 arithmetic",
+      "new_assertions": "opening float/authorized withdrawals/count discrepancy retained",
+      "policy_classification": "Proposed accounting fixture; C2 confirmation",
+      "recovery": "Preserve -500; recount and investigate with original sheet",
+      "oracle_invariants": "MONEY_CASH,CLOSE_JOURNAL_AUTHORITY",
+      "product_gap": "No product close or real tender proof"
+    },
+    {
+      "id": "A02",
+      "family": "pending transfer",
+      "reuse": "S08 payment validation; no pending lifecycle",
+      "new_assertions": "pending/settled acknowledgement retry",
+      "policy_classification": "Proposed offline settlement declaration; not bank evidence",
+      "recovery": "Retain pending until declared settlement; reuse identity",
+      "oracle_invariants": "TRANSFER_UNIQUENESS,TRANSFER_JOURNAL",
+      "product_gap": "Real bank integration NOT MODELED"
+    },
+    {
+      "id": "A03",
+      "family": "duplicate/over receipt",
+      "reuse": "S11 receive/replay",
+      "new_assertions": "lost output/retry plus generated receipts",
+      "policy_classification": "Historical Model contract reused",
+      "recovery": "Retry same receipt identity; reject excess; receive only remainder",
+      "oracle_invariants": "STOCK_JOURNAL,AUDIT_JOURNAL,REJECT_OR_REPLAY_ATOMIC",
+      "product_gap": "Supply API exists; no fresh product run"
+    },
+    {
+      "id": "A04",
+      "family": "duplicate/excess return",
+      "reuse": "S12 return/replay",
+      "new_assertions": "lost output and exact whole-state rejection",
+      "policy_classification": "Cash-only historical route; no damaged/credit/transfer return hypothesis",
+      "recovery": "Retry original identity; reject excess; finish remaining units",
+      "oracle_invariants": "STOCK_JOURNAL,MONEY_CASH,REJECT_OR_REPLAY_ATOMIC",
+      "product_gap": "No SAVIA refund processing proof"
+    },
+    {
+      "id": "A05",
+      "family": "credit retry/overpayment",
+      "reuse": "S13 balance/collection",
+      "new_assertions": "lost response plus seeded boundary amounts",
+      "policy_classification": "Historical Model credit contract",
+      "recovery": "Reuse collection key; reject excess; collect exact remainder",
+      "oracle_invariants": "MONEY_CASH,RECEIVABLE_JOURNAL,RECEIVABLE_NONNEGATIVE",
+      "product_gap": "Credit collection product gap; not payment proof"
+    },
+    {
+      "id": "A06",
+      "family": "physical garment/system zero",
+      "reuse": "S01-S03 historical adjustment is NOT selected delivery mechanism",
+      "new_assertions": "incident separated from financial/stock posting",
+      "policy_classification": "D-026/D-027 selected for synthetic trial; no new +1/-1 mechanism",
+      "recovery": "Retain delivery note, identity, location, shift, sale reference and open cause",
+      "oracle_invariants": "INCIDENT_PRESERVATION,STOCK_JOURNAL",
+      "product_gap": "SAVIA shortage guard remains; incident/exception product mechanism missing"
+    },
+    {
+      "id": "A07",
+      "family": "reviewer at close",
+      "reuse": "No historical administrative review",
+      "new_assertions": "distinct authorized review and close; cause remains open",
+      "policy_classification": "D-027 selected; fictional authorized profiles",
+      "recovery": "Cashier records; manager reviews evidence at close; preserve unresolved cause",
+      "oracle_invariants": "REVIEW_JOURNAL_AUTHORITY,CLOSE_JOURNAL_AUTHORITY",
+      "product_gap": "No durable product review flow"
+    },
+    {
+      "id": "A08",
+      "family": "absent titular/substitute",
+      "reuse": "No historical substitute contract",
+      "new_assertions": "same inputs as A07; only authorized reviewer differs",
+      "policy_classification": "D-027 selected; staffing identities unconfirmed C2",
+      "recovery": "Authorized distinct substitute records same evidence; quantities/money unchanged",
+      "oracle_invariants": "REVIEW_JOURNAL_AUTHORITY,INCIDENT_PRESERVATION",
+      "product_gap": "No real staffing or superiority evidence"
+    },
+    {
+      "id": "A09",
+      "family": "no reviewer/evidence",
+      "reuse": "No historical escalation contract",
+      "new_assertions": "unauthorized/missing-evidence close rejected; evidence-free review remains open",
+      "policy_classification": "D-027 cause open; next-close timing/queue owner are explicit C2 assumptions",
+      "recovery": "Keep open owner/next review; request authorized coverage and evidence; no fabricated resolution",
+      "oracle_invariants": "CLOSE_JOURNAL_AUTHORITY,INCIDENT_PRESERVATION",
+      "product_gap": "No resolved count or operational escalation acceptance"
+    },
+    {
+      "id": "A10",
+      "family": "interrupted/duplicate retry",
+      "reuse": "S05-S06 identity/replay/conflict",
+      "new_assertions": "independent per-transition journal and lost-output vs committed distinction",
+      "policy_classification": "Historical sequential identity contract",
+      "recovery": "Recover original operation; same returned sale; conflicting payload rejected",
+      "oracle_invariants": "OPERATION_UNIQUENESS,REJECT_OR_REPLAY_ATOMIC",
+      "product_gap": "No SQL race/persistence/network test"
+    },
+    {
+      "id": "A11",
+      "family": "tamper/omission",
+      "reuse": "S16-S18 copy integrity/negative checks",
+      "new_assertions": "separate executable oracle and five actual failing subprocess controls",
+      "policy_classification": "Unsafe controls are counterexamples, never alternatives to recommend",
+      "recovery": "Reject altered copy; recover unmodified snapshot/journal; retain original -500 discrepancy",
+      "oracle_invariants": "AUDIT_JOURNAL,STOCK_JOURNAL,MONEY_CASH,CLOSE_JOURNAL_AUTHORITY",
+      "product_gap": "Copy corruption NOT product mutation testing or actual backup"
+    },
+    {
+      "id": "A12",
+      "family": "actor/shift boundaries",
+      "reuse": "S09 permissions; S05-S06 identities",
+      "new_assertions": "wrong-shift review; cross-actor duplicate key; repeated close rejected",
+      "policy_classification": "D-027 distinct reviewer fixed; shift mapping and day identity are C2 assumptions",
+      "recovery": "Keep original shift/key; deny cashier approval; require authorized handover",
+      "oracle_invariants": "SHIFT_BOUNDARY,REJECT_OR_REPLAY_ATOMIC,OPERATION_UNIQUENESS",
+      "product_gap": "No real multi-shift lifecycle or payroll requirements"
+    }
+  ],
+  "generated": {
+    "seeds": [
+      7,
+      19,
+      41,
+      83,
+      131,
+      251,
+      509,
+      1021
+    ],
+    "actions_per_seed": 32,
+    "setup_actions_per_seed": 2,
+    "total_generated": 256,
+    "max_allowed": 1024,
+    "families": [
+      "A03",
+      "A05",
+      "A10"
+    ]
+  },
+  "unmodeled": [
+    "Bank reconciliation",
+    "Taxes/fiscal invoices",
+    "Real permissions and shift staffing",
+    "Stock-zero financial/stock posting mechanism",
+    "Damaged/credit/transfer return disposition",
+    "SQL races/persistence/backup/latency",
+    "Actual handover between shifts: fixture tests identity/authorization boundary only"
+  ]
+}

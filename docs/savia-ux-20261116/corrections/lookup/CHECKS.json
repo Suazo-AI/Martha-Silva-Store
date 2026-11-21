@@ -1,0 +1,113 @@
+{
+  "base": "2c96904f49d2df913850bc13cf53b3b03ceebacf",
+  "previousReviewedTree": "4f700e5489f3da5acad5b79be40eb21397f5228d",
+  "runtime": "SUAZO-PC / T3 Code / Codex / gpt-6.1-sol / max",
+  "rawLogs": "Ignored private-exports only. SHA256 describes original RAW bytes.",
+  "redVersion": "Same seven semantic scenarios; test formatting and lint-only corrections followed the red run. No red result is attributed to a different product.",
+  "checks": {
+    "lookup-red": {
+      "command": [
+        "node",
+        "--test",
+        "savia/web/tests/sale-lifecycle.test.mjs"
+      ],
+      "exit": 1,
+      "seconds": 0.219,
+      "log": "private-exports\\savia-ux-20261116-primary\\lookup-red.log",
+      "sha256": "e2d20cedfe3a7fb8ee5b8a4475d650cb4424a5718ce916e42f909732ff262e86",
+      "initialAttempt": "Interrupted: test fixture awaited a deliberately open modal; no result attributed. Corrected by dispatching click without awaiting modal close.",
+      "counts": {
+        "passed": 1,
+        "failed": 6,
+        "skipped": 0
+      }
+    },
+    "lookup-green": {
+      "command": [
+        "node",
+        "--test",
+        "savia/web/tests/sale-lifecycle.test.mjs"
+      ],
+      "exit": 0,
+      "seconds": 0.187,
+      "log": "private-exports\\savia-ux-20261116-primary\\lookup-green.log",
+      "sha256": "8a10c7518cb52a2ed35eb173a6f9e49d9cdf12808534239e6110d4d7afe2afba",
+      "counts": {
+        "passed": 7,
+        "failed": 0,
+        "skipped": 0
+      }
+    },
+    "lookup-final-web": {
+      "command": [
+        "node",
+        "--test",
+        "savia/web/tests/*.test.mjs",
+        "savia/web/scanner/scanner.test.mjs"
+      ],
+      "cwd": "C:\\Users\\Jason\\MARTHA-SILVA\\github",
+      "exit": 0,
+      "seconds": 0.563,
+      "log": "private-exports\\savia-ux-20261116-primary\\lookup-final-web.log",
+      "sha256": "e4570e55b0d60f767c2e094ae506cfd0109d231b1dffa11480a02709f2953891",
+      "counts": {
+        "passed": 98,
+        "failed": 0,
+        "skipped": 0
+      }
+    },
+    "lookup-final-lint": {
+      "command": [
+        "node",
+        "node_modules/@biomejs/biome/bin/biome",
+        "check",
+        "web"
+      ],
+      "cwd": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\savia",
+      "exit": 0,
+      "seconds": 0.25,
+      "log": "private-exports\\savia-ux-20261116-primary\\lookup-final-lint.log",
+      "sha256": "f2d77c14e64ed48f8351432f6f7e8618c340a019aa5061a48eca849aa2a19b4c"
+    },
+    "lookup-final-build": {
+      "command": [
+        "python",
+        "savia/tools/build_demo.py"
+      ],
+      "cwd": "C:\\Users\\Jason\\MARTHA-SILVA\\github",
+      "exit": 0,
+      "seconds": 0.422,
+      "log": "private-exports\\savia-ux-20261116-primary\\lookup-final-build.log",
+      "sha256": "66dae0ef4f71511c7bc6207b5f530e574d4838892357468fe46241e2c8529211"
+    },
+    "lookup-browser": {
+      "command": [
+        "python",
+        "-X",
+        "utf8",
+        "docs/savia-ux-20261116/corrections/lookup/browser.py"
+      ],
+      "exit": 1,
+      "seconds": 32.656,
+      "log": "private-exports\\savia-ux-20261116-primary\\lookup-browser.log",
+      "sha256": "dc8b76af61fbecbeb6e0372e84fab8d1fec4735d55aae8c67e5d5b8493608b28",
+      "meaning": "Test harness returned the held promise to eval; zero completed scenarios. Browser and server closed. Not product proof."
+    },
+    "lookup-browser-final": {
+      "command": [
+        "python",
+        "-X",
+        "utf8",
+        "docs/savia-ux-20261116/corrections/lookup/browser.py"
+      ],
+      "exit": 0,
+      "seconds": 8.516,
+      "log": "private-exports\\savia-ux-20261116-primary\\lookup-browser-final.log",
+      "sha256": "9fb137d5d7f1bb5b0fd800988d3d158199ecb02ca5ee33b58684ce853e262c99",
+      "counts": {
+        "passed": 8,
+        "failed": 0
+      }
+    }
+  }
+}

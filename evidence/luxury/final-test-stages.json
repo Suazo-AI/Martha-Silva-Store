@@ -1,0 +1,79 @@
+{
+  "environment": "cloud workspace, not Suazo PC or laptop",
+  "started_utc": "2026-10-26T02:33:16.835142+00:00",
+  "stages": [
+    {
+      "name": "prepare-final",
+      "command": [
+        "python3",
+        "prepare.py"
+      ],
+      "exit": 0,
+      "seconds": 0.307,
+      "child_cpu_seconds": 0.296,
+      "cumulative_child_peak_rss_kib": 12396,
+      "log": "evidence/luxury/prepare-final.log"
+    },
+    {
+      "name": "check-final",
+      "command": [
+        "python3",
+        "tests/check.py"
+      ],
+      "exit": 0,
+      "seconds": 76.433,
+      "child_cpu_seconds": 97.437,
+      "cumulative_child_peak_rss_kib": 1774368,
+      "log": "evidence/luxury/check-final.log"
+    },
+    {
+      "name": "luxury-editorial-final",
+      "command": [
+        "node",
+        "--test",
+        "tests/luxury-editorial.cjs"
+      ],
+      "exit": 0,
+      "seconds": 3.058,
+      "child_cpu_seconds": 4.786,
+      "cumulative_child_peak_rss_kib": 1774368,
+      "log": "evidence/luxury/luxury-editorial-final.log"
+    },
+    {
+      "name": "deployment-final",
+      "command": [
+        "python3",
+        "tests/test_deployment.py"
+      ],
+      "exit": 0,
+      "seconds": 0.353,
+      "child_cpu_seconds": 0.347,
+      "cumulative_child_peak_rss_kib": 1774368,
+      "log": "evidence/luxury/deployment-final.log"
+    },
+    {
+      "name": "asset-audit-final",
+      "command": [
+        "python3",
+        "tools/audit_assets.py",
+        "--output",
+        "evidence/luxury/asset-audit-final.json"
+      ],
+      "exit": 0,
+      "seconds": 0.733,
+      "child_cpu_seconds": 0.732,
+      "cumulative_child_peak_rss_kib": 1774368,
+      "log": "evidence/luxury/asset-audit-final.log"
+    }
+  ],
+  "source_hashes": {
+    "styles.css": "7718cbe95874c8f0eed9747154c35c7305ef118b3f33be8203bde98588d0a109",
+    "index.html": "b284a54a89e19919fcec73cd00b26d9e1e47b4f603d642b2e15dec73d80e1ae4",
+    "locale-en.js": "9a0426969bcbda9b6d14ba3d54399f2fa242527105eae8f594a4e7823edf26a9"
+  },
+  "parallel_builds": 0,
+  "simultaneous_image_conversions": 0,
+  "browser_suite_running": false,
+  "harness_preflight_failure": "Optional /usr/bin/time unavailable; no command executed in that attempt. This run uses Python standard library timing/resource usage.",
+  "finished_utc": "2026-10-26T02:34:37.724277+00:00"
+}

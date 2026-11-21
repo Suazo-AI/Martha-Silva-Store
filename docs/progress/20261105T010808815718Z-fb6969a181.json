@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-05T01:08:08.815718+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/DECISIONS.md",
+      "change": "M",
+      "git_blob": "7e06a9eebdcd3cb2ed5abc8f3733facce743916d"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "48a16db9b271c4aa5398476267977ebc8d226a9b"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "change": "M",
+      "git_blob": "3f514fb1b071e4f3c6962bfe96f8ab5276c28ef6"
+    },
+    {
+      "path": "docs/sprint-20261104/CUESTIONARIO-MARTHA.md",
+      "change": "M",
+      "git_blob": "be85a70a94608fb6c6d9892153921acbd307134c"
+    },
+    {
+      "path": "docs/stock-decision-20261104/README.md",
+      "change": "M",
+      "git_blob": "778a75e6d21b8b958f9fb01c3aedca00bf2f8e46"
+    },
+    {
+      "path": "docs/stock-decision-20261104/decision-026-critic.md",
+      "change": "A",
+      "git_blob": "a7b55c4a1c75cf37c8474455f22b40ef03b6e053"
+    },
+    {
+      "path": "docs/stock-decision-20261104/decision-026-jury.md",
+      "change": "A",
+      "git_blob": "0ff88a255216d84e96c7a0bdcf3e34fa0944ef7d"
+    },
+    {
+      "path": "docs/stock-decision-20261104/decision-026-receipt.json",
+      "change": "A",
+      "git_blob": "8764b61bc403daa1473035e028f93d9dd73c3991"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

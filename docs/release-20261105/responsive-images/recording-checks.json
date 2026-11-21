@@ -1,0 +1,405 @@
+{
+  "recordings": [
+    {
+      "path": "docs\\release-20261105\\responsive-images\\before\\recordings\\normal-desktop-catalogo.html.webm",
+      "bytes": 325163,
+      "sha256": "fa8e8b910ad4382b7860d7604a63b0cf8457a3909f89be061302ff319b665d3d",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 1366,
+            "height": 768
+          }
+        ],
+        "format": {
+          "duration": "5.720000"
+        }
+      }
+    },
+    {
+      "path": "docs\\release-20261105\\responsive-images\\before\\recordings\\normal-desktop-index.html.webm",
+      "bytes": 392557,
+      "sha256": "84c72e64f2f7f8f7d122a1fcecd9fb1fc1acbe4a83cdfc54ca26b3ff3aeded13",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 1366,
+            "height": 768
+          }
+        ],
+        "format": {
+          "duration": "5.800000"
+        }
+      }
+    },
+    {
+      "path": "docs\\release-20261105\\responsive-images\\before\\recordings\\normal-desktop-producto-amarillo.html.webm",
+      "bytes": 475530,
+      "sha256": "c857f80fcb84c573544aa892c12c1fae2efdb6cc91289e942951d5c41f95a427",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 1366,
+            "height": 768
+          }
+        ],
+        "format": {
+          "duration": "6.240000"
+        }
+      }
+    },
+    {
+      "path": "docs\\release-20261105\\responsive-images\\before\\recordings\\normal-mobile-catalogo.html.webm",
+      "bytes": 238203,
+      "sha256": "3e9f02f4859b49a21e532422bcf0426adef9cac42a677f41dc56b2ee9fa15eb1",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 360,
+            "height": 800
+          }
+        ],
+        "format": {
+          "duration": "5.720000"
+        }
+      }
+    },
+    {
+      "path": "docs\\release-20261105\\responsive-images\\before\\recordings\\normal-mobile-index.html.webm",
+      "bytes": 165050,
+      "sha256": "132e4b5415f561f2375196da42107cd0294c062e1ac71b0f322386a45564e74c",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 360,
+            "height": 800
+          }
+        ],
+        "format": {
+          "duration": "4.960000"
+        }
+      }
+    },
+    {
+      "path": "docs\\release-20261105\\responsive-images\\before\\recordings\\normal-mobile-producto-amarillo.html.webm",
+      "bytes": 200601,
+      "sha256": "a1b7f628879e3ab943c856e7434a2de69ddc8b6367775aeca2f5cece2e780302",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 360,
+            "height": 800
+          }
+        ],
+        "format": {
+          "duration": "5.320000"
+        }
+      }
+    },
+    {
+      "path": "docs\\release-20261105\\responsive-images\\after\\recordings\\critical-path.webm",
+      "bytes": 420820,
+      "sha256": "69ae7cc2ada63dca5e2ddfa96a9cfe7675ede9e717d8b45aed64b5a4733fac79",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 1366,
+            "height": 768
+          }
+        ],
+        "format": {
+          "duration": "6.040000"
+        }
+      }
+    },
+    {
+      "path": "docs\\release-20261105\\responsive-images\\after\\recordings\\degraded-mobile-catalogo.html.webm",
+      "bytes": 896957,
+      "sha256": "d6be67c8c2a174593eba2f7abde3855402510dd9b8130a1d1b50744b9ab75a17",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 360,
+            "height": 800
+          }
+        ],
+        "format": {
+          "duration": "46.800000"
+        }
+      }
+    },
+    {
+      "path": "docs\\release-20261105\\responsive-images\\after\\recordings\\degraded-mobile-index.html.webm",
+      "bytes": 720950,
+      "sha256": "dc7df6d372f267535d7e5f07d5b384f19e7bfbf397183da7aab47a29ea7a12d9",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 360,
+            "height": 800
+          }
+        ],
+        "format": {
+          "duration": "41.080000"
+        }
+      }
+    },
+    {
+      "path": "docs\\release-20261105\\responsive-images\\after\\recordings\\degraded-mobile-producto-amarillo.html.webm",
+      "bytes": 670093,
+      "sha256": "458e97f68d03caf00355d6815d6d60eda859485edf12a48baf8a802c9094dc70",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 360,
+            "height": 800
+          }
+        ],
+        "format": {
+          "duration": "39.600000"
+        }
+      }
+    },
+    {
+      "path": "docs\\release-20261105\\responsive-images\\after\\recordings\\no-js-mobile-catalogo.html.webm",
+      "bytes": 473389,
+      "sha256": "b9dd4ea81898579c3591cb6b35b4ad4a9306c04a49c1a04b667e3e491d7c8adb",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 360,
+            "height": 800
+          }
+        ],
+        "format": {
+          "duration": "11.440000"
+        }
+      }
+    },
+    {
+      "path": "docs\\release-20261105\\responsive-images\\after\\recordings\\no-js-mobile-index.html.webm",
+      "bytes": 153485,
+      "sha256": "43e4f55049cca9aab5bf2e9543f2a7d1ec6e1af100b84831123caa230273079f",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 360,
+            "height": 800
+          }
+        ],
+        "format": {
+          "duration": "5.120000"
+        }
+      }
+    },
+    {
+      "path": "docs\\release-20261105\\responsive-images\\after\\recordings\\no-js-mobile-producto-amarillo.html.webm",
+      "bytes": 143250,
+      "sha256": "fe8fc55b21d0c926422ae8de46c9c222e2513b7de3fafe9393d8ed85b729af68",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 360,
+            "height": 800
+          }
+        ],
+        "format": {
+          "duration": "5.080000"
+        }
+      }
+    },
+    {
+      "path": "docs\\release-20261105\\responsive-images\\after\\recordings\\normal-desktop-catalogo.html.webm",
+      "bytes": 986789,
+      "sha256": "0316f64685cd4f65a2d1a7ee9801caeabaf48f61205caf8377062fc2c72a399d",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 1366,
+            "height": 768
+          }
+        ],
+        "format": {
+          "duration": "20.520000"
+        }
+      }
+    },
+    {
+      "path": "docs\\release-20261105\\responsive-images\\after\\recordings\\normal-desktop-index.html.webm",
+      "bytes": 560958,
+      "sha256": "f6fcfdf94b3f4dca9f52e32ff8c91155e55204f3006217082a57422eaad88105",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 1366,
+            "height": 768
+          }
+        ],
+        "format": {
+          "duration": "5.400000"
+        }
+      }
+    },
+    {
+      "path": "docs\\release-20261105\\responsive-images\\after\\recordings\\normal-desktop-producto-amarillo.html.webm",
+      "bytes": 454989,
+      "sha256": "35b3d6045fa4df4ba6222122b42ad57ca8f3283acd199a1b812c6b7ab113e8b7",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 1366,
+            "height": 768
+          }
+        ],
+        "format": {
+          "duration": "5.440000"
+        }
+      }
+    },
+    {
+      "path": "docs\\release-20261105\\responsive-images\\after\\recordings\\normal-mobile-catalogo.html.webm",
+      "bytes": 214796,
+      "sha256": "d3ca0ec1435f2b9cbfa116700f59cfc9605b39c5b3442c57e0a1f51e9479e05d",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 360,
+            "height": 800
+          }
+        ],
+        "format": {
+          "duration": "5.400000"
+        }
+      }
+    },
+    {
+      "path": "docs\\release-20261105\\responsive-images\\after\\recordings\\normal-mobile-index.html.webm",
+      "bytes": 20077,
+      "sha256": "89764e7cac0f965a427918b07867beb5a464538340553afb00533a520ef7ff0a",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 360,
+            "height": 800
+          }
+        ],
+        "format": {
+          "duration": "4.800000"
+        }
+      }
+    },
+    {
+      "path": "docs\\release-20261105\\responsive-images\\after\\recordings\\normal-mobile-producto-amarillo.html.webm",
+      "bytes": 214808,
+      "sha256": "9075ebd6653d8a6baecc9069c305d7bdcad13386f337de1bec94e301a1ae415c",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 360,
+            "height": 800
+          }
+        ],
+        "format": {
+          "duration": "5.520000"
+        }
+      }
+    },
+    {
+      "path": "docs\\release-20261105\\responsive-images\\critical\\recordings\\critical-path.webm",
+      "bytes": 338329,
+      "sha256": "5d540a330650b023ce2758f525c10df73e34125b3ae8d842f93cc977ce184946",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 1366,
+            "height": 768
+          }
+        ],
+        "format": {
+          "duration": "2.840000"
+        }
+      }
+    },
+    {
+      "path": "docs\\release-20261105\\responsive-images\\record-fix\\recordings\\normal-mobile-index.html.webm",
+      "bytes": 87139,
+      "sha256": "694f274d428953115e92c2612ae448c39caa6fd15f47bc406bfe777300644702",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 360,
+            "height": 800
+          }
+        ],
+        "format": {
+          "duration": "4.720000"
+        }
+      }
+    }
+  ],
+  "inspectedTimestampSeconds": 4,
+  "coverage": "12 normal clips plus corrected after index sampled at 4s. Other clips probed, not visually reviewed."
+}

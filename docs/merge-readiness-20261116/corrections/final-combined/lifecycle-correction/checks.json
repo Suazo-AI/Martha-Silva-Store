@@ -1,0 +1,24 @@
+[
+  {
+    "name": "web-green",
+    "command": [
+      "node",
+      "--test",
+      "savia/web/tests/*.test.mjs"
+    ],
+    "exit": 0,
+    "seconds": 0.719,
+    "summary": ".3285ms)\n\u2714 serialQueue continues after a failure (2.9047ms)\n\u2714 USD conversion, whole c\u00f3rdoba change and both rounding signs (2.64ms)\n\u2714 USD draft keeps integer server fields and rejects duplicate USD payments (0.4751ms)\n\u2714 V028 separate conversions and USD button boundaries (0.3548ms)\n\u2714 uuid works without crypto.randomUUID (plain HTTP on the shop LAN) (8.7577ms)\n\u2714 seller ticket lines stay editable and attributed without crypto.randomUUID (1.083ms)\n\u2139 tests 117\n\u2139 suites 0\n\u2139 pass 117\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 626.2066\n"
+  },
+  {
+    "name": "diff",
+    "command": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "exit": 0,
+    "seconds": 0.093,
+    "summary": "warning: in the working copy of 'savia/db/migrations/MANIFEST.sha256', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'savia/web/api.mjs', CRLF will be replaced by LF the next time Git touches it\n"
+  }
+]

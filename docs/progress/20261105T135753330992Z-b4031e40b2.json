@@ -1,0 +1,180 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-05T13:57:53.330992+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "README.md",
+      "change": "M",
+      "git_blob": "4b0cbf451377d5149e0acd0ba8867dc9a9f8d6e1"
+    },
+    {
+      "path": "dev/savia-staff-ui/README.md",
+      "change": "M",
+      "git_blob": "8dde734e5a45ba7b30eb2ef9d8dcf891ccc5801c"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "738451734d912f1358058827f6a3103ba05c0dc2"
+    },
+    {
+      "path": "docs/n5-browser-20261105/EXECUTION-SUMMARY.json",
+      "change": "A",
+      "git_blob": "7faefc1b2e0f9df0b71e83213c5be4aa4658c458"
+    },
+    {
+      "path": "docs/n5-browser-20261105/INTEGRATION.json",
+      "change": "A",
+      "git_blob": "f6cbf89b0e68babe8ca2006114330c0cc1252c1f"
+    },
+    {
+      "path": "docs/n5-browser-20261105/PLAN.md",
+      "change": "A",
+      "git_blob": "d374e9354ab8b1a25cf02443576b4f64ca357a62"
+    },
+    {
+      "path": "docs/n5-browser-20261105/README.md",
+      "change": "A",
+      "git_blob": "17558a8a376c6602a2ff857b8db30317a5690767"
+    },
+    {
+      "path": "docs/n5-browser-20261105/RESULT.json",
+      "change": "A",
+      "git_blob": "dc3cf8445723d6642cd2d36a5c12a314b4973a26"
+    },
+    {
+      "path": "docs/n5-browser-20261105/focused/browser-results.json",
+      "change": "A",
+      "git_blob": "bf1554fefae7713c64250d67f752c1072a87cebe"
+    },
+    {
+      "path": "docs/n5-browser-20261105/focused/stale-receipt-observation.json",
+      "change": "A",
+      "git_blob": "cdd1e38a36545845ffd3981d90feb53d769bdacd"
+    },
+    {
+      "path": "docs/n5-browser-20261105/focused/stale-receipt.png",
+      "change": "A",
+      "git_blob": "837857e06b6cbdc1820a0b2fefe12aa64979d8f5"
+    },
+    {
+      "path": "docs/n5-browser-20261105/full/browser-results.json",
+      "change": "A",
+      "git_blob": "5978c7ceb8600b923a5448c958d64f074289a5ed"
+    },
+    {
+      "path": "docs/n5-browser-20261105/full/multiarticle-desktop-cart.png",
+      "change": "A",
+      "git_blob": "bf4be9c0d2b433aa3cfe62b4cc8dc07f642d9663"
+    },
+    {
+      "path": "docs/n5-browser-20261105/full/multiarticle-desktop-receipt.png",
+      "change": "A",
+      "git_blob": "de2778da0b6f4df28b53624891e8fc3fb269dc85"
+    },
+    {
+      "path": "docs/n5-browser-20261105/full/multiarticle-mobile-cart.png",
+      "change": "A",
+      "git_blob": "bfd0518b6f0c4ec00fdd5257a4c71fa57c6c0f21"
+    },
+    {
+      "path": "docs/n5-browser-20261105/full/multiarticle-mobile-receipt.png",
+      "change": "A",
+      "git_blob": "16150005194691196bddf882e404bd3b68e3ffea"
+    },
+    {
+      "path": "docs/n5-browser-20261105/full/public-checkout-observation.json",
+      "change": "A",
+      "git_blob": "7a3c10796548a397eaab620cb3cc698798bd6f41"
+    },
+    {
+      "path": "docs/n5-browser-20261105/full/stale-receipt-observation.json",
+      "change": "A",
+      "git_blob": "cdd1e38a36545845ffd3981d90feb53d769bdacd"
+    },
+    {
+      "path": "docs/n5-browser-20261105/full/stale-receipt.png",
+      "change": "A",
+      "git_blob": "837857e06b6cbdc1820a0b2fefe12aa64979d8f5"
+    },
+    {
+      "path": "docs/n5-browser-20261105/judge.md",
+      "change": "A",
+      "git_blob": "9524384a8a869a95b8ecdd0a86e1e11a039046af"
+    },
+    {
+      "path": "docs/n5-browser-20261105/primary-export-command.json",
+      "change": "A",
+      "git_blob": "a80745129aab7757f8e5f20c8143157d3b8a3bd4"
+    },
+    {
+      "path": "docs/n5-browser-20261105/primary-focused-command.json",
+      "change": "A",
+      "git_blob": "4038ee05699dab242083c66ea76591a4c1519729"
+    },
+    {
+      "path": "docs/n5-browser-20261105/primary-focused/browser-results.json",
+      "change": "A",
+      "git_blob": "d9795c11cba0edff02308cb1ed88e7a41673cd6e"
+    },
+    {
+      "path": "docs/n5-browser-20261105/primary-focused/stale-receipt-observation.json",
+      "change": "A",
+      "git_blob": "cdd1e38a36545845ffd3981d90feb53d769bdacd"
+    },
+    {
+      "path": "docs/n5-browser-20261105/primary-focused/stale-receipt.png",
+      "change": "A",
+      "git_blob": "837857e06b6cbdc1820a0b2fefe12aa64979d8f5"
+    },
+    {
+      "path": "docs/n5-browser-20261105/primary-ledger-command.json",
+      "change": "A",
+      "git_blob": "7512e2db3c801f0e6cca2ac638bc632c3b361fcd"
+    },
+    {
+      "path": "docs/n5-browser-20261105/primary-ledger-tests-command.json",
+      "change": "A",
+      "git_blob": "ef0b86154b034eb9e6b942921f74d8f5767a59fe"
+    },
+    {
+      "path": "docs/n5-browser-20261105/primary-portable-command.json",
+      "change": "A",
+      "git_blob": "49f0f07031e422b2797978e7bbda215a0ea7b930"
+    },
+    {
+      "path": "docs/n5-browser-20261105/primary-progress-command.json",
+      "change": "A",
+      "git_blob": "5e5bab5ae38f86fcb20991a6fb408c55cfc12d8e"
+    },
+    {
+      "path": "docs/n5-browser-20261105/primary-review.md",
+      "change": "A",
+      "git_blob": "7ef195c4f03d461719f915e2ff249ce7efded9bd"
+    },
+    {
+      "path": "docs/n5-browser-20261105/worker-README.md",
+      "change": "A",
+      "git_blob": "43f28898c0a5acdda839a74aab0844e95beadf0f"
+    },
+    {
+      "path": "docs/n5-browser-20261105/worker-test.patch",
+      "change": "A",
+      "git_blob": "ce838e47c7824cd42b54d2575e36ebbf4487d14d"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "change": "M",
+      "git_blob": "054141fd44a585cb9e0256071b3cbd6331ced6d8"
+    },
+    {
+      "path": "tests/browser-mock-validation.mjs",
+      "change": "M",
+      "git_blob": "c6c71a9384ed2751b272b8fcecb994c284c583de"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

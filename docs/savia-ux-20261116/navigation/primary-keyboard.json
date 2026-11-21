@@ -1,0 +1,19 @@
+{
+  "checks": [
+    "1440-tab-summary",
+    "1440-enter-opens",
+    "1440-tab-link-retained",
+    "1440-space-closes",
+    "1440-keyboard-route-visible",
+    "1440-manual-scanner",
+    "390-tab-summary",
+    "390-enter-opens",
+    "390-tab-link-retained",
+    "390-space-closes",
+    "390-keyboard-route-visible",
+    "390-manual-scanner"
+  ],
+  "count": 12,
+  "fictional_api_only": true,
+  "server_closed": true
+}

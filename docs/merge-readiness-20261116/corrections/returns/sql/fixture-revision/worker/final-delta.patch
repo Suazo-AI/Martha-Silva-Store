@@ -1,0 +1,609 @@
+--- overlay/savia/db/tests/sales/172_return_retry_safety.sql
++++ savia/db/tests/sales/172_return_retry_safety.sql
+@@ -11,7 +11,7 @@
+  DECLARE @object int,@name nvarchar(300),@order nvarchar(max),@sql nvarchar(max),@rows nvarchar(max);
+  DECLARE snapshots CURSOR LOCAL FAST_FORWARD FOR
+  SELECT t.object_id,QUOTENAME(s.name)+N'.'+QUOTENAME(t.name) FROM sys.tables t JOIN sys.schemas s ON s.schema_id=t.schema_id
+- WHERE s.name IN ('sales','inventory','credits','accounting','sync') ORDER BY s.name,t.name;
++ WHERE s.name IN ('sales','inventory','credits','accounting','sync','audit') ORDER BY s.name,t.name;
+  OPEN snapshots; FETCH NEXT FROM snapshots INTO @object,@name;
+  WHILE @@FETCH_STATUS=0
+  BEGIN
+@@ -77,7 +77,7 @@
+   SET @sellersJson=(SELECT x.lineNumber,x.sellerId FROM (VALUES(1,@seller),(2,@seller2)) x(lineNumber,sellerId) WHERE x.lineNumber=1 OR @scenario=5 FOR JSON PATH);
+  END;
+  IF @scenario=5 SET @tenderJson=N'[{"TenderNumber":1,"TenderKind":"cash","AmountMinor":60000,"ReceivedMinor":70000,"ChangeMinor":10000},{"TenderNumber":2,"TenderKind":"transfer","AmountMinor":60000,"Reference":"BAC paid"}]';
+- SET @request=(SELECT @rev AS reversalId,@sale AS saleId,@branch AS branchId,@loc AS locationId,@till AS tillId,@manager AS actorId,@manager AS approvedBy,
++ SET @request=(SELECT @rev AS reversalId,@sale AS saleId,@branch AS branchId,@loc AS locationId,@till AS tillId,CASE WHEN @scenario=2 THEN @cashier ELSE @manager END AS actorId,@manager AS approvedBy,
+   @credit AS creditId,@customer AS customerId,@node AS nodeId,CASE WHEN @scenario>=3 THEN @exchange END AS exchangeSaleId,
+   CASE WHEN @scenario=2 THEN 'credit' ELSE 'outcome' END AS endpoint,
+   CASE @scenario WHEN 0 THEN 'cash' WHEN 1 THEN 'transfer' WHEN 2 THEN 'credit' ELSE 'exchange' END AS outcome,
+@@ -166,6 +166,37 @@
+  EXEC test.ReturnSafetySnapshot @after OUTPUT;
+  IF CONVERT(varbinary(max),@before)<>CONVERT(varbinary(max),@after) THROW 59002,'ASSERT FAIL: revoked replay changed rows',1;
+  UPDATE security.StaffBranchAccess SET CanApproveReturns=1 WHERE StaffId=@manager AND BranchId=@branch;
++ -- Independent current authorization controls. Credit actor differs from its approver.
++ DECLARE @authCase int=0,@subject uniqueidentifier,
++  @currentActor uniqueidentifier=TRY_CONVERT(uniqueidentifier,JSON_VALUE(@request,'$.actorId'));
++ WHILE @authCase<6
++ BEGIN
++  -- 0/1 disabled actor/approver; 2/3 inactive actor/approver; 4/5 revoked branch access.
++  -- Outcome has one supervisor actor; credit exercises both distinct subjects.
++  SET @subject=CASE WHEN @authCase%2=0 THEN @currentActor ELSE @manager END;
++  IF @authCase<2 UPDATE security.Staff SET IsEnabled=0 WHERE Id=@subject;
++  ELSE UPDATE security.StaffBranchAccess SET IsActive=0 WHERE StaffId=@subject AND BranchId=@branch;
++  -- Revoked access is absence, rather than only the inactive flag.
++  IF @authCase>=4 DELETE security.StaffBranchAccess WHERE StaffId=@subject AND BranchId=@branch;
++  EXEC test.ReturnSafetySnapshot @before OUTPUT; SET @caught=0;
++  BEGIN TRY EXEC test.CallReturnSafety @request; END TRY BEGIN CATCH SET @caught=ERROR_NUMBER(); END CATCH;
++  EXEC test.ReturnSafetySnapshot @after OUTPUT;
++  -- Restore before assertions so an expected failure cannot leave a disabled fixture user.
++  IF @authCase<2 UPDATE security.Staff SET IsEnabled=1 WHERE Id=@subject;
++  ELSE IF @authCase<4 UPDATE security.StaffBranchAccess SET IsActive=1 WHERE StaffId=@subject AND BranchId=@branch;
++  ELSE INSERT security.StaffBranchAccess(StaffId,BranchId,CanApproveTransfers,CanApproveReturns,IsActive)
++   VALUES(@subject,@branch,CASE WHEN @subject=@manager THEN 1 ELSE 0 END,CASE WHEN @subject=@manager THEN 1 ELSE 0 END,1);
++  IF @caught<>51529 THROW 59002,'ASSERT FAIL: disabled/inactive/revoked actor or approver accepted',1;
++  IF CONVERT(varbinary(max),@before)<>CONVERT(varbinary(max),@after) THROW 59002,'ASSERT FAIL: unauthorized retry changed financial/sync rows',1;
++  SET @authCase+=1;
++ END;
++ -- Identity excludes the CURRENT authorized supervisor, but original attribution is immutable.
++ SET @retry=JSON_MODIFY(@request,CASE WHEN @scenario=2 THEN '$.approvedBy' ELSE '$.actorId' END,
++  CONVERT(nvarchar(36),test.Id('supervisorA')));
++ EXEC test.ReturnSafetySnapshot @before OUTPUT;
++ EXEC test.CallReturnSafety @retry;
++ EXEC test.ReturnSafetySnapshot @after OUTPUT;
++ IF CONVERT(varbinary(max),@before)<>CONVERT(varbinary(max),@after) THROW 59002,'ASSERT FAIL: different supervisor rewrote original rows',1;
+  -- Eligibility is intentionally made stale; snapshots start AFTER fixture changes.
+  UPDATE sales.CashTills SET Status='closed',ClosedAt=core.ufn_BusinessNow() WHERE Id=@till;
+  UPDATE sales.Sales SET CreatedAt=DATEADD(day,-400,core.ufn_BusinessNow()) WHERE Id=@sale;
+@@ -189,5 +220,40 @@
+  DELETE @cases;
+  SET @scenario+=1;
+ END;
++-- Positive TWO-original-line ordering equivalence for BOTH endpoints.
++DECLARE @orderingEndpoint int=0;
++WHILE @orderingEndpoint<2
++BEGIN
++ DECLARE @orderSale uniqueidentifier=NEWID(),@orderRev uniqueidentifier=NEWID(),@orderCredit uniqueidentifier=NEWID(),
++  @orderTill uniqueidentifier=(SELECT TOP(1) Id FROM sales.CashTills WHERE RegisterId=test.Id('registerA') AND Status='open'),
++  @orderLines sales.SaleLineRequest,@orderPay sales.SaleTenderRequest;
++ INSERT @orderLines VALUES(1,@item,1,120000,0),(2,@item,1,120000,0);
++ INSERT @orderPay(TenderNumber,TenderKind,AmountMinor) VALUES(1,'card',240000);
++ EXEC sales.usp_PostSale @SaleId=@orderSale,@BranchId=@branch,@LocationId=@loc,@CashierId=@cashier,
++  @CurrencyCode='NIO',@OriginNodeId=@node,@Lines=@orderLines,@Tenders=@orderPay,@TillId=@orderTill,@CustomerId=@customer;
++ DECLARE @forward nvarchar(max)=(SELECT Id AS SaleLineId,1 AS Quantity,'store' AS RestockPool
++   FROM sales.SaleLines WHERE SaleId=@orderSale ORDER BY Id FOR JSON PATH),
++  @backward nvarchar(max)=(SELECT Id AS SaleLineId,1 AS Quantity,'store' AS RestockPool
++   FROM sales.SaleLines WHERE SaleId=@orderSale ORDER BY Id DESC FOR JSON PATH);
++ IF (SELECT COUNT(*) FROM sales.SaleLines WHERE SaleId=@orderSale)<>2 OR @forward=@backward
++  THROW 59002,'ASSERT FAIL: ordering control needs two distinct original lines',1;
++ SET @request=(SELECT @orderRev AS reversalId,@orderSale AS saleId,@branch AS branchId,@loc AS locationId,
++  @orderTill AS tillId,@manager AS actorId,@manager AS approvedBy,@orderCredit AS creditId,@customer AS customerId,
++  @node AS nodeId,CASE WHEN @orderingEndpoint=1 THEN 'credit' ELSE 'outcome' END AS endpoint,
++  'transfer' AS outcome,N'ordering' AS reason,N'BAC ordering' AS reference,JSON_QUERY(@forward) AS returnLines
++  FOR JSON PATH,WITHOUT_ARRAY_WRAPPER);
++ EXEC test.CallReturnSafety @request;
++ IF (SELECT COUNT(*) FROM sales.SaleReversalLines WHERE ReversalId=@orderRev)<>2
++  THROW 59002,'ASSERT FAIL: ordering control did not return both lines',1;
++ EXEC test.ReturnSafetySnapshot @before OUTPUT;
++ SET @retry=JSON_MODIFY(@request,'$.returnLines',JSON_QUERY(@backward));
++ EXEC test.CallReturnSafety @retry;
++ EXEC test.ReturnSafetySnapshot @after OUTPUT;
++ IF CONVERT(varbinary(max),@before)<>CONVERT(varbinary(max),@after)
++  THROW 59002,'ASSERT FAIL: reversed original lines changed exact financial/sync images',1;
++ EXEC audit.usp_CheckConservation @Throw=1;
++ DELETE @orderLines; DELETE @orderPay;
++ SET @orderingEndpoint+=1;
++END;
+ EXEC audit.usp_CheckConservation @Throw=1;
+ PRINT 'PASS';
+--- overlay/savia/tests/Savia.Tests/ReturnRetrySafetyTests.cs
++++ savia/tests/Savia.Tests/ReturnRetrySafetyTests.cs
+@@ -6,11 +6,13 @@
+ public sealed class ReturnRetrySafetyTests
+ {
+     [Theory]
+-    [InlineData(false, false)]
+-    [InlineData(false, true)]
+-    [InlineData(true, false)]
+-    [InlineData(true, true)]
+-    public async Task Same_reversal_serializes_exact_and_different_financial_requests(bool credit, bool mismatch)
++    [InlineData(false, false, false)]
++    [InlineData(false, true, false)]
++    [InlineData(true, false, false)]
++    [InlineData(true, true, false)]
++    [InlineData(false, false, true)]
++    [InlineData(true, false, true)]
++    public async Task Same_reversal_serializes_exact_and_different_financial_requests(bool credit, bool mismatch, bool mixed)
+     {
+         await using var f = await UsdFixture.Create(100000, 10000);
+         var sale = Guid.NewGuid();
+@@ -24,28 +26,70 @@
+               @TillId='{f.Till}';
+             """);
+         var usdBefore = await f.Scalar($"SELECT COALESCE(SUM(e.DeltaMinor),0) FROM sales.CashEntries e JOIN sales.CashTills t ON t.Id=e.TillId WHERE t.ParentTillId='{f.Till}'");
+-        var ready = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+-        var arrivals = 0;
+-        async Task<int> Send(string pool)
++        // Both directions isolate the reversal lock from the winner's drawer lock.
++        var otherTill = Guid.NewGuid();
++        var otherRegister = Guid.NewGuid();
++        await f.Exec($"""
++            INSERT sales.CashRegisters(Id,BranchId,LocationId,Code,Name)
++            VALUES('{otherRegister}','{Ids.BranchA}','{Ids.LocA}','RETRY',N'Retry');
++            EXEC sales.usp_OpenTill '{otherTill}','{otherRegister}','{Ids.CashierA}','NIO',100000,'{Ids.NodeA}';
++            """);
++        var lineId = await TestSql.ScalarAsync<string>(f.Database,
++            $"SELECT CONVERT(varchar(36),Id) FROM sales.SaleLines WHERE SaleId='{sale}'");
++        string Request(bool useCredit, Guid till, string pool)
+         {
+-            await using var connection = new SqlConnection(TestSql.ConnectionFor(f.Database));
+-            await connection.OpenAsync();
+-            if (Interlocked.Increment(ref arrivals) == 2) ready.SetResult();
+-            await ready.Task.WaitAsync(TimeSpan.FromSeconds(30));
+-            var call = credit
+-                ? $"EXEC sales.usp_PostCreditReturn '{reversal}','{creditId}','{sale}','{Ids.BranchA}','{Ids.LocA}','{f.Till}','{Ids.Manager}','{Ids.Manager}',@customer,N'Talla','{Ids.NodeA}',@r;"
+-                : $"EXEC sales.usp_PostReturnOutcome '{reversal}','{sale}','{Ids.BranchA}','{Ids.LocA}','{f.Till}','{Ids.Manager}','transfer',N'Talla',N'BAC','{Ids.NodeA}',@r,NULL,@new,@pay;";
+-            await using var command = new SqlCommand($"""
++            var call = useCredit
++                ? $"EXEC sales.usp_PostCreditReturn '{reversal}','{creditId}','{sale}','{Ids.BranchA}','{Ids.LocA}','{till}','{Ids.Manager}','{Ids.Manager}',@customer,N'Talla','{Ids.NodeA}',@r;"
++                : $"EXEC sales.usp_PostReturnOutcome '{reversal}','{sale}','{Ids.BranchA}','{Ids.LocA}','{till}','{Ids.Manager}','transfer',N'Talla',N'BAC','{Ids.NodeA}',@r,NULL,@new,@pay;";
++            return $"""
+                 DECLARE @r sales.ReturnLineRequest,@new sales.SaleLineRequest,@pay sales.SaleTenderRequest,
+                   @customer uniqueidentifier=test.Id('customer');
+-                INSERT @r SELECT Id,1,'{pool}' FROM sales.SaleLines WHERE SaleId='{sale}';
++                INSERT @r VALUES('{lineId}',1,'{pool}');
+                 {call}
+-                """, connection) { CommandTimeout = 60 };
+-            try { await command.ExecuteNonQueryAsync(); return 0; }
+-            catch (SqlException ex) { return ex.Number; }
++                """;
+         }
+-        var results = await Task.WhenAll(Send("store"), Send(mismatch ? "quarantine" : "store"));
+-        Assert.Equal(mismatch ? new[] { 0, 51538 } : new[] { 0, 0 }, results.Order().ToArray());
++        await using var winner = new SqlConnection(TestSql.ConnectionFor(f.Database));
++        await using var contender = new SqlConnection(TestSql.ConnectionFor(f.Database));
++        await using var observer = new SqlConnection(TestSql.ConnectionFor(f.Database));
++        await winner.OpenAsync(); await contender.OpenAsync(); await observer.OpenAsync();
++        await using var transaction = (SqlTransaction)await winner.BeginTransactionAsync();
++        await using var win = new SqlCommand(Request(credit, f.Till, "store"), winner, transaction) { CommandTimeout = 20 };
++        await using var send = new SqlCommand(Request(mixed ? !credit : credit, mixed ? otherTill : f.Till,
++            mismatch ? "quarantine" : "store"), contender) { CommandTimeout = 20 };
++        Task<int>? pending = null;
++        Exception? original = null;
++        try
++        {
++            await win.ExecuteNonQueryAsync(); // procedure commits its nested transaction only
++            var before = await Snapshot(winner, transaction);
++            pending = send.ExecuteNonQueryAsync();
++            await ObserveReversalWait(observer, winner.ServerProcessId, contender.ServerProcessId, reversal, pending);
++            await transaction.CommitAsync(); // release ONLY after a server-observed application wait
++            var code = 0;
++            try { await pending; }
++            catch (SqlException ex) { code = ex.Number; }
++            Assert.Equal(mismatch || mixed ? 51538 : 0, code);
++            Assert.Equal(before, await Snapshot(observer, null));
++        }
++        catch (Exception ex) { original = ex; throw; }
++        finally
++        {
++            // Cancel and drain before disposing sessions; cleanup cannot replace the original failure.
++            try
++            {
++                if (transaction.Connection is not null)
++                {
++                    send.Cancel();
++                    await transaction.RollbackAsync();
++                }
++            }
++            catch when (original is not null) { }
++            if (pending is not null)
++            {
++                try { await pending; }
++                catch when (original is not null || pending.IsFaulted) { }
++            }
++        }
+         Assert.Equal(1, await f.Scalar($"SELECT COUNT(*) FROM sales.SaleReversals WHERE Id='{reversal}' AND RequestIdentityVersion=1"));
+         Assert.Equal(1, await f.Scalar($"SELECT COUNT(*) FROM sales.SaleReversalLines WHERE ReversalId='{reversal}'"));
+         Assert.Equal(1, await f.Scalar($"SELECT ReturnedQuantity FROM sales.SaleLines WHERE SaleId='{sale}'"));
+@@ -54,4 +98,67 @@
+         Assert.Equal(usdBefore, await f.Scalar($"SELECT COALESCE(SUM(e.DeltaMinor),0) FROM sales.CashEntries e JOIN sales.CashTills t ON t.Id=e.TillId WHERE t.ParentTillId='{f.Till}'"));
+         await TestSql.AssertConservationAsync(f.Database);
+     }
++
++    private static async Task ObserveReversalWait(SqlConnection observer, int winner, int contender,
++        Guid reversal, Task pending)
++    {
++        // Match the full server lock identity, plus the readable 32-character application prefix.
++        // An unrelated till/page/key wait and a sequential/no-wait schedule both fail.
++        var deadline = System.Diagnostics.Stopwatch.StartNew();
++        while (deadline.Elapsed < TimeSpan.FromSeconds(6))
++        {
++            Assert.False(pending.IsCompleted, "Contender completed without observed reversal-lock overlap");
++            await using var query = new SqlCommand("""
++                SELECT COUNT(*) FROM sys.dm_tran_locks w
++                JOIN sys.dm_tran_locks h ON h.resource_type=w.resource_type
++                  AND h.resource_database_id=w.resource_database_id
++                  AND h.resource_associated_entity_id=w.resource_associated_entity_id
++                  AND h.resource_description=w.resource_description
++                  AND h.resource_lock_partition=w.resource_lock_partition
++                JOIN sys.dm_exec_requests r ON r.session_id=w.request_session_id
++                WHERE w.resource_type='APPLICATION' AND w.request_status='WAIT'
++                  AND h.request_status='GRANT' AND h.request_mode='X' AND w.request_mode='X'
++                  AND w.request_session_id=@contender AND h.request_session_id=@winner
++                  AND r.blocking_session_id=@winner AND r.wait_type LIKE 'LCK_M_%'
++                  AND CHARINDEX(@prefix,w.resource_description)>0;
++                """, observer) { CommandTimeout = 2 };
++            query.Parameters.AddWithValue("@winner", winner);
++            query.Parameters.AddWithValue("@contender", contender);
++            query.Parameters.AddWithValue("@prefix", ("savia.return." + reversal.ToString()).Substring(0, 32));
++            if (Convert.ToInt32(await query.ExecuteScalarAsync()) > 0) return;
++            await Task.Delay(20); // polling cadence only; never evidence of overlap
++        }
++        throw new TimeoutException("No shared reversal APPLICATION wait observed before release");
++    }
++
++    private static async Task<string> Snapshot(SqlConnection connection, SqlTransaction? transaction)
++    {
++        // Every financial/sync table, ordered by its full primary key; includes USD children/entries.
++        await using var command = new SqlCommand("""
++            DECLARE @image nvarchar(max)=N'',@object int,@name nvarchar(300),@order nvarchar(max),
++              @sql nvarchar(max),@rows nvarchar(max);
++            DECLARE snapshots CURSOR LOCAL FAST_FORWARD FOR
++            SELECT t.object_id,QUOTENAME(s.name)+N'.'+QUOTENAME(t.name)
++            FROM sys.tables t JOIN sys.schemas s ON s.schema_id=t.schema_id
++            WHERE s.name IN ('sales','inventory','credits','accounting','sync') ORDER BY s.name,t.name;
++            OPEN snapshots; FETCH NEXT FROM snapshots INTO @object,@name;
++            WHILE @@FETCH_STATUS=0
++            BEGIN
++              SET @order=NULL;
++              SELECT @order=STRING_AGG(CONVERT(nvarchar(max),QUOTENAME(c.name)),N',')
++                WITHIN GROUP(ORDER BY ic.key_ordinal)
++              FROM sys.indexes i JOIN sys.index_columns ic ON ic.object_id=i.object_id AND ic.index_id=i.index_id
++              JOIN sys.columns c ON c.object_id=ic.object_id AND c.column_id=ic.column_id
++              WHERE i.object_id=@object AND i.is_primary_key=1;
++              IF @order IS NULL THROW 59002,'Snapshot needs primary key',1;
++              SET @sql=N'SELECT @r=(SELECT * FROM '+@name+N' ORDER BY '+@order+N' FOR JSON PATH,INCLUDE_NULL_VALUES);';
++              EXEC sys.sp_executesql @sql,N'@r nvarchar(max) OUTPUT',@r=@rows OUTPUT;
++              SET @image+=@name+N':'+CONVERT(nvarchar(20),DATALENGTH(@rows))+N':'+@rows;
++              FETCH NEXT FROM snapshots INTO @object,@name;
++            END;
++            CLOSE snapshots; DEALLOCATE snapshots;
++            SELECT @image;
++            """, connection, transaction) { CommandTimeout = 20 };
++        return (string)(await command.ExecuteScalarAsync())!;
++    }
+ }
+--- overlay/savia/tests/test_return_retry_safety.py
++++ savia/tests/test_return_retry_safety.py
+@@ -26,7 +26,33 @@
+             if excluded in identity:
+                 raise AssertionError('identity includes live policy/credential ' + excluded)
+ 
++def assert_lock_and_enabled_contract(sql):
++    for proc in procedures(sql):
++        if "@identityResource nvarchar(255)=CONCAT(N'savia.return.',CONVERT(nvarchar(36),@ReversalId))" not in proc:
++            raise AssertionError('shared reversal application resource missing')
++        prefix = proc[:proc.index('-- NULL legacy identity')]
++        staff_ids = ['@ActorId', '@ApprovedBy'] if 'sales.usp_PostCreditReturn' in proc else ['@ActorId']
++        for staff in staff_ids:
++            predicates = re.findall(r'WHERE a.StaffId=' + staff + r'[^)]*', prefix)
++            if not predicates or any('s.IsEnabled=1' not in p or 'a.IsActive=1' not in p for p in predicates):
++                raise AssertionError('enabled staff and active access missing: ' + staff)
++
+ class ReturnRetrySourceTests(unittest.TestCase):
++    def test_shared_lock_and_enabled_staff(self):
++        assert_lock_and_enabled_contract(SQL)
++
++    def test_negative_split_endpoint_namespace(self):
++        mutated = SQL.replace("N'savia.return.'", "N'savia.return.credit.'", 1)
++        self.assertNotEqual(SQL, mutated)
++        with self.assertRaisesRegex(AssertionError, 'shared reversal'):
++            assert_lock_and_enabled_contract(mutated)
++
++    def test_negative_omitted_enabled_staff(self):
++        mutated = SQL.replace(' AND s.IsEnabled=1', '')
++        self.assertNotEqual(SQL, mutated)
++        with self.assertRaisesRegex(AssertionError, 'enabled staff'):
++            assert_lock_and_enabled_contract(mutated)
++
+     def test_all_financial_fields_projected(self):
+         assert_identity_coverage(SQL)
+ 
+--- HEAD/savia/db/tests/sales/134_credit_return_validation.sql
++++ savia/db/tests/sales/134_credit_return_validation.sql
+@@ -1,147 +1,147 @@
+--- TEST: usp_PostCreditReturn rejects empty return, empty reason, wrong location, closed till, approver without permission, other customer, bad quantity or pool, and zero value (51525-51531, 51534).
+-SET NOCOUNT ON; SET XACT_ABORT ON;
+-DECLARE @branch uniqueidentifier=test.Id('branchA'),@loc uniqueidentifier=test.Id('locA'),
+-  @locB uniqueidentifier=test.Id('locB'),@cashier uniqueidentifier=test.Id('cashierA'),
+-  @super uniqueidentifier=test.Id('supervisorA'),@node uniqueidentifier=test.Id('nodeA'),
+-  @nodeB uniqueidentifier=test.Id('nodeB'),@register uniqueidentifier=test.Id('registerA'),
+-  @registerB uniqueidentifier=test.Id('registerB'),@item uniqueidentifier=test.Id('item'),
+-  @customer uniqueidentifier=test.Id('customer'),@customer2 uniqueidentifier=test.Id('customer2'),
+-  @cashierB uniqueidentifier=test.Id('cashierB'),
+-  @till uniqueidentifier=NEWID(),@tillB uniqueidentifier=NEWID(),@sale uniqueidentifier=NEWID(),
+-  @zeroSale uniqueidentifier=NEWID(),@line uniqueidentifier,@zeroLine uniqueidentifier,
+-  @rev uniqueidentifier=NEWID(),@credit uniqueidentifier=NEWID(),
+-  @rev2 uniqueidentifier=NEWID(),@credit2 uniqueidentifier=NEWID(),@n bigint;
+-EXEC test.SeedStock @item,@loc,10;
+-EXEC sales.usp_OpenTill @TillId=@till,@RegisterId=@register,@CashierId=@cashier,
+-     @CurrencyCode='NIO',@OpeningMinor=0,@OriginNodeId=@node;
+-EXEC sales.usp_OpenTill @TillId=@tillB,@RegisterId=@registerB,@CashierId=@cashierB,
+-     @CurrencyCode='NIO',@OpeningMinor=0,@OriginNodeId=@nodeB;
+-DECLARE @lines sales.SaleLineRequest,@tenders sales.SaleTenderRequest;
+-INSERT INTO @lines(LineNumber,ItemId,Quantity,UnitPriceMinor,DiscountMinor) VALUES(1,@item,3,120000,0);
+-INSERT INTO @tenders(TenderNumber,TenderKind,AmountMinor,ReceivedMinor,ChangeMinor) VALUES(1,'cash',360000,360000,0);
+-EXEC sales.usp_PostSale @SaleId=@sale,@BranchId=@branch,@LocationId=@loc,@CashierId=@cashier,
+-     @CurrencyCode='NIO',@TillId=@till,@OriginNodeId=@node,@Lines=@lines,@Tenders=@tenders,
+-     @CustomerId=@customer,@DiscountApproverId='A0000000-0000-0000-0000-0000000000A5',@DiscountReason=N'Autorizado para prueba';
+-SET @line=(SELECT Id FROM sales.SaleLines WHERE SaleId=@sale AND LineNumber=1);
+-
+--- 51525 devolucion sin prendas
+-DECLARE @none sales.ReturnLineRequest;
+-BEGIN TRY
+-  EXEC sales.usp_PostCreditReturn @ReversalId=@rev,@CreditId=@credit,@SaleId=@sale,@BranchId=@branch,
+-    @ReturnLocationId=@loc,@TillId=@till,@ActorId=@cashier,@ApprovedBy=@super,@CustomerId=@customer,
+-    @Reason=N'sin prendas',@OriginNodeId=@node,@Lines=@none;
+-  THROW 59002,'ASSERT FAIL: devolucion sin prendas aceptada',1;
+-END TRY
+-BEGIN CATCH IF ERROR_NUMBER()<>51525 THROW; END CATCH;
+-
+--- 51525 devolucion sin motivo
+-DECLARE @one sales.ReturnLineRequest;
+-INSERT INTO @one(SaleLineId,Quantity,RestockPool) VALUES(@line,1,'store');
+-BEGIN TRY
+-  EXEC sales.usp_PostCreditReturn @ReversalId=@rev,@CreditId=@credit,@SaleId=@sale,@BranchId=@branch,
+-    @ReturnLocationId=@loc,@TillId=@till,@ActorId=@cashier,@ApprovedBy=@super,@CustomerId=@customer,
+-    @Reason=N'   ',@OriginNodeId=@node,@Lines=@one;
+-  THROW 59002,'ASSERT FAIL: devolucion sin motivo aceptada',1;
+-END TRY
+-BEGIN CATCH IF ERROR_NUMBER()<>51525 THROW; END CATCH;
+-
+--- 51527 ubicacion de otra sucursal
+-BEGIN TRY
+-  EXEC sales.usp_PostCreditReturn @ReversalId=@rev,@CreditId=@credit,@SaleId=@sale,@BranchId=@branch,
+-    @ReturnLocationId=@locB,@TillId=@till,@ActorId=@cashier,@ApprovedBy=@super,@CustomerId=@customer,
+-    @Reason=N'ubicacion ajena',@OriginNodeId=@node,@Lines=@one;
+-  THROW 59002,'ASSERT FAIL: ubicacion de otra sucursal aceptada',1;
+-END TRY
+-BEGIN CATCH IF ERROR_NUMBER()<>51527 THROW; END CATCH;
+-
+--- 51528 turno de otra sucursal
+-BEGIN TRY
+-  EXEC sales.usp_PostCreditReturn @ReversalId=@rev,@CreditId=@credit,@SaleId=@sale,@BranchId=@branch,
+-    @ReturnLocationId=@loc,@TillId=@tillB,@ActorId=@cashier,@ApprovedBy=@super,@CustomerId=@customer,
+-    @Reason=N'turno ajeno',@OriginNodeId=@node,@Lines=@one;
+-  THROW 59002,'ASSERT FAIL: turno de otra sucursal aceptado',1;
+-END TRY
+-BEGIN CATCH IF ERROR_NUMBER()<>51528 THROW; END CATCH;
+-
+--- 51529 quien aprueba no puede aprobar devoluciones
+-BEGIN TRY
+-  EXEC sales.usp_PostCreditReturn @ReversalId=@rev,@CreditId=@credit,@SaleId=@sale,@BranchId=@branch,
+-    @ReturnLocationId=@loc,@TillId=@till,@ActorId=@cashier,@ApprovedBy=@cashier,@CustomerId=@customer,
+-    @Reason=N'sin permiso',@OriginNodeId=@node,@Lines=@one;
+-  THROW 59002,'ASSERT FAIL: devolucion aprobada por quien no puede aprobar',1;
+-END TRY
+-BEGIN CATCH IF ERROR_NUMBER()<>51529 THROW; END CATCH;
+-
+--- 51530 la venta es de otra clienta
+-BEGIN TRY
+-  EXEC sales.usp_PostCreditReturn @ReversalId=@rev,@CreditId=@credit,@SaleId=@sale,@BranchId=@branch,
+-    @ReturnLocationId=@loc,@TillId=@till,@ActorId=@cashier,@ApprovedBy=@super,@CustomerId=@customer2,
+-    @Reason=N'otra clienta',@OriginNodeId=@node,@Lines=@one;
+-  THROW 59002,'ASSERT FAIL: devolucion a otra clienta aceptada',1;
+-END TRY
+-BEGIN CATCH IF ERROR_NUMBER()<>51530 THROW; END CATCH;
+-
+--- 51531 pool de destino invalido
+-DECLARE @web sales.ReturnLineRequest;
+-INSERT INTO @web(SaleLineId,Quantity,RestockPool) VALUES(@line,1,'web');
+-BEGIN TRY
+-  EXEC sales.usp_PostCreditReturn @ReversalId=@rev,@CreditId=@credit,@SaleId=@sale,@BranchId=@branch,
+-    @ReturnLocationId=@loc,@TillId=@till,@ActorId=@cashier,@ApprovedBy=@super,@CustomerId=@customer,
+-    @Reason=N'pool invalido',@OriginNodeId=@node,@Lines=@web;
+-  THROW 59002,'ASSERT FAIL: pool web aceptado',1;
+-END TRY
+-BEGIN CATCH IF ERROR_NUMBER()<>51531 THROW; END CATCH;
+-
+--- 51531 cantidad cero
+-DECLARE @zero sales.ReturnLineRequest;
+-INSERT INTO @zero(SaleLineId,Quantity,RestockPool) VALUES(@line,0,'store');
+-BEGIN TRY
+-  EXEC sales.usp_PostCreditReturn @ReversalId=@rev,@CreditId=@credit,@SaleId=@sale,@BranchId=@branch,
+-    @ReturnLocationId=@loc,@TillId=@till,@ActorId=@cashier,@ApprovedBy=@super,@CustomerId=@customer,
+-    @Reason=N'cantidad cero',@OriginNodeId=@node,@Lines=@zero;
+-  THROW 59002,'ASSERT FAIL: devolucion con cantidad cero aceptada',1;
+-END TRY
+-BEGIN CATCH IF ERROR_NUMBER()<>51531 THROW; END CATCH;
+-
+--- 51534 una venta de valor cero no genera anticipo
+-DECLARE @zlines sales.SaleLineRequest,@ztenders sales.SaleTenderRequest;
+-INSERT INTO @zlines(LineNumber,ItemId,Quantity,UnitPriceMinor,DiscountMinor) VALUES(1,@item,1,120000,120000);
+-EXEC sales.usp_PostSale @SaleId=@zeroSale,@BranchId=@branch,@LocationId=@loc,@CashierId=@cashier,
+-     @CurrencyCode='NIO',@TillId=@till,@OriginNodeId=@node,@Lines=@zlines,@Tenders=@ztenders,
+-     @CustomerId=@customer,@DiscountApproverId=@super,@DiscountReason=N'Autorizado para prueba';
+-SET @zeroLine=(SELECT Id FROM sales.SaleLines WHERE SaleId=@zeroSale AND LineNumber=1);
+-DECLARE @zeroRet sales.ReturnLineRequest;
+-INSERT INTO @zeroRet(SaleLineId,Quantity,RestockPool) VALUES(@zeroLine,1,'store');
+-BEGIN TRY
+-  EXEC sales.usp_PostCreditReturn @ReversalId=@rev,@CreditId=@credit,@SaleId=@zeroSale,@BranchId=@branch,
+-    @ReturnLocationId=@loc,@TillId=@till,@ActorId=@cashier,@ApprovedBy=@super,@CustomerId=@customer,
+-    @Reason=N'valor cero',@OriginNodeId=@node,@Lines=@zeroRet;
+-  THROW 59002,'ASSERT FAIL: devolucion de valor cero genero anticipo',1;
+-END TRY
+-BEGIN CATCH IF ERROR_NUMBER()<>51534 THROW; END CATCH;
+-
+--- 51526 la devolucion ya existe con otro anticipo
+-EXEC sales.usp_PostCreditReturn @ReversalId=@rev2,@CreditId=@credit2,@SaleId=@sale,@BranchId=@branch,
+-  @ReturnLocationId=@loc,@TillId=@till,@ActorId=@cashier,@ApprovedBy=@super,@CustomerId=@customer,
+-  @Reason=N'devolucion valida',@OriginNodeId=@node,@Lines=@one;
+-DECLARE @otherCredit uniqueidentifier=NEWID();
+-BEGIN TRY
+-  EXEC sales.usp_PostCreditReturn @ReversalId=@rev2,@CreditId=@otherCredit,@SaleId=@sale,@BranchId=@branch,
+-    @ReturnLocationId=@loc,@TillId=@till,@ActorId=@cashier,@ApprovedBy=@super,@CustomerId=@customer,
+-    @Reason=N'otro anticipo',@OriginNodeId=@node,@Lines=@one;
+-  THROW 59002,'ASSERT FAIL: se emitio otro anticipo para la misma devolucion',1;
+-END TRY
+-BEGIN CATCH IF ERROR_NUMBER()<>51526 THROW; END CATCH;
+-
+--- Solo la devolucion valida quedo guardada.
+-SET @n=(SELECT COUNT(*) FROM sales.SaleReversals);
+-EXEC test.AssertEq N'devoluciones guardadas',1,@n;
+-SET @n=(SELECT COUNT(*) FROM credits.Credits);
+-EXEC test.AssertEq N'anticipos emitidos',1,@n;
+-SET @n=(SELECT ReturnedQuantity FROM sales.SaleLines WHERE Id=@line);
+-EXEC test.AssertEq N'unidades devueltas de la linea de la venta valida',1,@n;
+-SET @n=(SELECT ReturnedQuantity FROM sales.SaleLines WHERE Id=@zeroLine);
+-EXEC test.AssertEq N'unidades devueltas de la linea de valor cero',0,@n;
+-SET @n=(SELECT COUNT(*) FROM sales.SaleReversals WHERE Id=@rev);
+-EXEC test.AssertEq N'la devolucion rechazada no existe',0,@n;
+-PRINT 'PASS';
++-- TEST: usp_PostCreditReturn rejects empty return, empty reason, wrong location, closed till, approver without permission, other customer, bad quantity or pool, and zero value (51525-51531, 51534).
++SET NOCOUNT ON; SET XACT_ABORT ON;
++DECLARE @branch uniqueidentifier=test.Id('branchA'),@loc uniqueidentifier=test.Id('locA'),
++  @locB uniqueidentifier=test.Id('locB'),@cashier uniqueidentifier=test.Id('cashierA'),
++  @super uniqueidentifier=test.Id('supervisorA'),@node uniqueidentifier=test.Id('nodeA'),
++  @nodeB uniqueidentifier=test.Id('nodeB'),@register uniqueidentifier=test.Id('registerA'),
++  @registerB uniqueidentifier=test.Id('registerB'),@item uniqueidentifier=test.Id('item'),
++  @customer uniqueidentifier=test.Id('customer'),@customer2 uniqueidentifier=test.Id('customer2'),
++  @cashierB uniqueidentifier=test.Id('cashierB'),
++  @till uniqueidentifier=NEWID(),@tillB uniqueidentifier=NEWID(),@sale uniqueidentifier=NEWID(),
++  @zeroSale uniqueidentifier=NEWID(),@line uniqueidentifier,@zeroLine uniqueidentifier,
++  @rev uniqueidentifier=NEWID(),@credit uniqueidentifier=NEWID(),
++  @rev2 uniqueidentifier=NEWID(),@credit2 uniqueidentifier=NEWID(),@n bigint;
++EXEC test.SeedStock @item,@loc,10;
++EXEC sales.usp_OpenTill @TillId=@till,@RegisterId=@register,@CashierId=@cashier,
++     @CurrencyCode='NIO',@OpeningMinor=0,@OriginNodeId=@node;
++EXEC sales.usp_OpenTill @TillId=@tillB,@RegisterId=@registerB,@CashierId=@cashierB,
++     @CurrencyCode='NIO',@OpeningMinor=0,@OriginNodeId=@nodeB;
++DECLARE @lines sales.SaleLineRequest,@tenders sales.SaleTenderRequest;
++INSERT INTO @lines(LineNumber,ItemId,Quantity,UnitPriceMinor,DiscountMinor) VALUES(1,@item,3,120000,0);
++INSERT INTO @tenders(TenderNumber,TenderKind,AmountMinor,ReceivedMinor,ChangeMinor) VALUES(1,'cash',360000,360000,0);
++EXEC sales.usp_PostSale @SaleId=@sale,@BranchId=@branch,@LocationId=@loc,@CashierId=@cashier,
++     @CurrencyCode='NIO',@TillId=@till,@OriginNodeId=@node,@Lines=@lines,@Tenders=@tenders,
++     @CustomerId=@customer,@DiscountApproverId='A0000000-0000-0000-0000-0000000000A5',@DiscountReason=N'Autorizado para prueba';
++SET @line=(SELECT Id FROM sales.SaleLines WHERE SaleId=@sale AND LineNumber=1);
++
++-- 51525 devolucion sin prendas
++DECLARE @none sales.ReturnLineRequest;
++BEGIN TRY
++  EXEC sales.usp_PostCreditReturn @ReversalId=@rev,@CreditId=@credit,@SaleId=@sale,@BranchId=@branch,
++    @ReturnLocationId=@loc,@TillId=@till,@ActorId=@cashier,@ApprovedBy=@super,@CustomerId=@customer,
++    @Reason=N'sin prendas',@OriginNodeId=@node,@Lines=@none;
++  THROW 59002,'ASSERT FAIL: devolucion sin prendas aceptada',1;
++END TRY
++BEGIN CATCH IF ERROR_NUMBER()<>51525 THROW; END CATCH;
++
++-- 51525 devolucion sin motivo
++DECLARE @one sales.ReturnLineRequest;
++INSERT INTO @one(SaleLineId,Quantity,RestockPool) VALUES(@line,1,'store');
++BEGIN TRY
++  EXEC sales.usp_PostCreditReturn @ReversalId=@rev,@CreditId=@credit,@SaleId=@sale,@BranchId=@branch,
++    @ReturnLocationId=@loc,@TillId=@till,@ActorId=@cashier,@ApprovedBy=@super,@CustomerId=@customer,
++    @Reason=N'   ',@OriginNodeId=@node,@Lines=@one;
++  THROW 59002,'ASSERT FAIL: devolucion sin motivo aceptada',1;
++END TRY
++BEGIN CATCH IF ERROR_NUMBER()<>51525 THROW; END CATCH;
++
++-- 51527 ubicacion de otra sucursal
++BEGIN TRY
++  EXEC sales.usp_PostCreditReturn @ReversalId=@rev,@CreditId=@credit,@SaleId=@sale,@BranchId=@branch,
++    @ReturnLocationId=@locB,@TillId=@till,@ActorId=@cashier,@ApprovedBy=@super,@CustomerId=@customer,
++    @Reason=N'ubicacion ajena',@OriginNodeId=@node,@Lines=@one;
++  THROW 59002,'ASSERT FAIL: ubicacion de otra sucursal aceptada',1;
++END TRY
++BEGIN CATCH IF ERROR_NUMBER()<>51527 THROW; END CATCH;
++
++-- 51528 turno de otra sucursal
++BEGIN TRY
++  EXEC sales.usp_PostCreditReturn @ReversalId=@rev,@CreditId=@credit,@SaleId=@sale,@BranchId=@branch,
++    @ReturnLocationId=@loc,@TillId=@tillB,@ActorId=@cashier,@ApprovedBy=@super,@CustomerId=@customer,
++    @Reason=N'turno ajeno',@OriginNodeId=@node,@Lines=@one;
++  THROW 59002,'ASSERT FAIL: turno de otra sucursal aceptado',1;
++END TRY
++BEGIN CATCH IF ERROR_NUMBER()<>51528 THROW; END CATCH;
++
++-- 51529 quien aprueba no puede aprobar devoluciones
++BEGIN TRY
++  EXEC sales.usp_PostCreditReturn @ReversalId=@rev,@CreditId=@credit,@SaleId=@sale,@BranchId=@branch,
++    @ReturnLocationId=@loc,@TillId=@till,@ActorId=@cashier,@ApprovedBy=@cashier,@CustomerId=@customer,
++    @Reason=N'sin permiso',@OriginNodeId=@node,@Lines=@one;
++  THROW 59002,'ASSERT FAIL: devolucion aprobada por quien no puede aprobar',1;
++END TRY
++BEGIN CATCH IF ERROR_NUMBER()<>51529 THROW; END CATCH;
++
++-- 51530 la venta es de otra clienta
++BEGIN TRY
++  EXEC sales.usp_PostCreditReturn @ReversalId=@rev,@CreditId=@credit,@SaleId=@sale,@BranchId=@branch,
++    @ReturnLocationId=@loc,@TillId=@till,@ActorId=@cashier,@ApprovedBy=@super,@CustomerId=@customer2,
++    @Reason=N'otra clienta',@OriginNodeId=@node,@Lines=@one;
++  THROW 59002,'ASSERT FAIL: devolucion a otra clienta aceptada',1;
++END TRY
++BEGIN CATCH IF ERROR_NUMBER()<>51530 THROW; END CATCH;
++
++-- 51531 pool de destino invalido
++DECLARE @web sales.ReturnLineRequest;
++INSERT INTO @web(SaleLineId,Quantity,RestockPool) VALUES(@line,1,'web');
++BEGIN TRY
++  EXEC sales.usp_PostCreditReturn @ReversalId=@rev,@CreditId=@credit,@SaleId=@sale,@BranchId=@branch,
++    @ReturnLocationId=@loc,@TillId=@till,@ActorId=@cashier,@ApprovedBy=@super,@CustomerId=@customer,
++    @Reason=N'pool invalido',@OriginNodeId=@node,@Lines=@web;
++  THROW 59002,'ASSERT FAIL: pool web aceptado',1;
++END TRY
++BEGIN CATCH IF ERROR_NUMBER()<>51531 THROW; END CATCH;
++
++-- 51531 cantidad cero
++DECLARE @zero sales.ReturnLineRequest;
++INSERT INTO @zero(SaleLineId,Quantity,RestockPool) VALUES(@line,0,'store');
++BEGIN TRY
++  EXEC sales.usp_PostCreditReturn @ReversalId=@rev,@CreditId=@credit,@SaleId=@sale,@BranchId=@branch,
++    @ReturnLocationId=@loc,@TillId=@till,@ActorId=@cashier,@ApprovedBy=@super,@CustomerId=@customer,
++    @Reason=N'cantidad cero',@OriginNodeId=@node,@Lines=@zero;
++  THROW 59002,'ASSERT FAIL: devolucion con cantidad cero aceptada',1;
++END TRY
++BEGIN CATCH IF ERROR_NUMBER()<>51531 THROW; END CATCH;
++
++-- 51534 una venta de valor cero no genera anticipo
++DECLARE @zlines sales.SaleLineRequest,@ztenders sales.SaleTenderRequest;
++INSERT INTO @zlines(LineNumber,ItemId,Quantity,UnitPriceMinor,DiscountMinor) VALUES(1,@item,1,120000,120000);
++EXEC sales.usp_PostSale @SaleId=@zeroSale,@BranchId=@branch,@LocationId=@loc,@CashierId=@cashier,
++     @CurrencyCode='NIO',@TillId=@till,@OriginNodeId=@node,@Lines=@zlines,@Tenders=@ztenders,
++     @CustomerId=@customer,@DiscountApproverId=@super,@DiscountReason=N'Autorizado para prueba';
++SET @zeroLine=(SELECT Id FROM sales.SaleLines WHERE SaleId=@zeroSale AND LineNumber=1);
++DECLARE @zeroRet sales.ReturnLineRequest;
++INSERT INTO @zeroRet(SaleLineId,Quantity,RestockPool) VALUES(@zeroLine,1,'store');
++BEGIN TRY
++  EXEC sales.usp_PostCreditReturn @ReversalId=@rev,@CreditId=@credit,@SaleId=@zeroSale,@BranchId=@branch,
++    @ReturnLocationId=@loc,@TillId=@till,@ActorId=@cashier,@ApprovedBy=@super,@CustomerId=@customer,
++    @Reason=N'valor cero',@OriginNodeId=@node,@Lines=@zeroRet;
++  THROW 59002,'ASSERT FAIL: devolucion de valor cero genero anticipo',1;
++END TRY
++BEGIN CATCH IF ERROR_NUMBER()<>51534 THROW; END CATCH;
++
++-- 51538 la identidad financiera cambia con otro anticipo
++EXEC sales.usp_PostCreditReturn @ReversalId=@rev2,@CreditId=@credit2,@SaleId=@sale,@BranchId=@branch,
++  @ReturnLocationId=@loc,@TillId=@till,@ActorId=@cashier,@ApprovedBy=@super,@CustomerId=@customer,
++  @Reason=N'devolucion valida',@OriginNodeId=@node,@Lines=@one;
++DECLARE @otherCredit uniqueidentifier=NEWID();
++BEGIN TRY
++  EXEC sales.usp_PostCreditReturn @ReversalId=@rev2,@CreditId=@otherCredit,@SaleId=@sale,@BranchId=@branch,
++    @ReturnLocationId=@loc,@TillId=@till,@ActorId=@cashier,@ApprovedBy=@super,@CustomerId=@customer,
++    @Reason=N'otro anticipo',@OriginNodeId=@node,@Lines=@one;
++  THROW 59002,'ASSERT FAIL: se emitio otro anticipo para la misma devolucion',1;
++END TRY
++BEGIN CATCH IF ERROR_NUMBER()<>51538 THROW; END CATCH;
++
++-- Solo la devolucion valida quedo guardada.
++SET @n=(SELECT COUNT(*) FROM sales.SaleReversals);
++EXEC test.AssertEq N'devoluciones guardadas',1,@n;
++SET @n=(SELECT COUNT(*) FROM credits.Credits);
++EXEC test.AssertEq N'anticipos emitidos',1,@n;
++SET @n=(SELECT ReturnedQuantity FROM sales.SaleLines WHERE Id=@line);
++EXEC test.AssertEq N'unidades devueltas de la linea de la venta valida',1,@n;
++SET @n=(SELECT ReturnedQuantity FROM sales.SaleLines WHERE Id=@zeroLine);
++EXEC test.AssertEq N'unidades devueltas de la linea de valor cero',0,@n;
++SET @n=(SELECT COUNT(*) FROM sales.SaleReversals WHERE Id=@rev);
++EXEC test.AssertEq N'la devolucion rechazada no existe',0,@n;
++PRINT 'PASS';

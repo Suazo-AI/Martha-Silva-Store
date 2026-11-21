@@ -1,0 +1,3561 @@
+{
+  "identity": "TRX testId, not truncated display name; later focused runs supersede earlier outcomes",
+  "counts": {
+    "Passed": 590,
+    "NotExecuted": 2
+  },
+  "cases": [
+    {
+      "test_id": "8abfc656-5a71-3ac0-99aa-3cc2aa251628",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Party_normalization_does_not_merge_people_or_rewrite_email_local_part",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "c8aad6ef-eae5-d014-aafd-6a571ea7218a",
+      "name": "Martha.Store.Api.Tests.SaviaContractTests.All_v2_routes_are_absent_when_the_synthetic_gate_is_closed(environment: \"Staging\", enabled: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "dbe6e330-3dd6-6f65-a4da-27810fe4d329",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Stale_or_forged_claims_and_invalid_sessions_are_rejected(mutation: \"role\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "bf69db93-8a71-4112-0ed9-f5f5bf2a9646",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Stale_or_forged_claims_and_invalid_sessions_are_rejected(mutation: \"duplicate_role\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "99b88b65-339b-0ae8-7d3d-119fda3cb133",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Forbidden_scope_is_rejected_before_storage_or_action(role: \"Cashier\", scope: \"directory.items.create\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "297518d5-d1e4-beb4-6bf5-7016f70d544d",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Ledger_rejects_uncontrolled_audit_kinds(kind: \"sale!\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "b6a36043-7fe3-1c98-8dd9-c6e061268195",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Transaction_command_role_matrix_is_closed_and_matches_each_module_scope(role: \"Manager\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "cb4b609d-6723-cd00-d348-1c5f5f296e5b",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Ledger_rejects_uncontrolled_audit_kinds(kind: \"sale change\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "f7dd2f25-dfa5-525f-b5d7-e491cefe276b",
+      "name": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.Invalid_or_multiple_keys_never_reach_command_runner(key: null)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "b6383e6e-6279-33be-7bbc-2f5ab58447e3",
+      "name": "Martha.Store.Api.Tests.PrivatePilotReleaseTests.Offline_current_release_scripts_are_context_isolated_without_model_drift",
+      "outcome": "Passed",
+      "source": "offline-script-corrected.trx"
+    },
+    {
+      "test_id": "f0a41925-22fb-f907-ce90-093ba01a2eac",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Explicit_real_currency_and_zero_or_positive_minor_unit_cost_are_valid",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "45da792b-24be-cdc1-2db9-142fa8c478f3",
+      "name": "Martha.Store.Api.Tests.InternalSupplySqlServerTests.Partial_multiline_receipt_replays_without_duplicate_stock_and_completes_remainder",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "f5a17b97-d99a-b2f8-67e6-7b869f6eefe5",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Recommended_synthetic_identity_is_visible_and_accepted",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "352b60ee-2114-269b-b219-a874109596c3",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Configuration_failure_is_sanitized_and_not_an_attempt",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "d5930073-4a05-baa5-24df-434235679cae",
+      "name": "Martha.Store.Api.Tests.SaviaContractTests.Invalid_idempotency_key_is_rejected_before_database_access(key: \"short\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "69de8588-9ad9-1796-035e-11c747f6d28f",
+      "name": "Martha.Store.Api.Tests.InternalSupplySqlServerTests.Cancelling_partial_order_preserves_received_stock_and_closes_only_remainder",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "4391c659-2e84-506e-e3ef-87da3da03df2",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Receipt_fingerprint_includes_order_identity_receipt_identity_and_quantity_but_not_list_order",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "37381190-a99e-7490-7714-49763a1309f4",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Invalid_minor_prices_are_rejected(price: 9223372036854775807)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "f64c27cf-00cf-537e-28fc-114cadc65047",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Sale_quantities_are_bounded_and_customer_is_optional(quantity: 1000001, valid: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "408bf8ef-37a3-4898-4394-8c1299c417c7",
+      "name": "Martha.Store.Api.Tests.SaviaContractTests.Server_owned_fields_are_rejected_before_database_access(field: \"onHand\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "6648bd92-f1a9-70d3-0edb-956b2bced546",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Transaction_command_role_matrix_is_closed_and_matches_each_module_scope(role: \"Inventory\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "69ee877f-9560-4a6a-72b6-443296625d4f",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Public_login_resources_are_unambiguous_uncached_and_contain_no_prefilled_identity(path: \"/internal/login.mjs\", contentType: \"text/javascript\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "a7f3e772-8b0b-1315-22b7-ff65bbf0559a",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Any_redirected_stream_refuses_without_reading_configuration(input: False, output: True, error: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "c5d514d7-6957-f096-23de-31d6c1e200fc",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryModelTests.Catalog_has_schema_unique_canonical_sku_integer_money_and_sql_constraints",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "3ed6e4c8-1041-0f35-63f9-a0602fdc345a",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Sale_does_not_accept_client_authoritative_fields(property: \"totalMinor\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "e0b7d7cb-7a4a-673f-f257-d938f440f85f",
+      "name": "Martha.Store.Api.Tests.InternalAuthReviewTests.Staff_update_keeps_existing_json_field_names_and_boolean_shape",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "666b808d-7f74-d917-e6da-d3154045f2b9",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Audit_entries_refuse_rewrites_and_deletes_before_SQL(kind: \"reversal\", delete: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "c49cf7e0-e185-41b9-5a19-169584840acf",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Currency_is_explicit_without_fixture_currency_or_normalizing_conversion(currency: \"\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "6ecb9625-b583-f9e8-e99d-548dfcb6443a",
+      "name": "Martha.Store.Api.Tests.SaviaContractTests.Server_owned_fields_are_rejected_before_database_access(field: \"totalMinor\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "a731c071-dc30-0158-f95b-cfed5e33f752",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Invalid_names_are_rejected_in_each_domain(name: \" \")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "83df5b33-db00-82f7-4d38-a24cf8ef943f",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Whole_order_total_is_bounded_not_only_individual_lines",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "5a68cc8a-8d38-1abd-328a-3f5df154df73",
+      "name": "Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Cancel_replays_and_different_key_cancel_cannot_restock_twice_or_refund_bank_money",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "d142d16b-9336-2e6c-d43e-6fd061703cd7",
+      "name": "Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Server_priced_multiline_sale_replays_immutable_receipt_after_price_change",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "87126289-2976-5f3b-4c8e-3b9d153e2b55",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Only_the_exact_command_is_accepted(argument: \"--INTERNAL-BOOTSTRAP-OWNER\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "5f8378e4-9dec-f850-093d-fff9098e6503",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Failover_partner_cannot_retarget_the_confirmed_database_or_expose_credentials",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "417a80b9-4439-5cf9-2e57-9a0f821a20d6",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Real_program_sql_role_change_and_disablement_revoke_cookies_and_enforce_new_role",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "35bb7091-9133-0f2e-cec9-ea7559790fb0",
+      "name": "Martha.Store.Api.Tests.InternalRunnerSqlTests.Typed_replay_preserves_nested_arrays_integer_money_nulls_and_timestamp",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "22724269-f81f-5958-af99-6d22fdc75b6d",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Credential_request_diagnostics_do_not_print_passwords",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "93e438c2-7b4b-174d-ff59-1ac27c556f36",
+      "name": "Martha.Store.Api.Tests.GuardTests.Database_guard_rejects_before_any_connection_is_opened(connection: \"Server=127.0.0.1;Database=master;Integrated Securi\"···)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "a1f2756b-64f3-70b1-4b92-5a65c09ae4c7",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Invalid_or_implicit_creation_targets_fail_closed_without_SQL(connection: \"Server=console-test.invalid;Database=SaviaInternal\"···)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "4fbe88e5-bf10-f0ed-3a4a-97becbc1cde8",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Invalid_party_contact_and_kind_are_rejected(kind: \"customer\", email: \"person@example.test\\r\\nBCC:other@example.test\", phone: null)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "a46b37da-b2cb-eb05-8d59-360b973fc883",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Actor_identifier_missing_malformed_or_empty_is_not_synthesized(id: \"not-a-guid\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "72ca428c-56d8-f6a0-9d03-9376c1918010",
+      "name": "Martha.Store.Api.Tests.InternalBranchCompatibilityTests.Location_fingerprint_keeps_request_presence_and_normalized_intent",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "06a1a1f0-7212-981a-b3d3-d0d9224dc914",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Missing_price_fractional_minor_units_and_overposting_are_rejected(json: \"{\\\"sku\\\":\\\"A\\\",\\\"name\\\":\\\"Item\\\",\\\"currency\\\":\\\"US\"···)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "c5e1e4d5-c850-f27f-9a01-07c3e8327987",
+      "name": "Martha.Store.Api.Tests.GuardTests.Database_guard_rejects_before_any_connection_is_opened(connection: \"Server=127.0.0.1;Database=MarthaSynthetic_;Integra\"···)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "0a6a4106-4278-3599-b395-727d0b3a4187",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Forbidden_scope_is_rejected_before_storage_or_action(role: \"Owner\", scope: \"unregistered.operation\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "6cbed9da-af5d-35be-9b50-793232835590",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Unauthenticated_role_claim_does_not_authorize_a_command(scope: \"commerce.sale.cancel\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "63905643-1f29-78d0-d0a1-d321d00f8a65",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Every_known_scope_has_an_exact_role_allowlist_and_requires_authentication(scope: \"commerce.stock.adjust\", allowed: [\"Owner\", \"Manager\", \"Inventory\"])",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "224adabd-7ae2-6b81-3b7d-ec195522cc2c",
+      "name": "Martha.Store.Api.Tests.InternalSecuritySqlTests.Owner_role_change_and_disablement_revoke_old_cookies_and_stale_versions_conflict",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "0aedf9d2-5eb5-f035-713e-da8e1624a419",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Password_minimum_is_consistent_between_prompt_and_validation(belowMinimum: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "811cab40-b188-f276-0ead-246ec8ef6d51",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Overlength_key_is_rejected_before_storage_or_action",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "81c3a9ed-91e6-1296-bbe5-29a303d5b89c",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Policies_enforce_role_boundaries(policy: \"internal.manage\", role: \"Manager\", expected: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "93df6c11-3dc7-2047-d137-88fe9e46b3ff",
+      "name": "Martha.Store.Api.Tests.GuardTests.Unapproved_database_catalog_fails_closed(connection: \"Server=127.0.0.1,1;Database=StoreProduction;Integr\"···)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "6bf49aa3-bb08-ea3a-f59d-a7cbbf60744e",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Cancellation_requires_auditable_reason(reason: \"   \")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "92d2786f-472d-8d89-3d95-45b983dfcc37",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Identity_control_rejection_names_field_but_never_prints_input(display: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "1979bfbe-15eb-224c-974e-27c94f117a93",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Actor_identifier_missing_malformed_or_empty_is_not_synthesized(id: \"\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "b9789c4f-3388-cd3b-a1fa-02b44a9eedae",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Idempotency_key_rejects_overlength_input",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "cf7c686d-d261-2d62-600b-74105347b9f1",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Integer_money_bounds_prevent_overflow_before_multiplication(price: 9000000, quantity: 1000000, valid: True, expected: 9000000000000)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "9fd785da-b067-e831-9d39-d6d026921319",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Commerce_services_are_scoped_for_one_transaction_context",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "bc4c8d76-818d-1e98-0e35-d1bd3078cd02",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.List_reads_are_bounded(skip: -1, take: 50)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "362de788-90b8-fbd3-b066-169c79f24eb3",
+      "name": "Martha.Store.Api.Tests.InternalBranchCompatibilityTests.Existing_required_fields_and_directory_unknown_property_rejection_remain",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "ef17b327-a813-9ab0-d27c-3ec3f3fdc78a",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Internal_database_guard_rejects_unsafe_catalog_or_savepoint_incompatible_options_before_open(connection: \"Server=127.0.0.1;Database=saviainternaltest_case;I\"···)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "9dda4c00-ce9d-a451-18a0-23e07c903422",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Every_known_scope_has_an_exact_role_allowlist_and_requires_authentication(scope: \"directory.items.deactivate\", allowed: [\"Owner\"])",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "54cb07cc-9373-04ee-28a1-c9a41fcac6e6",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Currency_is_explicit_three_ascii_letters_not_fixture_currency(currency: \"ÜSD\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "83b511ef-5f2c-e452-21b1-21460c7d7fda",
+      "name": "Martha.Store.Api.Tests.InternalMigrationTests.Offline_script_targets_an_existing_database_and_not_synthetic_tables(idempotent: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "7e040e57-3128-105f-296c-d21428ecd74b",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Failure_before_connection_open_returns_storage_unavailable_without_action_or_retry(role: \"Owner\", scope: \"commerce.sale.return\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "f4c3d715-7645-5ce2-bb71-977464097d1a",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Stale_or_forged_claims_and_invalid_sessions_are_rejected(mutation: \"missing_session\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "cb0dec61-4a3b-7084-74d1-6544414db34b",
+      "name": "Martha.Store.Api.Tests.GuardTests.Unapproved_database_catalog_fails_closed(connection: \"Server=127.0.0.1,1;Database=master;Integrated Secu\"···)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "44dd8b82-ceb6-167d-6fcc-8e57408298fe",
+      "name": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.Runner_error_semantics_are_preserved_by_http_mapper(error: \"idempotency_conflict\", status: 409)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "6d23faa0-7ae5-5481-facc-c0849bedfd0f",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Invalid_order_quantities_are_rejected(quantity: 1000001)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "dd9d7e65-914b-44d5-b046-a60f78faba96",
+      "name": "Martha.Store.Api.Tests.InternalCommerceSqlTests.Concurrent_consumers_cannot_oversell_one_available_unit",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "27e85031-3648-45f7-35fc-c55f3b93f9e9",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Invalid_inputs_and_missing_confirmations_never_invoke_service(lines: [\"NOT PRIVATE\", \"synthetic-owner\", \"Synthetic Owner\", \"SYNTHETIC-only-secret-marker\", \"SYNTHETIC-only-secret-marker\", ···])",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "17aa5c42-65b8-51dd-2593-31a21cefb86b",
+      "name": "Martha.Store.Api.Tests.InternalRunnerModelTests.Database_guard_rejects_noncanonical_catalog_even_when_quoted(catalog: \"SaviaInternalTest_a-b\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "1f58d817-7870-0a2e-1d8d-eca535e0516f",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Invalid_key_is_rejected_before_storage_or_action(key: \"123456789012345é\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "108e06ad-dce4-3fbf-c3c8-a9852d2d6461",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Ledger_delta_bounds_are_checked_without_SQL(onHand: 0, reserved: 2147483647, valid: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "b024d53e-8787-e87d-3251-a4272cb4bd8a",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Negative_and_overflow_costs_are_rejected_without_throwing(cost: 9223372036854775807)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "cc66b6c1-dc9b-6900-ae90-38863168e6b7",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Any_redirected_stream_refuses_without_reading_configuration(input: True, output: False, error: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "17bd5453-eaa1-1e2d-a98c-cb1a08d89be3",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Cancellation_before_any_attempt_is_a_refusal",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "4cef5626-4c6f-a04e-9698-aefefb3d9d90",
+      "name": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.Every_write_requires_owner_and_a_csrf_token(role: \"Inventory\", status: 403)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "7d7e3994-603e-220f-357f-184e1a141237",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Return_requires_unique_line_ids_reason_and_positive_bounded_quantities",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "bff3e52f-3852-d2f1-0f47-6082c6a9c84d",
+      "name": "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS01_03_Unassigned_manager_fails_closed_while_owner_remains_global",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "ce3df262-18d5-8884-cf8d-eb50a912bbfe",
+      "name": "Martha.Store.Api.Tests.GuardTests.Database_guard_rejects_quoted_catalog_with_trailing_line_feed(quote: \"'\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "904d5f1a-f756-027d-a140-aa7c1e8bf84f",
+      "name": "Martha.Store.Api.Tests.GuardTests.Liveness_does_not_claim_database_readiness",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "cc18ad2b-f407-7afb-cd4b-c6e249182dec",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Ledger_delta_bounds_are_checked_without_SQL(onHand: 0, reserved: -2147483648, valid: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "a6ec9866-e096-1602-c129-918c4229ab1d",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Ledger_requires_nonempty_server_actor_and_correlation",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "0669f159-7123-0243-fc35-ed938dac8ec9",
+      "name": "Martha.Store.Api.Tests.InternalSupplySqlServerTests.Revoked_staff_session_cannot_mutate_or_replay_supply_commands",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "bc070d46-2aad-08fa-89a1-f41e8ce551c2",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Invalid_inputs_and_missing_confirmations_never_invoke_service(lines: [\"PRIVATE\", \"invalid login\", \"Synthetic Owner\", \"SYNTHETIC-only-secret-marker\", \"SYNTHETIC-only-secret-marker\", ···])",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "09a0ec80-a826-adab-4043-23cb4802c883",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Every_known_scope_has_an_exact_role_allowlist_and_requires_authentication(scope: \"commerce.sale.record\", allowed: [\"Owner\", \"Manager\", \"Cashier\"])",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "08a194c3-451a-0db7-e424-247e542ec2aa",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Idempotency_key_rejects_noncanonical_input(key: \"123456789012345é\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "672ff089-ee8f-c052-d662-43dbff914a1b",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Stale_or_forged_claims_and_invalid_sessions_are_rejected(mutation: \"wrong_staff\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "f8ddc0b2-e62e-3f33-002e-cc57f9c46106",
+      "name": "Martha.Store.Api.Tests.GuardTests.Synthetic_writes_are_not_mapped_outside_explicit_test_gate(environment: \"Development\", enabled: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "a5e201f7-fa4a-16ac-6553-4646265064d8",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Invalid_or_implicit_creation_targets_fail_closed_without_SQL(connection: \"Server=console-test.invalid;Database=SaviaInternal\"···)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "09928eac-8815-a27b-fba6-2b302626fd89",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Unauthenticated_role_claim_does_not_authorize_a_command(scope: \"commerce.sale.return\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "ab3a52da-3874-868a-5bdb-bde413180abb",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Fingerprint_must_have_exact_digest_length_before_storage_or_action(length: 0)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "434be717-04a6-9cce-e165-4d514913f97e",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Environment_and_feature_gate_are_both_required(environment: \"Staging\", enabled: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "49d92f5e-cbff-2f4a-0111-fd6eae2ff71e",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Optional_contacts_are_nullable_not_fabricated",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "471809ec-195e-d707-5a00-4741423ca6ca",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Real_program_exposes_no_internal_endpoints_without_the_explicit_development_gate(environment: \"Development\", enabled: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "7eb463ca-4d05-e70f-0b41-bffca53e8075",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Invalid_or_implicit_creation_targets_fail_closed_without_SQL(connection: \"Server=console-test.invalid;Database=Production\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "0fe71319-90e7-ab16-79e9-3708ec63ac5a",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Real_program_exposes_no_internal_endpoints_without_the_explicit_development_gate(environment: \"Production\", enabled: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "7b344e3f-fe84-4828-fe72-c92fffd79a5a",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Invalid_party_contact_and_kind_are_rejected(kind: \"\", email: null, phone: null)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "445db702-5811-c8fd-68e8-ce33ed9256cb",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Missing_price_fractional_minor_units_and_overposting_are_rejected(json: \"{\\\"sku\\\":\\\"A\\\",\\\"name\\\":\\\"Item\\\",\\\"currency\\\":\\\"US\"···)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "4e6164a4-6aed-1ca1-3982-3ba139e5f712",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Cumulative_receipts_never_exceed_remaining(ordered: 10, received: 1, quantity: -1, expected: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "0f63b0af-ff2a-2279-b2a5-1c601005fb45",
+      "name": "Martha.Store.Api.Tests.InternalMigrationTests.Complete_migration_chain_creates_the_current_internal_table_set",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "0ca15dc3-aec9-219e-96e0-b63f157522e6",
+      "name": "Martha.Store.Api.Tests.SaviaContractTests.Capabilities_identify_synthetic_authority_without_database_access",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "b48fc237-2793-d03c-1435-c875d6f58c6a",
+      "name": "Martha.Store.Api.Tests.InternalSecuritySqlTests.Owner_can_disable_staff_with_an_inactive_retained_branch_without_reassigning_it",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "31de4672-39fa-9ba3-96f0-601f6c05c4ad",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Lists_expose_bounded_explicit_pagination(skip: 0, take: 101, valid: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "6b708aac-b232-647f-d203-360015666a74",
+      "name": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.Read_authorization_is_enforced_before_invalid_query_validation_without_sql(role: null, status: 401)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "d261ce16-9f10-76b1-5d41-d01983ce6afa",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Real_program_exposes_no_internal_endpoints_without_the_explicit_development_gate(environment: \"Testing\", enabled: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "41a3a5fe-534a-1875-db09-1d26fc67c366",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Ledger_rejects_uncontrolled_audit_kinds(kind: \"\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "4d1d9b61-b222-b7f9-66a4-37ddfef3173d",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Integer_money_bounds_prevent_overflow_before_multiplication(price: 1, quantity: 2147483647, valid: False, expected: 0)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "3e9312cd-b8f4-438f-b908-580b67bac3e0",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Every_known_scope_has_an_exact_role_allowlist_and_requires_authentication(scope: \"directory.items.create\", allowed: [\"Owner\"])",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "034468be-9946-24e5-3b10-c96caf2ec3ee",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Purchase_cost_must_be_explicit_not_defaulted_to_zero_when_omitted",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "0106be35-c534-5f71-9691-a6e25c284cef",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Currency_is_explicit_three_ascii_letters_not_fixture_currency(currency: \"USDD\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "00cf8a39-4b8d-43d3-0a36-f7218b8908d6",
+      "name": "Martha.Store.Api.Tests.InternalBranchCompatibilityTests.Existing_constructor_shapes_distinguish_absent_and_explicit_null",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "11d34d97-6994-afd7-54d9-f0ddf4bd2a06",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Sale_rejects_empty_or_duplicate_lines_and_invalid_ids",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "17286718-df9c-896c-5cfa-13e365e9f2f6",
+      "name": "Martha.Store.Api.Tests.InternalBranchCompatibilityTests.Invalid_branch_tokens_and_client_presence_objects_are_rejected(token: \"\\\"00000000-0000-0000-0000-000000000000\\\"\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "657b5691-c3d0-c1c9-c183-e4711b7a2a16",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Invalid_skus_are_rejected(sku: \"ſku\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "b8d41658-2c00-77fd-e89a-e1eb7f7ee703",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Login_names_are_bounded_unambiguous_identifiers(name: \" staff\", expected: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "4cb1756f-7fb6-adf5-3efc-2ae5b2df0475",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Public_confirmation_reports_safe_rejection_reason_without_calling_service(input: \"\", reason: \"Expected exactly PRIVATE\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "22c9b2be-b316-188b-f47d-1ba8c29c30f1",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Overlong_password_and_escape_cancel_before_any_service_call",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "d6e0f9d4-5fca-a111-9858-519c44fc3025",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Negative_and_overflow_costs_are_rejected_without_throwing(cost: -1)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "f9eb1a72-a5ab-1b4d-8a66-7e1d3e9b4efa",
+      "name": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.Read_authorization_is_enforced_before_invalid_query_validation_without_sql(role: \"Owner\", status: 400)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "830c066a-13a1-6761-d703-4f53a25d85f5",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Only_the_exact_command_is_accepted(argument: \"--migrate\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "c1d95212-d996-4438-7387-636364353d3e",
+      "name": "Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Rejected_later_line_rolls_back_earlier_line_and_failure_replay_remains_immutable",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "ddf78601-b2e0-6edf-94aa-518e4e3f0bc0",
+      "name": "Martha.Store.Api.Tests.InternalRunnerModelTests.Database_guard_rejects_wrong_catalog_or_MARS_without_connecting(connection: \"Database=SaviaInternalTest_Valid;Unsupported=true\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "99f7290e-4b5d-2e59-f7e4-a1c1a9d80dec",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Cumulative_receipts_never_exceed_remaining(ordered: 10, received: 10, quantity: 1, expected: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "f6086529-aafb-2c2d-6d73-19fe80b31f7c",
+      "name": "Martha.Store.Api.Tests.InternalCommerceSqlTests.Ledger_creates_only_zero_based_balance_and_records_server_actor",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "9601d0ea-a6cb-4048-84df-9e61b60f9494",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Lists_expose_bounded_explicit_pagination(skip: 0, take: 0, valid: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "3898d49f-1db2-4a60-394f-1e9483b73dcd",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Invalid_or_implicit_creation_targets_fail_closed_without_SQL(connection: \"\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "64d7226a-55e0-2d0d-606e-9c6bb4be784f",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Currency_rule_is_explicit_ascii_and_never_accepts_fixture_currency(currency: null, valid: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "08285918-2d59-a982-03eb-1d3d0b390d93",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Integer_money_bounds_prevent_overflow_before_multiplication(price: 9000000000000, quantity: 1, valid: True, expected: 9000000000000)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "925c802a-1b38-6b56-bf9d-f6e11a00a8b3",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Invalid_names_are_rejected_in_each_domain(name: \"Line Break\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "d135502c-8bb4-63a0-ac8c-93cc64ffb9ec",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Currency_is_explicit_without_fixture_currency_or_normalizing_conversion(currency: \"€UR\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "9dd92c1c-ec98-f2f4-da0b-9060019f2f99",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Integer_money_bounds_prevent_overflow_before_multiplication(price: 9000000000000, quantity: 2, valid: False, expected: 0)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "60010ec9-077f-2aaa-189c-dc9a6918b0cc",
+      "name": "Martha.Store.Api.Tests.InternalRunnerModelTests.Database_guard_rejects_wrong_catalog_or_MARS_without_connecting(connection: \"Database=MarthaSynthetic_Test_other\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "53bd7271-c5c1-6d7e-a699-7ad973b964e5",
+      "name": "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS20_22_Reassigned_manager_with_new_valid_session_cannot_replay_original_result",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "199bc219-16a8-981b-1372-5659125e1cc9",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Login_names_are_bounded_unambiguous_identifiers(name: null, expected: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "bdd39e8b-83ce-f33e-1a9c-ec28e7685754",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Partial_cancellation_reports_received_and_cancelled_without_inventing_stock_reversal",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "e9c0092f-5857-9fce-847a-6325f99c2c58",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Currency_rule_is_explicit_ascii_and_never_accepts_fixture_currency(currency: \"HNL\", valid: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "9b19746a-b6e1-3d9b-1997-44321e00ddd0",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Cookies_are_host_scoped_strict_secure_http_only_and_not_sliding",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "152253b0-bdc6-63de-341c-62b8c646905b",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Forbidden_scope_is_rejected_before_storage_or_action(role: \"Cashier\", scope: \"commerce.sale.return\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "ebc54f22-d0d0-410f-ad1e-c0b70e9cc20b",
+      "name": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.Read_authorization_is_enforced_before_invalid_query_validation_without_sql(role: \"Cashier\", status: 400)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "d94b234a-a0d9-d4f8-ee43-c264bf07e76a",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Currency_is_explicit_three_ascii_letters_not_fixture_currency(currency: \"U$D\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "de3e3253-2aa7-1959-9bf9-fafb5562a4c1",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Transaction_command_role_matrix_is_closed_and_matches_each_module_scope(role: \"Owner\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "a149b058-09e9-8a9c-c9b4-56bce801541a",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Unknown_or_noncanonical_scope_is_not_authorized_even_for_owner(scope: \"commerce.sale.refund\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "aad87ba0-f515-7d6a-1216-d7ed5fd9e7af",
+      "name": "Martha.Store.Api.Tests.InternalRunnerModelTests.Database_guard_accepts_only_documented_catalog_boundaries_without_claiming_server_authority(length: 1)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "0d957b7b-5d4d-decd-3851-4e3629ec70be",
+      "name": "Martha.Store.Api.Tests.GuardTests.Synthetic_writes_are_not_mapped_outside_explicit_test_gate(environment: \"Staging\", enabled: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "3170fda6-6737-e34a-3f7c-08fda50511d8",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Idempotency_key_rejects_noncanonical_input(key: \"123456789012345\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "cf4c351b-e2f4-f59a-4bd2-27370a491316",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Every_known_scope_has_an_exact_role_allowlist_and_requires_authentication(scope: \"supply.receipt.create\", allowed: [\"Owner\", \"Manager\", \"Inventory\"])",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "548ed15a-e761-2443-8f04-40e0a90cb074",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Real_program_exposes_no_internal_endpoints_without_the_explicit_development_gate(environment: \"Production\", enabled: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "3d297603-5c6a-4dfc-6652-dfae899ce197",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Login_admission_bounds_concurrency_and_attempts_then_recovers",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "8e8e29d3-20d3-ade9-3f63-ef39acfcb1be",
+      "name": "Martha.Store.Api.Tests.GuardTests.Synthetic_writes_are_not_mapped_outside_explicit_test_gate(environment: \"Production\", enabled: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "9f810651-63c4-9093-7a63-b79022ab853c",
+      "name": "Martha.Store.Api.Tests.InternalRunnerModelTests.Replay_identity_is_unique_per_actor_scope_and_exact_binary_key",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "7a2a7000-a6a7-b468-f2fa-5c7c997d51c3",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Invalid_skus_are_rejected(sku: \"\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "c579f144-b3b0-fc67-b885-ee1f2341cfd9",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Login_names_are_bounded_unambiguous_identifiers(name: \"a b\", expected: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "6fc10661-ec01-8634-c2f1-e19864068a68",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Missing_http_context_does_not_synthesize_an_actor",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "6946b859-fa23-b837-08c8-027739d9361b",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Global_login_budget_is_shared_across_addresses_and_recovers_after_window",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "7da264dc-b008-2ba5-6790-d87e31f48fb1",
+      "name": "Martha.Store.Api.Tests.InternalBranchCompatibilityTests.Invalid_branch_tokens_and_client_presence_objects_are_rejected(token: \"\\\"invalid\\\"\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "6b8a2d5f-c285-a855-f63c-fc4a6b14ee48",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Unknown_or_noncanonical_scope_is_not_authorized_even_for_owner(scope: \"Directory.items.create\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "81cc41e2-cb68-859c-1c6e-240e84d1356b",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Failure_before_connection_open_returns_storage_unavailable_without_action_or_retry(role: \"Manager\", scope: \"commerce.sale.return\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "ce531b94-87a2-f616-456e-2f3376a9572d",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Happy_path_is_one_call_after_both_confirmations_without_password_disclosure",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "1ab60218-c08f-b016-3dcb-b7354010a0cf",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Currency_rule_is_explicit_ascii_and_never_accepts_fixture_currency(currency: \"USD \", valid: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "279bbf7d-1989-be60-0e26-54158a08593f",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Policies_enforce_role_boundaries(policy: \"internal.manage\", role: \"Cashier\", expected: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "2db8ed60-287a-caec-5dec-9f952cf0743f",
+      "name": "Martha.Store.Api.Tests.InternalRunnerModelTests.Hosting_resolves_no_internal_context_from_missing_or_unguarded_configuration(connection: \"Database=SaviaInternalTest_config;MultipleActiveRe\"···)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "3a248295-81b5-e6dc-7f47-963e9f52a481",
+      "name": "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS24_Legacy_operation_fails_closed_for_manager_without_modifying_history",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "f5f05655-5909-7b70-2143-dc43287de228",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Multi_line_total_cannot_exceed_minor_unit_bound",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "46894e2d-7f01-965e-8ed3-ed6719a63aba",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryCommandTests.Invalid_inputs_never_enter_runner_or_open_sql",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "b4e1da31-8c05-3223-bdb0-49920f8357c1",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Forbidden_scope_is_rejected_before_storage_or_action(role: \"Inventory\", scope: \"commerce.sale.cancel\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "721415f8-c693-eb5d-b755-4c4035710386",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Nested_sale_line_rejects_client_price",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "c321f95e-5dea-04dd-beb4-b82294fbef12",
+      "name": "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS27_Inactive_location_allows_own_historical_reversal_but_not_foreign_reversal",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "e8483804-341b-1bf4-fe3b-0f6df4f954f6",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Invalid_key_is_rejected_before_storage_or_action(key: \"\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "cba22688-9ea1-7dc0-896a-6e099d18cf87",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Audit_entries_refuse_rewrites_and_deletes_before_SQL(kind: \"adjustment\", delete: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "fa152237-84fa-e16f-26c2-27e3deec7e59",
+      "name": "Martha.Store.Api.Tests.SaviaContractTests.Invalid_reservation_quantity_is_rejected_before_database_access(quantity: 101)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "94a83e84-7687-5643-713e-bd34039d263d",
+      "name": "Martha.Store.Api.Tests.InternalRunnerModelTests.Hosting_resolves_no_internal_context_from_missing_or_unguarded_configuration(connection: \" \")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "2e0a7e33-e9ed-5044-8614-c63472f8e33c",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Invalid_inputs_and_missing_confirmations_never_invoke_service(lines: [\"PRIVATE\", \"synthetic-owner\", \"Synthetic Owner\", \"SYNTHETIC-only-secret-marker\", \"SYNTHETIC-only-secret-marker\", ···])",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "911e5544-ada3-931f-9124-be9f41f38f6b",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Staff_application_sources_are_not_public_static_files(path: \"/internal/client.mjs\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "d2b1110f-373a-e35c-20d8-aa0a758d3066",
+      "name": "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS21_25_Operations_http_checks_persisted_scope_and_actor_before_returning_result",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "cdd02fcd-eda1-7ec9-ea72-b2f605205be6",
+      "name": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.Runner_error_semantics_are_preserved_by_http_mapper(error: \"unknown_outcome\", status: 503)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "046745e6-1118-a0d5-9036-f24e68bfe1e7",
+      "name": "Martha.Store.Api.Tests.InternalMigrationTests.Internal_and_store_contexts_discover_disjoint_migrations_and_snapshots",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "aad81537-7e90-b9d6-5f2b-d57bd4fc8bc2",
+      "name": "Martha.Store.Api.Tests.InternalRunnerModelTests.Replay_records_refuse_tracked_update_and_delete_on_both_save_overloads(delete: False, acceptAllChanges: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "1b7d0de0-11a8-a347-a81c-93f1ce903b60",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Service_exceptions_and_cancellation_are_unknown_not_failed_and_never_retried(cancelled: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "2b42036e-f986-88ef-4df6-a9eacd92bb6b",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Actor_identifier_missing_malformed_or_empty_is_not_synthesized(id: \"00000000-0000-0000-0000-000000000000\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "0e610580-be56-c29e-07c1-5c3531e02da4",
+      "name": "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS28_Cashier_cannot_read_purchase_costs_through_any_supply_get",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "748c5a12-d82a-dd94-a4e2-511cfa1ebbb7",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Cumulative_receipts_never_exceed_remaining(ordered: 10, received: 4, quantity: 7, expected: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "d379fda7-7d57-ce21-5721-f19e922ee752",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Idempotency_key_accepts_exact_documented_length_boundaries(length: 16)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "b7d7460a-a54f-7231-3598-749a581912ff",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Invalid_skus_are_rejected(sku: \" \")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "639c25e1-d253-f4af-0dd8-41ae6f2a217b",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Cumulative_receipts_never_exceed_remaining(ordered: 10, received: -1, quantity: 1, expected: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "1b05af81-1d62-22a2-f31d-4202a1956008",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Ledger_delta_bounds_are_checked_without_SQL(onHand: -1000000000, reserved: 1000000000, valid: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "9711a94d-3595-ad49-18d1-bbfcf8eca89d",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Every_known_scope_has_an_exact_role_allowlist_and_requires_authentication(scope: \"directory.locations.deactivate\", allowed: [\"Owner\"])",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "e0a70694-c227-d543-81d5-f991b44482b6",
+      "name": "Martha.Store.Api.Tests.InternalMigrationTests.Offline_script_targets_an_existing_database_and_not_synthetic_tables(idempotent: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "54528d35-0e2d-ca15-55db-0e9103ec89ea",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Every_known_scope_has_an_exact_role_allowlist_and_requires_authentication(scope: \"supply.purchase.create\", allowed: [\"Owner\", \"Manager\"])",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "971283a4-b038-8d3a-6679-f21f294b5351",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Ledger_rejects_uncontrolled_audit_kinds(kind: \"sále\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "30ba9356-a76b-e5c2-c38f-4b58208c724c",
+      "name": "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS29_Historical_location_cannot_be_remapped_to_expose_another_branch",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "a2e13cb5-e787-02a6-4d7c-df5c928ee83b",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Invalid_or_implicit_creation_targets_fail_closed_without_SQL(connection: \"Database=SaviaInternalTest_Console\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "6ee110c4-7dc2-4e2f-aabe-268e79a1f641",
+      "name": "Martha.Store.Api.Tests.InternalRunnerSqlTests.Storage_exception_after_action_started_is_unknown_not_retried_and_no_partial_write_survives",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "efb7c0a7-31ac-63e1-a947-a9fc4a416baa",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Public_login_resources_are_unambiguous_uncached_and_contain_no_prefilled_identity(path: \"/internal/login\", contentType: \"text/html\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "e0acd6b6-0ea5-79fb-7be1-93a3a739b842",
+      "name": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.Every_write_requires_owner_and_a_csrf_token(role: \"Manager\", status: 403)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "0dc560ac-4498-edcd-b547-7ffb72933d18",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Receipt_audit_records_refuse_updates_and_deletes_before_SQL(line: False, delete: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "a527d573-22c1-1aa4-217c-95bb2a64b992",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Forbidden_scope_is_rejected_before_storage_or_action(role: \"Inventory\", scope: \"commerce.sale.return\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "448d9ebf-5cc0-3da7-92e5-01ed5310a13b",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Staff_application_sources_are_not_public_static_files(path: \"/internal/app.mjs\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "295b23fb-3fce-124a-6eee-ce5e638db987",
+      "name": "Martha.Store.Api.Tests.GuardTests.Synthetic_writes_are_not_mapped_outside_explicit_test_gate(environment: \"Test\", enabled: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "b7b7b944-fb57-dc91-a3fc-66f902ff56cc",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Login_and_reusable_mutation_filter_require_a_real_csrf_pair_even_when_anonymous",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "b340c238-a253-e82f-c9a0-f369d8928875",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Currency_is_explicit_without_fixture_currency_or_normalizing_conversion(currency: \"USD \")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "5f36d6f9-9c0a-c9c3-7769-df69e5202fc5",
+      "name": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.Plain_http_is_rejected_before_reads_or_commands(method: \"GET\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "d8b07e25-9a12-a60c-dfe4-eaf51acea740",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Malformed_or_unknown_service_result_is_sanitized_and_uncertain(error: \"SYNTHETIC-only-secret-marker\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "d87b8a96-0e58-696e-d346-30eeb4b0cf8d",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Lists_expose_bounded_explicit_pagination(skip: 0, take: 100, valid: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "24b6bcd6-d683-cea7-b6e7-8f47dfe3c5e6",
+      "name": "Martha.Store.Api.Tests.SaviaModelGuardTests.Attempts_and_movements_refuse_rewrites_and_deletes_before_opening_SQL(movement: True, delete: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "dd878e5e-b5cb-0a8e-0e37-a857e9dd5f0d",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Extra_arguments_are_refused_before_configuration_or_input(extra: \"--InternalSavia:Enabled=true\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "5503dd4a-2a54-2162-5167-00364fa8c8dc",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Roles_are_a_closed_server_allowlist(role: \"Owner,Manager\", expected: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "f67c71a5-020a-b1d8-8065-3931026fca1c",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Payload_fingerprint_is_deterministic_and_changes_with_business_input",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "a5f6df69-7472-0c7b-de02-9d95d6f80b9e",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Failure_before_connection_open_returns_storage_unavailable_without_action_or_retry(role: \"Manager\", scope: \"commerce.sale.cancel\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "a0280afb-a5f6-c2a3-c832-7a8b2aead2c2",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Sale_quantities_are_bounded_and_customer_is_optional(quantity: 1, valid: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "aa01907a-7022-d4cf-13bf-ae0fe29d6244",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Invalid_party_contact_and_kind_are_rejected(kind: \"customer\", email: null, phone: \"abc\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "36f08c28-7581-8dd3-594e-15c621df4413",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Real_program_exposes_no_internal_endpoints_without_the_explicit_development_gate(environment: \"Staging\", enabled: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "5c2614a0-e3bd-2f4e-e854-2e5774b78cdb",
+      "name": "Martha.Store.Api.Tests.InternalRunnerModelTests.Replay_records_refuse_tracked_update_and_delete_on_both_save_overloads(delete: True, acceptAllChanges: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "917a9446-a8ee-9e8b-74b2-cc96be868636",
+      "name": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.Invalid_or_multiple_keys_never_reach_command_runner(key: \"short\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "579dbc89-4aee-87b8-b796-63665accb83f",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Invalid_key_is_rejected_before_storage_or_action(key: \"123456789012345\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "9abec637-5026-c230-5447-c13006f5ded8",
+      "name": "Martha.Store.Api.Tests.SaviaContractTests.All_v2_routes_are_absent_when_the_synthetic_gate_is_closed(environment: \"Test\", enabled: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "2a91d0cf-56f2-756a-fd65-91fe2a97f411",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Malformed_or_unknown_service_result_is_sanitized_and_uncertain(error: null)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "e8c5c29b-2ca7-f2a8-9595-4080a8ee1405",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Policies_enforce_role_boundaries(policy: \"internal.inventory\", role: \"Cashier\", expected: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "66c53b34-85dc-15ea-adf5-40b0c4d4c6a2",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Integer_money_bounds_prevent_overflow_before_multiplication(price: 0, quantity: 1000000, valid: True, expected: 0)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "dcf389a8-7ece-9eb7-0434-45e82b2c6f97",
+      "name": "Martha.Store.Api.Tests.SaviaContractTests.Invalid_reservation_quantity_is_rejected_before_database_access(quantity: 2147483647)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "c2a6c684-700f-632a-4c63-92d91a69ba3b",
+      "name": "Martha.Store.Api.Tests.InternalSecuritySqlTests.Failed_login_lockout_is_persisted_across_scopes_and_correct_password_cannot_bypass_it",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "2d8e5e6c-fb8a-51d2-465e-ed9a8dcd18c9",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Service_exceptions_and_cancellation_are_unknown_not_failed_and_never_retried(cancelled: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "dc0b7386-f81f-6551-2baf-57755fed11f7",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Stale_or_forged_claims_and_invalid_sessions_are_rejected(mutation: \"revoked\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "597a0e06-0c87-5277-6d6f-20b97ae84536",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Audit_entries_refuse_rewrites_and_deletes_before_SQL(kind: \"reversal_line\", delete: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "e9b0b258-61d6-8a45-7522-c75a531da5a1",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Every_known_scope_has_an_exact_role_allowlist_and_requires_authentication(scope: \"commerce.sale.cancel\", allowed: [\"Owner\", \"Manager\"])",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "59247487-60f6-b366-8d93-926c998f74e7",
+      "name": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.Runner_error_semantics_are_preserved_by_http_mapper(error: \"unauthorized\", status: 401)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "4338cc95-926f-cfd4-4433-3794b9b91639",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Receipt_audit_records_refuse_updates_and_deletes_before_SQL(line: False, delete: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "a6cb2841-02c0-724f-90e1-cb40daa75ca7",
+      "name": "Martha.Store.Api.Tests.InternalBranchScopeModelTests.Branch_associations_are_nullable_restricted_and_not_seeded_or_inferred",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "8c365ea1-b0e5-c402-ec00-eccba3317b66",
+      "name": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.Runner_error_semantics_are_preserved_by_http_mapper(error: \"storage_unavailable\", status: 503)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "8696686a-7a99-6a07-231b-1fc5dd014d16",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Real_program_rejects_insecure_internal_transport_before_identity_or_storage(path: \"/internal/api/security/me\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "f5375fdf-3fc5-6775-2d48-f91cb253e538",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Extra_arguments_are_refused_before_configuration_or_input(extra: \"--seed-synthetic\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "a8ba922b-c984-52b6-035e-2409d019d8e0",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Sale_does_not_accept_client_authoritative_fields(property: \"actorId\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "633029aa-9ac1-eefc-ef37-dadbc0611ce1",
+      "name": "Martha.Store.Api.Tests.InternalRunnerModelTests.Database_guard_rejects_noncanonical_catalog_even_when_quoted(catalog: \" SaviaInternalTest_starts\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "1006df10-1194-0c3f-b62e-4e3376d08142",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Stale_or_forged_claims_and_invalid_sessions_are_rejected(mutation: \"too_long\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "be76efed-5ea3-7ede-83da-b92596d17e55",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Currency_is_explicit_three_ascii_letters_not_fixture_currency(currency: \"xxx\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "eb62e3ad-2373-ba8d-aee8-acf4cb99cfae",
+      "name": "Martha.Store.Api.Tests.InternalRunnerModelTests.Database_guard_rejects_noncanonical_catalog_even_when_quoted(catalog: \"SaviaInternalTest_ends\\n\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "4d76d031-d06a-3e8b-a3d3-26d257db8bb6",
+      "name": "Martha.Store.Api.Tests.InternalMigrationTests.Initial_migration_creates_only_internal_tables_without_seed_or_custom_sql",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "a255746a-f068-c478-688f-312ea031e79b",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Invalid_key_is_rejected_before_storage_or_action(key: \"first-key-0000001,second-key-000001\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "6dad1fdb-5113-c106-9be6-7aa6626793e4",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Policies_enforce_role_boundaries(policy: \"internal.sell\", role: \"Cashier\", expected: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "5cab0916-a0ff-25e2-fe6f-e34cc25975b0",
+      "name": "Martha.Store.Api.Tests.SaviaContractTests.Invalid_idempotency_key_is_rejected_before_database_access(key: \"\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "879a698c-0b85-7829-f74e-fa64c055ed0e",
+      "name": "Martha.Store.Api.Tests.PrivatePilotReleaseTests.Frozen_fixture_survives_controlled_owned_container_stop_start",
+      "outcome": "NotExecuted",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "985bbc15-3867-81a5-3aeb-6748b7cf18c0",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Roles_are_a_closed_server_allowlist(role: \"owner\", expected: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "3a5199ae-175f-d6c4-d580-4f1f235b921a",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Currency_rule_is_explicit_ascii_and_never_accepts_fixture_currency(currency: \"USDD\", valid: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "2403d64d-df74-e778-43c4-3262e2fcd2e9",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Ledger_delta_bounds_are_checked_without_SQL(onHand: 0, reserved: 1, valid: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "fc7322d1-0999-ac38-1866-55380bf6edc5",
+      "name": "Martha.Store.Api.Tests.GuardTests.Unapproved_database_catalog_fails_closed(connection: \"\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "9d623be1-d67d-f253-6830-ff7784721d42",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Invalid_or_implicit_creation_targets_fail_closed_without_SQL(connection: \"Server='console-test.invalid\\nspoof';Database=Savi\"···)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "1c10c739-8d5e-e4de-ecea-95e749db92bc",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Policies_enforce_role_boundaries(policy: \"internal.owner\", role: \"Owner\", expected: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "7f5e41c0-5ae0-4c65-625b-e0e5edc17460",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Invalid_or_implicit_creation_targets_fail_closed_without_SQL(connection: \"Server=console-test.invalid;Database=SaviaInternal\"···)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "47ea4167-78d1-3cab-f60d-57e0a90746ee",
+      "name": "Martha.Store.Api.Tests.SaviaContractTests.Authority_mismatch_is_rejected_before_database_access_for_both_commands(field: \"instanceId\", value: \"another-synthetic-instance\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "4a28bae2-95e6-8c92-918e-04741233a024",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Environment_and_feature_gate_are_both_required(environment: \"Development\", enabled: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "c9aae9a3-07e6-22b8-58ea-62a4b918013a",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Public_login_resources_are_unambiguous_uncached_and_contain_no_prefilled_identity(path: \"/internal/styles.css\", contentType: \"text/css\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "cf98e0db-8585-49e4-eaa3-0dd3e273dd05",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Ledger_delta_bounds_are_checked_without_SQL(onHand: -2147483648, reserved: 0, valid: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "8c1cce8e-9ed8-943a-86b0-4b47df41dba9",
+      "name": "Martha.Store.Api.Tests.InternalMigrationTests.Design_time_factory_has_only_dummy_connection_and_ignores_arguments",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "af7b009f-5557-cec2-3483-ad0e31405682",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Currency_rule_is_explicit_ascii_and_never_accepts_fixture_currency(currency: \"EUR\", valid: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "ce11d228-4d15-6cc1-8133-76db6249f4da",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryModelTests.No_directory_entity_has_real_or_synthetic_seed_data",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "c9e47156-d737-421f-1295-3ff699764683",
+      "name": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.Every_write_requires_owner_and_a_csrf_token(role: \"Cashier\", status: 403)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "9150f1f6-dd39-79d7-340b-a853ebe7f7db",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Cancellation_requires_auditable_reason(reason: \"bad\\nreason\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "3116e45a-776d-fd75-1c9a-6d6d25dd640a",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Order_fingerprint_is_canonical_and_captures_supplier_currency_price_and_location",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "03d24633-3a70-68e2-59ad-39ec71c5eadd",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Login_names_are_bounded_unambiguous_identifiers(name: \"aa\", expected: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "3e01ddea-8154-cf23-2f08-1a351b4d0295",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Receipts_require_stable_identity_and_distinct_positive_lines",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "7b228b21-d2ee-c4aa-ce1d-11d8515bb92f",
+      "name": "Martha.Store.Api.Tests.SaviaContractTests.Server_owned_fields_are_rejected_before_database_access(field: \"customer\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "eedb0620-589e-c445-bac0-f03998e17ba5",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Forbidden_scope_is_rejected_before_storage_or_action(role: \"Cashier\", scope: \"supply.receipt.create\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "f9436d89-3d86-36ed-8101-b96af81cb7de",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Lists_expose_bounded_explicit_pagination(skip: 1000, take: 100, valid: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "7d0f49f6-f111-77be-ea07-a89ce036b9a0",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Server_owned_receipt_price_actor_and_state_are_not_accepted_in_requests",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "4cedc7ba-f882-0fd3-31e7-6c784ee897a8",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Invalid_order_quantities_are_rejected(quantity: -1)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "a549c414-112d-2fe3-d76f-312bb3e5bba2",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Audit_entries_refuse_rewrites_and_deletes_before_SQL(kind: \"movement\", delete: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "cc0097ab-aa40-7c8a-f034-1719cc1f9f28",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Audit_entries_refuse_rewrites_and_deletes_before_SQL(kind: \"reversal_line\", delete: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "0686d2fb-351d-9be2-b0e6-bb111ba6b57c",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Currency_is_explicit_without_fixture_currency_or_normalizing_conversion(currency: \"XXX\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "d93f4379-1548-256c-bd87-97518842e9e4",
+      "name": "Martha.Store.Api.Tests.SaviaContractTests.Authority_mismatch_is_rejected_before_database_access_for_both_commands(field: \"epoch\", value: \"2\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "d515d735-a4dc-936f-6d40-dcedfcfdbecb",
+      "name": "Martha.Store.Api.Tests.GuardTests.Database_guard_rejects_before_any_connection_is_opened(connection: \"\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "790f1411-84df-89f2-db1e-4f1156e52d2f",
+      "name": "Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Historical_cancellation_can_restore_inactive_item_and_location",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "4a03e565-6f34-f938-2f36-5add31eec864",
+      "name": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.Every_write_requires_owner_and_a_csrf_token(role: \"Visitor\", status: 403)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "162bcef6-992d-cbe8-ce17-cad8b282845f",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Unknown_or_noncanonical_scope_is_not_authorized_even_for_owner(scope: \"\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "68ee1210-0aa1-88ad-4b33-c2f85ed91f1c",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Normal_startup_and_migration_arguments_do_not_dispatch_bootstrap",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "0e61636b-7ba5-a823-124c-d276c39e6086",
+      "name": "Martha.Store.Api.Tests.InternalSecuritySqlTests.Password_reset_rotates_version_and_revokes_sessions_without_exposing_hash",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "e48ad1c9-37e7-02c1-f06b-f47fc8282d9a",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Currency_rule_is_explicit_ascii_and_never_accepts_fixture_currency(currency: \"USD\", valid: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "59f2d24a-1dd4-4380-e111-5d54be78617b",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Invalid_order_quantities_are_rejected(quantity: 2147483647)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "2a5d3f28-959e-2927-f6dd-4e025e562824",
+      "name": "Martha.Store.Api.Tests.InternalRunnerModelTests.Database_guard_rejects_wrong_catalog_or_MARS_without_connecting(connection: \"Database=saviainternaltest_lower\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "47d599a1-e9b1-b445-fe52-d1968ccd1a4a",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Currency_rule_is_explicit_ascii_and_never_accepts_fixture_currency(currency: \" USD\", valid: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "570a33a7-dddc-3c0d-11b2-41290046d975",
+      "name": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.Invalid_or_multiple_keys_never_reach_command_runner(key: \"invalid key with spaces\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "be72668c-3fc8-cdf5-58ab-644ce89239e7",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Sale_quantities_are_bounded_and_customer_is_optional(quantity: -1, valid: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "3106075f-ff2c-474e-b33d-7e1288b5cca2",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Out_of_bounds_scope_is_invalid_before_storage_or_action(length: 0)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "f44bb04c-b65e-c7eb-a7fd-f83d0f554d10",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Integer_money_bounds_prevent_overflow_before_multiplication(price: -1, quantity: 1, valid: False, expected: 0)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "978022d4-e81f-70f5-da0c-e1ab650b840c",
+      "name": "Martha.Store.Api.Tests.SaviaModelGuardTests.Attempts_and_movements_refuse_rewrites_and_deletes_before_opening_SQL(movement: True, delete: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "3751a8fd-26d2-38ff-0cc5-8f2652321d02",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Actor_identifier_missing_malformed_or_empty_is_not_synthesized(id: null)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "8ec8f503-2cd0-307f-9224-34976e7f588f",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Receipt_audit_records_refuse_updates_and_deletes_before_SQL(line: True, delete: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "d79e465d-798a-fe89-9c20-41cec72840df",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Fingerprint_rejects_nonhex_characters_before_storage_or_action(last: 'é')",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "3bdcc891-d2e2-45f9-0459-1fe35d39eecf",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Fingerprint_rejects_nonhex_characters_before_storage_or_action(last: '\\n')",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "f4b3f0af-900f-4211-beeb-3fd3ff699bff",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Model_has_separate_schema_composite_stock_identity_constraints_and_reference_protection",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "6882ba49-b535-b36e-aee5-f47101fc41e0",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Ledger_delta_bounds_are_checked_without_SQL(onHand: 1, reserved: 0, valid: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "903fac27-09d8-8fc3-f9dd-91ce744731be",
+      "name": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.Missing_actor_is_rejected_even_with_manager_role_and_valid_test_csrf",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "191344ff-2cf7-9557-60c4-ae9342067c75",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Every_known_scope_has_an_exact_role_allowlist_and_requires_authentication(scope: \"directory.parties.deactivate\", allowed: [\"Owner\"])",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "aa3a9457-b10b-acea-e611-db3eb42da0b9",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Currency_rule_is_explicit_ascii_and_never_accepts_fixture_currency(currency: \"usd\", valid: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "c90d4d0a-814c-6855-4a2e-a0b194b1a84b",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Anonymous_role_headers_cannot_authorize_staff_endpoints_and_http_cannot_get_tokens",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "3a14dca1-1723-732b-a6ec-ca29853518fb",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Invalid_names_are_rejected_in_each_domain(name: \"Line\\r\\nBreak\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "0ecd9b23-1768-a533-acc0-7bbbd186050e",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Tracked_audit_record_rewrite_or_delete_is_rejected_before_sql(delete: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "557235ee-7b49-3851-cab2-9ee76e0f3ee8",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Ledger_rejects_uncontrolled_audit_kinds(kind: \"Sale\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "efe846b1-b232-c21e-f221-2b422abfdf69",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Environment_and_feature_gate_are_both_required(environment: \"\", enabled: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "132895e9-69c6-9282-a435-e1c24a5e9664",
+      "name": "Martha.Store.Api.Tests.InternalSecuritySqlTests.Last_owner_cannot_be_disabled_or_demoted_and_non_owner_cannot_create_staff",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "99d6f20b-27fd-7299-dacd-7a1a64e73e50",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Failure_before_connection_open_returns_storage_unavailable_without_action_or_retry(role: \"Cashier\", scope: \"commerce.sale.record\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "ab16e131-8f9a-2f06-1754-bf9b8dfea7cc",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Password_minimum_is_consistent_between_prompt_and_validation(belowMinimum: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "c5ab8018-b947-d640-1244-deea947daed5",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Idempotency_key_rejects_noncanonical_input(key: null)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "8244576e-0980-0786-98e9-ad1deda4053e",
+      "name": "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS04_06_Sales_and_stock_filter_before_count_and_pagination_not_by_creator",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "dc021146-0a6d-cef9-dffb-5bb0377dd5ca",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Real_program_issues_real_csrf_tokens_but_rejects_missing_or_invalid_pairs_without_database_configuration",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "1d53ef47-7b6f-c3a0-177f-0145090fd772",
+      "name": "Martha.Store.Api.Tests.InternalRunnerSqlTests.Persisted_revocation_rejects_both_existing_replay_and_new_action",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "52b3132a-e30e-526c-b57a-f226673052c9",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Real_program_rejects_insecure_internal_transport_before_identity_or_storage(path: \"/INTERNAL/api/directory/items\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "43472a68-f5cd-b2b5-5b51-c884beb08b38",
+      "name": "Martha.Store.Api.Tests.InternalSupplySqlServerTests.Second_line_stock_failure_rolls_back_first_counter_stock_movement_and_receipt",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "9dbe2487-cdf0-a7a3-3c45-9d59cb729faa",
+      "name": "Martha.Store.Api.Tests.InternalSupplySqlServerTests.Overreceipt_rejects_every_line_and_conflicting_receipt_identity_cannot_be_reused",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "2b53aad4-6b75-debb-25b0-4cb448eba247",
+      "name": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.Invalid_or_multiple_keys_never_reach_command_runner(key: \"one-valid-key-1234,two-valid-key-1234\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "374fb02e-051f-a90b-ec27-dc0009bd2f56",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Fingerprint_rejects_nonhex_characters_before_storage_or_action(last: ' ')",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "c2f9cec7-243e-ebb0-d66e-19a8e3d0a635",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Backspace_edits_the_secret_without_echo",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "650f0c8b-1d82-afcf-062c-4bc1366eeb6f",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Only_the_exact_command_is_accepted(argument: \"--internal-bootstrap-owner=secret\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "7c00698d-b9ad-1a7c-00e0-d704e6f49e9a",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Currency_is_explicit_three_ascii_letters_not_fixture_currency(currency: \"123\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "9093a7cb-8449-c303-20f6-6115d3fb4b13",
+      "name": "Martha.Store.Api.Tests.InternalRunnerModelTests.Database_guard_rejects_wrong_catalog_or_MARS_without_connecting(connection: \"\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "26eff231-0008-e64e-ddeb-aa792487d169",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Integer_price_bounds_are_inclusive(price: 9000000000000)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "3faf73d5-53bc-3aae-86a4-f20962e3e46a",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Environment_and_feature_gate_are_both_required(environment: \"Production\", enabled: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "df6bf799-b9e7-550b-67c3-a24b46c7121c",
+      "name": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.Every_write_requires_owner_and_a_csrf_token(role: \"Owner\", status: 400)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "2ce40267-e968-104f-2460-8b66ac3a8f76",
+      "name": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.Every_write_requires_owner_and_a_csrf_token(role: null, status: 401)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "3da6360c-2d56-db82-d881-282b20888669",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryCommandTests.Update_resource_id_and_payload_are_part_of_replay_fingerprint",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "8fd11f7b-d09b-79e4-f78a-8a9c06b9ae2e",
+      "name": "Martha.Store.Api.Tests.InternalRunnerModelTests.Replay_records_refuse_tracked_update_and_delete_on_both_save_overloads(delete: True, acceptAllChanges: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "da168dc2-2c53-9d2b-e216-96f2f1e92c94",
+      "name": "Martha.Store.Api.Tests.SaviaContractTests.Authority_mismatch_is_rejected_before_database_access_for_both_commands(field: \"mode\", value: \"cga\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "d75e5ab4-d89b-0a57-ff29-77e1c0eb24da",
+      "name": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.Read_authorization_is_enforced_before_invalid_query_validation_without_sql(role: \"Manager\", status: 400)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "37f2d372-0bcd-b17b-25f8-88369d729bb1",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Canonical_ui_routes_redirect_without_ambiguous_endpoint_matches(path: \"/internal\", location: \"/internal/\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "2e156cd2-f0ac-ac5b-864a-161847cf20ef",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Out_of_bounds_scope_is_invalid_before_storage_or_action(length: 81)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "6eed1b74-7dc9-e02f-3bc8-cd751a57fd5e",
+      "name": "Martha.Store.Api.Tests.InternalAuthReviewTests.Staff_update_rejects_omitted_enabled_instead_of_silently_disabling_staff",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "0dfca74e-e206-f31a-7d79-92c5109e637d",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Existing_staff_closes_bootstrap_without_retry_or_recovery",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "bd807d9f-0fae-e23e-eae6-4ceb1853ab78",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Control_in_public_confirmation_reports_reason_and_drains_without_calling_service",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "df614f19-93a0-73c1-33ba-5a46fe9a6fec",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Every_protected_internal_api_rejects_anonymous_or_tampered_identity_before_business_storage(tampered: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "9b58a897-632e-e449-0ec9-a28d052c5cd3",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Currency_is_explicit_three_ascii_letters_not_fixture_currency(currency: null)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "a7eab101-2f2d-03b9-fec7-6f7a0c18f5a9",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Unknown_or_noncanonical_scope_is_not_authorized_even_for_owner(scope: \"directory.items\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "1b397c36-81e7-8522-9f08-ade678fcc44d",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Ledger_delta_bounds_are_checked_without_SQL(onHand: 0, reserved: -1, valid: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "fd222ed8-785e-203d-8390-3efa3330596d",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Invalid_inputs_and_missing_confirmations_never_invoke_service(lines: [\"PRIVATE\", \"synthetic-owner\", \"Synthetic Owner\", \"short\", \"short\", ···])",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "15624967-dcc1-a8cb-de2d-5e6f200c8868",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Policies_enforce_role_boundaries(policy: \"internal.sell\", role: \"Inventory\", expected: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "64379d53-c594-3b1b-aee5-3bd50c5921b2",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Idempotency_key_rejects_noncanonical_input(key: \"123456789012345,\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "a2623378-a5fb-15f7-2553-fa75107a0810",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Sale_and_reversal_routes_have_exact_server_policies_without_business_storage(path: \"/internal/api/commerce/sales/{id:guid}/cancel\", mutationPolicy: \"internal.manage\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "7043da50-2924-74af-de12-bd5460e8a0df",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Audit_entries_refuse_rewrites_and_deletes_before_SQL(kind: \"adjustment\", delete: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "21fe3e6a-f669-3664-0cac-5df3d2a85f61",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Cumulative_receipts_never_exceed_remaining(ordered: 2147483647, received: 1, quantity: 2147483647, expected: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "58741a53-1b44-9e5b-aa59-442612649fdf",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Real_program_rejects_insecure_internal_transport_before_identity_or_storage(path: \"/internal/api/directory/items\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "37cf4816-5e83-079c-0ed0-1ce3b0faee42",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Real_program_exposes_no_internal_endpoints_without_the_explicit_development_gate(environment: \"Development\", enabled: null)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "7ae65de1-1fb9-3446-8022-76c2e0cd1146",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Integer_price_bounds_are_inclusive(price: 0)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "64232995-cf74-fe54-d12d-9628b85a9565",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.List_reads_are_bounded(skip: 0, take: 0)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "03f0d4af-d700-78c3-1b32-012924c0c6fb",
+      "name": "Martha.Store.Api.Tests.InternalRunnerModelTests.Database_guard_rejects_wrong_catalog_or_MARS_without_connecting(connection: \"Database=SaviaInternalTest_safe;MultipleActiveResu\"···)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "9ec52b6b-25e6-d995-2606-3ddf2880f697",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Public_confirmation_reports_safe_rejection_reason_without_calling_service(input: \"PRIVATEX\\b\", reason: \"Too many characters\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "40c599e0-bb68-7aaa-0fa9-e48f4c3053ee",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Text_has_length_limits_and_normalizes_canonical_unicode_only",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "b5505751-e295-9b3d-190d-14fd3ec2b64f",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryCommandTests.Deactivation_uses_runner_and_fingerprints_the_resource(entity: \"items\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "a85b8c8c-64c7-24c0-d0ed-35af5a44e650",
+      "name": "Martha.Store.Api.Tests.InternalMigrationTests.Internal_snapshot_matches_the_current_design_time_model_without_a_server",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "02514aff-2d82-a601-c8df-e05ba63ee876",
+      "name": "Martha.Store.Api.Tests.InternalBranchCompatibilityTests.Invalid_branch_tokens_and_client_presence_objects_are_rejected(token: \"{\\\"isSpecified\\\":true,\\\"value\\\":null}\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "399fd7fb-755e-bcc9-7cb9-5c43fd7d0ae7",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Operation_replay_identity_has_binary_sql_semantics_unique_actor_scope_key_and_no_seed",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "a1630b4e-0f74-3bff-18d1-3d4bdd067ad6",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Sale_and_reversal_routes_have_exact_server_policies_without_business_storage(path: \"/internal/api/commerce/sales\", mutationPolicy: \"internal.sell\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "7f7b0331-517f-c1ec-620d-e74e0a9e5d57",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Failure_before_connection_open_returns_storage_unavailable_without_action_or_retry(role: \"Owner\", scope: \"commerce.sale.cancel\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "74269962-288c-0914-6d91-c4d5b1b4b90f",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Empty_login_reports_no_characters_without_calling_service",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "69058df5-b359-b6b0-cbdd-ae076d72a2cd",
+      "name": "Martha.Store.Api.Tests.GuardTests.Database_guard_accepts_only_named_synthetic_catalog",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "c1224382-d363-04bc-399a-7747ca4f699d",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Invalid_names_are_rejected_in_each_domain(name: null)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "bd70187c-1fec-8c1a-d123-0ff192dc5e86",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Sale_quantities_are_bounded_and_customer_is_optional(quantity: 0, valid: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "6dab2d03-3054-b9cd-bbf2-3e708e21f727",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Audit_entries_refuse_rewrites_and_deletes_before_SQL(kind: \"reversal\", delete: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "03b8b079-acb0-592b-daa5-4a633c902edd",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Mutation_without_root_transaction_is_refused_before_SQL",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "40f11eaf-2002-2a4f-885e-25d5de9fb5df",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Lists_expose_bounded_explicit_pagination(skip: -1, take: 100, valid: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "8a4b6ffc-5804-1d3a-a9bc-89312563f672",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Invalid_party_contact_and_kind_are_rejected(kind: \"staff\", email: null, phone: null)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "73019318-73fa-2aa2-fba5-381cfdb94e52",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Invalid_names_are_rejected_in_each_domain(name: \"\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "90942e72-7330-a12c-20bf-a1a9690b6c73",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Every_known_scope_has_an_exact_role_allowlist_and_requires_authentication(scope: \"directory.locations.update\", allowed: [\"Owner\"])",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "3d9d61cc-6231-842a-85c0-a23acede6dd6",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Invalid_names_are_rejected_in_each_domain(name: \"Spoof‮text\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "a2d5dbc1-23f7-fba1-396f-4c88dfcafe7c",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Currency_rule_is_explicit_ascii_and_never_accepts_fixture_currency(currency: \"XXX\", valid: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "0d13348e-6bad-64e8-75a5-98fea6d0a2a0",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Canonical_ui_routes_redirect_without_ambiguous_endpoint_matches(path: \"/internal/\", location: \"/internal/login\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "beb7966c-e65f-c14b-d8c9-500834e2c4a3",
+      "name": "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS07_12_Foreign_sale_reads_and_reversals_do_not_expose_or_mutate_the_sale",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "2a1d3a6f-9ed0-0fd6-d5cf-82f1f2636c45",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Every_known_scope_has_an_exact_role_allowlist_and_requires_authentication(scope: \"commerce.sale.return\", allowed: [\"Owner\", \"Manager\"])",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "3d833ef0-c6e5-8a87-fe99-b9e3a40d665c",
+      "name": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.Authorized_write_reaches_only_shared_runner_and_never_fake_persistence",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "f4b20f1e-929c-7d53-1b44-5fffd0b40f22",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Invalid_key_is_rejected_before_storage_or_action(key: \"123456789012345\\n\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "3fe213fe-ed7f-9fd8-7aa1-766fe8e3d4ec",
+      "name": "Martha.Store.Api.Tests.InternalBranchCompatibilityTests.Invalid_branch_tokens_and_client_presence_objects_are_rejected(token: \"12\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "025a8c29-3b53-69e0-8523-094f7c832365",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Transaction_command_role_matrix_is_closed_and_matches_each_module_scope(role: \"Admin\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "12aa42d7-9715-7f36-3ba4-e8f4db1152b6",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Every_known_scope_has_an_exact_role_allowlist_and_requires_authentication(scope: \"directory.items.update\", allowed: [\"Owner\"])",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "8fcb7359-5aa8-0726-50c4-6ce7acbd42b8",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Internal_database_guard_rejects_unsafe_catalog_or_savepoint_incompatible_options_before_open(connection: \"Server=127.0.0.1;Database=SaviaInternalTest_;Integ\"···)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "fde30e13-cdf0-d3b5-bf07-7525a0470c44",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Real_program_rejects_insecure_internal_transport_before_identity_or_storage(path: \"/internal/api/security/csrf\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "b9043635-4bda-a604-ed6d-399fb4924e55",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Idempotency_key_rejects_noncanonical_input(key: \"123456789012345 \")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "db89cb98-48d2-8ca5-5ad5-3d0e769a1f13",
+      "name": "Martha.Store.Api.Tests.InternalAuthReviewTests.Staff_update_accepts_explicit_enabled_state(enabled: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "e2ce39e9-f1b7-3464-be7f-5032b4cb6c0d",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Login_names_are_bounded_unambiguous_identifiers(name: \"stáff\", expected: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "598a76d7-ea16-5413-8fc2-e24ee5f3e2ac",
+      "name": "Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Same_sale_key_with_different_payload_is_a_conflict_not_a_second_sale",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "1e8a1d0f-945d-2b22-732d-56719e43c062",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Forbidden_scope_is_rejected_before_storage_or_action(role: \"Inventory\", scope: \"supply.purchase.cancel\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "37b21dbf-d43f-f2e2-fb1a-389963b95f8f",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Every_known_scope_has_an_exact_role_allowlist_and_requires_authentication(scope: \"directory.parties.create\", allowed: [\"Owner\"])",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "cce9536f-4778-6154-fdfb-97b1119593be",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Idempotency_key_accepts_exact_documented_length_boundaries(length: 128)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "cabc5734-bff0-8c57-5bfa-1fe7344a5a44",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Private_internal_gate_does_not_enable_synthetic_v1_or_v2",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "3d296d47-0c51-1034-cfce-76b2590bbf94",
+      "name": "Martha.Store.Api.Tests.InternalRunnerModelTests.Database_guard_rejects_noncanonical_catalog_even_when_quoted(catalog: \"SaviaInternalTest_ends \")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "6e65c416-70bc-ae73-9989-96ececf352c0",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Invalid_order_quantities_are_rejected(quantity: 0)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "d4b19f9c-604c-4bac-75ac-09ea1243ca54",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Transaction_command_role_matrix_is_closed_and_matches_each_module_scope(role: \"Cashier\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "cb230d28-f20c-8b35-af83-6e8ea27e2c24",
+      "name": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.Read_authorization_is_enforced_before_invalid_query_validation_without_sql(role: \"Inventory\", status: 400)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "e7f41313-9777-77c3-4111-95dc83b786fb",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Cumulative_receipts_never_exceed_remaining(ordered: 10, received: 4, quantity: 6, expected: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "efd0091a-ab9d-2a49-5508-177150239738",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Invalid_command_is_rejected_before_any_sql_or_command_runner_call",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "d412ee93-59e3-1a51-87b6-2c0c44db803a",
+      "name": "Martha.Store.Api.Tests.InternalRunnerModelTests.Database_guard_rejects_wrong_catalog_or_MARS_without_connecting(connection: \"Database=SaviaInternal_Production\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "fe26d515-d440-1aa0-7eb1-8d129fbd5782",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Real_program_sql_login_issues_cookie_and_logout_revokes_even_the_replayed_old_cookie",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "7f331b3e-1305-338c-b946-09f385ee63ae",
+      "name": "Martha.Store.Api.Tests.InternalBranchCompatibilityTests.Staff_omitted_null_and_guid_are_distinct",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "ae2a329c-7a96-22ee-4745-a149db062f73",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Stale_or_forged_claims_and_invalid_sessions_are_rejected(mutation: \"expired\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "e1f28b3b-9a53-0d4a-8d2b-b562f8fe9ce8",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Receipt_audit_records_refuse_updates_and_deletes_before_SQL(line: True, delete: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "dbc56734-8ef7-2092-ce75-446477fd17a1",
+      "name": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.Runner_error_semantics_are_preserved_by_http_mapper(error: \"forbidden\", status: 403)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "4658e4bb-fe9b-24bc-6969-c428486c4290",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Currency_is_explicit_three_ascii_letters_not_fixture_currency(currency: \"XXX\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "2f3fd37f-5d2f-4583-b84c-fc9e6cacfbba",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Invalid_minor_prices_are_rejected(price: -1)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "f961ee93-8842-e574-af0d-5ed66f010075",
+      "name": "Martha.Store.Api.Tests.InternalRunnerModelTests.Database_guard_rejects_noncanonical_catalog_even_when_quoted(catalog: \"SaviaInternalTest_é\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "ed60ef4f-39a1-9007-63dc-a440510fd9e7",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Cumulative_receipts_never_exceed_remaining(ordered: 10, received: 0, quantity: 10, expected: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "043baafd-f4b3-a929-56ae-b8e393ae098d",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Invalid_or_implicit_creation_targets_fail_closed_without_SQL(connection: null)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "170a27c5-3fde-1cd4-78d0-aa16dfee6891",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Currency_rule_is_explicit_ascii_and_never_accepts_fixture_currency(currency: \"US1\", valid: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "21d7956f-8ab5-f136-ae02-6bc3c9512877",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Unknown_or_noncanonical_scope_is_not_authorized_even_for_owner(scope: \"security.staff.create\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "1d568c4f-ea76-df1c-1793-4a9f546e4712",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Idempotency_key_rejects_noncanonical_input(key: \"\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "5562d31f-d82d-d6b6-e562-b571eec29b93",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Invalid_inputs_and_missing_confirmations_never_invoke_service(lines: [\"PRIVATE\", \"synthetic-owner\", \"Synthetic Owner\", \"SYNTHETIC-only-secret-marker\", \"different synthetic secret\", ···])",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "1cb44a03-aea1-733d-992c-85260c402d03",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Internal_database_guard_rejects_unsafe_catalog_or_savepoint_incompatible_options_before_open(connection: \"\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "f46b82c9-6680-2fa9-9dab-00c8359825b5",
+      "name": "Martha.Store.Api.Tests.InternalSupplySqlServerTests.Competing_receipts_for_last_units_cannot_overreceive",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "3e373263-4828-00fa-c64e-6b4aaa511fe5",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.List_reads_are_bounded(skip: 0, take: 101)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "21af8ed5-044c-9e4d-da52-6f05cf2d92fc",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Only_the_exact_command_is_accepted(argument: \"--internal-bootstrap-owner-typo\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "27129f24-b8a7-61b3-d036-2c4029d4cd16",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Currency_is_explicit_three_ascii_letters_not_fixture_currency(currency: \"US\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "b4a6b6e5-9432-258d-f6e8-ec0b341f58c8",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Empty_actor_is_invalid_before_identity_or_storage",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "706aeacc-127c-501c-c655-2ebec2d2e649",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Missing_price_fractional_minor_units_and_overposting_are_rejected(json: \"{\\\"sku\\\":\\\"A\\\",\\\"name\\\":\\\"Item\\\",\\\"currency\\\":\\\"US\"···)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "c54e94c6-5b06-ae1a-81f0-a12a3657e37b",
+      "name": "Martha.Store.Api.Tests.SaviaContractTests.All_v2_routes_are_absent_when_the_synthetic_gate_is_closed(environment: \"Production\", enabled: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "91b269c6-8b1b-7d04-4bbe-1dede51ae9c8",
+      "name": "Martha.Store.Api.Tests.InternalAuthReviewTests.Staff_update_accepts_explicit_enabled_state(enabled: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "73a754f3-13a6-2719-ea40-03fae0ef905d",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Any_redirected_stream_refuses_without_reading_configuration(input: False, output: False, error: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "d2fd044f-8a5b-dc29-3323-e184247c6694",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.List_reads_are_bounded(skip: 100001, take: 50)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "a6c9df4b-defe-bca9-232d-d4e6ea9f49a2",
+      "name": "Martha.Store.Api.Tests.SaviaContractTests.All_v2_routes_are_absent_when_the_synthetic_gate_is_closed(environment: \"Production\", enabled: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "aa2ab632-863b-e118-e674-7163f18634ae",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Policies_enforce_role_boundaries(policy: \"internal.owner\", role: \"Manager\", expected: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "d010352b-3f1e-e173-0b1f-d5f39750fcbf",
+      "name": "Martha.Store.Api.Tests.SaviaContractTests.Server_owned_fields_are_rejected_before_database_access(field: \"unitPriceMinor\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "4d7575e0-b8ad-a2de-b370-921e686f2df6",
+      "name": "Martha.Store.Api.Tests.InternalRunnerModelTests.Hosting_registers_real_scoped_runner_and_SQL_context_without_opening_connection",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "7c09c140-bc59-d271-5e67-0fb1e9419dc4",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Stale_or_forged_claims_and_invalid_sessions_are_rejected(mutation: \"version\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "db9c6c38-0227-4433-2327-4330ccf706ca",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Staff_and_sessions_are_in_separate_schema_with_unique_login_and_concurrency_guard",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "d91e3f4d-f71b-fc04-438b-590eeb1e8cde",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Policies_enforce_role_boundaries(policy: \"internal.read\", role: \"Unknown\", expected: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "a9984ae5-912c-987f-6d20-8a45f788532e",
+      "name": "Martha.Store.Api.Tests.GuardTests.Database_guard_rejects_before_any_connection_is_opened(connection: \"not a connection string\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "1dd0206d-0924-5cd1-d866-30ebcc44d019",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Persisted_session_and_current_staff_are_both_required",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "728f1e57-a8fb-c20e-e527-e776cd6b3378",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Sale_does_not_accept_client_authoritative_fields(property: \"currency\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "363dc5cf-65b0-23f3-0ec3-f8a40d1a3df3",
+      "name": "Martha.Store.Api.Tests.PrivatePilotReleaseTests.Real_migration_reapply_throwaway_down_up_and_actual_backup_restore",
+      "outcome": "NotExecuted",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "1a6346d9-b137-42c6-fe4b-142534c98ddf",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Empty_supplier_location_and_control_character_reference_are_rejected",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "2d564cf3-bfe1-795f-1713-84b56153c500",
+      "name": "Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Mixed_currency_sale_is_rejected_without_inventory_mutation",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "0cc4874e-3500-f9f4-1fd3-70267e4b7fe5",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Ledger_delta_bounds_are_checked_without_SQL(onHand: 1000000000, reserved: -1000000000, valid: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "d73c4bea-4202-9891-e72b-76e51616ce0b",
+      "name": "Martha.Store.Api.Tests.SaviaModelGuardTests.Attempts_and_movements_refuse_rewrites_and_deletes_before_opening_SQL(movement: False, delete: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "b82b0005-676c-8847-7792-8c3521af4006",
+      "name": "Martha.Store.Api.Tests.InternalRunnerSqlTests.Replay_identity_isolated_by_actor_scope_and_case_sensitive_key",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "81d5bbfb-28f0-7402-288c-6fea5e9e30d5",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Different_authenticated_actor_cannot_run_another_actors_operation",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "af7773ff-907f-719b-7b98-4cfca5ef3582",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Maximum_length_unknown_scope_is_forbidden_not_treated_as_malformed",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "0a34ff05-8a3f-8661-0c8d-02739c62f73e",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Failure_before_connection_open_returns_storage_unavailable_without_action_or_retry(role: \"Owner\", scope: \"directory.items.create\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "d5b1336f-2824-b3fe-430e-ca6201d2e865",
+      "name": "Martha.Store.Api.Tests.InternalSecuritySqlTests.Successful_login_is_persisted_replaces_previous_session_and_logout_revokes_it",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "258b7bca-363f-4547-e00b-d38f2ae31288",
+      "name": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.Plain_http_is_rejected_before_reads_or_commands(method: \"POST\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "5cafeb5e-f68d-0c8e-4562-e0e27162a848",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Idempotency_key_rejects_noncanonical_input(key: \"１２３４５６７８９０１２３４５６\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "612d68fd-1b08-6d9c-3ea7-f53f2f603fcc",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Catalog_normalizes_sku_without_repricing_or_conversion",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "e924fd81-7c42-e878-3b18-9611eacee1fb",
+      "name": "Martha.Store.Api.Tests.InternalBranchCompatibilityTests.Invalid_branch_tokens_and_client_presence_objects_are_rejected(token: \"{\\\"isSpecified\\\":false,\\\"value\\\":\\\"fc300e41-365e-4\"···)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "61d8b8a5-303c-d5cd-3749-a8e4b1d5ce13",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Malformed_commands_fail_before_runner_or_SQL",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "79589da5-0e44-c2b8-53cd-a4dc0dbaa0fc",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Identity_and_confirmations_are_visible_while_both_passwords_are_masked",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "68255645-7f9f-0ae8-b8ca-c29773daaca9",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Internal_database_guard_accepts_only_test_catalog_with_exact_suffix_bounds_without_opening_sql",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "d344c26b-9d26-f62a-0056-2134669cb637",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Missing_provider_is_refused_before_callback_without_substituting_a_fake_database(keyLength: 128, lowercaseDigest: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "19929b91-995d-7844-672f-821c1d2640b4",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Extra_arguments_are_refused_before_configuration_or_input(extra: \"--migrate\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "e6110676-505f-fcf8-af19-ebd40091e033",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Stale_or_forged_claims_and_invalid_sessions_are_rejected(mutation: \"unknown_role\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "9b2b3aed-870c-2047-8332-50ed8f58efba",
+      "name": "Martha.Store.Api.Tests.InternalCommerceSqlTests.Ledger_rejects_lower_isolation_before_mutating_SQL",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "f81e60cc-7c83-2dec-aefe-c74ef4afc696",
+      "name": "Martha.Store.Api.Tests.InternalRunnerModelTests.Replay_records_refuse_tracked_update_and_delete_on_both_save_overloads(delete: False, acceptAllChanges: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "c3be1e07-e19a-b5d7-b3a7-665dec0e530a",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Roles_are_a_closed_server_allowlist(role: \"Inventory\", expected: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "a7705f04-6756-a4fe-9132-6f4516d083e3",
+      "name": "Martha.Store.Api.Tests.InternalRunnerSqlTests.Persisted_role_change_revokes_old_permission_before_replay_and_current_role_cannot_replay_it",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "4914c2d1-4c53-cba4-3158-1bfcfcc3a6b0",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Transaction_command_role_matrix_is_closed_and_matches_each_module_scope(role: \"owner\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "39af819b-395e-7899-1c7d-7bc762863715",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Policies_enforce_role_boundaries(policy: \"internal.inventory\", role: \"Inventory\", expected: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "9ad4e382-46ab-bb9a-b774-88cdb9c40325",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Public_confirmation_reports_safe_rejection_reason_without_calling_service(input: \"private\", reason: \"Expected exactly PRIVATE\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "e3e87776-13a7-c858-868b-ce013ddac27e",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Sale_quantities_are_bounded_and_customer_is_optional(quantity: 2147483647, valid: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "8682c6ac-1dd8-5ec3-63d6-2e05239d6949",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Invalid_skus_are_rejected(sku: null)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "8fca01f8-040d-5caa-aeb9-3e0984fc9952",
+      "name": "Martha.Store.Api.Tests.InternalBranchCompatibilityTests.Invalid_branch_tokens_and_client_presence_objects_are_rejected(token: \"{}\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "7ebf197f-58f8-fded-fd07-5d553f2cd81a",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Anonymous_challenges_and_login_csrf_do_not_resolve_database_configuration",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "87d98d2a-e454-4259-95c7-fcf7f21697ea",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Invalid_or_implicit_creation_targets_fail_closed_without_SQL(connection: \"Server=console-test.invalid;Database=SaviaInternal\"···)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "44754d72-fb08-1f10-54cd-e1ab324510e5",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Invalid_skus_are_rejected(sku: \"bad sku\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "84115e27-6ecd-b08e-078f-30e6615c98a4",
+      "name": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.Invalid_or_multiple_keys_never_reach_command_runner(key: \"\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "4c7de403-cc01-8602-9dbc-c37e35028657",
+      "name": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.Runner_error_semantics_are_preserved_by_http_mapper(error: \"unauthenticated\", status: 401)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "38e52681-7ce9-c5ea-dcf3-5eb2659bb392",
+      "name": "Martha.Store.Api.Tests.SaviaContractTests.All_v2_routes_are_absent_when_the_synthetic_gate_is_closed(environment: \"Test\", enabled: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "0e76de5b-970c-f2ce-1574-b77cb2c93c2d",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Internal_database_guard_rejects_unsafe_catalog_or_savepoint_incompatible_options_before_open(connection: \"Server=127.0.0.1;Database=master;Integrated Securi\"···)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "d284f777-8906-1c33-cbc8-3dbd48f5b84a",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Roles_are_a_closed_server_allowlist(role: \"Owner\", expected: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "80b0bf06-902f-67f7-1da3-5d11fd9a87fe",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Registered_password_hasher_uses_salted_hashes_and_rejects_wrong_input",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "42c918d7-6b7a-66dc-cf82-f87c9846571b",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Sale_quantities_are_bounded_and_customer_is_optional(quantity: 1000000, valid: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "e480ba76-241b-5aa5-d35b-7d62a0ab2560",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Cancellation_requires_auditable_reason(reason: \"\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "24f6605c-5cef-80cd-dc61-d0e5cc1176a1",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Fingerprint_rejects_nonhex_characters_before_storage_or_action(last: 'G')",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "113a9749-9a61-2ea4-fcf1-6b1f0da7093c",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Sql_model_has_private_schema_quantity_checks_unique_lines_and_cross_order_receipt_foreign_keys",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "8d280504-1944-7d0e-a99f-784f50a16112",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryModelTests.Party_names_and_shared_contact_details_are_not_unique_identifiers",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "91314576-e03c-27bc-0e55-882a09c32421",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Missing_provider_is_refused_before_callback_without_substituting_a_fake_database(keyLength: 16, lowercaseDigest: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "55e8155f-186b-81ac-1520-e40dc6779d9d",
+      "name": "Martha.Store.Api.Tests.InternalRunnerModelTests.Database_guard_rejects_wrong_catalog_or_MARS_without_connecting(connection: \"Database=SaviaInternalTest_\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "cb6ea743-3e8b-814f-cb4e-5f694374ff5a",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Internal_database_guard_rejects_unsafe_catalog_or_savepoint_incompatible_options_before_open(connection: \"Server=127.0.0.1;Database=SaviaInternalTest_Allowe\"···)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "a39fd9fb-c3d1-4a1a-8b01-15505ea4dcce",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Currency_is_explicit_without_fixture_currency_or_normalizing_conversion(currency: \"hnl\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "ed8e4364-30ee-55dc-359e-72dbcc3895fb",
+      "name": "Martha.Store.Api.Tests.SaviaContractTests.Invalid_idempotency_key_is_rejected_before_database_access(key: \"has space 001\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "2af4973b-f400-0fe3-fdb6-1df84c055204",
+      "name": "Martha.Store.Api.Tests.InternalBranchCompatibilityTests.Location_omitted_null_and_guid_are_distinct_and_survive_normalization",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "9147a5a2-d73e-b141-e13e-b0e5a5657c80",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Invalid_party_contact_and_kind_are_rejected(kind: \"customer\", email: \"Display <person@example.test>\", phone: null)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "656595b6-865a-2888-176a-0d7aa9ab5711",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Empty_duplicate_null_and_oversized_order_lines_are_rejected",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "ca90e9a1-7cca-b4d8-ce8e-ae640230bb62",
+      "name": "Martha.Store.Api.Tests.InternalCommerceSqlTests.Concurrent_first_receipts_initialize_one_balance_without_lost_quantity",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "a04cc6ff-3322-efe4-97e4-29845b2e2f6d",
+      "name": "Martha.Store.Api.Tests.InternalRunnerModelTests.Database_guard_rejects_wrong_catalog_or_MARS_without_connecting(connection: \"Database=master\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "99548e3d-6b88-ad09-6d13-78c51381d41b",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Invalid_key_is_rejected_before_storage_or_action(key: \"123456789012345 \")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "5e76991c-50b4-8dfd-0f22-e3c7d2c5486e",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Every_known_scope_has_an_exact_role_allowlist_and_requires_authentication(scope: \"supply.purchase.cancel\", allowed: [\"Owner\", \"Manager\"])",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "446661d2-6778-9ad1-f349-6e5475b7b9f9",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Missing_price_fractional_minor_units_and_overposting_are_rejected(json: \"{\\\"sku\\\":\\\"A\\\",\\\"name\\\":\\\"Item\\\",\\\"currency\\\":\\\"US\"···)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "74637635-d7b6-656d-e0b4-33e4355c1e11",
+      "name": "Martha.Store.Api.Tests.SaviaModelGuardTests.Attempts_and_movements_refuse_rewrites_and_deletes_before_opening_SQL(movement: False, delete: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "b80b51b4-63c4-575e-8822-b4e79faf0811",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Cumulative_receipts_never_exceed_remaining(ordered: 10, received: 11, quantity: 1, expected: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "d6169225-40d4-ecb3-0fdd-3777798a8682",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryCommandTests.Deactivation_uses_runner_and_fingerprints_the_resource(entity: \"locations\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "a85cb593-ef72-48c9-04a7-0c6133194baa",
+      "name": "Martha.Store.Api.Tests.GuardTests.Database_guard_rejects_before_any_connection_is_opened(connection: \"Server=127.0.0.1;Database=StoreProduction;Integrat\"···)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "82b14b0d-697a-f790-5aef-6f12fb9e2931",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Fingerprint_must_have_exact_digest_length_before_storage_or_action(length: 63)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "82d81f8a-0b9b-7f75-75c6-58440404f652",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Lockout_counter_is_bounded_and_resets_only_after_expiry",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "dd8d490e-bf93-2018-5fab-fbd0eac09e20",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Every_known_scope_has_an_exact_role_allowlist_and_requires_authentication(scope: \"directory.locations.create\", allowed: [\"Owner\"])",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "98025580-7729-9cc6-ae48-98d5fcb0583f",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Ledger_delta_bounds_are_checked_without_SQL(onHand: 0, reserved: 0, valid: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "72dbf39b-6426-761b-b46f-01fc7824c790",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Rejected_control_input_drains_the_secret_line_before_returning(controlModifier: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "a8103f6e-a3e3-e655-730d-5b7ca628a86b",
+      "name": "Martha.Store.Api.Tests.SaviaContractTests.Empty_attempt_and_multiple_keys_are_invalid_without_database_access",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "8d3141d7-0a86-01f0-8f5e-c7953ae5c501",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Invalid_skus_are_rejected(sku: \"SKU\\n1\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "2d8a5378-0407-3193-87be-f98a9f85902e",
+      "name": "Martha.Store.Api.Tests.SaviaContractTests.Invalid_reservation_quantity_is_rejected_before_database_access(quantity: -1)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "23b5459f-4070-a93a-60b8-8491d20dcee7",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Roles_are_a_closed_server_allowlist(role: null, expected: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "c0e026f3-bed4-5a2d-c08a-3116b1eb1205",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Invalid_inputs_and_missing_confirmations_never_invoke_service(lines: [\"PRIVATE\", \"synthetic-owner\", \" leading\", \"SYNTHETIC-only-secret-marker\", \"SYNTHETIC-only-secret-marker\", ···])",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "3e7422ba-8191-e75c-2dca-f3868de73084",
+      "name": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.Read_authorization_is_enforced_before_invalid_query_validation_without_sql(role: \"Visitor\", status: 403)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "8798c7eb-827f-6341-6434-cec85bdc2d57",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Sale_does_not_accept_client_authoritative_fields(property: \"unitPriceMinor\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "49f29387-2f01-b128-bfae-5b474170e514",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Currency_rule_is_explicit_ascii_and_never_accepts_fixture_currency(currency: \"ＵＳＤ\", valid: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "d4d146aa-2d13-1391-46d9-956d2427b7b3",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Transaction_command_role_matrix_is_closed_and_matches_each_module_scope(role: \"Owner,Manager\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "b75e66b9-d659-a931-3fff-2b1f2fbacdb3",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Audit_reason_has_a_raw_input_bound_and_no_control_characters",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "9398e2a4-1e5e-e058-dad7-3d439c6f0991",
+      "name": "Martha.Store.Api.Tests.GuardTests.Database_guard_rejects_quoted_catalog_with_trailing_line_feed(quote: \"\\\"\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "9c6d85d7-3c46-4a3b-848e-254697d23901",
+      "name": "Martha.Store.Api.Tests.InternalCommerceSqlTests.Caller_rollback_removes_prior_line_updates_and_their_saved_movement_rows",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "11b2db0e-737a-4139-1257-479eccfd0043",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Internal_database_guard_rejects_unsafe_catalog_or_savepoint_incompatible_options_before_open(connection: \"Server=127.0.0.1;Database=MarthaSynthetic_Test;Int\"···)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "564524b0-6773-e766-e91b-2a7594dc9ca5",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Tracked_audit_record_rewrite_or_delete_is_rejected_before_sql(delete: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "1b3d3245-cea1-5650-d9b6-bc4885e53601",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Invalid_key_is_rejected_before_storage_or_action(key: null)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "8c0e3388-31d7-e156-ec0d-7d94318c35ed",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Internal_database_guard_rejects_unsafe_catalog_or_savepoint_incompatible_options_before_open(connection: \"not a connection string\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "b8ad7f84-6b35-fd48-d5fa-8aa6d40544ca",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Ledger_refuses_to_create_an_independent_transaction",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "3bbf0461-0dbe-d5b8-827a-bca2fe79dbee",
+      "name": "Martha.Store.Api.Tests.GuardTests.Synthetic_writes_are_not_mapped_outside_explicit_test_gate(environment: \"Test\", enabled: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "fdcfff0c-e7e6-e3f5-088e-0898543974c7",
+      "name": "Martha.Store.Api.Tests.InternalSecuritySqlTests.Concurrent_owner_demotions_cannot_remove_every_enabled_owner",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "b3f53366-5526-d51c-a855-3ae9dd3866c5",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Roles_are_a_closed_server_allowlist(role: \"Cashier\", expected: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "d2e6f75c-b6af-8982-5706-eb944380466a",
+      "name": "Martha.Store.Api.Tests.InternalRunnerModelTests.Database_guard_rejects_overlength_catalog",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "84800a3d-7249-e38f-ce28-aee6f844b779",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Extra_arguments_are_refused_before_configuration_or_input(extra: \"--password=SYNTHETIC-only-secret-marker\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "3f2a5152-beea-d099-5767-b332c73ee456",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Unknown_or_noncanonical_scope_is_not_authorized_even_for_owner(scope: \"directory.items.create \")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "39630672-00c3-c197-39fd-f9811ccc167c",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Canonical_ui_routes_redirect_without_ambiguous_endpoint_matches(path: \"/internal/login/\", location: \"/internal/login\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "b417a940-f53e-d910-0f29-4a39c6a1869f",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Currency_rule_is_explicit_ascii_and_never_accepts_fixture_currency(currency: \"US\", valid: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "4e24ba99-85cd-a665-a939-da17eeb984ef",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Invalid_skus_are_rejected(sku: \"../part/path\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "f50552ca-8a2a-a60c-37ea-ba8c1215e525",
+      "name": "Martha.Store.Api.Tests.InternalCommerceSqlTests.Reserved_units_and_upper_stock_bound_cannot_be_consumed_or_overflowed",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "14df54bd-ba6c-bb71-1a57-789448319bf3",
+      "name": "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS23_Receipt_dedup_with_new_key_cannot_return_original_branch_after_reassignment",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "1de01cc5-a016-0ee6-2acd-c4004195c074",
+      "name": "Martha.Store.Api.Tests.InternalBranchCompatibilityTests.Invalid_branch_tokens_and_client_presence_objects_are_rejected(token: \"true\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "c884f7be-74aa-8ffc-f578-3a93d6f395c2",
+      "name": "Martha.Store.Api.Tests.InternalRunnerModelTests.Hosting_resolves_no_internal_context_from_missing_or_unguarded_configuration(connection: \"Database=master\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "3311d6d5-fee5-7707-4bed-17f04f44f4f6",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Login_names_are_bounded_unambiguous_identifiers(name: \"staff.member\", expected: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "69f631bd-2586-6eed-7fd7-2bed913f4a6d",
+      "name": "Martha.Store.Api.Tests.InternalSupplySqlServerTests.Concurrent_duplicate_physical_receipts_never_increment_twice",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "50000c42-c26d-00f4-3bf5-2977f9852a48",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Sale_and_reversal_routes_have_exact_server_policies_without_business_storage(path: \"/internal/api/commerce/sales/{id:guid}/returns\", mutationPolicy: \"internal.manage\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "bbf6677b-4aa2-b361-dbdd-fe0aebb946a5",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Fingerprint_must_have_exact_digest_length_before_storage_or_action(length: 65)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "327532bb-7276-c0e4-c6ef-40ed44704a5c",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Forbidden_scope_is_rejected_before_storage_or_action(role: \"Cashier\", scope: \"commerce.sale.cancel\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "16486314-965d-13f4-530b-1332f593661c",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Roles_are_a_closed_server_allowlist(role: \"Admin\", expected: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "8d6037e8-47e8-cf2c-1d0c-ebc7f3078a28",
+      "name": "Martha.Store.Api.Tests.InternalRunnerModelTests.Database_guard_accepts_only_documented_catalog_boundaries_without_claiming_server_authority(length: 64)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "0ee61113-c794-00b2-117c-0de045968fd6",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Real_program_maps_only_the_two_intended_anonymous_internal_api_routes",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "f442dc4b-5d60-f597-3d13-05f36cee66fc",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Currency_is_explicit_three_ascii_letters_not_fixture_currency(currency: \"\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "8cbe7989-df7a-45dd-3b4b-f8e91c0d6059",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Invalid_party_contact_and_kind_are_rejected(kind: \"customer\", email: null, phone: \"123\\n456\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "468c69e4-fca3-8252-e831-83efe92395e9",
+      "name": "Martha.Store.Api.Tests.GuardTests.Synthetic_writes_are_not_mapped_outside_explicit_test_gate(environment: \"Production\", enabled: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "0b4a29ab-b9fb-1e51-a08f-7e7388035483",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Invalid_party_contact_and_kind_are_rejected(kind: \"customer\", email: \"not-an-email\", phone: null)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "8bfb97e1-1f2b-0651-1feb-19680b32792c",
+      "name": "Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Partial_full_return_replay_and_excess_return_preserve_quantity_and_original_price",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "57a351ae-7167-af52-9096-accc63035640",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Sale_does_not_accept_client_authoritative_fields(property: \"onHand\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "30aa6c58-2943-9d5a-5bf5-6ecee6631144",
+      "name": "Martha.Store.Api.Tests.InternalRunnerModelTests.Hosting_resolves_no_internal_context_from_missing_or_unguarded_configuration(connection: null)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "6510b7b9-3976-b2e0-3523-1519d15d821b",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Roles_are_a_closed_server_allowlist(role: \"Manager\", expected: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "c4574c7f-c3f5-6c2c-7306-e3279e6e2d30",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Idempotency_key_rejects_noncanonical_input(key: \"123456789012345\\n\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "798e9816-0741-9b61-32dd-6deda40268e0",
+      "name": "Martha.Store.Api.Tests.SaviaContractTests.Invalid_reservation_quantity_is_rejected_before_database_access(quantity: 0)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "19e1ac72-73b7-af0e-fd6d-fea5af231fe4",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Ledger_delta_bounds_are_checked_without_SQL(onHand: -1, reserved: 0, valid: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "44dfd775-ba70-7efd-4d13-9632f8fb9d7f",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Rejected_control_input_drains_the_secret_line_before_returning(controlModifier: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "d7f84899-7d41-4833-665d-e7d824d46259",
+      "name": "Martha.Store.Api.Tests.InternalRunnerModelTests.Hosting_resolves_no_internal_context_from_missing_or_unguarded_configuration(connection: \"\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "3b9cfa78-13bc-bd89-c5a4-a65dd81da976",
+      "name": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Cumulative_receipts_never_exceed_remaining(ordered: 10, received: 1, quantity: 0, expected: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "9f614777-95d8-7f73-def7-23445612f726",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Ledger_delta_bounds_are_checked_without_SQL(onHand: 2147483647, reserved: 0, valid: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "742d387b-2546-97b7-26fa-ddc95a63baef",
+      "name": "Martha.Store.Api.Tests.SaviaContractTests.All_v2_routes_are_absent_when_the_synthetic_gate_is_closed(environment: \"Development\", enabled: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "95843c19-3081-8281-73f3-458c7b287079",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Password_policy_allows_passphrases_without_silent_truncation",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "1386516f-9871-d629-f1ec-1781e2db6085",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Idempotency_key_rejects_noncanonical_input(key: \"123456789012345.\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "0abc7da2-3a02-3bd4-6811-a37279d4764c",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Identity_control_rejection_names_field_but_never_prints_input(display: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "831a3a7a-dacc-8963-a45c-bb67694d3970",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Unauthenticated_role_claim_does_not_authorize_a_command(scope: \"directory.items.create\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "fbe1b0a8-b9de-bfd4-8481-8ce13c57e277",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Unknown_or_noncanonical_scope_is_not_authorized_even_for_owner(scope: \"directory.items.create\\n\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "a4e7add1-ba3c-e129-43e5-aa30ef2ac328",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryCommandTests.Deactivation_uses_runner_and_fingerprints_the_resource(entity: \"parties\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "f49d8c2b-0116-d4bf-a1c7-65bfc8c6d2f5",
+      "name": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Invalid_or_implicit_creation_targets_fail_closed_without_SQL(connection: \"Not a connection string\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "476a187c-2787-7c0b-3382-33588f1d9d86",
+      "name": "Martha.Store.Api.Tests.InternalBranchCompatibilityTests.Typed_http_json_roundtrip_preserves_presence_for_both_update_dtos",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "b0e0059f-c827-cc0a-02f4-338829888da0",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Login_names_are_bounded_unambiguous_identifiers(name: \"TEST-ONLY_01\", expected: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "74dc50b8-9fe9-de32-75dd-4c83e244be92",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Forbidden_scope_is_rejected_before_storage_or_action(role: \"Inventory\", scope: \"commerce.sale.record\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "36eb042d-2ba6-88ae-2d80-2db20589ea75",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Actor_identifier_is_the_principal_identifier_not_a_generated_identity",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "0793b7c0-3a2b-68bf-1c14-a9f0b811e4f5",
+      "name": "Martha.Store.Api.Tests.InternalBranchScopeModelTests.Legacy_runner_cannot_silently_execute_scoped_action_without_authorization",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "68ba152c-f5e8-dea4-30b6-2120c2a3e70b",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Stale_or_forged_claims_and_invalid_sessions_are_rejected(mutation: \"duplicate_actor\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "a221a6a2-fe27-0a61-a129-7d10d8a5c984",
+      "name": "Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Concurrent_cancel_and_return_have_only_one_stock_reversal",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "64d02d0c-45ba-269e-85f5-a3b45a936335",
+      "name": "Martha.Store.Api.Tests.SaviaContractTests.Invalid_idempotency_key_is_rejected_before_database_access(key: \"nonascii-é-001\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "e37dac4f-51b0-9ca0-a30a-cc2fa89a8243",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Stale_or_forged_claims_and_invalid_sessions_are_rejected(mutation: \"future\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "b64c1e5b-a0a3-0ce1-33f3-eec52ee7f421",
+      "name": "Martha.Store.Api.Tests.InternalRunnerTests.Every_known_scope_has_an_exact_role_allowlist_and_requires_authentication(scope: \"directory.parties.update\", allowed: [\"Owner\"])",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "53597487-a783-d0ae-c701-97f90b2706a4",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Every_protected_internal_api_rejects_anonymous_or_tampered_identity_before_business_storage(tampered: False)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "21d80f45-6b17-35d2-402e-35071a1ded15",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Invalid_skus_are_rejected(sku: \"sκu\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "2a211fc1-c6f0-8467-d90f-e1261b7092ea",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Integer_money_bounds_prevent_overflow_before_multiplication(price: 9223372036854775807, quantity: 2, valid: False, expected: 0)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "976c76ff-4651-f6d2-a58a-db4c9ebb247c",
+      "name": "Martha.Store.Api.Tests.InternalCommerceTests.Audit_entries_refuse_rewrites_and_deletes_before_SQL(kind: \"movement\", delete: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "f7e50783-9553-776c-1127-843953033b05",
+      "name": "Martha.Store.Api.Tests.InternalSecurityTests.Policies_enforce_role_boundaries(policy: \"internal.read\", role: \"Inventory\", expected: True)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "479fb3b6-7ba8-68a6-97c6-173eec7b4f08",
+      "name": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Invalid_minor_prices_are_rejected(price: 9000000000001)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "560c0902-5d1b-4777-4133-728bb2ae5a41",
+      "name": "Martha.Store.Api.Tests.InternalBranchCompatibilityTests.Invalid_branch_tokens_and_client_presence_objects_are_rejected(token: \"[]\")",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "c44d2d22-eae5-e60c-a035-e83dffe27e11",
+      "name": "Martha.Store.Api.Tests.InternalRunnerSqlTests.Concurrent_same_identity_serializes_action_once_and_returns_the_same_replay",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "d11ebc5e-f197-bcc2-9a13-220b8bdbf348",
+      "name": "Martha.Store.Api.Tests.InternalJudgeTests.Internal_database_guard_rejects_unsafe_catalog_or_savepoint_incompatible_options_before_open(connection: \"Server=127.0.0.1;Database=\\\"SaviaInternalTest_Allo\"···)",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "3ba1b4c4-1005-2bcc-40d7-77ac782befd9",
+      "name": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.All_routes_require_read_policy_and_all_nine_mutations_require_owner_and_csrf",
+      "outcome": "Passed",
+      "source": "offline-tests.trx"
+    },
+    {
+      "test_id": "fdd2c07b-9bc8-1fb0-91df-0dfaea8fcc77",
+      "name": "Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Repeating_seed_preserves_reserved_and_released_balances_and_ledger",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "774e56ac-6401-38d7-a7b1-ec0cbbbd2672",
+      "name": "Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Failed_cancellation_movement_rolls_back_release_state_and_attempt",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "d523c0a0-0a6b-9550-f540-7b249c217151",
+      "name": "Martha.Store.Api.Tests.SqlServerIntegrationTests.Failed_insert_rolls_back_stock_and_leaves_no_order_or_idempotency_fragment",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "45bfce8d-a15c-fcf5-17b3-ad28d1e1fe3a",
+      "name": "Martha.Store.Api.Tests.SqlServerIntegrationTests.Client_supplied_price_total_and_customer_fields_are_rejected_without_mutation",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "8c96a63d-4b49-1958-9716-4649f54c3e59",
+      "name": "Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Bulk_creation_receipt_and_fields_cannot_diverge_from_original_replay",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "975589de-3163-bb23-f1eb-4fe52a17a56a",
+      "name": "Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Seed_rejects_orphan_success_attempt_without_reservation_movement_or_valid_receipt",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "0669f12a-206f-0729-e121-703cdb3b40ee",
+      "name": "Martha.Store.Api.Tests.SqlServerIntegrationTests.Concurrent_same_key_replays_exact_response_and_conflicting_payload_is_409",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "7b97981a-c656-00b5-9e59-4fe438f7a281",
+      "name": "Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Authority_mismatch_cannot_mutate_or_rewrite_persisted_authority",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "15594552-5142-401e-e348-d084c7080846",
+      "name": "Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Lost_response_after_commit_is_recovered_by_lookup_and_stable_retry",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "38ebb893-4322-0f31-3736-10eec07979b3",
+      "name": "Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Repeated_and_concurrent_cancellation_releases_once_without_changing_on_hand",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "39fe857a-48da-5376-6890-e516ca5844cd",
+      "name": "Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Durable_rejection_replays_after_availability_changes_and_attempt_conflicts",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "82bbea8d-accf-8eb4-a88f-e7e576873264",
+      "name": "Martha.Store.Api.Tests.SqlServerIntegrationTests.Twenty_distinct_requests_for_last_unit_have_exactly_one_winner",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "d1c20110-2009-5cb0-7211-9316c79dd6f9",
+      "name": "Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Creation_replay_is_original_after_cancellation_while_get_is_current",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "e1045052-7f94-d096-bd4b-19119b648884",
+      "name": "Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Failed_reservation_movement_rolls_back_balance_reservation_and_attempt",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "ddf9c360-0905-4688-9476-a571dd69a7bb",
+      "name": "Martha.Store.Api.Tests.SqlServerIntegrationTests.Migrated_database_exposes_only_synthetic_catalog_and_seed_is_non_replenishing",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "9252f454-898d-9dbc-8e1c-5cd492d295dc",
+      "name": "Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Concurrent_same_key_replays_creation_and_changed_payload_conflicts",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "b6776e8f-bbd1-a634-e6b8-de8e3c15a5b7",
+      "name": "Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Twenty_distinct_reservations_for_last_unit_have_one_winner_and_balanced_ledger",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "852d9e2d-b8cd-907b-2476-8c0cf807ed8e",
+      "name": "Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Movement_ledger_reconciles_balances_and_reservation_states",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "37ec3bff-80b7-1ec1-d28b-73451a21fa58",
+      "name": "Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Bulk_ledger_and_attempt_mutations_are_rejected_by_SQL_and_rollback_all_changes",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "b6b380dc-f108-c5aa-e03c-0ea14286d7e9",
+      "name": "Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Partial_or_inconsistent_seed_is_rejected_without_replenishment",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    },
+    {
+      "test_id": "602ca5c4-286b-2200-7895-a48a4b642577",
+      "name": "Martha.Store.Api.Tests.SqlServerIntegrationTests.Invalid_quantities_reject_without_any_persistent_change",
+      "outcome": "Passed",
+      "source": "isolated-sql.trx"
+    }
+  ]
+}

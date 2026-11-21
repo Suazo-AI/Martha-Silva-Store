@@ -1,0 +1,15 @@
+{
+  "observed_utc": "2026-11-04T02:46:14.195257+00:00",
+  "card": "C8",
+  "card_id": "6aea5de74b0da8bdf86eff30",
+  "action_id": "6aea9c733c0a0154cb592f8a",
+  "marker": "[SAVIA-C8-INTEGRATED-2ddf83d]",
+  "comment": "[SAVIA-C8-INTEGRATED-2ddf83d]\nSeis blobs C8 importados y publicados en Tony2ddf83de7a89da608e8267a21313d64b373bf5e2. Evidencia local reutilizada: UI9/9,browser45/45,staff45/45,APIexpiry1/1,InternalSecurity49/49. DosTRX conservados fuera delcommit por filtro delhook; JSON saneados y hashes publicados. CI nuevo exige backend600. C8 permanece4/5 En curso hasta CI del candidato combinado y readback de artifacts. El PRb6bc0396 no incluye este cambio C8; sus checks verdes no acreditan C8. Agente independiente valida los blobs y prepara evidencia final. Sin pruebas SQL ni cambios de permisos nuevos.",
+  "exact_readback": true,
+  "list_id": "6aea5d677e8b3123293bcaa8",
+  "closed": false,
+  "checklists_changed": false,
+  "list_changed": false,
+  "complete": 4,
+  "total": 5
+}

@@ -1,0 +1,34 @@
+✔ lost response freezes immutable intent through edit and remount; 404 never unlocks (58.9805ms)
+✔ account switch while confirmation is held cannot POST (3.8243ms)
+✔ explicit replay after 404 keeps exact body; malformed 200 stays unresolved (9.0329ms)
+✔ wrong IDs, lines, credit, till and malformed receipt cannot confirm (9.1346ms)
+✔ storage denied, corrupt, and missing Web Locks block sending (6.665ms)
+✔ double submit while confirmation held sends zero; cancel removes never sent draft (3.6788ms)
+✔ foreign actor recovery is generic and loads no dependencies (4.0463ms)
+✔ late POST and lookup cannot render or clear after retirement (6.9192ms)
+✔ competing mounts cannot replace durable reservation; readback failure and tamper fail closed (3.8791ms)
+✔ all supported outcomes reserve complete bodies and preserve exact replay (12.4166ms)
+✔ temporary approval revoked on failed POST and late approval; cashier session retained (9.2032ms)
+✔ cancelled approval cannot close or authorize a replacement dialog (3.2539ms)
+✔ held origin lock rejects a competing mount submit without allocating or sending (4.2005ms)
+✔ F2 rejects malformed reversal fields independently (26.0418ms)
+✔ F1 exact successful exchange POST and explicit replay confirm durably (9.8273ms)
+✔ F1 wrong POST status stays unresolved; API default return shape preserved (3.6396ms)
+✔ F3 remounted draft cancellation verifies removal and restores editable form (6.1903ms)
+✔ F3 cancellation cannot clear a competitor or sending record; removal failure retains editing lock (14.0406ms)
+✔ F5 retirement revokes immediately during held POST, single shot even on failed logout (6.463ms)
+✔ F4 ordinary outcomes preserve monetary result and receipts through reload without refresh (11.8437ms)
+✔ F2 legacy missing currency remains recoverable but cannot confirm or fabricate expectations (2.8939ms)
+✔ F2 validator accepts unordered exact lines and different supervisor; rejects malformed fields (3.3578ms)
+✔ GET wrong HTTP status cannot confirm a matching ordinary reversal (1.388ms)
+✔ ack cannot confirm after durable ownership changes during held POST (2.394ms)
+✔ F4 exchange due/back and tender references come from captured body (4.3398ms)
+✔ invalid calendar date cannot confirm (2.4999ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 421.4454

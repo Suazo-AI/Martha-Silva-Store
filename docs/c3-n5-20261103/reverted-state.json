@@ -1,0 +1,15 @@
+{
+  "observedUtc": "2026-11-03T23:27:34.0353893Z",
+  "head": "775f301bc195c43baedc68c86f4e71affe92ef95",
+  "status": [
+    " M dev/savia-staff-ui/app.mjs"
+  ],
+  "appSha256": "46dbf8aa0d2f8f962b2868d3893a6dd7ef3eeab49d30b317e42350ea80f74fd9",
+  "testSha256": "28d29a5722239e5ede1e5d6f7f2d6e7801028425506f317fd7920602e3e93956",
+  "diffNames": [
+    "dev/savia-staff-ui/app.mjs"
+  ],
+  "diffNumstat": [
+    "1\t19\tdev/savia-staff-ui/app.mjs"
+  ]
+}

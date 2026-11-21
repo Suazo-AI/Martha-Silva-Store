@@ -1,0 +1,38 @@
+{
+ "ok": true,
+ "nonce": "c19b54ee10f3413c52c63c7fc4b8f312",
+ "elapsed_s": 61.7,
+ "phases": {
+  "p0_preconditions": "0.6s",
+  "p0b_build": "5.2s",
+  "p1_resources": {
+   "elapsed": "1.3s",
+   "port": 22212,
+   "container_id": "4750125b49974ec7ed626a1c51ff056f4f0289570cb7bff58e24b9478412cd3e",
+   "network_id": "20870b2fc0e8e4b66b95a3b8e087738f9e9f61bdb696a583cb72125ce5ac6b54",
+   "volume_id": "saviaq_vol_saviaqc19b54"
+  },
+  "p2_health": "5.8s",
+  "p3_run1": {
+   ".": "25.5s",
+   "passed": 6
+  },
+  "p4_restart": {
+   ".": "12.5s",
+   "after_sql_start": "2026-11-10T08:44:46.3470000+00:00",
+   "observed_before": "running",
+   "observed_stopped": "exited",
+   "observed_after": "running"
+  },
+  "p5_run2": {
+   "": "9.0s",
+   "passed": 35
+  },
+  "p6_cleanup_absence": {
+   "container": 0,
+   "network": 0,
+   "volume": 0
+  },
+  "p6_cleanup": "1.7s"
+ }
+}

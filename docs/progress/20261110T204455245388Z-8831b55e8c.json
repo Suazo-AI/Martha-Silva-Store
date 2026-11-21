@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-10T20:44:55.245388+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/pipeline/ledger.json",
+      "change": "M",
+      "git_blob": "1fdfe907591a53326483073e3d2f53b3d3b66978"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

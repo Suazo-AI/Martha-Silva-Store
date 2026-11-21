@@ -1,0 +1,56 @@
+{
+  "text_normalization": "CRLF to LF, matching staged Git content; binary PNG bytes unchanged. Private-input and original-source hashes in other files remain exact raw-byte hashes.",
+  "hashes": [
+    {
+      "path": "evidence/browser-cases.json",
+      "sha256": "8f23a343590cb3e455db4271196d2878a6c88c6b6e0843aa839cf6f190937e74",
+      "canonical_bytes": 7703
+    },
+    {
+      "path": "evidence/dotnet-cases.json",
+      "sha256": "30fab3d2e82476b83d2efbd60554eaf7de56380a324c3043d56367193cf735ff",
+      "canonical_bytes": 168964
+    },
+    {
+      "path": "evidence/private-evidence-hashes.json",
+      "sha256": "ec705df43ec92545b97afaf1e738466218d8af4e607fbeecee4d836bad473164",
+      "canonical_bytes": 1276
+    },
+    {
+      "path": "evidence/results.json",
+      "sha256": "61d5428f8f811211eda63d4c27e02f73d4f724bb0ec15808dd0c0cb94a1c3297",
+      "canonical_bytes": 5530
+    },
+    {
+      "path": "evidence/source-hashes.json",
+      "sha256": "59e13f1d72abfd8370c8195e5fc2e4af197ff3e9abd2abc63b53d268b3dc1860",
+      "canonical_bytes": 30278
+    },
+    {
+      "path": "evidence/stale-receipt.json",
+      "sha256": "8bb9c5de2ce8a60029947258e35678bf6ac75df7403fd78d208bac410d3cd2a7",
+      "canonical_bytes": 239
+    },
+    {
+      "path": "evidence/stale-receipt.png",
+      "sha256": "f9452613e68dd1ec6f8c584b196411b7ba44030ba2a6789dcef3f610d2cd27a7",
+      "canonical_bytes": 52529
+    },
+    {
+      "path": "docs/testing-20261103/endpoint-inventory.json",
+      "sha256": "2b939a251262a8ccb73fc83292c2ce1ce8c77e11695c982246db86f005918e41",
+      "canonical_bytes": 15247
+    },
+    {
+      "path": "tests/browser-mock-validation.mjs",
+      "sha256": "22a1e9728ee70e363c8f233e62d862da7b79bb01d8e201d5ab53e611aa9ff904",
+      "canonical_bytes": 24210
+    },
+    {
+      "path": "tests/run-http-guards.mjs",
+      "sha256": "0fcdd77e6f3e4fd3ca272a947cf8ab0cad16314ad32b959eaef1f37e921d3ca1",
+      "canonical_bytes": 3140
+    }
+  ],
+  "exclusions": "Raw TRX, logs, SQL database names, connection strings, sessions, runtime authorization receipts and build binaries remain private. Screenshot contains synthetic records only."
+}

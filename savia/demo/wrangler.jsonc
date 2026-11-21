@@ -1,0 +1,11 @@
+{
+  // SAVIA public demo: static files only, invented data. Separate from the store site.
+  "name": "savia-demo",
+  "compatibility_date": "2026-10-24",
+  "workers_dev": true,
+  "preview_urls": false,
+  "assets": {
+    "directory": "../.out/demo-site",
+    "not_found_handling": "none"
+  }
+}

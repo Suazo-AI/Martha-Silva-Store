@@ -1,0 +1,11 @@
+test_CSS_exact_A_prefix_plus_scoped_no_crop_support_rules (__main__.Scope.test_CSS_exact_A_prefix_plus_scoped_no_crop_support_rules) ... ok
+test_added_png_exact_hashes_intrinsic_dimensions_and_fragment_paths (__main__.Scope.test_added_png_exact_hashes_intrinsic_dimensions_and_fragment_paths) ... ok
+test_catalog_40_170_120_Green5_and_no_authentic_image_replacement (__main__.Scope.test_catalog_40_170_120_Green5_and_no_authentic_image_replacement) ... ok
+test_exact_Back_prefix_plus_only_hash_guarded_revised_AI_suffix (__main__.Scope.test_exact_Back_prefix_plus_only_hash_guarded_revised_AI_suffix) ... ok
+test_only_four_changed_sources_and_two_added_PNGs (__main__.Scope.test_only_four_changed_sources_and_two_added_PNGs) ... ok
+test_two_PDP_insertions_byte_reversible_preserve_authentic_details (__main__.Scope.test_two_PDP_insertions_byte_reversible_preserve_authentic_details) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.524s
+
+OK

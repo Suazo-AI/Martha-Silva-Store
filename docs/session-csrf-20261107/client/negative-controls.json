@@ -1,0 +1,270 @@
+{
+  "sourceSha": "030b64f7cba87c6a0d710892deb9a8493ea8bbf4",
+  "productSourceUnchanged": true,
+  "controls": [
+    {
+      "control": "auth-epoch",
+      "file": "login.mjs",
+      "replacement": {
+        "from": "if (generation !== epoch)",
+        "to": "if (false)"
+      },
+      "command": [
+        "node",
+        "--test",
+        "--test-name-pattern=old-session CSRF renewal",
+        "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-292c5ebc\\private-exports\\session-client-20261107\\auth-epoch\\session-transition.test.mjs"
+      ],
+      "exit": 1,
+      "counts": {
+        "tests": 3,
+        "pass": 0,
+        "fail": 3,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "original": {
+        "rawSha256": "60c0072f1fbc2375ef1b4244d2af642086cf2d7903b35b708c98ceba9977d389",
+        "lfSha256": "73911282fd1ac18b0de0785eb8c8b7c60dbd189cef14c68a28891a51fa9e88a4"
+      },
+      "mutant": {
+        "rawSha256": "723f5414285ca4a47904e96f4d1691898ae1dfbea4a786af414de5907a42a28e",
+        "lfSha256": "6f476435040d49e779ee8acb439ca21bccdf3fd2735d3b84d13d709e2aeb814a"
+      },
+      "log": "private-exports/session-client-20261107/auth-epoch.log",
+      "logSha256": "d3d3c98d3b3b9f42f1f43c24576b894aaaaec6a617d5dff707fa5910a5aa634b",
+      "disposableRestoredExactly": true
+    },
+    {
+      "control": "commerce-generation",
+      "file": "app.mjs",
+      "replacement": {
+        "from": "const current = (g, id) => generation === g && getSession()?.id === id;",
+        "to": "const current = (g, id) => true;"
+      },
+      "command": [
+        "node",
+        "--test",
+        "--test-name-pattern=sale: old-session business response at mount",
+        "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-292c5ebc\\private-exports\\session-client-20261107\\commerce-generation\\session-transition.test.mjs"
+      ],
+      "exit": 1,
+      "counts": {
+        "tests": 1,
+        "pass": 0,
+        "fail": 1,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "original": {
+        "rawSha256": "a50be2f7439e006cf0e459f757c5204c46844fabb9c1aa0db37ca6908b5b9b1a",
+        "lfSha256": "c1c01336b60f9533c1aa92fd0a98fdef7a1a7745ac4df15ef2488fc162482264"
+      },
+      "mutant": {
+        "rawSha256": "91b75f4da4109a3f426caa315ee9b541b55361b7aca5b50a2f5882cfc6333b68",
+        "lfSha256": "54b21558467d1a4e533ea5017a6b1cb4ffb319083cab7cc01c3fa9b9b088d687"
+      },
+      "log": "private-exports/session-client-20261107/commerce-generation.log",
+      "logSha256": "81b03d4d6e8415dff2e7ff2567735aa8f18218246bf56e4bc0027993e24d94d1",
+      "disposableRestoredExactly": true
+    },
+    {
+      "control": "supply-generation",
+      "file": "supply.mjs",
+      "replacement": {
+        "from": "const same=(g,a)=>g===epoch && getSession()?.id===a?.id && getSession()?.version===a?.version;",
+        "to": "const same=(g,a)=>true;"
+      },
+      "command": [
+        "node",
+        "--test",
+        "--test-name-pattern=supply: old-session business response at mount",
+        "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-292c5ebc\\private-exports\\session-client-20261107\\supply-generation\\session-transition.test.mjs"
+      ],
+      "exit": 1,
+      "counts": {
+        "tests": 1,
+        "pass": 0,
+        "fail": 1,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "original": {
+        "rawSha256": "f115ce8e96bffa4adf765333cd09f637f580bd71c8c315b6d2ac17c9579600ee",
+        "lfSha256": "ad62c75f08efe2e0642d1ced245c47312b8673aa33d63edddaff7af249fb8270"
+      },
+      "mutant": {
+        "rawSha256": "185cbc8eadedb5358a38408d6b1edde219a4fbf262470d8a85a2e5300b8c88b4",
+        "lfSha256": "d89659b25a0e33d84ca2c7dd02aa4f58cee7991c9986e3c8992e727692ff119e"
+      },
+      "log": "private-exports/session-client-20261107/supply-generation.log",
+      "logSha256": "ac6ee3133a470af014b3037d9181413a8fe4abf1d8c5d514ecee29805092f409",
+      "disposableRestoredExactly": true
+    },
+    {
+      "control": "review-generation",
+      "file": "app.mjs",
+      "replacement": {
+        "from": "const same=(e,a)=>epoch===e && getSession()?.id===a.id && getSession()?.version===a.version;",
+        "to": "const same=(e,a)=>true;"
+      },
+      "command": [
+        "node",
+        "--test",
+        "--test-name-pattern=review: old-session business response at mount",
+        "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-292c5ebc\\private-exports\\session-client-20261107\\review-generation\\session-transition.test.mjs"
+      ],
+      "exit": 1,
+      "counts": {
+        "tests": 1,
+        "pass": 0,
+        "fail": 1,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "original": {
+        "rawSha256": "a50be2f7439e006cf0e459f757c5204c46844fabb9c1aa0db37ca6908b5b9b1a",
+        "lfSha256": "c1c01336b60f9533c1aa92fd0a98fdef7a1a7745ac4df15ef2488fc162482264"
+      },
+      "mutant": {
+        "rawSha256": "0da1907b92955d645a57f20f21b9919e67be92afa32d087fc328e34508f6ccde",
+        "lfSha256": "c323c9bf6de92f8998c8888c3ac5611b70c0bcc784527295993684cdc5c9f5ce"
+      },
+      "log": "private-exports/session-client-20261107/review-generation.log",
+      "logSha256": "659a1190fcad3f6ffea15c647110ef04419e32de7d70d561a5d89a9e3ef9bed2",
+      "disposableRestoredExactly": true
+    },
+    {
+      "control": "automatic-resend",
+      "file": "app.mjs",
+      "replacement": {
+        "from": "if(current(g,id) && pending?.key) await resolve('recover');",
+        "to": "if(current(g,id) && pending?.key) await resolve('record');"
+      },
+      "command": [
+        "node",
+        "--test",
+        "--test-name-pattern=same account/version",
+        "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-292c5ebc\\private-exports\\session-client-20261107\\automatic-resend\\session-transition.test.mjs"
+      ],
+      "exit": 1,
+      "counts": {
+        "tests": 1,
+        "pass": 0,
+        "fail": 1,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "original": {
+        "rawSha256": "a50be2f7439e006cf0e459f757c5204c46844fabb9c1aa0db37ca6908b5b9b1a",
+        "lfSha256": "c1c01336b60f9533c1aa92fd0a98fdef7a1a7745ac4df15ef2488fc162482264"
+      },
+      "mutant": {
+        "rawSha256": "40bfe2244622ffc7904db0499ecb66fa8648e58004c3eddb3ac40ccc9e5afba5",
+        "lfSha256": "a265a15679d79121430ecbc3514bb8d453a4c599e3508585327e3a906c31272a"
+      },
+      "log": "private-exports/session-client-20261107/automatic-resend.log",
+      "logSha256": "4e4db1068a4c954099c70e4536bae38a6d49ebeca1aad2061221f50c1f8fa190",
+      "disposableRestoredExactly": true
+    },
+    {
+      "control": "reference-rewrite",
+      "file": "app.mjs",
+      "replacement": {
+        "from": "pending=value;",
+        "to": "pending=value; storage().setItem(keyFor(id),JSON.stringify(value));"
+      },
+      "command": [
+        "node",
+        "--test",
+        "--test-name-pattern=same account/version",
+        "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-292c5ebc\\private-exports\\session-client-20261107\\reference-rewrite\\session-transition.test.mjs"
+      ],
+      "exit": 1,
+      "counts": {
+        "tests": 1,
+        "pass": 0,
+        "fail": 1,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "original": {
+        "rawSha256": "a50be2f7439e006cf0e459f757c5204c46844fabb9c1aa0db37ca6908b5b9b1a",
+        "lfSha256": "c1c01336b60f9533c1aa92fd0a98fdef7a1a7745ac4df15ef2488fc162482264"
+      },
+      "mutant": {
+        "rawSha256": "a36552476a42ce5fba24355b956fb0eb07458b9a106fc8204c1143aea7d41fcc",
+        "lfSha256": "aacc6c5626573f6a2ec14e94f48d4afdec8b61df23af0af1fdd7e2cefa8f1995"
+      },
+      "log": "private-exports/session-client-20261107/reference-rewrite.log",
+      "logSha256": "37bb170808b78fed79586b0f5bd036fe22635a1ffda1a9125c5b727dfa669f18",
+      "disposableRestoredExactly": true
+    },
+    {
+      "control": "key-rewrite",
+      "file": "login.mjs",
+      "replacement": {
+        "from": "idempotencyKey: key, csrfToken:",
+        "to": "idempotencyKey: '10000000-0000-0000-0000-000000000099', csrfToken:"
+      },
+      "command": [
+        "node",
+        "--test",
+        "--test-name-pattern=explicit continuation",
+        "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-292c5ebc\\private-exports\\session-client-20261107\\key-rewrite\\session-transition.test.mjs"
+      ],
+      "exit": 1,
+      "counts": {
+        "tests": 3,
+        "pass": 0,
+        "fail": 3,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "original": {
+        "rawSha256": "60c0072f1fbc2375ef1b4244d2af642086cf2d7903b35b708c98ceba9977d389",
+        "lfSha256": "73911282fd1ac18b0de0785eb8c8b7c60dbd189cef14c68a28891a51fa9e88a4"
+      },
+      "mutant": {
+        "rawSha256": "8b510fa49dde422fe98b6652d2b41b8df2892c2c66c64daac17d20a3613ebf56",
+        "lfSha256": "c05bdf5e3c81b8faf6105703722bc5b49a9198d26f00d5d5ef9dc3ebf13a2339"
+      },
+      "log": "private-exports/session-client-20261107/key-rewrite.log",
+      "logSha256": "81286ee04e14a0337945ea05ddcdd940a98b6c647af9bcf2f3b101197cb5abd1",
+      "disposableRestoredExactly": true
+    },
+    {
+      "control": "skip-business-renewal",
+      "file": "login.mjs",
+      "replacement": {
+        "from": "if (sale || supplyWrite || (review && method==='POST')) await renewCsrf();",
+        "to": "if (false) await renewCsrf();"
+      },
+      "command": [
+        "node",
+        "--test",
+        "--test-name-pattern=explicit continuation",
+        "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-292c5ebc\\private-exports\\session-client-20261107\\skip-business-renewal\\session-transition.test.mjs"
+      ],
+      "exit": 1,
+      "counts": {
+        "tests": 3,
+        "pass": 0,
+        "fail": 3,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "original": {
+        "rawSha256": "60c0072f1fbc2375ef1b4244d2af642086cf2d7903b35b708c98ceba9977d389",
+        "lfSha256": "73911282fd1ac18b0de0785eb8c8b7c60dbd189cef14c68a28891a51fa9e88a4"
+      },
+      "mutant": {
+        "rawSha256": "3c0ac67827ec86c0b40509936792665e3e5a076e35e1ac264be2cfc5f6acc5cf",
+        "lfSha256": "4806eb81303d1beac1abb8e0fc35dcf6e1dc0ad8e384733a55e32aeec7729e92"
+      },
+      "log": "private-exports/session-client-20261107/skip-business-renewal.log",
+      "logSha256": "85bc8bf5fd2fb2038138e779df97fe4c8a3a3112481572d79acaa93c221f30f7",
+      "disposableRestoredExactly": true
+    }
+  ]
+}

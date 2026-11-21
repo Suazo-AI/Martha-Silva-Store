@@ -1,0 +1,67 @@
+{
+  "C4": {
+    "id": "6aea5db529d01970fc29d79a",
+    "url": "https://trello.com/c/NYX7OGvK/7-c4-jason-b-migraciones-internal-de-release",
+    "list_id": "6aea5d68411ef7f938f3f92e",
+    "closed": false,
+    "complete": 5,
+    "total": 5,
+    "criteria": [
+      {
+        "id": "6aea5e36ade0714b026596c2",
+        "text": "dotnet ef migrations has-pending-model-changes sin cambios pendientes",
+        "state": "complete"
+      },
+      {
+        "id": "6aea5e374ce5c9cbf52b665f",
+        "text": "Migraciones aplicadas a base vac\u00eda y a copia sint\u00e9tica con historia",
+        "state": "complete"
+      },
+      {
+        "id": "6aea5e379bee14751da20f79",
+        "text": "Script de release incluye 20261027224500_InternalBranchScope",
+        "state": "complete"
+      },
+      {
+        "id": "6aea5e38ca3d0c5bd7a5af6b",
+        "text": "2 PrivatePilotReleaseTests PASS con readback",
+        "state": "complete"
+      },
+      {
+        "id": "6aea5e50d29ae382152ad09c",
+        "text": "CI en verde",
+        "state": "complete"
+      }
+    ]
+  },
+  "C5": {
+    "id": "6aea5de589984656dfca2dfc",
+    "url": "https://trello.com/c/cNYz2Hci/8-c5-jason-b-arn%C3%A9s-del-camino-dorado-api-real-sql-desechable",
+    "list_id": "6aea5d68411ef7f938f3f92e",
+    "closed": false,
+    "complete": 4,
+    "total": 4,
+    "criteria": [
+      {
+        "id": "6aea5e5058c211bc54ccc925",
+        "text": "API real + SQL desechable levantados por un script reproducible",
+        "state": "complete"
+      },
+      {
+        "id": "6aea5e5100c0dabd87682f74",
+        "text": "Identidades sint\u00e9ticas: Owner, Manager, Cashier, Inventory y sin asignaci\u00f3n",
+        "state": "complete"
+      },
+      {
+        "id": "6aea5e52186655e5afef1c42",
+        "text": "Esquema creado con migraciones de release (no EnsureCreated)",
+        "state": "complete"
+      },
+      {
+        "id": "6aea5e5214eec246fdff6462",
+        "text": "Mismo script corre en local y en CI; CI en verde",
+        "state": "complete"
+      }
+    ]
+  }
+}

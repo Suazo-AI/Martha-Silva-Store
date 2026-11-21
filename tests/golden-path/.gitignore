@@ -1,0 +1,4 @@
+**/bin/
+**/obj/
+# Salidas locales del arnés: evidencia, credenciales sintéticas y certificados efímeros.
+out/

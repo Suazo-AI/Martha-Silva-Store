@@ -1,0 +1,337 @@
+{
+  "task_id": "SAVIA-C9-PROCEDURE-20261104",
+  "status": "returned_for_primary_review",
+  "mode": "DISCOVER",
+  "created_utc": "2026-11-04T02:44:34.877506+00:00",
+  "host_observed": "SUAZO-PC",
+  "configured_worker_model": "gpt-6.1-sol",
+  "configured_reasoning": "xhigh",
+  "canonical_checkout": "C:/Users/Jason/MARTHA-SILVA/github",
+  "branch_observed": "Tony",
+  "head_observed_at_start": "2ddf83de7a89da608e8267a21313d64b373bf5e2",
+  "source_binding_limit": "Sources were focused working-tree reads in a shared checkout. Initial HEAD is context, not a claim every file was read from that exact Git blob or that runtime candidate was selected.",
+  "output": {
+    "path": "C:\\Users\\Jason\\MARTHA-SILVA\\coordination\\c9-procedure-20261104\\PROCEDURE.md",
+    "sha256": "ff39806867c45abdad2b93eb85300063e70d3af2f4452dfaaba938c87f8c4895",
+    "bytes": 24507,
+    "lines": 257
+  },
+  "verification": {
+    "kind": "document_structure_checks_only",
+    "checks": {
+      "markdown_fences_paired": true,
+      "c9_blocked_explicit": true,
+      "not_authorized_explicit": true,
+      "gates_g0_g9_present": true,
+      "proposed_commands_not_executed": true,
+      "windows_coordinator_missing_explicit": true,
+      "client_tls_sid_fields_present": true,
+      "rto_rpo_separated": true,
+      "owner_last_accessible_limit": true,
+      "cleanup_ownership_unknown_present": true,
+      "all_blockers_have_owner_check_table": true,
+      "single_recommended_next_action": true
+    },
+    "passed": true,
+    "runtime_not_verified": true
+  },
+  "sources": [
+    {
+      "path": "AGENTS.md",
+      "kind": "focused_working_tree_read",
+      "ranges": [
+        {
+          "start": 8,
+          "end": 19
+        },
+        {
+          "start": 21,
+          "end": 42
+        }
+      ]
+    },
+    {
+      "path": "docs/AGENT-START.md",
+      "kind": "focused_working_tree_read",
+      "ranges": [
+        {
+          "start": 14,
+          "end": 35
+        },
+        {
+          "start": 54,
+          "end": 66
+        }
+      ]
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "kind": "focused_working_tree_read",
+      "ranges": [
+        {
+          "start": 101,
+          "end": 140
+        }
+      ]
+    },
+    {
+      "path": "docs/DATABASE.md",
+      "kind": "focused_working_tree_read",
+      "ranges": [
+        {
+          "start": 10,
+          "end": 20
+        },
+        {
+          "start": 45,
+          "end": 56
+        }
+      ]
+    },
+    {
+      "path": "docs/c9-recovery-20261103/PREPARATION.md",
+      "kind": "focused_working_tree_read",
+      "ranges": [
+        {
+          "start": 41,
+          "end": 118
+        },
+        {
+          "start": 140,
+          "end": 212
+        },
+        {
+          "start": 214,
+          "end": 258
+        }
+      ]
+    },
+    {
+      "path": "docs/c9-recovery-20261103/PREFLIGHT-SCOPE.md",
+      "kind": "focused_working_tree_read",
+      "ranges": [
+        {
+          "start": 3,
+          "end": 62
+        }
+      ]
+    },
+    {
+      "path": "docs/c9-recovery-20261103/source-evidence.json",
+      "kind": "focused_working_tree_read",
+      "ranges": [
+        {
+          "start": 1,
+          "end": 24
+        },
+        {
+          "start": 189,
+          "end": 202
+        }
+      ]
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "kind": "focused_working_tree_read",
+      "ranges": [
+        {
+          "start": 223,
+          "end": 237
+        }
+      ]
+    },
+    {
+      "path": "tests/golden-path/GoldenPath.Sql/Program.cs",
+      "kind": "focused_working_tree_read",
+      "ranges": [
+        {
+          "start": 15,
+          "end": 23
+        },
+        {
+          "start": 45,
+          "end": 77
+        },
+        {
+          "start": 105,
+          "end": 118
+        },
+        {
+          "start": 137,
+          "end": 207
+        }
+      ]
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalHosting.cs",
+      "kind": "focused_working_tree_read",
+      "ranges": [
+        {
+          "start": 7,
+          "end": 19
+        },
+        {
+          "start": 43,
+          "end": 75
+        }
+      ]
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurity.cs",
+      "kind": "focused_working_tree_read",
+      "ranges": [
+        {
+          "start": 81,
+          "end": 93
+        },
+        {
+          "start": 126,
+          "end": 147
+        }
+      ]
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurityService.cs",
+      "kind": "focused_working_tree_read",
+      "ranges": [
+        {
+          "start": 89,
+          "end": 100
+        },
+        {
+          "start": 120,
+          "end": 162
+        },
+        {
+          "start": 185,
+          "end": 202
+        }
+      ]
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalOwnerConsole.cs",
+      "kind": "focused_working_tree_read",
+      "ranges": [
+        {
+          "start": 23,
+          "end": 28
+        },
+        {
+          "start": 73,
+          "end": 137
+        }
+      ]
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs",
+      "kind": "focused_working_tree_read",
+      "ranges": [
+        {
+          "start": 107,
+          "end": 144
+        }
+      ]
+    },
+    {
+      "path": "tests/golden-path/golden_path.py",
+      "kind": "focused_working_tree_read",
+      "ranges": [
+        {
+          "start": 1,
+          "end": 29
+        },
+        {
+          "start": 540,
+          "end": 575
+        },
+        {
+          "start": 1119,
+          "end": 1119
+        }
+      ]
+    },
+    {
+      "path": "docs/DECISIONS.md",
+      "kind": "focused_working_tree_read",
+      "ranges": [
+        {
+          "start": 23,
+          "end": 36
+        }
+      ]
+    },
+    {
+      "path": "global.json",
+      "kind": "focused_working_tree_read",
+      "ranges": [
+        {
+          "start": 1,
+          "end": 1
+        }
+      ]
+    },
+    {
+      "path": "C:/Users/Jason/MARTHA-SILVA/coordination/c9-prep-20261103/REPORT.md",
+      "kind": "sha256_comparison_only",
+      "same_bytes_as": "docs/c9-recovery-20261103/PREPARATION.md",
+      "sha256": "5a577ca35c45c31f0252395eb4b63445c08f2b1d0573597eed72ca15ead0f950"
+    },
+    {
+      "path": "C:/Users/Jason/AI-OS/PROTOCOL.md",
+      "kind": "governing_instructions_read"
+    },
+    {
+      "path": "C:/Users/Jason/AI-OS/OUTPUT.md",
+      "kind": "governing_instructions_read"
+    },
+    {
+      "path": "C:/Users/Jason/AI-OS/playbooks/suazo-evidence-first/SKILL.md",
+      "kind": "governing_instructions_read"
+    },
+    {
+      "path": "C:/Users/Jason/.codex/skills/metodo/SKILL.md",
+      "kind": "governing_instructions_read"
+    }
+  ],
+  "memory_used": {
+    "path": "C:/Users/Jason/.codex/memories/MEMORY.md",
+    "range": [
+      48,
+      57
+    ],
+    "purpose": "Routing guard only; consumed permissions and historical results require exact current source. Current claims come from project sources."
+  },
+  "external_owner_draft": {
+    "retrieved_this_task": false,
+    "provenance": "docs/c9-recovery-20261103/source-evidence.json:189-192",
+    "verdict_supplied": "ACCEPT_DOCUMENTARY_DRAFT_ONLY"
+  },
+  "executed_counts": {
+    "sql_queries": 0,
+    "sql_connections": 0,
+    "api_started": 0,
+    "services_or_docker_changed": 0,
+    "tests": 0,
+    "security_certificate_acl_changes": 0,
+    "commits_push_merge_deploy": 0,
+    "external_messages": 0
+  },
+  "usage": {
+    "input_tokens": null,
+    "cache_tokens": null,
+    "output_tokens": null,
+    "reasoning_tokens": null,
+    "provider_usd": null,
+    "reason": "Not exposed by available tools; no estimate supplied."
+  },
+  "unverified": [
+    "Current SQL/client/TLS/identity/paths/permissions/collisions",
+    "Accepted C6 candidate and matching binaries",
+    "Windows C9 coordinator implementation and supported invocation",
+    "Restore business oracles and measured RTO/RPO",
+    "Real Owner reset and last Owner recovery",
+    "Cleanup readback"
+  ],
+  "next_action": "Primary presents only PREFLIGHT-SCOPE.md read-only diagnostic scope to Jason, with G0 and manifest fields; no runtime authorization inferred.",
+  "scope": "Only two new output files; canonical checkout read-only. No memory update."
+}

@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-04T20:51:14.633552+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "80a13a7e871d3ee79b2855ebede33a9073f015d8"
+    },
+    {
+      "path": "docs/stock-decision-20261104/README.md",
+      "change": "A",
+      "git_blob": "a264cb5c15834408fe85b6a1c4b4652a5fd82e94"
+    },
+    {
+      "path": "docs/stock-decision-20261104/critic.md",
+      "change": "A",
+      "git_blob": "762fb1f2dde691a1ffc0b72e757e0f07e4bf2893"
+    },
+    {
+      "path": "docs/stock-decision-20261104/jury.md",
+      "change": "A",
+      "git_blob": "25fc8dbf2ecc85e6a17dd764c4436b4f1eb6cca9"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

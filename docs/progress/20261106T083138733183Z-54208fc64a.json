@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-06T08:31:38.733183+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "dev/savia-staff-ui/app.mjs",
+      "change": "M",
+      "git_blob": "d4822a2ae5a825893957e323238af52a2318728c"
+    },
+    {
+      "path": "dev/savia-staff-ui/client.mjs",
+      "change": "M",
+      "git_blob": "21d35c6ae2ce91fcf17f01c55cabd073cbd21569"
+    },
+    {
+      "path": "dev/savia-staff-ui/stock-exception.test.mjs",
+      "change": "M",
+      "git_blob": "beeeb386e5bf996bbd0556aac1bb26c51e55e7d7"
+    },
+    {
+      "path": "docs/stock-exception-20261106/CANDIDATE.json",
+      "change": "M",
+      "git_blob": "95e4c05d22d9cd9649affb1f7b52f091b885f69a"
+    },
+    {
+      "path": "docs/stock-exception-20261106/PRIMARY-REVIEW.md",
+      "change": "M",
+      "git_blob": "4ecd4b2daafaa2adeb285073ab8ff1fa151e05a2"
+    },
+    {
+      "path": "docs/stock-exception-20261106/REVIEW-RESOLUTION.md",
+      "change": "M",
+      "git_blob": "4089e873da8053c5a73b57c10303fdfc359a9ebf"
+    },
+    {
+      "path": "docs/stock-exception-20261106/astra-judge-candidate.md",
+      "change": "A",
+      "git_blob": "d03ce3135278bff1a19fb3170767bd0ae606d458"
+    },
+    {
+      "path": "docs/stock-exception-20261106/primary/JUDGE-CHECKS.json",
+      "change": "A",
+      "git_blob": "a0e056d6888250cd6cba8f7753bb750b3fd3cd16"
+    },
+    {
+      "path": "docs/stock-exception-20261106/primary/browser-judge-regressions.mjs",
+      "change": "A",
+      "git_blob": "569a954dc1df7df849a5de64953baf2f40f85a22"
+    },
+    {
+      "path": "docs/stock-exception-20261106/primary/judge-after/results.json",
+      "change": "A",
+      "git_blob": "9196025f4e48b3fa25120d314db8bad54d9694d6"
+    },
+    {
+      "path": "docs/stock-exception-20261106/primary/judge-after/videos/page@79b0d3f8b0813eb96166a920b4329c5b.webm",
+      "change": "A",
+      "git_blob": "052604a43de7097cc29b5a99e91ce64eb5627616"
+    },
+    {
+      "path": "docs/stock-exception-20261106/primary/judge-after/videos/page@dc22e2d0968ff684a6cbdec28e58b882.webm",
+      "change": "A",
+      "git_blob": "2f57bf1a54871c91864db0abafd1635b83d11bff"
+    },
+    {
+      "path": "docs/stock-exception-20261106/primary/judge-before/results.json",
+      "change": "A",
+      "git_blob": "b04bddd2419c76b363d3c0a1493e356c0198c29a"
+    },
+    {
+      "path": "docs/stock-exception-20261106/primary/judge-before/videos/page@1f3f0b616cfa2c12c664fcfb9345d1f9.webm",
+      "change": "A",
+      "git_blob": "1501665c8cf241bb05d5de715afec5bbc4b5525e"
+    },
+    {
+      "path": "docs/stock-exception-20261106/primary/judge-before/videos/page@2096cb1a7513e28a7d56ed65e45ba97a.webm",
+      "change": "A",
+      "git_blob": "f7cddd786b8eccab9f74451d4cc4e30fd65192ef"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

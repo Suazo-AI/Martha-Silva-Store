@@ -1,0 +1,60 @@
+{
+  "algorithm": "SHA256 CRLF->LF",
+  "bindings": [
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs",
+      "expected": "373a5edbefe70c97b17d9f610ddda835688812637529357f98c584d55e3da0ca",
+      "actual": "373a5edbefe70c97b17d9f610ddda835688812637529357f98c584d55e3da0ca"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceFingerprint.cs",
+      "expected": "d677084da128d7e96695cc9c7fcb72900a92189531a49a2da74347dc577712ce",
+      "actual": "d677084da128d7e96695cc9c7fcb72900a92189531a49a2da74347dc577712ce"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceFingerprintTests.cs",
+      "expected": "cc60d1076db1e9973f749061bf06ec963f62c6afa7176aa9eb5090e249ec0827",
+      "actual": "cc60d1076db1e9973f749061bf06ec963f62c6afa7176aa9eb5090e249ec0827"
+    },
+    {
+      "path": "global.json",
+      "expected": "3f9b8063fdc946bf82db965d9a228d4ea581390f83680ee3b952fb0ec00b2cf3",
+      "actual": "3f9b8063fdc946bf82db965d9a228d4ea581390f83680ee3b952fb0ec00b2cf3"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+      "expected": "8df90e870996de609ceb8635f6733051a251f24bcc7e7aa6db6f54c4f9eb3738",
+      "actual": "8df90e870996de609ceb8635f6733051a251f24bcc7e7aa6db6f54c4f9eb3738"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/packages.lock.json",
+      "expected": "e232fda3e775f3d736d1aafd214638654ba432ff90ea8a99262233bb9e055195",
+      "actual": "e232fda3e775f3d736d1aafd214638654ba432ff90ea8a99262233bb9e055195"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Martha.Store.Api.csproj",
+      "expected": "6070096536d919ec850175d7f256b770909483bc02011226b02c577b20c91f46",
+      "actual": "6070096536d919ec850175d7f256b770909483bc02011226b02c577b20c91f46"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/packages.lock.json",
+      "expected": "2db528f3a68ac0cc09b3658d2b9bdb5dce10d7e8e36304c560f087e8cca50c58",
+      "actual": "2db528f3a68ac0cc09b3658d2b9bdb5dce10d7e8e36304c560f087e8cca50c58"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalDbContext.cs",
+      "expected": "5e7449509a14736b70134604829186911596c605bb9e3ec9f1e25a4ac59fc2ab",
+      "actual": "5e7449509a14736b70134604829186911596c605bb9e3ec9f1e25a4ac59fc2ab"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Migrations/InternalDbContextModelSnapshot.cs",
+      "expected": "f1f1443198da501ec1abe5a48055a08e282c588c1713ac9092e74ce8d7cc097a",
+      "actual": "f1f1443198da501ec1abe5a48055a08e282c588c1713ac9092e74ce8d7cc097a"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Migrations/20261106071201_PhysicalStockException.cs",
+      "expected": "b551cb4d6e88683130f0a09fbca37c8e5feabe2128790357c58d198575020894",
+      "actual": "b551cb4d6e88683130f0a09fbca37c8e5feabe2128790357c58d198575020894"
+    }
+  ]
+}

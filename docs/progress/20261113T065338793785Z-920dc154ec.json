@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-13T06:53:38.793785+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": ".github/workflows/savia-v2.yml",
+      "change": "A",
+      "git_blob": "6a969042a2b8516ecf9613afc3616b639e97ddaf"
+    },
+    {
+      "path": "savia/db/migrations/MANIFEST.sha256",
+      "change": "A",
+      "git_blob": "97525f8bea1b01f84f90d5b1faec9aa1fe702c92"
+    },
+    {
+      "path": "savia/docs/PLAN.md",
+      "change": "M",
+      "git_blob": "49bfa65cd141e26c768f2c6402ac4bf1225861dd"
+    },
+    {
+      "path": "savia/docs/UNTANGLE.md",
+      "change": "A",
+      "git_blob": "49430d7a75ac0b685d5d13914c1e4be881a05b30"
+    },
+    {
+      "path": "savia/docs/pilot/TRASLADOS-APARTADOS.md",
+      "change": "M",
+      "git_blob": "e56ac50829a4309b2ddae3b19a4c2850c781a433"
+    },
+    {
+      "path": "savia/formal/apartado/Apartado.tla",
+      "change": "A",
+      "git_blob": "44e56600d1479a66a0af5c710df7afb4a524f8e4"
+    },
+    {
+      "path": "savia/formal/apartado/README.md",
+      "change": "A",
+      "git_blob": "0ea3cc20e8b08d63161e28282c609762e27533ef"
+    },
+    {
+      "path": "savia/formal/apartado/chart.mmd",
+      "change": "A",
+      "git_blob": "350e87486082f9a65405a064b3198ce359ab89e0"
+    },
+    {
+      "path": "savia/tests/test_rules.py",
+      "change": "A",
+      "git_blob": "0b676fa833c41e915e54ddb97638d6517d91efd1"
+    },
+    {
+      "path": "savia/tools/check.py",
+      "change": "M",
+      "git_blob": "9118101e9d032bdf22609d56824104b248e0b05a"
+    },
+    {
+      "path": "savia/tools/formal.py",
+      "change": "A",
+      "git_blob": "01534b19de7f447266f6bb6f33bca8c2a73a92bf"
+    },
+    {
+      "path": "savia/tools/rules.py",
+      "change": "A",
+      "git_blob": "23c2aa04e6834ed521ced19e831386e675118e5f"
+    },
+    {
+      "path": "savia/tools/tag_live.py",
+      "change": "A",
+      "git_blob": "181753f86738edd1fa3a605c8a6af0f25cf2c7ab"
+    },
+    {
+      "path": "savia/tools/verify.py",
+      "change": "A",
+      "git_blob": "89e9f73355dfe9307da0d9519378e644193acc5b"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

@@ -1,0 +1,25 @@
+{
+  "source_sha": "e2a475961a0056ac6609a86e34a2a58c05e37707",
+  "version_id": "efd1cceb-3e4f-43b0-bdbc-9264c13e8123",
+  "deployment_id": "c15f32d1-e501-463e-b282-ef516adcb616",
+  "published_utc": "2026-10-26T23:54:46.010255Z",
+  "traffic_percent": 100,
+  "url": "https://martha-silva-preview.martha-silva-denis.workers.dev/",
+  "runtime_files": 904,
+  "total_assets": 905,
+  "changed_existing": 49,
+  "new_PNG": 2,
+  "unchanged_from_A": 853,
+  "raw_HTTP_payloads_verified": 52,
+  "footer_links_removed": 47,
+  "rendered_browser_QA": "PENDING_CLOUD_AVAILABILITY",
+  "Safari_iPhone_VoiceOver": "NOT_RUN",
+  "local_heavy_admission": {
+    "available_MB": 833,
+    "commit_percent": 70,
+    "allowed": false
+  },
+  "rollback_version": "a8668b7b-9fe0-4635-ac5a-01033ae96e2b",
+  "test_status": "Cloud v4 pass_with_documented_fixture_adaptation; final footer exact-byte/HTML parser/source-dist PASS; raw HTTP52/52 PASS",
+  "original_site_untouched": true
+}

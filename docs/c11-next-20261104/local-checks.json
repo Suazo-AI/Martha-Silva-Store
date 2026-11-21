@@ -1,0 +1,69 @@
+{
+  "schema": 1,
+  "task_id": "C11-N5-01-20261104",
+  "host": "SUAZO-PC",
+  "model": "gpt-6.1-sol",
+  "reasoning": "xhigh",
+  "base_head": "c2164c310acbcef94718499698abccaa7b1022c0",
+  "status": "candidate_preparation",
+  "method": "N5_owner_branch_reassignment_rejects_original_cashier_cookie_and_preserves_sales_before_new_scope_login",
+  "verification": [
+    {
+      "command": "C:/Users/Jason/.dotnet-sdk-10.0.402/dotnet.exe --version",
+      "exit_code": 0,
+      "observed": "10.0.402"
+    },
+    {
+      "command": "C:/Users/Jason/.dotnet-sdk-10.0.402/dotnet.exe --list-sdks",
+      "exit_code": 0,
+      "observed": "10.0.402 [C:\\Users\\Jason\\.dotnet-sdk-10.0.402\\sdk]"
+    },
+    {
+      "command": "C:/Users/Jason/.dotnet-sdk-10.0.402/dotnet.exe build backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj --no-restore --configuration Release",
+      "exit_code": 0,
+      "observed": "Build succeeded. 0 Warning(s). 0 Error(s).",
+      "elapsed_ms": 11051
+    },
+    {
+      "command": "python tools/delivery_status.py --check",
+      "exit_code": 0,
+      "elapsed_ms": 106,
+      "output": "Ledger: valid; 34 items."
+    },
+    {
+      "command": "python tools/export_progress.py --verify",
+      "exit_code": 0,
+      "elapsed_ms": 130,
+      "output": "PASS: 15 preserved evidence hashes; no runtime executed."
+    },
+    {
+      "command": "git diff --check",
+      "exit_code": 0,
+      "observed": "No whitespace errors."
+    },
+    {
+      "command": "C:/Users/Jason/AppData/Local/Programs/Python/Python311/python.exe -B tests/test_progress.py -v",
+      "exit_code": 0,
+      "observed": "Ran 23 tests in 45.345s; OK; 23 passed, 0 failed.",
+      "elapsed_ms": 45625
+    }
+  ],
+  "not_run": [
+    "new HTTP+SQL method",
+    "full backend suite 601",
+    "candidate C6/C8 CI",
+    "independent final C11/N10 review"
+  ],
+  "initial_review": {
+    "verdict": "NEEDS WORK",
+    "apto": 8,
+    "pending": [
+      "C11-N5-01"
+    ],
+    "review_sha256": "7c543e86d65fcb28181b9f55652d95b09bb8c3bb45e6a6961eff820e19608850",
+    "evidence_sha256": "93a9fcbed237211aedc52c261984fe0d6f5ed4c1ae3ff044a8d6028024a9b2e8",
+    "copies_byte_equal": true
+  },
+  "source_sha256": "8888dcc13feb6ac7ca640cc0fe623cf79edc5edcbe0495165742617208ea0244",
+  "workflow_sha256": "9e6cde2d6410d21affee21a29e7a2a35881beef0618d3f1fc59b4391448cd9cd"
+}

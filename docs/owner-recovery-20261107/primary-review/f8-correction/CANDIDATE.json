@@ -1,0 +1,114 @@
+{
+  "state": "SOURCE_CORRECTION_PREPARED_NOT_EXECUTED",
+  "parentHead": "85d5872ecb379e42e8ed59de346bf60933207c53",
+  "originalCandidate": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\owner-recovery-primary-20261108\\review-inputs\\CANDIDATE.json",
+  "originalCandidateRawSha256": "699cd91ddec454f7207c4be3d0ae7d4ad07607e9c29416b96e20a6483bd77f3d",
+  "sourceRoot": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\owner-recovery-primary-20261108\\f8-correction-inputs",
+  "sources": [
+    {
+      "path": "backend/src/Martha.Store.Api/Program.cs",
+      "bytes": 12992,
+      "rawSha256": "f279c2235136dd892845440f5f7fbaf6dbe3e11331d119a482715c1363b9aef9",
+      "lfSha256": "74e043cebd6242d9f114fef2cf30f9cf944e5f99dc602b7fd3309b095de14fe4"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalOwnerConsole.cs",
+      "bytes": 13822,
+      "rawSha256": "063589c37d3f50bc70277b52e5f0a3b1e5aa42d3244e6e73fa5b098fb0dd15bb",
+      "lfSha256": "6c4471cd566bbe4620722e99c9f8a5efc41c71147c19891f4b45ccafc047bdd7"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalOwnerRecoveryConsole.cs",
+      "bytes": 10659,
+      "rawSha256": "bbe457d5247a348c5c9a18026783f7c0f8876c2661127852033c1bf8c437ea69",
+      "lfSha256": "bbe457d5247a348c5c9a18026783f7c0f8876c2661127852033c1bf8c437ea69"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalOwnerRecoveryService.cs",
+      "bytes": 9387,
+      "rawSha256": "d13a14717563c4f89dd2da881fe736fdde2f8bee2814a216581bbd3cd85d661c",
+      "lfSha256": "d13a14717563c4f89dd2da881fe736fdde2f8bee2814a216581bbd3cd85d661c"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalOwnerRecoveryConsoleTests.cs",
+      "bytes": 14570,
+      "rawSha256": "96a275b89a276653d4d99c1709d6062c32c34236a7438e4f02f920e5b1426cd8",
+      "lfSha256": "96a275b89a276653d4d99c1709d6062c32c34236a7438e4f02f920e5b1426cd8"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalOwnerRecoverySqlTests.cs",
+      "bytes": 28356,
+      "rawSha256": "40695cb9fafb263c492487f2819d4471203b472d6052f62cbaee6793c714bd9e",
+      "lfSha256": "40695cb9fafb263c492487f2819d4471203b472d6052f62cbaee6793c714bd9e"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalSecuritySqlTests.cs",
+      "bytes": 18936,
+      "rawSha256": "ad2674aee310e5e7963e749c1db66c396c46572a4d1aeac05035a7c5aa62bb37",
+      "lfSha256": "ad2674aee310e5e7963e749c1db66c396c46572a4d1aeac05035a7c5aa62bb37"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs",
+      "bytes": 69687,
+      "rawSha256": "339266e8dfce6583b1c1ef0181ba42265b0753895d8e6920d8763305e0572b9e",
+      "lfSha256": "339266e8dfce6583b1c1ef0181ba42265b0753895d8e6920d8763305e0572b9e"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalOwnerRecoveryFixture.cs",
+      "bytes": 9180,
+      "rawSha256": "d2528bec753b5483d28475bb468ba5c3766798212e5cd8fd2e1008aa8daa178f",
+      "lfSha256": "d2528bec753b5483d28475bb468ba5c3766798212e5cd8fd2e1008aa8daa178f"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalOwnerRecoveryDatabaseLease.cs",
+      "bytes": 5898,
+      "rawSha256": "c782d60e1ebd0700dbc9db8d061ad51020178048e806298e11c00d6a0ef5b8a0",
+      "lfSha256": "c782d60e1ebd0700dbc9db8d061ad51020178048e806298e11c00d6a0ef5b8a0"
+    }
+  ],
+  "changedPaths": [
+    "backend/tests/Martha.Store.Api.Tests/InternalOwnerRecoverySqlTests.cs"
+  ],
+  "historicalEvidenceRoot": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\owner-recovery-primary-20261108\\review-inputs",
+  "historicalEvidence": [
+    {
+      "path": "docs/owner-recovery-20261107/worker/continuation/README.md",
+      "rawSha256": "bb0f43160fbed4ef3514ec247c49a0e86134f1ef8482dea782e58743916343d2"
+    },
+    {
+      "path": "docs/owner-recovery-20261107/worker/continuation/RESULT.json",
+      "rawSha256": "b39e75890bfb3dd0726e231b3c7c25425930031b6ede9cc583a851f5e0c03183"
+    },
+    {
+      "path": "docs/owner-recovery-20261107/worker/continuation/source-hashes.json",
+      "rawSha256": "9a6573bb808d11c7039c5655f5d189234c82f734c15793dfbb56849320525592"
+    },
+    {
+      "path": "docs/owner-recovery-20261107/worker/continuation/inputs-4-green.json",
+      "rawSha256": "ea6d203f8bbd2bfe827361aef5bb828b80be6ab44a5cd057011242ef3cdfc007"
+    },
+    {
+      "path": "docs/owner-recovery-20261107/worker/continuation/1-red.trx",
+      "rawSha256": "d3069863c0afebab3a280b6d27819fad5dd35e221c5b4284ac19619a50e41954"
+    },
+    {
+      "path": "docs/owner-recovery-20261107/worker/continuation/2-green.trx",
+      "rawSha256": "9d6c508c34f01a4c3e8cd348dd603647cd445efafffa8e47ca930ee049f5339d"
+    },
+    {
+      "path": "docs/owner-recovery-20261107/worker/continuation/4-green.trx",
+      "rawSha256": "f642b5d06ad4531bc311872d365c9230b1158cc76b66af7042cb7179f868fd13"
+    },
+    {
+      "path": "docs/owner-recovery-20261107/worker/continuation/cleanup.json",
+      "rawSha256": "a7e00c58b63a42da13aa29d5fdffab2fddba43102ae0c6f99d2adb07d17822d5"
+    },
+    {
+      "path": "docs/owner-recovery-20261107/worker/continuation/SANDBOX.json",
+      "rawSha256": "80f4208dab1b85831b05e144f76957f965e120f35656c5c7bb752cb969842954"
+    }
+  ],
+  "reviewReportRawSha256": "19ce79eb37e06ef6551d57b2e7c05722a2957f6362766979466584817bc28461",
+  "execution": "NOT RUN: build, offline target tests, SQL, accounts, Windows ACL/SID, backup/restore and recovery",
+  "sql5": "D: REVIEW FIRST, DO NOT EXECUTE"
+}

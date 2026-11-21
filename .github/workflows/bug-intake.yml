@@ -1,0 +1,28 @@
+name: Bug intake
+on:
+  workflow_run:
+    workflows: [Tony source snapshot, Staff UI candidate (no SQL), SAVIA judge, SAVIA golden path, Progress documentation, Backend synthetic slice, Recovered demo CI, Progress digest]
+    types: [completed]
+    branches: [Tony]
+permissions:
+  issues: write
+  actions: read
+concurrency:
+  group: bug-intake
+  cancel-in-progress: false
+jobs:
+  intake:
+    if: github.event.workflow_run.conclusion == 'failure'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      # Anonymous retrieval of this PUBLIC repo's trusted workflow revision requires
+      # no contents permission; never fetch code from the failed run's SHA.
+      - name: Load trusted intake script
+        run: |
+          mkdir -p tools/bugproof
+          curl --fail --silent --show-error "https://raw.githubusercontent.com/$GITHUB_REPOSITORY/$GITHUB_SHA/tools/bugproof/github.py" -o tools/bugproof/github.py
+      - name: Deduplicate failing jobs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python tools/bugproof/github.py intake

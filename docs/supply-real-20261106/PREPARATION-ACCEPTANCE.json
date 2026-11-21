@@ -1,0 +1,54 @@
+{
+  "sourceBase": "a77f705a6fd6a2778e4112c21aaa72ab8e478015",
+  "status": "primary-accepted-preparation-with-limits",
+  "production": "NO-GO",
+  "realJourney": "NOT RUN",
+  "primary": {
+    "host": "SUAZO-PC",
+    "harness": "T3 Code / Codex",
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "xhigh"
+  },
+  "judge": {
+    "path": "docs/supply-real-20261106/astra-judge-preparation.md",
+    "sha256": "f2ae538c2b509d14e614a97322a570538ac66f9cccda157402c9138239ccd381",
+    "verdict": "ACCEPT WITH LIMITS"
+  },
+  "directVerification": {
+    "candidateManifest": "docs/supply-real-20261106/REVIEW-CANDIDATE.json",
+    "lfBindingsMatched": 21,
+    "lfBindingsTotal": 21,
+    "reviewReportRead": true,
+    "reportImportedByteExactly": true,
+    "newResponsiveTestCorrectionOutsideTheseBindings": true
+  },
+  "findings": {
+    "F1": "resolved: explicit supply error allowlist; no new runtime claim",
+    "F2": "resolved: UTF-8 documentation",
+    "F3": "non-blocking: redundant predicate/usage limitations retained",
+    "F4": "non-blocking: markdown projection omits fields present in complete JSON"
+  },
+  "ci": {
+    "receipt": "docs/supply-real-20261106/CI-852.json",
+    "sha": "8523523a41d490f7bdcca016bf34cc5fc2c04a37",
+    "same21SourceBindings": true,
+    "run": 42169677581,
+    "conclusion": "success",
+    "dotnetPass": 526,
+    "dotnetSkipped": 55,
+    "dotnetFail": 0,
+    "staffPass": 124,
+    "browserMocksPass": [
+      50,
+      8
+    ]
+  },
+  "limits": [
+    "Preparation acceptance does not execute Browser -> API -> SQL.",
+    "The no-SQL .NET filter has 55 skips; do not describe it as zero-skip SQL proof.",
+    "Historical full SQL run 42163110947 is separate and predates this harness extension.",
+    "New runtime requires a specific authorized run under docs/DATABASE.md.",
+    "No merge, deployment, SQL, Docker or certificate runtime performed for this acceptance."
+  ],
+  "next": "Finish frozen candidate Linux publication checks, then request one exact-scope golden-path.yml run with supply_receipt=true."
+}

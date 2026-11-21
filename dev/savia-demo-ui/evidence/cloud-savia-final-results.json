@@ -1,0 +1,84 @@
+{
+  "source": "/workspace/scratch/14cff504045e/savia-candidate-fixed/source",
+  "completed_utc": "2026-10-25T07:38:19.553602+00:00",
+  "base_sha": "f7e859bd0e6edf6bdef8b391b63589a212f0d088",
+  "original_package_sha256": "6423657bfbf8779f77fb19743235140f48a68d7c74ca59242f45385f9f5f8adf",
+  "patch_sha256": "c62c8856da489b2465fc11e94cc882dba3fe3a9f4d9976b887108237213ce8cd",
+  "uncommitted": true,
+  "versions": {
+    "node": {
+      "version": "v24.22.1",
+      "exit_code": 0
+    },
+    "npm": {
+      "version": "11.9.0",
+      "exit_code": 0
+    }
+  },
+  "jsdom_version": "26.1.0",
+  "execution": "Serial; started after parent confirmed storefront executor terminal. No installation rerun.",
+  "dependency_reuse": "Copied 1232 files/links from original candidate; manifests identical; package.json and package-lock.json byte-identical. See dependency-copy.json.",
+  "stages": [
+    {
+      "id": "api-client",
+      "command": "node --test dev/savia-demo-ui/api-client.test.mjs",
+      "exit_code": 0,
+      "status": "passed",
+      "log": "api-client.log",
+      "counts": {
+        "tests": 8,
+        "suites": 0,
+        "pass": 8,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "id": "ui",
+      "command": "node --test dev/savia-demo-ui/ui.test.mjs",
+      "exit_code": 0,
+      "status": "passed",
+      "log": "ui.log",
+      "counts": {
+        "tests": 9,
+        "suites": 0,
+        "pass": 9,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    }
+  ],
+  "fresh_counts": {
+    "passed": 17,
+    "failed": 0,
+    "api": 8,
+    "dom": 9
+  },
+  "model": {
+    "status": "not_rerun",
+    "reason": "Both model.mjs and model.test.mjs byte-identical to prior candidate. No imported dependencies.",
+    "prior_passed": 12,
+    "prior_failed": 0,
+    "prior_command_exit_code": 0,
+    "prior_evidence": "/workspace/scratch/14cff504045e/savia-candidate-cloud/evidence-node/model-initial.log"
+  },
+  "source_integrity": {
+    "pre_matched": 15,
+    "post_matched": 15,
+    "total": 15,
+    "original_candidate_preserved": true
+  },
+  "denied_commands": [],
+  "pending_commands": [],
+  "uncertain_commands": [],
+  "remaining_test_blockers": [],
+  "limitations": [
+    "Model 12/12 is prior unchanged-source evidence, not a fresh run.",
+    "DOM simulation only; no browser/layout, SQL, .NET, live backend, deployment, Git or Windows validation.",
+    "No source edits or package-preview.py execution. Only copied node_modules into separate fixed candidate and wrote evidence."
+  ]
+}

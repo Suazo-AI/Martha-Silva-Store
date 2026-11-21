@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "kind": "preserved historical observations; not rechecked during this GitHub sync",
+  "seo": {
+    "checkedAt": "2026-10-30T22:03:13.1111479+00:00",
+    "targetConfirmed": false,
+    "candidateUrl": "https://martha-silva-demo.jason-suazof.workers.dev/",
+    "findings": [
+      {
+        "evidence": "HTTP 200; meta robots noindex,nofollow; canonical link absent",
+        "interpretation": "This directive excludes the page from indexing when Google crawls it; current Google indexing state is unverified.",
+        "artifact": "live homepage"
+      },
+      {
+        "evidence": "HTTP 404",
+        "interpretation": "No sitemap exists at this path; other sitemap locations are unverified.",
+        "artifact": "live /sitemap.xml"
+      },
+      {
+        "evidence": "Deployment is a demo with sample commercial data and simulated payments.",
+        "interpretation": "Production URL must be identified before publishing indexing changes.",
+        "artifact": "cloudflare-store/README.md"
+      },
+      {
+        "evidence": "47 local HTML files inspected; all contain noindex.",
+        "interpretation": "Local generated files are not evidence of current live route coverage.",
+        "artifact": "store/public/*.html"
+      }
+    ]
+  },
+  "cutufay_frozen_20261029": {
+    "runtime": {
+      "runtime_verified": 1082,
+      "runtime_errors": [],
+      "selected_mappings_verified": 158,
+      "selected_unique_files": 156,
+      "selected_errors": [],
+      "html_pages": 47
+    },
+    "images": {
+      "selected_png_files": 156,
+      "header_dimensions_checked": true,
+      "pillow_verify": true,
+      "dimensions": {
+        "1024x1536": 8,
+        "1086x1448": 125,
+        "1127x1396": 21,
+        "1126x1397": 2
+      },
+      "errors": []
+    },
+    "limit": "Integrity and dimensions only; not current visual or production acceptance."
+  },
+  "source_sha256": {
+    "outputs/seo-triage-2026-10-30/triage.json": "db104bc95ab676dc83fe1a1b56671c5ecac9bd7f89b3fac670d1bf2416f90398",
+    "outputs/cutufay-20261029/image-verification.json": "53e55145004ceaa31c8b26b2b5c4774c007d5fbace85fb63b0729b116a6a1a4f",
+    "outputs/cutufay-20261029/runtime-verification.json": "03eb06d7c659038f12527baae9e196f55bb4604aacad89fa7073fba32d5745b5"
+  }
+}

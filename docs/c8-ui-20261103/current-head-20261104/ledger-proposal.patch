@@ -1,0 +1,14 @@
+diff --git a/docs/pipeline/ledger.json b/docs/pipeline/ledger.json
+index 44724eb..e63355d 100644
+--- a/docs/pipeline/ledger.json
++++ b/docs/pipeline/ledger.json
+@@ -210,7 +210,8 @@
+       "paths": [
+         "dev/savia-staff-ui/*"
+       ],
+-      "prep": "Tony/Codex preparó 6 casos (N2/N6/N7), todos NOT RUN; Trello C8 2026-11-03"
++      "prep": "C8 local probado: UI enfocada 9/9, browser 45/45, staff 45/45, API expiración 1/1 e InternalSecurityTests 49/49 (incluye API). Evidencia REUTILIZADA, cero ejecuciones nuevas; bytes y dependencias iguales. Base probada 775f301bc195c43baedc68c86f4e71affe92ef95, port local 260b75951729189d987ffe423218ab1643bcfa3c. Trello 4/5 En curso. CI del candidato C8 pendiente; CI 260b759 no cubre los parches.",
++      "evidence": "docs/c8-ui-20261103/current-head-20261104/report.md · docs/c8-ui-20261103/current-head-20261104/binding.json · docs/c8-ui-20261103/current-head-20261104/verification.json · docs/c8-ui-20261103/api-expiry-completion-20261103/primary-acceptance.json. Patch producto SHA256 a0762dc021260f4c8c88b849552c4775c6bef17af06c5338e68e95cd7a221df0. Rutas relativas al checkout canónico; exportación y revisión primary pendientes. C8 sigue doing; no cierre de CI ni C11."
+     },
+     {
+       "id": "C9",

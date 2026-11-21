@@ -1,0 +1,9 @@
+{
+  "verified_utc": "2026-11-06T07:37:43.511242+00:00",
+  "contract_hashes_match": true,
+  "contract_count": 31,
+  "final_browser_hashes_match": true,
+  "four_negative_controls_exactly_restored": true,
+  "staged_paths": [],
+  "candidate_status": "returned; acceptance pending; repository gate failed on WinError 1314"
+}

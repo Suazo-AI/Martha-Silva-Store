@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-10T20:45:46.756303+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "0b225109992b4a9759c636521d7579e5dd296d17"
+    },
+    {
+      "path": "docs/owner-recovery-20261107/primary-review/STATUS.json",
+      "change": "M",
+      "git_blob": "79b07d9f35604abcd826db13475931c647e70f4e"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

@@ -50,6 +50,38 @@ class StagingTests(unittest.TestCase):
         self.assertEqual(record['state'], 'existing_demo_preserved')
         self.assertEqual(demo['products'][0]['variants'][0]['stock'], 91)
 
+    def test_original_public_media_layout_is_recognized_without_activation(self):
+        path = self.root / REF.lstrip('/')
+        path.parent.mkdir(parents=True)
+        path.write_bytes(b'local-image-fixture')
+        demo = copy.deepcopy(self.original)
+        record = self.run_compare(demo)['records'][0]
+        self.assertEqual(record['original_gallery'][0]['demo_original_path'], 'present')
+        self.assertTrue(record['original_gallery_complete'])
+        self.assertFalse(record['publish_allowed'])
+
+    def test_empty_original_path_is_not_hidden_by_a_legacy_copy(self):
+        for relative, data in ((REF.lstrip('/'), b''), ('assets' + REF, b'fixture')):
+            path = self.root / relative
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(data)
+        record = self.run_compare()['records'][0]
+        self.assertEqual(record['original_gallery'][0]['demo_original_path'], 'empty')
+        self.assertFalse(record['original_gallery_complete'])
+
+    def test_symlinked_original_path_is_not_hidden_by_a_legacy_copy(self):
+        target = self.root / 'target.jpg'
+        target.write_bytes(b'fixture')
+        link = self.root / REF.lstrip('/')
+        link.parent.mkdir(parents=True)
+        link.symlink_to(target)
+        legacy = self.root / ('assets' + REF)
+        legacy.parent.mkdir(parents=True)
+        legacy.write_bytes(b'legacy fixture')
+        record = self.run_compare()['records'][0]
+        self.assertEqual(record['original_gallery'][0]['demo_original_path'], 'symlink_rejected')
+        self.assertFalse(record['original_gallery_complete'])
+
     def test_unsafe_paths_and_duplicates_rejected(self):
         for bad in ['/research/assets/../../private.jpg', 'https://example.com/image.jpg', '/etc/passwd']:
             self.original['products'][0]['images'] = [bad]
@@ -84,7 +116,8 @@ class StagingTests(unittest.TestCase):
 
     def test_current_demo_fixture_is_preserved(self):
         demo = s.read_demo(ROOT / 'dist/catalog.js')
-        self.assertEqual(len(demo['products']), 2)
+        self.assertEqual(len(demo['products']), 40)
+        self.assertEqual(sum(len(product['variants']) for product in demo['products']), 120)
         self.assertTrue(all(p['commercial_status'] == 'sample' for p in demo['products']))
 
     def test_cli_is_deterministic_and_read_only(self):

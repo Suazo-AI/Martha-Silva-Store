@@ -1,0 +1,500 @@
+"""Real local pilot browser flow, using agent-browser and direct API read-backs.
+
+Start with pilot.py reset then up, with five per-account pilot passwords in the environment.
+No mocked endpoints, optional steps, packages, external services or stored plaintext credentials.
+Each run creates distinct sample codes and can run again against the same seeded pilot.
+For an isolated pilot, set SAVIA_E2E_WEB, SAVIA_E2E_DB and SAVIA_E2E_SESSION together.
+"""
+from __future__ import annotations
+import json
+import os
+import re
+import shutil
+import subprocess
+import sys
+import tempfile
+import time
+import urllib.error
+import urllib.request
+import uuid
+from pathlib import Path
+
+WEB = os.environ.get("SAVIA_E2E_WEB", "http://127.0.0.1:5080").rstrip("/")
+API = WEB + "/api/v1"
+SESSION = os.environ.get("SAVIA_E2E_SESSION", "savia-owner-e2e")
+DATABASE = os.environ.get("SAVIA_E2E_DB", "SAVIA_DEV_pilot")
+SUPERVISOR = "gerente.muestra"
+CASHIER = "gerente.muestra"
+OWNER = "duena.muestra"
+PASSWORDS = {name+'.muestra':os.environ.get('SAVIA_PILOT_PASSWORD_'+name.upper()) for name in ('duena','gerente','vendedor1','vendedor2','bodega')}
+
+CODE = "7500001000014"
+IMPORT_CSV = Path(__file__).resolve().parents[2] / "docs" / "pilot" / "import-samples" / "catalogo-ejemplo.csv"
+IMPORT_OK = {'Codigo ya registrado.', 'SKU repetido o ya registrado.'}
+# Screenshots are evidence of this run. SAVIA_E2E_SHOTS sends them elsewhere; docs/pilot/screens is updated on purpose only.
+SHOTS = Path(os.environ.get("SAVIA_E2E_SHOTS") or Path(__file__).resolve().parents[2] / ".out" / "e2e-screens")
+AB = shutil.which("agent-browser")
+if AB and Path(AB).suffix.lower() in (".cmd", ".bat"):
+    # The npm CMD shim reparses quotes/metacharacters in eval. Invoke the same CLI's Rust binary.
+    native = Path(AB).parent / "node_modules" / "agent-browser" / "bin" / "agent-browser-win32-x64.exe"
+    if native.is_file():
+        AB = str(native)
+results = []
+EXPECTED_NAMES = {}
+BROWSER_RUNTIME = None
+
+class StepFailed(Exception):
+    pass
+
+# ---------- browser ----------
+def ab(*args: str, timeout: int = 45, secret_input: str | None = None) -> str:
+    # Output goes to a temp file, not a pipe: the first command starts the agent-browser
+    # daemon, which inherits the handles; a pipe would then never reach EOF.
+    with tempfile.TemporaryFile() as out:
+        try:
+            code = subprocess.run([AB, "--session", SESSION, *args], stdout=out, stderr=subprocess.STDOUT,
+                                  input=secret_input.encode() if secret_input is not None else None, timeout=timeout).returncode
+        except subprocess.TimeoutExpired:
+            raise StepFailed(f"agent-browser {' '.join(args[:2])} timed out after {timeout}s") from None
+        out.seek(0)
+        output = out.read().decode("utf-8", "replace").strip()
+    if code != 0:
+        raise StepFailed(f"agent-browser {args[0]}: {output}"[:1200])
+    return output
+
+
+def js(expression: str):
+    """Evaluates JSON.stringify(expression) in the page and returns the Python value."""
+    out = ab("eval", f"JSON.stringify((() => {{ {expression} }})() ?? null)")
+    value = json.loads(out.splitlines()[-1])
+    return json.loads(value) if isinstance(value, str) else value
+
+
+def close_browser(timeout=5):
+    failure = None
+    for _ in range(2):
+        try:
+            ab("close", timeout=max(1, timeout))
+            failure = None
+            break
+        except StepFailed as error:
+            failure = error
+    if failure:
+        sessions = json.loads(ab("session", "list", "--json", timeout=max(1, timeout)))["data"]["sessions"]
+        if any(s == SESSION or isinstance(s, dict) and (s.get("name") == SESSION or s.get("session") == SESSION) for s in sessions):
+            stop_session_daemon()
+    # On Windows the daemon can exit before acknowledging close (10060).
+    # Verify the actual postcondition. A live session still fails the run.
+    deadline = time.monotonic() + timeout
+    while True:
+        sessions = json.loads(ab("session", "list", "--json", timeout=max(1, timeout)))["data"]["sessions"]
+        active = any(s == SESSION or isinstance(s, dict) and (s.get("name") == SESSION or s.get("session") == SESSION) for s in sessions)
+        if not active:
+            break
+        if time.monotonic() >= deadline:
+            raise failure or StepFailed("agent-browser session remains active after close")
+        time.sleep(0.1)
+    if failure:
+        print("browser close acknowledgement lost; session list confirms it stopped", flush=True)
+
+
+def stop_session_daemon():
+    """Stop only this session's verified Rust daemon. Never kill other browser sessions."""
+    if os.name != 'nt':
+        return
+    info=BROWSER_RUNTIME
+    if info is None:
+        try:
+            info=json.loads(ab('session','info','--json',timeout=3))['data']
+        except StepFailed:
+            # A hung daemon cannot answer diagnostics. This exact session's PID record remains local.
+            socket=Path.home()/'.agent-browser'
+            try: pid=int((socket/(SESSION+'.pid')).read_text().strip())
+            except (OSError,ValueError): raise StepFailed('Cannot identify this browser session daemon') from None
+            info={'session':SESSION,'pid':pid,'socketDir':str(socket),'runtime':{'session':SESSION,'backgroundPid':pid}}
+    runtime=info.get('runtime') or {}
+    if info.get('session')!=SESSION or not isinstance(info.get('pid'),int) or runtime.get('session')!=SESSION or runtime.get('backgroundPid')!=info.get('pid'):
+        raise StepFailed('Cannot identify this browser session daemon')
+    socket=Path(info['socketDir']).resolve()
+    pid_file=socket/(SESSION+'.pid')
+    if pid_file.exists() and pid_file.read_text().strip()!=str(info['pid']):
+        raise StepFailed('Browser session PID changed before cleanup')
+    # The CLI identifies the named session. Recheck its exact executable before stopping that PID.
+    script = r"""
+$ErrorActionPreference='Stop'
+$p=Get-CimInstance Win32_Process -Filter ('ProcessId = '+$env:SAVIA_BROWSER_CLEANUP_PID)
+if(!$p){exit 0}
+$actual=$p.ExecutablePath
+if($actual.StartsWith('\\?\')){$actual=$actual.Substring(4)}
+if($actual -eq $env:SAVIA_BROWSER_CLEANUP_EXE){
+ $process=Get-Process -Id $p.ProcessId -ErrorAction Stop
+ Stop-Process -Id $p.ProcessId -Force -ErrorAction Stop
+ if(!$process.WaitForExit(3000)){exit 3}
+}else{exit 2}
+"""
+    process = subprocess.run(['powershell','-NoProfile','-NonInteractive','-Command',script],
+        env={**os.environ,'SAVIA_BROWSER_CLEANUP_PID':str(info['pid']),'SAVIA_BROWSER_CLEANUP_EXE':str(Path(AB).resolve())},capture_output=True,timeout=10)
+    if process.returncode:
+        raise StepFailed('Could not stop the browser session daemon')
+    # A forced stop leaves transport records behind. Remove only this verified PID's runtime files.
+    socket=Path(info['socketDir']).resolve()
+    pid_file=socket/(SESSION+'.pid')
+    if pid_file.exists() and pid_file.read_text().strip()!=str(info['pid']):
+        raise StepFailed('Browser session PID changed during cleanup')
+    for suffix in ('pid','port','engine','stream','target','version'):
+        path=(socket/(SESSION+'.'+suffix)).resolve()
+        if path.parent!=socket:
+            raise StepFailed('Browser runtime path is outside the socket directory')
+        path.unlink(missing_ok=True)
+
+
+def text(selector: str):
+    return js(f"const e = document.querySelector({json.dumps(selector)}); return e ? e.textContent.trim() : null;")
+
+
+def wait_for(predicate_js: str, what: str, seconds: float = 12):
+    deadline = time.time() + seconds
+    while time.time() < deadline:
+        if js(f"return Boolean({predicate_js});"):
+            return
+        time.sleep(0.25)
+    raise StepFailed(f"timed out waiting for {what}")
+
+
+def go(route: str, ready_selector: str):
+    js(f"location.hash = {json.dumps('#/' + route)}; return true;")
+    wait_for(f"document.querySelector({json.dumps(ready_selector)})", f"{route} ({ready_selector})")
+
+
+def action_ref(selector: str):
+    """Take a fresh accessibility snapshot before each interaction, then use its ref."""
+    target = js(f"const e=document.querySelector({json.dumps(selector)}); if (!e) return null; const label = [...(e.labels || [])].map(l=>{{const c=l.cloneNode(true);c.querySelectorAll('input,select,textarea,button').forEach(n=>n.remove());return c.textContent.trim();}}).join(' '); return {{name:e.getAttribute('aria-label') || label || e.textContent.trim(), role:e.getAttribute('role')||(['BUTTON','SUMMARY'].includes(e.tagName)?'button':e.tagName==='SELECT'?'combobox':e.type==='search'?'searchbox':e.type==='number'?'spinbutton':'textbox')}};")
+    check(target is not None, f"No element for {selector}")
+    refs = json.loads(ab("snapshot", "-i", "--json"))["data"]["refs"]
+    matches = [key for key, node in refs.items() if node.get("name") == target["name"] and node.get("role") == target["role"]]
+    check(len(matches) == 1, f"Expected one accessible ref for {selector}, found {len(matches)}")
+    return "@" + matches[0]
+
+
+def fill(selector: str, value: str):
+    ab("fill", action_ref(selector), value)
+
+
+def click(selector: str):
+    ab("click", action_ref(selector))
+
+
+def select(selector: str, value: str):
+    ab("select", action_ref(selector), value)
+
+
+def scan(selector: str, code: str):
+    """A keyboard-wedge scanner: real keystrokes, then Enter, into the focused field."""
+    ab("focus", selector)
+    ab("keyboard", "type", code)
+    ab("press", "Enter")
+
+
+def layout_check():
+    check(js("return !document.querySelector('img');"), 'product image found')
+    check(js("return !document.body.textContent.includes('Sin foto');"), 'photo placeholder found')
+    check(js("return [document.documentElement,document.body,document.querySelector('#screen'),document.querySelector('.ticket')].filter(Boolean).every(e=>e.scrollWidth<=e.clientWidth);"), 'page or ticket has horizontal overflow')
+    check(js("return [...document.querySelectorAll('.ticket input,.ticket button')].filter(e=>e.getClientRects().length).every(e=>{const p=e.closest('.ticket').getBoundingClientRect(),r=e.getBoundingClientRect();return r.left>=p.left && r.right<=p.right+1;});"), 'ticket control is clipped horizontally')
+
+
+def shot(name: str, view: str | None = None):
+    layout_check()
+    ab('set','viewport','1440','900')
+    layout_check()
+    ab('set','viewport','1024','768')
+    if view:
+        js(f"document.querySelector({json.dumps(view)}).scrollIntoView({{block:'center'}});return true;")
+    SHOTS.mkdir(parents=True, exist_ok=True)
+    ab("screenshot", str(SHOTS / f"{name}.png"))
+
+
+# ---------- API read-backs ----------
+def call(method: str, path: str, body=None, token: str | None = None):
+    data = None if body is None else json.dumps(body).encode()
+    request = urllib.request.Request(API + path, data=data, method=method,
+                                     headers={"Content-Type": "application/json", **({"Authorization": f"Bearer {token}"} if token else {})})
+    try:
+        with urllib.request.urlopen(request, timeout=15) as response:
+            raw = response.read().decode() or "null"
+            return response.status, json.loads(raw)
+    except urllib.error.HTTPError as error:
+        raw = error.read().decode()
+        return error.code, (json.loads(raw) if raw else None)
+
+
+def on_hand(token: str, item_id: str) -> int:
+    status, rows = call("GET", f"/stock?itemId={item_id}", token=token)
+    if status != 200:
+        raise StepFailed(f"GET /stock -> {status}")
+    return sum(r["onHand"] for r in rows)
+
+
+def money(minor: int) -> str:
+    sign = "-" if minor < 0 else ""
+    whole, cents = divmod(abs(minor), 100)
+    return f"{sign}C$ {whole:,}.{cents:02d}"
+
+
+def lead(value):
+    """Leading integer of a screen text such as '5piezas en total' or '0 · Agotado'."""
+    match = re.match(r"\s*(\d+)", value or "")
+    return match.group(1) if match else None
+
+
+def check(condition: bool, message: str):
+    if not condition:
+        raise StepFailed(message)
+
+
+def step(name: str, fn):
+    try:
+        detail = fn() or "ok"
+        results.append((name, "PASS", detail))
+        print(f"PASS  {name}: {detail}", flush=True)
+        return True
+    except StepFailed as error:
+        results.append((name, "FAIL", str(error)))
+        print(f"FAIL  {name}: {error}", flush=True)
+        return False
+
+
+def login_ui(user: str):
+    # Credentials go through stdin into the CLI's encrypted vault, never arguments or snapshots.
+    if js("return !document.querySelector('#shell').hidden;"):
+        click("#logout")
+    wait_for("document.querySelector('#login-user')", "login form")
+    profile = SESSION + "-login"
+    ab("auth", "save", profile, "--url", WEB + "/", "--username", user,
+       "--password-stdin", "--username-selector", "#login-user", "--password-selector", "#login-pass",
+       "--submit-selector", "#access button[type=submit]", secret_input=PASSWORDS[user])
+    try:
+        ab("auth", "login", profile, "--no-navigate")
+    finally:
+        ab("auth", "delete", profile)
+    wait_for("!document.querySelector('#shell').hidden && document.querySelector('#screen').children.length", "signed-in shell")
+    if user in EXPECTED_NAMES:
+        wait_for("document.querySelector('#operator-label').textContent.startsWith("+json.dumps(EXPECTED_NAMES[user])+")",'signed-in operator')
+
+
+def main() -> int:
+    import datetime
+    global BROWSER_RUNTIME
+    sys.stdout.reconfigure(encoding='utf-8')
+    check(AB and all(PASSWORDS.values()),'agent-browser and five environment passwords are required')
+    check(re.fullmatch(r'[A-Za-z0-9_-]{1,64}', SESSION), 'invalid browser session name')
+    sys.path.insert(0,str(Path(__file__).resolve().parents[2]/'tools'/'db'))
+    import saviadb
+    saviadb.check_name(DATABASE)
+    tokens={}
+    for name in PASSWORDS:
+        status,body=call('POST','/auth/login',{'loginName':name,'password':PASSWORDS[name]})
+        check(status==200,'API login '+name);tokens[name]=body['token']
+        EXPECTED_NAMES[name]=body['displayName']
+    owner=tokens['duena.muestra'];manager=tokens['gerente.muestra'];warehouse=tokens['bodega.muestra']
+    today=(datetime.datetime.now(datetime.timezone.utc)-datetime.timedelta(hours=6)).date().isoformat()
+    def get(path,token=manager):
+        status,body=call('GET',path,token=token);check(status==200,f'GET {path} status {status}');return body
+    def post(path,body=None,token=manager):
+        status,result=call('POST',path,body,token);check(status in (200,204),f'POST {path} status {status}: {result if status not in (200,204) else "ok"}');return result
+    errors=[]
+    try:
+        ab('open',WEB+'/');BROWSER_RUNTIME=json.loads(ab('session','info','--json',timeout=5))['data'];ab('set','viewport','1024','768')
+        expected={
+          'duena.muestra':{'venta','caja','historial','recepcion','inventario','clientes','ajustes','excepciones','reporte','aprobaciones','comisiones','precios','calidad','importar'},
+          'gerente.muestra':{'venta','caja','historial','recepcion','inventario','clientes','ajustes','excepciones','reporte','comisiones','calidad'},
+          'vendedor1.muestra':{'ajustes','comisiones','reporte'},'vendedor2.muestra':{'ajustes','comisiones','reporte'},
+          'bodega.muestra':{'recepcion','inventario','ajustes','calidad'},
+        }
+        for name,routes in expected.items():
+            login_ui(name)
+            visible=set(js("return [...document.querySelectorAll('#nav a')].filter(a=>!a.hidden).map(a=>a.dataset.route);"))
+            check(visible==routes,'navigation '+name)
+            if name.startswith('vendedor'):
+                check(js("return document.querySelector('#till-state').hidden;"),'seller cannot see till')
+                status,_=call('GET','/cash/registers',token=tokens[name]);check(status==403,'seller API till denied')
+                # Reportes for a seller: only the Equipo tab and only her own row, as SQL returns it.
+                go('reporte','#kpi-sellers tbody tr')
+                check(js("return !document.querySelector('#tab-negocio') && document.querySelectorAll('#kpi-sellers tbody tr').length===1;"),'seller sees only her team row')
+                status,_=call('GET','/reports/kpi/business?period=day&date='+today,token=tokens[name]);check(status==403,'seller business KPIs denied')
+            print('PASS role '+name,flush=True)
+        # A stock worker classifies real expected units; cancellation is read back before any write.
+        suppliers=get('/suppliers',warehouse);catalog=get('/catalog/items')
+        variants=[v for product in catalog for v in product['variants']]
+        first=get('/catalog/search?q='+CODE)[0]
+        other=next(v for v in variants if v['productName']!=first['productName'] and v['available']>=3)
+        second=next(v for v in get('/catalog/search?q='+other['sku']) if v['itemId']==other['itemId'])
+        session=str(uuid.uuid4())
+        post('/receiving/sessions',{'containerId':str(uuid.uuid4()),'scanSessionId':session,'reference':'E2E-'+uuid.uuid4().hex[:8],'supplierId':suppliers[0]['supplierId']},warehouse)
+        post(f'/receiving/sessions/{session}/scans',{'scanId':str(uuid.uuid4()),'rawCode':CODE,'quantity':5},warehouse)
+        js('localStorage.setItem("savia.device.reception",'+json.dumps(json.dumps({'sessionId':session,'reference':'Calidad E2E'}))+');return true;')
+        ab('reload')
+        go('recepcion','.quality-check')
+        fill('input[aria-label="Buena '+CODE+'"]','3');fill('input[aria-label="Dañada '+CODE+'"]','1');fill('input[aria-label="Faltante '+CODE+'"]','1')
+        click('.save-quality');wait_for("document.querySelector('#confirm-yes')",'quality confirmation');shot('confirmacion')
+        click('#confirm-no');check(get(f'/receiving/sessions/{session}/quality',warehouse)==[],'No volver leaves quality API unchanged')
+        click('.save-quality');click('#confirm-yes');wait_for("document.querySelector('.quality-check [role=status]').textContent==='Calidad guardada.'",'quality persisted')
+        check(get(f'/receiving/sessions/{session}/quality',warehouse)[0]['faltante']==1,'Si confirmar persists quality')
+        shot('recepcion-calidad');print('PASS quality and both confirmation choices',flush=True)
+        login_ui('gerente.muestra');post(f'/receiving/sessions/{session}/approve');post(f'/receiving/sessions/{session}/post')
+        registers=get('/cash/registers');check(not registers[0]['openTillId'],'closed till before browser sale')
+        till=str(uuid.uuid4());post('/cash/tills',{'tillId':till,'registerId':registers[0]['registerId'],'currencyCode':'NIO','openingMinor':100000,'lines':[{'denominationMinor':50000,'quantity':2}]})
+        # The manager sets today's dollar rate once; Venta reads it when the screen opens.
+        status,_=call('GET','/exchange-rate',token=manager)
+        if status==404: post('/exchange-rates',{'id':str(uuid.uuid4()),'effectiveFrom':today,'rate':36.6243,'reason':'Tasa E2E'})
+        rate=get('/exchange-rate');rate4=round(rate['rate']*10000)
+        # Shared sale: the manager adds a second seller; each line keeps its own seller on one receipt and one payment.
+        go('venta','#sale-seller');wait_for("document.querySelector('#cards button.product')",'sale catalog')
+        check(js("return !document.querySelector('#sale-customer-search');"),'no customer field in normal Venta')
+        sellers=get('/sellers');check(len(sellers)>=2,'two active sellers')
+        select('#sale-seller',sellers[0]['sellerId'])
+        ab('click', 'details:has(> #shared-sale) > summary')
+        click('#shared-sale');wait_for("document.querySelector('#sale-seller-2')",'second seller slot')
+        ab('click', 'details:has(#sale-seller-2) > summary')
+        select('#sale-seller-2',sellers[1]['sellerId'])
+        js('savia.handleScan('+json.dumps(first['barcode'])+');return true;');wait_for("document.querySelectorAll('.tline').length===1",'first line')
+        js('savia.handleScan('+json.dumps(second['barcode'])+');return true;');wait_for("document.querySelectorAll('.tline').length===2",'second line')
+        check(js("return [...document.querySelectorAll('.tline select.line-seller')].map(s=>s.value);")==[sellers[0]['sellerId']]*2,'new lines default to the first seller')
+        label=js("return document.querySelectorAll('.tline select.line-seller')[1].getAttribute('aria-label');")
+        select('select[aria-label='+json.dumps(label,ensure_ascii=False)+']',sellers[1]['sellerId'])
+        wait_for("[...document.querySelectorAll('.tline select.line-seller')].map(s=>s.value).join()==="+json.dumps(sellers[0]['sellerId']+','+sellers[1]['sellerId']),'second line seller')
+        shot('venta-compartida')
+        amount=first['unitPriceMinor']+second['unitPriceMinor'];fill('#received',str(amount/100))
+        click('#pay');wait_for("document.querySelector('#receipt:not([hidden]) .line-seller-name')",'sale receipt with seller details')
+        saleid=js("return document.querySelector('#receipt .num.muted')?.textContent?.match(/[0-9a-f-]{36}/i)?.[0] ?? document.querySelector('#receipt').textContent.match(/[0-9a-f-]{36}/i)?.[0];")
+        detail=get('/sales/'+saleid);check(detail['customerId'] is None,'normal sale API has no customer')
+        check([l['sellerId'].lower() for l in detail['lines']]==[s['sellerId'].lower() for s in sellers[:2]],'per-line sellers persisted')
+        check(len(detail['tenders'])==1,'one payment for the shared sale')
+        shown=js("return [...document.querySelectorAll('#receipt .line-seller-name')].map(e=>e.textContent.trim());")
+        check(shown==['Vendedor: '+l['sellerName'] for l in detail['lines']],'receipt shows the seller per line')
+        print('PASS shared sale with two sellers, one receipt and one payment',flush=True)
+        # USD cash: separate USD/NIO change and coin-exact NIO rounding.
+        price=first['unitPriceMinor'];dollars=1
+        while (dollars*100*rate4+5000)//10000<price: dollars+=1
+        dollars+=2;received=(dollars*100*rate4+5000)//10000;usdchange=100;convertedchange=(usdchange*rate4+5000)//10000;extra=received-price-convertedchange;change=extra-extra%5
+        if change in (5,15): change-=5
+        js('savia.handleScan('+json.dumps(first['barcode'])+');return true;');wait_for("document.querySelectorAll('.tline').length===1",'USD sale line')
+        click('#cash-usd');wait_for("document.querySelector('#received')",'dollars field');fill('#received',str(dollars));fill('#foreign-change','1')
+        wait_for("[...document.querySelectorAll('output')].some(o=>o.textContent.includes('Vuelto'))",'USD equivalent shown');shot('venta-dolares')
+        click('#pay');wait_for("document.querySelector('#receipt') && !document.querySelector('#receipt').hidden",'USD sale receipt')
+        usdsale=js("return document.querySelector('#receipt').textContent.match(/[0-9a-f-]{36}/i)?.[0];")
+        tender=get('/sales/'+usdsale)['tenders'][0]
+        check(tender['foreignCurrencyCode']=='USD' and tender['foreignReceivedMinor']==dollars*100,'USD received persisted')
+        check(tender['receivedMinor']==received and tender['changeMinor']==change and tender['roundingMinor']==extra-change,'USD equivalent, change and rounding')
+        check(tender['receivedMinor']-tender['changeMinor']-tender['foreignChangeNioMinor']-tender['roundingMinor']==tender['amountMinor']==price,'received minus change minus rounding equals the sale')
+        check(get('/cash/tills/'+till+'/summary')['usdExpectedMinor']==dollars*100-usdchange,'USD drawer nets dollars received and returned')
+        check(tender['foreignChangeMinor']==usdchange and tender['foreignChangeNioMinor']==convertedchange,'both USD change fields persisted')
+        entries=json.loads(saviadb.scalar(DATABASE,f"SELECT e.CurrencyCode AS currency,e.Kind AS kind,e.DeltaMinor AS amount FROM sales.CashEntries e JOIN sales.SaleTenders t ON t.Id=e.SaleTenderId WHERE t.SaleId='{usdsale}' FOR JSON PATH"))
+        check(sorted((e['currency'],e['kind'],e['amount']) for e in entries)==sorted([('USD','sale',dollars*100),('USD','change',-usdchange),('NIO','change',-change)]),'read back entries from both drawers')
+        print('PASS USD cash sale with USD and NIO change',flush=True)
+        # Returns: the four outcomes are offered; a bank transfer is recorded with its reference and leaves the till untouched.
+        cash_before=get('/cash/tills/'+till+'/summary')['expectedCashMinor']
+        line1=detail['lines'][0]
+        go('devolucion?sale='+saleid,'#refund-outcomes')
+        check(js("return [...document.querySelectorAll('#refund-outcomes input[type=radio]')].map(r=>r.value).join();")=='exchange,credit,cash,transfer','four return outcomes')
+        fill('#return-qty-1','1');fill('#return-reason','Talla equivocada E2E')
+        ab('click','#outcome-transfer');wait_for("document.querySelector('#return-reference')",'transfer reference field')
+        reference='TRF-E2E-'+uuid.uuid4().hex[:6].upper();fill('#return-reference',reference)
+        shot('devolucion-resultados','#refund-outcomes')
+        click('#return-submit');wait_for("document.querySelector('#confirm-yes')",'return confirmation')
+        click('#confirm-no');check(not any(r['settlementKind']=='transfer' for r in get('/sales/'+saleid)['reversals']),'No volver leaves returns unchanged')
+        click('#return-submit');click('#confirm-yes');wait_for("document.querySelector('#return-finish')",'verified return result')
+        reversal=next(r for r in get('/sales/'+saleid)['reversals'] if r['settlementKind']=='transfer')
+        result=text('#return-result')
+        check(result.startswith('Transferencia bancaria: '+money(reversal['creditMinor'])+'.'),'return total equals API')
+        check(f'Referencia: {reference}.' in result,'return shows the transfer reference')
+        check(get('/cash/tills/'+till+'/summary')['expectedCashMinor']==cash_before,'transfer refund leaves the till untouched')
+        shot('devolucion-transferencia')
+        # The second seller's line goes back as store credit through the API; both reversals reverse commission.
+        customers=get('/customers?q=Clienta')
+        post('/sales/'+saleid+'/returns/credit',{'reversalId':str(uuid.uuid4()),'creditId':str(uuid.uuid4()),'tillId':till,'customerId':customers[0]['customerId'],'reason':'Cambio de talla E2E','lines':[{'saleLineId':detail['lines'][1]['saleLineId'],'quantity':1,'restockPool':'store'}]})
+        print('PASS four outcomes offered; transfer refund with reference; till unchanged',flush=True)
+        go('comisiones','#commissions');wait_for("document.querySelectorAll('#commissions article').length>=2",'commission rows')
+        commissions=get('/reports/commissions?period=day&date='+today)
+        for row in commissions:
+            shown=text('#commissions [data-seller="'+row['sellerId']+'"] .commission-payable')
+            check(shown=='Por pagar '+money(row['commissionPayableMinor']),'web commission equals API')
+        shot('comisiones')
+        # Reportes: every figure on screen is the API value.
+        go('reporte','#kpi-business');team=get('/reports/kpi/team?period=day&date='+today);business=get('/reports/kpi/business?period=day&date='+today)
+        for key,fmt in (('grossSalesMinor',money),('returnsMinor',money),('netSalesMinor',money),('salesCount',str),('averageTicketMinor',money),('grossMarginMinor',money),('stockValueAtCostMinor',money)):
+            check(text('#kpi-'+key)==fmt(business[key]),'Negocio '+key+' equals API')
+        for row in business['refundsByKind']:
+            check(text('#kpi-refunds [data-kind="'+row['kind']+'"] [data-field="amountMinor"]')==money(row['amountMinor']),'refunds by kind equal API')
+        check({r['kind'] for r in business['refundsByKind']}>={'transfer','credit'},'Negocio lists transfer and credit refunds')
+        check(js("return document.querySelectorAll('#report-refunds-by-kind tbody tr').length;")==len(get('/reports/day?date='+today)['refundsByKind']),'day report refunds by kind equal API')
+        shot('reportes-negocio')
+        click('#tab-equipo');wait_for("document.querySelector('#kpi-sellers')",'Equipo tab')
+        payable={r['sellerId'].lower():r['commissionPayableMinor'] for r in commissions}
+        for row in team['sellers']:
+            for key in ('netSalesMinor','discountsMinor','commissionPayableMinor'):
+                check(text('#kpi-sellers [data-seller="'+row['sellerId']+'"] [data-field="'+key+'"]')==money(row[key]),'Equipo '+key+' equals API')
+            check(text('#kpi-sellers [data-seller="'+row['sellerId']+'"] [data-field="tickets"]')==str(row['tickets']),'Equipo tickets equals API')
+            if row['sellerId'].lower() in payable: check(row['commissionPayableMinor']==payable[row['sellerId'].lower()],'Equipo commission equals commission report')
+        check(all(r['sellerId'].lower() in {t['sellerId'].lower() for t in team['sellers']} for r in commissions),'every paid seller appears in Equipo')
+        shot('reportes-equipo');print('PASS Reportes Negocio and Equipo equal the API; commissions equal API',flush=True)
+        # Only the owner edits values. Cancellation and acceptance both have authoritative API reads.
+        values=get('/catalog/values?q='+first['sku']);old=values[0]
+        status,_=call('POST','/catalog/items/'+first['itemId']+'/values',{'changeId':str(uuid.uuid4()),'priceMinor':old['priceMinor']+100,'costMinor':old['costMinor'],'reason':'No autorizado'},manager)
+        check(status==403,'manager cannot change price')
+        login_ui('duena.muestra');go('precios','#price-search');fill('#price-search',first['sku']);click('#screen button');wait_for("document.querySelectorAll('#price-list article').length===1",'one price result')
+        newprice=old['priceMinor']+100
+        fill('#price-list input[aria-label="Precio de '+first['sku']+'"]',str(newprice/100))
+        fill('#price-list input[aria-label="Motivo de '+first['sku']+'"]','Precio aprobado E2E')
+        click('.save-values');click('#confirm-no');check(get('/catalog/values?q='+first['sku'],owner)[0]['priceMinor']==old['priceMinor'],'cancel price leaves API unchanged')
+        click('.save-values');click('#confirm-yes');wait_for("!document.querySelector('#modal').open",'price confirmation closed')
+        deadline=time.monotonic()+10
+        while get('/catalog/values?q='+first['sku'],owner)[0]['priceMinor']!=newprice:
+            check(time.monotonic()<deadline,'price persisted');time.sleep(.1)
+        shot('precios')
+        newbody={'saleId':str(uuid.uuid4()),'tillId':till,'currencyCode':'NIO','lines':[{'lineNumber':1,'itemId':first['itemId'],'quantity':1,'unitPriceMinor':newprice,'sellerId':sellers[0]['sellerId']}],'tenders':[{'tenderNumber':1,'tenderKind':'card','amountMinor':newprice}]}
+        post('/sales',newbody);check(get('/sales/'+newbody['saleId'])['lines'][0]['unitPriceMinor']==newprice,'next sale uses owner price')
+        go('aprobaciones','#approval-list');wait_for("document.querySelector('#approval-list article')",'approvals');shot('aprobaciones')
+        # Owner import: the first run creates the sample batch; later runs must show every row as already registered.
+        go('importar','#import-file');ab('upload','#import-file',str(IMPORT_CSV))
+        wait_for("document.querySelector('#import-map') && !document.querySelector('#import-map').hidden",'import mapping')
+        check(js("return ['code','sku','name','price','stock'].map(f=>document.querySelector('#map-'+f).value).join();")=='0,1,2,7,8','Spanish headers mapped')
+        click('#import-preview-button');wait_for("document.querySelector('#import-rowsCount')",'import preview')
+        check(text('#import-rowsCount')=='4','four sample rows')
+        if text('#import-errorCount')=='0':
+            click('#import-confirm');click('#confirm-yes');wait_for("document.querySelector('#import-batch')",'import result')
+            check(text('#import-created')=='4 prendas · 10 unidades','import result')
+        else:
+            messages=set(js("return [...document.querySelectorAll('#import-errors tbody td:last-child')].map(e=>e.textContent);"))
+            check(messages and messages<=IMPORT_OK and not js("return document.querySelector('#import-confirm');"),'repeat import refused as already registered')
+        imported=get('/catalog/search?q=7459990001017',owner);check(len(imported)==1 and imported[0]['unitPriceMinor']==98000,'imported item readable through the API')
+        shot('importar-catalogo','#import-preview');print('PASS owner catalog import',flush=True)
+        summary=get('/cash/tills/'+till+'/summary');count=summary['expectedCashMinor'];denominations=get('/cash/denominations');remaining=count;lines=[]
+        usd=summary.get('usdExpectedMinor') or 0;check(usd%100==0,'USD drawer counted in whole dollars')
+        quarters=1 if remaining%10==5 else 0;remaining-=quarters*25
+        for d in denominations:
+            if d==25: q=quarters
+            else: q,remaining=divmod(remaining,d)
+            lines.append({'denominationMinor':d,'quantity':q})
+        check(remaining==0,'count exactly representable');countid=str(uuid.uuid4());usdcount=str(uuid.uuid4())
+        post('/cash/tills/'+till+'/counts',{'cashCountId':countid,'lines':lines,'usdCashCountId':usdcount,'usdLines':[{'denominationMinor':100,'quantity':usd//100}]})
+        post('/cash/tills/'+till+'/close',{'closureId':str(uuid.uuid4()),'cashCountId':countid,'usdCashCountId':usdcount})
+        print('PASS owner price, approvals and till close',flush=True)
+    except Exception as error:
+        errors.append(str(error));print('FAIL '+str(error),flush=True)
+        try: shot('failure')
+        except Exception: pass
+    finally:
+        # Cleanup failures never replace the original flow failure.
+        try:
+            console=json.loads(ab('console','--json'))['data']['messages'];page=json.loads(ab('errors','--json'))['data']['errors']
+            bad=[m for m in console if m['type'] in ('error','assert')]
+            print(f'console errors: {len(bad)}; page errors: {len(page)}',flush=True)
+            if bad or page:errors.append('browser console/page errors')
+        except Exception as error:errors.append('console inspection: '+str(error))
+        try: close_browser()
+        except Exception as error: errors.append('cleanup: '+str(error))
+    print('E2E '+('FAIL' if errors else 'PASS'),flush=True)
+    for error in errors:print(error,flush=True)
+    return 1 if errors else 0
+
+if __name__=='__main__':sys.exit(main())

@@ -1,0 +1,19 @@
+{
+  "savia/web/screens/sale.mjs": {
+    "candidateSha256": "96a24cc1d13ffb8015d7ffc1f7b5116ecaacf9e2e37ac48580cf15d365cacda5",
+    "frozenSha256": "bc51464ff33dbeaf650c8db2da47fe5d2a3cc67966082b06df6971f8bf33d328"
+  },
+  "savia/web/ui.mjs": {
+    "candidateSha256": "f6c903a607417c92472d91ba1091b201fc0997fbd47c6933a22abcbb1b2166c7",
+    "frozenSha256": "874b8d1b89d4dc05bb61c0852023c780c71b04e98d490fbed8a85593ba0ae7ec"
+  },
+  "savia/web/sale-recovery.mjs": {
+    "candidateSha256": "b0d7ccf3bdcca8b10e7f767296c0eef43de5ae510f68796e04d8c44616920504"
+  },
+  "savia/web/tests/sale-recovery.test.mjs": {
+    "candidateSha256": "717a55b43c2b9b435a7061be7058f2dfeeb10567d1bda4b73aa8f2daf2638b79"
+  },
+  "savia/web/tests/sale-ux.browser.mjs": {
+    "candidateSha256": "72eea51b40a4c4d506924b373fc60495370b6013dd8595e9e3f211ca73875ec3"
+  }
+}

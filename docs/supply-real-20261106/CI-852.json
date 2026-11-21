@@ -1,0 +1,150 @@
+{
+  "run": {
+    "id": 42169677581,
+    "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42169677581",
+    "head_sha": "8523523a41d490f7bdcca016bf34cc5fc2c04a37",
+    "status": "completed",
+    "conclusion": "success",
+    "run_attempt": 1
+  },
+  "scope": "Automatic no-SQL candidate workflow. No new dispatch. No API or SQL runtime.",
+  "observed": {
+    "helperReleaseBuild": {
+      "exit": 0,
+      "warnings": 0,
+      "errors": 0
+    },
+    "staff": {
+      "passed": 124,
+      "failed": 0,
+      "skipped": 0
+    },
+    "existingMockBrowser": {
+      "passed": 50,
+      "failed": 0
+    },
+    "supplyMockBrowser": {
+      "passed": 8,
+      "failed": 0
+    },
+    "databaseIndependentDotnet": {
+      "filter": "Category!=SqlServer",
+      "passed": 526,
+      "failed": 0,
+      "skipped": 55,
+      "total": 581
+    }
+  },
+  "summaryLines": [
+    "staff-and-resource-guards\tCompile real-journey helper without starting API or SQL\t2026-11-06T05:39:47.8722103Z Build succeeded.",
+    "staff-and-resource-guards\tCompile real-journey helper without starting API or SQL\t2026-11-06T05:39:47.8722803Z     0 Warning(s)",
+    "staff-and-resource-guards\tCompile real-journey helper without starting API or SQL\t2026-11-06T05:39:47.8748783Z     0 Error(s)",
+    "staff-and-resource-guards\tStaff DOM and mocked transport regressions\t2026-11-06T05:39:52.6153790Z ℹ tests 124",
+    "staff-and-resource-guards\tStaff DOM and mocked transport regressions\t2026-11-06T05:39:52.6154348Z ℹ pass 124",
+    "staff-and-resource-guards\tStaff DOM and mocked transport regressions\t2026-11-06T05:39:52.6154530Z ℹ fail 0",
+    "staff-and-resource-guards\tStaff DOM and mocked transport regressions\t2026-11-06T05:39:52.6154915Z ℹ skipped 0",
+    "staff-and-resource-guards\tExisting browser regressions (explicitly mocked HTTP)\t2026-11-06T05:41:09.5448645Z {\"passed\":50,\"failed\":0,\"output\":\"/home/runner/work/_temp/staff-evidence/existing\"}",
+    "staff-and-resource-guards\tSupply receipt browser regressions (explicitly mocked HTTP)\t2026-11-06T05:41:11.1093975Z PASS partial-full-1440",
+    "staff-and-resource-guards\tSupply receipt browser regressions (explicitly mocked HTTP)\t2026-11-06T05:41:11.7151971Z PASS partial-full-390",
+    "staff-and-resource-guards\tSupply receipt browser regressions (explicitly mocked HTTP)\t2026-11-06T05:41:12.7392756Z PASS lost-reload-1440",
+    "staff-and-resource-guards\tSupply receipt browser regressions (explicitly mocked HTTP)\t2026-11-06T05:41:13.4417000Z PASS lost-reload-390",
+    "staff-and-resource-guards\tSupply receipt browser regressions (explicitly mocked HTTP)\t2026-11-06T05:41:14.1862831Z PASS double-submit",
+    "staff-and-resource-guards\tSupply receipt browser regressions (explicitly mocked HTTP)\t2026-11-06T05:41:14.9583883Z PASS invalid-contract",
+    "staff-and-resource-guards\tSupply receipt browser regressions (explicitly mocked HTTP)\t2026-11-06T05:41:15.6893349Z PASS 401-private-clear",
+    "staff-and-resource-guards\tSupply receipt browser regressions (explicitly mocked HTTP)\t2026-11-06T05:41:16.7058793Z PASS logout-late-reply",
+    "staff-and-resource-guards\tCompile resources and run database-independent guards only\t2026-11-06T05:41:29.8560552Z Passed!  - Failed:     0, Passed:   526, Skipped:    55, Total:   581, Duration: 6 s - Martha.Store.Api.Tests.dll (net10.0)"
+  ],
+  "privateLogSha256": "faed27e371e478dfcb1c86aa95de522e08cdda07982f8ecef66dbdcd1958d211",
+  "bindingPolicy": "21 LF hashes verified both against the run SHA Git blobs and current working files. Subsequent snapshot-only changes do not modify these files. This is source lineage, not a claim that CI ran on a future SHA.",
+  "bindings": [
+    {
+      "path": ".github/workflows/golden-path.yml",
+      "lfSha256": "15e23e84284f0227c35074bee6dee0f17bba5b1f675d1e40373098cc37afad82"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalCommandRunner.cs",
+      "lfSha256": "83889bcab5bbe88cef341e5ed125206c00956a87fa03fd57d80f7c37e3b3f1a5"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyDbContext.cs",
+      "lfSha256": "57e4fdeb43a4dba44c14fa667dfedee5b2e078949537c2bee6b3c96dddfa23fd"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyEndpoints.cs",
+      "lfSha256": "c7707b5c937a3475236e02bb4c67b9d29e23fa986eb8f0b29c016ba13646eb61"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyModels.cs",
+      "lfSha256": "072545d4aac6cc9fb310dbf6bbe8aa1318007d29a4c300518179fa44d26624c9"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyService.cs",
+      "lfSha256": "42294e790dcf444ceab1e209eaade68a3610a2400d5d71119c1b0fbafb786adf"
+    },
+    {
+      "path": "dev/savia-staff-ui/app.mjs",
+      "lfSha256": "7901d54f7ea18b09e6f50dfc8f7596a135ec3a951bd732e1a3435cb7d1185083"
+    },
+    {
+      "path": "dev/savia-staff-ui/client.mjs",
+      "lfSha256": "cdf34879fdd5e78d8141c23533de2d07155bb7451bcd7582b41e553cd71e2639"
+    },
+    {
+      "path": "dev/savia-staff-ui/index.html",
+      "lfSha256": "234fa005e324a0cd20bd43936450b68b9d08d1152b4714db871e425577c6a859"
+    },
+    {
+      "path": "dev/savia-staff-ui/login.mjs",
+      "lfSha256": "5d2bd800a550501c020a300b39d87c85c9abf06379609942e02bc39beb580297"
+    },
+    {
+      "path": "dev/savia-staff-ui/supply.mjs",
+      "lfSha256": "2beb1f821afcbfe773968d00a9534158ca8ef4b5f124427377288be01182b71a"
+    },
+    {
+      "path": "docs/supply-real-20261106/README.md",
+      "lfSha256": "d6344868fbabdba64837bffd43b1d7f450edfb35c91d743b42ec06dfc56ec436"
+    },
+    {
+      "path": "global.json",
+      "lfSha256": "3f9b8063fdc946bf82db965d9a228d4ea581390f83680ee3b952fb0ec00b2cf3"
+    },
+    {
+      "path": "tests/golden-path/GoldenPath.Sql/Program.cs",
+      "lfSha256": "3bb8e1c89ae2456b9ae06397272c99f37a9261598c9889b6bb87d3db90f4842c"
+    },
+    {
+      "path": "tests/golden-path/README.md",
+      "lfSha256": "829ef3e73515270f838d5aac151e98cf442a0afbccfd324ab14b71ae9cb71cf1"
+    },
+    {
+      "path": "tests/golden-path/browser_path.mjs",
+      "lfSha256": "2ed74f02c5f821c6a3574ae21d6b627cab4e8791df5e04aeaf087a540f99c8d5"
+    },
+    {
+      "path": "tests/golden-path/golden_path.py",
+      "lfSha256": "40f46b88566bf25d67972164a44ec44c12bf08275defe75b32c9c1e78690f21d"
+    },
+    {
+      "path": "tests/golden-path/verify_evidence.py",
+      "lfSha256": "cf494c86fe22cbbd7e8ad3e7ffabc97d55cafbb1e1afb90e19efa2656ce6c5ff"
+    },
+    {
+      "path": "tests/test_golden_path_browser_safety.py",
+      "lfSha256": "e98bf31354a1290baaec8a99c5cac14204d9a7265eb80531bba8d89877ffcd97"
+    },
+    {
+      "path": "tests/test_golden_path_safety.py",
+      "lfSha256": "06e11db0a2c1f0acea63b6f0c1bae0e751a56a8df057ac5ea6c536a0d856dd1e"
+    },
+    {
+      "path": ".github/workflows/staff-ui-candidate.yml",
+      "lfSha256": "7676d1225e59af05a8008d08244bdda5ad1233030a3e3cd1864d18ee028a75ff"
+    }
+  ],
+  "limits": [
+    "55 tests reported skipped; this is not a zero-skips aggregate.",
+    "Mock HTTP does not prove browser-to-API-to-SQL persistence.",
+    "No production or C2/C9/C10 acceptance."
+  ]
+}

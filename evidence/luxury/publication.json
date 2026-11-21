@@ -1,0 +1,111 @@
+{
+  "schema": 1,
+  "task": "LUXURY-INSTAGRAM-20261025",
+  "source_sha": "8ef27660bb94acc5d93f09d59b92cbbc8661e94e",
+  "url": "https://martha-silva-preview.martha-silva-denis.workers.dev/",
+  "worker": "martha-silva-preview",
+  "version_id": "61c2f526-5315-4c55-9656-8cc148b1eea1",
+  "deployment_id": "80a86895-4d5a-4536-994c-98a0e0b8a319",
+  "activated_utc": "2026-10-26T02:48:15.397896Z",
+  "traffic_percent": 100,
+  "runtime_files": 902,
+  "asset_manifest_entries": 903,
+  "marker_sha256": "74dd8ceed86a7a3771d4c5c04df598ab29d85600415e3b123438e066cab17bcd",
+  "candidate_bundle_sha256": "3b854389ef9b257b8b98978f169c9b23a11096e341ffde43670b80a6adf00fa4",
+  "cloud_runtime_manifest_sha256": "c5a8b2e146e6d076415d36182547fd8a4f390919b4d0a65b2ba702f72d499a41",
+  "new_instagram_photos": 6,
+  "responsive_derivatives": 44,
+  "baseline_runtime_unchanged": 855,
+  "automated_cases": {
+    "passed": 161,
+    "failed": 0,
+    "skipped": 0,
+    "existing": 139,
+    "offline_deployment": 14,
+    "new_editorial": 8
+  },
+  "environment": "Cutufay cloud Linux; cloud explicitly confirmed by user. Suazo PC not connected.",
+  "local_heavy_tasks_run": false,
+  "laptop_admission": {
+    "allowed": false,
+    "available_mb": 817,
+    "commit_percent": 88
+  },
+  "local_lightweight_agents": 3,
+  "initial_cloud_agents": 6,
+  "qa_preview": {
+    "path": "/_luxury-preview/",
+    "main859baseline_assets_preserved_during_qa": true,
+    "version_id": "cda40094-3ac6-4e89-829b-861257a43def",
+    "deployment_id": "d2850088-593c-4ee5-ab6a-41c3af1d5c35",
+    "final_manifest_contains_qa_path": false
+  },
+  "browser_preview": {
+    "actual_dom_viewport": [
+      1180,
+      757
+    ],
+    "hero_export_dimensions": [
+      1165,
+      747
+    ],
+    "gallery_section_dimensions": [
+      1180,
+      1751
+    ],
+    "ES_EN_hero_and_gallery": "PASS; root reviewed actual images",
+    "new_images_decoded": 9,
+    "fonts_focus_overflow": "PASS reported by Cutufay",
+    "mobile": false,
+    "safari": false,
+    "performance_measured": false
+  },
+  "final_main_url_browser_status": "PASS: bounded desktop ES/EN main route; marker source8ef/902, all9 images decoded, fonts loaded, overflow0; owned tab closed",
+  "terminal_http": "normal client403; stopped without retries; no independent binary-body HTTP hashes claimed",
+  "version_preview_routes_enabled": false,
+  "historical_media_gate": {
+    "present": 777,
+    "total": 778,
+    "expected_complete_gate_failure": true
+  },
+  "github_push": false,
+  "hosted_ci_run": false,
+  "rollback": {
+    "version_id": "eb917441-e2f6-443d-acf3-56d94837edb8",
+    "deployment_id": "6b57c8a7-3909-4a7c-a432-7ca7a3c4de00",
+    "source_sha": "67d4647d5ee65c65dd037d2e664fcdc45c7009d6"
+  },
+  "slack_thread": "https://denis-projects-group.slack.com/archives/D0CC1G4JS4U/p1792980207655339",
+  "final_main_url_browser_report": "browser-main-summary.json",
+  "final_main_url_browser_report_slack_file": "F0CBVQR3AKV",
+  "browser_final": {
+    "dom_viewport": [
+      1180,
+      757
+    ],
+    "client_width": 1165,
+    "dpr": 1,
+    "hero_exports": [
+      1165,
+      747
+    ],
+    "gallery_exports": [
+      1165,
+      1751
+    ],
+    "new_images_decoded": 9,
+    "ES_EN": "PASS",
+    "fonts_loaded": true,
+    "horizontal_overflow": 0,
+    "owned_tab_closed": true,
+    "local_server_running": false,
+    "mobile_tested": false
+  },
+  "reproducible_delivery": {
+    "slack_file": "F0CCWCLKLMN",
+    "bytes": 6603100,
+    "sha256": "4c34119a564f341a94209b42cef054d5b1a684a1cc9f5a281e050791cc374587",
+    "scope": "Tested source/media package frozen before final main-route browser smoke; see separate main report."
+  },
+  "publication_status": "published-and-bounded-desktop-verified"
+}

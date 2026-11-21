@@ -1,0 +1,50 @@
+{
+  "observed_at_utc": "2026-11-01T02:50:00.763767+00:00",
+  "mode": "DISCOVER",
+  "head": "aca910acd05b4766e9979a6a37f555cb9716e149",
+  "working_tree": "Contains concurrent uncommitted changes; their contents are not exported by this research.",
+  "mobile_targets_confirmed": [
+    "iPhone",
+    "Android"
+  ],
+  "recommendation_status": "PWA first slice proposed; approval pending",
+  "files": [
+    {
+      "path": "dev/savia-staff-ui/client.mjs",
+      "sha256": "aab84253200751c6b2f0d9992285d191dd86940766bfc436a63db0afbc0c0630"
+    },
+    {
+      "path": "dev/savia-staff-ui/login.mjs",
+      "sha256": "c3909c548927c41e8cbda20db07d1af35865105bc9e9db1b5fe1033f10d32272"
+    },
+    {
+      "path": "dev/savia-staff-ui/styles.css",
+      "sha256": "9f9bca25769c903c3b886b5e7ff2b4570f4893e44e80219fe34d2acb949c070b"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurity.cs",
+      "sha256": "57a068fdcb8476b0c6e08c1fba72e7c46c8e6479d8b8dfb4bad9da8569cd6e54"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalUiHosting.cs",
+      "sha256": "5e6ae9faf5a4b60200b800c74d9400c0c4eb5ad17123da080e8f6b7bfed1377c"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Martha.Store.Api.csproj",
+      "sha256": "b3b089594de52620704ff14854e1e8632e556a807a9c8eece5e0fd1e68e3fb2e"
+    },
+    {
+      "path": "docs/savia-internal/sql-local-20261031/TEST-MATRIX.md",
+      "sha256": "d1e6cc705cd8f80e41a9039863096ccc460f027f39fe74832e58b58974a2915f"
+    }
+  ],
+  "operational_matrix_observed": {
+    "pass": 8,
+    "not_run": 14,
+    "total": 22,
+    "critical_ui_pass": 1,
+    "critical_ui_total": 5
+  },
+  "runtime_tests_run_by_this_research": false,
+  "source_access_gap": "Direct X status and article both returned 403; author companion and upstream sources used."
+}

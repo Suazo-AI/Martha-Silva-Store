@@ -1,0 +1,63 @@
+{
+  "sources": {
+    "app.mjs": "abfd6b29e6daf61cbad1f5c422b2e0583ee3afe8c76b0c38df5ea8b1d312d526",
+    "client.mjs": "8999819b79e9b8ead4151bef3fb542a6c63252efe1822dc03b967a1629950be7",
+    "login.mjs": "73911282fd1ac18b0de0785eb8c8b7c60dbd189cef14c68a28891a51fa9e88a4",
+    "index.html": "72193922c484ffe0fe2468ba897cfb2fc1bcf598528645b15311332b33d94b64",
+    "styles.css": "61db534591305d989d815c47999cc5706d7b8de6e00c1628d361e10edbb94ca0"
+  },
+  "results": [
+    {
+      "width": 1440,
+      "height": 1000,
+      "phase": "before",
+      "status": "PASS",
+      "observed": "Defects reproduced",
+      "posts": 2,
+      "unique_reviews": 1,
+      "exact_pending_request_preserved": true,
+      "uppercase_confirmed": false,
+      "listResults": [
+        {
+          "kind": "foreign",
+          "rejected": false
+        },
+        {
+          "kind": "ordinary",
+          "rejected": false
+        }
+      ],
+      "historical_reviewers_preserved": true,
+      "errors": [],
+      "external": [],
+      "video": "videos\\page@1f3f0b616cfa2c12c664fcfb9345d1f9.webm",
+      "layer": "Actual Chrome / mocked HTTP / no SQL"
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "phase": "before",
+      "status": "PASS",
+      "observed": "Defects reproduced",
+      "posts": 2,
+      "unique_reviews": 1,
+      "exact_pending_request_preserved": true,
+      "uppercase_confirmed": false,
+      "listResults": [
+        {
+          "kind": "foreign",
+          "rejected": false
+        },
+        {
+          "kind": "ordinary",
+          "rejected": false
+        }
+      ],
+      "historical_reviewers_preserved": true,
+      "errors": [],
+      "external": [],
+      "video": "videos\\page@2096cb1a7513e28a7d56ed65e45ba97a.webm",
+      "layer": "Actual Chrome / mocked HTTP / no SQL"
+    }
+  ]
+}

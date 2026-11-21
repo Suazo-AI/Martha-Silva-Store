@@ -1,0 +1,772 @@
+{
+  "schema": "savia-delivery-ledger/1",
+  "updated": "2026-11-07",
+  "about": "Fuente única del estado de entrega. Un item pasa a done solo con evidencia verificable (run de CI, ruta en el repo o PR). tools/delivery_status.py valida este archivo en cada push y PR.",
+  "people": {
+    "jason": "Jason Suazo",
+    "denis": "Denis Alvarez",
+    "claude": "Agente (Claude Code)",
+    "martha": "Martha (tienda)",
+    "suazo_pc": "Coordinador SUAZO-PC"
+  },
+  "tracks": [
+    {
+      "id": "sprint",
+      "name": "Sprint 4–6 nov: venta segura por cajero"
+    },
+    {
+      "id": "prod",
+      "name": "SAVIA interno: producción"
+    },
+    {
+      "id": "store",
+      "name": "Tienda pública"
+    },
+    {
+      "id": "pipeline",
+      "name": "Flujo de trabajo y registro"
+    }
+  ],
+  "targets": [
+    {
+      "id": "TECH-TRIAL",
+      "name": "ensayo tecnico sintetico persistido (no produccion)"
+    },
+    {
+      "id": "C12",
+      "name": "cierre del sprint (merge a main)"
+    },
+    {
+      "id": "P-GO",
+      "name": "SAVIA interno en producción"
+    }
+  ],
+  "items": [
+    {
+      "id": "SUPPLY-UI",
+      "track": "prod",
+      "owner": "jason",
+      "status": "done",
+      "title": "Recepción de mercancía desde la pantalla de personal",
+      "why": "La API de abastecimiento existe, pero la pantalla no permite recibir compras existentes.",
+      "done_when": "Listado/detalle/recepción parcial y completa, intento durable y recuperación sin duplicados; Chrome con HTTP simulado, controles negativos, revisión independiente y CI del SHA integrado. API/SQL real y aceptación operativa permanecen gates separados.",
+      "alternatives": "Conectar el contrato de recepción existente antes de crear otro simulador. No ampliar permisos del directorio ni inventar cobro, ajuste de stock o validez fiscal.",
+      "evidence": "docs/supply-ui-20261105/primary-review.md",
+      "paths": [
+        "dev/savia-staff-ui/*",
+        "backend/src/Martha.Store.Api/Internal/InternalUiHosting.cs",
+        "backend/src/Martha.Store.Api/Martha.Store.Api.csproj",
+        "tests/*supply*",
+        "docs/supply-ui-20261105/*"
+      ]
+    },
+    {
+      "id": "SALE-MULTI",
+      "track": "sprint",
+      "owner": "suazo_pc",
+      "status": "done",
+      "title": "Venta multiarticulo completa y recuperable",
+      "why": "D-023 exige varios articulos por factura; la UI anterior solo enviaba una linea.",
+      "done_when": "Carrito editable, recibo completo y recuperacion con clave/cuerpo originales; CI del SHA exacto prueba dos ventas, cuatro lineas y cuatro movimientos sin duplicados ni efectos parciales.",
+      "alternatives": "Aprovechar la transaccion e idempotencia del backend existente; no crear ventas separadas por articulo.",
+      "evidence": "docs/multiarticle-20261104/README.md",
+      "paths": [
+        "dev/savia-staff-ui/*",
+        "tests/browser-mock-validation.mjs",
+        "tests/golden-path/*",
+        "tests/test_golden_path_browser_safety.py",
+        "docs/multiarticle-20261104/*"
+      ]
+    },
+    {
+      "id": "N5",
+      "order": 1,
+      "track": "sprint",
+      "owner": "claude",
+      "status": "done",
+      "title": "Recibo histórico inaccesible ya no bloquea ventas",
+      "why": "Un 404/403 del último recibo dejaba la caja sin poder vender (pending ||= {})",
+      "done_when": "Rojo en 20932d5, verde 5/5 en navegador real, rojo de nuevo al revertir; CI del PR en verde",
+      "alternatives": "Borrar toda la sesión local al fallar (rechazado en NEXT-INCREMENT: pierde ventas inciertas reales)",
+      "evidence": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41732265496",
+      "paths": [
+        "dev/savia-staff-ui/app.mjs",
+        "tests/browser-mock-validation.mjs"
+      ]
+    },
+    {
+      "id": "CI-JUEZ",
+      "order": 2,
+      "track": "sprint",
+      "owner": "claude",
+      "status": "done",
+      "title": "CI juzga SAVIA: UI, navegador y 592 casos contra SQL real",
+      "why": "Sin un juez externo, 'pasa en mi máquina' no distingue avance de regresión",
+      "done_when": "savia.yml verde en el SHA del PR, sin skips, con mínimo de casos",
+      "alternatives": "Solo correr en SUAZO-PC (no reproducible, sin historial por SHA)",
+      "evidence": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41732265496",
+      "paths": [
+        ".github/workflows/savia.yml",
+        ".github/workflows/backend.yml",
+        "backend/tests/verify_full_suite.py"
+      ]
+    },
+    {
+      "id": "C1",
+      "order": 3,
+      "track": "sprint",
+      "owner": "jason",
+      "status": "done",
+      "title": "Decisiones del lote y seguridad de merge",
+      "why": "D-028 merge settings are verified; the separate STOCK-EXCEPTION gate preserves the unimplemented D-026/D-027 obligation before integration.",
+      "done_when": "Protección de main con checks requeridos leída de la API; valor de CLOUDFLARE_DEPLOY_ENABLED anotado; decisiones en docs/DECISIONS.md",
+      "alternatives": "Fusionar sin protección confiando en revisión manual (rechazado: sin freno automático)",
+      "needs": {
+        "decision": "D-028 adopted and settings verified. D-026/D-027 implementation is tracked separately as STOCK-EXCEPTION; it is not complete.",
+        "decider": "jason",
+        "recommendation": "Recheck exact main settings before merge. No merge/deploy authority is granted. Keep STOCK-EXCEPTION before C12 and TECH-TRIAL.",
+        "tool": "Configuración de GitHub (admin): protección de rama y variables de Actions"
+      },
+      "trello": "https://trello.com/c/e57qFLhJ",
+      "paths": [
+        "docs/DECISIONS.md",
+        ".github/workflows/ci.yml"
+      ],
+      "prep": "2026-11-06 read-only API: seven required checks app15368, strict/admins/PR/conversations enabled, force-push/deletion disabled. Actions variables collection total_count0; repository owner User. Current ci.yml deployment condition is not satisfied. No adversarial rejection or deployment executed. Stock implementation moved without waiver to STOCK-EXCEPTION and retained before C12/C10.",
+      "evidence": "docs/stock-decision-20261104/decision-028-main-protection-receipt.json; docs/release-20261105/deploy-variable-readback.json; docs/release-20261106/process-acceptance.md (fresh read-only GitHub confirmation)"
+    },
+    {
+      "id": "STOCK-EXCEPTION",
+      "order": 4,
+      "track": "sprint",
+      "owner": "suazo_pc",
+      "status": "review",
+      "title": "Implementar entrega excepcional y revision independiente D-026/D-027",
+      "why": "La prenda fisica existe con registro0; la politica elegida aun no tiene un recorrido soportado y persistido.",
+      "done_when": "UI/API/SQL vinculan venta, articulo/talla/ubicacion/cantidad/actor/momento; motivo obligatorio; guardas normales no negativas y sin ajustes libres de cajera; atomicidad/idempotencia/rollback; reintento/concurrencia/fallo parcial y devolucion/reversion correctos; revisor distinto, suplente al cierre, evidencia/causa abierta/responsable/proxima revision persistidos. Sin recepcion, costo o saldo inventados. Recorrido real probado y aceptado.",
+      "paths": [
+        "backend/src/Martha.Store.Api/Internal/Commerce/*",
+        "dev/savia-staff-ui/*",
+        "tests/golden-path/*"
+      ],
+      "prep": "Preparation accepted with limits on 139c389 after Astra J1/J2 acceptance and exact-SHA Linux CI. Business SQL39 on f9ffa452bae7fc11a4a578ce24b57ecb72add139 includes three passing stock-exception cases. Primary verified original runtime identities and source bindings. The real browser/API/SQL exception and different-person review journey remains unrun. Historical mocked/offline evidence stays attributed to its original revision; status review and original done_when unchanged.",
+      "report": "docs/stock-exception-20261106/PREPARATION-ACCEPTANCE.json"
+    },
+    {
+      "id": "C2",
+      "order": 4,
+      "track": "sprint",
+      "owner": "jason",
+      "status": "todo",
+      "title": "Datos de operación: reconstrucción guiada con Martha y cuestionario complementario",
+      "why": "Falta confirmar configuración y flujos de SISFAIN usados hoy, documento fiscal y equipo de caja; multiartículo y sustitución ya son requisitos",
+      "done_when": "Respuestas agregadas, matriz de sustitución por flujo y configuración fiscal/equipo documentadas; no reabrir la obligatoriedad multiartículo",
+      "alternatives": "Inventar paridad desde marketing o limitar a una línea (descartado por Jason)",
+      "needs": {
+        "decision": "D-029 elige reconstrucción guiada con datos ficticios. Faltan respuestas de Martha: versión/módulos, cobros, documentos, cierre, fiscalidad, exportación y equipo; sin reabrir multiartículo.",
+        "decider": "martha",
+        "recommendation": "Jason coordina disponibilidad y sigue GUION-RECONSTRUCCION-MARTHA.md. Registrar declarado/observado/pendiente; validar resumen con Martha y preparar matriz proceso-requisito-prueba-brecha. Sin ventas ficticias en producción."
+      },
+      "trello": "https://trello.com/c/aS0pUmYb",
+      "paths": [
+        "docs/sprint-20261104/CUESTIONARIO-MARTHA.md",
+        "docs/sprint-20261104/GUION-RECONSTRUCCION-MARTHA.md"
+      ],
+      "prep": "D-029 adoptada: guion con venta ficticia multiartículo, efectivo/cambio, variantes condicionales, stock y cierre; hoja sin respuestas. Conversación no coordinada ni realizada, sin contacto externo. C2 sigue todo; no acredita producto ni ensayo."
+    },
+    {
+      "id": "C3",
+      "order": 5,
+      "track": "sprint",
+      "owner": "denis",
+      "status": "done",
+      "title": "Revisar y aprobar el PR de N5 + CI SAVIA",
+      "why": "Revisión en contexto fresco; quien escribió el cambio no puede ser su único juez",
+      "done_when": "Revisión independiente aceptada por Jason y CI del SHA en verde (no exige aprobación formal de GitHub)",
+      "trello": "https://trello.com/c/0kdbzEyA",
+      "evidence": "https://trello.com/c/0kdbzEyA (cerrada por Jason 2026-11-03 23:46 UTC: SUAZO-PC Chrome 156 / Playwright 1.62.1, fix 5 PASS, revert 3 FAIL + 2 PASS; docs/c3-n5-20261103/ y docs/pr2-review-20261103/ en SUAZO-PC). Sin aprobación formal de GitHub, por decisión de Jason"
+    },
+    {
+      "id": "C4",
+      "order": 6,
+      "track": "sprint",
+      "owner": "claude",
+      "status": "done",
+      "title": "Migraciones Internal de release",
+      "why": "El script idempotente de release no incluía InternalBranchScope; producción se crearía sin esa migración",
+      "done_when": "Sin cambios de modelo pendientes; script generado por EF con todas las migraciones y guarda de divergencia; aplicado a base vacía y a copia con historia con readback",
+      "alternatives": "Aplicar con Migrate() en el arranque (sin script revisable para el DBA)",
+      "trello": "https://trello.com/c/NYX7OGvK",
+      "paths": [
+        "backend/src/Martha.Store.Api/Internal/Migrations/*",
+        "backend/tests/Martha.Store.Api.Tests/*Migration*",
+        "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs"
+      ],
+      "report": "docs/sprint-20261104/C4-C7.md",
+      "evidence": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41744363308 (SAVIA judge 599/599 en 7c53ae6) · docs/sprint-20261104/C4-C7.md"
+    },
+    {
+      "id": "C5",
+      "order": 7,
+      "track": "sprint",
+      "owner": "claude",
+      "status": "done",
+      "title": "Arnés del camino dorado: API real + SQL desechable",
+      "why": "Nunca se probó navegador/HTTP → API real → SQL migrado como una sola cadena",
+      "done_when": "Script reproducible local y CI: migraciones de release, 5 identidades sintéticas, venta, replay y oráculos SQL por paso",
+      "alternatives": "Seguir con mocks de navegador y SQL por separado (no prueba la unión)",
+      "trello": "https://trello.com/c/cNYz2Hci",
+      "paths": [
+        "tests/golden-path/*",
+        ".github/workflows/golden-path.yml"
+      ],
+      "report": "docs/sprint-20261104/C5.md",
+      "evidence": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41744363369 (golden path en 7c53ae6) · docs/sprint-20261104/C5.md"
+    },
+    {
+      "id": "C6",
+      "order": 8,
+      "track": "sprint",
+      "owner": "denis",
+      "status": "done",
+      "blocked_by": [
+        "C5"
+      ],
+      "title": "Camino dorado E2E en Chrome real con oráculos SQL",
+      "why": "La caja usa un navegador; solo el navegador prueba recarga, pérdida de respuesta y recuperación reales",
+      "done_when": "Corre en el CI del PR con trazas como artefacto y oráculos SQL tras cada paso",
+      "needs": {
+        "tool": "Chrome + Playwright 1.63.0 + golden_path.py --mode browser (protocolo privado; oraculos SQL antes de avanzar)"
+      },
+      "trello": "https://trello.com/c/ezVfv0Pk",
+      "prep": "CI sintetico Linux 41765611979/1 en e4b7910835bf2c9901aa06989e296997875a3636: 21/21 pasos, 11/11 browser, 20 oraculos SQL; 2 POST y 2 ventas, recuperacion GET con clave original sin otro debito, stock27. Logout204/me401, sesiones0; Chrome/API/base/directorio/contenedor retirados. Juez independiente APTO17/17; H1/H2 cerrados.",
+      "paths": [
+        "tests/golden-path/*",
+        "tests/test_golden_path_browser_safety.py",
+        ".github/workflows/golden-path.yml"
+      ],
+      "report": "docs/c6-e2e-20261103/README.md",
+      "evidence": "docs/c6-e2e-20261103/independent-final-review.md / docs/c6-e2e-20261103/ci-41765611979/REPORT.md / https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41765611979"
+    },
+    {
+      "id": "C7",
+      "order": 9,
+      "track": "sprint",
+      "owner": "claude",
+      "status": "done",
+      "title": "N1, N3, N4, N8 y N9 como pruebas de API con oráculos SQL",
+      "why": "Los rechazos deben preservar el negocio y evitar efectos duplicados; el rechazo 409 admite la constancia durable aceptada por Jason.",
+      "done_when": "Autorización/alcance/CSRF: huellas iguales en 19 tablas. Remap 409: 18 tablas de negocio iguales, un único registro durable en Operations y reintento sin duplicación. CI en verde.",
+      "trello": "https://trello.com/c/YIlPjyVg",
+      "paths": [
+        "backend/tests/Martha.Store.Api.Tests/*"
+      ],
+      "report": "docs/sprint-20261104/C4-C7.md",
+      "evidence": "docs/c7-closure-20261103/README.md · https://trello.com/c/YIlPjyVg (Hecho, 6/6; excepción aceptada por Jason el 2026-11-03, America/Managua). CI https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41753826810: 599/599 en 260b75951729189d987ffe423218ab1643bcfa3c. Revisión independiente y artefactos en docs/technical-ready-review-20261104/; evidencia reutilizada, sin nuevas pruebas."
+    },
+    {
+      "id": "C8",
+      "order": 10,
+      "track": "sprint",
+      "owner": "denis",
+      "status": "done",
+      "blocked_by": [
+        "C3"
+      ],
+      "title": "N2, N6 y N7 en la interfaz",
+      "why": "Recarga, cambio de identidad y expiración son fallos de la UI, no de la API",
+      "done_when": "Pruebas rojo-verde en tests/browser-mock-validation.mjs; arnés completo y CI en verde",
+      "trello": "https://trello.com/c/61IxxolB",
+      "paths": [
+        "dev/savia-staff-ui/*"
+      ],
+      "prep": "CI 41765611859/1 en e4b7910835bf2c9901aa06989e296997875a3636: browser45/45, staff45/45, backend600/600 sin omisiones; seguridad49/49 incluye expiracion1/1. Seis blobs C8, seis hashes servidos y overlay71/71 verificados. Conserva rojo-verde previo; no representa produccion ni aceptacion visual.",
+      "evidence": "docs/c8-ui-20261103/FINAL-CI-REVIEW.md / docs/c8-ui-20261103/ci-41765611859/run-binding.json / https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41765611859"
+    },
+    {
+      "id": "C9",
+      "order": 11,
+      "track": "sprint",
+      "owner": "denis",
+      "status": "blocked",
+      "blocked_by": [
+        "C4"
+      ],
+      "title": "Respaldo, restauración, RTO/RPO y acceso Owner",
+      "why": "Sin restauración probada y medida, una falla del equipo de la tienda pierde ventas",
+      "done_when": "BACKUP WITH CHECKSUM, RESTORE VERIFYONLY, restauración como base nueva con oráculos; RTO y RPO medidos; recuperación Owner documentada",
+      "needs": {
+        "tool": "SQL Server del entorno real (SUAZO-PC) para medir RTO",
+        "decision": "Resolver primero la identidad/cadena del certificado bajo alcance separado. Cualquier cambio de seguridad y nuevo intento SQL requieren autorizacion nueva; preflight anterior consumido.",
+        "decider": "jason"
+      },
+      "trello": "https://trello.com/c/vVQVt9Qo",
+      "paths": [
+        "tests/sql/*"
+      ],
+      "prep": "Procedimiento G0-G9 preparado. Unico preflight metadata 2026-11-04:1Open,0sesiones,0consultas,exit1 en88ms; cadena no confiable. Cierre/dispose completos, latch retenido,0reintentos/fallback y0mutaciones emitidas. Estado persistente igual no probado. Campos SQL/rutas/colisiones NOT RUN; C9 permanece0/5.",
+      "blocker": "El cliente rechazo la confianza de la cadena. Metadata OS 2026-11-07: lectura del registro ahora permitida como administrador; binding vacio, ForceEncryption=0 y arranque actual registra certificado autogenerado. Fingerprint/cadena presentados y nueva conexion estricta siguen sin verificar. No hubo conexion SQL ni cambios de seguridad o servicio. Jason/administrador decide alcance separado para certificado/confianza y conexion; C9 aun requiere restore con ventas/oraculos, RTO/RPO y recuperacion Owner. La ruta local desechable TECH-TRIAL no depende de corregir SAVIATEST.",
+      "report": "docs/c9-recovery-20261103/PREFLIGHT-RESULT.md",
+      "evidence": "docs/c9-recovery-20261103/preflight-result.sanitized.json / docs/c9-recovery-20261103/CERTIFICATE-INVESTIGATION-SCOPE.md / docs/completion-20261107/local-validation/TLS-METADATA-20261107.json"
+    },
+    {
+      "id": "TECH-TRIAL",
+      "order": 11,
+      "track": "sprint",
+      "owner": "suazo_pc",
+      "status": "blocked",
+      "blocked_by": [
+        "C6",
+        "SUPPLY-UI",
+        "STOCK-EXCEPTION"
+      ],
+      "blocker": "Local business SQL39 passed; security initial27 returned 23 Passed, four Failed, zero skipped on f9ffa452bae7fc11a4a578ce24b57ecb72add139. N8 and all six HTTP acceptance methods passed. Backup/restore stopped before BACKUP; dependent restart and combined journey D remain unrun. Astra/xhigh and primary accepted the test-only correction at 550b104 with limits. Primary matched five captured constraint expressions and four LF bindings. New runtime authorization is required for the four corrected methods plus actual owned-container restart and its deferred method. Bounded cash UI is accepted with exact-SHA no-SQL CI on 54e7666; its real browser/API/SQL journey is prepared with 81 offline passes and final helper build exit 0, reviewed as REVISE for F1-F3, not executed. The rejected optional runner is not a prerequisite for the exercised SDK/owned-container C/E route. Cash preparation review returned REVISE for F1-F3 evidence defects, now assigned to a separate Sol/high worktree. Current no-SQL CI on 990e23a passed but does not close real persistence/recovery. See docs/cash-register-20261107/real-journey/REVIEW-STATUS.json.",
+      "title": "Ensayo tecnico sintetico persistido en SUAZO-PC",
+      "why": "Una pantalla simulada y una suite SQL separada no prueban juntas el recorrido real completo.",
+      "done_when": "Candidato congelado: navegador/API/SQL de recepcion, venta/reintento, excepcion y revision por otra persona pasan con oraculos independientes persistidos; identidad de fuentes, saneamiento y retiro comprobado de recursos propios. No sustituye tareas, tiempos o conteo fisico de C10.",
+      "needs": {
+        "tool": "SDK10.0.402 y arnes existente; SQL Server desechable solo con alcance autorizado.",
+        "test": "Conservar los17 checkpoints de recepcion y4 oraculos SQL existentes; anadir evidencia explicita de excepcion/revision/recuperacion.",
+        "decision": "Autorizar una campana concreta despues de congelar el candidato integrado. La aprobacion anterior esta consumida.",
+        "decider": "jason"
+      },
+      "prep": "Fresh historical A: 552/552, 195/195 methods. Business39 and 23 security passes are reusable only while relevant sources, schema, dependencies and runtime assumptions remain equivalent. Primary accepted Astra's minimum four corrected SQL methods plus one deferred restart method; runtime is not yet authorized or run. See security-correction/MINIMUM-RERUN.md and PRIMARY-ACCEPTANCE.json. Preserve the frozen 17 supply checkpoints/four SQL oracles and five stock checkpoints/one oracle for D. CASH-REGISTER separately owns opening, sale/change, refund, counted-close browser/API/SQL and populated Cash recovery proof. Existing recovery fixtures cover four legacy business projections only. No new SQL authority or C10 operational waiver.",
+      "report": "docs/completion-20261107/README.md"
+    },
+    {
+      "id": "C10",
+      "order": 12,
+      "track": "sprint",
+      "owner": "jason+denis",
+      "status": "blocked",
+      "blocked_by": [
+        "C1",
+        "C2",
+        "C6",
+        "C9",
+        "TECH-TRIAL"
+      ],
+      "title": "Ensayo supervisado en la tienda",
+      "why": "Solo quien vende puede demostrar que sirve; ninguna prueba sintética lo sustituye",
+      "done_when": "5 tareas sin ayuda; 30 ventas sintéticas con p95 enviar→recibo ≤ 1 s en la caja; conteo físico = SAVIA; registro de aceptación por flujo del coordinador SUAZO-PC (D-022)",
+      "needs": {
+        "decision": "Dictamen de aceptación por flujo emitido por el coordinador SUAZO-PC, según D-022, contra evidencia del ensayo",
+        "decider": "suazo_pc",
+        "test": "30 mediciones p50/p95 en la caja real"
+      },
+      "trello": "https://trello.com/c/RYEhYexC",
+      "prep": "Guion de cinco tareas preparado; ensayo0. SUAZO-PC acepta (D-022) y aloja datos sinteticos (D-025). D-026/D-027 estan implementados y su preparacion fue aceptada con limites tras J1/J2. Business SQL39 en f9ffa452 incluye tres casos de excepcion aprobados; el recorrido combinado de excepcion/revision y la aceptacion operativa siguen pendientes. No sustituye tareas por quien vende, 30 mediciones ni conteo fisico. C2/C9 pendientes. TECH-TRIAL conserva el ensayo tecnico separado; criterios operativos originales intactos."
+    },
+    {
+      "id": "C11",
+      "order": 13,
+      "track": "sprint",
+      "owner": "denis",
+      "status": "done",
+      "blocked_by": [
+        "C6",
+        "C7",
+        "C8"
+      ],
+      "title": "N10: revisión independiente de rechazos y recuperación",
+      "why": "Un segundo par de ojos con postura NEEDS WORK atrapa éxitos inventados",
+      "done_when": "Veredicto escrito: ledger antes/después sin segundo débito ni éxito inventado",
+      "trello": "https://trello.com/c/ant3sEML",
+      "prep": "APTO tecnico por capas, juez independiente gpt-6-astra/high en 53dd23b5. Nuevo N5 HTTP+SQL 1/1, backend601/601 sin fallos/omitidos; 257 metodos/600casos anteriores preservados. Rechazos comparan19tablas; Golden19+21 y recuperacion sin segundo debito. N5-COV, C9 y aceptacion operativa siguen pendientes.",
+      "evidence": "docs/c11-next-20261104/final-review.md / docs/c11-next-20261104/final-review-evidence.json / https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41774927960 / https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41774928044"
+    },
+    {
+      "id": "C12",
+      "order": 14,
+      "track": "sprint",
+      "owner": "jason",
+      "status": "blocked",
+      "blocked_by": [
+        "C1",
+        "C3",
+        "C11",
+        "STOCK-EXCEPTION"
+      ],
+      "title": "PR de integración a main y READY final",
+      "why": "Cerrar el sprint con un SHA verificable en main sin despliegue no autorizado",
+      "done_when": "Checks requeridos en verde en el SHA; merge sin despliegue no autorizado; PROJECT-STATUS actualizado",
+      "trello": "https://trello.com/c/5yVy70Ju"
+    },
+    {
+      "id": "N5-COV",
+      "order": 14.5,
+      "track": "sprint",
+      "owner": "denis",
+      "status": "done",
+      "title": "Cobertura extra de N5 sugerida por el crítico de C3",
+      "why": "El crítico de Cutufay señaló 3 huecos: botón durante recuperación pendiente, venta nueva completa tras descartar un recibo obsoleto y posible carrera en el caso 404. Recomendación, no criterio original de C3",
+      "done_when": "Cada hueco cubierto por una prueba en tests/browser-mock-validation.mjs con rojo-verde, o descartado por escrito con el motivo",
+      "alternatives": "Incluirlo en C8 (misma área y mismo arnés) · dejarlo para después del ensayo",
+      "paths": [
+        "tests/browser-mock-validation.mjs"
+      ],
+      "trello": "https://trello.com/c/145Qp5pz",
+      "prep": "Three browser gaps covered; hypothetical same-generation newer-pending race reasonedly unreachable. Current overlay88eaa4: baseline/restored8/8, three semantic mutants killed, exits0/1/1/1/0. Exact product bytes restored. No existing product defect reproduced.",
+      "report": "docs/n5-browser-20261105/primary-review.md",
+      "evidence": "docs/n5-browser-20261105/README.md",
+      "review": "Primary ACCEPT WITH LIMITS after Opus return and final Astra/high M1 adjudication. M1 satisfied by negative controls, m1 satisfied for observed combined-boundary window; m2 corrected; stale PLAN header fixed. No waiver or criterion change. Opus high requested/effective unknown remains disclosed. Historical browser50/50,staff102/102 and earlier LinuxCI stay source-bound. Remote delivery requires publication SHA readback and its applicable CI. No new real API/SQL/device/operational proof."
+    },
+    {
+      "id": "SEC-CSRF",
+      "order": 15,
+      "track": "sprint",
+      "owner": "suazo_pc",
+      "status": "doing",
+      "title": "CSRF emitido antes de una reasignación sigue válido tras re-login del mismo usuario",
+      "why": "Hallazgo de C7: el token está ligado al usuario, no a la sesión; la cookie vieja sí da 401. No es escalada (mismo usuario), pero N8 estricto pediría ligarlo a la sesión",
+      "done_when": "Decisión registrada; si se liga a la sesión, prueba roja-verde en InternalAcceptanceHttpSqlTests",
+      "alternatives": "Dejarlo ligado al usuario (sin riesgo de escalada, más simple) · ligarlo a la sesión (N8 estricto, cambio pequeño en Security)",
+      "decision_ref": "docs/session-csrf-20261107/README.md",
+      "review": "Per-session rule implemented with real offline framework red/green and client continuity proof. Astra/xhigh accepted P2 correction on 79d18c4 with limits; primary verified 12 canonical/Git LF bindings and original 33/33 checks. N8 and all six HTTP acceptance methods passed in the real local security run on f9ffa452bae7fc11a4a578ce24b57ecb72add139; primary verified original TRX identities/outcomes. The complete security batch is not PASS: four unrelated fixture/oracle failures were corrected offline in 550b104, independently reviewed and accepted by primary with limits; corrected runtime remains pending. See docs/sql-parallel-20261107/security-correction/PRIMARY-ACCEPTANCE.json. Current evidence review on 9554645 confirms the same-account RED belongs to InternalSessionAntiforgeryTests, while N8 has SQL GREEN. The unchanged same-test red/green closure criterion still needs an explicit evidence disposition; SEC-CSRF remains doing. Jason chose review-only D for SQL5; no runtime or extra case is authorized by this review. See docs/session-csrf-20261107/README.md#current-evidence-review-2026-11-07. No combined browser journey, operator or production waiver.",
+      "paths": [
+        "backend/src/Martha.Store.Api/Internal/Security/*"
+      ],
+      "trello": "https://trello.com/c/6i6uYO7r"
+    },
+    {
+      "id": "API-BRANCH",
+      "order": 16,
+      "track": "prod",
+      "owner": "jason",
+      "status": "todo",
+      "title": "No hay endpoint para crear sucursales",
+      "why": "Hallazgo de C5: crear una sucursal exige SQL/EF directo; en producción el Owner no tiene forma soportada",
+      "done_when": "Decisión: endpoint Owner o procedimiento documentado de alta de sucursal con prueba",
+      "alternatives": "Endpoint Owner en Security/Directory · script de alta revisado y documentado (una sola sucursal hoy, D-014)",
+      "needs": {
+        "decision": "¿Endpoint de sucursales o alta por script mientras sea una sola sucursal?",
+        "decider": "jason",
+        "recommendation": "Script documentado mientras D-014 sea una sucursal; endpoint antes de multisucursal"
+      },
+      "trello": "https://trello.com/c/PpBOHmWD"
+    },
+    {
+      "id": "P-HOST",
+      "order": 20,
+      "track": "prod",
+      "owner": "jason",
+      "status": "todo",
+      "title": "Elegir dónde corre SAVIA en producción",
+      "why": "Respaldo, TLS, monitoreo y RTO dependen del lugar (equipo en tienda o nube)",
+      "done_when": "Decisión registrada en DECISIONS con costo, responsable y plan de respaldo",
+      "alternatives": "SUAZO-PC en la tienda (barato, punto único de falla) · VM o servicio administrado en la nube (costo mensual, depende de internet)",
+      "needs": {
+        "decision": "Hospedaje de producción",
+        "decider": "jason",
+        "recommendation": "Decidir después del ensayo C10, con los datos de red de C2"
+      }
+    },
+    {
+      "id": "P-SEC",
+      "order": 21,
+      "track": "prod",
+      "owner": "jason",
+      "status": "blocked",
+      "blocked_by": [
+        "P-HOST"
+      ],
+      "title": "Secretos, TLS y cuentas del personal en producción",
+      "why": "Las cuentas sintéticas y certificados de prueba no sirven en producción",
+      "done_when": "Secretos fuera del repo con rotación documentada; TLS válido; cuentas reales creadas por el Owner",
+      "needs": {
+        "tool": "Gestor de secretos del hospedaje elegido"
+      }
+    },
+    {
+      "id": "P-OPS",
+      "order": 22,
+      "track": "prod",
+      "owner": "jason",
+      "status": "blocked",
+      "blocked_by": [
+        "P-HOST",
+        "C9"
+      ],
+      "title": "Respaldo programado, monitoreo y runbook de incidentes",
+      "why": "Producción sin alerta ni respaldo programado se descubre rota por la clienta",
+      "done_when": "Respaldo diario verificado, alerta a una persona nombrada, runbook de caída y rollback probado una vez",
+      "needs": {
+        "tool": "Monitoreo de disponibilidad y tarea programada de respaldo"
+      }
+    },
+    {
+      "id": "P-LEGACY",
+      "order": 23,
+      "track": "prod",
+      "owner": "denis",
+      "status": "done",
+      "title": "Clasificar las 19 aserciones heredadas que fallan",
+      "why": "Un rojo permanente entrena a ignorar el CI",
+      "done_when": "Cada aserción marcada regresión, obsoleta, entorno o inestable, con issue o fix",
+      "paths": [
+        "tests/desktop-gallery.cjs",
+        "tests/green-header.cjs",
+        "tests/luxury-editorial.cjs"
+      ],
+      "report": "docs/p-legacy-20261104/CLASSIFICATION.md",
+      "evidence": "19/19 clasificadas (5 contrato DOM, 9 obsoletas, 5 entorno); solo clasificacion. Issue abierto con acciones por caso: https://github.com/Suazo-AI/Martha-Silva-Store/issues/4 / docs/p-legacy-20261104/CLASSIFICATION.md",
+      "prep": "Paquete de FIX-PR2 verificado: documento SHA256 c16b69043f9c5d741717e2a14f6677e80f83d7257d53b20dcf9a9b339a602f06; cuerpo del issue #4 coincide tras normalizar saltos y espacios finales. Solo clasificacion; no nuevas pruebas ni correcciones de las aserciones."
+    },
+    {
+      "id": "P-OWNER",
+      "order": 23.5,
+      "track": "prod",
+      "owner": "suazo_pc",
+      "status": "doing",
+      "title": "Recuperación si se pierden todas las cuentas Owner",
+      "why": "El reset exige una sesión Owner vigente y permite self-reset; no cubre la pérdida de todos los accesos Owner. El bootstrap no recupera cuentas existentes",
+      "done_when": "Procedimiento revisado y probado en una base sintética, sin reabrir el bootstrap",
+      "decision_ref": "docs/owner-recovery-20261107/README.md",
+      "prep": "SQL runtime and interactive emergency recovery executed 2026-11-10 on the local Windows SQL instance with Integrated Security and trusted TLS: SQL facts 25/25, owner-recovery family 64/64, and the private Windows console recovery committed with a durable journal (INTENT then COMMITTED). New HTTP fact F14 proves a second Owner recovering the first through the authorized API path. Three preparation defects were fixed. Disposable database dropped, protected folder removed, zero leftover test databases. Remaining: name the two custodians and the production operator account, and re-run on the pinned SQL 2022 image. Production remains NO-GO. See docs/owner-recovery-20261107/runtime-20261110.md. Original completion criterion retained.",
+      "trello": "https://trello.com/c/XMPIyKa8"
+    },
+    {
+      "id": "CASH-REGISTER",
+      "order": 23.75,
+      "track": "prod",
+      "owner": "suazo_pc",
+      "status": "doing",
+      "title": "Primera caja de contado por cajero y turno, con devoluciones controladas",
+      "why": "Cash UI now records cash payment, change and till activity; real integrated persistence, recovery and independent reconciliation still need proof.",
+      "done_when": "D-031 a D-034 y CASH-01 a CASH-08 implementados y aceptados: cobro completo, vuelto exacto, apertura/cierre por cajero y turno, autorizacion Owner/Manager de devoluciones desde la caja abierta que paga, cierre original inmutable; permisos, atomicidad, idempotencia, concurrencia y conciliacion independiente. Recorrido real navegador/API/SQL con perdida de respuesta, dos cajas aisladas y devolucion de un turno anterior. Revision Astra/xhigh, pruebas adversariales, integracion serial y CI del SHA exacto. No sustituye tarjetas ni aceptacion operativa.",
+      "decision_ref": "docs/DECISIONS.md#d-034--devolución-desde-la-caja-abierta-que-entrega-el-efectivo",
+      "paths": [
+        "docs/cash-register-20261107/*"
+      ],
+      "prep": "Backend, additive migration and full staff cash UI integrated. Astra/xhigh and primary accepted the bounded UI increment. All four applicable no-SQL checks passed on 54e76663cef0a43029dc87b7ecc27dcf9e8ec180: mocked Chrome cash 2/2, existing 50/50, supply 8/8; backend 662 Passed, 68 skipped, zero failures. Primary verified 22 artifact source bindings. Real cash journey preparation: primary verified 81 offline passes and exact final helper build exit 0; source preparation returned REVISE for F1-F3. Business SQL39 remains historical on f9ffa452bae7fc11a4a578ce24b57ecb72add139; minimum SQL5 held at D: REVIEW FIRST, DO NOT EXECUTE. Real cash persistence and populated Cash recovery are not accepted. Current 990e23a exact-SHA no-SQL CI: 700 backend passes, 82 skipped; 223 staff; mocked cash2/existing50/supply8. Astra returned REVISE on real-journey F1/F2 evidence admission and F3 returned-row preservation; bounded Sol/high corrections running. See real-journey/REVIEW-STATUS.json. No preparation or runtime acceptance from green CI.",
+      "report": "docs/cash-register-20261107/README.md",
+      "review": "UI corrections and exact-SHA no-SQL CI accepted within scope; see docs/cash-register-20261107/ui-integration/CI-VERIFICATION.json. Historical business39/security23 evidence stays attributed to f9ffa45 under equivalence conditions. Four corrected SQL methods plus restart remain held. Real browser/API/SQL cash proof, populated Cash backup/restore/restart, concurrency, two isolated tills, prior-turn refunds and operational acceptance remain pending. Source preparation is not runtime evidence. Production NO-GO."
+    },
+    {
+      "id": "P-GO",
+      "order": 24,
+      "track": "prod",
+      "owner": "jason",
+      "status": "blocked",
+      "blocked_by": [
+        "C10",
+        "C12",
+        "P-SEC",
+        "P-OPS",
+        "P-OWNER",
+        "CASH-REGISTER"
+      ],
+      "title": "Salida a producción de SAVIA interno",
+      "why": "Uso real en la caja con respaldo, monitoreo y aceptación firmada",
+      "done_when": "Despliegue autorizado por Jason, verificado por SHA, con respaldo y alerta activos",
+      "needs": {
+        "decision": "Autorizar el despliegue",
+        "decider": "jason"
+      }
+    },
+    {
+      "id": "S-PAY",
+      "order": 30,
+      "track": "store",
+      "owner": "jason",
+      "status": "todo",
+      "title": "Proveedor de pago con tarjeta (D-008, D-009)",
+      "why": "La tienda pública no es producción sin cobro con tarjeta",
+      "done_when": "Proveedor elegido con elegibilidad del comercio verificada; integración probada en sandbox",
+      "needs": {
+        "decision": "Proveedor de tarjeta",
+        "decider": "jason",
+        "recommendation": "Fuera del sprint; decidir con condiciones del comercio verificadas"
+      }
+    },
+    {
+      "id": "S-BACKEND",
+      "order": 31,
+      "track": "store",
+      "owner": "jason",
+      "status": "blocked",
+      "blocked_by": [
+        "S-PAY"
+      ],
+      "title": "Autoridad de pedidos públicos y contrato de sustitución SISFAIN (D-024)",
+      "why": "Precios, stock y pedidos de la demo no son autoridad comercial",
+      "done_when": "Contrato autoritativo de pedidos públicos definido; matriz de sustitución SISFAIN aprobada y límites frente a SAVIA interno documentados",
+      "needs": {
+        "decision": "Definir paridad del reemplazo y transición; no integrar SISFAIN como objetivo ni asumir que SAVIA interno resuelve pedidos públicos",
+        "decider": "jason",
+        "recommendation": "SISFAIN confirmado por Jason y asociación pública de CGA; reemplazar flujos usados, conservar continuidad y migrar solo tras conciliación autorizada"
+      }
+    },
+    {
+      "id": "PIPE-LEDGER",
+      "order": 40,
+      "track": "pipeline",
+      "owner": "claude",
+      "status": "done",
+      "title": "Ledger + resumen determinista en cada push y PR",
+      "why": "Que GitHub, no una persona, diga en cada avance dónde vamos, qué falta y qué decisión hace falta",
+      "done_when": "progress-digest.yml verde en el PR; pruebas de tools/delivery_status.py en check.py; issue de bitácora actualizándose solo",
+      "alternatives": "Resumen escrito a mano (se desactualiza) · solo Trello (sin enlace a SHA ni CI)",
+      "paths": [
+        "tools/delivery_status.py",
+        "docs/pipeline/*",
+        ".github/workflows/progress-digest.yml",
+        ".github/pull_request_template.md"
+      ],
+      "evidence": "https://github.com/Suazo-AI/Martha-Silva-Store/issues/3 · https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41744363236"
+    },
+    {
+      "id": "PIPE-AI",
+      "order": 41,
+      "track": "pipeline",
+      "owner": "jason",
+      "status": "todo",
+      "blocked_by": [
+        "PIPE-LEDGER"
+      ],
+      "title": "Narrador IA opcional (Claude o Codex) en cada PR",
+      "why": "Explica en lenguaje natural por qué, alternativas y riesgos del cambio, sin decidir el estado",
+      "done_when": "Un secreto configurado y un comentario del narrador visto en un PR",
+      "alternatives": "Solo el resumen determinista (gratis, menos contexto)",
+      "needs": {
+        "decision": "¿Claude o Codex y quién paga el uso?",
+        "decider": "jason",
+        "recommendation": "Claude con CLAUDE_CODE_OAUTH_TOKEN de la suscripción existente",
+        "tool": "Secreto CLAUDE_CODE_OAUTH_TOKEN, ANTHROPIC_API_KEY u OPENAI_API_KEY"
+      },
+      "trello": "https://trello.com/c/dtcQ4Hzy"
+    },
+    {
+      "id": "TONY-STATUS01",
+      "track": "pipeline",
+      "owner": "denis",
+      "status": "done",
+      "title": "Unknown target must not appear complete",
+      "why": "An absent target rendered a completed critical path.",
+      "done_when": "Unknown target fails CLI and emits an explicitly invalid digest.",
+      "alternatives": "Prepared patch reviewed independently; integration remains with the existing canonical owner. No direct API push or control bypass.",
+      "evidence": "docs/release-20261106/process-acceptance.md; docs/release-20261106/process-judge.md; docs/fix-pr2-denis-20261104/local-validation.json: delivery-status 24/24, unknown target invalid digest and nonzero CLI.",
+      "paths": [
+        "tools/delivery_status.py",
+        "tests/test_delivery_status.py"
+      ],
+      "prep": "Primary accepted against the original criterion. Historical integrated tree260b759/ec671f4, not new product acceptance. New supply/stock behavior needs separate real runtime proof."
+    },
+    {
+      "id": "TONY-STATUS02",
+      "track": "pipeline",
+      "owner": "denis",
+      "status": "done",
+      "title": "Invalid dependencies must still produce an honest digest",
+      "why": "Cycles or missing references prevented the diagnostic digest.",
+      "done_when": "Cycle and missing-dependency regressions produce a nonzero result and useful invalid digest.",
+      "alternatives": "Prepared patch reviewed independently; integration remains with the existing canonical owner. No direct API push or control bypass.",
+      "evidence": "docs/release-20261106/process-acceptance.md; docs/release-20261106/process-judge.md; docs/fix-pr2-denis-20261104/local-validation.json: delivery-status 24/24, missing dependency and cycle diagnostic/nonzero cases.",
+      "paths": [
+        "tools/delivery_status.py",
+        "tests/test_delivery_status.py"
+      ],
+      "prep": "Primary accepted against the original criterion. Historical integrated tree260b759/ec671f4, not new product acceptance. New supply/stock behavior needs separate real runtime proof."
+    },
+    {
+      "id": "TONY-STATUS03",
+      "track": "pipeline",
+      "owner": "denis",
+      "status": "done",
+      "title": "Use one dropped-prerequisite rule",
+      "why": "A dropped prerequisite permitted starting but prevented completing downstream work.",
+      "done_when": "Decision-backed dropped dependencies agree across validation, actionable items and critical path.",
+      "alternatives": "Prepared patch reviewed independently; integration remains with the existing canonical owner. No direct API push or control bypass.",
+      "evidence": "docs/release-20261106/process-acceptance.md; docs/release-20261106/process-judge.md; docs/fix-pr2-denis-20261104/local-validation.json: delivery-status 24/24, decision-backed dropped validation/actionable/critical-path agreement.",
+      "paths": [
+        "tools/delivery_status.py",
+        "tests/test_delivery_status.py"
+      ],
+      "prep": "Primary accepted against the original criterion. Historical integrated tree260b759/ec671f4, not new product acceptance. New supply/stock behavior needs separate real runtime proof."
+    },
+    {
+      "id": "TONY-WF01",
+      "track": "pipeline",
+      "owner": "denis",
+      "status": "done",
+      "title": "Preserve per-event progress history",
+      "why": "Delayed cross-branch publication overwrote global current-state issue body.",
+      "done_when": "Append-only branch/SHA snapshots, cooperating publication serialization and honest stale-PR check limits.",
+      "alternatives": "Prepared patch reviewed independently; integration remains with the existing canonical owner. No direct API push or control bypass.",
+      "evidence": "docs/release-20261106/process-acceptance.md; docs/release-20261106/process-judge.md; docs/fix-pr2-denis-20261104/digest-publication.json: historical comment preserved; separate branch/SHA events and stale-PR metadata readback. GET/PATCH remains non-atomic.",
+      "paths": [
+        ".github/workflows/progress-digest.yml",
+        "docs/pipeline/README.md"
+      ],
+      "prep": "Primary accepted against the original criterion. Historical integrated tree260b759/ec671f4, not new product acceptance. New supply/stock behavior needs separate real runtime proof."
+    },
+    {
+      "id": "TONY-HC01",
+      "track": "pipeline",
+      "owner": "denis",
+      "status": "done",
+      "title": "Scan exact evidence before publishing",
+      "why": "The workflow could upload files after the harness secret scan failed.",
+      "done_when": "Known-secret failure never publishes files/table; manifest tamper fails; same-SHA Actions verifies guarded summary/artifact.",
+      "alternatives": "Prepared patch reviewed independently; integration remains with the existing canonical owner. No direct API push or control bypass.",
+      "evidence": "docs/release-20261106/process-acceptance.md; docs/release-20261106/process-judge.md; docs/fix-pr2-denis-20261104/evidence-cli.json:6/6 exact-byte/tamper/secret/marker cases; local-validation.json safety17/17; ci-reconciled.json Golden41753825439 approved artifact hashes and guarded publication.",
+      "paths": [
+        "tests/golden-path/*",
+        ".github/workflows/golden-path.yml",
+        "tests/test_golden_path_safety.py"
+      ],
+      "prep": "Primary accepted against the original criterion. Historical integrated tree260b759/ec671f4, not new product acceptance. New supply/stock behavior needs separate real runtime proof."
+    },
+    {
+      "id": "TONY-HC02",
+      "track": "pipeline",
+      "owner": "denis",
+      "status": "done",
+      "title": "Do not report uncertain SQL creation as clean",
+      "why": "Interrupted or generic failed creation could be reported not_created or authorize an unsafe drop.",
+      "done_when": "Unit refusal/timeout/unknown cases fail safely without autodrop; real authorized SQL smoke and teardown readback pass on integrated SHA.",
+      "alternatives": "Prepared patch reviewed independently; integration remains with the existing canonical owner. No direct API push or control bypass.",
+      "evidence": "docs/release-20261106/process-acceptance.md; docs/release-20261106/process-judge.md; docs/fix-pr2-denis-20261104/local-validation.json safety17/17; ci-reconciled.json Golden19/19/API exit0/database drop/private-dir removal/container absence; backend599/599/restart1/1/container absence. Refusal/timeout/unknown use doubles; no SIGKILL or power-loss claim.",
+      "paths": [
+        "tests/golden-path/*",
+        "tests/test_golden_path_safety.py"
+      ],
+      "prep": "Primary accepted against the original criterion. Historical integrated tree260b759/ec671f4, not new product acceptance. New supply/stock behavior needs separate real runtime proof."
+    },
+    {
+      "id": "TONY-STOCKDOC",
+      "track": "pipeline",
+      "owner": "denis",
+      "status": "done",
+      "title": "Preserve the existing physical-garment delivery instruction",
+      "why": "The ledger reopened the settled delivery decision and recommended automatic stock-zero rejection.",
+      "done_when": "Docs retain Denis delivery instruction while leaving alert/reconciliation acceptance explicit; no untested stock runtime change.",
+      "alternatives": "Prepared patch reviewed independently; integration remains with the existing canonical owner. No direct API push or control bypass.",
+      "evidence": "docs/release-20261106/process-acceptance.md; docs/sprint-20261104/TONY-PR2-FIXES.md and committed DECISIONS D026/D027 preserve physical delivery and pending review/reconciliation; no stock runtime change.",
+      "paths": [
+        "docs/DECISIONS.md",
+        "docs/pipeline/ledger.json"
+      ],
+      "prep": "Primary accepted against the original criterion. Historical integrated tree260b759/ec671f4, not new product acceptance. New supply/stock behavior needs separate real runtime proof."
+    },
+    {
+      "id": "S-LEGACY",
+      "order": 25,
+      "track": "store",
+      "owner": "suazo_pc",
+      "status": "review",
+      "title": "Resolver contratos actuales de galeria del frontend elegido",
+      "why": "La clasificacion historica P-LEGACY esta completa; falta disponer solo las verificaciones actuales que no cubra la evidencia vigente.",
+      "done_when": "DG01/DG03 foco y slides inactivos, DG06/DG10 teclado/End y DG04 tamanos responsivos mapeados al frontend Jason elegido; reutilizar prueba actual aplicable y comprobar solo huecos. Expectativas obsoletas versionadas; issue4 actualizado con evidencia de cada disposicion. No llamar defecto visual actual a un fallo DOM historico.",
+      "paths": [
+        "src/app.js",
+        "tests/desktop-gallery.cjs",
+        "tests/green-header.cjs",
+        "tests/luxury-editorial.cjs"
+      ],
+      "report": "docs/gallery-contracts-20261107/TECHNICAL-ACCEPTANCE.md",
+      "evidence": "Primary and Astra/xhigh accept bounded gallery proof at 69d3268; exact-SHA CI: four completed successful workflows, six successful checks and one optional narrator skipped. Issue4 update is prepared in docs/gallery-contracts-20261107/ISSUE-4-UPDATE.md, not published.",
+      "prep": "Technical proof accepted with limits; remains review because done_when requires issue4 update. External issue write awaits scope and exact readback. Does not block internal P-GO. P-LEGACY historical classification remains closed and unchanged."
+    }
+  ]
+}

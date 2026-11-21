@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 """Portable offline QA: python tests/check.py [--install].
 
-Requires Python 3 and Node.js on PATH. --install explicitly runs npm ci using
-locked DOM dependencies; otherwise no dependency download is attempted.
+Requires Python 3, Node.js and tests/media-requirements.txt dependencies.
+--install explicitly runs npm ci using locked DOM dependencies;
+otherwise no dependency download is attempted. CI installs the pinned media
+dependencies before invoking this runner.
 Frontend coverage is DOM simulation, not a real browser test.
 """
 import argparse
+import json
 import os
 from pathlib import Path
 import shutil
@@ -13,16 +16,30 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parent.parent
+SITE_PAGES = json.loads((ROOT / 'tests/site-pages.json').read_text(encoding='utf-8'))
 
 
 def check_fixture(root):
     pages = sorted((root / 'dist').glob('*.html'))
-    if len(pages) != 9:
-        raise ValueError(f'Expected 9 recovered pages, found {len(pages)}')
-    for name in ('app.js', 'demo-api.js'):
+    if len(pages) != len(SITE_PAGES):
+        raise ValueError(f'Expected {len(SITE_PAGES)} recovered pages, found {len(pages)}')
+    catalog_text = (root / 'dist/catalog.js').read_text(encoding='utf-8')
+    prefix = 'window.DEMO_CATALOG='
+    if not catalog_text.startswith(prefix):
+        raise ValueError('Unsupported catalog.js format')
+    catalog, _ = json.JSONDecoder().raw_decode(catalog_text[len(prefix):])
+    products = catalog['products']
+    product_ids = {product['id'] for product in products}
+    if len(products) != 40 or len(product_ids) != 40 or sum(len(p['variants']) for p in products) != 120:
+        raise ValueError('Expected 40 unique sample products and 120 variants')
+    expected_pages = {name for name in SITE_PAGES if not name.startswith('producto-')}
+    expected_pages.update(f'producto-{product_id}.html' for product_id in product_ids)
+    if {page.name for page in pages} != expected_pages:
+        raise ValueError('Published pages do not match the 40 original product IDs and the shared pages in tests/site-pages.json')
+    for name in ('app.js', 'demo-api.js', 'integration-adapters.js'):
         if (root / 'src' / name).read_bytes() != (root / 'dist' / name).read_bytes():
             raise ValueError(f'src/dist drift: {name}')
-    print('PASS: 9 pages; src/dist app.js and demo-api.js match', flush=True)
+    print(f'PASS: {len(pages)} pages / 40 sample products / 120 variants; src/dist app.js, demo-api.js and integration-adapters.js match', flush=True)
 
 
 def clean_environment():
@@ -60,28 +77,52 @@ def main(argv=None):
             raise ValueError('Missing jsdom: run python tests/check.py --install first.')
         run([node, '--version'])
         run([sys.executable, '--version'])
+        stage('Private staff UI regressions (DOM and mocked transport, no SQL)')
+        env['NODE_PATH'] = str(ROOT / 'tests/frontend-deps/node_modules')
+        staff_tests = sorted(str(p.relative_to(ROOT)) for p in (ROOT / 'dev/savia-staff-ui').glob('*.test.mjs'))
+        if not any(p.endswith('supply.test.mjs') for p in staff_tests):
+            raise ValueError('Missing portable supply regressions')
+        run([node, '--test', *staff_tests])
         stage('Reproducible snapshot build')
         run([sys.executable, 'tests/build.py'])
         stage('Recovered fixture')
         check_fixture(ROOT)
+        stage('Static asset response policy and current release manifest regression')
+        run([sys.executable, 'tests/static_headers.py'])
+        run([sys.executable, 'tests/test_release_snapshot.py'])
         stage('Backend simulation')
         run([node, '--test', 'tests/backend.cjs'])
+        stage('Dual integration adapters (local/synthetic only)')
+        run([node, '--test', 'tests/integration-adapters.test.js'])
         stage('Catalog expansion regression')
         run([node, '--test', 'tests/catalog-migration.cjs'])
+        stage('Complete original catalog and rendered media')
+        run([node, '--test', 'tests/original-catalog.cjs'])
+        stage('Responsive image identity, dimensions and fallbacks')
+        run([sys.executable, 'tests/responsive_images.py'])
+        stage('Complete responsive fonts and immutable TTF fallback')
+        run([sys.executable, 'tests/responsive_fonts.py'])
+        stage('Editorial provenance and current published contract')
+        run([node, '--test', 'tests/luxury-editorial.cjs'])
         stage('Asset audit regression (not full catalog completion)')
         run([sys.executable, 'tests/asset-audit.py'])
         stage('Portable runner regression')
         run([sys.executable, 'tests/test_check.py'])
         stage('Automatic sync guard regression')
         run([sys.executable, 'tests/test_sync_progress.py'])
+        stage('Delivery ledger and digest regression')
+        run([sys.executable, 'tests/test_delivery_status.py'])
+        run([sys.executable, 'tools/delivery_status.py', '--check'])
         stage('Recovered catalog staging regression')
         run([sys.executable, 'tests/catalog-staging.py'])
         stage('Frontend DOM simulation (not a browser)')
         run([node, 'tests/frontend-runtime.cjs'])
+        stage('Spanish and English storefront DOM simulation (not a browser)')
+        run([node, 'tests/localization-runtime.cjs'])
         stage('Local HTML structure')
         run([sys.executable, 'tests/structure.py'])
         stage('JavaScript syntax')
-        files = sorted(path for pattern in ('src/*.js', 'dist/*.js', 'tests/*.cjs')
+        files = sorted(path for pattern in ('src/*.js', 'dist/*.js', 'tests/*.cjs', 'tests/*.test.js')
                        for path in ROOT.glob(pattern))
         for path in files:
             run([node, '--check', str(path.relative_to(ROOT))])

@@ -1,0 +1,14 @@
+# Format of SAVIA v2 sources. `dotnet format Savia.slnx` applies it; savia/tools/check.py verifies it.
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+
+[*.cs]
+indent_style = space
+indent_size = 4
+insert_final_newline = true
+trim_trailing_whitespace = true
+csharp_new_line_before_open_brace = all
+csharp_style_namespace_declarations = file_scoped

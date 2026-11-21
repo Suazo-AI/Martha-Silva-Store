@@ -1,0 +1,57 @@
+{
+  "integration_base": "6aeb9a35f45331ace85ac48dc19bfd9264b0f722",
+  "patch_sha256": "a0762dc021260f4c8c88b849552c4775c6bef17af06c5338e68e95cd7a221df0",
+  "all_six_git_blobs_match": true,
+  "files": [
+    {
+      "path": "dev/savia-staff-ui/README.md",
+      "source_checkout_sha256": "0227a090710012f9f71c54e90d38b5fff631567d33255068a96b0ed4b83e4b47",
+      "integrated_checkout_sha256": "0227a090710012f9f71c54e90d38b5fff631567d33255068a96b0ed4b83e4b47",
+      "candidate_git_blob": "f7f17b0f792586ce3d296e6bcb78b4e046a905d1",
+      "integrated_git_blob": "f7f17b0f792586ce3d296e6bcb78b4e046a905d1",
+      "git_blob_match": true
+    },
+    {
+      "path": "dev/savia-staff-ui/app.mjs",
+      "source_checkout_sha256": "c5179f67e8f613e6a71ed1e611cd923a4c3862a4a646aa3be4b8f81b8609d48e",
+      "integrated_checkout_sha256": "c5179f67e8f613e6a71ed1e611cd923a4c3862a4a646aa3be4b8f81b8609d48e",
+      "candidate_git_blob": "761eafa3e64ebca784d96c4465d052b2603c91be",
+      "integrated_git_blob": "761eafa3e64ebca784d96c4465d052b2603c91be",
+      "git_blob_match": true
+    },
+    {
+      "path": "dev/savia-staff-ui/auth.test.mjs",
+      "source_checkout_sha256": "7c6b890b25b8c27e4f2fcda44549db2ca3f2f67552c7c7b6a2e3afa14b16bab6",
+      "integrated_checkout_sha256": "7c6b890b25b8c27e4f2fcda44549db2ca3f2f67552c7c7b6a2e3afa14b16bab6",
+      "candidate_git_blob": "857e81996dc82a4a9e484e86099d2c9c00b09586",
+      "integrated_git_blob": "857e81996dc82a4a9e484e86099d2c9c00b09586",
+      "git_blob_match": true
+    },
+    {
+      "path": "dev/savia-staff-ui/login.mjs",
+      "source_checkout_sha256": "ac7714a22eb1e7a383ca41e3e11343472025271dcf21dc862f39cf8c386fc787",
+      "integrated_checkout_sha256": "ac7714a22eb1e7a383ca41e3e11343472025271dcf21dc862f39cf8c386fc787",
+      "candidate_git_blob": "6a639cafe028fe28be9ab0539688afcaa7aef86b",
+      "integrated_git_blob": "6a639cafe028fe28be9ab0539688afcaa7aef86b",
+      "git_blob_match": true
+    },
+    {
+      "path": "tests/browser-mock-validation.mjs",
+      "source_checkout_sha256": "f10b58fc28191646b750e488a8b84904ffba00337cf2054ee151316d9a28d415",
+      "integrated_checkout_sha256": "f10b58fc28191646b750e488a8b84904ffba00337cf2054ee151316d9a28d415",
+      "candidate_git_blob": "199f8826515d0a3c1f3e6c8981d964b6fc3aeebd",
+      "integrated_git_blob": "199f8826515d0a3c1f3e6c8981d964b6fc3aeebd",
+      "git_blob_match": true
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalSecurityTests.cs",
+      "source_checkout_sha256": "cf45feb9be7ef8e79f108ad0baa2b288c0bf488711fa9c08632ce740ff079c49",
+      "integrated_checkout_sha256": "cf45feb9be7ef8e79f108ad0baa2b288c0bf488711fa9c08632ce740ff079c49",
+      "candidate_git_blob": "ee3b15ec123c93b5a073295fe4b4cb70b814d501",
+      "integrated_git_blob": "ee3b15ec123c93b5a073295fe4b4cb70b814d501",
+      "git_blob_match": true
+    }
+  ],
+  "test_results": "REUSED; fresh CI pending",
+  "newline_note": "Source checkout hashes may differ from Linux publication bytes because core.autocrlf=true; Git blob identity includes repository filters."
+}

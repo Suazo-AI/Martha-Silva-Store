@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-06T03:59:06.845986+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "2b8f50b6269479c7bb9de278fc8414bca0ddca73"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "change": "M",
+      "git_blob": "c1391aa370e41d6624615e0e802dda62cfb40987"
+    },
+    {
+      "path": "docs/supply-ui-20261105/ACCEPTANCE.json",
+      "change": "A",
+      "git_blob": "50999c20f8a40aaffe8a88d5e2600a9c796ad104"
+    },
+    {
+      "path": "docs/supply-ui-20261105/astra-judge-candidate.md",
+      "change": "A",
+      "git_blob": "bc23db31fa0eddea02803933fb1ef80d549f52c7"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary-review.md",
+      "change": "M",
+      "git_blob": "d896b7e1e5913f702ae521b9cb9788c83b298342"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

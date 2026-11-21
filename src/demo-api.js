@@ -56,7 +56,7 @@
   const own = (o, key) => Object.prototype.hasOwnProperty.call(o, key);
   const textValue = x => typeof x === 'string' && !!x.trim();
   const copy = x => JSON.parse(JSON.stringify(x));
-  const fail = (code, message) => { const e = new Error(message); e.code = code; throw e; };
+  const fail = (code, message, status) => { const e = new Error(message); e.code = code; if(status)e.status=status; throw e; };
   function createDemoApi(catalog, storage) {
     const products = copy(Array.isArray(catalog) ? catalog : catalog?.products || []);
     const byVariant = new Map(products.flatMap(p => p.variants.map(v => [v.id, {p,v}])));
@@ -153,11 +153,20 @@
       }
       if(path==='/api/orders' && verb==='POST') {
         if(!textValue(body.idempotency_key) || body.idempotency_key.length>200)fail('missing_key','La compra de prueba necesita una clave de confirmación.');
-        if(s.keys['order:'+body.idempotency_key])return response({order:order(s.keys['order:'+body.idempotency_key])});
+        if(s.keys['order:'+body.idempotency_key]) {
+          const previous=order(s.keys['order:'+body.idempotency_key]);
+          // Key-only recovery is supported. A supplied changed logical request
+          // must never silently receive an unrelated previous local order.
+          const changed=(own(body,'quote_id') && body.quote_id!==previous.quote_id)
+            || (own(body,'newsletter') && !!body.newsletter!==previous.newsletter)
+            || ['contact','address'].some(field=>own(body,field) && (!record(body[field]) || Object.keys(previous[field]).some(key=>body[field][key]!==previous[field][key])));
+          if(changed)fail('idempotency_conflict','Esta clave ya corresponde a otra compra de prueba. Conservá la clave para reintentar el mismo intento; usá una nueva para otra compra.',409);
+          return response({order:previous});
+        }
         const q=own(s.quotes,body.quote_id) ? s.quotes[body.quote_id] : null;if(!q)fail('invalid_quote','Revisá la entrega para calcular de nuevo el total.');
         if(q.expires_at<=Date.now()||q.signature!==signature())fail('stale_quote','La bolsa cambió o el presupuesto venció. Revisá la entrega otra vez.');checkStock(q.lines);
         if(!textValue(body.contact?.name)||!textValue(body.contact?.email)||!body.contact.email.includes('@')||!textValue(body.contact?.phone)||!textValue(body.address?.line1)||!textValue(body.address?.city)||!textValue(body.address?.department))fail('invalid_contact','Completá los datos de contacto y entrega de prueba.');
-        const oid=id(),o={...copy(q),id:oid,code:'DEMO-'+String(Object.keys(s.orders).length+1).padStart(4,'0'),contact:copy(body.contact),address:copy(body.address),newsletter:!!body.newsletter,status:'pending_payment',payment_status:'pending',events:[],returns:[],refunded_minor:0,created_at:now(),reservation_expires_at:Date.now()+RESERVATION_MS};
+        const oid=id(),o={...copy(q),id:oid,quote_id:q.id,code:'DEMO-'+String(Object.keys(s.orders).length+1).padStart(4,'0'),contact:copy(body.contact),address:copy(body.address),newsletter:!!body.newsletter,status:'pending_payment',payment_status:'pending',events:[],returns:[],refunded_minor:0,created_at:now(),reservation_expires_at:Date.now()+RESERVATION_MS};
         delete o.signature;delete o.expires_at;event(o,'order_created');event(o,body.newsletter?'newsletter_opt_in':'newsletter_not_selected');s.orders[oid]=o;s.keys['order:'+body.idempotency_key]=oid;s.cart={};return response({order:o});
       }
       let m;

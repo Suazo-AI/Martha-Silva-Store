@@ -1,0 +1,2450 @@
+{
+  "schema": 1,
+  "base_sha": "0f786c3f2a747115b5cae90957b17a959f357298",
+  "sdk": "10.0.402",
+  "discovery": {
+    "command": "& $sdk test backend/tests/Martha.Store.Api.Tests --no-build --no-restore --configuration Release --list-tests",
+    "exit": 0,
+    "cases": 631,
+    "methods": 274,
+    "source_attribute_gaps": [],
+    "truncated_display_collisions": 6,
+    "case_identity": "private display labels; public rows retain methods and exact multiplicity; theory arguments deliberately omitted"
+  },
+  "backend_methods": [
+    {
+      "method": "Martha.Store.Api.Tests.GuardTests.Database_guard_accepts_only_named_synthetic_catalog",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/GuardTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.GuardTests.Database_guard_rejects_before_any_connection_is_opened",
+      "cases": 5,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/GuardTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.GuardTests.Database_guard_rejects_quoted_catalog_with_trailing_line_feed",
+      "cases": 2,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/GuardTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.GuardTests.Liveness_does_not_claim_database_readiness",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/GuardTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.GuardTests.Synthetic_writes_are_not_mapped_outside_explicit_test_gate",
+      "cases": 6,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/GuardTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.GuardTests.Unapproved_database_catalog_fails_closed",
+      "cases": 3,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/GuardTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalAcceptanceFingerprintTests.Actual_business_subset_keeps_all_seventeen_tables_and_review_hash",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceFingerprintTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalAcceptanceFingerprintTests.Actual_fixture_guard_accepts_current_relational_model",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceFingerprintTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalAcceptanceFingerprintTests.Both_guards_reject_schema_drift_even_with_same_count",
+      "cases": 3,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceFingerprintTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalAcceptanceFingerprintTests.Only_intended_authentication_assignment_changes_are_excluded",
+      "cases": 3,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceFingerprintTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalAcceptanceFingerprintTests.Review_table_change_fails_the_same_business_dictionary_comparison",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceFingerprintTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N1_each_role_reads_only_its_server_scope_and_unassigned_user_has_no_global_access",
+      "cases": 1,
+      "attribute": "InternalJudgeHttpSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs",
+      "partition": "C1"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N3_cashier_direct_commands_and_cost_reads_are_rejected_without_writes_or_cost_leaks",
+      "cases": 1,
+      "attribute": "InternalJudgeHttpSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs",
+      "partition": "C1"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N4_foreign_location_ids_paging_and_operation_identity_are_denied_without_writes_or_leaks",
+      "cases": 1,
+      "attribute": "InternalJudgeHttpSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs",
+      "partition": "C1"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N5_owner_branch_reassignment_rejects_original_cashier_cookie_and_preserves_sales_before_new_scope_login",
+      "cases": 1,
+      "attribute": "InternalJudgeHttpSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs",
+      "partition": "C1"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N8_missing_wrong_or_stale_csrf_is_rejected_without_writes_and_a_valid_pair_still_works",
+      "cases": 1,
+      "attribute": "InternalJudgeHttpSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs",
+      "partition": "C1"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N9_owner_adjustment_keeps_reason_actor_and_movement_while_cashier_same_action_changes_nothing",
+      "cases": 1,
+      "attribute": "InternalJudgeHttpSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs",
+      "partition": "C1"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalAuthReviewTests.Staff_update_accepts_explicit_enabled_state",
+      "cases": 2,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalAuthReviewTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalAuthReviewTests.Staff_update_keeps_existing_json_field_names_and_boolean_shape",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalAuthReviewTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalAuthReviewTests.Staff_update_rejects_omitted_enabled_instead_of_silently_disabling_staff",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalAuthReviewTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalBranchCompatibilityTests.Existing_constructor_shapes_distinguish_absent_and_explicit_null",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalBranchCompatibilityTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalBranchCompatibilityTests.Existing_required_fields_and_directory_unknown_property_rejection_remain",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalBranchCompatibilityTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalBranchCompatibilityTests.Invalid_branch_tokens_and_client_presence_objects_are_rejected",
+      "cases": 8,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalBranchCompatibilityTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalBranchCompatibilityTests.Location_fingerprint_keeps_request_presence_and_normalized_intent",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalBranchCompatibilityTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalBranchCompatibilityTests.Location_omitted_null_and_guid_are_distinct_and_survive_normalization",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalBranchCompatibilityTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalBranchCompatibilityTests.Staff_omitted_null_and_guid_are_distinct",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalBranchCompatibilityTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalBranchCompatibilityTests.Typed_http_json_roundtrip_preserves_presence_for_both_update_dtos",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalBranchCompatibilityTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalBranchScopeModelTests.Branch_associations_are_nullable_restricted_and_not_seeded_or_inferred",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalBranchScopeModelTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalBranchScopeModelTests.Legacy_runner_cannot_silently_execute_scoped_action_without_authorization",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalBranchScopeModelTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS01_03_Unassigned_manager_fails_closed_while_owner_remains_global",
+      "cases": 1,
+      "attribute": "InternalCommerceSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalBranchScopeSqlTests.cs",
+      "partition": "C.InternalBranchScopeSqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS04_06_Sales_and_stock_filter_before_count_and_pagination_not_by_creator",
+      "cases": 1,
+      "attribute": "InternalCommerceSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalBranchScopeSqlTests.cs",
+      "partition": "C.InternalBranchScopeSqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS07_12_Foreign_sale_reads_and_reversals_do_not_expose_or_mutate_the_sale",
+      "cases": 1,
+      "attribute": "InternalCommerceSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalBranchScopeSqlTests.cs",
+      "partition": "C.InternalBranchScopeSqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS20_22_Reassigned_manager_with_new_valid_session_cannot_replay_original_result",
+      "cases": 1,
+      "attribute": "InternalCommerceSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalBranchScopeSqlTests.cs",
+      "partition": "C.InternalBranchScopeSqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS21_25_Operations_http_checks_persisted_scope_and_actor_before_returning_result",
+      "cases": 1,
+      "attribute": "InternalCommerceSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalBranchScopeSqlTests.cs",
+      "partition": "C.InternalBranchScopeSqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS23_Receipt_dedup_with_new_key_cannot_return_original_branch_after_reassignment",
+      "cases": 1,
+      "attribute": "InternalCommerceSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalBranchScopeSqlTests.cs",
+      "partition": "C.InternalBranchScopeSqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS24_Legacy_operation_fails_closed_for_manager_without_modifying_history",
+      "cases": 1,
+      "attribute": "InternalCommerceSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalBranchScopeSqlTests.cs",
+      "partition": "C.InternalBranchScopeSqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS27_Inactive_location_allows_own_historical_reversal_but_not_foreign_reversal",
+      "cases": 1,
+      "attribute": "InternalCommerceSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalBranchScopeSqlTests.cs",
+      "partition": "C.InternalBranchScopeSqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS28_Cashier_cannot_read_purchase_costs_through_any_supply_get",
+      "cases": 1,
+      "attribute": "InternalCommerceSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalBranchScopeSqlTests.cs",
+      "partition": "C.InternalBranchScopeSqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS29_Historical_location_cannot_be_remapped_to_expose_another_branch",
+      "cases": 1,
+      "attribute": "InternalCommerceSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalBranchScopeSqlTests.cs",
+      "partition": "C.InternalBranchScopeSqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Cancel_replays_and_different_key_cancel_cannot_restock_twice_or_refund_bank_money",
+      "cases": 1,
+      "attribute": "InternalCommerceSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalCommerceCommandSqlTests.cs",
+      "partition": "C.InternalCommerceCommandSqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Concurrent_cancel_and_return_have_only_one_stock_reversal",
+      "cases": 1,
+      "attribute": "InternalCommerceSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalCommerceCommandSqlTests.cs",
+      "partition": "C.InternalCommerceCommandSqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Historical_cancellation_can_restore_inactive_item_and_location",
+      "cases": 1,
+      "attribute": "InternalCommerceSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalCommerceCommandSqlTests.cs",
+      "partition": "C.InternalCommerceCommandSqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Mixed_currency_sale_is_rejected_without_inventory_mutation",
+      "cases": 1,
+      "attribute": "InternalCommerceSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalCommerceCommandSqlTests.cs",
+      "partition": "C.InternalCommerceCommandSqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Partial_full_return_replay_and_excess_return_preserve_quantity_and_original_price",
+      "cases": 1,
+      "attribute": "InternalCommerceSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalCommerceCommandSqlTests.cs",
+      "partition": "C.InternalCommerceCommandSqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Rejected_later_line_rolls_back_earlier_line_and_failure_replay_remains_immutable",
+      "cases": 1,
+      "attribute": "InternalCommerceSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalCommerceCommandSqlTests.cs",
+      "partition": "C.InternalCommerceCommandSqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Same_sale_key_with_different_payload_is_a_conflict_not_a_second_sale",
+      "cases": 1,
+      "attribute": "InternalCommerceSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalCommerceCommandSqlTests.cs",
+      "partition": "C.InternalCommerceCommandSqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Server_priced_multiline_sale_replays_immutable_receipt_after_price_change",
+      "cases": 1,
+      "attribute": "InternalCommerceSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalCommerceCommandSqlTests.cs",
+      "partition": "C.InternalCommerceCommandSqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalCommerceSqlTests.Caller_rollback_removes_prior_line_updates_and_their_saved_movement_rows",
+      "cases": 1,
+      "attribute": "InternalCommerceSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalCommerceSqlTests.cs",
+      "partition": "C.InternalCommerceSqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalCommerceSqlTests.Concurrent_consumers_cannot_oversell_one_available_unit",
+      "cases": 1,
+      "attribute": "InternalCommerceSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalCommerceSqlTests.cs",
+      "partition": "C.InternalCommerceSqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalCommerceSqlTests.Concurrent_first_receipts_initialize_one_balance_without_lost_quantity",
+      "cases": 1,
+      "attribute": "InternalCommerceSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalCommerceSqlTests.cs",
+      "partition": "C.InternalCommerceSqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalCommerceSqlTests.Ledger_creates_only_zero_based_balance_and_records_server_actor",
+      "cases": 1,
+      "attribute": "InternalCommerceSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalCommerceSqlTests.cs",
+      "partition": "C.InternalCommerceSqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalCommerceSqlTests.Ledger_rejects_lower_isolation_before_mutating_SQL",
+      "cases": 1,
+      "attribute": "InternalCommerceSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalCommerceSqlTests.cs",
+      "partition": "C.InternalCommerceSqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalCommerceSqlTests.Reserved_units_and_upper_stock_bound_cannot_be_consumed_or_overflowed",
+      "cases": 1,
+      "attribute": "InternalCommerceSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalCommerceSqlTests.cs",
+      "partition": "C.InternalCommerceSqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalCommerceTests.Audit_entries_refuse_rewrites_and_deletes_before_SQL",
+      "cases": 8,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalCommerceTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalCommerceTests.Audit_reason_has_a_raw_input_bound_and_no_control_characters",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalCommerceTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalCommerceTests.Commerce_services_are_scoped_for_one_transaction_context",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalCommerceTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalCommerceTests.Integer_money_bounds_prevent_overflow_before_multiplication",
+      "cases": 7,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalCommerceTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalCommerceTests.Ledger_delta_bounds_are_checked_without_SQL",
+      "cases": 11,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalCommerceTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalCommerceTests.Ledger_refuses_to_create_an_independent_transaction",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalCommerceTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalCommerceTests.Ledger_rejects_uncontrolled_audit_kinds",
+      "cases": 5,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalCommerceTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalCommerceTests.Ledger_requires_nonempty_server_actor_and_correlation",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalCommerceTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalCommerceTests.Lists_expose_bounded_explicit_pagination",
+      "cases": 5,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalCommerceTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalCommerceTests.Malformed_commands_fail_before_runner_or_SQL",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalCommerceTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalCommerceTests.Model_has_separate_schema_composite_stock_identity_constraints_and_reference_protection",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalCommerceTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalCommerceTests.Multi_line_total_cannot_exceed_minor_unit_bound",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalCommerceTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalCommerceTests.Nested_sale_line_rejects_client_price",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalCommerceTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalCommerceTests.Return_requires_unique_line_ids_reason_and_positive_bounded_quantities",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalCommerceTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalCommerceTests.Sale_does_not_accept_client_authoritative_fields",
+      "cases": 5,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalCommerceTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalCommerceTests.Sale_quantities_are_bounded_and_customer_is_optional",
+      "cases": 6,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalCommerceTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalCommerceTests.Sale_rejects_empty_or_duplicate_lines_and_invalid_ids",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalCommerceTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalDirectoryCommandTests.Deactivation_uses_runner_and_fingerprints_the_resource",
+      "cases": 3,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalDirectoryCommandTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalDirectoryCommandTests.Invalid_inputs_never_enter_runner_or_open_sql",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalDirectoryCommandTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalDirectoryCommandTests.Update_resource_id_and_payload_are_part_of_replay_fingerprint",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalDirectoryCommandTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalDirectoryModelTests.Catalog_has_schema_unique_canonical_sku_integer_money_and_sql_constraints",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalDirectoryModelTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalDirectoryModelTests.No_directory_entity_has_real_or_synthetic_seed_data",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalDirectoryModelTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalDirectoryModelTests.Party_names_and_shared_contact_details_are_not_unique_identifiers",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalDirectoryModelTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.All_routes_require_read_policy_and_all_nine_mutations_require_owner_and_csrf",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalDirectorySecurityTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.Authorized_write_reaches_only_shared_runner_and_never_fake_persistence",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalDirectorySecurityTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.Every_write_requires_owner_and_a_csrf_token",
+      "cases": 6,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalDirectorySecurityTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.Invalid_or_multiple_keys_never_reach_command_runner",
+      "cases": 5,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalDirectorySecurityTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.Missing_actor_is_rejected_even_with_manager_role_and_valid_test_csrf",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalDirectorySecurityTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.Plain_http_is_rejected_before_reads_or_commands",
+      "cases": 2,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalDirectorySecurityTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.Read_authorization_is_enforced_before_invalid_query_validation_without_sql",
+      "cases": 6,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalDirectorySecurityTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalDirectorySecurityTests.Runner_error_semantics_are_preserved_by_http_mapper",
+      "cases": 6,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalDirectorySecurityTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Catalog_normalizes_sku_without_repricing_or_conversion",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalDirectoryValidationTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Currency_is_explicit_three_ascii_letters_not_fixture_currency",
+      "cases": 9,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalDirectoryValidationTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Integer_price_bounds_are_inclusive",
+      "cases": 2,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalDirectoryValidationTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Invalid_minor_prices_are_rejected",
+      "cases": 3,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalDirectoryValidationTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Invalid_names_are_rejected_in_each_domain",
+      "cases": 6,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalDirectoryValidationTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Invalid_party_contact_and_kind_are_rejected",
+      "cases": 7,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalDirectoryValidationTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Invalid_skus_are_rejected",
+      "cases": 8,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalDirectoryValidationTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.List_reads_are_bounded",
+      "cases": 4,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalDirectoryValidationTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Missing_price_fractional_minor_units_and_overposting_are_rejected",
+      "cases": 4,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalDirectoryValidationTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Optional_contacts_are_nullable_not_fabricated",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalDirectoryValidationTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Party_normalization_does_not_merge_people_or_rewrite_email_local_part",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalDirectoryValidationTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalDirectoryValidationTests.Text_has_length_limits_and_normalizes_canonical_unicode_only",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalDirectoryValidationTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalJudgeTests.Actor_identifier_is_the_principal_identifier_not_a_generated_identity",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalJudgeTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalJudgeTests.Actor_identifier_missing_malformed_or_empty_is_not_synthesized",
+      "cases": 4,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalJudgeTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalJudgeTests.Canonical_ui_routes_redirect_without_ambiguous_endpoint_matches",
+      "cases": 3,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalJudgeTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalJudgeTests.Currency_rule_is_explicit_ascii_and_never_accepts_fixture_currency",
+      "cases": 12,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalJudgeTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalJudgeTests.Every_protected_internal_api_rejects_anonymous_or_tampered_identity_before_business_storage",
+      "cases": 2,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalJudgeTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalJudgeTests.Idempotency_key_accepts_exact_documented_length_boundaries",
+      "cases": 2,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalJudgeTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalJudgeTests.Idempotency_key_rejects_noncanonical_input",
+      "cases": 9,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalJudgeTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalJudgeTests.Idempotency_key_rejects_overlength_input",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalJudgeTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalJudgeTests.Internal_database_guard_accepts_only_test_catalog_with_exact_suffix_bounds_without_opening_sql",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalJudgeTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalJudgeTests.Internal_database_guard_rejects_unsafe_catalog_or_savepoint_incompatible_options_before_open",
+      "cases": 8,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalJudgeTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalJudgeTests.Operation_replay_identity_has_binary_sql_semantics_unique_actor_scope_key_and_no_seed",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalJudgeTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalJudgeTests.Payload_fingerprint_is_deterministic_and_changes_with_business_input",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalJudgeTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalJudgeTests.Private_internal_gate_does_not_enable_synthetic_v1_or_v2",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalJudgeTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalJudgeTests.Public_login_resources_are_unambiguous_uncached_and_contain_no_prefilled_identity",
+      "cases": 3,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalJudgeTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalJudgeTests.Real_program_exposes_no_internal_endpoints_without_the_explicit_development_gate",
+      "cases": 6,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalJudgeTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalJudgeTests.Real_program_issues_real_csrf_tokens_but_rejects_missing_or_invalid_pairs_without_database_configuration",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalJudgeTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalJudgeTests.Real_program_maps_only_the_two_intended_anonymous_internal_api_routes",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalJudgeTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalJudgeTests.Real_program_rejects_insecure_internal_transport_before_identity_or_storage",
+      "cases": 4,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalJudgeTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalJudgeTests.Real_program_sql_login_issues_cookie_and_logout_revokes_even_the_replayed_old_cookie",
+      "cases": 1,
+      "attribute": "InternalJudgeHttpSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalJudgeTests.cs",
+      "partition": "C.InternalJudgeTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalJudgeTests.Real_program_sql_role_change_and_disablement_revoke_cookies_and_enforce_new_role",
+      "cases": 1,
+      "attribute": "InternalJudgeHttpSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalJudgeTests.cs",
+      "partition": "C.InternalJudgeTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalJudgeTests.Sale_and_reversal_routes_have_exact_server_policies_without_business_storage",
+      "cases": 3,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalJudgeTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalJudgeTests.Staff_application_sources_are_not_public_static_files",
+      "cases": 2,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalJudgeTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalJudgeTests.Tracked_audit_record_rewrite_or_delete_is_rejected_before_sql",
+      "cases": 2,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalJudgeTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalJudgeTests.Transaction_command_role_matrix_is_closed_and_matches_each_module_scope",
+      "cases": 7,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalJudgeTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalMigrationTests.Complete_migration_chain_creates_the_current_internal_table_set",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalMigrationTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalMigrationTests.Design_time_factory_has_only_dummy_connection_and_ignores_arguments",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalMigrationTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalMigrationTests.Initial_migration_creates_only_internal_tables_without_seed_or_custom_sql",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalMigrationTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalMigrationTests.Internal_and_store_contexts_discover_disjoint_migrations_and_snapshots",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalMigrationTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalMigrationTests.Internal_snapshot_matches_the_current_design_time_model_without_a_server",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalMigrationTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalMigrationTests.Offline_script_targets_an_existing_database_and_not_synthetic_tables",
+      "cases": 2,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalMigrationTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Any_redirected_stream_refuses_without_reading_configuration",
+      "cases": 3,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalOwnerConsoleTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Backspace_edits_the_secret_without_echo",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalOwnerConsoleTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Cancellation_before_any_attempt_is_a_refusal",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalOwnerConsoleTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Configuration_failure_is_sanitized_and_not_an_attempt",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalOwnerConsoleTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Control_in_public_confirmation_reports_reason_and_drains_without_calling_service",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalOwnerConsoleTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Empty_login_reports_no_characters_without_calling_service",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalOwnerConsoleTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Environment_and_feature_gate_are_both_required",
+      "cases": 4,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalOwnerConsoleTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Existing_staff_closes_bootstrap_without_retry_or_recovery",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalOwnerConsoleTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Extra_arguments_are_refused_before_configuration_or_input",
+      "cases": 4,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalOwnerConsoleTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Failover_partner_cannot_retarget_the_confirmed_database_or_expose_credentials",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalOwnerConsoleTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Happy_path_is_one_call_after_both_confirmations_without_password_disclosure",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalOwnerConsoleTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Identity_and_confirmations_are_visible_while_both_passwords_are_masked",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalOwnerConsoleTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Identity_control_rejection_names_field_but_never_prints_input",
+      "cases": 2,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalOwnerConsoleTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Invalid_inputs_and_missing_confirmations_never_invoke_service",
+      "cases": 6,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalOwnerConsoleTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Invalid_or_implicit_creation_targets_fail_closed_without_SQL",
+      "cases": 10,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalOwnerConsoleTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Malformed_or_unknown_service_result_is_sanitized_and_uncertain",
+      "cases": 2,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalOwnerConsoleTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Normal_startup_and_migration_arguments_do_not_dispatch_bootstrap",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalOwnerConsoleTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Only_the_exact_command_is_accepted",
+      "cases": 4,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalOwnerConsoleTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Overlong_password_and_escape_cancel_before_any_service_call",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalOwnerConsoleTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Password_minimum_is_consistent_between_prompt_and_validation",
+      "cases": 2,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalOwnerConsoleTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Public_confirmation_reports_safe_rejection_reason_without_calling_service",
+      "cases": 3,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalOwnerConsoleTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Recommended_synthetic_identity_is_visible_and_accepted",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalOwnerConsoleTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Rejected_control_input_drains_the_secret_line_before_returning",
+      "cases": 2,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalOwnerConsoleTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalOwnerConsoleTests.Service_exceptions_and_cancellation_are_unknown_not_failed_and_never_retried",
+      "cases": 2,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalOwnerConsoleTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalReleaseScriptTests.Checked_in_idempotent_release_script_equals_ef_generation_for_every_internal_migration",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalReleaseScriptTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalReleaseScriptTests.Release_script_upgrades_empty_and_first_migration_databases_and_preserves_synthetic_rows",
+      "cases": 1,
+      "attribute": "InternalSecuritySqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalReleaseScriptTests.cs",
+      "partition": "C.InternalReleaseScriptTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalRunnerModelTests.Database_guard_accepts_only_documented_catalog_boundaries_without_claiming_server_authority",
+      "cases": 2,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalRunnerModelTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalRunnerModelTests.Database_guard_rejects_noncanonical_catalog_even_when_quoted",
+      "cases": 5,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalRunnerModelTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalRunnerModelTests.Database_guard_rejects_overlength_catalog",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalRunnerModelTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalRunnerModelTests.Database_guard_rejects_wrong_catalog_or_MARS_without_connecting",
+      "cases": 8,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalRunnerModelTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalRunnerModelTests.Hosting_registers_real_scoped_runner_and_SQL_context_without_opening_connection",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalRunnerModelTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalRunnerModelTests.Hosting_resolves_no_internal_context_from_missing_or_unguarded_configuration",
+      "cases": 5,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalRunnerModelTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalRunnerModelTests.Replay_identity_is_unique_per_actor_scope_and_exact_binary_key",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalRunnerModelTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalRunnerModelTests.Replay_records_refuse_tracked_update_and_delete_on_both_save_overloads",
+      "cases": 4,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalRunnerModelTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalRunnerSqlTests.Concurrent_same_identity_serializes_action_once_and_returns_the_same_replay",
+      "cases": 1,
+      "attribute": "InternalCommerceSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalRunnerSqlTests.cs",
+      "partition": "C.InternalRunnerSqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalRunnerSqlTests.Persisted_revocation_rejects_both_existing_replay_and_new_action",
+      "cases": 1,
+      "attribute": "InternalCommerceSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalRunnerSqlTests.cs",
+      "partition": "C.InternalRunnerSqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalRunnerSqlTests.Persisted_role_change_revokes_old_permission_before_replay_and_current_role_cannot_replay_it",
+      "cases": 1,
+      "attribute": "InternalCommerceSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalRunnerSqlTests.cs",
+      "partition": "C.InternalRunnerSqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalRunnerSqlTests.Replay_identity_isolated_by_actor_scope_and_case_sensitive_key",
+      "cases": 1,
+      "attribute": "InternalCommerceSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalRunnerSqlTests.cs",
+      "partition": "C.InternalRunnerSqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalRunnerSqlTests.Storage_exception_after_action_started_is_unknown_not_retried_and_no_partial_write_survives",
+      "cases": 1,
+      "attribute": "InternalCommerceSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalRunnerSqlTests.cs",
+      "partition": "C.InternalRunnerSqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalRunnerSqlTests.Typed_replay_preserves_nested_arrays_integer_money_nulls_and_timestamp",
+      "cases": 1,
+      "attribute": "InternalCommerceSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalRunnerSqlTests.cs",
+      "partition": "C.InternalRunnerSqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalRunnerTests.Different_authenticated_actor_cannot_run_another_actors_operation",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalRunnerTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalRunnerTests.Empty_actor_is_invalid_before_identity_or_storage",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalRunnerTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalRunnerTests.Every_known_scope_has_an_exact_role_allowlist_and_requires_authentication",
+      "cases": 16,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalRunnerTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalRunnerTests.Failure_before_connection_open_returns_storage_unavailable_without_action_or_retry",
+      "cases": 6,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalRunnerTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalRunnerTests.Fingerprint_must_have_exact_digest_length_before_storage_or_action",
+      "cases": 3,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalRunnerTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalRunnerTests.Fingerprint_rejects_nonhex_characters_before_storage_or_action",
+      "cases": 4,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalRunnerTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalRunnerTests.Forbidden_scope_is_rejected_before_storage_or_action",
+      "cases": 9,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalRunnerTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalRunnerTests.Invalid_key_is_rejected_before_storage_or_action",
+      "cases": 7,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalRunnerTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalRunnerTests.Maximum_length_unknown_scope_is_forbidden_not_treated_as_malformed",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalRunnerTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalRunnerTests.Missing_http_context_does_not_synthesize_an_actor",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalRunnerTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalRunnerTests.Missing_provider_is_refused_before_callback_without_substituting_a_fake_database",
+      "cases": 2,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalRunnerTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalRunnerTests.Out_of_bounds_scope_is_invalid_before_storage_or_action",
+      "cases": 2,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalRunnerTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalRunnerTests.Overlength_key_is_rejected_before_storage_or_action",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalRunnerTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalRunnerTests.Unauthenticated_role_claim_does_not_authorize_a_command",
+      "cases": 3,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalRunnerTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalRunnerTests.Unknown_or_noncanonical_scope_is_not_authorized_even_for_owner",
+      "cases": 7,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalRunnerTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSecuritySqlTests.Concurrent_owner_demotions_cannot_remove_every_enabled_owner",
+      "cases": 1,
+      "attribute": "InternalSecuritySqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSecuritySqlTests.cs",
+      "partition": "C.InternalSecuritySqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSecuritySqlTests.Failed_login_lockout_is_persisted_across_scopes_and_correct_password_cannot_bypass_it",
+      "cases": 1,
+      "attribute": "InternalSecuritySqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSecuritySqlTests.cs",
+      "partition": "C.InternalSecuritySqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSecuritySqlTests.Last_owner_cannot_be_disabled_or_demoted_and_non_owner_cannot_create_staff",
+      "cases": 1,
+      "attribute": "InternalSecuritySqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSecuritySqlTests.cs",
+      "partition": "C.InternalSecuritySqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSecuritySqlTests.Owner_can_disable_staff_with_an_inactive_retained_branch_without_reassigning_it",
+      "cases": 1,
+      "attribute": "InternalSecuritySqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSecuritySqlTests.cs",
+      "partition": "C.InternalSecuritySqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSecuritySqlTests.Owner_role_change_and_disablement_revoke_old_cookies_and_stale_versions_conflict",
+      "cases": 1,
+      "attribute": "InternalSecuritySqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSecuritySqlTests.cs",
+      "partition": "C.InternalSecuritySqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSecuritySqlTests.Password_reset_rotates_version_and_revokes_sessions_without_exposing_hash",
+      "cases": 1,
+      "attribute": "InternalSecuritySqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSecuritySqlTests.cs",
+      "partition": "C.InternalSecuritySqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSecuritySqlTests.Successful_login_is_persisted_replaces_previous_session_and_logout_revokes_it",
+      "cases": 1,
+      "attribute": "InternalSecuritySqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSecuritySqlTests.cs",
+      "partition": "C.InternalSecuritySqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSecurityTests.Anonymous_challenges_and_login_csrf_do_not_resolve_database_configuration",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSecurityTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSecurityTests.Anonymous_role_headers_cannot_authorize_staff_endpoints_and_http_cannot_get_tokens",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSecurityTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSecurityTests.Cookies_are_host_scoped_strict_secure_http_only_and_not_sliding",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSecurityTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSecurityTests.Credential_request_diagnostics_do_not_print_passwords",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSecurityTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSecurityTests.Expired_cookie_is_rejected_by_fake_TimeProvider_before_database_resolution",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSecurityTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSecurityTests.Global_login_budget_is_shared_across_addresses_and_recovers_after_window",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSecurityTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSecurityTests.Lockout_counter_is_bounded_and_resets_only_after_expiry",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSecurityTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSecurityTests.Login_admission_bounds_concurrency_and_attempts_then_recovers",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSecurityTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSecurityTests.Login_and_reusable_mutation_filter_require_a_real_csrf_pair_even_when_anonymous",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSecurityTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSecurityTests.Login_names_are_bounded_unambiguous_identifiers",
+      "cases": 7,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSecurityTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSecurityTests.Password_policy_allows_passphrases_without_silent_truncation",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSecurityTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSecurityTests.Persisted_session_and_current_staff_are_both_required",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSecurityTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSecurityTests.Policies_enforce_role_boundaries",
+      "cases": 10,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSecurityTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSecurityTests.Registered_password_hasher_uses_salted_hashes_and_rejects_wrong_input",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSecurityTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSecurityTests.Roles_are_a_closed_server_allowlist",
+      "cases": 8,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSecurityTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSecurityTests.Staff_and_sessions_are_in_separate_schema_with_unique_login_and_concurrency_guard",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSecurityTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSecurityTests.Stale_or_forged_claims_and_invalid_sessions_are_rejected",
+      "cases": 11,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSecurityTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalStockExceptionSqlTests.Concurrent_retry_conflict_return_and_cancel_do_not_invent_inventory",
+      "cases": 1,
+      "attribute": "InternalCommerceSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalStockExceptionSqlTests.cs",
+      "partition": "C.InternalStockExceptionSqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalStockExceptionSqlTests.Failed_later_ordinary_line_rolls_back_exception_and_self_review_rejected_for_owner",
+      "cases": 1,
+      "attribute": "InternalCommerceSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalStockExceptionSqlTests.cs",
+      "partition": "C.InternalStockExceptionSqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalStockExceptionSqlTests.Substitute_reviewer_persists_open_evidence_and_response_loss_replay_is_single",
+      "cases": 1,
+      "attribute": "InternalCommerceSqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalStockExceptionSqlTests.cs",
+      "partition": "C.InternalStockExceptionSqlTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalStockExceptionTests.Exceptional_sale_requires_reason_and_size",
+      "cases": 8,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalStockExceptionTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalStockExceptionTests.Generated_migration_and_model_match_without_opening_SQL",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalStockExceptionTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalStockExceptionTests.Ordinary_sale_keeps_pre_exception_replay_fingerprint",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalStockExceptionTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalStockExceptionTests.Replay_fingerprint_binds_exception_reason_size_and_follow_up",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalStockExceptionTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalStockExceptionTests.Review_requires_evidence_outcome_responsible_actor_and_next_review",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalStockExceptionTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalStockExceptionTests.Review_scope_requires_authorized_manager_or_substitute",
+      "cases": 4,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalStockExceptionTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalStockExceptionTests.Reviews_are_append_only_before_any_SQL",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalStockExceptionTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Cancellation_requires_auditable_reason",
+      "cases": 3,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSupplyRulesTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Cumulative_receipts_never_exceed_remaining",
+      "cases": 9,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSupplyRulesTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Currency_is_explicit_without_fixture_currency_or_normalizing_conversion",
+      "cases": 5,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSupplyRulesTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Empty_duplicate_null_and_oversized_order_lines_are_rejected",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSupplyRulesTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Empty_supplier_location_and_control_character_reference_are_rejected",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSupplyRulesTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Explicit_real_currency_and_zero_or_positive_minor_unit_cost_are_valid",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSupplyRulesTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Invalid_command_is_rejected_before_any_sql_or_command_runner_call",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSupplyRulesTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Invalid_order_quantities_are_rejected",
+      "cases": 4,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSupplyRulesTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Mutation_without_root_transaction_is_refused_before_SQL",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSupplyRulesTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Negative_and_overflow_costs_are_rejected_without_throwing",
+      "cases": 2,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSupplyRulesTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Order_fingerprint_is_canonical_and_captures_supplier_currency_price_and_location",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSupplyRulesTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Partial_cancellation_reports_received_and_cancelled_without_inventing_stock_reversal",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSupplyRulesTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Purchase_cost_must_be_explicit_not_defaulted_to_zero_when_omitted",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSupplyRulesTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Receipt_audit_records_refuse_updates_and_deletes_before_SQL",
+      "cases": 4,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSupplyRulesTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Receipt_fingerprint_includes_order_identity_receipt_identity_and_quantity_but_not_list_order",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSupplyRulesTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Receipts_require_stable_identity_and_distinct_positive_lines",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSupplyRulesTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Server_owned_receipt_price_actor_and_state_are_not_accepted_in_requests",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSupplyRulesTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Sql_model_has_private_schema_quantity_checks_unique_lines_and_cross_order_receipt_foreign_keys",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSupplyRulesTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSupplyRulesTests.Whole_order_total_is_bounded_not_only_individual_lines",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSupplyRulesTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSupplySqlServerTests.Cancelling_partial_order_preserves_received_stock_and_closes_only_remainder",
+      "cases": 1,
+      "attribute": "InternalSupplySqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSupplySqlServerTests.cs",
+      "partition": "C.InternalSupplySqlServerTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSupplySqlServerTests.Competing_receipts_for_last_units_cannot_overreceive",
+      "cases": 1,
+      "attribute": "InternalSupplySqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSupplySqlServerTests.cs",
+      "partition": "C.InternalSupplySqlServerTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSupplySqlServerTests.Concurrent_duplicate_physical_receipts_never_increment_twice",
+      "cases": 1,
+      "attribute": "InternalSupplySqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSupplySqlServerTests.cs",
+      "partition": "C.InternalSupplySqlServerTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSupplySqlServerTests.Overreceipt_rejects_every_line_and_conflicting_receipt_identity_cannot_be_reused",
+      "cases": 1,
+      "attribute": "InternalSupplySqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSupplySqlServerTests.cs",
+      "partition": "C.InternalSupplySqlServerTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSupplySqlServerTests.Partial_multiline_receipt_replays_without_duplicate_stock_and_completes_remainder",
+      "cases": 1,
+      "attribute": "InternalSupplySqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSupplySqlServerTests.cs",
+      "partition": "C.InternalSupplySqlServerTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSupplySqlServerTests.Revoked_staff_session_cannot_mutate_or_replay_supply_commands",
+      "cases": 1,
+      "attribute": "InternalSupplySqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSupplySqlServerTests.cs",
+      "partition": "C.InternalSupplySqlServerTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSupplySqlServerTests.Second_line_stock_failure_rolls_back_first_counter_stock_movement_and_receipt",
+      "cases": 1,
+      "attribute": "InternalSupplySqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSupplySqlServerTests.cs",
+      "partition": "C.InternalSupplySqlServerTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSupplyUiTests.Supply_resource_is_embedded_protected_and_serves_the_source_bytes",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalSupplyUiTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.PrivatePilotReleaseTests.Frozen_fixture_survives_controlled_owned_container_stop_start",
+      "cases": 1,
+      "attribute": "InternalSecuritySqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs",
+      "partition": "E"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.PrivatePilotReleaseTests.Offline_current_release_scripts_are_context_isolated_without_model_drift",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.PrivatePilotReleaseTests.Real_migration_reapply_throwaway_down_up_and_actual_backup_restore",
+      "cases": 1,
+      "attribute": "InternalSecuritySqlFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs",
+      "partition": "E"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.SaviaContractTests.All_v2_routes_are_absent_when_the_synthetic_gate_is_closed",
+      "cases": 6,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/SaviaContractTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.SaviaContractTests.Authority_mismatch_is_rejected_before_database_access_for_both_commands",
+      "cases": 3,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/SaviaContractTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.SaviaContractTests.Capabilities_identify_synthetic_authority_without_database_access",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/SaviaContractTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.SaviaContractTests.Empty_attempt_and_multiple_keys_are_invalid_without_database_access",
+      "cases": 1,
+      "attribute": "Fact",
+      "source": "backend/tests/Martha.Store.Api.Tests/SaviaContractTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.SaviaContractTests.Invalid_idempotency_key_is_rejected_before_database_access",
+      "cases": 4,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/SaviaContractTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.SaviaContractTests.Invalid_reservation_quantity_is_rejected_before_database_access",
+      "cases": 4,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/SaviaContractTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.SaviaContractTests.Server_owned_fields_are_rejected_before_database_access",
+      "cases": 4,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/SaviaContractTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.SaviaModelGuardTests.Attempts_and_movements_refuse_rewrites_and_deletes_before_opening_SQL",
+      "cases": 4,
+      "attribute": "Theory",
+      "source": "backend/tests/Martha.Store.Api.Tests/SaviaModelGuardTests.cs",
+      "partition": "A"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Authority_mismatch_cannot_mutate_or_rewrite_persisted_authority",
+      "cases": 1,
+      "attribute": "SqlServerFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/SaviaSqlServerIntegrationTests.cs",
+      "partition": "C.SaviaSqlServerIntegrationTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Bulk_creation_receipt_and_fields_cannot_diverge_from_original_replay",
+      "cases": 1,
+      "attribute": "SqlServerFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/SaviaSqlServerIntegrationTests.cs",
+      "partition": "C.SaviaSqlServerIntegrationTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Bulk_ledger_and_attempt_mutations_are_rejected_by_SQL_and_rollback_all_changes",
+      "cases": 1,
+      "attribute": "SqlServerFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/SaviaSqlServerIntegrationTests.cs",
+      "partition": "C.SaviaSqlServerIntegrationTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Concurrent_same_key_replays_creation_and_changed_payload_conflicts",
+      "cases": 1,
+      "attribute": "SqlServerFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/SaviaSqlServerIntegrationTests.cs",
+      "partition": "C.SaviaSqlServerIntegrationTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Creation_replay_is_original_after_cancellation_while_get_is_current",
+      "cases": 1,
+      "attribute": "SqlServerFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/SaviaSqlServerIntegrationTests.cs",
+      "partition": "C.SaviaSqlServerIntegrationTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Durable_rejection_replays_after_availability_changes_and_attempt_conflicts",
+      "cases": 1,
+      "attribute": "SqlServerFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/SaviaSqlServerIntegrationTests.cs",
+      "partition": "C.SaviaSqlServerIntegrationTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Failed_cancellation_movement_rolls_back_release_state_and_attempt",
+      "cases": 1,
+      "attribute": "SqlServerFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/SaviaSqlServerIntegrationTests.cs",
+      "partition": "C.SaviaSqlServerIntegrationTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Failed_reservation_movement_rolls_back_balance_reservation_and_attempt",
+      "cases": 1,
+      "attribute": "SqlServerFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/SaviaSqlServerIntegrationTests.cs",
+      "partition": "C.SaviaSqlServerIntegrationTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Lost_response_after_commit_is_recovered_by_lookup_and_stable_retry",
+      "cases": 1,
+      "attribute": "SqlServerFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/SaviaSqlServerIntegrationTests.cs",
+      "partition": "C.SaviaSqlServerIntegrationTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Movement_ledger_reconciles_balances_and_reservation_states",
+      "cases": 1,
+      "attribute": "SqlServerFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/SaviaSqlServerIntegrationTests.cs",
+      "partition": "C.SaviaSqlServerIntegrationTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Partial_or_inconsistent_seed_is_rejected_without_replenishment",
+      "cases": 1,
+      "attribute": "SqlServerFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/SaviaSqlServerIntegrationTests.cs",
+      "partition": "C.SaviaSqlServerIntegrationTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Repeated_and_concurrent_cancellation_releases_once_without_changing_on_hand",
+      "cases": 1,
+      "attribute": "SqlServerFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/SaviaSqlServerIntegrationTests.cs",
+      "partition": "C.SaviaSqlServerIntegrationTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Repeating_seed_preserves_reserved_and_released_balances_and_ledger",
+      "cases": 1,
+      "attribute": "SqlServerFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/SaviaSqlServerIntegrationTests.cs",
+      "partition": "C.SaviaSqlServerIntegrationTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Seed_rejects_orphan_success_attempt_without_reservation_movement_or_valid_receipt",
+      "cases": 1,
+      "attribute": "SqlServerFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/SaviaSqlServerIntegrationTests.cs",
+      "partition": "C.SaviaSqlServerIntegrationTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Twenty_distinct_reservations_for_last_unit_have_one_winner_and_balanced_ledger",
+      "cases": 1,
+      "attribute": "SqlServerFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/SaviaSqlServerIntegrationTests.cs",
+      "partition": "C.SaviaSqlServerIntegrationTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.SqlServerIntegrationTests.Client_supplied_price_total_and_customer_fields_are_rejected_without_mutation",
+      "cases": 1,
+      "attribute": "SqlServerFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/SqlServerIntegrationTests.cs",
+      "partition": "C.SqlServerIntegrationTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.SqlServerIntegrationTests.Concurrent_same_key_replays_exact_response_and_conflicting_payload_is_409",
+      "cases": 1,
+      "attribute": "SqlServerFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/SqlServerIntegrationTests.cs",
+      "partition": "C.SqlServerIntegrationTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.SqlServerIntegrationTests.Failed_insert_rolls_back_stock_and_leaves_no_order_or_idempotency_fragment",
+      "cases": 1,
+      "attribute": "SqlServerFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/SqlServerIntegrationTests.cs",
+      "partition": "C.SqlServerIntegrationTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.SqlServerIntegrationTests.Invalid_quantities_reject_without_any_persistent_change",
+      "cases": 1,
+      "attribute": "SqlServerFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/SqlServerIntegrationTests.cs",
+      "partition": "C.SqlServerIntegrationTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.SqlServerIntegrationTests.Migrated_database_exposes_only_synthetic_catalog_and_seed_is_non_replenishing",
+      "cases": 1,
+      "attribute": "SqlServerFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/SqlServerIntegrationTests.cs",
+      "partition": "C.SqlServerIntegrationTests"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.SqlServerIntegrationTests.Twenty_distinct_requests_for_last_unit_have_exactly_one_winner",
+      "cases": 1,
+      "attribute": "SqlServerFact",
+      "source": "backend/tests/Martha.Store.Api.Tests/SqlServerIntegrationTests.cs",
+      "partition": "C.SqlServerIntegrationTests"
+    }
+  ],
+  "partitions": [
+    {
+      "id": "A",
+      "cases": 552,
+      "methods": 195,
+      "filter": "FullyQualifiedName!=Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N1_each_role_reads_only_its_server_scope_and_unassigned_user_has_no_global_access&FullyQualifiedName!=Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N3_cashier_direct_commands_and_cost_reads_are_rejected_without_writes_or_cost_leaks&FullyQualifiedName!=Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N4_foreign_location_ids_paging_and_operation_identity_are_denied_without_writes_or_leaks&FullyQualifiedName!=Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N5_owner_branch_reassignment_rejects_original_cashier_cookie_and_preserves_sales_before_new_scope_login&FullyQualifiedName!=Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N8_missing_wrong_or_stale_csrf_is_rejected_without_writes_and_a_valid_pair_still_works&FullyQualifiedName!=Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N9_owner_adjustment_keeps_reason_actor_and_movement_while_cashier_same_action_changes_nothing&FullyQualifiedName!=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS01_03_Unassigned_manager_fails_closed_while_owner_remains_global&FullyQualifiedName!=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS04_06_Sales_and_stock_filter_before_count_and_pagination_not_by_creator&FullyQualifiedName!=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS07_12_Foreign_sale_reads_and_reversals_do_not_expose_or_mutate_the_sale&FullyQualifiedName!=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS20_22_Reassigned_manager_with_new_valid_session_cannot_replay_original_result&FullyQualifiedName!=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS21_25_Operations_http_checks_persisted_scope_and_actor_before_returning_result&FullyQualifiedName!=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS23_Receipt_dedup_with_new_key_cannot_return_original_branch_after_reassignment&FullyQualifiedName!=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS24_Legacy_operation_fails_closed_for_manager_without_modifying_history&FullyQualifiedName!=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS27_Inactive_location_allows_own_historical_reversal_but_not_foreign_reversal&FullyQualifiedName!=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS28_Cashier_cannot_read_purchase_costs_through_any_supply_get&FullyQualifiedName!=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS29_Historical_location_cannot_be_remapped_to_expose_another_branch&FullyQualifiedName!=Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Cancel_replays_and_different_key_cancel_cannot_restock_twice_or_refund_bank_money&FullyQualifiedName!=Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Concurrent_cancel_and_return_have_only_one_stock_reversal&FullyQualifiedName!=Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Historical_cancellation_can_restore_inactive_item_and_location&FullyQualifiedName!=Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Mixed_currency_sale_is_rejected_without_inventory_mutation&FullyQualifiedName!=Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Partial_full_return_replay_and_excess_return_preserve_quantity_and_original_price&FullyQualifiedName!=Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Rejected_later_line_rolls_back_earlier_line_and_failure_replay_remains_immutable&FullyQualifiedName!=Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Same_sale_key_with_different_payload_is_a_conflict_not_a_second_sale&FullyQualifiedName!=Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Server_priced_multiline_sale_replays_immutable_receipt_after_price_change&FullyQualifiedName!=Martha.Store.Api.Tests.InternalCommerceSqlTests.Caller_rollback_removes_prior_line_updates_and_their_saved_movement_rows&FullyQualifiedName!=Martha.Store.Api.Tests.InternalCommerceSqlTests.Concurrent_consumers_cannot_oversell_one_available_unit&FullyQualifiedName!=Martha.Store.Api.Tests.InternalCommerceSqlTests.Concurrent_first_receipts_initialize_one_balance_without_lost_quantity&FullyQualifiedName!=Martha.Store.Api.Tests.InternalCommerceSqlTests.Ledger_creates_only_zero_based_balance_and_records_server_actor&FullyQualifiedName!=Martha.Store.Api.Tests.InternalCommerceSqlTests.Ledger_rejects_lower_isolation_before_mutating_SQL&FullyQualifiedName!=Martha.Store.Api.Tests.InternalCommerceSqlTests.Reserved_units_and_upper_stock_bound_cannot_be_consumed_or_overflowed&FullyQualifiedName!=Martha.Store.Api.Tests.InternalJudgeTests.Real_program_sql_login_issues_cookie_and_logout_revokes_even_the_replayed_old_cookie&FullyQualifiedName!=Martha.Store.Api.Tests.InternalJudgeTests.Real_program_sql_role_change_and_disablement_revoke_cookies_and_enforce_new_role&FullyQualifiedName!=Martha.Store.Api.Tests.InternalReleaseScriptTests.Release_script_upgrades_empty_and_first_migration_databases_and_preserves_synthetic_rows&FullyQualifiedName!=Martha.Store.Api.Tests.InternalRunnerSqlTests.Concurrent_same_identity_serializes_action_once_and_returns_the_same_replay&FullyQualifiedName!=Martha.Store.Api.Tests.InternalRunnerSqlTests.Persisted_revocation_rejects_both_existing_replay_and_new_action&FullyQualifiedName!=Martha.Store.Api.Tests.InternalRunnerSqlTests.Persisted_role_change_revokes_old_permission_before_replay_and_current_role_cannot_replay_it&FullyQualifiedName!=Martha.Store.Api.Tests.InternalRunnerSqlTests.Replay_identity_isolated_by_actor_scope_and_case_sensitive_key&FullyQualifiedName!=Martha.Store.Api.Tests.InternalRunnerSqlTests.Storage_exception_after_action_started_is_unknown_not_retried_and_no_partial_write_survives&FullyQualifiedName!=Martha.Store.Api.Tests.InternalRunnerSqlTests.Typed_replay_preserves_nested_arrays_integer_money_nulls_and_timestamp&FullyQualifiedName!=Martha.Store.Api.Tests.InternalSecuritySqlTests.Concurrent_owner_demotions_cannot_remove_every_enabled_owner&FullyQualifiedName!=Martha.Store.Api.Tests.InternalSecuritySqlTests.Failed_login_lockout_is_persisted_across_scopes_and_correct_password_cannot_bypass_it&FullyQualifiedName!=Martha.Store.Api.Tests.InternalSecuritySqlTests.Last_owner_cannot_be_disabled_or_demoted_and_non_owner_cannot_create_staff&FullyQualifiedName!=Martha.Store.Api.Tests.InternalSecuritySqlTests.Owner_can_disable_staff_with_an_inactive_retained_branch_without_reassigning_it&FullyQualifiedName!=Martha.Store.Api.Tests.InternalSecuritySqlTests.Owner_role_change_and_disablement_revoke_old_cookies_and_stale_versions_conflict&FullyQualifiedName!=Martha.Store.Api.Tests.InternalSecuritySqlTests.Password_reset_rotates_version_and_revokes_sessions_without_exposing_hash&FullyQualifiedName!=Martha.Store.Api.Tests.InternalSecuritySqlTests.Successful_login_is_persisted_replaces_previous_session_and_logout_revokes_it&FullyQualifiedName!=Martha.Store.Api.Tests.InternalStockExceptionSqlTests.Concurrent_retry_conflict_return_and_cancel_do_not_invent_inventory&FullyQualifiedName!=Martha.Store.Api.Tests.InternalStockExceptionSqlTests.Failed_later_ordinary_line_rolls_back_exception_and_self_review_rejected_for_owner&FullyQualifiedName!=Martha.Store.Api.Tests.InternalStockExceptionSqlTests.Substitute_reviewer_persists_open_evidence_and_response_loss_replay_is_single&FullyQualifiedName!=Martha.Store.Api.Tests.InternalSupplySqlServerTests.Cancelling_partial_order_preserves_received_stock_and_closes_only_remainder&FullyQualifiedName!=Martha.Store.Api.Tests.InternalSupplySqlServerTests.Competing_receipts_for_last_units_cannot_overreceive&FullyQualifiedName!=Martha.Store.Api.Tests.InternalSupplySqlServerTests.Concurrent_duplicate_physical_receipts_never_increment_twice&FullyQualifiedName!=Martha.Store.Api.Tests.InternalSupplySqlServerTests.Overreceipt_rejects_every_line_and_conflicting_receipt_identity_cannot_be_reused&FullyQualifiedName!=Martha.Store.Api.Tests.InternalSupplySqlServerTests.Partial_multiline_receipt_replays_without_duplicate_stock_and_completes_remainder&FullyQualifiedName!=Martha.Store.Api.Tests.InternalSupplySqlServerTests.Revoked_staff_session_cannot_mutate_or_replay_supply_commands&FullyQualifiedName!=Martha.Store.Api.Tests.InternalSupplySqlServerTests.Second_line_stock_failure_rolls_back_first_counter_stock_movement_and_receipt&FullyQualifiedName!=Martha.Store.Api.Tests.PrivatePilotReleaseTests.Frozen_fixture_survives_controlled_owned_container_stop_start&FullyQualifiedName!=Martha.Store.Api.Tests.PrivatePilotReleaseTests.Real_migration_reapply_throwaway_down_up_and_actual_backup_restore&FullyQualifiedName!=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Authority_mismatch_cannot_mutate_or_rewrite_persisted_authority&FullyQualifiedName!=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Bulk_creation_receipt_and_fields_cannot_diverge_from_original_replay&FullyQualifiedName!=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Bulk_ledger_and_attempt_mutations_are_rejected_by_SQL_and_rollback_all_changes&FullyQualifiedName!=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Concurrent_same_key_replays_creation_and_changed_payload_conflicts&FullyQualifiedName!=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Creation_replay_is_original_after_cancellation_while_get_is_current&FullyQualifiedName!=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Durable_rejection_replays_after_availability_changes_and_attempt_conflicts&FullyQualifiedName!=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Failed_cancellation_movement_rolls_back_release_state_and_attempt&FullyQualifiedName!=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Failed_reservation_movement_rolls_back_balance_reservation_and_attempt&FullyQualifiedName!=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Lost_response_after_commit_is_recovered_by_lookup_and_stable_retry&FullyQualifiedName!=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Movement_ledger_reconciles_balances_and_reservation_states&FullyQualifiedName!=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Partial_or_inconsistent_seed_is_rejected_without_replenishment&FullyQualifiedName!=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Repeated_and_concurrent_cancellation_releases_once_without_changing_on_hand&FullyQualifiedName!=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Repeating_seed_preserves_reserved_and_released_balances_and_ledger&FullyQualifiedName!=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Seed_rejects_orphan_success_attempt_without_reservation_movement_or_valid_receipt&FullyQualifiedName!=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Twenty_distinct_reservations_for_last_unit_have_one_winner_and_balanced_ledger&FullyQualifiedName!=Martha.Store.Api.Tests.SqlServerIntegrationTests.Client_supplied_price_total_and_customer_fields_are_rejected_without_mutation&FullyQualifiedName!=Martha.Store.Api.Tests.SqlServerIntegrationTests.Concurrent_same_key_replays_exact_response_and_conflicting_payload_is_409&FullyQualifiedName!=Martha.Store.Api.Tests.SqlServerIntegrationTests.Failed_insert_rolls_back_stock_and_leaves_no_order_or_idempotency_fragment&FullyQualifiedName!=Martha.Store.Api.Tests.SqlServerIntegrationTests.Invalid_quantities_reject_without_any_persistent_change&FullyQualifiedName!=Martha.Store.Api.Tests.SqlServerIntegrationTests.Migrated_database_exposes_only_synthetic_catalog_and_seed_is_non_replenishing&FullyQualifiedName!=Martha.Store.Api.Tests.SqlServerIntegrationTests.Twenty_distinct_requests_for_last_unit_have_exactly_one_winner",
+      "command": "& $sdk test backend/tests/Martha.Store.Api.Tests --no-build --no-restore --configuration Release --filter 'FullyQualifiedName!=Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N1_each_role_reads_only_its_server_scope_and_unassigned_user_has_no_global_access&FullyQualifiedName!=Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N3_cashier_direct_commands_and_cost_reads_are_rejected_without_writes_or_cost_leaks&FullyQualifiedName!=Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N4_foreign_location_ids_paging_and_operation_identity_are_denied_without_writes_or_leaks&FullyQualifiedName!=Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N5_owner_branch_reassignment_rejects_original_cashier_cookie_and_preserves_sales_before_new_scope_login&FullyQualifiedName!=Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N8_missing_wrong_or_stale_csrf_is_rejected_without_writes_and_a_valid_pair_still_works&FullyQualifiedName!=Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N9_owner_adjustment_keeps_reason_actor_and_movement_while_cashier_same_action_changes_nothing&FullyQualifiedName!=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS01_03_Unassigned_manager_fails_closed_while_owner_remains_global&FullyQualifiedName!=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS04_06_Sales_and_stock_filter_before_count_and_pagination_not_by_creator&FullyQualifiedName!=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS07_12_Foreign_sale_reads_and_reversals_do_not_expose_or_mutate_the_sale&FullyQualifiedName!=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS20_22_Reassigned_manager_with_new_valid_session_cannot_replay_original_result&FullyQualifiedName!=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS21_25_Operations_http_checks_persisted_scope_and_actor_before_returning_result&FullyQualifiedName!=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS23_Receipt_dedup_with_new_key_cannot_return_original_branch_after_reassignment&FullyQualifiedName!=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS24_Legacy_operation_fails_closed_for_manager_without_modifying_history&FullyQualifiedName!=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS27_Inactive_location_allows_own_historical_reversal_but_not_foreign_reversal&FullyQualifiedName!=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS28_Cashier_cannot_read_purchase_costs_through_any_supply_get&FullyQualifiedName!=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS29_Historical_location_cannot_be_remapped_to_expose_another_branch&FullyQualifiedName!=Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Cancel_replays_and_different_key_cancel_cannot_restock_twice_or_refund_bank_money&FullyQualifiedName!=Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Concurrent_cancel_and_return_have_only_one_stock_reversal&FullyQualifiedName!=Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Historical_cancellation_can_restore_inactive_item_and_location&FullyQualifiedName!=Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Mixed_currency_sale_is_rejected_without_inventory_mutation&FullyQualifiedName!=Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Partial_full_return_replay_and_excess_return_preserve_quantity_and_original_price&FullyQualifiedName!=Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Rejected_later_line_rolls_back_earlier_line_and_failure_replay_remains_immutable&FullyQualifiedName!=Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Same_sale_key_with_different_payload_is_a_conflict_not_a_second_sale&FullyQualifiedName!=Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Server_priced_multiline_sale_replays_immutable_receipt_after_price_change&FullyQualifiedName!=Martha.Store.Api.Tests.InternalCommerceSqlTests.Caller_rollback_removes_prior_line_updates_and_their_saved_movement_rows&FullyQualifiedName!=Martha.Store.Api.Tests.InternalCommerceSqlTests.Concurrent_consumers_cannot_oversell_one_available_unit&FullyQualifiedName!=Martha.Store.Api.Tests.InternalCommerceSqlTests.Concurrent_first_receipts_initialize_one_balance_without_lost_quantity&FullyQualifiedName!=Martha.Store.Api.Tests.InternalCommerceSqlTests.Ledger_creates_only_zero_based_balance_and_records_server_actor&FullyQualifiedName!=Martha.Store.Api.Tests.InternalCommerceSqlTests.Ledger_rejects_lower_isolation_before_mutating_SQL&FullyQualifiedName!=Martha.Store.Api.Tests.InternalCommerceSqlTests.Reserved_units_and_upper_stock_bound_cannot_be_consumed_or_overflowed&FullyQualifiedName!=Martha.Store.Api.Tests.InternalJudgeTests.Real_program_sql_login_issues_cookie_and_logout_revokes_even_the_replayed_old_cookie&FullyQualifiedName!=Martha.Store.Api.Tests.InternalJudgeTests.Real_program_sql_role_change_and_disablement_revoke_cookies_and_enforce_new_role&FullyQualifiedName!=Martha.Store.Api.Tests.InternalReleaseScriptTests.Release_script_upgrades_empty_and_first_migration_databases_and_preserves_synthetic_rows&FullyQualifiedName!=Martha.Store.Api.Tests.InternalRunnerSqlTests.Concurrent_same_identity_serializes_action_once_and_returns_the_same_replay&FullyQualifiedName!=Martha.Store.Api.Tests.InternalRunnerSqlTests.Persisted_revocation_rejects_both_existing_replay_and_new_action&FullyQualifiedName!=Martha.Store.Api.Tests.InternalRunnerSqlTests.Persisted_role_change_revokes_old_permission_before_replay_and_current_role_cannot_replay_it&FullyQualifiedName!=Martha.Store.Api.Tests.InternalRunnerSqlTests.Replay_identity_isolated_by_actor_scope_and_case_sensitive_key&FullyQualifiedName!=Martha.Store.Api.Tests.InternalRunnerSqlTests.Storage_exception_after_action_started_is_unknown_not_retried_and_no_partial_write_survives&FullyQualifiedName!=Martha.Store.Api.Tests.InternalRunnerSqlTests.Typed_replay_preserves_nested_arrays_integer_money_nulls_and_timestamp&FullyQualifiedName!=Martha.Store.Api.Tests.InternalSecuritySqlTests.Concurrent_owner_demotions_cannot_remove_every_enabled_owner&FullyQualifiedName!=Martha.Store.Api.Tests.InternalSecuritySqlTests.Failed_login_lockout_is_persisted_across_scopes_and_correct_password_cannot_bypass_it&FullyQualifiedName!=Martha.Store.Api.Tests.InternalSecuritySqlTests.Last_owner_cannot_be_disabled_or_demoted_and_non_owner_cannot_create_staff&FullyQualifiedName!=Martha.Store.Api.Tests.InternalSecuritySqlTests.Owner_can_disable_staff_with_an_inactive_retained_branch_without_reassigning_it&FullyQualifiedName!=Martha.Store.Api.Tests.InternalSecuritySqlTests.Owner_role_change_and_disablement_revoke_old_cookies_and_stale_versions_conflict&FullyQualifiedName!=Martha.Store.Api.Tests.InternalSecuritySqlTests.Password_reset_rotates_version_and_revokes_sessions_without_exposing_hash&FullyQualifiedName!=Martha.Store.Api.Tests.InternalSecuritySqlTests.Successful_login_is_persisted_replaces_previous_session_and_logout_revokes_it&FullyQualifiedName!=Martha.Store.Api.Tests.InternalStockExceptionSqlTests.Concurrent_retry_conflict_return_and_cancel_do_not_invent_inventory&FullyQualifiedName!=Martha.Store.Api.Tests.InternalStockExceptionSqlTests.Failed_later_ordinary_line_rolls_back_exception_and_self_review_rejected_for_owner&FullyQualifiedName!=Martha.Store.Api.Tests.InternalStockExceptionSqlTests.Substitute_reviewer_persists_open_evidence_and_response_loss_replay_is_single&FullyQualifiedName!=Martha.Store.Api.Tests.InternalSupplySqlServerTests.Cancelling_partial_order_preserves_received_stock_and_closes_only_remainder&FullyQualifiedName!=Martha.Store.Api.Tests.InternalSupplySqlServerTests.Competing_receipts_for_last_units_cannot_overreceive&FullyQualifiedName!=Martha.Store.Api.Tests.InternalSupplySqlServerTests.Concurrent_duplicate_physical_receipts_never_increment_twice&FullyQualifiedName!=Martha.Store.Api.Tests.InternalSupplySqlServerTests.Overreceipt_rejects_every_line_and_conflicting_receipt_identity_cannot_be_reused&FullyQualifiedName!=Martha.Store.Api.Tests.InternalSupplySqlServerTests.Partial_multiline_receipt_replays_without_duplicate_stock_and_completes_remainder&FullyQualifiedName!=Martha.Store.Api.Tests.InternalSupplySqlServerTests.Revoked_staff_session_cannot_mutate_or_replay_supply_commands&FullyQualifiedName!=Martha.Store.Api.Tests.InternalSupplySqlServerTests.Second_line_stock_failure_rolls_back_first_counter_stock_movement_and_receipt&FullyQualifiedName!=Martha.Store.Api.Tests.PrivatePilotReleaseTests.Frozen_fixture_survives_controlled_owned_container_stop_start&FullyQualifiedName!=Martha.Store.Api.Tests.PrivatePilotReleaseTests.Real_migration_reapply_throwaway_down_up_and_actual_backup_restore&FullyQualifiedName!=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Authority_mismatch_cannot_mutate_or_rewrite_persisted_authority&FullyQualifiedName!=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Bulk_creation_receipt_and_fields_cannot_diverge_from_original_replay&FullyQualifiedName!=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Bulk_ledger_and_attempt_mutations_are_rejected_by_SQL_and_rollback_all_changes&FullyQualifiedName!=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Concurrent_same_key_replays_creation_and_changed_payload_conflicts&FullyQualifiedName!=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Creation_replay_is_original_after_cancellation_while_get_is_current&FullyQualifiedName!=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Durable_rejection_replays_after_availability_changes_and_attempt_conflicts&FullyQualifiedName!=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Failed_cancellation_movement_rolls_back_release_state_and_attempt&FullyQualifiedName!=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Failed_reservation_movement_rolls_back_balance_reservation_and_attempt&FullyQualifiedName!=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Lost_response_after_commit_is_recovered_by_lookup_and_stable_retry&FullyQualifiedName!=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Movement_ledger_reconciles_balances_and_reservation_states&FullyQualifiedName!=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Partial_or_inconsistent_seed_is_rejected_without_replenishment&FullyQualifiedName!=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Repeated_and_concurrent_cancellation_releases_once_without_changing_on_hand&FullyQualifiedName!=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Repeating_seed_preserves_reserved_and_released_balances_and_ledger&FullyQualifiedName!=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Seed_rejects_orphan_success_attempt_without_reservation_movement_or_valid_receipt&FullyQualifiedName!=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Twenty_distinct_reservations_for_last_unit_have_one_winner_and_balanced_ledger&FullyQualifiedName!=Martha.Store.Api.Tests.SqlServerIntegrationTests.Client_supplied_price_total_and_customer_fields_are_rejected_without_mutation&FullyQualifiedName!=Martha.Store.Api.Tests.SqlServerIntegrationTests.Concurrent_same_key_replays_exact_response_and_conflicting_payload_is_409&FullyQualifiedName!=Martha.Store.Api.Tests.SqlServerIntegrationTests.Failed_insert_rolls_back_stock_and_leaves_no_order_or_idempotency_fragment&FullyQualifiedName!=Martha.Store.Api.Tests.SqlServerIntegrationTests.Invalid_quantities_reject_without_any_persistent_change&FullyQualifiedName!=Martha.Store.Api.Tests.SqlServerIntegrationTests.Migrated_database_exposes_only_synthetic_catalog_and_seed_is_non_replenishing&FullyQualifiedName!=Martha.Store.Api.Tests.SqlServerIntegrationTests.Twenty_distinct_requests_for_last_unit_have_exactly_one_winner' --logger 'trx;LogFileName=A.trx' --results-directory \"$private/results\"",
+      "dependency": "locked restore + one Release compile; A must clear all SQL envs; C must pass strict preflight; E requires exclusive Linux disposable SQL",
+      "ownership": {
+        "db": "none",
+        "port": "none; TestServer is in-process",
+        "profile": "none",
+        "output": "private/results/A.trx"
+      },
+      "verification": "exact discovered method multiplicities, all Passed, unique TRX IDs, zero skips; compare pre/post DB inventory for SQL",
+      "status": "NOT RUN (focused fingerprint subset only)"
+    },
+    {
+      "id": "C.InternalBranchScopeSqlTests",
+      "cases": 10,
+      "methods": 10,
+      "filter": "FullyQualifiedName=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS01_03_Unassigned_manager_fails_closed_while_owner_remains_global|FullyQualifiedName=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS04_06_Sales_and_stock_filter_before_count_and_pagination_not_by_creator|FullyQualifiedName=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS07_12_Foreign_sale_reads_and_reversals_do_not_expose_or_mutate_the_sale|FullyQualifiedName=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS20_22_Reassigned_manager_with_new_valid_session_cannot_replay_original_result|FullyQualifiedName=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS21_25_Operations_http_checks_persisted_scope_and_actor_before_returning_result|FullyQualifiedName=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS23_Receipt_dedup_with_new_key_cannot_return_original_branch_after_reassignment|FullyQualifiedName=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS24_Legacy_operation_fails_closed_for_manager_without_modifying_history|FullyQualifiedName=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS27_Inactive_location_allows_own_historical_reversal_but_not_foreign_reversal|FullyQualifiedName=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS28_Cashier_cannot_read_purchase_costs_through_any_supply_get|FullyQualifiedName=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS29_Historical_location_cannot_be_remapped_to_expose_another_branch",
+      "command": "& $sdk test backend/tests/Martha.Store.Api.Tests --no-build --no-restore --configuration Release --filter 'FullyQualifiedName=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS01_03_Unassigned_manager_fails_closed_while_owner_remains_global|FullyQualifiedName=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS04_06_Sales_and_stock_filter_before_count_and_pagination_not_by_creator|FullyQualifiedName=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS07_12_Foreign_sale_reads_and_reversals_do_not_expose_or_mutate_the_sale|FullyQualifiedName=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS20_22_Reassigned_manager_with_new_valid_session_cannot_replay_original_result|FullyQualifiedName=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS21_25_Operations_http_checks_persisted_scope_and_actor_before_returning_result|FullyQualifiedName=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS23_Receipt_dedup_with_new_key_cannot_return_original_branch_after_reassignment|FullyQualifiedName=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS24_Legacy_operation_fails_closed_for_manager_without_modifying_history|FullyQualifiedName=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS27_Inactive_location_allows_own_historical_reversal_but_not_foreign_reversal|FullyQualifiedName=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS28_Cashier_cannot_read_purchase_costs_through_any_supply_get|FullyQualifiedName=Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS29_Historical_location_cannot_be_remapped_to_expose_another_branch' --logger 'trx;LogFileName=C.InternalBranchScopeSqlTests.trx' --results-directory \"$private/results\"",
+      "dependency": "locked restore + one Release compile; A must clear all SQL envs; C must pass strict preflight; E requires exclusive Linux disposable SQL",
+      "ownership": {
+        "db": "SaviaInternalTest_Commerce_<fresh GUID N>; exact fixture-owned name only",
+        "port": "none; TestServer is in-process",
+        "profile": "none",
+        "output": "private/results/C.InternalBranchScopeSqlTests.trx"
+      },
+      "verification": "exact discovered method multiplicities, all Passed, unique TRX IDs, zero skips; compare pre/post DB inventory for SQL",
+      "status": "NOT RUN",
+      "child_environment": {
+        "MARTHA_TEST_SQL_CONNECTION": "strict private master connection",
+        "MARTHA_INTERNAL_TEST_SQL_CONNECTION": "strict private master connection",
+        "SAVIA_INTERNAL_TEST_SQL_CONNECTION": "strict private master connection",
+        "SAVIA_INTERNAL_SQL_TESTS_AUTHORIZED": "1",
+        "SAVIA_INTERNAL_HTTP_SQL_TESTS_AUTHORIZED": "1"
+      },
+      "execution_limit": "C1 conditionally authorized in this task; other C domains prepared for later only"
+    },
+    {
+      "id": "C.InternalCommerceCommandSqlTests",
+      "cases": 8,
+      "methods": 8,
+      "filter": "FullyQualifiedName=Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Cancel_replays_and_different_key_cancel_cannot_restock_twice_or_refund_bank_money|FullyQualifiedName=Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Concurrent_cancel_and_return_have_only_one_stock_reversal|FullyQualifiedName=Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Historical_cancellation_can_restore_inactive_item_and_location|FullyQualifiedName=Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Mixed_currency_sale_is_rejected_without_inventory_mutation|FullyQualifiedName=Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Partial_full_return_replay_and_excess_return_preserve_quantity_and_original_price|FullyQualifiedName=Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Rejected_later_line_rolls_back_earlier_line_and_failure_replay_remains_immutable|FullyQualifiedName=Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Same_sale_key_with_different_payload_is_a_conflict_not_a_second_sale|FullyQualifiedName=Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Server_priced_multiline_sale_replays_immutable_receipt_after_price_change",
+      "command": "& $sdk test backend/tests/Martha.Store.Api.Tests --no-build --no-restore --configuration Release --filter 'FullyQualifiedName=Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Cancel_replays_and_different_key_cancel_cannot_restock_twice_or_refund_bank_money|FullyQualifiedName=Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Concurrent_cancel_and_return_have_only_one_stock_reversal|FullyQualifiedName=Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Historical_cancellation_can_restore_inactive_item_and_location|FullyQualifiedName=Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Mixed_currency_sale_is_rejected_without_inventory_mutation|FullyQualifiedName=Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Partial_full_return_replay_and_excess_return_preserve_quantity_and_original_price|FullyQualifiedName=Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Rejected_later_line_rolls_back_earlier_line_and_failure_replay_remains_immutable|FullyQualifiedName=Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Same_sale_key_with_different_payload_is_a_conflict_not_a_second_sale|FullyQualifiedName=Martha.Store.Api.Tests.InternalCommerceCommandSqlTests.Server_priced_multiline_sale_replays_immutable_receipt_after_price_change' --logger 'trx;LogFileName=C.InternalCommerceCommandSqlTests.trx' --results-directory \"$private/results\"",
+      "dependency": "locked restore + one Release compile; A must clear all SQL envs; C must pass strict preflight; E requires exclusive Linux disposable SQL",
+      "ownership": {
+        "db": "SaviaInternalTest_Commerce_<fresh GUID N>; exact fixture-owned name only",
+        "port": "none; TestServer is in-process",
+        "profile": "none",
+        "output": "private/results/C.InternalCommerceCommandSqlTests.trx"
+      },
+      "verification": "exact discovered method multiplicities, all Passed, unique TRX IDs, zero skips; compare pre/post DB inventory for SQL",
+      "status": "NOT RUN",
+      "child_environment": {
+        "MARTHA_TEST_SQL_CONNECTION": "strict private master connection",
+        "MARTHA_INTERNAL_TEST_SQL_CONNECTION": "strict private master connection",
+        "SAVIA_INTERNAL_TEST_SQL_CONNECTION": "strict private master connection",
+        "SAVIA_INTERNAL_SQL_TESTS_AUTHORIZED": "1",
+        "SAVIA_INTERNAL_HTTP_SQL_TESTS_AUTHORIZED": "1"
+      },
+      "execution_limit": "C1 conditionally authorized in this task; other C domains prepared for later only"
+    },
+    {
+      "id": "C.InternalCommerceSqlTests",
+      "cases": 6,
+      "methods": 6,
+      "filter": "FullyQualifiedName=Martha.Store.Api.Tests.InternalCommerceSqlTests.Caller_rollback_removes_prior_line_updates_and_their_saved_movement_rows|FullyQualifiedName=Martha.Store.Api.Tests.InternalCommerceSqlTests.Concurrent_consumers_cannot_oversell_one_available_unit|FullyQualifiedName=Martha.Store.Api.Tests.InternalCommerceSqlTests.Concurrent_first_receipts_initialize_one_balance_without_lost_quantity|FullyQualifiedName=Martha.Store.Api.Tests.InternalCommerceSqlTests.Ledger_creates_only_zero_based_balance_and_records_server_actor|FullyQualifiedName=Martha.Store.Api.Tests.InternalCommerceSqlTests.Ledger_rejects_lower_isolation_before_mutating_SQL|FullyQualifiedName=Martha.Store.Api.Tests.InternalCommerceSqlTests.Reserved_units_and_upper_stock_bound_cannot_be_consumed_or_overflowed",
+      "command": "& $sdk test backend/tests/Martha.Store.Api.Tests --no-build --no-restore --configuration Release --filter 'FullyQualifiedName=Martha.Store.Api.Tests.InternalCommerceSqlTests.Caller_rollback_removes_prior_line_updates_and_their_saved_movement_rows|FullyQualifiedName=Martha.Store.Api.Tests.InternalCommerceSqlTests.Concurrent_consumers_cannot_oversell_one_available_unit|FullyQualifiedName=Martha.Store.Api.Tests.InternalCommerceSqlTests.Concurrent_first_receipts_initialize_one_balance_without_lost_quantity|FullyQualifiedName=Martha.Store.Api.Tests.InternalCommerceSqlTests.Ledger_creates_only_zero_based_balance_and_records_server_actor|FullyQualifiedName=Martha.Store.Api.Tests.InternalCommerceSqlTests.Ledger_rejects_lower_isolation_before_mutating_SQL|FullyQualifiedName=Martha.Store.Api.Tests.InternalCommerceSqlTests.Reserved_units_and_upper_stock_bound_cannot_be_consumed_or_overflowed' --logger 'trx;LogFileName=C.InternalCommerceSqlTests.trx' --results-directory \"$private/results\"",
+      "dependency": "locked restore + one Release compile; A must clear all SQL envs; C must pass strict preflight; E requires exclusive Linux disposable SQL",
+      "ownership": {
+        "db": "SaviaInternalTest_Commerce_<fresh GUID N>; exact fixture-owned name only",
+        "port": "none; TestServer is in-process",
+        "profile": "none",
+        "output": "private/results/C.InternalCommerceSqlTests.trx"
+      },
+      "verification": "exact discovered method multiplicities, all Passed, unique TRX IDs, zero skips; compare pre/post DB inventory for SQL",
+      "status": "NOT RUN",
+      "child_environment": {
+        "MARTHA_TEST_SQL_CONNECTION": "strict private master connection",
+        "MARTHA_INTERNAL_TEST_SQL_CONNECTION": "strict private master connection",
+        "SAVIA_INTERNAL_TEST_SQL_CONNECTION": "strict private master connection",
+        "SAVIA_INTERNAL_SQL_TESTS_AUTHORIZED": "1",
+        "SAVIA_INTERNAL_HTTP_SQL_TESTS_AUTHORIZED": "1"
+      },
+      "execution_limit": "C1 conditionally authorized in this task; other C domains prepared for later only"
+    },
+    {
+      "id": "C.InternalJudgeTests",
+      "cases": 2,
+      "methods": 2,
+      "filter": "FullyQualifiedName=Martha.Store.Api.Tests.InternalJudgeTests.Real_program_sql_login_issues_cookie_and_logout_revokes_even_the_replayed_old_cookie|FullyQualifiedName=Martha.Store.Api.Tests.InternalJudgeTests.Real_program_sql_role_change_and_disablement_revoke_cookies_and_enforce_new_role",
+      "command": "& $sdk test backend/tests/Martha.Store.Api.Tests --no-build --no-restore --configuration Release --filter 'FullyQualifiedName=Martha.Store.Api.Tests.InternalJudgeTests.Real_program_sql_login_issues_cookie_and_logout_revokes_even_the_replayed_old_cookie|FullyQualifiedName=Martha.Store.Api.Tests.InternalJudgeTests.Real_program_sql_role_change_and_disablement_revoke_cookies_and_enforce_new_role' --logger 'trx;LogFileName=C.InternalJudgeTests.trx' --results-directory \"$private/results\"",
+      "dependency": "locked restore + one Release compile; A must clear all SQL envs; C must pass strict preflight; E requires exclusive Linux disposable SQL",
+      "ownership": {
+        "db": "SaviaInternalTest_Commerce_<fresh GUID N>; exact fixture-owned name only",
+        "port": "none; TestServer is in-process",
+        "profile": "none",
+        "output": "private/results/C.InternalJudgeTests.trx"
+      },
+      "verification": "exact discovered method multiplicities, all Passed, unique TRX IDs, zero skips; compare pre/post DB inventory for SQL",
+      "status": "NOT RUN",
+      "child_environment": {
+        "MARTHA_TEST_SQL_CONNECTION": "strict private master connection",
+        "MARTHA_INTERNAL_TEST_SQL_CONNECTION": "strict private master connection",
+        "SAVIA_INTERNAL_TEST_SQL_CONNECTION": "strict private master connection",
+        "SAVIA_INTERNAL_SQL_TESTS_AUTHORIZED": "1",
+        "SAVIA_INTERNAL_HTTP_SQL_TESTS_AUTHORIZED": "1"
+      },
+      "execution_limit": "C1 conditionally authorized in this task; other C domains prepared for later only"
+    },
+    {
+      "id": "C.InternalReleaseScriptTests",
+      "cases": 1,
+      "methods": 1,
+      "filter": "FullyQualifiedName=Martha.Store.Api.Tests.InternalReleaseScriptTests.Release_script_upgrades_empty_and_first_migration_databases_and_preserves_synthetic_rows",
+      "command": "& $sdk test backend/tests/Martha.Store.Api.Tests --no-build --no-restore --configuration Release --filter 'FullyQualifiedName=Martha.Store.Api.Tests.InternalReleaseScriptTests.Release_script_upgrades_empty_and_first_migration_databases_and_preserves_synthetic_rows' --logger 'trx;LogFileName=C.InternalReleaseScriptTests.trx' --results-directory \"$private/results\"",
+      "dependency": "locked restore + one Release compile; A must clear all SQL envs; C must pass strict preflight; E requires exclusive Linux disposable SQL",
+      "ownership": {
+        "db": "SaviaInternalTest_Release_<fresh GUID N>; exact fixture-owned name only",
+        "port": "none; TestServer is in-process",
+        "profile": "none",
+        "output": "private/results/C.InternalReleaseScriptTests.trx"
+      },
+      "verification": "exact discovered method multiplicities, all Passed, unique TRX IDs, zero skips; compare pre/post DB inventory for SQL",
+      "status": "NOT RUN",
+      "child_environment": {
+        "MARTHA_TEST_SQL_CONNECTION": "strict private master connection",
+        "MARTHA_INTERNAL_TEST_SQL_CONNECTION": "strict private master connection",
+        "SAVIA_INTERNAL_TEST_SQL_CONNECTION": "strict private master connection",
+        "SAVIA_INTERNAL_SQL_TESTS_AUTHORIZED": "1",
+        "SAVIA_INTERNAL_HTTP_SQL_TESTS_AUTHORIZED": "1"
+      },
+      "execution_limit": "C1 conditionally authorized in this task; other C domains prepared for later only"
+    },
+    {
+      "id": "C.InternalRunnerSqlTests",
+      "cases": 6,
+      "methods": 6,
+      "filter": "FullyQualifiedName=Martha.Store.Api.Tests.InternalRunnerSqlTests.Concurrent_same_identity_serializes_action_once_and_returns_the_same_replay|FullyQualifiedName=Martha.Store.Api.Tests.InternalRunnerSqlTests.Persisted_revocation_rejects_both_existing_replay_and_new_action|FullyQualifiedName=Martha.Store.Api.Tests.InternalRunnerSqlTests.Persisted_role_change_revokes_old_permission_before_replay_and_current_role_cannot_replay_it|FullyQualifiedName=Martha.Store.Api.Tests.InternalRunnerSqlTests.Replay_identity_isolated_by_actor_scope_and_case_sensitive_key|FullyQualifiedName=Martha.Store.Api.Tests.InternalRunnerSqlTests.Storage_exception_after_action_started_is_unknown_not_retried_and_no_partial_write_survives|FullyQualifiedName=Martha.Store.Api.Tests.InternalRunnerSqlTests.Typed_replay_preserves_nested_arrays_integer_money_nulls_and_timestamp",
+      "command": "& $sdk test backend/tests/Martha.Store.Api.Tests --no-build --no-restore --configuration Release --filter 'FullyQualifiedName=Martha.Store.Api.Tests.InternalRunnerSqlTests.Concurrent_same_identity_serializes_action_once_and_returns_the_same_replay|FullyQualifiedName=Martha.Store.Api.Tests.InternalRunnerSqlTests.Persisted_revocation_rejects_both_existing_replay_and_new_action|FullyQualifiedName=Martha.Store.Api.Tests.InternalRunnerSqlTests.Persisted_role_change_revokes_old_permission_before_replay_and_current_role_cannot_replay_it|FullyQualifiedName=Martha.Store.Api.Tests.InternalRunnerSqlTests.Replay_identity_isolated_by_actor_scope_and_case_sensitive_key|FullyQualifiedName=Martha.Store.Api.Tests.InternalRunnerSqlTests.Storage_exception_after_action_started_is_unknown_not_retried_and_no_partial_write_survives|FullyQualifiedName=Martha.Store.Api.Tests.InternalRunnerSqlTests.Typed_replay_preserves_nested_arrays_integer_money_nulls_and_timestamp' --logger 'trx;LogFileName=C.InternalRunnerSqlTests.trx' --results-directory \"$private/results\"",
+      "dependency": "locked restore + one Release compile; A must clear all SQL envs; C must pass strict preflight; E requires exclusive Linux disposable SQL",
+      "ownership": {
+        "db": "SaviaInternalTest_Commerce_<fresh GUID N>; exact fixture-owned name only",
+        "port": "none; TestServer is in-process",
+        "profile": "none",
+        "output": "private/results/C.InternalRunnerSqlTests.trx"
+      },
+      "verification": "exact discovered method multiplicities, all Passed, unique TRX IDs, zero skips; compare pre/post DB inventory for SQL",
+      "status": "NOT RUN",
+      "child_environment": {
+        "MARTHA_TEST_SQL_CONNECTION": "strict private master connection",
+        "MARTHA_INTERNAL_TEST_SQL_CONNECTION": "strict private master connection",
+        "SAVIA_INTERNAL_TEST_SQL_CONNECTION": "strict private master connection",
+        "SAVIA_INTERNAL_SQL_TESTS_AUTHORIZED": "1",
+        "SAVIA_INTERNAL_HTTP_SQL_TESTS_AUTHORIZED": "1"
+      },
+      "execution_limit": "C1 conditionally authorized in this task; other C domains prepared for later only"
+    },
+    {
+      "id": "C.InternalSecuritySqlTests",
+      "cases": 7,
+      "methods": 7,
+      "filter": "FullyQualifiedName=Martha.Store.Api.Tests.InternalSecuritySqlTests.Concurrent_owner_demotions_cannot_remove_every_enabled_owner|FullyQualifiedName=Martha.Store.Api.Tests.InternalSecuritySqlTests.Failed_login_lockout_is_persisted_across_scopes_and_correct_password_cannot_bypass_it|FullyQualifiedName=Martha.Store.Api.Tests.InternalSecuritySqlTests.Last_owner_cannot_be_disabled_or_demoted_and_non_owner_cannot_create_staff|FullyQualifiedName=Martha.Store.Api.Tests.InternalSecuritySqlTests.Owner_can_disable_staff_with_an_inactive_retained_branch_without_reassigning_it|FullyQualifiedName=Martha.Store.Api.Tests.InternalSecuritySqlTests.Owner_role_change_and_disablement_revoke_old_cookies_and_stale_versions_conflict|FullyQualifiedName=Martha.Store.Api.Tests.InternalSecuritySqlTests.Password_reset_rotates_version_and_revokes_sessions_without_exposing_hash|FullyQualifiedName=Martha.Store.Api.Tests.InternalSecuritySqlTests.Successful_login_is_persisted_replaces_previous_session_and_logout_revokes_it",
+      "command": "& $sdk test backend/tests/Martha.Store.Api.Tests --no-build --no-restore --configuration Release --filter 'FullyQualifiedName=Martha.Store.Api.Tests.InternalSecuritySqlTests.Concurrent_owner_demotions_cannot_remove_every_enabled_owner|FullyQualifiedName=Martha.Store.Api.Tests.InternalSecuritySqlTests.Failed_login_lockout_is_persisted_across_scopes_and_correct_password_cannot_bypass_it|FullyQualifiedName=Martha.Store.Api.Tests.InternalSecuritySqlTests.Last_owner_cannot_be_disabled_or_demoted_and_non_owner_cannot_create_staff|FullyQualifiedName=Martha.Store.Api.Tests.InternalSecuritySqlTests.Owner_can_disable_staff_with_an_inactive_retained_branch_without_reassigning_it|FullyQualifiedName=Martha.Store.Api.Tests.InternalSecuritySqlTests.Owner_role_change_and_disablement_revoke_old_cookies_and_stale_versions_conflict|FullyQualifiedName=Martha.Store.Api.Tests.InternalSecuritySqlTests.Password_reset_rotates_version_and_revokes_sessions_without_exposing_hash|FullyQualifiedName=Martha.Store.Api.Tests.InternalSecuritySqlTests.Successful_login_is_persisted_replaces_previous_session_and_logout_revokes_it' --logger 'trx;LogFileName=C.InternalSecuritySqlTests.trx' --results-directory \"$private/results\"",
+      "dependency": "locked restore + one Release compile; A must clear all SQL envs; C must pass strict preflight; E requires exclusive Linux disposable SQL",
+      "ownership": {
+        "db": "MarthaInternal_Test_<fresh GUID N>; exact fixture-owned name only",
+        "port": "none; TestServer is in-process",
+        "profile": "none",
+        "output": "private/results/C.InternalSecuritySqlTests.trx"
+      },
+      "verification": "exact discovered method multiplicities, all Passed, unique TRX IDs, zero skips; compare pre/post DB inventory for SQL",
+      "status": "NOT RUN",
+      "child_environment": {
+        "MARTHA_TEST_SQL_CONNECTION": "strict private master connection",
+        "MARTHA_INTERNAL_TEST_SQL_CONNECTION": "strict private master connection",
+        "SAVIA_INTERNAL_TEST_SQL_CONNECTION": "strict private master connection",
+        "SAVIA_INTERNAL_SQL_TESTS_AUTHORIZED": "1",
+        "SAVIA_INTERNAL_HTTP_SQL_TESTS_AUTHORIZED": "1"
+      },
+      "execution_limit": "C1 conditionally authorized in this task; other C domains prepared for later only"
+    },
+    {
+      "id": "C.InternalStockExceptionSqlTests",
+      "cases": 3,
+      "methods": 3,
+      "filter": "FullyQualifiedName=Martha.Store.Api.Tests.InternalStockExceptionSqlTests.Concurrent_retry_conflict_return_and_cancel_do_not_invent_inventory|FullyQualifiedName=Martha.Store.Api.Tests.InternalStockExceptionSqlTests.Failed_later_ordinary_line_rolls_back_exception_and_self_review_rejected_for_owner|FullyQualifiedName=Martha.Store.Api.Tests.InternalStockExceptionSqlTests.Substitute_reviewer_persists_open_evidence_and_response_loss_replay_is_single",
+      "command": "& $sdk test backend/tests/Martha.Store.Api.Tests --no-build --no-restore --configuration Release --filter 'FullyQualifiedName=Martha.Store.Api.Tests.InternalStockExceptionSqlTests.Concurrent_retry_conflict_return_and_cancel_do_not_invent_inventory|FullyQualifiedName=Martha.Store.Api.Tests.InternalStockExceptionSqlTests.Failed_later_ordinary_line_rolls_back_exception_and_self_review_rejected_for_owner|FullyQualifiedName=Martha.Store.Api.Tests.InternalStockExceptionSqlTests.Substitute_reviewer_persists_open_evidence_and_response_loss_replay_is_single' --logger 'trx;LogFileName=C.InternalStockExceptionSqlTests.trx' --results-directory \"$private/results\"",
+      "dependency": "locked restore + one Release compile; A must clear all SQL envs; C must pass strict preflight; E requires exclusive Linux disposable SQL",
+      "ownership": {
+        "db": "SaviaInternalTest_Commerce_<fresh GUID N>; exact fixture-owned name only",
+        "port": "none; TestServer is in-process",
+        "profile": "none",
+        "output": "private/results/C.InternalStockExceptionSqlTests.trx"
+      },
+      "verification": "exact discovered method multiplicities, all Passed, unique TRX IDs, zero skips; compare pre/post DB inventory for SQL",
+      "status": "NOT RUN",
+      "child_environment": {
+        "MARTHA_TEST_SQL_CONNECTION": "strict private master connection",
+        "MARTHA_INTERNAL_TEST_SQL_CONNECTION": "strict private master connection",
+        "SAVIA_INTERNAL_TEST_SQL_CONNECTION": "strict private master connection",
+        "SAVIA_INTERNAL_SQL_TESTS_AUTHORIZED": "1",
+        "SAVIA_INTERNAL_HTTP_SQL_TESTS_AUTHORIZED": "1"
+      },
+      "execution_limit": "C1 conditionally authorized in this task; other C domains prepared for later only"
+    },
+    {
+      "id": "C.InternalSupplySqlServerTests",
+      "cases": 7,
+      "methods": 7,
+      "filter": "FullyQualifiedName=Martha.Store.Api.Tests.InternalSupplySqlServerTests.Cancelling_partial_order_preserves_received_stock_and_closes_only_remainder|FullyQualifiedName=Martha.Store.Api.Tests.InternalSupplySqlServerTests.Competing_receipts_for_last_units_cannot_overreceive|FullyQualifiedName=Martha.Store.Api.Tests.InternalSupplySqlServerTests.Concurrent_duplicate_physical_receipts_never_increment_twice|FullyQualifiedName=Martha.Store.Api.Tests.InternalSupplySqlServerTests.Overreceipt_rejects_every_line_and_conflicting_receipt_identity_cannot_be_reused|FullyQualifiedName=Martha.Store.Api.Tests.InternalSupplySqlServerTests.Partial_multiline_receipt_replays_without_duplicate_stock_and_completes_remainder|FullyQualifiedName=Martha.Store.Api.Tests.InternalSupplySqlServerTests.Revoked_staff_session_cannot_mutate_or_replay_supply_commands|FullyQualifiedName=Martha.Store.Api.Tests.InternalSupplySqlServerTests.Second_line_stock_failure_rolls_back_first_counter_stock_movement_and_receipt",
+      "command": "& $sdk test backend/tests/Martha.Store.Api.Tests --no-build --no-restore --configuration Release --filter 'FullyQualifiedName=Martha.Store.Api.Tests.InternalSupplySqlServerTests.Cancelling_partial_order_preserves_received_stock_and_closes_only_remainder|FullyQualifiedName=Martha.Store.Api.Tests.InternalSupplySqlServerTests.Competing_receipts_for_last_units_cannot_overreceive|FullyQualifiedName=Martha.Store.Api.Tests.InternalSupplySqlServerTests.Concurrent_duplicate_physical_receipts_never_increment_twice|FullyQualifiedName=Martha.Store.Api.Tests.InternalSupplySqlServerTests.Overreceipt_rejects_every_line_and_conflicting_receipt_identity_cannot_be_reused|FullyQualifiedName=Martha.Store.Api.Tests.InternalSupplySqlServerTests.Partial_multiline_receipt_replays_without_duplicate_stock_and_completes_remainder|FullyQualifiedName=Martha.Store.Api.Tests.InternalSupplySqlServerTests.Revoked_staff_session_cannot_mutate_or_replay_supply_commands|FullyQualifiedName=Martha.Store.Api.Tests.InternalSupplySqlServerTests.Second_line_stock_failure_rolls_back_first_counter_stock_movement_and_receipt' --logger 'trx;LogFileName=C.InternalSupplySqlServerTests.trx' --results-directory \"$private/results\"",
+      "dependency": "locked restore + one Release compile; A must clear all SQL envs; C must pass strict preflight; E requires exclusive Linux disposable SQL",
+      "ownership": {
+        "db": "SaviaInternalTest_Supply_<fresh GUID N>; exact fixture-owned name only",
+        "port": "none; TestServer is in-process",
+        "profile": "none",
+        "output": "private/results/C.InternalSupplySqlServerTests.trx"
+      },
+      "verification": "exact discovered method multiplicities, all Passed, unique TRX IDs, zero skips; compare pre/post DB inventory for SQL",
+      "status": "NOT RUN",
+      "child_environment": {
+        "MARTHA_TEST_SQL_CONNECTION": "strict private master connection",
+        "MARTHA_INTERNAL_TEST_SQL_CONNECTION": "strict private master connection",
+        "SAVIA_INTERNAL_TEST_SQL_CONNECTION": "strict private master connection",
+        "SAVIA_INTERNAL_SQL_TESTS_AUTHORIZED": "1",
+        "SAVIA_INTERNAL_HTTP_SQL_TESTS_AUTHORIZED": "1"
+      },
+      "execution_limit": "C1 conditionally authorized in this task; other C domains prepared for later only"
+    },
+    {
+      "id": "C.SaviaSqlServerIntegrationTests",
+      "cases": 15,
+      "methods": 15,
+      "filter": "FullyQualifiedName=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Authority_mismatch_cannot_mutate_or_rewrite_persisted_authority|FullyQualifiedName=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Bulk_creation_receipt_and_fields_cannot_diverge_from_original_replay|FullyQualifiedName=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Bulk_ledger_and_attempt_mutations_are_rejected_by_SQL_and_rollback_all_changes|FullyQualifiedName=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Concurrent_same_key_replays_creation_and_changed_payload_conflicts|FullyQualifiedName=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Creation_replay_is_original_after_cancellation_while_get_is_current|FullyQualifiedName=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Durable_rejection_replays_after_availability_changes_and_attempt_conflicts|FullyQualifiedName=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Failed_cancellation_movement_rolls_back_release_state_and_attempt|FullyQualifiedName=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Failed_reservation_movement_rolls_back_balance_reservation_and_attempt|FullyQualifiedName=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Lost_response_after_commit_is_recovered_by_lookup_and_stable_retry|FullyQualifiedName=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Movement_ledger_reconciles_balances_and_reservation_states|FullyQualifiedName=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Partial_or_inconsistent_seed_is_rejected_without_replenishment|FullyQualifiedName=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Repeated_and_concurrent_cancellation_releases_once_without_changing_on_hand|FullyQualifiedName=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Repeating_seed_preserves_reserved_and_released_balances_and_ledger|FullyQualifiedName=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Seed_rejects_orphan_success_attempt_without_reservation_movement_or_valid_receipt|FullyQualifiedName=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Twenty_distinct_reservations_for_last_unit_have_one_winner_and_balanced_ledger",
+      "command": "& $sdk test backend/tests/Martha.Store.Api.Tests --no-build --no-restore --configuration Release --filter 'FullyQualifiedName=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Authority_mismatch_cannot_mutate_or_rewrite_persisted_authority|FullyQualifiedName=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Bulk_creation_receipt_and_fields_cannot_diverge_from_original_replay|FullyQualifiedName=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Bulk_ledger_and_attempt_mutations_are_rejected_by_SQL_and_rollback_all_changes|FullyQualifiedName=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Concurrent_same_key_replays_creation_and_changed_payload_conflicts|FullyQualifiedName=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Creation_replay_is_original_after_cancellation_while_get_is_current|FullyQualifiedName=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Durable_rejection_replays_after_availability_changes_and_attempt_conflicts|FullyQualifiedName=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Failed_cancellation_movement_rolls_back_release_state_and_attempt|FullyQualifiedName=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Failed_reservation_movement_rolls_back_balance_reservation_and_attempt|FullyQualifiedName=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Lost_response_after_commit_is_recovered_by_lookup_and_stable_retry|FullyQualifiedName=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Movement_ledger_reconciles_balances_and_reservation_states|FullyQualifiedName=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Partial_or_inconsistent_seed_is_rejected_without_replenishment|FullyQualifiedName=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Repeated_and_concurrent_cancellation_releases_once_without_changing_on_hand|FullyQualifiedName=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Repeating_seed_preserves_reserved_and_released_balances_and_ledger|FullyQualifiedName=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Seed_rejects_orphan_success_attempt_without_reservation_movement_or_valid_receipt|FullyQualifiedName=Martha.Store.Api.Tests.SaviaSqlServerIntegrationTests.Twenty_distinct_reservations_for_last_unit_have_one_winner_and_balanced_ledger' --logger 'trx;LogFileName=C.SaviaSqlServerIntegrationTests.trx' --results-directory \"$private/results\"",
+      "dependency": "locked restore + one Release compile; A must clear all SQL envs; C must pass strict preflight; E requires exclusive Linux disposable SQL",
+      "ownership": {
+        "db": "MarthaSynthetic_Test_<fresh GUID N>; exact fixture-owned name only",
+        "port": "none; TestServer is in-process",
+        "profile": "none",
+        "output": "private/results/C.SaviaSqlServerIntegrationTests.trx"
+      },
+      "verification": "exact discovered method multiplicities, all Passed, unique TRX IDs, zero skips; compare pre/post DB inventory for SQL",
+      "status": "NOT RUN",
+      "child_environment": {
+        "MARTHA_TEST_SQL_CONNECTION": "strict private master connection",
+        "MARTHA_INTERNAL_TEST_SQL_CONNECTION": "strict private master connection",
+        "SAVIA_INTERNAL_TEST_SQL_CONNECTION": "strict private master connection",
+        "SAVIA_INTERNAL_SQL_TESTS_AUTHORIZED": "1",
+        "SAVIA_INTERNAL_HTTP_SQL_TESTS_AUTHORIZED": "1"
+      },
+      "execution_limit": "C1 conditionally authorized in this task; other C domains prepared for later only"
+    },
+    {
+      "id": "C.SqlServerIntegrationTests",
+      "cases": 6,
+      "methods": 6,
+      "filter": "FullyQualifiedName=Martha.Store.Api.Tests.SqlServerIntegrationTests.Client_supplied_price_total_and_customer_fields_are_rejected_without_mutation|FullyQualifiedName=Martha.Store.Api.Tests.SqlServerIntegrationTests.Concurrent_same_key_replays_exact_response_and_conflicting_payload_is_409|FullyQualifiedName=Martha.Store.Api.Tests.SqlServerIntegrationTests.Failed_insert_rolls_back_stock_and_leaves_no_order_or_idempotency_fragment|FullyQualifiedName=Martha.Store.Api.Tests.SqlServerIntegrationTests.Invalid_quantities_reject_without_any_persistent_change|FullyQualifiedName=Martha.Store.Api.Tests.SqlServerIntegrationTests.Migrated_database_exposes_only_synthetic_catalog_and_seed_is_non_replenishing|FullyQualifiedName=Martha.Store.Api.Tests.SqlServerIntegrationTests.Twenty_distinct_requests_for_last_unit_have_exactly_one_winner",
+      "command": "& $sdk test backend/tests/Martha.Store.Api.Tests --no-build --no-restore --configuration Release --filter 'FullyQualifiedName=Martha.Store.Api.Tests.SqlServerIntegrationTests.Client_supplied_price_total_and_customer_fields_are_rejected_without_mutation|FullyQualifiedName=Martha.Store.Api.Tests.SqlServerIntegrationTests.Concurrent_same_key_replays_exact_response_and_conflicting_payload_is_409|FullyQualifiedName=Martha.Store.Api.Tests.SqlServerIntegrationTests.Failed_insert_rolls_back_stock_and_leaves_no_order_or_idempotency_fragment|FullyQualifiedName=Martha.Store.Api.Tests.SqlServerIntegrationTests.Invalid_quantities_reject_without_any_persistent_change|FullyQualifiedName=Martha.Store.Api.Tests.SqlServerIntegrationTests.Migrated_database_exposes_only_synthetic_catalog_and_seed_is_non_replenishing|FullyQualifiedName=Martha.Store.Api.Tests.SqlServerIntegrationTests.Twenty_distinct_requests_for_last_unit_have_exactly_one_winner' --logger 'trx;LogFileName=C.SqlServerIntegrationTests.trx' --results-directory \"$private/results\"",
+      "dependency": "locked restore + one Release compile; A must clear all SQL envs; C must pass strict preflight; E requires exclusive Linux disposable SQL",
+      "ownership": {
+        "db": "MarthaSynthetic_Test_<fresh GUID N>; exact fixture-owned name only",
+        "port": "none; TestServer is in-process",
+        "profile": "none",
+        "output": "private/results/C.SqlServerIntegrationTests.trx"
+      },
+      "verification": "exact discovered method multiplicities, all Passed, unique TRX IDs, zero skips; compare pre/post DB inventory for SQL",
+      "status": "NOT RUN",
+      "child_environment": {
+        "MARTHA_TEST_SQL_CONNECTION": "strict private master connection",
+        "MARTHA_INTERNAL_TEST_SQL_CONNECTION": "strict private master connection",
+        "SAVIA_INTERNAL_TEST_SQL_CONNECTION": "strict private master connection",
+        "SAVIA_INTERNAL_SQL_TESTS_AUTHORIZED": "1",
+        "SAVIA_INTERNAL_HTTP_SQL_TESTS_AUTHORIZED": "1"
+      },
+      "execution_limit": "C1 conditionally authorized in this task; other C domains prepared for later only"
+    },
+    {
+      "id": "C1",
+      "cases": 6,
+      "methods": 6,
+      "filter": "FullyQualifiedName=Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N1_each_role_reads_only_its_server_scope_and_unassigned_user_has_no_global_access|FullyQualifiedName=Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N3_cashier_direct_commands_and_cost_reads_are_rejected_without_writes_or_cost_leaks|FullyQualifiedName=Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N4_foreign_location_ids_paging_and_operation_identity_are_denied_without_writes_or_leaks|FullyQualifiedName=Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N5_owner_branch_reassignment_rejects_original_cashier_cookie_and_preserves_sales_before_new_scope_login|FullyQualifiedName=Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N8_missing_wrong_or_stale_csrf_is_rejected_without_writes_and_a_valid_pair_still_works|FullyQualifiedName=Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N9_owner_adjustment_keeps_reason_actor_and_movement_while_cashier_same_action_changes_nothing",
+      "command": "& $sdk test backend/tests/Martha.Store.Api.Tests --no-build --no-restore --configuration Release --filter 'FullyQualifiedName=Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N1_each_role_reads_only_its_server_scope_and_unassigned_user_has_no_global_access|FullyQualifiedName=Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N3_cashier_direct_commands_and_cost_reads_are_rejected_without_writes_or_cost_leaks|FullyQualifiedName=Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N4_foreign_location_ids_paging_and_operation_identity_are_denied_without_writes_or_leaks|FullyQualifiedName=Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N5_owner_branch_reassignment_rejects_original_cashier_cookie_and_preserves_sales_before_new_scope_login|FullyQualifiedName=Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N8_missing_wrong_or_stale_csrf_is_rejected_without_writes_and_a_valid_pair_still_works|FullyQualifiedName=Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N9_owner_adjustment_keeps_reason_actor_and_movement_while_cashier_same_action_changes_nothing' --logger 'trx;LogFileName=C1.trx' --results-directory \"$private/results\"",
+      "dependency": "locked restore + one Release compile; A must clear all SQL envs; C must pass strict preflight; E requires exclusive Linux disposable SQL",
+      "ownership": {
+        "db": "SaviaInternalTest_Commerce_<fresh GUID N>; exact fixture-owned name only",
+        "port": "none; TestServer is in-process",
+        "profile": "none",
+        "output": "private/results/C1.trx"
+      },
+      "verification": "exact discovered method multiplicities, all Passed, unique TRX IDs, zero skips; compare pre/post DB inventory for SQL",
+      "status": "NOT RUN",
+      "child_environment": {
+        "MARTHA_TEST_SQL_CONNECTION": "strict private master connection",
+        "MARTHA_INTERNAL_TEST_SQL_CONNECTION": "strict private master connection",
+        "SAVIA_INTERNAL_TEST_SQL_CONNECTION": "strict private master connection",
+        "SAVIA_INTERNAL_SQL_TESTS_AUTHORIZED": "1",
+        "SAVIA_INTERNAL_HTTP_SQL_TESTS_AUTHORIZED": "1"
+      },
+      "execution_limit": "C1 conditionally authorized in this task; other C domains prepared for later only"
+    },
+    {
+      "id": "E",
+      "cases": 2,
+      "methods": 2,
+      "filter": "FullyQualifiedName=Martha.Store.Api.Tests.PrivatePilotReleaseTests.Frozen_fixture_survives_controlled_owned_container_stop_start|FullyQualifiedName=Martha.Store.Api.Tests.PrivatePilotReleaseTests.Real_migration_reapply_throwaway_down_up_and_actual_backup_restore",
+      "command": "Use sequential_commands; never execute both release cases before owned-container restart",
+      "dependency": "locked restore + one Release compile; A must clear all SQL envs; C must pass strict preflight; E requires exclusive Linux disposable SQL",
+      "ownership": {
+        "db": "SaviaInternalTest_Pilot_<fresh GUID>; release-owned source/restored/down",
+        "port": "none; TestServer is in-process",
+        "profile": "none",
+        "output": "private/results/E.trx"
+      },
+      "verification": "exact discovered method multiplicities, all Passed, unique TRX IDs, zero skips; compare pre/post DB inventory for SQL",
+      "status": "NOT RUN",
+      "sequential_commands": [
+        "dotnet test backend/tests/Martha.Store.Api.Tests --no-build --no-restore -c Release --filter FullyQualifiedName~Real_migration_reapply_throwaway_down_up_and_actual_backup_restore --logger 'trx;LogFileName=E-release.trx' --results-directory \"$private/results\"",
+        "Read exact source DB from private release-*.json; validate ^SaviaInternalTest_Pilot_[a-f0-9]{32}$; separately authorized exclusive owned-container restart and bounded readiness only",
+        "SAVIA_PILOT_PERSIST_DATABASE=\"$exact_source\" dotnet test backend/tests/Martha.Store.Api.Tests --no-build --no-restore -c Release --filter FullyQualifiedName~Frozen_fixture_survives_controlled_owned_container_stop_start --logger 'trx;LogFileName=E-restart.trx' --results-directory \"$private/results\"",
+        "Remove exclusively owned disposable runtime; verify absence; preserve SAVIATEST"
+      ],
+      "child_environment": [
+        "MARTHA_INTERNAL_TEST_SQL_CONNECTION",
+        "SAVIA_PILOT_EVIDENCE",
+        "SAVIA_PILOT_PERSIST_DATABASE (restart only)"
+      ]
+    },
+    {
+      "id": "B",
+      "status": "HISTORICAL SOURCE-BOUND SYNTHETIC EVIDENCE; NOT RERUN",
+      "commands": [
+        "$env:NODE_PATH=\"$PWD/tests/frontend-deps/node_modules\"; node --test dev/savia-staff-ui/*.test.mjs",
+        "node tests/browser-mock-validation.mjs \"$pw\" \"$private/browser\"",
+        "node tests/browser-supply-validation.mjs \"$pw\" \"$private/supply\""
+      ],
+      "dependency": "locked jsdom, existing Chrome + Playwright 1.63.0; no live API or SQL",
+      "ownership": {
+        "db": "none",
+        "port": "harness-owned loopback dynamic port",
+        "profile": "harness-owned temporary Chrome profile",
+        "output": "private/browser and private/supply"
+      },
+      "verification": "historical staff 152/152, mocked Chrome 50/50 + supply 8/8; current hashes below; synthetic HTTP only",
+      "historical_receipt": "docs/stock-exception-20261106/PREPARATION-ACCEPTANCE.json",
+      "bindings": [
+        {
+          "path": "dev/savia-staff-ui/app.mjs",
+          "expected": "c1c01336b60f9533c1aa92fd0a98fdef7a1a7745ac4df15ef2488fc162482264",
+          "actual": "c1c01336b60f9533c1aa92fd0a98fdef7a1a7745ac4df15ef2488fc162482264",
+          "match": true
+        },
+        {
+          "path": "dev/savia-staff-ui/auth.test.mjs",
+          "expected": "5c22810478f361d06ed019636239b31df13a7991c09215b507ad3ec8a40b31d2",
+          "actual": "5c22810478f361d06ed019636239b31df13a7991c09215b507ad3ec8a40b31d2",
+          "match": true
+        },
+        {
+          "path": "dev/savia-staff-ui/branch-compat.test.mjs",
+          "expected": "3dce7f02187829d3d05523418b4a1fc61c055b278e168f32e2fc36813f22dcd2",
+          "actual": "3dce7f02187829d3d05523418b4a1fc61c055b278e168f32e2fc36813f22dcd2",
+          "match": true
+        },
+        {
+          "path": "dev/savia-staff-ui/client.mjs",
+          "expected": "fa45879476a512d7fcaf9ecf375b412268869d45be31fec62f120fef1ef9e4da",
+          "actual": "fa45879476a512d7fcaf9ecf375b412268869d45be31fec62f120fef1ef9e4da",
+          "match": true
+        },
+        {
+          "path": "dev/savia-staff-ui/commerce.test.mjs",
+          "expected": "844470474e8233e5aadb671a375eab16645b68f4d39548a0f25f628fc95226b4",
+          "actual": "844470474e8233e5aadb671a375eab16645b68f4d39548a0f25f628fc95226b4",
+          "match": true
+        },
+        {
+          "path": "dev/savia-staff-ui/dom.test.mjs",
+          "expected": "3f86ede5fd94139c7073100ca3e29f49f43a06e374fb40b113216ebf2090a196",
+          "actual": "3f86ede5fd94139c7073100ca3e29f49f43a06e374fb40b113216ebf2090a196",
+          "match": true
+        },
+        {
+          "path": "dev/savia-staff-ui/failure-simulation.test.mjs",
+          "expected": "491a8f3b0f516fefd81fa5cc426c0c002470f3ef183e3d1eeb8dc08deef5d9d8",
+          "actual": "491a8f3b0f516fefd81fa5cc426c0c002470f3ef183e3d1eeb8dc08deef5d9d8",
+          "match": true
+        },
+        {
+          "path": "dev/savia-staff-ui/index.html",
+          "expected": "88811aeb14377241bb812d495f42ffa8070d68f36742d170f5b07f8d5bcc544c",
+          "actual": "88811aeb14377241bb812d495f42ffa8070d68f36742d170f5b07f8d5bcc544c",
+          "match": true
+        },
+        {
+          "path": "dev/savia-staff-ui/login.html",
+          "expected": "b9068478b46b9786c18dbe54ffa1172e1fb325e283ca944f9c2a840b37d1a686",
+          "actual": "b9068478b46b9786c18dbe54ffa1172e1fb325e283ca944f9c2a840b37d1a686",
+          "match": true
+        },
+        {
+          "path": "dev/savia-staff-ui/login.mjs",
+          "expected": "73911282fd1ac18b0de0785eb8c8b7c60dbd189cef14c68a28891a51fa9e88a4",
+          "actual": "73911282fd1ac18b0de0785eb8c8b7c60dbd189cef14c68a28891a51fa9e88a4",
+          "match": true
+        },
+        {
+          "path": "dev/savia-staff-ui/pagination.test.mjs",
+          "expected": "3e87ede9ded5b869e4f7010232966e4a8d6c768ed581231e272de11d4256a480",
+          "actual": "3e87ede9ded5b869e4f7010232966e4a8d6c768ed581231e272de11d4256a480",
+          "match": true
+        },
+        {
+          "path": "dev/savia-staff-ui/README.md",
+          "expected": "97e6ff600c3179f6280f57a99a3314ac82be42a484ba347d5dd93ff53d5bb43b",
+          "actual": "97e6ff600c3179f6280f57a99a3314ac82be42a484ba347d5dd93ff53d5bb43b",
+          "match": true
+        },
+        {
+          "path": "dev/savia-staff-ui/stock-exception.test.mjs",
+          "expected": "88b0db9d8a4879fedb0988a8f6f98e18d0b10e20d6dc0e755c4c79fe86e25dd3",
+          "actual": "88b0db9d8a4879fedb0988a8f6f98e18d0b10e20d6dc0e755c4c79fe86e25dd3",
+          "match": true
+        },
+        {
+          "path": "dev/savia-staff-ui/styles.css",
+          "expected": "61db534591305d989d815c47999cc5706d7b8de6e00c1628d361e10edbb94ca0",
+          "actual": "61db534591305d989d815c47999cc5706d7b8de6e00c1628d361e10edbb94ca0",
+          "match": true
+        },
+        {
+          "path": "dev/savia-staff-ui/supply-pagination.test.mjs",
+          "expected": "c53817ddc8891ffe3f0d8c3ce96439d52ca46656dae90f2cb0ed0b624fe34f68",
+          "actual": "c53817ddc8891ffe3f0d8c3ce96439d52ca46656dae90f2cb0ed0b624fe34f68",
+          "match": true
+        },
+        {
+          "path": "dev/savia-staff-ui/supply.mjs",
+          "expected": "2beb1f821afcbfe773968d00a9534158ca8ef4b5f124427377288be01182b71a",
+          "actual": "2beb1f821afcbfe773968d00a9534158ca8ef4b5f124427377288be01182b71a",
+          "match": true
+        },
+        {
+          "path": "dev/savia-staff-ui/supply.test.mjs",
+          "expected": "07b25e860b9587cb0e20769bb12877787e5148c2f46534eeb9ea0d9c371912b8",
+          "actual": "07b25e860b9587cb0e20769bb12877787e5148c2f46534eeb9ea0d9c371912b8",
+          "match": true
+        },
+        {
+          "path": "tests/browser-mock-validation.mjs",
+          "expected": "72f5edc736fce220da42116b32db71077c8e1524df01c5d7da9982d42e2151a9",
+          "actual": "72f5edc736fce220da42116b32db71077c8e1524df01c5d7da9982d42e2151a9",
+          "match": true
+        },
+        {
+          "path": "tests/browser-supply-validation.mjs",
+          "expected": "4d7621874ae56ef23a5d1eaa723788ed97f2c4f31925eb75d671f519863bfcbd",
+          "actual": "4d7621874ae56ef23a5d1eaa723788ed97f2c4f31925eb75d671f519863bfcbd",
+          "match": true
+        },
+        {
+          "path": "tests/frontend-deps/package.json",
+          "expected": "f7f1b2db56466792239fd1a245dccca219dbeca3838bb470e5a6d6e923388a7e",
+          "actual": "f7f1b2db56466792239fd1a245dccca219dbeca3838bb470e5a6d6e923388a7e",
+          "match": true
+        },
+        {
+          "path": "tests/frontend-deps/package-lock.json",
+          "expected": "50533349c58837c076a491f64e81556cd7476c0664b198702967a2ac6293e865",
+          "actual": "50533349c58837c076a491f64e81556cd7476c0664b198702967a2ac6293e865",
+          "match": true
+        },
+        {
+          "path": "tests/fixtures/supply-browser.mjs",
+          "expected": "6d1b99ca427eee72e2030dc6d250fbdc053c4cca9fef080e2563d08994ac37bd",
+          "actual": "6d1b99ca427eee72e2030dc6d250fbdc053c4cca9fef080e2563d08994ac37bd",
+          "match": true
+        }
+      ],
+      "historical_source_sha": "139c3898d1e76e66a07b89f179e50508672df473",
+      "binding_scope": "all files in dev/savia-staff-ui, both browser scripts, supply fixture and frontend package/lock"
+    },
+    {
+      "id": "D",
+      "status": "NOT RUN",
+      "command": "python3 tests/golden-path/golden_path.py --mode browser --no-build --supply --stock-exception --playwright-directory \"$pw\" --out \"$private/combined\"",
+      "verification_command": "python3 tests/golden-path/verify_evidence.py --source \"$private/combined\" --destination \"$private/combined-approved\"",
+      "dependency": "Linux /proc + pty/fcntl/termios/tty; locked GoldenPath.Sql restore/build, isolated SQL, Chrome, Node24, Playwright1.63.0, OpenSSL",
+      "ownership": {
+        "db": "SaviaInternalTest_Golden_<fresh 32hex>",
+        "port": "harness-owned free loopback HTTPS",
+        "profile": "private temporary Chrome profile with ephemeral certificate SPKI pin",
+        "output": "private/combined; raw API log outside public output"
+      },
+      "verification": "combined real Chrome -> HTTPS API -> SQL checkpoints including supply+stock review; B+C is insufficient; owned processes and DB absent after teardown"
+    }
+  ],
+  "coverage_gate": {
+    "expected_cases": 631,
+    "requirements": [
+      "each backend method belongs to exactly one A/C/E partition",
+      "each discovered method has exact case multiplicity across all TRX",
+      "unique test IDs across final partition TRX; every outcome Passed; no omitted methods or unexplained skips",
+      "diagnostic fingerprint TRX is excluded from final full partition aggregation to avoid overlap",
+      "verify_full_suite.py --min-tests 631 alone is insufficient: it does not compare exact discovery inventory"
+    ],
+    "backend_final_filters_disjoint": true
+  },
+  "discovery_limits": [
+    "Backend inventory is runtime-discovered and source-classified. B script assertions and D checkpoints are not dotnet cases. Non-backend Python suite cases were not runtime-discovered here; exact existing workflow commands are recorded in README. No claim of exhaustive repository-wide case discovery.",
+    "Theory display arguments truncate: 6 repeated labels. All occurrences retained. Individual argument identity requires private TRX inspection; not proved here."
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "app_sha256": "6fbaeb2b194c3458522c1017442233c5cbe32f6ad59b493dc7d8e1ee2276ad22",
+  "styles_sha256": "0ce2627a06edfee52baecba9d63f2ccdb301ab1140e03a26ada89ae5e5b2b411",
+  "results": [
+    {
+      "page": "ayuda.html",
+      "images": [],
+      "pass": true
+    },
+    {
+      "page": "catalogo.html",
+      "images": [
+        {
+          "src": "http://127.0.0.1:8020/research/assets/store-media/rosa-empolvado-pedreria/01-front-full-length-480.webp",
+          "ok": true
+        },
+        {
+          "src": "http://127.0.0.1:8020/research/assets/store-media/novia/01-front-portrait-480.webp",
+          "ok": true
+        },
+        {
+          "src": "http://127.0.0.1:8020/research/assets/store-media/rojo-tirantes-falda-amplia/01-front-full-length-480.webp",
+          "ok": true
+        },
+        {
+          "src": "http://127.0.0.1:8020/research/assets/store-media/rosa-empolvado-pedreria/01-front-full-length-480.webp",
+          "ok": true
+        },
+        {
+          "src": "http://127.0.0.1:8020/research/assets/store-media/rosa-empolvado-pedreria/02-three-quarter-front-full-length-480.webp",
+          "ok": true
+        },
+        {
+          "src": "http://127.0.0.1:8020/research/assets/store-media/gris-perla-hombros/01-front-full-length-480.webp",
+          "ok": true
+        },
+        {
+          "src": "http://127.0.0.1:8020/research/assets/store-media/gris-perla-hombros/02-three-quarter-front-full-length-480.webp",
+          "ok": true
+        },
+        {
+          "src": "http://127.0.0.1:8020/research/assets/store-media/blanco-perlado-sirena/01-front-full-length-480.webp",
+          "ok": true
+        },
+        {
+          "src": "http://127.0.0.1:8020/research/assets/store-media/blanco-perlado-sirena/02-three-quarter-front-full-length-480.webp",
+          "ok": true
+        },
+        {
+          "src": "http://127.0.0.1:8020/research/assets/store-media/rojo-tirantes-falda-amplia/01-front-full-length-480.webp",
+          "ok": true
+        },
+        {
+          "src": "http://127.0.0.1:8020/research/assets/store-media/rojo-tirantes-falda-amplia/02-three-quarter-front-full-length-480.webp",
+          "ok": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "page": "producto-crema-flores-volante-asimetrico.html",
+      "images": [
+        {
+          "src": "http://127.0.0.1:8020/research/assets/store-media/crema-flores-volante-asimetrico/01-front-full-length-480.webp",
+          "ok": true
+        },
+        {
+          "src": "http://127.0.0.1:8020/research/assets/store-media/crema-flores-volante-asimetrico/02-three-quarter-front-full-length-480.webp",
+          "ok": true
+        },
+        {
+          "src": "http://127.0.0.1:8020/research/assets/store-media/crema-flores-volante-asimetrico/03-side-full-length-480.webp",
+          "ok": true
+        },
+        {
+          "src": "http://127.0.0.1:8020/research/assets/store-media/crema-flores-volante-asimetrico/01-front-full-length-480.webp",
+          "ok": true
+        },
+        {
+          "src": "http://127.0.0.1:8020/research/assets/store-media/crema-flores-volante-asimetrico/02-three-quarter-front-full-length-480.webp",
+          "ok": true
+        },
+        {
+          "src": "http://127.0.0.1:8020/research/assets/store-media/crema-flores-volante-asimetrico/03-side-full-length-480.webp",
+          "ok": true
+        },
+        {
+          "src": "http://127.0.0.1:8020/research/assets/store-media/crema-flores-volante-asimetrico/04-back-view-480.webp",
+          "ok": true
+        },
+        {
+          "src": "http://127.0.0.1:8020/research/assets/store-media/crema-flores-volante-asimetrico/05-detail-crop-432.webp",
+          "ok": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "expanded demo panel resizes campaign calculation",
+      "measured": 640,
+      "variable": 640,
+      "pass": true
+    },
+    {
+      "name": "large portrait zoom fits and preserves ratio",
+      "width": 358,
+      "height": 477.46875,
+      "naturalWidth": 800,
+      "naturalHeight": 1067,
+      "pass": true
+    }
+  ],
+  "pass": true
+}

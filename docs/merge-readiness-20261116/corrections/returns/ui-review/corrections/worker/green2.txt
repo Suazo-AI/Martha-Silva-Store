@@ -1,0 +1,42 @@
+✔ lost response freezes immutable intent through edit and remount; 404 never unlocks (73.1267ms)
+✔ account switch while confirmation is held cannot POST (4.9003ms)
+✔ explicit replay after 404 keeps exact body; malformed 200 stays unresolved (9.8311ms)
+✔ wrong IDs, lines, credit, till and malformed receipt cannot confirm (8.9916ms)
+✔ storage denied, corrupt, and missing Web Locks block sending (7.322ms)
+✔ double submit while confirmation held sends zero; cancel removes never sent draft (3.919ms)
+✔ foreign actor recovery is generic and loads no dependencies (3.6126ms)
+✔ late POST and lookup cannot render or clear after retirement (7.1744ms)
+✔ competing mounts cannot replace durable reservation; readback failure and tamper fail closed (3.6461ms)
+✔ all supported outcomes reserve complete bodies and preserve exact replay (16.3588ms)
+✔ temporary approval revoked on failed POST and late approval; cashier session retained (8.0961ms)
+✔ cancelled approval cannot close or authorize a replacement dialog (2.573ms)
+✔ held origin lock rejects a competing mount submit without allocating or sending (2.1557ms)
+✔ F2 rejects malformed reversal fields independently (12.1555ms)
+✖ F1 exact successful exchange POST and explicit replay confirm durably (3.6138ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 14
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 398.786
+
+✖ failing tests:
+
+test at savia\web\tests\return-lifecycle.test.mjs:5:27
+✖ F1 exact successful exchange POST and explicit replay confirm durably (3.6138ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /100|1.00/. Input:
+  
+  'DevoluciÃƒÂ³n verificadaOperaciÃƒÂ³n eba3bf11-5c3e-48df-9288-f5525495ba8eNo registre otra devoluciÃƒÂ³n. Consulte el resultado o reenvie la misma operaciÃƒÂ³n.Consultar resultadoTerminar'
+  
+      at TestContext.<anonymous> (file:///C:/Users/Jason/.t3/worktrees/github/t3-15d6bca1-a85d144e511e673a/savia/web/tests/return-lifecycle.test.mjs:289:195)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'DevoluciÃƒÂ³n verificadaOperaciÃƒÂ³n eba3bf11-5c3e-48df-9288-f5525495ba8eNo registre otra devoluciÃƒÂ³n. Consulte el resultado o reenvie la misma operaciÃƒÂ³n.Consultar resultadoTerminar',
+    expected: /100|1.00/,
+    operator: 'match',
+    diff: 'simple'
+  }

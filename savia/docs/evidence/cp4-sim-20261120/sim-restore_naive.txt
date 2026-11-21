@@ -1,0 +1,53 @@
+setup: 4 databases, tills open, 500 units per branch, credits ['35BF992D-C9E9-4616-A12E-7696A6CECC1B', 'E4B06CE6-0741-47A8-BCE4-2C8218072E8C'] (120000 each at A)
+  sync a->cloud [normal] sent=29 changed=29 plan={'initial': 18}
+  sync b->cloud [normal] sent=4 changed=4 plan={'initial': 18}
+  sync c->cloud [normal] sent=4 changed=4 plan={'initial': 18}
+  sync cloud->a [normal] sent=8 changed=8 plan={'initial': 18}
+  sync cloud->b [normal] sent=33 changed=33 plan={'initial': 18}
+  sync cloud->c [normal] sent=33 changed=33 plan={'initial': 18}
+scenario restore_naive (RED CONTROL): A is restored and syncs at once, without rebuilding from the cloud
+  sync b->cloud [normal] sent=1 changed=1 plan={'incremental': 18}
+  sync cloud->a [normal] sent=1 changed=1 plan={'incremental': 18}
+  sync cloud->c [normal] sent=1 changed=1 plan={'incremental': 18}
+  sync cloud->a [normal] sent=1 changed=1 plan={'incremental': 18}
+  sync cloud->b [normal] sent=1 changed=1 plan={'incremental': 18}
+  sync cloud->c [normal] sent=1 changed=1 plan={'incremental': 18}
+  sync a->cloud [normal] sent=6 changed=6 plan={'incremental': 18}
+  sync b->cloud [normal] sent=6 changed=6 plan={'incremental': 18}
+  sync c->cloud [normal] sent=6 changed=6 plan={'incremental': 18}
+  sync cloud->a [normal] sent=12 changed=12 plan={'incremental': 18}
+  sync cloud->b [normal] sent=12 changed=12 plan={'incremental': 18}
+  sync cloud->c [normal] sent=12 changed=12 plan={'incremental': 18}
+  backup of A taken (A still holds 120000 of credit 1)
+  sync a->cloud [normal] sent=9 changed=9 plan={'incremental': 18}
+  sync cloud->b [normal] sent=9 changed=9 plan={'incremental': 18}
+  sync cloud->c [normal] sent=9 changed=9 plan={'incremental': 18}
+  sync b->cloud [normal] sent=3 changed=3 plan={'incremental': 18}
+  sync cloud->a [normal] sent=3 changed=3 plan={'incremental': 18}
+  sync cloud->c [normal] sent=3 changed=3 plan={'incremental': 18}
+  A restored from the old backup (A holds 120000 again locally)
+  sync a->cloud [normal] sent=34 changed=2 plan={'recover': 18}
+FAIL run aborted
+     a: Msg 547, Level 16, State 1, Server 23b66448cd53, Line 18
+The MERGE statement conflicted with the FOREIGN KEY constraint "FK_TransferReceipt_Dispatch". The conflict occurred in database "SAVIA_SIM_a", table "credits.TransferDispatches", column 'TransferId'.
+FAIL R1 replicas identical
+     sales.Sales key=('05B6E6E3-07D4-4EDC-9143-1193E6C3F339',) node=a: missing
+     sales.SaleLines key=('5C38F987-FEFE-462F-8660-7DA2A28AC655',) node=a: missing
+     credits.CreditAllocations key=('35BF992D-C9E9-4616-A12E-7696A6CECC1B', 'B0000000-0000-0000-0000-00000000000B') node=a: missing
+     credits.CreditAllocations key=('35BF992D-C9E9-4616-A12E-7696A6CECC1B', 'A0000000-0000-0000-0000-00000000000A') node=b: AvailableMinor: cloud=120000 b=70000,ModifiedBy: cloud=None b=A0000000-0000-0000-0000-0000000000A4,ModifiedAt: cloud=None b=2026-11-20T11:41:55.795
+     credits.CreditAllocations key=('35BF992D-C9E9-4616-A12E-7696A6CECC1B', 'A0000000-0000-0000-0000-00000000000A') node=c: AvailableMinor: cloud=120000 c=70000,ModifiedBy: cloud=None c=A0000000-0000-0000-0000-0000000000A4,ModifiedAt: cloud=None c=2026-11-20T11:41:55.795
+     credits.CreditMovements key=('9BD4D975-9CC9-4654-A7DC-31C0EBED694F',) node=a: missing
+     credits.CreditMovements key=('D1DBD4CB-42F8-4153-AD82-5D13F1ADB907',) node=a: missing
+     sales.SaleTenders key=('5C36A2B4-C1C8-4B0F-9A44-630CF97DCC1A',) node=a: missing
+     ... 14 differences
+FAIL CONS conservation on cloud
+     credit.available_vs_movements 35BF992D-C9E9-4616-A12E-7696A6CECC1B/A0000000-0000-0000-0000-00000000000A expected=70000 actual=120000
+     credit.conservation 35BF992D-C9E9-4616-A12E-7696A6CECC1B expected=120000 actual=170000
+     stock.onhand_vs_movements 00000000-0000-0000-0000-0000000017E1/A0000000-0000-0000-0000-0000000000A1/store expected=498 actual=499
+     (3 violations)
+PASS CONS on a: 0 violations
+PASS CONS on b: 0 violations
+PASS CONS on c: 0 violations
+stats: pulls=75 rows_sent=241 rows_changed=209 sql_calls=356 ops={'ok_approve': 1, 'ok_dispatch': 1, 'ok_receive': 1, 'ok_request': 1, 'ok_sale': 5}
+RESULT FAIL (3): run aborted; R1 replicas identical; CONS conservation on cloud
+elapsed 162s

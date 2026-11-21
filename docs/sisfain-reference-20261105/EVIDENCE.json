@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-11-05T08:39:12.106660+00:00",
+  "host": "SUAZO-PC",
+  "source": {
+    "url": "https://www.youtube.com/watch?v=gBH5AlTv-LI",
+    "title": "SISFAIN Pro 4.0 - Video Promo Nueva Version 2026!",
+    "channel": "CGA Soluciones",
+    "upload_date": "2026-10-16",
+    "download_tool": "yt-dlp 2026.10.29.232701",
+    "download_exit": 0,
+    "bytes": 3503472,
+    "sha256": "e46e50bb684bf75cc308f7be3b317e3576cb94010f0f52dc2c355f17a0667480",
+    "duration_seconds": 40.054422,
+    "width": 1920,
+    "height": 1080,
+    "video_codec": "h264",
+    "audio_codec": "aac"
+  },
+  "source_checkout": {
+    "branch": "Tony",
+    "sha": "70e55716fcc18e369c23a99aea24d35c2ee5ff07"
+  },
+  "direct_visual_coverage": {
+    "overview_frame_count": 20,
+    "overview_filter": "fps=1/2",
+    "overview_inspected": true,
+    "detail_frames": [
+      {
+        "source_seek_seconds": 8,
+        "file": "check-08s.jpg",
+        "sha256": "a8579848625784bdf66163ee5e913eaac8498a0e4ba3c5266e040eb7addfddf4",
+        "directly_inspected": true
+      },
+      {
+        "source_seek_seconds": 12,
+        "file": "check-12s.jpg",
+        "sha256": "42abb2fc5effccfbbe3156b6d207b41d6c1360aefc976652dc662008ec98feb5",
+        "directly_inspected": true
+      },
+      {
+        "source_seek_seconds": 17,
+        "file": "check-17s.jpg",
+        "sha256": "72a5eca2d031d00df14428bc46f423509194ed57b2590aac2a741f92d5fcfe8c",
+        "directly_inspected": true
+      },
+      {
+        "source_seek_seconds": 22,
+        "file": "check-22s.jpg",
+        "sha256": "e5e18f8720c75f35e3cf493580b977526897cfe025b7f1d64d4b3fa1c3654073",
+        "directly_inspected": true
+      },
+      {
+        "source_seek_seconds": 27,
+        "file": "check-27s.jpg",
+        "sha256": "2c361c4d35b4942280f2bda90b09a990e31bbf736c26f10ced28d3cc4b821cb4",
+        "directly_inspected": true
+      },
+      {
+        "source_seek_seconds": 32,
+        "file": "check-32s.jpg",
+        "sha256": "aa9ea182807c2239b4e39cb78a4c27e1a12e4b4a8935197e3088a8dff5daac4b",
+        "directly_inspected": true
+      },
+      {
+        "source_seek_seconds": 39,
+        "file": "check-39s.jpg",
+        "sha256": "71943427ff95adcce45939e565452e4569a3e957cc792126a76ada46b89261d9",
+        "directly_inspected": true
+      }
+    ],
+    "continuous_playback_inspected": false,
+    "gap": "Unsampled intervals and continuous audiovisual behavior are not independently established."
+  },
+  "agy": {
+    "model": "gemini-3.8-flash-high",
+    "effort": "high",
+    "flags": [
+      "--sandbox",
+      "--mode",
+      "plan"
+    ],
+    "exit": 0,
+    "reported_status": "SUCCESS",
+    "media_read_mechanism": "self-reported; not independently verified from exported receipt",
+    "complete_temporal_coverage_verified": false,
+    "claims_crosschecked": true,
+    "unsupported_claims_discarded": true
+  },
+  "speech": {
+    "provider": "AssemblyAI",
+    "attempts": 1,
+    "exit": 1,
+    "usable_transcript": false,
+    "error": "Error: AssemblyAI returned no usable transcript or word timestamps.",
+    "saved_receipt_status": "processing",
+    "terminal_provider_status_verified": false,
+    "fallback_or_resubmission": false
+  },
+  "global_routing": {
+    "canonical_rule": "C:/Users/Jason/AI-OS/rules/video.md",
+    "files_changed": 9,
+    "static_checks": "PASS",
+    "file_hashes": [
+      {
+        "path": "AI-OS\\rules\\video.md",
+        "after_sha256": "15f35f6b6b27ec93e7af3785dc2d5f204ee496344b8cec853d7905e597945341"
+      },
+      {
+        "path": "AGENTS.md",
+        "after_sha256": "c739b3a3c269be61685e226f3438f71e102221bccc8d02266dee8367c8c6345d"
+      },
+      {
+        "path": ".codex\\AGENTS.md",
+        "after_sha256": "77915a7919376da95568f7fc9b0dced01592ae90a4af15e60db80b2e24f06afe"
+      },
+      {
+        "path": ".claude\\CLAUDE.md",
+        "after_sha256": "e572644d69aed9acb2d95763118b4fa155c217a87a64cf59c0aaabc0981b4274"
+      },
+      {
+        "path": ".gemini\\GEMINI.md",
+        "after_sha256": "35a3963e5ca80beb80dd9be20a6c7d2cf2fd5b2baa988abbc0cac3ada6d2116a"
+      },
+      {
+        "path": ".config\\opencode\\AGENTS.md",
+        "after_sha256": "fe45d80c76c778140370933ad1f9a53eea43fb98fc778f3c6ba83b4e416e0f2f"
+      },
+      {
+        "path": ".agents\\skills\\youtube-video-workflow\\SKILL.md",
+        "after_sha256": "d10675e312112b70165e6bfdd012fbf5d0986dbf911a47a38af4c76028116092"
+      },
+      {
+        "path": ".codex\\skills\\youtube-video-workflow\\SKILL.md",
+        "after_sha256": "76f3b9c67792508d608ce69fb7aeaefc6021991fef9723d90417c67decf954b0"
+      },
+      {
+        "path": ".claude\\docs\\video.md",
+        "after_sha256": "5623b89ed109d948036e32f5b174f39cab573893dce00e7568c850a111fc1575"
+      }
+    ],
+    "fresh_session_loading": "NOT RUN",
+    "other_hosts_or_cloud_environments": "NOT RUN",
+    "hash_scope": "Historical snapshot after video-routing changes; five entry-file hashes superseded by later global orchestration edits; not a current whole-file manifest.",
+    "superseded_paths": [
+      "AGENTS.md",
+      ".codex/AGENTS.md",
+      ".claude/CLAUDE.md",
+      ".gemini/GEMINI.md",
+      ".config/opencode/AGENTS.md"
+    ]
+  },
+  "excluded": [
+    "video",
+    "audio",
+    "screenshots",
+    "raw source metadata",
+    "raw model responses",
+    "private AGY logs",
+    "AssemblyAI job receipt",
+    "global instruction contents",
+    "configuration backups"
+  ],
+  "product_runtime_checks": "NOT RUN by this reference task",
+  "production_gates_closed": [],
+  "lesson": "Cross-check material model claims against timestamped frames; SUCCESS does not prove correct interpretation or complete coverage."
+}

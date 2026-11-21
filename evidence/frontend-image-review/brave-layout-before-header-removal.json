@@ -1,0 +1,67 @@
+{
+  "app_sha256": "6fbaeb2b194c3458522c1017442233c5cbe32f6ad59b493dc7d8e1ee2276ad22",
+  "styles_sha256": "0ce2627a06edfee52baecba9d63f2ccdb301ab1140e03a26ada89ae5e5b2b411",
+  "results": [
+    {
+      "width": 390,
+      "height": 844,
+      "hero": {
+        "ctaBottom": 819.5,
+        "viewport": 844,
+        "visible": true,
+        "heroHeight": 575,
+        "chrome": "269px"
+      },
+      "zoom": {
+        "width": 231,
+        "height": 308,
+        "naturalWidth": 231,
+        "naturalHeight": 308,
+        "scale": 1,
+        "fits": true,
+        "src": "/research/assets/store-media/crema-flores-naranjas-halter/05-detail-crop-231.webp"
+      }
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "hero": {
+        "ctaBottom": 642.5,
+        "viewport": 667,
+        "visible": true,
+        "heroHeight": 398,
+        "chrome": "269px"
+      },
+      "zoom": {
+        "width": 231,
+        "height": 308,
+        "naturalWidth": 231,
+        "naturalHeight": 308,
+        "scale": 1,
+        "fits": true,
+        "src": "/research/assets/store-media/crema-flores-naranjas-halter/05-detail-crop-231.webp"
+      }
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "hero": {
+        "ctaBottom": 814.640625,
+        "viewport": 1000,
+        "visible": true,
+        "heroHeight": 862,
+        "chrome": "267px"
+      },
+      "zoom": {
+        "width": 231,
+        "height": 308,
+        "naturalWidth": 231,
+        "naturalHeight": 308,
+        "scale": 1,
+        "fits": true,
+        "src": "/research/assets/store-media/crema-flores-naranjas-halter/05-detail-crop-231.webp"
+      }
+    }
+  ],
+  "pass": true
+}

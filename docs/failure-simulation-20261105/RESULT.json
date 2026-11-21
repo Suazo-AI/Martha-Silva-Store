@@ -1,0 +1,126 @@
+{
+  "task_id": "SAVIA-FAULT-SIM-20261105",
+  "status": "LOCAL_PASS_PENDING_PRIMARY_REVIEW",
+  "host": "SUAZO-PC",
+  "runtime": "T3 Code / Codex / gpt-6.1-sol / high",
+  "candidate": "7d61524e29b4286055d44d145475a0a76195e1ba",
+  "branch": "Tony",
+  "node": "v24.18.0",
+  "jsdom": "26.1.0",
+  "environment_prefix": "$env:NODE_PATH='C:/Users/Jason/MARTHA-SILVA/github/tests/frontend-deps/node_modules'",
+  "runs": [
+    {
+      "command": "node --test dev/savia-staff-ui/failure-simulation.test.mjs",
+      "exit_code": 0,
+      "tests": 50,
+      "pass": 50,
+      "fail": 0,
+      "skip": 0,
+      "cancelled": 0,
+      "elapsed_ms": 2762,
+      "node_duration_ms": 2497.5759,
+      "log": "focused.log"
+    },
+    {
+      "command": "node --test dev/savia-staff-ui/*.test.mjs",
+      "exit_code": 0,
+      "tests": 102,
+      "pass": 102,
+      "fail": 0,
+      "skip": 0,
+      "cancelled": 0,
+      "elapsed_ms": 2823,
+      "node_duration_ms": 2646.8256,
+      "log": "staff-glob.log"
+    }
+  ],
+  "execution_count": 2,
+  "harness_corrections_after_execution": 0,
+  "expectation_changes_after_execution": 0,
+  "scenario_families": 10,
+  "new_leaf_tests": 48,
+  "new_parent_tests": 2,
+  "seed_sweep": {
+    "seeds": 32,
+    "range": [
+      1,
+      32
+    ],
+    "actions": 192,
+    "actions_per_seed": 6,
+    "kind": "receipt and quantity variations",
+    "independent_fault_classes": 8,
+    "failures": [],
+    "automatic_minimizer": false,
+    "failure_diagnostic": "seed plus fixed receipt reproduction sequence"
+  },
+  "failures": [],
+  "proposed_product_fix": null,
+  "product_changes": false,
+  "checks": [
+    {
+      "command": "git diff --check",
+      "exit_code": 0
+    },
+    {
+      "command": "git diff --no-index --check -- NUL dev/savia-staff-ui/failure-simulation.test.mjs",
+      "exit_code": 1,
+      "note": "New-file diff exit; only LF-to-CRLF notice, no whitespace error. Separate owned-file whitespace scan follows."
+    },
+    {
+      "command": "Python owned-file trailing-whitespace scan (six files), BOM-aware decoding",
+      "exit_code": 0,
+      "errors": 0
+    },
+    {
+      "command": "git diff --exit-code -- dev/savia-staff-ui/app.mjs dev/savia-staff-ui/client.mjs dev/savia-staff-ui/login.mjs dev/savia-staff-ui/index.html dev/savia-staff-ui/commerce.test.mjs",
+      "exit_code": 0
+    }
+  ],
+  "hashes_sha256_post_run": {
+    "dev/savia-staff-ui/app.mjs": "383c40447e91aa465cc945138699151826d7c1ad93f2f1ed041aa3dcda303309",
+    "dev/savia-staff-ui/client.mjs": "0447a3c83910d9a5618f98886d1025b9a74a3f59839eeca2ea0d7cc1ca6c4825",
+    "dev/savia-staff-ui/login.mjs": "ac7714a22eb1e7a383ca41e3e11343472025271dcf21dc862f39cf8c386fc787",
+    "dev/savia-staff-ui/index.html": "b5fe1c6a87f9cb4736e103eae888be97546e4f7b7e50d8893fe4ab4b01a6897d",
+    "dev/savia-staff-ui/commerce.test.mjs": "c7f8fe1120aac8cc6d70290a79fbe002e888e7a8cf722f7e65e9dc7e67d5e6c1",
+    "dev/savia-staff-ui/failure-simulation.test.mjs": "32323ec2b93e7764c0aced272bbe1513abd24bbc8ee8ea43bc7f9d219e72fca2",
+    "focused.log": "a4dbe18e8d04a8fff90d18c4b44690dc18b7ea963dd6e4d5e17d42fe1aba0f51",
+    "staff-glob.log": "97c9109a0edc668db5d5bf7d0747c0bdac1e0498c730348f5969469b7d8ed782",
+    "README.md": "6f75f1b6d9986d48c73bb5d894e21f7c3ce75609b641f84e07f5458696400041",
+    "MATRIX.json": "fa76c29b15fe4e20c665ea14840051e552bb0956833b5a775553cd370f352b52"
+  },
+  "unverified_layers": [
+    "real SQL durable state and uniqueness",
+    "real backend HTTP",
+    "browser/device/layout",
+    "payments",
+    "operational acceptance"
+  ],
+  "blockers": [],
+  "primary_acceptance": "pending",
+  "next_action": "Primary verifies assertions and evidence, then independent standing critic/jury review. No nested agents launched.",
+  "changed_files": [
+    "dev/savia-staff-ui/failure-simulation.test.mjs",
+    "docs/failure-simulation-20261105/README.md",
+    "docs/failure-simulation-20261105/MATRIX.json",
+    "docs/failure-simulation-20261105/RESULT.json",
+    "docs/failure-simulation-20261105/focused.log",
+    "docs/failure-simulation-20261105/staff-glob.log"
+  ],
+  "inherited_untracked_preserved": [
+    "docs/c3-n5-20261103/",
+    "docs/c8-ui-20261103/api-expiry-completion-20261103/expiry-test.sanitized.trx",
+    "docs/c8-ui-20261103/api-expiry-completion-20261103/security-regressions.sanitized.trx",
+    "docs/pr2-review-20261103/"
+  ],
+  "completion_check": "All 10 case families executed; 32 seeds; 192 sweep actions; two test executions; six owned new files; no product edits.",
+  "artifact_audit_correction": {
+    "failure": "UnicodeDecodeError: UTF-8 reader encountered UTF-16 BOM in PowerShell test logs",
+    "cause": "Windows PowerShell redirection encoding",
+    "correction": "Decode by BOM; retain original log bytes and hashes",
+    "retest": "Six-file audit PASS; no test rerun needed",
+    "owner": "worker",
+    "status": "resolved"
+  },
+  "log_encoding": "UTF-16 with BOM, as emitted by Windows PowerShell redirection"
+}

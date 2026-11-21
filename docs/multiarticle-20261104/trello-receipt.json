@@ -1,0 +1,30 @@
+{
+  "observed_utc": "2026-11-05T02:43:49.911698+00:00",
+  "candidate_sha": "922852cbf6c9af2eacb2e5c02a42d912c14f6893",
+  "cards": [
+    {
+      "id": "6aebeb2dde6648b074467dbb",
+      "name": "SALE-MULTI — Venta multiartículo recuperable: validada técnicamente",
+      "url": "https://trello.com/c/ADACfDwh/23-sale-multi-venta-multiart%C3%ADculo-recuperable-validada-t%C3%A9cnicamente",
+      "idList": "6aea5d68411ef7f938f3f92e",
+      "description_sha256": "f905cab1f81b0bce6ff16a3be8757b7fef973889ddfaf4d8ef65793bb57a9a0e",
+      "exact_readback": true
+    },
+    {
+      "id": "6aea7a421a9f35097ca709eb",
+      "name": "📍 ESTADO VIGENTE (4-nov) — cierre técnico y decisiones pendientes",
+      "url": "https://trello.com/c/Ri11Pahx/17-%F0%9F%93%8D-estado-vigente-4-nov-cierre-t%C3%A9cnico-y-decisiones-pendientes",
+      "idList": "6aea5d651b32f0468b4a2794",
+      "description_sha256": "7f5a82f17d89895d0f4cd039a1a64702e25dbbf7120315e453b44f9854cd100a",
+      "exact_readback": true
+    },
+    {
+      "id": "6aea5db3c62fed2d4a7d10f2",
+      "name": "C2 [Jason · B] Datos reales de la tienda",
+      "url": "https://trello.com/c/aS0pUmYb/5-c2-jason-b-datos-reales-de-la-tienda",
+      "idList": "6aea5d657fa1eec91e923376",
+      "description_sha256": "cec459aca1e691486da9879749a36816ce8193480e5ef690231f449babf1e01f",
+      "exact_readback": true
+    }
+  ]
+}

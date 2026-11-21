@@ -1,0 +1,33 @@
+{
+  "worker_base": "457a1576cd782874d1b3159c08e958bac96482eb",
+  "canonical_parent": "20fa5a6b14accd08f2123f1374fb90b2c5abe460",
+  "source_bindings_verified": 8,
+  "worker_broad": {
+    "Passed": 624,
+    "NotExecuted": 67,
+    "Failed": 0,
+    "trx_sha256": "d408e057226cd18ece2839e960a09766f1272aecf0d2eda17384f16b664a075e"
+  },
+  "imported": [
+    "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs",
+    "backend/tests/Martha.Store.Api.Tests/InternalCommerceCommandSqlTests.cs",
+    "backend/tests/Martha.Store.Api.Tests/InternalBranchScopeSqlTests.cs",
+    "backend/tests/Martha.Store.Api.Tests/InternalStockExceptionSqlTests.cs",
+    "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs",
+    "backend/tests/Martha.Store.Api.Tests/InternalReleaseScriptTests.cs",
+    "backend/tests/Martha.Store.Api.Tests/InternalCashSchemaOracle.cs",
+    "backend/tests/Martha.Store.Api.Tests/InternalCashSchemaOracleTests.cs",
+    "docs/cash-register-20261107/fixture-adaptation/README.md",
+    "docs/cash-register-20261107/fixture-adaptation/RESULT.json",
+    "docs/cash-register-20261107/fixture-adaptation/MANIFEST.json",
+    "docs/cash-register-20261107/fixture-adaptation/changes.patch",
+    "docs/cash-register-20261107/fixture-adaptation/run_checks.py"
+  ],
+  "protected_raw_sha256": {
+    "AGENTS.md": "2a2e931b6feed7fff17683718619be44dd57e1d17191de15c3f98148cedc1b53",
+    "docs/DECISIONS.md": "c876e8f7667cfb5737d0175f452abfacccfc8e48e0ac46630a33ff09b852373b"
+  },
+  "status": "IMPORTED_FOR_REVIEW_NOT_ACCEPTED",
+  "sql": "NOT RUN",
+  "product_sources": "unchanged"
+}

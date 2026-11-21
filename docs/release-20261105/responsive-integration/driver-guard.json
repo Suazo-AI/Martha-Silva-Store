@@ -1,0 +1,10 @@
+{
+  "command": "node docs/release-20261105/responsive-followup/driver.mjs before",
+  "exit": 1,
+  "expectedExit": 1,
+  "expectedError": "Frozen phase output exists. A new task must define fresh output scope.",
+  "matchedError": true,
+  "frozenFiles": 40,
+  "unchanged": true,
+  "newBrowserRun": false
+}

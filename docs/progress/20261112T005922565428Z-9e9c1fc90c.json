@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-12T00:59:22.565428+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/AGENT-START.md",
+      "change": "M",
+      "git_blob": "dcecbcde1c1e8f408a07f022277d576c57b6f69d"
+    },
+    {
+      "path": "docs/MAINTENANCE.md",
+      "change": "A",
+      "git_blob": "6b2d35e233e5cf9d488a521be75b18fe1d8faeca"
+    },
+    {
+      "path": "docs/program-20261111/PLAN.md",
+      "change": "M",
+      "git_blob": "078211022ad541698cbe2ecea1bd73af5390090b"
+    },
+    {
+      "path": "tests/maintenance-drill/README.md",
+      "change": "A",
+      "git_blob": "e15d04a7d11bf4478dee13a0a443abd5203bd470"
+    },
+    {
+      "path": "tests/maintenance-drill/doctor-evidence/full.txt",
+      "change": "A",
+      "git_blob": "83f5ba61b89078eb6f4c23eadd4a7a09287f43bc"
+    },
+    {
+      "path": "tests/maintenance-drill/doctor-evidence/quick.txt",
+      "change": "A",
+      "git_blob": "fadb8be5083cf9b084652b33bb6d969ff1ab5559"
+    },
+    {
+      "path": "tests/test_doctor.py",
+      "change": "A",
+      "git_blob": "cac319f15505ee80f2cf3f32cae428ad58dd3d98"
+    },
+    {
+      "path": "tools/doctor.py",
+      "change": "A",
+      "git_blob": "feb11cc6932533b52d8dbdb10dde3eb7fb366abc"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

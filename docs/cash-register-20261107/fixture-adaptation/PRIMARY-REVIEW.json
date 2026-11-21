@@ -1,0 +1,183 @@
+{
+  "mode": "VALIDATE",
+  "status": "OFFLINE_VERIFIED_SQL_AND_JUDGE_PENDING",
+  "parentSha": "20fa5a6b14accd08f2123f1374fb90b2c5abe460",
+  "sourceBindings": [
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs",
+      "rawSha256": "9b7b715d04f5c20eb4636916e8123959a5ce26ff6961ebcc488dccf8bc21ed3a",
+      "lfSha256": "b5b63723748b2abe4330902444b7b3bef34eb727db7d4c4b912e018cfb726ca7"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCommerceCommandSqlTests.cs",
+      "rawSha256": "45fb8506a0675e1cc514503a9c01a1450fef145ba7f41d0c47ba83e5585a2063",
+      "lfSha256": "48a9eb29748bd83a99f68d5bbc5d382b1925a9fae5215e46eaa127bb00713f59"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalBranchScopeSqlTests.cs",
+      "rawSha256": "bc2d53488559de929599a21eb232f419c5f1db69e5dec73ccd8af879d759e294",
+      "lfSha256": "ab54d957a7cfb97dc7454c071d23867fa79e699bb87496b24300892abce1153f"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalStockExceptionSqlTests.cs",
+      "rawSha256": "36b91dd8ef5783f6d55e23aaa8810ca4bfb88b0d81ba45c0d6dbb18cbe2c94ee",
+      "lfSha256": "d43ebca4eda1e597a2b944ad192584eff7bfc3a9ad2a826c4fc089a67a161f1e"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs",
+      "rawSha256": "389efabdc76637cbba20cd5d22f49bb1a2948dc4a6dde380beba29098b21de5f",
+      "lfSha256": "c6099cb516fbbc697d8f865d82a5d7a3268d8cd184a6dcf9bc6ada1e27a63072"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalReleaseScriptTests.cs",
+      "rawSha256": "8ba646a5451f196b14ec040426b063f643d53b675ea52ecdefe852d683f4f9a5",
+      "lfSha256": "6df4800a1517f20cdbf952fcd250b0f652e4b4cd3aeef1a6dca354826d80e4b7"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCashSchemaOracle.cs",
+      "rawSha256": "0c07cc04e7f3dbb00eb69a91b1a488e4613e6476e8c4946a602af6fead098e6f",
+      "lfSha256": "f64ce209d0658a5cf8dc58e8aa4245bcfe5b368713bc20c0abc6602ad25b95b6"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCashSchemaOracleTests.cs",
+      "rawSha256": "e488de64a532a1318f845cf19346214c216e2fc2b6ebe53bca5d032f66886fc6",
+      "lfSha256": "d83564a23883401fb6579f0726f07f5510f7de686858a1dba1fcb173777d5fad"
+    }
+  ],
+  "checks": [
+    {
+      "command": [
+        "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+        "test",
+        "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "--filter",
+        "Category!=SqlServer",
+        "--logger",
+        "trx;LogFileName=offline.trx",
+        "--results-directory",
+        "C:\\Users\\Jason\\MARTHA-SILVA\\github\\private-exports\\cash-fixtures-primary-20261107"
+      ],
+      "exit": 0,
+      "seconds": 41.688,
+      "cleared_variables": [
+        "MARTHA_TEST_SQL_CONNECTION",
+        "MARTHA_INTERNAL_TEST_SQL_CONNECTION",
+        "SAVIA_INTERNAL_TEST_SQL_CONNECTION",
+        "SAVIA_INTERNAL_SQL_TESTS_AUTHORIZED",
+        "SAVIA_INTERNAL_HTTP_SQL_TESTS_AUTHORIZED",
+        "SAVIA_SQL_TESTS_AUTHORIZED"
+      ],
+      "pilot_precreated": true,
+      "sql": "NOT RUN",
+      "outcomes": {
+        "NotExecuted": 67,
+        "Passed": 624
+      },
+      "name": "offline",
+      "privateArtifacts": [
+        {
+          "path": "private-exports/cash-fixtures-primary-20261107/offline.log",
+          "rawSha256": "fa80ed3364ddfaa750cd6b311a28b9e86f47ee4abc317bec44ece607398d1b05"
+        },
+        {
+          "path": "private-exports/cash-fixtures-primary-20261107/offline.trx",
+          "rawSha256": "5d5da3e90fe2df680f936c0ac7295921f60d67ccc3d8c2f3dc35e21548d6f917"
+        }
+      ]
+    },
+    {
+      "command": [
+        "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+        "test",
+        "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName~Changed_cash_check_meaning_is_rejected",
+        "--logger",
+        "trx;LogFileName=oracle-red.trx",
+        "--results-directory",
+        "C:\\Users\\Jason\\MARTHA-SILVA\\github\\private-exports\\cash-fixtures-primary-20261107"
+      ],
+      "exit": 1,
+      "seconds": 7.438,
+      "name": "oracle-red",
+      "privateArtifacts": [
+        {
+          "path": "private-exports/cash-fixtures-primary-20261107/oracle-red.log",
+          "rawSha256": "6a45df06648ad72b9ae4e2d9ea49675fbb9422d6e639dad10fefd45152f4cb0b"
+        },
+        {
+          "path": "private-exports/cash-fixtures-primary-20261107/oracle-red.trx",
+          "rawSha256": "d3d37f2c210dd52ea4fcbdc789c100365027362713ea15a9ee3fae18e4137d55"
+        }
+      ]
+    },
+    {
+      "command": [
+        "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+        "test",
+        "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "--filter",
+        "Category!=SqlServer",
+        "--logger",
+        "trx;LogFileName=oracle-green.trx",
+        "--results-directory",
+        "C:\\Users\\Jason\\MARTHA-SILVA\\github\\private-exports\\cash-fixtures-primary-20261107"
+      ],
+      "exit": 0,
+      "seconds": 23.64,
+      "sql": "NOT RUN",
+      "outcomes": {
+        "NotExecuted": 67,
+        "Passed": 627
+      },
+      "name": "oracle-green",
+      "privateArtifacts": [
+        {
+          "path": "private-exports/cash-fixtures-primary-20261107/oracle-green.log",
+          "rawSha256": "5f2c0ecaadca2ff254be5a8c9b1a2e259c84507d8ad9adaa16343f2dc259705b"
+        },
+        {
+          "path": "private-exports/cash-fixtures-primary-20261107/oracle-green.trx",
+          "rawSha256": "0add36763b435049c3cae07c2a7655452c7a3d93ca875992755027e8dfafd60d"
+        }
+      ]
+    },
+    {
+      "command": [
+        "python",
+        "tests/check.py"
+      ],
+      "exit": 0,
+      "seconds": 143.031,
+      "log": "private-exports\\cash-fixtures-primary-20261107\\repository-check.log",
+      "sha256": "9e4fc4e8f8d14184215dc7fe891c570bb9530bb404a5c82c57eb32bbcd0706a7",
+      "name": "repository-check",
+      "privateArtifacts": [
+        {
+          "path": "private-exports/cash-fixtures-primary-20261107/repository-check.log",
+          "rawSha256": "9e4fc4e8f8d14184215dc7fe891c570bb9530bb404a5c82c57eb32bbcd0706a7"
+        }
+      ]
+    }
+  ],
+  "productChanges": false,
+  "SQL": "NOT RUN",
+  "production": "NO-GO",
+  "excludedFromPublication": [
+    {
+      "path": "docs/cash-register-20261107/fixture-adaptation/changes.patch",
+      "rawSha256": "406440d1de060cbc6cf9dfc72a8eb64cdec37d2ab221d660dfda5118e7cbdd33",
+      "privateArchive": "private-exports/cash-fixtures-primary-20261107/worker-changes.patch",
+      "reason": "Original unified diff contains whitespace-only context lines; preserve original bytes privately. Published source files and Git history provide the portable diff."
+    }
+  ]
+}

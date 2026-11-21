@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-08T00:40:39.283334+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/completion-20261107/README.md",
+      "change": "M",
+      "git_blob": "ba2f61cd11ab07aa6917093e106c7278250751c4"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "change": "M",
+      "git_blob": "68716578bc742292d470ae42950b8247ea4d6e2f"
+    },
+    {
+      "path": "docs/sql-parallel-20261107/security-correction/README.md",
+      "change": "M",
+      "git_blob": "deccb32cbf15e397756c6abce461574fc26bc655"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

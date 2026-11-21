@@ -1,0 +1,9 @@
+[
+  {
+    "name": "supply-full",
+    "command": "node tests/browser-supply-validation.mjs C:/Users/Jason/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\supply-ui-20261105\\primary\\supply-full",
+    "exit": 0,
+    "log": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\primary-raw-logs\\supply-full.log",
+    "logSha256": "71298b0aca4b6fd641db9bb7d112e956b540395bd731394f42bf0fb6c4f12f74"
+  }
+]

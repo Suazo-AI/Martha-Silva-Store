@@ -1,0 +1,24 @@
+{
+  "observedUtc": "2026-11-04T02:02:14.499039+00:00",
+  "files": {
+    "checklist-verdicts.json": "28d5e972f4589080321d61f11790525f21499c8c5a0dc7228866f61e32fea4e5",
+    "completion.json": "de333ca8f282a5bd13491e6853179e41f2c08d2e67c8f88e1590fc18de73d71f",
+    "independent-review.md": "b162297d191ce1cdcfd395ed0a0a7e3a41ab9080ecef62d3ff5d7905c336eba3",
+    "primary-review.md": "0df710fb3e9288e48651320ba2e98ccf32138f98b94230dab569c721f5b2fae4",
+    "resources-final.json": "4adc4c965c4023b0f531d92bc888d2b89ff883e2b8f7e5d93d7e79286512709c",
+    "trello-before.json": "fde9f7fa3ea335dd994e7cf4fd95c9e3a1688804095c2f065c05e12304511759",
+    "trello-readback.json": "291f03f1ae22a051caa85a2af0778a7cb9b40d2a343321470bf39af73da0714e",
+    "worktrees-final.json": "cb4b37c94728e96819df141c4bec2139ace54ee02674f733dcebd1ff75a4dcf7",
+    "evidence/backend-sanitized-results.json": "e3142bc04e35b0653f05d7c31377550b3a579aa382fa6f8a9347e01f99a8eb55",
+    "evidence/ci-status.json": "8e413c6480fe91f9ff2c0d19f0c1cfe1443fe4b7eca49883df2ba3622909b1a3",
+    "evidence/golden-evidence.json": "f4841b01674316deb26698083131b35d16eebe9b3dfa5a2bbc2a3735ff00a3fb",
+    "evidence/head-merge-binding.json": "eb2738dac8ff317af48e203de8b4cef5e6e2dba0be062c5a826334087cb7ee67"
+  },
+  "excluded": [
+    "Other active C6/C9 owners and changes",
+    "raw private oracle values",
+    "raw CI logs and ZIP files",
+    "credentials, certificates and sessions"
+  ],
+  "publicationByThisBatch": false
+}

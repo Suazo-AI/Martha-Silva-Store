@@ -1,0 +1,16 @@
+{
+  "copied_url": "",
+  "ui_status": "\t\t\t680 text Enlace copiado. Ya podés compartirlo.",
+  "focus_after_pointer_copy": {
+    "aria": null,
+    "id": "",
+    "tag": "BODY"
+  },
+  "keyboard_focus_from_preceding_favorite_via_Tab": {
+    "aria": null,
+    "class": "text-button product-share-button",
+    "tag": "BUTTON",
+    "text": "Compartir producto"
+  },
+  "outbound_share": false
+}

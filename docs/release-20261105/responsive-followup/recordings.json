@@ -1,0 +1,98 @@
+[
+  {
+    "path": "docs/release-20261105/responsive-followup/before/recordings/normal-mobile-index.html.webm",
+    "bytes": 76306,
+    "sha256": "7efd13575d37a8521167906de1fb57a1eda441f32daba7c963ea1681c4383147",
+    "duration": "4.440000",
+    "sampleTimestamp": 4,
+    "frame": "docs/release-20261105/responsive-followup/frames/before-normal-mobile-index.html.png"
+  },
+  {
+    "path": "docs/release-20261105/responsive-followup/after/recordings/normal-mobile-index.html.webm",
+    "bytes": 87228,
+    "sha256": "d456f1afe8990cd47efcfd904c523e3358fd5b1de7846db571bbeb0cd03af2fb",
+    "duration": "4.760000",
+    "sampleTimestamp": 4,
+    "frame": "docs/release-20261105/responsive-followup/frames/after-normal-mobile-index.html.png"
+  },
+  {
+    "path": "docs/release-20261105/responsive-followup/before/recordings/normal-mobile-catalogo.html.webm",
+    "bytes": 232845,
+    "sha256": "9661791f51908128aef0609702a5aca7f109d900304c65aa10a413b49786d19d",
+    "duration": "5.440000",
+    "sampleTimestamp": 4,
+    "frame": "docs/release-20261105/responsive-followup/frames/before-normal-mobile-catalogo.html.png"
+  },
+  {
+    "path": "docs/release-20261105/responsive-followup/after/recordings/normal-mobile-catalogo.html.webm",
+    "bytes": 195178,
+    "sha256": "a5388d90a8311456d6157f949c86b7bf87eb0edc5876a1263a3748316cc12acd",
+    "duration": "5.360000",
+    "sampleTimestamp": 4,
+    "frame": "docs/release-20261105/responsive-followup/frames/after-normal-mobile-catalogo.html.png"
+  },
+  {
+    "path": "docs/release-20261105/responsive-followup/before/recordings/normal-mobile-producto-amarillo.html.webm",
+    "bytes": 313161,
+    "sha256": "ffcd4ead3887e9f5591e71085f32bd6cfb2b72acb73c22ac03d3919301fad83c",
+    "duration": "6.720000",
+    "sampleTimestamp": 4,
+    "frame": "docs/release-20261105/responsive-followup/frames/before-normal-mobile-producto-amarillo.html.png"
+  },
+  {
+    "path": "docs/release-20261105/responsive-followup/after/recordings/normal-mobile-producto-amarillo.html.webm",
+    "bytes": 301183,
+    "sha256": "55274fa7364fd9d2593607324796def393cd95044d75c9c1292fa15d8b133995",
+    "duration": "7.000000",
+    "sampleTimestamp": 4,
+    "frame": "docs/release-20261105/responsive-followup/frames/after-normal-mobile-producto-amarillo.html.png"
+  },
+  {
+    "path": "docs/release-20261105/responsive-followup/before/recordings/normal-desktop-index.html.webm",
+    "bytes": 561252,
+    "sha256": "9a88ea8012fd6dd3684a4dde18d84db7fa87b8e559485a589e4a4b4ddff2e467",
+    "duration": "5.400000",
+    "sampleTimestamp": 4,
+    "frame": "docs/release-20261105/responsive-followup/frames/before-normal-desktop-index.html.png"
+  },
+  {
+    "path": "docs/release-20261105/responsive-followup/after/recordings/normal-desktop-index.html.webm",
+    "bytes": 468148,
+    "sha256": "b976abc04140b53846028c40def5d245169abe13f383461f4908ad6c9ce19210",
+    "duration": "4.960000",
+    "sampleTimestamp": 4,
+    "frame": "docs/release-20261105/responsive-followup/frames/after-normal-desktop-index.html.png"
+  },
+  {
+    "path": "docs/release-20261105/responsive-followup/before/recordings/normal-desktop-catalogo.html.webm",
+    "bytes": 442982,
+    "sha256": "3a044580636515bab22f93523664e20256142e2509c65bc87f229456481dafaf",
+    "duration": "5.480000",
+    "sampleTimestamp": 4,
+    "frame": "docs/release-20261105/responsive-followup/frames/before-normal-desktop-catalogo.html.png"
+  },
+  {
+    "path": "docs/release-20261105/responsive-followup/after/recordings/normal-desktop-catalogo.html.webm",
+    "bytes": 447543,
+    "sha256": "9f94b98c92a92cef8f8462f0209bf976c29e2313827277cc6ff9f6fec1cb05dc",
+    "duration": "5.400000",
+    "sampleTimestamp": 4,
+    "frame": "docs/release-20261105/responsive-followup/frames/after-normal-desktop-catalogo.html.png"
+  },
+  {
+    "path": "docs/release-20261105/responsive-followup/before/recordings/normal-desktop-producto-amarillo.html.webm",
+    "bytes": 522372,
+    "sha256": "798d737c2c6185d731c51f81cf39d122c6f16b47cabf92c8c6105d31a80f6c7f",
+    "duration": "6.720000",
+    "sampleTimestamp": 4,
+    "frame": "docs/release-20261105/responsive-followup/frames/before-normal-desktop-producto-amarillo.html.png"
+  },
+  {
+    "path": "docs/release-20261105/responsive-followup/after/recordings/normal-desktop-producto-amarillo.html.webm",
+    "bytes": 366018,
+    "sha256": "a9586a7600c70f7b1c667dd010df5a2189bf1faf1e07f566d42ff595e16bca06",
+    "duration": "6.440000",
+    "sampleTimestamp": 4,
+    "frame": "docs/release-20261105/responsive-followup/frames/after-normal-desktop-producto-amarillo.html.png"
+  }
+]

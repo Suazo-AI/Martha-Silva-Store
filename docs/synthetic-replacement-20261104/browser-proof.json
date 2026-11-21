@@ -1,0 +1,57 @@
+{
+  "checks": {
+    "stock_diagram": true,
+    "next_S02": true,
+    "multi_S04": true,
+    "last_disabled": true,
+    "previous_S17": true,
+    "reset_first": true,
+    "evidence_18": true,
+    "evidence_51": true,
+    "desktop_no_overflow": true,
+    "decision_equipment": true,
+    "mobile_no_overflow": true,
+    "mobile_S04": true,
+    "no_page_errors": true
+  },
+  "desktop": {
+    "viewport": 1440,
+    "scroll": 1440
+  },
+  "mobile": {
+    "viewport": 390,
+    "scroll": 390,
+    "background": "rgba(0, 0, 0, 0)"
+  },
+  "errors": [],
+  "note": "New explanatory artifact; no before recording. Local browser recording, not product acceptance.",
+  "consoleResourceFailure": "favicon.ico returned 404 on the temporary local server; no application pageerror occurred.",
+  "viewportDesktop": {
+    "width": 1440,
+    "height": 900
+  },
+  "viewportMobile": {
+    "width": 390,
+    "height": 844,
+    "colorScheme": "dark"
+  },
+  "recording": {
+    "file": "after.mp4",
+    "sourceFormat": "webm",
+    "sourceDurationSeconds": 30.32
+  },
+  "attempts": [
+    {
+      "attempt": 1,
+      "result": "Test expected 2800; actual displayed format C$2.800. Corrected assertion, preserved original recording locally."
+    },
+    {
+      "attempt": 2,
+      "result": "Lavish annotation mode intercepted navigation clicks; DOM assertions passed but screenshots exposed overlay. Rejected as visual acceptance."
+    },
+    {
+      "attempt": 3,
+      "result": "Plain local HTTP artifact; 13 checks pass and clean screenshots inspected."
+    }
+  ]
+}

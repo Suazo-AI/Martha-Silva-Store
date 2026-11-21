@@ -1,0 +1,191 @@
+{
+  "engine": "rapidocr-onnxruntime 1.4.4 (local CPU)",
+  "perField": {
+    "barcode": 4,
+    "sku": 4,
+    "name": 4,
+    "brand": 3,
+    "size": 4,
+    "color": 4,
+    "priceMinor": 4,
+    "composition": 4
+  },
+  "photos": [
+    {
+      "file": "tag1.png",
+      "seconds": 5.59,
+      "barcode": {
+        "expected": "7460098765435",
+        "extracted": "7460098765435",
+        "ok": true
+      },
+      "sku": {
+        "expected": "BL-4471-RS",
+        "extracted": "BL-4471-RS",
+        "ok": true
+      },
+      "name": {
+        "expected": "Blusa de lino",
+        "extracted": "Blusa de lino",
+        "ok": true
+      },
+      "brand": {
+        "expected": "ESTRELLA DEL SUR",
+        "extracted": "ESTRELLADELSUR",
+        "ok": false
+      },
+      "size": {
+        "expected": "M",
+        "extracted": "M",
+        "ok": true
+      },
+      "color": {
+        "expected": "Rosado",
+        "extracted": "Rosado",
+        "ok": true
+      },
+      "priceMinor": {
+        "expected": "135000",
+        "extracted": "135000",
+        "ok": true
+      },
+      "composition": {
+        "expected": "55% Lino 45% Algod\u00F3n",
+        "extracted": "55% Lino 45% Algod\u00F3n",
+        "ok": true
+      }
+    },
+    {
+      "file": "tag2.png",
+      "seconds": 7.56,
+      "barcode": {
+        "expected": "7460055512348",
+        "extracted": "7460055512348",
+        "ok": true
+      },
+      "sku": {
+        "expected": "PC-9023-KH",
+        "extracted": "PC-9023-KH",
+        "ok": true
+      },
+      "name": {
+        "expected": "Pantal\u00F3n cargo",
+        "extracted": "Pantalon cargo",
+        "ok": true
+      },
+      "brand": {
+        "expected": "MARINA BLUE",
+        "extracted": "MARINA BLUE",
+        "ok": true
+      },
+      "size": {
+        "expected": "34",
+        "extracted": "34",
+        "ok": true
+      },
+      "color": {
+        "expected": "Caqui",
+        "extracted": "Caqui",
+        "ok": true
+      },
+      "priceMinor": {
+        "expected": "98000",
+        "extracted": "98000",
+        "ok": true
+      },
+      "composition": {
+        "expected": "100% Algod\u00F3n",
+        "extracted": "100% Algod\u00F3n",
+        "ok": true
+      }
+    },
+    {
+      "file": "tag1-cw.png",
+      "seconds": 10.11,
+      "barcode": {
+        "expected": "7460098765435",
+        "extracted": "7460098765435",
+        "ok": true
+      },
+      "sku": {
+        "expected": "BL-4471-RS",
+        "extracted": "BL-4471-RS",
+        "ok": true
+      },
+      "name": {
+        "expected": "Blusa de lino",
+        "extracted": "Blusa de lino",
+        "ok": true
+      },
+      "brand": {
+        "expected": "ESTRELLA DEL SUR",
+        "extracted": "ESTRELLA DEL SUR",
+        "ok": true
+      },
+      "size": {
+        "expected": "M",
+        "extracted": "M",
+        "ok": true
+      },
+      "color": {
+        "expected": "Rosado",
+        "extracted": "Rosado",
+        "ok": true
+      },
+      "priceMinor": {
+        "expected": "135000",
+        "extracted": "135000",
+        "ok": true
+      },
+      "composition": {
+        "expected": "55% Lino 45% Algod\u00F3n",
+        "extracted": "55% Lino 45% Algod\u00F3n",
+        "ok": true
+      }
+    },
+    {
+      "file": "tag1-ccw.png",
+      "seconds": 15.72,
+      "barcode": {
+        "expected": "7460098765435",
+        "extracted": "7460098765435",
+        "ok": true
+      },
+      "sku": {
+        "expected": "BL-4471-RS",
+        "extracted": "BL-4471-RS",
+        "ok": true
+      },
+      "name": {
+        "expected": "Blusa de lino",
+        "extracted": "Blusa de lino",
+        "ok": true
+      },
+      "brand": {
+        "expected": "ESTRELLA DEL SUR",
+        "extracted": "ESTRELLA DEL SUR",
+        "ok": true
+      },
+      "size": {
+        "expected": "M",
+        "extracted": "M",
+        "ok": true
+      },
+      "color": {
+        "expected": "Rosado",
+        "extracted": "Rosado",
+        "ok": true
+      },
+      "priceMinor": {
+        "expected": "135000",
+        "extracted": "135000",
+        "ok": true
+      },
+      "composition": {
+        "expected": "55% Lino 45% Algod\u00F3n",
+        "extracted": "55% Lino 45% Algod\u00F3n",
+        "ok": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "publication_version": "601268a3-81ce-4277-a8ef-cb2e84d2fbb1",
+  "source_catalog_sha256": "1495e8a10a2cde56ddb0087051c327949389f775977f41b7d4b676f37f3cd343",
+  "source": "evidence/releases/20261030/current-runtime-sha256.json",
+  "purpose": "Explicit copy changes from the preserved publication; captured prices, variants and stock remain authoritative for sample comparisons.",
+  "copy_overrides": {
+    "rosa-empolvado-pedreria": {
+      "name": "Vestido rosa empolvado con pedrería"
+    },
+    "blanco-perlado-sirena": {
+      "description": "Vestido largo blanco perlado con tirantes finos, escote en V y líneas brillantes. La falda se amplía hacia el bajo."
+    },
+    "negro-brillo-pantalon-amplio": {
+      "description": "Conjunto negro con cuerpo sin tirantes, botones y pantalón amplio."
+    },
+    "rosa-bronce-pedreria": {
+      "name": "Rosa bronce de pedrería",
+      "description": "Vestido largo rosa bronce sin tirantes, con escote corazón y aplicaciones brillantes."
+    },
+    "negro-escote-puntas-abertura": {
+      "name": "Vestido negro de cuello alto",
+      "description": "Diseño de demostración: vestido negro de cuello alto, manga larga y falda amplia fluida, sin abertura."
+    },
+    "fucsia-halter-pliegues": {
+      "description": "Diseño de demostración: vestido largo fucsia de cuello halter alto, cintura plisada y falda amplia, sin abertura."
+    },
+    "plata-tirantes-copas-pedreria": {
+      "name": "Plata de tirantes y pedrería"
+    },
+    "crema-flores-volante-asimetrico": {
+      "description": "Vestido floral de cuello halter, con falda amplia y volante asimétrico."
+    },
+    "rosa-marron-chaqueta-falda": {
+      "name": "Conjunto rosa marrón"
+    },
+    "burdeos-top-pantalon-corto": {
+      "description": "Conjunto burdeos de top sin mangas y pantalón amplio, con abertura abotonada en la espalda."
+    },
+    "champagne": {
+      "description": "Vestido largo champagne sin tirantes, con aplicaciones brillantes y falda que se amplía hacia el bajo. La fotografía muestra una cola."
+    },
+    "napoleon": {
+      "name": "Chaqueta corta Napoleón con botones",
+      "description": "Chaqueta corta marrón con mangas largas y filas de botones. El pantalón de lunares y los accesorios de la foto quedan fuera de esta ficha."
+    },
+    "novia-satinada-abertura": {
+      "description": "Vestido de novia sin tirantes, con escote corazón, pliegues en el cuerpo y abertura lateral. Velo, zapatos y accesorios quedan fuera de esta ficha."
+    },
+    "gala-rubi": {
+      "name": "Muestra Rubí",
+      "description": "Muestra, no es inventario de Martha Silva. Diseño de demostración: vestido rojo de satén, manga larga y falda amplia, sin abertura."
+    },
+    "gala-oro": {
+      "description": "Muestra, no es inventario de Martha Silva. Diseño de demostración: vestido champán bordado, de manga larga y falda amplia."
+    },
+    "gala-destello": {
+      "description": "Muestra, no es inventario de Martha Silva. Diseño de demostración: vestido plateado de manga larga, con pedrería y falda amplia, sin abertura."
+    },
+    "novias-velo": {
+      "description": "Muestra, no es inventario de Martha Silva. Vestido de novia con mangas largas, cuello alto y motivos de encaje. El demo presenta vistas de cuerpo entero generadas con IA."
+    },
+    "novias-alba": {
+      "description": "Muestra, no es inventario de Martha Silva. Vestido de novia con escote en V, mangas largas y hombros con volumen. El demo presenta vistas de cuerpo entero generadas con IA."
+    }
+  }
+}

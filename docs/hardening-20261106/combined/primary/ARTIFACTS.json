@@ -1,0 +1,159 @@
+{
+  "base": "65ab1d942a4666321e489da1cccd6341a0f671b7",
+  "parity": {
+    "workerFiles": 3126,
+    "rawIdentical": 3126,
+    "lfIdentical": 3126
+  },
+  "portsReleased": [
+    18313,
+    18314
+  ],
+  "artifacts": [
+    {
+      "path": "docs/hardening-20261106/combined/primary/videos/before-desktop.webm",
+      "rawSha256": "7a62136530654ee26f6778da5851748c05d50c2adf13bbb1da90fdcb24c36c6b",
+      "bytes": 1118417
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/screenshots/before-desktop-home.png",
+      "rawSha256": "f94d95e00c3a6aec1aed282038b9d483126ab6f15e99ffaaf0eac20070b5fe2e",
+      "bytes": 574582
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/videos/before-mobile.webm",
+      "rawSha256": "f217aa7d8f76d8c92dcb8242ca653abd2d6a796ecf2ac9ce133b91ff61d8011e",
+      "bytes": 702326
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/screenshots/before-mobile-home.png",
+      "rawSha256": "e7101b6b03e751c1bc57dd368ab4d37df66cadee1f595c2b4fb8e3d77dbb7341",
+      "bytes": 182802
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/videos/after-desktop.webm",
+      "rawSha256": "650dc28259f25e4dcb7ba071902cf34d879f299d42d920754f882bd709b24d25",
+      "bytes": 1350529
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/screenshots/after-desktop-home.png",
+      "rawSha256": "36dd076c2d574d00907aac66e97e51fdee6d6f83f56fa28590fcf922dd432e8b",
+      "bytes": 952120
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/screenshots/after-desktop-catalog.png",
+      "rawSha256": "f5532ec5ce4057c150cb97fa162b17416af2640b0904f6cf0d9ea392e81f30d3",
+      "bytes": 402453
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/screenshots/after-desktop-order.png",
+      "rawSha256": "705530d5a7bd7425c694a1c62c4bea994afb8ac6c0a7c6615bb505ae45b3ac94",
+      "bytes": 111050
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/videos/after-mobile.webm",
+      "rawSha256": "8d775ba4d4064c82f75da8574132fbcd45997d7db41a343315b3496d1ddad8cc",
+      "bytes": 1063250
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/screenshots/after-mobile-home.png",
+      "rawSha256": "f5a67787f92b944466a3558c07a9164f75834f99ccd3c57a312afbcfcb201cc9",
+      "bytes": 331218
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/screenshots/after-mobile-catalog.png",
+      "rawSha256": "3871c8666b6d8c202a034fb1bde57fb385fc260f9e79ae5d938dc4ae10aaf9b2",
+      "bytes": 243663
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/screenshots/after-mobile-order.png",
+      "rawSha256": "6639f9e4a4a1553621956477443463817b560c45ec580e26e96668819919bd74",
+      "bytes": 75849
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/screenshots/before-desktop-frame-2s.png",
+      "rawSha256": "cea63c53f9dd62d7ab4515386c1829c0022db253a677bcbb179c5d8d2ec125c0",
+      "bytes": 620221
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/screenshots/before-mobile-frame-2s.png",
+      "rawSha256": "46a2f9b8fa90a023a947d4d6e8bbd070554c2de9ee67c4eb43b92edf2cd86be7",
+      "bytes": 265195
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/screenshots/after-desktop-frame-2s.png",
+      "rawSha256": "5041e8969cf16536731a6ec1ca73ce99407bf40d572156666ccec989c144f7d4",
+      "bytes": 614579
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/screenshots/after-mobile-frame-2s.png",
+      "rawSha256": "056864c37fe9c95b9a6992d5ccf3d49863a5c2d20cbbab0efcee0a7b59e13a8f",
+      "bytes": 293901
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/record.mjs",
+      "rawSha256": "19575f78e97c5c1cb8ff5eaeec074ed35495e3d660876fdcae991f6f8dffebf8",
+      "bytes": 5165
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/wrangler-runtime.json",
+      "rawSha256": "29578fd40899a51176f27d5bc9ab29329c6d175a8263039b4eca678c6867736b",
+      "bytes": 22855
+    },
+    {
+      "path": "docs/hardening-20261106/combined/reference/index.html.txt",
+      "rawSha256": "91695bc45b6657d629618c53094e36e4a7abcef71de835cf794f558bc9674faf",
+      "bytes": 310900
+    },
+    {
+      "path": "docs/hardening-20261106/combined/reference/styles.css.json",
+      "rawSha256": "77d9e371ac90f7c9511a34defea50b21ba876e04cd1219e5ad5bae699b2f20f3",
+      "bytes": 55736
+    },
+    {
+      "path": "docs/hardening-20261106/combined/reference/app.js.json",
+      "rawSha256": "4e13b8158f7cad2e181f1dd6c0cfe3e9a35e3a75d57a366348759c5e0b2e8a56",
+      "bytes": 54429
+    },
+    {
+      "path": "docs/hardening-20261106/combined/reference/catalogo.html.txt",
+      "rawSha256": "61a832c58119fc42cb36f8c80f8e5721f32578d8ad22557473c9ab7f8d6e105f",
+      "bytes": 262057
+    },
+    {
+      "path": "docs/hardening-20261106/combined/reference/producto-champagne.html.txt",
+      "rawSha256": "540a24f81bbbf7a0e04f48c3389a775a2d750359c3684f245e0098651c0838e5",
+      "bytes": 365459
+    },
+    {
+      "path": "docs/hardening-20261106/combined/reference/bolsa.html.txt",
+      "rawSha256": "e6cf65001a26724d3f59a0dcb8bc823283ad05efdce6173422a231b944c003b1",
+      "bytes": 144104
+    },
+    {
+      "path": "docs/hardening-20261106/combined/reference/checkout.html.txt",
+      "rawSha256": "affb042c1379eb74e64cce1b59134adc81450ba0d0a9af638fa64a783f6c9712",
+      "bytes": 138393
+    },
+    {
+      "path": "docs/hardening-20261106/combined/reference/pedido.html.txt",
+      "rawSha256": "6256d18c7b9b6fb33004a309606d1d5d8b88714a12a8412489fdf97fb1747620",
+      "bytes": 144018
+    },
+    {
+      "path": "docs/hardening-20261106/combined/reference/reference-desktop-clear.png",
+      "rawSha256": "4da31cb156382537b218d1796c5c166df190648a82da0cc7e3767719ce035482",
+      "bytes": 1225929
+    },
+    {
+      "path": "docs/hardening-20261106/combined/reference/reference-mobile.png",
+      "rawSha256": "bdec61dc257b936ac71b41a64dbf43d4e376fe2d21cc84e250d55bf3f0fa7fcf",
+      "bytes": 423871
+    },
+    {
+      "path": "docs/hardening-20261106/combined/SELECTED-REFERENCE.md",
+      "rawSha256": "ead29d88667cb20024de71fdff99fb227b11705bcfe907bc2eadfd6fddaf830b",
+      "bytes": 3743
+    }
+  ]
+}

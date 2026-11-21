@@ -1,0 +1,180 @@
+{
+  "task": "C8-current-head-20261104",
+  "observedUtc": "2026-11-04T01:48:44.648892+00:00",
+  "status": "LOCAL_COMPLETE_CI_PENDING",
+  "head": "260b75951729189d987ffe423218ab1643bcfa3c",
+  "clean": false,
+  "intentionalDirty": true,
+  "testRunsNew": 0,
+  "evidenceMode": "REUSED_NOT_RERUN",
+  "reusedResults": {
+    "focusedBrowser": {
+      "passed": 9,
+      "failed": 0
+    },
+    "fullBrowser": {
+      "passed": 45,
+      "failed": 0
+    },
+    "staffUnit": {
+      "passed": 45,
+      "failed": 0,
+      "skipped": 0,
+      "exit": 0,
+      "logSha256": "8019520bd1f899323dac3fe67fc1252307b86ec69877b0afcbf8353bef91c5ae"
+    },
+    "apiExpiry": {
+      "passed": 1,
+      "failed": 0
+    },
+    "InternalSecurityTests": {
+      "passed": 49,
+      "failed": 0
+    }
+  },
+  "browserHistorical": "156.0.8078.80",
+  "nodeHistorical": "v24.18.0",
+  "sdkHistorical": "10.0.402",
+  "historicalBrowserStages": [
+    {
+      "stage": "baseline",
+      "passed": 4,
+      "failed": 4,
+      "exit": 1,
+      "node": "v24.18.0",
+      "browser": "156.0.8078.80",
+      "sourceEvidenceSha256": "51b57b2f2c282f565dd81830dd4466da3e4650bdf333c46f762a28cc92744d85"
+    },
+    {
+      "stage": "baseline-corrected-harness",
+      "passed": 4,
+      "failed": 4,
+      "exit": 1,
+      "node": "v24.18.0",
+      "browser": "156.0.8078.80",
+      "sourceEvidenceSha256": "841429c68b6320fcd0ca347c2104571354fe5f8e6678360671cfccc8a04bd9e2"
+    },
+    {
+      "stage": "green",
+      "passed": 8,
+      "failed": 0,
+      "exit": 0,
+      "node": "v24.18.0",
+      "browser": "156.0.8078.80",
+      "sourceEvidenceSha256": "9e056d574fc3cc6eda96ac271c42c6d404c6b36ff596624233359e8d75c2582a"
+    },
+    {
+      "stage": "green-final",
+      "passed": 9,
+      "failed": 0,
+      "exit": 0,
+      "node": "v24.18.0",
+      "browser": "156.0.8078.80",
+      "sourceEvidenceSha256": "3d6b3a168f0aa983602675f3774ad131c761886702e0db483c7bca84eaedeaa8"
+    },
+    {
+      "stage": "red-app-only",
+      "passed": 7,
+      "failed": 2,
+      "exit": 1,
+      "node": "v24.18.0",
+      "browser": "156.0.8078.80",
+      "sourceEvidenceSha256": "cb509a55efd9c008c2d92c6116214d8bafecfea526d2833022d459104a9e4459"
+    },
+    {
+      "stage": "red-login-only",
+      "passed": 6,
+      "failed": 3,
+      "exit": 1,
+      "node": "v24.18.0",
+      "browser": "156.0.8078.80",
+      "sourceEvidenceSha256": "613744b10e26c995b745d8c66221d64fd6a3495920d14b5bb26d23dcae865b25"
+    },
+    {
+      "stage": "full",
+      "passed": 45,
+      "failed": 0,
+      "exit": 0,
+      "node": "v24.18.0",
+      "browser": "156.0.8078.80",
+      "sourceEvidenceSha256": "bad1e8f22d3c9877d10bba2ec01a08b0281059f7e119f1c193e8b32d78ddad3c"
+    }
+  ],
+  "apiTrxReadback": [
+    {
+      "file": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\c8-ui-20261103\\api-expiry-completion-20261103\\expiry-test.sanitized.trx",
+      "sha256": "0666601786ac1e5bb548865f737fbf65d40124ddbc94fb0947f290d0649b9cd9",
+      "counters": {
+        "total": 1,
+        "executed": 1,
+        "passed": 1,
+        "failed": 0,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      }
+    },
+    {
+      "file": "C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\c8-ui-20261103\\api-expiry-completion-20261103\\security-regressions.sanitized.trx",
+      "sha256": "28c1d1fb4aa1706b9e2b472b665f857199c001e8f264f21897f3ac9d655ee12d",
+      "counters": {
+        "total": 49,
+        "executed": 49,
+        "passed": 49,
+        "failed": 0,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      }
+    }
+  ],
+  "sixFilesMatchTestedBytes": true,
+  "dependencyBlobMismatches": 0,
+  "gitDiffCheckExit": 0,
+  "candidateApplyCachedCheckExit": 0,
+  "candidateReverseCheckExit": 0,
+  "candidatePatchSha256": "a0762dc021260f4c8c88b849552c4775c6bef17af06c5338e68e95cd7a221df0",
+  "bindingSha256": "f75f98e37c5506c960cebba06f1be86e7699b8d3e69b099409206f94a92c2545",
+  "productionSecurityChanged": false,
+  "sqlExecuted": false,
+  "clockGlobalChanged": false,
+  "ci": "PENDING_FOR_CANDIDATE_WITH_BOTH_PATCHES",
+  "ciBaseDoesNotCoverPatch": true,
+  "commit": false,
+  "push": false,
+  "deploy": false,
+  "resourcesStarted": [],
+  "resourcesToClean": [],
+  "ownership": "Released to primary after final handoff; no further worker changes.",
+  "statusShort": " M backend/tests/Martha.Store.Api.Tests/InternalSecurityTests.cs\n M dev/savia-staff-ui/README.md\n M dev/savia-staff-ui/app.mjs\n M dev/savia-staff-ui/auth.test.mjs\n M dev/savia-staff-ui/login.mjs\n M tests/browser-mock-validation.mjs\n?? docs/c8-ui-20261103/\n",
+  "diffStat": " .../InternalSecurityTests.cs                       | 72 ++++++++++++++++-\n dev/savia-staff-ui/README.md                       |  9 ++-\n dev/savia-staff-ui/app.mjs                         | 20 ++++-\n dev/savia-staff-ui/auth.test.mjs                   | 39 ++++++++++\n dev/savia-staff-ui/login.mjs                       | 35 +++++++--\n tests/browser-mock-validation.mjs                  | 89 +++++++++++++++++++++-\n 6 files changed, 246 insertions(+), 18 deletions(-)\n",
+  "blockers": [
+    {
+      "item": "CI for combined candidate bytes",
+      "evidence": "No commit or push authorized; existing base CI does not include six changed files.",
+      "cause": "Verification requires a later authorized CI candidate.",
+      "attempt": "No external mutation attempted. Local portable checks passed.",
+      "nextAction": "Primary reviews candidate.patch and binding; retain CI pending until an authorized run covers these exact bytes.",
+      "owner": "Primary / Jason",
+      "completionCheck": "Green CI linked to candidate file hashes; no current claim of execution."
+    }
+  ]
+}

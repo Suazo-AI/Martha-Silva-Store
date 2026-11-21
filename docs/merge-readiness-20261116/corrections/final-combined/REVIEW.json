@@ -1,0 +1,351 @@
+{
+  "status": "PREPARED_FOR_INDEPENDENT_REVIEW",
+  "sourceSha": "ba8ff2ba10935e99fc268ebbe5eae130f72c1cca",
+  "archivePath": "docs/merge-readiness-20261116/corrections/final-combined/review-overlay.zip",
+  "archiveSha256": "ac0465e96c6a0f2a5b95023d0bc1cc3b46d7a96235dad2f665ac581fb0a742e9",
+  "archiveEntries": [
+    {
+      "path": ".github/workflows/golden-path.yml",
+      "rawSha256": "ac232cbd55a4df86a90661ce907c067d041916e5d729122660067ba1615e3fc9",
+      "lfSha256": "e9b63cd3c06dd67e26ba36fe3ad298908c95b2e1a0b8ab7cbd43ed6662c33622",
+      "bytes": 10879
+    },
+    {
+      "path": "dev/savia-staff-ui/cash.test.mjs",
+      "rawSha256": "c9d7c550bb7e39b0a7eadcead62daede16f43e9e968e4cfbf62527b4fd65ed61",
+      "lfSha256": "2993c86ba4517ad3a87d729fc9e51bc0c8bfdf3c8b64eebf5a5a69d698f4a258",
+      "bytes": 26330
+    },
+    {
+      "path": "savia/db/migrations/MANIFEST.sha256",
+      "rawSha256": "2e878b9e3c3eea5c1135ad0f1c2ac22a24f771aa5e41cba66665be79691eefe0",
+      "lfSha256": "2e878b9e3c3eea5c1135ad0f1c2ac22a24f771aa5e41cba66665be79691eefe0",
+      "bytes": 2803
+    },
+    {
+      "path": "savia/db/migrations/V029__return_retry_safety.sql",
+      "rawSha256": "6041e3880fb4cb02c595504e394701e52408e426767c67c2b575914402b353cc",
+      "lfSha256": "6041e3880fb4cb02c595504e394701e52408e426767c67c2b575914402b353cc",
+      "bytes": 23115
+    },
+    {
+      "path": "savia/db/tests/sales/134_credit_return_validation.sql",
+      "rawSha256": "a243bc9d3c05e9e12744a02fd31193caaf62cee9566acd748d4772d57127575c",
+      "lfSha256": "c331b7564647612297ba977ee872dc40aa625c4a6b618d6296333d98a7639fca",
+      "bytes": 8837
+    },
+    {
+      "path": "savia/db/tests/sales/172_return_retry_safety.sql",
+      "rawSha256": "1c816dfdf60c45a8e71865222d3718f9d0ca552075fc73dddba15e11567a47ee",
+      "lfSha256": "1c816dfdf60c45a8e71865222d3718f9d0ca552075fc73dddba15e11567a47ee",
+      "bytes": 20807
+    },
+    {
+      "path": "savia/tests/Savia.Tests/ReturnRetrySafetyTests.cs",
+      "rawSha256": "3fe76573de23dd884534e6fb2d8414737ef2344221f70d9e319b1acceee68b37",
+      "lfSha256": "3fe76573de23dd884534e6fb2d8414737ef2344221f70d9e319b1acceee68b37",
+      "bytes": 9916
+    },
+    {
+      "path": "savia/tests/test_return_retry_safety.py",
+      "rawSha256": "6a180e8c8d27900a203bd94c338260863dc45e157c1e351302eceff02af9a9f5",
+      "lfSha256": "6a180e8c8d27900a203bd94c338260863dc45e157c1e351302eceff02af9a9f5",
+      "bytes": 6498
+    },
+    {
+      "path": "savia/web/app.mjs",
+      "rawSha256": "c0f673d033ccad4d153835eccfec16ce505fbacf22ea0acc7377ea6fa2d58129",
+      "lfSha256": "c0f673d033ccad4d153835eccfec16ce505fbacf22ea0acc7377ea6fa2d58129",
+      "bytes": 7605
+    },
+    {
+      "path": "savia/web/api.mjs",
+      "rawSha256": "d30bf2f0bee090cb505c64a1f672cc83c253444f3878ffa6f7ee46dee45b59c6",
+      "lfSha256": "b0a2fe70bddb20de4b0745c06257bf05c9e60afd1d16611a6b1ed748133367f6",
+      "bytes": 13384
+    },
+    {
+      "path": "savia/web/screens/return.mjs",
+      "rawSha256": "b16fdac727c33391c52df88813b8a404e6e09d8511804541aa4f274828644fe1",
+      "lfSha256": "b16fdac727c33391c52df88813b8a404e6e09d8511804541aa4f274828644fe1",
+      "bytes": 27645
+    },
+    {
+      "path": "savia/web/screens/return-intent.mjs",
+      "rawSha256": "96f95f5c45ee6d9edf0478b78dcce20d180b379429745ebe4624c6c79c6bb049",
+      "lfSha256": "96f95f5c45ee6d9edf0478b78dcce20d180b379429745ebe4624c6c79c6bb049",
+      "bytes": 6818
+    },
+    {
+      "path": "savia/web/screens/sale-logic.mjs",
+      "rawSha256": "ba169c19e3aa25187c4749dacde347c1c8bab32c98472aebe0b136be111138fc",
+      "lfSha256": "ba169c19e3aa25187c4749dacde347c1c8bab32c98472aebe0b136be111138fc",
+      "bytes": 4180
+    },
+    {
+      "path": "savia/web/uuid-logic.mjs",
+      "rawSha256": "8e93aa30b7239fc7576e1cb29cf991c11a1d951475b1cc56219047fa6ef97813",
+      "lfSha256": "8e93aa30b7239fc7576e1cb29cf991c11a1d951475b1cc56219047fa6ef97813",
+      "bytes": 493
+    },
+    {
+      "path": "savia/web/tests/uuid.test.mjs",
+      "rawSha256": "0e2bf69aeb4b95e993669984a99c6889d5b77f90b051808c6be251b5445012bd",
+      "lfSha256": "0e2bf69aeb4b95e993669984a99c6889d5b77f90b051808c6be251b5445012bd",
+      "bytes": 2484
+    },
+    {
+      "path": "savia/web/tests/return-lifecycle.test.mjs",
+      "rawSha256": "d3514ec44a4e626aa5f0e092eed8769ce3cf6adc042a16a82e250ddcb85fac19",
+      "lfSha256": "d3514ec44a4e626aa5f0e092eed8769ce3cf6adc042a16a82e250ddcb85fac19",
+      "bytes": 24841
+    },
+    {
+      "path": "tests/test_golden_path_workflow.py",
+      "rawSha256": "813d700f335162fe03476dd9a133f9b079cb739f5c3359fce295862d96c215b2",
+      "lfSha256": "813d700f335162fe03476dd9a133f9b079cb739f5c3359fce295862d96c215b2",
+      "bytes": 11438
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/staff/README.md",
+      "rawSha256": "1dab94dfe2e70c53506997e145174d00fc99f76a697739a54da7252f54772f3a",
+      "lfSha256": "30cff602f5e629d7861d7b5732b3113d0a4a9d0fb473258ffba4b2c3453780f1",
+      "bytes": 6003
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/staff/RESULT.json",
+      "rawSha256": "bb7a9ec5445b4fd8123c290644869a86094e2f7ad64d30908541dd39ea56f4dc",
+      "lfSha256": "49e9c9d755cd4e4623fb47bb681ff9a42977d428a6287bfe6be25f0f2d16133f",
+      "bytes": 9544
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/staff/IMPORT.json",
+      "rawSha256": "c5ee4fbb64abc0669a57318c44de836b95302f5f57cd9364a8e44deddfe51ccb",
+      "lfSha256": "41d8656c1a63693d2dc2321143650e711970a6f5854d0298101f36a711cf3375",
+      "bytes": 4393
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/golden/README.md",
+      "rawSha256": "67074114cfbb3243fd6b31767ae0daf56a0e21baab323025d125684a0a9ebcc9",
+      "lfSha256": "67074114cfbb3243fd6b31767ae0daf56a0e21baab323025d125684a0a9ebcc9",
+      "bytes": 8159
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/golden/IMPORT.json",
+      "rawSha256": "d5ab5543fd888467a3a8ea70cf33390ada845d6b9950076d4f305e0627891c9e",
+      "lfSha256": "aae086688ca78106a0f0d4d7a95ccbed68f62592d32d4c7a52e728f9c28766bf",
+      "bytes": 5074
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/golden/source-bindings.json",
+      "rawSha256": "426b51c5cdf75ddb0c250d097b57c6e4dd7a6b74c7d7b37693ee761c695a2de9",
+      "lfSha256": "5bbf5245f9e7b4039cf016b8f10566edd7f27fdcedea8307eb56f95429ccb06c",
+      "bytes": 3586
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/uuid/README.md",
+      "rawSha256": "6cd351e3c291c14735c0b918ce8ad490280a7dd2a5c2ef28a972c4e077a45c83",
+      "lfSha256": "6cd351e3c291c14735c0b918ce8ad490280a7dd2a5c2ef28a972c4e077a45c83",
+      "bytes": 1941
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/uuid/RESULT.json",
+      "rawSha256": "636fc38854417b5e6de2ec0bc4d706ea39ef2da19a59219b2df73a412a448cc0",
+      "lfSha256": "da99ad4fdc022cbb08212ff6a9dc1b2ea24336c08baed4ee1b7a75115678d658",
+      "bytes": 2655
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/ADOPTION.md",
+      "rawSha256": "661bc04c4a4ac2064a5580288a7de7979a9ac84c0322ee717073ae9a5fb619ea",
+      "lfSha256": "5386fa506c282b5018f0e9ad520571a60ff66e16ef77cdea992122b27a21204b",
+      "bytes": 3238
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/astra-preimplementation.md",
+      "rawSha256": "7435593980ec2a9377acf41b0dcd6405d7599864c45ea7c9f35221ece7aaa314",
+      "lfSha256": "7435593980ec2a9377acf41b0dcd6405d7599864c45ea7c9f35221ece7aaa314",
+      "bytes": 10494
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/PRIMARY.json",
+      "rawSha256": "6de74f920448c6c36eef2dbf636405bb9e71152d2749d66fa8565488177f5306",
+      "lfSha256": "5c21624cc231fc98c0663fc399d24c9330324104817f80a015e89b5a4c32822d",
+      "bytes": 3675
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/astra-sql-review.md",
+      "rawSha256": "ea007fb66f278432e24cd9a832f5b889b5b4d642366540ca5f4c5a5f64a458f0",
+      "lfSha256": "ea007fb66f278432e24cd9a832f5b889b5b4d642366540ca5f4c5a5f64a458f0",
+      "bytes": 10161
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/PLAN.md",
+      "rawSha256": "a8649da923f331fa841c1eae790ec9a95d8de71bae43ed7f614ea064c030ff34",
+      "lfSha256": "a8649da923f331fa841c1eae790ec9a95d8de71bae43ed7f614ea064c030ff34",
+      "bytes": 2530
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/astra-recheck.md",
+      "rawSha256": "2cee3a0c367e15740abaa1e005803a62b308750a391805881b1ce88e5b680ba0",
+      "lfSha256": "2cee3a0c367e15740abaa1e005803a62b308750a391805881b1ce88e5b680ba0",
+      "bytes": 10110
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/PRIMARY.json",
+      "rawSha256": "11d4996c4911f4740a2d94c98edae38173ef79a78f8fa4080ecb293a7402b951",
+      "lfSha256": "11d4996c4911f4740a2d94c98edae38173ef79a78f8fa4080ecb293a7402b951",
+      "bytes": 6320
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/README.md",
+      "rawSha256": "1b127bb045673858cd54752be1359f3c5ce1c458daee8c1cbd831cbe72280952",
+      "lfSha256": "1b127bb045673858cd54752be1359f3c5ce1c458daee8c1cbd831cbe72280952",
+      "bytes": 6388
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/RESULT.json",
+      "rawSha256": "295775b9339aff68320cd555a34d0ac4f745b17872aa16dcffd34f1aef587c74",
+      "lfSha256": "295775b9339aff68320cd555a34d0ac4f745b17872aa16dcffd34f1aef587c74",
+      "bytes": 5779
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/ui-review/astra-ui-review.md",
+      "rawSha256": "5592b1f922bbcd1046569172188737eed130854b0dafb74e7bb3f1b75ef7ffed",
+      "lfSha256": "5592b1f922bbcd1046569172188737eed130854b0dafb74e7bb3f1b75ef7ffed",
+      "bytes": 10277
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/ui-review/corrections/PLAN.md",
+      "rawSha256": "bd7c15511e6c33b26349731923d4173084df516243592f127f44a73140d78a44",
+      "lfSha256": "bd7c15511e6c33b26349731923d4173084df516243592f127f44a73140d78a44",
+      "bytes": 6293
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/ui-review/corrections/primary/IMPORT.json",
+      "rawSha256": "02ee404d53afcbfe43710ea94455145cd00e29fd30050c005d2fe0488c36ad2e",
+      "lfSha256": "02ee404d53afcbfe43710ea94455145cd00e29fd30050c005d2fe0488c36ad2e",
+      "bytes": 4054
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/ui-review/corrections/worker/ARTIFACTS.json",
+      "rawSha256": "f99ad8861aea85d06f8fb057926e4eec927f696eeb94ce1e49acf0645120ea0d",
+      "lfSha256": "bb2003b519b488618e9ee580a3e77f2bbafdeb319d6b7d67b746328e754b5350",
+      "bytes": 4970
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/ui-review/corrections/worker/final-web.txt",
+      "rawSha256": "b93f418df6f696b151ac211c018e50a4e135fc5ccc1dff768eea71bb5d848666",
+      "lfSha256": "0b9310feb43267c5028628508f33b3de2a688bcae7aa37161491425e6abca3cf",
+      "bytes": 9175
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/ui-review/corrections/worker/green1.txt",
+      "rawSha256": "ec4b06164e0fad449e5ed8a5ca8d3b06237d31502e961326de2cad237e57a7dc",
+      "lfSha256": "a909f931d28d191ca951401c1836318af992e0ea9c990749f61916c4e4994960",
+      "bytes": 2209
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/ui-review/corrections/worker/green2.txt",
+      "rawSha256": "841efa14101366dd6489bd01b2dd89157873217476474d04792284aa04b255ad",
+      "lfSha256": "e944d8b7b14bd79f79731ab4de96c84864f8188c82c0c088664afc40f52ded7e",
+      "bytes": 2569
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/ui-review/corrections/worker/green3.txt",
+      "rawSha256": "56f6365708b71c129c48fc74fcfe033c01e21af6636448d6ef9058184e4b7f37",
+      "lfSha256": "b6bf727dd18697ced56b3442ae79b18c3fa55dbc84b6f232631573e9e6ee9e1a",
+      "bytes": 1427
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/ui-review/corrections/worker/green4.txt",
+      "rawSha256": "31ba449e9f89c4cba787fdd3aae9cc65e7ee341dad7ec55430231f99c5cbf8f0",
+      "lfSha256": "6d2f9105025f84f0e09c75095eea3a6d5e73071c5d815c301ed055aa7ca03936",
+      "bytes": 2150
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/ui-review/corrections/worker/green5.txt",
+      "rawSha256": "b4048d872f201fe7ebca7ee0a91c3b6883cce2015103acd65f8d2baee97c45a4",
+      "lfSha256": "3373bab7ab8a01584e2b70a2cf834eb47bd228c93ce113d46a59ed87231f8e54",
+      "bytes": 2451
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/ui-review/corrections/worker/negative-controls.txt",
+      "rawSha256": "9d42cdaeb9d6226453970a32b3e76724d666583ee99110db5555c50220fb7f4e",
+      "lfSha256": "9d42cdaeb9d6226453970a32b3e76724d666583ee99110db5555c50220fb7f4e",
+      "bytes": 5054
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/ui-review/corrections/worker/README.md",
+      "rawSha256": "826d91979f405285ea0a3b4f5c3f56f1f79a66bc4c6121da09ef82421b3b4193",
+      "lfSha256": "d943912bc34014cb81dc3c19d518b2b7c17751b09226f731c279e9feaaaf02d7",
+      "bytes": 2975
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/ui-review/corrections/worker/red.txt",
+      "rawSha256": "d8d551d214001ee6dcc0b1b5409d825c85a6c6fb2b3479e2f0e35de30026db84",
+      "lfSha256": "e838437f390eadc0e45a4e6ccb2d4913a75580276dddfe6def93c8c72cc2358e",
+      "bytes": 5336
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/ui-review/corrections/worker/RESULT.json",
+      "rawSha256": "800421fdad35310759c598fdb3af83238807815b2e9e7ee0169956e14f22abc3",
+      "lfSha256": "0408555a1f6c7ed5dfb307e729fa9887176a89e2973a810aabdecfdefe390050",
+      "bytes": 10335
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/evidence/guard-green.txt",
+      "rawSha256": "e5cd038cbbd8c48fd8e162ba42019cb6a8dd1fd7875e16b1d41170ac204f6bfe",
+      "lfSha256": "960da5fc1eb9cb5a2641bf51f826142d685bb57a0263278672f16391e5ced49c",
+      "bytes": 112
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/evidence/guard-red.txt",
+      "rawSha256": "18a8e36dfaa66289061003811efaee3ffc7c5b822cbc61d62854c9d50a356774",
+      "lfSha256": "c2b65502682e98fa919bfc5a574624da9ec903b4051721a0500b6d56fbf3150e",
+      "bytes": 715
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/evidence/rules-green.txt",
+      "rawSha256": "83882949321a95f853f98b2050a7f21bacf5e06d20afd6c14e31833c6b32cc43",
+      "lfSha256": "5af7c6fdb20f2943334a5a83bfdf2359a20856ef48582899259bcdeffda559fb",
+      "bytes": 892
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/evidence/web-green.txt",
+      "rawSha256": "99df9f108f908d066dcda59cb6928369292e52266d9a7a5b6f4948cdce585538",
+      "lfSha256": "99df9f108f908d066dcda59cb6928369292e52266d9a7a5b6f4948cdce585538",
+      "bytes": 9057
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/RESULT.json",
+      "rawSha256": "eac24ecf3015872b231963a59fc9cc86433613560269e33d357c760eb890b91b",
+      "lfSha256": "eac24ecf3015872b231963a59fc9cc86433613560269e33d357c760eb890b91b",
+      "bytes": 9291
+    }
+  ],
+  "sourcePaths": [
+    ".github/workflows/golden-path.yml",
+    "dev/savia-staff-ui/cash.test.mjs",
+    "savia/db/migrations/MANIFEST.sha256",
+    "savia/db/migrations/V029__return_retry_safety.sql",
+    "savia/db/tests/sales/134_credit_return_validation.sql",
+    "savia/db/tests/sales/172_return_retry_safety.sql",
+    "savia/tests/Savia.Tests/ReturnRetrySafetyTests.cs",
+    "savia/tests/test_return_retry_safety.py",
+    "savia/web/app.mjs",
+    "savia/web/api.mjs",
+    "savia/web/screens/return.mjs",
+    "savia/web/screens/return-intent.mjs",
+    "savia/web/screens/sale-logic.mjs",
+    "savia/web/uuid-logic.mjs",
+    "savia/web/tests/uuid.test.mjs",
+    "savia/web/tests/return-lifecycle.test.mjs",
+    "tests/test_golden_path_workflow.py"
+  ],
+  "sourceBindings": 17,
+  "outputPaths": {
+    "judge": "docs/merge-readiness-20261116/corrections/final-combined/astra-review.md",
+    "browser": "docs/merge-readiness-20261116/corrections/final-combined/browser/"
+  },
+  "exclusions": "No private logs, secrets, environment files, raw unrelated data, node_modules, previous archives or foreign untracked files."
+}

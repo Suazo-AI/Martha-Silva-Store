@@ -1,0 +1,16 @@
+{
+  "card": "N5-COV",
+  "card_id": "6aea7aec54bb8b136608e05e",
+  "marker": "[SAVIA-N5-COV-CLOSE-e4b79108]",
+  "action_id": "6aeaa5bab04080ae1ce0fbb8",
+  "date": "2026-11-04T03:25:46.764Z",
+  "comment": "[SAVIA-N5-COV-CLOSE-e4b79108]\nRevision C8 final confirma tres GAP de cobertura extra, sin afirmar defecto de producto: 1) retener recovery y probar submit deshabilitado durante espera; 2) completar venta nueva tras descartar recibo obsoleto; 3) 404 tardio en carrera controlada. Los cinco casos N5 actuales PASS no prueban esos escenarios completos. Evidencia y rutas: docs/c8-ui-20261103/FINAL-CI-REVIEW.md, seccion N5-COV. C8 cierra su contrato N2/N6/N7; N5-COV sigue pendiente, sin ejecuciones ni criterios rebajados.",
+  "exact_readback": true,
+  "list_before": "6aea5d66e5b03a07af094570",
+  "list_after": "6aea5d66e5b03a07af094570",
+  "closed": false,
+  "check_items_completed": [],
+  "complete": 0,
+  "total": 0,
+  "technical_closure": false
+}

@@ -1,0 +1,28 @@
+{
+  "observedUtc": "2026-11-06T02:44:10.812Z",
+  "host": "SUAZO-PC",
+  "node": "v24.18.0",
+  "browser": "156.0.8078.80",
+  "layer": "Real Chromium browser; mocked staff API; public browser-local demo",
+  "origin": "http://127.0.0.1:53154",
+  "sourceHashes": {
+    "dev/savia-staff-ui/app.mjs": "cc70f5adf216de28cf5a4b5efc1166d2df5fb6b6d22da9c6daee004c92237208",
+    "dev/savia-staff-ui/client.mjs": "d435b0ec3752ad81630fc7a8368e3a0465654dce569a815e9b149cac5614dec3",
+    "dev/savia-staff-ui/login.mjs": "67c005464ad8904de3a283bb1c0aa9a6564ed0f15a9e8cb8861795ca6b8bfbb3",
+    "dev/savia-staff-ui/supply.mjs": "1695273b2135acddb900c821e62f872601bc2ea443312763ea879ff9da60246b",
+    "dev/savia-staff-ui/login.html": "4803ece2ef530d9e5161837209ac86591bfe1447e9876b0f38bf17baca9a8382",
+    "dev/savia-staff-ui/index.html": "1b2b705b65461cdedf4360bc5c9a34271bef8b12461a5639181566d1b2dae45e",
+    "dev/savia-staff-ui/styles.css": "3be78159e11d127c91db22399fb306fcc35e9cb8886a556393a003b82c9c2622"
+  },
+  "results": [
+    {
+      "name": "Supply receipt entry is usable while customer creation stays unavailable",
+      "status": "PASS",
+      "durationMs": 547,
+      "detail": "Existing purchase receipt workflow has its own actual-Chrome mocked acceptance driver."
+    }
+  ],
+  "runtime": [],
+  "externalRequests": [],
+  "networkFailures": []
+}

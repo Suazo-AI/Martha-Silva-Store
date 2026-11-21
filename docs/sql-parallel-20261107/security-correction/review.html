@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SAVIA · Revisión del plan SQL de cinco pruebas</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;background:transparent}body{font:16px/1.5 var(--font-sans,system-ui,-apple-system,"Segoe UI",sans-serif);color:var(--foreground,#192d25)}main{max-width:960px;margin:auto}h1{font-size:clamp(26px,5vw,38px);line-height:1.12;margin:12px 0}h2{font-size:21px;line-height:1.3;margin:28px 0 12px}h3{font-size:17px;margin:0 0 8px}p{margin:8px 0}a{color:var(--primary,#31584a);text-underline-offset:3px}code{font:13px/1.55 var(--font-mono,ui-monospace,monospace);overflow-wrap:anywhere}small,.muted{color:var(--muted-foreground,#55645a)}.status,.panel{padding:16px;border-radius:var(--radius,18px);background:var(--card,#fffefa);border:1px solid var(--border,#d6ded2)}.status{border-left:4px solid var(--warning,#755010)}.status strong{display:block}.lead{font-size:18px;max-width:730px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:20px 0}.metric{font-size:25px;font-weight:700}.panel p{margin-bottom:0}.step{display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;margin:14px 0}.num{display:inline-grid;place-items:center;align-self:start;width:28px;height:28px;border-radius:50%;background:var(--secondary,#edf2e8);color:var(--foreground,#192d25);font-weight:700}.flow{padding:0;list-style:none}.flow strong{display:block}.flow span{color:var(--muted-foreground,#55645a)}details{border-top:1px solid var(--border,#d6ded2);padding:14px 0}details:last-of-type{border-bottom:1px solid var(--border,#d6ded2)}summary{cursor:pointer;font-weight:650;min-height:32px;overflow-wrap:anywhere}details[open] summary{margin-bottom:10px}.detail{padding-left:20px}.detail p{max-width:780px}.proof{border-left:3px solid var(--success,#285c3c);padding-left:12px;margin:12px 0}.tech{display:block;margin-top:12px;color:var(--muted-foreground,#55645a)}button{font:inherit;font-weight:600;border:1px solid var(--border,#d6ded2);border-radius:var(--radius,10px);padding:9px 13px;background:var(--secondary,#edf2e8);color:var(--foreground,#192d25);cursor:pointer}button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--ring,#256c62);outline-offset:4px}.split{display:grid;grid-template-columns:1fr 1fr;gap:16px}.split ul{padding-left:21px;margin:8px 0}.split li{margin:7px 0}.note{padding:16px;border-left:4px solid var(--warning,#755010);background:var(--secondary,#edf2e8);border-radius:var(--radius,10px)}footer{border-top:1px solid var(--border,#d6ded2);margin-top:28px;padding:18px 0;font-size:13px;color:var(--muted-foreground,#55645a)}.sources{display:flex;flex-wrap:wrap;gap:8px 18px}.boundary{font-weight:650}p,li,h1,h2,h3,summary{overflow-wrap:anywhere}button{max-width:100%}@media(max-width:600px){.grid{grid-template-columns:1fr;gap:8px}.grid .panel{display:flex;gap:16px;align-items:center}.metric{min-width:94px}.split{grid-template-columns:1fr}.detail{padding-left:0}.lead{font-size:17px}h2{margin-top:24px}}@media print{button{display:none}details{break-inside:avoid}a{color:inherit}}
+</style>
+</head>
+<body>
+<main>
+<div class="status"><strong>Elegiste D: revisar primero.</strong>No hay autorización para esta ejecución SQL. Esta página no ejecuta comandos ni aprueba pruebas.</div>
+<h1>Cinco pruebas para cerrar cinco pendientes.</h1>
+<p class="lead">Usaríamos un servidor SQL temporal dentro de tu PC. Crearíamos datos ficticios, comprobaríamos resultados y eliminaríamos ese servidor al terminar.</p>
+<div class="grid" aria-label="Límites del plan">
+  <div class="panel"><div class="metric">4 + 1</div><p>Cuatro métodos corregidos.<br>Uno después del reinicio.</p></div>
+  <div class="panel"><div class="metric">25 min</div><p>Límite del servidor temporal.<br>No es una duración prometida.</p></div>
+  <div class="panel"><div class="metric">35 min</div><p>Límite total del trabajo.<br>Incluye preparación y limpieza.</p></div>
+</div>
+
+<h2>Qué vamos a comprobar</h2>
+<p>Los primeros cuatro métodos fallaron por problemas del entorno de pruebas o su verificador. La corrección pasó revisión independiente; falta ejecutarla con SQL.</p>
+<button id="toggle" type="button" aria-controls="cases" aria-expanded="false">Abrir los cinco casos</button>
+<section id="cases" aria-label="Detalle de cada prueba">
+<details id="case-1"><summary>1. Impedir que una cuenta vea operaciones ajenas.</summary><div class="detail">
+<p><strong>Caso ficticio:</strong> una persona registra una venta en la sucursal A. Después se cambia su asignación a la sucursal B.</p>
+<p><strong>Comprobación:</strong> el sistema consulta la sesión y los permisos guardados antes de devolver el resultado. Otro actor tampoco puede recuperar esa operación.</p>
+<div class="proof">Pasa si devuelve el resultado al actor permitido y rechaza los accesos posteriores sin revelar la venta.</div>
+<p>Evita que una sesión conserve acceso que ya no le corresponde. La autenticación del test es sintética; el endpoint y SQL son reales.</p>
+<code class="tech">Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS21_25_Operations_http_checks_persisted_scope_and_actor_before_returning_result</code>
+</div></details>
+<details id="case-2"><summary>2. Impedir que un cajero vea costos de compra.</summary><div class="detail">
+<p><strong>Caso ficticio:</strong> un cajero intenta consultar pedidos de compra y sus recepciones mediante tres rutas del sistema.</p>
+<div class="proof">Pasa si las tres respuestas rechazan el acceso y ninguna incluye el campo del costo unitario.</div>
+<p>Protege información de compras. Una pantalla que oculta el costo no basta: el servidor también debe impedir su lectura.</p>
+<code class="tech">Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS28_Cashier_cannot_read_purchase_costs_through_any_supply_get</code>
+</div></details>
+<details id="case-3"><summary>3. Instalar y actualizar la estructura sin perder la muestra.</summary><div class="detail">
+<p><strong>Caso ficticio:</strong> instalamos SAVIA en una base vacía. También actualizamos una base que solo tiene la primera versión.</p>
+<div class="proof">Pasa si ambas llegan a la estructura esperada y la actualización conserva las filas ficticias verificadas.</div>
+<p>Comprueba el script de actualización. No actualiza ninguna base existente de tu equipo.</p>
+<code class="tech">Martha.Store.Api.Tests.InternalReleaseScriptTests.Release_script_upgrades_empty_and_first_migration_databases_and_preserves_synthetic_rows</code>
+</div></details>
+<details id="case-4"><summary>4. Crear un backup y restaurarlo en otra base temporal.</summary><div class="detail">
+<p><strong>Caso ficticio:</strong> guardamos el artículo <code>QA-PILOT-01</code>, precio USD 12.50, con 17 unidades y 3 reservadas.</p>
+<p>El método verifica migraciones, reaplicación y una reversión en otra base desechable. Después crea un backup con checksum y lo restaura.</p>
+<div class="proof">Pasa si coinciden estructura y las cuatro proyecciones de datos básicos verificadas antes y después de restaurar.</div>
+<p>La reversión destruye exclusivamente su fixture temporal. No representa un procedimiento de recuperación para datos reales.</p>
+<code class="tech">Martha.Store.Api.Tests.PrivatePilotReleaseTests.Real_migration_reapply_throwaway_down_up_and_actual_backup_restore</code>
+</div></details>
+<details id="case-5"><summary>5. Reiniciar el servidor temporal y comprobar que conserva la muestra.</summary><div class="detail">
+<p>Solo se ejecuta después de que los cuatro métodos anteriores pasen. Usamos la base identificada por el recibo nuevo del caso 4.</p>
+<p>Detenemos y arrancamos el contenedor real. Esperamos a que esa base esté disponible; no basta con que responda el servidor.</p>
+<div class="proof">Pasa si sobreviven los datos ficticios esperados y siguen funcionando las restricciones de la base.</div>
+<p>Después se elimina el contenedor. Una comprobación independiente debe confirmar que ya no existe.</p>
+<code class="tech">Martha.Store.Api.Tests.PrivatePilotReleaseTests.Frozen_fixture_survives_controlled_owned_container_stop_start</code>
+</div></details>
+</section>
+
+<h2>El orden y los puntos de parada</h2>
+<ol class="flow">
+<li class="step"><span class="num" aria-hidden="true">1</span><div><strong>Comprobar los archivos y las herramientas.</strong><span>Mismos inputs revisados, imagen ya descargada y puerto libre. Sin descargar ni instalar.</span></div></li>
+<li class="step"><span class="num" aria-hidden="true">2</span><div><strong>Crear un único servidor temporal identificado.</strong><span>Nombre único, etiqueta de propiedad e ID capturado. Espera inicial máxima: 120 segundos.</span></div></li>
+<li class="step"><span class="num" aria-hidden="true">3</span><div><strong>Ejecutar una vez los cuatro métodos.</strong><span>Una compilación. Exigimos cuatro identidades únicas aprobadas y cero pruebas omitidas, faltantes o extra.</span></div></li>
+<li class="step"><span class="num" aria-hidden="true">4</span><div><strong>Reiniciar y ejecutar una vez el quinto método.</strong><span>Solo con cuatro pases y el recibo válido de esta ejecución. No usamos una base ni un recibo antiguos.</span></div></li>
+<li class="step"><span class="num" aria-hidden="true">5</span><div><strong>Guardar evidencia y retirar el recurso propio.</strong><span>Logs privados, resultados saneados y confirmación de ausencia. Ante un fallo, se detienen los pasos dependientes; sin reintentos automáticos.</span></div></li>
+</ol>
+
+<h2>Qué cambia en tu PC</h2>
+<div class="split">
+<section class="panel"><h3>Dentro del alcance propuesto</h3><ul>
+<li>Un contenedor: un servidor de prueba aislado.</li>
+<li>SQL Server 2022 Developer, 2 CPU y 2 GiB de RAM.</li>
+<li>Puerto <code>127.0.0.1:14339</code>, accesible desde tu PC.</li>
+<li>Bases nuevas <code>SaviaInternalTest_*</code> y datos ficticios.</li>
+<li>EULA y confianza del certificado limitadas al servidor de prueba, como en las ejecuciones anteriores.</li>
+<li>Datos del servidor en su almacenamiento temporal, sin carpetas del host montadas.</li>
+</ul></section>
+<section class="panel"><h3>Fuera del alcance</h3><ul>
+<li>SQL nativo y bases preexistentes.</li>
+<li>Cuentas, clientes, ventas o dinero reales.</li>
+<li>Certificados de Windows y confianza global.</li>
+<li>Cambios en firewall, servicios o cuentas del equipo.</li>
+<li>Descargas, instalaciones, merge y despliegue.</li>
+<li>Reparar código y volver a ejecutar sin un nuevo alcance.</li>
+</ul></section>
+</div>
+<p>Podría consumir CPU, memoria y disco mientras corre. Si falta una herramienta, el motor no responde o el puerto está ocupado, se detiene la preparación.</p>
+
+<h2>Qué demuestra y qué falta después</h2>
+<div class="note"><p class="boundary">Aunque las cinco pasen, SAVIA todavía no queda aprobado para producción.</p><p>El backup y el reinicio actuales verifican datos básicos. No prueban la recuperación de movimientos de caja con efectivo.</p></div>
+<p>Seguirían pendientes la UI completa de caja y su recorrido real navegador → API → SQL: apertura, venta, vuelto, recuperación, devolución y cierre contado.</p>
+<p>Los <strong>23 pases de seguridad y 39 de negocio</strong> se conservan como evidencia histórica. Solo se reutilizan mientras los archivos y condiciones relevantes sigan equivalentes.</p>
+
+<h2>Mi recomendación</h2>
+<p>Ejecutar estas cinco pruebas locales después de que revisés el alcance. La implementación de caja puede avanzar en paralelo.</p>
+<p>Esperar a la UI no reduce estas cinco comprobaciones. Si su integración cambia los contratos relevantes, habrá que evaluar sus pruebas afectadas.</p>
+<p class="muted">Elegir D mantiene la ejecución sin autorización. Abrir esta página o sus detalles no cambia esa decisión.</p>
+<footer>
+<div class="sources"><a href="MINIMUM-RERUN.md">Plan técnico exacto</a><a href="PRIMARY-ACCEPTANCE.json">Aceptación primaria</a><a href="astra-judge.md">Revisión Astra/xhigh</a></div>
+<p>Fuente revisada: <code>550b10456c10a2857da930913b397bd1a96949d2</code>. Host propuesto: SUAZO-PC. Diseño base: tokens de <code>dev/savia-staff-ui/styles.css</code>; adaptación al tema de la conversación.</p>
+</footer>
+</main>
+<script>
+const button=document.getElementById('toggle');
+const cases=[...document.querySelectorAll('#cases details')];
+function sync(){const all=cases.every(x=>x.open);button.textContent=all?'Cerrar los cinco casos':'Abrir los cinco casos';button.setAttribute('aria-expanded',String(all));}
+button.addEventListener('click',()=>{const open=!cases.every(x=>x.open);for(const item of cases)item.open=open;sync();});
+for(const item of cases)item.addEventListener('toggle',sync);
+</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+[
+  {
+    "path": "build-inputs/static/prototypes/fonts/font-0.ttf",
+    "sha256": "0b9a8a33cfaa624d30f70f9b6686da769b319b8c37a55af16e29fef690108bbf"
+  },
+  {
+    "path": "build-inputs/static/prototypes/fonts/font-0.woff2",
+    "sha256": "ab56c72ce4498aff9727ceaa67f66f0ded88dd67e0d4cdb6cc4fcdb2f35ebbc5"
+  },
+  {
+    "path": "build-inputs/static/prototypes/fonts/font-1.ttf",
+    "sha256": "6d37a86241a25d63f8fe6018b4c083449886b7165c1acb15edd0f574f690ecf7"
+  },
+  {
+    "path": "build-inputs/static/prototypes/fonts/font-1.woff2",
+    "sha256": "1a28de052332e0b534fbaeb1654806bc9ee8e36cf7b1f5b9553576652ed76dee"
+  },
+  {
+    "path": "build-inputs/static/prototypes/fonts/font-2.ttf",
+    "sha256": "1724047c8988ca5155bff667bc48fa52e97d57aabc6b42eebbf986f21a4be20b"
+  },
+  {
+    "path": "build-inputs/static/prototypes/fonts/font-2.woff2",
+    "sha256": "48122aa46aedfb745ed2caba41c5ead1002d59ce63ec43bfdb76f9cb53c0733f"
+  },
+  {
+    "path": "build-inputs/static/prototypes/fonts/font-3.ttf",
+    "sha256": "69e7ae35cba23d962227b86f99217c250e642e4c6f6104b4f3ec465039e4e2d8"
+  },
+  {
+    "path": "build-inputs/static/prototypes/fonts/font-3.woff2",
+    "sha256": "150031f419c421f83ba00917a820c0135dd819320f0d849b1679255b838e3f9b"
+  },
+  {
+    "path": "build-inputs/static/prototypes/fonts/font-4.ttf",
+    "sha256": "a13d9b41b0a471ce58f0e46d377fa3cc76615e4632c3b15eb397caadf7a13f0a"
+  },
+  {
+    "path": "build-inputs/static/prototypes/fonts/font-4.woff2",
+    "sha256": "51aebd6a83d14fd93d75d8e6ff34a109318281a9cb009a494ab76b2e4c0393da"
+  },
+  {
+    "path": "build-inputs/static/prototypes/fonts/font-5.ttf",
+    "sha256": "f433e5d333be1128d8ec8a28b8aadd0314d10e14e4105406076666bc830fc15d"
+  },
+  {
+    "path": "build-inputs/static/prototypes/fonts/font-5.woff2",
+    "sha256": "eef316d7c1cdb6f3333050da382154aadcbd407816e6402bc7de513969a72ad3"
+  },
+  {
+    "path": "build-inputs/static/prototypes/fonts/font-6.ttf",
+    "sha256": "6bad1a774228464cc88b8b0271555b266f7a3c64a7bedf15e165fdab4f6ac0ce"
+  },
+  {
+    "path": "build-inputs/static/prototypes/fonts/font-6.woff2",
+    "sha256": "3f8a30fd41bc4cbcf2856c527f247c2d7bd5785613c9811fbaef8c8a89c39e0e"
+  },
+  {
+    "path": "build-inputs/static/prototypes/fonts/font-7.ttf",
+    "sha256": "b9584e099e0e7f1e1e914c3037aabb9010c50346a3ce8df5eeeeecc0563044d8"
+  },
+  {
+    "path": "build-inputs/static/prototypes/fonts/font-7.woff2",
+    "sha256": "6a05333ad7b9b9f0c1319609323480a54acb25dcdff75a90baf96c2e3d7cca16"
+  },
+  {
+    "path": "build-inputs/static/prototypes/fonts/fonts.css",
+    "sha256": "5f681954e316e0d2de91995d14f0e8f9f24a460389a9739b6c7a8bd86f7b15e8"
+  }
+]

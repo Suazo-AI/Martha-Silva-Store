@@ -1,0 +1,185 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-06T00:42:01.478588+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": ".agents/skills/cf-cli/LICENSE",
+      "change": "A",
+      "git_blob": "7a4a3ea2424c09fbe48d455aed1eaa94d9124835"
+    },
+    {
+      "path": ".agents/skills/cf-cli/SKILL.md",
+      "change": "A",
+      "git_blob": "80eb0c47454f5bfde7b27ce158d9ff18b58124bd"
+    },
+    {
+      "path": ".agents/skills/cf-cli/references/skill-feedback.md",
+      "change": "A",
+      "git_blob": "1449ba1a6e48cc78de2b86c2e7c73cc4a066686e"
+    },
+    {
+      "path": ".agents/skills/security-audit/AI-AND-LLM.md",
+      "change": "A",
+      "git_blob": "02ba9039eca4cec811fefc77bce0d7349b379aae"
+    },
+    {
+      "path": ".agents/skills/security-audit/ATTACK-CLASSES.md",
+      "change": "A",
+      "git_blob": "18a2beb4dbb554fb52b0a0293b8bd9108207f8fa"
+    },
+    {
+      "path": ".agents/skills/security-audit/CLIENT-SIDE.md",
+      "change": "A",
+      "git_blob": "8ba673e9e7e3d02f5518aa0219bcbeec7957531b"
+    },
+    {
+      "path": ".agents/skills/security-audit/CLOUD-AND-DEPLOYMENT.md",
+      "change": "A",
+      "git_blob": "5569f76c7740744aa3f60aaa89eaefe275f2e6c9"
+    },
+    {
+      "path": ".agents/skills/security-audit/DATA-ISOLATION-AND-LIFECYCLE.md",
+      "change": "A",
+      "git_blob": "0cba1fa463b62c9b0caba710a201e29c1eecd0ec"
+    },
+    {
+      "path": ".agents/skills/security-audit/DESKTOP-MOBILE-AND-LOCAL-IPC.md",
+      "change": "A",
+      "git_blob": "d6230098651bff6348d3868c11f566bfb1306e7f"
+    },
+    {
+      "path": ".agents/skills/security-audit/HUNTING.md",
+      "change": "A",
+      "git_blob": "377d4dcfbe88a049379448cd7892717185401597"
+    },
+    {
+      "path": ".agents/skills/security-audit/LICENSE",
+      "change": "A",
+      "git_blob": "6dbc9ecb3a5b9080e95b962869e8c7ab16cfdc20"
+    },
+    {
+      "path": ".agents/skills/security-audit/MEMORY-SAFETY-AND-BINARY.md",
+      "change": "A",
+      "git_blob": "86ff4920752661fc4a31a35ca4f962ace5dd5f48"
+    },
+    {
+      "path": ".agents/skills/security-audit/PROTOCOLS-RPC-AND-MESSAGING.md",
+      "change": "A",
+      "git_blob": "b04ab88f852224838fdc9683d9fcccd858b0778a"
+    },
+    {
+      "path": ".agents/skills/security-audit/RECONNAISSANCE.md",
+      "change": "A",
+      "git_blob": "1a170a93ab76b93dc5ac268a5b690beb423a8aa9"
+    },
+    {
+      "path": ".agents/skills/security-audit/RESOURCE-EXHAUSTION-AND-AVAILABILITY.md",
+      "change": "A",
+      "git_blob": "6cbbd1e2cfa482068c8279c2f7da9db43d3f54b8"
+    },
+    {
+      "path": ".agents/skills/security-audit/SKILL.md",
+      "change": "A",
+      "git_blob": "92178dad304d3f63e37582a297026a7874e12c62"
+    },
+    {
+      "path": ".agents/skills/security-audit/SUPPLY-CHAIN-AND-RELEASE.md",
+      "change": "A",
+      "git_blob": "bf96aed0803bc07471483ab129dea86759c3e305"
+    },
+    {
+      "path": ".agents/skills/security-audit/VALIDATION-AND-REPORTING.md",
+      "change": "A",
+      "git_blob": "5e200d7387e665e53e0e4190fa4a5814c334c507"
+    },
+    {
+      "path": ".agents/skills/security-audit/WEB-PROTOCOL-AND-AUTH.md",
+      "change": "A",
+      "git_blob": "1a099fa575cf52a61e9a627f91b61015120fa517"
+    },
+    {
+      "path": ".agents/skills/security-audit/report-schema.json",
+      "change": "A",
+      "git_blob": "55815a3687a45fff63d8ebf20068611bd6ad6d9a"
+    },
+    {
+      "path": ".agents/skills/security-audit/validate-coverage-ledger.cjs",
+      "change": "A",
+      "git_blob": "0ef58657bef18b26a92321df6c8e3d31bc8e6659"
+    },
+    {
+      "path": ".agents/skills/security-audit/validate-coverage-ledger.test.cjs",
+      "change": "A",
+      "git_blob": "b1444f57e1b021a61175733b8c356171861c8701"
+    },
+    {
+      "path": ".agents/skills/security-audit/validate-findings.cjs",
+      "change": "A",
+      "git_blob": "2843feceddb7e30bf10d6e4f7bbe6640e4c57799"
+    },
+    {
+      "path": ".agents/skills/security-audit/validate-findings.test.cjs",
+      "change": "A",
+      "git_blob": "8d245b226bbe2fdf28b46b3203b99c2824039d2d"
+    },
+    {
+      "path": ".agents/skills/workers-best-practices/LICENSE",
+      "change": "A",
+      "git_blob": "7a4a3ea2424c09fbe48d455aed1eaa94d9124835"
+    },
+    {
+      "path": ".agents/skills/workers-best-practices/SKILL.md",
+      "change": "A",
+      "git_blob": "d150906f403b130b68e7e47b958c4e46fbd053f3"
+    },
+    {
+      "path": ".agents/skills/workers-best-practices/references/configuration.md",
+      "change": "A",
+      "git_blob": "7891958ac2bec0c78ac48f3e433388f65719fe32"
+    },
+    {
+      "path": ".agents/skills/workers-best-practices/references/platform-apis.md",
+      "change": "A",
+      "git_blob": "68af36add31e223ea9ac41d8895de7370e80201e"
+    },
+    {
+      "path": ".agents/skills/workers-best-practices/references/runtime-patterns.md",
+      "change": "A",
+      "git_blob": "a168a9559e1034c8a960fe36e6d93ab585b29d7b"
+    },
+    {
+      "path": ".agents/skills/workers-best-practices/references/skill-feedback.md",
+      "change": "A",
+      "git_blob": "7b641f966140622fcdef02a3f0ea247eddca0e74"
+    },
+    {
+      "path": ".agents/skills/wrangler/LICENSE",
+      "change": "A",
+      "git_blob": "7a4a3ea2424c09fbe48d455aed1eaa94d9124835"
+    },
+    {
+      "path": ".agents/skills/wrangler/SKILL.md",
+      "change": "A",
+      "git_blob": "d5cef1c15fd2434202c33f071cf502b5d69b141d"
+    },
+    {
+      "path": ".agents/skills/wrangler/references/skill-feedback.md",
+      "change": "A",
+      "git_blob": "51386f30038cf8525c99cb72539c575dc7d42faf"
+    },
+    {
+      "path": "docs/hardening-20261105/cloudflare-skills/INSTALL.json",
+      "change": "A",
+      "git_blob": "579e38f5fa1069f29fdac3ee27f2cf69029e27c3"
+    },
+    {
+      "path": "docs/hardening-20261105/cloudflare-skills/README.md",
+      "change": "A",
+      "git_blob": "9af646a8df5e1c3c9ff9da4537c4a03661bbaa14"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

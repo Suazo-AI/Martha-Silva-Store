@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-11T23:28:22.568997+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/AGENT-START.md",
+      "change": "M",
+      "git_blob": "c8f590f46cfc0bcc3abc1f958c57ccebc49775b3"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

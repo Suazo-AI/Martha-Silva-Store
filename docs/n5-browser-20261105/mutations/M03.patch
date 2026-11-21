@@ -1,0 +1,31 @@
+--- a/dev/savia-staff-ui/app.mjs
++++ b/dev/savia-staff-ui/app.mjs
+@@ -511,7 +511,7 @@
+       if (error?.status === 401) throw error;
+       gone = [403, 404].includes(error?.status);
+     }
+-    if (!current(g, id)) return;
++
+     if (receipt) { showReceipt(receipt); if(!pending) renderLines([{itemId:'',quantity:1}]); return; }
+     if (gone) { try { storage().removeItem(receiptKey(id)); } catch {} }
+     const notice = gone ? 'El último recibo confirmado ya no está disponible en el servidor.'
+--- a/dev/savia-staff-ui/login.mjs
++++ b/dev/savia-staff-ui/login.mjs
+@@ -53,7 +53,7 @@
+           controller.abort(); reject(new StaffRequestError('unavailable'));
+         }, timeoutMs); }),
+       ]);
+-      current(generation);
++
+       if (response.status === 401) {
+         ++epoch; session = null; csrf = null; onUnauthorized();
+         const error = new StaffRequestError('unauthorized', 401);
+@@ -74,7 +74,7 @@
+       if (type !== 'application/json') throw new StaffRequestError('response', response.status);
+       let value;
+       try { value = await response.json(); } catch { throw new StaffRequestError('response', response.status); }
+-      current(generation);
++
+       return value;
+     } catch (error) {
+       if (error instanceof StaffRequestError) throw error;

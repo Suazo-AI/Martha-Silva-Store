@@ -1,0 +1,48 @@
+[
+  {
+    "name": "SAVIA cart and SISFAIN same page isolation",
+    "ok": true,
+    "detail": [
+      "MARTHA SILVA\n\nVestido rosa empolvado con pedrería\n\nRosa empolvado · Talla S\n\nCantidad\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nRetirarGuardar para después\nUSD 175.00"
+    ]
+  },
+  {
+    "name": "mobile menu layout geometry",
+    "ok": true,
+    "detail": {
+      "dialog": {
+        "x": 0,
+        "y": 51,
+        "width": 390,
+        "height": 793,
+        "right": 390
+      },
+      "heading": {
+        "x": 16,
+        "y": 82,
+        "width": 115.5625,
+        "height": 30,
+        "right": 131.5625
+      },
+      "bodyWidth": 390,
+      "windowWidth": 390,
+      "styles": {
+        "padding": "0px",
+        "transform": "none"
+      }
+    }
+  },
+  {
+    "name": "PDP video slide behavior",
+    "ok": true,
+    "detail": {
+      "src": "/research/assets/store-media/rosa-empolvado-pedreria/product.webm",
+      "dataSrc": "/research/assets/store-media/rosa-empolvado-pedreria/product.mp4",
+      "readyState": 0,
+      "currentTime": 0,
+      "paused": true,
+      "placeholder": "Video de la prenda",
+      "viewport": 2730
+    }
+  }
+]

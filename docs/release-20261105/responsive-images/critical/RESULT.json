@@ -1,0 +1,79 @@
+{
+  "task_id": "savia-responsive-images-20261105",
+  "status": "returned",
+  "source_sha": "6f304a7571a554bb8968e081a14985829aee3dfb",
+  "identity": {
+    "host": "SUAZO-PC",
+    "provider": "codex",
+    "model": "gpt-6.1-sol",
+    "requestedReasoning": "high",
+    "effectiveReasoning": "high per T3 runtime instruction and awareness metadata",
+    "isolation": "T3 managed worktree t3-bde304d7; observed path and git HEAD verified"
+  },
+  "startedUtc": "2026-11-05T21:14:25.191Z",
+  "command": "node docs/release-20261105/browser-baseline/driver.mjs",
+  "node": "v24.18.0",
+  "playwright": "1.62.1",
+  "navigations": 4,
+  "groups": [],
+  "gaps": [
+    "One sample per route/condition; desktop/mobile CSS viewport lab, no physical devices.",
+    "INP NOT RUN: no representative interaction population. LCP/CLS passive window only; not Lighthouse or field CWV.",
+    "External requests blocked; production APIs/payments/SQL/deployment NOT RUN.",
+    "No product corrections attempted: validation-only authority. Primary owns independent acceptance."
+  ],
+  "usage": {
+    "tokens": "unknown",
+    "cost": "unknown"
+  },
+  "origin": "http://127.0.0.1:57938",
+  "browser": "156.0.8078.80",
+  "conditions": {
+    "normal": "No throttling; fresh isolated context per route/viewport; 5 seconds after load; no scrolling",
+    "proxy": "Local allowlist HTTP proxy; only this origin GET accepted; HTTPS CONNECT denied; no routing/cache/service worker overrides",
+    "offline": "Reload each retained normal-mobile page in same context; CDP offline; cache and SW defaults unchanged",
+    "degraded": {
+      "downloadBitsPerSecond": 400000,
+      "downloadBytesPerSecond": 50000,
+      "uploadBytesPerSecond": 50000,
+      "latencyMs": 400,
+      "cpuSlowdown": 6,
+      "timeoutMs": 40000
+    }
+  },
+  "elapsedMs": 10902,
+  "criticalPath": {
+    "status": "demo-outcome-observed",
+    "steps": [
+      "Selected amarillo-S; mini bag opened",
+      "Bag contains Amarillo",
+      "Synthetic contact/delivery accepted; review creates local demo order",
+      "Approved simulated payment; local pedido outcome"
+    ],
+    "outcome": "Tu pedido de prueba\n\nConsult\u00e1 el estado y los detalles de tu pedido de prueba.\n\nPEDIDO DEMO-0001\n\nPago de prueba aprobado\nPago de prueba aprobado\n\nPedido de prueba guardado. No confirma un cobro ni una entrega real.\n\nMARTHA SILVA\n\nVestido amarillo con capa\n\nAmarillo \u00b7 Talla S\n\nCantidad: 1\n\nUSD\u00a0175.00\nEntrega\n\nPrueba Responsive\nDireccion ficticia\nManagua, Managua\n\nEstado del pedido\n5/11/2026, 3:14:32 p. m.\nPedido creado\n5/11/2026, 3:14:32 p. m.\nSin suscripci\u00f3n a novedades\n5/11/2026, 3:14:32 p. m.\nPago de prueba aprobado\nResumen de compra\nSubtotal\nUSD\u00a0175.00\nEntrega\nUSD\u00a05.00\nImpuestos de prueba\nUSD\u00a00.00\nTotal\nUSD\u00a0180.00\n\nresponsive@example.test\n\nSeguir explorando la colecci\u00f3n",
+    "buttons": [],
+    "errors": [],
+    "external": []
+  },
+  "cleanup": {
+    "browserClosed": true,
+    "serverClosed": true
+  },
+  "finishedUtc": "2026-11-05T21:14:36.090Z",
+  "rawEvidence": {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-responsive-images-20261105-t3-bde304d7\\critical-server-log.json",
+    "sha256": "ac23a6db7194252231ffdd9faebe05c13790e41064b99e74c26c2ac5c2f62675"
+  },
+  "servedSummary": {
+    "count": 88,
+    "mismatches": []
+  },
+  "blockedProxyRequests": {
+    "count": 32,
+    "note": "Browser background requests denied at local proxy; page request lists retained separately."
+  },
+  "privateObservations": {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-responsive-images-20261105-t3-bde304d7\\critical-observations.json",
+    "sha256": "c98bad6eac9b5eda60c1452065fc44ab2fa378c5767fc2857594929f4ab82654"
+  }
+}

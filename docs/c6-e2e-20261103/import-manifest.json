@@ -1,0 +1,99 @@
+{
+  "schema": "savia-c6-import/1",
+  "source_base": "260b75951729189d987ffe423218ab1643bcfa3c",
+  "integration_base": "9b35697ae29e0c793fc7ed4448ec6e77a1f85ee3",
+  "entries": [
+    {
+      "path": "tests/golden-path/golden_path.py",
+      "source": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\c6-browser-sql-20261103\\tests\\golden-path\\golden_path.py",
+      "source_checkout_sha256": "2899bb62370f65024b8e908c0b50c657c222ab635e2067488cf84dfb23a2c733",
+      "source_bytes": 64021,
+      "published_git_blob_sha256": "21a9b0185db76cdbf202793dbf24835aba23eba5ac8455cc722f2f0dd16c0661",
+      "published_git_blob_bytes": 62906
+    },
+    {
+      "path": "tests/golden-path/browser_path.mjs",
+      "source": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\c6-browser-sql-20261103\\tests\\golden-path\\browser_path.mjs",
+      "source_checkout_sha256": "ed2ff6dd3264b1625d1f342a003eab23dffcb3bd66512dbc2274e6d9f86766b2",
+      "source_bytes": 16778,
+      "published_git_blob_sha256": "ed2ff6dd3264b1625d1f342a003eab23dffcb3bd66512dbc2274e6d9f86766b2",
+      "published_git_blob_bytes": 16778
+    },
+    {
+      "path": "tests/golden-path/README.md",
+      "source": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\c6-browser-sql-20261103\\tests\\golden-path\\README.md",
+      "source_checkout_sha256": "e2b9035c218a07e14f12a5e8dfc22cccae0bc867a28ce66091a9fc16e0ec851c",
+      "source_bytes": 13093,
+      "published_git_blob_sha256": "329fdf12eda957c9663ac47035f0c03a00703c6a3411fef1011eab81a4b8ca5e",
+      "published_git_blob_bytes": 12928
+    },
+    {
+      "path": "tests/test_golden_path_browser_safety.py",
+      "source": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\c6-browser-sql-20261103\\tests\\test_golden_path_browser_safety.py",
+      "source_checkout_sha256": "9f0aa9ac0b791f400a3887053f3ddf2bca50c083ff8f8758b58bffac3585675d",
+      "source_bytes": 8767,
+      "published_git_blob_sha256": "9f0aa9ac0b791f400a3887053f3ddf2bca50c083ff8f8758b58bffac3585675d",
+      "published_git_blob_bytes": 8767
+    },
+    {
+      "path": "docs/c6-e2e-20261103/implementation.md",
+      "source": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\c6-browser-sql-20261103\\docs\\c6-e2e-20261103\\implementation.md",
+      "source_checkout_sha256": "bfb8969e13506afaf3a3cdc2ca34d1b77e50e06e38ea9da10ed9ba09b70aff3e",
+      "source_bytes": 8838,
+      "published_git_blob_sha256": "bfb8969e13506afaf3a3cdc2ca34d1b77e50e06e38ea9da10ed9ba09b70aff3e",
+      "published_git_blob_bytes": 8838
+    },
+    {
+      "path": ".github/workflows/golden-path.yml",
+      "source": "C:\\Users\\Jason\\MARTHA-SILVA\\coordination\\c6-browser-sql-20261103\\golden-path.yml",
+      "source_checkout_sha256": "d300e690fabeb4fa1ccd08a8f3526ca13fbf233d44b456d99af2c1bd52b412d4",
+      "source_bytes": 8768,
+      "published_git_blob_sha256": "1bc4cfd6ba4e58e3becbfc34366dbbb5f7804a5ad01acd83db1e56c3f4e70e89",
+      "published_git_blob_bytes": 8595
+    },
+    {
+      "path": "docs/c6-e2e-20261103/ACCEPTANCE.md",
+      "source": "C:\\Users\\Jason\\MARTHA-SILVA\\coordination\\c6-browser-sql-20261103\\ACCEPTANCE.md",
+      "source_checkout_sha256": "e720422a75a2b7d8984cb5032e5de6b50547af1721a6b0d9bf8c665ea597e4d3",
+      "source_bytes": 2581,
+      "published_git_blob_sha256": "e720422a75a2b7d8984cb5032e5de6b50547af1721a6b0d9bf8c665ea597e4d3",
+      "published_git_blob_bytes": 2581
+    },
+    {
+      "path": "docs/c6-e2e-20261103/trello-start.json",
+      "source": "C:\\Users\\Jason\\MARTHA-SILVA\\coordination\\c6-browser-sql-20261103\\trello-start.json",
+      "source_checkout_sha256": "f8bd2728e25355ac5edaebec63e2087124df653b144a1c9771066c3d12090359",
+      "source_bytes": 417,
+      "published_git_blob_sha256": "03bf5bcbbb6910ea6756659a3ec3ff4ff11fd011a1fee95872f501fc782c7b2b",
+      "published_git_blob_bytes": 401
+    },
+    {
+      "path": "docs/c9-recovery-20261103/PREPARATION.md",
+      "source": "C:\\Users\\Jason\\MARTHA-SILVA\\coordination\\c9-prep-20261103\\REPORT.md",
+      "source_checkout_sha256": "5a577ca35c45c31f0252395eb4b63445c08f2b1d0573597eed72ca15ead0f950",
+      "source_bytes": 26049,
+      "published_git_blob_sha256": "5a577ca35c45c31f0252395eb4b63445c08f2b1d0573597eed72ca15ead0f950",
+      "published_git_blob_bytes": 26049
+    },
+    {
+      "path": "docs/c9-recovery-20261103/source-evidence.json",
+      "source": "C:\\Users\\Jason\\MARTHA-SILVA\\coordination\\c9-prep-20261103\\source-evidence.json",
+      "source_checkout_sha256": "b865fd0690bfee96d832a80537ec200513b5bcc80d3c19c27716faa05bd70fb9",
+      "source_bytes": 7873,
+      "published_git_blob_sha256": "82314b8a5ea3867021cb187a133949e15665524d45026ec3de29d917291d5e70",
+      "published_git_blob_bytes": 7670
+    }
+  ],
+  "excluded": [
+    "Raw browser traces/HAR",
+    "Private logs and sessions",
+    "SQL databases and backups",
+    "Execution authorization files",
+    "Unrelated untracked work"
+  ],
+  "hash_contract": "source_checkout_sha256 hashes the supplied checkout bytes; published_git_blob_sha256 hashes the exact staged LF bytes after Git filters. Source and integration can differ by line endings or documented coordinator edits.",
+  "coordinator_edits": [
+    "README coverage section labels C5 smoke explicitly; no new runtime claim.",
+    "Workflow adds C5 and C6 safety tests in one existing step."
+  ]
+}

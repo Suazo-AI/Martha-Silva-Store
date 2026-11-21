@@ -1,0 +1,5120 @@
+{
+  "origin": "Approved revision3 frozen evidence; source machine paths omitted",
+  "snapshot_status_at_freeze": "LOCAL FROZEN CANDIDATE — UNPUBLISHED",
+  "subsequent_publication_version": "26c01241-dbdc-4af7-bfef-37cedff5ce23",
+  "counts": {
+    "target_logical_locations": 158,
+    "target_unique_native_pngs": 156,
+    "logical_mappings": 158,
+    "unique_selected_pngs": 156,
+    "runtime_files": 1082,
+    "html_pages": 47,
+    "dimensions": {
+      "1024×1536": 8,
+      "1086×1448": 125,
+      "1127×1396": 21,
+      "1126×1397": 2
+    }
+  },
+  "limitations_at_freeze": [
+    "Alcance autorizado: se retiraron 16 vistas recortadas y una vista lateral verde salvia bloqueada por seguridad. Sus archivos originales se conservan; esa vista lateral no se muestra en la galería. El catálogo aprobado contiene 158 ubicaciones y 156 PNG nativos únicos.",
+    "Imágenes de demostración generadas con IA; no son fotografías documentales ni garantía de fidelidad exacta del producto real.",
+    "Dimensiones nativas verificadas individualmente. No se ha reescalado; no se afirma Full HD.",
+    "Diez registros históricos carecen del listado completo de referencias de entrada; se conserva la procedencia disponible, sin completar datos inventados.",
+    "Los recibos de procedencia pueden no incluir identificador de llamada del generador; no se inventa ninguno.",
+    "Pruebas automatizadas de la revisión 3: 13 de 18 comandos pasan; cuatro suites históricas congeladas siguen fallando y una comprobación estricta señala las diez listas de referencias históricas ausentes. No se afirma que toda la batería esté en verde.",
+    "La validación de ZIP y hashes no sustituye la revisión visual ni las pruebas funcionales. La entrega no afirma verificación en navegador.",
+    "El runtime conserva medios originales como contexto y soporte del sitio; no todos los archivos multimedia del ZIP son nuevos PNG seleccionados.",
+    "Sin publicación, subida, transferencia al PC ni importación SUAZO. No usar datos reales de clientes, pagos o credenciales."
+  ],
+  "pending": [
+    {
+      "product_id": "negro-escote-puntas-abertura",
+      "status": "resolved-with-authorized-fictional-alternative",
+      "reason": "Native image generator rejected output for safety. Original remains unchanged; no retry."
+    },
+    {
+      "product_id": "fucsia-halter-pliegues",
+      "status": "resolved-with-authorized-fictional-alternative",
+      "reason": "Native generation rejected for safety; original unchanged; no retry."
+    },
+    {
+      "status": "resolved-with-authorized-fictional-alternative",
+      "reason": "Native generation safety rejected; leave original, no substitute."
+    },
+    {
+      "product_id": "gala-rubi",
+      "status": "resolved-with-authorized-fictional-alternative",
+      "reason": "Assigned native generator reported rejected; original remains, no retry."
+    },
+    {
+      "product_id": "gala-oro",
+      "status": "resolved-with-authorized-fictional-alternative",
+      "reason": "Assigned native generator reported rejected; original remains, no retry."
+    },
+    {
+      "product_id": "gala-destello",
+      "status": "resolved-with-authorized-fictional-alternative",
+      "reason": "Assigned native generator reported rejected; original remains, no retry."
+    },
+    {
+      "product_id": "verde-brillo-cuello-cruzado",
+      "status": "resolved-user-authorized-slot-removal",
+      "reason": "Native generation rejected; original side view remains unchanged. User decision on removing only this slot is pending. No retry or substitute."
+    }
+  ],
+  "selected_assets": [
+    {
+      "product_id": "rosa-empolvado-pedreria",
+      "runtime_destination": "generated-luxury/rosa-empolvado-pedreria/01-front-v1.png",
+      "sha256": "02032d94691d5f658c4b82816e8379d72e5b3c0b6079e2196a92cdf583db7dbe",
+      "bytes": 2143823,
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "02032d94691d5f658c4b82816e8379d72e5b3c0b6079e2196a92cdf583db7dbe",
+        "native_dimensions": [
+          1024,
+          1536
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "verde-brillo-cuello-cruzado",
+      "runtime_destination": "generated-luxury/verde-brillo-cuello-cruzado/01-front-v1.png",
+      "sha256": "f09aee6b8b0bf527f54876df5cecb1041e06794a552641c93cd81039f40071fa",
+      "bytes": 2176540,
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "f09aee6b8b0bf527f54876df5cecb1041e06794a552641c93cd81039f40071fa",
+        "native_dimensions": [
+          1024,
+          1536
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "gris-perla-hombros",
+      "runtime_destination": "generated-luxury/gris-perla-hombros/01-front-v1.png",
+      "sha256": "fbfdbb12e023ba7398840b403ad6c12019caf7924bc9c87459674cfb2a499215",
+      "bytes": 2206288,
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "fbfdbb12e023ba7398840b403ad6c12019caf7924bc9c87459674cfb2a499215",
+        "native_dimensions": [
+          1024,
+          1536
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "blanco-perlado-sirena",
+      "runtime_destination": "generated-luxury/blanco-perlado-sirena/01-front-v1.png",
+      "sha256": "41210a97ee091676a48e99d55b6b567cf53cb55e0fb3e2813e6aaaa9a7a54ca5",
+      "bytes": 2281999,
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "41210a97ee091676a48e99d55b6b567cf53cb55e0fb3e2813e6aaaa9a7a54ca5",
+        "native_dimensions": [
+          1024,
+          1536
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "rojo-tirantes-falda-amplia",
+      "runtime_destination": "generated-luxury/rojo-tirantes-falda-amplia/01-front-v1.png",
+      "sha256": "2377a35498c1b9f5ff8d3e1c942c3ed168ca56e5e3c3e05aaec5544d20cd4e09",
+      "bytes": 1994877,
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "2377a35498c1b9f5ff8d3e1c942c3ed168ca56e5e3c3e05aaec5544d20cd4e09",
+        "native_dimensions": [
+          1024,
+          1536
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "negro-brillo-pantalon-amplio",
+      "runtime_destination": "generated-luxury/negro-brillo-pantalon-amplio/01-front-v1.png",
+      "sha256": "e1a4418c2fb46f153c0f4f29a9c00f7597ab9406f7af3d28f6b9e38c5b38c948",
+      "bytes": 1897117,
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "e1a4418c2fb46f153c0f4f29a9c00f7597ab9406f7af3d28f6b9e38c5b38c948",
+        "native_dimensions": [
+          1024,
+          1536
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "azul-gris-un-hombro",
+      "runtime_destination": "generated-luxury/azul-gris-un-hombro/01-front-v1.png",
+      "sha256": "01fb8c450575e8b99768f9b21524bfd934a81c4ac31d6a4d08771c3f6a80914a",
+      "bytes": 1848637,
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "01fb8c450575e8b99768f9b21524bfd934a81c4ac31d6a4d08771c3f6a80914a",
+        "native_dimensions": [
+          1024,
+          1536
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "verde-esmeralda-tirantes-cruzados",
+      "runtime_destination": "generated-luxury/verde-esmeralda-tirantes-cruzados/01-front-v1.png",
+      "sha256": "c901b3909c8a4de6221e9614004ddf8e4db9a47a124328d1cf2c48a29670e677",
+      "bytes": 1937469,
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "c901b3909c8a4de6221e9614004ddf8e4db9a47a124328d1cf2c48a29670e677",
+        "native_dimensions": [
+          1024,
+          1536
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "rosa-bronce-pedreria",
+      "runtime_destination": "generated-luxury/rosa-bronce-pedreria/01-front-v1.png",
+      "sha256": "c57e48324d627021ed113b7967eb015f125070c608cf437954eaa655ba0b70a9",
+      "bytes": 2123960,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": true,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "c57e48324d627021ed113b7967eb015f125070c608cf437954eaa655ba0b70a9",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "plata-tirantes-copas-pedreria",
+      "runtime_destination": "generated-luxury/plata-tirantes-copas-pedreria/01-front-v1.png",
+      "sha256": "f84f56fb39deffd91f876e5cb800a7bde95cd7538d6414b88fd69f3558ccbd5e",
+      "bytes": 2331316,
+      "dimensions": [
+        1127,
+        1396
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "f84f56fb39deffd91f876e5cb800a7bde95cd7538d6414b88fd69f3558ccbd5e",
+        "native_dimensions": [
+          1127,
+          1396
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "crema-flores-volante-asimetrico",
+      "runtime_destination": "generated-luxury/crema-flores-volante-asimetrico/01-front-v1.png",
+      "sha256": "5f8dbda63d663787f112c97f4e9f9f43ccebd00dd8f68b89828535bf0e682e81",
+      "bytes": 2313507,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "5f8dbda63d663787f112c97f4e9f9f43ccebd00dd8f68b89828535bf0e682e81",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "rosa-marron-chaqueta-falda",
+      "runtime_destination": "generated-luxury/rosa-marron-chaqueta-falda/01-front-v1.png",
+      "sha256": "1975c0d4e8d54712073faa6abcb9ea412c298b7239a57038c13bec8b848a6c87",
+      "bytes": 2135775,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "plausible_anatomy": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "1975c0d4e8d54712073faa6abcb9ea412c298b7239a57038c13bec8b848a6c87",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "burdeos-top-pantalon-corto",
+      "runtime_destination": "generated-luxury/burdeos-top-pantalon-corto/01-front-v1.png",
+      "sha256": "55872a4127d1b640a70f2a113d5b8535979992edfd5609269b60a44da4f5e465",
+      "bytes": 2089429,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "plausible_anatomy": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "55872a4127d1b640a70f2a113d5b8535979992edfd5609269b60a44da4f5e465",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "rosa-flores-fucsias-halter",
+      "runtime_destination": "generated-luxury/rosa-flores-fucsias-halter/01-front-v1.png",
+      "sha256": "a7b7c5a303047f1447f4e7dd0aee65a3fb2e86e16354240f8f4962490fe6b5d6",
+      "bytes": 2148398,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "a7b7c5a303047f1447f4e7dd0aee65a3fb2e86e16354240f8f4962490fe6b5d6",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "napoleon",
+      "runtime_destination": "generated-luxury/napoleon/01-front-v1.png",
+      "sha256": "f1fde9885acc864717e3a34d1e71a212e40277abd9e937399b27bcc7042ccc0e",
+      "bytes": 2042332,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "f1fde9885acc864717e3a34d1e71a212e40277abd9e937399b27bcc7042ccc0e",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "negro-blanco-lunares-midi",
+      "runtime_destination": "generated-luxury/negro-blanco-lunares-midi/01-front-v1.png",
+      "sha256": "d91e3332ea6f9db7ad13ab62ff2674fba2e6c554c7e75aae3d7125b779049f83",
+      "bytes": 2009561,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "plausible_anatomy": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "d91e3332ea6f9db7ad13ab62ff2674fba2e6c554c7e75aae3d7125b779049f83",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "crema-flores-naranjas-halter",
+      "runtime_destination": "generated-luxury/crema-flores-naranjas-halter/01-front-v1.png",
+      "sha256": "a989b5fee17ea7ff4b3ceaf3603cd74e4f72aac292681b4c0832a41c2d97191e",
+      "bytes": 2134048,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "plausible_anatomy": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "a989b5fee17ea7ff4b3ceaf3603cd74e4f72aac292681b4c0832a41c2d97191e",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "azul-floral-un-hombro",
+      "runtime_destination": "generated-luxury/azul-floral-un-hombro/01-front-v1.png",
+      "sha256": "5fc4edde05268186abd4dfeacc609ad128798135812c6507fb9e45600a045227",
+      "bytes": 2239485,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "5fc4edde05268186abd4dfeacc609ad128798135812c6507fb9e45600a045227",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "rosa-claro-flores-doradas",
+      "runtime_destination": "generated-luxury/rosa-claro-flores-doradas/01-front-v1.png",
+      "sha256": "0e4379542c08c6962a143a073977d9b6a3beb9b145fabd3bdd515a22832810d6",
+      "bytes": 1966363,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "0e4379542c08c6962a143a073977d9b6a3beb9b145fabd3bdd515a22832810d6",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "burdeos-encaje-volantes-midi",
+      "runtime_destination": "generated-luxury/burdeos-encaje-volantes-midi/01-front-v1.png",
+      "sha256": "8d135a6f63044ca1a4cdde31e2bcdd5dcc897eecc1575d07b397eb706fc3aab6",
+      "bytes": 2428334,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "8d135a6f63044ca1a4cdde31e2bcdd5dcc897eecc1575d07b397eb706fc3aab6",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "azul-gris-flores-falda",
+      "runtime_destination": "generated-luxury/azul-gris-flores-falda/01-front-v1.png",
+      "sha256": "ceb32cf9c21c38ba782c6227021d02d5975733e5473268dbd8d8915a1dfd8c66",
+      "bytes": 2000643,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "plausible_anatomy": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "ceb32cf9c21c38ba782c6227021d02d5975733e5473268dbd8d8915a1dfd8c66",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "midi-estampado-burdeos",
+      "runtime_destination": "generated-luxury/midi-estampado-burdeos/01-front-v1.png",
+      "sha256": "11e4f602364b3c11f704b426bd9f812341b55f194fc6215934a2a480e4d75f39",
+      "bytes": 2590908,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "11e4f602364b3c11f704b426bd9f812341b55f194fc6215934a2a480e4d75f39",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "novia-satinada-abertura",
+      "runtime_destination": "generated-luxury/novia-satinada-abertura/01-front-v1.png",
+      "sha256": "6506ce9ec27dfb380328bea4bb094856f04a4a1cadf85edd7679ad6f32c2743f",
+      "bytes": 2197458,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "6506ce9ec27dfb380328bea4bb094856f04a4a1cadf85edd7679ad6f32c2743f",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": null,
+      "runtime_destination": "generated-luxury/editorial/DdwJTglRMBn-v1.png",
+      "sha256": "8d1b5cc749b8f6c665636626ef5a1fbbce408fba6d003ebbb1ad6cea6ce2b0c1",
+      "bytes": 2148456,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "plausible_anatomy": true,
+        "standalone_design": true,
+        "original_fidelity": false
+      },
+      "status": null,
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "8d1b5cc749b8f6c665636626ef5a1fbbce408fba6d003ebbb1ad6cea6ce2b0c1",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": null,
+      "runtime_destination": "generated-luxury/editorial/DeSG5J1KzHb-v2.png",
+      "sha256": "ebbb43fee026126f866eb54dbd11593f3d9a09f8cccc9892a13d2bbedf4de5ec",
+      "bytes": 2063723,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "plausible_anatomy": true,
+        "standalone_design": true,
+        "original_fidelity": false
+      },
+      "status": null,
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "ebbb43fee026126f866eb54dbd11593f3d9a09f8cccc9892a13d2bbedf4de5ec",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "fucsia-un-hombro-volantes",
+      "runtime_destination": "generated-luxury/fucsia-un-hombro-volantes/01-front-v1.png",
+      "sha256": "5959697954bfc435f9518d8df6b70af2804a9ea6e30fd0c2869d7fa0b0c1cda4",
+      "bytes": 2366863,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "5959697954bfc435f9518d8df6b70af2804a9ea6e30fd0c2869d7fa0b0c1cda4",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "negro-lunares-beige-hombros",
+      "runtime_destination": "generated-luxury/negro-lunares-beige-hombros/01-front-v1.png",
+      "sha256": "6b8ce7a120ca32a06cadd9f6ea2da90524026cf7bce323e023400cf0c366329d",
+      "bytes": 2045452,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "plausible_anatomy": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "6b8ce7a120ca32a06cadd9f6ea2da90524026cf7bce323e023400cf0c366329d",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "rosa-empolvado-pedreria",
+      "runtime_destination": "generated-luxury/rosa-empolvado-pedreria/02-view-v1.png",
+      "sha256": "d2a94384743431df83fcf95ab01105e4a12def5c70027b638932f78255c48989",
+      "bytes": 2094242,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "d2a94384743431df83fcf95ab01105e4a12def5c70027b638932f78255c48989",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "rosa-empolvado-pedreria",
+      "runtime_destination": "generated-luxury/rosa-empolvado-pedreria/03-view-v1.png",
+      "sha256": "e451375a377cae8ad9ebeab49b5ad67388fe48f1f77ce82bb6f921a1a944ad77",
+      "bytes": 2117832,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "e451375a377cae8ad9ebeab49b5ad67388fe48f1f77ce82bb6f921a1a944ad77",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "rosa-empolvado-pedreria",
+      "runtime_destination": "generated-luxury/rosa-empolvado-pedreria/04-view-v1.png",
+      "sha256": "429a3c5844e10d0af5b4117c63a019d7e888da7c081e89e7dd7778c1cd458389",
+      "bytes": 2099681,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "429a3c5844e10d0af5b4117c63a019d7e888da7c081e89e7dd7778c1cd458389",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": null,
+      "runtime_destination": "generated-luxury/editorial/DbZdVj6q2vn-v2.png",
+      "sha256": "13c4dacd54fd3479e02c5aaafde912c9f748d8b054b2a952133b03a0890570c3",
+      "bytes": 2546849,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "plausible_anatomy": true,
+        "standalone_design": true,
+        "original_fidelity": false
+      },
+      "status": null,
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "13c4dacd54fd3479e02c5aaafde912c9f748d8b054b2a952133b03a0890570c3",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "rosa",
+      "runtime_destination": "generated-luxury/rosa/01-front-v1.png",
+      "sha256": "ce62e3d538e4d89d417b737b9e11e983c4da8ceecb8f527b9d2214c65e954be8",
+      "bytes": 2257919,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "ce62e3d538e4d89d417b737b9e11e983c4da8ceecb8f527b9d2214c65e954be8",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "champagne",
+      "runtime_destination": "generated-luxury/champagne/01-front-v1.png",
+      "sha256": "ddd74a363ec953afb161ab0c9c70fa59f37782ec91b75f38a967a977dd24afe1",
+      "bytes": 2285034,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "plausible_anatomy": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "ddd74a363ec953afb161ab0c9c70fa59f37782ec91b75f38a967a977dd24afe1",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": null,
+      "runtime_destination": "generated-luxury/champagne/01-front-v1.png",
+      "sha256": "ddd74a363ec953afb161ab0c9c70fa59f37782ec91b75f38a967a977dd24afe1",
+      "bytes": 2285034,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "plausible_anatomy": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false
+      },
+      "status": null,
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "ddd74a363ec953afb161ab0c9c70fa59f37782ec91b75f38a967a977dd24afe1",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": null,
+      "runtime_destination": "generated-luxury/rosa/01-front-v1.png",
+      "sha256": "ce62e3d538e4d89d417b737b9e11e983c4da8ceecb8f527b9d2214c65e954be8",
+      "bytes": 2257919,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": null,
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "ce62e3d538e4d89d417b737b9e11e983c4da8ceecb8f527b9d2214c65e954be8",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "gris-perla-hombros",
+      "runtime_destination": "generated-luxury/gris-perla-hombros/02-view-v1.png",
+      "sha256": "45d0b97dc314c973225b065549350a0e070f535e545fe421c94056c04cd0cd52",
+      "bytes": 2187676,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "45d0b97dc314c973225b065549350a0e070f535e545fe421c94056c04cd0cd52",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "gris-perla-hombros",
+      "runtime_destination": "generated-luxury/gris-perla-hombros/03-view-v1.png",
+      "sha256": "13856c9975153e8ecde15070b1ad566c091b64bad8a2f66cf3d8c85e25eda340",
+      "bytes": 2243130,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "13856c9975153e8ecde15070b1ad566c091b64bad8a2f66cf3d8c85e25eda340",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "gris-perla-hombros",
+      "runtime_destination": "generated-luxury/gris-perla-hombros/04-view-v1.png",
+      "sha256": "d77cefb066813d5a9e73e793866440298d2684c64f7b6ba0c165dc857f9f485f",
+      "bytes": 2355603,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "d77cefb066813d5a9e73e793866440298d2684c64f7b6ba0c165dc857f9f485f",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "gris-perla-hombros",
+      "runtime_destination": "generated-luxury/gris-perla-hombros/05-view-v1.png",
+      "sha256": "361b375f5285c01989511b880acfe54d7a2b02047be36d1adc59ea1dd95514b8",
+      "bytes": 2197583,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "361b375f5285c01989511b880acfe54d7a2b02047be36d1adc59ea1dd95514b8",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "negro-escote-puntas-abertura",
+      "runtime_destination": "generated-luxury/negro-escote-puntas-abertura/01-front-v1.png",
+      "sha256": "b78c384d24292a1da041ce86214d9d376168304184cbb5601111506792544de0",
+      "bytes": 2041276,
+      "dimensions": [
+        1127,
+        1396
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "b78c384d24292a1da041ce86214d9d376168304184cbb5601111506792544de0",
+        "native_dimensions": [
+          1127,
+          1396
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "fucsia-halter-pliegues",
+      "runtime_destination": "generated-luxury/fucsia-halter-pliegues/01-front-v1.png",
+      "sha256": "f98209af027a8f9187ca6c62da1254a1e17eaba03139ecf4991e7040178a187b",
+      "bytes": 2126563,
+      "dimensions": [
+        1127,
+        1396
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "plausible_anatomy": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "f98209af027a8f9187ca6c62da1254a1e17eaba03139ecf4991e7040178a187b",
+        "native_dimensions": [
+          1127,
+          1396
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "negro",
+      "runtime_destination": "generated-luxury/negro/01-front-v1.png",
+      "sha256": "c6dde1a9b8ce3a10866ef04f9ca6a8a8f0819f397ef319df87743ad59f3b0420",
+      "bytes": 1979273,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "plausible_anatomy": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "c6dde1a9b8ce3a10866ef04f9ca6a8a8f0819f397ef319df87743ad59f3b0420",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "amarillo",
+      "runtime_destination": "generated-luxury/amarillo/01-front-v1.png",
+      "sha256": "597bf9819c64141df2cf5237b390e5acfe63ebba2dc252d041206b16bcfa8a3e",
+      "bytes": 1903522,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "plausible_anatomy": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "597bf9819c64141df2cf5237b390e5acfe63ebba2dc252d041206b16bcfa8a3e",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "novias-alba",
+      "runtime_destination": "generated-luxury/novias-alba/01-front-v1.png",
+      "sha256": "0adbdaff7de820947c4422626a3334377d4b8ad9b496ff5caac926c5058718bb",
+      "bytes": 2005369,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "plausible_anatomy": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "0adbdaff7de820947c4422626a3334377d4b8ad9b496ff5caac926c5058718bb",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "novias-encaje",
+      "runtime_destination": "generated-luxury/novias-encaje/01-front-v1.png",
+      "sha256": "ee439cadb5d15bc990c16ee705a8233aec06e80e9c09f9aeeafd29e82056c4dc",
+      "bytes": 2387953,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "plausible_anatomy": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "ee439cadb5d15bc990c16ee705a8233aec06e80e9c09f9aeeafd29e82056c4dc",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "blanco-perlado-sirena",
+      "runtime_destination": "generated-luxury/blanco-perlado-sirena/02-view-v1.png",
+      "sha256": "143c7a846a4a0cb3c536110b58d9b5ed7448eabcafd2d010ac10fad738395b9e",
+      "bytes": 2231257,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_product_fidelity": false,
+        "original_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "143c7a846a4a0cb3c536110b58d9b5ed7448eabcafd2d010ac10fad738395b9e",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "gala-rubi",
+      "runtime_destination": "generated-luxury/gala-rubi/01-front-v1.png",
+      "sha256": "679d5afb6fb2a61a3efe95d578096df158f5abc2091c9a4a6eb69faa691d9ed9",
+      "bytes": 2151008,
+      "dimensions": [
+        1127,
+        1396
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "plausible_anatomy": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "679d5afb6fb2a61a3efe95d578096df158f5abc2091c9a4a6eb69faa691d9ed9",
+        "native_dimensions": [
+          1127,
+          1396
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "gala-oro",
+      "runtime_destination": "generated-luxury/gala-oro/01-front-v1.png",
+      "sha256": "32dc4e6a380ad7353b0daa3dccc53f075b0e33b4e2487426550d1da843c1c240",
+      "bytes": 2442156,
+      "dimensions": [
+        1127,
+        1396
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "plausible_anatomy": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "32dc4e6a380ad7353b0daa3dccc53f075b0e33b4e2487426550d1da843c1c240",
+        "native_dimensions": [
+          1127,
+          1396
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "gala-destello",
+      "runtime_destination": "generated-luxury/gala-destello/01-front-v1.png",
+      "sha256": "ee27b31b0404d8c459c19a77aeefb82e920e2697adf91346b1d80ea0aaf7c1c4",
+      "bytes": 2464500,
+      "dimensions": [
+        1127,
+        1396
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "plausible_anatomy": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "ee27b31b0404d8c459c19a77aeefb82e920e2697adf91346b1d80ea0aaf7c1c4",
+        "native_dimensions": [
+          1127,
+          1396
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "novia",
+      "runtime_destination": "generated-luxury/novia/01-front-v1.png",
+      "sha256": "64bb7e25ce7b901ec20dd4edc27b5765acf72c213ad46bb3c5b5b9dde959414b",
+      "bytes": 2163522,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "64bb7e25ce7b901ec20dd4edc27b5765acf72c213ad46bb3c5b5b9dde959414b",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": null,
+      "runtime_destination": "generated-luxury/editorial/DeSHKZPKTNp-alternative-v2.png",
+      "sha256": "1e048d9c9841b47a688133ed6007c2178eacf9c16a23a8ad174e2aaf09d71b40",
+      "bytes": 2463212,
+      "dimensions": [
+        1127,
+        1396
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "plausible_anatomy": true,
+        "standalone_design": true,
+        "original_fidelity": false
+      },
+      "status": null,
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "1e048d9c9841b47a688133ed6007c2178eacf9c16a23a8ad174e2aaf09d71b40",
+        "native_dimensions": [
+          1127,
+          1396
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "dorado",
+      "runtime_destination": "generated-luxury/dorado/01-front-v1.png",
+      "sha256": "01cc1d4b546d9c4c8e745c38a422e034a66d1b430938ff22eab5edda2f8bafef",
+      "bytes": 2176680,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "plausible_anatomy": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "01cc1d4b546d9c4c8e745c38a422e034a66d1b430938ff22eab5edda2f8bafef",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "novia-tirantes-encaje",
+      "runtime_destination": "generated-luxury/novia-tirantes-encaje/01-front-v1.png",
+      "sha256": "9e8ce6ff9e7e99881d7df7dbeb5684055430ce1e1de0d6c3d8fd86a776ac6af8",
+      "bytes": 2155907,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "plausible_anatomy": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "9e8ce6ff9e7e99881d7df7dbeb5684055430ce1e1de0d6c3d8fd86a776ac6af8",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "rosa-flores-fucsias-halter",
+      "runtime_destination": "generated-luxury/rosa-flores-fucsias-halter/02-view-v1.png",
+      "sha256": "9ef48c334f52e82d874dd4cc635a697165ac30a467854370a2b9e451d8954e9f",
+      "bytes": 2029907,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "9ef48c334f52e82d874dd4cc635a697165ac30a467854370a2b9e451d8954e9f",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "novias-velo",
+      "runtime_destination": "generated-luxury/novias-velo/01-front-v1.png",
+      "sha256": "9ed7b50cea6c5187eac6ad83e3d5a77c02d1f5ed899867e26c7d52f43a41b2a7",
+      "bytes": 2168907,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "plausible_anatomy": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false
+      },
+      "status": "integrated-primary-only",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "9ed7b50cea6c5187eac6ad83e3d5a77c02d1f5ed899867e26c7d52f43a41b2a7",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "rojo-tirantes-falda-amplia",
+      "runtime_destination": "generated-luxury/rojo-tirantes-falda-amplia/02-view-v1.png",
+      "sha256": "2a761f83e84d5eaa44ba776c4a505213b51152394cd4c7df7fcc58961b01c01b",
+      "bytes": 2086544,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "2a761f83e84d5eaa44ba776c4a505213b51152394cd4c7df7fcc58961b01c01b",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "rojo-tirantes-falda-amplia",
+      "runtime_destination": "generated-luxury/rojo-tirantes-falda-amplia/03-view-v1.png",
+      "sha256": "56072d5c2b7f7db7d7a38062c118b067310e1139801685cd8f47f8d2469d105e",
+      "bytes": 1993154,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "56072d5c2b7f7db7d7a38062c118b067310e1139801685cd8f47f8d2469d105e",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "rojo-tirantes-falda-amplia",
+      "runtime_destination": "generated-luxury/rojo-tirantes-falda-amplia/04-view-v1.png",
+      "sha256": "507ef46b1704c0295f223871bd7513f99732d6f2f9e90590289ebd98b33a6641",
+      "bytes": 2014146,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "507ef46b1704c0295f223871bd7513f99732d6f2f9e90590289ebd98b33a6641",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "rojo-tirantes-falda-amplia",
+      "runtime_destination": "generated-luxury/rojo-tirantes-falda-amplia/05-view-v1.png",
+      "sha256": "02df59360713b0c73fd1321c41f961fb1e3532037a08c19cf97074e3bd83df87",
+      "bytes": 1947916,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "02df59360713b0c73fd1321c41f961fb1e3532037a08c19cf97074e3bd83df87",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "rosa-flores-fucsias-halter",
+      "runtime_destination": "generated-luxury/rosa-flores-fucsias-halter/03-view-v1.png",
+      "sha256": "39558e8cb8b175f7935c7704121d3cd7387c809e0587c7ef2d54b0726b443848",
+      "bytes": 1968361,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "39558e8cb8b175f7935c7704121d3cd7387c809e0587c7ef2d54b0726b443848",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "rosa-bronce-pedreria",
+      "runtime_destination": "generated-luxury/rosa-bronce-pedreria/03-view-v1.png",
+      "sha256": "1c1aecf2eda76cc6750164b1f917ce2f01ab7860e561293303e3738c67f5de8f",
+      "bytes": 2043537,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "plausible_anatomy": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "1c1aecf2eda76cc6750164b1f917ce2f01ab7860e561293303e3738c67f5de8f",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "rosa-bronce-pedreria",
+      "runtime_destination": "generated-luxury/rosa-bronce-pedreria/04-view-v1.png",
+      "sha256": "b8fadd42568de2d3a52f7dbf0a712000302eddec263f9f18fae43a172dabcb84",
+      "bytes": 2120802,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "b8fadd42568de2d3a52f7dbf0a712000302eddec263f9f18fae43a172dabcb84",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "negro-brillo-pantalon-amplio",
+      "runtime_destination": "generated-luxury/negro-brillo-pantalon-amplio/02-view-v1.png",
+      "sha256": "557bf8909b792e0c0e884286b0610e3e077d8eaa0225ea5c41274fe0dd2d159b",
+      "bytes": 1966762,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "557bf8909b792e0c0e884286b0610e3e077d8eaa0225ea5c41274fe0dd2d159b",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "negro-brillo-pantalon-amplio",
+      "runtime_destination": "generated-luxury/negro-brillo-pantalon-amplio/03-view-v1.png",
+      "sha256": "739611aa093436e251328363bda4d2245162866b898a1ca7bdcea7588e8749c0",
+      "bytes": 1883835,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "739611aa093436e251328363bda4d2245162866b898a1ca7bdcea7588e8749c0",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "negro-brillo-pantalon-amplio",
+      "runtime_destination": "generated-luxury/negro-brillo-pantalon-amplio/04-view-v1.png",
+      "sha256": "d9318a9a19dbb06919afc31b11433a49001676e818e74f8fbb24ecec6bf99cb9",
+      "bytes": 2001686,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "plausible_anatomy": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "d9318a9a19dbb06919afc31b11433a49001676e818e74f8fbb24ecec6bf99cb9",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "negro-brillo-pantalon-amplio",
+      "runtime_destination": "generated-luxury/negro-brillo-pantalon-amplio/05-view-v1.png",
+      "sha256": "5e09b884540d6afc5f260ac31f9a14c38fd28b9adf4e2ebc6cabeebfef22e12b",
+      "bytes": 1930565,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "5e09b884540d6afc5f260ac31f9a14c38fd28b9adf4e2ebc6cabeebfef22e12b",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "rosa-flores-fucsias-halter",
+      "runtime_destination": "generated-luxury/rosa-flores-fucsias-halter/04-view-v1.png",
+      "sha256": "0aa45c90cdebd8f91dd38cb3f291458dfbc6f1753d8ebcabb7c155007f998dc8",
+      "bytes": 1997012,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "0aa45c90cdebd8f91dd38cb3f291458dfbc6f1753d8ebcabb7c155007f998dc8",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "rosa-flores-fucsias-halter",
+      "runtime_destination": "generated-luxury/rosa-flores-fucsias-halter/05-view-v1.png",
+      "sha256": "ecf803c8f9f769496cd16c5896d01e12267466ac88735c0db3928c89d973f216",
+      "bytes": 2035796,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "ecf803c8f9f769496cd16c5896d01e12267466ac88735c0db3928c89d973f216",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "azul-gris-un-hombro",
+      "runtime_destination": "generated-luxury/azul-gris-un-hombro/02-view-v1.png",
+      "sha256": "0d15e054ad24abcdf2fbc0968175a5db1ef8572f6bc8e042dcbec802ceaf858d",
+      "bytes": 1854532,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "0d15e054ad24abcdf2fbc0968175a5db1ef8572f6bc8e042dcbec802ceaf858d",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "azul-gris-un-hombro",
+      "runtime_destination": "generated-luxury/azul-gris-un-hombro/03-view-v1.png",
+      "sha256": "69a4648fc1b0f02cf7a0bb49f1e9211b2f3174272e1c7bdc5adf5460d2772316",
+      "bytes": 1811943,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "69a4648fc1b0f02cf7a0bb49f1e9211b2f3174272e1c7bdc5adf5460d2772316",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "azul-gris-un-hombro",
+      "runtime_destination": "generated-luxury/azul-gris-un-hombro/04-view-v1.png",
+      "sha256": "351bdc2b140e5bb85260086f6bd672dd62fca27b552109fd04e4a5fb50c8b399",
+      "bytes": 1880348,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "351bdc2b140e5bb85260086f6bd672dd62fca27b552109fd04e4a5fb50c8b399",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "negro-escote-puntas-abertura",
+      "runtime_destination": "generated-luxury/negro-escote-puntas-abertura/02-view-v1.png",
+      "sha256": "8c9231ed8954408da96a9377994e803036effa2d95fc32dd08715f825030f776",
+      "bytes": 2009902,
+      "dimensions": [
+        1127,
+        1396
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "8c9231ed8954408da96a9377994e803036effa2d95fc32dd08715f825030f776",
+        "native_dimensions": [
+          1127,
+          1396
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "negro-escote-puntas-abertura",
+      "runtime_destination": "generated-luxury/negro-escote-puntas-abertura/03-view-v1.png",
+      "sha256": "62d2324caea22c3c97e78ff98bc68a9803668b605283ec2ac7f66ffb7de0e1f9",
+      "bytes": 1960595,
+      "dimensions": [
+        1127,
+        1396
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "62d2324caea22c3c97e78ff98bc68a9803668b605283ec2ac7f66ffb7de0e1f9",
+        "native_dimensions": [
+          1127,
+          1396
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "negro-escote-puntas-abertura",
+      "runtime_destination": "generated-luxury/negro-escote-puntas-abertura/04-view-v1.png",
+      "sha256": "a23eac06b5949d68dc9ab87fdbbd476fa75e0a55dcdc0f1a49a4c929f704b311",
+      "bytes": 2060873,
+      "dimensions": [
+        1126,
+        1397
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "plausible_anatomy": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "a23eac06b5949d68dc9ab87fdbbd476fa75e0a55dcdc0f1a49a4c929f704b311",
+        "native_dimensions": [
+          1126,
+          1397
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "negro-escote-puntas-abertura",
+      "runtime_destination": "generated-luxury/negro-escote-puntas-abertura/05-view-v1.png",
+      "sha256": "32dd39676a9a8ebf1daec409ad0596927ad8206896fe351704afee25f969051e",
+      "bytes": 2035060,
+      "dimensions": [
+        1127,
+        1396
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "32dd39676a9a8ebf1daec409ad0596927ad8206896fe351704afee25f969051e",
+        "native_dimensions": [
+          1127,
+          1396
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "rosa-claro-flores-doradas",
+      "runtime_destination": "generated-luxury/rosa-claro-flores-doradas/02-view-v1.png",
+      "sha256": "011975c73e239c8d7b6355f31c214b29fd8ca8560b81a59e2429484c37a60fe8",
+      "bytes": 1957999,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "011975c73e239c8d7b6355f31c214b29fd8ca8560b81a59e2429484c37a60fe8",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "rosa-claro-flores-doradas",
+      "runtime_destination": "generated-luxury/rosa-claro-flores-doradas/03-view-v1.png",
+      "sha256": "861ccea46e2f4be055ed466852fe4faaf3a700058b12c8fed27b80a4f693b8fc",
+      "bytes": 1885224,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "861ccea46e2f4be055ed466852fe4faaf3a700058b12c8fed27b80a4f693b8fc",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "rosa-claro-flores-doradas",
+      "runtime_destination": "generated-luxury/rosa-claro-flores-doradas/04-view-v1.png",
+      "sha256": "957c3d0e9e1d97add9a13ffb378e714051dccadac3041f44f871710a40ea2569",
+      "bytes": 1992525,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "957c3d0e9e1d97add9a13ffb378e714051dccadac3041f44f871710a40ea2569",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "rosa-claro-flores-doradas",
+      "runtime_destination": "generated-luxury/rosa-claro-flores-doradas/05-view-v1.png",
+      "sha256": "947193fd8a9c9448b79fde3274ace983be91560c49800cb3e75aed1bc49061d3",
+      "bytes": 1933822,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "947193fd8a9c9448b79fde3274ace983be91560c49800cb3e75aed1bc49061d3",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "napoleon",
+      "runtime_destination": "generated-luxury/napoleon/02-view-v1.png",
+      "sha256": "34ee9e1ead538deac0283902eab0a88068aefd0a38c333a089cbdcabe89d4432",
+      "bytes": 2024199,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "plausible_anatomy": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "34ee9e1ead538deac0283902eab0a88068aefd0a38c333a089cbdcabe89d4432",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "napoleon",
+      "runtime_destination": "generated-luxury/napoleon/03-view-v1.png",
+      "sha256": "4ae9c02f018c21fda83fe32c4ed665c7acc104ac9409c70767da23df43710c2e",
+      "bytes": 1983907,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "4ae9c02f018c21fda83fe32c4ed665c7acc104ac9409c70767da23df43710c2e",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "azul-floral-un-hombro",
+      "runtime_destination": "generated-luxury/azul-floral-un-hombro/02-view-v1.png",
+      "sha256": "586ac131fff07949d5f8642368bdbc8156f8340ca48f63d42573555d41c29da5",
+      "bytes": 2171455,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "586ac131fff07949d5f8642368bdbc8156f8340ca48f63d42573555d41c29da5",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "verde-brillo-cuello-cruzado",
+      "runtime_destination": "generated-luxury/verde-brillo-cuello-cruzado/03-view-v1.png",
+      "sha256": "293f76bdf9bba6d76cda3fc651f2cae2e385c2beba483c8e61a14158a8c83911",
+      "bytes": 2251989,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "293f76bdf9bba6d76cda3fc651f2cae2e385c2beba483c8e61a14158a8c83911",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "verde-brillo-cuello-cruzado",
+      "runtime_destination": "generated-luxury/verde-brillo-cuello-cruzado/04-view-v1.png",
+      "sha256": "dcddd9927ae12418c7930fddc4594f0ea4b935c9b5333b58e945a4f5ea7f5535",
+      "bytes": 2161132,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "dcddd9927ae12418c7930fddc4594f0ea4b935c9b5333b58e945a4f5ea7f5535",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "rosa-bronce-pedreria",
+      "runtime_destination": "generated-luxury/rosa-bronce-pedreria/02-view-v1.png",
+      "sha256": "4e0c1c337c577739329d7c204cfccb9bc4be6f0f6dcf2f16d19d1f8b06fc9962",
+      "bytes": 2071943,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "4e0c1c337c577739329d7c204cfccb9bc4be6f0f6dcf2f16d19d1f8b06fc9962",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "burdeos-encaje-volantes-midi",
+      "runtime_destination": "generated-luxury/burdeos-encaje-volantes-midi/02-view-v1.png",
+      "sha256": "a5471d256feac73ae43ec18a3bea354005adcc66b7b9bfc87f1155c7f2cb64b4",
+      "bytes": 2346171,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_product_fidelity": false,
+        "original_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "a5471d256feac73ae43ec18a3bea354005adcc66b7b9bfc87f1155c7f2cb64b4",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "burdeos-encaje-volantes-midi",
+      "runtime_destination": "generated-luxury/burdeos-encaje-volantes-midi/03-view-v1.png",
+      "sha256": "d04237a5677c76c9c04301b0662581b4387d9604a7cfca9cba2dae63c698a0a1",
+      "bytes": 2319708,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_product_fidelity": false,
+        "original_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "d04237a5677c76c9c04301b0662581b4387d9604a7cfca9cba2dae63c698a0a1",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "burdeos-encaje-volantes-midi",
+      "runtime_destination": "generated-luxury/burdeos-encaje-volantes-midi/04-view-v1.png",
+      "sha256": "a74e20fa33f8fd44dddc474fe3e6bdef8ade0ae02d9ff514a9c8283c3740bff5",
+      "bytes": 2349871,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_product_fidelity": false,
+        "original_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "a74e20fa33f8fd44dddc474fe3e6bdef8ade0ae02d9ff514a9c8283c3740bff5",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "burdeos-encaje-volantes-midi",
+      "runtime_destination": "generated-luxury/burdeos-encaje-volantes-midi/05-view-v1.png",
+      "sha256": "866138f981ec960da52d1ac94bfeff535fe30a60bd0b2a21b6596c526741d30a",
+      "bytes": 2390384,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_product_fidelity": false,
+        "original_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "866138f981ec960da52d1ac94bfeff535fe30a60bd0b2a21b6596c526741d30a",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "verde-esmeralda-tirantes-cruzados",
+      "runtime_destination": "generated-luxury/verde-esmeralda-tirantes-cruzados/02-view-v1.png",
+      "sha256": "5be9ecc2fecd3cdfebb927cc9f349393a936921aa86096b7ee020e2418651f63",
+      "bytes": 1868763,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_product_fidelity": false,
+        "original_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "5be9ecc2fecd3cdfebb927cc9f349393a936921aa86096b7ee020e2418651f63",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "verde-esmeralda-tirantes-cruzados",
+      "runtime_destination": "generated-luxury/verde-esmeralda-tirantes-cruzados/03-view-v1.png",
+      "sha256": "1a6fd2aef81d14930b331ed6d2be1d629349fe3b76589d683e4d580b06bd8ca0",
+      "bytes": 1856916,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_product_fidelity": false,
+        "original_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "1a6fd2aef81d14930b331ed6d2be1d629349fe3b76589d683e4d580b06bd8ca0",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "verde-esmeralda-tirantes-cruzados",
+      "runtime_destination": "generated-luxury/verde-esmeralda-tirantes-cruzados/04-view-v1.png",
+      "sha256": "1e98ae26ef591e3ed65c1ca47862cb29e7141591ffa22c6ca4af7b73cc673496",
+      "bytes": 1891176,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_product_fidelity": false,
+        "original_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "1e98ae26ef591e3ed65c1ca47862cb29e7141591ffa22c6ca4af7b73cc673496",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "midi-estampado-burdeos",
+      "runtime_destination": "generated-luxury/midi-estampado-burdeos/02-view-v1.png",
+      "sha256": "0dd1bb944cb2d1fd500c63a13bfe1fab0cb3b3509056d834b70ebb2b5e7655e4",
+      "bytes": 2680957,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_product_fidelity": false,
+        "original_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "0dd1bb944cb2d1fd500c63a13bfe1fab0cb3b3509056d834b70ebb2b5e7655e4",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "midi-estampado-burdeos",
+      "runtime_destination": "generated-luxury/midi-estampado-burdeos/03-view-v1.png",
+      "sha256": "2b3e1569f7d63cfdc5b2d4af217cd38f55cd554c152cfd3414c6e4729facd972",
+      "bytes": 2694766,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_product_fidelity": false,
+        "original_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "2b3e1569f7d63cfdc5b2d4af217cd38f55cd554c152cfd3414c6e4729facd972",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "midi-estampado-burdeos",
+      "runtime_destination": "generated-luxury/midi-estampado-burdeos/04-view-v1.png",
+      "sha256": "39a47e8c6e2fc2156c707298f61ec80022f66ff3985114bdd12112ed6b03b07a",
+      "bytes": 2572895,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_product_fidelity": false,
+        "original_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "39a47e8c6e2fc2156c707298f61ec80022f66ff3985114bdd12112ed6b03b07a",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "blanco-perlado-sirena",
+      "runtime_destination": "generated-luxury/blanco-perlado-sirena/03-view-v1.png",
+      "sha256": "defdd0fd4998b101d679856c83a79bb57d6f14c8d4eafe43d25ae9168c0b2cea",
+      "bytes": 2174849,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_product_fidelity": false,
+        "original_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "defdd0fd4998b101d679856c83a79bb57d6f14c8d4eafe43d25ae9168c0b2cea",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "blanco-perlado-sirena",
+      "runtime_destination": "generated-luxury/blanco-perlado-sirena/04-view-v1.png",
+      "sha256": "5c9e46203a081202756e188a20a3240e86f2283312f709eebe5b19791dd5283a",
+      "bytes": 2250985,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_product_fidelity": false,
+        "original_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "5c9e46203a081202756e188a20a3240e86f2283312f709eebe5b19791dd5283a",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "fucsia-un-hombro-volantes",
+      "runtime_destination": "generated-luxury/fucsia-un-hombro-volantes/02-view-v1.png",
+      "sha256": "0e1d0d26ea9805756f1a430bf72853a11b6a570c773980b50b30776f5c82bdda",
+      "bytes": 2227870,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "0e1d0d26ea9805756f1a430bf72853a11b6a570c773980b50b30776f5c82bdda",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "fucsia-un-hombro-volantes",
+      "runtime_destination": "generated-luxury/fucsia-un-hombro-volantes/03-view-v1.png",
+      "sha256": "34fabf4498291824e145ba48c4b7b027e7c4585afe579a345b8afef916bff255",
+      "bytes": 2186096,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "34fabf4498291824e145ba48c4b7b027e7c4585afe579a345b8afef916bff255",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "fucsia-un-hombro-volantes",
+      "runtime_destination": "generated-luxury/fucsia-un-hombro-volantes/04-view-v1.png",
+      "sha256": "0d37457f2aa8454d0c7909f08db0d2589d8888b66126576477f7870d68ee6e26",
+      "bytes": 2243595,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "0d37457f2aa8454d0c7909f08db0d2589d8888b66126576477f7870d68ee6e26",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "fucsia-un-hombro-volantes",
+      "runtime_destination": "generated-luxury/fucsia-un-hombro-volantes/05-view-v1.png",
+      "sha256": "a7e9d11d939e947fb7419eaa664c675f5035960c76554de002fe3a6584f5aeeb",
+      "bytes": 2265404,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "a7e9d11d939e947fb7419eaa664c675f5035960c76554de002fe3a6584f5aeeb",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "novia-satinada-abertura",
+      "runtime_destination": "generated-luxury/novia-satinada-abertura/02-view-v1.png",
+      "sha256": "b69fe5884d559d0a011770cebf9ade8da89e1119085e7e5e36173fa789aa4067",
+      "bytes": 2165118,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "b69fe5884d559d0a011770cebf9ade8da89e1119085e7e5e36173fa789aa4067",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "novia-satinada-abertura",
+      "runtime_destination": "generated-luxury/novia-satinada-abertura/03-view-v1.png",
+      "sha256": "dc2f45e1ef2f8acccdf65b6a88092d145c5b925f8c43404796b448b4d34a77ba",
+      "bytes": 2153202,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "dc2f45e1ef2f8acccdf65b6a88092d145c5b925f8c43404796b448b4d34a77ba",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "novia-satinada-abertura",
+      "runtime_destination": "generated-luxury/novia-satinada-abertura/04-view-v1.png",
+      "sha256": "56077691ad1bdc0da37359af40494ea8533250d3ac01439c5c30685752329c73",
+      "bytes": 2245405,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "56077691ad1bdc0da37359af40494ea8533250d3ac01439c5c30685752329c73",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "rosa-bronce-pedreria",
+      "runtime_destination": "generated-luxury/rosa-bronce-pedreria/05-view-v1.png",
+      "sha256": "0beb786521c8148cc52d0eb3c6c1502ae62d57566fd44bfebe041a5d5467ae15",
+      "bytes": 2070133,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "0beb786521c8148cc52d0eb3c6c1502ae62d57566fd44bfebe041a5d5467ae15",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "plata-tirantes-copas-pedreria",
+      "runtime_destination": "generated-luxury/plata-tirantes-copas-pedreria/02-view-v1.png",
+      "sha256": "6afe3323616cf024984c88cc5f2435ce325b939c9f2ad7e1bc1c20e8f64c72b9",
+      "bytes": 2236519,
+      "dimensions": [
+        1127,
+        1396
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "6afe3323616cf024984c88cc5f2435ce325b939c9f2ad7e1bc1c20e8f64c72b9",
+        "native_dimensions": [
+          1127,
+          1396
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "plata-tirantes-copas-pedreria",
+      "runtime_destination": "generated-luxury/plata-tirantes-copas-pedreria/03-view-v1.png",
+      "sha256": "e666f1d031159d337e56ddddc3526372a46a0f2735c119cc7e5f7352f916715b",
+      "bytes": 2249968,
+      "dimensions": [
+        1127,
+        1396
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "e666f1d031159d337e56ddddc3526372a46a0f2735c119cc7e5f7352f916715b",
+        "native_dimensions": [
+          1127,
+          1396
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "plata-tirantes-copas-pedreria",
+      "runtime_destination": "generated-luxury/plata-tirantes-copas-pedreria/04-view-v1.png",
+      "sha256": "37fc1edaba28879e87d14e949ca42cd652b2b935e2817b65af2b641c6b1f2f9a",
+      "bytes": 2298855,
+      "dimensions": [
+        1127,
+        1396
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "37fc1edaba28879e87d14e949ca42cd652b2b935e2817b65af2b641c6b1f2f9a",
+        "native_dimensions": [
+          1127,
+          1396
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "plata-tirantes-copas-pedreria",
+      "runtime_destination": "generated-luxury/plata-tirantes-copas-pedreria/05-view-v1.png",
+      "sha256": "83228310a1e4510e66dc3dc6c1c063fa62ac1c19550c6c3447d5f49a6dc261f5",
+      "bytes": 2293485,
+      "dimensions": [
+        1127,
+        1396
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "83228310a1e4510e66dc3dc6c1c063fa62ac1c19550c6c3447d5f49a6dc261f5",
+        "native_dimensions": [
+          1127,
+          1396
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "rosa",
+      "runtime_destination": "generated-luxury/rosa/02-view-v1.png",
+      "sha256": "b6854cd15f024a18e144db48897710d5996a4097e3061571dc9eadd1c1bf03ce",
+      "bytes": 2334450,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "b6854cd15f024a18e144db48897710d5996a4097e3061571dc9eadd1c1bf03ce",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "negro-lunares-beige-hombros",
+      "runtime_destination": "generated-luxury/negro-lunares-beige-hombros/03-view-v1.png",
+      "sha256": "018b118339096fb95b8430fca1fff8dffc0bfe13d334754bee4bbcf73b18c998",
+      "bytes": 1919201,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "018b118339096fb95b8430fca1fff8dffc0bfe13d334754bee4bbcf73b18c998",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "crema-flores-volante-asimetrico",
+      "runtime_destination": "generated-luxury/crema-flores-volante-asimetrico/02-view-v1.png",
+      "sha256": "39872b81d906ccc34beff95455a7dd59f94a6a7fe9aea63c84d355585923986a",
+      "bytes": 2223669,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "39872b81d906ccc34beff95455a7dd59f94a6a7fe9aea63c84d355585923986a",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "crema-flores-volante-asimetrico",
+      "runtime_destination": "generated-luxury/crema-flores-volante-asimetrico/03-view-v1.png",
+      "sha256": "042245beadce6507dacbfef0b65cadd384dc7e4964ffb23313da1721533b0bef",
+      "bytes": 2204249,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "042245beadce6507dacbfef0b65cadd384dc7e4964ffb23313da1721533b0bef",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "crema-flores-volante-asimetrico",
+      "runtime_destination": "generated-luxury/crema-flores-volante-asimetrico/04-view-v1.png",
+      "sha256": "45fd9e322a876c77276f3e6e58348bb00e6a04b6e45b73f7c4a8f6e29eb8085d",
+      "bytes": 2252122,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "45fd9e322a876c77276f3e6e58348bb00e6a04b6e45b73f7c4a8f6e29eb8085d",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "crema-flores-volante-asimetrico",
+      "runtime_destination": "generated-luxury/crema-flores-volante-asimetrico/05-view-v1.png",
+      "sha256": "a075b42625b52b80dee5761ed781543fde200f3a815a6afe3f27027ca0a73625",
+      "bytes": 2235461,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "a075b42625b52b80dee5761ed781543fde200f3a815a6afe3f27027ca0a73625",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "novia-tirantes-encaje",
+      "runtime_destination": "generated-luxury/novia-tirantes-encaje/02-view-v1.png",
+      "sha256": "611ccdd85dfa2eba412457589d6b19e17fe1386f8dcde28a201ec585f2245988",
+      "bytes": 2105909,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "611ccdd85dfa2eba412457589d6b19e17fe1386f8dcde28a201ec585f2245988",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "gala-rubi",
+      "runtime_destination": "generated-luxury/gala-rubi/02-view-v1.png",
+      "sha256": "4870bcb1f0eee741e1fe7dae824000bd0573ad9c6b6ffb194a6260dc37116401",
+      "bytes": 2239760,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "4870bcb1f0eee741e1fe7dae824000bd0573ad9c6b6ffb194a6260dc37116401",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "fucsia-halter-pliegues",
+      "runtime_destination": "generated-luxury/fucsia-halter-pliegues/02-view-v1.png",
+      "sha256": "389185650f248229e094e4a2d5a42c5baa72b65a41af5f2108f01f04a8121650",
+      "bytes": 2072521,
+      "dimensions": [
+        1127,
+        1396
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "389185650f248229e094e4a2d5a42c5baa72b65a41af5f2108f01f04a8121650",
+        "native_dimensions": [
+          1127,
+          1396
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "fucsia-halter-pliegues",
+      "runtime_destination": "generated-luxury/fucsia-halter-pliegues/03-view-v1.png",
+      "sha256": "224503d1c1895a52d700c8d06c9baca60e04759045ef42d8189a9c6e853a36c0",
+      "bytes": 2075392,
+      "dimensions": [
+        1127,
+        1396
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "224503d1c1895a52d700c8d06c9baca60e04759045ef42d8189a9c6e853a36c0",
+        "native_dimensions": [
+          1127,
+          1396
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "fucsia-halter-pliegues",
+      "runtime_destination": "generated-luxury/fucsia-halter-pliegues/04-view-v1.png",
+      "sha256": "a79be1f957d0ee1f4d5f18591fc818d48c64fc31945cd6f1483be343d5dda870",
+      "bytes": 2105513,
+      "dimensions": [
+        1127,
+        1396
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "a79be1f957d0ee1f4d5f18591fc818d48c64fc31945cd6f1483be343d5dda870",
+        "native_dimensions": [
+          1127,
+          1396
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "champagne",
+      "runtime_destination": "generated-luxury/champagne/02-view-v1.png",
+      "sha256": "abbeda5b5daf11a6e1537499b9c3664d6172214bd53c2c0583e63547a38eaa01",
+      "bytes": 2243764,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "abbeda5b5daf11a6e1537499b9c3664d6172214bd53c2c0583e63547a38eaa01",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "negro",
+      "runtime_destination": "generated-luxury/negro/02-view-v1.png",
+      "sha256": "9be0feca941a7a21d1216eddeb0386995262f0dc90c228a9aa7a10760d30ecd1",
+      "bytes": 1940264,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "9be0feca941a7a21d1216eddeb0386995262f0dc90c228a9aa7a10760d30ecd1",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "amarillo",
+      "runtime_destination": "generated-luxury/amarillo/02-view-v1.png",
+      "sha256": "64f644ef8cd2c90475ceeaa774708aee23ea1860e55e5c8e4044b41a3fc46ce2",
+      "bytes": 1888299,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "64f644ef8cd2c90475ceeaa774708aee23ea1860e55e5c8e4044b41a3fc46ce2",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "dorado",
+      "runtime_destination": "generated-luxury/dorado/02-view-v1.png",
+      "sha256": "a899bdc948578fe5c10eb031fd15467f47ad1a49832de5a40f58393ec8d97ead",
+      "bytes": 2149459,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "a899bdc948578fe5c10eb031fd15467f47ad1a49832de5a40f58393ec8d97ead",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "rosa-marron-chaqueta-falda",
+      "runtime_destination": "generated-luxury/rosa-marron-chaqueta-falda/02-view-v1.png",
+      "sha256": "bee8610fa4f357b0b4f8deec2ff4307c8732b542477e62733b914ae94df4cbd0",
+      "bytes": 2143315,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "bee8610fa4f357b0b4f8deec2ff4307c8732b542477e62733b914ae94df4cbd0",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "rosa-marron-chaqueta-falda",
+      "runtime_destination": "generated-luxury/rosa-marron-chaqueta-falda/03-view-v1.png",
+      "sha256": "ae349542ef6ba2109848941235fbaad4d04919ff356c780399d95da89046a813",
+      "bytes": 2116446,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "ae349542ef6ba2109848941235fbaad4d04919ff356c780399d95da89046a813",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "rosa-marron-chaqueta-falda",
+      "runtime_destination": "generated-luxury/rosa-marron-chaqueta-falda/04-view-v1.png",
+      "sha256": "f273fdf80f46088058d5025743dcf57eded7221439abcea295fbf7ed4d9abdea",
+      "bytes": 2208000,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "f273fdf80f46088058d5025743dcf57eded7221439abcea295fbf7ed4d9abdea",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "rosa-marron-chaqueta-falda",
+      "runtime_destination": "generated-luxury/rosa-marron-chaqueta-falda/05-view-v1.png",
+      "sha256": "eb721539f9b47e091274a38699e9d8e5becf4e7338a80a7ce417d4722788fc60",
+      "bytes": 2167790,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "eb721539f9b47e091274a38699e9d8e5becf4e7338a80a7ce417d4722788fc60",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "gala-oro",
+      "runtime_destination": "generated-luxury/gala-oro/02-view-v1.png",
+      "sha256": "f88603d35c46eb987009ee846a1cd04ae479a30c1fbfc841a9b68c2407cc251b",
+      "bytes": 2366230,
+      "dimensions": [
+        1126,
+        1397
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "f88603d35c46eb987009ee846a1cd04ae479a30c1fbfc841a9b68c2407cc251b",
+        "native_dimensions": [
+          1126,
+          1397
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "gala-oro",
+      "runtime_destination": "generated-luxury/gala-oro/03-view-v1.png",
+      "sha256": "faadc3a33ef61832aff703b4bdb55efc8c6b1656a2a42259e4ee1864d48b9d60",
+      "bytes": 2494088,
+      "dimensions": [
+        1127,
+        1396
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "faadc3a33ef61832aff703b4bdb55efc8c6b1656a2a42259e4ee1864d48b9d60",
+        "native_dimensions": [
+          1127,
+          1396
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "gala-oro",
+      "runtime_destination": "generated-luxury/gala-oro/04-view-v1.png",
+      "sha256": "46e9ffaf1aeca5bc29ec2c477a81053fcf305b1003f07be89e726be6370c947c",
+      "bytes": 2291455,
+      "dimensions": [
+        1127,
+        1396
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "46e9ffaf1aeca5bc29ec2c477a81053fcf305b1003f07be89e726be6370c947c",
+        "native_dimensions": [
+          1127,
+          1396
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "negro-lunares-beige-hombros",
+      "runtime_destination": "generated-luxury/negro-lunares-beige-hombros/02-view-v1.png",
+      "sha256": "5dc18a7fa907c23946921c3daf11617e11832087f410d9a266d5fc43f63505aa",
+      "bytes": 1885212,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "5dc18a7fa907c23946921c3daf11617e11832087f410d9a266d5fc43f63505aa",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "negro-lunares-beige-hombros",
+      "runtime_destination": "generated-luxury/negro-lunares-beige-hombros/04-view-v1.png",
+      "sha256": "4062ef26ccee999094d0d27a2a924b7b087b6e1904b96fabf8fcc84d865f9f15",
+      "bytes": 2024841,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "4062ef26ccee999094d0d27a2a924b7b087b6e1904b96fabf8fcc84d865f9f15",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "gala-destello",
+      "runtime_destination": "generated-luxury/gala-destello/02-view-v1.png",
+      "sha256": "abad7f084bcf89a3c9015ca3dfaad2fb95ad6466b892e57ccdd84756a89b9150",
+      "bytes": 2429666,
+      "dimensions": [
+        1127,
+        1396
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "abad7f084bcf89a3c9015ca3dfaad2fb95ad6466b892e57ccdd84756a89b9150",
+        "native_dimensions": [
+          1127,
+          1396
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "gala-destello",
+      "runtime_destination": "generated-luxury/gala-destello/03-view-v1.png",
+      "sha256": "ea1910c97b518fd29cb737c3b01979f2be792de9a190ca47d297b46c77bc7bb4",
+      "bytes": 2303379,
+      "dimensions": [
+        1127,
+        1396
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "ea1910c97b518fd29cb737c3b01979f2be792de9a190ca47d297b46c77bc7bb4",
+        "native_dimensions": [
+          1127,
+          1396
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "burdeos-top-pantalon-corto",
+      "runtime_destination": "generated-luxury/burdeos-top-pantalon-corto/02-view-v1.png",
+      "sha256": "be7369bc25545ade68b2cedd8edcd8c68cd6a39e39d562f3e0e5eb6b2ff70b4d",
+      "bytes": 2136860,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "be7369bc25545ade68b2cedd8edcd8c68cd6a39e39d562f3e0e5eb6b2ff70b4d",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "burdeos-top-pantalon-corto",
+      "runtime_destination": "generated-luxury/burdeos-top-pantalon-corto/03-view-v1.png",
+      "sha256": "6a9ebff69bf04418b06d6fc1bf5438cf1ace27e860825973d34dbccd211e10fe",
+      "bytes": 2053502,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "6a9ebff69bf04418b06d6fc1bf5438cf1ace27e860825973d34dbccd211e10fe",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "burdeos-top-pantalon-corto",
+      "runtime_destination": "generated-luxury/burdeos-top-pantalon-corto/04-view-v1.png",
+      "sha256": "13947af2a51902e7faf768109b13402fa496d92525032ae7c2fa3a6d6f552d6d",
+      "bytes": 2044494,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "13947af2a51902e7faf768109b13402fa496d92525032ae7c2fa3a6d6f552d6d",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "novias-velo",
+      "runtime_destination": "generated-luxury/novias-velo/02-view-v1.png",
+      "sha256": "1824d1b3dce975813ea789daef2b3dd8976375954e92f50e597d4681b6ae40db",
+      "bytes": 2090146,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "1824d1b3dce975813ea789daef2b3dd8976375954e92f50e597d4681b6ae40db",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "novias-velo",
+      "runtime_destination": "generated-luxury/novias-velo/03-view-v1.png",
+      "sha256": "3e7adc4fda25fa160d37559015b29a52f0315886e34ffff204406a99f7f28c0c",
+      "bytes": 2232473,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "3e7adc4fda25fa160d37559015b29a52f0315886e34ffff204406a99f7f28c0c",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "novias-velo",
+      "runtime_destination": "generated-luxury/novias-velo/04-view-v1.png",
+      "sha256": "9918d82c118771f06ca6ed8465502bbb1029c96c71fde26fb1d92402c88030e0",
+      "bytes": 2292247,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "9918d82c118771f06ca6ed8465502bbb1029c96c71fde26fb1d92402c88030e0",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "novias-velo",
+      "runtime_destination": "generated-luxury/novias-velo/05-view-v1.png",
+      "sha256": "b49717f41fb023f41abe29735b0e24f0457ca16bdbf0b2bfbe8e2d4508a89740",
+      "bytes": 2113159,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "b49717f41fb023f41abe29735b0e24f0457ca16bdbf0b2bfbe8e2d4508a89740",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "negro-blanco-lunares-midi",
+      "runtime_destination": "generated-luxury/negro-blanco-lunares-midi/02-view-v1.png",
+      "sha256": "b50cd51aa3dad0604791f97f89397c8360743d7571909544e63bbacc747b5e3b",
+      "bytes": 1995320,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "b50cd51aa3dad0604791f97f89397c8360743d7571909544e63bbacc747b5e3b",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "negro-blanco-lunares-midi",
+      "runtime_destination": "generated-luxury/negro-blanco-lunares-midi/03-view-v1.png",
+      "sha256": "f44119ee1f2cb58483b0d8b5fba0ddcb72e9494f03873e0fc8382cb458cbde6f",
+      "bytes": 1986407,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "f44119ee1f2cb58483b0d8b5fba0ddcb72e9494f03873e0fc8382cb458cbde6f",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "negro-blanco-lunares-midi",
+      "runtime_destination": "generated-luxury/negro-blanco-lunares-midi/04-view-v1.png",
+      "sha256": "3eb3d18c25f7429e440673b1140cde175ca46141e434c73e12f01b4f861ae972",
+      "bytes": 1968908,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "3eb3d18c25f7429e440673b1140cde175ca46141e434c73e12f01b4f861ae972",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "negro-blanco-lunares-midi",
+      "runtime_destination": "generated-luxury/negro-blanco-lunares-midi/05-view-v1.png",
+      "sha256": "e82f14e04ad753e641b9152d8a4147a40be8e955f4e9d3752b78c263543eed95",
+      "bytes": 2007709,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "e82f14e04ad753e641b9152d8a4147a40be8e955f4e9d3752b78c263543eed95",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "novias-alba",
+      "runtime_destination": "generated-luxury/novias-alba/02-view-v1.png",
+      "sha256": "7927079ba1047313c0383c7d60b97bec190c0b59c14d57cf025508f9c3b9f0a2",
+      "bytes": 2037143,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "7927079ba1047313c0383c7d60b97bec190c0b59c14d57cf025508f9c3b9f0a2",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "novias-alba",
+      "runtime_destination": "generated-luxury/novias-alba/03-view-v1.png",
+      "sha256": "f976317a92baeb378d9dcff2fab64262c5fc21a80ecc729aed2fd01b87c2d882",
+      "bytes": 2050769,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "f976317a92baeb378d9dcff2fab64262c5fc21a80ecc729aed2fd01b87c2d882",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "novias-encaje",
+      "runtime_destination": "generated-luxury/novias-encaje/02-view-v1.png",
+      "sha256": "695602990ba1975b1f689e283d78386d46c714ca88ccb6f303cf209337cfb89b",
+      "bytes": 2329774,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "695602990ba1975b1f689e283d78386d46c714ca88ccb6f303cf209337cfb89b",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "crema-flores-naranjas-halter",
+      "runtime_destination": "generated-luxury/crema-flores-naranjas-halter/02-view-v1.png",
+      "sha256": "e975d64397be3ad2d829c74b88bab1ead49cda2edde2e59fa84ef257786dcd03",
+      "bytes": 2061656,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "e975d64397be3ad2d829c74b88bab1ead49cda2edde2e59fa84ef257786dcd03",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "crema-flores-naranjas-halter",
+      "runtime_destination": "generated-luxury/crema-flores-naranjas-halter/03-view-v1.png",
+      "sha256": "50b83b479c31faf4b5c38fd33487ee4d7d04eca547f122b5331bfd13db17a0a7",
+      "bytes": 2081303,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "50b83b479c31faf4b5c38fd33487ee4d7d04eca547f122b5331bfd13db17a0a7",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "crema-flores-naranjas-halter",
+      "runtime_destination": "generated-luxury/crema-flores-naranjas-halter/04-view-v1.png",
+      "sha256": "1dcb3f1f71a81f121c21f1a94b5ee86f8d15f935e128845ea619b4cff1c37826",
+      "bytes": 2104835,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "1dcb3f1f71a81f121c21f1a94b5ee86f8d15f935e128845ea619b4cff1c37826",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "crema-flores-naranjas-halter",
+      "runtime_destination": "generated-luxury/crema-flores-naranjas-halter/05-view-v1.png",
+      "sha256": "ba7b66e96538c7a4eaa01e4c6941e2dc01fcac6a34cc6b5bdb3ff6af79421359",
+      "bytes": 2133680,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "ba7b66e96538c7a4eaa01e4c6941e2dc01fcac6a34cc6b5bdb3ff6af79421359",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "azul-gris-flores-falda",
+      "runtime_destination": "generated-luxury/azul-gris-flores-falda/02-view-v1.png",
+      "sha256": "b6109917890a5454e44ff3bb275759ac73c8a5ad6c9df9215edf194561a17420",
+      "bytes": 2042000,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "b6109917890a5454e44ff3bb275759ac73c8a5ad6c9df9215edf194561a17420",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "azul-gris-flores-falda",
+      "runtime_destination": "generated-luxury/azul-gris-flores-falda/03-view-v1.png",
+      "sha256": "26da74a9354b15836ba7615760dfa20549bbf17f195bfa44f1786987cce34c88",
+      "bytes": 1935295,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "26da74a9354b15836ba7615760dfa20549bbf17f195bfa44f1786987cce34c88",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "azul-gris-flores-falda",
+      "runtime_destination": "generated-luxury/azul-gris-flores-falda/04-view-v1.png",
+      "sha256": "2e4442c2be66faa0349480a49b40281aec997a73ff4f89da4309b13c4c997309",
+      "bytes": 2010663,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "2e4442c2be66faa0349480a49b40281aec997a73ff4f89da4309b13c4c997309",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "novia",
+      "runtime_destination": "generated-luxury/novia/02-view-v1.png",
+      "sha256": "d1fc8e6f882f442e63c3e3f2f13ca4b62900f8d85fb8761c43c099c235132be2",
+      "bytes": 2211946,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "d1fc8e6f882f442e63c3e3f2f13ca4b62900f8d85fb8761c43c099c235132be2",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    },
+    {
+      "product_id": "novia",
+      "runtime_destination": "generated-luxury/novia/03-view-v1.png",
+      "sha256": "8df72eed081cc5925b08faa98eeda00f85a005f0910a72b18b867bbbff447bad",
+      "bytes": 2076242,
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "visual_review": {
+        "reviewed": true,
+        "full_model": true,
+        "garment_identity": false,
+        "distinct_view": true,
+        "design_continuity": true,
+        "original_fidelity": false,
+        "original_product_fidelity": false,
+        "plausible_anatomy": true
+      },
+      "status": "integrated-gallery-view",
+      "provenance": {
+        "generator": "native-imagegen",
+        "tool": "image_gen__imagegen",
+        "source_sha256": "8df72eed081cc5925b08faa98eeda00f85a005f0910a72b18b867bbbff447bad",
+        "native_dimensions": [
+          1086,
+          1448
+        ],
+        "pixel_transform": "none",
+        "call_id_status": "Not returned; actual receipt and native output hash retained"
+      }
+    }
+  ]
+}

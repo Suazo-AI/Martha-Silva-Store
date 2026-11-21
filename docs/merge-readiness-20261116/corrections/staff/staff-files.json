@@ -1,0 +1,13 @@
+[
+  "dev/savia-staff-ui/auth.test.mjs",
+  "dev/savia-staff-ui/branch-compat.test.mjs",
+  "dev/savia-staff-ui/cash.test.mjs",
+  "dev/savia-staff-ui/commerce.test.mjs",
+  "dev/savia-staff-ui/dom.test.mjs",
+  "dev/savia-staff-ui/failure-simulation.test.mjs",
+  "dev/savia-staff-ui/pagination.test.mjs",
+  "dev/savia-staff-ui/session-transition.test.mjs",
+  "dev/savia-staff-ui/stock-exception.test.mjs",
+  "dev/savia-staff-ui/supply.test.mjs",
+  "dev/savia-staff-ui/supply-pagination.test.mjs"
+]

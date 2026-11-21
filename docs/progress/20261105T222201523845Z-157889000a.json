@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-05T22:22:01.523845+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": ".github/workflows/ci.yml",
+      "change": "M",
+      "git_blob": "86ed3351169fc5c5b94a5eee28ef624b712e88fd"
+    },
+    {
+      "path": ".github/workflows/tony-snapshot.yml",
+      "change": "M",
+      "git_blob": "ed6757d3266ad605ab74f6e7702b32d94a375155"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "784ad0f21216b9b49992b548a99effe0a8bdcc4e"
+    },
+    {
+      "path": "docs/release-20261105/responsive-integration/README.md",
+      "change": "M",
+      "git_blob": "ae2a9a60cb7bf6990c89772f55b14ecd724761eb"
+    },
+    {
+      "path": "docs/release-20261105/responsive-integration/publication-ci.md",
+      "change": "A",
+      "git_blob": "58e688fd5fc7539dd66de25d419059fd194c175e"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

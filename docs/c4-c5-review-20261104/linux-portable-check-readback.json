@@ -1,0 +1,19 @@
+{
+  "head": "8744a9699812d62ea5ed31c63781748f833c3def",
+  "run": 41779354483,
+  "job": 126407090176,
+  "conclusion": "success",
+  "platform": "ubuntu-latest",
+  "source": "GitHub decoded job logs fetched read-only",
+  "excerpt": [
+    "2026-11-04T05:27:40.4149722Z ##[group]Run python tests/check.py --install",
+    "2026-11-04T05:28:33.7515523Z PASS: all recovered-demo automated checks",
+    "2026-11-04T05:27:47.8624929Z == Asset audit regression (not full catalog completion) ==",
+    "2026-11-04T05:27:48.6708918Z ......",
+    "2026-11-04T05:27:48.6709470Z ----------------------------------------------------------------------",
+    "2026-11-04T05:27:48.6709967Z Ran 6 tests in 0.553s",
+    "2026-11-04T05:27:48.6710137Z ",
+    "2026-11-04T05:27:48.6710251Z OK",
+    "2026-11-04T05:27:48.6792337Z "
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "dev\\savia-staff-ui\\app.mjs": {
+    "RAW": "7499bfdd63ce02507a1df22867d27f78f33af04c667769652a8212676f14a092",
+    "LF": "7499bfdd63ce02507a1df22867d27f78f33af04c667769652a8212676f14a092"
+  },
+  "dev\\savia-staff-ui\\auth.test.mjs": {
+    "RAW": "7c6b890b25b8c27e4f2fcda44549db2ca3f2f67552c7c7b6a2e3afa14b16bab6",
+    "LF": "5c22810478f361d06ed019636239b31df13a7991c09215b507ad3ec8a40b31d2"
+  },
+  "dev\\savia-staff-ui\\branch-compat.test.mjs": {
+    "RAW": "12e8d1feae913a910b052497eb14260565f81ab972ddc34062eafac0f0f25932",
+    "LF": "3dce7f02187829d3d05523418b4a1fc61c055b278e168f32e2fc36813f22dcd2"
+  },
+  "dev\\savia-staff-ui\\client.mjs": {
+    "RAW": "33e8fc65f75215e7e0f7d511ccfdeb2563c257872cd513d3aded8fa2a2497f59",
+    "LF": "33e8fc65f75215e7e0f7d511ccfdeb2563c257872cd513d3aded8fa2a2497f59"
+  },
+  "dev\\savia-staff-ui\\commerce.test.mjs": {
+    "RAW": "ca26a9e7a67e68a21563e4ee92dbc0bd46f48f85d8531a724ce1e5529aa25d7d",
+    "LF": "844470474e8233e5aadb671a375eab16645b68f4d39548a0f25f628fc95226b4"
+  },
+  "dev\\savia-staff-ui\\dom.test.mjs": {
+    "RAW": "1dc5c848f105464f69f01802ca8247f7bc473e8831d0e9366626019985ebe993",
+    "LF": "3f86ede5fd94139c7073100ca3e29f49f43a06e374fb40b113216ebf2090a196"
+  },
+  "dev\\savia-staff-ui\\failure-simulation.test.mjs": {
+    "RAW": "0c66bea4d4e338fcf240c34e65adafff7b1db921e918f39d3666ae9e0d32866c",
+    "LF": "491a8f3b0f516fefd81fa5cc426c0c002470f3ef183e3d1eeb8dc08deef5d9d8"
+  },
+  "dev\\savia-staff-ui\\index.html": {
+    "RAW": "b5fe1c6a87f9cb4736e103eae888be97546e4f7b7e50d8893fe4ab4b01a6897d",
+    "LF": "79a97d04380755114f243de2bf552f387b305567dbfb08e1d7423a0b6fd1a038"
+  },
+  "dev\\savia-staff-ui\\login.html": {
+    "RAW": "4803ece2ef530d9e5161837209ac86591bfe1447e9876b0f38bf17baca9a8382",
+    "LF": "b9068478b46b9786c18dbe54ffa1172e1fb325e283ca944f9c2a840b37d1a686"
+  },
+  "dev\\savia-staff-ui\\login.mjs": {
+    "RAW": "139fb119d215df458f67d3cb5916dbe3bd6db8682da113297d45121c2725cf66",
+    "LF": "139fb119d215df458f67d3cb5916dbe3bd6db8682da113297d45121c2725cf66"
+  },
+  "dev\\savia-staff-ui\\pagination.test.mjs": {
+    "RAW": "e0509c9ecbf644f374f13e37be5f0647e47dabacb53d9dc57ef238079c8f1a85",
+    "LF": "3e87ede9ded5b869e4f7010232966e4a8d6c768ed581231e272de11d4256a480"
+  },
+  "dev\\savia-staff-ui\\README.md": {
+    "RAW": "0d6b7cc2b18d28a6fd2c10bdc6cff192d0718dfe82cc84dab44f61b74b41af92",
+    "LF": "6b70fc0dd0e3dd9b8e7247b6b22637910e0eef95a03a57212b964cf2c8d839b5"
+  },
+  "dev\\savia-staff-ui\\styles.css": {
+    "RAW": "3be78159e11d127c91db22399fb306fcc35e9cb8886a556393a003b82c9c2622",
+    "LF": "e87afda331f5a2ce1a028eb65bafe12f4bb7a30b8d8577846e1435371df9df01"
+  }
+}

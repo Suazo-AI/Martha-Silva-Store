@@ -1,0 +1,7 @@
+[
+  "CK_CashClose_Amounts|([ExpectedMinor]>=(0) AND [ExpectedMinor]<=(9000000000000.) AND ([CountedMinor]>=(0) AND [CountedMinor]<=(9000000000000.)) AND [DifferenceMinor]=([CountedMinor]-[ExpectedMinor]))",
+  "CK_CashEntry_Bounds|([DeltaMinor]>=(-9000000000000.) AND [DeltaMinor]<=(9000000000000.) AND ([ReceivedMinor]>=(0) AND [ReceivedMinor]<=(9000000000000.)) AND ([ChangeMinor]>=(0) AND [ChangeMinor]<=(9000000000000.)))",
+  "CK_CashEntry_Kind|([Kind]='opening' AND [DeltaMinor]>=(0) AND [ReceivedMinor]=(0) AND [ChangeMinor]=(0) AND [SaleId] IS NULL AND [ReversalId] IS NULL OR [Kind]='sale' AND [DeltaMinor]>=(0) AND ([ReceivedMinor]-[ChangeMinor])=[DeltaMinor] AND [SaleId] IS NOT NULL AND [ReversalId] IS NULL OR [Kind]='refund' AND [DeltaMinor]<(0) AND [ReceivedMinor]=(0) AND [ChangeMinor]=(0) AND [SaleId] IS NOT NULL AND [ReversalId] IS NOT NULL)",
+  "CK_CashTill_Currency|(len([Currency])=(3) AND NOT ([Currency]) collate Latin1_General_100_BIN2 like '%[^A-Z]%' AND ([Exponent]>=(0) AND [Exponent]<=(6)))",
+  "CK_CashTill_Time|([ClosedAt] IS NULL OR [ClosedAt]>=[OpenedAt])"
+]

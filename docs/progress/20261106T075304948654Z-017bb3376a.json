@@ -1,0 +1,365 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-06T07:53:04.948654+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": ".github/workflows/golden-path.yml",
+      "change": "M",
+      "git_blob": "138208b4e6a11bad8d1873f8975510d1da50f60a"
+    },
+    {
+      "path": ".github/workflows/staff-ui-candidate.yml",
+      "change": "M",
+      "git_blob": "d2b91ac29a16c61896b40b6443a75dcb46c418af"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceEndpoints.cs",
+      "change": "M",
+      "git_blob": "61f95df514f00849fa02d56eb570f93d6bf24ade"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceModel.cs",
+      "change": "M",
+      "git_blob": "56290ff3f5ed62a595a06e875092f683dcede41b"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceModels.cs",
+      "change": "M",
+      "git_blob": "6236b8218ce733d3f484ebc5919c777b0ec273bb"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceService.cs",
+      "change": "M",
+      "git_blob": "47ead05d4b3259357c751c0efe1e774a67e59023"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalStockLedger.cs",
+      "change": "M",
+      "git_blob": "70dd5aedfb665e5f817b998e41929ee6f5d3b7c0"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalCommandRunner.cs",
+      "change": "M",
+      "git_blob": "61b25d866e63c6b631e8eb91b9252e6900eb1580"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalDbContext.cs",
+      "change": "M",
+      "git_blob": "b35d5e562290ed65f3c36d0ce942a55356a231de"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Migrations/20261106071201_PhysicalStockException.Designer.cs",
+      "change": "A",
+      "git_blob": "e7d5e074f72e066700c4a5205b81057d23797679"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Migrations/20261106071201_PhysicalStockException.cs",
+      "change": "A",
+      "git_blob": "4df2eb09e2ee2fd2e619102325a353541b3bb714"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Migrations/InitialInternalSavia.idempotent.sql",
+      "change": "M",
+      "git_blob": "49c880fec07f599d03facf68a213997e14ad3eac"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Migrations/InternalDbContextModelSnapshot.cs",
+      "change": "M",
+      "git_blob": "6f4443f6d915e0180c63e9f8f6af2dc371dc456f"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/StockExceptions/InternalStockExceptions.cs",
+      "change": "A",
+      "git_blob": "54965f1c0412e1d221a8a2b64fe7ee131f32f8f8"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCommerceSqlTests.cs",
+      "change": "M",
+      "git_blob": "e3672b705b2730a776dc1a07e4f2cc5ef7987bf4"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalReleaseScriptTests.cs",
+      "change": "M",
+      "git_blob": "3677bca480638910cead1ef6541bfdf94edbeedb"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalStockExceptionSqlTests.cs",
+      "change": "A",
+      "git_blob": "c4603fa799a8cb268972b5ce956d065c32204323"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalStockExceptionTests.cs",
+      "change": "A",
+      "git_blob": "d142ac3842ba39399ffa7700884ae9dd5d39be91"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs",
+      "change": "M",
+      "git_blob": "be83d707a9c66b00aa450bdf10940bcb718bcd00"
+    },
+    {
+      "path": "dev/savia-staff-ui/README.md",
+      "change": "M",
+      "git_blob": "8f3301d0134c45288f0c7357e6016d8b3d548926"
+    },
+    {
+      "path": "dev/savia-staff-ui/app.mjs",
+      "change": "M",
+      "git_blob": "0ad6dd4691f3ca76cea9c82504393487caac937d"
+    },
+    {
+      "path": "dev/savia-staff-ui/client.mjs",
+      "change": "M",
+      "git_blob": "011a64c2b9b395ebc51fd71b3d8e4133e29350fd"
+    },
+    {
+      "path": "dev/savia-staff-ui/index.html",
+      "change": "M",
+      "git_blob": "aacb71b5414fcfcac89379768e30f08bbf071760"
+    },
+    {
+      "path": "dev/savia-staff-ui/login.mjs",
+      "change": "M",
+      "git_blob": "c99f58c113e1110cc6341d5debafa380f0269c11"
+    },
+    {
+      "path": "dev/savia-staff-ui/stock-exception.test.mjs",
+      "change": "A",
+      "git_blob": "61dc53898323d2556dd41745211c2807784b9a93"
+    },
+    {
+      "path": "dev/savia-staff-ui/styles.css",
+      "change": "M",
+      "git_blob": "46a6388b75ca8d4dc6d9829e9ec9ee2f3b19a260"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "463ade2f35be36e1ec013f51798fb786e2ff096f"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "change": "M",
+      "git_blob": "e564e2b199962157ab2c243af1a20fc4e42900f8"
+    },
+    {
+      "path": "docs/stock-exception-20261106/CANDIDATE.json",
+      "change": "A",
+      "git_blob": "22d476e30c17b8b3c8743d256dc3e5dff8864bcb"
+    },
+    {
+      "path": "docs/stock-exception-20261106/IMPORT.json",
+      "change": "A",
+      "git_blob": "1fe559922c1b74084192b4aa026be90ad5c7e1d5"
+    },
+    {
+      "path": "docs/stock-exception-20261106/PRIMARY-REVIEW.md",
+      "change": "A",
+      "git_blob": "c6ac3a85ddfa2f3ba81c705fe540634cd2bc67d6"
+    },
+    {
+      "path": "docs/stock-exception-20261106/primary/CHECKS.json",
+      "change": "A",
+      "git_blob": "428d178f30422de01c741e296b8f374116b4c9c2"
+    },
+    {
+      "path": "docs/stock-exception-20261106/primary/browser-stock-record.mjs",
+      "change": "A",
+      "git_blob": "65769a9a9ff3cb18450dbfd75e738a1dfaa44cc3"
+    },
+    {
+      "path": "docs/stock-exception-20261106/primary/browser-stock-results.json",
+      "change": "A",
+      "git_blob": "9ebbb3248a1464f80d20c9c3c6e54625c95cd88d"
+    },
+    {
+      "path": "docs/stock-exception-20261106/primary/stock-review-1440.png",
+      "change": "A",
+      "git_blob": "52360741314f6c94e4d52b6a18566a130489350d"
+    },
+    {
+      "path": "docs/stock-exception-20261106/primary/stock-review-390.png",
+      "change": "A",
+      "git_blob": "2282b21800d07326dd37bfc87b23b7428816ddb1"
+    },
+    {
+      "path": "docs/stock-exception-20261106/primary/videos/page@1989548062439a4d2c99971406aaf735.webm",
+      "change": "A",
+      "git_blob": "71552cdbf7725ef27410c3fa6ded82874324f0f6"
+    },
+    {
+      "path": "docs/stock-exception-20261106/primary/videos/page@9c56a7da361fc2ce499eb59e0cbeace3.webm",
+      "change": "A",
+      "git_blob": "81c30fb6f2d9ccd82c92c1ca91ab36fb38b76383"
+    },
+    {
+      "path": "docs/stock-exception-20261106/worker/README.md",
+      "change": "A",
+      "git_blob": "86cc831caeccd13a6287bc2a36d6b31a268ca74f"
+    },
+    {
+      "path": "docs/stock-exception-20261106/worker/RESULT.json",
+      "change": "A",
+      "git_blob": "afece49d112c15edb1f96fc1d44d3089416823ea"
+    },
+    {
+      "path": "docs/stock-exception-20261106/worker/browser-mock/browser-results.json",
+      "change": "A",
+      "git_blob": "5b91de07b9f732b3a76175f7b74cbad1e44799b1"
+    },
+    {
+      "path": "docs/stock-exception-20261106/worker/browser-mock/multiarticle-desktop-cart.png",
+      "change": "A",
+      "git_blob": "bedc0513e9cbae97e923ab884fa2862a49845f88"
+    },
+    {
+      "path": "docs/stock-exception-20261106/worker/browser-mock/multiarticle-desktop-receipt.png",
+      "change": "A",
+      "git_blob": "21680425240ebc4045308ea5764e627280f6cb89"
+    },
+    {
+      "path": "docs/stock-exception-20261106/worker/browser-mock/multiarticle-mobile-cart.png",
+      "change": "A",
+      "git_blob": "07ed417d5fd4825fa44469bf7b7831b4d2913f9a"
+    },
+    {
+      "path": "docs/stock-exception-20261106/worker/browser-mock/multiarticle-mobile-receipt.png",
+      "change": "A",
+      "git_blob": "aead131ba3032b87d195d982093fdffe2d1636c6"
+    },
+    {
+      "path": "docs/stock-exception-20261106/worker/browser-mock/public-checkout-observation.json",
+      "change": "A",
+      "git_blob": "1aa0ff2bae47d10861b52a8bb592d03bc5162155"
+    },
+    {
+      "path": "docs/stock-exception-20261106/worker/browser-mock/stale-receipt-observation.json",
+      "change": "A",
+      "git_blob": "cdd1e38a36545845ffd3981d90feb53d769bdacd"
+    },
+    {
+      "path": "docs/stock-exception-20261106/worker/browser-mock/stale-receipt.png",
+      "change": "A",
+      "git_blob": "58c196418dc7c2ef8f916cfd7db699f96bc347ef"
+    },
+    {
+      "path": "docs/stock-exception-20261106/worker/browser-stock-check.mjs",
+      "change": "A",
+      "git_blob": "414a0a9fc6b9b6d48340fc5128cb40dd4f4af000"
+    },
+    {
+      "path": "docs/stock-exception-20261106/worker/browser-stock-results.json",
+      "change": "A",
+      "git_blob": "9ebbb3248a1464f80d20c9c3c6e54625c95cd88d"
+    },
+    {
+      "path": "docs/stock-exception-20261106/worker/browser-supply/results.json",
+      "change": "A",
+      "git_blob": "91705c935402cd816b548049dc7f1353c2df5a40"
+    },
+    {
+      "path": "docs/stock-exception-20261106/worker/commands.json",
+      "change": "A",
+      "git_blob": "274003cf7f6efa65ece210bfcee3b028b9f3a4c9"
+    },
+    {
+      "path": "docs/stock-exception-20261106/worker/current-release-down.sql",
+      "change": "A",
+      "git_blob": "0f1eaaecd428068c48066d0720ea0e7c0ed6f047"
+    },
+    {
+      "path": "docs/stock-exception-20261106/worker/current-release-idempotent.sql",
+      "change": "A",
+      "git_blob": "428c0b0485d6db8b7f3a6dd0b023c2109f3c80b1"
+    },
+    {
+      "path": "docs/stock-exception-20261106/worker/current-release.sql",
+      "change": "A",
+      "git_blob": "f9e2b4a85a9df74a6c31b591f474f847339e5f75"
+    },
+    {
+      "path": "docs/stock-exception-20261106/worker/ef-scaffold/.gitignore",
+      "change": "A",
+      "git_blob": "cd42ee34e873b4ddf17cdeeed2e6c0d4e094c62b"
+    },
+    {
+      "path": "docs/stock-exception-20261106/worker/ef-scaffold/Program.cs",
+      "change": "A",
+      "git_blob": "c1d2d60f2cc726c7f512ae9819b30e7b764db3b3"
+    },
+    {
+      "path": "docs/stock-exception-20261106/worker/ef-scaffold/ef-scaffold.csproj",
+      "change": "A",
+      "git_blob": "393d7e4e6c0e392e9a9f23c5534df5195bfe5266"
+    },
+    {
+      "path": "docs/stock-exception-20261106/worker/handoff-check.json",
+      "change": "A",
+      "git_blob": "88c63528d66c8a30438b298c694720faa7099a0e"
+    },
+    {
+      "path": "docs/stock-exception-20261106/worker/negative-controls.json",
+      "change": "A",
+      "git_blob": "915319e0214d64637cf948aa379cbb0f2a48f9fc"
+    },
+    {
+      "path": "docs/stock-exception-20261106/worker/restoration.json",
+      "change": "A",
+      "git_blob": "b3e73d21e4095b2bdf8eadd9d610029103bff2f6"
+    },
+    {
+      "path": "docs/stock-exception-20261106/worker/source-binding.json",
+      "change": "A",
+      "git_blob": "10a361c0eadd054dcd41f94ea767fb648daceeaa"
+    },
+    {
+      "path": "docs/stock-exception-20261106/worker/stock-review-1440.png",
+      "change": "A",
+      "git_blob": "acae88cc472e9a74605e2129ec9d89d8ef1e9a88"
+    },
+    {
+      "path": "docs/stock-exception-20261106/worker/stock-review-390.png",
+      "change": "A",
+      "git_blob": "806703894be7871f018076457f8b1d658c7639a4"
+    },
+    {
+      "path": "tests/golden-path/GoldenPath.Sql/Program.cs",
+      "change": "M",
+      "git_blob": "9a4c7e9add78acb899d83ab74ad2f57b71e4dba8"
+    },
+    {
+      "path": "tests/golden-path/README.md",
+      "change": "M",
+      "git_blob": "7904e047390a95ef342ffda94f1abd7347281f55"
+    },
+    {
+      "path": "tests/golden-path/browser_path.mjs",
+      "change": "M",
+      "git_blob": "3c84f70f0920741102ea1923befabbdc1f7a8048"
+    },
+    {
+      "path": "tests/golden-path/golden_path.py",
+      "change": "M",
+      "git_blob": "2e3f959d588c93e91584fa03e1df5f06c6583da5"
+    },
+    {
+      "path": "tests/golden-path/oracles.md",
+      "change": "A",
+      "git_blob": "9433cb565ecaa67b79f6e79d85e4254bfd988e4a"
+    },
+    {
+      "path": "tests/test_golden_path_browser_safety.py",
+      "change": "M",
+      "git_blob": "77af9803ed6c9b885bf136deddfeefc0d3b32ffc"
+    },
+    {
+      "path": "tests/test_golden_path_stock_exception.py",
+      "change": "A",
+      "git_blob": "2ddae613ce6370a58281733a42444c655ec50f6c"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

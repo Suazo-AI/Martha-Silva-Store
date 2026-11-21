@@ -1,0 +1,145 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-05T02:37:29.789096+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "dev/savia-staff-ui/README.md",
+      "change": "M",
+      "git_blob": "d5488d0d19ff8c03e05333b64af478758499f0bd"
+    },
+    {
+      "path": "dev/savia-staff-ui/app.mjs",
+      "change": "M",
+      "git_blob": "3301a001ce3df39bf3c674eaa6aa85582a6562d3"
+    },
+    {
+      "path": "dev/savia-staff-ui/client.mjs",
+      "change": "M",
+      "git_blob": "f5e61149b5077545aaf5d29a132f01eeda81388e"
+    },
+    {
+      "path": "dev/savia-staff-ui/commerce.test.mjs",
+      "change": "M",
+      "git_blob": "c141f056265a2178cccad90763796542c62cd46b"
+    },
+    {
+      "path": "dev/savia-staff-ui/index.html",
+      "change": "M",
+      "git_blob": "2b9768cb0d62e8201560b3b81ceba32a3f0aef36"
+    },
+    {
+      "path": "dev/savia-staff-ui/styles.css",
+      "change": "M",
+      "git_blob": "e0d227c8b6c822090d6980a99ce91f1989bde520"
+    },
+    {
+      "path": "docs/AGENT-START.md",
+      "change": "M",
+      "git_blob": "a565282bfa6b8470da1c5cc67275a2a77de19191"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "0093e10262b44af14564ca11617de1dd8526829e"
+    },
+    {
+      "path": "docs/multiarticle-20261104/README.md",
+      "change": "A",
+      "git_blob": "7c3d4810b8a5818402bd973bc48e8cf80240977c"
+    },
+    {
+      "path": "docs/multiarticle-20261104/before-browser.json",
+      "change": "A",
+      "git_blob": "2ce9aee9a6e67f1b92f9618e110f3e287106e62a"
+    },
+    {
+      "path": "docs/multiarticle-20261104/before-single-article.webm",
+      "change": "A",
+      "git_blob": "3b843ad57ee7492a9eae833606e4bdbdd33226d2"
+    },
+    {
+      "path": "docs/multiarticle-20261104/browser-complete.json",
+      "change": "A",
+      "git_blob": "5717a21f7f8ab681b7efe24ca03d56d3b48dbb00"
+    },
+    {
+      "path": "docs/multiarticle-20261104/critic.md",
+      "change": "A",
+      "git_blob": "5cf42631944da68a4fa620de53a97371257fad7f"
+    },
+    {
+      "path": "docs/multiarticle-20261104/jury.md",
+      "change": "A",
+      "git_blob": "b0cd1c9e519abd7fbcfdee5bd8498177b43cb6ba"
+    },
+    {
+      "path": "docs/multiarticle-20261104/local-verification.json",
+      "change": "A",
+      "git_blob": "04bddf5d345ad391920d5de9fe713c98f41012ca"
+    },
+    {
+      "path": "docs/multiarticle-20261104/multiarticle-browser.json",
+      "change": "A",
+      "git_blob": "83f44ce32b67cf3f9ecb1b4cfa24e831ecef47e1"
+    },
+    {
+      "path": "docs/multiarticle-20261104/multiarticle-desktop-cart.png",
+      "change": "A",
+      "git_blob": "7dff63b0caabe383ae4d8183e2ab9ca21c8e96d2"
+    },
+    {
+      "path": "docs/multiarticle-20261104/multiarticle-desktop-receipt.png",
+      "change": "A",
+      "git_blob": "8c53b5035190067bea0943a53e4a70215ddc7ac1"
+    },
+    {
+      "path": "docs/multiarticle-20261104/multiarticle-desktop.webm",
+      "change": "A",
+      "git_blob": "29076da450783945582b16ad7db5e203e937ca28"
+    },
+    {
+      "path": "docs/multiarticle-20261104/multiarticle-mobile-cart.png",
+      "change": "A",
+      "git_blob": "feb3dbe0c697e4210da6c8c7aaaeb0e949ec4cbf"
+    },
+    {
+      "path": "docs/multiarticle-20261104/multiarticle-mobile-receipt.png",
+      "change": "A",
+      "git_blob": "1d1cbe65857c52335bff6dd35a5bd6d146cffc9c"
+    },
+    {
+      "path": "docs/multiarticle-20261104/multiarticle-mobile.webm",
+      "change": "A",
+      "git_blob": "1becd02c03cae5af790f1b5c5f01fbccc0931ad5"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "change": "M",
+      "git_blob": "70fd3ce1a561c2fdfd2d4066b337e682e1f8ed80"
+    },
+    {
+      "path": "tests/browser-mock-validation.mjs",
+      "change": "M",
+      "git_blob": "cf706176f1b73f73fec4605492eb8859e695d151"
+    },
+    {
+      "path": "tests/golden-path/browser_path.mjs",
+      "change": "M",
+      "git_blob": "7546a0e82ba3e2bb564f9d3d78a7fee1544dfe11"
+    },
+    {
+      "path": "tests/golden-path/golden_path.py",
+      "change": "M",
+      "git_blob": "b629137d8d091d09b42fb05a1c596930e3e3ec0c"
+    },
+    {
+      "path": "tests/test_golden_path_browser_safety.py",
+      "change": "M",
+      "git_blob": "df97c6055150ef828d0926aa059224d15614f303"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-13T21:27:35.719728+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/docs/design/DOLARES.md",
+      "change": "A",
+      "git_blob": "428f49f98d9450524a1947e0213814a6a59fbd1d"
+    },
+    {
+      "path": "savia/docs/pilot/PCG.md",
+      "change": "M",
+      "git_blob": "c7f3736ca0aa2df400ec8acd2f6b4cc9947bed06"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

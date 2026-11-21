@@ -1,0 +1,162 @@
+{
+  "base": "2c96904f49d2df913850bc13cf53b3b03ceebacf",
+  "host": "SUAZO-PC",
+  "runtime": "T3 Code / Codex / gpt-6.1-sol / max",
+  "fictionalDataOnly": true,
+  "checks": [
+    {
+      "id": "current-web",
+      "command": [
+        "node",
+        "--test",
+        "savia/web/tests/*.test.mjs",
+        "savia/web/scanner/scanner.test.mjs"
+      ],
+      "cwd": ".",
+      "exit": 0,
+      "seconds": 0.5,
+      "log": "private-exports/savia-ux-20261116-primary/current-web.log",
+      "sha256": "bd182e9d4934a4be45a4f64ed92f76c6f4ef12b3b17fa261d5d9fae6db5ce092"
+    },
+    {
+      "id": "current-lint",
+      "command": [
+        "node",
+        "node_modules/@biomejs/biome/bin/biome",
+        "check",
+        "web"
+      ],
+      "cwd": "savia",
+      "exit": 0,
+      "seconds": 0.25,
+      "log": "private-exports/savia-ux-20261116-primary/current-lint.log",
+      "sha256": "aa1dd09977559a93422745a75c1b057dbe86003d9da14d4ac08a085be7c61f84"
+    },
+    {
+      "id": "current-rules",
+      "command": [
+        "python",
+        "-X",
+        "utf8",
+        "savia/tools/rules.py"
+      ],
+      "cwd": ".",
+      "exit": 0,
+      "seconds": 0.312,
+      "log": "private-exports/savia-ux-20261116-primary/current-rules.log",
+      "sha256": "2de87318481d79c344baee2450ab8548870ffbc7dd6d966be1cf8823ef384d8a"
+    },
+    {
+      "id": "current-build",
+      "command": [
+        "python",
+        "-X",
+        "utf8",
+        "savia/tools/build_demo.py"
+      ],
+      "cwd": ".",
+      "exit": 0,
+      "seconds": 0.218,
+      "log": "private-exports/savia-ux-20261116-primary/current-build.log",
+      "sha256": "66dae0ef4f71511c7bc6207b5f530e574d4838892357468fe46241e2c8529211"
+    },
+    {
+      "id": "current-shell",
+      "command": [
+        "python",
+        "-X",
+        "utf8",
+        "docs/savia-ux-20261116/corrections/browser.py"
+      ],
+      "exit": 0,
+      "seconds": 15.844,
+      "log": "private-exports/savia-ux-20261116-primary/current-shell.log",
+      "sha256": "6b9db6c454966d156cf66adf71db4f167e930ae1ddb95df504803a86dd0cf98f"
+    },
+    {
+      "id": "current-browser",
+      "command": [
+        "python",
+        "-X",
+        "utf8",
+        "docs/savia-ux-20261116/primary/browser.py"
+      ],
+      "exit": 0,
+      "seconds": 17.562,
+      "log": "private-exports/savia-ux-20261116-primary/current-browser.log",
+      "sha256": "394b52fb4709681c87f54abe4843c2262e788a9f009081a12bcd34d7ec925f13"
+    },
+    {
+      "id": "current-entry",
+      "command": [
+        "node",
+        "--test",
+        "savia/demo/site/entry.test.mjs"
+      ],
+      "exit": 0,
+      "seconds": 32.0,
+      "log": "private-exports/savia-ux-20261116-primary/current-entry.log",
+      "sha256": "7029e7187e03dbb9c4a18c0b7d1851b91c65732f1c9fab78568b29dd25d6ec79"
+    }
+  ],
+  "negativeRegression": {
+    "command": [
+      "node",
+      "--test",
+      "--test-name-pattern=a delayed (headers|error body)",
+      "savia/web/tests/api-contract.test.mjs"
+    ],
+    "exit": 1,
+    "seconds": 0.125,
+    "log": "private-exports/savia-ux-20261116-primary/stale401-red.log",
+    "sha256": "a7477e0032a03942a257cf874aa469e8717ba8d4c1abeaf21d97920f64023c24"
+  },
+  "historicalLogs": [
+    {
+      "label": "corrections-red",
+      "log": "private-exports/savia-ux-20261116-primary/corrections-red.log",
+      "sha256": "755680dc0fd2170563e2e79f3f8f004d7677309ed1fdc7bd55caa11e66ff5fc7",
+      "classification": "original narrower run; not the final expanded matrix"
+    },
+    {
+      "label": "approval-red",
+      "log": "private-exports/savia-ux-20261116-primary/approval-red.log",
+      "sha256": "d1b88f6ba989a562fc90415b62114b74c946ec8cda19bd130696907480ab35b9",
+      "classification": "original narrower run; not the final expanded matrix"
+    },
+    {
+      "label": "corrections-green",
+      "log": "private-exports/savia-ux-20261116-primary/corrections-green.log",
+      "sha256": "d37e4c0e30ceff5d27399061e26dafef0ae70f6f53c0c0382fb6a1755cc06bd9",
+      "classification": "original narrower run; not the final expanded matrix"
+    },
+    {
+      "label": "approval-green",
+      "log": "private-exports/savia-ux-20261116-primary/approval-green.log",
+      "sha256": "ede250ca0581507877f17d0ab3c787158a06d0840939d2ff3a9cdf824352460a",
+      "classification": "original narrower run; not the final expanded matrix"
+    }
+  ],
+  "results": {
+    "web": {
+      "passed": 91,
+      "failed": 0,
+      "skipped": 0
+    },
+    "lintFiles": 64,
+    "rules": 9,
+    "shellChecks": 30,
+    "mountedChecks": 41,
+    "keyboardChecks": 20,
+    "entryTests": 3,
+    "entryBrowserChecks": 71
+  },
+  "notRun": [
+    "SQL",
+    "real API",
+    "physical devices",
+    "complete accessibility audit",
+    "production",
+    "exact-SHA CI"
+  ]
+}

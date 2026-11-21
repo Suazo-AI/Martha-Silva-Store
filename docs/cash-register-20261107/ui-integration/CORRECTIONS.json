@@ -1,0 +1,159 @@
+{
+  "state": "PRIMARY_ACCEPTED_WITH_LIMITS_AWAITING_EXACT_SHA_CI",
+  "parentSha": "39161ef8c5afcac1f7c9502cc5f38439608a8d70",
+  "F1": {
+    "correction": "Cash-first fixtures and N5 scoped identity; legacy seeded unpaid recovery retained",
+    "primaryFull": "50/50 integrated current bytes",
+    "adaptationForJudge": "Confirmed cash receipt is not persisted for automatic redisplay after a further reload. Driver checks authoritative commerce read and no replay; uncertain recovery and seeded legacy redisplay still asserted. Decide sufficiency explicitly.",
+    "primaryAdditionalDelta": "Removed unreachable duplicate cash/context fixture route",
+    "adaptationDisposition": "Astra and primary accept within frozen scope. No automatic confirmed cash receipt redisplay is claimed; uncertain recovery and seeded legacy restoration remain asserted."
+  },
+  "F2": {
+    "exit": 0,
+    "checks": [
+      {
+        "path": ".github/workflows/staff-ui-candidate.yml",
+        "cashJob": "staff-and-resource-guards",
+        "stepIsMandatory": true,
+        "runsBeforeLegacy": true,
+        "evidenceUploadedAlways": true
+      },
+      {
+        "path": ".github/workflows/staff-ui-candidate.yml",
+        "allOtherJobsUnchanged": true
+      },
+      {
+        "path": ".github/workflows/savia.yml",
+        "cashJob": "staff-ui-and-browser",
+        "stepIsMandatory": true,
+        "runsBeforeLegacy": true,
+        "evidenceUploadedAlways": true
+      },
+      {
+        "path": ".github/workflows/savia.yml",
+        "allOtherJobsUnchanged": true
+      }
+    ],
+    "execution": "YAML/static inspection only; no workflow dispatch or SQL"
+  },
+  "F3": {
+    "red": {
+      "passed": 0,
+      "failed": 2,
+      "exit": 1,
+      "log": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\cash-ui-primary-20261108\\privacy-red.log",
+      "rawSha256": "4523f875007fe0f9adefd9851b417fcb5153f5eff81fdc96d4bedef2fc7bcb01"
+    },
+    "green": {
+      "passed": 2,
+      "failed": 0,
+      "exit": 0,
+      "log": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\cash-ui-primary-20261108\\privacy-green.log",
+      "rawSha256": "5d0a7fbf5a4dadce49d56ced5295a51573c342620f9a5e4752a8ebbdbfaeaf11"
+    },
+    "correction": "Clear private cash DOM/options/labels before actor/version replacement; retain pending raw storage bytes. jsdom proof, not full logout navigation."
+  },
+  "repository": {
+    "command": [
+      "python",
+      "tests/check.py"
+    ],
+    "exit": 0,
+    "staffPassed": 223,
+    "log": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\cash-ui-primary-20261108\\repository-privacy.log",
+    "rawSha256": "89ca963fced23143be4b9c1091ba6c2819e4788b672620ee748b737bf12c208e"
+  },
+  "browsers": [
+    {
+      "name": "cash-current",
+      "result": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\cash-ui-primary-20261108\\cash-current\\browser-results.json",
+      "resultRawSha256": "7379202a01587b828976c0c9ec19b775228c18142409c4c085dd73bd3afe03d9",
+      "passed": 2,
+      "failed": 0,
+      "process": {
+        "command": [
+          "node",
+          "tests/browser-cash-validation.mjs",
+          "C:/Users/Jason/AppData/Roaming/npm/node_modules/@playwright/cli/node_modules/playwright",
+          "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\cash-ui-primary-20261108\\cash-current"
+        ],
+        "exit": 0,
+        "seconds": 25.344,
+        "logSha256": "358f828e8d8758ef4ba277e945922727c31734492579cdb49b9f39e8cefb6528"
+      },
+      "ownedOriginsClosed": [
+        "http://127.0.0.1:57227"
+      ],
+      "currentRawSourceBindingsVerified": 6
+    },
+    {
+      "name": "legacy-current",
+      "result": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\cash-ui-primary-20261108\\legacy-current\\browser-results.json",
+      "resultRawSha256": "5be588f4bad766a2f91d1d2f52830c93fe8071b6ff3ef13c733233293b0a88fa",
+      "passed": 50,
+      "failed": 0,
+      "process": {
+        "command": [
+          "node",
+          "tests/browser-mock-validation.mjs",
+          "C:/Users/Jason/AppData/Roaming/npm/node_modules/@playwright/cli/node_modules/playwright",
+          "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\cash-ui-primary-20261108\\legacy-current"
+        ],
+        "exit": 0,
+        "seconds": 94.813,
+        "logSha256": "a822cf8a858db8a1c22807e852ccf56f37b08d5c98f4250694d171b7e87c7313"
+      },
+      "ownedOriginsClosed": [
+        "http://127.0.0.1:57229"
+      ],
+      "currentRawSourceBindingsVerified": 9
+    },
+    {
+      "name": "supply-current",
+      "result": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\cash-ui-primary-20261108\\supply-current\\results.json",
+      "resultRawSha256": "3da9f7bd68f0585302f81e2ea28735654e06004fe5a7181304f7b56d470b731a",
+      "passed": 8,
+      "failed": 0,
+      "process": {
+        "command": [
+          "node",
+          "tests/browser-supply-validation.mjs",
+          "C:/Users/Jason/AppData/Roaming/npm/node_modules/@playwright/cli/node_modules/playwright",
+          "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\cash-ui-primary-20261108\\supply-current"
+        ],
+        "exit": 0,
+        "seconds": 58.453,
+        "logSha256": "71298b0aca4b6fd641db9bb7d112e956b540395bd731394f42bf0fb6c4f12f74"
+      },
+      "ownedOriginsClosed": [
+        "http://127.0.0.1:50294",
+        "http://127.0.0.1:50848",
+        "http://127.0.0.1:51025",
+        "http://127.0.0.1:56378",
+        "http://127.0.0.1:57230",
+        "http://127.0.0.1:57312",
+        "http://127.0.0.1:59356",
+        "http://127.0.0.1:59450"
+      ],
+      "currentRawSourceBindingsVerified": 6
+    }
+  ],
+  "NOT_RUN": [
+    "SQL5 held by Jason: review first, do not execute",
+    "Real API-to-SQL/browser persistence",
+    "CI exact SHA",
+    "Production deployment/operational acceptance"
+  ],
+  "next": {
+    "owner": "primary",
+    "action": "Tony publication and exact-SHA no-SQL CI; independent real cash harness preparation",
+    "completion": "Remote SHA equals local; applicable no-SQL gates succeed. This does not authorize SQL5 or close production."
+  },
+  "review": {
+    "verdict": "ACCEPT WITH LIMITS",
+    "report": "astra-corrections-review.md",
+    "rawSha256": "8bf6dbc1821974c0a25c5c769e683f1d1d8cb9d7f8298606c4557147dd22495c",
+    "freshCashTests": "58/58",
+    "independentLifecycleProbes": "2/2"
+  }
+}

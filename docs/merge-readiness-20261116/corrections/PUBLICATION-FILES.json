@@ -1,0 +1,1848 @@
+{
+  "schema": 1,
+  "status": "AUTHORIZED_ONCE_STAGED_PUBLICATION_PENDING",
+  "recordedAtUtc": "2026-11-17T01:07:58.569525+00:00",
+  "host": "SUAZO-PC",
+  "baseSha": "ba8ff2ba10935e99fc268ebbe5eae130f72c1cca",
+  "repository": "Suazo-AI/Martha-Silva-Store",
+  "branch": "Tony",
+  "prNumber": 7,
+  "selfPath": "docs/merge-readiness-20261116/corrections/PUBLICATION-FILES.json",
+  "selfHashPolicy": "No recursive self hash. Self is an allowed path; the normal hook receipt binds its staged Git blob.",
+  "expectedAllowedPaths": 226,
+  "allowedBytesExcludingSelf": 21035316,
+  "files": [
+    {
+      "path": ".github/workflows/golden-path.yml",
+      "role": "reviewed-source",
+      "bytes": 10879,
+      "rawSha256": "ac232cbd55a4df86a90661ce907c067d041916e5d729122660067ba1615e3fc9",
+      "lfSha256": "e9b63cd3c06dd67e26ba36fe3ad298908c95b2e1a0b8ab7cbd43ed6662c33622"
+    },
+    {
+      "path": "dev/savia-staff-ui/cash.test.mjs",
+      "role": "reviewed-source",
+      "bytes": 26330,
+      "rawSha256": "c9d7c550bb7e39b0a7eadcead62daede16f43e9e968e4cfbf62527b4fd65ed61",
+      "lfSha256": "2993c86ba4517ad3a87d729fc9e51bc0c8bfdf3c8b64eebf5a5a69d698f4a258"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/PUBLICATION-RUNTIME.md",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 7516,
+      "rawSha256": "a1e0bbac642bf6492bb98e339e85bfd01baca82e68d6316654100480b00e799a",
+      "lfSha256": "a1e0bbac642bf6492bb98e339e85bfd01baca82e68d6316654100480b00e799a"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/STATUS.md",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 6575,
+      "rawSha256": "6578c79a8963cc8831f7eb4fc047aa4e994fd68c8e8998698f1cf129481f29b3",
+      "lfSha256": "c1500edd965581e5a706584dd2e1cd17ff18aeea65297cbaf955138d28b0599e"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/PRIMARY-ACCEPTANCE.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 2049,
+      "rawSha256": "74982f6356142d495c551f113abc10c856a3fbbf4325546080f8e2f064896377",
+      "lfSha256": "833d2deeb4a4ccd2b4d1a4d766d1e50c4b9d307c5d0a5264e4506d01c1023fc1"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/RESULT.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 11805,
+      "rawSha256": "06eda4de8bde21f4f0c55895a0f5b6e14a1ab1bc0f388cbd30767bf971fc36c4",
+      "lfSha256": "9eb2772cd0831e13f19513b9e293a1b33fd8a0745f7536a6d0b4a404b6f6f58d"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/REVIEW.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 16718,
+      "rawSha256": "0583483e6b9378d206e80385f91db3429c830d60db73b624b4fc43e9bdc4e19c",
+      "lfSha256": "0583483e6b9378d206e80385f91db3429c830d60db73b624b4fc43e9bdc4e19c"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/astra-review.md",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 19018,
+      "rawSha256": "99cb4bfdf00c3f2a6a64e8aaa505501ef7b5a255a18a74414b615eee38c78999",
+      "lfSha256": "99cb4bfdf00c3f2a6a64e8aaa505501ef7b5a255a18a74414b615eee38c78999"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser-IMPORT.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 17796,
+      "rawSha256": "1cb3ca8dfcad2946b59df1547d97eb00b40b6f5b8e5e81b5356de9febe72e17b",
+      "lfSha256": "1cb3ca8dfcad2946b59df1547d97eb00b40b6f5b8e5e81b5356de9febe72e17b"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/ARTIFACTS.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 13620,
+      "rawSha256": "49b354e4f3f787340f5a55881a50f33492b621a9c30a9872cb5fd5f9aaeffd94",
+      "lfSha256": "73de5eb31a439b6a6f30dea0a3612a3f056fccecee9e83593d259233c5c9d47a"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/README.md",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 4915,
+      "rawSha256": "1324ff5c793a08dd78f4206a9afd279e0e55cb01a52e779b9da70086416d557b",
+      "lfSha256": "ec2980daa7a4373545890369c8a6e0133eaf7198eab913049b4727a5d6e7fe56"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/RESULT.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 130140,
+      "rawSha256": "67b809b3f0e618f6cd9710bef675a9fc943ee8eb816a629fee68b9c599709fc2",
+      "lfSha256": "9b2ff3f6dfbefbae761c488b15694fe6a095ea5fde9831410a710102510904bc"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/bootstrap.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 4710,
+      "rawSha256": "9e363ed315650245e3b107db81c4414374386cc3bb2848d4d4b94a8d75b0c4df",
+      "lfSha256": "3b05e2297108526bcbb6592a45ae2e62ee7497803838dd4850049753b46a840d"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/harness.html",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 1281,
+      "rawSha256": "d59aa3b207e4e52daa44e3c492aafb4b1a05d5130b7b8339819e097f5fa6d86b",
+      "lfSha256": "d59aa3b207e4e52daa44e3c492aafb4b1a05d5130b7b8339819e097f5fa6d86b"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run.mjs",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 16571,
+      "rawSha256": "d920a3d8f44ba1bb5abff922300a19202b3d06ea05b780cf2d5fa04267b052fd",
+      "lfSha256": "c461c71a28aa8a0222c948099527fd0385716f37dac0b2b7e22650c8a3b7ce4c"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run1-child.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 1179,
+      "rawSha256": "053540f11091fca6f684a6dc8f17fb89318a7e718ea14abedbd9ff3b78299fe6",
+      "lfSha256": "85531de71017b8cbe9e831c39a8ccbcd1b7d4cb61ced44f41d974bd0cb3239ac"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run1/RESULT.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 114914,
+      "rawSha256": "9c58402040e363f3f19e3328e12106da41e2050233070c2589953a13611f6b9f",
+      "lfSha256": "9c58402040e363f3f19e3328e12106da41e2050233070c2589953a13611f6b9f"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run1/cases.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 99141,
+      "rawSha256": "ee4e25245ed9f9ada0653920569b59af1a69d23bf0142d0a8a77274525ca5dc5",
+      "lfSha256": "ee4e25245ed9f9ada0653920569b59af1a69d23bf0142d0a8a77274525ca5dc5"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run1/desktop-cash-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 17437,
+      "rawSha256": "ddc047cf8348a0fb0121964c0f99878fa878a131a3a9574f10af39f6797f5e9b",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run1/desktop-credit-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 19626,
+      "rawSha256": "6bc49c60192808e7284b03477a9bc43e516e2aa5ff1018ba86282adecf8691c5",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run1/desktop-exchange-loss-remount-404-get-replay-FAIL.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 36605,
+      "rawSha256": "4f0f6cfd1170603047d21ef7b2d349076cc4e597fc460abf07affb12940bb7f5",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run1/desktop-exchange-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 22386,
+      "rawSha256": "c8636de9ff5aeaa2f13488cc3fd3b1ef06068d03355e159f8dfab6b4aa52f6d0",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run1/desktop-held-lookup-retire-no-ui-effect-FAIL.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 6585,
+      "rawSha256": "5ee23937f72af8138fcf2325eb93b62cd46c5e406c83363998fcce31f80f1308",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run1/desktop-transfer-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 18198,
+      "rawSha256": "c722efb5ef6273e75e00a1a0394199beeddd231ad1502d5c037c1f7148d2b2c7",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run1/mobile-cash-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 48766,
+      "rawSha256": "a99102af2b5453c047184bf403ebccdccb41093848cf855a63f19ccc1894a22c",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run1/mobile-credit-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 62304,
+      "rawSha256": "e8df9edc811e1db91c362bb08cc7d79ae3e65258dcdd52a267fb48cc459eb89d",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run1/mobile-exchange-loss-remount-404-get-replay-FAIL.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 126304,
+      "rawSha256": "1c504da1443d77a0c8926e0f93d189d0e83c4939a52c50083e073a2d6bb56732",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run1/mobile-exchange-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 78711,
+      "rawSha256": "dbabeb015a39d3b1962d3c37483a660ee3a59b0427c8da92697185e91567693f",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run1/mobile-held-lookup-retire-no-ui-effect-FAIL.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 11448,
+      "rawSha256": "3629bc81043ee4fc1b8f37c4056e03e4cf1296d8ea4afbac7f777a73235af2cf",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run1/mobile-transfer-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 52943,
+      "rawSha256": "5ea0af183107959afa5dc608242a8dd73e3cf00abd3c9abac3f69f7d7a33cabc",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run1/page@152425b154e861d88d426abce698c535.webm",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 1675546,
+      "rawSha256": "be376a6034bcd939734df92914d56e87a2a1d66466a85a1fe09c35c3442cd35b",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run1/page@9fe94b07a2c3291d798d88dd4bbc6d35.webm",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 609072,
+      "rawSha256": "8cd77cafff630496309800f3e598e50daf514c46770309d432fc99b57f80b18a",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run2-child.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 1178,
+      "rawSha256": "6e50fb622286abc5b39199c5d5af01f84b05c267bd5245bbc0b2d1990f6784c6",
+      "lfSha256": "7bd548df047fadb5e6f532bb70e369c033075ede883201b856d284b84fc2d51b"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run2/RESULT.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 112714,
+      "rawSha256": "ce9dd8ee20f3ff1163a5eb0ef8cbc2947d85fd10f57ec77505aa5b1fd32b9bd5",
+      "lfSha256": "ce9dd8ee20f3ff1163a5eb0ef8cbc2947d85fd10f57ec77505aa5b1fd32b9bd5"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run2/cases.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 97270,
+      "rawSha256": "ec18a17bdd45b4f4e634d85b9efc2d9cedeb4920ade5e645e5814dfb46073ec8",
+      "lfSha256": "ec18a17bdd45b4f4e634d85b9efc2d9cedeb4920ade5e645e5814dfb46073ec8"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run2/desktop-cash-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 17603,
+      "rawSha256": "b975b50a057e7f6acd0a4232a727d208d444b444d9cc40335461fe4de748a1ea",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run2/desktop-credit-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 19402,
+      "rawSha256": "1860f0e715f55ee99231b275211fe3cd3f2944ea27434136881d97646ed1016c",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run2/desktop-draft-remount-cancel-keyboard-FAIL.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 51642,
+      "rawSha256": "de6d656b510c18c97b6306707f094cd0a2074407da04761a496021d80feb2320",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run2/desktop-exchange-recovered.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 31070,
+      "rawSha256": "c7913883b0123b8caab1008c57f6dc374781784097ac7355d91400fb5b7f55aa",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run2/desktop-exchange-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 22322,
+      "rawSha256": "62d0c7a78d9fc016f291fb5636c63c870c2a577e035c4672e91ec07446484bbd",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run2/desktop-held-lookup-retire-no-ui-effect-FAIL.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 56097,
+      "rawSha256": "0c51467cf6f99cefc823cef5ba226953054dd4345eadff8c525115a75d715381",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run2/desktop-held-post-retire-cleanup-false-FAIL.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 56097,
+      "rawSha256": "0c51467cf6f99cefc823cef5ba226953054dd4345eadff8c525115a75d715381",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run2/desktop-held-post-retire-cleanup-true-FAIL.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 56097,
+      "rawSha256": "0c51467cf6f99cefc823cef5ba226953054dd4345eadff8c525115a75d715381",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run2/desktop-late-approval-retire-no-post-FAIL.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 56097,
+      "rawSha256": "0c51467cf6f99cefc823cef5ba226953054dd4345eadff8c525115a75d715381",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run2/desktop-response-loss.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 31005,
+      "rawSha256": "19450e830d749720e39a8f94537495563be7271aad6a1c9e9ecd7703d9020351",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run2/desktop-transfer-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 18494,
+      "rawSha256": "4d83f9e6ff04e5b78b2364b75ef951a94c6e02dfe27b125b33e2cedc00bf22b7",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run2/mobile-cash-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 49636,
+      "rawSha256": "391cbbaf5f978bd9a179373da7efbb5b7f86f9153aa23d84e5ff16a3bd2b6afb",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run2/mobile-credit-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 61895,
+      "rawSha256": "02d4ba38a608f81ff4a730c0edc71f16e9320e7f5c24e1ef3f46bae8ed1d04ac",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run2/mobile-draft-remount-cancel-keyboard-FAIL.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 128167,
+      "rawSha256": "77f7fa3f7ec16ba6ccf51408d1bc0be439f2c9139f2f2d96250f21405cb6227f",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run2/mobile-exchange-recovered.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 103908,
+      "rawSha256": "8e7e1eadbc9453f0802b8780679d046329510d3b2c553c9030a724b2fae7c327",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run2/mobile-exchange-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 79702,
+      "rawSha256": "b887cea2982110a51ed03e8f54b844679082f71f0fcfbc661670f5c594593f8a",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run2/mobile-held-lookup-retire-no-ui-effect-FAIL.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 114269,
+      "rawSha256": "f7a52dc7ab9d17c24a125130bbd9583a1bc9a49e010cd53b2ac3d91c3cdaf590",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run2/mobile-held-post-retire-cleanup-false-FAIL.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 114269,
+      "rawSha256": "f7a52dc7ab9d17c24a125130bbd9583a1bc9a49e010cd53b2ac3d91c3cdaf590",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run2/mobile-held-post-retire-cleanup-true-FAIL.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 114269,
+      "rawSha256": "f7a52dc7ab9d17c24a125130bbd9583a1bc9a49e010cd53b2ac3d91c3cdaf590",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run2/mobile-late-approval-retire-no-post-FAIL.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 114269,
+      "rawSha256": "f7a52dc7ab9d17c24a125130bbd9583a1bc9a49e010cd53b2ac3d91c3cdaf590",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run2/mobile-response-loss.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 107082,
+      "rawSha256": "e066aeafc25a15b27c268812185a5d9561a3c6dc9ff3518b94a6772c62b11fe8",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run2/mobile-transfer-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 52684,
+      "rawSha256": "63fc2f501f6c44099e667d6f3e6e369235d3c76aae38dc27cc171e99122270c9",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run2/page@0d5adee9838a02182aa89dac568eacf3.webm",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 2239319,
+      "rawSha256": "3d1ac8712501764a8006194630866014946c52820f0dc9d6ea8d5aa6c42caa2e",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run2/page@dc184826210e7c18bf1c511f7291e157.webm",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 1195986,
+      "rawSha256": "0fbf475399d7da5ad7f14e4dfb79f7edbdc2f33a37996c39277abf66547593ad",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run3-child.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 1179,
+      "rawSha256": "83bf839ddbeeb596d3135ad6cb7a2803d13ef5b6085ad05b12825df07e4b0bd2",
+      "lfSha256": "fe29967d897eeece37a87ef96d968cdd7559eaf4d7428abb40a9fe7481b3ee5d"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run3/RESULT.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 120595,
+      "rawSha256": "2329340fe7122c12147efebb5f8ee0e47c4731dfd28d6e14796c57efa230186c",
+      "lfSha256": "2329340fe7122c12147efebb5f8ee0e47c4731dfd28d6e14796c57efa230186c"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run3/cases.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 103730,
+      "rawSha256": "8946bd3d296066c729f34ac114c42ba980304877bc10033d393d3a6727d4a6c0",
+      "lfSha256": "8946bd3d296066c729f34ac114c42ba980304877bc10033d393d3a6727d4a6c0"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run3/desktop-AFTER.webm",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 2273680,
+      "rawSha256": "8965812ec6067b8564a2e0c8a79c6521b1a4a1446e23afabfedc7e72c5880e34",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run3/desktop-cash-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 17486,
+      "rawSha256": "4357e2982e47eafbeb0806e77bdb8327472ce0643d3db7df4ced4adc78ab06f5",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run3/desktop-credit-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 19499,
+      "rawSha256": "d0c580b24af44f306267862b239c0dac1b47dcecee4f419208304a273f00d47e",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run3/desktop-exchange-recovered.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 31143,
+      "rawSha256": "797e7b9d9895438e3bbc5a426db62a863dc229a255e5f980493e45acea803e42",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run3/desktop-exchange-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 22134,
+      "rawSha256": "13037f941a626fe7884c8ba946f8fdbba76d30797c30bb39fd59ee01613a86c5",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run3/desktop-response-loss.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 31083,
+      "rawSha256": "b80c8125c55fd79134dce946b58da173bb1fd4ab432b7f1e59ff8ba92de135d2",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run3/desktop-transfer-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 18407,
+      "rawSha256": "de2884e290d13dda66d8d55040c49c9c63ed24004b85ac07aeb057b08b640c86",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run3/mobile-AFTER.webm",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 1068328,
+      "rawSha256": "25268279436718f7b02901612cb6d85f3cf18171da8d74bffffc7146e1f4b25c",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run3/mobile-cash-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 49233,
+      "rawSha256": "40916aa09b86c262e74d54a7ef395bda13bef881b8702b00dfda3953416d72d1",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run3/mobile-credit-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 60061,
+      "rawSha256": "f949ce44ad200bad3c4f06018dff74d0cd9c5770ae94965129d7a659889f3b8d",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run3/mobile-exchange-recovered.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 103213,
+      "rawSha256": "dcf41f246ff4cb3641fd0c9053f489a107c6f2b3286bf6fa53795624bcbb1db3",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run3/mobile-exchange-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 75889,
+      "rawSha256": "87c2e8647a4863bbb0b79bcc181baea662ddfeaa6570f738d9d859aeb05f50a1",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run3/mobile-response-loss.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 106405,
+      "rawSha256": "fdab7bae2b4f36117d1b974fc6baaf28f817af3daf4b714b766df8d31396f9fe",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run3/mobile-transfer-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 53269,
+      "rawSha256": "b6fb2be59d87f0364cc5aa337eb49de49f7d88450fd252c8542fa3a45e402cca",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/browser/run3/video-probe.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 1167,
+      "rawSha256": "3494ac3cf470a213740d10691cfbfd052c959afddec28ad2dbec74346793089e",
+      "lfSha256": "27e843e9cedfd6a7d016c992d78c410910c566eb784043ec761ebadaf5dc0ec6"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/evidence/guard-green.txt",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 112,
+      "rawSha256": "e5cd038cbbd8c48fd8e162ba42019cb6a8dd1fd7875e16b1d41170ac204f6bfe",
+      "lfSha256": "960da5fc1eb9cb5a2641bf51f826142d685bb57a0263278672f16391e5ced49c"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/evidence/guard-red.txt",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 715,
+      "rawSha256": "18a8e36dfaa66289061003811efaee3ffc7c5b822cbc61d62854c9d50a356774",
+      "lfSha256": "c2b65502682e98fa919bfc5a574624da9ec903b4051721a0500b6d56fbf3150e"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/evidence/rules-green.txt",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 892,
+      "rawSha256": "83882949321a95f853f98b2050a7f21bacf5e06d20afd6c14e31833c6b32cc43",
+      "lfSha256": "5af7c6fdb20f2943334a5a83bfdf2359a20856ef48582899259bcdeffda559fb"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/evidence/web-green.txt",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 9057,
+      "rawSha256": "99df9f108f908d066dcda59cb6928369292e52266d9a7a5b6f4948cdce585538",
+      "lfSha256": "99df9f108f908d066dcda59cb6928369292e52266d9a7a5b6f4948cdce585538"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/README.md",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 4097,
+      "rawSha256": "18247812aed2428e7183d9699619232d017b8060e919b54a7ef4a605f938fd94",
+      "lfSha256": "18247812aed2428e7183d9699619232d017b8060e919b54a7ef4a605f938fd94"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/RESULT.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 9768,
+      "rawSha256": "575b82899b020fa210c7210229e49fb271b0cbfb6de4d8897706199f079c9883",
+      "lfSha256": "575b82899b020fa210c7210229e49fb271b0cbfb6de4d8897706199f079c9883"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/AUDIT.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 1784,
+      "rawSha256": "09bbfdfa911e4a32c2e503da23980bb9fca35f14a6b85f63a28b553fd057ef73",
+      "lfSha256": "b6f97b6758cb85c8945e963319382d0cfd22e3ab118b77018452938441147576"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/bootstrap.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 4598,
+      "rawSha256": "74b60730b1cc553d92a416135b29a97c030539368d836fbbbc0d08bd2ee3dda3",
+      "lfSha256": "5326b2390c4f4c81607807ed16eb9f8ff349b9127dff50d210d11adcb756aebb"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/harness.html",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 2278,
+      "rawSha256": "4cb7d271fde5c5066bfa6ec673a1bd74a54a94323596cea71032991f23620811",
+      "lfSha256": "4cb7d271fde5c5066bfa6ec673a1bd74a54a94323596cea71032991f23620811"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run.mjs",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 17173,
+      "rawSha256": "c38544add801ba654a385798432e6c8f3823b8ceaf08e289d8b19715a8c7bd8f",
+      "lfSha256": "c38544add801ba654a385798432e6c8f3823b8ceaf08e289d8b19715a8c7bd8f"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run1-child.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 194,
+      "rawSha256": "ea8f1a9bfc766ff5ab95685bf91cc702612d9d242d32f3fcbfaf0e842803bb2a",
+      "lfSha256": "fbe496295d7a8617db98ebec4f9d20bbb4dcd2765dda4e699bd36735490256bd"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run1-child.txt",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 954,
+      "rawSha256": "82e31bf921b5ef5162fd9e1130be44d6ac8600a05dd9f03453183e57a0cf76e7",
+      "lfSha256": "a06ca6d874d384c34c101336da273157ac49e258c303cc40e81aef5392c59789"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run1/RESULT.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 122868,
+      "rawSha256": "63a61af0686f3318b9272bc59a9960fb0d2da19e0a48e09a522929812fefb836",
+      "lfSha256": "63a61af0686f3318b9272bc59a9960fb0d2da19e0a48e09a522929812fefb836"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run1/cases.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 105630,
+      "rawSha256": "e3ad81c466054489af767cdefead1159901da817fd84e0163d6092de3187507c",
+      "lfSha256": "e3ad81c466054489af767cdefead1159901da817fd84e0163d6092de3187507c"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run1/desktop-AFTER.webm",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 2159717,
+      "rawSha256": "5753ebb4bfed77bd7c9b87c1d8152e90642a12d955873660b017c5d3c92884f5",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run1/desktop-cash-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 17473,
+      "rawSha256": "2f9b5901951b10c6379f9160f92d66a9ff2a1ca58f2aff72426c8fb55c1921ff",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run1/desktop-credit-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 19323,
+      "rawSha256": "686cfe15da53604492cc91ad7821f7b69acbdf421c9177df357e53862b7bc9ef",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run1/desktop-draft-remount-cancel-keyboard-FAIL.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 51604,
+      "rawSha256": "9b55ef2735221fbaab7d1510676c759ab7f1366e00a1d5753fcdf9d3d8ce3426",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run1/desktop-exchange-recovered.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 22442,
+      "rawSha256": "a19102c4951bfcaf95badd65e91c6bf1fb1dfead7a3347cc313c14306afe2382",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run1/desktop-exchange-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 22205,
+      "rawSha256": "21f6883a433ea10d51ce9dba68783d3bf73670679186e4aa087c7c71266e1cbd",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run1/desktop-response-loss.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 31031,
+      "rawSha256": "b26d6dcfb2348ed3edba44bf9b8488f119cc27f3f593f35881962f0536c15042",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run1/desktop-transfer-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 18472,
+      "rawSha256": "697f5db975e009734002ce9c6cb3b131019cd15254cf696b65f8a38870a089da",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run1/mobile-AFTER.webm",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 944341,
+      "rawSha256": "98c564f48329e7cb274492619f94d94e9805af28b2f0e1e35d6282ddc8d0e0a2",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run1/mobile-cash-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 48269,
+      "rawSha256": "bdcfa0b2ecf9193f750f587e3130d4bad34e04670dc81cb897fba3ddbcc4cbc9",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run1/mobile-credit-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 60912,
+      "rawSha256": "4733be7713f6e989ab62f7cabc507000257940c940adb958cf4344570b1ab0a2",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run1/mobile-exchange-recovered.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 79720,
+      "rawSha256": "3d4afe515ee9bcb0aa79902bf90a9ea09d1af44878d9b384aa9a69ff5a692032",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run1/mobile-exchange-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 78765,
+      "rawSha256": "a166553609236e9980bd603fc513736c91e113a446f5e450d52bcbd57d1f4a2b",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run1/mobile-response-loss.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 107562,
+      "rawSha256": "bcb4391ef5cc2d1280b1fd7eec3d466986b97459e8415f48f1731396a159007f",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run1/mobile-transfer-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 54556,
+      "rawSha256": "5c02e0747f4fe08cdd672a31b22aa4e018727594acd1080e1a13a55f3aebc818",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run2-child.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 196,
+      "rawSha256": "217151d6d65b0e92e433e7abe4c3c91f051e821159b93c46be896397fde33bfd",
+      "lfSha256": "cd7414d7b3b948264a844e686f8f874490880c80b45a729658939d0889a3c09f"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run2-child.txt",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 939,
+      "rawSha256": "934e7e89361143ef01e08da9687c32562eb663dec38948976416bcbaf6275359",
+      "lfSha256": "934e7e89361143ef01e08da9687c32562eb663dec38948976416bcbaf6275359"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run2/RESULT.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 120894,
+      "rawSha256": "b43775117a5ac2e0d884890f7b8dfda16a1a44867b3036a6cefa62d103601783",
+      "lfSha256": "b43775117a5ac2e0d884890f7b8dfda16a1a44867b3036a6cefa62d103601783"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run2/cases.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 103730,
+      "rawSha256": "fa1494866389fe0634ffc327da22e119eba0e3b78eceb9e0668628c05ef77145",
+      "lfSha256": "fa1494866389fe0634ffc327da22e119eba0e3b78eceb9e0668628c05ef77145"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run2/desktop-AFTER.webm",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 1829268,
+      "rawSha256": "df9b4918a6b619e328d6110c9fa1e8956e14c44e7704ce923676d10c575296ac",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run2/desktop-cash-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 17553,
+      "rawSha256": "8d2479de4b7e5447e1be9a1d7342ecf4f45f8f2b2f4888f9ce642d64bb069eab",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run2/desktop-credit-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 19618,
+      "rawSha256": "f253d404fb940c7c7688e5125a91672779fef570c532837a9cc00950dfd403d0",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run2/desktop-exchange-recovered.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 22615,
+      "rawSha256": "bb841c63c94c35f80b9e258f3564bf7d3ab5b200c2410404acdae5708e667a95",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run2/desktop-exchange-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 22343,
+      "rawSha256": "3c4f2a544737c57efe5054622e4672c7b54a6cfd3a9e40d46e0caf8df5f542ee",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run2/desktop-response-loss.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 31201,
+      "rawSha256": "76a136219697c0317fc7a940f07f9ab87169ce7890784c4621f4f07abcb38c30",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run2/desktop-transfer-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 18366,
+      "rawSha256": "74d465995d68655e45f40ae05c99110aa1b4ace7c64fa8742df02456f11f7565",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run2/mobile-AFTER.webm",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 897217,
+      "rawSha256": "ee6d997324e043ff9c6b209d9a3bc39dc11ea02fb87b952a0c16004234a9a220",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run2/mobile-cash-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 49322,
+      "rawSha256": "17e40708b4c6b93796a2e4fd47f3597133ecf85276513a0cd4c7328ecd77fcc9",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run2/mobile-credit-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 62113,
+      "rawSha256": "4305df74a2f0cc58b2f409fa9b868abf5d29962b5505e16b3cd308934b245dab",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run2/mobile-exchange-recovered.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 78511,
+      "rawSha256": "4523b6f9cbb8677ac0f633ea15a3d4f5ec30a7bd117d0e1e7af383146ded7901",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run2/mobile-exchange-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 77935,
+      "rawSha256": "7682f0dbc1dea747d9f3f0175ae83898760a97336c11b00329106e7a89112aa8",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run2/mobile-response-loss.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 106363,
+      "rawSha256": "fcf53745810588ff54d1f6541e982088397e0f7f294015635c3c54dd711ee4af",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run2/mobile-transfer-result.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 52876,
+      "rawSha256": "8c6c47b99cbe5b7e70e300db522239b580c5e25c8180e8981a682318d912eb93",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/checks.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 1236,
+      "rawSha256": "9e398e9a53a14727072b6556b4449ff376d09e83e491cfebc8070e32333c0640",
+      "lfSha256": "610b8a5778ca3fa4e1651afed21cd8dffddc08492187992b70391210f4797763"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/diff.txt",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 240,
+      "rawSha256": "822b267e3f9a4e4d6f47c4ad991d4ba8e2d6bc9d0c759dd16d8ef1c1940313df",
+      "lfSha256": "7b2e41a043e8440c94da3cb0d01a8e9952a85ecaf6c940516861d1a54eba747f"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/green-context.txt",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 559,
+      "rawSha256": "0a42c6a7ae5ce4c9f1ee2e32e06591708b96758966c8d85357ff4b4863a365c5",
+      "lfSha256": "4b9a9b1d2e5ab68c4f63fde5bb35adb0064a7706b474bc47af1bee3a958450aa"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/README.md",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 4494,
+      "rawSha256": "0b2253bc346506ead87776c2e926a743e86478d4653973d68b848b7d6cb33286",
+      "lfSha256": "0b2253bc346506ead87776c2e926a743e86478d4653973d68b848b7d6cb33286"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/RESULT.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 13021,
+      "rawSha256": "d1ac2217475fe2f32dcde1bbee68d239758c21bce4729c58d698e5a8aec1755d",
+      "lfSha256": "d1ac2217475fe2f32dcde1bbee68d239758c21bce4729c58d698e5a8aec1755d"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/after-desktop.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 2502,
+      "rawSha256": "7b9981abb7f15036fe54ed7675d4efa22e9df8979146fa78d6e1d4bc1e996e60",
+      "lfSha256": "7b9981abb7f15036fe54ed7675d4efa22e9df8979146fa78d6e1d4bc1e996e60"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/after-desktop.mp4",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 94238,
+      "rawSha256": "deec00fd88b39124441c9fd277c01654fe96f7a439815adbe3a8f363be7c4766",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/after-desktop.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 33208,
+      "rawSha256": "2e789e48806017d5792d724b091a784384e464a11df3f5d63f83b752457730bb",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/after-mobile.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 2501,
+      "rawSha256": "d2028e0050bbb0ed29a4281107a94ad9316a2ab23c60f341b681ed5a73272324",
+      "lfSha256": "d2028e0050bbb0ed29a4281107a94ad9316a2ab23c60f341b681ed5a73272324"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/after-mobile.mp4",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 85572,
+      "rawSha256": "8c00af10ab1b85ca6e87256d8a5d5b265eeb1598b1aeb40a8bc2ec57cc7b8325",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/after-mobile.png",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 29968,
+      "rawSha256": "ff68974ed80cf6da062b53b0f53b79a263f76de1a861bf8d8072faac81602dca",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/before-app.mjs",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 7838,
+      "rawSha256": "09d362dac9be0de1f726f8643a480c4545dd95a18f85edfae1497d41571c33d1",
+      "lfSha256": "09d362dac9be0de1f726f8643a480c4545dd95a18f85edfae1497d41571c33d1"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/before-desktop.mp4",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 92240,
+      "rawSha256": "409d59bd2f39914c4ca4196315f9b1565ff4c0b98714988f4a86b6a51543d2e3",
+      "lfSha256": null
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/before-index.html",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 1119,
+      "rawSha256": "6880731dc0f05fbeb3924189d5d619c26aa5608720576e016939e8b68da3e026",
+      "lfSha256": "6880731dc0f05fbeb3924189d5d619c26aa5608720576e016939e8b68da3e026"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/before.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 1979,
+      "rawSha256": "b52cbb46713cd56adc2cc1ca7905ecb48fc25c8ad86d94c165747a2b00de89ef",
+      "lfSha256": "b52cbb46713cd56adc2cc1ca7905ecb48fc25c8ad86d94c165747a2b00de89ef"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/browser-environment.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 461,
+      "rawSha256": "b5e727b6386290fe483eec6f6532cee44549eda06459394d7f46cc9393b535e6",
+      "lfSha256": "b5e727b6386290fe483eec6f6532cee44549eda06459394d7f46cc9393b535e6"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/probe.mjs",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 4284,
+      "rawSha256": "f4756fd6f20c18f79647566cbab8254cf2b94dd53adec0ba600e1b6cffe7eb72",
+      "lfSha256": "f4756fd6f20c18f79647566cbab8254cf2b94dd53adec0ba600e1b6cffe7eb72"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/review/AUDIT.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 508,
+      "rawSha256": "07f30d5e98cad697484cb05c173d7001f969805be2e8257822ad71f17143e393",
+      "lfSha256": "07f30d5e98cad697484cb05c173d7001f969805be2e8257822ad71f17143e393"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/review/REVIEW.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 19206,
+      "rawSha256": "fe07a82b37007def7aa0db0a4f8778bf8d7bcd0dfd03bf24998c3cca1c1923d5",
+      "lfSha256": "fe07a82b37007def7aa0db0a4f8778bf8d7bcd0dfd03bf24998c3cca1c1923d5"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/review/astra-recheck.md",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 8156,
+      "rawSha256": "d9f756ddda669fd5ab8127f55f81473a911a8fda684d89b6cd040c6cd7974ec8",
+      "lfSha256": "d9f756ddda669fd5ab8127f55f81473a911a8fda684d89b6cd040c6cd7974ec8"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/same-document-attempt.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 2502,
+      "rawSha256": "40b6f9432d4f538b7043b0426fc0efe8dfedea67d5316a66d5ef0af67f30a17f",
+      "lfSha256": "40b6f9432d4f538b7043b0426fc0efe8dfedea67d5316a66d5ef0af67f30a17f"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/served-final.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 8379,
+      "rawSha256": "2a84fa1e06ecde26a26ce568dde14b078c5c1723e1dcebd87e9a42b7f260f648",
+      "lfSha256": "2a84fa1e06ecde26a26ce568dde14b078c5c1723e1dcebd87e9a42b7f260f648"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/server.mjs",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 3446,
+      "rawSha256": "e1ffaaa56de006a721320d5fb9e9bb8807c2b4823fe5d30aa7c91d095234f35a",
+      "lfSha256": "e1ffaaa56de006a721320d5fb9e9bb8807c2b4823fe5d30aa7c91d095234f35a"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/web-tests.txt",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 9784,
+      "rawSha256": "2fa2657d62f75a3236f499e4c0983f022a30cdf7e51fad502d406e69775fdb28",
+      "lfSha256": "2fa2657d62f75a3236f499e4c0983f022a30cdf7e51fad502d406e69775fdb28"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/red-context.txt",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 952,
+      "rawSha256": "db26be2646b516b93910577486d1d52382d9f0f9835b2de4d256275e2bd20e30",
+      "lfSha256": "243048a65085a5f56ab2170b8626efcf03a23f8487de56f9c53ecf6d6b32eb40"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/red.txt",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 4465,
+      "rawSha256": "8a612b97480a1e23d1ad5a87ec197ec2555500fcf49b2a2f3462926c2f1c7919",
+      "lfSha256": "8a612b97480a1e23d1ad5a87ec197ec2555500fcf49b2a2f3462926c2f1c7919"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/review/AUDIT.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 280,
+      "rawSha256": "4e89ea8c621a169a202d2809db65f4d35f9ed9d0043ddd176788871aaf3b2812",
+      "lfSha256": "4e89ea8c621a169a202d2809db65f4d35f9ed9d0043ddd176788871aaf3b2812"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/review/REVIEW.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 16961,
+      "rawSha256": "99d6f1efc22669ada51a2a36b7b36abb8af2370fc61e206e4f6ce614f576f101",
+      "lfSha256": "99d6f1efc22669ada51a2a36b7b36abb8af2370fc61e206e4f6ce614f576f101"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/review/astra-recheck.md",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 16234,
+      "rawSha256": "d85510c52bd820672fecde43630af8b2b81a0b7bbc9c47910859aeacdffa3b2b",
+      "lfSha256": "a34c5c9fc83f72d898a3097c445ffc8550c46fd5fd2575ac64d08c8d5bf5a17d"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/web-green.txt",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 9809,
+      "rawSha256": "37786231adc2a623ef4167ebc2326432b93add462f1785619343a035f75bb1c0",
+      "lfSha256": "1eb1ac11c02e8fa86e122d9265c038177d643d5fa7f5757e5462bbe01d453343"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/golden/IMPORT.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 5074,
+      "rawSha256": "d5ab5543fd888467a3a8ea70cf33390ada845d6b9950076d4f305e0627891c9e",
+      "lfSha256": "aae086688ca78106a0f0d4d7a95ccbed68f62592d32d4c7a52e728f9c28766bf"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/golden/README.md",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 8159,
+      "rawSha256": "67074114cfbb3243fd6b31767ae0daf56a0e21baab323025d125684a0a9ebcc9",
+      "lfSha256": "67074114cfbb3243fd6b31767ae0daf56a0e21baab323025d125684a0a9ebcc9"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/golden/original-workflow.yml",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 10257,
+      "rawSha256": "f37fdbed2ab3b0d8eacc43d6c516ff8b846faae4c200a63e5c6ee87ce9b2d4ca",
+      "lfSha256": "670a9567fa85d344c0e96c13104d2c00fbff912f14ee9ba828288453f7911c3e"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/golden/source-bindings.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 3586,
+      "rawSha256": "426b51c5cdf75ddb0c250d097b57c6e4dd7a6b74c7d7b37693ee761c695a2de9",
+      "lfSha256": "5bbf5245f9e7b4039cf016b8f10566edd7f27fdcedea8307eb56f95429ccb06c"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/integrated/RESULT.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 7513,
+      "rawSha256": "8be77832d023159c0ba33a4ed764c4e69e3bd17d5131076db5c6d2b2b6cbc60f",
+      "lfSha256": "3781f728350c26ed43a9a8ce4aabb96119782267449ac01cb4546d61e6ac5d87"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/ADOPTION.md",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 3238,
+      "rawSha256": "661bc04c4a4ac2064a5580288a7de7979a9ac84c0322ee717073ae9a5fb619ea",
+      "lfSha256": "5386fa506c282b5018f0e9ad520571a60ff66e16ef77cdea992122b27a21204b"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/IMPORT.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 1535,
+      "rawSha256": "d027386dd5dd5fa114bcfc521f7b676f477954b7b724de591bf709dddd68c9f9",
+      "lfSha256": "b13b4cd784879dfec5cd0ced190c5208525609e13186730e49e245572426428e"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/astra-preimplementation.md",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 10494,
+      "rawSha256": "7435593980ec2a9377acf41b0dcd6405d7599864c45ea7c9f35221ece7aaa314",
+      "lfSha256": "7435593980ec2a9377acf41b0dcd6405d7599864c45ea7c9f35221ece7aaa314"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/IMPORT.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 1969,
+      "rawSha256": "163218066422231e977916233ab2dc8ea859875fda5ecfa61f9fe75f1efd214b",
+      "lfSha256": "163218066422231e977916233ab2dc8ea859875fda5ecfa61f9fe75f1efd214b"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/PRIMARY.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 3675,
+      "rawSha256": "6de74f920448c6c36eef2dbf636405bb9e71152d2749d66fa8565488177f5306",
+      "lfSha256": "5c21624cc231fc98c0663fc399d24c9330324104817f80a015e89b5a4c32822d"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/README.md",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 6378,
+      "rawSha256": "4d5d21cd7d4e519ce196a5ed82592fab92877ad49be8cdbe5a1d8cd7b4e3d037",
+      "lfSha256": "df2e7a4914cd4a45c2d631b72d92cb54d03a981edf5190f0a0a4ea748a6de712"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/RESULT.md",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 1835,
+      "rawSha256": "c9c99f716bfe50eb985b1523ec2c1f07256c04f7f2c5b42aa1da433335107a9e",
+      "lfSha256": "26d06b76812eb3f91b81411b210e29e7478d8a8846c52c9b9451312f2abbc2a1"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/REVIEW.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 2448,
+      "rawSha256": "d1cca5b8dd9554b508482ed5c255c1c52780f7d7ff65a9659c625d0706478389",
+      "lfSha256": "7155fa186b7b8dddd19c6b3ab8af2328bd958d3092a125a6fbdd7d375f3de2e9"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/astra-sql-review.md",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 10161,
+      "rawSha256": "ea007fb66f278432e24cd9a832f5b889b5b4d642366540ca5f4c5a5f64a458f0",
+      "lfSha256": "ea007fb66f278432e24cd9a832f5b889b5b4d642366540ca5f4c5a5f64a458f0"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/bindings.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 1225,
+      "rawSha256": "d9ab39eb5fca0ba15bc9450fd08c58a2d81e3ef372f55a6a8a6a01945dcb275e",
+      "lfSha256": "33fccc44e67d95797ac4a7d2058489decdf3158f0d9f82ff24dc55a6614d4ede"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/PLAN.md",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 2530,
+      "rawSha256": "a8649da923f331fa841c1eae790ec9a95d8de71bae43ed7f614ea064c030ff34",
+      "lfSha256": "a8649da923f331fa841c1eae790ec9a95d8de71bae43ed7f614ea064c030ff34"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/PRIMARY.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 6320,
+      "rawSha256": "11d4996c4911f4740a2d94c98edae38173ef79a78f8fa4080ecb293a7402b951",
+      "lfSha256": "11d4996c4911f4740a2d94c98edae38173ef79a78f8fa4080ecb293a7402b951"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/REVIEW.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 1973,
+      "rawSha256": "ac9f762bc0c1aaa59b9dedc6c680118a680d088d6ba874548e5ed8a97df6161a",
+      "lfSha256": "ac9f762bc0c1aaa59b9dedc6c680118a680d088d6ba874548e5ed8a97df6161a"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/astra-recheck.md",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 10110,
+      "rawSha256": "2cee3a0c367e15740abaa1e005803a62b308750a391805881b1ce88e5b680ba0",
+      "lfSha256": "2cee3a0c367e15740abaa1e005803a62b308750a391805881b1ce88e5b680ba0"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/README.md",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 6388,
+      "rawSha256": "1b127bb045673858cd54752be1359f3c5ce1c458daee8c1cbd831cbe72280952",
+      "lfSha256": "1b127bb045673858cd54752be1359f3c5ce1c458daee8c1cbd831cbe72280952"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/RESULT.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 5779,
+      "rawSha256": "295775b9339aff68320cd555a34d0ac4f745b17872aa16dcffd34f1aef587c74",
+      "lfSha256": "295775b9339aff68320cd555a34d0ac4f745b17872aa16dcffd34f1aef587c74"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/audit-initial-failure.txt",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 376,
+      "rawSha256": "87bf402029f93814c3b26fc3779e8e20864b705200183ac48e8623fe31cbf061",
+      "lfSha256": "67297fec5383fd82a87cf9b4bb74bcd3677b9623b2b493cf906208a0410b037c"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/audit.py",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 3292,
+      "rawSha256": "230be49bbd3f29b879904f39428e2dcb8c60a2820542c4afda1ca6493c23c34e",
+      "lfSha256": "230be49bbd3f29b879904f39428e2dcb8c60a2820542c4afda1ca6493c23c34e"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/baseline.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 626,
+      "rawSha256": "e1126c5967c6bab280115f771e467548a4d94f595808ab4cc63990d68d1b6d80",
+      "lfSha256": "b5be7090d98d2451918c5afeef4dd8a3bcb741ad9ab8498d625409625f720974"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/corrected.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 50784,
+      "rawSha256": "5d3297821240de9b2e0195114605f33968cc11b3726d96eccf55264251a54fde",
+      "lfSha256": "a3af0e68d650f0ffe5b8ec14add3ad080732b54ca25c434615804f59bbc85058"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/final-delta.patch",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 38263,
+      "rawSha256": "c85c9dfbe6c28da1f5b9f7d9f8c81203f3ea0f2f0ec80c9e3f502e0a2495436b",
+      "lfSha256": "fd9c09e0a819bf030dc70aaceb04661438eaa029b36639a2e1f50bb4880f6898"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/final-offline.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 2525,
+      "rawSha256": "8e114bc0ea40703c0b88f28d940a6b53003b4a8d80b2b53757b9cfe364a83c28",
+      "lfSha256": "15e7ee51d9a09d188157830137b17b51ab3a5ecd588d6416d3f01830f419cc5b"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/hashes.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 1929,
+      "rawSha256": "63214aab814a5a64a0bcf98d48c89e24b3452784c1a01f7b86eaaf42af0a4ba9",
+      "lfSha256": "8c18fa82bc2c6325c74cddae0149e9430374d35a14991bf02b3e22b5e83db1d5"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/scope.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 1710,
+      "rawSha256": "f65caeee93ee544d14b2ce8993e43717300c13c70189ce8a1270ffb4744ddf2c",
+      "lfSha256": "923979357ee3db3dad351e97240275923569e4f53adcb35e6fb006f1228a49c3"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/procedure-bindings.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 2315,
+      "rawSha256": "0a553b3eb9adbfa28c6394c58682af6e61e6f486d9752d2ea1fcf07ad2249ea8",
+      "lfSha256": "34e12e270f17be9d790f337793c6011bcb2964cd0ee42fd843cde50d733ef893"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/sources-before.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 7985,
+      "rawSha256": "f8c129b172a962d32f31840d40f11105de4621f0b8744972ff36f0bba0e5c042",
+      "lfSha256": "9aefeebf7c454f5f6b2bb90838cd2fba35a19607fb07cb986cfa184e3bd436fe"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/ui-review/REVIEW.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 2875,
+      "rawSha256": "d35556e6c3f05eaa405c44efa6fc633b8b2a670eb3acfa14e6c39f3aacf4f95d",
+      "lfSha256": "72f40711553356cf307c217c49f4b971c41e9d7f867732fb9375a01a67472e98"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/ui-review/astra-ui-review.md",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 10277,
+      "rawSha256": "5592b1f922bbcd1046569172188737eed130854b0dafb74e7bb3f1b75ef7ffed",
+      "lfSha256": "5592b1f922bbcd1046569172188737eed130854b0dafb74e7bb3f1b75ef7ffed"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/ui-review/corrections/PLAN.md",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 6293,
+      "rawSha256": "bd7c15511e6c33b26349731923d4173084df516243592f127f44a73140d78a44",
+      "lfSha256": "bd7c15511e6c33b26349731923d4173084df516243592f127f44a73140d78a44"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/ui-review/corrections/primary/IMPORT.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 4054,
+      "rawSha256": "02ee404d53afcbfe43710ea94455145cd00e29fd30050c005d2fe0488c36ad2e",
+      "lfSha256": "02ee404d53afcbfe43710ea94455145cd00e29fd30050c005d2fe0488c36ad2e"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/ui-review/corrections/worker/ARTIFACTS.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 4970,
+      "rawSha256": "f99ad8861aea85d06f8fb057926e4eec927f696eeb94ce1e49acf0645120ea0d",
+      "lfSha256": "bb2003b519b488618e9ee580a3e77f2bbafdeb319d6b7d67b746328e754b5350"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/ui-review/corrections/worker/README.md",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 2975,
+      "rawSha256": "826d91979f405285ea0a3b4f5c3f56f1f79a66bc4c6121da09ef82421b3b4193",
+      "lfSha256": "d943912bc34014cb81dc3c19d518b2b7c17751b09226f731c279e9feaaaf02d7"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/ui-review/corrections/worker/RESULT.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 10335,
+      "rawSha256": "800421fdad35310759c598fdb3af83238807815b2e9e7ee0169956e14f22abc3",
+      "lfSha256": "0408555a1f6c7ed5dfb307e729fa9887176a89e2973a810aabdecfdefe390050"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/ui-review/corrections/worker/final-web.txt",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 9175,
+      "rawSha256": "b93f418df6f696b151ac211c018e50a4e135fc5ccc1dff768eea71bb5d848666",
+      "lfSha256": "0b9310feb43267c5028628508f33b3de2a688bcae7aa37161491425e6abca3cf"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/ui-review/corrections/worker/green1.txt",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 2209,
+      "rawSha256": "ec4b06164e0fad449e5ed8a5ca8d3b06237d31502e961326de2cad237e57a7dc",
+      "lfSha256": "a909f931d28d191ca951401c1836318af992e0ea9c990749f61916c4e4994960"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/ui-review/corrections/worker/green2.txt",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 2569,
+      "rawSha256": "841efa14101366dd6489bd01b2dd89157873217476474d04792284aa04b255ad",
+      "lfSha256": "e944d8b7b14bd79f79731ab4de96c84864f8188c82c0c088664afc40f52ded7e"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/ui-review/corrections/worker/green3.txt",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 1427,
+      "rawSha256": "56f6365708b71c129c48fc74fcfe033c01e21af6636448d6ef9058184e4b7f37",
+      "lfSha256": "b6bf727dd18697ced56b3442ae79b18c3fa55dbc84b6f232631573e9e6ee9e1a"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/ui-review/corrections/worker/green4.txt",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 2150,
+      "rawSha256": "31ba449e9f89c4cba787fdd3aae9cc65e7ee341dad7ec55430231f99c5cbf8f0",
+      "lfSha256": "6d2f9105025f84f0e09c75095eea3a6d5e73071c5d815c301ed055aa7ca03936"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/ui-review/corrections/worker/green5.txt",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 2451,
+      "rawSha256": "b4048d872f201fe7ebca7ee0a91c3b6883cce2015103acd65f8d2baee97c45a4",
+      "lfSha256": "3373bab7ab8a01584e2b70a2cf834eb47bd228c93ce113d46a59ed87231f8e54"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/ui-review/corrections/worker/negative-controls.txt",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 5054,
+      "rawSha256": "9d42cdaeb9d6226453970a32b3e76724d666583ee99110db5555c50220fb7f4e",
+      "lfSha256": "9d42cdaeb9d6226453970a32b3e76724d666583ee99110db5555c50220fb7f4e"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/ui-review/corrections/worker/red.txt",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 5336,
+      "rawSha256": "d8d551d214001ee6dcc0b1b5409d825c85a6c6fb2b3479e2f0e35de30026db84",
+      "lfSha256": "e838437f390eadc0e45a4e6ccb2d4913a75580276dddfe6def93c8c72cc2358e"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/staff/IMPORT.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 4393,
+      "rawSha256": "c5ee4fbb64abc0669a57318c44de836b95302f5f57cd9364a8e44deddfe51ccb",
+      "lfSha256": "41d8656c1a63693d2dc2321143650e711970a6f5854d0298101f36a711cf3375"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/staff/README.md",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 6003,
+      "rawSha256": "1dab94dfe2e70c53506997e145174d00fc99f76a697739a54da7252f54772f3a",
+      "lfSha256": "30cff602f5e629d7861d7b5732b3113d0a4a9d0fb473258ffba4b2c3453780f1"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/staff/RESULT.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 9544,
+      "rawSha256": "bb7a9ec5445b4fd8123c290644869a86094e2f7ad64d30908541dd39ea56f4dc",
+      "lfSha256": "49e9c9d755cd4e4623fb47bb681ff9a42977d428a6287bfe6be25f0f2d16133f"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/staff/control.py",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 3282,
+      "rawSha256": "a315096c61a76b772c82cd1f5bddd76b7e1a62480cfbb2f10bc2e85cfb15a0dd",
+      "lfSha256": "a315096c61a76b772c82cd1f5bddd76b7e1a62480cfbb2f10bc2e85cfb15a0dd"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/staff/negative.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 638,
+      "rawSha256": "314f2a5625e1c8f2c069d27d5d523c1bf2b31d1e803d8c71c946a4a7f8502097",
+      "lfSha256": "d4cf2a8cf98b0965d86578e31387210795c202d9ca7c33fc082ccf9fcd2e3e7d"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/staff/red.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 620,
+      "rawSha256": "782a39fe5e21302b3b75e255cf62e413322e5f263381c1748f0d6ad73703a89b",
+      "lfSha256": "aefe6077419e0cdeb386c126e1f6e86a4ed1e7db1620ebdc3e9a888812ef6a9d"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/staff/staff-files.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 506,
+      "rawSha256": "6f93ad8477d56223980fa392164662edd6c7159e018bb81347a04553261719ce",
+      "lfSha256": "8e63d24dc9391ae06f47f7bbff3f735e793468b821a30e8093df3a51b6ada99e"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/uuid/README.md",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 1941,
+      "rawSha256": "6cd351e3c291c14735c0b918ce8ad490280a7dd2a5c2ef28a972c4e077a45c83",
+      "lfSha256": "6cd351e3c291c14735c0b918ce8ad490280a7dd2a5c2ef28a972c4e077a45c83"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/uuid/RESULT.json",
+      "role": "owned-evidence-or-documentation",
+      "bytes": 2655,
+      "rawSha256": "636fc38854417b5e6de2ec0bc4d706ea39ef2da19a59219b2df73a412a448cc0",
+      "lfSha256": "da99ad4fdc022cbb08212ff6a9dc1b2ea24336c08baed4ee1b7a75115678d658"
+    },
+    {
+      "path": "savia/db/migrations/MANIFEST.sha256",
+      "role": "reviewed-source",
+      "bytes": 2803,
+      "rawSha256": "2e878b9e3c3eea5c1135ad0f1c2ac22a24f771aa5e41cba66665be79691eefe0",
+      "lfSha256": "2e878b9e3c3eea5c1135ad0f1c2ac22a24f771aa5e41cba66665be79691eefe0"
+    },
+    {
+      "path": "savia/db/migrations/V029__return_retry_safety.sql",
+      "role": "reviewed-source",
+      "bytes": 23115,
+      "rawSha256": "6041e3880fb4cb02c595504e394701e52408e426767c67c2b575914402b353cc",
+      "lfSha256": "6041e3880fb4cb02c595504e394701e52408e426767c67c2b575914402b353cc"
+    },
+    {
+      "path": "savia/db/tests/sales/134_credit_return_validation.sql",
+      "role": "reviewed-source",
+      "bytes": 8837,
+      "rawSha256": "a243bc9d3c05e9e12744a02fd31193caaf62cee9566acd748d4772d57127575c",
+      "lfSha256": "c331b7564647612297ba977ee872dc40aa625c4a6b618d6296333d98a7639fca"
+    },
+    {
+      "path": "savia/db/tests/sales/172_return_retry_safety.sql",
+      "role": "reviewed-source",
+      "bytes": 20807,
+      "rawSha256": "1c816dfdf60c45a8e71865222d3718f9d0ca552075fc73dddba15e11567a47ee",
+      "lfSha256": "1c816dfdf60c45a8e71865222d3718f9d0ca552075fc73dddba15e11567a47ee"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/ReturnRetrySafetyTests.cs",
+      "role": "reviewed-source",
+      "bytes": 9916,
+      "rawSha256": "3fe76573de23dd884534e6fb2d8414737ef2344221f70d9e319b1acceee68b37",
+      "lfSha256": "3fe76573de23dd884534e6fb2d8414737ef2344221f70d9e319b1acceee68b37"
+    },
+    {
+      "path": "savia/tests/test_return_retry_safety.py",
+      "role": "reviewed-source",
+      "bytes": 6498,
+      "rawSha256": "6a180e8c8d27900a203bd94c338260863dc45e157c1e351302eceff02af9a9f5",
+      "lfSha256": "6a180e8c8d27900a203bd94c338260863dc45e157c1e351302eceff02af9a9f5"
+    },
+    {
+      "path": "savia/web/api.mjs",
+      "role": "reviewed-source",
+      "bytes": 13384,
+      "rawSha256": "d30bf2f0bee090cb505c64a1f672cc83c253444f3878ffa6f7ee46dee45b59c6",
+      "lfSha256": "b0a2fe70bddb20de4b0745c06257bf05c9e60afd1d16611a6b1ed748133367f6"
+    },
+    {
+      "path": "savia/web/app.mjs",
+      "role": "reviewed-source",
+      "bytes": 7869,
+      "rawSha256": "dce8a33e3e19f5941575afa257f7de21ff8bd8a9f620749ee9ee93ccc4e29c09",
+      "lfSha256": "dce8a33e3e19f5941575afa257f7de21ff8bd8a9f620749ee9ee93ccc4e29c09"
+    },
+    {
+      "path": "savia/web/index.html",
+      "role": "reviewed-source",
+      "bytes": 1204,
+      "rawSha256": "3440201f738021133edd092ef97fa70585c6845acf01adb28b7a67869fc95049",
+      "lfSha256": "3440201f738021133edd092ef97fa70585c6845acf01adb28b7a67869fc95049"
+    },
+    {
+      "path": "savia/web/screens/return-intent.mjs",
+      "role": "reviewed-source",
+      "bytes": 6818,
+      "rawSha256": "96f95f5c45ee6d9edf0478b78dcce20d180b379429745ebe4624c6c79c6bb049",
+      "lfSha256": "96f95f5c45ee6d9edf0478b78dcce20d180b379429745ebe4624c6c79c6bb049"
+    },
+    {
+      "path": "savia/web/screens/return.mjs",
+      "role": "reviewed-source",
+      "bytes": 27875,
+      "rawSha256": "69198b30c9e16e221cc8c589ca9ebefc20b8dcfa148ab44268624f86d9f66cda",
+      "lfSha256": "69198b30c9e16e221cc8c589ca9ebefc20b8dcfa148ab44268624f86d9f66cda"
+    },
+    {
+      "path": "savia/web/screens/sale-logic.mjs",
+      "role": "reviewed-source",
+      "bytes": 4180,
+      "rawSha256": "ba169c19e3aa25187c4749dacde347c1c8bab32c98472aebe0b136be111138fc",
+      "lfSha256": "ba169c19e3aa25187c4749dacde347c1c8bab32c98472aebe0b136be111138fc"
+    },
+    {
+      "path": "savia/web/tests/return-lifecycle.test.mjs",
+      "role": "reviewed-source",
+      "bytes": 31565,
+      "rawSha256": "989c7dcd53f52010188c57d501ac3f89cf82d4d1f9e5aaf8e7d88cd2cb776d83",
+      "lfSha256": "989c7dcd53f52010188c57d501ac3f89cf82d4d1f9e5aaf8e7d88cd2cb776d83"
+    },
+    {
+      "path": "savia/web/tests/uuid.test.mjs",
+      "role": "reviewed-source",
+      "bytes": 2484,
+      "rawSha256": "0e2bf69aeb4b95e993669984a99c6889d5b77f90b051808c6be251b5445012bd",
+      "lfSha256": "0e2bf69aeb4b95e993669984a99c6889d5b77f90b051808c6be251b5445012bd"
+    },
+    {
+      "path": "savia/web/uuid-logic.mjs",
+      "role": "reviewed-source",
+      "bytes": 493,
+      "rawSha256": "8e93aa30b7239fc7576e1cb29cf991c11a1d951475b1cc56219047fa6ef97813",
+      "lfSha256": "8e93aa30b7239fc7576e1cb29cf991c11a1d951475b1cc56219047fa6ef97813"
+    },
+    {
+      "path": "tests/test_golden_path_workflow.py",
+      "role": "reviewed-source",
+      "bytes": 11438,
+      "rawSha256": "813d700f335162fe03476dd9a133f9b079cb739f5c3359fce295862d96c215b2",
+      "lfSha256": "813d700f335162fe03476dd9a133f9b079cb739f5c3359fce295862d96c215b2"
+    }
+  ],
+  "excluded": [
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/review/overlay.zip",
+      "bytes": 567108,
+      "rawSha256": "c08db183ca673f5d54ba012f6de3466fccd17c6270210f3aaa572e9a8171264c",
+      "reason": "Sensitive filename; keep it outside the public repository.",
+      "disposition": "Retained locally; not staged/published. Historical references unchanged."
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/review/overlay.zip",
+      "bytes": 260033,
+      "rawSha256": "96443a326e1a54b73c0a393c4059410f9ced563182e30a960c3226bc18a0e9cc",
+      "reason": "Sensitive filename; keep it outside the public repository.",
+      "disposition": "Retained locally; not staged/published. Historical references unchanged."
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/review-overlay.zip",
+      "bytes": 147670,
+      "rawSha256": "ac0465e96c6a0f2a5b95023d0bc1cc3b46d7a96235dad2f665ac581fb0a742e9",
+      "reason": "Sensitive filename; keep it outside the public repository.",
+      "disposition": "Retained locally; not staged/published. Historical references unchanged."
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/review-overlay.zip",
+      "bytes": 20427,
+      "rawSha256": "2a65122436f781b15cdd1eb001faeff99832d1ec56c8ecba42d2820b4031b69d",
+      "reason": "Sensitive filename; keep it outside the public repository.",
+      "disposition": "Retained locally; not staged/published. Historical references unchanged."
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/review-overlay.zip",
+      "bytes": 15192,
+      "rawSha256": "70f89bbd047e4e28148f27ce9bbbc092152187d49f80bd66d96488a8710b18a7",
+      "reason": "Sensitive filename; keep it outside the public repository.",
+      "disposition": "Retained locally; not staged/published. Historical references unchanged."
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/ui-review/review-overlay.zip",
+      "bytes": 23902,
+      "rawSha256": "a80eeb8f2ef8ccb0222cdab1035ac22c11ed2209919998a66d2954695f5dcfe8",
+      "reason": "Sensitive filename; keep it outside the public repository.",
+      "disposition": "Retained locally; not staged/published. Historical references unchanged."
+    }
+  ],
+  "workflowBindings": [
+    {
+      "path": ".github/workflows/backend.yml",
+      "lfSha256": "cc61b3e29b3de839b92bbf28f08866d702c1999408bdb77cf46df34e03f61633",
+      "jobs": {
+        "build-and-guards": {
+          "timeoutMinutes": 15,
+          "if": null,
+          "needs": null
+        },
+        "sql-server-integration": {
+          "timeoutMinutes": 20,
+          "if": "github.repository == 'Suazo-AI/Martha-Silva-Store' && github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')",
+          "needs": "build-and-guards"
+        }
+      }
+    },
+    {
+      "path": ".github/workflows/bug-proof.yml",
+      "lfSha256": "88a3d268d57c09bdeb036557ccbb9a155ec9699a7d259af3adf4fff08f4b8073",
+      "jobs": {
+        "proof": {
+          "timeoutMinutes": 20,
+          "if": null,
+          "needs": null
+        },
+        "comment": {
+          "timeoutMinutes": 5,
+          "if": "always() && needs.proof.outputs.required == 'true' && github.event.pull_request.head.repo.full_name == github.repository",
+          "needs": "proof"
+        }
+      }
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "lfSha256": "945e054c8f1d50a972a0c61a2019ec394621df71c9dedfd75a38e198bc0682fd",
+      "jobs": {
+        "check": {
+          "timeoutMinutes": 15,
+          "if": null,
+          "needs": null
+        },
+        "artifact": {
+          "timeoutMinutes": 5,
+          "if": "github.event_name != 'pull_request' && github.ref == 'refs/heads/main'",
+          "needs": "check"
+        },
+        "deploy": {
+          "timeoutMinutes": 10,
+          "if": "github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && vars.CLOUDFLARE_DEPLOY_ENABLED == 'true' && vars.CLOUDFLARE_ACCOUNT_ID != '' && vars.CLOUDFLARE_PREVIEW_URL != ''",
+          "needs": [
+            "check",
+            "artifact"
+          ]
+        }
+      }
+    },
+    {
+      "path": ".github/workflows/golden-path.yml",
+      "lfSha256": "e9b63cd3c06dd67e26ba36fe3ad298908c95b2e1a0b8ab7cbd43ed6662c33622",
+      "jobs": {
+        "golden-path": {
+          "timeoutMinutes": 20,
+          "if": "github.repository == 'Suazo-AI/Martha-Silva-Store' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)",
+          "needs": null
+        }
+      }
+    },
+    {
+      "path": ".github/workflows/progress-digest.yml",
+      "lfSha256": "54b069acb7e9931340b9a23db8bd13c8b2ae1a2aea70e748415020216aac3eb5",
+      "jobs": {
+        "digest": {
+          "timeoutMinutes": 5,
+          "if": null,
+          "needs": null
+        },
+        "narrate": {
+          "timeoutMinutes": 15,
+          "if": "always() && needs.digest.result != 'cancelled' && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository",
+          "needs": "digest"
+        },
+        "publish": {
+          "timeoutMinutes": 5,
+          "if": "always() && needs.digest.result != 'cancelled' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)",
+          "needs": [
+            "digest",
+            "narrate"
+          ]
+        }
+      }
+    },
+    {
+      "path": ".github/workflows/progress.yml",
+      "lfSha256": "b2b0cc09e5a0d69ab4032b71f77aba6c4aebae3fea08595da3f7e3218f4dd408",
+      "jobs": {
+        "progress": {
+          "timeoutMinutes": 5,
+          "if": null,
+          "needs": null
+        }
+      }
+    },
+    {
+      "path": ".github/workflows/savia-azure.yml",
+      "lfSha256": "975b3f9631d91a59077b327a1ab0cad6ed77feaee6b925f26b6418ef60c2d147",
+      "jobs": {
+        "build-and-prove": {
+          "timeoutMinutes": 30,
+          "if": "github.repository == 'Suazo-AI/Martha-Silva-Store' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)",
+          "needs": null
+        },
+        "deploy": {
+          "timeoutMinutes": 60,
+          "if": "${{ github.event_name == 'workflow_dispatch' }}",
+          "needs": "build-and-prove"
+        }
+      }
+    },
+    {
+      "path": ".github/workflows/savia-v2.yml",
+      "lfSha256": "3c7132e81075ee7fd0d7f7f5cfebd8edc5a3d56560bb966e6944aa3d1b198003",
+      "jobs": {
+        "check": {
+          "timeoutMinutes": 45,
+          "if": "github.repository == 'Suazo-AI/Martha-Silva-Store' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)",
+          "needs": null
+        }
+      }
+    },
+    {
+      "path": ".github/workflows/savia.yml",
+      "lfSha256": "620c32c45d9ffaf1f84bd68d4de1781f1ea4064ab97cb80f6d11411f0f3d4b53",
+      "jobs": {
+        "staff-ui-and-browser": {
+          "timeoutMinutes": 15,
+          "if": null,
+          "needs": null
+        },
+        "backend-full-suite-sql": {
+          "timeoutMinutes": 25,
+          "if": "github.repository == 'Suazo-AI/Martha-Silva-Store' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)",
+          "needs": null
+        }
+      }
+    },
+    {
+      "path": ".github/workflows/staff-ui-candidate.yml",
+      "lfSha256": "eca7fa08289353ee599f2e7e68f2523ba8a965949e9e1dbc6b338afccd0b4853",
+      "jobs": {
+        "staff-and-resource-guards": {
+          "timeoutMinutes": 15,
+          "if": null,
+          "needs": null
+        }
+      }
+    },
+    {
+      "path": ".github/workflows/tony-snapshot.yml",
+      "lfSha256": "4961c96c8bed7b2b6105478d596d97aea2bdd5b50e8cb8afb15899113e358739",
+      "jobs": {
+        "integrity": {
+          "timeoutMinutes": 10,
+          "if": null,
+          "needs": null
+        },
+        "historical-regressions": {
+          "timeoutMinutes": 15,
+          "if": null,
+          "needs": "integrity"
+        }
+      }
+    }
+  ],
+  "runtimeEnvelope": {
+    "pushJobMinutes": 100,
+    "pullRequestJobMinutes": 230,
+    "totalCumulativeJobMinutes": 330,
+    "sqlWorkflowFamilies": 4,
+    "possibleSqlJobInstances": 5,
+    "automaticRetries": 0,
+    "manualDispatches": 0,
+    "paidAiCalls": 0
+  },
+  "githubPreflight": {
+    "capturedAtUtc": "2026-11-17T01:02:45.766504+00:00",
+    "route": "Installed gh CLI read-only fallback; gh-axi wrapper unavailable.",
+    "publicRepository": true,
+    "repositoryOwnerType": "User",
+    "headSha": "ba8ff2ba10935e99fc268ebbe5eae130f72c1cca",
+    "baseSha": "3b0049163ece2d9431cee01f1bea624a66d9d8d4",
+    "prState": "open",
+    "mergeState": "blocked",
+    "labels": [],
+    "reviewSubmissions": 0,
+    "inlineReviewComments": 0,
+    "repositoryActionsSecretsCount": 0,
+    "repositoryActionsVariablesCount": 0,
+    "bugIntakeInMain": false,
+    "checksDescribe": "Published old head only; no CI on local corrections."
+  },
+  "stagingRule": "Only files[].path plus selfPath and the normal generated docs/progress receipt. Preserve/exclude all other changes.",
+  "limits": [
+    "Hook filename/pattern/8 MiB checks are not comprehensive privacy certification.",
+    "Six frozen review ZIPs remain local; public source/manifests preserve historical custody references.",
+    "Recheck source/workflow hashes, parent/base and provider-secret absence before publication.",
+    "No merge, deployment, second publication or automatic retry."
+  ],
+  "authorization": {
+    "recordedAtUtc": "2026-11-17T01:24:28.216818+00:00",
+    "userSelection": "A. Publicar y ejecutar una vez (recomendado).",
+    "packet": "docs/merge-readiness-20261116/corrections/PUBLICATION-RUNTIME.md"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "created_utc": "2026-11-05T21:16:41.779890+00:00",
+  "source_head": "6f304a7571a554bb8968e081a14985829aee3dfb",
+  "host": "SUAZO-PC",
+  "source_path": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-890ae507\\docs\\release-20261105\\admin-judge.md",
+  "import_path": "docs/release-20261105/admin-judge.md",
+  "bytes": 17273,
+  "raw_sha256": "4a0f87c99f6a8fc816e3f6462ab27f68c2239e3dc71f0a8c730846177092e946",
+  "lf_sha256": "4a0f87c99f6a8fc816e3f6462ab27f68c2239e3dc71f0a8c730846177092e946",
+  "policy": "Exact RAW copy. LF hash is portability metadata only. Original report retained unchanged, including its header typo.",
+  "disposition": "Primary accepts bounded offline technical evidence. Required Opus critic verdict remains missing. No SAVIA, C2/C9/C10 or production acceptance."
+}

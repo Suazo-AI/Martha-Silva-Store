@@ -1,0 +1,29 @@
+# Captured third-party resources retain their original bytes, license spacing
+# and line endings. Application sources keep the normal whitespace review.
+build-inputs/static/prototypes/** -text -whitespace
+dist/prototypes/** -text -whitespace
+
+# Responsive derivative manifests and media preserve the recorded RAW bytes.
+build-inputs/static/responsive-images/** -text -whitespace
+dist/responsive-images/** -text -whitespace
+docs/release-20261105/responsive-integration/driver-recorded.mjs -text whitespace=trailing-space,space-before-tab,cr-at-eol
+
+# Frozen public evidence keeps the original source bytes across Windows/Linux.
+evidence/savia/20261030/** -text -whitespace
+# Archival exports retain bytes and accept CRLF while keeping ordinary whitespace checks.
+docs/agent-awareness-20261104/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
+docs/failure-simulation-20261105/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
+.githooks/* text eol=lf
+
+# Snapshot manifests hash LF bytes; Windows checkout must preserve those bytes.
+src/*.js text eol=lf
+build-inputs/static/*.html text eol=lf
+build-inputs/static/*.js text eol=lf
+build-inputs/static/*.css text eol=lf
+build-inputs/static/_headers text eol=lf
+build-inputs/static/*.txt text eol=lf
+dist/*.html text eol=lf
+dist/*.js text eol=lf
+dist/*.css text eol=lf
+dist/_headers text eol=lf
+dist/*.txt text eol=lf

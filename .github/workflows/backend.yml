@@ -27,7 +27,11 @@ jobs:
       - name: Restore pinned dependencies
         run: dotnet restore backend/tests/Martha.Store.Api.Tests --locked-mode
       - name: Build and run database-independent guards
-        run: dotnet test backend/tests/Martha.Store.Api.Tests --no-restore --configuration Release --filter 'Category!=SqlServer'
+        run: |
+          # The offline release-script case writes generated scripts to an owned evidence directory.
+          export SAVIA_PILOT_EVIDENCE="$RUNNER_TEMP/savia-pilot-offline"
+          mkdir -p "$SAVIA_PILOT_EVIDENCE"
+          dotnet test backend/tests/Martha.Store.Api.Tests --no-restore --configuration Release --filter 'Category!=SqlServer'
 
   sql-server-integration:
     needs: build-and-guards

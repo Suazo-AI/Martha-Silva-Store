@@ -1,0 +1,20 @@
+[
+  {
+    "command": "python tests/test_progress.py",
+    "exit_code": 0,
+    "wall_ms": 50029,
+    "log": "progress-primary.sanitized.txt"
+  },
+  {
+    "command": "python tools/export_progress.py --verify",
+    "exit_code": 0,
+    "wall_ms": 179,
+    "log": "export-primary.sanitized.txt"
+  },
+  {
+    "command": "python tests/check.py",
+    "exit_code": 1,
+    "wall_ms": 16019,
+    "log": "portable-primary.sanitized.txt"
+  }
+]

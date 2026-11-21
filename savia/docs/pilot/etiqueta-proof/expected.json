@@ -1,0 +1,8 @@
+[
+  {"file": "tag1.png", "kind": "clara, vertical", "barcode": "7501234567893", "sku": "BL-2041-AZ", "name": "Blusa manga corta", "brand": "ALMA TEXTIL", "size": "M", "color": "Azul", "priceMinor": 125000, "composition": "95% Algodón 5% Elastano"},
+  {"file": "tag2.png", "kind": "clara, horizontal", "barcode": "7894561230128", "sku": "PJ-3310-NG", "name": "Pantalón jeans recto", "brand": "RIO VERDE", "size": "32", "color": "Negro", "priceMinor": null, "composition": "98% Algodón 2% Elastano"},
+  {"file": "tag3.png", "kind": "clara, fondo oscuro, etiquetas en inglés", "barcode": "8400123456784", "sku": "88213-04", "name": "Vestido largo floral", "brand": "COSTA NORTE", "size": "L", "color": "Rojo", "priceMinor": 89000, "composition": "100% Poliéster"},
+  {"file": "tag4.png", "kind": "borrosa", "barcode": "7620001234551", "sku": "CM-5521-BL", "name": "Camisa oxford", "brand": "LUNA MODA", "size": "XL", "color": "Blanco", "priceMinor": 149900, "composition": "60% Algodón 40% Poliéster"},
+  {"file": "tag5.png", "kind": "inclinada 7°", "barcode": "5901234123457", "sku": "FP-1180-VD", "name": "Falda plisada", "brand": "BRISA", "size": "S", "color": "Verde", "priceMinor": 75000, "composition": "100% Viscosa"},
+  {"file": "tag6.png", "kind": "tipo foto: perspectiva y sombra", "barcode": "7460012345675", "sku": "SW-7702-GR", "name": "Suéter de punto", "brand": "SOL DE MAYO", "size": "XXL", "color": "Gris", "priceMinor": 210000, "composition": "70% Acrílico 30% Lana"}
+]

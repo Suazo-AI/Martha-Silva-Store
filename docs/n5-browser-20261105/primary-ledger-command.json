@@ -1,0 +1,9 @@
+{
+  "command": [
+    "python",
+    "tools/delivery_status.py",
+    "--check"
+  ],
+  "exit": 0,
+  "log": "docs/n5-browser-20261105/primary-ledger.log"
+}

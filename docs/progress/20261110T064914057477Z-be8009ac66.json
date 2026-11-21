@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-10T06:49:14.057477+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/PilotCashFixture.cs",
+      "change": "A",
+      "git_blob": "3ec3e806f931a546fd03569688153ac1f6f83665"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/PilotRecoveryProof.cs",
+      "change": "A",
+      "git_blob": "d89b9da7dd3c014e05c4a055558d8e86732c6f4b"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs",
+      "change": "M",
+      "git_blob": "429bdea2d128e99f7665a79e33768c50ac6f5d50"
+    },
+    {
+      "path": "docs/cash-register-20261107/recovery-preparation/DELIVERY-20261110.md",
+      "change": "M",
+      "git_blob": "30a01db4a4b9bda3a1cb750cf0dbf29243e2a5dc"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

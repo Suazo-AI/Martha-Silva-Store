@@ -1,0 +1,79 @@
+✔ lost response freezes immutable intent through edit and remount; 404 never unlocks (62.1919ms)
+✔ account switch while confirmation is held cannot POST (2.0322ms)
+✔ explicit replay after 404 keeps exact body; malformed 200 stays unresolved (8.0336ms)
+✔ wrong IDs, lines, credit, till and malformed receipt cannot confirm (6.8052ms)
+✔ storage denied, corrupt, and missing Web Locks block sending (2.9283ms)
+✖ double submit while confirmation held sends zero; cancel removes never sent draft (6.0077ms)
+✔ foreign actor recovery is generic and loads no dependencies (5.4265ms)
+✔ late POST and lookup cannot render or clear after retirement (5.7257ms)
+✔ competing mounts cannot replace durable reservation; readback failure and tamper fail closed (3.5228ms)
+✔ all supported outcomes reserve complete bodies and preserve exact replay (7.634ms)
+✔ temporary approval revoked on failed POST and late approval; cashier session retained (4.659ms)
+✔ cancelled approval cannot close or authorize a replacement dialog (1.537ms)
+✔ held origin lock rejects a competing mount submit without allocating or sending (1.206ms)
+✖ F2 rejects malformed reversal fields independently (1.7615ms)
+✖ F1 exact successful exchange POST and explicit replay confirm durably (3.2496ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 12
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 310.0816
+
+✖ failing tests:
+
+test at savia\web\tests\return-lifecycle.test.mjs:5:27
+✖ double submit while confirmation held sends zero; cancel removes never sent draft (6.0077ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '{"version":1,"state":"draft","scope":{"origin":"http://fixture.invalid","staffId":"00000000-0000-4000-8000-000000000001","nodeId":"00000000-0000-4000-8000-000000000002","branchId":"00000000-0000-4000-8000-000000000003","locationId":"00000000-0000-4000-8000-000000000004"},"saleId":"00000000-0000-4000-8000-000000000005","saleTillId":"00000000-0000-4000-8000-000000000006","endpoint":"credit","body":{"reversalId":"73cb9aaf-1fff-4cd6-a395-e6d7407917ac","creditId":"074aed53-bcf1-485d-9cf5-fd3f789338c4","tillId":"00000000-0000-4000-8000-000000000006","customerId":"00000000-0000-4000-8000-000000000007","reason":"Fixture reason","lines":[{"saleLineId":"00000000-0000-4000-8000-000000000008","quantity":1,"restockPool":"store"}]},"expected":[{"saleLineId":"00000000-0000-4000-8000-000000000008","quantity":1,"restockPool":"store","creditMinor":100}]}'
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/Jason/.t3/worktrees/github/t3-15d6bca1-a85d144e511e673a/savia/web/tests/return-lifecycle.test.mjs:207:40)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '{"version":1,"state":"draft","scope":{"origin":"http://fixture.invalid","staffId":"00000000-0000-4000-8000-000000000001","nodeId":"00000000-0000-4000-8000-000000000002","branchId":"00000000-0000-4000-8000-000000000003","locationId":"00000000-0000-4000-8000-000000000004"},"saleId":"00000000-0000-4000-8000-000000000005","saleTillId":"00000000-0000-4000-8000-000000000006","endpoint":"credit","body":{"reversalId":"73cb9aaf-1fff-4cd6-a395-e6d7407917ac","creditId":"074aed53-bcf1-485d-9cf5-fd3f789338c4","tillId":"00000000-0000-4000-8000-000000000006","customerId":"00000000-0000-4000-8000-000000000007","reason":"Fixture reason","lines":[{"saleLineId":"00000000-0000-4000-8000-000000000008","quantity":1,"restockPool":"store"}]},"expected":[{"saleLineId":"00000000-0000-4000-8000-000000000008","quantity":1,"restockPool":"store","creditMinor":100}]}',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at savia\web\tests\return-lifecycle.test.mjs:5:27
+✖ F2 rejects malformed reversal fields independently (1.7615ms)
+  AssertionError [ERR_ASSERTION]: Expected "actual" to be strictly unequal to:
+  
+  'confirmed'
+      at TestContext.<anonymous> (file:///C:/Users/Jason/.t3/worktrees/github/t3-15d6bca1-a85d144e511e673a/savia/web/tests/return-lifecycle.test.mjs:281:149)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'confirmed',
+    expected: 'confirmed',
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at savia\web\tests\return-lifecycle.test.mjs:5:27
+✖ F1 exact successful exchange POST and explicit replay confirm durably (3.2496ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'unresolved'
+  - 'confirmed'
+  
+      at TestContext.<anonymous> (file:///C:/Users/Jason/.t3/worktrees/github/t3-15d6bca1-a85d144e511e673a/savia/web/tests/return-lifecycle.test.mjs:289:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'unresolved',
+    expected: 'confirmed',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

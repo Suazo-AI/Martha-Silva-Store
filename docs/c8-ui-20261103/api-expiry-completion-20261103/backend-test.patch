@@ -1,0 +1,105 @@
+diff --git a/backend/tests/Martha.Store.Api.Tests/InternalSecurityTests.cs b/backend/tests/Martha.Store.Api.Tests/InternalSecurityTests.cs
+index 3fab475..ee3b15e 100644
+--- a/backend/tests/Martha.Store.Api.Tests/InternalSecurityTests.cs
++++ b/backend/tests/Martha.Store.Api.Tests/InternalSecurityTests.cs
+@@ -4,6 +4,7 @@ using System.Security.Claims;
+ using System.Text.Json;
+ using Martha.Store.Api.Internal;
+ using Microsoft.AspNetCore.Antiforgery;
++using Microsoft.AspNetCore.Authentication;
+ using Microsoft.AspNetCore.Authentication.Cookies;
+ using Microsoft.AspNetCore.Authorization;
+ using Microsoft.AspNetCore.Builder;
+@@ -256,6 +257,71 @@ public sealed class InternalSecurityTests
+         Assert.Equal(0, databaseResolutions);
+     }
+ 
++    [Fact]
++    public async Task Expired_cookie_is_rejected_by_fake_TimeProvider_before_database_resolution()
++    {
++        var time = new TestTime(Now);
++        var databaseResolutions = 0;
++        await using var app = await TestApp(() =>
++        {
++            Interlocked.Increment(ref databaseResolutions);
++            throw new InvalidOperationException("Test: expired cookies must not resolve database configuration.");
++        }, time);
++        var options = app.Services.GetRequiredService<IOptionsMonitor<CookieAuthenticationOptions>>()
++            .Get(InternalSecurityRules.Scheme);
++        Assert.Same(time, app.Services.GetRequiredService<TimeProvider>());
++        Assert.Same(time, options.TimeProvider);
++        Assert.Equal(typeof(InternalCookieEvents), options.EventsType);
++        Assert.False(options.SlidingExpiration);
++        Assert.Equal(TimeSpan.FromHours(8), options.ExpireTimeSpan);
++
++        var (staff, session) = Fixture();
++        session.CreatedAt = time.GetUtcNow();
++        session.ExpiresAt = session.CreatedAt.AddHours(8);
++        var principal = InternalSecurityRules.Principal(staff, session);
++        var ticket = new AuthenticationTicket(principal, new AuthenticationProperties
++        {
++            IssuedUtc = session.CreatedAt, ExpiresUtc = session.ExpiresAt,
++            IsPersistent = false, AllowRefresh = false
++        }, InternalSecurityRules.Scheme);
++        var protectedTicket = options.TicketDataFormat.Protect(ticket);
++        var roundtrip = options.TicketDataFormat.Unprotect(protectedTicket);
++        Assert.NotNull(roundtrip);
++        Assert.Equal(InternalSecurityRules.Scheme, roundtrip.AuthenticationScheme);
++        Assert.Equal(InternalSecurityRules.Scheme, roundtrip.Principal.Identity!.AuthenticationType);
++        Assert.Equal(session.CreatedAt, roundtrip.Properties.IssuedUtc);
++        Assert.Equal(session.ExpiresAt, roundtrip.Properties.ExpiresUtc);
++        Assert.True(InternalSecurityRules.SessionIsValid(staff, session, roundtrip.Principal, time.GetUtcNow()));
++
++        using var client = app.GetTestClient();
++        client.BaseAddress = new Uri("https://localhost");
++        client.DefaultRequestHeaders.Add("Cookie", $"{options.Cookie.Name}={protectedTicket}");
++        time.Advance(TimeSpan.FromHours(8).Add(TimeSpan.FromSeconds(1)));
++        Assert.True(time.GetUtcNow() > roundtrip.Properties.ExpiresUtc);
++        Assert.Equal(HttpStatusCode.Unauthorized, (await client.GetAsync("/internal/api/security/me")).StatusCode);
++        Assert.Equal(0, databaseResolutions);
++        Assert.Equal(HttpStatusCode.Unauthorized, (await client.GetAsync("/internal/api/security/me")).StatusCode);
++        Assert.Equal(0, databaseResolutions);
++
++        // A nonexpired ticket reaches the unchanged production validation event and trips the DB guard.
++        // Use a separate host so the expired host's database-resolution count remains zero throughout.
++        var controlDatabaseResolutions = 0;
++        await using var control = await TestApp(() =>
++        {
++            Interlocked.Increment(ref controlDatabaseResolutions);
++            throw new InvalidOperationException("Test: nonexpired cookie reached guarded database resolution.");
++        }, new TestTime(Now));
++        var controlOptions = control.Services.GetRequiredService<IOptionsMonitor<CookieAuthenticationOptions>>()
++            .Get(InternalSecurityRules.Scheme);
++        using var controlClient = control.GetTestClient();
++        controlClient.BaseAddress = new Uri("https://localhost");
++        controlClient.DefaultRequestHeaders.Add("Cookie", $"{controlOptions.Cookie.Name}={controlOptions.TicketDataFormat.Protect(ticket)}");
++        var error = await Assert.ThrowsAsync<InvalidOperationException>(() => controlClient.GetAsync("/internal/api/security/me"));
++        Assert.Equal("Test: nonexpired cookie reached guarded database resolution.", error.Message);
++        Assert.Equal(1, controlDatabaseResolutions);
++        Assert.Equal(0, databaseResolutions);
++    }
++
+     [Fact]
+     public void Staff_and_sessions_are_in_separate_schema_with_unique_login_and_concurrency_guard()
+     {
+@@ -281,7 +347,7 @@ public sealed class InternalSecurityTests
+         return (staff, session);
+     }
+ 
+-    private static async Task<WebApplication> TestApp(Action? resolvingDatabase = null)
++    private static async Task<WebApplication> TestApp(Action? resolvingDatabase = null, TimeProvider? timeProvider = null)
+     {
+         var builder = WebApplication.CreateBuilder(new WebApplicationOptions { EnvironmentName = "Testing" });
+         builder.WebHost.UseTestServer();
+@@ -291,7 +357,11 @@ public sealed class InternalSecurityTests
+             resolvingDatabase?.Invoke();
+             options.UseSqlServer("Server=127.0.0.1,1;Database=MarthaInternal_NoConnection;Integrated Security=true;Connect Timeout=1");
+         });
++        if (timeProvider is not null) builder.Services.AddSingleton(timeProvider);
+         builder.Services.AddInternalSecurity();
++        if (timeProvider is not null)
++            builder.Services.Configure<CookieAuthenticationOptions>(InternalSecurityRules.Scheme,
++                options => options.TimeProvider = timeProvider);
+         var app = builder.Build();
+         app.UseAuthentication();
+         app.UseAuthorization();

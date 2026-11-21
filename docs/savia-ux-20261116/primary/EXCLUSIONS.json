@@ -1,0 +1,32 @@
+{
+  "rawLogs": [
+    {
+      "source": "docs/savia-ux-20261116/navigation/focused-final.log",
+      "archive": "private-exports/savia-ux-20261116-primary/excluded-worker-logs/focused-final.log",
+      "sha256": "8785e74c8234b4699f4b005a1e53e4584e450c412658521e467257b60c9659a4",
+      "reason": "Raw .log files prohibited by progress publication policy; source preserved, not staged."
+    },
+    {
+      "source": "docs/savia-ux-20261116/navigation/focused-recheck.log",
+      "archive": "private-exports/savia-ux-20261116-primary/excluded-worker-logs/focused-recheck.log",
+      "sha256": "0ba7079517161243f42a057b3384e115a03342b85f3658e6a28b2401b4194190",
+      "reason": "Raw .log files prohibited by progress publication policy; source preserved, not staged."
+    },
+    {
+      "source": "docs/savia-ux-20261116/navigation/focused.log",
+      "archive": "private-exports/savia-ux-20261116-primary/excluded-worker-logs/focused.log",
+      "sha256": "61b22519d129671fad71b236bd5f47f010472315cf96ddab3aa277d0fe9d8ae6",
+      "reason": "Raw .log files prohibited by progress publication policy; source preserved, not staged."
+    },
+    {
+      "source": "docs/savia-ux-20261116/navigation/web-suite.log",
+      "archive": "private-exports/savia-ux-20261116-primary/excluded-worker-logs/web-suite.log",
+      "sha256": "0c44a9e6ee21350dba4c00fd6da571ff19ee7d21f624fe8d6a7d0a7d291b5bc1",
+      "reason": "Raw .log files prohibited by progress publication policy; source preserved, not staged."
+    }
+  ],
+  "otherExclusions": [
+    "__pycache__",
+    "Unrelated worktree changes including AGENTS.md and docs/DECISIONS.md"
+  ]
+}

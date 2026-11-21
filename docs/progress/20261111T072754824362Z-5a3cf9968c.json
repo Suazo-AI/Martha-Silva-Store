@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-11T07:27:54.824362+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Cash/InternalCashEndpoints.cs",
+      "change": "M",
+      "git_blob": "9ff71d0badc743f333ca86b7b1e55a47332a1061"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Cash/InternalCashReport.cs",
+      "change": "A",
+      "git_blob": "b9ddf97748c896442aa6e07b7ec7eaf9076eb14c"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Cash/InternalCashService.cs",
+      "change": "M",
+      "git_blob": "d0f976782f45267be49e82522df31cc41c8eb049"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalCsv.cs",
+      "change": "A",
+      "git_blob": "a3ba81e989983f3c54b1eff5a7eb419b0a6faa5e"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyReport.cs",
+      "change": "M",
+      "git_blob": "5793af307860638d8c1aa484971af428687e8c02"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCashReadTests.cs",
+      "change": "M",
+      "git_blob": "34f71128298a9b63b9155cda6ae81213cb1b8d8a"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCashSqlTests.cs",
+      "change": "M",
+      "git_blob": "e097a8c5a6bad006a86006e3c5323e724e0b552f"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

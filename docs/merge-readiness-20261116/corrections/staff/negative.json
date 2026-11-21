@@ -1,0 +1,16 @@
+{
+  "mode": "negative",
+  "command": [
+    "node",
+    "--test",
+    "--test-name-pattern",
+    "mounted cash sale double submit locks synchronously and refreshes current reads",
+    "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-84a947fe-3e4a084275ffd036\\docs\\merge-readiness-20261116\\corrections\\staff\\disposable-aq9hp3k7\\cash.test.mjs"
+  ],
+  "exit": 1,
+  "expected": "sale locks before awaiting preparation",
+  "detected": true,
+  "product_raw_sha256": "66db9ad5eb97bf312da613fa5a17fdb6a933316189ce7e0e7569041d0405f366",
+  "product_unchanged": true,
+  "disposable_cleanup": "TemporaryDirectory removed on exit"
+}

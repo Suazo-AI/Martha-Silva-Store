@@ -1,0 +1,83 @@
+{
+  "status": "isolated_combined_source_assembled_not_built_or_published",
+  "created_utc": "2026-10-26T18:41:51.791590+00:00",
+  "base_commit": "704b2e160106b709880ad7c22febd25adb6181d6",
+  "base_manifest_sha256": "c12768ca83e73c66936d2bebb8bbf6388279762315986e87de9d36e7287716e8",
+  "source_root": "/workspace/scratch/14cff504045e/audit-centering-20261026/combined-support-back-candidate-v4/source",
+  "baseline_files_verified": 951,
+  "source_file_count": 953,
+  "unchanged_source_files": 947,
+  "changes": [
+    {
+      "path": "src/app.js",
+      "operation": "replace_existing_exact_guard",
+      "before_sha256": "8ee8deb77dd6608023f0d315c2451aafa248f58e77658b881717e9de09470ba8",
+      "after_sha256": "aa0528f71c3a23410dd7c2c0151427826f800e8f78a8057fe60d14427dcd89e8",
+      "bytes": 78861
+    },
+    {
+      "path": "build-inputs/static/styles.css",
+      "operation": "replace_existing_exact_guard",
+      "before_sha256": "955550d32bc9b1fb1c826abf30b65730e41fc0074a932a2d66276c08d37f0189",
+      "after_sha256": "14275118ce05a69322963373243dc723294292d5caca78802d2f9cf1ed65d186",
+      "bytes": 64864
+    },
+    {
+      "path": "build-inputs/static/producto-blanco-perlado-sirena.html",
+      "operation": "replace_existing_exact_guard",
+      "before_sha256": "5de33a549ddde101666c98995a8068fad7740cd107704983a72c80ecfc2ffd3d",
+      "after_sha256": "9e47db6124a43c8ebb88096977047250231f59cd08a2f732f279f373bc5dc6d8",
+      "bytes": 247126
+    },
+    {
+      "path": "build-inputs/static/producto-rosa-empolvado-pedreria.html",
+      "operation": "replace_existing_exact_guard",
+      "before_sha256": "ef5915e4701407790d9abb4e1862021bc65f71a581414edafefe8af8b89a1aa2",
+      "after_sha256": "eb9fc145b5c0311ee517e0c9c00a753dc228142ff0fa8ccc64c5cc6fd6d71039",
+      "bytes": 248851
+    },
+    {
+      "path": "build-inputs/static/generated-illustrations/blanco-perlado-sirena-g1-gen-001-48170acd71bf.png",
+      "operation": "add_new",
+      "before_sha256": null,
+      "after_sha256": "48170acd71bf1dae2f797cfb22c8dafe522d990de03c9b6ce5ce63a456b67ffe",
+      "bytes": 1623549
+    },
+    {
+      "path": "build-inputs/static/generated-illustrations/rosa-empolvado-pedreria-g1-gen-001-8e13cba8e436.png",
+      "operation": "add_new",
+      "before_sha256": null,
+      "after_sha256": "8e13cba8e436ab0a4aa381db6a7d99e44f8624acb7a73eb62d4731ef0a218413",
+      "bytes": 1737603
+    }
+  ],
+  "revised_back_app_prefix_sha256": "f30cca0b19ab1df423baf5bbcbd995662c3e9b5297e75daae777f6141871c0bd",
+  "previous_frozen_Back_sha256": "be37f82762f67a73fc2e2b798207cdeb77e7d75fb68876ae6e9d72149da70573",
+  "revised_Back_controller_sha256": "aca2bf1ad30f73668607c220b447713d4bd3491cfb2d3b5646fd53cedafce787",
+  "Back_compound_revision": "URL-bound capture, synchronous scroll coordinates, native-fragment ownership, and explicit same-entry locale reconciliation",
+  "back_app_prefix_bytes": 74724,
+  "revised_AI_app_suffix_sha256": "f5a79a1a367e9b5e6b20381996f32bbe1a4d2c346b15d353c481dcf6059b283b",
+  "revised_AI_app_suffix_bytes": 4137,
+  "revised_AI_module_sha256": "edf6246dd3fa293504a133464018b7365333276ede124f253391c48a22495fd1",
+  "original_AI_suffix_sha256": "606ef325cc0773408b224f07db909cdc54acf6e7304a8fa9c4787af2798b79c7",
+  "AI_compound_revision": "Idempotent writes/root language guard plus scoped original-photo no-history enhancement; frozen original artifacts unchanged",
+  "AI_stage_receipt_sha256": "6b7a55cc1d66dd821d335327ad42a4ad1249d9c01814da7bf5302fe379d534db",
+  "expected_runtime": {
+    "count": 904,
+    "unchanged_from_A": 898,
+    "changed_existing": [
+      "app.js",
+      "styles.css",
+      "producto-blanco-perlado-sirena.html",
+      "producto-rosa-empolvado-pedreria.html"
+    ],
+    "new": [
+      "generated-illustrations/blanco-perlado-sirena-g1-gen-001-48170acd71bf.png",
+      "generated-illustrations/rosa-empolvado-pedreria-g1-gen-001-8e13cba8e436.png"
+    ],
+    "status": "expected_not_yet_built"
+  },
+  "baseline_mutated": false,
+  "AI_or_Back_frozen_artifacts_mutated": false,
+  "build_test_publication_performed": false
+}

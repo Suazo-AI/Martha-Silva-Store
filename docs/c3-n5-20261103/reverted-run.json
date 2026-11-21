@@ -1,0 +1,8 @@
+{
+  "invocation": 2,
+  "phase": "reverted",
+  "startedUtc": "2026-11-03T23:27:34.4212207Z",
+  "finishedUtc": "2026-11-03T23:27:47.8755145Z",
+  "exitCode": 1,
+  "match": "(N5)"
+}

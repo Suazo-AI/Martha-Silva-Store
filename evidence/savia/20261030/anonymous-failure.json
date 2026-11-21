@@ -1,0 +1,12 @@
+{
+  "checks": [],
+  "network": [],
+  "errors": [
+    {
+      "stage": "anonymous",
+      "name": "AssertionError",
+      "code": "ERR_ASSERTION"
+    }
+  ],
+  "consoleErrors": []
+}

@@ -1,0 +1,48 @@
+{
+  "observedUtc": "2026-11-04T01:27:46.4822199+00:00",
+  "head": "775f301bc195c43baedc68c86f4e71affe92ef95",
+  "branch": "task/c8-api-expiry-20261103",
+  "status": [
+    " M backend/tests/Martha.Store.Api.Tests/InternalSecurityTests.cs",
+    " M dev/savia-staff-ui/README.md",
+    " M dev/savia-staff-ui/app.mjs",
+    " M dev/savia-staff-ui/auth.test.mjs",
+    " M dev/savia-staff-ui/login.mjs",
+    " M tests/browser-mock-validation.mjs",
+    "?? docs/c8-ui-20261103/"
+  ],
+  "diffCheckExit": 0,
+  "existingPatchIntegrity": [
+    {
+      "beforeSha256": "0227a090710012f9f71c54e90d38b5fff631567d33255068a96b0ed4b83e4b47",
+      "unchanged": true,
+      "path": "dev/savia-staff-ui/README.md",
+      "afterSha256": "0227a090710012f9f71c54e90d38b5fff631567d33255068a96b0ed4b83e4b47"
+    },
+    {
+      "beforeSha256": "c5179f67e8f613e6a71ed1e611cd923a4c3862a4a646aa3be4b8f81b8609d48e",
+      "unchanged": true,
+      "path": "dev/savia-staff-ui/app.mjs",
+      "afterSha256": "c5179f67e8f613e6a71ed1e611cd923a4c3862a4a646aa3be4b8f81b8609d48e"
+    },
+    {
+      "beforeSha256": "7c6b890b25b8c27e4f2fcda44549db2ca3f2f67552c7c7b6a2e3afa14b16bab6",
+      "unchanged": true,
+      "path": "dev/savia-staff-ui/auth.test.mjs",
+      "afterSha256": "7c6b890b25b8c27e4f2fcda44549db2ca3f2f67552c7c7b6a2e3afa14b16bab6"
+    },
+    {
+      "beforeSha256": "ac7714a22eb1e7a383ca41e3e11343472025271dcf21dc862f39cf8c386fc787",
+      "unchanged": true,
+      "path": "dev/savia-staff-ui/login.mjs",
+      "afterSha256": "ac7714a22eb1e7a383ca41e3e11343472025271dcf21dc862f39cf8c386fc787"
+    },
+    {
+      "beforeSha256": "f10b58fc28191646b750e488a8b84904ffba00337cf2054ee151316d9a28d415",
+      "unchanged": true,
+      "path": "tests/browser-mock-validation.mjs",
+      "afterSha256": "f10b58fc28191646b750e488a8b84904ffba00337cf2054ee151316d9a28d415"
+    }
+  ],
+  "remainingOwnedSdkProcesses": []
+}

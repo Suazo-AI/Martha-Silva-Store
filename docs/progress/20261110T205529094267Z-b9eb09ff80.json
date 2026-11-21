@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-10T20:55:29.094267+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/owner-recovery-20261107/interactive-handoff-20261110.md",
+      "change": "A",
+      "git_blob": "3650bb22850c9de9bb84aa9a956b3ea88a0c360a"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

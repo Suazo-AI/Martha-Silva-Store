@@ -1,0 +1,56 @@
+{
+  "id": "savia-branch-choice-20261107",
+  "title": "¿Quién crea la sucursal en SAVIA?",
+  "subtitle": "Una decisión. Cinco opciones. Ninguna viene elegida.",
+  "source_note": "Fuentes leídas el 2026-11-07: D-014, API-BRANCH y estilos actuales de SAVIA. Casos ficticios. El formato A–E responde al pedido de Jason; no registra una elección.",
+  "decisions": [{
+    "id": "API-BRANCH",
+    "label": "Crear sucursales",
+    "question": "¿Qué querés que construyamos para el alta de sucursales?",
+    "context": "Recomiendo A porque el alcance vigente es un negocio y una sucursal. Primero terminamos y probamos ese local. Agregar más locales requiere reglas y pruebas adicionales.",
+    "recommended": "A",
+    "scope": [
+      "La elección define el alcance que prepararemos e implementaremos con pruebas y revisión.",
+      "No autoriza crear cuentas, sucursales ni datos reales, ejecutar SQL, cambiar certificados, hacer merge o desplegar.",
+      "C y D amplían D-014: primero hay que definir separación de inventario, cajas, personal e informes entre sucursales.",
+      "Ninguna opción acredita producción ni cambia por sí sola cómo un cajero registra una venta."
+    ],
+    "evidence": [
+      {"label": "D-014: un negocio y una sucursal", "url": "../DECISIONS.md"},
+      {"label": "API-BRANCH: falta una forma soportada de crear sucursales", "url": "../pipeline/ledger.json"},
+      {"label": "Estilos de la aplicación usados como referencia visual", "url": "../../dev/savia-staff-ui/styles.css"}
+    ],
+    "options": [
+      {
+        "id": "A", "label": "A · Una sucursal, alta técnica",
+        "consequence": "Caso: abrimos Local Centro. Un técnico usa un procedimiento revisado y probado. El personal entra a SAVIA y vende normalmente. Si abrís otro local, habrá que preparar y validar esa ampliación. Menos funciones nuevas para llegar al primer local operativo.",
+        "action": "Preparar e implementar el procedimiento de alta para una sola sucursal, con validación de datos, prevención de duplicados, prueba con datos ficticios y verificación del resultado. Conservar D-014.",
+        "authority": "execute"
+      },
+      {
+        "id": "B", "label": "B · Una sucursal, alta desde SAVIA",
+        "consequence": "Caso: la persona con rol Owner abre una pantalla y registra Local Centro. El programa valida los datos. Después, el cajero trabaja igual que en A. Hay que construir y probar esa pantalla y sus permisos. Esto no incluye operar varios locales.",
+        "action": "Preparar e implementar el alta guiada de la única sucursal desde SAVIA, solo para Owner, con validaciones, permisos, auditoría y pruebas. Conservar el límite de una sucursal de D-014.",
+        "authority": "execute"
+      },
+      {
+        "id": "C", "label": "C · Varios locales, alta técnica",
+        "consequence": "Caso: Centro y Norte empiezan desde el primer lanzamiento. Un técnico registra los locales. Aunque no exista una pantalla de alta, debemos probar qué stock, ventas, cajas y empleados puede ver cada sucursal. Amplía el alcance actual.",
+        "action": "Preparar una propuesta para ampliar D-014 a varias sucursales mediante alta técnica. Definir reglas y pruebas entre locales antes de implementar. No asumir reglas de transferencias o acceso compartido.",
+        "authority": "prepare"
+      },
+      {
+        "id": "D", "label": "D · Varios locales, alta desde SAVIA",
+        "consequence": "Caso: Owner registra Centro y Norte desde la aplicación. Además del formulario, necesitamos reglas y pruebas entre locales. Es la opción con más trabajo adicional: dar de alta un local no garantiza que un sistema opere correctamente varias sucursales.",
+        "action": "Preparar una propuesta multisucursal con alta desde SAVIA. Definir separación de datos, permisos y aceptación antes de implementar. No habilitar automáticamente transferencias ni informes consolidados.",
+        "authority": "prepare"
+      },
+      {
+        "id": "E", "label": "E · Ver una demostración antes de elegir",
+        "consequence": "Caso: querés comparar cómo sería registrar Local Centro por procedimiento técnico y desde una pantalla. Mostramos ambos con datos ficticios. La decisión queda pendiente; el trabajo independiente puede continuar.",
+        "action": "Posponer API-BRANCH y preparar una demostración comparativa con datos ficticios. No implementar el alta ni ampliar D-014 hasta recibir una elección.",
+        "authority": "defer"
+      }
+    ]
+  }]
+}

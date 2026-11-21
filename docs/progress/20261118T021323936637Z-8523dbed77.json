@@ -1,0 +1,140 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-18T02:13:23.936637+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": ".github/workflows/savia-azure.yml",
+      "change": "M",
+      "git_blob": "dd4e75ea6398d02fcbc442e1847767993f6bb8ba"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/ci-9879d5c/README.md",
+      "change": "M",
+      "git_blob": "e86907a001e39365b4cca9d68cbe1bae75a3abe0"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/ci-9879d5c/pilot-journey.md",
+      "change": "A",
+      "git_blob": "f6fabe982d78b881dee01f61a2190fb895ac7d80"
+    },
+    {
+      "path": "savia/db/migrations/MANIFEST.sha256",
+      "change": "M",
+      "git_blob": "3a84f436af08b31631f4a298ff2667d0410f8a5b"
+    },
+    {
+      "path": "savia/db/migrations/V030__catalog_recounts_and_business_kpis.sql",
+      "change": "A",
+      "git_blob": "a182dadbce5a0b952285133fd91325a2219ddb5e"
+    },
+    {
+      "path": "savia/db/tests/sales/180_cash_recount_before_close.sql",
+      "change": "A",
+      "git_blob": "357b29b8a4edb73860f8a26b95a3688757f4bdf5"
+    },
+    {
+      "path": "savia/db/tests/sales/181_kpi_usd_closure_difference.sql",
+      "change": "A",
+      "git_blob": "12f78b147c41f21d67b2672e5ba83cda548c6ff3"
+    },
+    {
+      "path": "savia/db/tests/sales/182_kpi_taxed_return_revenue.sql",
+      "change": "A",
+      "git_blob": "421036aa9a427b3accebb6bd5edbde91972de0a0"
+    },
+    {
+      "path": "savia/db/tests/sales/183_kpi_sell_through_later_return.sql",
+      "change": "A",
+      "git_blob": "336ae2bdb5caec3f82a677353e386f5abcbefe70"
+    },
+    {
+      "path": "savia/db/tests/sales/184_sale_taxed_item_catalog_amount.sql",
+      "change": "A",
+      "git_blob": "dcdf1ad8ba3c4daf80e66acfb0fe3b38218cedc5"
+    },
+    {
+      "path": "savia/db/tests/sales/185_cash_recount_rollback_and_stale_retry.sql",
+      "change": "A",
+      "git_blob": "d5c93782f849486dcbef49edfe1835eeedc362ee"
+    },
+    {
+      "path": "savia/db/tests/sales/186_kpi_cumulative_refund_tax.sql",
+      "change": "A",
+      "git_blob": "ab3125461b67ddad4c1f221d881c6048e288339a"
+    },
+    {
+      "path": "savia/db/tests/sales/187_kpi_dual_drawer_difference.sql",
+      "change": "A",
+      "git_blob": "3a006e83b3741a27ba0a4ca7450463211ff0651b"
+    },
+    {
+      "path": "savia/src/Savia.Contracts/Catalog.cs",
+      "change": "M",
+      "git_blob": "3d6f5c84edb0a9a1aafa08f4c02e485b4c20c33b"
+    },
+    {
+      "path": "savia/web/sale-recovery.mjs",
+      "change": "M",
+      "git_blob": "94fff847158dec0d93db4534de7070b8f005e08e"
+    },
+    {
+      "path": "savia/web/screens/import.mjs",
+      "change": "M",
+      "git_blob": "d14779d8fe4973bf7cd963456b2b2ace0e38fb2b"
+    },
+    {
+      "path": "savia/web/screens/receipt.mjs",
+      "change": "M",
+      "git_blob": "b496114d047b17fa0284d98c5b2ef76077a0c0e6"
+    },
+    {
+      "path": "savia/web/screens/sale-logic.mjs",
+      "change": "M",
+      "git_blob": "ad807ac6c9c555ff8f7e5546dbb639aadfa61699"
+    },
+    {
+      "path": "savia/web/screens/sale.mjs",
+      "change": "M",
+      "git_blob": "0e125576afc1e1d7a66c19b3774528a1364e20ec"
+    },
+    {
+      "path": "savia/web/tests/catalog-ticket.test.mjs",
+      "change": "M",
+      "git_blob": "c1359515f5b6d876dcbdc76a04c738a31967f6cb"
+    },
+    {
+      "path": "savia/web/tests/e2e_pilot.py",
+      "change": "M",
+      "git_blob": "19dc1a28f88dcd260961b8831b6a8539d7f1e2c0"
+    },
+    {
+      "path": "savia/web/tests/pr7-codex-findings.test.mjs",
+      "change": "A",
+      "git_blob": "030d9f9402341398fbde91ab6940169c903d0866"
+    },
+    {
+      "path": "savia/web/tests/pr7-import-receipt.test.mjs",
+      "change": "A",
+      "git_blob": "4e0c6fb54dae35f3b4111aa3d9cbacc693509020"
+    },
+    {
+      "path": "savia/web/tests/pr7-payment-customer-contract.test.mjs",
+      "change": "A",
+      "git_blob": "68a702bf7245e43ceb82ba87fc98e6aa3e555f14"
+    },
+    {
+      "path": "savia/web/tests/sale-lifecycle.test.mjs",
+      "change": "M",
+      "git_blob": "43301c434a32d2817575d313f876bfccdb582e86"
+    },
+    {
+      "path": "savia/web/tests/sale-recovery.test.mjs",
+      "change": "M",
+      "git_blob": "473ac8e838b0b1643f674e6b19c07cfd48917195"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

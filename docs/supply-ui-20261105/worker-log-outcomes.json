@@ -1,0 +1,293 @@
+{
+  "policy": "Curated outcome lines only, not raw logs. No path or payload renaming to bypass the publication guard. Original private bytes remain archived; process exits are worker-reported in RESULT.json. Summaries do not create new executions.",
+  "sources": [
+    {
+      "source": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\worker-raw-logs\\dotnet-build.log",
+      "rawSha256": "60f049df3b1ccd4806aed1ab46c704bc2eb9592605c467e000490787e4b65e82",
+      "bytes": 1912,
+      "allowlistedSummaryLines": []
+    },
+    {
+      "source": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\worker-raw-logs\\existing-browser.log",
+      "rawSha256": "dcb00900370508bfa9d44178a0cbda1bd001bf6d688eee88384fc510a64b89e2",
+      "bytes": 7580,
+      "allowlistedSummaryLines": [
+        "PASS Login posts CSRF and verifies server identity before opening staff",
+        "PASS Login HTTP 401 stays closed with visible error",
+        "PASS Login HTTP 429 stays closed with visible error",
+        "PASS Login HTTP 503 stays closed with visible error",
+        "PASS Anonymous session exposes no staff data",
+        "PASS Owner navigation and sale permissions in browser",
+        "PASS Manager navigation and sale permissions in browser",
+        "PASS Cashier navigation and sale permissions in browser",
+        "PASS Inventory navigation and sale permissions in browser",
+        "PASS Customer pagination and search use actual network query",
+        "PASS Customer text is escaped instead of executing HTML",
+        "PASS Empty catalog disables sale without inventing stock",
+        "PASS Sale sends no price, preserves key, displays receipt and updated stock",
+        "PASS Multiarticle cart and lost response reload at 1440px",
+        "PASS Multiarticle cart and lost response reload at 390px",
+        "PASS Rapid double submit sends one request",
+        "PASS Lost response recovers original operation without second POST",
+        "PASS Sale HTTP 401 never shows invented success",
+        "PASS Sale HTTP 403 never shows invented success",
+        "PASS Sale HTTP 500 never shows invented success",
+        "PASS Malformed receipt leaves operation recoverable and blocks new sale",
+        "PASS Confirmed rejected recovery unlocks only the rejected attempt",
+        "PASS Logout uses CSRF, clears private view and returns to login",
+        "PASS N2 Cashier reload recovers the same uncertain attempt without another sale (C8)",
+        "PASS N2 Owner reload recovers the same uncertain attempt without another sale (C8)",
+        "PASS N2 Manager reload recovers the same uncertain attempt without another sale (C8)",
+        "PASS N6 changing actor keeps the uncertain key private and never replays it as the new actor (C8)",
+        "PASS N6 changed actor version preserves the attempt and blocks recovery and resend under the new scope (C8)",
+        "PASS N6 legacy attempt outside the current authorized locations stays private and cannot be replayed (C8)",
+        "PASS N7 revoked mocked 401 discards late stock and cancels a sale waiting for CSRF (C8)",
+        "PASS N7 absolute-expiry mocked 401 discards late stock and cancels a sale waiting for CSRF (C8)",
+        "PASS N7 logout cancels a sale awaiting CSRF and discards its late response (C8)",
+        "PASS Stale confirmed receipt 404 must not permanently block a fresh sale (N5)",
+        "PASS N5 held operation recovery blocks native and synthetic submit without changing original bytes",
+        "PASS N5 discarded 404 receipt permits one complete fresh multiarticle sale and stock refresh",
+        "PASS N5 late old receipt 404 after user logout preserves invalidated state and retained reference",
+        "PASS Stale receipt 403 after reassignment is cleared and leaves a fresh sale available (N5)",
+        "PASS Unavailable receipt lookup keeps its reference and does not invent a pending sale (N5)",
+        "PASS Stale receipt never unlocks a real pending sale; recovery reuses the original key (N5)",
+        "PASS Revoked session during receipt restore returns to sign-in without staff data (N5)",
+        "FAIL Unimplemented purchasing and customer creation remain visibly unavailable",
+        "PASS Staff visible screens have no document overflow at 1440px",
+        "PASS Staff visible screens have no document overflow at 390px",
+        "PASS All 47 public pages mount in Chromium with no uncaught JavaScript errors",
+        "PASS Public product, bag, translation and synthetic checkout approval work in browser",
+        "PASS Staff source bytes unchanged during browser run",
+        "PASS Public synthetic payment declined releases reservation and permits rebuilding order",
+        "PASS Public synthetic payment cancelled releases reservation and permits rebuilding order",
+        "PASS Public gallery actual geometry and controls at 1440px",
+        "PASS Public gallery actual geometry and controls at 390px"
+      ]
+    },
+    {
+      "source": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\worker-raw-logs\\existing-final.log",
+      "rawSha256": "2a25fb4e2559fe971a6be557dd225749cc6abced04c656f2ab20e826605f1343",
+      "bytes": 7574,
+      "allowlistedSummaryLines": [
+        "PASS Login posts CSRF and verifies server identity before opening staff",
+        "PASS Login HTTP 401 stays closed with visible error",
+        "PASS Login HTTP 429 stays closed with visible error",
+        "PASS Login HTTP 503 stays closed with visible error",
+        "PASS Anonymous session exposes no staff data",
+        "PASS Owner navigation and sale permissions in browser",
+        "PASS Manager navigation and sale permissions in browser",
+        "PASS Cashier navigation and sale permissions in browser",
+        "PASS Inventory navigation and sale permissions in browser",
+        "PASS Customer pagination and search use actual network query",
+        "PASS Customer text is escaped instead of executing HTML",
+        "PASS Empty catalog disables sale without inventing stock",
+        "PASS Sale sends no price, preserves key, displays receipt and updated stock",
+        "PASS Multiarticle cart and lost response reload at 1440px",
+        "PASS Multiarticle cart and lost response reload at 390px",
+        "PASS Rapid double submit sends one request",
+        "PASS Lost response recovers original operation without second POST",
+        "PASS Sale HTTP 401 never shows invented success",
+        "PASS Sale HTTP 403 never shows invented success",
+        "PASS Sale HTTP 500 never shows invented success",
+        "PASS Malformed receipt leaves operation recoverable and blocks new sale",
+        "PASS Confirmed rejected recovery unlocks only the rejected attempt",
+        "PASS Logout uses CSRF, clears private view and returns to login",
+        "PASS N2 Cashier reload recovers the same uncertain attempt without another sale (C8)",
+        "PASS N2 Owner reload recovers the same uncertain attempt without another sale (C8)",
+        "PASS N2 Manager reload recovers the same uncertain attempt without another sale (C8)",
+        "PASS N6 changing actor keeps the uncertain key private and never replays it as the new actor (C8)",
+        "PASS N6 changed actor version preserves the attempt and blocks recovery and resend under the new scope (C8)",
+        "PASS N6 legacy attempt outside the current authorized locations stays private and cannot be replayed (C8)",
+        "PASS N7 revoked mocked 401 discards late stock and cancels a sale waiting for CSRF (C8)",
+        "PASS N7 absolute-expiry mocked 401 discards late stock and cancels a sale waiting for CSRF (C8)",
+        "PASS N7 logout cancels a sale awaiting CSRF and discards its late response (C8)",
+        "PASS Stale confirmed receipt 404 must not permanently block a fresh sale (N5)",
+        "PASS N5 held operation recovery blocks native and synthetic submit without changing original bytes",
+        "PASS N5 discarded 404 receipt permits one complete fresh multiarticle sale and stock refresh",
+        "PASS N5 late old receipt 404 after user logout preserves invalidated state and retained reference",
+        "PASS Stale receipt 403 after reassignment is cleared and leaves a fresh sale available (N5)",
+        "PASS Unavailable receipt lookup keeps its reference and does not invent a pending sale (N5)",
+        "PASS Stale receipt never unlocks a real pending sale; recovery reuses the original key (N5)",
+        "PASS Revoked session during receipt restore returns to sign-in without staff data (N5)",
+        "PASS Supply receipt entry is usable while customer creation stays unavailable",
+        "PASS Staff visible screens have no document overflow at 1440px",
+        "PASS Staff visible screens have no document overflow at 390px",
+        "PASS All 47 public pages mount in Chromium with no uncaught JavaScript errors",
+        "PASS Public product, bag, translation and synthetic checkout approval work in browser",
+        "PASS Staff source bytes unchanged during browser run",
+        "PASS Public synthetic payment declined releases reservation and permits rebuilding order",
+        "PASS Public synthetic payment cancelled releases reservation and permits rebuilding order",
+        "PASS Public gallery actual geometry and controls at 1440px",
+        "PASS Public gallery actual geometry and controls at 390px"
+      ]
+    },
+    {
+      "source": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\worker-raw-logs\\focused-2.log",
+      "rawSha256": "1a3c5801c1e6e7241d9a1708870b5fccaa24ab77966d2d6bfda2c7e325b385e9",
+      "bytes": 3080,
+      "allowlistedSummaryLines": [
+        "\u2139 tests 19",
+        "\u2139 suites 0",
+        "\u2139 pass 19",
+        "\u2139 fail 0",
+        "\u2139 cancelled 0",
+        "\u2139 skipped 0",
+        "\u2139 todo 0",
+        "\u2139 duration_ms 1616.1474"
+      ]
+    },
+    {
+      "source": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\worker-raw-logs\\focused-final.log",
+      "rawSha256": "0fb6bad072a35283fef7d4b69586ab58e3592008408c2a4157215eaf715169e4",
+      "bytes": 3370,
+      "allowlistedSummaryLines": [
+        "\u2139 tests 21",
+        "\u2139 suites 0",
+        "\u2139 pass 21",
+        "\u2139 fail 0",
+        "\u2139 cancelled 0",
+        "\u2139 skipped 0",
+        "\u2139 todo 0",
+        "\u2139 duration_ms 1078.6307"
+      ]
+    },
+    {
+      "source": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\worker-raw-logs\\focused.log",
+      "rawSha256": "9f0f84ffd5f6b0ebedc6ac9fc63dce9b465beb3dea84d7c3b522e522d95f3c0d",
+      "bytes": 3792,
+      "allowlistedSummaryLines": [
+        "\u2139 tests 1",
+        "\u2139 suites 0",
+        "\u2139 pass 0",
+        "\u2139 fail 1",
+        "\u2139 cancelled 0",
+        "\u2139 skipped 0",
+        "\u2139 todo 0",
+        "\u2139 duration_ms 80.4585"
+      ]
+    },
+    {
+      "source": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\worker-raw-logs\\negative-baseline.log",
+      "rawSha256": "0caf823f8831061ab8b3e70bda5fb73944b35b8e69f9ebd862c10f97356b3108",
+      "bytes": 254,
+      "allowlistedSummaryLines": [
+        "\u2139 tests 2",
+        "\u2139 suites 0",
+        "\u2139 pass 2",
+        "\u2139 fail 0",
+        "\u2139 cancelled 0",
+        "\u2139 skipped 0",
+        "\u2139 todo 0",
+        "\u2139 duration_ms 882.8122"
+      ]
+    },
+    {
+      "source": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\worker-raw-logs\\negative-duplicate.log",
+      "rawSha256": "1664fcc51c2d14e9835d11bf4f6d1260d9f75f15690c46a19cd98e28b31e88e6",
+      "bytes": 3775,
+      "allowlistedSummaryLines": [
+        "\u2139 tests 2",
+        "\u2139 suites 0",
+        "\u2139 pass 1",
+        "\u2139 fail 1",
+        "\u2139 cancelled 0",
+        "\u2139 skipped 0",
+        "\u2139 todo 0",
+        "\u2139 duration_ms 1162.2822"
+      ]
+    },
+    {
+      "source": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\worker-raw-logs\\negative-identity.log",
+      "rawSha256": "2ee7660e6c41573698a2131c5c9e7974268faf7562601d35fae25cfa2e834005",
+      "bytes": 1567,
+      "allowlistedSummaryLines": [
+        "\u2139 tests 2",
+        "\u2139 suites 0",
+        "\u2139 pass 1",
+        "\u2139 fail 1",
+        "\u2139 cancelled 0",
+        "\u2139 skipped 0",
+        "\u2139 todo 0",
+        "\u2139 duration_ms 917.1696"
+      ]
+    },
+    {
+      "source": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\worker-raw-logs\\restored-duplicate.log",
+      "rawSha256": "a2a18cb1432295380278aa82d8802de56735bc70c18a0842dc3a7b20d6802bc9",
+      "bytes": 254,
+      "allowlistedSummaryLines": [
+        "\u2139 tests 2",
+        "\u2139 suites 0",
+        "\u2139 pass 2",
+        "\u2139 fail 0",
+        "\u2139 cancelled 0",
+        "\u2139 skipped 0",
+        "\u2139 todo 0",
+        "\u2139 duration_ms 992.7725"
+      ]
+    },
+    {
+      "source": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\worker-raw-logs\\restored-identity.log",
+      "rawSha256": "aca3e42dcdc2b6adc96d00bd517e31f572059ef8a5bb5391c8707af450a89082",
+      "bytes": 254,
+      "allowlistedSummaryLines": [
+        "\u2139 tests 2",
+        "\u2139 suites 0",
+        "\u2139 pass 2",
+        "\u2139 fail 0",
+        "\u2139 cancelled 0",
+        "\u2139 skipped 0",
+        "\u2139 todo 0",
+        "\u2139 duration_ms 985.7864"
+      ]
+    },
+    {
+      "source": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\worker-raw-logs\\runner-final.log",
+      "rawSha256": "b3ef5a123e4556e9c6438a6c9f88454b766a3c038470bf1c1bc10e2b19b9e703",
+      "bytes": 866,
+      "allowlistedSummaryLines": [
+        "Ran 7 tests in 0.070s",
+        "OK"
+      ]
+    },
+    {
+      "source": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\worker-raw-logs\\runner.log",
+      "rawSha256": "0535d1796134118a7f9aa01eb4786b9fce85d0df0759e43290519a6738b5f73b",
+      "bytes": 866,
+      "allowlistedSummaryLines": [
+        "Ran 7 tests in 0.107s",
+        "OK"
+      ]
+    },
+    {
+      "source": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\worker-raw-logs\\staff-final.log",
+      "rawSha256": "8358cba95957bdd1d7143045188dae25d905e8b761cc4f1fb7ca013813217b67",
+      "bytes": 17014,
+      "allowlistedSummaryLines": [
+        "\u2139 tests 124",
+        "\u2139 suites 0",
+        "\u2139 pass 124",
+        "\u2139 fail 0",
+        "\u2139 cancelled 0",
+        "\u2139 skipped 0",
+        "\u2139 todo 0",
+        "\u2139 duration_ms 2170.6158"
+      ]
+    },
+    {
+      "source": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\worker-raw-logs\\staff-full.log",
+      "rawSha256": "d4a93fcde3cb11dace37bc69d19aa7ae0a6140c2c840767a747ca328927e39a2",
+      "bytes": 16836,
+      "allowlistedSummaryLines": [
+        "\u2139 tests 123",
+        "\u2139 suites 0",
+        "\u2139 pass 123",
+        "\u2139 fail 0",
+        "\u2139 cancelled 0",
+        "\u2139 skipped 0",
+        "\u2139 todo 0",
+        "\u2139 duration_ms 2325.9717"
+      ]
+    }
+  ]
+}

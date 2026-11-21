@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-03T21:03:35.474440+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "4da00a19709c1dd4f1721a135fabea8222d7e4aa"
+    },
+    {
+      "path": "docs/reconciliation-20261103/README.md",
+      "change": "M",
+      "git_blob": "542198c5bc65435d6c84b1aa27028b69d4dbb9b6"
+    },
+    {
+      "path": "docs/reconciliation-20261103/index.html",
+      "change": "M",
+      "git_blob": "ce98a9298580f1ffc12b6de721e21cafc087c531"
+    },
+    {
+      "path": "docs/reconciliation-20261103/source-binding.json",
+      "change": "M",
+      "git_blob": "c42b3b36ba9717a043a0c594982f26b45422a7b8"
+    },
+    {
+      "path": "docs/reconciliation-20261103/verification.json",
+      "change": "M",
+      "git_blob": "e24650e9d19d5ab4efe7167ece0395fb0f441230"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

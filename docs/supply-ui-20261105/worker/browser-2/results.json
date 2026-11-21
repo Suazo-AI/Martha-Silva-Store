@@ -1,0 +1,644 @@
+{
+  "layer": "Actual Chrome / explicitly mocked HTTP API / no SQL",
+  "browser": "156.0.8078.80",
+  "sources": {
+    "app.mjs": {
+      "RAW": "cc70f5adf216de28cf5a4b5efc1166d2df5fb6b6d22da9c6daee004c92237208",
+      "LF": "7901d54f7ea18b09e6f50dfc8f7596a135ec3a951bd732e1a3435cb7d1185083"
+    },
+    "client.mjs": {
+      "RAW": "d435b0ec3752ad81630fc7a8368e3a0465654dce569a815e9b149cac5614dec3",
+      "LF": "cdf34879fdd5e78d8141c23533de2d07155bb7451bcd7582b41e553cd71e2639"
+    },
+    "login.mjs": {
+      "RAW": "67c005464ad8904de3a283bb1c0aa9a6564ed0f15a9e8cb8861795ca6b8bfbb3",
+      "LF": "5d2bd800a550501c020a300b39d87c85c9abf06379609942e02bc39beb580297"
+    },
+    "supply.mjs": {
+      "RAW": "1695273b2135acddb900c821e62f872601bc2ea443312763ea879ff9da60246b",
+      "LF": "2beb1f821afcbfe773968d00a9534158ca8ef4b5f124427377288be01182b71a"
+    },
+    "index.html": {
+      "RAW": "1b2b705b65461cdedf4360bc5c9a34271bef8b12461a5639181566d1b2dae45e",
+      "LF": "234fa005e324a0cd20bd43936450b68b9d08d1152b4714db871e425577c6a859"
+    },
+    "styles.css": {
+      "RAW": "3be78159e11d127c91db22399fb306fcc35e9cb8886a556393a003b82c9c2622",
+      "LF": "e87afda331f5a2ce1a028eb65bafe12f4bb7a30b8d8577846e1435371df9df01"
+    }
+  },
+  "results": [
+    {
+      "name": "partial-full-1440",
+      "status": "PASS",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "origin": "http://127.0.0.1:58431",
+      "calls": [
+        {
+          "path": "/internal/api/security/me",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/directory/parties",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010/receipts",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/security/csrf",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010/receipts",
+          "method": "POST",
+          "raw": "{\"receiptId\":\"a812c1b3-5cf9-4e4e-8883-c2e166972db2\",\"lines\":[{\"purchaseOrderLineId\":\"00000001-0000-0000-0000-000000000012\",\"quantity\":2}]}",
+          "key": "df21987b-56e5-41df-b0a3-d997cf51e30f",
+          "csrf": true
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010/receipts",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/security/csrf",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010/receipts",
+          "method": "POST",
+          "raw": "{\"receiptId\":\"e5c5bdb5-177f-4949-902a-30020efcc693\",\"lines\":[{\"purchaseOrderLineId\":\"00000001-0000-0000-0000-000000000012\",\"quantity\":3}]}",
+          "key": "2d6ba04d-2c71-423f-9aa4-bcd7ba7b42d1",
+          "csrf": true
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010/receipts",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        }
+      ],
+      "deliveries": 2,
+      "consoleErrors": []
+    },
+    {
+      "name": "partial-full-390",
+      "status": "PASS",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "origin": "http://127.0.0.1:53046",
+      "calls": [
+        {
+          "path": "/internal/api/security/me",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/directory/parties",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010/receipts",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/security/csrf",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010/receipts",
+          "method": "POST",
+          "raw": "{\"receiptId\":\"c49961af-2e4f-4e0e-a7e4-731f70d83087\",\"lines\":[{\"purchaseOrderLineId\":\"00000001-0000-0000-0000-000000000012\",\"quantity\":2}]}",
+          "key": "5ae4e3d1-9925-4fa0-a077-f03738f156e9",
+          "csrf": true
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010/receipts",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/security/csrf",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010/receipts",
+          "method": "POST",
+          "raw": "{\"receiptId\":\"39fe678c-d729-4d4a-a308-f0552399714d\",\"lines\":[{\"purchaseOrderLineId\":\"00000001-0000-0000-0000-000000000012\",\"quantity\":3}]}",
+          "key": "35509b56-3532-467b-9dff-33283b8c7ce2",
+          "csrf": true
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010/receipts",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        }
+      ],
+      "deliveries": 2,
+      "consoleErrors": []
+    },
+    {
+      "name": "lost-reload-1440",
+      "status": "PASS",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "origin": "http://127.0.0.1:63977",
+      "calls": [
+        {
+          "path": "/internal/api/security/me",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/directory/parties",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010/receipts",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/security/csrf",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010/receipts",
+          "method": "POST",
+          "raw": "{\"receiptId\":\"35ee930c-872b-4b03-9f9f-76c5b0927e4c\",\"lines\":[{\"purchaseOrderLineId\":\"00000001-0000-0000-0000-000000000012\",\"quantity\":2}]}",
+          "key": "5e5531bc-5572-4489-a16f-37719db6379f",
+          "csrf": true
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010/receipts",
+          "method": "POST",
+          "raw": "{\"receiptId\":\"35ee930c-872b-4b03-9f9f-76c5b0927e4c\",\"lines\":[{\"purchaseOrderLineId\":\"00000001-0000-0000-0000-000000000012\",\"quantity\":2}]}",
+          "key": "5e5531bc-5572-4489-a16f-37719db6379f",
+          "csrf": true
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010/receipts",
+          "method": "POST",
+          "raw": "{\"receiptId\":\"35ee930c-872b-4b03-9f9f-76c5b0927e4c\",\"lines\":[{\"purchaseOrderLineId\":\"00000001-0000-0000-0000-000000000012\",\"quantity\":2}]}",
+          "key": "5e5531bc-5572-4489-a16f-37719db6379f",
+          "csrf": true
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010/receipts",
+          "method": "POST",
+          "raw": "{\"receiptId\":\"35ee930c-872b-4b03-9f9f-76c5b0927e4c\",\"lines\":[{\"purchaseOrderLineId\":\"00000001-0000-0000-0000-000000000012\",\"quantity\":2}]}",
+          "key": "5e5531bc-5572-4489-a16f-37719db6379f",
+          "csrf": true
+        },
+        {
+          "path": "/internal/api/security/me",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/directory/parties",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/operations/supply.receipt.create",
+          "method": "GET",
+          "raw": "",
+          "key": "5e5531bc-5572-4489-a16f-37719db6379f",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        }
+      ],
+      "deliveries": 1,
+      "consoleErrors": []
+    },
+    {
+      "name": "lost-reload-390",
+      "status": "PASS",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "origin": "http://127.0.0.1:62209",
+      "calls": [
+        {
+          "path": "/internal/api/security/me",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/directory/parties",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010/receipts",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/security/csrf",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010/receipts",
+          "method": "POST",
+          "raw": "{\"receiptId\":\"de396b79-1f55-47a2-8cd4-146d7d18e3cd\",\"lines\":[{\"purchaseOrderLineId\":\"00000001-0000-0000-0000-000000000012\",\"quantity\":2}]}",
+          "key": "fc5e5b40-d914-4b2c-91ff-e6d09ac8c122",
+          "csrf": true
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010/receipts",
+          "method": "POST",
+          "raw": "{\"receiptId\":\"de396b79-1f55-47a2-8cd4-146d7d18e3cd\",\"lines\":[{\"purchaseOrderLineId\":\"00000001-0000-0000-0000-000000000012\",\"quantity\":2}]}",
+          "key": "fc5e5b40-d914-4b2c-91ff-e6d09ac8c122",
+          "csrf": true
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010/receipts",
+          "method": "POST",
+          "raw": "{\"receiptId\":\"de396b79-1f55-47a2-8cd4-146d7d18e3cd\",\"lines\":[{\"purchaseOrderLineId\":\"00000001-0000-0000-0000-000000000012\",\"quantity\":2}]}",
+          "key": "fc5e5b40-d914-4b2c-91ff-e6d09ac8c122",
+          "csrf": true
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010/receipts",
+          "method": "POST",
+          "raw": "{\"receiptId\":\"de396b79-1f55-47a2-8cd4-146d7d18e3cd\",\"lines\":[{\"purchaseOrderLineId\":\"00000001-0000-0000-0000-000000000012\",\"quantity\":2}]}",
+          "key": "fc5e5b40-d914-4b2c-91ff-e6d09ac8c122",
+          "csrf": true
+        },
+        {
+          "path": "/internal/api/security/me",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/directory/parties",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/operations/supply.receipt.create",
+          "method": "GET",
+          "raw": "",
+          "key": "fc5e5b40-d914-4b2c-91ff-e6d09ac8c122",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        }
+      ],
+      "deliveries": 1,
+      "consoleErrors": []
+    },
+    {
+      "name": "double-submit",
+      "status": "PASS",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "origin": "http://127.0.0.1:51301",
+      "calls": [
+        {
+          "path": "/internal/api/security/me",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/directory/parties",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010/receipts",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/security/csrf",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010/receipts",
+          "method": "POST",
+          "raw": "{\"receiptId\":\"702a47d6-5c2b-427e-b8b0-233b507774e4\",\"lines\":[{\"purchaseOrderLineId\":\"00000001-0000-0000-0000-000000000012\",\"quantity\":1}]}",
+          "key": "ba6a969b-d109-4f77-8e82-e1d98afde7e0",
+          "csrf": true
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        }
+      ],
+      "deliveries": 1,
+      "consoleErrors": []
+    },
+    {
+      "name": "invalid-contract",
+      "status": "PASS",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "origin": "http://127.0.0.1:56868",
+      "calls": [
+        {
+          "path": "/internal/api/security/me",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/directory/parties",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010/receipts",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        }
+      ],
+      "deliveries": 0,
+      "consoleErrors": []
+    },
+    {
+      "name": "401-private-clear",
+      "status": "FAIL",
+      "error": "locator.click: Timeout 4000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#supply-refresh')\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" id=\"supply-refresh\" class=\"btn btn-secondary\">Actualizar compras</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    8 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 500ms\u001b[22m\n\n    at C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\tests\\browser-supply-validation.mjs:22:110\n    at test (C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6ec58bbd\\tests\\browser-supply-validation.mjs:14:346)\n    at async file:///C:/Users/Jason/.t3/worktrees/github/t3-6ec58bbd/tests/browser-supply-validation.mjs:22:1",
+      "calls": [
+        {
+          "path": "/internal/api/security/me",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/directory/parties",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010/receipts",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        }
+      ],
+      "consoleErrors": []
+    },
+    {
+      "name": "logout-late-reply",
+      "status": "PASS",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "origin": "http://127.0.0.1:53552",
+      "calls": [
+        {
+          "path": "/internal/api/security/me",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/directory/parties",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/supply/purchase-orders/00000001-0000-0000-0000-000000000010/receipts",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/security/csrf",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/security/csrf",
+          "method": "GET",
+          "raw": "",
+          "csrf": false
+        },
+        {
+          "path": "/internal/api/security/logout",
+          "method": "POST",
+          "raw": "",
+          "csrf": true
+        }
+      ],
+      "deliveries": 0,
+      "consoleErrors": []
+    }
+  ]
+}

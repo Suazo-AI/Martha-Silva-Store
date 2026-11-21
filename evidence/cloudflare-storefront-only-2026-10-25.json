@@ -1,0 +1,113 @@
+{
+  "source_sha": "d2ad2000c68c492618c15f5a601cca9a47e8a587",
+  "deployment_id": "8e298940246a49be9b55dcf8ee422983",
+  "modified_on": "2026-10-25T08:22:44.192257Z",
+  "url": "https://martha-silva-preview.martha-silva-denis.workers.dev/",
+  "worker": "martha-silva-preview",
+  "bindings": [
+    "ASSETS"
+  ],
+  "release_files": 857,
+  "separate_savia_ui_retired": true,
+  "http_smoke": {
+    "result": "PASS",
+    "source_sha": "d2ad2000c68c492618c15f5a601cca9a47e8a587",
+    "main_status": 200,
+    "marker_entries": 856,
+    "separate_link_absent": true,
+    "retired": [
+      {
+        "path": "/savia",
+        "status": 404
+      },
+      {
+        "path": "/savia/",
+        "status": 404
+      },
+      {
+        "path": "/savia/index.html",
+        "status": 404
+      },
+      {
+        "path": "/savia/app.mjs",
+        "status": 404
+      }
+    ],
+    "verified_at_utc": "2026-10-25T08:23:48.5414340Z"
+  },
+  "public_body_hashes": [
+    {
+      "path": "/",
+      "status": 200,
+      "sha256": "db80c19085a493620c31da4b094ff753202f50aa9e82a17a682a654ffa97c551"
+    },
+    {
+      "path": "/catalogo.html",
+      "status": 200,
+      "sha256": "d027a9c6ff0cbd3d3c2e4a050114414263a745711602ed22898793aabdffd921"
+    },
+    {
+      "path": "/producto-dorado.html",
+      "status": 200,
+      "sha256": "0f95def7c7311d4ed83fb93f6ddb8ba3b563f82be4495364e0aad05c617c708c"
+    },
+    {
+      "path": "/app.js",
+      "status": 200,
+      "sha256": "71ffa37faba6ac1e251794b13717943919d4a16ee51df00860ea36d396caf488"
+    },
+    {
+      "path": "/styles.css",
+      "status": 200,
+      "sha256": "f1c62075f631b5ec792760e70d76a623e2d06453cd757242e874bf44481767bc"
+    },
+    {
+      "path": "/demo-api.js",
+      "status": 200,
+      "sha256": "2cfdfaa9ea665ba4fd7c822ab66f7bdaa1499160c45e04cde53d14530d04002e"
+    },
+    {
+      "path": "/integration-adapters.js",
+      "status": 200,
+      "sha256": "d274c6853b397c840b92e6dc2491f2f882e568d964429c7ad408fa971b6f2953"
+    },
+    {
+      "path": "/catalog.js",
+      "status": 200,
+      "sha256": "c2d5ed59e03dd68b8e279a33bbce27f120ddb0ca29ff260bb2ec38bdf2df726f"
+    }
+  ],
+  "brave": {
+    "existing_window": true,
+    "correct_cloudflare_account_and_worker_observed": true,
+    "main_preview_tab_reloaded": true,
+    "visible_separate_ui_or_mode_controls": [],
+    "dashboard_editor_deployed": false,
+    "dashboard_editor_preview_limit": "ASSETS unavailable in its preview; no unsafe code-only deploy performed"
+  },
+  "transport": {
+    "python_attempt": "HTTP500; no completion; no activation from that attempt",
+    "successful": "Node native FormData, identical validated48files,3requests, completion confirmed",
+    "cause_of_prior_500": "not proven"
+  },
+  "original": {
+    "status_after": 200,
+    "unchanged": true,
+    "sha256": "c5d0280fd53b25d5d82041e009fca7b7aec471a4cda63aa5f326d57ea27d3759"
+  },
+  "backend": {
+    "internal_only_direction": true,
+    "reusable_source_sha": "f7e859bd0e6edf6bdef8b391b63589a212f0d088",
+    "source_snapshot_files": 45,
+    "source_snapshot_sha256": "a476e1f5064516c04e3cccad02befd8490d867b81cea71ef1d420ccc8f19c93b",
+    "complete_crm_existing": false,
+    "real_auth_or_sql_claimed": false
+  },
+  "github_push": false,
+  "ci_for_new_source": "not_run",
+  "validation_limits": [
+    "final storefront source has29DOM tests passed on identical runtime",
+    "no new Safari/iPhone/mobile/performance test",
+    "full repository suite final not completed under memory budget"
+  ]
+}

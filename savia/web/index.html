@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <link rel="icon" href="data:,">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>SAVIA · Sucursal</title>
+<link rel="stylesheet" href="app.css">
+<script type="module" src="app.mjs"></script>
+</head>
+<body>
+<p id="approval-cleanup-notice" class="notice" role="status" aria-atomic="true"></p>
+<main id="access" class="access" hidden></main>
+<div class="shell" id="shell" hidden>
+  <aside class="rail">
+    <div class="brand">SAVIA</div>
+    <nav id="nav" aria-label="Módulos"></nav>
+  </aside>
+  <div class="workspace">
+    <header class="top">
+      <h1 id="title" tabindex="-1"></h1>
+      <div class="context">
+        <span id="branch-label"></span>
+        <span id="operator-label"></span>
+        <a href="#/caja" class="till-state" id="till-state"></a>
+        <button type="button" id="logout">Salir</button>
+      </div>
+    </header>
+    <p id="notice" class="notice" role="status" aria-atomic="true"></p>
+    <main id="screen"></main>
+  </div>
+</div>
+<dialog id="modal" aria-labelledby="modal-title"><div id="modal-body"></div></dialog>
+</body>
+</html>

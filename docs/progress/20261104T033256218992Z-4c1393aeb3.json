@@ -1,0 +1,160 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-04T03:32:56.218992+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "d95fee55c35a543fe2edec5b6dc060edca0ab1df"
+    },
+    {
+      "path": "docs/c11-next-20261104/README.md",
+      "change": "A",
+      "git_blob": "c17c746eef1b161c5d16595d0472d68d87567c6c"
+    },
+    {
+      "path": "docs/c11-next-20261104/trello-dependencies.json",
+      "change": "A",
+      "git_blob": "02e898ad649e435d60a7b3155b5330894675c9b6"
+    },
+    {
+      "path": "docs/c6-e2e-20261103/README.md",
+      "change": "M",
+      "git_blob": "98fe74a96a61e3548628caadd643ded9314664b7"
+    },
+    {
+      "path": "docs/c6-e2e-20261103/RECONCILIATION.md",
+      "change": "M",
+      "git_blob": "7e118bc8b82f14f1bc7aa19556220d8cbbeb8bc8"
+    },
+    {
+      "path": "docs/c6-e2e-20261103/ci-41765611979/REPORT.md",
+      "change": "A",
+      "git_blob": "188ba737873b3a065be07509888178c8acc6e822"
+    },
+    {
+      "path": "docs/c6-e2e-20261103/ci-41765611979/browser/evidence.json",
+      "change": "A",
+      "git_blob": "4cbdf22466f0d9a984cb7c3a55514b4854b4e307"
+    },
+    {
+      "path": "docs/c6-e2e-20261103/ci-41765611979/browser/oracles.md",
+      "change": "A",
+      "git_blob": "74756e81c21b24822a2f7d8a373f941d2e8ace12"
+    },
+    {
+      "path": "docs/c6-e2e-20261103/ci-41765611979/checks.json",
+      "change": "A",
+      "git_blob": "472db46ed653ba00408c42162ab06d83067e82f9"
+    },
+    {
+      "path": "docs/c6-e2e-20261103/ci-41765611979/log-provenance.json",
+      "change": "A",
+      "git_blob": "9397726f72b00d2c2ac7a2175af452022fe0724c"
+    },
+    {
+      "path": "docs/c6-e2e-20261103/ci-41765611979/run-binding.json",
+      "change": "A",
+      "git_blob": "64849c9a9f64847629e2215d1f5f324fc035b779"
+    },
+    {
+      "path": "docs/c6-e2e-20261103/ci-41765611979/smoke/evidence.json",
+      "change": "A",
+      "git_blob": "ec912af836921b81967062cafe463d18616896b2"
+    },
+    {
+      "path": "docs/c6-e2e-20261103/ci-41765611979/smoke/oracles.md",
+      "change": "A",
+      "git_blob": "9adb7a36724c4894329ef348eca7a942a6fb7e5c"
+    },
+    {
+      "path": "docs/c6-e2e-20261103/independent-final-evidence.json",
+      "change": "A",
+      "git_blob": "33cc02ce0db6a56691f447b902920d4f9b1a7dda"
+    },
+    {
+      "path": "docs/c6-e2e-20261103/independent-final-review.md",
+      "change": "A",
+      "git_blob": "a683ca4cc0eccd3c277a6fb86a7bc61bf3cfd258"
+    },
+    {
+      "path": "docs/c6-e2e-20261103/trello-closure.json",
+      "change": "A",
+      "git_blob": "0825b427b819d0d063eef1d62267fdd1c02f0aaa"
+    },
+    {
+      "path": "docs/c8-ui-20261103/FINAL-CI-REVIEW.md",
+      "change": "A",
+      "git_blob": "f3aaf7e0414c3ebf71db74977f478997e332e11d"
+    },
+    {
+      "path": "docs/c8-ui-20261103/INTEGRATION.md",
+      "change": "M",
+      "git_blob": "47bea67552c50c533bcfdc4599b2ccc844716690"
+    },
+    {
+      "path": "docs/c8-ui-20261103/ci-41765611859/backend/sanitized-results.json",
+      "change": "A",
+      "git_blob": "421a3e0161f34ac8cab3d2f72822996a47772f50"
+    },
+    {
+      "path": "docs/c8-ui-20261103/ci-41765611859/browser/browser-results.json",
+      "change": "A",
+      "git_blob": "8456cde11f73553b0cc1fab36bf701b479250aa0"
+    },
+    {
+      "path": "docs/c8-ui-20261103/ci-41765611859/log-provenance.json",
+      "change": "A",
+      "git_blob": "061302466bcb30bdfec7fee6b53dc2db2628e372"
+    },
+    {
+      "path": "docs/c8-ui-20261103/ci-41765611859/run-binding.json",
+      "change": "A",
+      "git_blob": "f460ae96f0a8a13c7948c5248b421dfc69b4b814"
+    },
+    {
+      "path": "docs/c8-ui-20261103/ci-41765611859/staff-summary.json",
+      "change": "A",
+      "git_blob": "b789d775905d30f7a5cb5eb3ec614d7db6e86bd7"
+    },
+    {
+      "path": "docs/c8-ui-20261103/final-ci-evidence.json",
+      "change": "A",
+      "git_blob": "dad67722c89352f602dfb35a9863dee1e28c56f8"
+    },
+    {
+      "path": "docs/c8-ui-20261103/trello-closure.json",
+      "change": "A",
+      "git_blob": "93525bba893005d163c483b001dbdccc6e3b8be3"
+    },
+    {
+      "path": "docs/c8-ui-20261103/trello-n5-gaps.json",
+      "change": "A",
+      "git_blob": "48e17f4a993fb5230dc1347005e3332d54f7a96f"
+    },
+    {
+      "path": "docs/c9-recovery-20261103/trello-final-blocker.json",
+      "change": "A",
+      "git_blob": "6683fad4d8df37ae01844132019f10e59f370fdf"
+    },
+    {
+      "path": "docs/p-legacy-20261104/CLASSIFICATION.md",
+      "change": "A",
+      "git_blob": "370b836b978f1f4e8ec33ef25cc3c88a4562ae2f"
+    },
+    {
+      "path": "docs/p-legacy-20261104/integration-packet.json",
+      "change": "A",
+      "git_blob": "a2cb4963d8a6baf6be5b5efec8ed550a93ec8741"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "change": "M",
+      "git_blob": "b6ec017a31f0ae319c7aab7d98558cafa3250090"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

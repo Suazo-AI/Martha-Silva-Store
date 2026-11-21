@@ -1,0 +1,25 @@
+PASS  1 login: signed in as Supervisora A (MANAGER); server error shown: 'Usuario o contraseña incorrectos. Revise los datos y vuelva a intentar. (auth.bad_credentials)'
+PASS  2 inventario before reception: on hand screen=None API=0
+PASS  3 reception: one code typed 5 times: server matchedUnits=5, scanEvents=5; screen totals '1 código · 5 piezas'; one line, qty '—'; last '5piezas en total'
+BLOCKED 3b reception line shows quantity 5: needs GET /api/v1/receiving/sessions/{id}/lines; the single line shows '—'; the server total (5) is shown in Último escaneo and totals
+PASS  4 inventario unchanged before approve: still 0 after 5 scans
+PASS  5 approve + post: stock 0 -> 5 (API and screen); label jobs 1 (waiting_config)
+PASS  6 inventario after post: on hand 5 on screen and API
+PASS  7 open till: till 9ada6091-3b5b-4045-8026-1c831968323d opened with C$ 1,000.00
+PASS  8 sale of 2: sale f9dcde42-8efc-43ad-99af-0b587c227ac1: total C$ 2,400.00 (API 240000), change C$ 600.00, stock 5 -> 3
+PASS  9 close till: expected C$ 3,400.00, counted C$ 3,400.00, Cuadra: C$ 0.00; a second close is refused (409 cash.already_closed)
+PASS  10 cashier does not see approve: cashier nav ['Venta', 'Caja', 'Recepción', 'Inventario']; approve hidden
+console errors: 0; page errors: 0
+
+SUMMARY
+  PASS     1 login
+  PASS     2 inventario before reception
+  PASS     3 reception: one code typed 5 times
+  BLOCKED  3b reception line shows quantity 5
+  PASS     4 inventario unchanged before approve
+  PASS     5 approve + post
+  PASS     6 inventario after post
+  PASS     7 open till
+  PASS     8 sale of 2
+  PASS     9 close till
+  PASS     10 cashier does not see approve

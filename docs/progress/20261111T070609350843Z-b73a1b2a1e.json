@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-11T07:06:09.350843+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyEndpoints.cs",
+      "change": "M",
+      "git_blob": "82985f80ad3350c1fc5c98534a27879f2ff225f5"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyReport.cs",
+      "change": "A",
+      "git_blob": "e536cd2b83df2c4d99ca408cdab6e6ca36dfc6ad"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Supply/InternalSupplyService.cs",
+      "change": "M",
+      "git_blob": "3528cbc30e4f4034c91b6788e3560ebb519d491f"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalSupplySqlServerTests.cs",
+      "change": "M",
+      "git_blob": "8944f854a33d1b79b34fb8449053029dacc7a57e"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

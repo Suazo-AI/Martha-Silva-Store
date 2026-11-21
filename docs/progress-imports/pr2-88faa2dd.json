@@ -1,0 +1,589 @@
+{
+  "schema": 1,
+  "repository": "Suazo-AI/Martha-Silva-Store",
+  "source_pr": 2,
+  "source_branch": "claude/funny-brahmagupta-5e5rj0",
+  "base": "20932d5c97f2caaafad7dc888879957791907f36",
+  "head": "88faa2dd0d51fc1c5089b721ba5b17c23d4d61d4",
+  "meaning": "Exact already-published PR2 history imported without retroactive receipts or acceptance claims. New commits still require normal receipts.",
+  "commits": [
+    {
+      "commit": "56999669dfca2a8d0d5c8f8296a3035fb78b02cc",
+      "tree": "46efb066529504fc5234e74744827ada11213c92",
+      "parents": [
+        "20932d5c97f2caaafad7dc888879957791907f36"
+      ],
+      "files": [
+        {
+          "path": "dev/savia-staff-ui/app.mjs",
+          "change": "M",
+          "git_blob": "a9c975a7246db0def6498ca768d578385033f9eb",
+          "sha256": "1ace7445e2f05e224dad969346eaf29e4a46ef48a9b6acfb87f338fe1beaf3ac"
+        },
+        {
+          "path": "tests/browser-mock-validation.mjs",
+          "change": "M",
+          "git_blob": "6a6a1ac3d1873c48f1c5d146c36467993b492fa8",
+          "sha256": "f9290cdacce73d237e32846d66f7154588e59fe1f110f2bb1acebc728c0a8164"
+        }
+      ]
+    },
+    {
+      "commit": "3e91801a3b01a1735f03cd1812589716e02d9c94",
+      "tree": "2a78d8b3d0f0bbc92dee451a4306480b3065cd07",
+      "parents": [
+        "56999669dfca2a8d0d5c8f8296a3035fb78b02cc"
+      ],
+      "files": [
+        {
+          "path": ".github/workflows/savia.yml",
+          "change": "A",
+          "git_blob": "b6ff94e5a6222d293541e79d40c04ffbda4f713d",
+          "sha256": "abba70806127404660e433423f2e8a213af63cab3c25b91404935d5b0c5fa6c5"
+        },
+        {
+          "path": "backend/tests/fixtures/expected-invariants.model-derived.json",
+          "change": "A",
+          "git_blob": "2ef7ae37473552cc3cdacff523b664e98f5b8a30",
+          "sha256": "4e3b7296aabddd94e9cdc2928246f74761438b72f944ed40eca74b418851a305"
+        },
+        {
+          "path": "backend/tests/test_verify_full_suite.py",
+          "change": "A",
+          "git_blob": "0be4ea1623ed3dc7d1f66b8ce11a2e516e8082ae",
+          "sha256": "dba6bf4a3c5012750872aba89d4237ddabc2b0b1707aefc86284d4b9fb6d53d0"
+        },
+        {
+          "path": "backend/tests/verify_full_suite.py",
+          "change": "A",
+          "git_blob": "0a9f54c88e497f7ef30bdf8ea5ad02281fa54a18",
+          "sha256": "ab4b6ba0fd193c9ef88f63219ce2d3456a2f192b2ff1a0688349a6cc97f4cf11"
+        },
+        {
+          "path": "docs/CI-CD.md",
+          "change": "M",
+          "git_blob": "602f9dff12d7f732503a0021fd3dbbb80fedf9f4",
+          "sha256": "9cc5e928a9789520053af5d3ca6bf47515bd9b19f98a7999b4bee48c45a11704"
+        }
+      ]
+    },
+    {
+      "commit": "cf7a306fd1dd14552eccee922d1eada7372f157c",
+      "tree": "b9b01f641f57bb1b7c239f67595df7e19a37e424",
+      "parents": [
+        "3e91801a3b01a1735f03cd1812589716e02d9c94"
+      ],
+      "files": [
+        {
+          "path": "docs/AGENT-START.md",
+          "change": "M",
+          "git_blob": "20411e43df8111a84715dd10206ecfcc0f158ccd",
+          "sha256": "0a4e8710a80983af626e08b63db44f356b71160b592074ba28415f6b4e1fb474"
+        },
+        {
+          "path": "docs/PROJECT-STATUS.md",
+          "change": "M",
+          "git_blob": "d8775076f6825eab93d4f750dce4b5dce4c7a284",
+          "sha256": "7b184a2430c190f512365ca6c7f01bfdb297ecc80d83dad00038e080b9c6b1c9"
+        },
+        {
+          "path": "docs/delivery-20261031/NEXT-INCREMENT.md",
+          "change": "M",
+          "git_blob": "b9a6fbec209558f746687a9733c71b438fa09ff8",
+          "sha256": "6f7b6b850336e1202e53ea3ecb3337796ce16c9eba8bbfaa0016812019786524"
+        },
+        {
+          "path": "docs/sprint-20261104/CUESTIONARIO-MARTHA.md",
+          "change": "A",
+          "git_blob": "09480991fa303d661d37e0624d2f49704e3310cf",
+          "sha256": "ca77ecc1dbce67ea4e9ec31efdecf8eb7cdec06b627175933e8694eebd63185b"
+        },
+        {
+          "path": "docs/sprint-20261104/PRACTICAS-19-REPOS.md",
+          "change": "A",
+          "git_blob": "31f99f434114958158fb64fd5c169c84ea9053ad",
+          "sha256": "89cabd7679406685d4a857ebb2efc34f49657a87cd22b85464f139d19f8931d7"
+        },
+        {
+          "path": "docs/sprint-20261104/PROMPT.md",
+          "change": "A",
+          "git_blob": "b2d15af228ac2e9d32aa5764a3309f5c570f8da3",
+          "sha256": "fe416a775d56f41bba7c2bc0d448002321ff21f7a8863df16866342c92b87f24"
+        },
+        {
+          "path": "docs/sprint-20261104/README.md",
+          "change": "A",
+          "git_blob": "8f67aeab4ba59b8e96e5fdf1aa6dfa6043235fff",
+          "sha256": "accf8c56bfe47ed43d826a96ec42fc050047bfaa47609827e39e27aa4c8430a6"
+        },
+        {
+          "path": "docs/sprint-20261104/evidence.json",
+          "change": "A",
+          "git_blob": "7407bef53cc5813ebc900ed163736113e1c74e12",
+          "sha256": "07585477c3c5508614e7d8ff1c9b1b67013d3f6030f6cb2d68bea49cd406752c"
+        },
+        {
+          "path": "docs/sprint-20261104/evidence/n5-stale-receipt-after-fix.png",
+          "change": "A",
+          "git_blob": "9064a5c2c6e8f469a903cf03b913fcc88a760926",
+          "sha256": "a185f1e0622ce5ea4e28a5b8b983493eb295fa3da48aba813083270509a8bd8f"
+        }
+      ]
+    },
+    {
+      "commit": "775f301bc195c43baedc68c86f4e71affe92ef95",
+      "tree": "e97487c6960fa6b87513cc9f3cb12830b7792da7",
+      "parents": [
+        "cf7a306fd1dd14552eccee922d1eada7372f157c"
+      ],
+      "files": [
+        {
+          "path": ".github/workflows/backend.yml",
+          "change": "M",
+          "git_blob": "8ee72d61ee4592f35154eb59c4cd4f14c0f38d3d",
+          "sha256": "cc61b3e29b3de839b92bbf28f08866d702c1999408bdb77cf46df34e03f61633"
+        },
+        {
+          "path": ".github/workflows/savia.yml",
+          "change": "M",
+          "git_blob": "0f04611ad9f6210461a250d7869aee9b2373d36b",
+          "sha256": "44926622c12d0e2b5ef3b3e87f42f730145d72df313fafe12d1ac34c62551b23"
+        },
+        {
+          "path": "docs/CI-CD.md",
+          "change": "M",
+          "git_blob": "e41895129c8ed71e6c291af64231b8bca8d7a226",
+          "sha256": "20a8f45dd3848332064d38be552b5880da0ce978262214b0c7966e6e811fa474"
+        },
+        {
+          "path": "docs/sprint-20261104/README.md",
+          "change": "M",
+          "git_blob": "00978509e31044e150c53b1e9a4b00b303badb03",
+          "sha256": "338e9007183801669bc647b18344825ae7a163b161e83ac35d966cb0cdf42f94"
+        }
+      ]
+    },
+    {
+      "commit": "df3d8969e8851aecc7d25d6820ba87c3d0404cba",
+      "tree": "b3038b2cd5fa42fa57ec930f629c1bbf077dec8f",
+      "parents": [
+        "775f301bc195c43baedc68c86f4e71affe92ef95"
+      ],
+      "files": [
+        {
+          "path": ".github/pull_request_template.md",
+          "change": "A",
+          "git_blob": "be000911587faf6065c98d0dfe556eed86179279",
+          "sha256": "82564a2700f0b27bbf0bb9ad810d34bb0d22ca59966e79138ee5d030394c5d1e"
+        },
+        {
+          "path": ".github/workflows/progress-digest.yml",
+          "change": "A",
+          "git_blob": "51294095ca83295195f37dd179fe731dbd3975bf",
+          "sha256": "728d432878ad7e9daed96d5f10d5fd467c7c10ba374bf7ae5bdb1bfd1e916030"
+        },
+        {
+          "path": "docs/DECISIONS.md",
+          "change": "M",
+          "git_blob": "1eb226aa9b4023b7d9bbf09eae67c4cb1f090284",
+          "sha256": "f7a3a15b95e9617617d09f9a51e2caa47967a3c635c625c393c745dbb82dc906"
+        },
+        {
+          "path": "docs/pipeline/README.md",
+          "change": "A",
+          "git_blob": "85ceb68e2dd755b98a128e1ba3c270150dcdcf88",
+          "sha256": "ffdf84c305c58888ce1993885e2f4d8da6143603e9c30bd50b0d70657bdb74a1"
+        },
+        {
+          "path": "docs/pipeline/ledger.json",
+          "change": "A",
+          "git_blob": "957280464a953c52249ee8fc00c79e892dfdde60",
+          "sha256": "bbe2f01a76703357776e02178db74099357548470445f961471f5d441a5de146"
+        },
+        {
+          "path": "docs/sprint-20261104/PROMPT-AUTONOMO.md",
+          "change": "A",
+          "git_blob": "42471ba627f3f12feae1bd102b2bbafb917c0971",
+          "sha256": "06613bd5632f3c6a47fecd9ac77ac89d9b484d3f631fdea9cca155caab8214cb"
+        },
+        {
+          "path": "tests/check.py",
+          "change": "M",
+          "git_blob": "bcfaffd0d43a86554b6de60f60eef8a10e5d3d6b",
+          "sha256": "8e2a84dde5edf6599e3702d05244ee7b1cc4d935fc82bdd08a8703d4ca108ece"
+        },
+        {
+          "path": "tests/test_delivery_status.py",
+          "change": "A",
+          "git_blob": "08bf8b4b7ccaddfd2694a05ddb2913c62dd4d404",
+          "sha256": "2f614f5345c67e68ad76f859761417d8c04631973abf35c25d096bf3356fdbbd"
+        },
+        {
+          "path": "tools/delivery_status.py",
+          "change": "A",
+          "git_blob": "59bbd943fd571aca4a79d96f52b7abf01695d70b",
+          "sha256": "ae75b4a8a88455c919e849b7c33003002fd31c33e11a5bd1ea4d1cb6e62a1335"
+        }
+      ]
+    },
+    {
+      "commit": "ca500bb3058a2021c4169a42db3db86f4f7fd7a5",
+      "tree": "24bccf590ca73d98d6a7cdfc69d3e61ca97906d3",
+      "parents": [
+        "df3d8969e8851aecc7d25d6820ba87c3d0404cba"
+      ],
+      "files": [
+        {
+          "path": ".gitignore",
+          "change": "M",
+          "git_blob": "6f8773e24c9faef06a50d0e201140d2e5df0ef88",
+          "sha256": "0751bff5fbddd697f245ee3f996ffaf2f5b9115fdd665fc5dbd64dade431fee2"
+        }
+      ]
+    },
+    {
+      "commit": "c64338b19b326a492b999d8da94a9494d547968c",
+      "tree": "ea099f48eef3e12ba55bdc73c62d76379d6c82a6",
+      "parents": [
+        "775f301bc195c43baedc68c86f4e71affe92ef95"
+      ],
+      "files": [
+        {
+          "path": "backend/src/Martha.Store.Api/Internal/Migrations/InitialInternalSavia.idempotent.sql",
+          "change": "M",
+          "git_blob": "dd460a9299b5d9cb6db427d4169dd37f4006063d",
+          "sha256": "8aacf56efaa92d3f7d6e3233c557c21f0ad55995df18eaa41ce8f5f688893da8"
+        },
+        {
+          "path": "backend/tests/Martha.Store.Api.Tests/InternalReleaseScriptTests.cs",
+          "change": "A",
+          "git_blob": "1583e178d7da945c5ac12e411a39e18d92e76da3",
+          "sha256": "78aa138819598c9f0e83644f35ef2db0e2056ffd88e82c8c2cf04fd2e6ef5adf"
+        },
+        {
+          "path": "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs",
+          "change": "M",
+          "git_blob": "a02283570ff44f7ef2e438df2dc413db6c9ba952",
+          "sha256": "0cc927b7f9196960569bd9b2356a6b7506804b0a4843af5546bd962bb0cb7bab"
+        },
+        {
+          "path": "docs/sprint-20261104/C4-C7.md",
+          "change": "A",
+          "git_blob": "7b286c9639e7a3a03db45496dddbb01060c11943",
+          "sha256": "f18c16f0214359d48233fe40654138c33a3ea8aea360d723d28cc24d9e700688"
+        }
+      ]
+    },
+    {
+      "commit": "95ce89f53562c3b076e1bed80c51ad410da07159",
+      "tree": "4080185d17f8e96de3c19ebf330d05913e7c2bf2",
+      "parents": [
+        "c64338b19b326a492b999d8da94a9494d547968c"
+      ],
+      "files": [
+        {
+          "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs",
+          "change": "A",
+          "git_blob": "dcb0941e5abd215215dc3acd8354825babd045fe",
+          "sha256": "6de3d3d19b01160e40bc2140653c9e3f64f3f7f2a8bfd193f9a14e97d30faf72"
+        },
+        {
+          "path": "backend/tests/Martha.Store.Api.Tests/InternalCommerceSqlTests.cs",
+          "change": "M",
+          "git_blob": "cc9419a1f68ef47bd8b9017ac24699640eb2eb0f",
+          "sha256": "930afbe5606a8b38bfda019e03ebcd2cb3f2679c5c339f603fa56b8ba9bb6949"
+        },
+        {
+          "path": "backend/tests/Martha.Store.Api.Tests/InternalJudgeTests.cs",
+          "change": "M",
+          "git_blob": "878880a0f8154871e3933f732f7eddbf9e860d54",
+          "sha256": "f10676cbb8dd903246d2e640bda57f332714829c34d1cc846dca3c4e0a8600d7"
+        },
+        {
+          "path": "docs/sprint-20261104/C4-C7.md",
+          "change": "M",
+          "git_blob": "9bb4a82339a36fb31d5bbccd788f0db4d8891355",
+          "sha256": "51c4638d824efd89af28408e62e176c24cfd6073ca0f966d1127743c7d85b924"
+        }
+      ]
+    },
+    {
+      "commit": "c89087a99abf81447f37537cb9dd58baccc5fc94",
+      "tree": "7e9b728910a02552cacf76df4832d759ad54c054",
+      "parents": [
+        "ca500bb3058a2021c4169a42db3db86f4f7fd7a5",
+        "95ce89f53562c3b076e1bed80c51ad410da07159"
+      ],
+      "files": [
+        {
+          "path": "backend/src/Martha.Store.Api/Internal/Migrations/InitialInternalSavia.idempotent.sql",
+          "change": "M",
+          "git_blob": "dd460a9299b5d9cb6db427d4169dd37f4006063d",
+          "sha256": "8aacf56efaa92d3f7d6e3233c557c21f0ad55995df18eaa41ce8f5f688893da8"
+        },
+        {
+          "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs",
+          "change": "A",
+          "git_blob": "dcb0941e5abd215215dc3acd8354825babd045fe",
+          "sha256": "6de3d3d19b01160e40bc2140653c9e3f64f3f7f2a8bfd193f9a14e97d30faf72"
+        },
+        {
+          "path": "backend/tests/Martha.Store.Api.Tests/InternalCommerceSqlTests.cs",
+          "change": "M",
+          "git_blob": "cc9419a1f68ef47bd8b9017ac24699640eb2eb0f",
+          "sha256": "930afbe5606a8b38bfda019e03ebcd2cb3f2679c5c339f603fa56b8ba9bb6949"
+        },
+        {
+          "path": "backend/tests/Martha.Store.Api.Tests/InternalJudgeTests.cs",
+          "change": "M",
+          "git_blob": "878880a0f8154871e3933f732f7eddbf9e860d54",
+          "sha256": "f10676cbb8dd903246d2e640bda57f332714829c34d1cc846dca3c4e0a8600d7"
+        },
+        {
+          "path": "backend/tests/Martha.Store.Api.Tests/InternalReleaseScriptTests.cs",
+          "change": "A",
+          "git_blob": "1583e178d7da945c5ac12e411a39e18d92e76da3",
+          "sha256": "78aa138819598c9f0e83644f35ef2db0e2056ffd88e82c8c2cf04fd2e6ef5adf"
+        },
+        {
+          "path": "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs",
+          "change": "M",
+          "git_blob": "a02283570ff44f7ef2e438df2dc413db6c9ba952",
+          "sha256": "0cc927b7f9196960569bd9b2356a6b7506804b0a4843af5546bd962bb0cb7bab"
+        },
+        {
+          "path": "docs/sprint-20261104/C4-C7.md",
+          "change": "A",
+          "git_blob": "9bb4a82339a36fb31d5bbccd788f0db4d8891355",
+          "sha256": "51c4638d824efd89af28408e62e176c24cfd6073ca0f966d1127743c7d85b924"
+        }
+      ]
+    },
+    {
+      "commit": "1a7cb01987f66fc7d19fd95a34afd8b7c0fcc3a0",
+      "tree": "829530a05531719567b50e970ff87f7f15890789",
+      "parents": [
+        "775f301bc195c43baedc68c86f4e71affe92ef95"
+      ],
+      "files": [
+        {
+          "path": ".github/workflows/golden-path.yml",
+          "change": "A",
+          "git_blob": "c1b889999a18753d85bc6c0a872fc22c1dfcdf25",
+          "sha256": "b9800a0b8fb7ec161e284a5c4889e8026f071de53d85af247f5331dd8fd8abd4"
+        },
+        {
+          "path": "docs/sprint-20261104/C5.md",
+          "change": "A",
+          "git_blob": "05f92d897f6ae8d40f7660b15b7f0af4ed0bbb77",
+          "sha256": "0cf2ec705f06c48b83882907268041d1938f0da9b00d0f4bf9f201087324271a"
+        },
+        {
+          "path": "tests/golden-path/.gitignore",
+          "change": "A",
+          "git_blob": "b01372f54648a5971d8a79dd11026e4283e224d8",
+          "sha256": "02aa6f5e8482ebe347063db8f02fd98b5b48f7b081782ab52ad0525f46ce1ff2"
+        },
+        {
+          "path": "tests/golden-path/GoldenPath.Sql/GoldenPath.Sql.csproj",
+          "change": "A",
+          "git_blob": "83c891055f43c1a8f97dcabffe7d3fe88df93a32",
+          "sha256": "990ca386beeebcc2efa0a504c0d1754833af04281b3e8e3c9fac4600f7a68889"
+        },
+        {
+          "path": "tests/golden-path/GoldenPath.Sql/Program.cs",
+          "change": "A",
+          "git_blob": "5b0ecfbe925d553560c6365979f5bb541c1de56c",
+          "sha256": "73dace52d407545267b7b9214b9a80f39d8c01e92633b52ec553744c2894b157"
+        },
+        {
+          "path": "tests/golden-path/GoldenPath.Sql/packages.lock.json",
+          "change": "A",
+          "git_blob": "1cef1995a66b253011d3e806208cb671a1b35532",
+          "sha256": "3958cf556cf5f05e4aa8ada2208fe5e665fe92d9408139445514db708f827a0c"
+        },
+        {
+          "path": "tests/golden-path/README.md",
+          "change": "A",
+          "git_blob": "c0861ca7d2790fcc23693db1d29e853527c541b7",
+          "sha256": "4dcd9af7e99c301db586f5930b2d619d4be7a3a684225bcabc2cb218b2a570a0"
+        },
+        {
+          "path": "tests/golden-path/golden_path.py",
+          "change": "A",
+          "git_blob": "632fb30ff63999acc786885311637bccdfc9eebd",
+          "sha256": "1e3a1c0191f75548dd71b42ec3f0b91d7206467057d245ff2920df98c7c910c1"
+        }
+      ]
+    },
+    {
+      "commit": "25d8dcc41de3e4f29c84a51e0f56bbcdd85aeb7e",
+      "tree": "50408da48a6ec68aa807f6de71c14e1f1d14017b",
+      "parents": [
+        "c89087a99abf81447f37537cb9dd58baccc5fc94"
+      ],
+      "files": [
+        {
+          "path": ".github/workflows/savia.yml",
+          "change": "M",
+          "git_blob": "2042e26663d9029e57a5d1772050247bc8d09ee5",
+          "sha256": "a427fdc91fdc2d216a132e10e65c578f6db2b5b9802026765ea110ca664a881f"
+        },
+        {
+          "path": "docs/BRANCH-CANDIDATE-20261027.md",
+          "change": "M",
+          "git_blob": "ed05c6820f616477e5c825b2d1742628dc84f242",
+          "sha256": "e33adf44f00b2be3ac174c32131dd81135d9fc9bc09dec933f19c1cd6e0bfbec"
+        },
+        {
+          "path": "docs/pipeline/ledger.json",
+          "change": "M",
+          "git_blob": "dd6d49ad0bedb2ef92981d8210f2628dbac50792",
+          "sha256": "e851e92dc9b285c108bd7227d95c76172ab29e0434574ef175001da71a6fc8c9"
+        },
+        {
+          "path": "docs/sprint-20261104/README.md",
+          "change": "M",
+          "git_blob": "68c64d529584da1ffe5aabb44ffae4b0ba9beba5",
+          "sha256": "be9b13fe0e1fc1472f47deacf55c9e628aaaf2569597adf812bee68ba1ed6298"
+        }
+      ]
+    },
+    {
+      "commit": "a2067e09842c4f0eaaf517aae9ff3a9527932d2c",
+      "tree": "881c46bf6bfd59d0980f7535d67214f90878b83f",
+      "parents": [
+        "25d8dcc41de3e4f29c84a51e0f56bbcdd85aeb7e",
+        "1a7cb01987f66fc7d19fd95a34afd8b7c0fcc3a0"
+      ],
+      "files": [
+        {
+          "path": ".github/workflows/golden-path.yml",
+          "change": "A",
+          "git_blob": "c1b889999a18753d85bc6c0a872fc22c1dfcdf25",
+          "sha256": "b9800a0b8fb7ec161e284a5c4889e8026f071de53d85af247f5331dd8fd8abd4"
+        },
+        {
+          "path": "docs/sprint-20261104/C5.md",
+          "change": "A",
+          "git_blob": "05f92d897f6ae8d40f7660b15b7f0af4ed0bbb77",
+          "sha256": "0cf2ec705f06c48b83882907268041d1938f0da9b00d0f4bf9f201087324271a"
+        },
+        {
+          "path": "tests/golden-path/.gitignore",
+          "change": "A",
+          "git_blob": "b01372f54648a5971d8a79dd11026e4283e224d8",
+          "sha256": "02aa6f5e8482ebe347063db8f02fd98b5b48f7b081782ab52ad0525f46ce1ff2"
+        },
+        {
+          "path": "tests/golden-path/GoldenPath.Sql/GoldenPath.Sql.csproj",
+          "change": "A",
+          "git_blob": "83c891055f43c1a8f97dcabffe7d3fe88df93a32",
+          "sha256": "990ca386beeebcc2efa0a504c0d1754833af04281b3e8e3c9fac4600f7a68889"
+        },
+        {
+          "path": "tests/golden-path/GoldenPath.Sql/Program.cs",
+          "change": "A",
+          "git_blob": "5b0ecfbe925d553560c6365979f5bb541c1de56c",
+          "sha256": "73dace52d407545267b7b9214b9a80f39d8c01e92633b52ec553744c2894b157"
+        },
+        {
+          "path": "tests/golden-path/GoldenPath.Sql/packages.lock.json",
+          "change": "A",
+          "git_blob": "1cef1995a66b253011d3e806208cb671a1b35532",
+          "sha256": "3958cf556cf5f05e4aa8ada2208fe5e665fe92d9408139445514db708f827a0c"
+        },
+        {
+          "path": "tests/golden-path/README.md",
+          "change": "A",
+          "git_blob": "c0861ca7d2790fcc23693db1d29e853527c541b7",
+          "sha256": "4dcd9af7e99c301db586f5930b2d619d4be7a3a684225bcabc2cb218b2a570a0"
+        },
+        {
+          "path": "tests/golden-path/golden_path.py",
+          "change": "A",
+          "git_blob": "632fb30ff63999acc786885311637bccdfc9eebd",
+          "sha256": "1e3a1c0191f75548dd71b42ec3f0b91d7206467057d245ff2920df98c7c910c1"
+        }
+      ]
+    },
+    {
+      "commit": "7c53ae66d1c41631be331514667f3697549c3d03",
+      "tree": "4658488795f91674aaa3f8db79a25242d2354e46",
+      "parents": [
+        "a2067e09842c4f0eaaf517aae9ff3a9527932d2c"
+      ],
+      "files": [
+        {
+          "path": "docs/pipeline/ledger.json",
+          "change": "M",
+          "git_blob": "308d5517ec7477324c72fcd356947510e069861b",
+          "sha256": "8d253f6463e37a019e57340bba1f4903b51f10c71f25a8e997e61200a7259b35"
+        },
+        {
+          "path": "docs/sprint-20261104/README.md",
+          "change": "M",
+          "git_blob": "57f5dd3d7cf1a05691b92ea535505befb3be9683",
+          "sha256": "adf051c70e0134abcb402f5316633cdb0353ea918f8d1f57113a6967eef8c33b"
+        }
+      ]
+    },
+    {
+      "commit": "60e6cfad6bbff60708e7d4cfed196a58550eebf9",
+      "tree": "da099c4674f80fd44037b098f986910321995b90",
+      "parents": [
+        "7c53ae66d1c41631be331514667f3697549c3d03"
+      ],
+      "files": [
+        {
+          "path": "docs/pipeline/ledger.json",
+          "change": "M",
+          "git_blob": "b02ac25348b6b6d3d1370c3e4aac50007b08a34f",
+          "sha256": "d7a977bb55bd652cfbc2b50b1f1b3007ef44828b681cf37cf7a39f5491626d49"
+        }
+      ]
+    },
+    {
+      "commit": "5895c292f653780cbf408dedaaf4850c0ddfb8c5",
+      "tree": "66a47ddde159ee9bd83d992b337467b7b3f49d9d",
+      "parents": [
+        "60e6cfad6bbff60708e7d4cfed196a58550eebf9"
+      ],
+      "files": [
+        {
+          "path": "docs/AGENT-START.md",
+          "change": "M",
+          "git_blob": "1d119e98caa6a3235e85e34df1b74f6a77c7a1f0",
+          "sha256": "1d27f746b85cc3535e62317ac4154900d3bebeaeb514c1d405ecda4e27edc241"
+        },
+        {
+          "path": "docs/PROJECT-STATUS.md",
+          "change": "M",
+          "git_blob": "f23a99aa961adea61714e13f924ff9f65e29515b",
+          "sha256": "7d3b38c2e77458e2cb7dc40ce9039f19f83b5c29d76f52a85aa6708e8a90025d"
+        },
+        {
+          "path": "docs/pipeline/ledger.json",
+          "change": "M",
+          "git_blob": "9538373282cd684a9ed6660db11cd94714e97667",
+          "sha256": "93ebbaba8b50cdcc34acf438e74f374b1193929828ba372901c6952d3308f70f"
+        }
+      ]
+    },
+    {
+      "commit": "88faa2dd0d51fc1c5089b721ba5b17c23d4d61d4",
+      "tree": "8f2fec59fd9a9b7ec5b971c6bc4103ae75f6619d",
+      "parents": [
+        "5895c292f653780cbf408dedaaf4850c0ddfb8c5"
+      ],
+      "files": [
+        {
+          "path": "docs/pipeline/ledger.json",
+          "change": "M",
+          "git_blob": "46cf45b46b395beb486eefdc8d4b7f711042d60f",
+          "sha256": "849491705cf5ac673cc7a08d37d7394a9801285869df9556b51606a168a1723d"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-07T23:21:27.302287+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "bcce3fff93a52cf973763bc02055a0018a19e483"
+    },
+    {
+      "path": "docs/branch-choice-20261107/EXPLANATION.md",
+      "change": "A",
+      "git_blob": "bc6764f17f244844b5b581a16f4f9b41d41a3f43"
+    },
+    {
+      "path": "docs/branch-choice-20261107/example.html",
+      "change": "A",
+      "git_blob": "8226bd190028e9b34c8a34453bc1cbf5e99f5bc2"
+    },
+    {
+      "path": "docs/completion-20261107/README.md",
+      "change": "M",
+      "git_blob": "74aa76fb37ddc00d2d1f7b84ec343d69409a5e27"
+    },
+    {
+      "path": "docs/completion-20261107/local-validation/runner-corrections/revision-2/astra-recheck.md",
+      "change": "A",
+      "git_blob": "c1ee17ed9e98e892e714a762a8f2e021500a33aa"
+    },
+    {
+      "path": "docs/completion-20261107/local-validation/runner-corrections/revision-3/README.md",
+      "change": "A",
+      "git_blob": "e811f0ef9012ec2f85e49b9aab9215b584320546"
+    },
+    {
+      "path": "docs/completion-20261107/local-validation/runner-corrections/revision-3/RESULT.json",
+      "change": "A",
+      "git_blob": "7b1b0019847868cd6e85f71151daf433f1f5e3d2"
+    },
+    {
+      "path": "tools/local-validation/test_run_local_validation.py",
+      "change": "M",
+      "git_blob": "e8564740c39238e3c8daf52b1332a65b320c3909"
+    },
+    {
+      "path": "tools/run_local_validation.py",
+      "change": "M",
+      "git_blob": "0f5a7de1f748356d932e3060c6fe80b717c00ca6"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

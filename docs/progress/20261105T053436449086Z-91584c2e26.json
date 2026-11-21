@@ -1,0 +1,120 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-05T05:34:36.449086+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "change": "M",
+      "git_blob": "01b686b8d913639f75dd8f2fab3fe2fdf982a834"
+    },
+    {
+      "path": "dev/savia-staff-ui/failure-simulation.test.mjs",
+      "change": "A",
+      "git_blob": "b19ebc2b85ce0a5d0d30b79d4dde8d65b937c4da"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "9655cc8fde8fb632709c0d80b977c6f800596782"
+    },
+    {
+      "path": "docs/agent-awareness-20261104/README.md",
+      "change": "A",
+      "git_blob": "af28cd1f8b54822db08c985c14bf98f3a826257c"
+    },
+    {
+      "path": "docs/agent-awareness-20261104/bin/agent-awareness.py",
+      "change": "A",
+      "git_blob": "085c58d8bd8981f6708deb0414af463d4914e667"
+    },
+    {
+      "path": "docs/agent-awareness-20261104/tests/test_agent_awareness.py",
+      "change": "A",
+      "git_blob": "441c48cadb6714c904f003fe2f56082428a4b617"
+    },
+    {
+      "path": "docs/agent-awareness-20261104/verification.json",
+      "change": "A",
+      "git_blob": "fc2909910e9cc6bc6d305b3f677321b97bdd7ebd"
+    },
+    {
+      "path": "docs/failure-simulation-20261105/MATRIX.json",
+      "change": "A",
+      "git_blob": "5926c6ad99781cded7b9439bc44211b1acb514db"
+    },
+    {
+      "path": "docs/failure-simulation-20261105/PRIMARY-RESULT.json",
+      "change": "A",
+      "git_blob": "35760958df5edb77773819ea180a0f94d9e75c34"
+    },
+    {
+      "path": "docs/failure-simulation-20261105/PUBLICATION-CHECKS.json",
+      "change": "A",
+      "git_blob": "447b602461e042b5cbba16220d572c91841dc022"
+    },
+    {
+      "path": "docs/failure-simulation-20261105/README.md",
+      "change": "A",
+      "git_blob": "3cb4d4e2586b75cbdcbe854b4e812b966593dea8"
+    },
+    {
+      "path": "docs/failure-simulation-20261105/RESULT.json",
+      "change": "A",
+      "git_blob": "1de8dbcb18b520b3f4f58b2729b48022ddd6bc26"
+    },
+    {
+      "path": "docs/failure-simulation-20261105/critic.md",
+      "change": "A",
+      "git_blob": "5f30051a1a03e7118b5c8e2a63e6ac4d054666d7"
+    },
+    {
+      "path": "docs/failure-simulation-20261105/export-primary.sanitized.txt",
+      "change": "A",
+      "git_blob": "3073872aab2e21ae7955749d8951b0ed76611866"
+    },
+    {
+      "path": "docs/failure-simulation-20261105/focused-primary.sanitized.txt",
+      "change": "A",
+      "git_blob": "37f3b6f9c0469d007d7fc55d8a82b970ad824c35"
+    },
+    {
+      "path": "docs/failure-simulation-20261105/focused.sanitized.txt",
+      "change": "A",
+      "git_blob": "60f0ac2619ca63c127deaa354ae8e85a8e83a6e2"
+    },
+    {
+      "path": "docs/failure-simulation-20261105/jury.md",
+      "change": "A",
+      "git_blob": "b4bda54e57dee5ab15bea1ed1560b1e6fb599a75"
+    },
+    {
+      "path": "docs/failure-simulation-20261105/portable-primary.sanitized.txt",
+      "change": "A",
+      "git_blob": "4bad57d37bedf83d23d91b602dfba5c4db833a7e"
+    },
+    {
+      "path": "docs/failure-simulation-20261105/primary-review.md",
+      "change": "A",
+      "git_blob": "72bd7b77bfe13d8d5ad676903137323e1fb809ae"
+    },
+    {
+      "path": "docs/failure-simulation-20261105/progress-primary.sanitized.txt",
+      "change": "A",
+      "git_blob": "b78f1ffd762f0567fd4d9b1624cbc2e7a0c8988b"
+    },
+    {
+      "path": "docs/failure-simulation-20261105/staff-glob-primary.sanitized.txt",
+      "change": "A",
+      "git_blob": "51400a3df6733a95f6d5b49d67ae1fd5caab6098"
+    },
+    {
+      "path": "docs/failure-simulation-20261105/staff-glob.sanitized.txt",
+      "change": "A",
+      "git_blob": "ed175a3afc363db2bc916652c9e23a06be731548"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

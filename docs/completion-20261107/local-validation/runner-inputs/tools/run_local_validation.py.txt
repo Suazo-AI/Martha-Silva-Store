@@ -1,0 +1,561 @@
+#!/usr/bin/env python3
+"""Plan-first entry point for the SAVIA C77 -> D -> E2 disposable local campaign.
+
+Default mode only reads host state and prints the exact commands.
+Mutating Docker work requires --execute and the exact scope identifier; the
+identifier is a safety interlock, not runtime authorization.
+
+No product code, tests, workflows or verifier criteria are changed here.
+"""
+from __future__ import annotations
+
+import argparse
+import hashlib
+import io
+import json
+import os
+import re
+import secrets
+import subprocess
+import sys
+import tarfile
+import time
+from dataclasses import dataclass
+from pathlib import Path, PurePosixPath
+
+SOURCE_SHA = "c07bd1b0c579ead5b9bc39cd98d9c327f9f4ee41"
+SDK_IMAGE = "mcr.microsoft.com/dotnet/sdk@sha256:747cbade5bfd918a175ac32f8f1d931edec2c7d0d5397a3de72eaef1ac1f66d2"
+SQL_IMAGE = "mcr.microsoft.com/mssql/server@sha256:cf8f0ab2ebe61feec2eed2629061a07d247f791c2a8ddda74a4ac9f06a291718"
+PLATFORM = "linux/amd64"
+SCOPE_PREFIX = "savia-local-runtime-"
+PREP_BUDGET = 15 * 60
+C_BUDGET = 25 * 60
+D_BUDGET = 20 * 60
+E_BUDGET = 15 * 60
+REQUIRED = (
+    "tools/run_local_validation.py",
+    "tools/local-validation/Dockerfile",
+    "tools/local-validation/run-stage.sh",
+    "docs/local-validation-20261106/PARTITIONS.json",
+    "tests/golden-path/golden_path.py",
+    "tests/golden-path/verify_evidence.py",
+    "backend/tests/verify_full_suite.py",
+    "backend/tests/fixtures/expected-invariants.model-derived.json",
+    "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs",
+)
+EXCLUDED_ROOTS = ("private-exports", "customer-exports", "order-exports", "database-backups")
+PILOT_DB = re.compile(r"^SaviaInternalTest_Pilot_[a-f0-9]{32}$")
+RELEASE_CHECKS = (
+    "real_migrator_up", "reapply_unchanged", "down_destroyed_fixture",
+    "throwaway_up_again", "backup_checksum", "restore_verifyonly",
+    "actual_restore", "independent_business_expected", "restored_business_equal",
+    "restored_schema_equal", "rejections",
+)
+
+
+class RuntimeFailure(Exception):
+    """Sanitized failure; messages never contain credentials or raw connection strings."""
+
+
+@dataclass(frozen=True)
+class Config:
+    repo: Path
+    source_sha: str
+    scope: str
+    execute: bool
+    private: Path
+    docker: str
+
+
+@dataclass(frozen=True)
+class Names:
+    nonce: str
+    network: str
+    sql: str
+    runner: str
+    volume: str
+    image: str
+
+
+def expected_scope(source_sha: str) -> str:
+    return SCOPE_PREFIX + source_sha[:12]
+
+
+def resource_names(scope: str) -> Names:
+    nonce = hashlib.sha256(scope.encode("utf-8")).hexdigest()[:12]
+    return Names(
+        nonce=nonce,
+        network=f"savia-local-net-{nonce}",
+        sql=f"savia-local-sql-{nonce}",
+        runner=f"savia-local-runner-{nonce}",
+        volume=f"savia-local-work-{nonce}",
+        image=f"savia-local-runner:{nonce}",
+    )
+
+
+class DockerTransport:
+    """Thin Docker CLI wrapper. Read-only queries are separate from mutations."""
+
+    def __init__(self, docker: str = "docker"):
+        self.docker = docker
+
+    def _cap(self, args, timeout=60, env=None):
+        try:
+            return subprocess.run([self.docker, *args], capture_output=True, text=True,
+                                  timeout=timeout, env=env)
+        except (OSError, subprocess.SubprocessError):
+            return None
+
+    def engine(self):
+        result = self._cap(["version", "--format", "{{.Server.Version}} {{.Server.Os}}/{{.Server.Arch}}"])
+        if result is None or result.returncode != 0:
+            return None
+        return result.stdout.strip()
+
+    def image_present(self, reference):
+        result = self._cap(["image", "inspect", reference, "--format", "{{.Id}}"])
+        return result is not None and result.returncode == 0
+
+    def _listed(self, args, field):
+        result = self._cap(args)
+        if result is None or result.returncode != 0:
+            return None
+        return result.stdout.strip()
+
+    def container_exists(self, name):
+        out = self._listed(["ps", "--all", "--filter", f"name=^/{name}$", "--format", "{{.Names}}"], "Names")
+        return None if out is None else bool(out)
+
+    def network_exists(self, name):
+        out = self._listed(["network", "ls", "--filter", f"name=^{name}$", "--format", "{{.Name}}"], "Name")
+        return None if out is None else bool(out)
+
+    def volume_exists(self, name):
+        out = self._listed(["volume", "ls", "--filter", f"name=^{name}$", "--format", "{{.Name}}"], "Name")
+        return None if out is None else bool(out)
+
+    def mutate(self, args, timeout=None, input_bytes=None, env=None, check=True, capture=False):
+        try:
+            result = subprocess.run([self.docker, *args], input=input_bytes,
+                                    capture_output=capture, text=input_bytes is None,
+                                    timeout=timeout, env=env)
+        except (OSError, subprocess.SubprocessError) as error:
+            raise RuntimeFailure(f"docker command unavailable: {args[0]}") from error
+        if check and result.returncode != 0:
+            raise RuntimeFailure(f"docker command failed: {args[0]} {args[1] if len(args) > 1 else ''}".strip())
+        return result
+
+
+def preflight(config: Config, transport, strict: bool = False) -> list[tuple[str, str]]:
+    findings: list[tuple[str, str]] = []
+    names = resource_names(config.scope)
+
+    def ok(message):
+        findings.append(("ok", message))
+
+    def warn(message):
+        findings.append(("warn", message))
+
+    def block(message):
+        findings.append(("block", message))
+
+    if config.scope != expected_scope(config.source_sha):
+        block(f"scope id must be {expected_scope(config.source_sha)}")
+    else:
+        ok("scope id matches source")
+
+    head = subprocess.run(["git", "-C", str(config.repo), "rev-parse", "HEAD"],
+                          capture_output=True, text=True)
+    if head.returncode != 0 or head.stdout.strip() != config.source_sha:
+        block("Git HEAD does not equal the frozen source SHA")
+    else:
+        ok("Git HEAD equals the frozen source SHA")
+
+    for relative in REQUIRED:
+        path = config.repo / relative
+        if not path.is_file():
+            block(f"missing required file: {relative}")
+            continue
+        tracked = subprocess.run(["git", "-C", str(config.repo), "cat-file", "-e",
+                                  f"{config.source_sha}:{relative}"], capture_output=True)
+        if tracked.returncode != 0:
+            message = f"not committed at {config.source_sha[:12]}: {relative}"
+            (block if strict else warn)(message)
+    if not any(level == "block" for level, _ in findings):
+        ok("required files present in the working tree")
+
+    status = subprocess.run(["git", "-C", str(config.repo), "status", "--porcelain"],
+                            capture_output=True, text=True)
+    if status.stdout.strip():
+        warn("working tree is dirty; execution exports the committed tree only")
+
+    engine = transport.engine()
+    if engine is None:
+        block("Docker engine is not reachable (read-only check)")
+    elif not engine.endswith("linux/amd64"):
+        block(f"Docker engine is not linux/amd64: {engine}")
+    else:
+        ok(f"Docker engine {engine}")
+
+    for reference, label in ((SDK_IMAGE, "SDK"), (SQL_IMAGE, "SQL Server")):
+        present = transport.image_present(reference)
+        if present is None:
+            block(f"cannot read cached {label} image")
+        elif not present:
+            block(f"cached {label} image missing; this task never pulls")
+        else:
+            ok(f"cached {label} image present")
+
+    checks = (
+        ("container", transport.container_exists, names.runner, names.sql),
+        ("network", transport.network_exists, names.network),
+        ("volume", transport.volume_exists, names.volume),
+    )
+    for label, query, *candidates in checks:
+        for candidate in candidates:
+            state = query(candidate)
+            if state is None:
+                block(f"cannot read {label} state")
+            elif state:
+                block(f"owned {label} name already exists: {candidate}")
+
+    if config.private.exists():
+        entries = [p for p in config.private.iterdir()]
+        if entries:
+            block("private output directory is not empty; use a fresh owned path")
+        else:
+            ok("private output directory is empty")
+    else:
+        ok("private output directory is new")
+
+    ok("resource limits: SQL 4GiB/2CPU, runner 4GiB/2CPU")
+    ok("no published port; runner reaches SQL over the owned bridge network")
+    return findings
+
+
+def plan_status(findings) -> str:
+    return "BLOCKED" if any(level == "block" for level, _ in findings) else "READY"
+
+
+def render_plan(config: Config, findings) -> str:
+    names = resource_names(config.scope)
+    p = config.private
+    source = p / "source"
+    secrets_dir = p / "secrets"
+    lines = [
+        "SAVIA local runtime entry — PLAN ONLY; no Docker mutation was performed.",
+        f"source sha: {config.source_sha}",
+        f"scope id: {config.scope} (identifier only; does not grant authorization)",
+        f"private dir: {p}",
+        f"runner image: {names.image}",
+        f"network: {names.network}",
+        f"SQL container: {names.sql}",
+        f"runner container: {names.runner}",
+        f"work volume: {names.volume}",
+        "",
+        "PREFLIGHT",
+    ]
+    for level, message in findings:
+        lines.append(f"  {level.upper():5} {message}")
+    lines += [
+        f"PLAN STATUS: {plan_status(findings)}",
+        "",
+        "COMMANDS (executed in this order by --execute; secrets are generated at run time)",
+        f"1. git -C {config.repo} archive --format=tar {config.source_sha}  -> {source} (tracked tree only)",
+        f"2. docker build --platform {PLATFORM} -t {names.image} -f {config.repo / 'tools/local-validation/Dockerfile'} {config.repo / 'tools/local-validation'}",
+        f"3. docker network create --driver bridge --label savia-local-owned={config.scope} {names.network}",
+        f"4. docker volume create --label savia-local-owned={config.scope} {names.volume}",
+        f"5. docker run -d --name {names.sql} --platform {PLATFORM} --network {names.network} --network-alias sql --memory 4g --cpus 2 --env ACCEPT_EULA=Y --env MSSQL_PID=Developer --env-file {secrets_dir / 'sql.env'} {SQL_IMAGE}",
+        f"6. bounded SQL readiness: docker exec {names.sql} sqlcmd (SQL 2022 + Developer edition)",
+        f"7. docker run -d --name {names.runner} --platform {PLATFORM} --network {names.network} --memory 4g --cpus 2 --mount type=volume,source={names.volume},target=/work --mount type=bind,source={source},target=/source,readonly --env-file {secrets_dir / 'runner.env'} {names.image}",
+        f"8. docker exec {names.runner} timeout 900 bash /source/tools/local-validation/run-stage.sh build",
+        f"9. docker exec {names.runner} timeout 1500 bash /source/tools/local-validation/run-stage.sh c1",
+        f"10. docker exec {names.runner} timeout 1500 bash /source/tools/local-validation/run-stage.sh crest",
+        f"11. docker exec {names.runner} timeout 1200 bash /source/tools/local-validation/run-stage.sh d",
+        f"12. docker exec {names.runner} timeout 600 bash /source/tools/local-validation/run-stage.sh e-release",
+        f"13. docker cp {names.runner}:/work/evidence/e/pilot {p / 'evidence/e'}",
+        f"14. validate release-*.json source against ^SaviaInternalTest_Pilot_[a-f0-9]{{32}}$ and all checks true",
+        f"15. docker stop {names.sql} && docker start {names.sql}; bounded readiness loop",
+        f"16. docker exec {names.runner} timeout 300 bash /source/tools/local-validation/run-stage.sh e-restart",
+        "    (the wrapper injects SAVIA_PILOT_PERSIST_DATABASE from the validated release-*.json; no manual step)",
+        f"17. docker cp {names.runner}:/work/evidence/. {p / 'evidence'} and docker logs (retained before teardown)",
+        f"18. docker rm --force {names.runner}; docker rm --force --volumes {names.sql}; docker network rm {names.network}; docker volume rm {names.volume}; read back absence",
+        "",
+        "BUDGETS: preparation <=15min; C <=25min; D <=20min; E <=15min; no automatic SQL retry.",
+        "EFFECTS: one owned image build, one owned network, one owned volume, two owned containers;",
+        "         network downloads for the image build and locked NuGet restore; loopback-only API inside the runner.",
+        "ROLLBACK: commands 18 plus removing the private directory; no host service, certificate or trust change.",
+    ]
+    return "\n".join(lines)
+
+
+def write_private_file(path: Path, text: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(text, encoding="utf-8", newline="\n")
+    try:
+        os.chmod(path, 0o600)
+    except OSError:
+        pass
+
+
+def export_source(config: Config) -> Path:
+    destination = config.private / "source"
+    destination.mkdir(parents=True, exist_ok=True)
+    archive = subprocess.run(["git", "-C", str(config.repo), "archive", "--format=tar",
+                              config.source_sha], capture_output=True)
+    if archive.returncode != 0:
+        raise RuntimeFailure("git archive failed for the frozen source SHA")
+    with tarfile.open(fileobj=io.BytesIO(archive.stdout), mode="r:") as tar:
+        for member in tar.getmembers():
+            pure = PurePosixPath(member.name)
+            if member.issym() or member.islnk():
+                raise RuntimeFailure("source archive contains a link")
+            if pure.is_absolute() or ".." in pure.parts:
+                raise RuntimeFailure("source archive contains an unsafe path")
+            if pure.parts and pure.parts[0] == ".git":
+                raise RuntimeFailure("source archive contains .git")
+            if pure.parts and pure.parts[0] in EXCLUDED_ROOTS:
+                raise RuntimeFailure("source archive contains a private export path")
+            if pure.name == ".env" or (pure.name.startswith(".env.") and not pure.name.endswith(".example")):
+                raise RuntimeFailure("source archive contains a dotenv file")
+            if member.mode & 0o170000 not in (0o100000, 0o040000):
+                raise RuntimeFailure("source archive contains a special file")
+        if hasattr(tarfile, "data_filter"):
+            tar.extractall(destination, filter="data")
+        else:
+            tar.extractall(destination)
+    for relative in REQUIRED:
+        if not (destination / relative).is_file():
+            raise RuntimeFailure(f"frozen source archive lacks {relative}")
+    return destination
+
+
+def generate_secrets(config: Config) -> str:
+    password = "Aa1!" + secrets.token_hex(24)
+    connection = (f"Server=sql,1433;Database=master;User ID=sa;Password={password};"
+                  "Encrypt=true;TrustServerCertificate=true;Connect Timeout=5;Pooling=false")
+    secrets_dir = config.private / "secrets"
+    write_private_file(secrets_dir / "sql.env", f"MSSQL_SA_PASSWORD={password}\n")
+    runner = [
+        f"MARTHA_TEST_SQL_CONNECTION={connection}",
+        f"MARTHA_INTERNAL_TEST_SQL_CONNECTION={connection}",
+        f"SAVIA_INTERNAL_TEST_SQL_CONNECTION={connection}",
+        "SAVIA_INTERNAL_SQL_TESTS_AUTHORIZED=1",
+        "SAVIA_INTERNAL_HTTP_SQL_TESTS_AUTHORIZED=1",
+        "SAVIA_PILOT_EVIDENCE=/work/evidence/e/pilot",
+        "DOTNET_CLI_TELEMETRY_OPTOUT=1",
+        "DOTNET_NOLOGO=1",
+        "HOME=/home/savia",
+    ]
+    write_private_file(secrets_dir / "runner.env", "\n".join(runner) + "\n")
+    return password
+
+
+def wait_sql(transport, names: Names, password: str, attempts: int = 60) -> None:
+    env = os.environ.copy()
+    env["SQLCMDPASSWORD"] = password
+    query = ("IF CONVERT(int, SERVERPROPERTY('ProductMajorVersion')) <> 16 "
+             "THROW 51000, 'Expected SQL Server 2022', 1; "
+             "IF CONVERT(nvarchar(128), SERVERPROPERTY('Edition')) NOT LIKE 'Developer%' "
+             "THROW 51001, 'Expected Developer edition', 1;")
+    for _ in range(attempts):
+        result = transport.mutate(
+            ["exec", "--env", "SQLCMDPASSWORD", names.sql,
+             "/opt/mssql-tools18/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-C",
+             "-l", "2", "-t", "3", "-b", "-Q", query],
+            timeout=30, env=env, check=False, capture=True)
+        if result.returncode == 0:
+            return
+        time.sleep(2)
+    raise RuntimeFailure("bounded SQL readiness window expired")
+
+
+def run_stage(transport, config: Config, names: Names, stage: str, budget: int,
+              extra_env=None) -> None:
+    args = ["exec"]
+    for key, value in (extra_env or {}).items():
+        args += ["-e", f"{key}={value}"]
+    args += [names.runner, "timeout", "--signal=TERM", "--kill-after=10",
+             str(budget), "bash", "/source/tools/local-validation/run-stage.sh", stage]
+    result = transport.mutate(args, timeout=budget + 60, capture=True, check=False)
+    write_private_file(config.private / "logs" / f"stage-{stage}.log",
+                       (result.stdout or "") + (result.stderr or ""))
+    if result.returncode != 0:
+        raise RuntimeFailure(f"stage {stage} failed; raw output retained privately")
+
+
+def discover_release(config: Config) -> str:
+    pilot = config.private / "evidence" / "e" / "pilot"
+    candidates = sorted(pilot.glob("release-*.json"), key=lambda path: path.stat().st_mtime)
+    if not candidates:
+        raise RuntimeFailure("E release metadata missing after the release test")
+    try:
+        data = json.loads(candidates[-1].read_text(encoding="utf-8"))
+    except (OSError, ValueError) as error:
+        raise RuntimeFailure("E release metadata is unreadable") from error
+    source = data.get("source")
+    if not isinstance(source, str) or not PILOT_DB.fullmatch(source):
+        raise RuntimeFailure("E release source database name failed the synthetic guard")
+    for key in ("restored", "throwaway_down"):
+        value = data.get(key)
+        if not isinstance(value, str) or not PILOT_DB.fullmatch(value) or value == source:
+            raise RuntimeFailure(f"E release metadata {key} failed the synthetic guard")
+    checks = data.get("checks")
+    if not isinstance(checks, dict) or not all(checks.get(key) is True for key in RELEASE_CHECKS):
+        raise RuntimeFailure("E release metadata does not prove the executed backup/restore checks")
+    return source
+
+
+def retain_diagnostics(transport, config: Config, names: Names) -> None:
+    evidence = config.private / "evidence"
+    evidence.mkdir(parents=True, exist_ok=True)
+    transport.mutate(["cp", f"{names.runner}:/work/evidence/.", str(evidence)],
+                     timeout=300, capture=True)
+    logs = config.private / "logs"
+    logs.mkdir(parents=True, exist_ok=True)
+    for name, label in ((names.runner, "runner"), (names.sql, "sql")):
+        result = transport.mutate(["logs", name], timeout=120, capture=True, check=False)
+        write_private_file(logs / f"{label}.log", result.stdout or "")
+    entries = []
+    for path in sorted(evidence.rglob("*")):
+        if path.is_file():
+            entries.append({"path": path.relative_to(config.private).as_posix(),
+                            "sha256": hashlib.sha256(path.read_bytes()).hexdigest()})
+    write_private_file(config.private / "retention.json",
+                       json.dumps({"schema": 1, "scope": config.scope, "files": entries},
+                                  indent=2) + "\n")
+
+
+def teardown(transport, names: Names) -> list[str]:
+    transport.mutate(["rm", "--force", names.runner], timeout=120, check=False, capture=True)
+    transport.mutate(["rm", "--force", "--volumes", names.sql], timeout=120, check=False, capture=True)
+    transport.mutate(["network", "rm", names.network], timeout=120, check=False, capture=True)
+    transport.mutate(["volume", "rm", names.volume], timeout=120, check=False, capture=True)
+    remaining = []
+    for label, query, name in (
+            ("container", transport.container_exists, names.runner),
+            ("container", transport.container_exists, names.sql),
+            ("network", transport.network_exists, names.network),
+            ("volume", transport.volume_exists, names.volume)):
+        state = query(name)
+        if state is None or state:
+            remaining.append(f"{label} {name}")
+    return remaining
+
+
+def execute(config: Config, transport) -> int:
+    findings = preflight(config, transport, strict=True)
+    if plan_status(findings) == "BLOCKED":
+        for level, message in findings:
+            if level == "block":
+                print(f"BLOCKED: {message}", file=sys.stderr)
+        return 1
+    names = resource_names(config.scope)
+    config.private.mkdir(parents=True, exist_ok=True)
+    stage = "preparation"
+    try:
+        started = time.monotonic()
+        source = export_source(config)
+        password = generate_secrets(config)
+        transport.mutate(["build", "--platform", PLATFORM, "-t", names.image,
+                          "-f", str(config.repo / "tools/local-validation/Dockerfile"),
+                          str(config.repo / "tools/local-validation")], timeout=PREP_BUDGET)
+        transport.mutate(["network", "create", "--driver", "bridge",
+                          "--label", f"savia-local-owned={config.scope}", names.network], timeout=120)
+        transport.mutate(["volume", "create", "--label", f"savia-local-owned={config.scope}",
+                          names.volume], timeout=120)
+        transport.mutate(["run", "-d", "--name", names.sql, "--platform", PLATFORM,
+                          "--network", names.network, "--network-alias", "sql",
+                          "--memory", "4g", "--cpus", "2",
+                          "--env", "ACCEPT_EULA=Y", "--env", "MSSQL_PID=Developer",
+                          "--env-file", str(config.private / "secrets" / "sql.env"),
+                          SQL_IMAGE], timeout=300)
+        wait_sql(transport, names, password)
+        transport.mutate(["run", "-d", "--name", names.runner, "--platform", PLATFORM,
+                          "--network", names.network, "--memory", "4g", "--cpus", "2",
+                          "--mount", f"type=volume,source={names.volume},target=/work",
+                          "--mount", f"type=bind,source={source},target=/source,readonly",
+                          "--env-file", str(config.private / "secrets" / "runner.env"),
+                          names.image], timeout=300)
+        if time.monotonic() - started > PREP_BUDGET:
+            raise RuntimeFailure("preparation budget exceeded")
+
+        stage = "C"
+        run_stage(transport, config, names, "build", 900)
+        run_stage(transport, config, names, "c1", C_BUDGET)
+        run_stage(transport, config, names, "crest", C_BUDGET)
+
+        stage = "D"
+        run_stage(transport, config, names, "d", D_BUDGET)
+
+        stage = "E"
+        run_stage(transport, config, names, "e-release", 600)
+        transport.mutate(["cp", f"{names.runner}:/work/evidence/e/pilot",
+                          str(config.private / "evidence" / "e")], timeout=300, capture=True)
+        database = discover_release(config)
+        transport.mutate(["stop", names.sql], timeout=120)
+        transport.mutate(["start", names.sql], timeout=120)
+        wait_sql(transport, names, password)
+        run_stage(transport, config, names, "e-restart", 300,
+                  extra_env={"SAVIA_PILOT_PERSIST_DATABASE": database})
+
+        stage = "retention"
+        retain_diagnostics(transport, config, names)
+        remaining = teardown(transport, names)
+        if remaining:
+            print("Cleanup readback failed: " + ", ".join(remaining), file=sys.stderr)
+            return 1
+        print("PASS: C77, D and E2 completed; diagnostics retained; owned resources absent.")
+        return 0
+    except RuntimeFailure as error:
+        print(f"STOP at {stage}: {error}", file=sys.stderr)
+        try:
+            retain_diagnostics(transport, config, names)
+        except Exception:
+            print("WARNING: diagnostics retention failed.", file=sys.stderr)
+        remaining = teardown(transport, names)
+        if remaining:
+            print("Cleanup readback failed: " + ", ".join(remaining), file=sys.stderr)
+        return 1
+
+
+def parse_args(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--plan", action="store_true", help="read-only plan (default)")
+    mode.add_argument("--execute", action="store_true", help="run the campaign; requires --scope")
+    parser.add_argument("--scope", help="exact scope identifier; safety interlock only")
+    parser.add_argument("--source-sha", default=SOURCE_SHA)
+    parser.add_argument("--repo", default=str(Path(__file__).resolve().parents[1]))
+    parser.add_argument("--private-dir")
+    parser.add_argument("--docker", default="docker")
+    return parser.parse_args(argv)
+
+
+def main(argv=None) -> int:
+    args = parse_args(argv)
+    repo = Path(args.repo).resolve()
+    private = Path(args.private_dir) if args.private_dir else repo / "private-exports" / "runtime-entry-20261107"
+    if not re.fullmatch(r"[a-f0-9]{40}", args.source_sha):
+        print("REFUSED: --source-sha must be a full 40-hex commit id; nothing was run.", file=sys.stderr)
+        return 2
+    scope = args.scope or expected_scope(args.source_sha)
+    config = Config(repo=repo, source_sha=args.source_sha, scope=scope,
+                    execute=bool(args.execute), private=private, docker=args.docker)
+    transport = DockerTransport(args.docker)
+    if not config.execute:
+        findings = preflight(config, transport)
+        print(render_plan(config, findings))
+        return 0
+    if not args.scope:
+        print("REFUSED: --execute requires the exact --scope identifier; nothing was run.", file=sys.stderr)
+        return 2
+    if config.scope != expected_scope(config.source_sha):
+        print("REFUSED: scope identifier does not match the frozen source SHA; nothing was run.",
+              file=sys.stderr)
+        return 2
+    return execute(config, transport)
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

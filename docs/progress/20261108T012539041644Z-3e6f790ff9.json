@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-08T01:25:39.041644+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "37ba5bcf562469c32663e1b619c2dfe473ce9b9f"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "change": "M",
+      "git_blob": "ccdf72a285c9145848807632eb8a9563e0b525e5"
+    },
+    {
+      "path": "docs/session-csrf-20261107/README.md",
+      "change": "M",
+      "git_blob": "78e4809043cae6dea9838b3d95122e787bf8fee3"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

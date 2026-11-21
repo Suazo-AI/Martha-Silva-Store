@@ -1,0 +1,36 @@
+{
+  "base": "6aeb9a35f45331ace85ac48dc19bfd9264b0f722",
+  "files": [
+    {
+      "path": "tests/golden-path/golden_path.py",
+      "worker_sha256": "e420885d49e066ca50cf6582d574149eb847338813362040c72bf92dbd9072fb",
+      "integrated_checkout_sha256": "e420885d49e066ca50cf6582d574149eb847338813362040c72bf92dbd9072fb",
+      "text_match": true
+    },
+    {
+      "path": "tests/golden-path/browser_path.mjs",
+      "worker_sha256": "60e9c9a636dac13149a57449247edce1491c842d727936d6d8e2e760bb5a7aaf",
+      "integrated_checkout_sha256": "165b0e8df0a1bbb9889ac44bae6fc74abbdc3192d3e5badf35dd57b609360d82",
+      "text_match": true
+    },
+    {
+      "path": "tests/test_golden_path_browser_safety.py",
+      "worker_sha256": "fbf94d089f5815f28e1d214292175ea9153d0e1806c8fa6a805ce193b9665fa7",
+      "integrated_checkout_sha256": "0a8cec1eb9a1f3be08324c8bf95b8c847769bae080d6b15566a042650c90294a",
+      "text_match": true
+    },
+    {
+      "path": "tests/golden-path/README.md",
+      "worker_sha256": "2e1cf928279e97a267080952d73cd24756550fc259db59aae3621cf2a9ba4322",
+      "integrated_checkout_sha256": "2e1cf928279e97a267080952d73cd24756550fc259db59aae3621cf2a9ba4322",
+      "text_match": true
+    }
+  ],
+  "local_safety_checks": {
+    "passed": 33,
+    "failed": 0,
+    "skipped": 0
+  },
+  "real_ci": "PENDING",
+  "preserved_initial_failed_run": 41757409404
+}

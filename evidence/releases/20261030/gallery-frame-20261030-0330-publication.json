@@ -1,0 +1,45 @@
+{
+  "task_id": "cutufay-denis-gallery-frame-20261030-0330",
+  "status": "published_with_new_direct_user_authorization_despite_visual_qa_pending",
+  "verified_utc": "2026-10-30T04:50:51.038101+00:00",
+  "worker": "martha-silva-preview",
+  "url": "https://martha-silva-preview.martha-silva-denis.workers.dev/",
+  "commit": "7b3ce6416b5bec190eaf8a504d48fc9dd0f76933",
+  "published_at_utc": "2026-10-30T04:50:10.505111Z",
+  "version": "601268a3-81ce-4277-a8ef-cb2e84d2fbb1",
+  "deployment": "3abb96e2-6a47-4b3e-b07e-a4aec258468f",
+  "percentage": 100,
+  "changed": {
+    "app.js": {
+      "bytes": 87805,
+      "sha256": "40cb7c411d9bf52ae4de19ac79b34a9ad43b6f0d0977fdcc90e96446e45e3da3",
+      "baseline_sha256": "18a3ce0dcc76df48ab6bc3a838abc696abcc917f3e98f98af5a4ec7d2b2e2bc7",
+      "upload_hash": "506f5cd22b88a4d9374c81abfa8d3a17"
+    },
+    "styles.css": {
+      "bytes": 70063,
+      "sha256": "9d7cb94e0e57c89fa884294de04a0baf8bfd1362ddc4de9a45aa2939a79ca679",
+      "baseline_sha256": "01769418100505f06f86b545a30d20e3bd953eb208b3a2b5fd838849134597d6",
+      "upload_hash": "7b24f172e3bf6a90cfed24a332c06cb2"
+    }
+  },
+  "public_files": 1081,
+  "unchanged_manifest_entries": 1079,
+  "media_regenerated": false,
+  "configuration_preserved": true,
+  "rollback": {
+    "version": "a29e4d01-d512-4ac5-98b0-80aec872a70b",
+    "deployment": "0448a761-19d3-4147-a39a-5e4281cf70f2"
+  },
+  "validation": {
+    "syntax": "PASS",
+    "diff": "PASS",
+    "hashes": "PASS",
+    "functional_mock": "11/11 PASS; not browser QA",
+    "visual_browser_qa": "NOT_COMPLETED; new direct user authorization to publish after disclosure",
+    "safari_real": "NOT_RUN",
+    "judge": "HOLD_VISUAL_NOT_CHANGED",
+    "postpublish_visual": "NOT_RUN",
+    "postpublish_api": "PASS"
+  }
+}

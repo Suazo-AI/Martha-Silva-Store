@@ -1,0 +1,5 @@
+{
+  "rawSha256": "e5e48a278dfda8b08f229c502c017da470ad0a837b0a549b9dea8f856bf60605",
+  "lfSha256": "551380578e594f475240bb47bcdf776b24a9c89577db8e9bd5da2e01d1ff477a",
+  "cause": "Focused checker read_text normalized CRLF. Compare frozen LF bytes; all CSS properties still exact after removing only WOFF2 additions."
+}

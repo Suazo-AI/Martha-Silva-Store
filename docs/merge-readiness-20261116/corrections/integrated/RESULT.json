@@ -1,0 +1,230 @@
+{
+  "base": "ba8ff2ba10935e99fc268ebbe5eae130f72c1cca",
+  "host": "SUAZO-PC",
+  "scope": "Fresh canonical integrated check after staff/workflow/UUID corrections, before return implementation",
+  "repositoryCheck": {
+    "command": [
+      "python",
+      "tests/check.py"
+    ],
+    "exit": 1,
+    "seconds": 128.25,
+    "log": "private-exports/merge-readiness-20261116/corrections/integrated/repository-check.log",
+    "sha256": "36314c3be812922a53ba60644394919886f4d68cbcf095f35d37e8b35f24aad4"
+  },
+  "remainingChecks": [
+    {
+      "name": "portable-runner",
+      "command": [
+        "C:\\Users\\Jason\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+        "tests/test_check.py"
+      ],
+      "exit": 0,
+      "seconds": 0.609,
+      "log": "private-exports/merge-readiness-20261116/corrections/integrated/portable-runner.log",
+      "sha256": "4d98071e334915cbcf1b536a25c9d707b053766e990a694c1539cffb2bcb876b"
+    },
+    {
+      "name": "sync-guard",
+      "command": [
+        "C:\\Users\\Jason\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+        "tests/test_sync_progress.py"
+      ],
+      "exit": 0,
+      "seconds": 0.313,
+      "log": "private-exports/merge-readiness-20261116/corrections/integrated/sync-guard.log",
+      "sha256": "911b26e4da678d98f34eee650aaa6e084bc1faaaf245ac2daaeb5bd8976c1478"
+    },
+    {
+      "name": "delivery-regression",
+      "command": [
+        "C:\\Users\\Jason\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+        "tests/test_delivery_status.py"
+      ],
+      "exit": 0,
+      "seconds": 0.563,
+      "log": "private-exports/merge-readiness-20261116/corrections/integrated/delivery-regression.log",
+      "sha256": "12379d3326576956f64a831033efb4fa2df9faf6c3600ed40cf9cf44eb1ea44d"
+    },
+    {
+      "name": "delivery-digest",
+      "command": [
+        "C:\\Users\\Jason\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+        "tools/delivery_status.py",
+        "--check"
+      ],
+      "exit": 0,
+      "seconds": 0.172,
+      "log": "private-exports/merge-readiness-20261116/corrections/integrated/delivery-digest.log",
+      "sha256": "2cbd72168e48a031ea75d2d7ccdfcaac53c270fa6ac915c072d07fd0be5883e0"
+    },
+    {
+      "name": "catalog-staging",
+      "command": [
+        "C:\\Users\\Jason\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+        "tests/catalog-staging.py"
+      ],
+      "exit": 1,
+      "seconds": 0.718,
+      "log": "private-exports/merge-readiness-20261116/corrections/integrated/catalog-staging.log",
+      "sha256": "b87fa4791a8ba10bcf3dc4f2dbe998fcf9cb5e3e26e3643639ae341a26ce4a8b"
+    },
+    {
+      "name": "frontend-dom",
+      "command": [
+        "node",
+        "tests/frontend-runtime.cjs"
+      ],
+      "exit": 0,
+      "seconds": 24.953,
+      "log": "private-exports/merge-readiness-20261116/corrections/integrated/frontend-dom.log",
+      "sha256": "bd23efc107281f32ce1f92875ad1d34063ff43dff14b40cff9b243f67f4097a8"
+    },
+    {
+      "name": "localization-dom",
+      "command": [
+        "node",
+        "tests/localization-runtime.cjs"
+      ],
+      "exit": 0,
+      "seconds": 41.031,
+      "log": "private-exports/merge-readiness-20261116/corrections/integrated/localization-dom.log",
+      "sha256": "0057997eb70660096b4e0b654521a45ab9d25ca852f0c0e6625a049922349217"
+    },
+    {
+      "name": "structure",
+      "command": [
+        "C:\\Users\\Jason\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+        "tests/structure.py"
+      ],
+      "exit": 0,
+      "seconds": 5.391,
+      "log": "private-exports/merge-readiness-20261116/corrections/integrated/structure.log",
+      "sha256": "4416c3fddecccca779b2529f067892c0b61cf5a8445f2962f995c64a25e2514b"
+    },
+    {
+      "name": "javascript-syntax",
+      "command": [
+        "node",
+        "--check",
+        "<each src/dist/tests JS file>"
+      ],
+      "exit": 0,
+      "files": 20,
+      "seconds": 1.046,
+      "log": "private-exports/merge-readiness-20261116/corrections/integrated/javascript-syntax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "results": [
+        {
+          "path": "dist/app.js",
+          "exit": 0
+        },
+        {
+          "path": "dist/catalog.js",
+          "exit": 0
+        },
+        {
+          "path": "dist/demo-api.js",
+          "exit": 0
+        },
+        {
+          "path": "dist/i18n.js",
+          "exit": 0
+        },
+        {
+          "path": "dist/integration-adapters.js",
+          "exit": 0
+        },
+        {
+          "path": "dist/locale-en.js",
+          "exit": 0
+        },
+        {
+          "path": "src/app.js",
+          "exit": 0
+        },
+        {
+          "path": "src/demo-api.js",
+          "exit": 0
+        },
+        {
+          "path": "src/integration-adapters.js",
+          "exit": 0
+        },
+        {
+          "path": "tests/backend.cjs",
+          "exit": 0
+        },
+        {
+          "path": "tests/catalog-migration.cjs",
+          "exit": 0
+        },
+        {
+          "path": "tests/desktop-gallery.cjs",
+          "exit": 0
+        },
+        {
+          "path": "tests/frontend-runtime.cjs",
+          "exit": 0
+        },
+        {
+          "path": "tests/gallery-browser-contracts.cjs",
+          "exit": 0
+        },
+        {
+          "path": "tests/green-header.cjs",
+          "exit": 0
+        },
+        {
+          "path": "tests/integration-adapters.test.js",
+          "exit": 0
+        },
+        {
+          "path": "tests/localization-runtime.cjs",
+          "exit": 0
+        },
+        {
+          "path": "tests/luxury-editorial.cjs",
+          "exit": 0
+        },
+        {
+          "path": "tests/original-catalog.cjs",
+          "exit": 0
+        },
+        {
+          "path": "tests/product-share.cjs",
+          "exit": 0
+        }
+      ]
+    }
+  ],
+  "result": "LOCAL_ENVIRONMENT_BLOCKED_NOT_ACCEPTED",
+  "environmentBlocker": {
+    "error": "OSError: [WinError 1314] A required privilege is not held by the client",
+    "affected": [
+      "tests/asset-audit.py: three symlink fixture errors",
+      "tests/catalog-staging.py: two symlink fixture errors"
+    ],
+    "cause": "Current Windows process cannot create the required symbolic links. Product behavior was not reached in these failing fixtures.",
+    "attempt": "One aggregate execution and one separate catalog-staging execution; no test weakening or Windows security changes. Other stages executed separately.",
+    "owner": "Primary",
+    "nextAction": "Verify these intact fixtures and the complete aggregate in the next explicitly authorized Linux CI run on the corrected candidate.",
+    "doneWhen": "Both fixture suites and complete repository check exit 0 on the exact candidate."
+  },
+  "freshPassingCounts": {
+    "portableRunner": 7,
+    "syncGuard": 16,
+    "deliveryRegression": 24,
+    "frontendDom": 29,
+    "localizationDom": 17,
+    "structurePages": 47,
+    "javascriptSyntaxFiles": 20
+  },
+  "notRun": [
+    "Return correction integrated checks",
+    "Fresh SQL/API/browser runtime",
+    "Fresh exact-candidate CI",
+    "Commit/push/merge/deploy"
+  ],
+  "privateLogs": "Private logs remain ignored; hashes and relative paths identify the evidence without publishing raw diagnostics."
+}

@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-07T09:06:50.842975+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "c7516f80853be51d96b26a1cb85e3bb40d2da8da"
+    },
+    {
+      "path": "docs/local-validation-20261106/docker-resolution-20261107.md",
+      "change": "A",
+      "git_blob": "94cee2b850a65d85b20b345655183c753057467f"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

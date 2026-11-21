@@ -1,0 +1,52 @@
+{
+  "task_id": "savia-ux-navigation-20261116",
+  "base_sha": "2c96904f49d2df913850bc13cf53b3b03ceebacf",
+  "files": [
+    {
+      "path": "savia/web/roles.mjs",
+      "sha256": "659ce5bdbc925a3ecfb0e34a4ccb9ae570ea246d8cfa3d7d8b586d239d37e934"
+    },
+    {
+      "path": "savia/web/app.mjs",
+      "sha256": "08d3745d61046d2bb478e0d779426497676214fd71bf2893f75224f4ce9102b2"
+    },
+    {
+      "path": "savia/web/app.css",
+      "sha256": "7170934adb17dce102714b9097cfe510f563ef625f6d7002a373f86c8ce8d6ad"
+    },
+    {
+      "path": "savia/web/screens/history.mjs",
+      "sha256": "5cf189009921db861fdec6c0b78c202a34f6d0922adae35bcf6a07961b95cbf5"
+    },
+    {
+      "path": "savia/web/tests/navigation-ux.test.mjs",
+      "sha256": "33a13b6a97d79b25190391ff9d2e6deb1ba7f2d4e4df81f2a2d0f2162e0d3047"
+    }
+  ],
+  "before_source": [
+    {
+      "path": "savia/web/roles.mjs",
+      "captured_sha256": "2f7217ffa61e3f9ffd2ddd79ebb3ab7d1ac134721e850001b4b62c4b15eb1213",
+      "git_blob_sha256": "2f7217ffa61e3f9ffd2ddd79ebb3ab7d1ac134721e850001b4b62c4b15eb1213",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "path": "savia/web/app.mjs",
+      "captured_sha256": "ae9bb736a27e9afc2c7bfd1cc95c81f187361aa6b89b56fcd2028d94d724b309",
+      "git_blob_sha256": "ae9bb736a27e9afc2c7bfd1cc95c81f187361aa6b89b56fcd2028d94d724b309",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "path": "savia/web/app.css",
+      "captured_sha256": "ad74aab89ef7c379e6ff2b570d017ccb5a7fb19f2f4e418eb0955ebb6537a7a2",
+      "git_blob_sha256": "02978616544077c48ee689f874d9f71c9c08e1587c349bd59c04a8984be88ad5",
+      "equal_after_CRLF_normalization": true
+    },
+    {
+      "path": "savia/web/screens/history.mjs",
+      "captured_sha256": "0beec5f3106dda9c44c66de12a60af2450d96e7495797ffeb78289e6786da945",
+      "git_blob_sha256": "0beec5f3106dda9c44c66de12a60af2450d96e7495797ffeb78289e6786da945",
+      "equal_after_CRLF_normalization": true
+    }
+  ]
+}

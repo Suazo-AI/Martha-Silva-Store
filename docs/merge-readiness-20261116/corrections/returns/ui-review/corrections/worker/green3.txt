@@ -1,0 +1,23 @@
+✔ lost response freezes immutable intent through edit and remount; 404 never unlocks (69.2325ms)
+✔ account switch while confirmation is held cannot POST (4.8234ms)
+✔ explicit replay after 404 keeps exact body; malformed 200 stays unresolved (11.3009ms)
+✔ wrong IDs, lines, credit, till and malformed receipt cannot confirm (9.6225ms)
+✔ storage denied, corrupt, and missing Web Locks block sending (5.5215ms)
+✔ double submit while confirmation held sends zero; cancel removes never sent draft (4.9655ms)
+✔ foreign actor recovery is generic and loads no dependencies (3.2339ms)
+✔ late POST and lookup cannot render or clear after retirement (6.112ms)
+✔ competing mounts cannot replace durable reservation; readback failure and tamper fail closed (3.9586ms)
+✔ all supported outcomes reserve complete bodies and preserve exact replay (12.9341ms)
+✔ temporary approval revoked on failed POST and late approval; cashier session retained (10.9825ms)
+✔ cancelled approval cannot close or authorize a replacement dialog (3.3132ms)
+✔ held origin lock rejects a competing mount submit without allocating or sending (2.818ms)
+✔ F2 rejects malformed reversal fields independently (18.1588ms)
+✔ F1 exact successful exchange POST and explicit replay confirm durably (6.098ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 365.178

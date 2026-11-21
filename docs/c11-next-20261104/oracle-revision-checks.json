@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "task_id": "C11-N5-01-20261104",
+  "base": "4f0602658141023be14cf294b6192a413aaaf8ae",
+  "reason": "Independent review found Staff/Sessions/BranchAssignmentAudit were excluded while judging unauthorized requests.",
+  "correction": {
+    "after_owner_put": "Capture all19-table fingerprint; require exact equality after each of three original-cookie401 requests.",
+    "after_login_b": "Capture all19-table fingerprint; require exact equality after me200, receiptA404, saleA403 and each allowed location/inventory/sales read.",
+    "business_only_fingerprint": "Retained for comparisons spanning authorized PUT/login and the positive B business delta.",
+    "new_fact_count": 1,
+    "backend_minimum": 601,
+    "product_changed": false
+  },
+  "verification": [
+    {
+      "command": "C:/Users/Jason/.dotnet-sdk-10.0.402/dotnet.exe build backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj --no-restore --configuration Release",
+      "exit_code": 0,
+      "observed": "Build succeeded. 0 Warning(s). 0 Error(s).",
+      "elapsed_ms": 7850
+    },
+    {
+      "command": "git diff --cached --check",
+      "exit_code": 0,
+      "observed": "No whitespace errors."
+    }
+  ],
+  "source_sha256": "9fbc9e14133b2f6601d7a0246a32cdb5045d4679cf7d84269dd801adfb2901ca",
+  "workflow_sha256": "9e6cde2d6410d21affee21a29e7a2a35881beef0618d3f1fc59b4391448cd9cd",
+  "not_repeated": [
+    "Progress23 tests; publication logic unchanged.",
+    "Ledger/export tests; ledger and frozen export unchanged."
+  ],
+  "not_run": [
+    "HTTP+SQL regression locally",
+    "API/SQL/Docker/browser runtime locally",
+    "Candidate CI and final independent verdict"
+  ]
+}

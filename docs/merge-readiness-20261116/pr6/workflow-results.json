@@ -1,0 +1,128 @@
+﻿{
+  "checks": [
+    {
+      "case": "Tony backend exactly matches historical PR2 base",
+      "result": "PASS"
+    },
+    {
+      "case": "existing SQL job unchanged",
+      "result": "PASS"
+    },
+    {
+      "case": "all existing build guard steps preserved",
+      "result": "PASS"
+    },
+    {
+      "case": "original build runner and timeout retained",
+      "result": "PASS"
+    },
+    {
+      "case": "build requires new gate",
+      "result": "PASS"
+    },
+    {
+      "case": "verifier only receives read permissions",
+      "result": "PASS"
+    },
+    {
+      "case": "no checkout or exemption inputs in verifier job",
+      "result": "PASS"
+    },
+    {
+      "case": "body edits rerun verifier",
+      "result": "PASS"
+    },
+    {
+      "case": "main push and manual triggers unchanged",
+      "result": "PASS"
+    },
+    {
+      "case": "repo shell opt-in disabled and repair budgets zero",
+      "result": "PASS"
+    },
+    {
+      "case": "repair revalidation on and transient retries off",
+      "result": "PASS"
+    },
+    {
+      "case": "intent and media publishing disabled",
+      "result": "PASS"
+    }
+  ],
+  "total": 12,
+  "bindings": [
+    {
+      "commit": "c62d8286e8c3a612d305484d918467c66effb6b4",
+      "path": ".github/workflows/backend.yml",
+      "git_blob": "baf6e6a4d5cfec1474c3c0365debffe80d184d1a",
+      "sha256": "654643d5ae732df84b1050fd3cb5e27f67b73b8afc42b154b253336203116425"
+    },
+    {
+      "commit": "c62d8286e8c3a612d305484d918467c66effb6b4",
+      "path": ".no-mistakes.yaml",
+      "git_blob": "03fbe27eef344c55f5858fd139671b9141d336f0",
+      "sha256": "38768eb0ccc0fa2256f23c79b7c9639c73b431753d9f61d03a5d51c1c16f67c2"
+    },
+    {
+      "commit": "c62d8286e8c3a612d305484d918467c66effb6b4",
+      "path": "docs/NO-MISTAKES.md",
+      "git_blob": "fe0e77361f36c981bfede026abe0f797d2343b41",
+      "sha256": "a62eea0a5b0e2f1e5e442c7293a411bd314b3abd785877a77c3633acf38d4028"
+    },
+    {
+      "commit": "c62d8286e8c3a612d305484d918467c66effb6b4",
+      "path": "docs/no-mistakes.example.yaml",
+      "git_blob": "d280fe69683c493ee4b90bbb2f85d73db7aff010",
+      "sha256": "1d83cd1bea096e4946debb4011debdc0ad4c2efcfcef9a024124c852df636c3e"
+    },
+    {
+      "commit": "c62d8286e8c3a612d305484d918467c66effb6b4",
+      "path": "tools/install-no-mistakes.ps1",
+      "git_blob": "14e8b9f4220b75e42b22461737ed03fa9f6b22cd",
+      "sha256": "03bb3f7730e4c0f2a521ed6cfe603790dc057ecb324fbcdf7022cdc1124eec41"
+    },
+    {
+      "commit": "51bbea4891cef23129be07cb4bab17e1247db5c5",
+      "path": ".github/workflows/backend.yml",
+      "git_blob": "8ee72d61ee4592f35154eb59c4cd4f14c0f38d3d",
+      "sha256": "cc61b3e29b3de839b92bbf28f08866d702c1999408bdb77cf46df34e03f61633"
+    },
+    {
+      "commit": "51bbea4891cef23129be07cb4bab17e1247db5c5",
+      "path": "docs/NO-MISTAKES.md",
+      "git_blob": "f70c52e6af73275bbe6ddea0ee09207120053ef3",
+      "sha256": "7aba94eb7469df2d8205032930f0e7ea57f83ca635aae30d39909132c96cd3de"
+    },
+    {
+      "commit": "51bbea4891cef23129be07cb4bab17e1247db5c5",
+      "path": "docs/no-mistakes.example.yaml",
+      "git_blob": "f6ea04f64e69f2b485cfdc0d0bf32b784c78356e",
+      "sha256": "27b76d79644b85bf041cfda017f6ca3176ab240da841c981474b69b499772e18"
+    },
+    {
+      "commit": "51bbea4891cef23129be07cb4bab17e1247db5c5",
+      "path": ".github/workflows/savia.yml",
+      "git_blob": "3ca40f3c8a9c78d0df758df3d8dfe0888a190ebe",
+      "sha256": "620c32c45d9ffaf1f84bd68d4de1781f1ea4064ab97cb80f6d11411f0f3d4b53"
+    },
+    {
+      "commit": "51bbea4891cef23129be07cb4bab17e1247db5c5",
+      "path": ".github/workflows/golden-path.yml",
+      "git_blob": "7e790f351d8cbd5003a387fbd73c83962745f224",
+      "sha256": "670a9567fa85d344c0e96c13104d2c00fbff912f14ee9ba828288453f7911c3e"
+    },
+    {
+      "commit": "51bbea4891cef23129be07cb4bab17e1247db5c5",
+      "path": ".github/workflows/ci.yml",
+      "git_blob": "86ed3351169fc5c5b94a5eee28ef624b712e88fd",
+      "sha256": "945e054c8f1d50a972a0c61a2019ec394621df71c9dedfd75a38e198bc0682fd"
+    },
+    {
+      "commit": "51bbea4891cef23129be07cb4bab17e1247db5c5",
+      "path": ".github/workflows/progress-digest.yml",
+      "git_blob": "f44853adc1fcd2ed4ba6dd75375267479a9a5107",
+      "sha256": "54b069acb7e9931340b9a23db8bd13c8b2ae1a2aea70e748415020216aac3eb5"
+    }
+  ],
+  "runner_execution": "NOT RUN"
+}

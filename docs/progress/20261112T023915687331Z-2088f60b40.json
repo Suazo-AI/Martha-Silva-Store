@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-12T02:39:15.687331+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/delivery-20261111/PAQUETE-PRUEBA.md",
+      "change": "A",
+      "git_blob": "ef1315d94c62e900714a25bdd9d2a325c28b1662"
+    },
+    {
+      "path": "tools/test-package/LEEME.md",
+      "change": "A",
+      "git_blob": "da29a45d8bbfe9bf09d37af823b0aac23e0dbba9"
+    },
+    {
+      "path": "tools/test-package/comun.ps1",
+      "change": "A",
+      "git_blob": "d5f40dcb4fc52c7b5064eaee4aa3a6bfc5271374"
+    },
+    {
+      "path": "tools/test-package/crear-owner.cmd",
+      "change": "A",
+      "git_blob": "1fef8bca7fc1f832ac179d85a808f4502c6a0a03"
+    },
+    {
+      "path": "tools/test-package/crear-owner.ps1",
+      "change": "A",
+      "git_blob": "e4a5d800c1faec8132cef8d8fd0d2992945c5cf3"
+    },
+    {
+      "path": "tools/test-package/download-worker/cloudflare.config.ts",
+      "change": "A",
+      "git_blob": "fa839ff707cd3d9fb6c7abed7de1651211aa1142"
+    },
+    {
+      "path": "tools/test-package/download-worker/public/_headers",
+      "change": "A",
+      "git_blob": "d518200395988c18942e40c598c154deabcb6dfc"
+    },
+    {
+      "path": "tools/test-package/download-worker/public/index.html",
+      "change": "A",
+      "git_blob": "76c495fd66c5188d6cdbd1441c473cbbd8ca89f9"
+    },
+    {
+      "path": "tools/test-package/download-worker/wrangler.config.ts",
+      "change": "A",
+      "git_blob": "e96b793f84ae7f0e32f1a0d6095fafcea12c08a0"
+    },
+    {
+      "path": "tools/test-package/iniciar.cmd",
+      "change": "A",
+      "git_blob": "9cd039d8f72aa9811f7908c841ef8647167e9ed4"
+    },
+    {
+      "path": "tools/test-package/iniciar.ps1",
+      "change": "A",
+      "git_blob": "1743142bc9d5170244845f99ee812824290c9577"
+    },
+    {
+      "path": "tools/test-package/reset-config.cmd",
+      "change": "A",
+      "git_blob": "60a8cb56f98aed20a80571f417874773e6a0e9f1"
+    },
+    {
+      "path": "tools/test-package/reset-config.ps1",
+      "change": "A",
+      "git_blob": "9c356af4135e1e8f496a643249c609e52db56ca3"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

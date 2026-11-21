@@ -1,0 +1,9 @@
+{
+  "path": "docs/release-20261105/responsive-followup/driver.mjs",
+  "originalSha256": "c8eb8d82d6c447feb9043ef3d329036ab14424751dc9d9246b265a6c9638acda",
+  "correctedSha256": "8cd66831dcf3d0cf075fa256b68fb5d4700dc8e2d6902d12cc049601e220bf83",
+  "recordedSourceArchive": "docs/release-20261105/responsive-integration/driver-recorded.mjs",
+  "archiveSha256": "c8eb8d82d6c447feb9043ef3d329036ab14424751dc9d9246b265a6c9638acda",
+  "newBrowserRun": false,
+  "reason": "R2: preserve original executed source; correct task/checkout attribution, self binding and reject overwrite of frozen phase output for future execution."
+}

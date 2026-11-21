@@ -1,0 +1,9 @@
+{
+  "historical_date": "2026-10-28",
+  "outcomes": {
+    "Passed": 581
+  },
+  "source_sha256": "a3834910b19c9f20a152ba7f05a29c474fac67c77ecb04a43f89e80f22610f33",
+  "rerun_for_this_publication": false,
+  "limit": "Historical source-specific backend result; not current runtime acceptance."
+}

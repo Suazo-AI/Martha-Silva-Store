@@ -1,0 +1,57 @@
+{
+  "observedUtc": "2026-11-04T01:28:54.040847+00:00",
+  "status": "PASS_LOCAL_PENDING_PRIMARY_REVIEW_AND_CI",
+  "head": "775f301bc195c43baedc68c86f4e71affe92ef95",
+  "branch": "task/c8-api-expiry-20261103",
+  "newTest": {
+    "label": "expiry-test",
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "rawTrxSha256": "53eb6b43b71f9a9bcdbc0e988907451601262e3985e3d0349c8652c1e0e9703c",
+    "tests": [
+      {
+        "name": "Martha.Store.Api.Tests.InternalSecurityTests.Expired_cookie_is_rejected_by_fake_TimeProvider_before_database_resolution",
+        "outcome": "Passed",
+        "duration": "00:00:14.2528814"
+      }
+    ],
+    "sanitizedTrxSha256": "0666601786ac1e5bb548865f737fbf65d40124ddbc94fb0947f290d0649b9cd9"
+  },
+  "regressions": {
+    "label": "security-regressions",
+    "total": 49,
+    "passed": 49,
+    "failed": 0,
+    "skipped": 0,
+    "rawTrxSha256": "35019535a5d0e11b450256465e2d8f8708fbb3b57ea6cf92e126157c6a2887f9",
+    "sanitizedTrxSha256": "28c1d1fb4aa1706b9e2b472b665f857199c001e8f264f21897f3ac9d655ee12d"
+  },
+  "assertionsVerified": {
+    "ticketRoundtripValid": true,
+    "issuedUtc": "2026-10-25T00:00:00+00:00",
+    "expiresUtc": "2026-10-25T08:00:00+00:00",
+    "advancedFakeUtc": "2026-10-25T08:00:01+00:00",
+    "expiredHttpStatuses": [
+      401,
+      401
+    ],
+    "expiredDatabaseResolutions": 0,
+    "nonexpiredControlDatabaseGuardResolutions": 1,
+    "guardThrowsBeforeSqlConfiguration": true,
+    "productionCookieEventsUnchanged": true
+  },
+  "backendTestSha256": "cf45feb9be7ef8e79f108ad0baa2b288c0bf488711fa9c08632ce740ff079c49",
+  "backendPatchSha256": "927ea77b1a63c134cae03dac13e6545d624a05a8f3aabb501d01fef100a23e09",
+  "existingFiveFilePatchUnchanged": true,
+  "remainingOwnedSdkProcesses": 0,
+  "sqlExecuted": false,
+  "listenerCreated": false,
+  "productionSecurityChanged": false,
+  "committed": false,
+  "pushed": false,
+  "ci": "PENDING",
+  "privateEvidence": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\c8-api-expiry-20261103-evidence",
+  "publicEvidence": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\c8-api-expiry-20261103\\docs\\c8-ui-20261103\\api-expiry-completion-20261103"
+}

@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="es" data-theme="light" data-lavish-annotate="off">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DECISIONS · ¿Quién crea la sucursal en SAVIA?</title>
+<style>
+/* Standalone colors extracted from dev/savia-staff-ui/styles.css, 2026-11-07. */
+/* STANDALONE_START */
+:root{--background:#f5f4ed;--foreground:#192d25;--muted-foreground:#55645a;--card:#fffefa;--secondary:#edf2e8;--border:#d6ded2;--primary:#31584a;--primary-foreground:#fffefa;--accent:#e2ecdf;--accent-foreground:#192d25;--ring:#256c62;--radius:18px;--font-sans:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body{background:var(--background)}
+/* STANDALONE_END */
+*{box-sizing:border-box}body{margin:0;color:var(--foreground);font:16px/1.55 var(--font-sans,system-ui)}
+main,.intro,.statusline{max-width:900px;margin:0 auto}p,h1,h2,h3{margin:0 0 .65rem}h1{font-size:clamp(1.7rem,4vw,2.25rem);line-height:1.15;letter-spacing:-.035em}h2{font-size:1.25rem;line-height:1.3}h3{font-size:1rem}p,li,button,label{overflow-wrap:anywhere}
+.intro{padding:0 0 24px}.eyebrow,.step-caption{font-size:.75rem;letter-spacing:.06em;color:var(--muted-foreground);font-weight:650}.lead{font-size:1.08rem;max-width:65ch}.definition,.scenario,.impact,.review-item,.send-panel{padding:16px;background:var(--card);border-radius:var(--radius);margin-top:16px}
+.definition{border-left:4px solid var(--primary)}.definition p:last-child,.scenario p:last-child{margin-bottom:0}.small,.context,.option-copy,.details,.message{font-size:.92rem;color:var(--muted-foreground)}.label{display:block;font-size:.75rem;color:var(--muted-foreground);margin-bottom:.35rem}.statusline{font-size:.8rem;color:var(--muted-foreground);padding-bottom:16px}.hypo{font-weight:700;color:var(--muted-foreground);font-size:.8rem}
+.scenario-tabs,.actions,.export-actions,.option-heading{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.scenario-tabs{margin:14px 0 8px}.scenario-tabs button{flex:1;min-width:120px}.scenario-tabs button[aria-pressed=true]{background:var(--primary);color:var(--primary-foreground);border-color:var(--primary)}
+button{font:inherit;cursor:pointer;border:1px solid var(--border);border-radius:10px;padding:10px 14px;background:var(--card);color:var(--foreground);min-height:44px}button:disabled{cursor:default;opacity:.55}.primary{background:var(--primary);color:var(--primary-foreground);border-color:var(--primary)}button:focus-visible,input:focus-visible,summary:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid var(--ring);outline-offset:3px}input{accent-color:var(--primary)}
+.options{border:0;padding:0;margin:0;min-width:0}.context{margin:12px 0 20px}.option{display:flex;gap:12px;padding:16px 0;border-bottom:1px solid var(--border);cursor:pointer;min-width:0}.option>input{flex-shrink:0;width:20px;height:20px;margin:4px 0 0}.option>span{min-width:0}.option:has(input:checked){background:var(--secondary);padding-inline:12px;border-radius:12px}.option-title{font-weight:700}.option-copy{display:block;margin-top:6px}.recommended{font-size:.72rem;font-weight:700;padding:3px 8px;border-radius:99px;background:var(--accent);color:var(--accent-foreground)}
+.step-caption{display:flex;justify-content:space-between;gap:8px;margin-bottom:10px}.next-heading{margin-top:18px}.details{margin:18px 0}.details summary{cursor:pointer;color:var(--foreground);min-height:32px;font-weight:650}.details ul{padding-left:20px}a{color:var(--foreground);text-underline-offset:3px}.actions{justify-content:space-between;margin-top:20px}.review-item h3{display:flex;justify-content:space-between;align-items:center;gap:8px}.note-label{display:block;margin:18px 0 8px}textarea{width:100%;min-height:96px;padding:12px;border:1px solid var(--border);border-radius:10px;background:var(--card);color:var(--foreground);font:inherit}.export-actions{margin-top:12px}.ask-form button{margin-top:10px}.message{margin-top:10px}
+.workspace{display:block}.workspace>aside,.rail,.plan,.top,.page-footer{display:none}.sr-only,.skip{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%)}[hidden]{display:none!important}
+@media(min-width:950px){body{padding:28px}}@media(max-width:949px){body{padding:0}.option-copy{font-size:.9rem}.scenario-tabs{gap:6px}.scenario-tabs button{font-size:.84rem;padding:8px;min-width:80px}.actions .primary{flex:1}.intro{padding-bottom:20px}}
+</style></head>
+<body><a class="skip" href="#question">Ir a la decisión</a>
+<header class="top"><a class="wordmark" href="#question" aria-label="DECISIONS inicio"><span class="logo" aria-hidden="true">↳</span> DECISIONS<span class="version">/ 01</span></a><span id="connection" class="connection">Comprobando conexión</span></header>
+
+<section class="intro" aria-labelledby="intro-title">
+<p class="eyebrow">SAVIA · primera sucursal</p>
+<h1 id="intro-title">Configurar un local una vez.<br>Vender todos los días.</h1>
+<p class="lead">La pregunta es <strong>quién registra el local dentro de SAVIA</strong>. El cajero no tendría que abrir una base de datos para vender.</p>
+<div class="definition"><p><strong>Sucursal</strong> es el local del negocio que SAVIA identifica. Ejemplo ficticio: “Local Centro”.</p><p><strong>Owner</strong> es la cuenta con permisos de administración. “Alta técnica” significa usar un procedimiento controlado, con validaciones y comprobación del resultado.</p></div>
+<div class="scenario" aria-labelledby="scenario-title">
+<span class="hypo">EJEMPLOS HIPOTÉTICOS · no son datos reales</span>
+<h2 id="scenario-title">¿Qué cambia en la práctica?</h2>
+<div class="scenario-tabs" role="group" aria-label="Elegir un caso hipotético">
+<button type="button" data-scenario="opening" aria-pressed="true">1. Abrir el local</button>
+<button type="button" data-scenario="sale" aria-pressed="false">2. Registrar una venta</button>
+<button type="button" data-scenario="expansion" aria-pressed="false">3. Abrir otro local</button>
+</div><p id="scenario-copy" aria-live="polite">Local Centro todavía no existe en SAVIA. En A, un técnico ejecutaría el alta validada. En B, Owner completaría una pantalla. Ambas rutas necesitan detectar datos incompletos y evitar duplicados.</p>
+</div>
+<details class="details"><summary>¿Qué exigiría antes de darlo por terminado?</summary><ul><li>El local correcto queda guardado y sigue disponible después de reiniciar.</li><li>Repetir el alta no crea una segunda sucursal por accidente.</li><li>Una persona sin permiso no puede crear ni modificar el local.</li><li>Una venta queda vinculada a la ubicación correcta.</li><li>Si el alta falla, deja un estado conocido y una forma probada de recuperarse.</li></ul><p>Estas son condiciones propuestas de aceptación. Todavía no son resultados comprobados del alta.</p></details>
+</section>
+<p class="statusline">Diseño basado en los estilos actuales de SAVIA. Elegir una opción solo guarda un borrador; el envío requiere un paso final.</p>
+<div class="workspace">
+<aside class="rail" aria-label="Tus decisiones"><div><p class="eyebrow">Tu stack de trabajo</p><h1 id="board-title"></h1><p id="subtitle" class="rail-copy"></p></div><div class="progress-block"><div class="progress-caption"><span>Tu avance</span><span id="progress-text">0 elegidas</span></div><progress id="progress" class="progress" value="0" max="5" aria-label="Decisiones elegidas"></progress></div><nav id="steps" aria-label="Lista de decisiones"></nav><div class="rail-bottom"><p>Vos elegís.<br>El agente se ocupa del detalle.</p><a id="evidence-link" target="_blank" rel="noopener">Abrir auditoría completa ↗</a></div></aside>
+<main id="main"><section id="question" tabindex="-1" aria-labelledby="question-title"></section><section id="review" hidden aria-labelledby="review-title"></section></main>
+<aside class="plan" aria-label="Plan que estás armando"><p class="eyebrow">Tu plan</p><h2>Así va quedando.</h2><div id="plan-list"></div><div class="receipt-note"><span class="dot" aria-hidden="true"></span><p id="draft-status">Borrador local. Todavía no enviado.</p></div><button id="review-button" class="secondary" type="button">Revisar mis decisiones</button><p class="small">Seleccionar no ejecuta cambios.</p></aside>
+</div>
+<footer class="page-footer"><span>DECISIONS es una skill sobre Lavish.</span><span>Diseño: conserva la paleta y controles del informe de este proyecto.</span></footer>
+<div id="announcement" class="sr-only" aria-live="polite"></div>
+<script id="decisions-data" type="application/json">{"id": "savia-branch-choice-20261107", "title": "¿Quién crea la sucursal en SAVIA?", "subtitle": "Una decisión. Cinco opciones. Ninguna viene elegida.", "source_note": "Fuentes leídas el 2026-11-07: D-014, API-BRANCH y estilos actuales de SAVIA. Casos ficticios. El formato A–E responde al pedido de Jason; no registra una elección.", "decisions": [{"id": "API-BRANCH", "label": "Crear sucursales", "question": "¿Qué querés que construyamos para el alta de sucursales?", "context": "Recomiendo A porque el alcance vigente es un negocio y una sucursal. Primero terminamos y probamos ese local. Agregar más locales requiere reglas y pruebas adicionales.", "recommended": "A", "scope": ["La elección define el alcance que prepararemos e implementaremos con pruebas y revisión.", "No autoriza crear cuentas, sucursales ni datos reales, ejecutar SQL, cambiar certificados, hacer merge o desplegar.", "C y D amplían D-014: primero hay que definir separación de inventario, cajas, personal e informes entre sucursales.", "Ninguna opción acredita producción ni cambia por sí sola cómo un cajero registra una venta."], "evidence": [{"label": "D-014: un negocio y una sucursal", "url": "../DECISIONS.md"}, {"label": "API-BRANCH: falta una forma soportada de crear sucursales", "url": "../pipeline/ledger.json"}, {"label": "Estilos de la aplicación usados como referencia visual", "url": "../../dev/savia-staff-ui/styles.css"}], "options": [{"id": "A", "label": "A · Una sucursal, alta técnica", "consequence": "Caso: abrimos Local Centro. Un técnico usa un procedimiento revisado y probado. El personal entra a SAVIA y vende normalmente. Si abrís otro local, habrá que preparar y validar esa ampliación. Menos funciones nuevas para llegar al primer local operativo.", "action": "Preparar e implementar el procedimiento de alta para una sola sucursal, con validación de datos, prevención de duplicados, prueba con datos ficticios y verificación del resultado. Conservar D-014.", "authority": "execute"}, {"id": "B", "label": "B · Una sucursal, alta desde SAVIA", "consequence": "Caso: la persona con rol Owner abre una pantalla y registra Local Centro. El programa valida los datos. Después, el cajero trabaja igual que en A. Hay que construir y probar esa pantalla y sus permisos. Esto no incluye operar varios locales.", "action": "Preparar e implementar el alta guiada de la única sucursal desde SAVIA, solo para Owner, con validaciones, permisos, auditoría y pruebas. Conservar el límite de una sucursal de D-014.", "authority": "execute"}, {"id": "C", "label": "C · Varios locales, alta técnica", "consequence": "Caso: Centro y Norte empiezan desde el primer lanzamiento. Un técnico registra los locales. Aunque no exista una pantalla de alta, debemos probar qué stock, ventas, cajas y empleados puede ver cada sucursal. Amplía el alcance actual.", "action": "Preparar una propuesta para ampliar D-014 a varias sucursales mediante alta técnica. Definir reglas y pruebas entre locales antes de implementar. No asumir reglas de transferencias o acceso compartido.", "authority": "prepare"}, {"id": "D", "label": "D · Varios locales, alta desde SAVIA", "consequence": "Caso: Owner registra Centro y Norte desde la aplicación. Además del formulario, necesitamos reglas y pruebas entre locales. Es la opción con más trabajo adicional: dar de alta un local no garantiza que un sistema opere correctamente varias sucursales.", "action": "Preparar una propuesta multisucursal con alta desde SAVIA. Definir separación de datos, permisos y aceptación antes de implementar. No habilitar automáticamente transferencias ni informes consolidados.", "authority": "prepare"}, {"id": "E", "label": "E · Ver una demostración antes de elegir", "consequence": "Caso: querés comparar cómo sería registrar Local Centro por procedimiento técnico y desde una pantalla. Mostramos ambos con datos ficticios. La decisión queda pendiente; el trabajo independiente puede continuar.", "action": "Posponer API-BRANCH y preparar una demostración comparativa con datos ficticios. No implementar el alta ni ampliar D-014 hasta recibir una elección.", "authority": "defer"}]}], "revision": "8fff88edb2e3a3a7"}</script><script>(() => {
+ 'use strict';
+ const board=JSON.parse(document.getElementById('decisions-data').textContent);
+ const $=id=>document.getElementById(id), key='decisions:v1:'+board.id+':'+board.revision;
+ const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ let saved={},storageOK=true,nativeSaved=false;
+ try{saved=JSON.parse(localStorage.getItem(key)||'{}')||{};}catch{storageOK=false;}
+ const choices=Object.create(null);
+ for(const d of board.decisions)if(d.options.some(o=>o.id===saved.choices?.[d.id]))choices[d.id]=saved.choices[d.id];
+ let current=0,reviewing=false,note=typeof saved.note==='string'?saved.note.slice(0,1000):'',delivery=saved.delivery||null,busy=false,message='';
+ const option=d=>d.options.find(o=>o.id===choices[d.id]);
+ const complete=()=>board.decisions.every(d=>!!option(d));
+ const signature=()=>JSON.stringify({choices:board.decisions.map(d=>[d.id,choices[d.id]??null]),note});
+ const receivedSignature=board.confirmed_submission?JSON.stringify({choices:board.decisions.map(d=>[d.id,board.confirmed_submission.items.find(i=>i.id===d.id).option_id]),note:board.confirmed_submission.note}):null;
+ function markReceived(){if(receivedSignature===signature())delivery={signature:receivedSignature,state:'received',received_at:board.confirmed_submission.received_at};}
+ const isSent=()=>delivery?.signature===signature()&&['requested','received'].includes(delivery.state);
+ // Lavish's sandbox blocks localStorage. Its parent stores review fields per tab.
+ const nativeKey='decisions:'+board.id+':'+board.revision;
+ const stateForm=document.createElement('form');stateForm.hidden=true;stateForm.dataset.lavishQuestion=nativeKey;
+ // Text inputs have a separate current value. Hidden inputs reflect .value into
+ // the value attribute, which Lavish includes in its matching key.
+ const chunks=Array.from({length:32},(_,i)=>{const f=document.createElement('input');f.type='text';f.name='state-'+i;stateForm.append(f);return f;});document.body.append(stateForm);
+ function persist(){
+  const raw=JSON.stringify({choices,note,delivery});
+  try{localStorage.setItem(key,raw);}catch{storageOK=false;}
+  if(bridge()&&raw.length<=chunks.length*1900){chunks.forEach((f,i)=>f.value=raw.slice(i*1900,(i+1)*1900));chunks[0].dispatchEvent(new Event('input',{bubbles:true}));nativeSaved=true;}
+ }
+ function restore(data){
+  if(!data||typeof data!=='object')return;
+  for(const d of board.decisions){delete choices[d.id];if(d.options.some(o=>o.id===data.choices?.[d.id]))choices[d.id]=data.choices[d.id];}
+  note=typeof data.note==='string'?data.note.slice(0,1000):'';
+  delivery=data.delivery&&typeof data.delivery.signature==='string'&&['requested','queued','received'].includes(data.delivery.state)?data.delivery:null;
+  markReceived();
+ }
+ window.addEventListener('message',event=>{
+  if(event.source!==parent||event.data?.type!=='lavish:restoreReviewState')return;
+  const fields=event.data?.state?.fields;
+  if(!Array.isArray(fields))return;
+  const parts=fields.filter(f=>f.question===nativeKey&&f.type==='text');
+  if(!parts.length)return;
+  const raw=chunks.map((_,i)=>parts.find(f=>f.key===nativeKey+'|state-'+i+'|text|')?.value||'').join('');
+  try{restore(JSON.parse(raw));nativeSaved=true;reviewing?showReview():renderQuestion();renderSide();}catch{/* Invalid or incomplete browser draft never grants authority. */}
+ });
+ function payload(){return {type:'DECISIONS',schema_version:1,board_id:board.id,revision:board.revision,title:board.title,note,items:board.decisions.map(d=>{const o=option(d);return {id:d.id,label:d.label,option_id:o?.id??null,choice:o?.label??null,authority:o?.authority??null,scope:d.scope,requested_action:o?.action??null};})};}
+ function prompt(p=payload()){return 'DECISIONS — elecciones explícitas del usuario.\nActuá solo dentro de cada alcance y de los permisos de esta sesión. Revalidá hechos materiales antes de cambiar algo.\nPrepare: prepará una propuesta, sin aplicar. Retain: conservá. Defer: posponé. Execute: ejecutá el alcance autorizado, con verificación y rollback donde corresponda.\nDevolvé un resultado por cada ID: completado con evidencia, pospuesto con motivo, o bloqueado con motivo. Compará los IDs recibidos y devueltos antes de declarar terminado.\n\n'+JSON.stringify(p,null,2);}
+ function announce(text){$('announcement').textContent=text;}
+ function bridge(){return typeof window.lavish?.queuePrompt==='function';}
+ function updateConnection(){const connected=bridge();$('connection').textContent=connected?'Conectado a Lavish':'Modo local · copiar o descargar';if(reviewing)updateSend();}
+ function renderSide(){
+  const n=board.decisions.filter(d=>!!option(d)).length;
+  $('progress').max=board.decisions.length;$('progress').value=n;
+  $('progress-text').textContent=n+' / '+board.decisions.length+' elegidas';
+  $('steps').innerHTML=board.decisions.map((d,i)=>'<button type="button" class="step-button '+(option(d)?'done':'')+'" '+(!reviewing&&i===current?'aria-current="step"':'')+' data-step="'+i+'" aria-label="'+esc(d.label)+(option(d)?', elegida':', pendiente')+'"><span class="step-index" aria-hidden="true">'+(option(d)?'✓':i+1)+'</span><span class="step-text">'+esc(d.label)+'</span></button>').join('');
+  for(const b of $('steps').querySelectorAll('button'))b.onclick=()=>go(Number(b.dataset.step));
+  $('plan-list').innerHTML=board.decisions.map(d=>'<div class="plan-item '+(!option(d)?'pending':'')+'"><span>'+esc(d.id+' / '+d.label)+'</span><p>'+esc(option(d)?.label||'Por elegir')+'</p></div>').join('');
+  $('draft-status').textContent=isSent()?(delivery.state==='received'?'Recibidas por el agente. El recibo conserva tus elecciones.':'Envío solicitado a Lavish. Revisá la entrega en la conversación.'):delivery?'Cambios nuevos sin enviar. El envío anterior conserva sus elecciones.':nativeSaved?'Borrador en esta pestaña de Lavish. Copiá o descargá para conservarlo fuera.':!storageOK?'Guardado local limitado. Copiá o descargá para conservar tu plan.':'Borrador guardado en este navegador. Todavía no enviado.';
+ }
+ function details(d){return '<details class="details"><summary>Ver alcance y evidencia</summary><ul>'+d.scope.map(s=>'<li>'+esc(s)+'</li>').join('')+'</ul>'+(d.evidence.length?'<ul>'+d.evidence.map(e=>'<li><a href="'+esc(e.url)+'" target="_blank" rel="noopener">'+esc(e.label)+' ↗</a></li>').join('')+'</ul>':'<p class="small">Evidencia pendiente. Preparar primero; verificar antes de actuar.</p>')+'</details>';}
+ function impact(d){const o=option(d);$('impact-copy').textContent=o?.action||'Elegí una opción para ver el paso concreto que recibirá el agente.';$('future-copy').textContent=o?.consequence||'Compará los efectos de las opciones. Si falta contexto, preguntale al agente antes de elegir.';$('next').disabled=!o;}
+ function renderQuestion(){
+  const d=board.decisions[current];
+  $('question').innerHTML='<div class="step-caption"><span>'+esc(d.id)+' / '+esc(d.label)+'</span><span>'+(current+1)+' de '+board.decisions.length+'</span></div><form id="decision-form" data-lavish-question="'+esc(nativeKey+':'+d.id)+'"><fieldset class="options"><legend class="sr-only">'+esc(d.question)+'</legend><h2 id="question-title" class="question-title">'+esc(d.question)+'</h2><p class="context">'+esc(d.context)+'</p>'+d.options.map(o=>'<label class="option"><input type="radio" name="choice" value="'+esc(o.id)+'" '+(choices[d.id]===o.id?'checked':'')+'><span><span class="option-heading"><span class="option-title">'+esc(o.label)+'</span>'+(d.recommended===o.id?'<span class="recommended">Recomendada</span>':'')+'</span><span class="option-copy">'+esc(o.consequence)+'</span></span></label>').join('')+'</fieldset><div class="impact"><h3>Cómo cambia tu trabajo</h3><p id="future-copy"></p><h3 class="next-heading">El siguiente paso</h3><p id="impact-copy"></p></div>'+details(d)+'<div class="actions"><button type="button" class="quiet" id="back">'+(current?'← Anterior':'Ver mi plan')+'</button><button type="submit" class="primary" id="next">'+(current===board.decisions.length-1?'Revisar mi plan':'Continuar →')+'</button></div></form><details class="ask details"><summary>Preguntar al agente</summary><p class="small">Preguntá cómo afecta esta decisión al trabajo de hoy o al futuro. La respuesta aparece en Conversación de Lavish cuando el agente recoge tu mensaje.</p><form id="ask-form"><label class="note-label" for="ask-text">Tu pregunta sobre '+esc(d.label)+'</label><textarea id="ask-text" maxlength="2000" required placeholder="¿Qué cambia para mí y qué podría dejar de funcionar?"></textarea><button type="submit" class="secondary" id="ask-send">Enviar pregunta</button><p class="small">Preguntar no aprueba cambios ni envía tus decisiones.</p><p id="ask-status" class="message" role="status" aria-live="polite"></p><div id="ask-fallback"></div></form></details>';
+  $('decision-form').onchange=e=>{if(e.target.name!=='choice')return;choices[d.id]=e.target.value;message='';persist();renderSide();impact(d);announce('Elegida: '+option(d).label);};
+  $('decision-form').onsubmit=e=>{e.preventDefault();if(!option(d))return;current===board.decisions.length-1?showReview():go(current+1);};
+  $('back').onclick=()=>current?go(current-1):showReview();$('ask-form').onsubmit=e=>{e.preventDefault();ask(d);};impact(d);
+ }
+ async function ask(d){
+  const question=$('ask-text').value.trim();if(!question||$('ask-send').disabled)return;
+  const text='DECISIONS_QUESTION — consulta, sin aprobación de cambios. Respondé en la conversación de Lavish. Explicá el efecto en el trabajo actual y futuro, riesgos y límites. No ejecutes acciones ni cambies elecciones por esta consulta.\n\n'+JSON.stringify({type:'DECISIONS_QUESTION',board_id:board.id,revision:board.revision,decision_id:d.id,decision:d.question,scope:d.scope,selected_option:option(d)?.label||null,question},null,2);
+  const b=$('ask-send'),status=$('ask-status');b.disabled=true;
+  try{
+   if(!bridge()){
+    const area=document.createElement('textarea');area.readOnly=true;area.value=text;area.setAttribute('aria-label','Pregunta para copiar');$('ask-fallback').replaceChildren(area);area.select();status.textContent='Copiá esta pregunta en el chat del agente.';return;
+   }
+   if(typeof window.lavish.sendQueuedPrompts!=='function')throw Error('El envío directo no está disponible. Usá la conversación de Lavish.');
+   await window.lavish.queuePrompt(text,{tag:'DECISIONS_QUESTION',text:d.id+' · '+question,queueKey:'question:'+board.id+':'+d.id,element:$('ask-form')});
+   await window.lavish.sendQueuedPrompts();status.textContent='Pregunta enviada a la cola de Lavish. Buscá la respuesta en Conversación; el agente debe recoger el mensaje.';
+  }catch(e){status.textContent='No se pudo solicitar la respuesta. '+(e?.message||'Usá la conversación de Lavish.');}
+  finally{b.disabled=false;}
+ }
+ function go(i){current=i;reviewing=false;$('question').hidden=false;$('review').hidden=true;renderQuestion();renderSide();$('question').focus({preventScroll:true});window.scrollTo({top:0,behavior:'instant'});}
+ function updateSend(){const b=$('send');if(!b)return;b.disabled=!complete()||busy||isSent()||!bridge();b.textContent=busy?'Enviando…':isSent()?(delivery.state==='received'?'Decisiones recibidas':'Envío solicitado a Lavish'):!bridge()?'Abrí este tablero en Lavish':'Enviar decisiones';$('copy').disabled=!complete()||busy;$('download').disabled=!complete()||busy;$('send-explainer').textContent=!complete()?'Faltan decisiones. Elegí una opción o posponé cada una.':!bridge()?'Estás en el archivo local. Copiá o descargá el plan para entregarlo al agente.':'Este botón envía tus elecciones al agente. El alcance de cada opción define qué puede ejecutar.';}
+ function showReview(){
+  reviewing=true;$('question').hidden=true;$('review').hidden=false;
+  $('review').innerHTML='<p class="eyebrow">Revisión final</p><h2 id="review-title" tabindex="-1">Este es tu plan.</h2><p class="context">Podés cambiar cualquier elección antes de enviarlo.</p>'+board.decisions.map((d,i)=>'<article class="review-item"><h3><span>'+esc(d.id+' / '+d.label)+'</span><button type="button" class="edit" data-edit="'+i+'">'+(option(d)?'Cambiar':'Elegir')+'</button></h3><p>'+esc(option(d)?.label||'Sin elegir')+'</p><p class="small">'+esc(option(d)?.action||'Elegí una opción para completar este punto.')+'</p></article>').join('')+'<label class="note-label" for="note">¿Alguna condición? <span class="small">Opcional</span></label><textarea id="note" maxlength="1000" placeholder="Por ejemplo: conservar todas las versiones de rollback.">'+esc(note)+'</textarea><div class="send-panel"><p id="send-explainer"></p><button class="primary" type="button" id="send">Enviar decisiones</button><p class="message" id="send-message" role="status" aria-live="polite">'+esc(message)+'</p></div><div class="export-actions"><button type="button" id="copy">Copiar plan</button><button type="button" id="download">Descargar JSON</button></div><div id="manual-copy"></div>';
+  for(const b of $('review').querySelectorAll('[data-edit]'))b.onclick=()=>go(Number(b.dataset.edit));
+  $('note').oninput=e=>{note=e.target.value;message='';persist();renderSide();updateSend();$('send-message').textContent='';};
+  $('send').onclick=send;$('copy').onclick=copy;$('download').onclick=download;
+  updateSend();renderSide();$('review-title').focus({preventScroll:true});window.scrollTo({top:0,behavior:'instant'});
+ }
+ async function send(){
+  if(!complete()||busy||isSent()||!bridge())return;
+  const p=payload(),submittedSignature=signature();
+  busy=true;updateSend();let queued=false;
+  try{
+   await window.lavish.queuePrompt(prompt(p),{tag:'DECISIONS',text:board.title+' · '+p.items.length+' decisiones',queueKey:'decisions:'+board.id,element:$('review'),data:{board_id:board.id,revision:board.revision,items:p.items}});
+   queued=true;
+   if(typeof window.lavish.sendQueuedPrompts!=='function')throw Error('Lavish no ofrece envío directo. Usá Send to Agent en la barra de Lavish.');
+   await window.lavish.sendQueuedPrompts();
+   delivery={signature:submittedSignature,state:'requested',requested_at:new Date().toISOString()};
+   message='Envío solicitado a Lavish. La confirmación de recepción aparece en la conversación.';
+  }catch(e){
+   delivery=queued?{signature:submittedSignature,state:'queued'}:delivery;
+   message=(queued?'Tu plan quedó en cola de Lavish. ':'No se pudo preparar el envío. ')+(e?.message||'Copiá o descargá el plan para conservarlo.');
+  }finally{busy=false;persist();renderSide();updateSend();if($('send-message'))$('send-message').textContent=message;}
+ }
+ async function copy(){
+  if(!complete()||busy)return;
+  const text=prompt();
+  try{await navigator.clipboard.writeText(text);$('send-message').textContent='Plan copiado. Pegalo en esta conversación.';}
+  catch{const area=document.createElement('textarea');area.className='manual';area.readOnly=true;area.value=text;area.setAttribute('aria-label','Plan para copiar manualmente');$('manual-copy').replaceChildren(area);area.focus();area.select();$('send-message').textContent='Copiado automático no disponible. Copiá el texto seleccionado.';}
+ }
+ function download(){if(!complete()||busy)return;const blob=new Blob([JSON.stringify(payload(),null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='decisions-'+board.id+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);$('send-message').textContent='Descarga del plan preparada.';}
+ $('board-title').textContent=board.title;$('subtitle').textContent=board.subtitle;
+ if(board.evidence_url)$('evidence-link').href=board.evidence_url;else $('evidence-link').hidden=true;
+ $('review-button').onclick=showReview;
+ if(board.confirmed_submission&&!Object.keys(choices).length){const p=board.confirmed_submission;restore({choices:Object.fromEntries(p.items.map(i=>[i.id,i.option_id])),note:p.note});delivery={signature:signature(),state:'received',received_at:p.received_at};}
+ markReceived();
+ current=Math.max(0,board.decisions.findIndex(d=>!option(d)));
+ renderQuestion();renderSide();updateConnection();
+ // Lavish injects its bridge after the document loads; no network or automatic sends.
+ const detector=setInterval(updateConnection,1000);setTimeout(()=>clearInterval(detector),30000);
+})();
+</script>
+<script>
+const cases={opening:'Local Centro todavía no existe en SAVIA. En A, un técnico ejecutaría el alta validada. En B, Owner completaría una pantalla. Ambas rutas necesitan detectar datos incompletos y evitar duplicados.',sale:'Una vez creado el local, Ana entra a SAVIA y vende una camisa MS-001. En este ejemplo, el stock de su ubicación pasa de 10 a 9. Elegir A o B no cambia esa venta: cambia cómo registramos el local antes de empezar.',expansion:'Después querés abrir Local Norte. Darlo de alta no basta: vender en Centro no debe descontar stock de Norte por error. C y D requieren definir y probar esas reglas antes de operar varios locales.'};
+document.querySelectorAll('[data-scenario]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-scenario]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));document.getElementById('scenario-copy').textContent=cases[b.dataset.scenario];}));
+</script></body></html>

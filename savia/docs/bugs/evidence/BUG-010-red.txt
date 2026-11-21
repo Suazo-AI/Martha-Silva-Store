@@ -1,0 +1,2 @@
+FAIL    sales/030_credit_return_from_other_branch_is_rejected.sql  -- ASSERT FAIL: branch B returned a sale of branch A
+SUMMARY FAIL=1  logs: .out\dbtests

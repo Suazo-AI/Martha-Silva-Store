@@ -1,0 +1,371 @@
+{
+  "status": "integrated_candidate_not_accepted",
+  "host": "SUAZO-PC",
+  "primary": "gpt-6.1-sol/xhigh",
+  "canonical_parent": "754b67eedd70d4234db950f53262d652b83d616c",
+  "worker_base": "030b64f7cba87c6a0d710892deb9a8493ea8bbf4",
+  "worker_trx": {
+    "sha256_raw": "7399ef3ea43740a3e6474700cab77c6207741b3f2a6328862272ea99ae4511ab",
+    "inspected_counts": {
+      "total": 41,
+      "passed": 41,
+      "failed": 0,
+      "notExecuted": 0
+    }
+  },
+  "source_files": [
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Cash/InternalCashEndpoints.cs",
+      "bytes": 2636,
+      "sha256_raw": "d726f8e2817f302c99593b50f5c4a89eef9a47f89163531eb9416e584fb024b2",
+      "sha256_lf": "d726f8e2817f302c99593b50f5c4a89eef9a47f89163531eb9416e584fb024b2"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Cash/InternalCashModel.cs",
+      "bytes": 3557,
+      "sha256_raw": "9019756fb25b9497e69b98af8b2d8d29539ae5b6da9ce187ed0edf38f4e4ae35",
+      "sha256_lf": "9019756fb25b9497e69b98af8b2d8d29539ae5b6da9ce187ed0edf38f4e4ae35"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Cash/InternalCashModels.cs",
+      "bytes": 3875,
+      "sha256_raw": "099d3153471bed7babd349cd83c2549902a12d7d4bd45d3c1439ad9d2d99a1c1",
+      "sha256_lf": "0333a4f73104201182b58e9d48c03bc9b8f314a521c0c23280f5f1aedac75789"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Cash/InternalCashService.cs",
+      "bytes": 9647,
+      "sha256_raw": "da90b8380c5f7ef78d2843522dbce93bb369e3dab1a61eb332184cc4cb318141",
+      "sha256_lf": "5475c19c85591d47f990ed6402d4fbe4c8c7ea9c42d946cd6eefdd9c267146de"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceService.cs",
+      "bytes": 17884,
+      "sha256_raw": "d3f72118e23b92d8a376a5cc5af2519cf30d0adc1aee5414ebccbe8034472248",
+      "sha256_lf": "67758ba83e225fa32d2d32e1660ec3884483f59cb01ac133cacd02496930259f"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalBranchAccess.cs",
+      "bytes": 7035,
+      "sha256_raw": "26ba22f7769c9a03b6eea5d9c65581be9ad32ed1595ff422261e8f139dbe8417",
+      "sha256_lf": "ed754fac208d070d8c69d826823f13d6a057eb45a7feb101b6af9522121f625b"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalCommandRunner.cs",
+      "bytes": 9637,
+      "sha256_raw": "947528d0e18014531f2993147a59e17b182621e5a6aa10e6c51177adfb7d7d58",
+      "sha256_lf": "280c830c16088c752c0080ba04c7549e1c3c1c9386cba63004539238765a1df1"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalDbContext.cs",
+      "bytes": 3053,
+      "sha256_raw": "0465453bb10dea5e309a5f0c3ab02d47a95af035728056a84fcb8cb01b648835",
+      "sha256_lf": "9c20b744310ca52b46bb65ff51bce9867ae4949aab7226b927cf45bfe08b5a47"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalHosting.cs",
+      "bytes": 5039,
+      "sha256_raw": "12d95a1b6f693b47919fd59eae4580dd4c703cfa5c25ac14cacfc631843df4c8",
+      "sha256_lf": "cb095a8bedc15deb3a93a34c167e014ebf8a74c1595b9013e393f24383c325ce"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceFingerprint.cs",
+      "bytes": 1604,
+      "sha256_raw": "99883f26d1437bc484de911756230a5da8e8e862b45b1028937997f46abb6837",
+      "sha256_lf": "d1e6cae12753637cc425bf1e6786b0801d4a155c10759adfaad52bbf9d0d154e"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceFingerprintTests.cs",
+      "bytes": 4454,
+      "sha256_raw": "fde1ee55836e60394707e60a8f3cef10758426932189430be7655d836c4890ef",
+      "sha256_lf": "5686ed8925405a6f1bd238d9230d75c145338e82be911cb0e27bd9edfd417936"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCashSqlTests.cs",
+      "bytes": 13876,
+      "sha256_raw": "fc1d1752ad7801b379dcf53315be3baf75b0960c560f5f3176854bc0415ffb47",
+      "sha256_lf": "42a713d91f97b240b89131438e6d3c58698526a95c2c49ba5320232409007f59"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCashTests.cs",
+      "bytes": 5375,
+      "sha256_raw": "b825fc7dbad677587d3d1a6b76a22dd10add81641abc6e5e24dcef78f49e27d6",
+      "sha256_lf": "b825fc7dbad677587d3d1a6b76a22dd10add81641abc6e5e24dcef78f49e27d6"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Migrations/20261107221938_FirstCashRegister.cs",
+      "bytes": 11390,
+      "sha256_raw": "d0d6a2cebfaf129a9ed855fdd7cdc4b25f7e2ee4d9917515a01902c9cfe27c56",
+      "sha256_lf": "0f52e4e434f93f0004ef8c4c371be8be334736ec0f8b156bd20a15d8160de7bb"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Migrations/20261107221938_FirstCashRegister.Designer.cs",
+      "bytes": 56925,
+      "sha256_raw": "634534db0ff04abafafbf1018b69e3f3fac79b51aeeee30676a19ba54e149544",
+      "sha256_lf": "9323dc88024e929bfb366a574a4dca2b7cb39b4e13b1a9266cf821af34837bc4"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Migrations/InternalDbContextModelSnapshot.cs",
+      "bytes": 56818,
+      "sha256_raw": "75c5e55e9227c4e52178a5a711b5c396add350dd6edf7dabfee7ee50cb749160",
+      "sha256_lf": "5a74339fe53e7dce7698586c385bad50688f08d06c8f809428d1e630953da136"
+    }
+  ],
+  "imported_public_evidence": [
+    "docs/cash-register-20261107/backend-worker/migration/README.md",
+    "docs/cash-register-20261107/backend-worker/migration/verification.json",
+    "docs/cash-register-20261107/backend-worker/migration/source-hashes.json",
+    "docs/cash-register-20261107/backend-worker/migration/verify_generated.py"
+  ],
+  "protected_unchanged": {
+    "AGENTS.md": "2a2e931b6feed7fff17683718619be44dd57e1d17191de15c3f98148cedc1b53",
+    "docs/DECISIONS.md": "c876e8f7667cfb5737d0175f452abfacccfc8e48e0ac46630a33ff09b852373b",
+    "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs": "317676ac59ea084bcac8f25b5dd5580853ed29bcb7cb36808cf1e7c6223789ca"
+  },
+  "limits": [
+    "Migration generated and release script regenerated; neither applied.",
+    "Focused 65 and corrected non-SQL 607 passed. All 66 NotExecuted cases are excluded from pass evidence.",
+    "Worker source guard remains historical, tied to its original base.",
+    "Legacy SQL/N8/journey unpaid-sale fixtures still require cash adaptation; current staff sale flow is not cash-ready.",
+    "Historical A552/C77/E2 inventory predates cash additions; it cannot certify complete current coverage.",
+    "Independent cash implementation review, SQL cash persistence/concurrency, cash UI/browser journey, production NOT RUN."
+  ],
+  "primary_checks": [
+    {
+      "command": [
+        "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+        "test",
+        "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName~InternalMigrationTests|FullyQualifiedName~InternalAcceptanceFingerprintTests|FullyQualifiedName~InternalCashTests|FullyQualifiedName~InternalAcceptanceWriteProjectionTests|FullyQualifiedName~InternalAntiforgerySessionTests",
+        "--logger",
+        "trx;LogFileName=cash-integration.trx",
+        "--results-directory",
+        "private-exports\\cash-register-20261107\\primary-integration"
+      ],
+      "exit": 0,
+      "seconds": 20.25,
+      "log": "private-exports\\cash-register-20261107\\primary-integration\\focused.log",
+      "receipt": {
+        "path": "private-exports/cash-register-20261107/primary-integration/focused-check.json",
+        "bytes": 808,
+        "sha256_raw": "18caf3fe6756c325db96ec55538d46b613fbebd6fc282b9d2870b8a9dfa900ec",
+        "sha256_lf": "e5947ef95fe131a3fadc0870f4acedeabc07443a4d628240fdaf93bac33efabe"
+      },
+      "log_binding": {
+        "path": "private-exports/cash-register-20261107/primary-integration/focused.log",
+        "bytes": 750,
+        "sha256_raw": "0b3b30c3edf797f12d1cec8c8b1957a226a44afd88d95a46b2086ca951fb9667",
+        "sha256_lf": "211584bbe9495c9b68075767bfbc0fdf7956c5315c65eeda663344b843dc27d8"
+      },
+      "trx_binding": {
+        "path": "private-exports/cash-register-20261107/primary-integration/cash-integration.trx",
+        "bytes": 98561,
+        "sha256_raw": "8e2a22487d864d302627be165bcea8b7efc55e113ec6f04f5fb8fb3a9860b99c",
+        "sha256_lf": "f2b7448c5e23577abba822cc86f3e9fbb1b27e9d08e445c8f9449f363ea63c96"
+      },
+      "outcomes": {
+        "Passed": 65
+      }
+    },
+    {
+      "command": [
+        "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+        "test",
+        "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--no-restore",
+        "--filter",
+        "Category!=SqlServer",
+        "--logger",
+        "trx;LogFileName=cash-offline-regressions.trx",
+        "--results-directory",
+        "private-exports\\cash-register-20261107\\primary-integration"
+      ],
+      "exit": 1,
+      "seconds": 15.313,
+      "cleared_variables": 6,
+      "precreated_pilot_evidence": true,
+      "log": "private-exports\\cash-register-20261107\\primary-integration\\offline-regressions.log",
+      "receipt": {
+        "path": "private-exports/cash-register-20261107/primary-integration/offline-regressions.json",
+        "bytes": 691,
+        "sha256_raw": "a709e20496a8e65a0c97b230221906fecb6bea88e316a5db53241ea4f148e06d",
+        "sha256_lf": "84c30ea3318fc60b2438c656e54c5af37d33d27ef9ebe156a542dc0ab0d86604"
+      },
+      "log_binding": {
+        "path": "private-exports/cash-register-20261107/primary-integration/offline-regressions.log",
+        "bytes": 22815,
+        "sha256_raw": "1c6bc1976b58bbd4f4ac507f24a73cdbcd26885113fa3e3b6e8f668277d4201a",
+        "sha256_lf": "c8b66f4cde8feeb4a87d2e7792d52e26d1b3a4fa365e9ea021b6bf7d72057e28"
+      },
+      "trx_binding": {
+        "path": "private-exports/cash-register-20261107/primary-integration/cash-offline-regressions.trx",
+        "bytes": 1395271,
+        "sha256_raw": "110f1ddfb3001e1e05bcb4b8b35469b70c6542b9913e774b4ca4772231aa6f69",
+        "sha256_lf": "69d4e449a432fac7fe073fbafe938cfc28aba02273e8b6b37e352629b876d13f"
+      },
+      "outcomes": {
+        "Passed": 605,
+        "NotExecuted": 66,
+        "Failed": 2
+      }
+    },
+    {
+      "command": [
+        "C:\\Users\\Jason\\MARTHA-SILVA\\validation\\resolution-20261028-jsdom\\.sdk-10.0.402\\dotnet.exe",
+        "exec",
+        "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-49ff92f2\\private-exports\\cash-register-20261107\\ef-tools\\.store\\dotnet-ef\\10.0.13\\dotnet-ef\\10.0.13\\tools\\net8.0\\any\\dotnet-ef.dll",
+        "migrations",
+        "script",
+        "0",
+        "--idempotent",
+        "--context",
+        "Martha.Store.Api.Internal.InternalDbContext",
+        "--project",
+        "backend/src/Martha.Store.Api/Martha.Store.Api.csproj",
+        "--startup-project",
+        "backend/src/Martha.Store.Api/Martha.Store.Api.csproj",
+        "--configuration",
+        "Release",
+        "--no-build",
+        "--output",
+        "backend/src/Martha.Store.Api/Internal/Migrations/InitialInternalSavia.idempotent.sql"
+      ],
+      "exit": 0,
+      "seconds": 9.469,
+      "normalization": "Trailing blank lines only, per MIGRATION-PLAN.md",
+      "log": "private-exports\\cash-register-20261107\\primary-integration\\generate-release-script.log",
+      "receipt": {
+        "path": "private-exports/cash-register-20261107/primary-integration/generate-release-script.json",
+        "bytes": 1020,
+        "sha256_raw": "c00a02ee9146030b4cb2db3265c53f639395e659f2f7cae19f2ae7f02c037959",
+        "sha256_lf": "8331fe98d98b31e88db859ae422f4aa9382c88290b4e1d8804440cbcda40bb05"
+      },
+      "log_binding": {
+        "path": "private-exports/cash-register-20261107/primary-integration/generate-release-script.log",
+        "bytes": 0,
+        "sha256_raw": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "command": [
+        "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+        "test",
+        "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "--filter",
+        "Category!=SqlServer",
+        "--logger",
+        "trx;LogFileName=cash-offline-corrected.trx",
+        "--results-directory",
+        "private-exports\\cash-register-20261107\\primary-integration"
+      ],
+      "exit": 0,
+      "seconds": 56.938,
+      "cleared_variables": 6,
+      "precreated_pilot_evidence": true,
+      "log": "private-exports\\cash-register-20261107\\primary-integration\\offline-corrected.log",
+      "receipt": {
+        "path": "private-exports/cash-register-20261107/primary-integration/offline-corrected.json",
+        "bytes": 668,
+        "sha256_raw": "8e771817d340d87e63a8b35feaa1638a35eef7dfcd0d9411e874964307bcd78b",
+        "sha256_lf": "5c930ab9d9190792f4bc588b4100614a45d70b37a278ec816864b61339f107e3"
+      },
+      "log_binding": {
+        "path": "private-exports/cash-register-20261107/primary-integration/offline-corrected.log",
+        "bytes": 20445,
+        "sha256_raw": "3d443824b5e3d2196a6beac61b9871cf5bf201314001835e3604a4f941b3566f",
+        "sha256_lf": "8d78a3cf292caebf9e6ab8718c817be497169bb026f02be335641960ef892ae6"
+      },
+      "trx_binding": {
+        "path": "private-exports/cash-register-20261107/primary-integration/cash-offline-corrected.trx",
+        "bytes": 1390003,
+        "sha256_raw": "c9ffa32bbc718067d87d1d96f6af2adfe2b442d3f08df059f47a113b09d403f6",
+        "sha256_lf": "518f827de1a208ed63715a2328fc649430b722f88291ef2e6473de2f23edbe16"
+      },
+      "outcomes": {
+        "Passed": 607,
+        "NotExecuted": 66
+      }
+    },
+    {
+      "command": [
+        "python",
+        "tests/check.py"
+      ],
+      "exit": 0,
+      "seconds": 251.782,
+      "log": "private-exports\\cash-register-20261107\\primary-integration\\repository-check.log",
+      "receipt": {
+        "path": "private-exports/cash-register-20261107/primary-integration/repository-check.json",
+        "bytes": 197,
+        "sha256_raw": "3b732bf1d34b7d3f6eb08b9f6df0aa4e2e098108ce63b56e766a8bf0d923d0f3",
+        "sha256_lf": "1b4c2696e3ad334f772e2c505dbfc2de634e403910623afc0dc0c9966aaf9650"
+      },
+      "log_binding": {
+        "path": "private-exports/cash-register-20261107/primary-integration/repository-check.log",
+        "bytes": 26041,
+        "sha256_raw": "f744db0546ab929259d9bbf8838c1190d71df9680e414e25c041d3a19c7a831d",
+        "sha256_lf": "bff9de4fbd05b5a876205b4aae88d394624e68a1e6b48e09b4668e7e07f212e2"
+      }
+    }
+  ],
+  "primary_corrections": [
+    {
+      "cause": "History expected three migrations; cash adds a fourth.",
+      "path": "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs",
+      "correction": "Add explicit FirstCashRegister history entry; old failure passed in fresh offline run."
+    },
+    {
+      "cause": "Checked-in SQL release script predates cash migration.",
+      "path": "backend/src/Martha.Store.Api/Internal/Migrations/InitialInternalSavia.idempotent.sql",
+      "correction": "Regenerated through pinned EF 10.0.13 and exact SDK host; no database apply."
+    }
+  ],
+  "primary_source_bindings": [
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs",
+      "bytes": 15522,
+      "sha256_raw": "124607c56cc7af44339e5037644eb8a6ec49f6c1c791fbb52d1b10a57b719c3e",
+      "sha256_lf": "0e90b15a61673c08733998402f2c425aaf3b27aaf8576f9606dd7b245456bb6b"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Migrations/InitialInternalSavia.idempotent.sql",
+      "bytes": 41786,
+      "sha256_raw": "7e230635238094a34d2de7c20b702592f059f38c84070781500b7705cd4b6e27",
+      "sha256_lf": "18d898e57d616c7c12e4c793843bd9e2e4d24f1fe946745dab783970cd1a1bc1"
+    }
+  ],
+  "blockers": [
+    {
+      "item": "Legacy fixtures and schema oracles",
+      "evidence": "Legacy SQL tests create new unpaid sales and assume three migrations / pre-cash schema.",
+      "owner": "Primary / next bounded executor",
+      "next_action": "Adapt fixtures to explicit cash contracts, retain old-key replay/security coverage and independent schema expectations.",
+      "completion": "Fresh compile/offline checks and source-bound review, followed by separately authorized SQL run."
+    },
+    {
+      "item": "Cash staff interface and real journey",
+      "evidence": "Staff and golden-path clients still call the old unpaid creation route.",
+      "owner": "Primary / later bounded executor",
+      "next_action": "Implement paid-cash UI after backend contracts and fixtures are frozen.",
+      "completion": "CASH-01..08 real browser/API/SQL with independent reconciliation."
+    },
+    {
+      "item": "Runtime prerequisites",
+      "evidence": "Runner safety recheck REVISE; image deliberately unqualified.",
+      "owner": "Primary",
+      "next_action": "Correct/review runner before qualifying dependencies, private destination and named runtime scope.",
+      "completion": "Reviewed runner plus qualified immutable image/private destination and explicit runtime authority."
+    }
+  ]
+}

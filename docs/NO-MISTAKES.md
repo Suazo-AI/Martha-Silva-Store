@@ -1,12 +1,15 @@
 # Revisión opcional con no-mistakes
 
-**Binario verificado; puerta de revisión todavía inactiva.** Se verificó el binario oficial Linux v1.84.0 (4822244) en el entorno de trabajo el 2026-10-24. No hay daemon, remote, hook o credencial
-creados por esta integración. El ejemplo en `docs/no-mistakes.example.yaml` es
+**Puerta de revisión todavía inactiva.** La verificación de Linux v1.84.0 (4822244)
+del 2026-10-24 es histórica. En SUAZO-PC, el 2026-11-04, `no-mistakes --version`
+devolvió `v1.57.0 (0fcbbff) 2026-08-22T05:14:22Z`; no son la misma instalación.
+Este trabajo no inicializó daemon, remote, hook ni credencial de no-mistakes.
+El ejemplo en `docs/no-mistakes.example.yaml` es
 inerte. CI funciona independientemente y no instala agentes en runners de PR.
 
 Proyecto solicitado: [kunchenguid/no-mistakes](https://github.com/kunchenguid/no-mistakes).
-Se revisaron sus fuentes oficiales el 2026-10-24; hay que contrastarlas de nuevo
-con la versión exacta que se instale.
+Se contrastaron las referencias oficiales de configuración el 2026-11-04.
+Antes de activar, hay que verificar compatibilidad con la versión exacta elegida.
 
 ## Advertencia importante
 
@@ -46,14 +49,14 @@ en la descripción generada del PR.
 
 ## Una sola puerta de publicación
 
-El autosync de `docs/AUTO-SYNC.md` queda **desactivado**. No instalar su
-`post-commit` ni ejecutar `tools/sync_progress.py` durante un flujo no-mistakes.
-Además, ese helper exige repo privado y no corresponde al período público de
-construcción. No quitar su control de visibilidad para forzar publicación.
+El autosync de `docs/AUTO-SYNC.md` está **activo** en el checkout canónico:
+`core.hooksPath=.githooks` y `progress.autopush=true`, leídos el 2026-11-04.
+La instrucción anterior de desactivarlo no describe el estado vigente.
+Este trabajo conserva el publicador autorizado de Tony y no activa no-mistakes.
 
-Antes de activar no-mistakes: inspeccionar `git config --show-origin --get
-core.hooksPath` y los hooks existentes. Si autosync estaba activo, restaurar con
-cuidado la configuración anterior según su documentación; no borrar hooks ajenos.
+Antes de activar no-mistakes: acordar una única ruta de publicación e inspeccionar
+`git config --show-origin --get core.hooksPath` y los hooks existentes.
+Preparar cualquier transición con reversión, sin borrar hooks ajenos.
 Los worktrees pueden compartir configuración. No combinar ambos publicadores,
 no configurar hooks globales, no hacer doble push ni saltarse una puerta fallida.
 
@@ -72,5 +75,9 @@ no configurar hooks globales, no hacer doble push ni saltarse una puerta fallida
 5. Inspeccionar diferencias, responder hallazgos sin omitir fallos, verificar SHA
    publicado, PR y ambos checks de CI. No afirmar revisión realizada antes.
 
-No se ejecutó esta secuencia. Bloqueo actual: falta confirmar el host definitivo y autenticar GitHub CLI, además de autorizar/verificar la inicialización con daemon y skill de usuario. El diagnóstico local verificó ejecutables/configuración, no una revisión completa. Hasta entonces usar la suite local y CI; no afirmar que
+No se ejecutó esta secuencia. Falta acordar la versión y configuración efectivas,
+la ruta única de publicación y una activación acotada. La necesidad histórica de
+autenticar GitHub CLI no se revalidó en este trabajo; no se presenta como fallo actual.
+El diagnóstico local verificó versión/configuración, no una revisión completa.
+Hasta entonces usar la suite local y CI; no afirmar que
 no-mistakes aprobó el código ni sustituir revisión humana o reglas de rama.

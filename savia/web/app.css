@@ -1,0 +1,301 @@
+/* SAVIA staff web. Tokens and component shapes come from the approved "SAVIA 08 - Tablet" prototype. */
+:root {
+  color-scheme: light;
+  --primary: #124b2d;
+  --on-primary: #fff;
+  --secondary: #e8f0e9;
+  --accent: #257252;
+  --canvas: #f6f5f1;
+  --surface: #fff;
+  --ink: #182921;
+  --muted: #506057;
+  --line: #d8ded7;
+  --control-line: #818e84;
+  --warning: #854419;
+  --warning-bg: #fff2df;
+  --danger: #9b1c22;
+  --danger-bg: #fde9e9;
+  font: 16px/1.45 system-ui, "Segoe UI", Roboto, sans-serif;
+}
+:root[data-palette="tinta"] {
+  --primary: #2f435f; --secondary: #dfecff; --accent: #40597c; --canvas: #f6f7f8;
+  --ink: #141b24; --muted: #56585b; --line: #d6d7da; --control-line: #6d6f72;
+}
+:root[data-palette="malva"] {
+  --primary: #533946; --secondary: #f8e5ee; --accent: #6d4d5d; --canvas: #f7f6f7;
+  --ink: #20181c; --muted: #5a5758; --line: #d9d7d8; --control-line: #716e6f;
+}
+* { box-sizing: border-box }
+html, body { overflow-x: hidden }
+body { margin: 0; color: var(--ink); background: var(--canvas) }
+button,input,select,textarea { font: inherit; color: inherit }
+button,input,select,textarea { min-height: 44px; border: 1px solid var(--control-line); border-radius: 8px; background: var(--surface) }
+button { padding: 8px 14px; cursor: pointer; font-weight: 650 }
+button:disabled { opacity: .58; cursor: default }
+button:not(:disabled):hover { box-shadow: inset 0 0 0 1px var(--accent) }
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible,textarea:focus-visible,summary:focus-visible {
+  outline: 3px solid var(--accent); outline-offset: 2px
+}
+input,select,textarea { padding: 8px 10px; max-width: 100% }
+.primary,[aria-current=page] { background: var(--primary); color: var(--on-primary); border-color: var(--primary) }
+.primary.big { min-height: 64px; font-size: 1.2rem; width: 100% }
+a { color: var(--primary) }
+h1,h2,h3,p { margin: 0 }
+h1 { font-size: clamp(1.45rem, 3vw, 2.2rem); line-height: 1.1; letter-spacing: -.03em }
+h2 { font-size: 1.16rem }
+small,.muted { color: var(--muted) }
+.num { font-variant-numeric: tabular-nums }
+[hidden] { display: none !important }
+.sr { position: absolute; clip-path: inset(50%); width: 1px; height: 1px; overflow: hidden; white-space: nowrap }
+
+/* shell */
+.shell { display: grid; grid-template-columns: 156px minmax(0,1fr); min-height: 100vh }
+.rail { padding: 18px 10px; border-right: 1px solid var(--line); background: var(--surface) }
+.brand { font-size: 1.52rem; letter-spacing: .10em; color: var(--primary); font-weight: 850; margin: 0 6px 20px }
+.rail nav { display: grid; gap: 6px }
+.rail nav a { display: flex; align-items: center; min-height: 48px; padding: 8px 12px; border-radius: 8px; text-decoration: none; color: var(--ink); font-weight: 650; border: 1px solid transparent }
+.rail nav a:hover { border-color: var(--line) }
+.rail nav a[aria-current=page] { color: var(--on-primary); border-color: var(--primary) }
+.workspace { min-width: 0 }
+.top { background: var(--surface); padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--line); flex-wrap: wrap }
+.context { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font-size: .9rem }
+.context button,.till-state { background: var(--secondary); color: var(--primary); border: 1px solid var(--control-line) }
+.till-state { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; border-radius: 8px; font-weight: 650; text-decoration: none }
+.till-state[data-state="closed"] { background: var(--warning-bg); color: var(--warning) }
+.palette-picker { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; margin: 0; padding: 2px 16px; border: 0; border-bottom: 1px solid #d6d7db; background: #f1f2f4; color: #24272c; font-size: .85rem }
+.palette-picker label { position: relative; cursor: pointer }
+.palette-picker input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer }
+.palette-picker label span { display: flex; align-items: center; min-height: 44px; padding: 0 12px; border-radius: 8px }
+.palette-picker input:checked + span { background: #24272c; color: #fff }
+.palette-picker input:focus-visible + span { outline: 2px solid #24272c; outline-offset: 2px }
+@media (forced-colors: active) { .palette-picker input:checked + span { outline: 2px solid Highlight; outline-offset: -2px } }
+.notice:empty,.warning:empty,.error:empty { display: none }
+.notice,.warning { color: var(--warning); background: var(--warning-bg); padding: 8px 12px; border-radius: 6px; font-size: .92rem }
+.notice { margin: 8px 20px 0 }
+.error { color: var(--danger); background: var(--danger-bg); padding: 10px 12px; border-radius: 6px; font-weight: 600 }
+.ok { color: var(--primary); background: var(--secondary); padding: 10px 12px; border-radius: 6px; font-weight: 600 }
+.tag { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: 20px; padding: 3px 10px; font-size: .82rem; font-weight: 650 }
+.tag.sample { background: var(--warning-bg); color: var(--warning); border-color: var(--warning); letter-spacing: .06em }
+.tag.new { background: var(--warning-bg); color: var(--warning); border-color: var(--warning) }
+
+/* access */
+.access { width: min(100% - 32px, 520px); margin: clamp(32px, 9vh, 96px) auto }
+.access .card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 32px; display: grid; gap: 14px }
+.access .brand { text-align: center; font-size: 2.6rem; margin: 0 }
+.access h1 { text-align: center; font-size: 1.6rem }
+.access .branch { text-align: center; color: var(--muted); font-weight: 650 }
+.access label { display: grid; gap: 4px; font-weight: 650 }
+.access input { width: 100% }
+
+/* layout */
+.page { max-width: 1200px; margin: 0 auto; padding: 16px 20px; display: grid; gap: 14px }
+.panel { background: var(--surface); padding: 16px; border: 1px solid var(--line); border-radius: 10px; display: grid; gap: 10px; min-width: 0 }
+.split { display: grid; grid-template-columns: minmax(0,1.25fr) minmax(300px,1fr); gap: 14px; align-items: start }
+.row,.money-row,.total,.line-meta { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center }
+.form { display: grid; gap: 10px }
+.form label { display: grid; gap: 4px; font-weight: 600 }
+/* scanning */
+.scan-field label { font-weight: 700 }
+.scan-field input { width: 100%; min-height: 60px; font-size: 1.35rem; letter-spacing: .04em; border-width: 2px; border-color: var(--primary) }
+.last-scan { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 14px; align-items: center }
+.last-scan .count { font-size: clamp(3.5rem, 9vw, 5.5rem); font-weight: 800; line-height: 1; color: var(--primary); font-variant-numeric: tabular-nums; text-align: right }
+.last-scan .count small { display: block; font-size: .85rem; font-weight: 600; text-align: right }
+.lines { display: grid; gap: 0 }
+.rline { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line) }
+.rline:last-child { border-bottom: 0 }
+.rline .qty { font-size: 1.6rem; font-weight: 800; font-variant-numeric: tabular-nums; min-width: 3ch; text-align: right }
+.rline p { font-size: .9rem }
+.totals { font-size: 1.15rem; font-weight: 750 }
+.flash { animation: flash 160ms ease-out }
+@keyframes flash { from { background: var(--secondary) } to { background: transparent } }
+
+/* sale */
+.sale { display: grid; grid-template-columns: minmax(0,1.18fr) minmax(320px,1fr); align-items: start; min-height: calc(100vh - 140px) }
+.catalog,.ticket { padding: 16px; min-width: 0 }
+.catalog > input,.catalog .scan-field input { width: 100% }
+.cards { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; margin-top: 10px }
+.product { padding: 0; text-align: left; overflow: hidden; background: var(--surface); font-size: .87rem; display: grid }
+.product .product-info { display: grid; padding: 6px 8px 8px }
+.ticket { background: var(--surface); border-left: 1px solid var(--line); position: sticky; top: 0; display: grid; gap: 8px }
+.tline { border-bottom: 1px solid var(--line); padding: 8px 0; display: grid; gap: 6px }
+.stepper { display: inline-flex; gap: 3px; align-items: center }
+.stepper button { min-width: 44px; padding-inline: 8px }
+.stepper input { width: 60px; text-align: center; padding: 5px; font-variant-numeric: tabular-nums }
+.remove { color: var(--danger) }
+.checkout { margin-top: 6px; display: grid; gap: 9px }
+.total { background: var(--secondary); color: var(--primary); padding: 10px; border-radius: 8px; font-weight: 750; font-size: 1.16rem }
+.total strong { font-size: 1.6rem; font-variant-numeric: tabular-nums }
+.money-row input { width: 160px; text-align: right; font-size: 1.1rem }
+.money-row strong { font-size: 1.3rem; font-variant-numeric: tabular-nums }
+.short { color: var(--danger) }
+
+/* cash */
+.ledger .row { padding: 12px 4px; border-bottom: 1px solid var(--line); font-size: 1.1rem }
+.ledger .row strong { font-variant-numeric: tabular-nums }
+.ledger .row.expected { background: var(--secondary); color: var(--primary); border-radius: 8px; font-weight: 750; font-size: 1.25rem; border: 0; padding: 14px 10px }
+.denoms { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); gap: 8px }
+.denoms label { display: grid; grid-template-columns: 1fr 72px; align-items: center; gap: 6px; font-weight: 600 }
+.denoms input { text-align: center; width: 72px }
+.diff { font-size: 2rem; font-weight: 800; text-align: center; padding: 10px; border-radius: 8px; font-variant-numeric: tabular-nums }
+.diff.neg { background: var(--danger-bg); color: var(--danger) }
+.diff.zero,.diff.pos { background: var(--secondary); color: var(--primary) }
+
+/* tables */
+.table-wrap { overflow-x: auto }
+table { border-collapse: collapse; width: 100%; text-align: left }
+th,td { padding: 8px; border-bottom: 1px solid var(--line); vertical-align: middle }
+td.n,th.n { text-align: right; font-variant-numeric: tabular-nums }
+.stock-name { display: flex; align-items: center; gap: 10px }
+.out { color: var(--danger); font-weight: 700 }
+
+dialog { width: min(520px,calc(100% - 32px)); border: 1px solid var(--line); border-radius: 12px; padding: 20px; color: var(--ink) }
+dialog::backdrop { background: #12231cb3 }
+#modal-body { display: grid; gap: 12px }
+
+@media (max-width:1100px) {
+  .shell { grid-template-columns: 1fr; grid-template-rows: auto 1fr }
+  .rail { border-right: 0; border-bottom: 1px solid var(--line); padding: 6px 12px; display: flex; flex-wrap: wrap; align-items: center; gap: 5px 16px }
+  .brand { margin: 0; font-size: 1.3rem }
+  .rail nav { display: flex; flex-wrap: wrap; gap: 4px }
+  .top { padding: 10px 16px }
+  .page { padding: 12px 16px }
+}
+@media (max-width:760px) {
+  .sale,.split { grid-template-columns: 1fr }
+  .ticket { position: static; border-left: 0; border-top: 1px solid var(--line) }
+  .cards { grid-template-columns: repeat(2,minmax(0,1fr)) }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,*::before,*::after { animation: none !important; transition: none !important }
+}
+
+/* New screens keep the approved tablet's rows, panels, and existing tokens. */
+.history-sale { display: grid; gap: 10px; padding: 14px 0; border-top: 1px solid var(--line) }
+.history-sale h2,.receipt-paper h2 { overflow-wrap: anywhere }
+.sale-item { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 10px; align-items: center; padding: 8px; border: 1px solid var(--line); border-radius: 8px }
+.sale-item p { font-size: .88rem }
+.return-item { display: grid; gap: 8px }
+.return-item label { display: flex; align-items: center; justify-content: space-between; gap: 10px }
+.return-item input { width: 90px }
+.return-options { display: grid; grid-template-columns: minmax(0,1.5fr) minmax(220px,1fr); gap: 16px }
+.return-options > .total { display: grid; align-content: center; justify-items: center; text-align: center }
+.return-options > .total strong { font-size: clamp(1.6rem,4vw,2.6rem) }
+.return-actions { flex-wrap: nowrap }
+.return-actions .primary.big { flex: 1; width: auto }
+.return-actions > button:first-child { min-width: 130px }
+@media (max-width:760px) { .return-options { grid-template-columns: 1fr } }
+.form label.check { display: flex; min-height: 44px; align-items: center; gap: 10px }
+.receipt-page { max-width: 760px }
+.payment-row { display: grid; gap: 6px; border-top: 1px solid var(--line); padding-top: 8px }
+.payment-row label { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px }
+.payment-row input { width: 155px }
+#sale-customer-panel summary { min-height: 44px; align-content: center; cursor: pointer; font-weight: 650 }
+.report-totals { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px }
+.report-totals strong { font-size: 1.5rem; font-variant-numeric: tabular-nums }
+.report-totals .panel { gap: 4px }
+
+@media print {
+  @page receipt { size: 80mm 297mm; margin: 4mm }
+  @page day-report { size: A4; margin: 12mm }
+  html,body { overflow: visible; background: white; color: black; font: 10pt/1.3 monospace }
+  .rail,.top,.palette-picker,.notice,.no-print,dialog { display: none !important }
+  .shell,.workspace,.page { display: block; margin: 0; padding: 0; min-height: 0 }
+  .receipt-paper,.report-paper { border: 0; padding: 0; border-radius: 0; gap: 2mm; box-shadow: none }
+  .receipt-paper { page: receipt; width: 72mm }
+  .report-paper { page: day-report }
+  .sale,.sale .ticket { display: block; border: 0; padding: 0; position: static; min-height: 0 }
+  .sale .catalog,.sale .ticket > :not(#receipt) { display: none !important }
+.receipt-paper .sale-item { grid-template-columns: minmax(0,1fr) auto; border: 0; border-bottom: 1px dashed black; border-radius: 0; padding: 2mm 0; break-inside: avoid }
+  .receipt-paper h2 { font-size: 12pt }
+  .receipt-paper .total,.report-paper .total { background: white; color: black; padding: 2mm 0; border-radius: 0; font-size: 11pt }
+  .receipt-paper .total strong { font-size: 12pt }
+  .report-totals { display: block }
+  .report-totals .panel { border: 0; padding: 2mm 0 }
+  .report-paper table { font-size: 8pt }
+  .report-paper th,.report-paper td { padding: 1mm }
+}
+
+/* SAVIA 08 tablet: catalog and ticket have independent scroll areas. */
+@media screen and (min-width: 761px) {
+  .shell { height:100vh; overflow:hidden }
+  .workspace { min-height:0; display:flex; flex-direction:column }
+  #screen { flex:1; min-height:0; overflow:auto }
+  .sale { height:100%; min-height:0; grid-template-columns:minmax(0,1.18fr) minmax(350px,1fr) }
+  .catalog,.ticket { overflow-y:auto; height:100%; position:static }
+  .ticket { display:flex; flex-direction:column; gap:8px }
+  #ticket-lines { flex:1; min-height:64px; overflow:auto }
+  .ticket .checkout { flex:none; gap:6px; margin-top:0 }
+}
+.catalog-filters { display:grid; grid-template-columns:1.4fr 1fr; gap:8px; margin:10px 0 }
+.catalog-filters label { display:grid; gap:4px; font-size:.85rem; font-weight:650 }
+.catalog-filters select { width:100% }
+.product:disabled { opacity:.72 }
+.product .stock-available { color:var(--primary); font-weight:650 }
+.line-discount { display:flex; align-items:center; justify-content:space-between; gap:8px; font-size:.8rem }
+.line-discount input,.ticket-discount input { width:72px; min-height:36px }
+.ticket-discount { display:flex; justify-content:space-between; align-items:center; gap:8px; font-size:.85rem }
+.ticket-actions { gap:4px }
+.ticket-actions button { font-size:.78rem; padding:4px 7px; min-height:36px }
+.sizes { display:grid; gap:8px }
+.sizes button { text-align:left }
+#palette-picker { background:var(--canvas); border:1px solid var(--line); padding:12px; border-radius:8px }
+#settings-role,#sample-notice { max-width:70ch }
+
+/* Text catalog and narrow ticket controls. Content wraps; no control is hidden to fit. */
+.product { min-height:160px; align-content:start; border-top:3px solid var(--primary); padding:12px }
+.product .product-info { padding:0; gap:8px; overflow-wrap:anywhere }
+.product .product-info strong:first-child { font-size:1rem; line-height:1.35 }
+.product .product-info small { font-size:.8rem }
+.product .out { font-size:.8rem }
+.line-meta { min-width:0; align-items:flex-start }
+.line-meta > * { min-width:0; max-width:100%; overflow-wrap:anywhere }
+.tline > .line-meta:last-child { display:grid; grid-template-columns:minmax(0,1fr); gap:8px }
+.stepper { flex-wrap:wrap; justify-content:flex-start }
+.line-discount { display:flex; width:100% }
+.line-discount input { flex:0 0 72px }
+.ticket > * { flex-shrink:0; min-width:0; max-width:100% }
+#ticket-lines { flex:0 0 auto; overflow:visible }
+.denoms { grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 16px }
+.denoms label { grid-template-columns:minmax(0,1fr) 72px; font-size:.88rem }
+.denoms output { grid-column:1 / -1; text-align:right; font-size:.8rem; color:var(--muted) }
+.form[aria-labelledby="open-title"] .denoms { grid-template-columns:repeat(3,minmax(0,1fr)) }
+.opening-lines { display:grid; gap:6px; padding:10px 0 }
+.opening-lines .row { font-size:.9rem; padding:4px }
+.exception-item { display:grid; gap:10px; overflow-wrap:anywhere }
+.sale-item,.rline { overflow-wrap:anywhere }
+@media print { .sale,.ticket,#ticket-lines { height:auto !important; overflow:visible !important } }
+/* Seller attribution and quality reuse the existing staff interface. */
+.seller-panel { display:flex; flex-wrap:wrap; align-items:flex-end; gap:8px; margin-block:10px }
+.seller-slot { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:4px 6px; font-size:.85rem; font-weight:650; flex:1 1 180px; min-width:0 }
+.seller-slot select { grid-column:1; width:100%; min-width:0 }
+.line-seller-name { font-size:.85rem }
+.tabs { display:flex; gap:6px; margin-block:8px }
+.tabs button[aria-selected="true"] { background:var(--accent, #294d3f); color:white }
+.outcomes { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:6px; border:0; padding:0; margin:0 }
+.outcomes label { display:flex; gap:6px; align-items:center; border:1px solid var(--line); border-radius:8px; padding:8px }
+.import-map { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:8px }
+.import-map label { display:grid; gap:4px; font-size:.85rem; font-weight:650 }
+.line-seller { max-width:100%; min-width:0; }
+.quality-check { grid-column:1 / -1; grid-row:2; min-width:0; }
+.quality-check > .form { display:grid; grid-template-columns:repeat(auto-fit,minmax(110px,1fr)); gap:8px; padding-block:12px; }
+.quality-check input { width:100%; min-width:0; }
+.rline > .qty { grid-column:2; grid-row:1; }
+#price-list .actions { flex-wrap:wrap; }
+#price-list label { min-width:0; max-width:100%; }
+#price-list input { width:160px; max-width:100%; }
+.rail { max-height:100vh; position:sticky; top:0; overflow-y:auto; }
+
+/* Native disclosure keeps work groups operable with touch and keyboard. */
+.nav-group { min-width: 0; max-width: 100% }
+.nav-group > summary { min-height: 48px; padding: 12px 8px; border: 1px solid transparent; border-radius: 8px; cursor: pointer; font-weight: 650; overflow-wrap: anywhere }
+.nav-group > summary:hover { border-color: var(--line) }
+.nav-group[data-active="true"] > summary { background: var(--secondary); color: var(--primary) }
+.nav-group-links { display: grid; gap: 4px; padding-left: 8px; border-left: 2px solid var(--line) }
+.rail nav a { overflow-wrap: anywhere; min-width: 0 }
+.history-sale > details { overflow-wrap: anywhere }
+.history-sale > details > summary { min-height: 44px; padding: 10px 0; cursor: pointer; color: var(--muted) }
+@media (max-width:1100px) {
+  .rail nav { width: 100%; min-width: 0 }
+  .nav-group { flex: 1 1 150px }
+}

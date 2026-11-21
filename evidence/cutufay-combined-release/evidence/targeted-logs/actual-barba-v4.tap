@@ -1,0 +1,10 @@
+TESTED_COMBINED_APP_SHA256 aa0528f71c3a23410dd7c2c0151427826f800e8f78a8057fe60d14427dcd89e8
+✔ actual Barba vendor keeps native fragment entries and router/custom metadata usable without fetching (1102.294991ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1633.042912

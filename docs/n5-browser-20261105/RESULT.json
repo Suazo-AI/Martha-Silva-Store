@@ -1,0 +1,99 @@
+{
+  "task_id": "savia-n5-browser-20261105",
+  "status": "returned",
+  "verdict": "NO_REPRODUCED_PRODUCT_DEFECT",
+  "acceptance": "pending primary and independent approved critic/judge",
+  "host": "SUAZO-PC",
+  "provider": "codex",
+  "model": "gpt-6.1-sol",
+  "requestedOptions": {
+    "reasoningEffort": "high"
+  },
+  "effectiveOptions": {
+    "reasoningEffort": "high"
+  },
+  "settingsEvidence": "T3 runtime/developer metadata; no independent provider telemetry",
+  "worktree": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-6b804833",
+  "isolation": "T3 supplied tool-managed worktree; no worker checkout created",
+  "branch": "t3/savia-n5-browser-coverage",
+  "baseSHA": "1e353d45cd0eb2ad8e79589f410ac191c1368b06",
+  "changedFilesSha256": {
+    "tests/browser-mock-validation.mjs": "020b29f19d8820489ccdb4317141ec3ca2fd83d4733a8244a277bc5ab982862c",
+    "docs/n5-browser-20261105/focused/browser-results.json": "32f51bc6ecec0fb53cda49b2258ac58bbe81999c2909e99e348c1a20096f5a9d",
+    "docs/n5-browser-20261105/focused/stale-receipt-observation.json": "003fb893b7ca07e8abc855f0ccc1505b58b31c3451b15c36ca141a7a37fe84d5",
+    "docs/n5-browser-20261105/focused/stale-receipt.png": "d3090e2f6e4e1b128b03136cf066075c92c5d6223e5cbf146224bad8828d660d",
+    "docs/n5-browser-20261105/focused.log": "6150b54420f9607d454defca3d825211855679b97e8c88d5c080d9ba489c7ab0",
+    "docs/n5-browser-20261105/full/browser-results.json": "d024a32cef75749e7540d8d11a10572188297bd8303c0fb21c258ac83ceb28c0",
+    "docs/n5-browser-20261105/full/multiarticle-desktop-cart.png": "44b3c4c50ba59383a23dec4f8d1be73c7b2e198503feebc97788ee2d2d87470d",
+    "docs/n5-browser-20261105/full/multiarticle-desktop-receipt.png": "320f9588cb3499caebdb9cf80e2f3c38662827a6746bc1093fdf023089828853",
+    "docs/n5-browser-20261105/full/multiarticle-mobile-cart.png": "18bfa0b19f9ec8c46edaa1105b32d2f223e448396c47bee2ec5df52e1569037a",
+    "docs/n5-browser-20261105/full/multiarticle-mobile-receipt.png": "4b706722f1cb7c2e00fa5a7bb933d3ec845944ae8ca0b7a134932d82cc3d40e1",
+    "docs/n5-browser-20261105/full/public-checkout-observation.json": "755c104ea4981d793d35c543aa63dcecfc589495c624b9d5a17a27c91afa537b",
+    "docs/n5-browser-20261105/full/stale-receipt-observation.json": "003fb893b7ca07e8abc855f0ccc1505b58b31c3451b15c36ca141a7a37fe84d5",
+    "docs/n5-browser-20261105/full/stale-receipt.png": "d3090e2f6e4e1b128b03136cf066075c92c5d6223e5cbf146224bad8828d660d",
+    "docs/n5-browser-20261105/full.log": "56b6133919357fa21e94eeb9072d725a5b6ecc29ed7d4056955987c6e054f327",
+    "docs/n5-browser-20261105/README.md": "9f53d0a05bbc0013d9d7c787d7ff3460a88a92a31ea30b8562be2674bd8f435f",
+    "docs/n5-browser-20261105/staff.log": "ef7425c6a63529991e047fd8658add41e25b2ccae8308e817506772aad2533ed"
+  },
+  "sourceHashes": {
+    "dev/savia-staff-ui/app.mjs": "383c40447e91aa465cc945138699151826d7c1ad93f2f1ed041aa3dcda303309",
+    "dev/savia-staff-ui/client.mjs": "0447a3c83910d9a5618f98886d1025b9a74a3f59839eeca2ea0d7cc1ca6c4825",
+    "dev/savia-staff-ui/login.mjs": "ac7714a22eb1e7a383ca41e3e11343472025271dcf21dc862f39cf8c386fc787",
+    "dev/savia-staff-ui/login.html": "4803ece2ef530d9e5161837209ac86591bfe1447e9876b0f38bf17baca9a8382",
+    "dev/savia-staff-ui/index.html": "b5fe1c6a87f9cb4736e103eae888be97546e4f7b7e50d8893fe4ab4b01a6897d",
+    "dev/savia-staff-ui/styles.css": "3be78159e11d127c91db22399fb306fcc35e9cb8886a556393a003b82c9c2622"
+  },
+  "commands": [
+    {
+      "command": "MARTHA_BROWSER_TEST_MATCH=N5 node tests/browser-mock-validation.mjs <verified-playwright-directory> docs/n5-browser-20261105/focused",
+      "pass": 8,
+      "fail": 0,
+      "exit": 0
+    },
+    {
+      "command": "node tests/browser-mock-validation.mjs <verified-playwright-directory> docs/n5-browser-20261105/full",
+      "pass": 50,
+      "fail": 0,
+      "exit": 0
+    },
+    {
+      "command": "NODE_PATH=C:/Users/Jason/MARTHA-SILVA/github/tests/frontend-deps/node_modules node --test dev/savia-staff-ui/*.test.mjs",
+      "pass": 102,
+      "fail": 0,
+      "skip": 0,
+      "exit": 0
+    }
+  ],
+  "acceptanceDispositions": {
+    "heldOperationRecovery": "PASS: original bytes/key/body; zero POSTs while held; original key recovery; one setup POST total",
+    "freshMultiarticleAfter404": "PASS: exact two-line request; one new UUID/POST; new receipt; obsolete reference gone; stock refresh 10/10 to 8/7",
+    "lateOld404": "PASS reachable logout invalidation; same-generation newer pending race dismissed with source and browser evidence, see README"
+  },
+  "runtime": {
+    "focusedUncaughtErrors": 0,
+    "fullUncaughtErrors": 0,
+    "externalRequests": 0,
+    "focusedExpectedAborts": 2,
+    "fullExpectedAborts": 13,
+    "browser": "156.0.8078.80",
+    "node": "v24.18.0",
+    "teardown": "both browser/server awaited before exit 0; no matching Node process at final readback"
+  },
+  "productSourceChanged": false,
+  "blockers": [],
+  "notRun": [
+    "real API",
+    "SQL",
+    "Docker",
+    "device acceptance",
+    "production",
+    "CI",
+    "tests/check.py",
+    "independent review"
+  ],
+  "nextAction": "Primary independently review and integrate serially; no publication by worker",
+  "usage": {
+    "tokens": "unknown",
+    "cost": "unknown"
+  }
+}

@@ -1,0 +1,66 @@
+[
+  {
+    "name": "cashier_review_guard",
+    "path": "dev/savia-staff-ui/login.mjs",
+    "command": [
+      "node",
+      "--test",
+      "--test-name-pattern=cashier cannot",
+      "dev/savia-staff-ui/stock-exception.test.mjs"
+    ],
+    "exit": 1,
+    "detected": true,
+    "before_sha256": "07c6a492a0519a60d04873853102731d287beafbebee3ba9609e16ec6740a11d",
+    "restored_sha256": "07c6a492a0519a60d04873853102731d287beafbebee3ba9609e16ec6740a11d",
+    "exact_restoration": true
+  },
+  {
+    "name": "receipt_exception_binding",
+    "path": "dev/savia-staff-ui/client.mjs",
+    "command": [
+      "node",
+      "--test",
+      "--test-name-pattern=receipt refuses",
+      "dev/savia-staff-ui/stock-exception.test.mjs"
+    ],
+    "exit": 1,
+    "detected": true,
+    "before_sha256": "3eec3aeac1aedafbe982013848204117f2abff4040f1d1bcdc5d05202eb69f46",
+    "restored_sha256": "3eec3aeac1aedafbe982013848204117f2abff4040f1d1bcdc5d05202eb69f46",
+    "exact_restoration": true
+  },
+  {
+    "name": "review_late_response",
+    "path": "dev\\savia-staff-ui\\app.mjs",
+    "command": [
+      "node",
+      "--test",
+      "--test-name-pattern=late review success",
+      "dev/savia-staff-ui/stock-exception.test.mjs"
+    ],
+    "exit": 1,
+    "detected": true,
+    "before_sha256": "628c874033f2ce0fb602041713190e006454c555f7eab0f5612a4f7009f15c91",
+    "restored_sha256": "628c874033f2ce0fb602041713190e006454c555f7eab0f5612a4f7009f15c91",
+    "exact_restoration": true
+  },
+  {
+    "name": "server_review_permission",
+    "path": "backend\\src\\Martha.Store.Api\\Internal\\InternalCommandRunner.cs",
+    "command": [
+      "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+      "test",
+      "backend/tests/Martha.Store.Api.Tests",
+      "--no-restore",
+      "--filter",
+      "FullyQualifiedName~InternalStockExceptionTests.Review_scope_requires_authorized_manager_or_substitute",
+      "--logger",
+      "console;verbosity=minimal"
+    ],
+    "exit": 1,
+    "detected": true,
+    "before_sha256": "f246811eb229ce4b4232f9f3f045a20f2c4c7595e174a7c4e0a184c8205d3b59",
+    "restored_sha256": "f246811eb229ce4b4232f9f3f045a20f2c4c7595e174a7c4e0a184c8205d3b59",
+    "exact_restoration": true
+  }
+]

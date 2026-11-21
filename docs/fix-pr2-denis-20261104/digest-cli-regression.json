@@ -1,0 +1,29 @@
+{
+  "workflow": ".github/workflows/progress-digest.yml",
+  "failure_propagation": [
+    {
+      "scenario": "compatible-pipe-without-pipefail",
+      "api_exit": 42,
+      "exit": 0,
+      "expected": 0,
+      "publication_attempted": true,
+      "expected_publication_attempted": true,
+      "pass": true
+    },
+    {
+      "scenario": "compatible-pipe-with-pipefail",
+      "api_exit": 42,
+      "exit": 42,
+      "expected": 42,
+      "publication_attempted": false,
+      "expected_publication_attempted": false,
+      "pass": true
+    }
+  ],
+  "live_read_only_gh_command": "gh api repos/Suazo-AI/Martha-Silva-Store/issues?labels=bitacora&state=open&per_page=100 --paginate --slurp",
+  "live_read_exit": 0,
+  "pages": 1,
+  "oldest_open_bitacora_issue": 3,
+  "actual_issue_mutations": false,
+  "limit": "Failure propagation uses fake gh/jq through the actual Bash block. Live call is read-only; runner jq and push publisher require same-SHA CI."
+}

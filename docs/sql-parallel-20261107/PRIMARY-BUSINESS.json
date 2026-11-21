@@ -1,0 +1,129 @@
+{
+  "status": "business runtime evidence verified; independent Astra review pending",
+  "sourceSha": "f9ffa452bae7fc11a4a578ce24b57ecb72add139",
+  "host": "SUAZO-PC",
+  "primary": "T3 Code / Codex / gpt-6.1-sol/xhigh",
+  "verifiedAtUtc": "2026-11-07T23:57:10.244790+00:00",
+  "methodCount": 39,
+  "passed": 39,
+  "failed": 0,
+  "skipped": 0,
+  "duplicateExecutionIds": 0,
+  "duplicateTestIds": 0,
+  "missing": [],
+  "extra": [],
+  "rawTrxSha256": "1a55a85e6662d02535842e41bd30c97d740b911c5d8716f4941d81d8dccf7273",
+  "workerPrivateArtifactsVerified": 19,
+  "sourceBindingsVerified": 8,
+  "sanitizedRowsMatchRaw": true,
+  "cleanup": {
+    "workerIdentityAndRemovalVerified": true,
+    "primaryFreshAbsenceExit": 0,
+    "primaryFreshAbsenceEmpty": true
+  },
+  "imports": [
+    {
+      "path": "docs/sql-parallel-20261107/business/README.md",
+      "rawSha256": "00431034147861b43186537ef7d3d2eaa839d397edd444ced58a17633ae4bc6d",
+      "lfSha256": "3c3aa450d19fd26d9d727b7fe047e3a74c0ac7fa406bcfa76f99ebebcadd4437"
+    },
+    {
+      "path": "docs/sql-parallel-20261107/business/RESULT.json",
+      "rawSha256": "a3325537204c213094940b57f0f75869c135fe70f85dd97f91ed7605a13ad384",
+      "lfSha256": "2e75fbbea565168c698ebcc056117b13194452840ddd69a57d9014a354e7e25a"
+    },
+    {
+      "path": "docs/sql-parallel-20261107/business/sanitized-outcomes.json",
+      "rawSha256": "57bce7abc78e5fbe289d8093529c6e0fcc30d8f3550318da80fd6f95be9a5b9b",
+      "lfSha256": "5105640970cad53b34d5b514a9ffd95c17adde00c730380c42cd0ed1f9b65616"
+    }
+  ],
+  "protectedUnrelated": {
+    "AGENTS.md": "2a2e931b6feed7fff17683718619be44dd57e1d17191de15c3f98148cedc1b53",
+    "docs/DECISIONS.md": "c876e8f7667cfb5737d0175f452abfacccfc8e48e0ac46630a33ff09b852373b"
+  },
+  "limits": [
+    "No test rerun by primary",
+    "Security28 result not received",
+    "Astra/xhigh independent review pending",
+    "Historical six SQL failures not root-caused",
+    "Browser-to-API-to-SQL/cash UI not exercised",
+    "Production NO-GO"
+  ],
+  "nextAction": "Read the security worker completion event, verify/import its evidence, then freeze one combined Astra/xhigh review.",
+  "sourceCommitCI": {
+    "command": [
+      "npx.cmd",
+      "-y",
+      "gh-axi",
+      "api",
+      "repos/Suazo-AI/Martha-Silva-Store/actions/runs?head_sha=f9ffa452bae7fc11a4a578ce24b57ecb72add139"
+    ],
+    "exit": 0,
+    "sourceSha": "f9ffa452bae7fc11a4a578ce24b57ecb72add139",
+    "readback": [
+      {
+        "id": 42426525692,
+        "name": "Progress digest",
+        "headSha": "f9ffa452bae7fc11a4a578ce24b57ecb72add139",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 42426525693,
+        "name": "Staff UI candidate (no SQL)",
+        "headSha": "f9ffa452bae7fc11a4a578ce24b57ecb72add139",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 42426525641,
+        "name": "Progress documentation",
+        "headSha": "f9ffa452bae7fc11a4a578ce24b57ecb72add139",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 42426525649,
+        "name": "Tony source snapshot",
+        "headSha": "f9ffa452bae7fc11a4a578ce24b57ecb72add139",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "rawSha256": "1f92c18076be2f9feddcaeeb0b9868705ee2a25ecb3d58d05862d1bc8d8bc937",
+    "limits": "Source commit CI, not the later evidence publication SHA; no SQL workflow dispatched"
+  },
+  "integratedRepositoryCheck": {
+    "command": [
+      "python",
+      "tests/check.py"
+    ],
+    "exit": 0,
+    "seconds": 212.078,
+    "log": "private-exports\\sql-business-primary-20261107\\repository-check.log",
+    "sha256": "04d8f822373343e402fba10851d1a6e938250c051a293c68578cfd6e53a7c5d5",
+    "validatedDocs": [
+      "docs/sql-parallel-20261107/business/README.md",
+      "docs/sql-parallel-20261107/business/RESULT.json",
+      "docs/sql-parallel-20261107/business/sanitized-outcomes.json",
+      "docs/sql-parallel-20261107/PRIMARY-BUSINESS.json",
+      "docs/sql-parallel-20261107/README.md",
+      "docs/cash-register-20261107/README.md"
+    ]
+  },
+  "registryChecks": {
+    "progressTests": {
+      "command": [
+        "python",
+        "tests/test_progress.py"
+      ],
+      "exit": 0,
+      "seconds": 113.047,
+      "log": "private-exports\\sql-business-primary-20261107\\progress-tests.log",
+      "sha256": "a25b7fdd68749656b04ea3f624021f5d86dc88e70494ae454bca1c1080660185"
+    },
+    "preservedEvidenceHashes": 15,
+    "ledgerValidItems": 40
+  }
+}

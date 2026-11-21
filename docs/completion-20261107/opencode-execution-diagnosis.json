@@ -1,0 +1,46 @@
+{
+  "status": "UPSTREAM_FREE_ACCESS_REJECTION_CONFIRMED",
+  "observedDateUtc": "2026-11-07",
+  "host": "SUAZO-PC",
+  "sourceSha": "87ff7991967b2f9f2bd98cf447be5d0e843337c8",
+  "scope": "Read-only diagnosis of the interrupted session-CSRF worker; no new model request or account change.",
+  "taskId": "savia-csrf-glm-offline-87ff799-20261107-01",
+  "worktree": "C:/Users/Jason/.t3/worktrees/github/t3-57dcafe1",
+  "openCodeSessionId": "ses_e48792fa3ffeQ4IjzKkZ5CPPS3",
+  "provider": "opencode",
+  "model": "glm-5.3-flash-free",
+  "requestedVariant": "high",
+  "effectiveReasoning": "unknown",
+  "localCliVersionAtDiagnosis": "1.19.5",
+  "diagnosticSources": [
+    "C:/Users/Jason/.local/share/opencode/log/opencode.log",
+    "C:/Users/Jason/.t3/userdata/logs/provider/events.thread-delegated-task-command-3amcp-3a13df77ce-5243-4c0a-bb0b-f16573212fa6-3adel-faed78f87ecff9f8.log",
+    "C:/Users/Jason/.t3/userdata/logs/server.trace.ndjson.3",
+    "OpenCode session export, inspected in memory; raw conversation not retained in this packet"
+  ],
+  "observations": [
+    {"timeUtc": "2026-11-07T19:40:37.893Z", "operation": "opencode.session.promptAsync", "result": "T3 trace records successful submission; not generation success"},
+    {"timeUtc": "2026-11-07T19:40:53.164Z", "operation": "OpenCode title generation", "model": "big-pickle", "result": "AI_RetryError: Free usage limit reached; automatic title helper, not a worker selected by the primary"},
+    {"timeUtc": "2026-11-07T19:41:33.551Z", "operation": "OpenCode build-agent stream", "model": "glm-5.3-flash-free", "result": "AI_APICallError: Free usage limit reached."},
+    {"timeUtc": "2026-11-07T20:09:34.680Z", "operation": "T3 task cancellation", "result": "interrupted; no active run or pending request"}
+  ],
+  "sessionReadback": {
+    "userMessages": 1,
+    "assistantMessages": 1,
+    "assistantParts": 0,
+    "reportedInputTokens": 0,
+    "reportedOutputTokens": 0,
+    "reportedReasoningTokens": 0,
+    "cost": "unknown; zero reported tokens do not certify billing",
+    "recordedErrorOnAssistantMessage": null
+  },
+  "productReadback": {"gitStatusShort": "", "partialCandidate": false},
+  "cause": "The selected free model request was rejected upstream. T3 did not surface that stream error as a terminal task failure before cancellation.",
+  "notEstablished": ["The provider's reset time", "Whether a different free model is currently usable", "The cause of every earlier stalled task", "Any operating-system or administrator-access defect", "Paid-plan availability"],
+  "attemptedCorrection": "Stopped the stale task through supported cancellation and verified the clean worktree. No identical redispatch, provider fallback, upgrade or credential mutation.",
+  "providerException": {"decisionDate": "2026-11-07", "authorization": "Sí, usar Codex Sol/high temporalmente (recomendado)", "executor": "codex/gpt-6.1-sol", "reasoningEffort": "high", "judge": "codex/gpt-6-astra", "judgeReasoningEffort": "xhigh", "scope": "Temporary execution route only; existing implementation, runtime and review boundaries remain in force."},
+  "nextAction": "Dispatch one bounded Codex gpt-6.1-sol/high session-CSRF implementation in a managed worktree. Primary verifies the returned candidate; Astra/xhigh remains the sole judge.",
+  "completionCheck": "A permitted executor performs actual source actions, returns source-bound code and passes the frozen session-CSRF acceptance checks.",
+  "owner": "Primary orchestrator; provider-selection exception belongs to Jason",
+  "rawLogsPublished": false
+}

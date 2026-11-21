@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-13T06:55:41.632588+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/tests/test_pilot_browser_cleanup.py",
+      "change": "M",
+      "git_blob": "c387f65d5fa4efccd9dde845fb96cb7ee711c00e"
+    },
+    {
+      "path": "savia/tests/test_pilot_runner.py",
+      "change": "M",
+      "git_blob": "11ed2950f8667a7a3a3a30238eafd0a28c5bd555"
+    },
+    {
+      "path": "savia/tests/test_rules.py",
+      "change": "M",
+      "git_blob": "370037b4a81ec909c733242ae6826948cb65b04e"
+    },
+    {
+      "path": "savia/tools/api_snapshot.py",
+      "change": "A",
+      "git_blob": "97e0773028b66bcc65fcda89339688643125a476"
+    },
+    {
+      "path": "savia/tools/rules.py",
+      "change": "M",
+      "git_blob": "ebcef210df1f309b8fb3757fa2439ac08f34a8e7"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

@@ -1,0 +1,175 @@
+{
+  "sourceBase": "65ab1d942a4666321e489da1cccd6341a0f671b7",
+  "status": "integrated-local-pass-pending-exact-sha-ci-and-independent-review",
+  "host": "SUAZO-PC",
+  "primary": {
+    "provider": "codex",
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "xhigh"
+  },
+  "normalization": "RAW disk bytes; LF normalizes CRLF to LF only and retains BOM. Git may convert checkout line endings. Historical receipts unchanged.",
+  "bindings": [
+    {
+      "path": "build-inputs/static/_headers",
+      "role": "changed",
+      "rawSha256": "503d49f3f495ee3001ae78d8db6ca666bbe424cfa962ba4244348000943e907f",
+      "lfSha256": "503d49f3f495ee3001ae78d8db6ca666bbe424cfa962ba4244348000943e907f"
+    },
+    {
+      "path": "build-inputs/static/catalogo.html",
+      "role": "changed",
+      "rawSha256": "d38a7c67f7b4ab23fc977e361c28a19212d043a9515a4354394af57e08f15626",
+      "lfSha256": "d38a7c67f7b4ab23fc977e361c28a19212d043a9515a4354394af57e08f15626"
+    },
+    {
+      "path": "build-inputs/static/index.html",
+      "role": "changed",
+      "rawSha256": "3a2d298f99ff5ab1485121fd63921ab95af7abb1ce85f42d659c9449e242d8fb",
+      "lfSha256": "b025431c70d13b2264aac29cf03f65557bf3412849a43c4c1cf033b0adb3832d"
+    },
+    {
+      "path": "build-inputs/static/locale-en.js",
+      "role": "changed",
+      "rawSha256": "0f35a694433d4ac4f496a48356ebe831eba680937eef7cf7f65be1cc1d59b9b1",
+      "lfSha256": "25635092271c419b53ef454a2c92d35bfcc162d1c823fd6ca0cbb1eed0aebb7a"
+    },
+    {
+      "path": "build-inputs/static/styles.css",
+      "role": "changed",
+      "rawSha256": "0a05e6dbbb334e88c535b98a6c461150cad0c73982e63586f0d777289feb0488",
+      "lfSha256": "0a05e6dbbb334e88c535b98a6c461150cad0c73982e63586f0d777289feb0488"
+    },
+    {
+      "path": "dist/_headers",
+      "role": "changed",
+      "rawSha256": "503d49f3f495ee3001ae78d8db6ca666bbe424cfa962ba4244348000943e907f",
+      "lfSha256": "503d49f3f495ee3001ae78d8db6ca666bbe424cfa962ba4244348000943e907f"
+    },
+    {
+      "path": "dist/app.js",
+      "role": "changed",
+      "rawSha256": "ae2577a4a707628f93b19593a41a08db239914e4f34e97455b03a1fb80c421b0",
+      "lfSha256": "a6209bb17816e00b723c610ad0a85f7c86ac362d750507a369ba4b790160463e"
+    },
+    {
+      "path": "dist/catalogo.html",
+      "role": "changed",
+      "rawSha256": "d38a7c67f7b4ab23fc977e361c28a19212d043a9515a4354394af57e08f15626",
+      "lfSha256": "d38a7c67f7b4ab23fc977e361c28a19212d043a9515a4354394af57e08f15626"
+    },
+    {
+      "path": "dist/index.html",
+      "role": "changed",
+      "rawSha256": "3a2d298f99ff5ab1485121fd63921ab95af7abb1ce85f42d659c9449e242d8fb",
+      "lfSha256": "b025431c70d13b2264aac29cf03f65557bf3412849a43c4c1cf033b0adb3832d"
+    },
+    {
+      "path": "dist/locale-en.js",
+      "role": "changed",
+      "rawSha256": "0f35a694433d4ac4f496a48356ebe831eba680937eef7cf7f65be1cc1d59b9b1",
+      "lfSha256": "25635092271c419b53ef454a2c92d35bfcc162d1c823fd6ca0cbb1eed0aebb7a"
+    },
+    {
+      "path": "dist/styles.css",
+      "role": "changed",
+      "rawSha256": "0a05e6dbbb334e88c535b98a6c461150cad0c73982e63586f0d777289feb0488",
+      "lfSha256": "0a05e6dbbb334e88c535b98a6c461150cad0c73982e63586f0d777289feb0488"
+    },
+    {
+      "path": "evidence/releases/20261105/responsive-runtime-sha256.json",
+      "role": "changed",
+      "rawSha256": "f3b2a83d781db81631d744ed0649bf41b32ee396e54922b45a5b422d44c5d3d9",
+      "lfSha256": "c6097f334a935e290a284694ddcfdd92712e043a42c6bc17f7793f1ce648521a"
+    },
+    {
+      "path": "package-lock.json",
+      "role": "changed",
+      "rawSha256": "869b928f447562e5a3b97022e2c7b28a566180be1ca1cb4af40f33d5724aa301",
+      "lfSha256": "2c3ec783b8d731d534fe7fcc693c3ed7ae8b20d41930b388c69b47eb6f7ad0e9"
+    },
+    {
+      "path": "package.json",
+      "role": "changed",
+      "rawSha256": "55c2b7d5fb46a8c245763ef4b82c9b21cff756d01bdf5be8a42225111be670da",
+      "lfSha256": "1bfdebbc38a34e9509cd0b2cac12e9ca6263366c35e2109199b4047823a20e3a"
+    },
+    {
+      "path": "src/app.js",
+      "role": "changed",
+      "rawSha256": "ae2577a4a707628f93b19593a41a08db239914e4f34e97455b03a1fb80c421b0",
+      "lfSha256": "a6209bb17816e00b723c610ad0a85f7c86ac362d750507a369ba4b790160463e"
+    },
+    {
+      "path": "tests/check.py",
+      "role": "changed",
+      "rawSha256": "8f127bf6979a28f320b96cd14c334acab44232508f3773ad1195be058adc81ec",
+      "lfSha256": "d9b2670022e71888c3c2a3b588da82e299cdbff75ff012159f29a23f07cb6438"
+    },
+    {
+      "path": "tests/luxury-editorial.cjs",
+      "role": "changed",
+      "rawSha256": "a03c5a5993e01238c0933ae7fb7fbce523a28c3b13b837e1780d03cd97cc0169",
+      "lfSha256": "94bde45be3e217f195a4eb2f116811dd324f26c5fe85a08b18df4dab9091edcf"
+    },
+    {
+      "path": "tests/responsive_images.py",
+      "role": "changed",
+      "rawSha256": "0f80506355bedbcc136b0807bc3842fbc9b3452fde29e35958059ac993c758dc",
+      "lfSha256": "b76eb9eefb4ac9fce3eb9c2438edc4f88d6cc83fbad532ef984405d7fd8634ba"
+    },
+    {
+      "path": "tests/static_headers.py",
+      "role": "changed",
+      "rawSha256": "e8534005d9dbe004b17914fc30a520fc99c06aeb46f271193087d76d8adb5d9e",
+      "lfSha256": "5aaa8ebb90b8cb6ea29141d20123b20146faef7084958a7ba46997e8cc7bcf89"
+    },
+    {
+      "path": "tests/test_deployment.py",
+      "role": "changed",
+      "rawSha256": "30cfdd0982160f27f97a7e0e009f1b4f2d38ef09d1342257da8864165a9e737e",
+      "lfSha256": "1034d9b196fef3b86c1b4304bac461f84d721551da679920f8b4d23365e2f006"
+    },
+    {
+      "path": "tests/test_release_snapshot.py",
+      "role": "changed",
+      "rawSha256": "37e0ee45e22d1d194a4085d476c176e6381c7804fe2ec6f8b92eaf822f67a07d",
+      "lfSha256": "37e0ee45e22d1d194a4085d476c176e6381c7804fe2ec6f8b92eaf822f67a07d"
+    },
+    {
+      "path": "tools/verify_release_snapshot.py",
+      "role": "changed",
+      "rawSha256": "a386639a2f19e04627cf3a29d2e1ba71c9e25211af8c83cabc51f35e14db9353",
+      "lfSha256": "4bf2ca8365aa9514650ff020039d1fbdfdcfa32f246a389a2e910d5aaea98352"
+    },
+    {
+      "path": ".github/workflows/staff-ui-candidate.yml",
+      "role": "contract",
+      "rawSha256": "0dcc7d0d0c576daa4ebf2488cc6770f97320c50e6a21fd83d21a9692e62e08ad",
+      "lfSha256": "7676d1225e59af05a8008d08244bdda5ad1233030a3e3cd1864d18ee028a75ff"
+    },
+    {
+      "path": ".github/workflows/tony-snapshot.yml",
+      "role": "contract",
+      "rawSha256": "33108bfa3fb65d3e472bc5d46cba8c7ff1bde54a39da69b0dc2dea4334160420",
+      "lfSha256": "4961c96c8bed7b2b6105478d596d97aea2bdd5b50e8cb8afb15899113e358739"
+    },
+    {
+      "path": "prepare.py",
+      "role": "contract",
+      "rawSha256": "83f6ab4c812d6d67ac15b7fc0d04e13e3e9c3ec2855b256bd3075aafa2ca396a",
+      "lfSha256": "82a0543a5fd67e611ab5684a0a1a983aa80e336cd8fd733594bea1959b91bb68"
+    },
+    {
+      "path": "src/demo-api.js",
+      "role": "contract",
+      "rawSha256": "2cfdfaa9ea665ba4fd7c822ab66f7bdaa1499160c45e04cde53d14530d04002e",
+      "lfSha256": "2cfdfaa9ea665ba4fd7c822ab66f7bdaa1499160c45e04cde53d14530d04002e"
+    },
+    {
+      "path": "wrangler.jsonc",
+      "role": "contract",
+      "rawSha256": "5b3e9a407ffedc75e229a5eedd6b8aa669e8a095366f8ca9e17cd4393e334599",
+      "lfSha256": "be98fa5c4badaad243be68197359d49ae7b5c0492cfbc3288dd0d2cdc3a12ac7"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "baseBeforeClientTest": "030b64f7cba87c6a0d710892deb9a8493ea8bbf4",
+  "status": "frozen_for_astra_xhigh",
+  "normalization": "LF means CRLF to LF only; no BOM, whitespace or other transformations",
+  "sourceBindings": [
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurity.cs",
+      "rawSha256": "787011826ae99e86f50952d822c9d96c7429b13a19b0bf5547a1144e80177acf",
+      "lfSha256": "21ed34099bf549b60ec5171c1677b309eadf0518c465c8f25e9a6657110cbc52"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalSessionAntiforgeryAdditionalDataProvider.cs",
+      "rawSha256": "c858c783298cb989fd78c79907010b5cb90fb451cd0fd249219d2e43e6b2fe93",
+      "lfSha256": "9ddd1c0325e2fa3fa8246bdfd9234adc512b48241555f7890afd473491732117"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs",
+      "rawSha256": "418191606a16659844202da57ded885b97aa5d89609798d52d00723afd0a0734",
+      "lfSha256": "9d1bae635e9076cf293e1996dde6ac93e350e1b28fd54ea5efaded9591fc4fb5"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalSessionAntiforgeryTests.cs",
+      "rawSha256": "2e9a0be5e6acec88fa9e7c8dcb02f70a0396d1d3474c9dcf0aa5dda8503692ba",
+      "lfSha256": "d4544738ca9d75d991afa61d7db97d8eabb446f4e35ef7dc1643d1cdd932a380"
+    },
+    {
+      "path": "dev/savia-staff-ui/login.mjs",
+      "rawSha256": "73911282fd1ac18b0de0785eb8c8b7c60dbd189cef14c68a28891a51fa9e88a4",
+      "lfSha256": "73911282fd1ac18b0de0785eb8c8b7c60dbd189cef14c68a28891a51fa9e88a4"
+    },
+    {
+      "path": "dev/savia-staff-ui/client.mjs",
+      "rawSha256": "fa45879476a512d7fcaf9ecf375b412268869d45be31fec62f120fef1ef9e4da",
+      "lfSha256": "fa45879476a512d7fcaf9ecf375b412268869d45be31fec62f120fef1ef9e4da"
+    },
+    {
+      "path": "dev/savia-staff-ui/app.mjs",
+      "rawSha256": "c1c01336b60f9533c1aa92fd0a98fdef7a1a7745ac4df15ef2488fc162482264",
+      "lfSha256": "c1c01336b60f9533c1aa92fd0a98fdef7a1a7745ac4df15ef2488fc162482264"
+    },
+    {
+      "path": "dev/savia-staff-ui/supply.mjs",
+      "rawSha256": "dab76f496003745e61365b34db5411621aff99edd5a7b0b32d8aaf4565a3cce0",
+      "lfSha256": "ad62c75f08efe2e0642d1ced245c47312b8673aa33d63edddaff7af249fb8270"
+    },
+    {
+      "path": "dev/savia-staff-ui/index.html",
+      "rawSha256": "72193922c484ffe0fe2468ba897cfb2fc1bcf598528645b15311332b33d94b64",
+      "lfSha256": "88811aeb14377241bb812d495f42ffa8070d68f36742d170f5b07f8d5bcc544c"
+    },
+    {
+      "path": "dev/savia-staff-ui/session-transition.test.mjs",
+      "rawSha256": "ea5d321f23186e78d999313e7d228e0242e29425904ec5174b572a1ea880a384",
+      "lfSha256": "ea5d321f23186e78d999313e7d228e0242e29425904ec5174b572a1ea880a384"
+    }
+  ],
+  "evidence": [
+    "docs/session-csrf-20261107/worker/RESULT.json",
+    "docs/session-csrf-20261107/worker/SOURCE-MANIFEST.json",
+    "docs/session-csrf-20261107/primary-integration.json",
+    "docs/session-csrf-20261107/client/PRIMARY.json",
+    "docs/session-csrf-20261107/client/HASHES.json"
+  ],
+  "acceptance": "docs/session-csrf-20261107/README.md#frozen-acceptance",
+  "notRun": [
+    "N8 SQL",
+    "combined real browser/API/SQL",
+    "production"
+  ]
+}

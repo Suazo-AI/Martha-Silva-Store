@@ -1,0 +1,95 @@
+{
+  "base_sha": "030b64f7cba87c6a0d710892deb9a8493ea8bbf4",
+  "files": [
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Cash/InternalCashEndpoints.cs",
+      "bytes": 2636,
+      "sha256_raw": "d726f8e2817f302c99593b50f5c4a89eef9a47f89163531eb9416e584fb024b2",
+      "sha256_lf": "d726f8e2817f302c99593b50f5c4a89eef9a47f89163531eb9416e584fb024b2"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Cash/InternalCashModel.cs",
+      "bytes": 3557,
+      "sha256_raw": "9019756fb25b9497e69b98af8b2d8d29539ae5b6da9ce187ed0edf38f4e4ae35",
+      "sha256_lf": "9019756fb25b9497e69b98af8b2d8d29539ae5b6da9ce187ed0edf38f4e4ae35"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Cash/InternalCashModels.cs",
+      "bytes": 3875,
+      "sha256_raw": "099d3153471bed7babd349cd83c2549902a12d7d4bd45d3c1439ad9d2d99a1c1",
+      "sha256_lf": "0333a4f73104201182b58e9d48c03bc9b8f314a521c0c23280f5f1aedac75789"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Cash/InternalCashService.cs",
+      "bytes": 9647,
+      "sha256_raw": "da90b8380c5f7ef78d2843522dbce93bb369e3dab1a61eb332184cc4cb318141",
+      "sha256_lf": "5475c19c85591d47f990ed6402d4fbe4c8c7ea9c42d946cd6eefdd9c267146de"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceService.cs",
+      "bytes": 17884,
+      "sha256_raw": "d3f72118e23b92d8a376a5cc5af2519cf30d0adc1aee5414ebccbe8034472248",
+      "sha256_lf": "67758ba83e225fa32d2d32e1660ec3884483f59cb01ac133cacd02496930259f"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalBranchAccess.cs",
+      "bytes": 7035,
+      "sha256_raw": "26ba22f7769c9a03b6eea5d9c65581be9ad32ed1595ff422261e8f139dbe8417",
+      "sha256_lf": "ed754fac208d070d8c69d826823f13d6a057eb45a7feb101b6af9522121f625b"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalCommandRunner.cs",
+      "bytes": 9637,
+      "sha256_raw": "947528d0e18014531f2993147a59e17b182621e5a6aa10e6c51177adfb7d7d58",
+      "sha256_lf": "280c830c16088c752c0080ba04c7549e1c3c1c9386cba63004539238765a1df1"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalDbContext.cs",
+      "bytes": 3053,
+      "sha256_raw": "0465453bb10dea5e309a5f0c3ab02d47a95af035728056a84fcb8cb01b648835",
+      "sha256_lf": "9c20b744310ca52b46bb65ff51bce9867ae4949aab7226b927cf45bfe08b5a47"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalHosting.cs",
+      "bytes": 5039,
+      "sha256_raw": "12d95a1b6f693b47919fd59eae4580dd4c703cfa5c25ac14cacfc631843df4c8",
+      "sha256_lf": "cb095a8bedc15deb3a93a34c167e014ebf8a74c1595b9013e393f24383c325ce"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceFingerprint.cs",
+      "bytes": 1604,
+      "sha256_raw": "99883f26d1437bc484de911756230a5da8e8e862b45b1028937997f46abb6837",
+      "sha256_lf": "d1e6cae12753637cc425bf1e6786b0801d4a155c10759adfaad52bbf9d0d154e"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceFingerprintTests.cs",
+      "bytes": 4454,
+      "sha256_raw": "fde1ee55836e60394707e60a8f3cef10758426932189430be7655d836c4890ef",
+      "sha256_lf": "5686ed8925405a6f1bd238d9230d75c145338e82be911cb0e27bd9edfd417936"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCashSqlTests.cs",
+      "bytes": 13876,
+      "sha256_raw": "fc1d1752ad7801b379dcf53315be3baf75b0960c560f5f3176854bc0415ffb47",
+      "sha256_lf": "42a713d91f97b240b89131438e6d3c58698526a95c2c49ba5320232409007f59"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCashTests.cs",
+      "bytes": 5375,
+      "sha256_raw": "b825fc7dbad677587d3d1a6b76a22dd10add81641abc6e5e24dcef78f49e27d6",
+      "sha256_lf": "b825fc7dbad677587d3d1a6b76a22dd10add81641abc6e5e24dcef78f49e27d6"
+    },
+    {
+      "path": "docs/cash-register-20261107/backend-worker/README.md",
+      "bytes": 8160,
+      "sha256_raw": "7a108e65d3c0fdb2553f1e29bdcff57528421afa4ae70a6956bfb8b45dd35871",
+      "sha256_lf": "7a108e65d3c0fdb2553f1e29bdcff57528421afa4ae70a6956bfb8b45dd35871"
+    },
+    {
+      "path": "docs/cash-register-20261107/backend-worker/verification.json",
+      "bytes": 6306,
+      "sha256_raw": "b0f99002063fc27cbe0dea875a132f16bf5dcb4e7c00e8e5105dd4d3243af6b2",
+      "sha256_lf": "213d1c8ba2fd84629427c13961829e6d9b99f67f51b318e07e752b44ef3c332b"
+    }
+  ]
+}

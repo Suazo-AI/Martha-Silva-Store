@@ -1,0 +1,20 @@
+[
+  {
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "primaryAction": "Confirmar recepción"
+  },
+  {
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "primaryAction": "Confirmar recepción"
+  }
+]

@@ -1,0 +1,142 @@
+[
+  {
+    "command": [
+      "python",
+      "tests/build.py"
+    ],
+    "exit": 0,
+    "log": "check-0.log"
+  },
+  {
+    "command": [
+      "node",
+      "tests/frontend-runtime.cjs"
+    ],
+    "exit": 0,
+    "log": "check-1.log"
+  },
+  {
+    "command": [
+      "node",
+      "tests/localization-runtime.cjs"
+    ],
+    "exit": 0,
+    "log": "check-2.log"
+  },
+  {
+    "command": [
+      "node",
+      "--test",
+      "tests/luxury-editorial.cjs",
+      "tests/original-catalog.cjs",
+      "tests/catalog-migration.cjs"
+    ],
+    "exit": 0,
+    "log": "check-3.log"
+  },
+  {
+    "command": [
+      "python",
+      "tests/responsive_images.py"
+    ],
+    "exit": 0,
+    "log": "check-4.log"
+  },
+  {
+    "command": [
+      "python",
+      "tests/responsive_fonts.py"
+    ],
+    "exit": 0,
+    "log": "check-5.log"
+  },
+  {
+    "command": [
+      "python",
+      "tests/static_headers.py"
+    ],
+    "exit": 0,
+    "log": "check-6.log"
+  },
+  {
+    "command": [
+      "python",
+      "tests/test_release_snapshot.py"
+    ],
+    "exit": 0,
+    "log": "check-7.log"
+  },
+  {
+    "command": [
+      "python",
+      "tests/test_deployment.py"
+    ],
+    "exit": 0,
+    "log": "check-8.log"
+  },
+  {
+    "command": [
+      "python",
+      "tests/test_check.py"
+    ],
+    "exit": 0,
+    "log": "check-9.log"
+  },
+  {
+    "command": [
+      "python",
+      "tests/structure.py"
+    ],
+    "exit": 0,
+    "log": "check-10.log"
+  },
+  {
+    "command": [
+      "python",
+      "tools/verify_release_snapshot.py"
+    ],
+    "exit": 0,
+    "log": "check-11.log"
+  },
+  {
+    "command": [
+      "npm.cmd",
+      "ls",
+      "wrangler",
+      "miniflare",
+      "undici",
+      "--all",
+      "--json"
+    ],
+    "exit": 0,
+    "log": "check-12.log"
+  },
+  {
+    "command": [
+      "npm.cmd",
+      "audit",
+      "--json"
+    ],
+    "exit": 0,
+    "log": "check-13.log"
+  },
+  {
+    "command": [
+      "npm.cmd",
+      "audit",
+      "--omit=dev",
+      "--json"
+    ],
+    "exit": 0,
+    "log": "check-14.log"
+  },
+  {
+    "command": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "exit": 0,
+    "log": "check-15.log"
+  }
+]

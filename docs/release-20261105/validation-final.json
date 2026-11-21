@@ -1,0 +1,86 @@
+{
+  "date": "2026-11-05",
+  "host": "SUAZO-PC",
+  "actor": "primary: T3 Codex gpt-6.1-sol/xhigh",
+  "mode": "DISCOVER",
+  "source_sha": "dfc7e65af477bdfc625f174d71bd2f23a99c400f",
+  "status": "PASS",
+  "scope": "Static documentation package, not product or production acceptance",
+  "corrected_failure": {
+    "source_report": "validation.json",
+    "error": "SyntaxError: unmatched ')'",
+    "cause": "Worker helper had an extra closing parenthesis before any static checks ran",
+    "action": "Replaced with smaller primary verifier; no repository test rerun",
+    "result": "Fresh JSON/link/source/import/token-pattern checks completed",
+    "owner": "primary",
+    "completion_check": "this command exit 0, no findings"
+  },
+  "inherited_fresh_required_checks": [
+    {
+      "command": "python tests/test_progress.py",
+      "exit": 0,
+      "tests_passed": 23
+    },
+    {
+      "command": "python tools/export_progress.py --verify",
+      "exit": 0,
+      "preserved_hashes": 15
+    }
+  ],
+  "counts": {
+    "input_files": 11,
+    "parsed_json_files": 4,
+    "local_markdown_links": 9,
+    "website_hashes": 13,
+    "savia_worker_to_base_bindings": 31,
+    "exact_imports": 4,
+    "frozen_judge_inputs": 9,
+    "token_pattern_findings": 0
+  },
+  "frozen_judge_input_delta": {
+    "changed": [
+      "PLAN.md",
+      "primary-review.md"
+    ],
+    "allowed": "Primary applied L1/L2 schedule clarification and recorded final dispositions. Nine hashes matched before changes; seven remain unchanged."
+  },
+  "canonical_source_delta": [
+    "docs/PROJECT-STATUS.md"
+  ],
+  "input_sha256": {
+    "PLAN.md": "78fa901afccd808faff52698a9416f16099fc0b48f16ebcad85a7cce7ce979d6",
+    "PROMPT.md": "5bd05cc5199a4abb43a201079d9fb50a33ebafbc211f3bd2ba0cd7c517543837",
+    "SOURCES.md": "7f86c8fd55520a367629b6b71c647e5051ece3eb923ed93c3ce9004f4f53f51a",
+    "BASELINE.json": "b7e517885ac95cfdb1907944d6772d2fb7b88ce65d57918a8309699ba36bbeee",
+    "primary-review.md": "2b8a6232073f50c8371a57e2dc396f4524a7814eeaf85853939caff1dc7d98bd",
+    "website-audit.md": "b4a27e120d934e44f86567b72bac5fa0be78a60ea181334102ba3a3f2d888a49",
+    "website-baseline.json": "e68c3a87a98e16dfe73655ad711b2759341b8d8e4b74bd7a9f3bf00e88e29bf9",
+    "savia-audit.md": "3e378a15e605fbdc3df7cfffbed6075a19086f0dae7a3bca217f63b71ac1260f",
+    "savia-baseline.json": "b969af884fb9fc953f2d3de5126fea4420248a1cc9b1bd5a9c9bfbd0f6f689d6",
+    "judge.md": "d8541e215d2ff49fa2533b6a149e3d14ffc9689f87ef9e65f5e3f555c8cb087c",
+    "validation.json": "53d056b8a5ac32b3cf91957d0f850fbfec0b8c4abcc6c4708cb399037452636a"
+  },
+  "project_status_sha256": "02755f43fbc368adedf4f2dda5caeafed2120bf2118bf947adb8ca4c2dd891d1",
+  "findings": [],
+  "screening_limit": "Explicit-path manual review plus common credential/private-key pattern screening; not a universal secret-detection proof",
+  "excluded": [
+    "GATE.md superseded interrupted draft",
+    "raw logs/private T3 history/configuration/authorization receipts/backups/recordings/credentials/certificates/databases",
+    "unrelated working-tree files"
+  ],
+  "not_run": [
+    "fresh product/browser/device/network/SQL/payment/restore tests",
+    "Opus critic",
+    "deployment/merge",
+    "remote publication/CI at this point"
+  ],
+  "staged_format_correction": {
+    "path": "docs/release-20261105/judge.md",
+    "failure": "git diff --cached --check: new blank line at EOF; exit 2",
+    "cause": "Trailing empty line in returned Markdown report",
+    "action": "Removed only trailing blank line; report content and original worker artifact preserved",
+    "original_worker_sha256": "501be33d3ba9ec00c573250e760616331a5b973fd5d01da4f8ce32036c21348d",
+    "published_working_sha256": "d8541e215d2ff49fa2533b6a149e3d14ffc9689f87ef9e65f5e3f555c8cb087c",
+    "result": "Rerun staged diff check below; no product test repeated"
+  }
+}

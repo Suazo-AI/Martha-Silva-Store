@@ -1,0 +1,10 @@
+{
+  "scenario_count": true,
+  "ids_unique": true,
+  "all_five_exit_zero": true,
+  "source_hash_matches": true,
+  "source_frozen": true,
+  "html_embedded_data": true,
+  "day_cash_independent": true,
+  "day_credit_independent": true
+}

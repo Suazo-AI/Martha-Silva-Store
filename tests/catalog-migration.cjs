@@ -1,12 +1,10 @@
 'use strict';
 const assert=require('node:assert/strict');
 const test=require('node:test');
-const fs=require('node:fs');
-const vm=require('node:vm');
 const {createDemoApi}=require('../dist/demo-api.js');
 const expanded=require('./fixtures/catalog-expansion.json');
-const context={window:{}};vm.runInNewContext(fs.readFileSync(require.resolve('../dist/catalog.js'),'utf8'),context);
-const legacy=JSON.parse(JSON.stringify(context.window.DEMO_CATALOG));
+// Preserve the actual 6-variant legacy state independently of the 40-product storefront.
+const legacy=require('./fixtures/legacy-catalog.json');
 const vid=legacy.products[0].variants[0].id, other=legacy.products[1].variants[0].id;
 const KEY='martha-parity-v2-demo-state-1', RECOVERY=KEY+'-recovery';
 const clone=x=>JSON.parse(JSON.stringify(x));

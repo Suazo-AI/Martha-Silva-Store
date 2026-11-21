@@ -1,0 +1,170 @@
+{
+  "task": "FIX-PR2-DENIS-20261104",
+  "base": "88faa2dd0d51fc1c5089b721ba5b17c23d4d61d4",
+  "zip_sha256": "af0dd8199908ff1e0ac9b314be584597acbc664c0d7eddb4b2dde75370bace73",
+  "patch_sha256": "ded3d3e68522a324c755969dea7f3f37319c3876591e090fc7bbfb16e1f1fe4d",
+  "manifest_sha256": "4e76f5bb99ec07768c9244278a3ebf361b9faef9a9621373270bf7ae89d25065",
+  "count": 13,
+  "all_base_candidate_length_checks_passed": true,
+  "no_upstream_collision_with_preexisting_untracked": true,
+  "files": [
+    {
+      "path": ".github/workflows/golden-path.yml",
+      "status": "modified",
+      "base_sha256": "b9800a0b8fb7ec161e284a5c4889e8026f071de53d85af247f5331dd8fd8abd4",
+      "candidate_sha256": "62a79d5533141f575b193654739488deb3246f783fcb9b2e94b99afb7917c20e",
+      "bytes": 5827
+    },
+    {
+      "path": ".github/workflows/progress-digest.yml",
+      "status": "modified",
+      "base_sha256": "728d432878ad7e9daed96d5f10d5fd467c7c10ba374bf7ae5bdb1bfd1e916030",
+      "candidate_sha256": "4515270bc1971152acc438ed4aad2ffc4322fa35de55f4e69ba8879ed1563371",
+      "bytes": 12191
+    },
+    {
+      "path": "docs/DECISIONS.md",
+      "status": "modified",
+      "base_sha256": "f7a3a15b95e9617617d09f9a51e2caa47967a3c635c625c393c745dbb82dc906",
+      "candidate_sha256": "f7178a5f9424a4c0a84f6e5ba93412022c57eff1ca8fac72176a049edbb09023",
+      "bytes": 6574
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "status": "modified",
+      "base_sha256": "849491705cf5ac673cc7a08d37d7394a9801285869df9556b51606a168a1723d",
+      "candidate_sha256": "3063e061f72f8b65d81b220c8936291962ba7ac8ab70731b56e015a765d159f2",
+      "bytes": 26504
+    },
+    {
+      "path": "docs/pipeline/README.md",
+      "status": "modified",
+      "base_sha256": "ffdf84c305c58888ce1993885e2f4d8da6143603e9c30bd50b0d70657bdb74a1",
+      "candidate_sha256": "9a72ec90da8ffd2bae33204b539798df04735bd0c1283394f3e9e38be46552af",
+      "bytes": 7265
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "status": "modified",
+      "base_sha256": "7d3b38c2e77458e2cb7dc40ce9039f19f83b5c29d76f52a85aa6708e8a90025d",
+      "candidate_sha256": "8494f6ce251900ad276a68c69ca8591122747d9f5c9c78a606a27eccf3f95913",
+      "bytes": 5647
+    },
+    {
+      "path": "docs/sprint-20261104/TONY-PR2-FIXES.md",
+      "status": "added",
+      "base_sha256": null,
+      "candidate_sha256": "6ce5752dca86ce9abe6606a807e575c05f97e1afdcaffc601277618096253a80",
+      "bytes": 4085
+    },
+    {
+      "path": "tests/golden-path/golden_path.py",
+      "status": "modified",
+      "base_sha256": "1e3a1c0191f75548dd71b42ec3f0b91d7206467057d245ff2920df98c7c910c1",
+      "candidate_sha256": "ac3c20e6f79afa8bc596e4a216f8015258473938097aabeb74ef663218bb2c21",
+      "bytes": 45060
+    },
+    {
+      "path": "tests/golden-path/README.md",
+      "status": "modified",
+      "base_sha256": "4dcd9af7e99c301db586f5930b2d619d4be7a3a684225bcabc2cb218b2a570a0",
+      "candidate_sha256": "5feabc255b1cfb8454efca2275c4fb92a4a038afa5b7f006cf26b65c02f45a75",
+      "bytes": 8292
+    },
+    {
+      "path": "tests/golden-path/verify_evidence.py",
+      "status": "added",
+      "base_sha256": null,
+      "candidate_sha256": "cf494c86fe22cbbd7e8ad3e7ffabc97d55cafbb1e1afb90e19efa2656ce6c5ff",
+      "bytes": 2635
+    },
+    {
+      "path": "tests/test_delivery_status.py",
+      "status": "modified",
+      "base_sha256": "2f614f5345c67e68ad76f859761417d8c04631973abf35c25d096bf3356fdbbd",
+      "candidate_sha256": "bb700e3b71b273abf1bb6aa120707c55790f2fd5a28d4a985911284112559770",
+      "bytes": 10597
+    },
+    {
+      "path": "tests/test_golden_path_safety.py",
+      "status": "added",
+      "base_sha256": null,
+      "candidate_sha256": "06e11db0a2c1f0acea63b6f0c1bae0e751a56a8df057ac5ea6c536a0d856dd1e",
+      "bytes": 11642
+    },
+    {
+      "path": "tools/delivery_status.py",
+      "status": "modified",
+      "base_sha256": "ae75b4a8a88455c919e849b7c33003002fd31c33e11a5bd1ea4d1cb6e62a1335",
+      "candidate_sha256": "a71a582b0e449a1f551c219ab0a1e58e882d501dcb93f2d01a0c5190e7d1500e",
+      "bytes": 15579
+    }
+  ],
+  "original_candidate_git_blobs_before_documentation_and_teardown_additions": [
+    {
+      "path": ".github/workflows/golden-path.yml",
+      "sha256": "62a79d5533141f575b193654739488deb3246f783fcb9b2e94b99afb7917c20e",
+      "git_blob": "7fd32a6edbe57234aac8175e74a3fbdcd5d71176"
+    },
+    {
+      "path": ".github/workflows/progress-digest.yml",
+      "sha256": "4515270bc1971152acc438ed4aad2ffc4322fa35de55f4e69ba8879ed1563371",
+      "git_blob": "2a8d053d1a1bfeef3b2af8385b5a2d65969bb2f3"
+    },
+    {
+      "path": "docs/DECISIONS.md",
+      "sha256": "f7178a5f9424a4c0a84f6e5ba93412022c57eff1ca8fac72176a049edbb09023",
+      "git_blob": "ff772432863c08a05da54d93229744feb610a0d8"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "sha256": "3063e061f72f8b65d81b220c8936291962ba7ac8ab70731b56e015a765d159f2",
+      "git_blob": "44724eba2843fc6b8011ae88e1f0f61d7e18a29d"
+    },
+    {
+      "path": "docs/pipeline/README.md",
+      "sha256": "9a72ec90da8ffd2bae33204b539798df04735bd0c1283394f3e9e38be46552af",
+      "git_blob": "551f95bb1bff845199293b78074cfab08958e31c"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "sha256": "8494f6ce251900ad276a68c69ca8591122747d9f5c9c78a606a27eccf3f95913",
+      "git_blob": "73f6c0b81f74f70603183bb9c34b13f09677a168"
+    },
+    {
+      "path": "docs/sprint-20261104/TONY-PR2-FIXES.md",
+      "sha256": "6ce5752dca86ce9abe6606a807e575c05f97e1afdcaffc601277618096253a80",
+      "git_blob": "5e96f9ec3b6319e655f901f2723f5a28643e4bf4"
+    },
+    {
+      "path": "tests/golden-path/golden_path.py",
+      "sha256": "ac3c20e6f79afa8bc596e4a216f8015258473938097aabeb74ef663218bb2c21",
+      "git_blob": "586610100233516fe28c894026c7b6acb26b8aab"
+    },
+    {
+      "path": "tests/golden-path/README.md",
+      "sha256": "5feabc255b1cfb8454efca2275c4fb92a4a038afa5b7f006cf26b65c02f45a75",
+      "git_blob": "f6ba30548fb7196ce7e76cf04307729ae7fa2aae"
+    },
+    {
+      "path": "tests/golden-path/verify_evidence.py",
+      "sha256": "cf494c86fe22cbbd7e8ad3e7ffabc97d55cafbb1e1afb90e19efa2656ce6c5ff",
+      "git_blob": "886740d7a897d5f41268d8252400bc23e62f4089"
+    },
+    {
+      "path": "tests/test_delivery_status.py",
+      "sha256": "bb700e3b71b273abf1bb6aa120707c55790f2fd5a28d4a985911284112559770",
+      "git_blob": "b643e894225681f012a9855a64414c9eb481afa5"
+    },
+    {
+      "path": "tests/test_golden_path_safety.py",
+      "sha256": "06e11db0a2c1f0acea63b6f0c1bae0e751a56a8df057ac5ea6c536a0d856dd1e",
+      "git_blob": "f15256c1a37f948101cc6d27cbcce59202aa3e58"
+    },
+    {
+      "path": "tools/delivery_status.py",
+      "sha256": "a71a582b0e449a1f551c219ab0a1e58e882d501dcb93f2d01a0c5190e7d1500e",
+      "git_blob": "0aae49b593706b0512715eb284ade38d4c7fb81f"
+    }
+  ]
+}

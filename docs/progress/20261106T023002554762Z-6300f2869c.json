@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-06T02:30:02.554762+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/learning/backlog.html",
+      "change": "M",
+      "git_blob": "419dd6021d6cafbd57a4752b5226928533481304"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "change": "M",
+      "git_blob": "85a90a455e1172a57eb72629886f44b6aaad88ca"
+    },
+    {
+      "path": "docs/supply-ui-20261105/PLAN.md",
+      "change": "A",
+      "git_blob": "49cc3c52a081c1ee27cd696709db617b4261b15e"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

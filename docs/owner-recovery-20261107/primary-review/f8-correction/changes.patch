@@ -1,0 +1,117 @@
+--- a/backend/tests/Martha.Store.Api.Tests/InternalOwnerRecoverySqlTests.cs
++++ b/backend/tests/Martha.Store.Api.Tests/InternalOwnerRecoverySqlTests.cs
+@@ -92,29 +92,58 @@
+         System.Security.Claims.ClaimsPrincipal actor;
+         await using(var db=f.Context())
+         { var login=await new InternalSecurityService(db,hasher,TimeProvider.System).Login(new("other",Old),default);Assert.True(login.Success);actor=InternalSecurityRules.Principal(login.Value!.Staff,login.Value.Session); }
+-        using var locked=new ManualResetEventSlim();using var release=new ManualResetEventSlim();using var started=new ManualResetEventSlim();
+-        await using var first=new InternalOwnerRecoveryService(m,stage=> {if(stage=="after-target-lock"){locked.Set();if(!release.Wait(TimeSpan.FromSeconds(10)))throw new TimeoutException();}});
++        using var locked=new ManualResetEventSlim();using var release=new ManualResetEventSlim();
++        var admit=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
++        await using var observer=new SqlConnection(f.Connection);await observer.OpenAsync();
++        var sessions=await DatabaseSessions(observer);
++        // Hold the uncommitted write lock. An update lock alone admits shared readers.
++        await using var first=new InternalOwnerRecoveryService(m,stage=> {if(stage=="before-commit"){locked.Set();if(!release.Wait(TimeSpan.FromSeconds(20)))throw new TimeoutException();}});
+         await first.Inspect(default);
+-        await using var second=new InternalOwnerRecoveryService(m);await second.Inspect(default);
++        var firstSession=Assert.Single((await DatabaseSessions(observer)).Except(sessions));
++        await using var second=competing=="recovery"?new InternalOwnerRecoveryService(m):null;
++        await using var contenderDb=f.Context();
++        int contenderSession;
++        if(second is not null)
++        {
++            sessions=await DatabaseSessions(observer);await second.Inspect(default);
++            contenderSession=Assert.Single((await DatabaseSessions(observer)).Except(sessions));
++        }
++        else
++        {
++            await contenderDb.Database.OpenConnectionAsync();
++            await using var id=contenderDb.Database.GetDbConnection().CreateCommand();id.CommandText="SELECT @@SPID";
++            contenderSession=Convert.ToInt32(await id.ExecuteScalarAsync(),CultureInfo.InvariantCulture);
++        }
++        var targetSessions=await contenderDb.InternalSessions.AsNoTracking().Where(x=>x.StaffId==f.Target).ToArrayAsync();
++        var targetBefore=await contenderDb.InternalStaff.AsNoTracking().SingleAsync(x=>x.Id==f.Target);
++        var oldPrincipals=targetSessions.Where(x=>x.RevokedAt is null).Select(x=>InternalSecurityRules.Principal(targetBefore,x)).ToArray();
+         var preserved=await f.Snapshot(true);
+-        var winner=Task.Run(()=>first.Recover(Replacement,new Journal(),()=>true));
++        var journal=new Journal();var startedAt=DateTimeOffset.UtcNow;
++        var winner=Task.Run(()=>first.Recover(Replacement,journal,()=>true));
+         Task? loser=null;
+         try
+         {
+         Assert.True(locked.Wait(TimeSpan.FromSeconds(10)));
+         loser=Task.Run(async ()=>
+         {
+-            started.Set();
+-            if(competing=="recovery") {Assert.Equal(OwnerRecoveryOutcome.Refused,await second.Recover("different-synthetic-input",new Journal(),()=>true));return;}
+-            await using var db=f.Context();var service=new InternalSecurityService(db,hasher,TimeProvider.System);
++            await admit.Task;
++            if(second is not null) {Assert.Equal(OwnerRecoveryOutcome.Refused,await second.Recover("different-synthetic-input",new Journal(),()=>true));return;}
++            var service=new InternalSecurityService(contenderDb,hasher,TimeProvider.System);
+             if(competing=="reset")Assert.False((await service.ResetPassword(actor,f.Target,new("different-synthetic-input",m.SecurityVersion),default)).Success);
+             if(competing=="login")Assert.False((await service.Login(new("owner",Old),default)).Success);
+             if(competing=="demote")Assert.False((await service.UpdateStaff(actor,f.Target,new("Synthetic","Manager",true,m.SecurityVersion),default)).Success);
+         });
+-        Assert.True(started.Wait(TimeSpan.FromSeconds(10)));
++        // Negative control: a scheduled contender deliberately held before SQL cannot qualify.
++        Assert.False(await ObserveTargetLockWait(observer,contenderSession,firstSession,TimeSpan.FromMilliseconds(150)));
++        Assert.False(loser.IsCompleted);
++        admit.SetResult();
++        Assert.True(await ObserveTargetLockWait(observer,contenderSession,firstSession,TimeSpan.FromSeconds(8)),
++            "The actual contender never waited on the held Staff lock; task scheduling is not SQL contention.");
++        Assert.False(winner.IsCompleted);Assert.False(loser.IsCompleted);
+         }
+         finally
+         {
++            admit.TrySetResult();
+             release.Set();
+             // Await every started task before service/database cleanup, including failed assertions.
+             await Task.WhenAll(loser is null ? new Task[]{winner} : new Task[]{winner,loser});
+@@ -123,7 +152,47 @@
+         Assert.Equal(preserved,await f.Snapshot(true));
+         await using var final=f.Context();var staff=await final.InternalStaff.SingleAsync(x=>x.Id==f.Target);
+         Assert.Equal("Owner",staff.Role);Assert.True(staff.Enabled);Assert.NotEqual(m.SecurityVersion,staff.SecurityVersion);
++        Assert.Equal(journal.IntentVersion,staff.SecurityVersion);
+         Assert.NotEqual(PasswordVerificationResult.Failed,hasher.VerifyHashedPassword(staff,staff.PasswordHash,Replacement));
++        Assert.Equal(PasswordVerificationResult.Failed,hasher.VerifyHashedPassword(staff,staff.PasswordHash,Old));
++        var afterSessions=await final.InternalSessions.AsNoTracking().Where(x=>x.StaffId==f.Target).ToArrayAsync();
++        Assert.Equal(targetSessions.Select(x=>x.Id).Order(),afterSessions.Select(x=>x.Id).Order());
++        Assert.All(afterSessions,s=> {Assert.NotNull(s.RevokedAt);Assert.Equal(m.SecurityVersion,s.SecurityVersion);});
++        Assert.All(afterSessions.Where(x=>f.Revocable.Contains(x.Id)),s=>Assert.InRange(s.RevokedAt!.Value,startedAt,DateTimeOffset.UtcNow));
++        var security=new InternalSecurityService(final,hasher,TimeProvider.System);
++        foreach(var principal in oldPrincipals)Assert.Null(await security.ValidateSession(principal,default));
++    }
++    private static async Task<HashSet<int>> DatabaseSessions(SqlConnection observer)
++    {
++        await using var command=observer.CreateCommand();command.CommandTimeout=2;
++        command.CommandText="SELECT session_id FROM sys.dm_exec_sessions WHERE is_user_process=1 AND database_id=DB_ID()";
++        var result=new HashSet<int>();await using var rows=await command.ExecuteReaderAsync();
++        while(await rows.ReadAsync())result.Add(Convert.ToInt32(rows.GetValue(0),CultureInfo.InvariantCulture));
++        return result;
++    }
++    private static async Task<bool> ObserveTargetLockWait(SqlConnection observer,int contender,int blocker,TimeSpan budget)
++    {
++        // Missing DMV visibility fails closed. Never grant permissions or fall back to a task-start signal.
++        using var deadline=new CancellationTokenSource(budget+TimeSpan.FromSeconds(2));
++        var clock=System.Diagnostics.Stopwatch.StartNew();
++        do
++        {
++            await using var command=observer.CreateCommand();command.CommandTimeout=2;
++            command.CommandText="""
++                SELECT COUNT(*) FROM sys.dm_exec_requests r
++                CROSS APPLY sys.dm_exec_sql_text(r.sql_handle) sql_text
++                WHERE r.session_id=@contender AND r.blocking_session_id=@blocker
++                  AND r.database_id=DB_ID() AND r.wait_type LIKE N'LCK[_]M[_]%'
++                  AND SUBSTRING(sql_text.text,(r.statement_start_offset/2)+1,
++                    ((CASE r.statement_end_offset WHEN -1 THEN DATALENGTH(sql_text.text)
++                      ELSE r.statement_end_offset END-r.statement_start_offset)/2)+1) LIKE N'%[[]Staff[]]%'
++                """;
++            command.Parameters.AddWithValue("@contender",contender);command.Parameters.AddWithValue("@blocker",blocker);
++            if(Convert.ToInt32(await command.ExecuteScalarAsync(deadline.Token),CultureInfo.InvariantCulture)==1)return true;
++            if(clock.Elapsed>=budget)return false;
++            await Task.Delay(TimeSpan.FromMilliseconds(20),deadline.Token);
++        }while(clock.Elapsed<budget);
++        return false;
+     }
+     [OwnerRecoverySqlTheory]
+     [InlineData("disabled")] [InlineData("nonOwner")] [InlineData("empty")] [InlineData("all-disabled")] [InlineData("all-nonOwner")]

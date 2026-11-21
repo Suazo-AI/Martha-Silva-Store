@@ -1,0 +1,485 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-06T05:38:46.688749+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "build-inputs/static/_headers",
+      "change": "A",
+      "git_blob": "9a9e786ac0f5563427320f70640d019b88589199"
+    },
+    {
+      "path": "build-inputs/static/catalogo.html",
+      "change": "M",
+      "git_blob": "51727ae55c69364e6d9fd6ca2e10f0dd62529d65"
+    },
+    {
+      "path": "build-inputs/static/index.html",
+      "change": "M",
+      "git_blob": "69e8476af16c94bae4885aea739475fa1071bb13"
+    },
+    {
+      "path": "build-inputs/static/locale-en.js",
+      "change": "M",
+      "git_blob": "26d384250ee4dd80c0e6a781f674eb6855429d95"
+    },
+    {
+      "path": "build-inputs/static/styles.css",
+      "change": "M",
+      "git_blob": "40164637dbef0072ddcb9a73634063724914ff3f"
+    },
+    {
+      "path": "dist/_headers",
+      "change": "A",
+      "git_blob": "9a9e786ac0f5563427320f70640d019b88589199"
+    },
+    {
+      "path": "dist/app.js",
+      "change": "M",
+      "git_blob": "5f80501d63e7a8fb81ba68374bc610c48142d6b4"
+    },
+    {
+      "path": "dist/catalogo.html",
+      "change": "M",
+      "git_blob": "51727ae55c69364e6d9fd6ca2e10f0dd62529d65"
+    },
+    {
+      "path": "dist/index.html",
+      "change": "M",
+      "git_blob": "69e8476af16c94bae4885aea739475fa1071bb13"
+    },
+    {
+      "path": "dist/locale-en.js",
+      "change": "M",
+      "git_blob": "26d384250ee4dd80c0e6a781f674eb6855429d95"
+    },
+    {
+      "path": "dist/styles.css",
+      "change": "M",
+      "git_blob": "40164637dbef0072ddcb9a73634063724914ff3f"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "13b38500df31446d13db64e98d3247d8ead0401d"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/CANDIDATE.json",
+      "change": "A",
+      "git_blob": "25a1e1cc1af80e5fed8f3342ecdda8eb4f84328f"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/IMPORT.json",
+      "change": "A",
+      "git_blob": "131774c9de5ee9a3ffa5471e68c7db536eb95986"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/README.md",
+      "change": "A",
+      "git_blob": "28f0ae7be614cc28e2dc35549075143ee90c9e9e"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/RESULT.json",
+      "change": "A",
+      "git_blob": "40a7d8607115e1ec2d02fb4387febdabdfe5d0c2"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/SELECTED-REFERENCE.md",
+      "change": "A",
+      "git_blob": "efb0e449ff957c76c517ab86b45fe95b706c5c6f"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/browser-flow.js",
+      "change": "A",
+      "git_blob": "4bbc7ba82731d902ee98de46d968329fb96a0131"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/browser_driver.py",
+      "change": "A",
+      "git_blob": "af3d5fd8fa53921ebafaf52cdbd8a46b97e28567"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/candidate-hashes.json",
+      "change": "A",
+      "git_blob": "aa09f67acad1c249efd73f555431e77b063d63a1"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/changed-hashes.json",
+      "change": "A",
+      "git_blob": "0456a79de774e9593cca82cc814b1f4ea34a7353"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/checks.json",
+      "change": "A",
+      "git_blob": "6ed88e9cefdff6a0fb758ae18bb59b43382a65b5"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/cleanup.json",
+      "change": "A",
+      "git_blob": "21f5de48854761a4af137fcbf1eed0d62f12edab"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/desktop-bag.png",
+      "change": "A",
+      "git_blob": "352c1a2bb335877de37255295303e8720eca3560"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/desktop-home-rechecked.png",
+      "change": "A",
+      "git_blob": "d59bd4a6df2d73f1e927c2595b2415236b696779"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/desktop-home.png",
+      "change": "A",
+      "git_blob": "3b9526a6bc05709e5d50639fe11bef743d48f627"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/desktop-order.png",
+      "change": "A",
+      "git_blob": "2f5a329e463e6d0f795fa9e13a3fbb154cd4086b"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/desktop-payment.png",
+      "change": "A",
+      "git_blob": "943619c2e4d66caf00ab5aaa2197680e720aa1a0"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/evidence-files.json",
+      "change": "A",
+      "git_blob": "7dc6f384293bdb8c594a6b8b43fbb8d182bef392"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/font-hashes.json",
+      "change": "A",
+      "git_blob": "74b24c8f58da7c319165c3caec61c0484b9abfc1"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/import-verification.json",
+      "change": "A",
+      "git_blob": "1959c320d26349813e620174353612fad4b29ab1"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/media-hashes.json",
+      "change": "A",
+      "git_blob": "2f8cccfe7667ce3c7e8cc72dc185c73fa898dd99"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/mobile-bag.png",
+      "change": "A",
+      "git_blob": "128a27eb237841b0950de4c50299d721c7fac964"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/mobile-home.png",
+      "change": "A",
+      "git_blob": "fbb971b3ff28378c11169a0785248bdb2f95eda7"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/mobile-order.png",
+      "change": "A",
+      "git_blob": "cbce020620659914fedb52ffbb540239c1f3ece5"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/mobile-payment.png",
+      "change": "A",
+      "git_blob": "6ef16f4e28fb07777dce7be1722ed117e84ae4da"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary-review.md",
+      "change": "A",
+      "git_blob": "f4df0851b4ff4448fe1a9add0966966bf22996de"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/ARTIFACTS.json",
+      "change": "A",
+      "git_blob": "e492399b39b15c060850917922c5ba7da3e8b7a3"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/browser-after.json",
+      "change": "A",
+      "git_blob": "17e4985380ef6de6cba7c6f6f80e33586797a094"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/browser-before.json",
+      "change": "A",
+      "git_blob": "61af61c4300c1e36feeeaf5fbf68b8437a53d50d"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/checks.json",
+      "change": "A",
+      "git_blob": "320ea852b474700b6a20a40ea622301d5c8a7046"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/dependencies.json",
+      "change": "A",
+      "git_blob": "f169f647982404d014f0abee7b152457ae93cb4e"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/media-validation.json",
+      "change": "A",
+      "git_blob": "ebc7112ed816c457c45c46c83c1a368082c79a51"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/record.mjs",
+      "change": "A",
+      "git_blob": "820e7cdc2f88e732cb1369dda22a468903a5df46"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/screenshots/after-desktop-catalog.png",
+      "change": "A",
+      "git_blob": "5edbe645e928fce254d332fcb4ec88035b6171ba"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/screenshots/after-desktop-frame-2s.png",
+      "change": "A",
+      "git_blob": "4dff9541c8cbe4cc3c5a0c8c4d70ee6830a2c8d9"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/screenshots/after-desktop-home.png",
+      "change": "A",
+      "git_blob": "ce1a49072b874055ac001e1eb70806d74345d7c7"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/screenshots/after-desktop-order.png",
+      "change": "A",
+      "git_blob": "b1fcbe4b0d38317575a485a4f698d4f4d40d14b3"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/screenshots/after-mobile-catalog.png",
+      "change": "A",
+      "git_blob": "32b3ea53d64e8ec7e54f6bcc86bbdc561a0afc1d"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/screenshots/after-mobile-frame-2s.png",
+      "change": "A",
+      "git_blob": "c2e7f651cb45ae9d7ca5fcaba0905a5e1b3bc8f6"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/screenshots/after-mobile-home.png",
+      "change": "A",
+      "git_blob": "4a83af2fca6a52b1bf2cabc447d1e8c0edcf70e7"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/screenshots/after-mobile-order.png",
+      "change": "A",
+      "git_blob": "7b65d64c9c29a587e2920fbd7e8c1db15a84882e"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/screenshots/before-desktop-frame-2s.png",
+      "change": "A",
+      "git_blob": "40d01ff7284c27cf69639b71312d5dceba32ec0d"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/screenshots/before-desktop-home.png",
+      "change": "A",
+      "git_blob": "3f449a93409f34982a2bac46ea20bf366e95f006"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/screenshots/before-mobile-frame-2s.png",
+      "change": "A",
+      "git_blob": "e47e1a6e346aefc3004a3f102df70ae9911b7def"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/screenshots/before-mobile-home.png",
+      "change": "A",
+      "git_blob": "2a54be31d020d50a86640a9cfb874eca48ed0e96"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/videos/after-desktop.webm",
+      "change": "A",
+      "git_blob": "2c00ba3bba8b9adf450f3878bb20db29b34c3409"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/videos/after-mobile.webm",
+      "change": "A",
+      "git_blob": "c35fb428a648746220b7291d21404a4566c94848"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/videos/before-desktop.webm",
+      "change": "A",
+      "git_blob": "476e17449e915885a5ffdf927832cb8c36026c7a"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/videos/before-mobile.webm",
+      "change": "A",
+      "git_blob": "1da5d4577633eb2ea7203c94a8b898dd6db24e4d"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/primary/wrangler-runtime.json",
+      "change": "A",
+      "git_blob": "8d60d9f4f72b9a83a11146f76a657dedb0f95761"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/reference-provenance.json",
+      "change": "A",
+      "git_blob": "afd7edae302fda5e217734a3cda88c403716a4ce"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/reference/IMPORT.json",
+      "change": "A",
+      "git_blob": "54e6ebdac4e81c7ef1576c5645888c56327c8fec"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/reference/app.js.json",
+      "change": "A",
+      "git_blob": "ca1bf69d9b0654cdb4e3731ac168692128246cd3"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/reference/bolsa.html.txt",
+      "change": "A",
+      "git_blob": "44382b63e156128a84bccada238a6e9dd2bb7e15"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/reference/catalogo.html.txt",
+      "change": "A",
+      "git_blob": "cb33d6ae5c2c599ffe58c09a4301be8b049bf715"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/reference/checkout.html.txt",
+      "change": "A",
+      "git_blob": "cdb10538b6bf81f63ee86cd0e438e31076f4b4cf"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/reference/index.html.txt",
+      "change": "A",
+      "git_blob": "a91c4d3efdd2a970ebb52c78fd47081992915a47"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/reference/pedido.html.txt",
+      "change": "A",
+      "git_blob": "e24480fb2792b08c128bdd4a6e66578d8f8d3ccb"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/reference/producto-champagne.html.txt",
+      "change": "A",
+      "git_blob": "52c4999e2e2cf7ba583ac1c82e3f881990ca334e"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/reference/reference-desktop-clear.png",
+      "change": "A",
+      "git_blob": "0954370e09593a20a5f007695273f6d22fe03c4f"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/reference/reference-mobile.png",
+      "change": "A",
+      "git_blob": "2bc0c4caaf5439fa720bff0c4102e4c09507e14a"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/reference/styles.css.json",
+      "change": "A",
+      "git_blob": "c5b4830e2d63addf1fa9b51ea20a20e959dd0e19"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/runtime-evidence.json",
+      "change": "A",
+      "git_blob": "ebc73989d9763ffbba3ba0b31a68c4240769c026"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/serve.py",
+      "change": "A",
+      "git_blob": "975d2aa930cfc925a23abdd445359b2d94e23a42"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/setup.json",
+      "change": "A",
+      "git_blob": "f3169d4b620a4d38b4747ef2fa9e78c544907662"
+    },
+    {
+      "path": "docs/pipeline/PARALLEL-20261106.md",
+      "change": "M",
+      "git_blob": "9581c705bc23f5aa50c5feb8bfa78467b4440c11"
+    },
+    {
+      "path": "docs/supply-real-20261106/CORRECTIONS.json",
+      "change": "A",
+      "git_blob": "b5d58696b81f39c6e3bda59e94f6b1a467d48cbf"
+    },
+    {
+      "path": "docs/supply-real-20261106/REVIEW-CANDIDATE.json",
+      "change": "A",
+      "git_blob": "3bd31dbfe7c9604aa2ca2e028306df43c328dee9"
+    },
+    {
+      "path": "docs/supply-real-20261106/correction-review.md",
+      "change": "A",
+      "git_blob": "485f9b105dfaf4cf78790f1273075fea0ece7954"
+    },
+    {
+      "path": "docs/supply-real-20261106/gemini-critic.md",
+      "change": "A",
+      "git_blob": "513b07af52e447dc9731c0993a0ac399d9e2759c"
+    },
+    {
+      "path": "evidence/releases/20261105/responsive-runtime-sha256.json",
+      "change": "M",
+      "git_blob": "121e75f4299ca2244c08ed83b31ce402f596b94d"
+    },
+    {
+      "path": "package-lock.json",
+      "change": "M",
+      "git_blob": "baf54063e1d7dd5eb217833bc2a1ad2d2e0d37ac"
+    },
+    {
+      "path": "package.json",
+      "change": "M",
+      "git_blob": "96ebc5b05e3375c078c154812e53e4fd77cd7f0f"
+    },
+    {
+      "path": "src/app.js",
+      "change": "M",
+      "git_blob": "5f80501d63e7a8fb81ba68374bc610c48142d6b4"
+    },
+    {
+      "path": "tests/check.py",
+      "change": "M",
+      "git_blob": "b541aa5ea33ca0a8d41c26a82ba1b4e6a0433cec"
+    },
+    {
+      "path": "tests/golden-path/README.md",
+      "change": "M",
+      "git_blob": "ecb80eedc606504fdd71b58e3ed4ea9a0111711e"
+    },
+    {
+      "path": "tests/golden-path/golden_path.py",
+      "change": "M",
+      "git_blob": "dc06203ac89324f2e3b1004302b3666cdd89a673"
+    },
+    {
+      "path": "tests/luxury-editorial.cjs",
+      "change": "M",
+      "git_blob": "5117f24ed01fea0b5f1e592d866ba1027613e781"
+    },
+    {
+      "path": "tests/responsive_images.py",
+      "change": "M",
+      "git_blob": "218fece8ce7e947615cb50ae7d6a4274be4d8897"
+    },
+    {
+      "path": "tests/static_headers.py",
+      "change": "A",
+      "git_blob": "a69663fe0e9b205f09e461fd96247f37d4b95723"
+    },
+    {
+      "path": "tests/test_deployment.py",
+      "change": "M",
+      "git_blob": "ce96563ef7a73359c92749153f0245300258387b"
+    },
+    {
+      "path": "tests/test_golden_path_browser_safety.py",
+      "change": "M",
+      "git_blob": "54bcbab69c82cd7b71bc37880b9d40284c610de9"
+    },
+    {
+      "path": "tests/test_release_snapshot.py",
+      "change": "A",
+      "git_blob": "9bd72bdf9d02ae3a6bc4f1a27763002c72e39901"
+    },
+    {
+      "path": "tools/verify_release_snapshot.py",
+      "change": "M",
+      "git_blob": "e460ec536aa225ba91cb682e8d2ecc4a3fd0ac7a"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

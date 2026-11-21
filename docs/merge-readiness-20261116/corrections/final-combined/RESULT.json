@@ -1,0 +1,228 @@
+{
+  "status": "PRIMARY_ACCEPTED_LOCAL_AUTHORIZED_PUBLICATION_CI_PENDING",
+  "sourceSha": "ba8ff2ba10935e99fc268ebbe5eae130f72c1cca",
+  "host": "SUAZO-PC",
+  "primary": "T3 Code/Codex gpt-6.1-sol/xhigh",
+  "sourceBindings": [
+    {
+      "path": ".github/workflows/golden-path.yml",
+      "bytes": 10879,
+      "rawSha256": "ac232cbd55a4df86a90661ce907c067d041916e5d729122660067ba1615e3fc9",
+      "lfSha256": "e9b63cd3c06dd67e26ba36fe3ad298908c95b2e1a0b8ab7cbd43ed6662c33622"
+    },
+    {
+      "path": "dev/savia-staff-ui/cash.test.mjs",
+      "bytes": 26330,
+      "rawSha256": "c9d7c550bb7e39b0a7eadcead62daede16f43e9e968e4cfbf62527b4fd65ed61",
+      "lfSha256": "2993c86ba4517ad3a87d729fc9e51bc0c8bfdf3c8b64eebf5a5a69d698f4a258"
+    },
+    {
+      "path": "savia/db/migrations/MANIFEST.sha256",
+      "bytes": 2803,
+      "rawSha256": "2e878b9e3c3eea5c1135ad0f1c2ac22a24f771aa5e41cba66665be79691eefe0",
+      "lfSha256": "2e878b9e3c3eea5c1135ad0f1c2ac22a24f771aa5e41cba66665be79691eefe0"
+    },
+    {
+      "path": "savia/db/migrations/V029__return_retry_safety.sql",
+      "bytes": 23115,
+      "rawSha256": "6041e3880fb4cb02c595504e394701e52408e426767c67c2b575914402b353cc",
+      "lfSha256": "6041e3880fb4cb02c595504e394701e52408e426767c67c2b575914402b353cc"
+    },
+    {
+      "path": "savia/db/tests/sales/134_credit_return_validation.sql",
+      "bytes": 8837,
+      "rawSha256": "a243bc9d3c05e9e12744a02fd31193caaf62cee9566acd748d4772d57127575c",
+      "lfSha256": "c331b7564647612297ba977ee872dc40aa625c4a6b618d6296333d98a7639fca"
+    },
+    {
+      "path": "savia/db/tests/sales/172_return_retry_safety.sql",
+      "bytes": 20807,
+      "rawSha256": "1c816dfdf60c45a8e71865222d3718f9d0ca552075fc73dddba15e11567a47ee",
+      "lfSha256": "1c816dfdf60c45a8e71865222d3718f9d0ca552075fc73dddba15e11567a47ee"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/ReturnRetrySafetyTests.cs",
+      "bytes": 9916,
+      "rawSha256": "3fe76573de23dd884534e6fb2d8414737ef2344221f70d9e319b1acceee68b37",
+      "lfSha256": "3fe76573de23dd884534e6fb2d8414737ef2344221f70d9e319b1acceee68b37"
+    },
+    {
+      "path": "savia/tests/test_return_retry_safety.py",
+      "bytes": 6498,
+      "rawSha256": "6a180e8c8d27900a203bd94c338260863dc45e157c1e351302eceff02af9a9f5",
+      "lfSha256": "6a180e8c8d27900a203bd94c338260863dc45e157c1e351302eceff02af9a9f5"
+    },
+    {
+      "path": "savia/web/app.mjs",
+      "bytes": 7869,
+      "rawSha256": "dce8a33e3e19f5941575afa257f7de21ff8bd8a9f620749ee9ee93ccc4e29c09",
+      "lfSha256": "dce8a33e3e19f5941575afa257f7de21ff8bd8a9f620749ee9ee93ccc4e29c09"
+    },
+    {
+      "path": "savia/web/api.mjs",
+      "bytes": 13384,
+      "rawSha256": "d30bf2f0bee090cb505c64a1f672cc83c253444f3878ffa6f7ee46dee45b59c6",
+      "lfSha256": "b0a2fe70bddb20de4b0745c06257bf05c9e60afd1d16611a6b1ed748133367f6"
+    },
+    {
+      "path": "savia/web/screens/return.mjs",
+      "bytes": 27875,
+      "rawSha256": "69198b30c9e16e221cc8c589ca9ebefc20b8dcfa148ab44268624f86d9f66cda",
+      "lfSha256": "69198b30c9e16e221cc8c589ca9ebefc20b8dcfa148ab44268624f86d9f66cda"
+    },
+    {
+      "path": "savia/web/screens/return-intent.mjs",
+      "bytes": 6818,
+      "rawSha256": "96f95f5c45ee6d9edf0478b78dcce20d180b379429745ebe4624c6c79c6bb049",
+      "lfSha256": "96f95f5c45ee6d9edf0478b78dcce20d180b379429745ebe4624c6c79c6bb049"
+    },
+    {
+      "path": "savia/web/screens/sale-logic.mjs",
+      "bytes": 4180,
+      "rawSha256": "ba169c19e3aa25187c4749dacde347c1c8bab32c98472aebe0b136be111138fc",
+      "lfSha256": "ba169c19e3aa25187c4749dacde347c1c8bab32c98472aebe0b136be111138fc"
+    },
+    {
+      "path": "savia/web/uuid-logic.mjs",
+      "bytes": 493,
+      "rawSha256": "8e93aa30b7239fc7576e1cb29cf991c11a1d951475b1cc56219047fa6ef97813",
+      "lfSha256": "8e93aa30b7239fc7576e1cb29cf991c11a1d951475b1cc56219047fa6ef97813"
+    },
+    {
+      "path": "savia/web/tests/uuid.test.mjs",
+      "bytes": 2484,
+      "rawSha256": "0e2bf69aeb4b95e993669984a99c6889d5b77f90b051808c6be251b5445012bd",
+      "lfSha256": "0e2bf69aeb4b95e993669984a99c6889d5b77f90b051808c6be251b5445012bd"
+    },
+    {
+      "path": "savia/web/tests/return-lifecycle.test.mjs",
+      "bytes": 31566,
+      "rawSha256": "5c50bfa6632eb9f69787c805f0f3615e6fa4537760cd04bfbb0eaee573765dba",
+      "lfSha256": "5c50bfa6632eb9f69787c805f0f3615e6fa4537760cd04bfbb0eaee573765dba"
+    },
+    {
+      "path": "tests/test_golden_path_workflow.py",
+      "bytes": 11438,
+      "rawSha256": "813d700f335162fe03476dd9a133f9b079cb739f5c3359fce295862d96c215b2",
+      "lfSha256": "813d700f335162fe03476dd9a133f9b079cb739f5c3359fce295862d96c215b2"
+    },
+    {
+      "path": "savia/web/index.html",
+      "bytes": 1204,
+      "rawSha256": "3440201f738021133edd092ef97fa70585c6845acf01adb28b7a67869fc95049",
+      "lfSha256": "3440201f738021133edd092ef97fa70585c6845acf01adb28b7a67869fc95049"
+    }
+  ],
+  "checks": [
+    {
+      "name": "guard-red",
+      "exit": 1,
+      "expectedSummary": "FAILED (failures=1)",
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/evidence/guard-red.txt",
+      "rawSha256": "18a8e36dfaa66289061003811efaee3ffc7c5b822cbc61d62854c9d50a356774",
+      "lfSha256": "c2b65502682e98fa919bfc5a574624da9ec903b4051721a0500b6d56fbf3150e",
+      "observed": "Primary historical invocation preserved; source and logs inspected now."
+    },
+    {
+      "name": "guard-green",
+      "exit": 0,
+      "expectedSummary": "Ran 9 tests",
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/evidence/guard-green.txt",
+      "rawSha256": "e5cd038cbbd8c48fd8e162ba42019cb6a8dd1fd7875e16b1d41170ac204f6bfe",
+      "lfSha256": "960da5fc1eb9cb5a2641bf51f826142d685bb57a0263278672f16391e5ced49c",
+      "observed": "Primary historical invocation preserved; source and logs inspected now."
+    },
+    {
+      "name": "web-green",
+      "exit": 0,
+      "expectedSummary": "pass 110",
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/evidence/web-green.txt",
+      "rawSha256": "99df9f108f908d066dcda59cb6928369292e52266d9a7a5b6f4948cdce585538",
+      "lfSha256": "99df9f108f908d066dcda59cb6928369292e52266d9a7a5b6f4948cdce585538",
+      "observed": "Primary historical invocation preserved; source and logs inspected now."
+    },
+    {
+      "name": "rules-green",
+      "exit": 0,
+      "expectedSummary": "Ran 10 tests",
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/evidence/rules-green.txt",
+      "rawSha256": "83882949321a95f853f98b2050a7f21bacf5e06d20afd6c14e31833c6b32cc43",
+      "lfSha256": "5af7c6fdb20f2943334a5a83bfdf2359a20856ef48582899259bcdeffda559fb",
+      "observed": "Primary historical invocation preserved; source and logs inspected now."
+    }
+  ],
+  "scope": "Integrated local PR7 correction overlay. Source-only SQL fixtures; no SQL runtime.",
+  "corrections": {
+    "sqlGuard": "Normalize bracketed procedure headers and explicitly bind each procedure to ActorId and credit ApprovedBy checks. Approver-only deletion reproduced red and is now rejected.",
+    "ui": "Five changed source files imported after verifying eight candidate and ten evidence bindings. Primary web 110/110, rules 10/10.",
+    "logCorrection": "Node summary parser adjusted to existing Unicode info format; existing test exit remains 0.",
+    "commandError": "An earlier wrong unittest module name failed import, then correct discovery passed. No product defect attributed to that command."
+  },
+  "browser": {
+    "status": "PRIMARY_VERIFIED_IMPORTED_MOCK_MODULE_BROWSER",
+    "import": "docs/merge-readiness-20261116/corrections/final-combined/browser-IMPORT.json",
+    "passed": 22,
+    "failed": 0,
+    "exit": 0,
+    "sourceBindings": 17,
+    "servedFileBindings": 17,
+    "artifactBindings": 67,
+    "importedFiles": 68,
+    "limits": "Actual-module fake HTTP proof in headless Chrome; no full application routing, SQL or real API. Original BEFORE not captured; full video timeline not reviewed.",
+    "openObservation": "PRIMARY-BROWSER-01 corrected and freshly verified in lifecycle-correction; independent recheck pending.",
+    "historical": true
+  },
+  "remaining": {
+    "sourceReview": "Closed within reviewed scope: CF1, CF2-R1 and PRIMARY-BROWSER-01. See PRIMARY-ACCEPTANCE.json; no runtime waiver.",
+    "sql": "V029 installed runtime, financial authorization/replay/concurrency and rollback NOT RUN; needs new explicit packet",
+    "linuxAggregate": "Previous WinError 1314 asset fixture failures remain environment-blocked locally; exact-SHA Linux CI pending",
+    "publication": "Local corrections remain authorized. Fresh scope is required for commit hooks that push Tony and initiate another automatic SQL CI attempt.",
+    "browserObservation": "Current notice correction: web 118/118; real app router with fictional HTTP desktop 15/15 and narrow viewport 15/15. Historical return-module checks remain separate."
+  },
+  "lesson": "Normalize actual SQL headers before checking predicates; prove the credit-approver-only mutation. A missing bare module is not proof that an existing explicit Playwright installation is absent.",
+  "lifecycleCorrection": {
+    "result": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/RESULT.json",
+    "freshWeb": 117,
+    "freshChrome": 22,
+    "latestReview": "REVISE_CF2_R1",
+    "independentAcceptance": "PENDING"
+  },
+  "noticeVisibility": {
+    "result": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/RESULT.json",
+    "freshWeb": 118,
+    "desktop": 15,
+    "mobileCssViewport": 15,
+    "independentAcceptance": {
+      "status": "PRIMARY_ACCEPTED_WITH_LIMITS",
+      "report": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/review/astra-recheck.md",
+      "rawSha256": "d9f756ddda669fd5ab8127f55f81473a911a8fda684d89b6cd040c6cd7974ec8",
+      "reviewerWeb": 118,
+      "reviewerProbeAssertions": 33,
+      "mutationsDetected": 2
+    }
+  },
+  "primaryAcceptance": "docs/merge-readiness-20261116/corrections/final-combined/PRIMARY-ACCEPTANCE.json",
+  "publicationPreparation": {
+    "packet": "docs/merge-readiness-20261116/corrections/PUBLICATION-RUNTIME.md",
+    "allowlist": "docs/merge-readiness-20261116/corrections/PUBLICATION-FILES.json",
+    "allowedPaths": 226,
+    "excludedFrozenArchives": 6,
+    "maximumCumulativeJobMinutes": 330,
+    "authorization": "OPTION_A_GRANTED_ONCE",
+    "index": "EXACT_ALLOWLIST_STAGED",
+    "push": "NOT_RUN",
+    "runtime": "NOT_RUN",
+    "authorizationRecordedAtUtc": "2026-11-17T01:24:28.216818+00:00",
+    "userSelection": "A. Publicar y ejecutar una vez (recomendado).",
+    "publicationWhitespaceCorrection": {
+      "path": "savia/web/tests/return-lifecycle.test.mjs",
+      "operation": "Removed one trailing ASCII space; all other bytes identical.",
+      "beforeRawSha256": "5c50bfa6632eb9f69787c805f0f3615e6fa4537760cd04bfbb0eaee573765dba",
+      "beforeLfSha256": "5c50bfa6632eb9f69787c805f0f3615e6fa4537760cd04bfbb0eaee573765dba",
+      "afterRawSha256": "989c7dcd53f52010188c57d501ac3f89cf82d4d1f9e5aaf8e7d88cd2cb776d83",
+      "afterLfSha256": "989c7dcd53f52010188c57d501ac3f89cf82d4d1f9e5aaf8e7d88cd2cb776d83",
+      "verification": "Exact one-byte transformation and node --check; previous runtime results remain historical."
+    },
+    "historicalWhitespace": "git diff --cached --check flags only frozen text logs, one frozen review Markdown EOF, and archived patch context. Preserved byte-exact; current reviewed source passes separately."
+  }
+}

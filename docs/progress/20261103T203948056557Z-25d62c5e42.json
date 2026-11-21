@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-03T20:39:48.056557+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/testing-20261103/README.md",
+      "change": "A",
+      "git_blob": "acba0fbb8e0798173b4142393f479afafe37eb1b"
+    },
+    {
+      "path": "docs/testing-20261103/SQL-TEST-SCOPE.md",
+      "change": "A",
+      "git_blob": "39cf41e08d4deba1f120ca9a01bbe50b2fb7b051"
+    },
+    {
+      "path": "docs/testing-20261103/endpoint-inventory.json",
+      "change": "A",
+      "git_blob": "5027374e0d1882d467d26604849e309994426515"
+    },
+    {
+      "path": "docs/testing-20261103/evidence/artifact-hashes.json",
+      "change": "A",
+      "git_blob": "19ee64d8339704d31ca6644d65d84068140c75bc"
+    },
+    {
+      "path": "docs/testing-20261103/evidence/browser-cases.json",
+      "change": "A",
+      "git_blob": "3b0c056e41cb9a86781ecdc63796847bad3aa7aa"
+    },
+    {
+      "path": "docs/testing-20261103/evidence/dotnet-cases.json",
+      "change": "A",
+      "git_blob": "db631637ced60569f3819c96b010370926e89136"
+    },
+    {
+      "path": "docs/testing-20261103/evidence/private-evidence-hashes.json",
+      "change": "A",
+      "git_blob": "436622ecd45f29002c914f208766f241a20d922d"
+    },
+    {
+      "path": "docs/testing-20261103/evidence/results.json",
+      "change": "A",
+      "git_blob": "e3bbdad9a163fdf59b67e87c61ac074dd986172f"
+    },
+    {
+      "path": "docs/testing-20261103/evidence/source-hashes.json",
+      "change": "A",
+      "git_blob": "891f5292cc008c6a62316eb335db4ac1ad816c2b"
+    },
+    {
+      "path": "docs/testing-20261103/evidence/stale-receipt.json",
+      "change": "A",
+      "git_blob": "ee308ecd163a024f5727387bad88b1932603348f"
+    },
+    {
+      "path": "docs/testing-20261103/evidence/stale-receipt.png",
+      "change": "A",
+      "git_blob": "b0512bcbbe584eb447de4a79362147e97fc8d5d7"
+    },
+    {
+      "path": "docs/testing-20261103/index.html",
+      "change": "A",
+      "git_blob": "03ddf0d74f6291e8dea432ef0335471ac6235965"
+    },
+    {
+      "path": "tests/browser-mock-validation.mjs",
+      "change": "A",
+      "git_blob": "199ff6fb3eaec27dec3fd00b7c6efa9df5cdd7ce"
+    },
+    {
+      "path": "tests/run-http-guards.mjs",
+      "change": "A",
+      "git_blob": "0e4f1d6819b7a5b638b2f99124670aa43514616b"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

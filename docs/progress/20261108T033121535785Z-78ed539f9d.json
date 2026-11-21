@@ -1,0 +1,170 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-08T03:31:21.535785+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": ".github/workflows/staff-ui-candidate.yml",
+      "change": "M",
+      "git_blob": "02d4608a030ca19707c9aa8acbb3a7fd1e809bc0"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalOwnerConsole.cs",
+      "change": "M",
+      "git_blob": "97067625c2a78f408ff18c3f659097604effa853"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalOwnerRecoveryConsole.cs",
+      "change": "A",
+      "git_blob": "d53cd0dc2a7e778dad7299405642447a259cb6ec"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalOwnerRecoveryService.cs",
+      "change": "A",
+      "git_blob": "fbe83798b72616f73931a299dc84fe2e6aba3e22"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Program.cs",
+      "change": "M",
+      "git_blob": "42efbac0d6ac347a62d83a86991e1411f57a6927"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs",
+      "change": "M",
+      "git_blob": "2b3bfcfb256af2bfb663a4606cc9193c5be5825f"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalOwnerRecoveryConsoleTests.cs",
+      "change": "A",
+      "git_blob": "cf8c16de0871cb9a963861136018d95c1476db7e"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalOwnerRecoveryDatabaseLease.cs",
+      "change": "A",
+      "git_blob": "b188647019c4ce3076a592ce8336b1fe04fa2c22"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalOwnerRecoveryFixture.cs",
+      "change": "A",
+      "git_blob": "228ad58774d7aac6403ed37d52d591746511a836"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalOwnerRecoverySqlTests.cs",
+      "change": "A",
+      "git_blob": "1e80610de2e724dda3a6eb183e86e4722d043cc2"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalSecuritySqlTests.cs",
+      "change": "M",
+      "git_blob": "a49c740719d1cf0d6db93ab0901b51cd6b686c08"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "bf5631aa1549b02374a6e2cd3524bcaf289f0113"
+    },
+    {
+      "path": "docs/cash-register-20261107/real-journey/PREPARATION.md",
+      "change": "M",
+      "git_blob": "b3cf421a65c3ad76da522cc90b04c2cd3810ad78"
+    },
+    {
+      "path": "docs/cash-register-20261107/real-journey/PRIMARY-QUALIFICATION.json",
+      "change": "A",
+      "git_blob": "7fdfcf3bc6e87081615e92b63ba4696621383413"
+    },
+    {
+      "path": "docs/cash-register-20261107/real-journey/worker/README.md",
+      "change": "A",
+      "git_blob": "1e982583060ea5265b490a173fd151e71526eca8"
+    },
+    {
+      "path": "docs/cash-register-20261107/real-journey/worker/RESULT.json",
+      "change": "A",
+      "git_blob": "1e64c7fd5eeba31f9481135a6342c1ac7a2bc378"
+    },
+    {
+      "path": "docs/completion-20261107/README.md",
+      "change": "M",
+      "git_blob": "f7ea37d78e4b732bb3e31c438c1e80d2af77e659"
+    },
+    {
+      "path": "docs/owner-recovery-20261107/primary-review/INTEGRATED-QUALIFICATION.json",
+      "change": "A",
+      "git_blob": "36b22909dc48d8d1a7784c5c19559ec8feb35abc"
+    },
+    {
+      "path": "docs/owner-recovery-20261107/primary-review/STATUS.json",
+      "change": "M",
+      "git_blob": "105080dde269d7bfd23e1111c366ac51cdc46593"
+    },
+    {
+      "path": "docs/owner-recovery-20261107/primary-review/astra-implementation-review.md",
+      "change": "A",
+      "git_blob": "f7ab12b51ab794a611d6f741051e5b51571c460f"
+    },
+    {
+      "path": "docs/owner-recovery-20261107/primary-review/f8-correction/CANDIDATE.json",
+      "change": "A",
+      "git_blob": "681728d4ea8dde61a996785560f8c70216da6df4"
+    },
+    {
+      "path": "docs/owner-recovery-20261107/primary-review/f8-correction/README.md",
+      "change": "A",
+      "git_blob": "5da27bc18f341c1ff48faf2a7ecd7204844e6a56"
+    },
+    {
+      "path": "docs/owner-recovery-20261107/primary-review/f8-correction/astra-recheck.md",
+      "change": "A",
+      "git_blob": "678681adf294dccbeed24314dcded94fec6bf1e0"
+    },
+    {
+      "path": "docs/owner-recovery-20261107/primary-review/f8-correction/changes.patch",
+      "change": "A",
+      "git_blob": "380f651e7fec4c1da2a9d9d23a3a5663447b4c30"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "change": "M",
+      "git_blob": "bb7ad164b58b587be8881c2b618f510546c52ccf"
+    },
+    {
+      "path": "tests/golden-path/GoldenPath.Sql/Program.cs",
+      "change": "M",
+      "git_blob": "ac937d7e9fce68d81d0146f18507f3fc4922be16"
+    },
+    {
+      "path": "tests/golden-path/README.md",
+      "change": "M",
+      "git_blob": "ff31f75d2442e44edf0bb483322798d8304151bf"
+    },
+    {
+      "path": "tests/golden-path/browser_path.mjs",
+      "change": "M",
+      "git_blob": "9205170b8921a0e3391eac7dd17586ccbdee4e71"
+    },
+    {
+      "path": "tests/golden-path/golden_path.py",
+      "change": "M",
+      "git_blob": "af4cea3d7835bb8fe57d6ad3169df8cf77400c9a"
+    },
+    {
+      "path": "tests/golden-path/oracles.md",
+      "change": "M",
+      "git_blob": "31fd7f9ca5c9b6bd4ca158b3078563ff5edb6f2e"
+    },
+    {
+      "path": "tests/golden-path/verify_evidence.py",
+      "change": "M",
+      "git_blob": "3aa670eac84e9ae4f3a12ab790cdbc5598cced4c"
+    },
+    {
+      "path": "tests/test_golden_path_cash.py",
+      "change": "A",
+      "git_blob": "b96cac588b9933bac31b0ed9d00a62fdae244c11"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

@@ -1,0 +1,180 @@
+{
+  "source": "historical worker runs; independently source-bound by primary, not rerun",
+  "pr5": {
+    "tonyDOM": {
+      "passed": 29,
+      "exit": 0
+    },
+    "prDOM": {
+      "passed": 16,
+      "exit": 0
+    },
+    "predicateTimezone": {
+      "assertions": 27,
+      "exit": 0
+    },
+    "supplemental": "four-season selection and simulated cart price 17500 cents",
+    "exactPatchApplicability": {
+      "diffExit": 0,
+      "applyCheckExit": 1,
+      "failedCurrentPaths": 4,
+      "limit": "not a three-way merge simulation"
+    }
+  },
+  "pr6": {
+    "rejectionControls": 11,
+    "configurationChecks": 12,
+    "authenticPipeline": "NOT RUN"
+  },
+  "excludedRawLogs": [
+    {
+      "worker_file": "pr5/apply-check.log",
+      "originalRawSha256": "21ba3c3ff7018eb93606b6ea51a13b4593bff994499a487e0ab357dfe5a00638",
+      "privateArchive": "private-exports/merge-readiness-20261116/worker-raw/pr5/apply-check.log",
+      "public": "excluded: raw logs prohibited by tools/progress.py"
+    },
+    {
+      "worker_file": "pr5/pr5-dom.log",
+      "originalRawSha256": "e82d2901548c09e4deba11ac14bdb5a7e83c783ef20ff26b759173c6d428b7aa",
+      "privateArchive": "private-exports/merge-readiness-20261116/worker-raw/pr5/pr5-dom.log",
+      "public": "excluded: raw logs prohibited by tools/progress.py"
+    },
+    {
+      "worker_file": "pr5/probe.log",
+      "originalRawSha256": "63517de448a7dbad105e287c3d066d6465c61851c4e961b74af02aa894f8987a",
+      "privateArchive": "private-exports/merge-readiness-20261116/worker-raw/pr5/probe.log",
+      "public": "excluded: raw logs prohibited by tools/progress.py"
+    },
+    {
+      "worker_file": "pr5/tony-dom.log",
+      "originalRawSha256": "baf1aeb41568e1c67f13c71a2f87b6a3709cdef0653cb0ffa12886faed463ac1",
+      "privateArchive": "private-exports/merge-readiness-20261116/worker-raw/pr5/tony-dom.log",
+      "public": "excluded: raw logs prohibited by tools/progress.py"
+    }
+  ],
+  "primaryPreflight": {
+    "sourceBeforeCorrection": "670d4a8e6fab650ef1ee2b0fba64d7e810b7dbe3",
+    "metadata": {
+      "repository": "Suazo-AI/Martha-Silva-Store",
+      "visibility": "public",
+      "ownerType": "User",
+      "defaultBranch": "main",
+      "secretNames": [],
+      "variableNames": []
+    },
+    "runtime": "NOT RUN",
+    "prCreation": "NOT RUN",
+    "judgeReportRawSha256": "4fb31b91e50fcfc0aed3c6a3dcba3b25c2062c3e7e681303033f39eedfbb2942",
+    "bootstrapRed": {
+      "methodCount": 1,
+      "failed": 1,
+      "exit": 1,
+      "workflowChildExit": 2,
+      "cause": "main has no trusted tools/bugproof scripts"
+    },
+    "bootstrapGreen": {
+      "tests": 14,
+      "exit": 0
+    },
+    "yamlParses": {
+      "files": [
+        "bug-proof.yml",
+        "savia-v2.yml",
+        "savia-azure.yml"
+      ],
+      "passed": 3,
+      "exit": 0
+    },
+    "sqlJobTimeoutsMinutes": [
+      25,
+      20,
+      45,
+      30
+    ],
+    "prEnvelopes": {
+      "expectedJobMinutes": 225,
+      "withConditionalBugComment": 230,
+      "notElapsedMinutes": true
+    },
+    "cleanup": "legacy workflows require readback; v2/Azure individual absence NOT PROVEN, hosted-only boundary disclosed for authorization",
+    "finalIndependentReview": {
+      "sourceSha": "edd2e097f6b4f22c9dbbffa897e9ed7f7a063055",
+      "report": "astra-final-preflight.md",
+      "advisoryVerdict": "APTO CON REPAROS",
+      "primaryAcceptance": "ACCEPTED for bounded source preparation; runtime not authorized",
+      "freshWorkflowTests": 3,
+      "workflowTestExit": 0,
+      "independentProbes": 4,
+      "probeChildExits": [
+        1,
+        1,
+        0,
+        0
+      ],
+      "probeCommandExit": 0,
+      "verifiedSourceBindings": 3,
+      "runtime": "NOT RUN",
+      "originalRawSha256": "b6605e53cec76c4859bdaf98ac71b255b349b160274e1e98a20ed3bc1e116713",
+      "publicRawSha256": "119c6e64b740de90efab7e4ae058e94f839879a7e0f1dc488ac0deb67d0d7d69",
+      "publicDerivative": "Removed only the extra blank line at EOF after staged diff --check rejection; original preserved privately"
+    },
+    "repositoryCheck": {
+      "command": "python tests/check.py",
+      "exit": 1,
+      "seconds": 131.813,
+      "cause": "WinError 1314: symlink privilege missing; three asset-audit fixture errors",
+      "log": "private-exports/merge-readiness-20261116/bootstrap/repository-check.log",
+      "rawSha256": "60a7b7f620127a9906b017f9c6ad73c853dae29e397112539974f4dabbb9a146",
+      "workaround": "Verify existing Linux historical-regressions job on exact published SHA; no test weakening or Windows security change",
+      "linuxResult": {
+        "sourceSha": "edd2e097f6b4f22c9dbbffa897e9ed7f7a063055",
+        "runId": 43965171724,
+        "attempt": 1,
+        "conclusion": "success",
+        "jobsPassed": [
+          "Publication integrity and reproducible build",
+          "Historical portable regression suite (known gaps retained)"
+        ],
+        "fullCheckCommand": "python tests/check.py --install",
+        "fullCheckConclusion": "success",
+        "assetAuditTests": 6,
+        "log": "private-exports/merge-readiness-20261116/preflight-acceptance/snapshot.log",
+        "logRawSha256": "c36199ee74d8d6c724e6277972c041ba59664c8690f1b0e3b3ee13a1e891d546",
+        "windowsSymlinkPrivilege": "unchanged; local limitation remains"
+      },
+      "owner": "primary"
+    },
+    "progressChecks": {
+      "tests": 23,
+      "testExit": 0,
+      "preservedHashes": 15,
+      "exportExit": 0,
+      "prBodyRequiredSections": 4,
+      "prBodyExit": 0
+    },
+    "nonSqlCi": {
+      "sourceSha": "edd2e097f6b4f22c9dbbffa897e9ed7f7a063055",
+      "attempt": 1,
+      "runs": [
+        {
+          "runId": 43965171724,
+          "conclusion": "success"
+        },
+        {
+          "runId": 43965171533,
+          "conclusion": "success"
+        },
+        {
+          "runId": 43965171839,
+          "conclusion": "success"
+        }
+      ]
+    },
+    "evidenceDisplayFailure": {
+      "cause": "CP1252 UnicodeEncodeError while printing an already saved log tail",
+      "correction": "ASCII-only audit of same saved JSON and log",
+      "auditExit": 0,
+      "testsRepeated": false
+    }
+  }
+}

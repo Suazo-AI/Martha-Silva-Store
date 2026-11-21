@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "task": "FIX-PR2-DENIS-20261104",
+  "host": "SUAZO-PC",
+  "scope": "Single authorized history merge preserving both published tips; no PR merge to main, rewrite, force push or deployment.",
+  "expected_ordered_parents": [
+    "95120c29cbd685a6818dc9923b05f81c45b5daa0",
+    "9719d8edc226d09aa09df1be02658236fceaf97c"
+  ],
+  "imported_commits": 17,
+  "additional_import": "9719d8edc226d09aa09df1be02658236fceaf97c",
+  "manifest_git_lf_sha256": "f279097cd07684fe66fce857a09dea06b42804cfc44e24aff759754a9955dc7b",
+  "original_16_records_and_manifest": "unchanged",
+  "actual_import_checks": {
+    "passed": 17,
+    "manifest_source": "Git index bytes"
+  },
+  "tests": {
+    "command": "python tests/test_progress.py",
+    "exit_code": 0,
+    "passed": 23,
+    "failed": 0,
+    "seconds": 117.292,
+    "started_at_utc": "2026-11-04T01:20:08.929405+00:00",
+    "finished_at_utc": "2026-11-04T01:22:06.596676+00:00",
+    "new_case": "Unlisted two-parent merge rejected without receipt and accepted with normal generated receipt."
+  },
+  "other_checks": [
+    {
+      "command": "python tools/export_progress.py --verify",
+      "result": "PASS: 15 preserved evidence hashes"
+    },
+    {
+      "command": "python tools/delivery_status.py --check",
+      "result": "PASS: 34 valid ledger items"
+    }
+  ],
+  "workflow_resolution": {
+    "path": ".github/workflows/progress-digest.yml",
+    "source": "Tony first parent unchanged",
+    "git_blob_sha256": "54b069acb7e9931340b9a23db8bd13c8b2ae1a2aea70e748415020216aac3eb5",
+    "guard": "set -euo pipefail retained"
+  },
+  "unrelated_files": {
+    "count": 33,
+    "sha256_unchanged": true,
+    "staged": false
+  },
+  "findings": "All seven TONY-* remain review.",
+  "pending_at_record": "Publication, SYNCED remote readback and full CI of the containing merge commit."
+}

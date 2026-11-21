@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-16T21:30:24.476527+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/merge-readiness-20261116/IMPORT.md",
+      "change": "A",
+      "git_blob": "aed25c0fdbe5d8192cddefe8406942c27681c110"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/OUTCOMES.json",
+      "change": "A",
+      "git_blob": "9827240abe75db1f1a2e75d0e8784c64d7f2628f"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/PLAN.md",
+      "change": "A",
+      "git_blob": "5c72288b5421392e7f501bee00c7f28c9f11c20f"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/pr5/README.md",
+      "change": "A",
+      "git_blob": "b3834a5852fa74006aaec96e46becf593980e73c"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/pr5/probe.cjs",
+      "change": "A",
+      "git_blob": "26f6479ebc9e7388aa6fbb7e93abf9bacc9b39f5"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/pr5/review_snapshots.py",
+      "change": "A",
+      "git_blob": "cfacd3ec1cf17555913b027c8c0ad2ac34e4927d"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/pr5/snapshot-receipt.json",
+      "change": "A",
+      "git_blob": "734eae23ddf94da44a2837fc1fecd955b6395c7a"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/pr5/source-integrity.json",
+      "change": "A",
+      "git_blob": "8cc854fc2f85f5b5b3a1795bf52a05a49f7f24a1"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/pr6/README.md",
+      "change": "A",
+      "git_blob": "5d247e742e3f31f4dfcd13ac65e79ba784dce7f2"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/pr6/check_contract.py",
+      "change": "A",
+      "git_blob": "78fa273926ca62083dda2ca9150373be2d3cfda5"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/pr6/check_workflow.py",
+      "change": "A",
+      "git_blob": "d4701d467159acccb524f4060cd3f07de6a0f773"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/pr6/contract-results.json",
+      "change": "A",
+      "git_blob": "8b2a321426632f61ebd760577b11e1f55c5d6a79"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/pr6/main-protection.json",
+      "change": "A",
+      "git_blob": "cd7defeb9967c84672430d48513115a77c0f3047"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/pr6/source-evidence.json",
+      "change": "A",
+      "git_blob": "2a361ce8b6fdc7faa0beb093570b9fa738a4f529"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/pr6/workflow-results.json",
+      "change": "A",
+      "git_blob": "a5758ca0f4337b877f268c8c198389d24cfca147"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

@@ -1,0 +1,178 @@
+{
+  "status": "unaccepted local integration candidate; no SQL authorization",
+  "parentSha": "39161ef8c5afcac1f7c9502cc5f38439608a8d70",
+  "workerBaseSha": "550b10456c10a2857da930913b397bd1a96949d2",
+  "workerResultRawSha256": "613a1ef160f14e725384e61dd310e47e6c0d9b67c57ea4d9fc305386aa6eee95",
+  "bindings": [
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Cash/InternalCashEndpoints.cs",
+      "bytes": 3363,
+      "rawSha256": "6a3a14dcb594f7e8dec7e17c0045405ba28a4c12174faa525515e6da88d23c3a",
+      "lfSha256": "1e0531e5ea25835c936ef09a1f768ff40b5b52b899ef558c1d561a6cd234ef21"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Cash/InternalCashReadService.cs",
+      "bytes": 7148,
+      "rawSha256": "6789de50aaa992fc6fe5c05679c81993beab0ded721e613dce55c9bfcd839e70",
+      "lfSha256": "6789de50aaa992fc6fe5c05679c81993beab0ded721e613dce55c9bfcd839e70"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCashReadTests.cs",
+      "bytes": 8000,
+      "rawSha256": "594600452da6a33ef47a2fe0913c199b36e5a1980664f1b4d879897f17a01f74",
+      "lfSha256": "594600452da6a33ef47a2fe0913c199b36e5a1980664f1b4d879897f17a01f74"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCashSqlTests.cs",
+      "bytes": 18230,
+      "rawSha256": "85635ae51c71c42c02d388e4843a83db6de18b03e894b76326e22a44f8957caa",
+      "lfSha256": "19663b5b2f645205ba8933ac3ba8c1417b44f4f9ad0b60efd375ffd9723e3ab0"
+    },
+    {
+      "path": "dev/savia-staff-ui/app.mjs",
+      "bytes": 44353,
+      "rawSha256": "2105540c566d79cecbfc6ef28e6abbd07ace7a7fbff18ede81c507fa76651d56",
+      "lfSha256": "2105540c566d79cecbfc6ef28e6abbd07ace7a7fbff18ede81c507fa76651d56"
+    },
+    {
+      "path": "dev/savia-staff-ui/client.mjs",
+      "bytes": 12791,
+      "rawSha256": "88a5615f33ba2b049a31a70a3f0d1f261399e22d3d0b7e1fe83847d6423be78b",
+      "lfSha256": "88a5615f33ba2b049a31a70a3f0d1f261399e22d3d0b7e1fe83847d6423be78b"
+    },
+    {
+      "path": "dev/savia-staff-ui/commerce.test.mjs",
+      "bytes": 15503,
+      "rawSha256": "db76e7981a5e81e87be25e88896163b91c8fb8be492e93cdc4380ea9dad3ebbc",
+      "lfSha256": "db76e7981a5e81e87be25e88896163b91c8fb8be492e93cdc4380ea9dad3ebbc"
+    },
+    {
+      "path": "dev/savia-staff-ui/index.html",
+      "bytes": 18518,
+      "rawSha256": "42defc18a76075b207a32c283180c032e135e557683beab58b58de5c35424bd1",
+      "lfSha256": "42defc18a76075b207a32c283180c032e135e557683beab58b58de5c35424bd1"
+    },
+    {
+      "path": "dev/savia-staff-ui/login.mjs",
+      "bytes": 14388,
+      "rawSha256": "561e089a472daa12ce01f3e703167280f681df98d546f2515b31ba004895e1e0",
+      "lfSha256": "561e089a472daa12ce01f3e703167280f681df98d546f2515b31ba004895e1e0"
+    },
+    {
+      "path": "dev/savia-staff-ui/cash.mjs",
+      "bytes": 28556,
+      "rawSha256": "6e3bb17e0e0521bb2b969813366bc324ca26e8e4a9e4d43a425b1329b38c6c86",
+      "lfSha256": "6e3bb17e0e0521bb2b969813366bc324ca26e8e4a9e4d43a425b1329b38c6c86"
+    },
+    {
+      "path": "dev/savia-staff-ui/cash.test.mjs",
+      "bytes": 22810,
+      "rawSha256": "4797dc8cc86478191d6b63faad8a0a8c871303363a2ad9575905feecbe1c1c8e",
+      "lfSha256": "246cb545545f402fee9b2bd7a4228ca0da90f2581d2efe1893e0fdca0ee39b87"
+    },
+    {
+      "path": "tests/browser-mock-validation.mjs",
+      "bytes": 52712,
+      "rawSha256": "4be238999465bb7ceafcf3b5b16020441b79145492b42f59caa1a66ca80729b4",
+      "lfSha256": "4be238999465bb7ceafcf3b5b16020441b79145492b42f59caa1a66ca80729b4"
+    },
+    {
+      "path": "tests/browser-cash-validation.mjs",
+      "bytes": 14271,
+      "rawSha256": "8931cd4559fd7168a7b55f27cdb94c909a10acce16f69da453bd8c12f6789201",
+      "lfSha256": "8931cd4559fd7168a7b55f27cdb94c909a10acce16f69da453bd8c12f6789201"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalUiHosting.cs",
+      "bytes": 1699,
+      "rawSha256": "880d5a2ffcd57915be301131de2b611506f34c0cfe461afae8435ccccfead6d6",
+      "lfSha256": "6a859d046e3e8fc2f3186ce18c4c2a8dd844bbb6a6ee4f52093bd58a49c0affa"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Martha.Store.Api.csproj",
+      "bytes": 1694,
+      "rawSha256": "42599356996ec4d6f8256a395b5e524d84b24b783d4747be4a481cc9db70573c",
+      "lfSha256": "b342128e03f80502b41d7101e694a0576e81eefc869421aa70e39d19f84ad2f4"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalSupplyUiTests.cs",
+      "bytes": 3783,
+      "rawSha256": "06cc805bcfdcc4b4b2b44ba41468e16559589208b70c59fdd5f472f2d4e2ef7b",
+      "lfSha256": "06cc805bcfdcc4b4b2b44ba41468e16559589208b70c59fdd5f472f2d4e2ef7b"
+    }
+  ],
+  "primaryCorrection": "cash.mjs missing compiled resource and protected route; real TestServer red 404, fixed resource and route; adds second module test with exact served-byte comparison",
+  "hostingRed": {
+    "path": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\cash-ui-primary-20261108\\hosting-red.trx",
+    "rawSha256": "fa25108f4df02b75919efae44df34c4d75262cbd316ba57bf1fd673577ec1e6a",
+    "counters": {
+      "total": "2",
+      "executed": "2",
+      "passed": "1",
+      "failed": "1",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "outcomes": [
+      {
+        "name": "Martha.Store.Api.Tests.InternalSupplyUiTests.Cash_resource_is_embedded_protected_and_serves_the_source_bytes",
+        "outcome": "Failed",
+        "message": "Assert.Equal() Failure: Values differ\r\nExpected: Unauthorized\r\nActual:   NotFound"
+      }
+    ]
+  },
+  "hostingGreen": {
+    "path": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\cash-ui-primary-20261108\\hosting-cash-green.trx",
+    "rawSha256": "3971b78555ac783902239d99a3239867efe0ee7f805fbc21f33f652d58f85e95",
+    "counters": {
+      "total": "93",
+      "executed": "93",
+      "passed": "93",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "outcomes": []
+  },
+  "repositoryCheck": "running; not claimed PASS",
+  "independentReview": "pending Astra/xhigh",
+  "historicalBrowserSuite": "worker did not run all 50 after switch from fresh unpaid to cash sales; existing CI commands still invoke it. Judge must evaluate coverage and CI gap.",
+  "notRun": [
+    "SQL5: Jason chose detailed review first; no execution",
+    "Cash SQL lifecycle",
+    "real Browser/API/SQL and persisted-row reconciliation",
+    "CI or deploy"
+  ],
+  "workerEvidenceArchive": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\cash-ui-primary-20261108\\worker-archive",
+  "archiveCount": 62,
+  "publicWorkerEvidence": [
+    "README.md",
+    "RESULT.json",
+    "browser-evidence.json",
+    "negative-controls.json",
+    "frontend-negative-controls.json",
+    "frontend-negative-controls-final.json",
+    "cleanup.json"
+  ],
+  "excludedEvidencePolicy": "Original raw logs, TRX and implementation helper scripts archived privately; their historical hashes and worker filenames remain in immutable RESULT.json. Do not execute worker helper scripts."
+}

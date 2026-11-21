@@ -1,0 +1,215 @@
+{
+  "status": "prepared_correction; independent_recheck_and_SQL_pending",
+  "baseSha": "6708709b4bda8a2638acb995d9ae1b91fc60d257",
+  "primary": {
+    "host": "SUAZO-PC",
+    "provider": "codex",
+    "model": "gpt-6.1-sol",
+    "exposedEffort": "xhigh"
+  },
+  "finding": "Astra P2: whole-table exclusions accepted unrelated changes on successful writes",
+  "correction": "Independent ADO.NET fingerprint excludes exact identified insert IDs. Target stock projection normalizes only expected OnHand decrement and UpdatedAt; all other values remain compared. Reserved and Available are asserted directly. Rejection and replay fingerprints remain complete.",
+  "bindings": [
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurity.cs",
+      "rawSha256": "787011826ae99e86f50952d822c9d96c7429b13a19b0bf5547a1144e80177acf",
+      "lfSha256": "21ed34099bf549b60ec5171c1677b309eadf0518c465c8f25e9a6657110cbc52"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalSessionAntiforgeryAdditionalDataProvider.cs",
+      "rawSha256": "c858c783298cb989fd78c79907010b5cb90fb451cd0fd249219d2e43e6b2fe93",
+      "lfSha256": "9ddd1c0325e2fa3fa8246bdfd9234adc512b48241555f7890afd473491732117"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs",
+      "rawSha256": "317676ac59ea084bcac8f25b5dd5580853ed29bcb7cb36808cf1e7c6223789ca",
+      "lfSha256": "eb0020878406dbc1c3ee4d948551a8ef6dcbc19e45c35338b88e1709209306d4"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalSessionAntiforgeryTests.cs",
+      "rawSha256": "2e9a0be5e6acec88fa9e7c8dcb02f70a0396d1d3474c9dcf0aa5dda8503692ba",
+      "lfSha256": "d4544738ca9d75d991afa61d7db97d8eabb446f4e35ef7dc1643d1cdd932a380"
+    },
+    {
+      "path": "dev/savia-staff-ui/login.mjs",
+      "rawSha256": "73911282fd1ac18b0de0785eb8c8b7c60dbd189cef14c68a28891a51fa9e88a4",
+      "lfSha256": "73911282fd1ac18b0de0785eb8c8b7c60dbd189cef14c68a28891a51fa9e88a4"
+    },
+    {
+      "path": "dev/savia-staff-ui/client.mjs",
+      "rawSha256": "fa45879476a512d7fcaf9ecf375b412268869d45be31fec62f120fef1ef9e4da",
+      "lfSha256": "fa45879476a512d7fcaf9ecf375b412268869d45be31fec62f120fef1ef9e4da"
+    },
+    {
+      "path": "dev/savia-staff-ui/app.mjs",
+      "rawSha256": "c1c01336b60f9533c1aa92fd0a98fdef7a1a7745ac4df15ef2488fc162482264",
+      "lfSha256": "c1c01336b60f9533c1aa92fd0a98fdef7a1a7745ac4df15ef2488fc162482264"
+    },
+    {
+      "path": "dev/savia-staff-ui/supply.mjs",
+      "rawSha256": "dab76f496003745e61365b34db5411621aff99edd5a7b0b32d8aaf4565a3cce0",
+      "lfSha256": "ad62c75f08efe2e0642d1ced245c47312b8673aa33d63edddaff7af249fb8270"
+    },
+    {
+      "path": "dev/savia-staff-ui/index.html",
+      "rawSha256": "72193922c484ffe0fe2468ba897cfb2fc1bcf598528645b15311332b33d94b64",
+      "lfSha256": "88811aeb14377241bb812d495f42ffa8070d68f36742d170f5b07f8d5bcc544c"
+    },
+    {
+      "path": "dev/savia-staff-ui/session-transition.test.mjs",
+      "rawSha256": "ea5d321f23186e78d999313e7d228e0242e29425904ec5174b572a1ea880a384",
+      "lfSha256": "ea5d321f23186e78d999313e7d228e0242e29425904ec5174b572a1ea880a384"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceWriteProjection.cs",
+      "rawSha256": "aab41923ee7fd03a5479e03f9120f6fa1937be540bb5abf99bdb6335346b73be",
+      "lfSha256": "aab41923ee7fd03a5479e03f9120f6fa1937be540bb5abf99bdb6335346b73be"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceWriteProjectionTests.cs",
+      "rawSha256": "6c213781e523fe223595e6e2a5c560ebdb2b25f05f464d39ecd1ecd1040e3e5c",
+      "lfSha256": "6c213781e523fe223595e6e2a5c560ebdb2b25f05f464d39ecd1ecd1040e3e5c"
+    }
+  ],
+  "focused": {
+    "seconds": 262.2727349,
+    "command": [
+      "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+      "test",
+      "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "--filter",
+      "FullyQualifiedName~InternalAcceptanceWriteProjectionTests|FullyQualifiedName~InternalAcceptanceFingerprintTests",
+      "--logger",
+      "trx;LogFileName=n8-projection.trx",
+      "--results-directory",
+      "private-exports/session-csrf-n8-primary-20261107"
+    ],
+    "exit": 0,
+    "counts": {
+      "total": 33,
+      "executed": 33,
+      "passed": 33,
+      "failed": 0,
+      "error": 0,
+      "timeout": 0,
+      "aborted": 0,
+      "inconclusive": 0,
+      "passedButRunAborted": 0,
+      "notRunnable": 0,
+      "notExecuted": 0,
+      "disconnected": 0,
+      "warning": 0,
+      "completed": 0,
+      "inProgress": 0,
+      "pending": 0
+    },
+    "trx": "private-exports/session-csrf-n8-primary-20261107/n8-projection.trx",
+    "trxRawSha256": "3bf6b7e781fbeadc4ccf27d68a0fb7130dd7083f89357dfcef319be61990d6c0",
+    "logRawSha256": "56d9b99f9561529f86718b62bb28a63064034573bfe13bbde2b4e4a53393d5f0"
+  },
+  "negativeControls": "Synthetic pre-existing changes in Sales, SaleLines, StockMovements, Operations and StockBalances pass the former exclusions but fail the actual new projection. Additional controls cover Items, deletion, extra insert, Reserved and incorrect OnHand. No SQL is contacted.",
+  "fullRepositoryCheck": {
+    "sourceSha": "6708709b4bda8a2638acb995d9ae1b91fc60d257",
+    "command": [
+      "python",
+      "tests/check.py"
+    ],
+    "exit": 0,
+    "seconds": 405.609,
+    "log": "private-exports/session-client-primary-20261107/repository-check.log",
+    "sha256": "15f91e6467a787df914fdeacb0148e00eb22e17f47357fc9ddece4862261aa1b"
+  },
+  "review": {
+    "originalReport": "docs/session-csrf-20261107/astra-implementation-judge.md",
+    "rawAndLfSha256": "f395d69510599cb123b8d94009503f4755a079a0145a41740119b442faaafcf3",
+    "disposition": "Client proof accepted within mock scope. P2 confirmed and correction prepared; original REVISE retained. Fresh recheck pending."
+  },
+  "notRun": [
+    "N8 SQL",
+    "real browser/API/SQL",
+    "new security runtime",
+    "CI on corrected source",
+    "production"
+  ],
+  "blockers": [
+    {
+      "id": "N8-P2-review",
+      "cause": "Independent judge has not reviewed this correction",
+      "owner": "primary / Astra xhigh",
+      "attempt": "Projection correction, compile and 33 focused checks passed",
+      "nextAction": "Fresh bounded Astra/xhigh recheck on committed bytes",
+      "completionCheck": "No unresolved material P2 findings on exact corrected SHA"
+    },
+    {
+      "id": "N8-SQL",
+      "cause": "This correction is offline; no fresh SQL scope has been executed",
+      "owner": "primary / Jason",
+      "attempt": "Prepared real N8 assertions compiled; pure projection checked without SQL",
+      "nextAction": "Integrate reviewed cash contracts and complete local runner preparation before proposing one exact runtime campaign",
+      "completionCheck": "Authorized source-bound N8, cash and recovery readbacks; no production claim"
+    }
+  ],
+  "documentationChecks": [
+    {
+      "command": [
+        "python",
+        "tests/test_progress.py"
+      ],
+      "exit": 0,
+      "seconds": 243.969,
+      "log": "private-exports\\session-csrf-n8-primary-20261107\\doc-check-0.log",
+      "rawSha256": "05a61fe1855867ccdad870e6524416b2e9bfe090380363f36a8cab2b9d032a7c",
+      "tail": [
+        "Progress documented: 1 staged files; checks are not implied.",
+        "PASS: progress receipt and publication scan for 90774b5c155c.",
+        "Progress documented: 1 staged files; checks are not implied."
+      ]
+    },
+    {
+      "command": [
+        "python",
+        "tools/export_progress.py",
+        "--verify"
+      ],
+      "exit": 0,
+      "seconds": 0.187,
+      "log": "private-exports\\session-csrf-n8-primary-20261107\\doc-check-1.log",
+      "rawSha256": "6bc37a5368f6e607e6a0932afb47bf96d5a6a014603732c4a3c3005c79e0ee56",
+      "tail": [
+        "PASS: 15 preserved evidence hashes; no runtime executed."
+      ]
+    },
+    {
+      "command": [
+        "python",
+        "tests/test_delivery_status.py"
+      ],
+      "exit": 0,
+      "seconds": 0.531,
+      "log": "private-exports\\session-csrf-n8-primary-20261107\\doc-check-2.log",
+      "rawSha256": "a4629849ffb846aac192bab0783dff9c16d5b531f70bcaff070d408588af7687",
+      "tail": [
+        "Ran 24 tests in 0.111s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "command": [
+        "python",
+        "tools/delivery_status.py",
+        "--check"
+      ],
+      "exit": 0,
+      "seconds": 0.125,
+      "log": "private-exports\\session-csrf-n8-primary-20261107\\doc-check-3.log",
+      "rawSha256": "2cbd72168e48a031ea75d2d7ccdfcaac53c270fa6ac915c072d07fd0be5883e0",
+      "tail": [
+        "Ledger: valid; 40 items."
+      ]
+    }
+  ]
+}

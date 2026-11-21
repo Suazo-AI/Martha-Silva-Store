@@ -1,0 +1,70 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-07T12:52:29.020502+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "17cda6e3a9e244946caf9264a9f8e63381915006"
+    },
+    {
+      "path": "docs/completion-20261107/CI-69d3268.json",
+      "change": "A",
+      "git_blob": "83e681f04a4d197e006497ef64431eb0077033e6"
+    },
+    {
+      "path": "docs/completion-20261107/README.md",
+      "change": "M",
+      "git_blob": "4966fb2e734d23c00557ec5d21d7cc8f846a9036"
+    },
+    {
+      "path": "docs/completion-20261107/local-validation/A-sanitized-results.json",
+      "change": "A",
+      "git_blob": "31787701f6a0766ad421a1f72d1bf90606b5c16c"
+    },
+    {
+      "path": "docs/completion-20261107/local-validation/PRIMARY-VERIFICATION.json",
+      "change": "A",
+      "git_blob": "9c859c0708c9d624800e74aa7b7cad8e9d912fb6"
+    },
+    {
+      "path": "docs/completion-20261107/local-validation/README.md",
+      "change": "A",
+      "git_blob": "4d64618b05f1e473ff9865de6e954e392c494011"
+    },
+    {
+      "path": "docs/completion-20261107/local-validation/RESULT.json",
+      "change": "A",
+      "git_blob": "bdbd0a78798c4013d8db4dd0d2c8315a8c21b042"
+    },
+    {
+      "path": "docs/completion-20261107/local-validation/RUNTIME-PREPARATION-REVIEW.md",
+      "change": "A",
+      "git_blob": "e9c1eff7d3c04e6dac0c6f0d26bc1afc6780127c"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/ISSUE-4-UPDATE.md",
+      "change": "A",
+      "git_blob": "56589175213c3a1a8ec598049f555c0e1d084355"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/TECHNICAL-ACCEPTANCE.md",
+      "change": "A",
+      "git_blob": "f04eefc75a2083a6897ffb3a24e2e4113be36a5d"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/astra-proof-corrections.md",
+      "change": "A",
+      "git_blob": "c1069fd73f38fefe19a91f2eb92dbe9af28b7c57"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "change": "M",
+      "git_blob": "0e01785f4e03ce519bc86bee4806ecfe0b4f4a32"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

@@ -1,0 +1,39 @@
+{
+  "build": {
+    "command": "python savia/tools/build_demo.py --api savia/demo/site/test-double.mjs",
+    "exit": 0,
+    "files": 58,
+    "both_injected": true,
+    "tests": []
+  },
+  "protected_diff": {
+    "exit": 0,
+    "stdout": ""
+  },
+  "forbidden_names": {
+    "exit": 1,
+    "matches": 0
+  },
+  "secret_and_filename_scan": {
+    "pass": true,
+    "files": 16
+  },
+  "artifact_sha256": {
+    "index.html": "912dbbfd611f033a12f80cd575c8e3dbe1e37028fd529dfe48e40f184a086fe0",
+    "etiqueta/index.html": "11fcdf116ed960e4704b70d034943028e6eda8afe1f5fa13019604360fd54824",
+    "demo/site/boot.mjs": "4d6ab615d4a3f27ce5b54d2ace0582f97ca17ac024260a576290eec6ab65325b",
+    "demo/site/banner.css": "c47cf66c470490cba7e14cbf2bfdeee920b3dee264b8be534fea9b285f07a407",
+    "demo/api/index.mjs": "af04dc0c987a1726dcdb24ffe143f6017211ae5cbf895ecde16a0837981c84b8"
+  },
+  "commit": {
+    "exit": 1,
+    "error": "Progress sync BLOCKED: This hook only publishes Tony; select the approved branch. Local work is preserved.",
+    "owner": "primary orchestrator",
+    "next": "Integrate assigned files through the authorized canonical commit flow."
+  },
+  "storefront_check": {
+    "exit": 1,
+    "error": "FAIL: Missing jsdom: run python tests/check.py --install first.",
+    "installation": "NOT RUN; localhost only and owned-scope restriction."
+  }
+}

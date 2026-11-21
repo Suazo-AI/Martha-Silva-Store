@@ -1,5 +1,10 @@
 # Revisión del plan V1
 
+> Documento histórico de su fecha/candidato. Para continuar al 2026-11-03, usar
+> [AGENT-START](AGENT-START.md) y [PROJECT-STATUS](PROJECT-STATUS.md).
+> Sus conteos, bloqueos y autorizaciones no se trasladan automáticamente al candidato actual.
+
+
 Estado: propuesta aceptada en revisión técnica independiente; primer lote técnico aprobado por el propietario. No acredita implementación ni producción.
 
 Se revisó el plan desde dos roles separados: crítico de enfoque y juez de aceptación. La revisión inicial pidió concretar operación de pedidos/reembolsos, asignar la confirmación al comprador, hacer explícito HTTPS para sandbox, repartir archivos/carriles, acotar esfuerzo inicial y fortalecer pruebas monetarias/concurrentes.

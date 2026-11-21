@@ -2,6 +2,7 @@
 import contextlib
 import importlib.util
 import io
+import json
 import os
 from pathlib import Path
 import subprocess
@@ -42,22 +43,69 @@ class RunnerTests(unittest.TestCase):
             self.assertEqual(run.call_count, 1)
             self.assertIn('--ignore-scripts', run.call_args.args[0])
 
+    def test_staff_suite_runs_before_build_with_locked_dependencies(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            dependency = root / 'tests/frontend-deps/node_modules/jsdom/package.json'
+            dependency.parent.mkdir(parents=True)
+            dependency.write_text('{}')
+            staff = root / 'dev/savia-staff-ui'
+            staff.mkdir(parents=True)
+            for name in ('supply.test.mjs', 'auth.test.mjs'):
+                (staff / name).write_text('')
+            calls = []
+            def run(command, **kwargs):
+                calls.append((command, kwargs))
+                if 'tests/build.py' in command:
+                    raise subprocess.CalledProcessError(7, command)
+            with mock.patch.object(check, 'ROOT', root), \
+                    mock.patch.object(check.shutil, 'which', return_value='node'), \
+                    mock.patch.object(check.subprocess, 'run', side_effect=run), \
+                    contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+                self.assertEqual(check.main([]), 7)
+            staff_calls = [(command, args) for command, args in calls if '--test' in command]
+            self.assertEqual(len(staff_calls), 1)
+            command, args = staff_calls[0]
+            self.assertEqual({Path(p).name for p in command[2:]}, {'auth.test.mjs', 'supply.test.mjs'})
+            self.assertEqual(args['env']['NODE_PATH'], str(root / 'tests/frontend-deps/node_modules'))
+            self.assertTrue(args['check'])
+
     def test_fixture_rejects_wrong_count_and_drift(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             (root / 'dist').mkdir()
             (root / 'src').mkdir()
-            with self.assertRaisesRegex(ValueError, 'Expected 9'):
+            with self.assertRaisesRegex(ValueError, f'Expected {len(check.SITE_PAGES)}'):
                 check.check_fixture(root)
-            for i in range(9):
-                (root / 'dist' / f'{i}.html').write_text('')
-            for name in ('app.js', 'demo-api.js'):
+            products = [{'id': f'fixture-{i}', 'variants': [{}, {}, {}]} for i in range(40)]
+            pages = [name[:-5] for name in check.SITE_PAGES if not name.startswith('producto-')]
+            pages += [f'producto-{product["id"]}' for product in products]
+            for name in pages:
+                (root / 'dist' / f'{name}.html').write_text('')
+            (root / 'dist/catalog.js').write_text('window.DEMO_CATALOG=' + json.dumps({'products': products}) + ';')
+            for name in ('app.js', 'demo-api.js', 'integration-adapters.js'):
                 (root / 'src' / name).write_text('original')
                 (root / 'dist' / name).write_text('original')
             with contextlib.redirect_stdout(io.StringIO()):
                 check.check_fixture(root)
             (root / 'dist/app.js').write_text('changed')
             with self.assertRaisesRegex(ValueError, 'src/dist drift: app.js'):
+                check.check_fixture(root)
+
+    def test_fixture_rejects_wrong_product_identity_and_variant_count(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / 'dist').mkdir()
+            for i in range(len(check.SITE_PAGES)):
+                (root / 'dist' / f'{i}.html').write_text('')
+            products = [{'id': f'fixture-{i}', 'variants': [{}, {}, {}]} for i in range(40)]
+            catalog = root / 'dist/catalog.js'
+            catalog.write_text('window.DEMO_CATALOG=' + json.dumps({'products': products}) + ';')
+            with self.assertRaisesRegex(ValueError, 'product IDs'):
+                check.check_fixture(root)
+            products[0]['variants'].pop()
+            catalog.write_text('window.DEMO_CATALOG=' + json.dumps({'products': products}) + ';')
+            with self.assertRaisesRegex(ValueError, '120 variants'):
                 check.check_fixture(root)
 
 

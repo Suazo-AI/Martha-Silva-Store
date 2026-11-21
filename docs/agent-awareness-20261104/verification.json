@@ -1,0 +1,39 @@
+{
+  "unit_tests": {
+    "passed": 6,
+    "failed": 0
+  },
+  "hook_invocations": [
+    {
+      "config": "hooks.json",
+      "invocation": "PowerShell with SessionStart payload",
+      "exit_code": 0,
+      "stderr_empty": true,
+      "elapsed_ms": 1328
+    },
+    {
+      "config": "settings.json",
+      "invocation": "PowerShell with SessionStart payload",
+      "exit_code": 0,
+      "stderr_empty": true,
+      "elapsed_ms": 1250
+    }
+  ],
+  "review": {
+    "critic": "gpt-6.1-sol/high",
+    "jury": "gpt-6-astra/high",
+    "material_findings_open": 0
+  },
+  "sources": [
+    {
+      "path": "agent-awareness.py",
+      "sha256": "fb44b389a11b69b86cca7927de9c574c4fd55b20e6a2f0014dff93bf49af0a19"
+    },
+    {
+      "path": "test_agent_awareness.py",
+      "sha256": "c67544e5e518be8e2cd4338336c598f0bdca81e08c95305cc11530c2a7d6b8cb"
+    }
+  ],
+  "pending": "Actual SessionStart loading in a new Codex and Claude client session is NOT RUN; no trusted_hash modified.",
+  "product_changes": "None. T3 owns SAVIA fault-simulation code and its publication."
+}

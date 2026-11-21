@@ -1,0 +1,29 @@
+{
+  "sources": {
+    "app.mjs": "cf3f032e986a11dc81bd769eb9c6ffafceddbd530cabb8de84b5cb44d12f6391",
+    "client.mjs": "3eec3aeac1aedafbe982013848204117f2abff4040f1d1bcdc5d05202eb69f46",
+    "login.mjs": "07c6a492a0519a60d04873853102731d287beafbebee3ba9609e16ec6740a11d",
+    "index.html": "72193922c484ffe0fe2468ba897cfb2fc1bcf598528645b15311332b33d94b64",
+    "styles.css": "61db534591305d989d815c47999cc5706d7b8de6e00c1628d361e10edbb94ca0"
+  },
+  "results": [
+    {
+      "width": 1440,
+      "status": "PASS",
+      "sale_posts": 1,
+      "review_posts": 1,
+      "unique_reviews": 0,
+      "observed_defect": "Invalid responsible UUID persists and locks editing after HTTP 400",
+      "layer": "Actual Chrome / mocked HTTP / no SQL"
+    },
+    {
+      "width": 390,
+      "status": "PASS",
+      "sale_posts": 1,
+      "review_posts": 1,
+      "unique_reviews": 0,
+      "observed_defect": "Invalid responsible UUID persists and locks editing after HTTP 400",
+      "layer": "Actual Chrome / mocked HTTP / no SQL"
+    }
+  ]
+}

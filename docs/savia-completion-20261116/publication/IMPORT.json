@@ -1,0 +1,554 @@
+{
+  "date": "2026-11-16",
+  "baseSha": "2587712b8399eb1b4ac59fcf7dfd6de9852b1f79",
+  "scope": "Documentation-only reconciliation. Historical artifacts retain their original source, date, verdict and limits. Import does not retrospectively accept a worker or authorize runtime/deployment.",
+  "importedHistoricalFiles": [
+    {
+      "path": "docs/branch-choice-20261107/README.md",
+      "bytes": 2227,
+      "rawSha256": "8fee0e5ee7ea91f4a5937baa82218ab1d6b2b0a2342f3cf3281c10d985dd490b",
+      "lfSha256": "8fee0e5ee7ea91f4a5937baa82218ab1d6b2b0a2342f3cf3281c10d985dd490b"
+    },
+    {
+      "path": "docs/branch-choice-20261107/build.py",
+      "bytes": 8913,
+      "rawSha256": "36105e6a1462a9d05c910748a92622ae0dc00f23099f4faf24a340708a1dcd84",
+      "lfSha256": "36105e6a1462a9d05c910748a92622ae0dc00f23099f4faf24a340708a1dcd84"
+    },
+    {
+      "path": "docs/branch-choice-20261107/choice.json",
+      "bytes": 4532,
+      "rawSha256": "647aecfb3d4c21b84cf8f69ed5cc008e12cae8808dfe507ea1d5a9eae2d0b2fa",
+      "lfSha256": "647aecfb3d4c21b84cf8f69ed5cc008e12cae8808dfe507ea1d5a9eae2d0b2fa"
+    },
+    {
+      "path": "docs/branch-choice-20261107/decision.html",
+      "bytes": 30386,
+      "rawSha256": "76b47472a7baa1e98762e40af5fd8118c232ac68884dc04364c2231779056baf",
+      "lfSha256": "69739fdff3ca909f806479567810bedeade3c02e09bbb631fd97a249f44b489d"
+    },
+    {
+      "path": "docs/branch-choice-20261107/preview-check.json",
+      "bytes": 685,
+      "rawSha256": "7d5e4f001eda5194e543c45f673c2621f3de25bfcc5fae5c5b336f0dbd8e3fdb",
+      "lfSha256": "7d5e4f001eda5194e543c45f673c2621f3de25bfcc5fae5c5b336f0dbd8e3fdb"
+    },
+    {
+      "path": "docs/c3-n5-20261103/CLOSURE.md",
+      "bytes": 1716,
+      "rawSha256": "a0d466f2877d842b873dbda70770da777feb877dc0f90f4a42053c1ec217f6e9",
+      "lfSha256": "1777e7d989dabcf2b66e27732f3e18fda9a52943df9aa73b60508d25703159c2"
+    },
+    {
+      "path": "docs/c3-n5-20261103/PR-REVIEW-READY.txt",
+      "bytes": 1096,
+      "rawSha256": "66dde3a48a4935817b1a42026e742837d1e19c02cea790eac1c0b948c79ebaa1",
+      "lfSha256": "5d09561b858205a43185d55acb023e3df0d9ba8115425ddd7bf4d6f27923a2e6"
+    },
+    {
+      "path": "docs/c3-n5-20261103/README.md",
+      "bytes": 3148,
+      "rawSha256": "43fdabdf119551686a09b568bdc1b0124c9f284db02ebe58e93b557f72b2635b",
+      "lfSha256": "342249c14a49e2892630610be950b0ecdb9e0d6468808ccf41977605ef714dd8"
+    },
+    {
+      "path": "docs/c3-n5-20261103/before.json",
+      "bytes": 425,
+      "rawSha256": "fb342781739eb2ead80374dff76420253009b67c8242e3ec6f1ccd6c4db57bcd",
+      "lfSha256": "f034298e923f632b9f7b78c9bacd0f072f17cddbd7a4530b50dbf3c5cba0ece2"
+    },
+    {
+      "path": "docs/c3-n5-20261103/fixed-run.json",
+      "bytes": 183,
+      "rawSha256": "513b1f64a25b189e208266c72bffc6cd2ec77a6c9d02d4fed37ebe3e9cb5e5b1",
+      "lfSha256": "9352658e722835dfcd39d3d91e9f893cbe237f6df1a310ad6f072717c51a5231"
+    },
+    {
+      "path": "docs/c3-n5-20261103/fixed/browser-results.json",
+      "bytes": 1731,
+      "rawSha256": "d53133b5fcef06cc578af9b84e481286fbaa69f3b56d2eb99f298f4719f8eb02",
+      "lfSha256": "d53133b5fcef06cc578af9b84e481286fbaa69f3b56d2eb99f298f4719f8eb02"
+    },
+    {
+      "path": "docs/c3-n5-20261103/report.md",
+      "bytes": 5058,
+      "rawSha256": "ff9feba361eb016608c76b5a7c0c18e1691b50ce3682f29afa0cc2b9374f99f8",
+      "lfSha256": "ff9feba361eb016608c76b5a7c0c18e1691b50ce3682f29afa0cc2b9374f99f8"
+    },
+    {
+      "path": "docs/c3-n5-20261103/restored-state.json",
+      "bytes": 374,
+      "rawSha256": "0701ef840fa7b9e6b92b9df285daef920ba303a997bff75601cbe4e2ac7356d1",
+      "lfSha256": "291e1d0502f0635fb8315c7f68d3e2859342d754177dc8b4aeac0c2730f11891"
+    },
+    {
+      "path": "docs/c3-n5-20261103/reverted-run.json",
+      "bytes": 186,
+      "rawSha256": "f46cdd21a6c786232bb561c930a470dfb6752460cb2199513fa4acf82b1ae47b",
+      "lfSha256": "3486e01c99c139471a2b240c5c7dcef0596d0664f12f5f1410a8aceb601c0d9d"
+    },
+    {
+      "path": "docs/c3-n5-20261103/reverted-state.json",
+      "bytes": 462,
+      "rawSha256": "33327fa4ba4852cc4cbdcace037905c8868df5ff63a947bd9ccf85d8071b9394",
+      "lfSha256": "3462259b4064640df956a9cc926ae1fde2ae8edfb3750fbed29089e64e8b0220"
+    },
+    {
+      "path": "docs/c3-n5-20261103/reverted/browser-results.json",
+      "bytes": 2713,
+      "rawSha256": "e82756fc9bd5e59201b81cd576e7e93199afeca5c3284472b4a7f28e1b782958",
+      "lfSha256": "e82756fc9bd5e59201b81cd576e7e93199afeca5c3284472b4a7f28e1b782958"
+    },
+    {
+      "path": "docs/c3-n5-20261103/summary.json",
+      "bytes": 6511,
+      "rawSha256": "da92002da3b2d20b4cb8c070fab467d0d3f82074326a70d946fd9f486108d3af",
+      "lfSha256": "da92002da3b2d20b4cb8c070fab467d0d3f82074326a70d946fd9f486108d3af"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/README.md",
+      "bytes": 4380,
+      "rawSha256": "c6f0e2654e07c3ce435e6d54ae6afefcc669a60546148b1bbe07c4f6f41e8593",
+      "lfSha256": "20a0bd37090e5dc227c706fadd9fe22303a555a30f623d0331ab7fa38d741197"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/RESULT.json",
+      "bytes": 11644,
+      "rawSha256": "fecb7413dc76a08f5d9976bd587f813e6030a2a413da1c7a5571fa054d64f273",
+      "lfSha256": "fecb7413dc76a08f5d9976bd587f813e6030a2a413da1c7a5571fa054d64f273"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/browser-contracts-desktop-1280x900.png",
+      "bytes": 444493,
+      "rawSha256": "4bb1f65faecb9b438fbb45a18803a3d1e1105f1c0111997436e68abc4008bce2",
+      "lfSha256": "4bb1f65faecb9b438fbb45a18803a3d1e1105f1c0111997436e68abc4008bce2"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/browser-contracts-mobile-390x844.png",
+      "bytes": 1049633,
+      "rawSha256": "5c95a7b570213918c65bc2cd086b570c42a1cbbb19acba264b1733f61519ef25",
+      "lfSha256": "5c95a7b570213918c65bc2cd086b570c42a1cbbb19acba264b1733f61519ef25"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/browser-contracts.json",
+      "bytes": 13056,
+      "rawSha256": "56e89210015f16d90464a1dc119cfd82f7406128c81e10bd12d187b4c98dc237",
+      "lfSha256": "56e89210015f16d90464a1dc119cfd82f7406128c81e10bd12d187b4c98dc237"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/controls/README.md",
+      "bytes": 1577,
+      "rawSha256": "b6af2e7304b4fc5eb20ea38c15ba5f289829e784ca2fd8926c94089b12b4d31e",
+      "lfSha256": "b6af2e7304b4fc5eb20ea38c15ba5f289829e784ca2fd8926c94089b12b4d31e"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/controls/check-variant.cjs",
+      "bytes": 2987,
+      "rawSha256": "ca53fd283feee6f6125e864e3ae868697b0d4738a9c893608c912de875ba0581",
+      "lfSha256": "ca53fd283feee6f6125e864e3ae868697b0d4738a9c893608c912de875ba0581"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/controls/observed-runs.json",
+      "bytes": 2323,
+      "rawSha256": "afbebcf0b294e38b11419fa537ee78e0b1d2ca4c5b8c0a8ada7f1e43e3354391",
+      "lfSha256": "afbebcf0b294e38b11419fa537ee78e0b1d2ca4c5b8c0a8ada7f1e43e3354391"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary-review.md",
+      "bytes": 5580,
+      "rawSha256": "7e616b9536f5893856e1a2f3419a675a4836f361337ca9ec5593deaa1b86df9c",
+      "lfSha256": "6d02978bf3773157fecf4b90ca19d466d80cb273df573dd318516b43633c2b60"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/CANDIDATE.json",
+      "bytes": 6688,
+      "rawSha256": "887aa3c93db9ed9e3e67d80511ee93a7c3473a6de7cc0229f7a7251017520f88",
+      "lfSha256": "958f1070ad019ab4469fcb408875caa2169b9ad7effc456c9961ebf2772ae785"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/IMPORT.json",
+      "bytes": 2172,
+      "rawSha256": "4e3844988ddc603eb7ff9b5861f6e21d86ff82b09aa42d9efa0e2f1ccbc3234f",
+      "lfSha256": "896089f4d4889b3a66a25c9d316144a7a2b8f7365623a552dc089130ea141aad"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/browser/browser-contracts-desktop-1280x900.png",
+      "bytes": 444493,
+      "rawSha256": "4bb1f65faecb9b438fbb45a18803a3d1e1105f1c0111997436e68abc4008bce2",
+      "lfSha256": "4bb1f65faecb9b438fbb45a18803a3d1e1105f1c0111997436e68abc4008bce2"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/browser/browser-contracts-mobile-390x844.png",
+      "bytes": 1049633,
+      "rawSha256": "5c95a7b570213918c65bc2cd086b570c42a1cbbb19acba264b1733f61519ef25",
+      "lfSha256": "5c95a7b570213918c65bc2cd086b570c42a1cbbb19acba264b1733f61519ef25"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/browser/browser-contracts.json",
+      "bytes": 13344,
+      "rawSha256": "16091e49d25c67653d45df199ebc5b8fe99c757e99fff563d03e5da26ce8f9c7",
+      "lfSha256": "16091e49d25c67653d45df199ebc5b8fe99c757e99fff563d03e5da26ce8f9c7"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/positive-controls.json",
+      "bytes": 883,
+      "rawSha256": "715358d30866a2b3b6aec01cdc7026d4af0513cbe637d022351c040dfe64ef04",
+      "lfSha256": "37d1ae679719741db9a84170c0a440378a15c2aa7c4a4da6eed898946130d831"
+    },
+    {
+      "path": "docs/hardening-20261105/FRONTEND-CORRECTION.md",
+      "bytes": 3743,
+      "rawSha256": "ead29d88667cb20024de71fdff99fb227b11705bcfe907bc2eadfd6fddaf830b",
+      "lfSha256": "ead29d88667cb20024de71fdff99fb227b11705bcfe907bc2eadfd6fddaf830b"
+    },
+    {
+      "path": "docs/hardening-20261105/PREVIEW-COMPARISON.md",
+      "bytes": 4015,
+      "rawSha256": "ad8e9bb41d147d3b058e0ea083daf2bb056dcfec38463ca2c313e1da10f455f8",
+      "lfSha256": "ad8e9bb41d147d3b058e0ea083daf2bb056dcfec38463ca2c313e1da10f455f8",
+      "originalRawSha256": "1ff130f29911ba590e18e5cda42be30b621b8dd960acfeeba31219c1302a4a49",
+      "originalLfSha256": "1ff130f29911ba590e18e5cda42be30b621b8dd960acfeeba31219c1302a4a49",
+      "publicationAdjustment": "Removed one extra blank EOF line only; original retained privately.",
+      "originalPrivateArchive": "private-exports/savia-push-all-20261116/originals/PREVIEW-COMPARISON.md"
+    },
+    {
+      "path": "docs/hardening-20261105/README.md",
+      "bytes": 12154,
+      "rawSha256": "efbde7e52011a86a2c0e7ac2b99c726d3c608cd5e3b7644df5c0a2d6fb107548",
+      "lfSha256": "efbde7e52011a86a2c0e7ac2b99c726d3c608cd5e3b7644df5c0a2d6fb107548"
+    },
+    {
+      "path": "docs/pr2-review-20261103/README.md",
+      "bytes": 7198,
+      "rawSha256": "374ed7d70207831009cabc02246375bdf073f111b9e4916eca1ddbbd9cc96ae5",
+      "lfSha256": "73913f8e37dfa12c1e5f50699d302cf74e72c4a88c16c1a14631c89d1f65feeb"
+    },
+    {
+      "path": "docs/pr2-review-20261103/independent-review.md",
+      "bytes": 10145,
+      "rawSha256": "d768f82a86116b2f8c3f3c10ed029725897e9e1364bb6bcfe4f306739920064b",
+      "lfSha256": "d768f82a86116b2f8c3f3c10ed029725897e9e1364bb6bcfe4f306739920064b"
+    },
+    {
+      "path": "docs/release-20261105/GATE.md",
+      "bytes": 5262,
+      "rawSha256": "dd00ea6ab61fda244ae81eecd2f435dfa325df1d616f892515c648bf6ee9f03a",
+      "lfSha256": "dd00ea6ab61fda244ae81eecd2f435dfa325df1d616f892515c648bf6ee9f03a"
+    },
+    {
+      "path": "docs/stock-exception-20261106/primary/review-after/browser-review-results.json",
+      "bytes": 464,
+      "rawSha256": "c30a0a168166e7be228c3bd32b8f8e0ae98ed8e2089c57eff5ec4abc98025195",
+      "lfSha256": "c30a0a168166e7be228c3bd32b8f8e0ae98ed8e2089c57eff5ec4abc98025195"
+    },
+    {
+      "path": "docs/storefront-motion-20261114/sequence.sh",
+      "bytes": 1175,
+      "rawSha256": "e827818ea41eac073dce8ac228bdbbcca4318e535d48068a9cdb81403027a2f1",
+      "lfSha256": "e827818ea41eac073dce8ac228bdbbcca4318e535d48068a9cdb81403027a2f1"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/existing-full/browser-results.json",
+      "bytes": 13364,
+      "rawSha256": "8a08152157c0bde4043743c4f9f7cf9b0e2698db0c27cf46cdc027ffabc9a3fd",
+      "lfSha256": "8a08152157c0bde4043743c4f9f7cf9b0e2698db0c27cf46cdc027ffabc9a3fd"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/existing-full/multiarticle-desktop-cart.png",
+      "bytes": 60489,
+      "rawSha256": "d5f03863ab0029c0c88b4b92c5d8a7cbaadfa32e3c26d63444974dad3f937e25",
+      "lfSha256": "d5f03863ab0029c0c88b4b92c5d8a7cbaadfa32e3c26d63444974dad3f937e25"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/existing-full/multiarticle-desktop-receipt.png",
+      "bytes": 63554,
+      "rawSha256": "bd1767e2e70cf26cd965f6d98be4289f3f504bc0398e41d31ec9725826b00250",
+      "lfSha256": "bd1767e2e70cf26cd965f6d98be4289f3f504bc0398e41d31ec9725826b00250"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/existing-full/multiarticle-mobile-cart.png",
+      "bytes": 54376,
+      "rawSha256": "a1bd18be35dfa1ad698a2903c2932efc9cce7dcf7de38e846ef00c46de4684ea",
+      "lfSha256": "a1bd18be35dfa1ad698a2903c2932efc9cce7dcf7de38e846ef00c46de4684ea"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/existing-full/multiarticle-mobile-receipt.png",
+      "bytes": 56666,
+      "rawSha256": "58a309a11a8140a1fdb83d2903638fe0afd7c5e91186e15078b046ff4a7f2eb0",
+      "lfSha256": "58a309a11a8140a1fdb83d2903638fe0afd7c5e91186e15078b046ff4a7f2eb0"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/existing-full/stale-receipt-observation.json",
+      "bytes": 206,
+      "rawSha256": "003fb893b7ca07e8abc855f0ccc1505b58b31c3451b15c36ca141a7a37fe84d5",
+      "lfSha256": "003fb893b7ca07e8abc855f0ccc1505b58b31c3451b15c36ca141a7a37fe84d5"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/existing-full/stale-receipt.png",
+      "bytes": 50446,
+      "rawSha256": "5d5d21bc2a9cd5996b9ba71136b87c4432d34f4651372af382c3044c980b0df1",
+      "lfSha256": "5d5d21bc2a9cd5996b9ba71136b87c4432d34f4651372af382c3044c980b0df1"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/late-negative-final/results.json",
+      "bytes": 5524,
+      "rawSha256": "3b725decd1690c2fb2a34252e72dc627ea83a2bb12bced86aa2c9129fd5c61a2",
+      "lfSha256": "3b725decd1690c2fb2a34252e72dc627ea83a2bb12bced86aa2c9129fd5c61a2"
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/late-negative/results.json",
+      "bytes": 5524,
+      "rawSha256": "368fec5611593a8823fbb61a19099730bccddc5aa95fd304810fb75a75b2e140",
+      "lfSha256": "368fec5611593a8823fbb61a19099730bccddc5aa95fd304810fb75a75b2e140"
+    }
+  ],
+  "copiedHistoricalEvidence": [
+    {
+      "source": "savia/docs/pilot/screens/devolucion-transferencia.png",
+      "publishedCopy": "docs/savia-completion-20261116/publication/devolucion-transferencia.png",
+      "rawSha256": "8c972d4e81dc4457325c01678695d9f42343852211484a0a9e2397e42ce871eb",
+      "meaning": "Historical fictional-data pilot screenshot; not fresh persistence proof."
+    },
+    {
+      "source": "savia/docs/evidence/cp4-sim/red-basic-oracle-scope.txt",
+      "publishedCopy": "docs/savia-completion-20261116/publication/cp4-incomplete-basic-run.txt",
+      "rawSha256": "d05db115411725d1778572b09aff62ec396bd7fc2d28dcf5de3d75f5d546da02",
+      "meaning": "Incomplete historical simulator output; no final oracle or success outcome is present."
+    }
+  ],
+  "excludedBundle": {
+    "path": ".agents/skills/design-taste-frontend/",
+    "files": 1617,
+    "reason": "Installed third-party skill bundle, including dependencies; not project product source."
+  },
+  "preservedLocalFiles": [
+    {
+      "path": ".cloudflare/cache/cloudflare-account.json",
+      "reason": "Local tooling, cache or separate evidence; preserved on this host."
+    },
+    {
+      "path": ".lavish/decisiones-pendientes.html",
+      "reason": "Local tooling, cache or separate evidence; preserved on this host."
+    },
+    {
+      "path": ".lavish/ensayo-tienda-c10.html",
+      "reason": "Local tooling, cache or separate evidence; preserved on this host."
+    },
+    {
+      "path": ".lavish/flujo-mercaderia.html",
+      "reason": "Local tooling, cache or separate evidence; preserved on this host."
+    },
+    {
+      "path": ".lavish/p-owner-paso-a-paso.html",
+      "reason": "Local tooling, cache or separate evidence; preserved on this host."
+    },
+    {
+      "path": ".lavish/p-owner-reintento.html",
+      "reason": "Local tooling, cache or separate evidence; preserved on this host."
+    },
+    {
+      "path": ".lavish/p-owner-ventana-2.html",
+      "reason": "Local tooling, cache or separate evidence; preserved on this host."
+    },
+    {
+      "path": "docs/c3-n5-20261103/fixed.stderr.txt",
+      "reason": "External-service readback or raw process output; public summary retained."
+    },
+    {
+      "path": "docs/c3-n5-20261103/fixed.stdout.txt",
+      "reason": "External-service readback or raw process output; public summary retained."
+    },
+    {
+      "path": "docs/c3-n5-20261103/product-fix.patch",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/c3-n5-20261103/product-reverted.patch",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/c3-n5-20261103/reverted.stderr.txt",
+      "reason": "External-service readback or raw process output; public summary retained."
+    },
+    {
+      "path": "docs/c3-n5-20261103/reverted.stdout.txt",
+      "reason": "External-service readback or raw process output; public summary retained."
+    },
+    {
+      "path": "docs/c3-n5-20261103/trello-closure-readback.json",
+      "reason": "External-service readback or raw process output; public summary retained."
+    },
+    {
+      "path": "docs/c3-n5-20261103/trello-readback.json",
+      "reason": "External-service readback or raw process output; public summary retained."
+    },
+    {
+      "path": "docs/c8-ui-20261103/api-expiry-completion-20261103/expiry-test.sanitized.trx",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/c8-ui-20261103/api-expiry-completion-20261103/security-regressions.sanitized.trx",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/cash-register-20261107/fixture-adaptation/changes.patch",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/failure-simulation-20261105/focused.log",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/failure-simulation-20261105/staff-glob.log",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/controls/logs/bad-sizes.log",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/controls/logs/baseline.log",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/controls/logs/no-activation.log",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/browser.log",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/proof-corrections/browser.log",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/proof-corrections/green.log",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/proof-corrections/red.log",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/tabindex-zero.log",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/valid-measured-sizes.log",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/savia-ux-20261116/navigation/focused-final.log",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/savia-ux-20261116/navigation/focused-recheck.log",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/savia-ux-20261116/navigation/focused.log",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/savia-ux-20261116/navigation/web-suite.log",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/stock-exception-20261106/primary/judge-before/videos/page@30fc728735808eef2804a32bdf208b33.webm",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/stock-exception-20261106/primary/review-after/videos/page@84e80e4750472ea989596a2ea9646d7f.webm",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/stock-exception-20261106/primary/review-before/videos/page@313f33e60b0cdf920d5087b128dc3688.webm",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/storefront-motion-20261114/before/desktop-1440.webm",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/storefront-motion-20261114/before/mobile-390.webm",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/late-negative-final/videos/logout-late-reply.webm",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/late-negative-final/videos/page@b0cc92b04b5b2fe91e188348adba7af5.webm",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/late-negative/videos/logout-late-reply.webm",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/late-negative/videos/page@77463f0144d3ff0ffd7d0cf26271d7e3.webm",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/logout-focused/videos/page@23441f411bf897b7027255dfb08d1f9c.webm",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/logout-headers-observed/videos/page@3b26c00266ee56b9d71fd6e087b8c8e2.webm",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/logout-held-response/videos/page@52a44025ccd7bc960635274eb6946981.webm",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/supply-full/videos/page@3706e91a4bdef87724eac51512021aff.webm",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/supply-full/videos/page@4e7f375db8b3a170b84a2c5885fda51a.webm",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/supply-full/videos/page@65773be2b655ac89eb2e03ac44596855.webm",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/supply-full/videos/page@6c8da9abf0af35fc4ef70c9b148d9b45.webm",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/supply-full/videos/page@71f566f64449794609b9d068a884f238.webm",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/supply-full/videos/page@748189b275b54be067891431fd291c04.webm",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/supply-full/videos/page@841bed90791e02af66d8aab55e8a2b54.webm",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/supply-ui-20261105/primary/supply-full/videos/page@ba98fcc2105ddc272b0985f9b817c19b.webm",
+      "reason": "Raw, duplicate or frozen execution artifact; product sources and summarized evidence are versioned."
+    },
+    {
+      "path": "docs/supply-ui-20261105/worker/before.mjs",
+      "reason": "Historical scratch source; original product source remains in Git history."
+    },
+    {
+      "path": "savia/docs/evidence/cp4-sim/red-basic-oracle-scope.txt",
+      "reason": "Byte-exact historical documentation copy published under docs/; source preserved unchanged."
+    },
+    {
+      "path": "savia/docs/pilot/screens/devolucion-transferencia.png",
+      "reason": "Byte-exact historical documentation copy published under docs/; source preserved unchanged."
+    },
+    {
+      "path": "skills-lock.json",
+      "reason": "Local tooling, cache or separate evidence; preserved on this host."
+    }
+  ]
+}

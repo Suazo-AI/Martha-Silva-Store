@@ -1,0 +1,230 @@
+{
+  "schema": 1,
+  "generated_at_utc": "2026-10-25T04:13:55.517791+00:00",
+  "scope": "Uncommitted recovered-original preview with local SAVIA/SISFAIN demo behavior; post-hover source snapshot. No deployment or SQL execution by this reviewer.",
+  "base_commit": "761559ad9b0cc6b7ac4c218029ce144791310172",
+  "branch": "feat/original-storefront-preview",
+  "snapshot_state": "uncommitted; hashes identify tested files and are not a delivered commit SHA",
+  "snapshot_sha256": {
+    "src/app.js": "b0d5b729c6888c690ce940a8d3da8a94fcadc8b324301d587ca43a043cf215f8",
+    "dist/app.js": "b0d5b729c6888c690ce940a8d3da8a94fcadc8b324301d587ca43a043cf215f8",
+    "src/demo-api.js": "2cfdfaa9ea665ba4fd7c822ab66f7bdaa1499160c45e04cde53d14530d04002e",
+    "src/integration-adapters.js": "d274c6853b397c840b92e6dc2491f2f882e568d964429c7ad408fa971b6f2953",
+    "build-inputs/static/catalog.js": "c2d5ed59e03dd68b8e279a33bbce27f120ddb0ca29ff260bb2ec38bdf2df726f",
+    "dist/catalog.js": "c2d5ed59e03dd68b8e279a33bbce27f120ddb0ca29ff260bb2ec38bdf2df726f",
+    "tests/check.py": "fd4b78d4b1147c90418dbbdf633ee809c38e30eecd75ea614430e52f3a85e9ce",
+    "tests/build.py": "e4a18966300b7e322f34fa35c35ba5a3bd049f12d499578ab514c7a921b5135c",
+    "tests/frontend-runtime.cjs": "9383a119bf3f17a7c580108f4c50e4548c6c7949b85035a82777eceae005d6b8",
+    "tests/structure.py": "dd55b54637b41db1864b82c10bc736317d0f4355b92e4f3a7296b462fde8031a",
+    "tests/original-catalog.cjs": "907d75c05400f184593912b9adb70785ae35e2413915f7ac9a89469bfac4cd1d",
+    "tests/fixtures/legacy-catalog.json": "c7f2fd6ac07ea55daa7af2c72d5a945714fa7f16b3cff503439078f98ec9c0dd",
+    "tests/fixtures/original-store-media.json": "917111efa88bd3b264e060ca71141a1cefa90684f0a280755ee70131b454e754",
+    "tests/fixtures/original-missing-media.json": "73c1fb8bb1d2bb2d6d6cc21ef516842300e9416ab0db8c68329733a075a9c3ad",
+    "evidence/asset-source-manifest.json": "a5380851934632bdfc9a8f442a688277f33578f2f0a5c6884589425939421dbb",
+    "evidence/original-import-2026-10-25.json": "b941397ac2dd2505ecb1947bddab2ea2b607f3fa0bdcea1c9954c2b7fd34716b"
+  },
+  "local_environment": {
+    "system": "Windows",
+    "python": "3.12.10",
+    "node": "24.22.1"
+  },
+  "post_hover_local_runs": [
+    {
+      "command_normalized": "python3 tests/check.py",
+      "started_utc": "2026-10-25T04:11:53.432845+00:00",
+      "finished_utc": "2026-10-25T04:13:26.540828+00:00",
+      "duration_seconds": 93.11,
+      "exit_code": 1,
+      "raw_log_basename": "catalog-agent-post-hover-check.log",
+      "raw_log_sha256": "a4f20a5df3c3faf91960ff506c773c98c1c500251aa00db2610a1459505573ba",
+      "raw_result_sha256": "eb31347bb49a9cbbf209bef92104d913124158d0bfc0559b543578ed28928e6c",
+      "status": "BLOCKED_BY_WINDOWS_SYMLINK_PRIVILEGE",
+      "build": {
+        "files": 856,
+        "clean_and_repeat_sha256_comparison": "PASS"
+      },
+      "fixture": {
+        "pages": 47,
+        "products": 40,
+        "variants": 120,
+        "source_dist_match": true
+      },
+      "node_tests": {
+        "backend_simulation": 23,
+        "integration_adapters": 19,
+        "legacy_migration": 9,
+        "original_catalog_and_rendered_media": 4,
+        "total_passed": 55,
+        "failed": 0,
+        "skipped": 0
+      },
+      "asset_audit": {
+        "cases_run": 6,
+        "errors": 3,
+        "failed_assertions": 0,
+        "error_code": "WinError 1314",
+        "reason": "The current Windows process cannot create real filesystem symlinks.",
+        "guard_or_test_skips_added": false
+      },
+      "fail_fast_stages_not_reached": [
+        "portable_runner",
+        "automatic_sync_guard",
+        "catalog_staging",
+        "frontend_dom",
+        "html_structure",
+        "javascript_syntax"
+      ]
+    },
+    {
+      "command_normalized": "node tests/frontend-runtime.cjs",
+      "started_utc": "2026-10-25T04:11:53.474388+00:00",
+      "finished_utc": "2026-10-25T04:13:09.495719+00:00",
+      "duration_seconds": 76.01,
+      "exit_code": 0,
+      "raw_log_basename": "catalog-agent-post-hover-frontend.log",
+      "raw_log_sha256": "a7eeb7d819f63d64559e24c4f55c6d141af0224ebcdffdd8a7ed4dbd06584a1c",
+      "raw_result_sha256": "3120192c5c834f18f0ad54caeb9123e82e1de3556a4dc7c1cc7bed3981c40915",
+      "status": "PASS",
+      "tests_passed": 22,
+      "page_templates_mounted": 47,
+      "scope": "jsdom simulation, including memory-only carts/orders and mode/BFCache regressions; not a real browser."
+    },
+    {
+      "command_normalized": "python3 tests/structure.py",
+      "started_utc": "2026-10-25T04:11:53.454274+00:00",
+      "finished_utc": "2026-10-25T04:12:16.469468+00:00",
+      "duration_seconds": 23.02,
+      "exit_code": 0,
+      "raw_log_basename": "catalog-agent-post-hover-structure.log",
+      "raw_log_sha256": "4416c3fddecccca779b2529f067892c0b61cf5a8445f2962f995c64a25e2514b",
+      "raw_result_sha256": "a4d4502d5c20b5b1d320565416495c7b5197b469be1f8c990df1894019ef9e1e",
+      "status": "PASS",
+      "pages": 47,
+      "scope": "Local URLs/srcsets/deferred-video references, routes, fragments, ARIA ID references and photographic hero."
+    }
+  ],
+  "rendered_media": {
+    "products": 40,
+    "variants": 120,
+    "gallery_references": 170,
+    "unique_media_references": 774,
+    "all_local_nonempty_without_symlinks": true,
+    "commercial_status": "sample",
+    "commercial_inventory_verified": false
+  },
+  "historical_media_audit": {
+    "command_normalized": "python3 tools/audit_assets.py --require-complete --output <report.json>",
+    "started_utc": "2026-10-25T04:06:42.555034+00:00",
+    "finished_utc": "2026-10-25T04:06:46.059985+00:00",
+    "duration_seconds": 3.5,
+    "exit_code": 1,
+    "raw_log_basename": "catalog-agent-historical-audit.log",
+    "raw_log_sha256": "247a342d798206873dbb09602692b82d29ba44e64cf5fc7483a80a4dba888cdd",
+    "raw_result_sha256": "2ad60e729c38f2655851fe9a6a81422ff5a2841be5f8ba123b1840a2bedab58e",
+    "status": "EXPECTED_FAIL_INCOMPLETE_HISTORICAL_RECOVERY",
+    "recorded_before_last_hover_change": true,
+    "scope": "Historical media paths; hover changes do not alter the imported files or catalog.",
+    "report_sha256": "75fe9d1ffd4d078c636d21d08b05d4dc4b84ed863c1bc875d2f3c90f78bdfaf0",
+    "historical_paths": 778,
+    "present": 777,
+    "original_primary_gallery_files_present": 170,
+    "selected_gallery_references_present": 170,
+    "missing_paths": [
+      "/research/assets/martha-gala/f1bf4e3664d34cd4.jpg"
+    ],
+    "missing_path_observed_source_http_status": 404,
+    "replacement_or_synthesized_recovery": false
+  },
+  "linux_focal_complement": {
+    "origin": "Cutufay artifact retrieved and source hashes independently checked; not a local Windows execution.",
+    "scope": "Only the two focal commands authorized in MANIFEST; no broader suite or browser run",
+    "system": "Linux",
+    "python": "3.12.14",
+    "archive": {
+      "file": "MARTHA-AUDIT-LAYOUT-21ec3319a843.zip",
+      "bytes": 10325,
+      "sha256": "b3c621babd4872b3ae806d8a0db4854edf8db8be20a53df093911ee55b419806"
+    },
+    "manifest_sha256": "21ec3319a843cb74ad159f317b093c12a7bec3a3cdbd044be48b735e0713e9df",
+    "source_inventory": [
+      {
+        "path": "tests/asset-audit.py",
+        "sha256": "b29bf725a2b0bc746beaf888aa39528a2aaaefcce1be8a54d0cd67251e29878c",
+        "matches_executed_source": true
+      },
+      {
+        "path": "tests/catalog-staging.py",
+        "sha256": "8ff6a47a6080f6a8ad3810a67bf4f31c5e0dd2ec3312c89b4d19cc7074d06d20",
+        "matches_executed_source": true
+      },
+      {
+        "path": "tools/audit_assets.py",
+        "sha256": "7a61cbd71318ba3b3556f2827d521951cfa5b1ec38953c8c0ac15cb0bd78f552",
+        "matches_executed_source": true
+      },
+      {
+        "path": "tools/stage_catalog.py",
+        "sha256": "00e5366b05909ec4e01b2b436f9525bbd6a174fa19b316a13553bb4f02a52485",
+        "matches_executed_source": true
+      }
+    ],
+    "commands": [
+      {
+        "argv": [
+          "python3",
+          "tests/asset-audit.py",
+          "AuditTests.test_original_and_legacy_asset_layouts_are_both_observed",
+          "AuditTests.test_empty_original_file_cannot_be_hidden_by_a_legacy_copy",
+          "AuditTests.test_symlinks_are_rejected_in_both_original_and_legacy_layouts",
+          "AuditTests.test_path_allowlist",
+          "AuditTests.test_missing_and_symlink_not_read"
+        ],
+        "started_at_utc": "2026-10-25T04:07:19.897905+00:00",
+        "ended_at_utc": "2026-10-25T04:07:19.965892+00:00",
+        "elapsed_seconds": 0.070434,
+        "exit_code": 0,
+        "actual_test_count": 5,
+        "skipped": 0,
+        "stdout_stderr": ".....\n----------------------------------------------------------------------\nRan 5 tests in 0.002s\n\nOK\n",
+        "log_sha256": "0e03c9ea4f3fd06c8c11e49d7a667db15d6aabe3ea252a8f063dd5af69e18590"
+      },
+      {
+        "argv": [
+          "python3",
+          "tests/catalog-staging.py",
+          "StagingTests.test_missing_media_inert_stock_and_inputs_preserved",
+          "StagingTests.test_complete_media_does_not_activate_or_replace_demo_stock",
+          "StagingTests.test_original_public_media_layout_is_recognized_without_activation",
+          "StagingTests.test_empty_original_path_is_not_hidden_by_a_legacy_copy",
+          "StagingTests.test_symlinked_original_path_is_not_hidden_by_a_legacy_copy",
+          "StagingTests.test_unsafe_paths_and_duplicates_rejected",
+          "StagingTests.test_symlink_and_empty_files_are_not_recovery",
+          "StagingTests.test_offline_import_requires_manifest_and_never_activates"
+        ],
+        "started_at_utc": "2026-10-25T04:07:19.968467+00:00",
+        "ended_at_utc": "2026-10-25T04:07:20.035151+00:00",
+        "elapsed_seconds": 0.069824,
+        "exit_code": 0,
+        "actual_test_count": 8,
+        "skipped": 0,
+        "stdout_stderr": "........\n----------------------------------------------------------------------\nRan 8 tests in 0.002s\n\nOK\n",
+        "log_sha256": "77db25b4986c87371fa980f84a9e5cded40309a44528ddcb4c12826d92f21c7c"
+      }
+    ],
+    "total_passed": 13,
+    "skipped": 0,
+    "repository_artifacts": {
+      "evidence/original-preview/FOCAL-QA-RESULTS.json": "e20dc302de5f8b68aa63d2274a704b15bfab39d0ce519ab080dc65ca5b7e93e6",
+      "evidence/original-preview/FOCAL-QA-LOGS.txt": "8c1bbd593bc19bb812f1c2c786bf64faacffbc8252b69ef938310ab7ad778009",
+      "evidence/original-preview/FOCAL-QA-REPORT.md": "f6a26d1d4a234f34a63494f1e1d12fbaa9b9f48a592898f1cbdef2a9d59a7e49"
+    }
+  },
+  "limits": [
+    "The Windows aggregate runner exited 1; this record does not claim an all-stages aggregate PASS.",
+    "The Linux complement contains only the two exact focal commands (13 tests), not the full suite.",
+    "jsdom and HTML checks do not establish real-browser visual, mobile, accessibility or performance QA.",
+    "Historical recovery remains 777/778 and the strict completeness gate still fails.",
+    "No production payment, live commercial inventory, real backend interoperability, SQL, deployment or remote CI verification is established by these runs.",
+    "Raw local log paths are intentionally omitted; filenames and SHA-256 identify the captured artifacts."
+  ]
+}

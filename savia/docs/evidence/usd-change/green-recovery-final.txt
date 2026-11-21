@@ -1,0 +1,11 @@
+python : ..
+At line:2 char:1
++ python -u tests/usd_change_migration_recovery.py *> docs/evidence/usd ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (..:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+----------------------------------------------------------------------
+Ran 2 tests in 220.660s
+
+OK

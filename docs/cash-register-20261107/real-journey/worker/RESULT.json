@@ -1,0 +1,295 @@
+{
+  "task_id": "savia-real-cash-preparation-20261108-01",
+  "status": "PREPARED_WITH_LIMITS",
+  "acceptance": "NOT ACCEPTED; primary integration and Astra/xhigh review pending",
+  "host": "SUAZO-PC",
+  "harness": "T3 Code through Codex",
+  "provider": "codex",
+  "model": "gpt-6.1-sol",
+  "requested_effort": "high",
+  "runtime_exposed_effort": "high",
+  "usage": "unknown",
+  "worktree": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-784e36ee",
+  "branch": "t3/real-cash-harness",
+  "base_sha": "54e76663cef0a43029dc87b7ecc27dcf9e8ec180",
+  "runtime": "NOT RUN",
+  "sql5_d": "REVIEW FIRST, DO NOT EXECUTE",
+  "nested_delegates": 0,
+  "changed_files": [
+    "tests/golden-path/browser_path.mjs",
+    "tests/golden-path/golden_path.py",
+    "tests/golden-path/verify_evidence.py",
+    "tests/golden-path/README.md",
+    "tests/golden-path/oracles.md",
+    "tests/golden-path/GoldenPath.Sql/Program.cs",
+    "tests/test_golden_path_cash.py",
+    "docs/cash-register-20261107/real-journey/worker/README.md",
+    "docs/cash-register-20261107/real-journey/worker/RESULT.json"
+  ],
+  "bindings": {
+    "tests/golden-path/browser_path.mjs": {
+      "raw_sha256": "4229e6f7573e775dd4995757313f2e528eccf6167b40de19d3b9df097da3fda0",
+      "lf_sha256": "4229e6f7573e775dd4995757313f2e528eccf6167b40de19d3b9df097da3fda0",
+      "bytes": 40178,
+      "lf_only": true
+    },
+    "tests/golden-path/golden_path.py": {
+      "raw_sha256": "edc3df7862c624d890f5f7b917407a8dde06a6ff749678723d2c58647bd56afe",
+      "lf_sha256": "edc3df7862c624d890f5f7b917407a8dde06a6ff749678723d2c58647bd56afe",
+      "bytes": 109073,
+      "lf_only": true
+    },
+    "tests/golden-path/verify_evidence.py": {
+      "raw_sha256": "dbf894faa1a07856310b17cdefdca29c58d30f80e2af0a1b53332fdb34d50299",
+      "lf_sha256": "dbf894faa1a07856310b17cdefdca29c58d30f80e2af0a1b53332fdb34d50299",
+      "bytes": 4336,
+      "lf_only": true
+    },
+    "tests/golden-path/README.md": {
+      "raw_sha256": "832756baec730be0e9ceeb6d9f911cd9c346473c4079117c5e9814223ff65576",
+      "lf_sha256": "832756baec730be0e9ceeb6d9f911cd9c346473c4079117c5e9814223ff65576",
+      "bytes": 19518,
+      "lf_only": true
+    },
+    "tests/golden-path/oracles.md": {
+      "raw_sha256": "d60dc2164102934ceb20d5834478ac12ec2247f28f57f079c8a1e4a35d96fb27",
+      "lf_sha256": "d60dc2164102934ceb20d5834478ac12ec2247f28f57f079c8a1e4a35d96fb27",
+      "bytes": 5927,
+      "lf_only": true
+    },
+    "tests/golden-path/GoldenPath.Sql/Program.cs": {
+      "raw_sha256": "9685983e5a8a83401d3878a0d2d24fb17981dfe16caaecfb3692d0edb5c2c3cb",
+      "lf_sha256": "9685983e5a8a83401d3878a0d2d24fb17981dfe16caaecfb3692d0edb5c2c3cb",
+      "bytes": 22667,
+      "lf_only": true
+    },
+    "tests/test_golden_path_cash.py": {
+      "raw_sha256": "3f94f75665e22a8d706e400b4bdb4cab9029b236b43cb81e42f56a98995b1c63",
+      "lf_sha256": "3f94f75665e22a8d706e400b4bdb4cab9029b236b43cb81e42f56a98995b1c63",
+      "bytes": 22037,
+      "lf_only": true
+    },
+    "docs/cash-register-20261107/real-journey/worker/README.md": {
+      "raw_sha256": "65243f25f3efc6801129688b12605722d2261802445b63ced8257558d5ee3d90",
+      "lf_sha256": "65243f25f3efc6801129688b12605722d2261802445b63ced8257558d5ee3d90",
+      "bytes": 8383,
+      "lf_only": true
+    }
+  },
+  "result_self_binding": "private tests/golden-path/out/final-bindings.json",
+  "acceptance_matrix": [
+    {
+      "check": "REAL-CASH-01",
+      "source": "IMPLEMENTED",
+      "offline": "PASS",
+      "runtime": "NOT RUN"
+    },
+    {
+      "check": "REAL-CASH-02",
+      "source": "IMPLEMENTED",
+      "offline": "PASS",
+      "runtime": "NOT RUN"
+    },
+    {
+      "check": "REAL-CASH-03",
+      "source": "IMPLEMENTED",
+      "offline": "PASS",
+      "runtime": "NOT RUN"
+    },
+    {
+      "check": "REAL-CASH-04",
+      "source": "IMPLEMENTED",
+      "offline": "PASS",
+      "runtime": "NOT RUN"
+    },
+    {
+      "check": "REAL-CASH-05",
+      "source": "IMPLEMENTED",
+      "offline": "PASS",
+      "runtime": "NOT RUN"
+    },
+    {
+      "check": "REAL-CASH-06",
+      "source": "IMPLEMENTED",
+      "offline": "PASS",
+      "runtime": "NOT RUN"
+    },
+    {
+      "check": "REAL-CASH-07",
+      "source": "IMPLEMENTED",
+      "offline": "PASS",
+      "runtime": "NOT RUN"
+    }
+  ],
+  "python_groups": [
+    {
+      "invocation": 1,
+      "command": "python -m unittest discover -s tests -p 'test_golden_path_safety.py'",
+      "tests": 17,
+      "exit": 0,
+      "private_log": "tests/golden-path/out/safety.log"
+    },
+    {
+      "invocation": 2,
+      "command": "python -m unittest discover -s tests -p 'test_golden_path_browser_safety.py'",
+      "tests": 24,
+      "exit": 0,
+      "private_log": "tests/golden-path/out/browser-safety.log"
+    },
+    {
+      "invocation": 3,
+      "command": "python -m unittest discover -s tests -p 'test_golden_path_stock_exception.py'",
+      "tests": 5,
+      "exit": 0,
+      "private_log": "tests/golden-path/out/stock-safety.log"
+    },
+    {
+      "invocation": 4,
+      "command": "python -m unittest discover -s tests -p 'test_golden_path_cash.py'",
+      "tests": 20,
+      "exit": 0,
+      "private_log": "tests/golden-path/out/cash.log"
+    },
+    {
+      "invocation": 5,
+      "command": "python -m unittest discover -s tests -p 'test_golden_path_cash.py'",
+      "tests": 24,
+      "exit": 0,
+      "private_log": "tests/golden-path/out/cash-final.log"
+    },
+    {
+      "invocation": 6,
+      "command": "python -m unittest discover -s tests -p 'test_golden_path_*.py'",
+      "tests": 79,
+      "exit": 0,
+      "private_log": "tests/golden-path/out/all-offline.log"
+    },
+    {
+      "invocation": 7,
+      "command": "python -m unittest discover -s tests -p 'test_golden_path_*.py'",
+      "tests": 80,
+      "exit": 0,
+      "private_log": "tests/golden-path/out/final-offline.log"
+    },
+    {
+      "invocation": 8,
+      "command": "python -m unittest discover -s tests -p 'test_golden_path_*.py'",
+      "tests": 81,
+      "exit": 0,
+      "private_log": "tests/golden-path/out/delivered-offline.log"
+    }
+  ],
+  "final_unique_test_counts": {
+    "safety": 17,
+    "browser_safety": 24,
+    "stock_exception": 5,
+    "cash": 35,
+    "total": 81
+  },
+  "negative_controls": [
+    "each missing checkpoint",
+    "out-of-order checkpoints",
+    "every missing or false independent row oracle",
+    "missing global SQL oracle",
+    "missing owned cleanup",
+    "wrong till/cashier/authorizer/sale/payment/reversal/original-line/operation identity",
+    "duplicate cash effects",
+    "changed amounts, quantities and arithmetic",
+    "zeroed deliberate shortage",
+    "non-integer money",
+    "changed pending body hash",
+    "sale or receipt repost",
+    "missing original-key recovery",
+    "excluded-row mutation",
+    "fabricated zero inventory"
+  ],
+  "static_checks": [
+    {
+      "command": "node --check tests/golden-path/browser_path.mjs",
+      "exit": 0
+    },
+    {
+      "command": "Python ast.parse: golden_path.py, verify_evidence.py, test_golden_path_cash.py",
+      "files": 3,
+      "exit": 0
+    },
+    {
+      "command": "git diff --check",
+      "exit": 0
+    }
+  ],
+  "failed_checks": [
+    {
+      "check": "Initial RAW/LF binding audit",
+      "exit": 1,
+      "cause": "Retained documentation CRLF bytes in README.md; audit stopped before RESULT write",
+      "correction": "Normalized README.md 267 CRLF, oracles.md 88, worker README.md 109 to LF; text unchanged",
+      "rerun": "PASS; all nine changed owned paths have equal RAW/LF hashes"
+    }
+  ],
+  "helper_build": {
+    "invocations": 1,
+    "sdk": "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+    "command": "dotnet.exe build tests/golden-path/GoldenPath.Sql/GoldenPath.Sql.csproj -c Release -p:RestoreSources=<private empty local source> -p:RestoreLockedMode=true --nologo",
+    "dependencies": "existing global cache; empty local package source",
+    "log_result": "Build succeeded; 0 warnings; 0 errors; 21.12 seconds",
+    "process_exit": null,
+    "exit_gap": "Tool yielded; terminal process exit not captured",
+    "private_log": "tests/golden-path/out/helper-build.log",
+    "covers_final_source": false,
+    "postbuild_changes": [
+      "operation ResultId/EffectId SQL projection",
+      "explicit database Guarded call",
+      "private hashes include Staff and BranchAssignmentAudit"
+    ]
+  },
+  "blockers": [
+    {
+      "id": "FINAL-HELPER-BUILD",
+      "cause": "Final source hardening followed the one permitted cached SDK build",
+      "attempt": "Earlier revision built successfully; second build not attempted under packet cap",
+      "owner": "primary",
+      "next_action": "Compile exact final source offline with cached dependencies, then obtain Astra/xhigh verdict",
+      "completion": "Captured final build exit 0 and matching RAW/LF source binding"
+    },
+    {
+      "id": "RUNTIME-HELD",
+      "cause": "Source/offline preparation authority only; SQL5 D remains REVIEW FIRST",
+      "attempt": "No runtime attempted; protected boundary preserved",
+      "owner": "Jason/primary",
+      "next_action": "Review source, runtime scope, prerequisites and cleanup before separate authorization",
+      "completion": "Separately authorized exact-source campaign passes all 31 checkpoints, independent SQL oracles and cleanup"
+    },
+    {
+      "id": "PARENT-CI-UNOBSERVED",
+      "cause": "Runs 42439915787 and 42439915859 were in progress at delegation; no remote verification authorized",
+      "attempt": "No polling or dispatch; no pass claim",
+      "owner": "primary",
+      "next_action": "Read exact-SHA CI results during integration",
+      "completion": "Direct run readback"
+    }
+  ],
+  "not_run": [
+    "SQL connection",
+    "real API/browser launch",
+    "cash persistence campaign",
+    "Docker/container",
+    "backup/restore",
+    "actual account recovery or mutation",
+    "host ACL/SID/certificate/service changes",
+    "download/install",
+    "workflow dispatch",
+    "git stage/commit/push/PR/merge/deploy",
+    "external messages",
+    "production acceptance"
+  ],
+  "next_action": "Primary compiles exact final helper source offline, checks source drift and obtains independent Astra/xhigh verdict before runtime review",
+  "future_runtime_command": "python3 tests/golden-path/golden_path.py --mode browser --cash --supply --stock-exception --no-build --playwright-directory /absolute/existing/node_modules/playwright --sql-env-file /private/approved-disposable-sql.env --out /private/real-cash-v1",
+  "future_verifier_command": "python3 tests/golden-path/verify_evidence.py --source /private/real-cash-v1 --destination /private/real-cash-v1-approved",
+  "prerequisites": [
+    "reviewed exact-source Release API/helper binaries",
+    "Linux /proc and pty",
+    "existing Python3.9+, Node24, Chrome, Playwright1.63.0, OpenSSL and .NET10.0.402",
+    "separately authorized disposable SQL/TLS configuration"
+  ]
+}

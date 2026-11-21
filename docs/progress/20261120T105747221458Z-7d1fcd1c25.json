@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-20T10:57:47.221458+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/ci-9879d5c/pilot-journey.md",
+      "change": "M",
+      "git_blob": "2b2dedfafd131c1c599281badd339940170254d6"
+    },
+    {
+      "path": "savia/web/tests/pr7-codex-findings.test.mjs",
+      "change": "M",
+      "git_blob": "ada84f68be35c61cce9a6356b9673815a3949785"
+    },
+    {
+      "path": "savia/web/tests/pr7-import-receipt.test.mjs",
+      "change": "M",
+      "git_blob": "b6bc37745e576dc9e719dc38aeba71574413e570"
+    },
+    {
+      "path": "savia/web/tests/pr7-payment-customer-contract.test.mjs",
+      "change": "M",
+      "git_blob": "ce05baffc92f2308f3376279a322453e0098a1c1"
+    },
+    {
+      "path": "savia/web/tests/sale-lifecycle.test.mjs",
+      "change": "M",
+      "git_blob": "6d2e183d3a4bd608d4ed5ac22d3b27b6bbebe306"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

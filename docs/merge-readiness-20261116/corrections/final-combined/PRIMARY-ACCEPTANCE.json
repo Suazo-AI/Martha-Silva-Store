@@ -1,0 +1,46 @@
+{
+  "status": "PRIMARY_ACCEPTED_WITH_LIMITS_LOCAL_SOURCE_ONLY",
+  "dateUtc": "2026-11-17T01:01:31.324989+00:00",
+  "host": "SUAZO-PC",
+  "primary": "T3 Code/Codex gpt-6.1-sol/xhigh",
+  "baseSha": "ba8ff2ba10935e99fc268ebbe5eae130f72c1cca",
+  "review": {
+    "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/review/astra-recheck.md",
+    "rawSha256": "d9f756ddda669fd5ab8127f55f81473a911a8fda684d89b6cd040c6cd7974ec8",
+    "lfSha256": "d9f756ddda669fd5ab8127f55f81473a911a8fda684d89b6cd040c6cd7974ec8",
+    "verdict": "ACCEPT WITH LIMITS",
+    "reviewer": "T3 Code/Codex gpt-6-astra/xhigh",
+    "freshWeb": {
+      "passed": 118,
+      "failed": 0,
+      "skipped": 0,
+      "exit": 0
+    },
+    "independentProbe": {
+      "assertionsPassed": 33,
+      "detectedRegressions": 2,
+      "exit": 0
+    }
+  },
+  "primaryCustody": {
+    "sourceRawAndLfBindings": 18,
+    "archiveEntries": 58,
+    "artifactRawBindings": 17,
+    "reportByteExactCopy": true,
+    "frozenPacketSha256": "fe07a82b37007def7aa0db0a4f8778bf8d7bcd0dfd03bf24998c3cca1c1923d5",
+    "archiveSha256": "c08db183ca673f5d54ba012f6de3466fccd17c6270210f3aaa572e9a8171264c"
+  },
+  "disposition": {
+    "CF1": "CLOSED within prior review scope",
+    "CF2-R1": "CLOSED within tested same-document logout/navigation scope",
+    "PRIMARY-BROWSER-01": "CLOSED within prior review scope"
+  },
+  "limits": [
+    "Latest notice browser proof uses actual app routing with fictional HTTP: desktop 15/15 and narrow CSS viewport 15/15; not touch-device acceptance.",
+    "Historical return-module Chrome 22/22 remains attributed to its own sources and run.",
+    "No warning reload-persistence claim.",
+    "SQL V029/replay/concurrency, real combined journey and exact-candidate Linux CI remain NOT RUN.",
+    "No commit, push, merge, deploy or new runtime authorized by this acceptance."
+  ],
+  "next": "Review and authorize correction publication plus the actual automatic push/PR CI envelope."
+}

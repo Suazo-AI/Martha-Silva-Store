@@ -1,0 +1,11 @@
+PASS  baseline is generated from the handoff  (0s)
+      OK: V001__baseline.sql matches the generator output.
+PASS  database container  (1s)
+      16.0.4305.5 Developer Edition (64-bit)
+PASS  T-SQL tests  (39s)
+      SUMMARY PASS=47  logs: .out\dbtests
+PASS  .NET build  (4s)
+      Time Elapsed 00:00:03.50
+PASS  .NET tests on real SQL  (31s)
+      Passed!  - Failed:     0, Passed:    13, Skipped:     0, Total:    13, Duration: 29 s - Savia.Tests.dll (net10.0)
+RESULT PASS

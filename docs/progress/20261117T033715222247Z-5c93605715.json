@@ -1,0 +1,170 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-17T03:37:15.222247+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/merge-readiness-20261116/corrections/STATUS.md",
+      "change": "M",
+      "git_blob": "2b79acf50dbf31f20ff382dba9d3745fe761a961"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/PUBLICATION.json",
+      "change": "A",
+      "git_blob": "95a808c6406df82faafc9956f2afd4856e17b104"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/README.md",
+      "change": "A",
+      "git_blob": "cd28295b9fd02016d1852c9f10e2f8ef2cf288bc"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/RESULT.json",
+      "change": "A",
+      "git_blob": "e9d46bb91dc5dc68f043c787ae3a958d27103834"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/command-disposal/PACKET.json",
+      "change": "A",
+      "git_blob": "fb1a0d1ae3d77ad441ee594ba515f2191bdda6cc"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/command-disposal/README.md",
+      "change": "A",
+      "git_blob": "07081721b0a5d6672945838426e89d669579a763"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/command-disposal/RESULT.json",
+      "change": "A",
+      "git_blob": "8a676c33ad7fd2d8aba39afd0e03b9bbf1aaddd4"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/command-disposal/astra-f1-recheck.md",
+      "change": "A",
+      "git_blob": "90866d965455cc2a6a998360bd4c306f67e5831d"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/IMPORT.json",
+      "change": "A",
+      "git_blob": "2c6b98e6814199139937fb8dc65e28b9dfc04717"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/README.md",
+      "change": "A",
+      "git_blob": "975ca732b01a4b93fbef417516f1224e907a9ef0"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/RESULT.json",
+      "change": "A",
+      "git_blob": "d892cf9e53063f8ace32f5caf6951684c98635aa"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/candidate.patch",
+      "change": "A",
+      "git_blob": "c7bc4e3bfcfa01d678cf643dfd6243e23cbc5907"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/controls.json",
+      "change": "A",
+      "git_blob": "a525cf0c09c606e2f68f1ab058969f3d1ed22e44"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/preservation.json",
+      "change": "A",
+      "git_blob": "8ef8178a60f1a83de05545c3488f23126cb1e79e"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/run-controls.py",
+      "change": "A",
+      "git_blob": "8f1ebd10d955ad2b69257e1c25087eeaf4ea1286"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/migrator-worker/source-hashes.json",
+      "change": "A",
+      "git_blob": "e271048b0e61294dee699c1b79b910e751a24387"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/review/PACKET.json",
+      "change": "A",
+      "git_blob": "a79ef3d02e1bb09f514c269aa3249fbf6f2ce9e7"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/review/astra-integrated-review.md",
+      "change": "A",
+      "git_blob": "be55138dfec44afed6127f0bca85d47a85744b20"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/v029/astra-preimplementation.md",
+      "change": "A",
+      "git_blob": "a77ba41732579e3db38b6b09efae180873c401ec"
+    },
+    {
+      "path": "savia/db/migrations/MANIFEST.sha256",
+      "change": "M",
+      "git_blob": "7914252c039818f25d7b59d21aaabc7906fbaf69"
+    },
+    {
+      "path": "savia/db/migrations/V029__return_retry_safety.sql",
+      "change": "M",
+      "git_blob": "c12fa47c7bf5baf5da3a4f5a382f8a81d954631a"
+    },
+    {
+      "path": "savia/deploy/migrator/MigrationExecution.cs",
+      "change": "A",
+      "git_blob": "62e2fad6368e528081e64cd36dfd81169176d62e"
+    },
+    {
+      "path": "savia/deploy/migrator/Program.cs",
+      "change": "M",
+      "git_blob": "a401c18f9abd2d42bbf37df4461a67de147dd7c2"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/MigratorExecutionTests.cs",
+      "change": "A",
+      "git_blob": "07b69c36a02206f0fe96f0d4316dfb6e985b31d1"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/ReturnRetrySafetyTests.cs",
+      "change": "M",
+      "git_blob": "eae57249e450f9a744ae31c7be383c4a4446ca74"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/Savia.Tests.csproj",
+      "change": "M",
+      "git_blob": "6d12b72a03c225926477881a3bcc23c50e9fbe38"
+    },
+    {
+      "path": "savia/tests/test_return_retry_safety.py",
+      "change": "M",
+      "git_blob": "aafdb5c33ec5fa04c9e232aba84610318f33fd82"
+    },
+    {
+      "path": "savia/web/api.mjs",
+      "change": "M",
+      "git_blob": "768a3aeb5cbbe0ba9c44a9d3b161ddd9a2c2551a"
+    },
+    {
+      "path": "savia/web/screens/return-intent.mjs",
+      "change": "M",
+      "git_blob": "70c879dfd9907e94c205cb9e8229185658187c4d"
+    },
+    {
+      "path": "savia/web/screens/return.mjs",
+      "change": "M",
+      "git_blob": "ec9e4ca9b504770af82c96d1ecf7ddea267c05f3"
+    },
+    {
+      "path": "savia/web/tests/return-lifecycle.test.mjs",
+      "change": "M",
+      "git_blob": "461e277f2084962a3c430cae0486500359243c2d"
+    },
+    {
+      "path": "savia/web/tests/uuid.test.mjs",
+      "change": "M",
+      "git_blob": "874c48a9909f7fa85bffa9c2f0bc25283db3d7d5"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

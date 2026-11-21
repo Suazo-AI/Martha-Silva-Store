@@ -1,0 +1,30 @@
+===== command-1.log =====
+STARTED_UTC: 2026-10-25T04:07:19.897905+00:00
+CWD: /workspace/scratch/14cff504045e/martha-layout-qa/input
+COMMAND: python3 tests/asset-audit.py AuditTests.test_original_and_legacy_asset_layouts_are_both_observed AuditTests.test_empty_original_file_cannot_be_hidden_by_a_legacy_copy AuditTests.test_symlinks_are_rejected_in_both_original_and_legacy_layouts AuditTests.test_path_allowlist AuditTests.test_missing_and_symlink_not_read
+ENV_OVERRIDE: PYTHONDONTWRITEBYTECODE=1
+
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 0.002s
+
+OK
+
+EXIT_CODE: 0
+ENDED_UTC: 2026-10-25T04:07:19.965892+00:00
+
+
+===== command-2.log =====
+STARTED_UTC: 2026-10-25T04:07:19.968467+00:00
+CWD: /workspace/scratch/14cff504045e/martha-layout-qa/input
+COMMAND: python3 tests/catalog-staging.py StagingTests.test_missing_media_inert_stock_and_inputs_preserved StagingTests.test_complete_media_does_not_activate_or_replace_demo_stock StagingTests.test_original_public_media_layout_is_recognized_without_activation StagingTests.test_empty_original_path_is_not_hidden_by_a_legacy_copy StagingTests.test_symlinked_original_path_is_not_hidden_by_a_legacy_copy StagingTests.test_unsafe_paths_and_duplicates_rejected StagingTests.test_symlink_and_empty_files_are_not_recovery StagingTests.test_offline_import_requires_manifest_and_never_activates
+ENV_OVERRIDE: PYTHONDONTWRITEBYTECODE=1
+
+........
+----------------------------------------------------------------------
+Ran 8 tests in 0.002s
+
+OK
+
+EXIT_CODE: 0
+ENDED_UTC: 2026-10-25T04:07:20.035151+00:00

@@ -1,0 +1,312 @@
+TAP version 13
+# Subtest: F01 held pending recovery blocks submit and retry until original recovery completes
+ok 1 - F01 held pending recovery blocks submit and retry until original recovery completes
+  ---
+  duration_ms: 242.8436
+  type: 'test'
+  ...
+# Subtest: F02 obsolete receipt discard permits a complete new multiarticle sale
+ok 2 - F02 obsolete receipt discard permits a complete new multiarticle sale
+  ---
+  duration_ms: 83.7852
+  type: 'test'
+  ...
+# Subtest: F03 late obsolete404 from an earlier generation cannot erase a newer pending sale
+ok 3 - F03 late obsolete404 from an earlier generation cannot erase a newer pending sale
+  ---
+  duration_ms: 56.8862
+  type: 'test'
+  ...
+# Subtest: F04 response loss retry and reload preserve original full body and key
+ok 4 - F04 response loss retry and reload preserve original full body and key
+  ---
+  duration_ms: 121.2962
+  type: 'test'
+  ...
+# Subtest: F05 delayed POST double submit sends exactly one full operation
+ok 5 - F05 delayed POST double submit sends exactly one full operation
+  ---
+  duration_ms: 46.3437
+  type: 'test'
+  ...
+# Subtest: F06 failed pending storage prevents initial and retry POST
+ok 6 - F06 failed pending storage prevents initial and retry POST
+  ---
+  duration_ms: 26.8444
+  type: 'test'
+  ...
+# Subtest: F07 revoked session rejects a late POST response without repopulating DOM
+ok 7 - F07 revoked session rejects a late POST response without repopulating DOM
+  ---
+  duration_ms: 37.9413
+  type: 'test'
+  ...
+# Subtest: F08 operation404 remains pending; durable rejected outcome unlocks without POST
+ok 8 - F08 operation404 remains pending; durable rejected outcome unlocks without POST
+  ---
+  duration_ms: 41.9381
+  type: 'test'
+  ...
+# Subtest: F09 corrupted HTTP receipts cannot confirm or clear original operation
+    # Subtest: malformed
+    ok 1 - malformed
+      ---
+      duration_ms: 30.2444
+      type: 'test'
+      ...
+    # Subtest: missing
+    ok 2 - missing
+      ---
+      duration_ms: 33.0849
+      type: 'test'
+      ...
+    # Subtest: duplicateItem
+    ok 3 - duplicateItem
+      ---
+      duration_ms: 40.542
+      type: 'test'
+      ...
+    # Subtest: duplicateLine
+    ok 4 - duplicateLine
+      ---
+      duration_ms: 35.68
+      type: 'test'
+      ...
+    # Subtest: alteredTotal
+    ok 5 - alteredTotal
+      ---
+      duration_ms: 43.3189
+      type: 'test'
+      ...
+    # Subtest: alteredQuantity
+    ok 6 - alteredQuantity
+      ---
+      duration_ms: 33.066
+      type: 'test'
+      ...
+    # Subtest: wrongLocation
+    ok 7 - wrongLocation
+      ---
+      duration_ms: 37.1966
+      type: 'test'
+      ...
+    # Subtest: fractional
+    ok 8 - fractional
+      ---
+      duration_ms: 99.3919
+      type: 'test'
+      ...
+    1..8
+ok 9 - F09 corrupted HTTP receipts cannot confirm or clear original operation
+  ---
+  duration_ms: 355.3227
+  type: 'test'
+  ...
+# Subtest: F10 deterministic receipt/quantity sweep: 32 seeds, 192 explicit actions, 8 fault classes
+    # Subtest: seed=1
+    ok 1 - seed=1
+      ---
+      duration_ms: 1.4333
+      type: 'test'
+      ...
+    # Subtest: seed=2
+    ok 2 - seed=2
+      ---
+      duration_ms: 0.261
+      type: 'test'
+      ...
+    # Subtest: seed=3
+    ok 3 - seed=3
+      ---
+      duration_ms: 0.1028
+      type: 'test'
+      ...
+    # Subtest: seed=4
+    ok 4 - seed=4
+      ---
+      duration_ms: 0.6076
+      type: 'test'
+      ...
+    # Subtest: seed=5
+    ok 5 - seed=5
+      ---
+      duration_ms: 0.5273
+      type: 'test'
+      ...
+    # Subtest: seed=6
+    ok 6 - seed=6
+      ---
+      duration_ms: 0.4376
+      type: 'test'
+      ...
+    # Subtest: seed=7
+    ok 7 - seed=7
+      ---
+      duration_ms: 1.1786
+      type: 'test'
+      ...
+    # Subtest: seed=8
+    ok 8 - seed=8
+      ---
+      duration_ms: 1.1276
+      type: 'test'
+      ...
+    # Subtest: seed=9
+    ok 9 - seed=9
+      ---
+      duration_ms: 0.5339
+      type: 'test'
+      ...
+    # Subtest: seed=10
+    ok 10 - seed=10
+      ---
+      duration_ms: 1.2037
+      type: 'test'
+      ...
+    # Subtest: seed=11
+    ok 11 - seed=11
+      ---
+      duration_ms: 0.5702
+      type: 'test'
+      ...
+    # Subtest: seed=12
+    ok 12 - seed=12
+      ---
+      duration_ms: 1.0526
+      type: 'test'
+      ...
+    # Subtest: seed=13
+    ok 13 - seed=13
+      ---
+      duration_ms: 1.5825
+      type: 'test'
+      ...
+    # Subtest: seed=14
+    ok 14 - seed=14
+      ---
+      duration_ms: 0.5624
+      type: 'test'
+      ...
+    # Subtest: seed=15
+    ok 15 - seed=15
+      ---
+      duration_ms: 0.6798
+      type: 'test'
+      ...
+    # Subtest: seed=16
+    ok 16 - seed=16
+      ---
+      duration_ms: 0.382
+      type: 'test'
+      ...
+    # Subtest: seed=17
+    ok 17 - seed=17
+      ---
+      duration_ms: 0.8607
+      type: 'test'
+      ...
+    # Subtest: seed=18
+    ok 18 - seed=18
+      ---
+      duration_ms: 0.3045
+      type: 'test'
+      ...
+    # Subtest: seed=19
+    ok 19 - seed=19
+      ---
+      duration_ms: 1.4225
+      type: 'test'
+      ...
+    # Subtest: seed=20
+    ok 20 - seed=20
+      ---
+      duration_ms: 0.7126
+      type: 'test'
+      ...
+    # Subtest: seed=21
+    ok 21 - seed=21
+      ---
+      duration_ms: 0.7405
+      type: 'test'
+      ...
+    # Subtest: seed=22
+    ok 22 - seed=22
+      ---
+      duration_ms: 0.4017
+      type: 'test'
+      ...
+    # Subtest: seed=23
+    ok 23 - seed=23
+      ---
+      duration_ms: 0.1476
+      type: 'test'
+      ...
+    # Subtest: seed=24
+    ok 24 - seed=24
+      ---
+      duration_ms: 0.1051
+      type: 'test'
+      ...
+    # Subtest: seed=25
+    ok 25 - seed=25
+      ---
+      duration_ms: 0.0963
+      type: 'test'
+      ...
+    # Subtest: seed=26
+    ok 26 - seed=26
+      ---
+      duration_ms: 0.0747
+      type: 'test'
+      ...
+    # Subtest: seed=27
+    ok 27 - seed=27
+      ---
+      duration_ms: 0.5625
+      type: 'test'
+      ...
+    # Subtest: seed=28
+    ok 28 - seed=28
+      ---
+      duration_ms: 0.5228
+      type: 'test'
+      ...
+    # Subtest: seed=29
+    ok 29 - seed=29
+      ---
+      duration_ms: 0.3907
+      type: 'test'
+      ...
+    # Subtest: seed=30
+    ok 30 - seed=30
+      ---
+      duration_ms: 0.5521
+      type: 'test'
+      ...
+    # Subtest: seed=31
+    ok 31 - seed=31
+      ---
+      duration_ms: 0.5352
+      type: 'test'
+      ...
+    # Subtest: seed=32
+    ok 32 - seed=32
+      ---
+      duration_ms: 0.9643
+      type: 'test'
+      ...
+    1..32
+ok 10 - F10 deterministic receipt/quantity sweep: 32 seeds, 192 explicit actions, 8 fault classes
+  ---
+  duration_ms: 31.341
+  type: 'test'
+  ...
+1..10
+# tests 50
+# suites 0
+# pass 50
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2405.4754

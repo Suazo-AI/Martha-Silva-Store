@@ -1,0 +1,21 @@
+{
+  "result": "PASS",
+  "options": 5,
+  "scenarios": 3,
+  "initialChoice": null,
+  "reviewAndEdit": true,
+  "draftRestoration": true,
+  "standaloneSendDisabled": true,
+  "unexpectedDomErrors": 0,
+  "scrollTo": "stubbed: unsupported in jsdom; scrolling not tested",
+  "previews": {
+    "desktopWidth": 728,
+    "mobileWidth": 390,
+    "consoleMessages": 0
+  },
+  "priorProbes": [
+    "Incomplete: PowerShell pipe changed a non-ASCII assertion literal.",
+    "Incomplete: jsdom lacks window.scrollTo; corrected the probe environment."
+  ],
+  "limits": "DOM checks and rendered previews. No live decision submission or real browser click sequence. No user choice or receipt persisted."
+}

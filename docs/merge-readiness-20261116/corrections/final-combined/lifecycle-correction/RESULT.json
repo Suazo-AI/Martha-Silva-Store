@@ -1,0 +1,224 @@
+{
+  "status": "LOCAL_CORRECTED_PENDING_INDEPENDENT_RECHECK",
+  "sourceSha": "ba8ff2ba10935e99fc268ebbe5eae130f72c1cca",
+  "identity": {
+    "host": "SUAZO-PC",
+    "provider": "T3 Code/Codex",
+    "model": "gpt-6.1-sol",
+    "requestedReasoning": "xhigh",
+    "exposedReasoning": "xhigh",
+    "usage": "unknown",
+    "cost": "unknown"
+  },
+  "priorReview": {
+    "path": "docs/merge-readiness-20261116/corrections/final-combined/astra-review.md",
+    "rawSha256": "99cb4bfdf00c3f2a6a64e8aaa505501ef7b5a255a18a74414b615eee38c78999",
+    "verdict": "REVISE",
+    "findings": [
+      "CF1 P1 context copies lose inherited session and role access",
+      "CF2 P2 retired route suppresses failed approval-cleanup notice"
+    ]
+  },
+  "corrections": {
+    "CF1": "All three return context wrappers inherit ctx through Object.create(ctx), preserving session/role getters and existing lifecycle predicates.",
+    "CF2": "Root context exposes a no-argument static approval-cleanup notice. Route notifications retain stale-screen guards.",
+    "PRIMARY-BROWSER-01": "Both current confirmed lookup and confirmed POST clear the old uncertainty status. Uncertain or malformed responses retain their warnings and durable intent."
+  },
+  "changedSinceReview": [
+    "savia/web/app.mjs",
+    "savia/web/screens/return.mjs",
+    "savia/web/tests/return-lifecycle.test.mjs"
+  ],
+  "sourceBindings": [
+    {
+      "path": ".github/workflows/golden-path.yml",
+      "bytes": 10879,
+      "rawSha256": "ac232cbd55a4df86a90661ce907c067d041916e5d729122660067ba1615e3fc9",
+      "lfSha256": "e9b63cd3c06dd67e26ba36fe3ad298908c95b2e1a0b8ab7cbd43ed6662c33622"
+    },
+    {
+      "path": "dev/savia-staff-ui/cash.test.mjs",
+      "bytes": 26330,
+      "rawSha256": "c9d7c550bb7e39b0a7eadcead62daede16f43e9e968e4cfbf62527b4fd65ed61",
+      "lfSha256": "2993c86ba4517ad3a87d729fc9e51bc0c8bfdf3c8b64eebf5a5a69d698f4a258"
+    },
+    {
+      "path": "savia/db/migrations/MANIFEST.sha256",
+      "bytes": 2803,
+      "rawSha256": "2e878b9e3c3eea5c1135ad0f1c2ac22a24f771aa5e41cba66665be79691eefe0",
+      "lfSha256": "2e878b9e3c3eea5c1135ad0f1c2ac22a24f771aa5e41cba66665be79691eefe0"
+    },
+    {
+      "path": "savia/db/migrations/V029__return_retry_safety.sql",
+      "bytes": 23115,
+      "rawSha256": "6041e3880fb4cb02c595504e394701e52408e426767c67c2b575914402b353cc",
+      "lfSha256": "6041e3880fb4cb02c595504e394701e52408e426767c67c2b575914402b353cc"
+    },
+    {
+      "path": "savia/db/tests/sales/134_credit_return_validation.sql",
+      "bytes": 8837,
+      "rawSha256": "a243bc9d3c05e9e12744a02fd31193caaf62cee9566acd748d4772d57127575c",
+      "lfSha256": "c331b7564647612297ba977ee872dc40aa625c4a6b618d6296333d98a7639fca"
+    },
+    {
+      "path": "savia/db/tests/sales/172_return_retry_safety.sql",
+      "bytes": 20807,
+      "rawSha256": "1c816dfdf60c45a8e71865222d3718f9d0ca552075fc73dddba15e11567a47ee",
+      "lfSha256": "1c816dfdf60c45a8e71865222d3718f9d0ca552075fc73dddba15e11567a47ee"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/ReturnRetrySafetyTests.cs",
+      "bytes": 9916,
+      "rawSha256": "3fe76573de23dd884534e6fb2d8414737ef2344221f70d9e319b1acceee68b37",
+      "lfSha256": "3fe76573de23dd884534e6fb2d8414737ef2344221f70d9e319b1acceee68b37"
+    },
+    {
+      "path": "savia/tests/test_return_retry_safety.py",
+      "bytes": 6498,
+      "rawSha256": "6a180e8c8d27900a203bd94c338260863dc45e157c1e351302eceff02af9a9f5",
+      "lfSha256": "6a180e8c8d27900a203bd94c338260863dc45e157c1e351302eceff02af9a9f5"
+    },
+    {
+      "path": "savia/web/app.mjs",
+      "bytes": 7838,
+      "rawSha256": "09d362dac9be0de1f726f8643a480c4545dd95a18f85edfae1497d41571c33d1",
+      "lfSha256": "09d362dac9be0de1f726f8643a480c4545dd95a18f85edfae1497d41571c33d1"
+    },
+    {
+      "path": "savia/web/api.mjs",
+      "bytes": 13384,
+      "rawSha256": "d30bf2f0bee090cb505c64a1f672cc83c253444f3878ffa6f7ee46dee45b59c6",
+      "lfSha256": "b0a2fe70bddb20de4b0745c06257bf05c9e60afd1d16611a6b1ed748133367f6"
+    },
+    {
+      "path": "savia/web/screens/return.mjs",
+      "bytes": 27875,
+      "rawSha256": "69198b30c9e16e221cc8c589ca9ebefc20b8dcfa148ab44268624f86d9f66cda",
+      "lfSha256": "69198b30c9e16e221cc8c589ca9ebefc20b8dcfa148ab44268624f86d9f66cda"
+    },
+    {
+      "path": "savia/web/screens/return-intent.mjs",
+      "bytes": 6818,
+      "rawSha256": "96f95f5c45ee6d9edf0478b78dcce20d180b379429745ebe4624c6c79c6bb049",
+      "lfSha256": "96f95f5c45ee6d9edf0478b78dcce20d180b379429745ebe4624c6c79c6bb049"
+    },
+    {
+      "path": "savia/web/screens/sale-logic.mjs",
+      "bytes": 4180,
+      "rawSha256": "ba169c19e3aa25187c4749dacde347c1c8bab32c98472aebe0b136be111138fc",
+      "lfSha256": "ba169c19e3aa25187c4749dacde347c1c8bab32c98472aebe0b136be111138fc"
+    },
+    {
+      "path": "savia/web/uuid-logic.mjs",
+      "bytes": 493,
+      "rawSha256": "8e93aa30b7239fc7576e1cb29cf991c11a1d951475b1cc56219047fa6ef97813",
+      "lfSha256": "8e93aa30b7239fc7576e1cb29cf991c11a1d951475b1cc56219047fa6ef97813"
+    },
+    {
+      "path": "savia/web/tests/uuid.test.mjs",
+      "bytes": 2484,
+      "rawSha256": "0e2bf69aeb4b95e993669984a99c6889d5b77f90b051808c6be251b5445012bd",
+      "lfSha256": "0e2bf69aeb4b95e993669984a99c6889d5b77f90b051808c6be251b5445012bd"
+    },
+    {
+      "path": "savia/web/tests/return-lifecycle.test.mjs",
+      "bytes": 30399,
+      "rawSha256": "6ea8a64e3dd8f79506639040efc0953bd4cd2600deea0ead61e8e198595aa686",
+      "lfSha256": "6ea8a64e3dd8f79506639040efc0953bd4cd2600deea0ead61e8e198595aa686"
+    },
+    {
+      "path": "tests/test_golden_path_workflow.py",
+      "bytes": 11438,
+      "rawSha256": "813d700f335162fe03476dd9a133f9b079cb739f5c3359fce295862d96c215b2",
+      "lfSha256": "813d700f335162fe03476dd9a133f9b079cb739f5c3359fce295862d96c215b2"
+    }
+  ],
+  "runs": [
+    {
+      "name": "initial-red",
+      "exit": 1,
+      "passed": 0,
+      "failed": 5,
+      "log": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/red.txt",
+      "limit": "CF1 and stale-warning assertions reproduce product defects. Initial CF2 setup failed before the cleanup assertion because inherited descriptors were non-enumerable; do not count that assertion as CF2 proof."
+    },
+    {
+      "name": "corrected-CF2-red",
+      "exit": 1,
+      "passed": 0,
+      "failed": 1,
+      "log": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/red-context.txt",
+      "failure": "Missing generic cleanup-failure notice after retirement."
+    },
+    {
+      "name": "focused-green",
+      "exit": 0,
+      "passed": 5,
+      "failed": 0,
+      "log": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/green-context.txt"
+    },
+    {
+      "name": "final-web-green",
+      "exit": 0,
+      "passed": 117,
+      "failed": 0,
+      "skipped": 0,
+      "log": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/web-green.txt"
+    },
+    {
+      "name": "browser-run1",
+      "exit": 1,
+      "passed": 21,
+      "failed": 1,
+      "result": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run1/RESULT.json",
+      "cause": "Desktop cancellation test focused a retained closed-dialog control before the new asynchronous confirmation opened. No product edit: runner now waits for dialog[open] #confirm-no."
+    },
+    {
+      "name": "browser-run2",
+      "exit": 0,
+      "passed": 22,
+      "failed": 0,
+      "result": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/run2/RESULT.json",
+      "seconds": 15.125
+    }
+  ],
+  "browserAudit": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/browser/AUDIT.json",
+  "browserLimits": "Installed headless Chrome, current return module, actual app context declarations executed in a fixture, simulated same-origin HTTP. Full router/login not booted. Physical devices and complete accessibility not tested. Original BEFORE absent; two AFTER videos playable but full timelines not inspected.",
+  "notRun": [
+    "SQL",
+    "real API",
+    "full browser-to-API-to-SQL journey",
+    "full application router/login",
+    "fresh aggregate after latest UI",
+    "CI",
+    "commit",
+    "push",
+    "merge",
+    "deploy"
+  ],
+  "permission": "Local-only correction and independent offline review. New publication/runtime authorization required because Tony hooks trigger SQL CI.",
+  "lesson": "Use the actual prototype-shaped route context in lifecycle tests. Await the new visible dialog before sending keys; a retained closed-dialog button is not readiness evidence.",
+  "blockers": [
+    {
+      "id": "independent-review",
+      "owner": "primary/Astra",
+      "cause": "Previous combined review REVISE; corrections require fresh independent adjudication.",
+      "attempt": "Reproduced both defects, changed two product paths, 117 web and 22 browser checks pass.",
+      "next": "Astra/xhigh bounded recheck on new frozen packet; primary decides acceptance."
+    },
+    {
+      "id": "aggregate",
+      "owner": "primary",
+      "cause": "Previous Windows symlink fixtures failed with WinError 1314.",
+      "attempt": "No security weakening; unchanged failing environment not retried.",
+      "next": "Require clean Linux aggregate on exact published candidate under separately authorized runtime."
+    },
+    {
+      "id": "SQL-and-publication",
+      "owner": "primary/Jason",
+      "cause": "One-shot runtime authority consumed; local fixes do not authorize new automatic SQL CI.",
+      "attempt": "No SQL retry, publication or merge performed.",
+      "next": "After review, prepare concrete candidate publication/runtime scope; verify remote SHA, required CI and cleanup."
+    }
+  ]
+}

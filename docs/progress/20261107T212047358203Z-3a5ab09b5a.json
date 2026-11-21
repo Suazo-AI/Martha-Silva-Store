@@ -1,0 +1,110 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-07T21:20:47.358203+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalSecurity.cs",
+      "change": "M",
+      "git_blob": "5a4131e8352a13f1fde245360b9e1919ed943d4f"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Security/InternalSessionAntiforgeryAdditionalDataProvider.cs",
+      "change": "A",
+      "git_blob": "19f110e0e8181494c0ec36e56eba0d639bdaa5b1"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs",
+      "change": "M",
+      "git_blob": "a873d80418df85c76303522e7400bc455acfc671"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalSessionAntiforgeryTests.cs",
+      "change": "A",
+      "git_blob": "34145ea4dca0bceba687e758b220a4ce35697ae8"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "32ea3a0bd4f24eb2955acb95e1b4f8a85c9f2c80"
+    },
+    {
+      "path": "docs/completion-20261107/local-validation/runner-corrections/PRIMARY.md",
+      "change": "A",
+      "git_blob": "a2dc389369d5e7ee4f24cdf78eded60e4f834e26"
+    },
+    {
+      "path": "docs/completion-20261107/local-validation/runner-corrections/README.md",
+      "change": "A",
+      "git_blob": "f3137cd8ce08ca43bf1592de2241184da83cf65a"
+    },
+    {
+      "path": "docs/completion-20261107/local-validation/runner-corrections/RESULT.json",
+      "change": "A",
+      "git_blob": "00f14d9bae6b67069d0b7c9d7f6bca521efeb081"
+    },
+    {
+      "path": "docs/session-csrf-20261107/README.md",
+      "change": "M",
+      "git_blob": "33551f8f8a62189bc65435d3db3088d921b99d0f"
+    },
+    {
+      "path": "docs/session-csrf-20261107/primary-integration.json",
+      "change": "A",
+      "git_blob": "150c641c177d9b4dfc116edc19a2152188413d66"
+    },
+    {
+      "path": "docs/session-csrf-20261107/worker/README.md",
+      "change": "A",
+      "git_blob": "d34a7fc1b19cbde05f1bcc67ac5196a1a09ccb97"
+    },
+    {
+      "path": "docs/session-csrf-20261107/worker/RESULT.json",
+      "change": "A",
+      "git_blob": "48f42bf7b4c5be54b145aa5463510e87a048853d"
+    },
+    {
+      "path": "docs/session-csrf-20261107/worker/SOURCE-MANIFEST.json",
+      "change": "A",
+      "git_blob": "0c9ac03a525bf71221b8a4e421d32fefa33c5644"
+    },
+    {
+      "path": "docs/session-csrf-20261107/worker/TEST-INVENTORY.txt",
+      "change": "A",
+      "git_blob": "0d2f9a639771e769cba64f6052557c8282226868"
+    },
+    {
+      "path": "tools/local-validation/Dockerfile",
+      "change": "A",
+      "git_blob": "0c51b026dfc4856be1e382d9905dd9b75e5b76fe"
+    },
+    {
+      "path": "tools/local-validation/evidence_gate.py",
+      "change": "A",
+      "git_blob": "1b469434456fa6d8de4f71970f6d879e7ca82e0e"
+    },
+    {
+      "path": "tools/local-validation/run-stage.sh",
+      "change": "A",
+      "git_blob": "2b323cd929f0a017553f08519e6bf5e008745488"
+    },
+    {
+      "path": "tools/local-validation/safety.py",
+      "change": "A",
+      "git_blob": "9159d578c3fd7099ee9789b5f2cf2839dadc4265"
+    },
+    {
+      "path": "tools/local-validation/test_run_local_validation.py",
+      "change": "A",
+      "git_blob": "b5d8a6dbcd1148a58f148a003d31dcc46f1202ac"
+    },
+    {
+      "path": "tools/run_local_validation.py",
+      "change": "A",
+      "git_blob": "63ae3e6e7915d84851c28917c0346a054b413e96"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

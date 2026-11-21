@@ -1,0 +1,26 @@
+{
+  "branch": "t3/savia-v028-usd-change",
+  "base": "1cb1a7872df16d8caafa2f126d572b9b9c6d0b9b",
+  "utc": "2026-11-14T02:36:28.558313+00:00",
+  "files": {
+    "savia/db/migrations/MANIFEST.sha256": "667d6670a26665cb8f4655054e63a5ff07d83d8b1be983fb6be2018f9f8d0240",
+    "savia/db/migrations/V028__usd_change.sql": "fd82e158f129261c4d877e557ffa4cdf3074123bb8671f9b7316225f07420666",
+    "savia/src/Savia.Application/ForeignCash.cs": "e89e7e9f96f6a7bcbe2120c0391b32d1afd6ebf5566d917de983820c7e0fa8ee",
+    "savia/src/Savia.Contracts/Sales.cs": "a043dfcf04a817feb151a668f29cbdc746e3ce2c61ac4652f84bb61a1424efb9",
+    "savia/src/Savia.Infrastructure/SalesStore.cs": "c00409d3477687eaba1e52175420c1d09bf3532e21646f3fdbeb2236ae45e08f",
+    "savia/tests/Savia.Tests/UsdAcceptanceTests.cs": "f3c7f7d0ca83cfbcb7fd284d79e1bf9903fd0e2e38b906e2079f3fb98e4df4c5",
+    "savia/tests/Savia.Tests/UsdCashTests.cs": "ac92b57f0748ffe2c7e0e376688137dfa313c279c849de8f06bcad64ce96253d",
+    "savia/tests/Savia.Tests/UsdChangeTests.cs": "53a4c0f2575662eceed78d1d5eb0a9c9ec3e93d33443b7f4415c7c7a5088e208",
+    "savia/tests/Savia.Tests/UsdFixture.cs": "f8fd5459c52a7da513acb58e33eba6ece2fae075af0488e8dbb1d7c717a5ba54",
+    "savia/tests/test_usd_change_migration.py": "ac74e3ab9ac950de7d6179f10f88059ac63b951d3398d1f88c57e89053ae46b6",
+    "savia/tests/usd_change_migration_recovery.py": "6a00be118c3cba8da8a724db9b774ba38c301e710c74d1ede8d56bb293cf4e83",
+    "savia/tools/db/saviadb.py": "253c37e617419905a5890590bd5ac86bb48cadf25ea881306c41a3e1eff07295",
+    "savia/web/screens/denominations.mjs": "96db44e8dffbfb9242dd77e9e699abcf8a3b516b25452e650f52588a51526900",
+    "savia/web/screens/payment-logic.mjs": "6856f40ad75027e3503fdfa4c0cd1314c725844be9579eca0d57976e2868067f",
+    "savia/web/screens/payments.mjs": "4e71c7afa9993e5acfbdd65188539530a803a4f111b6dc4dcd982fa6fc44e261",
+    "savia/web/screens/sale-view.mjs": "16b753fdffa328ab0485f3fccf81300646bb5faf4a65231ca6bad8bf8c0d86ee",
+    "savia/web/screens/usd-logic.mjs": "d81b4d43b4fddd260232f6d3e100de3316b83ef4bc37508bb72c59e5d47a9348",
+    "savia/web/tests/e2e_pilot.py": "21e78c268459d9dd36b83c8aa99d072a5ba0e30699b919658ea71ec7f2ee4a54",
+    "savia/web/tests/usd.test.mjs": "30b08797ef323a6480686cb5bed323ecdf0ae629fe95d839bd06055dd61cddf0"
+  }
+}

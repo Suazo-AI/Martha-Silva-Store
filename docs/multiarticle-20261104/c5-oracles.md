@@ -1,0 +1,21 @@
+| paso | estado | ms | ventas | ops_venta | movs | movs_venta | existencia | Σmov≠saldo | negativos | claves_dup | sesiones |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| sql.migrate_release | PASS | 2117 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| owner.bootstrap_console | PASS | 1787 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| sql.branch_seed | PASS | 1416 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| api.start_readiness_anonymous | PASS | 711 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| owner.login_readiness | PASS | 1837 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 |
+| owner.seed_directory | PASS | 430 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 |
+| owner.seed_stock_adjustments | PASS | 346 | 0 | 0 | 3 | 0 | 30 | 0 | 0 | 0 | 1 |
+| owner.seed_staff | PASS | 830 | 0 | 0 | 3 | 0 | 30 | 0 | 0 | 0 | 1 |
+| owner.scope_and_logout | PASS | 249 | 0 | 0 | 3 | 0 | 30 | 0 | 0 | 0 | 0 |
+| manager.login_scope_logout | PASS | 334 | 0 | 0 | 3 | 0 | 30 | 0 | 0 | 0 | 0 |
+| inventory.login_scope_sale_denied | PASS | 380 | 0 | 0 | 3 | 0 | 30 | 0 | 0 | 0 | 0 |
+| unassigned.denied_scope_and_sale | PASS | 382 | 0 | 0 | 3 | 0 | 30 | 0 | 0 | 0 | 0 |
+| cashier.login_scope | PASS | 274 | 0 | 0 | 3 | 0 | 30 | 0 | 0 | 0 | 1 |
+| cashier.sale_with_idempotency_key | PASS | 155 | 1 | 1 | 4 | 1 | 28 | 0 | 0 | 0 | 1 |
+| cashier.replay_same_key_no_effect | PASS | 72 | 1 | 1 | 4 | 1 | 28 | 0 | 0 | 0 | 1 |
+| cashier.same_key_other_body_conflict | PASS | 60 | 1 | 1 | 4 | 1 | 28 | 0 | 0 | 0 | 1 |
+| cashier.recover_by_key | PASS | 38 | 1 | 1 | 4 | 1 | 28 | 0 | 0 | 0 | 1 |
+| cashier.logout | PASS | 52 | 1 | 1 | 4 | 1 | 28 | 0 | 0 | 0 | 0 |
+| teardown.stop_api_drop_database | PASS | 848 | – | – | – | – | – | – | – | – | – |

@@ -1,0 +1,37 @@
+[
+  {
+    "path": "savia/db/migrations/V029__return_retry_safety.sql",
+    "rawSha256": "6041e3880fb4cb02c595504e394701e52408e426767c67c2b575914402b353cc",
+    "lfSha256": "6041e3880fb4cb02c595504e394701e52408e426767c67c2b575914402b353cc",
+    "overlayRawSha256": "6041e3880fb4cb02c595504e394701e52408e426767c67c2b575914402b353cc"
+  },
+  {
+    "path": "savia/db/migrations/MANIFEST.sha256",
+    "rawSha256": "2e878b9e3c3eea5c1135ad0f1c2ac22a24f771aa5e41cba66665be79691eefe0",
+    "lfSha256": "2e878b9e3c3eea5c1135ad0f1c2ac22a24f771aa5e41cba66665be79691eefe0",
+    "overlayRawSha256": "2e878b9e3c3eea5c1135ad0f1c2ac22a24f771aa5e41cba66665be79691eefe0"
+  },
+  {
+    "path": "savia/db/tests/sales/172_return_retry_safety.sql",
+    "rawSha256": "1c816dfdf60c45a8e71865222d3718f9d0ca552075fc73dddba15e11567a47ee",
+    "lfSha256": "1c816dfdf60c45a8e71865222d3718f9d0ca552075fc73dddba15e11567a47ee",
+    "overlayRawSha256": "50dc06558f36da331afe4ddbf45112d7b90c7e08c9983958863b764a78e591b3"
+  },
+  {
+    "path": "savia/tests/Savia.Tests/ReturnRetrySafetyTests.cs",
+    "rawSha256": "3fe76573de23dd884534e6fb2d8414737ef2344221f70d9e319b1acceee68b37",
+    "lfSha256": "3fe76573de23dd884534e6fb2d8414737ef2344221f70d9e319b1acceee68b37",
+    "overlayRawSha256": "b35dda2fef4a8dc8fc6a3750d213cffce50fbb8827f5c5ba5e43e7e49c390097"
+  },
+  {
+    "path": "savia/tests/test_return_retry_safety.py",
+    "rawSha256": "1a919e950ff349ed514a98d90a60bbd4d6fbdf663192d0f99a8ce42f301f4e66",
+    "lfSha256": "1a919e950ff349ed514a98d90a60bbd4d6fbdf663192d0f99a8ce42f301f4e66",
+    "overlayRawSha256": "d142b60596c5e97e86d88f66a4805bf75116e383d45c6060c71d898200c6c687"
+  },
+  {
+    "path": "savia/db/tests/sales/134_credit_return_validation.sql",
+    "rawSha256": "a243bc9d3c05e9e12744a02fd31193caaf62cee9566acd748d4772d57127575c",
+    "lfSha256": "c331b7564647612297ba977ee872dc40aa625c4a6b618d6296333d98a7639fca"
+  }
+]

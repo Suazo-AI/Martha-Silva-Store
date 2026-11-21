@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Martha Silva · Ruta de cierre</title>
+<style>
+:root{color-scheme:light;--canvas:#f5f4ed;--surface:#fffefa;--ink:#192d25;--muted:#55645a;--line:#d6ded2;--primary:#31584a;--soft:#e2ecdf;--sidebar:#172b25;--warn:#7b4a17;--danger:#983d34;font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--canvas);color:var(--ink)}a{color:var(--primary);text-underline-offset:3px}a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #9c601b;outline-offset:4px}header{background:var(--sidebar);color:var(--surface);padding:36px max(24px,calc((100vw - 1120px)/2)) 30px}header p{color:#b8cbbd;margin:0}header a{color:#d7e8d0}h1{font-size:clamp(2rem,5vw,3.5rem);line-height:1.1;letter-spacing:-.035em;margin:12px 0 18px;max-width:850px}h2{font-size:1.65rem;line-height:1.2;margin:0 0 18px}h3{font-size:1.05rem;margin:0 0 8px}p{margin:0 0 14px}nav{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:26px}main{max-width:1168px;margin:auto;padding:32px 24px 70px}.lead{font-size:1.2rem;max-width:850px}.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:26px;margin-bottom:28px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:24px 0}.metric{border-left:3px solid var(--primary);padding:8px 18px}.metric strong{display:block;font-size:2rem;line-height:1.2}.metric span,.muted,small{color:var(--muted)}.callout{background:var(--soft);padding:20px;border-radius:8px}.tag{display:inline-block;font-size:.8rem;font-weight:650;border:1px solid var(--line);padding:3px 9px;border-radius:4px;white-space:nowrap}.pending{color:var(--warn)}.status{font-weight:650}section{scroll-margin-top:20px}table{border-collapse:collapse;width:100%;font-size:.95rem}caption{text-align:left;font-weight:650;padding:10px 0}th,td{text-align:left;vertical-align:top;padding:14px 12px;border-bottom:1px solid var(--line);overflow-wrap:anywhere}th{background:var(--soft);font-size:.85rem}td:first-child{font-weight:650;width:18%}.table-wrap{overflow:auto}.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}button{font:inherit;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);padding:8px 14px;cursor:pointer}button[aria-pressed="true"]{background:var(--primary);color:white;border-color:var(--primary)}details{border-top:1px solid var(--line);padding:16px 0}summary{font-weight:650;cursor:pointer}details p{margin:12px 0 0}ol,ul{padding-left:24px}li{margin-bottom:10px}.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;list-style:none;padding:0}.steps li{background:var(--soft);padding:14px;border-radius:6px}.steps b{display:block}.docs{display:grid;grid-template-columns:1fr 1fr;gap:10px}.docs a{display:block;border:1px solid var(--line);border-radius:6px;padding:14px;text-decoration:none;font-weight:650}.docs a:hover{background:var(--soft)}code{font-size:.87em;overflow-wrap:anywhere}footer{border-top:1px solid var(--line);padding-top:20px;font-size:.85rem;color:var(--muted)}[hidden]{display:none!important}@media(max-width:720px){header{padding:28px 20px}.grid{grid-template-columns:1fr;gap:8px}.metric strong{font-size:1.5rem}.metric{padding:6px 14px}.panel{padding:20px}main{padding:24px 16px}.steps,.docs{grid-template-columns:1fr}th,td{padding:10px 8px}nav{gap:10px 18px}}@media print{header{background:white;color:var(--ink);padding:0}header p{color:var(--muted)}nav,.filters{display:none}main{padding:20px 0}.panel{break-inside:avoid}details{display:block}a{color:var(--ink)}}
+</style>
+</head>
+<body>
+<header>
+<p>Martha Silva / SAVIA · Diagnóstico del 31 de octubre de 2026</p>
+<h1>El siguiente cierre es una venta segura por cajero.</h1>
+<p class="lead">Probar permisos, sesión y alcance de datos en el flujo que ya existe.</p>
+<nav aria-label="Secciones"><a href="#estado">Estado</a><a href="#incremento">Incremento</a><a href="#terminado">Terminado</a><a href="#loop">Playbook</a><a href="#documentos">Toolkit y fuentes</a></nav>
+</header>
+<main>
+<section class="panel" id="estado" aria-labelledby="estado-titulo">
+<h2 id="estado-titulo">Funciona una parte. Falta demostrar la operación del personal.</h2>
+<div class="grid"><div class="metric"><strong>13 / 22</strong><span>Criterios PASS conservados</span></div><div class="metric"><strong>9 NOT RUN</strong><span>No son fallos confirmados</span></div><div class="metric"><strong>5 / 5</strong><span>Subconjunto de interfaz crítica</span></div></div>
+<p>La evidencia local conserva login Owner, venta desde el formulario, movimiento, recuperación y persistencia. Esta revisión no volvió a ejecutar SAVIA.</p>
+<div class="callout"><strong>Alcance inmediato:</strong> V1 interna, un negocio y una sucursal operativa. La tienda pública, tarjetas y facturación electrónica son otra entrega. Los números anteriores no miden el porcentaje de producto terminado.</div>
+<h3 style="margin-top:24px">Frontend y backend no están igual de completos</h3>
+<div class="filters" role="group" aria-label="Filtrar áreas"><button type="button" data-filter="all" aria-pressed="true">Todas</button><button type="button" data-filter="next" aria-pressed="false">Próximo incremento</button><button type="button" data-filter="later" aria-pressed="false">Después</button></div>
+<p id="filter-status" role="status" class="muted">6 áreas visibles.</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Estado por área"><table><caption>Fuente inspeccionada; implementación no equivale a aceptación.</caption><thead><tr><th scope="col">Área</th><th scope="col">Qué existe</th><th scope="col">Qué falta demostrar o conectar</th></tr></thead><tbody id="areas">
+<tr data-stage="next"><td>Acceso y personal</td><td>Login, sesiones, cuatro roles y API de personal.</td><td>CSRF, expiración, revocación y limpieza tras 401 en el flujo operativo.</td></tr>
+<tr data-stage="next"><td>Venta</td><td>Formulario, precio del servidor, recibo y recuperación del intento.</td><td>Cajero permitido; acciones indebidas rechazadas sin efectos.</td></tr>
+<tr data-stage="next"><td>Inventario</td><td>Consulta de saldos y ledger; movimiento de venta conservado.</td><td>Aislamiento por ámbito y rechazo de ajuste no autorizado.</td></tr>
+<tr data-stage="later"><td>Clientes</td><td>Lista, búsqueda y paginación.</td><td>Alta/edición desde UI; controles de alta deshabilitados.</td></tr>
+<tr data-stage="later"><td>Abastecimiento</td><td>API y evidencia de orden/recepción.</td><td>La pantalla indica pendiente y no permite crear compras.</td></tr>
+<tr data-stage="later"><td>Reversiones</td><td>API y evidencia sintética conservada.</td><td>Completar el flujo del operador desde la interfaz.</td></tr>
+</tbody></table></div>
+</section>
+<section class="panel" id="incremento" aria-labelledby="incremento-titulo">
+<span class="tag pending">PREPARADO · NO EJECUTADO</span><h2 id="incremento-titulo" style="margin-top:14px">Venta segura por cajero</h2>
+<p>Un empleado vende donde corresponde. La sesión anterior deja de funcionar al revocarla o reasignarla. Una acción prohibida no cambia datos ni revela información.</p>
+<ol><li>Demostrar Owner, Manager, Cashier, Inventory y usuario sin asignación.</li><li>Probar venta y replay permitidos; rechazar ajustes, devoluciones y compras de Cashier.</li><li>Manipular IDs, ubicación, paginación y operaciones para comprobar el aislamiento.</li><li>Revocar y reasignar; comprobar CSRF, logout, expiración y respuestas tardías tras 401.</li></ol>
+<p><strong>Salida:</strong> cerrar ROLE-01, SESSION-01 y SCOPE-01, y completar ADJ-01 solo si todos sus subcasos pasan.</p>
+<p><a href="NEXT-INCREMENT.md">Abrir los diez checks y la preparación exacta →</a></p>
+<details><summary>Hipótesis concreta que debe reproducirse</summary><p>La recuperación de un recibo de la sucursal anterior podría dejar <code>pending ||= {}</code> y bloquear nuevas ventas. La inspección estática lo sugiere; todavía no es un bug confirmado. Separar recibo confirmado inaccesible de venta incierta antes de corregir.</p></details>
+<details><summary>Lo que sigue fuera de este incremento</summary><p>Política de stock cero, última unidad, rollback parcial, reservas, única autoridad y cierre integral de pantallas. Tampoco incluye producción, despliegue ni nuevas cuentas sin autorización de runtime.</p></details>
+</section>
+<section class="panel" id="terminado" aria-labelledby="terminado-titulo">
+<h2 id="terminado-titulo">100% de una versión definida</h2>
+<p>Una versión está terminada cuando sus capacidades incluidas funcionan, se recuperan de fallos y una persona puede operarlas en el entorno acordado.</p>
+<ul><li>Alcance y criterios reconciliados: los documentos antiguos mezclan roles, negocios y sucursales.</li><li>Recorridos completos UI → API → persistencia, incluidos permisos y errores.</li><li>Integridad, concurrencia, replay y recuperación demostrados en el candidato exacto.</li><li>Operación privada, soporte y reversión probados; rendimiento y accesibilidad medidos.</li><li>Martha o el operador completa las tareas y acepta utilidad y presentación.</li></ul>
+<p class="muted">No tenemos una jornada completa observada de Martha. Pruebas sintéticas y acuerdo entre agentes no sustituyen esa evidencia.</p>
+</section>
+<section class="panel" id="loop" aria-labelledby="loop-titulo">
+<h2 id="loop-titulo">Un ciclo corto, con rastro completo</h2>
+<ol class="steps"><li><b>1 · Reproducir</b>Señal, candidato, precondición y fallo exacto.</li><li><b>2 · Corregir</b>Causa comprobada y cambio mínimo.</li><li><b>3 · Verificar</b>Regresión y efecto independiente.</li><li><b>4 · Registrar</b>Intentos, resultado, límites y dueño.</li></ol>
+<p>Después de dos hipótesis fallidas, cambiar el diagnóstico. Una venta incierta conserva su identidad; no se crea otro intento para ocultar la incertidumbre.</p>
+<details><summary>Qué hacen hoy los hooks</summary><p>Revisan los archivos staged, generan un recibo y sincronizan Tony. No prueban el producto ni despiertan un reparador. El watcher preparado todavía no demuestra activación y entrega.</p></details>
+<details><summary>Cómo se aceptaría un trigger futuro</summary><p>Un fallo sintético debe generar exactamente un evento y un worker. Repetir el evento no duplica trabajo. Tiempo, permisos, modelo, gasto y parada deben estar definidos. El resultado vuelve a un revisor; no autoriza despliegue automático.</p></details>
+<details><summary>“Todo en milisegundos” necesita condiciones</summary><p>Medir la tarea, dispositivo, red, volumen y concurrencia. Propuestas iniciales: lectura HTTP p95 ≤300 ms y venta→recibo p95 ≤1 s. No son resultados actuales. Conservar muestras y medir otra vez bajo las mismas condiciones.</p></details>
+</section>
+<section class="panel" id="documentos" aria-labelledby="documentos-titulo">
+<h2 id="documentos-titulo">Paquete de trabajo</h2>
+<div class="docs"><a href="README.md">Diagnóstico y brechas con dueño</a><a href="NEXT-INCREMENT.md">Próximo incremento · N1–N10</a><a href="PLAYBOOK.md">Playbook y plantillas de tarea/bug</a><a href="TOOLKIT.md">Toolkit, comandos y métricas</a><a href="SOURCES.md">Cuatro repositorios · adopción selectiva</a><a href="VERIFICATION.md">Verificación y límites de esta entrega</a></div>
+<p style="margin-top:18px">Las fuentes fijadas por SHA aportan TDD por comportamiento, evidencia proporcional, Definition of Done y loops con parada. No se instalaron sus skills ni hooks.</p>
+<p><a href="evidence.json">Procedencia y hashes de la inspección</a></p>
+</section>
+<footer>Documento de diagnóstico. Base Git <code>98c9014</code> más cambios locales identificados. Diseño tomado de los tokens de <code>dev/savia-staff-ui/styles.css</code> para mantener la identidad de SAVIA. Este informe no modifica la interfaz del producto.</footer>
+</main>
+<script>
+const filters=[...document.querySelectorAll('[data-filter]')];
+const rows=[...document.querySelectorAll('#areas tr')];
+for(const button of filters) button.addEventListener('click',()=>{
+  const selected=button.dataset.filter;
+  for(const item of filters) item.setAttribute('aria-pressed',String(item===button));
+  let count=0;
+  for(const row of rows){row.hidden=selected!=='all'&&row.dataset.stage!==selected;if(!row.hidden)count++;}
+  document.getElementById('filter-status').textContent=`${count} áreas visibles.`;
+});
+</script>
+</body></html>

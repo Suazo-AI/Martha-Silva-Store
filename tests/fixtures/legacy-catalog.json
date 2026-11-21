@@ -1,0 +1,75 @@
+{
+  "products": [
+    {
+      "id": "rosa-empolvado-pedreria",
+      "slug": "rosa-empolvado-pedreria",
+      "name": "Vestido rosa empolvado con pedrería",
+      "category": "Gala",
+      "color": "Rosa empolvado",
+      "description": "Vestido largo de hombros descubiertos, con aplicaciones brillantes y abertura lateral. Bolso y zapatos quedan fuera de esta ficha.",
+      "images": [
+        "/assets/research/assets/store-media/rosa-empolvado-pedreria/01-front-full-length-800.webp"
+      ],
+      "source_url": "https://www.tiktok.com/@marthasilva.store/video/7689622687752244498",
+      "price_minor": 17500,
+      "currency": "USD",
+      "commercial_status": "sample",
+      "variants": [
+        {
+          "id": "rosa-empolvado-pedreria-S",
+          "size": "S",
+          "stock": 3
+        },
+        {
+          "id": "rosa-empolvado-pedreria-M",
+          "size": "M",
+          "stock": 3
+        },
+        {
+          "id": "rosa-empolvado-pedreria-L",
+          "size": "L",
+          "stock": 0
+        }
+      ],
+      "material": null,
+      "care": null,
+      "measurements": null
+    },
+    {
+      "id": "dorado",
+      "slug": "dorado",
+      "name": "Vestido dorado con drapeado",
+      "category": "Gala",
+      "color": "Dorado",
+      "description": "Vestido largo dorado con escote en V, aplicaciones brillantes en el cuerpo y pliegues en la cintura.",
+      "images": [
+        "/hero/dorado-mobile-1100.webp"
+      ],
+      "source_url": "https://www.instagram.com/marthasilva.store/reel/Dd-ED3Cpazk/",
+      "price_minor": 18500,
+      "currency": "USD",
+      "commercial_status": "sample",
+      "variants": [
+        {
+          "id": "dorado-S",
+          "size": "S",
+          "stock": 3
+        },
+        {
+          "id": "dorado-M",
+          "size": "M",
+          "stock": 3
+        },
+        {
+          "id": "dorado-L",
+          "size": "L",
+          "stock": 0
+        }
+      ],
+      "material": null,
+      "care": null,
+      "measurements": null
+    }
+  ],
+  "mode": "local_test"
+}

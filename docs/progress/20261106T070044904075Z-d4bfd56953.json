@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-06T07:00:44.904075+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "1ca75876b30b875faf3e3538ccfc2dc567bd1d9f"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "change": "M",
+      "git_blob": "5345dd4ca542305d090ee45661835fbf4eb015ea"
+    },
+    {
+      "path": "docs/release-20261106/completion-audit.md",
+      "change": "M",
+      "git_blob": "b0ffda8f66bad333bf3c8c660067f5efe88317e7"
+    },
+    {
+      "path": "docs/release-20261106/process-acceptance.md",
+      "change": "A",
+      "git_blob": "8a187e436c185e074dfa96926e9d7d2c37cd96df"
+    },
+    {
+      "path": "docs/release-20261106/process-judge.md",
+      "change": "A",
+      "git_blob": "50d81259279af7c874493ec296cfddc7df29b0bd"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

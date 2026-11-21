@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Local OCR proof harness (docs/pilot/ETIQUETA.md). Not part of Savia.slnx; run with dotnet run. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../../src/Savia.Infrastructure/Savia.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>

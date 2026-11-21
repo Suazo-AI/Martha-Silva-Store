@@ -1,0 +1,282 @@
+{
+  "verification": {
+    "actualCases": 27,
+    "outcomes": {
+      "Passed": 23,
+      "Failed": 4
+    },
+    "missing": [
+      "Martha.Store.Api.Tests.PrivatePilotReleaseTests.Frozen_fixture_survives_controlled_owned_container_stop_start"
+    ],
+    "extra": [],
+    "multiplicityMismatch": {},
+    "normalizedIdentityUniqueness": true,
+    "definitionResultAgreement": true,
+    "sourceBindings": [
+      {
+        "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs",
+        "matches": true
+      },
+      {
+        "path": "backend/tests/Martha.Store.Api.Tests/InternalCommerceCommandSqlTests.cs",
+        "matches": true
+      },
+      {
+        "path": "backend/tests/Martha.Store.Api.Tests/InternalBranchScopeSqlTests.cs",
+        "matches": true
+      },
+      {
+        "path": "backend/tests/Martha.Store.Api.Tests/InternalStockExceptionSqlTests.cs",
+        "matches": true
+      },
+      {
+        "path": "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs",
+        "matches": true
+      },
+      {
+        "path": "backend/tests/Martha.Store.Api.Tests/InternalReleaseScriptTests.cs",
+        "matches": true
+      },
+      {
+        "path": "backend/tests/Martha.Store.Api.Tests/InternalCashSchemaOracle.cs",
+        "matches": true
+      },
+      {
+        "path": "backend/tests/Martha.Store.Api.Tests/InternalCashSchemaOracleTests.cs",
+        "matches": true
+      }
+    ],
+    "headMatches": true,
+    "trackedChanges": [],
+    "containerAbsent": true,
+    "cleanupInspectExit": 1,
+    "pass": false
+  },
+  "results": [
+    {
+      "method": "Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N1_each_role_reads_only_its_server_scope_and_unassigned_user_has_no_global_access",
+      "outcome": "Passed",
+      "testId": "4795b707-23f0-27e7-6d10-6c33ce04e929",
+      "executionId": "b7393205-d924-4dc0-8d66-f5181a2e3e0b",
+      "trx": "initial27.trx"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N3_cashier_direct_commands_and_cost_reads_are_rejected_without_writes_or_cost_leaks",
+      "outcome": "Passed",
+      "testId": "c353f3a9-df84-9bb0-9c72-47a71ff80f9e",
+      "executionId": "1b65e18d-b84d-4756-bc41-36523e99a8a0",
+      "trx": "initial27.trx"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N4_foreign_location_ids_paging_and_operation_identity_are_denied_without_writes_or_leaks",
+      "outcome": "Passed",
+      "testId": "c9a6ffe4-950f-6a83-2df7-80df629065cb",
+      "executionId": "7f4678a0-f8ab-4b17-ab5d-469927b83daa",
+      "trx": "initial27.trx"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N5_owner_branch_reassignment_rejects_original_cashier_cookie_and_preserves_sales_before_new_scope_login",
+      "outcome": "Passed",
+      "testId": "61f06801-2350-7314-bb6c-3861b83aad65",
+      "executionId": "213d9b49-412c-4372-9ade-d73e4938455f",
+      "trx": "initial27.trx"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N8_missing_wrong_or_stale_csrf_is_rejected_without_writes_and_a_valid_pair_still_works",
+      "outcome": "Passed",
+      "testId": "f070b2b6-f9ed-77f8-e947-8e27f06b8e35",
+      "executionId": "cbf94ec5-6481-4ba1-8ba2-4c16661feaa9",
+      "trx": "initial27.trx"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N9_owner_adjustment_keeps_reason_actor_and_movement_while_cashier_same_action_changes_nothing",
+      "outcome": "Passed",
+      "testId": "a4db45e9-66e0-3af6-7994-6413b9de5fc8",
+      "executionId": "45e9ba0f-245f-48cc-abd9-7bd5d20f41a2",
+      "trx": "initial27.trx"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS01_03_Unassigned_manager_fails_closed_while_owner_remains_global",
+      "outcome": "Passed",
+      "testId": "bff3e52f-3852-d2f1-0f47-6082c6a9c84d",
+      "executionId": "2dd01b07-52dc-43ce-9a62-df4e1bf41f96",
+      "trx": "initial27.trx"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS04_06_Sales_and_stock_filter_before_count_and_pagination_not_by_creator",
+      "outcome": "Passed",
+      "testId": "8244576e-0980-0786-98e9-ad1deda4053e",
+      "executionId": "28e6d44e-d0a6-4378-b6a6-1e067d69f634",
+      "trx": "initial27.trx"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS07_12_Foreign_sale_reads_and_reversals_do_not_expose_or_mutate_the_sale",
+      "outcome": "Passed",
+      "testId": "beb7966c-e65f-c14b-d8c9-500834e2c4a3",
+      "executionId": "2ef0ee46-4637-4640-bdee-f3296d4b462b",
+      "trx": "initial27.trx"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS20_22_Reassigned_manager_with_new_valid_session_cannot_replay_original_result",
+      "outcome": "Passed",
+      "testId": "53bd7271-c5c1-6d7e-a699-7ad973b964e5",
+      "executionId": "7c869ef2-4934-41ad-88b7-984b654786e2",
+      "trx": "initial27.trx"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS21_25_Operations_http_checks_persisted_scope_and_actor_before_returning_result",
+      "outcome": "Failed",
+      "testId": "d2b1110f-373a-e35c-20d8-aa0a758d3066",
+      "executionId": "fe4bd887-ea8d-48ad-8175-e20128d1ae01",
+      "trx": "initial27.trx"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS23_Receipt_dedup_with_new_key_cannot_return_original_branch_after_reassignment",
+      "outcome": "Passed",
+      "testId": "14df54bd-ba6c-bb71-1a57-789448319bf3",
+      "executionId": "2a6bda6d-fa5b-47b3-9ea7-4c511f6acb17",
+      "trx": "initial27.trx"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS24_Legacy_operation_fails_closed_for_manager_without_modifying_history",
+      "outcome": "Passed",
+      "testId": "3a248295-81b5-e6dc-7f47-963e9f52a481",
+      "executionId": "8816ba2a-75c9-4ebd-afae-d653b798cf9b",
+      "trx": "initial27.trx"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS27_Inactive_location_allows_own_historical_reversal_but_not_foreign_reversal",
+      "outcome": "Passed",
+      "testId": "c321f95e-5dea-04dd-beb4-b82294fbef12",
+      "executionId": "32ba8bf3-72bf-47a1-9788-196dda472aa9",
+      "trx": "initial27.trx"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS28_Cashier_cannot_read_purchase_costs_through_any_supply_get",
+      "outcome": "Failed",
+      "testId": "0e610580-be56-c29e-07c1-5c3531e02da4",
+      "executionId": "44c4b196-3d2c-4083-afa2-d0248bb3f633",
+      "trx": "initial27.trx"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS29_Historical_location_cannot_be_remapped_to_expose_another_branch",
+      "outcome": "Passed",
+      "testId": "30ba9356-a76b-e5c2-c38f-4b58208c724c",
+      "executionId": "3e323b59-8a86-42e6-9735-8e2be15bc445",
+      "trx": "initial27.trx"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalJudgeTests.Real_program_sql_login_issues_cookie_and_logout_revokes_even_the_replayed_old_cookie",
+      "outcome": "Passed",
+      "testId": "fe26d515-d440-1aa0-7eb1-8d129fbd5782",
+      "executionId": "8430a644-3f6c-4a95-badc-bea73b253d4f",
+      "trx": "initial27.trx"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalJudgeTests.Real_program_sql_role_change_and_disablement_revoke_cookies_and_enforce_new_role",
+      "outcome": "Passed",
+      "testId": "417a80b9-4439-5cf9-2e57-9a0f821a20d6",
+      "executionId": "af350d1b-bd75-49bf-8eba-94f49d581c14",
+      "trx": "initial27.trx"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalReleaseScriptTests.Release_script_upgrades_empty_and_first_migration_databases_and_preserves_synthetic_rows",
+      "outcome": "Failed",
+      "testId": "d43b6547-a737-f841-181c-c066dbb6c230",
+      "executionId": "ec2edfd8-08ba-469c-bfbd-d370d19428f8",
+      "trx": "initial27.trx"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSecuritySqlTests.Concurrent_owner_demotions_cannot_remove_every_enabled_owner",
+      "outcome": "Passed",
+      "testId": "fdcfff0c-e7e6-e3f5-088e-0898543974c7",
+      "executionId": "e6dbea71-8f22-4443-9e47-beb2eadd1f1c",
+      "trx": "initial27.trx"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSecuritySqlTests.Failed_login_lockout_is_persisted_across_scopes_and_correct_password_cannot_bypass_it",
+      "outcome": "Passed",
+      "testId": "c2a6c684-700f-632a-4c63-92d91a69ba3b",
+      "executionId": "1ad1ae8f-fa60-45ec-87e1-b734428e4ad9",
+      "trx": "initial27.trx"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSecuritySqlTests.Last_owner_cannot_be_disabled_or_demoted_and_non_owner_cannot_create_staff",
+      "outcome": "Passed",
+      "testId": "132895e9-69c6-9282-a435-e1c24a5e9664",
+      "executionId": "0cf72154-148a-4b4e-b784-d82275f10bd2",
+      "trx": "initial27.trx"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSecuritySqlTests.Owner_can_disable_staff_with_an_inactive_retained_branch_without_reassigning_it",
+      "outcome": "Passed",
+      "testId": "b48fc237-2793-d03c-1435-c875d6f58c6a",
+      "executionId": "673607b5-5dda-4e64-8a40-1af6d6c6ab43",
+      "trx": "initial27.trx"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSecuritySqlTests.Owner_role_change_and_disablement_revoke_old_cookies_and_stale_versions_conflict",
+      "outcome": "Passed",
+      "testId": "224adabd-7ae2-6b81-3b7d-ec195522cc2c",
+      "executionId": "0f75095e-bc68-4f76-a72b-266cd409965e",
+      "trx": "initial27.trx"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSecuritySqlTests.Password_reset_rotates_version_and_revokes_sessions_without_exposing_hash",
+      "outcome": "Passed",
+      "testId": "0e61636b-7ba5-a823-124c-d276c39e6086",
+      "executionId": "74a63207-15d5-435f-9ae7-93cd396dfd61",
+      "trx": "initial27.trx"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalSecuritySqlTests.Successful_login_is_persisted_replaces_previous_session_and_logout_revokes_it",
+      "outcome": "Passed",
+      "testId": "d5b1336f-2824-b3fe-430e-ca6201d2e865",
+      "executionId": "4f89babc-58fe-4320-8946-8eed19da6128",
+      "trx": "initial27.trx"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.PrivatePilotReleaseTests.Real_migration_reapply_throwaway_down_up_and_actual_backup_restore",
+      "outcome": "Failed",
+      "testId": "363dc5cf-65b0-23f3-0ec3-f8a40d1a3df3",
+      "executionId": "6e8a89f8-67a1-4bfa-ae66-37b60896193f",
+      "trx": "initial27.trx"
+    }
+  ],
+  "sanitizedDiagnostics": [
+    {
+      "method": "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS28_Cashier_cannot_read_purchase_costs_through_any_supply_get",
+      "message": "System.InvalidOperationException : Failure to infer one or more parameters.\r\nBelow is the list of parameters that we found: \r\n\r\nParameter           | Source                        \r\n---------------------------------------------------------------------------------\r\nrequest             | Body (Inferred)\r\nservice             | UNKNOWN        \r\n\r\n\r\nDid you mean to register the \"UNKNOWN\" parameters as a Service?\r\n\r\n",
+      "stack": "   at Microsoft.AspNetCore.Http.RequestDelegateFactory.CreateArguments(ParameterInfo[] parameters, RequestDelegateFactoryContext factoryContext)\r\n   at Microsoft.AspNetCore.Http.RequestDelegateFactory.CreateArgumentsAndInferMetadata(MethodInfo methodInfo, RequestDelegateFactoryContext factoryContext)\r\n   at Microsoft.AspNetCore.Http.RequestDelegateFactory.InferMetadata(MethodInfo methodInfo, RequestDelegateFactoryOptions options)\r\n   at Microsoft.AspNetCore.Routing.RouteEndpointDataSource.CreateRouteEndpointBuilder(RouteEntry entry, RoutePattern groupPrefix, IReadOnlyList`1 groupConventions, IReadOnlyList`1 groupFinallyConventions)\r\n   at Microsoft.AspNetCore.Routing.RouteEndpointDataSource.GetGroupedEndpoints(RouteGroupContext context)\r\n   at Microsoft.AspNetCore.Routing.RouteGroupBuilder.GroupEndpointDataSource.GetGroupedEndpointsWithNullablePrefix(RoutePattern prefix, IReadOnlyList`1 conventions, IReadOnlyList`1 finallyConventions, IServiceProvider applicationServices)\r\n   at Microsoft.AspNetCore.Routing.RouteGroupBuilder.GroupEndpointDataSource.get_Endpoints()\r\n   at Microsoft.AspNetCore.Routing.CompositeEndpointDataSource.CreateEndpointsUnsynchronized()\r\n   at Microsoft.AspNetCore.Routing.CompositeEndpointDataSource.EnsureEndpointsInitialized()\r\n   at Microsoft.AspNetCore.Routing.CompositeEndpointDataSource.get_Endpoints()\r\n   at Microsoft.AspNetCore.Routing.DataSourceDependentCache`1.Initialize()\r\n   at System.Threading.LazyInitializer.EnsureInitializedCore[T](T& target, Boolean& initialized, Object& syncLock, Func`1 valueFactory)\r\n   at Microsoft.AspNetCore.Routing.DataSourceDependentCache`1.EnsureInitialized()\r\n   at Microsoft.AspNetCore.Authorization.Policy.AuthorizationPolicyCache..ctor(EndpointDataSource dataSource)\r\n   at InvokeStub_AuthorizationPolicyCache..ctor(Object, Span`1)\r\n   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)\r\n   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)\r\n   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitRootCache(ServiceCallSite callSite, RuntimeResolverContext context)\r\n   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)\r\n   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)\r\n   at Microsoft.Extensions.DependencyInjection.ServiceProvider.CreateServiceAccessor(ServiceIdentifier serviceIdentifier)\r\n   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)\r\n   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)\r\n   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)\r\n   at InvokeStub_AuthorizationMiddlewareInternal..ctor(Object, Object, Object, Object, Object)\r\n   at System.Reflection.ConstructorInvoker.InvokeImpl(Object arg1, Object arg2, Object arg3, Object arg4)\r\n   at System.Reflection.ConstructorInvoker.Invoke(Span`1 arguments)\r\n   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)\r\n   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)\r\n   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)\r\n   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()\r\n   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()\r\n   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)\r\n   at Microsoft.Extensions.Hosting.Internal.Host.<StartAsync>b__14_1(IHostedService service, CancellationToken token)\r\n   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)\r\n   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)\r\n   at Martha.Store.Api.Tests.InternalBranchScopeSqlTests.OperationsHost.Start(BranchFixture fixture) in [WORKTREE]\\backend\\tests\\Martha.Store.Api.Tests\\InternalBranchScopeSqlTests.cs:line 290\r\n   at Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS28_Cashier_cannot_read_purchase_costs_through_any_supply_get() in [WORKTREE]\\backend\\tests\\Martha.Store.Api.Tests\\InternalBranchScopeSqlTests.cs:line 247\r\n   at Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS28_Cashier_cannot_read_purchase_costs_through_any_supply_get() in [WORKTREE]\\backend\\tests\\Martha.Store.Api.Tests\\InternalBranchScopeSqlTests.cs:line 250\r\n--- End of stack trace from previous location ---"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalReleaseScriptTests.Release_script_upgrades_empty_and_first_migration_databases_and_preserves_synthetic_rows",
+      "message": "System.FormatException : Unsupported cash constraint token.",
+      "stack": "   at Martha.Store.Api.Tests.InternalCashSchemaOracle.CheckExpression..ctor(String expression) in [WORKTREE]\\backend\\tests\\Martha.Store.Api.Tests\\InternalCashSchemaOracle.cs:line 128\r\n   at Martha.Store.Api.Tests.InternalCashSchemaOracle.<>c__DisplayClass13_0.<Canonical>b__0(String field, Int32 index) in [WORKTREE]\\backend\\tests\\Martha.Store.Api.Tests\\InternalCashSchemaOracle.cs:line 115\r\n   at System.Linq.Enumerable.SelectIterator[TSource,TResult](IEnumerable`1 source, Func`3 selector)+MoveNext()\r\n   at System.String.JoinCore[T](ReadOnlySpan`1 separator, IEnumerable`1 values)\r\n   at System.String.Join[T](Char separator, IEnumerable`1 values)\r\n   at Martha.Store.Api.Tests.InternalCashSchemaOracle.Canonical(String row) in [WORKTREE]\\backend\\tests\\Martha.Store.Api.Tests\\InternalCashSchemaOracle.cs:line 115\r\n   at System.Linq.Enumerable.ArrayWhereSelectIterator`2.ToArray(ReadOnlySpan`1 source, Func`2 predicate, Func`2 selector)\r\n   at System.Linq.Enumerable.ArrayWhereSelectIterator`2.ToArray()\r\n   at System.Linq.Enumerable.OrderedIterator`2.MoveNext()\r\n   at Martha.Store.Api.Tests.InternalCashSchemaOracle.AssertShape(IEnumerable`1 expected, IEnumerable`1 actual) in [WORKTREE]\\backend\\tests\\Martha.Store.Api.Tests\\InternalCashSchemaOracle.cs:line 182\r\n   at Martha.Store.Api.Tests.InternalCashSchemaOracle.AssertCash(SortedDictionary`2 facts) in [WORKTREE]\\backend\\tests\\Martha.Store.Api.Tests\\InternalCashSchemaOracle.cs:line 188\r\n   at Martha.Store.Api.Tests.InternalReleaseScriptTests.AssertModelOracle(SortedDictionary`2 facts) in [WORKTREE]\\backend\\tests\\Martha.Store.Api.Tests\\InternalReleaseScriptTests.cs:line 136\r\n   at Martha.Store.Api.Tests.InternalReleaseScriptTests.Release_script_upgrades_empty_and_first_migration_databases_and_preserves_synthetic_rows() in [WORKTREE]\\backend\\tests\\Martha.Store.Api.Tests\\InternalReleaseScriptTests.cs:line 69\r\n   at Martha.Store.Api.Tests.InternalReleaseScriptTests.Release_script_upgrades_empty_and_first_migration_databases_and_preserves_synthetic_rows() in [WORKTREE]\\backend\\tests\\Martha.Store.Api.Tests\\InternalReleaseScriptTests.cs:line 109\r\n--- End of stack trace from previous location ---"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS21_25_Operations_http_checks_persisted_scope_and_actor_before_returning_result",
+      "message": "System.InvalidOperationException : Failure to infer one or more parameters.\r\nBelow is the list of parameters that we found: \r\n\r\nParameter           | Source                        \r\n---------------------------------------------------------------------------------\r\nrequest             | Body (Inferred)\r\nservice             | UNKNOWN        \r\n\r\n\r\nDid you mean to register the \"UNKNOWN\" parameters as a Service?\r\n\r\n",
+      "stack": "   at Microsoft.AspNetCore.Http.RequestDelegateFactory.CreateArguments(ParameterInfo[] parameters, RequestDelegateFactoryContext factoryContext)\r\n   at Microsoft.AspNetCore.Http.RequestDelegateFactory.CreateArgumentsAndInferMetadata(MethodInfo methodInfo, RequestDelegateFactoryContext factoryContext)\r\n   at Microsoft.AspNetCore.Http.RequestDelegateFactory.InferMetadata(MethodInfo methodInfo, RequestDelegateFactoryOptions options)\r\n   at Microsoft.AspNetCore.Routing.RouteEndpointDataSource.CreateRouteEndpointBuilder(RouteEntry entry, RoutePattern groupPrefix, IReadOnlyList`1 groupConventions, IReadOnlyList`1 groupFinallyConventions)\r\n   at Microsoft.AspNetCore.Routing.RouteEndpointDataSource.GetGroupedEndpoints(RouteGroupContext context)\r\n   at Microsoft.AspNetCore.Routing.RouteGroupBuilder.GroupEndpointDataSource.GetGroupedEndpointsWithNullablePrefix(RoutePattern prefix, IReadOnlyList`1 conventions, IReadOnlyList`1 finallyConventions, IServiceProvider applicationServices)\r\n   at Microsoft.AspNetCore.Routing.RouteGroupBuilder.GroupEndpointDataSource.get_Endpoints()\r\n   at Microsoft.AspNetCore.Routing.CompositeEndpointDataSource.CreateEndpointsUnsynchronized()\r\n   at Microsoft.AspNetCore.Routing.CompositeEndpointDataSource.EnsureEndpointsInitialized()\r\n   at Microsoft.AspNetCore.Routing.CompositeEndpointDataSource.get_Endpoints()\r\n   at Microsoft.AspNetCore.Routing.DataSourceDependentCache`1.Initialize()\r\n   at System.Threading.LazyInitializer.EnsureInitializedCore[T](T& target, Boolean& initialized, Object& syncLock, Func`1 valueFactory)\r\n   at Microsoft.AspNetCore.Routing.DataSourceDependentCache`1.EnsureInitialized()\r\n   at Microsoft.AspNetCore.Authorization.Policy.AuthorizationPolicyCache..ctor(EndpointDataSource dataSource)\r\n   at InvokeStub_AuthorizationPolicyCache..ctor(Object, Span`1)\r\n   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)\r\n   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)\r\n   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitRootCache(ServiceCallSite callSite, RuntimeResolverContext context)\r\n   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)\r\n   at Microsoft.Extensions.DependencyInjection.ServiceProvider.CreateServiceAccessor(ServiceIdentifier serviceIdentifier)\r\n   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)\r\n   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)\r\n   at InvokeStub_AuthorizationMiddlewareInternal..ctor(Object, Object, Object, Object, Object)\r\n   at System.Reflection.ConstructorInvoker.InvokeImpl(Object arg1, Object arg2, Object arg3, Object arg4)\r\n   at System.Reflection.ConstructorInvoker.Invoke(Span`1 arguments)\r\n   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)\r\n   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)\r\n   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)\r\n   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()\r\n   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()\r\n   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)\r\n   at Microsoft.Extensions.Hosting.Internal.Host.<StartAsync>b__14_1(IHostedService service, CancellationToken token)\r\n   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)\r\n   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)\r\n   at Martha.Store.Api.Tests.InternalBranchScopeSqlTests.OperationsHost.Start(BranchFixture fixture) in [WORKTREE]\\backend\\tests\\Martha.Store.Api.Tests\\InternalBranchScopeSqlTests.cs:line 290\r\n   at Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS21_25_Operations_http_checks_persisted_scope_and_actor_before_returning_result() in [WORKTREE]\\backend\\tests\\Martha.Store.Api.Tests\\InternalBranchScopeSqlTests.cs:line 204\r\n   at Martha.Store.Api.Tests.InternalBranchScopeSqlTests.BS21_25_Operations_http_checks_persisted_scope_and_actor_before_returning_result() in [WORKTREE]\\backend\\tests\\Martha.Store.Api.Tests\\InternalBranchScopeSqlTests.cs:line 222\r\n--- End of stack trace from previous location ---"
+    },
+    {
+      "method": "Martha.Store.Api.Tests.PrivatePilotReleaseTests.Real_migration_reapply_throwaway_down_up_and_actual_backup_restore",
+      "message": "System.FormatException : Unsupported cash constraint token.",
+      "stack": "   at Martha.Store.Api.Tests.InternalCashSchemaOracle.CheckExpression..ctor(String expression) in [WORKTREE]\\backend\\tests\\Martha.Store.Api.Tests\\InternalCashSchemaOracle.cs:line 128\r\n   at Martha.Store.Api.Tests.InternalCashSchemaOracle.<>c__DisplayClass13_0.<Canonical>b__0(String field, Int32 index) in [WORKTREE]\\backend\\tests\\Martha.Store.Api.Tests\\InternalCashSchemaOracle.cs:line 115\r\n   at System.Linq.Enumerable.SelectIterator[TSource,TResult](IEnumerable`1 source, Func`3 selector)+MoveNext()\r\n   at System.String.JoinCore[T](ReadOnlySpan`1 separator, IEnumerable`1 values)\r\n   at System.String.Join[T](Char separator, IEnumerable`1 values)\r\n   at Martha.Store.Api.Tests.InternalCashSchemaOracle.Canonical(String row) in [WORKTREE]\\backend\\tests\\Martha.Store.Api.Tests\\InternalCashSchemaOracle.cs:line 115\r\n   at System.Linq.Enumerable.ArrayWhereSelectIterator`2.ToArray(ReadOnlySpan`1 source, Func`2 predicate, Func`2 selector)\r\n   at System.Linq.Enumerable.ArrayWhereSelectIterator`2.ToArray()\r\n   at System.Linq.Enumerable.OrderedIterator`2.MoveNext()\r\n   at Martha.Store.Api.Tests.InternalCashSchemaOracle.AssertShape(IEnumerable`1 expected, IEnumerable`1 actual) in [WORKTREE]\\backend\\tests\\Martha.Store.Api.Tests\\InternalCashSchemaOracle.cs:line 182\r\n   at Martha.Store.Api.Tests.InternalCashSchemaOracle.AssertCash(SortedDictionary`2 facts) in [WORKTREE]\\backend\\tests\\Martha.Store.Api.Tests\\InternalCashSchemaOracle.cs:line 188\r\n   at Martha.Store.Api.Tests.PrivatePilotReleaseTests.AssertSchema(SortedDictionary`2 facts) in [WORKTREE]\\backend\\tests\\Martha.Store.Api.Tests\\PrivatePilotReleaseTests.cs:line 73\r\n   at Martha.Store.Api.Tests.PrivatePilotReleaseTests.Real_migration_reapply_throwaway_down_up_and_actual_backup_restore() in [WORKTREE]\\backend\\tests\\Martha.Store.Api.Tests\\PrivatePilotReleaseTests.cs:line 117\r\n--- End of stack trace from previous location ---"
+    }
+  ],
+  "initial27ExactInventory": {
+    "expected": 27,
+    "actual": 27,
+    "missing": [],
+    "extra": [],
+    "multiplicityMismatch": [],
+    "passed": 23,
+    "failed": 4,
+    "skipped": 0
+  },
+  "deferredRestart": {
+    "outcome": "NOT RUN",
+    "reason": "Initial27 had four failures; dependency gate preserved"
+  }
+}

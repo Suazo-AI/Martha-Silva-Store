@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-31T05:47:14.010732+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/PROGRESS-SYNC-VALIDATION.md",
+      "change": "M",
+      "git_blob": "b2b6c7c7b348aa1aab42b8c54a4033fa5e6c7a50"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

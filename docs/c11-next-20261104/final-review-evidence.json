@@ -1,0 +1,304 @@
+{
+  "task_id": "C11-N5-01-FINAL-REVIEW-20261104",
+  "status": "final_review_returned",
+  "verdict": "APTO",
+  "scope": "synthetic technical N1-N10 acceptance by declared layers; not whole operational acceptance",
+  "candidate": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+  "actual_checkout_sha": "cb3109bc5159b86d4ec8c68e3ac058d2f949bab7",
+  "tree": "abaf54477b400ac434835864fbd79795210b5f32",
+  "whole_tree_identical": true,
+  "binding_source": "ci-53dd23b5/root-ci-binding.json",
+  "binding_sha256": "7f1c8d7bc5679548c8f68e11e29d8ace08bed683333e0202f06d8a638250ebe3",
+  "runs": [
+    {
+      "id": 41774927960,
+      "head_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+      "event": "pull_request",
+      "head_branch": "claude/funny-brahmagupta-5e5rj0",
+      "run_attempt": 1,
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 41774928044,
+      "head_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+      "event": "pull_request",
+      "head_branch": "claude/funny-brahmagupta-5e5rj0",
+      "run_attempt": 1,
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "artifact_metadata_reported_by_github": [
+    {
+      "id": 13296353218,
+      "name": "savia-backend-outcomes-41774927960-1",
+      "run_id": 41774927960,
+      "head_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+      "size_in_bytes": 7559,
+      "github_reported_zip_digest": "sha256:436e9d0c8f937e4ad201a0c01e8a727c7ee2e560506cf645ee9e25eea13230b9",
+      "zip_digest_locally_recomputed": false,
+      "expired": false
+    },
+    {
+      "id": 13295923664,
+      "name": "savia-browser-evidence-41774927960-1",
+      "run_id": 41774927960,
+      "head_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+      "size_in_bytes": 73941,
+      "github_reported_zip_digest": "sha256:9ba479b3c4d4024f0e0632a36d784d57e0b18e6cbd542a1d57f2b25c45906e65",
+      "zip_digest_locally_recomputed": false,
+      "expired": false
+    },
+    {
+      "id": 13296217986,
+      "name": "savia-golden-path-41774928044-1",
+      "run_id": 41774928044,
+      "head_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+      "size_in_bytes": 2536,
+      "github_reported_zip_digest": "sha256:e67f0def3ee627559cb5e82014bc16aed146f6ef46ce53c570765d5232a74ea3",
+      "zip_digest_locally_recomputed": false,
+      "expired": false
+    },
+    {
+      "id": 13295724663,
+      "name": "savia-browser-path-41774928044-1",
+      "run_id": 41774928044,
+      "head_sha": "53dd23b5cfec2cb5dd717395b9095a71d29669f0",
+      "size_in_bytes": 5326,
+      "github_reported_zip_digest": "sha256:45fecf10814c2881193f269045c31f5a02ffe35a7cb3896276281570e761d96b",
+      "zip_digest_locally_recomputed": false,
+      "expired": false
+    }
+  ],
+  "locally_hashed_extracted_files": [
+    {
+      "path": "ci-53dd23b5/savia/savia-backend-outcomes-41774927960-1/sanitized-results.json",
+      "sha256": "54fcc2cb7eb3ef69d80a4154ada33dec8be3ab0e074ae79f1a2735158e055661"
+    },
+    {
+      "path": "ci-53dd23b5/savia/savia-browser-evidence-41774927960-1/browser-results.json",
+      "sha256": "3e6e7d10f3746338aa2cbb6f9a0184268373a2ecdc152e5821c91b45ef06ba5e"
+    },
+    {
+      "path": "ci-53dd23b5/golden/savia-golden-path-41774928044-1/evidence.json",
+      "sha256": "77953be6e00533425d2abb3ebd3e81d5a1b14bf6d5e3a95cabcbe7613bad9a45"
+    },
+    {
+      "path": "ci-53dd23b5/golden/savia-browser-path-41774928044-1/evidence.json",
+      "sha256": "ee952f9066624bf9888cf0675f39b84ab4bcc1f98260b750c51ec55a5d720c14"
+    }
+  ],
+  "zip_digests_locally_recomputed": false,
+  "backend": {
+    "cases": 601,
+    "passed": 601,
+    "failed": 0,
+    "skipped": 0,
+    "named_method": "Martha.Store.Api.Tests.InternalAcceptanceHttpSqlTests.N5_owner_branch_reassignment_rejects_original_cashier_cookie_and_preserves_sales_before_new_scope_login",
+    "named_method_result": {
+      "cases": 1,
+      "passed": 1
+    },
+    "prior_methods_preserved": 257,
+    "prior_cases_preserved": 600,
+    "restart_method": "Martha.Store.Api.Tests.PrivatePilotReleaseTests.Frozen_fixture_survives_controlled_owned_container_stop_start",
+    "restart_result": {
+      "cases": 1,
+      "passed": 1
+    }
+  },
+  "browser_mock": {
+    "passed": 45,
+    "failed": 0,
+    "runtime_errors": 0,
+    "external_requests": 0,
+    "network_failures_recorded": 9,
+    "layer": "Real Chromium browser; mocked staff API; public browser-local demo"
+  },
+  "golden": {
+    "smoke_steps_passed": 19,
+    "browser_steps_passed": 21,
+    "oracle_captures": 38,
+    "oracle_failures": 0,
+    "checkpoints": [
+      {
+        "step": "browser.inventory",
+        "sale_posts": 0,
+        "dom": [
+          "inventory",
+          "stock_current"
+        ],
+        "oracles": {
+          "sales": 0,
+          "sale_lines": 0,
+          "sale_movements": 0,
+          "sale_operations": 0,
+          "on_hand_total": 30,
+          "active_sessions": 1
+        }
+      },
+      {
+        "step": "browser.sale_confirmed",
+        "sale_posts": 1,
+        "dom": [
+          "receipt",
+          "sale_enabled"
+        ],
+        "oracles": {
+          "sales": 1,
+          "sale_lines": 1,
+          "sale_movements": 1,
+          "sale_operations": 1,
+          "on_hand_total": 28,
+          "active_sessions": 1
+        }
+      },
+      {
+        "step": "browser.receipt_reload",
+        "sale_posts": 1,
+        "dom": [
+          "receipt",
+          "same_receipt",
+          "sale_enabled"
+        ],
+        "oracles": {
+          "sales": 1,
+          "sale_lines": 1,
+          "sale_movements": 1,
+          "sale_operations": 1,
+          "on_hand_total": 28,
+          "active_sessions": 1
+        }
+      },
+      {
+        "step": "browser.response_loss_committed",
+        "sale_posts": 2,
+        "dom": [
+          "pending",
+          "pending_key_preserved"
+        ],
+        "oracles": {
+          "sales": 2,
+          "sale_lines": 2,
+          "sale_movements": 2,
+          "sale_operations": 2,
+          "on_hand_total": 27,
+          "active_sessions": 1
+        }
+      },
+      {
+        "step": "browser.recover_after_reload",
+        "sale_posts": 2,
+        "dom": [
+          "receipt",
+          "same_receipt",
+          "sale_enabled"
+        ],
+        "oracles": {
+          "sales": 2,
+          "sale_lines": 2,
+          "sale_movements": 2,
+          "sale_operations": 2,
+          "on_hand_total": 27,
+          "active_sessions": 1
+        }
+      },
+      {
+        "step": "browser.repeated_reload",
+        "sale_posts": 2,
+        "dom": [
+          "receipt",
+          "same_receipt",
+          "sale_enabled"
+        ],
+        "oracles": {
+          "sales": 2,
+          "sale_lines": 2,
+          "sale_movements": 2,
+          "sale_operations": 2,
+          "on_hand_total": 27,
+          "active_sessions": 1
+        }
+      },
+      {
+        "step": "browser.logout",
+        "sale_posts": 2,
+        "dom": [
+          "logged_out"
+        ],
+        "oracles": {
+          "sales": 2,
+          "sale_lines": 2,
+          "sale_movements": 2,
+          "sale_operations": 2,
+          "on_hand_total": 27,
+          "active_sessions": 0
+        }
+      }
+    ],
+    "same_key_and_sale_recovered": true,
+    "no_extra_sale_post": true,
+    "cleanup": {
+      "smoke_api_exit": 0,
+      "browser_api_exit": 0,
+      "both_database_dropped": true,
+      "both_private_directory_removed": true,
+      "browser_exit": 0,
+      "browser_ownership_confirmed": true,
+      "browser_processes_absent": true
+    },
+    "container_absence_job_readback_independently_read": false,
+    "publication_step_log_independently_read": false
+  },
+  "criteria": {
+    "N1": "APTO: identidades/roles/scope y usuario sin asignacion; metodo HTTP+SQL1/1.",
+    "N2": "APTO: venta/recarga/recuperacion Cashier real C6; Owner/Manager por capas HTTP y browserAPI simulado.",
+    "N3": "APTO: denegaciones directas y19tablas sin cambios; metodo HTTP+SQL1/1.",
+    "N4": "APTO: alcance/IDs/paginacion y remap409; metodo1/1; excepcion durableC7 preservada.",
+    "N5": "APTO: nuevo metodo HTTP+SQL1/1 mas cinco casos browserAPI simulado; cookie vieja invalida, reciboA inaccesible y ventaB posible.",
+    "N6": "APTO: tres casos browserAPI simulado preservan intento incierto sin reenviarlo como otro actor/alcance.",
+    "N7": "APTO: logout/revocacionHTTP+SQL; expiracion con TimeProvider1/1; tres casos browserAPI simulado de respuestas tardias.",
+    "N8": "APTO: paresCSRF invalidos sin cambios19tablas y control valido; metodoHTTP+SQL1/1.",
+    "N9": "APTO: ajusteOwner, denegacionCashier y replay sin segundo efecto; metodoHTTP+SQL1/1.",
+    "N10": "APTO: juicio independiente por capas; ledger y recuperacion coherentes, sin segundo debito ni exito inventado."
+  },
+  "resolved_findings": [
+    "C11-N5-01",
+    "C11-N5-01-STATIC-01"
+  ],
+  "new_findings": [],
+  "source_hashes_verified": {
+    "browser_ui": 6,
+    "c6_sources": 8,
+    "new_test_git_lf_sha256": "a2ad86527f08e0d8b20c08cf659ce4695b4faa1352ca836a5843a07fd5dfe0df"
+  },
+  "changed": [
+    "judge/REVIEW.md",
+    "judge/evidence.json",
+    "judge/pre-ci-evidence-4f060265.json"
+  ],
+  "verification": [
+    "direct artifact reads",
+    "immutable source review",
+    "method regression comparison",
+    "SHA256",
+    "exported authenticated run/checkout binding read"
+  ],
+  "runtime_executed_by_reviewer": false,
+  "ci_queried_by_reviewer": false,
+  "states_mutated": false,
+  "unverified": [
+    "N5-COV three extras",
+    "whole operational acceptance",
+    "Windows/devices",
+    "backup/restore",
+    "production/deployment",
+    "DLL reproducible build",
+    "rawZIP digests",
+    "container absence and publication step log readbacks"
+  ],
+  "blockers": [],
+  "usage": "unknown",
+  "next_action": "primary verifies and integrator records authorized closure; document successor requires its own equivalence and CI check"
+}

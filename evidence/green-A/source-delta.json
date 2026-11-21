@@ -1,0 +1,20 @@
+{
+  "src/app.js": {
+    "bytes": 63381,
+    "sha256": "8ee8deb77dd6608023f0d315c2451aafa248f58e77658b881717e9de09470ba8",
+    "cloudflare_upload_hash": "6b937819a7ec993d03a4d4ff53e578b3",
+    "base_sha256": "d381978579b3558fe49cf5ab103c4bf52a3debb38b14bc824efd9399f7d48959"
+  },
+  "build-inputs/static/styles.css": {
+    "bytes": 63736,
+    "sha256": "955550d32bc9b1fb1c826abf30b65730e41fc0074a932a2d66276c08d37f0189",
+    "cloudflare_upload_hash": "aa2aaa5501bcecf0dfefe80d432bc313",
+    "base_sha256": "e0a002902eace0d8b9734f8b4473a1f6e7e29ba629522799aef5eae326a1256a"
+  },
+  "tests/green-header.cjs": {
+    "bytes": 6343,
+    "sha256": "ede4f18005c6d4edddffba427e45b1338b2a6fc1ab6bde0619803d8038ce8945",
+    "cloudflare_upload_hash": "6ca1601654b11d5c424c76fa9da0f807",
+    "base_sha256": null
+  }
+}

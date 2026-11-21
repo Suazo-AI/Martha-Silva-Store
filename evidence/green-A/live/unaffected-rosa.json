@@ -1,0 +1,510 @@
+{
+  "initial": {
+    "header": {
+      "position": "sticky",
+      "rect": {
+        "bottom": 175,
+        "height": 106,
+        "left": 0,
+        "right": 1165,
+        "top": 69,
+        "width": 1165,
+        "x": 0,
+        "y": 69
+      },
+      "zIndex": "100"
+    },
+    "images": [
+      {
+        "complete": true,
+        "currentSrc": "https://martha-silva-preview.martha-silva-denis.workers.dev/research/assets/store-media/rosa-empolvado-pedreria/01-front-full-length-480.webp",
+        "frame_rect": {
+          "bottom": 692.765625,
+          "height": 517.765625,
+          "left": 0,
+          "right": 388.328125,
+          "top": 175,
+          "width": 388.328125,
+          "x": 0,
+          "y": 175
+        },
+        "frame_style": {
+          "aspectRatio": "675 / 900",
+          "height": "517.766px",
+          "maxHeight": "none",
+          "overflow": "hidden",
+          "position": "sticky",
+          "scrollMarginTop": "0px",
+          "top": "0px",
+          "width": "388.328px"
+        },
+        "image_rect": {
+          "bottom": 692.765625,
+          "height": 517.765625,
+          "left": 0,
+          "right": 388.328125,
+          "top": 175,
+          "width": 388.328125,
+          "x": 0,
+          "y": 175
+        },
+        "image_style": {
+          "borderWidth": "0px",
+          "objectFit": "scale-down",
+          "objectPosition": "50% 50%",
+          "padding": "0px"
+        },
+        "index": "0",
+        "naturalHeight": 524,
+        "naturalWidth": 393,
+        "selector": "main[data-product-id=\"rosa-empolvado-pedreria\"] .gallery-photo[data-gallery-index=\"0\"] img",
+        "selector_count": 1
+      },
+      {
+        "complete": true,
+        "currentSrc": "https://martha-silva-preview.martha-silva-denis.workers.dev/research/assets/store-media/rosa-empolvado-pedreria/02-three-quarter-front-full-length-480.webp",
+        "frame_rect": {
+          "bottom": 692.765625,
+          "height": 517.765625,
+          "left": 388.328125,
+          "right": 776.65625,
+          "top": 175,
+          "width": 388.328125,
+          "x": 388.328125,
+          "y": 175
+        },
+        "frame_style": {
+          "aspectRatio": "675 / 900",
+          "height": "517.766px",
+          "maxHeight": "none",
+          "overflow": "hidden",
+          "position": "relative",
+          "scrollMarginTop": "0px",
+          "top": "0px",
+          "width": "388.328px"
+        },
+        "image_rect": {
+          "bottom": 692.765625,
+          "height": 517.765625,
+          "left": 388.328125,
+          "right": 776.65625,
+          "top": 175,
+          "width": 388.328125,
+          "x": 388.328125,
+          "y": 175
+        },
+        "image_style": {
+          "borderWidth": "0px",
+          "objectFit": "scale-down",
+          "objectPosition": "50% 50%",
+          "padding": "0px"
+        },
+        "index": "1",
+        "naturalHeight": 524,
+        "naturalWidth": 393,
+        "selector": "main[data-product-id=\"rosa-empolvado-pedreria\"] .gallery-photo[data-gallery-index=\"1\"] img",
+        "selector_count": 1
+      },
+      {
+        "complete": true,
+        "currentSrc": "https://martha-silva-preview.martha-silva-denis.workers.dev/research/assets/store-media/rosa-empolvado-pedreria/03-side-full-length-480.webp",
+        "frame_rect": {
+          "bottom": 1210.53125,
+          "height": 517.765625,
+          "left": 388.328125,
+          "right": 776.65625,
+          "top": 692.765625,
+          "width": 388.328125,
+          "x": 388.328125,
+          "y": 692.765625
+        },
+        "frame_style": {
+          "aspectRatio": "675 / 900",
+          "height": "517.766px",
+          "maxHeight": "none",
+          "overflow": "hidden",
+          "position": "relative",
+          "scrollMarginTop": "0px",
+          "top": "0px",
+          "width": "388.328px"
+        },
+        "image_rect": {
+          "bottom": 1210.53125,
+          "height": 517.765625,
+          "left": 388.328125,
+          "right": 776.65625,
+          "top": 692.765625,
+          "width": 388.328125,
+          "x": 388.328125,
+          "y": 692.765625
+        },
+        "image_style": {
+          "borderWidth": "0px",
+          "objectFit": "scale-down",
+          "objectPosition": "50% 50%",
+          "padding": "0px"
+        },
+        "index": "2",
+        "naturalHeight": 524,
+        "naturalWidth": 393,
+        "selector": "main[data-product-id=\"rosa-empolvado-pedreria\"] .gallery-photo[data-gallery-index=\"2\"] img",
+        "selector_count": 1
+      },
+      {
+        "complete": true,
+        "currentSrc": "https://martha-silva-preview.martha-silva-denis.workers.dev/research/assets/store-media/rosa-empolvado-pedreria/04-back-full-length-480.webp",
+        "frame_rect": {
+          "bottom": 1728.296875,
+          "height": 517.765625,
+          "left": 388.328125,
+          "right": 776.65625,
+          "top": 1210.53125,
+          "width": 388.328125,
+          "x": 388.328125,
+          "y": 1210.53125
+        },
+        "frame_style": {
+          "aspectRatio": "675 / 900",
+          "height": "517.766px",
+          "maxHeight": "none",
+          "overflow": "hidden",
+          "position": "relative",
+          "scrollMarginTop": "0px",
+          "top": "0px",
+          "width": "388.328px"
+        },
+        "image_rect": {
+          "bottom": 1728.296875,
+          "height": 517.765625,
+          "left": 388.328125,
+          "right": 776.65625,
+          "top": 1210.53125,
+          "width": 388.328125,
+          "x": 388.328125,
+          "y": 1210.53125
+        },
+        "image_style": {
+          "borderWidth": "0px",
+          "objectFit": "scale-down",
+          "objectPosition": "50% 50%",
+          "padding": "0px"
+        },
+        "index": "3",
+        "naturalHeight": 524,
+        "naturalWidth": 393,
+        "selector": "main[data-product-id=\"rosa-empolvado-pedreria\"] .gallery-photo[data-gallery-index=\"3\"] img",
+        "selector_count": 1
+      },
+      {
+        "complete": true,
+        "currentSrc": "https://martha-silva-preview.martha-silva-denis.workers.dev/research/assets/store-media/rosa-empolvado-pedreria/05-detail-crop-432.webp",
+        "frame_rect": {
+          "bottom": 2246.0625,
+          "height": 517.765625,
+          "left": 388.328125,
+          "right": 776.65625,
+          "top": 1728.296875,
+          "width": 388.328125,
+          "x": 388.328125,
+          "y": 1728.296875
+        },
+        "frame_style": {
+          "aspectRatio": "675 / 900",
+          "height": "517.766px",
+          "maxHeight": "none",
+          "overflow": "hidden",
+          "position": "relative",
+          "scrollMarginTop": "0px",
+          "top": "0px",
+          "width": "388.328px"
+        },
+        "image_rect": {
+          "bottom": 2246.0625,
+          "height": 517.765625,
+          "left": 388.328125,
+          "right": 776.65625,
+          "top": 1728.296875,
+          "width": 388.328125,
+          "x": 388.328125,
+          "y": 1728.296875
+        },
+        "image_style": {
+          "borderWidth": "0px",
+          "objectFit": "scale-down",
+          "objectPosition": "50% 50%",
+          "padding": "0px"
+        },
+        "index": "4",
+        "naturalHeight": 524,
+        "naturalWidth": 393,
+        "selector": "main[data-product-id=\"rosa-empolvado-pedreria\"] .gallery-photo[data-gallery-index=\"4\"] img",
+        "selector_count": 1
+      }
+    ],
+    "observed_at": "2026-10-26T06:22:32.925Z",
+    "product_id": "rosa-empolvado-pedreria",
+    "state": "unaffected_rosa_initial",
+    "url": "https://martha-silva-preview.martha-silva-denis.workers.dev/producto-rosa-empolvado-pedreria",
+    "viewport": {
+      "dpr": 1,
+      "innerHeight": 757,
+      "innerWidth": 1180,
+      "scale": 1,
+      "scrollY": 0
+    }
+  },
+  "scrolled": {
+    "header": {
+      "position": "sticky",
+      "rect": {
+        "bottom": 106,
+        "height": 106,
+        "left": 0,
+        "right": 1165,
+        "top": 0,
+        "width": 1165,
+        "x": 0,
+        "y": 0
+      },
+      "zIndex": "100"
+    },
+    "images": [
+      {
+        "complete": true,
+        "currentSrc": "https://martha-silva-preview.martha-silva-denis.workers.dev/research/assets/store-media/rosa-empolvado-pedreria/01-front-full-length-480.webp",
+        "frame_rect": {
+          "bottom": 517.765625,
+          "height": 517.765625,
+          "left": 0,
+          "right": 388.328125,
+          "top": 0,
+          "width": 388.328125,
+          "x": 0,
+          "y": 0
+        },
+        "frame_style": {
+          "aspectRatio": "675 / 900",
+          "height": "517.766px",
+          "maxHeight": "none",
+          "overflow": "hidden",
+          "position": "sticky",
+          "scrollMarginTop": "0px",
+          "top": "0px",
+          "width": "388.328px"
+        },
+        "image_rect": {
+          "bottom": 517.765625,
+          "height": 517.765625,
+          "left": 0,
+          "right": 388.328125,
+          "top": 0,
+          "width": 388.328125,
+          "x": 0,
+          "y": 0
+        },
+        "image_style": {
+          "borderWidth": "0px",
+          "objectFit": "scale-down",
+          "objectPosition": "50% 50%",
+          "padding": "0px"
+        },
+        "index": "0",
+        "naturalHeight": 524,
+        "naturalWidth": 393,
+        "selector": "main[data-product-id=\"rosa-empolvado-pedreria\"] .gallery-photo[data-gallery-index=\"0\"] img",
+        "selector_count": 1
+      },
+      {
+        "complete": true,
+        "currentSrc": "https://martha-silva-preview.martha-silva-denis.workers.dev/research/assets/store-media/rosa-empolvado-pedreria/02-three-quarter-front-full-length-480.webp",
+        "frame_rect": {
+          "bottom": -64.234375,
+          "height": 517.765625,
+          "left": 388.328125,
+          "right": 776.65625,
+          "top": -582,
+          "width": 388.328125,
+          "x": 388.328125,
+          "y": -582
+        },
+        "frame_style": {
+          "aspectRatio": "675 / 900",
+          "height": "517.766px",
+          "maxHeight": "none",
+          "overflow": "hidden",
+          "position": "relative",
+          "scrollMarginTop": "0px",
+          "top": "0px",
+          "width": "388.328px"
+        },
+        "image_rect": {
+          "bottom": -64.234375,
+          "height": 517.765625,
+          "left": 388.328125,
+          "right": 776.65625,
+          "top": -582,
+          "width": 388.328125,
+          "x": 388.328125,
+          "y": -582
+        },
+        "image_style": {
+          "borderWidth": "0px",
+          "objectFit": "scale-down",
+          "objectPosition": "50% 50%",
+          "padding": "0px"
+        },
+        "index": "1",
+        "naturalHeight": 524,
+        "naturalWidth": 393,
+        "selector": "main[data-product-id=\"rosa-empolvado-pedreria\"] .gallery-photo[data-gallery-index=\"1\"] img",
+        "selector_count": 1
+      },
+      {
+        "complete": true,
+        "currentSrc": "https://martha-silva-preview.martha-silva-denis.workers.dev/research/assets/store-media/rosa-empolvado-pedreria/03-side-full-length-480.webp",
+        "frame_rect": {
+          "bottom": 453.53125,
+          "height": 517.765625,
+          "left": 388.328125,
+          "right": 776.65625,
+          "top": -64.234375,
+          "width": 388.328125,
+          "x": 388.328125,
+          "y": -64.234375
+        },
+        "frame_style": {
+          "aspectRatio": "675 / 900",
+          "height": "517.766px",
+          "maxHeight": "none",
+          "overflow": "hidden",
+          "position": "relative",
+          "scrollMarginTop": "0px",
+          "top": "0px",
+          "width": "388.328px"
+        },
+        "image_rect": {
+          "bottom": 453.53125,
+          "height": 517.765625,
+          "left": 388.328125,
+          "right": 776.65625,
+          "top": -64.234375,
+          "width": 388.328125,
+          "x": 388.328125,
+          "y": -64.234375
+        },
+        "image_style": {
+          "borderWidth": "0px",
+          "objectFit": "scale-down",
+          "objectPosition": "50% 50%",
+          "padding": "0px"
+        },
+        "index": "2",
+        "naturalHeight": 524,
+        "naturalWidth": 393,
+        "selector": "main[data-product-id=\"rosa-empolvado-pedreria\"] .gallery-photo[data-gallery-index=\"2\"] img",
+        "selector_count": 1
+      },
+      {
+        "complete": true,
+        "currentSrc": "https://martha-silva-preview.martha-silva-denis.workers.dev/research/assets/store-media/rosa-empolvado-pedreria/04-back-full-length-480.webp",
+        "frame_rect": {
+          "bottom": 971.296875,
+          "height": 517.765625,
+          "left": 388.328125,
+          "right": 776.65625,
+          "top": 453.53125,
+          "width": 388.328125,
+          "x": 388.328125,
+          "y": 453.53125
+        },
+        "frame_style": {
+          "aspectRatio": "675 / 900",
+          "height": "517.766px",
+          "maxHeight": "none",
+          "overflow": "hidden",
+          "position": "relative",
+          "scrollMarginTop": "0px",
+          "top": "0px",
+          "width": "388.328px"
+        },
+        "image_rect": {
+          "bottom": 971.296875,
+          "height": 517.765625,
+          "left": 388.328125,
+          "right": 776.65625,
+          "top": 453.53125,
+          "width": 388.328125,
+          "x": 388.328125,
+          "y": 453.53125
+        },
+        "image_style": {
+          "borderWidth": "0px",
+          "objectFit": "scale-down",
+          "objectPosition": "50% 50%",
+          "padding": "0px"
+        },
+        "index": "3",
+        "naturalHeight": 524,
+        "naturalWidth": 393,
+        "selector": "main[data-product-id=\"rosa-empolvado-pedreria\"] .gallery-photo[data-gallery-index=\"3\"] img",
+        "selector_count": 1
+      },
+      {
+        "complete": true,
+        "currentSrc": "https://martha-silva-preview.martha-silva-denis.workers.dev/research/assets/store-media/rosa-empolvado-pedreria/05-detail-crop-432.webp",
+        "frame_rect": {
+          "bottom": 1489.0625,
+          "height": 517.765625,
+          "left": 388.328125,
+          "right": 776.65625,
+          "top": 971.296875,
+          "width": 388.328125,
+          "x": 388.328125,
+          "y": 971.296875
+        },
+        "frame_style": {
+          "aspectRatio": "675 / 900",
+          "height": "517.766px",
+          "maxHeight": "none",
+          "overflow": "hidden",
+          "position": "relative",
+          "scrollMarginTop": "0px",
+          "top": "0px",
+          "width": "388.328px"
+        },
+        "image_rect": {
+          "bottom": 1489.0625,
+          "height": 517.765625,
+          "left": 388.328125,
+          "right": 776.65625,
+          "top": 971.296875,
+          "width": 388.328125,
+          "x": 388.328125,
+          "y": 971.296875
+        },
+        "image_style": {
+          "borderWidth": "0px",
+          "objectFit": "scale-down",
+          "objectPosition": "50% 50%",
+          "padding": "0px"
+        },
+        "index": "4",
+        "naturalHeight": 524,
+        "naturalWidth": 393,
+        "selector": "main[data-product-id=\"rosa-empolvado-pedreria\"] .gallery-photo[data-gallery-index=\"4\"] img",
+        "selector_count": 1
+      }
+    ],
+    "observed_at": "2026-10-26T06:22:34.157Z",
+    "product_id": "rosa-empolvado-pedreria",
+    "state": "unaffected_rosa_scrollY757",
+    "url": "https://martha-silva-preview.martha-silva-denis.workers.dev/producto-rosa-empolvado-pedreria",
+    "viewport": {
+      "dpr": 1,
+      "innerHeight": 757,
+      "innerWidth": 1180,
+      "scale": 1,
+      "scrollY": 757
+    }
+  }
+}

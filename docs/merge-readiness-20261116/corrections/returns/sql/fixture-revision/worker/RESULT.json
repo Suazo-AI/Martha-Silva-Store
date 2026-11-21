@@ -1,0 +1,136 @@
+{
+  "task_id": "savia-pr7-return-fixture-revision-ba8ff2b-20261116-01",
+  "status": "returned_unaccepted_candidate",
+  "mode": "BUILD",
+  "host": "SUAZO-PC",
+  "provider": "codex",
+  "requestedModel": "gpt-6.1-sol",
+  "effectiveModel": "gpt-6.1-sol",
+  "requestedReasoning": "high",
+  "effectiveReasoning": "high",
+  "identityEvidence": "T3 harness runtime declaration and fresh awareness output agree",
+  "workspace": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-216b8947-4e46f448a3babbc5",
+  "sourceSha": "ba8ff2ba10935e99fc268ebbe5eae130f72c1cca",
+  "branch": "t3/pr7-return-fixture-revision",
+  "canonicalCheckout": "read-only",
+  "frozenArchiveSha256": "70f89bbd047e4e28148f27ce9bbbc092152187d49f80bd66d96488a8710b18a7",
+  "sourceHashes": [
+    {
+      "path": "savia/db/migrations/V029__return_retry_safety.sql",
+      "rawSha256": "6041e3880fb4cb02c595504e394701e52408e426767c67c2b575914402b353cc",
+      "lfSha256": "6041e3880fb4cb02c595504e394701e52408e426767c67c2b575914402b353cc",
+      "overlayRawSha256": "6041e3880fb4cb02c595504e394701e52408e426767c67c2b575914402b353cc"
+    },
+    {
+      "path": "savia/db/migrations/MANIFEST.sha256",
+      "rawSha256": "2e878b9e3c3eea5c1135ad0f1c2ac22a24f771aa5e41cba66665be79691eefe0",
+      "lfSha256": "2e878b9e3c3eea5c1135ad0f1c2ac22a24f771aa5e41cba66665be79691eefe0",
+      "overlayRawSha256": "2e878b9e3c3eea5c1135ad0f1c2ac22a24f771aa5e41cba66665be79691eefe0"
+    },
+    {
+      "path": "savia/db/tests/sales/172_return_retry_safety.sql",
+      "rawSha256": "1c816dfdf60c45a8e71865222d3718f9d0ca552075fc73dddba15e11567a47ee",
+      "lfSha256": "1c816dfdf60c45a8e71865222d3718f9d0ca552075fc73dddba15e11567a47ee",
+      "overlayRawSha256": "50dc06558f36da331afe4ddbf45112d7b90c7e08c9983958863b764a78e591b3"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/ReturnRetrySafetyTests.cs",
+      "rawSha256": "3fe76573de23dd884534e6fb2d8414737ef2344221f70d9e319b1acceee68b37",
+      "lfSha256": "3fe76573de23dd884534e6fb2d8414737ef2344221f70d9e319b1acceee68b37",
+      "overlayRawSha256": "b35dda2fef4a8dc8fc6a3750d213cffce50fbb8827f5c5ba5e43e7e49c390097"
+    },
+    {
+      "path": "savia/tests/test_return_retry_safety.py",
+      "rawSha256": "1a919e950ff349ed514a98d90a60bbd4d6fbdf663192d0f99a8ce42f301f4e66",
+      "lfSha256": "1a919e950ff349ed514a98d90a60bbd4d6fbdf663192d0f99a8ce42f301f4e66",
+      "overlayRawSha256": "d142b60596c5e97e86d88f66a4805bf75116e383d45c6060c71d898200c6c687"
+    },
+    {
+      "path": "savia/db/tests/sales/134_credit_return_validation.sql",
+      "rawSha256": "a243bc9d3c05e9e12744a02fd31193caaf62cee9566acd748d4772d57127575c",
+      "lfSha256": "c331b7564647612297ba977ee872dc40aa625c4a6b618d6296333d98a7639fca"
+    }
+  ],
+  "scopeAudit": "scope.json",
+  "delta": "final-delta.patch",
+  "verification": {
+    "offlineInvocations": 3,
+    "offlineLimit": 8,
+    "baseline": {
+      "original": 5,
+      "splitNamespaceIncorrectlyPassed": 5,
+      "omittedEnabledIncorrectlyPassed": 5
+    },
+    "corrected": {
+      "positivePassed": 8,
+      "splitNamespaceFailures": 2,
+      "omittedEnabledFailures": 2
+    },
+    "final": {
+      "returnSourcePassed": 8,
+      "rulesPassed": 10,
+      "failed": 0,
+      "errors": 0
+    },
+    "cachedLockedRestore": {
+      "count": 1,
+      "exit": 0
+    },
+    "finalReleaseBuild": {
+      "count": 1,
+      "exit": 0,
+      "warnings": 0,
+      "errors": 0,
+      "elapsedSeconds": 12.39
+    },
+    "audit": {
+      "initialExit": 1,
+      "cause": "SQL134 working CRLF versus Git LF",
+      "correction": "LF-normalized delta comparison; RAW/LF hashes preserved",
+      "finalExit": 0
+    }
+  },
+  "acceptance": {
+    "SQL134": "verified exact comment/catch delta only",
+    "overlap": "six compiled runtime cases; observed APPLICATION wait required before commit; execution NOT RUN",
+    "images": "winner exact ordered financial/sync images include USD; runtime NOT RUN",
+    "authorization": "independent SQL172 enabled/active/absent-access cases; changed supervisor preserves financial/sync/audit images; runtime NOT RUN",
+    "ordering": "two actual original lines, reversed input, both endpoints, exact images; runtime NOT RUN",
+    "negativeControls": "offline verified",
+    "frozenMigrationAndManifest": "RAW/LF unchanged"
+  },
+  "notRun": [
+    "SQL",
+    "dotnet test",
+    "Docker",
+    "services",
+    "browser",
+    "network",
+    "installation",
+    "Git staging/commit/push/PR/merge",
+    "workflow dispatch",
+    "deployment"
+  ],
+  "usage": {
+    "providerTokens": null,
+    "cacheTokens": null,
+    "reasoningTokens": null,
+    "providerUSD": null,
+    "extraProviderRequests": 0,
+    "wholeSessionElapsed": "not exposed; no 40-minute limit reached",
+    "observedEvidenceIntervalSeconds": 343.99
+  },
+  "blockers": [
+    {
+      "layer": "SQL verification",
+      "cause": "runtime authority explicitly withheld; prior authority consumed",
+      "attempt": "none; prohibited",
+      "owner": "primary/Jason",
+      "next": "primary source inspection and fresh Astra/xhigh review, then obtain separate SQL authorization",
+      "completionCheck": "authorized disposable SQL run of SQL134, SQL172 and six ReturnRetrySafetyTests cases; exact images, observed application waits and conservation pass",
+      "prerequisite": "observer requires permission to inspect sys.dm_tran_locks and sys.dm_exec_requests; fail visibly if denied"
+    }
+  ],
+  "lesson": "Preload immutable return-line IDs before starting the winner; a contender TVP SELECT from winner-locked SaleLines can block before the application lock and invalidate the intended overlap check.",
+  "nextAction": "Primary serially review/import exactly the four source deltas plus worker evidence; preserve frozen V029 and MANIFEST; then fresh Astra/xhigh advisory review."
+}

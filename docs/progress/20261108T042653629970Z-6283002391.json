@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-08T04:26:53.629970+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/cash-register-20261107/real-journey/LOCAL-RUNTIME-PLAN.md",
+      "change": "M",
+      "git_blob": "a5457029dde3c6a36be1f290f8312937efb570c4"
+    },
+    {
+      "path": "docs/cash-register-20261107/recovery-preparation/IMPLEMENTATION.md",
+      "change": "A",
+      "git_blob": "84eb5e3a6a468b3fdbafefeed37d7a1c2e1cff77"
+    },
+    {
+      "path": "docs/cash-register-20261107/recovery-preparation/astra-preimplementation.md",
+      "change": "A",
+      "git_blob": "b36502cf50c683658dd946dc8a64e92bdbc0c4eb"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

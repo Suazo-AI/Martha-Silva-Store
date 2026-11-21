@@ -1,0 +1,140 @@
+{
+  "schema": 1,
+  "observedUtc": "2026-11-05T14:27:22.082233+00:00",
+  "sourceWorktree": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-0dda9f02",
+  "baseSha": "5ab44fbb8210f3d6e98f34745700194195c0e1ce",
+  "status": "primary-inspected; independent adjudication pending",
+  "frozenWorkerResult": {
+    "path": "docs\\n5-browser-20261105\\mutations\\RESULT.json",
+    "originalRawSha256": "5a4b64a2d920539479616cf007e1f68086c0a2f2ced400fc41d1cb514192d1a4",
+    "canonicalLfSha256": "7a6e231b4d56916929df916dab6df9f160bf0b1df5542351d8ba4b4853fa1bdd"
+  },
+  "policy": "Original raw hashes describe worker bytes. Public portable hashes normalize CRLF to LF only. README is primary-authored; original README is worker-README.md. Only M03.patch also removes indentation on two blank added lines.",
+  "privateOriginalM03": {
+    "path": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\n5-browser-20261105\\t3-0dda9f02-mutation-20261105\\M03.original.patch",
+    "sha256": "9b50601123c28e53007b3e81382038bcc0eb1729084a3dc90df0eac84c284cda"
+  },
+  "files": [
+    {
+      "source": "docs/n5-browser-20261105/mutations/M01.patch",
+      "sourceRawSha256": "4b70587d0977325b87c76a6f2d17fcb7f60c2e89c5856110fe89fe96d9d0ff73",
+      "publicPath": "docs/n5-browser-20261105/mutations/M01.patch",
+      "publicRawAtImportSha256": "4b70587d0977325b87c76a6f2d17fcb7f60c2e89c5856110fe89fe96d9d0ff73",
+      "publicCanonicalLfSha256": "7b0f0c21488688466c8d5a95473a43110a9b5a40f04cce57b430d45e75ea81e1",
+      "transformation": "byte copy before Git LF normalization"
+    },
+    {
+      "source": "docs/n5-browser-20261105/mutations/M02.patch",
+      "sourceRawSha256": "d5aebcdc880d46fee4f7950f5c06cde60feb76e76637921eaa2c70351429409b",
+      "publicPath": "docs/n5-browser-20261105/mutations/M02.patch",
+      "publicRawAtImportSha256": "d5aebcdc880d46fee4f7950f5c06cde60feb76e76637921eaa2c70351429409b",
+      "publicCanonicalLfSha256": "6ad7dec3e0554fc735fc73116a048bfe440ebcd868738dd90f2d8d1f460bd287",
+      "transformation": "byte copy before Git LF normalization"
+    },
+    {
+      "source": "docs/n5-browser-20261105/mutations/M03.patch",
+      "sourceRawSha256": "9b50601123c28e53007b3e81382038bcc0eb1729084a3dc90df0eac84c284cda",
+      "publicPath": "docs/n5-browser-20261105/mutations/M03.patch",
+      "publicRawAtImportSha256": "9acda125e85ae675de04b4a00400ca247fc49a43d14801fe04aea603dcba4cd5",
+      "publicCanonicalLfSha256": "2fcaa426fdb51c724236664039b10e88141d0fb3b3a199a641021744f43b8bb2",
+      "transformation": "remove two blank-line indentations only"
+    },
+    {
+      "source": "docs/n5-browser-20261105/mutations/README.md",
+      "sourceRawSha256": "ff2d328f422a48e108a35dcadcdb44da1d172b02f5846ed176b67b616c9eaad5",
+      "publicPath": "docs/n5-browser-20261105/mutations/worker-README.md",
+      "publicRawAtImportSha256": "ff2d328f422a48e108a35dcadcdb44da1d172b02f5846ed176b67b616c9eaad5",
+      "publicCanonicalLfSha256": "ff2d328f422a48e108a35dcadcdb44da1d172b02f5846ed176b67b616c9eaad5",
+      "transformation": "rename original report"
+    },
+    {
+      "source": "docs/n5-browser-20261105/mutations/baseline/browser-results.json",
+      "sourceRawSha256": "ec6ae9ae3e1111f8d3f3cb6001c7073e5fd69ef38654ac4e57f615f38cf8d2cd",
+      "publicPath": "docs/n5-browser-20261105/mutations/baseline/browser-results.json",
+      "publicRawAtImportSha256": "ec6ae9ae3e1111f8d3f3cb6001c7073e5fd69ef38654ac4e57f615f38cf8d2cd",
+      "publicCanonicalLfSha256": "ec6ae9ae3e1111f8d3f3cb6001c7073e5fd69ef38654ac4e57f615f38cf8d2cd",
+      "transformation": "byte copy before Git LF normalization"
+    },
+    {
+      "source": "docs/n5-browser-20261105/mutations/baseline/stale-receipt-observation.json",
+      "sourceRawSha256": "003fb893b7ca07e8abc855f0ccc1505b58b31c3451b15c36ca141a7a37fe84d5",
+      "publicPath": "docs/n5-browser-20261105/mutations/baseline/stale-receipt-observation.json",
+      "publicRawAtImportSha256": "003fb893b7ca07e8abc855f0ccc1505b58b31c3451b15c36ca141a7a37fe84d5",
+      "publicCanonicalLfSha256": "003fb893b7ca07e8abc855f0ccc1505b58b31c3451b15c36ca141a7a37fe84d5",
+      "transformation": "byte copy before Git LF normalization"
+    },
+    {
+      "source": "docs/n5-browser-20261105/mutations/baseline/stale-receipt.png",
+      "sourceRawSha256": "d3090e2f6e4e1b128b03136cf066075c92c5d6223e5cbf146224bad8828d660d",
+      "publicPath": "docs/n5-browser-20261105/mutations/baseline/stale-receipt.png",
+      "publicRawAtImportSha256": "d3090e2f6e4e1b128b03136cf066075c92c5d6223e5cbf146224bad8828d660d",
+      "publicCanonicalLfSha256": "5261aebe1fa6aa867f037958dc86bece2090ca86fd4792b60dabccbac3ba32a4",
+      "transformation": "byte copy before Git LF normalization"
+    },
+    {
+      "source": "docs/n5-browser-20261105/mutations/M01/browser-results.json",
+      "sourceRawSha256": "17afd905e7e4c7c0803510546d7e7de8510f7531764c9f68e4b351ad30b7ef75",
+      "publicPath": "docs/n5-browser-20261105/mutations/M01/browser-results.json",
+      "publicRawAtImportSha256": "17afd905e7e4c7c0803510546d7e7de8510f7531764c9f68e4b351ad30b7ef75",
+      "publicCanonicalLfSha256": "17afd905e7e4c7c0803510546d7e7de8510f7531764c9f68e4b351ad30b7ef75",
+      "transformation": "byte copy before Git LF normalization"
+    },
+    {
+      "source": "docs/n5-browser-20261105/mutations/M02/browser-results.json",
+      "sourceRawSha256": "547fbc640e66ec7ac5f82887495a9d60748ad6ebf40d2767579aa8f218d9b708",
+      "publicPath": "docs/n5-browser-20261105/mutations/M02/browser-results.json",
+      "publicRawAtImportSha256": "547fbc640e66ec7ac5f82887495a9d60748ad6ebf40d2767579aa8f218d9b708",
+      "publicCanonicalLfSha256": "547fbc640e66ec7ac5f82887495a9d60748ad6ebf40d2767579aa8f218d9b708",
+      "transformation": "byte copy before Git LF normalization"
+    },
+    {
+      "source": "docs/n5-browser-20261105/mutations/M03/browser-results.json",
+      "sourceRawSha256": "16e4d3ddda73ae26a59dd882c2b3cd3bb06013609015bb1e53ea7c652da7dee5",
+      "publicPath": "docs/n5-browser-20261105/mutations/M03/browser-results.json",
+      "publicRawAtImportSha256": "16e4d3ddda73ae26a59dd882c2b3cd3bb06013609015bb1e53ea7c652da7dee5",
+      "publicCanonicalLfSha256": "16e4d3ddda73ae26a59dd882c2b3cd3bb06013609015bb1e53ea7c652da7dee5",
+      "transformation": "byte copy before Git LF normalization"
+    },
+    {
+      "source": "docs/n5-browser-20261105/mutations/restored/browser-results.json",
+      "sourceRawSha256": "ef48c4167fd96ed09def4a66bfc57dcc6346e63442769b795b1f641f267240eb",
+      "publicPath": "docs/n5-browser-20261105/mutations/restored/browser-results.json",
+      "publicRawAtImportSha256": "ef48c4167fd96ed09def4a66bfc57dcc6346e63442769b795b1f641f267240eb",
+      "publicCanonicalLfSha256": "ef48c4167fd96ed09def4a66bfc57dcc6346e63442769b795b1f641f267240eb",
+      "transformation": "byte copy before Git LF normalization"
+    },
+    {
+      "source": "docs/n5-browser-20261105/mutations/restored/stale-receipt-observation.json",
+      "sourceRawSha256": "003fb893b7ca07e8abc855f0ccc1505b58b31c3451b15c36ca141a7a37fe84d5",
+      "publicPath": "docs/n5-browser-20261105/mutations/restored/stale-receipt-observation.json",
+      "publicRawAtImportSha256": "003fb893b7ca07e8abc855f0ccc1505b58b31c3451b15c36ca141a7a37fe84d5",
+      "publicCanonicalLfSha256": "003fb893b7ca07e8abc855f0ccc1505b58b31c3451b15c36ca141a7a37fe84d5",
+      "transformation": "byte copy before Git LF normalization"
+    },
+    {
+      "source": "docs/n5-browser-20261105/mutations/restored/stale-receipt.png",
+      "sourceRawSha256": "d3090e2f6e4e1b128b03136cf066075c92c5d6223e5cbf146224bad8828d660d",
+      "publicPath": "docs/n5-browser-20261105/mutations/restored/stale-receipt.png",
+      "publicRawAtImportSha256": "d3090e2f6e4e1b128b03136cf066075c92c5d6223e5cbf146224bad8828d660d",
+      "publicCanonicalLfSha256": "5261aebe1fa6aa867f037958dc86bece2090ca86fd4792b60dabccbac3ba32a4",
+      "transformation": "byte copy before Git LF normalization"
+    },
+    {
+      "source": "docs\\n5-browser-20261105\\mutations\\RESULT.json",
+      "sourceRawSha256": "5a4b64a2d920539479616cf007e1f68086c0a2f2ced400fc41d1cb514192d1a4",
+      "publicPath": "docs/n5-browser-20261105/mutations/RESULT.json",
+      "publicRawAtImportSha256": "5a4b64a2d920539479616cf007e1f68086c0a2f2ced400fc41d1cb514192d1a4",
+      "publicCanonicalLfSha256": "7a6e231b4d56916929df916dab6df9f160bf0b1df5542351d8ba4b4853fa1bdd",
+      "transformation": "byte copy before Git LF normalization"
+    }
+  ],
+  "verified": {
+    "originalEvidenceHashes": 13,
+    "privateLogHashes": 5,
+    "privateDriverHashes": 1,
+    "exactOriginalPatchReconstructions": 3,
+    "browserInvocations": 5,
+    "productRestored": true,
+    "testRawSha256": "88eaa468cc92bdd32ca6b066b512c6a8ebd38969cc7f332dbad9b41122269dea"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-11T09:03:51.798031+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "dev/store-station/README.md",
+      "change": "A",
+      "git_blob": "c080fa35108a24f45a237f0db2739c3be2bbf995"
+    },
+    {
+      "path": "dev/store-station/bootstrap-owner.cmd",
+      "change": "A",
+      "git_blob": "66c21aa0d388fffd0e14107af86e7b9e1160e397"
+    },
+    {
+      "path": "dev/store-station/open-register.cmd",
+      "change": "A",
+      "git_blob": "a8e2a469acd296710306ec32506b6a32dd018ae4"
+    },
+    {
+      "path": "dev/store-station/prepare-station.ps1",
+      "change": "A",
+      "git_blob": "23cdc8ea7fe1710020d60593e007d7fb07382e2e"
+    },
+    {
+      "path": "dev/store-station/start-api.cmd",
+      "change": "A",
+      "git_blob": "3c0ca990fb364db9f3b4be17510c8f178bb1a304"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

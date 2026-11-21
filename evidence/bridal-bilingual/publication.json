@@ -1,0 +1,93 @@
+{
+  "schema": 1,
+  "source_sha": "67d4647d5ee65c65dd037d2e664fcdc45c7009d6",
+  "url": "https://martha-silva-preview.martha-silva-denis.workers.dev/",
+  "english_url": "https://martha-silva-preview.martha-silva-denis.workers.dev/?lang=en",
+  "spanish_url": "https://martha-silva-preview.martha-silva-denis.workers.dev/?lang=es",
+  "worker": "martha-silva-preview",
+  "deployment_id": "6b57c8a7-3909-4a7c-a432-7ca7a3c4de00",
+  "version_id": "eb917441-e2f6-443d-acf3-56d94837edb8",
+  "traffic_percent": 100,
+  "activated_utc": "2026-10-26T00:15:12.914711Z",
+  "runtime_outputs": 858,
+  "asset_manifest_entries": 859,
+  "pages": 47,
+  "sample_products": 40,
+  "gallery_positions": 170,
+  "image_headers_checked": 737,
+  "photo_bytes_changed": false,
+  "automated": {
+    "source_sha": "b248b925d5d61a49124e10b0244362ae558c852d",
+    "passed": 153,
+    "failed": 0,
+    "skipped": 0,
+    "localization_cases": 17,
+    "report_sha256": "8531e0ff90fbac6527875c4a6f1e9ed797335d46ad1447c58b2de8f86132abb5",
+    "report_slack_file": "F0CC12XRCKU"
+  },
+  "final_css_patch": {
+    "only_changed_runtime_file": "styles.css",
+    "other_857_runtime_outputs_identical": true,
+    "prepare_build_structure": "PASS",
+    "source_output_mismatches": [],
+    "report_sha256": "4c436056ba2b0e870616a0cc341776576fb0183852d72a4eadb68e3a8b523687",
+    "manifest_sha256": "b7fd0243057c978d4faab8edd87306a406cc943b9b941fbc163fa59e155935be"
+  },
+  "live_http_v3": {
+    "source_sha": "b248b925d5d61a49124e10b0244362ae558c852d",
+    "result": "18/18 PASS",
+    "marker_entries": 858,
+    "sampled_body_hashes": 14,
+    "missing_404": 3,
+    "report_slack_file": "F0CCVLADXA4"
+  },
+  "browser": {
+    "viewport": [
+      1188,
+      761
+    ],
+    "v3_photography_and_representative_shopping_flows": "PASS; search CSS caption identified and patched",
+    "final_css_caption": "PASS: visible and accessible Search in English; visible and accessible Buscar after Spanish switch",
+    "mobile": "not run",
+    "safari": "not run",
+    "performance": "not measured",
+    "final_bride_dimensions": [
+      420,
+      560
+    ],
+    "object_fit": "contain",
+    "final_source_sha": "67d4647d5ee65c65dd037d2e664fcdc45c7009d6",
+    "final_observation_slack_message_ts": "1792973842.576329"
+  },
+  "review_team": {
+    "local_subagents": 3,
+    "cutufay_cloud_subagents": 6,
+    "cutufay_integrator": 1,
+    "slack_thread": "https://denis-projects-group.slack.com/archives/D0CC1G4JS4U/p1792971699179229"
+  },
+  "limits": [
+    "Local heavy tasks not started because required memory admission refused them.",
+    "Local PowerShell and curl HTTP requests timed out; cloud HTTP evidence is separate.",
+    "Historical media recovery remains777/778; current170 gallery references present.",
+    "No real orders, card payments, backend connection or commercial inventory were introduced.",
+    "No GitHub push or hosted CI run."
+  ],
+  "original_worker_modified": false,
+  "original_public_http_probe": "timed out; no new unchanged-hash assertion",
+  "completed_utc": "2026-10-26T00:18:17.153403+00:00",
+  "result": "PUBLISHED_AND_VERIFIED",
+  "live_http_final": {
+    "result": "PASS",
+    "source_sha": "67d4647d5ee65c65dd037d2e664fcdc45c7009d6",
+    "marker_entries": 858,
+    "all_marker_hashes_match": true,
+    "css_body_sha256": "79cbd3ddcd52ac56ad5474f709729a3949f191aaefb77a710c847f2b5842e6fd",
+    "report_slack_file": "F0CCVM2V5KJ",
+    "report_sha256": "fe434c86c7d238b1623d30a24da136230bd8a08bfb37417ab7d0b582d77aafed"
+  },
+  "known_preexisting_or_separate_limits": [
+    "Small responsive source details have no universal physical-pixel no-upscale guarantee.",
+    "Some historical media is served with generic MIME but image decoding was verified in Chrome.",
+    "Preexisting favorites writes with read-only storage and timestamp reformatting were not broadened into this task."
+  ]
+}

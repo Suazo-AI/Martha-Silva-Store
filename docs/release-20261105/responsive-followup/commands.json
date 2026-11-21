@@ -1,0 +1,154 @@
+[
+  {
+    "command": "npm ci --prefix tests/frontend-deps --registry=https://registry.npmjs.org --ignore-scripts --no-audit --no-fund",
+    "exit": 0,
+    "result": "39 packages; package/lock unchanged"
+  },
+  {
+    "command": "node --test tests/luxury-editorial.cjs (untouched base)",
+    "exit": 1,
+    "result": "4/8 pass; 4 historical contract failures"
+  },
+  {
+    "command": "python C:/Users/Jason/AppData/Local/Temp/savia-followup-import.py",
+    "exit": 0,
+    "result": "3105 source hashes verified;1093 files copied"
+  },
+  {
+    "command": "node --test tests/original-catalog.cjs tests/luxury-editorial.cjs (imported before test edits)",
+    "exit": 1,
+    "result": "13/17 pass; same four editorial failures"
+  },
+  {
+    "command": "node --test tests/luxury-editorial.cjs tests/original-catalog.cjs (final)",
+    "exit": 0,
+    "result": "18/18; IA/identity/missing-source negative controls rejected"
+  },
+  {
+    "command": "python -X utf8 tools/responsive_fonts.py",
+    "exit": 0,
+    "result": "8 full deterministic encodes; no WebP regeneration"
+  },
+  {
+    "command": "python prepare.py",
+    "exit": 0,
+    "result": "1559 dist files"
+  },
+  {
+    "command": "python tests/responsive_images.py",
+    "exit": 0,
+    "result": "originals/468 derivatives/source/fallbacks pass"
+  },
+  {
+    "command": "python tests/responsive_fonts.py (final)",
+    "exit": 0,
+    "result": "2/2; lost-character negative control rejected"
+  },
+  {
+    "command": "node docs/release-20261105/responsive-followup/driver.mjs before",
+    "exit": 0,
+    "result": "9 actual navigations; before index timeout retained"
+  },
+  {
+    "command": "node docs/release-20261105/responsive-followup/driver.mjs after",
+    "exit": 0,
+    "result": "9 actual navigations; all three degraded loads complete"
+  },
+  {
+    "command": "python tests/check.py",
+    "exit": 1,
+    "result": "one invocation; reproducible build and fixture,23 backend,19 adapters,9 migration,9 original-catalog pass; asset-audit 3 WinError1314 errors"
+  },
+  {
+    "command": "node --test dev/savia-staff-ui/dom.test.mjs",
+    "exit": 1,
+    "result": "MODULE_NOT_FOUND jsdom; corrected process-only NODE_PATH"
+  },
+  {
+    "command": "$env:NODE_PATH=(Resolve-Path tests/frontend-deps/node_modules).Path; node --test dev/savia-staff-ui/dom.test.mjs",
+    "exit": 0,
+    "result": "5/5; previous NODE_PATH restored"
+  },
+  {
+    "command": "git diff --check",
+    "exit": 0
+  },
+  {
+    "command": [
+      "python",
+      "tests/test_check.py"
+    ],
+    "exit": 0,
+    "privateLog": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-stage-0.log",
+    "sha256": "be377122b0518a9dde304ab3c26fd06a14e8d4507d20a72089bc79ad16ed5d83"
+  },
+  {
+    "command": [
+      "python",
+      "tests/test_sync_progress.py"
+    ],
+    "exit": 0,
+    "privateLog": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-stage-1.log",
+    "sha256": "a6f6d59ba7874b497d2598098d74fc400fb0e91adc0f50822d33d5d756a70973"
+  },
+  {
+    "command": [
+      "python",
+      "tests/test_delivery_status.py"
+    ],
+    "exit": 0,
+    "privateLog": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-stage-2.log",
+    "sha256": "714d41bc5b211930be67c461004f2a939c216ff52297041fa837885c52210adc"
+  },
+  {
+    "command": [
+      "python",
+      "tools/delivery_status.py",
+      "--check"
+    ],
+    "exit": 0,
+    "privateLog": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-stage-3.log",
+    "sha256": "9775f3ff3161d2ec33c8121ac13215e2b106161f1080f0dc50118f0c87532e82"
+  },
+  {
+    "command": [
+      "python",
+      "tests/catalog-staging.py"
+    ],
+    "exit": 1,
+    "privateLog": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-stage-4.log",
+    "sha256": "afcf4170c361c82eb046659cafdf8815346022be0d4f663a6e4b8e6952d24f99"
+  },
+  {
+    "command": [
+      "node",
+      "tests/frontend-runtime.cjs"
+    ],
+    "exit": 0,
+    "privateLog": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-stage-5.log",
+    "sha256": "bd23efc107281f32ce1f92875ad1d34063ff43dff14b40cff9b243f67f4097a8"
+  },
+  {
+    "command": [
+      "node",
+      "tests/localization-runtime.cjs"
+    ],
+    "exit": 0,
+    "privateLog": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-stage-6.log",
+    "sha256": "0057997eb70660096b4e0b654521a45ab9d25ca852f0c0e6625a049922349217"
+  },
+  {
+    "command": [
+      "python",
+      "tests/structure.py"
+    ],
+    "exit": 0,
+    "privateLog": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-stage-7.log",
+    "sha256": "4416c3fddecccca779b2529f067892c0b61cf5a8445f2962f995c64a25e2514b"
+  },
+  {
+    "command": "node --check for original tests/check.py syntax file set",
+    "files": 19,
+    "exit": 0
+  }
+]

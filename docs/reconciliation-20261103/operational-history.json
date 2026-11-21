@@ -1,0 +1,173 @@
+{
+  "exported_on": "2026-11-03",
+  "source_cutoff": "2026-10-31 local / 2026-11-01 UTC",
+  "not_a_current_runtime_probe": true,
+  "synthetic_only": true,
+  "criteria": {
+    "pass": 13,
+    "fail": 0,
+    "skip": 0,
+    "not_run": 9,
+    "total": 22,
+    "rows": [
+      {
+        "id": "ENV-01",
+        "status": "PASS"
+      },
+      {
+        "id": "MIG-01",
+        "status": "PASS"
+      },
+      {
+        "id": "INV-01",
+        "status": "PASS"
+      },
+      {
+        "id": "AUTH-01",
+        "status": "PASS"
+      },
+      {
+        "id": "ROLE-01",
+        "status": "NOT RUN"
+      },
+      {
+        "id": "SALE-01",
+        "status": "PASS"
+      },
+      {
+        "id": "MOV-01",
+        "status": "PASS"
+      },
+      {
+        "id": "PERSIST-01",
+        "status": "PASS"
+      },
+      {
+        "id": "IDEM-01",
+        "status": "PASS"
+      },
+      {
+        "id": "CONC-01",
+        "status": "PASS"
+      },
+      {
+        "id": "STOCK-00",
+        "status": "NOT RUN"
+      },
+      {
+        "id": "ROLL-01",
+        "status": "NOT RUN"
+      },
+      {
+        "id": "SUP-01",
+        "status": "PASS"
+      },
+      {
+        "id": "RETURN-01",
+        "status": "PASS"
+      },
+      {
+        "id": "SCOPE-01",
+        "status": "NOT RUN"
+      },
+      {
+        "id": "AUTHORITY-01",
+        "status": "NOT RUN"
+      },
+      {
+        "id": "RECOVERY-01",
+        "status": "PASS"
+      },
+      {
+        "id": "RES-01",
+        "status": "NOT RUN"
+      },
+      {
+        "id": "ADJ-01",
+        "status": "NOT RUN"
+      },
+      {
+        "id": "SESSION-01",
+        "status": "NOT RUN"
+      },
+      {
+        "id": "LOSS-01",
+        "status": "PASS"
+      },
+      {
+        "id": "CONC-LAST-01",
+        "status": "NOT RUN"
+      }
+    ]
+  },
+  "critical_ui": {
+    "pass": 5,
+    "total": 5,
+    "ids": [
+      "AUTH-01",
+      "INV-01",
+      "SALE-01",
+      "MOV-01",
+      "PERSIST-01"
+    ]
+  },
+  "internal_migrations": [
+    "20261025085402_InitialInternalSavia",
+    "20261027224500_InternalBranchScope"
+  ],
+  "summary": "Historical Internal migration, Owner browser sale, receipt recovery, API-only persistence, and synthetic backup/restore. Does not accept the current cashier candidate.",
+  "private_source_hashes": [
+    {
+      "path": "docs/savia-internal/sql-local-20261031/internal-migrations.json",
+      "sha256": "68608deb9405cae1f8b1abf213bcb910bde5d5bf07d24cf9bbec8826edf3a56d"
+    },
+    {
+      "path": "docs/savia-internal/sql-local-20261031/api-only-persistence-proof.json",
+      "sha256": "5ddb5b71f6037161c23de6f1077dbfc726307111548454bb94d90a240ccf8330"
+    },
+    {
+      "path": "docs/savia-internal/sql-local-20261031/ui-sale-proof.json",
+      "sha256": "065faba473e37cf4b0736f18d63bafad0839c971cd7b4a0857dd31f0d3ebdfdf"
+    },
+    {
+      "path": "docs/savia-internal/sql-local-20261031/ui-response-loss-proof.json",
+      "sha256": "58bd652efadebbbb552e24acf1bf6938fc7bf468d76fd3aa678658bd1f1141b6"
+    },
+    {
+      "path": "docs/savia-internal/sql-local-20261031/restore-proof.json",
+      "sha256": "cbc809140dae75de1d2dc44489a77d72536b9bf468ed2c98a0f9c58a448619da"
+    },
+    {
+      "path": "docs/savia-internal/sql-local-20261031/verification.json",
+      "sha256": "8ad9b61ac0770a1393d6c68bb145e2c1520c7a2d30bba9a4f65ef514fedeba73"
+    },
+    {
+      "path": "docs/savia-internal/sql-local-20261031/test-run-summary.json",
+      "sha256": "51f2ff084221515531cbf1de6ac9c58d62bc6949313fa1989727164ccc2b2cd2"
+    },
+    {
+      "path": "docs/savia-internal/sql-local-20261031/TEST-MATRIX.md",
+      "sha256": "07ade2c69bb80756db9a3e0f47967249fb012bd28625fa6499eb6f8a0740079e"
+    },
+    {
+      "path": "docs/savia-internal/sql-local-20261031/CURRENT.md",
+      "sha256": "82ce6566b0fd64a9191d1d865e974eb981debd2d32cd0f49ac2628ad73dfbeaf"
+    }
+  ],
+  "excluded_directories": [
+    {
+      "directory": "docs/savia-internal/sql-local-20261031/",
+      "file_count": 61,
+      "bytes": 581016,
+      "inventory_sha256": "7dd258da29cc3d59de735b9592728b6c05f8a92219604ef3911a4fee1ab76b95",
+      "reason": "Private operational originals; authorization/runtime material or unaccepted design brief. Retained, not published."
+    },
+    {
+      "directory": "docs/savia-internal/design-exploration-20261031/",
+      "file_count": 2,
+      "bytes": 14507,
+      "inventory_sha256": "d68ef88c8ac3efebe9410cdc78f2ce9742e544aa9904f96dd6b3ff236fb1a56f",
+      "reason": "Private operational originals; authorization/runtime material or unaccepted design brief. Retained, not published."
+    }
+  ]
+}

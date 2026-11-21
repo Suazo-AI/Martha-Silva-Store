@@ -1,0 +1,80 @@
+{
+  "task_id": "savia-local-partition-verifier-857bea1-20261106",
+  "status": "CANDIDATE RETURNED; primary acceptance pending",
+  "mode": "BUILD",
+  "source_sha": "857bea105fe1dfa045114a5569ba5cb4c31b3391",
+  "identity": {
+    "harness": "T3 Code / OpenCode",
+    "provider": "opencode",
+    "model": "deepseek-v4.1-flash-free",
+    "variant": "high",
+    "agent": "build",
+    "tokens": "unknown",
+    "cost": "unknown"
+  },
+  "changed": [
+    "backend/tests/verify_full_suite.py",
+    "backend/tests/test_verify_full_suite.py",
+    "docs/local-validation-20261106/partition-verifier/README.md",
+    "docs/local-validation-20261106/partition-verifier/RESULT.json"
+  ],
+  "behavior": {
+    "full_suite": "unchanged --min-tests contract; existing sanitized report fields preserved",
+    "partition_cli": "--manifest <PARTITIONS.json> --partition {A,C,E} <results_dir>",
+    "group_rules": "A is A; C is C.* plus C1; E is E; D and browser evidence excluded",
+    "exactness": "exact method set, exact per-method multiplicity, all Passed, unique testId, unique nonempty executionId",
+    "failure_controls": "malformed manifest, unknown partition, duplicate method, partition count mismatch, omitted or extra method, missing occurrence, failed/skipped, duplicate identity",
+    "sanitization": "method names and counters only; no arguments, stdout, messages, traces, or secrets",
+    "frozen_inventory": {
+      "A": {"methods": 195, "cases": 552},
+      "C": {"methods": 77, "cases": 77},
+      "E": {"methods": 2, "cases": 2}
+    }
+  },
+  "verification": {
+    "focused_tests": {
+      "command": "python -m unittest discover -s backend/tests -p test_verify_full_suite.py",
+      "tests": 16,
+      "result": "OK",
+      "exit": 0
+    },
+    "cli_intact": {
+      "command": "python backend/tests/verify_full_suite.py --manifest docs/local-validation-20261106/PARTITIONS.json --partition A C:\\Users\\Jason\\AppData\\Local\\Temp\\opencode\\partition-verifier-check\\intact",
+      "result": "Partition A: passed; 552/552 cases passed",
+      "exit": 0
+    },
+    "cli_corrupt": {
+      "command": "python backend/tests/verify_full_suite.py --manifest docs/local-validation-20261106/PARTITIONS.json --partition A C:\\Users\\Jason\\AppData\\Local\\Temp\\opencode\\partition-verifier-check\\corrupt",
+      "result": "Partition A: failed; 551/551 cases passed; one multiplicityMismatch",
+      "exit": 1
+    },
+    "diff_check": {"command": "git diff --check", "exit": 0},
+    "lf_bindings": {
+      "algorithm": "SHA256 CRLF->LF",
+      "backend/tests/verify_full_suite.py": "86a5f08e4411bd25df18f82853145492f48b19069d1d8f4699d1de3c0b1c1ec6",
+      "backend/tests/test_verify_full_suite.py": "648c43eda0b62664fadc947b064198d6f2be1155b370052461fbebdc282838fb",
+      "docs/local-validation-20261106/PARTITIONS.json": "d2feccd4c8af3b8358865b1bc23e15e287a28f852e4e70b3357a7d4f39caaad8"
+    }
+  },
+  "not_run": [
+    "real A/C/E TRX execution",
+    "any SQL, Docker, browser, registry, TLS, account, or service action",
+    "dotnet build or dotnet test",
+    "independent review or primary acceptance",
+    "the six historical SQL failures remain unverified and unsolved"
+  ],
+  "limits": {
+    "evidence_scope": "synthetic TRX and public frozen manifest only",
+    "focused_test_invocations_total": 4,
+    "focused_test_invocations_after_first_correction": 3,
+    "no_stage_commit_push_or_workflow": true
+  },
+  "unverified": [
+    "real runtime method multiplicities",
+    "SQL regression status",
+    "browser/UI behavior",
+    "production readiness"
+  ],
+  "blockers": [],
+  "next_action": "primary reviews the diff and evidence, then integrates serially if accepted"
+}

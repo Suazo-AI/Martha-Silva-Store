@@ -1,0 +1,23 @@
+{
+  "checks": [
+    {
+      "name": "observed browser response passes",
+      "pass": true
+    },
+    {
+      "name": "missing browser observation rejects and never fetches",
+      "pass": true
+    },
+    {
+      "name": "replacement fetch origin rejects",
+      "pass": true
+    },
+    {
+      "name": "unattributed response rejects",
+      "pass": true
+    }
+  ],
+  "passed": 4,
+  "failed": 0,
+  "replacementCalls": 0
+}

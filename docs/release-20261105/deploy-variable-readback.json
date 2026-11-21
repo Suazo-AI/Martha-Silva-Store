@@ -1,0 +1,35 @@
+{
+  "observedUtc": "2026-11-05T20:45:05Z",
+  "host": "SUAZO-PC",
+  "mode": "read-only",
+  "repository": "Suazo-AI/Martha-Silva-Store",
+  "sourceSha": "6f304a7571a554bb8968e081a14985829aee3dfb",
+  "workflow": ".github/workflows/ci.yml",
+  "workflowSha256Lf": "d4df65bf2019271cf31377564fbbac232c5daaa116f990bdf4eaa1a97dd29a62",
+  "observations": [
+    {
+      "command": "npx.cmd -y gh-axi api repos/Suazo-AI/Martha-Silva-Store/actions/variables/CLOUDFLARE_DEPLOY_ENABLED --jq '{name,value,updated_at}'",
+      "exit": 1,
+      "result": "gh: Not Found (HTTP 404)",
+      "interpretation": "Inconclusive alone; absence established by successful collection read below."
+    },
+    {
+      "command": "npx.cmd -y gh-axi api repos/Suazo-AI/Martha-Silva-Store/actions/variables --jq '{total_count,variables: [.variables[] | {name,updated_at}]}'",
+      "exit": 0,
+      "result": {"total_count": 0, "variables": []}
+    },
+    {
+      "command": "npx.cmd -y gh-axi api repos/Suazo-AI/Martha-Silva-Store --jq '{owner_type: .owner.type,default_branch}'",
+      "exit": 0,
+      "result": {"owner_type": "User", "default_branch": "main"}
+    }
+  ],
+  "workflowInspection": {
+    "requires": ["non-pull-request event", "refs/heads/main", "vars.CLOUDFLARE_DEPLOY_ENABLED == 'true'", "nonempty account id", "nonempty preview URL"],
+    "jobEnvironmentDeclared": false,
+    "conclusion": "The deployment condition is not satisfied by the observed configuration. No Actions variable exists at repository scope, there is no organization owner, and the deploy job declares no environment."
+  },
+  "limits": ["Point-in-time read; recheck before integration or deployment.", "No workflow dispatch, merge, deployment or configuration mutation.", "No adversarial deployment rejection executed.", "C1 remains open for the stock exception mechanism."],
+  "lesson": "A named-variable 404 is ambiguous. Resolve it using a successful collection read and inspect the workflow context without changing settings.",
+  "commandCorrection": "An intermediate jq filter failed because cmd removed a quoted string literal. Replaced it with a projection containing no string literal; no external mutation occurred."
+}

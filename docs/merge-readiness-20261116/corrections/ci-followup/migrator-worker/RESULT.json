@@ -1,0 +1,168 @@
+{
+  "task_id": "savia-pr7-migrator-atomic-ac0bb9f-20261117",
+  "status": "returned-offline-candidate-not-accepted",
+  "source_sha": "ac0bb9f47f5a12ffc0626f7737a347dea9b37900",
+  "head": "ac0bb9f47f5a12ffc0626f7737a347dea9b37900",
+  "host": "SUAZO-PC",
+  "provider": "codex",
+  "requested_model": "gpt-6.1-sol",
+  "exposed_model": "gpt-6.1-sol",
+  "requested_reasoning": "high",
+  "exposed_reasoning": "high",
+  "worktree": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-d027758a-581f6d3ad87e6883",
+  "branch": "t3/atomic-migrator-ci-fix",
+  "sdk": "10.0.402",
+  "test_build_invocations": 8,
+  "cached_locked_restore_invocations": 1,
+  "counts": {
+    "final-fixture-correction": {
+      "total": 24,
+      "passed": 23,
+      "failed": 1,
+      "notExecuted": 0
+    },
+    "final": {
+      "total": 24,
+      "passed": 24,
+      "failed": 0,
+      "notExecuted": 0
+    },
+    "green": {
+      "total": 22,
+      "passed": 22,
+      "failed": 0,
+      "notExecuted": 0
+    },
+    "ledger-outside-transaction": {
+      "total": 24,
+      "passed": 20,
+      "failed": 4,
+      "notExecuted": 0
+    },
+    "missing-rollback": {
+      "total": 24,
+      "passed": 13,
+      "failed": 11,
+      "notExecuted": 0
+    },
+    "missing-state-validation": {
+      "total": 24,
+      "passed": 17,
+      "failed": 7,
+      "notExecuted": 0
+    },
+    "original-semantics": {
+      "total": 22,
+      "passed": 9,
+      "failed": 13,
+      "notExecuted": 0
+    }
+  },
+  "commands": [
+    {
+      "command": "dotnet restore savia/Savia.slnx --locked-mode --source C:/Users/Jason/.nuget/packages -p:NuGetAudit=false",
+      "exit": 0
+    },
+    {
+      "command": [
+        "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+        "test",
+        "savia/tests/Savia.Tests",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName~MigratorExecutionTests",
+        "--logger",
+        "trx;LogFileName=NAME.trx",
+        "--results-directory",
+        "docs\\merge-readiness-20261116\\corrections\\ci-followup\\migrator-worker",
+        "-v",
+        "q"
+      ],
+      "runs": [
+        {
+          "name": "initial-compile",
+          "exit": 1,
+          "errors": [
+            "CS0108 RecordingConnection.Events hides Component.Events",
+            "CS0162 constant original-semantics mutation creates unreachable code"
+          ],
+          "correction": "Trace property and runtime-true mutation condition"
+        },
+        {
+          "name": "original-semantics",
+          "exit": 1
+        },
+        {
+          "name": "green",
+          "exit": 0
+        },
+        {
+          "name": "missing-rollback",
+          "exit": 1
+        },
+        {
+          "name": "missing-state-validation",
+          "exit": 1
+        },
+        {
+          "name": "ledger-outside-transaction",
+          "exit": 1
+        },
+        {
+          "name": "final-fixture-correction",
+          "exit": 1,
+          "cause": "CRLF prefix expected without normalization in splitter assertion",
+          "correction": "Normalize expected prefix CRLF to LF"
+        },
+        {
+          "name": "final",
+          "exit": 0
+        }
+      ]
+    }
+  ],
+  "mutations_restored": true,
+  "restored_helper_sha256_raw": "fdffab36bee24327107849bada013ca6218792b8c712b4c6adc9408e40358f72",
+  "not_run": [
+    "SQL/DB connections, fresh-install SQL207 reproduction, real transaction rollback/DDL proof",
+    "Complete production migrator executable build (separate project absent from solution restore)",
+    "Repository whole checker",
+    "GitHub/workflow refresh, staging, commit, push, merge, deploy"
+  ],
+  "blockers": [
+    {
+      "scope": "SQL runtime",
+      "cause": "Forbidden by worker authority; one-shot authority consumed",
+      "attempt": "No connection attempted",
+      "owner": "primary/Jason",
+      "next_action": "Obtain fresh scoped runtime authority before fresh-install SQL checks",
+      "completion_check": "Approved isolated SQL run proves migration/ledger rollback and V028/V029 fresh-install success"
+    },
+    {
+      "scope": "Full production executable build",
+      "cause": "Separate migrator project absent from restored solution; its assets file unavailable; one cached locked restore consumed",
+      "attempt": "Checked solution membership and existing assets; compiled actual helper through test source link",
+      "owner": "primary",
+      "next_action": "Run cached locked restore and build for savia/deploy/migrator after integration under primary limits",
+      "completion_check": "Production migrator build exit 0"
+    }
+  ],
+  "next_action": "Primary serially inspect/copy exact hashed files; review combined candidate with Astra/xhigh.",
+  "usage": {
+    "tokens": "not exposed",
+    "provider_cost": "not exposed"
+  },
+  "final_verification": {
+    "manifest_paths_verified": 4,
+    "raw_and_lf_hashes_verified": 8,
+    "patch_covers_all_source_files": true,
+    "git_diff_check_exit": 0,
+    "final_test_exit": 0,
+    "final_tests": {
+      "passed": 24,
+      "failed": 0,
+      "skipped": 0
+    },
+    "working_tree_head_unchanged": true
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-04T06:19:45.357454+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/DECISIONS.md",
+      "change": "M",
+      "git_blob": "1356ee5a2b2f77391fc52feadb1a736ed24a2119"
+    },
+    {
+      "path": "docs/NO-MISTAKES.md",
+      "change": "M",
+      "git_blob": "f70c52e6af73275bbe6ddea0ee09207120053ef3"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "1960f4563d47985e087d0f06fd1e23c334c3539c"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "change": "M",
+      "git_blob": "e48602b6244ad22a283804ea37caf7bd5eb0a8c7"
+    },
+    {
+      "path": "docs/sprint-20261104/CUESTIONARIO-MARTHA.md",
+      "change": "M",
+      "git_blob": "e7d7144fe683cc20103d10968014db9381d2db3c"
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/README.md",
+      "change": "A",
+      "git_blob": "736a69765cdce7f1ad8814c9bbd2a8c6876c9ce0"
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/REVIEW.md",
+      "change": "A",
+      "git_blob": "38d0c26851d034f962acd61a368e259e4e09f6e7"
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/after.mp4",
+      "change": "A",
+      "git_blob": "b75d1016ea547ab1bbe7642dcfef3aa62177739d"
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/browser-proof.json",
+      "change": "A",
+      "git_blob": "41faf710954e616f428c062b92c5c6b97eee7c54"
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/index.html",
+      "change": "A",
+      "git_blob": "0337c3ae5311211faf3a1b0d0fe63c6bb188f970"
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/publication-hashes.json",
+      "change": "A",
+      "git_blob": "7c862cd923cb039dbd535c0a4f9af7508e98002d"
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/research/fiscal/REPORT.md",
+      "change": "A",
+      "git_blob": "84c99e1ece7073a2cd4fc419b13e794b27caaa51"
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/research/fiscal/sources.json",
+      "change": "A",
+      "git_blob": "ea1c11cfe7afa647fe7b11d2576cd4e58cb8f258"
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/research/migration/REPORT.md",
+      "change": "A",
+      "git_blob": "7ca5baffdc46a452dd61f5db1af214dd9886fb64"
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/research/migration/sources.json",
+      "change": "A",
+      "git_blob": "fd30a5fca0db0c11f4caf319a3387a0562df12a8"
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/research/ops/REPORT.md",
+      "change": "A",
+      "git_blob": "01fe2cbba885b2d89ab4516e87d59e7ce2b79d73"
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/research/ops/sources.json",
+      "change": "A",
+      "git_blob": "146ef28c6acc82e314cebc2cd8fd9f7e7c554bda"
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/results.json",
+      "change": "A",
+      "git_blob": "a2212ba77df3f031262e2fc09196ab32a56cd474"
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/simulate.py",
+      "change": "A",
+      "git_blob": "49e91e539c31b48a57212c2a2cdd725959837f9f"
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/simulation-desktop.png",
+      "change": "A",
+      "git_blob": "64d3d560ca72e1b3172ac51104a8813edd5206f2"
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/simulation-mobile.png",
+      "change": "A",
+      "git_blob": "bee235e8ddbb370e1a8329986142381e4c4fa3aa"
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/template.html",
+      "change": "A",
+      "git_blob": "9fb38d067b17adaf621bcd42ee4066cb15570269"
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/trello-receipt.json",
+      "change": "A",
+      "git_blob": "812d7bfb07ffcb9be2930ae4df1a7d855b339a73"
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/verification/independent-artifact-checks.json",
+      "change": "A",
+      "git_blob": "e8b7b10117dae692d02d3ad67b8bbc9d65ae2d0b"
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/verification/summary.json",
+      "change": "A",
+      "git_blob": "be4b387c8654637ce37f8135ad3273862e50111b"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

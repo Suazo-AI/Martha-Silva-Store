@@ -1,0 +1,138 @@
+{
+  "fictional_only": true,
+  "checks": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "action": "active-control",
+      "pass": true,
+      "observed": {
+        "buttons": 2,
+        "modal": true,
+        "pickerFocused": true,
+        "posts": 0
+      }
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "action": "navigation",
+      "pass": true,
+      "observed": {
+        "dialogUnchanged": true,
+        "focusUnchanged": true,
+        "modalClosed": true,
+        "operatorUnchanged": true,
+        "posts": 0,
+        "screenUnchanged": true,
+        "tokenUnchanged": true
+      }
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "action": "logout",
+      "pass": true,
+      "observed": {
+        "dialogUnchanged": true,
+        "focusUnchanged": true,
+        "modalClosed": true,
+        "operatorUnchanged": true,
+        "posts": 0,
+        "screenUnchanged": true,
+        "tokenUnchanged": true
+      }
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "action": "account",
+      "pass": true,
+      "observed": {
+        "dialogUnchanged": true,
+        "focusUnchanged": true,
+        "modalClosed": true,
+        "operatorUnchanged": true,
+        "posts": 0,
+        "screenUnchanged": true,
+        "tokenUnchanged": true
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "action": "active-control",
+      "pass": true,
+      "observed": {
+        "buttons": 2,
+        "modal": true,
+        "pickerFocused": true,
+        "posts": 0
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "action": "navigation",
+      "pass": true,
+      "observed": {
+        "dialogUnchanged": true,
+        "focusUnchanged": true,
+        "modalClosed": true,
+        "operatorUnchanged": true,
+        "posts": 0,
+        "screenUnchanged": true,
+        "tokenUnchanged": true
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "action": "logout",
+      "pass": true,
+      "observed": {
+        "dialogUnchanged": true,
+        "focusUnchanged": true,
+        "modalClosed": true,
+        "operatorUnchanged": true,
+        "posts": 0,
+        "screenUnchanged": true,
+        "tokenUnchanged": true
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "action": "account",
+      "pass": true,
+      "observed": {
+        "dialogUnchanged": true,
+        "focusUnchanged": true,
+        "modalClosed": true,
+        "operatorUnchanged": true,
+        "posts": 0,
+        "screenUnchanged": true,
+        "tokenUnchanged": true
+      }
+    }
+  ],
+  "passed": true,
+  "browser_closed": true,
+  "server_closed": true
+}

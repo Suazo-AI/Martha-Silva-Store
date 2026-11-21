@@ -1,0 +1,83 @@
+{
+  "id": "6aea5de74b0da8bdf86eff30",
+  "name": "C8 [Denis Alvarez · A] N2, N6 y N7 en la interfaz",
+  "desc": "## Estado verificado 2026-11-03 (America/Managua): EN CURSO, 4/5\n\nC8 local verificado sobre base `775f301bc195c43baedc68c86f4e71affe92ef95`.\nEste estado reemplaza el plan anterior que decia NOT RUN.\n\n- Interfaz: 9/9 enfocados, 45/45 navegador y 45/45 staff JS; evidencia existente reutilizada, sin repetir C3 ni navegador.\n- Rojo-verde UI: reversion selectiva app 7 PASS/2 FAIL; login 6 PASS/3 FAIL. Producto restaurado.\n- Revision independiente de cinco archivos: APTO CON REPAROS, sin defecto nuevo accionable confirmado.\n- SDK portable .NET `10.0.402` instalado en `C:/Users/Jason/.dotnet-sdk-10.0.402`; ZIP oficial verificado SHA512. SDK del sistema 8.0.422 intacto; sin PATH global.\n- Expiracion API: nuevo Fact `Expired_cookie_is_rejected_by_fake_TimeProvider_before_database_resolution`, 1/1 PASS. Dos GET /internal/api/security/me devuelven 401 despues de avanzar solo TimeProvider falso; DB resolutions 0. Control no expirado alcanza guarda DB antes de configurar SQL.\n- Regresiones InternalSecurityTests: 49/49 PASS, incluye nuevo Fact; 0 FAIL/0 SKIP. Restore locked desde cache, exit 0.\n- Primary reviso diff, logs, TRX originales y hashes; aceptacion local. Sin cambios de seguridad productiva, SQL, Docker, certificados ni reloj global.\n\nEvidencia local canonica: `C:/Users/Jason/MARTHA-SILVA/github/docs/c8-ui-20261103/api-expiry-completion-20261103/` (report.md, primary-acceptance.json, comandos, TRX sanitizados y backend-test.patch).\nPatch backend SHA256: `927ea77b1a63c134cae03dac13e6545d624a05a8f3aabb501d01fef100a23e09`.\nPatch UI previo SHA256: `0f87604ec56d081fc2f2432fcfbd7c2ecdd74524240ce7db7fb4fa8442408f5c`.\nWorktree aislado: `C:/Users/Jason/MARTHA-SILVA/test-runs/c8-api-expiry-20261103`; seis archivos modificados y docs conservados intencionalmente. Recursos propios liberados.\n\nPendiente unico de cierre: CI del candidato que contiene ambos parches. No existe commit/push de este lote; CI de otros heads no cubre estos bytes. No se marca CI ni se mueve la tarjeta a Hecho. C11 conserva dependencia C8.\nResponsable siguiente: primary/Jason, cuando autorice publicar el candidato, verificar CI de ese SHA. Comprobacion de cierre: CI passed y criterio 5/5; no se autoriza esa publicacion en este lote.\nNo hubo commit, push, merge, despliegue ni cambios de seguridad en este lote. La evidencia esta guardada localmente, no publicada en GitHub.\n\n---\n**Objetivo**\nN2, N6 y N7 en la interfaz:\n- Recargar y recuperar el **mismo intento**.\n- Venta incierta durante cambio de identidad **conserva la clave** y no reenvía como otro actor.\n- Logout, expiración absoluta (`TimeProvider` falso en la API) y revocación, **descartando respuestas tardías tras 401**.\n\n**Dueño y carril**\nDenis Alvarez · carril A.\n\n**Bloqueado por**\nNinguno por C3: C3 cerrada el 2026-11-03 con revision independiente aceptada por Jason, head 775f301bc195c43baedc68c86f4e71affe92ef95.\n\n**Bloquea**\nC11.\n\n**Archivos**\n- `dev/savia-staff-ui/**`\n- `tests/browser-mock-validation.mjs`\n\n**Verificación**\n- Pruebas nuevas en `tests/browser-mock-validation.mjs` en verde.\n- Rojo-verde: cada prueba falla sin el cambio de UI correspondiente.\n- Arnés de navegador completo en verde; CI del PR en verde.\n\n**Evidencia esperada**\nSalida del arnés (casos N2, N6, N7 y total), navegador y versión, run de CI.\n\n**Criterio de cierre**\nN2, N6 y N7 cubiertos en la interfaz con pruebas rojo-verde; CI en verde.\n\n**Plantilla READY**\n```\nPara mover a \"En revisión\", comentar:\nREADY\nPR: <url>\nhead: <sha40>\nbase: origin/main@<sha40>\nci: <run url> passed=<k> failed=0 pending=0 skipped=<s>\nevidencia: <ruta o run>\nno ejecutado: <qué y por qué>\n```",
+  "idList": "6aea5d677e8b3123293bcaa8",
+  "url": "https://trello.com/c/61IxxolB/11-c8-denis-alvarez-a-n2-n6-y-n7-en-la-interfaz",
+  "checklists": [
+    {
+      "id": "6aea5dfd3a346182e7386fd5",
+      "name": "Criterios de cierre",
+      "idBoard": "6aea5bcd3e4793672218d44c",
+      "idCard": "6aea5de74b0da8bdf86eff30",
+      "pos": 140737488355328,
+      "checkItems": [
+        {
+          "id": "6aea5e7e23ddd453210c01fd",
+          "name": "Recargar y recuperar el mismo intento",
+          "nameData": {
+            "emoji": {}
+          },
+          "pos": 1,
+          "state": "complete",
+          "due": null,
+          "dueReminder": null,
+          "idMember": null,
+          "idChecklist": "6aea5dfd3a346182e7386fd5"
+        },
+        {
+          "id": "6aea5e7e0403a1cb8e099584",
+          "name": "Venta incierta durante cambio de identidad conserva la clave y no reenvía como otro actor",
+          "nameData": {
+            "emoji": {}
+          },
+          "pos": 2,
+          "state": "complete",
+          "due": null,
+          "dueReminder": null,
+          "idMember": null,
+          "idChecklist": "6aea5dfd3a346182e7386fd5"
+        },
+        {
+          "id": "6aea5e7f8e4e33b9e808f455",
+          "name": "Logout, expiración absoluta (TimeProvider falso en la API) y revocación descartan respuestas tardías tras 401",
+          "nameData": {
+            "emoji": {}
+          },
+          "pos": 3,
+          "state": "complete",
+          "due": null,
+          "dueReminder": null,
+          "idMember": null,
+          "idChecklist": "6aea5dfd3a346182e7386fd5"
+        },
+        {
+          "id": "6aea5e801d9f61a330573226",
+          "name": "Pruebas rojo-verde en tests/browser-mock-validation.mjs y arnés completo en verde",
+          "nameData": {
+            "emoji": {}
+          },
+          "pos": 4,
+          "state": "complete",
+          "due": null,
+          "dueReminder": null,
+          "idMember": null,
+          "idChecklist": "6aea5dfd3a346182e7386fd5"
+        },
+        {
+          "id": "6aea5e8098e764681b30eac2",
+          "name": "CI en verde",
+          "nameData": {
+            "emoji": {}
+          },
+          "pos": 5,
+          "state": "incomplete",
+          "due": null,
+          "dueReminder": null,
+          "idMember": null,
+          "idChecklist": "6aea5dfd3a346182e7386fd5"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,150 @@
+{
+  "observedUtc": "2026-11-04T02:18:31.146117+00:00",
+  "acceptedLocalDate": "2026-11-03",
+  "timezone": "America/Managua",
+  "decisionOwner": "Jason",
+  "actions": [
+    {
+      "target": "6aea5e57d64fe07fd3f98734",
+      "action": "replaceCriterionWithAcceptedExceptionAndComplete"
+    },
+    {
+      "target": "6aea5de62bcaaced705f1942",
+      "action": "moveToHechoAndRecordAcceptance"
+    },
+    {
+      "target": "docs/pipeline/ledger.json#C7",
+      "action": "doneWithAcceptedCriterionAndEvidence"
+    }
+  ],
+  "ledgerBaselineValidation": {
+    "command": "python tools/delivery_status.py --check",
+    "exit": 0,
+    "output": "Ledger: valid; 34 items."
+  },
+  "acceptedCriterion": "Autorización, alcance y CSRF sin escrituras; remap 409 con un único registro durable, sin cambios de negocio ni duplicación al reintentar (excepción aceptada por Jason)",
+  "evidenceMode": "REUSED_NOT_RERUN",
+  "reviewedHead": "260b75951729189d987ffe423218ab1643bcfa3c",
+  "trelloReadback": {
+    "verified": true,
+    "list": "Hecho (READY validado)",
+    "complete": 6,
+    "total": 6,
+    "card": {
+      "id": "6aea5de62bcaaced705f1942",
+      "name": "C7 [Jason · B] N1, N3, N4, N8 y N9 como pruebas de API con oráculos SQL",
+      "desc": "## C7 CERRADA — aceptación de Jason, 2026-11-03 (America/Managua)\n\nEstado: Hecho (READY validado), 6/6 criterios.\nJason aceptó la excepción: un único registro durable para el remap 409, sin cambios de negocio ni duplicación al reintentar.\nAutorización, alcance y CSRF conservan huellas iguales en las 19 tablas. El remap 409 conserva las 18 tablas de negocio y añade exactamente una fila en Operations; repetir la misma clave no añade otra.\nEl criterio de la checklist se precisó con esa excepción y quedó completo. La discrepancia documental queda resuelta; no se cambió el comportamiento ni la seguridad.\nEvidencia existente reutilizada: CI 41753826810, 599/599 en 260b75951729189d987ffe423218ab1643bcfa3c; N1/N3/N4/N8/N9, 1/1 por método. Las fuentes C7 siguen iguales respecto de esa revisión. No se repitieron pruebas.\nCierre local: C:/Users/Jason/MARTHA-SILVA/github/docs/c7-closure-20261103/README.md y docs/pipeline/ledger.json.\nSin commit, push, merge, despliegue, SQL ni cambios de seguridad por este cierre.\n\n---\n## Registro histórico anterior; prevalece el cierre aceptado de arriba\n\n## Revisión técnica del lote reutilizado20261104(UTC) — C7\n\nCriterios técnicos:5/6 verificados sobre260b75951729189d987ffe423218ab1643bcfa3c; se conserva En revisión.\nCI backend41753826810:599/599; N1,N3,N4,N8,N9:1/1 cada método. No se repitieron pruebas.\nEl criterio literal Rechazos con cero escrituras permanece INCOMPLETO. Autorización/alcance/CSRF conservan huellas de19 tablas. El remap de ubicación con historia recibe409 y registra exactamente una fila durable en Operations; las otras18 tablas y el historial de negocio quedan iguales. Repetir la misma clave no agrega una segunda fila.\nEl texto anterior que afirma cero escrituras para cada rechazo queda precisado por esta excepción observada. No se cambió el criterio, el código ni la seguridad.\nRecomendación para Jason: reconocer explícitamente el rechazo409 durable, manteniendo cero cambios de negocio y replay sin duplicación. Cierre: criterio y evidencia coherentes tras su decisión expresa. SEC-CSRF conserva su decisión separada.\n\nEvidencia de revisión: C:/Users/Jason/MARTHA-SILVA/github/docs/technical-ready-review-20261104/primary-review.md e independent-review.md. Sin commit,push,merge,despliegue,SQL ni cambios de seguridad por este lote.\n\n---\n## Registro anterior conservado; prevalece la revisión de arriba\n\n## 🟡 Estado al 4-nov — EN REVISIÓN: READY enviado; falta que Jason lo valide\n**Hecho:** N1, N3, N4, N8 y N9 se prueban por HTTP con login y CSRF reales sobre una base migrada.\n- Cada rechazo compara una huella SHA-256 de las 19 tablas antes y después: **cero escrituras**.\n- Siete mutaciones temporales del código fuente fueron detectadas por las pruebas (rojo-verde).\n- CI: [run 41744363308](https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41744363308), 599/599.\n- Detalle: [C4-C7.md](https://github.com/Suazo-AI/Martha-Silva-Store/blob/claude/funny-brahmagupta-5e5rj0/docs/sprint-20261104/C4-C7.md).\n\n**Hallazgo:** el CSRF del mismo usuario sobrevive al re-login. No es escalada de permisos. Ver la tarjeta SEC-CSRF; la decisión es de Jason.\n\n**Alimenta C11:** Denis revisa estos rechazos como parte de N10.\n\n**Falta:** solo la validación de Jason.\n\n---\n**Objetivo**\nN1, N3, N4, N8 y N9 como pruebas de API con oráculos SQL:\n- Rechazos con **cero escrituras** (conteos o huellas iguales antes y después).\n- Manipulación de ubicación, IDs y skip/take.\n- CSRF ausente o incorrecto.\n- Ajuste Owner frente a Cashier.\n\n**Dueño y carril**\nJason Suazo · carril B.\n\n**Bloqueado por**\nC4.\n\n**Bloquea**\nC11.\n\n**Archivos**\n- `backend/tests/**`\n\n**Verificación**\n- Cada caso de rechazo toma conteos/huellas SQL antes y después y exige igualdad.\n- Prueba en verde con el fix y roja si se quita la validación correspondiente (cuando aplique).\n- CI del PR en verde.\n\n**Evidencia esperada**\nLista de casos con resultado, salida de las pruebas, run de CI.\n\n**Criterio de cierre**\nN1, N3, N4, N8 y N9 cubiertos por pruebas de API con oráculos SQL; CI en verde.\n\n**Plantilla READY**\n```\nPara mover a \"En revisión\", comentar:\nREADY\nPR: <url>\nhead: <sha40>\nbase: origin/main@<sha40>\nci: <run url> passed=<k> failed=0 pending=0 skipped=<s>\nevidencia: <ruta o run>\nno ejecutado: <qué y por qué>\n```",
+      "idList": "6aea5d68411ef7f938f3f92e",
+      "idBoard": "6aea5bcd3e4793672218d44c",
+      "url": "https://trello.com/c/YIlPjyVg/10-c7-jason-b-n1-n3-n4-n8-y-n9-como-pruebas-de-api-con-or%C3%A1culos-sql",
+      "closed": false,
+      "dateLastActivity": "2026-11-04T02:18:34.369Z",
+      "checklists": [
+        {
+          "id": "6aea5dfda497c0f3046159ad",
+          "name": "Criterios de cierre",
+          "checkItems": [
+            {
+              "id": "6aea5e56683d163dc2a0a549",
+              "name": "N1, N3, N4, N8 y N9 implementados como pruebas de API con oráculos SQL",
+              "nameData": {
+                "emoji": {}
+              },
+              "pos": 1,
+              "state": "complete",
+              "due": null,
+              "dueReminder": null,
+              "idMember": null,
+              "idChecklist": "6aea5dfda497c0f3046159ad"
+            },
+            {
+              "id": "6aea5e57d64fe07fd3f98734",
+              "name": "Autorización, alcance y CSRF sin escrituras; remap 409 con un único registro durable, sin cambios de negocio ni duplicación al reintentar (excepción aceptada por Jason)",
+              "nameData": {
+                "emoji": {}
+              },
+              "pos": 2,
+              "state": "complete",
+              "due": null,
+              "dueReminder": null,
+              "idMember": null,
+              "idChecklist": "6aea5dfda497c0f3046159ad"
+            },
+            {
+              "id": "6aea5e58259b11d8a36c5e90",
+              "name": "Manipulación de ubicación, IDs y skip/take cubierta",
+              "nameData": {
+                "emoji": {}
+              },
+              "pos": 3,
+              "state": "complete",
+              "due": null,
+              "dueReminder": null,
+              "idMember": null,
+              "idChecklist": "6aea5dfda497c0f3046159ad"
+            },
+            {
+              "id": "6aea5e58a0ea2858280cc089",
+              "name": "CSRF ausente o incorrecto cubierto",
+              "nameData": {
+                "emoji": {}
+              },
+              "pos": 4,
+              "state": "complete",
+              "due": null,
+              "dueReminder": null,
+              "idMember": null,
+              "idChecklist": "6aea5dfda497c0f3046159ad"
+            },
+            {
+              "id": "6aea5e59bb5feea16e85c12d",
+              "name": "Ajuste Owner frente a Cashier cubierto",
+              "nameData": {
+                "emoji": {}
+              },
+              "pos": 5,
+              "state": "complete",
+              "due": null,
+              "dueReminder": null,
+              "idMember": null,
+              "idChecklist": "6aea5dfda497c0f3046159ad"
+            },
+            {
+              "id": "6aea5e593ebeede65d38b9ee",
+              "name": "CI en verde",
+              "nameData": {
+                "emoji": {}
+              },
+              "pos": 6,
+              "state": "complete",
+              "due": null,
+              "dueReminder": null,
+              "idMember": null,
+              "idChecklist": "6aea5dfda497c0f3046159ad"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ledger": {
+    "path": "docs/pipeline/ledger.json",
+    "status": "done",
+    "onlyC7Changed": true,
+    "otherConcurrentChangesPreserved": true,
+    "beforeSha256": "f9774e3dc19e597fc668d2adc6bc2c2d291ff93e2594c692122d5b484aee2249",
+    "afterSha256": "a9a67cfea0d15bfa6937d3d69a25e10c72a146d4044c720502301ae814c2b475",
+    "validation": {
+      "command": "python tools/delivery_status.py --check",
+      "exit": 0,
+      "output": "Ledger: valid; 34 items."
+    },
+    "removedPendingDecisionAndBlocker": true
+  },
+  "commit": false,
+  "push": false,
+  "merge": false,
+  "deploy": false,
+  "securityChanges": false,
+  "newTests": 0
+}

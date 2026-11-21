@@ -1,0 +1,61 @@
+{
+  "read_only": true,
+  "repository": "Suazo-AI/Martha-Silva-Store",
+  "main": {
+    "sha": "3b0049163ece2d9431cee01f1bea624a66d9d8d4",
+    "protected": false,
+    "ruleset_count": 0
+  },
+  "pr2": {
+    "head": "8744a9699812d62ea5ed31c63781748f833c3def",
+    "total_checks": 21,
+    "success": 16,
+    "skipped": 5
+  },
+  "proposed_required_checks": [
+    {
+      "context": "Complete backend suite on disposable SQL Server",
+      "app_id": 15368,
+      "present_success": true
+    },
+    {
+      "context": "Staff UI tests and real browser harness",
+      "app_id": 15368,
+      "present_success": true
+    },
+    {
+      "context": "Real API + disposable SQL golden path",
+      "app_id": 15368,
+      "present_success": true
+    },
+    {
+      "context": "build-and-guards",
+      "app_id": 15368,
+      "present_success": true
+    },
+    {
+      "context": "Portable checks (windows-latest)",
+      "app_id": 15368,
+      "present_success": true
+    },
+    {
+      "context": "Portable checks (ubuntu-latest)",
+      "app_id": 15368,
+      "present_success": true
+    },
+    {
+      "context": "Ledger check and deterministic digest",
+      "app_id": 15368,
+      "present_success": true
+    }
+  ],
+  "repository_deploy_variable": {
+    "name": "CLOUDFLARE_DEPLOY_ENABLED",
+    "read_method": "GitHub CLI REST",
+    "http_status": 404,
+    "effective_value": "unknown"
+  },
+  "configuration_changed": false,
+  "merge_performed": false,
+  "deployment_performed": false
+}

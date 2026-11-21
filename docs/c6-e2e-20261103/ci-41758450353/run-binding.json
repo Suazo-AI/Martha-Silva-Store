@@ -1,0 +1,186 @@
+{
+  "run_id": 41758450353,
+  "head": "b6bc0396bb7d53359d23b806a3177edc194c8e62",
+  "base": "3b0049163ece2d9431cee01f1bea624a66d9d8d4",
+  "event": "pull_request",
+  "attempt": 1,
+  "status": "completed",
+  "conclusion": "success",
+  "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41758450353",
+  "source_commit": "b6bc0396bb7d53359d23b806a3177edc194c8e62",
+  "source_tree": "df8e64e568d9260107e5c5d5d6fa368ed148bc84",
+  "jobs": [
+    {
+      "id": 126340073142,
+      "name": "Real API + disposable SQL golden path",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 41758450353,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Evidence and cleanup failure regressions (stdlib only)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Run actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Restore pinned dependencies and build the API and the golden-path SQL tool",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Run actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Prepare pinned browser driver without changing the runner trust store",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7
+        },
+        {
+          "name": "Start disposable SQL Server 2022 Developer",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8
+        },
+        {
+          "name": "Wait for SQL and verify licensed edition and engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9
+        },
+        {
+          "name": "Golden path smoke (real API, migrator, roles, idempotent sale, SQL oracles, teardown)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10
+        },
+        {
+          "name": "C6 Chrome to real API to SQL, including lost-response recovery without a second sale",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11
+        },
+        {
+          "name": "Verify exact evidence bytes before publication",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12
+        },
+        {
+          "name": "Publish the per-step oracle table to the job summary",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13
+        },
+        {
+          "name": "Upload sanitized evidence only",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14
+        },
+        {
+          "name": "Verify exact C6 evidence bytes before publication",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15
+        },
+        {
+          "name": "Publish the C6 browser checkpoints and SQL oracle table",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16
+        },
+        {
+          "name": "Upload sanitized C6 browser trace and SQL evidence only",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17
+        },
+        {
+          "name": "Always destroy the disposable SQL container",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18
+        },
+        {
+          "name": "Post Run actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 34
+        },
+        {
+          "name": "Post Run actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 35
+        },
+        {
+          "name": "Post Run actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 36
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 37
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 13289626387,
+      "name": "savia-golden-path-41758450353-1",
+      "size_in_bytes": 2538,
+      "digest": "sha256:e6735c6d98ea118b713d1bd2ef2ede04b84963f7a09274d9576a7d42ef4befb3",
+      "head": "b6bc0396bb7d53359d23b806a3177edc194c8e62"
+    },
+    {
+      "id": 13289202502,
+      "name": "savia-browser-path-41758450353-1",
+      "size_in_bytes": 5318,
+      "digest": "sha256:77f20e80715702fce114d6ac7fdb3359cc6f5413c50db2b0310ef8c9dafce1e1",
+      "head": "b6bc0396bb7d53359d23b806a3177edc194c8e62"
+    }
+  ],
+  "limits": "Existing divergent remote head; excludes Tony-only C6 cleanup correction and C8. No combined-head acceptance implied.",
+  "files": [
+    {
+      "path": "evidence.json",
+      "sha256": "b3f1983c4ea15b8618f84a8cbb204f7480af942eb2b0445e0207f2420a0c8a4f",
+      "size": 40222
+    },
+    {
+      "path": "oracles.md",
+      "sha256": "7bcd96af8c6849558f6a1de640e18ee9168b86e560ed11ed4bd34d6cd692b91b",
+      "size": 7071
+    }
+  ],
+  "limitations": "Historical divergent PR head b6bc0396; not the combined candidate. Teardown records browser exit but lacks new ownership/process-absence readbacks. No C8 imported source coverage."
+}

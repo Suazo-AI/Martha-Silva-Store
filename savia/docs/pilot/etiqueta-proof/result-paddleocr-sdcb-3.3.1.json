@@ -1,0 +1,279 @@
+{
+  "engine": "paddleocr-sdcb-3.3.1",
+  "perField": {
+    "barcode": 0,
+    "sku": 0,
+    "name": 0,
+    "brand": 0,
+    "size": 0,
+    "color": 0,
+    "priceMinor": 1,
+    "composition": 0
+  },
+  "photos": [
+    {
+      "file": "tag1.png",
+      "seconds": 4.07,
+      "barcode": {
+        "expected": "7501234567893",
+        "extracted": null,
+        "ok": false
+      },
+      "sku": {
+        "expected": "BL-2041-AZ",
+        "extracted": "P-L000-",
+        "ok": false
+      },
+      "name": {
+        "expected": "Blusa manga corta",
+        "extracted": "C nrr r",
+        "ok": false
+      },
+      "brand": {
+        "expected": "ALMA TEXTIL",
+        "extracted": "AAWA",
+        "ok": false
+      },
+      "size": {
+        "expected": "M",
+        "extracted": null,
+        "ok": false
+      },
+      "color": {
+        "expected": "Azul",
+        "extracted": null,
+        "ok": false
+      },
+      "priceMinor": {
+        "expected": "125000",
+        "extracted": null,
+        "ok": false
+      },
+      "composition": {
+        "expected": "95% Algod\u00F3n 5% Elastano",
+        "extracted": null,
+        "ok": false
+      }
+    },
+    {
+      "file": "tag2.png",
+      "seconds": 3.11,
+      "barcode": {
+        "expected": "7894561230128",
+        "extracted": null,
+        "ok": false
+      },
+      "sku": {
+        "expected": "PJ-3310-NG",
+        "extracted": null,
+        "ok": false
+      },
+      "name": {
+        "expected": "Pantal\u00F3n jeans recto",
+        "extracted": "Coo",
+        "ok": false
+      },
+      "brand": {
+        "expected": "RIO VERDE",
+        "extracted": "TIRRR",
+        "ok": false
+      },
+      "size": {
+        "expected": "32",
+        "extracted": null,
+        "ok": false
+      },
+      "color": {
+        "expected": "Negro",
+        "extracted": null,
+        "ok": false
+      },
+      "priceMinor": {
+        "expected": null,
+        "extracted": null,
+        "ok": true
+      },
+      "composition": {
+        "expected": "98% Algod\u00F3n 2% Elastano",
+        "extracted": null,
+        "ok": false
+      }
+    },
+    {
+      "file": "tag3.png",
+      "seconds": 7.51,
+      "barcode": {
+        "expected": "8400123456784",
+        "extracted": null,
+        "ok": false
+      },
+      "sku": {
+        "expected": "88213-04",
+        "extracted": null,
+        "ok": false
+      },
+      "name": {
+        "expected": "Vestido largo floral",
+        "extracted": "EEE",
+        "ok": false
+      },
+      "brand": {
+        "expected": "COSTA NORTE",
+        "extracted": "COOEOROE",
+        "ok": false
+      },
+      "size": {
+        "expected": "L",
+        "extracted": null,
+        "ok": false
+      },
+      "color": {
+        "expected": "Rojo",
+        "extracted": null,
+        "ok": false
+      },
+      "priceMinor": {
+        "expected": "89000",
+        "extracted": null,
+        "ok": false
+      },
+      "composition": {
+        "expected": "100% Poli\u00E9ster",
+        "extracted": null,
+        "ok": false
+      }
+    },
+    {
+      "file": "tag4.png",
+      "seconds": 18.3,
+      "barcode": {
+        "expected": "7620001234551",
+        "extracted": null,
+        "ok": false
+      },
+      "sku": {
+        "expected": "CM-5521-BL",
+        "extracted": "CAGGG-G2",
+        "ok": false
+      },
+      "name": {
+        "expected": "Camisa oxford",
+        "extracted": "poo enro",
+        "ok": false
+      },
+      "brand": {
+        "expected": "LUNA MODA",
+        "extracted": "AN RO",
+        "ok": false
+      },
+      "size": {
+        "expected": "XL",
+        "extracted": null,
+        "ok": false
+      },
+      "color": {
+        "expected": "Blanco",
+        "extracted": null,
+        "ok": false
+      },
+      "priceMinor": {
+        "expected": "149900",
+        "extracted": null,
+        "ok": false
+      },
+      "composition": {
+        "expected": "60% Algod\u00F3n 40% Poli\u00E9ster",
+        "extracted": null,
+        "ok": false
+      }
+    },
+    {
+      "file": "tag5.png",
+      "seconds": 23.85,
+      "barcode": {
+        "expected": "5901234123457",
+        "extracted": null,
+        "ok": false
+      },
+      "sku": {
+        "expected": "FP-1180-VD",
+        "extracted": "AA-081-3",
+        "ok": false
+      },
+      "name": {
+        "expected": "Falda plisada",
+        "extracted": "Prerer er",
+        "ok": false
+      },
+      "brand": {
+        "expected": "BRISA",
+        "extracted": "SASS",
+        "ok": false
+      },
+      "size": {
+        "expected": "S",
+        "extracted": null,
+        "ok": false
+      },
+      "color": {
+        "expected": "Verde",
+        "extracted": null,
+        "ok": false
+      },
+      "priceMinor": {
+        "expected": "75000",
+        "extracted": null,
+        "ok": false
+      },
+      "composition": {
+        "expected": "100% Viscosa",
+        "extracted": null,
+        "ok": false
+      }
+    },
+    {
+      "file": "tag6.png",
+      "seconds": 30.3,
+      "barcode": {
+        "expected": "7460012345675",
+        "extracted": null,
+        "ok": false
+      },
+      "sku": {
+        "expected": "SW-7702-GR",
+        "extracted": "S0GDE",
+        "ok": false
+      },
+      "name": {
+        "expected": "Su\u00E9ter de punto",
+        "extracted": "qe bo",
+        "ok": false
+      },
+      "brand": {
+        "expected": "SOL DE MAYO",
+        "extracted": "WAAA",
+        "ok": false
+      },
+      "size": {
+        "expected": "XXL",
+        "extracted": null,
+        "ok": false
+      },
+      "color": {
+        "expected": "Gris",
+        "extracted": null,
+        "ok": false
+      },
+      "priceMinor": {
+        "expected": "210000",
+        "extracted": null,
+        "ok": false
+      },
+      "composition": {
+        "expected": "70% Acr\u00EDlico 30% Lana",
+        "extracted": null,
+        "ok": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+{
+  "checks": [
+    {
+      "name": "recovery-register-hold-shell-mounts-recovery",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "recovery-register-hold-receipt-without-dependencies-or-repost",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "recovery-register-fail-shell-mounts-recovery",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "recovery-register-fail-receipt-without-dependencies-or-repost",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "recovery-summary-hold-shell-mounts-recovery",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "recovery-summary-hold-receipt-without-dependencies-or-repost",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "recovery-summary-fail-shell-mounts-recovery",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "recovery-summary-fail-receipt-without-dependencies-or-repost",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "open-navigation-retired-mount-cannot-overwrite",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "open-navigation-current-scanner-handle",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "open-logout-retired-mount-cannot-overwrite",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "open-logout-keeps-login-and-token-cleared",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "open-account-retired-mount-cannot-overwrite",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "open-account-current-scanner-handle",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "register-navigation-retired-mount-cannot-overwrite",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "register-navigation-current-scanner-handle",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "register-logout-retired-mount-cannot-overwrite",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "register-logout-keeps-login-and-token-cleared",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "register-account-retired-mount-cannot-overwrite",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "register-account-current-scanner-handle",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "summary-navigation-retired-mount-cannot-overwrite",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "summary-navigation-current-scanner-handle",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "summary-logout-retired-mount-cannot-overwrite",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "summary-logout-keeps-login-and-token-cleared",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "summary-account-retired-mount-cannot-overwrite",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "summary-account-current-scanner-handle",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "reset-cancel-preserves-pending-and-all-storage",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "reset-clears-only-demo-pending",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "reset-role-reentry-is-usable",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "reset-preserves-real-origin-quarantine-byte-for-byte",
+      "pass": true,
+      "observed": true
+    }
+  ],
+  "fictional_only": true,
+  "passed": true,
+  "browser_closed": true,
+  "servers_closed": 2
+}

@@ -1,0 +1,120 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-06T08:18:14.954321+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "dev/savia-staff-ui/app.mjs",
+      "change": "M",
+      "git_blob": "22ae6d3fa0851f088d06ee0bada954c0eca0a4eb"
+    },
+    {
+      "path": "dev/savia-staff-ui/client.mjs",
+      "change": "M",
+      "git_blob": "f5941f3282d8ba8d64eb3e9566ea9563d0c7d588"
+    },
+    {
+      "path": "dev/savia-staff-ui/login.mjs",
+      "change": "M",
+      "git_blob": "4651f1c2371cb11e6097b971e598ba93fd95aa8d"
+    },
+    {
+      "path": "dev/savia-staff-ui/stock-exception.test.mjs",
+      "change": "M",
+      "git_blob": "6e5b55d2d0d2ba6ba8c2e9d0e69c6fe5f0a64b2f"
+    },
+    {
+      "path": "docs/stock-exception-20261106/CANDIDATE.json",
+      "change": "M",
+      "git_blob": "dbdbfd18a8d359b6d08c6facb15891507d34da2d"
+    },
+    {
+      "path": "docs/stock-exception-20261106/PRIMARY-REVIEW.md",
+      "change": "M",
+      "git_blob": "e46b0bdf889bfd4f56ac9fbb5ac74c9b7339383b"
+    },
+    {
+      "path": "docs/stock-exception-20261106/REVIEW-RESOLUTION.md",
+      "change": "A",
+      "git_blob": "9010577b79f935216ae01a40aadb082c86a68e23"
+    },
+    {
+      "path": "docs/stock-exception-20261106/gemini-critic-candidate.md",
+      "change": "A",
+      "git_blob": "6c44798cfc5d57888e1e3c25e5dca13a05640453"
+    },
+    {
+      "path": "docs/stock-exception-20261106/primary/CHECKS.json",
+      "change": "M",
+      "git_blob": "391d0b69c58edec5d98b7d9d067f0e28492448a7"
+    },
+    {
+      "path": "docs/stock-exception-20261106/primary/REVIEW-CHECKS.json",
+      "change": "A",
+      "git_blob": "aa3f01088e50c7f5629ab17efdf7c38919766cfa"
+    },
+    {
+      "path": "docs/stock-exception-20261106/primary/browser-review-after.mjs",
+      "change": "A",
+      "git_blob": "00e71b95b032c99d4fec55e3c65e66cc6d78c58a"
+    },
+    {
+      "path": "docs/stock-exception-20261106/primary/browser-review-before.mjs",
+      "change": "A",
+      "git_blob": "730b5db3c376d44e17a892da8fc8e84f6c9a4c91"
+    },
+    {
+      "path": "docs/stock-exception-20261106/primary/review-after-02/browser-review-results.json",
+      "change": "A",
+      "git_blob": "c141f7203e8e7a51ddb5b9e00109592c731d77eb"
+    },
+    {
+      "path": "docs/stock-exception-20261106/primary/review-after-02/stock-review-1440.png",
+      "change": "A",
+      "git_blob": "8b161ec9816c48b2beea691de78383016da37c85"
+    },
+    {
+      "path": "docs/stock-exception-20261106/primary/review-after-02/stock-review-390.png",
+      "change": "A",
+      "git_blob": "9ec929250176a31d401d4300bd947d7197bd5d11"
+    },
+    {
+      "path": "docs/stock-exception-20261106/primary/review-after-02/videos/page@42b08c46a69c773e014acc78b8440cfe.webm",
+      "change": "A",
+      "git_blob": "9c126415dc5e5595513e6fd19b17cfd47e3c6f9c"
+    },
+    {
+      "path": "docs/stock-exception-20261106/primary/review-after-02/videos/page@77c41f21f1f64bb1d5e28b07df1bea59.webm",
+      "change": "A",
+      "git_blob": "baac9b02451a8ebfb9ae0d696777610eb3b368fc"
+    },
+    {
+      "path": "docs/stock-exception-20261106/primary/review-before/browser-review-results.json",
+      "change": "A",
+      "git_blob": "7a89e627fdde7159ccccc43a99684a51fc28d151"
+    },
+    {
+      "path": "docs/stock-exception-20261106/primary/review-before/stock-review-1440.png",
+      "change": "A",
+      "git_blob": "4c808bb8fcc0ad9c90f405664d4f968494785d9a"
+    },
+    {
+      "path": "docs/stock-exception-20261106/primary/review-before/stock-review-390.png",
+      "change": "A",
+      "git_blob": "981a3750a8da08abaa4853650dec8489676cae31"
+    },
+    {
+      "path": "docs/stock-exception-20261106/primary/review-before/videos/page@1e22710ed79efa0dea2694b2a16d5b7a.webm",
+      "change": "A",
+      "git_blob": "453364efd1db0f848571b4f781b18518dc8b33ff"
+    },
+    {
+      "path": "docs/stock-exception-20261106/primary/review-before/videos/page@4f1a4b54133a4df8a5a2e4bc38d96ea2.webm",
+      "change": "A",
+      "git_blob": "8f83935952b85d43d9b8f5d431a77f3ce95663ae"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

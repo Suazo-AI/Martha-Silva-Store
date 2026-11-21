@@ -1,0 +1,943 @@
+{
+  "phase": "before",
+  "conditions": {
+    "normal": "No throttling; fresh isolated context per route/viewport; 5 seconds after load; no scrolling",
+    "proxy": "Local allowlist HTTP proxy; only this origin GET accepted; HTTPS CONNECT denied; no routing/cache/service worker overrides",
+    "offline": "Reload each retained normal-mobile page in same context; CDP offline; cache and SW defaults unchanged",
+    "degraded": {
+      "downloadBitsPerSecond": 400000,
+      "downloadBytesPerSecond": 50000,
+      "uploadBytesPerSecond": 50000,
+      "latencyMs": 400,
+      "cpuSlowdown": 6,
+      "timeoutMs": 40000
+    }
+  },
+  "browser": "156.0.8078.80",
+  "navigations": 9,
+  "cleanup": {
+    "browserClosed": true,
+    "serverClosed": true
+  },
+  "servedCount": 346,
+  "servedMismatches": [],
+  "observations": [
+    {
+      "group": "normal-mobile",
+      "route": "index.html",
+      "status": 200,
+      "error": null,
+      "navMs": 337,
+      "measuredWindowMs": 5439,
+      "completedNetworkBytes": 1868232,
+      "resourceTransferBytes": 1676369,
+      "unfinishedResponses": [],
+      "unfinishedTransferredBytes": "unknown; dataReceived was not captured",
+      "loadEventEnd": 323.69999998807907,
+      "overflow": 0,
+      "errors": [],
+      "external": [],
+      "failed": [],
+      "topResources": [
+        {
+          "name": "http://127.0.0.1:63088/prototypes/fonts/font-1.ttf",
+          "type": "css",
+          "duration": 152.69999998807907,
+          "transferSize": 290536,
+          "encodedBodySize": 290236,
+          "decodedBodySize": 290236
+        },
+        {
+          "name": "http://127.0.0.1:63088/catalog.js",
+          "type": "script",
+          "duration": 98.90000003576279,
+          "transferSize": 216994,
+          "encodedBodySize": 216694,
+          "decodedBodySize": 216694
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/fonts/font-6.ttf",
+          "type": "css",
+          "duration": 126.20000004768372,
+          "transferSize": 95396,
+          "encodedBodySize": 95096,
+          "decodedBodySize": 95096
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/fonts/font-5.ttf",
+          "type": "css",
+          "duration": 121.10000002384186,
+          "transferSize": 95360,
+          "encodedBodySize": 95060,
+          "decodedBodySize": 95060
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/fonts/font-4.ttf",
+          "type": "css",
+          "duration": 136.60000002384186,
+          "transferSize": 95272,
+          "encodedBodySize": 94972,
+          "decodedBodySize": 94972
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/fonts/font-7.ttf",
+          "type": "css",
+          "duration": 118.69999998807907,
+          "transferSize": 95228,
+          "encodedBodySize": 94928,
+          "decodedBodySize": 94928
+        },
+        {
+          "name": "http://127.0.0.1:63088/app.js",
+          "type": "script",
+          "duration": 98.70000004768372,
+          "transferSize": 88451,
+          "encodedBodySize": 88151,
+          "decodedBodySize": 88151
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/vendor/gsap.min.js",
+          "type": "script",
+          "duration": 64.19999998807907,
+          "transferSize": 73227,
+          "encodedBodySize": 72927,
+          "decodedBodySize": 72927
+        },
+        {
+          "name": "http://127.0.0.1:63088/styles.css",
+          "type": "link",
+          "duration": 57.299999952316284,
+          "transferSize": 70363,
+          "encodedBodySize": 70063,
+          "decodedBodySize": 70063
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/vendor/ScrollTrigger.min.js",
+          "type": "script",
+          "duration": 63.39999997615814,
+          "transferSize": 44875,
+          "encodedBodySize": 44575,
+          "decodedBodySize": 44575
+        }
+      ]
+    },
+    {
+      "group": "normal-mobile",
+      "route": "catalogo.html",
+      "status": 200,
+      "error": null,
+      "navMs": 337,
+      "measuredWindowMs": 5394,
+      "completedNetworkBytes": 1638035,
+      "resourceTransferBytes": 1510922,
+      "unfinishedResponses": [],
+      "unfinishedTransferredBytes": "unknown; dataReceived was not captured",
+      "loadEventEnd": 300.39999997615814,
+      "overflow": 0,
+      "errors": [],
+      "external": [],
+      "failed": [],
+      "topResources": [
+        {
+          "name": "http://127.0.0.1:63088/prototypes/fonts/font-1.ttf",
+          "type": "css",
+          "duration": 137.69999998807907,
+          "transferSize": 290536,
+          "encodedBodySize": 290236,
+          "decodedBodySize": 290236
+        },
+        {
+          "name": "http://127.0.0.1:63088/catalog.js",
+          "type": "script",
+          "duration": 51.5,
+          "transferSize": 216994,
+          "encodedBodySize": 216694,
+          "decodedBodySize": 216694
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/fonts/font-4.ttf",
+          "type": "css",
+          "duration": 140.60000002384186,
+          "transferSize": 95272,
+          "encodedBodySize": 94972,
+          "decodedBodySize": 94972
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/fonts/font-7.ttf",
+          "type": "css",
+          "duration": 135.39999997615814,
+          "transferSize": 95228,
+          "encodedBodySize": 94928,
+          "decodedBodySize": 94928
+        },
+        {
+          "name": "http://127.0.0.1:63088/app.js",
+          "type": "script",
+          "duration": 58,
+          "transferSize": 88451,
+          "encodedBodySize": 88151,
+          "decodedBodySize": 88151
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/vendor/gsap.min.js",
+          "type": "script",
+          "duration": 42.59999996423721,
+          "transferSize": 73227,
+          "encodedBodySize": 72927,
+          "decodedBodySize": 72927
+        },
+        {
+          "name": "http://127.0.0.1:63088/styles.css",
+          "type": "link",
+          "duration": 27.100000023841858,
+          "transferSize": 70363,
+          "encodedBodySize": 70063,
+          "decodedBodySize": 70063
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/vendor/ScrollTrigger.min.js",
+          "type": "script",
+          "duration": 44.19999998807907,
+          "transferSize": 44875,
+          "encodedBodySize": 44575,
+          "decodedBodySize": 44575
+        },
+        {
+          "name": "http://127.0.0.1:63088/locale-en.js",
+          "type": "script",
+          "duration": 56.30000001192093,
+          "transferSize": 33334,
+          "encodedBodySize": 33034,
+          "decodedBodySize": 33034
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/vendor/barba.umd.js",
+          "type": "script",
+          "duration": 48.59999996423721,
+          "transferSize": 32117,
+          "encodedBodySize": 31817,
+          "decodedBodySize": 31817
+        }
+      ]
+    },
+    {
+      "group": "normal-mobile",
+      "route": "producto-amarillo.html",
+      "status": 200,
+      "error": null,
+      "navMs": 343,
+      "measuredWindowMs": 5725,
+      "completedNetworkBytes": 1652280,
+      "resourceTransferBytes": 1420150,
+      "unfinishedResponses": [
+        {
+          "url": "01-front-v1.png",
+          "sourceBodyBytes": 1903522
+        }
+      ],
+      "unfinishedTransferredBytes": "unknown; dataReceived was not captured",
+      "loadEventEnd": 310.80000001192093,
+      "overflow": 0,
+      "errors": [],
+      "external": [],
+      "failed": [],
+      "topResources": [
+        {
+          "name": "http://127.0.0.1:63088/prototypes/fonts/font-1.ttf",
+          "type": "css",
+          "duration": 132.10000002384186,
+          "transferSize": 290536,
+          "encodedBodySize": 290236,
+          "decodedBodySize": 290236
+        },
+        {
+          "name": "http://127.0.0.1:63088/catalog.js",
+          "type": "script",
+          "duration": 46.19999998807907,
+          "transferSize": 216994,
+          "encodedBodySize": 216694,
+          "decodedBodySize": 216694
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/fonts/font-4.ttf",
+          "type": "css",
+          "duration": 126.79999995231628,
+          "transferSize": 95272,
+          "encodedBodySize": 94972,
+          "decodedBodySize": 94972
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/fonts/font-7.ttf",
+          "type": "css",
+          "duration": 129,
+          "transferSize": 95228,
+          "encodedBodySize": 94928,
+          "decodedBodySize": 94928
+        },
+        {
+          "name": "http://127.0.0.1:63088/app.js",
+          "type": "script",
+          "duration": 58.19999998807907,
+          "transferSize": 88451,
+          "encodedBodySize": 88151,
+          "decodedBodySize": 88151
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/vendor/gsap.min.js",
+          "type": "script",
+          "duration": 40.30000001192093,
+          "transferSize": 73227,
+          "encodedBodySize": 72927,
+          "decodedBodySize": 72927
+        },
+        {
+          "name": "http://127.0.0.1:63088/styles.css",
+          "type": "link",
+          "duration": 28.899999976158142,
+          "transferSize": 70363,
+          "encodedBodySize": 70063,
+          "decodedBodySize": 70063
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/vendor/ScrollTrigger.min.js",
+          "type": "script",
+          "duration": 37.39999997615814,
+          "transferSize": 44875,
+          "encodedBodySize": 44575,
+          "decodedBodySize": 44575
+        },
+        {
+          "name": "http://127.0.0.1:63088/locale-en.js",
+          "type": "script",
+          "duration": 54.19999998807907,
+          "transferSize": 33334,
+          "encodedBodySize": 33034,
+          "decodedBodySize": 33034
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/vendor/barba.umd.js",
+          "type": "script",
+          "duration": 40.69999998807907,
+          "transferSize": 32117,
+          "encodedBodySize": 31817,
+          "decodedBodySize": 31817
+        }
+      ]
+    },
+    {
+      "group": "normal-desktop",
+      "route": "index.html",
+      "status": 200,
+      "error": null,
+      "navMs": 381,
+      "measuredWindowMs": 5452,
+      "completedNetworkBytes": 2114075,
+      "resourceTransferBytes": 1923096,
+      "unfinishedResponses": [],
+      "unfinishedTransferredBytes": "unknown; dataReceived was not captured",
+      "loadEventEnd": 363.0999999642372,
+      "overflow": 0,
+      "errors": [],
+      "external": [],
+      "failed": [],
+      "topResources": [
+        {
+          "name": "http://127.0.0.1:63088/prototypes/fonts/font-1.ttf",
+          "type": "css",
+          "duration": 180.60000002384186,
+          "transferSize": 290536,
+          "encodedBodySize": 290236,
+          "decodedBodySize": 290236
+        },
+        {
+          "name": "http://127.0.0.1:63088/catalog.js",
+          "type": "script",
+          "duration": 42.80000001192093,
+          "transferSize": 216994,
+          "encodedBodySize": 216694,
+          "decodedBodySize": 216694
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/fonts/font-6.ttf",
+          "type": "css",
+          "duration": 172.70000004768372,
+          "transferSize": 95396,
+          "encodedBodySize": 95096,
+          "decodedBodySize": 95096
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/fonts/font-5.ttf",
+          "type": "css",
+          "duration": 174.39999997615814,
+          "transferSize": 95360,
+          "encodedBodySize": 95060,
+          "decodedBodySize": 95060
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/fonts/font-4.ttf",
+          "type": "css",
+          "duration": 179.10000002384186,
+          "transferSize": 95272,
+          "encodedBodySize": 94972,
+          "decodedBodySize": 94972
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/fonts/font-7.ttf",
+          "type": "css",
+          "duration": 171.89999997615814,
+          "transferSize": 95228,
+          "encodedBodySize": 94928,
+          "decodedBodySize": 94928
+        },
+        {
+          "name": "http://127.0.0.1:63088/app.js",
+          "type": "script",
+          "duration": 48.89999997615814,
+          "transferSize": 88451,
+          "encodedBodySize": 88151,
+          "decodedBodySize": 88151
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/vendor/gsap.min.js",
+          "type": "script",
+          "duration": 32.10000002384186,
+          "transferSize": 73227,
+          "encodedBodySize": 72927,
+          "decodedBodySize": 72927
+        },
+        {
+          "name": "http://127.0.0.1:63088/responsive-images/champagne/01-front-v1-720.webp",
+          "type": "img",
+          "duration": 39.60000002384186,
+          "transferSize": 72846,
+          "encodedBodySize": 72546,
+          "decodedBodySize": 72546
+        },
+        {
+          "name": "http://127.0.0.1:63088/styles.css",
+          "type": "link",
+          "duration": 29.099999964237213,
+          "transferSize": 70363,
+          "encodedBodySize": 70063,
+          "decodedBodySize": 70063
+        }
+      ]
+    },
+    {
+      "group": "normal-desktop",
+      "route": "catalogo.html",
+      "status": 200,
+      "error": null,
+      "navMs": 402,
+      "measuredWindowMs": 5460,
+      "completedNetworkBytes": 1819101,
+      "resourceTransferBytes": 1693172,
+      "unfinishedResponses": [],
+      "unfinishedTransferredBytes": "unknown; dataReceived was not captured",
+      "loadEventEnd": 385.60000002384186,
+      "overflow": 0,
+      "errors": [],
+      "external": [],
+      "failed": [],
+      "topResources": [
+        {
+          "name": "http://127.0.0.1:63088/prototypes/fonts/font-1.ttf",
+          "type": "css",
+          "duration": 237.4000000357628,
+          "transferSize": 290536,
+          "encodedBodySize": 290236,
+          "decodedBodySize": 290236
+        },
+        {
+          "name": "http://127.0.0.1:63088/catalog.js",
+          "type": "script",
+          "duration": 51.60000002384186,
+          "transferSize": 216994,
+          "encodedBodySize": 216694,
+          "decodedBodySize": 216694
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/fonts/font-4.ttf",
+          "type": "css",
+          "duration": 231.39999997615814,
+          "transferSize": 95272,
+          "encodedBodySize": 94972,
+          "decodedBodySize": 94972
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/fonts/font-7.ttf",
+          "type": "css",
+          "duration": 226.69999998807907,
+          "transferSize": 95228,
+          "encodedBodySize": 94928,
+          "decodedBodySize": 94928
+        },
+        {
+          "name": "http://127.0.0.1:63088/app.js",
+          "type": "script",
+          "duration": 52.60000002384186,
+          "transferSize": 88451,
+          "encodedBodySize": 88151,
+          "decodedBodySize": 88151
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/vendor/gsap.min.js",
+          "type": "script",
+          "duration": 42.69999998807907,
+          "transferSize": 73227,
+          "encodedBodySize": 72927,
+          "decodedBodySize": 72927
+        },
+        {
+          "name": "http://127.0.0.1:63088/styles.css",
+          "type": "link",
+          "duration": 31.100000023841858,
+          "transferSize": 70363,
+          "encodedBodySize": 70063,
+          "decodedBodySize": 70063
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/vendor/ScrollTrigger.min.js",
+          "type": "script",
+          "duration": 42,
+          "transferSize": 44875,
+          "encodedBodySize": 44575,
+          "decodedBodySize": 44575
+        },
+        {
+          "name": "http://127.0.0.1:63088/locale-en.js",
+          "type": "script",
+          "duration": 49.39999997615814,
+          "transferSize": 33334,
+          "encodedBodySize": 33034,
+          "decodedBodySize": 33034
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/vendor/barba.umd.js",
+          "type": "script",
+          "duration": 45.80000001192093,
+          "transferSize": 32117,
+          "encodedBodySize": 31817,
+          "decodedBodySize": 31817
+        }
+      ]
+    },
+    {
+      "group": "normal-desktop",
+      "route": "producto-amarillo.html",
+      "status": 200,
+      "error": null,
+      "navMs": 374,
+      "measuredWindowMs": 5849,
+      "completedNetworkBytes": 1749986,
+      "resourceTransferBytes": 1518152,
+      "unfinishedResponses": [
+        {
+          "url": "01-front-v1.png",
+          "sourceBodyBytes": 1903522
+        }
+      ],
+      "unfinishedTransferredBytes": "unknown; dataReceived was not captured",
+      "loadEventEnd": 341.19999998807907,
+      "overflow": 0,
+      "errors": [],
+      "external": [],
+      "failed": [],
+      "topResources": [
+        {
+          "name": "http://127.0.0.1:63088/prototypes/fonts/font-1.ttf",
+          "type": "css",
+          "duration": 152.79999995231628,
+          "transferSize": 290536,
+          "encodedBodySize": 290236,
+          "decodedBodySize": 290236
+        },
+        {
+          "name": "http://127.0.0.1:63088/catalog.js",
+          "type": "script",
+          "duration": 62.299999952316284,
+          "transferSize": 216994,
+          "encodedBodySize": 216694,
+          "decodedBodySize": 216694
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/fonts/font-4.ttf",
+          "type": "css",
+          "duration": 148.5,
+          "transferSize": 95272,
+          "encodedBodySize": 94972,
+          "decodedBodySize": 94972
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/fonts/font-7.ttf",
+          "type": "css",
+          "duration": 149.80000001192093,
+          "transferSize": 95228,
+          "encodedBodySize": 94928,
+          "decodedBodySize": 94928
+        },
+        {
+          "name": "http://127.0.0.1:63088/app.js",
+          "type": "script",
+          "duration": 69.30000001192093,
+          "transferSize": 88451,
+          "encodedBodySize": 88151,
+          "decodedBodySize": 88151
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/vendor/gsap.min.js",
+          "type": "script",
+          "duration": 50,
+          "transferSize": 73227,
+          "encodedBodySize": 72927,
+          "decodedBodySize": 72927
+        },
+        {
+          "name": "http://127.0.0.1:63088/styles.css",
+          "type": "link",
+          "duration": 44.80000001192093,
+          "transferSize": 70363,
+          "encodedBodySize": 70063,
+          "decodedBodySize": 70063
+        },
+        {
+          "name": "http://127.0.0.1:63088/responsive-images/amarillo/02-view-v1-720.webp",
+          "type": "img",
+          "duration": 19.900000035762787,
+          "transferSize": 49200,
+          "encodedBodySize": 48900,
+          "decodedBodySize": 48900
+        },
+        {
+          "name": "http://127.0.0.1:63088/responsive-images/amarillo/01-front-v1-720.webp",
+          "type": "img",
+          "duration": 44.39999997615814,
+          "transferSize": 48802,
+          "encodedBodySize": 48502,
+          "decodedBodySize": 48502
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/vendor/ScrollTrigger.min.js",
+          "type": "script",
+          "duration": 53.5,
+          "transferSize": 44875,
+          "encodedBodySize": 44575,
+          "decodedBodySize": 44575
+        }
+      ]
+    },
+    {
+      "group": "degraded-mobile",
+      "route": "index.html",
+      "status": null,
+      "error": "page.goto: Timeout 40000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:63088/index.html\", waiting until \"load\"\u001b[22m\n",
+      "navMs": 40012,
+      "measuredWindowMs": 40196,
+      "completedNetworkBytes": 1663922,
+      "resourceTransferBytes": 1472366,
+      "unfinishedResponses": [
+        {
+          "url": "01-front-v1-360.webp",
+          "sourceBodyBytes": 24234
+        },
+        {
+          "url": "02-view-v1-360.webp",
+          "sourceBodyBytes": 23962
+        }
+      ],
+      "unfinishedTransferredBytes": "unknown; dataReceived was not captured",
+      "loadEventEnd": 0,
+      "overflow": 0,
+      "errors": [],
+      "external": [],
+      "failed": [],
+      "topResources": [
+        {
+          "name": "http://127.0.0.1:63088/catalog.js",
+          "type": "script",
+          "duration": 28740.69999998808,
+          "transferSize": 216994,
+          "encodedBodySize": 216694,
+          "decodedBodySize": 216694
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/fonts/font-6.ttf",
+          "type": "css",
+          "duration": 22859.600000023842,
+          "transferSize": 95396,
+          "encodedBodySize": 95096,
+          "decodedBodySize": 95096
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/fonts/font-5.ttf",
+          "type": "css",
+          "duration": 22292.19999998808,
+          "transferSize": 95360,
+          "encodedBodySize": 95060,
+          "decodedBodySize": 95060
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/fonts/font-4.ttf",
+          "type": "css",
+          "duration": 12950.100000023842,
+          "transferSize": 95272,
+          "encodedBodySize": 94972,
+          "decodedBodySize": 94972
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/fonts/font-7.ttf",
+          "type": "css",
+          "duration": 15841.600000023842,
+          "transferSize": 95228,
+          "encodedBodySize": 94928,
+          "decodedBodySize": 94928
+        },
+        {
+          "name": "http://127.0.0.1:63088/app.js",
+          "type": "script",
+          "duration": 19372.399999976158,
+          "transferSize": 88451,
+          "encodedBodySize": 88151,
+          "decodedBodySize": 88151
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/vendor/gsap.min.js",
+          "type": "script",
+          "duration": 8608.699999988079,
+          "transferSize": 73227,
+          "encodedBodySize": 72927,
+          "decodedBodySize": 72927
+        },
+        {
+          "name": "http://127.0.0.1:63088/styles.css",
+          "type": "link",
+          "duration": 8252.099999964237,
+          "transferSize": 70363,
+          "encodedBodySize": 70063,
+          "decodedBodySize": 70063
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/vendor/ScrollTrigger.min.js",
+          "type": "script",
+          "duration": 5458.799999952316,
+          "transferSize": 44875,
+          "encodedBodySize": 44575,
+          "decodedBodySize": 44575
+        },
+        {
+          "name": "http://127.0.0.1:63088/locale-en.js",
+          "type": "script",
+          "duration": 12477.300000011921,
+          "transferSize": 33334,
+          "encodedBodySize": 33034,
+          "decodedBodySize": 33034
+        }
+      ]
+    },
+    {
+      "group": "degraded-mobile",
+      "route": "catalogo.html",
+      "status": 200,
+      "error": null,
+      "navMs": 39842,
+      "measuredWindowMs": 40172,
+      "completedNetworkBytes": 1926515,
+      "resourceTransferBytes": 1801178,
+      "unfinishedResponses": [],
+      "unfinishedTransferredBytes": "unknown; dataReceived was not captured",
+      "loadEventEnd": 39825.69999998808,
+      "overflow": 0,
+      "errors": [],
+      "external": [],
+      "failed": [],
+      "topResources": [
+        {
+          "name": "http://127.0.0.1:63088/prototypes/fonts/font-1.ttf",
+          "type": "css",
+          "duration": 30880.19999998808,
+          "transferSize": 290536,
+          "encodedBodySize": 290236,
+          "decodedBodySize": 290236
+        },
+        {
+          "name": "http://127.0.0.1:63088/catalog.js",
+          "type": "script",
+          "duration": 31655,
+          "transferSize": 216994,
+          "encodedBodySize": 216694,
+          "decodedBodySize": 216694
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/fonts/font-4.ttf",
+          "type": "css",
+          "duration": 13609.300000011921,
+          "transferSize": 95272,
+          "encodedBodySize": 94972,
+          "decodedBodySize": 94972
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/fonts/font-7.ttf",
+          "type": "css",
+          "duration": 13752.300000011921,
+          "transferSize": 95228,
+          "encodedBodySize": 94928,
+          "decodedBodySize": 94928
+        },
+        {
+          "name": "http://127.0.0.1:63088/app.js",
+          "type": "script",
+          "duration": 27968.80000001192,
+          "transferSize": 88451,
+          "encodedBodySize": 88151,
+          "decodedBodySize": 88151
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/vendor/gsap.min.js",
+          "type": "script",
+          "duration": 8505.800000011921,
+          "transferSize": 73227,
+          "encodedBodySize": 72927,
+          "decodedBodySize": 72927
+        },
+        {
+          "name": "http://127.0.0.1:63088/styles.css",
+          "type": "link",
+          "duration": 8145,
+          "transferSize": 70363,
+          "encodedBodySize": 70063,
+          "decodedBodySize": 70063
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/vendor/ScrollTrigger.min.js",
+          "type": "script",
+          "duration": 5508.599999964237,
+          "transferSize": 44875,
+          "encodedBodySize": 44575,
+          "decodedBodySize": 44575
+        },
+        {
+          "name": "http://127.0.0.1:63088/locale-en.js",
+          "type": "script",
+          "duration": 12728.899999976158,
+          "transferSize": 33334,
+          "encodedBodySize": 33034,
+          "decodedBodySize": 33034
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/vendor/barba.umd.js",
+          "type": "script",
+          "duration": 11264,
+          "transferSize": 32117,
+          "encodedBodySize": 31817,
+          "decodedBodySize": 31817
+        }
+      ]
+    },
+    {
+      "group": "degraded-mobile",
+      "route": "producto-amarillo.html",
+      "status": 200,
+      "error": null,
+      "navMs": 37415,
+      "measuredWindowMs": 38632,
+      "completedNetworkBytes": 1811284,
+      "resourceTransferBytes": 1580190,
+      "unfinishedResponses": [],
+      "unfinishedTransferredBytes": "unknown; dataReceived was not captured",
+      "loadEventEnd": 37392.40000003576,
+      "overflow": 0,
+      "errors": [],
+      "external": [],
+      "failed": [],
+      "topResources": [
+        {
+          "name": "http://127.0.0.1:63088/prototypes/fonts/font-1.ttf",
+          "type": "css",
+          "duration": 28375.30000001192,
+          "transferSize": 290536,
+          "encodedBodySize": 290236,
+          "decodedBodySize": 290236
+        },
+        {
+          "name": "http://127.0.0.1:63088/catalog.js",
+          "type": "script",
+          "duration": 28139.599999964237,
+          "transferSize": 216994,
+          "encodedBodySize": 216694,
+          "decodedBodySize": 216694
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/fonts/font-4.ttf",
+          "type": "css",
+          "duration": 12809.5,
+          "transferSize": 95272,
+          "encodedBodySize": 94972,
+          "decodedBodySize": 94972
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/fonts/font-7.ttf",
+          "type": "css",
+          "duration": 13245.199999988079,
+          "transferSize": 95228,
+          "encodedBodySize": 94928,
+          "decodedBodySize": 94928
+        },
+        {
+          "name": "http://127.0.0.1:63088/app.js",
+          "type": "script",
+          "duration": 19382.69999998808,
+          "transferSize": 88451,
+          "encodedBodySize": 88151,
+          "decodedBodySize": 88151
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/vendor/gsap.min.js",
+          "type": "script",
+          "duration": 8616.400000035763,
+          "transferSize": 73227,
+          "encodedBodySize": 72927,
+          "decodedBodySize": 72927
+        },
+        {
+          "name": "http://127.0.0.1:63088/styles.css",
+          "type": "link",
+          "duration": 8223.600000023842,
+          "transferSize": 70363,
+          "encodedBodySize": 70063,
+          "decodedBodySize": 70063
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/vendor/ScrollTrigger.min.js",
+          "type": "script",
+          "duration": 5503.399999976158,
+          "transferSize": 44875,
+          "encodedBodySize": 44575,
+          "decodedBodySize": 44575
+        },
+        {
+          "name": "http://127.0.0.1:63088/locale-en.js",
+          "type": "script",
+          "duration": 12390.699999988079,
+          "transferSize": 33334,
+          "encodedBodySize": 33034,
+          "decodedBodySize": 33034
+        },
+        {
+          "name": "http://127.0.0.1:63088/prototypes/vendor/barba.umd.js",
+          "type": "script",
+          "duration": 7203.300000011921,
+          "transferSize": 32117,
+          "encodedBodySize": 31817,
+          "decodedBodySize": 31817
+        }
+      ]
+    }
+  ],
+  "privateObservations": {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-followup-before\\observations.json",
+    "sha256": "6d5fafa1a647e13b147fbadf73223f83d57c7f8afe4544a919ba34b962401269",
+    "bytes": 1512165
+  },
+  "recordings": "recordings/",
+  "sourceManifest": "source-manifest.json"
+}

@@ -1,0 +1,102 @@
+{
+  "base": "ba8ff2ba10935e99fc268ebbe5eae130f72c1cca",
+  "status": "INTEGRATED_SOURCE_COMPILED_REVIEW_PENDING",
+  "source": [
+    {
+      "path": "savia/db/migrations/V029__return_retry_safety.sql",
+      "rawSha256": "6041e3880fb4cb02c595504e394701e52408e426767c67c2b575914402b353cc",
+      "lfSha256": "6041e3880fb4cb02c595504e394701e52408e426767c67c2b575914402b353cc"
+    },
+    {
+      "path": "savia/db/migrations/MANIFEST.sha256",
+      "rawSha256": "2e878b9e3c3eea5c1135ad0f1c2ac22a24f771aa5e41cba66665be79691eefe0",
+      "lfSha256": "2e878b9e3c3eea5c1135ad0f1c2ac22a24f771aa5e41cba66665be79691eefe0"
+    },
+    {
+      "path": "savia/db/tests/sales/172_return_retry_safety.sql",
+      "rawSha256": "50dc06558f36da331afe4ddbf45112d7b90c7e08c9983958863b764a78e591b3",
+      "lfSha256": "50dc06558f36da331afe4ddbf45112d7b90c7e08c9983958863b764a78e591b3"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/ReturnRetrySafetyTests.cs",
+      "rawSha256": "b35dda2fef4a8dc8fc6a3750d213cffce50fbb8827f5c5ba5e43e7e49c390097",
+      "lfSha256": "b35dda2fef4a8dc8fc6a3750d213cffce50fbb8827f5c5ba5e43e7e49c390097"
+    },
+    {
+      "path": "savia/tests/test_return_retry_safety.py",
+      "rawSha256": "d142b60596c5e97e86d88f66a4805bf75116e383d45c6060c71d898200c6c687",
+      "lfSha256": "d142b60596c5e97e86d88f66a4805bf75116e383d45c6060c71d898200c6c687"
+    }
+  ],
+  "compile": [
+    {
+      "name": "sdk",
+      "command": [
+        "C:\\Users\\Jason\\MARTHA-SILVA\\validation\\resolution-20261028-jsdom\\.sdk-10.0.402\\dotnet.exe",
+        "--version"
+      ],
+      "exit": 0,
+      "seconds": 0.188,
+      "log": "private-exports\\merge-readiness-20261116\\corrections\\primary-followup\\sdk.log",
+      "sha256": "6d5ab2a4ef35ceec908f01287257f530b0c0d68f0e84326df2ebcea641f9134b"
+    },
+    {
+      "name": "locked-restore",
+      "command": [
+        "C:\\Users\\Jason\\MARTHA-SILVA\\validation\\resolution-20261028-jsdom\\.sdk-10.0.402\\dotnet.exe",
+        "restore",
+        "savia/tests/Savia.Tests/Savia.Tests.csproj",
+        "--locked-mode",
+        "--source",
+        "C:\\Users\\Jason\\.nuget\\packages",
+        "-p:NuGetAudit=false"
+      ],
+      "exit": 0,
+      "seconds": 4.891,
+      "log": "private-exports\\merge-readiness-20261116\\corrections\\primary-followup\\locked-restore.log",
+      "sha256": "6f1cdd7589c583021cbd92ec911d816f13667ef2e7269948225d6f519b3974f0"
+    },
+    {
+      "name": "build",
+      "command": [
+        "C:\\Users\\Jason\\MARTHA-SILVA\\validation\\resolution-20261028-jsdom\\.sdk-10.0.402\\dotnet.exe",
+        "build",
+        "savia/tests/Savia.Tests/Savia.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-p:NuGetAudit=false"
+      ],
+      "exit": 0,
+      "seconds": 14.953,
+      "log": "private-exports\\merge-readiness-20261116\\corrections\\primary-followup\\build.log",
+      "sha256": "ae29cf23860ad331495b0b72763dd31886c44760129ca511b3c98e0ebd23b52a"
+    }
+  ],
+  "offline": {
+    "command": "python savia/tests/test_return_retry_safety.py",
+    "passed": 5,
+    "failed": 0,
+    "exit": 0
+  },
+  "rules": {
+    "name": "rules",
+    "command": [
+      "python",
+      "savia/tools/rules.py"
+    ],
+    "exit": 0,
+    "seconds": 0.375,
+    "log": "private-exports\\merge-readiness-20261116\\corrections\\primary-followup\\rules.log",
+    "sha256": "2de87318481d79c344baee2450ab8548870ffbc7dd6d966be1cf8823ef384d8a"
+  },
+  "notRun": [
+    "SQL parser/execution",
+    "real concurrency",
+    "combined browser/API/SQL",
+    "CI",
+    "push",
+    "merge",
+    "deployment"
+  ]
+}

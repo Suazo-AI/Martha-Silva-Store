@@ -1,0 +1,30 @@
+{
+  "base": "ba8ff2ba10935e99fc268ebbe5eae130f72c1cca",
+  "reviewWorktree": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-914bcce1-427ce5c579a42bad",
+  "report": "docs/merge-readiness-20261116/corrections/returns/astra-preimplementation.md",
+  "rawSha256": "7435593980ec2a9377acf41b0dcd6405d7599864c45ea7c9f35221ece7aaa314",
+  "lfSha256": "7435593980ec2a9377acf41b0dcd6405d7599864c45ea7c9f35221ece7aaa314",
+  "sources": [
+    {
+      "path": "savia/web/screens/return.mjs",
+      "rawSha256": "33d03c06aa1087b806962fbf8115fbdd1b6d3186c84bb6f16707c3c763e40981",
+      "lfSha256": "33d03c06aa1087b806962fbf8115fbdd1b6d3186c84bb6f16707c3c763e40981"
+    },
+    {
+      "path": "savia/db/migrations/V027__usd_cash.sql",
+      "rawSha256": "83f4fd9665b69d7187b768b90ce60a8a895cccee0feed7f816e4c70c97b85aa7",
+      "lfSha256": "4ce4971c29a646da2788d97b3b822ca116614d3c5fce0d6b4fad72058ca6e0d2"
+    },
+    {
+      "path": "savia/db/migrations/V028__usd_change.sql",
+      "rawSha256": "fd82e158f129261c4d877e557ffa4cdf3074123bb8671f9b7316225f07420666",
+      "lfSha256": "03f3eb6ee0328910c58fdf70ae2f0f9cd138488e0397b7395ebde507d14cb3d5"
+    },
+    {
+      "path": "savia/db/tests/sales/170_return_outcomes.sql",
+      "rawSha256": "fab0c36e7065f0d952ea8453dc9714e3eca2c51904b1b6a1944d478fb4dc9253",
+      "lfSha256": "b0b04a162b450b31f2ae1824606c46f198674ce349dca5a52861084ce359cc9b"
+    }
+  ],
+  "acceptance": "Primary adopts frozen correction contract; implementation and runtime acceptance remain pending."
+}

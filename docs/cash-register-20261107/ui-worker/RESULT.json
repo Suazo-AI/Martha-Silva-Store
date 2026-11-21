@@ -1,0 +1,876 @@
+{
+  "taskId": "savia-cash-ui-continuation-550b104-20261107-02",
+  "originalTaskId": "savia-cash-ui-550b104-20261107-01",
+  "status": "FROZEN_CANDIDATE_UNACCEPTED",
+  "stop": "Authorized implementation and local checks complete; primary handoff",
+  "observedUtc": "2026-11-08T01:35:48.112607+00:00",
+  "workerAcceptance": false,
+  "primaryAcceptance": "PENDING",
+  "freshAstraXhighAcceptance": "PENDING",
+  "productionReady": false,
+  "identity": {
+    "host": "SUAZO-PC",
+    "harness": "T3 Code/Codex",
+    "provider": "codex",
+    "model": "gpt-6.1-sol",
+    "requestedEffort": "high",
+    "exposedEffectiveEffort": "high",
+    "evidence": "runtime metadata and startup/pre-mutation/final agent-awareness; no mismatch observed",
+    "providerEffectiveHiddenSettings": null,
+    "usageTokens": null,
+    "reasoningTokens": null,
+    "providerUSD": null
+  },
+  "worktree": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-ba806449",
+  "isolation": "tool-managed; one writer; no nested delegates",
+  "branch": "t3/savia-cash-ui-workflow",
+  "baseSha": "550b10456c10a2857da930913b397bd1a96949d2",
+  "headSha": "550b10456c10a2857da930913b397bd1a96949d2",
+  "changedProductAndTestPaths": [
+    "backend/src/Martha.Store.Api/Internal/Cash/InternalCashEndpoints.cs",
+    "backend/src/Martha.Store.Api/Internal/Cash/InternalCashReadService.cs",
+    "backend/tests/Martha.Store.Api.Tests/InternalCashReadTests.cs",
+    "backend/tests/Martha.Store.Api.Tests/InternalCashSqlTests.cs",
+    "dev/savia-staff-ui/app.mjs",
+    "dev/savia-staff-ui/client.mjs",
+    "dev/savia-staff-ui/commerce.test.mjs",
+    "dev/savia-staff-ui/index.html",
+    "dev/savia-staff-ui/login.mjs",
+    "dev/savia-staff-ui/cash.mjs",
+    "dev/savia-staff-ui/cash.test.mjs",
+    "tests/browser-mock-validation.mjs",
+    "tests/browser-cash-validation.mjs"
+  ],
+  "bindings": [
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Cash/InternalCashEndpoints.cs",
+      "bytes": 3363,
+      "rawSha256": "6a3a14dcb594f7e8dec7e17c0045405ba28a4c12174faa525515e6da88d23c3a",
+      "lfSha256": "1e0531e5ea25835c936ef09a1f768ff40b5b52b899ef558c1d561a6cd234ef21"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Cash/InternalCashReadService.cs",
+      "bytes": 7148,
+      "rawSha256": "6789de50aaa992fc6fe5c05679c81993beab0ded721e613dce55c9bfcd839e70",
+      "lfSha256": "6789de50aaa992fc6fe5c05679c81993beab0ded721e613dce55c9bfcd839e70"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCashReadTests.cs",
+      "bytes": 8000,
+      "rawSha256": "594600452da6a33ef47a2fe0913c199b36e5a1980664f1b4d879897f17a01f74",
+      "lfSha256": "594600452da6a33ef47a2fe0913c199b36e5a1980664f1b4d879897f17a01f74"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCashSqlTests.cs",
+      "bytes": 18230,
+      "rawSha256": "85635ae51c71c42c02d388e4843a83db6de18b03e894b76326e22a44f8957caa",
+      "lfSha256": "19663b5b2f645205ba8933ac3ba8c1417b44f4f9ad0b60efd375ffd9723e3ab0"
+    },
+    {
+      "path": "dev/savia-staff-ui/app.mjs",
+      "bytes": 44353,
+      "rawSha256": "2105540c566d79cecbfc6ef28e6abbd07ace7a7fbff18ede81c507fa76651d56",
+      "lfSha256": "2105540c566d79cecbfc6ef28e6abbd07ace7a7fbff18ede81c507fa76651d56"
+    },
+    {
+      "path": "dev/savia-staff-ui/client.mjs",
+      "bytes": 12791,
+      "rawSha256": "88a5615f33ba2b049a31a70a3f0d1f261399e22d3d0b7e1fe83847d6423be78b",
+      "lfSha256": "88a5615f33ba2b049a31a70a3f0d1f261399e22d3d0b7e1fe83847d6423be78b"
+    },
+    {
+      "path": "dev/savia-staff-ui/commerce.test.mjs",
+      "bytes": 15503,
+      "rawSha256": "db76e7981a5e81e87be25e88896163b91c8fb8be492e93cdc4380ea9dad3ebbc",
+      "lfSha256": "db76e7981a5e81e87be25e88896163b91c8fb8be492e93cdc4380ea9dad3ebbc"
+    },
+    {
+      "path": "dev/savia-staff-ui/index.html",
+      "bytes": 18518,
+      "rawSha256": "42defc18a76075b207a32c283180c032e135e557683beab58b58de5c35424bd1",
+      "lfSha256": "42defc18a76075b207a32c283180c032e135e557683beab58b58de5c35424bd1"
+    },
+    {
+      "path": "dev/savia-staff-ui/login.mjs",
+      "bytes": 14388,
+      "rawSha256": "561e089a472daa12ce01f3e703167280f681df98d546f2515b31ba004895e1e0",
+      "lfSha256": "561e089a472daa12ce01f3e703167280f681df98d546f2515b31ba004895e1e0"
+    },
+    {
+      "path": "dev/savia-staff-ui/cash.mjs",
+      "bytes": 28556,
+      "rawSha256": "6e3bb17e0e0521bb2b969813366bc324ca26e8e4a9e4d43a425b1329b38c6c86",
+      "lfSha256": "6e3bb17e0e0521bb2b969813366bc324ca26e8e4a9e4d43a425b1329b38c6c86"
+    },
+    {
+      "path": "dev/savia-staff-ui/cash.test.mjs",
+      "bytes": 22810,
+      "rawSha256": "4797dc8cc86478191d6b63faad8a0a8c871303363a2ad9575905feecbe1c1c8e",
+      "lfSha256": "246cb545545f402fee9b2bd7a4228ca0da90f2581d2efe1893e0fdca0ee39b87"
+    },
+    {
+      "path": "tests/browser-mock-validation.mjs",
+      "bytes": 52712,
+      "rawSha256": "4be238999465bb7ceafcf3b5b16020441b79145492b42f59caa1a66ca80729b4",
+      "lfSha256": "4be238999465bb7ceafcf3b5b16020441b79145492b42f59caa1a66ca80729b4"
+    },
+    {
+      "path": "tests/browser-cash-validation.mjs",
+      "bytes": 14271,
+      "rawSha256": "8931cd4559fd7168a7b55f27cdb94c909a10acce16f69da453bd8c12f6789201",
+      "lfSha256": "8931cd4559fd7168a7b55f27cdb94c909a10acce16f69da453bd8c12f6789201"
+    }
+  ],
+  "unchangedArchivedReadBindings": 4,
+  "contractBindings": [
+    {
+      "path": "docs/cash-register-20261107/ui-preparation/PLAN.md",
+      "bytes": 6349,
+      "rawSha256": "86654a591f93360f133e40c13267855e55a0ff26b5ef0f041342a47b79842910",
+      "lfSha256": "5b7d20c47d8afb04719eb77777a35516d46945e15c2de1766134038c34cbe258"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-preparation/astra-contract-review.md",
+      "bytes": 10975,
+      "rawSha256": "a2e78a4c259284c3b9d3d3cf2f7ce8b09571e5df18902a6514924d190d227a97",
+      "lfSha256": "a86064047bf9ef699aa90b3ea6d20fff9ef7ad22837edda89f80b3107217bd48"
+    },
+    {
+      "path": "docs/cash-register-20261107/astra-preimplementation.md",
+      "bytes": 14936,
+      "rawSha256": "753cc2cde43343ff6a19de3a9dabc0f05df37ff2d3edd28021c08684a11b6191",
+      "lfSha256": "7f9530eb2d3b4cc67abd41786a3a8daf8ab579fabdd40f6e62f68c6ae26838ee"
+    },
+    {
+      "path": "docs/DECISIONS.md",
+      "bytes": 21527,
+      "rawSha256": "ef45d5b6be7aa26a8bc59048eb2fd02303a3f0db91123b26b1835a81610bf8ed",
+      "lfSha256": "06f71a6e326fc19eba4963dd08b0a0217f02691a7ab0e3a53ad3634c2c6edc6e"
+    }
+  ],
+  "verification": [
+    {
+      "command": [
+        "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+        "restore",
+        "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+        "--locked-mode",
+        "--source",
+        "C:/Users/Jason/.nuget/packages"
+      ],
+      "exit": 0,
+      "freshness": "unchanged read slice reused; offline cache"
+    },
+    {
+      "command": [
+        "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+        "test",
+        "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName~InternalCashReadTests|FullyQualifiedName~InternalCashTests|FullyQualifiedName~InternalSecurityTests",
+        "--logger",
+        "trx;LogFileName=final.trx",
+        "--results-directory",
+        "docs/cash-register-20261107/ui-worker/test-results"
+      ],
+      "exit": 0,
+      "counters": {
+        "total": 91,
+        "executed": 91,
+        "passed": 91,
+        "failed": 0,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      },
+      "freshness": "unchanged read slice reused; no SQL"
+    },
+    {
+      "command": "NODE_PATH=<existing tests/frontend-deps/node_modules>; node --test dev/savia-staff-ui/cash.test.mjs dev/savia-staff-ui/commerce.test.mjs dev/savia-staff-ui/session-transition.test.mjs dev/savia-staff-ui/failure-simulation.test.mjs dev/savia-staff-ui/stock-exception.test.mjs",
+      "exit": 0,
+      "passed": 167,
+      "failed": 0,
+      "cashTests": 56,
+      "freshness": "final restored product"
+    },
+    {
+      "command": [
+        "python",
+        "tests/check.py"
+      ],
+      "exit": 0,
+      "staffPassed": 221,
+      "staffFailed": 0,
+      "evidence": "repository-final.log",
+      "freshness": "final cart-reset candidate; mutants completed and exact source restored before repository check",
+      "note": "Validated commit pushed text is automatic-sync test fixture output, not an actual publication"
+    },
+    {
+      "command": [
+        "node",
+        "tests/browser-cash-validation.mjs",
+        "C:/Users/Jason/AppData/Roaming/npm/node_modules/@playwright/cli/node_modules/playwright",
+        "C:\\Users\\Jason\\AppData\\Local\\SaviaEvidence\\cash-ui-550b104\\after-final-candidate"
+      ],
+      "environment": {
+        "SAVIA_PILOT_EVIDENCE": "C:\\Users\\Jason\\AppData\\Local\\SaviaEvidence\\cash-ui-550b104"
+      },
+      "exit": 0,
+      "passed": 2,
+      "failed": 0,
+      "layer": "actual installed Chrome; synthetic HTTP only; final six UI source hashes match"
+    },
+    {
+      "command": [
+        "node",
+        "tests/browser-mock-validation.mjs",
+        "C:/Users/Jason/AppData/Roaming/npm/node_modules/@playwright/cli/node_modules/playwright",
+        "C:\\Users\\Jason\\AppData\\Local\\SaviaEvidence\\cash-ui-550b104\\before"
+      ],
+      "environment": {
+        "MARTHA_BROWSER_TEST_MATCH": "Multiarticle cart and lost response reload",
+        "MARTHA_BROWSER_RECORD_VIDEO": "1"
+      },
+      "exit": 0,
+      "passed": 2,
+      "freshness": "genuine pre-UI historical baseline; not cash acceptance"
+    },
+    {
+      "command": [
+        "node",
+        "tests/browser-mock-validation.mjs",
+        "C:/Users/Jason/AppData/Roaming/npm/node_modules/@playwright/cli/node_modules/playwright",
+        "C:\\Users\\Jason\\AppData\\Local\\SaviaEvidence\\cash-ui-550b104\\legacy-final"
+      ],
+      "environment": {
+        "MARTHA_BROWSER_TEST_MATCH": "Stale receipt never unlocks a real pending sale"
+      },
+      "exit": 0,
+      "passed": 1,
+      "layer": "mock Chrome; original unpaid operation scope/key preserved"
+    },
+    {
+      "command": [
+        "node",
+        "tests/browser-mock-validation.mjs",
+        "C:/Users/Jason/AppData/Roaming/npm/node_modules/@playwright/cli/node_modules/playwright",
+        "C:\\Users\\Jason\\AppData\\Local\\SaviaEvidence\\cash-ui-550b104\\supply-final"
+      ],
+      "environment": {
+        "MARTHA_BROWSER_TEST_MATCH": "Supply receipt entry is usable"
+      },
+      "exit": 0,
+      "passed": 1,
+      "layer": "mock Chrome"
+    },
+    {
+      "command": [
+        "python",
+        "docs/cash-register-20261107/ui-worker/negative-controls.py"
+      ],
+      "exit": 0,
+      "mutants": [
+        {
+          "name": "disabled-custodian",
+          "command": [
+            "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+            "test",
+            "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+            "--no-restore",
+            "--filter",
+            "FullyQualifiedName~InternalCashReadTests.Excludes_ineligible_paying_tills",
+            "--logger",
+            "trx;LogFileName=negative-disabled-custodian.trx",
+            "--results-directory",
+            "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-ba806449\\docs\\cash-register-20261107\\ui-worker\\test-results"
+          ],
+          "exit": 1
+        },
+        {
+          "name": "recorded-exponent",
+          "command": [
+            "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+            "test",
+            "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+            "--no-restore",
+            "--filter",
+            "FullyQualifiedName~InternalCashReadTests.Excludes_ineligible_paying_tills",
+            "--logger",
+            "trx;LogFileName=negative-recorded-exponent.trx",
+            "--results-directory",
+            "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-ba806449\\docs\\cash-register-20261107\\ui-worker\\test-results"
+          ],
+          "exit": 1
+        },
+        {
+          "name": "active-branch",
+          "command": [
+            "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+            "test",
+            "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+            "--no-restore",
+            "--filter",
+            "FullyQualifiedName~InternalCashReadTests.Excludes_ineligible_paying_tills",
+            "--logger",
+            "trx;LogFileName=negative-active-branch.trx",
+            "--results-directory",
+            "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-ba806449\\docs\\cash-register-20261107\\ui-worker\\test-results"
+          ],
+          "exit": 1
+        }
+      ],
+      "restored": true,
+      "freshness": "unchanged read slice reused"
+    },
+    {
+      "command": [
+        "python",
+        "docs/cash-register-20261107/ui-worker/frontend-negative-controls.py"
+      ],
+      "exit": 0,
+      "mutants": [
+        {
+          "name": "recorded-exponent",
+          "exit": 1,
+          "expectedNonzero": true
+        },
+        {
+          "name": "same-key",
+          "exit": 1,
+          "expectedNonzero": true
+        },
+        {
+          "name": "session-version",
+          "exit": 1,
+          "expectedNonzero": true
+        }
+      ],
+      "restored": true,
+      "freshness": "final product"
+    },
+    {
+      "command": [
+        "python",
+        "docs/cash-register-20261107/ui-worker/finalize-evidence.py"
+      ],
+      "exit": 0,
+      "recordings": 6,
+      "matchingFinalUiHashes": 6
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit": 0
+    }
+  ],
+  "frozenChecks": [
+    {
+      "check": "1",
+      "workerStatus": "LOCAL_SCOPE_SATISFIED; primary acceptance pending",
+      "result": "D031-034 and existing four POST semantics/scopes preserved; no new business policy.",
+      "evidence": "source diff, original cash rules tests"
+    },
+    {
+      "check": "2",
+      "workerStatus": "LOCAL_SCOPE_SATISFIED; primary acceptance pending",
+      "result": "Authoritative currency/exponent and historical amounts; BigInt decimal parsing 0-6, bound 9e12.",
+      "evidence": "91 offline .NET; 56 cash tests; synthetic exponent-3 Chrome"
+    },
+    {
+      "check": "3",
+      "workerStatus": "LOCAL_SCOPE_SATISFIED; primary acceptance pending",
+      "result": "One own authorized till; paying custodian/location/currency/exponent filtering and stable paging.",
+      "evidence": "103-till query/relational translation tests; three backend mutants; SQL NOT RUN"
+    },
+    {
+      "check": "4",
+      "workerStatus": "LOCAL_SCOPE_SATISFIED; primary acceptance pending",
+      "result": "All four operation envelopes validate and persist/read back before POST; same key/body recovery, no auto-repost.",
+      "evidence": "cash tests and final Chrome uncertain sale/reload with one effect"
+    },
+    {
+      "check": "5",
+      "workerStatus": "LOCAL_SCOPE_SATISFIED; primary acceptance pending",
+      "result": "HTTP status/code retained; first known predispatch rejection distinguished from uncertainty; business rejection recovered.",
+      "evidence": "400/403/401/404/409/5xx/malformed/storage/cleanup tests; insufficient-tender browser"
+    },
+    {
+      "check": "6",
+      "workerStatus": "LOCAL_SCOPE_SATISFIED; primary acceptance pending",
+      "result": "Protection renewal retains intent; actor/version/scope isolation and epoch guards across headers/body/render/cleanup.",
+      "evidence": "session regressions plus 12 cash action x CSRF/header/body epoch cases"
+    },
+    {
+      "check": "7",
+      "workerStatus": "LOCAL_SCOPE_SATISFIED; primary acceptance pending",
+      "result": "Manager/Owner quantity refund uses original price/reason and current eligible paying till; immutable prior close.",
+      "evidence": "strict refund tests; paying-till query tests; mocked late-next-shift readback; prepared SQL test NOT RUN"
+    },
+    {
+      "check": "8",
+      "workerStatus": "LOCAL_SCOPE_SATISFIED; primary acceptance pending",
+      "result": "Server-confirmed total/received/change/balance and counted-close expected/count/difference rendered.",
+      "evidence": "final Chrome 2/2: 27.500 total, 30.000 received, 2.500 change, 27.500 expected, 27.000 count, -0.500 difference"
+    },
+    {
+      "check": "9",
+      "workerStatus": "LOCAL_SCOPE_SATISFIED; primary acceptance pending",
+      "result": "Legacy unpaid recovery remains original commerce scope/key; paid receipt compatibility; supply and stock review preserved.",
+      "evidence": "167 focused / 221 repository staff tests; legacy browser 1/1; supply browser 1/1"
+    },
+    {
+      "check": "10",
+      "workerStatus": "LOCAL_SCOPE_SATISFIED; primary acceptance pending",
+      "result": "Focused tests, meaningful mutants, desktop/mobile keyboard/errors/double-submit/reload/overflow and recordings.",
+      "evidence": "final Chrome 2/2; before baseline 2/2; six final mutants detected; six recordings hashed/probed"
+    },
+    {
+      "check": "11",
+      "workerStatus": "LOCAL_SCOPE_SATISFIED; primary acceptance pending",
+      "result": "Offline/mocked evidence separated from authorized real browser/API/SQL and independent reconciliation.",
+      "evidence": "explicit NOT RUN boundaries; primary and fresh Astra acceptance pending"
+    }
+  ],
+  "browserEvidence": "docs/cash-register-20261107/ui-worker/browser-evidence.json",
+  "privateEvidenceRoot": "C:\\Users\\Jason\\AppData\\Local\\SaviaEvidence\\cash-ui-550b104",
+  "cleanup": {
+    "ownedTabClosed": true,
+    "ownedServerPid": 49764,
+    "ownedServerSession": 69750,
+    "shutdown": "Ctrl-C; exit 1 expected",
+    "ports": [
+      {
+        "port": 61230,
+        "acceptingConnections": false
+      },
+      {
+        "port": 65040,
+        "acceptingConnections": false
+      },
+      {
+        "port": 49827,
+        "acceptingConnections": false
+      }
+    ],
+    "sqlRelatedEnvNameCount": 0,
+    "otherProcessesTerminated": false,
+    "finalAutomaticServerPid": 40268
+  },
+  "negativeControlLimits": [
+    "Initial exponent mutant survived because a targeted receipt fixture did not assert the outer exponent; fixture strengthened and final mutant exits 1.",
+    "Initial single epoch-guard removal survived because other guards still prevented cleanup; changed target to session-version authorization, final mutant exits 1. Initial results retained."
+  ],
+  "notRun": [
+    "SQL/Docker/services/real data/payments",
+    "Browser -> real API -> SQL journey and independently reconciled persisted rows",
+    "Prepared InternalCashSqlTests lifecycle test execution",
+    "Full historical legacy fresh-sale browser suite; new cash driver covers fresh cash and focused original unpaid recovery is retained",
+    "CI, fresh independent Astra/xhigh review, canonical integration, stage/commit/push/merge/deploy/dispatch",
+    "Full video replay/human visual acceptance; files checked with ffprobe and live browser/screenshots observed"
+  ],
+  "unresolved": [
+    {
+      "item": "Persisted backend acceptance",
+      "cause": "SQL and real API/SQL execution explicitly excluded",
+      "correction": "Prepared lifecycle test compiles; 91 offline tests/query translation and mocks pass; not persisted-row proof",
+      "owner": "primary in later authorized SQL campaign",
+      "next": "Run prepared lifecycle and real browser/API/SQL journey, independently reconcile rows"
+    },
+    {
+      "item": "Independent acceptance/integration",
+      "cause": "Worker return cannot accept itself",
+      "correction": "Frozen 13-path RAW/LF candidate, original four bindings unchanged, exact test and browser evidence retained",
+      "owner": "primary then fresh Astra/xhigh",
+      "next": "Verify frozen bindings, review actual diff and serially integrate only accepted candidate"
+    }
+  ],
+  "nextAction": "Primary verifies RESULT bindings and actual diff, then obtains fresh Astra/xhigh review before serial canonical integration.",
+  "lesson": "Definitive cash business rejections must be recovered with the original scope/key before releasing intent. Reproduced insufficient_tender and cash_payment_required paths now pass.",
+  "evidenceBindings": [
+    {
+      "path": "docs/cash-register-20261107/ui-worker/awareness-final.log",
+      "bytes": 1296,
+      "rawSha256": "6c6088486b7898701f7786c8777d93f046c7c41a15ac77a52953e1dcd31f21a3",
+      "lfSha256": "6c6088486b7898701f7786c8777d93f046c7c41a15ac77a52953e1dcd31f21a3"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/browser-before.log",
+      "bytes": 454,
+      "rawSha256": "e600c3c82847732be965dec1157260d9cc271a5d6ed93d509dca920725481559",
+      "lfSha256": "e600c3c82847732be965dec1157260d9cc271a5d6ed93d509dca920725481559"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/browser-cash-final-bound.log",
+      "bytes": 100,
+      "rawSha256": "68e072cbad74f8116a1572f7f03edefcdc716db42fe51fd37b4db33324da1723",
+      "lfSha256": "68e072cbad74f8116a1572f7f03edefcdc716db42fe51fd37b4db33324da1723"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/browser-cash-final.log",
+      "bytes": 100,
+      "rawSha256": "c85b8412db261cc5a7584f50ab2814d24c0dc4351cee4f3539d88eadc1394e02",
+      "lfSha256": "c85b8412db261cc5a7584f50ab2814d24c0dc4351cee4f3539d88eadc1394e02"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/browser-cash.log",
+      "bytes": 100,
+      "rawSha256": "201f9595ac6542a2c01ae05fbe52f67352035681eda18de4e06f06fc56e82547",
+      "lfSha256": "201f9595ac6542a2c01ae05fbe52f67352035681eda18de4e06f06fc56e82547"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/browser-evidence.json",
+      "bytes": 25796,
+      "rawSha256": "13f824a8288173850ee0c40ce3905af8a8ee87e3bdb300ffad9042d5063b6b30",
+      "lfSha256": "a8f5aa188aa4c7fa1634b9c8770d9bf6c9d732578a20fc1c99e7723d56af99b1"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/browser-legacy.log",
+      "bytes": 418,
+      "rawSha256": "bda1ca41cf29971b837d71530d71c5e53a0b45470d6184bb6dab821ecbd9db21",
+      "lfSha256": "bda1ca41cf29971b837d71530d71c5e53a0b45470d6184bb6dab821ecbd9db21"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/browser-loss-correction.py",
+      "bytes": 301,
+      "rawSha256": "c447917fdc9a35100a78b7a83b4450059afc3e808b607b45b72534f7064576bc",
+      "lfSha256": "39102a81f1a44088eb6aaffb0a2e400b16a20d11b05e17ee35092c4bc7053615"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/browser-supply.log",
+      "bytes": 390,
+      "rawSha256": "ac4f8e9dda99c7843f6bae1805df20df901a656cb9749ef87dcc1f00b4583543",
+      "lfSha256": "ac4f8e9dda99c7843f6bae1805df20df901a656cb9749ef87dcc1f00b4583543"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/cart-reset-repro.log",
+      "bytes": 1770,
+      "rawSha256": "a10a79b965950dce7167da80bef1e678097708968cfeac929b023413b12fc6fa",
+      "lfSha256": "a10a79b965950dce7167da80bef1e678097708968cfeac929b023413b12fc6fa"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/cash-epoch.log",
+      "bytes": 8808,
+      "rawSha256": "51d5a42ea6c1e30544e89583e2a5c59f29ef257aa2abe696229f5b1c2fb02993",
+      "lfSha256": "51d5a42ea6c1e30544e89583e2a5c59f29ef257aa2abe696229f5b1c2fb02993"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/cash-final.log",
+      "bytes": 9202,
+      "rawSha256": "c166795de2e481383a527017d5787a1bb6f229a28193bbfa1acac1861ba55526",
+      "lfSha256": "c166795de2e481383a527017d5787a1bb6f229a28193bbfa1acac1861ba55526"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/cash-initial.log",
+      "bytes": 5756,
+      "rawSha256": "807b48ed87923bfab1777eaa3b4d630c35a536217f67e18885dcb99883dfbde3",
+      "lfSha256": "807b48ed87923bfab1777eaa3b4d630c35a536217f67e18885dcb99883dfbde3"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/cash-read-complete.log",
+      "bytes": 1584,
+      "rawSha256": "ed4ae8bc7a46fe50d0ac7a5e66dc4d65ab42f5b608fdf696facb7ea262ea855e",
+      "lfSha256": "ed4ae8bc7a46fe50d0ac7a5e66dc4d65ab42f5b608fdf696facb7ea262ea855e"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/cash-read-final.log",
+      "bytes": 1578,
+      "rawSha256": "4bf5e91e960150eb95d20f3543be09f824ce71a95252ce3cd25a51e0d0774231",
+      "lfSha256": "4bf5e91e960150eb95d20f3543be09f824ce71a95252ce3cd25a51e0d0774231"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/cash-read.log",
+      "bytes": 1564,
+      "rawSha256": "3686aa8108927aee1a8d3788c46e8860c0446842769796def580bbf6b546fe2b",
+      "lfSha256": "3686aa8108927aee1a8d3788c46e8860c0446842769796def580bbf6b546fe2b"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/cleanup.json",
+      "bytes": 482,
+      "rawSha256": "9a8226a9504208c25efa4c3538136ec8d1a6109ce1957b32a08315626caaf288",
+      "lfSha256": "ea4d3e5a0a3b1b2130eb53c4f39ff0ce566a54f1d5e5fce74d0492fab4f293c1"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/compatibility-corrections.py",
+      "bytes": 2005,
+      "rawSha256": "795e1a8d0d57cde3323cbec6ecb927de8bac7f3d2da04cf4672b3b727e8c57a7",
+      "lfSha256": "13dcd7f929b89e1bb4c506b0d624f077a1e7217e540e9b5c608230d059377dae"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/date-repro.log",
+      "bytes": 2356,
+      "rawSha256": "1e6adb93b3d96049a3ca5f2cf1ed5cd9d84aae80677c802f0bdfe5e61bca183d",
+      "lfSha256": "1e6adb93b3d96049a3ca5f2cf1ed5cd9d84aae80677c802f0bdfe5e61bca183d"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/diff-check-final.log",
+      "bytes": 745,
+      "rawSha256": "84721d655d1fc576856ac471d2f5f183261008a26cc3ba6e5020fdd57ee3f28e",
+      "lfSha256": "950aeb74a82414bafe3592a44f8e633c75ffea64e3feb60f6c0a334bc19e76f0"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/epoch-correction.py",
+      "bytes": 631,
+      "rawSha256": "faa90ae4d01bb00c49eaa80a8f0822fb92186f4bec4f1b06b7064f4b8509e6b9",
+      "lfSha256": "7cc04c7e204f4d24bb7b0c5ae385e9aade56d908ed8a215bb929a9ca8b0b2028"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/final.log",
+      "bytes": 1558,
+      "rawSha256": "bf973b19f951a60a587c143df7cca96508cd5f6e4107abf68c47604038fe2473",
+      "lfSha256": "bf973b19f951a60a587c143df7cca96508cd5f6e4107abf68c47604038fe2473"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/finalize-evidence.py",
+      "bytes": 4138,
+      "rawSha256": "d8f201a9fc70a6b6d37524edae690f45eb2566da29717005ae025f9b9fecefcb",
+      "lfSha256": "d8f201a9fc70a6b6d37524edae690f45eb2566da29717005ae025f9b9fecefcb"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/focused-final.log",
+      "bytes": 24712,
+      "rawSha256": "c38f4adf6f18bd2961b12f2fa595e383daf5fa402804cd4d44dc2dc6e9e5da49",
+      "lfSha256": "c38f4adf6f18bd2961b12f2fa595e383daf5fa402804cd4d44dc2dc6e9e5da49"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/focused-initial.log",
+      "bytes": 21660,
+      "rawSha256": "fa88943cb620cdd0c9c7d6e50474e0215ecc37dafb30c0797d33567b54186122",
+      "lfSha256": "fa88943cb620cdd0c9c7d6e50474e0215ecc37dafb30c0797d33567b54186122"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/freeze.py",
+      "bytes": 14148,
+      "rawSha256": "18c4c508c046dcc100b98e2d63c11a80c35ef02cda4530f7197568ad6a518110",
+      "lfSha256": "18c4c508c046dcc100b98e2d63c11a80c35ef02cda4530f7197568ad6a518110"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/frontend-negative-controls-final.json",
+      "bytes": 418,
+      "rawSha256": "c0b2693725c4bf3a0eeda796a39eb3a76d3b9032a8c848242a6abe1da3d23acb",
+      "lfSha256": "ffdd15f472d436d4a7d2539d0eafc0dc9180e8b9c5c15584f53ceb410778f45e"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/frontend-negative-controls-run.log",
+      "bytes": 106,
+      "rawSha256": "5ca618611bfcfb9d9588e561699003d3b9676b77a7bed1360a32a79cf631439b",
+      "lfSha256": "5ca618611bfcfb9d9588e561699003d3b9676b77a7bed1360a32a79cf631439b"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/frontend-negative-controls.json",
+      "bytes": 416,
+      "rawSha256": "275d3c20d944836b16d26e6bfb92cab34dc2b9b52602ef5a9bbab1631ddb6e33",
+      "lfSha256": "6f83bc2c01083db820b215d4b7a7b1cb7ea57533a089d3d93472630cf0d3c085"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/frontend-negative-controls.py",
+      "bytes": 1431,
+      "rawSha256": "779b35231703c76a7cfa9ce14e55a651d042a5dfbf3a7ba7faefe6ff541aa67f",
+      "lfSha256": "3228afd7d5eabea175d905ccb0ed631aa4c14a8beb4d5c59e9df7d876c29323b"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/implement-mount.py",
+      "bytes": 5726,
+      "rawSha256": "5e714d4c2ae167d231bed09e71a5f07d3230e55df7779d344242b66a9acb5ac2",
+      "lfSha256": "11def3b171520fa8d8c1f51b4a2dfc77d4f53a86997e5799ad3f4967cfca8d8e"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/implement-transport.py",
+      "bytes": 6326,
+      "rawSha256": "e3b834d4d439334a6c8db29551f961fa20429a620f8d65e186a79db807bcd725",
+      "lfSha256": "c41b81eb0eb2babb3c6327c9cc7f1705e0a8c2ccd9335c73c82c858b5864521d"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/input-correction.py",
+      "bytes": 466,
+      "rawSha256": "9e3dda99394fb5a4edba4a153800bc67eb42b49752e795362d8256f654bf6003",
+      "lfSha256": "2329fa807c96768b41d1f2c1dc0c5413254be955106ba111f364c76488df6f0d"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/mutant-recorded-exponent.log",
+      "bytes": 5643,
+      "rawSha256": "bce759430404d61c47ba306c3ed2d151102fb1e39bf36c47766b26dcd984456a",
+      "lfSha256": "bce759430404d61c47ba306c3ed2d151102fb1e39bf36c47766b26dcd984456a"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/mutant-same-key.log",
+      "bytes": 15262,
+      "rawSha256": "2a54ceec0eeef4469ff175c20baf72a3b19997aff2956027272d4d6914afcd3b",
+      "lfSha256": "2a54ceec0eeef4469ff175c20baf72a3b19997aff2956027272d4d6914afcd3b"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/mutant-session-epoch.log",
+      "bytes": 4469,
+      "rawSha256": "8fdec42ba6f2dd15f1fea44f106b05fa2facbca87d3e474f7af9867a6d56c08c",
+      "lfSha256": "8fdec42ba6f2dd15f1fea44f106b05fa2facbca87d3e474f7af9867a6d56c08c"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/mutant-session-version.log",
+      "bytes": 5679,
+      "rawSha256": "ff43fb7e65a14349c23cdd68a4796d927a4424909a82d3e38daf4e02937330a4",
+      "lfSha256": "ff43fb7e65a14349c23cdd68a4796d927a4424909a82d3e38daf4e02937330a4"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/negative-active-branch.log",
+      "bytes": 1796,
+      "rawSha256": "3ff4ee0d51d9dea6267a5232cfbf0d8ea3b3bc1e236193c5b485d5f16d31e79d",
+      "lfSha256": "dfca6b358cd00a3dcdd1a5f4b8683ac161b8946bcf77b3b46ac0fbcd66f57e28"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/negative-controls.json",
+      "bytes": 2188,
+      "rawSha256": "896b4030bf90449066b4d9fc3b7d81c5384801375c7ae9eef28df77e86b34d24",
+      "lfSha256": "e1285c8bc101a384acd156ebc5a0220f17f7ffe63b8d9a873060c89d5d6e1e2c"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/negative-controls.py",
+      "bytes": 2071,
+      "rawSha256": "f1678b7f25f2fa806ee66804d44709841c53ffd775914f7c44676be2121cbf07",
+      "lfSha256": "f1678b7f25f2fa806ee66804d44709841c53ffd775914f7c44676be2121cbf07"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/negative-disabled-custodian.log",
+      "bytes": 1790,
+      "rawSha256": "a58888988c032ce458bd331e4933ab683ce276a262bf81476c034685502e80e2",
+      "lfSha256": "dc0ff555903eb31427e53b785679b6939a6f1850c149fd9023405364e7c1d0f3"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/negative-recorded-exponent.log",
+      "bytes": 1767,
+      "rawSha256": "b9007ae9d762bb1e397e2ce3fa8c3731384b9230b0b9cb013d4aca2e859d45f9",
+      "lfSha256": "4d2ac472dada0578d4f212b8ac7581eabcfe0e57d41de6cc16d2ff579dd8e034"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/nested-price-repro.log",
+      "bytes": 1768,
+      "rawSha256": "b1c12ba921a89652695b64fe38ef9e10ec582de52b3ff104bb0da6793699421f",
+      "lfSha256": "b1c12ba921a89652695b64fe38ef9e10ec582de52b3ff104bb0da6793699421f"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/partial-read-slice/freeze.py",
+      "bytes": 7121,
+      "rawSha256": "7b17c03f64576d0a66a9b35191958b2fc78e66b2452c6356dccb9a99953d861d",
+      "lfSha256": "7b17c03f64576d0a66a9b35191958b2fc78e66b2452c6356dccb9a99953d861d"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/partial-read-slice/README.md",
+      "bytes": 7897,
+      "rawSha256": "1766a76b1397e5dff09e30d904e4f688d45aef16b489fe7fa407227c1331c7c8",
+      "lfSha256": "1766a76b1397e5dff09e30d904e4f688d45aef16b489fe7fa407227c1331c7c8"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/payment-rejection-repro.log",
+      "bytes": 3484,
+      "rawSha256": "131d270570ad006d5d7602dac62b2dd9c21f212ed095bc94e429f94eab9f2c27",
+      "lfSha256": "131d270570ad006d5d7602dac62b2dd9c21f212ed095bc94e429f94eab9f2c27"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/README.md",
+      "bytes": 14953,
+      "rawSha256": "d50df7ff4912a38c8eafdc81e3f485652daff5e481d239770cd0518899d5d7ea",
+      "lfSha256": "d50df7ff4912a38c8eafdc81e3f485652daff5e481d239770cd0518899d5d7ea"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/refresh-correction.py",
+      "bytes": 204,
+      "rawSha256": "8cef650172855ed61f8e3962a39ec6e3a24d7b6a85e3ef0818a1a9d2f850d47c",
+      "lfSha256": "a8f1d72ec7a4cacbb35c7b205206ce40e422939ec5f581493f6477fe65287843"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/rejection-correction.py",
+      "bytes": 650,
+      "rawSha256": "548f4344e89f8f2c0975e71300a457fb4ea3cb60165c447114cc870630afe07a",
+      "lfSha256": "2fcf40903564592fb2e34cefe6f69f0da3154e0481d35a3ef7a8a99cdac4664a"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/repository-before-cart-reset.log",
+      "bytes": 61254,
+      "rawSha256": "63a10371a6b208899406d89539d539780db7870f28b0e8c784bea489c06eb200",
+      "lfSha256": "63a10371a6b208899406d89539d539780db7870f28b0e8c784bea489c06eb200"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/repository-check.log",
+      "bytes": 52360,
+      "rawSha256": "5a3bc3e3aa3e067836c785b8f5a66821c59a3bec87b9f883fe50841b7bb29289",
+      "lfSha256": "5a3bc3e3aa3e067836c785b8f5a66821c59a3bec87b9f883fe50841b7bb29289"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/repository-final.log",
+      "bytes": 61396,
+      "rawSha256": "c09a5402633fa221f9ed55da928e855b0556c09c221c190a1251f9473ac2fdb1",
+      "lfSha256": "c09a5402633fa221f9ed55da928e855b0556c09c221c190a1251f9473ac2fdb1"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/restore.log",
+      "bytes": 610,
+      "rawSha256": "b8f35b09858d234471f5125aeb59bc783146b177fdfc1447f524919ba2b78b3b",
+      "lfSha256": "b8f35b09858d234471f5125aeb59bc783146b177fdfc1447f524919ba2b78b3b"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/staff-continuation-initial.log",
+      "bytes": 17416,
+      "rawSha256": "a503e5768f49246453420745d4c17dc6de99c56e2b7e8aa532fdb4fc9b325ce7",
+      "lfSha256": "a503e5768f49246453420745d4c17dc6de99c56e2b7e8aa532fdb4fc9b325ce7"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/test-results/cash-read-complete.trx",
+      "bytes": 60026,
+      "rawSha256": "95d309c8abea09610caea3a5031170b655336197c81ca5408a3d39a49795a872",
+      "lfSha256": "d675b917d496690ca968dde1cbee1b476717f5005a6ad1399ef4b51471f7f448"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/test-results/cash-read-final.trx",
+      "bytes": 52563,
+      "rawSha256": "37208142020ca03d76b344cdb8ac9cc9e683c2f5731d37e7a49555d6a97120d3",
+      "lfSha256": "c10695866c788dfe78dc5dfa745a8672b36142dd8ba8d7cb3d0ba1d987aadab6"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/test-results/cash-read.trx",
+      "bytes": 52563,
+      "rawSha256": "49dd6ac3a15febc63d27a365df46796223d284408d92bdfa367e369b80cc9f3c",
+      "lfSha256": "a1b79c7afebf066895bcd7e47ca678a85191cbaea739cfb9d8c709b6cb72e679"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/test-results/final.trx",
+      "bytes": 157832,
+      "rawSha256": "9836e987106f781e8e45a1b963663426d8499a95b73325b6529e6e2ac7b79e26",
+      "lfSha256": "f04df865e17e57e5f442ce5380b11940f395c9f3fecd0af053588ca0cad7004b"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/test-results/negative-active-branch.trx",
+      "bytes": 16706,
+      "rawSha256": "a50355c144b0ba1b207e3a176d98cc235c45af4f72a07f447d26fb2652a431c2",
+      "lfSha256": "75f03a09fd4b434605802a53d6e440f63af220ded7f58aead9462f0455ee206b"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/test-results/negative-disabled-custodian.trx",
+      "bytes": 16699,
+      "rawSha256": "d29ec6c885e5fbf901ffc41350630198d870f2e7bf7f55d4df2617d7ed252c07",
+      "lfSha256": "1067fd77935ad24e9e172748505e8b193b66f0e4022b9d8df0f6204c5c5d7d87"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/test-results/negative-recorded-exponent.trx",
+      "bytes": 16657,
+      "rawSha256": "101ec3f15963855b9ff3d24ae6450025c1fb54d3919d07934927806e47c9017f",
+      "lfSha256": "8120b675ec3489d1c6824f6f30ec6f21b8f47f93b4b386ea36ea748587674a24"
+    },
+    {
+      "path": "docs/cash-register-20261107/ui-worker/partial-read-slice/RESULT.json",
+      "bytes": 20555,
+      "rawSha256": "01b1ace323c49dcb89b890c570b9871a2449cdbd76f3969d09e71d45121f5aba",
+      "lfSha256": "a2dfc3418c480253967878e83246b2f6f35ca21e0ddbfe57761d1eddedd1310d"
+    }
+  ]
+}

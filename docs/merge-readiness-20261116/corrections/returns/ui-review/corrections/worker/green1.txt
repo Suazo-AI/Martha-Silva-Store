@@ -1,0 +1,44 @@
+✔ lost response freezes immutable intent through edit and remount; 404 never unlocks (77.0161ms)
+✔ account switch while confirmation is held cannot POST (4.4508ms)
+✔ explicit replay after 404 keeps exact body; malformed 200 stays unresolved (8.8701ms)
+✔ wrong IDs, lines, credit, till and malformed receipt cannot confirm (15.2775ms)
+✔ storage denied, corrupt, and missing Web Locks block sending (6.1653ms)
+✔ double submit while confirmation held sends zero; cancel removes never sent draft (2.7637ms)
+✔ foreign actor recovery is generic and loads no dependencies (3.3303ms)
+✔ late POST and lookup cannot render or clear after retirement (7.4979ms)
+✔ competing mounts cannot replace durable reservation; readback failure and tamper fail closed (3.1296ms)
+✔ all supported outcomes reserve complete bodies and preserve exact replay (12.1908ms)
+✔ temporary approval revoked on failed POST and late approval; cashier session retained (8.2648ms)
+✔ cancelled approval cannot close or authorize a replacement dialog (3.2383ms)
+✔ held origin lock rejects a competing mount submit without allocating or sending (3.5438ms)
+✔ F2 rejects malformed reversal fields independently (15.4874ms)
+✖ F1 exact successful exchange POST and explicit replay confirm durably (4.1118ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 14
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 388.4533
+
+✖ failing tests:
+
+test at savia\web\tests\return-lifecycle.test.mjs:5:27
+✖ F1 exact successful exchange POST and explicit replay confirm durably (4.1118ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'unresolved'
+  - 'confirmed'
+  
+      at TestContext.<anonymous> (file:///C:/Users/Jason/.t3/worktrees/github/t3-15d6bca1-a85d144e511e673a/savia/web/tests/return-lifecycle.test.mjs:289:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'unresolved',
+    expected: 'confirmed',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

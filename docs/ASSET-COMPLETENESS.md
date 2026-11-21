@@ -1,5 +1,13 @@
 # Asset completeness and offline recovery
 
+## Authorized public capture — 2026-10-25 UTC
+
+The separate integration branch now uses the public original's 40 sample products, 120 variants and 170 gallery positions. The authorized same-origin transfer produced 840 HTTP-200 files (133,283,783 bytes): 47 HTML, eight CSS/JS resources, eight TTF and 777 media. Every retained file matched its transfer SHA-256 and byte count. The original app transport and Worker remain inert; the import selects media, fonts and vendors only, while HTML/CSS are integrated separately.
+
+One historical JPEG returned HTTP 404: `/research/assets/martha-gala/f1bf4e3664d34cd4.jpg`. It is retained as an explicit missing reference and never synthesized. The historical `--require-complete` gate remains FAIL at 777/778. Current rendered source references are a separate 777/777 set; `STORE_MEDIA` itself references 774 of them. Availability is distinct from product identity and browser visual review. The six `sample_image=true` groups remain marked as samples.
+
+The snapshot and disconnected-PC statements below are historical evidence for the base revision, not the current authorized transfer. Import hashes, browser decoding/visual review and final output hashes must be recorded separately before claiming completion.
+
 ## Verified snapshot (2026-10-24)
 
 This is an **offline local checkout audit**, not a new inspection of the original PC or a claim about the live deployment.

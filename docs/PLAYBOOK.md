@@ -1,5 +1,10 @@
 # Playbook de recuperación y entrega
 
+Actualizado: 2026-11-03. Inicio operativo: [AGENT-START](AGENT-START.md).
+Pruebas y bloqueos vigentes: [validación](testing-20261103/README.md).
+Este procedimiento conserva la recuperación histórica; el siguiente incremento es N5 y venta por cajero.
+
+
 Objetivo: convertir una demo recuperada en un repositorio verificable y reutilizar el procedimiento sin copiar datos sensibles ni exagerar el resultado.
 
 ## Pipeline reutilizable
@@ -22,7 +27,7 @@ Objetivo: convertir una demo recuperada en un repositorio verificable y reutiliz
 | --- | --- | --- |
 | Git / worktrees | Historia, ramas y trabajo paralelo aislado | Una rama por ámbito; no borrar cambios ajenos |
 | Python / `prepare.py` | Build del snapshot sin dependencias externas | No restaura el generador editorial histórico |
-| `tests/check.py` | Suite agregada y fallo inmediato por etapa | Requiere Python, Node y jsdom instalado; Windows aún sin ejecución comprobada |
+| `tests/check.py` | Suite agregada y fallo inmediato por etapa | Requiere Python, Node y jsdom instalado; último agregado en Windows bloqueado por symlinks; ver testing-20261103 |
 | Node / `tests/backend.cjs` | Adaptador local, validación y estado | No prueba un servidor, D1 ni pagos reales |
 | jsdom / `tests/frontend-runtime.cjs` | Montajes y regresiones DOM | No prueba render, viewport ni foco nativo |
 | `tools/audit_assets.py` | Presencia y hashes de medios permitidos | Sin bandera estricta no exige catálogo completo |
@@ -57,7 +62,7 @@ Tras integrar, registrar el SHA con `git rev-parse HEAD`. Comparar contra la ram
 
 Cuando exista un navegador con acceso al candidato:
 
-- Revisar las nueve páginas en escritorio y móvil: navegación, imágenes, cortes, scroll y ausencia de desbordamiento.
+- Revisar las 47 páginas del candidato en escritorio y móvil: navegación, imágenes, cortes, scroll y ausencia de desbordamiento.
 - Probar filtros y Atrás/Adelante; bolsa vacía y con artículos; cambios de cantidad, falta de stock y clics repetidos.
 - Revisar zoom/dialog: Escape, cierre, foco de retorno y teclado; verificar lectura y controles accesibles.
 - Probar checkout de **demo**, recarga, cancelación y estado inválido sin datos personales ni tarjetas reales.

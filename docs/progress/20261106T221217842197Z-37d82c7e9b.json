@@ -1,0 +1,100 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-06T22:12:17.842197+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceFingerprint.cs",
+      "change": "A",
+      "git_blob": "e95a0dbb44bc21cc8b4272ec66d9b2aab05cac1d"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceFingerprintTests.cs",
+      "change": "A",
+      "git_blob": "bd345795820637aaeb6a1c788595425e9c960dd5"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs",
+      "change": "M",
+      "git_blob": "cc18c09bb18ff2998261ef9d669dbcc7c01b6975"
+    },
+    {
+      "path": "docs/local-validation-20261106/PARTITIONS.json",
+      "change": "A",
+      "git_blob": "dfbbfbed0b9bfc2f65304e8e05983cc1ef527615"
+    },
+    {
+      "path": "docs/local-validation-20261106/PRIMARY-A-RESULT.json",
+      "change": "A",
+      "git_blob": "4309131ecfc037e3d57764041d6c9ec81cd55278"
+    },
+    {
+      "path": "docs/local-validation-20261106/PRIMARY-ACCEPTANCE.md",
+      "change": "A",
+      "git_blob": "71fd3c7463d84b6afbd08f53cf38de3a74f79381"
+    },
+    {
+      "path": "docs/local-validation-20261106/README.md",
+      "change": "A",
+      "git_blob": "9f798a1603d62f895a371ce4f8165bd773036255"
+    },
+    {
+      "path": "docs/local-validation-20261106/RESULT.json",
+      "change": "A",
+      "git_blob": "7806131994a585b37daa30e5a9f5115bd25d2392"
+    },
+    {
+      "path": "docs/local-validation-20261106/artifact-bindings.json",
+      "change": "A",
+      "git_blob": "3a3cfbd5efa152cdb84c2c72d671998f34cb313a"
+    },
+    {
+      "path": "docs/local-validation-20261106/fingerprint-results.json",
+      "change": "A",
+      "git_blob": "f5d4ca6662970882f256f4297aee3ab495165393"
+    },
+    {
+      "path": "docs/local-validation-20261106/offline-A/README.md",
+      "change": "A",
+      "git_blob": "f945400348107505a397f6539f78ba52b021b97d"
+    },
+    {
+      "path": "docs/local-validation-20261106/offline-A/RESULT.json",
+      "change": "A",
+      "git_blob": "a3d4f4231ebd7d919bcf269ec1b64fcc3c69fc19"
+    },
+    {
+      "path": "docs/local-validation-20261106/offline-A/source-bindings.json",
+      "change": "A",
+      "git_blob": "2d011c266fc9a61b6c1b4e882bafd04c79158df8"
+    },
+    {
+      "path": "docs/local-validation-20261106/source-bindings.json",
+      "change": "A",
+      "git_blob": "208efbf66b62b74c98589f40698eaf278efd127a"
+    },
+    {
+      "path": "docs/stock-exception-20261106/runtime-campaign/correction/README.md",
+      "change": "A",
+      "git_blob": "e99a6c59cb4f291c1db5d8be1d372a04033108ad"
+    },
+    {
+      "path": "docs/stock-exception-20261106/runtime-campaign/correction/RESULT.json",
+      "change": "A",
+      "git_blob": "1ea6b3b8df23b95c4de3195a5fc6377dfe5ddd87"
+    },
+    {
+      "path": "docs/stock-exception-20261106/runtime-campaign/correction/source-bindings.json",
+      "change": "A",
+      "git_blob": "047e2e93b758ae53c3ac4fae9fce16a24bb8c54d"
+    },
+    {
+      "path": "docs/stock-exception-20261106/runtime-campaign/correction/test-results.sanitized.json",
+      "change": "A",
+      "git_blob": "451c3870e2f569ed8d3446ef883bb2f0e132c165"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

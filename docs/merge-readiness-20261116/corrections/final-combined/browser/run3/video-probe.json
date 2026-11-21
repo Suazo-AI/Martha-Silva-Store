@@ -1,0 +1,56 @@
+[
+  {
+    "command": [
+      "ffprobe",
+      "-v",
+      "error",
+      "-show_entries",
+      "format=duration:stream=codec_name,width,height",
+      "-of",
+      "json",
+      "docs\\merge-readiness-20261116\\corrections\\final-combined\\browser\\run3\\desktop-AFTER.webm"
+    ],
+    "exit": 0,
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "vp8",
+          "width": 1280,
+          "height": 900
+        }
+      ],
+      "format": {
+        "duration": "7.200000"
+      }
+    }
+  },
+  {
+    "command": [
+      "ffprobe",
+      "-v",
+      "error",
+      "-show_entries",
+      "format=duration:stream=codec_name,width,height",
+      "-of",
+      "json",
+      "docs\\merge-readiness-20261116\\corrections\\final-combined\\browser\\run3\\mobile-AFTER.webm"
+    ],
+    "exit": 0,
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "vp8",
+          "width": 390,
+          "height": 844
+        }
+      ],
+      "format": {
+        "duration": "8.840000"
+      }
+    }
+  }
+]

@@ -1,0 +1,5 @@
+Initial source audit: python -B docs/merge-readiness-20261116/corrections/returns/sql/fixture-revision/worker/audit.py
+Exit 1: AssertionError at assert b==expected.
+Cause verified: Git HEAD blob is LF; existing SQL134 working file is CRLF.
+Correction: compare normalized LF for the exact two-line delta; retain separate RAW and LF hashes.
+No SQL134 rewrite was required.

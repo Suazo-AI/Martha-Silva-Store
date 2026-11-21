@@ -1,0 +1,10 @@
+{
+  "engine": "rapidocr-onnxruntime 1.4.4",
+  "startupSeconds": 9.828,
+  "requestWallSeconds": 10.281,
+  "engineMs": 10156,
+  "lines": 8,
+  "error": null,
+  "image": "docs\\pilot\\etiqueta-proof\\generated\\tag1.png",
+  "timeoutSecondsInApi": 12
+}

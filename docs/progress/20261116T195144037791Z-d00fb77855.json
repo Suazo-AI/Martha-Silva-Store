@@ -1,0 +1,595 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-16T19:51:44.037791+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/savia-ux-20261116/ACCEPTANCE.md",
+      "change": "A",
+      "git_blob": "10d1b5794080b36f62e6fb77b5b233271bdb3303"
+    },
+    {
+      "path": "docs/savia-ux-20261116/README.md",
+      "change": "A",
+      "git_blob": "6ae41f0c768a615087ad9743c1cefd4ec4441480"
+    },
+    {
+      "path": "docs/savia-ux-20261116/REFERENCES.md",
+      "change": "A",
+      "git_blob": "4386d5c84b900a8b4ffbfc0abc1030d88a178cc4"
+    },
+    {
+      "path": "docs/savia-ux-20261116/astra-combined-review.md",
+      "change": "A",
+      "git_blob": "30fd38c851d9c471d5fda6dfc0d645139d0463ff"
+    },
+    {
+      "path": "docs/savia-ux-20261116/corrections/CANDIDATE.json",
+      "change": "A",
+      "git_blob": "25e65ce98ed56079b4f84f4126351ecd8570e4e8"
+    },
+    {
+      "path": "docs/savia-ux-20261116/corrections/CHECKS.json",
+      "change": "A",
+      "git_blob": "334f166cc569a29f4b4a859639b34768c7e7fd39"
+    },
+    {
+      "path": "docs/savia-ux-20261116/corrections/README.md",
+      "change": "A",
+      "git_blob": "efec632bd949919a02ff44be6082cbdc52b54184"
+    },
+    {
+      "path": "docs/savia-ux-20261116/corrections/astra-recheck.md",
+      "change": "A",
+      "git_blob": "453f0acb5ca2406cc86625b131896e3291b446c2"
+    },
+    {
+      "path": "docs/savia-ux-20261116/corrections/browser-before-corrections.json",
+      "change": "A",
+      "git_blob": "04c662ef7c34f37c668fcf33d1b0fd67d3918854"
+    },
+    {
+      "path": "docs/savia-ux-20261116/corrections/browser.json",
+      "change": "A",
+      "git_blob": "f8e1a567c9a12dd0ca0a439d5e04690ce015b89f"
+    },
+    {
+      "path": "docs/savia-ux-20261116/corrections/browser.py",
+      "change": "A",
+      "git_blob": "aa5227adf28f2f4d8d24d55b1a6851e0d6cd908d"
+    },
+    {
+      "path": "docs/savia-ux-20261116/corrections/lookup/CANDIDATE.json",
+      "change": "A",
+      "git_blob": "4353cadd9a567cf5669bae3cc7916b19d4cfab10"
+    },
+    {
+      "path": "docs/savia-ux-20261116/corrections/lookup/CHECKS.json",
+      "change": "A",
+      "git_blob": "a34d3a2101c26cd85bea311703783dc37e408490"
+    },
+    {
+      "path": "docs/savia-ux-20261116/corrections/lookup/README.md",
+      "change": "A",
+      "git_blob": "fdac7afbfd88d1ba8bb621f5c1e2d1eca63a41e0"
+    },
+    {
+      "path": "docs/savia-ux-20261116/corrections/lookup/astra-recheck.md",
+      "change": "A",
+      "git_blob": "1795a82f276a9f0940818e19716236bed650cb35"
+    },
+    {
+      "path": "docs/savia-ux-20261116/corrections/lookup/browser.json",
+      "change": "A",
+      "git_blob": "54d7e2ed25337861eebe460c1a843470de28b5c9"
+    },
+    {
+      "path": "docs/savia-ux-20261116/corrections/lookup/browser.py",
+      "change": "A",
+      "git_blob": "a7c60dcc75e3ee02e78b25b320e895899e67bb82"
+    },
+    {
+      "path": "docs/savia-ux-20261116/corrections/red.json",
+      "change": "A",
+      "git_blob": "b328b61e06a855d4a1aae261222553144e79b004"
+    },
+    {
+      "path": "docs/savia-ux-20261116/corrections/shell-fixture.mjs",
+      "change": "A",
+      "git_blob": "7896834833734938534a6412c18e58c23509f055"
+    },
+    {
+      "path": "docs/savia-ux-20261116/demo/STATUS.md",
+      "change": "A",
+      "git_blob": "5798adf3907eba7ad010ac6b819f7b0c8f5cd773"
+    },
+    {
+      "path": "docs/savia-ux-20261116/demo/after-1440.webm",
+      "change": "A",
+      "git_blob": "e79d5becacd28da31030e5611a5673070d61b0e8"
+    },
+    {
+      "path": "docs/savia-ux-20261116/demo/after-390.webm",
+      "change": "A",
+      "git_blob": "d1ef36ec532adea6264232cda1c716186bce93e6"
+    },
+    {
+      "path": "docs/savia-ux-20261116/demo/after-recording.json",
+      "change": "A",
+      "git_blob": "7dc4251cc6a76e39b6074b13681f39fec25dcb90"
+    },
+    {
+      "path": "docs/savia-ux-20261116/demo/before-1440.webm",
+      "change": "A",
+      "git_blob": "bc9f0a0acbdc9a41ad7141d7e41ec74fed7c2b72"
+    },
+    {
+      "path": "docs/savia-ux-20261116/demo/before-390.webm",
+      "change": "A",
+      "git_blob": "43ddb7b34bd86b546221f9364b39b318653f27b4"
+    },
+    {
+      "path": "docs/savia-ux-20261116/demo/before-recording.json",
+      "change": "A",
+      "git_blob": "b7c25d04887c8c1f5a2700614a6a15a5d863eef5"
+    },
+    {
+      "path": "docs/savia-ux-20261116/demo/entry-1440.png",
+      "change": "A",
+      "git_blob": "42f9b6d65f0b12ed871714b66f47a4f842fbb626"
+    },
+    {
+      "path": "docs/savia-ux-20261116/demo/entry-390.png",
+      "change": "A",
+      "git_blob": "6548789730f259f854479cb3213b766cf7ef335b"
+    },
+    {
+      "path": "docs/savia-ux-20261116/demo/manager-1440.png",
+      "change": "A",
+      "git_blob": "f39ea5fb4c3e6a2206130f9f602dcbbd7428150a"
+    },
+    {
+      "path": "docs/savia-ux-20261116/demo/manager-390.png",
+      "change": "A",
+      "git_blob": "de03b188eadcb92516c256f3e893876bf81b3c65"
+    },
+    {
+      "path": "docs/savia-ux-20261116/demo/real-browser.json",
+      "change": "A",
+      "git_blob": "3bde743a63b498c01d73f37731569c776b460886"
+    },
+    {
+      "path": "docs/savia-ux-20261116/demo/real_browser.py",
+      "change": "A",
+      "git_blob": "f740264fbdad85daa739a6c2440599a3374312d1"
+    },
+    {
+      "path": "docs/savia-ux-20261116/demo/record.py",
+      "change": "A",
+      "git_blob": "963e455a8bbef0b4cf7d3d9c481ad8e7b90e27de"
+    },
+    {
+      "path": "docs/savia-ux-20261116/demo/shell-evidence/after.webm",
+      "change": "A",
+      "git_blob": "ed5732856cbb9230b11cd7a2dd82aac3d0660de3"
+    },
+    {
+      "path": "docs/savia-ux-20261116/demo/shell-evidence/etiqueta-1440-dark.png",
+      "change": "A",
+      "git_blob": "acb34e2760a8ed643e3d967a1b3ba1e939718f75"
+    },
+    {
+      "path": "docs/savia-ux-20261116/demo/shell-evidence/etiqueta-1440-light.png",
+      "change": "A",
+      "git_blob": "27c801805bc23ec66016e43c264aa8919536d729"
+    },
+    {
+      "path": "docs/savia-ux-20261116/demo/shell-evidence/etiqueta-390-dark.png",
+      "change": "A",
+      "git_blob": "1a31cc60c30738048416578a374dc619decab9cc"
+    },
+    {
+      "path": "docs/savia-ux-20261116/demo/shell-evidence/etiqueta-390-light.png",
+      "change": "A",
+      "git_blob": "994e06309e6046501446dbd388b8746c00d0df73"
+    },
+    {
+      "path": "docs/savia-ux-20261116/demo/shell-evidence/home-1440-dark.png",
+      "change": "A",
+      "git_blob": "aa4360e6171ae7c69255d946e56f63f63f216d46"
+    },
+    {
+      "path": "docs/savia-ux-20261116/demo/shell-evidence/home-1440-light.png",
+      "change": "A",
+      "git_blob": "ab286bf64bed671de89f925679811f25af5d6b04"
+    },
+    {
+      "path": "docs/savia-ux-20261116/demo/shell-evidence/home-390-dark.png",
+      "change": "A",
+      "git_blob": "5116df8cad0b315ad322a4dce665537b9739fa9a"
+    },
+    {
+      "path": "docs/savia-ux-20261116/demo/shell-evidence/home-390-light.png",
+      "change": "A",
+      "git_blob": "6e6d3fe59f2c110c15e7f124d20d4dc4c591aff0"
+    },
+    {
+      "path": "docs/savia-ux-20261116/demo/shell-evidence/verification.json",
+      "change": "A",
+      "git_blob": "b4eb18bac599e575e2808a53cae3087540de073f"
+    },
+    {
+      "path": "docs/savia-ux-20261116/demo/source-bindings.json",
+      "change": "A",
+      "git_blob": "3fc671bf9a90feaa58f217694802cb38769597be"
+    },
+    {
+      "path": "docs/savia-ux-20261116/navigation/README.md",
+      "change": "A",
+      "git_blob": "987ac47c16c034d633bf2e62db9304565b894105"
+    },
+    {
+      "path": "docs/savia-ux-20261116/navigation/after-1440.mp4",
+      "change": "A",
+      "git_blob": "323dafc7036a63dfb260192e99587067336e0ab1"
+    },
+    {
+      "path": "docs/savia-ux-20261116/navigation/after-390.mp4",
+      "change": "A",
+      "git_blob": "c603e299faf2e00133ec992942dc6e70efb525fd"
+    },
+    {
+      "path": "docs/savia-ux-20261116/navigation/before-1440.mp4",
+      "change": "A",
+      "git_blob": "0d163c4203d4f51941df481599bc8378471e8b8c"
+    },
+    {
+      "path": "docs/savia-ux-20261116/navigation/before-390.mp4",
+      "change": "A",
+      "git_blob": "aab2c0364c894907bf246d75a570160766867d11"
+    },
+    {
+      "path": "docs/savia-ux-20261116/navigation/browser-checks.json",
+      "change": "A",
+      "git_blob": "2e594045e31579f3da06650b782d2d5dccbe13ca"
+    },
+    {
+      "path": "docs/savia-ux-20261116/navigation/keyboard.json",
+      "change": "A",
+      "git_blob": "5e31486167d01a3dd3f696ca88878ed86b447355"
+    },
+    {
+      "path": "docs/savia-ux-20261116/navigation/manager-recheck.json",
+      "change": "A",
+      "git_blob": "bb255f51b8d4db049fb4716ad74a07e1db772556"
+    },
+    {
+      "path": "docs/savia-ux-20261116/navigation/primary-keyboard-first.json",
+      "change": "A",
+      "git_blob": "bf2d7359183982ef43fb49b995c8da4530ca13fe"
+    },
+    {
+      "path": "docs/savia-ux-20261116/navigation/primary-keyboard.json",
+      "change": "A",
+      "git_blob": "2c434f347186c6442a1b7b79db6337358a74f54c"
+    },
+    {
+      "path": "docs/savia-ux-20261116/navigation/primary-keyboard.py",
+      "change": "A",
+      "git_blob": "5820ce5683f2dc0f9864f16503d0f4615127557d"
+    },
+    {
+      "path": "docs/savia-ux-20261116/navigation/recordings.json",
+      "change": "A",
+      "git_blob": "a330f16e7ff65e9c030d0cdb2beed186220c808c"
+    },
+    {
+      "path": "docs/savia-ux-20261116/navigation/source-manifest.json",
+      "change": "A",
+      "git_blob": "95fa60b448876e5ee41bdcfdad2b5bf3ab8d5283"
+    },
+    {
+      "path": "docs/savia-ux-20261116/primary/CANDIDATE.json",
+      "change": "A",
+      "git_blob": "5789f367cbdaeae7293211e828800771e019761b"
+    },
+    {
+      "path": "docs/savia-ux-20261116/primary/CHECKS.json",
+      "change": "A",
+      "git_blob": "d6625deb78d8b5bedf250bb52ddb1c115b498f5e"
+    },
+    {
+      "path": "docs/savia-ux-20261116/primary/EXCLUSIONS.json",
+      "change": "A",
+      "git_blob": "ea81a6f0aedffc26005c7f740c0b3fa193f29af3"
+    },
+    {
+      "path": "docs/savia-ux-20261116/primary/browser-first.json",
+      "change": "A",
+      "git_blob": "67057e6e7a6d2be2b90276a940d5ffe8a5ca86f2"
+    },
+    {
+      "path": "docs/savia-ux-20261116/primary/browser.json",
+      "change": "A",
+      "git_blob": "c70cd484a3acf3bd39d042f8beaad464232c81b8"
+    },
+    {
+      "path": "docs/savia-ux-20261116/primary/browser.py",
+      "change": "A",
+      "git_blob": "b5751ca640b29d84e9e83cf2540761a808cb4bd7"
+    },
+    {
+      "path": "docs/savia-ux-20261116/primary/sale-ready-1440.png",
+      "change": "A",
+      "git_blob": "0d68e42989c7f67aaa3d31645f9d8263faeb091c"
+    },
+    {
+      "path": "docs/savia-ux-20261116/primary/sale-ready-390.png",
+      "change": "A",
+      "git_blob": "1285ff6c93260968f5f98c1fb16a10043aa3ca86"
+    },
+    {
+      "path": "docs/savia-ux-20261116/primary/sale-receipt-1440.png",
+      "change": "A",
+      "git_blob": "915c8f9e4f699ab1291c92169decf38e8752f597"
+    },
+    {
+      "path": "docs/savia-ux-20261116/primary/sale-receipt-390.png",
+      "change": "A",
+      "git_blob": "0b5f0fa4adb56dcc59edd381d5d698cdc6791462"
+    },
+    {
+      "path": "docs/savia-ux-20261116/sale-preimplementation.md",
+      "change": "A",
+      "git_blob": "35d3e18f09589aa665ed816ed8147c6dc364eeb5"
+    },
+    {
+      "path": "docs/savia-ux-20261116/sale/REPORT.md",
+      "change": "A",
+      "git_blob": "0e98f48c93f14937c5e54f5a3b3be49e5b02c1ef"
+    },
+    {
+      "path": "docs/savia-ux-20261116/sale/after-desktop-ticket.png",
+      "change": "A",
+      "git_blob": "0df2a1a0a5ae7e264fafab76049b3a71f3b04702"
+    },
+    {
+      "path": "docs/savia-ux-20261116/sale/after-desktop.png",
+      "change": "A",
+      "git_blob": "db6c4499f12aefefed23b91aaee95eb80a08805a"
+    },
+    {
+      "path": "docs/savia-ux-20261116/sale/after-desktop.webm",
+      "change": "A",
+      "git_blob": "46e66a2632e617e96dae389588111dfc863a8cb5"
+    },
+    {
+      "path": "docs/savia-ux-20261116/sale/after-mobile-ticket.png",
+      "change": "A",
+      "git_blob": "d04400e36bb9e63bb8ec3b718a128601ab674a3e"
+    },
+    {
+      "path": "docs/savia-ux-20261116/sale/after-mobile.png",
+      "change": "A",
+      "git_blob": "30c1dc3573441e75b8b8c568abf13be961d3c899"
+    },
+    {
+      "path": "docs/savia-ux-20261116/sale/after-mobile.webm",
+      "change": "A",
+      "git_blob": "421c0ad87c22dc606e1fecb5d1982f6c107c5bed"
+    },
+    {
+      "path": "docs/savia-ux-20261116/sale/baseline-race.json",
+      "change": "A",
+      "git_blob": "d26861f6499eb9d24a921e9a792e60a532606465"
+    },
+    {
+      "path": "docs/savia-ux-20261116/sale/baseline.mjs",
+      "change": "A",
+      "git_blob": "303a08f43dd237fb30d04a0db8fd11abfda35530"
+    },
+    {
+      "path": "docs/savia-ux-20261116/sale/baseline.py",
+      "change": "A",
+      "git_blob": "555a6ed7e456f159f83c1d959f10bb1d9f0881d9"
+    },
+    {
+      "path": "docs/savia-ux-20261116/sale/before-desktop-ticket.png",
+      "change": "A",
+      "git_blob": "2b2ca786fc962f577780e30adc10f6d0c8d70e95"
+    },
+    {
+      "path": "docs/savia-ux-20261116/sale/before-desktop.png",
+      "change": "A",
+      "git_blob": "b4e99428984f2b4f47b59c9e18897a9b21c9d225"
+    },
+    {
+      "path": "docs/savia-ux-20261116/sale/before-desktop.webm",
+      "change": "A",
+      "git_blob": "d542c95020ae537703344b8b9b59cd5888960841"
+    },
+    {
+      "path": "docs/savia-ux-20261116/sale/before-mobile-ticket.png",
+      "change": "A",
+      "git_blob": "5c9228acf268584856db737412b91d9305919ed0"
+    },
+    {
+      "path": "docs/savia-ux-20261116/sale/before-mobile.png",
+      "change": "A",
+      "git_blob": "aea4f28104a8ec095bff0c8fe664763826c37db5"
+    },
+    {
+      "path": "docs/savia-ux-20261116/sale/before-mobile.webm",
+      "change": "A",
+      "git_blob": "423544cd76dd66640bf722a33e27be3af92c74b2"
+    },
+    {
+      "path": "docs/savia-ux-20261116/sale/capture.py",
+      "change": "A",
+      "git_blob": "e58fea68c9554665357dd8d5c8adbb4b9ce2072e"
+    },
+    {
+      "path": "docs/savia-ux-20261116/sale/captures.txt",
+      "change": "A",
+      "git_blob": "462f11bea914431adb98a847783b623875216d6d"
+    },
+    {
+      "path": "docs/savia-ux-20261116/sale/fixture.html",
+      "change": "A",
+      "git_blob": "742928e056736b970e6aeffa4a6a82291f01c95c"
+    },
+    {
+      "path": "docs/savia-ux-20261116/sale/manifest.py",
+      "change": "A",
+      "git_blob": "8e66aabbbe48fb1a8a7dc1f7c9656afb6b0402e3"
+    },
+    {
+      "path": "docs/savia-ux-20261116/sale/mounted-final.txt",
+      "change": "A",
+      "git_blob": "63ab30ef453cd5e103c438e5e976df94031ef65a"
+    },
+    {
+      "path": "docs/savia-ux-20261116/sale/mounted-results.json",
+      "change": "A",
+      "git_blob": "8d21f50a03916088575d770a43036fcb53ee2a85"
+    },
+    {
+      "path": "docs/savia-ux-20261116/sale/recovery-tests-final.txt",
+      "change": "A",
+      "git_blob": "fba261dbe9b33da088d9110153a33106c2c9b2f8"
+    },
+    {
+      "path": "docs/savia-ux-20261116/sale/recovery-tests.txt",
+      "change": "A",
+      "git_blob": "f2c956bf86104d63c78631979295514aee708eea"
+    },
+    {
+      "path": "docs/savia-ux-20261116/sale/run-browser.py",
+      "change": "A",
+      "git_blob": "6d986b507f4c4e90b4367292e914a66059705d41"
+    },
+    {
+      "path": "docs/savia-ux-20261116/sale/serve.py",
+      "change": "A",
+      "git_blob": "1c1dc72038206a38f95b0a287d7db135efdfde90"
+    },
+    {
+      "path": "docs/savia-ux-20261116/sale/source-bindings.json",
+      "change": "A",
+      "git_blob": "0e11a274e26f9f545ece227de56fca7742da45bc"
+    },
+    {
+      "path": "docs/savia-ux-20261116/sale/suite.txt",
+      "change": "A",
+      "git_blob": "e78ddf77558e2563e0dc53b9e7647c3a806209f2"
+    },
+    {
+      "path": "docs/savia-ux-20261116/sale/write-report.py",
+      "change": "A",
+      "git_blob": "3d3932774e4a7f79bfce33d4b782ec88753e94da"
+    },
+    {
+      "path": "savia/demo/site/banner.css",
+      "change": "M",
+      "git_blob": "d0e72aacc051037d84f086242ef701eeb96af376"
+    },
+    {
+      "path": "savia/demo/site/boot.mjs",
+      "change": "M",
+      "git_blob": "b69ccf5aabcb2a4faecdc8bb960cc5305a1d082c"
+    },
+    {
+      "path": "savia/demo/site/entry.test.mjs",
+      "change": "A",
+      "git_blob": "203a255fe87c9f1a19191d09958a48129d74ec33"
+    },
+    {
+      "path": "savia/demo/site/verify.py",
+      "change": "M",
+      "git_blob": "19679068ce9fe6d7dacb4c33240ffec5a1156ecd"
+    },
+    {
+      "path": "savia/web/api.mjs",
+      "change": "M",
+      "git_blob": "709ec3e66868735eff284c2c2ce7a383193e10ae"
+    },
+    {
+      "path": "savia/web/app.css",
+      "change": "M",
+      "git_blob": "e8fab4405fd00252ea2fb31fd673b5276af993bb"
+    },
+    {
+      "path": "savia/web/app.mjs",
+      "change": "M",
+      "git_blob": "d3eb81e695dc4d2caa677e5b1f4b208f7744805a"
+    },
+    {
+      "path": "savia/web/roles.mjs",
+      "change": "M",
+      "git_blob": "5da69a282233b5d35a52fd2803068cba2118bf47"
+    },
+    {
+      "path": "savia/web/sale-recovery.mjs",
+      "change": "A",
+      "git_blob": "66bf88ef970849d9919dc3192f4578a6c7a8841d"
+    },
+    {
+      "path": "savia/web/scan.mjs",
+      "change": "M",
+      "git_blob": "66c3bef2630371f772d7a0af47b9c06b7e5c9372"
+    },
+    {
+      "path": "savia/web/screens/history.mjs",
+      "change": "M",
+      "git_blob": "88ec761b362c13bf73356e72433eafcc7d5479f2"
+    },
+    {
+      "path": "savia/web/screens/sale.mjs",
+      "change": "M",
+      "git_blob": "d7965504034f7cf6ebda6df2b1beee00207cf121"
+    },
+    {
+      "path": "savia/web/screens/till-open.mjs",
+      "change": "M",
+      "git_blob": "ddfe7b056343291efe3fdc306bbad1f6a247534f"
+    },
+    {
+      "path": "savia/web/tests/api-contract.test.mjs",
+      "change": "M",
+      "git_blob": "359d365b22eb1121909a7821e2304def7c4cc605"
+    },
+    {
+      "path": "savia/web/tests/navigation-ux.test.mjs",
+      "change": "A",
+      "git_blob": "55b2f78153b28c56311758977eeb26ad992c8598"
+    },
+    {
+      "path": "savia/web/tests/sale-lifecycle.test.mjs",
+      "change": "A",
+      "git_blob": "29001603946625da1776fcad2e9a5f790bbea9cb"
+    },
+    {
+      "path": "savia/web/tests/sale-recovery.test.mjs",
+      "change": "A",
+      "git_blob": "06e99590c2205480ece5e6aa8e9afd05120f8b6d"
+    },
+    {
+      "path": "savia/web/tests/sale-ux.browser.mjs",
+      "change": "A",
+      "git_blob": "7232370da1581761d278444dcc22bae8bc43d0d7"
+    },
+    {
+      "path": "savia/web/tests/scan.test.mjs",
+      "change": "M",
+      "git_blob": "17b02ec4adb771f4b81d8416701d4e560f1d046e"
+    },
+    {
+      "path": "savia/web/ui.mjs",
+      "change": "M",
+      "git_blob": "4b9bfb07e6c6931738db6a8c4bf178b11942ab11"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

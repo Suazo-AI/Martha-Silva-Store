@@ -1,0 +1,523 @@
+{
+  "task_id": "savia-web-combine-20261106",
+  "status": "RETURNED",
+  "acceptance": "NOT ACCEPTED",
+  "identity": {
+    "host": "SUAZO-PC",
+    "harness": "T3 Code / Codex",
+    "provider": "codex",
+    "model": "gpt-6.1-sol",
+    "requested_reasoning": "high",
+    "effective_reasoning": "high per runtime and agent-awareness metadata; separate provider attestation unexposed",
+    "usage_cost": "unknown; not exposed",
+    "workspace": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-b74f045e",
+    "source_sha": "b30a275ac7de4e796f34ddf5fb80ebffb3eea98c",
+    "worker_base": "6d8d53c964ca07cf173e3683a7660624d955aa4c"
+  },
+  "changed": [
+    {
+      "path": "build-inputs/static/_headers",
+      "bytes": 486,
+      "sha256": "503d49f3f495ee3001ae78d8db6ca666bbe424cfa962ba4244348000943e907f",
+      "lf_sha256": "503d49f3f495ee3001ae78d8db6ca666bbe424cfa962ba4244348000943e907f",
+      "original_sha256": null
+    },
+    {
+      "path": "build-inputs/static/catalogo.html",
+      "bytes": 132872,
+      "sha256": "d38a7c67f7b4ab23fc977e361c28a19212d043a9515a4354394af57e08f15626",
+      "lf_sha256": "d38a7c67f7b4ab23fc977e361c28a19212d043a9515a4354394af57e08f15626",
+      "original_sha256": "6496b076c78706b10421b5485d782f46a912235a07dcb0dae2d0ff7540085533"
+    },
+    {
+      "path": "build-inputs/static/index.html",
+      "bytes": 198685,
+      "sha256": "3a2d298f99ff5ab1485121fd63921ab95af7abb1ce85f42d659c9449e242d8fb",
+      "lf_sha256": "b025431c70d13b2264aac29cf03f65557bf3412849a43c4c1cf033b0adb3832d",
+      "original_sha256": "2701cb4ede080b3708dc65352623216dd25afc8e97c90515c9692b44226ece24"
+    },
+    {
+      "path": "build-inputs/static/locale-en.js",
+      "bytes": 34004,
+      "sha256": "0f35a694433d4ac4f496a48356ebe831eba680937eef7cf7f65be1cc1d59b9b1",
+      "lf_sha256": "25635092271c419b53ef454a2c92d35bfcc162d1c823fd6ca0cbb1eed0aebb7a",
+      "original_sha256": "e985ad319f0c44d9830fb4941c378c3e6bed4d43a2b741aa59fda2510e003e61"
+    },
+    {
+      "path": "build-inputs/static/styles.css",
+      "bytes": 131141,
+      "sha256": "0a05e6dbbb334e88c535b98a6c461150cad0c73982e63586f0d777289feb0488",
+      "lf_sha256": "0a05e6dbbb334e88c535b98a6c461150cad0c73982e63586f0d777289feb0488",
+      "original_sha256": "9d7cb94e0e57c89fa884294de04a0baf8bfd1362ddc4de9a45aa2939a79ca679"
+    },
+    {
+      "path": "dist/_headers",
+      "bytes": 486,
+      "sha256": "503d49f3f495ee3001ae78d8db6ca666bbe424cfa962ba4244348000943e907f",
+      "lf_sha256": "503d49f3f495ee3001ae78d8db6ca666bbe424cfa962ba4244348000943e907f",
+      "original_sha256": null
+    },
+    {
+      "path": "dist/app.js",
+      "bytes": 93721,
+      "sha256": "ae2577a4a707628f93b19593a41a08db239914e4f34e97455b03a1fb80c421b0",
+      "lf_sha256": "a6209bb17816e00b723c610ad0a85f7c86ac362d750507a369ba4b790160463e",
+      "original_sha256": "d9a06a0f87aa7b1c696d40b4f7fc8b666b2c0c6c0eae1407f8ff2fc859af83dc"
+    },
+    {
+      "path": "dist/catalogo.html",
+      "bytes": 132872,
+      "sha256": "d38a7c67f7b4ab23fc977e361c28a19212d043a9515a4354394af57e08f15626",
+      "lf_sha256": "d38a7c67f7b4ab23fc977e361c28a19212d043a9515a4354394af57e08f15626",
+      "original_sha256": "6496b076c78706b10421b5485d782f46a912235a07dcb0dae2d0ff7540085533"
+    },
+    {
+      "path": "dist/index.html",
+      "bytes": 198685,
+      "sha256": "3a2d298f99ff5ab1485121fd63921ab95af7abb1ce85f42d659c9449e242d8fb",
+      "lf_sha256": "b025431c70d13b2264aac29cf03f65557bf3412849a43c4c1cf033b0adb3832d",
+      "original_sha256": "2701cb4ede080b3708dc65352623216dd25afc8e97c90515c9692b44226ece24"
+    },
+    {
+      "path": "dist/locale-en.js",
+      "bytes": 34004,
+      "sha256": "0f35a694433d4ac4f496a48356ebe831eba680937eef7cf7f65be1cc1d59b9b1",
+      "lf_sha256": "25635092271c419b53ef454a2c92d35bfcc162d1c823fd6ca0cbb1eed0aebb7a",
+      "original_sha256": "e985ad319f0c44d9830fb4941c378c3e6bed4d43a2b741aa59fda2510e003e61"
+    },
+    {
+      "path": "dist/styles.css",
+      "bytes": 131141,
+      "sha256": "0a05e6dbbb334e88c535b98a6c461150cad0c73982e63586f0d777289feb0488",
+      "lf_sha256": "0a05e6dbbb334e88c535b98a6c461150cad0c73982e63586f0d777289feb0488",
+      "original_sha256": "9d7cb94e0e57c89fa884294de04a0baf8bfd1362ddc4de9a45aa2939a79ca679"
+    },
+    {
+      "path": "evidence/releases/20261105/responsive-runtime-sha256.json",
+      "bytes": 287175,
+      "sha256": "f3b2a83d781db81631d744ed0649bf41b32ee396e54922b45a5b422d44c5d3d9",
+      "lf_sha256": "c6097f334a935e290a284694ddcfdd92712e043a42c6bc17f7793f1ce648521a",
+      "original_sha256": "b4c049cce59a14a3cce9ca9e238dab2c14f1be084409996334963f6527739edd"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 51780,
+      "sha256": "869b928f447562e5a3b97022e2c7b28a566180be1ca1cb4af40f33d5724aa301",
+      "lf_sha256": "2c3ec783b8d731d534fe7fcc693c3ed7ae8b20d41930b388c69b47eb6f7ad0e9",
+      "original_sha256": "2367eb6220d313ebf0de41638f521c4bd5ff6d8c4964e6fe27a6b79750652be1"
+    },
+    {
+      "path": "package.json",
+      "bytes": 312,
+      "sha256": "55c2b7d5fb46a8c245763ef4b82c9b21cff756d01bdf5be8a42225111be670da",
+      "lf_sha256": "1bfdebbc38a34e9509cd0b2cac12e9ca6263366c35e2109199b4047823a20e3a",
+      "original_sha256": "10c48b0c745a29939b3e88c07071efe3900e7095d5228cbf5b3509d8beb58678"
+    },
+    {
+      "path": "src/app.js",
+      "bytes": 93721,
+      "sha256": "ae2577a4a707628f93b19593a41a08db239914e4f34e97455b03a1fb80c421b0",
+      "lf_sha256": "a6209bb17816e00b723c610ad0a85f7c86ac362d750507a369ba4b790160463e",
+      "original_sha256": "d9a06a0f87aa7b1c696d40b4f7fc8b666b2c0c6c0eae1407f8ff2fc859af83dc"
+    },
+    {
+      "path": "tests/check.py",
+      "bytes": 7076,
+      "sha256": "8f127bf6979a28f320b96cd14c334acab44232508f3773ad1195be058adc81ec",
+      "lf_sha256": "d9b2670022e71888c3c2a3b588da82e299cdbff75ff012159f29a23f07cb6438",
+      "original_sha256": "c2401f4058b71553aef40a91508b6bb5b63a32e0f8bb12e5feb1ac497082bd68"
+    },
+    {
+      "path": "tests/luxury-editorial.cjs",
+      "bytes": 13002,
+      "sha256": "a03c5a5993e01238c0933ae7fb7fbce523a28c3b13b837e1780d03cd97cc0169",
+      "lf_sha256": "94bde45be3e217f195a4eb2f116811dd324f26c5fe85a08b18df4dab9091edcf",
+      "original_sha256": "81f3f8a5af24ed9891ac3560835c6549508f474b1eb7575d27fb6d2ad0d1b985"
+    },
+    {
+      "path": "tests/responsive_images.py",
+      "bytes": 2076,
+      "sha256": "0f80506355bedbcc136b0807bc3842fbc9b3452fde29e35958059ac993c758dc",
+      "lf_sha256": "b76eb9eefb4ac9fce3eb9c2438edc4f88d6cc83fbad532ef984405d7fd8634ba",
+      "original_sha256": "e46e3f9d7ca162ba5f4b68ccd89418e6b6c52085c3166d2cb1e9e47cba65c812"
+    },
+    {
+      "path": "tests/static_headers.py",
+      "bytes": 9563,
+      "sha256": "e8534005d9dbe004b17914fc30a520fc99c06aeb46f271193087d76d8adb5d9e",
+      "lf_sha256": "5aaa8ebb90b8cb6ea29141d20123b20146faef7084958a7ba46997e8cc7bcf89",
+      "original_sha256": null
+    },
+    {
+      "path": "tests/test_deployment.py",
+      "bytes": 11526,
+      "sha256": "30cfdd0982160f27f97a7e0e009f1b4f2d38ef09d1342257da8864165a9e737e",
+      "lf_sha256": "1034d9b196fef3b86c1b4304bac461f84d721551da679920f8b4d23365e2f006",
+      "original_sha256": "43cd24be144baed0d4a54279766939e377d1d6ef9c7091bdea09de94101a8b23"
+    },
+    {
+      "path": "tests/test_release_snapshot.py",
+      "bytes": 3059,
+      "sha256": "37e0ee45e22d1d194a4085d476c176e6381c7804fe2ec6f8b92eaf822f67a07d",
+      "lf_sha256": "37e0ee45e22d1d194a4085d476c176e6381c7804fe2ec6f8b92eaf822f67a07d",
+      "original_sha256": null
+    },
+    {
+      "path": "tools/verify_release_snapshot.py",
+      "bytes": 3499,
+      "sha256": "a386639a2f19e04627cf3a29d2e1ba71c9e25211af8c83cabc51f35e14db9353",
+      "lf_sha256": "4bf2ca8365aa9514650ff020039d1fbdfdcfa32f246a389a2e910d5aaea98352",
+      "original_sha256": "925ea48bcf90d5acc5249f3bbf2a9850ac38acded91c5298b1bfe8bfa924ddea"
+    }
+  ],
+  "verification": [
+    {
+      "command": [
+        "python",
+        "tests/build.py"
+      ],
+      "exit": 0,
+      "log": "check-0.log"
+    },
+    {
+      "command": [
+        "node",
+        "tests/frontend-runtime.cjs"
+      ],
+      "exit": 0,
+      "log": "check-1.log"
+    },
+    {
+      "command": [
+        "node",
+        "tests/localization-runtime.cjs"
+      ],
+      "exit": 0,
+      "log": "check-2.log"
+    },
+    {
+      "command": [
+        "node",
+        "--test",
+        "tests/luxury-editorial.cjs",
+        "tests/original-catalog.cjs",
+        "tests/catalog-migration.cjs"
+      ],
+      "exit": 0,
+      "log": "check-3.log"
+    },
+    {
+      "command": [
+        "python",
+        "tests/responsive_images.py"
+      ],
+      "exit": 0,
+      "log": "check-4.log"
+    },
+    {
+      "command": [
+        "python",
+        "tests/responsive_fonts.py"
+      ],
+      "exit": 0,
+      "log": "check-5.log"
+    },
+    {
+      "command": [
+        "python",
+        "tests/static_headers.py"
+      ],
+      "exit": 0,
+      "log": "check-6.log"
+    },
+    {
+      "command": [
+        "python",
+        "tests/test_release_snapshot.py"
+      ],
+      "exit": 0,
+      "log": "check-7.log"
+    },
+    {
+      "command": [
+        "python",
+        "tests/test_deployment.py"
+      ],
+      "exit": 0,
+      "log": "check-8.log"
+    },
+    {
+      "command": [
+        "python",
+        "tests/test_check.py"
+      ],
+      "exit": 0,
+      "log": "check-9.log"
+    },
+    {
+      "command": [
+        "python",
+        "tests/structure.py"
+      ],
+      "exit": 0,
+      "log": "check-10.log"
+    },
+    {
+      "command": [
+        "python",
+        "tools/verify_release_snapshot.py"
+      ],
+      "exit": 0,
+      "log": "check-11.log"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "ls",
+        "wrangler",
+        "miniflare",
+        "undici",
+        "--all",
+        "--json"
+      ],
+      "exit": 0,
+      "log": "check-12.log"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "audit",
+        "--json"
+      ],
+      "exit": 0,
+      "log": "check-13.log"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "audit",
+        "--omit=dev",
+        "--json"
+      ],
+      "exit": 0,
+      "log": "check-14.log"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit": 0,
+      "log": "check-15.log"
+    }
+  ],
+  "setup": [
+    {
+      "command": [
+        "python",
+        "prepare.py"
+      ],
+      "exit": 0,
+      "log": "setup-0.log"
+    },
+    {
+      "command": [
+        "python",
+        "tools/verify_release_snapshot.py",
+        "--record"
+      ],
+      "exit": 0,
+      "log": "setup-1.log"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "ci",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "exit": 0,
+      "log": "setup-2.log"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "ci",
+        "--prefix",
+        "tests/frontend-deps",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "exit": 0,
+      "log": "setup-3.log"
+    }
+  ],
+  "freeze": {
+    "changed_hashes_sha256": "2d0dd0d3f6ae596a99cbfbbd4d0db30af165f4825eaf8e97b96065ad6079531b",
+    "source_output_manifest_sha256": "76b0b1649ef6649736bbb6f6210c6d2bb3c7240e180623345796cd8eca86d58f",
+    "source_output_files": 3126,
+    "raw_bytes_exercised": true,
+    "separate_LF_materialized_run": false
+  },
+  "media": {
+    "png": 156,
+    "webp": 468,
+    "verified_intact": 624,
+    "fonts_preserved_files": 17
+  },
+  "build": {
+    "files": 1560,
+    "release_public_paths": 1558,
+    "control_files": 1,
+    "historically_excluded_readme": 1
+  },
+  "local_headers": {
+    "command": "python tests/static_headers.py --runtime --port 18314 --output C:/Users/Jason/AppData/Local/Temp/savia-web-combine-20261106-runtime",
+    "exit": 0,
+    "runs": [
+      "positive",
+      "negative",
+      "restored"
+    ],
+    "responses_per_run": 9,
+    "credentials": "CF_/CLOUDFLARE_ environment keys removed; empty env file; local-only",
+    "telemetry": "WRANGLER_SEND_METRICS=false",
+    "evidence": "runtime-evidence.json"
+  },
+  "browser": {
+    "engine": "actual Chrome through AXI after T3 host failure",
+    "port": 18313,
+    "security": "Loopback Python harness applies exact repository security headers. Separate actual Wrangler HTTP probe on 18314.",
+    "desktop": [
+      1280,
+      900
+    ],
+    "mobile": [
+      390,
+      844
+    ],
+    "orders": "DEMO-0001 approved at each viewport after model reset; USD190.00",
+    "navigation_count": 13,
+    "navigation_count_scope": "1 T3 baseline + 1 AXI initial home + 1 home reload + 4 desktop flow + 5 mobile flow + 1 clean desktop home recheck; no remote forms.",
+    "navigation_limit_note": "About 12 requested; one extra clean home check was necessary for the observed server-transition failure. No remote form actions.",
+    "evidence": [
+      "browser-desktop.json",
+      "desktop-readback.log",
+      "desktop-console.log",
+      "desktop-network.log",
+      "browser-mobile.json",
+      "browser-summary.json",
+      "desktop-home-recheck.log",
+      "desktop-home-recheck-console.log"
+    ],
+    "screenshots": [
+      "desktop-bag.png",
+      "desktop-home-rechecked.png",
+      "desktop-home.png",
+      "desktop-order.png",
+      "desktop-payment.png",
+      "mobile-bag.png",
+      "mobile-home.png",
+      "mobile-order.png",
+      "mobile-payment.png"
+    ],
+    "recording": "NOT AVAILABLE",
+    "limits": [
+      "Final-page console/network retained; not exhaustive console history for every navigation.",
+      "CSP event listener attached after product load; not a complete load-time violation recorder. No CSP errors in retained final console samples.",
+      "CSS/device emulation is not physical-device acceptance.",
+      "No new controlled before/after speed benchmark; historical performance reductions are not fresh measurements."
+    ]
+  },
+  "blockers": [
+    {
+      "artifact": "before/after video",
+      "evidence": "Preview automation recordingStart timed out after 15000ms.; then No preview automation host is available",
+      "cause": "T3 recording/automation host disconnected",
+      "attempt": "One supported recording attempt; switched to Chrome AXI after doctor. AXI documented surface has no recording command.",
+      "result": "Fresh screenshots and checkout readbacks completed; no video exists.",
+      "owner": "primary",
+      "next_action": "Capture through a functioning authorized recording host if still required. Do not relabel a reconstructed baseline as original.",
+      "completion_check": "Playable actual recordings with viewport and source hashes; missing original before remains explicit."
+    },
+    {
+      "artifact": "Linux aggregate and symlink guards",
+      "evidence": "Historical WinError 1314; current tests/test_deployment.py reports 14 tests, skipped=1",
+      "cause": "Windows symlink capability unavailable; no permission change authorized",
+      "attempt": "Known blocked aggregate intentionally NOT RUN; focused checks completed without altering guards.",
+      "result": "Linux pending; no historical Linux result assigned to combined bytes.",
+      "owner": "primary",
+      "next_action": "After serial integration, run python tests/check.py --install and python tests/test_deployment.py on Linux at exact integrated SHA.",
+      "completion_check": "Both exit 0; symlink guards execute rather than skip."
+    },
+    {
+      "artifact": "independent acceptance",
+      "evidence": "Worker return only; no critic/judge requested from this child.",
+      "cause": "Primary owns independent reviews and final acceptance.",
+      "attempt": "Froze actual code/output/test hashes and prepared reviewable evidence.",
+      "result": "RETURNED / NOT ACCEPTED",
+      "owner": "primary",
+      "next_action": "Inspect frozen candidate, then Gemini 4 Argon/high critic and GPT-6 Astra/high judge.",
+      "completion_check": "Recorded primary acceptance tied to frozen/integrated hashes and resolved material findings."
+    }
+  ],
+  "retained_failures": [
+    {
+      "evidence": "Only URLs with a scheme in: file, data, and node are supported ... Received protocol c:",
+      "artifact": "AXI run stdin route on Windows",
+      "remedy": "Used documented individual AXI eval/open commands instead; completed flows."
+    },
+    {
+      "evidence": "Execution context was destroyed, most likely because of a navigation.",
+      "artifact": "desktop payment evaluation",
+      "remedy": "Read final order independently; DEMO-0001 approved. Mobile harness tolerates only this navigation-context loss and still requires order readback."
+    },
+    {
+      "evidence": "initial desktop home broken novia/01-front-v1-720.webp; ERR_CONNECTION_REFUSED observed during server switch",
+      "artifact": "desktop home readback",
+      "remedy": "Fresh page with server running; same asset HTTP200/65308 bytes, broken=[], overflow=false; desktop-home-recheck.log."
+    },
+    {
+      "evidence": "UnicodeEncodeError cp1252 during source/check log display",
+      "artifact": "terminal output only",
+      "remedy": "Explicit encoding/ascii-safe summaries; product bytes and captured UTF8 checks unchanged."
+    }
+  ],
+  "not_run": [
+    "Windows aggregate known symlink failure",
+    "Linux CI",
+    "critic/judge review",
+    "remote smoke/deploy/account actions",
+    "SQL/backend/staff/golden-path runtime",
+    "real payments/orders",
+    "before/after recording",
+    "new comparative speed benchmark"
+  ],
+  "historical": [
+    "Worker test counts and prior audits not reused as current evidence.",
+    "Jason public reference source Git SHA remains unknown; frontend worker reference-provenance.json binds historical retrieved files. No new live-reference claim."
+  ],
+  "simulated": [
+    "All storefront orders/payments are local demo data.",
+    "Deployment tests printed remote-smoke PASS from synthetic transport fixture; no actual remote smoke."
+  ],
+  "next_action": "Primary verifies frozen bytes, integrates serially, requests independent critic/judge, and obtains exact integrated SHA Linux validation.",
+  "cleanup": {
+    "ports": [
+      18313,
+      18314
+    ],
+    "released": true,
+    "own_browser_pages": [
+      8,
+      9
+    ],
+    "closed": true,
+    "t3_tab_closed": true,
+    "index": "untouched",
+    "head": "b30a275ac7de4e796f34ddf5fb80ebffb3eea98c"
+  }
+}

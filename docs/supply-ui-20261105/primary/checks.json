@@ -1,0 +1,23 @@
+[
+  {
+    "name": "staff",
+    "command": "node --test dev\\savia-staff-ui\\auth.test.mjs dev\\savia-staff-ui\\branch-compat.test.mjs dev\\savia-staff-ui\\commerce.test.mjs dev\\savia-staff-ui\\dom.test.mjs dev\\savia-staff-ui\\failure-simulation.test.mjs dev\\savia-staff-ui\\pagination.test.mjs dev\\savia-staff-ui\\supply-pagination.test.mjs dev\\savia-staff-ui\\supply.test.mjs",
+    "exit": 0,
+    "log": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\primary-raw-logs\\staff.log",
+    "logSha256": "386110ff95b6473f7d9c47b045f18a4c01d056dd531ddf992d9cef075dc28076"
+  },
+  {
+    "name": "runner",
+    "command": "python -X utf8 tests/test_check.py",
+    "exit": 0,
+    "log": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\primary-raw-logs\\runner.log",
+    "logSha256": "269b3e2f11542b482c558fb5152b0cfb35be9902b4fddacc12821c9302092cbc"
+  },
+  {
+    "name": "diff",
+    "command": "git diff --check -- dev/savia-staff-ui tests/browser-supply-validation.mjs tests/browser-mock-validation.mjs tests/check.py tests/test_check.py backend/src/Martha.Store.Api/Internal/InternalUiHosting.cs backend/src/Martha.Store.Api/Martha.Store.Api.csproj backend/tests/Martha.Store.Api.Tests/InternalSupplyUiTests.cs .github/workflows/savia.yml .github/workflows/staff-ui-candidate.yml",
+    "exit": 0,
+    "log": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\primary-raw-logs\\diff.log",
+    "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

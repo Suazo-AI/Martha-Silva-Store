@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-07T00:54:30.087112+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "backend/tests/test_verify_full_suite.py",
+      "change": "M",
+      "git_blob": "705a1ad546313c95bcbf6a848b9d4561c7a709ca"
+    },
+    {
+      "path": "backend/tests/verify_full_suite.py",
+      "change": "M",
+      "git_blob": "c47a749e92d77c54022604cf040aee181ea544c7"
+    },
+    {
+      "path": "docs/local-validation-20261106/PRIMARY-ACCEPTANCE.md",
+      "change": "M",
+      "git_blob": "3479d1ce11c6964f23d6c61a7ac070ce174c9720"
+    },
+    {
+      "path": "docs/local-validation-20261106/partition-verifier/CORRECTIONS.json",
+      "change": "A",
+      "git_blob": "112ef95dcc1c3aa6236445e1533ac2d7064779c5"
+    },
+    {
+      "path": "docs/local-validation-20261106/partition-verifier/CORRECTIONS.md",
+      "change": "A",
+      "git_blob": "39d5d2b63d029270566ffff1902d66de837c859d"
+    },
+    {
+      "path": "docs/local-validation-20261106/partition-verifier/astra-judge.md",
+      "change": "A",
+      "git_blob": "92758bd355250323d056a3ce4d63034dca2aa25b"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

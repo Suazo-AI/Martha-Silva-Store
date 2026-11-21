@@ -1,0 +1,116 @@
+[
+  {
+    "command": [
+      "python",
+      "tests/test_golden_path_safety.py"
+    ],
+    "exit": 0,
+    "elapsedMs": 438,
+    "privateLog": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-real-20261106\\primary\\check-1.txt",
+    "rawSha256": "19cb9bc01c76110a70714ba5615d784f53672424ade4df6a4d8725718290142d"
+  },
+  {
+    "command": [
+      "python",
+      "tests/test_golden_path_browser_safety.py"
+    ],
+    "exit": 0,
+    "elapsedMs": 344,
+    "privateLog": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-real-20261106\\primary\\check-2.txt",
+    "rawSha256": "db6fc39ff4010fb3191957f27919d9e0b725126fff2157853653ea817c990333"
+  },
+  {
+    "command": [
+      "python",
+      "-m",
+      "py_compile",
+      "tests/golden-path/golden_path.py",
+      "tests/golden-path/verify_evidence.py"
+    ],
+    "exit": 0,
+    "elapsedMs": 109,
+    "privateLog": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-real-20261106\\primary\\check-3.txt",
+    "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "command": [
+      "node",
+      "--check",
+      "tests/golden-path/browser_path.mjs"
+    ],
+    "exit": 0,
+    "elapsedMs": 63,
+    "privateLog": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-real-20261106\\primary\\check-4.txt",
+    "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "command": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "exit": 0,
+    "elapsedMs": 93,
+    "privateLog": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-real-20261106\\primary\\check-5.txt",
+    "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "command": [
+      "C:/Users/Jason/.dotnet-sdk-10.0.402/dotnet.exe",
+      "restore",
+      "tests/golden-path/GoldenPath.Sql",
+      "--locked-mode"
+    ],
+    "exit": 0,
+    "elapsedMs": null,
+    "privateLog": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-real-20261106\\primary\\restore.txt",
+    "rawSha256": "a8d9695b70274a5ea3196b2793242c1d3152fb165fc5763f1d81df2fd63549b3",
+    "observed": "Process exit captured by primary; no SQL or API runtime"
+  },
+  {
+    "command": [
+      "C:/Users/Jason/.dotnet-sdk-10.0.402/dotnet.exe",
+      "build",
+      "tests/golden-path/GoldenPath.Sql",
+      "--no-restore",
+      "--configuration",
+      "Release"
+    ],
+    "exit": 0,
+    "elapsedMs": null,
+    "privateLog": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-real-20261106\\primary\\build.txt",
+    "rawSha256": "23a595bac8baa000d094bf156e5ed89fa8e2baa33ce711e5009b9f8f9f892862",
+    "observed": "Process exit captured by primary; no SQL or API runtime"
+  },
+  {
+    "command": [
+      "python",
+      "-"
+    ],
+    "exit": 0,
+    "elapsedMs": null,
+    "scope": "PyYAML BaseLoader and activation assertions for golden-path.yml and staff-ui-candidate.yml",
+    "observed": "PASS: manual supply opt-in; no Tony SQL trigger; no-SQL CI guards and compile wired."
+  },
+  {
+    "command": [
+      "python",
+      "tests/test_progress.py"
+    ],
+    "exit": 0,
+    "elapsedMs": 45641,
+    "privateLog": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-real-20261106\\primary\\progress.txt",
+    "rawSha256": "90e0a753aa5ac5ef85b32f0ae04da733197ecf6107e02ca69212cd07c2dcc971"
+  },
+  {
+    "command": [
+      "python",
+      "tools/export_progress.py",
+      "--verify"
+    ],
+    "exit": 0,
+    "elapsedMs": 156,
+    "privateLog": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-real-20261106\\primary\\export.txt",
+    "rawSha256": "6bc37a5368f6e607e6a0932afb47bf96d5a6a014603732c4a3c3005c79e0ee56"
+  }
+]

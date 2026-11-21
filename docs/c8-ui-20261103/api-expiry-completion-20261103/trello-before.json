@@ -1,0 +1,83 @@
+{
+  "id": "6aea5de74b0da8bdf86eff30",
+  "name": "C8 [Denis Alvarez · A] N2, N6 y N7 en la interfaz",
+  "desc": "## 🔵 Estado al 4-nov — EN CURSO (Denis; movida a \"En curso\" el 4-nov). Bloquea C11\n**Ya existe:**\n- C3 cerrada, así que el arnés de N5 y el fix son la base.\n- Tony/Codex preparó 6 casos de N2, N6 y N7, todos NOT RUN (comentario del 3-nov):\n  - venta permitida + recarga;\n  - cambio de actor;\n  - mismo actor reasignado;\n  - logout;\n  - expiración (con el `TimeProvider` del fixture, sin tocar el reloj global);\n  - revocación con callbacks tardíos.\n\n**Lo que falta:**\n1. Escribir esos casos en `tests/browser-mock-validation.mjs` con rojo-verde: cada uno debe fallar sin el cambio de UI correspondiente.\n2. Hacer el cambio mínimo en `dev/savia-staff-ui/` si alguno falla.\n3. Correr el arnés completo; hoy son 36/36, y no puede bajar.\n4. PR con la plantilla, y `C8` en el ledger (`status` y `evidence`).\n\n**Opcional en el mismo PR:** la tarjeta N5-COV, que agrega 3 huecos de cobertura de N5 en el mismo archivo.\n**Partir de:** el head del PR #2 (`5895c29` o posterior). Los agentes de Claude no tocan `dev/savia-staff-ui/` ni `tests/browser-mock-validation.mjs` mientras esta tarjeta esté en curso.\n\n---\n**Objetivo**\nN2, N6 y N7 en la interfaz:\n- Recargar y recuperar el **mismo intento**.\n- Venta incierta durante cambio de identidad **conserva la clave** y no reenvía como otro actor.\n- Logout, expiración absoluta (`TimeProvider` falso en la API) y revocación, **descartando respuestas tardías tras 401**.\n\n**Dueño y carril**\nDenis Alvarez · carril A.\n\n**Bloqueado por**\nNinguno por C3: C3 cerrada el 2026-11-03 con revision independiente aceptada por Jason, head 775f301bc195c43baedc68c86f4e71affe92ef95.\n\n**Bloquea**\nC11.\n\n**Archivos**\n- `dev/savia-staff-ui/**`\n- `tests/browser-mock-validation.mjs`\n\n**Verificación**\n- Pruebas nuevas en `tests/browser-mock-validation.mjs` en verde.\n- Rojo-verde: cada prueba falla sin el cambio de UI correspondiente.\n- Arnés de navegador completo en verde; CI del PR en verde.\n\n**Evidencia esperada**\nSalida del arnés (casos N2, N6, N7 y total), navegador y versión, run de CI.\n\n**Criterio de cierre**\nN2, N6 y N7 cubiertos en la interfaz con pruebas rojo-verde; CI en verde.\n\n**Plantilla READY**\n```\nPara mover a \"En revisión\", comentar:\nREADY\nPR: <url>\nhead: <sha40>\nbase: origin/main@<sha40>\nci: <run url> passed=<k> failed=0 pending=0 skipped=<s>\nevidencia: <ruta o run>\nno ejecutado: <qué y por qué>\n```",
+  "idList": "6aea5d677e8b3123293bcaa8",
+  "url": "https://trello.com/c/61IxxolB/11-c8-denis-alvarez-a-n2-n6-y-n7-en-la-interfaz",
+  "checklists": [
+    {
+      "id": "6aea5dfd3a346182e7386fd5",
+      "name": "Criterios de cierre",
+      "idBoard": "6aea5bcd3e4793672218d44c",
+      "idCard": "6aea5de74b0da8bdf86eff30",
+      "pos": 140737488355328,
+      "checkItems": [
+        {
+          "id": "6aea5e7e23ddd453210c01fd",
+          "name": "Recargar y recuperar el mismo intento",
+          "nameData": {
+            "emoji": {}
+          },
+          "pos": 1,
+          "state": "complete",
+          "due": null,
+          "dueReminder": null,
+          "idMember": null,
+          "idChecklist": "6aea5dfd3a346182e7386fd5"
+        },
+        {
+          "id": "6aea5e7e0403a1cb8e099584",
+          "name": "Venta incierta durante cambio de identidad conserva la clave y no reenvía como otro actor",
+          "nameData": {
+            "emoji": {}
+          },
+          "pos": 2,
+          "state": "complete",
+          "due": null,
+          "dueReminder": null,
+          "idMember": null,
+          "idChecklist": "6aea5dfd3a346182e7386fd5"
+        },
+        {
+          "id": "6aea5e7f8e4e33b9e808f455",
+          "name": "Logout, expiración absoluta (TimeProvider falso en la API) y revocación descartan respuestas tardías tras 401",
+          "nameData": {
+            "emoji": {}
+          },
+          "pos": 3,
+          "state": "incomplete",
+          "due": null,
+          "dueReminder": null,
+          "idMember": null,
+          "idChecklist": "6aea5dfd3a346182e7386fd5"
+        },
+        {
+          "id": "6aea5e801d9f61a330573226",
+          "name": "Pruebas rojo-verde en tests/browser-mock-validation.mjs y arnés completo en verde",
+          "nameData": {
+            "emoji": {}
+          },
+          "pos": 4,
+          "state": "complete",
+          "due": null,
+          "dueReminder": null,
+          "idMember": null,
+          "idChecklist": "6aea5dfd3a346182e7386fd5"
+        },
+        {
+          "id": "6aea5e8098e764681b30eac2",
+          "name": "CI en verde",
+          "nameData": {
+            "emoji": {}
+          },
+          "pos": 5,
+          "state": "incomplete",
+          "due": null,
+          "dueReminder": null,
+          "idMember": null,
+          "idChecklist": "6aea5dfd3a346182e7386fd5"
+        }
+      ]
+    }
+  ]
+}

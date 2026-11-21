@@ -1,0 +1,3 @@
+# Copia a .env y reemplaza el valor por una contraseña segura LOCAL.
+# No confirmar .env en Git. No reutilizar credenciales reales o productivas.
+MSSQL_SA_PASSWORD=REPLACE_WITH_STRONG_LOCAL_DEVELOPMENT_PASSWORD

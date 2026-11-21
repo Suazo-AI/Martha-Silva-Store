@@ -1,0 +1,70 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-12T00:35:39.408257+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": ".github/ISSUE_TEMPLATE/bug.yml",
+      "change": "A",
+      "git_blob": "02e7c92a210dbbb77aead09c543671f79f342332"
+    },
+    {
+      "path": ".github/pull_request_template.md",
+      "change": "M",
+      "git_blob": "7b8039a9a0ae9535e07cd196daa7eebc9ccdb571"
+    },
+    {
+      "path": ".github/workflows/bug-agent.yml",
+      "change": "A",
+      "git_blob": "975bc9de59424330a04dd7e6a23eb54f93f61f44"
+    },
+    {
+      "path": ".github/workflows/bug-intake.yml",
+      "change": "A",
+      "git_blob": "0323247d55b42c9574a8a8927ea2129c330f0cf5"
+    },
+    {
+      "path": ".github/workflows/bug-proof.yml",
+      "change": "A",
+      "git_blob": "33b0548df5cbb13a1f31ed98dd34f9e7578ed091"
+    },
+    {
+      "path": "docs/bug-pipeline/EVIDENCE.md",
+      "change": "A",
+      "git_blob": "2b1e934ae311d9733f5f44fb864a0aaec28e6dc7"
+    },
+    {
+      "path": "docs/bug-pipeline/README.md",
+      "change": "A",
+      "git_blob": "fec89e7a32c5adb160a1940f6ac829e805f985bb"
+    },
+    {
+      "path": "docs/program-20261111/PLAN.md",
+      "change": "M",
+      "git_blob": "7d31d29743e088ce64a812fafd3ffdb0eda3f756"
+    },
+    {
+      "path": "tests/bugproof/test_control.py",
+      "change": "A",
+      "git_blob": "28f61bf6e641b61311e101288c696b8ecfc8500f"
+    },
+    {
+      "path": "tests/bugproof/test_prove.py",
+      "change": "A",
+      "git_blob": "5ff66204c5921c0a46777ca2b681e27a22ca748e"
+    },
+    {
+      "path": "tools/bugproof/github.py",
+      "change": "A",
+      "git_blob": "6edbd4ec4468580bfe438ea260ceac691d614e71"
+    },
+    {
+      "path": "tools/bugproof/prove.py",
+      "change": "A",
+      "git_blob": "69711bad594f03dc4bba637d0d66d2c09c054b72"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

@@ -1,0 +1,11 @@
+--- a/dev/savia-staff-ui/app.mjs
++++ b/dev/savia-staff-ui/app.mjs
+@@ -513,7 +513,7 @@
+     }
+     if (!current(g, id)) return;
+     if (receipt) { showReceipt(receipt); if(!pending) renderLines([{itemId:'',quantity:1}]); return; }
+-    if (gone) { try { storage().removeItem(receiptKey(id)); } catch {} }
++    if (gone) { try {  } catch {} }
+     const notice = gone ? 'El último recibo confirmado ya no está disponible en el servidor.'
+       : 'No se pudo cargar el último recibo confirmado desde el servidor.';
+     $('sale-status').textContent = `${notice} ${$('sale-status').textContent}`;

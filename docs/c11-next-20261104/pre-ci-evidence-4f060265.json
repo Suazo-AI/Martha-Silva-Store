@@ -1,0 +1,120 @@
+{
+  "task_id": "C11-N5-01-FINAL-REVIEW-20261104",
+  "status": "pre_ci_review_returned",
+  "verdict": "NEEDS WORK",
+  "final_acceptance": false,
+  "candidate": "4f0602658141023be14cf294b6192a413aaaf8ae",
+  "base": "c2164c310acbcef94718499698abccaa7b1022c0",
+  "patch_sha256": "66f94206e8230c6d4a981f2373c01508e0e2f58e28b70593b76b91b59c71421b",
+  "files": [
+    {
+      "path": ".github/workflows/savia.yml",
+      "git_blob_sha256": "f91c5b631b5d48fd4aaa7503e20d54414bb39e8dc225801aa8ad35913a89fd36",
+      "patch_reconstruction_matches_git_text": true,
+      "snapshot_file_sha256": "9e6cde2d6410d21affee21a29e7a2a35881beef0618d3f1fc59b4391448cd9cd"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs",
+      "git_blob_sha256": "9c4428105207c8802093427464e71814335bf6f425f09aa5a674e330af3e45d6",
+      "patch_reconstruction_matches_git_text": true,
+      "snapshot_file_sha256": "8888dcc13feb6ac7ca640cc0fe623cf79edc5edcbe0495165742617208ea0244"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "git_blob_sha256": "9251a2d7fda05a7c8660768f0d9ef000c86fb04c700f65ba23d5d9924de77615",
+      "patch_reconstruction_matches_git_text": true,
+      "snapshot_file_sha256": "5ed13fab8b06b43e8789d36af0bcaae7a5723c86d12bb4b90c8bf30071905462"
+    },
+    {
+      "path": "docs/c11-next-20261104/README.md",
+      "git_blob_sha256": "bb1ad93d471709143a335469af4ce9ff578857cdb954c76ff27131064eae83fd",
+      "patch_reconstruction_matches_git_text": true,
+      "snapshot_file_sha256": "bb1ad93d471709143a335469af4ce9ff578857cdb954c76ff27131064eae83fd"
+    },
+    {
+      "path": "docs/c11-next-20261104/initial-review-evidence.json",
+      "git_blob_sha256": "460378d9f48ca771c1cb006c632ba8977423a91fc3360933c6e1eb80c67d8e22",
+      "patch_reconstruction_matches_git_text": true,
+      "snapshot_file_sha256": "93a9fcbed237211aedc52c261984fe0d6f5ed4c1ae3ff044a8d6028024a9b2e8"
+    },
+    {
+      "path": "docs/c11-next-20261104/initial-review.md",
+      "git_blob_sha256": "3467849eb882e9e1e3970efa123dbd76ea79872e495c07fbe5d66613d2cf0aad",
+      "patch_reconstruction_matches_git_text": true,
+      "snapshot_file_sha256": "7c543e86d65fcb28181b9f55652d95b09bb8c3bb45e6a6961eff820e19608850"
+    },
+    {
+      "path": "docs/c11-next-20261104/local-checks.json",
+      "git_blob_sha256": "603e41f438a7ab9ef27fab6db178fceede75ff5bcde25bf5851c57dc21ceeb3a",
+      "patch_reconstruction_matches_git_text": true,
+      "snapshot_file_sha256": "603e41f438a7ab9ef27fab6db178fceede75ff5bcde25bf5851c57dc21ceeb3a"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "git_blob_sha256": "39c481eafac5935476795ad29d56bdc307ebe1bdac308e1d97ca6091b751e5ae",
+      "patch_reconstruction_matches_git_text": true,
+      "snapshot_file_sha256": "39c481eafac5935476795ad29d56bdc307ebe1bdac308e1d97ca6091b751e5ae"
+    }
+  ],
+  "findings": [
+    {
+      "id": "C11-N5-01-STATIC-01",
+      "severity": "P2",
+      "kind": "test_evidence_gap",
+      "source": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceHttpSqlTests.cs",
+      "lines": [
+        276,
+        281,
+        314,
+        325,
+        336,
+        338
+      ],
+      "detail": "Staff/Sessions/BranchAssignmentAudit excluded from no-write checks during rejected requests.",
+      "required_change": "Full19table fingerprint after PUT and after fresh login; compare after each rejected request.",
+      "product_defect_reproduced": false,
+      "owner": "existing executor"
+    }
+  ],
+  "criteria": {
+    "N1": "APTO_prior_declared_layers_pending_final_binding",
+    "N2": "APTO_prior_declared_layers_pending_final_binding",
+    "N3": "APTO_prior_declared_layers_pending_final_binding",
+    "N4": "APTO_prior_declared_layers_pending_final_binding",
+    "N5": "PENDING",
+    "N6": "APTO_prior_declared_layers_pending_final_binding",
+    "N7": "APTO_prior_declared_layers_pending_final_binding",
+    "N8": "APTO_prior_declared_layers_pending_final_binding",
+    "N9": "APTO_prior_declared_layers_pending_final_binding"
+  },
+  "runtime_executed": false,
+  "working_tree_read": false,
+  "network_queries": false,
+  "runs_reported_by_parent_not_read": [
+    41774458702,
+    41774458728
+  ],
+  "unverified": [
+    "new method1/1",
+    "601suite0fail0skip",
+    "exact runtime checkout binding",
+    "cleanup/restart",
+    "N5-COV extras",
+    "operational Windows/backup/restore/production"
+  ],
+  "blockers": [
+    "C11-N5-01-STATIC-01",
+    "fresh same-SHA CI artifacts pending"
+  ],
+  "changed": [
+    "judge/PRE-CI-REVIEW.md",
+    "judge/evidence.json"
+  ],
+  "verification": [
+    "immutable git reads",
+    "patch SHA256",
+    "8 reconstructed patch paths text-match published commit"
+  ],
+  "usage": "unknown",
+  "next_action": "existing executor tightens rejection fingerprints; parent supplies corrected immutable SHA and sanitized CI for final independent review"
+}

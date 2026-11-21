@@ -1,0 +1,16 @@
+{
+  "card": "C9",
+  "card_id": "6aea5de748c40007cf1f7eeb",
+  "marker": "[SAVIA-C9-CLOSE-e4b79108]",
+  "action_id": "6aeaa5b5291ae72eef937487",
+  "date": "2026-11-04T03:25:41.540Z",
+  "comment": "[SAVIA-C9-CLOSE-e4b79108]\nC9 sigue BLOQUEADA; 0/5 verificaciones de corrida. C6 ya pasa en e4b7910835bf2c9901aa06989e296997875a3636, pero no concede autorizacion SQL local. Procedimiento G0-G9 y12/12 checks documentales listos: docs/c9-recovery-20261103/PROCEDURE.md. Preflight exacto propuesto en PREFLIGHT-SCOPE.md, pendiente autorizacion separada de Jason (unica conexion de metadata, sin mutacion ni datos de negocio). No se ejecuto SQL/API/Docker ni se repitieron one-shots historicos. Faltan campos actuales/TLS/permisos, coordinador Windows y corrida con ventas, restore, RTO/RPO y retirada. Ultimo Owner perdido sigue sin recuperacion implementada. Siguiente accion: resolver la pregunta de alcance/modelo pendiente; no marcar backup ni restore por evidencia Linux distinta.",
+  "exact_readback": true,
+  "list_before": "6aea5d66e5b03a07af094570",
+  "list_after": "6aea5d66e5b03a07af094570",
+  "closed": false,
+  "check_items_completed": [],
+  "complete": 0,
+  "total": 5,
+  "technical_closure": false
+}

@@ -1,0 +1,18 @@
+✔ new sections have named headings and preserve the independent bridal section (294.165726ms)
+✔ only the new lead receives high priority; all supporting and editorial images are lazy (143.457687ms)
+✔ all 44 derivative byte hashes and actual image headers agree with provenance and whole-frame scaling (45.390854ms)
+✔ every new image has truthful fallback dimensions and responsive candidates from the same original (686.929609ms)
+✔ six editorial photos link to their authentic posts without product or purchase bindings (90.641417ms)
+✔ scoped CSS retains contain fit, focus visibility, and reduced-motion handling (1.444757ms)
+✔ Spanish default and English toggle translate every new visible/accessible string and restore Spanish (934.515198ms)
+✔ the catalog stays a byte-identical 40-product / 120-variant / 170-gallery sample baseline (14.206158ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2818.381796
+
+EXIT=0

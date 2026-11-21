@@ -1,0 +1,20 @@
+{
+  "verified_utc": "2026-10-31T04:52:08.509965+00:00",
+  "public_snapshot_version": "601268a3-81ce-4277-a8ef-cb2e84d2fbb1",
+  "preserved_original_commits": 50,
+  "source_and_runtime_integrity": "PASS: 1081 public hashes, all 1082 output/input hashes, 47 pages, 40 products, 120 variants, no staff paths",
+  "javascript_syntax": "PASS: app.js, demo-api.js, integration-adapters.js, catalog.js, i18n.js, locale-en.js",
+  "source_secret_scan": {
+    "new_historical_objects": 1981,
+    "text_blobs": 716,
+    "text_bytes": 60845374,
+    "credential_pattern_hits": 0,
+    "suspicious_paths": 0,
+    "scope": "GitHub/Slack token formats, private keys, AWS keys, JWTs and credential/session/database path names; pattern scan is not a guarantee of absence"
+  },
+  "full_suite": "NOT_RUN_LOCALLY; cloud workflow records result",
+  "visual_browser": "NOT_RUN; no new browser",
+  "backend_compile_sql": "NOT_RUN",
+  "main_unchanged_expected": "3b0049163ece2d9431cee01f1bea624a66d9d8d4",
+  "deployment_performed_by_sync": false
+}

@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prueba de escaner</title>
+<style>
+  :root { --green: #1f3d2f; --cream: #f6f1e7; --line: #c9c1ad; --bad: #8a2b1c; }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 24px; background: var(--cream); color: var(--green);
+    font: 18px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 1000px; margin: 0 auto; }
+  h1 { font-size: 22px; margin: 0 0 16px; }
+  #status { font-size: 34px; font-weight: 700; margin-bottom: 12px; }
+  #status.ok { color: var(--green); }
+  #status.bad { color: var(--bad); }
+  #last { font: 700 64px/1.1 ui-monospace, Consolas, "Courier New", monospace; min-height: 72px;
+    word-break: break-all; padding: 12px 16px; background: #fffdf7; border: 2px solid var(--green); }
+  #rec { font-size: 26px; font-weight: 700; margin: 16px 0; }
+  .row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin: 12px 0; }
+  button { font: inherit; font-weight: 700; padding: 10px 20px; background: var(--green);
+    color: var(--cream); border: 0; cursor: pointer; }
+  button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px solid #c58b00; outline-offset: 2px; }
+  input[type=text] { font: inherit; padding: 8px 10px; border: 2px solid var(--green); background: #fffdf7; color: var(--green); }
+  table { width: 100%; border-collapse: collapse; font-size: 16px; margin-top: 8px; }
+  th, td { border-bottom: 1px solid var(--line); padding: 6px 8px; text-align: left; }
+  td.code { font-family: ui-monospace, Consolas, "Courier New", monospace; font-weight: 700; word-break: break-all; }
+  .scroll { overflow-x: auto; }
+  textarea { width: 100%; height: 140px; font: 14px ui-monospace, Consolas, monospace; padding: 8px;
+    border: 2px solid var(--green); background: #fffdf7; color: var(--green); }
+  label { font-weight: 700; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Prueba de escaner</h1>
+  <div id="status" class="ok" role="status" aria-live="polite">Listo. Escanee un codigo.</div>
+  <div id="last" aria-label="Ultimo codigo"></div>
+  <div id="rec">maxInterKeyMs recomendado: -</div>
+
+  <div class="row">
+    <label for="manual">Escritura manual (a mano, Enter):</label>
+    <input id="manual" type="text" autocomplete="off" size="20">
+    <label for="prefix">Prefijo:</label>
+    <input id="prefix" type="text" autocomplete="off" size="6">
+    <button id="reset" type="button">Borrar tabla</button>
+  </div>
+
+  <div class="scroll">
+    <table>
+      <thead>
+        <tr><th>#</th><th>Codigo</th><th>Largo</th><th>ms total</th><th>ms entre teclas</th>
+          <th>Sufijo</th><th>Prefijo</th><th>Fuente</th><th>EAN-13 valido</th></tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+
+  <div class="row">
+    <button id="copy" type="button">Copiar resultados</button>
+    <span>Se llena el cuadro de abajo. Seleccione todo y copie.</span>
+  </div>
+  <textarea id="out" readonly aria-label="Resultados en JSON"></textarea>
+</main>
+
+<script type="module">
+import { createScanner, isValidEan13 } from './scanner.mjs';
+
+const $ = (id) => document.getElementById(id);
+const SUFFIX = ['Enter', 'Tab'];
+const RAW_GAP_MS = 300;       // our own capture groups keys up to this gap, wider than the module
+const MAX_ROWS = 20;
+const rows = [];              // newest first
+let seq = 0;
+let pending = null;           // raw capture of the burst that just ended
+let scannerRow = null;        // set by onScan during the same keydown
+let rejectReason = null;
+
+// --- Raw capture. Registered BEFORE createScanner so it sees each key first. ---
+let rawKeys = [];             // [{ch, t}]
+document.addEventListener('keydown', (e) => {
+  if (e.repeat || e.isComposing || e.ctrlKey || e.metaKey) return;
+  const t = performance.now();
+  if (e.key.length === 1) {
+    if (rawKeys.length && t - rawKeys[rawKeys.length - 1].t > RAW_GAP_MS) rawKeys = [];
+    rawKeys.push({ ch: e.key, t });
+    return;
+  }
+  if (SUFFIX.includes(e.key)) {
+    if (rawKeys.length >= 2) {
+      const n = rawKeys.length;
+      const dur = t - rawKeys[0].t;
+      pending = { raw: rawKeys.map((k) => k.ch).join(''), n, dur, avg: dur / n, suffix: e.key };
+    }
+    rawKeys = [];
+    scannerRow = null; rejectReason = null;
+    // After the module handler ran for this same keydown, settle the row.
+    setTimeout(settle, 0);
+  } else if (!['Shift', 'Control', 'Alt', 'AltGraph', 'Meta', 'CapsLock'].includes(e.key)) {
+    rawKeys = [];
+  }
+}, true);
+
+const scanner = createScanner({
+  onScan(scan) {
+    const rawInfo = pending && pending.raw.endsWith(scan.code) ? pending : null;
+    scannerRow = {
+      code: scan.code,
+      length: scan.chars,
+      totalMs: scan.source === 'manual' ? null : scan.durationMs,
+      avgMs: scan.source === 'manual' ? null : scan.avgInterKeyMs,
+      suffix: scan.suffixKey,
+      prefix: rawInfo ? pending.raw.slice(0, pending.raw.length - scan.code.length) : '',
+      source: scan.source === 'scanner' ? 'escaner' : 'manual',
+      ean13: isValidEan13(scan.code),
+      burst: scan.source === 'scanner',
+    };
+    // Strategy documented in scanner.mjs: restore the input, the code is reported once.
+    if (scan.input && scan.restoreValue !== null) scan.input.value = scan.restoreValue;
+    if (scan.input && scan.source === 'manual') scan.input.value = '';
+  },
+  onReject(info) { rejectReason = info.reason; },
+});
+
+function settle() {
+  let row = scannerRow;
+  if (!row && pending) {
+    // The module did not accept this burst; keep our own measurement so it can be characterised.
+    row = {
+      code: pending.raw, length: pending.n, totalMs: pending.dur, avgMs: pending.avg,
+      suffix: pending.suffix, prefix: '', source: 'rechazado: ' + (rejectReason || 'no detectado'),
+      ean13: isValidEan13(pending.raw), burst: true,
+    };
+  }
+  pending = null; scannerRow = null; rejectReason = null;
+  if (!row) return;
+  row.n = ++seq;
+  rows.unshift(row);
+  if (rows.length > MAX_ROWS) rows.pop();
+  render(row);
+}
+
+function fmt(v) { return v === null || v === undefined ? '-' : (Math.round(v * 10) / 10).toString(); }
+
+function render(latest) {
+  const st = $('status');
+  const rejected = latest.source.startsWith('rechazado');
+  st.textContent = rejected ? 'Codigo no aceptado (' + latest.source.slice(11) + ')' : 'Leido: ' + latest.code;
+  st.className = rejected ? 'bad' : 'ok';
+  $('last').textContent = latest.code;
+
+  const tbody = $('rows');
+  tbody.textContent = '';
+  for (const r of rows) {
+    const tr = document.createElement('tr');
+    const cells = [r.n, r.code, r.length, fmt(r.totalMs), fmt(r.avgMs), r.suffix,
+      r.prefix === '' ? '-' : JSON.stringify(r.prefix), r.source, r.ean13 ? 'si' : 'no'];
+    cells.forEach((c, i) => {
+      const td = document.createElement('td');
+      if (i === 1) td.className = 'code';
+      td.textContent = String(c);
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  }
+  const rec = recommendation();
+  $('rec').textContent = 'maxInterKeyMs recomendado: ' + (rec === null ? '-' : rec);
+  $('out').value = JSON.stringify(summary(rec), null, 2);
+}
+
+function recommendation() {
+  const avgs = rows.filter((r) => r.burst && r.avgMs !== null && r.length >= 2).map((r) => r.avgMs);
+  return avgs.length ? Math.ceil(3 * Math.max(...avgs)) : null;
+}
+
+function summary(rec) {
+  return {
+    userAgent: navigator.userAgent,
+    modo: 'prueba con escaner real (si el origen es "escaner")',
+    maxInterKeyMsRecomendado: rec,
+    sufijos: [...new Set(rows.map((r) => r.suffix))],
+    prefijos: [...new Set(rows.map((r) => r.prefix).filter((p) => p !== ''))],
+    escaneos: rows.map((r) => ({
+      codigo: r.code, largo: r.length, msTotal: r.totalMs === null ? null : Math.round(r.totalMs * 10) / 10,
+      msEntreTeclas: r.avgMs === null ? null : Math.round(r.avgMs * 10) / 10,
+      sufijo: r.suffix, prefijo: r.prefix, fuente: r.source, ean13Valido: r.ean13,
+    })),
+  };
+}
+
+$('prefix').addEventListener('input', (e) => scanner.configure({ prefix: e.target.value }));
+$('reset').addEventListener('click', () => {
+  rows.length = 0; seq = 0;
+  $('rows').textContent = ''; $('last').textContent = ''; $('out').value = '';
+  $('status').textContent = 'Listo. Escanee un codigo.'; $('status').className = 'ok';
+  $('rec').textContent = 'maxInterKeyMs recomendado: -';
+});
+$('copy').addEventListener('click', () => {
+  $('out').value = JSON.stringify(summary(recommendation()), null, 2);
+  $('out').focus(); $('out').select();
+});
+</script>
+</body>
+</html>

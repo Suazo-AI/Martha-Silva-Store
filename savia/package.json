@@ -1,0 +1,12 @@
+{
+  "name": "savia-dev-tools",
+  "private": true,
+  "description": "Development tools only (format and lint of savia/web). Nothing here ships to the store.",
+  "scripts": {
+    "lint": "biome check web",
+    "format": "biome check --write web"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.6.4"
+  }
+}

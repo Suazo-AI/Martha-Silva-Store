@@ -1,0 +1,4 @@
+Test run for C:\Users\Jason\.t3\worktrees\github\t3-42b53d56-1b545855e213e920\savia\tests\Savia.Tests\bin\Debug\net10.0\Savia.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+
+Passed!  - Failed:     0, Passed:    20, Skipped:     0, Total:    20, Duration: 2 m 20 s - Savia.Tests.dll (net10.0)

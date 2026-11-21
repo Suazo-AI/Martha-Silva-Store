@@ -1,0 +1,106 @@
+{
+    "result":  "PASS",
+    "sha":  "8c01f99fa325d8a5bde6fddfffdade4f527e91d3",
+    "manifest_files":  861,
+    "verified_at_utc":  "2026-10-25T07:48:31.2971718Z",
+    "assets":  [
+                   {
+                       "path":  "/",
+                       "status":  200,
+                       "sha256":  "2ab5794e599e93242875abe15a79314d2cb72e749e24aea4d1f284600659738f",
+                       "content_type":  "text/html"
+                   },
+                   {
+                       "path":  "/index.html",
+                       "status":  200,
+                       "sha256":  "2ab5794e599e93242875abe15a79314d2cb72e749e24aea4d1f284600659738f",
+                       "content_type":  "text/html"
+                   },
+                   {
+                       "path":  "/catalogo.html",
+                       "status":  200,
+                       "sha256":  "c46c613ecb4d88f27ef095571d1a6fd2be2487efdd9832f5b8eadcd4c8f3baa4",
+                       "content_type":  "text/html"
+                   },
+                   {
+                       "path":  "/styles.css",
+                       "status":  200,
+                       "sha256":  "f1c62075f631b5ec792760e70d76a623e2d06453cd757242e874bf44481767bc",
+                       "content_type":  "text/css"
+                   },
+                   {
+                       "path":  "/app.js",
+                       "status":  200,
+                       "sha256":  "71ffa37faba6ac1e251794b13717943919d4a16ee51df00860ea36d396caf488",
+                       "content_type":  "application/javascript"
+                   },
+                   {
+                       "path":  "/demo-api.js",
+                       "status":  200,
+                       "sha256":  "2cfdfaa9ea665ba4fd7c822ab66f7bdaa1499160c45e04cde53d14530d04002e",
+                       "content_type":  "application/javascript"
+                   },
+                   {
+                       "path":  "/catalog.js",
+                       "status":  200,
+                       "sha256":  "c2d5ed59e03dd68b8e279a33bbce27f120ddb0ca29ff260bb2ec38bdf2df726f",
+                       "content_type":  "application/javascript"
+                   },
+                   {
+                       "path":  "/integration-adapters.js",
+                       "status":  200,
+                       "sha256":  "d274c6853b397c840b92e6dc2491f2f882e568d964429c7ad408fa971b6f2953",
+                       "content_type":  "application/javascript"
+                   },
+                   {
+                       "path":  "/savia/",
+                       "status":  200,
+                       "sha256":  "0431257645f74389e70b6ffd0f494fd28839f5323b1e2bf06f6f183e8efb59eb",
+                       "content_type":  "text/html"
+                   },
+                   {
+                       "path":  "/savia/styles.css",
+                       "status":  200,
+                       "sha256":  "16fda7135b0e512474db1c72575b8c3ab40672694f493edc739e5f3ea098b9eb",
+                       "content_type":  "text/css"
+                   },
+                   {
+                       "path":  "/savia/app.mjs",
+                       "status":  200,
+                       "sha256":  "7a09458daace594cf151746c6b2abdb8791142c80df4f35e6724256c3fa3a3a9",
+                       "content_type":  "text/javascript"
+                   },
+                   {
+                       "path":  "/savia/model.mjs",
+                       "status":  200,
+                       "sha256":  "7379149d37aff19060c690fa5ba5c01f2a4f96b6b0d68bf44dee5448a0605ad3",
+                       "content_type":  "text/javascript"
+                   },
+                   {
+                       "path":  "/savia/api-client.mjs",
+                       "status":  200,
+                       "sha256":  "e4046e4f6d1c0d30c309c92d8a3db80a23ed8208560d3cb19f4b1ac669799d0c",
+                       "content_type":  "text/javascript"
+                   }
+               ],
+    "absent_routes":  [
+                          {
+                              "path":  "/__missing_release_check__",
+                              "status":  404
+                          },
+                          {
+                              "path":  "/health/ready",
+                              "status":  404
+                          },
+                          {
+                              "path":  "/api/v2/synthetic/capabilities",
+                              "status":  404
+                          },
+                          {
+                              "path":  "/api/v2/synthetic/catalog",
+                              "status":  404
+                          }
+                      ],
+    "backend_connected":  false,
+    "client":  "PowerShell default Invoke-WebRequest"
+}

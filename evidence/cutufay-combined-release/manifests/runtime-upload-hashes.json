@@ -1,0 +1,3622 @@
+{
+  "files": {
+    "README.txt": {
+      "bytes": 267,
+      "cloudflare_upload_hash": "d96116515ac2154fe3fa2ed72676dd73"
+    },
+    "admin.html": {
+      "bytes": 16602,
+      "cloudflare_upload_hash": "c3fce7da6223076c21b9cd0a6bd4367c"
+    },
+    "app.js": {
+      "bytes": 78861,
+      "cloudflare_upload_hash": "8f4df8d34f12f81ad6e5295ad88d6a6a"
+    },
+    "assets/missing.svg": {
+      "bytes": 347,
+      "cloudflare_upload_hash": "35bd81b0a88b82e6e04e5dcc90e95536"
+    },
+    "assets/research/assets/store-media/rosa-empolvado-pedreria/01-front-full-length-800.webp": {
+      "bytes": 59454,
+      "cloudflare_upload_hash": "8094d969046fe00e367cddbb0787f5ae"
+    },
+    "ayuda.html": {
+      "bytes": 18107,
+      "cloudflare_upload_hash": "d85778cbfe465c291d02825014e90833"
+    },
+    "bolsa.html": {
+      "bytes": 16664,
+      "cloudflare_upload_hash": "9458a63d00a7a56fa9911cb2291a276f"
+    },
+    "catalog.js": {
+      "bytes": 309909,
+      "cloudflare_upload_hash": "480c627232e49139d6ce207905346699"
+    },
+    "catalogo.html": {
+      "bytes": 133000,
+      "cloudflare_upload_hash": "f5996c082d40083361e5b606b264a92d"
+    },
+    "checkout.html": {
+      "bytes": 10924,
+      "cloudflare_upload_hash": "dc3fdf8482f20d73d046db2aa40bc0d0"
+    },
+    "demo-api.js": {
+      "bytes": 19962,
+      "cloudflare_upload_hash": "579535ee211b1585555c901e639f632d"
+    },
+    "editorial/DbZdVj6q2vn-320.jpg": {
+      "bytes": 46920,
+      "cloudflare_upload_hash": "30d487c6c3f258aa4fb374fd50a7c08c"
+    },
+    "editorial/DbZdVj6q2vn-320.webp": {
+      "bytes": 29382,
+      "cloudflare_upload_hash": "d18c2bd62766846827654bf679ae7e06"
+    },
+    "editorial/DbZdVj6q2vn-480.jpg": {
+      "bytes": 93600,
+      "cloudflare_upload_hash": "06ae20934cfbd83376ab71d37f1b13e8"
+    },
+    "editorial/DbZdVj6q2vn-480.webp": {
+      "bytes": 52314,
+      "cloudflare_upload_hash": "1699dc39409b52f99a8095c40abfa7d8"
+    },
+    "editorial/DbZdVj6q2vn-640.jpg": {
+      "bytes": 112974,
+      "cloudflare_upload_hash": "81397a89ef84b40f2cd2fe034c749e9b"
+    },
+    "editorial/DbZdVj6q2vn-640.webp": {
+      "bytes": 76926,
+      "cloudflare_upload_hash": "9fdbadb792834ec84019e6b64c90aa97"
+    },
+    "editorial/Dd-ETr6BL2V-320.jpg": {
+      "bytes": 51942,
+      "cloudflare_upload_hash": "f2eaad178523bf329bfb5b04810a7666"
+    },
+    "editorial/Dd-ETr6BL2V-320.webp": {
+      "bytes": 28528,
+      "cloudflare_upload_hash": "7922a2d29c9ffb031a60f48dd4e00229"
+    },
+    "editorial/Dd-ETr6BL2V-480.jpg": {
+      "bytes": 97410,
+      "cloudflare_upload_hash": "ff5d6c99479832b22e0ed5b8801c40ef"
+    },
+    "editorial/Dd-ETr6BL2V-480.webp": {
+      "bytes": 51466,
+      "cloudflare_upload_hash": "b8adce2de31219810634f16d8af135dd"
+    },
+    "editorial/Dd-ETr6BL2V-640.jpg": {
+      "bytes": 149762,
+      "cloudflare_upload_hash": "2963c77eda804fb9ace58eb06b80c28f"
+    },
+    "editorial/Dd-ETr6BL2V-640.webp": {
+      "bytes": 72604,
+      "cloudflare_upload_hash": "8831feb567c831b3bd6127accb5aa5c8"
+    },
+    "editorial/Dd-ETr6BL2V-960.jpg": {
+      "bytes": 267599,
+      "cloudflare_upload_hash": "6d2d9d0bceb88f8ffee446f9210642fa"
+    },
+    "editorial/Dd-ETr6BL2V-960.webp": {
+      "bytes": 113536,
+      "cloudflare_upload_hash": "a1eab97b71f1852797ae8add0c816f0a"
+    },
+    "editorial/DdXjMXIFHwT-1440.jpg": {
+      "bytes": 495254,
+      "cloudflare_upload_hash": "4724eaa430d3426fddd9d49c3ebe520c"
+    },
+    "editorial/DdXjMXIFHwT-1440.webp": {
+      "bytes": 268144,
+      "cloudflare_upload_hash": "44fb741f776882bf3b1ddd123065ad4c"
+    },
+    "editorial/DdXjMXIFHwT-480.jpg": {
+      "bytes": 64090,
+      "cloudflare_upload_hash": "49e8a2e0088c7eed04577790c86b3b37"
+    },
+    "editorial/DdXjMXIFHwT-480.webp": {
+      "bytes": 32836,
+      "cloudflare_upload_hash": "b44af2808f686fd8d5e1273bdbc83082"
+    },
+    "editorial/DdXjMXIFHwT-640.jpg": {
+      "bytes": 107468,
+      "cloudflare_upload_hash": "3aa4fea8a56288da487709b8a380dbe2"
+    },
+    "editorial/DdXjMXIFHwT-640.webp": {
+      "bytes": 55506,
+      "cloudflare_upload_hash": "457f495e00f1704ab2e244dff304eacb"
+    },
+    "editorial/DdXjMXIFHwT-960.jpg": {
+      "bytes": 224481,
+      "cloudflare_upload_hash": "64d5e9ce5110c4ab1e71f54991612c7a"
+    },
+    "editorial/DdXjMXIFHwT-960.webp": {
+      "bytes": 116874,
+      "cloudflare_upload_hash": "0cb1da39b6e0af95e48e270a7b523d19"
+    },
+    "editorial/DdwJTglRMBn-320.jpg": {
+      "bytes": 38341,
+      "cloudflare_upload_hash": "1622c2b506a54baa67c69e75b4952099"
+    },
+    "editorial/DdwJTglRMBn-320.webp": {
+      "bytes": 18782,
+      "cloudflare_upload_hash": "11948b263fe518ed0499856edc3d53de"
+    },
+    "editorial/DdwJTglRMBn-480.jpg": {
+      "bytes": 70886,
+      "cloudflare_upload_hash": "ee13a30f024671ae26841b2bb1f66300"
+    },
+    "editorial/DdwJTglRMBn-480.webp": {
+      "bytes": 32534,
+      "cloudflare_upload_hash": "4bc680d56f2ab6c97f55c43e1214d460"
+    },
+    "editorial/DdwJTglRMBn-640.jpg": {
+      "bytes": 108070,
+      "cloudflare_upload_hash": "005b25d5afbb53da73200de3dd35f028"
+    },
+    "editorial/DdwJTglRMBn-640.webp": {
+      "bytes": 46406,
+      "cloudflare_upload_hash": "98b4fa804e80743d7aa5706140b81e94"
+    },
+    "editorial/DdwJTglRMBn-960.jpg": {
+      "bytes": 191215,
+      "cloudflare_upload_hash": "10dfe4e7b97b7e8c52ac86edc2eda0f7"
+    },
+    "editorial/DdwJTglRMBn-960.webp": {
+      "bytes": 70672,
+      "cloudflare_upload_hash": "6a1c288c473568c418c3a62c4015ee2d"
+    },
+    "editorial/DeSG5J1KzHb-320.jpg": {
+      "bytes": 19190,
+      "cloudflare_upload_hash": "026ed45189ee07bfcd895822e3ad4b30"
+    },
+    "editorial/DeSG5J1KzHb-320.webp": {
+      "bytes": 8564,
+      "cloudflare_upload_hash": "4f88f8f614c9eb8b0a9b9a246f0ef55c"
+    },
+    "editorial/DeSG5J1KzHb-480.jpg": {
+      "bytes": 39756,
+      "cloudflare_upload_hash": "93a9065e22615c73dd2089a66108d0a3"
+    },
+    "editorial/DeSG5J1KzHb-480.webp": {
+      "bytes": 14344,
+      "cloudflare_upload_hash": "271bf6d499c40b3b3708ee513ff5d1ac"
+    },
+    "editorial/DeSG5J1KzHb-640.jpg": {
+      "bytes": 34747,
+      "cloudflare_upload_hash": "4b35b54c1743ef5c09cac5d40702bd06"
+    },
+    "editorial/DeSG5J1KzHb-640.webp": {
+      "bytes": 20392,
+      "cloudflare_upload_hash": "9926a463ec977530d1025bcaa5447925"
+    },
+    "editorial/DeSHKZPKTNp-320.jpg": {
+      "bytes": 59291,
+      "cloudflare_upload_hash": "f8223cecb72668725e86470c0f5a77b9"
+    },
+    "editorial/DeSHKZPKTNp-320.webp": {
+      "bytes": 35924,
+      "cloudflare_upload_hash": "4ddb7f40fbac68aaa20791fb13d3676a"
+    },
+    "editorial/DeSHKZPKTNp-480.jpg": {
+      "bytes": 112533,
+      "cloudflare_upload_hash": "4662251045d605619bd51fd2545842b7"
+    },
+    "editorial/DeSHKZPKTNp-480.webp": {
+      "bytes": 65158,
+      "cloudflare_upload_hash": "b0b4d3ad8ea2dc31d3ecd8f7180b0402"
+    },
+    "editorial/DeSHKZPKTNp-640.jpg": {
+      "bytes": 174611,
+      "cloudflare_upload_hash": "4ee72195ffab86bb010e8e727927905a"
+    },
+    "editorial/DeSHKZPKTNp-640.webp": {
+      "bytes": 95706,
+      "cloudflare_upload_hash": "3a470199ae7a430fd20cd7c1c36cc1df"
+    },
+    "editorial/DeSHKZPKTNp-960.jpg": {
+      "bytes": 312893,
+      "cloudflare_upload_hash": "9b50eee301ebe958c0e7ac1211fb0354"
+    },
+    "editorial/DeSHKZPKTNp-960.webp": {
+      "bytes": 150906,
+      "cloudflare_upload_hash": "04ce4481cb723637b8e6e29ae62b558d"
+    },
+    "generated-illustrations/blanco-perlado-sirena-g1-gen-001-48170acd71bf.png": {
+      "bytes": 1623549,
+      "cloudflare_upload_hash": "071aeb200f44663c61d83e7c74caca09"
+    },
+    "generated-illustrations/rosa-empolvado-pedreria-g1-gen-001-8e13cba8e436.png": {
+      "bytes": 1737603,
+      "cloudflare_upload_hash": "44e2438dce0b0f3fef89ff9e49d758ed"
+    },
+    "hero/dorado-desktop-1180.jpg": {
+      "bytes": 275958,
+      "cloudflare_upload_hash": "9937cf76c6fd91dfc9a1bbda4031e883"
+    },
+    "hero/dorado-desktop-1180.webp": {
+      "bytes": 138176,
+      "cloudflare_upload_hash": "1e9a0ce2d3bdd5909e16f139b724cec1"
+    },
+    "hero/dorado-desktop-800.jpg": {
+      "bytes": 159110,
+      "cloudflare_upload_hash": "82b61a5d28c01e6db80875109661dd6c"
+    },
+    "hero/dorado-desktop-800.webp": {
+      "bytes": 86036,
+      "cloudflare_upload_hash": "826c9cf0b1ccda1ed200870714ef9ca7"
+    },
+    "hero/dorado-mobile-1100.jpg": {
+      "bytes": 253654,
+      "cloudflare_upload_hash": "e94a1af186b2fe39a6245790e4f8eae7"
+    },
+    "hero/dorado-mobile-1100.webp": {
+      "bytes": 126836,
+      "cloudflare_upload_hash": "f65da66c4faf58009822ef97d394a748"
+    },
+    "hero/dorado-mobile-480.jpg": {
+      "bytes": 76907,
+      "cloudflare_upload_hash": "48dadf01f4c5251eac8a7960952fc443"
+    },
+    "hero/dorado-mobile-480.webp": {
+      "bytes": 48758,
+      "cloudflare_upload_hash": "e321328b3c9eee7e6af3003748e066b1"
+    },
+    "hero/dorado-mobile-780.jpg": {
+      "bytes": 155282,
+      "cloudflare_upload_hash": "1dc407076acb4a714768d1b1863320fe"
+    },
+    "hero/dorado-mobile-780.webp": {
+      "bytes": 83384,
+      "cloudflare_upload_hash": "9e5f79013758f27b41e79bfaa01c5ab4"
+    },
+    "i18n.js": {
+      "bytes": 9637,
+      "cloudflare_upload_hash": "bdbdffa539b32396a7d09d21f7ea864a"
+    },
+    "index.html": {
+      "bytes": 196962,
+      "cloudflare_upload_hash": "e4cebf4fd80c312b46c88c932c95edfd"
+    },
+    "integration-adapters.js": {
+      "bytes": 16659,
+      "cloudflare_upload_hash": "46bee50f193b3ebba545f48bb4a10005"
+    },
+    "locale-en.js": {
+      "bytes": 32305,
+      "cloudflare_upload_hash": "0a1f3171f6bd61c5dd6cc27c07bca221"
+    },
+    "pedido.html": {
+      "bytes": 16595,
+      "cloudflare_upload_hash": "5afb6276988a6472a00c0d0ee9cda6c6"
+    },
+    "producto-amarillo.html": {
+      "bytes": 242396,
+      "cloudflare_upload_hash": "93b95fa2178fd3c646eea2b9095bd961"
+    },
+    "producto-azul-floral-un-hombro.html": {
+      "bytes": 242050,
+      "cloudflare_upload_hash": "a04bdf38bbec59edc7d30777eda00ce2"
+    },
+    "producto-azul-gris-flores-falda.html": {
+      "bytes": 246515,
+      "cloudflare_upload_hash": "6380b1970d5e4897f72c3bfb47543db6"
+    },
+    "producto-azul-gris-un-hombro.html": {
+      "bytes": 246399,
+      "cloudflare_upload_hash": "9623d5adf352f4e26f9ab269ca779811"
+    },
+    "producto-blanco-perlado-sirena.html": {
+      "bytes": 247126,
+      "cloudflare_upload_hash": "cf4010f4f0f5acc1d1771d8aa4be233b"
+    },
+    "producto-burdeos-encaje-volantes-midi.html": {
+      "bytes": 246754,
+      "cloudflare_upload_hash": "b8adc4dcbcda69cbecc3e3efea611a59"
+    },
+    "producto-burdeos-top-pantalon-corto.html": {
+      "bytes": 246699,
+      "cloudflare_upload_hash": "c413a389a6e5be9b20fcb8a0111fe712"
+    },
+    "producto-champagne.html": {
+      "bytes": 243223,
+      "cloudflare_upload_hash": "df081c2fd467f39243a135aebe6f77ba"
+    },
+    "producto-crema-flores-naranjas-halter.html": {
+      "bytes": 245811,
+      "cloudflare_upload_hash": "9b913991ecc0a1687fdf7694ed1a180f"
+    },
+    "producto-crema-flores-volante-asimetrico.html": {
+      "bytes": 246738,
+      "cloudflare_upload_hash": "c879eca234d1c82531dbbac362694b91"
+    },
+    "producto-dorado.html": {
+      "bytes": 242337,
+      "cloudflare_upload_hash": "73eb866b8fbc040774b787f3f1fd3001"
+    },
+    "producto-fucsia-halter-pliegues.html": {
+      "bytes": 246516,
+      "cloudflare_upload_hash": "dcf95e34c282694a4f7ab791906bb4dd"
+    },
+    "producto-fucsia-un-hombro-volantes.html": {
+      "bytes": 247582,
+      "cloudflare_upload_hash": "0b3ab169ee456659c54e45f040d52d8c"
+    },
+    "producto-gala-destello.html": {
+      "bytes": 243845,
+      "cloudflare_upload_hash": "2205914fd9fb82ecc64b46dcb7f2ff6b"
+    },
+    "producto-gala-oro.html": {
+      "bytes": 246486,
+      "cloudflare_upload_hash": "d28896994326e1291a6a562c90f2e226"
+    },
+    "producto-gala-rubi.html": {
+      "bytes": 241182,
+      "cloudflare_upload_hash": "a39b3d11259c439a14e37bb9bd4ebb9e"
+    },
+    "producto-gris-perla-hombros.html": {
+      "bytes": 246472,
+      "cloudflare_upload_hash": "05fb76150eb31e14650fbd4fcc97d358"
+    },
+    "producto-midi-estampado-burdeos.html": {
+      "bytes": 249215,
+      "cloudflare_upload_hash": "1225710bca2a482c6d37b0d708196a08"
+    },
+    "producto-napoleon.html": {
+      "bytes": 241983,
+      "cloudflare_upload_hash": "b4cc2fd1859a5c03202112556bb06e47"
+    },
+    "producto-negro-blanco-lunares-midi.html": {
+      "bytes": 246655,
+      "cloudflare_upload_hash": "db80d5eceb919c628a279a5c6ecb8f84"
+    },
+    "producto-negro-brillo-pantalon-amplio.html": {
+      "bytes": 246743,
+      "cloudflare_upload_hash": "df4ad0be09bfe9876be61b9592058ca3"
+    },
+    "producto-negro-escote-puntas-abertura.html": {
+      "bytes": 246751,
+      "cloudflare_upload_hash": "a606f847aee427dbd8413b2b7ec59583"
+    },
+    "producto-negro-lunares-beige-hombros.html": {
+      "bytes": 247672,
+      "cloudflare_upload_hash": "b76fd070367f867ad6125f59a406bd2e"
+    },
+    "producto-negro.html": {
+      "bytes": 242305,
+      "cloudflare_upload_hash": "87ceff220f922eda40d6eb740b9140b8"
+    },
+    "producto-novia-satinada-abertura.html": {
+      "bytes": 245835,
+      "cloudflare_upload_hash": "4009bfd1102f92b65ba4d797b811d969"
+    },
+    "producto-novia-tirantes-encaje.html": {
+      "bytes": 242086,
+      "cloudflare_upload_hash": "b7259e5a4c9bdafe520971104df61724"
+    },
+    "producto-novia.html": {
+      "bytes": 241935,
+      "cloudflare_upload_hash": "aeb6be250688f51f37d3a23f458686e9"
+    },
+    "producto-novias-alba.html": {
+      "bytes": 243870,
+      "cloudflare_upload_hash": "4cd10ec5a8a12408f1214f93125a9be5"
+    },
+    "producto-novias-encaje.html": {
+      "bytes": 241273,
+      "cloudflare_upload_hash": "9a428c20c684dec786638274c37b684f"
+    },
+    "producto-novias-velo.html": {
+      "bytes": 248690,
+      "cloudflare_upload_hash": "75ae523cb1f5a4e444f485360ad8233d"
+    },
+    "producto-plata-tirantes-copas-pedreria.html": {
+      "bytes": 246812,
+      "cloudflare_upload_hash": "6fce237c1921da0e0c61f929f2110135"
+    },
+    "producto-rojo-tirantes-falda-amplia.html": {
+      "bytes": 246460,
+      "cloudflare_upload_hash": "10cb6219267fa2e42f5f3125c54dc7e6"
+    },
+    "producto-rosa-bronce-pedreria.html": {
+      "bytes": 246456,
+      "cloudflare_upload_hash": "ae6c2e0da978ca2bdd4acf22ea72cd09"
+    },
+    "producto-rosa-claro-flores-doradas.html": {
+      "bytes": 246647,
+      "cloudflare_upload_hash": "f7f79060876664307cd3a40dcda75292"
+    },
+    "producto-rosa-empolvado-pedreria.html": {
+      "bytes": 248851,
+      "cloudflare_upload_hash": "3893ef2e2257f39010b078d06430aef8"
+    },
+    "producto-rosa-flores-fucsias-halter.html": {
+      "bytes": 246666,
+      "cloudflare_upload_hash": "722126b17d25c67adeca6d9ee9df35e8"
+    },
+    "producto-rosa-marron-chaqueta-falda.html": {
+      "bytes": 246666,
+      "cloudflare_upload_hash": "7ef51e9dccbd214a3223f648e52f12d2"
+    },
+    "producto-rosa.html": {
+      "bytes": 242319,
+      "cloudflare_upload_hash": "5b6b9dd5d8bcb66b1fdd564fb59e1dba"
+    },
+    "producto-verde-brillo-cuello-cruzado.html": {
+      "bytes": 246728,
+      "cloudflare_upload_hash": "1ca18bfc725d5aa85825335a342a10a9"
+    },
+    "producto-verde-esmeralda-tirantes-cruzados.html": {
+      "bytes": 246977,
+      "cloudflare_upload_hash": "c4e34df7fe3dc45ce18791af5bd77fd8"
+    },
+    "prototypes/fonts/font-0.ttf": {
+      "bytes": 293036,
+      "cloudflare_upload_hash": "ec5a534c406e212e4da74e35f719a8d0"
+    },
+    "prototypes/fonts/font-1.ttf": {
+      "bytes": 290236,
+      "cloudflare_upload_hash": "8e900fc740b0e54428ee253b11b457ec"
+    },
+    "prototypes/fonts/font-2.ttf": {
+      "bytes": 290496,
+      "cloudflare_upload_hash": "744eb28978e0c21960cd7490dc40e14a"
+    },
+    "prototypes/fonts/font-3.ttf": {
+      "bytes": 290392,
+      "cloudflare_upload_hash": "8a16df2078e8b44c3bcef531a92e01e8"
+    },
+    "prototypes/fonts/font-4.ttf": {
+      "bytes": 94972,
+      "cloudflare_upload_hash": "6c964f89966933642c4215689309527f"
+    },
+    "prototypes/fonts/font-5.ttf": {
+      "bytes": 95060,
+      "cloudflare_upload_hash": "879896a01faee5369a5d14deafcea207"
+    },
+    "prototypes/fonts/font-6.ttf": {
+      "bytes": 95096,
+      "cloudflare_upload_hash": "3db44f4331345a142e0b56bf3e0eefa7"
+    },
+    "prototypes/fonts/font-7.ttf": {
+      "bytes": 94928,
+      "cloudflare_upload_hash": "51d37850b6d57f7e71a2c38100fca512"
+    },
+    "prototypes/fonts/fonts.css": {
+      "bytes": 1284,
+      "cloudflare_upload_hash": "9730d13577504194ed99ed3df8109952"
+    },
+    "prototypes/vendor/ScrollTrigger.min.js": {
+      "bytes": 44575,
+      "cloudflare_upload_hash": "0d77cdccff808cce47d39009aeecafc5"
+    },
+    "prototypes/vendor/barba.umd.js": {
+      "bytes": 31817,
+      "cloudflare_upload_hash": "b2a4e94a9c5dc960dbcb7b4d66ab4c56"
+    },
+    "prototypes/vendor/gsap.min.js": {
+      "bytes": 72927,
+      "cloudflare_upload_hash": "caad4561367c89860db9dbcc35b2a450"
+    },
+    "prototypes/vendor/lenis.css": {
+      "bytes": 513,
+      "cloudflare_upload_hash": "cb532a697847fc32caf58f96670b4060"
+    },
+    "prototypes/vendor/lenis.min.js": {
+      "bytes": 18722,
+      "cloudflare_upload_hash": "dab43e2ab1b25ebc75ec8afb3ec305d2"
+    },
+    "research/assets/store-media/amarillo/01-front-full-length-1200.jpg": {
+      "bytes": 180345,
+      "cloudflare_upload_hash": "de0b147229864c6a961d8e0cbc0851ab"
+    },
+    "research/assets/store-media/amarillo/01-front-full-length-1200.webp": {
+      "bytes": 66714,
+      "cloudflare_upload_hash": "a7a69ae419d050e2e8f6b1d9168e18a7"
+    },
+    "research/assets/store-media/amarillo/01-front-full-length-1600.jpg": {
+      "bytes": 263871,
+      "cloudflare_upload_hash": "c7dbb0e7ac59ad918d6ca98ab5deaf92"
+    },
+    "research/assets/store-media/amarillo/01-front-full-length-1600.webp": {
+      "bytes": 91060,
+      "cloudflare_upload_hash": "31ad82bb5f9ad4a77b4171e3101fb56a"
+    },
+    "research/assets/store-media/amarillo/01-front-full-length-480.jpg": {
+      "bytes": 49034,
+      "cloudflare_upload_hash": "8d066694a4baf77bbdb6ae33d52f830a"
+    },
+    "research/assets/store-media/amarillo/01-front-full-length-480.webp": {
+      "bytes": 23224,
+      "cloudflare_upload_hash": "a8278d6df97be9d0881020b9828096dc"
+    },
+    "research/assets/store-media/amarillo/01-front-full-length-800.jpg": {
+      "bytes": 102706,
+      "cloudflare_upload_hash": "5dcb8471735b7a1b08658af1457c3cb4"
+    },
+    "research/assets/store-media/amarillo/01-front-full-length-800.webp": {
+      "bytes": 42504,
+      "cloudflare_upload_hash": "45c8434f8d46658f1e9fba9c47f0a706"
+    },
+    "research/assets/store-media/amarillo/02-bodice-detail-crop-480.jpg": {
+      "bytes": 39075,
+      "cloudflare_upload_hash": "8f6cc25f17782b64c803b53deed2f848"
+    },
+    "research/assets/store-media/amarillo/02-bodice-detail-crop-480.webp": {
+      "bytes": 17206,
+      "cloudflare_upload_hash": "d87ea035d6bbc5fa2fb68fcf77288647"
+    },
+    "research/assets/store-media/amarillo/03-lower-detail-crop-480.jpg": {
+      "bytes": 31012,
+      "cloudflare_upload_hash": "fb85355017e3c436b41954f5671a03dc"
+    },
+    "research/assets/store-media/amarillo/03-lower-detail-crop-480.webp": {
+      "bytes": 11962,
+      "cloudflare_upload_hash": "57ffc53f5fdb076b984ae0a6a376728d"
+    },
+    "research/assets/store-media/amarillo/03-lower-detail-crop-800.jpg": {
+      "bytes": 62174,
+      "cloudflare_upload_hash": "fcb8e68ee73e9da016cc1b440062a827"
+    },
+    "research/assets/store-media/amarillo/03-lower-detail-crop-800.webp": {
+      "bytes": 21626,
+      "cloudflare_upload_hash": "c0fcdfd18d8fcca362082bdfb7cee09a"
+    },
+    "research/assets/store-media/azul-floral-un-hombro/01-front-full-length-480.jpg": {
+      "bytes": 70190,
+      "cloudflare_upload_hash": "ca3677702f696d8419411f39e7427642"
+    },
+    "research/assets/store-media/azul-floral-un-hombro/01-front-full-length-480.webp": {
+      "bytes": 46860,
+      "cloudflare_upload_hash": "79dc1f5da2e848fb630de8cc7d1a4605"
+    },
+    "research/assets/store-media/azul-floral-un-hombro/01-front-full-length-800.jpg": {
+      "bytes": 155286,
+      "cloudflare_upload_hash": "6e7dd2216b57c96a35e5637304a33445"
+    },
+    "research/assets/store-media/azul-floral-un-hombro/01-front-full-length-800.webp": {
+      "bytes": 92446,
+      "cloudflare_upload_hash": "060d346d26d9f4d4be1e84813486fc8c"
+    },
+    "research/assets/store-media/azul-floral-un-hombro/02-detail-crop-480.jpg": {
+      "bytes": 45172,
+      "cloudflare_upload_hash": "56b215e4b92fc881d23ea086e7c239dd"
+    },
+    "research/assets/store-media/azul-floral-un-hombro/02-detail-crop-480.webp": {
+      "bytes": 28494,
+      "cloudflare_upload_hash": "7f67e12a0d790a37732eac6d482f9869"
+    },
+    "research/assets/store-media/azul-floral-un-hombro/03-detail-crop-480.jpg": {
+      "bytes": 48030,
+      "cloudflare_upload_hash": "6d19a3eb3c85552a4b5b285138e431b4"
+    },
+    "research/assets/store-media/azul-floral-un-hombro/03-detail-crop-480.webp": {
+      "bytes": 30848,
+      "cloudflare_upload_hash": "08a51bcc7bae9334adc1cdd61d6795a9"
+    },
+    "research/assets/store-media/azul-gris-flores-falda/01-front-full-length-480.jpg": {
+      "bytes": 48467,
+      "cloudflare_upload_hash": "afe9d60f3342d9f0ee894aed4ed92c2b"
+    },
+    "research/assets/store-media/azul-gris-flores-falda/01-front-full-length-480.webp": {
+      "bytes": 25050,
+      "cloudflare_upload_hash": "822d17863815c08488dedcc3539af55a"
+    },
+    "research/assets/store-media/azul-gris-flores-falda/01-front-full-length-800.jpg": {
+      "bytes": 109248,
+      "cloudflare_upload_hash": "9f9689fdd933910ef227753f5982fb97"
+    },
+    "research/assets/store-media/azul-gris-flores-falda/01-front-full-length-800.webp": {
+      "bytes": 51000,
+      "cloudflare_upload_hash": "84507a8691154479088143d10d880256"
+    },
+    "research/assets/store-media/azul-gris-flores-falda/02-three-quarter-front-full-length-480.jpg": {
+      "bytes": 47541,
+      "cloudflare_upload_hash": "b00c0c84d0c8d954583a5306a7a7c47d"
+    },
+    "research/assets/store-media/azul-gris-flores-falda/02-three-quarter-front-full-length-480.webp": {
+      "bytes": 24098,
+      "cloudflare_upload_hash": "7c368d4bd107f7c320b8e85bc284dbfb"
+    },
+    "research/assets/store-media/azul-gris-flores-falda/02-three-quarter-front-full-length-800.jpg": {
+      "bytes": 106395,
+      "cloudflare_upload_hash": "2a83abe85e82651b444ef622dab97e5e"
+    },
+    "research/assets/store-media/azul-gris-flores-falda/02-three-quarter-front-full-length-800.webp": {
+      "bytes": 48540,
+      "cloudflare_upload_hash": "5ce24116719351927a6d1c8d7a2f5631"
+    },
+    "research/assets/store-media/azul-gris-flores-falda/03-side-full-length-480.jpg": {
+      "bytes": 47683,
+      "cloudflare_upload_hash": "78498a0ce4fd2c3eab7b5c73247ae83c"
+    },
+    "research/assets/store-media/azul-gris-flores-falda/03-side-full-length-480.webp": {
+      "bytes": 23936,
+      "cloudflare_upload_hash": "eea6900835e3ebfe6b5625d0db99b81b"
+    },
+    "research/assets/store-media/azul-gris-flores-falda/03-side-full-length-800.jpg": {
+      "bytes": 107431,
+      "cloudflare_upload_hash": "a6c88342c29ab799c61b03314b4b2d2d"
+    },
+    "research/assets/store-media/azul-gris-flores-falda/03-side-full-length-800.webp": {
+      "bytes": 48580,
+      "cloudflare_upload_hash": "cd326c39f23c04a6f9d8b7b4082e6d7d"
+    },
+    "research/assets/store-media/azul-gris-flores-falda/04-back-full-length-480.jpg": {
+      "bytes": 47156,
+      "cloudflare_upload_hash": "11c87dd071c942256823b9f2cc08f5ef"
+    },
+    "research/assets/store-media/azul-gris-flores-falda/04-back-full-length-480.webp": {
+      "bytes": 24060,
+      "cloudflare_upload_hash": "43653ca839710f7eed4700b71c535f1e"
+    },
+    "research/assets/store-media/azul-gris-flores-falda/04-back-full-length-800.jpg": {
+      "bytes": 106584,
+      "cloudflare_upload_hash": "e9ddcf82b60600b4999fa0a89eca5c3e"
+    },
+    "research/assets/store-media/azul-gris-flores-falda/04-back-full-length-800.webp": {
+      "bytes": 49838,
+      "cloudflare_upload_hash": "2fa669ff017cd45c67da38aebc6c79ad"
+    },
+    "research/assets/store-media/azul-gris-flores-falda/05-detail-crop-432.jpg": {
+      "bytes": 32856,
+      "cloudflare_upload_hash": "38d74e61e42550d908519ccf8f73ec0b"
+    },
+    "research/assets/store-media/azul-gris-flores-falda/05-detail-crop-432.webp": {
+      "bytes": 16250,
+      "cloudflare_upload_hash": "61efc3281c1e34efa158df8def1af011"
+    },
+    "research/assets/store-media/azul-gris-flores-falda/product.mp4": {
+      "bytes": 1192402,
+      "cloudflare_upload_hash": "00a7d735c741740d9fcacf25fba71684"
+    },
+    "research/assets/store-media/azul-gris-flores-falda/product.webm": {
+      "bytes": 1048612,
+      "cloudflare_upload_hash": "9d2b6ab3e3d65b9d4f029b2b1f868005"
+    },
+    "research/assets/store-media/azul-gris-un-hombro/01-front-full-length-480.jpg": {
+      "bytes": 48501,
+      "cloudflare_upload_hash": "1489cadfe788ccbd285f4d2da6785f40"
+    },
+    "research/assets/store-media/azul-gris-un-hombro/01-front-full-length-480.webp": {
+      "bytes": 25314,
+      "cloudflare_upload_hash": "e27577c81ceeb6e8c9b74baf01349a23"
+    },
+    "research/assets/store-media/azul-gris-un-hombro/01-front-full-length-800.jpg": {
+      "bytes": 101211,
+      "cloudflare_upload_hash": "443d1e72aea314ed49f6559c2f046475"
+    },
+    "research/assets/store-media/azul-gris-un-hombro/01-front-full-length-800.webp": {
+      "bytes": 45728,
+      "cloudflare_upload_hash": "320582c61c72340d010dca680d357e95"
+    },
+    "research/assets/store-media/azul-gris-un-hombro/02-three-quarter-front-full-length-480.jpg": {
+      "bytes": 47182,
+      "cloudflare_upload_hash": "eaea9163fecc5d3b257580e2f507ddae"
+    },
+    "research/assets/store-media/azul-gris-un-hombro/02-three-quarter-front-full-length-480.webp": {
+      "bytes": 24050,
+      "cloudflare_upload_hash": "09e3bd5fbd628c3abda224e16e2335e2"
+    },
+    "research/assets/store-media/azul-gris-un-hombro/02-three-quarter-front-full-length-800.jpg": {
+      "bytes": 97821,
+      "cloudflare_upload_hash": "850eadd70ae4625a70b5850bdc712c6e"
+    },
+    "research/assets/store-media/azul-gris-un-hombro/02-three-quarter-front-full-length-800.webp": {
+      "bytes": 44016,
+      "cloudflare_upload_hash": "cf19358cdedfd4496db5c2195799b849"
+    },
+    "research/assets/store-media/azul-gris-un-hombro/03-side-full-length-480.jpg": {
+      "bytes": 46341,
+      "cloudflare_upload_hash": "d47e9655e928a4f74cc1c3c3ddf4cb40"
+    },
+    "research/assets/store-media/azul-gris-un-hombro/03-side-full-length-480.webp": {
+      "bytes": 23560,
+      "cloudflare_upload_hash": "a3c741838c191461dd6f9a1918b340b7"
+    },
+    "research/assets/store-media/azul-gris-un-hombro/03-side-full-length-800.jpg": {
+      "bytes": 96804,
+      "cloudflare_upload_hash": "6f3b821abfead16cd748eb8e570128e1"
+    },
+    "research/assets/store-media/azul-gris-un-hombro/03-side-full-length-800.webp": {
+      "bytes": 43076,
+      "cloudflare_upload_hash": "737d5bb75c7d3dececbf605c3cfe17f7"
+    },
+    "research/assets/store-media/azul-gris-un-hombro/04-back-full-length-480.jpg": {
+      "bytes": 45330,
+      "cloudflare_upload_hash": "bbfea88fc986d869e208dbce2ad948f9"
+    },
+    "research/assets/store-media/azul-gris-un-hombro/04-back-full-length-480.webp": {
+      "bytes": 23058,
+      "cloudflare_upload_hash": "1fcc2f634031ca0d9998b35e14b4b0f8"
+    },
+    "research/assets/store-media/azul-gris-un-hombro/04-back-full-length-800.jpg": {
+      "bytes": 94520,
+      "cloudflare_upload_hash": "81a5713e7aad4f5b92897e0bfe699e50"
+    },
+    "research/assets/store-media/azul-gris-un-hombro/04-back-full-length-800.webp": {
+      "bytes": 41352,
+      "cloudflare_upload_hash": "7a1efde4f9abfac9d4cdc220c88716aa"
+    },
+    "research/assets/store-media/azul-gris-un-hombro/05-detail-crop-432.jpg": {
+      "bytes": 27635,
+      "cloudflare_upload_hash": "d21a312aeadd259a5b2bda3346554af8"
+    },
+    "research/assets/store-media/azul-gris-un-hombro/05-detail-crop-432.webp": {
+      "bytes": 12354,
+      "cloudflare_upload_hash": "b8f3e599d97200528a70a49002dc5293"
+    },
+    "research/assets/store-media/azul-gris-un-hombro/product.mp4": {
+      "bytes": 1206636,
+      "cloudflare_upload_hash": "a60adf775ee40a2bc872639acb6be8a0"
+    },
+    "research/assets/store-media/azul-gris-un-hombro/product.webm": {
+      "bytes": 997253,
+      "cloudflare_upload_hash": "bcf081441fe9faf383bd9513f52d6e47"
+    },
+    "research/assets/store-media/blanco-perlado-sirena/01-front-full-length-480.jpg": {
+      "bytes": 49545,
+      "cloudflare_upload_hash": "15688fe741a129bbb3ae473c3bcd1921"
+    },
+    "research/assets/store-media/blanco-perlado-sirena/01-front-full-length-480.webp": {
+      "bytes": 26736,
+      "cloudflare_upload_hash": "d9d07ddf92ae879d06f1764a6ac0a3a8"
+    },
+    "research/assets/store-media/blanco-perlado-sirena/01-front-full-length-800.jpg": {
+      "bytes": 107457,
+      "cloudflare_upload_hash": "52f7936b713bcd7f2db7c4b1344545a5"
+    },
+    "research/assets/store-media/blanco-perlado-sirena/01-front-full-length-800.webp": {
+      "bytes": 53534,
+      "cloudflare_upload_hash": "58bc83fbb03f19db5676f755d376ea5a"
+    },
+    "research/assets/store-media/blanco-perlado-sirena/02-three-quarter-front-full-length-480.jpg": {
+      "bytes": 52978,
+      "cloudflare_upload_hash": "ab1661a0f24d427a8caa292e239a46c0"
+    },
+    "research/assets/store-media/blanco-perlado-sirena/02-three-quarter-front-full-length-480.webp": {
+      "bytes": 30178,
+      "cloudflare_upload_hash": "04b483a8d4608d6f62879dfee7e9706e"
+    },
+    "research/assets/store-media/blanco-perlado-sirena/02-three-quarter-front-full-length-800.jpg": {
+      "bytes": 116259,
+      "cloudflare_upload_hash": "ad359db8f19c0067d08f6f17a4698cc0"
+    },
+    "research/assets/store-media/blanco-perlado-sirena/02-three-quarter-front-full-length-800.webp": {
+      "bytes": 61700,
+      "cloudflare_upload_hash": "b68f4100579a4164b0fd06bee73eac2b"
+    },
+    "research/assets/store-media/blanco-perlado-sirena/03-side-full-length-480.jpg": {
+      "bytes": 52286,
+      "cloudflare_upload_hash": "1f376ae4c1731e1aaa9e0303ae73307c"
+    },
+    "research/assets/store-media/blanco-perlado-sirena/03-side-full-length-480.webp": {
+      "bytes": 29548,
+      "cloudflare_upload_hash": "187b1c806001bcffe86b68f841da2992"
+    },
+    "research/assets/store-media/blanco-perlado-sirena/03-side-full-length-800.jpg": {
+      "bytes": 113649,
+      "cloudflare_upload_hash": "7ea6d0517a86e6c05aff6b1c198e220a"
+    },
+    "research/assets/store-media/blanco-perlado-sirena/03-side-full-length-800.webp": {
+      "bytes": 59896,
+      "cloudflare_upload_hash": "4a6b4f3f6fc8b042a1ffc6ad24ce4197"
+    },
+    "research/assets/store-media/blanco-perlado-sirena/04-back-full-length-480.jpg": {
+      "bytes": 49158,
+      "cloudflare_upload_hash": "2f1daca646af13f5041ba97aea5596d7"
+    },
+    "research/assets/store-media/blanco-perlado-sirena/04-back-full-length-480.webp": {
+      "bytes": 26524,
+      "cloudflare_upload_hash": "e4bebbaea92e7dd62ee2eb5bbd0abaf2"
+    },
+    "research/assets/store-media/blanco-perlado-sirena/04-back-full-length-800.jpg": {
+      "bytes": 105311,
+      "cloudflare_upload_hash": "f4674fe5979bdd7a6497965ae1684408"
+    },
+    "research/assets/store-media/blanco-perlado-sirena/04-back-full-length-800.webp": {
+      "bytes": 51204,
+      "cloudflare_upload_hash": "bb3adbdfddbb4a2f7256f25416e65bde"
+    },
+    "research/assets/store-media/blanco-perlado-sirena/product.mp4": {
+      "bytes": 1212305,
+      "cloudflare_upload_hash": "af990f2c30f663fd5be619bae4b2e3f8"
+    },
+    "research/assets/store-media/blanco-perlado-sirena/product.webm": {
+      "bytes": 1078686,
+      "cloudflare_upload_hash": "70b26d2e444f55b5b6bcd6d6f0b34063"
+    },
+    "research/assets/store-media/burdeos-encaje-volantes-midi/01-front-full-length-480.jpg": {
+      "bytes": 62005,
+      "cloudflare_upload_hash": "5105e931b7adbe5e526b0f4af013cd2e"
+    },
+    "research/assets/store-media/burdeos-encaje-volantes-midi/01-front-full-length-480.webp": {
+      "bytes": 41704,
+      "cloudflare_upload_hash": "350b06482754ef1b43169ee205e9a541"
+    },
+    "research/assets/store-media/burdeos-encaje-volantes-midi/01-front-full-length-800.jpg": {
+      "bytes": 152174,
+      "cloudflare_upload_hash": "dd416d015873c348785cd3e9ba8d6365"
+    },
+    "research/assets/store-media/burdeos-encaje-volantes-midi/01-front-full-length-800.webp": {
+      "bytes": 99340,
+      "cloudflare_upload_hash": "ef1ebb20cfd945937889d7384e6e69a1"
+    },
+    "research/assets/store-media/burdeos-encaje-volantes-midi/02-three-quarter-back-full-length-480.jpg": {
+      "bytes": 58023,
+      "cloudflare_upload_hash": "8c385b7af9478d475b73081948364988"
+    },
+    "research/assets/store-media/burdeos-encaje-volantes-midi/02-three-quarter-back-full-length-480.webp": {
+      "bytes": 37840,
+      "cloudflare_upload_hash": "8b9a01c6944cdf3a5af844ddaf8e11dd"
+    },
+    "research/assets/store-media/burdeos-encaje-volantes-midi/02-three-quarter-back-full-length-800.jpg": {
+      "bytes": 139693,
+      "cloudflare_upload_hash": "c82a4e15f15df244db892723a600edff"
+    },
+    "research/assets/store-media/burdeos-encaje-volantes-midi/02-three-quarter-back-full-length-800.webp": {
+      "bytes": 87114,
+      "cloudflare_upload_hash": "eb3630ef0d123ef0636c900cf716869f"
+    },
+    "research/assets/store-media/burdeos-encaje-volantes-midi/03-side-full-length-480.jpg": {
+      "bytes": 59682,
+      "cloudflare_upload_hash": "c3f564d02f208110ae5ad8cb8d24745e"
+    },
+    "research/assets/store-media/burdeos-encaje-volantes-midi/03-side-full-length-480.webp": {
+      "bytes": 38908,
+      "cloudflare_upload_hash": "23bb46fc39c036ade18302a751721b89"
+    },
+    "research/assets/store-media/burdeos-encaje-volantes-midi/03-side-full-length-800.jpg": {
+      "bytes": 142780,
+      "cloudflare_upload_hash": "6234718ae3ee1615a54d33837226b4ae"
+    },
+    "research/assets/store-media/burdeos-encaje-volantes-midi/03-side-full-length-800.webp": {
+      "bytes": 88988,
+      "cloudflare_upload_hash": "41f141db6595ab38aca47a536a7f5b56"
+    },
+    "research/assets/store-media/burdeos-encaje-volantes-midi/04-back-full-length-480.jpg": {
+      "bytes": 59400,
+      "cloudflare_upload_hash": "f0104caa19f7db1407eebdc293e843c8"
+    },
+    "research/assets/store-media/burdeos-encaje-volantes-midi/04-back-full-length-480.webp": {
+      "bytes": 39634,
+      "cloudflare_upload_hash": "ac2dfa08ca69fb43dd39afd92eef16d2"
+    },
+    "research/assets/store-media/burdeos-encaje-volantes-midi/04-back-full-length-800.jpg": {
+      "bytes": 142777,
+      "cloudflare_upload_hash": "165d1e586884595d1f88ff4055036d81"
+    },
+    "research/assets/store-media/burdeos-encaje-volantes-midi/04-back-full-length-800.webp": {
+      "bytes": 90388,
+      "cloudflare_upload_hash": "42463b693d87ed4e05b62dd0981ef214"
+    },
+    "research/assets/store-media/burdeos-encaje-volantes-midi/05-detail-crop-432.jpg": {
+      "bytes": 41093,
+      "cloudflare_upload_hash": "6c74f1975a6cef76342a5b1676ba43f2"
+    },
+    "research/assets/store-media/burdeos-encaje-volantes-midi/05-detail-crop-432.webp": {
+      "bytes": 26212,
+      "cloudflare_upload_hash": "f259cbcc0a6acffec5690dd00052c654"
+    },
+    "research/assets/store-media/burdeos-encaje-volantes-midi/product.mp4": {
+      "bytes": 1240847,
+      "cloudflare_upload_hash": "862a0227578e38f66b11931fb4c54594"
+    },
+    "research/assets/store-media/burdeos-encaje-volantes-midi/product.webm": {
+      "bytes": 1301587,
+      "cloudflare_upload_hash": "8e2f93822d857548a39eb61e7d138f38"
+    },
+    "research/assets/store-media/burdeos-top-pantalon-corto/01-front-full-length-480.jpg": {
+      "bytes": 47752,
+      "cloudflare_upload_hash": "539ca24235f6d04a664224135d8ea5df"
+    },
+    "research/assets/store-media/burdeos-top-pantalon-corto/01-front-full-length-480.webp": {
+      "bytes": 24368,
+      "cloudflare_upload_hash": "373c7111815b8730a4bed9374dcffdfd"
+    },
+    "research/assets/store-media/burdeos-top-pantalon-corto/01-front-full-length-800.jpg": {
+      "bytes": 106947,
+      "cloudflare_upload_hash": "e86df7fd17af7c1d07392ebadf7b773d"
+    },
+    "research/assets/store-media/burdeos-top-pantalon-corto/01-front-full-length-800.webp": {
+      "bytes": 49986,
+      "cloudflare_upload_hash": "f7fab993409176652c5d9c9f63313f89"
+    },
+    "research/assets/store-media/burdeos-top-pantalon-corto/02-three-quarter-front-full-length-480.jpg": {
+      "bytes": 47635,
+      "cloudflare_upload_hash": "17634e78b690ed04f9cd450fab448b1b"
+    },
+    "research/assets/store-media/burdeos-top-pantalon-corto/02-three-quarter-front-full-length-480.webp": {
+      "bytes": 24274,
+      "cloudflare_upload_hash": "034a104ffed5fc4e30a94603d8775d35"
+    },
+    "research/assets/store-media/burdeos-top-pantalon-corto/02-three-quarter-front-full-length-800.jpg": {
+      "bytes": 107362,
+      "cloudflare_upload_hash": "17657ff61ca5a676cb87b4a5d6fc1c7b"
+    },
+    "research/assets/store-media/burdeos-top-pantalon-corto/02-three-quarter-front-full-length-800.webp": {
+      "bytes": 49732,
+      "cloudflare_upload_hash": "937253a4ebc9a7605510d024bc37ff22"
+    },
+    "research/assets/store-media/burdeos-top-pantalon-corto/03-side-full-length-480.jpg": {
+      "bytes": 46394,
+      "cloudflare_upload_hash": "5833af039bf693eede22e179651b6398"
+    },
+    "research/assets/store-media/burdeos-top-pantalon-corto/03-side-full-length-480.webp": {
+      "bytes": 23334,
+      "cloudflare_upload_hash": "e1965bb8badc4fd7c309cf8020d82b1d"
+    },
+    "research/assets/store-media/burdeos-top-pantalon-corto/03-side-full-length-800.jpg": {
+      "bytes": 104454,
+      "cloudflare_upload_hash": "720685b80f50914c3443723e6e88b2de"
+    },
+    "research/assets/store-media/burdeos-top-pantalon-corto/03-side-full-length-800.webp": {
+      "bytes": 47902,
+      "cloudflare_upload_hash": "4af7ea37fd852b50f0839911448a6342"
+    },
+    "research/assets/store-media/burdeos-top-pantalon-corto/04-back-full-length-480.jpg": {
+      "bytes": 46112,
+      "cloudflare_upload_hash": "0207a4729064f2fefaff277fdf493a38"
+    },
+    "research/assets/store-media/burdeos-top-pantalon-corto/04-back-full-length-480.webp": {
+      "bytes": 23108,
+      "cloudflare_upload_hash": "3ea2c996532d79044977db51cabc0b30"
+    },
+    "research/assets/store-media/burdeos-top-pantalon-corto/04-back-full-length-800.jpg": {
+      "bytes": 103413,
+      "cloudflare_upload_hash": "375de6f0181650fea1185ce708bfba44"
+    },
+    "research/assets/store-media/burdeos-top-pantalon-corto/04-back-full-length-800.webp": {
+      "bytes": 45936,
+      "cloudflare_upload_hash": "bb04747b24967cf85672b712539cf780"
+    },
+    "research/assets/store-media/burdeos-top-pantalon-corto/05-detail-crop-432.jpg": {
+      "bytes": 29266,
+      "cloudflare_upload_hash": "ab2cef3d72712c312966f72d0bf1aea5"
+    },
+    "research/assets/store-media/burdeos-top-pantalon-corto/05-detail-crop-432.webp": {
+      "bytes": 13266,
+      "cloudflare_upload_hash": "66d17d3adb2fb4122049e714d648e0fc"
+    },
+    "research/assets/store-media/burdeos-top-pantalon-corto/product.mp4": {
+      "bytes": 1180088,
+      "cloudflare_upload_hash": "6a39d17e2847fb8fd70fc0eadc914a73"
+    },
+    "research/assets/store-media/burdeos-top-pantalon-corto/product.webm": {
+      "bytes": 1165742,
+      "cloudflare_upload_hash": "4cd28716ae0f228ba2ac976b1deac6e1"
+    },
+    "research/assets/store-media/champagne/01-front-full-length-1200.jpg": {
+      "bytes": 297325,
+      "cloudflare_upload_hash": "3b9b6e03e6fb1d8dfa7ced47f74257ce"
+    },
+    "research/assets/store-media/champagne/01-front-full-length-1200.webp": {
+      "bytes": 160790,
+      "cloudflare_upload_hash": "25a36d4d6d9d6a12021c6cfbed68fada"
+    },
+    "research/assets/store-media/champagne/01-front-full-length-1600.jpg": {
+      "bytes": 534950,
+      "cloudflare_upload_hash": "692dc0cc4539ce3c291e31bc8711464b"
+    },
+    "research/assets/store-media/champagne/01-front-full-length-1600.webp": {
+      "bytes": 292888,
+      "cloudflare_upload_hash": "fc5b82e389590ea4580d20e8f15ad67e"
+    },
+    "research/assets/store-media/champagne/01-front-full-length-480.jpg": {
+      "bytes": 53871,
+      "cloudflare_upload_hash": "478a929f506ba6308dc7a34aca7107e8"
+    },
+    "research/assets/store-media/champagne/01-front-full-length-480.webp": {
+      "bytes": 29150,
+      "cloudflare_upload_hash": "27cf9d2612e20ed131b2c221173524fa"
+    },
+    "research/assets/store-media/champagne/01-front-full-length-800.jpg": {
+      "bytes": 137276,
+      "cloudflare_upload_hash": "871fffed775dd4df6ad234fde867e8e1"
+    },
+    "research/assets/store-media/champagne/01-front-full-length-800.webp": {
+      "bytes": 72972,
+      "cloudflare_upload_hash": "34543e2cf7378809f43a6ee307a953e5"
+    },
+    "research/assets/store-media/champagne/02-bodice-detail-crop-1200.jpg": {
+      "bytes": 223282,
+      "cloudflare_upload_hash": "1d13fc2f046b79f0568b30615b30eb4e"
+    },
+    "research/assets/store-media/champagne/02-bodice-detail-crop-1200.webp": {
+      "bytes": 136264,
+      "cloudflare_upload_hash": "9399ac5b1061bc9918ecd77029212a10"
+    },
+    "research/assets/store-media/champagne/02-bodice-detail-crop-480.jpg": {
+      "bytes": 39556,
+      "cloudflare_upload_hash": "00065a934e743dba42ce6a68cbefbf73"
+    },
+    "research/assets/store-media/champagne/02-bodice-detail-crop-480.webp": {
+      "bytes": 24686,
+      "cloudflare_upload_hash": "f3ec54dd8c8fce79ed92644ac29e3e20"
+    },
+    "research/assets/store-media/champagne/02-bodice-detail-crop-800.jpg": {
+      "bytes": 103508,
+      "cloudflare_upload_hash": "330c569b6f3d80d642331056877df76b"
+    },
+    "research/assets/store-media/champagne/02-bodice-detail-crop-800.webp": {
+      "bytes": 64080,
+      "cloudflare_upload_hash": "86293e07e54bfc1962a714813e13100b"
+    },
+    "research/assets/store-media/champagne/03-lower-detail-crop-1200.jpg": {
+      "bytes": 236263,
+      "cloudflare_upload_hash": "c69465c79f336dbe30722427cd934407"
+    },
+    "research/assets/store-media/champagne/03-lower-detail-crop-1200.webp": {
+      "bytes": 145288,
+      "cloudflare_upload_hash": "a3b9b7b670c9ad010e727eac26c6ba7d"
+    },
+    "research/assets/store-media/champagne/03-lower-detail-crop-480.jpg": {
+      "bytes": 34712,
+      "cloudflare_upload_hash": "729d611c1188040603315dcc69dde9df"
+    },
+    "research/assets/store-media/champagne/03-lower-detail-crop-480.webp": {
+      "bytes": 17462,
+      "cloudflare_upload_hash": "7cc64f9c152cf1c2e611c1c278539739"
+    },
+    "research/assets/store-media/champagne/03-lower-detail-crop-800.jpg": {
+      "bytes": 100613,
+      "cloudflare_upload_hash": "dcff2028bebdb858516212f38f7a57b5"
+    },
+    "research/assets/store-media/champagne/03-lower-detail-crop-800.webp": {
+      "bytes": 58296,
+      "cloudflare_upload_hash": "3c60a48809a7f843a048ce94e0a24159"
+    },
+    "research/assets/store-media/crema-flores-naranjas-halter/01-front-full-length-480.jpg": {
+      "bytes": 48567,
+      "cloudflare_upload_hash": "58d2e2fd252048589795c89f5cc4b11c"
+    },
+    "research/assets/store-media/crema-flores-naranjas-halter/01-front-full-length-480.webp": {
+      "bytes": 24324,
+      "cloudflare_upload_hash": "a6a6676b5217e520c93de3e023b54c2f"
+    },
+    "research/assets/store-media/crema-flores-naranjas-halter/02-three-quarter-back-full-length-480.jpg": {
+      "bytes": 47588,
+      "cloudflare_upload_hash": "5ba5abdf9193f01d98092b6a392d7039"
+    },
+    "research/assets/store-media/crema-flores-naranjas-halter/02-three-quarter-back-full-length-480.webp": {
+      "bytes": 23230,
+      "cloudflare_upload_hash": "d31410a578b89ed19674dfa228ff39da"
+    },
+    "research/assets/store-media/crema-flores-naranjas-halter/03-side-full-length-480.jpg": {
+      "bytes": 48072,
+      "cloudflare_upload_hash": "b42765987acf822716bcd97439cd6f06"
+    },
+    "research/assets/store-media/crema-flores-naranjas-halter/03-side-full-length-480.webp": {
+      "bytes": 23716,
+      "cloudflare_upload_hash": "50b742324840d5ed5bf4c773238f92d1"
+    },
+    "research/assets/store-media/crema-flores-naranjas-halter/04-back-full-length-480.jpg": {
+      "bytes": 47574,
+      "cloudflare_upload_hash": "285c8aa8aecb6f0c72ddd5c5d1132dfb"
+    },
+    "research/assets/store-media/crema-flores-naranjas-halter/04-back-full-length-480.webp": {
+      "bytes": 23640,
+      "cloudflare_upload_hash": "a258192000afd48442a89ed71c7c7ff8"
+    },
+    "research/assets/store-media/crema-flores-naranjas-halter/05-detail-crop-231.jpg": {
+      "bytes": 14486,
+      "cloudflare_upload_hash": "e7f1b620ff666316aaf9df4740089a7e"
+    },
+    "research/assets/store-media/crema-flores-naranjas-halter/05-detail-crop-231.webp": {
+      "bytes": 7780,
+      "cloudflare_upload_hash": "8e161c4c5a86e3c948ce28e05f60e874"
+    },
+    "research/assets/store-media/crema-flores-naranjas-halter/product.mp4": {
+      "bytes": 1192166,
+      "cloudflare_upload_hash": "f19d739aae66f7993e20666938872794"
+    },
+    "research/assets/store-media/crema-flores-naranjas-halter/product.webm": {
+      "bytes": 1001501,
+      "cloudflare_upload_hash": "c99b296b1e69832a41f8a77126d82491"
+    },
+    "research/assets/store-media/crema-flores-volante-asimetrico/01-front-full-length-480.jpg": {
+      "bytes": 51081,
+      "cloudflare_upload_hash": "2caf6182edbbb8678c7c9baa08f1c5b2"
+    },
+    "research/assets/store-media/crema-flores-volante-asimetrico/01-front-full-length-480.webp": {
+      "bytes": 28754,
+      "cloudflare_upload_hash": "e115ad338e47a7ad93133eba2eeef5ae"
+    },
+    "research/assets/store-media/crema-flores-volante-asimetrico/01-front-full-length-800.jpg": {
+      "bytes": 109507,
+      "cloudflare_upload_hash": "22eb477b400e1c6b39f6114686cb845b"
+    },
+    "research/assets/store-media/crema-flores-volante-asimetrico/01-front-full-length-800.webp": {
+      "bytes": 55720,
+      "cloudflare_upload_hash": "fe7ee298e82f719bfd5909203b467506"
+    },
+    "research/assets/store-media/crema-flores-volante-asimetrico/02-three-quarter-front-full-length-480.jpg": {
+      "bytes": 48539,
+      "cloudflare_upload_hash": "25e24c7d5d7561870cfdc721fcc08d1a"
+    },
+    "research/assets/store-media/crema-flores-volante-asimetrico/02-three-quarter-front-full-length-480.webp": {
+      "bytes": 26366,
+      "cloudflare_upload_hash": "f39eb0c341e751d081d79a4e0ca7757d"
+    },
+    "research/assets/store-media/crema-flores-volante-asimetrico/02-three-quarter-front-full-length-800.jpg": {
+      "bytes": 106297,
+      "cloudflare_upload_hash": "5737689d621ce30e9ce050b82b4d2e45"
+    },
+    "research/assets/store-media/crema-flores-volante-asimetrico/02-three-quarter-front-full-length-800.webp": {
+      "bytes": 52830,
+      "cloudflare_upload_hash": "ea1faf302d5eaefcbc587a4afe93cad5"
+    },
+    "research/assets/store-media/crema-flores-volante-asimetrico/03-side-full-length-480.jpg": {
+      "bytes": 48055,
+      "cloudflare_upload_hash": "536f1f64575cb0cc453ea12d8e42b780"
+    },
+    "research/assets/store-media/crema-flores-volante-asimetrico/03-side-full-length-480.webp": {
+      "bytes": 25894,
+      "cloudflare_upload_hash": "0f13645bf1dc2245280eafd083320847"
+    },
+    "research/assets/store-media/crema-flores-volante-asimetrico/03-side-full-length-800.jpg": {
+      "bytes": 106499,
+      "cloudflare_upload_hash": "eeeee552bcefb6506188b4204775617b"
+    },
+    "research/assets/store-media/crema-flores-volante-asimetrico/03-side-full-length-800.webp": {
+      "bytes": 54492,
+      "cloudflare_upload_hash": "cffd224031e738dd3291220a1b0aa1b7"
+    },
+    "research/assets/store-media/crema-flores-volante-asimetrico/04-back-view-480.jpg": {
+      "bytes": 49771,
+      "cloudflare_upload_hash": "14d908f321f888eeb27ae813a2d8bf7a"
+    },
+    "research/assets/store-media/crema-flores-volante-asimetrico/04-back-view-480.webp": {
+      "bytes": 27392,
+      "cloudflare_upload_hash": "cae432398eb2866ed6c389efc64f54a3"
+    },
+    "research/assets/store-media/crema-flores-volante-asimetrico/04-back-view-800.jpg": {
+      "bytes": 106218,
+      "cloudflare_upload_hash": "463545ab3d5097ecf047bd6919a65e2a"
+    },
+    "research/assets/store-media/crema-flores-volante-asimetrico/04-back-view-800.webp": {
+      "bytes": 52804,
+      "cloudflare_upload_hash": "af12c019f7a575c871a2d2ddf64fa057"
+    },
+    "research/assets/store-media/crema-flores-volante-asimetrico/05-detail-crop-432.jpg": {
+      "bytes": 40754,
+      "cloudflare_upload_hash": "6d78b308a9ebca774cffff7a4000ab96"
+    },
+    "research/assets/store-media/crema-flores-volante-asimetrico/05-detail-crop-432.webp": {
+      "bytes": 24508,
+      "cloudflare_upload_hash": "ab709a589700a12943389e75807a7420"
+    },
+    "research/assets/store-media/crema-flores-volante-asimetrico/product.mp4": {
+      "bytes": 1222901,
+      "cloudflare_upload_hash": "4fa9d7e8faa3760580c9cd23ac47d673"
+    },
+    "research/assets/store-media/crema-flores-volante-asimetrico/product.webm": {
+      "bytes": 1197730,
+      "cloudflare_upload_hash": "38f09e274011acc66c74ea0cbbc59bcf"
+    },
+    "research/assets/store-media/dorado/01-front-full-length-1200.jpg": {
+      "bytes": 193219,
+      "cloudflare_upload_hash": "dbda5d4a7aba2a2261d7a178d8264fbf"
+    },
+    "research/assets/store-media/dorado/01-front-full-length-1200.webp": {
+      "bytes": 74372,
+      "cloudflare_upload_hash": "edc92c9e94b4266c08919fb17580a360"
+    },
+    "research/assets/store-media/dorado/01-front-full-length-1600.jpg": {
+      "bytes": 285009,
+      "cloudflare_upload_hash": "b3e194a41187e41c6f75308e975d7df5"
+    },
+    "research/assets/store-media/dorado/01-front-full-length-1600.webp": {
+      "bytes": 102550,
+      "cloudflare_upload_hash": "ddeec42330dcd7f41464ac2f9d0b486f"
+    },
+    "research/assets/store-media/dorado/01-front-full-length-480.jpg": {
+      "bytes": 50156,
+      "cloudflare_upload_hash": "2fe2097186e8a1afbdf3ba51d93b303c"
+    },
+    "research/assets/store-media/dorado/01-front-full-length-480.webp": {
+      "bytes": 25214,
+      "cloudflare_upload_hash": "7b50ba156e1acbdc7b6c0846b226e2ec"
+    },
+    "research/assets/store-media/dorado/01-front-full-length-800.jpg": {
+      "bytes": 107884,
+      "cloudflare_upload_hash": "e5b3b2c227bdac1e7afbc2840345c934"
+    },
+    "research/assets/store-media/dorado/01-front-full-length-800.webp": {
+      "bytes": 45962,
+      "cloudflare_upload_hash": "60084db1de866d8c5538fc22338fc498"
+    },
+    "research/assets/store-media/dorado/02-bodice-detail-crop-480.jpg": {
+      "bytes": 39176,
+      "cloudflare_upload_hash": "e5b5bab15593d692a40522c6ef76ab06"
+    },
+    "research/assets/store-media/dorado/02-bodice-detail-crop-480.webp": {
+      "bytes": 17544,
+      "cloudflare_upload_hash": "0cb66196ee0f8950e16cc28de7fe0bd8"
+    },
+    "research/assets/store-media/dorado/03-lower-detail-crop-480.jpg": {
+      "bytes": 32309,
+      "cloudflare_upload_hash": "46d1bccb7b4eed9fea5000c020fd1609"
+    },
+    "research/assets/store-media/dorado/03-lower-detail-crop-480.webp": {
+      "bytes": 12530,
+      "cloudflare_upload_hash": "e7fb2f9d98ae008ffae93be1a5298eb5"
+    },
+    "research/assets/store-media/dorado/03-lower-detail-crop-800.jpg": {
+      "bytes": 65434,
+      "cloudflare_upload_hash": "698b9364466d951176e425783c30dd56"
+    },
+    "research/assets/store-media/dorado/03-lower-detail-crop-800.webp": {
+      "bytes": 22254,
+      "cloudflare_upload_hash": "50ccdf727eabbfab867a2863c43ffe62"
+    },
+    "research/assets/store-media/fucsia-halter-pliegues/01-front-full-length-480.jpg": {
+      "bytes": 47184,
+      "cloudflare_upload_hash": "8c97905708067797d58e73c438c9c377"
+    },
+    "research/assets/store-media/fucsia-halter-pliegues/01-front-full-length-480.webp": {
+      "bytes": 24038,
+      "cloudflare_upload_hash": "64c293bcbce5ca527919054a90e0e9b2"
+    },
+    "research/assets/store-media/fucsia-halter-pliegues/01-front-full-length-800.jpg": {
+      "bytes": 98619,
+      "cloudflare_upload_hash": "ef97e61d3424492efb9f3d5ab3dd9c9e"
+    },
+    "research/assets/store-media/fucsia-halter-pliegues/01-front-full-length-800.webp": {
+      "bytes": 44888,
+      "cloudflare_upload_hash": "e5ae00cfd5b9d7636833a9acfc385a62"
+    },
+    "research/assets/store-media/fucsia-halter-pliegues/02-three-quarter-front-full-length-480.jpg": {
+      "bytes": 48272,
+      "cloudflare_upload_hash": "42104a66a1534976001a2fe9a9785f89"
+    },
+    "research/assets/store-media/fucsia-halter-pliegues/02-three-quarter-front-full-length-480.webp": {
+      "bytes": 25692,
+      "cloudflare_upload_hash": "c3a4b9ad0204db3ac3e1548c7e94e137"
+    },
+    "research/assets/store-media/fucsia-halter-pliegues/02-three-quarter-front-full-length-800.jpg": {
+      "bytes": 101001,
+      "cloudflare_upload_hash": "d7a9a0adc58a4fe99993e7129d3c646e"
+    },
+    "research/assets/store-media/fucsia-halter-pliegues/02-three-quarter-front-full-length-800.webp": {
+      "bytes": 46674,
+      "cloudflare_upload_hash": "de6d5457b5e970263e42affa4723af39"
+    },
+    "research/assets/store-media/fucsia-halter-pliegues/03-side-full-length-480.jpg": {
+      "bytes": 44904,
+      "cloudflare_upload_hash": "9b552cb62caa6849ecef378b389fa7ea"
+    },
+    "research/assets/store-media/fucsia-halter-pliegues/03-side-full-length-480.webp": {
+      "bytes": 21998,
+      "cloudflare_upload_hash": "c0dfd25f0bf0e5bde3913da269744bf5"
+    },
+    "research/assets/store-media/fucsia-halter-pliegues/03-side-full-length-800.jpg": {
+      "bytes": 93517,
+      "cloudflare_upload_hash": "7d520ada5151267096de66e0816a322c"
+    },
+    "research/assets/store-media/fucsia-halter-pliegues/03-side-full-length-800.webp": {
+      "bytes": 39836,
+      "cloudflare_upload_hash": "5c2a35a0c9d9e52bd872fd2b614faaa1"
+    },
+    "research/assets/store-media/fucsia-halter-pliegues/04-back-full-length-480.jpg": {
+      "bytes": 44989,
+      "cloudflare_upload_hash": "482d0c9f83dacdb3c61d6e7a1ecd2470"
+    },
+    "research/assets/store-media/fucsia-halter-pliegues/04-back-full-length-480.webp": {
+      "bytes": 22234,
+      "cloudflare_upload_hash": "3f6c64cc266350b17161ec688901174b"
+    },
+    "research/assets/store-media/fucsia-halter-pliegues/04-back-full-length-800.jpg": {
+      "bytes": 94032,
+      "cloudflare_upload_hash": "73a722d7fafef8a6736469061d8e1e33"
+    },
+    "research/assets/store-media/fucsia-halter-pliegues/04-back-full-length-800.webp": {
+      "bytes": 40372,
+      "cloudflare_upload_hash": "ce382e12d73f922d329386eb0ebaa256"
+    },
+    "research/assets/store-media/fucsia-halter-pliegues/05-detail-crop-432.jpg": {
+      "bytes": 25283,
+      "cloudflare_upload_hash": "3ef64de6bcebb4b84e97ce7b241b65e6"
+    },
+    "research/assets/store-media/fucsia-halter-pliegues/05-detail-crop-432.webp": {
+      "bytes": 10472,
+      "cloudflare_upload_hash": "08be53a0b8f63ad2060d8de90aa1b639"
+    },
+    "research/assets/store-media/fucsia-halter-pliegues/product.mp4": {
+      "bytes": 1177816,
+      "cloudflare_upload_hash": "cb8c5612935d95a6ee28c635c6350c5d"
+    },
+    "research/assets/store-media/fucsia-halter-pliegues/product.webm": {
+      "bytes": 1059215,
+      "cloudflare_upload_hash": "f54d5e4272efc1739c6a9efc4c4ff937"
+    },
+    "research/assets/store-media/fucsia-un-hombro-volantes/01-front-full-length-1200.jpg": {
+      "bytes": 349243,
+      "cloudflare_upload_hash": "7873163fd6e3fa1571f6d013b86422bf"
+    },
+    "research/assets/store-media/fucsia-un-hombro-volantes/01-front-full-length-1200.webp": {
+      "bytes": 242744,
+      "cloudflare_upload_hash": "ce996ec59f86bd01af2e30505dffc429"
+    },
+    "research/assets/store-media/fucsia-un-hombro-volantes/01-front-full-length-480.jpg": {
+      "bytes": 61793,
+      "cloudflare_upload_hash": "3d47547665df83c8de4696dbbb972214"
+    },
+    "research/assets/store-media/fucsia-un-hombro-volantes/01-front-full-length-480.webp": {
+      "bytes": 42118,
+      "cloudflare_upload_hash": "6c9c222d769d0ad6de38e101f3f0219c"
+    },
+    "research/assets/store-media/fucsia-un-hombro-volantes/01-front-full-length-800.jpg": {
+      "bytes": 167288,
+      "cloudflare_upload_hash": "bbd8a36099b32e4bf05a78d23ebd02cc"
+    },
+    "research/assets/store-media/fucsia-un-hombro-volantes/01-front-full-length-800.webp": {
+      "bytes": 116262,
+      "cloudflare_upload_hash": "3bed4107b014a87ee0b99a4aaa73f6dc"
+    },
+    "research/assets/store-media/fucsia-un-hombro-volantes/02-three-quarter-front-full-length-1200.jpg": {
+      "bytes": 325247,
+      "cloudflare_upload_hash": "cbbbdee159a38b5dcd9f617c56d028f4"
+    },
+    "research/assets/store-media/fucsia-un-hombro-volantes/02-three-quarter-front-full-length-1200.webp": {
+      "bytes": 219308,
+      "cloudflare_upload_hash": "a70bc6920cd8319ff44cedb64a686e0d"
+    },
+    "research/assets/store-media/fucsia-un-hombro-volantes/02-three-quarter-front-full-length-480.jpg": {
+      "bytes": 61245,
+      "cloudflare_upload_hash": "634f2c3692240a48a28072a562a95139"
+    },
+    "research/assets/store-media/fucsia-un-hombro-volantes/02-three-quarter-front-full-length-480.webp": {
+      "bytes": 41020,
+      "cloudflare_upload_hash": "ea93ec66215a26bb794707056412193c"
+    },
+    "research/assets/store-media/fucsia-un-hombro-volantes/02-three-quarter-front-full-length-800.jpg": {
+      "bytes": 159152,
+      "cloudflare_upload_hash": "d4f9e25143f52781d6788d301f9abce6"
+    },
+    "research/assets/store-media/fucsia-un-hombro-volantes/02-three-quarter-front-full-length-800.webp": {
+      "bytes": 108544,
+      "cloudflare_upload_hash": "59a29d267bc8ba1037964a0a34c4cbdd"
+    },
+    "research/assets/store-media/fucsia-un-hombro-volantes/03-side-full-length-1200.jpg": {
+      "bytes": 302436,
+      "cloudflare_upload_hash": "ab978d0324b78a620c8e0c21b5452c5c"
+    },
+    "research/assets/store-media/fucsia-un-hombro-volantes/03-side-full-length-1200.webp": {
+      "bytes": 196052,
+      "cloudflare_upload_hash": "9286064870ae82db759cc134d3190be7"
+    },
+    "research/assets/store-media/fucsia-un-hombro-volantes/03-side-full-length-480.jpg": {
+      "bytes": 58477,
+      "cloudflare_upload_hash": "47d79f8070fff19f5f819f958c88ec21"
+    },
+    "research/assets/store-media/fucsia-un-hombro-volantes/03-side-full-length-480.webp": {
+      "bytes": 38238,
+      "cloudflare_upload_hash": "cd3f66ca99b61c320119e3f6dfd4dcbf"
+    },
+    "research/assets/store-media/fucsia-un-hombro-volantes/03-side-full-length-800.jpg": {
+      "bytes": 149831,
+      "cloudflare_upload_hash": "fe1a3f1e8223a016ef3232eed1df4d04"
+    },
+    "research/assets/store-media/fucsia-un-hombro-volantes/03-side-full-length-800.webp": {
+      "bytes": 99148,
+      "cloudflare_upload_hash": "146d099a9a5307443aa3d1f16d02cc72"
+    },
+    "research/assets/store-media/fucsia-un-hombro-volantes/04-back-full-length-1200.jpg": {
+      "bytes": 311437,
+      "cloudflare_upload_hash": "39a9330e3b6192886c916cc9ea75460c"
+    },
+    "research/assets/store-media/fucsia-un-hombro-volantes/04-back-full-length-1200.webp": {
+      "bytes": 200642,
+      "cloudflare_upload_hash": "b7e7589c5dae6868f631a51681549a85"
+    },
+    "research/assets/store-media/fucsia-un-hombro-volantes/04-back-full-length-480.jpg": {
+      "bytes": 59054,
+      "cloudflare_upload_hash": "306082dfdbfcf904763a6f7cb31bbb3d"
+    },
+    "research/assets/store-media/fucsia-un-hombro-volantes/04-back-full-length-480.webp": {
+      "bytes": 38936,
+      "cloudflare_upload_hash": "9851bc53e03782a7d4129254092d7f68"
+    },
+    "research/assets/store-media/fucsia-un-hombro-volantes/04-back-full-length-800.jpg": {
+      "bytes": 155017,
+      "cloudflare_upload_hash": "2d6b0bc5d9097ddd23a600edecd60c49"
+    },
+    "research/assets/store-media/fucsia-un-hombro-volantes/04-back-full-length-800.webp": {
+      "bytes": 104322,
+      "cloudflare_upload_hash": "3addcd2979606c741f602f4e4e0f7057"
+    },
+    "research/assets/store-media/fucsia-un-hombro-volantes/05-detail-crop-480.jpg": {
+      "bytes": 61927,
+      "cloudflare_upload_hash": "32aaf093ad4f828cf1021678d040a81c"
+    },
+    "research/assets/store-media/fucsia-un-hombro-volantes/05-detail-crop-480.webp": {
+      "bytes": 43572,
+      "cloudflare_upload_hash": "3908fbffd76e2037a4bc30b1e2a781f8"
+    },
+    "research/assets/store-media/fucsia-un-hombro-volantes/product.mp4": {
+      "bytes": 1243130,
+      "cloudflare_upload_hash": "9d055d23c71eb114c988f202cb16d976"
+    },
+    "research/assets/store-media/fucsia-un-hombro-volantes/product.webm": {
+      "bytes": 1478429,
+      "cloudflare_upload_hash": "b7bd7add11162baf533daa1c0b4cec80"
+    },
+    "research/assets/store-media/gala-destello/01-three-quarter-front-full-length-1200.jpg": {
+      "bytes": 133222,
+      "cloudflare_upload_hash": "0aa17858fed3442e3f54cebfc34b1b71"
+    },
+    "research/assets/store-media/gala-destello/01-three-quarter-front-full-length-1200.webp": {
+      "bytes": 72822,
+      "cloudflare_upload_hash": "12769513f269dee5d017e320f0537891"
+    },
+    "research/assets/store-media/gala-destello/01-three-quarter-front-full-length-1600.jpg": {
+      "bytes": 225640,
+      "cloudflare_upload_hash": "390f148c72ac88a96bf925f82b6fb26a"
+    },
+    "research/assets/store-media/gala-destello/01-three-quarter-front-full-length-1600.webp": {
+      "bytes": 123900,
+      "cloudflare_upload_hash": "6b7596acf93355b543cdab5aa42cc939"
+    },
+    "research/assets/store-media/gala-destello/01-three-quarter-front-full-length-480.jpg": {
+      "bytes": 27918,
+      "cloudflare_upload_hash": "aa96cd2241e3ab5f5c87256200d58c8f"
+    },
+    "research/assets/store-media/gala-destello/01-three-quarter-front-full-length-480.webp": {
+      "bytes": 14916,
+      "cloudflare_upload_hash": "8520dfc7bffaac741ab8dc0cde27778e"
+    },
+    "research/assets/store-media/gala-destello/01-three-quarter-front-full-length-800.jpg": {
+      "bytes": 65251,
+      "cloudflare_upload_hash": "f4a305e205b6cc351e309f807056c27d"
+    },
+    "research/assets/store-media/gala-destello/01-three-quarter-front-full-length-800.webp": {
+      "bytes": 34834,
+      "cloudflare_upload_hash": "c4d7be4519a4ac5b8085ae1663e0da80"
+    },
+    "research/assets/store-media/gala-destello/02-front-full-length-1200.jpg": {
+      "bytes": 150433,
+      "cloudflare_upload_hash": "4650cb18fcc9f1fd3e32ec20d5cd3c3c"
+    },
+    "research/assets/store-media/gala-destello/02-front-full-length-1200.webp": {
+      "bytes": 88054,
+      "cloudflare_upload_hash": "a659902f30213f642f915dd9b368a56f"
+    },
+    "research/assets/store-media/gala-destello/02-front-full-length-1600.jpg": {
+      "bytes": 254629,
+      "cloudflare_upload_hash": "0c332ebb6a976f6a33eb9009ef408a2b"
+    },
+    "research/assets/store-media/gala-destello/02-front-full-length-1600.webp": {
+      "bytes": 146182,
+      "cloudflare_upload_hash": "e1e92d9b536a00c9a72c515974e8c64b"
+    },
+    "research/assets/store-media/gala-destello/02-front-full-length-480.jpg": {
+      "bytes": 30457,
+      "cloudflare_upload_hash": "fa8569a237014a02481398c48b19b113"
+    },
+    "research/assets/store-media/gala-destello/02-front-full-length-480.webp": {
+      "bytes": 17324,
+      "cloudflare_upload_hash": "bb73288930022dabcd71c2ed7e639492"
+    },
+    "research/assets/store-media/gala-destello/02-front-full-length-800.jpg": {
+      "bytes": 72714,
+      "cloudflare_upload_hash": "82b8cbc8db4f090028af2a6c6e56a6a1"
+    },
+    "research/assets/store-media/gala-destello/02-front-full-length-800.webp": {
+      "bytes": 42454,
+      "cloudflare_upload_hash": "b0359ad479adb5c2f03b859a1389c060"
+    },
+    "research/assets/store-media/gala-destello/03-detail-crop-1200.jpg": {
+      "bytes": 182516,
+      "cloudflare_upload_hash": "f5865d4652ded9cf08c1b0f7578a6a10"
+    },
+    "research/assets/store-media/gala-destello/03-detail-crop-1200.webp": {
+      "bytes": 115808,
+      "cloudflare_upload_hash": "496af115044be915f10d894420e61dd9"
+    },
+    "research/assets/store-media/gala-destello/03-detail-crop-1600.jpg": {
+      "bytes": 310128,
+      "cloudflare_upload_hash": "9a2101d5b26a6d707084fa5d6f519ded"
+    },
+    "research/assets/store-media/gala-destello/03-detail-crop-1600.webp": {
+      "bytes": 197728,
+      "cloudflare_upload_hash": "5d7e6383dde1bb57c47cac4340ed45f5"
+    },
+    "research/assets/store-media/gala-destello/03-detail-crop-480.jpg": {
+      "bytes": 32836,
+      "cloudflare_upload_hash": "cecadfb9331819e85c9bd9649c092299"
+    },
+    "research/assets/store-media/gala-destello/03-detail-crop-480.webp": {
+      "bytes": 21180,
+      "cloudflare_upload_hash": "2be911a545afd92818c9433cb19743a4"
+    },
+    "research/assets/store-media/gala-destello/03-detail-crop-800.jpg": {
+      "bytes": 85903,
+      "cloudflare_upload_hash": "1aaa70415119d08945b7d77c3ed1d064"
+    },
+    "research/assets/store-media/gala-destello/03-detail-crop-800.webp": {
+      "bytes": 54488,
+      "cloudflare_upload_hash": "bf58f86b74c1d0f94f22b644368b581d"
+    },
+    "research/assets/store-media/gala-oro/01-front-full-length-1200.jpg": {
+      "bytes": 154824,
+      "cloudflare_upload_hash": "8584cc8115cd1e54327b2a8a55caa247"
+    },
+    "research/assets/store-media/gala-oro/01-front-full-length-1200.webp": {
+      "bytes": 76948,
+      "cloudflare_upload_hash": "c42deb6cd2a3ac783600ed3d99855b33"
+    },
+    "research/assets/store-media/gala-oro/01-front-full-length-1600.jpg": {
+      "bytes": 267068,
+      "cloudflare_upload_hash": "d34d3261b20906cc0d265d0c766fc90d"
+    },
+    "research/assets/store-media/gala-oro/01-front-full-length-1600.webp": {
+      "bytes": 134230,
+      "cloudflare_upload_hash": "b5836cafee3253e5805988e75ed76431"
+    },
+    "research/assets/store-media/gala-oro/01-front-full-length-480.jpg": {
+      "bytes": 31291,
+      "cloudflare_upload_hash": "67250b339aaf36e4ad8db8732560e90e"
+    },
+    "research/assets/store-media/gala-oro/01-front-full-length-480.webp": {
+      "bytes": 15818,
+      "cloudflare_upload_hash": "831f94f9032c5d1952e7a49d6aece5a2"
+    },
+    "research/assets/store-media/gala-oro/01-front-full-length-800.jpg": {
+      "bytes": 74037,
+      "cloudflare_upload_hash": "2b29fb27b8719a8a11c8a5fcd069c574"
+    },
+    "research/assets/store-media/gala-oro/01-front-full-length-800.webp": {
+      "bytes": 36404,
+      "cloudflare_upload_hash": "a2b3cb63c2eac8aaa258e8175ee95520"
+    },
+    "research/assets/store-media/gala-oro/02-front-full-length-1200.jpg": {
+      "bytes": 153873,
+      "cloudflare_upload_hash": "9b14d29887d0e24ddae3ec438801fcb1"
+    },
+    "research/assets/store-media/gala-oro/02-front-full-length-1200.webp": {
+      "bytes": 76424,
+      "cloudflare_upload_hash": "4d9ee304293b98c736de611af39a8adc"
+    },
+    "research/assets/store-media/gala-oro/02-front-full-length-1600.jpg": {
+      "bytes": 269598,
+      "cloudflare_upload_hash": "cc54fcd708a33c9874b249b9bcb2e606"
+    },
+    "research/assets/store-media/gala-oro/02-front-full-length-1600.webp": {
+      "bytes": 133730,
+      "cloudflare_upload_hash": "17df74ecd23fca4ef3249956851788ae"
+    },
+    "research/assets/store-media/gala-oro/02-front-full-length-480.jpg": {
+      "bytes": 29666,
+      "cloudflare_upload_hash": "dc2fd82cdfe275893782e3a9879b9e4b"
+    },
+    "research/assets/store-media/gala-oro/02-front-full-length-480.webp": {
+      "bytes": 14774,
+      "cloudflare_upload_hash": "6d915c032a6396b4eabe03dc7aeb9676"
+    },
+    "research/assets/store-media/gala-oro/02-front-full-length-800.jpg": {
+      "bytes": 71959,
+      "cloudflare_upload_hash": "8743445ed46c7d02d79987e860ef832f"
+    },
+    "research/assets/store-media/gala-oro/02-front-full-length-800.webp": {
+      "bytes": 35192,
+      "cloudflare_upload_hash": "7aeef664b51352157eac273af21cfc0c"
+    },
+    "research/assets/store-media/gala-oro/05-three-quarter-back-reclining-1200.jpg": {
+      "bytes": 89854,
+      "cloudflare_upload_hash": "51f7516a290a2daf7775b72079c6007a"
+    },
+    "research/assets/store-media/gala-oro/05-three-quarter-back-reclining-1200.webp": {
+      "bytes": 48730,
+      "cloudflare_upload_hash": "6c47b085f2444f8258ef13568a341029"
+    },
+    "research/assets/store-media/gala-oro/05-three-quarter-back-reclining-1600.jpg": {
+      "bytes": 160548,
+      "cloudflare_upload_hash": "246f3dc9142fd7ad3924c30fe3a0f2e0"
+    },
+    "research/assets/store-media/gala-oro/05-three-quarter-back-reclining-1600.webp": {
+      "bytes": 87832,
+      "cloudflare_upload_hash": "ce1e37b2e8101ac221e0cc33d9821ef8"
+    },
+    "research/assets/store-media/gala-oro/05-three-quarter-back-reclining-480.jpg": {
+      "bytes": 18211,
+      "cloudflare_upload_hash": "e643c725a3556b8170c0c6e30bd94434"
+    },
+    "research/assets/store-media/gala-oro/05-three-quarter-back-reclining-480.webp": {
+      "bytes": 10206,
+      "cloudflare_upload_hash": "b02a34d9d1b45805abe1d6017f93b9b2"
+    },
+    "research/assets/store-media/gala-oro/05-three-quarter-back-reclining-800.jpg": {
+      "bytes": 43375,
+      "cloudflare_upload_hash": "5d9c96398d90d3e22137c3eb668e7455"
+    },
+    "research/assets/store-media/gala-oro/05-three-quarter-back-reclining-800.webp": {
+      "bytes": 23352,
+      "cloudflare_upload_hash": "f29e8947c7cbb3730f9d46c842395842"
+    },
+    "research/assets/store-media/gala-oro/06-detail-crop-1200.jpg": {
+      "bytes": 260245,
+      "cloudflare_upload_hash": "7eb43222f644ac265085d7fbf809edc1"
+    },
+    "research/assets/store-media/gala-oro/06-detail-crop-1200.webp": {
+      "bytes": 166510,
+      "cloudflare_upload_hash": "5061ef759490032ca764b32d5644da71"
+    },
+    "research/assets/store-media/gala-oro/06-detail-crop-1600.jpg": {
+      "bytes": 453657,
+      "cloudflare_upload_hash": "c523f9a56107522ca7886e05d8034f1e"
+    },
+    "research/assets/store-media/gala-oro/06-detail-crop-1600.webp": {
+      "bytes": 287642,
+      "cloudflare_upload_hash": "f72b273741964b66051147b260392388"
+    },
+    "research/assets/store-media/gala-oro/06-detail-crop-480.jpg": {
+      "bytes": 42983,
+      "cloudflare_upload_hash": "457fdcf3a173f3b1aebd68ed4ac3e440"
+    },
+    "research/assets/store-media/gala-oro/06-detail-crop-480.webp": {
+      "bytes": 25948,
+      "cloudflare_upload_hash": "1ae97e5cc49d125ce09389e8ee93fc22"
+    },
+    "research/assets/store-media/gala-oro/06-detail-crop-800.jpg": {
+      "bytes": 118817,
+      "cloudflare_upload_hash": "fa4fbe6d7cb770cb6b318aadf80e17b7"
+    },
+    "research/assets/store-media/gala-oro/06-detail-crop-800.webp": {
+      "bytes": 72570,
+      "cloudflare_upload_hash": "39aa1ad05e8800062d41b4b236ce3d14"
+    },
+    "research/assets/store-media/gala-rubi/01-front-full-length-1200.jpg": {
+      "bytes": 179318,
+      "cloudflare_upload_hash": "a5fdf4f821e45c3953fa6cf8688c7dce"
+    },
+    "research/assets/store-media/gala-rubi/01-front-full-length-1200.webp": {
+      "bytes": 58508,
+      "cloudflare_upload_hash": "813458e616c355168946c2139ee24f56"
+    },
+    "research/assets/store-media/gala-rubi/01-front-full-length-1600.jpg": {
+      "bytes": 320777,
+      "cloudflare_upload_hash": "9b58ab45aafe045141d2fcc2339d1f53"
+    },
+    "research/assets/store-media/gala-rubi/01-front-full-length-1600.webp": {
+      "bytes": 97420,
+      "cloudflare_upload_hash": "4033a2c626c4ac73ad7a984605d1c06f"
+    },
+    "research/assets/store-media/gala-rubi/01-front-full-length-480.jpg": {
+      "bytes": 35579,
+      "cloudflare_upload_hash": "4f207bcab8981f20a33a33ce935fd892"
+    },
+    "research/assets/store-media/gala-rubi/01-front-full-length-480.webp": {
+      "bytes": 15854,
+      "cloudflare_upload_hash": "2b63536db941c66b8b9de72273b7a3ed"
+    },
+    "research/assets/store-media/gala-rubi/01-front-full-length-800.jpg": {
+      "bytes": 84178,
+      "cloudflare_upload_hash": "4141e2db8f9665cc43f11bd49251e9d0"
+    },
+    "research/assets/store-media/gala-rubi/01-front-full-length-800.webp": {
+      "bytes": 32222,
+      "cloudflare_upload_hash": "cee96aaaad6d466a2eeccc886bcf04b2"
+    },
+    "research/assets/store-media/gala-rubi/03-detail-crop-1200.jpg": {
+      "bytes": 241597,
+      "cloudflare_upload_hash": "5c6df6b5c09caaaed3b614b9bbb26bda"
+    },
+    "research/assets/store-media/gala-rubi/03-detail-crop-1200.webp": {
+      "bytes": 116304,
+      "cloudflare_upload_hash": "e5cbb7d039a1d83b9cf8f2b0b3dc730e"
+    },
+    "research/assets/store-media/gala-rubi/03-detail-crop-1600.jpg": {
+      "bytes": 419675,
+      "cloudflare_upload_hash": "823f82d734ed52c819a4d970e55cf15e"
+    },
+    "research/assets/store-media/gala-rubi/03-detail-crop-1600.webp": {
+      "bytes": 192446,
+      "cloudflare_upload_hash": "3360f1448a38bc176058d7612360e164"
+    },
+    "research/assets/store-media/gala-rubi/03-detail-crop-480.jpg": {
+      "bytes": 47008,
+      "cloudflare_upload_hash": "54457378d6fe97897123d18bda2def4d"
+    },
+    "research/assets/store-media/gala-rubi/03-detail-crop-480.webp": {
+      "bytes": 25908,
+      "cloudflare_upload_hash": "3ad1264e2cd9b74727dfb0b0dbb66849"
+    },
+    "research/assets/store-media/gala-rubi/03-detail-crop-800.jpg": {
+      "bytes": 117467,
+      "cloudflare_upload_hash": "6459cbab0a6468c1f5c9b3254d369626"
+    },
+    "research/assets/store-media/gala-rubi/03-detail-crop-800.webp": {
+      "bytes": 56948,
+      "cloudflare_upload_hash": "01750e806380525e04c4e29a04209022"
+    },
+    "research/assets/store-media/gris-perla-hombros/01-front-full-length-480.jpg": {
+      "bytes": 48140,
+      "cloudflare_upload_hash": "64456aacba87d3a13dab404e5831c491"
+    },
+    "research/assets/store-media/gris-perla-hombros/01-front-full-length-480.webp": {
+      "bytes": 24732,
+      "cloudflare_upload_hash": "8cac03242a32e24ba0cfe0a6fec1b3dc"
+    },
+    "research/assets/store-media/gris-perla-hombros/01-front-full-length-800.jpg": {
+      "bytes": 104472,
+      "cloudflare_upload_hash": "5999abadd7956e0bc21fdaed6674dbe3"
+    },
+    "research/assets/store-media/gris-perla-hombros/01-front-full-length-800.webp": {
+      "bytes": 47456,
+      "cloudflare_upload_hash": "3e01c1d406db8c42000b415e9f4d9ec0"
+    },
+    "research/assets/store-media/gris-perla-hombros/02-three-quarter-front-full-length-480.jpg": {
+      "bytes": 48139,
+      "cloudflare_upload_hash": "9a87fff836d738fc88f979a30b4e6db8"
+    },
+    "research/assets/store-media/gris-perla-hombros/02-three-quarter-front-full-length-480.webp": {
+      "bytes": 25074,
+      "cloudflare_upload_hash": "4a1a78509ddd1704c9ea751e6956d179"
+    },
+    "research/assets/store-media/gris-perla-hombros/02-three-quarter-front-full-length-800.jpg": {
+      "bytes": 104404,
+      "cloudflare_upload_hash": "ea197b8b42a8816ab33f938defe2cd1c"
+    },
+    "research/assets/store-media/gris-perla-hombros/02-three-quarter-front-full-length-800.webp": {
+      "bytes": 47852,
+      "cloudflare_upload_hash": "7068b3946b9fbe505b43f6f3568e1fb8"
+    },
+    "research/assets/store-media/gris-perla-hombros/03-side-full-length-480.jpg": {
+      "bytes": 47247,
+      "cloudflare_upload_hash": "a22891d98d0403c5edd29b19b52410f9"
+    },
+    "research/assets/store-media/gris-perla-hombros/03-side-full-length-480.webp": {
+      "bytes": 24174,
+      "cloudflare_upload_hash": "f67cb7c56a4b99d548f830515557c89f"
+    },
+    "research/assets/store-media/gris-perla-hombros/03-side-full-length-800.jpg": {
+      "bytes": 103049,
+      "cloudflare_upload_hash": "ee7bc90859fb65ee0b5e128ed9905f73"
+    },
+    "research/assets/store-media/gris-perla-hombros/03-side-full-length-800.webp": {
+      "bytes": 45942,
+      "cloudflare_upload_hash": "b560ca829c8f42d67ba6238285cbf79c"
+    },
+    "research/assets/store-media/gris-perla-hombros/04-back-full-length-480.jpg": {
+      "bytes": 50822,
+      "cloudflare_upload_hash": "400cc0d67405d8d446a09d8ce60559ea"
+    },
+    "research/assets/store-media/gris-perla-hombros/04-back-full-length-480.webp": {
+      "bytes": 27058,
+      "cloudflare_upload_hash": "33f9d4c3d51e7b119435bde3bdfd64bd"
+    },
+    "research/assets/store-media/gris-perla-hombros/04-back-full-length-800.jpg": {
+      "bytes": 109990,
+      "cloudflare_upload_hash": "cb306bdebd0ec12783a71f75f76a6b8e"
+    },
+    "research/assets/store-media/gris-perla-hombros/04-back-full-length-800.webp": {
+      "bytes": 50860,
+      "cloudflare_upload_hash": "e60a641745f50494a2dd1460dfada922"
+    },
+    "research/assets/store-media/gris-perla-hombros/05-detail-crop-432.jpg": {
+      "bytes": 30012,
+      "cloudflare_upload_hash": "c388a3fcc179e2d392482e8d2ccbea7f"
+    },
+    "research/assets/store-media/gris-perla-hombros/05-detail-crop-432.webp": {
+      "bytes": 13036,
+      "cloudflare_upload_hash": "94377fd9cdfa42167e68a9255db5748b"
+    },
+    "research/assets/store-media/gris-perla-hombros/product.mp4": {
+      "bytes": 1202268,
+      "cloudflare_upload_hash": "925369a152a77fe041b7cd170419f33c"
+    },
+    "research/assets/store-media/gris-perla-hombros/product.webm": {
+      "bytes": 1045504,
+      "cloudflare_upload_hash": "f627408c6603ee406557cea24be6c9bf"
+    },
+    "research/assets/store-media/heroes/rosa-empolvado-pedreria/hero-poster.jpg": {
+      "bytes": 102160,
+      "cloudflare_upload_hash": "1198d3e1cb03ab0f0c7aa404e143e3e8"
+    },
+    "research/assets/store-media/heroes/rosa-empolvado-pedreria/hero.mp4": {
+      "bytes": 1265564,
+      "cloudflare_upload_hash": "af9ca60a528d63f5aa9980a2d5de0e5d"
+    },
+    "research/assets/store-media/heroes/rosa-empolvado-pedreria/hero.webm": {
+      "bytes": 1163438,
+      "cloudflare_upload_hash": "aca24c2cc5b394a1bfb6b57bf032eea6"
+    },
+    "research/assets/store-media/midi-estampado-burdeos/01-front-full-length-1200.jpg": {
+      "bytes": 284427,
+      "cloudflare_upload_hash": "9a713fe414f650989387fb2824e7b490"
+    },
+    "research/assets/store-media/midi-estampado-burdeos/01-front-full-length-1200.webp": {
+      "bytes": 154758,
+      "cloudflare_upload_hash": "9bdb9d7fd37b9839e86f5fe28f42391c"
+    },
+    "research/assets/store-media/midi-estampado-burdeos/01-front-full-length-1600.jpg": {
+      "bytes": 448047,
+      "cloudflare_upload_hash": "066bc4b3bca5d8870043ffcef7a9bd9a"
+    },
+    "research/assets/store-media/midi-estampado-burdeos/01-front-full-length-1600.webp": {
+      "bytes": 225928,
+      "cloudflare_upload_hash": "c21e3de8b7969d569974577b3b1b81e5"
+    },
+    "research/assets/store-media/midi-estampado-burdeos/01-front-full-length-480.jpg": {
+      "bytes": 60366,
+      "cloudflare_upload_hash": "587e550b5e24c069d4a60d280e1968bc"
+    },
+    "research/assets/store-media/midi-estampado-burdeos/01-front-full-length-480.webp": {
+      "bytes": 39210,
+      "cloudflare_upload_hash": "97df152f422503776d072412650bc158"
+    },
+    "research/assets/store-media/midi-estampado-burdeos/01-front-full-length-800.jpg": {
+      "bytes": 149451,
+      "cloudflare_upload_hash": "923e2bcee0038d6a1f398273cb4eb9ac"
+    },
+    "research/assets/store-media/midi-estampado-burdeos/01-front-full-length-800.webp": {
+      "bytes": 90220,
+      "cloudflare_upload_hash": "9e00e978e6c459784669f15a3de005cf"
+    },
+    "research/assets/store-media/midi-estampado-burdeos/02-front-full-length-480.jpg": {
+      "bytes": 46461,
+      "cloudflare_upload_hash": "8b0f2cb21f2d55ce8f318ac4a60cb939"
+    },
+    "research/assets/store-media/midi-estampado-burdeos/02-front-full-length-480.webp": {
+      "bytes": 26748,
+      "cloudflare_upload_hash": "922ca7306c8c8d9e961de96f737035e8"
+    },
+    "research/assets/store-media/midi-estampado-burdeos/02-front-full-length-800.jpg": {
+      "bytes": 101007,
+      "cloudflare_upload_hash": "1448719169177f61a48faddf62e97441"
+    },
+    "research/assets/store-media/midi-estampado-burdeos/02-front-full-length-800.webp": {
+      "bytes": 53460,
+      "cloudflare_upload_hash": "6785238c626810f4138f75fe9b419e95"
+    },
+    "research/assets/store-media/midi-estampado-burdeos/03-three-quarter-back-full-length-480.jpg": {
+      "bytes": 48015,
+      "cloudflare_upload_hash": "315b9c17a8899da847d7c1c228f2b90a"
+    },
+    "research/assets/store-media/midi-estampado-burdeos/03-three-quarter-back-full-length-480.webp": {
+      "bytes": 29072,
+      "cloudflare_upload_hash": "60f8f7947f9b95c49ac8fd321b5d68d5"
+    },
+    "research/assets/store-media/midi-estampado-burdeos/03-three-quarter-back-full-length-800.jpg": {
+      "bytes": 106072,
+      "cloudflare_upload_hash": "54a29777c5811c1286141526571c9569"
+    },
+    "research/assets/store-media/midi-estampado-burdeos/03-three-quarter-back-full-length-800.webp": {
+      "bytes": 59154,
+      "cloudflare_upload_hash": "ab8a48fd3a3cbb1a7bd4f02391578259"
+    },
+    "research/assets/store-media/midi-estampado-burdeos/05-detail-crop-1200.jpg": {
+      "bytes": 137638,
+      "cloudflare_upload_hash": "3073d2d58917c3007659aa0b573e0776"
+    },
+    "research/assets/store-media/midi-estampado-burdeos/05-detail-crop-1200.webp": {
+      "bytes": 64400,
+      "cloudflare_upload_hash": "b46386b10debd197f51119364cd296dd"
+    },
+    "research/assets/store-media/midi-estampado-burdeos/05-detail-crop-1600.jpg": {
+      "bytes": 207950,
+      "cloudflare_upload_hash": "07041579ec474eb513ed580f3febe324"
+    },
+    "research/assets/store-media/midi-estampado-burdeos/05-detail-crop-1600.webp": {
+      "bytes": 89308,
+      "cloudflare_upload_hash": "67fbb859993f7925eaa4b451330f42cb"
+    },
+    "research/assets/store-media/midi-estampado-burdeos/05-detail-crop-480.jpg": {
+      "bytes": 34771,
+      "cloudflare_upload_hash": "c98d5641abf7d5bd0403b71b297c7008"
+    },
+    "research/assets/store-media/midi-estampado-burdeos/05-detail-crop-480.webp": {
+      "bytes": 21148,
+      "cloudflare_upload_hash": "f4d3837f957e3b8ecf76dce42b148d4f"
+    },
+    "research/assets/store-media/midi-estampado-burdeos/05-detail-crop-800.jpg": {
+      "bytes": 77114,
+      "cloudflare_upload_hash": "49be01d2656855c95fc0f2087d7ffdb3"
+    },
+    "research/assets/store-media/midi-estampado-burdeos/05-detail-crop-800.webp": {
+      "bytes": 41146,
+      "cloudflare_upload_hash": "28e95d50a18945be5895147f4847bd9b"
+    },
+    "research/assets/store-media/midi-estampado-burdeos/06-detail-crop-1200.jpg": {
+      "bytes": 209452,
+      "cloudflare_upload_hash": "039646e23c29f5eee80485f757f76c94"
+    },
+    "research/assets/store-media/midi-estampado-burdeos/06-detail-crop-1200.webp": {
+      "bytes": 103334,
+      "cloudflare_upload_hash": "9a6bfad9b12ff442968cd5454f8ffdfa"
+    },
+    "research/assets/store-media/midi-estampado-burdeos/06-detail-crop-1600.jpg": {
+      "bytes": 317068,
+      "cloudflare_upload_hash": "b893d879d2024814f58cafaf71b62828"
+    },
+    "research/assets/store-media/midi-estampado-burdeos/06-detail-crop-1600.webp": {
+      "bytes": 144840,
+      "cloudflare_upload_hash": "fe68f89e16af851bf8634cf7e63b802e"
+    },
+    "research/assets/store-media/midi-estampado-burdeos/06-detail-crop-480.jpg": {
+      "bytes": 51449,
+      "cloudflare_upload_hash": "7346e9a79a1c3db1918856438c58a0e2"
+    },
+    "research/assets/store-media/midi-estampado-burdeos/06-detail-crop-480.webp": {
+      "bytes": 33960,
+      "cloudflare_upload_hash": "c03a9c0be2828e4de05ee13183a86853"
+    },
+    "research/assets/store-media/midi-estampado-burdeos/06-detail-crop-800.jpg": {
+      "bytes": 115490,
+      "cloudflare_upload_hash": "f98d6d198449c36c32a4576aa2d62713"
+    },
+    "research/assets/store-media/midi-estampado-burdeos/06-detail-crop-800.webp": {
+      "bytes": 65952,
+      "cloudflare_upload_hash": "1828d7a6e79ae2987e4e44dc92f5de7d"
+    },
+    "research/assets/store-media/midi-estampado-burdeos/product.mp4": {
+      "bytes": 1312409,
+      "cloudflare_upload_hash": "81547c614252edfe6b23dc74ff4e9d0b"
+    },
+    "research/assets/store-media/midi-estampado-burdeos/product.webm": {
+      "bytes": 1092656,
+      "cloudflare_upload_hash": "22063608337073306280e837de2e0151"
+    },
+    "research/assets/store-media/napoleon/01-front-480.jpg": {
+      "bytes": 58641,
+      "cloudflare_upload_hash": "19c5aa508db880494d439b331a63a34b"
+    },
+    "research/assets/store-media/napoleon/01-front-480.webp": {
+      "bytes": 33310,
+      "cloudflare_upload_hash": "df78663f0bf99b627abd6fac75ab9767"
+    },
+    "research/assets/store-media/napoleon/01-front-800.jpg": {
+      "bytes": 130403,
+      "cloudflare_upload_hash": "fa75530adfd4cdebcc37e2d152df42b7"
+    },
+    "research/assets/store-media/napoleon/01-front-800.webp": {
+      "bytes": 67740,
+      "cloudflare_upload_hash": "530c7c6dc11800e5a6ecbafec9af7729"
+    },
+    "research/assets/store-media/napoleon/02-jacket-detail-crop-480.jpg": {
+      "bytes": 22412,
+      "cloudflare_upload_hash": "329c912631e7a7ac3857515b6917cf11"
+    },
+    "research/assets/store-media/napoleon/02-jacket-detail-crop-480.webp": {
+      "bytes": 11244,
+      "cloudflare_upload_hash": "189cae4de57c05fc8eb0ed5e8a1700b8"
+    },
+    "research/assets/store-media/napoleon/03-buttons-detail-crop-480.jpg": {
+      "bytes": 22882,
+      "cloudflare_upload_hash": "e417fb448dc1fd8fdb547d62777e8fdc"
+    },
+    "research/assets/store-media/napoleon/03-buttons-detail-crop-480.webp": {
+      "bytes": 11716,
+      "cloudflare_upload_hash": "2d9474bf9c0b2816a418f17d83b0cb19"
+    },
+    "research/assets/store-media/negro-blanco-lunares-midi/01-front-full-length-480.jpg": {
+      "bytes": 54038,
+      "cloudflare_upload_hash": "197f7aac4c00cfa8c7a8bf33b34a4118"
+    },
+    "research/assets/store-media/negro-blanco-lunares-midi/01-front-full-length-480.webp": {
+      "bytes": 29562,
+      "cloudflare_upload_hash": "80ab32a41919385499152da086ae07fe"
+    },
+    "research/assets/store-media/negro-blanco-lunares-midi/01-front-full-length-800.jpg": {
+      "bytes": 120358,
+      "cloudflare_upload_hash": "5be31951b89ac6387e5b4fad9a67a09b"
+    },
+    "research/assets/store-media/negro-blanco-lunares-midi/01-front-full-length-800.webp": {
+      "bytes": 58346,
+      "cloudflare_upload_hash": "54a3c6c38c2b1af1dd8fad721efb7e16"
+    },
+    "research/assets/store-media/negro-blanco-lunares-midi/02-three-quarter-front-full-length-480.jpg": {
+      "bytes": 55498,
+      "cloudflare_upload_hash": "99f73757a2ebceb41c638a15c8a85cf9"
+    },
+    "research/assets/store-media/negro-blanco-lunares-midi/02-three-quarter-front-full-length-480.webp": {
+      "bytes": 30856,
+      "cloudflare_upload_hash": "584b81d10b513f708a7a002c504e79dd"
+    },
+    "research/assets/store-media/negro-blanco-lunares-midi/02-three-quarter-front-full-length-800.jpg": {
+      "bytes": 122660,
+      "cloudflare_upload_hash": "b34a3e3b7ede55aada6037a29c1ab749"
+    },
+    "research/assets/store-media/negro-blanco-lunares-midi/02-three-quarter-front-full-length-800.webp": {
+      "bytes": 60872,
+      "cloudflare_upload_hash": "74975fa07f47658ef94ead7174ff9b17"
+    },
+    "research/assets/store-media/negro-blanco-lunares-midi/03-side-full-length-480.jpg": {
+      "bytes": 53559,
+      "cloudflare_upload_hash": "817c0d0c2089e7e971cce069f93e8ede"
+    },
+    "research/assets/store-media/negro-blanco-lunares-midi/03-side-full-length-480.webp": {
+      "bytes": 29422,
+      "cloudflare_upload_hash": "8dc72390bf7b662b039c507d953a7a4b"
+    },
+    "research/assets/store-media/negro-blanco-lunares-midi/03-side-full-length-800.jpg": {
+      "bytes": 119578,
+      "cloudflare_upload_hash": "7cdd47f514536f1aafa5f45130633254"
+    },
+    "research/assets/store-media/negro-blanco-lunares-midi/03-side-full-length-800.webp": {
+      "bytes": 58778,
+      "cloudflare_upload_hash": "7425a741822478cb5ecbe81b19764759"
+    },
+    "research/assets/store-media/negro-blanco-lunares-midi/04-back-full-length-480.jpg": {
+      "bytes": 58158,
+      "cloudflare_upload_hash": "c198fe92f3232192f77e4c86a1312b65"
+    },
+    "research/assets/store-media/negro-blanco-lunares-midi/04-back-full-length-480.webp": {
+      "bytes": 32752,
+      "cloudflare_upload_hash": "569e9994dc57bd51856a1d88c58886c4"
+    },
+    "research/assets/store-media/negro-blanco-lunares-midi/04-back-full-length-800.jpg": {
+      "bytes": 127059,
+      "cloudflare_upload_hash": "588b84c47549a6829a78a7530c91048c"
+    },
+    "research/assets/store-media/negro-blanco-lunares-midi/04-back-full-length-800.webp": {
+      "bytes": 63700,
+      "cloudflare_upload_hash": "3ed01a1d2deae89e7896affa0da544d2"
+    },
+    "research/assets/store-media/negro-blanco-lunares-midi/05-detail-crop-432.jpg": {
+      "bytes": 41669,
+      "cloudflare_upload_hash": "8d3accfcbe3d8a386c09c74473879d92"
+    },
+    "research/assets/store-media/negro-blanco-lunares-midi/05-detail-crop-432.webp": {
+      "bytes": 20984,
+      "cloudflare_upload_hash": "b6ded6a6ac624391629e96afffc037fe"
+    },
+    "research/assets/store-media/negro-blanco-lunares-midi/product.mp4": {
+      "bytes": 1174369,
+      "cloudflare_upload_hash": "b6740762db8c311a068f3359a48b8dcb"
+    },
+    "research/assets/store-media/negro-blanco-lunares-midi/product.webm": {
+      "bytes": 1112852,
+      "cloudflare_upload_hash": "39a51a07a27fa71afebe5e2818be4b20"
+    },
+    "research/assets/store-media/negro-brillo-pantalon-amplio/01-front-full-length-480.jpg": {
+      "bytes": 45983,
+      "cloudflare_upload_hash": "822fe371bb3de84b6b93d915ef0548d7"
+    },
+    "research/assets/store-media/negro-brillo-pantalon-amplio/01-front-full-length-480.webp": {
+      "bytes": 23084,
+      "cloudflare_upload_hash": "b5f1bad377851f20860e533254d0d124"
+    },
+    "research/assets/store-media/negro-brillo-pantalon-amplio/01-front-full-length-800.jpg": {
+      "bytes": 100188,
+      "cloudflare_upload_hash": "6d2c9b11eac19e527fc1239a59918fc3"
+    },
+    "research/assets/store-media/negro-brillo-pantalon-amplio/01-front-full-length-800.webp": {
+      "bytes": 45028,
+      "cloudflare_upload_hash": "bf01da7e8cfbeab6d2259f3c41102fd8"
+    },
+    "research/assets/store-media/negro-brillo-pantalon-amplio/02-three-quarter-front-full-length-480.jpg": {
+      "bytes": 45471,
+      "cloudflare_upload_hash": "50f0ccf03728462e9856d1489bf98ef7"
+    },
+    "research/assets/store-media/negro-brillo-pantalon-amplio/02-three-quarter-front-full-length-480.webp": {
+      "bytes": 22662,
+      "cloudflare_upload_hash": "49bc2d79cd9149f675ab5f623189caad"
+    },
+    "research/assets/store-media/negro-brillo-pantalon-amplio/02-three-quarter-front-full-length-800.jpg": {
+      "bytes": 98042,
+      "cloudflare_upload_hash": "dc4252cb4762098dd930734675ca0359"
+    },
+    "research/assets/store-media/negro-brillo-pantalon-amplio/02-three-quarter-front-full-length-800.webp": {
+      "bytes": 43272,
+      "cloudflare_upload_hash": "b86ccf3d895fd3aeb86449e7e0a39402"
+    },
+    "research/assets/store-media/negro-brillo-pantalon-amplio/03-side-full-length-480.jpg": {
+      "bytes": 45731,
+      "cloudflare_upload_hash": "8e554f01a8afac2b8af646044c23ba75"
+    },
+    "research/assets/store-media/negro-brillo-pantalon-amplio/03-side-full-length-480.webp": {
+      "bytes": 22518,
+      "cloudflare_upload_hash": "67d968add92d99c7a16f1ee420fa9fed"
+    },
+    "research/assets/store-media/negro-brillo-pantalon-amplio/03-side-full-length-800.jpg": {
+      "bytes": 98596,
+      "cloudflare_upload_hash": "f105325d80bed38ecb57813515a11919"
+    },
+    "research/assets/store-media/negro-brillo-pantalon-amplio/03-side-full-length-800.webp": {
+      "bytes": 42618,
+      "cloudflare_upload_hash": "1fc985933e1644af443b2ee84e081d38"
+    },
+    "research/assets/store-media/negro-brillo-pantalon-amplio/04-back-full-length-480.jpg": {
+      "bytes": 45362,
+      "cloudflare_upload_hash": "fb0c65761f2275f2fd4aefa136504f95"
+    },
+    "research/assets/store-media/negro-brillo-pantalon-amplio/04-back-full-length-480.webp": {
+      "bytes": 23156,
+      "cloudflare_upload_hash": "ac0a384a4e21367ba086f9944dc3172c"
+    },
+    "research/assets/store-media/negro-brillo-pantalon-amplio/04-back-full-length-800.jpg": {
+      "bytes": 98104,
+      "cloudflare_upload_hash": "b6796551cb2f208dd375e94d31fd17f3"
+    },
+    "research/assets/store-media/negro-brillo-pantalon-amplio/04-back-full-length-800.webp": {
+      "bytes": 44864,
+      "cloudflare_upload_hash": "85bb7163594146ca738d04d36b587ef3"
+    },
+    "research/assets/store-media/negro-brillo-pantalon-amplio/05-detail-crop-432.jpg": {
+      "bytes": 29297,
+      "cloudflare_upload_hash": "7a033d8aa24661eb67a7cd16b51dbffc"
+    },
+    "research/assets/store-media/negro-brillo-pantalon-amplio/05-detail-crop-432.webp": {
+      "bytes": 13442,
+      "cloudflare_upload_hash": "a3f005c224454a85ff7efd397f6476d0"
+    },
+    "research/assets/store-media/negro-brillo-pantalon-amplio/product.mp4": {
+      "bytes": 1156657,
+      "cloudflare_upload_hash": "523befb203322681e928b860caff3a3f"
+    },
+    "research/assets/store-media/negro-brillo-pantalon-amplio/product.webm": {
+      "bytes": 1051938,
+      "cloudflare_upload_hash": "9beaef3e98a7868ab6bed619ab4d7f60"
+    },
+    "research/assets/store-media/negro-escote-puntas-abertura/01-front-full-length-480.jpg": {
+      "bytes": 50199,
+      "cloudflare_upload_hash": "70fcbe62891f516850d84112da6f3af1"
+    },
+    "research/assets/store-media/negro-escote-puntas-abertura/01-front-full-length-480.webp": {
+      "bytes": 27226,
+      "cloudflare_upload_hash": "ff7a1e9a5a3afd12bcfee160b66543ac"
+    },
+    "research/assets/store-media/negro-escote-puntas-abertura/01-front-full-length-800.jpg": {
+      "bytes": 107852,
+      "cloudflare_upload_hash": "9f755e416575f8182a8d4e4f32d2674e"
+    },
+    "research/assets/store-media/negro-escote-puntas-abertura/01-front-full-length-800.webp": {
+      "bytes": 52068,
+      "cloudflare_upload_hash": "d94000dee698508b532d50a816e7ab70"
+    },
+    "research/assets/store-media/negro-escote-puntas-abertura/02-three-quarter-back-full-length-480.jpg": {
+      "bytes": 48885,
+      "cloudflare_upload_hash": "c133aa2a8ff538bc9b79bdc8a3e2ec00"
+    },
+    "research/assets/store-media/negro-escote-puntas-abertura/02-three-quarter-back-full-length-480.webp": {
+      "bytes": 26364,
+      "cloudflare_upload_hash": "33277d3fc33c7cac3ddf5c1c1864b553"
+    },
+    "research/assets/store-media/negro-escote-puntas-abertura/02-three-quarter-back-full-length-800.jpg": {
+      "bytes": 104464,
+      "cloudflare_upload_hash": "e0a6e4ce469ab2d106e762a8dbbe3fa1"
+    },
+    "research/assets/store-media/negro-escote-puntas-abertura/02-three-quarter-back-full-length-800.webp": {
+      "bytes": 49972,
+      "cloudflare_upload_hash": "874887d260c8f9766b52f11c730b7c62"
+    },
+    "research/assets/store-media/negro-escote-puntas-abertura/03-side-full-length-480.jpg": {
+      "bytes": 48674,
+      "cloudflare_upload_hash": "95a121f317cebd8ecac9a93bcb9bf272"
+    },
+    "research/assets/store-media/negro-escote-puntas-abertura/03-side-full-length-480.webp": {
+      "bytes": 25594,
+      "cloudflare_upload_hash": "d0fddd34cb62dbbfd9d926a5480dc355"
+    },
+    "research/assets/store-media/negro-escote-puntas-abertura/03-side-full-length-800.jpg": {
+      "bytes": 102331,
+      "cloudflare_upload_hash": "49a63614afc819bd5282603149432424"
+    },
+    "research/assets/store-media/negro-escote-puntas-abertura/03-side-full-length-800.webp": {
+      "bytes": 46674,
+      "cloudflare_upload_hash": "4977a3fcfa5265c63606ae9ef8fbe9f7"
+    },
+    "research/assets/store-media/negro-escote-puntas-abertura/04-back-full-length-480.jpg": {
+      "bytes": 47516,
+      "cloudflare_upload_hash": "3cb5a1b45f1a00801bddd7b57f82e558"
+    },
+    "research/assets/store-media/negro-escote-puntas-abertura/04-back-full-length-480.webp": {
+      "bytes": 25384,
+      "cloudflare_upload_hash": "890efd1048ca934ba05522f23389c468"
+    },
+    "research/assets/store-media/negro-escote-puntas-abertura/04-back-full-length-800.jpg": {
+      "bytes": 102123,
+      "cloudflare_upload_hash": "b0bde164e28586d89ebebf172ddd7ec6"
+    },
+    "research/assets/store-media/negro-escote-puntas-abertura/04-back-full-length-800.webp": {
+      "bytes": 48250,
+      "cloudflare_upload_hash": "bf4ac0d31c56ba5f8f8c6e9a99d5ecc3"
+    },
+    "research/assets/store-media/negro-escote-puntas-abertura/05-detail-crop-432.jpg": {
+      "bytes": 27871,
+      "cloudflare_upload_hash": "1a389070bd8d1c93f84de4d672946afb"
+    },
+    "research/assets/store-media/negro-escote-puntas-abertura/05-detail-crop-432.webp": {
+      "bytes": 12132,
+      "cloudflare_upload_hash": "43eb1c90e319d282e3cbfeef06799379"
+    },
+    "research/assets/store-media/negro-escote-puntas-abertura/product.mp4": {
+      "bytes": 1184261,
+      "cloudflare_upload_hash": "5c96c688ed10b29200ea97f86af26c6f"
+    },
+    "research/assets/store-media/negro-escote-puntas-abertura/product.webm": {
+      "bytes": 1184667,
+      "cloudflare_upload_hash": "fdf88fdd63cc628ec4b492cbee0f5b45"
+    },
+    "research/assets/store-media/negro-lunares-beige-hombros/01-front-full-length-1200.jpg": {
+      "bytes": 235778,
+      "cloudflare_upload_hash": "89d85172b20177e7bc041c146dd1054c"
+    },
+    "research/assets/store-media/negro-lunares-beige-hombros/01-front-full-length-1200.webp": {
+      "bytes": 109034,
+      "cloudflare_upload_hash": "56c863bdcf4c7f880af94df956fad0af"
+    },
+    "research/assets/store-media/negro-lunares-beige-hombros/01-front-full-length-480.jpg": {
+      "bytes": 57820,
+      "cloudflare_upload_hash": "7ea82ae19259f6ae7a09d607484311d1"
+    },
+    "research/assets/store-media/negro-lunares-beige-hombros/01-front-full-length-480.webp": {
+      "bytes": 31824,
+      "cloudflare_upload_hash": "76dabc643958d142dc424d480ecf14b9"
+    },
+    "research/assets/store-media/negro-lunares-beige-hombros/01-front-full-length-800.jpg": {
+      "bytes": 127844,
+      "cloudflare_upload_hash": "59362360701c7d0653c5d0532fa970a5"
+    },
+    "research/assets/store-media/negro-lunares-beige-hombros/01-front-full-length-800.webp": {
+      "bytes": 64944,
+      "cloudflare_upload_hash": "fcf2c27133573c0fb1732670c656eb02"
+    },
+    "research/assets/store-media/negro-lunares-beige-hombros/02-three-quarter-back-full-length-1200.jpg": {
+      "bytes": 224184,
+      "cloudflare_upload_hash": "265f6353cf67f0594441d263a7c61eb0"
+    },
+    "research/assets/store-media/negro-lunares-beige-hombros/02-three-quarter-back-full-length-1200.webp": {
+      "bytes": 103176,
+      "cloudflare_upload_hash": "a792d5f1bf8bd08de071667aa516df10"
+    },
+    "research/assets/store-media/negro-lunares-beige-hombros/02-three-quarter-back-full-length-480.jpg": {
+      "bytes": 56758,
+      "cloudflare_upload_hash": "e4f61158cde3592261092dc0d9671c09"
+    },
+    "research/assets/store-media/negro-lunares-beige-hombros/02-three-quarter-back-full-length-480.webp": {
+      "bytes": 31338,
+      "cloudflare_upload_hash": "bc591c1ec2b74f44127ba5ef47b69cd5"
+    },
+    "research/assets/store-media/negro-lunares-beige-hombros/02-three-quarter-back-full-length-800.jpg": {
+      "bytes": 123257,
+      "cloudflare_upload_hash": "8024a9650387ba9a531dc9da682a7b42"
+    },
+    "research/assets/store-media/negro-lunares-beige-hombros/02-three-quarter-back-full-length-800.webp": {
+      "bytes": 62286,
+      "cloudflare_upload_hash": "5f6566749051f6ed05b5c56797c393a6"
+    },
+    "research/assets/store-media/negro-lunares-beige-hombros/03-side-full-length-1200.jpg": {
+      "bytes": 234023,
+      "cloudflare_upload_hash": "4d717423968ba6d0b121f20a12afe12d"
+    },
+    "research/assets/store-media/negro-lunares-beige-hombros/03-side-full-length-1200.webp": {
+      "bytes": 107470,
+      "cloudflare_upload_hash": "5a69272c91af362bcff917239882f757"
+    },
+    "research/assets/store-media/negro-lunares-beige-hombros/03-side-full-length-480.jpg": {
+      "bytes": 56196,
+      "cloudflare_upload_hash": "7ae884d7967318f19802052bb9f75985"
+    },
+    "research/assets/store-media/negro-lunares-beige-hombros/03-side-full-length-480.webp": {
+      "bytes": 30256,
+      "cloudflare_upload_hash": "798cb4ba98d24df4a01fbf6626f66ace"
+    },
+    "research/assets/store-media/negro-lunares-beige-hombros/03-side-full-length-800.jpg": {
+      "bytes": 126180,
+      "cloudflare_upload_hash": "aa4a5ec6be41965acbc6ff7c704d4d9c"
+    },
+    "research/assets/store-media/negro-lunares-beige-hombros/03-side-full-length-800.webp": {
+      "bytes": 63750,
+      "cloudflare_upload_hash": "ac0655f1a539b395d3cb8627ae5eba47"
+    },
+    "research/assets/store-media/negro-lunares-beige-hombros/04-back-full-length-1200.jpg": {
+      "bytes": 239102,
+      "cloudflare_upload_hash": "f1f9d300c288474523bd2facb18ce8ec"
+    },
+    "research/assets/store-media/negro-lunares-beige-hombros/04-back-full-length-1200.webp": {
+      "bytes": 114632,
+      "cloudflare_upload_hash": "6b1686c26dfd01671fa0eedd5924cb9a"
+    },
+    "research/assets/store-media/negro-lunares-beige-hombros/04-back-full-length-480.jpg": {
+      "bytes": 58632,
+      "cloudflare_upload_hash": "622ee059e5e1390217d807e1665322ca"
+    },
+    "research/assets/store-media/negro-lunares-beige-hombros/04-back-full-length-480.webp": {
+      "bytes": 32698,
+      "cloudflare_upload_hash": "8f9bfef7d5a51d276aa18f08e27e4680"
+    },
+    "research/assets/store-media/negro-lunares-beige-hombros/04-back-full-length-800.jpg": {
+      "bytes": 130136,
+      "cloudflare_upload_hash": "f3c5daac2cd6188dc5e72e661ddc4103"
+    },
+    "research/assets/store-media/negro-lunares-beige-hombros/04-back-full-length-800.webp": {
+      "bytes": 67586,
+      "cloudflare_upload_hash": "2fa254a7f364353a5385b81b7d115ec5"
+    },
+    "research/assets/store-media/negro-lunares-beige-hombros/05-detail-crop-480.jpg": {
+      "bytes": 48472,
+      "cloudflare_upload_hash": "8c713ff8b5699ed8ab45b36f20e651e7"
+    },
+    "research/assets/store-media/negro-lunares-beige-hombros/05-detail-crop-480.webp": {
+      "bytes": 24388,
+      "cloudflare_upload_hash": "ee3b5e123c7540206221ecfa4dab97dc"
+    },
+    "research/assets/store-media/negro-lunares-beige-hombros/product.mp4": {
+      "bytes": 1243332,
+      "cloudflare_upload_hash": "c161647d9d5d66f71e6e33e6d664fc2d"
+    },
+    "research/assets/store-media/negro-lunares-beige-hombros/product.webm": {
+      "bytes": 1099686,
+      "cloudflare_upload_hash": "324636de796df9566c6e0cf6245fe565"
+    },
+    "research/assets/store-media/negro/01-front-full-length-1200.jpg": {
+      "bytes": 133342,
+      "cloudflare_upload_hash": "d1b7faa5c2f192636dd9d35a7bb32355"
+    },
+    "research/assets/store-media/negro/01-front-full-length-1200.webp": {
+      "bytes": 44186,
+      "cloudflare_upload_hash": "c9949983cc28b86a44686a98e18918f9"
+    },
+    "research/assets/store-media/negro/01-front-full-length-1600.jpg": {
+      "bytes": 196712,
+      "cloudflare_upload_hash": "563b1c4ba72d0a947ade1859b14cee7a"
+    },
+    "research/assets/store-media/negro/01-front-full-length-1600.webp": {
+      "bytes": 62524,
+      "cloudflare_upload_hash": "146e37095b11013a461a57a234e5cb4d"
+    },
+    "research/assets/store-media/negro/01-front-full-length-480.jpg": {
+      "bytes": 36111,
+      "cloudflare_upload_hash": "50d14ac8b12637e0b26a29f189bea411"
+    },
+    "research/assets/store-media/negro/01-front-full-length-480.webp": {
+      "bytes": 15288,
+      "cloudflare_upload_hash": "c4826e6e2fba85df74e11ba50efd39fa"
+    },
+    "research/assets/store-media/negro/01-front-full-length-800.jpg": {
+      "bytes": 74933,
+      "cloudflare_upload_hash": "2aa393c6aa61873c215a74dfda8aec3d"
+    },
+    "research/assets/store-media/negro/01-front-full-length-800.webp": {
+      "bytes": 27938,
+      "cloudflare_upload_hash": "dc5a1215314acbf7410d8f643cbb4fd3"
+    },
+    "research/assets/store-media/negro/02-bodice-detail-crop-480.jpg": {
+      "bytes": 23695,
+      "cloudflare_upload_hash": "b41f45c3453fdf73af4c1651aeedb104"
+    },
+    "research/assets/store-media/negro/02-bodice-detail-crop-480.webp": {
+      "bytes": 7818,
+      "cloudflare_upload_hash": "64c98717a6e471157bbd97b3c2773055"
+    },
+    "research/assets/store-media/negro/03-lower-detail-crop-480.jpg": {
+      "bytes": 26763,
+      "cloudflare_upload_hash": "9f16190c9f420964d73cef5fafd39db0"
+    },
+    "research/assets/store-media/negro/03-lower-detail-crop-480.webp": {
+      "bytes": 9944,
+      "cloudflare_upload_hash": "ed6ce77b600648544863c486ef091b96"
+    },
+    "research/assets/store-media/negro/03-lower-detail-crop-800.jpg": {
+      "bytes": 53878,
+      "cloudflare_upload_hash": "b47440f7deafe81a29c7c4c8236880b9"
+    },
+    "research/assets/store-media/negro/03-lower-detail-crop-800.webp": {
+      "bytes": 17520,
+      "cloudflare_upload_hash": "2d81504841059387088965e595a13fec"
+    },
+    "research/assets/store-media/novia-satinada-abertura/01-front-full-length-480.jpg": {
+      "bytes": 68428,
+      "cloudflare_upload_hash": "7350910d83b527f2c7215f1c4d486442"
+    },
+    "research/assets/store-media/novia-satinada-abertura/01-front-full-length-480.webp": {
+      "bytes": 44928,
+      "cloudflare_upload_hash": "7f4819829e254c14e6cfb84ce4fbec88"
+    },
+    "research/assets/store-media/novia-satinada-abertura/01-front-full-length-800.jpg": {
+      "bytes": 159986,
+      "cloudflare_upload_hash": "47057fc78f98c99a55d528a83b190cc5"
+    },
+    "research/assets/store-media/novia-satinada-abertura/01-front-full-length-800.webp": {
+      "bytes": 99060,
+      "cloudflare_upload_hash": "088a7b1aa36a59e574344cda7b8d6e58"
+    },
+    "research/assets/store-media/novia-satinada-abertura/02-front-full-length-480.jpg": {
+      "bytes": 61249,
+      "cloudflare_upload_hash": "ffc55b2d5d2668522e0c384d4829fff6"
+    },
+    "research/assets/store-media/novia-satinada-abertura/02-front-full-length-480.webp": {
+      "bytes": 37318,
+      "cloudflare_upload_hash": "820d2dd96d06110bc387b1ea52b00c79"
+    },
+    "research/assets/store-media/novia-satinada-abertura/03-side-partial-full-length-480.jpg": {
+      "bytes": 59303,
+      "cloudflare_upload_hash": "bdb598a8e2ec8d41287f67db8c0e0ead"
+    },
+    "research/assets/store-media/novia-satinada-abertura/03-side-partial-full-length-480.webp": {
+      "bytes": 34418,
+      "cloudflare_upload_hash": "4f95a18fb36a0ac4254e7787cb344769"
+    },
+    "research/assets/store-media/novia-satinada-abertura/04-detail-crop-432.jpg": {
+      "bytes": 31396,
+      "cloudflare_upload_hash": "3b0c0bccc74f4a72425f2508ca63a538"
+    },
+    "research/assets/store-media/novia-satinada-abertura/04-detail-crop-432.webp": {
+      "bytes": 14716,
+      "cloudflare_upload_hash": "c04fc384a1966b337af1d473f70f36cc"
+    },
+    "research/assets/store-media/novia-satinada-abertura/05-detail-crop-444.jpg": {
+      "bytes": 33635,
+      "cloudflare_upload_hash": "76ca837368e21a83348f6716ff6a7853"
+    },
+    "research/assets/store-media/novia-satinada-abertura/05-detail-crop-444.webp": {
+      "bytes": 15918,
+      "cloudflare_upload_hash": "4b957f7e9b2c2dcf9bf0a65cd131b5d4"
+    },
+    "research/assets/store-media/novia-satinada-abertura/product.mp4": {
+      "bytes": 1236434,
+      "cloudflare_upload_hash": "a1494b82cc580f6baf41e77868180c00"
+    },
+    "research/assets/store-media/novia-satinada-abertura/product.webm": {
+      "bytes": 1141170,
+      "cloudflare_upload_hash": "02dcba64d26aabca9c9eae248135371d"
+    },
+    "research/assets/store-media/novia-tirantes-encaje/01-front-full-length-1200.jpg": {
+      "bytes": 263606,
+      "cloudflare_upload_hash": "40487ab3f926ce884f715bb1c39a64c6"
+    },
+    "research/assets/store-media/novia-tirantes-encaje/01-front-full-length-1200.webp": {
+      "bytes": 136556,
+      "cloudflare_upload_hash": "0e4325d63fda2e524feafdd945c9dd16"
+    },
+    "research/assets/store-media/novia-tirantes-encaje/01-front-full-length-480.jpg": {
+      "bytes": 67707,
+      "cloudflare_upload_hash": "326037fde377bdfe36866d03a861f9c6"
+    },
+    "research/assets/store-media/novia-tirantes-encaje/01-front-full-length-480.webp": {
+      "bytes": 44004,
+      "cloudflare_upload_hash": "fe82b0712b6fe7e7eee417520fa39860"
+    },
+    "research/assets/store-media/novia-tirantes-encaje/01-front-full-length-800.jpg": {
+      "bytes": 149186,
+      "cloudflare_upload_hash": "9d195a0224a1a79f8cc6ce39485b7ea1"
+    },
+    "research/assets/store-media/novia-tirantes-encaje/01-front-full-length-800.webp": {
+      "bytes": 86652,
+      "cloudflare_upload_hash": "25fc88485ff7b5ab55f0d2c7eaefcaaa"
+    },
+    "research/assets/store-media/novia-tirantes-encaje/02-detail-crop-480.jpg": {
+      "bytes": 42171,
+      "cloudflare_upload_hash": "88a3d6fdbcb8d75a8f831ca87ff6c5e9"
+    },
+    "research/assets/store-media/novia-tirantes-encaje/02-detail-crop-480.webp": {
+      "bytes": 20772,
+      "cloudflare_upload_hash": "60bdfce7e238f54beff877dc09ca073f"
+    },
+    "research/assets/store-media/novia-tirantes-encaje/03-detail-crop-480.jpg": {
+      "bytes": 33158,
+      "cloudflare_upload_hash": "eb4e0ad1daa900631eb9c5f1aa964fd6"
+    },
+    "research/assets/store-media/novia-tirantes-encaje/03-detail-crop-480.webp": {
+      "bytes": 14018,
+      "cloudflare_upload_hash": "e4528a8c585b4ec605308e5b7a143617"
+    },
+    "research/assets/store-media/novia/01-front-portrait-480.jpg": {
+      "bytes": 58792,
+      "cloudflare_upload_hash": "a97f722fce7362c3ac4c641c826fda59"
+    },
+    "research/assets/store-media/novia/01-front-portrait-480.webp": {
+      "bytes": 34306,
+      "cloudflare_upload_hash": "0ae357900a7ee145cb86b9e04fecc01e"
+    },
+    "research/assets/store-media/novia/02-bodice-detail-crop-423.jpg": {
+      "bytes": 56920,
+      "cloudflare_upload_hash": "fedebd996917942241a8756e1743a5c8"
+    },
+    "research/assets/store-media/novia/02-bodice-detail-crop-423.webp": {
+      "bytes": 34686,
+      "cloudflare_upload_hash": "1d3d6f8b5e77b2d4ea426aaf94cac737"
+    },
+    "research/assets/store-media/novia/03-sleeve-detail-crop-381.jpg": {
+      "bytes": 38186,
+      "cloudflare_upload_hash": "4ecfaa2e2021047690c239470460cf88"
+    },
+    "research/assets/store-media/novia/03-sleeve-detail-crop-381.webp": {
+      "bytes": 21746,
+      "cloudflare_upload_hash": "c3e23d017d32809694fe1cfb7846e806"
+    },
+    "research/assets/store-media/novias-alba/01-front-portrait-1200.jpg": {
+      "bytes": 141584,
+      "cloudflare_upload_hash": "19abdd65be28b5093b009ade32aff4e5"
+    },
+    "research/assets/store-media/novias-alba/01-front-portrait-1200.webp": {
+      "bytes": 45996,
+      "cloudflare_upload_hash": "5e96b823c983a487e6a4eeaebd5b96e1"
+    },
+    "research/assets/store-media/novias-alba/01-front-portrait-1600.jpg": {
+      "bytes": 266206,
+      "cloudflare_upload_hash": "12427bdfa39f23e6c88149f8eb89447e"
+    },
+    "research/assets/store-media/novias-alba/01-front-portrait-1600.webp": {
+      "bytes": 77988,
+      "cloudflare_upload_hash": "9b5e523a7298713adbd69d759a18efe4"
+    },
+    "research/assets/store-media/novias-alba/01-front-portrait-480.jpg": {
+      "bytes": 27762,
+      "cloudflare_upload_hash": "bb7b5bf8b2eab90506a7cb6d88f2fbc8"
+    },
+    "research/assets/store-media/novias-alba/01-front-portrait-480.webp": {
+      "bytes": 10338,
+      "cloudflare_upload_hash": "b69f86a383dc33d0ac209947e394f88e"
+    },
+    "research/assets/store-media/novias-alba/01-front-portrait-800.jpg": {
+      "bytes": 65364,
+      "cloudflare_upload_hash": "51a396070a00ca31bbc98f3f08e73147"
+    },
+    "research/assets/store-media/novias-alba/01-front-portrait-800.webp": {
+      "bytes": 23162,
+      "cloudflare_upload_hash": "c924d223eca699d2848cd5fca715378c"
+    },
+    "research/assets/store-media/novias-alba/02-three-quarter-back-portrait-1200.jpg": {
+      "bytes": 147904,
+      "cloudflare_upload_hash": "5b199260b88be4973d4afc1e68df3c5b"
+    },
+    "research/assets/store-media/novias-alba/02-three-quarter-back-portrait-1200.webp": {
+      "bytes": 51904,
+      "cloudflare_upload_hash": "3c736aed265d6b0975a90e0c13366eea"
+    },
+    "research/assets/store-media/novias-alba/02-three-quarter-back-portrait-1600.jpg": {
+      "bytes": 278469,
+      "cloudflare_upload_hash": "a3f271fc568ef3bde195f66b3f214782"
+    },
+    "research/assets/store-media/novias-alba/02-three-quarter-back-portrait-1600.webp": {
+      "bytes": 90186,
+      "cloudflare_upload_hash": "72cc9ff6cfdf82d7276213ef3fd8b733"
+    },
+    "research/assets/store-media/novias-alba/02-three-quarter-back-portrait-480.jpg": {
+      "bytes": 29977,
+      "cloudflare_upload_hash": "74183f505a67df76b4a1e73eb9bf6cbb"
+    },
+    "research/assets/store-media/novias-alba/02-three-quarter-back-portrait-480.webp": {
+      "bytes": 11640,
+      "cloudflare_upload_hash": "e8a3916bad875c4dad742a575ec576ff"
+    },
+    "research/assets/store-media/novias-alba/02-three-quarter-back-portrait-800.jpg": {
+      "bytes": 69016,
+      "cloudflare_upload_hash": "bf0a6c33b4ce563c86bdbb38cc083516"
+    },
+    "research/assets/store-media/novias-alba/02-three-quarter-back-portrait-800.webp": {
+      "bytes": 25750,
+      "cloudflare_upload_hash": "a30b65cbba5d2c05f233df49b313108b"
+    },
+    "research/assets/store-media/novias-alba/03-detail-crop-1200.jpg": {
+      "bytes": 140948,
+      "cloudflare_upload_hash": "1d07f204d9d2c8407d62bf012a0ee48b"
+    },
+    "research/assets/store-media/novias-alba/03-detail-crop-1200.webp": {
+      "bytes": 38602,
+      "cloudflare_upload_hash": "594ca185d40b1c7c401b5a1e854c2de2"
+    },
+    "research/assets/store-media/novias-alba/03-detail-crop-1600.jpg": {
+      "bytes": 279483,
+      "cloudflare_upload_hash": "331b20fd385e7e687b75972dfdbbe40a"
+    },
+    "research/assets/store-media/novias-alba/03-detail-crop-1600.webp": {
+      "bytes": 82660,
+      "cloudflare_upload_hash": "09b53ba12713f1dce3327563435d68d4"
+    },
+    "research/assets/store-media/novias-alba/03-detail-crop-480.jpg": {
+      "bytes": 23465,
+      "cloudflare_upload_hash": "79c97f8ef2750b3bb653ec77a0484094"
+    },
+    "research/assets/store-media/novias-alba/03-detail-crop-480.webp": {
+      "bytes": 8718,
+      "cloudflare_upload_hash": "e951ed65576450832ad06cc8fdb51ff5"
+    },
+    "research/assets/store-media/novias-alba/03-detail-crop-800.jpg": {
+      "bytes": 60453,
+      "cloudflare_upload_hash": "b39b101cf9838642908b4383839e7a80"
+    },
+    "research/assets/store-media/novias-alba/03-detail-crop-800.webp": {
+      "bytes": 18382,
+      "cloudflare_upload_hash": "e1e17b2e9c34b5e4c70eff289b64d665"
+    },
+    "research/assets/store-media/novias-encaje/01-back-full-length-1200.jpg": {
+      "bytes": 208638,
+      "cloudflare_upload_hash": "a6a964200be3099508a1a580e0e14067"
+    },
+    "research/assets/store-media/novias-encaje/01-back-full-length-1200.webp": {
+      "bytes": 100166,
+      "cloudflare_upload_hash": "cc6a650b57afe91526ec5e15566bc477"
+    },
+    "research/assets/store-media/novias-encaje/01-back-full-length-1600.jpg": {
+      "bytes": 345516,
+      "cloudflare_upload_hash": "79e0e0fb22e629fd792257707f53106e"
+    },
+    "research/assets/store-media/novias-encaje/01-back-full-length-1600.webp": {
+      "bytes": 159546,
+      "cloudflare_upload_hash": "eeedac842500b324fe79d2c4487660d2"
+    },
+    "research/assets/store-media/novias-encaje/01-back-full-length-480.jpg": {
+      "bytes": 42290,
+      "cloudflare_upload_hash": "07e0b6c050560657647ed2ee6d6f324d"
+    },
+    "research/assets/store-media/novias-encaje/01-back-full-length-480.webp": {
+      "bytes": 21082,
+      "cloudflare_upload_hash": "ba5e542eec4b87c59eb2957c8527155f"
+    },
+    "research/assets/store-media/novias-encaje/01-back-full-length-800.jpg": {
+      "bytes": 102727,
+      "cloudflare_upload_hash": "d063f7733bd9cdbb37a36b764905a7b8"
+    },
+    "research/assets/store-media/novias-encaje/01-back-full-length-800.webp": {
+      "bytes": 51386,
+      "cloudflare_upload_hash": "4735c05a3f52e56dab7c75f285c0716e"
+    },
+    "research/assets/store-media/novias-encaje/03-detail-crop-1200.jpg": {
+      "bytes": 151821,
+      "cloudflare_upload_hash": "4f8c080b1f74633871fb86e9f8c05329"
+    },
+    "research/assets/store-media/novias-encaje/03-detail-crop-1200.webp": {
+      "bytes": 53488,
+      "cloudflare_upload_hash": "27cf2412e3213a63ecf4eb567877777c"
+    },
+    "research/assets/store-media/novias-encaje/03-detail-crop-1600.jpg": {
+      "bytes": 267201,
+      "cloudflare_upload_hash": "0516646e0dbd421c49cf0a5d09de50d7"
+    },
+    "research/assets/store-media/novias-encaje/03-detail-crop-1600.webp": {
+      "bytes": 89286,
+      "cloudflare_upload_hash": "b9ee63daa0d6a8bbea0a4f6e05dd3ee5"
+    },
+    "research/assets/store-media/novias-encaje/03-detail-crop-480.jpg": {
+      "bytes": 30226,
+      "cloudflare_upload_hash": "fc1d7d703482feba80f02bfad36216bd"
+    },
+    "research/assets/store-media/novias-encaje/03-detail-crop-480.webp": {
+      "bytes": 12646,
+      "cloudflare_upload_hash": "ee3417180216195bdf91584bf304f580"
+    },
+    "research/assets/store-media/novias-encaje/03-detail-crop-800.jpg": {
+      "bytes": 74276,
+      "cloudflare_upload_hash": "011394b2478685a3c47841bc33c7fa78"
+    },
+    "research/assets/store-media/novias-encaje/03-detail-crop-800.webp": {
+      "bytes": 27716,
+      "cloudflare_upload_hash": "67946aba0e1e05817240fdbad12611eb"
+    },
+    "research/assets/store-media/novias-velo/01-front-portrait-1200.jpg": {
+      "bytes": 137018,
+      "cloudflare_upload_hash": "cbab10d2683661ff7718904b9fb26603"
+    },
+    "research/assets/store-media/novias-velo/01-front-portrait-1200.webp": {
+      "bytes": 47620,
+      "cloudflare_upload_hash": "26dcd525f36859fcf90290793f1523d6"
+    },
+    "research/assets/store-media/novias-velo/01-front-portrait-1600.jpg": {
+      "bytes": 242610,
+      "cloudflare_upload_hash": "92ec07a6813657a287d54a570a731b71"
+    },
+    "research/assets/store-media/novias-velo/01-front-portrait-1600.webp": {
+      "bytes": 79836,
+      "cloudflare_upload_hash": "4583e5a086c30293a8bfea7112ccbc82"
+    },
+    "research/assets/store-media/novias-velo/01-front-portrait-480.jpg": {
+      "bytes": 24298,
+      "cloudflare_upload_hash": "8fa17028665ccea25cdf589c6fa11fb7"
+    },
+    "research/assets/store-media/novias-velo/01-front-portrait-480.webp": {
+      "bytes": 8452,
+      "cloudflare_upload_hash": "38dceb378411d7a1f221f87f3132dfbb"
+    },
+    "research/assets/store-media/novias-velo/01-front-portrait-800.jpg": {
+      "bytes": 60727,
+      "cloudflare_upload_hash": "b3f4fe385930632399fdad25e2310efd"
+    },
+    "research/assets/store-media/novias-velo/01-front-portrait-800.webp": {
+      "bytes": 22044,
+      "cloudflare_upload_hash": "9e3f53d6de5afd40e6490004732c2278"
+    },
+    "research/assets/store-media/novias-velo/02-three-quarter-front-portrait-1200.jpg": {
+      "bytes": 129711,
+      "cloudflare_upload_hash": "987bb3f1bcadbc1afe10dea4980f28f5"
+    },
+    "research/assets/store-media/novias-velo/02-three-quarter-front-portrait-1200.webp": {
+      "bytes": 49584,
+      "cloudflare_upload_hash": "ddc83900db1d7323203269e04b701520"
+    },
+    "research/assets/store-media/novias-velo/02-three-quarter-front-portrait-1600.jpg": {
+      "bytes": 202298,
+      "cloudflare_upload_hash": "b0a643fc0e8bb2a151b6f0cb22aa1504"
+    },
+    "research/assets/store-media/novias-velo/02-three-quarter-front-portrait-1600.webp": {
+      "bytes": 72580,
+      "cloudflare_upload_hash": "d30b2d32844778fc62b076cd0f23565e"
+    },
+    "research/assets/store-media/novias-velo/02-three-quarter-front-portrait-480.jpg": {
+      "bytes": 33685,
+      "cloudflare_upload_hash": "e55617118150f59b91700bc4d188d48d"
+    },
+    "research/assets/store-media/novias-velo/02-three-quarter-front-portrait-480.webp": {
+      "bytes": 14956,
+      "cloudflare_upload_hash": "d72e6a91b1f2022673a4de6ce90857b3"
+    },
+    "research/assets/store-media/novias-velo/02-three-quarter-front-portrait-800.jpg": {
+      "bytes": 71081,
+      "cloudflare_upload_hash": "f3e1ec9bb2fd39dc2347490e6d1c1ab0"
+    },
+    "research/assets/store-media/novias-velo/02-three-quarter-front-portrait-800.webp": {
+      "bytes": 29038,
+      "cloudflare_upload_hash": "d3f70e808e1fbc9773452ca8c007b445"
+    },
+    "research/assets/store-media/novias-velo/03-back-portrait-1200.jpg": {
+      "bytes": 219393,
+      "cloudflare_upload_hash": "8f3dc84f68fcc3c9cc7d22cfbba7d1be"
+    },
+    "research/assets/store-media/novias-velo/03-back-portrait-1200.webp": {
+      "bytes": 107690,
+      "cloudflare_upload_hash": "593209e4746ce21414adaeeccd53383f"
+    },
+    "research/assets/store-media/novias-velo/03-back-portrait-1600.jpg": {
+      "bytes": 353530,
+      "cloudflare_upload_hash": "7c5fd86af8cba7489a46f2b10b8ff629"
+    },
+    "research/assets/store-media/novias-velo/03-back-portrait-1600.webp": {
+      "bytes": 160840,
+      "cloudflare_upload_hash": "099bb363542e081786cf2bafb98f7b89"
+    },
+    "research/assets/store-media/novias-velo/03-back-portrait-480.jpg": {
+      "bytes": 48722,
+      "cloudflare_upload_hash": "dd6b92eaeb955179220d745f8b152460"
+    },
+    "research/assets/store-media/novias-velo/03-back-portrait-480.webp": {
+      "bytes": 27392,
+      "cloudflare_upload_hash": "e684a623ede8f9355d592dc89e8d7e3e"
+    },
+    "research/assets/store-media/novias-velo/03-back-portrait-800.jpg": {
+      "bytes": 113064,
+      "cloudflare_upload_hash": "9dc76ba9062e200275c855a0617b73a7"
+    },
+    "research/assets/store-media/novias-velo/03-back-portrait-800.webp": {
+      "bytes": 60048,
+      "cloudflare_upload_hash": "1ca4c6cec8b92b4f39dd51f362075a46"
+    },
+    "research/assets/store-media/novias-velo/04-back-detail-1200.jpg": {
+      "bytes": 189082,
+      "cloudflare_upload_hash": "5747ead868298a24fb338613f548ebd3"
+    },
+    "research/assets/store-media/novias-velo/04-back-detail-1200.webp": {
+      "bytes": 78226,
+      "cloudflare_upload_hash": "4a02593da75d486f2713205b4b0a8da2"
+    },
+    "research/assets/store-media/novias-velo/04-back-detail-1600.jpg": {
+      "bytes": 298571,
+      "cloudflare_upload_hash": "bbfdab0b3e5c09514d8c2a9e8dc317c0"
+    },
+    "research/assets/store-media/novias-velo/04-back-detail-1600.webp": {
+      "bytes": 120500,
+      "cloudflare_upload_hash": "7b4f468ed29f22d01deb576770cac23f"
+    },
+    "research/assets/store-media/novias-velo/04-back-detail-480.jpg": {
+      "bytes": 44632,
+      "cloudflare_upload_hash": "c3a3764ea68808104be40a7df30d5cc7"
+    },
+    "research/assets/store-media/novias-velo/04-back-detail-480.webp": {
+      "bytes": 22494,
+      "cloudflare_upload_hash": "cda85c1bcfbf3415b3783663a458c780"
+    },
+    "research/assets/store-media/novias-velo/04-back-detail-800.jpg": {
+      "bytes": 100423,
+      "cloudflare_upload_hash": "a97ba7a0494f95773973232e58f51d6a"
+    },
+    "research/assets/store-media/novias-velo/04-back-detail-800.webp": {
+      "bytes": 45396,
+      "cloudflare_upload_hash": "e51fff539ca3588e56ed2684fbb1dc62"
+    },
+    "research/assets/store-media/novias-velo/05-detail-crop-1200.jpg": {
+      "bytes": 113682,
+      "cloudflare_upload_hash": "496b20e92761f204f3f1a2e5dd3e4fbc"
+    },
+    "research/assets/store-media/novias-velo/05-detail-crop-1200.webp": {
+      "bytes": 37454,
+      "cloudflare_upload_hash": "d60d418c96d168301e2273f3b630b244"
+    },
+    "research/assets/store-media/novias-velo/05-detail-crop-1600.jpg": {
+      "bytes": 199190,
+      "cloudflare_upload_hash": "2bdb4c43d365b37724217361742d1dea"
+    },
+    "research/assets/store-media/novias-velo/05-detail-crop-1600.webp": {
+      "bytes": 61316,
+      "cloudflare_upload_hash": "d388f0c8b775681983d01dc84453eb0a"
+    },
+    "research/assets/store-media/novias-velo/05-detail-crop-480.jpg": {
+      "bytes": 21362,
+      "cloudflare_upload_hash": "9e69dcca453992d030ae37329ae5e057"
+    },
+    "research/assets/store-media/novias-velo/05-detail-crop-480.webp": {
+      "bytes": 8432,
+      "cloudflare_upload_hash": "e2797ab74531db55326893adf27f8a3e"
+    },
+    "research/assets/store-media/novias-velo/05-detail-crop-800.jpg": {
+      "bytes": 54729,
+      "cloudflare_upload_hash": "cec37a7d7345678061177b79b4e7ffb7"
+    },
+    "research/assets/store-media/novias-velo/05-detail-crop-800.webp": {
+      "bytes": 19266,
+      "cloudflare_upload_hash": "47b0786c7bac83f7f89216238aaea5f1"
+    },
+    "research/assets/store-media/plata-tirantes-copas-pedreria/01-front-full-length-480.jpg": {
+      "bytes": 49980,
+      "cloudflare_upload_hash": "ea3e3696300fa2c2cadb42c1d10fd402"
+    },
+    "research/assets/store-media/plata-tirantes-copas-pedreria/01-front-full-length-480.webp": {
+      "bytes": 27478,
+      "cloudflare_upload_hash": "9b16b94bc377fceb8c34c144847c6c0b"
+    },
+    "research/assets/store-media/plata-tirantes-copas-pedreria/01-front-full-length-800.jpg": {
+      "bytes": 108032,
+      "cloudflare_upload_hash": "1b48440611b140cb52cd84537dd9016f"
+    },
+    "research/assets/store-media/plata-tirantes-copas-pedreria/01-front-full-length-800.webp": {
+      "bytes": 54266,
+      "cloudflare_upload_hash": "05f06f91a3e8090dca621236045ccc3c"
+    },
+    "research/assets/store-media/plata-tirantes-copas-pedreria/02-three-quarter-front-full-length-480.jpg": {
+      "bytes": 51301,
+      "cloudflare_upload_hash": "dc56b7e1531c24082714a2a769d3d788"
+    },
+    "research/assets/store-media/plata-tirantes-copas-pedreria/02-three-quarter-front-full-length-480.webp": {
+      "bytes": 28950,
+      "cloudflare_upload_hash": "8f7600df243922803f77ec6dd4130921"
+    },
+    "research/assets/store-media/plata-tirantes-copas-pedreria/02-three-quarter-front-full-length-800.jpg": {
+      "bytes": 112407,
+      "cloudflare_upload_hash": "6cfe7e808d86ac7776a0b4ee962fe551"
+    },
+    "research/assets/store-media/plata-tirantes-copas-pedreria/02-three-quarter-front-full-length-800.webp": {
+      "bytes": 59024,
+      "cloudflare_upload_hash": "cec1b9e78bd7f21b8cd9bd4dd8cc9a7a"
+    },
+    "research/assets/store-media/plata-tirantes-copas-pedreria/03-side-full-length-480.jpg": {
+      "bytes": 46487,
+      "cloudflare_upload_hash": "b65f501f60df026b9e9065d619f09606"
+    },
+    "research/assets/store-media/plata-tirantes-copas-pedreria/03-side-full-length-480.webp": {
+      "bytes": 24340,
+      "cloudflare_upload_hash": "18afb0ec94ed9c6a7d26200f850a94a3"
+    },
+    "research/assets/store-media/plata-tirantes-copas-pedreria/03-side-full-length-800.jpg": {
+      "bytes": 97464,
+      "cloudflare_upload_hash": "3db65a9f7482d15cc08cee64365d0acf"
+    },
+    "research/assets/store-media/plata-tirantes-copas-pedreria/03-side-full-length-800.webp": {
+      "bytes": 44380,
+      "cloudflare_upload_hash": "4a302f67606496ccda1d743457754187"
+    },
+    "research/assets/store-media/plata-tirantes-copas-pedreria/04-back-full-length-480.jpg": {
+      "bytes": 45707,
+      "cloudflare_upload_hash": "0fe98c42791b07dbb165e322add22b1b"
+    },
+    "research/assets/store-media/plata-tirantes-copas-pedreria/04-back-full-length-480.webp": {
+      "bytes": 23366,
+      "cloudflare_upload_hash": "9d34496c4bf0b001b4060e36ab4e7a8a"
+    },
+    "research/assets/store-media/plata-tirantes-copas-pedreria/04-back-full-length-800.jpg": {
+      "bytes": 96851,
+      "cloudflare_upload_hash": "258dcf9933fce513bcb1209b7201586d"
+    },
+    "research/assets/store-media/plata-tirantes-copas-pedreria/04-back-full-length-800.webp": {
+      "bytes": 44692,
+      "cloudflare_upload_hash": "02ee223cca942ea33d042bdc99814b97"
+    },
+    "research/assets/store-media/plata-tirantes-copas-pedreria/05-detail-crop-432.jpg": {
+      "bytes": 50462,
+      "cloudflare_upload_hash": "25809c3d0a8cccff5d2e10196f86cb7c"
+    },
+    "research/assets/store-media/plata-tirantes-copas-pedreria/05-detail-crop-432.webp": {
+      "bytes": 36004,
+      "cloudflare_upload_hash": "583217dea84de1b347723fb75ef7aa8e"
+    },
+    "research/assets/store-media/plata-tirantes-copas-pedreria/product.mp4": {
+      "bytes": 1263537,
+      "cloudflare_upload_hash": "195c9d9a4631d7d273c122c75740f996"
+    },
+    "research/assets/store-media/plata-tirantes-copas-pedreria/product.webm": {
+      "bytes": 1110855,
+      "cloudflare_upload_hash": "25d6a701d5c64082ce4e0b1d7f193764"
+    },
+    "research/assets/store-media/rojo-tirantes-falda-amplia/01-front-full-length-480.jpg": {
+      "bytes": 41067,
+      "cloudflare_upload_hash": "770d2dc277145dfd9d3b9f6f9cb965a8"
+    },
+    "research/assets/store-media/rojo-tirantes-falda-amplia/01-front-full-length-480.webp": {
+      "bytes": 20954,
+      "cloudflare_upload_hash": "bdaebfb7f6d55cad8e36cb0ac5d2a172"
+    },
+    "research/assets/store-media/rojo-tirantes-falda-amplia/01-front-full-length-800.jpg": {
+      "bytes": 88185,
+      "cloudflare_upload_hash": "0e15ab0da6ae473097cef5f0f8d9fe64"
+    },
+    "research/assets/store-media/rojo-tirantes-falda-amplia/01-front-full-length-800.webp": {
+      "bytes": 40354,
+      "cloudflare_upload_hash": "90f3f6036e96239c7fd192f81fa0d3ea"
+    },
+    "research/assets/store-media/rojo-tirantes-falda-amplia/02-three-quarter-front-full-length-480.jpg": {
+      "bytes": 37617,
+      "cloudflare_upload_hash": "a4dfaf33b30e905eeff4a79959535c4f"
+    },
+    "research/assets/store-media/rojo-tirantes-falda-amplia/02-three-quarter-front-full-length-480.webp": {
+      "bytes": 18790,
+      "cloudflare_upload_hash": "2f6fa8ff1ead6f70c1b434eedf3cf2e5"
+    },
+    "research/assets/store-media/rojo-tirantes-falda-amplia/02-three-quarter-front-full-length-800.jpg": {
+      "bytes": 80239,
+      "cloudflare_upload_hash": "1e4f1bf635918d2c0150f37c7ce623d8"
+    },
+    "research/assets/store-media/rojo-tirantes-falda-amplia/02-three-quarter-front-full-length-800.webp": {
+      "bytes": 36342,
+      "cloudflare_upload_hash": "14440443c622c9023616da5be66aa520"
+    },
+    "research/assets/store-media/rojo-tirantes-falda-amplia/03-side-view-480.jpg": {
+      "bytes": 41086,
+      "cloudflare_upload_hash": "234da2d65d3ec2b026873d3118880bca"
+    },
+    "research/assets/store-media/rojo-tirantes-falda-amplia/03-side-view-480.webp": {
+      "bytes": 21076,
+      "cloudflare_upload_hash": "09a53d0f2a9e434f0ac8d012d19a0c30"
+    },
+    "research/assets/store-media/rojo-tirantes-falda-amplia/03-side-view-800.jpg": {
+      "bytes": 86571,
+      "cloudflare_upload_hash": "53849ccbdcd6b8ff9f15f8543dcc4c66"
+    },
+    "research/assets/store-media/rojo-tirantes-falda-amplia/03-side-view-800.webp": {
+      "bytes": 40008,
+      "cloudflare_upload_hash": "8685c0aa0ddb632b106ea663a13e16dd"
+    },
+    "research/assets/store-media/rojo-tirantes-falda-amplia/04-back-view-480.jpg": {
+      "bytes": 36843,
+      "cloudflare_upload_hash": "81fbed69997ede34671e2ac22e997bef"
+    },
+    "research/assets/store-media/rojo-tirantes-falda-amplia/04-back-view-480.webp": {
+      "bytes": 17596,
+      "cloudflare_upload_hash": "aee676aba8cfa755486841ee1f9a4264"
+    },
+    "research/assets/store-media/rojo-tirantes-falda-amplia/04-back-view-800.jpg": {
+      "bytes": 78194,
+      "cloudflare_upload_hash": "772d4534d75a4d2bdb0ccfd154b67f9c"
+    },
+    "research/assets/store-media/rojo-tirantes-falda-amplia/04-back-view-800.webp": {
+      "bytes": 33766,
+      "cloudflare_upload_hash": "24aec9cddf9c9c55530b7479af12f6d7"
+    },
+    "research/assets/store-media/rojo-tirantes-falda-amplia/05-detail-crop-432.jpg": {
+      "bytes": 35819,
+      "cloudflare_upload_hash": "4f7c98b12f34a124915c6b3858087173"
+    },
+    "research/assets/store-media/rojo-tirantes-falda-amplia/05-detail-crop-432.webp": {
+      "bytes": 19378,
+      "cloudflare_upload_hash": "91b95c74425144283b102bdf688b2f0d"
+    },
+    "research/assets/store-media/rojo-tirantes-falda-amplia/product.mp4": {
+      "bytes": 1238876,
+      "cloudflare_upload_hash": "e2c531dbc9179771cf923e267f060ef8"
+    },
+    "research/assets/store-media/rojo-tirantes-falda-amplia/product.webm": {
+      "bytes": 1111797,
+      "cloudflare_upload_hash": "eb442c586cce0721addc4ff4ccaeddd8"
+    },
+    "research/assets/store-media/rosa-bronce-pedreria/01-front-full-length-480.jpg": {
+      "bytes": 54023,
+      "cloudflare_upload_hash": "8b6052efdd1db3d8ca3e3185bbf1af1e"
+    },
+    "research/assets/store-media/rosa-bronce-pedreria/01-front-full-length-480.webp": {
+      "bytes": 30952,
+      "cloudflare_upload_hash": "fc19764417e65613ebfe7ca0234092b4"
+    },
+    "research/assets/store-media/rosa-bronce-pedreria/01-front-full-length-800.jpg": {
+      "bytes": 118960,
+      "cloudflare_upload_hash": "4de90b6fcfbc2d17feae0b8e82bfe197"
+    },
+    "research/assets/store-media/rosa-bronce-pedreria/01-front-full-length-800.webp": {
+      "bytes": 62198,
+      "cloudflare_upload_hash": "ca82cea158108211091e49934039b25a"
+    },
+    "research/assets/store-media/rosa-bronce-pedreria/02-three-quarter-front-full-length-480.jpg": {
+      "bytes": 53864,
+      "cloudflare_upload_hash": "b5f71d8ffda6384ebad62a024842a998"
+    },
+    "research/assets/store-media/rosa-bronce-pedreria/02-three-quarter-front-full-length-480.webp": {
+      "bytes": 30810,
+      "cloudflare_upload_hash": "159af06c874a7af1d51f49723b5c3feb"
+    },
+    "research/assets/store-media/rosa-bronce-pedreria/02-three-quarter-front-full-length-800.jpg": {
+      "bytes": 116518,
+      "cloudflare_upload_hash": "a9b877046c6520a19a26d462e3d79459"
+    },
+    "research/assets/store-media/rosa-bronce-pedreria/02-three-quarter-front-full-length-800.webp": {
+      "bytes": 59158,
+      "cloudflare_upload_hash": "26085a6001dd4b95f80e3da27ef77e6d"
+    },
+    "research/assets/store-media/rosa-bronce-pedreria/03-side-full-length-480.jpg": {
+      "bytes": 52398,
+      "cloudflare_upload_hash": "ed03d92bcbf38684a872af4f22c508e8"
+    },
+    "research/assets/store-media/rosa-bronce-pedreria/03-side-full-length-480.webp": {
+      "bytes": 29514,
+      "cloudflare_upload_hash": "56656b2d1fd651f296501464fea2169a"
+    },
+    "research/assets/store-media/rosa-bronce-pedreria/03-side-full-length-800.jpg": {
+      "bytes": 113382,
+      "cloudflare_upload_hash": "0176d3c9cfc030700b88a65fd5bbd71c"
+    },
+    "research/assets/store-media/rosa-bronce-pedreria/03-side-full-length-800.webp": {
+      "bytes": 56628,
+      "cloudflare_upload_hash": "c67d3146c73ca1a4afc271bece410637"
+    },
+    "research/assets/store-media/rosa-bronce-pedreria/04-back-full-length-480.jpg": {
+      "bytes": 51624,
+      "cloudflare_upload_hash": "95d8a94b4f127920920dae21414ac706"
+    },
+    "research/assets/store-media/rosa-bronce-pedreria/04-back-full-length-480.webp": {
+      "bytes": 28876,
+      "cloudflare_upload_hash": "3caa4552aa8c94675bc8d7508e264d64"
+    },
+    "research/assets/store-media/rosa-bronce-pedreria/04-back-full-length-800.jpg": {
+      "bytes": 112327,
+      "cloudflare_upload_hash": "4b004bc842dd91837bde45c6de60842f"
+    },
+    "research/assets/store-media/rosa-bronce-pedreria/04-back-full-length-800.webp": {
+      "bytes": 56088,
+      "cloudflare_upload_hash": "51fedfd436d1886662ca848cce60d601"
+    },
+    "research/assets/store-media/rosa-bronce-pedreria/05-detail-crop-432.jpg": {
+      "bytes": 38544,
+      "cloudflare_upload_hash": "3c33929087369916845b8fd5db73af54"
+    },
+    "research/assets/store-media/rosa-bronce-pedreria/05-detail-crop-432.webp": {
+      "bytes": 22574,
+      "cloudflare_upload_hash": "69d0ef46ff08e5308ce505f59eaf4f66"
+    },
+    "research/assets/store-media/rosa-bronce-pedreria/product.mp4": {
+      "bytes": 1217298,
+      "cloudflare_upload_hash": "8552233cbeabfcc43a34e62958cb2593"
+    },
+    "research/assets/store-media/rosa-bronce-pedreria/product.webm": {
+      "bytes": 1092408,
+      "cloudflare_upload_hash": "ff66db0addd313232367e4b50a2e646a"
+    },
+    "research/assets/store-media/rosa-claro-flores-doradas/01-front-full-length-480.jpg": {
+      "bytes": 44511,
+      "cloudflare_upload_hash": "544a58b680709b7cedb8caa37c76856f"
+    },
+    "research/assets/store-media/rosa-claro-flores-doradas/01-front-full-length-480.webp": {
+      "bytes": 21778,
+      "cloudflare_upload_hash": "80fabd5a0fa359764698444878638428"
+    },
+    "research/assets/store-media/rosa-claro-flores-doradas/01-front-full-length-800.jpg": {
+      "bytes": 94401,
+      "cloudflare_upload_hash": "5143cc88bb0c5d4e0c3dc148ac40df6c"
+    },
+    "research/assets/store-media/rosa-claro-flores-doradas/01-front-full-length-800.webp": {
+      "bytes": 40020,
+      "cloudflare_upload_hash": "4618e7e128360ce87538d12495a84633"
+    },
+    "research/assets/store-media/rosa-claro-flores-doradas/02-three-quarter-back-full-length-480.jpg": {
+      "bytes": 43919,
+      "cloudflare_upload_hash": "0a2e67dd6d83c451eef4b5dbf4b93492"
+    },
+    "research/assets/store-media/rosa-claro-flores-doradas/02-three-quarter-back-full-length-480.webp": {
+      "bytes": 21200,
+      "cloudflare_upload_hash": "284b30e35802bd760e469db2b962ab95"
+    },
+    "research/assets/store-media/rosa-claro-flores-doradas/02-three-quarter-back-full-length-800.jpg": {
+      "bytes": 93151,
+      "cloudflare_upload_hash": "1d1306dd6f835ae100727c6f142f3351"
+    },
+    "research/assets/store-media/rosa-claro-flores-doradas/02-three-quarter-back-full-length-800.webp": {
+      "bytes": 38846,
+      "cloudflare_upload_hash": "fda00420d427e3ff778cf2682320f15d"
+    },
+    "research/assets/store-media/rosa-claro-flores-doradas/03-side-full-length-480.jpg": {
+      "bytes": 45028,
+      "cloudflare_upload_hash": "da9516747d2060fa700daea0d986e695"
+    },
+    "research/assets/store-media/rosa-claro-flores-doradas/03-side-full-length-480.webp": {
+      "bytes": 22334,
+      "cloudflare_upload_hash": "5e01a9c783de2878bf767b614b9a8bfa"
+    },
+    "research/assets/store-media/rosa-claro-flores-doradas/03-side-full-length-800.jpg": {
+      "bytes": 95888,
+      "cloudflare_upload_hash": "56b93ab1fa188a8f170252022c58bda4"
+    },
+    "research/assets/store-media/rosa-claro-flores-doradas/03-side-full-length-800.webp": {
+      "bytes": 41490,
+      "cloudflare_upload_hash": "46ba9ced776008e2d5787a9d96ee5872"
+    },
+    "research/assets/store-media/rosa-claro-flores-doradas/04-back-full-length-480.jpg": {
+      "bytes": 44870,
+      "cloudflare_upload_hash": "3fd1d3a0d105e4048538d77a9eea07e6"
+    },
+    "research/assets/store-media/rosa-claro-flores-doradas/04-back-full-length-480.webp": {
+      "bytes": 22246,
+      "cloudflare_upload_hash": "cdb32d0ddd677573756f44e49203a80f"
+    },
+    "research/assets/store-media/rosa-claro-flores-doradas/04-back-full-length-800.jpg": {
+      "bytes": 95185,
+      "cloudflare_upload_hash": "6934c44453250bc0c08c53d76f75a4d1"
+    },
+    "research/assets/store-media/rosa-claro-flores-doradas/04-back-full-length-800.webp": {
+      "bytes": 40286,
+      "cloudflare_upload_hash": "fd5e2d15744946d0b721e8ba151c8dd6"
+    },
+    "research/assets/store-media/rosa-claro-flores-doradas/05-detail-crop-432.jpg": {
+      "bytes": 27628,
+      "cloudflare_upload_hash": "031c675a62cb9798ab67e6e5f4c99db2"
+    },
+    "research/assets/store-media/rosa-claro-flores-doradas/05-detail-crop-432.webp": {
+      "bytes": 11828,
+      "cloudflare_upload_hash": "f963ec4c7a7c741da3ef30d4384c405d"
+    },
+    "research/assets/store-media/rosa-claro-flores-doradas/product.mp4": {
+      "bytes": 1188411,
+      "cloudflare_upload_hash": "411d8353996d948966ab360822fd2a0d"
+    },
+    "research/assets/store-media/rosa-claro-flores-doradas/product.webm": {
+      "bytes": 1031958,
+      "cloudflare_upload_hash": "a901ab5af094ce74e78c9da4c25df390"
+    },
+    "research/assets/store-media/rosa-empolvado-pedreria/01-front-full-length-480.jpg": {
+      "bytes": 52360,
+      "cloudflare_upload_hash": "d16c34e820d778354e2c0c7f2a242375"
+    },
+    "research/assets/store-media/rosa-empolvado-pedreria/01-front-full-length-480.webp": {
+      "bytes": 29252,
+      "cloudflare_upload_hash": "45597787354b0bf5c8c9ab3f68d22bca"
+    },
+    "research/assets/store-media/rosa-empolvado-pedreria/01-front-full-length-800.jpg": {
+      "bytes": 115945,
+      "cloudflare_upload_hash": "a6b6edfc2a915623f9cfac9aed188dbc"
+    },
+    "research/assets/store-media/rosa-empolvado-pedreria/01-front-full-length-800.webp": {
+      "bytes": 59454,
+      "cloudflare_upload_hash": "8094d969046fe00e367cddbb0787f5ae"
+    },
+    "research/assets/store-media/rosa-empolvado-pedreria/02-three-quarter-front-full-length-480.jpg": {
+      "bytes": 49710,
+      "cloudflare_upload_hash": "321e2ce5d777e3c4c3c0be11e768d623"
+    },
+    "research/assets/store-media/rosa-empolvado-pedreria/02-three-quarter-front-full-length-480.webp": {
+      "bytes": 26868,
+      "cloudflare_upload_hash": "cc5eb4978cf2f8528aef3ecb74313539"
+    },
+    "research/assets/store-media/rosa-empolvado-pedreria/02-three-quarter-front-full-length-800.jpg": {
+      "bytes": 108913,
+      "cloudflare_upload_hash": "20c15bab162903d84d5369d216a1817e"
+    },
+    "research/assets/store-media/rosa-empolvado-pedreria/02-three-quarter-front-full-length-800.webp": {
+      "bytes": 51908,
+      "cloudflare_upload_hash": "446cc9108fb3e27191659153c91d508d"
+    },
+    "research/assets/store-media/rosa-empolvado-pedreria/03-side-full-length-480.jpg": {
+      "bytes": 48238,
+      "cloudflare_upload_hash": "0ed5b75845095cddc51bdc99ddc07d79"
+    },
+    "research/assets/store-media/rosa-empolvado-pedreria/03-side-full-length-480.webp": {
+      "bytes": 24970,
+      "cloudflare_upload_hash": "e2ea8cddb92864004770d9460ee4072b"
+    },
+    "research/assets/store-media/rosa-empolvado-pedreria/03-side-full-length-800.jpg": {
+      "bytes": 105651,
+      "cloudflare_upload_hash": "6774890a9f50cb26ec6eab552d1baf3c"
+    },
+    "research/assets/store-media/rosa-empolvado-pedreria/03-side-full-length-800.webp": {
+      "bytes": 47788,
+      "cloudflare_upload_hash": "0f64de9fff532136f1bdba6427ada8e5"
+    },
+    "research/assets/store-media/rosa-empolvado-pedreria/04-back-full-length-480.jpg": {
+      "bytes": 47935,
+      "cloudflare_upload_hash": "7103135f19127edefaea4dc820c384b9"
+    },
+    "research/assets/store-media/rosa-empolvado-pedreria/04-back-full-length-480.webp": {
+      "bytes": 24688,
+      "cloudflare_upload_hash": "452130d357fe9ff8a508fc4fa0b9bdc6"
+    },
+    "research/assets/store-media/rosa-empolvado-pedreria/04-back-full-length-800.jpg": {
+      "bytes": 104386,
+      "cloudflare_upload_hash": "9d4021ebcb701554143bbd54bb2f2264"
+    },
+    "research/assets/store-media/rosa-empolvado-pedreria/04-back-full-length-800.webp": {
+      "bytes": 46630,
+      "cloudflare_upload_hash": "b3c71b467b2fecc608230522596c63ed"
+    },
+    "research/assets/store-media/rosa-empolvado-pedreria/05-detail-crop-432.jpg": {
+      "bytes": 38108,
+      "cloudflare_upload_hash": "5440ac81805fd3122e3832f3193307b6"
+    },
+    "research/assets/store-media/rosa-empolvado-pedreria/05-detail-crop-432.webp": {
+      "bytes": 22200,
+      "cloudflare_upload_hash": "57f4d4ee15b4c3f0e9070b0e93f5a514"
+    },
+    "research/assets/store-media/rosa-empolvado-pedreria/product.mp4": {
+      "bytes": 1244317,
+      "cloudflare_upload_hash": "9474854a6c380fb4632acd09f4314ba9"
+    },
+    "research/assets/store-media/rosa-empolvado-pedreria/product.webm": {
+      "bytes": 1066435,
+      "cloudflare_upload_hash": "dea04c1c3bcdb85eccd0ed1f444a2f50"
+    },
+    "research/assets/store-media/rosa-flores-fucsias-halter/01-front-full-length-480.jpg": {
+      "bytes": 61710,
+      "cloudflare_upload_hash": "63887a01433e602ab4d1bd5dc84b1b21"
+    },
+    "research/assets/store-media/rosa-flores-fucsias-halter/01-front-full-length-480.webp": {
+      "bytes": 40100,
+      "cloudflare_upload_hash": "9f2cd6f99622206d2137113ed7f6b699"
+    },
+    "research/assets/store-media/rosa-flores-fucsias-halter/01-front-full-length-800.jpg": {
+      "bytes": 141572,
+      "cloudflare_upload_hash": "3ef626c60bb7f723f6ebf7161088da04"
+    },
+    "research/assets/store-media/rosa-flores-fucsias-halter/01-front-full-length-800.webp": {
+      "bytes": 86776,
+      "cloudflare_upload_hash": "fe19ff0486b99056b3cc19a68f2bd1d8"
+    },
+    "research/assets/store-media/rosa-flores-fucsias-halter/02-three-quarter-front-full-length-480.jpg": {
+      "bytes": 61990,
+      "cloudflare_upload_hash": "4e5888b636706957aa3ddd59af465d6c"
+    },
+    "research/assets/store-media/rosa-flores-fucsias-halter/02-three-quarter-front-full-length-480.webp": {
+      "bytes": 41628,
+      "cloudflare_upload_hash": "cb4601ed470746045d0b62967ca2ccef"
+    },
+    "research/assets/store-media/rosa-flores-fucsias-halter/02-three-quarter-front-full-length-800.jpg": {
+      "bytes": 147961,
+      "cloudflare_upload_hash": "2b27965838a47235eda106f9037974ae"
+    },
+    "research/assets/store-media/rosa-flores-fucsias-halter/02-three-quarter-front-full-length-800.webp": {
+      "bytes": 95094,
+      "cloudflare_upload_hash": "cc2784a64906c67cfd557870ea007775"
+    },
+    "research/assets/store-media/rosa-flores-fucsias-halter/03-side-full-length-480.jpg": {
+      "bytes": 61493,
+      "cloudflare_upload_hash": "25944e9e74dbad418008b56396ea6f93"
+    },
+    "research/assets/store-media/rosa-flores-fucsias-halter/03-side-full-length-480.webp": {
+      "bytes": 40580,
+      "cloudflare_upload_hash": "1bfd5c8d39358cab57741af740e75956"
+    },
+    "research/assets/store-media/rosa-flores-fucsias-halter/03-side-full-length-800.jpg": {
+      "bytes": 145371,
+      "cloudflare_upload_hash": "5f25a488e89a4176d3b75cbf06668241"
+    },
+    "research/assets/store-media/rosa-flores-fucsias-halter/03-side-full-length-800.webp": {
+      "bytes": 92602,
+      "cloudflare_upload_hash": "087573b2cb68f76bd59541725bfb7e40"
+    },
+    "research/assets/store-media/rosa-flores-fucsias-halter/04-back-full-length-480.jpg": {
+      "bytes": 61056,
+      "cloudflare_upload_hash": "9e112966e0448183d81d6b79d03a347f"
+    },
+    "research/assets/store-media/rosa-flores-fucsias-halter/04-back-full-length-480.webp": {
+      "bytes": 39830,
+      "cloudflare_upload_hash": "91a6a93b4c574de978958c00e98dee1c"
+    },
+    "research/assets/store-media/rosa-flores-fucsias-halter/04-back-full-length-800.jpg": {
+      "bytes": 143349,
+      "cloudflare_upload_hash": "f983c16b4738b73c80e797b238209487"
+    },
+    "research/assets/store-media/rosa-flores-fucsias-halter/04-back-full-length-800.webp": {
+      "bytes": 90696,
+      "cloudflare_upload_hash": "5e7b14c8e14a206da0653c439f5c5c1f"
+    },
+    "research/assets/store-media/rosa-flores-fucsias-halter/05-detail-crop-432.jpg": {
+      "bytes": 35673,
+      "cloudflare_upload_hash": "96afe459cb31451b11d59aa25b28290b"
+    },
+    "research/assets/store-media/rosa-flores-fucsias-halter/05-detail-crop-432.webp": {
+      "bytes": 20088,
+      "cloudflare_upload_hash": "596fb95a6afa8801308252f4431ed632"
+    },
+    "research/assets/store-media/rosa-flores-fucsias-halter/product.mp4": {
+      "bytes": 1213172,
+      "cloudflare_upload_hash": "41ca921d41c5f1056052209396ce46b5"
+    },
+    "research/assets/store-media/rosa-flores-fucsias-halter/product.webm": {
+      "bytes": 1279037,
+      "cloudflare_upload_hash": "98059aece1fd10a6a72a61d09987eb27"
+    },
+    "research/assets/store-media/rosa-marron-chaqueta-falda/01-front-full-length-480.jpg": {
+      "bytes": 49311,
+      "cloudflare_upload_hash": "af3abdabdfa45f8d3ddc0c40d2e63cd9"
+    },
+    "research/assets/store-media/rosa-marron-chaqueta-falda/01-front-full-length-480.webp": {
+      "bytes": 25678,
+      "cloudflare_upload_hash": "063a8b26695713401e92921d510b21b2"
+    },
+    "research/assets/store-media/rosa-marron-chaqueta-falda/01-front-full-length-800.jpg": {
+      "bytes": 111649,
+      "cloudflare_upload_hash": "2b39bfb76d470986efafa3df984b829d"
+    },
+    "research/assets/store-media/rosa-marron-chaqueta-falda/01-front-full-length-800.webp": {
+      "bytes": 54676,
+      "cloudflare_upload_hash": "fba7185e8a6a6dba13a69280a69cf98a"
+    },
+    "research/assets/store-media/rosa-marron-chaqueta-falda/02-three-quarter-front-full-length-480.jpg": {
+      "bytes": 48972,
+      "cloudflare_upload_hash": "2b36772d06b5a1604bd3b637e29ec24a"
+    },
+    "research/assets/store-media/rosa-marron-chaqueta-falda/02-three-quarter-front-full-length-480.webp": {
+      "bytes": 25490,
+      "cloudflare_upload_hash": "c7a91438d408432d15c71ee3a7b1c8be"
+    },
+    "research/assets/store-media/rosa-marron-chaqueta-falda/02-three-quarter-front-full-length-800.jpg": {
+      "bytes": 109780,
+      "cloudflare_upload_hash": "cd1ec984f55d1988a6c7571fac79c978"
+    },
+    "research/assets/store-media/rosa-marron-chaqueta-falda/02-three-quarter-front-full-length-800.webp": {
+      "bytes": 53586,
+      "cloudflare_upload_hash": "eb77958761f092b1f8499f01d2c8e96f"
+    },
+    "research/assets/store-media/rosa-marron-chaqueta-falda/03-side-full-length-480.jpg": {
+      "bytes": 47834,
+      "cloudflare_upload_hash": "428ef4106cf580c7e542ba9ef1b7b388"
+    },
+    "research/assets/store-media/rosa-marron-chaqueta-falda/03-side-full-length-480.webp": {
+      "bytes": 24720,
+      "cloudflare_upload_hash": "49d7a6336bcafab1999c3c716584fc3c"
+    },
+    "research/assets/store-media/rosa-marron-chaqueta-falda/03-side-full-length-800.jpg": {
+      "bytes": 107679,
+      "cloudflare_upload_hash": "6feda0111958cc2ab9c47fb416e027da"
+    },
+    "research/assets/store-media/rosa-marron-chaqueta-falda/03-side-full-length-800.webp": {
+      "bytes": 51906,
+      "cloudflare_upload_hash": "71ba66f959614ec8922cd5949f338b12"
+    },
+    "research/assets/store-media/rosa-marron-chaqueta-falda/04-back-full-length-480.jpg": {
+      "bytes": 47014,
+      "cloudflare_upload_hash": "0d8e3d01ed1a8f2f27ca0b8927e1a767"
+    },
+    "research/assets/store-media/rosa-marron-chaqueta-falda/04-back-full-length-480.webp": {
+      "bytes": 24204,
+      "cloudflare_upload_hash": "9d60d38a93332f3f32c02678cc3f2eda"
+    },
+    "research/assets/store-media/rosa-marron-chaqueta-falda/04-back-full-length-800.jpg": {
+      "bytes": 102767,
+      "cloudflare_upload_hash": "432d0c79e99b3761ece8592b020461a3"
+    },
+    "research/assets/store-media/rosa-marron-chaqueta-falda/04-back-full-length-800.webp": {
+      "bytes": 47426,
+      "cloudflare_upload_hash": "217b2384a2548fbabf4a49993c393e72"
+    },
+    "research/assets/store-media/rosa-marron-chaqueta-falda/05-detail-crop-432.jpg": {
+      "bytes": 28829,
+      "cloudflare_upload_hash": "9e326010be885373eefc2373aa0d3e7e"
+    },
+    "research/assets/store-media/rosa-marron-chaqueta-falda/05-detail-crop-432.webp": {
+      "bytes": 14086,
+      "cloudflare_upload_hash": "ffd47ef9bae9caf36aeb2a9154aad63c"
+    },
+    "research/assets/store-media/rosa-marron-chaqueta-falda/product.mp4": {
+      "bytes": 1205031,
+      "cloudflare_upload_hash": "7c583e5e980bace3ca7e2efc6f41fa27"
+    },
+    "research/assets/store-media/rosa-marron-chaqueta-falda/product.webm": {
+      "bytes": 1065233,
+      "cloudflare_upload_hash": "5bf76396811c53826c23943ee4427721"
+    },
+    "research/assets/store-media/rosa/01-front-full-length-1200.jpg": {
+      "bytes": 213060,
+      "cloudflare_upload_hash": "a24109460eff3dfe6ca4ce4875ef7cb1"
+    },
+    "research/assets/store-media/rosa/01-front-full-length-1200.webp": {
+      "bytes": 96202,
+      "cloudflare_upload_hash": "7a05f7ef3901c6ff0f91c7bd9c275975"
+    },
+    "research/assets/store-media/rosa/01-front-full-length-1600.jpg": {
+      "bytes": 313750,
+      "cloudflare_upload_hash": "c7e3920f87a1b90fdc9e307cd78c97ca"
+    },
+    "research/assets/store-media/rosa/01-front-full-length-1600.webp": {
+      "bytes": 129564,
+      "cloudflare_upload_hash": "58ee7bedb892e7cbd24ad62be043c88e"
+    },
+    "research/assets/store-media/rosa/01-front-full-length-480.jpg": {
+      "bytes": 54146,
+      "cloudflare_upload_hash": "d2adc682632aa6aa57514ff6815ede24"
+    },
+    "research/assets/store-media/rosa/01-front-full-length-480.webp": {
+      "bytes": 30884,
+      "cloudflare_upload_hash": "f3c2722671940f176f09dc8b485925f2"
+    },
+    "research/assets/store-media/rosa/01-front-full-length-800.jpg": {
+      "bytes": 117913,
+      "cloudflare_upload_hash": "39fd71cfb25a518e76cb88eadbd6f688"
+    },
+    "research/assets/store-media/rosa/01-front-full-length-800.webp": {
+      "bytes": 60170,
+      "cloudflare_upload_hash": "982c99b2c0c0df9b50231cdad0af4030"
+    },
+    "research/assets/store-media/rosa/02-bodice-detail-crop-480.jpg": {
+      "bytes": 43278,
+      "cloudflare_upload_hash": "aef1972c2ae7b718348e2a77ec63c6be"
+    },
+    "research/assets/store-media/rosa/02-bodice-detail-crop-480.webp": {
+      "bytes": 22016,
+      "cloudflare_upload_hash": "028f087593aa12e8193fc647155f53a5"
+    },
+    "research/assets/store-media/rosa/03-lower-detail-crop-480.jpg": {
+      "bytes": 37416,
+      "cloudflare_upload_hash": "c9af311fce81149aad4e86c6f5c8086e"
+    },
+    "research/assets/store-media/rosa/03-lower-detail-crop-480.webp": {
+      "bytes": 16976,
+      "cloudflare_upload_hash": "915c778d8ecb681123cb4778dbecec0e"
+    },
+    "research/assets/store-media/rosa/03-lower-detail-crop-800.jpg": {
+      "bytes": 75600,
+      "cloudflare_upload_hash": "de9e1b7ae65ce7972105e305cc00ec64"
+    },
+    "research/assets/store-media/rosa/03-lower-detail-crop-800.webp": {
+      "bytes": 29498,
+      "cloudflare_upload_hash": "a8e8f94612aa3960ce8174e2598475af"
+    },
+    "research/assets/store-media/verde-brillo-cuello-cruzado/01-front-full-length-480.jpg": {
+      "bytes": 48605,
+      "cloudflare_upload_hash": "f32dd6042be3d936f3e8d0164a4e30cf"
+    },
+    "research/assets/store-media/verde-brillo-cuello-cruzado/01-front-full-length-480.webp": {
+      "bytes": 24648,
+      "cloudflare_upload_hash": "a39e100c240b5a8c8268214a97a76584"
+    },
+    "research/assets/store-media/verde-brillo-cuello-cruzado/01-front-full-length-800.jpg": {
+      "bytes": 102377,
+      "cloudflare_upload_hash": "0de3e3a396e375dee0d1abea6423e35a"
+    },
+    "research/assets/store-media/verde-brillo-cuello-cruzado/01-front-full-length-800.webp": {
+      "bytes": 45714,
+      "cloudflare_upload_hash": "be52ae75736a0cf2e5b3a2a9c75f101f"
+    },
+    "research/assets/store-media/verde-brillo-cuello-cruzado/02-three-quarter-front-full-length-480.jpg": {
+      "bytes": 47822,
+      "cloudflare_upload_hash": "861a8de90d4e2d8393f531038e021c45"
+    },
+    "research/assets/store-media/verde-brillo-cuello-cruzado/02-three-quarter-front-full-length-480.webp": {
+      "bytes": 23856,
+      "cloudflare_upload_hash": "8c54a951fd571643c29687680ff5263d"
+    },
+    "research/assets/store-media/verde-brillo-cuello-cruzado/02-three-quarter-front-full-length-800.jpg": {
+      "bytes": 100028,
+      "cloudflare_upload_hash": "a262a8054c35d082aded7aff6da2498f"
+    },
+    "research/assets/store-media/verde-brillo-cuello-cruzado/02-three-quarter-front-full-length-800.webp": {
+      "bytes": 43454,
+      "cloudflare_upload_hash": "f707b489b68dd22a13e6880414643365"
+    },
+    "research/assets/store-media/verde-brillo-cuello-cruzado/03-side-full-length-480.jpg": {
+      "bytes": 45031,
+      "cloudflare_upload_hash": "8eb8566edaa0ec187238609e9456ecc7"
+    },
+    "research/assets/store-media/verde-brillo-cuello-cruzado/03-side-full-length-480.webp": {
+      "bytes": 21284,
+      "cloudflare_upload_hash": "c147067754358627c76664d04e3cffb6"
+    },
+    "research/assets/store-media/verde-brillo-cuello-cruzado/03-side-full-length-800.jpg": {
+      "bytes": 94795,
+      "cloudflare_upload_hash": "ecfe32f7edfdf29831b7dfe7d80e0439"
+    },
+    "research/assets/store-media/verde-brillo-cuello-cruzado/03-side-full-length-800.webp": {
+      "bytes": 38702,
+      "cloudflare_upload_hash": "56100a8bfc24a1f591f65e7b1d00d7b8"
+    },
+    "research/assets/store-media/verde-brillo-cuello-cruzado/04-back-full-length-480.jpg": {
+      "bytes": 46226,
+      "cloudflare_upload_hash": "5d1e4712b1bd581091a8f6d7e6c1a210"
+    },
+    "research/assets/store-media/verde-brillo-cuello-cruzado/04-back-full-length-480.webp": {
+      "bytes": 22696,
+      "cloudflare_upload_hash": "d780f09237d99b7361da50c59cb82c9f"
+    },
+    "research/assets/store-media/verde-brillo-cuello-cruzado/04-back-full-length-800.jpg": {
+      "bytes": 97771,
+      "cloudflare_upload_hash": "88a1257a387605a9e5e6c1136305553b"
+    },
+    "research/assets/store-media/verde-brillo-cuello-cruzado/04-back-full-length-800.webp": {
+      "bytes": 41496,
+      "cloudflare_upload_hash": "6a386c73025476f53b6e410d301cce99"
+    },
+    "research/assets/store-media/verde-brillo-cuello-cruzado/05-detail-crop-432.jpg": {
+      "bytes": 31825,
+      "cloudflare_upload_hash": "90dc4dfab95d26c727c49dc94d33bece"
+    },
+    "research/assets/store-media/verde-brillo-cuello-cruzado/05-detail-crop-432.webp": {
+      "bytes": 15832,
+      "cloudflare_upload_hash": "6249aaee14eaef8eb49c74cb91e16da0"
+    },
+    "research/assets/store-media/verde-brillo-cuello-cruzado/product.mp4": {
+      "bytes": 1175784,
+      "cloudflare_upload_hash": "99f9600b5817984d871a0b224b286493"
+    },
+    "research/assets/store-media/verde-brillo-cuello-cruzado/product.webm": {
+      "bytes": 968707,
+      "cloudflare_upload_hash": "0d735b45513f7649b333785c32df916b"
+    },
+    "research/assets/store-media/verde-esmeralda-tirantes-cruzados/01-front-full-length-480.jpg": {
+      "bytes": 48607,
+      "cloudflare_upload_hash": "240d15ec8a98f180be71ad162318190e"
+    },
+    "research/assets/store-media/verde-esmeralda-tirantes-cruzados/01-front-full-length-480.webp": {
+      "bytes": 25100,
+      "cloudflare_upload_hash": "10fe7cce735d0789ea0276fcfcc45b80"
+    },
+    "research/assets/store-media/verde-esmeralda-tirantes-cruzados/01-front-full-length-800.jpg": {
+      "bytes": 100090,
+      "cloudflare_upload_hash": "f5145e77be713c7fcf490f7f68c04975"
+    },
+    "research/assets/store-media/verde-esmeralda-tirantes-cruzados/01-front-full-length-800.webp": {
+      "bytes": 45796,
+      "cloudflare_upload_hash": "3eee8b60af7807e66c5c77a485c2a329"
+    },
+    "research/assets/store-media/verde-esmeralda-tirantes-cruzados/02-three-quarter-front-full-length-480.jpg": {
+      "bytes": 45198,
+      "cloudflare_upload_hash": "b21ffbe220026f25733324e807d0b18a"
+    },
+    "research/assets/store-media/verde-esmeralda-tirantes-cruzados/02-three-quarter-front-full-length-480.webp": {
+      "bytes": 22300,
+      "cloudflare_upload_hash": "a44216b4a0bf64d39a31beee7df01b3d"
+    },
+    "research/assets/store-media/verde-esmeralda-tirantes-cruzados/02-three-quarter-front-full-length-800.jpg": {
+      "bytes": 93587,
+      "cloudflare_upload_hash": "240502adec062ff173acd15202e0bd5b"
+    },
+    "research/assets/store-media/verde-esmeralda-tirantes-cruzados/02-three-quarter-front-full-length-800.webp": {
+      "bytes": 40398,
+      "cloudflare_upload_hash": "b696882e2b1e0d70d90d999adb4dbce5"
+    },
+    "research/assets/store-media/verde-esmeralda-tirantes-cruzados/03-side-full-length-480.jpg": {
+      "bytes": 46923,
+      "cloudflare_upload_hash": "4e746bb01e7da88fed3e735292954802"
+    },
+    "research/assets/store-media/verde-esmeralda-tirantes-cruzados/03-side-full-length-480.webp": {
+      "bytes": 23984,
+      "cloudflare_upload_hash": "b61a6da34d31cfe86b35106ef88ef1eb"
+    },
+    "research/assets/store-media/verde-esmeralda-tirantes-cruzados/03-side-full-length-800.jpg": {
+      "bytes": 97942,
+      "cloudflare_upload_hash": "3053cdfc11bb1773f8e7fed8225f858a"
+    },
+    "research/assets/store-media/verde-esmeralda-tirantes-cruzados/03-side-full-length-800.webp": {
+      "bytes": 44792,
+      "cloudflare_upload_hash": "dbd29e797f92f4bdf4551eabf572e8e7"
+    },
+    "research/assets/store-media/verde-esmeralda-tirantes-cruzados/04-back-full-length-480.jpg": {
+      "bytes": 46067,
+      "cloudflare_upload_hash": "ddc1551691fd6f6b107f6e23abdcb2cd"
+    },
+    "research/assets/store-media/verde-esmeralda-tirantes-cruzados/04-back-full-length-480.webp": {
+      "bytes": 23494,
+      "cloudflare_upload_hash": "f2aa686e509c7d27552fc7ec93a3ccfe"
+    },
+    "research/assets/store-media/verde-esmeralda-tirantes-cruzados/04-back-full-length-800.jpg": {
+      "bytes": 95556,
+      "cloudflare_upload_hash": "f76e62a4f5bcc97622d84a8c741b9f84"
+    },
+    "research/assets/store-media/verde-esmeralda-tirantes-cruzados/04-back-full-length-800.webp": {
+      "bytes": 42790,
+      "cloudflare_upload_hash": "5ce90d184fc4cfc797e53127293ca169"
+    },
+    "research/assets/store-media/verde-esmeralda-tirantes-cruzados/05-detail-crop-432.jpg": {
+      "bytes": 26905,
+      "cloudflare_upload_hash": "e20caeecd74cf380adfc922ad4b9ee61"
+    },
+    "research/assets/store-media/verde-esmeralda-tirantes-cruzados/05-detail-crop-432.webp": {
+      "bytes": 11626,
+      "cloudflare_upload_hash": "fcfb0ee72e25b74e843461ecc06695b3"
+    },
+    "research/assets/store-media/verde-esmeralda-tirantes-cruzados/product.mp4": {
+      "bytes": 1169718,
+      "cloudflare_upload_hash": "bab0d19e7806278ed696dcefd88bc8c8"
+    },
+    "research/assets/store-media/verde-esmeralda-tirantes-cruzados/product.webm": {
+      "bytes": 1106244,
+      "cloudflare_upload_hash": "05c45b57ea723a10ddc28cae1549bca2"
+    },
+    "styles.css": {
+      "bytes": 64864,
+      "cloudflare_upload_hash": "4721698f86ee2f3e8a00038e38cb8c2c"
+    }
+  },
+  "formula": "sha256(base64(file_bytes)+extension_without_dot)[:32]",
+  "kind": "upload-hash-metadata-not-an-API-request"
+}

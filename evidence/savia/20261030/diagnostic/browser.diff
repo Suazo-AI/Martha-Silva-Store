@@ -1,0 +1,48 @@
+--- R7/package/manual/browser.cjs
++++ candidate/browser.cjs
+@@ -7,12 +7,25 @@
+ let input='';process.stdin.on('data',x=>input+=x);process.stdin.on('end',()=>{try{Promise.resolve(main(JSON.parse(input))).catch(e=>output.failure('unhandled',e));}catch(e){output.failure('input',e);}});
+ async function main(config){
+  // Authenticated errors persist only approved identifiers; no message/stack/call log.
+- const checks=[],network=[],errors=[],consoleErrors=[];let browser;const contexts=[];let stage='launch';
++ const checks=[],network=[],errors=[],consoleErrors=[],assertions=[];let browser;const contexts=[];let stage='launch';
+  const attachErrors=page=>page.on('pageerror',e=>consoleErrors.push(safeError(stage,e,'PAGE_ERROR')));
+  const noOverflow=async(page,name)=>{const d=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth}));assert.ok(d.scroll<=d.width,`${name} overflow ${JSON.stringify(d)}`);check(name+' no page overflow',d);};
+- const save=()=>fs.writeFileSync(path.join(config.folder,'browser-result.json'),JSON.stringify({checks,network,errors,consoleErrors},null,2));
++ const save=()=>fs.writeFileSync(path.join(config.folder,'browser-result.json'),JSON.stringify({checks,network,errors,consoleErrors,assertions},null,2));
+  const check=(name,details={})=>{checks.push({name,status:'PASS',...details});save();};
+- async function status(page,url,expected,options={}){const response=await page.request.fetch(config.url+url,options);assert.equal(response.status(),expected,`${url}: expected ${expected}, got ${response.status()}`);return response;}
++ // Closed diagnostic schema: no response body, headers, cookies or error text.
++ function beginAssertion(id){
++  let record;
++  if(id==='ANONYMOUS_API_ME_STATUS')record={id,kind:'http_status',expected:401,received:null,status:'NOT_OBSERVED'};
++  else if(id==='ANONYMOUS_DOCUMENT_SHELL_HIDDEN')record={id,kind:'boolean',expected:true,received:null,status:'NOT_OBSERVED'};
++  else throw new TypeError();
++  assertions.push(record);save();return record;
++ }
++ function completeAssertion(record,value){
++  const valid=record.kind==='http_status'?Number.isInteger(value)&&value>=100&&value<=599:typeof value==='boolean';
++  record.received=valid?value:null;
++  record.status=valid?(value===record.expected?'PASS':'FAIL'):'INVALID_OBSERVATION';save();
++ }
++ async function status(page,url,expected,options={},observation=null){const response=await page.request.fetch(config.url+url,options);const received=response.status();if(observation)completeAssertion(observation,received);assert.equal(received,expected,`${url}: expected ${expected}, got ${received}`);return response;}
+  async function api(page,url){return (await status(page,url,200)).json();}
+  async function login(page,staff){await page.goto(config.url+'/internal/login');await page.locator('#login-submit').waitFor({state:'visible'});await page.waitForFunction(()=>!document.querySelector('#login-submit').disabled);await page.locator('#login-name').fill(staff.login);await page.locator('#login-password').fill(staff.password);await page.locator('#login-submit').click();await page.waitForURL('**/internal/');await page.locator('#staff-shell').waitFor({state:'visible'});}
+  async function list(page,kind,prefix,label){
+@@ -38,8 +51,14 @@
+   const page=await ownerContext.newPage();page.setDefaultTimeout(20000);
+   page.on('response',r=>{let u=new URL(r.url());if(u.origin===config.url)network.push({method:r.request().method(),path:u.pathname+u.search,status:r.status()});});
+   attachErrors(page);
+-  stage='anonymous';await status(page,'/internal/api/security/me',401);
+-  await page.goto(config.url+'/internal/');assert.ok((await page.locator('#staff-shell').count())===0||!(await page.locator('#staff-shell').isVisible()));check('anonymous document and API',{api:401,urlPath:new URL(page.url()).pathname});
++  stage='anonymous';
++  const anonymousApi=beginAssertion('ANONYMOUS_API_ME_STATUS');
++  await status(page,'/internal/api/security/me',401,{},anonymousApi);
++  const anonymousDocument=beginAssertion('ANONYMOUS_DOCUMENT_SHELL_HIDDEN');
++  await page.goto(config.url+'/internal/');
++  const shellHidden=(await page.locator('#staff-shell').count())===0||!(await page.locator('#staff-shell').isVisible());
++  completeAssertion(anonymousDocument,shellHidden);
++  assert.ok(shellHidden);check('anonymous document and API',{api:401,urlPath:new URL(page.url()).pathname});
+   await page.goto(config.url+'/internal/login');check('normal TLS',{browser:'Chromium',bypass:false});
+   const csrfFail=await status(page,'/internal/api/security/login',400,{method:'POST',data:{loginName:config.owner.login,password:config.owner.password}});assert.ok((await csrfFail.text()).includes('csrf_invalid'));check('login rejects missing CSRF');
+   stage='owner-login';await login(page,config.owner);config.owner.password='';

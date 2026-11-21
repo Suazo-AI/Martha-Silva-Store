@@ -1,0 +1,12 @@
+{
+  "pr": 2,
+  "head": "260b75951729189d987ffe423218ab1643bcfa3c",
+  "mergeCommitSha": "ec671f4331267c8a0419b38d6c36a31e78f1be8d",
+  "base": "3b0049163ece2d9431cee01f1bea624a66d9d8d4",
+  "mergeVsFrozenHead": {
+    "status": "ahead",
+    "ahead_by": 1,
+    "behind_by": 0,
+    "changedFiles": []
+  }
+}

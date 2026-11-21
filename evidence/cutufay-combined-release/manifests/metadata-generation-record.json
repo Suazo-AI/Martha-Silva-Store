@@ -1,0 +1,13 @@
+{
+  "all904_runtime_bytes_rehashed": false,
+  "build_tests_network_package_deploy_performed": false,
+  "inherited_unchanged_runtime_metadata_entries": 898,
+  "outputs": {
+    "expected-combined-runtime-manifest.json": "c81f75009ff47cac4feeb3952340c0cc8be2a7e7529f16e9db7844e786ab70de",
+    "expected-deployment-files.json": "b0b0eb2b4e8ed3f8fb5abbf087e1301149c56421c0cbe48fcfc7deedb5d111f7",
+    "frozen-assembly-receipt.snapshot.json": "19ca37a9351820e2fb7481d8e95580888fe589ef1d00eba08a4d8c6d491367d2",
+    "runtime-upload-hashes.json": "e9ec63d76d8ee4ecfdfe74278d3b5b14c5f6e2e409ae05e77e877a73ca0872bf",
+    "six-file-delta.json": "2ebfe7bb7029096e166d228c90e00ec85ea356082dd5ab69f4a78549ac01699b"
+  },
+  "source_bytes_read": 6
+}

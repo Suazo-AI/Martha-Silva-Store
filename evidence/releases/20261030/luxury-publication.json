@@ -1,0 +1,52 @@
+{
+  "task_id": "cutufay-denis-luxury-update-tony-20261029-2242",
+  "published_utc": "2026-10-30T01:16:52.713453Z",
+  "recorded_utc": "2026-10-30T01:18:59.563484+00:00",
+  "status": "published_automated_public_check_blocked_by_cloudflare1010",
+  "url": "https://martha-silva-preview.martha-silva-denis.workers.dev/",
+  "worker": "martha-silva-preview",
+  "version_id": "26c01241-dbdc-4af7-bfef-37cedff5ce23",
+  "deployment_id": "1e0a20b7-88f7-4d82-b17c-0a3331e741d6",
+  "traffic_percent": 100,
+  "rollback_version": "efd1cceb-3e4f-43b0-bdbc-9264c13e8123",
+  "rollback_deployment": "c15f32d1-e501-463e-b282-ef516adcb616",
+  "runtime_manifest_sha256": "4c7a9379325d1d414723fc4ce9bd4a627bb965fa2eb46370d1c650b22b019710",
+  "runtime_files": 1082,
+  "published_manifest_paths": 1081,
+  "excluded": [
+    "README.txt"
+  ],
+  "settings_preserved": {
+    "compatibility_date": "2026-10-24",
+    "compatibility_flags": [],
+    "bindings": [],
+    "usage_model": "standard",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "none",
+    "base_path": "/",
+    "serve_directly": true,
+    "raw_run_worker_first": false,
+    "workers_dev_enabled": true,
+    "previews_enabled": false
+  },
+  "public_smoke": {
+    "passed": 0,
+    "failed": 1,
+    "not_run": 14,
+    "response_status": 403,
+    "response_bytes": 17,
+    "response_sha256": "2938e9f1284180959e33ab1718d0793a72ff6e4cdb8108c34dcd14e69446de5c",
+    "body_identified_offline": "error code: 1010\n",
+    "cause_documentation": "https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-1xxx-errors/error-1010/",
+    "not_retried_with_alternate_user_agent": true
+  },
+  "browser_qa": "NOT_RUN: heavy task admission859MB available,1536MB required,69percent committed",
+  "static_review": "40products/120variants/40media maps/47pages; no missing literal local route found; not a functional/render test",
+  "source_limitations": [
+    "156selected generated PNGs across158locations (152product+6editorial),not documentary product photography",
+    "FullHD not achieved",
+    "13/18source commands reported passing; historical failures and missing reference lists not independently rerun",
+    "AI labeling present inalt but not a general visible banner",
+    "Rose-bronze03/04 visual continuity limitation remains"
+  ]
+}

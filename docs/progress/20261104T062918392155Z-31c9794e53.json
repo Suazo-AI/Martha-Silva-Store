@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-04T06:29:18.392155+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/DECISIONS.md",
+      "change": "M",
+      "git_blob": "38a6d676ea77e4edb1c7f77f932a5adf097dcd23"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "f6cccd4adecb8db028961095e96233c15e870726"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "change": "M",
+      "git_blob": "9b743dc39f8de9cb0d3730ae9c644b4b4b8552f5"
+    },
+    {
+      "path": "docs/sprint-20261104/ensayo-suazo-pc-receipt.json",
+      "change": "A",
+      "git_blob": "966f52778673214c14fc0ba1cd61a20d70a6b0ba"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

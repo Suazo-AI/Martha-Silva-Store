@@ -1,0 +1,170 @@
+{
+  "schema": "savia-ux-corrections-v1",
+  "base": "2c96904f49d2df913850bc13cf53b3b03ceebacf",
+  "previousReviewedTree": "72dcf2f00b94f2987691db6915fbf4149b8804b1",
+  "status": "locally verified; independent recheck pending",
+  "bytePolicy": "RAW is current disk bytes. LF replaces CRLF with LF only, retaining BOM. Immutable Git tree is supplied separately. Historical manifests are not rebound.",
+  "sources": [
+    {
+      "path": "savia/demo/site/banner.css",
+      "rawSha256": "83c00c759cb79031a33eee9c170e32d5588ae8854a6e977e303f25ccbaf552ec",
+      "lfSha256": "59661fa4112a1970002ab88f86234654c5c95b8c43bf4a45cfd378681e930968",
+      "baseGitBlobSha256": "c47cf66c470490cba7e14cbf2bfdeee920b3dee264b8be534fea9b285f07a407"
+    },
+    {
+      "path": "savia/demo/site/boot.mjs",
+      "rawSha256": "06511f5f4a4df6aea86f5d0aaaad02cb38252ea5a86f7711ecc918b43078d553",
+      "lfSha256": "06511f5f4a4df6aea86f5d0aaaad02cb38252ea5a86f7711ecc918b43078d553",
+      "baseGitBlobSha256": "4d6ab615d4a3f27ce5b54d2ace0582f97ca17ac024260a576290eec6ab65325b"
+    },
+    {
+      "path": "savia/demo/site/verify.py",
+      "rawSha256": "dacc3667bffe99b6d44c84e175f6a6cfbe1074ded2b21c65a3910245543a1e99",
+      "lfSha256": "9efb46efd2cca15e02a68e103eab1320374ecf807ae074709cab5e6eb4f1785d",
+      "baseGitBlobSha256": "efeef0d71471ad952fc8da30c500edb86e991530224ac61793c36adc89b54475"
+    },
+    {
+      "path": "savia/demo/site/entry.test.mjs",
+      "rawSha256": "0999043dc4d75826667e3d2c958d61099fa7ecbd67dd50207146636f364d412d",
+      "lfSha256": "0999043dc4d75826667e3d2c958d61099fa7ecbd67dd50207146636f364d412d",
+      "baseGitBlobSha256": null
+    },
+    {
+      "path": "savia/web/app.css",
+      "rawSha256": "7170934adb17dce102714b9097cfe510f563ef625f6d7002a373f86c8ce8d6ad",
+      "lfSha256": "991defaa314c45bb6dfe8f26f5b278a4b7b62b76d63652b91e45832227f0e760",
+      "baseGitBlobSha256": "02978616544077c48ee689f874d9f71c9c08e1587c349bd59c04a8984be88ad5"
+    },
+    {
+      "path": "savia/web/app.mjs",
+      "rawSha256": "707bec9b596cd77c1701dfdc3cdd8dbe67ea1330b13ad3553ee8177a0d1bfd23",
+      "lfSha256": "707bec9b596cd77c1701dfdc3cdd8dbe67ea1330b13ad3553ee8177a0d1bfd23",
+      "baseGitBlobSha256": "ae9bb736a27e9afc2c7bfd1cc95c81f187361aa6b89b56fcd2028d94d724b309"
+    },
+    {
+      "path": "savia/web/roles.mjs",
+      "rawSha256": "b7d270531e7c9a5df1b1888d816e280e9526ed0f1f4d8d60fe1f197998dd5651",
+      "lfSha256": "b7d270531e7c9a5df1b1888d816e280e9526ed0f1f4d8d60fe1f197998dd5651",
+      "baseGitBlobSha256": "2f7217ffa61e3f9ffd2ddd79ebb3ab7d1ac134721e850001b4b62c4b15eb1213"
+    },
+    {
+      "path": "savia/web/scan.mjs",
+      "rawSha256": "3e88319593566bcf6a728e59b35e4a9ff09781fab8c243fbe0680afae8020e33",
+      "lfSha256": "3e88319593566bcf6a728e59b35e4a9ff09781fab8c243fbe0680afae8020e33",
+      "baseGitBlobSha256": "9c93e42a4827267fb8985671c8a2e9d3ee690538c16d7880f7291be80260b4b9"
+    },
+    {
+      "path": "savia/web/screens/history.mjs",
+      "rawSha256": "fd2ccf877492e24475c42e74957988ae9356fd0320083434b9b78897e19ca0f8",
+      "lfSha256": "fd2ccf877492e24475c42e74957988ae9356fd0320083434b9b78897e19ca0f8",
+      "baseGitBlobSha256": "0beec5f3106dda9c44c66de12a60af2450d96e7495797ffeb78289e6786da945"
+    },
+    {
+      "path": "savia/web/screens/sale.mjs",
+      "rawSha256": "83d3ba5f3ef42a2036359c006198f3a6158f533624aadca1f1a5224e8d4fa5c0",
+      "lfSha256": "83d3ba5f3ef42a2036359c006198f3a6158f533624aadca1f1a5224e8d4fa5c0",
+      "baseGitBlobSha256": "bc51464ff33dbeaf650c8db2da47fe5d2a3cc67966082b06df6971f8bf33d328"
+    },
+    {
+      "path": "savia/web/ui.mjs",
+      "rawSha256": "906fe9b654625298196b6aa66217d0c4ff8358ade1100dd405d777a1f743ba4c",
+      "lfSha256": "906fe9b654625298196b6aa66217d0c4ff8358ade1100dd405d777a1f743ba4c",
+      "baseGitBlobSha256": "874b8d1b89d4dc05bb61c0852023c780c71b04e98d490fbed8a85593ba0ae7ec"
+    },
+    {
+      "path": "savia/web/sale-recovery.mjs",
+      "rawSha256": "0db3c8f84cb5486690ae9e0e9891f1364f07205d6f860a953a6704eadc8c82f5",
+      "lfSha256": "0db3c8f84cb5486690ae9e0e9891f1364f07205d6f860a953a6704eadc8c82f5",
+      "baseGitBlobSha256": null
+    },
+    {
+      "path": "savia/web/tests/scan.test.mjs",
+      "rawSha256": "8eafce1935cacc567f790553d94a917bcfaa3bc8e37ed4fd3adce2828c2234c2",
+      "lfSha256": "8eafce1935cacc567f790553d94a917bcfaa3bc8e37ed4fd3adce2828c2234c2",
+      "baseGitBlobSha256": "39ab4a8b79439c99a3ced5c12be5c465e1bea243702ff416fdded39a89fe5d68"
+    },
+    {
+      "path": "savia/web/tests/navigation-ux.test.mjs",
+      "rawSha256": "831550529940d56a9c15a283b65e08d77a4a480b260f17229d11ca20e55b6c02",
+      "lfSha256": "831550529940d56a9c15a283b65e08d77a4a480b260f17229d11ca20e55b6c02",
+      "baseGitBlobSha256": null
+    },
+    {
+      "path": "savia/web/tests/sale-recovery.test.mjs",
+      "rawSha256": "4bf621e27a52a47d0fa0e30befa1fed4cd87f4373e4d75851c6b59d91c3fa1ab",
+      "lfSha256": "4bf621e27a52a47d0fa0e30befa1fed4cd87f4373e4d75851c6b59d91c3fa1ab",
+      "baseGitBlobSha256": null
+    },
+    {
+      "path": "savia/web/tests/sale-ux.browser.mjs",
+      "rawSha256": "75a0ddb5d98648ebcc202c3d3ab191b678f1edc28a1a5b7521fdc5c1749a1248",
+      "lfSha256": "75a0ddb5d98648ebcc202c3d3ab191b678f1edc28a1a5b7521fdc5c1749a1248",
+      "baseGitBlobSha256": null
+    },
+    {
+      "path": "savia/web/api.mjs",
+      "rawSha256": "7b3cda6186f318bc77851d08d7637457a83486a91a6880ff34d9394c4de893c0",
+      "lfSha256": "7b3cda6186f318bc77851d08d7637457a83486a91a6880ff34d9394c4de893c0",
+      "baseGitBlobSha256": "54f5165cc1dbda8abd43a2a86cacb4a155ecb1a8cecfa8275a0633ce2c06070f"
+    },
+    {
+      "path": "savia/web/screens/till-open.mjs",
+      "rawSha256": "a12dd759bcc6f63f0628f1db4cafb0fa03db5fedad6ffc9dbe6b882f7b655265",
+      "lfSha256": "a12dd759bcc6f63f0628f1db4cafb0fa03db5fedad6ffc9dbe6b882f7b655265",
+      "baseGitBlobSha256": "26b063b4232a0d5147401d0ae826809bf63d6fdcf1413cf3daa21da6b201864d"
+    },
+    {
+      "path": "savia/web/tests/api-contract.test.mjs",
+      "rawSha256": "98b9c43e72aa047de6a0f3c215a0fd4da3d150f21b60aa0a5de7124cbfb00270",
+      "lfSha256": "98b9c43e72aa047de6a0f3c215a0fd4da3d150f21b60aa0a5de7124cbfb00270",
+      "baseGitBlobSha256": "9fade41c3f0bcf06b2679f58524fba0a84728761d0ff93e54d4b3845485e7655"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/savia-ux-20261116/corrections/browser.json",
+      "rawSha256": "82241c4fe443d485852eeea0cd37b9c3795817307ab2ecd1b6af82e824d861e2",
+      "lfSha256": "7514b8c6316204991d559be79264baa7a4fc6f8ce1d93b0fee52d3806d90a2fb"
+    },
+    {
+      "path": "docs/savia-ux-20261116/corrections/red.json",
+      "rawSha256": "46bf11e2aea6d82d41cb8bf658a05e503091b4c06d144402243d83d56f51127f",
+      "lfSha256": "32db081a8f2fa150de19fef66b586489635337d6ee908ac77675d34708d6dedd"
+    },
+    {
+      "path": "docs/savia-ux-20261116/corrections/browser.py",
+      "rawSha256": "434c4e57a4186b159595274cf9802eaae00e61506a95a906b60c14ccea12ebc3",
+      "lfSha256": "434c4e57a4186b159595274cf9802eaae00e61506a95a906b60c14ccea12ebc3"
+    },
+    {
+      "path": "docs/savia-ux-20261116/corrections/shell-fixture.mjs",
+      "rawSha256": "eb6520061e38b8cd3babfe4e2013d6aea931553bc5aae170b9b4887d6c911bfd",
+      "lfSha256": "eb6520061e38b8cd3babfe4e2013d6aea931553bc5aae170b9b4887d6c911bfd"
+    },
+    {
+      "path": "docs/savia-ux-20261116/corrections/CHECKS.json",
+      "rawSha256": "e62946e5419671d1e71b81358d5585fdd9266f54d773eb69265f7f78659b7857",
+      "lfSha256": "e62946e5419671d1e71b81358d5585fdd9266f54d773eb69265f7f78659b7857"
+    },
+    {
+      "path": "docs/savia-ux-20261116/primary/browser.json",
+      "rawSha256": "05aa3d18a21c4559b85589e7f77a92bda298310bdc91780fc7b25496d4a9ef63",
+      "lfSha256": "8acb6445cb83d1f2b2c0486c6ad7f27c9700b2252864fce99150717d68f7bac9"
+    },
+    {
+      "path": "docs/savia-ux-20261116/primary/browser.py",
+      "rawSha256": "2b2765606c8bbdf640412bfba00f23714f434f9c8c82cfbcf9569d1779e053e8",
+      "lfSha256": "2b2765606c8bbdf640412bfba00f23714f434f9c8c82cfbcf9569d1779e053e8"
+    },
+    {
+      "path": "docs/savia-ux-20261116/demo/real-browser.json",
+      "rawSha256": "1ece3bd2cb8c292b5dedb552264372ac44632e53a7b193fc44d2bb9360f527d7",
+      "lfSha256": "102f3b3fefb1f9dbdecc92a14e3ac4e3d7efa9ce5af452e1eb36d1e572f3d10b"
+    },
+    {
+      "path": "docs/savia-ux-20261116/astra-combined-review.md",
+      "rawSha256": "864385f3aadba6ea65889035f75b04d9a76bd439be7f9eba30cb9dc03d76edb7",
+      "lfSha256": "864385f3aadba6ea65889035f75b04d9a76bd439be7f9eba30cb9dc03d76edb7"
+    }
+  ]
+}

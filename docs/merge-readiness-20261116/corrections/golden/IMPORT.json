@@ -1,0 +1,85 @@
+{
+  "baseSha": "ba8ff2ba10935e99fc268ebbe5eae130f72c1cca",
+  "verifiedBindings": 9,
+  "originalVerified": true,
+  "entries": [
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-ca850f2c-da68c203fe96f38d\\.github\\workflows\\golden-path.yml",
+      "target": ".github/workflows/golden-path.yml",
+      "sha256": "ac232cbd55a4df86a90661ce907c067d041916e5d729122660067ba1615e3fc9",
+      "public": true
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-ca850f2c-da68c203fe96f38d\\tests\\test_golden_path_workflow.py",
+      "target": "tests/test_golden_path_workflow.py",
+      "sha256": "813d700f335162fe03476dd9a133f9b079cb739f5c3359fce295862d96c215b2",
+      "public": true
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-ca850f2c-da68c203fe96f38d\\docs\\merge-readiness-20261116\\corrections\\golden\\README.md",
+      "target": "docs/merge-readiness-20261116/corrections/golden/README.md",
+      "sha256": "5e4a51ccb1125cb594e483801dde1d3919b1fe1609962e17091dae1bc97a1014",
+      "public": true
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-ca850f2c-da68c203fe96f38d\\docs\\merge-readiness-20261116\\corrections\\golden\\source-bindings.json",
+      "target": "docs/merge-readiness-20261116/corrections/golden/source-bindings.json",
+      "sha256": "426b51c5cdf75ddb0c250d097b57c6e4dd7a6b74c7d7b37693ee761c695a2de9",
+      "public": true
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-ca850f2c-da68c203fe96f38d\\docs\\merge-readiness-20261116\\corrections\\golden\\original-workflow.yml",
+      "target": "docs/merge-readiness-20261116/corrections/golden/original-workflow.yml",
+      "sha256": "f37fdbed2ab3b0d8eacc43d6c516ff8b846faae4c200a63e5c6ee87ce9b2d4ca",
+      "public": true
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-ca850f2c-da68c203fe96f38d\\docs\\merge-readiness-20261116\\corrections\\golden\\01-original-regression.log",
+      "target": "private-exports/merge-readiness-20261116/corrections/golden-logs/01-original-regression.log",
+      "sha256": "f038ad577cee665fa3050a784964bc7bae2a1c93341ac14be1c0a93a0dbf6d32",
+      "public": false
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-ca850f2c-da68c203fe96f38d\\docs\\merge-readiness-20261116\\corrections\\golden\\02-corrected-regression.log",
+      "target": "private-exports/merge-readiness-20261116/corrections/golden-logs/02-corrected-regression.log",
+      "sha256": "55f9aa27b896298d97d3efa85e710bcf458d54ac035fae1707a66c3e75e60d3b",
+      "public": false
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-ca850f2c-da68c203fe96f38d\\docs\\merge-readiness-20261116\\corrections\\golden\\03-affected-suites.log",
+      "target": "private-exports/merge-readiness-20261116/corrections/golden-logs/03-affected-suites.log",
+      "sha256": "b80b1d3a212b36162a74d76be1d43f8643222785ce10ce8dea6c90fd2b08253a",
+      "public": false
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-ca850f2c-da68c203fe96f38d\\docs\\merge-readiness-20261116\\corrections\\golden\\04-final-affected-suites.log",
+      "target": "private-exports/merge-readiness-20261116/corrections/golden-logs/04-final-affected-suites.log",
+      "sha256": "b86c3bc3ea34cf34e011b5e54ea98094be5353db3f170a298b836435c762bed3",
+      "public": false
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-ca850f2c-da68c203fe96f38d\\docs\\merge-readiness-20261116\\corrections\\golden\\05-syntax.log",
+      "target": "private-exports/merge-readiness-20261116/corrections/golden-logs/05-syntax.log",
+      "sha256": "577efd15750146cb4b52dc2ab58f3cc31197d52b82d675f977b090a20b204e53",
+      "public": false
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-ca850f2c-da68c203fe96f38d\\docs\\merge-readiness-20261116\\corrections\\golden\\06-repository-check.log",
+      "target": "private-exports/merge-readiness-20261116/corrections/golden-logs/06-repository-check.log",
+      "sha256": "b07470232f386468de59158f8e5b102f7d784270b13989373d122142ab49b1b9",
+      "public": false
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-ca850f2c-da68c203fe96f38d\\docs\\merge-readiness-20261116\\corrections\\golden\\07-readback-audit-note.log",
+      "target": "private-exports/merge-readiness-20261116/corrections/golden-logs/07-readback-audit-note.log",
+      "sha256": "690c79df7d97798b8f94e7a3e513d1ba386a86b5614ca70152a0f01bc35c18a8",
+      "public": false
+    },
+    {
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-ca850f2c-da68c203fe96f38d\\docs\\merge-readiness-20261116\\corrections\\golden\\08-final-readback.log",
+      "target": "private-exports/merge-readiness-20261116/corrections/golden-logs/08-final-readback.log",
+      "sha256": "142d6540e3f86ec11b3a9ea9c0c2e0a35e6bea01972a436193296307c4df182d",
+      "public": false
+    }
+  ]
+}

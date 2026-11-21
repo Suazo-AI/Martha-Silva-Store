@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Etiquetas sintéticas</title>
+<!-- Synthetic garment tags for the local OCR proof. Open with ?tag=1..6 and capture #scene.
+     Brands, SKUs and barcodes are invented; the EAN-13 check digits are valid. -->
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #ddd; font-family: Arial, Helvetica, sans-serif; color: #111; }
+  #scene { width: 900px; height: 1200px; display: grid; place-items: center; overflow: hidden; position: relative; background: #e9e6e0; }
+  .tag { width: 520px; background: #fff; padding: 36px 40px; border-radius: 10px; position: relative; }
+  .tag .hole { width: 26px; height: 26px; border-radius: 50%; background: #e9e6e0; margin: 0 auto 18px; border: 2px solid #bbb; }
+  .brand { font-size: 44px; font-weight: 800; letter-spacing: 3px; text-align: center; }
+  .name { font-size: 30px; margin: 14px 0 22px; text-align: center; }
+  .row { display: flex; justify-content: space-between; font-size: 30px; margin: 10px 0; }
+  .big { font-size: 64px; font-weight: 800; text-align: center; border: 4px solid #111; border-radius: 8px; margin: 18px auto; width: 160px; }
+  .price { font-size: 46px; font-weight: 800; text-align: center; margin: 18px 0 6px; }
+  .comp { font-size: 24px; text-align: center; margin-top: 16px; }
+  svg { display: block; margin: 18px auto 0; }
+  .digits { font-family: 'Courier New', monospace; font-size: 30px; text-align: center; letter-spacing: 4px; }
+  /* layouts */
+  .h { width: 820px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 40px; align-items: center; }
+  .h .brand, .h .name { grid-column: 1 / -1; }
+  .dark { background: #1d2a3a; color: #fff; }
+  .dark .big { border-color: #fff; }
+  .blur { filter: blur(1.6px); }
+  .tilt { transform: rotate(7deg); }
+  .photo { transform: perspective(1400px) rotateX(9deg) rotateZ(-3deg); box-shadow: 30px 40px 50px rgba(0,0,0,.45); }
+  .photo-scene { background: radial-gradient(circle at 30% 20%, #8a7f72 0, #4e463e 60%, #2c2622 100%); }
+  .shade::after { content: ''; position: absolute; inset: 0; border-radius: 10px;
+    background: linear-gradient(115deg, rgba(0,0,0,0) 35%, rgba(0,0,0,.28) 70%, rgba(0,0,0,.4) 100%); }
+</style>
+</head>
+<body>
+<div id="scene"></div>
+<script>
+// EAN-13 encoder: L, G and R digit patterns, parity from the first digit.
+const L = ['0001101','0011001','0010011','0111101','0100011','0110001','0101111','0111011','0110111','0001011'];
+const G = ['0100111','0110011','0011011','0100001','0011101','0111001','0000101','0010001','0001001','0010111'];
+const R = L.map(p => [...p].map(b => b === '0' ? '1' : '0').join(''));
+const PARITY = ['LLLLLL','LLGLGG','LLGGLG','LLGGGL','LGLLGG','LGGLLG','LGGGLL','LGLGLG','LGLGGL','LGGLGL'];
+function ean13(code, fg = '#111', bg = '#fff') {
+  const d = [...code].map(Number);
+  let bits = '101';
+  for (let i = 1; i <= 6; i++) bits += (PARITY[d[0]][i - 1] === 'L' ? L : G)[d[i]];
+  bits += '01010';
+  for (let i = 7; i <= 12; i++) bits += R[d[i]];
+  bits += '101';
+  const w = 4, h = 120, pad = 30;
+  const rects = [...bits].map((b, i) => b === '1' ? `<rect x="${pad + i * w}" y="0" width="${w}" height="${h}" fill="${fg}"/>` : '').join('');
+  return `<svg width="${bits.length * w + pad * 2}" height="${h}" viewBox="0 0 ${bits.length * w + pad * 2} ${h}"><rect width="100%" height="100%" fill="${bg}"/>${rects}</svg>`;
+}
+const T = {
+  1: { cls: '', html: c => `<div class="hole"></div><div class="brand">ALMA TEXTIL</div><div class="name">Blusa manga corta</div>
+      <div class="row"><span>SKU</span><b>BL-2041-AZ</b></div><div class="row"><span>Color</span><b>Azul</b></div>
+      <div class="row"><span>Talla</span></div><div class="big">M</div><div class="price">C$ 1,250.00</div>
+      ${c('7501234567893')}<div class="digits">7501234567893</div><div class="comp">95% Algodón 5% Elastano</div>` },
+  2: { cls: 'h', html: c => `<div class="brand">RIO VERDE</div><div class="name">Pantalón jeans recto</div>
+      <div><div class="row"><span>Ref:</span><b>PJ-3310-NG</b></div><div class="row"><span>Color:</span><b>Negro</b></div>
+      <div class="row"><span>Talla:</span><b>32</b></div><div class="comp">98% Algodón 2% Elastano</div></div>
+      <div>${c('7894561230128')}<div class="digits">7894561230128</div></div>` },
+  3: { cls: 'dark', html: c => `<div class="hole"></div><div class="brand">COSTA NORTE</div><div class="name">Vestido largo floral</div>
+      <div class="row"><span>REF</span><b>88213-04</b></div><div class="row"><span>SIZE</span><b>L</b></div>
+      <div class="row"><span>COLOR</span><b>ROJO</b></div><div class="price">C$ 890.00</div>
+      ${c('8400123456784', '#111', '#fff')}<div class="digits">8400123456784</div><div class="comp">100% Poliéster</div>` },
+  4: { cls: 'blur', html: c => `<div class="hole"></div><div class="brand">LUNA MODA</div><div class="name">Camisa oxford</div>
+      <div class="row"><span>SKU</span><b>CM-5521-BL</b></div><div class="row"><span>Color</span><b>Blanco</b></div>
+      <div class="row"><span>Talla</span><b>XL</b></div><div class="price">C$ 1,499.00</div>
+      ${c('7620001234551')}<div class="digits">7620001234551</div><div class="comp">60% Algodón 40% Poliéster</div>` },
+  5: { cls: 'tilt', html: c => `<div class="hole"></div><div class="brand">BRISA</div><div class="name">Falda plisada</div>
+      <div class="row"><span>SKU</span><b>FP-1180-VD</b></div><div class="row"><span>Color</span><b>Verde</b></div>
+      <div class="row"><span>Talla</span></div><div class="big">S</div><div class="price">C$ 750.00</div>
+      ${c('5901234123457')}<div class="digits">5901234123457</div><div class="comp">100% Viscosa</div>` },
+  6: { cls: 'photo shade', scene: 'photo-scene', html: c => `<div class="hole"></div><div class="brand">SOL DE MAYO</div><div class="name">Suéter de punto</div>
+      <div class="row"><span>SKU</span><b>SW-7702-GR</b></div><div class="row"><span>Color</span><b>Gris</b></div>
+      <div class="row"><span>Talla</span><b>XXL</b></div><div class="price">C$ 2,100.00</div>
+      ${c('7460012345675')}<div class="digits">7460012345675</div><div class="comp">70% Acrílico 30% Lana</div>` },
+};
+const n = new URLSearchParams(location.search).get('tag') || '1';
+const t = T[n];
+const scene = document.getElementById('scene');
+if (t.scene) scene.classList.add(t.scene);
+scene.innerHTML = `<div class="tag ${t.cls}">${t.html(code => ean13(code))}</div>`;
+</script>
+</body>
+</html>

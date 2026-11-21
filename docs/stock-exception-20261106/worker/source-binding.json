@@ -1,0 +1,130 @@
+{
+  "base_sha": "9597f19d0e1621c2b3984f8bf8878a0f7d58d906",
+  "hash_kind": "SHA256 exact raw file bytes",
+  "contracts": [
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceEndpoints.cs",
+      "sha256": "d10abf20a14c61e63fab9a1860924846a20da5085abc2ad763b26aab0266310b"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceModel.cs",
+      "sha256": "5bc6df737a3b194269ebf411acb9bdc80f793763318a1ea43c8b5e7df911d259"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceModels.cs",
+      "sha256": "b7886ab138934f75dc2a2ce145a56e7c9e28af603e37850570556d3a57303391"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceService.cs",
+      "sha256": "f9c4411a2a41a0c4e8597817f087843470540cce1f0c42323ff6fe0c46247567"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalStockLedger.cs",
+      "sha256": "ed683374c45a9c9b0807f383ec2a828a5e2e32b183afe7a8b5f4c3daa3cbb3a7"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalCommandRunner.cs",
+      "sha256": "f246811eb229ce4b4232f9f3f045a20f2c4c7595e174a7c4e0a184c8205d3b59"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalDbContext.cs",
+      "sha256": "0ed12c5747b763442936bbf9ab97f9504cab1be03797ea8bd075afa44607906c"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Migrations/20261106071201_PhysicalStockException.Designer.cs",
+      "sha256": "8c09d3c170ce2245db4a9e366657985e21d3828d70d598deb9102e96d2f1f616"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Migrations/20261106071201_PhysicalStockException.cs",
+      "sha256": "f0679a4b25c1612b1e3fcf0f4b3aa8a15ef50241572a1c20b0ebba9e3c861d16"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Migrations/InitialInternalSavia.idempotent.sql",
+      "sha256": "07f2c4c4944267f6fee3c497da028c6df9ee05d66287c5350121f62af3582e0c"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Migrations/InternalDbContextModelSnapshot.cs",
+      "sha256": "c361416b3bb16daca2e5321ae5d03873a7d9e3cdc2114fcac94b35a97d78fa62"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/StockExceptions/InternalStockExceptions.cs",
+      "sha256": "4ed8d558c6e46f2b03688ec76b43bc0cc3455f45adc956d1c452a8126e1fe30a"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCommerceSqlTests.cs",
+      "sha256": "c69efc9a4491f4a109834e39aff3ccc4008d6e01decf65f8d8d2010a12a07e36"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalReleaseScriptTests.cs",
+      "sha256": "c992a2912c1b58ec845b70fb2995e092492e1c563ec93244bb8b737c931e796d"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalStockExceptionSqlTests.cs",
+      "sha256": "d2631979c2c5b6af25cc91eeccfa1fbcfe5a7a37fbb0edfdfad4c51a1c8df4ad"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalStockExceptionTests.cs",
+      "sha256": "229af6edf5ee51f43abee62ee2b3daeffbe9e0a19e13c22ad075b13aadd803ee"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs",
+      "sha256": "3636636dcc80ab022a8c7b2226e7e259f9379ddc6318ad7f1aa6aa81cb108dcd"
+    },
+    {
+      "path": "dev/savia-staff-ui/README.md",
+      "sha256": "97e6ff600c3179f6280f57a99a3314ac82be42a484ba347d5dd93ff53d5bb43b"
+    },
+    {
+      "path": "dev/savia-staff-ui/app.mjs",
+      "sha256": "cf3f032e986a11dc81bd769eb9c6ffafceddbd530cabb8de84b5cb44d12f6391"
+    },
+    {
+      "path": "dev/savia-staff-ui/client.mjs",
+      "sha256": "3eec3aeac1aedafbe982013848204117f2abff4040f1d1bcdc5d05202eb69f46"
+    },
+    {
+      "path": "dev/savia-staff-ui/index.html",
+      "sha256": "72193922c484ffe0fe2468ba897cfb2fc1bcf598528645b15311332b33d94b64"
+    },
+    {
+      "path": "dev/savia-staff-ui/login.mjs",
+      "sha256": "07c6a492a0519a60d04873853102731d287beafbebee3ba9609e16ec6740a11d"
+    },
+    {
+      "path": "dev/savia-staff-ui/stock-exception.test.mjs",
+      "sha256": "194bdfcf42cff34534dd2b5b141d7af4ce629f6a99ace32593bf0bccfa5a9218"
+    },
+    {
+      "path": "dev/savia-staff-ui/styles.css",
+      "sha256": "61db534591305d989d815c47999cc5706d7b8de6e00c1628d361e10edbb94ca0"
+    },
+    {
+      "path": "tests/golden-path/GoldenPath.Sql/Program.cs",
+      "sha256": "41b7ffaf9b73e02bb9877f538114a3dfbba1e7d846245b49ad29d5413a1be2c5"
+    },
+    {
+      "path": "tests/golden-path/README.md",
+      "sha256": "e7a5a7fe4cc140e5f49873cad75304e24a24dbc39c852864b45de77d5803f87f"
+    },
+    {
+      "path": "tests/golden-path/browser_path.mjs",
+      "sha256": "e2cbdfd18878864d3953d768a28adbaae3a68f195fe1dfe79710a34c79b23473"
+    },
+    {
+      "path": "tests/golden-path/golden_path.py",
+      "sha256": "419d27b62a367ba771988face2efd9fe8f8ef26270c8b9814ccc3922fcb6a502"
+    },
+    {
+      "path": "tests/golden-path/oracles.md",
+      "sha256": "5ca095fbe9dfcf0f84a126acb61eb58a73981c849dd03f6666f21b4ca5206e89"
+    },
+    {
+      "path": "tests/test_golden_path_browser_safety.py",
+      "sha256": "5bca935f9d1af9c50686291e423147bba289ba4310123cc9c0d506acc7f35317"
+    },
+    {
+      "path": "tests/test_golden_path_stock_exception.py",
+      "sha256": "d2ba23bf2c6812e7178c06efd4c8cd24351a3da6228d8f0509d4600dc6ba78be"
+    }
+  ]
+}

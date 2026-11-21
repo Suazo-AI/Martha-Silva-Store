@@ -1,0 +1,294 @@
+{
+  "status": "LOCAL_CORRECTED_PENDING_ASTRA_RECHECK",
+  "sourceSha": "ba8ff2ba10935e99fc268ebbe5eae130f72c1cca",
+  "host": "SUAZO-PC",
+  "primary": "T3 Code/Codex gpt-6.1-sol/xhigh",
+  "finding": "CF2-R1 warning hidden by logout and cleared by next route",
+  "previousReview": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/review/astra-recheck.md",
+  "sourceBindings": [
+    {
+      "path": ".github/workflows/golden-path.yml",
+      "bytes": 10879,
+      "rawSha256": "ac232cbd55a4df86a90661ce907c067d041916e5d729122660067ba1615e3fc9",
+      "lfSha256": "e9b63cd3c06dd67e26ba36fe3ad298908c95b2e1a0b8ab7cbd43ed6662c33622"
+    },
+    {
+      "path": "dev/savia-staff-ui/cash.test.mjs",
+      "bytes": 26330,
+      "rawSha256": "c9d7c550bb7e39b0a7eadcead62daede16f43e9e968e4cfbf62527b4fd65ed61",
+      "lfSha256": "2993c86ba4517ad3a87d729fc9e51bc0c8bfdf3c8b64eebf5a5a69d698f4a258"
+    },
+    {
+      "path": "savia/db/migrations/MANIFEST.sha256",
+      "bytes": 2803,
+      "rawSha256": "2e878b9e3c3eea5c1135ad0f1c2ac22a24f771aa5e41cba66665be79691eefe0",
+      "lfSha256": "2e878b9e3c3eea5c1135ad0f1c2ac22a24f771aa5e41cba66665be79691eefe0"
+    },
+    {
+      "path": "savia/db/migrations/V029__return_retry_safety.sql",
+      "bytes": 23115,
+      "rawSha256": "6041e3880fb4cb02c595504e394701e52408e426767c67c2b575914402b353cc",
+      "lfSha256": "6041e3880fb4cb02c595504e394701e52408e426767c67c2b575914402b353cc"
+    },
+    {
+      "path": "savia/db/tests/sales/134_credit_return_validation.sql",
+      "bytes": 8837,
+      "rawSha256": "a243bc9d3c05e9e12744a02fd31193caaf62cee9566acd748d4772d57127575c",
+      "lfSha256": "c331b7564647612297ba977ee872dc40aa625c4a6b618d6296333d98a7639fca"
+    },
+    {
+      "path": "savia/db/tests/sales/172_return_retry_safety.sql",
+      "bytes": 20807,
+      "rawSha256": "1c816dfdf60c45a8e71865222d3718f9d0ca552075fc73dddba15e11567a47ee",
+      "lfSha256": "1c816dfdf60c45a8e71865222d3718f9d0ca552075fc73dddba15e11567a47ee"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/ReturnRetrySafetyTests.cs",
+      "bytes": 9916,
+      "rawSha256": "3fe76573de23dd884534e6fb2d8414737ef2344221f70d9e319b1acceee68b37",
+      "lfSha256": "3fe76573de23dd884534e6fb2d8414737ef2344221f70d9e319b1acceee68b37"
+    },
+    {
+      "path": "savia/tests/test_return_retry_safety.py",
+      "bytes": 6498,
+      "rawSha256": "6a180e8c8d27900a203bd94c338260863dc45e157c1e351302eceff02af9a9f5",
+      "lfSha256": "6a180e8c8d27900a203bd94c338260863dc45e157c1e351302eceff02af9a9f5"
+    },
+    {
+      "path": "savia/web/app.mjs",
+      "bytes": 7869,
+      "rawSha256": "dce8a33e3e19f5941575afa257f7de21ff8bd8a9f620749ee9ee93ccc4e29c09",
+      "lfSha256": "dce8a33e3e19f5941575afa257f7de21ff8bd8a9f620749ee9ee93ccc4e29c09"
+    },
+    {
+      "path": "savia/web/api.mjs",
+      "bytes": 13384,
+      "rawSha256": "d30bf2f0bee090cb505c64a1f672cc83c253444f3878ffa6f7ee46dee45b59c6",
+      "lfSha256": "b0a2fe70bddb20de4b0745c06257bf05c9e60afd1d16611a6b1ed748133367f6"
+    },
+    {
+      "path": "savia/web/screens/return.mjs",
+      "bytes": 27875,
+      "rawSha256": "69198b30c9e16e221cc8c589ca9ebefc20b8dcfa148ab44268624f86d9f66cda",
+      "lfSha256": "69198b30c9e16e221cc8c589ca9ebefc20b8dcfa148ab44268624f86d9f66cda"
+    },
+    {
+      "path": "savia/web/screens/return-intent.mjs",
+      "bytes": 6818,
+      "rawSha256": "96f95f5c45ee6d9edf0478b78dcce20d180b379429745ebe4624c6c79c6bb049",
+      "lfSha256": "96f95f5c45ee6d9edf0478b78dcce20d180b379429745ebe4624c6c79c6bb049"
+    },
+    {
+      "path": "savia/web/screens/sale-logic.mjs",
+      "bytes": 4180,
+      "rawSha256": "ba169c19e3aa25187c4749dacde347c1c8bab32c98472aebe0b136be111138fc",
+      "lfSha256": "ba169c19e3aa25187c4749dacde347c1c8bab32c98472aebe0b136be111138fc"
+    },
+    {
+      "path": "savia/web/uuid-logic.mjs",
+      "bytes": 493,
+      "rawSha256": "8e93aa30b7239fc7576e1cb29cf991c11a1d951475b1cc56219047fa6ef97813",
+      "lfSha256": "8e93aa30b7239fc7576e1cb29cf991c11a1d951475b1cc56219047fa6ef97813"
+    },
+    {
+      "path": "savia/web/tests/uuid.test.mjs",
+      "bytes": 2484,
+      "rawSha256": "0e2bf69aeb4b95e993669984a99c6889d5b77f90b051808c6be251b5445012bd",
+      "lfSha256": "0e2bf69aeb4b95e993669984a99c6889d5b77f90b051808c6be251b5445012bd"
+    },
+    {
+      "path": "savia/web/tests/return-lifecycle.test.mjs",
+      "bytes": 31566,
+      "rawSha256": "5c50bfa6632eb9f69787c805f0f3615e6fa4537760cd04bfbb0eaee573765dba",
+      "lfSha256": "5c50bfa6632eb9f69787c805f0f3615e6fa4537760cd04bfbb0eaee573765dba"
+    },
+    {
+      "path": "tests/test_golden_path_workflow.py",
+      "bytes": 11438,
+      "rawSha256": "813d700f335162fe03476dd9a133f9b079cb739f5c3359fce295862d96c215b2",
+      "lfSha256": "813d700f335162fe03476dd9a133f9b079cb739f5c3359fce295862d96c215b2"
+    },
+    {
+      "path": "savia/web/index.html",
+      "bytes": 1204,
+      "rawSha256": "3440201f738021133edd092ef97fa70585c6845acf01adb28b7a67869fc95049",
+      "lfSha256": "3440201f738021133edd092ef97fa70585c6845acf01adb28b7a67869fc95049"
+    }
+  ],
+  "changedSincePriorReview": [
+    "savia/web/app.mjs",
+    "savia/web/tests/return-lifecycle.test.mjs",
+    "savia/web/index.html"
+  ],
+  "checks": [
+    {
+      "command": "node --test savia/web/tests/*.test.mjs",
+      "passed": 118,
+      "failed": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "exit": 0,
+      "durationMs": 522.301,
+      "evidence": "web-tests.txt",
+      "rawPrivateLogSha256": "53dc175bd8fe17c819bbb2aaadd0ca65501f8dc2c4638452330bc5ada7dbbc13"
+    },
+    {
+      "command": "node --check savia/web/app.mjs",
+      "exit": 0
+    },
+    {
+      "command": "node --check savia/web/tests/return-lifecycle.test.mjs",
+      "exit": 0
+    },
+    {
+      "command": "git diff --check",
+      "exit": 0
+    }
+  ],
+  "browser": {
+    "mode": "T3 integrated preview, actual app login/logout/router, fictional HTTP",
+    "before": {
+      "passed": 11,
+      "failed": 4
+    },
+    "sameDocumentAttempt": {
+      "passed": 11,
+      "failed": 4,
+      "cause": "hash-only navigation retained old document and reporter"
+    },
+    "desktop": {
+      "passed": 15,
+      "failed": 0,
+      "viewport": {
+        "width": 1280,
+        "height": 800,
+        "dpr": 1.25
+      }
+    },
+    "mobileCssViewport": {
+      "passed": 15,
+      "failed": 0,
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "dpr": 1.25
+      }
+    },
+    "servedRawBindingsVerified": 48,
+    "instrumentation": "Server appends export {ctx as __probeCtx}; controlled cleanup invokes actual API and reporter; return-screen retirement wiring covered separately offline.",
+    "cleanup": "Owned tab closed. Verified node.exe server PID stopped; loopback port 50532 listener absence read back."
+  },
+  "limits": [
+    "Fake HTTP; no SQL/API persistence",
+    "Invalid pending sentinel proves byte preservation only",
+    "No physical device, touch or accessibility certification",
+    "No console-error instrumentation; recordings retained but not fully analyzed",
+    "Warning persists within current document; reload persistence not implemented",
+    "Fresh independent acceptance, Linux aggregate/CI and real SQL journey pending",
+    "No new commit/push/runtime/merge/deploy authority consumed"
+  ],
+  "artifactBindings": [
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/after-desktop.json",
+      "bytes": 2502,
+      "rawSha256": "7b9981abb7f15036fe54ed7675d4efa22e9df8979146fa78d6e1d4bc1e996e60",
+      "lfSha256": "7b9981abb7f15036fe54ed7675d4efa22e9df8979146fa78d6e1d4bc1e996e60"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/after-desktop.mp4",
+      "bytes": 94238,
+      "rawSha256": "deec00fd88b39124441c9fd277c01654fe96f7a439815adbe3a8f363be7c4766",
+      "lfSha256": "deec00fd88b39124441c9fd277c01654fe96f7a439815adbe3a8f363be7c4766"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/after-desktop.png",
+      "bytes": 33208,
+      "rawSha256": "2e789e48806017d5792d724b091a784384e464a11df3f5d63f83b752457730bb",
+      "lfSha256": "76b7a2f6005982a26107e7d896b8634d7653a03f245345f2e55b1f86f2e3ac4d"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/after-mobile.json",
+      "bytes": 2501,
+      "rawSha256": "d2028e0050bbb0ed29a4281107a94ad9316a2ab23c60f341b681ed5a73272324",
+      "lfSha256": "d2028e0050bbb0ed29a4281107a94ad9316a2ab23c60f341b681ed5a73272324"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/after-mobile.mp4",
+      "bytes": 85572,
+      "rawSha256": "8c00af10ab1b85ca6e87256d8a5d5b265eeb1598b1aeb40a8bc2ec57cc7b8325",
+      "lfSha256": "b9abc419fb412a0605559e97001c250855ee2012efe7ec22532fbef0a862c994"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/after-mobile.png",
+      "bytes": 29968,
+      "rawSha256": "ff68974ed80cf6da062b53b0f53b79a263f76de1a861bf8d8072faac81602dca",
+      "lfSha256": "8fb1e8cea38ac5e403bb86aa3fcd84c7e8993a44205da11263c6d1b1b7a686b8"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/before-app.mjs",
+      "bytes": 7838,
+      "rawSha256": "09d362dac9be0de1f726f8643a480c4545dd95a18f85edfae1497d41571c33d1",
+      "lfSha256": "09d362dac9be0de1f726f8643a480c4545dd95a18f85edfae1497d41571c33d1"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/before-desktop.mp4",
+      "bytes": 92240,
+      "rawSha256": "409d59bd2f39914c4ca4196315f9b1565ff4c0b98714988f4a86b6a51543d2e3",
+      "lfSha256": "172a6d751b190ab0fc6692f3c5da33baa33d4b4c197f0def278005e725119db8"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/before-index.html",
+      "bytes": 1119,
+      "rawSha256": "6880731dc0f05fbeb3924189d5d619c26aa5608720576e016939e8b68da3e026",
+      "lfSha256": "6880731dc0f05fbeb3924189d5d619c26aa5608720576e016939e8b68da3e026"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/before.json",
+      "bytes": 1979,
+      "rawSha256": "b52cbb46713cd56adc2cc1ca7905ecb48fc25c8ad86d94c165747a2b00de89ef",
+      "lfSha256": "b52cbb46713cd56adc2cc1ca7905ecb48fc25c8ad86d94c165747a2b00de89ef"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/browser-environment.json",
+      "bytes": 461,
+      "rawSha256": "b5e727b6386290fe483eec6f6532cee44549eda06459394d7f46cc9393b535e6",
+      "lfSha256": "b5e727b6386290fe483eec6f6532cee44549eda06459394d7f46cc9393b535e6"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/probe.mjs",
+      "bytes": 4284,
+      "rawSha256": "f4756fd6f20c18f79647566cbab8254cf2b94dd53adec0ba600e1b6cffe7eb72",
+      "lfSha256": "f4756fd6f20c18f79647566cbab8254cf2b94dd53adec0ba600e1b6cffe7eb72"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/README.md",
+      "bytes": 4494,
+      "rawSha256": "0b2253bc346506ead87776c2e926a743e86478d4653973d68b848b7d6cb33286",
+      "lfSha256": "0b2253bc346506ead87776c2e926a743e86478d4653973d68b848b7d6cb33286"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/same-document-attempt.json",
+      "bytes": 2502,
+      "rawSha256": "40b6f9432d4f538b7043b0426fc0efe8dfedea67d5316a66d5ef0af67f30a17f",
+      "lfSha256": "40b6f9432d4f538b7043b0426fc0efe8dfedea67d5316a66d5ef0af67f30a17f"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/served-final.json",
+      "bytes": 8379,
+      "rawSha256": "2a84fa1e06ecde26a26ce568dde14b078c5c1723e1dcebd87e9a42b7f260f648",
+      "lfSha256": "2a84fa1e06ecde26a26ce568dde14b078c5c1723e1dcebd87e9a42b7f260f648"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/server.mjs",
+      "bytes": 3446,
+      "rawSha256": "e1ffaaa56de006a721320d5fb9e9bb8807c2b4823fe5d30aa7c91d095234f35a",
+      "lfSha256": "e1ffaaa56de006a721320d5fb9e9bb8807c2b4823fe5d30aa7c91d095234f35a"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/final-combined/lifecycle-correction/notice-visibility/web-tests.txt",
+      "bytes": 9784,
+      "rawSha256": "2fa2657d62f75a3236f499e4c0983f022a30cdf7e51fad502d406e69775fdb28",
+      "lfSha256": "2fa2657d62f75a3236f499e4c0983f022a30cdf7e51fad502d406e69775fdb28"
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "calls": [
+    {
+      "authorization": null,
+      "method": "POST",
+      "path": "/api/v1/auth/login"
+    },
+    {
+      "authorization": "Bearer fictional-manager",
+      "method": "GET",
+      "path": "/api/v1/me"
+    },
+    {
+      "authorization": "Bearer fictional-manager",
+      "method": "GET",
+      "path": "/api/v1/cash/registers"
+    },
+    {
+      "authorization": "Bearer fictional-manager",
+      "method": "GET",
+      "path": "/api/v1/exchange-rate"
+    },
+    {
+      "authorization": "Bearer fictional-approval",
+      "method": "POST",
+      "path": "/api/v1/auth/logout"
+    },
+    {
+      "authorization": "Bearer fictional-manager",
+      "method": "POST",
+      "path": "/api/v1/auth/logout"
+    },
+    {
+      "authorization": null,
+      "method": "POST",
+      "path": "/api/v1/auth/login"
+    },
+    {
+      "authorization": "Bearer fictional-seller",
+      "method": "GET",
+      "path": "/api/v1/me"
+    }
+  ],
+  "checks": [
+    {
+      "name": "warning-visible-after-real-logout",
+      "status": "FAIL"
+    },
+    {
+      "name": "warning-exact-non-private-text",
+      "status": "PASS"
+    },
+    {
+      "name": "warning-has-live-status",
+      "status": "PASS"
+    },
+    {
+      "name": "private-shell-hidden",
+      "status": "PASS"
+    },
+    {
+      "name": "private-notice-and-actor-not-visible",
+      "status": "PASS"
+    },
+    {
+      "name": "warning-survives-logged-out-navigation",
+      "status": "FAIL"
+    },
+    {
+      "name": "warning-survives-different-account-login",
+      "status": "FAIL"
+    },
+    {
+      "name": "new-account-shown",
+      "status": "PASS"
+    },
+    {
+      "name": "old-private-notice-cleared",
+      "status": "PASS"
+    },
+    {
+      "name": "warning-survives-next-route",
+      "status": "FAIL"
+    },
+    {
+      "name": "pending-reference-byte-identical",
+      "status": "PASS"
+    },
+    {
+      "name": "exactly-one-approval-cleanup",
+      "status": "PASS"
+    },
+    {
+      "name": "exactly-one-user-logout",
+      "status": "PASS"
+    },
+    {
+      "name": "no-sale-or-return-post",
+      "status": "PASS"
+    },
+    {
+      "name": "no-horizontal-overflow",
+      "status": "PASS"
+    }
+  ],
+  "failed": 4,
+  "instrumentation": "Only export {ctx as __probeCtx} appended to served app.mjs. Actual index, CSS, router, login, logout and API. Controlled cleanup call; return unmount wiring verified separately.",
+  "passed": 11,
+  "viewport": {
+    "dpr": 1.25,
+    "height": 800,
+    "width": 1280
+  }
+}

@@ -1,0 +1,16 @@
+ScanId                               ItemId                               MatchStatus      Quantity   
+------------------------------------ ------------------------------------ ---------------- -----------
+D33943B9-EF65-49BE-8D2E-B35C2556EEBC 7E6F3273-086E-4F63-9433-48CA924104A5 matched                    1
+Id                                   ItemId                               MatchStatus      Quantity   
+------------------------------------ ------------------------------------ ---------------- -----------
+D33943B9-EF65-49BE-8D2E-B35C2556EEBC 7E6F3273-086E-4F63-9433-48CA924104A5 matched                    1
+ScanId                               ItemId                               MatchStatus      Quantity   
+------------------------------------ ------------------------------------ ---------------- -----------
+8A7097CC-82AA-4A68-AF89-1448D5623F91 7E6F3273-086E-4F63-9433-48CA924104A5 matched                    1
+ScanId                               ItemId                               MatchStatus      Quantity   
+------------------------------------ ------------------------------------ ---------------- -----------
+FF7907FA-C5F9-4EC8-9700-E43C429742D1 7E6F3273-086E-4F63-9433-48CA924104A5 matched                    1
+Result                                     ScanEvents  LabelJobs   Sales       AcceptedTransfers CloseReports
+------------------------------------------ ----------- ----------- ----------- ----------------- ------------
+QA STATIC SMOKE CASES COMPLETED — ROLLBACK           3           1           1                 1            1
+SAVIA: prueba revertida sin persistir datos.

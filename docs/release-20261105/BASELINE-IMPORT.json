@@ -1,0 +1,151 @@
+{
+  "source_sha": "6f304a7571a554bb8968e081a14985829aee3dfb",
+  "policy": "raw_sha256 describes original and import filesystem bytes; lf_sha256 normalizes only CRLF to LF for portable text publication. No execution is attributed to normalized bytes.",
+  "files": [
+    {
+      "path": "docs/release-20261105/browser-baseline/driver.mjs",
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-f0b6371f\\docs\\release-20261105\\browser-baseline\\driver.mjs",
+      "raw_sha256": "7353a4f88e2451e10f57082147aea4000a9acaaaae290f5ac8fff98c308935d2",
+      "lf_sha256": "7353a4f88e2451e10f57082147aea4000a9acaaaae290f5ac8fff98c308935d2",
+      "bytes": 12598
+    },
+    {
+      "path": "docs/release-20261105/browser-baseline/README.md",
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-f0b6371f\\docs\\release-20261105\\browser-baseline\\README.md",
+      "raw_sha256": "d25360fb3915416d679c3d66211f235c9ad0052c819f9aeaba03688199769ef4",
+      "lf_sha256": "d25360fb3915416d679c3d66211f235c9ad0052c819f9aeaba03688199769ef4",
+      "bytes": 6585
+    },
+    {
+      "path": "docs/release-20261105/browser-baseline/RESULT.json",
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-f0b6371f\\docs\\release-20261105\\browser-baseline\\RESULT.json",
+      "raw_sha256": "8661fd232dfbc82df0ed9b58be634574503b7e9d0d74d52e8708b8514e8141d8",
+      "lf_sha256": "8661fd232dfbc82df0ed9b58be634574503b7e9d0d74d52e8708b8514e8141d8",
+      "bytes": 500232
+    },
+    {
+      "path": "docs/release-20261105/browser-baseline/source-manifest.json",
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-f0b6371f\\docs\\release-20261105\\browser-baseline\\source-manifest.json",
+      "raw_sha256": "aa0f687ecc7f17d8a3faebde2598b7ffb676ae6ee905913f51f463fe982f2b7a",
+      "lf_sha256": "aa0f687ecc7f17d8a3faebde2598b7ffb676ae6ee905913f51f463fe982f2b7a",
+      "bytes": 472313
+    },
+    {
+      "path": "docs/release-20261105/browser-baseline/summarize.mjs",
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-f0b6371f\\docs\\release-20261105\\browser-baseline\\summarize.mjs",
+      "raw_sha256": "157f00ff1a5b7d17b9f99c18923398666804b92d856b92782097a62e74c7c3dd",
+      "lf_sha256": "157f00ff1a5b7d17b9f99c18923398666804b92d856b92782097a62e74c7c3dd",
+      "bytes": 5992
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/admin-20261105/ACCEPTANCE.md",
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-83ae6eec\\docs\\synthetic-replacement-20261104\\admin-20261105\\ACCEPTANCE.md",
+      "raw_sha256": "c771b279802d00aff2552b9232598247aa4aff14d1151e6b71490fcebd9cf744",
+      "lf_sha256": "c771b279802d00aff2552b9232598247aa4aff14d1151e6b71490fcebd9cf744",
+      "bytes": 1773
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/admin-20261105/MATRIX.json",
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-83ae6eec\\docs\\synthetic-replacement-20261104\\admin-20261105\\MATRIX.json",
+      "raw_sha256": "345edff5b5d7ca1a8f999580e225fde890f2a5b61aee590d95727b8caac32d0a",
+      "lf_sha256": "ff9782314c9a4f617fa6f92e1527f5ee9f9b06fa4965c7352e122b4beadeae33",
+      "bytes": 7344
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/admin-20261105/oracle.py",
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-83ae6eec\\docs\\synthetic-replacement-20261104\\admin-20261105\\oracle.py",
+      "raw_sha256": "361b0a2f7015dfe26064fc7acc4a39fd6fad410b3a1487a34282e89221fcf41f",
+      "lf_sha256": "361b0a2f7015dfe26064fc7acc4a39fd6fad410b3a1487a34282e89221fcf41f",
+      "bytes": 6505
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/admin-20261105/README.md",
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-83ae6eec\\docs\\synthetic-replacement-20261104\\admin-20261105\\README.md",
+      "raw_sha256": "ef8ad4577f21e69334b75046f68f22df7b0531085e73105bad8f4ddb875ae587",
+      "lf_sha256": "ef8ad4577f21e69334b75046f68f22df7b0531085e73105bad8f4ddb875ae587",
+      "bytes": 9742
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/admin-20261105/RECEIPT.json",
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-83ae6eec\\docs\\synthetic-replacement-20261104\\admin-20261105\\RECEIPT.json",
+      "raw_sha256": "62d64874d5aecea5eee53080ec1a8e9352b2ed000362442da43542add947612a",
+      "lf_sha256": "ace2d3ea3702a6d06ff6e681d7ab10245ce0f49c9cb5808d53b354379d712c06",
+      "bytes": 3450
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/admin-20261105/simulate_admin.py",
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-83ae6eec\\docs\\synthetic-replacement-20261104\\admin-20261105\\simulate_admin.py",
+      "raw_sha256": "f2da5a68eda8ca0e2a31705b3a36e0e6b9d33aa2947055c425b43c6d877281f9",
+      "lf_sha256": "f2da5a68eda8ca0e2a31705b3a36e0e6b9d33aa2947055c425b43c6d877281f9",
+      "bytes": 19389
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/admin-20261105/run-01/RESULT.json",
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-83ae6eec\\docs\\synthetic-replacement-20261104\\admin-20261105\\run-01\\RESULT.json",
+      "raw_sha256": "94e043968ca4c951967e44ee8a09a6eeed7f6a2f98138292b679cf49eccbc9d3",
+      "lf_sha256": "4978b500537bd7d8b933379ef0ebc5e64370507e226b86cc8c6446564d76849e",
+      "bytes": 3024
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/admin-20261105/run-02/altered_stock.json",
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-83ae6eec\\docs\\synthetic-replacement-20261104\\admin-20261105\\run-02\\altered_stock.json",
+      "raw_sha256": "d94751a74c8e52f03b58157bd32a34c4f8221439c05f3b5f1898dba648b27c31",
+      "lf_sha256": "c0b7a7e18eb79f973e5af852884b3164689b8cae39d8094fc79bb684bcca0257",
+      "bytes": 3735
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/admin-20261105/run-02/baseline-normal.json",
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-83ae6eec\\docs\\synthetic-replacement-20261104\\admin-20261105\\run-02\\baseline-normal.json",
+      "raw_sha256": "6670c17fe65bc6def9658770903622b9a865f207dc0a6c8a6f9af918030038ca",
+      "lf_sha256": "1dfa05a8ec3617a4d4302e51290eaee381d3294dbad4aef0ab65502527735339",
+      "bytes": 3734
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/admin-20261105/run-02/duplicate_cash_collection.json",
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-83ae6eec\\docs\\synthetic-replacement-20261104\\admin-20261105\\run-02\\duplicate_cash_collection.json",
+      "raw_sha256": "38654c4629ba8d7baff648fba6bc13f18b6b3be48b840b670b13c07bfe2ebc61",
+      "lf_sha256": "a5314801fcf4e7c07276c0ce8173aaae30a0cdccf75df7b90db4868c604de416",
+      "bytes": 3734
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/admin-20261105/run-02/omitted_event.json",
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-83ae6eec\\docs\\synthetic-replacement-20261104\\admin-20261105\\run-02\\omitted_event.json",
+      "raw_sha256": "c0f5f4d8196b1fdcbf610ce03535790fa0cd032f6094d880ba4a5f4332e347c4",
+      "lf_sha256": "5f01705be51e5683a904ab5117f8456dea0775fc2aab5717fe5689ecf8f439b4",
+      "bytes": 3315
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/admin-20261105/run-02/restored-normal.json",
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-83ae6eec\\docs\\synthetic-replacement-20261104\\admin-20261105\\run-02\\restored-normal.json",
+      "raw_sha256": "6670c17fe65bc6def9658770903622b9a865f207dc0a6c8a6f9af918030038ca",
+      "lf_sha256": "1dfa05a8ec3617a4d4302e51290eaee381d3294dbad4aef0ab65502527735339",
+      "bytes": 3734
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/admin-20261105/run-02/RESULT.json",
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-83ae6eec\\docs\\synthetic-replacement-20261104\\admin-20261105\\run-02\\RESULT.json",
+      "raw_sha256": "aed4e33898bc844536aeb8e4b8b1abd5d51de9c10a00e960377ee5efdfb9e98e",
+      "lf_sha256": "7eb2a2ec5af4df2d0dfcf38c4331a438eb31876015d65786ac63e2ecfa57f78d",
+      "bytes": 334794
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/admin-20261105/run-02/silent_balance.json",
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-83ae6eec\\docs\\synthetic-replacement-20261104\\admin-20261105\\run-02\\silent_balance.json",
+      "raw_sha256": "189c455f8dcb4aa933c875257deb39f18d87b673611e54a60bc38252f04adf9c",
+      "lf_sha256": "943f34df302c37790738dbd3806dd33c7fee997bf4709b4c15ad480dcf779e6c",
+      "bytes": 3731
+    },
+    {
+      "path": "docs/synthetic-replacement-20261104/admin-20261105/run-02/unauthorized_close.json",
+      "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-83ae6eec\\docs\\synthetic-replacement-20261104\\admin-20261105\\run-02\\unauthorized_close.json",
+      "raw_sha256": "63d317de7c2158648547196b2230c2dc1ae0f6ea450dac82bfe3db93b54714ef",
+      "lf_sha256": "62cc7ebcef07e10b28363c557e1dd7287a98a617208f9fee84ce22fbdd02bdfa",
+      "bytes": 3733
+    }
+  ],
+  "excluded": [
+    "private browser raw observations/server log: only paths and hashes referenced",
+    "credentials, profiles, snapshots, logs, conversations, backups"
+  ],
+  "acceptance": "Primary inspection only; administrative independent critic and judge pending; no product or production acceptance"
+}

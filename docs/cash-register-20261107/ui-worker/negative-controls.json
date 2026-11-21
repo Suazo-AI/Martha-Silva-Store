@@ -1,0 +1,54 @@
+{
+  "results": [
+    {
+      "name": "disabled-custodian",
+      "command": [
+        "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+        "test",
+        "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName~InternalCashReadTests.Excludes_ineligible_paying_tills",
+        "--logger",
+        "trx;LogFileName=negative-disabled-custodian.trx",
+        "--results-directory",
+        "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-ba806449\\docs\\cash-register-20261107\\ui-worker\\test-results"
+      ],
+      "exit": 1
+    },
+    {
+      "name": "recorded-exponent",
+      "command": [
+        "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+        "test",
+        "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName~InternalCashReadTests.Excludes_ineligible_paying_tills",
+        "--logger",
+        "trx;LogFileName=negative-recorded-exponent.trx",
+        "--results-directory",
+        "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-ba806449\\docs\\cash-register-20261107\\ui-worker\\test-results"
+      ],
+      "exit": 1
+    },
+    {
+      "name": "active-branch",
+      "command": [
+        "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+        "test",
+        "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName~InternalCashReadTests.Excludes_ineligible_paying_tills",
+        "--logger",
+        "trx;LogFileName=negative-active-branch.trx",
+        "--results-directory",
+        "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-ba806449\\docs\\cash-register-20261107\\ui-worker\\test-results"
+      ],
+      "exit": 1
+    }
+  ],
+  "sourceRestoredRawSha256": "6789de50aaa992fc6fe5c05679c81993beab0ded721e613dce55c9bfcd839e70",
+  "originalRawSha256": "6789de50aaa992fc6fe5c05679c81993beab0ded721e613dce55c9bfcd839e70"
+}

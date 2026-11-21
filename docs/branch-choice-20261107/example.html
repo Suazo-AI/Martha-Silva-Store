@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SAVIA: quién prepara el local</title>
+<style>
+/* Standalone page: SAVIA staff colors, read 2026-11-07. The inline T3 version uses its host theme. */
+body{background:#f5f4ed;color:#192d25}
+:root{font-family:var(--font-sans,system-ui,sans-serif);color:var(--foreground,#192d25);--radius:18px}
+*{box-sizing:border-box}body{margin:0}p{line-height:1.55}h2{font-size:1.15rem;margin:0 0 10px}h3{font-size:1rem;margin:0 0 8px}.intro{margin-top:0}.muted{color:var(--muted-foreground,#55645a)}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}.tabs button{min-height:44px;flex:1;min-width:140px;border:1px solid var(--border,#d6ded2);border-radius:10px;background:var(--card,#fffefa);color:inherit;padding:10px;font:inherit;cursor:pointer}.tabs button[aria-pressed=true]{background:var(--primary,#31584a);color:var(--primary-foreground,#fffefa)}button:focus-visible{outline:3px solid var(--ring,#256c62);outline-offset:3px}.pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}.box{padding:16px;border:1px solid var(--border,#d6ded2);border-radius:var(--radius);background:var(--card,#fffefa)}.box p:last-child{margin-bottom:0}.step{padding-block:12px;border-top:1px solid var(--border,#d6ded2)}.step:first-of-type{border-top:0;padding-top:0}.label{font-size:.8rem;font-weight:700;color:var(--muted-foreground,#55645a)}.same{margin-top:12px;background:var(--secondary,#edf2e8)}[hidden]{display:none!important}@media(max-width:520px){.pair{grid-template-columns:1fr}}
+</style>
+<main>
+<p class="intro"><strong>Imaginemos que mañana empezamos a usar SAVIA en una sola tienda.</strong> Martha administra, Ana cobra y Local Centro tiene 20 camisas. Todo este ejemplo es ficticio; describe lo que construiríamos y probaríamos.</p>
+<div class="tabs" role="group" aria-label="Ver un momento del negocio">
+<button type="button" data-view="setup" aria-pressed="true">1. Antes de abrir</button>
+<button type="button" data-view="day" aria-pressed="false">2. Durante el día</button>
+<button type="button" data-view="future" aria-pressed="false">3. Un segundo local</button>
+</div>
+<section id="setup">
+<div class="pair">
+<article class="box"><h2>A · Nosotros preparamos el local</h2>
+<div class="step"><span class="label">NOSOTROS</span><p>Registramos “Local Centro” mediante un procedimiento técnico con controles. No significa escribir datos a mano sin revisión.</p></div>
+<div class="step"><span class="label">COMPROBAMOS</span><p>El local queda guardado. Repetir el procedimiento no crea dos “Local Centro”. Una venta usa el local correcto.</p></div>
+<div class="step"><span class="label">MARTHA</span><p>Recibe el local preparado. No necesita aprender comandos ni preparar el local cada mañana.</p></div></article>
+<article class="box"><h2>B · Martha prepara el local</h2>
+<div class="step"><span class="label">NOSOTROS</span><p>Construimos una pantalla de configuración, sus permisos y sus controles.</p></div>
+<div class="step"><span class="label">MARTHA</span><p>Entra con su cuenta Owner, escribe “Local Centro” y pulsa “Crear local”. SAVIA revisa los datos.</p></div>
+<div class="step"><span class="label">COMPROBAMOS</span><p>Exigimos las mismas comprobaciones de A. Además, probamos errores del formulario, doble clic y acceso sin permiso.</p></div></article>
+</div>
+<div class="box same"><h3>La diferencia práctica</h3><p><strong>A requiere nuestra intervención para preparar el local.</strong> B le da a Martha una pantalla para hacerlo. En ambas rutas, el registro inicial debe quedar guardado.</p></div>
+</section>
+<section id="day" hidden><article class="box"><h2>Con A o B, Ana hace la misma venta</h2>
+<div class="step"><span class="label">APERTURA</span><p>Ana entra con su cuenta y abre su turno de caja con 500 córdobas.</p></div>
+<div class="step"><span class="label">VENTA</span><p>Vende una camisa por 300 córdobas. Recibe 500 y entrega 200 de vuelto.</p></div>
+<div class="step"><span class="label">RESULTADO ESPERADO</span><p>Quedan 19 camisas. La caja tiene 800 córdobas si no hubo otros movimientos. La venta identifica a Ana y a Local Centro.</p></div>
+<div class="step"><span class="label">CIERRE</span><p>Ana cuenta el dinero y cierra su turno. No vuelve a crear la sucursal.</p></div>
+<p class="muted">Estos resultados necesitan pruebas. Elegir A o B no demuestra que ya funcionen ni cambia las reglas de caja acordadas.</p></article></section>
+<section id="future" hidden><article class="box"><h2>Seis meses después: Martha abre Local Norte</h2><p>Centro tiene 19 camisas. Norte tiene 8. Ana vende una camisa en Centro.</p><p><strong>El resultado correcto sería Centro: 18; Norte: 8.</strong> La venta tampoco debe entrar en la caja de Norte.</p><p>Para operar así debemos definir y probar inventario, permisos, cajas e informes por local. Ni A ni B incluyen esa ampliación.</p><p><strong>C:</strong> varios locales desde el lanzamiento; los registramos nosotros.<br><strong>D:</strong> varios locales desde el lanzamiento; Owner los registra desde SAVIA.</p><p>Podemos elegir A ahora y ampliar después. Esa ampliación necesitará trabajo y pruebas propios.</p></article></section>
+<p><strong>Mi recomendación: A.</strong> Primero terminamos y probamos la tienda que vamos a usar. Elegiría B si Martha necesita preparar el primer local sin nuestra intervención.</p>
+<p class="muted">E permite ver una demostración antes de decidir. Cambiar de pestaña aquí solo cambia el ejemplo: no elige una opción ni modifica SAVIA.</p>
+</main>
+<script>
+document.querySelectorAll('[data-view]').forEach(button=>button.addEventListener('click',()=>{
+ document.querySelectorAll('[data-view]').forEach(item=>item.setAttribute('aria-pressed',String(item===button)));
+ ['setup','day','future'].forEach(id=>document.getElementById(id).hidden=id!==button.dataset.view);
+}));
+</script></html>

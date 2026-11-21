@@ -1,0 +1,199 @@
+{
+  "schema": 1,
+  "observedUtc": "2026-11-05T14:30:50.060073+00:00",
+  "host": "SUAZO-PC",
+  "baseSha": "5ab44fbb8210f3d6e98f34745700194195c0e1ce",
+  "mode": "read-only final M1 adjudication",
+  "status": "pending",
+  "canonicalRoot": "C:\\Users\\Jason\\MARTHA-SILVA\\github",
+  "workerRoot": "C:/Users/Jason/.t3/worktrees/github/t3-0dda9f02",
+  "scope": "Uncommitted primary integration is frozen for independent read-only review; no source mutations while judge runs. T3 child worktree alone does not include this overlay.",
+  "files": {
+    "docs/PROJECT-STATUS.md": {
+      "rawSha256": "ef94d3a958979ed3a04e118143634a05908839007b1ea9f76e38bbdeccd518b3",
+      "canonicalLfSha256": "ef94d3a958979ed3a04e118143634a05908839007b1ea9f76e38bbdeccd518b3",
+      "bytes": 22609
+    },
+    "docs/n5-browser-20261105/.gitattributes": {
+      "rawSha256": "9dc58049afd89dc60b24c156243f9f28361f0c34a4fa8a830106dc6189cf9bba",
+      "canonicalLfSha256": "9dc58049afd89dc60b24c156243f9f28361f0c34a4fa8a830106dc6189cf9bba",
+      "bytes": 56
+    },
+    "docs/n5-browser-20261105/EXECUTION-SUMMARY.json": {
+      "rawSha256": "99ee73b7db59709ec578c5afb6c7451c6d09d2a8572756a2cae8ec8f513fe49a",
+      "canonicalLfSha256": "99ee73b7db59709ec578c5afb6c7451c6d09d2a8572756a2cae8ec8f513fe49a",
+      "bytes": 5040
+    },
+    "docs/n5-browser-20261105/HASH-POLICY.md": {
+      "rawSha256": "a8fdfad5f45e2475e71fbdb9d5982548463a660d9659b78e45c4e65b7f8c0627",
+      "canonicalLfSha256": "a8fdfad5f45e2475e71fbdb9d5982548463a660d9659b78e45c4e65b7f8c0627",
+      "bytes": 1748
+    },
+    "docs/n5-browser-20261105/INTEGRATION.json": {
+      "rawSha256": "237dfbe0be042f2a015e7675a445ca46b80497e1ead2de684386184873e69347",
+      "canonicalLfSha256": "237dfbe0be042f2a015e7675a445ca46b80497e1ead2de684386184873e69347",
+      "bytes": 16978
+    },
+    "docs/n5-browser-20261105/PLAN.md": {
+      "rawSha256": "8ec0f9023bc365025e06eca1fc182fa342636a8e039a2de0c0d7fe75e17bf8b2",
+      "canonicalLfSha256": "8ec0f9023bc365025e06eca1fc182fa342636a8e039a2de0c0d7fe75e17bf8b2",
+      "bytes": 7293
+    },
+    "docs/n5-browser-20261105/README.md": {
+      "rawSha256": "406bb17dfb49a46dce3094d2a2b62dafef75f8d50f3f75abc4d6eac6ce2c5336",
+      "canonicalLfSha256": "406bb17dfb49a46dce3094d2a2b62dafef75f8d50f3f75abc4d6eac6ce2c5336",
+      "bytes": 9194
+    },
+    "docs/n5-browser-20261105/critic.md": {
+      "rawSha256": "08022af36e17cc1361e5a4edd5a0eea3a6e8119a2c4d5d539cc901da504b8fdc",
+      "canonicalLfSha256": "08022af36e17cc1361e5a4edd5a0eea3a6e8119a2c4d5d539cc901da504b8fdc",
+      "bytes": 7312
+    },
+    "docs/n5-browser-20261105/mutations/IMPORT.json": {
+      "rawSha256": "3994117e90e8e0220438aa57ceb09b9902a8ca29a3153aa2c55c366e71545015",
+      "canonicalLfSha256": "3994117e90e8e0220438aa57ceb09b9902a8ca29a3153aa2c55c366e71545015",
+      "bytes": 8767
+    },
+    "docs/n5-browser-20261105/mutations/M01.patch": {
+      "rawSha256": "4b70587d0977325b87c76a6f2d17fcb7f60c2e89c5856110fe89fe96d9d0ff73",
+      "canonicalLfSha256": "7b0f0c21488688466c8d5a95473a43110a9b5a40f04cce57b430d45e75ea81e1",
+      "bytes": 706
+    },
+    "docs/n5-browser-20261105/mutations/M01/browser-results.json": {
+      "rawSha256": "17afd905e7e4c7c0803510546d7e7de8510f7531764c9f68e4b351ad30b7ef75",
+      "canonicalLfSha256": "17afd905e7e4c7c0803510546d7e7de8510f7531764c9f68e4b351ad30b7ef75",
+      "bytes": 1937
+    },
+    "docs/n5-browser-20261105/mutations/M02.patch": {
+      "rawSha256": "d5aebcdc880d46fee4f7950f5c06cde60feb76e76637921eaa2c70351429409b",
+      "canonicalLfSha256": "6ad7dec3e0554fc735fc73116a048bfe440ebcd868738dd90f2d8d1f460bd287",
+      "bytes": 606
+    },
+    "docs/n5-browser-20261105/mutations/M02/browser-results.json": {
+      "rawSha256": "547fbc640e66ec7ac5f82887495a9d60748ad6ebf40d2767579aa8f218d9b708",
+      "canonicalLfSha256": "547fbc640e66ec7ac5f82887495a9d60748ad6ebf40d2767579aa8f218d9b708",
+      "bytes": 1274
+    },
+    "docs/n5-browser-20261105/mutations/M03.patch": {
+      "rawSha256": "9acda125e85ae675de04b4a00400ca247fc49a43d14801fe04aea603dcba4cd5",
+      "canonicalLfSha256": "2fcaa426fdb51c724236664039b10e88141d0fb3b3a199a641021744f43b8bb2",
+      "bytes": 1311
+    },
+    "docs/n5-browser-20261105/mutations/M03/browser-results.json": {
+      "rawSha256": "16e4d3ddda73ae26a59dd882c2b3cd3bb06013609015bb1e53ea7c652da7dee5",
+      "canonicalLfSha256": "16e4d3ddda73ae26a59dd882c2b3cd3bb06013609015bb1e53ea7c652da7dee5",
+      "bytes": 1297
+    },
+    "docs/n5-browser-20261105/mutations/README.md": {
+      "rawSha256": "6d6149b0227d77aedadd191baafbe65f67a9ea77d86f38cc4fe6522d346dac71",
+      "canonicalLfSha256": "6d6149b0227d77aedadd191baafbe65f67a9ea77d86f38cc4fe6522d346dac71",
+      "bytes": 3225
+    },
+    "docs/n5-browser-20261105/mutations/RESULT.json": {
+      "rawSha256": "5a4b64a2d920539479616cf007e1f68086c0a2f2ced400fc41d1cb514192d1a4",
+      "canonicalLfSha256": "7a6e231b4d56916929df916dab6df9f160bf0b1df5542351d8ba4b4853fa1bdd",
+      "bytes": 22939
+    },
+    "docs/n5-browser-20261105/mutations/baseline/browser-results.json": {
+      "rawSha256": "ec6ae9ae3e1111f8d3f3cb6001c7073e5fd69ef38654ac4e57f615f38cf8d2cd",
+      "canonicalLfSha256": "ec6ae9ae3e1111f8d3f3cb6001c7073e5fd69ef38654ac4e57f615f38cf8d2cd",
+      "bytes": 4749
+    },
+    "docs/n5-browser-20261105/mutations/baseline/stale-receipt-observation.json": {
+      "rawSha256": "003fb893b7ca07e8abc855f0ccc1505b58b31c3451b15c36ca141a7a37fe84d5",
+      "canonicalLfSha256": "003fb893b7ca07e8abc855f0ccc1505b58b31c3451b15c36ca141a7a37fe84d5",
+      "bytes": 206
+    },
+    "docs/n5-browser-20261105/mutations/baseline/stale-receipt.png": {
+      "rawSha256": "d3090e2f6e4e1b128b03136cf066075c92c5d6223e5cbf146224bad8828d660d",
+      "canonicalLfSha256": "5261aebe1fa6aa867f037958dc86bece2090ca86fd4792b60dabccbac3ba32a4",
+      "bytes": 52151
+    },
+    "docs/n5-browser-20261105/mutations/restored/browser-results.json": {
+      "rawSha256": "ef48c4167fd96ed09def4a66bfc57dcc6346e63442769b795b1f641f267240eb",
+      "canonicalLfSha256": "ef48c4167fd96ed09def4a66bfc57dcc6346e63442769b795b1f641f267240eb",
+      "bytes": 4750
+    },
+    "docs/n5-browser-20261105/mutations/restored/stale-receipt-observation.json": {
+      "rawSha256": "003fb893b7ca07e8abc855f0ccc1505b58b31c3451b15c36ca141a7a37fe84d5",
+      "canonicalLfSha256": "003fb893b7ca07e8abc855f0ccc1505b58b31c3451b15c36ca141a7a37fe84d5",
+      "bytes": 206
+    },
+    "docs/n5-browser-20261105/mutations/restored/stale-receipt.png": {
+      "rawSha256": "d3090e2f6e4e1b128b03136cf066075c92c5d6223e5cbf146224bad8828d660d",
+      "canonicalLfSha256": "5261aebe1fa6aa867f037958dc86bece2090ca86fd4792b60dabccbac3ba32a4",
+      "bytes": 52151
+    },
+    "docs/n5-browser-20261105/mutations/worker-README.md": {
+      "rawSha256": "ff2d328f422a48e108a35dcadcdb44da1d172b02f5846ed176b67b616c9eaad5",
+      "canonicalLfSha256": "ff2d328f422a48e108a35dcadcdb44da1d172b02f5846ed176b67b616c9eaad5",
+      "bytes": 6574
+    },
+    "docs/n5-browser-20261105/primary-review.md": {
+      "rawSha256": "15ac2a14f8180db55b6a51be852d07b2378ee6dc0bc681cd85cea45742621e1f",
+      "canonicalLfSha256": "15ac2a14f8180db55b6a51be852d07b2378ee6dc0bc681cd85cea45742621e1f",
+      "bytes": 12789
+    },
+    "docs/pipeline/ledger.json": {
+      "rawSha256": "6ebb7043ee5ad8d29a5e07e40aa239476cdafff453bafe9420561f799455585a",
+      "canonicalLfSha256": "6ebb7043ee5ad8d29a5e07e40aa239476cdafff453bafe9420561f799455585a",
+      "bytes": 33948
+    },
+    "tests/browser-mock-validation.mjs": {
+      "rawSha256": "88eaa468cc92bdd32ca6b066b512c6a8ebd38969cc7f332dbad9b41122269dea",
+      "canonicalLfSha256": "67fa281d2cde8adb8f7cabf6de2117176b06e6f2417a57daafc43355f1a9f144",
+      "bytes": 52124
+    },
+    "dev/savia-staff-ui/app.mjs": {
+      "rawSha256": "383c40447e91aa465cc945138699151826d7c1ad93f2f1ed041aa3dcda303309",
+      "canonicalLfSha256": "7499bfdd63ce02507a1df22867d27f78f33af04c667769652a8212676f14a092",
+      "bytes": 35651
+    },
+    "dev/savia-staff-ui/login.mjs": {
+      "rawSha256": "ac7714a22eb1e7a383ca41e3e11343472025271dcf21dc862f39cf8c386fc787",
+      "canonicalLfSha256": "139fb119d215df458f67d3cb5916dbe3bd6db8682da113297d45121c2725cf66",
+      "bytes": 11527
+    }
+  },
+  "acceptance": [
+    "Assess critic M1 against real baseline8/8,three expected semantic mutation failures,restored8/8 and exact product restoration.",
+    "Assess observation sensitivity without claiming isolated guards or all schedules.",
+    "Verify source-to-public mappings, original-vs-derived M03 patch semantics, and no false current-source/full-suite/CI claim.",
+    "Evaluate unchanged N5-COV done_when; no owner waiver or criterion rewrite.",
+    "Report material objections and requested/effective runtime settings; do not waive provider or operational limits."
+  ],
+  "notRun": [
+    "real API",
+    "SQL",
+    "devices",
+    "current overlay CI",
+    "production",
+    "operational acceptance"
+  ],
+  "primaryChecksCurrent": [
+    {
+      "command": "python tests/test_progress.py",
+      "exit": 0,
+      "passed": 23
+    },
+    {
+      "command": "python tests/test_delivery_status.py",
+      "exit": 0,
+      "passed": 24
+    },
+    {
+      "command": "python tools/delivery_status.py --check",
+      "exit": 0,
+      "validItems": 35
+    },
+    {
+      "command": "python tools/export_progress.py --verify",
+      "exit": 0,
+      "preservedHashes": 15
+    },
+    {
+      "command": "git diff --cached --check",
+      "exit": 0
+    }
+  ]
+}

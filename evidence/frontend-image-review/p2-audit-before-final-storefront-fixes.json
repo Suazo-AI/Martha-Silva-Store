@@ -1,0 +1,36 @@
+{
+  "result": "APPROVED_TARGETED_SCOPE",
+  "hashes": {
+    "app": "6fbaeb2b194c3458522c1017442233c5cbe32f6ad59b493dc7d8e1ee2276ad22",
+    "css": "0ce2627a06edfee52baecba9d63f2ccdb301ab1140e03a26ada89ae5e5b2b411"
+  },
+  "checks": {
+    "error_add_stays_disabled": true,
+    "cart_focus_restored": true,
+    "cart_feedback_announced": true,
+    "distinct_size_control_names": true,
+    "checkout_step_focus_restored": true,
+    "touch_summary_44px": true,
+    "supporting_text_12px": true,
+    "hero_common_three_viewports": true,
+    "small_detail_not_upscaled": true
+  },
+  "code_review": [
+    "syncProduct blocks add/sticky add when integrationApi missing or integrationError present",
+    "cartActionFocus has connected-root and open-dialog guards; uses next remaining remove control or empty-state/close fallback",
+    "renderCheckout focuses heading only on explicit user next/back paths",
+    "Error and retry are outside details; healthy state hides both",
+    "Demo explanation still denies real SAVIA/SISFAIN connection; no new transport/backend configuration"
+  ],
+  "minor_limit": "At320x568 SISFAIN CTA bottom592 requires24px scroll; common390x844,360x640,430x932 fit. Not a new blocking finding.",
+  "evidence": [
+    "sisfain-ux-audit-final.json",
+    "hero-zoom-followup-final.json"
+  ],
+  "boundaries": [
+    "Repository source read-only",
+    "No737-image rerun or full48page review",
+    "No actual screen-reader/device or full WCAG certification",
+    "No ERP/SQL, real orders/payments, external source requests or deployment"
+  ]
+}

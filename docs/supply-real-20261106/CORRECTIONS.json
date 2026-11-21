@@ -1,0 +1,35 @@
+{
+  "base": "65ab1d942a4666321e489da1cccd6341a0f671b7",
+  "criticSha256": "b84ef4972e47c19716554e0f501e461cf68438444cc200c5151e65be573e8340",
+  "F1": {
+    "observedExit": 1,
+    "failedSupplySubtests": 14,
+    "redLog": "Observed directly by primary; no persistent red log was captured. No fabricated log hash.",
+    "fix": "Explicit allowlist of all 14 emitted supply error codes. Unknown text remains rejected as browser_protocol_invalid.",
+    "green": {
+      "command": [
+        "python",
+        "tests/test_golden_path_browser_safety.py"
+      ],
+      "exit": 0,
+      "seconds": 1.094,
+      "privateLog": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\checks\\check-9.log",
+      "sha256": "f9604bddab7d698631e98501d1a300d5facd5963c7955d1cb2b56f1dc353a672",
+      "tail": [
+        "........................",
+        "----------------------------------------------------------------------",
+        "Ran 24 tests in 0.678s",
+        "",
+        "OK"
+      ]
+    },
+    "redTest": "BrowserSafetyTests.test_supply_child_errors_keep_safe_codes_and_reject_unknown_text",
+    "invocationLimit": "Exact initial invocation and persistent red log were not retained; primary directly observed exit 1 and fourteen failing subtests."
+  },
+  "F2": {
+    "fix": "Restore UTF-8 accents in target README section and replace stray Inventory with de inventario.",
+    "check": "No ASCII question marks remain in the target section."
+  },
+  "F3F4": "Low, non-blocking redundancy and Markdown precision remain declared. No source/runtime claim expanded.",
+  "runtime": "Browser to real API to SQL: NOT RUN; no new authorization consumed."
+}

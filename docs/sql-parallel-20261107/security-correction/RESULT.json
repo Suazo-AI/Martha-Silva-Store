@@ -1,0 +1,195 @@
+{
+  "base": "0bda22a6cadd0deecc635c9a9649dd100bc1e96b",
+  "originalSqlSource": "f9ffa452bae7fc11a4a578ce24b57ecb72add139",
+  "host": "SUAZO-PC",
+  "harness": "T3 Code/Codex",
+  "model": "gpt-6.1-sol",
+  "reasoningRequested": "xhigh",
+  "reasoningExposed": "xhigh",
+  "status": "CANDIDATE; independent review pending",
+  "sourceBindings": [
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalBranchScopeSqlTests.cs",
+      "rawSha256": "b9430130e1cbec3798951423ed64113beac27ab63e3d77c38a41c8c779948666",
+      "lfSha256": "6629a8a01e0ac68fe7bd328418cde1de1b814cfe8846100f0327d6041f942ed7"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCashSchemaOracle.cs",
+      "rawSha256": "230a1056916c2f84323adbb5b9f55becc67122748585f1c6d146c018f9f3faf8",
+      "lfSha256": "27022861a994414e5b7632b21fc124f61e0f656d559f8cc437d924b4cdaea513"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCashSchemaOracleTests.cs",
+      "rawSha256": "dc3ba33d63acbfabbbdcfc1d3a66739d13881d2f76c3624298a50c20e24c24b5",
+      "lfSha256": "26bbf45512883a3c20561655ada327289b26696838bceba90d0cfd02cf5e7c4c"
+    },
+    {
+      "path": "backend/tests/fixtures/cash-checks.sqlserver2022.json",
+      "rawSha256": "365275ce58783553af53398c54974c93542860f2dfde116aa3bc1d1dc78344e6",
+      "lfSha256": "fbd9527e6e8abfd09228aa0c82de70fe18b8065d0712410a12aaf554a26ea74e"
+    }
+  ],
+  "checks": [
+    {
+      "command": [
+        "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+        "test",
+        "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName~InternalCashSchemaOracleTests|FullyQualifiedName~Operations_host_materializes_all_private_routes_without_sql",
+        "--logger",
+        "trx;LogFileName=red.trx",
+        "--results-directory",
+        "C:\\Users\\Jason\\MARTHA-SILVA\\github\\private-exports\\sql-security-primary-20261107"
+      ],
+      "exit": 1,
+      "seconds": 30.953,
+      "clearedVariables": [],
+      "SQL": "NOT RUN",
+      "outcomes": {
+        "Failed": 6,
+        "Passed": 28
+      },
+      "artifacts": [
+        {
+          "path": "private-exports\\sql-security-primary-20261107\\red.log",
+          "rawSha256": "3d094a2508179a5e5fea5fbc29bd8e44d29653eaebebb1635b6bbbd053966443"
+        },
+        {
+          "path": "private-exports\\sql-security-primary-20261107\\red.trx",
+          "rawSha256": "d0a9bdb32f011a410cd8304d3759f06bf6456f3c91f8bd79c967fbdee8543c66"
+        }
+      ]
+    },
+    {
+      "command": [
+        "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+        "test",
+        "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName~InternalCashSchemaOracleTests|FullyQualifiedName~Operations_host_materializes_all_private_routes_without_sql",
+        "--logger",
+        "trx;LogFileName=green.trx",
+        "--results-directory",
+        "C:\\Users\\Jason\\MARTHA-SILVA\\github\\private-exports\\sql-security-primary-20261107"
+      ],
+      "exit": 0,
+      "seconds": 20.406,
+      "clearedVariables": [],
+      "SQL": "NOT RUN",
+      "outcomes": {
+        "Passed": 34
+      },
+      "artifacts": [
+        {
+          "path": "private-exports\\sql-security-primary-20261107\\green.log",
+          "rawSha256": "f3f6f850aafca78c1ed0405300ac792e07010b0dd401524debaa5dd5907885f6"
+        },
+        {
+          "path": "private-exports\\sql-security-primary-20261107\\green.trx",
+          "rawSha256": "c820ce7c23b70052dbaa5237b12bb558a51df1280f0a45736d03a3bd487109be"
+        }
+      ]
+    },
+    {
+      "command": [
+        "C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe",
+        "test",
+        "backend/tests/Martha.Store.Api.Tests/Martha.Store.Api.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "--filter",
+        "Category!=SqlServer",
+        "--logger",
+        "trx;LogFileName=offline.trx",
+        "--results-directory",
+        "C:\\Users\\Jason\\MARTHA-SILVA\\github\\private-exports\\sql-security-primary-20261107"
+      ],
+      "exit": 0,
+      "seconds": 49.141,
+      "clearedVariables": [],
+      "SQL": "NOT RUN",
+      "outcomes": {
+        "Passed": 641,
+        "NotExecuted": 67
+      },
+      "artifacts": [
+        {
+          "path": "private-exports\\sql-security-primary-20261107\\offline.log",
+          "rawSha256": "4da483fdddd81552812e5894f8f945d00c0ef58d2ee76bbd40550c4856c0b5de"
+        },
+        {
+          "path": "private-exports\\sql-security-primary-20261107\\offline.trx",
+          "rawSha256": "343d6654a04d9cc3747c83435040eab14a4f176334bc6a032a619ac78d014fb5"
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "SQL rerun NOT RUN",
+    "Backup/restore NOT REACHED",
+    "Restart NOT RUN",
+    "Production NO-GO"
+  ],
+  "privateEvidence": "private-exports/sql-security-primary-20261107/",
+  "tokensCost": "unknown",
+  "integrationChecks": [
+    {
+      "command": [
+        "python",
+        "tests/check.py"
+      ],
+      "exit": 0,
+      "seconds": 264.094,
+      "log": "private-exports/sql-security-primary-20261107/repository.log",
+      "rawSha256": "4fc84d54e3885a300357336906577df09b1e2ef3bd789eebf51f3cd1ffb937f4"
+    },
+    {
+      "command": [
+        "python",
+        "tests/test_progress.py"
+      ],
+      "exit": 0,
+      "seconds": 84.265,
+      "log": "private-exports/sql-security-primary-20261107/progress.log",
+      "rawSha256": "c3ade13d4e6d606a93f57833d4accdbaaf04b940827f7a48c9d5f5fc18f791e3"
+    }
+  ],
+  "additionalChecks": [
+    {
+      "command": "python tools/export_progress.py --verify",
+      "exit": 0,
+      "result": "15 preserved hashes"
+    },
+    {
+      "command": "python tools/delivery_status.py --check",
+      "exit": 0,
+      "result": "valid; 40 items"
+    },
+    {
+      "command": "git diff --check",
+      "exit": 0
+    },
+    {
+      "command": "git diff --exit-code HEAD -- backend/src src dev build-inputs dist",
+      "exit": 0
+    }
+  ],
+  "parentCi": {
+    "head": "0bda22a6cadd0deecc635c9a9649dd100bc1e96b",
+    "run": 42428075026,
+    "conclusion": "success",
+    "jobs": {
+      "integrity": "success",
+      "historical-regressions": "success"
+    },
+    "limit": "parent CI only"
+  }
+}

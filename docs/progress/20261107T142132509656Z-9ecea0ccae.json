@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-07T14:21:32.509656+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/completion-20261107/README.md",
+      "change": "M",
+      "git_blob": "9f8d5c69ae4cd57a546d4f7751db1d0bbc31d456"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "change": "M",
+      "git_blob": "6f3f19aead94540b3173c3fc1d4d09bad7d4e8d9"
+    },
+    {
+      "path": "docs/session-csrf-20261107/README.md",
+      "change": "A",
+      "git_blob": "f14a6e3182fd80bb0f3bbfc4089a19d7dea89673"
+    },
+    {
+      "path": "docs/session-csrf-20261107/astra-preimplementation.md",
+      "change": "A",
+      "git_blob": "f72322a76e6db3a4949ce4dfc8770e1db02f5e84"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

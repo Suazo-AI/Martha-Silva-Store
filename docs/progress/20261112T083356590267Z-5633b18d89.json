@@ -1,0 +1,225 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-12T08:33:56.590267+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/db/tests/catalog/100_register_product_normal_and_retry.sql",
+      "change": "A",
+      "git_blob": "2bbc0a917b7509576b7a233167491e194b2bf949"
+    },
+    {
+      "path": "savia/db/tests/catalog/101_register_product_errors.sql",
+      "change": "A",
+      "git_blob": "ad24278625eb5365f18359da83dfc7e91509d233"
+    },
+    {
+      "path": "savia/db/tests/catalog/110_register_item_normal_and_retry.sql",
+      "change": "A",
+      "git_blob": "1952162e2964463185198b82e4c2fbc5e6ed0976"
+    },
+    {
+      "path": "savia/db/tests/catalog/111_register_item_errors.sql",
+      "change": "A",
+      "git_blob": "a04f5d1c2c0a165b8a93cde5e379ff4d7d9f1758"
+    },
+    {
+      "path": "savia/db/tests/catalog/120_change_price_normal_and_retry.sql",
+      "change": "A",
+      "git_blob": "0d44c11c6d956a97187df9c6251deef81c39cb34"
+    },
+    {
+      "path": "savia/db/tests/catalog/121_change_price_errors.sql",
+      "change": "A",
+      "git_blob": "5257d574ba5b632c16b1f1d99abb67fc82413390"
+    },
+    {
+      "path": "savia/db/tests/catalog/130_activate_item_normal_and_retry.sql",
+      "change": "A",
+      "git_blob": "d1535fdbf3cbf900e06a17ce0068e9444f8a9337"
+    },
+    {
+      "path": "savia/db/tests/catalog/131_activate_item_errors.sql",
+      "change": "A",
+      "git_blob": "f0cf5f8fe0a68a743c767b283ee7f0a0883acaf7"
+    },
+    {
+      "path": "savia/db/tests/catalog/140_lookup_by_scan.sql",
+      "change": "A",
+      "git_blob": "69285ebae4742502bc01afca3b8790bc148ca7f9"
+    },
+    {
+      "path": "savia/db/tests/catalog/141_register_item_duplicate_sku.sql",
+      "change": "A",
+      "git_blob": "e018e6500be735cfb8791b86c3acb3529759db02"
+    },
+    {
+      "path": "savia/db/tests/catalog/142_activate_item_price_history.sql",
+      "change": "A",
+      "git_blob": "7603def2e7a0c627a6b8487c456780780599b2c8"
+    },
+    {
+      "path": "savia/db/tests/inventory/100_apply_movement_normal_and_retry.sql",
+      "change": "A",
+      "git_blob": "e8acabac43df3db73f4e456bcdd743d9fd2ffa20"
+    },
+    {
+      "path": "savia/db/tests/inventory/101_apply_movement_errors.sql",
+      "change": "A",
+      "git_blob": "da56b6f19c0006325a308ded444b598478f576b1"
+    },
+    {
+      "path": "savia/db/tests/inventory/110_post_adjustment_normal_and_retry.sql",
+      "change": "A",
+      "git_blob": "b729a90f78ff4740f55add8e7ae8de1dcc2e0190"
+    },
+    {
+      "path": "savia/db/tests/inventory/111_post_adjustment_errors.sql",
+      "change": "A",
+      "git_blob": "77bc510a55d47efc939af3a9ff77843635ba81cd"
+    },
+    {
+      "path": "savia/db/tests/inventory/112_post_adjustment_approver_branch_access.sql",
+      "change": "A",
+      "git_blob": "4da7a62d54ad352400d2388313583e87358e7c01"
+    },
+    {
+      "path": "savia/db/tests/inventory/120_release_quarantine_normal_and_retry.sql",
+      "change": "A",
+      "git_blob": "15e70033b13abee9fc5f53144e96aad88ef8439b"
+    },
+    {
+      "path": "savia/db/tests/inventory/121_release_quarantine_errors.sql",
+      "change": "A",
+      "git_blob": "d45333b66b30ac80e9fffff8582bef8dd4276d57"
+    },
+    {
+      "path": "savia/db/tests/inventory/130_allocate_to_web_normal_and_retry.sql",
+      "change": "A",
+      "git_blob": "fac5d1533a5c36afb9fe7183ec1807a4afdf9c54"
+    },
+    {
+      "path": "savia/db/tests/inventory/131_allocate_to_web_errors.sql",
+      "change": "A",
+      "git_blob": "37551a4edf65288d6216a011acd994391125fe52"
+    },
+    {
+      "path": "savia/db/tests/labels/100_queue_receipt_labels_normal_and_retry.sql",
+      "change": "A",
+      "git_blob": "c2474de40abcb7176b138680952bc0bb50138719"
+    },
+    {
+      "path": "savia/db/tests/labels/101_queue_receipt_labels_errors.sql",
+      "change": "A",
+      "git_blob": "2bbc38fff1bb1f0385479d246cdb1dce008bb9a3"
+    },
+    {
+      "path": "savia/db/tests/labels/110_acknowledge_print_normal_and_retry.sql",
+      "change": "A",
+      "git_blob": "c6f9c301a6c8f3aff046db996459dce5bf00d180"
+    },
+    {
+      "path": "savia/db/tests/labels/111_acknowledge_print_errors.sql",
+      "change": "A",
+      "git_blob": "7d6fbeaabc01e4cc5326843b86fa21c2ca84af21"
+    },
+    {
+      "path": "savia/db/tests/receiving/100_record_scan_matched_and_retry.sql",
+      "change": "A",
+      "git_blob": "54e5ee1b7bef0194ffacc9bf997b3b11ed27d4bb"
+    },
+    {
+      "path": "savia/db/tests/receiving/101_record_scan_unknown_never_adds_stock.sql",
+      "change": "A",
+      "git_blob": "61aa47488709f38d393e7876ef7fb3a850781ceb"
+    },
+    {
+      "path": "savia/db/tests/receiving/102_record_scan_errors.sql",
+      "change": "A",
+      "git_blob": "87457f7be19ee716f43e124b21e48c3c246ba8d1"
+    },
+    {
+      "path": "savia/db/tests/receiving/103_record_scan_error_through_insert_exec.sql",
+      "change": "A",
+      "git_blob": "57d1dd7de9d4f4dd2ec1210d2a53794e921cfb2e"
+    },
+    {
+      "path": "savia/db/tests/receiving/110_ambiguous_code_never_adds_stock.sql",
+      "change": "A",
+      "git_blob": "f97a6ad4be1a5091a977d68e4ba0c80417cf6a2c"
+    },
+    {
+      "path": "savia/db/tests/receiving/120_resolve_scan_normal.sql",
+      "change": "A",
+      "git_blob": "22d4d3db5129afeb114b0bbe79efd9afbb318df7"
+    },
+    {
+      "path": "savia/db/tests/receiving/121_resolve_scan_errors.sql",
+      "change": "A",
+      "git_blob": "e83b74f6ff4e493f99694554f2862962f803c274"
+    },
+    {
+      "path": "savia/db/tests/receiving/122_resolve_scan_retry_is_not_idempotent.sql",
+      "change": "A",
+      "git_blob": "0ef579bd2885d798906ffb022f9039f66d086c8b"
+    },
+    {
+      "path": "savia/db/tests/receiving/130_approve_scan_session_normal.sql",
+      "change": "A",
+      "git_blob": "8cac012073ed01e260a6400258c17cc52efdd39f"
+    },
+    {
+      "path": "savia/db/tests/receiving/131_approve_scan_session_retry_is_not_idempotent.sql",
+      "change": "A",
+      "git_blob": "9c6746be62696f6241cdbfb22f1d9300368ad796"
+    },
+    {
+      "path": "savia/db/tests/receiving/132_approve_scan_session_errors.sql",
+      "change": "A",
+      "git_blob": "6f3e5ee09fb40d14e6756e1d9093989360a300f3"
+    },
+    {
+      "path": "savia/db/tests/receiving/140_post_scan_session_normal_and_retry.sql",
+      "change": "A",
+      "git_blob": "6a6f3175dd4b7c0ae492bda08fcea5de788d9360"
+    },
+    {
+      "path": "savia/db/tests/receiving/141_post_scan_session_errors.sql",
+      "change": "A",
+      "git_blob": "0dea4786ef109e695bdb27536b14005e6ee38938"
+    },
+    {
+      "path": "savia/db/tests/receiving/142_post_scan_session_errors.sql",
+      "change": "A",
+      "git_blob": "593b5fbde8751024053b83d17386dc737fa8b0d3"
+    },
+    {
+      "path": "savia/db/tests/receiving/143_post_scan_session_rejected_leaves_no_rows.sql",
+      "change": "A",
+      "git_blob": "950be8433c56edd4134d3e3a420442c3b7b14808"
+    },
+    {
+      "path": "savia/db/tests/receiving/150_draft_item_received_into_quarantine.sql",
+      "change": "A",
+      "git_blob": "5c96fec9a200f30ef83c727c9277582c9336feb1"
+    },
+    {
+      "path": "savia/db/tests/receiving/151_post_scan_session_closes_container.sql",
+      "change": "A",
+      "git_blob": "0c99da86e715c0f0320b07c862b22cd1f444a815"
+    },
+    {
+      "path": "savia/docs/adr/ADR-001-critica.md",
+      "change": "A",
+      "git_blob": "8b6f09b168fce4f3a67d8511ef415f38eb13d3e7"
+    },
+    {
+      "path": "savia/docs/evidence/cp1-proc-audit/worker-a.md",
+      "change": "A",
+      "git_blob": "df81a9f4f997cc979a16d432253a0e64d9ae0dcc"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

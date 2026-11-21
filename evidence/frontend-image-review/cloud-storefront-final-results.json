@@ -1,0 +1,27 @@
+{
+  "command": "node tests/frontend-runtime.cjs",
+  "cwd": "/workspace/scratch/14cff504045e/storefront-dom-final/source",
+  "exit_code": 0,
+  "passed": 29,
+  "failed": 0,
+  "failures": [],
+  "replacement_test_sha256": "18f9a165dd83ae8d6511049e488412ac1d37703dcd27e85e109b81dfd0e2b032",
+  "app_sha256": "71ffa37faba6ac1e251794b13717943919d4a16ee51df00860ea36d396caf488",
+  "all_55_source_files_unchanged_after_run": true,
+  "other_54_sources_identical_to_prior": true,
+  "all_52_dist_files_identical_to_prior_and_unchanged": true,
+  "dependency_tree_identical_and_unchanged": true,
+  "both_prior_failed_candidates_unchanged": true,
+  "replacement_input_unchanged": true,
+  "scope": "DOM simulation only; no real browser, layout, network integration or deployment validation",
+  "not_run": [
+    "check.py",
+    "package helper",
+    "other tests",
+    "browser",
+    "SQL",
+    "Git",
+    "deployment"
+  ],
+  "no_code_fixes": true
+}

@@ -1,0 +1,18 @@
+{
+  "card": "C8",
+  "card_id": "6aea5de74b0da8bdf86eff30",
+  "marker": "[SAVIA-C8-CLOSE-e4b79108]",
+  "action_id": "6aeaa5b246ddc6c29c24b510",
+  "date": "2026-11-04T03:25:38.800Z",
+  "comment": "[SAVIA-C8-CLOSE-e4b79108]\nREADY\nPR: https://github.com/Suazo-AI/Martha-Silva-Store/pull/2\nhead: e4b7910835bf2c9901aa06989e296997875a3636\nbase: origin/main@3b0049163ece2d9431cee01f1bea624a66d9d8d4\nci: https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/41765611859 passed=12 failed=0 pending=0 skipped=3\nevidencia: docs/c8-ui-20261103/FINAL-CI-REVIEW.md y ci-41765611859/. Revision separada PASS: 6/6 blobs, 71/71 dependencias overlay, 6/6 hashes; browser45/45, staff45/45 y backend600/600 sin omisiones. Seguridad49/49 incluye expiracion1/1. N2/N6/N7:9/9 casos. Rojo-verde previo conservado.\nno ejecutado: QA visual, dispositivos, produccion; tres escenarios extra N5-COV siguen pendientes. Browser C8 usa API sintetica, staff usa dobles; C6 prueba el camino real separado. Cierre tecnico y paso a Hecho por instruccion de Jason: \u00abCi\u00e9rralos y actualiza trello\u00bb. No cambia permisos ni acepta produccion.",
+  "exact_readback": true,
+  "list_before": "6aea5d677e8b3123293bcaa8",
+  "list_after": "6aea5d68411ef7f938f3f92e",
+  "closed": false,
+  "check_items_completed": [
+    "6aea5e8098e764681b30eac2"
+  ],
+  "complete": 5,
+  "total": 5,
+  "technical_closure": true
+}

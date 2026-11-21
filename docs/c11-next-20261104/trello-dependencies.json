@@ -1,0 +1,16 @@
+{
+  "card": "C11",
+  "card_id": "6aea5de91431fcd571c2cce5",
+  "marker": "[SAVIA-C11-CLOSE-e4b79108]",
+  "action_id": "6aeaa5b8ebf3b9cba0c2445c",
+  "date": "2026-11-04T03:25:44.130Z",
+  "comment": "[SAVIA-C11-CLOSE-e4b79108]\nDependencias tecnicas C6/C7/C8 satisfechas: C6 APTO17/17 (CI41765611979), C8 PASS45/45+45/45+600/600 (CI41765611859), C7 conserva cierre y excepcion durable ya aceptados. Ledger C11 pasa a todo: requiere su propio veredicto N10; no se cierra con conteos agregados ni con los dictamenes limitados C6/C8. Otro hilo FIX prepara solo matriz documental independiente, sin runtime ni escritura canonica. No se modifican checklist/lista ni se autoriza merge/deploy/SQL.",
+  "exact_readback": true,
+  "list_before": "6aea5d66a63aadf3a63e4545",
+  "list_after": "6aea5d66a63aadf3a63e4545",
+  "closed": false,
+  "check_items_completed": [],
+  "complete": 0,
+  "total": 5,
+  "technical_closure": false
+}

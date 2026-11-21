@@ -1,0 +1,107 @@
+{
+  "schema": 1,
+  "scope": "Allowlisted frozen evidence and test-source deltas",
+  "files": [
+    {
+      "path": "evidence/savia/20261030/anonymous-failure.json",
+      "sha256": "576bdcb23e6593239f2625a43b45faecebd0c70a62ae8a0035ebae6ab46e3143",
+      "source": "validation/private-pilot-20261028/harness-diagnostic-preparation-20261030/runtime-proposal-revision7/runtime-output/evidence-20261031T005138242Z-1dd0f218/browser-result.json",
+      "source_sha256": "576bdcb23e6593239f2625a43b45faecebd0c70a62ae8a0035ebae6ab46e3143"
+    },
+    {
+      "path": "evidence/savia/20261030/diagnostic-offline.json",
+      "sha256": "7809c121a3b4acfe77060992458e7be8c598061879f1ae4c1ae40f438ee660b1",
+      "source": "validation/private-pilot-20261028/harness-diagnostic-preparation-20261030/r7-anonymous-diagnostic-offline/OFFLINE-RESULT.json",
+      "source_sha256": "7809c121a3b4acfe77060992458e7be8c598061879f1ae4c1ae40f438ee660b1"
+    },
+    {
+      "path": "evidence/savia/20261030/diagnostic/baseline-browser.cjs",
+      "sha256": "80b097b1986d75162ed7a91f1be474892779ed9da1cbda39f519da5d41bca4ab",
+      "source": "validation/private-pilot-20261028/harness-diagnostic-preparation-20261030/runtime-proposal-revision7/package/manual/browser.cjs",
+      "source_sha256": "80b097b1986d75162ed7a91f1be474892779ed9da1cbda39f519da5d41bca4ab"
+    },
+    {
+      "path": "evidence/savia/20261030/diagnostic/browser.diff",
+      "sha256": "d38ff5d99ed2d81de139e95792a7fb2ff23357200c311cb19f5a9fcb822520e3",
+      "source": "validation/private-pilot-20261028/harness-diagnostic-preparation-20261030/r7-anonymous-diagnostic-offline/browser.diff",
+      "source_sha256": "d38ff5d99ed2d81de139e95792a7fb2ff23357200c311cb19f5a9fcb822520e3"
+    },
+    {
+      "path": "evidence/savia/20261030/diagnostic/candidate-browser.cjs",
+      "sha256": "75b7dcc4fc2f06d80e332cb411f548c75dd773c1041eb97dbc5508ef9bafcb42",
+      "source": "validation/private-pilot-20261028/harness-diagnostic-preparation-20261030/r7-anonymous-diagnostic-offline/candidate/browser.cjs",
+      "source_sha256": "75b7dcc4fc2f06d80e332cb411f548c75dd773c1041eb97dbc5508ef9bafcb42"
+    },
+    {
+      "path": "evidence/savia/20261030/diagnostic/error-policy.cjs",
+      "sha256": "5dad1ede5f13cd9a287897d49ffe617b283818c4e3e52dc62cd4703d96a86517",
+      "source": "validation/private-pilot-20261028/harness-diagnostic-preparation-20261030/runtime-proposal-revision7/package/manual/error-policy.cjs",
+      "source_sha256": "5dad1ede5f13cd9a287897d49ffe617b283818c4e3e52dc62cd4703d96a86517"
+    },
+    {
+      "path": "evidence/savia/20261030/diagnostic/offline-checks.cjs",
+      "sha256": "1dfa71d72c7fbc3f742dbe80863a355cf3ab7ca923a0a129c8aafd1d89c89cb4",
+      "source": "validation/private-pilot-20261028/harness-diagnostic-preparation-20261030/r7-anonymous-diagnostic-offline/offline-checks.cjs",
+      "source_sha256": "1dfa71d72c7fbc3f742dbe80863a355cf3ab7ca923a0a129c8aafd1d89c89cb4"
+    },
+    {
+      "path": "evidence/savia/20261030/package-acceptance.json",
+      "sha256": "e81859a442eaaea33e34c11e83b7fb8d28f26214eff88901b68594e79658f412",
+      "source": "validation/private-pilot-20261028/harness-diagnostic-preparation-20261030/r7-diagnostic-package-offline/PRIMARY-ACCEPTANCE.json",
+      "source_sha256": "e81859a442eaaea33e34c11e83b7fb8d28f26214eff88901b68594e79658f412"
+    },
+    {
+      "path": "evidence/savia/20261030/package-vm.json",
+      "sha256": "8f015d53fdf597147747984cada0fed1edf2ae6fec71a14b571923f04f3cd930",
+      "source": "validation/private-pilot-20261028/harness-diagnostic-preparation-20261030/r7-diagnostic-package-offline/INTEGRATION-VM-RESULT.json",
+      "source_sha256": "8f015d53fdf597147747984cada0fed1edf2ae6fec71a14b571923f04f3cd930"
+    },
+    {
+      "path": "evidence/savia/20261030/source-deltas/InternalCommerceCommandSqlTests.cs",
+      "sha256": "1335b58cb5fcc85088878e74e1740f0dd6e44c6763f9182b96d2764c01d8c291",
+      "source": "validation/private-pilot-20261028/worker/candidate/backend/tests/Martha.Store.Api.Tests/InternalCommerceCommandSqlTests.cs",
+      "source_sha256": "1335b58cb5fcc85088878e74e1740f0dd6e44c6763f9182b96d2764c01d8c291"
+    },
+    {
+      "path": "evidence/savia/20261030/source-deltas/InternalJudgeTests.cs",
+      "sha256": "a7489b3ba894219f3496e8fc09bcc6c8f91b8447a99f6a90fcf30cdd1d76ea5c",
+      "source": "validation/private-pilot-20261028/worker/candidate/backend/tests/Martha.Store.Api.Tests/InternalJudgeTests.cs",
+      "source_sha256": "a7489b3ba894219f3496e8fc09bcc6c8f91b8447a99f6a90fcf30cdd1d76ea5c"
+    },
+    {
+      "path": "evidence/savia/20261030/source-deltas/InternalMigrationTests.cs",
+      "sha256": "2dd138143180b43626adf1f5b8317553e6675e590435cadf8723e4c7471e5bce",
+      "source": "validation/private-pilot-20261028/worker/candidate/backend/tests/Martha.Store.Api.Tests/InternalMigrationTests.cs",
+      "source_sha256": "2dd138143180b43626adf1f5b8317553e6675e590435cadf8723e4c7471e5bce"
+    },
+    {
+      "path": "evidence/savia/20261030/source-deltas/InternalSecuritySqlTests.cs",
+      "sha256": "9a64295beaeae3340fc07e51f0ce0f473a773fb6043d80fc63b786b73e92223e",
+      "source": "validation/private-pilot-20261028/worker/candidate/backend/tests/Martha.Store.Api.Tests/InternalSecuritySqlTests.cs",
+      "source_sha256": "9a64295beaeae3340fc07e51f0ce0f473a773fb6043d80fc63b786b73e92223e"
+    },
+    {
+      "path": "evidence/savia/20261030/source-deltas/PrivatePilotReleaseTests.cs",
+      "sha256": "920d0619776ee864bd035e72a1246f7ddb291abe491418e3064778d80841cda3",
+      "source": "validation/private-pilot-20261028/worker/candidate/backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs",
+      "source_sha256": "920d0619776ee864bd035e72a1246f7ddb291abe491418e3064778d80841cda3"
+    },
+    {
+      "path": "evidence/savia/20261030/historical-backend.json",
+      "sha256": "4c1d26774aeeab78ae2f2785587a940c2957f02c130d18391ad6cdf2ea8e878c",
+      "source": "validation/private-pilot-20261028/worker/full-results.json",
+      "source_sha256": "a3834910b19c9f20a152ba7f05a29c474fac67c77ecb04a43f89e80f22610f33",
+      "transformation": "Outcome counters only"
+    }
+  ],
+  "excludes": [
+    "credentials",
+    "certificates",
+    "execution authorizations",
+    "raw TRX and logs",
+    "customer/order/database exports",
+    "machine/browser profiles",
+    "bulk frozen runtime copies",
+    "bulk machine inventory"
+  ]
+}

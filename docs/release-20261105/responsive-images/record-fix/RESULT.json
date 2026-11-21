@@ -1,0 +1,1944 @@
+{
+  "task_id": "savia-responsive-images-20261105",
+  "status": "returned",
+  "source_sha": "6f304a7571a554bb8968e081a14985829aee3dfb",
+  "identity": {
+    "host": "SUAZO-PC",
+    "provider": "codex",
+    "model": "gpt-6.1-sol",
+    "requestedReasoning": "high",
+    "effectiveReasoning": "high per T3 runtime instruction and awareness metadata",
+    "isolation": "T3 managed worktree t3-bde304d7; observed path and git HEAD verified"
+  },
+  "startedUtc": "2026-11-05T21:14:36.279Z",
+  "command": "node docs/release-20261105/browser-baseline/driver.mjs",
+  "node": "v24.18.0",
+  "playwright": "1.62.1",
+  "navigations": 1,
+  "groups": [
+    {
+      "name": "normal-mobile",
+      "checks": [
+        {
+          "route": "index.html",
+          "mode": "normal",
+          "status": 200,
+          "error": null,
+          "navMs": 360,
+          "measuredWindowMs": 5435,
+          "dom": {
+            "url": "http://127.0.0.1:60454/index.html",
+            "title": "Gala, novias y moda femenina \u00b7 Martha Silva Store",
+            "viewport": {
+              "width": 360,
+              "height": 800
+            },
+            "scrollWidth": 360,
+            "text": "Ir al contenido\nDemo independiente \u00b7 datos locales \u00b7 sin cobros\nEspa\u00f1ol\n/\nEnglish\nMartha Silva\n0\n\nMARTHA SILVA \u00b7 GALA & NOVIAS\n\nUna entrada inolvidable.\n\nGala, novias y momentos que merecen brillar.\n\nDescubr\u00ed la colecci\u00f3n\n\u2192\n\nLA SELECCI\u00d3N DE MARTHA\n\nEl edit de gala\n\nVestidos para celebrar a tu manera.\n\nMARTHA SILVA\n\nMARTHA SILVA\n\nMARTHA SILVA\n\nMARTHA SILVA\n\nMARTHA SILVA\n\nMARTHA SILVA\n\nMARTHA SILVA\n\nMARTHA SILVA\n\nMARTHA SILVA\n\nMARTHA SILVA\n\nMARTHA SILVA\n\nMARTHA SILVA\n\nMARTHA SILVA\n\nMARTHA SILVA\n\nMARTHA SILVA\n\nMARTHA SILVA\n\nMARTHA SILVA\n\nMARTHA SILVA\n\nMARTHA SILVA\n\nMARTHA SILVA\n\n\u2039\n\u203a\nVestidos de fiesta\n\nEscotes, brillo y siluetas largas.\n\nVer la selecci\u00f3n\nVestidos de novia\n\nDescubr\u00ed la selecci\u00f3n de novia.\n\nVer la selecci\u00f3n\nModa femenina\n\nModa p",
+            "headings": [
+              {
+                "text": "La colecci\u00f3n",
+                "visible": false
+              },
+              {
+                "text": "Gala",
+                "visible": false
+              },
+              {
+                "text": "Moda",
+                "visible": false
+              },
+              {
+                "text": "Novias",
+                "visible": false
+              },
+              {
+                "text": "Una entrada inolvidable.",
+                "visible": true
+              },
+              {
+                "text": "El edit de gala",
+                "visible": true
+              },
+              {
+                "text": "El edit de novias",
+                "visible": true
+              },
+              {
+                "text": "Vestir un momento.",
+                "visible": true
+              },
+              {
+                "text": "La colecci\u00f3n de Martha",
+                "visible": true
+              },
+              {
+                "text": "Una prenda para cada ocasi\u00f3n",
+                "visible": true
+              },
+              {
+                "text": "El mundo de Martha Silva",
+                "visible": true
+              },
+              {
+                "text": "Tu compra, paso a paso",
+                "visible": true
+              },
+              {
+                "text": "LA COLECCI\u00d3N",
+                "visible": true
+              },
+              {
+                "text": "TU COMPRA",
+                "visible": true
+              },
+              {
+                "text": "SEGU\u00cd A MARTHA SILVA",
+                "visible": true
+              },
+              {
+                "text": "Encontr\u00e1 tu prenda",
+                "visible": false
+              },
+              {
+                "text": "Gu\u00eda de tallas",
+                "visible": false
+              },
+              {
+                "text": "Tu ubicaci\u00f3n",
+                "visible": false
+              },
+              {
+                "text": "Agregada a tu bolsa",
+                "visible": false
+              },
+              {
+                "text": "Tu pr\u00f3xima ocasi\u00f3n empieza aqu\u00ed",
+                "visible": false
+              }
+            ],
+            "noscript": [
+              {
+                "text": "<p class=\"notice\">Activ\u00e1 JavaScript para elegir una talla y completar la compra de prueba.</p>",
+                "rect": {
+                  "width": 0,
+                  "height": 0
+                }
+              }
+            ],
+            "images": [
+              {
+                "src": "/generated-luxury/rosa-empolvado-pedreria/01-front-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/rosa-empolvado-pedreria/01-front-v1-360.webp",
+                "naturalWidth": 280,
+                "naturalHeight": 420,
+                "width": 1024,
+                "height": 1536,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": 25600,
+                "observedTransferBytes": 25900
+              },
+              {
+                "src": "/generated-luxury/champagne/01-front-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/champagne/01-front-v1-360.webp",
+                "naturalWidth": 320,
+                "naturalHeight": 426,
+                "width": 318,
+                "height": 423,
+                "complete": true,
+                "loading": "eager",
+                "frozenFileBytes": 22074,
+                "observedTransferBytes": 22374
+              },
+              {
+                "src": "/generated-luxury/rosa/01-front-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/rosa/01-front-v1-360.webp",
+                "naturalWidth": 152,
+                "naturalHeight": 202,
+                "width": 152,
+                "height": 270,
+                "complete": true,
+                "loading": "lazy",
+                "frozenFileBytes": 22264,
+                "observedTransferBytes": 22564
+              },
+              {
+                "src": "/generated-luxury/editorial/DdwJTglRMBn-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/editorial/DdwJTglRMBn-v1-360.webp",
+                "naturalWidth": 152,
+                "naturalHeight": 202,
+                "width": 152,
+                "height": 270,
+                "complete": true,
+                "loading": "lazy",
+                "frozenFileBytes": 26804,
+                "observedTransferBytes": 27104
+              },
+              {
+                "src": "/generated-luxury/rosa-empolvado-pedreria/01-front-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/rosa-empolvado-pedreria/01-front-v1-360.webp",
+                "naturalWidth": 180,
+                "naturalHeight": 270,
+                "width": 144,
+                "height": 192,
+                "complete": true,
+                "loading": "lazy",
+                "frozenFileBytes": 25600,
+                "observedTransferBytes": 25900
+              },
+              {
+                "src": "/generated-luxury/rosa-empolvado-pedreria/02-view-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/rosa-empolvado-pedreria/02-view-v1-360.webp",
+                "naturalWidth": 180,
+                "naturalHeight": 240,
+                "width": 144,
+                "height": 192,
+                "complete": true,
+                "loading": "lazy",
+                "frozenFileBytes": 24356,
+                "observedTransferBytes": 24656
+              },
+              {
+                "src": "/generated-luxury/gris-perla-hombros/01-front-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/gris-perla-hombros/01-front-v1-360.webp",
+                "naturalWidth": 180,
+                "naturalHeight": 270,
+                "width": 144,
+                "height": 192,
+                "complete": true,
+                "loading": "lazy",
+                "frozenFileBytes": 27298,
+                "observedTransferBytes": 27598
+              },
+              {
+                "src": "/generated-luxury/gris-perla-hombros/02-view-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/gris-perla-hombros/02-view-v1-360.webp",
+                "naturalWidth": 180,
+                "naturalHeight": 240,
+                "width": 144,
+                "height": 192,
+                "complete": true,
+                "loading": "lazy",
+                "frozenFileBytes": 25494,
+                "observedTransferBytes": 25794
+              },
+              {
+                "src": "/generated-luxury/blanco-perlado-sirena/01-front-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/blanco-perlado-sirena/01-front-v1-360.webp",
+                "naturalWidth": 180,
+                "naturalHeight": 270,
+                "width": 144,
+                "height": 192,
+                "complete": true,
+                "loading": "lazy",
+                "frozenFileBytes": 24338,
+                "observedTransferBytes": 24638
+              },
+              {
+                "src": "/generated-luxury/blanco-perlado-sirena/02-view-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/blanco-perlado-sirena/02-view-v1-360.webp",
+                "naturalWidth": 180,
+                "naturalHeight": 240,
+                "width": 144,
+                "height": 192,
+                "complete": true,
+                "loading": "lazy",
+                "frozenFileBytes": 23366,
+                "observedTransferBytes": 23666
+              },
+              {
+                "src": "/generated-luxury/negro-brillo-pantalon-amplio/01-front-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/negro-brillo-pantalon-amplio/01-front-v1-360.webp",
+                "naturalWidth": 180,
+                "naturalHeight": 270,
+                "width": 144,
+                "height": 192,
+                "complete": true,
+                "loading": "lazy",
+                "frozenFileBytes": 19532,
+                "observedTransferBytes": 19832
+              },
+              {
+                "src": "/generated-luxury/negro-brillo-pantalon-amplio/02-view-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/negro-brillo-pantalon-amplio/02-view-v1-360.webp",
+                "naturalWidth": 180,
+                "naturalHeight": 240,
+                "width": 144,
+                "height": 192,
+                "complete": true,
+                "loading": "lazy",
+                "frozenFileBytes": 19128,
+                "observedTransferBytes": 19428
+              },
+              {
+                "src": "/generated-luxury/azul-gris-un-hombro/01-front-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/azul-gris-un-hombro/01-front-v1-360.webp",
+                "naturalWidth": 180,
+                "naturalHeight": 270,
+                "width": 144,
+                "height": 192,
+                "complete": true,
+                "loading": "lazy",
+                "frozenFileBytes": 19644,
+                "observedTransferBytes": 19944
+              },
+              {
+                "src": "/generated-luxury/azul-gris-un-hombro/02-view-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/azul-gris-un-hombro/02-view-v1-360.webp",
+                "naturalWidth": 180,
+                "naturalHeight": 240,
+                "width": 144,
+                "height": 192,
+                "complete": true,
+                "loading": "lazy",
+                "frozenFileBytes": 19334,
+                "observedTransferBytes": 19634
+              },
+              {
+                "src": "/generated-luxury/verde-brillo-cuello-cruzado/01-front-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/verde-brillo-cuello-cruzado/01-front-v1-360.webp",
+                "naturalWidth": 180,
+                "naturalHeight": 270,
+                "width": 144,
+                "height": 192,
+                "complete": true,
+                "loading": "lazy",
+                "frozenFileBytes": 28784,
+                "observedTransferBytes": 29084
+              },
+              {
+                "src": "/generated-luxury/verde-esmeralda-tirantes-cruzados/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/verde-esmeralda-tirantes-cruzados/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/rosa-bronce-pedreria/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/rosa-bronce-pedreria/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/negro-escote-puntas-abertura/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/negro-escote-puntas-abertura/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/fucsia-halter-pliegues/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/fucsia-halter-pliegues/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/plata-tirantes-copas-pedreria/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/plata-tirantes-copas-pedreria/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/rosa/01-front-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/rosa/01-front-v1-360.webp",
+                "naturalWidth": 180,
+                "naturalHeight": 240,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": 22264,
+                "observedTransferBytes": 22564
+              },
+              {
+                "src": "/generated-luxury/rosa/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/champagne/01-front-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/champagne/01-front-v1-360.webp",
+                "naturalWidth": 180,
+                "naturalHeight": 240,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": 22074,
+                "observedTransferBytes": 22374
+              },
+              {
+                "src": "/generated-luxury/champagne/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/negro/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/negro/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/amarillo/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/amarillo/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/dorado/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/dorado/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/azul-floral-un-hombro/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/azul-floral-un-hombro/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/gala-rubi/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/gala-rubi/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/gala-oro/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/gala-oro/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/gala-destello/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/gala-destello/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/blanco-perlado-sirena/01-front-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/blanco-perlado-sirena/01-front-v1-360.webp",
+                "naturalWidth": 180,
+                "naturalHeight": 270,
+                "width": 156,
+                "height": 234,
+                "complete": true,
+                "loading": "lazy",
+                "frozenFileBytes": 24338,
+                "observedTransferBytes": 24638
+              },
+              {
+                "src": "/generated-luxury/novia/01-front-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/novia/01-front-v1-360.webp",
+                "naturalWidth": 180,
+                "naturalHeight": 240,
+                "width": 156,
+                "height": 208,
+                "complete": true,
+                "loading": "lazy",
+                "frozenFileBytes": 21056,
+                "observedTransferBytes": 21356
+              },
+              {
+                "src": "/generated-luxury/rojo-tirantes-falda-amplia/01-front-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/rojo-tirantes-falda-amplia/01-front-v1-360.webp",
+                "naturalWidth": 180,
+                "naturalHeight": 270,
+                "width": 156,
+                "height": 234,
+                "complete": true,
+                "loading": "lazy",
+                "frozenFileBytes": 22458,
+                "observedTransferBytes": 22758
+              },
+              {
+                "src": "/generated-luxury/novia/01-front-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/novia/01-front-v1-360.webp",
+                "naturalWidth": 328,
+                "naturalHeight": 437,
+                "width": 328,
+                "height": 437,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": 21056,
+                "observedTransferBytes": 21356
+              },
+              {
+                "src": "/generated-luxury/champagne/01-front-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/champagne/01-front-v1-360.webp",
+                "naturalWidth": 152,
+                "naturalHeight": 202,
+                "width": 150,
+                "height": 268,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": 22074,
+                "observedTransferBytes": 22374
+              },
+              {
+                "src": "/generated-luxury/rosa/01-front-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/rosa/01-front-v1-360.webp",
+                "naturalWidth": 152,
+                "naturalHeight": 202,
+                "width": 150,
+                "height": 268,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": 22264,
+                "observedTransferBytes": 22564
+              },
+              {
+                "src": "/generated-luxury/editorial/DdwJTglRMBn-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/editorial/DdwJTglRMBn-v1-360.webp",
+                "naturalWidth": 152,
+                "naturalHeight": 202,
+                "width": 150,
+                "height": 268,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": 26804,
+                "observedTransferBytes": 27104
+              },
+              {
+                "src": "/generated-luxury/editorial/DeSHKZPKTNp-alternative-v2.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 150,
+                "height": 268,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/editorial/DeSG5J1KzHb-v2.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 150,
+                "height": 268,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/editorial/DbZdVj6q2vn-v2.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 150,
+                "height": 268,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/rosa-empolvado-pedreria/01-front-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/rosa-empolvado-pedreria/01-front-v1-360.webp",
+                "naturalWidth": 180,
+                "naturalHeight": 270,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": 25600,
+                "observedTransferBytes": 25900
+              },
+              {
+                "src": "/generated-luxury/rosa-empolvado-pedreria/02-view-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/rosa-empolvado-pedreria/02-view-v1-360.webp",
+                "naturalWidth": 180,
+                "naturalHeight": 240,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": 24356,
+                "observedTransferBytes": 24656
+              },
+              {
+                "src": "/generated-luxury/gris-perla-hombros/01-front-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/gris-perla-hombros/01-front-v1-360.webp",
+                "naturalWidth": 180,
+                "naturalHeight": 270,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": 27298,
+                "observedTransferBytes": 27598
+              },
+              {
+                "src": "/generated-luxury/gris-perla-hombros/02-view-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/gris-perla-hombros/02-view-v1-360.webp",
+                "naturalWidth": 180,
+                "naturalHeight": 240,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": 25494,
+                "observedTransferBytes": 25794
+              },
+              {
+                "src": "/generated-luxury/blanco-perlado-sirena/01-front-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/blanco-perlado-sirena/01-front-v1-360.webp",
+                "naturalWidth": 180,
+                "naturalHeight": 270,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": 24338,
+                "observedTransferBytes": 24638
+              },
+              {
+                "src": "/generated-luxury/blanco-perlado-sirena/02-view-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/blanco-perlado-sirena/02-view-v1-360.webp",
+                "naturalWidth": 180,
+                "naturalHeight": 240,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": 23366,
+                "observedTransferBytes": 23666
+              },
+              {
+                "src": "/generated-luxury/rojo-tirantes-falda-amplia/01-front-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/rojo-tirantes-falda-amplia/01-front-v1-360.webp",
+                "naturalWidth": 180,
+                "naturalHeight": 270,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": 22458,
+                "observedTransferBytes": 22758
+              },
+              {
+                "src": "/generated-luxury/rojo-tirantes-falda-amplia/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/negro-brillo-pantalon-amplio/01-front-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/negro-brillo-pantalon-amplio/01-front-v1-360.webp",
+                "naturalWidth": 180,
+                "naturalHeight": 270,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": 19532,
+                "observedTransferBytes": 19832
+              },
+              {
+                "src": "/generated-luxury/negro-brillo-pantalon-amplio/02-view-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/negro-brillo-pantalon-amplio/02-view-v1-360.webp",
+                "naturalWidth": 180,
+                "naturalHeight": 240,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": 19128,
+                "observedTransferBytes": 19428
+              },
+              {
+                "src": "/generated-luxury/azul-gris-un-hombro/01-front-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/azul-gris-un-hombro/01-front-v1-360.webp",
+                "naturalWidth": 180,
+                "naturalHeight": 270,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": 19644,
+                "observedTransferBytes": 19944
+              },
+              {
+                "src": "/generated-luxury/azul-gris-un-hombro/02-view-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/azul-gris-un-hombro/02-view-v1-360.webp",
+                "naturalWidth": 180,
+                "naturalHeight": 240,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": 19334,
+                "observedTransferBytes": 19634
+              },
+              {
+                "src": "/generated-luxury/verde-brillo-cuello-cruzado/01-front-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/verde-brillo-cuello-cruzado/01-front-v1-360.webp",
+                "naturalWidth": 180,
+                "naturalHeight": 270,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": 28784,
+                "observedTransferBytes": 29084
+              },
+              {
+                "src": "/generated-luxury/verde-esmeralda-tirantes-cruzados/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/verde-esmeralda-tirantes-cruzados/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/rosa-bronce-pedreria/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/rosa-bronce-pedreria/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/negro-escote-puntas-abertura/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/negro-escote-puntas-abertura/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/fucsia-halter-pliegues/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/fucsia-halter-pliegues/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/plata-tirantes-copas-pedreria/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/plata-tirantes-copas-pedreria/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/crema-flores-volante-asimetrico/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/crema-flores-volante-asimetrico/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/rosa-marron-chaqueta-falda/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/rosa-marron-chaqueta-falda/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/burdeos-top-pantalon-corto/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/burdeos-top-pantalon-corto/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/negro-blanco-lunares-midi/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/negro-blanco-lunares-midi/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/crema-flores-naranjas-halter/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/crema-flores-naranjas-halter/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/azul-gris-flores-falda/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/azul-gris-flores-falda/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/rosa-flores-fucsias-halter/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/rosa-flores-fucsias-halter/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/rosa-claro-flores-doradas/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/rosa-claro-flores-doradas/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/burdeos-encaje-volantes-midi/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/burdeos-encaje-volantes-midi/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/fucsia-un-hombro-volantes/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/fucsia-un-hombro-volantes/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/negro-lunares-beige-hombros/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/negro-lunares-beige-hombros/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/rosa/01-front-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/rosa/01-front-v1-360.webp",
+                "naturalWidth": 180,
+                "naturalHeight": 240,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": 22264,
+                "observedTransferBytes": 22564
+              },
+              {
+                "src": "/generated-luxury/rosa/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/champagne/01-front-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/champagne/01-front-v1-360.webp",
+                "naturalWidth": 180,
+                "naturalHeight": 240,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": 22074,
+                "observedTransferBytes": 22374
+              },
+              {
+                "src": "/generated-luxury/champagne/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/negro/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/negro/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/amarillo/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/amarillo/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/dorado/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/dorado/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/novia/01-front-v1.png",
+                "currentSrc": "http://127.0.0.1:60454/responsive-images/novia/01-front-v1-360.webp",
+                "naturalWidth": 180,
+                "naturalHeight": 240,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": 21056,
+                "observedTransferBytes": 21356
+              },
+              {
+                "src": "/generated-luxury/novia/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/napoleon/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/napoleon/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/azul-floral-un-hombro/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/azul-floral-un-hombro/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/midi-estampado-burdeos/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/midi-estampado-burdeos/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/novia-satinada-abertura/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/novia-satinada-abertura/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/novia-tirantes-encaje/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/novia-tirantes-encaje/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/gala-rubi/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/gala-rubi/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/gala-oro/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/gala-oro/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/gala-destello/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/gala-destello/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/novias-velo/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/novias-velo/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/novias-alba/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/novias-alba/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/novias-encaje/01-front-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": "/generated-luxury/novias-encaje/02-view-v1.png",
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 144,
+                "height": 192,
+                "complete": false,
+                "loading": "lazy",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              },
+              {
+                "src": null,
+                "currentSrc": "",
+                "naturalWidth": 0,
+                "naturalHeight": 0,
+                "width": 0,
+                "height": 0,
+                "complete": true,
+                "loading": "auto",
+                "frozenFileBytes": null,
+                "observedTransferBytes": null
+              }
+            ],
+            "metrics": {
+              "lcp": [
+                {
+                  "startTime": 560,
+                  "size": 112254,
+                  "url": "http://127.0.0.1:60454/responsive-images/champagne/01-front-v1-360.webp"
+                }
+              ],
+              "cls": []
+            },
+            "navigation": [
+              {
+                "name": "http://127.0.0.1:60454/index.html",
+                "entryType": "navigation",
+                "startTime": 0,
+                "duration": 349.19999998807907,
+                "navigationId": 5161,
+                "initiatorType": "navigation",
+                "deliveryType": "",
+                "nextHopProtocol": "http/1.1",
+                "renderBlockingStatus": "non-blocking",
+                "contentType": "text/html",
+                "contentEncoding": "",
+                "workerStart": 0,
+                "workerRouterEvaluationStart": 0,
+                "workerCacheLookupStart": 0,
+                "workerMatchedSourceType": "",
+                "workerFinalSourceType": "",
+                "redirectStart": 0,
+                "redirectEnd": 0,
+                "fetchStart": 1.199999988079071,
+                "domainLookupStart": 1.199999988079071,
+                "domainLookupEnd": 1.199999988079071,
+                "connectStart": 1.199999988079071,
+                "secureConnectionStart": 0,
+                "connectEnd": 1.199999988079071,
+                "requestStart": 2.399999976158142,
+                "responseStart": 10.300000011920929,
+                "firstInterimResponseStart": 0,
+                "finalResponseHeadersStart": 10.300000011920929,
+                "responseEnd": 13,
+                "transferSize": 197068,
+                "encodedBodySize": 196768,
+                "decodedBodySize": 196768,
+                "responseStatus": 200,
+                "serverTiming": [],
+                "unloadEventStart": 0,
+                "unloadEventEnd": 0,
+                "domInteractive": 76.39999997615814,
+                "domContentLoadedEventStart": 331.5,
+                "domContentLoadedEventEnd": 338.69999998807907,
+                "domComplete": 347.10000002384186,
+                "loadEventStart": 347.39999997615814,
+                "loadEventEnd": 349.19999998807907,
+                "type": "navigate",
+                "redirectCount": 0,
+                "activationStart": 0,
+                "criticalCHRestart": 0,
+                "notRestoredReasons": null,
+                "confidence": {
+                  "randomizedTriggerRate": 0.4994798,
+                  "value": "high"
+                }
+              }
+            ],
+            "serviceWorkerController": null
+          },
+          "totalCompletedNetworkBytes": 1868232,
+          "resourceTransferBytes": 1676369,
+          "topResources": [
+            {
+              "name": "http://127.0.0.1:60454/prototypes/fonts/font-1.ttf",
+              "type": "css",
+              "duration": 116,
+              "transferSize": 290536,
+              "encodedBodySize": 290236,
+              "decodedBodySize": 290236
+            },
+            {
+              "name": "http://127.0.0.1:60454/catalog.js",
+              "type": "script",
+              "duration": 74.10000002384186,
+              "transferSize": 216994,
+              "encodedBodySize": 216694,
+              "decodedBodySize": 216694
+            },
+            {
+              "name": "http://127.0.0.1:60454/prototypes/fonts/font-6.ttf",
+              "type": "css",
+              "duration": 105.40000003576279,
+              "transferSize": 95396,
+              "encodedBodySize": 95096,
+              "decodedBodySize": 95096
+            },
+            {
+              "name": "http://127.0.0.1:60454/prototypes/fonts/font-5.ttf",
+              "type": "css",
+              "duration": 105.90000003576279,
+              "transferSize": 95360,
+              "encodedBodySize": 95060,
+              "decodedBodySize": 95060
+            },
+            {
+              "name": "http://127.0.0.1:60454/prototypes/fonts/font-4.ttf",
+              "type": "css",
+              "duration": 116.19999998807907,
+              "transferSize": 95272,
+              "encodedBodySize": 94972,
+              "decodedBodySize": 94972
+            },
+            {
+              "name": "http://127.0.0.1:60454/prototypes/fonts/font-7.ttf",
+              "type": "css",
+              "duration": 105.10000002384186,
+              "transferSize": 95228,
+              "encodedBodySize": 94928,
+              "decodedBodySize": 94928
+            },
+            {
+              "name": "http://127.0.0.1:60454/app.js",
+              "type": "script",
+              "duration": 98.39999997615814,
+              "transferSize": 88451,
+              "encodedBodySize": 88151,
+              "decodedBodySize": 88151
+            },
+            {
+              "name": "http://127.0.0.1:60454/prototypes/vendor/gsap.min.js",
+              "type": "script",
+              "duration": 69.40000003576279,
+              "transferSize": 73227,
+              "encodedBodySize": 72927,
+              "decodedBodySize": 72927
+            },
+            {
+              "name": "http://127.0.0.1:60454/styles.css",
+              "type": "link",
+              "duration": 53,
+              "transferSize": 70363,
+              "encodedBodySize": 70063,
+              "decodedBodySize": 70063
+            },
+            {
+              "name": "http://127.0.0.1:60454/prototypes/vendor/ScrollTrigger.min.js",
+              "type": "script",
+              "duration": 57.39999997615814,
+              "transferSize": 44875,
+              "encodedBodySize": 44575,
+              "decodedBodySize": 44575
+            }
+          ],
+          "documentStatus": 200,
+          "pendingResponses": [],
+          "errors": [],
+          "failedRequests": [],
+          "externalRequests": [],
+          "responseErrors": [
+            {
+              "requestId": "64364.169",
+              "url": "http://127.0.0.1:60454/favicon.ico",
+              "status": 404,
+              "fromDiskCache": false,
+              "fromServiceWorker": false,
+              "mime": "text/plain"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "gaps": [
+    "One sample per route/condition; desktop/mobile CSS viewport lab, no physical devices.",
+    "INP NOT RUN: no representative interaction population. LCP/CLS passive window only; not Lighthouse or field CWV.",
+    "External requests blocked; production APIs/payments/SQL/deployment NOT RUN.",
+    "No product corrections attempted: validation-only authority. Primary owns independent acceptance."
+  ],
+  "usage": {
+    "tokens": "unknown",
+    "cost": "unknown"
+  },
+  "origin": "http://127.0.0.1:60454",
+  "browser": "156.0.8078.80",
+  "conditions": {
+    "normal": "No throttling; fresh isolated context per route/viewport; 5 seconds after load; no scrolling",
+    "proxy": "Local allowlist HTTP proxy; only this origin GET accepted; HTTPS CONNECT denied; no routing/cache/service worker overrides",
+    "offline": "Reload each retained normal-mobile page in same context; CDP offline; cache and SW defaults unchanged",
+    "degraded": {
+      "downloadBitsPerSecond": 400000,
+      "downloadBytesPerSecond": 50000,
+      "uploadBytesPerSecond": 50000,
+      "latencyMs": 400,
+      "cpuSlowdown": 6,
+      "timeoutMs": 40000
+    }
+  },
+  "elapsedMs": 10483,
+  "cleanup": {
+    "browserClosed": true,
+    "serverClosed": true
+  },
+  "finishedUtc": "2026-11-05T21:14:46.759Z",
+  "rawEvidence": {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-responsive-images-20261105-t3-bde304d7\\record-fix-server-log.json",
+    "sha256": "d65c03b1bd7d7d2400dc8c23c98ce71e78547bbba5ed8a82a415e22eb8bdb4c6"
+  },
+  "servedSummary": {
+    "count": 35,
+    "mismatches": []
+  },
+  "blockedProxyRequests": {
+    "count": 20,
+    "note": "Browser background requests denied at local proxy; page request lists retained separately."
+  },
+  "privateObservations": {
+    "path": "C:\\Users\\Jason\\AppData\\Local\\Temp\\savia-responsive-images-20261105-t3-bde304d7\\record-fix-observations.json",
+    "sha256": "da2ea31e215bac6157dd15a08f960293bdeebd9c5fc2a233b8edbad15d6cf93b"
+  }
+}

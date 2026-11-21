@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-08T03:50:13.276402+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "8bd6e0e430e509862bc75da7200a008b671fe637"
+    },
+    {
+      "path": "docs/cash-register-20261107/real-journey/CI-VERIFICATION.json",
+      "change": "A",
+      "git_blob": "3c9bac4a1d84e900e3e1c33745a75f139d9a226e"
+    },
+    {
+      "path": "docs/cash-register-20261107/real-journey/PREPARATION.md",
+      "change": "M",
+      "git_blob": "3c1b199a920ea22ed4d64b5054b56eed96a5dddf"
+    },
+    {
+      "path": "docs/cash-register-20261107/real-journey/REVIEW-STATUS.json",
+      "change": "A",
+      "git_blob": "71fbce0f04cefa0638a13555bb6aeb8f5ae1f435"
+    },
+    {
+      "path": "docs/cash-register-20261107/real-journey/astra-preparation-review.md",
+      "change": "A",
+      "git_blob": "9c6ad8ede889cbc4d10f21d5b0ca6b2bc51168c9"
+    },
+    {
+      "path": "docs/completion-20261107/README.md",
+      "change": "M",
+      "git_blob": "c0a321dec92a6d0f008f79bb43ff89f6e0667446"
+    },
+    {
+      "path": "docs/owner-recovery-20261107/primary-review/STATUS.json",
+      "change": "M",
+      "git_blob": "074ae5b829727365814831faa159ddff61a7b134"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "change": "M",
+      "git_blob": "de4c94bccaf3621a9a233e5c18a58d3b3df5c6d7"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

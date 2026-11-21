@@ -1,0 +1,152 @@
+{
+  "sourceBase": "8e38d98dca394d0730ddd830ecd55bc834dbf366",
+  "finding": "Gemini storefront M2: _headers checkout and RAW snapshot portability",
+  "host": "SUAZO-PC",
+  "primary": {
+    "harness": "T3 Code / Codex",
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "xhigh"
+  },
+  "checks": [
+    {
+      "name": "clean-windows-red",
+      "command": [
+        "C:\\Users\\Jason\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+        "C:/Users/Jason/.t3/worktrees/github/t3-57bf20db/tools/verify_release_snapshot.py"
+      ],
+      "cwd": "C:\\Users\\Jason\\MARTHA-SILVA\\github",
+      "exitCode": 1,
+      "elapsedSeconds": 35.438,
+      "log": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\headers-lf\\clean-windows-red.log",
+      "sha256": "18995ba953ecf34aa9020d62ce379931d386c2a8e37f6768dda5ebbd6d09f1cd"
+    },
+    {
+      "name": "headers-guard-red",
+      "command": [
+        "C:\\Users\\Jason\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+        "tests/test_release_snapshot.py"
+      ],
+      "cwd": "C:\\Users\\Jason\\MARTHA-SILVA\\github",
+      "exitCode": 1,
+      "elapsedSeconds": 234.047,
+      "log": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\headers-lf\\headers-guard-red.log",
+      "sha256": "6d4a5768465a4fef54b0beb346db2bb2a2a1141d36c5dc80fdbc3a2d192faf14"
+    },
+    {
+      "name": "headers-guard-green",
+      "command": [
+        "C:\\Users\\Jason\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+        "tests/test_release_snapshot.py"
+      ],
+      "cwd": "C:\\Users\\Jason\\MARTHA-SILVA\\github",
+      "exitCode": 0,
+      "elapsedSeconds": 30.157,
+      "log": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\headers-lf\\headers-guard-green.log",
+      "sha256": "72fbd365d97119c5fabac05d7194f85d020cabcb1cd521957ee6baa71462b149"
+    },
+    {
+      "name": "snapshot-green",
+      "command": [
+        "C:\\Users\\Jason\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+        "tools/verify_release_snapshot.py"
+      ],
+      "cwd": "C:\\Users\\Jason\\MARTHA-SILVA\\github",
+      "exitCode": 0,
+      "elapsedSeconds": 11.188,
+      "log": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\headers-lf\\snapshot-green.log",
+      "sha256": "14a991ddb5a954a36710a3ef08c3216b17f37c936829cdf994bf47dd821ff63e"
+    },
+    {
+      "name": "headers-static-green",
+      "command": [
+        "C:\\Users\\Jason\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+        "tests/static_headers.py"
+      ],
+      "cwd": "C:\\Users\\Jason\\MARTHA-SILVA\\github",
+      "exitCode": 0,
+      "elapsedSeconds": 0.61,
+      "log": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\headers-lf\\headers-static-green.log",
+      "sha256": "412b2454f96932993cd3d4a5f3bffc6343c903376258f08627a33bd8c629c436"
+    }
+  ],
+  "checkoutBefore": {
+    "command": "git -c core.autocrlf=true cat-file --filters --path=<path> HEAD:<path>",
+    "paths": [
+      "build-inputs/static/_headers",
+      "dist/_headers"
+    ],
+    "bytesPerFile": 495,
+    "crlfPerFile": 9,
+    "sha256": "7585293acbbcf9e7ed8a35b80bbaa9b92af00ecf90127afb69b2830d7384590f"
+  },
+  "checkoutAfter": [
+    {
+      "path": "build-inputs/static/_headers",
+      "filteredBytes": 486,
+      "sha256": "503d49f3f495ee3001ae78d8db6ca666bbe424cfa962ba4244348000943e907f",
+      "crlf": 0
+    },
+    {
+      "path": "dist/_headers",
+      "filteredBytes": 486,
+      "sha256": "503d49f3f495ee3001ae78d8db6ca666bbe424cfa962ba4244348000943e907f",
+      "crlf": 0
+    }
+  ],
+  "changedSourcePaths": [
+    ".gitattributes",
+    "tools/verify_release_snapshot.py",
+    "tests/test_release_snapshot.py"
+  ],
+  "applicationChange": "None. Canonical app, headers and dist bytes remain identical to the base. Only checkout policy, snapshot guard and its regression change.",
+  "negativeControls": "The expanded test fails before the guard, then passes with it. CRLF recording must be rejected before the stored manifest changes. Existing tamper, extra-path and missing-control checks remain.",
+  "earlierCi": {
+    "headSha": "8e38d98dca394d0730ddd830ecd55bc834dbf366",
+    "runId": 42173233401,
+    "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42173233401",
+    "jobs": [
+      {
+        "name": "Publication integrity and reproducible build",
+        "jobId": 127745691382,
+        "conclusion": "success"
+      },
+      {
+        "name": "Historical portable regression suite (known gaps retained)",
+        "jobId": 127745813085,
+        "conclusion": "success"
+      }
+    ],
+    "scope": "Green before M2 correction. Not CI of these uncommitted changes."
+  },
+  "limits": [
+    "Local Python tests and Git checkout filtering, not a new managed checkout or browser run.",
+    "Linux CI and independent Astra adjudication of the corrected commit remain pending.",
+    "Local aggregate is not repeated because the known WinError 1314 symlink fixture limitation uses the Linux CI route.",
+    "No merge, deployment, SQL/API/Docker/certificate runtime or real payments."
+  ],
+  "publicationChecks": [
+    {
+      "command": "python tests/test_progress.py",
+      "exitCode": 0,
+      "passed": 23,
+      "failed": 0
+    },
+    {
+      "command": "python tools/export_progress.py --verify",
+      "exitCode": 0,
+      "preservedEvidenceHashes": 15
+    },
+    {
+      "command": "git diff --check -- <owned paths>",
+      "exitCode": 0
+    },
+    {
+      "check": "28 RAW/LF source bindings and five private log hashes",
+      "result": "match"
+    },
+    {
+      "command": "git diff --name-only HEAD -- src build-inputs dist",
+      "result": "empty"
+    }
+  ]
+}

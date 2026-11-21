@@ -1,0 +1,28 @@
+{
+  "status": "RED",
+  "source": "runner-inputs/tools/run_local_validation.py.txt",
+  "sourceLfSha256": "42bfdb8661a6b7285c2d55155c8afdc222fd4c7e30b03286eccd74ac9430650c",
+  "checks": [
+    {
+      "id": "F1-fresh-resource-identity",
+      "expected": "distinct run names",
+      "actual": "identical run names",
+      "passed": false
+    },
+    {
+      "id": "F2-ordinary-regular",
+      "expected": "accepted",
+      "actual": "rejected",
+      "passed": false
+    },
+    {
+      "id": "F2-ordinary-directory",
+      "expected": "accepted",
+      "actual": "rejected",
+      "passed": false
+    }
+  ],
+  "passed": 0,
+  "failed": 3,
+  "limits": "Pure extracted expressions only. No resource deletion, archive extraction, Docker, SQL or runner execution."
+}

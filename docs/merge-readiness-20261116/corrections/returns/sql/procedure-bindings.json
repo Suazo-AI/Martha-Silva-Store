@@ -1,0 +1,50 @@
+[
+  {
+    "path": "savia/db/migrations/V027__usd_cash.sql",
+    "procedure": "[sales].[usp_PostSale]",
+    "raw_sha256": "381f409e9f999eb35408267004da87703dd7772b962d133418d85fa9c5fe5278",
+    "lf_sha256": "fa0497b7529ba2e76a11058d809f32d6b78810ab01b7e8312d1ae934cb275560"
+  },
+  {
+    "path": "savia/db/migrations/V027__usd_cash.sql",
+    "procedure": "sales.usp_PostReturnOutcome",
+    "raw_sha256": "8514733626da33b53797e5c72e8f058926d5ebd66b6b92f4abc079c999c20aeb",
+    "lf_sha256": "cd1531a930eead59dea392d3b8df422a8de1d3c75e1fa89c2738223d7beb8edb"
+  },
+  {
+    "path": "savia/db/migrations/V027__usd_cash.sql",
+    "procedure": "[sales].[usp_PostCreditReturn]",
+    "raw_sha256": "3e2c7972f2d095370e454361db766c4bfc418bdafd9e0f5ff993293c64d2bd63",
+    "lf_sha256": "a1c24b820749b411c8adf3a6f7e2b578a23669c585dc98d7d4e4fa9d0af9268a"
+  },
+  {
+    "path": "savia/db/migrations/V027__usd_cash.sql",
+    "procedure": "sales.usp_GetSaleDetail",
+    "raw_sha256": "d5955fc5baf4c97025e30a12fa17d5e9567edc71e9a446cc91dff33263dacffe",
+    "lf_sha256": "63e333193c50a1bfd712aef0a830604a167026d61614b51949947f5f70844b8c"
+  },
+  {
+    "path": "savia/db/migrations/V028__usd_change.sql",
+    "procedure": "[sales].[usp_PostSale]",
+    "raw_sha256": "20f091c20318b7a5fe3fe6d0bc3b684f730232a308555fe82820f6cd52ac6509",
+    "lf_sha256": "c91fbae1906507df82109422083ab6cd34c93e1880840ce9cfc99436ec8ff033"
+  },
+  {
+    "path": "savia/db/migrations/V028__usd_change.sql",
+    "procedure": "sales.usp_GetSaleDetail",
+    "raw_sha256": "56e9b46e7dc1feb4d4aa179b0e50e23e4efc7c960c258835b19aac3f8b9cbd37",
+    "lf_sha256": "5a229390dfa3294f7496cb18aad50bbaedf6308d8482ba371de3e88e6de424ab"
+  },
+  {
+    "path": "savia/db/migrations/V029__return_retry_safety.sql",
+    "procedure": "sales.usp_PostReturnOutcome",
+    "raw_sha256": "3ed2216a04ffbb705efdaeedf891212ad82668f3c73479d3901e9fdb65128e18",
+    "lf_sha256": "3ed2216a04ffbb705efdaeedf891212ad82668f3c73479d3901e9fdb65128e18"
+  },
+  {
+    "path": "savia/db/migrations/V029__return_retry_safety.sql",
+    "procedure": "[sales].[usp_PostCreditReturn]",
+    "raw_sha256": "e628adac6df69e5c0b735ce048a1bfbed311ce108afefb1c3327cf0a870118f3",
+    "lf_sha256": "e628adac6df69e5c0b735ce048a1bfbed311ce108afefb1c3327cf0a870118f3"
+  }
+]

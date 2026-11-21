@@ -1,0 +1,133 @@
+{
+  "schema": 1,
+  "baseSha": "7bce17f65b6a49b64443349d76f3a98b76e4b347",
+  "host": "SUAZO-PC",
+  "scope": "Gallery verification only; no product bytes changed. Independent acceptance pending.",
+  "checks": [
+    {
+      "command": "node docs/gallery-contracts-20261107/primary/proof-corrections/resource-origin-controls.cjs",
+      "phase": "before correction",
+      "exit": 1,
+      "passed": 1,
+      "failed": 3,
+      "replacementCalls": 1
+    },
+    {
+      "command": "node docs/gallery-contracts-20261107/primary/proof-corrections/resource-origin-controls.cjs",
+      "phase": "after correction",
+      "exit": 0,
+      "passed": 4,
+      "failed": 0,
+      "replacementCalls": 0
+    },
+    {
+      "command": "GALLERY_OUTDIR=<this area>/browser node tests/gallery-browser-contracts.cjs",
+      "exit": 0,
+      "runs": 2,
+      "failed": 0
+    },
+    {
+      "command": "python tests/check.py",
+      "exit": 0,
+      "result": "PASS: all recovered-demo automated checks",
+      "rawLogSha256": "3f2479f1094bb2c37498186ec6ecb01de7d1131250da8d159aa10c701ef2edf4",
+      "rawLogLocation": "private test-runs/goal-finish-20261107-check.log; excluded from publication"
+    },
+    {
+      "command": "python tools/export_progress.py --verify",
+      "exit": 0,
+      "preservedEvidenceHashes": 15
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/gallery-contracts-20261107/astra-judge-corrections.md",
+      "bytes": 7980,
+      "rawSha256": "81a3882207958b3947e9e28e15cc0b1eadf6087d047dadc00e4ec7df6802b2c5",
+      "lfSha256": "81a3882207958b3947e9e28e15cc0b1eadf6087d047dadc00e4ec7df6802b2c5"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/historical-expectations.json",
+      "bytes": 8347,
+      "rawSha256": "a4b86eaa529dbb912663ef532dda17c6c1dc08b138fb2e8705c59715623131d1",
+      "lfSha256": "a4b86eaa529dbb912663ef532dda17c6c1dc08b138fb2e8705c59715623131d1"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/proof-corrections/browser/browser-contracts-desktop-1280x900.png",
+      "bytes": 439311,
+      "rawSha256": "4ea79087c0488d17d4300b0f322ab38739ae1aeb9bac88e1aae62f66a4315275"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/proof-corrections/browser/browser-contracts-mobile-390x844.png",
+      "bytes": 1049633,
+      "rawSha256": "5c95a7b570213918c65bc2cd086b570c42a1cbbb19acba264b1733f61519ef25"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/proof-corrections/browser/browser-contracts.json",
+      "bytes": 13689,
+      "rawSha256": "f2f95874650a2480ef6f7387733af92f8d89c6dc6825e79c3c8314e816106237",
+      "lfSha256": "f2f95874650a2480ef6f7387733af92f8d89c6dc6825e79c3c8314e816106237"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/proof-corrections/green.json",
+      "bytes": 445,
+      "rawSha256": "0855a8bf866eb118bd9e7b7c12f001bb37c5591ade7853f8dac97bb63728d6b9",
+      "lfSha256": "621bc68196645f15a6dba68fb0e0baf4a62d35a9015232771e9c59ee775c660e"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/proof-corrections/red.json",
+      "bytes": 589,
+      "rawSha256": "5047be37e348156af118445a352d64ba8c8ff39ebdb18134bc8d0f32b9267db4",
+      "lfSha256": "6e398e0d0514acb16c4a22e6e074cd198dd001cfcd1771182972f6a3897bc84e"
+    },
+    {
+      "path": "docs/gallery-contracts-20261107/primary/proof-corrections/resource-origin-controls.cjs",
+      "bytes": 2522,
+      "rawSha256": "3a0ae7eb98b632f9a625440f4225a00a1ec5e147805d9e5dfb9bfb67c8ed96e5",
+      "lfSha256": "ffe51b60c94ae37fdedbbae3bca9406ff10bbb5418b382bf0080a2e576a1a5ca"
+    },
+    {
+      "path": "tests/desktop-gallery.cjs",
+      "bytes": 21406,
+      "rawSha256": "58258777f44e7c48827584129cf5dba3b7537ee307485896962ddc18fcd68c7a",
+      "lfSha256": "58258777f44e7c48827584129cf5dba3b7537ee307485896962ddc18fcd68c7a"
+    },
+    {
+      "path": "tests/gallery-browser-contracts.cjs",
+      "bytes": 21979,
+      "rawSha256": "dbf6650f28c56050b7ea536bd3d06953fd9e56c7f8df69fb3820337fd555914d",
+      "lfSha256": "dbf6650f28c56050b7ea536bd3d06953fd9e56c7f8df69fb3820337fd555914d"
+    }
+  ],
+  "limits": [
+    "Real installed Chrome headless; no physical-device or screen-reader acceptance.",
+    "Earlier 14/14 DOM controls are historical unchanged evidence, not rerun here.",
+    "No SQL, combined browser/API/SQL, production runtime, merge or deployment."
+  ],
+  "unchangedProductBindings": [
+    {
+      "path": "src/app.js",
+      "lfSha256": "a6209bb17816e00b723c610ad0a85f7c86ac362d750507a369ba4b790160463e"
+    },
+    {
+      "path": "src/demo-api.js",
+      "lfSha256": "2cfdfaa9ea665ba4fd7c822ab66f7bdaa1499160c45e04cde53d14530d04002e"
+    },
+    {
+      "path": "src/integration-adapters.js",
+      "lfSha256": "d274c6853b397c840b92e6dc2491f2f882e568d964429c7ad408fa971b6f2953"
+    },
+    {
+      "path": "build-inputs/static/producto-verde-brillo-cuello-cruzado.html",
+      "lfSha256": "7259c1fdb163ffba222474f5dda6886f4927e7ca16c8543c650e3c183c055efa"
+    },
+    {
+      "path": "build-inputs/static/styles.css",
+      "lfSha256": "0a05e6dbbb334e88c535b98a6c461150cad0c73982e63586f0d777289feb0488"
+    },
+    {
+      "path": "dist/producto-verde-brillo-cuello-cruzado.html",
+      "lfSha256": "7259c1fdb163ffba222474f5dda6886f4927e7ca16c8543c650e3c183c055efa"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "command": "node tests/browser-supply-validation.mjs C:/Users/Jason/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright C:\\Users\\Jason\\MARTHA-SILVA\\github\\docs\\supply-ui-20261105\\primary\\logout-headers-observed",
+  "filter": "SUPPLY_TEST_MATCH=logout-late-reply",
+  "exit": 0,
+  "log": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\primary-raw-logs\\logout-headers-observed.log",
+  "logSha256": "86e148f16d729c5534508df0da95c7e8ff0ea5a55471682a100ca0d319a50b56",
+  "utc": "2026-11-06T03:16:08.674393+00:00"
+}

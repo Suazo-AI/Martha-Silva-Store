@@ -1,0 +1,260 @@
+{
+  "counts": {
+    "PASS": 31,
+    "FAIL": 1
+  },
+  "layer": "Real Chrome; intercepted staff API; browser-local public demo. No live SQL browser path.",
+  "cases": [
+    {
+      "name": "Login posts CSRF and verifies server identity before opening staff",
+      "status": "PASS",
+      "duration_ms": 1775,
+      "source": "20261103-browser"
+    },
+    {
+      "name": "Login HTTP 401 stays closed with visible error",
+      "status": "PASS",
+      "duration_ms": 382,
+      "source": "20261103-browser"
+    },
+    {
+      "name": "Login HTTP 429 stays closed with visible error",
+      "status": "PASS",
+      "duration_ms": 387,
+      "source": "20261103-browser"
+    },
+    {
+      "name": "Login HTTP 503 stays closed with visible error",
+      "status": "PASS",
+      "duration_ms": 434,
+      "source": "20261103-browser"
+    },
+    {
+      "name": "Anonymous session exposes no staff data",
+      "status": "PASS",
+      "duration_ms": 320,
+      "source": "20261103-browser"
+    },
+    {
+      "name": "Owner navigation and sale permissions in browser",
+      "status": "PASS",
+      "duration_ms": 431,
+      "source": "20261103-browser"
+    },
+    {
+      "name": "Manager navigation and sale permissions in browser",
+      "status": "PASS",
+      "duration_ms": 425,
+      "source": "20261103-browser"
+    },
+    {
+      "name": "Cashier navigation and sale permissions in browser",
+      "status": "PASS",
+      "duration_ms": 398,
+      "source": "20261103-browser"
+    },
+    {
+      "name": "Inventory navigation and sale permissions in browser",
+      "status": "PASS",
+      "duration_ms": 393,
+      "source": "20261103-browser"
+    },
+    {
+      "name": "Customer pagination and search use actual network query",
+      "status": "PASS",
+      "duration_ms": 486,
+      "source": "20261103-browser"
+    },
+    {
+      "name": "Customer text is escaped instead of executing HTML",
+      "status": "PASS",
+      "duration_ms": 317,
+      "source": "20261103-browser"
+    },
+    {
+      "name": "Empty catalog disables sale without inventing stock",
+      "status": "PASS",
+      "duration_ms": 356,
+      "source": "20261103-browser"
+    },
+    {
+      "name": "Sale sends no price, preserves key, displays receipt and updated stock",
+      "status": "PASS",
+      "duration_ms": 672,
+      "source": "20261103-browser"
+    },
+    {
+      "name": "Rapid double submit sends one request",
+      "status": "PASS",
+      "duration_ms": 650,
+      "source": "20261103-browser"
+    },
+    {
+      "name": "Lost response recovers original operation without second POST",
+      "status": "PASS",
+      "duration_ms": 561,
+      "source": "20261103-browser"
+    },
+    {
+      "name": "Sale HTTP 401 never shows invented success",
+      "status": "PASS",
+      "duration_ms": 530,
+      "source": "20261103-browser"
+    },
+    {
+      "name": "Sale HTTP 403 never shows invented success",
+      "status": "PASS",
+      "duration_ms": 485,
+      "source": "20261103-browser"
+    },
+    {
+      "name": "Sale HTTP 500 never shows invented success",
+      "status": "PASS",
+      "duration_ms": 495,
+      "source": "20261103-browser"
+    },
+    {
+      "name": "Malformed receipt leaves operation recoverable and blocks new sale",
+      "status": "PASS",
+      "duration_ms": 589,
+      "source": "20261103-browser"
+    },
+    {
+      "name": "Confirmed rejected recovery unlocks only the rejected attempt",
+      "status": "PASS",
+      "duration_ms": 566,
+      "source": "20261103-browser"
+    },
+    {
+      "name": "Logout uses CSRF, clears private view and returns to login",
+      "status": "PASS",
+      "duration_ms": 448,
+      "source": "20261103-browser"
+    },
+    {
+      "name": "Stale confirmed receipt 404 must not permanently block a fresh sale (N5)",
+      "status": "FAIL",
+      "duration_ms": 569,
+      "source": "20261103-browser"
+    },
+    {
+      "name": "Unimplemented purchasing and customer creation remain visibly unavailable",
+      "status": "PASS",
+      "duration_ms": 439,
+      "source": "20261103-browser"
+    },
+    {
+      "name": "Staff visible screens have no document overflow at 1440px",
+      "status": "PASS",
+      "duration_ms": 543,
+      "source": "20261103-browser"
+    },
+    {
+      "name": "Staff visible screens have no document overflow at 390px",
+      "status": "PASS",
+      "duration_ms": 530,
+      "source": "20261103-browser"
+    },
+    {
+      "name": "All 47 public pages mount in Chromium with no uncaught JavaScript errors",
+      "status": "PASS",
+      "duration_ms": 41638,
+      "source": "20261103-browser"
+    },
+    {
+      "name": "Public product, bag, translation and synthetic checkout approval work in browser",
+      "status": "PASS",
+      "duration_ms": 1844,
+      "source": "20261103-browser-checkout"
+    },
+    {
+      "name": "Staff source bytes unchanged during browser run",
+      "status": "PASS",
+      "duration_ms": 13,
+      "source": "20261103-browser"
+    },
+    {
+      "name": "Public synthetic payment declined releases reservation and permits rebuilding order",
+      "status": "PASS",
+      "duration_ms": 1472,
+      "source": "20261103-browser-negative"
+    },
+    {
+      "name": "Public synthetic payment cancelled releases reservation and permits rebuilding order",
+      "status": "PASS",
+      "duration_ms": 1470,
+      "source": "20261103-browser-negative"
+    },
+    {
+      "name": "Public gallery actual geometry and controls at 1440px",
+      "status": "PASS",
+      "duration_ms": 1414,
+      "source": "20261103-browser-gallery"
+    },
+    {
+      "name": "Public gallery actual geometry and controls at 390px",
+      "status": "PASS",
+      "duration_ms": 1440,
+      "source": "20261103-browser-gallery-mobile"
+    }
+  ],
+  "runs": [
+    {
+      "run": "20261103-browser",
+      "sha256": "f1d65e673704d520b447b9062bb7d5a0f6e1f8c02f01b36318a6a361dbd685dc",
+      "counts": {
+        "PASS": 26,
+        "FAIL": 2
+      },
+      "uncaught_errors": 0,
+      "external_requests": 0,
+      "failed_network_requests": 2
+    },
+    {
+      "run": "20261103-browser-checkout",
+      "sha256": "7c4eca5ed5087e74a7bfadec7f294bcacd454c5ad3524434e1cdab609ed3b3d9",
+      "counts": {
+        "PASS": 1
+      },
+      "uncaught_errors": 0,
+      "external_requests": 0,
+      "failed_network_requests": 0
+    },
+    {
+      "run": "20261103-browser-negative",
+      "sha256": "55b179d2adc6cdf224e1e43edf42b1ec303a8d5e57a0c434739c89381827bae7",
+      "counts": {
+        "PASS": 2
+      },
+      "uncaught_errors": 0,
+      "external_requests": 0,
+      "failed_network_requests": 0
+    },
+    {
+      "run": "20261103-browser-gallery",
+      "sha256": "eb97623bfe4131aa45d3238bdbc914de2d75c46852ff5ecb1569660b6c82636e",
+      "counts": {
+        "PASS": 1,
+        "FAIL": 1
+      },
+      "uncaught_errors": 0,
+      "external_requests": 0,
+      "failed_network_requests": 0
+    },
+    {
+      "run": "20261103-browser-gallery-mobile",
+      "sha256": "572c1cde61eebaf796b18659d381231e3311daa680ace3721799356add9ac876",
+      "counts": {
+        "PASS": 1
+      },
+      "uncaught_errors": 0,
+      "external_requests": 0,
+      "failed_network_requests": 0
+    }
+  ],
+  "corrections": [
+    "The initial public checkout case attempted a deliberately hidden integration control. The corrected case tests the actual available checkout.",
+    "The initial mobile gallery assertion assumed scrollLeft zero. A leading clone makes the first real slide start at 390px. The corrected test checks real visible alignment."
+  ],
+  "network_note": "Two failed staff sale requests belong to the intentional response-loss scenario. Zero uncaught errors or attempted external requests were recorded."
+}

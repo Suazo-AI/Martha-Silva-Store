@@ -1,0 +1,23 @@
+[
+  {
+    "name": "delivery",
+    "command": "python -X utf8 tools/delivery_status.py --check",
+    "exit": 0,
+    "log": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\primary-raw-logs\\delivery.log",
+    "logSha256": "ca5f9114c4fb0a55292927301dc9600bb3bd3edb534c575cc35fdd447b2607ea"
+  },
+  {
+    "name": "progress",
+    "command": "python -X utf8 tests/test_progress.py",
+    "exit": 0,
+    "log": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\primary-raw-logs\\progress.log",
+    "logSha256": "ac7f9db01bfe63f6132b0aa7f0a9e2630695814500b502168a3b720e87ece826"
+  },
+  {
+    "name": "exports",
+    "command": "python -X utf8 tools/export_progress.py --verify",
+    "exit": 0,
+    "log": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\supply-ui-20261105\\primary-raw-logs\\exports.log",
+    "logSha256": "6bc37a5368f6e607e6a0932afb47bf96d5a6a014603732c4a3c3005c79e0ee56"
+  }
+]

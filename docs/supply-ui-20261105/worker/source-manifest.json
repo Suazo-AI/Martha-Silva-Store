@@ -1,0 +1,134 @@
+{
+  "sourceSha": "a4bdac69581ac0423a964dea6bc5c74d4e2bad28",
+  "policy": "RAW = exact bytes; LF = CRLF converted to LF, BOM retained. Git blob base is distinct from Windows worktree encoding. ChromeDecoded removes BOM separately in browser results.",
+  "files": {
+    "backend/src/Martha.Store.Api/Internal/InternalUiHosting.cs": {
+      "baseGitBlob": {
+        "RAW": "e42cd183e3d48c159d3aad5d5a9a22aea775ac404a7521da724bacc795a584a7",
+        "LF": "e42cd183e3d48c159d3aad5d5a9a22aea775ac404a7521da724bacc795a584a7"
+      },
+      "finalWorktree": {
+        "RAW": "06f3b59dd2545c06a5588985ac8bd11dd6fe62d653d0d6682c14fb560d30eea5",
+        "LF": "fa9e6976fc6c221e0a278336e1e2dc3ab4d1852014112eeb9d92f2aceae8ddc3"
+      }
+    },
+    "backend/src/Martha.Store.Api/Martha.Store.Api.csproj": {
+      "baseGitBlob": {
+        "RAW": "3491ae523bcb697a2ba49a1895b053b88cf8b54d68f3e9ebcb207c438a4f610a",
+        "LF": "3491ae523bcb697a2ba49a1895b053b88cf8b54d68f3e9ebcb207c438a4f610a"
+      },
+      "finalWorktree": {
+        "RAW": "67918b858c54f58f25e32c41532ca37ab9da19d154e47e0fd8e75c5175da4259",
+        "LF": "6070096536d919ec850175d7f256b770909483bc02011226b02c577b20c91f46"
+      }
+    },
+    "dev/savia-staff-ui/README.md": {
+      "baseGitBlob": {
+        "RAW": "6b70fc0dd0e3dd9b8e7247b6b22637910e0eef95a03a57212b964cf2c8d839b5",
+        "LF": "6b70fc0dd0e3dd9b8e7247b6b22637910e0eef95a03a57212b964cf2c8d839b5"
+      },
+      "finalWorktree": {
+        "RAW": "f5a61471af1930f5466f9fbce5f152dc3265943a54e1f2b5c82ef7bf547fbaff",
+        "LF": "1c12048706cee466e9c435ef455b22e7cfdbd0457cc345179f84a0cc4e4be5b4"
+      }
+    },
+    "dev/savia-staff-ui/app.mjs": {
+      "baseGitBlob": {
+        "RAW": "7499bfdd63ce02507a1df22867d27f78f33af04c667769652a8212676f14a092",
+        "LF": "7499bfdd63ce02507a1df22867d27f78f33af04c667769652a8212676f14a092"
+      },
+      "finalWorktree": {
+        "RAW": "cc70f5adf216de28cf5a4b5efc1166d2df5fb6b6d22da9c6daee004c92237208",
+        "LF": "7901d54f7ea18b09e6f50dfc8f7596a135ec3a951bd732e1a3435cb7d1185083"
+      }
+    },
+    "dev/savia-staff-ui/client.mjs": {
+      "baseGitBlob": {
+        "RAW": "33e8fc65f75215e7e0f7d511ccfdeb2563c257872cd513d3aded8fa2a2497f59",
+        "LF": "33e8fc65f75215e7e0f7d511ccfdeb2563c257872cd513d3aded8fa2a2497f59"
+      },
+      "finalWorktree": {
+        "RAW": "d435b0ec3752ad81630fc7a8368e3a0465654dce569a815e9b149cac5614dec3",
+        "LF": "cdf34879fdd5e78d8141c23533de2d07155bb7451bcd7582b41e553cd71e2639"
+      }
+    },
+    "dev/savia-staff-ui/index.html": {
+      "baseGitBlob": {
+        "RAW": "79a97d04380755114f243de2bf552f387b305567dbfb08e1d7423a0b6fd1a038",
+        "LF": "79a97d04380755114f243de2bf552f387b305567dbfb08e1d7423a0b6fd1a038"
+      },
+      "finalWorktree": {
+        "RAW": "1b2b705b65461cdedf4360bc5c9a34271bef8b12461a5639181566d1b2dae45e",
+        "LF": "234fa005e324a0cd20bd43936450b68b9d08d1152b4714db871e425577c6a859"
+      }
+    },
+    "dev/savia-staff-ui/login.mjs": {
+      "baseGitBlob": {
+        "RAW": "139fb119d215df458f67d3cb5916dbe3bd6db8682da113297d45121c2725cf66",
+        "LF": "139fb119d215df458f67d3cb5916dbe3bd6db8682da113297d45121c2725cf66"
+      },
+      "finalWorktree": {
+        "RAW": "67c005464ad8904de3a283bb1c0aa9a6564ed0f15a9e8cb8861795ca6b8bfbb3",
+        "LF": "5d2bd800a550501c020a300b39d87c85c9abf06379609942e02bc39beb580297"
+      }
+    },
+    "dev/savia-staff-ui/supply-pagination.test.mjs": {
+      "baseGitBlob": null,
+      "finalWorktree": {
+        "RAW": "c8dcb1fdd12a0a73eea718b9faa4968ac9a0eb20993fe37fa68a35b54dbf1a89",
+        "LF": "c53817ddc8891ffe3f0d8c3ce96439d52ca46656dae90f2cb0ed0b624fe34f68"
+      }
+    },
+    "dev/savia-staff-ui/supply.mjs": {
+      "baseGitBlob": null,
+      "finalWorktree": {
+        "RAW": "1695273b2135acddb900c821e62f872601bc2ea443312763ea879ff9da60246b",
+        "LF": "2beb1f821afcbfe773968d00a9534158ca8ef4b5f124427377288be01182b71a"
+      }
+    },
+    "dev/savia-staff-ui/supply.test.mjs": {
+      "baseGitBlob": null,
+      "finalWorktree": {
+        "RAW": "b3f98a6cd260ee8bc7ac50cd0b615d973ca9319e3ff1fb97f3c977e693f04ba9",
+        "LF": "07b25e860b9587cb0e20769bb12877787e5148c2f46534eeb9ea0d9c371912b8"
+      }
+    },
+    "tests/browser-mock-validation.mjs": {
+      "baseGitBlob": {
+        "RAW": "67fa281d2cde8adb8f7cabf6de2117176b06e6f2417a57daafc43355f1a9f144",
+        "LF": "67fa281d2cde8adb8f7cabf6de2117176b06e6f2417a57daafc43355f1a9f144"
+      },
+      "finalWorktree": {
+        "RAW": "0de9295d229a54c1315c125c13228f9b1b6df56dab2c051bdccbb30e99993125",
+        "LF": "72f5edc736fce220da42116b32db71077c8e1524df01c5d7da9982d42e2151a9"
+      }
+    },
+    "tests/browser-supply-validation.mjs": {
+      "baseGitBlob": null,
+      "finalWorktree": {
+        "RAW": "5d214b5b778102ad4b51cc71e8fe7c48e19c754eb5b1248c0fe0b2e6f03a105d",
+        "LF": "98c637f647e7d46f2c11ddaa6d9e235d4923c5efdbcd45849c7efe1caf72be06"
+      }
+    },
+    "tests/check.py": {
+      "baseGitBlob": {
+        "RAW": "2eb723a70ee9f8e3dc957704ee6e5116e461f6685d105373cfddab179020d2db",
+        "LF": "2eb723a70ee9f8e3dc957704ee6e5116e461f6685d105373cfddab179020d2db"
+      },
+      "finalWorktree": {
+        "RAW": "a671546749ebeebb6c6f2587dc3334e35144c89a38ed36a3daff9dec9352a1e9",
+        "LF": "c2401f4058b71553aef40a91508b6bb5b63a32e0f8bb12e5feb1ac497082bd68"
+      }
+    },
+    "tests/test_check.py": {
+      "baseGitBlob": {
+        "RAW": "2784375134a2b917518fbcdce7ac6f8bec2c76ef46bfcc6a450bcc2d3d6d5e9a",
+        "LF": "2784375134a2b917518fbcdce7ac6f8bec2c76ef46bfcc6a450bcc2d3d6d5e9a"
+      },
+      "finalWorktree": {
+        "RAW": "63dc631eb9f349cb5ae969f2e2512ab791ae4c80cb30b8e42040481bd83c4c9e",
+        "LF": "785967582905f35369d576efd7419c1bd3b7bb57bb4c7ca0b9f2f487d65f66bc"
+      }
+    }
+  }
+}

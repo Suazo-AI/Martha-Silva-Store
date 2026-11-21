@@ -1,0 +1,641 @@
+{
+ "pages": [
+  {
+   "path": "/",
+   "width": 1440,
+   "lang": "es",
+   "http": 200,
+   "audit": {
+    "title": "Gala, novias y moda femenina · Martha Silva Store",
+    "lang": "es-NI",
+    "h1": 1,
+    "overflowX": false,
+    "scrollWidth": 1440,
+    "innerWidth": 1440,
+    "images": 136,
+    "broken": [],
+    "noAlt": 0,
+    "unnamed": [],
+    "unnamedCount": 0,
+    "smallTargets": 41,
+    "smallSample": [
+     "<button type=\"button\" aria-label=\"Destacado 1\" aria-current=\"true\"></button>",
+     "<button type=\"button\" aria-label=\"Destacado 2\" aria-current=\"false\"></button>",
+     "<button type=\"button\" aria-label=\"Destacado 3\" aria-current=\"false\"></button>",
+     "<a class=\"text-link\" href=\"/catalogo.html?category=Gala\">Ver la selección</a>"
+    ],
+    "spanishInEn": [],
+    "skip": true,
+    "main": true
+   },
+   "console": "[warning] GSAP target  not found. https://gsap.com\n[warning] GSAP target  not found. https://gsap.com",
+   "errors": "",
+   "shot": "shots/home-1440-es.png"
+  },
+  {
+   "path": "/catalogo.html",
+   "width": 1440,
+   "lang": "es",
+   "http": 200,
+   "audit": {
+    "title": "La colección · Martha Silva Store",
+    "lang": "es-NI",
+    "h1": 1,
+    "overflowX": false,
+    "scrollWidth": 1440,
+    "innerWidth": 1440,
+    "images": 85,
+    "broken": [],
+    "noAlt": 0,
+    "unnamed": [],
+    "unnamedCount": 0,
+    "smallTargets": 85,
+    "smallSample": [
+     "<select class=\"sr-only\" name=\"sort\" aria-label=\"Ordenar por\" tabindex=\"-1\"><opti",
+     "<button type=\"button\" class=\"cd\" data-cols=\"2\" data-cols-key=\"cd\" aria-label=\"2 ",
+     "<button type=\"button\" class=\"cd\" data-cols=\"3\" data-cols-key=\"cd\" aria-label=\"3 ",
+     "<button type=\"button\" class=\"cd\" data-cols=\"4\" data-cols-key=\"cd\" aria-label=\"4 "
+    ],
+    "spanishInEn": [],
+    "skip": true,
+    "main": true
+   },
+   "console": "[warning] GSAP target  not found. https://gsap.com\n[warning] GSAP target  not found. https://gsap.com",
+   "errors": "",
+   "shot": "shots/catalogo-1440-es.png"
+  },
+  {
+   "path": "/producto-negro.html",
+   "width": 1440,
+   "lang": "es",
+   "http": 200,
+   "audit": {
+    "title": "Vestido negro con abertura · Martha Silva Store",
+    "lang": "es-NI",
+    "h1": 1,
+    "overflowX": false,
+    "scrollWidth": 1440,
+    "innerWidth": 1440,
+    "images": 161,
+    "broken": [],
+    "noAlt": 0,
+    "unnamed": [
+     "<button class=\"text-button\" type=\"button\" data-size-guide=\"\">Consultar guía de tallas</but",
+     "<a href=\"/ayuda.html\" data-barba-prevent=\"\">Ver condiciones de la demo</a>"
+    ],
+    "unnamedCount": 2,
+    "smallTargets": 81,
+    "smallSample": [
+     "<button class=\"text-button\" type=\"button\" data-size-guide=\"\">Guía de tallas</but",
+     "<button class=\"text-button\" type=\"button\" data-size-guide=\"\">Consultar guía de t",
+     "<a href=\"/producto-rosa-empolvado-pedreria.html\">Vestido rosa empolvado con pedr",
+     "<a href=\"/producto-gris-perla-hombros.html\">Vestido gris perla de hombros descub"
+    ],
+    "spanishInEn": [
+     "Agregar a la bolsa",
+     "Elegí"
+    ],
+    "skip": true,
+    "main": true
+   },
+   "console": "[warning] GSAP target  not found. https://gsap.com\n[warning] GSAP target  not found. https://gsap.com",
+   "errors": "",
+   "shot": "shots/producto-negro-1440-es.png"
+  },
+  {
+   "path": "/producto-novias-velo.html",
+   "width": 1440,
+   "lang": "es",
+   "http": 200,
+   "audit": {
+    "title": "Muestra Velo · Martha Silva Store",
+    "lang": "es-NI",
+    "h1": 1,
+    "overflowX": false,
+    "scrollWidth": 1440,
+    "innerWidth": 1440,
+    "images": 168,
+    "broken": [],
+    "noAlt": 0,
+    "unnamed": [
+     "<button class=\"text-button\" type=\"button\" data-size-guide=\"\">Consultar guía de tallas</but",
+     "<a href=\"/ayuda.html\" data-barba-prevent=\"\">Ver condiciones de la demo</a>"
+    ],
+    "unnamedCount": 2,
+    "smallTargets": 81,
+    "smallSample": [
+     "<button class=\"text-button\" type=\"button\" data-size-guide=\"\">Guía de tallas</but",
+     "<button class=\"text-button\" type=\"button\" data-size-guide=\"\">Consultar guía de t",
+     "<a href=\"/producto-rosa-empolvado-pedreria.html\">Vestido rosa empolvado con pedr",
+     "<a href=\"/producto-gris-perla-hombros.html\">Vestido gris perla de hombros descub"
+    ],
+    "spanishInEn": [
+     "Agregar a la bolsa",
+     "Elegí"
+    ],
+    "skip": true,
+    "main": true
+   },
+   "console": "[warning] GSAP target  not found. https://gsap.com\n[warning] GSAP target  not found. https://gsap.com",
+   "errors": "",
+   "shot": "shots/producto-novias-velo-1440-es.png"
+  },
+  {
+   "path": "/bolsa.html",
+   "width": 1440,
+   "lang": "es",
+   "http": 200,
+   "audit": {
+    "title": "Tu bolsa · Martha Silva Store",
+    "lang": "es-NI",
+    "h1": 1,
+    "overflowX": false,
+    "scrollWidth": 1440,
+    "innerWidth": 1440,
+    "images": 4,
+    "broken": [],
+    "noAlt": 0,
+    "unnamed": [],
+    "unnamedCount": 0,
+    "smallTargets": 4,
+    "smallSample": [
+     "<a href=\"/producto-negro.html\">Vestido negro con abertura</a>",
+     "<button class=\"text-button\" data-remove-item=\"negro-S\" aria-label=\"Retirar Vesti",
+     "<button class=\"text-button\" data-move-favorite=\"negro-S\" data-product=\"negro\" ar",
+     "<a href=\"/ayuda.html\">Ver entrega y devoluciones</a>"
+    ],
+    "spanishInEn": [
+     "Elegí",
+     "Talla",
+     "Continuar",
+     "Resumen"
+    ],
+    "skip": true,
+    "main": true
+   },
+   "console": "[warning] GSAP target  not found. https://gsap.com\n[warning] GSAP target  not found. https://gsap.com",
+   "errors": "",
+   "shot": "shots/bolsa-1440-es.png"
+  },
+  {
+   "path": "/checkout.html",
+   "width": 1440,
+   "lang": "es",
+   "http": 200,
+   "audit": {
+    "title": "Compra de prueba · Martha Silva Store",
+    "lang": "es-NI",
+    "h1": 1,
+    "overflowX": false,
+    "scrollWidth": 1440,
+    "innerWidth": 1440,
+    "images": 3,
+    "broken": [],
+    "noAlt": 0,
+    "unnamed": [],
+    "unnamedCount": 0,
+    "smallTargets": 4,
+    "smallSample": [
+     "<a class=\"checkout-back\" href=\"/bolsa.html\" data-barba-prevent=\"\">← Volver a la ",
+     "<a href=\"/producto-negro.html\">Vestido negro con abertura</a>",
+     "<a href=\"/ayuda.html\" data-barba-prevent=\"\">Entrega y devoluciones</a>",
+     "<a href=\"/ayuda.html\">Ver entrega y devoluciones</a>"
+    ],
+    "spanishInEn": [
+     "Talla",
+     "Continuar"
+    ],
+    "skip": true,
+    "main": true
+   },
+   "console": "[warning] GSAP target  not found. https://gsap.com\n[warning] GSAP target  not found. https://gsap.com",
+   "errors": "",
+   "shot": "shots/checkout-1440-es.png"
+  },
+  {
+   "path": "/pedido.html",
+   "width": 1440,
+   "lang": "es",
+   "http": 200,
+   "audit": {
+    "title": "Tu pedido · Martha Silva Store",
+    "lang": "es-NI",
+    "h1": 1,
+    "overflowX": false,
+    "scrollWidth": 1440,
+    "innerWidth": 1440,
+    "images": 2,
+    "broken": [],
+    "noAlt": 0,
+    "unnamed": [],
+    "unnamedCount": 0,
+    "smallTargets": 1,
+    "smallSample": [
+     "<a href=\"/ayuda.html\">Ver entrega y devoluciones</a>"
+    ],
+    "spanishInEn": [],
+    "skip": true,
+    "main": true
+   },
+   "console": "[warning] GSAP target  not found. https://gsap.com\n[warning] GSAP target  not found. https://gsap.com",
+   "errors": "",
+   "shot": "shots/pedido-1440-es.png"
+  },
+  {
+   "path": "/ayuda.html",
+   "width": 1440,
+   "lang": "es",
+   "http": 200,
+   "audit": {
+    "title": "Ayuda · Martha Silva Store",
+    "lang": "es-NI",
+    "h1": 1,
+    "overflowX": false,
+    "scrollWidth": 1440,
+    "innerWidth": 1440,
+    "images": 2,
+    "broken": [],
+    "noAlt": 0,
+    "unnamed": [],
+    "unnamedCount": 0,
+    "smallTargets": 7,
+    "smallSample": [
+     "<a href=\"#entrega\">Entrega</a>",
+     "<a href=\"#devoluciones\">Devoluciones</a>",
+     "<a href=\"#seguimiento\">Seguir mi pedido</a>",
+     "<a href=\"#privacidad\">Privacidad</a>"
+    ],
+    "spanishInEn": [
+     "Elegí"
+    ],
+    "skip": true,
+    "main": true
+   },
+   "console": "[warning] GSAP target  not found. https://gsap.com\n[warning] GSAP target  not found. https://gsap.com",
+   "errors": "",
+   "shot": "shots/ayuda-1440-es.png"
+  },
+  {
+   "path": "/admin.html",
+   "width": 1440,
+   "lang": "es",
+   "http": 200,
+   "audit": {
+    "title": "Administrar la demo · Martha Silva Store",
+    "lang": "es-NI",
+    "h1": 1,
+    "overflowX": false,
+    "scrollWidth": 1440,
+    "innerWidth": 1440,
+    "images": 2,
+    "broken": [],
+    "noAlt": 0,
+    "unnamed": [],
+    "unnamedCount": 0,
+    "smallTargets": 5,
+    "smallSample": [
+     "<button class=\"text-button\" data-admin-refresh=\"\">Actualizar</button>",
+     "<button class=\"text-button\" data-admin-logout=\"\">Cerrar sesión</button>",
+     "<a href=\"#admin-orders\">Pedidos (0)</a>",
+     "<a href=\"#admin-stock\">Inventario</a>"
+    ],
+    "spanishInEn": [
+     "Pedido"
+    ],
+    "skip": true,
+    "main": true
+   },
+   "console": "[warning] GSAP target  not found. https://gsap.com\n[warning] GSAP target  not found. https://gsap.com",
+   "errors": "",
+   "shot": "shots/admin-1440-es.png"
+  },
+  {
+   "path": "/cuenta.html",
+   "width": 1440,
+   "lang": "es",
+   "http": 404,
+   "audit": {
+    "title": "Error response",
+    "lang": "en",
+    "h1": 1,
+    "overflowX": false,
+    "scrollWidth": 1440,
+    "innerWidth": 1440,
+    "images": 0,
+    "broken": [],
+    "noAlt": 0,
+    "unnamed": [],
+    "unnamedCount": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "spanishInEn": [],
+    "skip": false,
+    "main": false
+   },
+   "console": "",
+   "errors": "",
+   "shot": "shots/cuenta-1440-es.png"
+  },
+  {
+   "path": "/no-existe.html",
+   "width": 1440,
+   "lang": "es",
+   "http": 404,
+   "audit": {
+    "title": "Error response",
+    "lang": "en",
+    "h1": 1,
+    "overflowX": false,
+    "scrollWidth": 1440,
+    "innerWidth": 1440,
+    "images": 0,
+    "broken": [],
+    "noAlt": 0,
+    "unnamed": [],
+    "unnamedCount": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "spanishInEn": [],
+    "skip": false,
+    "main": false
+   },
+   "console": "",
+   "errors": "",
+   "shot": "shots/no-existe-1440-es.png"
+  },
+  {
+   "path": "/",
+   "width": 390,
+   "lang": "es",
+   "http": 200,
+   "audit": {
+    "title": "Gala, novias y moda femenina · Martha Silva Store",
+    "lang": "es-NI",
+    "h1": 1,
+    "overflowX": false,
+    "scrollWidth": 390,
+    "innerWidth": 390,
+    "images": 136,
+    "broken": [],
+    "noAlt": 0,
+    "unnamed": [],
+    "unnamedCount": 0,
+    "smallTargets": 24,
+    "smallSample": [
+     "<a class=\"text-link\" href=\"/catalogo.html?category=Gala\">Ver la selección</a>",
+     "<a class=\"text-link\" href=\"/catalogo.html?category=Novias\">Ver la selección</a>",
+     "<a class=\"text-link\" href=\"/catalogo.html?category=Moda\">Ver la selección</a>",
+     "<a href=\"/producto-negro-brillo-pantalon-amplio.html\">Conjunto negro de brillo</"
+    ],
+    "spanishInEn": [],
+    "skip": true,
+    "main": true
+   },
+   "console": "[warning] GSAP target  not found. https://gsap.com\n[warning] GSAP target  not found. https://gsap.com",
+   "errors": "",
+   "shot": "shots/home-390-es.png"
+  },
+  {
+   "path": "/catalogo.html",
+   "width": 390,
+   "lang": "es",
+   "http": 200,
+   "audit": {
+    "title": "La colección · Martha Silva Store",
+    "lang": "es-NI",
+    "h1": 1,
+    "overflowX": false,
+    "scrollWidth": 390,
+    "innerWidth": 390,
+    "images": 85,
+    "broken": [],
+    "noAlt": 0,
+    "unnamed": [],
+    "unnamedCount": 0,
+    "smallTargets": 32,
+    "smallSample": [
+     "<select class=\"sr-only\" name=\"sort\" aria-label=\"Ordenar por\" tabindex=\"-1\"><opti",
+     "<button type=\"button\" class=\"cm\" data-cols=\"1\" data-cols-key=\"cm\" aria-label=\"1 ",
+     "<button type=\"button\" class=\"cm\" data-cols=\"2\" data-cols-key=\"cm\" aria-label=\"2 ",
+     "<a href=\"/producto-rojo-tirantes-falda-amplia.html\">Rojo de tirantes y falda amp"
+    ],
+    "spanishInEn": [],
+    "skip": true,
+    "main": true
+   },
+   "console": "[warning] GSAP target  not found. https://gsap.com\n[warning] GSAP target  not found. https://gsap.com",
+   "errors": "",
+   "shot": "shots/catalogo-390-es.png"
+  },
+  {
+   "path": "/producto-negro.html",
+   "width": 390,
+   "lang": "es",
+   "http": 200,
+   "audit": {
+    "title": "Vestido negro con abertura · Martha Silva Store",
+    "lang": "es-NI",
+    "h1": 1,
+    "overflowX": false,
+    "scrollWidth": 390,
+    "innerWidth": 390,
+    "images": 161,
+    "broken": [],
+    "noAlt": 0,
+    "unnamed": [
+     "<button class=\"text-button\" type=\"button\" data-size-guide=\"\">Consultar guía de tallas</but",
+     "<a href=\"/ayuda.html\" data-barba-prevent=\"\">Ver condiciones de la demo</a>"
+    ],
+    "unnamedCount": 2,
+    "smallTargets": 39,
+    "smallSample": [
+     "<a href=\"/producto-negro-brillo-pantalon-amplio.html\">Conjunto negro de brillo</",
+     "<a href=\"/producto-azul-gris-un-hombro.html\">Azul gris de un hombro</a>",
+     "<a href=\"/producto-verde-brillo-cuello-cruzado.html\">Verde de brillo y abertura<",
+     "<a href=\"/producto-rosa-bronce-pedreria.html\">Rosa bronce de pedrería</a>"
+    ],
+    "spanishInEn": [
+     "Agregar a la bolsa",
+     "Elegí"
+    ],
+    "skip": true,
+    "main": true
+   },
+   "console": "[warning] GSAP target  not found. https://gsap.com\n[warning] GSAP target  not found. https://gsap.com",
+   "errors": "",
+   "shot": "shots/producto-negro-390-es.png"
+  },
+  {
+   "path": "/bolsa.html",
+   "width": 390,
+   "lang": "es",
+   "http": 200,
+   "audit": {
+    "title": "Tu bolsa · Martha Silva Store",
+    "lang": "es-NI",
+    "h1": 1,
+    "overflowX": false,
+    "scrollWidth": 390,
+    "innerWidth": 390,
+    "images": 4,
+    "broken": [],
+    "noAlt": 0,
+    "unnamed": [
+     "<a href=\"/producto-negro.html\">Vestido negro con abertura</a>"
+    ],
+    "unnamedCount": 1,
+    "smallTargets": 3,
+    "smallSample": [
+     "<a href=\"/producto-negro.html\">Vestido negro con abertura</a>",
+     "<a href=\"/producto-negro.html\">Vestido negro con abertura</a>",
+     "<a href=\"/ayuda.html\">Ver entrega y devoluciones</a>"
+    ],
+    "spanishInEn": [
+     "Elegí",
+     "Talla",
+     "Continuar",
+     "Resumen"
+    ],
+    "skip": true,
+    "main": true
+   },
+   "console": "[warning] GSAP target  not found. https://gsap.com\n[warning] GSAP target  not found. https://gsap.com",
+   "errors": "",
+   "shot": "shots/bolsa-390-es.png"
+  },
+  {
+   "path": "/checkout.html",
+   "width": 390,
+   "lang": "es",
+   "http": 200,
+   "audit": {
+    "title": "Compra de prueba · Martha Silva Store",
+    "lang": "es-NI",
+    "h1": 1,
+    "overflowX": false,
+    "scrollWidth": 390,
+    "innerWidth": 390,
+    "images": 3,
+    "broken": [],
+    "noAlt": 0,
+    "unnamed": [
+     "<a href=\"/producto-negro.html\">Vestido negro con abertura</a>"
+    ],
+    "unnamedCount": 1,
+    "smallTargets": 5,
+    "smallSample": [
+     "<a class=\"checkout-back\" href=\"/bolsa.html\" data-barba-prevent=\"\">← Volver a la ",
+     "<a href=\"/producto-negro.html\">Vestido negro con abertura</a>",
+     "<a href=\"/producto-negro.html\">Vestido negro con abertura</a>",
+     "<a href=\"/ayuda.html\" data-barba-prevent=\"\">Entrega y devoluciones</a>"
+    ],
+    "spanishInEn": [
+     "Talla",
+     "Continuar"
+    ],
+    "skip": true,
+    "main": true
+   },
+   "console": "[warning] GSAP target  not found. https://gsap.com\n[warning] GSAP target  not found. https://gsap.com",
+   "errors": "",
+   "shot": "shots/checkout-390-es.png"
+  },
+  {
+   "path": "/pedido.html",
+   "width": 390,
+   "lang": "es",
+   "http": 200,
+   "audit": {
+    "title": "Tu pedido · Martha Silva Store",
+    "lang": "es-NI",
+    "h1": 1,
+    "overflowX": false,
+    "scrollWidth": 390,
+    "innerWidth": 390,
+    "images": 2,
+    "broken": [],
+    "noAlt": 0,
+    "unnamed": [],
+    "unnamedCount": 0,
+    "smallTargets": 1,
+    "smallSample": [
+     "<a href=\"/ayuda.html\">Ver entrega y devoluciones</a>"
+    ],
+    "spanishInEn": [],
+    "skip": true,
+    "main": true
+   },
+   "console": "[warning] GSAP target  not found. https://gsap.com\n[warning] GSAP target  not found. https://gsap.com",
+   "errors": "",
+   "shot": "shots/pedido-390-es.png"
+  },
+  {
+   "path": "/ayuda.html",
+   "width": 390,
+   "lang": "es",
+   "http": 200,
+   "audit": {
+    "title": "Ayuda · Martha Silva Store",
+    "lang": "es-NI",
+    "h1": 1,
+    "overflowX": false,
+    "scrollWidth": 390,
+    "innerWidth": 390,
+    "images": 2,
+    "broken": [],
+    "noAlt": 0,
+    "unnamed": [],
+    "unnamedCount": 0,
+    "smallTargets": 7,
+    "smallSample": [
+     "<a href=\"#entrega\">Entrega</a>",
+     "<a href=\"#devoluciones\">Devoluciones</a>",
+     "<a href=\"#seguimiento\">Seguir mi pedido</a>",
+     "<a href=\"#privacidad\">Privacidad</a>"
+    ],
+    "spanishInEn": [
+     "Elegí"
+    ],
+    "skip": true,
+    "main": true
+   },
+   "console": "[warning] GSAP target  not found. https://gsap.com\n[warning] GSAP target  not found. https://gsap.com",
+   "errors": "",
+   "shot": "shots/ayuda-390-es.png"
+  },
+  {
+   "path": "/admin.html",
+   "width": 390,
+   "lang": "es",
+   "http": 200,
+   "audit": {
+    "title": "Administrar la demo · Martha Silva Store",
+    "lang": "es-NI",
+    "h1": 1,
+    "overflowX": false,
+    "scrollWidth": 390,
+    "innerWidth": 390,
+    "images": 2,
+    "broken": [],
+    "noAlt": 0,
+    "unnamed": [],
+    "unnamedCount": 0,
+    "smallTargets": 3,
+    "smallSample": [
+     "<a href=\"#admin-orders\">Pedidos (0)</a>",
+     "<a href=\"#admin-stock\">Inventario</a>",
+     "<a href=\"/ayuda.html\">Ver entrega y devoluciones</a>"
+    ],
+    "spanishInEn": [
+     "Pedido"
+    ],
+    "skip": true,
+    "main": true
+   },
+   "console": "[warning] GSAP target  not found. https://gsap.com\n[warning] GSAP target  not found. https://gsap.com",
+   "errors": "",
+   "shot": "shots/admin-390-es.png"
+  }
+ ],
+ "flows": []
+}

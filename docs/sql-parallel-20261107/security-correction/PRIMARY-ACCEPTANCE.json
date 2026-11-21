@@ -1,0 +1,35 @@
+{
+  "status": "ACCEPT WITH LIMITS: test-only correction and minimum rerun scope",
+  "sourceRevision": "550b10456c10a2857da930913b397bd1a96949d2",
+  "originalRuntimeRevision": "f9ffa452bae7fc11a4a578ce24b57ecb72add139",
+  "host": "SUAZO-PC",
+  "primary": "T3 Code / Codex / gpt-6.1-sol / xhigh",
+  "judge": "Codex / gpt-6-astra / xhigh",
+  "report": "astra-judge.md",
+  "reportRawSha256": "cde66d65851f2b0095c212a95ad98df64cafcea65c92eaf777a4d912337970ea",
+  "provenance": {
+    "originalPrivateSchemaRawSha256": "f0c726bc6c84710c690e56d9a395eeb98ab74b9ac2304b430df05c8026aa124f",
+    "fixtureExpressionsMatchedExactly": 5,
+    "fixtureExpressionsExpected": 5,
+    "correctionLfBindingsMatched": 4,
+    "productAndMigrationsUnchangedFromOriginalRuntime": true,
+    "testedInputsUnchangedFromReviewedRevisionAtAcceptance": true
+  },
+  "independentOfflineEvidence": {
+    "passed": 38,
+    "skipped": 0,
+    "semanticMutationsRejected": 73,
+    "source": "judge-recorded; primary inspected, not rerun by primary"
+  },
+  "reuse": {
+    "historicalSecurityPasses": 23,
+    "historicalBusinessPasses": 39,
+    "conditions": "Relevant product, test bodies/assertions, shared fixtures, migrations, dependencies and pinned SQL configuration remain equivalent; preserve original revision attribution. Reassess affected tests after Cash reads/UI changes."
+  },
+  "minimumFreshSqlMethods": 5,
+  "runtimePlan": "MINIMUM-RERUN.md",
+  "runtimeAuthorized": false,
+  "correctedSqlRuntime": "NOT RUN",
+  "populatedCashRecovery": "NOT PROVEN by the legacy four-projection recovery fixture",
+  "productionReady": false
+}

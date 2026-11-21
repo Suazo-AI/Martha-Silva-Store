@@ -1,0 +1,27 @@
+{
+  "observedUtc": "2026-11-05T14:19:20.429Z",
+  "host": "SUAZO-PC",
+  "node": "v24.18.0",
+  "browser": "156.0.8078.80",
+  "layer": "Real Chromium browser; mocked staff API; public browser-local demo",
+  "origin": "http://127.0.0.1:58851",
+  "sourceHashes": {
+    "dev/savia-staff-ui/app.mjs": "3fe413e586f55c2c55d394e3da59acf101e044a859e71bfd5398ebdb994efb86",
+    "dev/savia-staff-ui/client.mjs": "0447a3c83910d9a5618f98886d1025b9a74a3f59839eeca2ea0d7cc1ca6c4825",
+    "dev/savia-staff-ui/login.mjs": "ac7714a22eb1e7a383ca41e3e11343472025271dcf21dc862f39cf8c386fc787",
+    "dev/savia-staff-ui/login.html": "4803ece2ef530d9e5161837209ac86591bfe1447e9876b0f38bf17baca9a8382",
+    "dev/savia-staff-ui/index.html": "b5fe1c6a87f9cb4736e103eae888be97546e4f7b7e50d8893fe4ab4b01a6897d",
+    "dev/savia-staff-ui/styles.css": "3be78159e11d127c91db22399fb306fcc35e9cb8886a556393a003b82c9c2622"
+  },
+  "results": [
+    {
+      "name": "N5 discarded 404 receipt permits one complete fresh multiarticle sale and stock refresh",
+      "status": "FAIL",
+      "durationMs": 567,
+      "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ '00000001-0000-0000-0000-000000000005'\n- null\n"
+    }
+  ],
+  "runtime": [],
+  "externalRequests": [],
+  "networkFailures": []
+}

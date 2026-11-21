@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-14T04:08:07.359220+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/docs/pilot/ETIQUETA.md",
+      "change": "M",
+      "git_blob": "b3727d0c8c015a8d17af92ca588291c1cb837875"
+    },
+    {
+      "path": "savia/web/api.mjs",
+      "change": "M",
+      "git_blob": "3c2869e379b1150e6b35cd60ce67edf398828195"
+    },
+    {
+      "path": "savia/web/etiqueta/etiqueta.mjs",
+      "change": "M",
+      "git_blob": "d8ee0a84e56ce8d4ac6312097af67327d95757f1"
+    },
+    {
+      "path": "savia/web/tests/uuid.test.mjs",
+      "change": "A",
+      "git_blob": "6878c7487434be9f9e3b27cbbcf23549df256d71"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

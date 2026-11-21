@@ -1,0 +1,1346 @@
+{
+  "harness": "tests/golden-path/golden_path.py",
+  "card": "C6",
+  "mode": "browser",
+  "outcome": "FAIL",
+  "error": "c6_browser_failed",
+  "database_name": "SaviaInternalTest_Golden_4a4daa29b6616f82300a708a854c7391",
+  "migration_method": "EF IMigrator.MigrateAsync (release migrator; not EnsureCreated)",
+  "owner_method": "product console --internal-bootstrap-owner driven through a private pty",
+  "branch_method": "EF insert of InternalBranch by the harness (no HTTP endpoint creates branches)",
+  "directory_stock_staff_method": "HTTP as Owner: directory/locations, directory/items, commerce/adjustments, security/staff",
+  "api": {
+    "binding": "127.0.0.1 (https, ephemeral self-signed certificate)",
+    "process": "dotnet Martha.Store.Api.dll"
+  },
+  "roles": [
+    "Owner",
+    "Manager",
+    "Cashier",
+    "Inventory",
+    "Unassigned"
+  ],
+  "total_ms": 41192,
+  "steps": [
+    {
+      "step": "sql.migrate_release",
+      "status": "PASS",
+      "ms": 1661,
+      "applied_migrations": [
+        "20261025085402_InitialInternalSavia",
+        "20261027224500_InternalBranchScope"
+      ],
+      "method": "IMigrator.MigrateAsync",
+      "oracles": {
+        "active_sessions": 0,
+        "adjustments": 0,
+        "balance_vs_last_movement_mismatch": 0,
+        "balance_vs_movement_sum_mismatch": 0,
+        "balances": 0,
+        "branches": 0,
+        "cashier_active_sessions": 0,
+        "duplicate_idempotency_keys": 0,
+        "items": 0,
+        "items_without_synthetic_marker": 0,
+        "lines_without_exactly_one_movement": 0,
+        "locations": 0,
+        "migrations_applied": 2,
+        "movements": 0,
+        "negative_movement_after": 0,
+        "negative_or_invalid_stock": 0,
+        "on_hand_total": 0,
+        "operations": 0,
+        "sale_lines": 0,
+        "sale_movements": 0,
+        "sale_movements_not_matching_a_line": 0,
+        "sale_operations": 0,
+        "sales": 0,
+        "staff": 0,
+        "unassigned_staff": 0
+      },
+      "oracle_failures": []
+    },
+    {
+      "step": "owner.bootstrap_console",
+      "status": "PASS",
+      "ms": 1372,
+      "console_exit": 0,
+      "oracles": {
+        "active_sessions": 0,
+        "adjustments": 0,
+        "balance_vs_last_movement_mismatch": 0,
+        "balance_vs_movement_sum_mismatch": 0,
+        "balances": 0,
+        "branches": 0,
+        "cashier_active_sessions": 0,
+        "duplicate_idempotency_keys": 0,
+        "items": 0,
+        "items_without_synthetic_marker": 0,
+        "lines_without_exactly_one_movement": 0,
+        "locations": 0,
+        "migrations_applied": 2,
+        "movements": 0,
+        "negative_movement_after": 0,
+        "negative_or_invalid_stock": 0,
+        "on_hand_total": 0,
+        "operations": 0,
+        "sale_lines": 0,
+        "sale_movements": 0,
+        "sale_movements_not_matching_a_line": 0,
+        "sale_operations": 0,
+        "sales": 0,
+        "staff": 1,
+        "unassigned_staff": 0
+      },
+      "oracle_failures": []
+    },
+    {
+      "step": "sql.branch_seed",
+      "status": "PASS",
+      "ms": 1102,
+      "note": "sin endpoint HTTP de sucursales en este candidato",
+      "oracles": {
+        "active_sessions": 0,
+        "adjustments": 0,
+        "balance_vs_last_movement_mismatch": 0,
+        "balance_vs_movement_sum_mismatch": 0,
+        "balances": 0,
+        "branches": 1,
+        "cashier_active_sessions": 0,
+        "duplicate_idempotency_keys": 0,
+        "items": 0,
+        "items_without_synthetic_marker": 0,
+        "lines_without_exactly_one_movement": 0,
+        "locations": 0,
+        "migrations_applied": 2,
+        "movements": 0,
+        "negative_movement_after": 0,
+        "negative_or_invalid_stock": 0,
+        "on_hand_total": 0,
+        "operations": 0,
+        "sale_lines": 0,
+        "sale_movements": 0,
+        "sale_movements_not_matching_a_line": 0,
+        "sale_operations": 0,
+        "sales": 0,
+        "staff": 1,
+        "unassigned_staff": 0
+      },
+      "oracle_failures": []
+    },
+    {
+      "step": "api.start_readiness_anonymous",
+      "status": "PASS",
+      "ms": 666,
+      "http": [
+        401
+      ],
+      "port_kind": "loopback-free-port",
+      "oracles": {
+        "active_sessions": 0,
+        "adjustments": 0,
+        "balance_vs_last_movement_mismatch": 0,
+        "balance_vs_movement_sum_mismatch": 0,
+        "balances": 0,
+        "branches": 1,
+        "cashier_active_sessions": 0,
+        "duplicate_idempotency_keys": 0,
+        "items": 0,
+        "items_without_synthetic_marker": 0,
+        "lines_without_exactly_one_movement": 0,
+        "locations": 0,
+        "migrations_applied": 2,
+        "movements": 0,
+        "negative_movement_after": 0,
+        "negative_or_invalid_stock": 0,
+        "on_hand_total": 0,
+        "operations": 0,
+        "sale_lines": 0,
+        "sale_movements": 0,
+        "sale_movements_not_matching_a_line": 0,
+        "sale_operations": 0,
+        "sales": 0,
+        "staff": 1,
+        "unassigned_staff": 0
+      },
+      "oracle_failures": []
+    },
+    {
+      "step": "owner.login_readiness",
+      "status": "PASS",
+      "ms": 1464,
+      "http": [
+        200,
+        200
+      ],
+      "readiness": "ready",
+      "oracles": {
+        "active_sessions": 1,
+        "adjustments": 0,
+        "balance_vs_last_movement_mismatch": 0,
+        "balance_vs_movement_sum_mismatch": 0,
+        "balances": 0,
+        "branches": 1,
+        "cashier_active_sessions": 0,
+        "duplicate_idempotency_keys": 0,
+        "items": 0,
+        "items_without_synthetic_marker": 0,
+        "lines_without_exactly_one_movement": 0,
+        "locations": 0,
+        "migrations_applied": 2,
+        "movements": 0,
+        "negative_movement_after": 0,
+        "negative_or_invalid_stock": 0,
+        "on_hand_total": 0,
+        "operations": 0,
+        "sale_lines": 0,
+        "sale_movements": 0,
+        "sale_movements_not_matching_a_line": 0,
+        "sale_operations": 0,
+        "sales": 0,
+        "staff": 1,
+        "unassigned_staff": 0
+      },
+      "oracle_failures": []
+    },
+    {
+      "step": "owner.seed_directory",
+      "status": "PASS",
+      "ms": 343,
+      "http": [
+        201,
+        201,
+        201,
+        201
+      ],
+      "oracles": {
+        "active_sessions": 1,
+        "adjustments": 0,
+        "balance_vs_last_movement_mismatch": 0,
+        "balance_vs_movement_sum_mismatch": 0,
+        "balances": 0,
+        "branches": 1,
+        "cashier_active_sessions": 0,
+        "duplicate_idempotency_keys": 0,
+        "items": 3,
+        "items_without_synthetic_marker": 0,
+        "lines_without_exactly_one_movement": 0,
+        "locations": 1,
+        "migrations_applied": 2,
+        "movements": 0,
+        "negative_movement_after": 0,
+        "negative_or_invalid_stock": 0,
+        "on_hand_total": 0,
+        "operations": 4,
+        "sale_lines": 0,
+        "sale_movements": 0,
+        "sale_movements_not_matching_a_line": 0,
+        "sale_operations": 0,
+        "sales": 0,
+        "staff": 1,
+        "unassigned_staff": 0
+      },
+      "oracle_failures": []
+    },
+    {
+      "step": "owner.seed_stock_adjustments",
+      "status": "PASS",
+      "ms": 276,
+      "http": [
+        200,
+        200,
+        200
+      ],
+      "oracles": {
+        "active_sessions": 1,
+        "adjustments": 3,
+        "balance_vs_last_movement_mismatch": 0,
+        "balance_vs_movement_sum_mismatch": 0,
+        "balances": 3,
+        "branches": 1,
+        "cashier_active_sessions": 0,
+        "duplicate_idempotency_keys": 0,
+        "items": 3,
+        "items_without_synthetic_marker": 0,
+        "lines_without_exactly_one_movement": 0,
+        "locations": 1,
+        "migrations_applied": 2,
+        "movements": 3,
+        "negative_movement_after": 0,
+        "negative_or_invalid_stock": 0,
+        "on_hand_total": 30,
+        "operations": 7,
+        "sale_lines": 0,
+        "sale_movements": 0,
+        "sale_movements_not_matching_a_line": 0,
+        "sale_operations": 0,
+        "sales": 0,
+        "staff": 1,
+        "unassigned_staff": 0
+      },
+      "oracle_failures": []
+    },
+    {
+      "step": "owner.seed_staff",
+      "status": "PASS",
+      "ms": 656,
+      "http": [
+        200,
+        200,
+        200,
+        200
+      ],
+      "oracles": {
+        "active_sessions": 1,
+        "adjustments": 3,
+        "balance_vs_last_movement_mismatch": 0,
+        "balance_vs_movement_sum_mismatch": 0,
+        "balances": 3,
+        "branches": 1,
+        "cashier_active_sessions": 0,
+        "duplicate_idempotency_keys": 0,
+        "items": 3,
+        "items_without_synthetic_marker": 0,
+        "lines_without_exactly_one_movement": 0,
+        "locations": 1,
+        "migrations_applied": 2,
+        "movements": 3,
+        "negative_movement_after": 0,
+        "negative_or_invalid_stock": 0,
+        "on_hand_total": 30,
+        "operations": 7,
+        "sale_lines": 0,
+        "sale_movements": 0,
+        "sale_movements_not_matching_a_line": 0,
+        "sale_operations": 0,
+        "sales": 0,
+        "staff": 5,
+        "unassigned_staff": 1
+      },
+      "oracle_failures": []
+    },
+    {
+      "step": "owner.scope_and_logout",
+      "status": "PASS",
+      "ms": 198,
+      "http": [
+        200,
+        200,
+        200,
+        204,
+        401
+      ],
+      "visible_locations": 1,
+      "visible_stock_rows": 3,
+      "oracles": {
+        "active_sessions": 0,
+        "adjustments": 3,
+        "balance_vs_last_movement_mismatch": 0,
+        "balance_vs_movement_sum_mismatch": 0,
+        "balances": 3,
+        "branches": 1,
+        "cashier_active_sessions": 0,
+        "duplicate_idempotency_keys": 0,
+        "items": 3,
+        "items_without_synthetic_marker": 0,
+        "lines_without_exactly_one_movement": 0,
+        "locations": 1,
+        "migrations_applied": 2,
+        "movements": 3,
+        "negative_movement_after": 0,
+        "negative_or_invalid_stock": 0,
+        "on_hand_total": 30,
+        "operations": 7,
+        "sale_lines": 0,
+        "sale_movements": 0,
+        "sale_movements_not_matching_a_line": 0,
+        "sale_operations": 0,
+        "sales": 0,
+        "staff": 5,
+        "unassigned_staff": 1
+      },
+      "oracle_failures": []
+    },
+    {
+      "step": "browser.start",
+      "status": "PASS",
+      "ms": 2033,
+      "dom": [
+        "login_ready"
+      ],
+      "source_hashes": {
+        "dev/savia-staff-ui/app.mjs": "1ace7445e2f05e224dad969346eaf29e4a46ef48a9b6acfb87f338fe1beaf3ac",
+        "dev/savia-staff-ui/client.mjs": "3ca499eaed1a2ff636e4ed385b25bd96122488c94fad38be6bc80460f49fa6b9",
+        "dev/savia-staff-ui/login.mjs": "27e733a269f38b542913c80b97b722e0f899f48d65336eb376c2db34032ae0dd",
+        "dev/savia-staff-ui/login.html": "b9068478b46b9786c18dbe54ffa1172e1fb325e283ca944f9c2a840b37d1a686",
+        "dev/savia-staff-ui/index.html": "d4fcaa074c039b2f50783b3209a1429587b38f0c7e4335726dc0210be5c74c6f",
+        "dev/savia-staff-ui/styles.css": "e43e99b50b19aeadc6ebadae63e64cf3902c96ca923d08943fa6daadff9d9ae8"
+      },
+      "runtime": {
+        "chrome": "Chrome/156.0.8078.47",
+        "node": "v24.22.1",
+        "playwright": "1.63.0"
+      },
+      "network": [
+        {
+          "method": "GET",
+          "path": "/internal/login",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/styles.css",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/login.mjs",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/security/csrf",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        }
+      ],
+      "sale_posts": 0,
+      "external_requests": 0,
+      "runtime_errors": 0,
+      "oracles": {
+        "active_sessions": 0,
+        "adjustments": 3,
+        "balance_vs_last_movement_mismatch": 0,
+        "balance_vs_movement_sum_mismatch": 0,
+        "balances": 3,
+        "branches": 1,
+        "cashier_active_sessions": 0,
+        "duplicate_idempotency_keys": 0,
+        "items": 3,
+        "items_without_synthetic_marker": 0,
+        "lines_without_exactly_one_movement": 0,
+        "locations": 1,
+        "migrations_applied": 2,
+        "movements": 3,
+        "negative_movement_after": 0,
+        "negative_or_invalid_stock": 0,
+        "on_hand_total": 30,
+        "operations": 7,
+        "sale_lines": 0,
+        "sale_movements": 0,
+        "sale_movements_not_matching_a_line": 0,
+        "sale_operations": 0,
+        "sales": 0,
+        "staff": 5,
+        "unassigned_staff": 1
+      },
+      "oracle_failures": []
+    },
+    {
+      "step": "browser.cashier_login",
+      "status": "PASS",
+      "ms": 1320,
+      "dom": [
+        "shell",
+        "cashier",
+        "sale_enabled"
+      ],
+      "source_hashes": {
+        "dev/savia-staff-ui/login.html": "b9068478b46b9786c18dbe54ffa1172e1fb325e283ca944f9c2a840b37d1a686",
+        "dev/savia-staff-ui/styles.css": "e43e99b50b19aeadc6ebadae63e64cf3902c96ca923d08943fa6daadff9d9ae8",
+        "dev/savia-staff-ui/login.mjs": "27e733a269f38b542913c80b97b722e0f899f48d65336eb376c2db34032ae0dd",
+        "dev/savia-staff-ui/index.html": "d4fcaa074c039b2f50783b3209a1429587b38f0c7e4335726dc0210be5c74c6f",
+        "dev/savia-staff-ui/app.mjs": "1ace7445e2f05e224dad969346eaf29e4a46ef48a9b6acfb87f338fe1beaf3ac",
+        "dev/savia-staff-ui/client.mjs": "3ca499eaed1a2ff636e4ed385b25bd96122488c94fad38be6bc80460f49fa6b9"
+      },
+      "network": [
+        {
+          "method": "GET",
+          "path": "/internal/api/security/csrf",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "POST",
+          "path": "/internal/api/security/login",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/security/csrf",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/security/me",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/styles.css",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/app.mjs",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/client.mjs",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/login.mjs",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/security/me",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/directory/items",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/directory/locations",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/directory/items",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/commerce/inventory",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        }
+      ],
+      "sale_posts": 0,
+      "external_requests": 0,
+      "runtime_errors": 0,
+      "oracles": {
+        "active_sessions": 1,
+        "adjustments": 3,
+        "balance_vs_last_movement_mismatch": 0,
+        "balance_vs_movement_sum_mismatch": 0,
+        "balances": 3,
+        "branches": 1,
+        "cashier_active_sessions": 1,
+        "duplicate_idempotency_keys": 0,
+        "items": 3,
+        "items_without_synthetic_marker": 0,
+        "lines_without_exactly_one_movement": 0,
+        "locations": 1,
+        "migrations_applied": 2,
+        "movements": 3,
+        "negative_movement_after": 0,
+        "negative_or_invalid_stock": 0,
+        "on_hand_total": 30,
+        "operations": 7,
+        "sale_lines": 0,
+        "sale_movements": 0,
+        "sale_movements_not_matching_a_line": 0,
+        "sale_operations": 0,
+        "sales": 0,
+        "staff": 5,
+        "unassigned_staff": 1
+      },
+      "oracle_failures": []
+    },
+    {
+      "step": "browser.inventory",
+      "status": "PASS",
+      "ms": 156,
+      "dom": [
+        "inventory",
+        "stock_current"
+      ],
+      "stock_rows": 3,
+      "stock_total": 30,
+      "network": [
+        {
+          "method": "GET",
+          "path": "/internal/api/directory/items",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/commerce/inventory",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/commerce/inventory",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        }
+      ],
+      "sale_posts": 0,
+      "external_requests": 0,
+      "runtime_errors": 0,
+      "oracles": {
+        "active_sessions": 1,
+        "adjustments": 3,
+        "balance_vs_last_movement_mismatch": 0,
+        "balance_vs_movement_sum_mismatch": 0,
+        "balances": 3,
+        "branches": 1,
+        "cashier_active_sessions": 1,
+        "duplicate_idempotency_keys": 0,
+        "items": 3,
+        "items_without_synthetic_marker": 0,
+        "lines_without_exactly_one_movement": 0,
+        "locations": 1,
+        "migrations_applied": 2,
+        "movements": 3,
+        "negative_movement_after": 0,
+        "negative_or_invalid_stock": 0,
+        "on_hand_total": 30,
+        "operations": 7,
+        "sale_lines": 0,
+        "sale_movements": 0,
+        "sale_movements_not_matching_a_line": 0,
+        "sale_operations": 0,
+        "sales": 0,
+        "staff": 5,
+        "unassigned_staff": 1
+      },
+      "oracle_failures": []
+    },
+    {
+      "step": "browser.sale_confirmed",
+      "status": "PASS",
+      "ms": 311,
+      "dom": [
+        "receipt",
+        "sale_enabled"
+      ],
+      "sale_id": "550b08b9-2978-436d-b902-ebb7c9461d2b",
+      "key": "629ad445-952d-41c0-b02e-84091191a616",
+      "quantity": 2,
+      "total_minor": 2500,
+      "network": [
+        {
+          "method": "GET",
+          "path": "/internal/api/security/csrf",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "POST",
+          "path": "/internal/api/commerce/sales",
+          "status": 200,
+          "key": "629ad445-952d-41c0-b02e-84091191a616",
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/commerce/inventory",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        }
+      ],
+      "sale_posts": 1,
+      "external_requests": 0,
+      "runtime_errors": 0,
+      "oracles": {
+        "active_sessions": 1,
+        "adjustments": 3,
+        "balance_vs_last_movement_mismatch": 0,
+        "balance_vs_movement_sum_mismatch": 0,
+        "balances": 3,
+        "branches": 1,
+        "cashier_active_sessions": 1,
+        "duplicate_idempotency_keys": 0,
+        "items": 3,
+        "items_without_synthetic_marker": 0,
+        "lines_without_exactly_one_movement": 0,
+        "locations": 1,
+        "migrations_applied": 2,
+        "movements": 4,
+        "negative_movement_after": 0,
+        "negative_or_invalid_stock": 0,
+        "on_hand_total": 28,
+        "operations": 8,
+        "sale_lines": 1,
+        "sale_movements": 1,
+        "sale_movements_not_matching_a_line": 0,
+        "sale_operations": 1,
+        "sales": 1,
+        "staff": 5,
+        "unassigned_staff": 1
+      },
+      "oracle_failures": []
+    },
+    {
+      "step": "browser.receipt_reload",
+      "status": "PASS",
+      "ms": 859,
+      "dom": [
+        "receipt",
+        "same_receipt",
+        "sale_enabled"
+      ],
+      "sale_id": "550b08b9-2978-436d-b902-ebb7c9461d2b",
+      "network": [
+        {
+          "method": "GET",
+          "path": "/internal/",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/styles.css",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/app.mjs",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/client.mjs",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/login.mjs",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/security/me",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/directory/items",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/directory/locations",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/directory/items",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/commerce/sales/550b08b9-2978-436d-b902-ebb7c9461d2b",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/commerce/inventory",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        }
+      ],
+      "sale_posts": 1,
+      "external_requests": 0,
+      "runtime_errors": 0,
+      "oracles": {
+        "active_sessions": 1,
+        "adjustments": 3,
+        "balance_vs_last_movement_mismatch": 0,
+        "balance_vs_movement_sum_mismatch": 0,
+        "balances": 3,
+        "branches": 1,
+        "cashier_active_sessions": 1,
+        "duplicate_idempotency_keys": 0,
+        "items": 3,
+        "items_without_synthetic_marker": 0,
+        "lines_without_exactly_one_movement": 0,
+        "locations": 1,
+        "migrations_applied": 2,
+        "movements": 4,
+        "negative_movement_after": 0,
+        "negative_or_invalid_stock": 0,
+        "on_hand_total": 28,
+        "operations": 8,
+        "sale_lines": 1,
+        "sale_movements": 1,
+        "sale_movements_not_matching_a_line": 0,
+        "sale_operations": 1,
+        "sales": 1,
+        "staff": 5,
+        "unassigned_staff": 1
+      },
+      "oracle_failures": []
+    },
+    {
+      "step": "browser.stock_after_sale",
+      "status": "PASS",
+      "ms": 178,
+      "dom": [
+        "inventory",
+        "stock_current"
+      ],
+      "stock_rows": 3,
+      "stock_total": 28,
+      "network": [
+        {
+          "method": "GET",
+          "path": "/internal/api/directory/items",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/commerce/inventory",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/commerce/inventory",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        }
+      ],
+      "sale_posts": 1,
+      "external_requests": 0,
+      "runtime_errors": 0,
+      "oracles": {
+        "active_sessions": 1,
+        "adjustments": 3,
+        "balance_vs_last_movement_mismatch": 0,
+        "balance_vs_movement_sum_mismatch": 0,
+        "balances": 3,
+        "branches": 1,
+        "cashier_active_sessions": 1,
+        "duplicate_idempotency_keys": 0,
+        "items": 3,
+        "items_without_synthetic_marker": 0,
+        "lines_without_exactly_one_movement": 0,
+        "locations": 1,
+        "migrations_applied": 2,
+        "movements": 4,
+        "negative_movement_after": 0,
+        "negative_or_invalid_stock": 0,
+        "on_hand_total": 28,
+        "operations": 8,
+        "sale_lines": 1,
+        "sale_movements": 1,
+        "sale_movements_not_matching_a_line": 0,
+        "sale_operations": 1,
+        "sales": 1,
+        "staff": 5,
+        "unassigned_staff": 1
+      },
+      "oracle_failures": []
+    },
+    {
+      "step": "browser.response_loss_committed",
+      "status": "PASS",
+      "ms": 127,
+      "dom": [
+        "pending",
+        "pending_key_preserved"
+      ],
+      "sale_id": "a39b1c77-bf74-4efe-9f70-bc61d02ef253",
+      "key": "8825b4ae-0b4e-4f99-8ccf-4f92efe59527",
+      "quantity": 1,
+      "total_minor": 1250,
+      "network": [
+        {
+          "method": "GET",
+          "path": "/internal/api/security/csrf",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "POST",
+          "path": "/internal/api/commerce/sales",
+          "status": 200,
+          "key": "8825b4ae-0b4e-4f99-8ccf-4f92efe59527",
+          "response_lost": true
+        }
+      ],
+      "sale_posts": 2,
+      "external_requests": 0,
+      "runtime_errors": 0,
+      "oracles": {
+        "active_sessions": 1,
+        "adjustments": 3,
+        "balance_vs_last_movement_mismatch": 0,
+        "balance_vs_movement_sum_mismatch": 0,
+        "balances": 3,
+        "branches": 1,
+        "cashier_active_sessions": 1,
+        "duplicate_idempotency_keys": 0,
+        "items": 3,
+        "items_without_synthetic_marker": 0,
+        "lines_without_exactly_one_movement": 0,
+        "locations": 1,
+        "migrations_applied": 2,
+        "movements": 5,
+        "negative_movement_after": 0,
+        "negative_or_invalid_stock": 0,
+        "on_hand_total": 27,
+        "operations": 9,
+        "sale_lines": 2,
+        "sale_movements": 2,
+        "sale_movements_not_matching_a_line": 0,
+        "sale_operations": 2,
+        "sales": 2,
+        "staff": 5,
+        "unassigned_staff": 1
+      },
+      "oracle_failures": []
+    },
+    {
+      "step": "browser.recover_after_reload",
+      "status": "PASS",
+      "ms": 853,
+      "dom": [
+        "receipt",
+        "same_receipt",
+        "sale_enabled"
+      ],
+      "sale_id": "a39b1c77-bf74-4efe-9f70-bc61d02ef253",
+      "key": "8825b4ae-0b4e-4f99-8ccf-4f92efe59527",
+      "network": [
+        {
+          "method": "GET",
+          "path": "/internal/",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/styles.css",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/app.mjs",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/client.mjs",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/login.mjs",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/security/me",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/directory/items",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/directory/locations",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/directory/items",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/commerce/sales/550b08b9-2978-436d-b902-ebb7c9461d2b",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/commerce/inventory",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/operations/commerce.sale.record",
+          "status": 200,
+          "key": "8825b4ae-0b4e-4f99-8ccf-4f92efe59527",
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/commerce/inventory",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        }
+      ],
+      "sale_posts": 2,
+      "external_requests": 0,
+      "runtime_errors": 0,
+      "oracles": {
+        "active_sessions": 1,
+        "adjustments": 3,
+        "balance_vs_last_movement_mismatch": 0,
+        "balance_vs_movement_sum_mismatch": 0,
+        "balances": 3,
+        "branches": 1,
+        "cashier_active_sessions": 1,
+        "duplicate_idempotency_keys": 0,
+        "items": 3,
+        "items_without_synthetic_marker": 0,
+        "lines_without_exactly_one_movement": 0,
+        "locations": 1,
+        "migrations_applied": 2,
+        "movements": 5,
+        "negative_movement_after": 0,
+        "negative_or_invalid_stock": 0,
+        "on_hand_total": 27,
+        "operations": 9,
+        "sale_lines": 2,
+        "sale_movements": 2,
+        "sale_movements_not_matching_a_line": 0,
+        "sale_operations": 2,
+        "sales": 2,
+        "staff": 5,
+        "unassigned_staff": 1
+      },
+      "oracle_failures": []
+    },
+    {
+      "step": "browser.repeated_reload",
+      "status": "PASS",
+      "ms": 760,
+      "dom": [
+        "receipt",
+        "same_receipt",
+        "sale_enabled"
+      ],
+      "sale_id": "a39b1c77-bf74-4efe-9f70-bc61d02ef253",
+      "network": [
+        {
+          "method": "GET",
+          "path": "/internal/",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/styles.css",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/app.mjs",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/client.mjs",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/login.mjs",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/security/me",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/directory/items",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/directory/locations",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/directory/items",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/commerce/sales/a39b1c77-bf74-4efe-9f70-bc61d02ef253",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/commerce/inventory",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        }
+      ],
+      "sale_posts": 2,
+      "external_requests": 0,
+      "runtime_errors": 0,
+      "oracles": {
+        "active_sessions": 1,
+        "adjustments": 3,
+        "balance_vs_last_movement_mismatch": 0,
+        "balance_vs_movement_sum_mismatch": 0,
+        "balances": 3,
+        "branches": 1,
+        "cashier_active_sessions": 1,
+        "duplicate_idempotency_keys": 0,
+        "items": 3,
+        "items_without_synthetic_marker": 0,
+        "lines_without_exactly_one_movement": 0,
+        "locations": 1,
+        "migrations_applied": 2,
+        "movements": 5,
+        "negative_movement_after": 0,
+        "negative_or_invalid_stock": 0,
+        "on_hand_total": 27,
+        "operations": 9,
+        "sale_lines": 2,
+        "sale_movements": 2,
+        "sale_movements_not_matching_a_line": 0,
+        "sale_operations": 2,
+        "sales": 2,
+        "staff": 5,
+        "unassigned_staff": 1
+      },
+      "oracle_failures": []
+    },
+    {
+      "step": "browser.stock_after_recovery",
+      "status": "PASS",
+      "ms": 153,
+      "dom": [
+        "inventory",
+        "stock_current"
+      ],
+      "stock_rows": 3,
+      "stock_total": 27,
+      "network": [
+        {
+          "method": "GET",
+          "path": "/internal/api/directory/items",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/commerce/inventory",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/commerce/inventory",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        }
+      ],
+      "sale_posts": 2,
+      "external_requests": 0,
+      "runtime_errors": 0,
+      "oracles": {
+        "active_sessions": 1,
+        "adjustments": 3,
+        "balance_vs_last_movement_mismatch": 0,
+        "balance_vs_movement_sum_mismatch": 0,
+        "balances": 3,
+        "branches": 1,
+        "cashier_active_sessions": 1,
+        "duplicate_idempotency_keys": 0,
+        "items": 3,
+        "items_without_synthetic_marker": 0,
+        "lines_without_exactly_one_movement": 0,
+        "locations": 1,
+        "migrations_applied": 2,
+        "movements": 5,
+        "negative_movement_after": 0,
+        "negative_or_invalid_stock": 0,
+        "on_hand_total": 27,
+        "operations": 9,
+        "sale_lines": 2,
+        "sale_movements": 2,
+        "sale_movements_not_matching_a_line": 0,
+        "sale_operations": 2,
+        "sales": 2,
+        "staff": 5,
+        "unassigned_staff": 1
+      },
+      "oracle_failures": []
+    },
+    {
+      "step": "browser.logout",
+      "status": "FAIL",
+      "ms": 20126
+    },
+    {
+      "step": "teardown.stop_api_drop_database",
+      "ms": 660,
+      "status": "PASS",
+      "browser_exit": 1,
+      "api_exit": 0,
+      "database_dropped": true,
+      "api_log_lines": 64,
+      "api_log_fail_or_crit": 0,
+      "api_log_warn": 27,
+      "private_dir_removed": true
+    }
+  ],
+  "not_proven": [
+    "Windows/SUAZO-PC",
+    "production TLS/proxy",
+    "payments",
+    "concurrency/load",
+    "backup/restore",
+    "idempotent release SQL script",
+    "mobile devices",
+    "visual acceptance",
+    "full accessibility audit"
+  ],
+  "browser": {
+    "transport": "Chrome HTTPS to real API; CDP discards a committed HTTP 200 response once",
+    "tls": "isolated Chrome profile; ephemeral certificate SPKI allowlist; no trust store changes",
+    "tls_spki_sha256": "EcinkW02xAGTcLyTVIhgT8w2LVVvcb8r6zTgLactwYU=",
+    "source_hashes": {
+      "dev/savia-staff-ui/app.mjs": "1ace7445e2f05e224dad969346eaf29e4a46ef48a9b6acfb87f338fe1beaf3ac",
+      "dev/savia-staff-ui/client.mjs": "3ca499eaed1a2ff636e4ed385b25bd96122488c94fad38be6bc80460f49fa6b9",
+      "dev/savia-staff-ui/login.mjs": "27e733a269f38b542913c80b97b722e0f899f48d65336eb376c2db34032ae0dd",
+      "dev/savia-staff-ui/login.html": "b9068478b46b9786c18dbe54ffa1172e1fb325e283ca944f9c2a840b37d1a686",
+      "dev/savia-staff-ui/index.html": "d4fcaa074c039b2f50783b3209a1429587b38f0c7e4335726dc0210be5c74c6f",
+      "dev/savia-staff-ui/styles.css": "e43e99b50b19aeadc6ebadae63e64cf3902c96ca923d08943fa6daadff9d9ae8",
+      "tests/golden-path/golden_path.py": "21a9b0185db76cdbf202793dbf24835aba23eba5ac8455cc722f2f0dd16c0661",
+      "tests/golden-path/browser_path.mjs": "ed2ff6dd3264b1625d1f342a003eab23dffcb3bd66512dbc2274e6d9f86766b2",
+      "backend/src/Martha.Store.Api/bin/Release/net10.0/Martha.Store.Api.dll": "fa990456e6f6182735d14338094c3fd5e9340557b9169e6d0e727f59cbe0a229"
+    },
+    "raw_trace_or_har_recorded": false,
+    "runtime": {
+      "chrome": "Chrome/156.0.8078.47",
+      "node": "v24.22.1",
+      "playwright": "1.63.0"
+    }
+  }
+}

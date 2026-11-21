@@ -1,0 +1,318 @@
+{
+  "task_id": "savia-real-cash-evidence-corrections-990e23a-20261108-01",
+  "status": "returned_candidate",
+  "source_sha": "990e23a1bac2ef06e40df12ed87a1569586c9b2c",
+  "headUnchanged": true,
+  "changedPaths": [
+    "tests/golden-path/golden_path.py",
+    "tests/golden-path/verify_evidence.py",
+    "tests/test_golden_path_cash.py",
+    "tests/test_golden_path_cash_evidence.py",
+    "docs/cash-register-20261107/real-journey/corrections/README.md",
+    "docs/cash-register-20261107/real-journey/corrections/RESULT.json"
+  ],
+  "identity": {
+    "host": "SUAZO-PC",
+    "provider": "codex",
+    "model": "gpt-6.1-sol",
+    "requestedReasoning": "high",
+    "exposedReasoning": "high",
+    "evidence": "T3 runtime instruction and agent-awareness metadata",
+    "worktree": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-51411203",
+    "isolation": "T3-managed existing checkout",
+    "usageCost": "unknown"
+  },
+  "commands": [
+    {
+      "command": "python -m unittest discover -s tests -p test_golden_path_cash_evidence.py -v",
+      "exit": 1,
+      "tests": 53,
+      "failureAssertions": 27,
+      "errors": 0,
+      "log": "private-exports/cash-corrections/old-red.log",
+      "logSha256": "d6417b271d7a27753380e47cf70b7c4294d1fbb6a02c54acb35904a3fd6b5a52"
+    },
+    {
+      "command": "python -m unittest discover -s tests -p test_golden_path_cash_evidence.py -v",
+      "exit": 1,
+      "tests": 53,
+      "failureAssertions": 0,
+      "errors": 3,
+      "log": "private-exports/cash-corrections/focused-green.log",
+      "logSha256": "6844312853c3383c34c3143ecbebf9b69eca8d7a06f1b2e26acf9da81b79f7e2"
+    },
+    {
+      "command": "python -m unittest discover -s tests -p test_golden_path_cash_evidence.py -v",
+      "exit": 0,
+      "tests": 18,
+      "failureAssertions": 0,
+      "errors": 0,
+      "log": "private-exports/cash-corrections/focused-green-2.log",
+      "logSha256": "bf92da17f0185629da15b6bd5ffd3a8e43960492fd1a71f4a5992544525b9a31"
+    },
+    {
+      "command": "python -m unittest discover -s tests -p test_golden_path_cash_evidence.py -v",
+      "exit": 0,
+      "tests": 21,
+      "failureAssertions": 0,
+      "errors": 0,
+      "log": "private-exports/cash-corrections/focused-final.log",
+      "logSha256": "ff1a46848168f018ebfa3e2c27a03e009c830a7b0e9a21bf6a4d6dbabfb5b15f"
+    },
+    {
+      "command": "python -m unittest discover -s tests -p test_golden_path_cash.py -v",
+      "exit": 0,
+      "tests": 35,
+      "failureAssertions": 0,
+      "errors": 0,
+      "log": "private-exports/cash-corrections/cash-existing.log",
+      "logSha256": "5776d48f1414c75851f36c74edbf3a5ce90e883e548facfe64c4c6697ecdca77"
+    },
+    {
+      "command": "python -m unittest discover -s tests -p 'test_golden_path_*safety.py' -v",
+      "exit": 0,
+      "tests": 41,
+      "failureAssertions": 0,
+      "errors": 0,
+      "log": "private-exports/cash-corrections/safety-browser.log",
+      "logSha256": "c35b502c2d9c64ed6f344f2af7fb73c5e83e55d4dc57bef8876fa1032c746b18"
+    },
+    {
+      "command": "python -m unittest discover -s tests -p 'test_golden_path_stock*.py' -v",
+      "exit": 0,
+      "tests": 5,
+      "failureAssertions": 0,
+      "errors": 0,
+      "log": "private-exports/cash-corrections/stock.log",
+      "logSha256": "31eb1cb91561042c98d12ddb9fdb295f6278cfbc33f4caae4c7af365652b5a4c"
+    },
+    {
+      "command": "python - (in-memory original modules from git show 990e23a; final regression suite)",
+      "exit": 1,
+      "tests": 21,
+      "failureAssertions": 29,
+      "errors": 0,
+      "log": "private-exports/cash-corrections/old-final-red.log",
+      "logSha256": "08e2f2d95b38cdb2a011e455963a005a09fe44cf9932da83ee9f5fd690f205ef"
+    }
+  ],
+  "bindingPolicy": "RAW is SHA256 of exact bytes. sourceGitBlob is git show at source_sha, not a saved pre-edit working-tree RAW snapshot. LF replaces CRLF with LF only. Candidate files use UTF-8/LF. No normalization beyond newlines. Primary must verify RAW on transfer and LF against Git source.",
+  "bindings": [
+    {
+      "path": "tests/golden-path/golden_path.py",
+      "candidate": {
+        "rawSha256": "bc24f7fd81dd3293b14a0a35999f9bc0d3e8b5cedf6c7409b2b69acaf7f249f9",
+        "lfSha256": "bc24f7fd81dd3293b14a0a35999f9bc0d3e8b5cedf6c7409b2b69acaf7f249f9",
+        "bytes": 110856
+      },
+      "sourceGitBlob": {
+        "rawSha256": "edc3df7862c624d890f5f7b917407a8dde06a6ff749678723d2c58647bd56afe",
+        "lfSha256": "edc3df7862c624d890f5f7b917407a8dde06a6ff749678723d2c58647bd56afe",
+        "bytes": 109073
+      }
+    },
+    {
+      "path": "tests/golden-path/verify_evidence.py",
+      "candidate": {
+        "rawSha256": "4067ef7d25c897b84b3698793bec774384e4b200a541de8266ce708643f33b96",
+        "lfSha256": "4067ef7d25c897b84b3698793bec774384e4b200a541de8266ce708643f33b96",
+        "bytes": 5651
+      },
+      "sourceGitBlob": {
+        "rawSha256": "dbf894faa1a07856310b17cdefdca29c58d30f80e2af0a1b53332fdb34d50299",
+        "lfSha256": "dbf894faa1a07856310b17cdefdca29c58d30f80e2af0a1b53332fdb34d50299",
+        "bytes": 4336
+      }
+    },
+    {
+      "path": "tests/test_golden_path_cash.py",
+      "candidate": {
+        "rawSha256": "6743cbbceca5ae31b2c17565fb4aca841b3fa3f6b17803d99dbefd672dceebb2",
+        "lfSha256": "6743cbbceca5ae31b2c17565fb4aca841b3fa3f6b17803d99dbefd672dceebb2",
+        "bytes": 23257
+      },
+      "sourceGitBlob": {
+        "rawSha256": "3f94f75665e22a8d706e400b4bdb4cab9029b236b43cb81e42f56a98995b1c63",
+        "lfSha256": "3f94f75665e22a8d706e400b4bdb4cab9029b236b43cb81e42f56a98995b1c63",
+        "bytes": 22037
+      }
+    },
+    {
+      "path": "tests/test_golden_path_cash_evidence.py",
+      "candidate": {
+        "rawSha256": "5583c19a9da209b185696c7e4a9c3d99aa592abc3ba65da5efce08c2582ffedd",
+        "lfSha256": "5583c19a9da209b185696c7e4a9c3d99aa592abc3ba65da5efce08c2582ffedd",
+        "bytes": 4040
+      }
+    }
+  ],
+  "readOnlyBindings": [
+    {
+      "path": "tests/golden-path/browser_path.mjs",
+      "sourceGitBlob": {
+        "rawSha256": "4229e6f7573e775dd4995757313f2e528eccf6167b40de19d3b9df097da3fda0",
+        "lfSha256": "4229e6f7573e775dd4995757313f2e528eccf6167b40de19d3b9df097da3fda0",
+        "bytes": 40178
+      },
+      "candidate": {
+        "rawSha256": "3b241ace9a0f01a7f4f690d1935660f93237dc10cbcf054a3224488b13a11330",
+        "lfSha256": "4229e6f7573e775dd4995757313f2e528eccf6167b40de19d3b9df097da3fda0",
+        "bytes": 40713
+      },
+      "lfEqual": true
+    },
+    {
+      "path": "tests/golden-path/GoldenPath.Sql/Program.cs",
+      "sourceGitBlob": {
+        "rawSha256": "9685983e5a8a83401d3878a0d2d24fb17981dfe16caaecfb3692d0edb5c2c3cb",
+        "lfSha256": "9685983e5a8a83401d3878a0d2d24fb17981dfe16caaecfb3692d0edb5c2c3cb",
+        "bytes": 22667
+      },
+      "candidate": {
+        "rawSha256": "46bcb28a622d27671bbeb58e82c2800254cd29a95efee9f2f26513afdfc8ba09",
+        "lfSha256": "9685983e5a8a83401d3878a0d2d24fb17981dfe16caaecfb3692d0edb5c2c3cb",
+        "bytes": 22995
+      },
+      "lfEqual": true
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceService.cs",
+      "sourceGitBlob": {
+        "rawSha256": "67758ba83e225fa32d2d32e1660ec3884483f59cb01ac133cacd02496930259f",
+        "lfSha256": "67758ba83e225fa32d2d32e1660ec3884483f59cb01ac133cacd02496930259f",
+        "bytes": 17648
+      },
+      "candidate": {
+        "rawSha256": "d3f72118e23b92d8a376a5cc5af2519cf30d0adc1aee5414ebccbe8034472248",
+        "lfSha256": "67758ba83e225fa32d2d32e1660ec3884483f59cb01ac133cacd02496930259f",
+        "bytes": 17884
+      },
+      "lfEqual": true
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceModels.cs",
+      "sourceGitBlob": {
+        "rawSha256": "9ce06ffc9aa504ec168aff25aa11cf4c95555bab513515399745f5bac6de8783",
+        "lfSha256": "9ce06ffc9aa504ec168aff25aa11cf4c95555bab513515399745f5bac6de8783",
+        "bytes": 5325
+      },
+      "candidate": {
+        "rawSha256": "5bbbec25627ca52743c2b6e79f07b02a51fde661cb848897d2bffe606a7f3f7d",
+        "lfSha256": "9ce06ffc9aa504ec168aff25aa11cf4c95555bab513515399745f5bac6de8783",
+        "bytes": 5439
+      },
+      "lfEqual": true
+    }
+  ],
+  "productPreservation": {
+    "trackedFilesChecked": 1648,
+    "roots": [
+      "src",
+      "backend/src",
+      "dev/savia-staff-ui",
+      "build-inputs/static"
+    ],
+    "allLfBytesEqualSourceGit": true,
+    "sortedPathLfHashManifestSha256": "803c4e320bd57a641c875ce746b0f6b65b175a228bd335ca4ffded54afc22a78",
+    "rawSnapshotLimitation": "No pre-edit RAW snapshot of all product files; equivalence checked against Git blob after newline-only normalization."
+  },
+  "finalOffline": {
+    "newRegressions": 21,
+    "cash": 35,
+    "safetyAndBrowser": 41,
+    "stock": 5,
+    "total": 102,
+    "failed": 0,
+    "skipped": 0
+  },
+  "oldRed": {
+    "finalSuite": 21,
+    "failureAssertions": 29,
+    "errors": 0,
+    "exit": 1,
+    "note": "Subtest failures exceed test methods. Old modules loaded from frozen Git blobs in a temporary directory; no checkout changes or runtime."
+  },
+  "failedAttempts": [
+    {
+      "attempt": 1,
+      "result": "OLD source accepted invalid claims: 27 failure assertions across 53 tests (35 existing imported by discovery plus 18 new)."
+    },
+    {
+      "attempt": 2,
+      "result": "Corrected first run: 3 errors from positive fixture missing cash shell DOM. Fixed fixture to actual driver DOM; removed accidental duplicate imported test discovery."
+    },
+    {
+      "issue": "Python Windows default read_text encoding introduced mojibake in golden_path.py during edit. Restored every original non-ASCII line from frozen UTF-8 Git bytes before final checks. Final diff has no unrelated text changes."
+    }
+  ],
+  "checks": {
+    "gitDiffCheck": {
+      "command": "git diff --check",
+      "exit": 0
+    },
+    "productChanged": false,
+    "runtime": "NOT RUN",
+    "sql5": "D: REVIEW FIRST, DO NOT EXECUTE",
+    "productionAcceptance": "NOT CLAIMED",
+    "primaryAcceptance": "PENDING"
+  },
+  "limits": {
+    "maxMinutes": 60,
+    "maxFocusedPythonTestProbeProcesses": 8,
+    "actualFocusedPythonTestProbeProcesses": 8,
+    "install": false,
+    "nestedWorkers": false,
+    "gitMutations": false,
+    "rawLogs": "ignored private-exports/cash-corrections only"
+  },
+  "blockers": [
+    {
+      "item": "Real cash runtime",
+      "cause": "Outside offline authorization; SQL5 held",
+      "attempt": "Prepared and checked source only",
+      "result": "NOT RUN",
+      "owner": "Primary/Jason",
+      "nextAction": "Review and authorize bounded runtime separately",
+      "completionCheck": "Authorized real browser/API/SQL proof with owned cleanup"
+    },
+    {
+      "item": "Independent acceptance",
+      "cause": "Worker candidate requires primary integration and Astra/xhigh review",
+      "attempt": "Returned source hashes and offline red/green",
+      "result": "PENDING",
+      "owner": "Primary",
+      "nextAction": "Integrate serially, verify exact bytes and run independent checks",
+      "completionCheck": "Primary verdict after independent source-bound review"
+    }
+  ],
+  "lesson": "Publication must admit the same sanitized checkpoint schema as the runtime. A scan manifest binds bytes; it does not prove semantics.",
+  "nextAction": "Primary integrates serially, independently verifies candidate bytes and requests Astra/xhigh review; do not run SQL5.",
+  "expectedNegativeAssertions": {
+    "F1": [
+      "missing mode with empty steps",
+      "smoke downgrade with empty steps",
+      "incomplete PASS"
+    ],
+    "F2": [
+      "missing DOM",
+      "missing startup runtime",
+      "missing checkpoint source hashes",
+      "missing run source map",
+      "served/run hash mismatch",
+      "recovered sale/key mismatch",
+      "unauthorized staff POST",
+      "missing/null/bool API exit",
+      "missing run runtime"
+    ],
+    "F3": [
+      "every persisted immutable Sales/SaleLines field mutated on each refund",
+      "cancelled original sale",
+      "fully returned state while second item unreturned"
+    ]
+  },
+  "evidenceDocumentBinding": {
+    "path": "docs/cash-register-20261107/real-journey/corrections/README.md",
+    "rawSha256": "08648def04b3bedd25c6b8125cef9f77bc5c49557d285733db05f5de22c0e1ab",
+    "selfHashExcluded": "RESULT.json cannot contain its own stable hash."
+  }
+}

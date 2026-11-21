@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-17T04:59:03.936647+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/merge-readiness-20261116/corrections/STATUS.md",
+      "change": "M",
+      "git_blob": "560d540794d3d6374cb8c455b0d2454c16205db3"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/ci-followup/ci-9879d5c/README.md",
+      "change": "M",
+      "git_blob": "b7e3bd91de479861f5d7a65c775741cf49283dfd"
+    },
+    {
+      "path": "tests/golden-path/browser_path.mjs",
+      "change": "M",
+      "git_blob": "5a571c77d759895542dbf1782adcca717f79a91e"
+    },
+    {
+      "path": "tests/golden-path/golden_path.py",
+      "change": "M",
+      "git_blob": "3cc9881b07f84312c7ad1158649a9938e032ceda"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

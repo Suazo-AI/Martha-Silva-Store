@@ -1,0 +1,82 @@
+{
+  "checks": [
+    {
+      "active": "venta",
+      "ms": 36,
+      "overflow": false,
+      "route": "venta",
+      "visible": true
+    },
+    {
+      "active": "caja",
+      "ms": 58,
+      "overflow": false,
+      "route": "caja",
+      "visible": true
+    },
+    {
+      "active": "inventario",
+      "ms": 54,
+      "overflow": false,
+      "route": "inventario",
+      "visible": true
+    },
+    {
+      "active": "historial",
+      "ms": 232,
+      "overflow": false,
+      "route": "historial",
+      "visible": true
+    },
+    {
+      "active": "recepcion",
+      "ms": 90,
+      "overflow": false,
+      "route": "recepcion",
+      "visible": true
+    },
+    {
+      "active": "calidad",
+      "ms": 37,
+      "overflow": false,
+      "route": "calidad",
+      "visible": true
+    },
+    {
+      "active": "clientes",
+      "ms": 34,
+      "overflow": false,
+      "route": "clientes",
+      "visible": true
+    },
+    {
+      "active": "comisiones",
+      "ms": 40,
+      "overflow": false,
+      "route": "comisiones",
+      "visible": true
+    },
+    {
+      "active": "reporte",
+      "ms": 80,
+      "overflow": false,
+      "route": "reporte",
+      "visible": true
+    },
+    {
+      "active": "excepciones",
+      "ms": 43,
+      "overflow": false,
+      "route": "excepciones",
+      "visible": true
+    },
+    {
+      "active": "ajustes",
+      "ms": 41,
+      "overflow": false,
+      "route": "ajustes",
+      "visible": true
+    }
+  ],
+  "width": 1440
+}

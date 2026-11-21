@@ -1,0 +1,9 @@
+{
+  "snapshot_before_regeneration": "backend/src/Martha.Store.Api/Internal/Migrations/InternalDbContextModelSnapshot.cs",
+  "base_sha256": "66ff2a6d0dccb6dfb12d4c52757bf732a62cbdbdbc87102809a612dc0f05028a",
+  "restored_sha256": "66ff2a6d0dccb6dfb12d4c52757bf732a62cbdbdbc87102809a612dc0f05028a",
+  "generated_files_removed_before_regeneration": [
+    "20261106070958_PhysicalStockException.cs",
+    "20261106070958_PhysicalStockException.Designer.cs"
+  ]
+}

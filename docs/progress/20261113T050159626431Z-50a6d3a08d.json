@@ -1,0 +1,275 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-13T05:01:59.626431+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": ".github/workflows/savia-azure.yml",
+      "change": "A",
+      "git_blob": "e9989c2243217ac6d62c2529a958b4fb79127aa1"
+    },
+    {
+      "path": "savia/.dockerignore",
+      "change": "A",
+      "git_blob": "25f43dcd7d0871f930de5b7122569ea71c739e31"
+    },
+    {
+      "path": "savia/.gitignore",
+      "change": "M",
+      "git_blob": "eb519595071abd404037133e49aee59536231d75"
+    },
+    {
+      "path": "savia/Dockerfile",
+      "change": "A",
+      "git_blob": "2d29464767306293835cc81fff2d58e42bed19e9"
+    },
+    {
+      "path": "savia/deploy/azure/main.bicep",
+      "change": "A",
+      "git_blob": "57c8f97f4e4f501b59d4919eb5229195f4c1c32a"
+    },
+    {
+      "path": "savia/deploy/azure/main.parameters.example.json",
+      "change": "A",
+      "git_blob": "16fda93a6c0f8d45f4662e06f0786425172a510b"
+    },
+    {
+      "path": "savia/deploy/local_proof.py",
+      "change": "A",
+      "git_blob": "6f1320864292e013427b48ab18dfccbd8e851816"
+    },
+    {
+      "path": "savia/deploy/migrate.ps1",
+      "change": "A",
+      "git_blob": "107e236838990c8ab6837aecb3b94f5479c2d2d2"
+    },
+    {
+      "path": "savia/deploy/migrator/Program.cs",
+      "change": "A",
+      "git_blob": "d6e2acb5f917b4542b4b4109b8ce6e811da53981"
+    },
+    {
+      "path": "savia/deploy/migrator/Savia.Migrator.csproj",
+      "change": "A",
+      "git_blob": "9f9eaca28f9462e63e832d8364837bfdff069197"
+    },
+    {
+      "path": "savia/deploy/migrator/packages.lock.json",
+      "change": "A",
+      "git_blob": "905d06311fdf49a06a407fd60c7a01892a8736ee"
+    },
+    {
+      "path": "savia/deploy/smoke.ps1",
+      "change": "A",
+      "git_blob": "a57c40f3e27fe683a500eaafc6fe11763760bb8e"
+    },
+    {
+      "path": "savia/docs/PLAN.md",
+      "change": "M",
+      "git_blob": "b2a676e44272e5f3367d4ad7a214693832afe7de"
+    },
+    {
+      "path": "savia/docs/deploy/AZURE.md",
+      "change": "A",
+      "git_blob": "800be13dddb12780497c79efa325b41c93af6f88"
+    },
+    {
+      "path": "savia/docs/deploy/CHECKLIST.md",
+      "change": "A",
+      "git_blob": "8622bf922e25d98fbe68881b836c4e39c618b859"
+    },
+    {
+      "path": "savia/docs/deploy/evidence/local-proof-20261112.json",
+      "change": "A",
+      "git_blob": "eb426b36f0f0b3a4aa6ccc3765b22dcabd3bb1be"
+    },
+    {
+      "path": "savia/docs/pilot/API-PILOT.md",
+      "change": "M",
+      "git_blob": "4311ff821faa55298b7ee9b8d2d1ca57403a5914"
+    },
+    {
+      "path": "savia/docs/pilot/ETIQUETA.md",
+      "change": "A",
+      "git_blob": "7dd59a0550dbf18db7b5b5345d0ea8b106e98f54"
+    },
+    {
+      "path": "savia/docs/pilot/TRASLADOS-APARTADOS.md",
+      "change": "A",
+      "git_blob": "51df033252442161612c9148e6a9e278fc468570"
+    },
+    {
+      "path": "savia/docs/pilot/etiqueta-proof/expected.json",
+      "change": "A",
+      "git_blob": "9ec6320a842bb1e46c44b73efc796917727477d0"
+    },
+    {
+      "path": "savia/docs/pilot/etiqueta-proof/result-paddleocr-sdcb-3.3.1.json",
+      "change": "A",
+      "git_blob": "623cddc2d6220c7f6984549daa4d4ce1ac550f06"
+    },
+    {
+      "path": "savia/docs/pilot/etiqueta-proof/result-rapidocr.json",
+      "change": "A",
+      "git_blob": "1d47a8bf326f53f668d0e51b473814609c08aecf"
+    },
+    {
+      "path": "savia/docs/pilot/etiqueta-proof/tag1.png",
+      "change": "A",
+      "git_blob": "7fddb1d92e88e2ce04b877ecfbfe322921a8a102"
+    },
+    {
+      "path": "savia/docs/pilot/etiqueta-proof/tag2.png",
+      "change": "A",
+      "git_blob": "64f819e09d01b836a627494fe16c2ab8b1c03029"
+    },
+    {
+      "path": "savia/docs/pilot/etiqueta-proof/tag3.png",
+      "change": "A",
+      "git_blob": "1c76668a43a2dac2d70ef4a743111388c33e8905"
+    },
+    {
+      "path": "savia/docs/pilot/etiqueta-proof/tag4.png",
+      "change": "A",
+      "git_blob": "aac379d33e9a88b177e4efdc944039025b9498c8"
+    },
+    {
+      "path": "savia/docs/pilot/etiqueta-proof/tag5.png",
+      "change": "A",
+      "git_blob": "bf5c7eaba2c7a89fa5dd3a034cab94b245922a0e"
+    },
+    {
+      "path": "savia/docs/pilot/etiqueta-proof/tag6.png",
+      "change": "A",
+      "git_blob": "d6c24961cec6c6f8b064a9e20ef08b5c8b67e11e"
+    },
+    {
+      "path": "savia/docs/pilot/etiqueta-proof/tags.html",
+      "change": "A",
+      "git_blob": "da9b57359f4a00f122c133745aae2955c1e870d9"
+    },
+    {
+      "path": "savia/src/Savia.Api/Program.cs",
+      "change": "M",
+      "git_blob": "e64ed70b157ad6985d56f175c7ce4224abf9c80f"
+    },
+    {
+      "path": "savia/src/Savia.Api/TagEndpoints.cs",
+      "change": "A",
+      "git_blob": "21a4c551cd34f7b497e80d5aa9a4df1d17483d2b"
+    },
+    {
+      "path": "savia/src/Savia.Application/TagExtraction.cs",
+      "change": "A",
+      "git_blob": "3e4a5922a264d5386b29389bb10ce51de65b4f75"
+    },
+    {
+      "path": "savia/src/Savia.Contracts/TagExtract.cs",
+      "change": "A",
+      "git_blob": "d46c804d88216f04212afe4e8cb3fc817ac6b184"
+    },
+    {
+      "path": "savia/src/Savia.Infrastructure/TagOcr.cs",
+      "change": "A",
+      "git_blob": "54c758925a99ec419b3b3286e497c1b41a96b2be"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/TagExtractTests.cs",
+      "change": "A",
+      "git_blob": "1a702cddcdf7ca214964056d99c9cf5d55708c82"
+    },
+    {
+      "path": "savia/tests/test_pilot_lan.py",
+      "change": "A",
+      "git_blob": "3105793b3524d0218b7c2b83171b6e2fc7ec21d2"
+    },
+    {
+      "path": "savia/tools/ocr/TagProof/Program.cs",
+      "change": "A",
+      "git_blob": "bebccdfd2481b1a762f332882d7760d9edb19f86"
+    },
+    {
+      "path": "savia/tools/ocr/TagProof/TagProof.csproj",
+      "change": "A",
+      "git_blob": "6b0c2a89f94217de5bafb2900390bc96252a3fb0"
+    },
+    {
+      "path": "savia/tools/ocr/TagProof/packages.lock.json",
+      "change": "A",
+      "git_blob": "92621d5673b36c4dc2b2c02266fa11bf2e046694"
+    },
+    {
+      "path": "savia/tools/ocr/requirements-ocr.txt",
+      "change": "A",
+      "git_blob": "76c48754c4a56309c0335e26ac65b6bf730c58cb"
+    },
+    {
+      "path": "savia/tools/ocr/setup_ocr.py",
+      "change": "A",
+      "git_blob": "0310b0073d0299cc7771967ed88246927c76917b"
+    },
+    {
+      "path": "savia/tools/ocr/tag_ocr_sidecar.py",
+      "change": "A",
+      "git_blob": "14c2bf309ac276be1848ec1c1b4567cf7fd24178"
+    },
+    {
+      "path": "savia/tools/pilot.py",
+      "change": "M",
+      "git_blob": "2ec84926093a97e473d1fbe27adb6feaec501dfe"
+    },
+    {
+      "path": "savia/web/api.mjs",
+      "change": "M",
+      "git_blob": "724c83891d8c4e8a2d17c15f5635d180d51e5208"
+    },
+    {
+      "path": "savia/web/etiqueta/etiqueta-logic.mjs",
+      "change": "A",
+      "git_blob": "d963dbab52265667b2dfa5ead300138a27028fef"
+    },
+    {
+      "path": "savia/web/etiqueta/etiqueta.css",
+      "change": "A",
+      "git_blob": "66958863e7858277fb2cc81e198146db50b5fb1f"
+    },
+    {
+      "path": "savia/web/etiqueta/etiqueta.mjs",
+      "change": "A",
+      "git_blob": "7a3f7cc83499b2727588333951eeaf2d185efc45"
+    },
+    {
+      "path": "savia/web/etiqueta/index.html",
+      "change": "A",
+      "git_blob": "680b0fe674f631858b8ae30514e0282142087c01"
+    },
+    {
+      "path": "savia/web/screens/reception.mjs",
+      "change": "M",
+      "git_blob": "8bcd5cb0bdf2a9167273ff02f388f359e6784f98"
+    },
+    {
+      "path": "savia/web/tests/all.mjs",
+      "change": "M",
+      "git_blob": "dff49f4571d79ab463bb32e8dad582670b00f64e"
+    },
+    {
+      "path": "savia/web/tests/etiqueta.test.mjs",
+      "change": "A",
+      "git_blob": "0c8fcba83c46ad03bb9859a5fd26e40d6bd228ea"
+    },
+    {
+      "path": "savia/web/vendor/zxing/LICENSE",
+      "change": "A",
+      "git_blob": "4bcbdae1b10aa04199c13f5ec9382a53d3442afb"
+    },
+    {
+      "path": "savia/web/vendor/zxing/zxing-library-0.21.3.min.js",
+      "change": "A",
+      "git_blob": "f85dd18072097d112eec4cb2b1c7bc9972c62a12"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

@@ -1,0 +1,225 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-14T03:39:42.510940+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/db/migrations/MANIFEST.sha256",
+      "change": "M",
+      "git_blob": "9df9d5ba1c95ecfeb6f7e1e10c2861bf7e6d1978"
+    },
+    {
+      "path": "savia/db/migrations/V028__usd_change.sql",
+      "change": "A",
+      "git_blob": "85d7b77370062d5a4128f2d6bc203d22138cab4d"
+    },
+    {
+      "path": "savia/docs/PLAN.md",
+      "change": "M",
+      "git_blob": "855c6390e1071a7b7849e92ac329b04c9d4f77b8"
+    },
+    {
+      "path": "savia/docs/design/DOLARES.md",
+      "change": "M",
+      "git_blob": "3318c9ecd7e3178a0f838ef3918a93ee1151d480"
+    },
+    {
+      "path": "savia/docs/evidence/usd-change/README.md",
+      "change": "A",
+      "git_blob": "e2b27ecc6928839cdbafa0e649994a22b3598acb"
+    },
+    {
+      "path": "savia/docs/evidence/usd-change/cleanup.json",
+      "change": "A",
+      "git_blob": "f3ddbaa6f5a87c1a5fd40d32415f42361413fb2c"
+    },
+    {
+      "path": "savia/docs/evidence/usd-change/commit-hook.txt",
+      "change": "A",
+      "git_blob": "eb04521982b3b982e3597a2d770d723c0e602662"
+    },
+    {
+      "path": "savia/docs/evidence/usd-change/diagnose-full.txt",
+      "change": "A",
+      "git_blob": "0e07b10d1947532fe272890b587d44c852df3f46"
+    },
+    {
+      "path": "savia/docs/evidence/usd-change/formal-setup.txt",
+      "change": "A",
+      "git_blob": "cfc3e495a03a8d0ea6b0fc5075eb706e30ba615b"
+    },
+    {
+      "path": "savia/docs/evidence/usd-change/format-final.txt",
+      "change": "A",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": "savia/docs/evidence/usd-change/format-tests.txt",
+      "change": "A",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": "savia/docs/evidence/usd-change/format.txt",
+      "change": "A",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": "savia/docs/evidence/usd-change/full-summary.json",
+      "change": "A",
+      "git_blob": "4c5e519a4ef5de9d5c50218277689c811a93823f"
+    },
+    {
+      "path": "savia/docs/evidence/usd-change/green-migration-final.txt",
+      "change": "A",
+      "git_blob": "acf830d066625cb853c30041d5766f0c6bda02b9"
+    },
+    {
+      "path": "savia/docs/evidence/usd-change/green-migration.txt",
+      "change": "A",
+      "git_blob": "a7ea12dc1d350cae46a6cd97b40d84588d9faa28"
+    },
+    {
+      "path": "savia/docs/evidence/usd-change/green-recovery-final.txt",
+      "change": "A",
+      "git_blob": "a0fd2e7f37e83c215c0eaa03f839c8f1eb1b2e45"
+    },
+    {
+      "path": "savia/docs/evidence/usd-change/green-sql.txt",
+      "change": "A",
+      "git_blob": "ea6e679a8265e8d3587c5f37fb2b595ff9d73e4f"
+    },
+    {
+      "path": "savia/docs/evidence/usd-change/integrity.json",
+      "change": "A",
+      "git_blob": "96ef6c23c5dcb805a2e1de39486485dad1763349"
+    },
+    {
+      "path": "savia/docs/evidence/usd-change/npm.txt",
+      "change": "A",
+      "git_blob": "ecedabb9f66e50e516b17a4298aa255547395aa5"
+    },
+    {
+      "path": "savia/docs/evidence/usd-change/ocr-diagnosis.json",
+      "change": "A",
+      "git_blob": "b7cc370572ef0e1541c31f14d9a0f9c913f17659"
+    },
+    {
+      "path": "savia/docs/evidence/usd-change/ocr-setup.txt",
+      "change": "A",
+      "git_blob": "16153f2d196c865712eed0f65e176905bf3840bc"
+    },
+    {
+      "path": "savia/docs/evidence/usd-change/red-migration.txt",
+      "change": "A",
+      "git_blob": "4fa8d5d08a413bfaafe54fd305948ddc1b146fb1"
+    },
+    {
+      "path": "savia/docs/evidence/usd-change/source-manifest.json",
+      "change": "A",
+      "git_blob": "93543bdb884b641d2c24aaba001bbd57822c72cd"
+    },
+    {
+      "path": "savia/docs/evidence/usd-change/tag-live-isolated.txt",
+      "change": "A",
+      "git_blob": "65b307ccd77fce8b2e3f9b19471cbfde4ca6e2a3"
+    },
+    {
+      "path": "savia/docs/evidence/usd-change/verify-full-final.txt",
+      "change": "A",
+      "git_blob": "ba29cb82efb63432bdec0e57eaaf405839858abd"
+    },
+    {
+      "path": "savia/docs/evidence/usd-change/verify-full.txt",
+      "change": "A",
+      "git_blob": "8b37e0b5574a4e1b0d8703070db6cc0e6a173c8d"
+    },
+    {
+      "path": "savia/src/Savia.Application/ForeignCash.cs",
+      "change": "M",
+      "git_blob": "5341c03413b22aabb77f7d75844fc468470d90ef"
+    },
+    {
+      "path": "savia/src/Savia.Contracts/Sales.cs",
+      "change": "M",
+      "git_blob": "49a2645b6220d9518df87eba35c1c27eba6f1174"
+    },
+    {
+      "path": "savia/src/Savia.Infrastructure/SalesStore.cs",
+      "change": "M",
+      "git_blob": "65b0bee37d45ef4b272c815eb57a9502827202ba"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/UsdAcceptanceTests.cs",
+      "change": "M",
+      "git_blob": "793c9465ed5013585befb5714d828b8b478371ca"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/UsdCashTests.cs",
+      "change": "M",
+      "git_blob": "44d94e336cc334c3a5c2354ad34f7e39f1d6980d"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/UsdChangeTests.cs",
+      "change": "A",
+      "git_blob": "3c90cd9f11c154544001c0da71e6f8897efd6887"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/UsdFixture.cs",
+      "change": "M",
+      "git_blob": "cb6b61214c24e3ba57415194e3ebf7efd87e0401"
+    },
+    {
+      "path": "savia/tests/test_usd_change_migration.py",
+      "change": "A",
+      "git_blob": "4e86b7ad6f696a6f174f553408e11d720d65fac2"
+    },
+    {
+      "path": "savia/tests/usd_change_migration_recovery.py",
+      "change": "A",
+      "git_blob": "4525914b050d540360cbdfbf8775e58d0474391e"
+    },
+    {
+      "path": "savia/tools/db/saviadb.py",
+      "change": "M",
+      "git_blob": "23cfb2b48260a497892bc54619c0300d908e8135"
+    },
+    {
+      "path": "savia/web/screens/denominations.mjs",
+      "change": "M",
+      "git_blob": "5ff79fee9527fa0be5fb350e84cbb19fa15a7675"
+    },
+    {
+      "path": "savia/web/screens/payment-logic.mjs",
+      "change": "M",
+      "git_blob": "c8d8b24e86def3f309f602f2e0c8e0afb99fc7ac"
+    },
+    {
+      "path": "savia/web/screens/payments.mjs",
+      "change": "M",
+      "git_blob": "e28387a14d4ce1c3c52ed6ee1abc95e5c7a64543"
+    },
+    {
+      "path": "savia/web/screens/sale-view.mjs",
+      "change": "M",
+      "git_blob": "f628062198026260fa3b7aa196235dc09e27b7de"
+    },
+    {
+      "path": "savia/web/screens/usd-logic.mjs",
+      "change": "M",
+      "git_blob": "e6d9f1de8cebcec7b37ea5ed2ea280bc9cbde2a2"
+    },
+    {
+      "path": "savia/web/tests/e2e_pilot.py",
+      "change": "M",
+      "git_blob": "12ba5ad74072452f70ccab9648515023c6ad969f"
+    },
+    {
+      "path": "savia/web/tests/usd.test.mjs",
+      "change": "M",
+      "git_blob": "4875fbdebf7e4dd103f5c15f49f3d9d37258c0cf"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

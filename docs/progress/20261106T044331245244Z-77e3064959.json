@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-06T04:43:31.245244+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "ed62e38798e0567b7943edee20f4edce7e59b4ec"
+    },
+    {
+      "path": "docs/pipeline/PARALLEL-20261106.md",
+      "change": "A",
+      "git_blob": "937a14d219b80462160a500040339cafcbb75fa7"
+    },
+    {
+      "path": "docs/sql-ci-20261106/ACCEPTANCE.json",
+      "change": "A",
+      "git_blob": "2fce5bd6b14f3942b97fda6117bbd50374f6f79d"
+    },
+    {
+      "path": "docs/sql-ci-20261106/README.md",
+      "change": "A",
+      "git_blob": "1830e566d4804fccde6c2f8a4859b4f76e284861"
+    },
+    {
+      "path": "docs/sql-ci-20261106/worker/README.md",
+      "change": "A",
+      "git_blob": "1647e38c4a8d01865005e2638e6b679a23796c23"
+    },
+    {
+      "path": "docs/sql-ci-20261106/worker/RESULT.json",
+      "change": "A",
+      "git_blob": "cb17832b6ec25640655faea84827d6a0e614e36a"
+    },
+    {
+      "path": "docs/sql-ci-20261106/worker/outcomes.json",
+      "change": "A",
+      "git_blob": "6ce1487561ba4780d233e4c7e9721bd1e1cfe97c"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

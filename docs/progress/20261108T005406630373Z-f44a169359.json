@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-08T00:54:06.630373+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/completion-20261107/README.md",
+      "change": "M",
+      "git_blob": "cb02cf9c9c866b844d01e3bf364c2f2b8107898a"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "change": "M",
+      "git_blob": "500416611b1cce61a2011b56ec6aad2072ccd45d"
+    },
+    {
+      "path": "docs/sql-parallel-20261107/README.md",
+      "change": "M",
+      "git_blob": "cacdc5fa9d8e4b70f5ce395ba204782f02c53c3a"
+    },
+    {
+      "path": "docs/sql-parallel-20261107/security-correction/MINIMUM-RERUN.md",
+      "change": "A",
+      "git_blob": "db51ca028ee8d2d6b78388408179c38f75534def"
+    },
+    {
+      "path": "docs/sql-parallel-20261107/security-correction/PRIMARY-ACCEPTANCE.json",
+      "change": "A",
+      "git_blob": "6a5fd1726bf6bad327cfaf5ad71ee40a890c6e12"
+    },
+    {
+      "path": "docs/sql-parallel-20261107/security-correction/README.md",
+      "change": "M",
+      "git_blob": "498dabd5a31d08dc05d433ab718e526ff40b108e"
+    },
+    {
+      "path": "docs/sql-parallel-20261107/security-correction/astra-judge.md",
+      "change": "A",
+      "git_blob": "c41b534360c777f175f180e620313ce3a53c42d7"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

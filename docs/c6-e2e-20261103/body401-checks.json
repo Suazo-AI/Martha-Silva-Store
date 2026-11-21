@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "observed_utc": "2026-11-04T02:46:35.792Z",
+  "host": "SUAZO-PC",
+  "model": "gpt-6.1-sol",
+  "reasoning": "xhigh",
+  "scope": "Only owned browser_path.mjs changed; safe coordination reports",
+  "source_before_sha256": "60e9c9a636dac13149a57449247edce1491c842d727936d6d8e2e760bb5a7aaf",
+  "source_after_sha256": "5a09272ffb8a1c433813bc4cad626921cd1b0ef329f0097a008122e41eb6df21",
+  "proposal_sha256": "5a09272ffb8a1c433813bc4cad626921cd1b0ef329f0097a008122e41eb6df21",
+  "proposal_exact_bytes_equal": true,
+  "checks": [
+    {
+      "name": "stdlib33",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_golden_path*_safety.py"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": ".................................\r\n----------------------------------------------------------------------\r\nRan 33 tests in 0.744s\r\n\r\nOK\r\n"
+    },
+    {
+      "name": "node_syntax",
+      "command": [
+        "node",
+        "--check",
+        "tests/golden-path/browser_path.mjs"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "name": "python_ast",
+      "command": [
+        "python",
+        "-c",
+        "import ast,pathlib\nfor p in ('tests/golden-path/golden_path.py','tests/test_golden_path_browser_safety.py'): ast.parse(pathlib.Path(p).read_text(encoding='utf-8'))\nprint('PYTHON_AST_OK 2 files')"
+      ],
+      "exit": 0,
+      "stdout": "PYTHON_AST_OK 2 files\r\n",
+      "stderr": ""
+    },
+    {
+      "name": "diff_check",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "checks_executed_once": true,
+  "js_trailing_whitespace": 0,
+  "other_owned_files_readonly_sha256": {
+    "tests/golden-path/golden_path.py": "e420885d49e066ca50cf6582d574149eb847338813362040c72bf92dbd9072fb",
+    "tests/test_golden_path_browser_safety.py": "fbf94d089f5815f28e1d214292175ea9153d0e1806c8fa6a805ce193b9665fa7",
+    "tests/golden-path/README.md": "2e1cf928279e97a267080952d73cd24756550fc259db59aae3621cf2a9ba4322",
+    "docs/c6-e2e-20261103/implementation.md": "1cebf180bcba3e87b213e2f273cb4aa337b5ead7946cdc2772f51735d57c10b0"
+  },
+  "real_local_api_sql_docker": "NOT RUN",
+  "combined_candidate_real_ci": "NOT RUN",
+  "canonical_mutations": false,
+  "commits": false,
+  "pushes": false
+}

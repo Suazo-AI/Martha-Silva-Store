@@ -1,0 +1,352 @@
+diff --git a/dev/savia-staff-ui/README.md b/dev/savia-staff-ui/README.md
+index 457ce09..f7f17b0 100644
+--- a/dev/savia-staff-ui/README.md
++++ b/dev/savia-staff-ui/README.md
+@@ -12,9 +12,16 @@ El servidor aplica sesión, permisos, ámbito de sucursal y CSRF. Ocultar botone
+ 
+ La UI ya tiene venta y recuperación implementadas. El catálogo global y las existencias por sucursal son lecturas diferentes.
+ Una pérdida de respuesta requiere recuperar el intento original; no fabricar éxito ni generar una venta equivalente.
+-N5 permanece abierto: restaurar un recibo confirmado con 404 crea un falso estado pendiente y bloquea ventas nuevas.
++N5 está corregido en la base `775f301bc195c43baedc68c86f4e71affe92ef95`.
+ Fuente reproducible: `Stale confirmed receipt` de [browser-mock-validation.mjs](../../tests/browser-mock-validation.mjs).
+ 
++C8 añade la versión del actor a los intentos nuevos y conserva su clave durante cambios de acceso.
++Una versión distinta o una ubicación fuera del ámbito actual bloquean recuperación y reenvío del intento.
++Los intentos históricos sin versión pueden consultar su recuperación si la ubicación sigue autorizada; no pueden reenviarse.
++No se asigna una versión nueva a un intento histórico ni se borra su referencia para desbloquear ventas.
++Un 401 o logout invalida respuestas tardías y evita enviar una venta que todavía espera CSRF.
++Ver [evidencia local y límites de C8](../../docs/c8-ui-20261103/report.md).
++
+ ## Evidencia y comprobaciones
+ 
+ El [lote 2026-11-03](../../docs/testing-20261103/README.md) obtuvo 42/42 pruebas staff JS.
+diff --git a/dev/savia-staff-ui/app.mjs b/dev/savia-staff-ui/app.mjs
+index a9c975a..761eafa 100644
+--- a/dev/savia-staff-ui/app.mjs
++++ b/dev/savia-staff-ui/app.mjs
+@@ -411,17 +411,23 @@ export function mountCommerce({document, client, getSession, onUnauthorized}) {
+   const receiptKey = id => `savia.sale.receipt.${id}`;
+   const storage = () => document.defaultView.sessionStorage;
+   const current = (g, id) => generation === g && getSession()?.id === id;
++  const changedScope = () => !!pending?.key && ((!!pending.actorVersion && pending.actorVersion !== getSession()?.version)
++    || !locations.some(location => location.id === pending.body?.locationId));
+   function lock() {
+     const allowed = !!actor && getSession()?.id === actor && ['Owner','Manager','Cashier'].includes(getSession()?.role);
+     for (const control of form.elements) control.disabled = !allowed || busy || !!pending || !items.length || !locations.length;
+     $('stock-location').disabled = !actor || busy || !locations.length;
+     $('stock-refresh').disabled = !actor || busy || !locations.length;
+-    for (const id of ['sale-recover','sale-retry']) { $(id).hidden = !pending; $(id).disabled = busy || !allowed || !pending?.key; }
++    for (const id of ['sale-recover','sale-retry']) {
++      $(id).hidden = !pending;
++      $(id).disabled = busy || !allowed || !pending?.key || changedScope()
++        || (id === 'sale-retry' && pending.actorVersion !== getSession()?.version);
++    }
+   }
+   function fail(error, target = 'sale-status') {
+     if (error?.status === 401) { onUnauthorized(); return; }
+     $(target).textContent = error instanceof StaffRequestError ? error.message : 'No se pudo confirmar la respuesta. Volvé a comprobarla.';
+-    if (pending && target === 'sale-status') $(target).textContent += ' La venta sigue sin confirmar. Comprobala o reintentá la misma venta.';
++    if (pending && target === 'sale-status') $(target).textContent += ' La venta sigue sin confirmar. Comprobala con la clave original.';
+   }
+   function clear() {
+     ++generation; ++stockRead; actor=null; pending=null; busy=false; items=[]; locations=[];
+@@ -484,7 +490,8 @@ export function mountCommerce({document, client, getSession, onUnauthorized}) {
+     $('sale-status').textContent = `${notice} ${$('sale-status').textContent}`;
+   }
+   async function resolve(mode) {
+-    if(busy || !pending || !actor) return;
++    if(busy || !pending || !actor || changedScope()
++      || (mode==='record' && pending.actorVersion !== getSession()?.version)) return;
+     const operation=pending, id=actor, g=generation; busy=true; lock(); $('sale-status').textContent= mode==='recover' ? 'Comprobando la venta original…' : 'Esperando confirmación del servidor…';
+     try {
+       const receipt=await (mode==='recover' ? client.recoverSale(operation.key,operation.body) : client.recordSale(operation.key,operation.body));
+@@ -522,6 +529,11 @@ export function mountCommerce({document, client, getSession, onUnauthorized}) {
+         if(!value || typeof value.key!=='string' || !/^[0-9a-f-]{36}$/i.test(value.key) || !value.body) throw new StaffRequestError('response');
+         pending=value;
+       }
++      if(changedScope()) {
++        $('sale-status').textContent='Tu acceso cambió. La venta anterior sigue sin confirmar. Pedí al responsable que la concilie.';
++        await loadStock();
++        return;
++      }
+       const last=storage().getItem(receiptKey(id));
+       if(last) await restoreReceipt(last,g,id);
+       await loadStock();
+@@ -533,7 +545,7 @@ export function mountCommerce({document, client, getSession, onUnauthorized}) {
+     event.preventDefault();
+     if(busy || pending || !actor || !['Owner','Manager','Cashier'].includes(getSession()?.role) || !validateForm(form)) return;
+     const body={locationId:$('sale-location').value,customerId:null,lines:[{itemId:$('sale-item').value,quantity:Number($('sale-quantity').value)}]};
+-    const operation={key:document.defaultView.crypto.randomUUID(),body};
++    const operation={key:document.defaultView.crypto.randomUUID(),body,actorVersion:getSession().version};
+     try { storage().setItem(keyFor(actor),JSON.stringify(operation)); pending=operation; $('sale-receipt').hidden=true; void resolve('record'); }
+     catch(error) { pending={}; fail(error); lock(); }
+   });
+diff --git a/dev/savia-staff-ui/auth.test.mjs b/dev/savia-staff-ui/auth.test.mjs
+index 3693647..857e819 100644
+--- a/dev/savia-staff-ui/auth.test.mjs
++++ b/dev/savia-staff-ui/auth.test.mjs
+@@ -135,3 +135,42 @@ test('a timeout does not manufacture a verified session', async () => {
+   await assert.rejects(client.getSession(), error => error.code === 'unavailable');
+   assert.equal(client.getVerifiedSession(), null);
+ });
++
++for (const boundary of ['headers', 'body']) test(`a late private response after 401 is discarded at ${boundary}`, async () => {
++  let release, entered;
++  const waiting = new Promise(resolve => { entered = resolve; });
++  const pending = new Promise(resolve => { release = resolve; });
++  const response = json({items: ['private synthetic value']});
++  if (boundary === 'body') response.json = () => { entered(); return pending; };
++  const transport = scripted([() => json(staff), () => {
++    if (boundary === 'headers') { entered(); return pending; }
++    return response;
++  }, () => json({code: 'unauthenticated'}, 401)]);
++  const client = createAuthClient(transport);
++  await client.getSession();
++  const late = client.requestAuthenticated('/internal/api/directory/items');
++  await waiting;
++  await assert.rejects(client.requestAuthenticated('/internal/api/directory/locations'), error => error.status === 401);
++  release(boundary === 'headers' ? response : {items: ['private synthetic value']});
++  await assert.rejects(late, error => error.status === 401);
++  assert.equal(client.getVerifiedSession(), null);
++  await assert.rejects(client.requestAuthenticated('/internal/api/directory/items'), error => error.status === 401);
++  transport.done();
++});
++
++test('session revalidation cannot revive access after a concurrent request returns 401', async () => {
++  let denyRead, finishSession;
++  const read = new Promise(resolve => { denyRead = resolve; });
++  const revalidation = new Promise(resolve => { finishSession = resolve; });
++  const transport = scripted([() => json(staff), () => read, () => revalidation]);
++  const client = createAuthClient(transport);
++  await client.getSession();
++  const pendingRead = client.requestAuthenticated('/internal/api/directory/items');
++  const pendingSession = client.getSession();
++  denyRead(json({code: 'unauthenticated'}, 401));
++  await assert.rejects(pendingRead, error => error.status === 401);
++  finishSession(json(staff));
++  await assert.rejects(pendingSession, error => error.status === 401);
++  assert.equal(client.getVerifiedSession(), null);
++  transport.done();
++});
+diff --git a/dev/savia-staff-ui/login.mjs b/dev/savia-staff-ui/login.mjs
+index 40bf484..6a639ca 100644
+--- a/dev/savia-staff-ui/login.mjs
++++ b/dev/savia-staff-ui/login.mjs
+@@ -33,8 +33,12 @@ export function readStaff(value) {
+ }
+ export function createAuthClient({fetchImpl = globalThis.fetch, timeoutMs = 10000, onUnauthorized = () => {}} = {}) {
+   if (typeof fetchImpl !== 'function') throw new Error('El transporte del servidor no está disponible.');
+-  let csrf = null, session = null;
++  let csrf = null, session = null, epoch = 0, sessionRead = 0;
++  const current = generation => {
++    if (generation !== epoch) throw new StaffRequestError('unauthorized', 401);
++  };
+   async function request(path, {method = 'GET', body, csrfToken, idempotencyKey, allowEmpty = false} = {}) {
++    const generation = epoch;
+     const controller = new AbortController(); let timer;
+     try {
+       const headers = {Accept: 'application/json'};
+@@ -49,8 +53,9 @@ export function createAuthClient({fetchImpl = globalThis.fetch, timeoutMs = 1000
+           controller.abort(); reject(new StaffRequestError('unavailable'));
+         }, timeoutMs); }),
+       ]);
++      current(generation);
+       if (response.status === 401) {
+-        session = null; csrf = null; onUnauthorized();
++        ++epoch; session = null; csrf = null; onUnauthorized();
+         const error = new StaffRequestError('unauthorized', 401);
+         if (path === SECURITY_PATHS.login) error.message = 'Usuario o contraseña inválidos. Revisá tus datos de acceso.';
+         throw error;
+@@ -67,28 +72,39 @@ export function createAuthClient({fetchImpl = globalThis.fetch, timeoutMs = 1000
+       if (allowEmpty && response.status === 204) return null;
+       const type = response.headers.get('content-type')?.split(';')[0].trim().toLowerCase();
+       if (type !== 'application/json') throw new StaffRequestError('response', response.status);
+-      try { return await response.json(); } catch { throw new StaffRequestError('response', response.status); }
++      let value;
++      try { value = await response.json(); } catch { throw new StaffRequestError('response', response.status); }
++      current(generation);
++      return value;
+     } catch (error) {
+       if (error instanceof StaffRequestError) throw error;
+       throw new StaffRequestError('unavailable');
+     } finally { clearTimeout(timer); }
+   }
+   async function renewCsrf() {
++    const generation = epoch;
+     const value = await request(SECURITY_PATHS.csrf);
++    current(generation);
+     if (value?.headerName !== 'X-CSRF-TOKEN' || typeof value.token !== 'string'
+       || !/^[\x21-\x7e]{1,4096}$/.test(value.token)) throw new StaffRequestError('response');
+     csrf = value.token;
+   }
+   async function getSession() {
+-    session = null;
+-    try { session = readStaff(await request(SECURITY_PATHS.me)); return session; }
+-    catch (error) { session = null; throw error; }
++    const generation = epoch, verification = ++sessionRead;
++    session = null; csrf = null;
++    try {
++      const verified = readStaff(await request(SECURITY_PATHS.me));
++      current(generation);
++      if (verification !== sessionRead) throw new StaffRequestError('unauthorized', 401);
++      ++epoch; session = verified; return session;
++    }
++    catch (error) { if (generation === epoch) session = null; throw error; }
+   }
+   async function login({loginName, password}) {
+     if (typeof loginName !== 'string' || !loginName.trim() || typeof password !== 'string' || !password) {
+       throw new StaffRequestError('invalid');
+     }
+-    session = null; await renewCsrf();
++    ++epoch; session = null; csrf = null; await renewCsrf();
+     const result = await request(SECURITY_PATHS.login, {method: 'POST', csrfToken: csrf, body: {loginName, password}});
+     const reported = readStaff(result?.staff);
+     if (typeof result.expiresAt !== 'string' || !Number.isFinite(Date.parse(result.expiresAt))) throw new StaffRequestError('response');
+@@ -98,7 +114,7 @@ export function createAuthClient({fetchImpl = globalThis.fetch, timeoutMs = 1000
+     return verified;
+   }
+   async function logout() {
+-    session = null;
++    ++epoch; session = null; csrf = null;
+     await renewCsrf();
+     await request(SECURITY_PATHS.logout, {method: 'POST', csrfToken: csrf, allowEmpty: true});
+     csrf = null; session = null;
+@@ -106,12 +122,15 @@ export function createAuthClient({fetchImpl = globalThis.fetch, timeoutMs = 1000
+   return Object.freeze({prepareLogin: renewCsrf, login, getSession, logout,
+     requestBusiness: async (path, {method = 'GET', body, key} = {}) => {
+       if (!session) throw new StaffRequestError('unauthorized', 401);
++      const generation = epoch;
+       const sale = path === '/internal/api/commerce/sales' && method === 'POST';
+       const read = method === 'GET' && (/^\/internal\/api\/commerce\/inventory\?locationId=[0-9a-f-]+&skip=\d+&take=100$/i.test(path)
+         || /^\/internal\/api\/commerce\/sales\/[0-9a-f-]+$/i.test(path));
+       const recovery = method === 'GET' && path === '/internal/api/operations/commerce.sale.record';
+       if (!(sale || read || recovery) || ((sale || recovery) && !guid(key))) throw new StaffRequestError('invalid');
+       if (sale) await renewCsrf();
++      current(generation);
++      if (!session) throw new StaffRequestError('unauthorized', 401);
+       return request(path, {method, body, idempotencyKey: key, csrfToken: sale ? csrf : undefined});
+     },
+     getVerifiedSession: () => session,
+diff --git a/tests/browser-mock-validation.mjs b/tests/browser-mock-validation.mjs
+index 6a6a1ac..199f882 100644
+--- a/tests/browser-mock-validation.mjs
++++ b/tests/browser-mock-validation.mjs
+@@ -45,7 +45,7 @@ const place={id:id(3),branchId:id(4),name:'Synthetic branch A',active:true};
+ const body={locationId:place.id,customerId:null,lines:[{itemId:item.id,quantity:1}]};
+ const receipt={saleId:id(5),actorId:actor.id,locationId:place.id,customerId:null,currency:'NIO',totalMinor:10000,state:'recorded',paymentStatus:'not_processed',createdAt:'2026-11-03T12:00:00Z',lines:[{saleLineId:id(6),itemId:item.id,sku:item.sku,name:item.name,quantity:1,returnedQuantity:0,unitPriceMinor:10000,totalMinor:10000}]};
+ const party={id:id(10),name:'Synthetic customer <img src=x onerror=alert(1)>',active:true,kind:'customer',email:'synthetic@example.invalid',phone:''};
+-async function save(){await writeFile(path.join(out,'browser-results.json'),JSON.stringify({observedUtc:new Date().toISOString(),host:process.env.COMPUTERNAME,layer:'Real Chromium browser; mocked staff API; public browser-local demo',origin,sourceHashes:sources,results,runtime,externalRequests,networkFailures},null,2));}
++async function save(){await writeFile(path.join(out,'browser-results.json'),JSON.stringify({observedUtc:new Date().toISOString(),host:process.env.COMPUTERNAME,node:process.version,browser:browser.version(),layer:'Real Chromium browser; mocked staff API; public browser-local demo',origin,sourceHashes:sources,results,runtime,externalRequests,networkFailures},null,2));}
+ async function test(name,fn){
+   if(testMatch&&!name.includes(testMatch))return;
+   const start=Date.now();try{const detail=await fn();results.push({name,status:'PASS',durationMs:Date.now()-start,...(detail?{detail}:{})});}
+@@ -53,10 +53,11 @@ async function test(name,fn){
+   await save(); console.log(`${results.at(-1).status} ${name}`);
+ }
+ async function setup(options={}){
+-  const ctx=await browser.newContext({viewport:options.mobile?{width:390,height:844}:{width:1440,height:1000},serviceWorkers:'block'});
++  const viewport=options.mobile?{width:390,height:844}:{width:1440,height:1000};
++  const ctx=await browser.newContext({viewport,serviceWorkers:'block',...(process.env.MARTHA_BROWSER_RECORD_VIDEO?{recordVideo:{dir:path.join(out,'videos'),size:viewport}}:{})});
+   const page=await ctx.newPage();page.setDefaultTimeout(5000);
+   const state={session:options.session!==false,role:options.role||'Owner',sales:[],calls:[],...options};
+-  const currentActor=()=>({...actor,role:state.role});
++  const currentActor=()=>({...actor,role:state.role,...state.identity});
+   const json=(route,data,status=200)=>route.fulfill({status,contentType:'application/json',body:JSON.stringify(data)});
+   page.on('pageerror',e=>runtime.push({test:state.label||'',error:e.message}));
+   page.on('requestfailed',r=>networkFailures.push({test:state.label||'',path:new URL(r.url()).pathname,error:r.failure()?.errorText}));
+@@ -90,7 +91,7 @@ async function setup(options={}){
+     if(p.includes('/commerce/sales/'))return json(route,receipt);
+     return json(route,{code:'unhandled_mock_route'},501);
+   });
+-  return {ctx,page,state,json,close:()=>ctx.close()};
++  return {ctx,page,state,json,close:async()=>{const video=page.video();await ctx.close();if(video&&state.label)await video.saveAs(path.join(out,'videos',state.label+'.webm'));}};
+ }
+ async function withStaff(options,fn){const s=await setup(options);try{return await fn(s);}finally{await s.close();}}
+ async function ready(s){await s.page.goto(origin+'/internal/');await expect(s.page.locator('#staff-shell')).toBeVisible();}
+@@ -137,6 +138,86 @@ try{
+   await test('Malformed receipt leaves operation recoverable and blocks new sale',()=>withStaff({override:async({route,p,method,json})=>{if(p.endsWith('/sales')&&method==='POST'){await json(route,{...receipt,totalMinor:1});return true;}}},async s=>{await sales(s);await s.page.locator('#sale-submit').click();await expect(s.page.locator('#sale-status')).toContainText('contrato');await expect(s.page.locator('#sale-submit')).toBeDisabled();await expect(s.page.locator('#sale-receipt')).toBeHidden();}));
+   await test('Confirmed rejected recovery unlocks only the rejected attempt',()=>withStaff({override:async({route,p,method,json})=>{if(p.endsWith('/sales')&&method==='POST'){await route.abort();return true;}if(p.includes('/operations/')){await json(route,{status:'completed',result:{success:false,value:null,error:'stock_unavailable'}});return true;}}},async s=>{await sales(s);await s.page.locator('#sale-submit').click();await expect(s.page.locator('#sale-recover')).toBeEnabled();await s.page.locator('#sale-recover').click();await expect(s.page.locator('#sale-submit')).toBeEnabled();await expect(s.page.locator('#sale-receipt')).toBeHidden();}));
+   await test('Logout uses CSRF, clears private view and returns to login',()=>withStaff({},async s=>{await ready(s);await s.page.locator('[data-action="logout"]').click();await s.page.waitForURL('**/internal/login');assert.ok(s.state.calls.find(x=>x.path.endsWith('/logout')).hasCsrf);assert.equal(s.state.session,false);}));
++  for(const role of ['Cashier','Owner','Manager'])await test(`N2 ${role} reload recovers the same uncertain attempt without another sale (C8)`,()=>withStaff({role,label:`n2-${role.toLowerCase()}`,override:async({route,p,method,state,req})=>{
++    if(p.endsWith('/sales')&&method==='POST'){state.sales.push({key:req.headers()['idempotency-key'],payload:req.postDataJSON()});await route.abort('failed');return true;}
++  }},async s=>{
++    await sales(s);await s.page.locator('#sale-submit').click();await expect(s.page.locator('#sale-recover')).toBeEnabled();
++    const original=s.state.sales[0];assert.deepEqual(original.payload,body);
++    await s.page.reload();await s.page.locator('[data-target="ventas"][data-action="nav"]').click();await expect(s.page.locator('#sale-receipt')).toBeVisible();
++    assert.equal(s.state.sales.length,1);assert.deepEqual(s.state.calls.filter(x=>x.path.includes('/operations/')).map(x=>x.key),[original.key]);
++    await expect(s.page.locator('#sale-receipt')).toContainText(receipt.saleId);await expect(s.page.locator('#sale-receipt')).toContainText('100');
++    await s.page.reload();await s.page.locator('[data-target="ventas"][data-action="nav"]').click();await expect(s.page.locator('#sale-receipt')).toContainText(receipt.saleId);
++    assert.equal(s.state.sales.length,1);assert.equal(s.state.calls.filter(x=>x.path.includes('/operations/')).length,1);
++    return {key:original.key,saleId:receipt.saleId,posts:s.state.sales.length};
++  }));
++  await test('N6 changing actor keeps the uncertain key private and never replays it as the new actor (C8)',()=>withStaff({role:'Cashier',label:'n6-other-actor',override:async({route,p,method,state,req})=>{
++    if(p.endsWith('/sales')&&method==='POST'){state.sales.push({key:req.headers()['idempotency-key'],payload:req.postDataJSON()});await route.abort('failed');return true;}
++  }},async s=>{
++    await sales(s);await s.page.locator('#sale-submit').click();await expect(s.page.locator('#sale-recover')).toBeEnabled();
++    const key=s.state.sales[0].key,storageKey=`savia.sale.pending.${actor.id}`;const original=await s.page.evaluate(k=>sessionStorage.getItem(k),storageKey);
++    s.state.identity={id:id(180),version:id(181),displayName:'Synthetic new cashier'};
++    await s.page.reload();await s.page.locator('[data-target="ventas"][data-action="nav"]').click();await expect(s.page.locator('#sale-submit')).toBeEnabled();
++    await expect(s.page.locator('#sale-receipt')).toBeEmpty();await expect(s.page.locator('#sale-recover')).toBeHidden();
++    assert.equal(await s.page.evaluate(k=>sessionStorage.getItem(k),storageKey),original);assert.equal(s.state.sales.length,1);assert.equal(s.state.calls.filter(x=>x.path.includes('/operations/')).length,0);
++    const keys=await s.page.evaluate(()=>Object.keys(sessionStorage).filter(k=>k.startsWith('savia.sale.pending.')));assert.deepEqual(keys,[storageKey]);return {originalKey:key,pendingKeys:keys.length};
++  }));
++  await test('N6 changed actor version preserves the attempt and blocks recovery and resend under the new scope (C8)',()=>withStaff({role:'Cashier',mobile:true,label:'n6-changed-version',override:async({route,p,method,state,req})=>{
++    if(p.endsWith('/sales')&&method==='POST'){state.sales.push({key:req.headers()['idempotency-key'],payload:req.postDataJSON()});await route.abort('failed');return true;}
++  }},async s=>{
++    await sales(s);await s.page.locator('#sale-submit').click();await expect(s.page.locator('#sale-recover')).toBeEnabled();
++    const storageKey=`savia.sale.pending.${actor.id}`,original=await s.page.evaluate(k=>sessionStorage.getItem(k),storageKey);
++    s.state.identity={version:id(182)};await s.page.reload();await s.page.locator('[data-target="ventas"][data-action="nav"]').click();await expect(s.page.locator('#sale-item option')).toHaveCount(1);
++    await expect(s.page.locator('#sale-status')).toContainText('acceso cambió');await expect(s.page.locator('#sale-submit')).toBeDisabled();await expect(s.page.locator('#sale-recover')).toBeDisabled();await expect(s.page.locator('#sale-retry')).toBeDisabled();
++    await expect(s.page.locator('#sale-receipt')).toBeEmpty();assert.equal(await s.page.evaluate(k=>sessionStorage.getItem(k),storageKey),original);
++    assert.equal(s.state.calls.filter(x=>x.path.includes('/operations/')).length,0);assert.equal(s.state.sales.length,1);
++    return {preservedKey:JSON.parse(original).key,posts:s.state.sales.length};
++  }));
++  await test('N6 legacy attempt outside the current authorized locations stays private and cannot be replayed (C8)',()=>withStaff({role:'Cashier',label:'n6-legacy-scope',override:async({route,p,json})=>{
++    if(p.endsWith('/directory/locations')){await json(route,{items:[{...place,id:id(183),branchId:id(184),name:'Synthetic branch B'}],total:1,skip:0,take:100});return true;}
++  }},async s=>{
++    const pendingKey=id(185),original=JSON.stringify({key:pendingKey,body});
++    await s.page.goto(origin+'/internal/login');await s.page.evaluate(({key,value})=>sessionStorage.setItem(key,value),{key:`savia.sale.pending.${actor.id}`,value:original});
++    await ready(s);await s.page.locator('[data-target="ventas"][data-action="nav"]').click();await expect(s.page.locator('#sale-item option')).toHaveCount(1);
++    await expect(s.page.locator('#sale-status')).toContainText('acceso cambió');await expect(s.page.locator('#sale-submit')).toBeDisabled();await expect(s.page.locator('#sale-recover')).toBeDisabled();await expect(s.page.locator('#sale-retry')).toBeDisabled();await expect(s.page.locator('#sale-receipt')).toBeEmpty();
++    assert.equal(await s.page.evaluate(k=>sessionStorage.getItem(k),`savia.sale.pending.${actor.id}`),original);assert.equal(s.state.calls.filter(x=>x.path.includes('/operations/')).length,0);assert.equal(s.state.sales.length,0);
++    return {preservedKey:pendingKey,legacyVersion:'unknown; never rebound',posts:s.state.sales.length};
++  }));
++  for(const reason of ['revoked','absolute-expiry'])await test(`N7 ${reason} mocked 401 discards late stock and cancels a sale waiting for CSRF (C8)`,()=>withStaff({role:'Cashier',label:`n7-${reason}`},async s=>{
++    await sales(s);let releaseCsrf,releaseStock,csrfHeld=false;const originalCalls=s.state.calls.length;
++    s.state.override=async({route,p,json})=>{
++      if(p.endsWith('/csrf')){csrfHeld=true;await new Promise(r=>releaseCsrf=r);await json(route,{headerName:'X-CSRF-TOKEN',token:'synthetic-delayed-csrf'});return true;}
++      if(p.endsWith('/commerce/inventory')&&!releaseStock){await new Promise(r=>releaseStock=r);await json(route,{items:[{itemId:item.id,locationId:place.id,onHand:3,reserved:0,available:3}],total:1,skip:0,take:100});return true;}
++      if(p.endsWith('/directory/items')&&csrfHeld){await json(route,{code:reason},401);return true;}
++    };
++    // Start stock before the sale, then use an independent directory read to return 401.
++    await s.page.locator('[data-target="inventario"][data-action="nav"]').click();await expect.poll(()=>!!releaseStock).toBe(true);
++    await s.page.locator('[data-target="ventas"][data-action="nav"]').click();await s.page.locator('#sale-submit').click();await expect.poll(()=>csrfHeld).toBe(true);
++    const original=await s.page.evaluate(k=>sessionStorage.getItem(k),`savia.sale.pending.${actor.id}`);
++    await s.page.locator('[data-target="inventario"][data-action="nav"]').click();await expect(s.page.locator('#auth-required')).toBeVisible();
++    const csrfResponse=s.page.waitForResponse(r=>r.url().endsWith('/csrf'));releaseCsrf();await csrfResponse;
++    const stockResponse=s.page.waitForResponse(r=>r.url().includes('/commerce/inventory'));releaseStock();await stockResponse;
++    await s.page.waitForLoadState('networkidle');await expect(s.page.locator('#staff-shell')).toBeHidden();await expect(s.page.locator('#stock-table')).toBeEmpty();await expect(s.page.locator('#sale-receipt')).toBeEmpty();
++    assert.equal(s.state.calls.slice(originalCalls).filter(x=>x.method==='POST'&&x.path.endsWith('/sales')).length,0,'A sale was sent after 401 while its CSRF request was in flight.');
++    assert.equal(await s.page.evaluate(k=>sessionStorage.getItem(k),`savia.sale.pending.${actor.id}`),original);assert.equal(s.state.sales.length,0);
++    // Native controls and synthetic submits must remain closed after the denial.
++    const calls=s.state.calls.length;await s.page.locator('#sale-form').dispatchEvent('submit');await s.page.waitForLoadState('networkidle');assert.equal(s.state.calls.length,calls);
++    return {reason,layer:'mocked browser 401 only; API TimeProvider NOT RUN',preservedKey:JSON.parse(original).key};
++  }));
++  await test('N7 logout cancels a sale awaiting CSRF and discards its late response (C8)',()=>withStaff({role:'Cashier',label:'n7-logout'},async s=>{
++    await sales(s);let releaseCsrf,releaseLogout,csrfCalls=0;
++    s.state.override=async({route,p,json})=>{
++      if(p.endsWith('/csrf')&&++csrfCalls===1){await new Promise(r=>releaseCsrf=r);await json(route,{headerName:'X-CSRF-TOKEN',token:'synthetic-delayed-csrf'});return true;}
++      if(p.endsWith('/logout')){s.state.session=false;await new Promise(r=>releaseLogout=r);await route.fulfill({status:204,body:''});return true;}
++    };
++    await s.page.locator('#sale-submit').click();await expect.poll(()=>!!releaseCsrf).toBe(true);await s.page.locator('[data-action="logout"]').click();await expect.poll(()=>!!releaseLogout).toBe(true);
++    const csrfResponse=s.page.waitForResponse(r=>r.url().endsWith('/csrf'));releaseCsrf();await csrfResponse;
++    // The logout response stays in flight. Wait for the released CSRF body and browser task queue,
++    // rather than networkidle, which cannot occur until that deliberately held logout completes.
++    await s.page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
++    assert.equal(s.state.calls.filter(x=>x.method==='POST'&&x.path.endsWith('/sales')).length,0,'A sale waiting for CSRF was sent after logout began.');
++    await expect(s.page.locator('#stock-table')).toBeEmpty();await expect(s.page.locator('#sale-receipt')).toBeEmpty();releaseLogout();await s.page.waitForURL('**/internal/login');
++    assert.ok(s.state.calls.find(x=>x.path.endsWith('/logout')).hasCsrf);return {posts:s.state.sales.length};
++  }));
+   await test('Stale confirmed receipt 404 must not permanently block a fresh sale (N5)',()=>withStaff({role:'Cashier',override:async({route,p,json})=>{if(p.endsWith('/sales/'+receipt.saleId)){await json(route,{code:'not_found'},404);return true;}}},async s=>{
+     await s.page.goto(origin+'/internal/login');await s.page.evaluate(({key,value})=>sessionStorage.setItem(key,value),{key:`savia.sale.receipt.${actor.id}`,value:receipt.saleId});await ready(s);await s.page.locator('[data-target="ventas"][data-action="nav"]').click();
+     await expect(s.page.locator('#sale-item option')).toHaveCount(1);await expect(s.page.locator('#sale-status')).toContainText('servidor');

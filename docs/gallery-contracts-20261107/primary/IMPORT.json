@@ -1,0 +1,55 @@
+{
+  "canonicalHead": "7bce17f65b6a49b64443349d76f3a98b76e4b347",
+  "workerHead": "c5ee743242cb2d360ef4c4e94a61548e1180748b",
+  "workerBindingsVerified": 3,
+  "productBindings": [
+    {
+      "path": "src/app.js",
+      "sameRaw": true,
+      "sameLF": true,
+      "rawSha256": "a6209bb17816e00b723c610ad0a85f7c86ac362d750507a369ba4b790160463e",
+      "lfSha256": "a6209bb17816e00b723c610ad0a85f7c86ac362d750507a369ba4b790160463e"
+    },
+    {
+      "path": "src/demo-api.js",
+      "sameRaw": true,
+      "sameLF": true,
+      "rawSha256": "2cfdfaa9ea665ba4fd7c822ab66f7bdaa1499160c45e04cde53d14530d04002e",
+      "lfSha256": "2cfdfaa9ea665ba4fd7c822ab66f7bdaa1499160c45e04cde53d14530d04002e"
+    },
+    {
+      "path": "src/integration-adapters.js",
+      "sameRaw": true,
+      "sameLF": true,
+      "rawSha256": "d274c6853b397c840b92e6dc2491f2f882e568d964429c7ad408fa971b6f2953",
+      "lfSha256": "d274c6853b397c840b92e6dc2491f2f882e568d964429c7ad408fa971b6f2953"
+    },
+    {
+      "path": "build-inputs/static/producto-verde-brillo-cuello-cruzado.html",
+      "sameRaw": true,
+      "sameLF": true,
+      "rawSha256": "7259c1fdb163ffba222474f5dda6886f4927e7ca16c8543c650e3c183c055efa",
+      "lfSha256": "7259c1fdb163ffba222474f5dda6886f4927e7ca16c8543c650e3c183c055efa"
+    },
+    {
+      "path": "build-inputs/static/styles.css",
+      "sameRaw": true,
+      "sameLF": true,
+      "rawSha256": "0a05e6dbbb334e88c535b98a6c461150cad0c73982e63586f0d777289feb0488",
+      "lfSha256": "0a05e6dbbb334e88c535b98a6c461150cad0c73982e63586f0d777289feb0488"
+    },
+    {
+      "path": "dist/producto-verde-brillo-cuello-cruzado.html",
+      "sameRaw": true,
+      "sameLF": true,
+      "rawSha256": "7259c1fdb163ffba222474f5dda6886f4927e7ca16c8543c650e3c183c055efa",
+      "lfSha256": "7259c1fdb163ffba222474f5dda6886f4927e7ca16c8543c650e3c183c055efa"
+    }
+  ],
+  "primaryBrowserChanges": [
+    "fail on unreachable or hijacked video key instead of swallowing assertion",
+    "require Space navigation and Shift+Tab return",
+    "require visible keyboard focus",
+    "write fresh output separately; persist zoom"
+  ]
+}

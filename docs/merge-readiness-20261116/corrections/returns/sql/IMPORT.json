@@ -1,0 +1,54 @@
+{
+  "base": "ba8ff2ba10935e99fc268ebbe5eae130f72c1cca",
+  "sourceWorktree": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-a598f2c6-26986eb66cb1ef1f",
+  "sourceBindingsVerified": 4,
+  "historicalBindingsVerified": 32,
+  "imported": [
+    {
+      "path": "savia/db/migrations/V029__return_retry_safety.sql",
+      "sha256": "6041e3880fb4cb02c595504e394701e52408e426767c67c2b575914402b353cc"
+    },
+    {
+      "path": "savia/db/tests/sales/172_return_retry_safety.sql",
+      "sha256": "50dc06558f36da331afe4ddbf45112d7b90c7e08c9983958863b764a78e591b3"
+    },
+    {
+      "path": "savia/tests/test_return_retry_safety.py",
+      "sha256": "d142b60596c5e97e86d88f66a4805bf75116e383d45c6060c71d898200c6c687"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/ReturnRetrySafetyTests.cs",
+      "sha256": "b35dda2fef4a8dc8fc6a3750d213cffce50fbb8827f5c5ba5e43e7e49c390097"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/README.md",
+      "sha256": "4d5d21cd7d4e519ce196a5ed82592fab92877ad49be8cdbe5a1d8cd7b4e3d037"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/RESULT.md",
+      "sha256": "c9c99f716bfe50eb985b1523ec2c1f07256c04f7f2c5b42aa1da433335107a9e"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/bindings.json",
+      "sha256": "d9ab39eb5fca0ba15bc9450fd08c58a2d81e3ef372f55a6a8a6a01945dcb275e"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/procedure-bindings.json",
+      "sha256": "0a553b3eb9adbfa28c6394c58682af6e61e6f486d9752d2ea1fcf07ad2249ea8"
+    },
+    {
+      "path": "docs/merge-readiness-20261116/corrections/returns/sql/sources-before.json",
+      "sha256": "f8c129b172a962d32f31840d40f11105de4621f0b8744972ff36f0bba0e5c042"
+    }
+  ],
+  "acceptance": "PREPARED; independent review and SQL runtime pending",
+  "notRun": [
+    "SQL",
+    "Docker",
+    "build",
+    "CI",
+    "push",
+    "merge",
+    "deploy"
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "failedRun": {
+    "id": 42169677749,
+    "sha": "8523523a41d490f7bdcca016bf34cc5fc2c04a37",
+    "url": "https://github.com/Suazo-AI/Martha-Silva-Store/actions/runs/42169677749",
+    "failedStep": "python tools/verify_release_snapshot.py",
+    "error": "AssertionError: Publication bytes differ from the recorded snapshot",
+    "historicalRegressionJob": "skipped because integrity failed"
+  },
+  "directCause": "Three imported working files had CRLF while .gitattributes commits/checks them out as LF. The RAW snapshot was recorded before that conversion.",
+  "normalizedInputs": [
+    {
+      "path": "src/app.js",
+      "beforeRawSha256": "ae2577a4a707628f93b19593a41a08db239914e4f34e97455b03a1fb80c421b0",
+      "afterRawSha256": "a6209bb17816e00b723c610ad0a85f7c86ac362d750507a369ba4b790160463e",
+      "removedCR": 891,
+      "lfUnchanged": true
+    },
+    {
+      "path": "build-inputs/static/index.html",
+      "beforeRawSha256": "3a2d298f99ff5ab1485121fd63921ab95af7abb1ce85f42d659c9449e242d8fb",
+      "afterRawSha256": "b025431c70d13b2264aac29cf03f65557bf3412849a43c4c1cf033b0adb3832d",
+      "removedCR": 428,
+      "lfUnchanged": true
+    },
+    {
+      "path": "build-inputs/static/locale-en.js",
+      "beforeRawSha256": "0f35a694433d4ac4f496a48356ebe831eba680937eef7cf7f65be1cc1d59b9b1",
+      "afterRawSha256": "25635092271c419b53ef454a2c92d35bfcc162d1c823fd6ca0cbb1eed0aebb7a",
+      "removedCR": 492,
+      "lfUnchanged": true
+    }
+  ],
+  "manifestChangedPaths": [
+    "app.js",
+    "index.html",
+    "locale-en.js"
+  ],
+  "red": {
+    "command": [
+      "python",
+      "tests/test_release_snapshot.py"
+    ],
+    "exit": 1,
+    "assertion": "AssertionError not raised",
+    "sha256": "472df6347f3efe72fb783e4251c6e7b2dd7b5dab9921feb3920d14e85ea53e38"
+  },
+  "green": [
+    {
+      "command": [
+        "python",
+        "prepare.py"
+      ],
+      "exit": 0,
+      "sha256": "a22e737fb93fd7d9bacd1f8226a77b1ee54b30dd768d9492d6466623de355f20",
+      "privateLog": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\ci-failure\\fix-0.log",
+      "tail": [
+        "Prepared 47 pages / 40 sample products / 1560 files: C:\\Users\\Jason\\MARTHA-SILVA\\github\\dist"
+      ]
+    },
+    {
+      "command": [
+        "python",
+        "tools/verify_release_snapshot.py",
+        "--record"
+      ],
+      "exit": 0,
+      "sha256": "14a991ddb5a954a36710a3ef08c3216b17f37c936829cdf994bf47dd821ff63e",
+      "privateLog": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\ci-failure\\fix-1.log",
+      "tail": [
+        "PASS: 1558 public paths and 1 control file match recorded bytes; all 1560 dist files match canonical inputs; 47 pages / 40 products / 120 variants; no staff runtime paths"
+      ]
+    },
+    {
+      "command": [
+        "python",
+        "tests/test_release_snapshot.py"
+      ],
+      "exit": 0,
+      "sha256": "68019329e14561bb46d4031f17d16ea221445719b4416e802191b33aaa0527b5",
+      "privateLog": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\ci-failure\\fix-2.log",
+      "tail": [
+        "PASS: 1558 public paths and 1 control file match recorded bytes; all 1560 dist files match canonical inputs; 47 pages / 40 products / 120 variants; no staff runtime paths",
+        "PASS: 1558 public paths and 1 control file match recorded bytes; all 1560 dist files match canonical inputs; 47 pages / 40 products / 120 variants; no staff runtime paths",
+        ".",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 13.091s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "command": [
+        "python",
+        "tests/build.py"
+      ],
+      "exit": 0,
+      "sha256": "9755da02030f54fd370aa8b185539ad2540a9813426a5b51fbb884856c9196bd",
+      "privateLog": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\ci-failure\\fix-3.log",
+      "tail": [
+        "Prepared 47 pages / 40 sample products / 1560 files: C:\\Users\\Jason\\AppData\\Local\\Temp\\martha-build-test-ohpj6_5m\\dist",
+        "Prepared 47 pages / 40 sample products / 1560 files: C:\\Users\\Jason\\AppData\\Local\\Temp\\martha-build-test-ohpj6_5m\\dist",
+        "PASS: clean and repeat builds match all 1560 paths and SHA-256 hashes"
+      ]
+    },
+    {
+      "command": [
+        "python",
+        "tools/verify_release_snapshot.py"
+      ],
+      "exit": 0,
+      "sha256": "14a991ddb5a954a36710a3ef08c3216b17f37c936829cdf994bf47dd821ff63e",
+      "privateLog": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\web-combine-primary-20261106\\ci-failure\\fix-4.log",
+      "tail": [
+        "PASS: 1558 public paths and 1 control file match recorded bytes; all 1560 dist files match canonical inputs; 47 pages / 40 products / 120 variants; no staff runtime paths"
+      ]
+    }
+  ],
+  "publicationPolicy": "Continue comparing exact RAW publication bytes; reject CRLF only for top-level .html/.js/.css covered by eol=lf. Preserve captured nested resource bytes. No hashes or assertions relaxed.",
+  "currentStatus": "local correction passed; exact corrected commit Linux CI pending",
+  "privateFailureLogSha256": "680c9cc113adcdd462a18b3399d20b414c5dadac6290137914474583d77e6346"
+}

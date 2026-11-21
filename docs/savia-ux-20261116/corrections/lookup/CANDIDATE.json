@@ -1,0 +1,162 @@
+{
+  "schema": "savia-ux-lookup-correction-v1",
+  "base": "2c96904f49d2df913850bc13cf53b3b03ceebacf",
+  "previousReviewedTree": "4f700e5489f3da5acad5b79be40eb21397f5228d",
+  "status": "Locally verified; fresh independent acceptance pending.",
+  "bytePolicy": "RAW=current disk bytes; LF=CRLF to LF only, BOM retained. Git tree supplied separately. Historical manifests are not rebound.",
+  "productDelta": "Exactly two guard additions in sale.mjs since previous review; no other existing product source differs.",
+  "sources": [
+    {
+      "path": "savia/demo/site/banner.css",
+      "rawSha256": "83c00c759cb79031a33eee9c170e32d5588ae8854a6e977e303f25ccbaf552ec",
+      "lfSha256": "59661fa4112a1970002ab88f86234654c5c95b8c43bf4a45cfd378681e930968",
+      "previousReviewedLfSha256": "59661fa4112a1970002ab88f86234654c5c95b8c43bf4a45cfd378681e930968"
+    },
+    {
+      "path": "savia/demo/site/boot.mjs",
+      "rawSha256": "06511f5f4a4df6aea86f5d0aaaad02cb38252ea5a86f7711ecc918b43078d553",
+      "lfSha256": "06511f5f4a4df6aea86f5d0aaaad02cb38252ea5a86f7711ecc918b43078d553",
+      "previousReviewedLfSha256": "06511f5f4a4df6aea86f5d0aaaad02cb38252ea5a86f7711ecc918b43078d553"
+    },
+    {
+      "path": "savia/demo/site/verify.py",
+      "rawSha256": "dacc3667bffe99b6d44c84e175f6a6cfbe1074ded2b21c65a3910245543a1e99",
+      "lfSha256": "9efb46efd2cca15e02a68e103eab1320374ecf807ae074709cab5e6eb4f1785d",
+      "previousReviewedLfSha256": "9efb46efd2cca15e02a68e103eab1320374ecf807ae074709cab5e6eb4f1785d"
+    },
+    {
+      "path": "savia/demo/site/entry.test.mjs",
+      "rawSha256": "0999043dc4d75826667e3d2c958d61099fa7ecbd67dd50207146636f364d412d",
+      "lfSha256": "0999043dc4d75826667e3d2c958d61099fa7ecbd67dd50207146636f364d412d",
+      "previousReviewedLfSha256": "0999043dc4d75826667e3d2c958d61099fa7ecbd67dd50207146636f364d412d"
+    },
+    {
+      "path": "savia/web/app.css",
+      "rawSha256": "7170934adb17dce102714b9097cfe510f563ef625f6d7002a373f86c8ce8d6ad",
+      "lfSha256": "991defaa314c45bb6dfe8f26f5b278a4b7b62b76d63652b91e45832227f0e760",
+      "previousReviewedLfSha256": "991defaa314c45bb6dfe8f26f5b278a4b7b62b76d63652b91e45832227f0e760"
+    },
+    {
+      "path": "savia/web/app.mjs",
+      "rawSha256": "707bec9b596cd77c1701dfdc3cdd8dbe67ea1330b13ad3553ee8177a0d1bfd23",
+      "lfSha256": "707bec9b596cd77c1701dfdc3cdd8dbe67ea1330b13ad3553ee8177a0d1bfd23",
+      "previousReviewedLfSha256": "707bec9b596cd77c1701dfdc3cdd8dbe67ea1330b13ad3553ee8177a0d1bfd23"
+    },
+    {
+      "path": "savia/web/roles.mjs",
+      "rawSha256": "b7d270531e7c9a5df1b1888d816e280e9526ed0f1f4d8d60fe1f197998dd5651",
+      "lfSha256": "b7d270531e7c9a5df1b1888d816e280e9526ed0f1f4d8d60fe1f197998dd5651",
+      "previousReviewedLfSha256": "b7d270531e7c9a5df1b1888d816e280e9526ed0f1f4d8d60fe1f197998dd5651"
+    },
+    {
+      "path": "savia/web/scan.mjs",
+      "rawSha256": "3e88319593566bcf6a728e59b35e4a9ff09781fab8c243fbe0680afae8020e33",
+      "lfSha256": "3e88319593566bcf6a728e59b35e4a9ff09781fab8c243fbe0680afae8020e33",
+      "previousReviewedLfSha256": "3e88319593566bcf6a728e59b35e4a9ff09781fab8c243fbe0680afae8020e33"
+    },
+    {
+      "path": "savia/web/screens/history.mjs",
+      "rawSha256": "fd2ccf877492e24475c42e74957988ae9356fd0320083434b9b78897e19ca0f8",
+      "lfSha256": "fd2ccf877492e24475c42e74957988ae9356fd0320083434b9b78897e19ca0f8",
+      "previousReviewedLfSha256": "fd2ccf877492e24475c42e74957988ae9356fd0320083434b9b78897e19ca0f8"
+    },
+    {
+      "path": "savia/web/screens/sale.mjs",
+      "rawSha256": "4f73ba40afc917ce0b20e24dbb86e41b8c8b33c4e04f1663fa6908e4a5621a15",
+      "lfSha256": "4f73ba40afc917ce0b20e24dbb86e41b8c8b33c4e04f1663fa6908e4a5621a15",
+      "previousReviewedLfSha256": "83d3ba5f3ef42a2036359c006198f3a6158f533624aadca1f1a5224e8d4fa5c0"
+    },
+    {
+      "path": "savia/web/ui.mjs",
+      "rawSha256": "906fe9b654625298196b6aa66217d0c4ff8358ade1100dd405d777a1f743ba4c",
+      "lfSha256": "906fe9b654625298196b6aa66217d0c4ff8358ade1100dd405d777a1f743ba4c",
+      "previousReviewedLfSha256": "906fe9b654625298196b6aa66217d0c4ff8358ade1100dd405d777a1f743ba4c"
+    },
+    {
+      "path": "savia/web/sale-recovery.mjs",
+      "rawSha256": "0db3c8f84cb5486690ae9e0e9891f1364f07205d6f860a953a6704eadc8c82f5",
+      "lfSha256": "0db3c8f84cb5486690ae9e0e9891f1364f07205d6f860a953a6704eadc8c82f5",
+      "previousReviewedLfSha256": "0db3c8f84cb5486690ae9e0e9891f1364f07205d6f860a953a6704eadc8c82f5"
+    },
+    {
+      "path": "savia/web/tests/scan.test.mjs",
+      "rawSha256": "8eafce1935cacc567f790553d94a917bcfaa3bc8e37ed4fd3adce2828c2234c2",
+      "lfSha256": "8eafce1935cacc567f790553d94a917bcfaa3bc8e37ed4fd3adce2828c2234c2",
+      "previousReviewedLfSha256": "8eafce1935cacc567f790553d94a917bcfaa3bc8e37ed4fd3adce2828c2234c2"
+    },
+    {
+      "path": "savia/web/tests/navigation-ux.test.mjs",
+      "rawSha256": "831550529940d56a9c15a283b65e08d77a4a480b260f17229d11ca20e55b6c02",
+      "lfSha256": "831550529940d56a9c15a283b65e08d77a4a480b260f17229d11ca20e55b6c02",
+      "previousReviewedLfSha256": "831550529940d56a9c15a283b65e08d77a4a480b260f17229d11ca20e55b6c02"
+    },
+    {
+      "path": "savia/web/tests/sale-recovery.test.mjs",
+      "rawSha256": "4bf621e27a52a47d0fa0e30befa1fed4cd87f4373e4d75851c6b59d91c3fa1ab",
+      "lfSha256": "4bf621e27a52a47d0fa0e30befa1fed4cd87f4373e4d75851c6b59d91c3fa1ab",
+      "previousReviewedLfSha256": "4bf621e27a52a47d0fa0e30befa1fed4cd87f4373e4d75851c6b59d91c3fa1ab"
+    },
+    {
+      "path": "savia/web/tests/sale-ux.browser.mjs",
+      "rawSha256": "75a0ddb5d98648ebcc202c3d3ab191b678f1edc28a1a5b7521fdc5c1749a1248",
+      "lfSha256": "75a0ddb5d98648ebcc202c3d3ab191b678f1edc28a1a5b7521fdc5c1749a1248",
+      "previousReviewedLfSha256": "75a0ddb5d98648ebcc202c3d3ab191b678f1edc28a1a5b7521fdc5c1749a1248"
+    },
+    {
+      "path": "savia/web/api.mjs",
+      "rawSha256": "7b3cda6186f318bc77851d08d7637457a83486a91a6880ff34d9394c4de893c0",
+      "lfSha256": "7b3cda6186f318bc77851d08d7637457a83486a91a6880ff34d9394c4de893c0",
+      "previousReviewedLfSha256": "7b3cda6186f318bc77851d08d7637457a83486a91a6880ff34d9394c4de893c0"
+    },
+    {
+      "path": "savia/web/screens/till-open.mjs",
+      "rawSha256": "a12dd759bcc6f63f0628f1db4cafb0fa03db5fedad6ffc9dbe6b882f7b655265",
+      "lfSha256": "a12dd759bcc6f63f0628f1db4cafb0fa03db5fedad6ffc9dbe6b882f7b655265",
+      "previousReviewedLfSha256": "a12dd759bcc6f63f0628f1db4cafb0fa03db5fedad6ffc9dbe6b882f7b655265"
+    },
+    {
+      "path": "savia/web/tests/api-contract.test.mjs",
+      "rawSha256": "98b9c43e72aa047de6a0f3c215a0fd4da3d150f21b60aa0a5de7124cbfb00270",
+      "lfSha256": "98b9c43e72aa047de6a0f3c215a0fd4da3d150f21b60aa0a5de7124cbfb00270",
+      "previousReviewedLfSha256": "98b9c43e72aa047de6a0f3c215a0fd4da3d150f21b60aa0a5de7124cbfb00270"
+    },
+    {
+      "path": "savia/web/tests/sale-lifecycle.test.mjs",
+      "rawSha256": "2cd224c4f305ca582a971966fcb4a588e8a0d1b6c9412576910c68bd7f6e0146",
+      "lfSha256": "2cd224c4f305ca582a971966fcb4a588e8a0d1b6c9412576910c68bd7f6e0146",
+      "previousReviewedLfSha256": null
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/savia-ux-20261116/corrections/astra-recheck.md",
+      "rawSha256": "5894f29c12eca9c7a3b1584bfc274284f1b13d308292d40fa4690d4cb1803ec8",
+      "lfSha256": "5894f29c12eca9c7a3b1584bfc274284f1b13d308292d40fa4690d4cb1803ec8"
+    },
+    {
+      "path": "docs/savia-ux-20261116/corrections/shell-fixture.mjs",
+      "rawSha256": "f910dbfad93d696fef201b32d6392d7a234fd98044db225e2c0bd31cc8ae6160",
+      "lfSha256": "f910dbfad93d696fef201b32d6392d7a234fd98044db225e2c0bd31cc8ae6160"
+    },
+    {
+      "path": "docs/savia-ux-20261116/corrections/lookup/browser.py",
+      "rawSha256": "8fa3e8c5257c1fb579e9fa1f50d9736753818bb914fd437ed1ccf5cbc9486c46",
+      "lfSha256": "8fa3e8c5257c1fb579e9fa1f50d9736753818bb914fd437ed1ccf5cbc9486c46"
+    },
+    {
+      "path": "docs/savia-ux-20261116/corrections/lookup/browser.json",
+      "rawSha256": "19b6a8ca1d958666850e39e8a0e6241dc87ec29b2cbd4a20527bf5d5238a5213",
+      "lfSha256": "85599c7b05a47d8a3d1e222604b43856a72f6f499e86925ad255e651a31521ce"
+    },
+    {
+      "path": "docs/savia-ux-20261116/corrections/lookup/CHECKS.json",
+      "rawSha256": "ebb247fd322a004d456ba7b2e07fdf0a3cd6ac574639e426452878290e2a9b3c",
+      "lfSha256": "5a4396d30688bead9dc950f98e5d7ad9efbd0c60758890851cb215efd47de58b"
+    },
+    {
+      "path": "docs/savia-ux-20261116/corrections/lookup/README.md",
+      "rawSha256": "fe030ad11c68c892879a298b87d9ec399009ca346c6c5071ef36f43bba3079b8",
+      "lfSha256": "fe030ad11c68c892879a298b87d9ec399009ca346c6c5071ef36f43bba3079b8"
+    }
+  ]
+}

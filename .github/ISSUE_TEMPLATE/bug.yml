@@ -1,0 +1,22 @@
+name: Bug
+description: Report behavior that can be reproduced with a failing test.
+title: '[bug] '
+labels: [bug]
+body:
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps and observed result
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Safe evidence and failing test command
+      description: Exclude credentials and customer data.

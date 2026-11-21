@@ -1,0 +1,13 @@
+{
+  "card": "C9",
+  "card_id": "6aea5de748c40007cf1f7eeb",
+  "marker": "[SAVIA-C9-PREP-6aeb9a3]",
+  "action_id": "6aea93613400b960a976f82c",
+  "date": "2026-11-04T02:07:29.094Z",
+  "comment": "[SAVIA-C9-PREP-6aeb9a3]\nPreparacion publicada en 6aeb9a35f45331ace85ac48dc19bfd9264b0f722: 23 fuentes y 14 comprobaciones documentales; cero SQL/API/Docker/runtime nuevos. El backup CHECKSUM/VERIFYONLY/restore existente de CI usa fixture sin ventas y no demuestra RTO/RPO SUAZO-PC. Faltan campos/permisos/rutas/TLS actuales, coordinador Windows y prueba sintetica de restaurada con ventas y oraculos. Reset soportado exige otro Owner accesible; perdida del ultimo Owner no tiene recuperacion implementada. No se ejecutan one-shots consumidos ni SQL nuevo sin alcance y autorizacion. C9 sigue bloqueada; no marcar checks de corrida. Informe y siguiente paso acotado: https://github.com/Suazo-AI/Martha-Silva-Store/blob/6aeb9a35f45331ace85ac48dc19bfd9264b0f722/docs/c9-recovery-20261103/PREPARATION.md .",
+  "exact_readback": true,
+  "list_id": "6aea5d66e5b03a07af094570",
+  "closed": false,
+  "checklists_changed": false,
+  "list_changed": false
+}

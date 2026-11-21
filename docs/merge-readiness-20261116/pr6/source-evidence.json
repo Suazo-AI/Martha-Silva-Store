@@ -1,0 +1,23 @@
+{
+  "pr": {
+    "url": "https://github.com/Suazo-AI/Martha-Silva-Store/pull/6",
+    "number": 6,
+    "state": "open",
+    "draft": true,
+    "base": "claude/funny-brahmagupta-5e5rj0",
+    "base_sha": "8744a9699812d62ea5ed31c63781748f833c3def",
+    "head": "ci/no-mistakes-pr-gate-20261106",
+    "head_sha": "c62d8286e8c3a612d305484d918467c66effb6b4",
+    "body": "## Por qué\nLos PR pueden pasar los controles de producto sin evidencia de que no-mistakes revisó, probó y documentó el último commit. La configuración previa era un ejemplo inactivo.\n\n## Cambio\nActiva la configuración de Codex en ramas de trabajo. La acción oficial está fijada al commit de la versión estable v1.106.1. Lee el cuerpo y el head vigentes con permisos de lectura. No usa checkout, secretos, exenciones ni código del PR para esa comprobación. En PRs a main, un fallo, cancelación u omisión hace fallar explícitamente build-and-guards, que conserva sus pruebas anteriores. Las ediciones del PR vuelven a ejecutar el control. No hay cambio de protección de rama ni despliegue.\n\n## Alternativas\nEste PR se apila sobre la rama del #2 para conservar los siete checks de integración y evitar debilitar main: cuatro de los siete aún no se emiten desde la base antigua. Incorporar este cambio a #2, comprobarlo allí y luego revisar #2 para main. No mezcla su código de producto en el diff de este PR.\n\n## Evidencia\n- CLI Linux: v1.106.1 (5732d1e), artefacto de la release cotejado por SHA256. GitHub Actions no ejecuta una sesión de Codex.\n- Verificador oficial en fixtures: 1 caso estructural válido y 5 rechazos esperados (firma/declaración ausente o incompleta, SHA viejo, fase omitida, fallo de API con evento archivado válido).\n- Se revisaron los permisos, los tipos de evento y la propagación de fallos al check requerido. No se ejecutó SQL ni se realizó una prueba comercial.\n- Instalador Windows por usuario fijado por versión, arquitectura y hashes. Ver docs/NO-MISTAKES.md para preparar el sandbox de Codex y el clon separado de Tony.\n\n## Qué falta\nEsta propuesta **no** declara una ejecución auténtica del pipeline. El primer control debe rechazarla hasta que el operador ejecute no-mistakes con un agente y GitHub autenticados en una rama propia. No agregar una atestación manual. Tras la integración, verificar el SHA y cada check del #2 y de cualquier PR abierto antes del merge. La declaración en el cuerpo es editable; los checks de producto siguen siendo independientes."
+  },
+  "upstream": {
+    "ref": "5732d1ed88a1572fa6115d6ede5d69bfec097946",
+    "path": ".github/actions/require-no-mistakes/verify.py",
+    "blob": "7379e69d406e60c0879d6ed93c23cbd5cf10fbf8"
+  },
+  "failure_lines": [
+    "2026-11-06T07:26:02.4761126Z \u001b[36;1m  echo \"::error::python interpreter not found; cannot parse pipeline attestation.\" >&2\u001b[0m",
+    "2026-11-06T07:26:03.0408307Z ##[error]This PR was not raised through no-mistakes.",
+    "2026-11-06T07:26:03.0509388Z ##[error]Process completed with exit code 1."
+  ]
+}

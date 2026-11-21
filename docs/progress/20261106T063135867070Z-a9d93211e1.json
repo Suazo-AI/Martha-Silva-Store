@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-06T06:31:35.867070+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "change": "M",
+      "git_blob": "9af3adf21ac0dd15b0e832448bd2b58cd79f07be"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "418e5b3b383c494c59c6ab47cf948f63e630405b"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/CI-HEADERS-LF-FIX.json",
+      "change": "A",
+      "git_blob": "64d3e95e294bc396dc00791efd728315325b6379"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/REVIEW-CANDIDATE.json",
+      "change": "M",
+      "git_blob": "0a5bde4f8d9daa9a9ceaebb33977f7988dc82f86"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/ci-correction.md",
+      "change": "M",
+      "git_blob": "e8b48408254cb72626d83a32a7b0fc80a46a78bd"
+    },
+    {
+      "path": "docs/hardening-20261106/combined/gemini-critic.md",
+      "change": "A",
+      "git_blob": "99432473eb24fe5827f4274deba1fe1fb673c762"
+    },
+    {
+      "path": "tests/test_release_snapshot.py",
+      "change": "M",
+      "git_blob": "6d1a06205879c84074acbc8dfe2d01c7e97c222b"
+    },
+    {
+      "path": "tools/verify_release_snapshot.py",
+      "change": "M",
+      "git_blob": "c17ac4090242ce594ba441ec124290fbeb940b8e"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

@@ -1,0 +1,31 @@
+{
+  "productUntouched": true,
+  "RAW": "1695273b2135acddb900c821e62f872601bc2ea443312763ea879ff9da60246b",
+  "LF": "2beb1f821afcbfe773968d00a9534158ca8ef4b5f124427377288be01182b71a",
+  "results": [
+    {
+      "case": "baseline",
+      "exit": 0
+    },
+    {
+      "case": "duplicate",
+      "exit": 1,
+      "expectedFailure": true
+    },
+    {
+      "case": "restored-duplicate",
+      "exit": 0,
+      "byteExact": true
+    },
+    {
+      "case": "identity",
+      "exit": 1,
+      "expectedFailure": true
+    },
+    {
+      "case": "restored-identity",
+      "exit": 0,
+      "byteExact": true
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-af68b87e\\docs\\hardening-20261105\\frontend-worker",
+  "result_sha256": "b3d9d3be91c9f2cc17ad7dfc600e24e26c946bf362aaef0bacc2c3fc9b08bb87",
+  "references": [
+    {
+      "url": "https://martha-silva-demo.jason-suazof.workers.dev/",
+      "status": 200,
+      "response_text_raw_sha256": "2005a4a05dd4967242046ea9fffe5f3fb862c13565316b61e88767f08cde3936",
+      "saved_lf_sha256": "91695bc45b6657d629618c53094e36e4a7abcef71de835cf794f558bc9674faf",
+      "source_commit": "UNKNOWN"
+    },
+    {
+      "url": "https://martha-silva-demo.jason-suazof.workers.dev/styles.css",
+      "status": 200,
+      "response_text_raw_sha256": "480a01fe18e7e1dba28a9582638c0b57ad4a065539f1ba07af6f63524496a365",
+      "saved_lf_sha256": "8f9e126106c60eef66fe5439bd800d9f9cc6a378e6072d23c2a20c6fa65a5eaa",
+      "source_commit": "UNKNOWN"
+    },
+    {
+      "url": "https://martha-silva-demo.jason-suazof.workers.dev/app.js",
+      "status": 200,
+      "response_text_raw_sha256": "814c9d9a34e67668d6828d219665fdf45a73611977084033059450277e544e7c",
+      "saved_lf_sha256": "49674f5fabf7b5c03e5821f1a7525f1764b9d19229f036f931183acf74cb67a7",
+      "source_commit": "UNKNOWN"
+    },
+    {
+      "url": "https://martha-silva-demo.jason-suazof.workers.dev/catalogo.html",
+      "status": 200,
+      "response_text_raw_sha256": "34a1762c528a9f442ab3f4fc6d5452d48c4e8b8b399af7684433a8b27c4246b1",
+      "saved_lf_sha256": "61a832c58119fc42cb36f8c80f8e5721f32578d8ad22557473c9ab7f8d6e105f",
+      "source_commit": "UNKNOWN"
+    },
+    {
+      "url": "https://martha-silva-demo.jason-suazof.workers.dev/producto-champagne.html",
+      "status": 200,
+      "response_text_raw_sha256": "a0d6129e6d7d6505073ae91a1ed82024768cd318baf7ca3aaae52f116a159499",
+      "saved_lf_sha256": "540a24f81bbbf7a0e04f48c3389a775a2d750359c3684f245e0098651c0838e5",
+      "source_commit": "UNKNOWN"
+    },
+    {
+      "url": "https://martha-silva-demo.jason-suazof.workers.dev/bolsa.html",
+      "status": 200,
+      "response_text_raw_sha256": "4236404d3beb39db22ddb09c9c3021258c39490b81f297a967b9d3881ea73d0b",
+      "saved_lf_sha256": "e6cf65001a26724d3f59a0dcb8bc823283ad05efdce6173422a231b944c003b1",
+      "source_commit": "UNKNOWN"
+    },
+    {
+      "url": "https://martha-silva-demo.jason-suazof.workers.dev/checkout.html",
+      "status": 200,
+      "response_text_raw_sha256": "36680aee2cfa1635010ce7d975b38cc5e47bc25237e9363b89a29a394adad06c",
+      "saved_lf_sha256": "affb042c1379eb74e64cce1b59134adc81450ba0d0a9af638fa64a783f6c9712",
+      "source_commit": "UNKNOWN"
+    },
+    {
+      "url": "https://martha-silva-demo.jason-suazof.workers.dev/pedido.html",
+      "status": 200,
+      "response_text_raw_sha256": "c12e52859cca785c098d3694b0ef8a4440b1283d010ad890534e78bb50046ffb",
+      "saved_lf_sha256": "6256d18c7b9b6fb33004a309606d1d5d8b88714a12a8412489fdf97fb1747620",
+      "source_commit": "UNKNOWN"
+    }
+  ],
+  "limits": "Historical bounded fetched source hashes; fresh reference screenshots at matched viewports; campaign frame timing differs. Source Git SHA unknown."
+}

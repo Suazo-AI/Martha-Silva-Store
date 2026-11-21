@@ -1,0 +1,63 @@
+﻿{
+  "verifier_git_blob": "7379e69d406e60c0879d6ed93c23cbd5cf10fbf8",
+  "verifier_sha256": "bacd65bc54c703a6ec5bdb96e1efaa6ab414b23e6bc96c5c5b93b5b56229129d",
+  "checks": [
+    {
+      "case": "actual PR6 body rejects missing signature",
+      "result": "PASS",
+      "observed_exit": 1
+    },
+    {
+      "case": "API unavailable fails closed without explicit facts",
+      "result": "PASS",
+      "observed_exit": 1
+    },
+    {
+      "case": "empty body lacks parser attestation",
+      "result": "PASS",
+      "observed_exit": 1
+    },
+    {
+      "case": "different current head rejects stale bind",
+      "result": "PASS",
+      "observed_exit": 1
+    },
+    {
+      "case": "missing head rejects empty bind",
+      "result": "PASS",
+      "observed_exit": 1
+    },
+    {
+      "case": "missing required phases reject",
+      "result": "PASS",
+      "observed_exit": 1
+    },
+    {
+      "case": "test failed rejects",
+      "result": "PASS",
+      "observed_exit": 1
+    },
+    {
+      "case": "test skipped rejects",
+      "result": "PASS",
+      "observed_exit": 1
+    },
+    {
+      "case": "test skipped_quota rejects",
+      "result": "PASS",
+      "observed_exit": 1
+    },
+    {
+      "case": "test running rejects",
+      "result": "PASS",
+      "observed_exit": 1
+    },
+    {
+      "case": "test command override without opt-in rejects",
+      "result": "PASS",
+      "observed_exit": 1
+    }
+  ],
+  "total": 11,
+  "authentic_positive_pipeline": "NOT RUN"
+}

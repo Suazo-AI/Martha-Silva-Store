@@ -1,0 +1,20 @@
+{
+  "task": "P-LEGACY",
+  "status_proposal": "done",
+  "scope": "classification only; corrections remain open",
+  "issue": "https://github.com/Suazo-AI/Martha-Silva-Store/issues/4",
+  "input_sha": "9b35697ae29e0c793fc7ed4448ec6e77a1f85ee3",
+  "classified": 19,
+  "counts": {
+    "environment": 5,
+    "obsolete": 9,
+    "historical_DOM_contract": 5,
+    "unstable": 0
+  },
+  "independent_review": "pr2_import_review PASS; 19 unique IDs, actions and body hash verified",
+  "public_document_sha256": "c16b69043f9c5d741717e2a14f6677e80f83d7257d53b20dcf9a9b339a602f06",
+  "suggested_public_path": "docs/p-legacy-20261104/CLASSIFICATION.md",
+  "integration_owner": "existing C6 integrator; canonical checkout untouched by this packet",
+  "next_action": "After C6 green, import reviewed classification and link issue4 in P-LEGACY ledger entry; preserve other entries and normal progress hooks.",
+  "limit": "Does not mark the 19 assertions fixed; does not accept browser, C6, C8, C9 or TONY findings."
+}

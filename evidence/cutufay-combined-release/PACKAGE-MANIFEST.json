@@ -1,0 +1,248 @@
+{
+  "created_utc": "2026-10-26T18:55:12.236069+00:00",
+  "files": {
+    "INTEGRATION-AND-ROLLBACK.md": {
+      "bytes": 7603,
+      "sha256": "9324aa3f83609ac850f06e77f9422b809090266068b2f46e8b7ad74d1f0f3bc6"
+    },
+    "README.md": {
+      "bytes": 3515,
+      "sha256": "8a9b2cf58918a0b5bfd2e504669541b4f58570c8a9db00b70bce51d2ba0efd49"
+    },
+    "RELEASE-RECORD.json": {
+      "bytes": 1402,
+      "sha256": "ebda31511f67b2ad5243474057802d87f0ef3534e27e1015b48756dac2f2e8b1"
+    },
+    "evidence/INTEGRATOR-README.md": {
+      "bytes": 4319,
+      "sha256": "90e4eb586e3915aa6a88e33a75dee6d66568078728875d99ed86bd96649935c6"
+    },
+    "evidence/SAFARI-IPHONE-ACCEPTANCE.md": {
+      "bytes": 6144,
+      "sha256": "9420df6881386e2e6720074684f852e82a4b4ff2f43277fb06c6c51c753215f3"
+    },
+    "evidence/TEST-RESULTS.md": {
+      "bytes": 2486,
+      "sha256": "d64091be49e7acc432a67e43a7457690f722b29d78d487d86c353660544e1e0c"
+    },
+    "evidence/approval/AI-support-approval-ledger.json": {
+      "bytes": 1815,
+      "sha256": "50f8a17ba4ee70472244306588d0b53d098f9c0a0ac21736be9ea1c42f4e4bf8"
+    },
+    "evidence/approval/supporting-illustration-text-contract.json": {
+      "bytes": 5316,
+      "sha256": "bb5bb91b62b6001ffd46effd4401b1bc99753a4ffd922644e6dcaebd671f92a0"
+    },
+    "evidence/assembly-receipt.json": {
+      "bytes": 4072,
+      "sha256": "19ca37a9351820e2fb7481d8e95580888fe589ef1d00eba08a4d8c6d491367d2"
+    },
+    "evidence/base-green-A-runtime-manifest.json": {
+      "bytes": 269875,
+      "sha256": "2385d52dbef90e8bfedb65864d05efc5635a2ec709623bde86547d0104e7a47b"
+    },
+    "evidence/final-test-report.json": {
+      "bytes": 299671,
+      "sha256": "88ae8636573498a4ea53657d4660066e580210f8e5729afe418ad9f249a23c46"
+    },
+    "evidence/full-suite-logs/aggregate.log": {
+      "bytes": 10660,
+      "sha256": "ba0f57111039aa76f98e8df0db722997c78cb6b34dbab2c837166618104cbc62"
+    },
+    "evidence/full-suite-logs/asset-audit.log": {
+      "bytes": 50471,
+      "sha256": "44a129b5418f81b5da323998853bef4b55ed20f9418f9144605a62cf0b5b13f4"
+    },
+    "evidence/full-suite-logs/deployment-offline.log": {
+      "bytes": 186,
+      "sha256": "225c9cc7c9d3dbdc6d121aa1c8cfebaa94053ba8d82d7fc6c4caead01cc9b7cb"
+    },
+    "evidence/full-suite-logs/final-candidate-asset-audit.json": {
+      "bytes": 530443,
+      "sha256": "d54048d413624a4a7b26e86a63c8ce74bac729fa7943ba7b5164bdb9299536a9"
+    },
+    "evidence/full-suite-logs/green-header.log": {
+      "bytes": 2625,
+      "sha256": "9840b43d37b394aea907b92a4cd7b88795dbfa9a8c256d7b0a8aa007a50f7fd6"
+    },
+    "evidence/full-suite-logs/luxury-editorial.log": {
+      "bytes": 984,
+      "sha256": "e1237203ba3bc96720a7fb87528c84fbcb35f51264902b6e1e35d65bfc6f3e1d"
+    },
+    "evidence/full-suite-logs/prepare.log": {
+      "bytes": 154,
+      "sha256": "e136df1a01242f1111af56761bf6cbaa86196c809e19ce6f3213007a51e5ef86"
+    },
+    "evidence/full-suite-logs/product-share.log": {
+      "bytes": 956,
+      "sha256": "3488d6a9763eb4343eb82161531109f878bd53d4efe54c40fb705853c70a4392"
+    },
+    "evidence/green-fixture/green-header-composition.cjs": {
+      "bytes": 6934,
+      "sha256": "8fcc9a05c9355674ffdda5c4433d0607aacc87c48b950bccfefab77830cbe845"
+    },
+    "evidence/green-fixture/green-header-composition.log": {
+      "bytes": 535,
+      "sha256": "4ce0a9793a7bf4d286aa1efe5a0a8fc88931b4324a45666245c5321e94468c64"
+    },
+    "evidence/green-fixture/green-test-boundary-proposal.patch": {
+      "bytes": 3878,
+      "sha256": "77da6550fc2b3055e794b0ec7ff87ebc97fc76e6dc3df577cd8e276eba3dd7da"
+    },
+    "evidence/green-fixture/original-failed-run-report.json": {
+      "bytes": 293550,
+      "sha256": "60606e476eb48e000660ae942291ca9d670632943c9f99ed051e46eeed428506"
+    },
+    "evidence/green-fixture/original-unmodified-green-header.cjs": {
+      "bytes": 6343,
+      "sha256": "ede4f18005c6d4edddffba427e45b1338b2a6fc1ab6bde0619803d8038ce8945"
+    },
+    "evidence/judge-final-review.json": {
+      "bytes": 6079,
+      "sha256": "a9416dd4e4b9a39214a31e28244d4a2e4c6b4cf4ad19fb4f26cb6ecf0118d044"
+    },
+    "evidence/judge-final-review.md": {
+      "bytes": 2134,
+      "sha256": "d3c10d58feff0028c616e8257fcc6e4b1c5e48a6fbe10bf629a3b41b4d8ff0e2"
+    },
+    "evidence/judge-source-review.json": {
+      "bytes": 3750,
+      "sha256": "cca0346a76dff234f8e84dcf395ffedbdae8e89a7a39b43c0f378affd74cab4c"
+    },
+    "evidence/targeted-logs/actual-barba-v4.tap": {
+      "bytes": 329,
+      "sha256": "7d73fe634389613f093fc98f49e00f8c040e4007dfa1e9b4ad66654d8323deb6"
+    },
+    "evidence/targeted-logs/compound-runtime-v4.tap": {
+      "bytes": 1811,
+      "sha256": "283a318dd04c5e37a47ad617ec618cf839a212405ded3c9afb175777fdd4c21e"
+    },
+    "evidence/targeted-logs/compound-scope-v4.log": {
+      "bytes": 988,
+      "sha256": "2e069406a995a6b6a6708e4c62c201c56d2fc52752a0bbd2558d7f9cefcaece1"
+    },
+    "evidence/targeted-logs/focused-back-v4.tap": {
+      "bytes": 2827,
+      "sha256": "5814d407045d389e42dd8d1e19a97dfa60ddfbd374f153abbf7982e28bc5d7ef"
+    },
+    "evidence/targeted-logs/revised-ai-fragments.tap": {
+      "bytes": 2361,
+      "sha256": "87189ba6643f2e0ca09a3235427f8c4f12ae55ab71495d6c951bbef50dfd93b3"
+    },
+    "evidence/test-source/compound-runtime.test.cjs": {
+      "bytes": 18747,
+      "sha256": "5175363e2a90fa69cac0377a6a28a37a5cbb59cbdccecf56d0a017207ab15092"
+    },
+    "evidence/test-source/compound-scope.py": {
+      "bytes": 4393,
+      "sha256": "44383a6cdd55a4cc4094bcf9f3f467419360624b100098165fb63a095620301c"
+    },
+    "evidence/test-source/focused-back-regressions.cjs": {
+      "bytes": 17872,
+      "sha256": "c19b902ad53aa1fbb4698ffe26cc4ec2ca319f27e0aa1fa85ebe0824af46e710"
+    },
+    "evidence/test-source/revised-ai-fragments.test.cjs": {
+      "bytes": 12466,
+      "sha256": "5d7e8169e344a01d1f6af8cd8c308d6aaf1170e019d466ae57120dd6c5351296"
+    },
+    "helpers/generate_combined_expected_manifest.py": {
+      "bytes": 5939,
+      "sha256": "330f7484e12809ba9d576f27ae35126341ad5dfdaf7976ab2ad5a90e3cd47d38"
+    },
+    "manifests/expected-combined-runtime-manifest.json": {
+      "bytes": 272187,
+      "sha256": "c81f75009ff47cac4feeb3952340c0cc8be2a7e7529f16e9db7844e786ab70de"
+    },
+    "manifests/expected-deployment-files.json": {
+      "bytes": 130672,
+      "sha256": "b0b0eb2b4e8ed3f8fb5abbf087e1301149c56421c0cbe48fcfc7deedb5d111f7"
+    },
+    "manifests/frozen-assembly-receipt.snapshot.json": {
+      "bytes": 4072,
+      "sha256": "19ca37a9351820e2fb7481d8e95580888fe589ef1d00eba08a4d8c6d491367d2"
+    },
+    "manifests/metadata-generation-record.json": {
+      "bytes": 733,
+      "sha256": "0909205083bc6c654e72ed2911cefbdc58ccac084e391dfe5cf6c1f719025d82"
+    },
+    "manifests/runtime-upload-hashes.json": {
+      "bytes": 160084,
+      "sha256": "e9ec63d76d8ee4ecfdfe74278d3b5b14c5f6e2e409ae05e77e877a73ca0872bf"
+    },
+    "manifests/six-file-delta.json": {
+      "bytes": 2714,
+      "sha256": "2ebfe7bb7029096e166d228c90e00ec85ea356082dd5ab69f4a78549ac01699b"
+    },
+    "patches/combined-A-to-v4.patch": {
+      "bytes": 42004,
+      "sha256": "065b2f4be707b43951ee1a896a846ee1e3ae9ef532c375dea619b5b90dbe2a56"
+    },
+    "reference/not-runtime/ai-support-illustrations.js": {
+      "bytes": 4070,
+      "sha256": "edf6246dd3fa293504a133464018b7365333276ede124f253391c48a22495fd1"
+    },
+    "reference/not-runtime/view-history-controller.js": {
+      "bytes": 11241,
+      "sha256": "aca2bf1ad30f73668607c220b447713d4bd3491cfb2d3b5646fd53cedafce787"
+    },
+    "source-overlay/build-inputs/static/generated-illustrations/blanco-perlado-sirena-g1-gen-001-48170acd71bf.png": {
+      "bytes": 1623549,
+      "sha256": "48170acd71bf1dae2f797cfb22c8dafe522d990de03c9b6ce5ce63a456b67ffe"
+    },
+    "source-overlay/build-inputs/static/generated-illustrations/rosa-empolvado-pedreria-g1-gen-001-8e13cba8e436.png": {
+      "bytes": 1737603,
+      "sha256": "8e13cba8e436ab0a4aa381db6a7d99e44f8624acb7a73eb62d4731ef0a218413"
+    },
+    "source-overlay/build-inputs/static/producto-blanco-perlado-sirena.html": {
+      "bytes": 247126,
+      "sha256": "9e47db6124a43c8ebb88096977047250231f59cd08a2f732f279f373bc5dc6d8"
+    },
+    "source-overlay/build-inputs/static/producto-rosa-empolvado-pedreria.html": {
+      "bytes": 248851,
+      "sha256": "eb9fc145b5c0311ee517e0c9c00a753dc228142ff0fa8ccc64c5cc6fd6d71039"
+    },
+    "source-overlay/build-inputs/static/styles.css": {
+      "bytes": 64864,
+      "sha256": "14275118ce05a69322963373243dc723294292d5caca78802d2f9cf1ed65d186"
+    },
+    "source-overlay/src/app.js": {
+      "bytes": 78861,
+      "sha256": "aa0528f71c3a23410dd7c2c0151427826f800e8f78a8057fe60d14427dcd89e8"
+    }
+  },
+  "kind": "final-combined-six-file-source-overlay-with-tested-evidence",
+  "manifest_self_hash": "covered by SHA256SUMS and outer ZIP hash",
+  "payload_scope": "Only source-overlay six files are application changes. Evidence fixture adaptations and reference modules are not source/runtime overlays.",
+  "release_record": {
+    "CF_or_deploy_run_by_packager": false,
+    "Safari_iPhone_VoiceOver": "NOT_RUN",
+    "adapted_Green_6_of_6_evidence_only": true,
+    "assembly_receipt_sha256": "19ca37a9351820e2fb7481d8e95580888fe589ef1d00eba08a4d8c6d491367d2",
+    "base_source": "704b2e160106b709880ad7c22febd25adb6181d6",
+    "candidate_source_commit": null,
+    "combined_app_sha256": "aa0528f71c3a23410dd7c2c0151427826f800e8f78a8057fe60d14427dcd89e8",
+    "deployment_marker_included": false,
+    "judge_report_sha256": "a9416dd4e4b9a39214a31e28244d4a2e4c6b4cf4ad19fb4f26cb6ecf0118d044",
+    "modified_existing": 4,
+    "new_assets": 2,
+    "original_Green_5_of_6_preserved": true,
+    "physical_runtime_plus_future_marker": 905,
+    "publisher_assigns_real_commit": true,
+    "publisher_authentication_freshly_verified": false,
+    "rollback": {
+      "fresh_verification_required": true,
+      "historical_A_version": "a8668b7b-9fe0-4635-ac5a-01033ae96e2b",
+      "historical_traffic_reference": "1f24157b-6fc0-40fa-8aec-5a861dc89587",
+      "restore_full_A_not_app_only": true
+    },
+    "runtime_count": 904,
+    "schema": 1,
+    "source_overlay_files": 6,
+    "state": "FINAL_TECHNICAL_DELIVERY_CONDITIONAL_CONTROLLED_RELEASE_NOT_DEPLOYED",
+    "test_status": "pass_with_documented_fixture_adaptation",
+    "tester_report_sha256": "88ae8636573498a4ea53657d4660066e580210f8e5729afe418ad9f249a23c46",
+    "tests_in_candidate_source_modified": false,
+    "unchanged_from_A": 898
+  },
+  "schema": 1
+}

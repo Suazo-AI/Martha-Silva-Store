@@ -1,0 +1,22 @@
+body { padding-top: var(--demo-height, 104px) }
+#demo-banner {
+  position: fixed; inset: 0 0 auto; z-index: 10000;
+  display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
+  gap: 4px 12px; padding: 4px 12px;
+  color: var(--ink); background: var(--surface); border-bottom: 1px solid var(--control-line);
+  font-size: 13px;
+}
+#demo-banner strong { font-size: inherit }
+#demo-banner label { display: flex; align-items: center; gap: 6px; font-size: 0 }
+#demo-banner select, #demo-banner button { font-size: 13px; min-height: 44px; padding: 4px 8px }
+#demo-banner [role=alert] { flex-basis: 100%; color: var(--danger) }
+#demo-entry { width: 100%; max-width: 520px; margin-inline: auto }
+#demo-entry button { width: 100%; white-space: normal }
+#demo-current-role:empty { display: none }
+@media (max-width: 500px) {
+  #demo-banner strong { flex-basis: 100%; text-align: center }
+}
+@media (prefers-color-scheme: dark) {
+  #demo-banner { --surface: #182921; --ink: #fff; --control-line: #818e84; --danger: #ffb4b4; color-scheme: dark }
+}
+@media print { #demo-banner { display: none } body { padding-top: 0 } }

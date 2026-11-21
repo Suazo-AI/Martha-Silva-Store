@@ -1,0 +1,517 @@
+{
+  "chrome": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+  "base": "http://127.0.0.1:18433",
+  "page": "/producto-verde-brillo-cuello-cruzado.html",
+  "generatedAt": "2026-11-07T12:21:39.513Z",
+  "runs": [
+    {
+      "label": "desktop-1280x900",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "deviceScaleFactor": 1,
+      "navKind": "thumbs",
+      "blockedRequests": [],
+      "httpErrors": [],
+      "failedRequests": [],
+      "initial": {
+        "scrollLeft": 0,
+        "scrollWidth": 1603,
+        "clientWidth": 401,
+        "clientHeight": 601,
+        "pageScrollY": 0,
+        "index": 0,
+        "slideCount": 4
+      },
+      "resourceInitial": {
+        "dpr": 1,
+        "innerWidth": 1280,
+        "innerHeight": 900,
+        "sizes": "(max-width:599px) 100vw, (max-width:1023px) 416px, 33.333vw",
+        "currentSrc": "http://127.0.0.1:18433/responsive-images/verde-brillo-cuello-cruzado/01-front-v1-720.webp",
+        "naturalWidth": 426,
+        "naturalHeight": 639,
+        "renderedWidth": 400.65625,
+        "renderedHeight": 601,
+        "drawnWidth": 400.65625,
+        "drawnHeight": 600.984375,
+        "slotWidth": 400.65625,
+        "slotHeight": 601,
+        "viewportWidth": 400.65625,
+        "viewportHeight": 601,
+        "candidates": [
+          {
+            "url": "http://127.0.0.1:18433/responsive-images/verde-brillo-cuello-cruzado/01-front-v1-360.webp",
+            "w": 360
+          },
+          {
+            "url": "http://127.0.0.1:18433/responsive-images/verde-brillo-cuello-cruzado/01-front-v1-720.webp",
+            "w": 720
+          },
+          {
+            "url": "http://127.0.0.1:18433/responsive-images/verde-brillo-cuello-cruzado/01-front-v1-1024.webp",
+            "w": 1024
+          },
+          {
+            "url": "http://127.0.0.1:18433/generated-luxury/verde-brillo-cuello-cruzado/01-front-v1.png",
+            "w": 1024
+          }
+        ],
+        "chosenWidth": 720,
+        "hintPx": 426.6624,
+        "neededHint": 426.6624,
+        "smallestCandidateAtLeastHint": 720,
+        "nextSmallerCandidate": 360,
+        "response": {
+          "status": 200,
+          "contentType": "image/webp",
+          "bytes": 86518,
+          "source": "browser.response"
+        }
+      },
+      "desktopResize": {
+        "to": {
+          "width": 1440,
+          "height": 900
+        },
+        "beforeIndex": 0,
+        "afterIndex": 0,
+        "scrollLeft": 0
+      },
+      "resourceResized": {
+        "dpr": 1,
+        "innerWidth": 1440,
+        "innerHeight": 900,
+        "sizes": "(max-width:599px) 100vw, (max-width:1023px) 416px, 33.333vw",
+        "currentSrc": "http://127.0.0.1:18433/responsive-images/verde-brillo-cuello-cruzado/01-front-v1-720.webp",
+        "naturalWidth": 479,
+        "naturalHeight": 719,
+        "renderedWidth": 400.65625,
+        "renderedHeight": 601,
+        "drawnWidth": 400.3880389429764,
+        "drawnHeight": 601,
+        "slotWidth": 400.65625,
+        "slotHeight": 601,
+        "viewportWidth": 400.65625,
+        "viewportHeight": 601,
+        "candidates": [
+          {
+            "url": "http://127.0.0.1:18433/responsive-images/verde-brillo-cuello-cruzado/01-front-v1-360.webp",
+            "w": 360
+          },
+          {
+            "url": "http://127.0.0.1:18433/responsive-images/verde-brillo-cuello-cruzado/01-front-v1-720.webp",
+            "w": 720
+          },
+          {
+            "url": "http://127.0.0.1:18433/responsive-images/verde-brillo-cuello-cruzado/01-front-v1-1024.webp",
+            "w": 1024
+          },
+          {
+            "url": "http://127.0.0.1:18433/generated-luxury/verde-brillo-cuello-cruzado/01-front-v1.png",
+            "w": 1024
+          }
+        ],
+        "chosenWidth": 720,
+        "hintPx": 479.99519999999995,
+        "neededHint": 479.99519999999995,
+        "smallestCandidateAtLeastHint": 720,
+        "nextSmallerCandidate": 360,
+        "response": {
+          "status": 200,
+          "contentType": "image/webp",
+          "bytes": 86518,
+          "source": "browser.response"
+        }
+      },
+      "journeyViewport": {
+        "width": 1280,
+        "height": 900,
+        "deviceScaleFactor": 1
+      },
+      "journey": {
+        "label": "desktop-1280x900",
+        "navKind": "thumbs",
+        "reachPhoto": {
+          "tabs": 33,
+          "info": {
+            "tag": "BUTTON",
+            "cls": "gallery-photo",
+            "go": null,
+            "prev": false,
+            "next": false,
+            "photo": true,
+            "video": false,
+            "inGallery": true,
+            "inThumbs": false,
+            "inDots": false,
+            "inArrows": false,
+            "ariaCurrent": null,
+            "rect": {
+              "x": 200,
+              "y": 149,
+              "w": 401,
+              "h": 601
+            },
+            "visible": true,
+            "display": "block",
+            "visibility": "visible",
+            "focusVisible": true
+          },
+          "trail": [
+            {
+              "tab": 33,
+              "tag": "BUTTON",
+              "go": null,
+              "photo": true,
+              "video": false,
+              "prev": false,
+              "next": false,
+              "visible": true
+            }
+          ]
+        },
+        "zoom": {
+          "opened": true,
+          "srcMatched": true,
+          "escaped": true,
+          "focusReturned": true
+        },
+        "focusedPhotoScroll": {
+          "before": {
+            "go": null,
+            "photo": true,
+            "visible": true,
+            "rect": {
+              "x": 200,
+              "y": 149,
+              "w": 401,
+              "h": 601
+            }
+          },
+          "afterScroll": {
+            "index": 2,
+            "scrollLeft": 902,
+            "heldVisible": false,
+            "heldStillFocused": true
+          },
+          "afterTab": {
+            "tag": "BUTTON",
+            "go": null,
+            "photo": true,
+            "video": false,
+            "prev": false,
+            "next": false,
+            "inGallery": true,
+            "visible": true,
+            "rect": {
+              "x": 175,
+              "y": 149,
+              "w": 451,
+              "h": 601
+            }
+          }
+        },
+        "reachNav": {
+          "tabs": 5,
+          "go": "0",
+          "ariaCurrent": "false",
+          "visible": true
+        },
+        "navEnter": {
+          "target": 0,
+          "index": 0,
+          "scrollLeft": 0,
+          "focusStillOnNav": true,
+          "visible": true
+        },
+        "navSpace": {
+          "target": 1,
+          "index": 1,
+          "focusGo": "1"
+        },
+        "shiftTab": {
+          "go": "0",
+          "inGallery": true
+        },
+        "reachArrow": {
+          "tabs": 4,
+          "next": false,
+          "prev": true,
+          "visible": true
+        },
+        "arrowEnter": {
+          "before": 1,
+          "after": 0,
+          "expected": 0
+        },
+        "arrowSpace": {
+          "after": 3,
+          "expected": 3
+        },
+        "end": {
+          "before": 3,
+          "after": 3,
+          "pageScrollYBefore": 38,
+          "pageScrollYAfter": 2496,
+          "defaultPrevented": false,
+          "slideCount": 4
+        },
+        "home": {
+          "before": 3,
+          "after": 3,
+          "defaultPrevented": false
+        },
+        "altArrowRight": {
+          "before": 3,
+          "after": 3
+        },
+        "media": {
+          "reached": true,
+          "tabs": 5,
+          "before": 3,
+          "after": 3
+        }
+      },
+      "final": {
+        "scrollLeft": 1202,
+        "scrollWidth": 1603,
+        "clientWidth": 401,
+        "clientHeight": 601,
+        "pageScrollY": 0,
+        "index": 3,
+        "slideCount": 4
+      }
+    },
+    {
+      "label": "mobile-390x844",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "deviceScaleFactor": 2,
+      "navKind": "dots",
+      "blockedRequests": [],
+      "httpErrors": [],
+      "failedRequests": [],
+      "initial": {
+        "scrollLeft": 780,
+        "scrollWidth": 2340,
+        "clientWidth": 390,
+        "clientHeight": 520,
+        "pageScrollY": 0,
+        "index": 0,
+        "slideCount": 4
+      },
+      "resourceInitial": {
+        "dpr": 2,
+        "innerWidth": 390,
+        "innerHeight": 844,
+        "sizes": "(max-width:599px) 100vw, (max-width:1023px) 416px, 33.333vw",
+        "currentSrc": "http://127.0.0.1:18433/responsive-images/verde-brillo-cuello-cruzado/01-front-v1-1024.webp",
+        "naturalWidth": 390,
+        "naturalHeight": 585,
+        "renderedWidth": 390,
+        "renderedHeight": 520,
+        "drawnWidth": 346.66666666666663,
+        "drawnHeight": 520,
+        "slotWidth": 390,
+        "slotHeight": 520,
+        "viewportWidth": 390,
+        "viewportHeight": 520,
+        "candidates": [
+          {
+            "url": "http://127.0.0.1:18433/responsive-images/verde-brillo-cuello-cruzado/01-front-v1-360.webp",
+            "w": 360
+          },
+          {
+            "url": "http://127.0.0.1:18433/responsive-images/verde-brillo-cuello-cruzado/01-front-v1-720.webp",
+            "w": 720
+          },
+          {
+            "url": "http://127.0.0.1:18433/responsive-images/verde-brillo-cuello-cruzado/01-front-v1-1024.webp",
+            "w": 1024
+          },
+          {
+            "url": "http://127.0.0.1:18433/generated-luxury/verde-brillo-cuello-cruzado/01-front-v1.png",
+            "w": 1024
+          }
+        ],
+        "chosenWidth": 1024,
+        "hintPx": 390,
+        "neededHint": 780,
+        "smallestCandidateAtLeastHint": 1024,
+        "nextSmallerCandidate": 720,
+        "response": {
+          "status": 200,
+          "contentType": "image/webp",
+          "bytes": 140962,
+          "source": "browser.response"
+        }
+      },
+      "journeyViewport": {
+        "width": 390,
+        "height": 844,
+        "deviceScaleFactor": 2
+      },
+      "journey": {
+        "label": "mobile-390x844",
+        "navKind": "dots",
+        "reachPhoto": {
+          "tabs": 9,
+          "info": {
+            "tag": "BUTTON",
+            "cls": "gallery-photo",
+            "go": null,
+            "prev": false,
+            "next": false,
+            "photo": true,
+            "video": false,
+            "inGallery": true,
+            "inThumbs": false,
+            "inDots": false,
+            "inArrows": false,
+            "ariaCurrent": null,
+            "rect": {
+              "x": 0,
+              "y": 141,
+              "w": 390,
+              "h": 520
+            },
+            "visible": true,
+            "display": "block",
+            "visibility": "visible",
+            "focusVisible": true
+          },
+          "trail": [
+            {
+              "tab": 9,
+              "tag": "BUTTON",
+              "go": null,
+              "photo": true,
+              "video": false,
+              "prev": false,
+              "next": false,
+              "visible": true
+            }
+          ]
+        },
+        "zoom": {
+          "opened": true,
+          "srcMatched": true,
+          "escaped": true,
+          "focusReturned": true
+        },
+        "focusedPhotoScroll": {
+          "before": {
+            "go": null,
+            "photo": true,
+            "visible": true,
+            "rect": {
+              "x": 0,
+              "y": 141,
+              "w": 390,
+              "h": 520
+            }
+          },
+          "afterScroll": {
+            "index": 2,
+            "scrollLeft": 1560,
+            "heldVisible": false,
+            "heldStillFocused": true
+          },
+          "afterTab": {
+            "tag": "BUTTON",
+            "go": null,
+            "photo": true,
+            "video": false,
+            "prev": false,
+            "next": false,
+            "inGallery": true,
+            "visible": true,
+            "rect": {
+              "x": 0,
+              "y": 141,
+              "w": 390,
+              "h": 520
+            }
+          }
+        },
+        "reachNav": {
+          "tabs": 7,
+          "go": "0",
+          "ariaCurrent": "false",
+          "visible": true
+        },
+        "navEnter": {
+          "target": 0,
+          "index": 0,
+          "scrollLeft": 780,
+          "focusStillOnNav": true,
+          "visible": true
+        },
+        "navSpace": {
+          "target": 1,
+          "index": 1,
+          "focusGo": "1"
+        },
+        "shiftTab": {
+          "go": "0",
+          "inGallery": true
+        },
+        "reachArrow": {
+          "tabs": 1,
+          "next": true,
+          "prev": false,
+          "visible": true
+        },
+        "arrowEnter": {
+          "before": 1,
+          "after": 2,
+          "expected": 2
+        },
+        "arrowSpace": {
+          "after": 3,
+          "expected": 3
+        },
+        "end": {
+          "before": 3,
+          "after": 3,
+          "pageScrollYBefore": 0,
+          "pageScrollYAfter": 2973,
+          "defaultPrevented": false,
+          "slideCount": 4
+        },
+        "home": {
+          "before": 3,
+          "after": 3,
+          "defaultPrevented": false
+        },
+        "altArrowRight": {
+          "before": 3,
+          "after": 3
+        },
+        "media": {
+          "reached": true,
+          "tabs": 2,
+          "before": 3,
+          "after": 3
+        }
+      },
+      "final": {
+        "scrollLeft": 1950,
+        "scrollWidth": 2340,
+        "clientWidth": 390,
+        "clientHeight": 520,
+        "pageScrollY": 0,
+        "index": 3,
+        "slideCount": 4
+      }
+    }
+  ],
+  "summary": {
+    "runs": 2,
+    "failed": 0
+  }
+}

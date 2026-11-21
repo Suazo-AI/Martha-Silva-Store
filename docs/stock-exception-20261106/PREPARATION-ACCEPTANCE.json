@@ -1,0 +1,97 @@
+{
+  "status": "ACCEPTED WITH LIMITS: implementation preparation only",
+  "source_sha": "139c3898d1e76e66a07b89f179e50508672df473",
+  "date_utc": "2026-11-06T08:41:51.385120+00:00",
+  "primary": "SUAZO-PC / T3 Code / Codex / gpt-6.1-sol / xhigh",
+  "judge": {
+    "path": "docs/stock-exception-20261106/astra-judge-j1j2.md",
+    "rawSha256": "3f92c9a90ec2bb38dbf264fc5e1d8b05fe3fce8800c92dc81d2b5308c11cce19",
+    "verdict": "ACCEPT WITH LIMITS",
+    "focused": {
+      "passed": 28,
+      "failed": 0,
+      "skipped": 0
+    },
+    "identity": "SUAZO-PC / Codex / gpt-6-astra / high"
+  },
+  "bindings": {
+    "manifest": "docs/stock-exception-20261106/CANDIDATE.json",
+    "git_lf_matches": 33,
+    "working_lf_matches": 33,
+    "historical_manifest_status_preserved": true
+  },
+  "ci": [
+    {
+      "run": 42188326094,
+      "sha": "139c3898d1e76e66a07b89f179e50508672df473",
+      "conclusion": "success",
+      "job": 127793901536,
+      "staff": {
+        "passed": 152,
+        "failed": 0,
+        "skipped": 0
+      },
+      "mocked_chrome": {
+        "existing": 50,
+        "supply": 8
+      },
+      "backend_no_sql": {
+        "passed": 543,
+        "failed": 0,
+        "skipped": 58,
+        "total": 601
+      },
+      "compiled_resource_guards": "passed database-independent suite",
+      "helper_compile": "success",
+      "runtime_sql_started": false
+    },
+    {
+      "run": 42188327840,
+      "sha": "139c3898d1e76e66a07b89f179e50508672df473",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "id": 127793907095,
+          "name": "integrity and reproducible build",
+          "conclusion": "success"
+        },
+        {
+          "id": 127794101998,
+          "name": "historical portable regressions",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "run": 42188326228,
+      "sha": "139c3898d1e76e66a07b89f179e50508672df473",
+      "conclusion": "success",
+      "name": "Progress digest"
+    },
+    {
+      "run": 42188326144,
+      "sha": "139c3898d1e76e66a07b89f179e50508672df473",
+      "conclusion": "success",
+      "name": "Progress documentation"
+    }
+  ],
+  "private_raw_log": {
+    "path": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\ci-139c389-job-full.log",
+    "rawSha256": "76b2bfe844943dd33198d84b45043d46e9fe3aabf554b5e1b11ef14d9c35c9ab"
+  },
+  "dispositions": {
+    "M1": "Astra rejected added follow-up-role restriction; backend policy unchanged",
+    "M2_L1": "accepted bounded recovery and contract corrections",
+    "J1_J2": "accepted corrected UUID identity and displayed-review membership"
+  },
+  "frozen_checks": "All eight PRIMARY-REVIEW criteria retained; unchanged checks reused, SQL claims not waived",
+  "not_run": [
+    "new stock SQL persistence/concurrency/rollback/returns",
+    "real Chrome to API to SQL combined supply/stock journey",
+    "SUAZO-PC operational trial",
+    "C2/C9/C10 and production/payment acceptance"
+  ],
+  "next": "One separately authorized isolated campaign, two existing workflow dispatches, no automatic reruns; see RUNTIME-CAMPAIGN.md",
+  "production": "NO-GO",
+  "stock_ledger_item": "review, not done; real-journey criterion unmet"
+}

@@ -1,0 +1,171 @@
+{
+  "taskId": "savia-runner-safety-sol-70e7549-20261107-01",
+  "status": "RETURNED",
+  "acceptance": "PENDING_PRIMARY_AND_SOLE_ASTRA_XHIGH_JUDGE",
+  "production": "NO-GO",
+  "sourceSha": "70e7549062e6919f36c0f36ba21d7a54999a7d9d",
+  "resultSha": null,
+  "worktree": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-1e60e8f5",
+  "identity": {
+    "host": "SUAZO-PC",
+    "harness": "T3 Code / Codex",
+    "model": "gpt-6.1-sol",
+    "requestedEffort": "high",
+    "harnessReportedEffort": "high",
+    "providerInternalEffort": "unknown",
+    "usage": "unknown",
+    "usd": "unknown"
+  },
+  "checks": [
+    {
+      "command": "python tools/local-validation/test_run_local_validation.py",
+      "exit": 0,
+      "tests": 39,
+      "seconds": 2.338,
+      "oldDefectControls": 9,
+      "correctedControls": 30
+    },
+    {
+      "command": "python -m py_compile tools/run_local_validation.py tools/local-validation/safety.py tools/local-validation/evidence_gate.py tools/local-validation/test_run_local_validation.py",
+      "exit": 0
+    },
+    {
+      "command": "& 'C:/Program Files/Git/bin/bash.exe' --noprofile --norc -n tools/local-validation/run-stage.sh",
+      "exit": 0
+    }
+  ],
+  "files": [
+    {
+      "path": "tools/run_local_validation.py",
+      "bytes": 18084,
+      "rawSha256": "659a78a24b2000cf067a465a16b4f1b1b25d68671cda013538f367f368926f2f",
+      "lfSha256": "659a78a24b2000cf067a465a16b4f1b1b25d68671cda013538f367f368926f2f"
+    },
+    {
+      "path": "tools/local-validation/Dockerfile",
+      "bytes": 3095,
+      "rawSha256": "86c65a020b06cf3706debff26b181fc8af3e3aacab43c682c399ae1a8225a0e4",
+      "lfSha256": "86c65a020b06cf3706debff26b181fc8af3e3aacab43c682c399ae1a8225a0e4"
+    },
+    {
+      "path": "tools/local-validation/run-stage.sh",
+      "bytes": 3794,
+      "rawSha256": "a68e165dcf7f613ae718ef67294a20d45d74327e74d2945416e9d1090d2fed3c",
+      "lfSha256": "a68e165dcf7f613ae718ef67294a20d45d74327e74d2945416e9d1090d2fed3c"
+    },
+    {
+      "path": "tools/local-validation/safety.py",
+      "bytes": 8119,
+      "rawSha256": "97eaaba1c8a343af18c44f16334042813110b0bc1cbcc7d52aec924c63cd1069",
+      "lfSha256": "97eaaba1c8a343af18c44f16334042813110b0bc1cbcc7d52aec924c63cd1069"
+    },
+    {
+      "path": "tools/local-validation/evidence_gate.py",
+      "bytes": 4528,
+      "rawSha256": "a6f366d76e07578793ed0f2bdb8293a65f8b7aa689e081de92b57df5822f4eb0",
+      "lfSha256": "a6f366d76e07578793ed0f2bdb8293a65f8b7aa689e081de92b57df5822f4eb0"
+    },
+    {
+      "path": "tools/local-validation/test_run_local_validation.py",
+      "bytes": 23306,
+      "rawSha256": "17cd1bcacb72176309b6d2d83e606df3daa127ec49aab3f1e1780e7e896330c7",
+      "lfSha256": "17cd1bcacb72176309b6d2d83e606df3daa127ec49aab3f1e1780e7e896330c7"
+    },
+    {
+      "path": "docs/completion-20261107/local-validation/runner-corrections/README.md",
+      "bytes": 10911,
+      "rawSha256": "b21c0e2138136a3092c66f661e6427010ce20edb94168487522c2e3be3f5d33c",
+      "lfSha256": "b21c0e2138136a3092c66f661e6427010ce20edb94168487522c2e3be3f5d33c"
+    }
+  ],
+  "resultSelfHash": "excluded to avoid circular binding",
+  "frozenInputs": [
+    {
+      "path": "docs/completion-20261107/local-validation/runner-inputs/tools/run_local_validation.py.txt",
+      "bytes": 26712,
+      "rawSha256": "c0cc8182c58ef7c00d187c631c165dc9b1ef886f00ca4779a47a63327b3dc9d5",
+      "lfSha256": "42bfdb8661a6b7285c2d55155c8afdc222fd4c7e30b03286eccd74ac9430650c"
+    },
+    {
+      "path": "docs/completion-20261107/local-validation/runner-inputs/tools/local-validation/Dockerfile.txt",
+      "bytes": 2799,
+      "rawSha256": "b908fc3064c47f697e47c73fc1d1e6df1ff1080e5a766e2fec4184d2477c20ad",
+      "lfSha256": "dff785e62048c2bb307fca2aad183fb2a023709d7aaa31293e9d92039b248fd2"
+    },
+    {
+      "path": "docs/completion-20261107/local-validation/runner-inputs/tools/local-validation/run-stage.sh.txt",
+      "bytes": 3870,
+      "rawSha256": "3c5dc4a14d22ea7389e83ff5b62a05a0e015ca9c5d101fac84fbe51abe86e9a4",
+      "lfSha256": "2d73cad7cd6b0b3aa426cf51ce407b1093cf7e2debe38e5fb40d64a334b1369c"
+    },
+    {
+      "path": "docs/completion-20261107/local-validation/runner-inputs/tools/local-validation/test_run_local_validation.py.txt",
+      "bytes": 10319,
+      "rawSha256": "c2592be6f7ef0410af9fd37c60a7a8f7fa7c12fdb1001b0accab50d6beea5452",
+      "lfSha256": "8cc7019cee02f03067ef7d72685c8c40660e59832d2941ea6ee805676ae70482"
+    }
+  ],
+  "notRun": [
+    "Docker commands",
+    "image build/download/qualification",
+    "SQL",
+    "SAVIATEST",
+    "browser",
+    "A552",
+    "host ACL qualification/mutation",
+    "network/install",
+    "CI",
+    "stage shell execution",
+    "Git writes",
+    "production"
+  ],
+  "blockers": [
+    {
+      "id": "SOURCE",
+      "owner": "primary",
+      "kind": "preparation or runtime authority",
+      "attempt": "fail-closed implementation and offline fixture controls only; external correction prohibited",
+      "nextAction": "serial source review/integration; freeze full SHA and reviewed public allowlist",
+      "completionCheck": "clean source and every allowlisted blob/self binding match"
+    },
+    {
+      "id": "DEPENDENCIES",
+      "owner": "primary and dependency reviewer",
+      "kind": "preparation or runtime authority",
+      "attempt": "fail-closed implementation and offline fixture controls only; external correction prohibited",
+      "nextAction": "freeze exact apt/npm closure, checksums, provenance, licenses/trust/network scope",
+      "completionCheck": "reviewed lock replaces deliberate Dockerfile stop"
+    },
+    {
+      "id": "IMAGE",
+      "owner": "Jason and primary",
+      "kind": "preparation or runtime authority",
+      "attempt": "fail-closed implementation and offline fixture controls only; external correction prohibited",
+      "nextAction": "authorize image build/qualification separately",
+      "completionCheck": "actual immutable image ID and hash-bound approved qualification evidence"
+    },
+    {
+      "id": "PRIVACY",
+      "owner": "primary/operator",
+      "kind": "preparation or runtime authority",
+      "attempt": "fail-closed implementation and offline fixture controls only; external correction prohibited",
+      "nextAction": "identify existing protected empty directory; read current identity/DACL",
+      "completionCheck": "actual privacy proof before any write or Docker mutation"
+    },
+    {
+      "id": "RUNTIME",
+      "owner": "Jason and primary",
+      "kind": "preparation or runtime authority",
+      "attempt": "fail-closed implementation and offline fixture controls only; external correction prohibited",
+      "nextAction": "authorize fresh exact synthetic campaign",
+      "completionCheck": "real C77/D/E2 and absence readbacks on reviewed SHA"
+    }
+  ],
+  "ambiguities": [
+    "Sync filesystem syscalls cannot be preempted by Python deadlines; checked at boundaries",
+    "Real Windows DACL adapter and Docker CLI compatibility not qualified by fake tests",
+    "Sparse rejection implemented, no real sparse archive generated",
+    "Ambiguous creation remains unknown with no automatic destructive cleanup"
+  ],
+  "nextAction": "Primary source/test/binding review, then independent Codex gpt-6-astra/xhigh sole-judge review"
+}

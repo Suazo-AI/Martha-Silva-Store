@@ -1,0 +1,505 @@
+{
+  "observedUtc": "2026-11-05T13:36:40.156Z",
+  "host": "SUAZO-PC",
+  "node": "v24.18.0",
+  "browser": "156.0.8078.80",
+  "layer": "Real Chromium browser; mocked staff API; public browser-local demo",
+  "origin": "http://127.0.0.1:58239",
+  "sourceHashes": {
+    "dev/savia-staff-ui/app.mjs": "383c40447e91aa465cc945138699151826d7c1ad93f2f1ed041aa3dcda303309",
+    "dev/savia-staff-ui/client.mjs": "0447a3c83910d9a5618f98886d1025b9a74a3f59839eeca2ea0d7cc1ca6c4825",
+    "dev/savia-staff-ui/login.mjs": "ac7714a22eb1e7a383ca41e3e11343472025271dcf21dc862f39cf8c386fc787",
+    "dev/savia-staff-ui/login.html": "4803ece2ef530d9e5161837209ac86591bfe1447e9876b0f38bf17baca9a8382",
+    "dev/savia-staff-ui/index.html": "b5fe1c6a87f9cb4736e103eae888be97546e4f7b7e50d8893fe4ab4b01a6897d",
+    "dev/savia-staff-ui/styles.css": "3be78159e11d127c91db22399fb306fcc35e9cb8886a556393a003b82c9c2622"
+  },
+  "results": [
+    {
+      "name": "Login posts CSRF and verifies server identity before opening staff",
+      "status": "PASS",
+      "durationMs": 1150
+    },
+    {
+      "name": "Login HTTP 401 stays closed with visible error",
+      "status": "PASS",
+      "durationMs": 597
+    },
+    {
+      "name": "Login HTTP 429 stays closed with visible error",
+      "status": "PASS",
+      "durationMs": 533
+    },
+    {
+      "name": "Login HTTP 503 stays closed with visible error",
+      "status": "PASS",
+      "durationMs": 572
+    },
+    {
+      "name": "Anonymous session exposes no staff data",
+      "status": "PASS",
+      "durationMs": 458
+    },
+    {
+      "name": "Owner navigation and sale permissions in browser",
+      "status": "PASS",
+      "durationMs": 876
+    },
+    {
+      "name": "Manager navigation and sale permissions in browser",
+      "status": "PASS",
+      "durationMs": 675
+    },
+    {
+      "name": "Cashier navigation and sale permissions in browser",
+      "status": "PASS",
+      "durationMs": 843
+    },
+    {
+      "name": "Inventory navigation and sale permissions in browser",
+      "status": "PASS",
+      "durationMs": 976
+    },
+    {
+      "name": "Customer pagination and search use actual network query",
+      "status": "PASS",
+      "durationMs": 875
+    },
+    {
+      "name": "Customer text is escaped instead of executing HTML",
+      "status": "PASS",
+      "durationMs": 504
+    },
+    {
+      "name": "Empty catalog disables sale without inventing stock",
+      "status": "PASS",
+      "durationMs": 708
+    },
+    {
+      "name": "Sale sends no price, preserves key, displays receipt and updated stock",
+      "status": "PASS",
+      "durationMs": 1115
+    },
+    {
+      "name": "Multiarticle cart and lost response reload at 1440px",
+      "status": "PASS",
+      "durationMs": 1874
+    },
+    {
+      "name": "Multiarticle cart and lost response reload at 390px",
+      "status": "PASS",
+      "durationMs": 2818
+    },
+    {
+      "name": "Rapid double submit sends one request",
+      "status": "PASS",
+      "durationMs": 958
+    },
+    {
+      "name": "Lost response recovers original operation without second POST",
+      "status": "PASS",
+      "durationMs": 946
+    },
+    {
+      "name": "Sale HTTP 401 never shows invented success",
+      "status": "PASS",
+      "durationMs": 706
+    },
+    {
+      "name": "Sale HTTP 403 never shows invented success",
+      "status": "PASS",
+      "durationMs": 770
+    },
+    {
+      "name": "Sale HTTP 500 never shows invented success",
+      "status": "PASS",
+      "durationMs": 746
+    },
+    {
+      "name": "Malformed receipt leaves operation recoverable and blocks new sale",
+      "status": "PASS",
+      "durationMs": 701
+    },
+    {
+      "name": "Confirmed rejected recovery unlocks only the rejected attempt",
+      "status": "PASS",
+      "durationMs": 1717
+    },
+    {
+      "name": "Logout uses CSRF, clears private view and returns to login",
+      "status": "PASS",
+      "durationMs": 568
+    },
+    {
+      "name": "N2 Cashier reload recovers the same uncertain attempt without another sale (C8)",
+      "status": "PASS",
+      "durationMs": 1021,
+      "detail": {
+        "key": "8afa0103-ed77-4f15-9b1a-af0b995491d9",
+        "saleId": "00000001-0000-0000-0000-000000000005",
+        "posts": 1
+      }
+    },
+    {
+      "name": "N2 Owner reload recovers the same uncertain attempt without another sale (C8)",
+      "status": "PASS",
+      "durationMs": 1073,
+      "detail": {
+        "key": "de05089a-205e-464a-adf2-cbe8eac3b9bc",
+        "saleId": "00000001-0000-0000-0000-000000000005",
+        "posts": 1
+      }
+    },
+    {
+      "name": "N2 Manager reload recovers the same uncertain attempt without another sale (C8)",
+      "status": "PASS",
+      "durationMs": 1075,
+      "detail": {
+        "key": "e6270b8e-1bfe-4174-b690-000d03b998d1",
+        "saleId": "00000001-0000-0000-0000-000000000005",
+        "posts": 1
+      }
+    },
+    {
+      "name": "N6 changing actor keeps the uncertain key private and never replays it as the new actor (C8)",
+      "status": "PASS",
+      "durationMs": 879,
+      "detail": {
+        "originalKey": "1ba8596b-8207-413a-8f12-0e0bb7aa5182",
+        "pendingKeys": 1
+      }
+    },
+    {
+      "name": "N6 changed actor version preserves the attempt and blocks recovery and resend under the new scope (C8)",
+      "status": "PASS",
+      "durationMs": 896,
+      "detail": {
+        "preservedKey": "6527f703-af74-45a7-b80e-db419ea0caea",
+        "posts": 1
+      }
+    },
+    {
+      "name": "N6 legacy attempt outside the current authorized locations stays private and cannot be replayed (C8)",
+      "status": "PASS",
+      "durationMs": 711,
+      "detail": {
+        "preservedKey": "00000001-0000-0000-0000-000000000185",
+        "legacyVersion": "unknown; never rebound",
+        "posts": 0
+      }
+    },
+    {
+      "name": "N7 revoked mocked 401 discards late stock and cancels a sale waiting for CSRF (C8)",
+      "status": "PASS",
+      "durationMs": 1285,
+      "detail": {
+        "reason": "revoked",
+        "layer": "mocked browser 401 only; API TimeProvider NOT RUN",
+        "preservedKey": "2049d250-e6c7-4980-92c4-9724c59c88f7"
+      }
+    },
+    {
+      "name": "N7 absolute-expiry mocked 401 discards late stock and cancels a sale waiting for CSRF (C8)",
+      "status": "PASS",
+      "durationMs": 1374,
+      "detail": {
+        "reason": "absolute-expiry",
+        "layer": "mocked browser 401 only; API TimeProvider NOT RUN",
+        "preservedKey": "434ed764-10f0-4eed-8794-44c06731b445"
+      }
+    },
+    {
+      "name": "N7 logout cancels a sale awaiting CSRF and discards its late response (C8)",
+      "status": "PASS",
+      "durationMs": 841,
+      "detail": {
+        "posts": 0
+      }
+    },
+    {
+      "name": "Stale confirmed receipt 404 must not permanently block a fresh sale (N5)",
+      "status": "PASS",
+      "durationMs": 740
+    },
+    {
+      "name": "N5 held operation recovery blocks native and synthetic submit without changing original bytes",
+      "status": "PASS",
+      "durationMs": 860,
+      "detail": {
+        "originalKey": "d3a742e4-7375-441b-9b16-d2873ce41e97",
+        "originalPendingSha256": "81c437f5c739c8c50cf6ec544491a1040bd921c6b94e86d477b9ba7d2e799200",
+        "body": {
+          "locationId": "00000001-0000-0000-0000-000000000003",
+          "customerId": null,
+          "lines": [
+            {
+              "itemId": "00000001-0000-0000-0000-000000000002",
+              "quantity": 1
+            }
+          ]
+        },
+        "heldRecoveryGet": 1,
+        "postsWhileHeld": 0,
+        "totalPosts": 1
+      }
+    },
+    {
+      "name": "N5 discarded 404 receipt permits one complete fresh multiarticle sale and stock refresh",
+      "status": "PASS",
+      "durationMs": 1106,
+      "detail": {
+        "obsoleteSaleId": "00000001-0000-0000-0000-000000000005",
+        "newSaleId": "00000001-0000-0000-0000-000000000221",
+        "newKey": "473b100d-62c4-4896-b7de-368d51ab29f0",
+        "body": {
+          "locationId": "00000001-0000-0000-0000-000000000003",
+          "customerId": null,
+          "lines": [
+            {
+              "itemId": "00000001-0000-0000-0000-000000000002",
+              "quantity": 2
+            },
+            {
+              "itemId": "00000001-0000-0000-0000-000000000220",
+              "quantity": 3
+            }
+          ]
+        },
+        "posts": 1,
+        "stockBefore": [
+          "SYN-SSynthetic dress S10010",
+          "SYN-MSynthetic dress M10010"
+        ],
+        "stockAfter": [
+          [
+            "SYN-S",
+            "Synthetic dress S",
+            "8",
+            "0",
+            "8"
+          ],
+          [
+            "SYN-M",
+            "Synthetic dress M",
+            "7",
+            "0",
+            "7"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "N5 late old receipt 404 after user logout preserves invalidated state and retained reference",
+      "status": "PASS",
+      "durationMs": 1396,
+      "detail": {
+        "heldOld404": true,
+        "userTransition": "native logout then login; no storage removal",
+        "late404PreservedReference": true,
+        "late404ChangedPrivateState": false,
+        "sameGenerationSubmitPosts": 0,
+        "newSessionEnabled": true,
+        "disposition": "Same-generation new sale unreachable while start awaits restoreReceipt; reachable logout generation boundary exercised."
+      }
+    },
+    {
+      "name": "Stale receipt 403 after reassignment is cleared and leaves a fresh sale available (N5)",
+      "status": "PASS",
+      "durationMs": 761
+    },
+    {
+      "name": "Unavailable receipt lookup keeps its reference and does not invent a pending sale (N5)",
+      "status": "PASS",
+      "durationMs": 843
+    },
+    {
+      "name": "Stale receipt never unlocks a real pending sale; recovery reuses the original key (N5)",
+      "status": "PASS",
+      "durationMs": 792
+    },
+    {
+      "name": "Revoked session during receipt restore returns to sign-in without staff data (N5)",
+      "status": "PASS",
+      "durationMs": 750
+    },
+    {
+      "name": "Unimplemented purchasing and customer creation remain visibly unavailable",
+      "status": "PASS",
+      "durationMs": 660,
+      "detail": "Coverage observation only: these workflows are not implemented in the frontend."
+    },
+    {
+      "name": "Staff visible screens have no document overflow at 1440px",
+      "status": "PASS",
+      "durationMs": 912,
+      "detail": [
+        {
+          "view": "clientes",
+          "width": 1440,
+          "scroll": 1440
+        },
+        {
+          "view": "inventario",
+          "width": 1440,
+          "scroll": 1440
+        },
+        {
+          "view": "ventas",
+          "width": 1440,
+          "scroll": 1440
+        },
+        {
+          "view": "abastecimiento",
+          "width": 1440,
+          "scroll": 1440
+        }
+      ]
+    },
+    {
+      "name": "Staff visible screens have no document overflow at 390px",
+      "status": "PASS",
+      "durationMs": 820,
+      "detail": [
+        {
+          "view": "clientes",
+          "width": 390,
+          "scroll": 390
+        },
+        {
+          "view": "inventario",
+          "width": 390,
+          "scroll": 390
+        },
+        {
+          "view": "ventas",
+          "width": 390,
+          "scroll": 390
+        },
+        {
+          "view": "abastecimiento",
+          "width": 390,
+          "scroll": 390
+        }
+      ]
+    },
+    {
+      "name": "All 47 public pages mount in Chromium with no uncaught JavaScript errors",
+      "status": "PASS",
+      "durationMs": 56357,
+      "detail": {
+        "pages": 47
+      }
+    },
+    {
+      "name": "Public product, bag, translation and synthetic checkout approval work in browser",
+      "status": "PASS",
+      "durationMs": 2405,
+      "detail": "Browser-local demo only; no payment, email or external order sent."
+    },
+    {
+      "name": "Staff source bytes unchanged during browser run",
+      "status": "PASS",
+      "durationMs": 37
+    },
+    {
+      "name": "Public synthetic payment declined releases reservation and permits rebuilding order",
+      "status": "PASS",
+      "durationMs": 2177,
+      "detail": "Local demo reservation/payment state only; no external provider."
+    },
+    {
+      "name": "Public synthetic payment cancelled releases reservation and permits rebuilding order",
+      "status": "PASS",
+      "durationMs": 2375,
+      "detail": "Local demo reservation/payment state only; no external provider."
+    },
+    {
+      "name": "Public gallery actual geometry and controls at 1440px",
+      "status": "PASS",
+      "durationMs": 1847,
+      "detail": {
+        "left": 534,
+        "width": 534,
+        "scrollWidth": 1069
+      }
+    },
+    {
+      "name": "Public gallery actual geometry and controls at 390px",
+      "status": "PASS",
+      "durationMs": 1535,
+      "detail": {
+        "left": 780,
+        "width": 390,
+        "scrollWidth": 1170
+      }
+    }
+  ],
+  "runtime": [],
+  "externalRequests": [],
+  "networkFailures": [
+    {
+      "test": "multiarticle-desktop",
+      "path": "/internal/api/commerce/sales",
+      "error": "net::ERR_FAILED"
+    },
+    {
+      "test": "multiarticle-mobile",
+      "path": "/internal/api/commerce/sales",
+      "error": "net::ERR_FAILED"
+    },
+    {
+      "test": "",
+      "path": "/internal/api/commerce/sales",
+      "error": "net::ERR_FAILED"
+    },
+    {
+      "test": "",
+      "path": "/internal/api/commerce/sales",
+      "error": "net::ERR_FAILED"
+    },
+    {
+      "test": "",
+      "path": "/internal/api/security/logout",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "test": "n2-cashier",
+      "path": "/internal/api/commerce/sales",
+      "error": "net::ERR_FAILED"
+    },
+    {
+      "test": "n2-owner",
+      "path": "/internal/api/commerce/sales",
+      "error": "net::ERR_FAILED"
+    },
+    {
+      "test": "n2-manager",
+      "path": "/internal/api/commerce/sales",
+      "error": "net::ERR_FAILED"
+    },
+    {
+      "test": "n6-other-actor",
+      "path": "/internal/api/commerce/sales",
+      "error": "net::ERR_FAILED"
+    },
+    {
+      "test": "n6-changed-version",
+      "path": "/internal/api/commerce/sales",
+      "error": "net::ERR_FAILED"
+    },
+    {
+      "test": "n7-logout",
+      "path": "/internal/api/security/logout",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "test": "n5-held-recovery",
+      "path": "/internal/api/commerce/sales",
+      "error": "net::ERR_FAILED"
+    },
+    {
+      "test": "n5-late-404",
+      "path": "/internal/api/security/logout",
+      "error": "net::ERR_ABORTED"
+    }
+  ]
+}

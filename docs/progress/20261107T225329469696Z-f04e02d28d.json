@@ -1,0 +1,180 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-07T22:53:29.469696+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Cash/InternalCashEndpoints.cs",
+      "change": "A",
+      "git_blob": "5137c5782842ca5d8fa38821d88a132e099d0238"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Cash/InternalCashModel.cs",
+      "change": "A",
+      "git_blob": "f9214af9fb08901f4b8bd3bb37f2ac4be6d88f5f"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Cash/InternalCashModels.cs",
+      "change": "A",
+      "git_blob": "ba6bce5bfbcca7a2fef46f903922fbd91e167d53"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Cash/InternalCashService.cs",
+      "change": "A",
+      "git_blob": "addf3a2cd69945dd2d5f76febf31cdaed19217da"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Commerce/InternalCommerceService.cs",
+      "change": "M",
+      "git_blob": "cbc78f9fe1408530de7853fe30bf3b9629b34363"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalBranchAccess.cs",
+      "change": "M",
+      "git_blob": "195a13f2b0d72e61af9aeb31bfb0b9fb3fb9432a"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalCommandRunner.cs",
+      "change": "M",
+      "git_blob": "f0de099963743e107772b08df8a3b9e0ae418ab3"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalDbContext.cs",
+      "change": "M",
+      "git_blob": "97fade2dd3956a2f48c1babd6e601954f6ec83e5"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/InternalHosting.cs",
+      "change": "M",
+      "git_blob": "eec84cb487ff2eda9bd4606844b8c2b570fd6f92"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Migrations/20261107221938_FirstCashRegister.Designer.cs",
+      "change": "A",
+      "git_blob": "1af45badaad2f15515220deceb9219708979cea9"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Migrations/20261107221938_FirstCashRegister.cs",
+      "change": "A",
+      "git_blob": "90f2e5b0c584348c512051f35a9c64f6364fe486"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Migrations/InitialInternalSavia.idempotent.sql",
+      "change": "M",
+      "git_blob": "1ee511bc249111500fbc334052a6038e94acee4d"
+    },
+    {
+      "path": "backend/src/Martha.Store.Api/Internal/Migrations/InternalDbContextModelSnapshot.cs",
+      "change": "M",
+      "git_blob": "aea03daf5c4f245a219076e9c32d3f00d0c38d4b"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceFingerprint.cs",
+      "change": "M",
+      "git_blob": "7a8c848e0c27e5200fd4e4ef2c9f5366fc2b9610"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalAcceptanceFingerprintTests.cs",
+      "change": "M",
+      "git_blob": "e3491e55391a12f25343231ea2e2c70a48f851cd"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCashSqlTests.cs",
+      "change": "A",
+      "git_blob": "99f22bee9a9eeef6202f56893349f35d98cf604f"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/InternalCashTests.cs",
+      "change": "A",
+      "git_blob": "39f062b56a250f8db858ba08eef28b96145503b2"
+    },
+    {
+      "path": "backend/tests/Martha.Store.Api.Tests/PrivatePilotReleaseTests.cs",
+      "change": "M",
+      "git_blob": "9cf17fe3bfbbb7194bdae418a47f9255f6d7eb56"
+    },
+    {
+      "path": "docs/PROJECT-STATUS.md",
+      "change": "M",
+      "git_blob": "4cc257bac7d5d797c48df6aebc681a33934bd6e7"
+    },
+    {
+      "path": "docs/cash-register-20261107/README.md",
+      "change": "M",
+      "git_blob": "9b1d0cf4dc881bbb2bc86914a8b2facb49e950d0"
+    },
+    {
+      "path": "docs/cash-register-20261107/backend-integration/README.md",
+      "change": "A",
+      "git_blob": "c7b102954cae030ed96dfdd7e71944c1c5eda9da"
+    },
+    {
+      "path": "docs/cash-register-20261107/backend-integration/RESULT.json",
+      "change": "A",
+      "git_blob": "b6f1fdf038b878e3daf12702cfc7eb62a26d7e47"
+    },
+    {
+      "path": "docs/cash-register-20261107/backend-worker/migration/README.md",
+      "change": "A",
+      "git_blob": "517800533b6ae1b599549dc8e5e3419c7e9aab7b"
+    },
+    {
+      "path": "docs/cash-register-20261107/backend-worker/migration/source-hashes.json",
+      "change": "A",
+      "git_blob": "b26cff45025d0bb12b63c89bfb5bb51f0973e5ff"
+    },
+    {
+      "path": "docs/cash-register-20261107/backend-worker/migration/verification.json",
+      "change": "A",
+      "git_blob": "099c21d1a2fd31ec0532a2e11532aa512d026429"
+    },
+    {
+      "path": "docs/cash-register-20261107/backend-worker/migration/verify_generated.py",
+      "change": "A",
+      "git_blob": "1610bbfe70e88292feb8f57cff5dc92e2ad90be4"
+    },
+    {
+      "path": "docs/completion-20261107/README.md",
+      "change": "M",
+      "git_blob": "11c1ff0d45532bf8fd14fd352c1bdaaa356250d6"
+    },
+    {
+      "path": "docs/completion-20261107/local-validation/runner-corrections/astra-recheck.md",
+      "change": "A",
+      "git_blob": "d3c7cd8cabe89947969585d90d3c5b97346a6f02"
+    },
+    {
+      "path": "docs/completion-20261107/local-validation/runner-corrections/revision-2/README.md",
+      "change": "A",
+      "git_blob": "6f15737f45fa34cd5be34306f677fb8179b9b897"
+    },
+    {
+      "path": "docs/completion-20261107/local-validation/runner-corrections/revision-2/RESULT.json",
+      "change": "A",
+      "git_blob": "01566a13ae0d715abac0affd70f84bd5dbb20e20"
+    },
+    {
+      "path": "docs/pipeline/ledger.json",
+      "change": "M",
+      "git_blob": "26f3e9c78583853052283969d46709e6508b7c53"
+    },
+    {
+      "path": "tools/local-validation/safety.py",
+      "change": "M",
+      "git_blob": "7adf8d823cd834862883a08af7e81af542d6f594"
+    },
+    {
+      "path": "tools/local-validation/test_run_local_validation.py",
+      "change": "M",
+      "git_blob": "e270a48e9f27fec9fea317c321cf2f0d8f75345f"
+    },
+    {
+      "path": "tools/run_local_validation.py",
+      "change": "M",
+      "git_blob": "d9ceeb87b48abf99973cfa20aabdbc27fe2aa330"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

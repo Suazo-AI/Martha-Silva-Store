@@ -1,0 +1,15 @@
+{
+  "database": "SaviaInternalTest_Pilot_a784c7ccdf2747009f5d7dc61c614c15",
+  "business": [
+    "branch|QA pilot branch|1||",
+    "item|QA-PILOT-01|QA pilot item|1250|USD",
+    "staff|qa-pilot-disabled|QA fixture only|Inventory|0",
+    "stock|22222222-2222-2222-2222-222222222222|33333333-3333-3333-3333-333333333333|17|3"
+  ],
+  "checks": {
+    "history": true,
+    "schema": true,
+    "expected_values": true,
+    "constraint_rejections": true
+  }
+}

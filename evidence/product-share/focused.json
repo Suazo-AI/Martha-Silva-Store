@@ -1,0 +1,15 @@
+{
+  "command": "node --check tests/product-share.cjs && node tests/product-share.cjs",
+  "exit_code": 0,
+  "result": "11/11 product-share DOM checks passed",
+  "syntax_command": "node --check src/app.js && node --check build-inputs/static/locale-en.js",
+  "syntax_exit_code": 0,
+  "syntax_output": "",
+  "scope": "source-level jsdom; not real-browser or native OS share-sheet QA",
+  "sha256": {
+    "src/app.js": "d381978579b3558fe49cf5ab103c4bf52a3debb38b14bc824efd9399f7d48959",
+    "build-inputs/static/locale-en.js": "9f779e3ba5099a9399a357e70c85e063001742febc3918aa79e2ea81e89ff4b2",
+    "build-inputs/static/styles.css": "e0a002902eace0d8b9734f8b4473a1f6e7e29ba629522799aef5eae326a1256a",
+    "tests/product-share.cjs": "49fe2821f698375276c99b923700f27ae8063f19aa1ba187a651495f7ca1a791"
+  }
+}

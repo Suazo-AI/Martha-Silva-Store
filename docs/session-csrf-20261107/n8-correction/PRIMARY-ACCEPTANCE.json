@@ -1,0 +1,93 @@
+{
+  "status": "accepted_with_limits_source_offline_only",
+  "sourceSha": "79d18c407f0de7650a83016093de15efcad10b39",
+  "primary": {
+    "host": "SUAZO-PC",
+    "provider": "codex",
+    "model": "gpt-6.1-sol",
+    "exposedEffort": "xhigh"
+  },
+  "review": {
+    "path": "docs/session-csrf-20261107/n8-correction/astra-recheck.md",
+    "rawSha256": "9b6953185c74cd7542ad7d9bd7e1df65d0827f9963e6fecccc43ae62962bb550",
+    "lfSha256": "9b6953185c74cd7542ad7d9bd7e1df65d0827f9963e6fecccc43ae62962bb550",
+    "model": "gpt-6-astra",
+    "exposedEffort": "xhigh",
+    "verdict": "ACCEPT WITH LIMITS"
+  },
+  "primaryVerification": [
+    "report bytes match returned RAW/LF hash",
+    "12/12 canonical and frozen Git LF bindings match",
+    "prior actual 33/33 pure-test evidence retained; no repeat attributed to report import"
+  ],
+  "scope": "P2 corrected same-account sale and Directory successful-write oracle only",
+  "excluded": "Older cross-user positive oracle; N8 SQL; production",
+  "historicalReceiptsPreserved": true,
+  "remaining": [
+    {
+      "id": "N8-SQL",
+      "owner": "primary / authorized executor",
+      "cause": "real SQL runtime outside this report integration",
+      "attempt": "source correction compiled, 33 pure checks passed, independent source/offline recheck accepted",
+      "nextAction": "complete reviewed runner and integrated cash prerequisites; prepare exact bounded local runtime scope",
+      "completionCheck": "real source-bound stale-token rejection, intended-write SQL readbacks and replay equality"
+    }
+  ],
+  "notRun": [
+    "N8 SQL",
+    "Docker",
+    "browser/API/SQL",
+    "new CI runtime",
+    "production"
+  ],
+  "documentationChecks": [
+    {
+      "command": [
+        "python",
+        "tests/test_progress.py"
+      ],
+      "exit": 0,
+      "seconds": 50.609,
+      "log": "private-exports/session-csrf-n8-acceptance-20261107/check-0.log",
+      "rawSha256": "e6a5cc0affb6098b1cbe130980cc1e09871da3f99ce99cead6e293badd846707"
+    },
+    {
+      "command": [
+        "python",
+        "tools/export_progress.py",
+        "--verify"
+      ],
+      "exit": 0,
+      "seconds": 0.171,
+      "log": "private-exports/session-csrf-n8-acceptance-20261107/check-1.log",
+      "rawSha256": "6bc37a5368f6e607e6a0932afb47bf96d5a6a014603732c4a3c3005c79e0ee56"
+    },
+    {
+      "command": [
+        "python",
+        "tests/test_delivery_status.py"
+      ],
+      "exit": 0,
+      "seconds": 0.406,
+      "log": "private-exports/session-csrf-n8-acceptance-20261107/check-2.log",
+      "rawSha256": "4afc353a5e998216cd75098de2562daeccac8df2c5b956b876dfd29f956f913f"
+    },
+    {
+      "command": [
+        "python",
+        "tools/delivery_status.py",
+        "--check"
+      ],
+      "exit": 0,
+      "seconds": 0.156,
+      "log": "private-exports/session-csrf-n8-acceptance-20261107/check-3.log",
+      "rawSha256": "2cbd72168e48a031ea75d2d7ccdfcaac53c270fa6ac915c072d07fd0be5883e0"
+    }
+  ],
+  "documentationCheckCounts": {
+    "progressTests": 23,
+    "preservedEvidenceHashes": 15,
+    "deliveryTests": 24,
+    "ledgerItems": 40
+  }
+}

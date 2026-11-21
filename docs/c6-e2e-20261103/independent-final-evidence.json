@@ -1,0 +1,440 @@
+{
+  "review": "savia-c6-judge-20261104",
+  "mode": "read-only artifact and Git blob review",
+  "verdict": "APTO",
+  "acceptance_checks": {
+    "fulfilled": 17,
+    "pending": 0,
+    "failed": 0
+  },
+  "run_id": 41765611979,
+  "attempt": 1,
+  "head": "e4b7910835bf2c9901aa06989e296997875a3636",
+  "checkout_sha": "f1a0bb1d0cd0258838f920ec8f811315820c7587",
+  "checkout_content_equivalence": {
+    "repository_full_name": "Suazo-AI/Martha-Silva-Store",
+    "base": "e4b7910835bf2c9901aa06989e296997875a3636",
+    "head": "f1a0bb1d0cd0258838f920ec8f811315820c7587",
+    "status": "ahead",
+    "ahead_by": 1,
+    "behind_by": 0,
+    "total_commits": 1,
+    "too_large": null,
+    "base_commit": {
+      "sha": "e4b7910835bf2c9901aa06989e296997875a3636",
+      "url": "https://api.github.com/repos/Suazo-AI/Martha-Silva-Store/commits/e4b7910835bf2c9901aa06989e296997875a3636",
+      "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/commit/e4b7910835bf2c9901aa06989e296997875a3636"
+    },
+    "merge_base_commit": {
+      "sha": "e4b7910835bf2c9901aa06989e296997875a3636",
+      "url": "https://api.github.com/repos/Suazo-AI/Martha-Silva-Store/commits/e4b7910835bf2c9901aa06989e296997875a3636",
+      "html_url": "https://github.com/Suazo-AI/Martha-Silva-Store/commit/e4b7910835bf2c9901aa06989e296997875a3636"
+    },
+    "files": []
+  },
+  "file_sha256": {
+    "browser/evidence.json": "6f1eb9cb175d00c5abaaf4a01bf337363af0547e9fffacdc38e1030d22f6bb0d",
+    "browser/oracles.md": "5780090af31f8bdf41a76d4a72fe933013a960eab8ebc0baf41d31384430b6f8",
+    "smoke/evidence.json": "2ab7c5982f68b248fead2644c1e706abe016bbd792610a7639533fa39a1e6184",
+    "smoke/oracles.md": "30ee767aa786d93551b3c94fd5e82565e6a2c42302c7f91419b97c9e086b6307",
+    "run-binding.json": "b872f240a5b960a0937b538f25134f1d755a09c56d26cccc08852176c019946f",
+    "log-provenance.json": "9bc87c22e0155442a31b63836fface44245986703ee1c0e6a11e2fd081625bfc"
+  },
+  "artifact_metadata": [
+    {
+      "id": 13292142418,
+      "name": "savia-browser-path-41765611979-1",
+      "size_in_bytes": 5337,
+      "url": "https://api.github.com/repos/Suazo-AI/Martha-Silva-Store/actions/artifacts/13292142418",
+      "archive_download_url": "https://api.github.com/repos/Suazo-AI/Martha-Silva-Store/actions/artifacts/13292142418/zip",
+      "expired": false,
+      "created_at": "2026-11-04T03:13:56Z",
+      "expires_at": "2026-11-11T03:13:55Z",
+      "updated_at": "2026-11-04T03:13:56Z",
+      "digest": "sha256:1094903ed33d0555c1585b516b2e62e748d38ccee310ab868fefc0829d1c4199",
+      "workflow_run": {
+        "id": 41765611979,
+        "repository_id": 1432603254,
+        "head_repository_id": 1432603254,
+        "head_branch": "claude/funny-brahmagupta-5e5rj0",
+        "head_sha": "e4b7910835bf2c9901aa06989e296997875a3636"
+      }
+    },
+    {
+      "id": 13291863195,
+      "name": "savia-golden-path-41765611979-1",
+      "size_in_bytes": 2524,
+      "url": "https://api.github.com/repos/Suazo-AI/Martha-Silva-Store/actions/artifacts/13291863195",
+      "archive_download_url": "https://api.github.com/repos/Suazo-AI/Martha-Silva-Store/actions/artifacts/13291863195/zip",
+      "expired": false,
+      "created_at": "2026-11-04T03:13:55Z",
+      "expires_at": "2026-11-11T03:13:54Z",
+      "updated_at": "2026-11-04T03:13:55Z",
+      "digest": "sha256:2f37b708e4d633890956c33cf4b01cccf4bc5fc61eedb9283a637186d610fd5b",
+      "workflow_run": {
+        "id": 41765611979,
+        "repository_id": 1432603254,
+        "head_repository_id": 1432603254,
+        "head_branch": "claude/funny-brahmagupta-5e5rj0",
+        "head_sha": "e4b7910835bf2c9901aa06989e296997875a3636"
+      }
+    }
+  ],
+  "direct_git_source_hashes_verified": {
+    "dev/savia-staff-ui/app.mjs": "65b9c09dacfc858b9e70ef8baf303560e26cbc0d406c99b989b5a31d5da42327",
+    "dev/savia-staff-ui/client.mjs": "3ca499eaed1a2ff636e4ed385b25bd96122488c94fad38be6bc80460f49fa6b9",
+    "dev/savia-staff-ui/login.mjs": "139fb119d215df458f67d3cb5916dbe3bd6db8682da113297d45121c2725cf66",
+    "dev/savia-staff-ui/login.html": "b9068478b46b9786c18dbe54ffa1172e1fb325e283ca944f9c2a840b37d1a686",
+    "dev/savia-staff-ui/index.html": "d4fcaa074c039b2f50783b3209a1429587b38f0c7e4335726dc0210be5c74c6f",
+    "dev/savia-staff-ui/styles.css": "e43e99b50b19aeadc6ebadae63e64cf3902c96ca923d08943fa6daadff9d9ae8",
+    "tests/golden-path/golden_path.py": "b957230ab923f34f56d61f1853c967f938baa8009601212dbb5dec7973ff7fbb",
+    "tests/golden-path/browser_path.mjs": "5a09272ffb8a1c433813bc4cad626921cd1b0ef329f0097a008122e41eb6df21"
+  },
+  "source_comparison": {
+    "verified_source_blobs": 8,
+    "driver_equals_reviewed_combined_proposal": true,
+    "harness_safety_readme_equal_2ddf83d": true,
+    "workflow_contract_equal_6aeb9a3": true,
+    "publication_verifier_equal_6aeb9a3": true
+  },
+  "counts": {
+    "browser_steps_pass": 21,
+    "browser_steps_total": 21,
+    "browser_checkpoints_pass": 11,
+    "smoke_steps_pass": 19,
+    "smoke_steps_total": 19,
+    "sql_snapshots": 38,
+    "oracle_failure_steps": 0,
+    "nonzero_invariant_values": 0
+  },
+  "browser_checkpoints": [
+    {
+      "step": "browser.start",
+      "status": "PASS",
+      "ms": 1736,
+      "sale_posts": 0,
+      "external_requests": 0,
+      "runtime_errors": 0,
+      "oracles": {
+        "sales": 0,
+        "sale_lines": 0,
+        "sale_movements": 0,
+        "sale_operations": 0,
+        "on_hand_total": 30,
+        "active_sessions": 0,
+        "cashier_active_sessions": 0
+      },
+      "oracle_failures": []
+    },
+    {
+      "step": "browser.cashier_login",
+      "status": "PASS",
+      "ms": 2773,
+      "sale_posts": 0,
+      "external_requests": 0,
+      "runtime_errors": 0,
+      "oracles": {
+        "sales": 0,
+        "sale_lines": 0,
+        "sale_movements": 0,
+        "sale_operations": 0,
+        "on_hand_total": 30,
+        "active_sessions": 1,
+        "cashier_active_sessions": 1
+      },
+      "oracle_failures": []
+    },
+    {
+      "step": "browser.inventory",
+      "status": "PASS",
+      "ms": 185,
+      "sale_posts": 0,
+      "external_requests": 0,
+      "runtime_errors": 0,
+      "oracles": {
+        "sales": 0,
+        "sale_lines": 0,
+        "sale_movements": 0,
+        "sale_operations": 0,
+        "on_hand_total": 30,
+        "active_sessions": 1,
+        "cashier_active_sessions": 1
+      },
+      "oracle_failures": []
+    },
+    {
+      "step": "browser.sale_confirmed",
+      "status": "PASS",
+      "ms": 309,
+      "sale_posts": 1,
+      "external_requests": 0,
+      "runtime_errors": 0,
+      "oracles": {
+        "sales": 1,
+        "sale_lines": 1,
+        "sale_movements": 1,
+        "sale_operations": 1,
+        "on_hand_total": 28,
+        "active_sessions": 1,
+        "cashier_active_sessions": 1
+      },
+      "oracle_failures": []
+    },
+    {
+      "step": "browser.receipt_reload",
+      "status": "PASS",
+      "ms": 878,
+      "sale_posts": 1,
+      "external_requests": 0,
+      "runtime_errors": 0,
+      "oracles": {
+        "sales": 1,
+        "sale_lines": 1,
+        "sale_movements": 1,
+        "sale_operations": 1,
+        "on_hand_total": 28,
+        "active_sessions": 1,
+        "cashier_active_sessions": 1
+      },
+      "oracle_failures": []
+    },
+    {
+      "step": "browser.stock_after_sale",
+      "status": "PASS",
+      "ms": 200,
+      "sale_posts": 1,
+      "external_requests": 0,
+      "runtime_errors": 0,
+      "oracles": {
+        "sales": 1,
+        "sale_lines": 1,
+        "sale_movements": 1,
+        "sale_operations": 1,
+        "on_hand_total": 28,
+        "active_sessions": 1,
+        "cashier_active_sessions": 1
+      },
+      "oracle_failures": []
+    },
+    {
+      "step": "browser.response_loss_committed",
+      "status": "PASS",
+      "ms": 135,
+      "sale_posts": 2,
+      "external_requests": 0,
+      "runtime_errors": 0,
+      "oracles": {
+        "sales": 2,
+        "sale_lines": 2,
+        "sale_movements": 2,
+        "sale_operations": 2,
+        "on_hand_total": 27,
+        "active_sessions": 1,
+        "cashier_active_sessions": 1
+      },
+      "oracle_failures": []
+    },
+    {
+      "step": "browser.recover_after_reload",
+      "status": "PASS",
+      "ms": 904,
+      "sale_posts": 2,
+      "external_requests": 0,
+      "runtime_errors": 0,
+      "oracles": {
+        "sales": 2,
+        "sale_lines": 2,
+        "sale_movements": 2,
+        "sale_operations": 2,
+        "on_hand_total": 27,
+        "active_sessions": 1,
+        "cashier_active_sessions": 1
+      },
+      "oracle_failures": []
+    },
+    {
+      "step": "browser.repeated_reload",
+      "status": "PASS",
+      "ms": 828,
+      "sale_posts": 2,
+      "external_requests": 0,
+      "runtime_errors": 0,
+      "oracles": {
+        "sales": 2,
+        "sale_lines": 2,
+        "sale_movements": 2,
+        "sale_operations": 2,
+        "on_hand_total": 27,
+        "active_sessions": 1,
+        "cashier_active_sessions": 1
+      },
+      "oracle_failures": []
+    },
+    {
+      "step": "browser.stock_after_recovery",
+      "status": "PASS",
+      "ms": 183,
+      "sale_posts": 2,
+      "external_requests": 0,
+      "runtime_errors": 0,
+      "oracles": {
+        "sales": 2,
+        "sale_lines": 2,
+        "sale_movements": 2,
+        "sale_operations": 2,
+        "on_hand_total": 27,
+        "active_sessions": 1,
+        "cashier_active_sessions": 1
+      },
+      "oracle_failures": []
+    },
+    {
+      "step": "browser.logout",
+      "status": "PASS",
+      "ms": 649,
+      "sale_posts": 2,
+      "external_requests": 0,
+      "runtime_errors": 0,
+      "oracles": {
+        "sales": 2,
+        "sale_lines": 2,
+        "sale_movements": 2,
+        "sale_operations": 2,
+        "on_hand_total": 27,
+        "active_sessions": 0,
+        "cashier_active_sessions": 0
+      },
+      "oracle_failures": []
+    }
+  ],
+  "H1": {
+    "state": "closed",
+    "evidence": {
+      "step": "browser.logout",
+      "status": "PASS",
+      "ms": 649,
+      "dom": [
+        "logged_out"
+      ],
+      "network": [
+        {
+          "method": "GET",
+          "path": "/internal/api/security/csrf",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "POST",
+          "path": "/internal/api/security/logout",
+          "status": 204,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/login",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/styles.css",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/login.mjs",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/security/csrf",
+          "status": 200,
+          "key": null,
+          "response_lost": false
+        },
+        {
+          "method": "GET",
+          "path": "/internal/api/security/me",
+          "status": 401,
+          "key": null,
+          "response_lost": false
+        }
+      ],
+      "sale_posts": 2,
+      "external_requests": 0,
+      "runtime_errors": 0,
+      "oracles": {
+        "active_sessions": 0,
+        "adjustments": 3,
+        "balance_vs_last_movement_mismatch": 0,
+        "balance_vs_movement_sum_mismatch": 0,
+        "balances": 3,
+        "branches": 1,
+        "cashier_active_sessions": 0,
+        "duplicate_idempotency_keys": 0,
+        "items": 3,
+        "items_without_synthetic_marker": 0,
+        "lines_without_exactly_one_movement": 0,
+        "locations": 1,
+        "migrations_applied": 2,
+        "movements": 5,
+        "negative_movement_after": 0,
+        "negative_or_invalid_stock": 0,
+        "on_hand_total": 27,
+        "operations": 9,
+        "sale_lines": 2,
+        "sale_movements": 2,
+        "sale_movements_not_matching_a_line": 0,
+        "sale_operations": 2,
+        "sales": 2,
+        "staff": 5,
+        "unassigned_staff": 1
+      },
+      "oracle_failures": []
+    }
+  },
+  "H2": {
+    "state": "closed",
+    "evidence": {
+      "step": "teardown.stop_api_drop_database",
+      "ms": 876,
+      "status": "PASS",
+      "browser_exit": 0,
+      "browser_ownership_confirmed": true,
+      "browser_processes_absent": true,
+      "api_exit": 0,
+      "database_dropped": true,
+      "api_log_lines": 64,
+      "api_log_fail_or_crit": 0,
+      "api_log_warn": 27,
+      "private_dir_removed": true
+    },
+    "container_absence_readback": [
+      "2026-11-04T03:13:56.7059623Z PASS: disposable SQL container absence verified."
+    ]
+  },
+  "not_proven": [
+    "Windows/SUAZO-PC",
+    "production TLS/proxy",
+    "payments",
+    "concurrency/load",
+    "backup/restore",
+    "idempotent release SQL script",
+    "mobile devices",
+    "visual acceptance",
+    "full accessibility audit"
+  ],
+  "limitations": [
+    "No new runtime, tests or GitHub calls from this judge.",
+    "GitHub binding and minimal log excerpt were supplied as local safe artifacts by the primary.",
+    "No independent API DLL rebuild or archive digest recomputation; source blobs and supplied file bytes were inspected."
+  ],
+  "usage": "Token usage and remaining budget not exposed."
+}

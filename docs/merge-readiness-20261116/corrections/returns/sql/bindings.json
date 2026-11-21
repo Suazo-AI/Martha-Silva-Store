@@ -1,0 +1,30 @@
+{
+  "base": "ba8ff2ba10935e99fc268ebbe5eae130f72c1cca",
+  "historical_unchanged": 32,
+  "files": [
+    {
+      "path": "savia/db/migrations/V029__return_retry_safety.sql",
+      "bytes": 23115,
+      "raw_sha256": "6041e3880fb4cb02c595504e394701e52408e426767c67c2b575914402b353cc",
+      "lf_sha256": "6041e3880fb4cb02c595504e394701e52408e426767c67c2b575914402b353cc"
+    },
+    {
+      "path": "savia/db/tests/sales/172_return_retry_safety.sql",
+      "bytes": 15905,
+      "raw_sha256": "50dc06558f36da331afe4ddbf45112d7b90c7e08c9983958863b764a78e591b3",
+      "lf_sha256": "50dc06558f36da331afe4ddbf45112d7b90c7e08c9983958863b764a78e591b3"
+    },
+    {
+      "path": "savia/tests/test_return_retry_safety.py",
+      "bytes": 4442,
+      "raw_sha256": "d142b60596c5e97e86d88f66a4805bf75116e383d45c6060c71d898200c6c687",
+      "lf_sha256": "d142b60596c5e97e86d88f66a4805bf75116e383d45c6060c71d898200c6c687"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/ReturnRetrySafetyTests.cs",
+      "bytes": 3694,
+      "raw_sha256": "b35dda2fef4a8dc8fc6a3750d213cffce50fbb8827f5c5ba5e43e7e49c390097",
+      "lf_sha256": "b35dda2fef4a8dc8fc6a3750d213cffce50fbb8827f5c5ba5e43e7e49c390097"
+    }
+  ]
+}

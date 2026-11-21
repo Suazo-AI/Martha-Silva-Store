@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-20T08:13:52.490430+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": ".agents/skills/technology-evaluation/SKILL.md",
+      "change": "A",
+      "git_blob": "6a9a9a929ed573e107392c028d42f0527915e18a"
+    },
+    {
+      "path": ".agents/skills/technology-evaluation/files/INDEX.md",
+      "change": "A",
+      "git_blob": "551a3546be557080ab0aee1326087c322399417e"
+    },
+    {
+      "path": ".agents/skills/technology-evaluation/files/RUN-PACKET.md",
+      "change": "A",
+      "git_blob": "6b4769c0ce385958c768ac81e7cd1178616abcd2"
+    },
+    {
+      "path": ".agents/skills/technology-evaluation/notes.md",
+      "change": "A",
+      "git_blob": "e221861881a7d6bc964008e9659942003f21ff05"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

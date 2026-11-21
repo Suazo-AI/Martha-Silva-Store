@@ -1,0 +1,9 @@
+{
+  "splitter_and_newline_normalizer_unchanged_lf": true,
+  "splitter_sha256_lf": "42fd037357aafa3738863ebc8a65619ebc873058319fe4c1dfc5ac15a1e8d3c7",
+  "V028": {
+    "path": "savia\\db\\migrations\\V028__usd_change.sql",
+    "leading_marker": true,
+    "sha256_raw": "fd82e158f129261c4d877e557ffa4cdf3074123bb8671f9b7316225f07420666"
+  }
+}

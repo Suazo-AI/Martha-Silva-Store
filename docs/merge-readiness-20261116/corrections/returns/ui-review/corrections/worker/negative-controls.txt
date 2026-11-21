@@ -1,0 +1,85 @@
+✖ F2 rejects malformed reversal fields independently (31.0056ms)
+✖ F1 wrong POST status stays unresolved; API default return shape preserved (3.9043ms)
+✖ F3 remounted draft cancellation verifies removal and restores editable form (2.8611ms)
+✖ F5 retirement revokes immediately during held POST, single shot even on failed logout (4.5887ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 0
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 153.2127
+
+✖ failing tests:
+
+test at savia\web\tests\return-lifecycle.test.mjs:5:27
+✖ F2 rejects malformed reversal fields independently (31.0056ms)
+  AssertionError [ERR_ASSERTION]: Expected "actual" to be strictly unequal to:
+  
+  'confirmed'
+      at TestContext.<anonymous> (file:///C:/Users/Jason/.t3/worktrees/github/t3-15d6bca1-a85d144e511e673a/savia/web/tests/return-lifecycle.test.mjs:281:149)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'confirmed',
+    expected: 'confirmed',
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at savia\web\tests\return-lifecycle.test.mjs:5:27
+✖ F1 wrong POST status stays unresolved; API default return shape preserved (3.9043ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'confirmed'
+  - 'unresolved'
+  
+      at TestContext.<anonymous> (file:///C:/Users/Jason/.t3/worktrees/github/t3-15d6bca1-a85d144e511e673a/savia/web/tests/return-lifecycle.test.mjs:294:118)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'confirmed',
+    expected: 'unresolved',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at savia\web\tests\return-lifecycle.test.mjs:5:27
+✖ F3 remounted draft cancellation verifies removal and restores editable form (2.8611ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '{"version":1,"state":"draft","scope":{"origin":"http://fixture.invalid","staffId":"00000000-0000-4000-8000-000000000001","nodeId":"00000000-0000-4000-8000-000000000002","branchId":"00000000-0000-4000-8000-000000000003","locationId":"00000000-0000-4000-8000-000000000004"},"saleId":"00000000-0000-4000-8000-000000000005","saleTillId":"00000000-0000-4000-8000-000000000006","currencyCode":"NIO","endpoint":"credit","body":{"reversalId":"9c93c75c-0ff1-4c5b-8856-5837e9742ecc","creditId":"0a008e70-203a-475b-a338-9352a9bd5921","tillId":"00000000-0000-4000-8000-000000000006","customerId":"00000000-0000-4000-8000-000000000007","reason":"Fixture reason","lines":[{"saleLineId":"00000000-0000-4000-8000-000000000008","quantity":1,"restockPool":"store"}]},"expected":[{"saleLineId":"00000000-0000-4000-8000-000000000008","quantity":1,"restockPool":"store","creditMinor":100}]}'
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/Jason/.t3/worktrees/github/t3-15d6bca1-a85d144e511e673a/savia/web/tests/return-lifecycle.test.mjs:300:159)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '{"version":1,"state":"draft","scope":{"origin":"http://fixture.invalid","staffId":"00000000-0000-4000-8000-000000000001","nodeId":"00000000-0000-4000-8000-000000000002","branchId":"00000000-0000-4000-8000-000000000003","locationId":"00000000-0000-4000-8000-000000000004"},"saleId":"00000000-0000-4000-8000-000000000005","saleTillId":"00000000-0000-4000-8000-000000000006","currencyCode":"NIO","endpoint":"credit","body":{"reversalId":"9c93c75c-0ff1-4c5b-8856-5837e9742ecc","creditId":"0a008e70-203a-475b-a338-9352a9bd5921","tillId":"00000000-0000-4000-8000-000000000006","customerId":"00000000-0000-4000-8000-000000000007","reason":"Fixture reason","lines":[{"saleLineId":"00000000-0000-4000-8000-000000000008","quantity":1,"restockPool":"store"}]},"expected":[{"saleLineId":"00000000-0000-4000-8000-000000000008","quantity":1,"restockPool":"store","creditMinor":100}]}',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at savia\web\tests\return-lifecycle.test.mjs:5:27
+✖ F5 retirement revokes immediately during held POST, single shot even on failed logout (4.5887ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (file:///C:/Users/Jason/.t3/worktrees/github/t3-15d6bca1-a85d144e511e673a/savia/web/tests/return-lifecycle.test.mjs:309:291)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,133 @@
+{
+  "date_utc": "2026-10-25",
+  "local_parent_commit": "3d8f11deec4a4a2ab8d5d6f9ef3a8176d8baa2d4",
+  "history_base": "f7e859bd0e6edf6bdef8b391b63589a212f0d088",
+  "backend_package_sha256": "db4d9d27fc3f5e3c7c125623400382dfc708e1cf0da14c292f74eb0a6e3baa35",
+  "backend_files_verified": 57,
+  "cloud_backend_source_commit": "e22437b832789bc67b65363f2b981545838eb6be",
+  "cloud_final_test_commit": "daca891dc379a41cecc059eb5a4efebeada4cfdf",
+  "ui_package_sha256": "41c66e528feaae542a59e4954c5eb22ad4d8ee75c2993dfb8a3b88652aeb52ef",
+  "ui_files": [
+    {
+      "path": "dev/savia-staff-ui/index.html",
+      "tested_sha256": "ffe48759028807f2a29b61d21afbb3814fc128749a5a723bcf18b45c62cdb1ba",
+      "current_sha256": "ffe48759028807f2a29b61d21afbb3814fc128749a5a723bcf18b45c62cdb1ba",
+      "note": "Exact cloud-tested runtime/test source"
+    },
+    {
+      "path": "dev/savia-staff-ui/login.html",
+      "tested_sha256": "b9068478b46b9786c18dbe54ffa1172e1fb325e283ca944f9c2a840b37d1a686",
+      "current_sha256": "b9068478b46b9786c18dbe54ffa1172e1fb325e283ca944f9c2a840b37d1a686",
+      "note": "Exact cloud-tested runtime/test source"
+    },
+    {
+      "path": "dev/savia-staff-ui/styles.css",
+      "tested_sha256": "e43e99b50b19aeadc6ebadae63e64cf3902c96ca923d08943fa6daadff9d9ae8",
+      "current_sha256": "e43e99b50b19aeadc6ebadae63e64cf3902c96ca923d08943fa6daadff9d9ae8",
+      "note": "Exact cloud-tested runtime/test source"
+    },
+    {
+      "path": "dev/savia-staff-ui/app.mjs",
+      "tested_sha256": "ea71aa8a40f598b53894c763c6cf07f5502b454202e726d68377054c75c10244",
+      "current_sha256": "ea71aa8a40f598b53894c763c6cf07f5502b454202e726d68377054c75c10244",
+      "note": "Exact cloud-tested runtime/test source"
+    },
+    {
+      "path": "dev/savia-staff-ui/client.mjs",
+      "tested_sha256": "2ba141aa437abe7cf79a0573e25f1cd0693b84dbcbf946bd54890ed0992b4a7d",
+      "current_sha256": "2ba141aa437abe7cf79a0573e25f1cd0693b84dbcbf946bd54890ed0992b4a7d",
+      "note": "Exact cloud-tested runtime/test source"
+    },
+    {
+      "path": "dev/savia-staff-ui/login.mjs",
+      "tested_sha256": "4d0173fdff31882c795c79b65ced0b21f13165a0d769caeb252bea030cbc859d",
+      "current_sha256": "4d0173fdff31882c795c79b65ced0b21f13165a0d769caeb252bea030cbc859d",
+      "note": "Exact cloud-tested runtime/test source"
+    },
+    {
+      "path": "dev/savia-staff-ui/auth.test.mjs",
+      "tested_sha256": "e93a84e2aba4a920dda00ce27633fa62fa5f412e8206810bc1246325463cbcc8",
+      "current_sha256": "e93a84e2aba4a920dda00ce27633fa62fa5f412e8206810bc1246325463cbcc8",
+      "note": "Exact cloud-tested runtime/test source"
+    },
+    {
+      "path": "dev/savia-staff-ui/dom.test.mjs",
+      "tested_sha256": "de032c12fcd189b3351a37647da4a2b9eeaa6a52c4d50d5e645301dac3ae1e60",
+      "current_sha256": "de032c12fcd189b3351a37647da4a2b9eeaa6a52c4d50d5e645301dac3ae1e60",
+      "note": "Exact cloud-tested runtime/test source"
+    },
+    {
+      "path": "dev/savia-staff-ui/pagination.test.mjs",
+      "tested_sha256": "c7f66725858bedb2016e7f800944684b0d4b1fd38ec3d2ea77d6f5b0318c71ec",
+      "current_sha256": "c7f66725858bedb2016e7f800944684b0d4b1fd38ec3d2ea77d6f5b0318c71ec",
+      "note": "Exact cloud-tested runtime/test source"
+    },
+    {
+      "path": "dev/savia-staff-ui/README.md",
+      "tested_sha256": "c51872e970af0d6acf1861c600f426a14a1a4a8012ba2cd59af4c00b64774c44",
+      "current_sha256": "a8cf22b109366995b32407d3062ef0c15343e6e54192bd939b24b67d2d3316bf",
+      "note": "Documentation updated after the run to record accepted scope and results"
+    }
+  ],
+  "cloud_results": {
+    "sdk": "10.0.402",
+    "restore_locked_exit": 0,
+    "release_warnings": 0,
+    "release_errors": 0,
+    "dotnet_pass": 435,
+    "sql_skipped": 56,
+    "dotnet_fail": 0,
+    "ui_syntax_pass": 3,
+    "ui_auth_pass": 9,
+    "ui_dom_pass": 5,
+    "ui_pagination_pass": 6
+  },
+  "raw_artifacts": [
+    {
+      "path": "ui-initial-cloud-raw.txt",
+      "sha256": "59bb24b6f2d4bee4cf706a4c196ec8c365a64ef9a5a462b624338ecdebfb6e29",
+      "bytes": 9537
+    },
+    {
+      "path": "ui-pagination-cloud-raw.txt",
+      "sha256": "638076833c965d207632a5c5bac1e2c00211975e207c358ada08e508ae770d08",
+      "bytes": 9465
+    },
+    {
+      "path": "backend-final-ui-cloud-raw.txt",
+      "sha256": "fa32cb4761ca938873a4fb129e540070f7e9762d150f3fee3160f906cbd89a66",
+      "bytes": 40552
+    },
+    {
+      "path": "BACKEND-435-REPORT.md",
+      "sha256": "b8dbb8eebd922dde1a112a129eeb81439d90a4a9f8637e2ef36be1ed26be02aa",
+      "bytes": 4817
+    },
+    {
+      "path": "BACKEND-435-logs.txt",
+      "sha256": "a7f68e8a336c5acae9a0469e127e4ee2228d46e7fac322346915f6063c38757c",
+      "bytes": 18231
+    },
+    {
+      "path": "BACKEND-435-results.json",
+      "sha256": "63d32beac1d7eb9a212930bb6b9db019d455323ca9987f4b940805032a530f86",
+      "bytes": 20103
+    }
+  ],
+  "raw_normalization": "LF and one final newline; the sole trailing space after SQL env names: removed for Git whitespace checks; executor text otherwise retained",
+  "review": {
+    "three_local_agents": "Static source review completed with no remaining integration blockers",
+    "local_source_hashes": "All 57 backend files and 9 UI runtime/test files match cloud inputs",
+    "ui_readme_only": "Documentation updated after test execution; not an embedded runtime resource"
+  },
+  "limits": [
+    "No local restore/build/Node/browser run under Windows RAM pressure",
+    "Full repository tests/check.py --install and tests/check.py were not executed for this private change",
+    "SQL persistence/concurrency, migration application and real HTTP positive login remain untested",
+    "No browser/mobile/accessibility/performance acceptance; UI tests use explicit doubles and jsdom",
+    "UI business writes, sales, stock changes, purchases and receipts remain disabled",
+    "Private endpoints require explicit Development gate; no production authorization implied",
+    "No SQL, bootstrap, hosting account, public deployment, GitHub push or CI execution"
+  ],
+  "next_external_gate": "Verified free/no-card hosting account, reviewed SQL target configuration and HTTPS; no credentials in chat/Git"
+}

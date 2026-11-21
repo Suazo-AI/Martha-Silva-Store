@@ -1,0 +1,522 @@
+[
+  {
+    "path": "research/assets/store-media/azul-gris-flores-falda/product.mp4",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 254.66666666666666,
+    "mean": 141.65967881945343
+  },
+  {
+    "path": "research/assets/store-media/azul-gris-flores-falda/product.webm",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 252.66666666666669,
+    "mean": 141.63935763889984
+  },
+  {
+    "path": "research/assets/store-media/azul-gris-un-hombro/product.mp4",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 252,
+    "mean": 141.37439670138986
+  },
+  {
+    "path": "research/assets/store-media/azul-gris-un-hombro/product.webm",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 252.33333333333334,
+    "mean": 141.35337673611025
+  },
+  {
+    "path": "research/assets/store-media/blanco-perlado-sirena/product.mp4",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 6,
+    "time": 0,
+    "range": 253.33333333333331,
+    "mean": 149.71300347221862
+  },
+  {
+    "path": "research/assets/store-media/blanco-perlado-sirena/product.webm",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 6,
+    "time": 0,
+    "range": 252.33333333333334,
+    "mean": 149.7058940972224
+  },
+  {
+    "path": "research/assets/store-media/burdeos-encaje-volantes-midi/product.mp4",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 253.66666666666666,
+    "mean": 148.1147395833452
+  },
+  {
+    "path": "research/assets/store-media/burdeos-encaje-volantes-midi/product.webm",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 253.33333333333331,
+    "mean": 148.0969010416778
+  },
+  {
+    "path": "research/assets/store-media/burdeos-top-pantalon-corto/product.mp4",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 247.66666666666669,
+    "mean": 144.3967968749991
+  },
+  {
+    "path": "research/assets/store-media/burdeos-top-pantalon-corto/product.webm",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 247,
+    "mean": 144.38422743055335
+  },
+  {
+    "path": "research/assets/store-media/crema-flores-naranjas-halter/product.mp4",
+    "ok": true,
+    "width": 576,
+    "height": 1024,
+    "duration": 7,
+    "time": 0,
+    "range": 249.33333333333331,
+    "mean": 139.8079427083252
+  },
+  {
+    "path": "research/assets/store-media/crema-flores-naranjas-halter/product.webm",
+    "ok": true,
+    "width": 576,
+    "height": 1024,
+    "duration": 7,
+    "time": 0,
+    "range": 251.66666666666666,
+    "mean": 139.79712239582472
+  },
+  {
+    "path": "research/assets/store-media/crema-flores-volante-asimetrico/product.mp4",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 255,
+    "mean": 114.26590277777854
+  },
+  {
+    "path": "research/assets/store-media/crema-flores-volante-asimetrico/product.webm",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 251.66666666666666,
+    "mean": 114.22825086805354
+  },
+  {
+    "path": "research/assets/store-media/fucsia-halter-pliegues/product.mp4",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 253.66666666666666,
+    "mean": 145.47270399304452
+  },
+  {
+    "path": "research/assets/store-media/fucsia-halter-pliegues/product.webm",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 254,
+    "mean": 145.45745225693713
+  },
+  {
+    "path": "research/assets/store-media/fucsia-un-hombro-volantes/product.mp4",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 255,
+    "mean": 147.47387586805496
+  },
+  {
+    "path": "research/assets/store-media/fucsia-un-hombro-volantes/product.webm",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 254.66666666666666,
+    "mean": 147.43306857638717
+  },
+  {
+    "path": "research/assets/store-media/gris-perla-hombros/product.mp4",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 6,
+    "time": 0,
+    "range": 254.66666666666666,
+    "mean": 150.2627473958413
+  },
+  {
+    "path": "research/assets/store-media/gris-perla-hombros/product.webm",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 6,
+    "time": 0,
+    "range": 254.33333333333331,
+    "mean": 150.25113281251097
+  },
+  {
+    "path": "research/assets/store-media/heroes/rosa-empolvado-pedreria/hero.mp4",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 12,
+    "time": 0,
+    "range": 254,
+    "mean": 148.84973524305101
+  },
+  {
+    "path": "research/assets/store-media/heroes/rosa-empolvado-pedreria/hero.webm",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 12,
+    "time": 0,
+    "range": 253.66666666666666,
+    "mean": 148.7496918402724
+  },
+  {
+    "path": "research/assets/store-media/midi-estampado-burdeos/product.mp4",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 5,
+    "time": 0,
+    "range": 231.66666666666666,
+    "mean": 155.29309027778095
+  },
+  {
+    "path": "research/assets/store-media/midi-estampado-burdeos/product.webm",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 5,
+    "time": 0,
+    "range": 235,
+    "mean": 155.27994357638892
+  },
+  {
+    "path": "research/assets/store-media/negro-blanco-lunares-midi/product.mp4",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 255,
+    "mean": 147.02093315971325
+  },
+  {
+    "path": "research/assets/store-media/negro-blanco-lunares-midi/product.webm",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 253.66666666666666,
+    "mean": 146.9788845486029
+  },
+  {
+    "path": "research/assets/store-media/negro-brillo-pantalon-amplio/product.mp4",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 251.66666666666669,
+    "mean": 148.51579861110855
+  },
+  {
+    "path": "research/assets/store-media/negro-brillo-pantalon-amplio/product.webm",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 252.33333333333331,
+    "mean": 148.51303385416
+  },
+  {
+    "path": "research/assets/store-media/negro-escote-puntas-abertura/product.mp4",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 252.33333333333334,
+    "mean": 137.62762586805798
+  },
+  {
+    "path": "research/assets/store-media/negro-escote-puntas-abertura/product.webm",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 252.66666666666666,
+    "mean": 137.61949218750252
+  },
+  {
+    "path": "research/assets/store-media/negro-lunares-beige-hombros/product.mp4",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 254.66666666666666,
+    "mean": 138.80062500000065
+  },
+  {
+    "path": "research/assets/store-media/negro-lunares-beige-hombros/product.webm",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 254,
+    "mean": 138.7844097222194
+  },
+  {
+    "path": "research/assets/store-media/novia-satinada-abertura/product.mp4",
+    "ok": true,
+    "width": 720,
+    "height": 880,
+    "duration": 6,
+    "time": 0,
+    "range": 255,
+    "mean": 131.24132812499823
+  },
+  {
+    "path": "research/assets/store-media/novia-satinada-abertura/product.webm",
+    "ok": true,
+    "width": 720,
+    "height": 880,
+    "duration": 6,
+    "time": 0,
+    "range": 255,
+    "mean": 131.19010850694454
+  },
+  {
+    "path": "research/assets/store-media/plata-tirantes-copas-pedreria/product.mp4",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 252.33333333333334,
+    "mean": 144.04070312500738
+  },
+  {
+    "path": "research/assets/store-media/plata-tirantes-copas-pedreria/product.webm",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 254,
+    "mean": 144.00149739584188
+  },
+  {
+    "path": "research/assets/store-media/rojo-tirantes-falda-amplia/product.mp4",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 215,
+    "mean": 114.71920138889155
+  },
+  {
+    "path": "research/assets/store-media/rojo-tirantes-falda-amplia/product.webm",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 214,
+    "mean": 114.73417534722333
+  },
+  {
+    "path": "research/assets/store-media/rosa-bronce-pedreria/product.mp4",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 251.33333333333334,
+    "mean": 143.216276041668
+  },
+  {
+    "path": "research/assets/store-media/rosa-bronce-pedreria/product.webm",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 253.66666666666666,
+    "mean": 143.1697743055589
+  },
+  {
+    "path": "research/assets/store-media/rosa-claro-flores-doradas/product.mp4",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 236,
+    "mean": 135.8532682291939
+  },
+  {
+    "path": "research/assets/store-media/rosa-claro-flores-doradas/product.webm",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 238.33333333333334,
+    "mean": 135.82021701391622
+  },
+  {
+    "path": "research/assets/store-media/rosa-empolvado-pedreria/product.mp4",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 6,
+    "time": 0,
+    "range": 252.33333333333334,
+    "mean": 154.08927083332128
+  },
+  {
+    "path": "research/assets/store-media/rosa-empolvado-pedreria/product.webm",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 6,
+    "time": 0,
+    "range": 252,
+    "mean": 154.08149305554483
+  },
+  {
+    "path": "research/assets/store-media/rosa-flores-fucsias-halter/product.mp4",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 254.66666666666666,
+    "mean": 149.46361111110178
+  },
+  {
+    "path": "research/assets/store-media/rosa-flores-fucsias-halter/product.webm",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 255,
+    "mean": 149.40841145832468
+  },
+  {
+    "path": "research/assets/store-media/rosa-marron-chaqueta-falda/product.mp4",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 247,
+    "mean": 139.66794704859723
+  },
+  {
+    "path": "research/assets/store-media/rosa-marron-chaqueta-falda/product.webm",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 246.66666666666666,
+    "mean": 139.64935763887598
+  },
+  {
+    "path": "research/assets/store-media/verde-brillo-cuello-cruzado/product.mp4",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 253.66666666666666,
+    "mean": 131.03716145832652
+  },
+  {
+    "path": "research/assets/store-media/verde-brillo-cuello-cruzado/product.webm",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 253,
+    "mean": 131.02822482638197
+  },
+  {
+    "path": "research/assets/store-media/verde-esmeralda-tirantes-cruzados/product.mp4",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 253.66666666666666,
+    "mean": 148.60959201388897
+  },
+  {
+    "path": "research/assets/store-media/verde-esmeralda-tirantes-cruzados/product.webm",
+    "ok": true,
+    "width": 720,
+    "height": 1280,
+    "duration": 7,
+    "time": 0,
+    "range": 254.66666666666666,
+    "mean": 148.58396267360618
+  }
+]

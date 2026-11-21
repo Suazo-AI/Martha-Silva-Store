@@ -1,0 +1,24 @@
+{
+  "required_status_checks": {
+    "strict": true,
+    "checks": [
+      { "context": "Complete backend suite on disposable SQL Server", "app_id": 15368 },
+      { "context": "Staff UI tests and real browser harness", "app_id": 15368 },
+      { "context": "Real API + disposable SQL golden path", "app_id": 15368 },
+      { "context": "build-and-guards", "app_id": 15368 },
+      { "context": "Portable checks (windows-latest)", "app_id": 15368 },
+      { "context": "Portable checks (ubuntu-latest)", "app_id": 15368 },
+      { "context": "Ledger check and deterministic digest", "app_id": 15368 }
+    ]
+  },
+  "enforce_admins": true,
+  "required_pull_request_reviews": {
+    "dismiss_stale_reviews": true,
+    "require_code_owner_reviews": false,
+    "required_approving_review_count": 0
+  },
+  "restrictions": null,
+  "required_conversation_resolution": true,
+  "allow_force_pushes": false,
+  "allow_deletions": false
+}

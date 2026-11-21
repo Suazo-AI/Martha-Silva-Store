@@ -1,0 +1,147 @@
+{
+  "revision_from": "e48b5accd6ba45473e64a949e993db497ed93b1e",
+  "model": "gpt-6.1-sol",
+  "reasoning": "xhigh",
+  "host": "SUAZO-PC",
+  "mode": "BUILD + VALIDATE; no SQL runtime",
+  "logs": [
+    {
+      "path": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\review-invalid-red.log",
+      "rawSha256": "27308cd3723af8b122b82616ee9a8739b4af15b0840a3d868027fa48ee789ac9",
+      "exit": 1,
+      "meaning": "Environment failure: NODE_PATH omitted; not a product negative control"
+    },
+    {
+      "path": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\review-invalid-red-02.log",
+      "rawSha256": "636235ab1420f7546b9cf38ab7535b919115184497eafa331d9208963bca92d0",
+      "exit": 1,
+      "meaning": "Two semantic failures: invalid responsible ID and past date reached transport"
+    },
+    {
+      "path": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\browser-review-before.log",
+      "rawSha256": "64c0ef26b60301dd572e54c394d394275be60fc55648452c311150fdaea5c7a7",
+      "exit": 1,
+      "meaning": "Harness request count checked before async CSRF completed"
+    },
+    {
+      "path": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\browser-review-before-02.log",
+      "rawSha256": "50732384a3da2ffadb6faaa4cd9e40d0b630fa81f5d764834025ee40c6f2892f",
+      "exit": 0,
+      "meaning": "Original product lockup observed in actual Chrome, two viewports"
+    },
+    {
+      "path": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\review-focused-green.log",
+      "rawSha256": "557b8fcabe981ce3c2a713c321b6dad6a27e1d302eb30938ef16d4c38150ec9e",
+      "exit": 0,
+      "meaning": "Focused review tests 21/21; before last authorization lookup test"
+    },
+    {
+      "path": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\review-staff-green.log",
+      "rawSha256": "237fb66ab5a90edccbbf917fb82eb6b77d886c144f0f2d6469cacf269da59aff",
+      "exit": 0,
+      "meaning": "145/145 staff; before final authorization lookup test and accent correction"
+    },
+    {
+      "path": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\browser-review-after.log",
+      "rawSha256": "d142983e3e656789bfb2979a62b02497d57be8a4cccd9d7dbad4afa1048f5f10",
+      "exit": 1,
+      "meaning": "Harness expected ASCII ? due PowerShell pipe encoding; not a product failure"
+    },
+    {
+      "path": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\browser-review-after-02.log",
+      "rawSha256": "ec33d66ebaf86b7f226adc07931551ee0b88f7b934a216a2cc4d90042315fe39",
+      "exit": 0,
+      "meaning": "Desktop/mobile pass; 1 sale, 3 review POSTs, 1 review"
+    },
+    {
+      "path": "C:\\Users\\Jason\\MARTHA-SILVA\\test-runs\\stock-exception-20261106\\review-staff-final.log",
+      "rawSha256": "b82c96197471f0a3e45d8ada6a5f66d334f10711c73a9579c20dd00d40f56a91",
+      "exit": 0,
+      "meaning": "146/146 staff; zero skipped; final product bytes"
+    }
+  ],
+  "historical_ci": [
+    {
+      "run_id": 42183825853,
+      "head_sha": "e48b5accd6ba45473e64a949e993db497ed93b1e",
+      "conclusion": "success",
+      "workflow": "Staff UI candidate (no SQL)"
+    },
+    {
+      "run_id": 42183825849,
+      "head_sha": "e48b5accd6ba45473e64a949e993db497ed93b1e",
+      "conclusion": "success",
+      "workflow": "Tony source snapshot",
+      "jobs": "Both integrity and historical-regressions success"
+    }
+  ],
+  "current_ci": "Pending publication; historical runs do not cover corrected UI",
+  "critic_import": {
+    "source": "C:\\Users\\Jason\\.t3\\worktrees\\github\\t3-2ec9ff65\\docs\\stock-exception-20261106\\gemini-critic-candidate.md",
+    "rawSha256": "18be3d9c6cfca065e8f92a80d3ea36fb7267f56b999c9f02694fae7ec1226734",
+    "destination": "docs\\stock-exception-20261106\\gemini-critic-candidate.md"
+  },
+  "not_run": [
+    "API tied to SQL",
+    "SQL persistence/concurrency",
+    "integrated browser/API/SQL campaign",
+    "deployment",
+    "production acceptance"
+  ],
+  "sources": [
+    {
+      "path": "dev/savia-staff-ui/app.mjs",
+      "rawSha256": "abfd6b29e6daf61cbad1f5c422b2e0583ee3afe8c76b0c38df5ea8b1d312d526",
+      "lfSha256": "abfd6b29e6daf61cbad1f5c422b2e0583ee3afe8c76b0c38df5ea8b1d312d526"
+    },
+    {
+      "path": "dev/savia-staff-ui/client.mjs",
+      "rawSha256": "8999819b79e9b8ead4151bef3fb542a6c63252efe1822dc03b967a1629950be7",
+      "lfSha256": "8999819b79e9b8ead4151bef3fb542a6c63252efe1822dc03b967a1629950be7"
+    },
+    {
+      "path": "dev/savia-staff-ui/login.mjs",
+      "rawSha256": "73911282fd1ac18b0de0785eb8c8b7c60dbd189cef14c68a28891a51fa9e88a4",
+      "lfSha256": "73911282fd1ac18b0de0785eb8c8b7c60dbd189cef14c68a28891a51fa9e88a4"
+    },
+    {
+      "path": "dev/savia-staff-ui/stock-exception.test.mjs",
+      "rawSha256": "850d85c0aa31bcb6d0b80c20df7b2078d00423f42f14aafb47974a17d8b867b9",
+      "lfSha256": "850d85c0aa31bcb6d0b80c20df7b2078d00423f42f14aafb47974a17d8b867b9"
+    }
+  ],
+  "recordings": [
+    {
+      "stage": "before",
+      "width": 1440,
+      "path": "docs/stock-exception-20261106/primary/review-before/videos/page@4f1a4b54133a4df8a5a2e4bc38d96ea2.webm",
+      "rawSha256": "39f1262b42722ebfb40aa18852989dd0851d4ed2338dd3e646062fcec82abfea"
+    },
+    {
+      "stage": "before",
+      "width": 390,
+      "path": "docs/stock-exception-20261106/primary/review-before/videos/page@1e22710ed79efa0dea2694b2a16d5b7a.webm",
+      "rawSha256": "27c2e98f96d07af851fa630d437800b720ee3f462735d880007acd131e737b73"
+    },
+    {
+      "stage": "after",
+      "width": 1440,
+      "path": "docs/stock-exception-20261106/primary/review-after-02/videos/page@77c41f21f1f64bb1d5e28b07df1bea59.webm",
+      "rawSha256": "a4f5a6e74787f66ee228d9855166ad14650a8549a8dc4f99235794086ee9bd6c"
+    },
+    {
+      "stage": "after",
+      "width": 390,
+      "path": "docs/stock-exception-20261106/primary/review-after-02/videos/page@42b08c46a69c773e014acc78b8440cfe.webm",
+      "rawSha256": "94253f3a33b0549bac5c061876a9ff5fa6ab462d85de35ccacd3882ce555a627"
+    }
+  ],
+  "recordings_note": "Same viewports and sale-to-review sequence. After adds invalid date, durable rejection correction, and response-loss/reload recovery. The repaired branch differs, so not pixel-identical replay. Before filenames identified from creation order and FFprobe dimensions. Failed capture attempts remain excluded.",
+  "before_source_bytes": {
+    "app.mjs": "Git LF bytes",
+    "client.mjs": "Git LF expanded to CRLF",
+    "login.mjs": "Git LF expanded to CRLF",
+    "index.html": "Git LF expanded to CRLF",
+    "styles.css": "Git LF bytes"
+  }
+}

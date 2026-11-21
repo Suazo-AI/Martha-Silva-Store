@@ -1,0 +1,21 @@
+{
+  "observedUtc": "2026-11-04T02:02:14.499039+00:00",
+  "files": {
+    "acceptance-checks.json": "a4bae8c65c49fc233621671733ec553a09916e62e2a1eb4d423319d27a4afd72",
+    "binding.json": "f75f98e37c5506c960cebba06f1be86e7699b8d3e69b099409206f94a92c2545",
+    "candidate.patch": "a0762dc021260f4c8c88b849552c4775c6bef17af06c5338e68e95cd7a221df0",
+    "ledger-proposal.patch": "fb0409a4d29f8483b0670f96dcddd2ed6a674431dee2131433f619b692c4c1aa",
+    "primary-acceptance.json": "412f5ff9a4bff23ae9a90fe520c9ac65d21fe1791885d0255f8c2b125ebd6b77",
+    "reconciliation.md": "9dd3174df941de5ea3f2e5fa5008771fd354db1dc0f97b32a93b32d1ebb33021",
+    "report.md": "1d07c9a22c666e851d6036f066dc884fd889f2b9cc3e015b221f1fb49a4407fe",
+    "trello-proposal.json": "c83bdc948418ab5d3481903c6ecec6800b0ff11ac2629bab1770820029b6fd69",
+    "verification.json": "b2ab6d6cae014e68faddd3971a40abd379f5eaf7922ec76b85d89d0dfd60bd0c"
+  },
+  "excluded": [
+    "Other active C6/C9 owners and changes",
+    "raw private oracle values",
+    "raw CI logs and ZIP files",
+    "credentials, certificates and sessions"
+  ],
+  "publicationByThisBatch": false
+}

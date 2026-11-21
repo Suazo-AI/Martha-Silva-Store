@@ -1,0 +1,4 @@
+FAIL    credits/140_transfer_one_writer_per_row.sql  -- ASSERT FAIL: branches whose balance one usp_CommitTransfer call changed expected=1 actual=2
+SUMMARY FAIL=1  logs: .out\dbtests
+FAIL    audit/020_conservation_oracle_transfer_in_transit.sql  -- Msg 2812, Level 16, State 62, Server 23b66448cd53, Line 10
+SUMMARY FAIL=1  logs: .out\dbtests
