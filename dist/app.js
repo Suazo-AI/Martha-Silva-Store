@@ -16,7 +16,7 @@
     const curve = (raw('--ms-ease').match(/cubic-bezier\(([^)]+)\)/)?.[1] || '.22,1,.36,1').split(',').map(Number);
     const at = (a, b, t) => 3 * a * (1 - t) * (1 - t) * t + 3 * b * (1 - t) * t * t + t * t * t;
     const ease = x => { if (x <= 0 || x >= 1) return x; let lo = 0, hi = 1, t = x; for (let i = 0; i < 24 && Math.abs(at(curve[0], curve[2], t) - x) > 1e-5; i++) { at(curve[0], curve[2], t) < x ? lo = t : hi = t; t = (lo + hi) / 2; } return at(curve[1], curve[3], t); };
-    return Object.freeze({ease, durS: seconds('--ms-dur-s', .28), durM: seconds('--ms-dur-m', .48), durL: seconds('--ms-dur-l', .64), radius: raw('--ms-radius') || '14px', loaderMax: seconds('--ms-loader-max', 1.6)});
+    return Object.freeze({ease, durS: seconds('--ms-dur-s', .28), durM: seconds('--ms-dur-m', .48), durL: seconds('--ms-dur-l', .64), radius: raw('--ms-radius') || '14px', loaderMax: seconds('--ms-loader-max', 1.6), microFade: seconds('--ms-micro-fade', .2), microSlide: seconds('--ms-micro-slide', .3), microEase: raw('--ms-micro-ease') || 'cubic-bezier(.25,.1,.25,1)'});
   })();
   const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const locale = () => window.MarthaI18n?.language === 'en' ? 'en-US' : 'es-NI';
@@ -299,6 +299,21 @@
   }
   // Exposed for local diagnostics only; no remote transport is configured here.
   window.marthaStoreApi = api;
+  // B3 micro-interactions: feedback for a shopper action only. Transform/opacity, one run per element, none under reduced motion.
+  const calm = () => matchMedia('(prefers-reduced-motion: reduce)').matches, pulses = new WeakMap(), addedHold = 1500;
+  function pulse(element, peak) {
+    if (!element?.animate || calm()) return;
+    pulses.get(element)?.cancel();
+    pulses.set(element, element.animate([{transform: 'scale(1)'}, {transform: `scale(${peak})`, offset: .4}, {transform: 'scale(1)'}], {duration: MOTION.microSlide * 1000, easing: MOTION.microEase}));
+  }
+  const checkIcon = '<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8.5l3.2 3L13 4.5"/></svg>';
+  function markAdded(button) {
+    if (!button?.isConnected) return;
+    clearTimeout(button.addedTimer);
+    if (button.dataset.state !== 'added') { button.style.width = getComputedStyle(button).width; button.dataset.state = 'added'; button.innerHTML = checkIcon + 'Agregada'; }
+    button.addedTimer = setTimeout(() => { button.removeAttribute('data-state'); button.style.width = ''; if (button.isConnected) syncProduct(); }, addedHold);
+  }
+  let bagReady = false;
   function notify(text) { const toast = $('#toast'); if (!toast) return; toast.textContent = text; toast.classList.add('visible'); clearTimeout(notify.timer); notify.timer = setTimeout(() => toast.classList.remove('visible'), 4000); }
   function productShareData() {
     const id = $('main[data-page="product"]')?.dataset.productId;
@@ -357,7 +372,7 @@
   }
   function showError(root, error) { let box = $('[data-error]', root); if (!box) { box = document.createElement('p'); box.className = 'error'; box.setAttribute('data-error',''); box.setAttribute('role','alert'); root.prepend(box); } box.textContent = error.message; box.hidden = false; if(!root.closest('[data-product-id]')||$('[data-sticky-buy]')?.hidden!==false)box.scrollIntoView({block:'nearest'}); }
   async function withButton(button, action) { if (button.disabled) return; const root = button.closest('form, dialog, [data-product-id], [data-checkout-root], [data-order-root], [data-admin-root], main') || document.body; $('[data-error]',root)?.setAttribute('hidden',''); button.disabled = true; busyActions++; renderIntegration(); if(button.matches('[data-add]')) {productAdding=true;syncProduct();} try { await action(); } catch (error) { showError(root, error); } finally { busyActions--; renderIntegration(); if (button.isConnected) button.disabled = false; if(button.matches('[data-add]')) {productAdding=false;syncProduct();const error=$('[data-product-error]'),sticky=$('[data-sticky-error]');if(error&&sticky){sticky.textContent=error.textContent;sticky.hidden=error.hidden;}} } }
-  async function refreshCart() { cart = await api('/api/cart'); $$('[data-bag-count]').forEach(n => n.textContent = cart.lines.reduce((n, line) => n + line.quantity, 0)); if($('#mini-bag')?.open)miniBag(); return cart; }
+  async function refreshCart() { cart = await api('/api/cart'); const count = cart.lines.reduce((n, line) => n + line.quantity, 0); $$('[data-bag-count]').forEach(n => { const before = Number(n.textContent) || 0; n.textContent = count; if (bagReady && count > before) pulse(n, 1.2); }); bagReady = true; if($('#mini-bag')?.open)miniBag(); return cart; }
   function card(p) {
     const saved=favorites.includes(p.id), stock=p.variants.reduce((n,v)=>n+v.stock,0);
     const photo=(src,cls='')=>{const i=p.images.indexOf(src),dimensions=window.STORE_IMAGE_DIMENSIONS?.[p.jpeg_images?.[i] || src] || [900,1200];return `<picture class="${cls}">${src.startsWith('/generated-luxury/') && src.endsWith('.png') ? `<source type="image/webp" srcset="${[360,720,dimensions[0]].filter((w,n,a)=>w<=dimensions[0]&&a.indexOf(w)===n).map(w=>esc(src.replace('/generated-luxury/','/responsive-images/').replace(/\.png$/, '-'+w+'.webp'))+' '+w+'w').join(', ')}" sizes="(max-width:599px) 50vw,25vw">` : ''}<source type="${src.endsWith('.png') ? 'image/png' : 'image/webp'}" srcset="${esc(p.image_sets?.[i] || src+' 900w')}" sizes="(max-width:599px) 50vw,25vw"><img class="${cls}" src="${esc(p.jpeg_images?.[i] || src)}" srcset="${esc(p.jpeg_sets?.[i] || src+' 900w')}" sizes="(max-width:599px) 50vw,25vw" width="${dimensions[0]}" height="${dimensions[1]}" alt="${esc(p.name)}${src.startsWith('/generated-luxury/') ? ' · Imagen generada con IA' : ''}" loading="lazy" decoding="async"></picture>`;};
@@ -451,7 +466,7 @@
     const note=$('[data-stock-note]'),variant=products.flatMap(p=>p.variants).find(v=>v.id===selected?.value);if(note)note.textContent='Stock de muestra · '+(variant?(variant.stock===1?'Última unidad':variant.stock<=2?'Pocas unidades disponibles':'Talla disponible'):'demo');
     const available=$$('input[name="variant"]').some(input=>!input.disabled);
     const ready = !!integrationApi && !integrationError;
-    $$('[data-add], [data-sticky-add]').forEach(button=>{button.disabled=!ready||productAdding||!available;button.textContent=available?'Agregar a la bolsa':'Agotada';});
+    $$('[data-add], [data-sticky-add]').forEach(button=>{button.disabled=!ready||productAdding||!available;if(button.dataset.state!=='added')button.textContent=available?'Agregar a la bolsa':'Agotada';});
     if(sticky) {sticky.disabled=!available;$$('option',sticky).forEach(option=>{if(option.value)option.disabled=!!$(`input[name="variant"][value="${CSS.escape(option.value)}"]`)?.disabled;});}
   }
   function productBuyBar() {
@@ -844,12 +859,12 @@
     if (b.matches('[data-search-open]')) { openDialog($('#search-dialog'),b); $('#search-dialog input')?.focus(); return; }
     if (b.matches('[data-close-dialog]')) { const dialog=b.closest('dialog');if(dialog?.id==='mobile-menu'){menuClose();return;}if(dialog?.id==='newsletter-dialog')localStorage.setItem('martha-parity-newsletter-dismissed','true');dialog?.close(); return; }
     if (b.matches('[data-zoom]')) { $('#image-dialog img').src=b.dataset.zoom || $('img',b)?.src; $('#image-dialog img').alt=window.MarthaI18n?.originalAttribute($('img',b),'alt') || $('img',b)?.alt || 'Fotografía ampliada'; openDialog($('#image-dialog'),b); return; }
-    if (b.matches('[data-favorite]')) { const id=b.dataset.favorite; favorites=favorites.includes(id) ? favorites.filter(n=>n!==id):[...favorites,id]; localStorage.setItem('martha-parity-favorites',JSON.stringify(favorites)); updateHearts(); if (new URLSearchParams(location.search).has('favoritos')) catalog(); notify(favorites.includes(id)?'Prenda guardada en favoritos.':'Prenda retirada de favoritos.'); return; }
+    if (b.matches('[data-favorite]')) { const id=b.dataset.favorite; favorites=favorites.includes(id) ? favorites.filter(n=>n!==id):[...favorites,id]; localStorage.setItem('martha-parity-favorites',JSON.stringify(favorites)); updateHearts(); { const icon = $('svg',b); pulse(icon || b, icon ? 1.2 : 1.04); } if (new URLSearchParams(location.search).has('favoritos')) catalog(); notify(favorites.includes(id)?'Prenda guardada en favoritos.':'Prenda retirada de favoritos.'); return; }
     if (b.matches('[data-clear-filters], [data-remove-filter]')) { event.preventDefault(); const params = new URLSearchParams(location.search); if (b.matches('[data-clear-filters]')) [...params.keys()].filter(k=>k!=='lang').forEach(k=>params.delete(k)); else params.delete(b.dataset.removeFilter); setCatalogParams(params); catalog(); return; }
     if (b.matches('[data-sticky-add]')) { const main=$('[data-add]');if(main&&!main.disabled)main.click();return; }
     if (b.matches('[data-quick]')) { const c=b.closest('.plp-card'), open=!c.classList.contains('picking'); $$('.plp-card.picking').forEach(closeQuick); if (open) { c.classList.add('picking'); b.setAttribute('aria-expanded','true'); $('[data-quick-size]:not(:disabled)',c)?.focus(); } return; }
-    if (b.matches('[data-quick-size]')) { const c=b.closest('.plp-card'); await withButton(b,async()=>{ try { cart=await api('/api/cart/items',{variant_id:b.dataset.quickSize,quantity:1}); await refreshCart(); closeQuick(c); notify('Prenda agregada a tu bolsa.'); miniBag(); } catch (error) { notify(error.message); } finally { } }); return; }
-    if (b.matches('[data-add]')) { await withButton(b,async()=>{ const input=$('input[name="variant"]:checked:not(:disabled)'); if (!input) throw new Error('Elegí una talla para agregar esta prenda.'); cart=await api('/api/cart/items',{variant_id:input.value,quantity:1}); await refreshCart(); const note=$('[data-add-confirmation]'); if (note) { note.innerHTML=`Prenda agregada a tu bolsa. <a href="/bolsa.html">Ver bolsa</a>`; note.hidden=false; } notify('Prenda agregada a tu bolsa.');miniBag(b); }); return; }
+    if (b.matches('[data-quick-size]')) { const c=b.closest('.plp-card'); b.dataset.selected=''; await withButton(b,async()=>{ try { cart=await api('/api/cart/items',{variant_id:b.dataset.quickSize,quantity:1}); await refreshCart(); closeQuick(c); notify('Prenda agregada a tu bolsa.'); miniBag(); } catch (error) { notify(error.message); } finally { b.removeAttribute('data-selected'); } }); return; }
+    if (b.matches('[data-add]')) { let added=false; await withButton(b,async()=>{ const input=$('input[name="variant"]:checked:not(:disabled)'); if (!input) throw new Error('Elegí una talla para agregar esta prenda.'); cart=await api('/api/cart/items',{variant_id:input.value,quantity:1}); await refreshCart(); const note=$('[data-add-confirmation]'); if (note) { note.innerHTML=`Prenda agregada a tu bolsa. <a href="/bolsa.html">Ver bolsa</a>`; note.hidden=false; } notify('Prenda agregada a tu bolsa.');added=true;miniBag(b); }); if(added)markAdded(b); return; }
     if(b.matches('[data-move-favorite]')){const focus=cartActionFocus(b);await withButton(b,async()=>{if(!favorites.includes(b.dataset.product))favorites.push(b.dataset.product);localStorage.setItem('martha-parity-favorites',JSON.stringify(favorites));cart=await api('/api/cart/items',{variant_id:b.dataset.moveFavorite,quantity:0},'PATCH');await refreshCart();renderCart();if($('#mini-bag')?.open)miniBag();updateHearts();focus();notify('Prenda guardada en favoritos y retirada de tu bolsa.');});return;}
     if (b.matches('[data-remove-item]')) { const focus=cartActionFocus(b);await withButton(b,async()=>{cart=await api('/api/cart/items',{variant_id:b.dataset.removeItem,quantity:0},'PATCH'); await refreshCart(); renderCart();if($('#mini-bag')?.open)miniBag();focus();notify('Prenda retirada de tu bolsa.');}); return; }
     if (b.matches('[data-checkout-back]')) { renderCheckout(b.dataset.checkoutBack,true); return; }

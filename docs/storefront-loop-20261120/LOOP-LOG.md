@@ -143,3 +143,29 @@ Limits: a click within ~50 ms of Esc lands on the modal backdrop and does not re
 - Next: EN meta descriptions, then B3 micro-interactions, then B5 polish.
 - CI on `81b8cc8`: Recovered demo CI, Backend synthetic slice, SAVIA Azure hub, Bug proof and Progress digest pass. SAVIA judge failed: `tests/browser-mock-validation.mjs` asserted exactly 47 public pages; P4 added `404.html` (48).
 - Fix: the test now compares `dist/*.html` with `tests/site-pages.json`, the same list `verify_release_snapshot` uses. Local run with Playwright: 50 passed, 0 failed, the 404 page mounts without errors.
+
+## 2026-11-20 P9 (B3 micro-interactions) accepted, P10a (CSS dedup) accepted
+
+- Builders: Sonnet 5.5 high, worktrees from `2ad4713`. P10 stopped at the usage limit after P10a; P10b (audited fixes, EN head meta) not done.
+- P10a: `styles.css` 136,879 → 86,427 B. Judge proof: result equals the original minus exactly lines 3–15, 17–50, 52–59, 263–415; each block is byte-identical to its later copy (419–431, 433–466, 468–475, 571–723), so the later copy already won the cascade. The runtime computed-style diff was not run.
+- P9: press scale .98, "Agregada"/"Added" + check for 1.5 s with fixed width, bag bump 1.2 on increase only, favorite pop, toast enter/leave, size underline `scaleX`, error fade. JS 513,442 B (+1,792).
+- Judge edits on P9: restored the `.button` background/color hover fade that P9 had removed (D-030).
+- New judge check `micro` in `tests/storefront_scorecard/slices.py` (MANIFEST updated): transform/opacity only, ≤ 300 ms from `getAnimations()`, added-state timeline and width, bag bump only on increase, favorite, toast by visible state, size, errors without shake, no stuck animation after 5 rapid clicks, no layout shift from feedback targets, reduced motion = 0 animations with states intact, double-click = one line. On `2ad4713` it fails (no B3); on P10a+P9 it passes twice in a row.
+- Checks on `2ad4713`+P10a+P9: prepare 0; 7 codemods `--check` 0; pins 0; snapshot only "Publication bytes differ" (needs `--record` at commit); localization-runtime, frontend-runtime, desktop-gallery, static_headers 0; slices grid, footer, title, pill, transition, loader, seo, micro true; scorecard purchase 4/4, axe 0, enSpanish 0, priceBad 0, console 0/0, overflow none, 404 ×4; asset-audit and catalog-staging exit 1 (known WinError 1314).
+- Not tested: real iPhone Safari; checkout field-error fade and `.plp-sizes` underline in a real browser (CSS present).
+- Next: P10b (audited fixes + EN head meta), then a commit with Jason's approval.
+
+## 2026-11-20 P10b (B5 polish) partly accepted
+
+- Accepted: the `// B5` block in `build-inputs/static/locale-en.js`, with 4 EN meta descriptions (ayuda, catálogo, inicio, novias-encaje). The builder reports 219/219 meta strings translate in EN.
+- Rejected: the 44 px touch-target block (`@media(max-width:1023px)`). At 390 px it changes the layout: ayuda help-navigation 58→104 px, catálogo grid-views 70→129 px wide, tabs 33→44 px, page heights +35 to +103 px. D-030 forbids composition changes. Side-by-side evidence was kept outside the repo.
+- WCAG 2.5.8 AA asks for 24×24 px; 44 px is AAA or Apple guidance. Proposal for Jason: grow hit areas without layout change, such as a transparent pseudo-element with negative inset, checked per control for overlap.
+
+## 2026-11-20 Checkpoint commit to Tony (P9, P10a, P10b meta)
+
+- Jason approved the commit and push to `Tony` ("Dale"). Deploy is not approved.
+- `python tools/verify_release_snapshot.py --record`, then verify: PASS.
+- Final tree judge: slices grid, footer, title, pill, transition, loader, seo, micro all true; scorecard purchase 4/4, axe 0, enSpanish 0, priceBad 0, console 0/0, overflow none, 404 ×4, CSS 90,066 B per page.
+- `python tests/check.py`: exit 1 only at asset-audit (3) and catalog-staging (2) `WinError 1314` symlink errors; all other stages 0.
+- Not tested: real iPhone Safari; P10a runtime computed-style diff.
+- Next: Jason decides on layout-neutral touch targets; domain, real catalog, deploy and payments stay pending.

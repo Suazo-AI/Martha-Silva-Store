@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-21T03:41:55.444222+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "build-inputs/static/locale-en.js",
+      "change": "M",
+      "git_blob": "4035a04fb36440782e28aac47962a322e5a1ade8"
+    },
+    {
+      "path": "build-inputs/static/styles.css",
+      "change": "M",
+      "git_blob": "b9f5dda2a2cc4e3cebfcbcd4827fe9d4cda4359f"
+    },
+    {
+      "path": "dist/app.js",
+      "change": "M",
+      "git_blob": "535c157da5c54e22175f44ed6fa88d3fec3c514f"
+    },
+    {
+      "path": "dist/locale-en.js",
+      "change": "M",
+      "git_blob": "4035a04fb36440782e28aac47962a322e5a1ade8"
+    },
+    {
+      "path": "dist/styles.css",
+      "change": "M",
+      "git_blob": "b9f5dda2a2cc4e3cebfcbcd4827fe9d4cda4359f"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/LOOP-LOG.md",
+      "change": "M",
+      "git_blob": "d8a47ddb319e03f6fde4f1c2e67d9d7afc8e1659"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/packets/P10-B5-polish.md",
+      "change": "A",
+      "git_blob": "e274be9b6a2fd4290e11d32012666753c3125f74"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/packets/P9-B3-micro.md",
+      "change": "A",
+      "git_blob": "df9d7dd7d9d8e6fb70edb24395565d12ff78cf5f"
+    },
+    {
+      "path": "evidence/releases/20261105/responsive-runtime-sha256.json",
+      "change": "M",
+      "git_blob": "78183f7db2a0b56152cd61d56d2089cb119637ae"
+    },
+    {
+      "path": "src/app.js",
+      "change": "M",
+      "git_blob": "535c157da5c54e22175f44ed6fa88d3fec3c514f"
+    },
+    {
+      "path": "tests/frontend-runtime.cjs",
+      "change": "M",
+      "git_blob": "8c1aa6f296c80eb160e91d9b70ee97b9ac2a310d"
+    },
+    {
+      "path": "tests/storefront_scorecard/MANIFEST.sha256",
+      "change": "M",
+      "git_blob": "bff293f05b3d92077377b7be99c146186e42b4d8"
+    },
+    {
+      "path": "tests/storefront_scorecard/slices.py",
+      "change": "M",
+      "git_blob": "5ee33e28b877327f652f8d67da65bfff1d67f9ca"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

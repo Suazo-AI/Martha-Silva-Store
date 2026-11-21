@@ -12,8 +12,8 @@
     "bytes": 16687
   },
   "app.js": {
-    "sha256": "26785de61418794e404723c337cebf9c034720b962f84eec48fa58278e41afcb",
-    "bytes": 109727
+    "sha256": "ba52b1391ecd6f40ef3b3219ddd296cf6729fbafcbe894a1184624c5f4fd5122",
+    "bytes": 111461
   },
   "assets/missing.svg": {
     "sha256": "d554c87f8dbda28d8a3aa567e19290c0ff9845c1b459f72e35c62535e1f41428",
@@ -912,8 +912,8 @@
     "bytes": 3472
   },
   "locale-en.js": {
-    "sha256": "231ddd68456270ed975ac9cff22a073e7e58d51301400091f39cd1bf4f81312f",
-    "bytes": 34007
+    "sha256": "7c4b77df958b54137ae1ca7de612a447910436625681e9941a539fe2fbd28cd6",
+    "bytes": 35083
   },
   "pedido.html": {
     "sha256": "3de3a3f291b76b45c9e15078cbfc619aea6693ba2cbb192726a542b46ddecfa1",
@@ -6232,7 +6232,7 @@
     "bytes": 26
   },
   "styles.css": {
-    "sha256": "3d8030fb63b11d78a055a6037ea038cac97806a423b59824980216aa922468eb",
-    "bytes": 136879
+    "sha256": "216499b98f026e4247a51ebda8e121b805e03b49455a07767f0b8d746aec4fad",
+    "bytes": 88558
   }
 }
