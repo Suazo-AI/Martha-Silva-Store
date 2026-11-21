@@ -169,3 +169,28 @@ Limits: a click within ~50 ms of Esc lands on the modal backdrop and does not re
 - `python tests/check.py`: exit 1 only at asset-audit (3) and catalog-staging (2) `WinError 1314` symlink errors; all other stages 0.
 - Not tested: real iPhone Safari; P10a runtime computed-style diff.
 - Next: Jason decides on layout-neutral touch targets; domain, real catalog, deploy and payments stay pending.
+
+## 2026-11-20 Deploy of `9845c83` to `martha-silva-preview` (D-030 destination)
+
+- Jason approved the deploy ("Hace deploy"). Account `66ee81b7eafd0371097df646a80865bd`; the Worker did not exist, so the deploy created it.
+- URL: https://martha-silva-preview.jason-suazof.workers.dev. Version `792ad3bf-8688-4257-9739-41c50ca828e6`. Wrangler 4.158.0, `wrangler.jsonc` unchanged, `dist` equal to commit `9845c83` (1,560 files, all tracked).
+- Readback: all 48 pages, all 23 code/text files and 120 random media files return 200 with the same SHA-256 as `dist`. Headers: CSP, `nosniff`, `Referrer-Policy`, `X-Robots-Tag: noindex, nofollow`.
+- Browser (agent-browser, 390 px): home, catálogo and producto-negro render with correct titles and H1, no horizontal overflow, no console errors. EN meta description translates.
+- The original Worker `martha-silva-demo` is unchanged: version `77bffec9-e5bc-4f56-9596-6c5b4057463f` before and after, home 200 with 311,230 B.
+- Known gap: a missing URL returns 404 with an empty body, because `not_found_handling` is `none`; `dist/404.html` is not served.
+- Rollback: later versions use `wrangler rollback`. Removing this first version needs `wrangler delete --name martha-silva-preview`, with Jason's approval.
+- Not tested live: full purchase flow, iPhone Safari, Lighthouse.
+
+## 2026-11-21 Photo-crop fix (heads and shoes) and 404 page
+
+- Report from Jason (iPhone, `producto-rosa-empolvado-pedreria`): the model's head was cut at the top of the gallery.
+- Cause: 8 front photos are 2:3 (1024×1536); the 3:4 `object-fit:cover` frames hide 11.1 % of their height. A centered crop cut heads in the phone gallery, cards and category tiles.
+- Site-wide audit (agent-browser, all public pages × 390/768/1440, 4,661 cover images, 0 errors) found no other body crop, except the home hero `ho-m` at 1440 (see open decision).
+- Fix in `build-inputs/static/styles.css`: head-safe default `object-position:50% 0` for gallery ≤1023, cards and tiles; then one focal rule per photo, `img[src*="/<slug>/01-front"]`, set from measured head-top and shoe positions. The rules match the image in every context (gallery, cards, tiles, thumbnails, bag, mega menu, page transition).
+- Fresh-cache audit after the fix: no head cut in 46 photo × context × width combinations. Trimmed: blanco-perlado train 6.3 %, rosa-empolvado hem 5.8 % (gown only), rojo shoe sole 0.7 %.
+- Desktop mega menu (hidden until hover, not in the audit) shows rosa in a 280×360 (7:9) frame: computed from the rule, top crop 3.0 % (head starts at 3.3 %), bottom 11.3 % (gown only).
+- Visual check at 390 px: rosa gallery, home cards (negro, azul-gris), catálogo cards (rosa, gris-perla) show complete heads and shoes.
+- `wrangler.jsonc`: `not_found_handling` `none` → `404-page` (Jason approved), so Cloudflare serves `dist/404.html` with status 404; `tests/test_deployment.py` updated to match.
+- Checks: slices grid, footer, title, pill, transition, loader, seo, micro all true; scorecard purchase 4/4, axe 0, enSpanish 0, priceBad 0, console 0/0, overflow none, 404 ×4, CSS 91,168 B; localization-runtime, frontend-runtime, desktop-gallery, static_headers, pin_page_hashes `--check`, `tests.test_deployment` 0; `tests/check.py` exit 1 only at asset-audit `WinError 1314` (known symlink privilege).
+- Judge: Claude Sonnet subagent, ACCEPT (OpenCode DeepSeek free route failed: usage limit). Not measured: thumbnails, cart lines and bag drawer (same per-photo rule by `src`), widths other than 390/768/1440.
+- Open decision for Jason: the home hero at 1440 shows a 720×713 cover frame; on negro, champagne and novia-satinada it hides 22.6 % at the bottom (shins and shoes). The full figure cannot fit without a layout change or new art (D-030).

@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-21T07:15:50.715666+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "build-inputs/static/styles.css",
+      "change": "M",
+      "git_blob": "7f586ce8aa811e34f891ecb7bb4b4f7d49322dba"
+    },
+    {
+      "path": "dist/styles.css",
+      "change": "M",
+      "git_blob": "7f586ce8aa811e34f891ecb7bb4b4f7d49322dba"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/LOOP-LOG.md",
+      "change": "M",
+      "git_blob": "76bb390e2342e400fb46ffb4197b243bd3bb83ea"
+    },
+    {
+      "path": "docs/storefront-loop-20261120/STATE.md",
+      "change": "M",
+      "git_blob": "34f6b9fd0f1101167ec588bab320d6d88216df18"
+    },
+    {
+      "path": "evidence/releases/20261105/responsive-runtime-sha256.json",
+      "change": "M",
+      "git_blob": "bb1fabb17be5e76684ca48f68382096db35af8a6"
+    },
+    {
+      "path": "tests/test_deployment.py",
+      "change": "M",
+      "git_blob": "6915573aedda0763e21aa17f39f2acafc303b102"
+    },
+    {
+      "path": "wrangler.jsonc",
+      "change": "M",
+      "git_blob": "86086931600a9b8eb101afc159bff0def5b788b3"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

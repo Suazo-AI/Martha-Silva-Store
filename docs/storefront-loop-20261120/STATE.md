@@ -27,7 +27,7 @@ Next action: judge P1 when it returns; then P2 (A6 price), then P3 (A7 404 + A8 
 - Judge scorecard (000..003): axe 0 violations, enSpanish 0, priceBad 0, console 0/0, purchase 4/4, real 404 page (status 404, h1, no axe issues), JS 557,335 B/10 files -> 495,038 B/8, CSS 3 -> 2 files, 48 pages, 1,558 public files, stages as baseline.
 - Patch `patches/003-P3-A7-A8.patch` SHA256 c8d1b53ebedc9337249ac988ff64d8cc1b76dac1986cf69b53ea8d26d336013f; applied uncommitted; dist vendor files deleted; champion `scorecards/003-P3.json`.
 - Page bytes now pinned by `tests/page-hashes.json` (`tools/pin_page_hashes.py --check`).
-- Open for Jason: `wrangler.jsonc` not_found_handling is `none`, so Cloudflare will not serve 404.html until set to `404-page` (deploy config, not touched). `tools/verify_release_snapshot.py` compares with frozen release-20261105 bytes and fails since P1; a new release needs a new snapshot.
+- Resolved 2026-11-21: `wrangler.jsonc` not_found_handling is `404-page` (Jason approved), so Cloudflare serves `dist/404.html` with status 404. `tools/verify_release_snapshot.py` compares with frozen release-20261105 bytes; record a new snapshot at each commit.
 - Next: B0 spec page (motion intake of the 8 Osmo videos, SEO, brand list unconfirmed), then stop for Jason's approval.
 
 ## Update: B0 shown to Jason; Track B waits for his approval of B0-SPEC.html decisions.

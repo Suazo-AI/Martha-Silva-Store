@@ -599,3 +599,17 @@ html.ms-loading .ms-loader{position:fixed;inset:0;z-index:var(--z-loader);displa
 .toast.visible{opacity:1;transition:none;animation:b3-toast var(--ms-micro-slide) var(--ms-micro-ease)}
 .error:not([hidden]),.field-error:not([hidden]),[data-error]:not([hidden]),[data-product-error]:not([hidden]){animation:b3-fade var(--ms-micro-fade) var(--ms-micro-ease)}
 @media(prefers-reduced-motion:reduce){.button,.plp-quick,.plp-sizes button,.size-option>span,.size-option>span::after,.plp-sizes button::after,.toast{transition:none}.toast.visible,[data-add][data-state=added] svg,.error:not([hidden]),.field-error:not([hidden]),[data-error]:not([hidden]),[data-product-error]:not([hidden]){animation:none}}
+
+/* Tall 2:3 product photos in the 3:4 phone/tablet gallery frame: crop the floor, never the head. */
+@media(max-width:1023px){.gallery-photo img,.gallery-clone img{object-position:50% 0}}
+/* Same rule for catalog cards and category tiles; 3:4 and wider photos are unaffected (no vertical crop). */
+.product-image img,.category-tile img{object-position:50% 0}
+/* Per-photo focal points for the eight 2:3 front photos: keep head and shoes inside every 3:4 cover frame (cards, tiles, gallery, thumbnails, bag, mega menu). */
+img[src*="/azul-gris-un-hombro/01-front"]{object-position:50% 31%}
+img[src*="/blanco-perlado-sirena/01-front"]{object-position:50% 21%}
+img[src*="/gris-perla-hombros/01-front"]{object-position:50% 18%}
+img[src*="/negro-brillo-pantalon-amplio/01-front"]{object-position:50% 22%}
+img[src*="/rojo-tirantes-falda-amplia/01-front"]{object-position:50% 58%}
+img[src*="/rosa-empolvado-pedreria/01-front"]{object-position:50% 21%}
+img[src*="/verde-brillo-cuello-cruzado/01-front"]{object-position:50% 47%}
+img[src*="/verde-esmeralda-tirantes-cruzados/01-front"]{object-position:50% 10%}

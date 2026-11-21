@@ -193,7 +193,7 @@ class DeploymentTests(unittest.TestCase):
     def test_only_new_static_worker(self):
         config = json.loads((ROOT / 'wrangler.jsonc').read_text())
         self.assertEqual(config['name'], 'martha-silva-preview')
-        self.assertEqual(config['assets'], {'directory': './dist', 'html_handling': 'auto-trailing-slash', 'not_found_handling': 'none'})
+        self.assertEqual(config['assets'], {'directory': './dist', 'html_handling': 'auto-trailing-slash', 'not_found_handling': '404-page'})
         self.assertFalse(set(config) & {'main', 'routes', 'route', 'account_id', 'kv_namespaces', 'd1_databases'})
         package = json.loads((ROOT / 'package.json').read_text())
         self.assertEqual(package['devDependencies']['wrangler'], '4.158.0')
