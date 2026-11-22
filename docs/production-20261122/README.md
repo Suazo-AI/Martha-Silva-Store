@@ -12,7 +12,7 @@ States: `verified`, `running`, `pending`, `blocked (input)`.
 
 | ID | Check | Pass condition | State |
 | --- | --- | --- | --- |
-| H1 | Hub runs Tony HEAD on Azure | `/health/ready` 200; image tag equals the commit; ledger holds V001-V035; rollback revision named | verified 2026-11-22: revision `ca-savia-api--g37b6c06-1` at 100%, image `savia-api:37b6c06e`, job `caj-savia-migrate-ouaaz51` applied V031-V035 (ledger 35), rollback `ca-savia-api--0000001`, database copy `savia-premig-37b6c06e-1` |
+| H1 | Hub runs Tony HEAD on Azure | `/health/ready` 200; image tag equals the commit; ledger holds V001-V035; rollback revision named | verified 2026-11-22: revision `ca-savia-api--g996465b-1` at 100%, image `savia-api:996465b3`, job `caj-savia-migrate-r974w1f` applied V036-V051, rollback `ca-savia-api--g37b6c06-1`, copy `savia-premig-996465b3-1` |
 | H2 | Restricted API identity runs sync on Azure SQL | a sync round as the managed identity returns 200 | pending: the migrator logged `API host permissions ensured for user id-savia-api-bukmlt`; a real round needs a node credential (S7). Without one, `POST /sync/v1/push` returns 401 |
 | H3 | Telemetry reaches Application Insights | one request visible in the workspace | verified 2026-11-22: 18 `AppRequests` and 9 `AppDependencies` in `log-savia-bukmlt` within 30 minutes of the deploy |
 | S1 | Recovery lock (G6) | rehearsal `restore_sale_before_rebuild` PASS, not XFAIL | verified 2026-11-22 (V036): rehearsal as the restricted login 6 of 6 PASS; [evidence](../../savia/docs/evidence/sync-correctness-20261122/README.md). Open: returns and credit transfers are not locked yet; no rebuild progress display |
@@ -27,13 +27,13 @@ States: `verified`, `running`, `pending`, `blocked (input)`.
 | P2 | KPI business report | p95 under 1 s on the A-10 data set | partial (V040): p95 1.9-2.4 s, was 6.5-10 s; needs a daily summary |
 | P3 | Search | p95 under 300 ms on the A-10 data set | verified 2026-11-22 (V041): p95 158 ms |
 | P4 | Catalog and stock lists are paged | no screen response above 1 MB | verified 2026-11-22 (V042): largest page 162 KB |
-| W1 | Public catalog comes from the hub | storefront reads products, prices and stock through a public read API | pending |
-| W2 | A real order is stored | browser to API to SQL: order row, stock reservation, idempotent retry | pending |
+| W1 | Public catalog comes from the hub | storefront reads products, prices and stock through a public read API | built and proven locally in a real browser (`72e60da3`, [transcript](storefront-evidence/TRANSCRIPT.md)); the hub route answers on Azure; the deployed storefront is still in demo mode |
+| W2 | A real order is stored | browser to API to SQL: order row, stock reservation, idempotent retry | verified locally 2026-11-22: real browser to local hub to SQL, double click gives one order, last-unit race gives one order; not yet on the deployed pair |
 | W3 | Public API is safe | rate limit, input validation, CORS allow-list, no staff route reachable without sign-in | verified locally 2026-11-22 (.NET tests for 429, 413, 400, 403, CORS, 404 on a branch); not yet on Azure; real Turnstile not run |
 | W4 | Payment | card payment through a provider, with a verified webhook | blocked (input): merchant account |
 | W5 | Order notification | the store team sees a new order in SAVIA | built (hub staff screen, web tests); not yet seen in a real browser |
 | W6 | Storefront deployed | Cloudflare deploy from a clean commit; version id, SHA and rollback recorded | pending |
-| W7 | Storefront quality | Lighthouse performance, accessibility, best practices and SEO at 90 or more on mobile; security headers present | pending |
+| W7 | Storefront quality | Lighthouse performance, accessibility, best practices and SEO at 90 or more on mobile; security headers present | partial: axe 0 on 6 pages, accessibility 100, best practices 96; performance home 61, product 67, catalog 85, checkout 87; SEO 63-66 while `indexable` is false |
 | W8 | Real catalog | real products, prices, photos and stock | blocked (input): the store's data |
 | W9 | Legal and contact | business name, phone, address, terms, privacy, returns | blocked (input): business details |
 | W10 | Domain | custom domain with TLS | blocked (input): domain |

@@ -174,6 +174,11 @@ Fix: V036 now creates the view `sync.CurrentFork` with one definition per engine
 On Azure the fork is derived from the database creation time and broker id. Not verified: that this value changes after a point-in-time restore.
 Dry run on the copy `savia-premig-fcf14a42-1` with image `savia-migrator:dryrun-v036fix-1`, execution `caj-savia-migrate-lv0azj5`: V036 to V051 applied, ledger complete (47 versions).
 Rule: before a production migration, run the migrator against the pre-migration copy first. Test `db/tests/sync/260` fails if another module reads the system view.
+Fifth Azure run, 2026-11-22, commit `996465b3` (CI run 45026434478 green): copy `savia-premig-996465b3-1`; job `caj-savia-migrate-r974w1f` succeeded and applied V036 to V051.
+Revision `ca-savia-api--g996465b-1` passed `smoke.ps1` at 0% traffic, then took 100%; `smoke.ps1` PASS on the app URL.
+Read back on the live URL: `/health/ready` 200; `GET /api/v1/public/catalog` 200 with an empty list (no web stock consigned); `POST /api/v1/public/orders` with no lines 400 `validation`; `/api/v1/web-orders` without sign-in 401.
+Rollback: `az containerapp ingress traffic set -n ca-savia-api -g rg-savia-prod --revision-weight ca-savia-api--g37b6c06-1=100`; V036 to V051 are additive.
+Public orders stay closed in practice: no CORS origin and no Turnstile secret are configured, and the bot check fails closed.
 P2: `AddSaviaTelemetry` calls `UseAzureMonitor` only when `APPLICATIONINSIGHTS_CONNECTION_STRING` is set; with `AZURE_CLIENT_ID` it signs in as that identity.
 `Azure.Monitor.OpenTelemetry.AspNetCore` 1.6.0 needs `Azure.Identity` 1.21.0 in the API: older Azure.Identity clashes with Azure.Core 1.60 on `ManagedIdentityCredential`.
 1.4.0 avoids the bump but pulls `OpenTelemetry.Api` 1.14.0 (GHSA-g94r-2vxg-569j). The managed-identity export is not tested until it runs on Azure.
