@@ -76,7 +76,7 @@ public sealed class SyncWorker(IServiceProvider services, IConfiguration config,
         }
         var interval = TimeSpan.FromSeconds(Math.Max(5, seconds));
         using var http = new HttpClient { BaseAddress = hubUri, Timeout = TimeSpan.FromMinutes(5) };
-        var round = new BranchSync(services.GetRequiredService<ISyncStore>(), new HttpSyncHub(http, node.NodeId, secret), node);
+        var round = new BranchSync(services.GetRequiredService<ISyncStore>(), new HttpSyncHub(http, node.NodeId, secret), node, status);
         status.Enable();
         while (!stoppingToken.IsCancellationRequested)
         {

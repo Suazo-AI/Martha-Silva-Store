@@ -7,27 +7,27 @@
   "path": "tools/rehearsal/expected/reference_data.json",
   "sha256": "1a48b99cf6429f9541c64d9daffaaa0bd139556a6a2f7f2dedb89103b1c92925"
  },
- "seconds_total": 169.3,
+ "seconds_total": 83.2,
  "phases": [
   {
    "phase": "setup: 4 databases, node credentials, staff passwords, seed stock",
-   "seconds": 114.2
+   "seconds": 31.8
   },
   {
    "phase": "start hub and 3 store hosts",
-   "seconds": 6.5
+   "seconds": 6.1
   },
   {
    "phase": "open tills over HTTP",
-   "seconds": 2.8
+   "seconds": 2.1
   },
   {
    "phase": "first convergence",
-   "seconds": 20.0
+   "seconds": 20.8
   },
   {
    "phase": "A cut off; A registers a customer (sql:no-http-route) and sells to it (HTTP)",
-   "seconds": 0.8
+   "seconds": 0.9
   },
   {
    "phase": "hub owner changes the item price (HTTP)",
@@ -39,50 +39,50 @@
   },
   {
    "phase": "converge customer, sale and price",
-   "seconds": 13.0
+   "seconds": 12.8
   },
   {
    "phase": "customer, its sale and the hub price on every node; no foreign key refusal",
-   "seconds": 2.1
+   "seconds": 1.9
   },
   {
    "phase": "checks",
-   "seconds": 8.7
+   "seconds": 5.3
   }
  ],
  "events": [
   {
-   "t": 121.6,
+   "t": 38.6,
    "event": "open till a",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 122.2,
+   "t": 39.3,
    "event": "open till b",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 123.5,
+   "t": 40.0,
    "event": "open till c",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 144.0,
+   "t": 61.3,
    "event": "customer registered at A (sql:no-http-route)",
    "customer": "5E4D0000-0000-4000-8000-00000000C001"
   },
   {
-   "t": 144.3,
+   "t": 61.7,
    "event": "sale n1 at a",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 157.6,
-   "event": "converge customer, sale and price: converged in 13.0s",
+   "t": 74.8,
+   "event": "converge customer, sale and price: converged in 12.8s",
    "differing": []
   }
  ],
@@ -214,7 +214,7 @@
  },
  "sync_rounds_from_host_logs": {
   "a": {
-   "successful_rounds": 8,
+   "successful_rounds": 7,
    "rebuilt_rounds": 0,
    "not_successful": 0,
    "distinct_warnings": [],
@@ -237,24 +237,24 @@
  },
  "hub_exchanges_seen_by_proxies": {
   "a": {
-   "/sync/v1/push/plan 200": 16,
-   "/sync/v1/state 200": 8,
-   "/sync/v1/pull 200": 8,
-   "/sync/v1/push 200": 8
+   "/sync/v1/push/plan 200": 14,
+   "/sync/v1/state 200": 7,
+   "/sync/v1/pull 200": 7,
+   "/sync/v1/push 200": 7
   },
   "b": {
-   "/sync/v1/push/plan 200": 16,
-   "/sync/v1/state 200": 8,
-   "/sync/v1/pull 200": 8,
+   "/sync/v1/push/plan 200": 14,
+   "/sync/v1/state 200": 7,
+   "/sync/v1/pull 200": 7,
    "/sync/v1/push 200": 7
   },
   "c": {
-   "/sync/v1/push/plan 200": 15,
-   "/sync/v1/state 200": 8,
-   "/sync/v1/pull 200": 8,
+   "/sync/v1/push/plan 200": 14,
+   "/sync/v1/state 200": 7,
+   "/sync/v1/pull 200": 7,
    "/sync/v1/push 200": 7
   }
  },
  "hub_rounds_log_errors": [],
- "host_logs": ".out/rehearsal/runs/20261122-092936-reference_data"
+ "host_logs": ".out/rehearsal/runs/20261122-142822-reference_data"
 }

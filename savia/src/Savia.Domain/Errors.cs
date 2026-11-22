@@ -16,9 +16,13 @@ public static class Errors
     public static readonly SaviaError Unauthorized = new("auth.required", ErrorKind.Unauthorized, "Inicie sesión.");
     public static readonly SaviaError NodeUnauthorized = new("sync.unauthorized", ErrorKind.Unauthorized, "Nodo no autenticado.");
     public static readonly SaviaError SyncMalformed = new("sync.malformed", ErrorKind.Validation, "Mensaje de sincronización inválido.");
+    public static readonly SaviaError SyncStalled = new("sync.page_stalled", ErrorKind.Conflict,
+        "Sincronización detenida: el destino no aplicó la página.");
     public static readonly SaviaError BadCredentials = new("auth.bad_credentials", ErrorKind.Unauthorized, "Usuario o contraseña incorrectos.");
     public static readonly SaviaError RoleRequired = new("auth.role_required", ErrorKind.Forbidden, "Su rol no permite esta operación.");
     public static readonly SaviaError BranchAccess = new("auth.branch_access", ErrorKind.Forbidden, "No tiene acceso a esta sucursal.");
+    public static readonly SaviaError CatalogManagedByHub = new("catalog.managed_by_hub", ErrorKind.Conflict,
+        "El catálogo se gestiona en la central.");
     public static readonly SaviaError WrongNode = new("node.wrong_kind", ErrorKind.NotFound, "Esta operación no existe en este nodo.");
 
     public static SaviaException Invalid(string code, string message) => new(new SaviaError(code, ErrorKind.Validation, message));

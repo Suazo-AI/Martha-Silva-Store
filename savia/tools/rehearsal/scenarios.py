@@ -31,6 +31,7 @@ class Run:
         self.returns = {r["key"]: r for r in self.m.get("returns", [])}
         self.transfers = {t["key"]: t for t in self.m.get("transfers", [])}
         self.till, self.t0 = {}, time.time()
+        self.items = {}  # barcode -> item id, for items a scenario creates at run time (hub_catalog)
         self.verdict, self.reason = None, ""
 
     # ---------- bookkeeping
@@ -96,7 +97,8 @@ class Run:
                 d["creditId"] = self.returns[t["credit"]]["creditId"]
             tenders.append(d)
         body = {"saleId": s["saleId"], "tillId": self.till.get(store, self.tills(store)[0]), "currencyCode": "NIO",
-                "lines": [{"lineNumber": 1, "itemId": self.c.ids["item"], "quantity": s["qty"],
+                "lines": [{"lineNumber": 1, "itemId": self.items[s["barcode"]] if s.get("barcode") else self.c.ids["item"],
+                           "quantity": s["qty"],
                            "unitPriceMinor": s.get("price", 120000)}],
                 "tenders": tenders}
         if s.get("customerId") or s.get("customer"):
@@ -508,6 +510,68 @@ def schema_skew(r):
     return r.finish(ok)
 
 
+def hub_catalog(r):
+    """D-039 (S9): the hub imports the catalog with no stock; stores only read it; stock enters a store by receiving."""
+    r.bring_up()
+    imp, rec, hub = r.m["import"], r.m["receipt"], r.c.hosts["cloud"].base
+    codes = [row["code"] for row in imp["rows"]]
+    quoted = ",".join(f"N'{c}'" for c in codes)
+    with r.phase("hub owner previews and imports 3 items (HTTP)"):
+        owner = r.c.login("cloud", "t_manager")
+        request = {"batchId": imp["batchId"], "fileName": "ensayo-central.csv", "rows": imp["rows"]}
+        status, body = h.call(hub, "POST", "/api/v1/catalog/import/preview", request, owner)
+        r.control("hub preview has no errors", status == 200 and body.get("errorCount") == 0, "200 errorCount 0",
+                  f"{status} {body.get('errorCount') if isinstance(body, dict) else _code(body)}")
+        status, body = h.call(hub, "POST", "/api/v1/catalog/import", request, owner)
+        got = (body.get("itemsCreated"), body.get("unitsAdded")) if isinstance(body, dict) else _code(body)
+        r.control("hub import creates 3 items and no stock", status == 200 and got == (3, 0), "200 (3, 0)", f"{status} {got}")
+    ok = r.converge("converge the imported catalog")
+    with r.phase("every node holds the 3 items and their barcodes, with no stock"):
+        for n in h.NODES:
+            got = r.c.sql.fetch(n, f"SET @out=(SELECT COUNT(*) AS i,(SELECT COUNT(*) FROM inventory.StockBalances b "
+                                   f"JOIN catalog.ItemIdentifiers x ON x.ItemId=b.ItemId WHERE x.RawCode IN ({quoted})) AS s "
+                                   f"FROM catalog.ItemIdentifiers WHERE RawCode IN ({quoted}) FOR JSON PATH, WITHOUT_ARRAY_WRAPPER);")
+            r.control(f"{n} holds 3 imported items and no stock for them", got == {"i": 3, "s": 0}, {"i": 3, "s": 0}, got)
+        item = r.c.sql.fetch("a", f"SET @out=(SELECT ItemId AS i FROM catalog.ItemIdentifiers WHERE RawCode=N'{rec['code']}' "
+                                  f"FOR JSON PATH, WITHOUT_ARRAY_WRAPPER);")["i"].upper()
+        r.items[rec["code"]] = item
+    with r.phase(f"A receives {rec['units']} units of {rec['code']} by scanning (HTTP), then sells 1"):
+        base, cashier, sup = r.c.hosts["a"].base, r.c.token("a"), r.c.token("a", "super")
+        session = rec["sessionId"]
+        steps = [
+            ("open", h.call(base, "POST", "/api/v1/receiving/sessions",
+                            {"containerId": rec["containerId"], "scanSessionId": session, "reference": "ENSAYO-CENTRAL",
+                             "supplierId": r.c.ids["supplier"]}, cashier)),
+            ("scan", h.call(base, "POST", f"/api/v1/receiving/sessions/{session}/scans",
+                            {"scanId": rec["scanId"], "rawCode": rec["code"], "quantity": rec["units"]}, cashier)),
+            ("approve", h.call(base, "POST", f"/api/v1/receiving/sessions/{session}/approve", None, sup)),
+            ("post", h.call(base, "POST", f"/api/v1/receiving/sessions/{session}/post", None, sup)),
+        ]
+        bad = [f"{name} {st} {_code(b)}" for name, (st, b) in steps if st not in (200, 201, 204)]
+        r.control("A receives the hub item over HTTP", not bad, "open, scan, approve, post ok", bad or "ok")
+        r.sale("i1")
+    with r.phase("a catalog write on store B is refused by name; B's screens know the catalog is central"):
+        sup_b = r.c.token("b", "super")
+        status, body = h.call(r.c.hosts["b"].base, "POST", f"/api/v1/catalog/items/{item}/values",
+                              {"changeId": "5E4E0000-0000-4000-8000-00000000F001", "priceMinor": 1, "costMinor": 1,
+                               "reason": "Ensayo: precio en tienda"}, sup_b)
+        r.control("store B price write refused", status == 409 and _code(body) == "catalog.managed_by_hub",
+                  "409 catalog.managed_by_hub", f"{status} {_code(body)}")
+        status, body = h.call(r.c.hosts["b"].base, "GET", "/api/v1/me", token=sup_b)
+        r.control("store B /me says the catalog is managed by the hub",
+                  status == 200 and isinstance(body, dict) and body.get("catalogManagedByHub") is True,
+                  "200 catalogManagedByHub true", f"{status} {body.get('catalogManagedByHub') if isinstance(body, dict) else ''}")
+    ok = r.converge("converge the receipt and the sale") and ok
+    with r.phase("A's receipt and sale reach every node: 4 units at A, none elsewhere"):
+        want = {"a": rec["units"] - 1}
+        for n in h.NODES:
+            rows = r.c.sql.fetch(n, f"SET @out=(SELECT b.LocationId AS l,SUM(b.OnHand) AS q FROM inventory.StockBalances b "
+                                    f"WHERE b.ItemId='{item}' GROUP BY b.LocationId FOR JSON PATH);") or []
+            got = {s: q["q"] for q in rows for s in h.STORES if q["l"].upper() == r.c.ids["loc" + s.upper()]}
+            r.control(f"{n} holds {want} on hand of the received item", got == want, want, got)
+    return r.finish(ok)
+
+
 def _problem_code(text):
     try:
         return json.loads(text).get("code")
@@ -524,4 +588,5 @@ SCENARIOS = {
     "controls": controls,
     "reference_data": reference_data,
     "schema_skew": schema_skew,
+    "hub_catalog": hub_catalog,
 }

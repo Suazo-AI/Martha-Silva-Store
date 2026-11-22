@@ -3,58 +3,65 @@
  "scenarios": {
   "offline_sales": {
    "verdict": "PASS",
-   "seconds": 173.2,
+   "seconds": 165.6,
    "reason": "",
    "checks_passed": 62,
    "checks_failed": 0
   },
   "replay": {
    "verdict": "PASS",
-   "seconds": 81.1,
+   "seconds": 80.8,
    "reason": "",
    "checks_passed": 46,
    "checks_failed": 0
   },
   "credit_transfer": {
    "verdict": "PASS",
-   "seconds": 202.4,
+   "seconds": 167.8,
    "reason": "",
    "checks_passed": 88,
    "checks_failed": 0
   },
   "restore_sale_before_rebuild": {
    "verdict": "PASS",
-   "seconds": 103.9,
+   "seconds": 108.1,
    "reason": "",
    "checks_passed": 54,
    "checks_failed": 0
   },
   "hub_restart": {
    "verdict": "PASS",
-   "seconds": 97.1,
+   "seconds": 91.9,
    "reason": "",
    "checks_passed": 51,
    "checks_failed": 0
   },
   "controls": {
    "verdict": "PASS",
-   "seconds": 117.1,
+   "seconds": 109.1,
    "reason": "",
    "checks_passed": 51,
    "checks_failed": 0
   },
   "reference_data": {
-   "verdict": "FAIL",
-   "seconds": 78.9,
-   "reason": "control hub owner changes the price (expected 204; actual 404 ); control cloud holds the customer, its sale and the hub price (expected {'c': 1, 's': 1, 'p': 125000}; actual {'c': 1, 's': 1, 'p': 120000}); control a holds the customer, its sale and the hub price (expected {'c': 1, 's': 1, 'p': 125000}; actual {'c': 1, 's': 1, 'p': 120000}); control b holds the customer, its sale and the hub price ",
-   "checks_passed": 37,
-   "checks_failed": 5
+   "verdict": "PASS",
+   "seconds": 83.2,
+   "reason": "",
+   "checks_passed": 42,
+   "checks_failed": 0
   },
   "schema_skew": {
    "verdict": "PASS",
-   "seconds": 93.7,
+   "seconds": 78.5,
    "reason": "",
    "checks_passed": 39,
+   "checks_failed": 0
+  },
+  "hub_catalog": {
+   "verdict": "PASS",
+   "seconds": 91.0,
+   "reason": "",
+   "checks_passed": 49,
    "checks_failed": 0
   }
  }

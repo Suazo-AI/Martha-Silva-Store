@@ -7,103 +7,103 @@
   "path": "tools/rehearsal/expected/replay.json",
   "sha256": "06936c6d50d2ff6a8b4586860a2bff26e2d23487bbffa4e64ef0732a7afeab1e"
  },
- "seconds_total": 81.1,
+ "seconds_total": 80.8,
  "phases": [
   {
    "phase": "setup: 4 databases, node credentials, staff passwords, seed stock",
-   "seconds": 24.4
+   "seconds": 23.9
   },
   {
    "phase": "start hub and 3 store hosts",
-   "seconds": 6.2
+   "seconds": 6.3
   },
   {
    "phase": "open tills over HTTP",
-   "seconds": 1.7
+   "seconds": 1.9
   },
   {
    "phase": "first convergence",
-   "seconds": 19.5
+   "seconds": 20.3
   },
   {
    "phase": "A killed after the hub committed its push, before A hears the answer",
-   "seconds": 7.6
+   "seconds": 7.0
   },
   {
    "phase": "B killed after the hub answered a pull carrying ra2, before B applies it",
-   "seconds": 5.2
+   "seconds": 5.6
   },
   {
    "phase": "converge after restarts",
-   "seconds": 9.1
+   "seconds": 8.9
   },
   {
    "phase": "checks",
-   "seconds": 6.4
+   "seconds": 6.2
   }
  ],
  "events": [
   {
-   "t": 31.2,
+   "t": 30.5,
    "event": "open till a",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 31.8,
+   "t": 31.2,
    "event": "open till b",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 32.2,
+   "t": 32.1,
    "event": "open till c",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 52.0,
+   "t": 52.8,
    "event": "sale ra1 at a",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 57.3,
+   "t": 57.6,
    "event": "kill point reached",
    "fired": true,
    "hub_status": 200
   },
   {
-   "t": 57.8,
+   "t": 58.0,
    "event": "hub holds ra1 while A is dead",
    "count": 1
   },
   {
-   "t": 59.5,
+   "t": 59.6,
    "event": "sale ra2 at a",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 62.4,
+   "t": 63.0,
    "event": "kill point reached",
    "fired": true,
    "hub_status": 200
   },
   {
-   "t": 62.8,
+   "t": 63.3,
    "event": "B does not hold ra2 yet",
    "count": 0
   },
   {
-   "t": 64.5,
+   "t": 65.1,
    "event": "sale rc1 at c",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 73.6,
-   "event": "converge after restarts: converged in 9.1s",
+   "t": 74.0,
+   "event": "converge after restarts: converged in 8.9s",
    "differing": []
   }
  ],
@@ -194,7 +194,7 @@
    "host_starts": 2
   },
   "c": {
-   "successful_rounds": 9,
+   "successful_rounds": 8,
    "rebuilt_rounds": 0,
    "not_successful": 0,
    "distinct_warnings": [],
@@ -217,12 +217,12 @@
    "/sync/v1/pull answer_dropped": 1
   },
   "c": {
-   "/sync/v1/push/plan 200": 18,
-   "/sync/v1/state 200": 9,
-   "/sync/v1/pull 200": 9,
-   "/sync/v1/push 200": 9
+   "/sync/v1/push/plan 200": 16,
+   "/sync/v1/state 200": 8,
+   "/sync/v1/pull 200": 8,
+   "/sync/v1/push 200": 8
   }
  },
  "hub_rounds_log_errors": [],
- "host_logs": ".out/rehearsal/runs/20261122-091148-replay"
+ "host_logs": ".out/rehearsal/runs/20261122-141904-replay"
 }

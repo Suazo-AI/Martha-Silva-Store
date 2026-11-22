@@ -365,3 +365,19 @@ Página de sync: 5 000 filas por tabla y corte al llegar a 20 MB, con llave de r
 Listas de pantalla: 500 filas por página.
 El hub rechaza con un código propio a un nodo cuyo ledger de migraciones no coincide.
 Orden de actualización: primero el hub, con migraciones compatibles con la versión anterior; después las sucursales.
+
+## D-042 — El catálogo se administra en el hub
+
+Fecha: 2026-11-22. Actor: primary. Completa D-039.
+El hub importa y registra artículos, códigos y precios, sin existencias ni ubicación.
+Una sucursal con hub rechaza cambios de catálogo con `catalog.managed_by_hub`; una sucursal sin hub conserva el comportamiento del piloto.
+Las existencias entran solo por recepción en la sucursal.
+En el hub, importar y cambiar precios exige el rol OWNER.
+
+## D-043 — Páginas de sync y reintentos
+
+Fecha: 2026-11-22. Actor: primary. Completa D-041.
+El corte por tamaño es 19 000 000 bytes, para dejar margen bajo el límite de 20 MB.
+El receptor guarda el avance de cada pasada; un proceso nuevo reanuda desde ahí.
+La lectura incremental de una sucursal omite las filas que aplicó desde otro nodo, usando el contexto de change tracking.
+Una migración no está obligada a poder ejecutarse dos veces; V061 lo permite porque el ensayo `schema_skew` la reaplica.

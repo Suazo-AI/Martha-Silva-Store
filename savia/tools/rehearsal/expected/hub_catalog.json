@@ -1,0 +1,92 @@
+{
+ "scenario": "hub_catalog",
+ "claim": "D-039: the hub owner imports 3 items with no stock; every store receives them; store A receives 5 units of one by scanning and sells 1; a catalog write on store B is refused with catalog.managed_by_hub.",
+ "tills": {
+  "a": "5E4E0000-0000-4000-8000-0000000000A0",
+  "b": "5E4E0000-0000-4000-8000-0000000000B0",
+  "c": "5E4E0000-0000-4000-8000-0000000000C0"
+ },
+ "import": {
+  "batchId": "5E4E0000-0000-4000-8000-00000000B001",
+  "rows": [
+   {
+    "row": 2,
+    "code": "7501234567893",
+    "sku": null,
+    "name": "Blusa central",
+    "type": "Blusa",
+    "size": "M",
+    "color": "Azul",
+    "cost": "200",
+    "price": "450",
+    "stock": null
+   },
+   {
+    "row": 3,
+    "code": "7501234567886",
+    "sku": null,
+    "name": "Blusa central",
+    "type": "Blusa",
+    "size": "L",
+    "color": "Azul",
+    "cost": "200",
+    "price": "450",
+    "stock": null
+   },
+   {
+    "row": 4,
+    "code": "HUB-0001",
+    "sku": "HUB-FAL-S",
+    "name": "Falda central",
+    "type": "Falda",
+    "size": "S",
+    "color": "Negro",
+    "cost": "150",
+    "price": "1,250.00",
+    "stock": null
+   }
+  ]
+ },
+ "receipt": {
+  "containerId": "5E4E0000-0000-4000-8000-00000000D001",
+  "sessionId": "5E4E0000-0000-4000-8000-00000000D002",
+  "scanId": "5E4E0000-0000-4000-8000-00000000D003",
+  "code": "HUB-0001",
+  "units": 5
+ },
+ "sales": [
+  {
+   "key": "i1",
+   "store": "a",
+   "saleId": "5E4E0000-0000-4000-8000-000000000001",
+   "barcode": "HUB-0001",
+   "price": 125000,
+   "qty": 1,
+   "tenders": [
+    {
+     "kind": "cash",
+     "amount": 125000
+    }
+   ]
+  }
+ ],
+ "store_totals": {
+  "a": {
+   "count": 1,
+   "totalMinor": 125000
+  },
+  "b": {
+   "count": 0,
+   "totalMinor": 0
+  },
+  "c": {
+   "count": 0,
+   "totalMinor": 0
+  }
+ },
+ "on_hand": {
+  "a": 500,
+  "b": 500,
+  "c": 500
+ }
+}

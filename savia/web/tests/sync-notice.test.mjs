@@ -17,3 +17,12 @@ test('no banner after a round that worked, or when sync is off', () => {
 test('an unknown refusal still shows a banner', () => {
   assert.match(syncNotice({ enabled: true, code: 'sync.failed' }), /sincronización con la central falló/);
 });
+
+test('a rebuild in progress shows tables done of total, also after a failed round', () => {
+  const running = syncNotice({ enabled: true, code: null, rebuild: { done: 12, total: 39 } });
+  assert.match(running, /12 de 39/);
+  assert.match(running, /reconstruye/i);
+  const failed = syncNotice({ enabled: true, code: 'sync.unreachable', rebuild: { done: 12, total: 39 } });
+  assert.match(failed, /No hay conexión con la central/);
+  assert.match(failed, /12 de 39/);
+});

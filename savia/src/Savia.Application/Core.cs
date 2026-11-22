@@ -6,8 +6,12 @@ namespace Savia.Application;
 /// <param name="BranchId">The only branch a Branch node may operate. Null on the cloud node.</param>
 /// <param name="LocationId">Default stock location of a Branch node.</param>
 /// <param name="LocalCatalog">Explicit single-branch pilot exception to cloud catalog ownership. Defaults to false.</param>
-public sealed record NodeContext(NodeKind Kind, Guid NodeId, Guid? BranchId, Guid? LocationId, bool LocalCatalog = false)
+/// <param name="HasHub">This branch syncs with a hub (a hub URL or a node credential is configured).</param>
+public sealed record NodeContext(NodeKind Kind, Guid NodeId, Guid? BranchId, Guid? LocationId, bool LocalCatalog = false,
+    bool HasHub = false)
 {
+    /// <summary>D-039: a store with a hub only reads the catalog; the hub writes it. This wins over LocalCatalog.</summary>
+    public bool CatalogManagedByHub => Kind == NodeKind.Branch && HasHub;
     public Guid RequireBranch() => BranchId ?? throw new SaviaException(Errors.WrongNode);
     public Guid RequireLocation() => LocationId ?? throw new SaviaException(Errors.WrongNode);
 }

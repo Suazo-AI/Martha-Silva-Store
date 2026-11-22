@@ -28,7 +28,7 @@ import harness as h  # noqa: E402
 import scenarios as sc  # noqa: E402
 
 EVIDENCE = h.SAVIA / "docs" / "evidence" / "rehearsal-20261121"
-ORDER = ["offline_sales", "replay", "credit_transfer", "restore_sale_before_rebuild", "hub_restart", "controls", "reference_data", "schema_skew"]
+ORDER = list(sc.SCENARIOS)  # one list: a scenario added to scenarios.py runs in `run all`
 GOOD = {"PASS", "XFAIL"}
 
 

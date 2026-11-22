@@ -21,9 +21,12 @@ public interface ICatalogStore
 /// </summary>
 public interface ICatalogMaintenanceStore
 {
-    Task<JsonElement> ItemValuesAsync(Guid branch, Guid actor, string query, CancellationToken ct);
+    /// <summary>A null branch is the hub, where the owner needs no branch grant.</summary>
+    Task<JsonElement> ItemValuesAsync(Guid? branch, Guid actor, string query, CancellationToken ct);
     Task SetItemValuesAsync(Guid item, ItemValuesRequest request, Guid actor, Guid node, CancellationToken ct);
-    Task<JsonElement> ImportCatalogAsync(Guid branch, Guid location, ImportCatalogRequest request, Guid actor, Guid node, bool commit, CancellationToken ct);
+    /// <summary>A null branch and location is the hub: products, items, barcodes and prices, and no stock.</summary>
+    Task<JsonElement> ImportCatalogAsync(Guid? branch, Guid? location, ImportCatalogRequest request, Guid actor, Guid node, bool commit,
+        CancellationToken ct);
 }
 
 public sealed class CatalogService(ICatalogStore store, ICatalogMaintenanceStore maintenance, NodeContext node)
@@ -59,9 +62,24 @@ public sealed class CatalogService(ICatalogStore store, ICatalogMaintenanceStore
         return HidePrice(actor) ? rows.Select(v => v with { UnitPriceMinor = null }).ToArray() : rows;
     }
 
+    // D-039: a store with a hub refuses catalog writes by name, so its screens can say where the catalog is managed.
+    private void RefuseOnHubStore()
+    {
+        if (node.CatalogManagedByHub) throw new SaviaException(Errors.CatalogManagedByHub);
+    }
+
+    // The hub has no branch, so there only the owner works on prices and imports. A store keeps its branch check.
+    private Guid? CatalogBranch(Actor actor, string[] storeRoles)
+    {
+        if (node.Kind == NodeKind.Branch) return Guard.BranchRole(actor, node, storeRoles);
+        Guard.Role(actor, Roles.OwnerOnly);
+        return null;
+    }
+
     // The catalog has one writer: cloud normally, or this branch during the explicit local pilot.
     private void RequireCatalogWriter(Actor actor)
     {
+        RefuseOnHubStore();
         if (node.Kind == NodeKind.Branch && node.LocalCatalog) Guard.Branch(actor, node);
         else Guard.Kind(node, NodeKind.Cloud);
         Guard.Role(actor, Roles.Approvers);
@@ -84,11 +102,12 @@ public sealed class CatalogService(ICatalogStore store, ICatalogMaintenanceStore
     }
 
     public Task<JsonElement> ItemValuesAsync(Actor actor, string? query, CancellationToken ct) =>
-        maintenance.ItemValuesAsync(Guard.BranchRole(actor, node, Roles.Approvers), actor.StaffId, query?.Trim() ?? "", ct);
+        maintenance.ItemValuesAsync(CatalogBranch(actor, Roles.Approvers), actor.StaffId, query?.Trim() ?? "", ct);
 
     public Task SetItemValuesAsync(Actor actor, Guid item, ItemValuesRequest request, CancellationToken ct)
     {
         // D-039: the hub owns prices; it has no branch, so only the owner role applies there.
+        RefuseOnHubStore();
         if (node.BranchId is not null) Guard.Branch(actor, node);
         Guard.Role(actor, Roles.OwnerOnly);
         Guard.Text(request.Reason, "reason", 250);
@@ -97,7 +116,8 @@ public sealed class CatalogService(ICatalogStore store, ICatalogMaintenanceStore
 
     public ImportFile ParseImport(Actor actor, ImportFileRequest request)
     {
-        Guard.BranchRole(actor, node, Roles.OwnerOnly);
+        RefuseOnHubStore();
+        CatalogBranch(actor, Roles.OwnerOnly);
         Guard.Text(request.FileName, "fileName", 200);
         byte[] content;
         try { content = Convert.FromBase64String(request.ContentBase64 ?? ""); }
@@ -107,10 +127,12 @@ public sealed class CatalogService(ICatalogStore store, ICatalogMaintenanceStore
 
     public Task<JsonElement> ImportCatalogAsync(Actor actor, ImportCatalogRequest request, bool commit, CancellationToken ct)
     {
-        var branch = Guard.BranchRole(actor, node, Roles.OwnerOnly);
+        RefuseOnHubStore();
+        var branch = CatalogBranch(actor, Roles.OwnerOnly);
         Guard.Text(request.FileName, "fileName", 200);
         if (request.Rows is not { Length: > 0 } || request.Rows.Length > CatalogFile.MaxRows)
             throw Errors.Invalid("import.size", $"El archivo debe tener entre 1 y {CatalogFile.MaxRows} filas.");
-        return maintenance.ImportCatalogAsync(branch, node.RequireLocation(), request, actor.StaffId, node.NodeId, commit, ct);
+        var location = branch is null ? (Guid?)null : node.RequireLocation();
+        return maintenance.ImportCatalogAsync(branch, location, request, actor.StaffId, node.NodeId, commit, ct);
     }
 }

@@ -110,8 +110,14 @@ public sealed class SyncHubService(ISyncStore store, NodeContext node)
 /// <summary>What one branch round moved.</summary>
 public sealed record SyncRound(int Pulled, int Pushed, bool Rebuilt);
 
-/// <summary>The branch's last sync round as the till shows it. Code is null after a round that worked.</summary>
-public sealed record SyncStatusView(bool Enabled, DateTimeOffset? LastRoundAt, string? Code, string? Message);
+/// <summary>A rebuild in progress: synced tables finished of all synced tables (D-036, D-041).</summary>
+public sealed record SyncProgress(int Done, int Total);
+
+/// <summary>
+/// The branch's last sync round as the till shows it. Code is null after a round that worked.
+/// Rebuild is set while a rebuild from the hub has pages left, so the recovery message can show how far it got.
+/// </summary>
+public sealed record SyncStatusView(bool Enabled, DateTimeOffset? LastRoundAt, string? Code, string? Message, SyncProgress? Rebuild = null);
 
 /// <summary>
 /// Outcome of the branch's last sync round, so the store sees why its sales are not reaching the hub (D-041: a
@@ -125,17 +131,21 @@ public sealed class SyncStatus
 
     public void Enable() => view = view with { Enabled = true };
 
+    /// <summary>A rebuild page landed. The progress stays until a round ends without error: the pass survives a failed round.</summary>
+    public void Rebuilding(SyncProgress progress) => view = view with { Enabled = true, Rebuild = progress };
+
     public void Record(DateTimeOffset at, string? code = null, string? message = null) =>
-        view = new SyncStatusView(true, at, code, message);
+        view = new SyncStatusView(true, at, code, message, code is null ? null : view.Rebuild);
 }
 
 /// <summary>
 /// One branch round: pull, then push. A restored branch learns it must rebuild from the hub's push plan ('recover'),
 /// or, as a fallback, when the hub refuses its push (51854): it pulls every row in rebuild mode, so the hub's copy wins,
 /// and pushes again.
-/// Any other refusal ends the round; the next round starts from a fresh plan.
+/// Each direction moves in pages (D-041): every page starts from a fresh state and plan, so an open pass continues
+/// where the last applied page left it, also after a restart. Any other refusal ends the round; the next continues the pass.
 /// </summary>
-public sealed class BranchSync(ISyncStore store, ISyncHub hub, NodeContext node)
+public sealed class BranchSync(ISyncStore store, ISyncHub hub, NodeContext node, SyncStatus? status = null)
 {
     public async Task<SyncRound> RunOnceAsync(CancellationToken ct)
     {
@@ -146,39 +156,69 @@ public sealed class BranchSync(ISyncStore store, ISyncHub hub, NodeContext node)
         var state = await store.SourceStateAsync(ct);
         if (NeedsRebuild(state, await hub.PushPlanAsync(state, ct)))
         {
-            var (rebuiltHub, rebuilt) = await PullAsync(rebuild: true, ct);
-            return new SyncRound(rebuilt, await PushAsync(rebuiltHub, ct), Rebuilt: true);
+            var rebuilt = await PullAsync(rebuild: true, ct);
+            return new SyncRound(rebuilt.Changed, await PushAsync(rebuilt.Hub, ct), Rebuilt: true);
         }
-        var (hubId, pulled) = await PullAsync(rebuild: false, ct);
+        var pulled = await PullAsync(rebuild: false, ct);
         try
         {
-            return new SyncRound(pulled, await PushAsync(hubId, ct), Rebuilt: false);
+            return new SyncRound(pulled.Changed, await PushAsync(pulled.Hub, ct), pulled.Rebuilt);
         }
         catch (SaviaException ex) when (ex.Error.Code == "sync.rebuild_required")
         {
-            (hubId, pulled) = await PullAsync(rebuild: true, ct);
-            return new SyncRound(pulled, await PushAsync(hubId, ct), Rebuilt: true);
+            pulled = await PullAsync(rebuild: true, ct);
+            return new SyncRound(pulled.Changed, await PushAsync(pulled.Hub, ct), Rebuilt: true);
         }
     }
 
-    private async Task<(Guid Hub, int Changed)> PullAsync(bool rebuild, CancellationToken ct)
+    private async Task<(Guid Hub, int Changed, bool Rebuilt)> PullAsync(bool rebuild, CancellationToken ct)
     {
-        var hubState = await hub.StateAsync(ct);
-        var hubId = ReadGuid(hubState, "node");
-        var plan = await store.PlanAsync(hubId, hubState, rebuild, ct);
-        Guid? fork = rebuild ? ReadGuid(await store.SourceStateAsync(ct), "fork") : null;
-        var batch = await hub.PullAsync(plan, fork, ct);
-        return (hubId, Changed(await store.ApplyBatchAsync(hubId, batch, ct)));
+        var changed = 0;
+        var rebuilt = false;
+        while (true)
+        {
+            var hubState = await hub.StateAsync(ct);
+            var hubId = ReadGuid(hubState, "node");
+            var plan = await store.PlanAsync(hubId, hubState, rebuild, ct);
+            // The plan's mode decides, not the request: an open rebuild pass continues as a rebuild (D-041).
+            var planRebuild = ReadString(plan, "mode") == "rebuild";
+            Guid? fork = planRebuild ? ReadGuid(await store.SourceStateAsync(ct), "fork") : null;
+            var page = PageResult.Parse(await store.ApplyBatchAsync(hubId, await hub.PullAsync(plan, fork, ct), ct));
+            changed += page.Changed;
+            rebuilt |= planRebuild;
+            if (planRebuild) status?.Rebuilding(new SyncProgress(page.Done, page.Total));
+            if (page.Ends) return (hubId, changed, rebuilt);
+        }
     }
 
     private async Task<int> PushAsync(Guid hubId, CancellationToken ct)
     {
-        var plan = await hub.PushPlanAsync(await store.SourceStateAsync(ct), ct);
-        var batch = await store.ReadBatchAsync(hubId, plan, null, ct);
-        return Changed(await hub.PushAsync(batch, ct));
+        var changed = 0;
+        while (true)
+        {
+            var plan = await hub.PushPlanAsync(await store.SourceStateAsync(ct), ct);
+            var page = PageResult.Parse(await hub.PushAsync(await store.ReadBatchAsync(hubId, plan, null, ct), ct));
+            changed += page.Changed;
+            if (page.Ends) return changed;
+        }
     }
 
-    private static int Changed(string result) => (int)ReadNumber(result, "changed");
+    /// <summary>
+    /// usp_ApplyBatch's answer. A direction ends when no pass is open. An open pass whose page applied nothing would
+    /// bring the same page forever, so the round stops with a named error and the till shows it.
+    /// </summary>
+    private sealed record PageResult(int Changed, bool Ends, int Done, int Total)
+    {
+        public static PageResult Parse(string json)
+        {
+            using var doc = JsonDocument.Parse(json);
+            var r = doc.RootElement;
+            var more = r.TryGetProperty("more", out var m) && m.ValueKind == JsonValueKind.True;
+            if (more && r.GetProperty("applied").GetInt32() == 0) throw new SaviaException(Errors.SyncStalled);
+            return new PageResult(r.GetProperty("changed").GetInt32(), !more,
+                r.GetProperty("done").GetInt32(), r.GetProperty("total").GetInt32());
+        }
+    }
 
     /// <summary>
     /// The hub plans 'recover' when the branch's fork or version no longer matches its cursor: a restore.
@@ -205,9 +245,9 @@ public sealed class BranchSync(ISyncStore store, ISyncHub hub, NodeContext node)
         return doc.RootElement.GetProperty(name).GetGuid();
     }
 
-    private static long ReadNumber(string json, string name)
+    private static string? ReadString(string json, string name)
     {
         using var doc = JsonDocument.Parse(json);
-        return doc.RootElement.GetProperty(name).GetInt64();
+        return doc.RootElement.TryGetProperty(name, out var v) ? v.GetString() : null;
     }
 }

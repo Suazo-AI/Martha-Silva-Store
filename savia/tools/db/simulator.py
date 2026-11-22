@@ -67,6 +67,7 @@ class Sim:
         self.online = {b: True for b in BRANCHES}
         self.stats = Counter()
         self.failures = []
+        self.page_rows = None  # None keeps the V060 default page (5,000 rows per table)
 
     # ---------- plumbing ----------
     def sql(self, node, text):
@@ -133,8 +134,13 @@ SET @out=(SELECT PARSENAME(st.TableName,2)+N'.'+PARSENAME(st.TableName,1) AS t,
     # ---------- sync ----------
     # Every rule runs in the V032 procedures, the same code the .NET transport calls (P9-SPEC.md).
     def pull(self, tgt, src, mode="normal"):
-        """tgt pulls from src. mode normal | all (restored branch rebuilds from the cloud, its own rows included)."""
-        return self.apply_batch(tgt, self.read_batch(tgt, src, mode))
+        """tgt pulls from src. mode normal | all (restored branch rebuilds from the cloud, its own rows included).
+        D-041: a pull is a run of pages; each page re-plans, so the receiver's pass state, not this loop, says where to resume."""
+        changed = 0
+        while True:
+            changed += self.apply_batch(tgt, self.read_batch(tgt, src, mode))
+            if not self.last_more:
+                return changed
 
     def state(self, node):
         return self.fetch(node, "EXEC sync.usp_SourceStateJson @Json=@out OUTPUT;")
@@ -146,8 +152,9 @@ SET @out=(SELECT PARSENAME(st.TableName,2)+N'.'+PARSENAME(st.TableName,1) AS t,
         plan = self.fetch(tgt, f"EXEC sync.usp_PlanJson @PeerNodeId='{self.node_id(src)}',@StateJson={lit(json.dumps(state))},"
                                f"@Mode='{sql_mode}',@Json=@out OUTPUT;")
         fork = f"'{self.state(tgt)['fork']}'" if sql_mode == "rebuild" else "NULL"
+        page = f"@PageRows={self.page_rows}," if self.page_rows else ""
         payload = self.fetch(src, f"EXEC sync.usp_ReadBatch @TargetNodeId='{self.node_id(tgt)}',@PlanJson={lit(json.dumps(plan))},"
-                                  f"@TargetForkGuid={fork},@Json=@out OUTPUT;")
+                                  f"@TargetForkGuid={fork},{page}@Json=@out OUTPUT;")
         return {"src": src, "mode": mode, "plan": {p["t"]: p for p in plan["tables"]}, "payload": payload}
 
     @staticmethod
@@ -164,10 +171,13 @@ EXEC sync.usp_ApplyBatch @PeerNodeId='{self.node_id(src)}',@BatchJson={lit(json.
 {"THROW 51899,'Fallo inyectado antes del COMMIT.',1;" if fail_before_commit else ""}
 COMMIT;""")
         changed, sent = res["changed"], self.rows_in(batch)
+        self.last_more = bool(res.get("more"))
+        if self.last_more and not res.get("applied"):
+            raise AssertionError(f"sync {src}->{tgt}: page not applied, the pull would loop")
         actions = Counter(p["a"] for p in plan.values())
         self.stats["rows_sent"] += sent
         self.stats["rows_changed"] += changed
-        self.stats["pulls"] += 1
+        self.stats["pulls"] += 1  # one applied page
         if sent or any(a != "incremental" for a in actions):
             self.say(f"  sync {src}->{tgt} [{mode}] sent={sent} changed={changed} skipped={res['skipped']} plan={dict(actions)}")
         return changed
@@ -587,12 +597,14 @@ def main():
     sc = sub.add_parser("scenario")
     sc.add_argument("name", choices=["basic", "cancel_vs_dispatch", "restore", "restore_naive", "replay", "credit_status"])
     sc.add_argument("--seed", type=int, default=1)
+    sc.add_argument("--page-rows", type=int, help="rows per table per page (D-041); small values exercise paging")
     rd = sub.add_parser("random")
     rd.add_argument("--seed", type=int, default=7)
     rd.add_argument("--steps", type=int, default=120)
     args = ap.parse_args()
     started = time.time()
     s = Sim(args.seed, out=lambda m: print(m, flush=True))
+    s.page_rows = getattr(args, "page_rows", None)
     s.setup()
     try:
         if args.cmd == "random":

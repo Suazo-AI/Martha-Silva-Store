@@ -38,8 +38,8 @@ public sealed class SyncFixture : IAsyncDisposable
 
     /// <summary>The production branch round, talking to the in-memory hub through <see cref="Faults"/>.</summary>
     /// <remarks>One client per fixture: a <see cref="DelegatingHandler"/> cannot be chained again once it has sent.</remarks>
-    public BranchSync Round() => new(Branch.Services.GetRequiredService<ISyncStore>(),
-        new HttpSyncHub(hubClient ??= Cloud.CreateDefaultClient(Faults), Ids.NodeA, SecretA), Branch.Services.GetRequiredService<NodeContext>());
+    public BranchSync Round(SyncStatus? status = null) => new(Branch.Services.GetRequiredService<ISyncStore>(),
+        new HttpSyncHub(hubClient ??= Cloud.CreateDefaultClient(Faults), Ids.NodeA, SecretA), Branch.Services.GetRequiredService<NodeContext>(), status);
 
     /// <summary>The last push body the worker sent (recorded even when the call was dropped).</summary>
     public string LastPush => Faults.Posts.Last(p => p.Path == PushPath).Body;
@@ -114,6 +114,9 @@ public sealed class FaultHandler : DelegatingHandler
     /// <summary>Next call to this path fails before the hub sees it.</summary>
     public string? DropBefore { get; set; }
 
+    /// <summary>Calls to <see cref="DropBefore"/> that still reach the hub before the one that is dropped.</summary>
+    public int PassBeforeDrop { get; set; }
+
     /// <summary>Next call to this path reaches the hub, which commits; then the answer is lost.</summary>
     public string? LoseAnswer { get; set; }
 
@@ -130,9 +133,9 @@ public sealed class FaultHandler : DelegatingHandler
             LoseAnswerIfBodyHas = null;
             LoseAnswer = path;
         }
-        if (path == DropBefore)
+        if (path == DropBefore && PassBeforeDrop-- == 0)
         {
-            DropBefore = null;
+            (DropBefore, PassBeforeDrop) = (null, 0);
             throw new HttpRequestException("test: connection dropped before the hub received the call");
         }
         var response = await base.SendAsync(request, cancellationToken);

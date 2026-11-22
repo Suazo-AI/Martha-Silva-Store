@@ -7,47 +7,47 @@
   "path": "tools/rehearsal/expected/restore_sale_before_rebuild.json",
   "sha256": "58c93f6184fce8beaa288c6d4ac9d5517f1877e9c1538b8f40582c80bb07e043"
  },
- "seconds_total": 103.9,
+ "seconds_total": 108.1,
  "phases": [
   {
    "phase": "setup: 4 databases, node credentials, staff passwords, seed stock",
-   "seconds": 32.0
+   "seconds": 28.0
   },
   {
    "phase": "start hub and 3 store hosts",
-   "seconds": 6.1
+   "seconds": 6.3
   },
   {
    "phase": "open tills over HTTP",
-   "seconds": 1.5
+   "seconds": 0.8
   },
   {
    "phase": "first convergence",
-   "seconds": 19.7
+   "seconds": 20.8
   },
   {
    "phase": "backup A before its till opens; A opens a till and sells; hub has it",
-   "seconds": 1.6
+   "seconds": 1.2
   },
   {
    "phase": "converge before restore",
-   "seconds": 13.0
+   "seconds": 13.2
   },
   {
    "phase": "A stopped, cut off and restored from the backup",
-   "seconds": 5.1
+   "seconds": 5.5
   },
   {
    "phase": "restored A refuses a new till and a sale before its first rebuild",
-   "seconds": 0.7
+   "seconds": 0.5
   },
   {
    "phase": "link back: A's worker rebuilds before it pushes",
-   "seconds": 6.1
+   "seconds": 8.6
   },
   {
    "phase": "converge after the rebuild",
-   "seconds": 1.6
+   "seconds": 2.2
   },
   {
    "phase": "A sells again on its rebuilt till",
@@ -55,75 +55,75 @@
   },
   {
    "phase": "final convergence",
-   "seconds": 9.1
+   "seconds": 13.5
   },
   {
    "phase": "checks",
-   "seconds": 5.7
+   "seconds": 6.5
   }
  ],
  "events": [
   {
-   "t": 38.7,
+   "t": 34.6,
    "event": "open till b",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 39.7,
+   "t": 35.0,
    "event": "open till c",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 60.7,
+   "t": 56.8,
    "event": "open till a",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 60.9,
+   "t": 57.0,
    "event": "sale r1 at a",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 61.0,
+   "t": 57.0,
    "event": "sale r2 at a",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 74.0,
-   "event": "converge before restore: converged in 13.0s",
+   "t": 70.2,
+   "event": "converge before restore: converged in 13.2s",
    "differing": []
   },
   {
-   "t": 79.5,
+   "t": 76.0,
    "event": "open till a",
    "status": 409,
    "problem": "sync.recovery_pending"
   },
   {
-   "t": 79.8,
+   "t": 76.2,
    "event": "sale r3 at a",
    "status": 409,
    "problem": "sync.recovery_pending"
   },
   {
-   "t": 87.5,
-   "event": "converge after the rebuild: converged in 1.6s",
+   "t": 86.9,
+   "event": "converge after the rebuild: converged in 2.2s",
    "differing": []
   },
   {
-   "t": 87.6,
+   "t": 87.1,
    "event": "sale r4 at a",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 96.7,
-   "event": "final convergence: converged in 9.1s",
+   "t": 100.6,
+   "event": "final convergence: converged in 13.5s",
    "differing": []
   }
  ],
@@ -232,7 +232,7 @@
  },
  "sync_rounds_from_host_logs": {
   "a": {
-   "successful_rounds": 9,
+   "successful_rounds": 10,
    "rebuilt_rounds": 1,
    "not_successful": 1,
    "distinct_warnings": [
@@ -241,14 +241,14 @@
    "host_starts": 2
   },
   "b": {
-   "successful_rounds": 11,
+   "successful_rounds": 12,
    "rebuilt_rounds": 0,
    "not_successful": 0,
    "distinct_warnings": [],
    "host_starts": 1
   },
   "c": {
-   "successful_rounds": 11,
+   "successful_rounds": 12,
    "rebuilt_rounds": 0,
    "not_successful": 0,
    "distinct_warnings": [],
@@ -257,25 +257,25 @@
  },
  "hub_exchanges_seen_by_proxies": {
   "a": {
-   "/sync/v1/push/plan 200": 18,
-   "/sync/v1/state 200": 9,
-   "/sync/v1/pull 200": 9,
-   "/sync/v1/push 200": 9,
+   "/sync/v1/push/plan 200": 20,
+   "/sync/v1/state 200": 10,
+   "/sync/v1/pull 200": 10,
+   "/sync/v1/push 200": 10,
    "/sync/v1/push/plan cut": 1
   },
   "b": {
-   "/sync/v1/push/plan 200": 22,
-   "/sync/v1/state 200": 11,
-   "/sync/v1/pull 200": 11,
-   "/sync/v1/push 200": 11
+   "/sync/v1/push/plan 200": 24,
+   "/sync/v1/state 200": 12,
+   "/sync/v1/pull 200": 12,
+   "/sync/v1/push 200": 12
   },
   "c": {
-   "/sync/v1/push/plan 200": 22,
-   "/sync/v1/state 200": 11,
-   "/sync/v1/pull 200": 11,
-   "/sync/v1/push 200": 11
+   "/sync/v1/push/plan 200": 24,
+   "/sync/v1/state 200": 12,
+   "/sync/v1/pull 200": 12,
+   "/sync/v1/push 200": 12
   }
  },
  "hub_rounds_log_errors": [],
- "host_logs": ".out/rehearsal/runs/20261122-091631-restore_sale_before_rebuild"
+ "host_logs": ".out/rehearsal/runs/20261122-142313-restore_sale_before_rebuild"
 }

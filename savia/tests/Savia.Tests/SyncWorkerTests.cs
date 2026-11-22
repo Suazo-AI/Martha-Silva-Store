@@ -1,6 +1,7 @@
 using System.Net;
 using System.Text.Json.Nodes;
 using Microsoft.Data.SqlClient;
+using Savia.Application;
 
 namespace Savia.Tests;
 
@@ -171,6 +172,61 @@ public sealed class SyncWorkerTests
         // D-037: the sale the rebuild brought back is listed in sync.RecoveredSales and expects no new local event.
         Assert.Equal(1, await f.CountAsync(f.BranchDb, $"SELECT COUNT(*) FROM sync.RecoveredSales WHERE SaleId='{lost}'"));
         Assert.Empty(await SyncFixture.ViolationsAsync(f.BranchDb));
+    }
+
+    [Fact]
+    public async Task Rebuild_larger_than_a_page_resumes_after_a_lost_page_and_reports_progress()
+    {
+        // D-041: a page holds at most 5,000 rows per table, so 6,001 hub categories need two pages in every direction.
+        await using var f = await SyncFixture.CreateAsync();
+        await SyncFixture.ExecAsync(f.CloudDb, """
+            INSERT catalog.Categories(Id,Name)
+            SELECT NEWID(),CONCAT(N'Paging ',n) FROM (SELECT TOP (6001) ROW_NUMBER() OVER (ORDER BY (SELECT 1)) n
+                                                     FROM sys.all_objects a CROSS JOIN sys.all_objects b) x;
+            """);
+        // A provisioned branch knows its node before the backup, so the restored copy carries the recovery lock.
+        await SyncFixture.ExecAsync(f.BranchDb, $"EXEC sync.usp_SetLocalNode @NodeId='{Ids.NodeA}';");
+        var backup = $"{f.BranchDb}.bak";
+        await SyncFixture.ExecAsync("master", $"BACKUP DATABASE [{f.BranchDb}] TO DISK=N'{backup}' WITH INIT, FORMAT, COPY_ONLY;");
+        var lost = await f.SellAsync();
+        f.Faults.Posts.Clear();
+        await f.Round().RunOnceAsync(None);
+        Assert.True(f.Faults.Posts.Count(p => p.Path == "/sync/v1/pull") >= 2, "the initial pull took a single page");
+        await RestoreAsync(f.BranchDb, backup);
+
+        // The second rebuild page never reaches the hub: the round fails half way, as a killed worker would.
+        var status = new SyncStatus();
+        f.Faults.DropBefore = "/sync/v1/pull";
+        f.Faults.PassBeforeDrop = 1;
+        await Assert.ThrowsAsync<HttpRequestException>(() => f.Round(status).RunOnceAsync(None));
+        var progress = status.View.Rebuild;
+        Assert.NotNull(progress);
+        Assert.InRange(progress.Done, 0, progress.Total - 1);
+        Assert.Equal(51864, (await Assert.ThrowsAsync<SqlException>(f.SellAsync)).Number);
+
+        // A new worker continues the same pass at page 2; the last page lifts the recovery lock.
+        f.Faults.Posts.Clear();
+        var resumed = await f.Round(status).RunOnceAsync(None);
+        Assert.True(resumed.Rebuilt);
+        Assert.Contains("\"page\":2", f.Faults.Posts.First(p => p.Path == "/sync/v1/pull").Body, StringComparison.Ordinal);
+        status.Record(DateTimeOffset.UtcNow);
+        Assert.Null(status.View.Rebuild);
+        Assert.Equal(1, await f.SaleCountAsync(f.BranchDb, lost));
+        Assert.Equal(6001, await f.CountAsync(f.BranchDb, "SELECT COUNT(*) FROM catalog.Categories WHERE Name LIKE N'Paging %'"));
+        Assert.Equal(1, await f.SaleCountAsync(f.BranchDb, await f.SellAsync()));
+        await TestSql.AssertConservationAsync(f.CloudDb);
+        Assert.Empty(await SyncFixture.ViolationsAsync(f.BranchDb));
+    }
+
+    [Fact]
+    public void Status_keeps_rebuild_progress_after_a_failed_round_and_clears_it_after_a_good_one()
+    {
+        var status = new SyncStatus();
+        status.Rebuilding(new SyncProgress(12, 39));
+        status.Record(DateTimeOffset.UtcNow, "sync.unreachable", "timeout");
+        Assert.Equal(new SyncProgress(12, 39), status.View.Rebuild);
+        status.Record(DateTimeOffset.UtcNow);
+        Assert.Null(status.View.Rebuild);
     }
 
     [Fact]

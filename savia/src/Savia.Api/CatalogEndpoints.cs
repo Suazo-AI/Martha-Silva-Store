@@ -15,8 +15,9 @@ public static class CatalogEndpoints
         api.MapGet("/catalog/search", async (string q, int? limit, HttpContext http, CatalogService catalog, CancellationToken ct) =>
             await catalog.SearchAsync(http.Actor(), q, limit, ct)).Produces<ProductSearchRow[]>().WithTags("catalog");
 
-        // Catalog writes: the cloud node, or a branch with the explicit local-catalog exception.
-        if (node.Kind == NodeKind.Cloud || node.LocalCatalog)
+        // Catalog writes: the cloud node, or a branch with the explicit local-catalog exception. A store with a hub maps
+        // them too, so a write gets the named refusal catalog.managed_by_hub rather than a bare 404 (D-039).
+        if (node.Kind == NodeKind.Cloud || node.LocalCatalog || node.CatalogManagedByHub)
         {
             api.MapPost("/catalog/products", async (RegisterProductRequest request, HttpContext http, CatalogService catalog, CancellationToken ct) =>
             {
@@ -35,16 +36,14 @@ public static class CatalogEndpoints
             open.MapPost("/catalog/items", () => Results.NotFound()).ExcludeFromDescription();
         }
 
-        // D-039: the hub owns prices and costs, so the hub must be able to change them; stores keep the route until
-        // catalog authoring moves to the hub completely.
+        // D-039: the hub owns prices and costs; a store with a hub refuses the write by name, a store without one keeps it.
         api.MapPost("/catalog/items/{itemId:guid}/values",
             async (Guid itemId, ItemValuesRequest request, HttpContext http, CatalogService catalog, CancellationToken ct) =>
             {
                 await catalog.SetItemValuesAsync(http.Actor(), itemId, request, ct);
                 return Results.NoContent();
             }).WithTags("catalog");
-        if (node.Kind != NodeKind.Branch) return;
-
+        // Prices and the catalog import: on a store, and on the hub, where the import writes no stock (D-039).
         api.MapGet("/catalog/values", async (string? q, HttpContext http, CatalogService catalog, CancellationToken ct) =>
             await catalog.ItemValuesAsync(http.Actor(), q, ct)).WithTags("catalog");
         api.MapPost("/catalog/import/file", (ImportFileRequest request, HttpContext http, CatalogService catalog) =>

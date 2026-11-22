@@ -65,8 +65,10 @@ public static class ServiceRegistration
             ? parsed : throw new InvalidOperationException("Savia:Node:Kind must be Cloud or Branch.");
         Guid? branchId = kind == NodeKind.Branch ? RequiredGuid(config, "Savia:Node:BranchId") : null;
         Guid? locationId = kind == NodeKind.Branch ? RequiredGuid(config, "Savia:Node:LocationId") : null;
+        var hasHub = kind == NodeKind.Branch
+            && (!string.IsNullOrWhiteSpace(config["Savia:Sync:HubUrl"]) || !string.IsNullOrWhiteSpace(config["Savia:Sync:NodeSecret"]));
         return new NodeContext(kind, RequiredGuid(config, "Savia:Node:NodeId"), branchId, locationId,
-            config.GetValue<bool>("Savia:Pilot:LocalCatalog"));
+            config.GetValue<bool>("Savia:Pilot:LocalCatalog"), hasHub);
     }
 
     private static Guid RequiredGuid(IConfiguration config, string key) =>

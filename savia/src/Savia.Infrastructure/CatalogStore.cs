@@ -41,7 +41,7 @@ public sealed class CatalogStore(SqlGateway sql) : ICatalogStore, ICatalogMainte
                 r.StringOrNull(5), r.StringOrNull(6), r.GetInt64(7), r.GetString(8), r.GetString(9), r.IntOrNull(10), r.IntOrNull(11)),
             ct, P("@Text", text), P("@LocationId", locationId), P("@Limit", limit));
 
-    public Task<JsonElement> ItemValuesAsync(Guid branch, Guid actor, string query, CancellationToken ct) =>
+    public Task<JsonElement> ItemValuesAsync(Guid? branch, Guid actor, string query, CancellationToken ct) =>
         sql.ReadElement("catalog.usp_GetItemValues", ct, P("@BranchId", branch), P("@ActorId", actor), P("@Query", query));
 
     public Task SetItemValuesAsync(Guid item, ItemValuesRequest request, Guid actor, Guid node, CancellationToken ct) =>
@@ -49,7 +49,7 @@ public sealed class CatalogStore(SqlGateway sql) : ICatalogStore, ICatalogMainte
             P("@NewPriceMinor", request.PriceMinor), P("@NewCostMinor", request.CostMinor), P("@ActorId", actor),
             P("@OriginNodeId", node), P("@Reason", request.Reason));
 
-    public Task<JsonElement> ImportCatalogAsync(Guid branch, Guid location, ImportCatalogRequest request,
+    public Task<JsonElement> ImportCatalogAsync(Guid? branch, Guid? location, ImportCatalogRequest request,
         Guid actor, Guid node, bool commit, CancellationToken ct) =>
         sql.ReadElement("catalog.usp_ImportCatalog", ct, P("@BatchId", request.BatchId), P("@BranchId", branch), P("@LocationId", location),
             P("@ActorId", actor), P("@FileName", request.FileName), P("@RowsJson", JsonSerializer.Serialize(request.Rows, SqlJson.Web)),

@@ -1,7 +1,7 @@
 import * as api from '../api.mjs';
 import { confirmAction } from '../confirm.mjs';
 import { formatMoney } from '../money.mjs';
-import { h, replace, showError } from '../ui.mjs';
+import { h, replace, showCatalogManagedCentrally, showError } from '../ui.mjs';
 import { FIELDS, guessMapping, mappingKey, mapRows, toBase64 } from './import-logic.mjs';
 
 const remembered = headers => {
@@ -22,6 +22,9 @@ const remember = (headers, mapping) => {
 export default {
   title: 'Importar catálogo',
   async mount(root, ctx) {
+    if (showCatalogManagedCentrally(root, ctx.me)) return {};
+    // The hub has no stock: its import writes the catalog only, and stock enters by receiving at each store.
+    const atHub = ctx.me?.nodeKind === 'Cloud';
     const status = h('p', { role: 'alert', id: 'import-status' });
     const mapPanel = h('section', { class: 'panel', id: 'import-map', hidden: true });
     const previewPanel = h('section', { class: 'panel', id: 'import-preview', hidden: true });
@@ -210,7 +213,9 @@ export default {
       status.textContent = '';
       try {
         const confirmed = await confirmAction(
-          `Se crearán ${summary.rowsCount} prendas con ${summary.unitsCount} unidades de existencia inicial en un solo lote.`,
+          atHub
+            ? `Se crearán ${summary.rowsCount} prendas en el catálogo central en un solo lote.`
+            : `Se crearán ${summary.rowsCount} prendas con ${summary.unitsCount} unidades de existencia inicial en un solo lote.`,
         );
         if (!confirmed || !isCurrent(started)) return;
         const done = await api.importCatalog(request);
@@ -219,8 +224,14 @@ export default {
           previewPanel,
           h('h2', {}, 'Catálogo importado'),
           h('p', { id: 'import-batch' }, `Lote ${done.batchId}`),
-          h('p', { id: 'import-created' }, `${done.itemsCreated} prendas · ${done.unitsAdded} unidades`),
-          h('div', { class: 'actions' }, h('button', { type: 'button', onclick: () => ctx.go('inventario') }, 'Ver inventario')),
+          h(
+            'p',
+            { id: 'import-created' },
+            atHub ? `${done.itemsCreated} prendas` : `${done.itemsCreated} prendas · ${done.unitsAdded} unidades`,
+          ),
+          atHub
+            ? null
+            : h('div', { class: 'actions' }, h('button', { type: 'button', onclick: () => ctx.go('inventario') }, 'Ver inventario')),
         );
         mapPanel.hidden = true;
         input.value = '';

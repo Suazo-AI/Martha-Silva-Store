@@ -1,0 +1,15 @@
+  c->hub normal   pages=  40 rows=  213,749 bytes=  93,410,555 max_page=  6,721,161 read=12962ms apply=40853ms finished=True wall=79.5s
+  b->hub normal   pages=  60 rows=  313,753 bytes= 136,326,451 max_page=  6,734,879 read=24659ms apply=81893ms finished=True wall=152.2s
+  a->hub normal   pages= 101 rows=  514,197 bytes= 222,349,453 max_page=  6,754,528 read=35725ms apply=126346ms finished=True wall=235.0s
+hub space used_data_mb=1033 file_mb=1096
+  hub->a normal   pages= 212 rows=1,077,522 bytes= 439,086,357 max_page=  6,179,280 read=67365ms apply=205040ms finished=True wall=874.5s
+SALES ok=500 failed=0 first_error= in 19.4s
+  a->hub normal   pages=   1 rows=    2,508 bytes=   1,360,757 max_page=  1,360,757 read=4080ms apply=1398ms finished=True wall=6.0s
+  hub->a normal   pages=   1 rows=        0 bytes=       3,668 max_page=      3,668 read=3240ms apply=154ms finished=True wall=3.8s
+  hub->a normal   pages=   1 rows=        0 bytes=       3,668 max_page=      3,668 read=397ms apply=50ms finished=True wall=0.8s
+  hub->a rebuild  pages=   3 rows=   15,010 bytes=   4,180,849 max_page=  1,395,118 read=714ms apply=1035ms finished=False wall=4.2s
+  hub->a rebuild  pages= 313 rows=1,578,717 bytes= 658,477,416 max_page=  4,480,703 read=79037ms apply=96442ms finished=True wall=344.3s
+  hub->a normal   pages=   1 rows=        0 bytes=       3,668 max_page=      3,668 read=597ms apply=41ms finished=True wall=1.0s
+oracle {'a': '0 ', 'b': '0 ', 'c': '0 ', 'hub': '0 '}
+wrote <scratch>/load/sync.json
+exit 0

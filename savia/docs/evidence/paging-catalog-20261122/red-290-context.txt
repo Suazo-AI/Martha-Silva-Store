@@ -1,0 +1,2 @@
+FAIL    sync/290_paging.sql  -- ASSERT FAIL: an applied row carries the sync context expected=1 actual=0
+SUMMARY FAIL=1  logs: .out\dbtests

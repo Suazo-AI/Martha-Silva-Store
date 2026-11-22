@@ -1,0 +1,2 @@
+FAIL    sync/290_paging.sql  -- ASSERT FAIL: late page 1: no pass reopened expected=0 actual=1
+SUMMARY FAIL=1  logs: .out\dbtests

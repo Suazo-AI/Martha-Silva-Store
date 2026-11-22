@@ -67,7 +67,11 @@ Not chosen: mutual TLS. It is stronger, but Container Apps ingress and branch PC
 
 The receiver keeps `(fork, version)` per sender and table in `sync.PeerCursors` (V008, F1).
 `sync.usp_PlanJson` classifies each table with the same rules as `sync.usp_ClassifyCursor`.
-`sync.usp_ApplyBatch` applies every table in topological order and advances every cursor in one transaction (simulator behaviour; F8 paging is a limit below).
+`sync.usp_ApplyBatch` applies one page in topological order in one transaction (V060, D-041).
+A page holds at most 5,000 rows per table and stops adding tables at 19,000,000 bytes.
+The receiver keeps the open pass in `sync.PeerPasses` and `sync.PeerPassTables`, so a new process resumes it at the next page.
+A cursor moves only when its table is finished. A repeated page is skipped; a page out of order is a gap (51852).
+The final rebuild page lifts the recovery lock in the same transaction.
 
 ## Idempotency (A-04)
 
@@ -133,7 +137,7 @@ Own sales the rebuild brings back are listed in `sync.RecoveredSales` (D-037); t
 
 1. Closed 2026-11-22 by D-037 (V036). Outbox events of the sale, till-opened and receipt events take a stable id from the source row (`sync.fn_EventId`). A rebuild lists the own sales it brings back in `sync.RecoveredSales`, and the oracle expects no local event for them. Evidence: simulator `restore` PASS on seeds 1, 2 and 3 (red on V035: `sale.outbox_event ... expected=1 actual=0`).
 2. Closed 2026-11-22 by D-036 (V036, recovery lock above). Sale, till opening and receiving refuse with 51864 until the rebuild lands; the web shows the reason and tells the cashier to wait. Evidence: rehearsal `restore_sale_before_rebuild` PASS with the restricted identity (red on V035: XFAIL, the rebuild failed every round on 2601 `UX_OpenTill_Register`). Not locked: returns, credit transfer dispatch and receipt.
-3. Paging (F8). Recommendation: page by key when a table sends more than 5,000 rows, cursor still advanced once at the end. P9 sends one batch per round.
+3. Closed 2026-11-22 by D-041 (V060). Sync moves in pages by key (cursor handling above). Evidence: on A-10 data the rebuild of store A, killed after 3 pages, resumed and finished with 0 oracle violations; the largest response was 6.75 MB ([paging-catalog evidence](../evidence/paging-catalog-20261122/README.md)).
 4. Credential issue path. Recommendation: the hub owner runs a one-time provisioning command that writes the secret to a file for the store PC; Jason approves who holds it.
 5. Schema skew (F12). Recommendation: accept a batch only when both nodes report the same latest migration until an N-1 rule is proven by test.
 6. Closed 2026-11-22 by D-038 (V037). `usp_RedeemCredit` no longer writes `credits.Credits`; the redeemer writes only its own movement and redemption. `credits.vw_CreditStatus` derives `exhausted` from the movements and money in transit; a status the issuer sets (not `active`) wins. Evidence: T-SQL `credits/180`; simulator `credit_status` PASS (a full redemption at B after a transfer shows `exhausted` on every node; an issuer block made while B spends offline shows `blocked` on every node).
@@ -160,11 +164,17 @@ Own sales the rebuild brings back are listed in `sync.RecoveredSales` (D-037); t
 | Cash counts and closures sync with their till | T-SQL `sync/200`; simulator `basic`; rehearsal `offline_sales` (C closes its till over HTTP) | PASS on V038: 0 `cash.till_status_vs_closure` (red on V035) |
 | A key that exists keeps its owner (push and pull) | T-SQL `sync/240` | PASS on V034 (red on V033: 2601 instead of 51851) |
 | Restored branch rebuilds before any normal pull | .NET `SyncWorkerTests.Restored_branch_rebuilds_before_any_normal_pull` | PASS (red before the worker fix) |
+| Paging: 5,000 rows per table, resume after a lost page, no repeated effect | T-SQL `sync/290`; .NET `SyncWorkerTests.Rebuild_larger_than_a_page_resumes_after_a_lost_page_and_reports_progress`; simulator `basic` and `restore` with `--page-rows 3` | PASS on V060 (red: `a fresh plan asks for page 1 expected=1 actual=NULL`) |
+| A-10: rebuild completes after a kill, responses under 20 MB | `tools/load/sync_measure.py` | PASS on V060: 313 pages after the resume, largest response 6.75 MB, 0 oracle violations |
+| Rebuild progress in `GET /api/v1/sync/status` and the till | .NET sync status tests; web `sync-notice.test.mjs` | PASS (web red: expected `/12 de 39/`) |
+| S9: hub writes the catalog, a store with a hub refuses it | T-SQL `catalog/156`, `157`, `158`; .NET `HubCatalogTests`; rehearsal `hub_catalog` | PASS on V061 (T-SQL red: `Msg 52001`) |
 
 ## Limits
 
 - Tests run as `sa`; dynamic SQL and Change Tracking permissions under a restricted host role are unverified.
-- One transaction per batch: no paging; sync procedure timeout 300 s; Kestrel request body limit 30 MB.
+- One transaction per page; sync procedure timeout 300 s; Kestrel request body limit 30 MB.
+- An empty round read in 397 ms and 597 ms warm on A-10 data, with simulators running on the same host; the 500 ms target is not proven. Azure SQL Basic is not measured.
+- A page that fails on a foreign key (547) drops the open pass; the next round starts it again.
 - Hub restore (F15) is not tested.
 
 ## Progress
@@ -225,3 +235,6 @@ Own sales the rebuild brings back are listed in `sync.RecoveredSales` (D-037); t
 - 2026-11-22 sync completion (S4, S6, S7 and the open points of S1 and S3 of `docs/production-20261122/README.md`; D-036, D-038 to D-041): V052 returns and transfers under the recovery lock and issuer status procedures; V053 reference data and customers in sync (39 tables); V054 node provisioning (`Savia.Migrator --provision-node`, [PROVISIONING.md](PROVISIONING.md)); store-side `GET /api/v1/sync/status` and a till banner for a refused round.
   Red first for each item; DB tests green. Rehearsals `reference_data`, `schema_skew` and the credential controls are written but not run (Docker stalls on this host). S5 paging (open question 3, F8) is not built. See the [sync-completion evidence](../evidence/sync-completion-20261122/README.md).
   Next: run the three rehearsal parts on a host with room for the rehearsal container; then S5 paging measured on A-10 data.
+- 2026-11-22 paging and hub catalog (S5, S1 progress, S9 and P1 of `docs/production-20261122/README.md`; D-036, D-039, D-041): V060 sync paging with a resumable pass; V061 hub catalog import, `sync.usp_EnqueueEvents` and the preview check for a repeated size and color.
+  Red first for each SQL and web item. A-10: rebuild of A resumed after a kill and converged with 0 oracle violations; largest response 6.75 MB. 1,000-row import: 1.36-2.51 s. Rehearsal `run all --identity restricted`: nine of nine PASS, including the new `hub_catalog`. See the [paging-catalog evidence](../evidence/paging-catalog-20261122/README.md).
+  Next: measure an empty round on a quiet host, then a rebuild on a disposable Azure SQL Basic copy.

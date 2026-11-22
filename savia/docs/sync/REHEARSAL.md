@@ -70,10 +70,11 @@ Across nodes:
 | `replay` | The proxy lets the hub commit A's push, then kills A before it hears the answer. Then B is killed after the hub answered a pull, before B applies it. | Lost answers are replayed without duplicates. |
 | `hub_restart` | Hub killed after committing a push, before answering; stores keep selling; hub restarted. | Hub crash recovery. |
 | `credit_transfer` | Return to store credit over HTTP; transfer A→B approved, dispatched, received and spent; two concurrent spends of the same remainder at A; hub cancels while a cut-off A dispatches. | Credit is conserved; exactly one concurrent spend wins; the offline dispatch wins with the override flag. |
-| `restore_sale_before_rebuild` | A is restored from a backup taken before its till opened, opens a new till and sells while cut off, then the link returns. | Red test for the recovery lock. Expected to fail today (XFAIL). |
+| `restore_sale_before_rebuild` | A is restored from a backup taken before its till opened, opens a new till and sells while cut off, then the link returns. | The recovery lock (D-036): the restored store refuses the sale until its rebuild. PASS since V036. |
 | `controls` | Negative controls. | See below. |
 | `reference_data` | Cut-off A registers a customer and sells to it; the hub owner changes the item price; the link returns. | D-039: the customer and its sale reach every node with no Msg 547; the hub price reaches every store. |
 | `schema_skew` | C's newest ledger row is removed (one migration behind); C sells; C runs `Savia.Migrator`. | D-041: the hub refuses C with `sync.schema_mismatch` (51856), C's `GET /api/v1/sync/status` names it, and C syncs after it migrates. |
+| `hub_catalog` | The hub owner previews and imports 3 items over HTTP; A receives 5 units of one by scanning and sells 1; B tries to change that item's price. | D-039 (S9): the 3 items and barcodes reach every node with no stock; stock enters only at A by receiving (4 on hand on every node); B gets `409 catalog.managed_by_hub` and its `/me` says `catalogManagedByHub`. |
 
 Negative controls (must fail as designed):
 
@@ -89,7 +90,8 @@ Verdicts: `PASS`; `FAIL`; `ERROR` (the driver crashed); `XFAIL` (the known red r
 
 ## Evidence
 
-`reference_data`, `schema_skew` and the credential controls were added on 2026-11-22 and have not run yet (Docker stalls on this host with a third SQL container); pass `--evidence docs/evidence/sync-completion-20261122/rehearsal` when they do.
+Latest run, 2026-11-22: all nine scenarios PASS with `--identity restricted`, evidence in [paging-catalog-20261122/rehearsal](../evidence/paging-catalog-20261122/rehearsal/).
+`schema_skew` re-applies the newest migration on a store, so the newest migration must run twice without error.
 Each run writes `<scenario>.json` to `docs/evidence/rehearsal-20261121/` (override with `--evidence DIR`, skip with `--no-evidence`): phases with timings, events, every check, controls, sync rounds counted from the host logs, and the exchanges each proxy saw.
 Host logs stay in `.out/rehearsal/runs/` (gitignored).
 The baseline is in [rehearsal-20261121/README.md](../evidence/rehearsal-20261121/README.md).
