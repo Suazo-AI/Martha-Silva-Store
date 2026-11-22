@@ -3,11 +3,12 @@
 
   python savia/tools/check.py            # everything
   python savia/tools/check.py --isolated # preserve a pilot owned by another checkout
-  python savia/tools/check.py --quick    # skip the .NET build and tests
+  python savia/tools/check.py --quick    # skip the .NET build and tests and the container proof
 
 Needs the dev database container (python savia/tools/db/saviadb.py up).
 Needs the .NET SDK pinned in global.json. Set SAVIA_DOTNET to its dotnet executable
 when the one on PATH is another version.
+The container proof (savia/deploy/local_proof.py --build) runs when Docker and the dev container are up.
 """
 import os
 import shutil
@@ -17,8 +18,12 @@ import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+DEV_CONTAINER = "savia-sqlserver-dev"
+# Sync and vertical-slice tests again, connected as a login that is only in role savia_api_host (V035).
+API_HOST_TESTS = ("FullyQualifiedName~Savia.Tests.Sync|FullyQualifiedName~Savia.Tests.VerticalSlice"
+                  "|FullyQualifiedName~Savia.Tests.ApiHostLogin")
 # Known location of SDK 10.0.402 on SUAZO-PC; other machines use PATH or SAVIA_DOTNET.
-LOCAL_SDK = Path("C:/Users/Jason/MARTHA-SILVA/validation/resolution-20261028-jsdom/.sdk-10.0.402/dotnet.exe")
+LOCAL_SDK = Path("C:/Users/Jason/.dotnet-sdk-10.0.402/dotnet.exe")
 
 
 def dotnet():
@@ -28,9 +33,10 @@ def dotnet():
     return None
 
 
-def run(name, command, read_next):
+def run(name, command, read_next, env=None):
     start = time.time()
-    proc = subprocess.run(command, cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    proc = subprocess.run(command, cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                          env=dict(os.environ, **env) if env else None)
     seconds = time.time() - start
     text = proc.stdout.decode("utf-8", errors="replace").strip().splitlines()
     verdict = "PASS" if proc.returncode == 0 else "FAIL"
@@ -40,6 +46,14 @@ def run(name, command, read_next):
     elif text:
         print("      " + text[-1][:200])
     return proc.returncode == 0
+
+
+def dev_container_up():
+    if shutil.which("docker") is None:
+        return False
+    proc = subprocess.run(["docker", "inspect", "-f", "{{.State.Running}}", DEV_CONTAINER],
+                          stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+    return proc.returncode == 0 and proc.stdout.strip() == b"true"
 
 
 def main():
@@ -67,6 +81,17 @@ def main():
         ok &= run("C# format", [dotnet(), "format", "Savia.slnx", "--verify-no-changes", "--no-restore"],
                   "run: dotnet format Savia.slnx (savia/.editorconfig)")
         ok &= run(".NET tests on real SQL", [dotnet(), "test", "tests/Savia.Tests", "--no-build", "-v", "q"], "savia/tests/Savia.Tests/")
+        ok &= run(".NET sync tests as the API host login",
+                  [dotnet(), "test", "tests/Savia.Tests", "--no-build", "-v", "q", "--filter", API_HOST_TESTS],
+                  "savia/tests/Savia.Tests/ApiHostLogin.cs and grants in savia/db/migrations/V035__api_host_role.sql",
+                  env={"SAVIA_TEST_SQL_LOGIN": "api_host"})
+    # Fixed database names, logins and port 5090: not for a run that must touch throwaway databases only.
+    if quick or "--isolated" in sys.argv:
+        print("SKIP  container proof (--quick or --isolated)")
+    elif not dev_container_up():
+        print(f"SKIP  container proof (Docker or {DEV_CONTAINER} not running)")
+    else:
+        ok &= run("container proof: images, migrator, API", [py, "deploy/local_proof.py", "--build"], "savia/deploy/local_proof.py")
     print("RESULT " + ("PASS" if ok else "FAIL"))
     return 0 if ok else 1
 

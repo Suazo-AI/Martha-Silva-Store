@@ -1,4 +1,6 @@
 using System.Threading.RateLimiting;
+using Azure.Identity;
+using Azure.Monitor.OpenTelemetry.AspNetCore;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.RateLimiting;
 using Savia.Infrastructure;
@@ -12,6 +14,9 @@ namespace Savia.Api;
 public static class SaviaHosting
 {
     public const string LoginPolicy = "login";
+
+    /// <summary>Set by Azure (infra/main.bicep); absent on branch hosts and in tests.</summary>
+    public const string TelemetrySetting = "APPLICATIONINSIGHTS_CONNECTION_STRING";
 
     /// <summary>
     /// The page may load its own files and blob: photo previews; nothing else.
@@ -47,6 +52,24 @@ public static class SaviaHosting
                 : RateLimitPartition.GetFixedWindowLimiter(
                     http.Connection.RemoteIpAddress?.ToString() ?? "unknown",
                     _ => new FixedWindowRateLimiterOptions { PermitLimit = perMinute, Window = TimeSpan.FromMinutes(1), QueueLimit = 0 }));
+        });
+    }
+
+    /// <summary>
+    /// Sends traces, metrics and logs to Application Insights only when <see cref="TelemetrySetting"/> is set.
+    /// The connection string names the resource and holds no secret; with <c>AZURE_CLIENT_ID</c> set, export signs in
+    /// as that managed identity, so the resource can refuse key-only ingestion.
+    /// </summary>
+    public static void AddSaviaTelemetry(this WebApplicationBuilder builder)
+    {
+        var connectionString = builder.Configuration[TelemetrySetting];
+        if (string.IsNullOrWhiteSpace(connectionString)) return;
+        var clientId = builder.Configuration["AZURE_CLIENT_ID"];
+        builder.Services.AddOpenTelemetry().UseAzureMonitor(o =>
+        {
+            o.ConnectionString = connectionString;
+            if (!string.IsNullOrWhiteSpace(clientId))
+                o.Credential = new ManagedIdentityCredential(ManagedIdentityId.FromUserAssignedClientId(clientId));
         });
     }
 

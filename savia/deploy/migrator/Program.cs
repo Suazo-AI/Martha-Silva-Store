@@ -149,9 +149,8 @@ static async Task<Dictionary<string, string>> ReadLedger(SqlConnection connectio
     return result;
 }
 
-// Least privilege for the API host, derived from savia/src: it reads views and tables, executes
-// procedures, and writes security.Sessions and the sign-in columns of security.Staff directly
-// (savia/src/Savia.Infrastructure/Auth.cs). It never runs DDL. Idempotent.
+// The API host's permissions live in role savia_api_host, created by migration V035, so local and Azure databases
+// get the same grants from one source. This step only creates the user and adds it to the role. Idempotent.
 static async Task GrantAppUser(SqlConnection connection, string user, bool external, string? clientId)
 {
     var quoted = "[" + user.Replace("]", "]]") + "]";
@@ -163,12 +162,8 @@ static async Task GrantAppUser(SqlConnection connection, string user, bool exter
         _ => $"CREATE USER {quoted} FOR LOGIN {quoted};",
     };
     await Exec(connection, $"""
+        IF DATABASE_PRINCIPAL_ID(N'savia_api_host') IS NULL THROW 50000, 'Role savia_api_host is missing; migration V035 must run first.', 1;
         IF DATABASE_PRINCIPAL_ID(N'{user}') IS NULL {create}
-        IF DATABASE_PRINCIPAL_ID(N'savia_api_host') IS NULL CREATE ROLE [savia_api_host] AUTHORIZATION [dbo];
-        GRANT SELECT TO [savia_api_host];
-        GRANT EXECUTE TO [savia_api_host];
-        GRANT INSERT, UPDATE ON OBJECT::[security].[Sessions] TO [savia_api_host];
-        GRANT UPDATE ON OBJECT::[security].[Staff] TO [savia_api_host];
         IF IS_ROLEMEMBER(N'savia_api_host', N'{user}') = 0 ALTER ROLE [savia_api_host] ADD MEMBER {quoted};
         """);
 }

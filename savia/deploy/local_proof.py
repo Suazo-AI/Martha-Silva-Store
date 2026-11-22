@@ -8,6 +8,8 @@ What it proves, in order (exit 0 only if every step passes):
   2. The production migrator applies every migration to an empty database (SAVIA_DEV_deploytest_mig),
      a second run applies nothing, and a changed migration file is refused.
   3. The migrator reads the ledger written by saviadb.py (0 pending on the clone): both runners agree.
+     The API user is only a member of role savia_api_host (V035), and on the migrator-built database
+     that role holds the sync grants on every synced table.
   4. An empty database migrated by saviadb.py (SAVIA_DEV_deploytest_ref) and the migrator database end with\n     the same schema fingerprint (object counts, module text and SET options, columns, ledger).
   5. The API image runs as a non-root user on 127.0.0.1:5090 with a least-privilege SQL login,
      /health answers ok, the login page is served, Docker reports the container healthy, and a
@@ -108,6 +110,27 @@ SELECT CONCAT(
 """
 
 
+API_USER_ROLES = """
+SELECT CONCAT(
+  (SELECT STRING_AGG(r.name, ',') FROM sys.database_role_members m
+     JOIN sys.database_principals r ON r.principal_id = m.role_principal_id
+    WHERE m.member_principal_id = DATABASE_PRINCIPAL_ID(N'{user}')), '|',
+  (SELECT COUNT(*) FROM sys.database_permissions
+    WHERE grantee_principal_id = DATABASE_PRINCIPAL_ID(N'{user}') AND permission_name <> 'CONNECT'));
+"""
+
+# Synced tables on which the role holds INSERT, UPDATE and VIEW CHANGE TRACKING, out of all synced tables.
+SYNC_GRANTS = """
+SELECT CONCAT(
+  (SELECT COUNT(*) FROM sync.SyncTables st
+    WHERE (SELECT COUNT(*) FROM sys.database_permissions p
+            WHERE p.grantee_principal_id = DATABASE_PRINCIPAL_ID(N'savia_api_host') AND p.class = 1
+              AND p.major_id = OBJECT_ID(st.TableName) AND p.state = 'G'
+              AND p.permission_name IN ('INSERT', 'UPDATE', 'VIEW CHANGE TRACKING')) = 3), '/',
+  (SELECT COUNT(*) FROM sync.SyncTables));
+"""
+
+
 def http(method, path, body=None):
     data = json.dumps(body).encode() if body is not None else None
     request = urllib.request.Request(f"http://127.0.0.1:{PORT}{path}", data=data, method=method,
@@ -186,6 +209,11 @@ CREATE LOGIN [{LOGIN_API}] WITH PASSWORD = N'{pw_api}', CHECK_POLICY = ON;""")
         ok &= record("migrator reads the saviadb.py ledger (0 pending)", code == 0 and "pending 0" in out, out.strip().splitlines()[-1][:160])
         code, out = migrator(DB, pw_mig, "--grant-app-user", LOGIN_API)
         ok &= record("migrator grants API host permissions", code == 0 and "permissions ensured" in out, out.strip().splitlines()[-1][:160])
+        roles = saviadb.scalar(DB, API_USER_ROLES.format(user=LOGIN_API))
+        ok &= record("API user holds no grant of its own and is only in role savia_api_host", roles == "savia_api_host|0", roles)
+        # The migrator database had no fixture: V035 must cover the synced tables that V032 registers.
+        synced = saviadb.scalar(DB_MIG, SYNC_GRANTS)
+        ok &= record("role savia_api_host can sync every table on a migrator-built database", synced == "18/18", synced)
 
         # 4. Same schema from both runners.
         a = saviadb.scalar(DB_REF, FINGERPRINT)

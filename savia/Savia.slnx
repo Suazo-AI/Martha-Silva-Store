@@ -6,6 +6,9 @@
     <Project Path="src/Savia.Infrastructure/Savia.Infrastructure.csproj" />
     <Project Path="src/Savia.Api/Savia.Api.csproj" />
   </Folder>
+  <Folder Name="/deploy/">
+    <Project Path="deploy/migrator/Savia.Migrator.csproj" />
+  </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Savia.Tests/Savia.Tests.csproj" />
   </Folder>

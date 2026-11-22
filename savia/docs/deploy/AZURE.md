@@ -157,6 +157,17 @@ Second Azure run on `9a55759`, 2026-11-20: migration job `caj-savia-migrate-446u
 Live checks: `smoke.ps1` PASS; `/health` 200; `/health/ready` 200; CSP and HSTS present; 10 bad sign-ins from one address in a minute, then 429.
 ACR Tasks are blocked on the trial subscription (`TasksOperationsNotAllowed`), so images are built with local Docker and pushed.
 
+Status on 2026-11-21, branch `t3/savia-hardening` (uncommitted patch): P2, P5, P6 and P7 are done locally. Nothing ran on Azure.
+P5: migration V035 creates role `savia_api_host`; the migrator only creates the API user and adds it to the role.
+The role also needs INSERT, UPDATE and VIEW CHANGE TRACKING on the 18 synced tables, because the sync procedures run dynamic SQL.
+Evidence: as a login that is only in the role, sync and vertical-slice tests fail 9 of 18 with the old grants (error 229) and pass 18 of 18 with V035.
+Azure SQL holds V001-V030; the next migration job applies V031-V035 together and adds the API user to the role. Not yet verified on Azure.
+P2: `AddSaviaTelemetry` calls `UseAzureMonitor` only when `APPLICATIONINSIGHTS_CONNECTION_STRING` is set; with `AZURE_CLIENT_ID` it signs in as that identity.
+`Azure.Monitor.OpenTelemetry.AspNetCore` 1.6.0 needs `Azure.Identity` 1.21.0 in the API: older Azure.Identity clashes with Azure.Core 1.60 on `ManagedIdentityCredential`.
+1.4.0 avoids the bump but pulls `OpenTelemetry.Api` 1.14.0 (GHSA-g94r-2vxg-569j). The managed-identity export is not tested until it runs on Azure.
+P6: `Savia.slnx` builds the migrator. P7: `savia/tools/check.py` reruns the sync tests as the role login, and runs `local_proof.py --build` unless `--quick`, `--isolated` or no dev container.
+`check.py --isolated` on the final tree: exit 0; T-SQL 151 PASS, .NET 200 of 200, role login 18 of 18. `local_proof.py --build` PASS. Evidence: `savia/docs/evidence/hardening-20261121/`.
+
 | ID | File | Change | Reason |
 | --- | --- | --- | --- |
 | P1 | `savia/src/Savia.Api/Program.cs` | Add `UseForwardedHeaders` (X-Forwarded-For, X-Forwarded-Proto), `UseHsts` in Production, and headers: `Content-Security-Policy: default-src 'self'; frame-ancestors 'none'`, `X-Content-Type-Options: nosniff`, `Referrer-Policy: no-referrer`. | TLS ends at the Container Apps proxy; the app must know the request was HTTPS, and the Bearer token in `sessionStorage` needs XSS protection. |

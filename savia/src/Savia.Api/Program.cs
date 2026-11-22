@@ -8,6 +8,7 @@ builder.Services.AddSaviaTags();   // tag photo -> product fields, local OCR onl
 builder.Services.AddOpenApi();
 builder.Services.AddHostedService<SyncWorker>();   // branch to hub sync, off unless Savia:Sync:HubUrl is set (docs/sync/P9-SPEC.md)
 builder.Services.AddSaviaHosting();   // proxy, HTTPS, headers, login limit (savia/docs/deploy/AZURE.md)
+builder.AddSaviaTelemetry();          // Application Insights, off unless APPLICATIONINSIGHTS_CONNECTION_STRING is set
 
 var app = builder.Build();
 _ = app.Services.GetRequiredService<SqlGateway>();   // fail at start-up, not on the first request, when misconfigured
