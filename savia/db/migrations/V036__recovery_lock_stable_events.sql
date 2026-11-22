@@ -9,10 +9,23 @@
 -- 4. A sale the rebuild brings back is listed in sync.RecoveredSales. Its event was lost with the restore and is
 --    not created again: the hub already received it (D-037). The conservation oracle reads this table (V038).
 
+-- 0. sync.CurrentFork: the one place that knows how this engine names a recovery fork.
+-- SQL Server (stores, local): sys.database_recovery_status changes its fork when a backup is restored.
+-- Azure SQL Database (hub) has no such view: a restored or copied database is a new database, so its
+-- creation time and broker id change. Every sync module reads this view, never the system view.
+IF CAST(SERVERPROPERTY('EngineEdition') AS int)=5
+  EXEC(N'CREATE OR ALTER VIEW [sync].[CurrentFork] AS
+SELECT CONVERT(uniqueidentifier,HASHBYTES(''MD5'',CONCAT(CONVERT(varchar(33),d.create_date,126),''|'',CONVERT(varchar(36),d.service_broker_guid)))) AS ForkGuid
+FROM sys.databases d WHERE d.database_id=DB_ID();');
+ELSE
+  EXEC(N'CREATE OR ALTER VIEW [sync].[CurrentFork] AS
+SELECT recovery_fork_guid AS ForkGuid FROM sys.database_recovery_status WHERE database_id=DB_ID();');
+GO
+
 ALTER TABLE [sync].[LocalNode] ADD [ForkGuid] uniqueidentifier NULL;
 GO
 -- Existing nodes are bound to the fork they run on now; a backup restored after this migration differs from it.
-UPDATE sync.LocalNode SET ForkGuid=(SELECT recovery_fork_guid FROM sys.database_recovery_status WHERE database_id=DB_ID());
+UPDATE sync.LocalNode SET ForkGuid=(SELECT ForkGuid FROM sync.CurrentFork);
 GO
 
 CREATE TABLE [sync].[RecoveredSales] (
@@ -31,7 +44,7 @@ AS
 BEGIN
  RETURN CASE WHEN EXISTS(SELECT 1 FROM sync.LocalNode l JOIN sync.Nodes n ON n.Id=l.NodeId
    WHERE n.Kind='branch'
-     AND l.ForkGuid<>(SELECT recovery_fork_guid FROM sys.database_recovery_status WHERE database_id=DB_ID()))
+     AND l.ForkGuid<>(SELECT ForkGuid FROM sync.CurrentFork))
    THEN 1 ELSE 0 END;
 END;
 GO
@@ -70,7 +83,7 @@ BEGIN
    IF NOT EXISTS(SELECT 1 FROM sync.Nodes WHERE Id=@NodeId AND IsEnabled=1)
      THROW 51807,'Nodo inexistente o deshabilitado.',1;
    INSERT INTO sync.LocalNode(Singleton,NodeId,ForkGuid)
-     SELECT 1,@NodeId,recovery_fork_guid FROM sys.database_recovery_status WHERE database_id=DB_ID();
+     SELECT 1,@NodeId,ForkGuid FROM sync.CurrentFork;
    COMMIT;
  END TRY
  BEGIN CATCH IF @@TRANCOUNT>0 ROLLBACK; THROW; END CATCH;
@@ -86,7 +99,7 @@ BEGIN
  DECLARE @ownTran bit=0;
  IF @@TRANCOUNT=0 BEGIN SET TRANSACTION ISOLATION LEVEL SNAPSHOT; BEGIN TRANSACTION; SET @ownTran=1; END;
  SET @Json=(SELECT (SELECT NodeId FROM sync.LocalNode) AS node,
-                   (SELECT recovery_fork_guid FROM sys.database_recovery_status WHERE database_id=DB_ID()) AS fork,
+                   (SELECT ForkGuid FROM sync.CurrentFork) AS fork,
                    CHANGE_TRACKING_CURRENT_VERSION() AS [version],
                    sync.fn_Recovering() AS recovering,
                    (SELECT MAX([Version]) FROM dbo.SaviaMigrations) AS [schema],
@@ -212,7 +225,7 @@ BEGIN
  IF @mode='rebuild'
  BEGIN
    -- Same transaction as the rows: the token exists on this branch only if the rebuild really landed.
-   DECLARE @ownFork uniqueidentifier=(SELECT recovery_fork_guid FROM sys.database_recovery_status WHERE database_id=DB_ID());
+   DECLARE @ownFork uniqueidentifier=(SELECT ForkGuid FROM sync.CurrentFork);
    UPDATE sync.AppliedRebuilds SET Token=@token,AppliedAt=SYSUTCDATETIME() WHERE PeerNodeId=@PeerNodeId AND ForkGuid=@ownFork;
    IF @@ROWCOUNT=0 INSERT sync.AppliedRebuilds(PeerNodeId,ForkGuid,Token) VALUES(@PeerNodeId,@ownFork,@token);
    INSERT sync.RecoveredSales(SaleId,ForkGuid) SELECT SaleId,@ownFork FROM @recovered;
@@ -652,5 +665,136 @@ BEGIN
   COMMIT;
  END TRY
  BEGIN CATCH IF @@TRANCOUNT>0 ROLLBACK; THROW; END CATCH;
+END;
+GO
+
+-- The two older modules that read the system view directly (V008, V034), unchanged except for sync.CurrentFork.
+-- One row per tracked table: who I am, my recovery fork, my current version and the table's minimum valid version.
+-- Read in one SNAPSHOT transaction so the versions are consistent with each other (F5).
+CREATE OR ALTER PROCEDURE [sync].[usp_GetSourceState]
+AS
+BEGIN
+ SET NOCOUNT ON; SET XACT_ABORT ON;
+ -- Own SNAPSHOT transaction when called alone. Inside a caller's transaction (INSERT-EXEC, or a C# caller that
+ -- already began SNAPSHOT to read the changes too) it reads in that transaction; isolation cannot change there.
+ DECLARE @ownTran bit=0;
+ IF @@TRANCOUNT=0
+ BEGIN
+   SET TRANSACTION ISOLATION LEVEL SNAPSHOT;
+   BEGIN TRANSACTION; SET @ownTran=1;
+ END;
+   SELECT (SELECT NodeId FROM sync.LocalNode) AS NodeId,
+          (SELECT ForkGuid FROM sync.CurrentFork) AS ForkGuid,
+          CHANGE_TRACKING_CURRENT_VERSION() AS CurrentVersion,
+          QUOTENAME(OBJECT_SCHEMA_NAME(t.object_id))+N'.'+QUOTENAME(OBJECT_NAME(t.object_id)) AS TableName,
+          CHANGE_TRACKING_MIN_VALID_VERSION(t.object_id) AS MinValidVersion
+   FROM sys.change_tracking_tables t
+   ORDER BY TableName;
+ IF @ownTran=1 COMMIT;
+END;
+GO
+
+-- savia:transactional
+-- V034: P9 review fixes (savia/docs/sync/P9-SPEC.md, review of 2026-11-20). Recreates usp_ReadBatch and usp_ApplyBatch.
+-- 1. usp_ApplyBatch checks the owner of the row already stored under each key, not only the owner in the batch.
+--    Before, a branch could push another branch's key with its own owner value and MERGE moved the row (test sync/240).
+-- 2. usp_ReadBatch retires old forks and records the rebuild token before the snapshot read, under the apply lock,
+--    so a late batch from an old fork cannot land between the rebuild read and the retirement.
+-- 3. usp_ReadBatch reads CHANGE_TRACKING_CURRENT_VERSION() first in the snapshot transaction.
+-- Errors are unchanged.
+
+CREATE OR ALTER PROCEDURE [sync].[usp_ReadBatch]
+ @TargetNodeId uniqueidentifier,@PlanJson nvarchar(max),@TargetForkGuid uniqueidentifier=NULL,@Json nvarchar(max) OUTPUT
+AS
+BEGIN
+ SET NOCOUNT ON; SET XACT_ABORT ON;
+ DECLARE @me uniqueidentifier=(SELECT NodeId FROM sync.LocalNode);
+ IF @me IS NULL THROW 51855,'La base no sabe que nodo es (sync.LocalNode).',1;
+ IF @@TRANCOUNT>0 THROW 51857,'La lectura de un lote abre su propia transaccion SNAPSHOT.',1;
+ IF ISJSON(@PlanJson)<>1 THROW 51861,'Plan de sincronizacion invalido.',1;
+ DECLARE @planPeer uniqueidentifier=TRY_CONVERT(uniqueidentifier,JSON_VALUE(@PlanJson,'$.peer')),
+   @planFork uniqueidentifier=TRY_CONVERT(uniqueidentifier,JSON_VALUE(@PlanJson,'$.fork')),
+   @mode varchar(10)=JSON_VALUE(@PlanJson,'$.mode'),
+   @isHub bit=CASE WHEN (SELECT Kind FROM sync.Nodes WHERE Id=@me)='azure' THEN 1 ELSE 0 END;
+ IF @planPeer IS NULL OR @planFork IS NULL OR ISNULL(@mode,'') NOT IN ('normal','rebuild')
+   THROW 51861,'Plan de sincronizacion invalido.',1;
+ IF @planPeer<>@me OR sync.fn_PeerAllowed(@me,@TargetNodeId)=0 THROW 51850,'Par de nodos no permitido.',1;
+ IF @mode='rebuild' AND (@isHub=0 OR @TargetForkGuid IS NULL) THROW 51850,'Solo el hub sirve una reconstruccion.',1;
+ DECLARE @p TABLE(t sysname PRIMARY KEY,a varchar(20),f bigint);
+ INSERT @p SELECT t,a,f FROM OPENJSON(@PlanJson,'$.tables') WITH (t sysname,a varchar(20),f bigint);
+ IF (SELECT COUNT(*) FROM @p p JOIN sync.SyncTables st ON st.TableName=p.t)<>(SELECT COUNT(*) FROM sync.SyncTables)
+    OR (SELECT COUNT(*) FROM @p)<>(SELECT COUNT(*) FROM sync.SyncTables)
+   THROW 51856,'El plan no cubre exactamente las tablas sincronizadas.',1;
+ IF EXISTS(SELECT 1 FROM @p WHERE a NOT IN ('initial','recover','reinit','incremental','rebuild')
+           OR (a='incremental' AND f IS NULL) OR (a='rebuild' AND @mode<>'rebuild'))
+   THROW 51861,'Plan de sincronizacion invalido.',1;
+
+ DECLARE @out TABLE(o int PRIMARY KEY,t sysname,a varchar(20),f bigint,[rows] nvarchar(max));
+ DECLARE @fork uniqueidentifier,@to bigint,@schema varchar(20)=(SELECT MAX([Version]) FROM dbo.SaviaMigrations),
+   @token uniqueidentifier=CASE WHEN @mode='rebuild' THEN NEWID() END;
+ DECLARE @o int,@t sysname,@a varchar(20),@f bigint,@owner nvarchar(600),@sel nvarchar(max),@ctOn nvarchar(max),
+         @flt nvarchar(max),@sql nvarchar(max),@rows nvarchar(max);
+
+ -- V034: a rebuild retires the target's other forks and records its token BEFORE the snapshot read, under the
+ -- target's apply lock. A batch from an old fork that is being applied finishes first and is in the snapshot;
+ -- a later one is refused (51853). Each rebuild served gets a new token; only the last one opens the hub to this fork.
+ IF @mode='rebuild'
+ BEGIN
+   DECLARE @rc int,@lock nvarchar(255)=N'savia.sync.apply.'+CONVERT(nvarchar(36),@TargetNodeId);
+   BEGIN TRANSACTION;
+   BEGIN TRY
+   EXEC @rc=sys.sp_getapplock @Resource=@lock,@LockMode='Exclusive',@LockOwner='Transaction',@LockTimeout=30000;
+   IF @rc<0 THROW 51863,'Otro lote del mismo nodo se esta aplicando.',1;
+   INSERT sync.RetiredForks(PeerNodeId,ForkGuid)
+     SELECT DISTINCT @TargetNodeId,c.ForkGuid FROM sync.PeerCursors c
+     WHERE c.PeerNodeId=@TargetNodeId AND c.ForkGuid<>@TargetForkGuid
+       AND NOT EXISTS(SELECT 1 FROM sync.RetiredForks r WHERE r.PeerNodeId=@TargetNodeId AND r.ForkGuid=c.ForkGuid);
+   UPDATE sync.PeerRebuilds SET Token=@token,ServedAt=SYSUTCDATETIME() WHERE PeerNodeId=@TargetNodeId AND ForkGuid=@TargetForkGuid;
+   IF @@ROWCOUNT=0 INSERT sync.PeerRebuilds(PeerNodeId,ForkGuid,Token) VALUES(@TargetNodeId,@TargetForkGuid,@token);
+   COMMIT;
+   END TRY
+   BEGIN CATCH IF @@TRANCOUNT>0 ROLLBACK; THROW; END CATCH;
+ END;
+
+ SET TRANSACTION ISOLATION LEVEL SNAPSHOT;
+ BEGIN TRANSACTION;
+ BEGIN TRY
+ SET @to=CHANGE_TRACKING_CURRENT_VERSION();   -- V034: first statement of the snapshot, before any other read
+ SET @fork=(SELECT ForkGuid FROM sync.CurrentFork);
+ IF @fork<>@planFork THROW 51858,'El fork del emisor cambio durante la sincronizacion.',1;
+ -- A branch shows the hub the rebuild it applied on its current fork; the hub needs it before it takes a new fork.
+ IF @isHub=0 SET @token=(SELECT Token FROM sync.AppliedRebuilds WHERE PeerNodeId=@TargetNodeId AND ForkGuid=@fork);
+ DECLARE c CURSOR LOCAL FAST_FORWARD FOR
+   SELECT s.ApplyOrder,s.TableName,p.a,p.f,s.OwnerExpr,s.SelectList,s.CtOnList
+   FROM sync.fn_TableShape() s JOIN @p p ON p.t=s.TableName ORDER BY s.ApplyOrder;
+ OPEN c;
+ FETCH NEXT FROM c INTO @o,@t,@a,@f,@owner,@sel,@ctOn;
+ WHILE @@FETCH_STATUS=0
+ BEGIN
+   SET @flt=CASE WHEN @mode='rebuild' THEN N'1=1' WHEN @isHub=1 THEN N'('+@owner+N')<>@target' ELSE N'('+@owner+N')=@me' END;
+   IF @a='incremental'
+   BEGIN
+     IF CHANGE_TRACKING_MIN_VALID_VERSION(OBJECT_ID(@t))>@f THROW 51859,'Cambios ya depurados durante la sincronizacion.',1;
+     SET @sql=N'IF EXISTS(SELECT 1 FROM CHANGETABLE(CHANGES '+@t+N',@f) ct WHERE ct.SYS_CHANGE_OPERATION=''D'') '
+       +N'THROW 51860,''Borrado fisico en una tabla sincronizada.'',1; '
+       +N'SET @rows=(SELECT '+@sel+N' FROM CHANGETABLE(CHANGES '+@t+N',@f) ct JOIN '+@t+N' t ON '+@ctOn
+       +N' WHERE ct.SYS_CHANGE_VERSION<=@to AND '+@flt+N' FOR JSON PATH, INCLUDE_NULL_VALUES);';
+   END
+   ELSE
+     SET @sql=N'SET @rows=(SELECT '+@sel+N' FROM '+@t+N' t WHERE '+@flt+N' FOR JSON PATH, INCLUDE_NULL_VALUES);';
+   SET @rows=NULL;
+   EXEC sys.sp_executesql @sql,N'@f bigint,@to bigint,@me uniqueidentifier,@target uniqueidentifier,@rows nvarchar(max) OUTPUT',
+        @f=@f,@to=@to,@me=@me,@target=@TargetNodeId,@rows=@rows OUTPUT;
+   INSERT @out VALUES(@o,@t,@a,CASE WHEN @a='incremental' THEN @f END,ISNULL(@rows,N'[]'));
+   FETCH NEXT FROM c INTO @o,@t,@a,@f,@owner,@sel,@ctOn;
+ END;
+ CLOSE c; DEALLOCATE c;
+ COMMIT;
+ END TRY
+ BEGIN CATCH IF @@TRANCOUNT>0 ROLLBACK; THROW; END CATCH;
+
+ SET @Json=(SELECT @me AS node,@fork AS fork,@to AS [to],@schema AS [schema],@mode AS mode,@token AS rebuild,
+   JSON_QUERY((SELECT t,a,f,JSON_QUERY([rows]) AS [rows] FROM @out ORDER BY o FOR JSON PATH, INCLUDE_NULL_VALUES)) AS tables
+   FOR JSON PATH, WITHOUT_ARRAY_WRAPPER, INCLUDE_NULL_VALUES);
 END;
 GO

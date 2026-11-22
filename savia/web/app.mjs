@@ -174,7 +174,9 @@ async function route() {
   $('access').hidden = true;
   $('shell').hidden = false;
   // Sale and return recovery must mount before any till, catalog or exchange-rate dependency.
-  if (ctx.isApprover && screen !== sale && screen !== returns) await syncTill(screenCtx);
+  // The hub has no cash registers: asking for a till there returns 404 and left every hub screen blank.
+  const hasTills = ctx.me?.nodeKind !== 'Cloud';
+  if (hasTills && ctx.isApprover && screen !== sale && screen !== returns) await syncTill(screenCtx);
   if (!isCurrent()) return;
   renderHeader();
   renderNavigation(name);

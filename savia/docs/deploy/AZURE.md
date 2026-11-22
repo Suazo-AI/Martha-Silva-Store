@@ -168,6 +168,12 @@ Revision `ca-savia-api--g37b6c06-1` passed `smoke.ps1` at 0% traffic, then took 
 Application Insights received 18 requests and 9 dependencies through the managed identity (P2 verified on Azure).
 Rollback: `az containerapp ingress traffic set -n ca-savia-api -g rg-savia-prod --revision-weight ca-savia-api--0000001=100`; V031-V035 are additive.
 Not verified: a sync round as the API identity on Azure SQL; it needs a node credential.
+Fourth Azure run, 2026-11-22, commit `fcf14a42`: job `caj-savia-migrate-ktlao83` failed at V036 with SQL error 208, `Invalid object name 'sys.database_recovery_status'`. The live revision did not change.
+Azure SQL Database has no `sys.database_recovery_status`. Procedures since V008 read it, so they installed but would have failed on the first sync round.
+Fix: V036 now creates the view `sync.CurrentFork` with one definition per engine, and every sync module reads it. V036 was amended because it could not install on Azure and no durable database held it.
+On Azure the fork is derived from the database creation time and broker id. Not verified: that this value changes after a point-in-time restore.
+Dry run on the copy `savia-premig-fcf14a42-1` with image `savia-migrator:dryrun-v036fix-1`, execution `caj-savia-migrate-lv0azj5`: V036 to V051 applied, ledger complete (47 versions).
+Rule: before a production migration, run the migrator against the pre-migration copy first. Test `db/tests/sync/260` fails if another module reads the system view.
 P2: `AddSaviaTelemetry` calls `UseAzureMonitor` only when `APPLICATIONINSIGHTS_CONNECTION_STRING` is set; with `AZURE_CLIENT_ID` it signs in as that identity.
 `Azure.Monitor.OpenTelemetry.AspNetCore` 1.6.0 needs `Azure.Identity` 1.21.0 in the API: older Azure.Identity clashes with Azure.Core 1.60 on `ManagedIdentityCredential`.
 1.4.0 avoids the bump but pulls `OpenTelemetry.Api` 1.14.0 (GHSA-g94r-2vxg-569j). The managed-identity export is not tested until it runs on Azure.
