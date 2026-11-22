@@ -327,7 +327,7 @@ test('English favorites, validation, bag updates and stock errors stay translate
     assert.ok(error);
     assert.doesNotMatch(text(error), /No hay|unidades|talla/);
     assert.match(text(error), /enough|stock|available/i);
-    assert.match(text(b.d.querySelector('[data-stock-note]')), /sample/i);
+    assert.match(text(b.d.querySelector('[data-stock-note]')), /available/i);
   });
 });
 
@@ -372,9 +372,9 @@ test('English checkout preserves customer text and never translates form values'
     assert.ok(text(review).includes('Calle Rosa'));
     assert.ok(text(review).includes('Rosa'));
     assert.ok(!text(review).includes('Calle Pink'));
-    assert.match(text(b.d.querySelector('[data-create-order]')), /(?:test|demo) payment/i);
+    assert.match(text(b.d.querySelector('[data-create-order]')), /continue to payment/i);
     assert.doesNotMatch(text(b.d.querySelector('.steps')), /Contacto|Entrega|Revisión|Pago/);
-    assert.match(text(b.d.querySelector('.checkout-panel')), /test|sample|simulat/i);
+    assert.match(text(b.d.querySelector('.checkout-panel')), /Review your purchase/i);
     assert.doesNotMatch(text(b.d.querySelector('.checkout-panel')), /Revisá|Todos los importes|No se cobra/);
     b.w.MarthaI18n.setLanguage('es'); await tick();
     b.w.MarthaI18n.setLanguage('en'); await tick();

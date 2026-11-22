@@ -42,9 +42,9 @@
 - [Vestido midi con estampado burdeos](/producto-midi-estampado-burdeos.html): Moda, $65.00
 - [Vestido de novia con drapeado y abertura](/producto-novia-satinada-abertura.html): Novias, $295.00
 - [Vestido de novia con tirantes y encaje](/producto-novia-tirantes-encaje.html): Novias, $295.00
-- [Muestra Rubí](/producto-gala-rubi.html): Gala, $175.00
-- [Muestra Oro](/producto-gala-oro.html): Gala, $175.00
-- [Muestra Destello](/producto-gala-destello.html): Gala, $175.00
-- [Muestra Velo](/producto-novias-velo.html): Novias, $295.00
-- [Muestra Alba](/producto-novias-alba.html): Novias, $295.00
-- [Muestra Encaje](/producto-novias-encaje.html): Novias, $295.00
+- [Gala Rubí](/producto-gala-rubi.html): Gala, $175.00
+- [Gala Oro](/producto-gala-oro.html): Gala, $175.00
+- [Gala Destello](/producto-gala-destello.html): Gala, $175.00
+- [Novia Velo](/producto-novias-velo.html): Novias, $295.00
+- [Novia Alba](/producto-novias-alba.html): Novias, $295.00
+- [Novia Encaje](/producto-novias-encaje.html): Novias, $295.00

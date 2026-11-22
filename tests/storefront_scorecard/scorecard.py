@@ -16,9 +16,15 @@ PRICE_TOKEN = re.compile(r'[−-]?(?:US\$|USD\s?|C\$|\$)\s?\d[\d,]*(?:\.\d+)?')
 SRC_JS = ('app.js', 'demo-api.js', 'integration-adapters.js')
 EN_RE = (r"/[áéíóúñ¿¡]|\b(de|la|el|los|las|para|con|tu|tus|ver|buscar|comprar|talla|bolsa|pedido|ayuda|cerrar|agregar|"
          r"guardar|novias|vestidos|nuestra|entrega|prueba|tienda|categorías)\b/i")
+# P11: visitor-facing demo signals in visible text, attributes, title and meta (all languages).
+DEMO_RE = (r"/\b(demo\w*|prueba\w*|de muestra|stock de muestra|simula\w*|fictici\w*|sint[eé]tic\w*|generad[ao]s? con IA|"
+           r"AI[- ]generated|test|sample\w*|SAVIA|SISFAIN|PRUEBA10|no se cobra|vista previa|preview|mock\w*|por confirmar|pendientes? de confirmar)\b|(^|[^a-z])Muestra\b/i")
 
 PROBE = r"""(()=>{const d=document,vis=e=>{const r=e.getBoundingClientRect();return r.width>0&&r.height>0&&getComputedStyle(e).visibility!=='hidden'};
-const re=%s,es=new Set();
+const re=%s,dre=%s,es=new Set(),dm=new Set();
+{const w=d.createTreeWalker(d.body,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode()){const t=n.textContent.trim(),p=n.parentElement;if(!t||!p||p.closest('script,style,noscript'))continue;if(!vis(p))continue;if(dre.test(t))dm.add('T:'+t.slice(0,60))}
+d.querySelectorAll('[placeholder],[aria-label],img[alt],[title]').forEach(e=>['placeholder','aria-label','alt','title'].forEach(a=>{const v=e.getAttribute(a);if(v&&dre.test(v))dm.add(a+':'+v.slice(0,60))}));
+[d.title,d.querySelector('meta[name=description]')?.content||''].forEach(v=>{if(dre.test(v))dm.add('meta:'+v.slice(0,60))})}
 if(d.documentElement.lang==='en'){const w=d.createTreeWalker(d.body,NodeFilter.SHOW_TEXT);let n;
 while(n=w.nextNode()){const t=n.textContent.trim(),p=n.parentElement;if(!t||t.length<2||!p||p.closest('[translate=no],script,style,[aria-hidden=true]'))continue;if(!vis(p))continue;if(re.test(t))es.add('T:'+t.slice(0,50))}
 d.querySelectorAll('[placeholder],[aria-label],img[alt],[title]').forEach(e=>{if(e.closest('[translate=no]'))return;['placeholder','aria-label','alt','title'].forEach(a=>{const v=e.getAttribute(a);if(v&&re.test(v))es.add(a+':'+v.slice(0,50))})})}
@@ -28,9 +34,9 @@ const small=ctl.filter(e=>{const r=e.getBoundingClientRect();return r.width<24||
 const imgs=[...d.images];
 return JSON.stringify({path:location.pathname,lang:d.documentElement.lang,title:d.title,h1:d.querySelectorAll('h1').length,
 overflowX:d.documentElement.scrollWidth>innerWidth+1,broken:imgs.filter(i=>i.complete&&i.currentSrc&&i.naturalWidth===0).length,
-small:small.length,smallSample:small.slice(0,3),es:[...es].slice(0,20),tokens,
+small:small.length,smallSample:small.slice(0,3),es:[...es].slice(0,20),demo:[...dm].slice(0,20),tokens,
 anims:d.getAnimations().filter(a=>a.playState==='running').length,
-gsapChildren:window.gsap?gsap.globalTimeline.getChildren(true,true,true).length:null})})()""" % (EN_RE, PRICE_TOKEN.pattern.replace('/', r'\/').join(['/', '/g']))
+gsapChildren:window.gsap?gsap.globalTimeline.getChildren(true,true,true).length:null})})()""" % (EN_RE, DEMO_RE, PRICE_TOKEN.pattern.replace('/', r'\/').join(['/', '/g']))
 
 RES = r"""(()=>{const g={js:0,css:0,font:0,img:0,other:0},n=performance.getEntriesByType('resource');
 for(const r of n){const u=r.name.split('?')[0],b=r.encodedBodySize||r.transferSize||0;
@@ -247,17 +253,17 @@ def run_flow(b, base, width, lang, axe_on):
     page('/bolsa.html', 'bag')
     b.ab('open', base + '/checkout.html' + q); time.sleep(1.5)
     b.click('[data-checkout-form] button.button'); probe('contact-errors', True, 0.6)
-    for k, v in {'name': 'Ana Ficticia', 'email': 'ana@example.test', 'phone': '+505 8888 0000'}.items():
+    for k, v in {'name': 'Ana López', 'email': 'ana@example.com', 'phone': '+505 8888 0000'}.items():
         b.ab('fill', f'[data-checkout-form] [name="{k}"]', v)
     b.click('[data-checkout-form] button.button'); probe('delivery', True, 1.2)
-    for k, v in {'line1': 'Calle de prueba 1', 'city': 'Managua', 'department': 'Managua', 'coupon': 'PRUEBA10'}.items():
+    for k, v in {'line1': 'Calle Principal 1', 'city': 'Managua', 'department': 'Managua', 'coupon': 'BIENVENIDA10'}.items():
         b.ab('fill', f'[data-checkout-form] [name="{k}"]', v)
     b.click('[data-checkout-form] button.button'); probe('review', True, 1.4)
     total = b.ev('(document.querySelector("[data-checkout-root]")||document.body).innerText.match(/(?:Total)[^\\n]*\\n?[^\\n]*/i)?.[0]||""')
     b.click('[data-create-order]'); probe('payment', True, 1.8)
     b.click('[data-test-payment="approved"]'); time.sleep(2.2)
     probe('order', True, 0.3)
-    order = b.ev('JSON.stringify({path:location.pathname,demo:/DEMO-\\d+/.test(document.body.innerText)})')
+    order = b.ev('JSON.stringify({path:location.pathname,demo:/MS-\\d+/.test(document.body.innerText)})')
     ok = isinstance(order, dict) and order.get('path', '').endswith('pedido.html') and order.get('demo')
     return {'purchase': bool(ok), 'reviewTotal': total, 'sizeL': size_l, 'states': states, 'axe': axe, 'errors': errs, 'warnings': warns}
 
@@ -300,7 +306,7 @@ def vitals(b, base, runs=3):
 
 
 def summarize(flows):
-    s = {'purchase': {}, 'axeByImpact': {}, 'axeIds': {}, 'enSpanish': 0, 'enSample': [], 'priceBad': 0, 'priceSample': [],
+    s = {'purchase': {}, 'axeByImpact': {}, 'axeIds': {}, 'enSpanish': 0, 'enSample': [], 'demoHits': 0, 'demoSample': [], 'priceBad': 0, 'priceSample': [],
          'overflow': [], 'broken': 0, 'h1Bad': [], 'small390': 0, 'consoleErrors': 0, 'consoleWarnings': 0, 'consoleSample': []}
     for key, f in flows.items():
         s['purchase'][key] = f['purchase']
@@ -314,6 +320,8 @@ def summarize(flows):
             if key.endswith('en'):
                 s['enSpanish'] += len(st['es'])
                 s['enSample'] += [f'{key} {label} {x}' for x in st['es']][:3]
+            s['demoHits'] += len(st.get('demo', []))
+            s['demoSample'] += [f'{key} {label} {x}' for x in st.get('demo', [])][:4]
             bad = [t for t in st['tokens'] if not PRICE_OK.match(t.replace(' ', ''))]
             s['priceBad'] += len(bad)
             s['priceSample'] += [f'{key} {label} {t}' for t in bad[:2]]
@@ -329,6 +337,7 @@ def summarize(flows):
         s['consoleSample'] += (f['errors'] + f['warnings'])[:3]
     for k in ('enSample', 'priceSample', 'consoleSample'):
         s[k] = sorted(set(s[k]))[:8]
+    s['demoSample'] = sorted(set(s['demoSample']))[:30]
     return s
 
 

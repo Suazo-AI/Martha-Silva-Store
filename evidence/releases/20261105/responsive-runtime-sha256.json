@@ -1,19 +1,19 @@
 {
   "404.html": {
-    "sha256": "a21b295a956fbf5701aebe963669109b4633e90818fa664751b938b4e56d6bc4",
-    "bytes": 16683
+    "sha256": "5aed8c150cc42f2987f25a0e40ff45a1d48a13d0edcca22d6c96978e12be5ed1",
+    "bytes": 14327
   },
   "_headers": {
     "sha256": "5eb6c3bbbdb034ce9058a2320b458684fda347f00a764ea786465953db65e3bf",
     "bytes": 540
   },
   "admin.html": {
-    "sha256": "cc54ba2fe2450ed72a32aff452846c3644d5b79bfe6473de19fe095526f354ab",
-    "bytes": 16687
+    "sha256": "3ecc27e51d4bef4f85f0e823ec9d32cce72a403e6255327a253715d16141fdb0",
+    "bytes": 14322
   },
   "app.js": {
-    "sha256": "ba52b1391ecd6f40ef3b3219ddd296cf6729fbafcbe894a1184624c5f4fd5122",
-    "bytes": 111461
+    "sha256": "279f7790a9a6693724583ba04f7a896aca39e75cadb21ae83cc689dd591c4bf5",
+    "bytes": 105224
   },
   "assets/missing.svg": {
     "sha256": "d554c87f8dbda28d8a3aa567e19290c0ff9845c1b459f72e35c62535e1f41428",
@@ -24,28 +24,28 @@
     "bytes": 59454
   },
   "ayuda.html": {
-    "sha256": "6266b1722d4a920a4e87bf3476a219f8e90265ae206da96544dbd2363d3c1375",
-    "bytes": 19174
+    "sha256": "8046621af98e3cb8337011721ec5f3c9c496104323a2e437f8a5e3414f2b62c3",
+    "bytes": 16474
   },
   "bolsa.html": {
-    "sha256": "36376ddafd92632721c95697d60207df53483a94b032592539398405d00a8c71",
-    "bytes": 16749
+    "sha256": "f8fb29702de069e06de4c590bac56f5787818749fa001ccd0f90835c536bb548",
+    "bytes": 14393
   },
   "catalog.js": {
-    "sha256": "1495e8a10a2cde56ddb0087051c327949389f775977f41b7d4b676f37f3cd343",
-    "bytes": 216694
+    "sha256": "9e015bab802035fe7e01237e3c83a8d606d88077e90d16bb7c9cc16864e6836b",
+    "bytes": 217116
   },
   "catalogo.html": {
-    "sha256": "824b619e3684f629bd744f668d3c48f90722dede33809e26cd4e056f28736ba3",
-    "bytes": 138759
+    "sha256": "0a6a83b608e15f6da1aa77c12377acc9a3a800d0573d435d01c0bf7261b852ee",
+    "bytes": 134139
   },
   "checkout.html": {
-    "sha256": "a86383e301541572d585686dbe6adababa4c9629f8ba7724e2544fbe061cd5d8",
-    "bytes": 10694
+    "sha256": "86f88fd56f0272881a93fa43656935efd219ffec23933b8a1554bee5c48cd583",
+    "bytes": 8338
   },
   "demo-api.js": {
-    "sha256": "2cfdfaa9ea665ba4fd7c822ab66f7bdaa1499160c45e04cde53d14530d04002e",
-    "bytes": 19962
+    "sha256": "f50391f36ec62b0cb2196d5166666779f2bb13d59bcd8ffc32cc547cee137f97",
+    "bytes": 19760
   },
   "editorial/DbZdVj6q2vn-320.jpg": {
     "sha256": "fd4dc46d0f6030c0999921fb70f4670131be2b0ddc5f00b43f15e0164c9a9f73",
@@ -896,188 +896,188 @@
     "bytes": 83384
   },
   "i18n.js": {
-    "sha256": "d4ffc4780169b69d85a8dc04d177f2b5ef523159261894ad7952a8ee6e6e598e",
-    "bytes": 9857
+    "sha256": "7bb7b3c9a6ad5e3c34e7ea621a1ce75f57f84896471b6f66d2296bb8701d4272",
+    "bytes": 9834
   },
   "index.html": {
-    "sha256": "8c73fbfe5ed6ddbe85b92725a591c986bac82a3451971037784bdb214ce5b39d",
-    "bytes": 201258
+    "sha256": "206936fe62ae106992f6dab5a400f1e6cd69ef30cd61b1406b16abf1537845ab",
+    "bytes": 195209
   },
   "integration-adapters.js": {
-    "sha256": "d274c6853b397c840b92e6dc2491f2f882e568d964429c7ad408fa971b6f2953",
-    "bytes": 16659
+    "sha256": "ba8ca586a381c5bb28e770a22ccb8f947c58143cf36200cec14e5994c294485b",
+    "bytes": 16364
   },
   "llms.txt": {
-    "sha256": "ad37f8d16ab84513a490046b3b3c640ebf10f9267609ff4b946a1bdbab501d91",
-    "bytes": 3472
+    "sha256": "0fffb491be2c556f825c2f64abaf07259575a58a48a6842d68bb72a59564be98",
+    "bytes": 3457
   },
   "locale-en.js": {
-    "sha256": "7c4b77df958b54137ae1ca7de612a447910436625681e9941a539fe2fbd28cd6",
-    "bytes": 35083
+    "sha256": "8844772370b2f13f81b469be90f9738939c468eead39d58443ec925cce87bbc6",
+    "bytes": 26562
   },
   "pedido.html": {
-    "sha256": "3de3a3f291b76b45c9e15078cbfc619aea6693ba2cbb192726a542b46ddecfa1",
-    "bytes": 16680
+    "sha256": "ee65999d675d8c8d532054c81b55b6c6e2dd7dc8a14ea954c64fefa67d0cf292",
+    "bytes": 14304
   },
   "producto-amarillo.html": {
-    "sha256": "cddb17051aaec19828c1cf3ea77a4978d8c395092818d40aa7994ee9dea9d8d9",
-    "bytes": 238714
+    "sha256": "893298ccb4f4ce01b6de5bb536a391610d7d41e4df6cb914c913e1718fbebd01",
+    "bytes": 231757
   },
   "producto-azul-floral-un-hombro.html": {
-    "sha256": "255c3801316538bd3db191e6d0b49cc3216f628d3a95ea843a76084b88f2b9a0",
-    "bytes": 238863
+    "sha256": "cdee16c3a2eacb8a34435915554dfdbbf345066ef8cf0917071bd41fec8e70f0",
+    "bytes": 231906
   },
   "producto-azul-gris-flores-falda.html": {
-    "sha256": "fe789e279d230a61707e065fa786e0add6177a7a4cf392bae645592c5cbe5850",
-    "bytes": 243482
+    "sha256": "6e04f631e0577486264203cff0f3377631f49abbc59729d38c3178abca1cf8f4",
+    "bytes": 236421
   },
   "producto-azul-gris-un-hombro.html": {
-    "sha256": "e8002b9f3bf6ea429c656ef070c2cd92d5c35932817179a5ac216ebca6634c38",
-    "bytes": 243356
+    "sha256": "7293e7a1ae4c6324af2cd6306b2799114f28067a6831e14ef6a014c3ad0119b4",
+    "bytes": 236295
   },
   "producto-blanco-perlado-sirena.html": {
-    "sha256": "2821068b13978b3be61b9655b913a7d55fc0008559bb9ddf921e3d23e36a5c0b",
-    "bytes": 244717
+    "sha256": "2e46a03dc66f55270c904d15e8d3088c572a0e631b74d5e5dbab6c2f7d4b38b0",
+    "bytes": 237630
   },
   "producto-burdeos-encaje-volantes-midi.html": {
-    "sha256": "2e8009002b9ad165a3474d33ffa6a1ae5b845cc670681b4372aac17f6d709709",
-    "bytes": 247091
+    "sha256": "c601136e34547124f64dcb2cefe19cfeca5f43d33950823b9ad8ebdc5e2a0ae6",
+    "bytes": 239952
   },
   "producto-burdeos-top-pantalon-corto.html": {
-    "sha256": "927305952441c939143f0a5392e4e0865ff61f8fddca540186c069006d897458",
-    "bytes": 243777
+    "sha256": "fea375802f5de455e8ba50316208d6a54108043c9ce32846e4b93248a752fc18",
+    "bytes": 236716
   },
   "producto-champagne.html": {
-    "sha256": "23b0f6f18914ca2d413330b16701c8016a4c4994c72fcbea6141d56b00f6fec4",
-    "bytes": 238855
+    "sha256": "da175a03c74713e9dbbe20a692e6c5054063267feeb4f3607415179898ab1a05",
+    "bytes": 231898
   },
   "producto-crema-flores-naranjas-halter.html": {
-    "sha256": "215b2135fda750dbc1a649960ab9331a1addc172e5940d8a6bfcc00bc9f42dcf",
-    "bytes": 247019
+    "sha256": "e912e8d4575715ad836a85f67128401c66b46f9e1e1b3d61e1649226ff775a9b",
+    "bytes": 239880
   },
   "producto-crema-flores-volante-asimetrico.html": {
-    "sha256": "a1b44cff750377b067ea35a34bec3fa61af520540b60fd4aac2823cd52bcd579",
-    "bytes": 247265
+    "sha256": "50815127b468a2b84f409b3804c24030525af54fe302e1e9b59c521ea1d43e70",
+    "bytes": 240126
   },
   "producto-dorado.html": {
-    "sha256": "25ef6648ecbc9cef5a44647f8d36f49ae4ca2f5546dde708c6b24edb2ab216ea",
-    "bytes": 238609
+    "sha256": "adfa87b9ca09859dc31876e7904c5ef9b65c9ebca3521b1398b42fc4a545e8b3",
+    "bytes": 231652
   },
   "producto-fucsia-halter-pliegues.html": {
-    "sha256": "fec8c7ea3e68398fac8c92ae6dbf4862a23f0d0ea50c5f3f215ce0f0385aa40b",
-    "bytes": 243594
+    "sha256": "4c27c935268751676190055c26f4d362f8f1afdd71375101130bf357eba59134",
+    "bytes": 236403
   },
   "producto-fucsia-un-hombro-volantes.html": {
-    "sha256": "697f48db8217d22b24e7727d6570b0b1eb59ceae40d42cee66f0f9a97e2cdbe2",
-    "bytes": 246914
+    "sha256": "f17156d853814277d1d51e72e0c7b4d2bfb5bdbdab26555aaa7484325ea00e10",
+    "bytes": 239775
   },
   "producto-gala-destello.html": {
-    "sha256": "e98af4b62c103fd7eef700b8a85cdeb8d181f918c98785b8dade7408d8fbdf93",
-    "bytes": 241988
+    "sha256": "c2bfb7d80da105a8b4035967aef794233d8b236832567e2f13f9019ba8b9c218",
+    "bytes": 234551
   },
   "producto-gala-oro.html": {
-    "sha256": "408ef51bcee559242da4e2cb055b954551e6eb4fb9c349b30f6f4b79ce93e923",
-    "bytes": 243753
+    "sha256": "65af7a1c35c98c7e662e327ef43491c4f5d10dfd4f56453a91f876640bc12f14",
+    "bytes": 236258
   },
   "producto-gala-rubi.html": {
-    "sha256": "4c1d8d1d0632a83aad0d4c7eef515391fe4a83b14b82467db075effb3aac83cb",
-    "bytes": 239661
+    "sha256": "c331da237acaa9eaf1826cc123769ad816536877dd783fefeaea8947ac08f69f",
+    "bytes": 232282
   },
   "producto-gris-perla-hombros.html": {
-    "sha256": "b3dffe39c41b0431db24f02b60dc1305c2ad18d4ce2461e4b69b8330459624e6",
-    "bytes": 246884
+    "sha256": "92ecf7a6bf3969cbec17c01af6e466bd2a471d021854979557199dfbe505ebf9",
+    "bytes": 239745
   },
   "producto-midi-estampado-burdeos.html": {
-    "sha256": "0da0b69d4ec4ad6f673672f2d92c3210d3dafd9536a67d9f7f9eb0dd7f911da9",
-    "bytes": 243570
+    "sha256": "fb77feffd27fa60e35d5fe2e0a3f0beb624eb3a3710e028f5ec1fa7d82d51f6d",
+    "bytes": 236509
   },
   "producto-napoleon.html": {
-    "sha256": "cec9583b153d7192a5547fed4255b47d801b038ed7125ea2bd9807227a0c5ded",
-    "bytes": 241799
+    "sha256": "b0377df8fdcb4eb1ce3bb7110dcd50d05fe4c2c2271015baa90bd359a2158a97",
+    "bytes": 234764
   },
   "producto-negro-blanco-lunares-midi.html": {
-    "sha256": "36802ec1bf9f53018ab03ae56e828058df3b42a14715c3ab5ed4652763e5a9a4",
-    "bytes": 246929
+    "sha256": "2463be2cb21008c975227a7d1cebc6e27b4cc2b89786bdb9198e43322db622df",
+    "bytes": 239790
   },
   "producto-negro-brillo-pantalon-amplio.html": {
-    "sha256": "1abe658a56d8160e729929b8a9f8c4e80afac9cf887488ab8f4dfc07e4252dfa",
-    "bytes": 247036
+    "sha256": "84d8b9663098788145d665eb2c0e9d0eaa6fe276a0095421aad169eebbfead36",
+    "bytes": 239897
   },
   "producto-negro-escote-puntas-abertura.html": {
-    "sha256": "1ddbbc8a7b3b9f4115c2b8ca630a74e5840803fc9957181a26f0483f05e78c71",
-    "bytes": 247159
+    "sha256": "21f009d153770aee93701c8854b98a85cc2017f71487574ddbc3bd91af607d66",
+    "bytes": 239890
   },
   "producto-negro-lunares-beige-hombros.html": {
-    "sha256": "dc838dd9b4f5aada27fba89de7366fd0bc0cedc1f0c95379cea95b6f2779cd0b",
-    "bytes": 243745
+    "sha256": "7ea92ed826c3d17947085852ab062c904812e85ec437176ce95762ce34f8d914",
+    "bytes": 236684
   },
   "producto-negro.html": {
-    "sha256": "6717d2f1ac43b56066d85d0b561561279ce4e5382bb489e61a7b5154d42f6141",
-    "bytes": 238542
+    "sha256": "e45b34ed6d894cefb1662f585507de5b98f48640d2953426b2329399043a807c",
+    "bytes": 231585
   },
   "producto-novia-satinada-abertura.html": {
-    "sha256": "2ad511d9c8b836e508c8cf01f25093e87e3d6ab9558b1f1ec93b37af248d0393",
-    "bytes": 243956
+    "sha256": "6d13e8bbdfb69503463848dcc7811040f1eb0fa58ddb8668256a00b3988848c6",
+    "bytes": 236895
   },
   "producto-novia-tirantes-encaje.html": {
-    "sha256": "f6bddb62cd394e97c8393c33c719cf82c2793a3f538e6d3d0eeb46264d842e37",
-    "bytes": 239083
+    "sha256": "a4cab7dc9dda63f868bd47a22bc71503675727bcdc0719e0e119c2d950cc0aad",
+    "bytes": 232126
   },
   "producto-novia.html": {
-    "sha256": "24e33f66fee89ca63549857acf97c16ae29faaa33352cf3c4e6199f40eb34f4d",
-    "bytes": 241707
+    "sha256": "7ef85474e30f8e45d63a6eaedb4d6ae912ff5535dd35c30b9aa2973bfa02f6b9",
+    "bytes": 234672
   },
   "producto-novias-alba.html": {
-    "sha256": "47dcb7b94307d0359b458f9458cfa6366516943a81438a5dc92760ef8025bdf1",
-    "bytes": 241978
+    "sha256": "521b72562b10f097bb05676f548af31b7131bc5bedcf6dd77770900a4cf55957",
+    "bytes": 234425
   },
   "producto-novias-encaje.html": {
-    "sha256": "c516e4ce6baf476b2a73320928299d509f750037e27b40c2ac4b7e101cd2c3ef",
-    "bytes": 239770
+    "sha256": "bef5ebb531e07f6d1aaf82841340bfade3089f7fd5632f03b42f4899fddf2d4c",
+    "bytes": 232523
   },
   "producto-novias-velo.html": {
-    "sha256": "e020b49128cf64e059020ea4db7c7794b2eb3e90391d16fbb2ce41018290066a",
-    "bytes": 246224
+    "sha256": "59613acf37a8108d61ff39d81918953a6e2e6286e8995b1092a6d46081c794ba",
+    "bytes": 238559
   },
   "producto-plata-tirantes-copas-pedreria.html": {
-    "sha256": "ebedc8f4577550a837e8e30fc4b2aab18eec99967bf26b073f08aeb3469f86dd",
-    "bytes": 247232
+    "sha256": "b9ed9f128cc7c40ee90e7ea85ae4791f032aadd265731a28644b5196fe92e9c4",
+    "bytes": 240093
   },
   "producto-rojo-tirantes-falda-amplia.html": {
-    "sha256": "403760b8a22e460aec689606067ff5e5bbfe2e99aca1e7067b3a4a0f0298876f",
-    "bytes": 246967
+    "sha256": "cada5e843f09a58f85f11cf18e57a87cf0d797c3c548dee4194f6126015c3ce7",
+    "bytes": 239828
   },
   "producto-rosa-bronce-pedreria.html": {
-    "sha256": "1cf39aa29da1781bf50f0dbfd2a25181a881bbe639f4845d3cb57db8faee1367",
-    "bytes": 246615
+    "sha256": "3d726351d82404d06249539fb10db6c65b4f4aa7aef05a6ec9b46915eede28cd",
+    "bytes": 239476
   },
   "producto-rosa-claro-flores-doradas.html": {
-    "sha256": "f95afa7a13da1c7b48fd79485c16b997bf969978715a20570c75f2be9e5a0e1b",
-    "bytes": 246889
+    "sha256": "2a344e3cbca8cfa20cce7604fc21bbead32bcf04198807a00894878bb95319c9",
+    "bytes": 239750
   },
   "producto-rosa-empolvado-pedreria.html": {
-    "sha256": "8e333ad15f067f21283ee6084efe82739ea21c7fe16a7f2e58e256abd0c83d35",
-    "bytes": 243983
+    "sha256": "689ddc5ad2d676109c1fe0bdc9a65586e3c6b83c08070524907c65dff91c9c1b",
+    "bytes": 236922
   },
   "producto-rosa-flores-fucsias-halter.html": {
-    "sha256": "8b717510f43c4a1ec3b076c640eac86ff8dc9da95c7eb1f173c698eeefb9556c",
-    "bytes": 246892
+    "sha256": "16dd93ec29c2bd2438b895e0a8f3537fe3fbd44a07432f226257f4f7ccd5456e",
+    "bytes": 239753
   },
   "producto-rosa-marron-chaqueta-falda.html": {
-    "sha256": "64925c838a0bb86bb63dbc2dc2a25e136258fdad14afc7305d94e0c2b80b98c1",
-    "bytes": 246893
+    "sha256": "07ab71374bc4319c86130af1caa4ca936f6418317ca091883a3a7b8ea8e3284c",
+    "bytes": 239754
   },
   "producto-rosa.html": {
-    "sha256": "e860b98b0c65914ad63360a4a5cfe72dbe6cd057f3e5ae4d79ac36d5dc3e142f",
-    "bytes": 238705
+    "sha256": "9e8349404370e4a2fabb7311a1197e0549d0a9549059ed36dc9c319fdae6e41d",
+    "bytes": 231748
   },
   "producto-verde-brillo-cuello-cruzado.html": {
-    "sha256": "003a8628bbe922a1c3b5ff4869b69ca6dda7fb6736ca88aa93dbc726063e9079",
-    "bytes": 244078
+    "sha256": "8e45af7d45be8f140fcbe221bc85b2be1597e66768b4dd2597fdbf9ee9c8ae73",
+    "bytes": 236991
   },
   "producto-verde-esmeralda-tirantes-cruzados.html": {
-    "sha256": "0305a2023f276e6aa61ae3ff7b0e04866d9d16400e4b9489e9039d72b7ce54cc",
-    "bytes": 244107
+    "sha256": "2668fbe234310d70b0ade0a0f02cbef9fe454199f84ca7d65976d7640de8dde0",
+    "bytes": 237046
   },
   "prototypes/fonts/font-0.ttf": {
     "sha256": "0b9a8a33cfaa624d30f70f9b6686da769b319b8c37a55af16e29fef690108bbf",
@@ -6232,7 +6232,7 @@
     "bytes": 26
   },
   "styles.css": {
-    "sha256": "b9918d67d079c2a38900363155593da98c4913d6035508a0f087ca61090c952d",
-    "bytes": 89660
+    "sha256": "c433e603e1b0b9a3d2ecccbfe2d5180e22d9f8dfb407ebcc688e9f98aeb92ddc",
+    "bytes": 85439
   }
 }

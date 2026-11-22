@@ -26,102 +26,37 @@ test('malformed checkout storage shape recovers at contact form',async()=>{for(c
 test('B3 add to bag shows a timed added state, restores the idle label and keeps one line',async()=>{const b=await boot('producto-dorado.html');b.d.querySelector('[name=variant]').checked=true;const add=b.d.querySelector('[data-add]');add.click();add.click();await tick();assert.equal(add.dataset.state,'added');assert.equal(add.textContent.trim(),'Agregada');assert.equal(add.querySelector('svg').getAttribute('aria-hidden'),'true');assert.equal(b.d.querySelectorAll('#toast').length,1);assert.equal((await b.w.marthaStoreApi('/api/cart')).lines[0].quantity,1);await new Promise(r=>setTimeout(r,1700));assert.equal(add.dataset.state,undefined);assert.equal(add.textContent.trim(),'Agregar a la bolsa');assert.equal(add.querySelector('svg'),null);b.close()});
 test('remove final item keeps dialog open and close returns to add trigger',async()=>{const b=await boot('producto-dorado.html');b.d.querySelector('[name=variant]').checked=true;const add=b.d.querySelector('[data-add]');add.focus();add.click();await tick();const modal=b.d.querySelector('#mini-bag');const remove=modal.querySelector('[data-remove-item]');remove.focus();remove.click();await tick();assert.ok(modal.open);assert.equal(modal.querySelectorAll('.cart-line').length,0);assert.equal(b.d.activeElement,modal.querySelector('[data-close-dialog]'));modal.querySelector('[data-close-dialog]').click();assert.equal(b.d.activeElement,add);b.close()});
 
-test('both integration models are explicitly local and unconfigured',async()=>{const b=await boot('index.html',w=>{w.fetch=()=>{throw new Error('unexpected network')}});assert.match(b.d.querySelector('[data-integration-status]').textContent,/SAVIA.*Demostración/);assert.match(b.d.querySelector('[data-integration-description]').textContent,/API .NET sintética.*no está conectada/);b.d.querySelector('[data-integration-mode="sisfain"]').click();await tick();assert.match(b.d.querySelector('[data-integration-description]').textContent,/No contamos con un contrato ni una API verificada/);assert.match(b.d.querySelector('[data-integration-availability]').textContent,/Cada modo conserva su propia bolsa/);assert.equal(b.d.querySelector('[data-integration-mode="sisfain"]').getAttribute('aria-pressed'),'true');b.close()});
-test('switching integrations isolates and restores each simulated cart',async()=>{const b=await boot('producto-dorado.html');b.d.querySelector('[name=variant]').checked=true;b.d.querySelector('[data-add]').click();await tick();b.d.querySelector('#mini-bag [data-close-dialog]').click();assert.equal(b.d.querySelector('[data-bag-count]').textContent,'1');b.d.querySelector('[data-integration-mode="sisfain"]').click();await tick();assert.equal(b.d.querySelector('[data-bag-count]').textContent,'0');assert.equal(b.d.querySelector('[name=variant]').checked,false);b.d.querySelector('[name=variant]').checked=true;b.d.querySelector('[data-add]').click();await tick();b.d.querySelector('#mini-bag [data-close-dialog]').click();assert.equal((await b.w.marthaStoreApi('/api/cart')).integration_id,'sisfain');b.d.querySelector('[data-integration-mode="savia"]').click();await tick();assert.equal(b.d.querySelector('[data-bag-count]').textContent,'1');assert.equal((await b.w.marthaStoreApi('/api/cart')).integration_id,'savia');b.close()});
-test('memory-only carts survive mode changes, retry and BFCache within the same page',async()=>{
+test('memory-only cart and order survive BFCache when localStorage is blocked',async()=>{
  const b=await boot('producto-dorado.html',w=>Object.defineProperty(w,'localStorage',{get(){throw new w.DOMException('blocked','SecurityError')}}));
  try {
-  assert.equal(b.d.querySelector('[data-integration-panel]').dataset.memoryOnly,'true');
   b.d.querySelector('[name=variant]').checked=true;b.d.querySelector('[data-add]').click();await tick();
-  b.d.querySelector('#mini-bag [data-close-dialog]').click();
-  b.d.querySelector('[data-integration-mode="sisfain"]').click();await tick();
-  assert.equal((await b.w.marthaStoreApi('/api/cart')).lines.length,0);
-  await b.w.marthaStoreApi('/api/cart/items',{variant_id:'dorado-S',quantity:2});
-  b.d.querySelector('[data-integration-mode="savia"]').click();await tick();
-  assert.equal((await b.w.marthaStoreApi('/api/cart')).lines[0]?.quantity,1);
   assert.equal(b.d.querySelector('[data-bag-count]').textContent,'1');
+  const quote=await b.w.marthaStoreApi('/api/quote',{delivery_zone:'managua'});
+  const order=(await b.w.marthaStoreApi('/api/orders',{quote_id:quote.id,idempotency_key:'memory-key',contact:{name:'Fixture',email:'fixture@example.invalid',phone:'000'},address:{line1:'Fixture',city:'Fixture',department:'Managua'},newsletter:false})).order;
+  assert.match(order.code,/^MS-\d{4}$/);
   b.w.dispatchEvent(new b.w.PageTransitionEvent('pageshow',{persisted:true}));await tick();
-  b.d.querySelector('[data-integration-retry]').click();await tick();
-  assert.equal((await b.w.marthaStoreApi('/api/cart')).lines[0]?.quantity,1);
-  b.w.sessionStorage.setItem('martha-integration-mode-v1','sisfain');
-  b.w.dispatchEvent(new b.w.PageTransitionEvent('pageshow',{persisted:true}));await tick();
-  const cart=await b.w.marthaStoreApi('/api/cart');
-  assert.equal(cart.integration_id,'sisfain');assert.equal(cart.lines[0]?.quantity,2);
-  assert.match(b.d.querySelector('[data-integration-availability]').textContent,/Datos temporales.*recargar/);
-  assert.deepEqual(b.errors,[]);
- } finally { b.close() }
-});
-test('memory-only orders survive mode changes and an explicit reset stays scoped',async()=>{
- const instances=new Map();
- const b=await boot('producto-dorado.html',w=>{
-  Object.defineProperty(w,'localStorage',{get(){throw new w.DOMException('blocked','SecurityError')}});
-  return ()=>{
-   const create=w.MarthaIntegrations.createDemoAdapter;
-   w.MarthaIntegrations={...w.MarthaIntegrations,createDemoAdapter:options=>{const api=create(options);instances.set(options.mode,api);return api}};
-  };
- });
- try {
-  async function createOrder(key) {
-   await b.w.marthaStoreApi('/api/cart/items',{variant_id:'dorado-S',quantity:1});
-   const quote=await b.w.marthaStoreApi('/api/quote',{delivery_zone:'managua'});
-   return (await b.w.marthaStoreApi('/api/orders',{quote_id:quote.id,idempotency_key:key,contact:{name:'Fixture',email:'test@example.invalid',phone:'000'},address:{line1:'Fixture',city:'Fixture',department:'Fixture'}})).order;
-  }
-  const saviaOrder=await createOrder('memory-savia-key');
-  b.d.querySelector('[data-integration-mode="sisfain"]').click();await tick();
-  assert.equal((await b.w.marthaStoreApi('/api/admin/orders')).orders.length,0);
-  const sisfainOrder=await createOrder('memory-sisfain-key');
-  b.d.querySelector('[data-integration-mode="savia"]').click();await tick();
-  assert.equal((await b.w.marthaStoreApi('/api/orders/'+saviaOrder.id)).order.id,saviaOrder.id);
-  instances.get('savia').reset();
-  b.d.querySelector('[data-integration-mode="sisfain"]').click();await tick();
-  assert.equal((await b.w.marthaStoreApi('/api/orders/'+sisfainOrder.id)).order.id,sisfainOrder.id);
-  b.d.querySelector('[data-integration-mode="savia"]').click();await tick();
-  assert.equal((await b.w.marthaStoreApi('/api/admin/orders')).orders.length,0);
-  assert.equal((await b.w.marthaStoreApi('/api/cart')).lines.length,0);
-  assert.deepEqual(b.errors,[]);
- } finally { b.close() }
-});
-test('memory-only model retry fails closed for a missing module and restores its state',async()=>{
- const b=await boot('producto-dorado.html',w=>Object.defineProperty(w,'localStorage',{get(){throw new w.DOMException('blocked','SecurityError')}}));
- try {
-  await b.w.marthaStoreApi('/api/cart/items',{variant_id:'dorado-S',quantity:1});
-  const module=b.w.MarthaIntegrations;delete b.w.MarthaIntegrations;
-  b.d.querySelector('[data-integration-retry]').click();await tick();
-  assert.match(b.d.querySelector('[data-integration-status]').textContent,/no disponible/);
-  assert.equal(b.d.querySelector('[data-add]').disabled,true);
-  b.w.MarthaIntegrations=module;b.d.querySelector('[data-integration-retry]').click();await tick();
-  assert.match(b.d.querySelector('[data-integration-status]').textContent,/Demostración/);
-  assert.equal(b.d.querySelector('[data-add]').disabled,false);
-  assert.equal((await b.w.marthaStoreApi('/api/cart')).lines[0]?.quantity,1);
+  assert.equal((await b.w.marthaStoreApi('/api/orders/'+order.id)).order.id,order.id);
   assert.equal(b.d.querySelector('main [data-error]:not([hidden])'),null);
   assert.deepEqual(b.errors,[]);
  } finally { b.close() }
 });
-test('checkout contact data and last-order hints never transfer between modes',async()=>{const b=await boot('checkout.html',w=>()=>{for(const mode of ['savia','sisfain'])w.MarthaIntegrations.createDemoAdapter({mode,catalog:w.DEMO_CATALOG,storage:w.localStorage,createDemoApi:w.createMarthaDemoApi})('/api/cart/items',{variant_id:'dorado-S',quantity:1});w.sessionStorage.setItem('martha-savia-checkout-v1',JSON.stringify({name:'Persona ficticia SAVIA'}));w.sessionStorage.setItem('martha-savia-last-order-v1','savia~example');});assert.equal(b.d.querySelector('[name=name]').value,'Persona ficticia SAVIA');b.d.querySelector('[data-integration-mode="sisfain"]').click();await tick();assert.equal(b.d.querySelector('[name=name]').value,'');assert.equal(b.w.sessionStorage.getItem('martha-sisfain-last-order-v1'),null);b.d.querySelector('[data-integration-mode="savia"]').click();await tick();assert.equal(b.d.querySelector('[name=name]').value,'Persona ficticia SAVIA');b.close()});
-test('switching on order page removes the previous mode order URL',async()=>{const b=await boot('pedido.html',w=>w.history.replaceState(null,'','/pedido.html?id=savia~example'));b.d.querySelector('[data-integration-mode="sisfain"]').click();await tick();assert.equal(b.w.location.search,'');assert.match(b.d.querySelector('[data-order-root]').textContent,/No seleccionaste un pedido/);b.close()});
-test('missing integration module fails closed and retry restores the model',async()=>{let module;const b=await boot('producto-dorado.html',w=>()=>{module=w.MarthaIntegrations;delete w.MarthaIntegrations;});assert.match(b.d.querySelector('[data-integration-status]').textContent,/no disponible/);assert.equal(b.d.querySelector('[data-add]').disabled,true);assert.match(b.d.querySelector('main [data-error]').textContent,/No se cargó/);b.w.MarthaIntegrations=module;b.d.querySelector('[data-integration-retry]').click();await tick();assert.equal(b.d.querySelector('[data-add]').disabled,false);assert.match(b.d.querySelector('[data-integration-status]').textContent,/Demostración/);assert.equal(b.d.querySelector('main [data-error]:not([hidden])'),null);b.close()});
-test('pending cart mutation locks mode selection and repeated clicks',async()=>{let release;const b=await boot('producto-dorado.html',w=>()=>{const create=w.MarthaIntegrations.createDemoAdapter;w.MarthaIntegrations={...w.MarthaIntegrations,createDemoAdapter:options=>{const inner=create(options);return async(...args)=>{if(args[0]==='/api/cart/items')await new Promise(resolve=>{release=resolve});return inner(...args)}}};});b.d.querySelector('[name=variant]').checked=true;const add=b.d.querySelector('[data-add]'),switcher=b.d.querySelector('[data-integration-mode="sisfain"]');add.click();add.click();assert.equal(switcher.disabled,true);switcher.click();b.w.dispatchEvent(new b.w.PageTransitionEvent('pageshow',{persisted:true}));release();await tick();assert.equal(b.d.querySelector('[data-integration-panel]').dataset.mode,'savia');assert.equal(b.d.querySelector('[data-bag-count]').textContent,'1');assert.equal(switcher.disabled,false);b.close()});
+test('missing integration module fails closed',async()=>{const b=await boot('producto-dorado.html',w=>()=>{delete w.MarthaIntegrations;});assert.equal(b.d.querySelector('[data-add]').disabled,true);assert.match(b.d.querySelector('main [data-error]').textContent,/No pudimos cargar la compra/);b.close()});
 test('mount does not automatically create or recover a simulated order',async()=>{let writes=0;const b=await boot('checkout.html',w=>()=>{w.sessionStorage.setItem('martha-savia-checkout-v1',JSON.stringify({quote_id:'savia~missing',order_key:'stable-test-key'}));const create=w.MarthaIntegrations.createDemoAdapter;w.MarthaIntegrations={...w.MarthaIntegrations,createDemoAdapter:options=>{const inner=create(options);return async(...args)=>{if(args[0]==='/api/orders')writes++;return inner(...args)}}};});assert.equal(writes,0);assert.ok(b.d.querySelector('[data-recover-order]'));b.close()});
 
-test('changing size cannot re-enable purchases while the model is unavailable',async()=>{
- const b=await boot('producto-dorado.html');
+test('changing size cannot re-enable purchases while the integration is unavailable',async()=>{
+ const b=await boot('producto-dorado.html',w=>()=>{delete w.MarthaIntegrations;});
  try {
-  const module=b.w.MarthaIntegrations;delete b.w.MarthaIntegrations;
-  b.d.querySelector('[data-integration-retry]').click();await tick();
   const size=b.d.querySelector('input[name=variant]:not(:disabled)');size.checked=true;size.dispatchEvent(new b.w.Event('change',{bubbles:true}));
   assert.equal(b.d.querySelector('[data-add]').disabled,true);
   const sticky=b.d.querySelector('[data-sticky-add]');if(sticky)assert.equal(sticky.disabled,true);
-  b.w.MarthaIntegrations=module;b.d.querySelector('[data-integration-retry]').click();await tick();
-  assert.equal(b.d.querySelector('[data-add]').disabled,false);
  } finally { b.close() }
 });
-async function twoSizeSisfainCart(){return boot('bolsa.html',w=>()=>{
- w.sessionStorage.setItem('martha-integration-mode-v1','sisfain');
- const api=w.MarthaIntegrations.createDemoAdapter({mode:'sisfain',catalog:w.DEMO_CATALOG,storage:w.localStorage,createDemoApi:w.createMarthaDemoApi});
+async function twoSizeCart(){return boot('bolsa.html',w=>()=>{
+ const api=w.MarthaIntegrations.createDemoAdapter({mode:'savia',catalog:w.DEMO_CATALOG,storage:w.localStorage,createDemoApi:w.createMarthaDemoApi});
  for(const size of ['S','M'])api('/api/cart/items',{variant_id:'dorado-'+size,quantity:1});
 });}
 test('cart controls have distinct accessible names for different sizes',async()=>{
- const b=await twoSizeSisfainCart();
+ const b=await twoSizeCart();
  try {
   for(const selector of ['[data-quantity]','[data-remove-item]','[data-move-favorite]']){
    const controls=[...b.d.querySelectorAll('[data-cart-lines] '+selector)];assert.equal(controls.length,2);
@@ -131,7 +66,7 @@ test('cart controls have distinct accessible names for different sizes',async()=
  } finally { b.close() }
 });
 test('removing a cart line preserves focus and announces the change',async()=>{
- const b=await twoSizeSisfainCart();
+ const b=await twoSizeCart();
  try {
   const remove=()=>b.d.querySelector('[data-cart-lines] [data-remove-item]');
   remove().focus();remove().click();await tick();
@@ -182,7 +117,6 @@ test('mini-bag empty state after remove or favorite hides checkout and restores 
 test('favorite visible label toggles with state without replacing SVG or accessible content',async()=>{
  const b=await boot('producto-dorado.html');
  try {
-  assert.equal(b.d.querySelector('[data-integration-panel]').dataset.memoryOnly,'false');
   const button=b.d.querySelector('[data-favorite="dorado"]');
   const text=[...button.childNodes].find(node=>node.nodeType===b.w.Node.TEXT_NODE&&node.textContent.includes('Guardar en favoritos'));
   assert.ok(text);
@@ -199,14 +133,14 @@ test('favorite visible label toggles with state without replacing SVG or accessi
  } finally { b.close() }
 });
 
-test('stock notes retain sample qualification for unselected, scarce and last-unit sizes',async()=>{
+test('stock notes show availability for scarce and last-unit sizes and stay empty until a size is chosen',async()=>{
  const b=await boot('producto-dorado.html');
  try {
   const product=b.w.DEMO_CATALOG.products.find(p=>p.id==='dorado');
   const variant=product.variants.find(v=>v.stock>=2);assert.ok(variant);
   const choose=async()=>{const input=[...b.d.querySelectorAll('input[name=variant]')].find(input=>input.value===variant.id);assert.ok(input);assert.equal(input.disabled,false);input.checked=true;input.dispatchEvent(new b.w.Event('change',{bubbles:true}));await tick();};
-  assert.match(b.d.querySelector('[data-stock-note]').textContent,/^Stock de muestra · /);
-  await choose();assert.match(b.d.querySelector('[data-stock-note]').textContent,/^Stock de muestra · /);
+  assert.equal(b.d.querySelector('[data-stock-note]').textContent.trim(),'');
+  await choose();assert.match(b.d.querySelector('[data-stock-note]').textContent,/disponible/);
   // Exercise a real demo state transition in this disposable jsdom session.
   // The recovered catalog file is never edited; it has no last-unit fixture.
   await b.w.marthaStoreApi('/api/admin/login',{});
@@ -215,10 +149,8 @@ test('stock notes retain sample qualification for unselected, scarce and last-un
   assert.equal(current.products.find(p=>p.id==='dorado').variants.find(v=>v.id===variant.id).stock,1);
   b.w.dispatchEvent(new b.w.PageTransitionEvent('pageshow',{persisted:true}));await tick();
   await choose();
-  assert.match(b.d.querySelector('[data-stock-note]').textContent,/^Stock de muestra · /);
-  assert.match(b.d.querySelector('[data-stock-note]').textContent,/Última unidad/);
+  assert.match(b.d.querySelector('[data-stock-note]').textContent,/^Última unidad$/);
  } finally { b.close() }
 });
 
-test('BFCache restore follows the selected mode in the same tab without creating orders',async()=>{const b=await boot('pedido.html',w=>w.history.replaceState(null,'','/pedido.html?id=savia~old'));b.w.sessionStorage.setItem('martha-integration-mode-v1','sisfain');b.w.dispatchEvent(new b.w.PageTransitionEvent('pageshow',{persisted:true}));await tick();assert.equal(b.d.querySelector('[data-integration-panel]').dataset.mode,'sisfain');assert.equal(b.w.location.search,'');assert.match(b.d.querySelector('[data-order-root]').textContent,/No seleccionaste un pedido/);b.close()});
 (async()=>{let failed=0;for(const [name,run]of tests){try{await run();console.log('PASS',name)}catch(e){failed++;console.error('FAIL',name,e.message)}}console.log(`${tests.length-failed}/${tests.length} DOM simulation tests passed`);process.exit(failed?1:0)})();

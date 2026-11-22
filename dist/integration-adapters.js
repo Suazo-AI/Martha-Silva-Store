@@ -24,30 +24,30 @@
     }
   });
   function getDescriptor(mode) {
-    if (!MODES.includes(mode)) fail('unknown_integration', 'Elegí SAVIA o SISFAIN (CGA); no se selecciona otro modelo automáticamente.');
+    if (!MODES.includes(mode)) fail('unknown_integration', 'Esta operación no está disponible.');
     return DESCRIPTORS[mode];
   }
-  const realOrderBlocked = async () => fail('real_orders_disabled', 'Las ventas reales están deshabilitadas: estos modelos no son una integración de producción.');
+  const realOrderBlocked = async () => fail('real_orders_disabled', 'Esta operación no está disponible.');
   function scopedId(scope, value) { return scope + '~' + value; }
   function unscopedId(scope, value) {
     if (typeof value !== 'string' || !value.startsWith(scope + '~') || !value.slice(scope.length + 1) || /[~/?#]/.test(value.slice(scope.length + 1))) {
-      fail('integration_mismatch', 'Esta referencia no pertenece al modelo activo. Volvé a su modelo de origen.');
+      fail('integration_mismatch', 'Esta referencia no es válida.');
     }
     return value.slice(scope.length + 1);
   }
   function requireScope(value, mode, kind) {
     if (!record(value) || value.integration_id !== mode || value.data_kind !== kind) {
-      fail('integration_mismatch', 'La operación debe identificar su modelo y origen de datos; no se mezclan simulaciones con HTTP.');
+      fail('integration_mismatch', 'La operación no es válida.');
     }
   }
   function checkOptionalScope(value, mode) {
     if (!record(value)) return;
     if ((own(value, 'integration_id') && value.integration_id !== mode) ||
         (own(value, 'data_kind') && value.data_kind !== 'simulated')) {
-      fail('integration_mismatch', 'La operación pertenece a otro modelo u origen de datos.');
+      fail('integration_mismatch', 'La operación no es válida.');
     }
     if (value.real_orders === true || value.authoritative === true) {
-      fail('real_orders_disabled', 'La demostración nunca registra ventas ni inventario reales.');
+      fail('real_orders_disabled', 'Esta operación no está disponible.');
     }
     if (Array.isArray(value.lines)) value.lines.forEach(line => checkOptionalScope(line, mode));
   }
@@ -66,8 +66,8 @@
   }
   function createDemoAdapter({mode, catalog, storage, createDemoApi} = {}) {
     const descriptor = getDescriptor(mode);
-    if (typeof createDemoApi !== 'function') fail('missing_demo_factory', 'No se cargó el motor local de demostración.');
-    if (!Array.isArray(catalog) && !(record(catalog) && Array.isArray(catalog.products))) fail('missing_catalog', 'No se cargó el catálogo de prueba. No se sustituye por un catálogo vacío.');
+    if (typeof createDemoApi !== 'function') fail('missing_demo_factory', 'No se cargó la compra. Recargá la página.');
+    if (!Array.isArray(catalog) && !(record(catalog) && Array.isArray(catalog.products))) fail('missing_catalog', 'No se cargó el catálogo. Recargá la página.');
     // Never read or migrate legacy/unscoped state. Recovery backups inherit the
     // same prefix. localStorage remains editable fixture storage, not security.
     const scopedStorage = storage ? {

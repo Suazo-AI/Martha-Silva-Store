@@ -194,3 +194,35 @@ Limits: a click within ~50 ms of Esc lands on the modal backdrop and does not re
 - Checks: slices grid, footer, title, pill, transition, loader, seo, micro all true; scorecard purchase 4/4, axe 0, enSpanish 0, priceBad 0, console 0/0, overflow none, 404 ×4, CSS 91,168 B; localization-runtime, frontend-runtime, desktop-gallery, static_headers, pin_page_hashes `--check`, `tests.test_deployment` 0; `tests/check.py` exit 1 only at asset-audit `WinError 1314` (known symlink privilege).
 - Judge: Claude Sonnet subagent, ACCEPT (OpenCode DeepSeek free route failed: usage limit). Not measured: thumbnails, cart lines and bag drawer (same per-photo rule by `src`), widths other than 390/768/1440.
 - Open decision for Jason: the home hero at 1440 shows a 720×713 cover frame; on negro, champagne and novia-satinada it hides 22.6 % at the bottom (shins and shoes). The full figure cannot fit without a layout change or new art (D-030).
+
+## 2026-11-21 Redeploy of `8ba843f` to `martha-silva-preview`
+
+- Jason approved commit and redeploy ("dale, commit y redeploy cuando pase"). Commit `8ba843f` on `Tony`, SYNCED, remote SHA equal.
+- Version `7b04f0d5-4c77-4a0e-85c6-936f85c8757b`; Wrangler uploaded 1 changed file (`styles.css`), 1,558 already present.
+- Readback: live `styles.css` SHA-256 equals `dist`; a missing URL returns 404 with the exact `dist/404.html` body (16,683 B); CSP, `nosniff`, `Referrer-Policy`, `X-Robots-Tag: noindex, nofollow` present; home, catálogo and producto-rosa-empolvado-pedreria 200.
+- Browser at 390 px (live): rosa gallery `object-position` `50% 21%`, head complete, no horizontal overflow.
+- Original `martha-silva-demo` unchanged: version `77bffec9-e5bc-4f56-9596-6c5b4057463f` (100 %), home 311,230 B.
+- Rollback: `wrangler rollback` to `792ad3bf-8688-4257-9739-41c50ca828e6`.
+- Not tested: real iPhone Safari, Lighthouse, live purchase flow.
+
+## 2026-11-21 P11: remove demo wording from the public store
+
+- Request from Jason: the store must look like the final client delivery, with no demo wording.
+- Builder: Claude Sonnet. Judge: Claude Opus.
+- Public pages: removed the demo banner and the integration panel; payment step is one "Confirmar pedido" button (`data-test-payment="approved"` kept); order code `MS-0001`; coupon `BIENVENIDA10`.
+- Six "Muestra" products renamed: Gala Rubí, Gala Oro, Gala Destello, Novia Velo, Novia Alba, Novia Encaje. Product badges "Muestra" removed.
+- Placeholder copy removed: "por confirmar" size cells and notes, the "DETALLES Y CUIDADO" accordion item on 40 product pages, "contacto pendiente" on `ayuda.html`. Size guide now lists S, M, L only.
+- `README.txt` (public) and `catalog.js` `brand.policies` rewritten without demo wording; catalog hash updated in the contract fixture and the 20261030 evidence.
+- `admin.html`: removed the orphan banner and integration panel markup (their CSS and JS were gone, so they rendered as raw text). The builder had not updated its shared chrome, so it now uses the same header, mega menu, footer and dialogs as `pedido.html`. Copy: "Administrar la tienda", "Los cambios se guardan en este navegador."; login text states the panel has no authentication of its own. The hidden login value is still `demo`.
+- Footer: the builder had removed the "Privacidad" link from every page; restored on all 49 pages, plus the in-page "Privacidad" link on `ayuda.html` (`#privacidad` still exists).
+- Incident: a scratch script named `html.py` shadowed the standard `html` module and re-applied the builder's text edits whenever a script imported `http.server` from the worktree. It removed the footer link a second time; caught by the snapshot drift check, renamed, and the link restored. Lesson: never name a scratch script after a standard module.
+- `locale-en.js`: English pairs follow the new admin copy; dropped pairs for deleted copy.
+- Judge change: `scorecard.py` adds `DEMO_RE` and reports `demoHits` over visible text, `placeholder`, `aria-label`, `alt`, `title`, page title and meta description, on every page including admin. Fill data uses a neutral name and `BIENVENIDA10`. `MANIFEST.sha256` re-frozen.
+- Static sweep of `dist` (html, js, txt, json, xml), including `og:`/`twitter:` meta, JSON-LD and `llms.txt`: only "muestra" as a verb in two descriptions and internal names (`demo-api.js`, `DEMO_CATALOG`, storage keys). SAVIA/SISFAIN messages in `integration-adapters.js` cannot render: `src/app.js` always uses the local adapter.
+- Test coverage: the builder deleted 9 mode-switch tests; added one memory-only test (cart and order survive BFCache with `localStorage` blocked) in `tests/frontend-runtime.cjs`.
+- Checks: prepare, codemods, SEO, pins (48 pages), snapshot 20261105 PASS, node and Python suites green; scorecard purchase 4/4, demoHits 0, enSpanish 0, priceBad 0, axe 0, console 0/0, overflow none, 404 ×4, small390 952 (950 before; +2 likely from the restored "Privacidad" links). Evidence: `%TEMP%/sf-loop/p11-judge/final4`.
+- Admin spacing (pre-existing, same on the live preview; Jason approved the fix): `styles.css` gives admin headings `line-height:1.2`, 40 px between sections, 24 px under the notice, and stacks the toolbar heading above its buttons under 600 px. Checked in a browser at 390 and 1440.
+- Known failures, not caused by P11: `check.py` stops at `asset-audit` with `WinError 1314`; `green-header.cjs` fails 2 of 6 checks, same at HEAD.
+- Browser at 1440 and 390: header sticks at top 0, mega menu flush under header, no banner gap.
+- Left for the client: real measurements, composition and care, business contact, privacy text, payment wording ("Pago aprobado" without a real payment), delivery rates $5 and $8. `noindex` kept. Image folder names (`generated-luxury`, `prototypes`, `research`) still appear in URLs.
+- Jason approved commit and redeploy, including the admin spacing fix ("Si, también hazlo").

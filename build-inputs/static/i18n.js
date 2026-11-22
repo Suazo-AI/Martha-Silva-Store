@@ -46,12 +46,12 @@
         [/^PEDIDO (.+)$/, code => `ORDER ${code}`],
         [/^Devolución (.+)$/, code => `Return ${code}`],
         [/^Seguimiento: (.+)$/, code => `Tracking: ${code}`],
-        [/^Reembolsado en prueba: (.+)$/, amount => `Test refund: ${amount}`]
+        [/^Reembolsado: (.+)$/, amount => `Refunded: ${amount}`]
         ,[/^(\d+)\. (Contacto|Entrega|Revisión|Pago)$/, (n, label) => `${n}. ${english(label)}`]
         ,[/^Desde (.+)$/, amount => `From ${amount}`]
         ,[/^Seguimiento:$/, () => 'Tracking:']
         ,[/^fotografía (\d+)$/, n => `photo ${n}`]
-        ,[/^(Total sin entrega|Total|Entrega estimada|Entrega|Subtotal|Impuestos de prueba|Descuento) ((?:USD|US\$|\$).+)$/, (label, amount) => `${english(label)} ${amount}`]
+        ,[/^(Total sin entrega|Total|Entrega estimada|Entrega|Subtotal|Impuestos|Descuento) ((?:USD|US\$|\$).+)$/, (label, amount) => `${english(label)} ${amount}`]
       ];
       let matched = false;
       for (const [pattern, render] of prefixes) {

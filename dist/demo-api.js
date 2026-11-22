@@ -107,11 +107,11 @@
         if(previous==null)storage.setItem(RECOVERY_KEY,raw);
         if(storage.getItem(RECOVERY_KEY)!==raw)throw new Error('recovery_not_saved');
       } catch {
-        fail('storage_corrupt','Los datos guardados de la demo están dañados. No los modificamos. Conservá una copia antes de restablecer la demo.');
+        fail('storage_corrupt','Los datos guardados están dañados. No los modificamos. Conservá una copia antes de restablecerlos.');
       }
       return copy(memory);
     };
-    const save = s => { try { storage?.setItem(KEY,JSON.stringify(s)); } catch { fail('storage_full','No pudimos guardar la demo en este navegador. Liberá espacio e intentá otra vez.'); } memory=copy(s); };
+    const save = s => { try { storage?.setItem(KEY,JSON.stringify(s)); } catch { fail('storage_full','No pudimos guardar tu compra en este navegador. Liberá espacio e intentá otra vez.'); } memory=copy(s); };
     function execute(path, body, method) {
       const s=load();
       const event=(o,type)=>o.events.push({type,at:now()});
@@ -122,20 +122,20 @@
           o.status='cancelled';o.payment_status='cancelled';event(o,'reserve_expired');
         }
       }
-      const variant=v=>byVariant.get(v) || fail('unknown_variant','Esta talla no existe en el catálogo de prueba.');
+      const variant=v=>byVariant.get(v) || fail('unknown_variant','Esta talla no existe en el catálogo.');
       const reserved=v=>Object.values(s.orders).filter(o=>o.status==='pending_payment').reduce((sum,o)=>sum+o.lines.filter(l=>l.variant_id===v).reduce((n,l)=>n+l.quantity,0),0);
       const available=v=>s.stock[v]-reserved(v);
       const line=(v,q)=>{const {p,v:pv}=variant(v);return {product_id:p.id,variant_id:v,name:p.name,color:p.color,size:pv.size,image:p.images[0],quantity:q,unit_price_minor:p.price_minor,price_minor:p.price_minor,line_total_minor:p.price_minor*q};};
       const cart=()=>{const lines=Object.entries(s.cart).map(([v,q])=>line(v,q));return {lines,subtotal_minor:lines.reduce((n,l)=>n+l.line_total_minor,0),currency:'USD',mode:'local_test'};};
       const signature=()=>JSON.stringify(Object.entries(s.cart).sort(([a],[b])=>a.localeCompare(b)));
       const checkStock=lines=>lines.forEach(l=>{if(available(l.variant_id)<l.quantity)fail('insufficient_stock','No hay suficientes unidades de esta talla. Revisá tu bolsa.');});
-      const requireAdmin=()=>{if(!s.admin)fail('demo_admin_closed','Abrí la vista de administración de prueba. No requiere una contraseña real.');};
+      const requireAdmin=()=>{if(!s.admin)fail('demo_admin_closed','Abrí la vista de administración.');};
       const order=oid=>own(s.orders,oid) ? s.orders[oid] : fail('order_not_found','No encontramos ese pedido en este navegador.');
       const integer=(q,min,max)=>{if(!Number.isInteger(q)||q<min||q>max)fail('invalid_quantity',`La cantidad debe ser un número entero entre ${min} y ${max}.`);};
       const response=x=>{save(s);return copy(x);};
       const verb=String(method || (body===undefined?'GET':'POST')).toUpperCase();
       if(verb!=='GET' && !record(body))fail('invalid_body','Los datos de esta acción no son válidos. Intentá otra vez.');
-      if(typeof path!=='string' || !path.startsWith('/api/') || /[?#]/.test(path))fail('unsupported_route','Ruta no compatible con esta demostración local.');
+      if(typeof path!=='string' || !path.startsWith('/api/') || /[?#]/.test(path))fail('unsupported_route','Esta acción no está disponible.');
       if(path==='/api/catalog' && verb==='GET')return response({products:products.map(p=>({...p,variants:p.variants.map(v=>({...v,stock:available(v.id)}))})),brand:'MARTHA SILVA',mode:'local_test'});
       if(path==='/api/cart' && verb==='GET')return response(cart());
       if(path==='/api/cart/items' && ['POST','PATCH'].includes(verb)) {
@@ -146,13 +146,13 @@
       }
       if(path==='/api/quote' && verb==='POST') {
         const c=cart();if(!c.lines.length)fail('empty_cart','Tu bolsa está vacía.');checkStock(c.lines);
-        if(!['managua','resto'].includes(body.delivery_zone))fail('invalid_zone','Elegí una zona de entrega de prueba.');
-        const coupon=String(body.coupon||'').trim().toUpperCase();if(coupon && coupon!=='PRUEBA10')fail('invalid_coupon','Código de prueba no válido. Usá PRUEBA10 o dejá el campo vacío.');
+        if(!['managua','resto'].includes(body.delivery_zone))fail('invalid_zone','Elegí una zona de entrega.');
+        const coupon=String(body.coupon||'').trim().toUpperCase();if(coupon && coupon!=='BIENVENIDA10')fail('invalid_coupon','Código no válido. Revisalo o dejá el campo vacío.');
         const discount_minor=coupon?Math.round(c.subtotal_minor*0.1):0,shipping_minor=body.delivery_zone==='managua'?500:800;
         const q={...c,id:id(),discount_minor,shipping_minor,tax_minor:0,total_minor:c.subtotal_minor-discount_minor+shipping_minor,delivery_zone:body.delivery_zone,coupon,signature:signature(),expires_at:Date.now()+30*60*1000};s.quotes[q.id]=q;return response(q);
       }
       if(path==='/api/orders' && verb==='POST') {
-        if(!textValue(body.idempotency_key) || body.idempotency_key.length>200)fail('missing_key','La compra de prueba necesita una clave de confirmación.');
+        if(!textValue(body.idempotency_key) || body.idempotency_key.length>200)fail('missing_key','La compra necesita una clave de confirmación.');
         if(s.keys['order:'+body.idempotency_key]) {
           const previous=order(s.keys['order:'+body.idempotency_key]);
           // Key-only recovery is supported. A supplied changed logical request
@@ -160,25 +160,25 @@
           const changed=(own(body,'quote_id') && body.quote_id!==previous.quote_id)
             || (own(body,'newsletter') && !!body.newsletter!==previous.newsletter)
             || ['contact','address'].some(field=>own(body,field) && (!record(body[field]) || Object.keys(previous[field]).some(key=>body[field][key]!==previous[field][key])));
-          if(changed)fail('idempotency_conflict','Esta clave ya corresponde a otra compra de prueba. Conservá la clave para reintentar el mismo intento; usá una nueva para otra compra.',409);
+          if(changed)fail('idempotency_conflict','Esta clave ya corresponde a otra compra. Conservá la clave para reintentar el mismo intento; usá una nueva para otra compra.',409);
           return response({order:previous});
         }
         const q=own(s.quotes,body.quote_id) ? s.quotes[body.quote_id] : null;if(!q)fail('invalid_quote','Revisá la entrega para calcular de nuevo el total.');
         if(q.expires_at<=Date.now()||q.signature!==signature())fail('stale_quote','La bolsa cambió o el presupuesto venció. Revisá la entrega otra vez.');checkStock(q.lines);
-        if(!textValue(body.contact?.name)||!textValue(body.contact?.email)||!body.contact.email.includes('@')||!textValue(body.contact?.phone)||!textValue(body.address?.line1)||!textValue(body.address?.city)||!textValue(body.address?.department))fail('invalid_contact','Completá los datos de contacto y entrega de prueba.');
-        const oid=id(),o={...copy(q),id:oid,quote_id:q.id,code:'DEMO-'+String(Object.keys(s.orders).length+1).padStart(4,'0'),contact:copy(body.contact),address:copy(body.address),newsletter:!!body.newsletter,status:'pending_payment',payment_status:'pending',events:[],returns:[],refunded_minor:0,created_at:now(),reservation_expires_at:Date.now()+RESERVATION_MS};
+        if(!textValue(body.contact?.name)||!textValue(body.contact?.email)||!body.contact.email.includes('@')||!textValue(body.contact?.phone)||!textValue(body.address?.line1)||!textValue(body.address?.city)||!textValue(body.address?.department))fail('invalid_contact','Completá los datos de contacto y entrega.');
+        const oid=id(),o={...copy(q),id:oid,quote_id:q.id,code:'MS-'+String(Object.keys(s.orders).length+1).padStart(4,'0'),contact:copy(body.contact),address:copy(body.address),newsletter:!!body.newsletter,status:'pending_payment',payment_status:'pending',events:[],returns:[],refunded_minor:0,created_at:now(),reservation_expires_at:Date.now()+RESERVATION_MS};
         delete o.signature;delete o.expires_at;event(o,'order_created');event(o,body.newsletter?'newsletter_opt_in':'newsletter_not_selected');s.orders[oid]=o;s.keys['order:'+body.idempotency_key]=oid;s.cart={};return response({order:o});
       }
       let m;
       if((m=path.match(/^\/api\/orders\/([^/]+)$/))&&verb==='GET')return response({order:order(decodeURIComponent(m[1]))});
       if((m=path.match(/^\/api\/orders\/([^/]+)\/test-payment$/))&&verb==='POST') {
-        const o=order(decodeURIComponent(m[1]));if(!['approved','declined','cancelled'].includes(body.outcome))fail('invalid_payment','Elegí un resultado de pago de prueba.');
+        const o=order(decodeURIComponent(m[1]));if(!['approved','declined','cancelled'].includes(body.outcome))fail('invalid_payment','Elegí un resultado de pago.');
         if(o.status!=='pending_payment')return response({order:o}); // Terminal retries never consume twice.
         if(body.outcome==='approved'){o.lines.forEach(l=>{s.stock[l.variant_id]-=l.quantity;});o.status='paid';o.payment_status='paid';}
         else{o.status=body.outcome;o.payment_status=body.outcome;}event(o,'test_payment_'+body.outcome);return response({order:o});
       }
       if((m=path.match(/^\/api\/orders\/([^/]+)\/returns$/))&&verb==='POST') {
-        const o=order(decodeURIComponent(m[1]));if(!['delivered','partially_refunded'].includes(o.status))fail('invalid_state','La devolución de prueba se solicita después de la entrega.');
+        const o=order(decodeURIComponent(m[1]));if(!['delivered','partially_refunded'].includes(o.status))fail('invalid_state','La devolución se solicita después de la entrega.');
         if(!String(body.reason||'').trim()||String(body.reason).length>500||!Array.isArray(body.lines)||!body.lines.length)fail('invalid_return','Elegí prendas y escribí un motivo de hasta 500 caracteres.');
         const quantities={};for(const l of body.lines){if(!record(l)||!byVariant.has(l.variant_id))fail('invalid_return','Elegí una prenda del pedido.');integer(l.quantity,1,10);quantities[l.variant_id]=(quantities[l.variant_id]||0)+l.quantity;}
         const lines=Object.entries(quantities).map(([variant_id,quantity])=>{const original=o.lines.find(l=>l.variant_id===variant_id);const used=o.returns.reduce((n,r)=>n+r.lines.filter(l=>l.variant_id===variant_id).reduce((a,l)=>a+l.quantity,0),0);if(!original||quantity>original.quantity-used)fail('invalid_return','La cantidad supera las prendas disponibles para devolución.');return {variant_id,quantity};});
@@ -197,7 +197,7 @@
       if((m=path.match(/^\/api\/admin\/orders\/([^/]+)\/fulfill$/))&&verb==='POST') {
         const o=order(m[1]),next={paid:'preparing',preparing:'shipped',shipped:'delivered'}[o.status];
         if(body.status!==next||!next)fail('invalid_state','Este cambio de estado no está disponible.');
-        if(next==='shipped'&&(!String(body.tracking||'').trim()||String(body.tracking).length>120))fail('invalid_tracking','Ingresá un seguimiento de prueba de hasta 120 caracteres.');
+        if(next==='shipped'&&(!String(body.tracking||'').trim()||String(body.tracking).length>120))fail('invalid_tracking','Ingresá un seguimiento de hasta 120 caracteres.');
         o.status=next;if(body.tracking)o.tracking=String(body.tracking).trim();event(o,'fulfillment_'+next);return response({order:o});
       }
       if((m=path.match(/^\/api\/admin\/orders\/([^/]+)\/returns\/([^/]+)\/receive$/))&&verb==='POST') {
@@ -212,7 +212,7 @@
         const all=o.lines.every(l=>o.returns.filter(r=>r.status==='refunded').reduce((n,r)=>n+r.lines.filter(x=>x.variant_id===l.variant_id).reduce((a,x)=>a+x.quantity,0),0)===l.quantity);
         o.status=all?'refunded':'partially_refunded';if(all)o.payment_status='refunded';event(o,'test_refund_completed');return response({order:o});
       }
-      fail('unsupported_route','Esta acción no está disponible en la demostración local.');
+      fail('unsupported_route','Esta acción no está disponible.');
     }
     const api=async(path,body,method)=>execute(path,body,method);
     api.reset=()=>save(seed());
@@ -222,7 +222,7 @@
   root.createMarthaDemoApi=createDemoApi;
   let api;
   root.marthaDemoApi=async(path,body,method)=>{
-    if(!api){if(!root.DEMO_CATALOG)fail('missing_catalog','No se cargó el catálogo de prueba. Recargá la página.');let storage;try{storage=root.localStorage;}catch{}api=createDemoApi(root.DEMO_CATALOG,storage);}
+    if(!api){if(!root.DEMO_CATALOG)fail('missing_catalog','No se cargó el catálogo. Recargá la página.');let storage;try{storage=root.localStorage;}catch{}api=createDemoApi(root.DEMO_CATALOG,storage);}
     const run=()=>api(path,body,method);
     return root.navigator?.locks?.request ? root.navigator.locks.request('martha-parity-v2-local-demo',run) : run();
   };

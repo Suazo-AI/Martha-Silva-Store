@@ -43,6 +43,7 @@ const reviewedVariants = new Map(selection.variants.map(value => [value.path, va
 const expectedMedia = JSON.parse(JSON.stringify(originalMedia));
 expectedMedia[GREEN] = selection.expected_media;
 const publishedMedia = {};
+const labelName = id => (publication.copy_overrides[id] || {}).name ?? original.products.find(product => product.id === id).name;
 const selectedImages = new Map();
 for (const product of original.products) {
   const records = selected.selected_assets.filter(record => record.product_id === product.id)
@@ -57,7 +58,7 @@ for (const product of original.products) {
   const sets = records.map(record => '/' + record.runtime_destination + ' ' + record.dimensions[0] + 'w');
   publishedMedia[product.id] = {...originalMedia[product.id], images, jpeg_images: images,
     image_sets: sets, jpeg_sets: sets,
-    image_labels: images.map(() => 'Imagen generada con IA · vista completa'),
+    image_labels: images.map(() => labelName(product.id) + ' · vista completa'),
     video_poster: images[0]};
 }
 const staticRoot = path.join(root, 'build-inputs/static');
@@ -168,7 +169,7 @@ function assertProducts(actual) {
     assert.ok(Object.keys(overrides).every(key => ['name', 'description'].includes(key)),
       'Copy exceptions must not override commerce: ' + product.id);
     for (const [key, value] of Object.entries(original.products[index])) {
-      if (key !== 'images') assert.deepEqual(product[key], overrides[key] ?? value, product.id + ':' + key);
+      if (key !== 'images' && key !== 'image_labels') assert.deepEqual(product[key], overrides[key] ?? value, product.id + ':' + key);
     }
     assert.equal(product.commercial_status, 'sample');
     assert.deepEqual(product.images, publishedMedia[product.id].images);

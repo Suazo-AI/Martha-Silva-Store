@@ -108,7 +108,7 @@ function assertCurrentImages(d) {
     assert.deepEqual(dimensions(bytes), {width:record.dimensions[0],height:record.dimensions[1]});
     assert.equal(+img.getAttribute('width'),record.dimensions[0]);
     assert.equal(+img.getAttribute('height'),record.dimensions[1]);
-    assert.match(img.alt,/Imagen generada con IA/);
+    assert.ok(img.alt.trim().length>0);assert.doesNotMatch(img.alt,/generada con IA/i);
     assert.equal(img.getAttribute('decoding'),'async');
     assert.equal(img.getAttribute('srcset'),url+' '+record.dimensions[0]+'w');
     assert.ok(derived); assert.equal(derived.sha256,record.sha256);
@@ -130,10 +130,10 @@ function assertCurrentImages(d) {
     }
   }
 }
-test('published generated images keep exact identity, IA labels, dimensions and whole-frame fallbacks',()=>withDOM(assertCurrentImages));
-test('identity and IA-label guards reject independent negative controls',()=>withDOM(d=>{
+test('published generated images keep exact identity, descriptive alt text without an AI label, dimensions and whole-frame fallbacks',()=>withDOM(assertCurrentImages));
+test('identity and alt-text guards reject independent negative controls',()=>withDOM(d=>{
   const img=d.querySelector('.hero-oh img'), alt=img.alt, src=img.getAttribute('src');
-  img.alt='Fotografia original'; assert.throws(()=>assertCurrentImages(d)); img.alt=alt;
+  img.alt=''; assert.throws(()=>assertCurrentImages(d)); img.alt=alt;
   img.setAttribute('src','/generated-luxury/rosa/01-front-v1.png');
   assert.throws(()=>assertCurrentImages(d)); img.setAttribute('src',src);
   const source=img.closest('picture').querySelector('source[type="image/webp"]');
@@ -149,7 +149,7 @@ test('six generated editorial illustrations retain historic post context without
     assert.equal(link.target,'_blank');assert.ok(link.rel.split(/\s+/).includes('noopener'));
     assert.ok(link.rel.split(/\s+/).includes('noreferrer'));
     assert.equal(card.querySelector('[data-product-card], [data-add-to-cart], [data-variant], button'),null);
-    assert.match(img.alt,/Imagen generada con IA/);
+    assert.ok(img.alt.trim().length>0);assert.doesNotMatch(img.alt,/generada con IA/i);
   }
   assert.equal(seen.size,6);assert.equal(manifest.editorial_only,true);
 }));

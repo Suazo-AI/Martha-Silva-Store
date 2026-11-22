@@ -217,11 +217,9 @@
   window.MarthaViewHistory = viewHistory;
 
   let products = [], cart = null, pageScope, raf, currentOrder, adminOrders = [], inventory = [], checkout = {}, quote, productObserver, productAdding = false;
-  const MODE_KEY = 'martha-integration-mode-v1';
   const integrationInstances = new Map();
   let memoryOnlyIntegration = false;
   let integrationMode = 'savia', integrationApi, integrationEpoch = 0, pendingApi = 0, busyActions = 0, mountJobs = 0, modeSwitching = false, integrationError = '';
-  try { const saved = sessionStorage.getItem(MODE_KEY); if (['savia','sisfain'].includes(saved)) integrationMode = saved; } catch {}
   const sessionKey = name => `martha-${integrationMode}-${name}-v1`;
   function loadCheckout() {
     try { checkout = JSON.parse(sessionStorage.getItem(sessionKey('checkout')) || '{}'); } catch { checkout = {}; }
@@ -230,7 +228,7 @@
   function createIntegration() {
     integrationApi = null;
     try {
-      if (!window.MarthaIntegrations || !window.createMarthaDemoApi || !window.DEMO_CATALOG) throw new Error('No se cargó la compra de prueba. Usá Reintentar para continuar; no se realizó ninguna operación.');
+      if (!window.MarthaIntegrations || !window.createMarthaDemoApi || !window.DEMO_CATALOG) throw new Error('No pudimos cargar la compra. Recargá la página para continuar.');
       let storage; try { storage = localStorage; } catch {}
       const factory = window.MarthaIntegrations.createDemoAdapter, engine = window.createMarthaDemoApi, catalog = window.DEMO_CATALOG;
       const cached = integrationInstances.get(integrationMode);
@@ -245,57 +243,22 @@
       integrationError = '';
     } catch (error) { integrationError = error.message; }
   }
-  function renderIntegration() {
-    const panel = $('[data-integration-panel]'); if (!panel) return;
-    panel.dataset.mode = integrationMode;
-    panel.dataset.memoryOnly = String(memoryOnlyIntegration);
-    $$('[data-integration-mode]').forEach(button => {
-      button.setAttribute('aria-pressed', String(button.dataset.integrationMode === integrationMode));
-      button.disabled = !!(pendingApi || busyActions || mountJobs || modeSwitching);
-    });
-    const name = integrationMode === 'savia' ? 'SAVIA' : 'SISFAIN';
-    $('[data-integration-status]',panel).textContent = integrationError ? `${name} · Modo no disponible` : `${name} · Demostración`;
-    $('[data-integration-description]',panel).textContent = integrationMode === 'savia'
-      ? 'SAVIA: Sistema de Administración, Ventas, Inventarios y Abastecimiento. Existe una API .NET sintética de prueba, pero esta demo no está conectada a ella ni a un sistema real. La compatibilidad comercial no está validada.'
-      : 'SISFAIN de CGA: modelo conceptual simulado. No contamos con un contrato ni una API verificada; no hay conexión configurada. La compatibilidad real está pendiente de validación con CGA.';
-    $('[data-integration-availability]',panel).textContent = (integrationError ? 'Reintentá para continuar.' : 'Cada modo conserva su propia bolsa') + (memoryOnlyIntegration ? ' · Datos temporales: se pierden al recargar esta página.' : '');
-    $('[data-integration-retry]',panel).hidden = !integrationError;
-    $('[data-integration-error]',panel).hidden = !integrationError;
-    $('[data-integration-error]',panel).textContent = integrationError;
-  }
   function blockCommerce() {
     $$('[data-add], [data-sticky-add], [data-create-order], [data-test-payment], [data-quantity], [data-stock] button, [data-fulfillment] button').forEach(button => button.disabled = true);
   }
-  async function switchIntegration(mode) {
-    if (!['savia','sisfain'].includes(mode) || mode === integrationMode || pendingApi || busyActions || mountJobs || modeSwitching) return;
-    try { sessionStorage.setItem(MODE_KEY, mode); } catch { notify('No pudimos guardar el modelo en esta pestaña. No se cambió la selección.'); return; }
-    modeSwitching = true; integrationEpoch++;
-    $$('dialog[open]').forEach(dialog => dialog.close());
-    integrationMode = mode;
-    products = []; cart = null; currentOrder = null; quote = null; checkout = {}; adminOrders = []; inventory = []; productAdding = false;
-    loadCheckout(); createIntegration();
-    if ($('main')?.dataset.page === 'order') { const url = new URL(location.href); url.searchParams.delete('id'); history.replaceState(null, '', url.pathname + url.search + url.hash); }
-    $$('[data-error], [data-add-confirmation]').forEach(element => element.hidden = true);
-    $$('input[name="variant"]').forEach(input => input.checked = false);
-    $('[data-cart-summary]')?.replaceChildren(); $('[data-order-root]')?.replaceChildren(); $('[data-admin-root]')?.replaceChildren();
-    renderIntegration();
-    try { await mountPage(); } finally { modeSwitching = false; renderIntegration(); }
-    $(`[data-integration-mode="${mode}"]`)?.focus({preventScroll:true});
-    notify(`${mode === 'savia' ? 'SAVIA' : 'SISFAIN (CGA)'}: bolsa y pedidos de prueba independientes. No se transfirió información entre modelos.`);
-  }
   createIntegration(); loadCheckout();
-  const statusLabel = {pending:'Pago pendiente',pending_payment:'Pago pendiente',paid:'Pago de prueba aprobado',declined:'Pago de prueba rechazado',cancelled:'Pedido cancelado',preparing:'En preparación',shipped:'Enviado',delivered:'Entregado',partially_refunded:'Reembolso parcial de prueba',refunded:'Reembolso de prueba completado',requested:'Solicitud recibida',received:'Prenda recibida',order_created:'Pedido creado',newsletter_opt_in:'Novedades seleccionadas',newsletter_not_selected:'Sin suscripción a novedades',test_payment_approved:'Pago de prueba aprobado',test_payment_declined:'Pago de prueba rechazado',test_payment_cancelled:'Pago de prueba cancelado',fulfillment_preparing:'En preparación',fulfillment_shipped:'Enviado',fulfillment_delivered:'Entregado',return_requested:'Devolución solicitada',return_received:'Prenda recibida',test_refund_completed:'Reembolso de prueba completado',reserve_expired:'Reserva vencida'};
+  const statusLabel = {pending:'Pago pendiente',pending_payment:'Pago pendiente',paid:'Pago aprobado',declined:'Pago rechazado',cancelled:'Pedido cancelado',preparing:'En preparación',shipped:'Enviado',delivered:'Entregado',partially_refunded:'Reembolso parcial',refunded:'Reembolso completado',requested:'Solicitud recibida',received:'Prenda recibida',order_created:'Pedido creado',newsletter_opt_in:'Novedades seleccionadas',newsletter_not_selected:'Sin suscripción a novedades',test_payment_approved:'Pago aprobado',test_payment_declined:'Pago rechazado',test_payment_cancelled:'Pago cancelado',fulfillment_preparing:'En preparación',fulfillment_shipped:'Enviado',fulfillment_delivered:'Entregado',return_requested:'Devolución solicitada',return_received:'Prenda recibida',test_refund_completed:'Reembolso completado',reserve_expired:'Reserva vencida'};
   function readStorage(key, fallback) { try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch { return fallback; } }
   let favorites = readStorage('martha-parity-favorites', []);
   favorites = Array.isArray(favorites) ? favorites.filter(id => typeof id === 'string') : [];
-  function saveCheckout() { try { sessionStorage.setItem(sessionKey('checkout'), JSON.stringify(checkout)); } catch { throw new Error('No pudimos guardar el avance de prueba en esta pestaña. No se envió un pedido real.'); } }
+  function saveCheckout() { try { sessionStorage.setItem(sessionKey('checkout'), JSON.stringify(checkout)); } catch { throw new Error('No pudimos guardar el avance en esta pestaña.'); } }
   function orderPayload() { return {quote_id:checkout.quote_id,idempotency_key:checkout.order_key,contact:{name:checkout.name,email:checkout.email,phone:checkout.phone},address:{line1:checkout.line1,city:checkout.city,department:checkout.department},newsletter:!!checkout.newsletter}; }
   function rememberOrder(order) { currentOrder=order; checkout.order_id=order.id; sessionStorage.setItem(sessionKey('last-order'),order.id); saveCheckout(); }
   async function api(path,body,method=body===undefined?'GET':'POST') {
-    if (!integrationApi) throw new Error(integrationError || 'Modelo no disponible. Las operaciones están bloqueadas.');
-    const epoch = integrationEpoch, activeApi = integrationApi; pendingApi++; renderIntegration();
-    try { const result = await activeApi(path,body,method); if (epoch !== integrationEpoch) throw new Error('El modelo cambió. Repetí la acción en el modelo seleccionado.'); return result; }
-    finally { pendingApi--; renderIntegration(); }
+    if (!integrationApi) throw new Error(integrationError || 'La compra no está disponible por ahora. Recargá la página.');
+    const epoch = integrationEpoch, activeApi = integrationApi; pendingApi++;
+    try { const result = await activeApi(path,body,method); if (epoch !== integrationEpoch) throw new Error('Repetí la acción.'); return result; }
+    finally { pendingApi--; }
   }
   // Exposed for local diagnostics only; no remote transport is configured here.
   window.marthaStoreApi = api;
@@ -371,13 +334,13 @@
     } finally { button.disabled = false; }
   }
   function showError(root, error) { let box = $('[data-error]', root); if (!box) { box = document.createElement('p'); box.className = 'error'; box.setAttribute('data-error',''); box.setAttribute('role','alert'); root.prepend(box); } box.textContent = error.message; box.hidden = false; if(!root.closest('[data-product-id]')||$('[data-sticky-buy]')?.hidden!==false)box.scrollIntoView({block:'nearest'}); }
-  async function withButton(button, action) { if (button.disabled) return; const root = button.closest('form, dialog, [data-product-id], [data-checkout-root], [data-order-root], [data-admin-root], main') || document.body; $('[data-error]',root)?.setAttribute('hidden',''); button.disabled = true; busyActions++; renderIntegration(); if(button.matches('[data-add]')) {productAdding=true;syncProduct();} try { await action(); } catch (error) { showError(root, error); } finally { busyActions--; renderIntegration(); if (button.isConnected) button.disabled = false; if(button.matches('[data-add]')) {productAdding=false;syncProduct();const error=$('[data-product-error]'),sticky=$('[data-sticky-error]');if(error&&sticky){sticky.textContent=error.textContent;sticky.hidden=error.hidden;}} } }
+  async function withButton(button, action) { if (button.disabled) return; const root = button.closest('form, dialog, [data-product-id], [data-checkout-root], [data-order-root], [data-admin-root], main') || document.body; $('[data-error]',root)?.setAttribute('hidden',''); button.disabled = true; busyActions++; if(button.matches('[data-add]')) {productAdding=true;syncProduct();} try { await action(); } catch (error) { showError(root, error); } finally { busyActions--; if (button.isConnected) button.disabled = false; if(button.matches('[data-add]')) {productAdding=false;syncProduct();const error=$('[data-product-error]'),sticky=$('[data-sticky-error]');if(error&&sticky){sticky.textContent=error.textContent;sticky.hidden=error.hidden;}} } }
   async function refreshCart() { cart = await api('/api/cart'); const count = cart.lines.reduce((n, line) => n + line.quantity, 0); $$('[data-bag-count]').forEach(n => { const before = Number(n.textContent) || 0; n.textContent = count; if (bagReady && count > before) pulse(n, 1.2); }); bagReady = true; if($('#mini-bag')?.open)miniBag(); return cart; }
   function card(p) {
     const saved=favorites.includes(p.id), stock=p.variants.reduce((n,v)=>n+v.stock,0);
-    const photo=(src,cls='')=>{const i=p.images.indexOf(src),dimensions=window.STORE_IMAGE_DIMENSIONS?.[p.jpeg_images?.[i] || src] || [900,1200];return `<picture class="${cls}">${src.startsWith('/generated-luxury/') && src.endsWith('.png') ? `<source type="image/webp" srcset="${[360,720,dimensions[0]].filter((w,n,a)=>w<=dimensions[0]&&a.indexOf(w)===n).map(w=>esc(src.replace('/generated-luxury/','/responsive-images/').replace(/\.png$/, '-'+w+'.webp'))+' '+w+'w').join(', ')}" sizes="(max-width:599px) 50vw,25vw">` : ''}<source type="${src.endsWith('.png') ? 'image/png' : 'image/webp'}" srcset="${esc(p.image_sets?.[i] || src+' 900w')}" sizes="(max-width:599px) 50vw,25vw"><img class="${cls}" src="${esc(p.jpeg_images?.[i] || src)}" srcset="${esc(p.jpeg_sets?.[i] || src+' 900w')}" sizes="(max-width:599px) 50vw,25vw" width="${dimensions[0]}" height="${dimensions[1]}" alt="${esc(p.name)}${src.startsWith('/generated-luxury/') ? ' · Imagen generada con IA' : ''}" loading="lazy" decoding="async"></picture>`;};
+    const photo=(src,cls='')=>{const i=p.images.indexOf(src),dimensions=window.STORE_IMAGE_DIMENSIONS?.[p.jpeg_images?.[i] || src] || [900,1200];return `<picture class="${cls}">${src.startsWith('/generated-luxury/') && src.endsWith('.png') ? `<source type="image/webp" srcset="${[360,720,dimensions[0]].filter((w,n,a)=>w<=dimensions[0]&&a.indexOf(w)===n).map(w=>esc(src.replace('/generated-luxury/','/responsive-images/').replace(/\.png$/, '-'+w+'.webp'))+' '+w+'w').join(', ')}" sizes="(max-width:599px) 50vw,25vw">` : ''}<source type="${src.endsWith('.png') ? 'image/png' : 'image/webp'}" srcset="${esc(p.image_sets?.[i] || src+' 900w')}" sizes="(max-width:599px) 50vw,25vw"><img class="${cls}" src="${esc(p.jpeg_images?.[i] || src)}" srcset="${esc(p.jpeg_sets?.[i] || src+' 900w')}" sizes="(max-width:599px) 50vw,25vw" width="${dimensions[0]}" height="${dimensions[1]}" alt="${esc(p.name)}${src.startsWith('/generated-luxury/') ? ' · Vista completa' : ''}" loading="lazy" decoding="async"></picture>`;};
     const sizes=p.variants.map(v=>`<button type="button" data-quick-size="${esc(v.id)}"${v.stock>0?'':` disabled aria-label="Talla ${esc(v.size)} agotada"`}>${esc(v.size)}</button>`).join('');
-    return `<article class="product-card plp-card" data-id="${esc(p.id)}"><div class="plp-media"><a href="/producto-${esc(p.id)}.html" tabindex="-1" aria-hidden="true">${photo(p.images[0],'plp-a'+(p.images[1]?' has-b':''))}${p.images[1]?photo(p.images[1],'plp-b'):''}</a>${stock===0?'<p class="plp-sold">AGOTADO</p>':''}<div class="plp-sizes" role="group" aria-label="Elegí talla de ${esc(p.name)}">${sizes}</div></div><div class="plp-info"><p class="plp-color">${esc(p.color)}</p><button class="plp-fav" type="button" data-favorite="${esc(p.id)}" aria-label="Guardar en favoritos: ${esc(p.name)}" aria-pressed="${saved}"><svg viewBox="0 0 24 24" fill="${saved?'currentColor':'none'}" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M20.8 4.7a5.5 5.5 0 0 0-7.8 0L12 5.8l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.5a5.5 5.5 0 0 0 0-7.8Z"/></svg></button><h2 class="plp-name"><a href="/producto-${esc(p.id)}.html">${esc(p.name)}</a></h2><p class="plp-price">${money(p.price_minor)}${p.sample_image?' <span class="plp-badge">Muestra</span>':''}</p>${stock===0?'':`<button class="plp-quick" type="button" data-quick aria-expanded="false" aria-label="Agregar rápido ${esc(p.name)}"><span>Agregar rápido</span></button>`}</div></article>`;
+    return `<article class="product-card plp-card" data-id="${esc(p.id)}"><div class="plp-media"><a href="/producto-${esc(p.id)}.html" tabindex="-1" aria-hidden="true">${photo(p.images[0],'plp-a'+(p.images[1]?' has-b':''))}${p.images[1]?photo(p.images[1],'plp-b'):''}</a>${stock===0?'<p class="plp-sold">AGOTADO</p>':''}<div class="plp-sizes" role="group" aria-label="Elegí talla de ${esc(p.name)}">${sizes}</div></div><div class="plp-info"><p class="plp-color">${esc(p.color)}</p><button class="plp-fav" type="button" data-favorite="${esc(p.id)}" aria-label="Guardar en favoritos: ${esc(p.name)}" aria-pressed="${saved}"><svg viewBox="0 0 24 24" fill="${saved?'currentColor':'none'}" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M20.8 4.7a5.5 5.5 0 0 0-7.8 0L12 5.8l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.5a5.5 5.5 0 0 0 0-7.8Z"/></svg></button><h2 class="plp-name"><a href="/producto-${esc(p.id)}.html">${esc(p.name)}</a></h2><p class="plp-price">${money(p.price_minor)}</p>${stock===0?'':`<button class="plp-quick" type="button" data-quick aria-expanded="false" aria-label="Agregar rápido ${esc(p.name)}"><span>Agregar rápido</span></button>`}</div></article>`;
   }
   function closeQuick(c) { c.classList.remove('picking'); $('[data-quick]',c)?.setAttribute('aria-expanded','false'); }
 
@@ -456,14 +419,14 @@
     }, {signal});
     signal.addEventListener('abort', () => { flipContext?.revert(); flipContext = null; }, {once: true});
   }
-  function totals(q, cta = '') { return `<dl class="totals"><div><dt>Subtotal</dt><dd>${money(q.subtotal_minor)}</dd></div>${q.discount_minor ? `<div><dt>Descuento</dt><dd>−${money(q.discount_minor)}</dd></div>`:''}<div><dt>Entrega${q.shipping_minor === undefined ? ' estimada':''}</dt><dd>${q.shipping_minor === undefined ? 'Desde '+money(500):money(q.shipping_minor)}</dd></div><div><dt>Impuestos de prueba</dt><dd>${money(q.tax_minor || 0)}</dd></div><div class="total-row"><dt>Total${q.total_minor === undefined ? ' sin entrega':''}</dt><dd>${money(q.total_minor ?? q.subtotal_minor)}</dd></div></dl>${cta}`; }
+  function totals(q, cta = '') { return `<dl class="totals"><div><dt>Subtotal</dt><dd>${money(q.subtotal_minor)}</dd></div>${q.discount_minor ? `<div><dt>Descuento</dt><dd>−${money(q.discount_minor)}</dd></div>`:''}<div><dt>Entrega${q.shipping_minor === undefined ? ' estimada':''}</dt><dd>${q.shipping_minor === undefined ? 'Desde '+money(500):money(q.shipping_minor)}</dd></div><div><dt>Impuestos</dt><dd>${money(q.tax_minor || 0)}</dd></div><div class="total-row"><dt>Total${q.total_minor === undefined ? ' sin entrega':''}</dt><dd>${money(q.total_minor ?? q.subtotal_minor)}</dd></div></dl>${cta}`; }
   function runningSummary(q, lines, label) {
-    return `<details class="running-summary" data-running-summary><summary><span>${esc(lines.map(line => 'Talla '+line.size+' · Cantidad '+line.quantity).join(' / '))}</span><strong><span>${label}</span> ${money(q.total_minor ?? q.subtotal_minor)}</strong></summary><div class="running-summary-content">${lines.map(line => lineView(line)).join('')}${totals(q)}<p class="small muted">Compra de prueba · sin cobros reales.</p></div></details>`;
+    return `<details class="running-summary" data-running-summary><summary><span>${esc(lines.map(line => 'Talla '+line.size+' · Cantidad '+line.quantity).join(' / '))}</span><strong><span>${label}</span> ${money(q.total_minor ?? q.subtotal_minor)}</strong></summary><div class="running-summary-content">${lines.map(line => lineView(line)).join('')}${totals(q)}</div></details>`;
   }
   function syncProduct() {
     const selected=$('input[name="variant"]:checked');
     const sticky=$('[data-sticky-size]'); if(sticky) sticky.value=selected?.value || '';
-    const note=$('[data-stock-note]'),variant=products.flatMap(p=>p.variants).find(v=>v.id===selected?.value);if(note)note.textContent='Stock de muestra · '+(variant?(variant.stock===1?'Última unidad':variant.stock<=2?'Pocas unidades disponibles':'Talla disponible'):'demo');
+    const note=$('[data-stock-note]'),variant=products.flatMap(p=>p.variants).find(v=>v.id===selected?.value);if(note)note.textContent=variant?(variant.stock===1?'Última unidad':variant.stock<=2?'Pocas unidades disponibles':'Talla disponible'):'';
     const available=$$('input[name="variant"]').some(input=>!input.disabled);
     const ready = !!integrationApi && !integrationError;
     $$('[data-add], [data-sticky-add]').forEach(button=>{button.disabled=!ready||productAdding||!available;if(button.dataset.state!=='added')button.textContent=available?'Agregar a la bolsa':'Agotada';});
@@ -500,20 +463,20 @@
     if (!cart.lines.length) { $('[data-cart-running]')?.remove(); mount.innerHTML = '<div class="empty-state"><h2>Tu bolsa está vacía.</h2><p>Explorá vestidos de fiesta, novias y moda femenina.</p><a class="button" href="/catalogo.html">Ver la colección</a></div>'; $('[data-cart-summary]').innerHTML=''; return; }
     mount.innerHTML = cart.lines.map(line => lineView(line,true)).join('');
     $('[data-cart-running]')?.remove(); const running=document.createElement('div');running.dataset.cartRunning='';running.innerHTML=runningSummary(cart,cart.lines,'Total sin entrega');$('.commerce-grid',mount.closest('section')).before(running);
-    $('[data-cart-summary]').innerHTML = `<div class="order-summary"><h2>Resumen de compra</h2><p class="summary-selection">${esc(cart.lines.map(line => "Talla "+line.size+" - Cantidad "+line.quantity).join(" / "))}</p>${totals(cart, '<a class="button full" href="/checkout.html">Continuar con la compra</a>')}<p class="small muted">Elegí tu zona de entrega para conocer el total completo antes del pago.</p><p class="small">Compra de prueba. Precios, tallas y stock de muestra.</p></div>`;
+    $('[data-cart-summary]').innerHTML = `<div class="order-summary"><h2>Resumen de compra</h2><p class="summary-selection">${esc(cart.lines.map(line => "Talla "+line.size+" - Cantidad "+line.quantity).join(" / "))}</p>${totals(cart, '<a class="button full" href="/checkout.html">Continuar con la compra</a>')}<p class="small muted">Elegí tu zona de entrega para conocer el total completo antes del pago.</p></div>`;
   }
   function field(name,label,type='text',options={}) { return `<label class="field ${options.full ? 'full':''}"><span>${label}</span><input name="${name}" type="${type}" value="${esc(checkout[name] || '')}" ${options.required === false ? '' : 'required'} maxlength="${options.max || 200}" autocomplete="${options.auto || 'off'}" ${options.placeholder ? `placeholder="${esc(options.placeholder)}"`:''}>${options.help ? `<small>${options.help}</small>`:''}</label>`; }
   function renderCheckout(step = 'contact', focusStep = false) {
     const mount = $('[data-checkout-root]'); if (!mount) return;
-    if (!cart.lines.length && !checkout.order_id && checkout.quote_id && checkout.order_key) { mount.innerHTML = '<div class="empty-state"><h2>Revisá tu pedido de prueba anterior.</h2><p>Podés recuperar su resultado en este mismo modelo. No se crea una compra real ni se cambia de sistema.</p><button class="button" data-recover-order>Recuperar pedido de prueba</button><p class="error" data-error role="alert" hidden></p></div>'; return; }
-    if (!cart.lines.length) { mount.innerHTML = checkout.order_id ? `<div class="empty-state"><h2>Tu pedido de prueba ya fue creado.</h2><a class="button" href="/pedido.html?id=${encodeURIComponent(checkout.order_id)}">Continuar con tu pedido</a></div>` : '<div class="empty-state"><h2>Agregá una prenda para continuar.</h2><a class="button" href="/catalogo.html">Ver la colección</a></div>'; return; }
+    if (!cart.lines.length && !checkout.order_id && checkout.quote_id && checkout.order_key) { mount.innerHTML = '<div class="empty-state"><h2>Revisá tu pedido anterior.</h2><p>Podés recuperar su resultado.</p><button class="button" data-recover-order>Recuperar pedido</button><p class="error" data-error role="alert" hidden></p></div>'; return; }
+    if (!cart.lines.length) { mount.innerHTML = checkout.order_id ? `<div class="empty-state"><h2>Tu pedido ya fue creado.</h2><a class="button" href="/pedido.html?id=${encodeURIComponent(checkout.order_id)}">Continuar con tu pedido</a></div>` : '<div class="empty-state"><h2>Agregá una prenda para continuar.</h2><a class="button" href="/catalogo.html">Ver la colección</a></div>'; return; }
     const stages = ['contact','delivery','review','payment'];
     let content = '';
-    if (step === 'contact') content = `<h2>Contacto</h2><p class="notice">Usá datos ficticios. Esta demo guarda la información solo en este navegador; no envía pedidos ni cobra.</p><form data-checkout-form="contact" novalidate><div class="form-grid">${field('name','Nombre y apellido','text',{auto:'name',full:true})}${field('email','Email','email',{auto:'email',full:true,help:'Para identificar tu pedido. Esta prueba no envía correos.'})}${field('phone','Teléfono','tel',{auto:'tel',full:true,help:'Para coordinar la entrega cuando la tienda esté activa.'})}</div><label class="check-label"><input name="newsletter" type="checkbox" ${checkout.newsletter ? 'checked':''}>Quiero recibir novedades de Martha Silva (opcional).</label><p data-error class="error" role="alert" hidden></p><button class="button full">Continuar con la entrega</button></form>`;
-    if (step === 'delivery') content = `<button class="text-button" data-checkout-back="contact">← Editar contacto</button><h2>Dirección de entrega</h2><form data-checkout-form="delivery" novalidate><div class="form-grid">${field('line1','Dirección','text',{auto:'street-address',full:true})}${field('city','Ciudad','text',{auto:'address-level2'})}${field('department','Departamento','text',{auto:'address-level1'})}<label class="field full"><span>Zona de entrega de prueba</span><select name="delivery_zone" required><option value="managua" ${checkout.delivery_zone === 'resto' ? '':'selected'}>Managua - ${money(500)}</option><option value="resto" ${checkout.delivery_zone === 'resto' ? 'selected':''}>Resto de Nicaragua - ${money(800)}</option></select><small>Tarifas de muestra. La cobertura comercial está pendiente.</small></label>${field('coupon','Código de descuento','text',{required:false,full:true,help:'Código de prueba opcional: PRUEBA10.'})}</div><p data-error class="error" role="alert" hidden></p><button class="button full">Revisar la compra</button></form>`;
-    if (step === 'review') content = `<button class="text-button" data-checkout-back="delivery">← Editar entrega</button><h2>Revisá tu compra</h2><div class="review-block"><h3>Contacto</h3><p translate="no">${esc(checkout.name)}<br>${esc(checkout.email)}<br>${esc(checkout.phone)}</p><h3>Entrega</h3><p translate="no">${esc(checkout.line1)}<br>${esc(checkout.city)}, ${esc(checkout.department)}</p></div><p>Todos los importes son de prueba. No se cobra dinero ni se envían prendas.</p><p data-error class="error" role="alert" hidden></p><button class="button full" data-create-order>Continuar al pago de prueba</button>`;
-    if (step === 'payment') content = `<h2>Pago de prueba</h2><p>Este simulador guarda el resultado en tu pedido. No utiliza tarjetas ni una pasarela bancaria.</p><p class="notice">No se cobra dinero.</p><p data-error class="error" role="alert" hidden></p><button class="button full" data-test-payment="approved">Aprobar pago de prueba</button><div class="test-options"><button class="text-button" data-test-payment="declined">Probar pago rechazado</button><button class="text-button" data-test-payment="cancelled">Cancelar pedido</button></div>`;
-    mount.innerHTML = `<ol class="steps" aria-label="Pasos de compra">${stages.map((s,i) => `<li class="${i<stages.indexOf(step)?'complete':''}" ${s === step ? 'aria-current="step"':''}>${i+1}. ${['Contacto','Entrega','Revisión','Pago'][i]}</li>`).join('')}</ol>${runningSummary(quote || cart,cart.lines,quote ? 'Total':'Total sin entrega')}<div class="commerce-grid"><section class="checkout-panel" aria-labelledby="checkout-stage-title">${content}</section><aside class="order-summary checkout-summary" data-checkout-step="${step}"><h2>Tu selección</h2>${cart.lines.map(line => lineView(line)).join('')}${totals(quote || cart)}<footer class="checkout-summary-footer"><div><h3>Compra de prueba</h3><p>USD · precios, tallas y stock de muestra.</p><p>Pago simulado. No se cobra dinero ni se envían prendas.</p><a href="/ayuda.html" data-barba-prevent>Entrega y devoluciones</a></div></footer></aside></div>`;
+    if (step === 'contact') content = `<h2>Contacto</h2><form data-checkout-form="contact" novalidate><div class="form-grid">${field('name','Nombre y apellido','text',{auto:'name',full:true})}${field('email','Email','email',{auto:'email',full:true,help:'Para identificar tu pedido.'})}${field('phone','Teléfono','tel',{auto:'tel',full:true,help:'Para coordinar la entrega cuando la tienda esté activa.'})}</div><label class="check-label"><input name="newsletter" type="checkbox" ${checkout.newsletter ? 'checked':''}>Quiero recibir novedades de Martha Silva (opcional).</label><p data-error class="error" role="alert" hidden></p><button class="button full">Continuar con la entrega</button></form>`;
+    if (step === 'delivery') content = `<button class="text-button" data-checkout-back="contact">← Editar contacto</button><h2>Dirección de entrega</h2><form data-checkout-form="delivery" novalidate><div class="form-grid">${field('line1','Dirección','text',{auto:'street-address',full:true})}${field('city','Ciudad','text',{auto:'address-level2'})}${field('department','Departamento','text',{auto:'address-level1'})}<label class="field full"><span>Zona de entrega</span><select name="delivery_zone" required><option value="managua" ${checkout.delivery_zone === 'resto' ? '':'selected'}>Managua - ${money(500)}</option><option value="resto" ${checkout.delivery_zone === 'resto' ? 'selected':''}>Resto de Nicaragua - ${money(800)}</option></select></label>${field('coupon','Código de descuento','text',{required:false,full:true})}</div><p data-error class="error" role="alert" hidden></p><button class="button full">Revisar la compra</button></form>`;
+    if (step === 'review') content = `<button class="text-button" data-checkout-back="delivery">← Editar entrega</button><h2>Revisá tu compra</h2><div class="review-block"><h3>Contacto</h3><p translate="no">${esc(checkout.name)}<br>${esc(checkout.email)}<br>${esc(checkout.phone)}</p><h3>Entrega</h3><p translate="no">${esc(checkout.line1)}<br>${esc(checkout.city)}, ${esc(checkout.department)}</p></div><p data-error class="error" role="alert" hidden></p><button class="button full" data-create-order>Continuar al pago</button>`;
+    if (step === 'payment') content = `<h2>Pago</h2><p data-error class="error" role="alert" hidden></p><button class="button full" data-test-payment="approved">Confirmar pedido</button>`;
+    mount.innerHTML = `<ol class="steps" aria-label="Pasos de compra">${stages.map((s,i) => `<li class="${i<stages.indexOf(step)?'complete':''}" ${s === step ? 'aria-current="step"':''}>${i+1}. ${['Contacto','Entrega','Revisión','Pago'][i]}</li>`).join('')}</ol>${runningSummary(quote || cart,cart.lines,quote ? 'Total':'Total sin entrega')}<div class="commerce-grid"><section class="checkout-panel" aria-labelledby="checkout-stage-title">${content}</section><aside class="order-summary checkout-summary" data-checkout-step="${step}"><h2>Tu selección</h2>${cart.lines.map(line => lineView(line)).join('')}${totals(quote || cart)}<footer class="checkout-summary-footer"><div><h3>Compra</h3><p>Los precios se muestran en USD.</p><a href="/ayuda.html" data-barba-prevent>Entrega y devoluciones</a></div></footer></aside></div>`;
     const title = $('.checkout-panel h2',mount);
     title.id = 'checkout-stage-title';
     if (focusStep) { title.tabIndex = -1; title.focus({preventScroll:true}); }
@@ -522,7 +485,7 @@
   function returnItems(order, ret) { return '<ul class="return-items">'+ret.lines.map(line=>{const item=order.lines.find(item=>item.variant_id===line.variant_id); return '<li>'+esc(item?.name || line.variant_id)+' · Talla '+esc(item?.size)+' · Cantidad: '+line.quantity+'</li>';}).join('')+'</ul>'; }
   function orderView(order, admin = false) {
     const refunded = order.refunded_minor || 0;
-    return `<div class="order-heading"><div><p class="eyebrow">PEDIDO ${esc(order.code)}</p><h2>${statusLabel[order.status] || esc(order.status)}</h2></div><span class="status-chip">${statusLabel[order.payment_status] || esc(order.payment_status)}</span></div><p class="notice">Pedido de prueba guardado. No confirma un cobro ni una entrega real.</p><div class="commerce-grid"><section>${order.lines.map(line => lineView(line)).join('')}<div class="review-block"><h3>Entrega</h3><p translate="no">${esc(order.contact.name)}<br>${esc(order.address.line1)}<br>${esc(order.address.city)}, ${esc(order.address.department)}</p>${order.tracking ? `<p>Seguimiento: <span translate="no"><span translate="no">${esc(order.tracking)}</span></span></p>`:''}</div><h3>Estado del pedido</h3><ol class="timeline">${order.events.map(event => `<li><span>${esc(new Date(event.at).toLocaleString(locale()))}</span> ${esc(statusLabel[event.type] || event.type)}</li>`).join('')}</ol></section><aside class="order-summary"><h3>Resumen de compra</h3>${totals(order)}${refunded ? `<p>Reembolsado en prueba: ${money(refunded)}</p>`:''}<p class="small muted" translate="no">${esc(order.contact.email)}</p></aside></div>${(order.returns || []).map(r => `<div class="return-card"><h3>Devolución ${esc(r.id.slice(0,8))}</h3>${returnItems(order,r)}<p><span translate="no">${esc(r.reason)}</span> · ${statusLabel[r.status] || esc(r.status)}</p>${admin && r.status === 'requested' ? `<button class="button secondary" data-receive-return="${esc(r.id)}" data-order="${esc(order.id)}">Registrar recepción</button>`:''}${admin && r.status === 'received' ? `<label class="check-label"><input type="checkbox" data-restock="${esc(r.id)}">Prenda revisada: devolver al inventario de prueba</label><button class="button secondary" data-refund="${esc(r.id)}" data-order="${esc(order.id)}">Procesar reembolso de prueba</button>`:''}</div>`).join('')}`;
+    return `<div class="order-heading"><div><p class="eyebrow">PEDIDO ${esc(order.code)}</p><h2>${statusLabel[order.status] || esc(order.status)}</h2></div><span class="status-chip">${statusLabel[order.payment_status] || esc(order.payment_status)}</span></div><div class="commerce-grid"><section>${order.lines.map(line => lineView(line)).join('')}<div class="review-block"><h3>Entrega</h3><p translate="no">${esc(order.contact.name)}<br>${esc(order.address.line1)}<br>${esc(order.address.city)}, ${esc(order.address.department)}</p>${order.tracking ? `<p>Seguimiento: <span translate="no"><span translate="no">${esc(order.tracking)}</span></span></p>`:''}</div><h3>Estado del pedido</h3><ol class="timeline">${order.events.map(event => `<li><span>${esc(new Date(event.at).toLocaleString(locale()))}</span> ${esc(statusLabel[event.type] || event.type)}</li>`).join('')}</ol></section><aside class="order-summary"><h3>Resumen de compra</h3>${totals(order)}${refunded ? `<p>Reembolsado: ${money(refunded)}</p>`:''}<p class="small muted" translate="no">${esc(order.contact.email)}</p></aside></div>${(order.returns || []).map(r => `<div class="return-card"><h3>Devolución ${esc(r.id.slice(0,8))}</h3>${returnItems(order,r)}<p><span translate="no">${esc(r.reason)}</span> · ${statusLabel[r.status] || esc(r.status)}</p>${admin && r.status === 'requested' ? `<button class="button secondary" data-receive-return="${esc(r.id)}" data-order="${esc(order.id)}">Registrar recepción</button>`:''}${admin && r.status === 'received' ? `<label class="check-label"><input type="checkbox" data-restock="${esc(r.id)}">Prenda revisada: devolver al inventario</label><button class="button secondary" data-refund="${esc(r.id)}" data-order="${esc(order.id)}">Procesar reembolso</button>`:''}</div>`).join('')}`;
   }
   async function renderOrder() {
     const mount = $('[data-order-root]'); if (!mount) return;
@@ -531,21 +494,21 @@
     try {
       currentOrder = (await api(`/api/orders/${encodeURIComponent(id)}`)).order;
       let action = '';
-      if (currentOrder.status === 'pending_payment') action = `<h3>Completá el pago de prueba</h3><button class="button" data-test-payment="approved">Aprobar pago de prueba</button><button class="text-button" data-test-payment="cancelled">Cancelar pedido</button>`;
+      if (currentOrder.status === 'pending_payment') action = `<h3>Completá el pago</h3><button class="button" data-test-payment="approved">Confirmar pedido</button>`;
       if (['declined','cancelled'].includes(currentOrder.status)) action = '<p>La reserva se liberó. Podés volver a agregar las prendas disponibles.</p><button class="button" data-rebuild-order>Volver a agregar las prendas</button>';
       if (['delivered','partially_refunded'].includes(currentOrder.status)) {
         const returned = new Map(); for (const r of currentOrder.returns || []) for (const line of r.lines) returned.set(line.variant_id,(returned.get(line.variant_id)||0)+line.quantity);
         const eligible = currentOrder.lines.filter(line => line.quantity > (returned.get(line.variant_id)||0));
-        if (eligible.length) action = `<details class="return-form"><summary>Solicitar una devolución de prueba</summary><form data-return-form><p>Seleccioná las prendas que querés devolver.</p>${eligible.map(line => `<label class="field"><span>${esc(line.name)} · ${esc(line.size)}</span><select name="return:${esc(line.variant_id)}"><option value="0">No devolver</option>${Array.from({length:line.quantity-(returned.get(line.variant_id)||0)},(_,i) => `<option value="${i+1}">${i+1} ${i===0?'prenda':'prendas'}</option>`).join('')}</select></label>`).join('')}<label class="field"><span>Motivo</span><textarea name="reason" required maxlength="500"></textarea></label><p data-error class="error" role="alert" hidden></p><button class="button secondary">Enviar solicitud de prueba</button></form></details>`;
+        if (eligible.length) action = `<details class="return-form"><summary>Solicitar una devolución</summary><form data-return-form><p>Seleccioná las prendas que querés devolver.</p>${eligible.map(line => `<label class="field"><span>${esc(line.name)} · ${esc(line.size)}</span><select name="return:${esc(line.variant_id)}"><option value="0">No devolver</option>${Array.from({length:line.quantity-(returned.get(line.variant_id)||0)},(_,i) => `<option value="${i+1}">${i+1} ${i===0?'prenda':'prendas'}</option>`).join('')}</select></label>`).join('')}<label class="field"><span>Motivo</span><textarea name="reason" required maxlength="500"></textarea></label><p data-error class="error" role="alert" hidden></p><button class="button secondary">Enviar solicitud</button></form></details>`;
       }
       mount.innerHTML=orderView(currentOrder)+`<section class="order-actions">${action}</section><a class="text-button" href="/catalogo.html">Seguir explorando la colección</a>`;
-    } catch (error) { mount.innerHTML='<h2>No pudimos abrir ese pedido.</h2><p>Usá el navegador con el que hiciste la compra de prueba.</p><a href="/catalogo.html" class="button">Ver la colección</a>'; showError(mount,error); }
+    } catch (error) { mount.innerHTML='<h2>No pudimos abrir ese pedido.</h2><p>Usá el navegador con el que hiciste la compra.</p><a href="/catalogo.html" class="button">Ver la colección</a>'; showError(mount,error); }
   }
   async function renderAdmin() {
     const mount = $('[data-admin-root]'); if (!mount) return;
-    if (!(await api('/api/admin/session')).authenticated) { mount.innerHTML='<section class="admin-login checkout-panel"><h2>Acceso a administración</h2><p>Vista previa local sin autenticación real. No ingresés contraseñas personales. Usá demo para entrar.</p><form data-admin-login><input name="password" type="hidden" value="demo"><p data-error class="error" role="alert" hidden></p><button class="button full">Abrir administración de demo</button></form></section>'; return; }
+    if (!(await api('/api/admin/session')).authenticated) { mount.innerHTML='<section class="admin-login checkout-panel"><h2>Acceso a administración</h2><p>Este panel no tiene autenticación propia. Los datos se guardan en este navegador.</p><form data-admin-login><input name="password" type="hidden" value="demo"><p data-error class="error" role="alert" hidden></p><button class="button full">Abrir administración</button></form></section>'; return; }
     [adminOrders,inventory] = await Promise.all([api('/api/admin/orders').then(r => r.orders),api('/api/admin/inventory').then(r => r.variants)]);
-    mount.innerHTML = `<div class="admin-toolbar"><h2>Pedidos e inventario</h2><button class="text-button" data-admin-refresh>Actualizar</button><button class="text-button" data-admin-logout>Cerrar sesión</button></div><p class="notice">Demo de prueba. Los cambios se guardan solo en este navegador. No es un inventario de producción ni está sincronizado con la tienda original.</p><nav class="admin-tabs"><a href="#admin-orders">Pedidos (${adminOrders.length})</a><a href="#admin-stock">Inventario</a></nav><section id="admin-orders"><h2>Pedidos</h2>${adminOrders.length ? adminOrders.map(order => `<details class="admin-order"><summary>${esc(order.code)} · ${statusLabel[order.status] || esc(order.status)} · ${money(order.total_minor)}</summary><div>${orderView(order,true)}${['paid','preparing','shipped'].includes(order.status) ? `<form data-fulfillment="${esc(order.id)}"><input type="hidden" name="status" value="${({paid:'preparing',preparing:'shipped',shipped:'delivered'})[order.status]}">${order.status === 'preparing' ? '<label class="field"><span>Número de seguimiento</span><input name="tracking" required maxlength="120"></label>':''}<p data-error class="error" role="alert" hidden></p><button class="button secondary">${({paid:'Preparar pedido',preparing:'Registrar envío',shipped:'Registrar entrega'})[order.status]}</button></form>`:''}</div></details>`).join(''):'<p>No hay pedidos todavía.</p>'}</section><section id="admin-stock"><h2>Inventario por talla</h2><div class="inventory-table"><table><thead><tr><th>Prenda / talla</th><th>Físico</th><th>Reservado</th><th>Disponible</th><th>Ajustar</th></tr></thead><tbody>${inventory.map(v => `<tr><th>${esc(v.name)} · ${esc(v.size)}</th><td>${v.stock}</td><td>${v.reserved}</td><td>${v.available}</td><td><form data-stock="${esc(v.id)}"><label class="sr-only" for="stock-${esc(v.id)}">Nuevo stock de ${esc(v.name)} ${esc(v.size)}</label><input id="stock-${esc(v.id)}" name="quantity" type="number" min="${v.reserved}" max="100000" required value="${v.stock}" aria-label="Nuevo stock ${esc(v.name)} ${esc(v.size)}"><input name="reason" placeholder="Motivo del ajuste" aria-label="Motivo del ajuste ${esc(v.name)} ${esc(v.size)}" required maxlength="200"><button class="button secondary">Guardar</button><p data-error class="error" role="alert" hidden></p></form></td></tr>`).join('')}</tbody></table></div></section>`;
+    mount.innerHTML = `<div class="admin-toolbar"><h2>Pedidos e inventario</h2><button class="text-button" data-admin-refresh>Actualizar</button><button class="text-button" data-admin-logout>Cerrar sesión</button></div><p class="notice">Los cambios se guardan en este navegador.</p><nav class="admin-tabs"><a href="#admin-orders">Pedidos (${adminOrders.length})</a><a href="#admin-stock">Inventario</a></nav><section id="admin-orders"><h2>Pedidos</h2>${adminOrders.length ? adminOrders.map(order => `<details class="admin-order"><summary>${esc(order.code)} · ${statusLabel[order.status] || esc(order.status)} · ${money(order.total_minor)}</summary><div>${orderView(order,true)}${['paid','preparing','shipped'].includes(order.status) ? `<form data-fulfillment="${esc(order.id)}"><input type="hidden" name="status" value="${({paid:'preparing',preparing:'shipped',shipped:'delivered'})[order.status]}">${order.status === 'preparing' ? '<label class="field"><span>Número de seguimiento</span><input name="tracking" required maxlength="120"></label>':''}<p data-error class="error" role="alert" hidden></p><button class="button secondary">${({paid:'Preparar pedido',preparing:'Registrar envío',shipped:'Registrar entrega'})[order.status]}</button></form>`:''}</div></details>`).join(''):'<p>No hay pedidos todavía.</p>'}</section><section id="admin-stock"><h2>Inventario por talla</h2><div class="inventory-table"><table><thead><tr><th>Prenda / talla</th><th>Físico</th><th>Reservado</th><th>Disponible</th><th>Ajustar</th></tr></thead><tbody>${inventory.map(v => `<tr><th>${esc(v.name)} · ${esc(v.size)}</th><td>${v.stock}</td><td>${v.reserved}</td><td>${v.available}</td><td><form data-stock="${esc(v.id)}"><label class="sr-only" for="stock-${esc(v.id)}">Nuevo stock de ${esc(v.name)} ${esc(v.size)}</label><input id="stock-${esc(v.id)}" name="quantity" type="number" min="${v.reserved}" max="100000" required value="${v.stock}" aria-label="Nuevo stock ${esc(v.name)} ${esc(v.size)}"><input name="reason" placeholder="Motivo del ajuste" aria-label="Motivo del ajuste ${esc(v.name)} ${esc(v.size)}" required maxlength="200"><button class="button secondary">Guardar</button><p data-error class="error" role="alert" hidden></p></form></td></tr>`).join('')}</tbody></table></div></section>`;
   }
   function stopMotion() { if (raf) cancelAnimationFrame(raf); raf=null; }
   let mediaObserver;
@@ -814,7 +777,7 @@
   }
 
   async function mountPage(focus = false) {
-    mountJobs++; renderIntegration();
+    mountJobs++;
     pageScope?.abort(); productObserver?.disconnect(); productObserver=null; pageScope = new AbortController(); stopMotion();
     const page = $('main')?.dataset.page;
     if (page === 'product') productShareControl();
@@ -837,15 +800,13 @@
       if (page === 'product') {productBuyBar();gallery();syncProduct();}
       if (page === 'home') heroCarousel();
       motion(); if (typeof focus==='function' ? focus() : focus) $('main')?.focus({preventScroll:true});
-    } catch (error) { integrationError = error.message; renderIntegration(); blockCommerce(); showError($('main')||document.body,error); }
-    finally { mountJobs--; renderIntegration(); }
+    } catch (error) { integrationError = error.message; blockCommerce(); showError($('main')||document.body,error); }
+    finally { mountJobs--; }
   }
   document.addEventListener('click', async event => {
     const b = event.target.closest('button,a'); if (!b) return;
     if(b.matches('[data-category-tab]')){const params=new URLSearchParams(location.search);if(b.dataset.categoryTab)params.set('category',b.dataset.categoryTab);else params.delete('category');setCatalogParams(params);catalog();return;}
     if (b.matches('[data-product-share]')) { await shareProduct(b); return; }
-    if (b.matches('[data-integration-mode]')) { await switchIntegration(b.dataset.integrationMode); return; }
-    if (b.matches('[data-integration-retry]')) { if (!pendingApi && !busyActions && !mountJobs && !modeSwitching) { $$('[data-error]').forEach(element => element.hidden = true); createIntegration(); await mountPage(); } return; }
     if (modeSwitching) { event.preventDefault(); return; }
     if(b.matches('[data-menu-toggle]')){menuOpen(b);return;}
     if (b.matches('[data-filters-open]')) {openDialog($('#filter-panel'),b);b.setAttribute('aria-expanded','true');$('[data-filters-close]').focus();return;}
@@ -898,21 +859,15 @@
   window.addEventListener('pageshow',async event=>{
     if (!event.persisted) return;
     const resumeView = viewHistory.resumeSnapshot();
-    let preferred = integrationMode; try { const stored = sessionStorage.getItem(MODE_KEY); if (['savia','sisfain'].includes(stored)) preferred = stored; } catch {}
-    // A restored, still-pending action must finish with its existing namespace
-    // and in-memory checkout/order. Do not clear data needed after an await.
-    if (pendingApi || busyActions || mountJobs || modeSwitching) {
-      if (preferred !== integrationMode) { try { sessionStorage.setItem(MODE_KEY,integrationMode); } catch {} notify('La operación pendiente sigue en su modelo original. Podés cambiar al terminar.'); }
-      return;
-    }
-    if (preferred !== integrationMode) { await switchIntegration(preferred); viewHistory.resume(resumeView); return; }
+    // A restored, still-pending action must finish with its in-memory checkout/order.
+    if (pendingApi || busyActions || mountJobs || modeSwitching) return;
     loadCheckout(); quote = null; currentOrder = null; products = []; await mountPage(); viewHistory.resume(resumeView);
   });
   function filterChange() { const form=$('#catalog-filters'); if (!form) return; const params=new URLSearchParams(location.search); for (const [key,value] of new FormData(form)) {if (value && !(key === 'sort' && value === 'selection')) params.set(key,value); else params.delete(key);} setCatalogParams(params); catalog(); }
   document.addEventListener('submit',async event=>{
     const form=event.target; if (modeSwitching) { event.preventDefault(); return; }
     if (form.id === 'catalog-filters') {event.preventDefault(); filterChange(); return;}
-    if(form.matches('[data-newsletter]')){event.preventDefault();$('.newsletter-result',form).textContent='Tu código de prueba: PRUEBA10. No se envió ningún correo.';localStorage.setItem('martha-parity-newsletter-dismissed','true');return;}
+    if(form.matches('[data-newsletter]')){event.preventDefault();$('.newsletter-result',form).textContent='Tu código: BIENVENIDA10.';localStorage.setItem('martha-parity-newsletter-dismissed','true');return;}
     if (!form.matches('[data-checkout-form], [data-return-form], [data-admin-login], [data-fulfillment], [data-stock]')) return;
     event.preventDefault();if(form.dataset.checkoutForm&&!validate(form))return; const button=$('button[type="submit"],button:not([type])',form); const data=Object.fromEntries(new FormData(form));
     await withButton(button,async()=>{
@@ -923,17 +878,17 @@
       } else if (form.matches('[data-return-form]')) {
         const lines=Object.entries(data).filter(([key,value])=>key.startsWith('return:')&&Number(value)>0).map(([key,value])=>({variant_id:key.slice(7),quantity:Number(value)}));
         if (!lines.length) throw new Error('Seleccioná al menos una prenda para devolver.');
-        await api(`/api/orders/${currentOrder.id}/returns`,{lines,reason:data.reason}); await renderOrder(); notify('Solicitud de devolución de prueba guardada.');
+        await api(`/api/orders/${currentOrder.id}/returns`,{lines,reason:data.reason}); await renderOrder(); notify('Solicitud de devolución guardada.');
       } else if(form.matches('[data-admin-login]')) {await api('/api/admin/login',{password:data.password}); form.reset(); await renderAdmin();}
       else if(form.dataset.fulfillment) {await api(`/api/admin/orders/${form.dataset.fulfillment}/fulfill`,data); await renderAdmin();}
       else if(form.dataset.stock) {await api('/api/admin/inventory',{variant_id:form.dataset.stock,quantity:Number(data.quantity),reason:data.reason}); await renderAdmin();}
     });
   });
   function syncCampaignViewport() {
-    const height = $$('.test-banner, .language-bar, [data-integration-panel], .site-header')
+    const height = $$('.language-bar, .site-header')
       .reduce((total, element) => total + element.getBoundingClientRect().height, 0);
     document.documentElement.style.setProperty('--store-chrome-height', `${Math.ceil(height)}px`);
-    // Only the header stays sticky; banners/language rows scroll away.
+    // Only the header stays sticky; the language row scrolls away.
     document.documentElement.style.setProperty('--header', `${Math.ceil(height)}px`);
     const stickyHeaderHeight = $('.site-header')?.getBoundingClientRect().height || 0;
     document.documentElement.style.setProperty('--store-sticky-header-height', `${Math.ceil(stickyHeaderHeight)}px`);
@@ -941,7 +896,7 @@
   window.addEventListener('resize', syncCampaignViewport);
   if (window.ResizeObserver) {
     const chromeObserver = new ResizeObserver(syncCampaignViewport);
-    $$('.test-banner, .language-bar, [data-integration-panel], .site-header').forEach(element => chromeObserver.observe(element));
+    $$('.language-bar, .site-header').forEach(element => chromeObserver.observe(element));
   }
   syncCampaignViewport();
   const reduced = matchMedia('(prefers-reduced-motion: reduce)'); reduced.addEventListener('change',motion);

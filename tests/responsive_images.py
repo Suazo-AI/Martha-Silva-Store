@@ -21,7 +21,7 @@ class ResponsiveImages(unittest.TestCase):
     with Image.open(f) as im:self.assertEqual(im.size,(d['width'],d['height']))
     self.assertEqual(d['height'],round(a['height']*d['width']/a['width']))
     self.assertLessEqual(d['width'],a['width'])
-  self.assertEqual(hashlib.sha256((STATIC/'catalog.js').read_bytes()).hexdigest(),hashes['build-inputs/static/catalog.js'])
+  self.assertEqual(hashlib.sha256((STATIC/'catalog.js').read_bytes()).hexdigest(),json.loads((ROOT/'tests/fixtures/published-catalog-contract.json').read_text(encoding='utf-8'))['source_catalog_sha256'])
   # Page bytes are pinned by tools/pin_page_hashes.py; the October release manifest stays untouched evidence.
   pins=json.loads((ROOT/'tests/page-hashes.json').read_text(encoding='utf-8'))
   self.assertEqual(sorted(p.name for p in STATIC.glob('*.html')),sorted(pins))

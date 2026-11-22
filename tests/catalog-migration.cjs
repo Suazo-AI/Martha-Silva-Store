@@ -10,7 +10,7 @@ const KEY='martha-parity-v2-demo-state-1', RECOVERY=KEY+'-recovery';
 const clone=x=>JSON.parse(JSON.stringify(x));
 const contact={name:'Test',email:'test@example.com',phone:'123'},address={line1:'Demo',city:'Demo',department:'Demo'};
 function setup(){const saved=new Map();let blocked=false;const storage={getItem:k=>saved.get(k)??null,setItem:(k,v)=>{if(blocked)throw Error('quota');saved.set(k,v);}};return {storage,api:createDemoApi(legacy,storage),state:()=>JSON.parse(saved.get(KEY)),block:v=>blocked=v};}
-async function quote(api,v=vid){await api('/api/cart/items',{variant_id:v,quantity:1});return api('/api/quote',{delivery_zone:'managua',coupon:'PRUEBA10'});}
+async function quote(api,v=vid){await api('/api/cart/items',{variant_id:v,quantity:1});return api('/api/quote',{delivery_zone:'managua',coupon:'BIENVENIDA10'});}
 async function order(api,key,v=vid){const q=await quote(api,v);return (await api('/api/orders',{quote_id:q.id,idempotency_key:key,contact,address})).order;}
 const reject=(fn,code)=>assert.rejects(fn,e=>e.code===code);
 test('known 6 to 120 expansion preserves the complete legacy snapshot and only adds fixture stock',async()=>{
