@@ -13,7 +13,7 @@
   if (['es', 'en'].includes(params.get('lang'))) {
     try { localStorage.setItem(key, language); } catch {}
   }
-  const productNames = (window.DEMO_CATALOG?.products || []).map(product => [product.name, window.MARTHA_PRODUCT_EN?.[product.id]?.name || product.name]);
+  const productNames = (window.STORE_CATALOG?.products || []).map(product => [product.name, window.MARTHA_PRODUCT_EN?.[product.id]?.name || product.name]);
   const normalized = value => String(value ?? '').replace(/\s+/g, ' ').trim();
   function english(value) {
     const source = String(value ?? '');

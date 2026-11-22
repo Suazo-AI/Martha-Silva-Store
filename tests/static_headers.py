@@ -134,7 +134,7 @@ def runtime(port, output):
                                 if process.poll() is not None or time.monotonic() > deadline:
                                     raise RuntimeError('Wrangler failed to start; inspect ' + str(output / (label + '.log')))
                                 time.sleep(.25)
-                        paths = ('/', '/app.js', '/styles.css', '/catalog.js', '/demo-api.js',
+                        paths = ('/', '/app.js', '/styles.css', '/catalog.js', '/store-api.js',
                                  '/integration-adapters.js', '/deployment.json', '/__missing_headers_probe__', '/_headers')
                         for path in paths:
                             try:

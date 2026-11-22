@@ -8,7 +8,7 @@ const path = require('node:path');
 const vm = require('node:vm');
 const test = require('node:test');
 const crypto = require('node:crypto');
-const {createDemoApi} = require('../src/demo-api.js');
+const {createStoreApi} = require('../src/store-api.js');
 const original = require('./fixtures/catalog-expansion.json');
 const originalMedia = require('./fixtures/original-store-media.json');
 const legacy = require('./fixtures/legacy-catalog.json');
@@ -20,7 +20,7 @@ const root = path.resolve(__dirname, '..');
 const context = {window:{}};
 const catalogSource = fs.readFileSync(path.join(root, 'build-inputs/static/catalog.js'));
 vm.runInNewContext(catalogSource.toString('utf8'), context);
-const catalog = JSON.parse(JSON.stringify(context.window.DEMO_CATALOG));
+const catalog = JSON.parse(JSON.stringify(context.window.STORE_CATALOG));
 const media = JSON.parse(JSON.stringify(context.window.STORE_MEDIA));
 const dimensions = JSON.parse(JSON.stringify(context.window.STORE_IMAGE_DIMENSIONS));
 const allowed = new Set(evidence.sources.flatMap(source => source.media_paths));
@@ -43,6 +43,9 @@ const reviewedVariants = new Map(selection.variants.map(value => [value.path, va
 const expectedMedia = JSON.parse(JSON.stringify(originalMedia));
 expectedMedia[GREEN] = selection.expected_media;
 const publishedMedia = {};
+// Frozen originals name the flag sample_image; the published catalog calls it editorial_image (P12).
+const RENAMED = {sample_image: 'editorial_image'};
+const renameKeys = record => Object.fromEntries(Object.entries(record).map(([key, value]) => [RENAMED[key] || key, value]));
 const labelName = id => (publication.copy_overrides[id] || {}).name ?? original.products.find(product => product.id === id).name;
 const selectedImages = new Map();
 for (const product of original.products) {
@@ -56,7 +59,7 @@ for (const product of original.products) {
   }
   const images = records.map(record => '/' + record.runtime_destination);
   const sets = records.map(record => '/' + record.runtime_destination + ' ' + record.dimensions[0] + 'w');
-  publishedMedia[product.id] = {...originalMedia[product.id], images, jpeg_images: images,
+  publishedMedia[product.id] = {...renameKeys(originalMedia[product.id]), images, jpeg_images: images,
     image_sets: sets, jpeg_sets: sets,
     image_labels: images.map(() => labelName(product.id) + ' · vista completa'),
     video_poster: images[0]};
@@ -158,8 +161,8 @@ function assertReference(reference) {
 }
 
 function assertProducts(actual) {
-  assert.equal(actual.mode, 'local_test');
-  assert.equal(actual.brand.commercial_status, 'sample');
+  assert.equal(actual.mode, 'local');
+  assert.equal(actual.brand.commercial_status, 'unlisted');
   assert.equal(actual.products.length, 40);
   assert.equal(new Set(actual.products.map(product => product.id)).size, 40);
   assert.equal(actual.products.reduce((count, product) => count + product.variants.length, 0), 120);
@@ -169,9 +172,10 @@ function assertProducts(actual) {
     assert.ok(Object.keys(overrides).every(key => ['name', 'description'].includes(key)),
       'Copy exceptions must not override commerce: ' + product.id);
     for (const [key, value] of Object.entries(original.products[index])) {
-      if (key !== 'images' && key !== 'image_labels') assert.deepEqual(product[key], overrides[key] ?? value, product.id + ':' + key);
+      const published = RENAMED[key] || key; // P12 neutral key names
+      if (key !== 'images' && key !== 'image_labels') assert.deepEqual(product[published], overrides[key] ?? (key === 'commercial_status' ? 'unlisted' : value), product.id + ':' + published);
     }
-    assert.equal(product.commercial_status, 'sample');
+    assert.equal(product.commercial_status, 'unlisted');
     assert.deepEqual(product.images, publishedMedia[product.id].images);
     for (const [key, value] of Object.entries(publishedMedia[product.id]))
       assert.deepEqual(product[key], value, product.id + ':' + key);
@@ -274,15 +278,15 @@ test('current media checks reject missing, cross-product and false-width referen
 test('the served full catalog supports the real legacy six-to-120 variant migration', async () => {
   const saved = new Map();
   const storage = {getItem:key => saved.get(key) ?? null, setItem:(key, value) => saved.set(key, value)};
-  const oldApi = createDemoApi(legacy, storage);
+  const oldApi = createStoreApi(legacy, storage);
   const variant = legacy.products[0].variants[0].id;
   await oldApi('/api/cart/items', {variant_id:variant, quantity:2});
-  const before = JSON.parse(saved.get('martha-parity-v2-demo-state-1'));
-  const api = createDemoApi(catalog, storage);
+  const before = JSON.parse(saved.get('martha-store-state-1'));
+  const api = createStoreApi(catalog, storage);
   assert.equal((await api('/api/catalog')).products.length, 40);
   assert.equal((await api('/api/cart')).lines[0].quantity, 2);
-  const after = JSON.parse(saved.get('martha-parity-v2-demo-state-1'));
+  const after = JSON.parse(saved.get('martha-store-state-1'));
   assert.equal(Object.keys(after.stock).length, 120);
   assert.deepEqual({...after, stock:before.stock}, before);
-  assert.equal(saved.get('martha-parity-v2-demo-state-1-recovery'), undefined);
+  assert.equal(saved.get('martha-store-state-1-recovery'), undefined);
 });

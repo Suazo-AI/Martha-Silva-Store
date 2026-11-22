@@ -176,7 +176,7 @@
 .ai-support-illustration>a{display:inline-block;padding:8px 0;text-decoration:underline;text-underline-offset:3px}
 @media(max-width:599px){.ai-support-illustration{padding:24px 20px;margin:28px auto}}
 
-/* Local luxury candidate: preserve complete generated model and frame, no stretching. */
+/* Preserve the complete model and frame, no stretching. */
 .product-image img,.category-tile img,.cart-line img,.mega-editorial img,
 .gallery-photo img,.gallery-clone img,.gallery-thumbnails img,.edit-photo img,
 .luxury-hero__media img,.luxury-editorial__portrait img,
@@ -214,7 +214,7 @@ dialog{border:0;padding:32px;background:white;color:#111;max-width:calc(100% - 3
 .mobile-wishlist{display:none}@media(max-width:1023px){.header-left{gap:0}.mobile-wishlist{display:flex;flex:0 0 44px;width:44px;height:44px;padding:14px}}
 
 /* Verified catalog media and deferred video playback. */
-picture{display:block}.campaign-photo{position:relative}.campaign-photo picture{height:100%}.campaign-photo .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%}.hero-video:not(.is-playing){visibility:hidden}.product-image>picture,.product-image>a>picture{height:100%;width:100%}.product-image video:not(.is-playing){opacity:0!important}.gallery-photo picture{width:100%;height:100%}.gallery-video{position:relative;background:#f0f0f0}.video-caption{position:absolute;bottom:40px;left:16px;background:#fff;padding:6px 10px;font:12px/18px var(--body);pointer-events:none}.sample-label{font:12px/18px var(--body);color:#555;margin-bottom:16px}
+picture{display:block}.campaign-photo{position:relative}.campaign-photo picture{height:100%}.campaign-photo .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%}.hero-video:not(.is-playing){visibility:hidden}.product-image>picture,.product-image>a>picture{height:100%;width:100%}.product-image video:not(.is-playing){opacity:0!important}.gallery-photo picture{width:100%;height:100%}.gallery-video{position:relative;background:#f0f0f0}.video-caption{position:absolute;bottom:40px;left:16px;background:#fff;padding:6px 10px;font:12px/18px var(--body);pointer-events:none}
 
 /* Measured reference controls with larger invisible touch areas. */
 .catalog-heading{padding-left:0;padding-right:0}.catalog-heading h1{margin-left:32px}.catalog-heading>p{margin-right:32px}.catalog-toolbar{padding-left:0;padding-right:0}.filter-open{margin-left:32px;padding:16px 8px;height:40px;min-height:40px}.sort-field{margin-right:32px}.sort-toggle{padding-right:40px}.sort-options{padding:0;height:161px}.sort-options button{height:53px;padding:16px;font:14px/18px var(--body)}

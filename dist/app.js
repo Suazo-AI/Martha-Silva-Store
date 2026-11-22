@@ -1,4 +1,4 @@
-/* Own storefront logic. Browser-local demonstration. No live stock, real orders or payments. */
+/* Storefront logic. Cart, orders and stock are kept in this browser. */
 (() => {
   'use strict';
   window.STORE_MEDIA=window.STORE_MEDIA || {};
@@ -228,14 +228,14 @@
   function createIntegration() {
     integrationApi = null;
     try {
-      if (!window.MarthaIntegrations || !window.createMarthaDemoApi || !window.DEMO_CATALOG) throw new Error('No pudimos cargar la compra. Recargá la página para continuar.');
+      if (!window.MarthaIntegrations || !window.createMarthaStoreApi || !window.STORE_CATALOG) throw new Error('No pudimos cargar la compra. Recargá la página para continuar.');
       let storage; try { storage = localStorage; } catch {}
-      const factory = window.MarthaIntegrations.createDemoAdapter, engine = window.createMarthaDemoApi, catalog = window.DEMO_CATALOG;
+      const factory = window.MarthaIntegrations.createLocalAdapter, engine = window.createMarthaStoreApi, catalog = window.STORE_CATALOG;
       const cached = integrationInstances.get(integrationMode);
       // Retain memory-only models for this page, including BFCache. Stored
       // models keep their existing reload behavior; reset updates the client.
       if (storage || !cached || cached.factory !== factory || cached.engine !== engine || cached.catalog !== catalog || cached.storage !== storage) {
-        const api = factory({mode:integrationMode,catalog,storage,createDemoApi:engine});
+        const api = factory({mode:integrationMode,catalog,storage,createStoreApi:engine});
         integrationInstances.set(integrationMode, {api,factory,engine,catalog,storage});
       }
       integrationApi = integrationInstances.get(integrationMode).api;
@@ -244,12 +244,12 @@
     } catch (error) { integrationError = error.message; }
   }
   function blockCommerce() {
-    $$('[data-add], [data-sticky-add], [data-create-order], [data-test-payment], [data-quantity], [data-stock] button, [data-fulfillment] button').forEach(button => button.disabled = true);
+    $$('[data-add], [data-sticky-add], [data-create-order], [data-confirm-payment], [data-quantity], [data-stock] button, [data-fulfillment] button').forEach(button => button.disabled = true);
   }
   createIntegration(); loadCheckout();
-  const statusLabel = {pending:'Pago pendiente',pending_payment:'Pago pendiente',paid:'Pago aprobado',declined:'Pago rechazado',cancelled:'Pedido cancelado',preparing:'En preparación',shipped:'Enviado',delivered:'Entregado',partially_refunded:'Reembolso parcial',refunded:'Reembolso completado',requested:'Solicitud recibida',received:'Prenda recibida',order_created:'Pedido creado',newsletter_opt_in:'Novedades seleccionadas',newsletter_not_selected:'Sin suscripción a novedades',test_payment_approved:'Pago aprobado',test_payment_declined:'Pago rechazado',test_payment_cancelled:'Pago cancelado',fulfillment_preparing:'En preparación',fulfillment_shipped:'Enviado',fulfillment_delivered:'Entregado',return_requested:'Devolución solicitada',return_received:'Prenda recibida',test_refund_completed:'Reembolso completado',reserve_expired:'Reserva vencida'};
+  const statusLabel = {pending:'Pago pendiente',pending_payment:'Pago pendiente',paid:'Pago aprobado',declined:'Pago rechazado',cancelled:'Pedido cancelado',preparing:'En preparación',shipped:'Enviado',delivered:'Entregado',partially_refunded:'Reembolso parcial',refunded:'Reembolso completado',requested:'Solicitud recibida',received:'Prenda recibida',order_created:'Pedido creado',newsletter_opt_in:'Novedades seleccionadas',newsletter_not_selected:'Sin suscripción a novedades',payment_approved:'Pago aprobado',payment_declined:'Pago rechazado',payment_cancelled:'Pago cancelado',fulfillment_preparing:'En preparación',fulfillment_shipped:'Enviado',fulfillment_delivered:'Entregado',return_requested:'Devolución solicitada',return_received:'Prenda recibida',refund_completed:'Reembolso completado',reserve_expired:'Reserva vencida'};
   function readStorage(key, fallback) { try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch { return fallback; } }
-  let favorites = readStorage('martha-parity-favorites', []);
+  let favorites = readStorage('martha-favorites', []);
   favorites = Array.isArray(favorites) ? favorites.filter(id => typeof id === 'string') : [];
   function saveCheckout() { try { sessionStorage.setItem(sessionKey('checkout'), JSON.stringify(checkout)); } catch { throw new Error('No pudimos guardar el avance en esta pestaña.'); } }
   function orderPayload() { return {quote_id:checkout.quote_id,idempotency_key:checkout.order_key,contact:{name:checkout.name,email:checkout.email,phone:checkout.phone},address:{line1:checkout.line1,city:checkout.city,department:checkout.department},newsletter:!!checkout.newsletter}; }
@@ -280,7 +280,7 @@
   function notify(text) { const toast = $('#toast'); if (!toast) return; toast.textContent = text; toast.classList.add('visible'); clearTimeout(notify.timer); notify.timer = setTimeout(() => toast.classList.remove('visible'), 4000); }
   function productShareData() {
     const id = $('main[data-page="product"]')?.dataset.productId;
-    const product = window.DEMO_CATALOG?.products.find(item => item.id === id);
+    const product = window.STORE_CATALOG?.products.find(item => item.id === id);
     if (!product) return null;
     // Construct from the catalog identity, never from tracking/order parameters or a canonical tag.
     const url = new URL(`/producto-${encodeURIComponent(product.id)}.html`, location.origin);
@@ -338,7 +338,7 @@
   async function refreshCart() { cart = await api('/api/cart'); const count = cart.lines.reduce((n, line) => n + line.quantity, 0); $$('[data-bag-count]').forEach(n => { const before = Number(n.textContent) || 0; n.textContent = count; if (bagReady && count > before) pulse(n, 1.2); }); bagReady = true; if($('#mini-bag')?.open)miniBag(); return cart; }
   function card(p) {
     const saved=favorites.includes(p.id), stock=p.variants.reduce((n,v)=>n+v.stock,0);
-    const photo=(src,cls='')=>{const i=p.images.indexOf(src),dimensions=window.STORE_IMAGE_DIMENSIONS?.[p.jpeg_images?.[i] || src] || [900,1200];return `<picture class="${cls}">${src.startsWith('/generated-luxury/') && src.endsWith('.png') ? `<source type="image/webp" srcset="${[360,720,dimensions[0]].filter((w,n,a)=>w<=dimensions[0]&&a.indexOf(w)===n).map(w=>esc(src.replace('/generated-luxury/','/responsive-images/').replace(/\.png$/, '-'+w+'.webp'))+' '+w+'w').join(', ')}" sizes="(max-width:599px) 50vw,25vw">` : ''}<source type="${src.endsWith('.png') ? 'image/png' : 'image/webp'}" srcset="${esc(p.image_sets?.[i] || src+' 900w')}" sizes="(max-width:599px) 50vw,25vw"><img class="${cls}" src="${esc(p.jpeg_images?.[i] || src)}" srcset="${esc(p.jpeg_sets?.[i] || src+' 900w')}" sizes="(max-width:599px) 50vw,25vw" width="${dimensions[0]}" height="${dimensions[1]}" alt="${esc(p.name)}${src.startsWith('/generated-luxury/') ? ' · Vista completa' : ''}" loading="lazy" decoding="async"></picture>`;};
+    const photo=(src,cls='')=>{const i=p.images.indexOf(src),dimensions=window.STORE_IMAGE_DIMENSIONS?.[p.jpeg_images?.[i] || src] || [900,1200];return `<picture class="${cls}">${src.startsWith('/looks/') && src.endsWith('.png') ? `<source type="image/webp" srcset="${[360,720,dimensions[0]].filter((w,n,a)=>w<=dimensions[0]&&a.indexOf(w)===n).map(w=>esc(src.replace('/looks/','/responsive-images/').replace(/\.png$/, '-'+w+'.webp'))+' '+w+'w').join(', ')}" sizes="(max-width:599px) 50vw,25vw">` : ''}<source type="${src.endsWith('.png') ? 'image/png' : 'image/webp'}" srcset="${esc(p.image_sets?.[i] || src+' 900w')}" sizes="(max-width:599px) 50vw,25vw"><img class="${cls}" src="${esc(p.jpeg_images?.[i] || src)}" srcset="${esc(p.jpeg_sets?.[i] || src+' 900w')}" sizes="(max-width:599px) 50vw,25vw" width="${dimensions[0]}" height="${dimensions[1]}" alt="${esc(p.name)}${src.startsWith('/looks/') ? ' · Vista completa' : ''}" loading="lazy" decoding="async"></picture>`;};
     const sizes=p.variants.map(v=>`<button type="button" data-quick-size="${esc(v.id)}"${v.stock>0?'':` disabled aria-label="Talla ${esc(v.size)} agotada"`}>${esc(v.size)}</button>`).join('');
     return `<article class="product-card plp-card" data-id="${esc(p.id)}"><div class="plp-media"><a href="/producto-${esc(p.id)}.html" tabindex="-1" aria-hidden="true">${photo(p.images[0],'plp-a'+(p.images[1]?' has-b':''))}${p.images[1]?photo(p.images[1],'plp-b'):''}</a>${stock===0?'<p class="plp-sold">AGOTADO</p>':''}<div class="plp-sizes" role="group" aria-label="Elegí talla de ${esc(p.name)}">${sizes}</div></div><div class="plp-info"><p class="plp-color">${esc(p.color)}</p><button class="plp-fav" type="button" data-favorite="${esc(p.id)}" aria-label="Guardar en favoritos: ${esc(p.name)}" aria-pressed="${saved}"><svg viewBox="0 0 24 24" fill="${saved?'currentColor':'none'}" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M20.8 4.7a5.5 5.5 0 0 0-7.8 0L12 5.8l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.5a5.5 5.5 0 0 0 0-7.8Z"/></svg></button><h2 class="plp-name"><a href="/producto-${esc(p.id)}.html">${esc(p.name)}</a></h2><p class="plp-price">${money(p.price_minor)}</p>${stock===0?'':`<button class="plp-quick" type="button" data-quick aria-expanded="false" aria-label="Agregar rápido ${esc(p.name)}"><span>Agregar rápido</span></button>`}</div></article>`;
   }
@@ -475,7 +475,7 @@
     if (step === 'contact') content = `<h2>Contacto</h2><form data-checkout-form="contact" novalidate><div class="form-grid">${field('name','Nombre y apellido','text',{auto:'name',full:true})}${field('email','Email','email',{auto:'email',full:true,help:'Para identificar tu pedido.'})}${field('phone','Teléfono','tel',{auto:'tel',full:true,help:'Para coordinar la entrega cuando la tienda esté activa.'})}</div><label class="check-label"><input name="newsletter" type="checkbox" ${checkout.newsletter ? 'checked':''}>Quiero recibir novedades de Martha Silva (opcional).</label><p data-error class="error" role="alert" hidden></p><button class="button full">Continuar con la entrega</button></form>`;
     if (step === 'delivery') content = `<button class="text-button" data-checkout-back="contact">← Editar contacto</button><h2>Dirección de entrega</h2><form data-checkout-form="delivery" novalidate><div class="form-grid">${field('line1','Dirección','text',{auto:'street-address',full:true})}${field('city','Ciudad','text',{auto:'address-level2'})}${field('department','Departamento','text',{auto:'address-level1'})}<label class="field full"><span>Zona de entrega</span><select name="delivery_zone" required><option value="managua" ${checkout.delivery_zone === 'resto' ? '':'selected'}>Managua - ${money(500)}</option><option value="resto" ${checkout.delivery_zone === 'resto' ? 'selected':''}>Resto de Nicaragua - ${money(800)}</option></select></label>${field('coupon','Código de descuento','text',{required:false,full:true})}</div><p data-error class="error" role="alert" hidden></p><button class="button full">Revisar la compra</button></form>`;
     if (step === 'review') content = `<button class="text-button" data-checkout-back="delivery">← Editar entrega</button><h2>Revisá tu compra</h2><div class="review-block"><h3>Contacto</h3><p translate="no">${esc(checkout.name)}<br>${esc(checkout.email)}<br>${esc(checkout.phone)}</p><h3>Entrega</h3><p translate="no">${esc(checkout.line1)}<br>${esc(checkout.city)}, ${esc(checkout.department)}</p></div><p data-error class="error" role="alert" hidden></p><button class="button full" data-create-order>Continuar al pago</button>`;
-    if (step === 'payment') content = `<h2>Pago</h2><p data-error class="error" role="alert" hidden></p><button class="button full" data-test-payment="approved">Confirmar pedido</button>`;
+    if (step === 'payment') content = `<h2>Pago</h2><p data-error class="error" role="alert" hidden></p><button class="button full" data-confirm-payment="approved">Confirmar pedido</button>`;
     mount.innerHTML = `<ol class="steps" aria-label="Pasos de compra">${stages.map((s,i) => `<li class="${i<stages.indexOf(step)?'complete':''}" ${s === step ? 'aria-current="step"':''}>${i+1}. ${['Contacto','Entrega','Revisión','Pago'][i]}</li>`).join('')}</ol>${runningSummary(quote || cart,cart.lines,quote ? 'Total':'Total sin entrega')}<div class="commerce-grid"><section class="checkout-panel" aria-labelledby="checkout-stage-title">${content}</section><aside class="order-summary checkout-summary" data-checkout-step="${step}"><h2>Tu selección</h2>${cart.lines.map(line => lineView(line)).join('')}${totals(quote || cart)}<footer class="checkout-summary-footer"><div><h3>Compra</h3><p>Los precios se muestran en USD.</p><a href="/ayuda.html" data-barba-prevent>Entrega y devoluciones</a></div></footer></aside></div>`;
     const title = $('.checkout-panel h2',mount);
     title.id = 'checkout-stage-title';
@@ -494,7 +494,7 @@
     try {
       currentOrder = (await api(`/api/orders/${encodeURIComponent(id)}`)).order;
       let action = '';
-      if (currentOrder.status === 'pending_payment') action = `<h3>Completá el pago</h3><button class="button" data-test-payment="approved">Confirmar pedido</button>`;
+      if (currentOrder.status === 'pending_payment') action = `<h3>Completá el pago</h3><button class="button" data-confirm-payment="approved">Confirmar pedido</button>`;
       if (['declined','cancelled'].includes(currentOrder.status)) action = '<p>La reserva se liberó. Podés volver a agregar las prendas disponibles.</p><button class="button" data-rebuild-order>Volver a agregar las prendas</button>';
       if (['delivered','partially_refunded'].includes(currentOrder.status)) {
         const returned = new Map(); for (const r of currentOrder.returns || []) for (const line of r.lines) returned.set(line.variant_id,(returned.get(line.variant_id)||0)+line.quantity);
@@ -506,7 +506,7 @@
   }
   async function renderAdmin() {
     const mount = $('[data-admin-root]'); if (!mount) return;
-    if (!(await api('/api/admin/session')).authenticated) { mount.innerHTML='<section class="admin-login checkout-panel"><h2>Acceso a administración</h2><p>Este panel no tiene autenticación propia. Los datos se guardan en este navegador.</p><form data-admin-login><input name="password" type="hidden" value="demo"><p data-error class="error" role="alert" hidden></p><button class="button full">Abrir administración</button></form></section>'; return; }
+    if (!(await api('/api/admin/session')).authenticated) { mount.innerHTML='<section class="admin-login checkout-panel"><h2>Acceso a administración</h2><p>Este panel no tiene autenticación propia. Los datos se guardan en este navegador.</p><form data-admin-login><input name="password" type="hidden" value="admin"><p data-error class="error" role="alert" hidden></p><button class="button full">Abrir administración</button></form></section>'; return; }
     [adminOrders,inventory] = await Promise.all([api('/api/admin/orders').then(r => r.orders),api('/api/admin/inventory').then(r => r.variants)]);
     mount.innerHTML = `<div class="admin-toolbar"><h2>Pedidos e inventario</h2><button class="text-button" data-admin-refresh>Actualizar</button><button class="text-button" data-admin-logout>Cerrar sesión</button></div><p class="notice">Los cambios se guardan en este navegador.</p><nav class="admin-tabs"><a href="#admin-orders">Pedidos (${adminOrders.length})</a><a href="#admin-stock">Inventario</a></nav><section id="admin-orders"><h2>Pedidos</h2>${adminOrders.length ? adminOrders.map(order => `<details class="admin-order"><summary>${esc(order.code)} · ${statusLabel[order.status] || esc(order.status)} · ${money(order.total_minor)}</summary><div>${orderView(order,true)}${['paid','preparing','shipped'].includes(order.status) ? `<form data-fulfillment="${esc(order.id)}"><input type="hidden" name="status" value="${({paid:'preparing',preparing:'shipped',shipped:'delivered'})[order.status]}">${order.status === 'preparing' ? '<label class="field"><span>Número de seguimiento</span><input name="tracking" required maxlength="120"></label>':''}<p data-error class="error" role="alert" hidden></p><button class="button secondary">${({paid:'Preparar pedido',preparing:'Registrar envío',shipped:'Registrar entrega'})[order.status]}</button></form>`:''}</div></details>`).join(''):'<p>No hay pedidos todavía.</p>'}</section><section id="admin-stock"><h2>Inventario por talla</h2><div class="inventory-table"><table><thead><tr><th>Prenda / talla</th><th>Físico</th><th>Reservado</th><th>Disponible</th><th>Ajustar</th></tr></thead><tbody>${inventory.map(v => `<tr><th>${esc(v.name)} · ${esc(v.size)}</th><td>${v.stock}</td><td>${v.reserved}</td><td>${v.available}</td><td><form data-stock="${esc(v.id)}"><label class="sr-only" for="stock-${esc(v.id)}">Nuevo stock de ${esc(v.name)} ${esc(v.size)}</label><input id="stock-${esc(v.id)}" name="quantity" type="number" min="${v.reserved}" max="100000" required value="${v.stock}" aria-label="Nuevo stock ${esc(v.name)} ${esc(v.size)}"><input name="reason" placeholder="Motivo del ajuste" aria-label="Motivo del ajuste ${esc(v.name)} ${esc(v.size)}" required maxlength="200"><button class="button secondary">Guardar</button><p data-error class="error" role="alert" hidden></p></form></td></tr>`).join('')}</tbody></table></div></section>`;
   }
@@ -594,7 +594,7 @@
   function openDialog(dialog, trigger=document.activeElement) {
     if(!dialog || dialog.open)return;
     dialog.returnFocus=trigger; dialog.showModal();
-    dialog.addEventListener('close',()=>{if(dialog.id==='newsletter-dialog')localStorage.setItem('martha-parity-newsletter-dismissed','true');trigger?.setAttribute('aria-expanded','false');if(trigger?.isConnected)trigger.focus({preventScroll:true});},{once:true});
+    dialog.addEventListener('close',()=>{if(dialog.id==='newsletter-dialog')localStorage.setItem('martha-newsletter-dismissed','true');trigger?.setAttribute('aria-expanded','false');if(trigger?.isConnected)trigger.focus({preventScroll:true});},{once:true});
   }
   // Mobile menu: the card grows from the bottom pill and shrinks back before dialog.close(); instant under reduced motion or without GSAP.
   let menuTimeline = null, menuClosing = false;
@@ -818,20 +818,20 @@
     if(b.matches('[data-sort]')){const params=new URLSearchParams(location.search);params.set('sort',b.dataset.sort);setCatalogParams(params);$('#sort-options').hidden=true;$('[data-sort-toggle]').setAttribute('aria-expanded','false');$('[data-sort-toggle]').focus();catalog();return;}
     if(b.matches('[data-carousel-prev],[data-carousel-next]')){const root=b.closest('.carousel-section,.carousel-wrap'),track=$('[data-carousel]',root);track?.scrollBy({left:(b.hasAttribute('data-carousel-next')?1:-1)*track.clientWidth,behavior:reduced.matches?'instant':'smooth'});return;}
     if (b.matches('[data-search-open]')) { openDialog($('#search-dialog'),b); $('#search-dialog input')?.focus(); return; }
-    if (b.matches('[data-close-dialog]')) { const dialog=b.closest('dialog');if(dialog?.id==='mobile-menu'){menuClose();return;}if(dialog?.id==='newsletter-dialog')localStorage.setItem('martha-parity-newsletter-dismissed','true');dialog?.close(); return; }
+    if (b.matches('[data-close-dialog]')) { const dialog=b.closest('dialog');if(dialog?.id==='mobile-menu'){menuClose();return;}if(dialog?.id==='newsletter-dialog')localStorage.setItem('martha-newsletter-dismissed','true');dialog?.close(); return; }
     if (b.matches('[data-zoom]')) { $('#image-dialog img').src=b.dataset.zoom || $('img',b)?.src; $('#image-dialog img').alt=window.MarthaI18n?.originalAttribute($('img',b),'alt') || $('img',b)?.alt || 'Fotografía ampliada'; openDialog($('#image-dialog'),b); return; }
-    if (b.matches('[data-favorite]')) { const id=b.dataset.favorite; favorites=favorites.includes(id) ? favorites.filter(n=>n!==id):[...favorites,id]; localStorage.setItem('martha-parity-favorites',JSON.stringify(favorites)); updateHearts(); { const icon = $('svg',b); pulse(icon || b, icon ? 1.2 : 1.04); } if (new URLSearchParams(location.search).has('favoritos')) catalog(); notify(favorites.includes(id)?'Prenda guardada en favoritos.':'Prenda retirada de favoritos.'); return; }
+    if (b.matches('[data-favorite]')) { const id=b.dataset.favorite; favorites=favorites.includes(id) ? favorites.filter(n=>n!==id):[...favorites,id]; localStorage.setItem('martha-favorites',JSON.stringify(favorites)); updateHearts(); { const icon = $('svg',b); pulse(icon || b, icon ? 1.2 : 1.04); } if (new URLSearchParams(location.search).has('favoritos')) catalog(); notify(favorites.includes(id)?'Prenda guardada en favoritos.':'Prenda retirada de favoritos.'); return; }
     if (b.matches('[data-clear-filters], [data-remove-filter]')) { event.preventDefault(); const params = new URLSearchParams(location.search); if (b.matches('[data-clear-filters]')) [...params.keys()].filter(k=>k!=='lang').forEach(k=>params.delete(k)); else params.delete(b.dataset.removeFilter); setCatalogParams(params); catalog(); return; }
     if (b.matches('[data-sticky-add]')) { const main=$('[data-add]');if(main&&!main.disabled)main.click();return; }
     if (b.matches('[data-quick]')) { const c=b.closest('.plp-card'), open=!c.classList.contains('picking'); $$('.plp-card.picking').forEach(closeQuick); if (open) { c.classList.add('picking'); b.setAttribute('aria-expanded','true'); $('[data-quick-size]:not(:disabled)',c)?.focus(); } return; }
     if (b.matches('[data-quick-size]')) { const c=b.closest('.plp-card'); b.dataset.selected=''; await withButton(b,async()=>{ try { cart=await api('/api/cart/items',{variant_id:b.dataset.quickSize,quantity:1}); await refreshCart(); closeQuick(c); notify('Prenda agregada a tu bolsa.'); miniBag(); } catch (error) { notify(error.message); } finally { b.removeAttribute('data-selected'); } }); return; }
     if (b.matches('[data-add]')) { let added=false; await withButton(b,async()=>{ const input=$('input[name="variant"]:checked:not(:disabled)'); if (!input) throw new Error('Elegí una talla para agregar esta prenda.'); cart=await api('/api/cart/items',{variant_id:input.value,quantity:1}); await refreshCart(); const note=$('[data-add-confirmation]'); if (note) { note.innerHTML=`Prenda agregada a tu bolsa. <a href="/bolsa.html">Ver bolsa</a>`; note.hidden=false; } notify('Prenda agregada a tu bolsa.');added=true;miniBag(b); }); if(added)markAdded(b); return; }
-    if(b.matches('[data-move-favorite]')){const focus=cartActionFocus(b);await withButton(b,async()=>{if(!favorites.includes(b.dataset.product))favorites.push(b.dataset.product);localStorage.setItem('martha-parity-favorites',JSON.stringify(favorites));cart=await api('/api/cart/items',{variant_id:b.dataset.moveFavorite,quantity:0},'PATCH');await refreshCart();renderCart();if($('#mini-bag')?.open)miniBag();updateHearts();focus();notify('Prenda guardada en favoritos y retirada de tu bolsa.');});return;}
+    if(b.matches('[data-move-favorite]')){const focus=cartActionFocus(b);await withButton(b,async()=>{if(!favorites.includes(b.dataset.product))favorites.push(b.dataset.product);localStorage.setItem('martha-favorites',JSON.stringify(favorites));cart=await api('/api/cart/items',{variant_id:b.dataset.moveFavorite,quantity:0},'PATCH');await refreshCart();renderCart();if($('#mini-bag')?.open)miniBag();updateHearts();focus();notify('Prenda guardada en favoritos y retirada de tu bolsa.');});return;}
     if (b.matches('[data-remove-item]')) { const focus=cartActionFocus(b);await withButton(b,async()=>{cart=await api('/api/cart/items',{variant_id:b.dataset.removeItem,quantity:0},'PATCH'); await refreshCart(); renderCart();if($('#mini-bag')?.open)miniBag();focus();notify('Prenda retirada de tu bolsa.');}); return; }
     if (b.matches('[data-checkout-back]')) { renderCheckout(b.dataset.checkoutBack,true); return; }
     if (b.matches('[data-recover-order]')) { await withButton(b,async()=>{ rememberOrder((await api('/api/orders',orderPayload())).order); renderCheckout(); }); return; }
     if (b.matches('[data-create-order]')) { await withButton(b,async()=>{ checkout.quote_id=quote.id; checkout.order_key ||= uuid(); saveCheckout(); rememberOrder((await api('/api/orders',orderPayload())).order); renderCheckout('payment',true); }); return; }
-    if (b.matches('[data-test-payment]')) { await withButton(b,async()=>{ const id=currentOrder?.id || checkout.order_id; if (!id) throw new Error('Revisá tu compra para crear el pedido primero.'); const result=await api(`/api/orders/${encodeURIComponent(id)}/test-payment`,{outcome:b.dataset.testPayment,idempotency_key:checkout.payment_key ||= uuid()}); currentOrder=result.order; sessionStorage.removeItem(sessionKey('checkout')); checkout={}; location.href='/pedido.html?id='+encodeURIComponent(id); }); return; }
+    if (b.matches('[data-confirm-payment]')) { await withButton(b,async()=>{ const id=currentOrder?.id || checkout.order_id; if (!id) throw new Error('Revisá tu compra para crear el pedido primero.'); const result=await api(`/api/orders/${encodeURIComponent(id)}/payment`,{outcome:b.dataset.confirmPayment,idempotency_key:checkout.payment_key ||= uuid()}); currentOrder=result.order; sessionStorage.removeItem(sessionKey('checkout')); checkout={}; location.href='/pedido.html?id='+encodeURIComponent(id); }); return; }
     if (b.matches('[data-rebuild-order]')) { await withButton(b,async()=>{ const existing=await refreshCart(); for(const line of currentOrder.lines) {const qty=(existing.lines.find(l=>l.variant_id===line.variant_id)?.quantity || 0)+line.quantity; await api('/api/cart/items',{variant_id:line.variant_id,quantity:qty},'PATCH');} location.href='/bolsa.html';}); return; }
     if (b.matches('[data-admin-refresh]')) { await withButton(b,renderAdmin); return; }
     if (b.matches('[data-admin-logout]')) { await withButton(b,async()=>{await api('/api/admin/logout',{}); await renderAdmin();}); return; }
@@ -867,7 +867,7 @@
   document.addEventListener('submit',async event=>{
     const form=event.target; if (modeSwitching) { event.preventDefault(); return; }
     if (form.id === 'catalog-filters') {event.preventDefault(); filterChange(); return;}
-    if(form.matches('[data-newsletter]')){event.preventDefault();$('.newsletter-result',form).textContent='Tu código: BIENVENIDA10.';localStorage.setItem('martha-parity-newsletter-dismissed','true');return;}
+    if(form.matches('[data-newsletter]')){event.preventDefault();$('.newsletter-result',form).textContent='Tu código: BIENVENIDA10.';localStorage.setItem('martha-newsletter-dismissed','true');return;}
     if (!form.matches('[data-checkout-form], [data-return-form], [data-admin-login], [data-fulfillment], [data-stock]')) return;
     event.preventDefault();if(form.dataset.checkoutForm&&!validate(form))return; const button=$('button[type="submit"],button:not([type])',form); const data=Object.fromEntries(new FormData(form));
     await withButton(button,async()=>{
@@ -998,7 +998,7 @@
   document.addEventListener('pointerover',e=>{const video=e.target.closest('.product-image')?.querySelector('video');if(video&&matchMedia('(hover:hover) and (min-width:1024px)').matches)playVideo(video);});
   document.addEventListener('pointerout',e=>{const image=e.target.closest('.product-image');if(image&&!image.contains(e.relatedTarget))image.querySelector('video')?.pause();});
   document.addEventListener('click',e=>{if(!e.target.closest('.sort-field')){$('#sort-options')?.setAttribute('hidden','');$('[data-sort-toggle]')?.setAttribute('aria-expanded','false');}});
-  $$('dialog').forEach(d=>{d.addEventListener('cancel',()=>{if(d.id==='newsletter-dialog')localStorage.setItem('martha-parity-newsletter-dismissed','true');});d.addEventListener('click',e=>{if(e.target===d){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom){if(d.id==='newsletter-dialog')localStorage.setItem('martha-parity-newsletter-dismissed','true');d.id==='mobile-menu'?menuClose():d.close();}}});});
+  $$('dialog').forEach(d=>{d.addEventListener('cancel',()=>{if(d.id==='newsletter-dialog')localStorage.setItem('martha-newsletter-dismissed','true');});d.addEventListener('click',e=>{if(e.target===d){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom){if(d.id==='newsletter-dialog')localStorage.setItem('martha-newsletter-dismissed','true');d.id==='mobile-menu'?menuClose():d.close();}}});});
   $('#mobile-menu')?.addEventListener('cancel',event=>{event.preventDefault();menuClose();});
   matchMedia('(min-width:1024px)').addEventListener?.('change',event=>{if(event.matches){menuTimeline?.kill();menuClosing=false;$('#mobile-menu')?.close();}});
   // Tab title: away message while the tab is hidden; the saved title returns only if the away title still shows.
@@ -1030,8 +1030,8 @@
   'use strict';
   if (window.MarthaSupportingIllustrations) return;
   const allowed = Object.freeze({
-    'blanco-perlado-sirena':'/generated-illustrations/blanco-perlado-sirena-g1-gen-001-48170acd71bf.png',
-    'rosa-empolvado-pedreria':'/generated-illustrations/rosa-empolvado-pedreria-g1-gen-001-8e13cba8e436.png'
+    'blanco-perlado-sirena':'/illustrations/blanco-perlado-sirena-g1-gen-001-48170acd71bf.png',
+    'rosa-empolvado-pedreria':'/illustrations/rosa-empolvado-pedreria-g1-gen-001-8e13cba8e436.png'
   });
   const selector = '[data-ai-support-illustration]';
   let lastLanguage = null;

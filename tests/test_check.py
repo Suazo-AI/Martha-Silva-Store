@@ -82,8 +82,8 @@ class RunnerTests(unittest.TestCase):
             pages += [f'producto-{product["id"]}' for product in products]
             for name in pages:
                 (root / 'dist' / f'{name}.html').write_text('')
-            (root / 'dist/catalog.js').write_text('window.DEMO_CATALOG=' + json.dumps({'products': products}) + ';')
-            for name in ('app.js', 'demo-api.js', 'integration-adapters.js'):
+            (root / 'dist/catalog.js').write_text('window.STORE_CATALOG=' + json.dumps({'products': products}) + ';')
+            for name in ('app.js', 'store-api.js', 'integration-adapters.js'):
                 (root / 'src' / name).write_text('original')
                 (root / 'dist' / name).write_text('original')
             with contextlib.redirect_stdout(io.StringIO()):
@@ -100,11 +100,11 @@ class RunnerTests(unittest.TestCase):
                 (root / 'dist' / f'{i}.html').write_text('')
             products = [{'id': f'fixture-{i}', 'variants': [{}, {}, {}]} for i in range(40)]
             catalog = root / 'dist/catalog.js'
-            catalog.write_text('window.DEMO_CATALOG=' + json.dumps({'products': products}) + ';')
+            catalog.write_text('window.STORE_CATALOG=' + json.dumps({'products': products}) + ';')
             with self.assertRaisesRegex(ValueError, 'product IDs'):
                 check.check_fixture(root)
             products[0]['variants'].pop()
-            catalog.write_text('window.DEMO_CATALOG=' + json.dumps({'products': products}) + ';')
+            catalog.write_text('window.STORE_CATALOG=' + json.dumps({'products': products}) + ';')
             with self.assertRaisesRegex(ValueError, '120 variants'):
                 check.check_fixture(root)
 

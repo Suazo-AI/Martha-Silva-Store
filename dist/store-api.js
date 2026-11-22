@@ -1,11 +1,11 @@
-/* Own-site LOCAL DEMO only. No fetch, network writes, banking, D1 or SISFAIN.
-   Prices, stock, delivery and discounts are illustrative fixtures.
-   Browser-local admin is a preview, NOT authentication or a security boundary. */
+/* Browser-local store engine. No fetch, network writes, banking, D1 or SISFAIN.
+   Catalog, stock, delivery and discounts come from the bundled catalog.
+   The browser-local admin is NOT authentication or a security boundary. */
 (function (root) {
   'use strict';
-  const KEY = 'martha-parity-v2-demo-state-1';
+  const KEY = 'martha-store-state-1';
   const RECOVERY_KEY = KEY + '-recovery';
-  // Only the captured two-product -> forty-product demo expansion is supported.
+  // Only the captured two-product -> forty-product catalog expansion is supported.
   // Missing stock in any other snapshot remains corruption, not a stock refill.
   const LEGACY_VARIANTS = new Set(['rosa-empolvado-pedreria','dorado'].flatMap(p=>['S','M','L'].map(size=>p+'-'+size)));
   const EXPANDED_PRODUCTS = [
@@ -57,12 +57,12 @@
   const textValue = x => typeof x === 'string' && !!x.trim();
   const copy = x => JSON.parse(JSON.stringify(x));
   const fail = (code, message, status) => { const e = new Error(message); e.code = code; if(status)e.status=status; throw e; };
-  function createDemoApi(catalog, storage) {
+  function createStoreApi(catalog, storage) {
     const products = copy(Array.isArray(catalog) ? catalog : catalog?.products || []);
     const byVariant = new Map(products.flatMap(p => p.variants.map(v => [v.id, {p,v}])));
     const seed = () => ({version:1, cart:{}, stock:Object.fromEntries([...byVariant].map(([id,{v}])=>[id,v.stock])), quotes:{}, orders:{}, keys:{}, audit:[], admin:true});
     let memory = seed();
-    const id = () => root.crypto?.randomUUID?.() || 'demo-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);
+    const id = () => root.crypto?.randomUUID?.() || 'ms-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);
     const now = () => new Date().toISOString();
     // Local storage can be truncated, edited, or left behind by an older preview.
     // Reject unusable snapshots instead of letting them break every page render.
@@ -99,7 +99,7 @@
       if(validState(s))return s;
       const migrated=migrateExpansion(s);
       if(migrated)return migrated; // Committed only through the normal successful save path.
-      // Keep one exact recovery snapshot before replacing damaged demo data.
+      // Keep one exact recovery snapshot before replacing damaged stored data.
       // Never clobber a different backup or overwrite the primary if backup fails.
       try {
         const previous=storage.getItem(RECOVERY_KEY);
@@ -126,17 +126,17 @@
       const reserved=v=>Object.values(s.orders).filter(o=>o.status==='pending_payment').reduce((sum,o)=>sum+o.lines.filter(l=>l.variant_id===v).reduce((n,l)=>n+l.quantity,0),0);
       const available=v=>s.stock[v]-reserved(v);
       const line=(v,q)=>{const {p,v:pv}=variant(v);return {product_id:p.id,variant_id:v,name:p.name,color:p.color,size:pv.size,image:p.images[0],quantity:q,unit_price_minor:p.price_minor,price_minor:p.price_minor,line_total_minor:p.price_minor*q};};
-      const cart=()=>{const lines=Object.entries(s.cart).map(([v,q])=>line(v,q));return {lines,subtotal_minor:lines.reduce((n,l)=>n+l.line_total_minor,0),currency:'USD',mode:'local_test'};};
+      const cart=()=>{const lines=Object.entries(s.cart).map(([v,q])=>line(v,q));return {lines,subtotal_minor:lines.reduce((n,l)=>n+l.line_total_minor,0),currency:'USD',mode:'local'};};
       const signature=()=>JSON.stringify(Object.entries(s.cart).sort(([a],[b])=>a.localeCompare(b)));
       const checkStock=lines=>lines.forEach(l=>{if(available(l.variant_id)<l.quantity)fail('insufficient_stock','No hay suficientes unidades de esta talla. Revisá tu bolsa.');});
-      const requireAdmin=()=>{if(!s.admin)fail('demo_admin_closed','Abrí la vista de administración.');};
+      const requireAdmin=()=>{if(!s.admin)fail('admin_closed','Abrí la vista de administración.');};
       const order=oid=>own(s.orders,oid) ? s.orders[oid] : fail('order_not_found','No encontramos ese pedido en este navegador.');
       const integer=(q,min,max)=>{if(!Number.isInteger(q)||q<min||q>max)fail('invalid_quantity',`La cantidad debe ser un número entero entre ${min} y ${max}.`);};
       const response=x=>{save(s);return copy(x);};
       const verb=String(method || (body===undefined?'GET':'POST')).toUpperCase();
       if(verb!=='GET' && !record(body))fail('invalid_body','Los datos de esta acción no son válidos. Intentá otra vez.');
       if(typeof path!=='string' || !path.startsWith('/api/') || /[?#]/.test(path))fail('unsupported_route','Esta acción no está disponible.');
-      if(path==='/api/catalog' && verb==='GET')return response({products:products.map(p=>({...p,variants:p.variants.map(v=>({...v,stock:available(v.id)}))})),brand:'MARTHA SILVA',mode:'local_test'});
+      if(path==='/api/catalog' && verb==='GET')return response({products:products.map(p=>({...p,variants:p.variants.map(v=>({...v,stock:available(v.id)}))})),brand:'MARTHA SILVA',mode:'local'});
       if(path==='/api/cart' && verb==='GET')return response(cart());
       if(path==='/api/cart/items' && ['POST','PATCH'].includes(verb)) {
         variant(body.variant_id); integer(body.quantity,0,10);
@@ -171,11 +171,11 @@
       }
       let m;
       if((m=path.match(/^\/api\/orders\/([^/]+)$/))&&verb==='GET')return response({order:order(decodeURIComponent(m[1]))});
-      if((m=path.match(/^\/api\/orders\/([^/]+)\/test-payment$/))&&verb==='POST') {
+      if((m=path.match(/^\/api\/orders\/([^/]+)\/payment$/))&&verb==='POST') {
         const o=order(decodeURIComponent(m[1]));if(!['approved','declined','cancelled'].includes(body.outcome))fail('invalid_payment','Elegí un resultado de pago.');
         if(o.status!=='pending_payment')return response({order:o}); // Terminal retries never consume twice.
         if(body.outcome==='approved'){o.lines.forEach(l=>{s.stock[l.variant_id]-=l.quantity;});o.status='paid';o.payment_status='paid';}
-        else{o.status=body.outcome;o.payment_status=body.outcome;}event(o,'test_payment_'+body.outcome);return response({order:o});
+        else{o.status=body.outcome;o.payment_status=body.outcome;}event(o,'payment_'+body.outcome);return response({order:o});
       }
       if((m=path.match(/^\/api\/orders\/([^/]+)\/returns$/))&&verb==='POST') {
         const o=order(decodeURIComponent(m[1]));if(!['delivered','partially_refunded'].includes(o.status))fail('invalid_state','La devolución se solicita después de la entrega.');
@@ -184,8 +184,8 @@
         const lines=Object.entries(quantities).map(([variant_id,quantity])=>{const original=o.lines.find(l=>l.variant_id===variant_id);const used=o.returns.reduce((n,r)=>n+r.lines.filter(l=>l.variant_id===variant_id).reduce((a,l)=>a+l.quantity,0),0);if(!original||quantity>original.quantity-used)fail('invalid_return','La cantidad supera las prendas disponibles para devolución.');return {variant_id,quantity};});
         const r={id:id(),lines,reason:String(body.reason).trim(),status:'requested',created_at:now()};o.returns.push(r);event(o,'return_requested');return response({order:o,return:r});
       }
-      if(path==='/api/admin/session'&&verb==='GET')return response({authenticated:s.admin,mode:'local_test',local_demo:true});
-      if(path==='/api/admin/login'&&verb==='POST'){s.admin=true;return response({authenticated:true,local_demo:true});}
+      if(path==='/api/admin/session'&&verb==='GET')return response({authenticated:s.admin,mode:'local'});
+      if(path==='/api/admin/login'&&verb==='POST'){s.admin=true;return response({authenticated:true});}
       if(path==='/api/admin/logout'&&verb==='POST'){s.admin=false;return response({authenticated:false});}
       if(path.startsWith('/api/admin/'))requireAdmin();
       if(path==='/api/admin/orders'&&verb==='GET')return response({orders:Object.values(s.orders).reverse()});
@@ -210,7 +210,7 @@
         r.refunded_minor=amount;r.restocked=!!body.restock;r.status='refunded';o.refunded_minor+=amount;
         if(body.restock)r.lines.forEach(l=>{s.stock[l.variant_id]+=l.quantity;});
         const all=o.lines.every(l=>o.returns.filter(r=>r.status==='refunded').reduce((n,r)=>n+r.lines.filter(x=>x.variant_id===l.variant_id).reduce((a,x)=>a+x.quantity,0),0)===l.quantity);
-        o.status=all?'refunded':'partially_refunded';if(all)o.payment_status='refunded';event(o,'test_refund_completed');return response({order:o});
+        o.status=all?'refunded':'partially_refunded';if(all)o.payment_status='refunded';event(o,'refund_completed');return response({order:o});
       }
       fail('unsupported_route','Esta acción no está disponible.');
     }
@@ -218,12 +218,12 @@
     api.reset=()=>save(seed());
     return api;
   }
-  if(typeof module==='object'&&module.exports)module.exports={createDemoApi};
-  root.createMarthaDemoApi=createDemoApi;
+  if(typeof module==='object'&&module.exports)module.exports={createStoreApi};
+  root.createMarthaStoreApi=createStoreApi;
   let api;
-  root.marthaDemoApi=async(path,body,method)=>{
-    if(!api){if(!root.DEMO_CATALOG)fail('missing_catalog','No se cargó el catálogo. Recargá la página.');let storage;try{storage=root.localStorage;}catch{}api=createDemoApi(root.DEMO_CATALOG,storage);}
+  root.marthaStoreApi=async(path,body,method)=>{
+    if(!api){if(!root.STORE_CATALOG)fail('missing_catalog','No se cargó el catálogo. Recargá la página.');let storage;try{storage=root.localStorage;}catch{}api=createStoreApi(root.STORE_CATALOG,storage);}
     const run=()=>api(path,body,method);
-    return root.navigator?.locks?.request ? root.navigator.locks.request('martha-parity-v2-local-demo',run) : run();
+    return root.navigator?.locks?.request ? root.navigator.locks.request('martha-store-lock',run) : run();
   };
 })(typeof window!=='undefined'?window:globalThis);

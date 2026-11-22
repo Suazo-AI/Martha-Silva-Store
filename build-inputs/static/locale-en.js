@@ -333,7 +333,9 @@ Activá JavaScript para elegir una talla y completar la compra.|Enable JavaScrip
 Revisá la tarifa de entrega al continuar con la compra.|Review the delivery rate at checkout.
 Entrega, devoluciones y seguimiento de tu pedido.|Delivery, returns and tracking for your order.
 Elegí Managua o resto de Nicaragua para calcular el costo de entrega. Revisá el total antes de confirmar.|Choose Managua or the rest of Nicaragua to calculate the delivery cost. Review the total before confirming.
-Podés solicitar una devolución después de la entrega. Cada solicitud se revisa.|You can request a return after delivery. Each request is reviewed.
+Tenés un mes desde que recibís tu pedido para solicitar la devolución de una prenda. Cada solicitud se revisa.|You have one month from delivery to request a return of any item. Each request is reviewed.
+Escribir por WhatsApp ↗|Message us on WhatsApp ↗
+Ver Instagram de Martha Silva ↗|View Martha Silva on Instagram ↗
 Al confirmar un pedido, podés consultar sus detalles en este navegador.|After you confirm an order, you can view its details in this browser.
 Ver mi último pedido|View my latest order
 Compra|Checkout
@@ -430,7 +432,7 @@ novias-alba|Alba bridal|V-neck wedding dress with long sleeves and voluminous sh
 novias-encaje|Lace bridal|Wedding dress with a V-back, floral motifs, a bow and a train. Only back views are available.
 `.trim();
   const byId = Object.fromEntries(products.split('\n').map(line => { const [id, name, description] = line.split('|'); return [id, { name, description }]; }));
-  for (const product of window.DEMO_CATALOG?.products || []) {
+  for (const product of window.STORE_CATALOG?.products || []) {
     const english = byId[product.id];
     if (english) {
       messages[product.name] = english.name;

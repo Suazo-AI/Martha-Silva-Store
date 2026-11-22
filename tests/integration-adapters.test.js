@@ -4,11 +4,12 @@ const test = require('node:test');
 const fs = require('node:fs');
 const vm = require('node:vm');
 const http = require('node:http');
-const {createDemoApi} = require('../src/demo-api.js');
-const {MODES, getDescriptor, createDemoAdapter, createSaviaSyntheticAdapter} = require('../src/integration-adapters.js');
+const {createStoreApi} = require('../src/store-api.js');
+const {MODES, getDescriptor, createLocalAdapter} = require('../src/integration-adapters.js');
+const {createSaviaSyntheticAdapter} = require('../src/savia-http-adapter.js');
 const context = {window:{}};
 vm.runInNewContext(fs.readFileSync(require.resolve('../build-inputs/static/catalog.js'), 'utf8'), context);
-const catalog = JSON.parse(JSON.stringify(context.window.DEMO_CATALOG));
+const catalog = JSON.parse(JSON.stringify(context.window.STORE_CATALOG));
 const variant = catalog.products[0].variants[0].id;
 const contact = {name:'Synthetic', email:'test@example.invalid', phone:'000'};
 const address = {line1:'Fixture', city:'Fixture', department:'Fixture'};
@@ -16,7 +17,7 @@ const rejects = (call, code) => assert.rejects(call, error => error.code === cod
 function demoSetup() {
   const saved = new Map();
   const storage = {getItem:key => saved.get(key) ?? null, setItem:(key, value) => saved.set(key, value)};
-  const create = mode => createDemoAdapter({mode, catalog, storage, createDemoApi});
+  const create = mode => createLocalAdapter({mode, catalog, storage, createStoreApi});
   return {saved, storage, create, savia:create('savia'), sisfain:create('sisfain')};
 }
 async function order(api, key = 'same-local-key') {
@@ -44,14 +45,14 @@ test('descriptors identify two disconnected demo models and cannot enable produc
   assert.deepEqual(MODES, ['savia', 'sisfain']);
   for (const mode of MODES) {
     const descriptor = getDescriptor(mode);
-    assert.equal(descriptor.status, 'simulated');
+    assert.equal(descriptor.status, 'local');
     assert.equal(descriptor.connectionStatus, 'unconfigured');
     assert.equal(descriptor.capabilities.realOrders, false);
     assert.equal(descriptor.capabilities.payments, false);
     assert.throws(() => { descriptor.capabilities.realOrders = true; }, TypeError);
   }
   assert.equal(getDescriptor('savia').fullName, 'Sistema de Administración, Ventas, Inventarios y Abastecimiento');
-  assert.equal(getDescriptor('sisfain').capabilities.syntheticHttp, false);
+  assert.equal(getDescriptor('sisfain').capabilities.httpAdapter, false);
   assert.throws(() => getDescriptor('cga-production'), error => error.code === 'unknown_integration');
   await rejects(() => demoSetup().sisfain.createRealOrder({}), 'real_orders_disabled');
 });
@@ -67,10 +68,10 @@ test('demo cart, inventory, orders, retry keys and reset are isolated by mode', 
   assert.notEqual(saviaOrder.id, cgaOrder.id);
   assert.equal(saviaOrder.integration_id, 'savia');
   assert.equal(cgaOrder.integration_id, 'sisfain');
-  assert.equal(cgaOrder.lines[0].data_kind, 'simulated');
+  assert.equal(cgaOrder.lines[0].data_kind, 'local');
   assert.equal((await setup.savia('/api/orders', {idempotency_key:'same-local-key'})).order.id, saviaOrder.id);
   assert.equal((await setup.sisfain('/api/orders', {idempotency_key:'same-local-key'})).order.id, cgaOrder.id);
-  await setup.savia(`/api/orders/${saviaOrder.id}/test-payment`, {outcome:'approved'});
+  await setup.savia(`/api/orders/${saviaOrder.id}/payment`, {outcome:'approved'});
   assert.equal((await setup.savia('/api/admin/inventory')).variants[0].stock, 2);
   assert.equal((await setup.sisfain('/api/admin/inventory')).variants[0].stock, 3);
   assert.equal((await setup.create('savia')('/api/orders/' + saviaOrder.id)).order.id, saviaOrder.id);
@@ -98,18 +99,18 @@ test('local key replay rejects a new quote or changed customer data but allows e
 
 test('missing local catalog fails explicitly instead of advertising an empty loaded integration', () => {
   for (const value of [undefined, null, {}, {products:null}]) {
-    assert.throws(() => createDemoAdapter({mode:'savia', catalog:value, createDemoApi}), error => error.code === 'missing_catalog');
+    assert.throws(() => createLocalAdapter({mode:'savia', catalog:value, createStoreApi}), error => error.code === 'missing_catalog');
   }
-  assert.equal(typeof createDemoAdapter({mode:'savia', catalog:[], createDemoApi}), 'function');
+  assert.equal(typeof createLocalAdapter({mode:'savia', catalog:[], createStoreApi}), 'function');
 });
 
 test('unscoped legacy state is not imported into either integration', async () => {
   const setup = demoSetup();
-  const legacy = createDemoApi(catalog, setup.storage);
+  const legacy = createStoreApi(catalog, setup.storage);
   await legacy('/api/cart/items', {variant_id:variant, quantity:2});
-  const raw = setup.saved.get('martha-parity-v2-demo-state-1');
+  const raw = setup.saved.get('martha-store-state-1');
   for (const api of [setup.savia, setup.sisfain]) assert.equal((await api('/api/cart')).lines.length, 0);
-  assert.equal(setup.saved.get('martha-parity-v2-demo-state-1'), raw);
+  assert.equal(setup.saved.get('martha-store-state-1'), raw);
 });
 
 test('cross-mode quote/order/return references and synthetic origins fail before mutation', async () => {
@@ -118,7 +119,7 @@ test('cross-mode quote/order/return references and synthetic origins fail before
   const quote = await savia('/api/quote', {delivery_zone:'managua'});
   await rejects(() => sisfain('/api/orders', {quote_id:quote.id, idempotency_key:'foreign', contact, address}), 'integration_mismatch');
   const created = (await savia('/api/orders', {quote_id:quote.id, idempotency_key:'own', contact, address})).order;
-  for (const path of [`/api/orders/${created.id}`, `/api/orders/${created.id}/test-payment`, `/api/admin/orders/${created.id}/fulfill`]) {
+  for (const path of [`/api/orders/${created.id}`, `/api/orders/${created.id}/payment`, `/api/admin/orders/${created.id}/fulfill`]) {
     await rejects(() => sisfain(path, path.endsWith(created.id) ? undefined : {}), 'integration_mismatch');
   }
   for (const reference of ['unscoped', 'savia-synthetic~' + orderId, 'savia~../wrong', 'savia~%2Fwrong']) {
@@ -134,7 +135,7 @@ test('cross-mode quote/order/return references and synthetic origins fail before
 test('return workflow keeps all outward references scoped including admin lists', async () => {
   const {sisfain} = demoSetup();
   const created = await order(sisfain);
-  await sisfain(`/api/orders/${created.id}/test-payment`, {outcome:'approved'});
+  await sisfain(`/api/orders/${created.id}/payment`, {outcome:'approved'});
   for (const status of ['preparing', 'shipped', 'delivered']) await sisfain(`/api/admin/orders/${created.id}/fulfill`, {status, tracking:'DEMO'});
   const result = await sisfain(`/api/orders/${created.id}/returns`, {reason:'Demo', lines:[{variant_id:variant, quantity:1}]});
   assert.ok(result.return.id.startsWith('sisfain~'));
@@ -147,7 +148,7 @@ test('return workflow keeps all outward references scoped including admin lists'
 
 test('CGA route simulation never issues a vendor request and rejects invented external routes', async () => {
   const {sisfain} = demoSetup();
-  assert.equal((await sisfain.readCatalog()).data_origin, 'browser_fixture');
+  assert.equal((await sisfain.readCatalog()).data_origin, 'browser');
   await rejects(() => sisfain('/api/v1/synthetic/orders', {}), 'unsupported_route');
   await rejects(() => sisfain('/cga/orders', {}), 'unsupported_route');
   assert.equal(typeof sisfain.createSyntheticOrder, 'undefined');
@@ -212,7 +213,7 @@ test('synthetic HTTP uses only documented paths, exact minimal body and credenti
 
 test('synthetic input rejects mode mixing, local IDs, prices, contact, multi-lines and invalid keys before network', async () => {
   const {adapter, calls} = httpSetup();
-  for (const changes of [{integration_id:'sisfain'}, {data_kind:'simulated'}, {variant_id:variant}, {variant_id:'savia~' + variantId}]) {
+  for (const changes of [{integration_id:'sisfain'}, {data_kind:'local'}, {variant_id:variant}, {variant_id:'savia~' + variantId}]) {
     await rejects(() => adapter.createSyntheticOrder({...orderInput(), ...changes}), 'integration_mismatch');
   }
   for (const changes of [{quantity:0}, {quantity:101}, {quantity:1.1}, {quantity:'2'}, {idempotency_key:'short'}, {idempotency_key:'has spaces'}, {idempotency_key:'x'.repeat(129)}, {unit_price_minor:1}, {contact}, {lines:[]}, {variant_id:'savia-synthetic~00000000-0000-0000-0000-000000000000'}]) {
@@ -291,8 +292,8 @@ test('browser export has no network bootstrap or CGA client', () => {
   let fetchCalls = 0;
   const window = {fetch:() => { fetchCalls++; throw new Error('must not run'); }};
   vm.runInNewContext(fs.readFileSync(require.resolve('../src/integration-adapters.js'), 'utf8'), {window});
-  assert.equal(typeof window.MarthaIntegrations.createDemoAdapter, 'function');
-  assert.equal(typeof window.MarthaIntegrations.createSaviaSyntheticAdapter, 'function');
+  assert.equal(typeof window.MarthaIntegrations.createLocalAdapter, 'function');
+  assert.equal(typeof window.MarthaIntegrations.createSaviaSyntheticAdapter, 'undefined');
   assert.equal(typeof window.MarthaIntegrations.createCgaHttpAdapter, 'undefined');
   assert.equal(fetchCalls, 0);
 });

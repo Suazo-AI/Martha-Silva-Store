@@ -33,7 +33,7 @@ async function boot({page = 'producto-dorado.html', query = '', language, setup,
     if (language) w.localStorage.setItem('martha-language-v1', language);
     if (blockedStorage) Object.defineProperty(w, 'localStorage', {get(){throw new w.DOMException('blocked', 'SecurityError');}});
     for (const file of ['catalog.js', 'locale-en.js', 'i18n.js']) w.eval(fs.readFileSync(path.join(staticRoot, file), 'utf8'));
-    for (const file of ['demo-api.js', 'integration-adapters.js']) w.eval(fs.readFileSync(path.join(root, 'src', file), 'utf8'));
+    for (const file of ['store-api.js', 'integration-adapters.js']) w.eval(fs.readFileSync(path.join(root, 'src', file), 'utf8'));
     if (setup) setup(w);
     w.eval(fs.readFileSync(path.join(root, 'src/app.js'), 'utf8'));
     await tick(); await tick();

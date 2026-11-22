@@ -3,6 +3,7 @@ from pathlib import Path
 import hashlib,json,re,unittest,sys
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from tools.responsive_fonts import encode,verify
+from prepare import public_path
 ROOT=Path(__file__).resolve().parents[1]
 F=ROOT/'build-inputs/static/prototypes/fonts'
 class Fonts(unittest.TestCase):
@@ -15,7 +16,7 @@ class Fonts(unittest.TestCase):
    self.assertEqual(hashlib.sha256(p.read_bytes()).hexdigest(),frozen[p.relative_to(ROOT).as_posix()])
    verify(p,data);self.assertEqual(encode(p),data)
    self.assertIn(f"url(font-{i}.woff2) format('woff2'), url(font-{i}.ttf) format('truetype')",css)
-   self.assertEqual(data,(ROOT/'dist/prototypes/fonts'/w.name).read_bytes())
+   self.assertEqual(data,(ROOT/'dist'/public_path('prototypes/fonts/'+w.name)).read_bytes())
   old=re.sub(r"url\(font-\d.woff2\) format\('woff2'\), ",'',css)
   baseline=json.loads((ROOT/'docs/release-20261105/responsive-followup/font-baseline.json').read_text())
   self.assertEqual(baseline['rawSha256'],frozen['build-inputs/static/prototypes/fonts/fonts.css'])

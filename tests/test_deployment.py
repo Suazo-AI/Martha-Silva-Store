@@ -168,7 +168,7 @@ class DeploymentTests(unittest.TestCase):
 
     def test_smoke_success_and_redirect_failure_not_retried(self):
         base = 'https://martha-silva-preview.example.workers.dev'
-        names = ('index.html', 'catalogo.html', 'styles.css', 'app.js', 'demo-api.js')
+        names = ('index.html', 'catalogo.html', 'styles.css', 'app.js', 'store-api.js')
         data = {'sha': SHA, 'files': {name: deploy.digest(name.encode()) for name in names}}
         responses = [io.BytesIO(json.dumps(data).encode())]
         responses += [io.BytesIO(name.encode()) for name in ('index.html',) + names]

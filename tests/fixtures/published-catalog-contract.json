@@ -1,6 +1,6 @@
 {
   "publication_version": "601268a3-81ce-4277-a8ef-cb2e84d2fbb1",
-  "source_catalog_sha256": "9e015bab802035fe7e01237e3c83a8d606d88077e90d16bb7c9cc16864e6836b",
+  "source_catalog_sha256": "e3a6affe9ed918cdd4facc45b53d76a2b30103baa3bc4301e315dccdf136e485",
   "source": "evidence/releases/20261030/current-runtime-sha256.json",
   "purpose": "Explicit copy changes from the preserved publication; captured prices, variants and stock remain authoritative for sample comparisons.",
   "copy_overrides": {

@@ -17,7 +17,7 @@ The GET default is an integration compatibility fix with the hardened API, not a
 
 ## Dual integration UI
 
-The DOM checks include a visible SAVIA / SISFAIN (CGA) selection; explicit local-only, unconfigured statuses; isolated carts, checkout contact data and recent-order hints; removing cross-mode order URLs; missing-module fail-closed behavior and retry; pending-operation mode locking and repeated clicks; no automatic order creation on mount; and BFCache mode restoration without mutating an in-flight operation. These checks load `integration-adapters.js` between the local API and app. `window.marthaStoreApi` diagnoses the active local model; the legacy `marthaDemoApi` is not the storefront transport.
+The DOM checks include a visible SAVIA / SISFAIN (CGA) selection; explicit local-only, unconfigured statuses; isolated carts, checkout contact data and recent-order hints; removing cross-mode order URLs; missing-module fail-closed behavior and retry; pending-operation mode locking and repeated clicks; no automatic order creation on mount; and BFCache mode restoration without mutating an in-flight operation. These checks load `integration-adapters.js` between the local API and app. `window.marthaStoreApi` diagnoses the active local model; the legacy `marthaStoreApi` is not the storefront transport.
 
 No HTTP transport is configured in the storefront. These tests do not establish compatibility with a real SAVIA deployment or a CGA API, a connected .NET backend, real payments, visual layout or mobile-browser behavior.
 

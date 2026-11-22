@@ -60,13 +60,13 @@ def refusal(cfg, catalog):
     if not cfg.get('indexable'):
         return None
     why = []
-    if catalog.get('mode') == 'local_test':
-        why.append('catalog.mode is local_test')
-    if catalog['brand'].get('commercial_status') == 'sample':
-        why.append('brand is sample data')
-    n = sum(1 for p in catalog['products'] if p.get('commercial_status') == 'sample')
+    if catalog.get('mode') == 'local':
+        why.append('catalog.mode is local')
+    if catalog['brand'].get('commercial_status') == 'unlisted':
+        why.append('brand is not listed commercially')
+    n = sum(1 for p in catalog['products'] if p.get('commercial_status') == 'unlisted')
     if n:
-        why.append(f'{n} product(s) are sample data')
+        why.append(f'{n} product(s) are not listed commercially')
     if not (cfg.get('siteUrl') or '').strip():
         why.append('siteUrl is empty')
     return '; '.join(why) or None

@@ -39,7 +39,7 @@ async function boot(page, {language, query = '', stored, app = true, setup, befo
     if (beforeLocale) beforeLocale(w);
     for (const file of ['catalog.js', 'locale-en.js', 'i18n.js']) w.eval(fs.readFileSync(path.join(root, file), 'utf8'));
     if (app) {
-      for (const file of ['demo-api.js', 'integration-adapters.js']) w.eval(fs.readFileSync(path.join(root, file), 'utf8'));
+      for (const file of ['store-api.js', 'integration-adapters.js']) w.eval(fs.readFileSync(path.join(root, file), 'utf8'));
     }
     if (setup) await setup(w);
     if (app) w.eval(fs.readFileSync(path.join(root, 'app.js'), 'utf8'));
@@ -55,8 +55,8 @@ async function withPage(page, options, run) {
 }
 
 async function seedBag(w) {
-  const api = w.MarthaIntegrations.createDemoAdapter({
-    mode: 'savia', catalog: w.DEMO_CATALOG, storage: w.localStorage, createDemoApi: w.createMarthaDemoApi,
+  const api = w.MarthaIntegrations.createLocalAdapter({
+    mode: 'savia', catalog: w.STORE_CATALOG, storage: w.localStorage, createStoreApi: w.createMarthaStoreApi,
   });
   await api('/api/cart/items', {variant_id: 'dorado-S', quantity: 1});
 }
@@ -77,7 +77,7 @@ test('an explicit English URL overrides a saved Spanish preference without losin
     assert.equal(b.d.querySelector('[name=category]').value, 'Novias');
     assert.equal(new URL(b.w.location.href).searchParams.get('category'), 'Novias');
     assert.equal(b.d.querySelectorAll('[data-catalog-grid] .product-card').length,
-      b.w.DEMO_CATALOG.products.filter(product => product.category === 'Novias').length);
+      b.w.STORE_CATALOG.products.filter(product => product.category === 'Novias').length);
     assert.equal(b.d.querySelector('[data-filter-chips]')?.textContent.includes('lang'), false);
     const category = b.d.querySelector('[name=category]');
     assert.equal(category.selectedOptions[0].value, 'Novias');
@@ -90,7 +90,7 @@ test('an explicit English URL overrides a saved Spanish preference without losin
     category.value = 'Gala'; category.dispatchEvent(new b.w.Event('change', {bubbles: true})); await tick();
     assert.equal(new URL(b.w.location.href).searchParams.get('category'), 'Gala');
     assert.equal(b.d.querySelectorAll('[data-catalog-grid] .product-card').length,
-      b.w.DEMO_CATALOG.products.filter(product => product.category === 'Gala').length);
+      b.w.STORE_CATALOG.products.filter(product => product.category === 'Gala').length);
     b.w.history.back(); await tick(); await tick();
     assert.equal(category.value, 'Novias');
     assert.equal(b.w.MarthaI18n.language, 'en');
@@ -118,7 +118,7 @@ test('an explicit Spanish URL replaces a saved English preference for subsequent
 
 test('language switching persists, restores Spanish, and leaves catalog data untouched', async () => {
   await withPage('index.html', {}, async b => {
-    const before = JSON.stringify(b.w.DEMO_CATALOG);
+    const before = JSON.stringify(b.w.STORE_CATALOG);
     b.d.querySelector('[data-language="en"]').click(); await tick();
     assert.equal(b.d.documentElement.lang, 'en');
     assert.equal(b.w.localStorage.getItem('martha-language-v1'), 'en');
@@ -126,7 +126,7 @@ test('language switching persists, restores Spanish, and leaves catalog data unt
     b.d.querySelector('[data-language="es"]').click(); await tick();
     assert.equal(text(b.d.querySelector('.editorial-campaign h2')), 'El edit de novias');
     assert.equal(b.w.localStorage.getItem('martha-language-v1'), 'es');
-    assert.equal(JSON.stringify(b.w.DEMO_CATALOG), before);
+    assert.equal(JSON.stringify(b.w.STORE_CATALOG), before);
   });
   await withPage('ayuda.html', {language: 'en'}, async b => {
     assert.equal(b.d.documentElement.lang, 'en');
@@ -243,7 +243,7 @@ test('an explicit Spanish choice survives reload and navigation when saved Engli
 test('all 40 catalog names and descriptions have English translations and product pages use them', async () => {
   let products;
   await withPage('index.html', {language: 'en', app: false}, async b => {
-    products = JSON.parse(JSON.stringify(b.w.DEMO_CATALOG.products));
+    products = JSON.parse(JSON.stringify(b.w.STORE_CATALOG.products));
     assert.equal(products.length, 40);
     for (const product of products) {
       assert.notEqual(b.w.MarthaI18n.english(product.name), product.name, product.id + ' name');
@@ -270,7 +270,7 @@ test('English product search and color filters retain Spanish data keys', async 
     color.dispatchEvent(new b.w.Event('change', {bubbles: true})); await tick();
     assert.equal(new URL(b.w.location.href).searchParams.get('color'), 'Dorado');
     for (const card of b.d.querySelectorAll('[data-catalog-grid] .product-card')) {
-      assert.equal(b.w.DEMO_CATALOG.products.find(product => product.id === card.dataset.id).color, 'Dorado');
+      assert.equal(b.w.STORE_CATALOG.products.find(product => product.id === card.dataset.id).color, 'Dorado');
       for (const img of card.querySelectorAll('img[src]')) {
         const dimensions = b.w.STORE_IMAGE_DIMENSIONS[img.getAttribute('src')];
         assert.ok(dimensions);
@@ -386,8 +386,8 @@ test('English checkout preserves customer text and never translates form values'
 
 test('English order views preserve customer-entered return reasons and tracking text', async () => {
   await withPage('pedido.html', {language: 'en', async setup(w) {
-    const api = w.MarthaIntegrations.createDemoAdapter({
-      mode: 'savia', catalog: w.DEMO_CATALOG, storage: w.localStorage, createDemoApi: w.createMarthaDemoApi,
+    const api = w.MarthaIntegrations.createLocalAdapter({
+      mode: 'savia', catalog: w.STORE_CATALOG, storage: w.localStorage, createStoreApi: w.createMarthaStoreApi,
     });
     await api('/api/cart/items', {variant_id: 'dorado-S', quantity: 1});
     const quote = await api('/api/quote', {delivery_zone: 'managua'});
@@ -396,7 +396,7 @@ test('English order views preserve customer-entered return reasons and tracking 
       contact: {name: 'Rosa', email: 'rosatest@example.test', phone: '88888888'},
       address: {line1: 'Calle Rosa', city: 'Rosa', department: 'Managua'},
     })).order;
-    await api(`/api/orders/${order.id}/test-payment`, {outcome: 'approved'});
+    await api(`/api/orders/${order.id}/payment`, {outcome: 'approved'});
     await api('/api/admin/login', {});
     for (const status of ['preparing', 'shipped', 'delivered']) {
       await api(`/api/admin/orders/${order.id}/fulfill`, {status, tracking: 'Rosa'});
@@ -451,9 +451,9 @@ test('static photo dimensions match the independent image-header inventory', asy
 test('one price format: $ symbol, comma thousands and two decimals in both languages', async () => {
   for (const language of ['es', 'en']) {
     await withPage('bolsa.html', {language, setup: async w => {
-      const api = w.MarthaIntegrations.createDemoAdapter({mode: 'savia', catalog: w.DEMO_CATALOG, storage: w.localStorage, createDemoApi: w.createMarthaDemoApi});
+      const api = w.MarthaIntegrations.createLocalAdapter({mode: 'savia', catalog: w.STORE_CATALOG, storage: w.localStorage, createStoreApi: w.createMarthaStoreApi});
       let minor = 0;
-      for (const product of w.DEMO_CATALOG.products) {
+      for (const product of w.STORE_CATALOG.products) {
         const variant = product.variants.find(v => v.stock > 0);
         if (minor < 100000 && variant) { await api('/api/cart/items', {variant_id: variant.id, quantity: 1}); minor += product.price_minor; }
       }

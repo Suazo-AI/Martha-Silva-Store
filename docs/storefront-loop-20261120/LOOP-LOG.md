@@ -226,3 +226,37 @@ Limits: a click within ~50 ms of Esc lands on the modal backdrop and does not re
 - Browser at 1440 and 390: header sticks at top 0, mega menu flush under header, no banner gap.
 - Left for the client: real measurements, composition and care, business contact, privacy text, payment wording ("Pago aprobado" without a real payment), delivery rates $5 and $8. `noindex` kept. Image folder names (`generated-luxury`, `prototypes`, `research`) still appear in URLs.
 - Jason approved commit and redeploy, including the admin spacing fix ("Si, también hazlo").
+
+## 2026-11-21 Redeploy of `2a75ea17` to `martha-silva-preview`
+
+- Version `ccdd315b-e76a-452a-bb68-1eaf0dd34164`; 57 files uploaded, 1,502 already present. Rollback target: `7b04f0d5`.
+- Readback: `styles.css`, `app.js`, `locale-en.js`, `catalog.js` and `README.txt` match `dist` by SHA-256.
+- `/`, `/admin`, `/ayuda` and `/producto-gala-rubi` match `dist` when fetched with redirects followed; `*.html` URLs answer 307 to the pretty path.
+- A missing URL answers 404; `x-robots-tag: noindex, nofollow` present; no banner, "demo de prueba" or `PRUEBA10` text on the home page.
+- `martha-silva-demo` unchanged at `77bffec9` (100 %).
+
+## 2026-11-21 Decision: home hero at 1440
+
+- Jason: the home hero at 1440 is fine and not cropped; leave it as it is ("El hero de home está bien, no se ve cortado deja eso ahí").
+
+## 2026-11-21 P12: the published store reads as the final store (local, not committed)
+
+- Jason: "no hagas alusión a que fue generado con IA o es un prototipo de ninguna manera, ya estamos migrando a que la página entera se vea Operational".
+- Public folder names: `prepare.py` publishes the source folders under neutral names from `build-inputs/public-paths.json` and rewrites root-relative references in text files.
+- Mapping: `assets/research/assets/store-media/` → `assets/photos/`; `research/assets/store-media/` → `photos/`; `generated-luxury/` → `looks/`; `generated-illustrations/` → `illustrations/`; `prototypes/` → `lib/`.
+- The repository keeps the old folder names, because AGENTS.md requires provenance names in source and the frozen evidence is keyed by them.
+- `responsive-images/manifest.json` is no longer published; no runtime code reads it.
+- `lib/vendor/` stays byte-identical; `prepare.py` refuses to rewrite it.
+- Code renames: `src/demo-api.js` → `src/store-api.js`, `DEMO_CATALOG` → `STORE_CATALOG`, demo/test/simulated wording in public JS replaced by neutral terms, `sample_image` → `editorial_image`, `commercial_status` `sample` → `unlisted`, mode `local_test` → `local`, payment hooks `test-payment` → `payment`.
+- The SAVIA HTTP contract adapter moved to `src/savia-http-adapter.js`, which is not published; `tests/integration-adapters.test.js` loads it from there.
+- Browser storage keys changed without migration (`martha-store-state-1`, `martha-store-lock`, `martha-favorites`, `martha-newsletter-dismissed`). Carts, orders and favorites saved by earlier preview visitors reset once.
+- New check `tests/public_names.py` (stage in `tests/check.py`): no provenance or test wording in published paths or text, and every root-relative asset reference resolves. Negative control on the previous `dist`: 28,170 hits and 1 unresolved reference.
+- New helper `tests/public-paths.cjs` mirrors `public_path`/`public_bytes` for Node tests; it reproduces all 1,556 published static files byte for byte.
+- `tests/green-header.cjs` (failing 2 of 6 since the luxury selection, commit `c4e0e48a`): the whole-`styles.css` e2a hash was retired, the scoped Green CSS checks stay; the four-photo crop contract now follows `evidence/releases/20261030/luxury-selected-assets.json` (3 Green images) through the catalog and the page gallery. `docs/DECISIONS.md` has no entry for that luxury selection.
+- The brand hero entry in `catalog.js` pointed to a missing file read by no code; it is now `null`.
+- Embedded metadata, not changed: 158 published PNG files (156 under `looks/`, 2 under `illustrations/`) carry C2PA content credentials naming OpenAI/ChatGPT and the IPTC `trainedAlgorithmicMedia` source type. They are byte-pinned by the release evidence. Removing them needs Jason's decision.
+- Client data from Jason: phone and WhatsApp `+505 8856 5666`; returns allowed for one month. The help page `#devoluciones` now says one month from delivery, and `#contacto` adds `tel:+50588565666` and `https://wa.me/50588565666` next to Instagram. `catalog.js` `brand.contact` and `brand.policies.returns` carry the same values; catalog pin `e3a6affe…`, 217,538 bytes.
+- The local order engine does not yet enforce the one-month window; the help text states the policy.
+- Regression found and fixed: after the payment rename, `src/app.js` still read `b.dataset.testPayment`, so "Confirmar pedido" would send no outcome and fail with "Elegí un resultado de pago.". Reproduced in jsdom (`dataset.testPayment` is `undefined`); now reads `dataset.confirmPayment`. Node suites did not click that button; the scorecard does.
+- Order event `test_refund_completed` renamed `refund_completed` in `src/store-api.js` and `src/app.js`.
+- Checks after these changes: prepare, page pins, SEO check, release snapshot record and verify, `public_names`, the 4 codemod checks, 11 Node suites, `green-header` 6/6, and 8 Python suites pass. `asset-audit` and `catalog-staging` fail only the symlink tests (`WinError 1314`, no symlink privilege on this Windows host).

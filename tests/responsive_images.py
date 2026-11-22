@@ -3,6 +3,8 @@ from pathlib import Path
 import hashlib,json,unittest
 from PIL import Image
 ROOT=Path(__file__).resolve().parents[1]
+import sys;sys.path.insert(0,str(ROOT))
+from prepare import public_bytes
 STATIC=ROOT/'build-inputs/static'
 class ResponsiveImages(unittest.TestCase):
  def test_originals_dimensions_hashes_and_fallback(self):
@@ -28,5 +30,5 @@ class ResponsiveImages(unittest.TestCase):
   for page in STATIC.glob('*.html'):
    s=page.read_bytes()
    self.assertEqual(hashlib.sha256(s).hexdigest(),pins[page.name],page.name)
-   self.assertEqual(s,(ROOT/'dist'/page.name).read_bytes())
+   self.assertEqual(public_bytes(page.name,s),(ROOT/'dist'/page.name).read_bytes())
 if __name__=='__main__':unittest.main()

@@ -2,7 +2,7 @@
   "chrome": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
   "base": "http://127.0.0.1:18433",
   "page": "/producto-verde-brillo-cuello-cruzado.html",
-  "generatedAt": "2026-11-22T00:45:07.849Z",
+  "generatedAt": "2026-11-22T01:46:57.208Z",
   "runs": [
     {
       "label": "desktop-1280x900",
@@ -54,7 +54,7 @@
             "w": 1024
           },
           {
-            "url": "http://127.0.0.1:18433/generated-luxury/verde-brillo-cuello-cruzado/01-front-v1.png",
+            "url": "http://127.0.0.1:18433/looks/verde-brillo-cuello-cruzado/01-front-v1.png",
             "w": 1024
           }
         ],
@@ -109,7 +109,7 @@
             "w": 1024
           },
           {
-            "url": "http://127.0.0.1:18433/generated-luxury/verde-brillo-cuello-cruzado/01-front-v1.png",
+            "url": "http://127.0.0.1:18433/looks/verde-brillo-cuello-cruzado/01-front-v1.png",
             "w": 1024
           }
         ],
@@ -214,7 +214,7 @@
           }
         },
         "reachNav": {
-          "tabs": 5,
+          "tabs": 3,
           "go": "0",
           "ariaCurrent": "false",
           "visible": true
@@ -334,7 +334,7 @@
             "w": 1024
           },
           {
-            "url": "http://127.0.0.1:18433/generated-luxury/verde-brillo-cuello-cruzado/01-front-v1.png",
+            "url": "http://127.0.0.1:18433/looks/verde-brillo-cuello-cruzado/01-front-v1.png",
             "w": 1024
           }
         ],

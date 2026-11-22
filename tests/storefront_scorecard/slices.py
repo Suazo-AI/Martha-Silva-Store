@@ -564,7 +564,7 @@ def seo(b, base):
         flip['sampleRefusedExit'] = run(tmp, cfgp) if gen.exists() else None
         flip['sampleUnchanged'] = snap() == h0
         cat_orig = (st / 'catalog.js').read_text(encoding='utf-8')
-        (st / 'catalog.js').write_text(cat_orig.replace('"commercial_status":"sample"', '"commercial_status":"active"').replace('"mode":"local_test"', '"mode":"live"'), encoding='utf-8', newline='')
+        (st / 'catalog.js').write_text(cat_orig.replace('"commercial_status":"unlisted"', '"commercial_status":"active"').replace('"mode":"local"', '"mode":"live"'), encoding='utf-8', newline='')
         flip['liveExit'] = run(tmp, cfgp) if gen.exists() else None
         rd = lambda n: (st / n).read_text(encoding='utf-8') if (st / n).exists() else None
         live_bad = seo_audit(rd, open_cfg)

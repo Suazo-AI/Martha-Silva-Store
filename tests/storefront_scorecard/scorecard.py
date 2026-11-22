@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[2]
 AB = shutil.which('agent-browser')
 PRICE_OK = re.compile(r'^[−-]?\$\d{1,3}(,\d{3})*\.\d{2}$')
 PRICE_TOKEN = re.compile(r'[−-]?(?:US\$|USD\s?|C\$|\$)\s?\d[\d,]*(?:\.\d+)?')
-SRC_JS = ('app.js', 'demo-api.js', 'integration-adapters.js')
+SRC_JS = ('app.js', 'store-api.js', 'integration-adapters.js')
 EN_RE = (r"/[áéíóúñ¿¡]|\b(de|la|el|los|las|para|con|tu|tus|ver|buscar|comprar|talla|bolsa|pedido|ayuda|cerrar|agregar|"
          r"guardar|novias|vestidos|nuestra|entrega|prueba|tienda|categorías)\b/i")
 # P11: visitor-facing demo signals in visible text, attributes, title and meta (all languages).
@@ -261,7 +261,7 @@ def run_flow(b, base, width, lang, axe_on):
     b.click('[data-checkout-form] button.button'); probe('review', True, 1.4)
     total = b.ev('(document.querySelector("[data-checkout-root]")||document.body).innerText.match(/(?:Total)[^\\n]*\\n?[^\\n]*/i)?.[0]||""')
     b.click('[data-create-order]'); probe('payment', True, 1.8)
-    b.click('[data-test-payment="approved"]'); time.sleep(2.2)
+    b.click('[data-confirm-payment="approved"]'); time.sleep(2.2)
     probe('order', True, 0.3)
     order = b.ev('JSON.stringify({path:location.pathname,demo:/MS-\\d+/.test(document.body.innerText)})')
     ok = isinstance(order, dict) and order.get('path', '').endswith('pedido.html') and order.get('demo')

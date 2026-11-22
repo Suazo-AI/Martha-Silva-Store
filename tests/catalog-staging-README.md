@@ -22,7 +22,7 @@ The captured public source returned HTTP 404 for `/research/assets/martha-gala/f
 
 The report preserves original price and stock only under `commercial_evidence`,
 using `sample_price_minor` and `sample_stock` labels. It is intentionally **not**
-a directly importable DEMO_CATALOG or stock seed. Every record has
+a directly importable STORE_CATALOG or stock seed. Every record has
 `publish_allowed: false`, including existing demo products; this means this
 report authorizes no new publication, not that it disables the current demo.
 The script neither reads nor overwrites runtime/local-storage/database stock,
