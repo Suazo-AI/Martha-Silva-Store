@@ -31,34 +31,62 @@ export default {
 
     const actions = order => {
       const total = formatMoney(order.totalMinor, order.currency);
-      const reference = h('input', { 'aria-label': `Referencia del pago · ${order.code}`, maxlength: 160, placeholder: 'Referencia del pago' });
+      const reference = h('input', {
+        'aria-label': `Referencia del pago · ${order.code}`,
+        maxlength: 160,
+        placeholder: 'Referencia del pago',
+      });
       const buttons = {
-        pay: h('button', {
-          type: 'button',
-          onclick: e => {
-            const payment = manualPayment(order, reference.value);
-            if (payment.error) {
-              status.textContent = payment.error;
-              reference.focus();
-              return;
-            }
-            return act(e.target, `Se registrará el pago de ${total} del pedido ${order.code} con la referencia ${payment.body.reference}.`, () =>
-              api.recordManualPayment(order.id, payment.body),
-            );
+        pay: h(
+          'button',
+          {
+            type: 'button',
+            onclick: e => {
+              const payment = manualPayment(order, reference.value);
+              if (payment.error) {
+                status.textContent = payment.error;
+                reference.focus();
+                return;
+              }
+              return act(
+                e.target,
+                `Se registrará el pago de ${total} del pedido ${order.code} con la referencia ${payment.body.reference}.`,
+                () => api.recordManualPayment(order.id, payment.body),
+              );
+            },
           },
-        }, 'Registrar pago'),
-        cancel: h('button', {
-          type: 'button',
-          class: 'secondary',
-          onclick: e => act(e.target, `Se cancelará el pedido ${order.code} y su mercadería volverá a la tienda web.`, () => api.cancelWebOrder(order.id)),
-        }, 'Cancelar'),
-        fulfill: h('button', {
-          type: 'button',
-          onclick: e => act(e.target, `Se marcará como enviado el pedido ${order.code}.`, () => api.fulfillWebOrder(order.id)),
-        }, 'Marcar enviado'),
+          'Registrar pago',
+        ),
+        cancel: h(
+          'button',
+          {
+            type: 'button',
+            class: 'secondary',
+            onclick: e =>
+              act(e.target, `Se cancelará el pedido ${order.code} y su mercadería volverá a la tienda web.`, () =>
+                api.cancelWebOrder(order.id),
+              ),
+          },
+          'Cancelar',
+        ),
+        fulfill: h(
+          'button',
+          {
+            type: 'button',
+            onclick: e => act(e.target, `Se marcará como enviado el pedido ${order.code}.`, () => api.fulfillWebOrder(order.id)),
+          },
+          'Marcar enviado',
+        ),
       };
       const chosen = orderActions(order);
-      return chosen.length ? h('div', { class: 'actions' }, chosen.includes('pay') ? reference : null, chosen.map(a => buttons[a])) : null;
+      return chosen.length
+        ? h(
+            'div',
+            { class: 'actions' },
+            chosen.includes('pay') ? reference : null,
+            chosen.map(a => buttons[a]),
+          )
+        : null;
     };
 
     const card = order =>
@@ -66,16 +94,26 @@ export default {
         'section',
         { class: 'panel web-order', dataset: { order: order.id, status: order.status } },
         h('h2', {}, `${order.code} · ${statusLabel(order.status)}`),
-        h('p', {}, `${formatMoney(order.totalMinor, order.currency)} · envío ${formatMoney(order.shippingMinor, order.currency)} · ${order.provider ?? ''}`),
+        h(
+          'p',
+          {},
+          `${formatMoney(order.totalMinor, order.currency)} · envío ${formatMoney(order.shippingMinor, order.currency)} · ${order.provider ?? ''}`,
+        ),
         h('p', {}, linesText(order)),
         h('p', {}, [order.name, order.phone, order.email].filter(Boolean).join(' · ')),
         h('p', {}, [order.address, order.city, order.zone].filter(Boolean).join(' · ')),
         order.notes ? h('p', {}, order.notes) : null,
-        h('p', { class: 'muted' }, [
-          `Creado ${saleDate(order.createdAt)}`,
-          order.status === 'reserved' && order.expiresAt ? `vence ${saleDate(order.expiresAt)}` : null,
-          order.sourceStore ? `mercadería de ${order.sourceStore}` : null,
-        ].filter(Boolean).join(' · ')),
+        h(
+          'p',
+          { class: 'muted' },
+          [
+            `Creado ${saleDate(order.createdAt)}`,
+            order.status === 'reserved' && order.expiresAt ? `vence ${saleDate(order.expiresAt)}` : null,
+            order.sourceStore ? `mercadería de ${order.sourceStore}` : null,
+          ]
+            .filter(Boolean)
+            .join(' · '),
+        ),
         actions(order),
       );
 

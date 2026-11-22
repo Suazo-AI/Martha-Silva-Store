@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-22T11:09:42.211610+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/web/app.mjs",
+      "change": "M",
+      "git_blob": "dbb8fa16bd0525a3023a3153b0604ae37bdda8ac"
+    },
+    {
+      "path": "savia/web/screens/web-orders.mjs",
+      "change": "M",
+      "git_blob": "44fb1237adb81f3bce696d5dc642bf594aa4fa3d"
+    },
+    {
+      "path": "savia/web/tests/web-orders.test.mjs",
+      "change": "M",
+      "git_blob": "a13046d50d21c2b7044b433baa551ff0b3f9714e"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

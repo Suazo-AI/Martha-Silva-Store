@@ -4,12 +4,23 @@ import * as api from '../api.mjs';
 import { canAccess, navigation } from '../roles.mjs';
 import { linesText, manualPayment, orderActions, statusLabel } from '../screens/web-orders-logic.mjs';
 
-const order = { id: 'o1', code: 'W-1', status: 'reserved', totalMinor: 170000, currency: 'NIO', lines: [{ sku: 'A', qty: 2 }, { sku: 'B', qty: 1 }] };
+const order = {
+  id: 'o1',
+  code: 'W-1',
+  status: 'reserved',
+  totalMinor: 170000,
+  currency: 'NIO',
+  lines: [
+    { sku: 'A', qty: 2 },
+    { sku: 'B', qty: 1 },
+  ],
+};
 
 test('each status offers only the staff actions the hub accepts', () => {
   assert.deepEqual(orderActions({ status: 'reserved' }), ['pay', 'cancel']);
   assert.deepEqual(orderActions({ status: 'paid' }), ['fulfill']);
-  for (const status of ['fulfilled', 'cancelled', 'expired', 'payment_review', 'refunded']) assert.deepEqual(orderActions({ status }), [], status);
+  for (const status of ['fulfilled', 'cancelled', 'expired', 'payment_review', 'refunded'])
+    assert.deepEqual(orderActions({ status }), [], status);
 });
 
 test('status labels are Spanish and an unknown status shows as it came', () => {
@@ -103,8 +114,33 @@ async function withDom(orders, run) {
 }
 
 const listed = [
-  { ...order, id: 'r1', code: 'W-R', shippingMinor: 50000, provider: 'manual', name: 'Ana', phone: '8888', email: 'ana@example.test', address: 'Calle 1', city: 'Managua', zone: 'managua', createdAt: '2026-11-22T12:00:00Z', expiresAt: '2026-11-22T12:30:00Z', sourceStore: 'CENTRO' },
-  { ...order, id: 'p1', code: 'W-P', status: 'paid', shippingMinor: 50000, provider: 'manual', name: 'Luis', createdAt: '2026-11-22T12:00:00Z', notes: null },
+  {
+    ...order,
+    id: 'r1',
+    code: 'W-R',
+    shippingMinor: 50000,
+    provider: 'manual',
+    name: 'Ana',
+    phone: '8888',
+    email: 'ana@example.test',
+    address: 'Calle 1',
+    city: 'Managua',
+    zone: 'managua',
+    createdAt: '2026-11-22T12:00:00Z',
+    expiresAt: '2026-11-22T12:30:00Z',
+    sourceStore: 'CENTRO',
+  },
+  {
+    ...order,
+    id: 'p1',
+    code: 'W-P',
+    status: 'paid',
+    shippingMinor: 50000,
+    provider: 'manual',
+    name: 'Luis',
+    createdAt: '2026-11-22T12:00:00Z',
+    notes: null,
+  },
 ];
 
 test('the hub screen lists each order with its contact and only the buttons its status allows', async () => {
@@ -114,8 +150,14 @@ test('the hub screen lists each order with its contact and only the buttons its 
     await screen.mount(root, { me: { nodeKind: 'Cloud' }, notify() {} });
     assert.deepEqual(requests, ['GET /api/v1/web-orders']);
     const cards = nodes(root).filter(n => n.tag === 'section');
-    assert.deepEqual(cards.map(c => c.dataset.status), ['reserved', 'paid']);
-    const buttons = card => nodes(card).filter(n => n.tag === 'button').map(text);
+    assert.deepEqual(
+      cards.map(c => c.dataset.status),
+      ['reserved', 'paid'],
+    );
+    const buttons = card =>
+      nodes(card)
+        .filter(n => n.tag === 'button')
+        .map(text);
     assert.deepEqual(buttons(cards[0]), ['Registrar pago', 'Cancelar']);
     assert.deepEqual(buttons(cards[1]), ['Marcar enviado']);
     assert.ok(text(cards[0]).includes('Calle 1') && text(cards[0]).includes('ana@example.test') && text(cards[0]).includes('CENTRO'));
@@ -123,8 +165,13 @@ test('the hub screen lists each order with its contact and only the buttons its 
     assert.ok(!nodes(cards[1]).some(n => n.tag === 'input'), 'a paid order asks for no payment reference');
 
     // An empty reference stops before the confirmation and before any request.
-    nodes(cards[0]).find(n => n.tag === 'button' && text(n) === 'Registrar pago').handlers.click({ target: {} });
-    assert.equal(nodes(root).find(n => n.role === 'alert').textContent, 'Indique la referencia del pago (número de transferencia o recibo).');
+    nodes(cards[0])
+      .find(n => n.tag === 'button' && text(n) === 'Registrar pago')
+      .handlers.click({ target: {} });
+    assert.equal(
+      nodes(root).find(n => n.role === 'alert').textContent,
+      'Indique la referencia del pago (número de transferencia o recibo).',
+    );
     assert.equal(requests.length, 1);
   });
 });

@@ -19,8 +19,8 @@ import returns from './screens/return.mjs';
 import review from './screens/review.mjs';
 import sale from './screens/sale.mjs';
 import settings, { applyPalette } from './screens/settings.mjs';
-import webOrders from './screens/web-orders.mjs';
 import { syncTill } from './screens/till-open.mjs';
+import webOrders from './screens/web-orders.mjs';
 import { device, h, replace } from './ui.mjs';
 
 /** The module of each route in roles.mjs SCREENS; start() refuses to run when the two disagree. */
