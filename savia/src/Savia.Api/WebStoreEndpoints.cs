@@ -38,6 +38,17 @@ public static class WebStoreEndpoints
             await web.CancelAsync(http.Actor(), id, ct);
             return Results.NoContent();
         }).WithTags("webstore");
+        api.MapPost("/web-orders/{id:guid}/mark-refunded", async (Guid id, RefundReviewRequest request, HttpContext http,
+            WebStoreService web, CancellationToken ct) =>
+        {
+            await web.RefundReviewAsync(http.Actor(), id, request, ct);
+            return Results.NoContent();
+        }).WithTags("webstore");
+        api.MapPost("/web-orders/{id:guid}/accept-payment", async (Guid id, HttpContext http, WebStoreService web, CancellationToken ct) =>
+        {
+            await web.AcceptReviewAsync(http.Actor(), id, ct);
+            return Results.NoContent();
+        }).WithTags("webstore");
         api.MapPost("/web-stock/release", async (WebReleaseRequest request, HttpContext http, WebStoreService web, CancellationToken ct) =>
         {
             await web.ReleaseAsync(http.Actor(), request, ct);

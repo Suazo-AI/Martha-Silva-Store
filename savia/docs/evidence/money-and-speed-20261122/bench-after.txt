@@ -1,0 +1,23 @@
+kpi_business[day]            {'n': 20, 'p50': 356.9, 'p95': 501.6, 'max': 501.6, 'errors': 0, 'max_bytes': 22932}
+kpi_team[day]                {'n': 20, 'p50': 12.1, 'p95': 15.1, 'max': 15.1, 'errors': 0, 'max_bytes': 503}
+kpi_business[week]           {'n': 20, 'p50': 357.2, 'p95': 531.5, 'max': 531.5, 'errors': 0, 'max_bytes': 22958}
+kpi_team[week]               {'n': 20, 'p50': 13.5, 'p95': 25.8, 'max': 25.8, 'errors': 0, 'max_bytes': 505}
+kpi_business[month]          {'n': 20, 'p50': 445.3, 'p95': 671.2, 'max': 671.2, 'errors': 0, 'max_bytes': 22972}
+kpi_team[month]              {'n': 20, 'p50': 15.3, 'p95': 27.3, 'max': 27.3, 'errors': 0, 'max_bytes': 506}
+import batch 0 {'status': 200, 'ms': 437, 'bytes': 3474, 'body': None, 'other_containers_cpu': {'savia-sqlserver-dev': '21.96%'}} {'status': 200, 'ms': 7099, 'bytes': 167, 'body': None, 'other_containers_cpu': {'savia-sqlserver-dev': '58.96%'}}
+import batch 1 {'status': 200, 'ms': 128, 'bytes': 3474, 'body': None, 'other_containers_cpu': {'savia-sqlserver-dev': '66.26%'}} {'status': 200, 'ms': 4873, 'bytes': 167, 'body': None, 'other_containers_cpu': {'savia-sqlserver-dev': '54.16%'}}
+import batch 2 {'status': 200, 'ms': 81, 'bytes': 3474, 'body': None, 'other_containers_cpu': {'savia-sqlserver-dev': '28.11%'}} {'status': 200, 'ms': 5047, 'bytes': 167, 'body': None, 'other_containers_cpu': {'savia-sqlserver-dev': '23.92%'}}
+  catalog.usp_ImportCatalog                     exec=    6 reads=  176,023 cpu= 2521.5ms elapsed=2792.7ms
+  sales.usp_KpiBusiness                         exec=   69 reads=   45,257 cpu= 1395.2ms elapsed=405.1ms
+  sales.usp_KpiTeam                             exec=   69 reads=    5,533 cpu=    6.4ms elapsed=6.4ms
+  inventory.usp_ApplyWebReleases                exec=    1 reads=      912 cpu=   63.1ms elapsed=535.8ms
+  inventory.usp_EnsureWebLocations              exec=    1 reads=      195 cpu=   26.6ms elapsed=486.8ms
+  sync.usp_EnqueueEvent                         exec= 6003 reads=       31 cpu=    0.4ms elapsed=0.4ms
+  adhoc 69|14480|915|-- savia:transactional -- V058 (P2, money-and-speed 2026-11-22): business KPIs under 1 s on A-10 without a sum
+  adhoc 69|13950|203|-- savia:transactional -- V058 (P2, money-and-speed 2026-11-22): business KPIs under 1 s on A-10 without a sum
+  adhoc 69|9804|190|-- savia:transactional -- V058 (P2, money-and-speed 2026-11-22): business KPIs under 1 s on A-10 without a sum
+  adhoc 69|5486|5| CREATE   PROCEDURE sales.usp_KpiTeam @BranchId uniqueidentifier,@ActorId uniqueidentifier,@Period varchar(8),
+  adhoc 3|76862|993|-- savia:transactional -- V059 (P1, money-and-speed 2026-11-22): the catalog import commit writes in sets. --
+  adhoc 3|64509|412|-- savia:transactional -- V059 (P1, money-and-speed 2026-11-22): the catalog import commit writes in sets. --
+  adhoc 69|2378|44|-- savia:transactional -- V058 (P2, money-and-speed 2026-11-22): business KPIs under 1 s on A-10 without a sum
+  adhoc 6|17357|25|-- savia:transactional -- V059 (P1, money-and-speed 2026-11-22): the catalog import commit writes in sets. --

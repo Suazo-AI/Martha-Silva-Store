@@ -1,4 +1,6 @@
--- TEST: V040 usp_KpiBusiness returns the same JSON as the V030 procedure for every period, with sales, a return and stale stock.
+-- TEST: usp_KpiBusiness (V040, V058) returns the same JSON as the V030 procedure for every period, with sales, a return and
+-- stale stock; then again with 60 products sold (V058 reads receipts only for sold products), 110 stale items sharing one
+-- last movement (the SKU breaks the tie) and sales on both sides of the 06:00 business-day boundary.
 SET NOCOUNT ON;
 GO
 -- The V030 procedure, copied unchanged under a test name: the reference result.
@@ -101,6 +103,30 @@ BEGIN
   FOR JSON PATH,WITHOUT_ARRAY_WRAPPER) AS Json;
 END;
 GO
+-- Every period on the given day and the day before: the current procedure against the V030 copy.
+CREATE PROCEDURE test.AssertKpiSameAsV030 @branch uniqueidentifier,@owner uniqueidentifier,@today date,@last nvarchar(max) OUTPUT
+AS
+BEGIN
+ SET NOCOUNT ON;
+ DECLARE @old nvarchar(max),@new nvarchar(max),@what nvarchar(200),@period varchar(8),@date date,@same bigint;
+ DECLARE @t TABLE(Json nvarchar(max));
+ DECLARE c CURSOR LOCAL FAST_FORWARD FOR
+  SELECT p.v,d.v FROM (VALUES('day'),('week'),('month'),('year')) p(v) CROSS JOIN (VALUES(@today),(DATEADD(day,-1,@today))) d(v);
+ OPEN c;FETCH NEXT FROM c INTO @period,@date;
+ WHILE @@FETCH_STATUS=0
+ BEGIN
+  DELETE @t;INSERT @t EXEC test.usp_KpiBusinessV030 @branch,@owner,@period,@date;SET @old=(SELECT Json FROM @t);
+  DELETE @t;INSERT @t EXEC sales.usp_KpiBusiness @branch,@owner,@period,@date;SET @new=(SELECT Json FROM @t);
+  SET @same=CASE WHEN @old=@new COLLATE Latin1_General_100_BIN2 THEN 1 ELSE 0 END;
+  IF @same=0 PRINT CONCAT(N'V030: ',@old,NCHAR(10),N'now:  ',@new);
+  SET @what=CONCAT(N'same JSON for ',@period,N' ',CONVERT(char(10),@date,23));
+  EXEC test.AssertEq @what,1,@same;
+  FETCH NEXT FROM c INTO @period,@date;
+ END;
+ CLOSE c;DEALLOCATE c;
+ SET @last=@new;
+END;
+GO
 SET NOCOUNT ON;SET XACT_ABORT ON;
 DECLARE @branch uniqueidentifier=test.Id('branchA'),@loc uniqueidentifier=test.Id('locA'),@item uniqueidentifier=test.Id('item'),
  @item2 uniqueidentifier=test.Id('item2'),@node uniqueidentifier=test.Id('nodeA'),@owner uniqueidentifier=test.Id('manager'),
@@ -129,24 +155,44 @@ UPDATE sales.Sales SET CreatedAt=DATEADD(day,-1,CreatedAt) WHERE Id=@sale2;
 DECLARE @r sales.ReturnLineRequest,@none sales.SaleLineRequest,@noTender sales.SaleTenderRequest;
 INSERT @r SELECT Id,1,'store' FROM sales.SaleLines WHERE SaleId=@sale AND LineNumber=1;
 EXEC sales.usp_PostReturnOutcome @rev,@sale,@branch,@loc,@till,@manager,'cash',N'Talla',NULL,@node,@r,NULL,@none,@noTender;
-DECLARE @today date=CONVERT(date,DATEADD(hour,-6,core.ufn_BusinessNow())),@old nvarchar(max),@new nvarchar(max),@what nvarchar(200),
- @period varchar(8),@date date,@same bigint,@rows bigint;
-DECLARE @t TABLE(Json nvarchar(max));
-DECLARE c CURSOR LOCAL FAST_FORWARD FOR
- SELECT p.v,d.v FROM (VALUES('day'),('week'),('month'),('year')) p(v) CROSS JOIN (VALUES(@today),(DATEADD(day,-1,@today))) d(v);
-OPEN c;FETCH NEXT FROM c INTO @period,@date;
-WHILE @@FETCH_STATUS=0
-BEGIN
- DELETE @t;INSERT @t EXEC test.usp_KpiBusinessV030 @branch,@owner,@period,@date;SET @old=(SELECT Json FROM @t);
- DELETE @t;INSERT @t EXEC sales.usp_KpiBusiness @branch,@owner,@period,@date;SET @new=(SELECT Json FROM @t);
- SET @same=CASE WHEN @old=@new COLLATE Latin1_General_100_BIN2 THEN 1 ELSE 0 END;
- IF @same=0 PRINT CONCAT(N'V030: ',@old,NCHAR(10),N'V040: ',@new);
- SET @what=CONCAT(N'same JSON for ',@period,N' ',CONVERT(char(10),@date,23));
- EXEC test.AssertEq @what,1,@same;
- FETCH NEXT FROM c INTO @period,@date;
-END;
-CLOSE c;DEALLOCATE c;
+DECLARE @today date=CONVERT(date,DATEADD(hour,-6,core.ufn_BusinessNow())),@new nvarchar(max),@rows bigint;
+EXEC test.AssertKpiSameAsV030 @branch,@owner,@today,@new OUTPUT;
 -- The comparison covers real rows, not two empty lists.
 SET @rows=(SELECT COUNT(*) FROM OPENJSON(@new,'$.sellThrough'));EXEC test.AssertEq N'sell-through rows (year)',2,@rows;
 SET @rows=(SELECT COUNT(*) FROM OPENJSON(@new,'$.staleItems'));EXEC test.AssertEq N'stale items (year)',1,@rows;
+-- 170 one-variant products with 5 units each. Products 1-60 then sell one unit; 61-170 keep stock with one shared old movement time.
+DECLARE @n int=1,@p uniqueidentifier,@i uniqueidentifier,@name nvarchar(40),@sku nvarchar(40),@code nvarchar(40);
+DECLARE @bulk TABLE(n int PRIMARY KEY,ItemId uniqueidentifier);
+WHILE @n<=170
+BEGIN
+ SELECT @p=NEWID(),@i=NEWID(),@name=CONCAT(N'Lote ',RIGHT(CONCAT('000',@n),3)),@sku=CONCAT(N'T-LOT-',RIGHT(CONCAT('000',171-@n),3)),
+  @code=CONCAT(N'88',RIGHT(CONCAT('00000000000',@n),11));
+ SET @e=NEWID();EXEC catalog.usp_RegisterProduct @ProductId=@p,@Name=@name,@ActorId=@owner,@OriginNodeId=@node,@EventId=@e;
+ SET @e=NEWID();EXEC catalog.usp_RegisterItem @ProductId=@p,@Sku=@sku,@VariantName=@name,@CurrencyCode='NIO',@UnitPriceMinor=10000,
+  @UnitCostMinor=4000,@Barcode=@code,@ActorId=@owner,@ItemId=@i,@OriginNodeId=@node,@EventId=@e;
+ EXEC test.SeedStock @i,@loc,5;
+ INSERT @bulk VALUES(@n,@i);SET @n+=1;
+END;
+UPDATE m SET CreatedAt=DATEADD(day,-120,CONVERT(datetime2,@today)) FROM inventory.StockMovements m JOIN @bulk b ON b.ItemId=m.ItemId WHERE b.n>60;
+-- Before they sell, two products have positive sell-through: products at zero, by name, complete the list of 50.
+EXEC test.AssertKpiSameAsV030 @branch,@owner,@today,@new OUTPUT;
+SET @rows=(SELECT COUNT(*) FROM OPENJSON(@new,'$.sellThrough') WITH(bps bigint '$.sellThroughBps') WHERE bps=0);
+EXEC test.AssertEq N'sell-through rows at zero before the bulk sales (year)',48,@rows;
+-- Two 30-line sales: one at 06:00 (today's business day) and one 100 ns earlier (yesterday's).
+DECLARE @edge datetime2=DATEADD(hour,6,CONVERT(datetime2,@today)),@saleA uniqueidentifier=NEWID(),@saleB uniqueidentifier=NEWID();
+DELETE @lines;DELETE @tenders;
+INSERT @lines SELECT n,ItemId,1,10000,0 FROM @bulk WHERE n<=30;
+-- 30 lines of 10000 plus each item's tax, rounded per line as usp_PostSale does.
+DECLARE @paid bigint=(SELECT SUM(10000+CAST(ROUND(10000*i.TaxRateBps/10000.0,0) AS bigint)) FROM @bulk b JOIN catalog.Items i ON i.Id=b.ItemId WHERE b.n<=30);
+INSERT @tenders(TenderNumber,TenderKind,AmountMinor,ReceivedMinor,ChangeMinor) VALUES(1,'cash',@paid,@paid,0);
+EXEC sales.usp_PostSale @saleA,@branch,@loc,@cashier,'NIO',@node,@lines,@tenders,@TillId=@till;
+DELETE @lines;
+INSERT @lines SELECT n-30,ItemId,1,10000,0 FROM @bulk WHERE n BETWEEN 31 AND 60;
+EXEC sales.usp_PostSale @saleB,@branch,@loc,@cashier,'NIO',@node,@lines,@tenders,@TillId=@till;
+UPDATE sales.Sales SET CreatedAt=IIF(Id=@saleA,@edge,DATEADD(nanosecond,-100,@edge)) WHERE Id IN(@saleA,@saleB);
+EXEC test.AssertKpiSameAsV030 @branch,@owner,@today,@new OUTPUT;
+SET @rows=(SELECT COUNT(*) FROM OPENJSON(@new,'$.sellThrough'));EXEC test.AssertEq N'sell-through rows with 62 sold products (year)',50,@rows;
+SET @rows=(SELECT COUNT(*) FROM OPENJSON(@new,'$.staleItems'));EXEC test.AssertEq N'stale items with 110 tied (year)',100,@rows;
+SET @rows=(SELECT COUNT(*) FROM OPENJSON(@new,'$.staleItems') WITH(sku nvarchar(40)) WHERE sku LIKE N'T-LOT-%');
+EXEC test.AssertEq N'stale items from the tied group, cut by SKU',100,@rows;
 PRINT 'PASS';

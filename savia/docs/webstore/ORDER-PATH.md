@@ -86,7 +86,11 @@ A browser parameter such as `?status=paid` is never believed.
   The buyer sees instructions (`Savia:Payments:Manual:Instructions`); staff record the transfer on the staff screen.
 - A buyer who asks for `card` gets the registered card provider, or 409 `provider_unavailable` while none exists.
 - `FakeHostedGateway` lives in the test project only. It shows what BAC or Pagadito must do: keep state server-side and sign webhooks.
-- A payment that arrives after expiry sets `payment_review` and does not touch stock; a person decides.
+- A capture the order cannot take is recorded with its real amount and currency in `webstore.PaymentReviews` (V057), never refused.
+  - Reserved order, other amount or currency: `payment_review`; the reservation is released once.
+  - Expired or cancelled order: `payment_review`; stock does not change.
+  - Paid, shipped or already in review: the status stays; the second capture is flagged for review.
+- A person then marks the money refunded (order cancelled) or accepts it (order paid, stock reserved again or 51102).
 
 ## Expiry sweep
 
@@ -99,20 +103,22 @@ The first pass waits one interval, so a host that starts and stops at once never
 - On a branch: credit arrived releases.
 
 Every step is idempotent in SQL, so a retry or a second host cannot release twice.
-An order that cannot be settled (for example, a captured amount that differs from the order) is logged, stays reserved and is counted as kept.
+A capture for another amount or currency moves the order to `payment_review` and is counted as review.
+An order the pass cannot settle (a provider or database error) is logged, stays reserved and is counted as kept.
 The orders behind it still expire, and a failed consignment step does not stop expiry.
 A pass reads at most 50 due orders, oldest first, so 50 such stuck orders would hold back the rest until staff act on them.
 
 ## Staff screen (W5)
 
 Menu "Administración → Pedidos web" (`#/pedidos-web`), for `MANAGER` and `OWNER`, shown only on the hub.
-It lists up to 500 orders by status (unpaid, to send, late payment, all) with contact, address, lines and source store.
+It lists up to 500 orders by status (unpaid, to send, payments to review, all) with contact, address, lines and source store.
 
 - Unpaid: "Registrar pago" with a reference (records the order total as a manual payment), or "Cancelar".
 - Paid: "Marcar enviado".
-- Late payment: no button; it needs a person.
+- Payment to review: the captured amount, currency and reason, then "Aceptar pago" (order paid, stock reserved again)
+  or "Marcar devuelto" with the refund reference (order cancelled).
 
-The routes behind it are `GET /api/v1/web-orders?status=` and `POST /api/v1/web-orders/{id}/manual-payment|fulfill|cancel`.
+The routes behind it are `GET /api/v1/web-orders?status=` and `POST /api/v1/web-orders/{id}/manual-payment|fulfill|cancel|accept-payment|mark-refunded`.
 
 ## Settings
 
@@ -135,6 +141,7 @@ The routes behind it are `GET /api/v1/web-orders?status=` and `POST /api/v1/web-
 | `V049__web_order.sql` | Shipping zones, order columns, `webstore.usp_CreateWebOrder`. |
 | `V050__web_order_expiry_payment.sql` | Expiry, cancel, verified payment and `payment_review`. |
 | `V051__web_order_reads.sql` | JSON reads for the catalog, one order, the staff list and due orders. |
+| `V057__web_payment_review.sql` | `webstore.PaymentReviews`, card capture into review, accept and mark-refunded. |
 
 No public SQL role exists: the public routes run as the API host login, like every other route.
 

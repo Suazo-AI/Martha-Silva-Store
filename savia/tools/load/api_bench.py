@@ -20,14 +20,15 @@ import tempfile
 import time
 import uuid
 
-if os.environ.get("SAVIA_SQL_CONTAINER") != "savia-sqlserver-load":
-    sys.exit("refusing to run: set SAVIA_SQL_CONTAINER=savia-sqlserver-load")
+# A load container only (savia-sqlserver-load, or a numbered one such as savia-sqlserver-load2 for a parallel run).
+if not re.fullmatch(r"savia-sqlserver-load\d*", os.environ.get("SAVIA_SQL_CONTAINER", "")):
+    sys.exit("refusing to run: set SAVIA_SQL_CONTAINER=savia-sqlserver-load (or savia-sqlserver-load<n>)")
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools" / "db"))
 import saviadb as d  # noqa: E402
 
 DB = "SAVIA_SIM_load_a"
-PORT = 5191
+PORT = int(os.environ.get("SAVIA_BENCH_API_PORT", "5191"))  # another port when two benches share the PC
 A = {"branch": "A0000000-0000-0000-0000-00000000000A", "loc": "A0000000-0000-0000-0000-0000000000A1",
      "node": "A0000000-0000-0000-0000-0000000000A2", "register": "A0000000-0000-0000-0000-0000000000A3"}
 SUPPLIER = "00000000-0000-0000-0000-0000000050A1"
@@ -125,6 +126,13 @@ def page_through(api, name, first, res):
     print(f"{name:28} {res[name]}", flush=True)
 
 
+def other_containers_cpu():
+    """CPU % of every running container except the bench's own, e.g. {"savia-sqlserver-dev": "1.25%"}."""
+    code, out = d.docker(["stats", "--no-stream", "--format", "{{.Name}} {{.CPUPerc}}"])
+    pairs = [line.split() for line in out.splitlines() if line.strip()] if code == 0 else []
+    return {name: cpu for name, cpu in pairs if name != d.CONTAINER}
+
+
 def dmv():
     rows = q(f"""SELECT CONCAT(OBJECT_SCHEMA_NAME(ps.object_id,ps.database_id),'.',OBJECT_NAME(ps.object_id,ps.database_id),'|',ps.execution_count,'|',
 ps.total_logical_reads,'|',ps.total_worker_time,'|',ps.total_elapsed_time,'|',ps.max_logical_reads)
@@ -150,7 +158,7 @@ def main():
     ap.add_argument("--n", type=int, default=200)
     ap.add_argument("--label", default="unconstrained")
     ap.add_argument("--reads-only", action="store_true")
-    ap.add_argument("--sections", default="lookup,search,receipt,reports,kpi,lists,writes",
+    ap.add_argument("--sections", default="lookup,search,receipt,reports,kpi,lists,writes,import",
                     help="comma list; results merge into --out under this --label")
     a = ap.parse_args()
     dn = os.environ.get("SAVIA_DOTNET") or "dotnet"
@@ -242,16 +250,21 @@ def main():
                 reqs.append(("POST", "/api/v1/sales", {"saleId": str(uuid.uuid4()), "tillId": till, "currencyCode": "NIO", "lines": lines,
                                                        "tenders": [{"tenderNumber": 1, "tenderKind": "card", "amountMinor": total}]}))
             measure(api, "checkout_post_sale", reqs, res, token=tok["t_cashier_a"], expect=(200, 201))
-            # --- catalog import 1,000 rows: preview then import, 3 batches of new products
+        if not a.reads_only and "import" in sec:
+            # --- catalog import 1,000 rows: preview then import, 3 batches of new products.
+            # The CPU of the other containers is kept with each commit: contention, not the code, slowed earlier runs.
             for b in range(3):
                 rows = [{"row": r + 2, "code": ean13(f"75{b}{r:09d}"), "sku": f"IMP{b}-{r:05d}", "name": f"Import Prueba {b} {r}",
                          "type": "Blusa", "size": "M", "color": "Negro", "cost": "150", "price": "350", "stock": "2"} for r in range(1000)]
                 body = {"batchId": str(uuid.uuid4()), "fileName": f"load-{b}.csv", "rows": rows}
                 for kind, path in (("preview", "/api/v1/catalog/import/preview"), ("import", "/api/v1/catalog/import")):
+                    others = other_containers_cpu()
                     s, raw, ms = api.call("POST", path, body, tok["t_manager"])
                     res.setdefault(f"import_1000_{kind}", []).append({"status": s, "ms": round(ms), "bytes": len(raw),
-                                                                       "body": raw[:160].decode("utf-8", "replace") if s != 200 else None})
+                                                                       "body": raw[:160].decode("utf-8", "replace") if s != 200 else None,
+                                                                       "other_containers_cpu": others})
                 print("import batch", b, res["import_1000_preview"][-1], res["import_1000_import"][-1], flush=True)
+        if not a.reads_only and "writes" in sec:
             # --- receiving: one session, 100 scans of one code
             cont, sess = str(uuid.uuid4()), str(uuid.uuid4())
             s, raw, _ = api.call("POST", "/api/v1/receiving/sessions", {"containerId": cont, "scanSessionId": sess,

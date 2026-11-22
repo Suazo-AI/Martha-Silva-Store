@@ -1,0 +1,13 @@
+import batch 0 {'status': 200, 'ms': 1589, 'bytes': 3474, 'body': None, 'other_containers_cpu': {'savia-sqlserver-dev': '88.36%'}} {'status': 200, 'ms': 6976, 'bytes': 167, 'body': None, 'other_containers_cpu': {'savia-sqlserver-dev': '95.94%'}}
+import batch 1 {'status': 200, 'ms': 124, 'bytes': 3474, 'body': None, 'other_containers_cpu': {'savia-sqlserver-dev': '99.83%'}} {'status': 200, 'ms': 2148, 'bytes': 167, 'body': None, 'other_containers_cpu': {'savia-sqlserver-dev': '144.18%'}}
+import batch 2 {'status': 200, 'ms': 149, 'bytes': 3474, 'body': None, 'other_containers_cpu': {'savia-sqlserver-dev': '17.36%'}} {'status': 200, 'ms': 6613, 'bytes': 167, 'body': None, 'other_containers_cpu': {'savia-sqlserver-dev': '54.54%'}}
+  catalog.usp_ImportCatalog                     exec=    6 reads=  182,843 cpu= 1619.1ms elapsed=2558.2ms
+  sync.usp_EnqueueEvent                         exec= 6003 reads=       31 cpu=    0.2ms elapsed=0.2ms
+  adhoc 3|83582|1016|-- savia:transactional -- V059 (P1, money-and-speed 2026-11-22): the catalog import commit writes in sets. --
+  adhoc 3|64851|365|-- savia:transactional -- V059 (P1, money-and-speed 2026-11-22): the catalog import commit writes in sets. --
+  adhoc 3|40128|397|-- savia:transactional -- V059 (P1, money-and-speed 2026-11-22): the catalog import commit writes in sets. --
+  adhoc 6|17524|28|-- savia:transactional -- V059 (P1, money-and-speed 2026-11-22): the catalog import commit writes in sets. --
+  adhoc 3|30857|474|-- savia:transactional -- V059 (P1, money-and-speed 2026-11-22): the catalog import commit writes in sets. --
+  adhoc 3|26835|205| -- Every writer of items, product names and codes (procedures, import, fixtures, direct inserts) keeps the ta
+  adhoc 3|23211|117| CREATE   TRIGGER catalog.tr_ItemIdentifiers_Search ON catalog.ItemIdentifiers AFTER INSERT,UPDATE,DELETE AS B
+  adhoc 6003|10|0| /* ==============================================================    SYNC: cola persistente con rutas por nod

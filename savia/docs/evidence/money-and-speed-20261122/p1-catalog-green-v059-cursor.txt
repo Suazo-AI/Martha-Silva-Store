@@ -1,0 +1,12 @@
+PASS    catalog/110_register_item_normal_and_retry.sql
+PASS    catalog/111_register_item_errors.sql
+PASS    catalog/120_change_price_normal_and_retry.sql
+PASS    catalog/121_change_price_errors.sql
+PASS    catalog/130_activate_item_normal_and_retry.sql
+PASS    catalog/131_activate_item_errors.sql
+PASS    catalog/140_lookup_by_scan.sql
+PASS    catalog/141_register_item_duplicate_sku.sql
+PASS    catalog/142_activate_item_price_history.sql
+PASS    catalog/150_import_catalog.sql
+PASS    catalog/155_import_commit_equals_v039.sql
+SUMMARY PASS=13  logs: .out\dbtests

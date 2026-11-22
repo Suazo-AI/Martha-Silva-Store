@@ -15,8 +15,9 @@ import re
 import sys
 import xml.etree.ElementTree as ET
 
-if os.environ.get("SAVIA_SQL_CONTAINER") != "savia-sqlserver-load":
-    sys.exit("refusing to run: set SAVIA_SQL_CONTAINER=savia-sqlserver-load")
+# A load container only (savia-sqlserver-load, or a numbered one such as savia-sqlserver-load2 for a parallel run).
+if not re.fullmatch(r"savia-sqlserver-load\d*", os.environ.get("SAVIA_SQL_CONTAINER", "")):
+    sys.exit("refusing to run: set SAVIA_SQL_CONTAINER=savia-sqlserver-load (or savia-sqlserver-load<n>)")
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1] / "db"))
 import saviadb as d  # noqa: E402
 

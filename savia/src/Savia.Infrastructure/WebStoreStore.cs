@@ -44,6 +44,23 @@ public sealed class WebStoreStore(SqlGateway sql) : IWebStoreStore
             P("@CurrencyCode", payment.Currency), P("@VerifiedByTrustedService", true), P("@OriginNodeId", originNode),
             P("@EventId", Guid.NewGuid()), P("@ActorId", actor));
 
+    public async Task<CaptureOutcome> RecordCaptureAsync(VerifiedPayment payment, Guid paymentId, Guid originNode, CancellationToken ct)
+    {
+        var outcome = await sql.QueryProcAsync("webstore.usp_RecordCapturedPayment", r => r.GetString(0), ct, P("@PaymentId", paymentId),
+            P("@OrderId", payment.OrderId), P("@Provider", payment.Provider), P("@ExternalPaymentId", payment.ExternalPaymentId),
+            P("@AmountMinor", payment.AmountMinor), P("@CurrencyCode", payment.Currency), P("@OriginNodeId", originNode),
+            P("@EventId", Guid.NewGuid()));
+        return Enum.Parse<CaptureOutcome>(outcome.Single(), ignoreCase: true);
+    }
+
+    public Task RefundReviewAsync(Guid orderId, string reference, Guid actor, CancellationToken ct) =>
+        sql.ExecProcAsync("webstore.usp_RefundPaymentReview", ct, P("@OrderId", orderId), P("@RefundReference", reference),
+            P("@ActorId", actor));
+
+    public Task AcceptReviewAsync(Guid orderId, Guid originNode, Guid actor, CancellationToken ct) =>
+        sql.ExecProcAsync("webstore.usp_AcceptPaymentReview", ct, P("@OrderId", orderId), P("@OriginNodeId", originNode),
+            P("@EventId", Guid.NewGuid()), P("@ActorId", actor));
+
     public Task CancelAsync(Guid orderId, Guid actor, CancellationToken ct) =>
         sql.ExecProcAsync("webstore.usp_CancelWebOrder", ct, P("@OrderId", orderId), P("@ActorId", actor));
 

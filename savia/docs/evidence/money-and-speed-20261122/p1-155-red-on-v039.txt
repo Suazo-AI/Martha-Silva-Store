@@ -1,0 +1,8 @@
+# saviadb.py test 155_import on V001..V058 (catalog.usp_ImportCatalog = V039), container savia-sqlserver-load2
+FAIL    catalog/155_import_commit_equals_v039.sql  -- ASSERT FAIL: commit calls no per-row procedure expected=0 actual=3
+Warning: Null value is eliminated by an aggregate or other SET operation.
+CheckName                                                    KeyText                                                                                                                                                                                                  Expected             Actual           
+Warning: Null value is eliminated by an aggregate or other SET operation.
+CheckName                                                    KeyText                                                                                                                                                                                                  Expected             Actual           
+Msg 59001, Level 16, State 1, Server f1691791405d, Procedure test.AssertEq, Line 7
+ASSERT FAIL: commit calls no per-row procedure expected=0 actual=3

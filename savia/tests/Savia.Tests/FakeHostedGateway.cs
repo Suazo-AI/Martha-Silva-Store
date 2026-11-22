@@ -37,9 +37,16 @@ public sealed class FakeHostedGateway : IPaymentProvider
     /// <summary>The bank charged the card: only now does a server-side lookup answer Captured.</summary>
     public void Capture(Guid orderId) => charges[orderId] = charges[orderId] with { PaymentId = "fake-" + orderId.ToString("N")[..12] };
 
-    /// <summary>The bank charged a different amount, so the hub must refuse to record it.</summary>
+    /// <summary>The bank charged a different amount: the hub records it for review and never marks the order paid.</summary>
     public void CaptureWrongAmount(Guid orderId) =>
         charges[orderId] = charges[orderId] with { AmountMinor = charges[orderId].AmountMinor + 1, PaymentId = "fake-" + orderId.ToString("N")[..12] };
+
+    /// <summary>The bank charged the order total but in dollars.</summary>
+    public void CaptureInDollars(Guid orderId) =>
+        charges[orderId] = charges[orderId] with { Currency = "USD", PaymentId = "fake-" + orderId.ToString("N")[..12] };
+
+    /// <summary>The bank charged the same order a second time, under a new payment id.</summary>
+    public void CaptureAgain(Guid orderId) => charges[orderId] = charges[orderId] with { PaymentId = "fake2-" + orderId.ToString("N")[..12] };
 
     public Task<PaymentResult> ConfirmReturnAsync(HttpRequest request, CancellationToken ct) =>
         Task.FromResult(sessions.TryGetValue(request.Query["session"].ToString(), out var order)

@@ -64,7 +64,7 @@ public static class WebStoreHosting
         app.UseWhen(http => http.Request.Path.StartsWithSegments(PublicEndpoints.Prefix), branch => branch.UseCors(CorsPolicy));
 }
 
-public sealed record SweepResult(int Paid, int Expired, int Skipped);
+public sealed record SweepResult(int Paid, int Expired, int Skipped, int Review);
 
 /// <summary>
 /// One pass of the web-order jobs. The hub credits arrived consignments, then settles each reservation past its expiry:
@@ -78,7 +78,7 @@ public sealed class WebStoreSweep(WebStoreService web, PaymentProviders provider
         if (node.Kind == NodeKind.Branch)
         {
             await web.ApplyReleasesAsync(ct);
-            return new SweepResult(0, 0, 0);
+            return new SweepResult(0, 0, 0, 0);
         }
         try
         {
@@ -89,7 +89,7 @@ public sealed class WebStoreSweep(WebStoreService web, PaymentProviders provider
             // A bad consignment must not hold back expiry: reserved stock would stay locked behind it.
             log.LogWarning("Web consignments not applied this pass: {Error}", ex.Message);
         }
-        int paid = 0, expired = 0, skipped = 0;
+        int paid = 0, expired = 0, skipped = 0, review = 0;
         foreach (var due in await web.DueOrdersAsync(ct))
         {
             try
@@ -99,20 +99,21 @@ public sealed class WebStoreSweep(WebStoreService web, PaymentProviders provider
                     case Outcome.Paid: paid++; break;
                     case Outcome.Expired: expired++; break;
                     case Outcome.Kept: skipped++; break;
+                    case Outcome.Review: review++; break;
                 }
             }
             catch (Exception ex) when (!ct.IsCancellationRequested)
             {
-                // One order that cannot be settled (a payment for another amount, say) stays reserved for a person;
+                // One order that cannot be settled (a provider or database error, say) stays reserved for the next pass;
                 // the orders behind it must still expire and free their stock.
                 log.LogWarning("Due web order {Order} not settled: {Error}", due.OrderId, ex.Message);
                 skipped++;
             }
         }
-        return new SweepResult(paid, expired, skipped);
+        return new SweepResult(paid, expired, skipped, review);
     }
 
-    private enum Outcome { None, Paid, Expired, Kept }
+    private enum Outcome { None, Paid, Expired, Kept, Review }
 
     private async Task<Outcome> SettleAsync(DueWebOrder due, CancellationToken ct)
     {
@@ -120,8 +121,12 @@ public sealed class WebStoreSweep(WebStoreService web, PaymentProviders provider
         var result = provider is null ? null : await provider.QueryAsync(due.OrderId, null, ct);
         if (provider is not null && result is not null && PaymentProviders.Verified(provider, result, due.OrderId) is { } payment)
         {
-            await web.RecordVerifiedPaymentAsync(payment, ct);
-            return Outcome.Paid;
+            return await web.RecordVerifiedPaymentAsync(payment, ct) switch
+            {
+                CaptureOutcome.Paid => Outcome.Paid,
+                CaptureOutcome.Review => Outcome.Review,
+                _ => Outcome.None,
+            };
         }
         if (result?.Status == PaymentStatus.Unknown)
         {
@@ -147,8 +152,9 @@ public sealed class WebStoreWorker(WebStoreSweep sweep, IConfiguration config, I
             try
             {
                 var result = await sweep.RunOnceAsync(stoppingToken);
-                if (result != new SweepResult(0, 0, 0))
-                    log.LogInformation("Web orders: {Paid} paid, {Expired} expired, {Skipped} kept.", result.Paid, result.Expired, result.Skipped);
+                if (result != new SweepResult(0, 0, 0, 0))
+                    log.LogInformation("Web orders: {Paid} paid, {Expired} expired, {Skipped} kept, {Review} to review.",
+                        result.Paid, result.Expired, result.Skipped, result.Review);
             }
             catch (Exception ex) when (!stoppingToken.IsCancellationRequested)
             {

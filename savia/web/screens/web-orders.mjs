@@ -3,7 +3,16 @@ import { confirmAction } from '../confirm.mjs';
 import { formatMoney } from '../money.mjs';
 import { h, replace, showError } from '../ui.mjs';
 import { saleDate } from './sale-view.mjs';
-import { FILTERS, linesText, manualPayment, orderActions, statusLabel } from './web-orders-logic.mjs';
+import {
+  FILTERS,
+  linesText,
+  manualPayment,
+  orderActions,
+  paymentsText,
+  refundReview,
+  reviewPath,
+  statusLabel,
+} from './web-orders-logic.mjs';
 
 export default {
   title: 'Pedidos web',
@@ -35,6 +44,11 @@ export default {
         'aria-label': `Referencia del pago · ${order.code}`,
         maxlength: 160,
         placeholder: 'Referencia del pago',
+      });
+      const refundReference = h('input', {
+        'aria-label': `Referencia de la devolución · ${order.code}`,
+        maxlength: 160,
+        placeholder: 'Referencia de la devolución',
       });
       const buttons = {
         pay: h(
@@ -77,6 +91,38 @@ export default {
           },
           'Marcar enviado',
         ),
+        accept: h(
+          'button',
+          {
+            type: 'button',
+            onclick: e =>
+              act(e.target, `Se aceptará el pago del pedido ${order.code}: queda pagado y vuelve a reservar su mercadería.`, () =>
+                api.request('POST', reviewPath(order.id, 'accept-payment')),
+              ),
+          },
+          'Aceptar pago',
+        ),
+        refund: h(
+          'button',
+          {
+            type: 'button',
+            class: 'secondary',
+            onclick: e => {
+              const refund = refundReview(refundReference.value);
+              if (refund.error) {
+                status.textContent = refund.error;
+                refundReference.focus();
+                return;
+              }
+              return act(
+                e.target,
+                `Se registrará que el dinero en revisión del pedido ${order.code} se devolvió con la referencia ${refund.body.reference}.`,
+                () => api.request('POST', reviewPath(order.id, 'mark-refunded'), refund.body),
+              );
+            },
+          },
+          'Marcar devuelto',
+        ),
       };
       const chosen = orderActions(order);
       return chosen.length
@@ -84,6 +130,7 @@ export default {
             'div',
             { class: 'actions' },
             chosen.includes('pay') ? reference : null,
+            chosen.includes('refund') ? refundReference : null,
             chosen.map(a => buttons[a]),
           )
         : null;
@@ -99,6 +146,7 @@ export default {
           {},
           `${formatMoney(order.totalMinor, order.currency)} · envío ${formatMoney(order.shippingMinor, order.currency)} · ${order.provider ?? ''}`,
         ),
+        paymentsText(order).map(line => h('p', {}, line)),
         h('p', {}, linesText(order)),
         h('p', {}, [order.name, order.phone, order.email].filter(Boolean).join(' · ')),
         h('p', {}, [order.address, order.city, order.zone].filter(Boolean).join(' · ')),

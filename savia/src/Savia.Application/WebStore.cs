@@ -22,6 +22,9 @@ public sealed record DueWebOrder(Guid OrderId, string? Provider, long TotalMinor
 /// <summary>A payment a provider confirmed server-side, or staff checked by hand. Nothing else may build one.</summary>
 public sealed record VerifiedPayment(Guid OrderId, string Provider, string ExternalPaymentId, long AmountMinor, string Currency);
 
+/// <summary>What usp_RecordCapturedPayment did: paid the order, held the money for staff review, or saw the capture before.</summary>
+public enum CaptureOutcome { Paid, Review, Repeat }
+
 public interface IWebStoreStore
 {
     Task<PublicCatalogItem[]> CatalogAsync(CancellationToken ct);
@@ -31,6 +34,9 @@ public interface IWebStoreStore
     Task<DueWebOrder[]> DueOrdersAsync(CancellationToken ct);
     Task<bool> ExpireAsync(Guid orderId, CancellationToken ct);
     Task RecordPaymentAsync(VerifiedPayment payment, Guid paymentId, Guid originNode, Guid? actor, CancellationToken ct);
+    Task<CaptureOutcome> RecordCaptureAsync(VerifiedPayment payment, Guid paymentId, Guid originNode, CancellationToken ct);
+    Task RefundReviewAsync(Guid orderId, string reference, Guid actor, CancellationToken ct);
+    Task AcceptReviewAsync(Guid orderId, Guid originNode, Guid actor, CancellationToken ct);
     Task CancelAsync(Guid orderId, Guid actor, CancellationToken ct);
     Task FulfillAsync(Guid orderId, Guid originNode, Guid actor, CancellationToken ct);
     Task ConsignAsync(WebConsignmentRequest request, Guid actor, CancellationToken ct);
@@ -109,11 +115,15 @@ public sealed class WebStoreService(IWebStoreStore store, NodeContext node)
         return store.ExpireAsync(orderId, ct);
     }
 
-    /// <summary>Records a provider-confirmed payment. The payment id comes from the provider's id, so a repeat is a no-op.</summary>
-    public Task RecordVerifiedPaymentAsync(VerifiedPayment payment, CancellationToken ct)
+    /// <summary>
+    /// Records a provider-confirmed capture. One that does not match its reserved order is still recorded, for staff review,
+    /// because the bank already holds the buyer's money. The payment id comes from the provider's id, so a repeat is a no-op.
+    /// </summary>
+    public Task<CaptureOutcome> RecordVerifiedPaymentAsync(VerifiedPayment payment, CancellationToken ct)
     {
         Guard.Kind(node, NodeKind.Cloud);
-        return store.RecordPaymentAsync(payment, WebOrderKeys.PaymentId(payment.Provider, payment.ExternalPaymentId), node.NodeId, null, ct);
+        var captured = payment with { Currency = payment.Currency.ToUpperInvariant() };
+        return store.RecordCaptureAsync(captured, WebOrderKeys.PaymentId(captured.Provider, captured.ExternalPaymentId), node.NodeId, ct);
     }
 
     public Task ApplyConsignmentsAsync(CancellationToken ct)
@@ -148,6 +158,22 @@ public sealed class WebStoreService(IWebStoreStore store, NodeContext node)
         var payment = new VerifiedPayment(orderId, ManualProviderCode, Text(request.Reference, "reference", 160), request.AmountMinor, currency);
         return store.RecordPaymentAsync(payment, WebOrderKeys.PaymentId(payment.Provider, payment.ExternalPaymentId), node.NodeId,
             actor.StaffId, ct);
+    }
+
+    /// <summary>Staff gave the reviewed money back outside SAVIA. The reference and the staff id are the audit trail.</summary>
+    public Task RefundReviewAsync(Actor actor, Guid orderId, RefundReviewRequest request, CancellationToken ct)
+    {
+        Guard.Kind(node, NodeKind.Cloud);
+        Guard.Role(actor, Roles.Approvers);
+        return store.RefundReviewAsync(orderId, Text(request.Reference, "reference", 160), actor.StaffId, ct);
+    }
+
+    /// <summary>Staff keeps a reviewed payment that covers the order exactly; the order is paid if its stock is still free.</summary>
+    public Task AcceptReviewAsync(Actor actor, Guid orderId, CancellationToken ct)
+    {
+        Guard.Kind(node, NodeKind.Cloud);
+        Guard.Role(actor, Roles.Approvers);
+        return store.AcceptReviewAsync(orderId, node.NodeId, actor.StaffId, ct);
     }
 
     public Task FulfillAsync(Actor actor, Guid orderId, CancellationToken ct)

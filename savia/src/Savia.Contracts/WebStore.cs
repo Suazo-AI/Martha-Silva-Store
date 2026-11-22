@@ -42,4 +42,11 @@ public sealed record WebReleaseRequest(Guid ReleaseId, Guid ItemId, Guid ToLocat
 
 public sealed record WebOrderRow(Guid Id, string Code, string Status, long TotalMinor, long ShippingMinor, string Currency,
     DateTimeOffset CreatedAt, DateTimeOffset? ExpiresAt, string? Provider, string? Zone, string Name, string Email, string? Phone,
-    string City, string Address, string? Notes, string? SourceStore, PublicOrderLine[] Lines);
+    string City, string Address, string? Notes, string? SourceStore, PublicOrderLine[] Lines, WebOrderPayment[]? Payments = null,
+    bool NeedsReview = false);
+
+/// <summary>Money recorded against a web order. <c>Review</c> names why staff must look at it while that is still open.</summary>
+public sealed record WebOrderPayment(long AmountMinor, string Currency, string Provider, string Status, string? Review);
+
+/// <summary>Staff gave the money back outside SAVIA; the reference is the bank's refund or reversal number.</summary>
+public sealed record RefundReviewRequest(string Reference);

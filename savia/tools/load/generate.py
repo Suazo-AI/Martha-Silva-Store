@@ -17,12 +17,13 @@ receipts that satisfy audit.usp_CheckConservation. Sales, tills, cash counts and
 import argparse
 import os
 import pathlib
+import re
 import sys
 import time
 
-REQUIRED = "savia-sqlserver-load"
-if os.environ.get("SAVIA_SQL_CONTAINER") != REQUIRED:
-    sys.exit(f"refusing to run: set SAVIA_SQL_CONTAINER={REQUIRED} (this script drops and creates databases)")
+# A load container only (savia-sqlserver-load, or a numbered one such as savia-sqlserver-load2 for a parallel run).
+if not re.fullmatch(r"savia-sqlserver-load\d*", os.environ.get("SAVIA_SQL_CONTAINER", "")):
+    sys.exit("refusing to run: set SAVIA_SQL_CONTAINER=savia-sqlserver-load or -load<n> (this script drops and creates databases)")
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1] / "db"))
 import saviadb as d  # noqa: E402
 

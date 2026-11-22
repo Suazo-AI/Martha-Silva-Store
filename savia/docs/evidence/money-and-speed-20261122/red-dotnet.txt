@@ -1,0 +1,27 @@
+[xUnit.net 00:00:09.24]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:09.24]       Expected: Tuple ("payment_review", 0)
+[xUnit.net 00:00:09.24]       Actual:   Tuple ("reserved", 1)
+  Failed Savia.Tests.WebOrderVerticalSlicePaymentReviewTests.Return_with_a_capture_in_another_currency_is_recorded_for_review [756 ms]
+   Assert.Equal() Failure: Values differ
+Expected: Tuple ("payment_review", 0)
+Actual:   Tuple ("reserved", 1)
+[xUnit.net 00:00:09.27]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:09.27]       Expected: SweepResult { Paid = 0, Expired = 1, Skipped = 0, Review = 1 }
+[xUnit.net 00:00:09.27]       Actual:   SweepResult { Paid = 0, Expired = 1, Skipped = 1, Review = 0 }
+  Failed Savia.Tests.WebOrderVerticalSliceTests.Sweep_sends_a_capture_for_another_amount_to_review_and_still_expires_the_rest [837 ms]
+   Assert.Equal() Failure: Values differ
+Expected: SweepResult { Paid = 0, Expired = 1, Skipped = 0, Review = 1 }
+Actual:   SweepResult { Paid = 0, Expired = 1, Skipped = 1, Review = 0 }
+[xUnit.net 00:00:16.88]         TestSupport.cs(184,0): at Savia.Tests.HttpAssert.OkAsync(HttpResponseMessage response)
+  Failed Savia.Tests.WebOrderVerticalSlicePaymentReviewTests.Webhook_for_another_amount_goes_to_review_and_a_manager_marks_it_refunded [362 ms]
+  Passed Savia.Tests.WebOrderVerticalSliceTests.Sweep_expires_a_due_order_once_and_records_a_payment_the_buyer_never_returned_from [544 ms]
+[xUnit.net 00:00:26.28]         TestSupport.cs(184,0): at Savia.Tests.HttpAssert.OkAsync(HttpResponseMessage response)
+  Failed Savia.Tests.WebOrderVerticalSlicePaymentReviewTests.Second_capture_on_a_paid_order_is_flagged_without_touching_stock [274 ms]
+[xUnit.net 00:00:39.54]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:39.54]       Expected: "late"
+[xUnit.net 00:00:39.54]       Actual:   null
+  Failed Savia.Tests.WebOrderVerticalSlicePaymentReviewTests.Capture_after_expiry_goes_to_review_and_a_manager_accepts_it_while_stock_lasts [1 s]
+   Assert.Equal() Failure: Strings differ
+Expected: "late"
+Actual:   null
+Total tests: 6
