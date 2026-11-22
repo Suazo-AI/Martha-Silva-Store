@@ -12,8 +12,8 @@ States: `verified`, `running`, `pending`, `blocked (input)`.
 
 | ID | Check | Pass condition | State |
 | --- | --- | --- | --- |
-| H1 | Hub runs Tony HEAD on Azure | `/health/ready` 200; image tag equals the commit; ledger holds V001-V035; rollback revision named | verified 2026-11-22: revision `ca-savia-api--g11ef361-1` at 100%, image `savia-api:11ef3616`, job `caj-savia-migrate-9ob7dpw` applied V052-V059 (ledger through V059), rollback `ca-savia-api--g996465b-1`, copy `savia-premig-11ef3616-1` |
-| H2 | Restricted API identity runs sync on Azure SQL | a sync round as the managed identity returns 200 | pending: the migrator logged `API host permissions ensured for user id-savia-api-bukmlt`; a real round needs a node credential (S7). Without one, `POST /sync/v1/push` returns 401 |
+| H1 | Hub runs Tony HEAD on Azure | `/health/ready` 200; image tag equals the commit; ledger holds V001-V035; rollback revision named | verified 2026-11-22: revision `ca-savia-api--g6a962d5-1` at 100%, image `savia-api:6a962d55`, job `caj-savia-migrate-s39zgnj` applied V060-V061 (ledger through V061), rollback `ca-savia-api--g11ef361-1`, copy `savia-premig-6a962d55-1` |
+| H2 | Restricted API identity runs sync on Azure SQL | a sync round as the managed identity returns 200 | pending: needs the stores and one node credential in the hub database. Evidence so far: `sync.CurrentFork` ran on Azure SQL inside V036; the rehearsal runs all 9 scenarios as a login that is only in `savia_api_host` |
 | H3 | Telemetry reaches Application Insights | one request visible in the workspace | verified 2026-11-22: 18 `AppRequests` and 9 `AppDependencies` in `log-savia-bukmlt` within 30 minutes of the deploy |
 | S1 | Recovery lock (G6) | rehearsal `restore_sale_before_rebuild` PASS, not XFAIL | verified 2026-11-22 (V036, V052, V060): every write that moves stock or money is refused while recovering; the till shows tables done of total; rehearsal 9 of 9 PASS |
 | S2 | Recovered-sale outbox (G7) | simulator `restore` PASS | verified 2026-11-22 (V036): simulator `restore` PASS; [evidence](../../savia/docs/evidence/sync-correctness-20261122/README.md) |
@@ -39,7 +39,7 @@ States: `verified`, `running`, `pending`, `blocked (input)`.
 | W10 | Domain | custom domain with TLS | blocked (input): domain |
 | O1 | Backup and restore drill | a point-in-time restore of the hub reads back; a store restore passes the rehearsal | pending |
 | S9 | Catalog authoring on the hub (D-039) | import and item registration run on the hub without stock; a store cannot change catalog rows; stock enters by receiving | verified locally 2026-11-22 (V061): rehearsal `hub_catalog` PASS: the hub imports items with no stock, stores receive them, a store receives stock and sells, a store catalog write is refused with `catalog.managed_by_hub` |
-| O2 | Runbook | deploy, rollback, node provisioning, restore and incident steps in one document | pending |
+| O2 | Runbook | deploy, rollback, node provisioning, restore and incident steps in one document | written 2026-11-22: [RUNBOOK](../../savia/docs/deploy/RUNBOOK.md); deploy and rollback steps ran 7 times; provisioning, opening web orders and the restore drill have not run on Azure |
 
 ## Inputs only Jason or Martha can give
 
