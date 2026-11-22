@@ -1,0 +1,31 @@
+container savia-sqlserver-rehearsal: already running
+== restore_sale_before_rebuild (identity restricted)
+  [   0.0s] setup: 4 databases, node credentials, staff passwords, seed stock
+  [  23.5s] start hub and 3 store hosts
+  [  30.3s] open tills over HTTP
+  [  33.0s]   open till b {'status': 204, 'problem': ''}
+  [  34.8s]   open till c {'status': 204, 'problem': ''}
+  [  34.8s] first convergence
+  [  63.4s] backup A before its till opens; A opens a till and sells; hub has it
+  [  66.2s]   open till a {'status': 204, 'problem': ''}
+  [  67.6s]   sale r1 at a {'status': 200, 'problem': ''}
+  [  67.9s]   sale r2 at a {'status': 200, 'problem': ''}
+  [  67.9s] converge before restore
+  [  96.2s]   converge before restore: converged in 28.4s {'differing': []}
+  [  96.2s] A stopped, cut off and restored from the backup
+  [ 100.3s] restored A opens a new till and sells before its first rebuild
+  [ 100.4s]   old session token after the restore {'status': 401, 'problem': 'auth.required'}
+  [ 101.0s]   open till a {'status': 204, 'problem': ''}
+  [ 101.0s]   new till on the restored store {'ok': True}
+  [ 101.5s]   sale r3 at a {'status': 200, 'problem': ''}
+  [ 101.5s] link back: A's worker must rebuild
+  [ 107.6s]   A rebuild outcome {'red_line': 'Sync round refused: db.duplicate El registro ya existe.'}
+  [ 108.7s]   open tills on register A {'hub': [{'till': '4E570AE0-0000-4000-8000-0000000000A0', 'reg': 'A0000000-0000-0000-0000-0000000000A3', 'st': 'open'}], 'restored_a': [{'till': '4E570AE0-0000-4000-8000-0000000000A1', 'reg': 'A0000000-0000-0000-0000-0000000000A3', 'st': 'open'}]}
+  [ 111.3s]   rebuild pull reproduced in SQL {'error': "Msg 2601: Cannot insert duplicate key row in object 'sales.CashTills' with unique index 'UX_OpenTill_Register'. The duplicate key value is (a0000000-0000-0000-0000-0000000000a3)."}
+  [ 111.3s] converge after restore
+  [ 175.0s]   converge after restore: NOT converged in 63.6s {'differing': ['inventory.StockBalances', 'inventory.StockMovements', 'sales.CashEntries', 'sales.CashTills', 'sales.SaleLines', 'sales.SaleTenders', 'sales.Sales']}
+  [ 175.0s] checks
+  [ 192.1s]   failures outside the pinned red {'checks': []}
+   XFAIL in 193.1s  expected red: the rebuild of restored A fails every round (Sync round refused: db.duplicate El registro ya existe.); SQL: Msg 2601: Cannot insert duplicate key row in object 'sales.CashTills' with unique index 'UX_OpenTill_Register'. The duplicate key value is (a0000000-0000-0000-0000-0000000000a3).
+SUMMARY restore_sale_before_rebuild=XFAIL
+exit=0

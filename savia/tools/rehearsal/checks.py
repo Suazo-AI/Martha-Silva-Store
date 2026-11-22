@@ -61,6 +61,12 @@ def validate(m):
             errors.append(f"tills: unknown store {store}")
         for i, t in enumerate(till if isinstance(till, list) else [till]):
             guid(f"tills.{store}[{i}]", t)
+    for store, c in (m.get("closures") or {}).items():
+        if store not in STORES:
+            errors.append(f"closures: unknown store {store}")
+        guid(f"closures.{store}.cashCountId", c.get("cashCountId"))
+        guid(f"closures.{store}.usdCashCountId", c.get("usdCashCountId"))
+        guid(f"closures.{store}.closureId", c.get("closureId"))
     returns = {r.get("key"): r for r in m.get("returns", [])}
     groups = {}
     for s in m.get("sales", []):

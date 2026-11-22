@@ -168,8 +168,25 @@ public sealed class SyncWorkerTests
         Assert.Equal(0, idle.Pushed);
         await TestSql.AssertConservationAsync(f.CloudDb);
 
-        // Known finding (P9-SPEC, open question): sync.Outbox does not travel, so the sale the rebuild brings back has no
-        // sale_posted event on the branch. The oracle stays strict; this pins that exact gap and fails on any other one.
-        Assert.Equal([$"sale.outbox_event {lost.ToString().ToUpperInvariant()}"], await SyncFixture.ViolationsAsync(f.BranchDb));
+        // D-037: the sale the rebuild brought back is listed in sync.RecoveredSales and expects no new local event.
+        Assert.Equal(1, await f.CountAsync(f.BranchDb, $"SELECT COUNT(*) FROM sync.RecoveredSales WHERE SaleId='{lost}'"));
+        Assert.Empty(await SyncFixture.ViolationsAsync(f.BranchDb));
+    }
+
+    [Fact]
+    public async Task Restored_branch_the_hub_never_saw_refuses_sales_until_it_rebuilds()
+    {
+        // D-036: the lock is the branch's own. The hub has no cursor for it and plans only 'initial', yet the restored
+        // branch may not sell until a rebuild from the hub lands.
+        await using var f = await SyncFixture.CreateAsync();
+        await SyncFixture.ExecAsync(f.BranchDb, $"EXEC sync.usp_SetLocalNode @NodeId='{Ids.NodeA}';");
+        var backup = $"{f.BranchDb}.bak";
+        await SyncFixture.ExecAsync("master", $"BACKUP DATABASE [{f.BranchDb}] TO DISK=N'{backup}' WITH INIT, FORMAT, COPY_ONLY;");
+        await RestoreAsync(f.BranchDb, backup);
+
+        var refused = await Assert.ThrowsAsync<SqlException>(f.SellAsync);
+        Assert.Equal(51864, refused.Number);
+        Assert.True((await f.Round().RunOnceAsync(None)).Rebuilt);
+        Assert.Equal(1, await f.SaleCountAsync(f.BranchDb, await f.SellAsync()));
     }
 }

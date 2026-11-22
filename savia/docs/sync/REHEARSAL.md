@@ -56,7 +56,7 @@ On every node (hub, a, b, c):
 
 Across nodes:
 
-- R1: the 18 synced tables hash the same on all four databases;
+- R1: every synced table hashes the same on all four databases;
 - CONS: `audit.usp_CheckConservation` returns 0 rows on all four, except rows pinned in `conservation_allow` with a reason (a pinned row that disappears also fails, so pins cannot rot);
 - the controls listed below.
 

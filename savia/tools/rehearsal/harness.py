@@ -590,7 +590,7 @@ class Cluster:
         return False
 
     def converge(self, timeout=180, poll=2.0):
-        """Wait until the 18 synced tables hash the same on all four nodes. Returns (ok, seconds, differing tables)."""
+        """Wait until the 21 synced tables hash the same on all four nodes. Returns (ok, seconds, differing tables)."""
         from checks import r1
         t0 = time.time()
         diff = []

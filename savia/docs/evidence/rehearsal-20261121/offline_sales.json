@@ -5,126 +5,145 @@
  "identity": "restricted",
  "manifest": {
   "path": "tools/rehearsal/expected/offline_sales.json",
-  "sha256": "c73bcb3603305cd677d4b17853c8122b27850dc8d71c440441fc9cd8fd685d30"
+  "sha256": "2e09abfb28aecbb27c5e04faf08b5ee8a95ce79e6e7433e0743f4f609d9c60db"
  },
- "seconds_total": 92.8,
+ "seconds_total": 128.3,
  "phases": [
   {
    "phase": "setup: 4 databases, node credentials, staff passwords, seed stock",
-   "seconds": 47.0
+   "seconds": 66.4
   },
   {
    "phase": "start hub and 3 store hosts",
-   "seconds": 5.5
+   "seconds": 5.7
   },
   {
    "phase": "open tills over HTTP",
-   "seconds": 1.0
+   "seconds": 1.6
   },
   {
    "phase": "first convergence",
-   "seconds": 15.9
+   "seconds": 16.4
   },
   {
    "phase": "hub stopped; stores sell",
-   "seconds": 8.4
+   "seconds": 8.6
   },
   {
    "phase": "hub restarted",
-   "seconds": 1.4
+   "seconds": 1.5
   },
   {
    "phase": "converge after hub returns",
-   "seconds": 7.9
+   "seconds": 8.7
+  },
+  {
+   "phase": "C closes its till (HTTP); the closure travels with the closed till",
+   "seconds": 0.4
+  },
+  {
+   "phase": "converge the closed till",
+   "seconds": 10.8
   },
   {
    "phase": "checks",
-   "seconds": 4.6
+   "seconds": 7.3
   }
  ],
  "events": [
   {
-   "t": 52.8,
+   "t": 72.6,
    "event": "open till a",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 53.1,
+   "t": 73.3,
    "event": "open till b",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 53.4,
+   "t": 73.6,
    "event": "open till c",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 74.4,
+   "t": 95.6,
    "event": "store a worker while hub is down",
    "log": "could not reach the hub: An error occurred while sending the request."
   },
   {
-   "t": 75.5,
+   "t": 95.7,
    "event": "store b worker while hub is down",
    "log": "could not reach the hub: An error occurred while sending the request."
   },
   {
-   "t": 76.5,
+   "t": 97.2,
    "event": "store c worker while hub is down",
    "log": "could not reach the hub: An error occurred while sending the request."
   },
   {
-   "t": 76.8,
+   "t": 97.5,
    "event": "sale a1 at a",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 76.9,
+   "t": 97.5,
    "event": "sale a2 at a",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 77.0,
+   "t": 97.7,
    "event": "sale b1 at b",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 77.1,
+   "t": 97.8,
    "event": "sale b2 at b",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 77.3,
+   "t": 98.1,
    "event": "sale c1 at c",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 77.3,
+   "t": 98.1,
    "event": "sale c2 at c",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 77.8,
+   "t": 98.6,
    "event": "hub database holds none of the offline sales",
    "count": 0
   },
   {
-   "t": 87.0,
-   "event": "converge after hub returns: converged in 7.9s",
+   "t": 108.8,
+   "event": "converge after hub returns: converged in 8.7s",
+   "differing": []
+  },
+  {
+   "t": 109.2,
+   "event": "close till c",
+   "status": 200,
+   "problem": ""
+  },
+  {
+   "t": 120.0,
+   "event": "converge the closed till: converged in 10.8s",
    "differing": []
   }
  ],
  "checks": {
-  "passed": 61,
+  "passed": 62,
   "failed": 0,
   "failures": []
  },
@@ -187,11 +206,19 @@
   "PASS c: on hand at a",
   "PASS c: on hand at b",
   "PASS c: on hand at c",
-  "PASS R1: 18 synced tables identical on hub, a, b, c",
+  "PASS R1: 21 synced tables identical on hub, a, b, c",
   "PASS CONS: audit.usp_CheckConservation has 0 violations on 4 nodes",
-  "PASS sync converged"
+  "PASS sync converged",
+  "PASS control store C closes its till"
  ],
- "controls": [],
+ "controls": [
+  {
+   "control": "store C closes its till",
+   "ok": true,
+   "expected": "close ok",
+   "actual": true
+  }
+ ],
  "outcomes": {
   "a1": {
    "ok": true,
@@ -226,7 +253,7 @@
  },
  "sync_rounds_from_host_logs": {
   "a": {
-   "successful_rounds": 7,
+   "successful_rounds": 9,
    "rebuilt_rounds": 0,
    "not_successful": 1,
    "distinct_warnings": [
@@ -235,7 +262,7 @@
    "host_starts": 1
   },
   "b": {
-   "successful_rounds": 7,
+   "successful_rounds": 9,
    "rebuilt_rounds": 0,
    "not_successful": 1,
    "distinct_warnings": [
@@ -244,7 +271,7 @@
    "host_starts": 1
   },
   "c": {
-   "successful_rounds": 6,
+   "successful_rounds": 9,
    "rebuilt_rounds": 0,
    "not_successful": 1,
    "distinct_warnings": [
@@ -255,27 +282,27 @@
  },
  "hub_exchanges_seen_by_proxies": {
   "a": {
-   "/sync/v1/push/plan 200": 14,
-   "/sync/v1/state 200": 7,
-   "/sync/v1/pull 200": 7,
-   "/sync/v1/push 200": 7,
+   "/sync/v1/push/plan 200": 18,
+   "/sync/v1/state 200": 9,
+   "/sync/v1/pull 200": 9,
+   "/sync/v1/push 200": 9,
    "/sync/v1/push/plan hub_unreachable": 1
   },
   "b": {
-   "/sync/v1/push/plan 200": 14,
-   "/sync/v1/state 200": 7,
-   "/sync/v1/pull 200": 7,
-   "/sync/v1/push 200": 7,
+   "/sync/v1/push/plan 200": 18,
+   "/sync/v1/state 200": 9,
+   "/sync/v1/pull 200": 9,
+   "/sync/v1/push 200": 9,
    "/sync/v1/push/plan hub_unreachable": 1
   },
   "c": {
-   "/sync/v1/push/plan 200": 12,
-   "/sync/v1/state 200": 6,
-   "/sync/v1/pull 200": 6,
-   "/sync/v1/push 200": 6,
+   "/sync/v1/push/plan 200": 18,
+   "/sync/v1/state 200": 9,
+   "/sync/v1/pull 200": 9,
+   "/sync/v1/push 200": 9,
    "/sync/v1/push/plan hub_unreachable": 1
   }
  },
  "hub_rounds_log_errors": [],
- "host_logs": ".out/rehearsal/runs/20261121-232452-offline_sales"
+ "host_logs": ".out/rehearsal/runs/20261122-044405-offline_sales"
 }

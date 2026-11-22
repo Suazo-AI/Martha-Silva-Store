@@ -29,11 +29,18 @@ export function replace(el, ...children) {
   return el;
 }
 
+// A restored branch refuses sales, till openings and receiving until its rebuild lands (D-036).
+// The screen's own advice ("revise los datos") would send the cashier after a problem they cannot fix.
+const NEXT_STEP_BY_CODE = {
+  'sync.recovery_pending': 'Espere unos minutos y vuelva a intentar. Si sigue igual, avise a la gerente.',
+};
+
 /** Shows an ApiError (or any error) in a live region. Input fields are never cleared here. */
 export function showError(el, error, nextStep) {
   const message = error?.message || 'Ocurrió un error.';
   const parts = [message];
-  if (nextStep) parts.push(nextStep);
+  const step = NEXT_STEP_BY_CODE[error?.code] ?? nextStep;
+  if (step) parts.push(step);
   el.className = 'error';
   el.textContent = parts.join(' ');
   if (error?.code || error?.traceId) {

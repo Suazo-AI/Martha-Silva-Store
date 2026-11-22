@@ -1,0 +1,50 @@
+setup: 4 databases, tills open, 500 units per branch, credits ['35BF992D-C9E9-4616-A12E-7696A6CECC1B', 'E4B06CE6-0741-47A8-BCE4-2C8218072E8C'] (120000 each at A)
+  sync a->cloud [normal] sent=29 changed=29 skipped=0 plan={'initial': 18}
+  sync b->cloud [normal] sent=4 changed=4 skipped=0 plan={'initial': 18}
+  sync c->cloud [normal] sent=4 changed=4 skipped=0 plan={'initial': 18}
+  sync cloud->a [normal] sent=8 changed=8 skipped=0 plan={'initial': 18}
+  sync cloud->b [normal] sent=33 changed=33 skipped=0 plan={'initial': 18}
+  sync cloud->c [normal] sent=33 changed=33 skipped=0 plan={'initial': 18}
+scenario basic: one sale per branch, one credit transfer A->B, everything online
+  sync a->cloud [normal] sent=6 changed=6 skipped=0 plan={'incremental': 18}
+  sync b->cloud [normal] sent=6 changed=6 skipped=0 plan={'incremental': 18}
+  sync c->cloud [normal] sent=6 changed=6 skipped=0 plan={'incremental': 18}
+  sync cloud->a [normal] sent=12 changed=12 skipped=0 plan={'incremental': 18}
+  sync cloud->b [normal] sent=12 changed=12 skipped=0 plan={'incremental': 18}
+  sync cloud->c [normal] sent=12 changed=12 skipped=0 plan={'incremental': 18}
+  sync b->cloud [normal] sent=1 changed=1 skipped=0 plan={'incremental': 18}
+  sync cloud->a [normal] sent=1 changed=1 skipped=0 plan={'incremental': 18}
+  sync cloud->c [normal] sent=1 changed=1 skipped=0 plan={'incremental': 18}
+  sync cloud->a [normal] sent=1 changed=1 skipped=0 plan={'incremental': 18}
+  sync cloud->b [normal] sent=1 changed=1 skipped=0 plan={'incremental': 18}
+  sync cloud->c [normal] sent=1 changed=1 skipped=0 plan={'incremental': 18}
+  sync a->cloud [normal] sent=3 changed=3 skipped=0 plan={'incremental': 18}
+  sync cloud->b [normal] sent=3 changed=3 skipped=0 plan={'incremental': 18}
+  sync cloud->c [normal] sent=3 changed=3 skipped=0 plan={'incremental': 18}
+  sync b->cloud [normal] sent=3 changed=3 skipped=0 plan={'incremental': 18}
+  sync cloud->a [normal] sent=3 changed=3 skipped=0 plan={'incremental': 18}
+  sync cloud->c [normal] sent=3 changed=3 skipped=0 plan={'incremental': 18}
+converged in 2 rounds
+PASS branch C sees the transfer received
+PASS C sees A=70000 and B=50000
+PASS C closes its till
+  sync c->cloud [normal] sent=1 changed=1 skipped=0 plan={'incremental': 18}
+  sync cloud->a [normal] sent=1 changed=1 skipped=0 plan={'incremental': 18}
+  sync cloud->b [normal] sent=1 changed=1 skipped=0 plan={'incremental': 18}
+FAIL R1 replicas identical
+     sales.CashCounts key=('05B6E6E3-07D4-4EDC-9143-1193E6C3F339',) node=c: missing
+     sales.CashCountLines key=('025B413F-8A9A-421E-A648-A7DD06839EB9',) node=c: missing
+     sales.CashClosures key=('AFBD67F9-6196-49CF-A198-8AD9F06C144A',) node=c: missing
+FAIL CONS conservation on cloud
+     cash.till_status_vs_closure 78E51061-7311-48A3-82CE-6F447ED4D57B expected=1 actual=0
+     (1 violations)
+FAIL CONS conservation on a
+     cash.till_status_vs_closure 78E51061-7311-48A3-82CE-6F447ED4D57B expected=1 actual=0
+     (1 violations)
+FAIL CONS conservation on b
+     cash.till_status_vs_closure 78E51061-7311-48A3-82CE-6F447ED4D57B expected=1 actual=0
+     (1 violations)
+PASS CONS on c: 0 violations
+stats: pulls=84 rows_sent=192 rows_changed=192 sql_calls=371 ops={'ok_approve': 1, 'ok_close': 1, 'ok_dispatch': 1, 'ok_receive': 1, 'ok_request': 1, 'ok_sale': 3}
+RESULT FAIL (4): R1 replicas identical; CONS conservation on cloud; CONS conservation on a; CONS conservation on b
+elapsed 350s

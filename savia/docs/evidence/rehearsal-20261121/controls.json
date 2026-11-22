@@ -7,88 +7,88 @@
   "path": "tools/rehearsal/expected/controls.json",
   "sha256": "fbcf19f87f7947f6db5e5c58546f060b22d8dac92760c84801eade8065d38a3c"
  },
- "seconds_total": 69.1,
+ "seconds_total": 73.9,
  "phases": [
   {
    "phase": "setup: 4 databases, node credentials, staff passwords, seed stock",
-   "seconds": 14.5
+   "seconds": 15.2
   },
   {
    "phase": "start hub and 3 store hosts",
-   "seconds": 5.5
+   "seconds": 5.7
   },
   {
    "phase": "open tills over HTTP",
-   "seconds": 1.1
+   "seconds": 1.5
   },
   {
    "phase": "first convergence",
-   "seconds": 15.7
+   "seconds": 16.0
   },
   {
    "phase": "401: wrong node credentials",
-   "seconds": 0.0
+   "seconds": 0.1
   },
   {
    "phase": "51851: A's push rewritten so a sale row names store B",
-   "seconds": 3.2
+   "seconds": 2.8
   },
   {
    "phase": "converge after the refused push (the untampered retry)",
-   "seconds": 7.8
+   "seconds": 8.6
   },
   {
    "phase": "51854: A restored; the proxy hides 'recover' so A pushes without a rebuild token",
-   "seconds": 4.4
+   "seconds": 4.5
   },
   {
    "phase": "final convergence",
-   "seconds": 11.0
+   "seconds": 12.3
   },
   {
    "phase": "checks",
-   "seconds": 4.5
+   "seconds": 5.7
   }
  ],
  "events": [
   {
-   "t": 20.5,
+   "t": 21.6,
    "event": "open till a",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 20.8,
+   "t": 22.1,
    "event": "open till b",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 21.1,
+   "t": 22.4,
    "event": "open till c",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 37.0,
+   "t": 38.7,
    "event": "sale k1 at a",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 47.9,
-   "event": "converge after the refused push (the untampered retry): converged in 7.8s",
+   "t": 49.9,
+   "event": "converge after the refused push (the untampered retry): converged in 8.6s",
    "differing": []
   },
   {
-   "t": 52.2,
+   "t": 54.4,
    "event": "sale k2 at a",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 63.2,
-   "event": "final convergence: converged in 11.0s",
+   "t": 66.7,
+   "event": "final convergence: converged in 12.3s",
    "differing": []
   }
  ],
@@ -136,7 +136,7 @@
   "PASS c: on hand at a",
   "PASS c: on hand at b",
   "PASS c: on hand at c",
-  "PASS R1: 18 synced tables identical on hub, a, b, c",
+  "PASS R1: 21 synced tables identical on hub, a, b, c",
   "PASS CONS: audit.usp_CheckConservation has 0 violations on 4 nodes",
   "PASS sync converged",
   "PASS control 401 A real secret (positive control)",
@@ -205,11 +205,10 @@
  },
  "sync_rounds_from_host_logs": {
   "a": {
-   "successful_rounds": 8,
+   "successful_rounds": 9,
    "rebuilt_rounds": 1,
-   "not_successful": 2,
+   "not_successful": 1,
    "distinct_warnings": [
-    "Sync round could not reach the hub: An error occurred while sending the request.",
     "Sync round refused: sync.foreign_row El lote trae filas que pertenecen a otro nodo."
    ],
    "host_starts": 2
@@ -222,7 +221,7 @@
    "host_starts": 1
   },
   "c": {
-   "successful_rounds": 9,
+   "successful_rounds": 10,
    "rebuilt_rounds": 0,
    "not_successful": 0,
    "distinct_warnings": [],
@@ -234,10 +233,9 @@
    "/sync/v1/push/plan 200": 21,
    "/sync/v1/state 200": 11,
    "/sync/v1/pull 200": 11,
-   "/sync/v1/push 200": 8,
+   "/sync/v1/push 200": 9,
    "/sync/v1/push 403": 1,
-   "/sync/v1/push 409": 1,
-   "/sync/v1/push hub_unreachable": 1
+   "/sync/v1/push 409": 1
   },
   "b": {
    "/sync/v1/push/plan 200": 20,
@@ -246,12 +244,12 @@
    "/sync/v1/push 200": 10
   },
   "c": {
-   "/sync/v1/push/plan 200": 18,
-   "/sync/v1/state 200": 9,
-   "/sync/v1/pull 200": 9,
-   "/sync/v1/push 200": 9
+   "/sync/v1/push/plan 200": 20,
+   "/sync/v1/state 200": 10,
+   "/sync/v1/pull 200": 10,
+   "/sync/v1/push 200": 10
   }
  },
  "hub_rounds_log_errors": [],
- "host_logs": ".out/rehearsal/runs/20261121-233235-controls"
+ "host_logs": ".out/rehearsal/runs/20261122-045220-controls"
 }

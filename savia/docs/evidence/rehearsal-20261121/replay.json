@@ -7,39 +7,39 @@
   "path": "tools/rehearsal/expected/replay.json",
   "sha256": "06936c6d50d2ff6a8b4586860a2bff26e2d23487bbffa4e64ef0732a7afeab1e"
  },
- "seconds_total": 73.4,
+ "seconds_total": 77.4,
  "phases": [
   {
    "phase": "setup: 4 databases, node credentials, staff passwords, seed stock",
-   "seconds": 17.8
+   "seconds": 16.9
   },
   {
    "phase": "start hub and 3 store hosts",
-   "seconds": 5.6
+   "seconds": 6.1
   },
   {
    "phase": "open tills over HTTP",
-   "seconds": 1.1
+   "seconds": 1.8
   },
   {
    "phase": "first convergence",
-   "seconds": 16.0
+   "seconds": 16.1
   },
   {
    "phase": "A killed after the hub committed its push, before A hears the answer",
-   "seconds": 4.6
+   "seconds": 4.7
   },
   {
    "phase": "B killed after the hub answered a pull carrying ra2, before B applies it",
-   "seconds": 11.6
+   "seconds": 12.2
   },
   {
    "phase": "converge after restarts",
-   "seconds": 10.9
+   "seconds": 12.2
   },
   {
    "phase": "checks",
-   "seconds": 4.5
+   "seconds": 6.3
   }
  ],
  "events": [
@@ -50,60 +50,60 @@
    "problem": ""
   },
   {
-   "t": 24.2,
+   "t": 24.5,
    "event": "open till b",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 24.5,
+   "t": 24.8,
    "event": "open till c",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 40.7,
+   "t": 41.1,
    "event": "sale ra1 at a",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 43.3,
+   "t": 43.8,
    "event": "kill point reached",
    "fired": true,
    "hub_status": 200
   },
   {
-   "t": 43.6,
+   "t": 44.2,
    "event": "hub holds ra1 while A is dead",
    "count": 1
   },
   {
-   "t": 45.2,
+   "t": 45.7,
    "event": "sale ra2 at a",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 54.8,
+   "t": 55.8,
    "event": "kill point reached",
    "fired": true,
    "hub_status": 200
   },
   {
-   "t": 55.1,
+   "t": 56.2,
    "event": "B does not hold ra2 yet",
    "count": 0
   },
   {
-   "t": 56.6,
+   "t": 57.8,
    "event": "sale rc1 at c",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 67.5,
-   "event": "converge after restarts: converged in 10.9s",
+   "t": 70.0,
+   "event": "converge after restarts: converged in 12.2s",
    "differing": []
   }
  ],
@@ -156,7 +156,7 @@
   "PASS c: on hand at a",
   "PASS c: on hand at b",
   "PASS c: on hand at c",
-  "PASS R1: 18 synced tables identical on hub, a, b, c",
+  "PASS R1: 21 synced tables identical on hub, a, b, c",
   "PASS CONS: audit.usp_CheckConservation has 0 violations on 4 nodes",
   "PASS sync converged"
  ],
@@ -187,12 +187,10 @@
    "host_starts": 2
   },
   "b": {
-   "successful_rounds": 9,
+   "successful_rounds": 10,
    "rebuilt_rounds": 0,
-   "not_successful": 1,
-   "distinct_warnings": [
-    "Sync round could not reach the hub: An error occurred while sending the request."
-   ],
+   "not_successful": 0,
+   "distinct_warnings": [],
    "host_starts": 2
   },
   "c": {
@@ -212,12 +210,11 @@
    "/sync/v1/push answer_dropped": 1
   },
   "b": {
-   "/sync/v1/push/plan 200": 20,
+   "/sync/v1/push/plan 200": 21,
    "/sync/v1/state 200": 11,
-   "/sync/v1/pull 200": 10,
-   "/sync/v1/push 200": 9,
-   "/sync/v1/pull answer_dropped": 1,
-   "/sync/v1/pull hub_unreachable": 1
+   "/sync/v1/pull 200": 11,
+   "/sync/v1/push 200": 10,
+   "/sync/v1/pull answer_dropped": 1
   },
   "c": {
    "/sync/v1/push/plan 200": 20,
@@ -227,5 +224,5 @@
   }
  },
  "hub_rounds_log_errors": [],
- "host_logs": ".out/rehearsal/runs/20261121-232624-replay"
+ "host_logs": ".out/rehearsal/runs/20261122-044613-replay"
 }

@@ -1,4 +1,4 @@
--- TEST: an amount in transit is spendable nowhere: A keeps only its free part, B cannot redeem before receipt; the credit stays active while money is in transit even if A spends all it has, and after receipt B spends it and the credit is exhausted.
+-- TEST: an amount in transit is spendable nowhere: A keeps only its free part, B cannot redeem before receipt; the credit stays active while money is in transit even if A spends all it has, and after receipt B spends it and the derived status is exhausted (D-038).
 -- FIXED (V009): rewritten for the transition procedures; the legacy procedure now throws 51719.
 SET NOCOUNT ON; SET XACT_ABORT ON;
 DECLARE @flag bigint,@n bigint;
@@ -33,14 +33,14 @@ SET @n=(SELECT COUNT(*) FROM credits.CreditRedemptions WHERE CreditId=@credit);
 EXEC test.AssertEq N'no redemption while in transit',0,@n;
 EXEC credits.usp_RedeemCredit @RedemptionId=@r3,@CreditId=@credit,@BranchId=@branchA,@SaleId=@saleA,@AmountMinor=70000,@ActorId=@cashierA;
 EXEC audit.usp_CheckConservation @Throw=1;
-SET @status=(SELECT Status FROM credits.Credits WHERE Id=@credit);
+SET @status=(SELECT Status FROM credits.vw_CreditStatus WHERE CreditId=@credit);
 SET @flag=CASE WHEN @status='active' THEN 1 ELSE 0 END;
 EXEC test.AssertEq N'credit stays active while 50000 is in transit',1,@flag;
 EXEC credits.usp_TransferReceive @TransferId=@t1,@ActorId=@cashierB,@NodeId=@nodeB;
 EXEC credits.usp_RedeemCredit @RedemptionId=@r4,@CreditId=@credit,@BranchId=@branchB,@SaleId=@saleB,@AmountMinor=50000,@ActorId=@cashierB;
 SET @n=(SELECT AvailableMinor FROM credits.CreditAllocations WHERE CreditId=@credit AND BranchId=@branchB);
 EXEC test.AssertEq N'B spent the received amount',0,@n;
-SET @status=(SELECT Status FROM credits.Credits WHERE Id=@credit);
+SET @status=(SELECT Status FROM credits.vw_CreditStatus WHERE CreditId=@credit);
 SET @flag=CASE WHEN @status='exhausted' THEN 1 ELSE 0 END;
 EXEC test.AssertEq N'credit exhausted once nothing is left anywhere',1,@flag;
 EXEC audit.usp_CheckConservation @Throw=1;

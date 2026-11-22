@@ -171,6 +171,7 @@ public static class DbErrors
         [51861] = ("sync.malformed", ErrorKind.Validation),
         [51862] = ("sync.credential_target", ErrorKind.Validation),
         [51863] = ("sync.busy", ErrorKind.Unavailable),
+        [51864] = ("sync.recovery_pending", ErrorKind.Conflict),
     };
 
     /// <param name="number">SQL Server error number.</param>
@@ -181,6 +182,9 @@ public static class DbErrors
         return number switch
         {
             >= 50000 and <= 59999 => new($"rule.{number}", ErrorKind.Validation, message),
+            // One open till per register: a second opening is a cash rule, not a generic duplicate (D-036).
+            2601 when message.Contains("UX_OpenTill_Register", StringComparison.Ordinal) =>
+                new("cash.register_till_open", ErrorKind.Conflict, "Esta caja ya tiene un turno abierto. Ciérrelo antes de abrir otro."),
             2601 or 2627 => new("db.duplicate", ErrorKind.Conflict, "El registro ya existe."),
             547 => new("db.reference", ErrorKind.Conflict, "El registro referencia datos que no existen."),
             1205 or -2 => new("db.busy", ErrorKind.Unavailable, "La base de datos está ocupada. Reintente."),

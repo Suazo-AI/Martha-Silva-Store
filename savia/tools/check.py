@@ -71,6 +71,12 @@ def main():
     else:
         ok = run("pilot stopped before checks", [py, "tools/pilot.py", "down"], "savia/tools/pilot.py")
     ok &= run("architecture rules", [py, "tools/rules.py"], "the file:line and the fix named in each message")
+    biome = ROOT / "node_modules" / "@biomejs" / "biome" / "bin" / "biome"
+    if shutil.which("node") and biome.exists():
+        # CI runs this step; without it a web format error passes locally and fails on GitHub.
+        ok &= run("web format and lint", ["node", str(biome), "check", "web"], "run: npm run format (savia/biome.json)")
+    else:
+        print("SKIP  web format and lint (run npm ci in savia/ first)")
     ok &= run("baseline is generated from the handoff", [py, "tools/db/build_baseline.py", "--check"], "savia/tools/db/build_baseline.py")
     ok &= run("no DELETE or TRUNCATE on synced tables", [py, "tools/db/no_physical_delete.py"], "savia/tools/db/no_physical_delete.py")
     ok &= run("database container", [py, "tools/db/saviadb.py", "status"], "savia/README.md (Empezar)")

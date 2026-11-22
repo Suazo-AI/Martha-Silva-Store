@@ -1,0 +1,60 @@
+setup: 4 databases, tills open, 500 units per branch, credits ['35BF992D-C9E9-4616-A12E-7696A6CECC1B', 'E4B06CE6-0741-47A8-BCE4-2C8218072E8C'] (120000 each at A)
+  sync a->cloud [normal] sent=29 changed=29 skipped=0 plan={'initial': 21}
+  sync b->cloud [normal] sent=4 changed=4 skipped=0 plan={'initial': 21}
+  sync c->cloud [normal] sent=4 changed=4 skipped=0 plan={'initial': 21}
+  sync cloud->a [normal] sent=8 changed=8 skipped=0 plan={'initial': 21}
+  sync cloud->b [normal] sent=33 changed=33 skipped=0 plan={'initial': 21}
+  sync cloud->c [normal] sent=33 changed=33 skipped=0 plan={'initial': 21}
+scenario credit_status (D-038): only the issuer writes a credit's status; every node derives the same status
+  sync b->cloud [normal] sent=1 changed=1 skipped=0 plan={'incremental': 21}
+  sync cloud->a [normal] sent=1 changed=1 skipped=0 plan={'incremental': 21}
+  sync cloud->c [normal] sent=1 changed=1 skipped=0 plan={'incremental': 21}
+  sync cloud->a [normal] sent=1 changed=1 skipped=0 plan={'incremental': 21}
+  sync cloud->b [normal] sent=1 changed=1 skipped=0 plan={'incremental': 21}
+  sync cloud->c [normal] sent=1 changed=1 skipped=0 plan={'incremental': 21}
+  sync a->cloud [normal] sent=3 changed=3 skipped=0 plan={'incremental': 21}
+  sync cloud->b [normal] sent=3 changed=3 skipped=0 plan={'incremental': 21}
+  sync cloud->c [normal] sent=3 changed=3 skipped=0 plan={'incremental': 21}
+  sync b->cloud [normal] sent=3 changed=3 skipped=0 plan={'incremental': 21}
+  sync cloud->a [normal] sent=3 changed=3 skipped=0 plan={'incremental': 21}
+  sync cloud->c [normal] sent=3 changed=3 skipped=0 plan={'incremental': 21}
+  sync b->cloud [normal] sent=1 changed=1 skipped=0 plan={'incremental': 21}
+  sync cloud->a [normal] sent=1 changed=1 skipped=0 plan={'incremental': 21}
+  sync cloud->c [normal] sent=1 changed=1 skipped=0 plan={'incremental': 21}
+  sync cloud->a [normal] sent=1 changed=1 skipped=0 plan={'incremental': 21}
+  sync cloud->b [normal] sent=1 changed=1 skipped=0 plan={'incremental': 21}
+  sync cloud->c [normal] sent=1 changed=1 skipped=0 plan={'incremental': 21}
+  sync a->cloud [normal] sent=3 changed=3 skipped=0 plan={'incremental': 21}
+  sync cloud->b [normal] sent=3 changed=3 skipped=0 plan={'incremental': 21}
+  sync cloud->c [normal] sent=3 changed=3 skipped=0 plan={'incremental': 21}
+  sync b->cloud [normal] sent=3 changed=3 skipped=0 plan={'incremental': 21}
+  sync cloud->a [normal] sent=3 changed=3 skipped=0 plan={'incremental': 21}
+  sync cloud->c [normal] sent=3 changed=3 skipped=0 plan={'incremental': 21}
+PASS B, not the issuer, spends the whole credit
+  sync b->cloud [normal] sent=8 changed=8 skipped=0 plan={'incremental': 21}
+  sync cloud->a [normal] sent=8 changed=8 skipped=0 plan={'incremental': 21}
+  sync cloud->c [normal] sent=8 changed=8 skipped=0 plan={'incremental': 21}
+PASS cloud: the spent credit is exhausted
+PASS a: the spent credit is exhausted
+PASS b: the spent credit is exhausted
+PASS c: the spent credit is exhausted
+PASS A blocks the credit
+  sync a->cloud [normal] sent=1 changed=1 skipped=0 plan={'incremental': 21}
+  sync cloud->c [normal] sent=1 changed=1 skipped=0 plan={'incremental': 21}
+PASS B, offline, still spends the credit it holds
+  sync b->cloud [normal] sent=8 changed=8 skipped=0 plan={'incremental': 21}
+  sync cloud->a [normal] sent=8 changed=8 skipped=0 plan={'incremental': 21}
+  sync cloud->b [normal] sent=1 changed=1 skipped=0 plan={'incremental': 21}
+  sync cloud->c [normal] sent=8 changed=8 skipped=0 plan={'incremental': 21}
+PASS cloud: the issuer's block wins
+PASS a: the issuer's block wins
+PASS b: the issuer's block wins
+PASS c: the issuer's block wins
+PASS R1: 21 tables, 63 rows, identical SHA-256 on cloud, a, b, c
+PASS CONS on cloud: 0 violations
+PASS CONS on a: 0 violations
+PASS CONS on b: 0 violations
+PASS CONS on c: 0 violations
+stats: pulls=140 rows_sent=210 rows_changed=210 sql_calls=598 ops={'ok_approve': 2, 'ok_block': 1, 'ok_dispatch': 2, 'ok_receive': 2, 'ok_redeem': 2, 'ok_request': 2}
+RESULT PASS
+elapsed 331s

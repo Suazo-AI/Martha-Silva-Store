@@ -14,7 +14,7 @@ Oracles after convergence:
   plus the scenario's own checks.
 
 Usage (from the repository root):
-  python savia/tools/db/simulator.py scenario basic|cancel_vs_dispatch|restore|restore_naive|replay
+  python savia/tools/db/simulator.py scenario basic|cancel_vs_dispatch|restore|restore_naive|replay|credit_status
   python savia/tools/db/simulator.py random --seed 7 --steps 120
 Exit 0 = every oracle passed. Databases SAVIA_SIM_cloud/_a/_b/_c are recreated on each run.
 """
@@ -61,6 +61,10 @@ TABLES = [
     ("credits.TransferCancellations", None),
     ("credits.TransferDispatches", None),
     ("credits.TransferReceipts", None),
+    ("sales.CashCounts", _TILL_BRANCH.format("(SELECT k.RegisterId FROM sales.CashTills k WHERE k.Id=t.TillId)")),
+    ("sales.CashCountLines", _TILL_BRANCH.format("(SELECT k.RegisterId FROM sales.CashTills k JOIN sales.CashCounts c "
+                                                 "ON c.TillId=k.Id WHERE c.Id=t.CashCountId)")),
+    ("sales.CashClosures", _TILL_BRANCH.format("(SELECT k.RegisterId FROM sales.CashTills k WHERE k.Id=t.TillId)")),
 ]
 
 EMIT = """
@@ -91,7 +95,6 @@ class Sim:
         self.seed = seed
         self.say = out
         self.online = {b: True for b in BRANCHES}
-        self.blocked = set()       # restored branches that may not operate until recovered
         self.stats = Counter()
         self.failures = []
 
@@ -201,10 +204,10 @@ COMMIT;""")
     def sync_round(self):
         changed = 0
         for b in BRANCHES:
-            if self.online[b] and b not in self.blocked:
+            if self.online[b]:
                 changed += self.pull("cloud", b)
         for b in BRANCHES:
-            if self.online[b] and b not in self.blocked:
+            if self.online[b]:
                 changed += self.pull(b, "cloud")
         return changed
 
@@ -216,10 +219,6 @@ COMMIT;""")
 
     # ---------- operations (each runs on one node, like a real cashier or manager) ----------
     def op(self, node, label, text):
-        if node in self.blocked:
-            self.stats["blocked_op"] += 1
-            self.say(f"  {label} at {node}: BLOCKED (restored, not recovered)")
-            return False
         try:
             self.sql(node, text)
             self.stats[f"ok_{label}"] += 1
@@ -270,6 +269,21 @@ EXEC credits.usp_TransferRequest @TransferId='{tid}',@CreditId='{credit}',@FromB
     def receive(self, b, tid):
         return self.op(b, "receive", f"EXEC credits.usp_TransferReceive @TransferId='{tid}',"
                                      f"@ActorId={self.i('cashier' + b.upper())},@NodeId='{self.node_id(b)}';")
+
+    def close_till(self, b):
+        """A supervisor closes branch b's till with a count of the opening float (the variance is not under test)."""
+        K, count = b.upper(), self.guid()
+        return self.op(b, "close", f"""
+INSERT INTO sales.CashCounts(Id,TillId,CountedBy,Status,CreatedBy) VALUES('{count}','{self.till[b]}',{self.i('cashier' + K)},'draft',{self.i('cashier' + K)});
+INSERT INTO sales.CashCountLines(Id,CashCountId,DenominationMinor,Quantity) VALUES('{self.guid()}','{count}',100000,1);
+EXEC sales.usp_SubmitCashCount @CashCountId='{count}',@ActorId={self.i('cashier' + K)};
+EXEC sales.usp_CloseTill @ClosureId='{self.guid()}',@TillId='{self.till[b]}',@CashCountId='{count}',
+     @ActorId={self.i('supervisor' + K)},@OriginNodeId='{self.node_id(b)}';""")
+
+    def credit_status(self, node, credit):
+        """The status every node derives for a credit (D-038: only the issuer writes credits.Credits.Status)."""
+        return self.fetch(node, f"SET @out=(SELECT Status AS st FROM credits.vw_CreditStatus WHERE CreditId='{credit}' "
+                                f"FOR JSON PATH, WITHOUT_ARRAY_WRAPPER);")["st"]
 
     def view(self, node):
         return self.fetch(node, """
@@ -372,6 +386,8 @@ def scenario_basic(s):
     alloc = {(x["credit"], x["branch"]): x["av"] for x in s.view("c")["alloc"]}
     s.expect("C sees A=70000 and B=50000", alloc.get((s.credits[0], "T_A")) == 70000 and alloc.get((s.credits[0], "T_B")) == 50000,
              str(alloc))
+    s.expect("C closes its till", s.close_till("c"))
+    s.converge()  # the closure travels with the closed till, so no node sees a closed till without its closure (S8)
 
 
 def scenario_cancel_vs_dispatch(s):
@@ -436,10 +452,11 @@ def _restore_setup(s):
 def scenario_restore(s):
     s.say("scenario restore: A is restored from an old backup; it rebuilds from the cloud before it sends")
     tid, before = _restore_setup(s)
-    s.blocked.add("a")
-    s.expect("restored A may not sell before recovery", not s.sale("a"))
+    s.expect("restored A reports recovering", s.state("a")["recovering"] is True, str(s.state("a")))
+    s.expect("restored A may not sell before recovery (SQL refuses 51864)",
+             not s.sale("a") and s.stats["rejected_sale_51864"] == 1, str(dict(s.stats)))
     s.pull("a", "cloud", mode="all")   # 1. rebuild every row from the cloud (the cloud's copy wins)
-    s.blocked.discard("a")
+    s.expect("the rebuild lifts the lock", s.state("a")["recovering"] is False)
     s.converge()                       # 2. the cloud's cursor for A says 'recover' (fork changed)
     alloc = {(x["credit"], x["branch"]): x["av"] for x in s.view("a")["alloc"]}
     s.expect("A shows 70000 after recovery, not the 120000 of the backup",
@@ -450,6 +467,33 @@ def scenario_restore(s):
     s.say(f"  A sales before restore (local) = {before}; everywhere after recovery = {after}; "
           f"lost = {before - after} (written at A after its last sync)")
     s.expect("exactly the one unsynced sale is lost", before - after == 1, f"before={before} after={after}")
+
+
+def scenario_credit_status(s):
+    s.say("scenario credit_status (D-038): only the issuer writes a credit's status; every node derives the same status")
+    whole, blocked = s.credits
+    for credit in (whole, blocked):  # all of A's money moves to B, so B is the branch that spends it
+        tid = s.request("b", credit, "a", "b", 120000)
+        s.converge()
+        s.approve(tid)
+        s.converge()
+        s.dispatch("a", tid)
+        s.converge()
+        s.receive("b", tid)
+        s.converge()
+    s.expect("B, not the issuer, spends the whole credit", s.sale("b", whole, PRICE))
+    s.converge()
+    for n in NODES:
+        s.expect(f"{n}: the spent credit is exhausted", s.credit_status(n, whole) == "exhausted")
+    # Concurrent: A, the issuer, blocks the other credit while B, offline, spends it.
+    s.online["b"] = False
+    s.expect("A blocks the credit", s.op("a", "block", f"UPDATE credits.Credits SET Status='blocked' WHERE Id='{blocked}';"))
+    s.converge()
+    s.expect("B, offline, still spends the credit it holds", s.sale("b", blocked, PRICE))
+    s.online["b"] = True
+    s.converge()
+    for n in NODES:
+        s.expect(f"{n}: the issuer's block wins", s.credit_status(n, blocked) == "blocked")
 
 
 def scenario_restore_naive(s):
@@ -570,7 +614,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
     sc = sub.add_parser("scenario")
-    sc.add_argument("name", choices=["basic", "cancel_vs_dispatch", "restore", "restore_naive", "replay"])
+    sc.add_argument("name", choices=["basic", "cancel_vs_dispatch", "restore", "restore_naive", "replay", "credit_status"])
     sc.add_argument("--seed", type=int, default=1)
     rd = sub.add_parser("random")
     rd.add_argument("--seed", type=int, default=7)

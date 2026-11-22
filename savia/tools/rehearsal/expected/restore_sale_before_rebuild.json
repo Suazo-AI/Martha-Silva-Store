@@ -1,7 +1,6 @@
 {
  "scenario": "restore_sale_before_rebuild",
- "claim": "RED TEST (recovery lock, P9 open question 2). A is restored from a backup taken before its till opened, opens a new till and sells before its first rebuild. Expected today: the rebuild fails with 2601 UX_OpenTill_Register. When the lock exists: r1 and r2 exist once everywhere, and r3 exists once everywhere or nowhere.",
- "xfail": "2601 UX_OpenTill_Register at the rebuild of restored A",
+ "claim": "Recovery lock (D-036). A is restored from a backup taken before its till opened. Before its first rebuild, A refuses a new till and sale r3 with sync.recovery_pending. The rebuild brings back r1, r2 and A's till; A then sells r4, and every node holds r1, r2 and r4 once and r3 nowhere.",
  "tills": {
   "a": [
    "4E570AE0-0000-4000-8000-0000000000A0",
@@ -46,10 +45,26 @@
      "amount": 120000
     }
    ],
-   "expect": "any"
+   "expect": "absent"
+  },
+  {
+   "key": "r4",
+   "store": "a",
+   "saleId": "4E570AE0-0000-4000-8000-000000000004",
+   "qty": 1,
+   "tenders": [
+    {
+     "kind": "cash",
+     "amount": 120000
+    }
+   ]
   }
  ],
  "store_totals": {
+  "a": {
+   "count": 3,
+   "totalMinor": 360000
+  },
   "b": {
    "count": 0,
    "totalMinor": 0
@@ -60,21 +75,8 @@
   }
  },
  "on_hand": {
+  "a": 497,
   "b": 500,
   "c": 500
- },
- "conservation_allow": [
-  {
-   "node": "a",
-   "check": "sale.outbox_event",
-   "key": "4E570AE0-0000-4000-8000-000000000001",
-   "why": "known P9 pin: a rebuilt store gets its sales back from the hub but not their local outbox events (outbox is not synced)"
-  },
-  {
-   "node": "a",
-   "check": "sale.outbox_event",
-   "key": "4E570AE0-0000-4000-8000-000000000002",
-   "why": "same as above"
-  }
- ]
+ }
 }

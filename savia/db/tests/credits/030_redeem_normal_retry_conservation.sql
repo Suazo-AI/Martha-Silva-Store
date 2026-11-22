@@ -1,4 +1,4 @@
--- TEST: redeeming 50000 of a 120000 credit leaves 70000 and a retry of the same redemption changes nothing; draining the balance marks the credit exhausted.
+-- TEST: redeeming 50000 of a 120000 credit leaves 70000 and a retry of the same redemption changes nothing; draining the balance makes the derived status exhausted (D-038).
 SET NOCOUNT ON; SET XACT_ABORT ON;
 DECLARE @flag bigint; DECLARE @tmp uniqueidentifier=NEWID();
 DECLARE @branchA uniqueidentifier=test.Id('branchA'),@locA uniqueidentifier=test.Id('locA'),
@@ -46,12 +46,12 @@ EXEC test.AssertEq N'no duplicate redemption after retry',1,@n;
 SET @n=(SELECT AvailableMinor FROM credits.CreditAllocations WHERE CreditId=@credit AND BranchId=@branchA);
 EXEC test.AssertEq N'balance unchanged after retry',70000,@n;
 
--- Redeem the remaining 70000 exactly: credit becomes exhausted.
+-- Redeem the remaining 70000 exactly: the derived status becomes exhausted.
 EXEC credits.usp_RedeemCredit @RedemptionId=@r2,@CreditId=@credit,@BranchId=@branchA,
      @SaleId=@sale,@AmountMinor=70000,@ActorId=@cashierA;
 SET @n=(SELECT AvailableMinor FROM credits.CreditAllocations WHERE CreditId=@credit AND BranchId=@branchA);
 EXEC test.AssertEq N'available after full drain',0,@n;
-SET @status=(SELECT Status FROM credits.Credits WHERE Id=@credit);
+SET @status=(SELECT Status FROM credits.vw_CreditStatus WHERE CreditId=@credit);
 SET @flag=CASE WHEN @status='exhausted' THEN 1 ELSE 0 END;
 EXEC test.AssertEq N'credit exhausted after full drain',1,@flag;
 SET @n=(SELECT c.OriginalMinor-COALESCE((SELECT SUM(a.AvailableMinor+a.HeldMinor) FROM credits.CreditAllocations a WHERE a.CreditId=c.Id),0)

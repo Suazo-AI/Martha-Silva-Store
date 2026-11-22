@@ -107,6 +107,22 @@ class Run:
         self.event(f"sale {key} at {store}", status=status, problem=_code(resp))
         return ok
 
+    def close_till(self, store):
+        """The cashier counts the opening float and the supervisor closes the till (the variance is not under test).
+        A counted opening also opens an empty USD drawer, so the count and the close name a USD count too."""
+        c, till, base = self.m["closures"][store], self.till[store], self.c.hosts[store].base
+        status, body = h.call(base, "POST", f"/api/v1/cash/tills/{till}/counts",
+                              {"cashCountId": c["cashCountId"], "lines": [{"denominationMinor": 50000, "quantity": 2}],
+                               "usdCashCountId": c["usdCashCountId"], "usdLines": [{"denominationMinor": 100, "quantity": 0}]},
+                              self.c.token(store))
+        if status in (200, 201, 204):
+            status, body = h.call(base, "POST", f"/api/v1/cash/tills/{till}/close",
+                                  {"closureId": c["closureId"], "cashCountId": c["cashCountId"],
+                                   "usdCashCountId": c["usdCashCountId"]}, self.c.token(store, "super"))
+        ok = status in (200, 201, 204)
+        self.event(f"close till {store}", status=status, problem=_code(body))
+        return ok
+
     def return_credit(self, key):
         r = self.returns[key]
         s = self.sales[r["sale"]]
@@ -188,7 +204,7 @@ class Run:
             results = checks.evaluate(self.m, self.c.ids, snaps, self.outcomes)
             diff = checks.r1(self.c.sql.hashes())
             unexpected, pins_missing = checks.conservation(self.c.sql.conservation_rows(), self.m.get("conservation_allow"))
-        results.append((not diff, "R1: 18 synced tables identical on hub, a, b, c", f"differ={diff}"))
+        results.append((not diff, "R1: 21 synced tables identical on hub, a, b, c", f"differ={diff}"))
         results.append((not unexpected, "CONS: audit.usp_CheckConservation has 0 violations on 4 nodes",
                         "; ".join(unexpected[:6])))
         if self.m.get("conservation_allow"):
@@ -254,7 +270,11 @@ def offline_sales(r):
         r.event("hub database holds none of the offline sales", count=r.c.sql.count_sales("cloud", ids))
     with r.phase("hub restarted"):
         r.c.hosts["cloud"].start()
-    ok = r.converge("converge after hub returns")
+    r.converge("converge after hub returns")
+    with r.phase("C closes its till (HTTP); the closure travels with the closed till"):
+        closed = r.close_till("c")
+        r.control("store C closes its till", closed, "close ok", closed)
+    ok = r.converge("converge the closed till")
     return r.finish(ok)
 
 
@@ -336,7 +356,7 @@ def credit_transfer(r):
 
 
 def restore_sale_before_rebuild(r):
-    """Red test for the recovery lock (P9 open question 2). Expected today: 2601 UX_OpenTill_Register at A's rebuild."""
+    """Recovery lock (D-036): restored A refuses a till and a sale until its first rebuild lands, then sells again."""
     r.bring_up(skip_tills=("a",))
     with r.phase("backup A before its till opens; A opens a till and sells; hub has it"):
         h.backup("a", "before_till")
@@ -349,46 +369,24 @@ def restore_sale_before_rebuild(r):
         h.restore("a", "before_till")
         mark = r.log_size("a")
         r.c.hosts["a"].start()
-    with r.phase("restored A opens a new till and sells before its first rebuild"):
-        status, body = h.call(r.c.hosts["a"].base, "GET", "/api/v1/cash/registers", token=r.c.token("a"))
-        r.event("old session token after the restore", status=status, problem=_code(body))
-        r.c.tokens = {k: v for k, v in r.c.tokens.items() if k[0] != "a"}  # the cashier signs in again
+    with r.phase("restored A refuses a new till and a sale before its first rebuild"):
+        r.c.tokens = {k: v for k, v in r.c.tokens.items() if k[0] != "a"}  # the restored database lost today's sessions
         till_ok = r.open_till("a", r.tills("a")[1])
-        r.event("new till on the restored store", ok=till_ok)
+        problem = r.events[-1]["problem"]
+        r.control("restored A refuses a new till", not till_ok and problem == "sync.recovery_pending",
+                  "sync.recovery_pending", problem)
         r.sale("r3")
-    with r.phase("link back: A's worker must rebuild"):
+        r.control("restored A refuses a sale", "sync.recovery_pending" in r.outcomes["r3"]["detail"],
+                  "sync.recovery_pending", r.outcomes["r3"]["detail"])
+    with r.phase("link back: A's worker rebuilds before it pushes"):
         r.c.proxies["a"].mode = "pass"
-        # The API maps SQL 2601 to the generic problem db.duplicate, so the store log does not name the index.
-        red = r.wait_log("a", r"Sync round refused: db\.duplicate|UX_OpenTill_Register|Msg 2601", mark, timeout=60)
-        r.event("A rebuild outcome", red_line=red)
-        q = ("SET @out=(SELECT Id AS till, RegisterId AS reg, Status AS st FROM sales.CashTills "
-             f"WHERE RegisterId='{r.c.ids['registerA']}' AND Status='open' AND ParentTillId IS NULL FOR JSON PATH);")
-        r.event("open tills on register A", hub=r.c.sql.fetch("cloud", q), restored_a=r.c.sql.fetch("a", q))
-        sql_error = None
-        if red:  # only after the worker failed: a successful pull would commit and do the rebuild for the worker
-            try:  # the same rebuild pull in SQL; on error its transaction rolls back
-                r.c.sql.pull("a", "cloud", "all")
-            except Exception as e:  # noqa: BLE001
-                text = str(e)
-                line = next((l.strip() for l in text.splitlines() if "duplicate key" in l), text[-300:])
-                sql_error = f"Msg {getattr(e, 'number', '?')}: {line}"
-            r.event("rebuild pull reproduced in SQL", error=sql_error)
-    ok = r.converge("converge after restore", timeout=60 if red else 180)
-    verdict = r.finish(ok)
-    pinned = bool(sql_error) and "UX_OpenTill_Register" in sql_error and "2601" in sql_error
-    # The red may explain only these failures; anything else (a lost sale on hub, b or c) stays a FAIL.
-    allowed = {"a: sale r1 present", "a: sale r2 present", "R1: 18 synced tables identical on hub, a, b, c",
-               "CONS: pinned known violations still present", "sync converged"}
-    other = [x["check"] for x in r.results if not x["ok"] and x["check"] not in allowed]
-    r.event("failures outside the pinned red", checks=other)
-    if red and pinned and not ok and not other:
-        r.verdict, r.reason = "XFAIL", (f"expected red: the rebuild of restored A fails every round ({red}); "
-                                        f"SQL: {sql_error}")
-    elif verdict == "PASS":
-        r.verdict, r.reason = "XPASS", "the recovery lock red test passed; remove the XFAIL marker"
-    else:
-        r.reason = "unexpected failure (not the pinned 2601): " + r.reason
-    return r.verdict
+        rebuilt = r.wait_log("a", r"Sync round: pulled \d+, pushed \d+, rebuilt True", mark, 90)
+        r.control("restored A rebuilds by itself (hosted loop)", rebuilt is not None, "rebuilt True", rebuilt)
+    r.converge("converge after the rebuild")
+    with r.phase("A sells again on its rebuilt till"):
+        r.sale("r4")
+    ok = r.converge("final convergence")
+    return r.finish(ok)
 
 
 def controls(r):

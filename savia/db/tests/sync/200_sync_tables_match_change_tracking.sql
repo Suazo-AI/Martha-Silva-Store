@@ -11,5 +11,5 @@ EXEC test.AssertEq N'every synced table is tracked',0,@n;
 SET @n=(SELECT COUNT(*) FROM sync.fn_TableShape()
         WHERE SelectList IS NULL OR WithList IS NULL OR InsList IS NULL OR ValList IS NULL OR OnList IS NULL OR CtOnList IS NULL);
 EXEC test.AssertEq N'every table has its column lists',0,@n;
-SET @n=(SELECT COUNT(*) FROM sync.fn_TableShape()); EXEC test.AssertEq N'20 synced tables',20,@n;
+SET @n=(SELECT COUNT(*) FROM sync.fn_TableShape()); EXEC test.AssertEq N'23 synced tables',23,@n;
 PRINT 'PASS';

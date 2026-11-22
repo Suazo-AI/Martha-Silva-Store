@@ -326,14 +326,14 @@ D-008 sigue vigente: sin tarjeta no se declara producción.
 
 ## D-036 — Bloqueo de recuperación
 
-Fecha: 2026-11-22. Actor: primary. Cierra la pregunta 1 de P9-SPEC (G6).
+Fecha: 2026-11-22. Actor: primary. Cierra la pregunta 2 de P9-SPEC (G6).
 Un nodo restaurado no vende, no abre caja y no recibe mercancía hasta que su reconstrucción termine.
 Motivo: una venta hecha antes de reconstruir choca con filas que el hub ya tiene (Msg 2601) y puede perder dinero.
 La caja muestra el motivo y el avance. Un supervisor no puede saltarse el bloqueo.
 
 ## D-037 — Ventas recuperadas y outbox
 
-Fecha: 2026-11-22. Actor: primary. Cierra la pregunta 2 de P9-SPEC (G7).
+Fecha: 2026-11-22. Actor: primary. Cierra la pregunta 1 de P9-SPEC (G7).
 Los eventos de outbox usan un identificador estable derivado de la fila de origen.
 Una venta recuperada desde el hub no crea un evento local nuevo; el oráculo no lo espera.
 

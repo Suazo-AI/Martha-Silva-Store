@@ -124,7 +124,8 @@ public sealed class BranchSync(ISyncStore store, ISyncHub hub, NodeContext node)
         await store.EnsureLocalNodeAsync(node.NodeId, ct);
         // A restored branch rebuilds before any normal pull. A normal pull leaves out the branch's own rows, so rows of
         // other branches that point to rows the restore lost would fail on a foreign key every round (P9 review).
-        if (NeedsRebuild(await hub.PushPlanAsync(await store.SourceStateAsync(ct), ct)))
+        var state = await store.SourceStateAsync(ct);
+        if (NeedsRebuild(state, await hub.PushPlanAsync(state, ct)))
         {
             var (rebuiltHub, rebuilt) = await PullAsync(rebuild: true, ct);
             return new SyncRound(rebuilt, await PushAsync(rebuiltHub, ct), Rebuilt: true);
@@ -160,12 +161,23 @@ public sealed class BranchSync(ISyncStore store, ISyncHub hub, NodeContext node)
 
     private static int Changed(string result) => (int)ReadNumber(result, "changed");
 
-    /// <summary>The hub plans 'recover' when the branch's fork or version no longer matches its cursor: a restore.</summary>
-    private static bool NeedsRebuild(string plan)
+    /// <summary>
+    /// The hub plans 'recover' when the branch's fork or version no longer matches its cursor: a restore.
+    /// A restored branch the hub has no cursor for gets only 'initial'; its recovery lock (V036, D-036) still needs a
+    /// rebuild, because only a rebuild from the hub lifts it.
+    /// </summary>
+    private static bool NeedsRebuild(string state, string plan)
     {
         using var doc = JsonDocument.Parse(plan);
-        return doc.RootElement.GetProperty("tables").EnumerateArray()
-            .Any(t => t.TryGetProperty("a", out var a) && a.ValueEquals("recover"));
+        var actions = doc.RootElement.GetProperty("tables").EnumerateArray()
+            .Select(t => t.TryGetProperty("a", out var a) ? a.GetString() : null).ToList();
+        return actions.Contains("recover") || (Recovering(state) && actions.All(a => a == "initial"));
+    }
+
+    private static bool Recovering(string state)
+    {
+        using var doc = JsonDocument.Parse(state);
+        return doc.RootElement.TryGetProperty("recovering", out var r) && r.ValueKind == JsonValueKind.True;
     }
 
     private static Guid ReadGuid(string json, string name)

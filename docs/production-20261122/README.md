@@ -15,23 +15,23 @@ States: `verified`, `running`, `pending`, `blocked (input)`.
 | H1 | Hub runs Tony HEAD on Azure | `/health/ready` 200; image tag equals the commit; ledger holds V001-V035; rollback revision named | verified 2026-11-22: revision `ca-savia-api--g37b6c06-1` at 100%, image `savia-api:37b6c06e`, job `caj-savia-migrate-ouaaz51` applied V031-V035 (ledger 35), rollback `ca-savia-api--0000001`, database copy `savia-premig-37b6c06e-1` |
 | H2 | Restricted API identity runs sync on Azure SQL | a sync round as the managed identity returns 200 | pending: the migrator logged `API host permissions ensured for user id-savia-api-bukmlt`; a real round needs a node credential (S7). Without one, `POST /sync/v1/push` returns 401 |
 | H3 | Telemetry reaches Application Insights | one request visible in the workspace | verified 2026-11-22: 18 `AppRequests` and 9 `AppDependencies` in `log-savia-bukmlt` within 30 minutes of the deploy |
-| S1 | Recovery lock (G6) | rehearsal `restore_sale_before_rebuild` PASS, not XFAIL | pending |
-| S2 | Recovered-sale outbox (G7) | simulator `restore` PASS | pending |
-| S3 | Credit status has one writer (G8) | simulator and T-SQL test for the two-writer case PASS | pending |
+| S1 | Recovery lock (G6) | rehearsal `restore_sale_before_rebuild` PASS, not XFAIL | verified 2026-11-22 (V036): rehearsal as the restricted login 6 of 6 PASS; [evidence](../../savia/docs/evidence/sync-correctness-20261122/README.md). Open: returns and credit transfers are not locked yet; no rebuild progress display |
+| S2 | Recovered-sale outbox (G7) | simulator `restore` PASS | verified 2026-11-22 (V036): simulator `restore` PASS; [evidence](../../savia/docs/evidence/sync-correctness-20261122/README.md) |
+| S3 | Credit status has one writer (G8) | simulator and T-SQL test for the two-writer case PASS | verified 2026-11-22 (V037): simulator `credit_status` PASS and T-SQL `credits/180`. Open: no procedure sets blocked or expired |
 | S4 | Reference tables sync (G1) | a sale to a customer created offline reaches the hub without Msg 547 | pending |
 | S5 | Sync paging (G13) | rebuild of a 250,000-variant store completes; no response above 20 MB | pending |
 | S6 | Schema skew rule (G14) | a node with another ledger is refused with a named code | pending |
 | S7 | Node provisioning command (G3) | one command creates a store credential; the secret prints once | pending |
-| S8 | `sales.CashClosures` syncs | oracle shows 0 `cash.till_status_vs_closure` on replicated tills | pending |
-| P1 | Catalog import is fast | 1,000 rows under 3 s on the A-10 data set | pending |
-| P2 | KPI business report | p95 under 1 s on the A-10 data set | pending |
-| P3 | Search | p95 under 300 ms on the A-10 data set | pending |
-| P4 | Catalog and stock lists are paged | no screen response above 1 MB | pending |
+| S8 | `sales.CashClosures` syncs | oracle shows 0 `cash.till_status_vs_closure` on replicated tills | verified 2026-11-22 (V038): rehearsal and simulator show 0 `cash.till_status_vs_closure` |
+| P1 | Catalog import is fast | 1,000 rows under 3 s on the A-10 data set | partial (V039): no 503; 1,000-row commit 7-15 s under load, 2.2 s on a quiet probe; [evidence](../../savia/docs/evidence/performance-20261122/README.md) |
+| P2 | KPI business report | p95 under 1 s on the A-10 data set | partial (V040): p95 1.9-2.4 s, was 6.5-10 s; needs a daily summary |
+| P3 | Search | p95 under 300 ms on the A-10 data set | verified 2026-11-22 (V041): p95 158 ms |
+| P4 | Catalog and stock lists are paged | no screen response above 1 MB | verified 2026-11-22 (V042): largest page 162 KB |
 | W1 | Public catalog comes from the hub | storefront reads products, prices and stock through a public read API | pending |
 | W2 | A real order is stored | browser to API to SQL: order row, stock reservation, idempotent retry | pending |
-| W3 | Public API is safe | rate limit, input validation, CORS allow-list, no staff route reachable without sign-in | pending |
+| W3 | Public API is safe | rate limit, input validation, CORS allow-list, no staff route reachable without sign-in | verified locally 2026-11-22 (.NET tests for 429, 413, 400, 403, CORS, 404 on a branch); not yet on Azure; real Turnstile not run |
 | W4 | Payment | card payment through a provider, with a verified webhook | blocked (input): merchant account |
-| W5 | Order notification | the store team sees a new order in SAVIA | pending |
+| W5 | Order notification | the store team sees a new order in SAVIA | built (hub staff screen, web tests); not yet seen in a real browser |
 | W6 | Storefront deployed | Cloudflare deploy from a clean commit; version id, SHA and rollback recorded | pending |
 | W7 | Storefront quality | Lighthouse performance, accessibility, best practices and SEO at 90 or more on mobile; security headers present | pending |
 | W8 | Real catalog | real products, prices, photos and stock | blocked (input): the store's data |
@@ -64,3 +64,6 @@ Progress is recorded in this table, in the area documents, and in the commit log
 Order path research and build plan (2026-11-22): [ORDER-PATH-SPEC](ORDER-PATH-SPEC.md).
 Accepted by the primary: hub-owned web stock locations filled by consignment, guest checkout, hosted-page card payment behind `IPaymentProvider`, `manual` provider labelled as not card.
 Provider recommendation: BAC E-Commerce gateway first, Pagadito as fallback; neither is contracted.
+
+Integration 2026-11-22: order path `11f7fb3c`, performance `c4ca690f`, sync correctness (V036-V038) merged on top. Merged tree in a clean worktree: T-SQL 168, .NET 227 of 227, API host login 27 of 27, web 165 of 165, container proof PASS, rehearsal 6 of 6, simulator basic, replay, restore, credit_status and cancel_vs_dispatch PASS.
+V038 sync order numbers moved to 21-23 because V048 holds 19-20. Azure still runs `37b6c06e` (V035).

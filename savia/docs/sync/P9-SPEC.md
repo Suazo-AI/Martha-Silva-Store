@@ -109,6 +109,13 @@ The hub closes the `restore_naive` path for a node that skips the rebuild. Limit
 Serving the rebuild also retires every other fork the hub knew for that branch (`sync.RetiredForks`), so a batch read before the restore and delivered later is refused (51853), even between the rebuild and the recovery push.
 An incremental batch whose fork differs from the cursor, or that starts after the cursor, is a gap (51852).
 
+Recovery lock (V036, D-036). `sync.LocalNode.ForkGuid` records the fork the branch was bound or last rebuilt on.
+When a branch's current fork differs, `sync.fn_Recovering()` is 1 and `usp_SourceStateJson` reports `recovering: true`.
+Sale, till opening (plain and counted) and receiving then refuse inside SQL with 51864 (`sync.recovery_pending`); the hub never locks.
+The worker rebuilds when the hub plans `recover`, or when the branch reports `recovering` and the hub plans only `initial` (a hub that never saw the branch).
+The rebuild apply moves `ForkGuid` to the current fork in the same transaction as the rows, so the lock lifts only with the data.
+Own sales the rebuild brings back are listed in `sync.RecoveredSales` (D-037); they keep the event the hub already holds and get no new local event.
+
 ## Failure modes
 
 | Failure | Effect | Why it is safe |
@@ -124,12 +131,12 @@ An incremental batch whose fork differs from the cursor, or that starts after th
 
 ## Open questions for Jason
 
-1. Outbox events for recovered own sales (cp4 finding). Recommendation: recovery records the recovered sale ids locally, and the oracle expects no local event for them; consumers never receive a second event. The oracle stays strict until then.
-2. Recovering node may not redeem credits, dispatch transfers or sell (ADR-001 D5). Recommendation: a `sync` recovery flag set when the fork changes and cleared by the rebuild, checked inside the sale, till, credit and transfer procedures. Not built in P9 run 2. Evidence that it matters: a sale before the rebuild opens a second till and the rebuild then fails on `UX_OpenTill_Register` (later rounds not tested) ([evidence](evidence/dotnet-sync-restore-sell-before-rebuild-red.txt)).
+1. Closed 2026-11-22 by D-037 (V036). Outbox events of the sale, till-opened and receipt events take a stable id from the source row (`sync.fn_EventId`). A rebuild lists the own sales it brings back in `sync.RecoveredSales`, and the oracle expects no local event for them. Evidence: simulator `restore` PASS on seeds 1, 2 and 3 (red on V035: `sale.outbox_event ... expected=1 actual=0`).
+2. Closed 2026-11-22 by D-036 (V036, recovery lock above). Sale, till opening and receiving refuse with 51864 until the rebuild lands; the web shows the reason and tells the cashier to wait. Evidence: rehearsal `restore_sale_before_rebuild` PASS with the restricted identity (red on V035: XFAIL, the rebuild failed every round on 2601 `UX_OpenTill_Register`). Not locked: returns, credit transfer dispatch and receipt.
 3. Paging (F8). Recommendation: page by key when a table sends more than 5,000 rows, cursor still advanced once at the end. P9 sends one batch per round.
 4. Credential issue path. Recommendation: the hub owner runs a one-time provisioning command that writes the secret to a file for the store PC; Jason approves who holds it.
 5. Schema skew (F12). Recommendation: accept a batch only when both nodes report the same latest migration until an N-1 rule is proven by test.
-6. Credit status has two writers (review 2026-11-20, critique F2). `credits.Credits` belongs to the issuing branch, but `usp_RedeemCredit` (V009) sets `Status='exhausted'` at the redeeming branch, which differs after a transfer. That change never travels and the issuer's copy overwrites it. Recommendation: derive the status from the allocations, or record exhaustion as an immutable row owned by the redeeming branch. Not fixed; no simulator seed covers a full redemption after a transfer yet.
+6. Closed 2026-11-22 by D-038 (V037). `usp_RedeemCredit` no longer writes `credits.Credits`; the redeemer writes only its own movement and redemption. `credits.vw_CreditStatus` derives `exhausted` from the movements and money in transit; a status the issuer sets (not `active`) wins. Evidence: T-SQL `credits/180`; simulator `credit_status` PASS (a full redemption at B after a transfer shows `exhausted` on every node; an issuer block made while B spends offline shows `blocked` on every node).
 7. Same-fork version regression. `usp_PlanJson` plans `recover` when the sender's version is below the cursor on the same fork, and `usp_ApplyBatch` skips that batch as late. Whether Change Tracking can go back without a fork change (copy or re-attach) is not proven. The worker then rebuilds every round, which makes the case visible but does not resolve it. Not fixed.
 
 ## Acceptance
@@ -145,8 +152,12 @@ An incremental batch whose fork differs from the cursor, or that starts after th
 | Unauthenticated node refused | .NET `SyncTransportTests.Hub_refuses_a_call_without_a_valid_node_credential` | PASS |
 | Initial and incremental sync through HTTP | .NET `SyncWorkerTests.Initial_then_incremental_rounds_move_only_new_rows` | PASS |
 | Lost rebuild answer keeps the hub closed to the restored fork | T-SQL `sync/230`; .NET `SyncWorkerTests.Lost_rebuild_answer_does_not_open_the_hub_to_the_restored_fork` | PASS (red on V032) |
-| Restore then recover through HTTP | .NET `SyncWorkerTests.Restored_branch_rebuilds_from_the_hub_before_it_pushes` | PASS with the known outbox gap pinned; FAIL when a sale precedes the rebuild (open question 2) |
-| Existing scenarios unchanged | simulator `replay`, `basic`, `cancel_vs_dispatch`, seeds 1/7/42 (120 steps) on V034; `restore` FAIL only on the known outbox finding; `restore_naive` refused with 51854 as designed | PASS on V034 ([evidence](evidence/)) |
+| Restore then recover through HTTP | .NET `SyncWorkerTests.Restored_branch_rebuilds_from_the_hub_before_it_pushes` (0 oracle violations); `Restored_branch_the_hub_never_saw_refuses_sales_until_it_rebuilds` | PASS on V038 |
+| Existing scenarios unchanged | simulator `replay`, `basic`, `cancel_vs_dispatch`, `restore` seeds 1/2/3, seed 7 (120 steps); `restore_naive` refused with 51854 as designed; rehearsal `run all --identity restricted` | PASS on V038 ([evidence](../evidence/sync-correctness-20261122/README.md)) |
+| Recovery lock: a restored store refuses sale, till and receiving until its rebuild | T-SQL `sync/250`; rehearsal `restore_sale_before_rebuild` (restricted identity); simulator `restore` (SQL refuses 51864) | PASS on V038 (rehearsal red on V035: XFAIL on 2601) |
+| Stable outbox ids; a recovered sale creates no local event | T-SQL `outbox/080`; simulator `restore` seeds 1, 2, 3 | PASS on V038 (red on V035) |
+| Credit status has one writer | T-SQL `credits/180`; simulator `credit_status` | PASS on V038 (red on V035) |
+| Cash counts and closures sync with their till | T-SQL `sync/200`; simulator `basic`; rehearsal `offline_sales` (C closes its till over HTTP) | PASS on V038: 0 `cash.till_status_vs_closure` (red on V035) |
 | A key that exists keeps its owner (push and pull) | T-SQL `sync/240` | PASS on V034 (red on V033: 2601 instead of 51851) |
 | Restored branch rebuilds before any normal pull | .NET `SyncWorkerTests.Restored_branch_rebuilds_before_any_normal_pull` | PASS (red before the worker fix) |
 
@@ -207,3 +218,7 @@ An incremental batch whose fork differs from the cursor, or that starts after th
 - 2026-11-20 acceptance on V034: `python savia/tools/check.py` exit 0: rules 9/9, T-SQL SUMMARY PASS=149, C# format PASS, .NET 195 passed, 0 failed ([evidence](evidence/check-full-v034.txt)).
   Simulator on V034: `replay`, `basic`, `cancel_vs_dispatch`, `random --seed 1|7|42 --steps 120` RESULT PASS; `restore` RESULT FAIL (1) only `sale.outbox_event ... expected=1 actual=0` on a; `restore_naive` refused with Msg 51854 as designed ([evidence](evidence/)).
   Next: Jason answers open questions 1, 2 and 4; then the recovery lock, the credential provisioning command and a deploy of the hub image with V032-V034, each with his approval.
+- 2026-11-22 sync correctness (S1, S2, S3, S8 of `docs/production-20261122/README.md`; D-036 to D-038): V036 recovery lock and stable event ids, V037 one writer for a credit's status, V038 cash counts and closures in sync (21 tables).
+  Red on V035 first: rehearsal `restore_sale_before_rebuild` XFAIL on 2601; simulator `restore --seed 1` FAIL on `sale.outbox_event`; `credit_status` FAIL (4), cloud, A and C kept `active`; `basic` FAIL (4) on `cash.till_status_vs_closure`.
+  Green on V038: see the [evidence README](../evidence/sync-correctness-20261122/README.md) for every command, count and limit. Open questions 1, 2 and 6 closed.
+  Next: G6 to G8 closed; returns and transfers under the recovery lock, and an issuer procedure for `blocked`/`expired`, wait for a decision.
