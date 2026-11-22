@@ -137,7 +137,6 @@ def build(root, cfg):
                       'sku': prod['id'], 'image': [U(i) for i in prod['images']],
                       'brand': {'@type': 'Brand', 'name': bname}, 'color': prod['color'], 'category': prod['category'],
                       'offers': [{'@type': 'Offer', 'sku': v['id'], 'price': price(prod['price_minor']), 'priceCurrency': prod['currency'],
-                                  'availability': 'https://schema.org/InStock' if v['stock'] > 0 else 'https://schema.org/OutOfStock',
                                   'itemCondition': 'https://schema.org/NewCondition', 'url': url} for v in prod['variants']]})
         return {'@context': 'https://schema.org', '@graph': g}
 

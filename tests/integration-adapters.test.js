@@ -332,3 +332,147 @@ test('loopback HTTP fixture proves wire request and retry behavior, not .NET int
     await new Promise(resolve => server.close(resolve));
   }
 });
+
+// Live model: the hub is a stubbed fetch here; tests/e2e evidence covers the real hub.
+const {createLiveAdapter} = require('../src/integration-adapters.js');
+const [rosa, gris] = catalog.products;
+const liveConfig = {apiBase:'https://hub.example.test/', turnstileSiteKey:'', skus:{[rosa.variants[0].id]:'HUB-ROSA-S', [rosa.variants[1].id]:'HUB-ROSA-M'}};
+const liveContact = {name:'Comprador Prueba', email:'buyer@example.test', phone:'0000-0000'};
+const liveShipping = {zone:'managua', address:'Calle de prueba 1', city:'Managua, Managua'};
+const json = (status, value) => ({ok:status >= 200 && status < 300, status, json:async () => value});
+function liveSetup({items, onOrder} = {}) {
+  const saved = new Map(), calls = [];
+  const storage = {getItem:key => saved.get(key) ?? null, setItem:(key, value) => saved.set(key, value)};
+  let hubItems = items || [
+    {sku:'HUB-ROSA-S', productId:'p1', name:'Rosa', size:'S', color:'Rosa', unitPriceMinor:450000, currency:'NIO', available:2},
+    {sku:'HUB-ROSA-M', productId:'p1', name:'Rosa', size:'M', color:'Rosa', unitPriceMinor:460000, currency:'NIO', available:0},
+    {sku:'HUB-UNMAPPED', productId:'p9', name:'Otra', size:'S', color:'Azul', unitPriceMinor:100, currency:'NIO', available:9}];
+  let keys = 0;
+  const fetch = async (url, options) => {
+    calls.push({url, options});
+    const path = url.replace('https://hub.example.test', '');
+    if (path === '/api/v1/public/catalog') return json(200, {items:hubItems});
+    if (path === '/api/v1/public/orders') return onOrder ? onOrder(JSON.parse(options.body), options) : json(201, {orderId:orderId, code:'W-000123', accessToken:'token-secret', status:'reserved', totalMinor:500000, shippingMinor:50000, currency:'NIO', expiresAt:'2026-11-23T00:00:00Z', payment:{provider:'manual', label:'Pago manual (no es tarjeta)', kind:'instructions', url:null, method:'manual', instructions:'Le escribiremos.'}});
+    if (path === `/api/v1/public/orders/${orderId}`) return options.headers['X-Order-Token'] === 'token-secret' ? json(200, {code:'W-000123', status:'paid', totalMinor:500000, currency:'NIO', expiresAt:'2026-11-23T00:00:00Z', lines:[{sku:'HUB-ROSA-S', qty:1}]}) : json(404, {code:'not_found'});
+    return json(404, {code:'not_found'});
+  };
+  const api = createLiveAdapter({config:liveConfig, catalog, storage, fetch, uuid:() => `00000000-0000-4000-8000-${String(++keys).padStart(12, '0')}`});
+  return {api, calls, saved, storage, setItems:value => { hubItems = value; }, orderCalls:() => calls.filter(call => call.url.endsWith('/api/v1/public/orders'))};
+}
+const liveInput = (prices = {[rosa.variants[0].id]:450000}, extra = {}) => ({contact:liveContact, shipping:liveShipping, provider:'manual', locale:'es', prices, ...extra});
+
+test('live catalog shows only hub prices and stock; unmapped variants are not for sale', async () => {
+  const {api} = liveSetup();
+  const products = (await api('/api/catalog')).products;
+  const first = products.find(p => p.id === rosa.id), second = products.find(p => p.id === gris.id);
+  assert.equal(first.price_minor, 450000);
+  assert.equal(first.currency, 'NIO');
+  assert.deepEqual(first.variants.map(v => v.stock), [2, 0, 0]);
+  assert.deepEqual(first.variants.map(v => v.sku), ['HUB-ROSA-S', 'HUB-ROSA-M', null]);
+  assert.equal(second.price_minor, null);
+  assert.ok(second.variants.every(v => v.stock === 0));
+  await rejects(() => api('/api/cart/items', {variant_id:rosa.variants[1].id, quantity:1}), 'insufficient_stock');
+  await rejects(() => api('/api/cart/items', {variant_id:gris.variants[0].id, quantity:1}), 'insufficient_stock');
+  await rejects(() => api('/api/cart/items', {variant_id:rosa.variants[0].id, quantity:3}), 'insufficient_stock');
+  const cart = await api('/api/cart/items', {variant_id:rosa.variants[0].id, quantity:1});
+  assert.deepEqual([cart.subtotal_minor, cart.currency, cart.lines[0].sku], [450000, 'NIO', 'HUB-ROSA-S']);
+  await rejects(() => api('/api/quote', {delivery_zone:'managua'}), 'unsupported_route');
+});
+
+test('live order sends the exact hub body with one key, credential-free, and keeps the token out of URLs', async () => {
+  const {api, calls, saved, orderCalls} = liveSetup();
+  await api('/api/cart/items', {variant_id:rosa.variants[0].id, quantity:1});
+  const {order} = await api('/api/orders', liveInput());
+  const [post] = orderCalls();
+  assert.deepEqual(JSON.parse(post.options.body), {lines:[{sku:'HUB-ROSA-S', qty:1}], contact:liveContact, shipping:liveShipping, provider:'manual', locale:'es'});
+  assert.match(post.options.headers['Idempotency-Key'], /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/);
+  assert.equal(post.options.credentials, 'omit');
+  assert.equal(post.options.cache, 'no-store');
+  assert.deepEqual([order.code, order.total_minor, order.shipping_minor, order.subtotal_minor, order.payment.label], ['W-000123', 500000, 50000, undefined, 'Pago manual (no es tarjeta)'], 'no subtotal is derived: the hub total can include tax');
+  assert.equal((await api('/api/cart')).lines.length, 0);
+  assert.equal(saved.get('martha-live-v1:pending'), 'null');
+  const read = (await api(`/api/orders/${orderId}`)).order;
+  assert.equal(read.status, 'paid');
+  const get = calls.at(-1);
+  assert.equal(get.options.headers['X-Order-Token'], 'token-secret');
+  assert.ok(calls.every(call => !call.url.includes('token-secret')));
+  await rejects(() => api('/api/orders/dddddddd-dddd-dddd-dddd-dddddddddddd'), 'not_found');
+  assert.equal(calls.at(-1), get, 'an order unknown to this browser makes no request');
+});
+
+test('a retry after a lost response and a double submit reuse one Idempotency-Key; a new body gets a new key', async () => {
+  let failNext = true;
+  const keys = [];
+  const {api, orderCalls} = liveSetup({onOrder:(body, options) => {
+    keys.push(options.headers['Idempotency-Key']);
+    if (failNext) { failNext = false; throw new TypeError('connection reset'); }
+    return json(keys.length > 2 ? 200 : 201, {orderId, code:'W-000123', accessToken:'token-secret', status:'reserved', totalMinor:500000, shippingMinor:50000, currency:'NIO', expiresAt:'2026-11-23T00:00:00Z', payment:null});
+  }});
+  await api('/api/cart/items', {variant_id:rosa.variants[0].id, quantity:1});
+  await assert.rejects(() => api('/api/orders', liveInput()), error => error.code === 'network' && error.ambiguous === true);
+  const results = await Promise.all([api('/api/orders', liveInput()), api('/api/orders', liveInput())]);
+  assert.deepEqual(results.map(result => result.order.id), [orderId, orderId]);
+  assert.equal(new Set(keys).size, 1, keys.join());
+  assert.equal(orderCalls().length, 3);
+  await api('/api/cart/items', {variant_id:rosa.variants[0].id, quantity:1});
+  await api('/api/orders', liveInput(undefined, {contact:{...liveContact, name:'Otra Persona'}}));
+  assert.notEqual(keys.at(-1), keys[0]);
+});
+
+test('a changed hub price stops the order before it is placed', async () => {
+  const {api, setItems, orderCalls} = liveSetup();
+  await api('/api/cart/items', {variant_id:rosa.variants[0].id, quantity:1});
+  setItems([{sku:'HUB-ROSA-S', productId:'p1', name:'Rosa', size:'S', color:'Rosa', unitPriceMinor:470000, currency:'NIO', available:2}]);
+  await rejects(() => api('/api/orders', liveInput()), 'price_changed');
+  assert.equal(orderCalls().length, 0);
+  assert.equal((await api('/api/cart')).lines[0].unit_price_minor, 470000);
+  setItems([]);
+  await assert.rejects(() => api('/api/orders', liveInput({[rosa.variants[0].id]:470000})), error => error.code === 'out_of_stock' && error.message.includes(rosa.name) && error.message.includes('talla S'));
+  assert.equal(orderCalls().length, 0);
+});
+
+test('hub problems map by code to authored messages; prose from the hub is never shown', async () => {
+  const cases = [[409, {code:'out_of_stock', sku:'HUB-ROSA-S', message:'hub prose'}, 'out_of_stock', false],
+    [429, {code:'rate_limited', message:'hub prose'}, 'rate_limited', false], [403, {code:'turnstile_failed'}, 'turnstile_failed', false],
+    [400, {code:'validation', message:'hub prose'}, 'validation', false], [409, {code:'too_many_unpaid'}, 'too_many_unpaid', false],
+    [503, {code:'unavailable'}, 'unavailable', true], [502, null, 'unavailable', true]];
+  for (const [status, body, code, ambiguous] of cases) {
+    const {api} = liveSetup({onOrder:() => json(status, body)});
+    await api('/api/cart/items', {variant_id:rosa.variants[0].id, quantity:1});
+    await assert.rejects(() => api('/api/orders', liveInput()), error => {
+      assert.equal(error.code, code, status);
+      assert.equal(!!error.ambiguous, ambiguous, code);
+      assert.ok(!error.message.includes('hub prose'));
+      if (code === 'out_of_stock') assert.ok(error.message.includes(`${rosa.name}, talla S`));
+      return true;
+    });
+  }
+});
+
+test('a hub that cannot be read leaves nothing for sale', async () => {
+  const api = createLiveAdapter({config:liveConfig, catalog, storage:null, fetch:async () => { throw new TypeError('offline'); }});
+  await rejects(() => api('/api/catalog'), 'network');
+  await rejects(() => api('/api/cart/items', {variant_id:rosa.variants[0].id, quantity:1}), 'network');
+});
+
+test('live contract: the manual label, zones and problem codes match the hub source', () => {
+  const read = file => fs.readFileSync(require.resolve('../' + file), 'utf8');
+  const label = read('savia/src/Savia.Api/Payments.cs').match(/public string Label => "([^"]+)";/)[1];
+  const live = createLiveAdapter({config:liveConfig, catalog, storage:null, fetch:async () => json(200, {items:[]})});
+  assert.deepEqual(live.providers.map(p => [p.code, p.label]), [['manual', label]]);
+  const zones = [...read('savia/db/migrations/V049__web_order.sql').matchAll(/\('([a-z]+)',N'[^']+',\d+,'NIO'\)/g)].map(match => match[1]);
+  assert.deepEqual(zones, ['managua', 'departamentos']);
+  const app = read('src/app.js');
+  for (const zone of zones) assert.ok(app.includes(`value="${zone}"`), zone);
+  const hubCodes = new Set([...[read('savia/src/Savia.Api/PublicEndpoints.cs'), read('savia/src/Savia.Api/WebStoreHosting.cs')].join('').matchAll(/"([a-z]+(?:_[a-z]+)*)"/g)].map(match => match[1]));
+  for (const code of ['out_of_stock', 'rate_limited', 'turnstile_failed', 'validation', 'too_many_unpaid', 'provider_unavailable', 'payload_too_large', 'unavailable']) assert.ok(hubCodes.has(code), code);
+});
+
+test('the default build stays in demo mode and the CONFIG line is the one prepare.py replaces', () => {
+  const source = fs.readFileSync(require.resolve('../src/integration-adapters.js'), 'utf8');
+  assert.equal(source.split('const CONFIG = {"apiBase":"","turnstileSiteKey":"","skus":{}};').length, 2);
+  const window = {fetch:() => { throw new Error('must not run'); }};
+  vm.runInNewContext(source, {window});
+  assert.equal(window.MarthaIntegrations.live, false);
+  assert.equal(typeof window.MarthaIntegrations.createLiveAdapter, 'function');
+});

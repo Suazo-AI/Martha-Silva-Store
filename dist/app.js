@@ -20,8 +20,11 @@
   })();
   const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const locale = () => window.MarthaI18n?.language === 'en' ? 'en-US' : 'es-NI';
-  const priceFormat = new Intl.NumberFormat('en-US', {style:'currency',currency:'USD'});
-  const money = n => priceFormat.format(Math.abs(n) / 100);
+  const priceFormats = {};
+  let currency = 'USD';
+  const money = n => (priceFormats[currency] ||= new Intl.NumberFormat('en-US', {style:'currency',currency,currencyDisplay:'narrowSymbol'})).format(Math.abs(n) / 100);
+  // Live mode: the build set a hub origin, so prices, stock and orders come from the SAVIA hub.
+  const liveStore = !!window.MarthaIntegrations?.live;
   const uuid = () => crypto.randomUUID();
   // Per-entry editorial view state; leaves native scrollRestoration unchanged.
   const viewHistory = (() => {
@@ -219,7 +222,7 @@
   let products = [], cart = null, pageScope, raf, currentOrder, adminOrders = [], inventory = [], checkout = {}, quote, productObserver, productAdding = false;
   const integrationInstances = new Map();
   let memoryOnlyIntegration = false;
-  let integrationMode = 'savia', integrationApi, integrationEpoch = 0, pendingApi = 0, busyActions = 0, mountJobs = 0, modeSwitching = false, integrationError = '';
+  let integrationMode = liveStore ? 'live' : 'savia', integrationApi, integrationEpoch = 0, pendingApi = 0, busyActions = 0, mountJobs = 0, modeSwitching = false, integrationError = '';
   const sessionKey = name => `martha-${integrationMode}-${name}-v1`;
   function loadCheckout() {
     try { checkout = JSON.parse(sessionStorage.getItem(sessionKey('checkout')) || '{}'); } catch { checkout = {}; }
@@ -235,7 +238,7 @@
       // Retain memory-only models for this page, including BFCache. Stored
       // models keep their existing reload behavior; reset updates the client.
       if (storage || !cached || cached.factory !== factory || cached.engine !== engine || cached.catalog !== catalog || cached.storage !== storage) {
-        const api = factory({mode:integrationMode,catalog,storage,createStoreApi:engine});
+        const api = liveStore ? window.MarthaIntegrations.createLiveAdapter({catalog,storage}) : factory({mode:integrationMode,catalog,storage,createStoreApi:engine});
         integrationInstances.set(integrationMode, {api,factory,engine,catalog,storage});
       }
       integrationApi = integrationInstances.get(integrationMode).api;
@@ -247,7 +250,7 @@
     $$('[data-add], [data-sticky-add], [data-create-order], [data-confirm-payment], [data-quantity], [data-stock] button, [data-fulfillment] button').forEach(button => button.disabled = true);
   }
   createIntegration(); loadCheckout();
-  const statusLabel = {pending:'Pago pendiente',pending_payment:'Pago pendiente',paid:'Pago aprobado',declined:'Pago rechazado',cancelled:'Pedido cancelado',preparing:'En preparación',shipped:'Enviado',delivered:'Entregado',partially_refunded:'Reembolso parcial',refunded:'Reembolso completado',requested:'Solicitud recibida',received:'Prenda recibida',order_created:'Pedido creado',newsletter_opt_in:'Novedades seleccionadas',newsletter_not_selected:'Sin suscripción a novedades',payment_approved:'Pago aprobado',payment_declined:'Pago rechazado',payment_cancelled:'Pago cancelado',fulfillment_preparing:'En preparación',fulfillment_shipped:'Enviado',fulfillment_delivered:'Entregado',return_requested:'Devolución solicitada',return_received:'Prenda recibida',refund_completed:'Reembolso completado',reserve_expired:'Reserva vencida'};
+  const statusLabel = {pending:'Pago pendiente',pending_payment:'Pago pendiente',paid:'Pago aprobado',declined:'Pago rechazado',cancelled:'Pedido cancelado',preparing:'En preparación',shipped:'Enviado',delivered:'Entregado',partially_refunded:'Reembolso parcial',refunded:'Reembolso completado',requested:'Solicitud recibida',received:'Prenda recibida',order_created:'Pedido creado',newsletter_opt_in:'Novedades seleccionadas',newsletter_not_selected:'Sin suscripción a novedades',payment_approved:'Pago aprobado',payment_declined:'Pago rechazado',payment_cancelled:'Pago cancelado',fulfillment_preparing:'En preparación',fulfillment_shipped:'Enviado',fulfillment_delivered:'Entregado',return_requested:'Devolución solicitada',return_received:'Prenda recibida',refund_completed:'Reembolso completado',reserve_expired:'Reserva vencida',reserved:'Reservado, pago pendiente',expired:'Reserva vencida',payment_review:'Pago en revisión',fulfilling:'En preparación',fulfilled:'Pedido completado'};
   function readStorage(key, fallback) { try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch { return fallback; } }
   let favorites = readStorage('martha-favorites', []);
   favorites = Array.isArray(favorites) ? favorites.filter(id => typeof id === 'string') : [];
@@ -336,11 +339,21 @@
   function showError(root, error) { let box = $('[data-error]', root); if (!box) { box = document.createElement('p'); box.className = 'error'; box.setAttribute('data-error',''); box.setAttribute('role','alert'); root.prepend(box); } box.textContent = error.message; box.hidden = false; if(!root.closest('[data-product-id]')||$('[data-sticky-buy]')?.hidden!==false)box.scrollIntoView({block:'nearest'}); }
   async function withButton(button, action) { if (button.disabled) return; const root = button.closest('form, dialog, [data-product-id], [data-checkout-root], [data-order-root], [data-admin-root], main') || document.body; $('[data-error]',root)?.setAttribute('hidden',''); button.disabled = true; busyActions++; if(button.matches('[data-add]')) {productAdding=true;syncProduct();} try { await action(); } catch (error) { showError(root, error); } finally { busyActions--; if (button.isConnected) button.disabled = false; if(button.matches('[data-add]')) {productAdding=false;syncProduct();const error=$('[data-product-error]'),sticky=$('[data-sticky-error]');if(error&&sticky){sticky.textContent=error.textContent;sticky.hidden=error.hidden;}} } }
   async function refreshCart() { cart = await api('/api/cart'); const count = cart.lines.reduce((n, line) => n + line.quantity, 0); $$('[data-bag-count]').forEach(n => { const before = Number(n.textContent) || 0; n.textContent = count; if (bagReady && count > before) pulse(n, 1.2); }); bagReady = true; if($('#mini-bag')?.open)miniBag(); return cart; }
+  const priceText = p => p.price_minor === null ? 'No disponible' : money(p.price_minor);
+  // The live build ships the static prices blank; they appear only once the hub catalog loads.
+  function showPrices() {
+    if (!liveStore) return;
+    $$('.product-price').forEach(element => {
+      const id = element.closest('[data-product-card]')?.dataset.productCard || (element.matches('.detail-price') ? $('main')?.dataset.productId : '');
+      const product = products.find(item => item.id === id);
+      element.textContent = product ? priceText(product) : 'No disponible';
+    });
+  }
   function card(p) {
     const saved=favorites.includes(p.id), stock=p.variants.reduce((n,v)=>n+v.stock,0);
     const photo=(src,cls='')=>{const i=p.images.indexOf(src),dimensions=window.STORE_IMAGE_DIMENSIONS?.[p.jpeg_images?.[i] || src] || [900,1200];return `<picture class="${cls}">${src.startsWith('/looks/') && src.endsWith('.png') ? `<source type="image/webp" srcset="${[360,720,dimensions[0]].filter((w,n,a)=>w<=dimensions[0]&&a.indexOf(w)===n).map(w=>esc(src.replace('/looks/','/responsive-images/').replace(/\.png$/, '-'+w+'.webp'))+' '+w+'w').join(', ')}" sizes="(max-width:599px) 50vw,25vw">` : ''}<source type="${src.endsWith('.png') ? 'image/png' : 'image/webp'}" srcset="${esc(p.image_sets?.[i] || src+' 900w')}" sizes="(max-width:599px) 50vw,25vw"><img class="${cls}" src="${esc(p.jpeg_images?.[i] || src)}" srcset="${esc(p.jpeg_sets?.[i] || src+' 900w')}" sizes="(max-width:599px) 50vw,25vw" width="${dimensions[0]}" height="${dimensions[1]}" alt="${esc(p.name)}${src.startsWith('/looks/') ? ' · Vista completa' : ''}" loading="lazy" decoding="async"></picture>`;};
     const sizes=p.variants.map(v=>`<button type="button" data-quick-size="${esc(v.id)}"${v.stock>0?'':` disabled aria-label="Talla ${esc(v.size)} agotada"`}>${esc(v.size)}</button>`).join('');
-    return `<article class="product-card plp-card" data-id="${esc(p.id)}"><div class="plp-media"><a href="/producto-${esc(p.id)}.html" tabindex="-1" aria-hidden="true">${photo(p.images[0],'plp-a'+(p.images[1]?' has-b':''))}${p.images[1]?photo(p.images[1],'plp-b'):''}</a>${stock===0?'<p class="plp-sold">AGOTADO</p>':''}<div class="plp-sizes" role="group" aria-label="Elegí talla de ${esc(p.name)}">${sizes}</div></div><div class="plp-info"><p class="plp-color">${esc(p.color)}</p><button class="plp-fav" type="button" data-favorite="${esc(p.id)}" aria-label="Guardar en favoritos: ${esc(p.name)}" aria-pressed="${saved}"><svg viewBox="0 0 24 24" fill="${saved?'currentColor':'none'}" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M20.8 4.7a5.5 5.5 0 0 0-7.8 0L12 5.8l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.5a5.5 5.5 0 0 0 0-7.8Z"/></svg></button><h2 class="plp-name"><a href="/producto-${esc(p.id)}.html">${esc(p.name)}</a></h2><p class="plp-price">${money(p.price_minor)}</p>${stock===0?'':`<button class="plp-quick" type="button" data-quick aria-expanded="false" aria-label="Agregar rápido ${esc(p.name)}"><span>Agregar rápido</span></button>`}</div></article>`;
+    return `<article class="product-card plp-card" data-id="${esc(p.id)}"><div class="plp-media"><a href="/producto-${esc(p.id)}.html" tabindex="-1" aria-hidden="true">${photo(p.images[0],'plp-a'+(p.images[1]?' has-b':''))}${p.images[1]?photo(p.images[1],'plp-b'):''}</a>${stock===0?'<p class="plp-sold">AGOTADO</p>':''}<div class="plp-sizes" role="group" aria-label="Elegí talla de ${esc(p.name)}">${sizes}</div></div><div class="plp-info"><p class="plp-color">${esc(p.color)}</p><button class="plp-fav" type="button" data-favorite="${esc(p.id)}" aria-label="Guardar en favoritos: ${esc(p.name)}" aria-pressed="${saved}"><svg viewBox="0 0 24 24" fill="${saved?'currentColor':'none'}" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M20.8 4.7a5.5 5.5 0 0 0-7.8 0L12 5.8l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.5a5.5 5.5 0 0 0 0-7.8Z"/></svg></button><h2 class="plp-name"><a href="/producto-${esc(p.id)}.html">${esc(p.name)}</a></h2><p class="plp-price">${priceText(p)}</p>${stock===0?'':`<button class="plp-quick" type="button" data-quick aria-expanded="false" aria-label="Agregar rápido ${esc(p.name)}"><span>Agregar rápido</span></button>`}</div></article>`;
   }
   function closeQuick(c) { c.classList.remove('picking'); $('[data-quick]',c)?.setAttribute('aria-expanded','false'); }
 
@@ -371,8 +384,8 @@
       const text = `${original} ${translated}`.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
       return (!query || query.split(/\s+/).every(word => text.includes(word))) && (!params.get('category') || p.category === params.get('category')) && (!params.get('color') || p.color === params.get('color')) && (!params.get('size') || p.variants.some(v => v.size === params.get('size') && v.stock > 0)) && (!params.has('favoritos') || favorites.includes(p.id));
     });
-    if (params.get('sort') === 'price-asc') matches.sort((a,b) => a.price_minor-b.price_minor);
-    if (params.get('sort') === 'price-desc') matches.sort((a,b) => b.price_minor-a.price_minor);
+    if (params.get('sort') === 'price-asc') matches.sort((a,b) => (a.price_minor ?? Infinity)-(b.price_minor ?? Infinity));
+    if (params.get('sort') === 'price-desc') matches.sort((a,b) => (b.price_minor ?? -1)-(a.price_minor ?? -1));
     const catalogGrid = $('[data-catalog-grid]'), catalogHtml = matches.map(card).join('') || '<div class="empty-state"><h2>No encontramos prendas con estos filtros.</h2><p>Probá otra talla, color o colección.</p><button class="button secondary" data-clear-filters>Ver todas las prendas</button></div>';
     flipGrid(catalogGrid, () => { catalogGrid.innerHTML = catalogHtml; });
     $('[data-result-count]').textContent = `${matches.length} ${matches.length === 1 ? 'prenda':'prendas'}${params.has('favoritos') ? ' en favoritos':''}`;
@@ -419,7 +432,9 @@
     }, {signal});
     signal.addEventListener('abort', () => { flipContext?.revert(); flipContext = null; }, {once: true});
   }
-  function totals(q, cta = '') { return `<dl class="totals"><div><dt>Subtotal</dt><dd>${money(q.subtotal_minor)}</dd></div>${q.discount_minor ? `<div><dt>Descuento</dt><dd>−${money(q.discount_minor)}</dd></div>`:''}<div><dt>Entrega${q.shipping_minor === undefined ? ' estimada':''}</dt><dd>${q.shipping_minor === undefined ? 'Desde '+money(500):money(q.shipping_minor)}</dd></div><div><dt>Impuestos</dt><dd>${money(q.tax_minor || 0)}</dd></div><div class="total-row"><dt>Total${q.total_minor === undefined ? ' sin entrega':''}</dt><dd>${money(q.total_minor ?? q.subtotal_minor)}</dd></div></dl>${cta}`; }
+  function totals(q, cta = '') {
+    if (liveStore) return `<dl class="totals">${q.total_minor === undefined ? `<div class="total-row"><dt>Subtotal</dt><dd>${money(q.subtotal_minor)}</dd></div>` : `${q.shipping_minor === undefined ? '' : `<div><dt>Entrega</dt><dd>${money(q.shipping_minor)}</dd></div>`}<div class="total-row"><dt>Total</dt><dd>${money(q.total_minor)}</dd></div>`}</dl>${cta}`;
+    return `<dl class="totals"><div><dt>Subtotal</dt><dd>${money(q.subtotal_minor)}</dd></div>${q.discount_minor ? `<div><dt>Descuento</dt><dd>−${money(q.discount_minor)}</dd></div>`:''}<div><dt>Entrega${q.shipping_minor === undefined ? ' estimada':''}</dt><dd>${q.shipping_minor === undefined ? 'Desde '+money(500):money(q.shipping_minor)}</dd></div><div><dt>Impuestos</dt><dd>${money(q.tax_minor || 0)}</dd></div><div class="total-row"><dt>Total${q.total_minor === undefined ? ' sin entrega':''}</dt><dd>${money(q.total_minor ?? q.subtotal_minor)}</dd></div></dl>${cta}`; }
   function runningSummary(q, lines, label) {
     return `<details class="running-summary" data-running-summary><summary><span>${esc(lines.map(line => 'Talla '+line.size+' · Cantidad '+line.quantity).join(' / '))}</span><strong><span>${label}</span> ${money(q.total_minor ?? q.subtotal_minor)}</strong></summary><div class="running-summary-content">${lines.map(line => lineView(line)).join('')}${totals(q)}</div></details>`;
   }
@@ -446,7 +461,7 @@
     panel.addEventListener('keydown',event=>{if(event.key!=='Tab')return;const items=$$('button:not(:disabled),select:not(:disabled),input:not(:disabled)',panel);const first=items[0],last=items.at(-1);if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}},{signal:pageScope.signal});
 
   }
-  function lineView(line, edit = false) { return `<article class="cart-line"><a href="/producto-${esc(line.product_id)}.html"><img src="${esc(line.image)}" alt="${esc(line.name)}" loading="lazy" width="${window.STORE_IMAGE_DIMENSIONS?.[line.image]?.[0] || 900}" height="${window.STORE_IMAGE_DIMENSIONS?.[line.image]?.[1] || 1200}"></a><div><p class="product-category">MARTHA SILVA</p><h2><a href="/producto-${esc(line.product_id)}.html">${esc(line.name)}</a></h2><p>${esc(line.color)} · Talla ${esc(line.size)}</p>${edit ? `<label class="quantity-label">Cantidad <select data-quantity="${esc(line.variant_id)}" aria-label="Cantidad de ${esc(line.name)}, talla ${esc(line.size)}">${Array.from({length:10},(_,i) => `<option value="${i+1}" ${line.quantity === i+1 ? 'selected':''}>${i+1}</option>`).join('')}</select></label><button class="text-button" data-remove-item="${esc(line.variant_id)}" aria-label="Retirar ${esc(line.name)}, talla ${esc(line.size)}">Retirar</button><button class="text-button" data-move-favorite="${esc(line.variant_id)}" data-product="${esc(line.product_id)}" aria-label="Guardar en favoritos ${esc(line.name)}, talla ${esc(line.size)}">Guardar en favoritos</button>`:`<p>Cantidad: ${line.quantity}</p>`}</div><strong>${money(line.line_total_minor)}</strong></article>`; }
+  function lineView(line, edit = false) { return `<article class="cart-line"><a href="/producto-${esc(line.product_id)}.html"><img src="${esc(line.image)}" alt="${esc(line.name)}" loading="lazy" width="${window.STORE_IMAGE_DIMENSIONS?.[line.image]?.[0] || 900}" height="${window.STORE_IMAGE_DIMENSIONS?.[line.image]?.[1] || 1200}"></a><div><p class="product-category">MARTHA SILVA</p><h2><a href="/producto-${esc(line.product_id)}.html">${esc(line.name)}</a></h2><p>${esc(line.color)} · Talla ${esc(line.size)}</p>${edit ? `<label class="quantity-label">Cantidad <select data-quantity="${esc(line.variant_id)}" aria-label="Cantidad de ${esc(line.name)}, talla ${esc(line.size)}">${Array.from({length:10},(_,i) => `<option value="${i+1}" ${line.quantity === i+1 ? 'selected':''}>${i+1}</option>`).join('')}</select></label><button class="text-button" data-remove-item="${esc(line.variant_id)}" aria-label="Retirar ${esc(line.name)}, talla ${esc(line.size)}">Retirar</button><button class="text-button" data-move-favorite="${esc(line.variant_id)}" data-product="${esc(line.product_id)}" aria-label="Guardar en favoritos ${esc(line.name)}, talla ${esc(line.size)}">Guardar en favoritos</button>`:`<p>Cantidad: ${line.quantity}</p>`}</div><strong>${line.line_total_minor === null ? '' : money(line.line_total_minor)}</strong></article>`; }
   function cartActionFocus(button) {
     const dialog = button.closest('#mini-bag');
     const root = dialog ? $('[data-mini-bag-lines]',dialog) : $('[data-cart-lines]');
@@ -462,7 +477,7 @@
     const mount = $('[data-cart-lines]'); if (!mount) return;
     if (!cart.lines.length) { $('[data-cart-running]')?.remove(); mount.innerHTML = '<div class="empty-state"><h2>Tu bolsa está vacía.</h2><p>Explorá vestidos de fiesta, novias y moda femenina.</p><a class="button" href="/catalogo.html">Ver la colección</a></div>'; $('[data-cart-summary]').innerHTML=''; return; }
     mount.innerHTML = cart.lines.map(line => lineView(line,true)).join('');
-    $('[data-cart-running]')?.remove(); const running=document.createElement('div');running.dataset.cartRunning='';running.innerHTML=runningSummary(cart,cart.lines,'Total sin entrega');$('.commerce-grid',mount.closest('section')).before(running);
+    $('[data-cart-running]')?.remove(); const running=document.createElement('div');running.dataset.cartRunning='';running.innerHTML=runningSummary(cart,cart.lines,liveStore ? 'Subtotal' : 'Total sin entrega');$('.commerce-grid',mount.closest('section')).before(running);
     $('[data-cart-summary]').innerHTML = `<div class="order-summary"><h2>Resumen de compra</h2><p class="summary-selection">${esc(cart.lines.map(line => "Talla "+line.size+" - Cantidad "+line.quantity).join(" / "))}</p>${totals(cart, '<a class="button full" href="/checkout.html">Continuar con la compra</a>')}<p class="small muted">Elegí tu zona de entrega para conocer el total completo antes del pago.</p></div>`;
   }
   function field(name,label,type='text',options={}) { return `<label class="field ${options.full ? 'full':''}"><span>${label}</span><input name="${name}" type="${type}" value="${esc(checkout[name] || '')}" ${options.required === false ? '' : 'required'} maxlength="${options.max || 200}" autocomplete="${options.auto || 'off'}" ${options.placeholder ? `placeholder="${esc(options.placeholder)}"`:''}>${options.help ? `<small>${options.help}</small>`:''}</label>`; }
@@ -470,25 +485,96 @@
     const mount = $('[data-checkout-root]'); if (!mount) return;
     if (!cart.lines.length && !checkout.order_id && checkout.quote_id && checkout.order_key) { mount.innerHTML = '<div class="empty-state"><h2>Revisá tu pedido anterior.</h2><p>Podés recuperar su resultado.</p><button class="button" data-recover-order>Recuperar pedido</button><p class="error" data-error role="alert" hidden></p></div>'; return; }
     if (!cart.lines.length) { mount.innerHTML = checkout.order_id ? `<div class="empty-state"><h2>Tu pedido ya fue creado.</h2><a class="button" href="/pedido.html?id=${encodeURIComponent(checkout.order_id)}">Continuar con tu pedido</a></div>` : '<div class="empty-state"><h2>Agregá una prenda para continuar.</h2><a class="button" href="/catalogo.html">Ver la colección</a></div>'; return; }
-    const stages = ['contact','delivery','review','payment'];
+    const stages = liveStore ? ['contact','delivery','review'] : ['contact','delivery','review','payment'];
     let content = '';
-    if (step === 'contact') content = `<h2>Contacto</h2><form data-checkout-form="contact" novalidate><div class="form-grid">${field('name','Nombre y apellido','text',{auto:'name',full:true})}${field('email','Email','email',{auto:'email',full:true,help:'Para identificar tu pedido.'})}${field('phone','Teléfono','tel',{auto:'tel',full:true,help:'Para coordinar la entrega cuando la tienda esté activa.'})}</div><label class="check-label"><input name="newsletter" type="checkbox" ${checkout.newsletter ? 'checked':''}>Quiero recibir novedades de Martha Silva (opcional).</label><p data-error class="error" role="alert" hidden></p><button class="button full">Continuar con la entrega</button></form>`;
-    if (step === 'delivery') content = `<button class="text-button" data-checkout-back="contact">← Editar contacto</button><h2>Dirección de entrega</h2><form data-checkout-form="delivery" novalidate><div class="form-grid">${field('line1','Dirección','text',{auto:'street-address',full:true})}${field('city','Ciudad','text',{auto:'address-level2'})}${field('department','Departamento','text',{auto:'address-level1'})}<label class="field full"><span>Zona de entrega</span><select name="delivery_zone" required><option value="managua" ${checkout.delivery_zone === 'resto' ? '':'selected'}>Managua - ${money(500)}</option><option value="resto" ${checkout.delivery_zone === 'resto' ? 'selected':''}>Resto de Nicaragua - ${money(800)}</option></select></label>${field('coupon','Código de descuento','text',{required:false,full:true})}</div><p data-error class="error" role="alert" hidden></p><button class="button full">Revisar la compra</button></form>`;
-    if (step === 'review') content = `<button class="text-button" data-checkout-back="delivery">← Editar entrega</button><h2>Revisá tu compra</h2><div class="review-block"><h3>Contacto</h3><p translate="no">${esc(checkout.name)}<br>${esc(checkout.email)}<br>${esc(checkout.phone)}</p><h3>Entrega</h3><p translate="no">${esc(checkout.line1)}<br>${esc(checkout.city)}, ${esc(checkout.department)}</p></div><p data-error class="error" role="alert" hidden></p><button class="button full" data-create-order>Continuar al pago</button>`;
-    if (step === 'payment') content = `<h2>Pago</h2><p data-error class="error" role="alert" hidden></p><button class="button full" data-confirm-payment="approved">Confirmar pedido</button>`;
-    mount.innerHTML = `<ol class="steps" aria-label="Pasos de compra">${stages.map((s,i) => `<li class="${i<stages.indexOf(step)?'complete':''}" ${s === step ? 'aria-current="step"':''}>${i+1}. ${['Contacto','Entrega','Revisión','Pago'][i]}</li>`).join('')}</ol>${runningSummary(quote || cart,cart.lines,quote ? 'Total':'Total sin entrega')}<div class="commerce-grid"><section class="checkout-panel" aria-labelledby="checkout-stage-title">${content}</section><aside class="order-summary checkout-summary" data-checkout-step="${step}"><h2>Tu selección</h2>${cart.lines.map(line => lineView(line)).join('')}${totals(quote || cart)}<footer class="checkout-summary-footer"><div><h3>Compra</h3><p>Los precios se muestran en USD.</p><a href="/ayuda.html" data-barba-prevent>Entrega y devoluciones</a></div></footer></aside></div>`;
+    if (liveStore) content = liveCheckoutStep(step);
+    else if (step === 'contact') content = `<h2>Contacto</h2><form data-checkout-form="contact" novalidate><div class="form-grid">${field('name','Nombre y apellido','text',{auto:'name',full:true})}${field('email','Email','email',{auto:'email',full:true,help:'Para identificar tu pedido.'})}${field('phone','Teléfono','tel',{auto:'tel',full:true,help:'Para coordinar la entrega cuando la tienda esté activa.'})}</div><label class="check-label"><input name="newsletter" type="checkbox" ${checkout.newsletter ? 'checked':''}>Quiero recibir novedades de Martha Silva (opcional).</label><p data-error class="error" role="alert" hidden></p><button class="button full">Continuar con la entrega</button></form>`;
+    else if (step === 'delivery') content = `<button class="text-button" data-checkout-back="contact">← Editar contacto</button><h2>Dirección de entrega</h2><form data-checkout-form="delivery" novalidate><div class="form-grid">${field('line1','Dirección','text',{auto:'street-address',full:true})}${field('city','Ciudad','text',{auto:'address-level2'})}${field('department','Departamento','text',{auto:'address-level1'})}<label class="field full"><span>Zona de entrega</span><select name="delivery_zone" required><option value="managua" ${checkout.delivery_zone === 'resto' ? '':'selected'}>Managua - ${money(500)}</option><option value="resto" ${checkout.delivery_zone === 'resto' ? 'selected':''}>Resto de Nicaragua - ${money(800)}</option></select></label>${field('coupon','Código de descuento','text',{required:false,full:true})}</div><p data-error class="error" role="alert" hidden></p><button class="button full">Revisar la compra</button></form>`;
+    else if (step === 'review') content = `<button class="text-button" data-checkout-back="delivery">← Editar entrega</button><h2>Revisá tu compra</h2><div class="review-block"><h3>Contacto</h3><p translate="no">${esc(checkout.name)}<br>${esc(checkout.email)}<br>${esc(checkout.phone)}</p><h3>Entrega</h3><p translate="no">${esc(checkout.line1)}<br>${esc(checkout.city)}, ${esc(checkout.department)}</p></div><p data-error class="error" role="alert" hidden></p><button class="button full" data-create-order>Continuar al pago</button>`;
+    else if (step === 'payment') content = `<h2>Pago</h2><p data-error class="error" role="alert" hidden></p><button class="button full" data-confirm-payment="approved">Confirmar pedido</button>`;
+    mount.innerHTML = `<ol class="steps" aria-label="Pasos de compra">${stages.map((s,i) => `<li class="${i<stages.indexOf(step)?'complete':''}" ${s === step ? 'aria-current="step"':''}>${i+1}. ${['Contacto','Entrega','Revisión','Pago'][i]}</li>`).join('')}</ol>${runningSummary(quote || cart,cart.lines,quote ? 'Total' : liveStore ? 'Subtotal' : 'Total sin entrega')}<div class="commerce-grid"><section class="checkout-panel" aria-labelledby="checkout-stage-title">${content}</section><aside class="order-summary checkout-summary" data-checkout-step="${step}"><h2>Tu selección</h2>${cart.lines.map(line => lineView(line)).join('')}${totals(quote || cart)}<footer class="checkout-summary-footer"><div><h3>Compra</h3><p>Los precios se muestran en ${esc(currency)}.</p><a href="/ayuda.html" data-barba-prevent>Entrega y devoluciones</a></div></footer></aside></div>`;
     const title = $('.checkout-panel h2',mount);
     title.id = 'checkout-stage-title';
     if (focusStep) { title.tabIndex = -1; title.focus({preventScroll:true}); }
     $('.checkout-panel',mount).scrollIntoView({block:'nearest'});
+    if (liveStore && step === 'review') { checkout.prices = Object.fromEntries(cart.lines.map(line => [line.variant_id, line.unit_price_minor])); saveCheckout(); mountTurnstile().catch(error => showError(mount, error)); }
+  }
+  // Field limits follow the hub; city and department travel together as one 120-character city.
+  function liveCheckoutStep(step) {
+    if (step === 'contact') return `<h2>Contacto</h2><form data-checkout-form="contact" novalidate><div class="form-grid">${field('name','Nombre y apellido','text',{auto:'name',full:true,max:180})}${field('email','Email','email',{auto:'email',full:true,max:254})}${field('phone','Teléfono','tel',{auto:'tel',full:true,max:40})}</div><p data-error class="error" role="alert" hidden></p><button class="button full">Continuar con la entrega</button></form>`;
+    if (step === 'delivery') return `<button class="text-button" data-checkout-back="contact">← Editar contacto</button><h2>Dirección de entrega</h2><form data-checkout-form="delivery" novalidate><div class="form-grid">${field('line1','Dirección','text',{auto:'street-address',full:true,max:350})}${field('city','Ciudad','text',{auto:'address-level2',max:60})}${field('department','Departamento','text',{auto:'address-level1',max:58})}<label class="field full"><span>Zona de entrega</span><select name="delivery_zone" required><option value="managua" ${checkout.delivery_zone === 'departamentos' ? '':'selected'}>Managua</option><option value="departamentos" ${checkout.delivery_zone === 'departamentos' ? 'selected':''}>Resto de Nicaragua</option></select></label></div><p data-error class="error" role="alert" hidden></p><button class="button full">Revisar la compra</button></form>`;
+    const providers = integrationApi?.providers || [];
+    return `<button class="text-button" data-checkout-back="delivery">← Editar entrega</button><h2>Revisá tu compra</h2><div class="review-block"><h3>Contacto</h3><p translate="no">${esc(checkout.name)}<br>${esc(checkout.email)}<br>${esc(checkout.phone)}</p><h3>Entrega</h3><p translate="no">${esc(checkout.line1)}<br>${esc(checkout.city)}, ${esc(checkout.department)}</p></div><fieldset class="review-block"><legend>Forma de pago</legend>${providers.map((provider,i) => `<label class="check-label"><input type="radio" name="provider" value="${esc(provider.code)}" ${i === 0 ? 'checked':''}><span translate="no">${esc(provider.label)}</span></label>`).join('')}</fieldset>${integrationApi?.turnstileSiteKey ? '<div data-turnstile></div>' : ''}<p data-error class="error" role="alert" hidden></p><button class="button full" data-create-order>Confirmar pedido</button>`;
+  }
+  // Turnstile loads only on the review step of a live build that set a site key.
+  let turnstileLoad, turnstileWidget = null;
+  function turnstileScript() {
+    return turnstileLoad ||= new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'; script.async = true;
+      script.onload = () => window.turnstile ? resolve(window.turnstile) : reject(new Error('No pudimos conectar con la tienda. Revisá tu conexión e intentá otra vez.'));
+      script.onerror = () => { turnstileLoad = null; script.remove(); reject(new Error('No pudimos conectar con la tienda. Revisá tu conexión e intentá otra vez.')); };
+      document.head.append(script);
+    });
+  }
+  async function mountTurnstile() {
+    const box = $('[data-turnstile]'); if (!box) return;
+    const turnstile = await turnstileScript();
+    if (turnstileWidget !== null) try { turnstile.remove(turnstileWidget); } catch {}
+    if (box.isConnected) turnstileWidget = turnstile.render(box, {sitekey:integrationApi.turnstileSiteKey, language:window.MarthaI18n?.language === 'en' ? 'en' : 'es'});
+  }
+  function turnstileToken() {
+    if (!integrationApi?.turnstileSiteKey) return undefined;
+    const token = turnstileWidget !== null && window.turnstile?.getResponse(turnstileWidget);
+    if (!token) throw new Error('Completá la verificación para confirmar el pedido.');
+    return token;
+  }
+  /* The adapter keeps one Idempotency-Key per checkout attempt, so a retry or a second click
+     replays the same hub order. Success leaves the checkout for the payment step the hub chose. */
+  async function placeLiveOrder() {
+    const provider = $('input[name="provider"]:checked')?.value;
+    if (!provider) throw new Error('Elegí una forma de pago.');
+    try {
+      const {order} = await api('/api/orders', {contact:{name:checkout.name,email:checkout.email,phone:checkout.phone}, shipping:{zone:checkout.delivery_zone,address:checkout.line1,city:`${checkout.city}, ${checkout.department}`}, provider, locale:window.MarthaI18n?.language, turnstileToken:turnstileToken(), prices:checkout.prices});
+      sessionStorage.setItem(sessionKey('last-order'), order.id); sessionStorage.removeItem(sessionKey('checkout')); checkout = {};
+      const redirect = order.payment?.kind === 'redirect' && /^https:\/\//.test(order.payment.url || '') ? order.payment.url : '';
+      location.assign(redirect || '/pedido.html?order=' + encodeURIComponent(order.id));
+    } catch (error) {
+      if (error.code === 'price_changed') { await refreshCart(); renderCheckout('review'); }
+      else if (turnstileWidget !== null) try { window.turnstile?.reset(turnstileWidget); } catch {}
+      throw error;
+    }
   }
   function returnItems(order, ret) { return '<ul class="return-items">'+ret.lines.map(line=>{const item=order.lines.find(item=>item.variant_id===line.variant_id); return '<li>'+esc(item?.name || line.variant_id)+' · Talla '+esc(item?.size)+' · Cantidad: '+line.quantity+'</li>';}).join('')+'</ul>'; }
   function orderView(order, admin = false) {
     const refunded = order.refunded_minor || 0;
     return `<div class="order-heading"><div><p class="eyebrow">PEDIDO ${esc(order.code)}</p><h2>${statusLabel[order.status] || esc(order.status)}</h2></div><span class="status-chip">${statusLabel[order.payment_status] || esc(order.payment_status)}</span></div><div class="commerce-grid"><section>${order.lines.map(line => lineView(line)).join('')}<div class="review-block"><h3>Entrega</h3><p translate="no">${esc(order.contact.name)}<br>${esc(order.address.line1)}<br>${esc(order.address.city)}, ${esc(order.address.department)}</p>${order.tracking ? `<p>Seguimiento: <span translate="no"><span translate="no">${esc(order.tracking)}</span></span></p>`:''}</div><h3>Estado del pedido</h3><ol class="timeline">${order.events.map(event => `<li><span>${esc(new Date(event.at).toLocaleString(locale()))}</span> ${esc(statusLabel[event.type] || event.type)}</li>`).join('')}</ol></section><aside class="order-summary"><h3>Resumen de compra</h3>${totals(order)}${refunded ? `<p>Reembolsado: ${money(refunded)}</p>`:''}<p class="small muted" translate="no">${esc(order.contact.email)}</p></aside></div>${(order.returns || []).map(r => `<div class="return-card"><h3>Devolución ${esc(r.id.slice(0,8))}</h3>${returnItems(order,r)}<p><span translate="no">${esc(r.reason)}</span> · ${statusLabel[r.status] || esc(r.status)}</p>${admin && r.status === 'requested' ? `<button class="button secondary" data-receive-return="${esc(r.id)}" data-order="${esc(order.id)}">Registrar recepción</button>`:''}${admin && r.status === 'received' ? `<label class="check-label"><input type="checkbox" data-restock="${esc(r.id)}">Prenda revisada: devolver al inventario</label><button class="button secondary" data-refund="${esc(r.id)}" data-order="${esc(order.id)}">Procesar reembolso</button>`:''}</div>`).join('')}`;
   }
+  function liveOrderView(order) {
+    const payment = order.payment && ['reserved','payment_review'].includes(order.status) ? `<div class="review-block"><h3>Pago</h3><p translate="no">${esc(order.payment.label)}</p>${order.payment.instructions ? `<p translate="no">${esc(order.payment.instructions).replace(/\n/g,'<br>')}</p>`:''}${order.status === 'reserved' && order.expires_at ? `<p>Reservado hasta <span translate="no">${esc(new Date(order.expires_at).toLocaleString(locale()))}</span></p>`:''}</div>` : '';
+    return `<div class="order-heading"><div><p class="eyebrow">PEDIDO ${esc(order.code)}</p><h2>${statusLabel[order.status] || esc(order.status)}</h2></div></div><div class="commerce-grid"><section>${order.lines.map(line => lineView(line)).join('')}${payment}</section><aside class="order-summary"><h3>Resumen de compra</h3>${totals(order)}</aside></div><a class="text-button" href="/catalogo.html">Seguir explorando la colección</a>`;
+  }
+  async function renderLiveOrder(mount) {
+    const params = new URLSearchParams(location.search), id = params.get('order') || params.get('id') || sessionStorage.getItem(sessionKey('last-order'));
+    if (!id) { mount.innerHTML='<div class="empty-state"><h2>No seleccionaste un pedido.</h2><a class="button" href="/catalogo.html">Ver la colección</a></div>'; return; }
+    const signal = pageScope.signal;
+    try {
+      const order = (await api(`/api/orders/${encodeURIComponent(id)}`)).order;
+      if (signal.aborted) return;
+      const changed = currentOrder?.id === order.id && currentOrder.status !== order.status;
+      currentOrder = order; currency = order.currency || currency;
+      mount.innerHTML = liveOrderView(order);
+      if (changed) notify(statusLabel[order.status] || order.status);
+    } catch (error) {
+      if (signal.aborted) return;
+      if (!currentOrder) { mount.innerHTML='<h2>No pudimos abrir ese pedido.</h2><p>Usá el navegador con el que hiciste la compra.</p><a href="/catalogo.html" class="button">Ver la colección</a>'; showError(mount,error); return; }
+    }
+    // Poll while the buyer can still pay; staff record a manual payment on the hub.
+    if (['reserved','payment_review'].includes(currentOrder?.status)) { const timer = setTimeout(() => renderLiveOrder(mount), 20000); signal.addEventListener('abort', () => clearTimeout(timer), {once:true}); }
+  }
   async function renderOrder() {
     const mount = $('[data-order-root]'); if (!mount) return;
+    if (liveStore) { currentOrder = null; await renderLiveOrder(mount); return; }
     const id = new URLSearchParams(location.search).get('id') || sessionStorage.getItem(sessionKey('last-order'));
     if (!id) { mount.innerHTML='<div class="empty-state"><h2>No seleccionaste un pedido.</h2><a class="button" href="/catalogo.html">Ver la colección</a></div>'; return; }
     try {
@@ -783,7 +869,8 @@
     if (page === 'product') productShareControl();
     try {
       if (!products.length || ['catalog','product'].includes(page)) products=(await api('/api/catalog')).products.map(p=>({...p,...window.STORE_MEDIA?.[p.id]}));
-      await refreshCart(); updateHearts();
+      if (liveStore) currency = products.find(p => p.currency)?.currency || currency;
+      await refreshCart(); updateHearts(); showPrices();
       if (page === 'catalog') {gridView();catalog();filterPanel();}
       if (page === 'cart') renderCart();
       if (page === 'checkout') {
@@ -830,6 +917,7 @@
     if (b.matches('[data-remove-item]')) { const focus=cartActionFocus(b);await withButton(b,async()=>{cart=await api('/api/cart/items',{variant_id:b.dataset.removeItem,quantity:0},'PATCH'); await refreshCart(); renderCart();if($('#mini-bag')?.open)miniBag();focus();notify('Prenda retirada de tu bolsa.');}); return; }
     if (b.matches('[data-checkout-back]')) { renderCheckout(b.dataset.checkoutBack,true); return; }
     if (b.matches('[data-recover-order]')) { await withButton(b,async()=>{ rememberOrder((await api('/api/orders',orderPayload())).order); renderCheckout(); }); return; }
+    if (b.matches('[data-create-order]') && liveStore) { await withButton(b,placeLiveOrder); return; }
     if (b.matches('[data-create-order]')) { await withButton(b,async()=>{ checkout.quote_id=quote.id; checkout.order_key ||= uuid(); saveCheckout(); rememberOrder((await api('/api/orders',orderPayload())).order); renderCheckout('payment',true); }); return; }
     if (b.matches('[data-confirm-payment]')) { await withButton(b,async()=>{ const id=currentOrder?.id || checkout.order_id; if (!id) throw new Error('Revisá tu compra para crear el pedido primero.'); const result=await api(`/api/orders/${encodeURIComponent(id)}/payment`,{outcome:b.dataset.confirmPayment,idempotency_key:checkout.payment_key ||= uuid()}); currentOrder=result.order; sessionStorage.removeItem(sessionKey('checkout')); checkout={}; location.href='/pedido.html?id='+encodeURIComponent(id); }); return; }
     if (b.matches('[data-rebuild-order]')) { await withButton(b,async()=>{ const existing=await refreshCart(); for(const line of currentOrder.lines) {const qty=(existing.lines.find(l=>l.variant_id===line.variant_id)?.quantity || 0)+line.quantity; await api('/api/cart/items',{variant_id:line.variant_id,quantity:qty},'PATCH');} location.href='/bolsa.html';}); return; }
@@ -867,13 +955,14 @@
   document.addEventListener('submit',async event=>{
     const form=event.target; if (modeSwitching) { event.preventDefault(); return; }
     if (form.id === 'catalog-filters') {event.preventDefault(); filterChange(); return;}
-    if(form.matches('[data-newsletter]')){event.preventDefault();$('.newsletter-result',form).textContent='Tu código: BIENVENIDA10.';localStorage.setItem('martha-newsletter-dismissed','true');return;}
+    if(form.matches('[data-newsletter]')){event.preventDefault();$('.newsletter-result',form).textContent=liveStore?'Las novedades por email todavía no están disponibles.':'Tu código: BIENVENIDA10.';localStorage.setItem('martha-newsletter-dismissed','true');return;}
     if (!form.matches('[data-checkout-form], [data-return-form], [data-admin-login], [data-fulfillment], [data-stock]')) return;
     event.preventDefault();if(form.dataset.checkoutForm&&!validate(form))return; const button=$('button[type="submit"],button:not([type])',form); const data=Object.fromEntries(new FormData(form));
     await withButton(button,async()=>{
       if (form.dataset.checkoutForm) {
-        Object.assign(checkout,data); if(form.dataset.checkoutForm === 'contact') checkout.newsletter=form.elements.newsletter.checked; saveCheckout();
+        Object.assign(checkout,data); if(form.dataset.checkoutForm === 'contact') checkout.newsletter=!!form.elements.newsletter?.checked; saveCheckout();
         if (form.dataset.checkoutForm === 'contact') renderCheckout('delivery',true);
+        else if (liveStore) renderCheckout('review',true);
         else {quote=await api('/api/quote',{delivery_zone:checkout.delivery_zone,coupon:checkout.coupon || ''}); checkout.order_key=uuid(); delete checkout.order_id; delete checkout.payment_key; saveCheckout(); renderCheckout('review',true);}
       } else if (form.matches('[data-return-form]')) {
         const lines=Object.entries(data).filter(([key,value])=>key.startsWith('return:')&&Number(value)>0).map(([key,value])=>({variant_id:key.slice(7),quantity:Number(value)}));

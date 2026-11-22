@@ -6,6 +6,12 @@ const path = require('node:path');
 const assert = require('node:assert/strict');
 const {JSDOM, VirtualConsole} = require(process.env.MARTHA_JSDOM_PATH || './frontend-deps/node_modules/jsdom');
 const root = path.resolve(__dirname, '../dist');
+// These suites cover the demo store, so a live build's adapter runs with an empty CONFIG instead of calling a hub that is not here.
+const DEMO_CONFIG = 'const CONFIG = {"apiBase":"","turnstileSiteKey":"","skus":{}};';
+const script = file => {
+  const source = fs.readFileSync(path.join(root, file), 'utf8');
+  return file === 'integration-adapters.js' ? source.replace(/const CONFIG = .*;/, DEMO_CONFIG) : source;
+};
 const tick = () => new Promise(resolve => setTimeout(resolve, 12));
 const text = element => element?.textContent.replace(/\s+/g, ' ').trim();
 const tests = [];
@@ -39,7 +45,7 @@ async function boot(page, {language, query = '', stored, app = true, setup, befo
     if (beforeLocale) beforeLocale(w);
     for (const file of ['catalog.js', 'locale-en.js', 'i18n.js']) w.eval(fs.readFileSync(path.join(root, file), 'utf8'));
     if (app) {
-      for (const file of ['store-api.js', 'integration-adapters.js']) w.eval(fs.readFileSync(path.join(root, file), 'utf8'));
+      for (const file of ['store-api.js', 'integration-adapters.js']) w.eval(script(file));
     }
     if (setup) await setup(w);
     if (app) w.eval(fs.readFileSync(path.join(root, 'app.js'), 'utf8'));

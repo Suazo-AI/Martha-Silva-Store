@@ -387,6 +387,24 @@ Esta referencia no es válida.|This reference is not valid.
 La operación no es válida.|This operation is not valid.
 Abrí la vista de administración.|Open the administration view.
 Vestido blanco de encaje floral, cuello alto, manga larga y falda amplia|White floral lace gown with a high neck, long sleeves and a full skirt
+No disponible|Not available
+Forma de pago|Payment method
+Reservado, pago pendiente|Reserved, payment pending
+Pago en revisión|Payment under review
+Pedido completado|Order completed
+Reservado hasta|Reserved until
+Elegí una forma de pago.|Choose a payment method.
+Completá la verificación para confirmar el pedido.|Complete the verification to confirm your order.
+Las novedades por email todavía no están disponibles.|Email updates are not available yet.
+El precio de una prenda cambió. Revisá el nuevo total antes de confirmar.|The price of an item changed. Check the new total before you confirm.
+Hiciste muchos intentos seguidos. Esperá un minuto e intentá otra vez.|You made many attempts in a row. Wait one minute and try again.
+No pudimos verificar que sos una persona. Completá la verificación otra vez.|We could not verify that you are a person. Complete the verification again.
+Revisá tus datos: falta información o un campo es demasiado largo.|Check your details: information is missing or a field is too long.
+Tenés pedidos sin pagar. Completá su pago o esperá a que venzan.|You have unpaid orders. Complete their payment or wait until they expire.
+Esa forma de pago no está disponible.|That payment method is not available.
+No pudimos conectar con la tienda. Revisá tu conexión e intentá otra vez.|We could not connect to the store. Check your connection and try again.
+La tienda no pudo procesar tu pedido. Intentá otra vez en unos minutos.|The store could not process your order. Try again in a few minutes.
+Ya no hay suficiente existencia de una prenda de tu bolsa.|There is no longer enough stock of an item in your bag.
 `.trim();
   const messages = Object.fromEntries(pairs.split('\n').map(line => { const at = line.indexOf('|'); return [line.slice(0, at), line.slice(at + 1)]; }));
   const products = `

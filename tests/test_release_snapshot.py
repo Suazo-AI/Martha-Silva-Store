@@ -1,6 +1,7 @@
 """Current release manifest includes control hashes without counting them public."""
 import importlib.util
 import json
+import sys
 from pathlib import Path
 import tempfile
 import unittest
@@ -36,7 +37,10 @@ class SnapshotTests(unittest.TestCase):
                 canonical.parent.mkdir(parents=True, exist_ok=True)
                 canonical.write_bytes(data)
             manifest = root / 'snapshot.json'
-            with patch.object(snapshot, 'ROOT', root), patch.object(snapshot, 'SNAPSHOT', manifest):
+            # The fixture inputs are inert bytes, so build them with the demo settings whatever site.config.json holds.
+            (root / 'site.config.json').write_text('{}')
+            with patch.object(snapshot, 'ROOT', root), patch.object(snapshot, 'SNAPSHOT', manifest), \
+                    patch.object(sys.modules['prepare'], 'CONFIG_PATH', root / 'site.config.json'):
                 snapshot.verify(record=True)
                 snapshot.verify()
                 recorded = json.loads(manifest.read_text())

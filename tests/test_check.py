@@ -6,6 +6,7 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import sys
 import tempfile
 import unittest
 from unittest import mock
@@ -86,11 +87,14 @@ class RunnerTests(unittest.TestCase):
             for name in ('app.js', 'store-api.js', 'integration-adapters.js'):
                 (root / 'src' / name).write_text('original')
                 (root / 'dist' / name).write_text('original')
-            with contextlib.redirect_stdout(io.StringIO()):
-                check.check_fixture(root)
-            (root / 'dist/app.js').write_text('changed')
-            with self.assertRaisesRegex(ValueError, 'src/dist drift: app.js'):
-                check.check_fixture(root)
+            # The fixture adapter is inert bytes, so compare it under the demo settings whatever site.config.json holds.
+            (root / 'site.config.json').write_text('{}')
+            with mock.patch.object(sys.modules['prepare'], 'CONFIG_PATH', root / 'site.config.json'):
+                with contextlib.redirect_stdout(io.StringIO()):
+                    check.check_fixture(root)
+                (root / 'dist/app.js').write_text('changed')
+                with self.assertRaisesRegex(ValueError, 'src/dist drift: app.js'):
+                    check.check_fixture(root)
 
     def test_fixture_rejects_wrong_product_identity_and_variant_count(self):
         with tempfile.TemporaryDirectory() as directory:
