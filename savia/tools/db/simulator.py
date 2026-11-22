@@ -37,36 +37,6 @@ DBN = {n: f"SAVIA_SIM_{n}" for n in NODES}
 BAK = f"{db.DATA_DIR}/SAVIA_SIM_a_old.bak"
 PRICE = 120000  # catalog price of the fixture 'item' (NIO minor units)
 
-# Synced tables in apply order (parents first) and the SQL that names the owning branch of row t.
-# None = the row's own NodeId names its owner node (V009 transition rows; the cloud owns approvals and cancels).
-_TILL_BRANCH = "(SELECT r.BranchId FROM sales.CashRegisters r WHERE r.Id={})"
-_SALE_BRANCH = "(SELECT s.BranchId FROM sales.Sales s WHERE s.Id=t.SaleId)"
-_LOC_BRANCH = "(SELECT l.BranchId FROM core.Locations l WHERE l.Id=t.LocationId)"
-TABLES = [
-    ("sales.CashTills", _TILL_BRANCH.format("t.RegisterId")),
-    ("sales.Sales", "t.BranchId"),
-    ("sales.SaleLines", _SALE_BRANCH),
-    ("sales.SaleReversals", "t.BranchId"),
-    ("sales.SaleReversalLines", "(SELECT r.BranchId FROM sales.SaleReversals r WHERE r.Id=t.ReversalId)"),
-    ("credits.Credits", "t.IssuingBranchId"),
-    ("credits.CreditAllocations", "t.BranchId"),
-    ("credits.CreditMovements", "t.BranchId"),
-    ("credits.CreditRedemptions", "t.BranchId"),
-    ("sales.SaleTenders", _SALE_BRANCH),
-    ("sales.CashEntries", _TILL_BRANCH.format("(SELECT k.RegisterId FROM sales.CashTills k WHERE k.Id=t.TillId)")),
-    ("inventory.StockBalances", _LOC_BRANCH),
-    ("inventory.StockMovements", _LOC_BRANCH),
-    ("credits.TransferRequests", None),
-    ("credits.TransferApprovals", None),
-    ("credits.TransferCancellations", None),
-    ("credits.TransferDispatches", None),
-    ("credits.TransferReceipts", None),
-    ("sales.CashCounts", _TILL_BRANCH.format("(SELECT k.RegisterId FROM sales.CashTills k WHERE k.Id=t.TillId)")),
-    ("sales.CashCountLines", _TILL_BRANCH.format("(SELECT k.RegisterId FROM sales.CashTills k JOIN sales.CashCounts c "
-                                                 "ON c.TillId=k.Id WHERE c.Id=t.CashCountId)")),
-    ("sales.CashClosures", _TILL_BRANCH.format("(SELECT k.RegisterId FROM sales.CashTills k WHERE k.Id=t.TillId)")),
-]
-
 EMIT = """
 SELECT N'@@SIMB@@'+SUBSTRING(@out,(n-1)*3000+1,3000)+N'@@SIME@@'
 FROM (SELECT TOP (CONVERT(int,CEILING(DATALENGTH(ISNULL(@out,N''))/6000.0))) ROW_NUMBER() OVER(ORDER BY (SELECT NULL)) AS n
@@ -148,15 +118,16 @@ EXEC sales.usp_OpenTill @TillId='{self.till[b]}',@RegisterId={self.i('register' 
         self.converge()  # every node starts from the same rows, so a branch can see another branch's credit
 
     def load_meta(self):
-        values = ",".join(f"(N'{t}')" for t, _ in TABLES)
-        rows = self.fetch("cloud", f"""
-SET @out=(SELECT v.tn AS t,
-  (SELECT d.name AS n,d.system_type_name AS ty FROM sys.dm_exec_describe_first_result_set(N'SELECT * FROM '+v.tn,NULL,0) d
+        """Synced tables in apply order, read from sync.SyncTables: the same list the sync procedures use."""
+        rows = self.fetch("cloud", """
+SET @out=(SELECT PARSENAME(st.TableName,2)+N'.'+PARSENAME(st.TableName,1) AS t,
+  (SELECT d.name AS n,d.system_type_name AS ty FROM sys.dm_exec_describe_first_result_set(N'SELECT * FROM '+st.TableName,NULL,0) d
     WHERE d.system_type_name NOT IN ('timestamp','rowversion') AND d.is_computed_column=0 ORDER BY d.column_ordinal FOR JSON PATH) AS c,
   (SELECT c.name AS n FROM sys.indexes i JOIN sys.index_columns ic ON ic.object_id=i.object_id AND ic.index_id=i.index_id
      JOIN sys.columns c ON c.object_id=ic.object_id AND c.column_id=ic.column_id
-    WHERE i.object_id=OBJECT_ID(v.tn) AND i.is_primary_key=1 ORDER BY ic.key_ordinal FOR JSON PATH) AS k
- FROM (VALUES {values}) v(tn) FOR JSON PATH);""")
+    WHERE i.object_id=OBJECT_ID(st.TableName) AND i.is_primary_key=1 ORDER BY ic.key_ordinal FOR JSON PATH) AS k
+ FROM sync.SyncTables st ORDER BY st.ApplyOrder FOR JSON PATH);""")
+        self.tables = [r["t"] for r in rows]
         self.meta = {r["t"]: ([(c["n"], c["ty"]) for c in r["c"]], [k["n"] for k in r["k"]]) for r in rows}
 
     # ---------- sync ----------
@@ -301,7 +272,7 @@ SET @out=(SELECT (SELECT v.TransferId AS id,v.CreditId AS credit,b1.Code AS frm,
             f"SELECT N'{t}' AS t,(SELECT COUNT_BIG(*) FROM {t}) AS n,"
             f"CONVERT(char(64),HASHBYTES('SHA2_256',(SELECT {','.join(f'[{c}]' for c, _ in self.meta[t][0])} FROM {t} "
             f"ORDER BY {','.join(f'[{c}]' for c in self.meta[t][1])} FOR JSON PATH, INCLUDE_NULL_VALUES)),2) AS h"
-            for t, _ in TABLES)
+            for t in self.tables)
         return {r["t"]: (r["n"], r.get("h")) for r in self.fetch(node, f"SET @out=(SELECT * FROM ({q}) x FOR JSON PATH);")}
 
     def rows(self, node, t):
@@ -312,7 +283,7 @@ SET @out=(SELECT (SELECT v.TransferId AS id,v.CreditId AS credit,b1.Code AS frm,
     def check_r1(self):
         hashes = {n: self.table_hashes(n) for n in NODES}
         bad = []
-        for t, _ in TABLES:
+        for t in self.tables:
             seen = {n: hashes[n][t] for n in NODES}
             if len(set(seen.values())) > 1:
                 ref = self.rows("cloud", t)
@@ -330,7 +301,7 @@ SET @out=(SELECT (SELECT v.TransferId AS id,v.CreditId AS credit,b1.Code AS frm,
         if bad:
             self.fail("R1 replicas identical", bad[:8] + ([f"... {len(bad)} differences"] if len(bad) > 8 else []))
         else:
-            self.say(f"PASS R1: {len(TABLES)} tables, {total} rows, identical SHA-256 on cloud, a, b, c")
+            self.say(f"PASS R1: {len(self.tables)} tables, {total} rows, identical SHA-256 on cloud, a, b, c")
 
     def check_conservation(self):
         for n in NODES:
@@ -487,7 +458,7 @@ def scenario_credit_status(s):
         s.expect(f"{n}: the spent credit is exhausted", s.credit_status(n, whole) == "exhausted")
     # Concurrent: A, the issuer, blocks the other credit while B, offline, spends it.
     s.online["b"] = False
-    s.expect("A blocks the credit", s.op("a", "block", f"UPDATE credits.Credits SET Status='blocked' WHERE Id='{blocked}';"))
+    s.expect("A blocks the credit", s.op("a", "block", f"EXEC credits.usp_BlockCredit @CreditId='{blocked}',@ActorId={s.i('supervisorA')};"))
     s.converge()
     s.expect("B, offline, still spends the credit it holds", s.sale("b", blocked, PRICE))
     s.online["b"] = True

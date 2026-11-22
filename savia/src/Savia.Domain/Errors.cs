@@ -92,6 +92,10 @@ public static class DbErrors
         [51533] = ("return.amount", ErrorKind.Conflict),
         [51534] = ("return.zero_credit", ErrorKind.Conflict),
         [51606] = ("credit.customer_or_currency", ErrorKind.Conflict),
+        [51631] = ("credit.not_issuer", ErrorKind.Forbidden),
+        [51632] = ("credit.not_due", ErrorKind.Conflict),
+        [51633] = ("auth.branch_access", ErrorKind.Forbidden),
+        [51634] = ("credit.status_final", ErrorKind.Conflict),
         [52102] = ("sale.fx", ErrorKind.Validation),
         [52103] = ("sale.rate_changed", ErrorKind.Conflict),
         [52104] = ("sale.fx_conversion", ErrorKind.Validation),
@@ -116,6 +120,7 @@ public static class DbErrors
         [52030] = ("import.file", ErrorKind.Validation),
         [52031] = ("import.row_errors", ErrorKind.Conflict),
         [51901] = ("customer.search_too_short", ErrorKind.Validation),
+        [51902] = ("customer.invalid", ErrorKind.Validation),
         // V009: credit transfer as transition rows, one writer per row.
         [51719] = ("credit.transfer_retired", ErrorKind.NotFound),
         [51720] = ("credit.transfer_invalid", ErrorKind.Validation),
@@ -172,6 +177,7 @@ public static class DbErrors
         [51862] = ("sync.credential_target", ErrorKind.Validation),
         [51863] = ("sync.busy", ErrorKind.Unavailable),
         [51864] = ("sync.recovery_pending", ErrorKind.Conflict),
+        [51865] = ("sync.node_mismatch", ErrorKind.Conflict),
     };
 
     /// <param name="number">SQL Server error number.</param>

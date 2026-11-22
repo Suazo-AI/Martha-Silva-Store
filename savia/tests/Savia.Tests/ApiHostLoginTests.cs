@@ -45,7 +45,7 @@ public sealed class ApiHostLoginTests
             var asRole = ApiHostLogin.ConnectionFor(database);
             await SyncFixture.ExecAsync(database, $"EXEC sync.usp_SetLocalNode @NodeId='{Ids.NodeA}';");
 
-            Assert.Equal("23:0", await ScalarAsync(asSa, shape));   // V038 adds three cash tables, V048 two web stock tables
+            Assert.Equal("39:0", await ScalarAsync(asSa, shape));   // V038 adds three cash tables, V048 two web stock tables, V053 sixteen reference tables
             Assert.Equal(await ScalarAsync(asSa, shape), await ScalarAsync(asRole, shape));
             Assert.Equal(await SourceStateAsync(asSa), await SourceStateAsync(asRole));
         }

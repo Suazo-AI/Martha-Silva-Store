@@ -29,7 +29,7 @@ Needs: Docker, Python 3.11+, the .NET 10 SDK (`SAVIA_DOTNET` overrides the path)
 
 - SQL runs in its own container `savia-sqlserver-rehearsal` on `127.0.0.1:14341`, from the image digest pinned in `infra/docker-compose.dev.yml`, Developer edition.
 - The databases are cloned from the migrated template (`tools/db/saviadb.py`, `SAVIA_SQL_CONTAINER=savia-sqlserver-rehearsal`).
-- Each store authenticates to the hub with a real node secret (`sync.usp_SetNodeCredential`, SHA-256 hash on the hub).
+- Each store authenticates to the hub with a real node secret, provisioned by `Savia.Migrator --provision-node` ([PROVISIONING.md](PROVISIONING.md)); the hub keeps its SHA-256.
 - Staff sign in over HTTP with passwords set by `Savia.Api provision-passwords`.
 - Every password and secret is generated at run time; evidence is scrubbed before it is written.
 - The driver uses the public HTTP API for tills, sales, returns and sign-in.
@@ -72,12 +72,15 @@ Across nodes:
 | `credit_transfer` | Return to store credit over HTTP; transfer A→B approved, dispatched, received and spent; two concurrent spends of the same remainder at A; hub cancels while a cut-off A dispatches. | Credit is conserved; exactly one concurrent spend wins; the offline dispatch wins with the override flag. |
 | `restore_sale_before_rebuild` | A is restored from a backup taken before its till opened, opens a new till and sells while cut off, then the link returns. | Red test for the recovery lock. Expected to fail today (XFAIL). |
 | `controls` | Negative controls. | See below. |
+| `reference_data` | Cut-off A registers a customer and sells to it; the hub owner changes the item price; the link returns. | D-039: the customer and its sale reach every node with no Msg 547; the hub price reaches every store. |
+| `schema_skew` | C's newest ledger row is removed (one migration behind); C sells; C runs `Savia.Migrator`. | D-041: the hub refuses C with `sync.schema_mismatch` (51856), C's `GET /api/v1/sync/status` names it, and C syncs after it migrates. |
 
 Negative controls (must fail as designed):
 
 | Control | Expected |
 |---|---|
 | wrong node secret, another store's secret, no header | `401 sync.unauthorized` (a real secret returns 200) |
+| B's credential revoked, then rotated with `--provision-node` | revoked `401`; rotated secret `200`; the secret before rotation `401` |
 | A's push rewritten so a sale names store B | `403 sync.foreign_row` (SQL 51851) |
 | A restored; the proxy hides `recover` from the push plan so A pushes without a rebuild token | `409 sync.rebuild_required` (SQL 51854), then A rebuilds by itself |
 | `selftest`: an expected sale the driver never makes | the run is `FAIL`, and only for that sale and its store totals |
@@ -86,6 +89,7 @@ Verdicts: `PASS`; `FAIL`; `ERROR` (the driver crashed); `XFAIL` (the known red r
 
 ## Evidence
 
+`reference_data`, `schema_skew` and the credential controls were added on 2026-11-22 and have not run yet (Docker stalls on this host with a third SQL container); pass `--evidence docs/evidence/sync-completion-20261122/rehearsal` when they do.
 Each run writes `<scenario>.json` to `docs/evidence/rehearsal-20261121/` (override with `--evidence DIR`, skip with `--no-evidence`): phases with timings, events, every check, controls, sync rounds counted from the host logs, and the exchanges each proxy saw.
 Host logs stay in `.out/rehearsal/runs/` (gitignored).
 The baseline is in [rehearsal-20261121/README.md](../evidence/rehearsal-20261121/README.md).

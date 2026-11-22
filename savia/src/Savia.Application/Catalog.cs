@@ -88,7 +88,8 @@ public sealed class CatalogService(ICatalogStore store, ICatalogMaintenanceStore
 
     public Task SetItemValuesAsync(Actor actor, Guid item, ItemValuesRequest request, CancellationToken ct)
     {
-        Guard.Branch(actor, node);
+        // D-039: the hub owns prices; it has no branch, so only the owner role applies there.
+        if (node.BranchId is not null) Guard.Branch(actor, node);
         Guard.Role(actor, Roles.OwnerOnly);
         Guard.Text(request.Reason, "reason", 250);
         return maintenance.SetItemValuesAsync(item, request, actor.StaffId, node.NodeId, ct);

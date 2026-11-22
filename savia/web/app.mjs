@@ -21,7 +21,7 @@ import sale from './screens/sale.mjs';
 import settings, { applyPalette } from './screens/settings.mjs';
 import { syncTill } from './screens/till-open.mjs';
 import webOrders from './screens/web-orders.mjs';
-import { device, h, replace } from './ui.mjs';
+import { device, h, replace, syncNotice } from './ui.mjs';
 
 /** The module of each route in roles.mjs SCREENS; start() refuses to run when the two disagree. */
 const MODULES = {
@@ -137,6 +137,19 @@ function renderNavigation(name) {
   );
 }
 
+// Refreshed on every screen change: cheap, and a cashier sees the reason without reloading.
+async function showSyncNotice(isCurrent) {
+  let text = null;
+  try {
+    text = syncNotice(await api.syncStatus());
+  } catch {
+    /* a hub or an older store has no status route; show nothing rather than a false alarm */
+  }
+  if (!isCurrent()) return;
+  $('sync-notice').textContent = text ?? '';
+  $('sync-notice').hidden = !text;
+}
+
 async function route() {
   const generation = ++routeGeneration;
   const hash = location.hash;
@@ -173,6 +186,7 @@ async function route() {
   };
   $('access').hidden = true;
   $('shell').hidden = false;
+  showSyncNotice(isCurrent);
   // Sale and return recovery must mount before any till, catalog or exchange-rate dependency.
   // The hub has no cash registers: asking for a till there returns 404 and left every hub screen blank.
   const hasTills = ctx.me?.nodeKind !== 'Cloud';

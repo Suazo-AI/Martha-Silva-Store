@@ -1,0 +1,2 @@
+FAIL    sync/270_reference_data_and_customers.sql  -- Msg 207, Level 16, State 1, Server 23b66448cd53, Line 23
+SUMMARY FAIL=1  logs: .out\dbtests

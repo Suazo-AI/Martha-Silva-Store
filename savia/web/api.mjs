@@ -153,6 +153,10 @@ export const login = (loginName, password) => request('POST', '/auth/login', { l
 export const logout = () => request('POST', '/auth/logout', undefined, { notifyUnauthorized: false });
 export const me = () => request('GET', '/me');
 
+// ---- sync
+/** SyncStatusView: the branch's last sync round; code is null after a round that worked. */
+export const syncStatus = () => request('GET', '/sync/status');
+
 // ---- catalog
 /** exact barcode or supplier code. ItemLookup[] */
 export const lookup = (code, supplierId) => request('GET', `/catalog/lookup${q({ code, supplierId })}`);

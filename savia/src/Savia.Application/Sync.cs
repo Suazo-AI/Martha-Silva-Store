@@ -110,6 +110,25 @@ public sealed class SyncHubService(ISyncStore store, NodeContext node)
 /// <summary>What one branch round moved.</summary>
 public sealed record SyncRound(int Pulled, int Pushed, bool Rebuilt);
 
+/// <summary>The branch's last sync round as the till shows it. Code is null after a round that worked.</summary>
+public sealed record SyncStatusView(bool Enabled, DateTimeOffset? LastRoundAt, string? Code, string? Message);
+
+/// <summary>
+/// Outcome of the branch's last sync round, so the store sees why its sales are not reaching the hub (D-041: a
+/// refused schema is named). Kept in memory: after a restart the till shows no round until the first one ends.
+/// </summary>
+public sealed class SyncStatus
+{
+    private volatile SyncStatusView view = new(false, null, null, null);
+
+    public SyncStatusView View => view;
+
+    public void Enable() => view = view with { Enabled = true };
+
+    public void Record(DateTimeOffset at, string? code = null, string? message = null) =>
+        view = new SyncStatusView(true, at, code, message);
+}
+
 /// <summary>
 /// One branch round: pull, then push. A restored branch learns it must rebuild from the hub's push plan ('recover'),
 /// or, as a fallback, when the hub refuses its push (51854): it pulls every row in rebuild mode, so the hub's copy wins,

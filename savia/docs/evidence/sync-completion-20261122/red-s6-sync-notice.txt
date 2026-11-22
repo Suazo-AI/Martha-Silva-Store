@@ -1,0 +1,4 @@
+# Red before S6: web/tests/sync-notice.test.mjs run against HEAD web/ui.mjs (no syncNotice export).
+SyntaxError: The requested module '../ui.mjs' does not provide an export named 'syncNotice'
+ℹ pass 0
+ℹ fail 1

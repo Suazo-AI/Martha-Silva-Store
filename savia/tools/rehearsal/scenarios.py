@@ -99,8 +99,8 @@ class Run:
                 "lines": [{"lineNumber": 1, "itemId": self.c.ids["item"], "quantity": s["qty"],
                            "unitPriceMinor": s.get("price", 120000)}],
                 "tenders": tenders}
-        if s.get("customer"):
-            body["customerId"] = self.c.ids["customer"]
+        if s.get("customerId") or s.get("customer"):
+            body["customerId"] = s.get("customerId") or self.c.ids["customer"]
         status, resp = h.call(self.c.hosts[store].base, "POST", "/api/v1/sales", body, self.c.token(store))
         ok = status in (200, 201, 204)
         self.outcomes[key] = {"ok": ok, "status": status, "detail": f"{status} {_code(resp)}".strip()}
@@ -204,7 +204,7 @@ class Run:
             results = checks.evaluate(self.m, self.c.ids, snaps, self.outcomes)
             diff = checks.r1(self.c.sql.hashes())
             unexpected, pins_missing = checks.conservation(self.c.sql.conservation_rows(), self.m.get("conservation_allow"))
-        results.append((not diff, "R1: 21 synced tables identical on hub, a, b, c", f"differ={diff}"))
+        results.append((not diff, "R1: every synced table identical on hub, a, b, c", f"differ={diff}"))
         results.append((not unexpected, "CONS: audit.usp_CheckConservation has 0 violations on 4 nodes",
                         "; ".join(unexpected[:6])))
         if self.m.get("conservation_allow"):
@@ -402,7 +402,19 @@ def controls(r):
             status, body = h.call(hub, "GET", "/sync/v1/state", headers={"Authorization": header} if header else None)
             r.control(f"401 {name}", status == want and (want == 200 or _code(body) == "sync.unauthorized"),
                       f"{want}" + ("" if want == 200 else " sync.unauthorized"), f"{status} {_code(body)}")
-    with r.phase("51851: A's push rewritten so a sale row names store B"):
+    with r.phase("D-040: revoke and rotate B's credential with Savia.Migrator --provision-node"):
+        old = r.c.node_secret["b"]
+        r.c.provision_node("cloud", "revoke", "b")
+        status, body = h.call(hub, "GET", "/sync/v1/state", headers={"Authorization": f"SaviaNode {b}.{old}"})
+        r.control("401 revoked credential", status == 401 and _code(body) == "sync.unauthorized",
+                  "401 sync.unauthorized", f"{status} {_code(body)}")
+        new = r.c.node_secret["b"] = r.c.provision_node("cloud", "rotate", "b")
+        for name, secret, want in (("rotated secret", new, 200), ("secret before rotation", old, 401)):
+            status, body = h.call(hub, "GET", "/sync/v1/state", headers={"Authorization": f"SaviaNode {b}.{secret}"})
+            r.control(f"{want} {name}", status == want, want, f"{status} {_code(body)}")
+        r.c.hosts["b"].kill("credential rotated")
+        r.c.hosts["b"].start()
+        r.event("store B restarted with its rotated secret")
         branch_a, branch_b = r.c.ids["branchA"], r.c.ids["branchB"]
         rule = r.c.proxies["a"].add_rule(name="foreign row", kind="tamper_request", path="/sync/v1/push",
                                          contains=r.sales["k1"]["saleId"],
@@ -436,6 +448,66 @@ def controls(r):
     return r.finish(ok)
 
 
+def reference_data(r):
+    """D-039: cut-off A registers a customer and sells to it; the hub owner changes a price. All reach every node."""
+    r.bring_up()
+    cust, change, ids = r.m["customer"], r.m["price_change"], r.c.ids
+    with r.phase("A cut off; A registers a customer (sql:no-http-route) and sells to it (HTTP)"):
+        r.c.proxies["a"].mode = "down"
+        r.c.sql.admin("a", f"EXEC crm.usp_CreateCustomer @CustomerId='{cust['id']}',@DisplayName=N'{cust['name']}',"
+                           f"@DocumentNumber=N'{cust['document']}',@Phone=NULL,@Email=NULL,@ActorId='{ids['cashierA']}';")
+        r.event("customer registered at A (sql:no-http-route)", customer=cust["id"])
+        r.sale("n1")
+    with r.phase("hub owner changes the item price (HTTP)"):
+        status, body = h.call(r.c.hosts["cloud"].base, "POST", f"/api/v1/catalog/items/{ids['item']}/values",
+                              {"changeId": change["changeId"], "priceMinor": change["priceMinor"],
+                               "costMinor": change["costMinor"], "reason": "Ensayo: precio nuevo en el hub"},
+                              r.c.login("cloud", "t_manager"))
+        r.control("hub owner changes the price", status == 204, "204", f"{status} {_code(body)}")
+    with r.phase("link back"):
+        r.c.proxies["a"].mode = "pass"
+    ok = r.converge("converge customer, sale and price")
+    with r.phase("customer, its sale and the hub price on every node; no foreign key refusal"):
+        want = {"c": 1, "s": 1, "p": change["priceMinor"]}
+        for n in h.NODES:
+            got = r.c.sql.fetch(n, f"SET @out=(SELECT (SELECT COUNT(*) FROM crm.Customers WHERE Id='{cust['id']}') AS c,"
+                                   f"(SELECT COUNT(*) FROM sales.Sales WHERE Id='{r.sales['n1']['saleId']}' "
+                                   f"AND CustomerId='{cust['id']}') AS s,"
+                                   f"(SELECT UnitPriceMinor FROM catalog.Items WHERE Id='{ids['item']}') AS p "
+                                   f"FOR JSON PATH, WITHOUT_ARRAY_WRAPPER);")
+            r.control(f"{n} holds the customer, its sale and the hub price", got == want, want, got)
+        refused = [line for n in h.NODES for line in r.c.log_excerpt(n, r"Msg 547|FOREIGN KEY", 3)]
+        r.control("no foreign key refusal (Msg 547) in any host log", not refused, "none", refused or "none")
+    return r.finish(ok)
+
+
+def schema_skew(r):
+    """D-041 (G14): a store one migration behind is refused and shows why; after it migrates, its sales sync."""
+    r.bring_up()
+    store = r.c.hosts["c"]
+    with r.phase("store C one migration behind: its newest ledger row removed (sql:simulation)"):
+        last = r.c.sql.fetch("c", "SET @out=(SELECT TOP 1 [Version] AS v FROM dbo.SaviaMigrations "
+                                  "ORDER BY [Version] DESC FOR JSON PATH, WITHOUT_ARRAY_WRAPPER);")
+        at = r.log_size("c")
+        r.c.sql.admin("c", f"DELETE dbo.SaviaMigrations WHERE [Version]='{last['v']}';")
+        r.event("C's ledger now stops one migration before the hub's", removed=last["v"])
+        line = r.wait_log("c", r"Sync round refused: sync\.schema_mismatch", at)
+        r.control("the hub refuses C with sync.schema_mismatch (51856)", line is not None, "a refused round", line or "none")
+        status, body = h.call(store.base, "GET", "/api/v1/sync/status", token=r.c.token("c"))
+        r.control("C's till status names the reason", status == 200 and _code(body) == "sync.schema_mismatch",
+                  "200 sync.schema_mismatch", f"{status} {_code(body)}")
+        r.sale("n1")
+    with r.phase("C runs Savia.Migrator"):
+        r.event("migrator on C", output=r.c.migrate("c"))
+    ok = r.converge("converge after C migrates")
+    with r.phase("C's till status is clear"):
+        r.c.wait_rounds(["c"])
+        status, body = h.call(store.base, "GET", "/api/v1/sync/status", token=r.c.token("c"))
+        clear = status == 200 and isinstance(body, dict) and body.get("code") is None and body.get("lastRoundAt")
+        r.control("C's till status is clear after it migrates", bool(clear), "200 no code", f"{status} {_code(body)}")
+    return r.finish(ok)
+
+
 def _problem_code(text):
     try:
         return json.loads(text).get("code")
@@ -450,4 +522,6 @@ SCENARIOS = {
     "restore_sale_before_rebuild": restore_sale_before_rebuild,
     "hub_restart": hub_restart,
     "controls": controls,
+    "reference_data": reference_data,
+    "schema_skew": schema_skew,
 }

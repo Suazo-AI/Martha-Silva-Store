@@ -20,6 +20,10 @@ using Microsoft.Data.SqlClient;
 //   --external             create NAME as an Entra ID user (CREATE USER ... FROM EXTERNAL PROVIDER)
 //   --client-id GUID       with --external: the identity's client id; the user is created from its SID
 //                          (TYPE = E), so the SQL server needs no Directory Readers role for a Graph lookup
+//        Savia.Migrator --provision-node register|create|rotate|revoke --node-id GUID
+//                       [--node-kind branch|azure] [--branch-id GUID] [--node-code CODE]
+//   --provision-node       node rows and credentials only; migrates nothing (see NodeProvisioning.cs and
+//                          docs/sync/PROVISIONING.md). create and rotate print the new secret once.
 // Exit codes: 0 ok, 1 migration or check failed, 2 bad usage or configuration.
 
 var plan = args.Contains("--plan");
@@ -31,6 +35,8 @@ var connectionString = Environment.GetEnvironmentVariable("Savia__Sql__Connectio
 
 if (string.IsNullOrWhiteSpace(connectionString))
     return Fail(2, "Savia__Sql__ConnectionString is required.");
+if (Option("--provision-node") is { } provisionAction)
+    return await ProvisionNode(connectionString, provisionAction);
 if (!Directory.Exists(migrationsDir))
     return Fail(2, $"migrations folder not found: {migrationsDir}");
 if (appUser is not null && !Regex.IsMatch(appUser, "^[A-Za-z0-9_.-]{1,120}$"))
@@ -111,6 +117,27 @@ catch (SqlException e)
 {
     // Server messages name objects, not secrets; the connection string is never echoed.
     return Fail(1, $"SQL error {e.Number}: {e.Message}");
+}
+
+async Task<int> ProvisionNode(string connection, string action)
+{
+    var (request, error) = NodeRequest.Parse(action, Option);
+    if (request is null)
+        return Fail(2, error!);
+    try
+    {
+        await using var sql = new SqlConnection(connection);
+        await sql.OpenAsync();
+        var secret = await request.RunAsync(sql);
+        Console.WriteLine($"provision: {request.Action} node {request.NodeId:D} on database {sql.Database}: done");
+        if (secret is not null)
+            Console.WriteLine(NodeRequest.SecretPrefix + secret);
+        return 0;
+    }
+    catch (Exception e) when (e is SqlException or InvalidOperationException)
+    {
+        return Fail(1, e is SqlException s ? $"SQL error {s.Number}: {s.Message}" : e.Message);
+    }
 }
 
 string? Option(string name)

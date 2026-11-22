@@ -24,19 +24,19 @@ BEGIN
   REVERT;
   SET @n=(SELECT COUNT(*) FROM OPENJSON(@plan,'$.tables') WITH (a varchar(20))
           WHERE a=CASE @round WHEN 1 THEN 'initial' ELSE 'incremental' END);
-  EXEC test.AssertEq N'plan kind for every table',23,@n;
+  EXEC test.AssertEq N'plan kind for every table',39,@n;
   UPDATE sync.LocalNode SET NodeId=@a;
   EXECUTE AS USER=N'api_host_probe';
   EXEC sync.usp_ReadBatch @TargetNodeId=@cloud,@PlanJson=@plan,@Json=@batch OUTPUT;   -- incremental: CHANGETABLE
   REVERT;
   EXEC sync.usp_ReadBatch @TargetNodeId=@cloud,@PlanJson=@plan,@Json=@dboBatch OUTPUT;
   SET @n=IIF(@batch=@dboBatch,1,0); EXEC test.AssertEq N'the role reads the same batch as dbo',1,@n;
-  SET @n=(SELECT COUNT(*) FROM OPENJSON(@batch,'$.tables[1].rows')); EXEC test.AssertEq N'the new sale travels',1,@n;
+  SET @n=(SELECT COUNT(*) FROM OPENJSON(@batch,'$.tables') t CROSS APPLY OPENJSON(t.value,'$.rows') WHERE JSON_VALUE(t.value,'$.t')=N'[sales].[Sales]'); EXEC test.AssertEq N'the new sale travels',1,@n;
   UPDATE sync.LocalNode SET NodeId=@cloud;
   EXECUTE AS USER=N'api_host_probe';
   EXEC sync.usp_ApplyBatch @PeerNodeId=@a,@BatchJson=@batch,@Json=@r OUTPUT;            -- MERGE into synced tables
   REVERT;
-  SET @n=JSON_VALUE(@r,'$.applied'); EXEC test.AssertEq N'every table applied',23,@n;
+  SET @n=JSON_VALUE(@r,'$.applied'); EXEC test.AssertEq N'every table applied',39,@n;
   SET @round+=1;
 END;
 

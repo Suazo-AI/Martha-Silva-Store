@@ -1,0 +1,53 @@
+{
+ "scenario": "reference_data",
+ "claim": "D-039: store A, cut off from the hub, registers a customer and sells to it; the hub owner changes the item price. The customer and the sale reach the hub and stores B and C with no foreign key refusal, and the new price reaches every store.",
+ "tills": {
+  "a": "5E4D0000-0000-4000-8000-0000000000A0",
+  "b": "5E4D0000-0000-4000-8000-0000000000B0",
+  "c": "5E4D0000-0000-4000-8000-0000000000C0"
+ },
+ "customer": {
+  "id": "5E4D0000-0000-4000-8000-00000000C001",
+  "name": "Cliente de ensayo",
+  "document": "001-150590-0002B"
+ },
+ "price_change": {
+  "changeId": "5E4D0000-0000-4000-8000-00000000F001",
+  "priceMinor": 125000,
+  "costMinor": 60000
+ },
+ "sales": [
+  {
+   "key": "n1",
+   "store": "a",
+   "saleId": "5E4D0000-0000-4000-8000-000000000001",
+   "customerId": "5E4D0000-0000-4000-8000-00000000C001",
+   "qty": 1,
+   "tenders": [
+    {
+     "kind": "cash",
+     "amount": 120000
+    }
+   ]
+  }
+ ],
+ "store_totals": {
+  "a": {
+   "count": 1,
+   "totalMinor": 120000
+  },
+  "b": {
+   "count": 0,
+   "totalMinor": 0
+  },
+  "c": {
+   "count": 0,
+   "totalMinor": 0
+  }
+ },
+ "on_hand": {
+  "a": 499,
+  "b": 500,
+  "c": 500
+ }
+}

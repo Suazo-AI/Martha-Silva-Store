@@ -7,7 +7,7 @@ DECLARE @branch uniqueidentifier=test.Id('branchA'),@loc uniqueidentifier=test.I
 SET @n=(SELECT COUNT(*) FROM sys.change_tracking_databases WHERE database_id=DB_ID());
 EXEC test.AssertEq N'change tracking on the database',1,@n;
 SET @n=(SELECT COUNT(*) FROM sys.change_tracking_tables);
-EXEC test.AssertEq N'tracked tables (V008 six + V011 twelve + V038 three + V048 two)',23,@n;
+EXEC test.AssertEq N'tracked tables (V008 six + V011 twelve + V038 three + V048 two + V053 sixteen)',39,@n;
 EXEC test.SeedStock @item,@loc,5;
 SET @v0=CHANGE_TRACKING_CURRENT_VERSION();
 EXEC sales.usp_OpenTill @TillId=@till,@RegisterId=@register,@CashierId=@cashier,@CurrencyCode='NIO',@OpeningMinor=0,@OriginNodeId=@node;

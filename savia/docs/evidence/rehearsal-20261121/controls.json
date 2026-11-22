@@ -7,93 +7,97 @@
   "path": "tools/rehearsal/expected/controls.json",
   "sha256": "fbcf19f87f7947f6db5e5c58546f060b22d8dac92760c84801eade8065d38a3c"
  },
- "seconds_total": 73.9,
+ "seconds_total": 117.1,
  "phases": [
   {
    "phase": "setup: 4 databases, node credentials, staff passwords, seed stock",
-   "seconds": 15.2
+   "seconds": 45.4
   },
   {
    "phase": "start hub and 3 store hosts",
-   "seconds": 5.7
+   "seconds": 7.0
   },
   {
    "phase": "open tills over HTTP",
-   "seconds": 1.5
+   "seconds": 1.8
   },
   {
    "phase": "first convergence",
-   "seconds": 16.0
+   "seconds": 20.9
   },
   {
    "phase": "401: wrong node credentials",
-   "seconds": 0.1
+   "seconds": 0.0
   },
   {
-   "phase": "51851: A's push rewritten so a sale row names store B",
-   "seconds": 2.8
+   "phase": "D-040: revoke and rotate B's credential with Savia.Migrator --provision-node",
+   "seconds": 5.5
   },
   {
    "phase": "converge after the refused push (the untampered retry)",
-   "seconds": 8.6
+   "seconds": 13.8
   },
   {
    "phase": "51854: A restored; the proxy hides 'recover' so A pushes without a rebuild token",
-   "seconds": 4.5
+   "seconds": 6.2
   },
   {
    "phase": "final convergence",
-   "seconds": 12.3
+   "seconds": 9.1
   },
   {
    "phase": "checks",
-   "seconds": 5.7
+   "seconds": 5.9
   }
  ],
  "events": [
   {
-   "t": 21.6,
+   "t": 53.3,
    "event": "open till a",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 22.1,
+   "t": 53.8,
    "event": "open till b",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 22.4,
+   "t": 54.2,
    "event": "open till c",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 38.7,
+   "t": 78.4,
+   "event": "store B restarted with its rotated secret"
+  },
+  {
+   "t": 78.7,
    "event": "sale k1 at a",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 49.9,
-   "event": "converge after the refused push (the untampered retry): converged in 8.6s",
+   "t": 94.4,
+   "event": "converge after the refused push (the untampered retry): converged in 13.8s",
    "differing": []
   },
   {
-   "t": 54.4,
+   "t": 100.6,
    "event": "sale k2 at a",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 66.7,
-   "event": "final convergence: converged in 12.3s",
+   "t": 109.7,
+   "event": "final convergence: converged in 9.1s",
    "differing": []
   }
  ],
  "checks": {
-  "passed": 48,
+  "passed": 51,
   "failed": 0,
   "failures": []
  },
@@ -136,13 +140,16 @@
   "PASS c: on hand at a",
   "PASS c: on hand at b",
   "PASS c: on hand at c",
-  "PASS R1: 21 synced tables identical on hub, a, b, c",
+  "PASS R1: every synced table identical on hub, a, b, c",
   "PASS CONS: audit.usp_CheckConservation has 0 violations on 4 nodes",
   "PASS sync converged",
   "PASS control 401 A real secret (positive control)",
   "PASS control 401 A with a wrong secret",
   "PASS control 401 A id with B's secret",
   "PASS control 401 no Authorization header",
+  "PASS control 401 revoked credential",
+  "PASS control 200 rotated secret",
+  "PASS control 401 secret before rotation",
   "PASS control 51851 foreign row",
   "PASS control 51854 push from a restored fork without a rebuild token",
   "PASS control restored A then rebuilds by itself (hosted loop)"
@@ -170,6 +177,24 @@
    "control": "401 no Authorization header",
    "ok": true,
    "expected": "401 sync.unauthorized",
+   "actual": "401 sync.unauthorized"
+  },
+  {
+   "control": "401 revoked credential",
+   "ok": true,
+   "expected": "401 sync.unauthorized",
+   "actual": "401 sync.unauthorized"
+  },
+  {
+   "control": "200 rotated secret",
+   "ok": true,
+   "expected": 200,
+   "actual": "200 "
+  },
+  {
+   "control": "401 secret before rotation",
+   "ok": true,
+   "expected": 401,
    "actual": "401 sync.unauthorized"
   },
   {
@@ -214,14 +239,14 @@
    "host_starts": 2
   },
   "b": {
-   "successful_rounds": 10,
+   "successful_rounds": 11,
    "rebuilt_rounds": 0,
    "not_successful": 0,
    "distinct_warnings": [],
-   "host_starts": 1
+   "host_starts": 2
   },
   "c": {
-   "successful_rounds": 10,
+   "successful_rounds": 11,
    "rebuilt_rounds": 0,
    "not_successful": 0,
    "distinct_warnings": [],
@@ -238,18 +263,18 @@
    "/sync/v1/push 409": 1
   },
   "b": {
-   "/sync/v1/push/plan 200": 20,
-   "/sync/v1/state 200": 10,
-   "/sync/v1/pull 200": 10,
-   "/sync/v1/push 200": 10
+   "/sync/v1/push/plan 200": 22,
+   "/sync/v1/state 200": 11,
+   "/sync/v1/pull 200": 11,
+   "/sync/v1/push 200": 11
   },
   "c": {
-   "/sync/v1/push/plan 200": 20,
-   "/sync/v1/state 200": 10,
-   "/sync/v1/pull 200": 10,
-   "/sync/v1/push 200": 10
+   "/sync/v1/push/plan 200": 22,
+   "/sync/v1/state 200": 11,
+   "/sync/v1/pull 200": 11,
+   "/sync/v1/push 200": 11
   }
  },
  "hub_rounds_log_errors": [],
- "host_logs": ".out/rehearsal/runs/20261122-045220-controls"
+ "host_logs": ".out/rehearsal/runs/20261122-091952-controls"
 }

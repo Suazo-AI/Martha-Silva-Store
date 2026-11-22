@@ -1,0 +1,4 @@
+# S7 red: sync.usp_ProvisionNode does not exist before V054
+$ python tools/db/saviadb.py test sync/280_provision_node.sql
+FAIL    sync/280_provision_node.sql  -- Msg 2812, Level 16, State 62, Server 23b66448cd53, Line 9
+SUMMARY FAIL=1  logs: .out\dbtests

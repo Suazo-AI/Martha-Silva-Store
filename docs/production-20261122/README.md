@@ -15,13 +15,13 @@ States: `verified`, `running`, `pending`, `blocked (input)`.
 | H1 | Hub runs Tony HEAD on Azure | `/health/ready` 200; image tag equals the commit; ledger holds V001-V035; rollback revision named | verified 2026-11-22: revision `ca-savia-api--g996465b-1` at 100%, image `savia-api:996465b3`, job `caj-savia-migrate-r974w1f` applied V036-V051, rollback `ca-savia-api--g37b6c06-1`, copy `savia-premig-996465b3-1` |
 | H2 | Restricted API identity runs sync on Azure SQL | a sync round as the managed identity returns 200 | pending: the migrator logged `API host permissions ensured for user id-savia-api-bukmlt`; a real round needs a node credential (S7). Without one, `POST /sync/v1/push` returns 401 |
 | H3 | Telemetry reaches Application Insights | one request visible in the workspace | verified 2026-11-22: 18 `AppRequests` and 9 `AppDependencies` in `log-savia-bukmlt` within 30 minutes of the deploy |
-| S1 | Recovery lock (G6) | rehearsal `restore_sale_before_rebuild` PASS, not XFAIL | verified 2026-11-22 (V036): rehearsal as the restricted login 6 of 6 PASS; [evidence](../../savia/docs/evidence/sync-correctness-20261122/README.md). Open: returns and credit transfers are not locked yet; no rebuild progress display |
+| S1 | Recovery lock (G6) | rehearsal `restore_sale_before_rebuild` PASS, not XFAIL | verified 2026-11-22 (V036, V052): sale, till, receiving, returns, credit transfers and web consignment are refused while recovering; rehearsal 8 of 8 PASS. Open: rebuild progress display |
 | S2 | Recovered-sale outbox (G7) | simulator `restore` PASS | verified 2026-11-22 (V036): simulator `restore` PASS; [evidence](../../savia/docs/evidence/sync-correctness-20261122/README.md) |
-| S3 | Credit status has one writer (G8) | simulator and T-SQL test for the two-writer case PASS | verified 2026-11-22 (V037): simulator `credit_status` PASS and T-SQL `credits/180`. Open: no procedure sets blocked or expired |
-| S4 | Reference tables sync (G1) | a sale to a customer created offline reaches the hub without Msg 547 | pending |
-| S5 | Sync paging (G13) | rebuild of a 250,000-variant store completes; no response above 20 MB | pending |
-| S6 | Schema skew rule (G14) | a node with another ledger is refused with a named code | pending |
-| S7 | Node provisioning command (G3) | one command creates a store credential; the secret prints once | pending |
+| S3 | Credit status has one writer (G8) | simulator and T-SQL test for the two-writer case PASS | verified 2026-11-22 (V037, V052): issuer procedures block and expire a credit; simulator `credit_status` PASS |
+| S4 | Reference tables sync (G1) | a sale to a customer created offline reaches the hub without Msg 547 | verified locally 2026-11-22 (V053, 39 synced tables): rehearsal `reference_data` PASS over HTTP; [evidence](../../savia/docs/evidence/sync-completion-20261122/README.md) |
+| S5 | Sync paging (G13) | rebuild of a 250,000-variant store completes; no response above 20 MB | pending: not built. The rebuild progress display waits for it |
+| S6 | Schema skew rule (G14) | a node with another ledger is refused with a named code | verified locally 2026-11-22: rehearsal `schema_skew` PASS (refused with 51856, syncs after it migrates) |
+| S7 | Node provisioning command (G3) | one command creates a store credential; the secret prints once | verified locally 2026-11-22 (V054): the rehearsal provisions its stores with `migrator --provision-node`; revoke and rotate PASS; [guide](../../savia/docs/sync/PROVISIONING.md) |
 | S8 | `sales.CashClosures` syncs | oracle shows 0 `cash.till_status_vs_closure` on replicated tills | verified 2026-11-22 (V038): rehearsal and simulator show 0 `cash.till_status_vs_closure` |
 | P1 | Catalog import is fast | 1,000 rows under 3 s on the A-10 data set | partial (V039): no 503; 1,000-row commit 7-15 s under load, 2.2 s on a quiet probe; [evidence](../../savia/docs/evidence/performance-20261122/README.md) |
 | P2 | KPI business report | p95 under 1 s on the A-10 data set | partial (V040): p95 1.9-2.4 s, was 6.5-10 s; needs a daily summary |
@@ -38,6 +38,7 @@ States: `verified`, `running`, `pending`, `blocked (input)`.
 | W9 | Legal and contact | business name, phone, address, terms, privacy, returns | blocked (input): business details |
 | W10 | Domain | custom domain with TLS | blocked (input): domain |
 | O1 | Backup and restore drill | a point-in-time restore of the hub reads back; a store restore passes the rehearsal | pending |
+| S9 | Catalog authoring on the hub (D-039) | import and item registration run on the hub without stock; a store cannot change catalog rows; stock enters by receiving | pending: found 2026-11-22; only price changes work on the hub today |
 | O2 | Runbook | deploy, rollback, node provisioning, restore and incident steps in one document | pending |
 
 ## Inputs only Jason or Martha can give

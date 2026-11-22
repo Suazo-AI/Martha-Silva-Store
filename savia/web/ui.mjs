@@ -33,7 +33,23 @@ export function replace(el, ...children) {
 // The screen's own advice ("revise los datos") would send the cashier after a problem they cannot fix.
 const NEXT_STEP_BY_CODE = {
   'sync.recovery_pending': 'Espere unos minutos y vuelva a intentar. Si sigue igual, avise a la gerente.',
+  'sync.schema_mismatch': 'Las ventas siguen guardadas en esta sucursal. Avise a soporte para actualizar el sistema.',
 };
+
+// The store keeps selling while its rounds fail, so the till names the reason instead of failing silently (D-041).
+const SYNC_REASON_BY_CODE = {
+  'sync.schema_mismatch': 'La central rechaza esta sucursal: la versión de su base de datos no coincide.',
+  'sync.unauthorized': 'La central rechaza la credencial de esta sucursal.',
+  'sync.unreachable': 'No hay conexión con la central.',
+};
+
+/** Banner text for GET /sync/status, or null when the last round worked or sync is off. */
+export function syncNotice(status) {
+  if (!status?.enabled || !status.code) return null;
+  const reason = SYNC_REASON_BY_CODE[status.code] ?? 'La sincronización con la central falló.';
+  const step = NEXT_STEP_BY_CODE[status.code] ?? 'Las ventas siguen guardadas en esta sucursal.';
+  return `${reason} ${step}`;
+}
 
 /** Shows an ApiError (or any error) in a live region. Input fields are never cleared here. */
 export function showError(el, error, nextStep) {

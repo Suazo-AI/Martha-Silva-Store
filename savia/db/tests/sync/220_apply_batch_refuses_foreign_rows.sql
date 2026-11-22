@@ -39,7 +39,7 @@ UPDATE sync.LocalNode SET NodeId=@b;
 EXEC sync.usp_PlanJson @PeerNodeId=@cloud,@StateJson=@state,@Json=@plan OUTPUT;
 UPDATE sync.LocalNode SET NodeId=@cloud;
 EXEC sync.usp_ReadBatch @TargetNodeId=@b,@PlanJson=@plan,@Json=@p OUTPUT;
-SET @n=(SELECT COUNT(*) FROM OPENJSON(@p,'$.tables[1].rows')); EXEC test.AssertEq N'hub relays the sale of A to B',1,@n;
+SET @n=(SELECT COUNT(*) FROM OPENJSON(@p,'$.tables') t CROSS APPLY OPENJSON(t.value,'$.rows') WHERE JSON_VALUE(t.value,'$.t')=N'[sales].[Sales]'); EXEC test.AssertEq N'hub relays the sale of A to B',1,@n;
 UPDATE sync.LocalNode SET NodeId=@a;
 SET @err=0;
 BEGIN TRY EXEC sync.usp_ApplyBatch @PeerNodeId=@cloud,@BatchJson=@p,@Json=@r OUTPUT; END TRY BEGIN CATCH SET @err=ERROR_NUMBER(); END CATCH;

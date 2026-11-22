@@ -18,8 +18,10 @@ public sealed class SyncNodeFilter(SyncHubService sync) : IEndpointFilter
 /// <summary>Hub side of the P9 transport (docs/sync/P9-SPEC.md). Mapped on the cloud node only.</summary>
 public static class SyncEndpoints
 {
-    public static void Map(WebApplication app, NodeContext node)
+    public static void Map(WebApplication app, RouteGroupBuilder api, NodeContext node)
     {
+        // Any signed-in staff member of a store sees why its sales are not reaching the hub.
+        api.MapGet("/sync/status", (SyncStatus status) => status.View).Produces<SyncStatusView>().WithTags("sync");
         if (node.Kind != NodeKind.Cloud) return;
         var sync = app.MapGroup("/sync/v1").AddEndpointFilter<SyncNodeFilter>().ExcludeFromDescription();
         sync.MapGet("/state", async (SyncHubService hub, CancellationToken ct) => Json(await hub.StateAsync(ct)));
@@ -47,7 +49,7 @@ public static class SyncEndpoints
 /// Off unless the node is a branch and <c>Savia:Sync:HubUrl</c> is set. <c>Savia:Sync:NodeSecret</c> comes from an
 /// environment variable or a secret store, never from Git. A failed round is logged and repeated from a fresh plan.
 /// </summary>
-public sealed class SyncWorker(IServiceProvider services, IConfiguration config, ILogger<SyncWorker> log) : BackgroundService
+public sealed class SyncWorker(IServiceProvider services, IConfiguration config, SyncStatus status, ILogger<SyncWorker> log) : BackgroundService
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
@@ -75,29 +77,35 @@ public sealed class SyncWorker(IServiceProvider services, IConfiguration config,
         var interval = TimeSpan.FromSeconds(Math.Max(5, seconds));
         using var http = new HttpClient { BaseAddress = hubUri, Timeout = TimeSpan.FromMinutes(5) };
         var round = new BranchSync(services.GetRequiredService<ISyncStore>(), new HttpSyncHub(http, node.NodeId, secret), node);
+        status.Enable();
         while (!stoppingToken.IsCancellationRequested)
         {
             try
             {
                 var result = await round.RunOnceAsync(stoppingToken);
                 log.LogInformation("Sync round: pulled {Pulled}, pushed {Pushed}, rebuilt {Rebuilt}.", result.Pulled, result.Pushed, result.Rebuilt);
+                status.Record(DateTimeOffset.UtcNow);
             }
             catch (SaviaException ex)
             {
                 log.LogWarning("Sync round refused: {Code} {Message}", ex.Error.Code, ex.Error.Message);
+                status.Record(DateTimeOffset.UtcNow, ex.Error.Code, ex.Error.Message);
             }
             catch (HttpRequestException ex)
             {
                 log.LogWarning("Sync round could not reach the hub: {Message}", ex.Message);
+                status.Record(DateTimeOffset.UtcNow, "sync.unreachable", ex.Message);
             }
             catch (TaskCanceledException) when (!stoppingToken.IsCancellationRequested)
             {
                 log.LogWarning("Sync round timed out.");
+                status.Record(DateTimeOffset.UtcNow, "sync.unreachable", "timeout");
             }
             catch (Exception ex) when (!stoppingToken.IsCancellationRequested)
             {
                 // A failed round must never stop the branch host; the next round starts from a fresh plan.
                 log.LogError(ex, "Sync round failed.");
+                status.Record(DateTimeOffset.UtcNow, "sync.failed", null);
             }
             await Task.Delay(interval, stoppingToken).ContinueWith(_ => { }, CancellationToken.None);
         }

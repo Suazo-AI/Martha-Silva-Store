@@ -6,7 +6,6 @@ Topology (localhost only):
   a/b/c Savia.Api Kind=Branch  http://127.0.0.1:5311-5313  SAVIA_SIM_R_a/b/c
         each store's SyncWorker talks to the hub through its proxy http://127.0.0.1:5321-5323
 """
-import hashlib
 import http.client
 import json
 import os
@@ -43,6 +42,7 @@ OUT = SAVIA / ".out" / "rehearsal"
 API_DLL = OUT / "api" / "Savia.Api.dll"
 MIGRATOR_DLL = OUT / "migrator" / "Savia.Migrator.dll"
 APP_LOGIN = "savia_rehearsal_api"
+NODE_SECRET = "node-secret: "  # the line Savia.Migrator --provision-node prints once
 STAFF = ["t_cashier_a", "t_cashier_b", "t_cashier_c", "t_super_a", "t_super_b", "t_super_c", "t_manager"]
 INTERVAL = 5
 
@@ -491,11 +491,12 @@ class Cluster:
         create_databases()
         self.sql = Sql()
         self.ids = self.sql.ids
-        # Node credentials, the product's path: the hub keeps SHA-256(UTF-8 secret) via sync.usp_SetNodeCredential.
+        # Node provisioning, the product's path (docs/sync/PROVISIONING.md): each store database registers the hub
+        # node and its own node; the hub creates the store's node and credential and prints the secret once.
         for s in STORES:
-            self.node_secret[s] = self.secrets.new(32)
-            digest = hashlib.sha256(self.node_secret[s].encode("utf-8")).hexdigest()
-            self.sql.admin("cloud", f"EXEC sync.usp_SetNodeCredential @NodeId='{self.node_id(s)}',@SecretHash=0x{digest};")
+            self.provision_node(s, "register", "cloud")
+            self.provision_node(s, "register", s)
+            self.node_secret[s] = self.provision_node("cloud", "create", s)
         # Staff passwords, the product's path: Savia.Api provision-passwords on every node (staff is not synced).
         for login in STAFF:
             self.passwords[login] = self.secrets.new(12)
@@ -511,6 +512,35 @@ class Cluster:
             self.hosts[n] = Host(self, n)
         for s in STORES:
             self.proxies[s] = Proxy(s, PROXY_PORT[s], API_PORT["cloud"]).start()
+
+    def provision_node(self, db_node, action, node):
+        """Savia.Migrator --provision-node on db_node's database for node. Returns the printed secret, or None."""
+        row = self.sql.fetch("cloud", f"SET @out=(SELECT Kind AS k,BranchId AS b,NodeCode AS c FROM sync.Nodes "
+                                      f"WHERE Id='{self.node_id(node)}' FOR JSON PATH, WITHOUT_ARRAY_WRAPPER);")
+        args = ["--provision-node", action, "--node-id", self.node_id(node), "--node-kind", row["k"]]
+        if action in ("register", "create"):
+            args += ["--node-code", row["c"]] + (["--branch-id", row["b"]] if row.get("b") else [])
+        p = self.migrator(db_node, args)
+        # Register the secret before anything formats this output.
+        secret = next((line[len(NODE_SECRET):].strip() for line in p.stdout.splitlines() if line.startswith(NODE_SECRET)), None)
+        self.secrets.add(secret)
+        if p.returncode:
+            raise SystemExit(f"provision-node {action} {node} on {db_node}: exit {p.returncode} "
+                             f"{self.secrets.scrub(p.stdout + p.stderr)[-600:]}")
+        return secret
+
+    def migrator(self, db_node, args):
+        """Runs Savia.Migrator on db_node's database as sa, with no inherited SAVIA or OPENAI variables."""
+        env = {k: v for k, v in os.environ.items() if not k.upper().startswith(("SAVIA", "OPENAI"))}
+        env["Savia__Sql__ConnectionString"] = self.connection_string(db_node, as_sa=True)
+        return subprocess.run([dotnet(), str(MIGRATOR_DLL), *args], env=env, capture_output=True, text=True, timeout=300)
+
+    def migrate(self, db_node):
+        """Applies the pending migrations of db/migrations to db_node's database, the product's upgrade path."""
+        p = self.migrator(db_node, ["--migrations", str(SAVIA / "db" / "migrations")])
+        if p.returncode:
+            raise SystemExit(f"migrate {db_node}: exit {p.returncode} {self.secrets.scrub(p.stdout + p.stderr)[-600:]}")
+        return self.secrets.scrub(p.stdout).strip().splitlines()[-1:]
 
     def provision_passwords(self, n):
         env = Host(self, n).env()
@@ -590,7 +620,7 @@ class Cluster:
         return False
 
     def converge(self, timeout=180, poll=2.0):
-        """Wait until the 21 synced tables hash the same on all four nodes. Returns (ok, seconds, differing tables)."""
+        """Wait until every synced table hashes the same on all four nodes. Returns (ok, seconds, differing tables)."""
         from checks import r1
         t0 = time.time()
         diff = []
