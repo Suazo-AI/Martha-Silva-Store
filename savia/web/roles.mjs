@@ -9,7 +9,10 @@ const EVERYONE = ['SELLER', 'INVENTORY', 'MANAGER', 'OWNER'];
 /** The phone tag page follows the server's receiving roles (TagExtractionService). */
 const TAG_RECEIVERS = ['INVENTORY', 'CASHIER', 'MANAGER', 'OWNER'];
 
-/** One row per screen, in menu order. A row without a label is reached from another screen, not from the menu. */
+/**
+ * One row per screen, in menu order. A row without a label is reached from another screen, not from the menu.
+ * A row with `node` is offered in the menu only on that node kind, because its routes exist only there.
+ */
 export const SCREENS = [
   { route: 'venta', label: 'Venta', roles: APPROVERS },
   { route: 'caja', label: 'Caja', roles: APPROVERS },
@@ -25,6 +28,7 @@ export const SCREENS = [
   { route: 'calidad', label: 'Calidad de recepción', roles: STOCK },
   { route: 'excepciones', label: 'Excepciones', roles: APPROVERS },
   { route: 'reporte', label: 'Reportes', roles: COMMISSION_READERS },
+  { route: 'pedidos-web', label: 'Pedidos web', roles: APPROVERS, node: 'Cloud' },
   { route: 'recepcion/revisar', roles: STOCK },
   { route: 'recibo', roles: APPROVERS },
   { route: 'devolucion', roles: APPROVERS },
@@ -62,10 +66,12 @@ const NAVIGATION = [
   { routes: ['venta', 'caja', 'inventario', 'historial'] },
   { label: 'Mercadería', routes: ['recepcion', 'calidad', 'precios', 'importar'] },
   { label: 'Consultas', routes: ['clientes', 'comisiones', 'reporte'] },
-  { label: 'Administración', routes: ['aprobaciones', 'excepciones', 'ajustes'] },
+  { label: 'Administración', routes: ['pedidos-web', 'aprobaciones', 'excepciones', 'ajustes'] },
 ];
-export const navigation = roles =>
+export const navigation = (roles, nodeKind) =>
   NAVIGATION.map(group => ({
     label: group.label,
-    screens: group.routes.map(route => SCREENS.find(s => s.route === route)).filter(s => s.label && canAccess(s.route, roles)),
+    screens: group.routes
+      .map(route => SCREENS.find(s => s.route === route))
+      .filter(s => s.label && canAccess(s.route, roles) && (!s.node || s.node === nodeKind)),
   })).filter(group => group.screens.length);

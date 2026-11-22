@@ -24,7 +24,7 @@ BEGIN
   REVERT;
   SET @n=(SELECT COUNT(*) FROM OPENJSON(@plan,'$.tables') WITH (a varchar(20))
           WHERE a=CASE @round WHEN 1 THEN 'initial' ELSE 'incremental' END);
-  EXEC test.AssertEq N'plan kind for every table',18,@n;
+  EXEC test.AssertEq N'plan kind for every table',20,@n;
   UPDATE sync.LocalNode SET NodeId=@a;
   EXECUTE AS USER=N'api_host_probe';
   EXEC sync.usp_ReadBatch @TargetNodeId=@cloud,@PlanJson=@plan,@Json=@batch OUTPUT;   -- incremental: CHANGETABLE
@@ -36,7 +36,7 @@ BEGIN
   EXECUTE AS USER=N'api_host_probe';
   EXEC sync.usp_ApplyBatch @PeerNodeId=@a,@BatchJson=@batch,@Json=@r OUTPUT;            -- MERGE into synced tables
   REVERT;
-  SET @n=JSON_VALUE(@r,'$.applied'); EXEC test.AssertEq N'every table applied',18,@n;
+  SET @n=JSON_VALUE(@r,'$.applied'); EXEC test.AssertEq N'every table applied',20,@n;
   SET @round+=1;
 END;
 

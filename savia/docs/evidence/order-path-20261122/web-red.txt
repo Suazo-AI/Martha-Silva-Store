@@ -1,0 +1,33 @@
+web red: node --test savia/web/tests/web-orders.test.mjs before web-orders-logic.mjs existed. Exit 1.
+
+node:internal/modules/esm/resolve:271
+    throw new ERR_MODULE_NOT_FOUND(
+          ^
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '<repo>\savia\web\screens\web-orders-logic.mjs' imported from <repo>\savia\web\tests\web-orders.test.mjs
+    at finalizeResolution (node:internal/modules/esm/resolve:271:11)
+    at moduleResolve (node:internal/modules/esm/resolve:865:10)
+    at defaultResolve (node:internal/modules/esm/resolve:992:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:701:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:721:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:759:56)
+    at #resolve (node:internal/modules/esm/loader:683:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:603:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:163:33)
+    at ModuleJob.link (node:internal/modules/esm/module_job:253:17) {
+  code: 'ERR_MODULE_NOT_FOUND',
+  url: 'file:///<repo>/savia/web/screens/web-orders-logic.mjs'
+}
+Node.js v24.18.0
+✖ tests\web-orders.test.mjs (80.1524ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 94.4213
+✖ failing tests:
+test at tests\web-orders.test.mjs:1:1
+✖ tests\web-orders.test.mjs (80.1524ms)
+  'test failed'

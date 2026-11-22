@@ -1,0 +1,22 @@
+full check: python tools/check.py --isolated (SAVIA_DOTNET set). Exit 0.
+
+SKIP  pilot stop (--isolated: throwaway databases only)
+PASS  architecture rules  (1s)
+      RULES PASS: 9 of 9 rules hold
+PASS  baseline is generated from the handoff  (0s)
+      OK: V001__baseline.sql matches the generator output.
+PASS  no DELETE or TRUNCATE on synced tables  (0s)
+      20 synced tables, 0 physical deletes
+PASS  database container  (1s)
+      16.0.4305.5 Developer Edition (64-bit)
+PASS  T-SQL tests  (305s)
+      SUMMARY PASS=161  logs: .out\dbtests
+PASS  .NET build  (11s)
+      Time Elapsed 00:00:10.52
+PASS  C# format  (17s)
+PASS  .NET tests on real SQL  (667s)
+      Passed!  - Failed:     0, Passed:   223, Skipped:     0, Total:   223, Duration: 11 m 5 s - Savia.Tests.dll (net10.0)
+PASS  .NET sync tests as the API host login  (209s)
+      Passed!  - Failed:     0, Passed:    18, Skipped:     0, Total:    18, Duration: 3 m 24 s - Savia.Tests.dll (net10.0)
+SKIP  container proof (--quick or --isolated)
+RESULT PASS

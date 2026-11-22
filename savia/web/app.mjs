@@ -19,6 +19,7 @@ import returns from './screens/return.mjs';
 import review from './screens/review.mjs';
 import sale from './screens/sale.mjs';
 import settings, { applyPalette } from './screens/settings.mjs';
+import webOrders from './screens/web-orders.mjs';
 import { syncTill } from './screens/till-open.mjs';
 import { device, h, replace } from './ui.mjs';
 
@@ -41,6 +42,7 @@ const MODULES = {
   precios: prices,
   importar: importer,
   calidad: qualityReport,
+  'pedidos-web': webOrders,
 };
 const $ = id => document.getElementById(id);
 
@@ -118,7 +120,7 @@ function renderNavigation(name) {
     );
   replace(
     $('nav'),
-    navigation(ctx.roles).map(group => {
+    navigation(ctx.roles, ctx.me?.nodeKind).map(group => {
       if (!group.label) return group.screens.map(link);
       const current = group.screens.some(screen => active(screen.route));
       return h(

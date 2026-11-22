@@ -13,7 +13,7 @@ test('work groups preserve every role combination, without duplicate or empty gr
     assert.equal(new Set(routes).size, routes.length);
     assert.deepEqual(
       routes.toSorted(),
-      SCREENS.filter(s => s.label && canAccess(s.route, selected))
+      SCREENS.filter(s => s.label && !s.node && canAccess(s.route, selected))
         .map(s => s.route)
         .toSorted(),
     );

@@ -217,7 +217,7 @@ CREATE LOGIN [{LOGIN_API}] WITH PASSWORD = N'{pw_api}', CHECK_POLICY = ON;""")
         ok &= record("API user holds no grant of its own and is only in role savia_api_host", roles == "savia_api_host|0", roles)
         # The migrator database had no fixture: V035 must cover the synced tables that V032 registers.
         synced = saviadb.scalar(DB_MIG, SYNC_GRANTS)
-        ok &= record("role savia_api_host can sync every table on a migrator-built database", synced == "18/18", synced)
+        ok &= record("role savia_api_host can sync every table on a migrator-built database", len(set(synced.split("/"))) == 1 and synced[0] not in "0/", synced)
 
         # 4. Same schema from both runners.
         a = saviadb.scalar(DB_REF, FINGERPRINT)

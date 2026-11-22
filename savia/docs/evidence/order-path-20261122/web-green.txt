@@ -1,0 +1,5 @@
+web green: node --test "savia/web/tests/*.test.mjs" from the repo root. Exit 0.
+
+ℹ tests 146
+ℹ pass 146
+ℹ fail 0

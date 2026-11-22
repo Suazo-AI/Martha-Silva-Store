@@ -54,6 +54,8 @@ public static class ServiceRegistration
         services.AddSingleton<CommissionsService>();
         services.AddSingleton<ISyncStore, SyncStore>();
         services.AddSingleton<SyncHubService>();
+        services.AddSingleton<IWebStoreStore, WebStoreStore>();
+        services.AddSingleton<WebStoreService>();
         return services;
     }
 

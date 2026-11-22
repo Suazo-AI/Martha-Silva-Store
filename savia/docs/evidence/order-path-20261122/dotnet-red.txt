@@ -1,0 +1,14 @@
+dotnet red: dotnet test --filter PaymentProviderContract|PublicAbuse|WebOrderVerticalSlice, with PublicEndpoints.Map and WebStoreEndpoints.Map removed from Endpoints.cs. Exit 1.
+Still green without the routes: provider unit tests, the CORS deny case and the branch 404, which do not depend on them.
+
+  Failed Savia.Tests.PublicAbuseTests.Body_over_16_KB_is_413 [646 ms]
+  Failed Savia.Tests.PublicAbuseTests.Too_many_requests_from_one_client_is_429 [95 ms]
+  Failed Savia.Tests.PublicAbuseTests.Unknown_field_is_400 [77 ms]
+  Failed Savia.Tests.WebOrderVerticalSliceTests.Card_return_is_not_payment_until_the_gateway_confirms_and_webhooks_must_be_signed [72 ms]
+  Failed Savia.Tests.WebOrderVerticalSliceTests.Staff_lists_records_a_manual_payment_fulfills_and_cancels [101 ms]
+  Failed Savia.Tests.WebOrderVerticalSliceTests.Public_catalog_order_and_replay_return_the_same_order [57 ms]
+  Failed Savia.Tests.WebOrderVerticalSliceTests.Order_status_needs_its_token [65 ms]
+  Failed Savia.Tests.WebOrderVerticalSliceTests.Sweep_expires_a_due_order_once_and_records_a_payment_the_buyer_never_returned_from [56 ms]
+  Failed Savia.Tests.WebOrderVerticalSliceTests.Failed_bot_check_reserves_nothing [53 ms]
+  Failed Savia.Tests.WebOrderVerticalSliceTests.Last_units_go_to_one_buyer_and_the_next_gets_out_of_stock_with_the_sku [74 ms]
+Failed!  - Failed:    10, Passed:    12, Skipped:     0, Total:    22, Duration: 41 s - Savia.Tests.dll (net10.0)

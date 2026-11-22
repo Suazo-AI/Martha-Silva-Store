@@ -21,7 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DEV_CONTAINER = "savia-sqlserver-dev"
 # Sync and vertical-slice tests again, connected as a login that is only in role savia_api_host (V035).
 API_HOST_TESTS = ("FullyQualifiedName~Savia.Tests.Sync|FullyQualifiedName~Savia.Tests.VerticalSlice"
-                  "|FullyQualifiedName~Savia.Tests.ApiHostLogin")
+                  "|FullyQualifiedName~Savia.Tests.ApiHostLogin|FullyQualifiedName~Savia.Tests.WebOrderVerticalSlice")
 # Known location of SDK 10.0.402 on SUAZO-PC; other machines use PATH or SAVIA_DOTNET.
 LOCAL_SDK = Path("C:/Users/Jason/.dotnet-sdk-10.0.402/dotnet.exe")
 
@@ -59,6 +59,8 @@ def dev_container_up():
 
 
 def main():
+    # A Windows console codepage must not turn a failed step into a crash while printing its output.
+    sys.stdout.reconfigure(errors="replace")
     quick = "--quick" in sys.argv
     env = dict(os.environ, DOTNET_CLI_TELEMETRY_OPTOUT="1", DOTNET_NOLOGO="1", MSBUILDDISABLENODEREUSE="1")
     os.environ.update(env)

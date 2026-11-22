@@ -23,7 +23,7 @@ EXEC sync.usp_SourceStateJson @Json=@state OUTPUT;
 UPDATE sync.LocalNode SET NodeId=@a;
 EXEC sync.usp_PlanJson @PeerNodeId=@cloud,@StateJson=@state,@Mode='rebuild',@Json=@plan OUTPUT;
 SET @n=(SELECT COUNT(*) FROM OPENJSON(@plan,'$.tables') WITH (a varchar(20)) WHERE a='rebuild');
-EXEC test.AssertEq N'rebuild plan covers every table',18,@n;
+EXEC test.AssertEq N'rebuild plan covers every table',20,@n;
 -- A branch may not serve a rebuild.
 SET @err=0;
 BEGIN TRY EXEC sync.usp_ReadBatch @TargetNodeId=@cloud,@PlanJson=@plan,@TargetForkGuid=@newFork,@Json=@rb OUTPUT; END TRY
@@ -49,7 +49,7 @@ EXEC test.AssertEq N'new fork with a wrong token refused',51854,@err;
 -- The recovery push from the new fork, with the token, is accepted and moves every cursor to it.
 SET @p1=JSON_MODIFY(@p1,'$.rebuild',JSON_VALUE(@rb,'$.rebuild'));
 EXEC sync.usp_ApplyBatch @PeerNodeId=@a,@BatchJson=@p1,@Json=@r OUTPUT;
-SET @n=(SELECT COUNT(*) FROM sync.PeerCursors WHERE PeerNodeId=@a AND ForkGuid=@newFork); EXEC test.AssertEq N'cursors on the new fork',18,@n;
+SET @n=(SELECT COUNT(*) FROM sync.PeerCursors WHERE PeerNodeId=@a AND ForkGuid=@newFork); EXEC test.AssertEq N'cursors on the new fork',20,@n;
 SET @err=0;
 BEGIN TRY EXEC sync.usp_ApplyBatch @PeerNodeId=@a,@BatchJson=@p0,@Json=@r OUTPUT; END TRY BEGIN CATCH SET @err=ERROR_NUMBER(); END CATCH;
 EXEC test.AssertEq N'old fork still refused after recovery',51853,@err;

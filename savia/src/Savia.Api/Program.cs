@@ -8,6 +8,7 @@ builder.Services.AddSaviaTags();   // tag photo -> product fields, local OCR onl
 builder.Services.AddOpenApi();
 builder.Services.AddHostedService<SyncWorker>();   // branch to hub sync, off unless Savia:Sync:HubUrl is set (docs/sync/P9-SPEC.md)
 builder.Services.AddSaviaHosting();   // proxy, HTTPS, headers, login limit (savia/docs/deploy/AZURE.md)
+builder.Services.AddSaviaWebStore();  // public order path: CORS, limits, Turnstile, payments, expiry (savia/docs/webstore/ORDER-PATH.md)
 builder.AddSaviaTelemetry();          // Application Insights, off unless APPLICATIONINSIGHTS_CONNECTION_STRING is set
 
 var app = builder.Build();

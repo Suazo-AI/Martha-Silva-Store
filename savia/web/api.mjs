@@ -241,6 +241,12 @@ export const kpiBusiness = (period, date) => request('GET', `/reports/kpi/busine
 export const kpiTeam = (period, date) => request('GET', `/reports/kpi/team${q({ period, date })}`);
 export const exportKpiBusiness = (period, date) => exportReport('/reports/kpi/business.csv', period, date, 'negocio');
 export const exportKpiTeam = (period, date) => exportReport('/reports/kpi/team.csv', period, date, 'equipo');
+
+// ---- web orders (hub only; savia/docs/webstore/ORDER-PATH.md)
+export const webOrders = status => request('GET', `/web-orders${q({ status })}`);
+export const recordManualPayment = (orderId, body) => request('POST', path`/web-orders/${orderId}/manual-payment`, body);
+export const fulfillWebOrder = orderId => request('POST', path`/web-orders/${orderId}/fulfill`);
+export const cancelWebOrder = orderId => request('POST', path`/web-orders/${orderId}/cancel`);
 export const importFile = (fileName, contentBase64) => request('POST', '/catalog/import/file', { fileName, contentBase64 });
 export const previewImport = body => request('POST', '/catalog/import/preview', body);
 export const importCatalog = body => request('POST', '/catalog/import', body);

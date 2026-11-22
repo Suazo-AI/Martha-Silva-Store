@@ -69,6 +69,8 @@ public static class SaviaEndpoints
         InventoryEndpoints.Map(api, node);
         TagsEndpoints.Map(api, app);
         SyncEndpoints.Map(app, node);
+        PublicEndpoints.Map(open, node);
+        WebStoreEndpoints.Map(api, node);
         if (node.Kind != NodeKind.Branch) return;
 
         ReceivingEndpoints.Map(api);

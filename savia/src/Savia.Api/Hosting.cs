@@ -85,6 +85,7 @@ public static class SaviaHosting
             headers["Referrer-Policy"] = "no-referrer";
             await next();
         });
+        app.UseSaviaPublicCors();
         app.UseRateLimiter();
     }
 

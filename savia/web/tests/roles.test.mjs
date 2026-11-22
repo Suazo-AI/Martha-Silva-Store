@@ -21,6 +21,7 @@ const ACCESS = {
   'recepcion/revisar': 'OWNER,MANAGER,INVENTORY',
   inventario: 'OWNER,MANAGER,INVENTORY',
   calidad: 'OWNER,MANAGER,INVENTORY',
+  'pedidos-web': 'OWNER,MANAGER',
   etiqueta: '',
   ingreso: '',
   noexiste: '',
@@ -57,6 +58,7 @@ test('the menu keeps its order and leaves out screens reached from another scree
       'calidad',
       'excepciones',
       'reporte',
+      'pedidos-web',
     ],
   );
 });
