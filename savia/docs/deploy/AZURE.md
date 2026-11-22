@@ -162,6 +162,12 @@ P5: migration V035 creates role `savia_api_host`; the migrator only creates the 
 The role also needs INSERT, UPDATE and VIEW CHANGE TRACKING on the 18 synced tables, because the sync procedures run dynamic SQL.
 Evidence: as a login that is only in the role, sync and vertical-slice tests fail 9 of 18 with the old grants (error 229) and pass 18 of 18 with V035.
 Azure SQL holds V001-V030; the next migration job applies V031-V035 together and adds the API user to the role. Not yet verified on Azure.
+Third Azure run, 2026-11-22, commit `37b6c06e` (CI run 44991665004 green): images built from a clean worktree with local Docker and pushed.
+Point-in-time target `2026-11-22T07:19:51Z`; copy `savia-premig-37b6c06e-1`; job `caj-savia-migrate-ouaaz51` applied V031-V035 (ledger complete, 35 versions) and ensured the API user.
+Revision `ca-savia-api--g37b6c06-1` passed `smoke.ps1` at 0% traffic, then took 100%; `smoke.ps1` PASS on the app URL; `/health/ready` 200; `/openapi/v1.json` 200; staff route without sign-in 401; sync push without credentials 401.
+Application Insights received 18 requests and 9 dependencies through the managed identity (P2 verified on Azure).
+Rollback: `az containerapp ingress traffic set -n ca-savia-api -g rg-savia-prod --revision-weight ca-savia-api--0000001=100`; V031-V035 are additive.
+Not verified: a sync round as the API identity on Azure SQL; it needs a node credential.
 P2: `AddSaviaTelemetry` calls `UseAzureMonitor` only when `APPLICATIONINSIGHTS_CONNECTION_STRING` is set; with `AZURE_CLIENT_ID` it signs in as that identity.
 `Azure.Monitor.OpenTelemetry.AspNetCore` 1.6.0 needs `Azure.Identity` 1.21.0 in the API: older Azure.Identity clashes with Azure.Core 1.60 on `ManagedIdentityCredential`.
 1.4.0 avoids the bump but pulls `OpenTelemetry.Api` 1.14.0 (GHSA-g94r-2vxg-569j). The managed-identity export is not tested until it runs on Azure.
