@@ -24,6 +24,8 @@ LANG = 'es-NI'
 META_LINE = re.compile(r'<meta name="robots"[^>]*>\s*<meta name="description"[^>]*>')
 REGION = re.compile(re.escape(START) + r'.*?' + re.escape(END), re.S)
 TITLE = re.compile(r'<title>(.*?)</title>', re.S)
+# An empty data: icon stops the browser's /favicon.ico request, which 404s and logs a console error; the store has no icon artwork yet.
+ICON = '<link rel="icon" href="data:,">'
 
 
 def read_text(path):
@@ -143,13 +145,13 @@ def build(root, cfg):
     def region(name, text):
         if name in NONINDEX:
             m = re.search(r'<meta name="description"[^>]*>', text)
-            return START + '<meta name="robots" content="noindex,nofollow">' + (m.group(0) if m else '') + END
+            return START + '<meta name="robots" content="noindex,nofollow">' + (m.group(0) if m else '') + ICON + END
         prod = prod_pages.get(name)
         title = html.unescape(TITLE.search(text).group(1).strip())
         d = descs[name]
         hero = (brand.get('hero') or {}).get('image')
         share_image = U(prod['images'][0]) if prod else (U(hero) if hero else None)
-        tags = [f'<meta name="robots" content="{robots_meta}">', f'<meta name="description" content="{esc(d)}">']
+        tags = [f'<meta name="robots" content="{robots_meta}">', f'<meta name="description" content="{esc(d)}">', ICON]
         if site:
             tags.append(f'<link rel="canonical" href="{esc(U(page_path(name)))}">')
         og = [('og:title', title), ('og:description', d), ('og:site_name', bname), ('og:type', 'product' if prod else 'website'), ('og:locale', LOCALE)]

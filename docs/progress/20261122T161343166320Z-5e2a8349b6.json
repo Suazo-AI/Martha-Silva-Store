@@ -1,0 +1,520 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-22T16:13:43.166320+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "build-inputs/static/404.html",
+      "change": "M",
+      "git_blob": "06d4b0f0106f9747b7351f198042ca503e4bd3f5"
+    },
+    {
+      "path": "build-inputs/static/admin.html",
+      "change": "M",
+      "git_blob": "0e22f32ccd81674bbd1860b9bad205cb90284f18"
+    },
+    {
+      "path": "build-inputs/static/ayuda.html",
+      "change": "M",
+      "git_blob": "881d3f603ec4a62a4d002d6365b6edb450506cfc"
+    },
+    {
+      "path": "build-inputs/static/bolsa.html",
+      "change": "M",
+      "git_blob": "8b423c22593d8ca8e9a2ad0dfbb87b76cc61a765"
+    },
+    {
+      "path": "build-inputs/static/catalogo.html",
+      "change": "M",
+      "git_blob": "b22e92486fc2b001b61aae74fa2bca7ad2154c1c"
+    },
+    {
+      "path": "build-inputs/static/checkout.html",
+      "change": "M",
+      "git_blob": "e08ce9c9534733691d4341db73ab71996f67d9cb"
+    },
+    {
+      "path": "build-inputs/static/index.html",
+      "change": "M",
+      "git_blob": "03ae5096d09a22dff6db332071350dae6547fee5"
+    },
+    {
+      "path": "build-inputs/static/pedido.html",
+      "change": "M",
+      "git_blob": "09980417f8b93b647971c96d49dc2b9cd988b043"
+    },
+    {
+      "path": "build-inputs/static/producto-amarillo.html",
+      "change": "M",
+      "git_blob": "7c0548aad33bc51fadd87c25596db3be660bcaf8"
+    },
+    {
+      "path": "build-inputs/static/producto-azul-floral-un-hombro.html",
+      "change": "M",
+      "git_blob": "b0c74561eb0012d3b55e49cf7079fc9fa9cd5363"
+    },
+    {
+      "path": "build-inputs/static/producto-azul-gris-flores-falda.html",
+      "change": "M",
+      "git_blob": "63c2841f98d490bfbff337144db5892b02247dac"
+    },
+    {
+      "path": "build-inputs/static/producto-azul-gris-un-hombro.html",
+      "change": "M",
+      "git_blob": "9a1cbdbe3c352d8b2776f321a41fbd6b3520808e"
+    },
+    {
+      "path": "build-inputs/static/producto-blanco-perlado-sirena.html",
+      "change": "M",
+      "git_blob": "5497febe8b3dea6390cf8a8e3ceec6abd6eb44bd"
+    },
+    {
+      "path": "build-inputs/static/producto-burdeos-encaje-volantes-midi.html",
+      "change": "M",
+      "git_blob": "3f57e8e8bee2a7ad9046b78acc909d7e64b9f1c6"
+    },
+    {
+      "path": "build-inputs/static/producto-burdeos-top-pantalon-corto.html",
+      "change": "M",
+      "git_blob": "9a60a26e5a7cd949ee59fe50c253d04e762d348a"
+    },
+    {
+      "path": "build-inputs/static/producto-champagne.html",
+      "change": "M",
+      "git_blob": "250bebc4d2ee62e5f6fede56a821288df24108f8"
+    },
+    {
+      "path": "build-inputs/static/producto-crema-flores-naranjas-halter.html",
+      "change": "M",
+      "git_blob": "7671d343994524b6552703297934b36246b0885c"
+    },
+    {
+      "path": "build-inputs/static/producto-crema-flores-volante-asimetrico.html",
+      "change": "M",
+      "git_blob": "8df0752932f4fb338b3f82c8ab39f2e9b0bc9310"
+    },
+    {
+      "path": "build-inputs/static/producto-dorado.html",
+      "change": "M",
+      "git_blob": "e4544f328dfee11c8783ebd676fd2b922d5c616e"
+    },
+    {
+      "path": "build-inputs/static/producto-fucsia-halter-pliegues.html",
+      "change": "M",
+      "git_blob": "9fca1cf1137ac0718da38eb21beec59627590173"
+    },
+    {
+      "path": "build-inputs/static/producto-fucsia-un-hombro-volantes.html",
+      "change": "M",
+      "git_blob": "391462f189ab3e83e9b9e2c697f8a2bb6a3aa729"
+    },
+    {
+      "path": "build-inputs/static/producto-gala-destello.html",
+      "change": "M",
+      "git_blob": "d969e9f04bf70cefde9ef0046cbf2b238cb57909"
+    },
+    {
+      "path": "build-inputs/static/producto-gala-oro.html",
+      "change": "M",
+      "git_blob": "4b44c9f3f38c0998948b8668cd4a75c8a0737c86"
+    },
+    {
+      "path": "build-inputs/static/producto-gala-rubi.html",
+      "change": "M",
+      "git_blob": "cc1671c93d2fa9ef319ac188ed2fd3d61aeeae64"
+    },
+    {
+      "path": "build-inputs/static/producto-gris-perla-hombros.html",
+      "change": "M",
+      "git_blob": "5586fb89a13faf52c2d7ce96db813582aefaa378"
+    },
+    {
+      "path": "build-inputs/static/producto-midi-estampado-burdeos.html",
+      "change": "M",
+      "git_blob": "e609590fe32f53a7b05c678c73f2b4fd4b0e04be"
+    },
+    {
+      "path": "build-inputs/static/producto-napoleon.html",
+      "change": "M",
+      "git_blob": "794c55a7f276ef623628ae5dc522fec399c9c48e"
+    },
+    {
+      "path": "build-inputs/static/producto-negro-blanco-lunares-midi.html",
+      "change": "M",
+      "git_blob": "140cee3be99ed5c3893e430d85cbc09fb3f0e917"
+    },
+    {
+      "path": "build-inputs/static/producto-negro-brillo-pantalon-amplio.html",
+      "change": "M",
+      "git_blob": "cbb44c3423d8a152ddf717432e9382bb85f35822"
+    },
+    {
+      "path": "build-inputs/static/producto-negro-escote-puntas-abertura.html",
+      "change": "M",
+      "git_blob": "86280e749426b017b0866a165a9b85d25df9c6ae"
+    },
+    {
+      "path": "build-inputs/static/producto-negro-lunares-beige-hombros.html",
+      "change": "M",
+      "git_blob": "125b69bc346d51dd55ccc121c5da180ec20dda6a"
+    },
+    {
+      "path": "build-inputs/static/producto-negro.html",
+      "change": "M",
+      "git_blob": "8a6d7476ce10f09557f15fa31b87db6c0c4d7d65"
+    },
+    {
+      "path": "build-inputs/static/producto-novia-satinada-abertura.html",
+      "change": "M",
+      "git_blob": "6c329326a5ff04e2e344f5abf8d1373f6a8bd91c"
+    },
+    {
+      "path": "build-inputs/static/producto-novia-tirantes-encaje.html",
+      "change": "M",
+      "git_blob": "a9e70cf7961a14a2a9b6e648bf52edfef0afb118"
+    },
+    {
+      "path": "build-inputs/static/producto-novia.html",
+      "change": "M",
+      "git_blob": "4d418778186a32963d62bd6832d2c06fb001176d"
+    },
+    {
+      "path": "build-inputs/static/producto-novias-alba.html",
+      "change": "M",
+      "git_blob": "70f77cfcadc5aad1ff6121a2e9a418812d766fd5"
+    },
+    {
+      "path": "build-inputs/static/producto-novias-encaje.html",
+      "change": "M",
+      "git_blob": "ba76de965c4fe3f68155baa89dc2e700e5c40d1c"
+    },
+    {
+      "path": "build-inputs/static/producto-novias-velo.html",
+      "change": "M",
+      "git_blob": "77834a871cd6cec9b44d3703c2c7eacbafc52706"
+    },
+    {
+      "path": "build-inputs/static/producto-plata-tirantes-copas-pedreria.html",
+      "change": "M",
+      "git_blob": "645a2dd0866da23200b882b50f9bd7cbe1a9c11b"
+    },
+    {
+      "path": "build-inputs/static/producto-rojo-tirantes-falda-amplia.html",
+      "change": "M",
+      "git_blob": "0da6e08e52d737c7e41e523794b6e7960b86ff30"
+    },
+    {
+      "path": "build-inputs/static/producto-rosa-bronce-pedreria.html",
+      "change": "M",
+      "git_blob": "5530414293fa5df9e967c5eae5cda9a726930e9f"
+    },
+    {
+      "path": "build-inputs/static/producto-rosa-claro-flores-doradas.html",
+      "change": "M",
+      "git_blob": "de25bd639033279e808a7b009558ce2b3554627b"
+    },
+    {
+      "path": "build-inputs/static/producto-rosa-empolvado-pedreria.html",
+      "change": "M",
+      "git_blob": "1a38d405971731fee249dd9624bd14d40fa4b2f3"
+    },
+    {
+      "path": "build-inputs/static/producto-rosa-flores-fucsias-halter.html",
+      "change": "M",
+      "git_blob": "4ee0ffb8a102db6816bff471807030c911331055"
+    },
+    {
+      "path": "build-inputs/static/producto-rosa-marron-chaqueta-falda.html",
+      "change": "M",
+      "git_blob": "362a3fa9e57158342580f25be4d7bf3fc3fcdabf"
+    },
+    {
+      "path": "build-inputs/static/producto-rosa.html",
+      "change": "M",
+      "git_blob": "1f9226c385e7760105d172cd46f162d9c8c0e3ed"
+    },
+    {
+      "path": "build-inputs/static/producto-verde-brillo-cuello-cruzado.html",
+      "change": "M",
+      "git_blob": "dba1cf6b4c9db2dbe88521374f3e5d8ad86ca0c1"
+    },
+    {
+      "path": "build-inputs/static/producto-verde-esmeralda-tirantes-cruzados.html",
+      "change": "M",
+      "git_blob": "d42fc7b7036f66983f563a7eed6616832e4ad1c3"
+    },
+    {
+      "path": "dist/404.html",
+      "change": "M",
+      "git_blob": "231060abba19274ff45b79debf1fda8ab30f91f1"
+    },
+    {
+      "path": "dist/admin.html",
+      "change": "M",
+      "git_blob": "9d0ce99ba9da0bef2da576e231c926fdc7cd1cdb"
+    },
+    {
+      "path": "dist/ayuda.html",
+      "change": "M",
+      "git_blob": "d7163bd3b537a28da7f75ef1bb3075bbd072ea71"
+    },
+    {
+      "path": "dist/bolsa.html",
+      "change": "M",
+      "git_blob": "dbc8aa6d78e4db49224c691a32a68f21d782a37a"
+    },
+    {
+      "path": "dist/catalogo.html",
+      "change": "M",
+      "git_blob": "b61e92c7c3051c56d3b1b8f6e6a4a617dbbcf71d"
+    },
+    {
+      "path": "dist/checkout.html",
+      "change": "M",
+      "git_blob": "9d847b911966fb414ee59816484c53049f37b018"
+    },
+    {
+      "path": "dist/index.html",
+      "change": "M",
+      "git_blob": "227f0811bec9854affa14625035d5f218f0f040b"
+    },
+    {
+      "path": "dist/pedido.html",
+      "change": "M",
+      "git_blob": "0f36d8a515d33a5eb67bdc6047c4d01a7211e538"
+    },
+    {
+      "path": "dist/producto-amarillo.html",
+      "change": "M",
+      "git_blob": "0ef61e0f9c075ac8a5f5cd203f0021e4890a9a1b"
+    },
+    {
+      "path": "dist/producto-azul-floral-un-hombro.html",
+      "change": "M",
+      "git_blob": "bf4550036f5a247cbf5ee291b7daac0b9a1837ca"
+    },
+    {
+      "path": "dist/producto-azul-gris-flores-falda.html",
+      "change": "M",
+      "git_blob": "2748f0b9d33b1d4f1788526a095c060fd18caa78"
+    },
+    {
+      "path": "dist/producto-azul-gris-un-hombro.html",
+      "change": "M",
+      "git_blob": "fbfff58fce4444330a8b08032f43ab36a992777a"
+    },
+    {
+      "path": "dist/producto-blanco-perlado-sirena.html",
+      "change": "M",
+      "git_blob": "72ca853b1f62afc7cae0b0889416581865a5aeb3"
+    },
+    {
+      "path": "dist/producto-burdeos-encaje-volantes-midi.html",
+      "change": "M",
+      "git_blob": "c3313075bcf7dc2d4d516369f2358cad2b6f6a8a"
+    },
+    {
+      "path": "dist/producto-burdeos-top-pantalon-corto.html",
+      "change": "M",
+      "git_blob": "e52f749d88857e444bb0cdb64e4be893a1466e17"
+    },
+    {
+      "path": "dist/producto-champagne.html",
+      "change": "M",
+      "git_blob": "cc2d195a242b1f8d24305aa5397344fcea370121"
+    },
+    {
+      "path": "dist/producto-crema-flores-naranjas-halter.html",
+      "change": "M",
+      "git_blob": "28d12eba0e7617396cfd783d4dce50f4ac70e4d1"
+    },
+    {
+      "path": "dist/producto-crema-flores-volante-asimetrico.html",
+      "change": "M",
+      "git_blob": "a009fd6489156b9143f8ed5a2323235ff452b22b"
+    },
+    {
+      "path": "dist/producto-dorado.html",
+      "change": "M",
+      "git_blob": "0d46d4f05cb64199a8cdbafe1d674761db78a453"
+    },
+    {
+      "path": "dist/producto-fucsia-halter-pliegues.html",
+      "change": "M",
+      "git_blob": "6b05b8cfba1be183941b6257eddea8b5a5705e8c"
+    },
+    {
+      "path": "dist/producto-fucsia-un-hombro-volantes.html",
+      "change": "M",
+      "git_blob": "46a7d2421dd8ff3005d15b114f1029cbeb59cf82"
+    },
+    {
+      "path": "dist/producto-gala-destello.html",
+      "change": "M",
+      "git_blob": "5c83133acad1933724584bc56d249e314f0d0d26"
+    },
+    {
+      "path": "dist/producto-gala-oro.html",
+      "change": "M",
+      "git_blob": "3550089d24dab94ff31edfdebeb54d54d4db13ae"
+    },
+    {
+      "path": "dist/producto-gala-rubi.html",
+      "change": "M",
+      "git_blob": "803b00c8a7b4a9b415e74c30e95eeafc0833a712"
+    },
+    {
+      "path": "dist/producto-gris-perla-hombros.html",
+      "change": "M",
+      "git_blob": "57920ec99a73d698becfd06d3d164d777fffce14"
+    },
+    {
+      "path": "dist/producto-midi-estampado-burdeos.html",
+      "change": "M",
+      "git_blob": "62aa16d15a88923298659738931870f84f3d574a"
+    },
+    {
+      "path": "dist/producto-napoleon.html",
+      "change": "M",
+      "git_blob": "fcc1be51b2a96b4e4a5377d799221d1573c1d1ca"
+    },
+    {
+      "path": "dist/producto-negro-blanco-lunares-midi.html",
+      "change": "M",
+      "git_blob": "9693ddfa7b7c426d7b05cbdcd876aaa35fd46221"
+    },
+    {
+      "path": "dist/producto-negro-brillo-pantalon-amplio.html",
+      "change": "M",
+      "git_blob": "f2612acaa0ec93c7194bb9500e30074b003ddd15"
+    },
+    {
+      "path": "dist/producto-negro-escote-puntas-abertura.html",
+      "change": "M",
+      "git_blob": "4f720e4174cdd5b90bafe31e6839c2e54edc3793"
+    },
+    {
+      "path": "dist/producto-negro-lunares-beige-hombros.html",
+      "change": "M",
+      "git_blob": "f311bcc766a5a57027f2fb6b5acd9b1806abeb4e"
+    },
+    {
+      "path": "dist/producto-negro.html",
+      "change": "M",
+      "git_blob": "e333d440409c68920b55eb2fec968c3d36216fe8"
+    },
+    {
+      "path": "dist/producto-novia-satinada-abertura.html",
+      "change": "M",
+      "git_blob": "11420a646baa673b94b10ef23ad547018d51d9e2"
+    },
+    {
+      "path": "dist/producto-novia-tirantes-encaje.html",
+      "change": "M",
+      "git_blob": "80df7693b97dc6aa8f8b527a4a642f9ddec830d4"
+    },
+    {
+      "path": "dist/producto-novia.html",
+      "change": "M",
+      "git_blob": "b242df37daa00eb401569465a4b9b8cdb333d2a3"
+    },
+    {
+      "path": "dist/producto-novias-alba.html",
+      "change": "M",
+      "git_blob": "72525e99d8f3cee01023713aa5cf4e8c2d8d8ffe"
+    },
+    {
+      "path": "dist/producto-novias-encaje.html",
+      "change": "M",
+      "git_blob": "4e6cf614e22fc844fbec068375a2051cf0c197e2"
+    },
+    {
+      "path": "dist/producto-novias-velo.html",
+      "change": "M",
+      "git_blob": "e91bd476a8d9f4a6c25caa19d14f01702d77bdea"
+    },
+    {
+      "path": "dist/producto-plata-tirantes-copas-pedreria.html",
+      "change": "M",
+      "git_blob": "a4ce637372a4616974fb58e80bfe17baf79c3c63"
+    },
+    {
+      "path": "dist/producto-rojo-tirantes-falda-amplia.html",
+      "change": "M",
+      "git_blob": "ee53804a715f41249713ce8665279e1cefd216c5"
+    },
+    {
+      "path": "dist/producto-rosa-bronce-pedreria.html",
+      "change": "M",
+      "git_blob": "32da159bf6d6405d3906b98c4f24c7b2cd01fec7"
+    },
+    {
+      "path": "dist/producto-rosa-claro-flores-doradas.html",
+      "change": "M",
+      "git_blob": "d60c1f964a5d0facbee525438cb146589292c3d4"
+    },
+    {
+      "path": "dist/producto-rosa-empolvado-pedreria.html",
+      "change": "M",
+      "git_blob": "7022ab07467760373c99c04f51b4e1195072c4b3"
+    },
+    {
+      "path": "dist/producto-rosa-flores-fucsias-halter.html",
+      "change": "M",
+      "git_blob": "af3e0404d8557374b6b934a3c25b4be779caf867"
+    },
+    {
+      "path": "dist/producto-rosa-marron-chaqueta-falda.html",
+      "change": "M",
+      "git_blob": "39450d6e86200faff4afb02a55ad45907e2da682"
+    },
+    {
+      "path": "dist/producto-rosa.html",
+      "change": "M",
+      "git_blob": "5a0a5e95cf79f7b15fb7e0a4281ca38aae913d18"
+    },
+    {
+      "path": "dist/producto-verde-brillo-cuello-cruzado.html",
+      "change": "M",
+      "git_blob": "13b104b23830886cb41823248a7b9c766bed5097"
+    },
+    {
+      "path": "dist/producto-verde-esmeralda-tirantes-cruzados.html",
+      "change": "M",
+      "git_blob": "d4ee2af75151949d856e73d77530b4d081e30011"
+    },
+    {
+      "path": "docs/production-20261122/storefront-evidence/PERFORMANCE.md",
+      "change": "A",
+      "git_blob": "e823e94ebbe6c2bb39c8cb5a941436603bdd0f30"
+    },
+    {
+      "path": "docs/production-20261122/storefront-evidence/performance-lighthouse.json",
+      "change": "A",
+      "git_blob": "ddea770ba03358f6ba12afe098d243a52357e91a"
+    },
+    {
+      "path": "evidence/releases/20261105/responsive-runtime-sha256.json",
+      "change": "M",
+      "git_blob": "16c92f7363dda6ff027ca6495802dd635fad72c4"
+    },
+    {
+      "path": "tests/green-header.cjs",
+      "change": "M",
+      "git_blob": "e9a055f10a83d7418a620709485578ce87522190"
+    },
+    {
+      "path": "tests/page-hashes.json",
+      "change": "M",
+      "git_blob": "b780b042dadfed34d062f0c6e39c2214a947115e"
+    },
+    {
+      "path": "tools/seo_generate.py",
+      "change": "M",
+      "git_blob": "1e17c5fa8d5ffbd053f3b3921baaa158ee62ea78"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

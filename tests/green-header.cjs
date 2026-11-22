@@ -111,7 +111,9 @@ test('Green renders exactly its recorded product images, then one video, with al
   const video=gallery.querySelector('.gallery-video video[controls]');assert.ok(video);
   assert.equal(video.getAttribute('data-src'),product.video);
   if(product.video_webm)assert.equal(video.getAttribute('data-webm'),product.video_webm);
-  assert.equal(video.getAttribute('poster'),product.video_poster);
+  // The page shows the poster as its same-width WebP derivative; the catalog keeps the original PNG.
+  const poster=responsive.get(product.video_poster);
+  assert.equal(video.getAttribute('poster'),poster?poster.derivatives.find(d=>d.width===poster.width).path:product.video_poster);
  }
  const total=n+videos.length;
  for(const selector of ['.gallery-thumbnails','.gallery-dots']){
