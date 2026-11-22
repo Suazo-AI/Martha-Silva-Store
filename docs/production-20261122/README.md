@@ -60,3 +60,7 @@ These do not stop the engineering. Each one blocks only its row.
 
 Decisions taken for this program: [DECISIONS D-035 to D-041](../DECISIONS.md).
 Progress is recorded in this table, in the area documents, and in the commit log.
+
+Order path research and build plan (2026-11-22): [ORDER-PATH-SPEC](ORDER-PATH-SPEC.md).
+Accepted by the primary: hub-owned web stock locations filled by consignment, guest checkout, hosted-page card payment behind `IPaymentProvider`, `manual` provider labelled as not card.
+Provider recommendation: BAC E-Commerce gateway first, Pagadito as fallback; neither is contracted.
