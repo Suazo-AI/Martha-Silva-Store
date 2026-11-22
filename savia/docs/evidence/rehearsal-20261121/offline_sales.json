@@ -1,0 +1,281 @@
+{
+ "scenario": "offline_sales",
+ "verdict": "PASS",
+ "reason": "",
+ "identity": "sa",
+ "manifest": {
+  "path": "tools/rehearsal/expected/offline_sales.json",
+  "sha256": "c73bcb3603305cd677d4b17853c8122b27850dc8d71c440441fc9cd8fd685d30"
+ },
+ "seconds_total": 203.8,
+ "phases": [
+  {
+   "phase": "setup: 4 databases, node credentials, staff passwords, seed stock",
+   "seconds": 78.5
+  },
+  {
+   "phase": "start hub and 3 store hosts",
+   "seconds": 8.8
+  },
+  {
+   "phase": "open tills over HTTP",
+   "seconds": 11.2
+  },
+  {
+   "phase": "first convergence",
+   "seconds": 39.1
+  },
+  {
+   "phase": "hub stopped; stores sell",
+   "seconds": 13.4
+  },
+  {
+   "phase": "hub restarted",
+   "seconds": 2.3
+  },
+  {
+   "phase": "converge after hub returns",
+   "seconds": 30.8
+  },
+  {
+   "phase": "checks",
+   "seconds": 18.6
+  }
+ ],
+ "events": [
+  {
+   "t": 91.7,
+   "event": "open till a",
+   "status": 204,
+   "problem": ""
+  },
+  {
+   "t": 96.3,
+   "event": "open till b",
+   "status": 204,
+   "problem": ""
+  },
+  {
+   "t": 98.4,
+   "event": "open till c",
+   "status": 204,
+   "problem": ""
+  },
+  {
+   "t": 143.2,
+   "event": "store a worker while hub is down",
+   "log": "could not reach the hub: An error occurred while sending the request."
+  },
+  {
+   "t": 144.2,
+   "event": "store b worker while hub is down",
+   "log": "could not reach the hub: An error occurred while sending the request."
+  },
+  {
+   "t": 144.3,
+   "event": "store c worker while hub is down",
+   "log": "could not reach the hub: An error occurred while sending the request."
+  },
+  {
+   "t": 145.9,
+   "event": "sale a1 at a",
+   "status": 200,
+   "problem": ""
+  },
+  {
+   "t": 146.5,
+   "event": "sale a2 at a",
+   "status": 200,
+   "problem": ""
+  },
+  {
+   "t": 147.3,
+   "event": "sale b1 at b",
+   "status": 200,
+   "problem": ""
+  },
+  {
+   "t": 148.0,
+   "event": "sale b2 at b",
+   "status": 200,
+   "problem": ""
+  },
+  {
+   "t": 150.1,
+   "event": "sale c1 at c",
+   "status": 200,
+   "problem": ""
+  },
+  {
+   "t": 150.3,
+   "event": "sale c2 at c",
+   "status": 200,
+   "problem": ""
+  },
+  {
+   "t": 151.0,
+   "event": "hub database holds none of the offline sales",
+   "count": 0
+  },
+  {
+   "t": 184.0,
+   "event": "converge after hub returns: converged in 30.8s",
+   "differing": []
+  }
+ ],
+ "checks": {
+  "passed": 61,
+  "failed": 0,
+  "failures": []
+ },
+ "check_list": [
+  "PASS http a1 accepted",
+  "PASS http a2 accepted",
+  "PASS http b1 accepted",
+  "PASS http b2 accepted",
+  "PASS http c1 accepted",
+  "PASS http c2 accepted",
+  "PASS cloud: sale a1 once with its effects",
+  "PASS cloud: sale a2 once with its effects",
+  "PASS cloud: sale b1 once with its effects",
+  "PASS cloud: sale b2 once with its effects",
+  "PASS cloud: sale c1 once with its effects",
+  "PASS cloud: sale c2 once with its effects",
+  "PASS cloud: no sale outside the manifest",
+  "PASS cloud: store a totals",
+  "PASS cloud: store b totals",
+  "PASS cloud: store c totals",
+  "PASS cloud: on hand at a",
+  "PASS cloud: on hand at b",
+  "PASS cloud: on hand at c",
+  "PASS a: sale a1 once with its effects",
+  "PASS a: sale a2 once with its effects",
+  "PASS a: sale b1 once with its effects",
+  "PASS a: sale b2 once with its effects",
+  "PASS a: sale c1 once with its effects",
+  "PASS a: sale c2 once with its effects",
+  "PASS a: no sale outside the manifest",
+  "PASS a: store a totals",
+  "PASS a: store b totals",
+  "PASS a: store c totals",
+  "PASS a: on hand at a",
+  "PASS a: on hand at b",
+  "PASS a: on hand at c",
+  "PASS b: sale a1 once with its effects",
+  "PASS b: sale a2 once with its effects",
+  "PASS b: sale b1 once with its effects",
+  "PASS b: sale b2 once with its effects",
+  "PASS b: sale c1 once with its effects",
+  "PASS b: sale c2 once with its effects",
+  "PASS b: no sale outside the manifest",
+  "PASS b: store a totals",
+  "PASS b: store b totals",
+  "PASS b: store c totals",
+  "PASS b: on hand at a",
+  "PASS b: on hand at b",
+  "PASS b: on hand at c",
+  "PASS c: sale a1 once with its effects",
+  "PASS c: sale a2 once with its effects",
+  "PASS c: sale b1 once with its effects",
+  "PASS c: sale b2 once with its effects",
+  "PASS c: sale c1 once with its effects",
+  "PASS c: sale c2 once with its effects",
+  "PASS c: no sale outside the manifest",
+  "PASS c: store a totals",
+  "PASS c: store b totals",
+  "PASS c: store c totals",
+  "PASS c: on hand at a",
+  "PASS c: on hand at b",
+  "PASS c: on hand at c",
+  "PASS R1: 18 synced tables identical on hub, a, b, c",
+  "PASS CONS: audit.usp_CheckConservation has 0 violations on 4 nodes",
+  "PASS sync converged"
+ ],
+ "controls": [],
+ "outcomes": {
+  "a1": {
+   "ok": true,
+   "status": 200,
+   "detail": "200"
+  },
+  "a2": {
+   "ok": true,
+   "status": 200,
+   "detail": "200"
+  },
+  "b1": {
+   "ok": true,
+   "status": 200,
+   "detail": "200"
+  },
+  "b2": {
+   "ok": true,
+   "status": 200,
+   "detail": "200"
+  },
+  "c1": {
+   "ok": true,
+   "status": 200,
+   "detail": "200"
+  },
+  "c2": {
+   "ok": true,
+   "status": 200,
+   "detail": "200"
+  }
+ },
+ "sync_rounds_from_host_logs": {
+  "a": {
+   "successful_rounds": 9,
+   "rebuilt_rounds": 0,
+   "not_successful": 2,
+   "distinct_warnings": [
+    "Sync round could not reach the hub: An error occurred while sending the request."
+   ],
+   "host_starts": 1
+  },
+  "b": {
+   "successful_rounds": 8,
+   "rebuilt_rounds": 0,
+   "not_successful": 3,
+   "distinct_warnings": [
+    "Sync round could not reach the hub: An error occurred while sending the request."
+   ],
+   "host_starts": 1
+  },
+  "c": {
+   "successful_rounds": 8,
+   "rebuilt_rounds": 0,
+   "not_successful": 2,
+   "distinct_warnings": [
+    "Sync round could not reach the hub: An error occurred while sending the request."
+   ],
+   "host_starts": 1
+  }
+ },
+ "hub_exchanges_seen_by_proxies": {
+  "a": {
+   "/sync/v1/push/plan 200": 18,
+   "/sync/v1/state 200": 9,
+   "/sync/v1/pull 200": 9,
+   "/sync/v1/push 200": 9,
+   "/sync/v1/push/plan hub_unreachable": 2
+  },
+  "b": {
+   "/sync/v1/push/plan 200": 16,
+   "/sync/v1/state 200": 8,
+   "/sync/v1/pull 200": 8,
+   "/sync/v1/push 200": 8,
+   "/sync/v1/push/plan hub_unreachable": 3
+  },
+  "c": {
+   "/sync/v1/push/plan 200": 16,
+   "/sync/v1/state 200": 8,
+   "/sync/v1/pull 200": 8,
+   "/sync/v1/push 200": 8,
+   "/sync/v1/push/plan hub_unreachable": 2
+  }
+ },
+ "hub_rounds_log_errors": [],
+ "host_logs": ".out/rehearsal/runs/20261121-215433-offline_sales"
+}

@@ -1,0 +1,304 @@
+{
+ "scenario": "restore_sale_before_rebuild",
+ "verdict": "XFAIL",
+ "reason": "expected red: the rebuild of restored A fails every round (Sync round refused: db.duplicate El registro ya existe.); SQL: Msg 2601: Cannot insert duplicate key row in object 'sales.CashTills' with unique index 'UX_OpenTill_Register'. The duplicate key value is (a0000000-0000-0000-0000-0000000000a3).",
+ "identity": "sa",
+ "manifest": {
+  "path": "tools/rehearsal/expected/restore_sale_before_rebuild.json",
+  "sha256": "7cbaf0b223ba36d7b40df2ef33409fb29e3e87d67a2898af93e991beeca1099d"
+ },
+ "seconds_total": 183.3,
+ "phases": [
+  {
+   "phase": "setup: 4 databases, node credentials, staff passwords, seed stock",
+   "seconds": 46.5
+  },
+  {
+   "phase": "start hub and 3 store hosts",
+   "seconds": 8.2
+  },
+  {
+   "phase": "open tills over HTTP",
+   "seconds": 1.9
+  },
+  {
+   "phase": "first convergence",
+   "seconds": 27.4
+  },
+  {
+   "phase": "backup A before its till opens; A opens a till and sells; hub has it",
+   "seconds": 2.2
+  },
+  {
+   "phase": "converge before restore",
+   "seconds": 11.3
+  },
+  {
+   "phase": "A stopped, cut off and restored from the backup",
+   "seconds": 4.3
+  },
+  {
+   "phase": "restored A opens a new till and sells before its first rebuild",
+   "seconds": 2.2
+  },
+  {
+   "phase": "link back: A's worker must rebuild",
+   "seconds": 8.1
+  },
+  {
+   "phase": "converge after restore",
+   "seconds": 62.5
+  },
+  {
+   "phase": "checks",
+   "seconds": 7.3
+  }
+ ],
+ "events": [
+  {
+   "t": 55.9,
+   "event": "open till b",
+   "status": 204,
+   "problem": ""
+  },
+  {
+   "t": 56.7,
+   "event": "open till c",
+   "status": 204,
+   "problem": ""
+  },
+  {
+   "t": 85.6,
+   "event": "open till a",
+   "status": 204,
+   "problem": ""
+  },
+  {
+   "t": 86.1,
+   "event": "sale r1 at a",
+   "status": 200,
+   "problem": ""
+  },
+  {
+   "t": 86.2,
+   "event": "sale r2 at a",
+   "status": 200,
+   "problem": ""
+  },
+  {
+   "t": 97.5,
+   "event": "converge before restore: converged in 11.3s",
+   "differing": []
+  },
+  {
+   "t": 102.1,
+   "event": "old session token after the restore",
+   "status": 401,
+   "problem": "auth.required"
+  },
+  {
+   "t": 103.3,
+   "event": "open till a",
+   "status": 204,
+   "problem": ""
+  },
+  {
+   "t": 103.3,
+   "event": "new till on the restored store",
+   "ok": true
+  },
+  {
+   "t": 104.0,
+   "event": "sale r3 at a",
+   "status": 200,
+   "problem": ""
+  },
+  {
+   "t": 108.1,
+   "event": "A rebuild outcome",
+   "red_line": "Sync round refused: db.duplicate El registro ya existe."
+  },
+  {
+   "t": 109.0,
+   "event": "open tills on register A",
+   "hub": [
+    {
+     "till": "4E570AE0-0000-4000-8000-0000000000A0",
+     "reg": "A0000000-0000-0000-0000-0000000000A3",
+     "st": "open"
+    }
+   ],
+   "restored_a": [
+    {
+     "till": "4E570AE0-0000-4000-8000-0000000000A1",
+     "reg": "A0000000-0000-0000-0000-0000000000A3",
+     "st": "open"
+    }
+   ]
+  },
+  {
+   "t": 112.1,
+   "event": "rebuild pull reproduced in SQL",
+   "error": "Msg 2601: Cannot insert duplicate key row in object 'sales.CashTills' with unique index 'UX_OpenTill_Register'. The duplicate key value is (a0000000-0000-0000-0000-0000000000a3)."
+  },
+  {
+   "t": 174.6,
+   "event": "converge after restore: NOT converged in 62.5s",
+   "differing": [
+    "inventory.StockBalances",
+    "inventory.StockMovements",
+    "sales.CashEntries",
+    "sales.CashTills",
+    "sales.SaleLines",
+    "sales.SaleTenders",
+    "sales.Sales"
+   ]
+  },
+  {
+   "t": 181.9,
+   "event": "failures outside the pinned red",
+   "checks": []
+  }
+ ],
+ "checks": {
+  "passed": 33,
+  "failed": 5,
+  "failures": [
+   {
+    "ok": false,
+    "check": "a: sale r1 present",
+    "detail": "missing"
+   },
+   {
+    "ok": false,
+    "check": "a: sale r2 present",
+    "detail": "missing"
+   },
+   {
+    "ok": false,
+    "check": "R1: 18 synced tables identical on hub, a, b, c",
+    "detail": "differ=['inventory.StockBalances', 'inventory.StockMovements', 'sales.CashEntries', 'sales.CashTills', 'sales.SaleLines', 'sales.SaleTenders', 'sales.Sales']"
+   },
+   {
+    "ok": false,
+    "check": "CONS: pinned known violations still present",
+    "detail": "missing=[('a', 'sale.outbox_event', '4E570AE0-0000-4000-8000-000000000001'), ('a', 'sale.outbox_event', '4E570AE0-0000-4000-8000-000000000002')]"
+   },
+   {
+    "ok": false,
+    "check": "sync converged",
+    "detail": ""
+   }
+  ]
+ },
+ "check_list": [
+  "PASS http r1 accepted",
+  "PASS http r2 accepted",
+  "PASS cloud: sale r1 once with its effects",
+  "PASS cloud: sale r2 once with its effects",
+  "PASS cloud: sale r3 present",
+  "PASS cloud: no sale outside the manifest",
+  "PASS cloud: store b totals",
+  "PASS cloud: store c totals",
+  "PASS cloud: on hand at b",
+  "PASS cloud: on hand at c",
+  "FAIL a: sale r1 present",
+  "FAIL a: sale r2 present",
+  "PASS a: sale r3 once with its effects",
+  "PASS a: no sale outside the manifest",
+  "PASS a: store b totals",
+  "PASS a: store c totals",
+  "PASS a: on hand at b",
+  "PASS a: on hand at c",
+  "PASS b: sale r1 once with its effects",
+  "PASS b: sale r2 once with its effects",
+  "PASS b: sale r3 present",
+  "PASS b: no sale outside the manifest",
+  "PASS b: store b totals",
+  "PASS b: store c totals",
+  "PASS b: on hand at b",
+  "PASS b: on hand at c",
+  "PASS c: sale r1 once with its effects",
+  "PASS c: sale r2 once with its effects",
+  "PASS c: sale r3 present",
+  "PASS c: no sale outside the manifest",
+  "PASS c: store b totals",
+  "PASS c: store c totals",
+  "PASS c: on hand at b",
+  "PASS c: on hand at c",
+  "FAIL R1: 18 synced tables identical on hub, a, b, c",
+  "PASS CONS: audit.usp_CheckConservation has 0 violations on 4 nodes",
+  "FAIL CONS: pinned known violations still present",
+  "FAIL sync converged"
+ ],
+ "controls": [],
+ "outcomes": {
+  "r1": {
+   "ok": true,
+   "status": 200,
+   "detail": "200"
+  },
+  "r2": {
+   "ok": true,
+   "status": 200,
+   "detail": "200"
+  },
+  "r3": {
+   "ok": true,
+   "status": 200,
+   "detail": "200"
+  }
+ },
+ "sync_rounds_from_host_logs": {
+  "a": {
+   "successful_rounds": 6,
+   "rebuilt_rounds": 0,
+   "not_successful": 14,
+   "distinct_warnings": [
+    "Sync round could not reach the hub: An error occurred while sending the request.",
+    "Sync round refused: db.duplicate El registro ya existe."
+   ],
+   "host_starts": 2
+  },
+  "b": {
+   "successful_rounds": 19,
+   "rebuilt_rounds": 0,
+   "not_successful": 0,
+   "distinct_warnings": [],
+   "host_starts": 1
+  },
+  "c": {
+   "successful_rounds": 18,
+   "rebuilt_rounds": 0,
+   "not_successful": 1,
+   "distinct_warnings": [
+    "Sync round could not reach the hub: An error occurred while sending the request."
+   ],
+   "host_starts": 1
+  }
+ },
+ "hub_exchanges_seen_by_proxies": {
+  "a": {
+   "/sync/v1/push/plan 200": 27,
+   "/sync/v1/state 200": 20,
+   "/sync/v1/pull 200": 20,
+   "/sync/v1/push 200": 6,
+   "/sync/v1/push/plan cut": 1
+  },
+  "b": {
+   "/sync/v1/push/plan 200": 38,
+   "/sync/v1/state 200": 19,
+   "/sync/v1/pull 200": 19,
+   "/sync/v1/push 200": 19
+  },
+  "c": {
+   "/sync/v1/push/plan 200": 38,
+   "/sync/v1/state 200": 19,
+   "/sync/v1/pull 200": 19,
+   "/sync/v1/push 200": 18,
+   "/sync/v1/push hub_unreachable": 1
+  }
+ },
+ "hub_rounds_log_errors": [],
+ "host_logs": ".out/rehearsal/runs/20261121-220613-restore_sale_before_rebuild"
+}

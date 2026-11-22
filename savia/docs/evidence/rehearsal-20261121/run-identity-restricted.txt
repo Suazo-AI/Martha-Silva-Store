@@ -1,0 +1,176 @@
+
+Time Elapsed 00:00:04.20
+
+Time Elapsed 00:00:01.92
+== offline_sales (identity restricted)
+  [   0.0s] setup: 4 databases, node credentials, staff passwords, seed stock
+  [  47.0s] start hub and 3 store hosts
+  [  52.5s] open tills over HTTP
+  [  52.8s]   open till a {'status': 204, 'problem': ''}
+  [  53.1s]   open till b {'status': 204, 'problem': ''}
+  [  53.4s]   open till c {'status': 204, 'problem': ''}
+  [  53.4s] first convergence
+  [  69.4s] hub stopped; stores sell
+  [  74.4s]   store a worker while hub is down {'log': 'could not reach the hub: An error occurred while sending the request.'}
+  [  75.5s]   store b worker while hub is down {'log': 'could not reach the hub: An error occurred while sending the request.'}
+  [  76.5s]   store c worker while hub is down {'log': 'could not reach the hub: An error occurred while sending the request.'}
+  [  76.8s]   sale a1 at a {'status': 200, 'problem': ''}
+  [  76.9s]   sale a2 at a {'status': 200, 'problem': ''}
+  [  77.0s]   sale b1 at b {'status': 200, 'problem': ''}
+  [  77.1s]   sale b2 at b {'status': 200, 'problem': ''}
+  [  77.3s]   sale c1 at c {'status': 200, 'problem': ''}
+  [  77.3s]   sale c2 at c {'status': 200, 'problem': ''}
+  [  77.8s]   hub database holds none of the offline sales {'count': 0}
+  [  77.8s] hub restarted
+  [  79.2s] converge after hub returns
+  [  87.0s]   converge after hub returns: converged in 7.9s {'differing': []}
+  [  87.0s] checks
+   PASS in 92.8s  
+== replay (identity restricted)
+  [   0.0s] setup: 4 databases, node credentials, staff passwords, seed stock
+  [  17.8s] start hub and 3 store hosts
+  [  23.4s] open tills over HTTP
+  [  23.9s]   open till a {'status': 204, 'problem': ''}
+  [  24.2s]   open till b {'status': 204, 'problem': ''}
+  [  24.5s]   open till c {'status': 204, 'problem': ''}
+  [  24.5s] first convergence
+  [  40.5s] A killed after the hub committed its push, before A hears the answer
+  [  40.7s]   sale ra1 at a {'status': 200, 'problem': ''}
+  [  43.3s]   kill point reached {'fired': True, 'hub_status': 200}
+  [  43.6s]   hub holds ra1 while A is dead {'count': 1}
+  [  45.1s] B killed after the hub answered a pull carrying ra2, before B applies it
+  [  45.2s]   sale ra2 at a {'status': 200, 'problem': ''}
+  [  54.8s]   kill point reached {'fired': True, 'hub_status': 200}
+  [  55.1s]   B does not hold ra2 yet {'count': 0}
+  [  56.6s]   sale rc1 at c {'status': 200, 'problem': ''}
+  [  56.6s] converge after restarts
+  [  67.5s]   converge after restarts: converged in 10.9s {'differing': []}
+  [  67.5s] checks
+   PASS in 73.4s  
+== credit_transfer (identity restricted)
+  [   0.0s] setup: 4 databases, node credentials, staff passwords, seed stock
+  [  13.7s] start hub and 3 store hosts
+  [  19.2s] open tills over HTTP
+  [  19.4s]   open till a {'status': 204, 'problem': ''}
+  [  19.7s]   open till b {'status': 204, 'problem': ''}
+  [  20.0s]   open till c {'status': 204, 'problem': ''}
+  [  20.0s] first convergence
+  [  35.7s] A sells two items and returns both to store credit (HTTP)
+  [  35.9s]   sale s1 at a {'status': 200, 'problem': ''}
+  [  35.9s]   sale s2 at a {'status': 200, 'problem': ''}
+  [  36.2s]   return r1 to credit at a {'status': 200, 'problem': ''}
+  [  36.2s]   return r2 to credit at a {'status': 200, 'problem': ''}
+  [  36.2s] converge credits
+  [  40.9s]   converge credits: converged in 4.6s {'differing': []}
+  [  40.9s] t1: B asks for 50000 of r1; hub approves; A dispatches; B receives
+  [  41.2s]   transfer t1 request at b (sql:no-http-route) {'ok': True, 'error': ''}
+  [  41.2s] converge t1 request
+  [  52.4s]   converge t1 request: converged in 11.2s {'differing': []}
+  [  52.7s]   transfer t1 approve at cloud (sql:no-http-route) {'ok': True, 'error': ''}
+  [  52.7s] converge t1 approval
+  [  60.5s]   converge t1 approval: converged in 7.9s {'differing': []}
+  [  60.9s]   transfer t1 dispatch at a (sql:no-http-route) {'ok': True, 'error': ''}
+  [  60.9s] converge t1 dispatch
+  [  65.6s]   converge t1 dispatch: converged in 4.7s {'differing': []}
+  [  66.0s]   transfer t1 receive at b (sql:no-http-route) {'ok': True, 'error': ''}
+  [  66.0s] converge t1 receipt
+  [  73.8s]   converge t1 receipt: converged in 7.8s {'differing': []}
+  [  73.8s] B spends the received 50000 (HTTP)
+  [  73.9s]   sale sb1 at b {'status': 200, 'problem': ''}
+  [  73.9s] concurrent spend: two sales at A each try the remaining 70000 of r1
+  [  74.0s]   sale sy at a {'status': 200, 'problem': ''}
+  [  74.0s]   sale sx at a {'status': 409, 'problem': 'credit.insufficient'}
+  [  74.0s] t2 cancel vs dispatch: hub cancels while A, cut off, dispatches
+  [  74.3s]   transfer t2 request at c (sql:no-http-route) {'ok': True, 'error': ''}
+  [  74.3s] converge t2 request
+  [  85.6s]   converge t2 request: converged in 11.3s {'differing': []}
+  [  85.9s]   transfer t2 approve at cloud (sql:no-http-route) {'ok': True, 'error': ''}
+  [  85.9s] converge t2 approval
+  [  90.3s]   converge t2 approval: converged in 4.4s {'differing': []}
+  [  90.6s]   transfer t2 cancel at cloud (sql:no-http-route) {'ok': True, 'error': ''}
+  [  90.9s]   transfer t2 dispatch at a (sql:no-http-route) {'ok': True, 'error': ''}
+  PASS control offline A can dispatch an approved transfer the hub cancelled: expected dispatch ok; actual True
+  [  90.9s] converge t2 dispatch vs cancel
+  [  95.6s]   converge t2 dispatch vs cancel: converged in 4.7s {'differing': []}
+  [  96.0s]   transfer t2 receive at c (sql:no-http-route) {'ok': True, 'error': ''}
+  [  96.0s] final convergence
+  [ 106.8s]   final convergence: converged in 10.9s {'differing': []}
+  [ 106.8s] checks
+   PASS in 112.2s  
+== restore_sale_before_rebuild (identity restricted)
+  [   0.0s] setup: 4 databases, node credentials, staff passwords, seed stock
+  [  18.0s] start hub and 3 store hosts
+  [  23.5s] open tills over HTTP
+  [  24.1s]   open till b {'status': 204, 'problem': ''}
+  [  24.5s]   open till c {'status': 204, 'problem': ''}
+  [  24.5s] first convergence
+  [  40.4s] backup A before its till opens; A opens a till and sells; hub has it
+  [  41.1s]   open till a {'status': 204, 'problem': ''}
+  [  41.2s]   sale r1 at a {'status': 200, 'problem': ''}
+  [  41.3s]   sale r2 at a {'status': 200, 'problem': ''}
+  [  41.3s] converge before restore
+  [  45.7s]   converge before restore: converged in 4.4s {'differing': []}
+  [  45.7s] A stopped, cut off and restored from the backup
+  [  48.0s] restored A opens a new till and sells before its first rebuild
+  [  48.0s]   old session token after the restore {'status': 401, 'problem': 'auth.required'}
+  [  48.3s]   open till a {'status': 204, 'problem': ''}
+  [  48.3s]   new till on the restored store {'ok': True}
+  [  48.5s]   sale r3 at a {'status': 200, 'problem': ''}
+  [  48.5s] link back: A's worker must rebuild
+  [  53.1s]   A rebuild outcome {'red_line': 'Sync round refused: db.duplicate El registro ya existe.'}
+  [  53.7s]   open tills on register A {'hub': [{'till': '4E570AE0-0000-4000-8000-0000000000A0', 'reg': 'A0000000-0000-0000-0000-0000000000A3', 'st': 'open'}], 'restored_a': [{'till': '4E570AE0-0000-4000-8000-0000000000A1', 'reg': 'A0000000-0000-0000-0000-0000000000A3', 'st': 'open'}]}
+  [  55.3s]   rebuild pull reproduced in SQL {'error': "Msg 2601: Cannot insert duplicate key row in object 'sales.CashTills' with unique index 'UX_OpenTill_Register'. The duplicate key value is (a0000000-0000-0000-0000-0000000000a3)."}
+  [  55.3s] converge after restore
+  [ 118.6s]   converge after restore: NOT converged in 63.3s {'differing': ['inventory.StockBalances', 'inventory.StockMovements', 'sales.CashEntries', 'sales.CashTills', 'sales.SaleLines', 'sales.SaleTenders', 'sales.Sales']}
+  [ 118.6s] checks
+  [ 123.2s]   failures outside the pinned red {'checks': []}
+   XFAIL in 124.2s  expected red: the rebuild of restored A fails every round (Sync round refused: db.duplicate El registro ya existe.); SQL: Msg 2601: Cannot insert duplicate key row in object 'sales.CashTills' with unique index 'UX_OpenTill_Register'. The duplicate key value is (a0000000-0000-0000-0000-0000000000a3).
+== hub_restart (identity restricted)
+  [   0.0s] setup: 4 databases, node credentials, staff passwords, seed stock
+  [  13.0s] start hub and 3 store hosts
+  [  18.5s] open tills over HTTP
+  [  18.8s]   open till a {'status': 204, 'problem': ''}
+  [  19.1s]   open till b {'status': 204, 'problem': ''}
+  [  19.4s]   open till c {'status': 204, 'problem': ''}
+  [  19.4s] first convergence
+  [  34.0s] hub killed after committing A's push, before answering
+  [  34.2s]   sale h1 at a {'status': 200, 'problem': ''}
+  [  38.4s]   kill point reached {'fired': True, 'hub_status': 200}
+  [  38.8s]   hub database holds h1 (committed before the crash) {'count': 1}
+  [  38.8s] stores sell while the hub is down
+  [  39.0s]   sale h2 at b {'status': 200, 'problem': ''}
+  [  39.1s]   sale h3 at c {'status': 200, 'problem': ''}
+  [  45.1s] hub restarted
+  [  46.3s]   sale h4 at a {'status': 200, 'problem': ''}
+  [  46.3s] converge after hub restart
+  [  54.2s]   converge after hub restart: converged in 7.9s {'differing': []}
+  [  54.2s] checks
+   PASS in 60.8s  
+== controls (identity restricted)
+  [   0.0s] setup: 4 databases, node credentials, staff passwords, seed stock
+  [  14.5s] start hub and 3 store hosts
+  [  20.0s] open tills over HTTP
+  [  20.5s]   open till a {'status': 204, 'problem': ''}
+  [  20.8s]   open till b {'status': 204, 'problem': ''}
+  [  21.1s]   open till c {'status': 204, 'problem': ''}
+  [  21.1s] first convergence
+  [  36.8s] 401: wrong node credentials
+  PASS control 401 A real secret (positive control): expected 200; actual 200 
+  PASS control 401 A with a wrong secret: expected 401 sync.unauthorized; actual 401 sync.unauthorized
+  PASS control 401 A id with B's secret: expected 401 sync.unauthorized; actual 401 sync.unauthorized
+  PASS control 401 no Authorization header: expected 401 sync.unauthorized; actual 401 sync.unauthorized
+  [  36.8s] 51851: A's push rewritten so a sale row names store B
+  [  37.0s]   sale k1 at a {'status': 200, 'problem': ''}
+  PASS control 51851 foreign row: expected 403 sync.foreign_row; actual 403 sync.foreign_row; store log: Sync round refused: sync.foreign_row El lote trae filas que pertenecen a otro nodo.
+  [  40.0s] converge after the refused push (the untampered retry)
+  [  47.9s]   converge after the refused push (the untampered retry): converged in 7.8s {'differing': []}
+  [  47.9s] 51854: A restored; the proxy hides 'recover' so A pushes without a rebuild token
+  PASS control 51854 push from a restored fork without a rebuild token: expected 409 sync.rebuild_required; actual 409 sync.rebuild_required
+  PASS control restored A then rebuilds by itself (hosted loop): expected rebuilt True; actual Sync round: pulled 0, pushed 0, rebuilt True.
+  [  52.2s]   sale k2 at a {'status': 200, 'problem': ''}
+  [  52.2s] final convergence
+  [  63.2s]   final convergence: converged in 11.0s {'differing': []}
+  [  63.2s] checks
+   PASS in 69.1s  
+SUMMARY offline_sales=PASS replay=PASS credit_transfer=PASS restore_sale_before_rebuild=XFAIL hub_restart=PASS controls=PASS
+EXIT=0

@@ -1,0 +1,125 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-22T05:34:18.779240+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/docs/evidence/rehearsal-20261121/README.md",
+      "change": "A",
+      "git_blob": "1d2aa9dbb238948621e4dcb2ef676488279bb389"
+    },
+    {
+      "path": "savia/docs/evidence/rehearsal-20261121/controls.json",
+      "change": "A",
+      "git_blob": "3517d326c33f0c12593a5157da7fdc86677f4f48"
+    },
+    {
+      "path": "savia/docs/evidence/rehearsal-20261121/credit_transfer.json",
+      "change": "A",
+      "git_blob": "12893866d586787e7255b11a42cc8645ba1571e6"
+    },
+    {
+      "path": "savia/docs/evidence/rehearsal-20261121/hub_restart.json",
+      "change": "A",
+      "git_blob": "8fc6b3db4073ebc54d9723b9d3b78b36ecb93e50"
+    },
+    {
+      "path": "savia/docs/evidence/rehearsal-20261121/identity_probe.json",
+      "change": "A",
+      "git_blob": "519b37e7a346a9ff62f583e2e2f47fac6ac03911"
+    },
+    {
+      "path": "savia/docs/evidence/rehearsal-20261121/offline_sales.json",
+      "change": "A",
+      "git_blob": "fd30176af61a1713894c1e2fb271a5c25621e16c"
+    },
+    {
+      "path": "savia/docs/evidence/rehearsal-20261121/replay.json",
+      "change": "A",
+      "git_blob": "0009d325ce8ff0d8a600dd7a2244e7d06e473624"
+    },
+    {
+      "path": "savia/docs/evidence/rehearsal-20261121/restore_sale_before_rebuild.json",
+      "change": "A",
+      "git_blob": "3017af5f374090678413cd2ec96911ed7a95d7f2"
+    },
+    {
+      "path": "savia/docs/evidence/rehearsal-20261121/run-identity-restricted.txt",
+      "change": "A",
+      "git_blob": "89d4585ec75981614c1090534818002b9317c48c"
+    },
+    {
+      "path": "savia/docs/evidence/rehearsal-20261121/selftest_missing_sale.json",
+      "change": "A",
+      "git_blob": "91ff644a0d0f541e5a7778abc6a28bb60540080e"
+    },
+    {
+      "path": "savia/docs/evidence/rehearsal-20261121/summary.json",
+      "change": "A",
+      "git_blob": "495b04e60a1f27bacfd1aa4b45cb4d234b801ec1"
+    },
+    {
+      "path": "savia/docs/sync/REHEARSAL.md",
+      "change": "A",
+      "git_blob": "7d320c093f5b0f78d31f883065f3bb5ab1b80ad8"
+    },
+    {
+      "path": "savia/tests/test_rehearsal.py",
+      "change": "A",
+      "git_blob": "37ca8e6d4e64ca84fcbfeaf66390c8b243e99df8"
+    },
+    {
+      "path": "savia/tools/rehearsal.py",
+      "change": "A",
+      "git_blob": "0acfee2f53b48baa546dad82c148672cb43c3418"
+    },
+    {
+      "path": "savia/tools/rehearsal/checks.py",
+      "change": "A",
+      "git_blob": "589cb774c5ec19506b44a6b4c4be02acdf36e05e"
+    },
+    {
+      "path": "savia/tools/rehearsal/expected/controls.json",
+      "change": "A",
+      "git_blob": "f3f2140deb82fb6d059f6c00075b2be86f1271bd"
+    },
+    {
+      "path": "savia/tools/rehearsal/expected/credit_transfer.json",
+      "change": "A",
+      "git_blob": "260679c53b74541d0814d35adf994b3270f6f837"
+    },
+    {
+      "path": "savia/tools/rehearsal/expected/hub_restart.json",
+      "change": "A",
+      "git_blob": "adf845e988481dadafed8a63b96cdcbe006f4334"
+    },
+    {
+      "path": "savia/tools/rehearsal/expected/offline_sales.json",
+      "change": "A",
+      "git_blob": "2b11ee3d001abfddc692ae9bfeb7bcb45343d9f1"
+    },
+    {
+      "path": "savia/tools/rehearsal/expected/replay.json",
+      "change": "A",
+      "git_blob": "62d5b3210f03192ef98955cbd24bdebb4afb6dbb"
+    },
+    {
+      "path": "savia/tools/rehearsal/expected/restore_sale_before_rebuild.json",
+      "change": "A",
+      "git_blob": "c07d04d42d270e9d705c393ffd1734cbbaac9ed5"
+    },
+    {
+      "path": "savia/tools/rehearsal/harness.py",
+      "change": "A",
+      "git_blob": "465a818565f04162d502dc29f4924ebc31a5a8a8"
+    },
+    {
+      "path": "savia/tools/rehearsal/scenarios.py",
+      "change": "A",
+      "git_blob": "0413b1069eac13ff0350dc3166ce8cfca8bdb8eb"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

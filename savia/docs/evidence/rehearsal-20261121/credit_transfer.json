@@ -1,0 +1,483 @@
+{
+ "scenario": "credit_transfer",
+ "verdict": "PASS",
+ "reason": "",
+ "identity": "sa",
+ "manifest": {
+  "path": "tools/rehearsal/expected/credit_transfer.json",
+  "sha256": "b880288d62653564d39637c7b482f90cc47124fbffda4da41c23f6cc6c17f076"
+ },
+ "seconds_total": 338.5,
+ "phases": [
+  {
+   "phase": "setup: 4 databases, node credentials, staff passwords, seed stock",
+   "seconds": 51.4
+  },
+  {
+   "phase": "start hub and 3 store hosts",
+   "seconds": 9.4
+  },
+  {
+   "phase": "open tills over HTTP",
+   "seconds": 19.0
+  },
+  {
+   "phase": "first convergence",
+   "seconds": 37.5
+  },
+  {
+   "phase": "A sells two items and returns both to store credit (HTTP)",
+   "seconds": 10.3
+  },
+  {
+   "phase": "converge credits",
+   "seconds": 37.1
+  },
+  {
+   "phase": "converge t1 request",
+   "seconds": 26.5
+  },
+  {
+   "phase": "converge t1 approval",
+   "seconds": 7.7
+  },
+  {
+   "phase": "converge t1 dispatch",
+   "seconds": 20.7
+  },
+  {
+   "phase": "converge t1 receipt",
+   "seconds": 24.1
+  },
+  {
+   "phase": "t1: B asks for 50000 of r1; hub approves; A dispatches; B receives",
+   "seconds": 82.4
+  },
+  {
+   "phase": "B spends the received 50000 (HTTP)",
+   "seconds": 0.8
+  },
+  {
+   "phase": "concurrent spend: two sales at A each try the remaining 70000 of r1",
+   "seconds": 0.7
+  },
+  {
+   "phase": "converge t2 request",
+   "seconds": 24.0
+  },
+  {
+   "phase": "converge t2 approval",
+   "seconds": 7.2
+  },
+  {
+   "phase": "converge t2 dispatch vs cancel",
+   "seconds": 26.2
+  },
+  {
+   "phase": "t2 cancel vs dispatch: hub cancels while A, cut off, dispatches",
+   "seconds": 61.6
+  },
+  {
+   "phase": "final convergence",
+   "seconds": 16.7
+  },
+  {
+   "phase": "checks",
+   "seconds": 10.7
+  }
+ ],
+ "events": [
+  {
+   "t": 73.4,
+   "event": "open till a",
+   "status": 204,
+   "problem": ""
+  },
+  {
+   "t": 75.8,
+   "event": "open till b",
+   "status": 204,
+   "problem": ""
+  },
+  {
+   "t": 79.8,
+   "event": "open till c",
+   "status": 204,
+   "problem": ""
+  },
+  {
+   "t": 118.4,
+   "event": "sale s1 at a",
+   "status": 200,
+   "problem": ""
+  },
+  {
+   "t": 119.3,
+   "event": "sale s2 at a",
+   "status": 200,
+   "problem": ""
+  },
+  {
+   "t": 124.4,
+   "event": "return r1 to credit at a",
+   "status": 200,
+   "problem": ""
+  },
+  {
+   "t": 127.6,
+   "event": "return r2 to credit at a",
+   "status": 200,
+   "problem": ""
+  },
+  {
+   "t": 164.7,
+   "event": "converge credits: converged in 37.1s",
+   "differing": []
+  },
+  {
+   "t": 165.4,
+   "event": "transfer t1 request at b (sql:no-http-route)",
+   "ok": true,
+   "error": ""
+  },
+  {
+   "t": 192.0,
+   "event": "converge t1 request: converged in 26.5s",
+   "differing": []
+  },
+  {
+   "t": 192.6,
+   "event": "transfer t1 approve at cloud (sql:no-http-route)",
+   "ok": true,
+   "error": ""
+  },
+  {
+   "t": 200.3,
+   "event": "converge t1 approval: converged in 7.7s",
+   "differing": []
+  },
+  {
+   "t": 201.2,
+   "event": "transfer t1 dispatch at a (sql:no-http-route)",
+   "ok": true,
+   "error": ""
+  },
+  {
+   "t": 221.9,
+   "event": "converge t1 dispatch: converged in 20.7s",
+   "differing": []
+  },
+  {
+   "t": 223.0,
+   "event": "transfer t1 receive at b (sql:no-http-route)",
+   "ok": true,
+   "error": ""
+  },
+  {
+   "t": 247.1,
+   "event": "converge t1 receipt: converged in 24.1s",
+   "differing": []
+  },
+  {
+   "t": 247.9,
+   "event": "sale sb1 at b",
+   "status": 200,
+   "problem": ""
+  },
+  {
+   "t": 248.4,
+   "event": "sale sy at a",
+   "status": 200,
+   "problem": ""
+  },
+  {
+   "t": 248.6,
+   "event": "sale sx at a",
+   "status": 409,
+   "problem": "credit.insufficient"
+  },
+  {
+   "t": 249.6,
+   "event": "transfer t2 request at c (sql:no-http-route)",
+   "ok": true,
+   "error": ""
+  },
+  {
+   "t": 273.6,
+   "event": "converge t2 request: converged in 24.0s",
+   "differing": []
+  },
+  {
+   "t": 274.8,
+   "event": "transfer t2 approve at cloud (sql:no-http-route)",
+   "ok": true,
+   "error": ""
+  },
+  {
+   "t": 282.0,
+   "event": "converge t2 approval: converged in 7.2s",
+   "differing": []
+  },
+  {
+   "t": 282.6,
+   "event": "transfer t2 cancel at cloud (sql:no-http-route)",
+   "ok": true,
+   "error": ""
+  },
+  {
+   "t": 283.4,
+   "event": "transfer t2 dispatch at a (sql:no-http-route)",
+   "ok": true,
+   "error": ""
+  },
+  {
+   "t": 309.6,
+   "event": "converge t2 dispatch vs cancel: converged in 26.2s",
+   "differing": []
+  },
+  {
+   "t": 310.1,
+   "event": "transfer t2 receive at c (sql:no-http-route)",
+   "ok": true,
+   "error": ""
+  },
+  {
+   "t": 326.8,
+   "event": "final convergence: converged in 16.7s",
+   "differing": []
+  }
+ ],
+ "checks": {
+  "passed": 88,
+  "failed": 0,
+  "failures": []
+ },
+ "check_list": [
+  "PASS http s1 accepted",
+  "PASS http s2 accepted",
+  "PASS http sb1 accepted",
+  "PASS http group spend_r1: exactly one accepted",
+  "PASS cloud: sale s1 once with its effects",
+  "PASS cloud: sale s2 once with its effects",
+  "PASS cloud: sale sb1 once with its effects",
+  "PASS cloud: group spend_r1 exactly one present",
+  "PASS cloud: sale sy once with its effects",
+  "PASS cloud: no sale outside the manifest",
+  "PASS cloud: store a totals",
+  "PASS cloud: store b totals",
+  "PASS cloud: store c totals",
+  "PASS cloud: on hand at a",
+  "PASS cloud: on hand at b",
+  "PASS cloud: on hand at c",
+  "PASS cloud: return r1 -> credit 120000",
+  "PASS cloud: return r2 -> credit 120000",
+  "PASS cloud: credit r1 available at a",
+  "PASS cloud: credit r1 available at b",
+  "PASS cloud: credit r2 available at a",
+  "PASS cloud: credit r2 available at c",
+  "PASS cloud: transfer t1 received",
+  "PASS cloud: transfer t2 received",
+  "PASS a: sale s1 once with its effects",
+  "PASS a: sale s2 once with its effects",
+  "PASS a: sale sb1 once with its effects",
+  "PASS a: group spend_r1 exactly one present",
+  "PASS a: sale sy once with its effects",
+  "PASS a: no sale outside the manifest",
+  "PASS a: store a totals",
+  "PASS a: store b totals",
+  "PASS a: store c totals",
+  "PASS a: on hand at a",
+  "PASS a: on hand at b",
+  "PASS a: on hand at c",
+  "PASS a: return r1 -> credit 120000",
+  "PASS a: return r2 -> credit 120000",
+  "PASS a: credit r1 available at a",
+  "PASS a: credit r1 available at b",
+  "PASS a: credit r2 available at a",
+  "PASS a: credit r2 available at c",
+  "PASS a: transfer t1 received",
+  "PASS a: transfer t2 received",
+  "PASS b: sale s1 once with its effects",
+  "PASS b: sale s2 once with its effects",
+  "PASS b: sale sb1 once with its effects",
+  "PASS b: group spend_r1 exactly one present",
+  "PASS b: sale sy once with its effects",
+  "PASS b: no sale outside the manifest",
+  "PASS b: store a totals",
+  "PASS b: store b totals",
+  "PASS b: store c totals",
+  "PASS b: on hand at a",
+  "PASS b: on hand at b",
+  "PASS b: on hand at c",
+  "PASS b: return r1 -> credit 120000",
+  "PASS b: return r2 -> credit 120000",
+  "PASS b: credit r1 available at a",
+  "PASS b: credit r1 available at b",
+  "PASS b: credit r2 available at a",
+  "PASS b: credit r2 available at c",
+  "PASS b: transfer t1 received",
+  "PASS b: transfer t2 received",
+  "PASS c: sale s1 once with its effects",
+  "PASS c: sale s2 once with its effects",
+  "PASS c: sale sb1 once with its effects",
+  "PASS c: group spend_r1 exactly one present",
+  "PASS c: sale sy once with its effects",
+  "PASS c: no sale outside the manifest",
+  "PASS c: store a totals",
+  "PASS c: store b totals",
+  "PASS c: store c totals",
+  "PASS c: on hand at a",
+  "PASS c: on hand at b",
+  "PASS c: on hand at c",
+  "PASS c: return r1 -> credit 120000",
+  "PASS c: return r2 -> credit 120000",
+  "PASS c: credit r1 available at a",
+  "PASS c: credit r1 available at b",
+  "PASS c: credit r2 available at a",
+  "PASS c: credit r2 available at c",
+  "PASS c: transfer t1 received",
+  "PASS c: transfer t2 received",
+  "PASS R1: 18 synced tables identical on hub, a, b, c",
+  "PASS CONS: audit.usp_CheckConservation has 0 violations on 4 nodes",
+  "PASS sync converged",
+  "PASS control offline A can dispatch an approved transfer the hub cancelled"
+ ],
+ "controls": [
+  {
+   "control": "offline A can dispatch an approved transfer the hub cancelled",
+   "ok": true,
+   "expected": "dispatch ok",
+   "actual": true
+  }
+ ],
+ "outcomes": {
+  "s1": {
+   "ok": true,
+   "status": 200,
+   "detail": "200"
+  },
+  "s2": {
+   "ok": true,
+   "status": 200,
+   "detail": "200"
+  },
+  "r1": {
+   "ok": true,
+   "status": 200,
+   "detail": "200"
+  },
+  "r2": {
+   "ok": true,
+   "status": 200,
+   "detail": "200"
+  },
+  "t1.request": {
+   "ok": true,
+   "detail": "ok",
+   "path": "sql:no-http-route"
+  },
+  "t1.approve": {
+   "ok": true,
+   "detail": "ok",
+   "path": "sql:no-http-route"
+  },
+  "t1.dispatch": {
+   "ok": true,
+   "detail": "ok",
+   "path": "sql:no-http-route"
+  },
+  "t1.receive": {
+   "ok": true,
+   "detail": "ok",
+   "path": "sql:no-http-route"
+  },
+  "sb1": {
+   "ok": true,
+   "status": 200,
+   "detail": "200"
+  },
+  "sy": {
+   "ok": true,
+   "status": 200,
+   "detail": "200"
+  },
+  "sx": {
+   "ok": false,
+   "status": 409,
+   "detail": "409 credit.insufficient"
+  },
+  "t2.request": {
+   "ok": true,
+   "detail": "ok",
+   "path": "sql:no-http-route"
+  },
+  "t2.approve": {
+   "ok": true,
+   "detail": "ok",
+   "path": "sql:no-http-route"
+  },
+  "t2.cancel": {
+   "ok": true,
+   "detail": "ok",
+   "path": "sql:no-http-route"
+  },
+  "t2.dispatch": {
+   "ok": true,
+   "detail": "ok",
+   "path": "sql:no-http-route"
+  },
+  "t2.receive": {
+   "ok": true,
+   "detail": "ok",
+   "path": "sql:no-http-route"
+  }
+ },
+ "sync_rounds_from_host_logs": {
+  "a": {
+   "successful_rounds": 25,
+   "rebuilt_rounds": 0,
+   "not_successful": 1,
+   "distinct_warnings": [
+    "Sync round could not reach the hub: An error occurred while sending the request."
+   ],
+   "host_starts": 1
+  },
+  "b": {
+   "successful_rounds": 25,
+   "rebuilt_rounds": 0,
+   "not_successful": 0,
+   "distinct_warnings": [],
+   "host_starts": 1
+  },
+  "c": {
+   "successful_rounds": 25,
+   "rebuilt_rounds": 0,
+   "not_successful": 0,
+   "distinct_warnings": [],
+   "host_starts": 1
+  }
+ },
+ "hub_exchanges_seen_by_proxies": {
+  "a": {
+   "/sync/v1/push/plan 200": 50,
+   "/sync/v1/state 200": 25,
+   "/sync/v1/pull 200": 25,
+   "/sync/v1/push 200": 25,
+   "/sync/v1/push/plan cut": 1
+  },
+  "b": {
+   "/sync/v1/push/plan 200": 50,
+   "/sync/v1/state 200": 25,
+   "/sync/v1/pull 200": 25,
+   "/sync/v1/push 200": 25
+  },
+  "c": {
+   "/sync/v1/push/plan 200": 50,
+   "/sync/v1/state 200": 25,
+   "/sync/v1/pull 200": 25,
+   "/sync/v1/push 200": 25
+  }
+ },
+ "hub_rounds_log_errors": [],
+ "host_logs": ".out/rehearsal/runs/20261121-220035-credit_transfer"
+}

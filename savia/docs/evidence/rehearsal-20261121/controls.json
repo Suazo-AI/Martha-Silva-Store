@@ -1,0 +1,255 @@
+{
+ "scenario": "controls",
+ "verdict": "PASS",
+ "reason": "",
+ "identity": "sa",
+ "manifest": {
+  "path": "tools/rehearsal/expected/controls.json",
+  "sha256": "fbcf19f87f7947f6db5e5c58546f060b22d8dac92760c84801eade8065d38a3c"
+ },
+ "seconds_total": 149.5,
+ "phases": [
+  {
+   "phase": "setup: 4 databases, node credentials, staff passwords, seed stock",
+   "seconds": 50.4
+  },
+  {
+   "phase": "start hub and 3 store hosts",
+   "seconds": 9.8
+  },
+  {
+   "phase": "open tills over HTTP",
+   "seconds": 2.8
+  },
+  {
+   "phase": "first convergence",
+   "seconds": 24.9
+  },
+  {
+   "phase": "401: wrong node credentials",
+   "seconds": 0.1
+  },
+  {
+   "phase": "51851: A's push rewritten so a sale row names store B",
+   "seconds": 6.2
+  },
+  {
+   "phase": "converge after the refused push (the untampered retry)",
+   "seconds": 16.8
+  },
+  {
+   "phase": "51854: A restored; the proxy hides 'recover' so A pushes without a rebuild token",
+   "seconds": 12.7
+  },
+  {
+   "phase": "final convergence",
+   "seconds": 11.6
+  },
+  {
+   "phase": "checks",
+   "seconds": 13.2
+  }
+ ],
+ "events": [
+  {
+   "t": 61.0,
+   "event": "open till a",
+   "status": 204,
+   "problem": ""
+  },
+  {
+   "t": 62.1,
+   "event": "open till b",
+   "status": 204,
+   "problem": ""
+  },
+  {
+   "t": 63.0,
+   "event": "open till c",
+   "status": 204,
+   "problem": ""
+  },
+  {
+   "t": 88.6,
+   "event": "sale k1 at a",
+   "status": 200,
+   "problem": ""
+  },
+  {
+   "t": 111.0,
+   "event": "converge after the refused push (the untampered retry): converged in 16.8s",
+   "differing": []
+  },
+  {
+   "t": 123.6,
+   "event": "sale k2 at a",
+   "status": 200,
+   "problem": ""
+  },
+  {
+   "t": 135.3,
+   "event": "final convergence: converged in 11.6s",
+   "differing": []
+  }
+ ],
+ "checks": {
+  "passed": 48,
+  "failed": 0,
+  "failures": []
+ },
+ "check_list": [
+  "PASS http k1 accepted",
+  "PASS http k2 accepted",
+  "PASS cloud: sale k1 once with its effects",
+  "PASS cloud: sale k2 once with its effects",
+  "PASS cloud: no sale outside the manifest",
+  "PASS cloud: store a totals",
+  "PASS cloud: store b totals",
+  "PASS cloud: store c totals",
+  "PASS cloud: on hand at a",
+  "PASS cloud: on hand at b",
+  "PASS cloud: on hand at c",
+  "PASS a: sale k1 once with its effects",
+  "PASS a: sale k2 once with its effects",
+  "PASS a: no sale outside the manifest",
+  "PASS a: store a totals",
+  "PASS a: store b totals",
+  "PASS a: store c totals",
+  "PASS a: on hand at a",
+  "PASS a: on hand at b",
+  "PASS a: on hand at c",
+  "PASS b: sale k1 once with its effects",
+  "PASS b: sale k2 once with its effects",
+  "PASS b: no sale outside the manifest",
+  "PASS b: store a totals",
+  "PASS b: store b totals",
+  "PASS b: store c totals",
+  "PASS b: on hand at a",
+  "PASS b: on hand at b",
+  "PASS b: on hand at c",
+  "PASS c: sale k1 once with its effects",
+  "PASS c: sale k2 once with its effects",
+  "PASS c: no sale outside the manifest",
+  "PASS c: store a totals",
+  "PASS c: store b totals",
+  "PASS c: store c totals",
+  "PASS c: on hand at a",
+  "PASS c: on hand at b",
+  "PASS c: on hand at c",
+  "PASS R1: 18 synced tables identical on hub, a, b, c",
+  "PASS CONS: audit.usp_CheckConservation has 0 violations on 4 nodes",
+  "PASS sync converged",
+  "PASS control 401 A real secret (positive control)",
+  "PASS control 401 A with a wrong secret",
+  "PASS control 401 A id with B's secret",
+  "PASS control 401 no Authorization header",
+  "PASS control 51851 foreign row",
+  "PASS control 51854 push from a restored fork without a rebuild token",
+  "PASS control restored A then rebuilds by itself (hosted loop)"
+ ],
+ "controls": [
+  {
+   "control": "401 A real secret (positive control)",
+   "ok": true,
+   "expected": "200",
+   "actual": "200 "
+  },
+  {
+   "control": "401 A with a wrong secret",
+   "ok": true,
+   "expected": "401 sync.unauthorized",
+   "actual": "401 sync.unauthorized"
+  },
+  {
+   "control": "401 A id with B's secret",
+   "ok": true,
+   "expected": "401 sync.unauthorized",
+   "actual": "401 sync.unauthorized"
+  },
+  {
+   "control": "401 no Authorization header",
+   "ok": true,
+   "expected": "401 sync.unauthorized",
+   "actual": "401 sync.unauthorized"
+  },
+  {
+   "control": "51851 foreign row",
+   "ok": true,
+   "expected": "403 sync.foreign_row",
+   "actual": "403 sync.foreign_row; store log: Sync round refused: sync.foreign_row El lote trae filas que pertenecen a otro nodo."
+  },
+  {
+   "control": "51854 push from a restored fork without a rebuild token",
+   "ok": true,
+   "expected": "409 sync.rebuild_required",
+   "actual": "409 sync.rebuild_required"
+  },
+  {
+   "control": "restored A then rebuilds by itself (hosted loop)",
+   "ok": true,
+   "expected": "rebuilt True",
+   "actual": "Sync round: pulled 0, pushed 0, rebuilt True."
+  }
+ ],
+ "outcomes": {
+  "k1": {
+   "ok": true,
+   "status": 200,
+   "detail": "200"
+  },
+  "k2": {
+   "ok": true,
+   "status": 200,
+   "detail": "200"
+  }
+ },
+ "sync_rounds_from_host_logs": {
+  "a": {
+   "successful_rounds": 11,
+   "rebuilt_rounds": 1,
+   "not_successful": 1,
+   "distinct_warnings": [
+    "Sync round refused: sync.foreign_row El lote trae filas que pertenecen a otro nodo."
+   ],
+   "host_starts": 2
+  },
+  "b": {
+   "successful_rounds": 13,
+   "rebuilt_rounds": 0,
+   "not_successful": 0,
+   "distinct_warnings": [],
+   "host_starts": 1
+  },
+  "c": {
+   "successful_rounds": 12,
+   "rebuilt_rounds": 0,
+   "not_successful": 0,
+   "distinct_warnings": [],
+   "host_starts": 1
+  }
+ },
+ "hub_exchanges_seen_by_proxies": {
+  "a": {
+   "/sync/v1/push/plan 200": 25,
+   "/sync/v1/state 200": 13,
+   "/sync/v1/pull 200": 13,
+   "/sync/v1/push 200": 11,
+   "/sync/v1/push 403": 1,
+   "/sync/v1/push 409": 1
+  },
+  "b": {
+   "/sync/v1/push/plan 200": 26,
+   "/sync/v1/state 200": 13,
+   "/sync/v1/pull 200": 13,
+   "/sync/v1/push 200": 13
+  },
+  "c": {
+   "/sync/v1/push/plan 200": 26,
+   "/sync/v1/state 200": 13,
+   "/sync/v1/pull 200": 13,
+   "/sync/v1/push 200": 12
+  }
+ },
+ "hub_rounds_log_errors": [],
+ "host_logs": ".out/rehearsal/runs/20261121-221124-controls"
+}

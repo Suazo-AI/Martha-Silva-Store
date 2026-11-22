@@ -1,0 +1,28 @@
+{
+ "selftest": "missing expected sale must fail the run",
+ "injected": {
+  "key": "selftest_missing",
+  "store": "b",
+  "saleId": "5E1F7E57-0000-4000-8000-00000000BAD1",
+  "qty": 1,
+  "tenders": [
+   {
+    "kind": "cash",
+    "amount": 120000
+   }
+  ]
+ },
+ "run_verdict": "FAIL",
+ "failed_checks": [
+  "cloud: sale selftest_missing present",
+  "cloud: store b totals",
+  "a: sale selftest_missing present",
+  "a: store b totals",
+  "b: sale selftest_missing present",
+  "b: store b totals",
+  "c: sale selftest_missing present",
+  "c: store b totals"
+ ],
+ "harness_caught_it": true,
+ "seconds_total": 172.9
+}

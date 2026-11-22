@@ -1,0 +1,178 @@
+{
+ "scenario": "credit_transfer",
+ "claim": "Returns to credit, a transfer A->B, a cancel at the hub racing an offline dispatch at A (dispatch wins), and two concurrent spends of the same balance (exactly one wins).",
+ "tills": {
+  "a": "C4ED1700-0000-4000-8000-0000000000A0",
+  "b": "C4ED1700-0000-4000-8000-0000000000B0",
+  "c": "C4ED1700-0000-4000-8000-0000000000C0"
+ },
+ "sales": [
+  {
+   "key": "s1",
+   "store": "a",
+   "saleId": "C4ED1700-0000-4000-8000-000000000001",
+   "qty": 1,
+   "tenders": [
+    {
+     "kind": "cash",
+     "amount": 120000
+    }
+   ],
+   "customer": true,
+   "returned": true
+  },
+  {
+   "key": "s2",
+   "store": "a",
+   "saleId": "C4ED1700-0000-4000-8000-000000000002",
+   "qty": 1,
+   "tenders": [
+    {
+     "kind": "cash",
+     "amount": 120000
+    }
+   ],
+   "customer": true,
+   "returned": true
+  },
+  {
+   "key": "sb1",
+   "store": "b",
+   "saleId": "C4ED1700-0000-4000-8000-000000000003",
+   "qty": 1,
+   "tenders": [
+    {
+     "kind": "credit",
+     "amount": 50000,
+     "credit": "r1"
+    },
+    {
+     "kind": "cash",
+     "amount": 70000
+    }
+   ],
+   "customer": true
+  },
+  {
+   "key": "sx",
+   "store": "a",
+   "saleId": "C4ED1700-0000-4000-8000-000000000004",
+   "qty": 1,
+   "tenders": [
+    {
+     "kind": "credit",
+     "amount": 70000,
+     "credit": "r1"
+    },
+    {
+     "kind": "cash",
+     "amount": 50000
+    }
+   ],
+   "customer": true,
+   "group": "spend_r1"
+  },
+  {
+   "key": "sy",
+   "store": "a",
+   "saleId": "C4ED1700-0000-4000-8000-000000000005",
+   "qty": 1,
+   "tenders": [
+    {
+     "kind": "credit",
+     "amount": 70000,
+     "credit": "r1"
+    },
+    {
+     "kind": "cash",
+     "amount": 50000
+    }
+   ],
+   "customer": true,
+   "group": "spend_r1"
+  }
+ ],
+ "returns": [
+  {
+   "key": "r1",
+   "sale": "s1",
+   "qty": 1,
+   "reversalId": "C4ED1700-0000-4000-8000-000000000101",
+   "creditId": "C4ED1700-0000-4000-8000-000000000201",
+   "creditMinor": 120000
+  },
+  {
+   "key": "r2",
+   "sale": "s2",
+   "qty": 1,
+   "reversalId": "C4ED1700-0000-4000-8000-000000000102",
+   "creditId": "C4ED1700-0000-4000-8000-000000000202",
+   "creditMinor": 120000
+  }
+ ],
+ "transfers": [
+  {
+   "key": "t1",
+   "credit": "r1",
+   "from": "a",
+   "to": "b",
+   "amount": 50000,
+   "requested_at": "b",
+   "transferId": "C4ED1700-0000-4000-8000-000000000301",
+   "status": "received",
+   "overridden": 0
+  },
+  {
+   "key": "t2",
+   "credit": "r2",
+   "from": "a",
+   "to": "c",
+   "amount": 60000,
+   "requested_at": "c",
+   "transferId": "C4ED1700-0000-4000-8000-000000000302",
+   "status": "received",
+   "overridden": 1
+  }
+ ],
+ "alloc": [
+  {
+   "credit": "r1",
+   "store": "a",
+   "available": 0
+  },
+  {
+   "credit": "r1",
+   "store": "b",
+   "available": 0
+  },
+  {
+   "credit": "r2",
+   "store": "a",
+   "available": 60000
+  },
+  {
+   "credit": "r2",
+   "store": "c",
+   "available": 60000
+  }
+ ],
+ "store_totals": {
+  "a": {
+   "count": 3,
+   "totalMinor": 360000
+  },
+  "b": {
+   "count": 1,
+   "totalMinor": 120000
+  },
+  "c": {
+   "count": 0,
+   "totalMinor": 0
+  }
+ },
+ "on_hand": {
+  "a": 499,
+  "b": 499,
+  "c": 500
+ }
+}
