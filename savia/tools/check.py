@@ -42,7 +42,9 @@ def run(name, command, read_next, env=None):
     verdict = "PASS" if proc.returncode == 0 else "FAIL"
     print(f"{verdict:<5} {name}  ({seconds:.0f}s)" + ("" if proc.returncode == 0 else f"  -> read {read_next}"))
     if proc.returncode != 0:
-        print("      " + "\n      ".join(text[-12:]))
+        # Every FAIL line first (a long step can push it out of the tail), then the tail.
+        failed = [line for line in text[:-12] if line.lstrip().startswith("FAIL")]
+        print("      " + "\n      ".join(failed + text[-12:]))
     elif text:
         print("      " + text[-1][:200])
     return proc.returncode == 0

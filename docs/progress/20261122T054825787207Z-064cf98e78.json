@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-22T05:48:25.787207+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/docs/evidence/hardening-20261121/README.md",
+      "change": "M",
+      "git_blob": "103f0b42ef01f1846962bdd031af599e4057ca39"
+    },
+    {
+      "path": "savia/tools/check.py",
+      "change": "M",
+      "git_blob": "444761557bd89d4e4804a219c28fb46de8f9c0a6"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

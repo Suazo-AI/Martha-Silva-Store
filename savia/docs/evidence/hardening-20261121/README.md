@@ -58,3 +58,7 @@ The container proof step is skipped under `--isolated`; it ran directly (see P6 
 
 Integration run 2026-11-21 on a clean worktree at `620cbd00` with this patch only, after `dotnet restore Savia.slnx --locked-mode`:
 `python savia/tools/check.py` (full, container proof included): `RESULT PASS`, exit 0; T-SQL 151, .NET 200 of 200, API host login 18 of 18, container proof 75 s.
+
+CI on `ba1a918c` and `1d51d394` (run 44990007781): every step passed except `container proof`, whose failing line was cut from the 12-line tail.
+The same proof passes locally on `1d51d394` (`python savia/deploy/local_proof.py --build`: RESULT PASS, roles `savia_api_host|0`, grants 18/18).
+`check.py` now prints every FAIL line of a failed step before the tail, so the next CI run names the failing step.
