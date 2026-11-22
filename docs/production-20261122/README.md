@@ -12,7 +12,7 @@ States: `verified`, `running`, `pending`, `blocked (input)`.
 
 | ID | Check | Pass condition | State |
 | --- | --- | --- | --- |
-| H1 | Hub runs Tony HEAD on Azure | `/health/ready` 200; image tag equals the commit; ledger holds V001-V035; rollback revision named | verified 2026-11-22: revision `ca-savia-api--g996465b-1` at 100%, image `savia-api:996465b3`, job `caj-savia-migrate-r974w1f` applied V036-V051, rollback `ca-savia-api--g37b6c06-1`, copy `savia-premig-996465b3-1` |
+| H1 | Hub runs Tony HEAD on Azure | `/health/ready` 200; image tag equals the commit; ledger holds V001-V035; rollback revision named | verified 2026-11-22: revision `ca-savia-api--g11ef361-1` at 100%, image `savia-api:11ef3616`, job `caj-savia-migrate-9ob7dpw` applied V052-V059 (ledger through V059), rollback `ca-savia-api--g996465b-1`, copy `savia-premig-11ef3616-1` |
 | H2 | Restricted API identity runs sync on Azure SQL | a sync round as the managed identity returns 200 | pending: the migrator logged `API host permissions ensured for user id-savia-api-bukmlt`; a real round needs a node credential (S7). Without one, `POST /sync/v1/push` returns 401 |
 | H3 | Telemetry reaches Application Insights | one request visible in the workspace | verified 2026-11-22: 18 `AppRequests` and 9 `AppDependencies` in `log-savia-bukmlt` within 30 minutes of the deploy |
 | S1 | Recovery lock (G6) | rehearsal `restore_sale_before_rebuild` PASS, not XFAIL | verified 2026-11-22 (V036, V052): sale, till, receiving, returns, credit transfers and web consignment are refused while recovering; rehearsal 8 of 8 PASS. Open: rebuild progress display |

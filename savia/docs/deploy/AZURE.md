@@ -179,6 +179,9 @@ Revision `ca-savia-api--g996465b-1` passed `smoke.ps1` at 0% traffic, then took 
 Read back on the live URL: `/health/ready` 200; `GET /api/v1/public/catalog` 200 with an empty list (no web stock consigned); `POST /api/v1/public/orders` with no lines 400 `validation`; `/api/v1/web-orders` without sign-in 401.
 Rollback: `az containerapp ingress traffic set -n ca-savia-api -g rg-savia-prod --revision-weight ca-savia-api--g37b6c06-1=100`; V036 to V051 are additive.
 Public orders stay closed in practice: no CORS origin and no Turnstile secret are configured, and the bot check fails closed.
+Sixth Azure run, 2026-11-22, commit `11ef3616` (backend tree of `2f4279b9`, SAVIA v2 check green): dry run on the copy `savia-premig-996465b3-1` first (execution `caj-savia-migrate-hvlspii`, succeeded), then production job `caj-savia-migrate-9ob7dpw` applied V052 to V059; copy `savia-premig-11ef3616-1`.
+Revision `ca-savia-api--g11ef361-1` passed `smoke.ps1` at 0% traffic, then took 100%; `smoke.ps1` PASS on the app URL; `/health/ready` 200; public catalog 200; staff routes 401.
+Rollback: `az containerapp ingress traffic set -n ca-savia-api -g rg-savia-prod --revision-weight ca-savia-api--g996465b-1=100`.
 P2: `AddSaviaTelemetry` calls `UseAzureMonitor` only when `APPLICATIONINSIGHTS_CONNECTION_STRING` is set; with `AZURE_CLIENT_ID` it signs in as that identity.
 `Azure.Monitor.OpenTelemetry.AspNetCore` 1.6.0 needs `Azure.Identity` 1.21.0 in the API: older Azure.Identity clashes with Azure.Core 1.60 on `ManagedIdentityCredential`.
 1.4.0 avoids the bump but pulls `OpenTelemetry.Api` 1.14.0 (GHSA-g94r-2vxg-569j). The managed-identity export is not tested until it runs on Azure.
