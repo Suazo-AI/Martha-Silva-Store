@@ -126,6 +126,22 @@ export async function request(method, path, body, options = {}) {
   return options.withStatus ? { status: response.status, data } : data;
 }
 
+/**
+ * Every page of a paged list (D-041: at most 500 rows per response) as one array. The server names the next page
+ * in the Link header; the caller gets the rows only after the last page, so a screen never shows half a list.
+ */
+async function allPages(first) {
+  const rows = [];
+  for (let next = first; next; ) {
+    const response = await send('GET', next);
+    const text = response.status === 204 ? '' : await response.text();
+    if (text) rows.push(...JSON.parse(text));
+    const link = /<([^>]*)>;\s*rel="next"/.exec(response.headers?.get('Link') ?? '');
+    next = link?.[1].startsWith(BASE) ? link[1].slice(BASE.length) : null;
+  }
+  return rows;
+}
+
 const q = params => {
   const entries = Object.entries(params).filter(([, v]) => v !== undefined && v !== null && v !== '');
   return entries.length ? `?${new URLSearchParams(entries).toString()}` : '';
@@ -140,7 +156,8 @@ export const me = () => request('GET', '/me');
 // ---- catalog
 /** exact barcode or supplier code. ItemLookup[] */
 export const lookup = (code, supplierId) => request('GET', `/catalog/lookup${q({ code, supplierId })}`);
-export const catalogItems = () => request('GET', '/catalog/items');
+/** CatalogProduct[]: the whole sale catalog, read page by page. */
+export const catalogItems = () => allPages('/catalog/items');
 export const searchProducts = text => request('GET', `/catalog/search${q({ q: text })}`);
 /** Branch writes require the local pilot catalog flag and an approving role. */
 export const registerProduct = (productId, name) => request('POST', '/catalog/products', { productId, name });
@@ -173,7 +190,7 @@ export const postReception = sessionId => request('POST', path`/receiving/sessio
 
 // ---- stock and labels
 /** StockRow[]: { itemId, sku, variantName, locationId, pool, onHand, reserved, available } */
-export const stock = itemId => request('GET', `/stock${q({ itemId })}`);
+export const stock = itemId => allPages(`/stock${q({ itemId })}`);
 /** LabelJob[]: { id, itemId, storeName, sku, barcode, copiesRequested, copiesAcknowledged, status } */
 export const labelJobs = status => request('GET', `/labels/jobs${q({ status })}`);
 

@@ -10,8 +10,8 @@ public static class CatalogEndpoints
     {
         api.MapGet("/catalog/lookup", async (string code, Guid? supplierId, HttpContext http, CatalogService catalog, CancellationToken ct) =>
             await catalog.LookupAsync(http.Actor(), code, supplierId, ct)).Produces<ItemLookup[]>().WithTags("catalog");
-        api.MapGet("/catalog/items", async (HttpContext http, CatalogService catalog, CancellationToken ct) =>
-            await catalog.ListAsync(http.Actor(), ct)).Produces<CatalogProduct[]>().WithTags("catalog");
+        api.MapGet("/catalog/items", async (string? after, int? limit, HttpContext http, CatalogService catalog, CancellationToken ct) =>
+            http.Paged(await catalog.ListAsync(http.Actor(), after, limit, ct))).Produces<CatalogProduct[]>().WithTags("catalog");
         api.MapGet("/catalog/search", async (string q, int? limit, HttpContext http, CatalogService catalog, CancellationToken ct) =>
             await catalog.SearchAsync(http.Actor(), q, limit, ct)).Produces<ProductSearchRow[]>().WithTags("catalog");
 

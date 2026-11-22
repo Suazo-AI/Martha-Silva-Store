@@ -12,6 +12,7 @@ import http.client
 import json
 import os
 import pathlib
+import re
 import secrets
 import subprocess
 import sys
@@ -60,6 +61,7 @@ class Api:
         self.timeout = timeout
         self.c = http.client.HTTPConnection("127.0.0.1", PORT, timeout=timeout)
         self.token = None
+        self.link = None
 
     def call(self, method, path, body=None, token=None):
         h = {"Content-Type": "application/json"}
@@ -71,6 +73,7 @@ class Api:
             self.c.request(method, path, body=data, headers=h)
             r = self.c.getresponse()
             raw = r.read()
+            self.link = r.getheader("Link")
         except (TimeoutError, OSError, http.client.HTTPException) as e:  # record, reconnect, keep measuring
             self.c.close()
             self.c = http.client.HTTPConnection("127.0.0.1", PORT, timeout=self.timeout)
@@ -101,6 +104,25 @@ def measure(api, name, reqs, res, token=None, warm=3, expect=(200, 204)):
     res[name] = r
     print(f"{name:28} {r}", flush=True)
     return r
+
+
+def page_through(api, name, first, res):
+    """Reads a whole list by following Link rel="next" (D-041); before V042 the first page is the whole list."""
+    lat, rows, size, path, t = [], 0, 0, first, time.perf_counter()
+    while path:
+        s, raw, ms = api.call("GET", path)
+        if s != 200:
+            res[name] = {"error": f"{s} {path[:80]} {raw[:200]!r}"}
+            print(f"{name:28} {res[name]}", flush=True)
+            return
+        lat.append(ms)
+        rows += len(json.loads(raw))
+        size = max(size, len(raw))
+        link = re.match(r'<([^>]*)>;\s*rel="next"', api.link or "")
+        path = link.group(1) if link else None
+    res[name] = {"pages": len(lat), "rows": rows, "total_ms": round((time.perf_counter() - t) * 1000), "first_page_ms": round(lat[0]),
+                 "last_page_ms": round(lat[-1]), "page_p95": pct(lat).get("p95"), "max_bytes": size}
+    print(f"{name:28} {res[name]}", flush=True)
 
 
 def dmv():
@@ -196,9 +218,11 @@ def main():
                                                      for i in range(kreps)], res)
             measure(api, f"kpi_team[{period}]", [("GET", f"/api/v1/reports/kpi/team?period={period}&date={dates[i % 30]}", None)
                                                  for i in range(kreps)], res)
-        if "lists" in sec:  # unpaged full lists: 3 calls, the first is warm-up
-          measure(api, "catalog_items_full_list", [("GET", "/api/v1/catalog/items", None)] * 3, res, warm=1)
-          measure(api, "stock_full_list", [("GET", "/api/v1/stock", None)] * 3, res, warm=1)
+        if "lists" in sec:  # first page (the whole list before V042): 3 calls, the first is warm-up; then one full read
+          measure(api, "catalog_items_first_page", [("GET", "/api/v1/catalog/items", None)] * 3, res, warm=1)
+          measure(api, "stock_first_page", [("GET", "/api/v1/stock", None)] * 3, res, warm=1)
+          page_through(api, "catalog_items_all_pages", "/api/v1/catalog/items", res)
+          page_through(api, "stock_all_pages", "/api/v1/stock", res)
         if not a.reads_only and "writes" in sec:
             # --- checkout: a till for today, then n sales with 1-3 lines, card tender
             till = str(uuid.uuid4())

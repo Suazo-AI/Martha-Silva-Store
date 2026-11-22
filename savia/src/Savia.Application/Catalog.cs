@@ -6,7 +6,8 @@ namespace Savia.Application;
 
 public interface ICatalogStore
 {
-    Task<IReadOnlyList<CatalogProduct>> ListAsync(Guid locationId, CancellationToken ct);
+    /// <summary>Whole products in name order, at most <paramref name="limit"/> variants unless one product alone has more.</summary>
+    Task<Page<CatalogProduct>> ListAsync(Guid locationId, string? after, int limit, CancellationToken ct);
     Task<IReadOnlyList<ItemLookup>> LookupAsync(string rawCode, Guid? supplierId, CancellationToken ct);
     /// <summary>Active or draft variants whose product name, variant name, SKU or a code contains the text.</summary>
     Task<IReadOnlyList<ProductSearchRow>> SearchAsync(string text, Guid? locationId, int limit, CancellationToken ct);
@@ -30,11 +31,13 @@ public sealed class CatalogService(ICatalogStore store, ICatalogMaintenanceStore
     private static bool HidePrice(Actor actor) =>
         actor.Roles.Contains(Roles.Inventory) && !actor.Roles.Contains(Roles.Owner) && !actor.Roles.Contains(Roles.Manager);
 
-    public async Task<IReadOnlyList<CatalogProduct>> ListAsync(Actor actor, CancellationToken ct)
+    public async Task<Page<CatalogProduct>> ListAsync(Actor actor, string? after, int? limit, CancellationToken ct)
     {
         Guard.Branch(actor, node);
-        var rows = await store.ListAsync(node.RequireLocation(), ct);
-        return HidePrice(actor) ? rows.Select(p => p with { Variants = p.Variants.Select(v => v with { UnitPriceMinor = null }).ToArray() }).ToArray() : rows;
+        var page = await store.ListAsync(node.RequireLocation(), after, Paging.Limit(limit), ct);
+        return HidePrice(actor)
+            ? page with { Items = page.Items.Select(p => p with { Variants = p.Variants.Select(v => v with { UnitPriceMinor = null }).ToArray() }).ToArray() }
+            : page;
     }
 
     /// <summary>Returns every variant the code may mean. The caller must not pick one when there are several.</summary>

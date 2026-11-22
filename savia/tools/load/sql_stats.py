@@ -40,6 +40,12 @@ WHERE i.Status IN ('active','draft')
 ORDER BY p.Name,i.Sku"""
 STOCK = """SELECT ItemId,Sku,VariantName,LocationId,Pool,OnHand,Reserved,Available FROM inventory.vw_StockAvailable
 WHERE (@branch IS NULL OR BranchId=@branch) AND (@item IS NULL OR ItemId=@item) ORDER BY Sku,LocationId,Pool"""
+# InventoryStore.GetStockAsync after V042 (D-041): one keyset page of at most 500 rows.
+STOCK_PAGE = """DECLARE @afterSku nvarchar(100)=(SELECT Sku FROM catalog.Items WHERE Id=@afterItem);
+SELECT TOP(@limit+1) ItemId,Sku,VariantName,LocationId,Pool,OnHand,Reserved,Available FROM inventory.vw_StockAvailable
+WHERE (@branch IS NULL OR BranchId=@branch) AND (@item IS NULL OR ItemId=@item)
+  AND (@afterItem IS NULL OR Sku>@afterSku OR (Sku=@afterSku AND (LocationId>@afterLocation OR (LocationId=@afterLocation AND Pool>@afterPool))))
+ORDER BY Sku,LocationId,Pool"""
 
 
 def q(s):
@@ -56,13 +62,28 @@ def queries(db):
     day = scalar(f"SELECT CONVERT(char(10),MAX(CAST(CreatedAt AS date)),23) FROM sales.Sales WHERE BranchId='{BRANCH}'")
     frm = scalar(f"SELECT CONVERT(char(10),DATEADD(day,-60,'{day}'),23)")
     actor = scalar("SELECT Id FROM security.Staff WHERE LoginName='t_manager'")
-    srch = lambda pat, lim=50: (f"EXEC sp_executesql N'{q(SEARCH)}',N'@limit int,@location uniqueidentifier,@pattern nvarchar(4000)',"
-                                f"@limit={lim},@location='{LOC}',@pattern=N'{pat}'")
+    # The same measurements before and after V041/V042: the code each API release runs.
+    paged = scalar("SELECT IIF(OBJECT_ID('catalog.usp_SearchItems') IS NULL,0,1)") == "1"
+    if paged:
+        srch = lambda text, lim=50: f"EXEC catalog.usp_SearchItems @Text=N'{text}',@LocationId='{LOC}',@Limit={lim}"  # noqa: E731
+        lists = {
+            "catalog_items_page1 (usp_ListSaleCatalog @Limit=500)": f"EXEC catalog.usp_ListSaleCatalog @LocationId='{LOC}',@After=NULL,@Limit=500",
+            "stock_page1 (/stock)": f"EXEC sp_executesql N'{q(STOCK_PAGE)}',N'@branch uniqueidentifier,@item uniqueidentifier,@limit int,"
+                                    f"@afterItem uniqueidentifier,@afterLocation uniqueidentifier,@afterPool nvarchar(12)',"
+                                    f"@branch='{BRANCH}',@item=NULL,@limit=500,@afterItem=NULL,@afterLocation=NULL,@afterPool=NULL",
+        }
+    else:
+        srch = lambda text, lim=50: (f"EXEC sp_executesql N'{q(SEARCH)}',N'@limit int,@location uniqueidentifier,@pattern nvarchar(4000)',"  # noqa: E731
+                                     f"@limit={lim},@location='{LOC}',@pattern=N'%{text}%'")
+        lists = {
+            "catalog_items_full (usp_ListSaleCatalog)": f"EXEC catalog.usp_ListSaleCatalog @LocationId='{LOC}'",
+            "stock_full (/stock)": f"EXEC sp_executesql N'{q(STOCK)}',N'@branch uniqueidentifier,@item uniqueidentifier',@branch='{BRANCH}',@item=NULL",
+        }
     return {
         "lookup_by_scan": f"EXEC catalog.usp_LookupByScan @RawCode=N'{code_}',@SupplierId=NULL",
-        "search[Blusa]": srch("%Blusa%"),
-        "search[M12345]": srch("%M12345%"),
-        "search[zzqx no match]": srch("%zzqx%"),
+        "search[Blusa]": srch("Blusa"),
+        "search[M12345]": srch("M12345"),
+        "search[zzqx no match]": srch("zzqx"),
         "receipt_detail": f"EXEC sales.usp_GetSaleDetail @BranchId='{BRANCH}',@SaleId='{sale}'",
         "day_report (usp_GetDayReport)": f"EXEC sales.usp_GetDayReport @BranchId='{BRANCH}',@Date='{day}'",
         "day_report (usp_GetReturnsByKind)": f"EXEC sales.usp_GetReturnsByKind @BranchId='{BRANCH}',@Date='{day}'",
@@ -71,8 +92,7 @@ def queries(db):
         "kpi_business[month]": f"EXEC sales.usp_KpiBusiness @BranchId='{BRANCH}',@ActorId='{actor}',@Period='month',@Date='{day}'",
         "kpi_team[month]": f"EXEC sales.usp_KpiTeam @BranchId='{BRANCH}',@ActorId='{actor}',@Period='month',@Date='{day}'",
         "kpi_business[year]": f"EXEC sales.usp_KpiBusiness @BranchId='{BRANCH}',@ActorId='{actor}',@Period='year',@Date='{day}'",
-        "catalog_items_full (usp_ListSaleCatalog)": f"EXEC catalog.usp_ListSaleCatalog @LocationId='{LOC}'",
-        "stock_full (/stock)": f"EXEC sp_executesql N'{q(STOCK)}',N'@branch uniqueidentifier,@item uniqueidentifier',@branch='{BRANCH}',@item=NULL",
+        **lists,
     }
 
 

@@ -40,6 +40,7 @@ public static class DbErrors
         [51205] = ("catalog.code_taken", ErrorKind.Conflict),
         [51211] = ("catalog.item_id_reused", ErrorKind.Conflict),
         [51212] = ("catalog.sku_taken", ErrorKind.Conflict),
+        [51230] = ("page.after", ErrorKind.Validation),
         [51302] = ("receiving.scan_id_reused", ErrorKind.Conflict),
         [51303] = ("receiving.session_not_open", ErrorKind.Conflict),
         [51304] = ("receiving.reason_required", ErrorKind.Validation),

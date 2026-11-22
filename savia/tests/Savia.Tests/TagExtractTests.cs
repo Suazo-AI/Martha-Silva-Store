@@ -255,7 +255,7 @@ internal sealed class TagHost : WebApplicationFactory<Program>
                 : []);
         public Task<IReadOnlyList<ProductSearchRow>> SearchAsync(string text, Guid? locationId, int limit, CancellationToken ct) =>
             Task.FromResult<IReadOnlyList<ProductSearchRow>>([]);
-        public Task<IReadOnlyList<CatalogProduct>> ListAsync(Guid locationId, CancellationToken ct) => throw new NotSupportedException();
+        public Task<Page<CatalogProduct>> ListAsync(Guid locationId, string? after, int limit, CancellationToken ct) => throw new NotSupportedException();
         public Task RegisterProductAsync(RegisterProductRequest request, Guid actorId, Guid nodeId, CancellationToken ct) => throw new NotSupportedException();
         public Task RegisterItemAsync(RegisterItemRequest request, Guid actorId, Guid nodeId, CancellationToken ct) => throw new NotSupportedException();
     }

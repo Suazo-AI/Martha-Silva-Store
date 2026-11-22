@@ -19,6 +19,23 @@ public static class Http
 {
     public static Actor Actor(this HttpContext http) => (Actor)http.Items[typeof(Actor)]!;
 
+    /// <summary>
+    /// The body stays the plain array of earlier releases. The next page is in the standard Link header
+    /// (RFC 8288): the same request with <c>after</c> set to the last row of this page.
+    /// </summary>
+    public static IReadOnlyList<T> Paged<T>(this HttpContext http, Page<T> page)
+    {
+        if (page.NextAfter is not null)
+        {
+            var query = QueryString.Create(http.Request.Query
+                .Where(p => p.Key != "after")
+                .Select(p => KeyValuePair.Create<string, string?>(p.Key, p.Value.ToString()))
+                .Append(KeyValuePair.Create<string, string?>("after", page.NextAfter)));
+            http.Response.Headers.Link = $"<{http.Request.PathBase}{http.Request.Path}{query}>; rel=\"next\"";
+        }
+        return page.Items;
+    }
+
     public static string BearerToken(HttpContext http)
     {
         var header = http.Request.Headers.Authorization.ToString();

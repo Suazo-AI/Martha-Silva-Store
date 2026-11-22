@@ -1,0 +1,43 @@
+    0 Error(s)
+
+Time Elapsed 00:00:07.57
+
+savia-sqlserver-rehearsal 142.88%
+savia-sqlserver-load 4.00%
+savia-sqlserver-dev 148.66%
+catalog_items_first_page     {'n': 2, 'p50': 141.0, 'p95': 141.0, 'max': 141.0, 'errors': 0, 'max_bytes': 160410}
+stock_first_page             {'n': 2, 'p50': 49.3, 'p95': 49.3, 'max': 49.3, 'errors': 0, 'max_bytes': 102000}
+catalog_items_all_pages      {'pages': 501, 'rows': 50001, 'total_ms': 43887, 'first_page_ms': 89, 'last_page_ms': 15, 'page_p95': 176.8, 'max_bytes': 162105}
+stock_all_pages              {'pages': 500, 'rows': 250000, 'total_ms': 19280, 'first_page_ms': 31, 'last_page_ms': 42, 'page_p95': 82.9, 'max_bytes': 102002}
+checkout_post_sale           {'n': 200, 'p50': 56.3, 'p95': 173.8, 'max': 503.0, 'errors': 0, 'max_bytes': 143}
+import batch 0 {'status': 200, 'ms': 219, 'bytes': 3474, 'body': None} {'status': 200, 'ms': 15211, 'bytes': 167, 'body': None}
+import batch 1 {'status': 200, 'ms': 193, 'bytes': 3474, 'body': None} {'status': 200, 'ms': 12718, 'bytes': 167, 'body': None}
+import batch 2 {'status': 200, 'ms': 287, 'bytes': 3474, 'body': None} {'status': 200, 'ms': 8737, 'bytes': 167, 'body': None}
+receiving_100_scans {'n': 100, 'p50': 32.3, 'p95': 108.2, 'max': 142.6, 'errors': 0, 'first10_p50': 84.3, 'last10_p50': 19.4}
+  catalog.usp_ImportCatalog                     exec=    6 reads=  176,328 cpu= 4260.4ms elapsed=6132.8ms
+  catalog.usp_ListSaleCatalog                   exec=  504 reads=   17,039 cpu=   56.2ms elapsed=57.6ms
+  sales.usp_OpenTillCounted                     exec=    1 reads=    2,911 cpu=  182.9ms elapsed=376.5ms
+  sales.usp_OpenTill                            exec=    1 reads=    1,623 cpu=   80.5ms elapsed=206.7ms
+  sales.usp_RecordCashCount                     exec=    1 reads=      701 cpu=   53.4ms elapsed=71.4ms
+  sales.usp_PostSale                            exec=  203 reads=      317 cpu=   27.0ms elapsed=54.3ms
+  catalog.usp_RegisterItem                      exec= 3000 reads=      181 cpu=    4.5ms elapsed=5.2ms
+  sales.usp_RecordDrawerCount                   exec=    2 reads=      101 cpu=    5.4ms elapsed=12.6ms
+  receiving.usp_OpenScanSession                 exec=    1 reads=       89 cpu=    4.9ms elapsed=46.3ms
+  inventory.usp_ApplyMovement                   exec= 3405 reads=       65 cpu=    1.9ms elapsed=5.9ms
+  catalog.usp_RegisterProduct                   exec= 3000 reads=       46 cpu=    0.8ms elapsed=0.9ms
+  receiving.usp_RecordScan                      exec=  100 reads=       45 cpu=    9.4ms elapsed=18.1ms
+  sync.usp_EnqueueEvent                         exec= 6207 reads=       31 cpu=    0.7ms elapsed=0.7ms
+  sales.usp_SubmitCashCount                     exec=    2 reads=       11 cpu=    0.4ms elapsed=1.7ms
+  adhoc 504|14438|42|-- V042 (P4, production readiness 2026-11-22, D-041): the sale catalog is read in pages of at most 500 variant
+  adhoc 504|2150|8|-- V042 (P4, production readiness 2026-11-22, D-041): the sale catalog is read in pages of at most 500 variant
+  adhoc 3000|74|1| CREATE   PROCEDURE [catalog].[usp_RegisterItem]  @ProductId uniqueidentifier,@Sku nvarchar(100),@VariantName
+  adhoc 504|437|2|-- V042 (P4, production readiness 2026-11-22, D-041): the sale catalog is read in pages of at most 500 variant
+  adhoc 3000|65|1| CREATE   PROCEDURE [catalog].[usp_RegisterItem]  @ProductId uniqueidentifier,@Sku nvarchar(100),@VariantName
+  adhoc 6|17524|81|-- savia:transactional -- V039 (P1, production readiness 2026-11-22): catalog import validation without per-ro
+  adhoc 3405|26|1| /* ==============================================================    INVENTARIO: registro atomico + idempoten
+  adhoc 3000|26|0| /* ==============================================================    INVENTARIO: registro atomico + idempoten
+wrote docs/evidence/performance-20261122/api.json
+savia-sqlserver-rehearsal 115.07%
+savia-sqlserver-load 5.47%
+savia-sqlserver-dev 237.22%
+exit=0
