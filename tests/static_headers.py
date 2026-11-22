@@ -44,6 +44,7 @@ def validate(headers, marker=False, missing=False):
     assert headers.get('x-robots-tag') == 'noindex, nofollow'
     assert headers.get('permissions-policy') == 'camera=(), microphone=(), geolocation=(), payment=()'
     assert headers.get('cross-origin-opener-policy') == 'same-origin'
+    assert headers.get('strict-transport-security') == 'max-age=31536000; includeSubDomains'
     assert headers.get('access-control-allow-origin') != '*'
     cache = headers.get('cache-control', '')
     assert 'immutable' not in cache
@@ -80,7 +81,8 @@ class PolicyTests(unittest.TestCase):
         good = {'Content-Security-Policy': "default-src 'self'; script-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'",
                 'X-Content-Type-Options': 'nosniff', 'Referrer-Policy': 'strict-origin-when-cross-origin',
                 'X-Robots-Tag': 'noindex, nofollow', 'Cache-Control': 'public, max-age=0, must-revalidate',
-                'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), payment=()', 'Cross-Origin-Opener-Policy': 'same-origin'}
+                'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), payment=()', 'Cross-Origin-Opener-Policy': 'same-origin',
+                'Strict-Transport-Security': 'max-age=31536000; includeSubDomains'}
         validate(good)
         validate(dict(good, **{'Content-Security-Policy': good['Content-Security-Policy'].replace("script-src 'self'", "script-src 'self' 'sha256-AAAA'")}))
         for key, value in [('Content-Security-Policy', "default-src *"),
