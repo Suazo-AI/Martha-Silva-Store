@@ -1,0 +1,15 @@
+clone SAVIA_T_gapreg_role: exit 0
+HUB-ROLE usp_PlanJson: OK
+HUB-ROLE usp_ApplyBatch: Msg 229 The INSERT permission was denied on the object 'CashTills', database 'SAVIA_T_gapreg_role', schema 'sales'.
+HUB-ROLE cursors after role apply: 0
+DBO usp_ApplyBatch: OK {"changed":0,"applied":18,"skipped":0}
+HUB-ROLE usp_SourceStateJson: OK
+HUB-ROLE usp_ReadBatch (initial plan): OK
+SourceStateJson role = dbo: yes
+SourceStateJson tables with min: role=18 dbo=18
+second pull plan: incremental tables=18
+HUB-ROLE usp_ReadBatch (incremental plan): Msg 229 The VIEW CHANGE TRACKING permission was denied on the object 'CashTills', database 'SAVIA_T_gapreg_role', schema 'sales'.
+incremental pull rows: role= dbo=9 identical batch=no (token/version fields may differ)
+
+run exit 0
+drop SAVIA_T_gapreg_role: exit 0

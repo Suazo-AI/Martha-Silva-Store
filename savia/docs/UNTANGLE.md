@@ -28,6 +28,8 @@ One table with route, title, roles and module. The menu, the access check, the l
 
 ### F2. Name the role sets once on the server — DONE (working tree on `df6ed8b`, not committed)
 
+Correction 2026-11-21: committed in `af49d77` (2026-11-13), which adds `Roles.cs`; it is an ancestor of `155ca23b`.
+
 `Savia.Domain/Roles.cs` holds eight named sets: `OwnerOnly`, `Approvers`, `TillOperators`, `StockWorkers`, `Receivers`, `CommissionReaders`, `SalesStaff`, `CloudReaders`.
 Every guard passes one set.
 `Guard.Role` lost its `params`, so a single role constant no longer compiles as a role list.
@@ -46,6 +48,8 @@ Problems it removed:
 - 40 `Guard.Role(...)` calls spell their role lists by hand; the same list appears with different orders.
 
 ### F3. Slice the server by domain, not by delivery round — DONE (working tree on `df6ed8b`, not committed)
+
+Correction 2026-11-21: committed in `af49d77` (2026-11-13), which adds the per-domain `*Endpoints.cs` files; it is an ancestor of `155ca23b`.
 
 Twelve modules: `Auth`, `Site`, `Catalog`, `Receiving`, `Inventory`, `Cash`, `Sales`, `Returns`, `Customers`, `Reports`, `Commissions`, `Tags`.
 Each module M has `Savia.Application/M.cs` (port `IMStore` and `MService`), `Savia.Infrastructure/MStore.cs`, `Savia.Api/MEndpoints.cs` and `Savia.Contracts/M.cs`.

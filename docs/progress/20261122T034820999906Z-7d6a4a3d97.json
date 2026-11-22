@@ -1,0 +1,120 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-22T03:48:20.999906+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/docs/PLAN.md",
+      "change": "M",
+      "git_blob": "8301d31fa0cf6cf2d25509e95ee2bcc99e9863b4"
+    },
+    {
+      "path": "savia/docs/UNTANGLE.md",
+      "change": "M",
+      "git_blob": "2f745ff34cd1c63669e6eb43fe8b59da536f304d"
+    },
+    {
+      "path": "savia/docs/deploy/CHECKLIST.md",
+      "change": "M",
+      "git_blob": "55fab72e327847e9e4a04cf4e33ec1da2006ba10"
+    },
+    {
+      "path": "savia/docs/deploy/GAPS-20261120.md",
+      "change": "M",
+      "git_blob": "bf7602086bd59fd9d960fd6afc8e07e6b2ea8dfc"
+    },
+    {
+      "path": "savia/docs/evidence/gap-register-20261121/README.md",
+      "change": "A",
+      "git_blob": "d5479deeffb90b4f4d9a414e96d228634384acfc"
+    },
+    {
+      "path": "savia/docs/evidence/gap-register-20261121/check.txt",
+      "change": "A",
+      "git_blob": "99e7f46de83231f2bc1142008a68316b9010faf0"
+    },
+    {
+      "path": "savia/docs/evidence/gap-register-20261121/probe-hub-api-role.sql",
+      "change": "A",
+      "git_blob": "df0d1c202a7d17bb9cd6ab7776c223c0118df418"
+    },
+    {
+      "path": "savia/docs/evidence/gap-register-20261121/probe-hub-api-role.txt",
+      "change": "A",
+      "git_blob": "5ff56ff10af27e023a7da60caad176fc5f463592"
+    },
+    {
+      "path": "savia/docs/evidence/gap-register-20261121/probe-push-unsynced-parent.sql",
+      "change": "A",
+      "git_blob": "cfebbbb70387cec69c98e92c593d56a862b42c65"
+    },
+    {
+      "path": "savia/docs/evidence/gap-register-20261121/probe-push-unsynced-parent.txt",
+      "change": "A",
+      "git_blob": "7080545d07f7f384c3f31876c5f9fbf7329316ba"
+    },
+    {
+      "path": "savia/docs/evidence/gap-register-20261121/probe-synced-fk-to-unsynced.sql",
+      "change": "A",
+      "git_blob": "f00c06208f10b548ae11149d1262be7d5fb88fc2"
+    },
+    {
+      "path": "savia/docs/evidence/gap-register-20261121/probe-synced-fk-to-unsynced.txt",
+      "change": "A",
+      "git_blob": "282c0b344e28fd11712b49fa9b873113a9030770"
+    },
+    {
+      "path": "savia/docs/evidence/gap-register-20261121/restore.txt",
+      "change": "A",
+      "git_blob": "390399ad6d293dcf67b3d8d4b4bd0d13fd613ac8"
+    },
+    {
+      "path": "savia/docs/evidence/gap-register-20261121/sim-basic.txt",
+      "change": "A",
+      "git_blob": "fe19b2a930f70a035d3734b303cd072f850c7743"
+    },
+    {
+      "path": "savia/docs/evidence/gap-register-20261121/sim-cancel_vs_dispatch.txt",
+      "change": "A",
+      "git_blob": "0d248d5bbdabfdc66719ba23afdd86b1ac1de04c"
+    },
+    {
+      "path": "savia/docs/evidence/gap-register-20261121/sim-exits.txt",
+      "change": "A",
+      "git_blob": "b8684cb3c59b0cead852cf7cb3d049f410ebe78c"
+    },
+    {
+      "path": "savia/docs/evidence/gap-register-20261121/sim-random-1.txt",
+      "change": "A",
+      "git_blob": "adf4cb1b7ad74732b22dc223b28684a2df03190b"
+    },
+    {
+      "path": "savia/docs/evidence/gap-register-20261121/sim-random-42.txt",
+      "change": "A",
+      "git_blob": "fa3daedba5653ccf6b27e0cd091c35c2f344193a"
+    },
+    {
+      "path": "savia/docs/evidence/gap-register-20261121/sim-random-7.txt",
+      "change": "A",
+      "git_blob": "537871858e4fb9c7f5a3b6c63ac970c6d13998cf"
+    },
+    {
+      "path": "savia/docs/evidence/gap-register-20261121/sim-replay.txt",
+      "change": "A",
+      "git_blob": "c88b85695bef226b75b272374854496e805d8192"
+    },
+    {
+      "path": "savia/docs/evidence/gap-register-20261121/sim-restore.txt",
+      "change": "A",
+      "git_blob": "5974a789fd9458e01a850f9ea977ff6f53688748"
+    },
+    {
+      "path": "savia/docs/evidence/gap-register-20261121/sim-restore_naive.txt",
+      "change": "A",
+      "git_blob": "9f2a1e8e91faf5f682600ead7c41a9766ef6128d"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

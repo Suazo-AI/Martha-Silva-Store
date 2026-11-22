@@ -1,0 +1,48 @@
+setup: 4 databases, tills open, 500 units per branch, credits ['35BF992D-C9E9-4616-A12E-7696A6CECC1B', 'E4B06CE6-0741-47A8-BCE4-2C8218072E8C'] (120000 each at A)
+  sync a->cloud [normal] sent=29 changed=29 skipped=0 plan={'initial': 18}
+  sync b->cloud [normal] sent=4 changed=4 skipped=0 plan={'initial': 18}
+  sync c->cloud [normal] sent=4 changed=4 skipped=0 plan={'initial': 18}
+  sync cloud->a [normal] sent=8 changed=8 skipped=0 plan={'initial': 18}
+  sync cloud->b [normal] sent=33 changed=33 skipped=0 plan={'initial': 18}
+  sync cloud->c [normal] sent=33 changed=33 skipped=0 plan={'initial': 18}
+scenario restore_naive (RED CONTROL): A is restored and syncs at once, without rebuilding from the cloud
+  sync b->cloud [normal] sent=1 changed=1 skipped=0 plan={'incremental': 18}
+  sync cloud->a [normal] sent=1 changed=1 skipped=0 plan={'incremental': 18}
+  sync cloud->c [normal] sent=1 changed=1 skipped=0 plan={'incremental': 18}
+  sync cloud->a [normal] sent=1 changed=1 skipped=0 plan={'incremental': 18}
+  sync cloud->b [normal] sent=1 changed=1 skipped=0 plan={'incremental': 18}
+  sync cloud->c [normal] sent=1 changed=1 skipped=0 plan={'incremental': 18}
+  sync a->cloud [normal] sent=6 changed=6 skipped=0 plan={'incremental': 18}
+  sync b->cloud [normal] sent=6 changed=6 skipped=0 plan={'incremental': 18}
+  sync c->cloud [normal] sent=6 changed=6 skipped=0 plan={'incremental': 18}
+  sync cloud->a [normal] sent=12 changed=12 skipped=0 plan={'incremental': 18}
+  sync cloud->b [normal] sent=12 changed=12 skipped=0 plan={'incremental': 18}
+  sync cloud->c [normal] sent=12 changed=12 skipped=0 plan={'incremental': 18}
+  backup of A taken (A still holds 120000 of credit 1)
+  sync a->cloud [normal] sent=9 changed=9 skipped=0 plan={'incremental': 18}
+  sync cloud->b [normal] sent=9 changed=9 skipped=0 plan={'incremental': 18}
+  sync cloud->c [normal] sent=9 changed=9 skipped=0 plan={'incremental': 18}
+  sync b->cloud [normal] sent=3 changed=3 skipped=0 plan={'incremental': 18}
+  sync cloud->a [normal] sent=3 changed=3 skipped=0 plan={'incremental': 18}
+  sync cloud->c [normal] sent=3 changed=3 skipped=0 plan={'incremental': 18}
+  A restored from the old backup (A holds 120000 again locally)
+FAIL run aborted
+     cloud: Msg 51854, Level 16, State 1, Server 23b66448cd53, Procedure sync.usp_ApplyBatch, Line 41
+El nodo restaurado debe reconstruirse desde el hub antes de enviar.
+FAIL R1 replicas identical
+     sales.Sales key=('05B6E6E3-07D4-4EDC-9143-1193E6C3F339',) node=a: missing
+     sales.SaleLines key=('0479F248-BD5D-426F-89A5-CE2156EA253E',) node=a: missing
+     credits.CreditAllocations key=('35BF992D-C9E9-4616-A12E-7696A6CECC1B', 'A0000000-0000-0000-0000-00000000000A') node=a: AvailableMinor: cloud=70000 a=120000,ModifiedBy: cloud=A0000000-0000-0000-0000-0000000000A4 a=None,ModifiedAt: cloud=2026-11-22T03:16:05.405 a=None
+     credits.CreditAllocations key=('35BF992D-C9E9-4616-A12E-7696A6CECC1B', 'B0000000-0000-0000-0000-00000000000B') node=a: missing
+     credits.CreditMovements key=('8495D7D0-F20D-4447-BFFB-A35156184C89',) node=a: missing
+     credits.CreditMovements key=('8A65A129-75D8-44C7-AD2E-B66B88416660',) node=a: missing
+     sales.SaleTenders key=('4C93EDFD-2672-4AFA-BC0F-72DF2C41F5C5',) node=a: missing
+     sales.CashEntries key=('097BD1D4-B18D-4CA9-9C98-F5932D51CE90',) node=a: missing
+     ... 12 differences
+PASS CONS on cloud: 0 violations
+PASS CONS on a: 0 violations
+PASS CONS on b: 0 violations
+PASS CONS on c: 0 violations
+stats: pulls=72 rows_sent=207 rows_changed=207 sql_calls=341 ops={'ok_approve': 1, 'ok_dispatch': 1, 'ok_receive': 1, 'ok_request': 1, 'ok_sale': 5}
+RESULT FAIL (2): run aborted; R1 replicas identical
+elapsed 247s

@@ -14,17 +14,17 @@ Status values: **done in repo**, **patch listed**, **needs owner decision**, **n
 | 5 | Infrastructure (`savia/deploy/azure/main.bicep`) | done in repo | `bicep build` and `bicep lint` exit 0 with no warnings (Bicep 0.49.2). |
 | 6 | Workflow: PR checks, approved OIDC deploy, smoke, automatic rollback | done in repo | `actionlint` 1.7.12 exit 0; YAML parses. Not yet run on GitHub. |
 | 7 | HTTPS only, managed identity, no secrets in config, Key Vault, PITR, logs, alerts | done in repo | In `main.bicep`; see AZURE.md. |
-| 8 | Forwarded headers, HSTS, security headers | patch listed | P1 in AZURE.md. |
-| 9 | Application Insights telemetry from the API | patch listed | P2. |
-| 10 | Login rate limit, SQL-aware readiness probe | patch listed | P3, P4. |
-| 11 | API role as a migration, migrator in the solution, check.py step, status docs | patch listed | P5-P8. |
-| 12 | Hub sync endpoints and Change Tracking on Azure SQL (F14) | patch listed | P9; required before a branch connects. |
-| 13 | Azure subscription and who pays | needs owner decision | Jason chooses the subscription and billing account. |
-| 14 | Region | needs owner decision | Recommended `mexicocentral`; fallback `southcentralus`. |
-| 15 | Scale to zero or always warm | needs owner decision | `apiMinReplicas` 0 (about $16/month total) or 1 (about $20-24/month). |
-| 16 | Alert email and hub node id | needs owner decision | `alertEmail`, `hubNodeId` parameters. |
-| 17 | Who approves production deploys | needs owner decision | Required reviewers on the GitHub `production` environment. |
-| 18 | Sign-in, provisioning, GitHub environment and first deploy | needs Azure access | Steps below. Nothing here has been run. |
+| 8 | Forwarded headers, HSTS, security headers | done in repo (2026-11-21) | P1 in AZURE.md; `Hosting.cs`. Was: patch listed. |
+| 9 | Application Insights telemetry from the API | patch listed | P2. Still true 2026-11-21: no `AzureMonitor` in `savia/src`. |
+| 10 | Login rate limit, SQL-aware readiness probe | done in repo (2026-11-21) | P3, P4 in `Hosting.cs`; documented live 429 and `/health/ready` 200 on 2026-11-20. Was: patch listed. |
+| 11 | API role as a migration, migrator in the solution, check.py step, status docs | patch listed | P5-P8. Still true 2026-11-21; the role it would grant cannot run sync (GAPS G2). |
+| 12 | Hub sync endpoints and Change Tracking on Azure SQL (F14) | 2026-11-21: P9 built in repo (`4a207848`, V032-V034), not deployed; F14 closed per AZURE.md | P9; required before a branch connects. Was: patch listed. See GAPS G1-G4. |
+| 13 | Azure subscription and who pays | 2026-11-21: in use (trial subscription, per AZURE.md); billing after the trial still open | Jason chooses the subscription and billing account. |
+| 14 | Region | 2026-11-21: `mexicocentral` in use (`rg-savia-prod`, per GAPS-20261120) | Recommended `mexicocentral`; fallback `southcentralus`. |
+| 15 | Scale to zero or always warm | needs owner decision | `apiMinReplicas` 0 (about $16/month total) or 1 (about $20-24/month). 2026-11-21: the live value is not recorded in the repository. |
+| 16 | Alert email and hub node id | needs owner decision | `alertEmail`, `hubNodeId` parameters. 2026-11-21: the live values are not recorded in the repository. |
+| 17 | Who approves production deploys | needs owner decision | Required reviewers on the GitHub `production` environment. 2026-11-21: `savia-azure.yml` has 14 runs, all `pull_request`; the deploy job never ran. |
+| 18 | Sign-in, provisioning, GitHub environment and first deploy | 2026-11-21: first deploy done by hand on 2026-11-20 (`612f45ba`, image `9a55759`); GitHub environment deploy not run | Steps below. Was: "Nothing here has been run". |
 
 ## First-month cost
 
@@ -134,8 +134,11 @@ Re-running the template resets the administrator to the migrate identity as well
 ## Not verified
 
 - Nothing has run against Azure: no sign-in, no resource, no deploy, no spend.
+  Superseded 2026-11-21: AZURE.md records two Azure runs on 2026-11-20 (commit `612f45ba`). Not re-read live on 2026-11-21: no hub URL in the repository.
 - The workflow has not run on GitHub; the PR job is the first real test of `smoke.ps1` (it needs PowerShell 7, absent on this PC).
+  Corrected 2026-11-21: 14 `pull_request` runs exist; no `workflow_dispatch` deploy run.
 - `CREATE USER ... FROM EXTERNAL PROVIDER WITH OBJECT_ID` and managed identity sign-in to Azure SQL are untested; local proof used SQL logins.
 - Change Tracking (migration V008) on Azure SQL Basic is untested (F14).
+  Corrected 2026-11-21: V008 and V011 applied on Azure SQL Basic (AZURE.md, 2026-11-20). Reading changes through `CHANGETABLE` on Azure is still unproven (GAPS G15).
 - Alert metric names and dimensions are from the Azure Monitor metric reference, not from a live resource.
 - The Container Apps free grant and the Log Analytics free allowance were not in the price API response.

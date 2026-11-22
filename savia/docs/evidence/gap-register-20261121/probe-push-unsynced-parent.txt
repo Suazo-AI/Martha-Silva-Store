@@ -1,0 +1,12 @@
+clone SAVIA_T_gapreg_branch: exit 0
+clone SAVIA_T_gapreg_hub: exit 0
+branch sales posted: 2
+batch sales rows: 2
+RED hub apply: Msg 547 The MERGE statement conflicted with the FOREIGN KEY constraint "FK_Sales_Customer". The conflict occurred in database "SAVIA_T_gapreg_hub", table "crm.Customers", column 'Id'.
+hub has the sales after red apply: 0
+CONTROL hub apply: OK {"changed":15,"applied":18,"skipped":0}
+hub has the sales after control apply: 2
+
+run exit 0
+drop SAVIA_T_gapreg_branch: exit 0
+drop SAVIA_T_gapreg_hub: exit 0

@@ -33,12 +33,12 @@ Cada fila de esta tabla es una prueba que puede fallar. Sin prueba ejecutada no 
 | CP | Entrega | Estado | Evidencia |
 | --- | --- | --- | --- |
 | CP0 | SQL real en SQL Server 2022, línea base corregida | hecho | [cp0-sql-install](evidence/cp0-sql-install/README.md) |
-| CP1 | Arnés de pruebas de base y auditoría de los 44 procedimientos | hecho: 113 pruebas, los 44 tienen prueba; revisión escrita de anticipos y web pendiente | `python savia/tools/db/saviadb.py test` |
-| CP2 | ADR-001 y crítica independiente previa al código de sync | revisión 2 con la crítica incorporada; F14 abierto | [ADR-001](adr/ADR-001-arquitectura.md), [crítica](adr/ADR-001-critica.md) |
+| CP1 | Arnés de pruebas de base y auditoría de los 44 procedimientos | hecho: 113 pruebas, los 44 tienen prueba; revisión escrita de anticipos y web pendiente. Corrección 2026-11-21: `check.py` en `155ca23b` pasa 149 pruebas T-SQL y 195 de 195 .NET | `python savia/tools/db/saviadb.py test` |
+| CP2 | ADR-001 y crítica independiente previa al código de sync | revisión 2 con la crítica incorporada; F14 abierto. Corrección 2026-11-21: F14 cerrado según AZURE.md (V008 y V011 aplicadas en Azure SQL Basic el 2026-11-20; no releído en vivo) | [ADR-001](adr/ADR-001-arquitectura.md), [crítica](adr/ADR-001-critica.md) |
 | CP3 | Slice vertical de la API con pruebas contra SQL real | hecho (un nodo) | [cp3-vertical-slice](evidence/cp3-vertical-slice/README.md) |
-| CP4 | Sync 1 nube + 3 sucursales, oráculo y simulador | en curso: S1 base de sync (V008) | [S1](evidence/cp4-s1-sync-foundation/README.md) |
-| CP5 | Clientes sobre el contrato generado | pendiente | — |
-| CP6 | Carga, respaldos, permisos y preparación de Azure sin desplegar | pendiente | — |
+| CP4 | Sync 1 nube + 3 sucursales, oráculo y simulador | en curso: S1 base de sync (V008). Corrección 2026-11-21: transporte P9 construido y probado en local (`4a207848`, V032-V034), sin desplegar; bloquean G1-G3 y G6 de [GAPS](deploy/GAPS-20261120.md) | [S1](evidence/cp4-s1-sync-foundation/README.md) |
+| CP5 | Clientes sobre el contrato generado | pendiente. Nota 2026-11-21: la API publica `/openapi/v1.json` (`Program.cs:19`), pero el cliente web sigue escrito a mano | — |
+| CP6 | Carga, respaldos, permisos y preparación de Azure sin desplegar | pendiente. Corrección 2026-11-21: el hub se desplegó a mano en Azure el 2026-11-20 (`612f45ba`, imagen `9a55759`); faltan A-10, P5 y la guía de respaldo de sucursal (G4, G5, G9, G10) | [GAPS](deploy/GAPS-20261120.md) |
 
 ## Agentes
 

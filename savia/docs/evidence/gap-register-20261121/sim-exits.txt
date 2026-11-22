@@ -1,0 +1,8 @@
+sim replay exit=0
+sim basic exit=0
+sim cancel_vs_dispatch exit=0
+sim restore exit=1
+sim restore_naive exit=1
+sim random seed=1 exit=0
+sim random seed=7 exit=0
+sim random seed=42 exit=0
