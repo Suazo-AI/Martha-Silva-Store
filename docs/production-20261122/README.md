@@ -23,17 +23,17 @@ States: `verified`, `running`, `pending`, `blocked (input)`.
 | S6 | Schema skew rule (G14) | a node with another ledger is refused with a named code | verified locally 2026-11-22: rehearsal `schema_skew` PASS (refused with 51856, syncs after it migrates) |
 | S7 | Node provisioning command (G3) | one command creates a store credential; the secret prints once | verified locally 2026-11-22 (V054): the rehearsal provisions its stores with `migrator --provision-node`; revoke and rotate PASS; [guide](../../savia/docs/sync/PROVISIONING.md) |
 | S8 | `sales.CashClosures` syncs | oracle shows 0 `cash.till_status_vs_closure` on replicated tills | verified 2026-11-22 (V038): rehearsal and simulator show 0 `cash.till_status_vs_closure` |
-| P1 | Catalog import is fast | 1,000 rows under 3 s on the A-10 data set | partial (V039): no 503; 1,000-row commit 7-15 s under load, 2.2 s on a quiet probe; [evidence](../../savia/docs/evidence/performance-20261122/README.md) |
-| P2 | KPI business report | p95 under 1 s on the A-10 data set | partial (V040): p95 1.9-2.4 s, was 6.5-10 s; needs a daily summary |
+| P1 | Catalog import is fast | 1,000 rows under 3 s on the A-10 data set | partial (V039, V059): no 503; set-based commit with equal results; 1,000 rows 2.1-7.0 s on a loaded machine. Open: set-based enqueue and a quiet measurement |
+| P2 | KPI business report | p95 under 1 s on the A-10 data set | verified 2026-11-22 (V058): p95 0.5-0.7 s on 250,000 variants, results equal to V040; [evidence](../../savia/docs/evidence/money-and-speed-20261122/README.md) |
 | P3 | Search | p95 under 300 ms on the A-10 data set | verified 2026-11-22 (V041): p95 158 ms |
 | P4 | Catalog and stock lists are paged | no screen response above 1 MB | verified 2026-11-22 (V042): largest page 162 KB |
 | W1 | Public catalog comes from the hub | storefront reads products, prices and stock through a public read API | built and proven locally in a real browser (`72e60da3`, [transcript](storefront-evidence/TRANSCRIPT.md)); the hub route answers on Azure; the deployed storefront is still in demo mode |
 | W2 | A real order is stored | browser to API to SQL: order row, stock reservation, idempotent retry | verified locally 2026-11-22: real browser to local hub to SQL, double click gives one order, last-unit race gives one order; not yet on the deployed pair |
 | W3 | Public API is safe | rate limit, input validation, CORS allow-list, no staff route reachable without sign-in | verified locally 2026-11-22 (.NET tests for 429, 413, 400, 403, CORS, 404 on a branch); not yet on Azure; real Turnstile not run |
-| W4 | Payment | card payment through a provider, with a verified webhook | blocked (input): merchant account |
+| W4 | Payment | card payment through a provider, with a verified webhook | blocked (input): merchant account. The seam is built: provider interface, and a review path for a card capture the order cannot take (V057) |
 | W5 | Order notification | the store team sees a new order in SAVIA | built (hub staff screen, web tests); not yet seen in a real browser |
 | W6 | Storefront deployed | Cloudflare deploy from a clean commit; version id, SHA and rollback recorded | pending |
-| W7 | Storefront quality | Lighthouse performance, accessibility, best practices and SEO at 90 or more on mobile; security headers present | partial: axe 0 on 6 pages, accessibility 100, best practices 96; performance home 61, product 67, catalog 85, checkout 87; SEO 63-66 while `indexable` is false |
+| W7 | Storefront quality | Lighthouse performance, accessibility, best practices and SEO at 90 or more on mobile; security headers present | partial: accessibility 100, best practices 100; performance home 91, catalog 91-94, product 85, checkout 86-90; SEO stays low while `indexable` is false; [numbers](storefront-evidence/PERFORMANCE.md) |
 | W8 | Real catalog | real products, prices, photos and stock | blocked (input): the store's data |
 | W9 | Legal and contact | business name, phone, address, terms, privacy, returns | blocked (input): business details |
 | W10 | Domain | custom domain with TLS | blocked (input): domain |
