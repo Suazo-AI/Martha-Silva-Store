@@ -74,4 +74,4 @@ First convergence after start took 25-39 s per scenario in this run.
 `python tools/rehearsal.py run all --identity restricted` on Tony with V035 applied: exit 0.
 Every scenario ran as a SQL login that is only in role `savia_api_host`; no fallback to `sa`.
 `offline_sales`, `replay`, `credit_transfer`, `hub_restart`, `controls`: PASS. `restore_sale_before_rebuild`: XFAIL (recovery lock, G6).
-Transcript: [run-identity-restricted.txt](run-identity-restricted.txt). The earlier `identity_probe.json` (Msg 229) predates V035.
+Transcript: [run-identity-restricted.txt](run-identity-restricted.txt). The scenario JSON files are from this run (`"identity": "restricted"`); the first run as `sa` is in git history. `identity_probe.json` (Msg 229) predates V035.

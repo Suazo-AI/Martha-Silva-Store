@@ -2,93 +2,93 @@
  "scenario": "controls",
  "verdict": "PASS",
  "reason": "",
- "identity": "sa",
+ "identity": "restricted",
  "manifest": {
   "path": "tools/rehearsal/expected/controls.json",
   "sha256": "fbcf19f87f7947f6db5e5c58546f060b22d8dac92760c84801eade8065d38a3c"
  },
- "seconds_total": 149.5,
+ "seconds_total": 69.1,
  "phases": [
   {
    "phase": "setup: 4 databases, node credentials, staff passwords, seed stock",
-   "seconds": 50.4
+   "seconds": 14.5
   },
   {
    "phase": "start hub and 3 store hosts",
-   "seconds": 9.8
+   "seconds": 5.5
   },
   {
    "phase": "open tills over HTTP",
-   "seconds": 2.8
+   "seconds": 1.1
   },
   {
    "phase": "first convergence",
-   "seconds": 24.9
+   "seconds": 15.7
   },
   {
    "phase": "401: wrong node credentials",
-   "seconds": 0.1
+   "seconds": 0.0
   },
   {
    "phase": "51851: A's push rewritten so a sale row names store B",
-   "seconds": 6.2
+   "seconds": 3.2
   },
   {
    "phase": "converge after the refused push (the untampered retry)",
-   "seconds": 16.8
+   "seconds": 7.8
   },
   {
    "phase": "51854: A restored; the proxy hides 'recover' so A pushes without a rebuild token",
-   "seconds": 12.7
+   "seconds": 4.4
   },
   {
    "phase": "final convergence",
-   "seconds": 11.6
+   "seconds": 11.0
   },
   {
    "phase": "checks",
-   "seconds": 13.2
+   "seconds": 4.5
   }
  ],
  "events": [
   {
-   "t": 61.0,
+   "t": 20.5,
    "event": "open till a",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 62.1,
+   "t": 20.8,
    "event": "open till b",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 63.0,
+   "t": 21.1,
    "event": "open till c",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 88.6,
+   "t": 37.0,
    "event": "sale k1 at a",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 111.0,
-   "event": "converge after the refused push (the untampered retry): converged in 16.8s",
+   "t": 47.9,
+   "event": "converge after the refused push (the untampered retry): converged in 7.8s",
    "differing": []
   },
   {
-   "t": 123.6,
+   "t": 52.2,
    "event": "sale k2 at a",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 135.3,
-   "event": "final convergence: converged in 11.6s",
+   "t": 63.2,
+   "event": "final convergence: converged in 11.0s",
    "differing": []
   }
  ],
@@ -205,23 +205,24 @@
  },
  "sync_rounds_from_host_logs": {
   "a": {
-   "successful_rounds": 11,
+   "successful_rounds": 8,
    "rebuilt_rounds": 1,
-   "not_successful": 1,
+   "not_successful": 2,
    "distinct_warnings": [
+    "Sync round could not reach the hub: An error occurred while sending the request.",
     "Sync round refused: sync.foreign_row El lote trae filas que pertenecen a otro nodo."
    ],
    "host_starts": 2
   },
   "b": {
-   "successful_rounds": 13,
+   "successful_rounds": 10,
    "rebuilt_rounds": 0,
    "not_successful": 0,
    "distinct_warnings": [],
    "host_starts": 1
   },
   "c": {
-   "successful_rounds": 12,
+   "successful_rounds": 9,
    "rebuilt_rounds": 0,
    "not_successful": 0,
    "distinct_warnings": [],
@@ -230,26 +231,27 @@
  },
  "hub_exchanges_seen_by_proxies": {
   "a": {
-   "/sync/v1/push/plan 200": 25,
-   "/sync/v1/state 200": 13,
-   "/sync/v1/pull 200": 13,
-   "/sync/v1/push 200": 11,
+   "/sync/v1/push/plan 200": 21,
+   "/sync/v1/state 200": 11,
+   "/sync/v1/pull 200": 11,
+   "/sync/v1/push 200": 8,
    "/sync/v1/push 403": 1,
-   "/sync/v1/push 409": 1
+   "/sync/v1/push 409": 1,
+   "/sync/v1/push hub_unreachable": 1
   },
   "b": {
-   "/sync/v1/push/plan 200": 26,
-   "/sync/v1/state 200": 13,
-   "/sync/v1/pull 200": 13,
-   "/sync/v1/push 200": 13
+   "/sync/v1/push/plan 200": 20,
+   "/sync/v1/state 200": 10,
+   "/sync/v1/pull 200": 10,
+   "/sync/v1/push 200": 10
   },
   "c": {
-   "/sync/v1/push/plan 200": 26,
-   "/sync/v1/state 200": 13,
-   "/sync/v1/pull 200": 13,
-   "/sync/v1/push 200": 12
+   "/sync/v1/push/plan 200": 18,
+   "/sync/v1/state 200": 9,
+   "/sync/v1/pull 200": 9,
+   "/sync/v1/push 200": 9
   }
  },
  "hub_rounds_log_errors": [],
- "host_logs": ".out/rehearsal/runs/20261121-221124-controls"
+ "host_logs": ".out/rehearsal/runs/20261121-233235-controls"
 }

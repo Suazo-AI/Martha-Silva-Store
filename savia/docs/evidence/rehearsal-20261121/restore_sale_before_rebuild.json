@@ -2,124 +2,124 @@
  "scenario": "restore_sale_before_rebuild",
  "verdict": "XFAIL",
  "reason": "expected red: the rebuild of restored A fails every round (Sync round refused: db.duplicate El registro ya existe.); SQL: Msg 2601: Cannot insert duplicate key row in object 'sales.CashTills' with unique index 'UX_OpenTill_Register'. The duplicate key value is (a0000000-0000-0000-0000-0000000000a3).",
- "identity": "sa",
+ "identity": "restricted",
  "manifest": {
   "path": "tools/rehearsal/expected/restore_sale_before_rebuild.json",
   "sha256": "7cbaf0b223ba36d7b40df2ef33409fb29e3e87d67a2898af93e991beeca1099d"
  },
- "seconds_total": 183.3,
+ "seconds_total": 124.2,
  "phases": [
   {
    "phase": "setup: 4 databases, node credentials, staff passwords, seed stock",
-   "seconds": 46.5
+   "seconds": 18.0
   },
   {
    "phase": "start hub and 3 store hosts",
-   "seconds": 8.2
+   "seconds": 5.5
   },
   {
    "phase": "open tills over HTTP",
-   "seconds": 1.9
+   "seconds": 0.9
   },
   {
    "phase": "first convergence",
-   "seconds": 27.4
+   "seconds": 15.9
   },
   {
    "phase": "backup A before its till opens; A opens a till and sells; hub has it",
-   "seconds": 2.2
+   "seconds": 0.9
   },
   {
    "phase": "converge before restore",
-   "seconds": 11.3
+   "seconds": 4.4
   },
   {
    "phase": "A stopped, cut off and restored from the backup",
-   "seconds": 4.3
+   "seconds": 2.3
   },
   {
    "phase": "restored A opens a new till and sells before its first rebuild",
-   "seconds": 2.2
+   "seconds": 0.5
   },
   {
    "phase": "link back: A's worker must rebuild",
-   "seconds": 8.1
+   "seconds": 6.8
   },
   {
    "phase": "converge after restore",
-   "seconds": 62.5
+   "seconds": 63.3
   },
   {
    "phase": "checks",
-   "seconds": 7.3
+   "seconds": 4.6
   }
  ],
  "events": [
   {
-   "t": 55.9,
+   "t": 24.1,
    "event": "open till b",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 56.7,
+   "t": 24.5,
    "event": "open till c",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 85.6,
+   "t": 41.1,
    "event": "open till a",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 86.1,
+   "t": 41.2,
    "event": "sale r1 at a",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 86.2,
+   "t": 41.3,
    "event": "sale r2 at a",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 97.5,
-   "event": "converge before restore: converged in 11.3s",
+   "t": 45.7,
+   "event": "converge before restore: converged in 4.4s",
    "differing": []
   },
   {
-   "t": 102.1,
+   "t": 48.0,
    "event": "old session token after the restore",
    "status": 401,
    "problem": "auth.required"
   },
   {
-   "t": 103.3,
+   "t": 48.3,
    "event": "open till a",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 103.3,
+   "t": 48.3,
    "event": "new till on the restored store",
    "ok": true
   },
   {
-   "t": 104.0,
+   "t": 48.5,
    "event": "sale r3 at a",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 108.1,
+   "t": 53.1,
    "event": "A rebuild outcome",
    "red_line": "Sync round refused: db.duplicate El registro ya existe."
   },
   {
-   "t": 109.0,
+   "t": 53.7,
    "event": "open tills on register A",
    "hub": [
     {
@@ -137,13 +137,13 @@
    ]
   },
   {
-   "t": 112.1,
+   "t": 55.3,
    "event": "rebuild pull reproduced in SQL",
    "error": "Msg 2601: Cannot insert duplicate key row in object 'sales.CashTills' with unique index 'UX_OpenTill_Register'. The duplicate key value is (a0000000-0000-0000-0000-0000000000a3)."
   },
   {
-   "t": 174.6,
-   "event": "converge after restore: NOT converged in 62.5s",
+   "t": 118.6,
+   "event": "converge after restore: NOT converged in 63.3s",
    "differing": [
     "inventory.StockBalances",
     "inventory.StockMovements",
@@ -155,7 +155,7 @@
    ]
   },
   {
-   "t": 181.9,
+   "t": 123.2,
    "event": "failures outside the pinned red",
    "checks": []
   }
@@ -251,9 +251,9 @@
  },
  "sync_rounds_from_host_logs": {
   "a": {
-   "successful_rounds": 6,
+   "successful_rounds": 5,
    "rebuilt_rounds": 0,
-   "not_successful": 14,
+   "not_successful": 15,
    "distinct_warnings": [
     "Sync round could not reach the hub: An error occurred while sending the request.",
     "Sync round refused: db.duplicate El registro ya existe."
@@ -268,21 +268,19 @@
    "host_starts": 1
   },
   "c": {
-   "successful_rounds": 18,
+   "successful_rounds": 19,
    "rebuilt_rounds": 0,
-   "not_successful": 1,
-   "distinct_warnings": [
-    "Sync round could not reach the hub: An error occurred while sending the request."
-   ],
+   "not_successful": 0,
+   "distinct_warnings": [],
    "host_starts": 1
   }
  },
  "hub_exchanges_seen_by_proxies": {
   "a": {
-   "/sync/v1/push/plan 200": 27,
-   "/sync/v1/state 200": 20,
-   "/sync/v1/pull 200": 20,
-   "/sync/v1/push 200": 6,
+   "/sync/v1/push/plan 200": 24,
+   "/sync/v1/state 200": 19,
+   "/sync/v1/pull 200": 19,
+   "/sync/v1/push 200": 5,
    "/sync/v1/push/plan cut": 1
   },
   "b": {
@@ -295,10 +293,9 @@
    "/sync/v1/push/plan 200": 38,
    "/sync/v1/state 200": 19,
    "/sync/v1/pull 200": 19,
-   "/sync/v1/push 200": 18,
-   "/sync/v1/push hub_unreachable": 1
+   "/sync/v1/push 200": 19
   }
  },
  "hub_rounds_log_errors": [],
- "host_logs": ".out/rehearsal/runs/20261121-220613-restore_sale_before_rebuild"
+ "host_logs": ".out/rehearsal/runs/20261121-232930-restore_sale_before_rebuild"
 }

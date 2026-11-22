@@ -2,107 +2,107 @@
  "scenario": "hub_restart",
  "verdict": "PASS",
  "reason": "",
- "identity": "sa",
+ "identity": "restricted",
  "manifest": {
   "path": "tools/rehearsal/expected/hub_restart.json",
   "sha256": "e2aacdd445efe765ffc61b4644feda77c53643a99586326b281e0a8058853eea"
  },
- "seconds_total": 127.2,
+ "seconds_total": 60.8,
  "phases": [
   {
    "phase": "setup: 4 databases, node credentials, staff passwords, seed stock",
-   "seconds": 39.3
+   "seconds": 13.0
   },
   {
    "phase": "start hub and 3 store hosts",
-   "seconds": 6.0
+   "seconds": 5.5
   },
   {
    "phase": "open tills over HTTP",
-   "seconds": 5.9
+   "seconds": 0.9
   },
   {
    "phase": "first convergence",
-   "seconds": 29.6
+   "seconds": 14.7
   },
   {
    "phase": "hub killed after committing A's push, before answering",
-   "seconds": 7.5
+   "seconds": 4.8
   },
   {
    "phase": "stores sell while the hub is down",
-   "seconds": 6.8
+   "seconds": 6.3
   },
   {
    "phase": "hub restarted",
-   "seconds": 1.6
+   "seconds": 1.2
   },
   {
    "phase": "converge after hub restart",
-   "seconds": 19.4
+   "seconds": 7.9
   },
   {
    "phase": "checks",
-   "seconds": 9.8
+   "seconds": 5.0
   }
  ],
  "events": [
   {
-   "t": 49.2,
+   "t": 18.8,
    "event": "open till a",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 50.2,
+   "t": 19.1,
    "event": "open till b",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 51.2,
+   "t": 19.4,
    "event": "open till c",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 81.3,
+   "t": 34.2,
    "event": "sale h1 at a",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 87.8,
+   "t": 38.4,
    "event": "kill point reached",
    "fired": true,
    "hub_status": 200
   },
   {
-   "t": 88.3,
+   "t": 38.8,
    "event": "hub database holds h1 (committed before the crash)",
    "count": 1
   },
   {
-   "t": 88.7,
+   "t": 39.0,
    "event": "sale h2 at b",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 89.1,
+   "t": 39.1,
    "event": "sale h3 at c",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 96.7,
+   "t": 46.3,
    "event": "sale h4 at a",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 116.1,
-   "event": "converge after hub restart: converged in 19.4s",
+   "t": 54.2,
+   "event": "converge after hub restart: converged in 7.9s",
    "differing": []
   }
  ],
@@ -189,16 +189,16 @@
  },
  "sync_rounds_from_host_logs": {
   "a": {
-   "successful_rounds": 7,
+   "successful_rounds": 6,
    "rebuilt_rounds": 0,
-   "not_successful": 3,
+   "not_successful": 2,
    "distinct_warnings": [
     "Sync round could not reach the hub: An error occurred while sending the request."
    ],
    "host_starts": 1
   },
   "b": {
-   "successful_rounds": 8,
+   "successful_rounds": 7,
    "rebuilt_rounds": 0,
    "not_successful": 1,
    "distinct_warnings": [
@@ -207,7 +207,7 @@
    "host_starts": 1
   },
   "c": {
-   "successful_rounds": 9,
+   "successful_rounds": 7,
    "rebuilt_rounds": 0,
    "not_successful": 1,
    "distinct_warnings": [
@@ -218,29 +218,28 @@
  },
  "hub_exchanges_seen_by_proxies": {
   "a": {
-   "/sync/v1/push/plan 200": 17,
-   "/sync/v1/state 200": 9,
-   "/sync/v1/pull 200": 8,
-   "/sync/v1/push 200": 8,
+   "/sync/v1/push/plan 200": 14,
+   "/sync/v1/state 200": 7,
+   "/sync/v1/pull 200": 7,
+   "/sync/v1/push 200": 7,
    "/sync/v1/push answer_dropped": 1,
-   "/sync/v1/push/plan hub_unreachable": 1,
-   "/sync/v1/pull hub_unreachable": 1
+   "/sync/v1/push/plan hub_unreachable": 1
   },
   "b": {
-   "/sync/v1/push/plan 200": 18,
-   "/sync/v1/state 200": 9,
-   "/sync/v1/pull 200": 9,
-   "/sync/v1/push 200": 8,
+   "/sync/v1/push/plan 200": 14,
+   "/sync/v1/state 200": 7,
+   "/sync/v1/pull 200": 7,
+   "/sync/v1/push 200": 7,
    "/sync/v1/push/plan hub_unreachable": 1
   },
   "c": {
-   "/sync/v1/push/plan 200": 18,
-   "/sync/v1/state 200": 9,
-   "/sync/v1/pull 200": 9,
-   "/sync/v1/push 200": 9,
+   "/sync/v1/push/plan 200": 14,
+   "/sync/v1/state 200": 7,
+   "/sync/v1/pull 200": 7,
+   "/sync/v1/push 200": 7,
    "/sync/v1/push/plan hub_unreachable": 1
   }
  },
  "hub_rounds_log_errors": [],
- "host_logs": ".out/rehearsal/runs/20261121-220917-hub_restart"
+ "host_logs": ".out/rehearsal/runs/20261121-233134-hub_restart"
 }
