@@ -110,5 +110,5 @@ A restored database costs about the same as the pre-migration copy while it exis
 ## 7. Limits of this runbook
 
 - Sections 3, 4 and 5 have not run on Azure.
-- Store hosts (install, local backup, restore of a store) are in `OPERACION.md`, not here.
+- Store hosts (install, local backup, restore of a store) are in [OPERACION.md](../pilot/OPERACION.md), not here.
 - The Azure subscription is a trial; it must be upgraded before about 2026-12-12 or every resource stops.
