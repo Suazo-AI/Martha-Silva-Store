@@ -1,0 +1,12 @@
+# sql_stats.py --label constrained (printed lines; stopped at kpi_team[month], see README)
+04:28:36
+lookup_by_scan                             reads=        22 cpu=0ms elapsed=1ms scans=[]
+search[Blusa]                              reads=   108,329 cpu=2075ms elapsed=2273ms scans=[]
+search[M12345]                             reads= 1,511,534 cpu=7122ms elapsed=7867ms scans=[]
+search[zzqx no match]                      reads= 1,511,444 cpu=6055ms elapsed=6871ms scans=[('catalog.Items.PK_Items', 250003), ('catalog.Products.IX_Products_Name', 50001)]
+receipt_detail                             reads=        41 cpu=0ms elapsed=0ms scans=[]
+day_report (usp_GetDayReport)              reads=     2,363 cpu=12ms elapsed=13ms scans=[('sales.Sales.PK_Sales', 7145), ('sales.Sales.PK_Sales', 7145)]
+day_report (usp_GetReturnsByKind)          reads=         0 cpu=0ms elapsed=0ms scans=[]
+sales_search_page                          reads=    17,854 cpu=15ms elapsed=15ms scans=[('sales.Sales.IX_Sales_CustomerDate', 7145)]
+kpi_business[day]                          reads= 7,527,415 cpu=26163ms elapsed=27890ms scans=[('dbo.#stock.', 250000), ('dbo.#stock.', 250000)]
+kpi_business[month]                        reads= 7,529,919 cpu=20996ms elapsed=22266ms scans=[('catalog.Items.PK_Items', 250003), ('sales.SaleLines.PK_SaleLines', 11253)]

@@ -24,7 +24,7 @@ Cada fila de esta tabla es una prueba que puede fallar. Sin prueba ejecutada no 
 | A-07 | La etiqueta lleva el código original y la tienda; un trabajo no se pierde en silencio | Código alterado o trabajo descartado | `db/tests/receiving/010` (cola); impresora real | cola verificada; impresora NO probada |
 | A-08 | Una cajera de A no cambia datos de B | Acceso entre sucursales | `VerticalSliceTests` | verificado en el host de sucursal; falta la nube |
 | A-09 | Restaurar un respaldo viejo no revive derechos gastados | Saldo viejo canjeado otra vez | Simulador con semillas | parcial: el saldo no revive; falta el evento de outbox de ventas recuperadas ([evidencia](evidence/cp4-sim-20261120/README.md)) |
-| A-10 | Rendimiento medido con 50 000 productos y 250 000 variantes | Solo afirmaciones teóricas | Prueba de carga | pendiente |
+| A-10 | Rendimiento medido con 50 000 productos y 250 000 variantes | Medición local 2026-11-21: búsqueda, KPI negocio, importación y reconstrucción de sync fallan el objetivo ([evidencia](evidence/load-a10-20261121/README.md)) | Prueba de carga | parcial; falta Azure SQL Basic |
 
 "Verificado en una base" significa que la regla se cumple dentro de un nodo. Entre nodos falta CP4.
 

@@ -1,0 +1,19 @@
+lookup_by_code               {'n': 200, 'p50': 10.4, 'p95': 32.4, 'max': 48.2, 'errors': 0, 'max_bytes': 248}
+search_text                  {'n': 200, 'p50': 2175.7, 'p95': 3863.3, 'max': 5715.5, 'errors': 0, 'max_bytes': 6565}
+search[Blusa]                {'n': 10, 'p50': 461.6, 'p95': 623.4, 'max': 623.4, 'errors': 0, 'max_bytes': 6186}
+search[Blusa Lino]           {'n': 10, 'p50': 546.3, 'p95': 870.4, 'max': 870.4, 'errors': 0, 'max_bytes': 6106}
+search[Vestido Seda Noche]   {'n': 10, 'p50': 2334.1, 'p95': 2616.1, 'max': 2616.1, 'errors': 0, 'max_bytes': 6099}
+search[M12345]               {'n': 10, 'p50': 2532.6, 'p95': 2768.8, 'max': 2768.8, 'errors': 0, 'max_bytes': 1565}
+search[M4]                   {'n': 10, 'p50': 387.8, 'p95': 619.9, 'max': 619.9, 'errors': 0, 'max_bytes': 6214}
+search[Aniversario]          {'n': 10, 'p50': 1827.7, 'p95': 2047.6, 'max': 2047.6, 'errors': 0, 'max_bytes': 6565}
+search[zzqx]                 {'n': 10, 'p50': 2613.0, 'p95': 2962.8, 'max': 2962.8, 'errors': 0, 'max_bytes': 2}
+search[LD004321]             {'n': 10, 'p50': 2312.1, 'p95': 3109.9, 'max': 3109.9, 'errors': 0, 'max_bytes': 1522}
+receipt_lookup               {'n': 200, 'p50': 5.8, 'p95': 9.0, 'max': 21.4, 'errors': 0, 'max_bytes': 1822}
+sales_history_page           {'n': 50, 'p50': 15.2, 'p95': 23.3, 'max': 32.6, 'errors': 0, 'max_bytes': 7719}
+day_report                   {'n': 60, 'p50': 21.7, 'p95': 27.9, 'max': 30.0, 'errors': 0, 'max_bytes': 1676}
+kpi_business[day]            {'n': 20, 'p50': 7495.1, 'p95': 29988.2, 'max': 29988.2, 'errors': 0, 'max_bytes': 22944}
+kpi_team[day]                {'n': 20, 'p50': 20.5, 'p95': 34.6, 'max': 34.6, 'errors': 0, 'max_bytes': 503}
+kpi_business[week]           {'n': 20, 'p50': 5322.7, 'p95': 6311.4, 'max': 6311.4, 'errors': 0, 'max_bytes': 22962}
+kpi_team[week]               {'n': 20, 'p50': 34.3, 'p95': 114.2, 'max': 114.2, 'errors': 0, 'max_bytes': 505}
+kpi_business[month]          {'n': 20, 'p50': 6701.8, 'p95': 8103.6, 'max': 8103.6, 'errors': 0, 'max_bytes': 22976}
+kpi_team[month]              {'n': 20, 'p50': 22.0, 'p95': 41.2, 'max': 41.2, 'errors': 0, 'max_bytes': 506}

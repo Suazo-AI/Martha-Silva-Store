@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-22T05:20:50.721001+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/docs/PLAN.md",
+      "change": "M",
+      "git_blob": "4bdfbcd4f8ca02f9d90ee8a14eec4b847081c8dd"
+    },
+    {
+      "path": "savia/docs/deploy/GAPS-20261120.md",
+      "change": "M",
+      "git_blob": "c2b4135b57492108fbfc0916ccac9f31c6fa8645"
+    },
+    {
+      "path": "savia/docs/evidence/load-a10-20261121/README.md",
+      "change": "A",
+      "git_blob": "6417276e0f036fb4c59bdf85d7b78c975442f1e5"
+    },
+    {
+      "path": "savia/docs/evidence/load-a10-20261121/api-constrained.txt",
+      "change": "A",
+      "git_blob": "7a6473a12e619aec066059308f451c3412889c36"
+    },
+    {
+      "path": "savia/docs/evidence/load-a10-20261121/api-unconstrained-reads.txt",
+      "change": "A",
+      "git_blob": "0a39680a33956e8be16f5ebb065cb75c54c9535f"
+    },
+    {
+      "path": "savia/docs/evidence/load-a10-20261121/api.json",
+      "change": "A",
+      "git_blob": "20f67a0e45a639965ba7e0f8644dd542834ce05d"
+    },
+    {
+      "path": "savia/docs/evidence/load-a10-20261121/generate.txt",
+      "change": "A",
+      "git_blob": "0f3840156aa29acca1d25ce869970ea81853aad5"
+    },
+    {
+      "path": "savia/docs/evidence/load-a10-20261121/import-fix-probe.json",
+      "change": "A",
+      "git_blob": "a48dd5b48e1eb705caa4e045c3320b999b750852"
+    },
+    {
+      "path": "savia/docs/evidence/load-a10-20261121/sql-stats-constrained.txt",
+      "change": "A",
+      "git_blob": "ac30a165997fde717ebe826716bfae4b7e5c9a2b"
+    },
+    {
+      "path": "savia/docs/evidence/load-a10-20261121/sql-stats-unconstrained.json",
+      "change": "A",
+      "git_blob": "923b4e3b6bcd1300f4d4f221b29c7a754991c21a"
+    },
+    {
+      "path": "savia/docs/evidence/load-a10-20261121/sync.json",
+      "change": "A",
+      "git_blob": "ab243a1162d0444abf00eab1e005c424e9890b2e"
+    },
+    {
+      "path": "savia/tools/load/api_bench.py",
+      "change": "A",
+      "git_blob": "9e095be2c29478c9081ae4c79efc5dae18348e91"
+    },
+    {
+      "path": "savia/tools/load/generate.py",
+      "change": "A",
+      "git_blob": "b1930b2fb1f30ae3a96e380e4264e1075d7a97b6"
+    },
+    {
+      "path": "savia/tools/load/import_fix_probe.py",
+      "change": "A",
+      "git_blob": "56aa85d2e5190d54c6285d55c268e75b8f65fa25"
+    },
+    {
+      "path": "savia/tools/load/sql_stats.py",
+      "change": "A",
+      "git_blob": "fe376f2271f1178e88e13f5de4d888e858ce07cd"
+    },
+    {
+      "path": "savia/tools/load/sync_measure.py",
+      "change": "A",
+      "git_blob": "c90bfdcb69b0a1834b858cf8b74efa58f9fb8d71"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}
