@@ -62,3 +62,4 @@ Integration run 2026-11-21 on a clean worktree at `620cbd00` with this patch onl
 CI on `ba1a918c` and `1d51d394` (run 44990007781): every step passed except `container proof`, whose failing line was cut from the 12-line tail.
 The same proof passes locally on `1d51d394` (`python savia/deploy/local_proof.py --build`: RESULT PASS, roles `savia_api_host|0`, grants 18/18).
 `check.py` now prints every FAIL line of a failed step before the tail, so the next CI run names the failing step.
+CI run 44990981898 named it: `migrator refuses a changed applied migration` crashed. `mkdtemp` makes a 0700 folder on Linux and the non-root migrator container cannot read the bind mount; Docker Desktop on Windows ignores that, so it passed locally. `local_proof.py` now sets 0755/0644 on the copy. Local proof after the fix: RESULT PASS.

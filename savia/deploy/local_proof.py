@@ -198,6 +198,10 @@ CREATE LOGIN [{LOGIN_API}] WITH PASSWORD = N'{pw_api}', CHECK_POLICY = ON;""")
                 shutil.copy(path, tmp / path.name)
             last = sorted(tmp.glob("V*.sql"))[-1]
             last.write_text(last.read_text(encoding="utf-8") + "\n-- edited after apply\n", encoding="utf-8")
+            # mkdtemp is 0700 on Linux; the migrator image runs as non-root and must read the bind mount.
+            tmp.chmod(0o755)
+            for path in tmp.iterdir():
+                path.chmod(0o644)
             code, out = migrator(DB_MIG, pw_mig, "--plan", "--migrations", "/m", mounts=[(str(tmp), "/m")])
             ok &= record("migrator refuses a changed applied migration", code == 1 and "different checksum" in out,
                          out.strip().splitlines()[-1][:160])
