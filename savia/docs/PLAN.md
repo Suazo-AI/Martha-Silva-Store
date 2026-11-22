@@ -1,5 +1,7 @@
 # Plan de SAVIA v2
 
+Actualización 2026-11-22: el estado vigente, fila por fila, está en el [programa de producción](../../docs/production-20261122/README.md); el hub corre en Azure hasta V061 y la tabla de abajo conserva el corte anterior.
+
 Actualización 2026-11-16: [avance, UX publicado y corrección del verificador](../../docs/savia-completion-20261116/README.md).
 Los criterios entre sucursales de la tabla siguen pendientes. La evidencia de una base no los cierra.
 

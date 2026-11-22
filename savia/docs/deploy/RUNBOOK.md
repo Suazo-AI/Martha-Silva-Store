@@ -63,7 +63,8 @@ Code: one command, to the previous revision.
 az containerapp ingress traffic set -n ca-savia-api -g rg-savia-prod --revision-weight "<previous revision>=100"
 ```
 
-Migrations are additive, so the previous revision keeps working on the newer schema.
+Migrations add objects and replace procedures; they do not remove columns or tables.
+A rollback to the previous revision has not been exercised on a newer schema: V060 replaced the sync procedures, so smoke-test the old revision after a rollback and treat sync as unproven there.
 Data: restore the `savia-premig-*` copy or restore to the recorded point in time into a new database, then point the app at it.
 The data restore has not been run. Do the drill in section 5 before real stores connect.
 

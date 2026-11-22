@@ -1,6 +1,7 @@
 # SAVIA hub in Azure
 
-Status: prepared and validated locally on 2026-11-12. Nothing is deployed. No Azure resource exists yet.
+Status 2026-11-22: the hub is deployed and live on `rg-savia-prod` (revision `ca-savia-api--g6a962d5-1`, migrations through V061). No store is connected. Runs are listed under "Code patches" below; steps are in [RUNBOOK.md](RUNBOOK.md); open rows are in the [production checklist](../../../docs/production-20261122/README.md).
+The design text below was written on 2026-11-12, before the first deploy.
 Checklist and exact commands: [CHECKLIST.md](CHECKLIST.md).
 
 ## Result first
@@ -178,7 +179,7 @@ Fifth Azure run, 2026-11-22, commit `996465b3` (CI run 45026434478 green): copy 
 Revision `ca-savia-api--g996465b-1` passed `smoke.ps1` at 0% traffic, then took 100%; `smoke.ps1` PASS on the app URL.
 Read back on the live URL: `/health/ready` 200; `GET /api/v1/public/catalog` 200 with an empty list (no web stock consigned); `POST /api/v1/public/orders` with no lines 400 `validation`; `/api/v1/web-orders` without sign-in 401.
 Rollback: `az containerapp ingress traffic set -n ca-savia-api -g rg-savia-prod --revision-weight ca-savia-api--g37b6c06-1=100`; V036 to V051 are additive.
-Public orders stay closed in practice: no CORS origin and no Turnstile secret are configured, and the bot check fails closed.
+Public orders are closed: no Turnstile secret is configured and the bot check fails closed. Probe on the live URL, 2026-11-22, revision `g6a962d5-1`: a well-formed order with an unknown SKU and an empty token returned 403 `turnstile_failed`. No CORS origin is configured either; CORS limits browsers only.
 Sixth Azure run, 2026-11-22, commit `11ef3616` (backend tree of `2f4279b9`, SAVIA v2 check green): dry run on the copy `savia-premig-996465b3-1` first (execution `caj-savia-migrate-hvlspii`, succeeded), then production job `caj-savia-migrate-9ob7dpw` applied V052 to V059; copy `savia-premig-11ef3616-1`.
 Revision `ca-savia-api--g11ef361-1` passed `smoke.ps1` at 0% traffic, then took 100%; `smoke.ps1` PASS on the app URL; `/health/ready` 200; public catalog 200; staff routes 401.
 Rollback: `az containerapp ingress traffic set -n ca-savia-api -g rg-savia-prod --revision-weight ca-savia-api--g996465b-1=100`.

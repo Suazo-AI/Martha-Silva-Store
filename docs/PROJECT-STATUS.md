@@ -1,6 +1,12 @@
 # Estado vigente de Martha Silva / SAVIA
 
-## Estado actual: 2026-11-16
+## Estado actual: 2026-11-22
+
+El estado vigente, fila por fila, está en el [programa de producción](production-20261122/README.md).
+El hub de SAVIA v2 corre en Azure con migraciones hasta V061; ninguna sucursal está conectada; la tienda pública sigue en modo demo.
+Producción sigue NO-GO hasta cerrar las filas abiertas de ese programa.
+
+## Corte anterior: 2026-11-16
 
 **SAVIA v2 sigue en construcción. Producción NO-GO.** El código actual vive en `savia/`.
 [Pruebas, fuentes y siguientes acciones](savia-completion-20261116/README.md) reúne el corte vigente.

@@ -1,6 +1,8 @@
 # Martha Silva Store / SAVIA
 
-**Estado al 2026-11-16: SAVIA v2 en construcción; producción NO-GO.**
+**Estado al 2026-11-22: el hub de SAVIA v2 está desplegado en Azure (migraciones hasta V061); la tienda pública sigue en modo demo; producción NO-GO hasta cerrar las filas abiertas.**
+Estado fila por fila: [programa de producción](docs/production-20261122/README.md). El texto siguiente es del corte 2026-11-16.
+
 El producto actual vive en [savia/](savia/README.md). Su [plan](savia/docs/PLAN.md) conserva los criterios pendientes.
 Los cambios de UX y la corrección del verificador están publicados en `Tony@2587712b`.
 Su CI pasó: 98/98 pruebas web y 145/145 de .NET, sin fallos ni omisiones.
