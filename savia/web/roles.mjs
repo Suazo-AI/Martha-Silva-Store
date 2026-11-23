@@ -20,6 +20,7 @@ export const SCREENS = [
   { route: 'recepcion', label: 'Recepción', roles: STOCK },
   { route: 'inventario', label: 'Inventario', roles: STOCK },
   { route: 'clientes', label: 'Clientes', roles: APPROVERS },
+  { route: 'traslados', label: 'Traslados de anticipo', roles: APPROVERS },
   { route: 'ajustes', label: 'Ajustes', roles: EVERYONE },
   { route: 'aprobaciones', label: 'Aprobaciones', roles: OWNER },
   { route: 'comisiones', label: 'Comisiones', roles: COMMISSION_READERS },
@@ -65,7 +66,7 @@ export const landing = roles => (roles.includes('SELLER') ? 'comisiones' : roles
 const NAVIGATION = [
   { routes: ['venta', 'caja', 'inventario', 'historial'] },
   { label: 'Mercadería', routes: ['recepcion', 'calidad', 'precios', 'importar'] },
-  { label: 'Consultas', routes: ['clientes', 'comisiones', 'reporte'] },
+  { label: 'Consultas', routes: ['clientes', 'traslados', 'comisiones', 'reporte'] },
   { label: 'Administración', routes: ['pedidos-web', 'aprobaciones', 'excepciones', 'ajustes'] },
 ];
 export const navigation = (roles, nodeKind) =>

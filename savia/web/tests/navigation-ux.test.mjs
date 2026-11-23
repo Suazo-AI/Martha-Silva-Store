@@ -24,7 +24,7 @@ test('work groups preserve every role combination, without duplicate or empty gr
     ['venta', 'caja', 'inventario', 'historial'],
   );
   assert.equal(owner.length, 4);
-  assert.equal(owner.flatMap(g => g.screens).length, 14);
+  assert.equal(owner.flatMap(g => g.screens).length, 15);
   assert.deepEqual(
     navigation(['SELLER']).map(g => g.label),
     ['Consultas', 'Administración'],

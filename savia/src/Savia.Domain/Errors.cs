@@ -182,6 +182,10 @@ public static class DbErrors
         [51863] = ("sync.busy", ErrorKind.Unavailable),
         [51864] = ("sync.recovery_pending", ErrorKind.Conflict),
         [51865] = ("sync.node_mismatch", ErrorKind.Conflict),
+        // V062: day-zero provisioning and the supplier write.
+        [51866] = ("branch.provision_mismatch", ErrorKind.Conflict),
+        [51867] = ("staff.provision_mismatch", ErrorKind.Conflict),
+        [51903] = ("supplier.invalid", ErrorKind.Validation),
     };
 
     /// <param name="number">SQL Server error number.</param>

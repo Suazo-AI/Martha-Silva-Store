@@ -64,7 +64,7 @@ internal sealed record NodeRequest(string Action, Guid NodeId, string Kind, Guid
         return Convert.ToInt32(await command.ExecuteScalarAsync()) > 0;
     }
 
-    private static async Task Exec(DbConnection connection, string procedure, params (string Name, object Value)[] parameters)
+    internal static async Task Exec(DbConnection connection, string procedure, params (string Name, object Value)[] parameters)
     {
         await using var command = connection.CreateCommand();
         command.CommandText = procedure;

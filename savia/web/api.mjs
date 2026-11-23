@@ -236,6 +236,14 @@ export const searchSales = ({ q: query, date, page = 1 } = {}) =>
   request('GET', `/sales${q({ q: query, from: date, to: date, page, pageSize: 25 })}`);
 export const searchCustomers = query => request('GET', `/customers${q({ q: query })}`);
 export const searchCredits = query => request('GET', `/credits/search${q({ q: query })}`);
+export const createCustomer = body => request('POST', '/customers', body);
+// Credit transfers (V063): a store requests, dispatches and receives; the hub approves and cancels.
+export const creditTransfers = () => request('GET', '/credit-transfers');
+export const requestCreditTransfer = body => request('POST', '/credit-transfers', body);
+export const approveCreditTransfer = id => request('POST', path`/credit-transfers/${id}/approve`);
+export const cancelCreditTransfer = (id, reason) => request('POST', path`/credit-transfers/${id}/cancel`, { reason });
+export const dispatchCreditTransfer = id => request('POST', path`/credit-transfers/${id}/dispatch`);
+export const receiveCreditTransfer = id => request('POST', path`/credit-transfers/${id}/receive`);
 export const dayReport = date => request('GET', `/reports/day${q({ date })}`);
 export const summaryReport = (period, date) => request('GET', `/reports/summary${q({ period, date })}`);
 export const stockExceptions = () => request('GET', '/stock/exceptions');

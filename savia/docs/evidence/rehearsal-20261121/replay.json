@@ -7,103 +7,103 @@
   "path": "tools/rehearsal/expected/replay.json",
   "sha256": "06936c6d50d2ff6a8b4586860a2bff26e2d23487bbffa4e64ef0732a7afeab1e"
  },
- "seconds_total": 80.8,
+ "seconds_total": 90.2,
  "phases": [
   {
    "phase": "setup: 4 databases, node credentials, staff passwords, seed stock",
-   "seconds": 23.9
+   "seconds": 32.1
   },
   {
    "phase": "start hub and 3 store hosts",
-   "seconds": 6.3
+   "seconds": 6.4
   },
   {
    "phase": "open tills over HTTP",
-   "seconds": 1.9
+   "seconds": 1.8
   },
   {
    "phase": "first convergence",
-   "seconds": 20.3
+   "seconds": 20.7
   },
   {
    "phase": "A killed after the hub committed its push, before A hears the answer",
-   "seconds": 7.0
+   "seconds": 8.0
   },
   {
    "phase": "B killed after the hub answered a pull carrying ra2, before B applies it",
-   "seconds": 5.6
+   "seconds": 5.0
   },
   {
    "phase": "converge after restarts",
-   "seconds": 8.9
+   "seconds": 9.0
   },
   {
    "phase": "checks",
-   "seconds": 6.2
+   "seconds": 6.1
   }
  ],
  "events": [
   {
-   "t": 30.5,
+   "t": 38.9,
    "event": "open till a",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 31.2,
+   "t": 39.3,
    "event": "open till b",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 32.1,
+   "t": 40.2,
    "event": "open till c",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 52.8,
+   "t": 61.3,
    "event": "sale ra1 at a",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 57.6,
+   "t": 66.8,
    "event": "kill point reached",
    "fired": true,
    "hub_status": 200
   },
   {
-   "t": 58.0,
+   "t": 67.4,
    "event": "hub holds ra1 while A is dead",
    "count": 1
   },
   {
-   "t": 59.6,
+   "t": 69.1,
    "event": "sale ra2 at a",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 63.0,
+   "t": 71.6,
    "event": "kill point reached",
    "fired": true,
    "hub_status": 200
   },
   {
-   "t": 63.3,
+   "t": 72.1,
    "event": "B does not hold ra2 yet",
    "count": 0
   },
   {
-   "t": 65.1,
+   "t": 73.9,
    "event": "sale rc1 at c",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 74.0,
-   "event": "converge after restarts: converged in 8.9s",
+   "t": 83.0,
+   "event": "converge after restarts: converged in 9.0s",
    "differing": []
   }
  ],
@@ -224,5 +224,5 @@
   }
  },
  "hub_rounds_log_errors": [],
- "host_logs": ".out/rehearsal/runs/20261122-141904-replay"
+ "host_logs": ".out/rehearsal/runs/20261122-175156-replay"
 }

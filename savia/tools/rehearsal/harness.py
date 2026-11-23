@@ -632,7 +632,9 @@ class Cluster:
         return False, round(time.time() - t0, 1), diff
 
     def round_lines(self, node):
-        return [self.secrets.scrub(m.group(0)) for m in ROUND_RE.finditer(self.hosts[node].text())]
+        # A setup failure leaves no host; the report must still name that failure, not crash on the lookup.
+        host = self.hosts.get(node)
+        return [] if host is None else [self.secrets.scrub(m.group(0)) for m in ROUND_RE.finditer(host.text())]
 
     def log_excerpt(self, node, pattern, limit=6):
         lines = self.hosts[node].text().splitlines()

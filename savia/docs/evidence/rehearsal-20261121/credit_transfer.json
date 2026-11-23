@@ -7,47 +7,47 @@
   "path": "tools/rehearsal/expected/credit_transfer.json",
   "sha256": "b880288d62653564d39637c7b482f90cc47124fbffda4da41c23f6cc6c17f076"
  },
- "seconds_total": 167.8,
+ "seconds_total": 169.2,
  "phases": [
   {
    "phase": "setup: 4 databases, node credentials, staff passwords, seed stock",
-   "seconds": 27.5
+   "seconds": 33.9
   },
   {
    "phase": "start hub and 3 store hosts",
-   "seconds": 5.9
+   "seconds": 6.0
   },
   {
    "phase": "open tills over HTTP",
-   "seconds": 2.1
+   "seconds": 1.5
   },
   {
    "phase": "first convergence",
-   "seconds": 21.0
+   "seconds": 22.2
   },
   {
    "phase": "A sells two items and returns both to store credit (HTTP)",
-   "seconds": 0.8
+   "seconds": 0.9
   },
   {
    "phase": "converge credits",
-   "seconds": 12.4
+   "seconds": 12.7
   },
   {
    "phase": "converge t1 request",
-   "seconds": 12.6
+   "seconds": 13.1
   },
   {
    "phase": "converge t1 approval",
-   "seconds": 5.9
+   "seconds": 9.5
   },
   {
    "phase": "converge t1 dispatch",
-   "seconds": 12.8
+   "seconds": 9.3
   },
   {
    "phase": "converge t1 receipt",
-   "seconds": 12.8
+   "seconds": 13.2
   },
   {
    "phase": "t1: B asks for 50000 of r1; hub approves; A dispatches; B receives",
@@ -63,192 +63,192 @@
   },
   {
    "phase": "converge t2 request",
-   "seconds": 13.6
+   "seconds": 13.4
   },
   {
    "phase": "converge t2 approval",
-   "seconds": 5.7
+   "seconds": 5.0
   },
   {
    "phase": "converge t2 dispatch vs cancel",
-   "seconds": 9.6
+   "seconds": 12.4
   },
   {
    "phase": "t2 cancel vs dispatch: hub cancels while A, cut off, dispatches",
-   "seconds": 31.2
+   "seconds": 31.1
   },
   {
    "phase": "final convergence",
-   "seconds": 12.7
+   "seconds": 8.7
   },
   {
    "phase": "checks",
-   "seconds": 7.0
+   "seconds": 5.5
   }
  ],
  "events": [
   {
-   "t": 33.8,
+   "t": 40.4,
    "event": "open till a",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 34.2,
+   "t": 41.0,
    "event": "open till b",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 35.5,
+   "t": 41.4,
    "event": "open till c",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 56.7,
+   "t": 64.0,
    "event": "sale s1 at a",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 56.7,
+   "t": 64.0,
    "event": "sale s2 at a",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 57.2,
+   "t": 64.4,
    "event": "return r1 to credit at a",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 57.3,
+   "t": 64.5,
    "event": "return r2 to credit at a",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 69.7,
-   "event": "converge credits: converged in 12.4s",
+   "t": 77.2,
+   "event": "converge credits: converged in 12.7s",
    "differing": []
   },
   {
-   "t": 70.1,
-   "event": "transfer t1 request at b (sql:no-http-route)",
-   "ok": true,
-   "error": ""
+   "t": 77.2,
+   "event": "transfer t1 request at b",
+   "status": 204,
+   "problem": ""
   },
   {
-   "t": 82.7,
-   "event": "converge t1 request: converged in 12.6s",
+   "t": 90.4,
+   "event": "converge t1 request: converged in 13.1s",
    "differing": []
   },
   {
-   "t": 83.1,
-   "event": "transfer t1 approve at cloud (sql:no-http-route)",
-   "ok": true,
-   "error": ""
+   "t": 90.6,
+   "event": "transfer t1 approve at cloud",
+   "status": 204,
+   "problem": ""
   },
   {
-   "t": 88.9,
-   "event": "converge t1 approval: converged in 5.9s",
+   "t": 100.0,
+   "event": "converge t1 approval: converged in 9.5s",
    "differing": []
   },
   {
-   "t": 89.3,
-   "event": "transfer t1 dispatch at a (sql:no-http-route)",
-   "ok": true,
-   "error": ""
+   "t": 100.1,
+   "event": "transfer t1 dispatch at a",
+   "status": 204,
+   "problem": ""
   },
   {
-   "t": 102.1,
-   "event": "converge t1 dispatch: converged in 12.8s",
+   "t": 109.4,
+   "event": "converge t1 dispatch: converged in 9.3s",
    "differing": []
   },
   {
-   "t": 102.5,
-   "event": "transfer t1 receive at b (sql:no-http-route)",
-   "ok": true,
-   "error": ""
+   "t": 109.4,
+   "event": "transfer t1 receive at b",
+   "status": 204,
+   "problem": ""
   },
   {
-   "t": 115.3,
-   "event": "converge t1 receipt: converged in 12.8s",
+   "t": 122.7,
+   "event": "converge t1 receipt: converged in 13.2s",
    "differing": []
   },
   {
-   "t": 115.7,
+   "t": 123.2,
    "event": "sale sb1 at b",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 115.7,
+   "t": 123.2,
    "event": "sale sy at a",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 115.8,
+   "t": 123.2,
    "event": "sale sx at a",
    "status": 409,
    "problem": "credit.insufficient"
   },
   {
-   "t": 116.3,
-   "event": "transfer t2 request at c (sql:no-http-route)",
-   "ok": true,
-   "error": ""
+   "t": 123.3,
+   "event": "transfer t2 request at c",
+   "status": 204,
+   "problem": ""
   },
   {
-   "t": 129.9,
-   "event": "converge t2 request: converged in 13.6s",
+   "t": 136.7,
+   "event": "converge t2 request: converged in 13.4s",
    "differing": []
   },
   {
-   "t": 130.4,
-   "event": "transfer t2 approve at cloud (sql:no-http-route)",
-   "ok": true,
-   "error": ""
+   "t": 136.7,
+   "event": "transfer t2 approve at cloud",
+   "status": 204,
+   "problem": ""
   },
   {
-   "t": 136.1,
-   "event": "converge t2 approval: converged in 5.7s",
+   "t": 141.8,
+   "event": "converge t2 approval: converged in 5.0s",
    "differing": []
   },
   {
-   "t": 136.6,
-   "event": "transfer t2 cancel at cloud (sql:no-http-route)",
-   "ok": true,
-   "error": ""
+   "t": 141.9,
+   "event": "transfer t2 cancel at cloud",
+   "status": 204,
+   "problem": ""
   },
   {
-   "t": 137.0,
-   "event": "transfer t2 dispatch at a (sql:no-http-route)",
-   "ok": true,
-   "error": ""
+   "t": 141.9,
+   "event": "transfer t2 dispatch at a",
+   "status": 204,
+   "problem": ""
   },
   {
-   "t": 146.5,
-   "event": "converge t2 dispatch vs cancel: converged in 9.6s",
+   "t": 154.3,
+   "event": "converge t2 dispatch vs cancel: converged in 12.4s",
    "differing": []
   },
   {
-   "t": 146.9,
-   "event": "transfer t2 receive at c (sql:no-http-route)",
-   "ok": true,
-   "error": ""
+   "t": 154.4,
+   "event": "transfer t2 receive at c",
+   "status": 204,
+   "problem": ""
   },
   {
-   "t": 159.6,
-   "event": "final convergence: converged in 12.7s",
+   "t": 163.1,
+   "event": "final convergence: converged in 8.7s",
    "differing": []
   }
  ],
  "checks": {
-  "passed": 88,
+  "passed": 89,
   "failed": 0,
   "failures": []
  },
@@ -340,9 +340,19 @@
   "PASS R1: every synced table identical on hub, a, b, c",
   "PASS CONS: audit.usp_CheckConservation has 0 violations on 4 nodes",
   "PASS sync converged",
+  "PASS control t1 lists as received on B and on the hub",
   "PASS control offline A can dispatch an approved transfer the hub cancelled"
  ],
  "controls": [
+  {
+   "control": "t1 lists as received on B and on the hub",
+   "ok": true,
+   "expected": "received",
+   "actual": {
+    "b": "received",
+    "cloud": "received"
+   }
+  },
   {
    "control": "offline A can dispatch an approved transfer the hub cancelled",
    "ok": true,
@@ -373,23 +383,27 @@
   },
   "t1.request": {
    "ok": true,
+   "status": 204,
    "detail": "ok",
-   "path": "sql:no-http-route"
+   "path": "POST /api/v1/credit-transfers"
   },
   "t1.approve": {
    "ok": true,
+   "status": 204,
    "detail": "ok",
-   "path": "sql:no-http-route"
+   "path": "POST /api/v1/credit-transfers/C4ED1700-0000-4000-8000-000000000301/approve"
   },
   "t1.dispatch": {
    "ok": true,
+   "status": 204,
    "detail": "ok",
-   "path": "sql:no-http-route"
+   "path": "POST /api/v1/credit-transfers/C4ED1700-0000-4000-8000-000000000301/dispatch"
   },
   "t1.receive": {
    "ok": true,
+   "status": 204,
    "detail": "ok",
-   "path": "sql:no-http-route"
+   "path": "POST /api/v1/credit-transfers/C4ED1700-0000-4000-8000-000000000301/receive"
   },
   "sb1": {
    "ok": true,
@@ -408,47 +422,52 @@
   },
   "t2.request": {
    "ok": true,
+   "status": 204,
    "detail": "ok",
-   "path": "sql:no-http-route"
+   "path": "POST /api/v1/credit-transfers"
   },
   "t2.approve": {
    "ok": true,
+   "status": 204,
    "detail": "ok",
-   "path": "sql:no-http-route"
+   "path": "POST /api/v1/credit-transfers/C4ED1700-0000-4000-8000-000000000302/approve"
   },
   "t2.cancel": {
    "ok": true,
+   "status": 204,
    "detail": "ok",
-   "path": "sql:no-http-route"
+   "path": "POST /api/v1/credit-transfers/C4ED1700-0000-4000-8000-000000000302/cancel"
   },
   "t2.dispatch": {
    "ok": true,
+   "status": 204,
    "detail": "ok",
-   "path": "sql:no-http-route"
+   "path": "POST /api/v1/credit-transfers/C4ED1700-0000-4000-8000-000000000302/dispatch"
   },
   "t2.receive": {
    "ok": true,
+   "status": 204,
    "detail": "ok",
-   "path": "sql:no-http-route"
+   "path": "POST /api/v1/credit-transfers/C4ED1700-0000-4000-8000-000000000302/receive"
   }
  },
  "sync_rounds_from_host_logs": {
   "a": {
-   "successful_rounds": 21,
+   "successful_rounds": 20,
    "rebuilt_rounds": 0,
    "not_successful": 0,
    "distinct_warnings": [],
    "host_starts": 1
   },
   "b": {
-   "successful_rounds": 21,
+   "successful_rounds": 20,
    "rebuilt_rounds": 0,
    "not_successful": 0,
    "distinct_warnings": [],
    "host_starts": 1
   },
   "c": {
-   "successful_rounds": 22,
+   "successful_rounds": 20,
    "rebuilt_rounds": 0,
    "not_successful": 0,
    "distinct_warnings": [],
@@ -457,24 +476,24 @@
  },
  "hub_exchanges_seen_by_proxies": {
   "a": {
-   "/sync/v1/push/plan 200": 42,
-   "/sync/v1/state 200": 21,
-   "/sync/v1/pull 200": 21,
-   "/sync/v1/push 200": 21
+   "/sync/v1/push/plan 200": 40,
+   "/sync/v1/state 200": 20,
+   "/sync/v1/pull 200": 20,
+   "/sync/v1/push 200": 20
   },
   "b": {
-   "/sync/v1/push/plan 200": 42,
-   "/sync/v1/state 200": 21,
-   "/sync/v1/pull 200": 21,
-   "/sync/v1/push 200": 21
+   "/sync/v1/push/plan 200": 40,
+   "/sync/v1/state 200": 20,
+   "/sync/v1/pull 200": 20,
+   "/sync/v1/push 200": 20
   },
   "c": {
-   "/sync/v1/push/plan 200": 44,
-   "/sync/v1/state 200": 22,
-   "/sync/v1/pull 200": 22,
-   "/sync/v1/push 200": 22
+   "/sync/v1/push/plan 200": 40,
+   "/sync/v1/state 200": 20,
+   "/sync/v1/pull 200": 20,
+   "/sync/v1/push 200": 20
   }
  },
  "hub_rounds_log_errors": [],
- "host_logs": ".out/rehearsal/runs/20261122-142025-credit_transfer"
+ "host_logs": ".out/rehearsal/runs/20261122-175326-credit_transfer"
 }

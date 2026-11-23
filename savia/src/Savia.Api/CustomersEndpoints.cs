@@ -9,6 +9,11 @@ public static class CustomersEndpoints
     {
         api.MapGet("/customers", async (string q, HttpContext http, CustomersService customers, CancellationToken ct) =>
             await customers.CustomersAsync(http.Actor(), q, ct)).Produces<CustomerRow[]>().WithTags("customers");
+        api.MapPost("/customers", async (CreateCustomerRequest request, HttpContext http, CustomersService customers, CancellationToken ct) =>
+        {
+            await customers.CreateAsync(http.Actor(), request, ct);
+            return Results.NoContent();
+        }).WithTags("customers");
         api.MapGet("/credits/search", async (string q, HttpContext http, CustomersService customers, CancellationToken ct) =>
             await customers.CreditsAsync(http.Actor(), q, ct)).Produces<CustomerCreditRow[]>().WithTags("customers");
     }

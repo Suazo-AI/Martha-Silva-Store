@@ -1,8 +1,7 @@
 """Rehearsal scenarios. Each one drives the stores through the HTTP API the web uses, cuts links or kills
 processes at fixed points, waits for the hosted SyncWorker loops to converge, then checks the manifest.
 
-Transfers of credit have no HTTP route (no endpoint or web code calls usp_Transfer*); the driver runs those
-procedures on the acting node's database and marks every such step 'sql:no-http-route'.
+Transfers of credit use the routes of V063: a store requests, dispatches and receives; the hub approves and cancels.
 """
 import contextlib
 import json
@@ -144,39 +143,40 @@ class Run:
             raise SystemExit(f"return {key}: {status} {resp}")
         return ok
 
-    # ---------- transfer steps (sql:no-http-route)
+    # ---------- transfer steps (each on the node that owns it)
     def transfer(self, key, step):
         t = self.transfers[key]
-        i, tid = self.c.ids, t["transferId"]
-        credit = self.returns[t["credit"]]["creditId"]
+        path = f"/api/v1/credit-transfers/{t['transferId']}/{step}"
         if step == "request":
-            at = t["requested_at"]
-            node, text = at, (f"EXEC credits.usp_TransferRequest @TransferId='{tid}',@CreditId='{credit}',"
-                              f"@FromBranchId='{i['branch' + t['from'].upper()]}',@ToBranchId='{i['branch' + t['to'].upper()]}',"
-                              f"@AmountMinor={t['amount']},@RequestedBy='{i['cashier' + at.upper()]}',"
-                              f"@Reason=N'Ensayo: saldo en otra tienda',@NodeId='{self.c.node_id(at)}';")
-        elif step == "approve":
-            node, text = "cloud", (f"EXEC credits.usp_TransferApprove @TransferId='{tid}',@ApproverId='{i['manager']}',"
-                                   f"@NodeId='{self.c.node_id('cloud')}';")
-        elif step == "cancel":
-            node, text = "cloud", (f"EXEC credits.usp_TransferCancel @TransferId='{tid}',@ActorId='{i['manager']}',"
-                                   f"@Reason=N'Ensayo: cancelada en el hub',@NodeId='{self.c.node_id('cloud')}';")
-        elif step == "dispatch":
-            node, text = t["from"], (f"EXEC credits.usp_TransferDispatch @TransferId='{tid}',"
-                                     f"@ActorId='{i['cashier' + t['from'].upper()]}',@NodeId='{self.c.node_id(t['from'])}';")
-        elif step == "receive":
-            node, text = t["to"], (f"EXEC credits.usp_TransferReceive @TransferId='{tid}',"
-                                   f"@ActorId='{i['cashier' + t['to'].upper()]}',@NodeId='{self.c.node_id(t['to'])}';")
+            node, path, token = t["requested_at"], "/api/v1/credit-transfers", self.c.token(t["requested_at"])
+            body = {"transferId": t["transferId"], "creditId": self.returns[t["credit"]]["creditId"],
+                    "fromBranchId": self.c.ids["branch" + t["from"].upper()], "toBranchId": self.c.ids["branch" + t["to"].upper()],
+                    "amountMinor": t["amount"], "reason": "Ensayo: saldo en otra tienda"}
+        elif step in ("approve", "cancel"):
+            node, token = "cloud", self.cloud_manager()
+            body = {"reason": "Ensayo: cancelada en el hub"} if step == "cancel" else None
+        elif step in ("dispatch", "receive"):
+            node = t["from"] if step == "dispatch" else t["to"]
+            token, body = self.c.token(node), None
         else:
             raise ValueError(step)
-        try:
-            self.c.sql.admin(node, text)
-            ok, err = True, ""
-        except h.sim.SqlError as e:
-            ok, err = False, f"Msg {e.number}"
-        self.outcomes[f"{key}.{step}"] = {"ok": ok, "detail": err or "ok", "path": "sql:no-http-route"}
-        self.event(f"transfer {key} {step} at {node} (sql:no-http-route)", ok=ok, error=err)
+        status, resp = h.call(self.c.hosts[node].base, "POST", path, body, token)
+        ok = status in (200, 201, 204)
+        detail = "ok" if ok else f"{status} {_code(resp)}".strip()
+        self.outcomes[f"{key}.{step}"] = {"ok": ok, "status": status, "detail": detail, "path": f"POST {path}"}
+        self.event(f"transfer {key} {step} at {node}", status=status, problem=_code(resp))
         return ok
+
+    def transfer_status(self, key, node):
+        """The status GET /credit-transfers shows on node for transfer key (the screens read this list)."""
+        token = self.cloud_manager() if node == "cloud" else self.c.token(node)
+        status, rows = h.call(self.c.hosts[node].base, "GET", "/api/v1/credit-transfers", None, token)
+        tid = self.transfers[key]["transferId"]
+        found = [row["status"] for row in rows if row["transferId"].lower() == tid.lower()] if status == 200 else []
+        return found[0] if found else f"{status} not listed"
+
+    def cloud_manager(self):
+        return self.c.tokens.get(("cloud", "t_manager")) or self.c.login("cloud", "t_manager")
 
     # ---------- waits
     def converge(self, label="converge", timeout=180):
@@ -335,6 +335,8 @@ def credit_transfer(r):
         r.transfer("t1", "approve"); r.converge("converge t1 approval")
         r.transfer("t1", "dispatch"); r.converge("converge t1 dispatch")
         r.transfer("t1", "receive"); r.converge("converge t1 receipt")
+        listed = {node: r.transfer_status("t1", node) for node in ("b", "cloud")}
+        r.control("t1 lists as received on B and on the hub", set(listed.values()) == {"received"}, "received", listed)
     with r.phase("B spends the received 50000 (HTTP)"):
         r.sale("sb1")
     with r.phase("concurrent spend: two sales at A each try the remaining 70000 of r1"):
@@ -454,11 +456,12 @@ def reference_data(r):
     """D-039: cut-off A registers a customer and sells to it; the hub owner changes a price. All reach every node."""
     r.bring_up()
     cust, change, ids = r.m["customer"], r.m["price_change"], r.c.ids
-    with r.phase("A cut off; A registers a customer (sql:no-http-route) and sells to it (HTTP)"):
+    with r.phase("A cut off; A registers a customer and sells to it (HTTP)"):
         r.c.proxies["a"].mode = "down"
-        r.c.sql.admin("a", f"EXEC crm.usp_CreateCustomer @CustomerId='{cust['id']}',@DisplayName=N'{cust['name']}',"
-                           f"@DocumentNumber=N'{cust['document']}',@Phone=NULL,@Email=NULL,@ActorId='{ids['cashierA']}';")
-        r.event("customer registered at A (sql:no-http-route)", customer=cust["id"])
+        status, body = h.call(r.c.hosts["a"].base, "POST", "/api/v1/customers",
+                              {"customerId": cust["id"], "displayName": cust["name"], "documentNumber": cust["document"]},
+                              r.c.token("a"))
+        r.control("cashier A registers the customer while cut off", status == 204, "204", f"{status} {_code(body)}")
         r.sale("n1")
     with r.phase("hub owner changes the item price (HTTP)"):
         status, body = h.call(r.c.hosts["cloud"].base, "POST", f"/api/v1/catalog/items/{ids['item']}/values",

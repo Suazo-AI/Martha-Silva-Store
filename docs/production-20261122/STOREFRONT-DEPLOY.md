@@ -1,7 +1,7 @@
 # Storefront deploy (W6 preparation)
 
 Status on 2026-11-22: the demo-mode build is deployed to the preview; the live store is not.
-The primary ran `npx wrangler deploy --config <clean worktree>/wrangler.jsonc` at `30b071ff`: version `de32eca6-aa7e-4e06-97da-acfd87d55b85`, previous version `ac3ec466-aafc-4dac-8038-c4a6f894c73d`.
+The primary ran `npx wrangler deploy --config <clean worktree>/wrangler.jsonc` at `7f54e216` (adds `Strict-Transport-Security`): version `e6934b14-3fee-4963-9a84-b5511b27f302`, previous version `de32eca6-aa7e-4e06-97da-acfd87d55b85` (built at `30b071ff`).
 The CI deploy job in step 6 is not enabled (no `CLOUDFLARE_DEPLOY_ENABLED` variable and no preview token), and every deploy to this account so far was made with Wrangler by hand.
 The live build was exercised only locally: `wrangler dev` against a local hub with a disposable database.
 

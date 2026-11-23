@@ -4,6 +4,7 @@ import { canAccess, isApprover, isOwner, landing, navigation, roleName, SCREENS 
 import approvals from './screens/approvals.mjs';
 import cash from './screens/cash.mjs';
 import commissions from './screens/commissions.mjs';
+import creditTransfers from './screens/credit-transfers.mjs';
 import customers from './screens/customers.mjs';
 import exceptions from './screens/exceptions.mjs';
 import history from './screens/history.mjs';
@@ -35,6 +36,7 @@ const MODULES = {
   recibo: receipt,
   devolucion: returns,
   clientes: customers,
+  traslados: creditTransfers,
   reporte: report,
   excepciones: exceptions,
   aprobaciones: approvals,

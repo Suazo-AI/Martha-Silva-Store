@@ -88,6 +88,7 @@ public static class SaviaEndpoints
         SyncEndpoints.Map(app, api, node);
         PublicEndpoints.Map(open, node);
         WebStoreEndpoints.Map(api, node);
+        CreditTransferEndpoints.Map(api, node);
         if (node.Kind != NodeKind.Branch) return;
 
         ReceivingEndpoints.Map(api);

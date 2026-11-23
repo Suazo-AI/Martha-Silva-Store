@@ -7,85 +7,85 @@
   "path": "tools/rehearsal/expected/schema_skew.json",
   "sha256": "964274301d426913ec6b6f90cf9e3cf6e6a3233ff495d9ca4a5862392076fe2a"
  },
- "seconds_total": 78.5,
+ "seconds_total": 95.0,
  "phases": [
   {
    "phase": "setup: 4 databases, node credentials, staff passwords, seed stock",
-   "seconds": 25.1
+   "seconds": 33.1
   },
   {
    "phase": "start hub and 3 store hosts",
-   "seconds": 6.1
+   "seconds": 6.6
   },
   {
    "phase": "open tills over HTTP",
-   "seconds": 1.4
+   "seconds": 1.9
   },
   {
    "phase": "first convergence",
-   "seconds": 23.6
+   "seconds": 22.3
   },
   {
    "phase": "store C one migration behind: its newest ledger row removed (sql:simulation)",
-   "seconds": 3.7
+   "seconds": 5.3
   },
   {
    "phase": "C runs Savia.Migrator",
-   "seconds": 0.6
+   "seconds": 0.4
   },
   {
    "phase": "converge after C migrates",
-   "seconds": 8.8
+   "seconds": 12.6
   },
   {
    "phase": "C's till status is clear",
-   "seconds": 2.6
+   "seconds": 5.1
   },
   {
    "phase": "checks",
-   "seconds": 5.7
+   "seconds": 6.6
   }
  ],
  "events": [
   {
-   "t": 31.6,
+   "t": 40.4,
    "event": "open till a",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 32.2,
+   "t": 40.8,
    "event": "open till b",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 32.6,
+   "t": 41.6,
    "event": "open till c",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 57.1,
+   "t": 64.8,
    "event": "C's ledger now stops one migration before the hub's",
-   "removed": "V061"
+   "removed": "V063"
   },
   {
-   "t": 60.0,
+   "t": 69.2,
    "event": "sale n1 at c",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 60.6,
+   "t": 69.5,
    "event": "migrator on C",
    "output": [
-    "migrate: ledger complete (55 versions); applied now: V061__hub_catalog_import.sql"
+    "migrate: ledger complete (57 versions); applied now: V063__credit_transfer_list.sql"
    ]
   },
   {
-   "t": 69.4,
-   "event": "converge after C migrates: converged in 8.8s",
+   "t": 82.2,
+   "event": "converge after C migrates: converged in 12.6s",
    "differing": []
   }
  ],
@@ -164,21 +164,21 @@
  },
  "sync_rounds_from_host_logs": {
   "a": {
-   "successful_rounds": 7,
+   "successful_rounds": 9,
    "rebuilt_rounds": 0,
    "not_successful": 0,
    "distinct_warnings": [],
    "host_starts": 1
   },
   "b": {
-   "successful_rounds": 7,
+   "successful_rounds": 9,
    "rebuilt_rounds": 0,
    "not_successful": 0,
    "distinct_warnings": [],
    "host_starts": 1
   },
   "c": {
-   "successful_rounds": 7,
+   "successful_rounds": 8,
    "rebuilt_rounds": 0,
    "not_successful": 1,
    "distinct_warnings": [
@@ -189,25 +189,25 @@
  },
  "hub_exchanges_seen_by_proxies": {
   "a": {
-   "/sync/v1/push/plan 200": 14,
-   "/sync/v1/state 200": 7,
-   "/sync/v1/pull 200": 7,
-   "/sync/v1/push 200": 7
+   "/sync/v1/push/plan 200": 18,
+   "/sync/v1/state 200": 9,
+   "/sync/v1/pull 200": 9,
+   "/sync/v1/push 200": 9
   },
   "b": {
-   "/sync/v1/push/plan 200": 14,
-   "/sync/v1/state 200": 7,
-   "/sync/v1/pull 200": 7,
-   "/sync/v1/push 200": 7
+   "/sync/v1/push/plan 200": 18,
+   "/sync/v1/state 200": 9,
+   "/sync/v1/pull 200": 9,
+   "/sync/v1/push 200": 9
   },
   "c": {
-   "/sync/v1/push/plan 200": 14,
-   "/sync/v1/state 200": 7,
-   "/sync/v1/pull 200": 7,
-   "/sync/v1/push 200": 7,
+   "/sync/v1/push/plan 200": 16,
+   "/sync/v1/state 200": 8,
+   "/sync/v1/pull 200": 8,
+   "/sync/v1/push 200": 8,
    "/sync/v1/push/plan 409": 1
   }
  },
  "hub_rounds_log_errors": [],
- "host_logs": ".out/rehearsal/runs/20261122-142945-schema_skew"
+ "host_logs": ".out/rehearsal/runs/20261122-180303-schema_skew"
 }

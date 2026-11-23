@@ -66,28 +66,66 @@ az containerapp ingress traffic set -n ca-savia-api -g rg-savia-prod --revision-
 Migrations add objects and replace procedures; they do not remove columns or tables.
 A rollback to the previous revision has not been exercised on a newer schema: V060 replaced the sync procedures, so smoke-test the old revision after a rollback and treat sync as unproven there.
 Data: restore the `savia-premig-*` copy or restore to the recorded point in time into a new database, then point the app at it.
-The data restore has not been run. Do the drill in section 5 before real stores connect.
+The data restore has not been run. Do the drill in section 6 before real stores connect.
 
-## 3. Add, rotate or revoke a store
+## 3. First owner, add a store, rotate or revoke
 
-Guide with exact arguments: [PROVISIONING.md](../sync/PROVISIONING.md).
-The command is a migrator mode: `--provision-node register | create | rotate | revoke`.
-It prints the secret once and stores only the hash.
-Keep a recovery copy with `az keyvault secret set --vault-name kv-savia-bukmlt ...` (operator step; the tool does not write to Key Vault).
-On Azure this needs the stores to exist in the hub database first. Not run on Azure yet.
+Full first-day sequence, as it ran locally from empty databases: [DAY-ZERO.md](../../../docs/production-20261122/DAY-ZERO.md).
+All of these are migrator modes; none applies migrations, and each retry with the same ids is a no-op.
+
+| Task | Command | Database |
+| --- | --- | --- |
+| First hub owner | `--provision-staff --role OWNER --set-password` (prints `staff-password:` once) | hub |
+| Hub's own node, once | `--provision-node register --node-kind azure` | hub |
+| A store's branch, location and register | `--provision-branch` | hub and that store, same ids |
+| A store's staff | `--provision-staff --branch-id ... [--approver] --set-password` | hub and that store, same ids |
+| The owner's row on a store | `--provision-staff --role OWNER` (no password) | that store |
+| A store's node and credential | `--provision-node register` (store), then `create` (hub; prints `node-secret:` once) | both |
+| Rotate or revoke | `--provision-node rotate` or `revoke` | hub |
+
+Arguments: [PROVISIONING.md](../sync/PROVISIONING.md).
+`--set-password` takes the password from `SAVIA_STAFF_PASSWORD` when set, or prints a new one once; there is no default password.
+Keep a recovery copy of a node secret with `az keyvault secret set --vault-name kv-savia-bukmlt ...` (operator step; the tool does not write to Key Vault).
+On Azure, run the hub's commands as the `caj-savia-migrate` job with the command's arguments. Not run on Azure yet.
 
 ## 4. Open public web orders
 
-All four are needed; until then the public order route refuses every order.
+All five are needed; until then the public order route refuses every order.
+The whole path ran locally from empty databases in a real browser (DAY-ZERO.md steps 10 to 13).
 
-1. Web stock: a store consigns units to its web location (`POST /api/v1/stock/web-consignments` on the store).
-2. CORS: `az containerapp ingress cors enable -n ca-savia-api -g rg-savia-prod --allowed-origins <storefront origin>`, then read it back.
+1. Catalog and stock: the hub imports the items, a store receives them and consigns units to the web (`POST /api/v1/stock/web-consignments` on the store).
+2. CORS: `az containerapp ingress cors enable -n ca-savia-api -g rg-savia-prod --allowed-origins <storefront origin>`, then read it back. The API also checks `Savia__Public__AllowedOrigins`.
 3. Bot check: the Turnstile secret in the API configuration (from Key Vault), and the site key in `site.config.json`.
-4. Storefront: `storefront.apiBase` and the SKU map in `site.config.json`, then the steps in [STOREFRONT-DEPLOY.md](../../../docs/production-20261122/STOREFRONT-DEPLOY.md).
+4. Storefront: `storefront.apiBase` and the SKU map in `site.config.json` (storefront slug to hub SKU, one per size), then the steps in [STOREFRONT-DEPLOY.md](../../../docs/production-20261122/STOREFRONT-DEPLOY.md).
+5. `Savia__Public__OrderPageUrl`: the storefront's order page, where a payment return sends the buyer.
+
+Staff work the orders on the hub: "Administración → Pedidos web" (`#/pedidos-web`): "Registrar pago" with the bank reference, then "Marcar enviado".
+The store is not told about a web order (DAY-ZERO.md, open gap 1).
 
 Configuration keys and local run: [ORDER-PATH.md](../webstore/ORDER-PATH.md).
 
-## 5. Restore drill (not run)
+## 5. Upgrade a store
+
+A store on another schema version is refused with `sync.schema_mismatch`, so every hub migration stops each store's sync until that store is upgraded.
+Order: hub first (section 1), then each store, the same day.
+
+1. Stop the store host (the Windows service or process). The store cannot sell while it is stopped; plan it outside opening hours.
+2. Back up the store database ([OPERACION.md](../pilot/OPERACION.md)).
+3. Run the migrator of the hub's release against the store database:
+
+   ```powershell
+   $env:Savia__Sql__ConnectionString = '<store database, as an admin>'
+   dotnet Savia.Migrator.dll --migrations db/migrations
+   ```
+
+   Expect `migrate: ledger complete (<n> versions)` with the same count as the hub.
+4. Start the store host with the new API build. Its log shows `Sync round: pulled ...` within one interval.
+
+Sales the store made before the upgrade stay in its database and travel on the next round.
+Ran locally: hub on V999 (an empty test migration), store refused with `sync.schema_mismatch`, store upgraded with these steps, sync resumed ([run 2](../../../docs/production-20261122/day-zero-evidence/run2.md), step 14).
+Not run on a real store host.
+
+## 6. Restore drill (not run)
 
 1. Restore `savia` to a point in time into a new database on the same server.
 2. Run the migrator in `--plan` mode against it; expect 0 pending.
@@ -96,20 +134,20 @@ Configuration keys and local run: [ORDER-PATH.md](../webstore/ORDER-PATH.md).
 
 A restored database costs about the same as the pre-migration copy while it exists.
 
-## 6. When something is wrong
+## 7. When something is wrong
 
 | Signal | Where to look | First action |
 | --- | --- | --- |
 | Alert email: API 5xx or restarts | Application Insights `AppRequests`, `AppExceptions`; Log Analytics `ContainerAppConsoleLogs_CL` | Roll back the revision (section 2) if it started after a deploy. |
 | Alert email: database over 80% full or busy | Azure SQL metrics | Basic stops writes at 2 GB; raise the tier (cost) or find the growing table. |
 | A store shows "esperando reconstrucción" | The till message shows tables done of total | Wait; the lock lifts when the rebuild ends. Do not edit the database. |
-| A store is refused with `sync.schema_mismatch` | The store is on another migration | Update the store to the hub's version. Order: hub first, then stores. |
+| A store is refused with `sync.schema_mismatch` | The store is on another migration | Upgrade the store (section 5). Order: hub first, then stores. |
 | A store is refused with 401 on sync | Its credential was revoked or is wrong | Rotate the credential (section 3). |
 | A web order is in `payment_review` | Hub screen "Pedidos web" | Mark refunded, or accept and re-reserve. Never cancel a charged order by hand. |
 | Migration job failed | Log Analytics, `ContainerJobName_s == 'caj-savia-migrate'` | The live revision did not change. Fix forward; do not edit an applied migration. |
 
-## 7. Limits of this runbook
+## 8. Limits of this runbook
 
-- Sections 3, 4 and 5 have not run on Azure.
+- Sections 3 to 6 have not run on Azure or on a real store host; sections 3 to 5 ran locally from empty databases (DAY-ZERO.md).
 - Store hosts (install, local backup, restore of a store) are in [OPERACION.md](../pilot/OPERACION.md), not here.
 - The Azure subscription is a trial; it must be upgraded before about 2026-12-12 or every resource stops.

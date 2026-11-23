@@ -27,6 +27,7 @@ public interface ICatalogMaintenanceStore
     /// <summary>A null branch and location is the hub: products, items, barcodes and prices, and no stock.</summary>
     Task<JsonElement> ImportCatalogAsync(Guid? branch, Guid? location, ImportCatalogRequest request, Guid actor, Guid node, bool commit,
         CancellationToken ct);
+    Task CreateSupplierAsync(CreateSupplierRequest request, Guid actor, CancellationToken ct);
 }
 
 public sealed class CatalogService(ICatalogStore store, ICatalogMaintenanceStore maintenance, NodeContext node)
@@ -83,6 +84,14 @@ public sealed class CatalogService(ICatalogStore store, ICatalogMaintenanceStore
         if (node.Kind == NodeKind.Branch && node.LocalCatalog) Guard.Branch(actor, node);
         else Guard.Kind(node, NodeKind.Cloud);
         Guard.Role(actor, Roles.Approvers);
+    }
+
+    /// <summary>Suppliers are reference data with the catalog's single writer; stores receive them by sync (V053).</summary>
+    public Task CreateSupplierAsync(Actor actor, CreateSupplierRequest request, CancellationToken ct)
+    {
+        RequireCatalogWriter(actor);
+        Guard.Text(request.Name, "name", 200);
+        return maintenance.CreateSupplierAsync(request, actor.StaffId, ct);
     }
 
     public Task RegisterProductAsync(Actor actor, RegisterProductRequest request, CancellationToken ct)

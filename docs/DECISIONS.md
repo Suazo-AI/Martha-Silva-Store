@@ -381,3 +381,14 @@ El corte por tamaño es 19 000 000 bytes, para dejar margen bajo el límite de 2
 El receptor guarda el avance de cada pasada; un proceso nuevo reanuda desde ahí.
 La lectura incremental de una sucursal omite las filas que aplicó desde otro nodo, usando el contexto de change tracking.
 Una migración no está obligada a poder ejecutarse dos veces; V061 lo permite porque el ensayo `schema_skew` la reaplica.
+
+## D-044 — Alta de un sitio y pedidos web en el día cero
+
+Fecha: 2026-11-22. Actor: primary. Completa D-039 y D-042.
+Personal, sucursales, ubicaciones, cajas y nodos se crean con comandos del migrador en cada base, con los mismos ids.
+Esas tablas no se sincronizan (V053); así ningún secreto viaja entre nodos.
+La API no puede crear personal ni sucursales: V062 niega EXECUTE a `savia_api_host` sobre esos dos procedimientos.
+No hay contraseña por defecto: `--set-password` lee `SAVIA_STAFF_PASSWORD` o imprime una contraseña de un solo uso.
+Pedidos web, valor por defecto hasta que Martha confirme quién empaca: la sucursal que consignó las unidades las empaca y envía.
+Su gerente recibe una cuenta MANAGER en el hub y usa la pantalla "Pedidos web" del hub para registrar el pago y marcar el envío.
+En el hub, MANAGER no importa ni cambia precios (D-042). La sucursal no recibe un aviso propio del pedido; se construirá solo si Martha lo pide.

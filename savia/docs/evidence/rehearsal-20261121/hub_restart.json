@@ -7,102 +7,102 @@
   "path": "tools/rehearsal/expected/hub_restart.json",
   "sha256": "e2aacdd445efe765ffc61b4644feda77c53643a99586326b281e0a8058853eea"
  },
- "seconds_total": 91.9,
+ "seconds_total": 100.3,
  "phases": [
   {
    "phase": "setup: 4 databases, node credentials, staff passwords, seed stock",
-   "seconds": 33.1
+   "seconds": 35.8
   },
   {
    "phase": "start hub and 3 store hosts",
-   "seconds": 6.0
+   "seconds": 6.5
   },
   {
    "phase": "open tills over HTTP",
-   "seconds": 2.3
+   "seconds": 2.4
   },
   {
    "phase": "first convergence",
-   "seconds": 20.7
+   "seconds": 22.6
   },
   {
    "phase": "hub killed after committing A's push, before answering",
-   "seconds": 4.7
+   "seconds": 5.8
   },
   {
    "phase": "stores sell while the hub is down",
-   "seconds": 6.4
+   "seconds": 6.5
   },
   {
    "phase": "hub restarted",
-   "seconds": 1.6
+   "seconds": 1.8
   },
   {
    "phase": "converge after hub restart",
-   "seconds": 9.6
+   "seconds": 12.2
   },
   {
    "phase": "checks",
-   "seconds": 6.3
+   "seconds": 5.3
   }
  ],
  "events": [
   {
-   "t": 39.6,
+   "t": 43.0,
    "event": "open till a",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 40.3,
+   "t": 43.5,
    "event": "open till b",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 41.5,
+   "t": 44.7,
    "event": "open till c",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 62.7,
+   "t": 67.7,
    "event": "sale h1 at a",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 66.6,
+   "t": 72.8,
    "event": "kill point reached",
    "fired": true,
    "hub_status": 200
   },
   {
-   "t": 67.0,
+   "t": 73.2,
    "event": "hub database holds h1 (committed before the crash)",
    "count": 1
   },
   {
-   "t": 67.2,
+   "t": 73.3,
    "event": "sale h2 at b",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 67.3,
+   "t": 73.7,
    "event": "sale h3 at c",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 75.0,
+   "t": 81.5,
    "event": "sale h4 at a",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 84.6,
-   "event": "converge after hub restart: converged in 9.6s",
+   "t": 93.7,
+   "event": "converge after hub restart: converged in 12.2s",
    "differing": []
   }
  ],
@@ -189,16 +189,16 @@
  },
  "sync_rounds_from_host_logs": {
   "a": {
-   "successful_rounds": 6,
+   "successful_rounds": 7,
    "rebuilt_rounds": 0,
-   "not_successful": 3,
+   "not_successful": 2,
    "distinct_warnings": [
     "Sync round could not reach the hub: An error occurred while sending the request."
    ],
    "host_starts": 1
   },
   "b": {
-   "successful_rounds": 7,
+   "successful_rounds": 8,
    "rebuilt_rounds": 0,
    "not_successful": 1,
    "distinct_warnings": [
@@ -207,7 +207,7 @@
    "host_starts": 1
   },
   "c": {
-   "successful_rounds": 7,
+   "successful_rounds": 8,
    "rebuilt_rounds": 0,
    "not_successful": 1,
    "distinct_warnings": [
@@ -218,29 +218,28 @@
  },
  "hub_exchanges_seen_by_proxies": {
   "a": {
-   "/sync/v1/push/plan 200": 15,
+   "/sync/v1/push/plan 200": 16,
    "/sync/v1/state 200": 8,
-   "/sync/v1/pull 200": 7,
-   "/sync/v1/push 200": 7,
+   "/sync/v1/pull 200": 8,
+   "/sync/v1/push 200": 8,
    "/sync/v1/push answer_dropped": 1,
-   "/sync/v1/push/plan hub_unreachable": 1,
-   "/sync/v1/pull hub_unreachable": 1
+   "/sync/v1/push/plan hub_unreachable": 1
   },
   "b": {
-   "/sync/v1/push/plan 200": 14,
-   "/sync/v1/state 200": 7,
-   "/sync/v1/pull 200": 7,
-   "/sync/v1/push 200": 7,
+   "/sync/v1/push/plan 200": 16,
+   "/sync/v1/state 200": 8,
+   "/sync/v1/pull 200": 8,
+   "/sync/v1/push 200": 8,
    "/sync/v1/push/plan hub_unreachable": 1
   },
   "c": {
-   "/sync/v1/push/plan 200": 14,
-   "/sync/v1/state 200": 7,
-   "/sync/v1/pull 200": 7,
-   "/sync/v1/push 200": 7,
+   "/sync/v1/push/plan 200": 16,
+   "/sync/v1/state 200": 8,
+   "/sync/v1/pull 200": 8,
+   "/sync/v1/push 200": 8,
    "/sync/v1/push/plan hub_unreachable": 1
   }
  },
  "hub_rounds_log_errors": [],
- "host_logs": ".out/rehearsal/runs/20261122-142501-hub_restart"
+ "host_logs": ".out/rehearsal/runs/20261122-175809-hub_restart"
 }

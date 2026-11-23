@@ -29,6 +29,11 @@ public static class CatalogEndpoints
                 await catalog.RegisterItemAsync(http.Actor(), request, ct);
                 return Results.NoContent();
             }).WithTags("catalog");
+            api.MapPost("/suppliers", async (CreateSupplierRequest request, HttpContext http, CatalogService catalog, CancellationToken ct) =>
+            {
+                await catalog.CreateSupplierAsync(http.Actor(), request, ct);
+                return Results.NoContent();
+            }).WithTags("catalog");
         }
         else
         {

@@ -7,123 +7,123 @@
   "path": "tools/rehearsal/expected/restore_sale_before_rebuild.json",
   "sha256": "58c93f6184fce8beaa288c6d4ac9d5517f1877e9c1538b8f40582c80bb07e043"
  },
- "seconds_total": 108.1,
+ "seconds_total": 113.7,
  "phases": [
   {
    "phase": "setup: 4 databases, node credentials, staff passwords, seed stock",
-   "seconds": 28.0
+   "seconds": 33.3
   },
   {
    "phase": "start hub and 3 store hosts",
-   "seconds": 6.3
+   "seconds": 6.5
   },
   {
    "phase": "open tills over HTTP",
-   "seconds": 0.8
+   "seconds": 0.9
   },
   {
    "phase": "first convergence",
-   "seconds": 20.8
+   "seconds": 22.4
   },
   {
    "phase": "backup A before its till opens; A opens a till and sells; hub has it",
-   "seconds": 1.2
+   "seconds": 1.9
   },
   {
    "phase": "converge before restore",
-   "seconds": 13.2
+   "seconds": 13.4
   },
   {
    "phase": "A stopped, cut off and restored from the backup",
-   "seconds": 5.5
+   "seconds": 6.8
   },
   {
    "phase": "restored A refuses a new till and a sale before its first rebuild",
-   "seconds": 0.5
+   "seconds": 0.7
   },
   {
    "phase": "link back: A's worker rebuilds before it pushes",
-   "seconds": 8.6
+   "seconds": 7.1
   },
   {
    "phase": "converge after the rebuild",
-   "seconds": 2.2
+   "seconds": 1.7
   },
   {
    "phase": "A sells again on its rebuilt till",
-   "seconds": 0.1
+   "seconds": 0.2
   },
   {
    "phase": "final convergence",
-   "seconds": 13.5
+   "seconds": 12.3
   },
   {
    "phase": "checks",
-   "seconds": 6.5
+   "seconds": 5.2
   }
  ],
  "events": [
   {
-   "t": 34.6,
+   "t": 40.3,
    "event": "open till b",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 35.0,
+   "t": 40.7,
    "event": "open till c",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 56.8,
+   "t": 64.7,
    "event": "open till a",
    "status": 204,
    "problem": ""
   },
   {
-   "t": 57.0,
+   "t": 65.0,
    "event": "sale r1 at a",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 57.0,
+   "t": 65.1,
    "event": "sale r2 at a",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 70.2,
-   "event": "converge before restore: converged in 13.2s",
+   "t": 78.5,
+   "event": "converge before restore: converged in 13.4s",
    "differing": []
   },
   {
-   "t": 76.0,
+   "t": 85.7,
    "event": "open till a",
    "status": 409,
    "problem": "sync.recovery_pending"
   },
   {
-   "t": 76.2,
+   "t": 86.1,
    "event": "sale r3 at a",
    "status": 409,
    "problem": "sync.recovery_pending"
   },
   {
-   "t": 86.9,
-   "event": "converge after the rebuild: converged in 2.2s",
+   "t": 94.9,
+   "event": "converge after the rebuild: converged in 1.7s",
    "differing": []
   },
   {
-   "t": 87.1,
+   "t": 95.0,
    "event": "sale r4 at a",
    "status": 200,
    "problem": ""
   },
   {
-   "t": 100.6,
-   "event": "final convergence: converged in 13.5s",
+   "t": 107.3,
+   "event": "final convergence: converged in 12.3s",
    "differing": []
   }
  ],
@@ -277,5 +277,5 @@
   }
  },
  "hub_rounds_log_errors": [],
- "host_logs": ".out/rehearsal/runs/20261122-142313-restore_sale_before_rebuild"
+ "host_logs": ".out/rehearsal/runs/20261122-175616-restore_sale_before_rebuild"
 }

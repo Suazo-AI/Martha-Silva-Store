@@ -24,6 +24,13 @@ using Microsoft.Data.SqlClient;
 //                       [--node-kind branch|azure] [--branch-id GUID] [--node-code CODE]
 //   --provision-node       node rows and credentials only; migrates nothing (see NodeProvisioning.cs and
 //                          docs/sync/PROVISIONING.md). create and rotate print the new secret once.
+//        Savia.Migrator --provision-branch --branch-id GUID --branch-code CODE --branch-name NAME --store-name NAME
+//                       --location-id GUID --location-code CODE --location-name NAME
+//                       --register-id GUID --register-code CODE --register-name NAME
+//        Savia.Migrator --provision-staff --staff-id GUID --login LOGIN --display-name NAME --role ROLE
+//                       [--branch-id GUID [--approver]] [--set-password]
+//   --provision-branch / --provision-staff  day-zero records on this database only; migrate nothing
+//                          (see SiteProvisioning.cs). --set-password reads SAVIA_STAFF_PASSWORD or prints a new one once.
 // Exit codes: 0 ok, 1 migration or check failed, 2 bad usage or configuration.
 
 var plan = args.Contains("--plan");
@@ -37,6 +44,10 @@ if (string.IsNullOrWhiteSpace(connectionString))
     return Fail(2, "Savia__Sql__ConnectionString is required.");
 if (Option("--provision-node") is { } provisionAction)
     return await ProvisionNode(connectionString, provisionAction);
+if (args.Contains("--provision-branch"))
+    return await ProvisionBranch(connectionString);
+if (args.Contains("--provision-staff"))
+    return await ProvisionStaff(connectionString);
 if (!Directory.Exists(migrationsDir))
     return Fail(2, $"migrations folder not found: {migrationsDir}");
 if (appUser is not null && !Regex.IsMatch(appUser, "^[A-Za-z0-9_.-]{1,120}$"))
@@ -132,6 +143,49 @@ async Task<int> ProvisionNode(string connection, string action)
         Console.WriteLine($"provision: {request.Action} node {request.NodeId:D} on database {sql.Database}: done");
         if (secret is not null)
             Console.WriteLine(NodeRequest.SecretPrefix + secret);
+        return 0;
+    }
+    catch (Exception e) when (e is SqlException or InvalidOperationException)
+    {
+        return Fail(1, e is SqlException s ? $"SQL error {s.Number}: {s.Message}" : e.Message);
+    }
+}
+
+async Task<int> ProvisionBranch(string connection)
+{
+    var (request, error) = BranchRequest.Parse(Option);
+    if (request is null)
+        return Fail(2, error!);
+    return await Provision(connection, async sql =>
+    {
+        await request.RunAsync(sql);
+        Console.WriteLine($"provision: branch {request.Code} register {request.RegisterCode} on database {sql.Database}: done");
+    });
+}
+
+async Task<int> ProvisionStaff(string connection)
+{
+    var (request, error) = StaffRequest.Parse(Option, args.Contains);
+    if (request is null)
+        return Fail(2, error!);
+    return await Provision(connection, async sql =>
+    {
+        var (password, generated) = request.ChoosePassword(Environment.GetEnvironmentVariable(StaffRequest.PasswordVariable));
+        await request.RunAsync(sql, password);
+        Console.WriteLine($"provision: staff {request.Login} role {request.Role} on database {sql.Database}: done" +
+                          (password is null ? "" : ", password set"));
+        if (generated)
+            Console.WriteLine(StaffRequest.PasswordPrefix + password);
+    });
+}
+
+async Task<int> Provision(string connection, Func<SqlConnection, Task> action)
+{
+    try
+    {
+        await using var sql = new SqlConnection(connection);
+        await sql.OpenAsync();
+        await action(sql);
         return 0;
     }
     catch (Exception e) when (e is SqlException or InvalidOperationException)

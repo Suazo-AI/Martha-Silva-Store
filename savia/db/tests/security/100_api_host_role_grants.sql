@@ -1,4 +1,5 @@
--- TEST: savia_api_host (V035) holds exactly the API host permissions, including every synced table, and nothing more.
+-- TEST: savia_api_host (V035) holds exactly the API host permissions, including every synced table, and nothing more
+-- than the V062 denies on the operator-only procedures.
 SET NOCOUNT ON; SET XACT_ABORT ON;
 DECLARE @role int=DATABASE_PRINCIPAL_ID(N'savia_api_host'),@n bigint;
 IF @role IS NULL THROW 59002,'ASSERT FAIL: role savia_api_host is missing',1;
@@ -24,6 +25,10 @@ SET @n=(SELECT COUNT(*) FROM @g WHERE class=1 AND major_id=OBJECT_ID(N'security.
 EXEC test.AssertEq N'security.Staff UPDATE',1,@n;
 SET @n=(SELECT COUNT(*) FROM @g WHERE class=1 AND major_id=OBJECT_ID(N'security.Staff'));
 EXEC test.AssertEq N'security.Staff: UPDATE only',1,@n;
+
+-- Operator-only procedures (V062): EXECUTE is denied so the API host cannot create staff or branches.
+DELETE @g WHERE class=1 AND state='D' AND permission_name='EXECUTE'
+  AND major_id IN (OBJECT_ID(N'core.usp_ProvisionBranch'),OBJECT_ID(N'security.usp_ProvisionStaff'));
 
 -- Nothing else: no other object, no DELETE, DDL, ownership or DENY, and no membership of another role.
 SET @n=(SELECT COUNT(*) FROM @g p WHERE p.class=1

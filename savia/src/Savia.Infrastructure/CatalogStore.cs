@@ -54,4 +54,8 @@ public sealed class CatalogStore(SqlGateway sql) : ICatalogStore, ICatalogMainte
         sql.ReadElement("catalog.usp_ImportCatalog", ct, P("@BatchId", request.BatchId), P("@BranchId", branch), P("@LocationId", location),
             P("@ActorId", actor), P("@FileName", request.FileName), P("@RowsJson", JsonSerializer.Serialize(request.Rows, SqlJson.Web)),
             P("@OriginNodeId", node), P("@Commit", commit));
+
+    public Task CreateSupplierAsync(CreateSupplierRequest request, Guid actor, CancellationToken ct) =>
+        sql.ExecProcAsync("sourcing.usp_CreateSupplier", ct, P("@SupplierId", request.SupplierId), P("@DisplayName", request.Name),
+            P("@ActorId", actor));
 }
