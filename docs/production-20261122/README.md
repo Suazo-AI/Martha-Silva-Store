@@ -12,7 +12,7 @@ States: `verified`, `running`, `pending`, `blocked (input)`.
 
 | ID | Check | Pass condition | State |
 | --- | --- | --- | --- |
-| H1 | Hub runs Tony HEAD on Azure | `/health/ready` 200; image tag equals the commit; ledger holds V001-V035; rollback revision named | verified 2026-11-22: revision `ca-savia-api--g6cc2701-1` at 100%, image `savia-api:6cc27011`, job `caj-savia-migrate-w23romm` applied V062-V063 (ledger complete, 57 versions through V063), rollback `ca-savia-api--g6a962d5-1`, copy `savia-premig-6cc27011-1` |
+| H1 | Hub runs Tony HEAD on Azure | `/health/ready` 200; image tag equals the commit; ledger holds V001-V035; rollback revision named | verified 2026-11-23: revision `ca-savia-api--g1b1e001-1` at 100%, image `savia-api:1b1e0016`, job `caj-savia-migrate-wleyxdr` applied V064 (ledger complete, 58 versions through V064), rollback `ca-savia-api--g6cc2701-1`, copy `savia-premig-1b1e001-1` |
 | H2 | Restricted API identity runs sync on Azure SQL | a sync round as the managed identity returns 200 | pending: needs the stores and one node credential in the hub database. Evidence so far: `sync.CurrentFork` was created on Azure SQL by V036 (no value read back; `sync.LocalNode` may be empty there); the rehearsal runs all 9 scenarios as a login that is only in `savia_api_host` |
 | H3 | Telemetry reaches Application Insights | one request visible in the workspace | verified 2026-11-22: 18 `AppRequests` and 9 `AppDependencies` in `log-savia-bukmlt` within 30 minutes of the deploy |
 | S1 | Recovery lock (G6) | rehearsal `restore_sale_before_rebuild` PASS, not XFAIL | verified 2026-11-22 (V036, V052, V060): every write that moves stock or money is refused while recovering; the till shows tables done of total; rehearsal 9 of 9 PASS |

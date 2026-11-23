@@ -1,6 +1,6 @@
 # SAVIA hub in Azure
 
-Status 2026-11-22: the hub is deployed and live on `rg-savia-prod` (revision `ca-savia-api--g6cc2701-1`, migrations through V063). No store is connected. Runs are listed under "Code patches" below; steps are in [RUNBOOK.md](RUNBOOK.md); open rows are in the [production checklist](../../../docs/production-20261122/README.md).
+Status 2026-11-23: the hub is deployed and live on `rg-savia-prod` (revision `ca-savia-api--g1b1e001-1`, migrations through V064). No store is connected. Runs are listed under "Code patches" below; steps are in [RUNBOOK.md](RUNBOOK.md); open rows are in the [production checklist](../../../docs/production-20261122/README.md).
 The design text below was written on 2026-11-12, before the first deploy.
 Checklist and exact commands: [CHECKLIST.md](CHECKLIST.md).
 
@@ -196,6 +196,12 @@ Rollback: `az containerapp ingress traffic set -n ca-savia-api -g rg-savia-prod 
 Two command notes: `az containerapp job start --args` rejects values that start with `--`, so migrator modes run with `--yaml` and an `args:` list; in PowerShell the revision query needs `--query "[?properties.trafficWeight > \`0\`].name"` written without doubled backticks.
 Restore drill, 2026-11-22: `az sql db restore` of `savia` to 2026-11-23T00:12:14Z into `savia-restore-drill` came Online; migrator `--plan` on it (execution `caj-savia-migrate-xp7bbr0`) read 55 applied, V062 and V063 pending, the state before that night's migration; the database was deleted and the list read back `savia`, `master`, `savia-premig-6cc27011-1`.
 Not done: pointing the app at a restored database; comparing `sync.CurrentFork` (the operator account is not a SQL admin).
+
+Ninth Azure run, 2026-11-23, commit `1b1e0016` (SAVIA CI run 45274636046 green): dry run on `savia-premig-6cc27011-1` (execution `caj-savia-migrate-hynfi28`) applied V062-V064, ledger 58.
+Production job `caj-savia-migrate-wleyxdr` applied V064 (ledger complete, 58 versions); copy `savia-premig-1b1e001-1`.
+Revision `ca-savia-api--g1b1e001-1` passed `smoke.ps1` at 0% traffic, then took 100%; `smoke.ps1` PASS on the app URL; `/health/ready` 200; public catalog 200; `/api/v1/me` and `POST /api/v1/auth/password` without sign-in 401.
+Rollback: `az containerapp ingress traffic set -n ca-savia-api -g rg-savia-prod --revision-weight ca-savia-api--g6cc2701-1=100`.
+Not run on Azure: a staff password change, and RUNBOOK 3.1 (Key Vault references).
 P2: `AddSaviaTelemetry` calls `UseAzureMonitor` only when `APPLICATIONINSIGHTS_CONNECTION_STRING` is set; with `AZURE_CLIENT_ID` it signs in as that identity.
 `Azure.Monitor.OpenTelemetry.AspNetCore` 1.6.0 needs `Azure.Identity` 1.21.0 in the API: older Azure.Identity clashes with Azure.Core 1.60 on `ManagedIdentityCredential`.
 1.4.0 avoids the bump but pulls `OpenTelemetry.Api` 1.14.0 (GHSA-g94r-2vxg-569j). The managed-identity export is not tested until it runs on Azure.
