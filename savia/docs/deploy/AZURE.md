@@ -194,6 +194,8 @@ Production job `caj-savia-migrate-w23romm` applied V062 and V063 (ledger complet
 Revision `ca-savia-api--g6cc2701-1` passed `smoke.ps1` at 0% traffic, then took 100%; `smoke.ps1` PASS on the app URL; public catalog 200; an empty public order 400 `validation`; `/api/v1/credit-transfers` without sign-in 401.
 Rollback: `az containerapp ingress traffic set -n ca-savia-api -g rg-savia-prod --revision-weight ca-savia-api--g6a962d5-1=100`.
 Two command notes: `az containerapp job start --args` rejects values that start with `--`, so migrator modes run with `--yaml` and an `args:` list; in PowerShell the revision query needs `--query "[?properties.trafficWeight > \`0\`].name"` written without doubled backticks.
+Restore drill, 2026-11-22: `az sql db restore` of `savia` to 2026-11-23T00:12:14Z into `savia-restore-drill` came Online; migrator `--plan` on it (execution `caj-savia-migrate-xp7bbr0`) read 55 applied, V062 and V063 pending, the state before that night's migration; the database was deleted and the list read back `savia`, `master`, `savia-premig-6cc27011-1`.
+Not done: pointing the app at a restored database; comparing `sync.CurrentFork` (the operator account is not a SQL admin).
 P2: `AddSaviaTelemetry` calls `UseAzureMonitor` only when `APPLICATIONINSIGHTS_CONNECTION_STRING` is set; with `AZURE_CLIENT_ID` it signs in as that identity.
 `Azure.Monitor.OpenTelemetry.AspNetCore` 1.6.0 needs `Azure.Identity` 1.21.0 in the API: older Azure.Identity clashes with Azure.Core 1.60 on `ManagedIdentityCredential`.
 1.4.0 avoids the bump but pulls `OpenTelemetry.Api` 1.14.0 (GHSA-g94r-2vxg-569j). The managed-identity export is not tested until it runs on Azure.

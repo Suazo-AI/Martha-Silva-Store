@@ -66,7 +66,7 @@ az containerapp ingress traffic set -n ca-savia-api -g rg-savia-prod --revision-
 Migrations add objects and replace procedures; they do not remove columns or tables.
 A rollback to the previous revision has not been exercised on a newer schema: V060 replaced the sync procedures, so smoke-test the old revision after a rollback and treat sync as unproven there.
 Data: restore the `savia-premig-*` copy or restore to the recorded point in time into a new database, then point the app at it.
-The data restore has not been run. Do the drill in section 6 before real stores connect.
+A point-in-time restore into a new database ran once (section 6); pointing the app at a restored database has not been run.
 
 ## 3. First owner, add a store, rotate or revoke
 
@@ -125,10 +125,12 @@ Sales the store made before the upgrade stay in its database and travel on the n
 Ran locally: hub on V999 (an empty test migration), store refused with `sync.schema_mismatch`, store upgraded with these steps, sync resumed ([run 2](../../../docs/production-20261122/day-zero-evidence/run2.md), step 14).
 Not run on a real store host.
 
-## 6. Restore drill (not run)
+## 6. Restore drill
+
+Ran once on 2026-11-22: steps 1, 2 and 4 ([AZURE.md](AZURE.md), checklist O1). Step 3 was not done: the operator account is not a SQL admin.
 
 1. Restore `savia` to a point in time into a new database on the same server.
-2. Run the migrator in `--plan` mode against it; expect 0 pending.
+2. Run the migrator in `--plan` mode against it, as the `caj-savia-migrate` job with `args:` in a `--yaml` template; expect the pending count of the restore time (0 unless a migration ran after it).
 3. Confirm that `sync.CurrentFork` differs from production's value; this is the hub's restore signal and is only inferred today.
 4. Delete the restored database.
 
@@ -148,6 +150,6 @@ A restored database costs about the same as the pre-migration copy while it exis
 
 ## 8. Limits of this runbook
 
-- Sections 3 to 6 have not run on Azure or on a real store host; sections 3 to 5 ran locally from empty databases (DAY-ZERO.md).
+- Sections 3 to 5 have not run on Azure or on a real store host; they ran locally from empty databases (DAY-ZERO.md). Section 3's `--provision-branch` ran once on an Azure copy. Section 6 ran on Azure without step 3.
 - Store hosts (install, local backup, restore of a store) are in [OPERACION.md](../pilot/OPERACION.md), not here.
 - The Azure subscription is a trial; it must be upgraded before about 2026-12-12 or every resource stops.

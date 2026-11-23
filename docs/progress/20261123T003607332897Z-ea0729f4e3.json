@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-23T00:36:07.332897+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/docs/deploy/AZURE.md",
+      "change": "M",
+      "git_blob": "218b2d4aedcf374bb4c38d3155b3cae491b4ea0a"
+    },
+    {
+      "path": "savia/docs/deploy/RUNBOOK.md",
+      "change": "M",
+      "git_blob": "f8655502266cee368ce29404f5ccaa00459063f4"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}
