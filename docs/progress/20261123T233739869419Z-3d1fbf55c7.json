@@ -1,0 +1,70 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-23T23:37:39.869419+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "build-inputs/static/ayuda.html",
+      "change": "M",
+      "git_blob": "acc22c741722c20b90947653d092922aa707d5aa"
+    },
+    {
+      "path": "build-inputs/static/locale-en.js",
+      "change": "M",
+      "git_blob": "81090ac59b903cc6427bad7296914acb6c8d5ea3"
+    },
+    {
+      "path": "build-inputs/static/styles.css",
+      "change": "M",
+      "git_blob": "cc43e0d4d6605ef82773ba42283cc369d5bffec5"
+    },
+    {
+      "path": "dist/app.js",
+      "change": "M",
+      "git_blob": "2acf5d4a5eafb26b06bc3a74d9adcb2e6e88729b"
+    },
+    {
+      "path": "dist/ayuda.html",
+      "change": "M",
+      "git_blob": "83a85cced26ac8a64b57c4604f383818549e40d5"
+    },
+    {
+      "path": "dist/locale-en.js",
+      "change": "M",
+      "git_blob": "81090ac59b903cc6427bad7296914acb6c8d5ea3"
+    },
+    {
+      "path": "dist/styles.css",
+      "change": "M",
+      "git_blob": "cc43e0d4d6605ef82773ba42283cc369d5bffec5"
+    },
+    {
+      "path": "docs/production-20261122/LEGAL-SOURCES.md",
+      "change": "A",
+      "git_blob": "d35b3bd83a36e3a0c2f2b3d87cc94a603ec85e2e"
+    },
+    {
+      "path": "docs/production-20261122/README.md",
+      "change": "M",
+      "git_blob": "74866bd9ecf3544623d4233065faf06dd5829c4a"
+    },
+    {
+      "path": "evidence/releases/20261105/responsive-runtime-sha256.json",
+      "change": "M",
+      "git_blob": "8dca9f2e5f99c2497e02798076fc2a809487c049"
+    },
+    {
+      "path": "src/app.js",
+      "change": "M",
+      "git_blob": "d9d31313e6e41934ee8b6dbb183344bbfacaae75"
+    },
+    {
+      "path": "tests/page-hashes.json",
+      "change": "M",
+      "git_blob": "bee09ddb562313dab2f6466d019cbef3c4ab1373"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

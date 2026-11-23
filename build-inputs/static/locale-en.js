@@ -469,5 +469,24 @@ novias-encaje|Lace bridal|Wedding dress with a V-back, floral motifs, a bow and 
     'La colección de Martha Silva Store: 40 prendas de las categorías Gala, Moda y Novias, con tallas y precios.': 'The Martha Silva Store collection: 40 items in the Occasionwear, Fashion and Bridal categories, with sizes and prices.',
     'Martha Silva Store, Nicaragua: prendas de las categorías Gala, Moda y Novias. Explorá la colección y mirá las tallas.': 'Martha Silva Store, Nicaragua: items in the Occasionwear, Fashion and Bridal categories. Browse the collection and check the sizes.',
   });
+  // W9: terms, privacy, returns and contact (2026-11-23)
+  Object.assign(messages, {
+    'Términos de compra': 'Terms of sale',
+    'Devoluciones y garantía': 'Returns and warranty',
+    'Si la prenda tiene un defecto o no coincide con lo ofrecido, tenés derecho a que la reparemos, la cambiemos o te devolvamos lo pagado.': 'If an item has a defect or does not match what was offered, you have the right to a repair, an exchange or a refund of what you paid.',
+    'También podés retractarte de la compra dentro de los cinco días hábiles siguientes a recibir la prenda.': 'You can also withdraw from the purchase within five business days of receiving the item.',
+    'Para un reclamo, escribinos dentro de los 30 días hábiles siguientes a recibir tu pedido. Contestamos en un máximo de 10 días hábiles.': 'For a complaint, write to us within 30 business days of receiving your order. We reply within 10 business days.',
+    'Martha Silva Store vende en este sitio prendas con entrega en Nicaragua.': 'Martha Silva Store sells clothing on this site, with delivery in Nicaragua.',
+    'Antes de confirmar ves el precio de cada prenda, el costo de entrega y el total.': 'Before you confirm, you see the price of each item, the delivery cost and the total.',
+    'Tu pedido se confirma cuando registramos el pago. Lo entregamos en la dirección que indicás.': 'Your order is confirmed when we record the payment. We deliver it to the address you give.',
+    'Martha Silva Store, en Plaza Natura, Managua, es responsable de los datos que nos das al comprar: nombre, email, teléfono y dirección de entrega.': 'Martha Silva Store, at Plaza Natura in Managua, is responsible for the details you give us when you buy: name, email, phone and delivery address.',
+    'Los usamos solo para preparar, cobrar y entregar tu pedido y para atender tus reclamos.': 'We use them only to prepare, charge and deliver your order and to handle your complaints.',
+    'Te enviamos novedades solo si marcás esa opción al comprar, y podés pedir que dejemos de enviarlas.': 'We send you news only if you tick that option when you buy, and you can ask us to stop.',
+    'Mientras comprás, tus datos y tu último pedido quedan en esta pestaña del navegador.': 'While you shop, your details and your last order stay in this browser tab.',
+    'Podés pedirnos ver, corregir o borrar tus datos por WhatsApp o por teléfono. Contestamos en un máximo de 10 días hábiles.': 'You can ask us to see, correct or delete your details by WhatsApp or phone. We reply within 10 business days.',
+    'Plaza Natura, de la Rotonda Universitaria 200 m al oeste, Pista Suburbana, Managua.': 'Plaza Natura, 200 m west of the Rotonda Universitaria, Pista Suburbana, Managua.',
+    'Lunes a sábado, de 10:00 a 19:00. Domingo, de 11:00 a 17:00.': 'Monday to Saturday, 10:00 to 19:00. Sunday, 11:00 to 17:00.',
+    'Usamos estos datos solo para preparar, cobrar y entregar tu pedido.': 'We use these details only to prepare, charge and deliver your order.',
+  });
   window.MARTHA_EN = messages;
 })();

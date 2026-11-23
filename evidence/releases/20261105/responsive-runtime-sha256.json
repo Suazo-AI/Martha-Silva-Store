@@ -12,8 +12,8 @@
     "bytes": 14290
   },
   "app.js": {
-    "sha256": "1e56d5283b7394cdf257fd5e53036bc680d0af5f7e6d5328ffdea24e68986828",
-    "bytes": 114962
+    "sha256": "0e2326c30264b7c4a25468dfcb8695ec0d7ecef8e270d1a2486fdbb083e1131b",
+    "bytes": 115211
   },
   "assets/missing.svg": {
     "sha256": "d554c87f8dbda28d8a3aa567e19290c0ff9845c1b459f72e35c62535e1f41428",
@@ -24,8 +24,8 @@
     "bytes": 59454
   },
   "ayuda.html": {
-    "sha256": "3c37ce5fe0f85e402e4079dccf42fc86d1937584c2513eb1afe0b3ac891ceb54",
-    "bytes": 16755
+    "sha256": "934e2e13915a4942ab7bfa40a5a7cf47f1ac119f649949bcc28d778d548eaf16",
+    "bytes": 18255
   },
   "bolsa.html": {
     "sha256": "a0c617fd78c64cb34644a892066e39b20202323d4da7357433671977f9d46294",
@@ -360,8 +360,8 @@
     "bytes": 3457
   },
   "locale-en.js": {
-    "sha256": "5d970225a59c2a2071b5208faef78dbbde92e0ba02cd03da602586eb6605537b",
-    "bytes": 28398
+    "sha256": "04b0365bc409c7d006992d1502d8a192a19b509cdfdfcbbacc51da75e2c70e61",
+    "bytes": 31437
   },
   "looks/amarillo/01-front-v1.png": {
     "sha256": "597bf9819c64141df2cf5237b390e5acfe63ebba2dc252d041206b16bcfa8a3e",
@@ -6228,7 +6228,7 @@
     "bytes": 19685
   },
   "styles.css": {
-    "sha256": "fb199009001624b395c1285cc3f8c77e4dd2c38cc13b4a22d7dcf5d500fddc92",
-    "bytes": 85506
+    "sha256": "4e313c1a4862a2d0ae266b0dbf08182438b3531135c50f69a21ebd4b7753b1bc",
+    "bytes": 85630
   }
 }
