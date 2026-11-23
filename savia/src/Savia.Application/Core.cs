@@ -17,7 +17,9 @@ public sealed record NodeContext(NodeKind Kind, Guid NodeId, Guid? BranchId, Gui
 }
 
 /// <summary>The signed-in staff member, loaded from the database on every request.</summary>
-public sealed record Actor(Guid StaffId, string DisplayName, IReadOnlySet<string> Roles, IReadOnlySet<Guid> BranchIds);
+/// <param name="MustChangePassword">Signed in with a printed one-time password (V064); the API refuses everything else.</param>
+public sealed record Actor(Guid StaffId, string DisplayName, IReadOnlySet<string> Roles, IReadOnlySet<Guid> BranchIds,
+    bool MustChangePassword = false);
 
 // Use cases live in one file per module (Catalog.cs, Sales.cs, ...): a port `I<Module>Store` and a `<Module>Service`.
 // Each use case authorizes, checks the shape of the input and calls one port.

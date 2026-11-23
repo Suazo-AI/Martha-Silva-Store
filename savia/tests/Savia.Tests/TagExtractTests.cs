@@ -241,6 +241,8 @@ internal sealed class TagHost : WebApplicationFactory<Program>
         public Task<Actor?> LoadActorAsync(Guid staffId, CancellationToken ct) => Task.FromResult<Actor?>(new Actor(staffId, "Prueba",
             new HashSet<string> { staffId == Inventory ? Roles.Inventory : Roles.Accountant }, new HashSet<Guid> { Ids.BranchA }));
         public Task<StaffCredential?> FindStaffAsync(string normalizedLogin, CancellationToken ct) => Task.FromResult<StaffCredential?>(null);
+        public Task<StaffCredential?> FindStaffByIdAsync(Guid staffId, CancellationToken ct) => Task.FromResult<StaffCredential?>(null);
+        public Task ChangeOwnPasswordAsync(Guid staffId, byte[] tokenHash, string passwordHash, CancellationToken ct) => Task.CompletedTask;
         public Task RecordSignInAsync(Guid staffId, bool success, DateTimeOffset? lockUntil, CancellationToken ct) => Task.CompletedTask;
         public Task CreateSessionAsync(Guid staffId, Guid securityVersion, byte[] tokenHash, DateTimeOffset expiresAt, CancellationToken ct) => Task.CompletedTask;
         public Task RevokeSessionAsync(byte[] tokenHash, DateTimeOffset now, CancellationToken ct) => Task.CompletedTask;

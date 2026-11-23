@@ -14,6 +14,12 @@ public static class AuthEndpoints
         {
             await auth.LogoutAsync(Http.BearerToken(http), ct);
             return Results.NoContent();
-        }).WithTags("auth");
+        }).WithTags("auth").WithMetadata(PasswordChangeOpen.Instance);
+        // DAY-ZERO.md gap 2: the signed-in staff member replaces their own password on this node; other sessions end.
+        api.MapPost("/auth/password", async (ChangePasswordRequest request, HttpContext http, AuthService auth, CancellationToken ct) =>
+        {
+            await auth.ChangePasswordAsync(http.Actor(), Http.BearerToken(http), request, ct);
+            return Results.NoContent();
+        }).WithTags("auth").WithMetadata(PasswordChangeOpen.Instance).RequireRateLimiting(SaviaHosting.LoginPolicy);
     }
 }

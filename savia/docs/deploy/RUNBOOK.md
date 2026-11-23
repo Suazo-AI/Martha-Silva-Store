@@ -75,18 +75,105 @@ All of these are migrator modes; none applies migrations, and each retry with th
 
 | Task | Command | Database |
 | --- | --- | --- |
-| First hub owner | `--provision-staff --role OWNER --set-password` (prints `staff-password:` once) | hub |
+| First hub owner | `--provision-staff --role OWNER --set-password` (on Azure with `SAVIA_STAFF_PASSWORD`, section 3.1) | hub |
 | Hub's own node, once | `--provision-node register --node-kind azure` | hub |
 | A store's branch, location and register | `--provision-branch` | hub and that store, same ids |
 | A store's staff | `--provision-staff --branch-id ... [--approver] --set-password` | hub and that store, same ids |
 | The owner's row on a store | `--provision-staff --role OWNER` (no password) | that store |
-| A store's node and credential | `--provision-node register` (store), then `create` (hub; prints `node-secret:` once) | both |
+| A store's node and credential | `--provision-node register` (store), then `create` (hub; on Azure with `SAVIA_NODE_SECRET`, section 3.1) | both |
 | Rotate or revoke | `--provision-node rotate` or `revoke` | hub |
 
 Arguments: [PROVISIONING.md](../sync/PROVISIONING.md).
-`--set-password` takes the password from `SAVIA_STAFF_PASSWORD` when set, or prints a new one once; there is no default password.
-Keep a recovery copy of a node secret with `az keyvault secret set --vault-name kv-savia-bukmlt ...` (operator step; the tool does not write to Key Vault).
-On Azure, run the hub's commands as the `caj-savia-migrate` job with the command's arguments. Not run on Azure yet.
+`--set-password` takes the password from `SAVIA_STAFF_PASSWORD` when set and prints none.
+Without it, it prints a new one-time password once; the staff member must change it at the first sign-in (V064).
+`--provision-node create|rotate` takes the secret from `SAVIA_NODE_SECRET` when set and prints none; without it, it prints a new one once.
+There is no default password or secret.
+On Azure, run the hub's commands as the `caj-savia-migrate` job, always with the variables of section 3.1. Not run on Azure yet.
+
+### 3.1 Create accounts and store credentials on Azure (not run on Azure)
+
+Status: written and tested locally only; no step of this section has run on Azure.
+Reason: the job's console output goes to Log Analytics (`ContainerAppConsoleLogs_CL`, 30-day retention).
+A printed `node-secret:` or `staff-password:` line would stay readable there, so on Azure the value always comes from Key Vault.
+
+Prerequisite: the migrate identity `id-savia-migrate-bukmlt` has no Key Vault role in `main.bicep`; only the API identity has `Key Vault Secrets User`.
+Give it that role on each secret it must read, not on the whole vault, and remove the role after the run:
+
+```powershell
+$migrateId = az identity show -n id-savia-migrate-bukmlt -g rg-savia-prod --query principalId -o tsv
+$vaultId = az keyvault show -n kv-savia-bukmlt --query id -o tsv
+az role assignment create --assignee-object-id $migrateId --assignee-principal-type ServicePrincipal `
+  --role "Key Vault Secrets User" --scope "$vaultId/secrets/<secret name>"
+```
+
+1. Generate the value on the operator's PC. Never print it.
+   The result is 43 base64url characters: a valid node secret, and a valid staff password (10 to 200 characters).
+
+```powershell
+$value = [Convert]::ToBase64String([Security.Cryptography.RandomNumberGenerator]::GetBytes(32)).TrimEnd('=').Replace('+', '-').Replace('/', '_')
+```
+
+2. Store it in Key Vault, one secret per value (for example `node-secret-<node code>` or `staff-password-<login>`).
+   `--output none` matters: without it, the CLI prints the secret value.
+
+```powershell
+az keyvault secret set --vault-name kv-savia-bukmlt --name <secret name> --value $value --output none
+Remove-Variable value
+```
+
+3. Give the job a reference to that secret, never the value:
+
+```powershell
+az containerapp job secret set -n caj-savia-migrate -g rg-savia-prod --secrets `
+  "<job secret name>=keyvaultref:https://kv-savia-bukmlt.vault.azure.net/secrets/<secret name>,identityref:<migrate identity resource id>"
+```
+
+4. Start the job with the variable as a secret reference (`secretRef`), never as a literal.
+   An override replaces the container's variables, so pass the connection string and the client id too (section 1.1 shows where to read them).
+   For a staff password, name the variable `SAVIA_STAFF_PASSWORD` and use the `--provision-staff ... --set-password` arguments.
+
+`az containerapp job start --args` refuses values that start with `--` (seen 2026-11-22), so the arguments go in a template file passed with `--yaml`.
+The same form ran `--provision-branch` and `--plan` on Azure; the `secretRef` line has not run.
+
+```yaml
+containers:
+- name: migrate
+  image: acrsaviabukmlt.azurecr.io/savia-migrator:<sha>
+  resources: {cpu: 0.5, memory: 1Gi}
+  env:
+  - name: Savia__Sql__ConnectionString
+    value: "<the job's connection string>"
+  - name: AZURE_CLIENT_ID
+    value: <migrate identity client id>
+  - name: SAVIA_NODE_SECRET
+    secretRef: <job secret name>
+  args: ["--provision-node", "create", "--node-id", "<guid>", "--branch-id", "<guid>", "--node-code", "<code>"]
+```
+
+```powershell
+az containerapp job start -n caj-savia-migrate -g rg-savia-prod --yaml <template file>
+```
+
+5. Confirm that the job log holds no secret.
+   The first query must count 0. The second must show the `(not printed)` or `password set` line of this run.
+
+```powershell
+$workspace = az monitor log-analytics workspace show -n log-savia-bukmlt -g rg-savia-prod --query customerId -o tsv
+az monitor log-analytics query -w $workspace --analytics-query `
+  "ContainerAppConsoleLogs_CL | where ContainerJobName_s == 'caj-savia-migrate' | where Log_s has 'node-secret:' or Log_s has 'staff-password:' | count"
+az monitor log-analytics query -w $workspace --analytics-query `
+  "ContainerAppConsoleLogs_CL | where ContainerJobName_s == 'caj-savia-migrate' | where Log_s has 'provision:' | project TimeGenerated, Log_s | take 20"
+```
+
+6. Remove the job's secret reference: `az containerapp job secret remove -n caj-savia-migrate -g rg-savia-prod --secret-names <job secret name>`.
+   Then remove the role with `az role assignment delete` and the same scope.
+
+7. Hand the value to its user from Key Vault, not from the log.
+   The store operator puts the node secret in the store's configuration ([PROVISIONING.md](../sync/PROVISIONING.md)).
+   A staff member receives the password in person.
+
+Limit: a password given with `SAVIA_STAFF_PASSWORD` does not force a change at the first sign-in, because the operator chose it.
+Ask the staff member to change it after the first sign-in.
 
 ## 4. Open public web orders
 
@@ -151,5 +238,6 @@ A restored database costs about the same as the pre-migration copy while it exis
 ## 8. Limits of this runbook
 
 - Sections 3 to 5 have not run on Azure or on a real store host; they ran locally from empty databases (DAY-ZERO.md). Section 3's `--provision-branch` ran once on an Azure copy. Section 6 ran on Azure without step 3.
+- Section 3.1 (Key Vault references for the migrate job) has not run on Azure; the migrate identity's Key Vault role is a manual step, not in `main.bicep`.
 - Store hosts (install, local backup, restore of a store) are in [OPERACION.md](../pilot/OPERACION.md), not here.
 - The Azure subscription is a trial; it must be upgraded before about 2026-12-12 or every resource stops.

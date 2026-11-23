@@ -8,10 +8,13 @@ using System.Text;
 //   create    register on the hub, then a first credential; refused when the node already has an active one
 //   rotate    a new credential for an existing node; the old secret stops working at once (one row per node)
 //   revoke    the node's credential stops working; the node row stays
-// The secret is printed once, on its own "node-secret: " line. SQL receives only its SHA-256.
+// create and rotate take the secret from SAVIA_NODE_SECRET when it is set, and then print no secret: on Azure the job's
+// output goes to Log Analytics. Otherwise they make a new one and print it once, on its own "node-secret: " line.
+// SQL receives only its SHA-256.
 internal sealed record NodeRequest(string Action, Guid NodeId, string Kind, Guid? BranchId, string? NodeCode)
 {
     internal const string SecretPrefix = "node-secret: ";
+    internal const string SecretVariable = "SAVIA_NODE_SECRET";
     private static readonly string[] Actions = ["register", "create", "rotate", "revoke"];
 
     /// <summary>Returns the request, or an error message for exit code 2.</summary>
@@ -39,8 +42,36 @@ internal sealed record NodeRequest(string Action, Guid NodeId, string Kind, Guid
 
     internal static byte[] Hash(string secret) => SHA256.HashData(Encoding.UTF8.GetBytes(secret));
 
-    /// <summary>Runs the action. Returns the new secret for create and rotate, otherwise null.</summary>
-    internal async Task<string?> RunAsync(DbConnection connection)
+    /// <summary>
+    /// Null when a given secret is strong enough: 43 to 256 base64url characters (at least the 256 bits of
+    /// <see cref="NewSecret"/>; no '.', space or quote, so the sync header carries it) and at least 16 distinct ones.
+    /// The message never contains the value.
+    /// </summary>
+    internal static string? CheckSecret(string secret) =>
+        secret.Length is >= 43 and <= 256 && secret.All(c => char.IsAsciiLetterOrDigit(c) || c is '-' or '_') &&
+        secret.Distinct().Count() >= 16
+            ? null
+            : $"{SecretVariable} must be 43 to 256 characters of A-Z, a-z, 0-9, '-' and '_', with at least 16 different ones " +
+              "(the value is not shown). Generate one from 32 random bytes in base64url.";
+
+    /// <summary>
+    /// Runs the action and writes its report. A secret from <see cref="SecretVariable"/> is never written; a generated
+    /// one is written once, on the <see cref="SecretPrefix"/> line.
+    /// </summary>
+    internal async Task ReportAsync(DbConnection connection, string? givenSecret, TextWriter output)
+    {
+        var given = Action is "create" or "rotate" && !string.IsNullOrEmpty(givenSecret) ? givenSecret : null;
+        if (given is not null && CheckSecret(given) is { } error)
+            throw new InvalidOperationException(error);
+        var secret = await RunAsync(connection, given);
+        output.WriteLine($"provision: {Action} node {NodeId:D} on database {connection.Database}: done" +
+                         (secret is not null && given is not null ? $", credential from {SecretVariable} (not printed)" : ""));
+        if (secret is not null && given is null)
+            output.WriteLine(SecretPrefix + secret);
+    }
+
+    /// <summary>Runs the action. Returns the secret for create and rotate (the given one, or a new one), otherwise null.</summary>
+    internal async Task<string?> RunAsync(DbConnection connection, string? givenSecret = null)
     {
         if (Action is "register" or "create")
             await Exec(connection, "sync.usp_ProvisionNode", ("@NodeId", NodeId), ("@Kind", Kind),
@@ -51,7 +82,7 @@ internal sealed record NodeRequest(string Action, Guid NodeId, string Kind, Guid
             return null;
         if (Action == "create" && await HasActiveCredential(connection))
             throw new InvalidOperationException("the node already has an active credential; use rotate.");
-        var secret = NewSecret();
+        var secret = givenSecret ?? NewSecret();
         await Exec(connection, "sync.usp_SetNodeCredential", ("@NodeId", NodeId), ("@SecretHash", Hash(secret)));
         return secret;
     }

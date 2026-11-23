@@ -35,7 +35,9 @@ dotnet Savia.Migrator.dll --provision-staff --staff-id <owner id> --login <login
 
 The last output line is `staff-password: <password>`, printed once; SQL keeps only its hash.
 Give it to the owner in person.
-To set a password you chose instead, put it in `SAVIA_STAFF_PASSWORD` for that one command; the migrator never prints it then.
+It is a one-time password (V064): at the first sign-in the web app shows only "Cambie su contraseña temporal", and every other route answers 403 `auth.password_change_required` until the owner changes it.
+To set a password you chose instead, put it in `SAVIA_STAFF_PASSWORD` for that one command; the migrator never prints it then, and no change is forced.
+On Azure, always use `SAVIA_STAFF_PASSWORD` from Key Vault: the job's output goes to Log Analytics ([RUNBOOK.md](../../savia/docs/deploy/RUNBOOK.md) section 3.1).
 There is no default password, and a retry with the same id and login is a no-op.
 
 ## 2. Branch, location and register, on the hub and on the store
@@ -77,6 +79,8 @@ dotnet Savia.Migrator.dll --provision-node create --node-id <store node id> --br
 ```
 
 The last command prints `node-secret: <secret>` once.
+To pass a secret you generated instead, put it in `SAVIA_NODE_SECRET` for that one command: the migrator checks it (43 to 256 base64url characters), stores its hash and prints no secret.
+On Azure, always use `SAVIA_NODE_SECRET` from Key Vault ([RUNBOOK.md](../../savia/docs/deploy/RUNBOOK.md) section 3.1).
 The hub's own node row must exist on the hub database: without it the hub refuses every store round with `sync.node_unknown` (run 1, step 5).
 Details and rotation: [PROVISIONING.md](../../savia/docs/sync/PROVISIONING.md).
 
@@ -96,14 +100,15 @@ The store's log shows `Sync round: pulled 0, pushed 0` within one interval.
 
 ## 6 and 7. Catalog on the hub; it reaches the store
 
-The owner signs in on the hub, opens "Importar catálogo" (`#/importar`), loads the file, reviews and imports.
+The owner signs in on the hub and first replaces the one-time password (`POST /api/v1/auth/password`).
+Then the owner opens "Importar catálogo" (`#/importar`), loads the file, reviews and imports.
 Prices: "Precios" (`#/precios`).
 Routes behind the screens: `POST /api/v1/catalog/import/preview`, `POST /api/v1/catalog/import`, `POST /api/v1/catalog/items/{id}/values`.
 The store refuses catalog changes (`catalog.managed_by_hub`, D-042) and receives the items and prices on its next rounds.
 
 ## 8. Receiving on the store
 
-1. Supplier, once, on the hub: `POST /api/v1/suppliers` as OWNER, body `{ "supplierId": "<new id>", "name": "<name>" }`. It reaches the store by sync. There is no supplier screen yet (open gap 3).
+1. Supplier, once, on the hub: "Importar catálogo" → "Nuevo proveedor" (name only), or `POST /api/v1/suppliers` as OWNER, body `{ "supplierId": "<new id>", "name": "<name>" }`. It reaches the store by sync.
 2. On the store, "Recepción": open a session for the supplier, scan each item, the manager approves and posts.
    Routes: `POST /api/v1/receiving/sessions`, `.../scans`, `.../approve`, `.../post`.
 
@@ -174,10 +179,11 @@ The rehearsal's `credit_transfer` scenario runs the four transfer steps over HTT
    A store team that packs the order has no view of it unless it signs in to the hub.
    Proposed design: a hub-to-store event per paid order (order code, lines, source location, buyer's name and delivery zone, no payment data), applied into a read-only store table and shown in a store screen "Pedidos web por preparar".
    Needs a business decision first: who packs and ships web orders (open gap 1 in the answer to Jason).
-2. **Staff cannot change their own password.**
-   Passwords are set by the migrator only, per database.
-   Proposed design: `POST /api/v1/auth/password` (current and new password, signed in), writing the hash on that node only; first sign-in with a printed one-time password forces the change.
-3. **No supplier screen.** Suppliers are created with `POST /api/v1/suppliers` on the hub.
-   Proposed design: a small form in "Importar catálogo" on the hub (name only), using the same route.
+2. **Closed: staff change their own password** (V064, tested locally, not run on Azure).
+   `POST /api/v1/auth/password` (signed in, current and new password) writes the hash on that node only, keeps the caller's session and revokes the others.
+   A wrong current password answers 403 `auth.current_password_wrong` and counts toward the lockout.
+   A printed one-time password forces the change at the first sign-in; "Ajustes" → "Cambiar mi contraseña" changes it at any time.
+   A person with rows on the hub and on a store changes each one separately.
+3. **Closed: supplier form.** "Importar catálogo" on the hub has a name-only "Nuevo proveedor" form that calls `POST /api/v1/suppliers`.
 4. **Staff, branches and nodes are created per database.** Each store's staff must be provisioned on the hub and on that store.
    Proposed design: keep the migrator commands (no secrets travel), and add a hub screen later only if the number of stores grows.

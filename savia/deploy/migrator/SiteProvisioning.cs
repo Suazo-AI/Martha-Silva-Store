@@ -7,8 +7,9 @@ using System.Data.Common;
 //   --provision-branch  one branch, its store location and one register; rerun with another register to add one
 //   --provision-staff   one staff member, one role and an optional branch access (--approver lets them approve)
 // --set-password gives the staff member a password on this database. It reads SAVIA_STAFF_PASSWORD when set, so the
-// operator can give the same password on several databases; otherwise it prints a new one once, on a
-// "staff-password: " line. The password never reaches SQL: only its PBKDF2 hash does.
+// operator can give the same password on several databases, and then prints no password. Otherwise it prints a new
+// one-time password once, on a "staff-password: " line, and marks the row: the staff member must change it at the
+// first sign-in (V064). The password never reaches SQL: only its PBKDF2 hash does.
 internal sealed record BranchRequest(Guid BranchId, string Code, string Name, string StoreName, Guid LocationId,
     string LocationCode, string LocationName, Guid RegisterId, string RegisterCode, string RegisterName)
 {
@@ -86,8 +87,20 @@ internal sealed record StaffRequest(Guid StaffId, string Login, string DisplayNa
         return (given, false);
     }
 
-    internal Task RunAsync(DbConnection connection, string? password) =>
+    /// <summary>Runs the request and writes its report. A given password is never written; a generated one once.</summary>
+    internal async Task ReportAsync(DbConnection connection, string? givenPassword, TextWriter output)
+    {
+        var (password, generated) = ChoosePassword(givenPassword);
+        await RunAsync(connection, password, generated);
+        output.WriteLine($"provision: staff {Login} role {Role} on database {connection.Database}: done" +
+                         (password is null ? "" : generated ? ", one-time password set (change required at first sign-in)" : ", password set"));
+        if (generated)
+            output.WriteLine(PasswordPrefix + password);
+    }
+
+    internal Task RunAsync(DbConnection connection, string? password, bool mustChange = false) =>
         NodeRequest.Exec(connection, "security.usp_ProvisionStaff", ("@StaffId", StaffId), ("@LoginName", Login),
             ("@DisplayName", DisplayName), ("@RoleCode", Role), ("@BranchId", (object?)BranchId ?? DBNull.Value),
-            ("@CanApprove", Approver), ("@PasswordHash", password is null ? DBNull.Value : Hash(password)));
+            ("@CanApprove", Approver), ("@PasswordHash", password is null ? DBNull.Value : Hash(password)),
+            ("@MustChangePassword", password is not null && mustChange));
 }

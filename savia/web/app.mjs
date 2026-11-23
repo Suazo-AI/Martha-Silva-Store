@@ -11,6 +11,7 @@ import history from './screens/history.mjs';
 import importer from './screens/import.mjs';
 import inventory from './screens/inventory.mjs';
 import login from './screens/login.mjs';
+import password from './screens/password.mjs';
 import prices from './screens/prices.mjs';
 import qualityReport from './screens/quality-report.mjs';
 import receipt from './screens/receipt.mjs';
@@ -82,9 +83,14 @@ const ctx = {
     },
   },
   refreshTill: () => renderTillState(),
+  changePassword() {
+    changingPassword = true;
+    route();
+  },
 };
 
 let current = null; // { route, handle }
+let changingPassword = false; // chosen in Ajustes; a one-time password forces the same screen
 let routeGeneration = 0;
 
 /** The one entry point for scanners: the active screen decides what a code means. */
@@ -165,6 +171,17 @@ async function route() {
     current = { route: 'ingreso', handle: login.mount($('access'), ctx, onSignedIn) };
     return;
   }
+  // A one-time password opens nothing else: the API answers 403 auth.password_change_required on every other route.
+  if (ctx.me.mustChangePassword || changingPassword) {
+    $('shell').hidden = true;
+    $('access').hidden = false;
+    const back = () => {
+      changingPassword = false;
+      route();
+    };
+    current = { route: 'contrasena', handle: password.mount($('access'), ctx, onPasswordChanged, signOut, back) };
+    return;
+  }
   const screen = MODULES[name] ?? sale;
   const actor = ctx.me;
   const token = api.getToken();
@@ -226,24 +243,37 @@ async function onSignedIn(loginResponse) {
   else route();
 }
 
+async function onPasswordChanged() {
+  const token = api.getToken();
+  const actor = await api.me();
+  if (api.getToken() !== token) return;
+  ctx.me = actor;
+  changingPassword = false;
+  route();
+}
+
+async function signOut() {
+  changingPassword = false;
+  const retiring = api.logout();
+  api.setToken(null);
+  ctx.me = null;
+  ctx.till.set(null);
+  route();
+  try {
+    await retiring;
+  } catch {
+    /* the token dies on the server or expires; sign out here either way */
+  }
+}
+
 async function start() {
   const routes = SCREENS.map(s => s.route);
   const odd = [...routes.filter(r => !MODULES[r]), ...Object.keys(MODULES).filter(r => !routes.includes(r))];
   if (odd.length) throw new Error(`roles.mjs y app.mjs no coinciden en: ${odd.join(', ')}`);
   applyPalette(device.get('palette'));
-  $('logout').addEventListener('click', async () => {
-    const retiring = api.logout();
-    api.setToken(null);
-    ctx.me = null;
-    ctx.till.set(null);
-    route();
-    try {
-      await retiring;
-    } catch {
-      /* the token dies on the server or expires; sign out here either way */
-    }
-  });
+  $('logout').addEventListener('click', signOut);
   api.setUnauthorizedHandler(() => {
+    changingPassword = false;
     api.setToken(null);
     ctx.me = null;
     ctx.till.set(null);

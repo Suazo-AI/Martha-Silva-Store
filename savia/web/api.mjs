@@ -152,6 +152,8 @@ const path = (strings, ...values) => strings.reduce((out, s, i) => out + s + (i 
 export const login = (loginName, password) => request('POST', '/auth/login', { loginName, password });
 export const logout = () => request('POST', '/auth/logout', undefined, { notifyUnauthorized: false });
 export const me = () => request('GET', '/me');
+// 403 auth.current_password_wrong counts toward the sign-in lockout; this session stays, every other one ends.
+export const changePassword = (currentPassword, newPassword) => request('POST', '/auth/password', { currentPassword, newPassword });
 
 // ---- sync
 /** SyncStatusView: the branch's last sync round; code is null after a round that worked. */
@@ -180,6 +182,8 @@ export function tagExtract(image, barcode, { fetchImpl = globalThis.fetch } = {}
 
 // ---- receiving
 export const suppliers = () => request('GET', '/suppliers');
+// Hub (or a store with its own catalog): the same id and name again is a no-op, so a retry keeps the id.
+export const createSupplier = body => request('POST', '/suppliers', body);
 export const openReception = ({ containerId, scanSessionId, reference, supplierId, deviceCode }) =>
   request('POST', '/receiving/sessions', { containerId, scanSessionId, reference, supplierId, deviceCode });
 export const recordScan = (sessionId, { scanId, rawCode, quantity = 1, deviceCode }) =>

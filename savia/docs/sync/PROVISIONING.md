@@ -32,7 +32,8 @@ It is never printed.
    dotnet Savia.Migrator.dll --provision-staff --staff-id <id> --login <login> --display-name <name> --role CASHIER --branch-id <branch id> --set-password
    ```
 
-   `--set-password` takes the password from `SAVIA_STAFF_PASSWORD`, or prints a new one once as `staff-password: <password>`.
+   `--set-password` takes the password from `SAVIA_STAFF_PASSWORD` and prints none.
+   Without it, it prints a new one-time password once as `staff-password: <password>`; the person must change it at the first sign-in (V064).
    The hub's owner also needs a row on each store database (`--provision-staff` without `--set-password`).
    The full first-day sequence is in [DAY-ZERO.md](../../../docs/production-20261122/DAY-ZERO.md).
 2. Once, on the hub database, register the hub's own node; without it the hub refuses every round with `sync.node_unknown`:
@@ -59,11 +60,14 @@ It is never printed.
 
    The last output line is `node-secret: <secret>`.
    Do not paste it into a ticket, chat or log.
+   To pass a secret you generated instead, set `SAVIA_NODE_SECRET` for that one command (43 to 256 base64url characters, at least 16 different).
+   The migrator then stores its hash and prints no secret; a weak value is refused without being shown.
+   On Azure, always pass it from Key Vault, because the job's output goes to Log Analytics ([RUNBOOK.md](../deploy/RUNBOOK.md) section 3.1).
 
 4. Put the secret in the operator's Key Vault (the operator runs this; the tool does not):
 
    ```powershell
-   az keyvault secret set --vault-name <vault> --name savia-node-<store code> --value '<secret>'
+   az keyvault secret set --vault-name <vault> --name savia-node-<store code> --value '<secret>' --output none
    ```
 
 5. Configure the store host from protected configuration (a Key Vault reference, or a machine-level environment variable readable only by the service account):
@@ -91,7 +95,8 @@ After `rotate`, repeat steps 4 and 5 and restart the store host.
 ## Evidence
 
 - `db/tests/sync/280_provision_node.sql`: node rows, conflicts (51865), hash-only credential, revoked credential not found.
-- `tests/Savia.Tests/NodeProvisioningTests.cs`: argument rules and the secret format.
+- `tests/Savia.Tests/NodeProvisioningTests.cs`: argument rules, the secret format and the `SAVIA_NODE_SECRET` strength check.
+- `tests/Savia.Tests/PasswordChangeTests.cs` (`ProvisioningOutputTests`): a secret from `SAVIA_NODE_SECRET` or a password from `SAVIA_STAFF_PASSWORD` is stored as a hash and never printed.
 - `db/tests/security/300_day_zero_provisioning.sql` and `tests/Savia.Tests/SiteProvisioningTests.cs`: `--provision-branch` and `--provision-staff` (V062).
 - Day-zero run from empty databases: [day-zero-evidence](../../../docs/production-20261122/day-zero-evidence/).
 - Rehearsal: `tools/rehearsal/harness.py` provisions its three stores with this command; the `controls` scenario revokes store B (401), rotates it (new secret 200, old secret 401) and restarts B with the new secret.

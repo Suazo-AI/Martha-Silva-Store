@@ -51,6 +51,11 @@ export default {
           ),
           h('p', { id: 'sample-notice' }, 'Datos de prueba: los productos, precios y personas son ejemplos.'),
           h('a', { href: '/scanner/scanner-test.html' }, 'Probar el escáner'),
+          h(
+            'div',
+            { class: 'actions' },
+            h('button', { type: 'button', id: 'change-password', onclick: () => ctx.changePassword() }, 'Cambiar mi contraseña'),
+          ),
         ),
       ),
     );

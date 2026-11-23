@@ -4,15 +4,30 @@ using Savia.Domain;
 
 namespace Savia.Api;
 
-/// <summary>Reads the bearer token and loads the signed-in staff member, or answers 401.</summary>
+/// <summary>
+/// Reads the bearer token and loads the signed-in staff member, or answers 401. A staff member who signed in with a
+/// printed one-time password gets 403 auth.password_change_required everywhere except the routes marked with
+/// <see cref="PasswordChangeOpen"/> (V064).
+/// </summary>
 public sealed class ActorFilter(AuthService auth) : IEndpointFilter
 {
     public async ValueTask<object?> InvokeAsync(EndpointFilterInvocationContext context, EndpointFilterDelegate next)
     {
         var http = context.HttpContext;
-        http.Items[typeof(Actor)] = await auth.AuthenticateAsync(Http.BearerToken(http), http.RequestAborted);
+        var actor = await auth.AuthenticateAsync(Http.BearerToken(http), http.RequestAborted);
+        if (actor.MustChangePassword && http.GetEndpoint()?.Metadata.GetMetadata<PasswordChangeOpen>() is null)
+            throw new SaviaException(Errors.PasswordChangeRequired);
+        http.Items[typeof(Actor)] = actor;
         return await next(context);
     }
+}
+
+/// <summary>Endpoint metadata: the route answers a staff member who must still change a one-time password.</summary>
+public sealed class PasswordChangeOpen
+{
+    public static readonly PasswordChangeOpen Instance = new();
+
+    private PasswordChangeOpen() { }
 }
 
 public static class Http

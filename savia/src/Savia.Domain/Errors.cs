@@ -19,6 +19,12 @@ public static class Errors
     public static readonly SaviaError SyncStalled = new("sync.page_stalled", ErrorKind.Conflict,
         "Sincronización detenida: el destino no aplicó la página.");
     public static readonly SaviaError BadCredentials = new("auth.bad_credentials", ErrorKind.Unauthorized, "Usuario o contraseña incorrectos.");
+    public static readonly SaviaError PasswordChangeRequired = new("auth.password_change_required", ErrorKind.Forbidden,
+        "Cambie su contraseña temporal antes de continuar.");
+    public static readonly SaviaError CurrentPasswordWrong = new("auth.current_password_wrong", ErrorKind.Forbidden,
+        "La contraseña actual no es correcta.");
+    public static readonly SaviaError PasswordLocked = new("auth.locked", ErrorKind.Forbidden,
+        "Demasiados intentos con una contraseña incorrecta. Espere 15 minutos.");
     public static readonly SaviaError RoleRequired = new("auth.role_required", ErrorKind.Forbidden, "Su rol no permite esta operación.");
     public static readonly SaviaError BranchAccess = new("auth.branch_access", ErrorKind.Forbidden, "No tiene acceso a esta sucursal.");
     public static readonly SaviaError CatalogManagedByHub = new("catalog.managed_by_hub", ErrorKind.Conflict,
@@ -186,6 +192,8 @@ public static class DbErrors
         [51866] = ("branch.provision_mismatch", ErrorKind.Conflict),
         [51867] = ("staff.provision_mismatch", ErrorKind.Conflict),
         [51903] = ("supplier.invalid", ErrorKind.Validation),
+        // V064: the session that asked to change the password ended first (revoked, expired or another password).
+        [51868] = ("auth.required", ErrorKind.Unauthorized),
     };
 
     /// <param name="number">SQL Server error number.</param>

@@ -61,3 +61,9 @@ export function toBase64(bytes) {
   for (let i = 0; i < bytes.length; i += 0x8000) binary += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
   return btoa(binary);
 }
+
+/** The POST /suppliers body, or the reason it cannot be sent. */
+export function newSupplier(name, supplierId) {
+  const text = String(name ?? '').trim();
+  return text ? { body: { supplierId, name: text } } : { error: 'Escriba el nombre del proveedor.' };
+}

@@ -1,8 +1,8 @@
 import * as api from '../api.mjs';
 import { confirmAction } from '../confirm.mjs';
 import { formatMoney } from '../money.mjs';
-import { h, replace, showCatalogManagedCentrally, showError } from '../ui.mjs';
-import { FIELDS, guessMapping, mappingKey, mapRows, toBase64 } from './import-logic.mjs';
+import { clearMessage, h, replace, showCatalogManagedCentrally, showError, showOk } from '../ui.mjs';
+import { FIELDS, guessMapping, mappingKey, mapRows, newSupplier, toBase64 } from './import-logic.mjs';
 
 const remembered = headers => {
   try {
@@ -18,6 +18,48 @@ const remember = (headers, mapping) => {
     /* the mapping is a convenience */
   }
 };
+
+/** DAY-ZERO.md gap 3: the hub owner adds a supplier by name; a retry of the same name keeps its id. */
+function supplierForm() {
+  const name = h('input', { id: 'supplier-name', name: 'supplier-name', autocomplete: 'off', maxlength: 200, required: true });
+  const message = h('p', { class: 'error', role: 'alert' });
+  const submit = h('button', { type: 'submit' }, 'Crear proveedor');
+  let pending = null;
+  return h(
+    'form',
+    {
+      class: 'panel form',
+      id: 'supplier-form',
+      novalidate: true,
+      onsubmit: async event => {
+        event.preventDefault();
+        clearMessage(message);
+        if (pending?.name !== name.value.trim()) pending = { name: name.value.trim(), id: api.uuid() };
+        const { body, error } = newSupplier(name.value, pending.id);
+        if (error) {
+          message.textContent = error;
+          name.focus();
+          return;
+        }
+        submit.disabled = true;
+        try {
+          await api.createSupplier(body);
+          showOk(message, `Proveedor creado: ${body.name}`);
+          pending = null;
+          name.value = '';
+        } catch (failure) {
+          showError(message, failure);
+        } finally {
+          submit.disabled = false;
+        }
+      },
+    },
+    h('label', { for: 'supplier-name' }, 'Nuevo proveedor'),
+    name,
+    message,
+    h('div', { class: 'actions' }, submit),
+  );
+}
 
 export default {
   title: 'Importar catálogo',
@@ -248,6 +290,7 @@ export default {
         status,
         mapPanel,
         previewPanel,
+        atHub ? supplierForm() : null,
       ),
     );
     return { handleScan: () => ctx.notify('Elija un archivo para importar.') };

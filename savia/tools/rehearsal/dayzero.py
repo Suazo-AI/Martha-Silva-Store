@@ -306,9 +306,11 @@ def step1_owner(r):
     r.s["staff"]["owner"] = {"login": "duena.dz", "name": "Dueña Día Cero"}
     save(STATE, r.s)
     line = provision_staff(r, "hub", "owner", "OWNER", False, "print")
-    r.record(1, "first hub OWNER account", "DONE",
+    mark = r.fetch("hub", f"SELECT CAST(MustChangePassword AS int) FROM security.Staff WHERE Id='{r.s['ids']['owner']}';")[-1]
+    r.record(1, "first hub OWNER account", "DONE" if mark == "1" else "BLOCKED",
              "Savia.Migrator --provision-staff --role OWNER --set-password on the hub (prints a one-time password once)",
-             [line, "the owner signs in on the hub in steps 6 and 12"])
+             [line, f"security.Staff.MustChangePassword on the hub: {mark} (V064: the owner must replace it at the first sign-in)",
+              "the owner changes it and signs in on the hub in steps 6 and 12"])
 
 
 BRANCH = ["--branch-code", "DZ_MASAYA", "--branch-name", "Masaya día cero", "--store-name", "SAVIA Masaya",
@@ -347,14 +349,19 @@ def step4_node(r):
     store = ["--node-id", i["storeNode"], "--branch-id", i["branch"], "--node-code", "DZ_MASAYA"]
     lines = [f"{node}: " + r.migrator(node, "--provision-node", "register", *args).strip()
              for node, args in (("hub", hub), ("store", hub), ("store", store))]
-    out = r.migrator("hub", "--provision-node", "create", *store)
-    r.s["nodeSecret"] = r.printed(out, NODE_SECRET)
+    # As on Azure (RUNBOOK 3.1): the operator generates the secret and passes it in SAVIA_NODE_SECRET; nothing is printed.
+    secret = r.secret(secrets.token_urlsafe(32))
+    out = r.migrator("hub", "--provision-node", "create", *store, extra_env={"SAVIA_NODE_SECRET": secret})
+    if secret in out or NODE_SECRET in out:
+        raise SystemExit("the migrator printed the node secret it was given")
+    r.s["nodeSecret"] = secret
     save(STATE, r.s)
     lines.append("hub: " + r.scrub(out).strip().replace("\n", " | "))
+    lines.append("migrator output holds no node-secret line and not the given value")
     hub_rows = r.fetch("hub", "SELECT CONCAT(NodeCode,':',Kind) FROM sync.Nodes ORDER BY NodeCode;")
     r.record(4, "node rows on both databases; store credential; store host configured with it", "DONE",
              "Savia.Migrator --provision-node register (hub node on the hub and the store, store node on the store) and "
-             "create (store node on the hub); the printed secret goes to the store host's Savia__Sync__NodeSecret",
+             "create with SAVIA_NODE_SECRET (store node on the hub); the same value goes to the store host's Savia__Sync__NodeSecret",
              lines + [f"hub sync.Nodes: {hub_rows}"])
 
 
@@ -370,8 +377,30 @@ def step5_hosts(r):
         raise SystemExit("first sync round failed; see " + str(OUT / "host-store.txt"))
 
 
-def step6_import(r):
+def change_owner_password(r):
+    """V064: the printed one-time password opens only the password change; afterwards every route answers."""
     owner = r.login("hub", "owner")
+    # The hub has no stock location, so probe a hub route that needs none: the catalog lookup.
+    probe = "/api/v1/catalog/lookup?code=DZ-0001"
+    gate = call("hub", "GET", probe, token=owner)
+    me = call("hub", "GET", "/api/v1/me", token=owner)
+    st = r.s["staff"]["owner"]
+    new = r.secret(secrets.token_urlsafe(16))
+    change = call("hub", "POST", "/api/v1/auth/password", {"currentPassword": st["password"], "newPassword": new}, owner)
+    if change[0] == 204:
+        st["password"] = new
+        save(STATE, r.s)
+    after = call("hub", "GET", probe, token=owner)
+    flag = me[1].get("mustChangePassword") if me[0] == 200 and isinstance(me[1], dict) else None
+    ok = (gate[0] == 403 and isinstance(gate[1], dict) and gate[1].get("code") == "auth.password_change_required"
+          and flag is True and change[0] == 204 and after[0] == 200)
+    evidence = [f"before the change: GET /catalog/lookup {short(*gate)}", f"GET /me {me[0]} mustChangePassword={flag}",
+                f"POST /auth/password {change[0]}", f"after the change, same session: GET /catalog/lookup {after[0]}"]
+    return owner, ok, evidence
+
+
+def step6_import(r):
+    owner, changed, change_evidence = change_owner_password(r)
     rows = [{"row": n + 2, "code": c, "sku": None, "name": name, "type": kind, "size": size, "color": color,
              "cost": cost, "price": price, "stock": None} for n, (c, name, kind, size, color, cost, price) in enumerate(PRODUCTS)]
     request = {"batchId": new_id(), "fileName": "dia-cero.csv", "rows": rows}
@@ -385,10 +414,12 @@ def step6_import(r):
     save(STATE, r.s)
     price = call("hub", "POST", f"/api/v1/catalog/items/{items['DZ-0002']}/values",
                  {"changeId": new_id(), "priceMinor": NEW_PRICE, "costMinor": 18000, "reason": "Día cero: precio de lanzamiento"}, owner)
-    ok = result[0] == 200 and all(items.values()) and price[0] == 204
-    r.record(6, "hub imports 3 products and sets a price", "DONE" if ok else "BLOCKED",
-             "POST /api/v1/catalog/import/preview, /catalog/import, GET /catalog/lookup, POST /catalog/items/{id}/values (OWNER on the hub)",
-             [f"preview {short(*preview)}", f"import {short(*result)}", f"items {items}", f"price DZ-0002 -> {NEW_PRICE}: {short(*price)}"])
+    ok = changed and result[0] == 200 and all(items.values()) and price[0] == 204
+    r.record(6, "owner replaces the one-time password; hub imports 3 products and sets a price", "DONE" if ok else "BLOCKED",
+             "POST /api/v1/auth/password, then /catalog/import/preview, /catalog/import, GET /catalog/lookup, "
+             "POST /catalog/items/{id}/values (OWNER on the hub)",
+             change_evidence + [f"preview {short(*preview)}", f"import {short(*result)}", f"items {items}",
+                                f"price DZ-0002 -> {NEW_PRICE}: {short(*price)}"])
 
 
 def wait_store(r, check, timeout=90):

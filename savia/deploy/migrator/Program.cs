@@ -23,14 +23,16 @@ using Microsoft.Data.SqlClient;
 //        Savia.Migrator --provision-node register|create|rotate|revoke --node-id GUID
 //                       [--node-kind branch|azure] [--branch-id GUID] [--node-code CODE]
 //   --provision-node       node rows and credentials only; migrates nothing (see NodeProvisioning.cs and
-//                          docs/sync/PROVISIONING.md). create and rotate print the new secret once.
+//                          docs/sync/PROVISIONING.md). create and rotate take SAVIA_NODE_SECRET and print no
+//                          secret, or make a new secret and print it once.
 //        Savia.Migrator --provision-branch --branch-id GUID --branch-code CODE --branch-name NAME --store-name NAME
 //                       --location-id GUID --location-code CODE --location-name NAME
 //                       --register-id GUID --register-code CODE --register-name NAME
 //        Savia.Migrator --provision-staff --staff-id GUID --login LOGIN --display-name NAME --role ROLE
 //                       [--branch-id GUID [--approver]] [--set-password]
 //   --provision-branch / --provision-staff  day-zero records on this database only; migrate nothing
-//                          (see SiteProvisioning.cs). --set-password reads SAVIA_STAFF_PASSWORD or prints a new one once.
+//                          (see SiteProvisioning.cs). --set-password reads SAVIA_STAFF_PASSWORD (prints nothing) or
+//                          prints a one-time password once, which staff must change at the first sign-in.
 // Exit codes: 0 ok, 1 migration or check failed, 2 bad usage or configuration.
 
 var plan = args.Contains("--plan");
@@ -139,10 +141,7 @@ async Task<int> ProvisionNode(string connection, string action)
     {
         await using var sql = new SqlConnection(connection);
         await sql.OpenAsync();
-        var secret = await request.RunAsync(sql);
-        Console.WriteLine($"provision: {request.Action} node {request.NodeId:D} on database {sql.Database}: done");
-        if (secret is not null)
-            Console.WriteLine(NodeRequest.SecretPrefix + secret);
+        await request.ReportAsync(sql, Environment.GetEnvironmentVariable(NodeRequest.SecretVariable), Console.Out);
         return 0;
     }
     catch (Exception e) when (e is SqlException or InvalidOperationException)
@@ -168,15 +167,8 @@ async Task<int> ProvisionStaff(string connection)
     var (request, error) = StaffRequest.Parse(Option, args.Contains);
     if (request is null)
         return Fail(2, error!);
-    return await Provision(connection, async sql =>
-    {
-        var (password, generated) = request.ChoosePassword(Environment.GetEnvironmentVariable(StaffRequest.PasswordVariable));
-        await request.RunAsync(sql, password);
-        Console.WriteLine($"provision: staff {request.Login} role {request.Role} on database {sql.Database}: done" +
-                          (password is null ? "" : ", password set"));
-        if (generated)
-            Console.WriteLine(StaffRequest.PasswordPrefix + password);
-    });
+    return await Provision(connection, sql =>
+        request.ReportAsync(sql, Environment.GetEnvironmentVariable(StaffRequest.PasswordVariable), Console.Out));
 }
 
 async Task<int> Provision(string connection, Func<SqlConnection, Task> action)

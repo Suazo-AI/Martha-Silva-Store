@@ -17,6 +17,7 @@ public sealed class SiteService(ISiteStore store, NodeContext node)
     {
         var site = node.BranchId is Guid branch ? await store.GetSiteAsync(branch, node.LocationId, ct) : null;
         return new MeResponse(actor.StaffId, actor.DisplayName, [.. actor.Roles.Order()], node.Kind.ToString(), node.NodeId, node.BranchId,
-            node.LocationId, site?.BranchName, site?.StoreDisplayName, site?.LocationName, node.CatalogManagedByHub);
+            node.LocationId, site?.BranchName, site?.StoreDisplayName, site?.LocationName, node.CatalogManagedByHub,
+            actor.MustChangePassword);
     }
 }

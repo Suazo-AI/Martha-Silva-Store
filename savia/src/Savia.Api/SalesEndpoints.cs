@@ -1,5 +1,6 @@
 using Savia.Application;
 using Savia.Contracts;
+using Savia.Domain;
 
 namespace Savia.Api;
 
@@ -11,6 +12,8 @@ public static class SalesEndpoints
         {
             var token = http.Request.Headers["X-Savia-Approval"].ToString();
             var approval = string.IsNullOrEmpty(token) ? null : await auth.AuthenticateAsync(token, ct);
+            // An approver still on a printed one-time password cannot approve either (V064).
+            if (approval?.MustChangePassword == true) throw new SaviaException(Errors.PasswordChangeRequired);
             return await sales.PostSaleAsync(http.Actor(), request, ct, approval);
         }).WithTags("sales");
         api.MapGet("/sales/{saleId:guid}", async (Guid saleId, HttpContext http, SalesService sales, CancellationToken ct) =>

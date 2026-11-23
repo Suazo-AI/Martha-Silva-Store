@@ -44,4 +44,18 @@ public sealed class NodeProvisioningTests
         Assert.Equal(Savia.Application.NodeCredential.Hash(one), NodeRequest.Hash(one));
         Assert.Equal((Guid.Parse(Node), one), Savia.Application.NodeCredential.Parse($"SaviaNode {Node}.{one}"));
     }
+
+    [Fact]
+    public void A_given_secret_must_be_as_strong_as_a_new_one_and_the_refusal_never_shows_it()
+    {
+        Assert.Null(NodeRequest.CheckSecret(NodeRequest.NewSecret()));
+        foreach (var weak in new[] { "", "corta", new string('a', 43), NodeRequest.NewSecret() + ".x", NodeRequest.NewSecret() + " ",
+                     new string('b', 257) })
+        {
+            var error = NodeRequest.CheckSecret(weak);
+            Assert.NotNull(error);
+            if (weak.Length > 0)
+                Assert.DoesNotContain(weak, error);
+        }
+    }
 }

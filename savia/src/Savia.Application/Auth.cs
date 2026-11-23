@@ -10,6 +10,7 @@ public sealed record StaffCredential(Guid StaffId, string DisplayName, string? P
 public interface IAuthStore
 {
     Task<StaffCredential?> FindStaffAsync(string normalizedLogin, CancellationToken ct);
+    Task<StaffCredential?> FindStaffByIdAsync(Guid staffId, CancellationToken ct);
     /// <summary>Roles and active branch access of an enabled staff member; null when missing or disabled.</summary>
     Task<Actor?> LoadActorAsync(Guid staffId, CancellationToken ct);
     Task RecordSignInAsync(Guid staffId, bool success, DateTimeOffset? lockUntil, CancellationToken ct);
@@ -18,6 +19,8 @@ public interface IAuthStore
     Task<Guid?> FindSessionStaffAsync(byte[] tokenHash, DateTimeOffset now, CancellationToken ct);
     Task RevokeSessionAsync(byte[] tokenHash, DateTimeOffset now, CancellationToken ct);
     Task SetPasswordAsync(Guid staffId, string passwordHash, CancellationToken ct);
+    /// <summary>New hash and no mark; the session of <paramref name="tokenHash"/> stays, every other one ends (V064).</summary>
+    Task ChangeOwnPasswordAsync(Guid staffId, byte[] tokenHash, string passwordHash, CancellationToken ct);
 }
 
 public interface IPasswordHasher
@@ -50,7 +53,7 @@ public sealed class AuthService(IAuthStore store, IPasswordHasher hasher, TimePr
         var token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32)).Replace('+', '-').Replace('/', '_').TrimEnd('=');
         var expires = now + SessionLife;
         await store.CreateSessionAsync(staff.StaffId, staff.SecurityVersion, HashToken(token), expires, ct);
-        return new LoginResponse(token, expires, actor.StaffId, actor.DisplayName, [.. actor.Roles.Order()]);
+        return new LoginResponse(token, expires, actor.StaffId, actor.DisplayName, [.. actor.Roles.Order()], actor.MustChangePassword);
     }
 
     public async Task<Actor> AuthenticateAsync(string token, CancellationToken ct)
@@ -59,6 +62,30 @@ public sealed class AuthService(IAuthStore store, IPasswordHasher hasher, TimePr
         var staffId = await store.FindSessionStaffAsync(HashToken(token), time.GetUtcNow(), ct)
             ?? throw new SaviaException(Errors.Unauthorized);
         return await store.LoadActorAsync(staffId, ct) ?? throw new SaviaException(Errors.Unauthorized);
+    }
+
+    /// <summary>
+    /// The signed-in staff member replaces their own password, on this node only. A wrong current password counts as a
+    /// failed sign-in, so five of them lock the account for sign-in and for this route alike.
+    /// </summary>
+    public async Task ChangePasswordAsync(Actor actor, string token, ChangePasswordRequest request, CancellationToken ct)
+    {
+        var now = time.GetUtcNow();
+        var next = request.NewPassword ?? "";
+        if (next.Length is < 10 or > 200)
+            throw Errors.Invalid("auth.weak_password", "La contraseña necesita entre 10 y 200 caracteres.");
+        var staff = await store.FindStaffByIdAsync(actor.StaffId, ct) ?? throw new SaviaException(Errors.Unauthorized);
+        if (!staff.IsEnabled || staff.PasswordHash is null) throw new SaviaException(Errors.Unauthorized);
+        if (staff.LockedUntil > now) throw new SaviaException(Errors.PasswordLocked);
+        if (!hasher.Verify(request.CurrentPassword ?? "", staff.PasswordHash))
+        {
+            await store.RecordSignInAsync(staff.StaffId, false, now + LockTime, ct);
+            throw new SaviaException(Errors.CurrentPasswordWrong);
+        }
+        // Otherwise a printed one-time password could clear its own mark.
+        if (string.Equals(next, request.CurrentPassword, StringComparison.Ordinal))
+            throw Errors.Invalid("auth.password_unchanged", "La nueva contraseña debe ser distinta de la actual.");
+        await store.ChangeOwnPasswordAsync(staff.StaffId, HashToken(token), hasher.Hash(next), ct);
     }
 
     public Task LogoutAsync(string token, CancellationToken ct) =>
