@@ -24,8 +24,8 @@
     "bytes": 59454
   },
   "ayuda.html": {
-    "sha256": "934e2e13915a4942ab7bfa40a5a7cf47f1ac119f649949bcc28d778d548eaf16",
-    "bytes": 18255
+    "sha256": "ddc623f45d0db4f7b0e9771f960069838cdff387f427db6973ad49008122820d",
+    "bytes": 18431
   },
   "bolsa.html": {
     "sha256": "a0c617fd78c64cb34644a892066e39b20202323d4da7357433671977f9d46294",
@@ -360,8 +360,8 @@
     "bytes": 3457
   },
   "locale-en.js": {
-    "sha256": "04b0365bc409c7d006992d1502d8a192a19b509cdfdfcbbacc51da75e2c70e61",
-    "bytes": 31437
+    "sha256": "b36d2c621f4e71d6f5b279dafd4dabe08ee976f55f12b7972e0eeed501bacf03",
+    "bytes": 31781
   },
   "looks/amarillo/01-front-v1.png": {
     "sha256": "597bf9819c64141df2cf5237b390e5acfe63ebba2dc252d041206b16bcfa8a3e",

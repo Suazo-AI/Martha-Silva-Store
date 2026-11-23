@@ -28,15 +28,26 @@ Other branches and phones seen in search results (Km 15.7 carretera a Masaya, Pa
 | Complaint within 30 business days; reply within 10 business days | Ley 842 | Art. 100 |
 | Data controller, purpose, data collected | Ley 787, personal data | Art. 7 |
 | News only with consent; can ask to stop | Ley 787 | Art. 6, 25, 26 |
-| See, correct or delete data; reply within 10 business days | Ley 787 | Art. 7, 17, 19 |
+| See, correct or delete data; information within 10 business days, correction within 5 | Ley 787 | Art. 7, 17, 19 |
 
 Ley 1061 (2021) reformed Ley 842 Art. 5, 9, 53, 54 and 120. No reform of Art. 81 was found.
 
 ## Privacy claims checked against code
 
-- Checkout details and the last order use `sessionStorage` (one browser tab); key `martha-${integrationMode}-${name}-v1` in `src/app.js`.
+- Checkout details and the last order use `sessionStorage`; key `martha-${integrationMode}-${name}-v1` in `src/app.js`.
+- The live store sends a confirmed order to the hub (`POST /api/v1/public/orders` in `src/integration-adapters.js`). The preview runs demo mode: its order store is `localStorage` key `martha-store-state-1` and nothing reaches a sales system. The page text describes the live store.
 - The checkout newsletter box starts unchecked; the order payload carries `newsletter` only as the buyer's choice.
 - The footer email form sends nothing.
+
+## Source URLs
+
+- Ley 842: https://nicaragua.justia.com/nacionales/leyes/ley-de-proteccion-de-los-derechos-de-las-personas-consumidoras-y-usuarias-jul-11-2013/gdoc
+- Reglamento de la Ley 842: https://nicaragua.justia.com/nacionales/decretos-ejecutivos/reglamento-de-la-ley-no-842-ley-de-proteccion-de-los-derechos-de-las-personas-consumidores-y-usuarias-oct-10-2013/gdoc
+- Ley 787: https://nicaragua.justia.com/nacionales/leyes/ley-de-proteccion-de-datos-personales-mar-29-2012/gdoc
+- Reglamento de la Ley 787: https://nicaragua.justia.com/nacionales/decretos-ejecutivos/reglamento-de-la-ley-no-787-ley-de-proteccion-de-datos-personales-oct-19-2012/gdoc
+- Waze listing: https://www.waze.com/live-map/directions/nicaragua/managua/managua/martha-silva-store-plaza-natura?to=place.ChIJW0p2QJFVcY8Rha4Y0lene0k
+
+Justia copies are secondary sources; the official text is La Gaceta.
 
 ## Open for the business or a lawyer
 
