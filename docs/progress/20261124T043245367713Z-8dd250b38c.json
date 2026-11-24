@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-24T04:32:45.367713+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/production-20261122/README.md",
+      "change": "M",
+      "git_blob": "61f3af41f89bd0de652bc56e1239d7b185dfb970"
+    },
+    {
+      "path": "savia/docs/evidence/d4-azure-basic-20261123/README.md",
+      "change": "M",
+      "git_blob": "e09cc0a663b09d86fb5aa1e995f6da95500eaf8b"
+    },
+    {
+      "path": "savia/docs/evidence/d4-azure-basic-20261123/run2/empty.json",
+      "change": "A",
+      "git_blob": "e6715bd3da458c7d99f0a3d6e925250e3b39b38d"
+    },
+    {
+      "path": "savia/docs/evidence/d4-azure-basic-20261123/run2/empty.txt",
+      "change": "A",
+      "git_blob": "85d70ad546b1abd76a6a9a206d163fef908d5747"
+    },
+    {
+      "path": "savia/docs/evidence/d4-azure-basic-20261123/run2/hubload.txt",
+      "change": "A",
+      "git_blob": "aef59f3ad303fcb7bffce450c0e34c935f2d26bf"
+    },
+    {
+      "path": "savia/docs/evidence/d4-azure-basic-20261123/run2/metrics.json",
+      "change": "A",
+      "git_blob": "f249af18de73783ccdfa1def387a6c5a80a667f2"
+    },
+    {
+      "path": "savia/docs/evidence/d4-azure-basic-20261123/run2/paritya.txt",
+      "change": "A",
+      "git_blob": "969df8827db20caf1dea14ae9105e60fd3984a68"
+    },
+    {
+      "path": "savia/docs/evidence/d4-azure-basic-20261123/run2/parityb.txt",
+      "change": "A",
+      "git_blob": "446a94784e94d5ea1e39108bca09904cb77babde"
+    },
+    {
+      "path": "savia/docs/evidence/d4-azure-basic-20261123/run2/parityc.txt",
+      "change": "A",
+      "git_blob": "9eb303c2dd2d69bb03728e7a9706a6832fbb8292"
+    },
+    {
+      "path": "savia/docs/evidence/d4-azure-basic-20261123/run2/pusha.json",
+      "change": "A",
+      "git_blob": "7979fad8fd648797bdd7a1bef855906aa164c2e2"
+    },
+    {
+      "path": "savia/docs/evidence/d4-azure-basic-20261123/run2/pusha.txt",
+      "change": "A",
+      "git_blob": "957f57c751b408ec66162baed311ca16ba687a0e"
+    },
+    {
+      "path": "savia/docs/evidence/d4-azure-basic-20261123/run2/pushb.json",
+      "change": "A",
+      "git_blob": "00584d964d8300305a1c63ce73f14c555e3b06eb"
+    },
+    {
+      "path": "savia/docs/evidence/d4-azure-basic-20261123/run2/pushb.txt",
+      "change": "A",
+      "git_blob": "39f344b957f78e43b2c892e3bf259370e6895e42"
+    },
+    {
+      "path": "savia/docs/evidence/d4-azure-basic-20261123/run2/pushc.json",
+      "change": "A",
+      "git_blob": "7702155120088f5a2532df23340e1ffaa8d5d2b2"
+    },
+    {
+      "path": "savia/docs/evidence/d4-azure-basic-20261123/run2/pushc.txt",
+      "change": "A",
+      "git_blob": "d68d48fae05bf718a21e3d8b6c9c660ddde1e541"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

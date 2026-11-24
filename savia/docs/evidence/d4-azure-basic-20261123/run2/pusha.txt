@@ -1,0 +1,4 @@
+a->hub page=1 rows=5,159 bytes=1,514,977 read=0.623s apply=17.26s total=18.151s
+a->hub page=2 rows=7,500 bytes=3,580,690 read=1.092s apply=45.074s total=46.444s
+a->hub page=3 rows=2,627 bytes=1,486,104 read=0.558s apply=30.225s total=31.046s
+a->hub pages=3 rows=15,286 bytes=6,581,771 max_page=3,580,690 read=2.273s apply=92.559s wall=95.69s finished=True

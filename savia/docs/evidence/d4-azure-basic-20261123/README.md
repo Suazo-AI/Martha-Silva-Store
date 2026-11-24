@@ -72,3 +72,40 @@ None was measured. Store-floor targets run on store PCs, not on the hub, so they
 - The temporary database existed from 01:03:49 to about 01:05:21 UTC. Inference from the AZURE.md price: Basic bills per hour, so the charge is at most one hour of $0.1771 per day, under $0.01.
 - The public IP of this PC was replaced with `<this PC public IP>` in the raw `.txt` files and in this README after capture. Nothing else in the raw files was edited.
 - No local Docker container was started; no data was generated.
+
+## Run 2 (2026-11-23): temporary Basic server, relay, scale 0.03
+
+Result: the relay synced all three stores into Azure SQL Basic and the parity check passed for each.
+Jason approved a separate temporary server under $1; the production server `sql-savia-bukmlt` was not touched.
+
+Setup:
+- Server `sql-savia-d4tmp-11232204`, database `savia-d4b`, Basic (5 DTU, 2 GB), group `rg-savia-d4-temp`.
+- Sign-in by Entra access token (`SAVIA_HUB_ACCESS_TOKEN`); no SQL password was created.
+- Local store data: container `savia-sqlserver-load`, seed `relay-20261123`, scale 0.03.
+- Tool: `savia/tools/load/sync_relay.py` (`hub-load`, `push --store a|b|c --out FILE`, `parity --store X`).
+
+| Step | Pages | Rows | Bytes | Apply s | Wall s |
+|---|---|---|---|---|---|
+| `hub-load` (58 migrations 103.1 s, fixture 4.9 s, catalog 63.9 s: 1,501 products, 7,503 variants) | - | - | - | - | 212 |
+| push C | 1 | 6,204 | 2,682,155 | 79.8 | 81.8 |
+| push B | 1 | 9,324 | 4,021,353 | 38.4 | 40.4 |
+| push A (largest page 3,580,690 bytes) | 3 | 15,286 | 6,581,771 | 92.6 | 95.7 |
+| empty round A | 1 | 0 | 3,628 | 0.9 | 2.35 |
+
+Parity: OK for A (15,286 rows), B (9,324) and C (6,204).
+DTU (Azure Monitor, 1-minute maximum, 12 minutes with data): peak 100% in 2 minutes, mean 34.9%.
+Storage at the end: 69,074,944 bytes (about 66 MB of 2 GB).
+
+Reading:
+- Every page finished well under the 300 s target; the slowest page was C at 79.8 s.
+- Apply is about 20 times slower than the local run (about 10 s for about 13 MB). Network and the 5 DTU cap explain it; the two 100% minutes show the cap was reached.
+- Incremental rounds are cheap: an empty round costs 3,628 bytes and 2.35 s.
+- Extrapolation, not measured: a full-scale first push (about 450 MB) would take about 2 hours once, then incremental rounds.
+
+Raw files: [run2/](run2/) (`hubload.txt`, `push*.json|txt`, `empty.*`, `parity*.txt`, `metrics.json` with the subscription id replaced).
+
+Limits:
+- Scale 0.03, not the 50,000-product catalog.
+- T10 (a store with 500 sales in one round) was not measured on Azure.
+- The temporary group is deleted after this run; see the cleanup line below.
+- Cleanup: `az group delete -n rg-savia-d4-temp --yes` (client connection resets, server-side delete completed); at 04:31:32 UTC on 2026-11-24 `az group exists` returned `false` and `az sql server list` listed only `sql-savia-bukmlt`.

@@ -1,0 +1,40 @@
+{
+ "step": "a->hub",
+ "mode": "normal",
+ "source_node": "A0000000-0000-0000-0000-0000000000A2",
+ "target_node": "00000000-0000-0000-0000-0000000C10D0",
+ "pages": [
+  {
+   "page": 1,
+   "rows": 0,
+   "bytes": 3628,
+   "bytes_state": 1728,
+   "bytes_plan": 3264,
+   "bytes_result": 81,
+   "state_s": 0.006,
+   "plan_s": 0.226,
+   "read_s": 1.173,
+   "apply_s": 0.948,
+   "seconds": 2.353,
+   "result": {
+    "changed": 0,
+    "applied": 0,
+    "skipped": 39,
+    "page": 1,
+    "more": false,
+    "done": 39,
+    "total": 39
+   },
+   "tables": []
+  }
+ ],
+ "wall_s": 2.35,
+ "page_count": 1,
+ "rows": 0,
+ "bytes": 3628,
+ "bytes_all": 8701,
+ "max_page_bytes": 3628,
+ "read_s": 1.173,
+ "apply_s": 0.948,
+ "finished": true
+}
