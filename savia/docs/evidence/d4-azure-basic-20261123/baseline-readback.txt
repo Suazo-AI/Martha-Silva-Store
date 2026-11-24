@@ -1,0 +1,14 @@
+# baseline readback 2026-11-24T01:02:31Z
+Name                    Status    Sku          Tier    Cap    MaxBytes
+----------------------  --------  -----------  ------  -----  ------------
+savia                   Online    Basic        Basic   5      2147483648
+master                  Online    GP_SYSTEM_4  System  4      107374182400
+savia-premig-1b1e001-1  Online    Basic        Basic   5      2147483648
+Name                     StartIpAddress    EndIpAddress
+-----------------------  ----------------  --------------
+AllowAllWindowsAzureIps  0.0.0.0           0.0.0.0
+{
+  "adminLogin": "id-savia-migrate-bukmlt",
+  "adminType": "Application",
+  "azureAdOnly": true
+}

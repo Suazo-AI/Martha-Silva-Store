@@ -1,0 +1,42 @@
+2026-11-24T01:04:25Z
+ERROR: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+fw delete exit=1
+ERROR: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+db delete exit=1
+2026-11-24T01:04:40Z
+# readback after cleanup
+Name                    Status    Sku          Tier    Cap    MaxBytes
+----------------------  --------  -----------  ------  -----  ------------
+savia                   Online    Basic        Basic   5      2147483648
+master                  Online    GP_SYSTEM_4  System  4      107374182400
+savia-premig-1b1e001-1  Online    Basic        Basic   5      2147483648
+savia-d4-a10            Online    Basic        Basic   5      2147483648
+Name                     StartIpAddress    EndIpAddress
+-----------------------  ----------------  --------------
+AllowAllWindowsAzureIps  0.0.0.0           0.0.0.0
+d4-temp-20261123         <this PC public IP>     <this PC public IP>
+Name                                        Deleted
+------------------------------------------  --------------------------------
+savia-premig-11ef3616-1,134398548504800000  2026-11-22T21:00:50.480000+00:00
+savia-premig-37b6c06e-1,134398218901570000  2026-11-22T11:51:30.157000+00:00
+savia-premig-6a962d55-1,134398669384470000  2026-11-23T00:22:18.447000+00:00
+savia-premig-6cc27011-1,134399453392100000  2026-11-23T22:08:59.210000+00:00
+savia-premig-996465b3-1,134398387632470000  2026-11-22T16:32:43.247000+00:00
+savia-premig-fcf14a42-1,134398280175800000  2026-11-22T13:33:37.580000+00:00
+savia-restore-drill,134398676501730000      2026-11-23T00:34:10.173000+00:00
+
+# cleanup rerun after ConnectionResetError 10054
+2026-11-24T01:04:58Z
+fw delete exit=0
+db delete exit=0
+2026-11-24T01:05:21Z
+# readback after cleanup rerun
+Name                    Status    Sku          Tier    Cap    MaxBytes
+----------------------  --------  -----------  ------  -----  ------------
+savia                   Online    Basic        Basic   5      2147483648
+master                  Online    GP_SYSTEM_4  System  4      107374182400
+savia-premig-1b1e001-1  Online    Basic        Basic   5      2147483648
+Name                     StartIpAddress    EndIpAddress
+-----------------------  ----------------  --------------
+AllowAllWindowsAzureIps  0.0.0.0           0.0.0.0
+

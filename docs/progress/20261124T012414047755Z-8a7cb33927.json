@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-24T01:24:14.047755+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/production-20261122/README.md",
+      "change": "M",
+      "git_blob": "8cf3f07a536987ab32cbf8cbbc5986b380d2a272"
+    },
+    {
+      "path": "savia/docs/evidence/d4-azure-basic-20261123/README.md",
+      "change": "A",
+      "git_blob": "89ead9210698ac1ec6931a4be1cc81bef4346a21"
+    },
+    {
+      "path": "savia/docs/evidence/d4-azure-basic-20261123/baseline-readback.txt",
+      "change": "A",
+      "git_blob": "9f9249fcfa6bf9624f93de132bf799f631c21940"
+    },
+    {
+      "path": "savia/docs/evidence/d4-azure-basic-20261123/cleanup-readback.txt",
+      "change": "A",
+      "git_blob": "d6cbbe178d0b14f29ca977c8d6975b14feccaf3e"
+    },
+    {
+      "path": "savia/docs/evidence/d4-azure-basic-20261123/create.txt",
+      "change": "A",
+      "git_blob": "bff4f2d8d974c7a49302051065d54e76fb0a6149"
+    },
+    {
+      "path": "savia/docs/evidence/d4-azure-basic-20261123/login-attempt-1.txt",
+      "change": "A",
+      "git_blob": "e82b2ec8c4caecc188d90c8f24ee47138e916a0f"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}
