@@ -6,6 +6,10 @@ $ids = Get-Content "$dir\ids.json" | ConvertFrom-Json
 function Get-Dp($f) { [Net.NetworkCredential]::new('', (Get-Content "$dir\$f" | ConvertTo-SecureString)).Password }
 $running = Get-CimInstance Win32_Process -Filter "Name='dotnet.exe'" | Where-Object CommandLine -like "*SaviaStore*Savia.Api.dll*"
 if ($running) { "already running: pid $($running.ProcessId)"; return }
+# At sign-in Docker Desktop may not run yet: start it, then wait up to 5 minutes for the engine.
+docker info --format '{{.ServerVersion}}' 2>$null | Out-Null
+if ($LASTEXITCODE -ne 0 -and -not (Get-Process 'Docker Desktop' -ErrorAction SilentlyContinue)) { Start-Process 'C:\Program Files\Docker\Docker\Docker Desktop.exe' }
+for ($i = 0; $i -lt 60; $i++) { docker info --format '{{.ServerVersion}}' 2>$null | Out-Null; if ($LASTEXITCODE -eq 0) { break }; Start-Sleep 5 }
 if ((docker inspect -f '{{.State.Running}}' savia-store-tienda1) -ne 'true') { docker start savia-store-tienda1 | Out-Null; Start-Sleep 15 }
 $app = Get-Dp app.dpapi
 $psi = [Diagnostics.ProcessStartInfo]::new('C:\Users\Jason\.dotnet-sdk-10.0.402\dotnet.exe', "`"$dir\$release\api\Savia.Api.dll`"")

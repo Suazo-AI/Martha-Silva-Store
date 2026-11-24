@@ -1,0 +1,13 @@
+PASS public catalog answers: 200 items=0
+PASS CORS allows the storefront origin: True status=200 allow-origin=https://martha-silva-preview.jason-suazof.workers.dev
+PASS CORS refuses another origin: True status=204 allow-origin=None
+PASS unknown field is refused: 400 validation
+PASS body over 16 KB is refused: 413 payload_too_large
+PASS order with a fake bot-check token is refused before stock (turnstile_failed): True 403 turnstile_failed
+PASS anonymous staff route /api/v1/catalog/items: 401 auth.required
+PASS anonymous staff route /api/v1/web-orders: 401 auth.required
+PASS anonymous staff route /api/v1/me: 401 auth.required
+PASS consign is not mapped on the hub: 404 None
+PASS sync without a node credential: 401 sync.unauthorized
+PASS rate limit answers 429 within 70 requests a minute: True first 429 at request 58; counts {200: 60, 429: 10}
+12 of 12 pass

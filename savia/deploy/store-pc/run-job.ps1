@@ -1,11 +1,26 @@
-param([Parameter(Mandatory)][string]$Database, [Parameter(Mandatory)][string[]]$JobArgs, [switch]$WithNodeSecret)
+param([Parameter(Mandatory)][string]$Database, [Parameter(Mandatory)][string[]]$JobArgs, [switch]$WithNodeSecret,
+      [string]$SecretFile, [ValidateSet('SAVIA_NODE_SECRET', 'SAVIA_STAFF_PASSWORD')][string]$SecretEnv)
 # Runs one migrator mode as caj-savia-migrate on $Database. Prints only the execution name, status and its log lines.
+# -WithNodeSecret passes TIENDA1's node secret (job secret node-secret-tienda1, added beforehand).
+# -SecretFile with -SecretEnv passes the file's value as that env var through a temporary job secret, removed afterwards.
 $ErrorActionPreference = 'Stop'
 $image = 'acrsaviabukmlt.azurecr.io/savia-migrator:1b1e001625ad0617f60d784fe5ba697e5cbc7d16'
 $client = '89d213c2-3050-4373-9033-e654fcfe98a5'
 $conn = "Server=tcp:sql-savia-bukmlt.database.windows.net,1433;Database=$Database;Authentication=Active Directory Managed Identity;Encrypt=True;TrustServerCertificate=False;Connect Timeout=30;User Id=$client"
 $argYaml = ($JobArgs | ForEach-Object { '"' + $_ + '"' }) -join ', '
-$secretEnv = if ($WithNodeSecret) { "`n  - name: SAVIA_NODE_SECRET`n    secretRef: node-secret-tienda1" } else { '' }
+$secretEnvYaml = if ($WithNodeSecret) { "`n  - name: SAVIA_NODE_SECRET`n    secretRef: node-secret-tienda1" } else { '' }
+$tempSecret = $null
+if ($SecretFile) {
+  if (-not $SecretEnv) { throw '-SecretFile needs -SecretEnv' }
+  $tempSecret = 'run-job-' + [guid]::NewGuid().ToString('N').Substring(0, 12)
+  $value = (Get-Content $SecretFile -Raw).Trim()
+  az containerapp job secret set -n caj-savia-migrate -g rg-savia-prod --secrets "$tempSecret=$value" -o none 2>$null
+  Remove-Variable value
+  $names = @(az containerapp job secret list -n caj-savia-migrate -g rg-savia-prod --query "[].name" -o tsv)
+  if ($names -notcontains $tempSecret) { throw "job secret $tempSecret was not added" }
+  $secretEnvYaml += "`n  - name: $SecretEnv`n    secretRef: $tempSecret"
+}
+try {
 $yaml = @"
 containers:
 - name: migrate
@@ -15,7 +30,7 @@ containers:
   - name: Savia__Sql__ConnectionString
     value: "$conn"
   - name: AZURE_CLIENT_ID
-    value: $client$secretEnv
+    value: $client$secretEnvYaml
   args: [$argYaml]
 "@
 $file = Join-Path $env:TEMP "savia-job-$([guid]::NewGuid()).yaml"
@@ -32,6 +47,16 @@ if (-not $out) {
 "execution: $out"
 do { Start-Sleep 15; $st = az containerapp job execution show -n caj-savia-migrate -g rg-savia-prod --job-execution-name $out --query properties.status -o tsv 2>$null } while ($st -in @('Running', 'Processing', '', $null))
 "status: $st"
+} finally {
+  if ($tempSecret) {
+    for ($i = 0; $i -lt 3; $i++) {
+      az containerapp job secret remove -n caj-savia-migrate -g rg-savia-prod --secret-names $tempSecret --yes -o none 2>$null
+      if (@(az containerapp job secret list -n caj-savia-migrate -g rg-savia-prod --query "[].name" -o tsv) -notcontains $tempSecret) { break }
+      Start-Sleep 10
+    }
+    "temporary job secret removed: $(@(az containerapp job secret list -n caj-savia-migrate -g rg-savia-prod --query "[].name" -o tsv) -notcontains $tempSecret)"
+  }
+}
 $ws = az monitor log-analytics workspace show -n log-savia-bukmlt -g rg-savia-prod --query customerId -o tsv
 for ($i = 0; $i -lt 20; $i++) {
   $lines = az monitor log-analytics query -w $ws --analytics-query "ContainerAppConsoleLogs_CL | where ContainerGroupName_s startswith '$out' | project TimeGenerated, Log_s | order by TimeGenerated asc" --query "[].Log_s" -o tsv 2>$null
@@ -40,3 +65,4 @@ for ($i = 0; $i -lt 20; $i++) {
 $leak = az monitor log-analytics query -w $ws --analytics-query "ContainerAppConsoleLogs_CL | where ContainerJobName_s == 'caj-savia-migrate' | where Log_s has 'node-secret:' or Log_s has 'staff-password:' | count" --query "[0].Count" -o tsv
 "secret lines in workspace: $leak"
 $lines | Where-Object { $_ -notmatch 'node-secret:|staff-password:' }
+if ($st -ne 'Succeeded') { exit 1 }
