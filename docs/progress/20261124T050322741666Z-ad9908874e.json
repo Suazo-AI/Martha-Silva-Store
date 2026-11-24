@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-24T05:03:22.741666+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/production-20261122/README.md",
+      "change": "M",
+      "git_blob": "b8ad8ba937c5892c083939a5ee5b6ded72ed2a4e"
+    },
+    {
+      "path": "docs/production-20261122/STORE-PC-20261124.md",
+      "change": "A",
+      "git_blob": "5ab6cb2c55428d6ce437a271e4ca3d9257247dd2"
+    },
+    {
+      "path": "savia/deploy/store-pc/README.md",
+      "change": "A",
+      "git_blob": "791438140009ab775e6511092a9449d469c559fb"
+    },
+    {
+      "path": "savia/deploy/store-pc/run-job.ps1",
+      "change": "A",
+      "git_blob": "a9637645931bb40a2ee0108f25b2fd9e3619c71d"
+    },
+    {
+      "path": "savia/deploy/store-pc/start-store.ps1",
+      "change": "A",
+      "git_blob": "ca7c4357ab612486f783edfeadd49cb6dbd9c182"
+    },
+    {
+      "path": "savia/deploy/store-pc/store-migrator.ps1",
+      "change": "A",
+      "git_blob": "1647fdd2a5bf467fd0280495e1dc6a401a753b7f"
+    },
+    {
+      "path": "savia/docs/deploy/RUNBOOK.md",
+      "change": "M",
+      "git_blob": "538d0653b6e6a5f936040ae11c4e5d7e88c08cc8"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}
