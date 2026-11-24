@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-24T08:59:38.708646+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/production-20261122/STOREFRONT-DEPLOY.md",
+      "change": "M",
+      "git_blob": "51a014e55041ca000272947f6faa6491e49ab63d"
+    },
+    {
+      "path": "evidence/releases/20261105/responsive-runtime-sha256.json",
+      "change": "M",
+      "git_blob": "b6f594301eebbc03210a0f36ae52d30f54f31af8"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

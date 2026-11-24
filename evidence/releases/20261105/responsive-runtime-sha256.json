@@ -12,8 +12,8 @@
     "bytes": 14290
   },
   "app.js": {
-    "sha256": "0e2326c30264b7c4a25468dfcb8695ec0d7ecef8e270d1a2486fdbb083e1131b",
-    "bytes": 115211
+    "sha256": "53b1ca6dfc6ccfd6b6925baaa23dec2bb7f89b02e0e272eb01f947fedaa0f820",
+    "bytes": 115593
   },
   "assets/missing.svg": {
     "sha256": "d554c87f8dbda28d8a3aa567e19290c0ff9845c1b459f72e35c62535e1f41428",
@@ -276,8 +276,8 @@
     "bytes": 188425
   },
   "integration-adapters.js": {
-    "sha256": "8413937181a86d5b71e20045f80f8ab4f61b59abd52ba7f6083547f48f014b0b",
-    "bytes": 18743
+    "sha256": "33f400aaef38d858d3b78b941b7f50d431eb1db570fcff10c4bd56c00408fbbd",
+    "bytes": 19821
   },
   "lib/fonts/font-0-latin.woff2": {
     "sha256": "eb9df580e0fa032dee552abf71b4452253ab45961dc47f305836dd3c33bfa7f3",
@@ -6256,8 +6256,8 @@
     "bytes": 26
   },
   "store-api.js": {
-    "sha256": "7493660bac11986c13ce12c535d57e3edd4645469e9cdd91b964eae2e788f8b2",
-    "bytes": 19685
+    "sha256": "9ab3ad802b964f15513603c2461b4b28ede0b61b20013b05906762f945e08ed1",
+    "bytes": 19816
   },
   "styles.css": {
     "sha256": "06a00fee7aba97a499d8283b6438d31480a4496696729558be6e3f531533d0dd",

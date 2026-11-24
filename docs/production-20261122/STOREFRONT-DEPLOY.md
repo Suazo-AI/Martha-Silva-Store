@@ -15,6 +15,7 @@ Not verified: a real browser against the hub. Next: deploy, then check the bag w
 Fix: the token falls back to `sessionStorage`, which survives the redirect in this tab, and to memory for this page.
 Checks: `node --test tests/integration-adapters.test.js` 28/28 (the new test fails without the fix), DOM 23/23, localization 19/19, real-browser harness 50/50.
 Limit: if both storages fail and the buyer leaves the page, the token is lost; the order still exists on the hub.
+Publication snapshot re-recorded with `python tools/verify_release_snapshot.py --record` after both changes: only `app.js`, `store-api.js` and `integration-adapters.js` moved (1565 public paths PASS).
 The CI deploy job in step 6 is not enabled (no `CLOUDFLARE_DEPLOY_ENABLED` variable and no preview token), and every deploy to this account so far was made with Wrangler by hand.
 The live build was exercised only locally: `wrangler dev` against a local hub with a disposable database.
 
