@@ -56,5 +56,5 @@ Justia copies are secondary sources; the official text is La Gaceta.
 3. Registration of the data file under Ley 787 Art. 22.
 4. Confirm the hours (one source only).
 5. Reglamento of Ley 842 Art. 41 limits distance withdrawal to defective or mismatched goods; the law (Art. 81) does not. A lawyer should choose the wording.
-6. Ley 842 Art. 10(5) and 23(4) ask for prices in córdobas with taxes. The store shows USD. Ley 732 Art. 37 exceptions were not read.
+6. Ley 842 Art. 10(4) and 23(4) ask for prices in córdobas with taxes. The store shows USD. Ley 732 Art. 37 exceptions were not read.
 7. Whether staff can correct or blank a buyer's contact details on the hub when asked.
