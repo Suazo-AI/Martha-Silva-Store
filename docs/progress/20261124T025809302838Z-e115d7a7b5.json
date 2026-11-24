@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-24T02:58:09.302838+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/production-20261122/README.md",
+      "change": "M",
+      "git_blob": "faab8a7db048bc7d51d324c1f72c460bea8e8f99"
+    },
+    {
+      "path": "savia/docs/evidence/d4-sync-relay-20261123/README.md",
+      "change": "A",
+      "git_blob": "bfbe48d8dccc222ae426ec6a94efd521b97bfc2e"
+    },
+    {
+      "path": "savia/tests/test_sync_relay.py",
+      "change": "A",
+      "git_blob": "401acea86600176b97d567e6be1e1906f0de16b4"
+    },
+    {
+      "path": "savia/tools/load/sync_relay.py",
+      "change": "A",
+      "git_blob": "8499f97e7a30c0e433593bc9aba16d29b2f1e4c1"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}
