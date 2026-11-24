@@ -376,8 +376,8 @@
     "bytes": 36232
   },
   "lib/fonts/fonts.css": {
-    "sha256": "7ff751c71b1186a0b9a2fa930b4cfe7a160a6f25273b54e57c5f18179e2e6be2",
-    "bytes": 13287
+    "sha256": "617a50ab42445eb7d017285e352a2a591212f5a037e85c8195f97c63feedce72",
+    "bytes": 12202
   },
   "lib/vendor/barba.umd.js": {
     "sha256": "d64110367eb45375dc5f21cb4915d224a22e74d7e73ca8a82cde710c3f0e3774",
@@ -6260,7 +6260,7 @@
     "bytes": 19685
   },
   "styles.css": {
-    "sha256": "4e313c1a4862a2d0ae266b0dbf08182438b3531135c50f69a21ebd4b7753b1bc",
-    "bytes": 85630
+    "sha256": "06a00fee7aba97a499d8283b6438d31480a4496696729558be6e3f531533d0dd",
+    "bytes": 85735
   }
 }

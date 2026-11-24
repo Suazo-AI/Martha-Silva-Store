@@ -20,7 +20,7 @@ class Fonts(unittest.TestCase):
   full,_,latin=css.partition('/* Latin subsets')
   self.assertTrue(latin,'Latin unicode-range faces are declared after the complete faces')
   for i,block in enumerate(re.findall(r'@font-face \{.*?\}',full,re.S)):
-   self.assertIn(f'unicode-range: {cmap_range(F/f"font-{i}.ttf")};',block,'a complete face declares exactly its own characters')
+   self.assertIn(f'unicode-range: {cmap_range(F/f"font-{i}.ttf")};',block,'a complete face declares only its characters outside LATIN')
   full=re.sub(r'\n  unicode-range: [^;]*;','',full)
   old=re.sub(r"url\(font-\d.woff2\) format\('woff2'\), ",'',full.rstrip(chr(13)+chr(10))+chr(10))
   baseline=json.loads((ROOT/'docs/release-20261105/responsive-followup/font-baseline.json').read_text())

@@ -1,7 +1,8 @@
 # Storefront mobile performance (W7)
 
 Result: home and catalog reach 90 or more in demo and live mode.
-The product page rises from 67 to 85 and stays below 90.
+The product page rises from 67 to 85 on the first measurement and stays below 90.
+Later paired rounds on a busier host put the same build at a median of 73, and the Latin font subsets at 80 to 82 (see 2026-11-23).
 Checkout stays at 90 (demo) and 86 to 88 (live), the same as before within noise.
 Source commit: `60722372`. Raw numbers: [performance-lighthouse.json](performance-lighthouse.json).
 
@@ -75,17 +76,24 @@ First contentful paint went from about 2.5 s to 1.7 s. Font bytes on that page w
 
 - Cause found first: the score follows how many bytes start before the first paint.
   The same build scored 74-87 depending on that cut-off. Fonts were 224 KB of it, and they were complete files.
-- Knock-out test on one page (3 rounds): no fonts alone 84, no carousels alone 79, both removed 93, base 82.
-  Only fonts were cheap to change without changing content.
+- Knock-out test on one page (3 rounds, [raw](perf-20261123-knockout.txt)): no fonts alone 84; no carousels, gallery photos 2-4 or gallery clone 79; both removed 93; base 82.
+  The second variant removed more than the carousels, so it does not isolate them.
 - Change: each font gets a Latin WOFF2 subset (`font-N-latin.woff2`), declared after the complete face with a Latin `unicode-range`.
-  Each complete face now declares `unicode-range` equal to its own character map.
-  So the browser never downloads a complete file for a character the font does not have (the page uses `⌄`, which Manrope lacks).
+  Each complete face declares `unicode-range` equal to its own character map minus the Latin range (second commit, 2026-11-23).
+  The two ranges never overlap, so the result does not depend on declaration order in any browser.
+  The browser also never downloads a complete file for a character the font does not have (the page uses `⌄` or `↗`, which Manrope lacks; which one triggered the download was not isolated).
 - The complete WOFF2 and TTF files are unchanged and still served for any character outside the Latin range.
 - Built by `python tools/responsive_fonts.py`; `tests/responsive_fonts.py` checks byte-reproducible subsets, that each subset keeps every Latin character of its font, identical descriptors, and the frozen CSS baseline.
 - Browser check at 390 px: only the four Latin files load; `document.fonts` shows the same four faces loaded. A screenshot diff against the old build shows no text change (only anti-aliasing on the gallery dots).
 - Published path count 1557 → 1565 (`tools/verify_release_snapshot.py`, `tests/test_release_snapshot.py`).
 - Limit: Lighthouse cannot load the deployed URL (`NO_NAVSTART` under `Cross-Origin-Opener-Policy`), so the gain is a local paired measurement, not a deployed one.
-- Still open for 90 on the product page: the carousels (78 cards) start 14 card images before first paint. Changing that changes content or layout.
+- Second change, same day: on touch screens (`@media(hover:none)`) the card's second photo is `display:none`. It only ever showed on mouse hover.
+  Playwright, Pixel 7 profile, product page: 27 → 16 image requests, 2041 → 1328 KB of images, 0 broken images. Desktop: 26 requests before and after, and hover still shows the second photo ([script](perf-20261123-touch-check.cjs)).
+  Lighthouse does not emulate `hover:none`, so it cannot see this change. A copy with the rule made unconditional scored a median of 81 against 80.5 for the font build (4 interleaved rounds, [raw](perf-20261123-touch-sim.txt)): no score gain, 250 KB less data per product page on a phone.
+- The product page closes at a median of 80 to 82. Tested and not enough for 90: font subsets (+9), second card photo (0), first gallery slide preload (+1, not shipped).
+  Not tested: fewer cards or lighter card markup on first paint, which changes content or layout.
+- Limit on the earlier rounds: 16 idle `wrangler dev` servers from previous rounds were still running during them. Each run's request list shows the expected font files for its build, so no run hit the wrong build. The servers were stopped before the touch rounds.
+- Browser coverage: Chrome only. Home, catalog and checkout font loading on the live preview: see STOREFRONT-DEPLOY.
 
 ## Method
 
@@ -96,9 +104,9 @@ First contentful paint went from about 2.5 s to 1.7 s. Font bytes on that page w
 
 ## Limits
 
-- The product page stays at 85.
-  Its LCP is now mostly render delay: style and layout of a 236 KB page with 78 cards and 164 pictures under 4× CPU throttling.
-  Reaching 90 needs fewer cards on first paint or lighter markup, which changes content or layout; not done here.
+- The product page stays below 90 (median 80 to 82 on 2026-11-23).
+  Its simulated LCP follows the bytes requested before first paint: two gallery photos, fonts and 14 card images.
+  The earlier render-delay explanation (style and layout of 78 cards) was not confirmed by the knock-out test.
 - Live checkout stays at 86-88.
   Its LCP element is an `<h2>` that appears after the hub catalog request; the score follows hub latency.
   Real hub latency was not measured.

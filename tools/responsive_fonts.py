@@ -1,7 +1,7 @@
 """Deterministic complete WOFF2 encoding; existing licensed TTFs remain fallbacks.
 
 Each font also gets a Latin WOFF2 subset served through unicode-range.
-The complete WOFF2 stays declared first, so any character outside LATIN still renders."""
+The complete WOFF2 declares only the characters outside LATIN, so the two ranges never overlap."""
 from pathlib import Path
 from io import BytesIO
 import hashlib,json
@@ -16,8 +16,8 @@ def latin_codepoints():
   a=part.strip()[2:].split('-');out|=set(range(int(a[0],16),int(a[-1],16)+1))
  return out
 def cmap_range(p):
- """unicode-range listing exactly the characters the font has, so a missing glyph never downloads it."""
- cps=sorted(TTFont(p,recalcTimestamp=False).getBestCmap());out=[];start=prev=cps[0]
+ """unicode-range of the characters the font has outside LATIN: the ranges never overlap and a missing glyph never downloads it."""
+ cps=sorted(set(TTFont(p,recalcTimestamp=False).getBestCmap())-latin_codepoints());out=[];start=prev=cps[0]
  for c in cps[1:]+[None]:
   if c is not None and c==prev+1:prev=c;continue
   out.append(f'U+{start:04X}' if start==prev else f'U+{start:04X}-{prev:04X}')
