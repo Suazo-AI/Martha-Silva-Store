@@ -1,0 +1,103 @@
+{
+ "base": "https://ca-savia-api.ambitiousmeadow-f104c22d.mexicocentral.azurecontainerapps.io",
+ "origin": "https://martha-silva-preview.jason-suazof.workers.dev",
+ "at": "2026-11-24T07:18:19Z",
+ "results": [
+  {
+   "check": "public catalog answers",
+   "expected": 200,
+   "status": 200,
+   "detail": "items=0",
+   "pass": true
+  },
+  {
+   "check": "CORS allows the storefront origin",
+   "expected": true,
+   "status": true,
+   "detail": "status=200 allow-origin=https://martha-silva-preview.jason-suazof.workers.dev",
+   "pass": true
+  },
+  {
+   "check": "CORS refuses another origin",
+   "expected": true,
+   "status": true,
+   "detail": "status=204 allow-origin=None",
+   "pass": true
+  },
+  {
+   "check": "unknown field is refused",
+   "expected": 400,
+   "status": 400,
+   "detail": "validation",
+   "pass": true
+  },
+  {
+   "check": "body over 16 KB is refused",
+   "expected": 413,
+   "status": 413,
+   "detail": "payload_too_large",
+   "pass": true
+  },
+  {
+   "check": "order with a fake bot-check token is refused before stock (turnstile_failed)",
+   "expected": true,
+   "status": true,
+   "detail": "403 turnstile_failed",
+   "pass": true
+  },
+  {
+   "check": "anonymous staff route /api/v1/catalog/items",
+   "expected": [
+    401,
+    403
+   ],
+   "status": 401,
+   "detail": "auth.required",
+   "pass": true
+  },
+  {
+   "check": "anonymous staff route /api/v1/web-orders",
+   "expected": [
+    401,
+    403
+   ],
+   "status": 401,
+   "detail": "auth.required",
+   "pass": true
+  },
+  {
+   "check": "anonymous staff route /api/v1/me",
+   "expected": [
+    401,
+    403
+   ],
+   "status": 401,
+   "detail": "auth.required",
+   "pass": true
+  },
+  {
+   "check": "consign is not mapped on the hub",
+   "expected": 404,
+   "status": 404,
+   "detail": null,
+   "pass": true
+  },
+  {
+   "check": "sync without a node credential",
+   "expected": [
+    401,
+    403
+   ],
+   "status": 401,
+   "detail": "sync.unauthorized",
+   "pass": true
+  },
+  {
+   "check": "rate limit answers 429 within 70 requests a minute",
+   "expected": true,
+   "status": true,
+   "detail": "first 429 at request 58; counts {200: 60, 429: 10}",
+   "pass": true
+  }
+ ]
+}

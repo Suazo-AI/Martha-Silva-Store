@@ -20,6 +20,19 @@ using Microsoft.Data.SqlClient;
 //   --external             create NAME as an Entra ID user (CREATE USER ... FROM EXTERNAL PROVIDER)
 //   --client-id GUID       with --external: the identity's client id; the user is created from its SID
 //                          (TYPE = E), so the SQL server needs no Directory Readers role for a Graph lookup
+//        Savia.Migrator --provision-node register|create|rotate|revoke --node-id GUID
+//                       [--node-kind branch|azure] [--branch-id GUID] [--node-code CODE]
+//   --provision-node       node rows and credentials only; migrates nothing (see NodeProvisioning.cs and
+//                          docs/sync/PROVISIONING.md). create and rotate take SAVIA_NODE_SECRET and print no
+//                          secret, or make a new secret and print it once.
+//        Savia.Migrator --provision-branch --branch-id GUID --branch-code CODE --branch-name NAME --store-name NAME
+//                       --location-id GUID --location-code CODE --location-name NAME
+//                       --register-id GUID --register-code CODE --register-name NAME
+//        Savia.Migrator --provision-staff --staff-id GUID --login LOGIN --display-name NAME --role ROLE
+//                       [--branch-id GUID [--approver]] [--set-password]
+//   --provision-branch / --provision-staff  day-zero records on this database only; migrate nothing
+//                          (see SiteProvisioning.cs). --set-password reads SAVIA_STAFF_PASSWORD (prints nothing) or
+//                          prints a one-time password once, which staff must change at the first sign-in.
 // Exit codes: 0 ok, 1 migration or check failed, 2 bad usage or configuration.
 
 var plan = args.Contains("--plan");
@@ -31,6 +44,12 @@ var connectionString = Environment.GetEnvironmentVariable("Savia__Sql__Connectio
 
 if (string.IsNullOrWhiteSpace(connectionString))
     return Fail(2, "Savia__Sql__ConnectionString is required.");
+if (Option("--provision-node") is { } provisionAction)
+    return await ProvisionNode(connectionString, provisionAction);
+if (args.Contains("--provision-branch"))
+    return await ProvisionBranch(connectionString);
+if (args.Contains("--provision-staff"))
+    return await ProvisionStaff(connectionString);
 if (!Directory.Exists(migrationsDir))
     return Fail(2, $"migrations folder not found: {migrationsDir}");
 if (appUser is not null && !Regex.IsMatch(appUser, "^[A-Za-z0-9_.-]{1,120}$"))
@@ -113,6 +132,60 @@ catch (SqlException e)
     return Fail(1, $"SQL error {e.Number}: {e.Message}");
 }
 
+async Task<int> ProvisionNode(string connection, string action)
+{
+    var (request, error) = NodeRequest.Parse(action, Option);
+    if (request is null)
+        return Fail(2, error!);
+    try
+    {
+        await using var sql = new SqlConnection(connection);
+        await sql.OpenAsync();
+        await request.ReportAsync(sql, Environment.GetEnvironmentVariable(NodeRequest.SecretVariable), Console.Out);
+        return 0;
+    }
+    catch (Exception e) when (e is SqlException or InvalidOperationException)
+    {
+        return Fail(1, e is SqlException s ? $"SQL error {s.Number}: {s.Message}" : e.Message);
+    }
+}
+
+async Task<int> ProvisionBranch(string connection)
+{
+    var (request, error) = BranchRequest.Parse(Option);
+    if (request is null)
+        return Fail(2, error!);
+    return await Provision(connection, async sql =>
+    {
+        await request.RunAsync(sql);
+        Console.WriteLine($"provision: branch {request.Code} register {request.RegisterCode} on database {sql.Database}: done");
+    });
+}
+
+async Task<int> ProvisionStaff(string connection)
+{
+    var (request, error) = StaffRequest.Parse(Option, args.Contains);
+    if (request is null)
+        return Fail(2, error!);
+    return await Provision(connection, sql =>
+        request.ReportAsync(sql, Environment.GetEnvironmentVariable(StaffRequest.PasswordVariable), Console.Out));
+}
+
+async Task<int> Provision(string connection, Func<SqlConnection, Task> action)
+{
+    try
+    {
+        await using var sql = new SqlConnection(connection);
+        await sql.OpenAsync();
+        await action(sql);
+        return 0;
+    }
+    catch (Exception e) when (e is SqlException or InvalidOperationException)
+    {
+        return Fail(1, e is SqlException s ? $"SQL error {s.Number}: {s.Message}" : e.Message);
+    }
+}
+
 string? Option(string name)
 {
     var index = Array.IndexOf(args, name);
@@ -149,9 +222,8 @@ static async Task<Dictionary<string, string>> ReadLedger(SqlConnection connectio
     return result;
 }
 
-// Least privilege for the API host, derived from savia/src: it reads views and tables, executes
-// procedures, and writes security.Sessions and the sign-in columns of security.Staff directly
-// (savia/src/Savia.Infrastructure/Auth.cs). It never runs DDL. Idempotent.
+// The API host's permissions live in role savia_api_host, created by migration V035, so local and Azure databases
+// get the same grants from one source. This step only creates the user and adds it to the role. Idempotent.
 static async Task GrantAppUser(SqlConnection connection, string user, bool external, string? clientId)
 {
     var quoted = "[" + user.Replace("]", "]]") + "]";
@@ -163,12 +235,8 @@ static async Task GrantAppUser(SqlConnection connection, string user, bool exter
         _ => $"CREATE USER {quoted} FOR LOGIN {quoted};",
     };
     await Exec(connection, $"""
+        IF DATABASE_PRINCIPAL_ID(N'savia_api_host') IS NULL THROW 50000, 'Role savia_api_host is missing; migration V035 must run first.', 1;
         IF DATABASE_PRINCIPAL_ID(N'{user}') IS NULL {create}
-        IF DATABASE_PRINCIPAL_ID(N'savia_api_host') IS NULL CREATE ROLE [savia_api_host] AUTHORIZATION [dbo];
-        GRANT SELECT TO [savia_api_host];
-        GRANT EXECUTE TO [savia_api_host];
-        GRANT INSERT, UPDATE ON OBJECT::[security].[Sessions] TO [savia_api_host];
-        GRANT UPDATE ON OBJECT::[security].[Staff] TO [savia_api_host];
         IF IS_ROLEMEMBER(N'savia_api_host', N'{user}') = 0 ALTER ROLE [savia_api_host] ADD MEMBER {quoted};
         """);
 }

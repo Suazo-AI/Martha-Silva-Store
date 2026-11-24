@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """CP4 simulator: one cloud and three branches, each node its own database on the local dev SQL Server.
 
-Nodes never read each other's database. Rows move only as JSON payloads:
+Nodes never read each other's database. Rows move only as JSON batches through the V032 procedures
+(sync.usp_PlanJson, usp_ReadBatch, usp_ApplyBatch), the same code the P9 .NET transport runs:
 the sender reads Change Tracking in one SNAPSHOT transaction, the receiver applies with MERGE
 and advances its (fork, version) cursor after every table is applied (ADR-001 D5, F1, F5, F8).
 Topology: hub. A branch sends only the rows it owns. The cloud relays every row except the target's own.
@@ -13,7 +14,7 @@ Oracles after convergence:
   plus the scenario's own checks.
 
 Usage (from the repository root):
-  python savia/tools/db/simulator.py scenario basic|cancel_vs_dispatch|restore|restore_naive
+  python savia/tools/db/simulator.py scenario basic|cancel_vs_dispatch|restore|restore_naive|replay|credit_status
   python savia/tools/db/simulator.py random --seed 7 --steps 120
 Exit 0 = every oracle passed. Databases SAVIA_SIM_cloud/_a/_b/_c are recreated on each run.
 """
@@ -36,32 +37,6 @@ DBN = {n: f"SAVIA_SIM_{n}" for n in NODES}
 BAK = f"{db.DATA_DIR}/SAVIA_SIM_a_old.bak"
 PRICE = 120000  # catalog price of the fixture 'item' (NIO minor units)
 
-# Synced tables in apply order (parents first) and the SQL that names the owning branch of row t.
-# None = the row's own NodeId names its owner node (V009 transition rows; the cloud owns approvals and cancels).
-_TILL_BRANCH = "(SELECT r.BranchId FROM sales.CashRegisters r WHERE r.Id={})"
-_SALE_BRANCH = "(SELECT s.BranchId FROM sales.Sales s WHERE s.Id=t.SaleId)"
-_LOC_BRANCH = "(SELECT l.BranchId FROM core.Locations l WHERE l.Id=t.LocationId)"
-TABLES = [
-    ("sales.CashTills", _TILL_BRANCH.format("t.RegisterId")),
-    ("sales.Sales", "t.BranchId"),
-    ("sales.SaleLines", _SALE_BRANCH),
-    ("sales.SaleReversals", "t.BranchId"),
-    ("sales.SaleReversalLines", "(SELECT r.BranchId FROM sales.SaleReversals r WHERE r.Id=t.ReversalId)"),
-    ("credits.Credits", "t.IssuingBranchId"),
-    ("credits.CreditAllocations", "t.BranchId"),
-    ("credits.CreditMovements", "t.BranchId"),
-    ("credits.CreditRedemptions", "t.BranchId"),
-    ("sales.SaleTenders", _SALE_BRANCH),
-    ("sales.CashEntries", _TILL_BRANCH.format("(SELECT k.RegisterId FROM sales.CashTills k WHERE k.Id=t.TillId)")),
-    ("inventory.StockBalances", _LOC_BRANCH),
-    ("inventory.StockMovements", _LOC_BRANCH),
-    ("credits.TransferRequests", None),
-    ("credits.TransferApprovals", None),
-    ("credits.TransferCancellations", None),
-    ("credits.TransferDispatches", None),
-    ("credits.TransferReceipts", None),
-]
-
 EMIT = """
 SELECT N'@@SIMB@@'+SUBSTRING(@out,(n-1)*3000+1,3000)+N'@@SIME@@'
 FROM (SELECT TOP (CONVERT(int,CEILING(DATALENGTH(ISNULL(@out,N''))/6000.0))) ROW_NUMBER() OVER(ORDER BY (SELECT NULL)) AS n
@@ -73,12 +48,6 @@ class SqlError(Exception):
         m = re.search(r"Msg (\d+)", out)
         self.number = int(m.group(1)) if m else 0
         super().__init__(f"{node}: {out.strip()[-1200:]}")
-
-
-def owner_node(expr):
-    if expr is None:
-        return "t.NodeId"
-    return f"(SELECT n.Id FROM sync.Nodes n WHERE n.Kind='branch' AND n.BranchId={expr})"
 
 
 def lit(s):
@@ -96,9 +65,9 @@ class Sim:
         self.seed = seed
         self.say = out
         self.online = {b: True for b in BRANCHES}
-        self.blocked = set()       # restored branches that may not operate until recovered
         self.stats = Counter()
         self.failures = []
+        self.page_rows = None  # None keeps the V060 default page (5,000 rows per table)
 
     # ---------- plumbing ----------
     def sql(self, node, text):
@@ -150,127 +119,76 @@ EXEC sales.usp_OpenTill @TillId='{self.till[b]}',@RegisterId={self.i('register' 
         self.converge()  # every node starts from the same rows, so a branch can see another branch's credit
 
     def load_meta(self):
-        values = ",".join(f"(N'{t}')" for t, _ in TABLES)
-        rows = self.fetch("cloud", f"""
-SET @out=(SELECT v.tn AS t,
-  (SELECT d.name AS n,d.system_type_name AS ty FROM sys.dm_exec_describe_first_result_set(N'SELECT * FROM '+v.tn,NULL,0) d
+        """Synced tables in apply order, read from sync.SyncTables: the same list the sync procedures use."""
+        rows = self.fetch("cloud", """
+SET @out=(SELECT PARSENAME(st.TableName,2)+N'.'+PARSENAME(st.TableName,1) AS t,
+  (SELECT d.name AS n,d.system_type_name AS ty FROM sys.dm_exec_describe_first_result_set(N'SELECT * FROM '+st.TableName,NULL,0) d
     WHERE d.system_type_name NOT IN ('timestamp','rowversion') AND d.is_computed_column=0 ORDER BY d.column_ordinal FOR JSON PATH) AS c,
   (SELECT c.name AS n FROM sys.indexes i JOIN sys.index_columns ic ON ic.object_id=i.object_id AND ic.index_id=i.index_id
      JOIN sys.columns c ON c.object_id=ic.object_id AND c.column_id=ic.column_id
-    WHERE i.object_id=OBJECT_ID(v.tn) AND i.is_primary_key=1 ORDER BY ic.key_ordinal FOR JSON PATH) AS k
- FROM (VALUES {values}) v(tn) FOR JSON PATH);""")
+    WHERE i.object_id=OBJECT_ID(st.TableName) AND i.is_primary_key=1 ORDER BY ic.key_ordinal FOR JSON PATH) AS k
+ FROM sync.SyncTables st ORDER BY st.ApplyOrder FOR JSON PATH);""")
+        self.tables = [r["t"] for r in rows]
         self.meta = {r["t"]: ([(c["n"], c["ty"]) for c in r["c"]], [k["n"] for k in r["k"]]) for r in rows}
 
     # ---------- sync ----------
+    # Every rule runs in the V032 procedures, the same code the .NET transport calls (P9-SPEC.md).
     def pull(self, tgt, src, mode="normal"):
-        """tgt pulls from src. mode normal | all (restored branch rebuilds from the cloud, no owner filter)."""
-        state = self.fetch(src, """
-DECLARE @s TABLE(NodeId uniqueidentifier,ForkGuid uniqueidentifier,CurrentVersion bigint,TableName sysname,MinValidVersion bigint);
-INSERT @s EXEC sync.usp_GetSourceState;
-SET @out=(SELECT * FROM @s FOR JSON PATH, INCLUDE_NULL_VALUES);""")
-        st = {r["TableName"]: r for r in state}
-        fork = state[0]["ForkGuid"]
-        src_node = self.node_id(src)
-        def mv(t):
-            v = st[bt(t)]["MinValidVersion"]
-            return "NULL" if v is None else str(v)
-        calls = "\n".join(
-            f"INSERT @r EXEC sync.usp_ClassifyCursor @PeerNodeId='{src_node}',@TableName=N'{bt(t)}',"
-            f"@SourceForkGuid='{fork}',@SourceCurrentVersion={st[bt(t)]['CurrentVersion']},@SourceMinValidVersion={mv(t)};\n"
-            f"INSERT @c(t,a,f) SELECT N'{bt(t)}',a,f FROM @r; DELETE @r;"
-            for t, _ in TABLES)
-        plan = self.fetch(tgt, f"""
-DECLARE @r TABLE(a varchar(20),f bigint); DECLARE @c TABLE(t sysname,a varchar(20),f bigint);
-{calls}
-SET @out=(SELECT t,a,f FROM @c FOR JSON PATH, INCLUDE_NULL_VALUES);""")
-        plan = {p["t"]: p for p in plan}
-        if mode == "all":
-            for p in plan.values():
-                p["a"], p["f"] = "rebuild", None
+        """tgt pulls from src. mode normal | all (restored branch rebuilds from the cloud, its own rows included).
+        D-041: a pull is a run of pages; each page re-plans, so the receiver's pass state, not this loop, says where to resume."""
+        changed = 0
+        while True:
+            changed += self.apply_batch(tgt, self.read_batch(tgt, src, mode))
+            if not self.last_more:
+                return changed
 
-        # Sender: one SNAPSHOT transaction for every table (F5).
-        parts, keys = [], []
-        for k, (t, owner) in enumerate(TABLES):
-            cols, pk = self.meta[t]
-            sel = ",".join(f"t.[{c}]" for c, _ in cols)
-            if mode == "all":
-                flt = "1=1"
-            elif src == "cloud":
-                flt = f"{owner_node(owner)}<>@target"
-            else:
-                flt = f"{owner_node(owner)}=@me"
-            p = plan[bt(t)]
-            if p["a"] == "incremental":
-                on = " AND ".join(f"ct.[{c}]=t.[{c}]" for c in pk)
-                parts.append(f"""
-IF CHANGE_TRACKING_MIN_VALID_VERSION(OBJECT_ID(N'{t}'))>{p['f']} THROW 51891,'Cambios ya depurados durante la sincronizacion.',1;
-IF EXISTS(SELECT 1 FROM CHANGETABLE(CHANGES {t},{p['f']}) ct WHERE ct.SYS_CHANGE_OPERATION='D')
-  THROW 51892,'Borrado fisico en una tabla sincronizada ({t}).',1;
-SET @j{k}=(SELECT {sel} FROM CHANGETABLE(CHANGES {t},{p['f']}) ct JOIN {t} t ON {on}
-           WHERE ct.SYS_CHANGE_VERSION<=@to AND {flt} FOR JSON PATH, INCLUDE_NULL_VALUES);""")
-            else:
-                parts.append(f"SET @j{k}=(SELECT {sel} FROM {t} t WHERE {flt} FOR JSON PATH, INCLUDE_NULL_VALUES);")
-            keys.append(f"JSON_QUERY(ISNULL(@j{k},N'[]')) AS [t{k}]")
-        decl = ",".join(f"@j{k} nvarchar(max)" for k in range(len(TABLES)))
-        payload = self.fetch(src, f"""
-SET TRANSACTION ISOLATION LEVEL SNAPSHOT; BEGIN TRANSACTION;
-DECLARE @me uniqueidentifier=(SELECT NodeId FROM sync.LocalNode),@target uniqueidentifier='{self.node_id(tgt)}',
-  @fork uniqueidentifier=(SELECT recovery_fork_guid FROM sys.database_recovery_status WHERE database_id=DB_ID()),
-  @to bigint=CHANGE_TRACKING_CURRENT_VERSION(),{decl};
-IF @fork<>'{fork}' THROW 51890,'El fork del emisor cambio durante la sincronizacion.',1;
-{''.join(parts)}
-SET @out=(SELECT @fork AS fork,@to AS [to],{','.join(keys)} FOR JSON PATH, WITHOUT_ARRAY_WRAPPER, INCLUDE_NULL_VALUES);
-COMMIT;""")
+    def state(self, node):
+        return self.fetch(node, "EXEC sync.usp_SourceStateJson @Json=@out OUTPUT;")
 
-        # Receiver: apply every table, then advance every cursor, in one transaction (F8).
-        stmts, sent = [], 0
-        for k, (t, _) in enumerate(TABLES):
-            rows = payload[f"t{k}"]
-            if not rows:
-                continue
-            sent += len(rows)
-            cols, pk = self.meta[t]
-            names = [c for c, _ in cols]
-            with_ = ",".join(f"[{c}] {ty}" for c, ty in cols)
-            on = " AND ".join(f"t.[{c}]=s.[{c}]" for c in pk)
-            nonpk = [c for c in names if c not in pk]
-            upd = ""
-            if nonpk:
-                upd = (f"WHEN MATCHED AND EXISTS(SELECT {','.join(f's.[{c}]' for c in nonpk)} "
-                       f"EXCEPT SELECT {','.join(f't.[{c}]' for c in nonpk)}) THEN UPDATE SET "
-                       + ",".join(f"t.[{c}]=s.[{c}]" for c in nonpk))
-            stmts.append(f"""
-SET @j={lit(json.dumps(rows, ensure_ascii=False))};
-MERGE {t} WITH (HOLDLOCK) AS t USING (SELECT * FROM OPENJSON(@j) WITH ({with_})) AS s ON {on}
-{upd}
-WHEN NOT MATCHED BY TARGET THEN INSERT ({','.join(f'[{c}]' for c in names)}) VALUES ({','.join(f's.[{c}]' for c in names)});
-SET @changed+=@@ROWCOUNT;""")
-        adv = "\n".join(
-            f"EXEC sync.usp_AdvancePeerCursor @PeerNodeId='{src_node}',@TableName=N'{bt(t)}',"
-            f"@ForkGuid='{payload['fork']}',@Version={payload['to']};" for t, _ in TABLES)
+    def read_batch(self, tgt, src, mode="normal"):
+        """Plan on the receiver, then read on the sender in one SNAPSHOT transaction. Returns the batch to apply."""
+        state = self.state(src)
+        sql_mode = "rebuild" if mode == "all" else "normal"
+        plan = self.fetch(tgt, f"EXEC sync.usp_PlanJson @PeerNodeId='{self.node_id(src)}',@StateJson={lit(json.dumps(state))},"
+                               f"@Mode='{sql_mode}',@Json=@out OUTPUT;")
+        fork = f"'{self.state(tgt)['fork']}'" if sql_mode == "rebuild" else "NULL"
+        page = f"@PageRows={self.page_rows}," if self.page_rows else ""
+        payload = self.fetch(src, f"EXEC sync.usp_ReadBatch @TargetNodeId='{self.node_id(tgt)}',@PlanJson={lit(json.dumps(plan))},"
+                                  f"@TargetForkGuid={fork},{page}@Json=@out OUTPUT;")
+        return {"src": src, "mode": mode, "plan": {p["t"]: p for p in plan["tables"]}, "payload": payload}
+
+    @staticmethod
+    def rows_in(batch):
+        return sum(len(t["rows"] or []) for t in batch["payload"]["tables"])
+
+    def apply_batch(self, tgt, batch, fail_before_commit=False):
+        """Receiver: usp_ApplyBatch applies every table, then advances every cursor, in one transaction (F8)."""
+        src, mode, plan = batch["src"], batch["mode"], batch["plan"]
         res = self.fetch(tgt, f"""
-DECLARE @j nvarchar(max),@changed int=0;
 BEGIN TRANSACTION;
-{''.join(stmts)}
-{adv}
-COMMIT;
-SET @out=CONCAT(N'[',@changed,N']');""")
-        changed = res[0]
+EXEC sync.usp_ApplyBatch @PeerNodeId='{self.node_id(src)}',@BatchJson={lit(json.dumps(batch["payload"], ensure_ascii=False))},
+     @Json=@out OUTPUT;
+{"THROW 51899,'Fallo inyectado antes del COMMIT.',1;" if fail_before_commit else ""}
+COMMIT;""")
+        changed, sent = res["changed"], self.rows_in(batch)
+        self.last_more = bool(res.get("more"))
+        if self.last_more and not res.get("applied"):
+            raise AssertionError(f"sync {src}->{tgt}: page not applied, the pull would loop")
         actions = Counter(p["a"] for p in plan.values())
         self.stats["rows_sent"] += sent
         self.stats["rows_changed"] += changed
-        self.stats["pulls"] += 1
+        self.stats["pulls"] += 1  # one applied page
         if sent or any(a != "incremental" for a in actions):
-            self.say(f"  sync {src}->{tgt} [{mode}] sent={sent} changed={changed} plan={dict(actions)}")
+            self.say(f"  sync {src}->{tgt} [{mode}] sent={sent} changed={changed} skipped={res['skipped']} plan={dict(actions)}")
         return changed
 
     def sync_round(self):
         changed = 0
         for b in BRANCHES:
-            if self.online[b] and b not in self.blocked:
+            if self.online[b]:
                 changed += self.pull("cloud", b)
         for b in BRANCHES:
-            if self.online[b] and b not in self.blocked:
+            if self.online[b]:
                 changed += self.pull(b, "cloud")
         return changed
 
@@ -282,10 +200,6 @@ SET @out=CONCAT(N'[',@changed,N']');""")
 
     # ---------- operations (each runs on one node, like a real cashier or manager) ----------
     def op(self, node, label, text):
-        if node in self.blocked:
-            self.stats["blocked_op"] += 1
-            self.say(f"  {label} at {node}: BLOCKED (restored, not recovered)")
-            return False
         try:
             self.sql(node, text)
             self.stats[f"ok_{label}"] += 1
@@ -337,6 +251,21 @@ EXEC credits.usp_TransferRequest @TransferId='{tid}',@CreditId='{credit}',@FromB
         return self.op(b, "receive", f"EXEC credits.usp_TransferReceive @TransferId='{tid}',"
                                      f"@ActorId={self.i('cashier' + b.upper())},@NodeId='{self.node_id(b)}';")
 
+    def close_till(self, b):
+        """A supervisor closes branch b's till with a count of the opening float (the variance is not under test)."""
+        K, count = b.upper(), self.guid()
+        return self.op(b, "close", f"""
+INSERT INTO sales.CashCounts(Id,TillId,CountedBy,Status,CreatedBy) VALUES('{count}','{self.till[b]}',{self.i('cashier' + K)},'draft',{self.i('cashier' + K)});
+INSERT INTO sales.CashCountLines(Id,CashCountId,DenominationMinor,Quantity) VALUES('{self.guid()}','{count}',100000,1);
+EXEC sales.usp_SubmitCashCount @CashCountId='{count}',@ActorId={self.i('cashier' + K)};
+EXEC sales.usp_CloseTill @ClosureId='{self.guid()}',@TillId='{self.till[b]}',@CashCountId='{count}',
+     @ActorId={self.i('supervisor' + K)},@OriginNodeId='{self.node_id(b)}';""")
+
+    def credit_status(self, node, credit):
+        """The status every node derives for a credit (D-038: only the issuer writes credits.Credits.Status)."""
+        return self.fetch(node, f"SET @out=(SELECT Status AS st FROM credits.vw_CreditStatus WHERE CreditId='{credit}' "
+                                f"FOR JSON PATH, WITHOUT_ARRAY_WRAPPER);")["st"]
+
     def view(self, node):
         return self.fetch(node, """
 SET @out=(SELECT (SELECT v.TransferId AS id,v.CreditId AS credit,b1.Code AS frm,b2.Code AS [to],v.AmountMinor AS amount,v.[Status] AS st,
@@ -353,7 +282,7 @@ SET @out=(SELECT (SELECT v.TransferId AS id,v.CreditId AS credit,b1.Code AS frm,
             f"SELECT N'{t}' AS t,(SELECT COUNT_BIG(*) FROM {t}) AS n,"
             f"CONVERT(char(64),HASHBYTES('SHA2_256',(SELECT {','.join(f'[{c}]' for c, _ in self.meta[t][0])} FROM {t} "
             f"ORDER BY {','.join(f'[{c}]' for c in self.meta[t][1])} FOR JSON PATH, INCLUDE_NULL_VALUES)),2) AS h"
-            for t, _ in TABLES)
+            for t in self.tables)
         return {r["t"]: (r["n"], r.get("h")) for r in self.fetch(node, f"SET @out=(SELECT * FROM ({q}) x FOR JSON PATH);")}
 
     def rows(self, node, t):
@@ -364,7 +293,7 @@ SET @out=(SELECT (SELECT v.TransferId AS id,v.CreditId AS credit,b1.Code AS frm,
     def check_r1(self):
         hashes = {n: self.table_hashes(n) for n in NODES}
         bad = []
-        for t, _ in TABLES:
+        for t in self.tables:
             seen = {n: hashes[n][t] for n in NODES}
             if len(set(seen.values())) > 1:
                 ref = self.rows("cloud", t)
@@ -382,7 +311,7 @@ SET @out=(SELECT (SELECT v.TransferId AS id,v.CreditId AS credit,b1.Code AS frm,
         if bad:
             self.fail("R1 replicas identical", bad[:8] + ([f"... {len(bad)} differences"] if len(bad) > 8 else []))
         else:
-            self.say(f"PASS R1: {len(TABLES)} tables, {total} rows, identical SHA-256 on cloud, a, b, c")
+            self.say(f"PASS R1: {len(self.tables)} tables, {total} rows, identical SHA-256 on cloud, a, b, c")
 
     def check_conservation(self):
         for n in NODES:
@@ -438,6 +367,8 @@ def scenario_basic(s):
     alloc = {(x["credit"], x["branch"]): x["av"] for x in s.view("c")["alloc"]}
     s.expect("C sees A=70000 and B=50000", alloc.get((s.credits[0], "T_A")) == 70000 and alloc.get((s.credits[0], "T_B")) == 50000,
              str(alloc))
+    s.expect("C closes its till", s.close_till("c"))
+    s.converge()  # the closure travels with the closed till, so no node sees a closed till without its closure (S8)
 
 
 def scenario_cancel_vs_dispatch(s):
@@ -502,10 +433,11 @@ def _restore_setup(s):
 def scenario_restore(s):
     s.say("scenario restore: A is restored from an old backup; it rebuilds from the cloud before it sends")
     tid, before = _restore_setup(s)
-    s.blocked.add("a")
-    s.expect("restored A may not sell before recovery", not s.sale("a"))
+    s.expect("restored A reports recovering", s.state("a")["recovering"] is True, str(s.state("a")))
+    s.expect("restored A may not sell before recovery (SQL refuses 51864)",
+             not s.sale("a") and s.stats["rejected_sale_51864"] == 1, str(dict(s.stats)))
     s.pull("a", "cloud", mode="all")   # 1. rebuild every row from the cloud (the cloud's copy wins)
-    s.blocked.discard("a")
+    s.expect("the rebuild lifts the lock", s.state("a")["recovering"] is False)
     s.converge()                       # 2. the cloud's cursor for A says 'recover' (fork changed)
     alloc = {(x["credit"], x["branch"]): x["av"] for x in s.view("a")["alloc"]}
     s.expect("A shows 70000 after recovery, not the 120000 of the backup",
@@ -518,9 +450,95 @@ def scenario_restore(s):
     s.expect("exactly the one unsynced sale is lost", before - after == 1, f"before={before} after={after}")
 
 
+def scenario_credit_status(s):
+    s.say("scenario credit_status (D-038): only the issuer writes a credit's status; every node derives the same status")
+    whole, blocked = s.credits
+    for credit in (whole, blocked):  # all of A's money moves to B, so B is the branch that spends it
+        tid = s.request("b", credit, "a", "b", 120000)
+        s.converge()
+        s.approve(tid)
+        s.converge()
+        s.dispatch("a", tid)
+        s.converge()
+        s.receive("b", tid)
+        s.converge()
+    s.expect("B, not the issuer, spends the whole credit", s.sale("b", whole, PRICE))
+    s.converge()
+    for n in NODES:
+        s.expect(f"{n}: the spent credit is exhausted", s.credit_status(n, whole) == "exhausted")
+    # Concurrent: A, the issuer, blocks the other credit while B, offline, spends it.
+    s.online["b"] = False
+    s.expect("A blocks the credit", s.op("a", "block", f"EXEC credits.usp_BlockCredit @CreditId='{blocked}',@ActorId={s.i('supervisorA')};"))
+    s.converge()
+    s.expect("B, offline, still spends the credit it holds", s.sale("b", blocked, PRICE))
+    s.online["b"] = True
+    s.converge()
+    for n in NODES:
+        s.expect(f"{n}: the issuer's block wins", s.credit_status(n, blocked) == "blocked")
+
+
 def scenario_restore_naive(s):
     s.say("scenario restore_naive (RED CONTROL): A is restored and syncs at once, without rebuilding from the cloud")
     _restore_setup(s)
+    s.converge()
+
+
+def _try_apply(s, tgt, batch, **kw):
+    """Apply a captured batch again. Returns (changed, None) or (None, SQL error number)."""
+    try:
+        return s.apply_batch(tgt, batch, **kw), None
+    except SqlError as e:
+        return None, e.number
+
+
+def _same(s, a, b, tables=("sales.Sales", "sales.CashTills", "inventory.StockBalances", "credits.CreditAllocations")):
+    ha, hb = s.table_hashes(a), s.table_hashes(b)
+    return [t for t in tables if ha[t] != hb[t]]
+
+
+def scenario_replay(s):
+    s.say("scenario replay (A-04): duplicate, late, crashed, unacknowledged and pre-restore batches from A to the cloud")
+    s.sale("a")
+    p1 = s.read_batch("cloud", "a")
+    s.expect("first batch applies", (s.apply_batch("cloud", p1) or 0) > 0)
+    changed, err = _try_apply(s, "cloud", p1)
+    s.expect("duplicate batch: no error and 0 changes", err is None and changed == 0, f"changed={changed} error={err}")
+    s.sale("a")
+    s.apply_batch("cloud", s.read_batch("cloud", "a"))
+    changed, err = _try_apply(s, "cloud", p1)
+    s.expect("late batch (older than the cursor): no error and 0 changes", err is None and changed == 0,
+             f"changed={changed} error={err}")
+    diff = _same(s, "cloud", "a")
+    s.expect("late batch did not move rows back", not diff, f"tables differ: {diff}")
+    before = s.table_hashes("cloud")["sales.Sales"]
+    s.sale("a")
+    p3 = s.read_batch("cloud", "a")
+    changed, err = _try_apply(s, "cloud", p3, fail_before_commit=True)
+    s.expect("crash before COMMIT: nothing applied", err == 51899 and s.table_hashes("cloud")["sales.Sales"] == before,
+             f"error={err}")
+    changed, err = _try_apply(s, "cloud", p3)
+    s.expect("retry after the crash applies", err is None and changed > 0, f"changed={changed} error={err}")
+    s.sale("a")
+    s.apply_batch("cloud", s.read_batch("cloud", "a"))  # committed, but A never hears back
+    again = s.read_batch("cloud", "a")
+    resent = s.rows_in(again)
+    s.expect("lost acknowledgement: the next plan sends nothing old", resent == 0, f"rows={resent}")
+    s.converge()
+    code, out = db.run_sql("master", f"BACKUP DATABASE [{DBN['a']}] TO DISK=N'{BAK}' WITH INIT, FORMAT;")
+    if code != 0:
+        raise SystemExit(out)
+    s.sale("a")
+    p5 = s.read_batch("cloud", "a")  # in flight when A is restored; delivered after A recovered
+    code, out = db.run_sql("master", f"ALTER DATABASE [{DBN['a']}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE; "
+                                     f"RESTORE DATABASE [{DBN['a']}] FROM DISK=N'{BAK}' WITH REPLACE, RECOVERY; "
+                                     f"ALTER DATABASE [{DBN['a']}] SET MULTI_USER;")
+    if code != 0:
+        raise SystemExit(out)
+    s.say("  A restored; it rebuilds from the cloud, then the old in-flight batch arrives")
+    s.pull("a", "cloud", mode="all")
+    s.converge()
+    changed, err = _try_apply(s, "cloud", p5)
+    s.expect("pre-restore batch after recovery is refused (51853 retired fork)", err == 51853, f"changed={changed} error={err}")
     s.converge()
 
 
@@ -577,14 +595,16 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
     sc = sub.add_parser("scenario")
-    sc.add_argument("name", choices=["basic", "cancel_vs_dispatch", "restore", "restore_naive"])
+    sc.add_argument("name", choices=["basic", "cancel_vs_dispatch", "restore", "restore_naive", "replay", "credit_status"])
     sc.add_argument("--seed", type=int, default=1)
+    sc.add_argument("--page-rows", type=int, help="rows per table per page (D-041); small values exercise paging")
     rd = sub.add_parser("random")
     rd.add_argument("--seed", type=int, default=7)
     rd.add_argument("--steps", type=int, default=120)
     args = ap.parse_args()
     started = time.time()
     s = Sim(args.seed, out=lambda m: print(m, flush=True))
+    s.page_rows = getattr(args, "page_rows", None)
     s.setup()
     try:
         if args.cmd == "random":

@@ -1,0 +1,91 @@
+{
+ "step": "c->hub",
+ "mode": "normal",
+ "source_node": "C0000000-0000-0000-0000-0000000000C2",
+ "target_node": "00000000-0000-0000-0000-0000000C10D0",
+ "pages": [
+  {
+   "page": 1,
+   "rows": 6204,
+   "bytes": 2682155,
+   "bytes_state": 1728,
+   "bytes_plan": 3186,
+   "bytes_result": 84,
+   "state_s": 0.048,
+   "plan_s": 0.468,
+   "read_s": 1.491,
+   "apply_s": 79.761,
+   "seconds": 81.768,
+   "result": {
+    "changed": 6204,
+    "applied": 39,
+    "skipped": 0,
+    "page": 1,
+    "more": false,
+    "done": 39,
+    "total": 39
+   },
+   "tables": [
+    {
+     "t": "[sales].[CashTills]",
+     "n": 6,
+     "done": true
+    },
+    {
+     "t": "[sales].[Sales]",
+     "n": 34,
+     "done": true
+    },
+    {
+     "t": "[sales].[SaleLines]",
+     "n": 56,
+     "done": true
+    },
+    {
+     "t": "[sales].[SaleTenders]",
+     "n": 34,
+     "done": true
+    },
+    {
+     "t": "[sales].[CashEntries]",
+     "n": 21,
+     "done": true
+    },
+    {
+     "t": "[inventory].[StockBalances]",
+     "n": 2967,
+     "done": true
+    },
+    {
+     "t": "[inventory].[StockMovements]",
+     "n": 3023,
+     "done": true
+    },
+    {
+     "t": "[sales].[CashCounts]",
+     "n": 12,
+     "done": true
+    },
+    {
+     "t": "[sales].[CashCountLines]",
+     "n": 45,
+     "done": true
+    },
+    {
+     "t": "[sales].[CashClosures]",
+     "n": 6,
+     "done": true
+    }
+   ]
+  }
+ ],
+ "wall_s": 81.8,
+ "page_count": 1,
+ "rows": 6204,
+ "bytes": 2682155,
+ "bytes_all": 2687153,
+ "max_page_bytes": 2682155,
+ "read_s": 1.491,
+ "apply_s": 79.761,
+ "finished": true
+}

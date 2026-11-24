@@ -81,7 +81,7 @@ def smoke(root, sha, base):
             with opener.open(base + '/' + MARKER, timeout=20) as response:
                 if json.load(response) != data:
                     raise ValueError('Remote release marker differs')
-            for name in ('', 'index.html', 'catalogo.html', 'styles.css', 'app.js', 'demo-api.js'):
+            for name in ('', 'index.html', 'catalogo.html', 'styles.css', 'app.js', 'store-api.js'):
                 with opener.open(base + '/' + name, timeout=20) as response:
                     if digest(response.read()) != data['files'][name or 'index.html']:
                         raise ValueError('Remote bytes differ: ' + name)

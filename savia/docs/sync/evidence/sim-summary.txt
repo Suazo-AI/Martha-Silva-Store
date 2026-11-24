@@ -1,0 +1,9 @@
+replay exit 0
+basic exit 0
+cancel_vs_dispatch exit 0
+restore exit 1
+restore_naive exit 1
+random-1 exit 0
+random-7 exit 0
+random-42 exit 0
+done

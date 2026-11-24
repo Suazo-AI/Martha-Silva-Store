@@ -1,0 +1,353 @@
+{
+ "unconstrained": {
+  "catalog_items_full_list": {
+   "errors": 3,
+   "max_bytes": 0,
+   "first_error": "0 /api/v1/catalog/items b'client TimeoutError after 120s' after 120007 ms"
+  },
+  "stock_full_list": {
+   "n": 2,
+   "p50": 10191.2,
+   "p95": 10191.2,
+   "max": 10191.2,
+   "errors": 0,
+   "max_bytes": 51000001
+  },
+  "open_till": 204,
+  "checkout_post_sale": {
+   "n": 200,
+   "p50": 96.6,
+   "p95": 315.5,
+   "max": 573.1,
+   "errors": 0,
+   "max_bytes": 143
+  },
+  "import_1000_preview": [
+   {
+    "status": 200,
+    "ms": 28699,
+    "bytes": 44378,
+    "body": null
+   },
+   {
+    "status": 200,
+    "ms": 27687,
+    "bytes": 44379,
+    "body": null
+   },
+   {
+    "status": 200,
+    "ms": 28038,
+    "bytes": 44378,
+    "body": null
+   }
+  ],
+  "import_1000_import": [
+   {
+    "status": 409,
+    "ms": 27732,
+    "bytes": 139,
+    "body": "{\"code\":\"import.row_errors\",\"message\":\"El archivo tiene filas con errores. Corrija y vuelva a revisar.\",\"traceId\":\"0HNQ894UDF62E:000000D1\"}"
+   },
+   {
+    "status": 409,
+    "ms": 27597,
+    "bytes": 139,
+    "body": "{\"code\":\"import.row_errors\",\"message\":\"El archivo tiene filas con errores. Corrija y vuelva a revisar.\",\"traceId\":\"0HNQ894UDF62E:000000D3\"}"
+   },
+   {
+    "status": 409,
+    "ms": 27722,
+    "bytes": 139,
+    "body": "{\"code\":\"import.row_errors\",\"message\":\"El archivo tiene filas con errores. Corrija y vuelva a revisar.\",\"traceId\":\"0HNQ894UDF62E:000000D5\"}"
+   }
+  ],
+  "open_scan_session": 204,
+  "receiving_100_scans": {
+   "n": 100,
+   "p50": 79.6,
+   "p95": 174.5,
+   "max": 320.3,
+   "errors": 0,
+   "first10_p50": 151.5,
+   "last10_p50": 71.3
+  },
+  "procedures": [
+   {
+    "proc": "catalog.usp_ImportCatalog",
+    "exec": 6,
+    "avg_reads": 2898517,
+    "avg_cpu_ms": 27732.9,
+    "avg_elapsed_ms": 27762.1,
+    "max_reads": 2899949
+   },
+   {
+    "proc": "sales.usp_OpenTillCounted",
+    "exec": 1,
+    "avg_reads": 2676,
+    "avg_cpu_ms": 108.3,
+    "avg_elapsed_ms": 111.2,
+    "max_reads": 2676
+   },
+   {
+    "proc": "sales.usp_OpenTill",
+    "exec": 1,
+    "avg_reads": 1516,
+    "avg_cpu_ms": 44.9,
+    "avg_elapsed_ms": 45.7,
+    "max_reads": 1516
+   },
+   {
+    "proc": "sales.usp_RecordCashCount",
+    "exec": 1,
+    "avg_reads": 680,
+    "avg_cpu_ms": 29.9,
+    "avg_elapsed_ms": 29.9,
+    "max_reads": 680
+   },
+   {
+    "proc": "sales.usp_PostSale",
+    "exec": 203,
+    "avg_reads": 315,
+    "avg_cpu_ms": 13.7,
+    "avg_elapsed_ms": 18.3,
+    "max_reads": 548
+   },
+   {
+    "proc": "sales.usp_RecordDrawerCount",
+    "exec": 2,
+    "avg_reads": 101,
+    "avg_cpu_ms": 3.4,
+    "avg_elapsed_ms": 3.4,
+    "max_reads": 148
+   },
+   {
+    "proc": "receiving.usp_OpenScanSession",
+    "exec": 1,
+    "avg_reads": 67,
+    "avg_cpu_ms": 2.6,
+    "avg_elapsed_ms": 4.4,
+    "max_reads": 67
+   },
+   {
+    "proc": "receiving.usp_RecordScan",
+    "exec": 100,
+    "avg_reads": 53,
+    "avg_cpu_ms": 2.3,
+    "avg_elapsed_ms": 3.7,
+    "max_reads": 98
+   },
+   {
+    "proc": "inventory.usp_ApplyMovement",
+    "exec": 405,
+    "avg_reads": 47,
+    "avg_cpu_ms": 0.5,
+    "avg_elapsed_ms": 1.5,
+    "max_reads": 74
+   },
+   {
+    "proc": "sync.usp_EnqueueEvent",
+    "exec": 204,
+    "avg_reads": 33,
+    "avg_cpu_ms": 0.4,
+    "avg_elapsed_ms": 0.4,
+    "max_reads": 53
+   },
+   {
+    "proc": "sales.usp_SubmitCashCount",
+    "exec": 2,
+    "avg_reads": 10,
+    "avg_cpu_ms": 0.2,
+    "avg_elapsed_ms": 0.2,
+    "max_reads": 11
+   }
+  ],
+  "adhoc_top_reads": [
+   "6|2896121|27695|-- @Commit=0 returns the preview with row errors. @Commit=1 imports all rows in one transaction or none. CREAT",
+   "3|9792|1382|(@branch uniqueidentifier,@item nvarchar(4000))SELECT ItemId,Sku,VariantName,LocationId,Pool,OnHand,Reserved,A",
+   "100|166|0|(@id uniqueidentifier,@location uniqueidentifier)SELECT ScanSessionId,ContainerId,Reference,Status,ScanEvents,",
+   "6|2146|8|-- @Commit=0 returns the preview with row errors. @Commit=1 imports all rows in one transaction or none. CREAT",
+   "405|30|0| /* ==============================================================    INVENTARIO: registro atomico + idempoten",
+   "1|9788|386|SET NOCOUNT ON;SELECT TOP 609 CONCAT(i.Id,'|',i.UnitPriceMinor) FROM inventory.StockBalances b JOIN catalog.It",
+   "203|43|0|CREATE   PROCEDURE [sales].[usp_PostSale]  @SaleId uniqueidentifier,@BranchId uniqueidentifier,@LocationId uni",
+   "1|7818|430|SET NOCOUNT ON;SELECT TOP 203 b.RawCode FROM catalog.ItemIdentifiers b JOIN inventory.StockBalances s ON s.Ite"
+  ]
+ },
+ "unconstrained_writes_clean": {
+  "open_till": 204,
+  "checkout_post_sale": {
+   "n": 200,
+   "p50": 64.8,
+   "p95": 194.6,
+   "max": 276.1,
+   "errors": 0,
+   "max_bytes": 143
+  },
+  "import_1000_preview": [
+   {
+    "status": 200,
+    "ms": 28334,
+    "bytes": 3474,
+    "body": null
+   },
+   {
+    "status": 200,
+    "ms": 28863,
+    "bytes": 3474,
+    "body": null
+   },
+   {
+    "status": 200,
+    "ms": 26520,
+    "bytes": 3474,
+    "body": null
+   }
+  ],
+  "import_1000_import": [
+   {
+    "status": 503,
+    "ms": 30401,
+    "bytes": 108,
+    "body": "{\"code\":\"db.busy\",\"message\":\"La base de datos est\u00e1 ocupada. Reintente.\",\"traceId\":\"0HNQ89B8AQBTM:000000D1\"}"
+   },
+   {
+    "status": 503,
+    "ms": 30411,
+    "bytes": 108,
+    "body": "{\"code\":\"db.busy\",\"message\":\"La base de datos est\u00e1 ocupada. Reintente.\",\"traceId\":\"0HNQ89B8AQBTM:000000D3\"}"
+   },
+   {
+    "status": 200,
+    "ms": 28214,
+    "bytes": 167,
+    "body": null
+   }
+  ],
+  "open_scan_session": 204,
+  "receiving_100_scans": {
+   "n": 100,
+   "p50": 12.4,
+   "p95": 19.8,
+   "max": 334.2,
+   "errors": 0,
+   "first10_p50": 13.4,
+   "last10_p50": 14.6
+  },
+  "procedures": [
+   {
+    "proc": "catalog.usp_ImportCatalog",
+    "exec": 6,
+    "avg_reads": 2973420,
+    "avg_cpu_ms": 28245.2,
+    "avg_elapsed_ms": 28544.0,
+    "max_reads": 3138985
+   },
+   {
+    "proc": "sales.usp_OpenTillCounted",
+    "exec": 1,
+    "avg_reads": 2997,
+    "avg_cpu_ms": 519.6,
+    "avg_elapsed_ms": 747.8,
+    "max_reads": 2997
+   },
+   {
+    "proc": "sales.usp_OpenTill",
+    "exec": 1,
+    "avg_reads": 1641,
+    "avg_cpu_ms": 165.4,
+    "avg_elapsed_ms": 336.4,
+    "max_reads": 1641
+   },
+   {
+    "proc": "sales.usp_RecordCashCount",
+    "exec": 1,
+    "avg_reads": 729,
+    "avg_cpu_ms": 30.3,
+    "avg_elapsed_ms": 38.8,
+    "max_reads": 729
+   },
+   {
+    "proc": "sales.usp_PostSale",
+    "exec": 203,
+    "avg_reads": 318,
+    "avg_cpu_ms": 14.6,
+    "avg_elapsed_ms": 40.2,
+    "max_reads": 1169
+   },
+   {
+    "proc": "catalog.usp_RegisterItem",
+    "exec": 1489,
+    "avg_reads": 117,
+    "avg_cpu_ms": 1.1,
+    "avg_elapsed_ms": 1.4,
+    "max_reads": 188
+   },
+   {
+    "proc": "sales.usp_RecordDrawerCount",
+    "exec": 2,
+    "avg_reads": 100,
+    "avg_cpu_ms": 4.0,
+    "avg_elapsed_ms": 7.7,
+    "max_reads": 148
+   },
+   {
+    "proc": "receiving.usp_OpenScanSession",
+    "exec": 1,
+    "avg_reads": 88,
+    "avg_cpu_ms": 4.2,
+    "avg_elapsed_ms": 14.8,
+    "max_reads": 88
+   },
+   {
+    "proc": "inventory.usp_ApplyMovement",
+    "exec": 1894,
+    "avg_reads": 66,
+    "avg_cpu_ms": 0.9,
+    "avg_elapsed_ms": 3.3,
+    "max_reads": 112
+   },
+   {
+    "proc": "receiving.usp_RecordScan",
+    "exec": 100,
+    "avg_reads": 53,
+    "avg_cpu_ms": 2.0,
+    "avg_elapsed_ms": 3.7,
+    "max_reads": 126
+   },
+   {
+    "proc": "catalog.usp_RegisterProduct",
+    "exec": 3000,
+    "avg_reads": 45,
+    "avg_cpu_ms": 0.3,
+    "avg_elapsed_ms": 0.3,
+    "max_reads": 69
+   },
+   {
+    "proc": "sync.usp_EnqueueEvent",
+    "exec": 4694,
+    "avg_reads": 30,
+    "avg_cpu_ms": 0.2,
+    "avg_elapsed_ms": 0.2,
+    "max_reads": 78
+   },
+   {
+    "proc": "sales.usp_SubmitCashCount",
+    "exec": 2,
+    "avg_reads": 10,
+    "avg_cpu_ms": 0.4,
+    "avg_elapsed_ms": 0.7,
+    "max_reads": 11
+   }
+  ],
+  "adhoc_top_reads": [
+   "6|2893679|27373|-- @Commit=0 returns the preview with row errors. @Commit=1 imports all rows in one transaction or none. CREAT",
+   "1489|49|0| CREATE   PROCEDURE [catalog].[usp_RegisterItem]  @ProductId uniqueidentifier,@Sku nvarchar(100),@VariantName",
+   "1893|28|0| /* ==============================================================    INVENTARIO: registro atomico + idempoten",
+   "4694|10|0| /* ==============================================================    SYNC: cola persistente con rutas por nod",
+   "1488|29|0| /* ==============================================================    INVENTARIO: registro atomico + idempoten",
+   "4694|9|0| /* ==============================================================    SYNC: cola persistente con rutas por nod",
+   "1489|27|0| CREATE   PROCEDURE [catalog].[usp_RegisterItem]  @ProductId uniqueidentifier,@Sku nvarchar(100),@VariantName",
+   "3000|12|0| /* ==============================================================    CATALOGO: SKU interno unico + codigos ex"
+  ]
+ }
+}

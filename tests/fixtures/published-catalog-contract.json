@@ -1,6 +1,6 @@
 {
   "publication_version": "601268a3-81ce-4277-a8ef-cb2e84d2fbb1",
-  "source_catalog_sha256": "1495e8a10a2cde56ddb0087051c327949389f775977f41b7d4b676f37f3cd343",
+  "source_catalog_sha256": "e3a6affe9ed918cdd4facc45b53d76a2b30103baa3bc4301e315dccdf136e485",
   "source": "evidence/releases/20261030/current-runtime-sha256.json",
   "purpose": "Explicit copy changes from the preserved publication; captured prices, variants and stock remain authoritative for sample comparisons.",
   "copy_overrides": {
@@ -19,10 +19,10 @@
     },
     "negro-escote-puntas-abertura": {
       "name": "Vestido negro de cuello alto",
-      "description": "Diseño de demostración: vestido negro de cuello alto, manga larga y falda amplia fluida, sin abertura."
+      "description": "Vestido negro de cuello alto, manga larga y falda amplia fluida, sin abertura."
     },
     "fucsia-halter-pliegues": {
-      "description": "Diseño de demostración: vestido largo fucsia de cuello halter alto, cintura plisada y falda amplia, sin abertura."
+      "description": "Vestido largo fucsia de cuello halter alto, cintura plisada y falda amplia, sin abertura."
     },
     "plata-tirantes-copas-pedreria": {
       "name": "Plata de tirantes y pedrería"
@@ -47,20 +47,28 @@
       "description": "Vestido de novia sin tirantes, con escote corazón, pliegues en el cuerpo y abertura lateral. Velo, zapatos y accesorios quedan fuera de esta ficha."
     },
     "gala-rubi": {
-      "name": "Muestra Rubí",
-      "description": "Muestra, no es inventario de Martha Silva. Diseño de demostración: vestido rojo de satén, manga larga y falda amplia, sin abertura."
+      "name": "Gala Rubí",
+      "description": "Vestido rojo de satén, manga larga y falda amplia, sin abertura."
     },
     "gala-oro": {
-      "description": "Muestra, no es inventario de Martha Silva. Diseño de demostración: vestido champán bordado, de manga larga y falda amplia."
+      "description": "Vestido champán bordado, de manga larga y falda amplia.",
+      "name": "Gala Oro"
     },
     "gala-destello": {
-      "description": "Muestra, no es inventario de Martha Silva. Diseño de demostración: vestido plateado de manga larga, con pedrería y falda amplia, sin abertura."
+      "description": "Vestido plateado de manga larga, con pedrería y falda amplia, sin abertura.",
+      "name": "Gala Destello"
     },
     "novias-velo": {
-      "description": "Muestra, no es inventario de Martha Silva. Vestido de novia con mangas largas, cuello alto y motivos de encaje. El demo presenta vistas de cuerpo entero generadas con IA."
+      "description": "Vestido de novia con mangas largas, cuello alto y motivos de encaje.",
+      "name": "Novia Velo"
     },
     "novias-alba": {
-      "description": "Muestra, no es inventario de Martha Silva. Vestido de novia con escote en V, mangas largas y hombros con volumen. El demo presenta vistas de cuerpo entero generadas con IA."
+      "description": "Vestido de novia con escote en V, mangas largas y hombros con volumen.",
+      "name": "Novia Alba"
+    },
+    "novias-encaje": {
+      "name": "Novia Encaje",
+      "description": "Vestido de novia con espalda en V, motivos florales, lazo y cola. Solo hay tomas de espalda."
     }
   }
 }

@@ -1,0 +1,1 @@
+FAIL    webstore/170_card_capture_review.sql  -- Msg 2812, Level 16, State 62, Line 41 (usp_RecordCapturedPayment missing)

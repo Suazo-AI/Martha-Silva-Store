@@ -115,10 +115,10 @@ class StagingTests(unittest.TestCase):
         self.assertFalse(result['records'][0]['original_gallery_complete'])
 
     def test_current_demo_fixture_is_preserved(self):
-        demo = s.read_demo(ROOT / 'dist/catalog.js')
+        demo = s.read_demo(ROOT / 'build-inputs/static/catalog.js')
         self.assertEqual(len(demo['products']), 40)
         self.assertEqual(sum(len(product['variants']) for product in demo['products']), 120)
-        self.assertTrue(all(p['commercial_status'] == 'sample' for p in demo['products']))
+        self.assertTrue(all(p['commercial_status'] == 'unlisted' for p in demo['products']))
 
     def test_cli_is_deterministic_and_read_only(self):
         original = self.root / 'original.json'

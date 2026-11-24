@@ -13,7 +13,7 @@ spec.loader.exec_module(a)
 
 class AuditTests(unittest.TestCase):
     def test_evidence_counts_and_current_demo(self):
-        result = a.audit(json.loads((ROOT / 'evidence/asset-source-manifest.json').read_text()), ROOT / 'dist')
+        result = a.audit(json.loads((ROOT / 'evidence/asset-source-manifest.json').read_text()), ROOT / 'build-inputs/static')
         for catalog in result['catalog_evidence']:
             self.assertEqual((catalog['products'], catalog['variants'], catalog['gallery_references']), (40, 120, 170))
         # Historical captures retain 170 photos; the current publication uses

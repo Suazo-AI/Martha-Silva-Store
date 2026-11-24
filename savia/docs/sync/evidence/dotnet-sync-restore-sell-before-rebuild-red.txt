@@ -1,0 +1,40 @@
+  Savia.Domain -> C:\Users\Jason\.t3\worktrees\github\t3-ea3f49fe-92f9416a8627c6bd\savia\src\Savia.Domain\bin\Debug\net10.0\Savia.Domain.dll
+  Savia.Contracts -> C:\Users\Jason\.t3\worktrees\github\t3-ea3f49fe-92f9416a8627c6bd\savia\src\Savia.Contracts\bin\Debug\net10.0\Savia.Contracts.dll
+  Savia.Application -> C:\Users\Jason\.t3\worktrees\github\t3-ea3f49fe-92f9416a8627c6bd\savia\src\Savia.Application\bin\Debug\net10.0\Savia.Application.dll
+  Savia.Infrastructure -> C:\Users\Jason\.t3\worktrees\github\t3-ea3f49fe-92f9416a8627c6bd\savia\src\Savia.Infrastructure\bin\Debug\net10.0\Savia.Infrastructure.dll
+  Savia.Api -> C:\Users\Jason\.t3\worktrees\github\t3-ea3f49fe-92f9416a8627c6bd\savia\src\Savia.Api\bin\Debug\net10.0\Savia.Api.dll
+  Savia.Tests -> C:\Users\Jason\.t3\worktrees\github\t3-ea3f49fe-92f9416a8627c6bd\savia\tests\Savia.Tests\bin\Debug\net10.0\Savia.Tests.dll
+Test run for C:\Users\Jason\.t3\worktrees\github\t3-ea3f49fe-92f9416a8627c6bd\savia\tests\Savia.Tests\bin\Debug\net10.0\Savia.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:01:09.98]     Savia.Tests.SyncWorkerTests.Restored_branch_rebuilds_from_the_hub_before_it_pushes [FAIL]
+  Failed Savia.Tests.SyncWorkerTests.Restored_branch_rebuilds_from_the_hub_before_it_pushes [14 s]
+  Error Message:
+   Savia.Domain.SaviaException : El registro ya existe.
+---- Microsoft.Data.SqlClient.SqlException : Cannot insert duplicate key row in object 'sales.CashTills' with unique index 'UX_OpenTill_Register'. The duplicate key value is (a0000000-0000-0000-0000-0000000000a3).
+  Stack Trace:
+     at Savia.Infrastructure.SqlGateway.RunAsync[TResult](String text, CommandType type, SqlParameter[] parameters, Func`2 work, CancellationToken ct) in C:\Users\Jason\.t3\worktrees\github\t3-ea3f49fe-92f9416a8627c6bd\savia\src\Savia.Infrastructure\SqlGateway.cs:line 81
+   at Savia.Infrastructure.SyncStore.JsonOutAsync(String procedure, CancellationToken ct, SqlParameter[] inputs) in C:\Users\Jason\.t3\worktrees\github\t3-ea3f49fe-92f9416a8627c6bd\savia\src\Savia.Infrastructure\SyncStore.cs:line 43
+   at Savia.Application.BranchSync.PullAsync(Boolean rebuild, CancellationToken ct) in C:\Users\Jason\.t3\worktrees\github\t3-ea3f49fe-92f9416a8627c6bd\savia\src\Savia.Application\Sync.cs:line 143
+   at Savia.Application.BranchSync.RunOnceAsync(CancellationToken ct) in C:\Users\Jason\.t3\worktrees\github\t3-ea3f49fe-92f9416a8627c6bd\savia\src\Savia.Application\Sync.cs:line 131
+   at Savia.Tests.SyncWorkerTests.Restored_branch_rebuilds_from_the_hub_before_it_pushes() in C:\Users\Jason\.t3\worktrees\github\t3-ea3f49fe-92f9416a8627c6bd\savia\tests\Savia.Tests\SyncWorkerTests.cs:line 109
+   at Savia.Tests.SyncWorkerTests.Restored_branch_rebuilds_from_the_hub_before_it_pushes() in C:\Users\Jason\.t3\worktrees\github\t3-ea3f49fe-92f9416a8627c6bd\savia\tests\Savia.Tests\SyncWorkerTests.cs:line 124
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at Savia.Infrastructure.SyncStore.<>c__DisplayClass10_0.<<JsonOutAsync>b__0>d.MoveNext() in C:\Users\Jason\.t3\worktrees\github\t3-ea3f49fe-92f9416a8627c6bd\savia\src\Savia.Infrastructure\SyncStore.cs:line 46
+--- End of stack trace from previous location ---
+   at Savia.Infrastructure.SqlGateway.RunAsync[TResult](String text, CommandType type, SqlParameter[] parameters, Func`2 work, CancellationToken ct) in C:\Users\Jason\.t3\worktrees\github\t3-ea3f49fe-92f9416a8627c6bd\savia\src\Savia.Infrastructure\SqlGateway.cs:line 68
+   at Savia.Infrastructure.SqlGateway.RunAsync[TResult](String text, CommandType type, SqlParameter[] parameters, Func`2 work, CancellationToken ct) in C:\Users\Jason\.t3\worktrees\github\t3-ea3f49fe-92f9416a8627c6bd\savia\src\Savia.Infrastructure\SqlGateway.cs:line 73
+   at Savia.Infrastructure.SqlGateway.RunAsync[TResult](String text, CommandType type, SqlParameter[] parameters, Func`2 work, CancellationToken ct) in C:\Users\Jason\.t3\worktrees\github\t3-ea3f49fe-92f9416a8627c6bd\savia\src\Savia.Infrastructure\SqlGateway.cs:line 73
+
+Failed!  - Failed:     1, Passed:     7, Skipped:     0, Total:     8, Duration: 1 m 8 s - Savia.Tests.dll (net10.0)

@@ -1,6 +1,11 @@
 {
   "siteUrl": "",
   "indexable": false,
+  "storefront": {
+    "apiBase": "",
+    "turnstileSiteKey": "",
+    "skus": {}
+  },
   "business": {
     "name": "",
     "telephone": "",

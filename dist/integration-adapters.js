@@ -1,59 +1,56 @@
-/* Integration models, not production commerce. The storefront uses isolated local
-   demonstrations. SAVIA's optional HTTP adapter speaks only our synthetic .NET
-   contract. No CGA endpoint, credentials, automatic connection or fallback exists. */
+/* Integration models for the storefront. Local models keep cart, orders and stock in this
+   browser. The live model reads prices and stock from the SAVIA hub and places real orders
+   there; it is on only when the build sets apiBase. No CGA endpoint or credential exists. */
 (function (root) {
   'use strict';
+  // prepare.py replaces this line with the settings in site.config.json; the empty value keeps the local store.
+  const CONFIG = {"apiBase":"","turnstileSiteKey":"","skus":{}};
   const MODES = Object.freeze(['savia', 'sisfain']);
   const record = x => !!x && typeof x === 'object' && !Array.isArray(x);
   const own = (x, key) => Object.prototype.hasOwnProperty.call(x, key);
   const fail = (code, message, details = {}) => { const error = new Error(message); Object.assign(error, {code}, details); throw error; };
   const freeze = object => { Object.values(object).forEach(value => { if (record(value) || Array.isArray(value)) freeze(value); }); return Object.freeze(object); };
-  const provenance = (mode, kind) => ({integration_id:mode, data_kind:kind, data_origin:kind === 'simulated' ? 'browser_fixture' : 'savia_synthetic_http', authoritative:false, real_orders:false});
+  const provenance = (mode, kind) => ({integration_id:mode, data_kind:kind, data_origin:'browser', authoritative:false, real_orders:false});
   const DESCRIPTORS = freeze({
     savia: {
       id:'savia', label:'SAVIA', fullName:'Sistema de Administración, Ventas, Inventarios y Abastecimiento',
-      status:'simulated', connectionStatus:'unconfigured', storageNamespace:'martha-integration-v1:savia:',
-      capabilities:{catalog:true, localCart:true, simulatedOrders:true, syntheticHttp:true, externalInventory:false, externalReservations:false, realOrders:false, payments:false},
-      notice:'Modelo SAVIA: simulación local. Adaptador HTTP sintético separado y sin conexión; no crea ventas reales.'
+      status:'local', connectionStatus:'unconfigured', storageNamespace:'martha-integration-v1:savia:',
+      capabilities:{catalog:true, localCart:true, localOrders:true, httpAdapter:true, externalInventory:false, externalReservations:false, realOrders:false, payments:false},
+      notice:'SAVIA: catálogo y pedidos en este navegador.'
     },
     sisfain: {
       id:'sisfain', label:'SISFAIN (CGA)', fullName:'SISFAIN de CGA',
-      status:'simulated', connectionStatus:'unconfigured', storageNamespace:'martha-integration-v1:sisfain:',
-      capabilities:{catalog:true, localCart:true, simulatedOrders:true, syntheticHttp:false, externalInventory:false, externalReservations:false, realOrders:false, payments:false},
-      notice:'Modelo SISFAIN (CGA): simulación local, no conectado. API y compatibilidad pendientes de validación con CGA; no modifica su inventario.'
+      status:'local', connectionStatus:'unconfigured', storageNamespace:'martha-integration-v1:sisfain:',
+      capabilities:{catalog:true, localCart:true, localOrders:true, httpAdapter:false, externalInventory:false, externalReservations:false, realOrders:false, payments:false},
+      notice:'SISFAIN (CGA): catálogo y pedidos en este navegador; sin conexión con CGA.'
     }
   });
   function getDescriptor(mode) {
-    if (!MODES.includes(mode)) fail('unknown_integration', 'Elegí SAVIA o SISFAIN (CGA); no se selecciona otro modelo automáticamente.');
+    if (!MODES.includes(mode)) fail('unknown_integration', 'Esta operación no está disponible.');
     return DESCRIPTORS[mode];
   }
-  const realOrderBlocked = async () => fail('real_orders_disabled', 'Las ventas reales están deshabilitadas: estos modelos no son una integración de producción.');
+  const realOrderBlocked = async () => fail('real_orders_disabled', 'Esta operación no está disponible.');
   function scopedId(scope, value) { return scope + '~' + value; }
   function unscopedId(scope, value) {
     if (typeof value !== 'string' || !value.startsWith(scope + '~') || !value.slice(scope.length + 1) || /[~/?#]/.test(value.slice(scope.length + 1))) {
-      fail('integration_mismatch', 'Esta referencia no pertenece al modelo activo. Volvé a su modelo de origen.');
+      fail('integration_mismatch', 'Esta referencia no es válida.');
     }
     return value.slice(scope.length + 1);
-  }
-  function requireScope(value, mode, kind) {
-    if (!record(value) || value.integration_id !== mode || value.data_kind !== kind) {
-      fail('integration_mismatch', 'La operación debe identificar su modelo y origen de datos; no se mezclan simulaciones con HTTP.');
-    }
   }
   function checkOptionalScope(value, mode) {
     if (!record(value)) return;
     if ((own(value, 'integration_id') && value.integration_id !== mode) ||
-        (own(value, 'data_kind') && value.data_kind !== 'simulated')) {
-      fail('integration_mismatch', 'La operación pertenece a otro modelo u origen de datos.');
+        (own(value, 'data_kind') && value.data_kind !== 'local')) {
+      fail('integration_mismatch', 'La operación no es válida.');
     }
     if (value.real_orders === true || value.authoritative === true) {
-      fail('real_orders_disabled', 'La demostración nunca registra ventas ni inventario reales.');
+      fail('real_orders_disabled', 'Esta operación no está disponible.');
     }
     if (Array.isArray(value.lines)) value.lines.forEach(line => checkOptionalScope(line, mode));
   }
   function localCatalog(response, mode) {
     return {
-      ...provenance(mode, 'simulated'),
+      ...provenance(mode, 'local'),
       products:response.products.map(product => ({
         id:product.id, name:product.name,
         variants:product.variants.map(variant => ({
@@ -64,18 +61,18 @@
       }))
     };
   }
-  function createDemoAdapter({mode, catalog, storage, createDemoApi} = {}) {
+  function createLocalAdapter({mode, catalog, storage, createStoreApi} = {}) {
     const descriptor = getDescriptor(mode);
-    if (typeof createDemoApi !== 'function') fail('missing_demo_factory', 'No se cargó el motor local de demostración.');
-    if (!Array.isArray(catalog) && !(record(catalog) && Array.isArray(catalog.products))) fail('missing_catalog', 'No se cargó el catálogo de prueba. No se sustituye por un catálogo vacío.');
+    if (typeof createStoreApi !== 'function') fail('missing_store_factory', 'No se cargó la compra. Recargá la página.');
+    if (!Array.isArray(catalog) && !(record(catalog) && Array.isArray(catalog.products))) fail('missing_catalog', 'No se cargó el catálogo. Recargá la página.');
     // Never read or migrate legacy/unscoped state. Recovery backups inherit the
-    // same prefix. localStorage remains editable fixture storage, not security.
+    // same prefix. Browser storage is editable and is not a security boundary.
     const scopedStorage = storage ? {
       getItem:key => storage.getItem(descriptor.storageNamespace + key),
       setItem:(key, value) => storage.setItem(descriptor.storageNamespace + key, value)
     } : undefined;
-    const local = createDemoApi(catalog, scopedStorage);
-    const tags = provenance(mode, 'simulated');
+    const local = createStoreApi(catalog, scopedStorage);
+    const tags = provenance(mode, 'local');
     const tagLines = value => Array.isArray(value.lines) ? {...value, lines:value.lines.map(line => ({...line, ...tags}))} : value;
     const tagReturn = value => ({...tagLines(value), id:scopedId(mode, value.id), ...tags});
     const tagOrder = value => ({...tagLines(value), id:scopedId(mode, value.id), ...(value.quote_id ? {quote_id:scopedId(mode, value.quote_id)} : {}), returns:value.returns.map(tagReturn), ...tags});
@@ -113,107 +110,161 @@
     return api;
   }
 
-  // Canonical catalog: {integration_id,data_kind,data_origin,authoritative:false,
-  // real_orders:false,products:[{id,name,variants:[{id,sku,unit_price_minor,
-  // currency,available_quantity}]}]}. No guessed image, size or USD mapping is
-  // created for the HTTP fixtures, whose GUIDs differ from storefront slugs.
-  const GUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-  const isGuid = value => typeof value === 'string' && GUID.test(value) && value !== '00000000-0000-0000-0000-000000000000';
-  const integer = (value, max) => Number.isSafeInteger(value) && value >= 0 && value <= max;
-  const closed = (value, keys) => record(value) && Object.keys(value).length === keys.length && keys.every(key => own(value, key));
-  const scope = 'savia-synthetic';
-  function validateCatalog(value) {
-    const productIds = new Set(), variantIds = new Set();
-    if (!closed(value, ['synthetic', 'items']) || value.synthetic !== true || !Array.isArray(value.items)) return false;
-    return value.items.every(product => {
-      if (!closed(product, ['productId', 'name', 'variants']) || !isGuid(product.productId) || typeof product.name !== 'string' || !Array.isArray(product.variants)) return false;
-      const productId = product.productId.toLowerCase();
-      if (productIds.has(productId)) return false;
-      productIds.add(productId);
-      return product.variants.every(variant => {
-        if (!closed(variant, ['variantId', 'sku', 'unitPriceMinor', 'currency', 'availableQuantity']) || !isGuid(variant.variantId) || typeof variant.sku !== 'string' || !integer(variant.unitPriceMinor, 9000000000000) || variant.currency !== 'XXX' || !integer(variant.availableQuantity, Number.MAX_SAFE_INTEGER)) return false;
-        const variantId = variant.variantId.toLowerCase();
-        if (variantIds.has(variantId)) return false;
-        variantIds.add(variantId);
-        return true;
-      });
-    });
-  }
-  function validateOrder(value) {
-    return closed(value, ['orderId', 'variantId', 'quantity', 'unitPriceMinor', 'currency', 'totalMinor', 'status', 'createdAt', 'synthetic']) &&
-      isGuid(value.orderId) && isGuid(value.variantId) && Number.isInteger(value.quantity) && value.quantity >= 1 && value.quantity <= 100 &&
-      integer(value.unitPriceMinor, 9000000000000) && integer(value.totalMinor, 900000000000000) && value.totalMinor === value.unitPriceMinor * value.quantity &&
-      value.currency === 'XXX' && value.status === 'reserved' && value.synthetic === true && typeof value.createdAt === 'string' &&
-      /T.*(?:Z|\+00:00)$/.test(value.createdAt) && Number.isFinite(Date.parse(value.createdAt));
-  }
-  const mapOrder = value => ({
-    ...provenance('savia', 'synthetic'), id:scopedId(scope, value.orderId.toLowerCase()),
-    variant_id:scopedId(scope, value.variantId.toLowerCase()), quantity:value.quantity,
-    unit_price_minor:value.unitPriceMinor, currency:value.currency, total_minor:value.totalMinor,
-    status:value.status, created_at:value.createdAt
-  });
-  const problemCodes = new Set(['invalid_request', 'unknown_variant', 'order_not_found', 'not_found', 'out_of_stock', 'idempotency_conflict', 'storage_unavailable', 'catalog_not_enabled', 'internal_error']);
-  function createSaviaSyntheticAdapter({transport, allowSyntheticOrders = false} = {}) {
-    if (transport !== undefined && typeof transport !== 'function') fail('invalid_configuration', 'El transporte HTTP debe configurarse explícitamente.');
-    if (typeof allowSyntheticOrders !== 'boolean') fail('invalid_configuration', 'La habilitación sintética debe ser explícita.');
-    const descriptor = freeze({
-      ...getDescriptor('savia'), status:transport ? 'synthetic' : 'unconfigured', connectionStatus:transport ? 'injected_transport' : 'unconfigured',
-      capabilities:{catalog:!!transport, localCart:false, simulatedOrders:false, syntheticHttp:true, syntheticOrders:!!transport && allowSyntheticOrders, realOrders:false, payments:false},
-      notice:'Adaptador del contrato .NET sintético: XXX, una variante por pedido, solo reserva de prueba. Transporte inyectado no implica conexión verificada.'
-    });
-    async function request(path, {method = 'GET', body, key} = {}) {
-      if (!transport) fail('integration_unconfigured', 'SAVIA HTTP no está configurado. No se sustituye por una compra local.');
-      const write = method === 'POST';
-      const headers = {Accept:'application/json'};
-      if (write) Object.assign(headers, {'Content-Type':'application/json', 'Idempotency-Key':key});
-      let response, value;
-      try {
-        response = await transport(path, {method, headers, ...(body ? {body:JSON.stringify(body)} : {}), credentials:'omit', redirect:'error', cache:'no-store'});
-      } catch {
-        fail(write ? 'synthetic_outcome_unknown' : 'transport_unavailable', write ? 'Resultado sintético desconocido. Conservá y reintentá la misma clave; no cambies de modelo ni crees otra compra.' : 'No se pudo consultar SAVIA HTTP. No hay sustitución por datos locales.', {retryWithSameKey:write});
-      }
-      if (!response || !Number.isInteger(response.status) || typeof response.json !== 'function') fail(write ? 'synthetic_outcome_unknown' : 'invalid_response', 'Respuesta HTTP no válida; no se usará una simulación como sustituto.', {retryWithSameKey:write});
-      try { value = await response.json(); } catch { fail(write ? 'synthetic_outcome_unknown' : 'invalid_response', 'SAVIA HTTP no devolvió JSON válido.', {retryWithSameKey:write}); }
-      if (response.status >= 400 && response.status <= 599) {
-        const code = record(value) && problemCodes.has(value.code) ? value.code : 'http_error';
-        // Do not surface arbitrary server titles, payloads, SQL or trace data.
-        fail(code, 'SAVIA HTTP rechazó la operación sintética (' + code + '). No se aplicó ningún fallback local.', {status:response.status, retryWithSameKey:write && response.status >= 500});
-      }
-      if (response.status !== (write ? 201 : 200)) fail(write ? 'synthetic_outcome_unknown' : 'invalid_response', 'Estado HTTP inesperado para el contrato sintético.', {retryWithSameKey:write});
-      return value;
+  // Messages map hub problem codes, never hub prose, so both languages stay authored here.
+  const LIVE_MESSAGES = {
+    price_changed:'El precio de una prenda cambió. Revisá el nuevo total antes de confirmar.',
+    rate_limited:'Hiciste muchos intentos seguidos. Esperá un minuto e intentá otra vez.',
+    turnstile_failed:'No pudimos verificar que sos una persona. Completá la verificación otra vez.',
+    validation:'Revisá tus datos: falta información o un campo es demasiado largo.',
+    payload_too_large:'Revisá tus datos: falta información o un campo es demasiado largo.',
+    too_many_unpaid:'Tenés pedidos sin pagar. Completá su pago o esperá a que venzan.',
+    provider_unavailable:'Esa forma de pago no está disponible.',
+    not_found:'No encontramos ese pedido en este navegador.',
+    network:'No pudimos conectar con la tienda. Revisá tu conexión e intentá otra vez.',
+    unavailable:'La tienda no pudo procesar tu pedido. Intentá otra vez en unos minutos.'
+  };
+  const LIVE_NAMESPACE = 'martha-live-v1:';
+  function sessionStore() { try { return root.sessionStorage || null; } catch { return null; } }
+  // The hub labels the manual provider with this exact text (savia/src/Savia.Api/Payments.cs).
+  const MANUAL_PROVIDER = Object.freeze({code:'manual', label:'Pago manual (no es tarjeta)'});
+  function liveFail(code, details = {}) { fail(code, LIVE_MESSAGES[code] || LIVE_MESSAGES.unavailable, details); }
+  /* Prices, stock and orders come only from the hub. A storefront variant without a hub SKU,
+     or a SKU the hub does not list, is not for sale: nothing here invents a price or stock. */
+  function createLiveAdapter({config = CONFIG, catalog, storage, fallbackStorage = sessionStore(), fetch:request = root.fetch && root.fetch.bind(root), uuid = () => root.crypto.randomUUID()} = {}) {
+    if (!record(catalog) || !Array.isArray(catalog.products)) fail('missing_catalog', 'No se cargó el catálogo. Recargá la página.');
+    if (typeof request !== 'function') liveFail('network');
+    const base = String(config.apiBase).replace(/\/+$/, '');
+    const skus = record(config.skus) ? config.skus : {};
+    const byVariant = new Map(), bySku = new Map();
+    for (const product of catalog.products) for (const variant of product.variants) {
+      byVariant.set(variant.id, {product, variant});
+      if (typeof skus[variant.id] === 'string') bySku.set(skus[variant.id], variant.id);
     }
-    return Object.freeze({
-      mode:'savia', descriptor,
-      async readCatalog() {
-        const value = await request('/api/v1/catalog');
-        if (!validateCatalog(value)) fail('invalid_response', 'El catálogo no cumple el contrato sintético XXX; no se usará para vender.');
-        return {...provenance('savia', 'synthetic'), products:value.items.map(product => ({
-          id:scopedId(scope, product.productId.toLowerCase()), name:product.name,
-          variants:product.variants.map(variant => ({id:scopedId(scope, variant.variantId.toLowerCase()), sku:variant.sku,
-            unit_price_minor:variant.unitPriceMinor, currency:variant.currency, available_quantity:variant.availableQuantity}))
-        }))};
-      },
-      async createSyntheticOrder(input) {
-        requireScope(input, 'savia', 'synthetic');
-        if (!closed(input, ['integration_id', 'data_kind', 'variant_id', 'quantity', 'idempotency_key'])) fail('invalid_request', 'La reserva sintética acepta solo una variante, cantidad y clave; nunca contacto, precio, pago o líneas múltiples.');
-        const variantId = unscopedId(scope, input.variant_id).toLowerCase();
-        if (!isGuid(variantId) || !Number.isInteger(input.quantity) || input.quantity < 1 || input.quantity > 100 || typeof input.idempotency_key !== 'string' || !/^[!-~]{8,128}$/.test(input.idempotency_key)) fail('invalid_request', 'Variante, cantidad o clave de idempotencia inválida.');
-        if (!allowSyntheticOrders) fail('synthetic_writes_disabled', 'Las reservas HTTP sintéticas necesitan habilitación explícita; las ventas reales siempre están bloqueadas.');
-        const value = await request('/api/v1/synthetic/orders', {method:'POST', body:{variantId, quantity:input.quantity}, key:input.idempotency_key});
-        if (!validateOrder(value) || value.variantId.toLowerCase() !== variantId || value.quantity !== input.quantity) fail('synthetic_outcome_unknown', 'La respuesta no confirma este intento sintético. Conservá la misma clave; no crees otro pedido.', {retryWithSameKey:true});
-        return mapOrder(value);
-      },
-      async readOrder(orderId) {
-        const id = unscopedId(scope, orderId).toLowerCase();
-        if (!isGuid(id)) fail('invalid_request', 'Identificador sintético inválido.');
-        const value = await request('/api/v1/synthetic/orders/' + id);
-        if (!validateOrder(value) || value.orderId.toLowerCase() !== id) fail('invalid_response', 'El pedido no cumple el contrato o corresponde a otro identificador.');
-        return mapOrder(value);
-      },
-      createRealOrder:realOrderBlocked
-    });
+    // Without browser storage the cart and order tokens last for this page only.
+    const memory = new Map();
+    const store = storage || {getItem:key => memory.has(key) ? memory.get(key) : null, setItem:(key, value) => memory.set(key, String(value))};
+    const read = (key, fallback) => { try { return JSON.parse(store.getItem(LIVE_NAMESPACE + key)) ?? fallback; } catch { return fallback; } };
+    const write = (key, value) => { try { store.setItem(LIVE_NAMESPACE + key, JSON.stringify(value)); return true; } catch { return false; } };
+    /* An order token must outlive a full localStorage: without it the buyer cannot open the order the hub already created.
+       It falls back to sessionStorage, which survives the redirect in this tab, and to memory for this page. */
+    const kept = new Map();
+    const backupOrders = () => { try { const value = JSON.parse(fallbackStorage?.getItem(LIVE_NAMESPACE + 'orders')); return record(value) ? value : {}; } catch { return {}; } };
+    const keepOrder = (id, saved) => {
+      const orders = read('orders', {}); orders[id] = saved;
+      if (write('orders', orders) && read('orders', {})[id]?.token === saved.token) return;
+      kept.set(id, saved);
+      try { const backup = backupOrders(); backup[id] = saved; fallbackStorage?.setItem(LIVE_NAMESPACE + 'orders', JSON.stringify(backup)); } catch {}
+    };
+    const savedOrder = id => { const saved = read('orders', {})[id]; return record(saved) ? saved : backupOrders()[id] || kept.get(id); };
+    const itemName = variantId => { const found = byVariant.get(variantId); return found ? `${found.product.name}, talla ${found.variant.size}` : 'una prenda de tu bolsa'; };
+    const outOfStock = (variantId, details = {}) => fail('out_of_stock', `Ya no hay suficiente existencia de ${itemName(variantId)}.`, details);
+    let hub = null;
+    async function call(path, {method = 'GET', body, headers = {}, fresh = false} = {}) {
+      let response;
+      try {
+        response = await request(base + path, {method, credentials:'omit', cache:fresh || method !== 'GET' ? 'no-store' : 'default',
+          headers:body === undefined ? headers : {'Content-Type':'application/json', ...headers},
+          body:body === undefined ? undefined : JSON.stringify(body)});
+      } catch { liveFail('network', {ambiguous:true}); }
+      let data = null;
+      try { data = await response.json(); } catch {}
+      if (response.ok && record(data)) return data;
+      const code = record(data) && typeof data.code === 'string' ? data.code : '';
+      if (code === 'out_of_stock') outOfStock(bySku.get(data.sku), {sku:data.sku});
+      if (response.status === 429) liveFail('rate_limited');
+      liveFail(LIVE_MESSAGES[code] ? code : 'unavailable', {ambiguous:response.status >= 500 || !code});
+    }
+    async function loadHub(fresh = false) {
+      const data = await call('/api/v1/public/catalog', {fresh});
+      if (!Array.isArray(data.items)) liveFail('unavailable');
+      hub = new Map(data.items.filter(item => record(item) && typeof item.sku === 'string' && Number.isSafeInteger(item.unitPriceMinor)
+        && item.unitPriceMinor >= 0 && typeof item.currency === 'string').map(item => [item.sku, item]));
+    }
+    const offer = variantId => hub?.get(skus[variantId]) || null;
+    const available = variantId => { const item = offer(variantId); return item && Number.isSafeInteger(item.available) ? Math.max(0, item.available) : 0; };
+    function products() {
+      return catalog.products.map(product => {
+        const offers = product.variants.map(variant => offer(variant.id)).filter(Boolean);
+        return {...product, price_minor:offers.length ? Math.min(...offers.map(item => item.unitPriceMinor)) : null, currency:offers[0]?.currency || null,
+          variants:product.variants.map(variant => ({...variant, sku:skus[variant.id] || null, stock:available(variant.id), coming_soon:false}))};
+      });
+    }
+    const storedCart = () => { const value = read('cart', {}); return record(value) ? value : {}; };
+    function cart() {
+      const lines = Object.entries(storedCart()).filter(([id, quantity]) => offer(id) && byVariant.has(id) && Number.isSafeInteger(quantity) && quantity > 0).map(([id, quantity]) => {
+        const {product, variant} = byVariant.get(id), price = offer(id).unitPriceMinor;
+        return {product_id:product.id, variant_id:id, sku:skus[id], name:product.name, color:product.color, size:variant.size, image:product.images[0],
+          quantity, available:available(id), unit_price_minor:price, price_minor:price, line_total_minor:price * quantity};
+      });
+      return {lines, subtotal_minor:lines.reduce((sum, line) => sum + line.line_total_minor, 0), currency:lines.length ? offer(lines[0].variant_id).currency : null, mode:'live'};
+    }
+    function setQuantity(body, add) {
+      if (!record(body) || !byVariant.has(body.variant_id)) fail('unknown_variant', 'Esta talla no existe en el catálogo.');
+      const current = storedCart(), quantity = (add ? current[body.variant_id] || 0 : 0) + body.quantity;
+      if (!Number.isInteger(body.quantity) || quantity < 0 || quantity > 10) fail('invalid_quantity', 'La cantidad debe ser un número entero entre 0 y 10.');
+      if (quantity > available(body.variant_id)) fail('insufficient_stock', 'No hay suficientes unidades de esta talla.');
+      if (quantity) current[body.variant_id] = quantity; else delete current[body.variant_id];
+      write('cart', current);
+      return cart();
+    }
+    function orderView(id, saved, status) {
+      const shipping = Number.isSafeInteger(saved.shipping_minor) ? saved.shipping_minor : undefined;
+      const lines = (Array.isArray(status.lines) ? status.lines : []).map(line => {
+        const found = byVariant.get(bySku.get(line.sku)), price = saved.lines?.find(item => item.sku === line.sku)?.unit_price_minor;
+        return {product_id:found?.product.id || '', variant_id:found?.variant.id || line.sku, sku:line.sku, name:found?.product.name || line.sku, color:found?.product.color || '',
+          size:found?.variant.size || '', image:found?.product.images[0] || '', quantity:line.qty, line_total_minor:Number.isSafeInteger(price) ? price * line.qty : null};
+      });
+      // Only the hub's own amounts: its total can include tax that the catalog prices leave out.
+      return {id, code:status.code, status:status.status, currency:status.currency, total_minor:status.totalMinor, shipping_minor:shipping,
+        expires_at:status.expiresAt, payment:saved.payment || null, lines};
+    }
+    /* One Idempotency-Key per checkout attempt. The key stays with the exact body until the hub
+       answers with an order, so a retry after a lost response replays that order instead of
+       placing a second one. The key derives the order token on the hub: it is never logged. */
+    async function placeOrder(input) {
+      if (!record(input)) liveFail('validation');
+      await loadHub(true);
+      const stored = storedCart();
+      for (const id of Object.keys(stored)) if (!offer(id)) outOfStock(id);
+      const current = cart();
+      if (!current.lines.length) fail('empty_cart', 'Tu bolsa está vacía.');
+      if (current.lines.some(line => input.prices?.[line.variant_id] !== line.unit_price_minor)) liveFail('price_changed');
+      const body = {lines:current.lines.map(line => ({sku:line.sku, qty:line.quantity})),
+        contact:{name:input.contact?.name, email:input.contact?.email, ...(input.contact?.phone ? {phone:input.contact.phone} : {})},
+        shipping:{zone:input.shipping?.zone, address:input.shipping?.address, city:input.shipping?.city},
+        provider:input.provider, locale:input.locale === 'en' ? 'en' : 'es'};
+      const signature = JSON.stringify(body), pending = read('pending', null);
+      const key = record(pending) && pending.body === signature && typeof pending.key === 'string' ? pending.key : uuid();
+      write('pending', {key, body:signature});
+      const data = await call('/api/v1/public/orders', {method:'POST', headers:{'Idempotency-Key':key},
+        body:input.turnstileToken ? {...body, turnstileToken:input.turnstileToken} : body});
+      const saved = {token:data.accessToken, code:data.code, shipping_minor:data.shippingMinor, payment:data.payment || null,
+        lines:current.lines.map(line => ({sku:line.sku, unit_price_minor:line.unit_price_minor}))};
+      keepOrder(data.orderId, saved);
+      write('pending', null);
+      write('cart', {});
+      return {order:orderView(data.orderId, saved, {code:data.code, status:data.status, totalMinor:data.totalMinor, currency:data.currency, expiresAt:data.expiresAt, lines:body.lines})};
+    }
+    async function readOrder(id) {
+      const saved = savedOrder(id);
+      if (!record(saved) || typeof saved.token !== 'string') liveFail('not_found');
+      return {order:orderView(id, saved, await call(`/api/v1/public/orders/${encodeURIComponent(id)}`, {fresh:true, headers:{'X-Order-Token':saved.token}}))};
+    }
+    const api = async (path, body, method = body === undefined ? 'GET' : 'POST') => {
+      const verb = String(method).toUpperCase();
+      if (path === '/api/catalog' && verb === 'GET') { await loadHub(); return {products:products(), mode:'live'}; }
+      if (path === '/api/cart' && verb === 'GET') { if (!hub) await loadHub(); return cart(); }
+      if (path === '/api/cart/items' && (verb === 'POST' || verb === 'PATCH')) { if (!hub) await loadHub(); return setQuantity(body, verb === 'POST'); }
+      if (path === '/api/orders' && verb === 'POST') return placeOrder(body);
+      const match = typeof path === 'string' && verb === 'GET' && path.match(/^\/api\/orders\/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$/i);
+      if (match) return readOrder(match[1].toLowerCase());
+      fail('unsupported_route', 'Esta acción no está disponible.');
+    };
+    Object.assign(api, {mode:'live', providers:[MANUAL_PROVIDER], turnstileSiteKey:String(config.turnstileSiteKey || '')});
+    return api;
   }
-  const exported = Object.freeze({MODES, getDescriptor, createDemoAdapter, createSaviaSyntheticAdapter});
+
+  const exported = Object.freeze({MODES, getDescriptor, createLocalAdapter, createLiveAdapter, config:freeze(CONFIG), live:!!CONFIG.apiBase});
   if (typeof module === 'object' && module.exports) module.exports = exported;
   root.MarthaIntegrations = exported;
 })(typeof window !== 'undefined' ? window : globalThis);

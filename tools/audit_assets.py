@@ -69,7 +69,7 @@ def original_record(root, reference):
 
 def audit(evidence, dist, staging=None):
     text = (dist / 'catalog.js').read_text(encoding='utf-8')
-    prefix = 'window.DEMO_CATALOG='
+    prefix = 'window.STORE_CATALOG='
     assert text.startswith(prefix), 'Unsupported catalog.js format'
     published, _ = json.JSONDecoder().raw_decode(text[len(prefix):])
     products = published['products']
@@ -115,7 +115,8 @@ def main():
     ap.add_argument('--source-root', type=Path, help='Read only six allowlisted evidence inputs and refresh sanitized snapshot')
     ap.add_argument('--evidence', type=Path, default=ROOT / 'evidence/asset-source-manifest.json')
     ap.add_argument('--output', type=Path, default=ROOT / 'evidence/asset-completeness.json')
-    ap.add_argument('--dist', type=Path, default=ROOT / 'dist')
+    # Source layout keeps the original media paths; tests/build.py proves dist is its public form.
+    ap.add_argument('--dist', type=Path, default=ROOT / 'build-inputs/static')
     ap.add_argument('--staging', type=Path, help='Optional offline import root with research/assets/... layout')
     ap.add_argument('--require-complete', action='store_true', help='Fail unless all original media exist in staging (or demo if no staging)')
     args = ap.parse_args()

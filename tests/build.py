@@ -6,6 +6,8 @@ import sys
 import tempfile
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))
+from prepare import is_published, public_bytes, public_path  # noqa: E402
 
 
 def manifest(root):
@@ -16,10 +18,17 @@ def manifest(root):
 with tempfile.TemporaryDirectory(prefix='martha-build-test-') as temporary:
     output = Path(temporary) / 'dist'
     expected = manifest(ROOT / 'dist')
-    inputs = manifest(ROOT / 'build-inputs/static')
-    inputs.update({name: sha256((ROOT / 'src' / name).read_bytes()).hexdigest()
-                   for name in ('app.js', 'demo-api.js', 'integration-adapters.js')})
-    assert expected == inputs, 'Published paths/hashes differ from the complete tracked build inputs'
+    # dist is the source tree under its public names, with references rewritten (prepare.py).
+    static = ROOT / 'build-inputs/static'
+    inputs = {}
+    for p in static.rglob('*'):
+        rel = p.relative_to(static).as_posix()
+        if p.is_file() and is_published(rel):
+            published = public_path(rel)
+            inputs[str(Path(published))] = sha256(public_bytes(published, p.read_bytes())).hexdigest()
+    inputs.update({name: sha256(public_bytes(name, (ROOT / 'src' / name).read_bytes())).hexdigest()
+                   for name in ('app.js', 'store-api.js', 'integration-adapters.js')})
+    assert expected == inputs, 'Published paths/hashes differ from the public form of the tracked build inputs'
     for run in range(2):
         subprocess.run([sys.executable, '-S', str(ROOT / 'prepare.py'), '--output', str(output)],
                        check=True, cwd=temporary)

@@ -1,0 +1,29 @@
+SKIP  pilot stop (--isolated: throwaway databases only)
+PASS  architecture rules  (6s)
+      RULES PASS: 9 of 9 rules hold
+PASS  baseline is generated from the handoff  (0s)
+      OK: V001__baseline.sql matches the generator output.
+PASS  no DELETE or TRUNCATE on synced tables  (0s)
+      21 synced tables, 0 physical deletes
+PASS  database container  (1s)
+      16.0.4305.5 Developer Edition (64-bit)
+PASS  T-SQL tests  (294s)
+      SUMMARY PASS=154  logs: .out\dbtests
+PASS  .NET build  (4s)
+      Time Elapsed 00:00:03.98
+PASS  C# format  (15s)
+FAIL  .NET tests on real SQL  (460s)  -> read savia/tests/Savia.Tests/
+      Test run for <checkout>\savia\tests\Savia.Tests\bin\Debug\net10.0\Savia.Tests.dll (.NETCoreApp,Version=v10.0)
+      A total of 1 test files matched the specified pattern.
+      [xUnit.net 00:00:53.52]     Savia.Tests.ApiHostLoginTests.Login_sees_the_same_sync_metadata_as_sa [FAIL]
+      [xUnit.net 00:01:05.25]     Savia.Tests.ConcurrencyTests.Parallel_scans_count_each_scan_id_once [FAIL]
+      
+      Failed!  - Failed:     2, Passed:   199, Skipped:     0, Total:   201, Duration: 7 m 32 s - Savia.Tests.dll (net10.0)
+FAIL  .NET sync tests as the API host login  (250s)  -> read savia/tests/Savia.Tests/ApiHostLogin.cs and grants in savia/db/migrations/V035__api_host_role.sql
+      Test run for <checkout>\savia\tests\Savia.Tests\bin\Debug\net10.0\Savia.Tests.dll (.NETCoreApp,Version=v10.0)
+      A total of 1 test files matched the specified pattern.
+      [xUnit.net 00:00:17.68]     Savia.Tests.ApiHostLoginTests.Login_sees_the_same_sync_metadata_as_sa [FAIL]
+      
+      Failed!  - Failed:     1, Passed:    18, Skipped:     0, Total:    19, Duration: 4 m 5 s - Savia.Tests.dll (net10.0)
+SKIP  container proof (--quick or --isolated)
+RESULT FAIL

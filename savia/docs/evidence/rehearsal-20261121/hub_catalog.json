@@ -1,0 +1,325 @@
+{
+ "scenario": "hub_catalog",
+ "verdict": "PASS",
+ "reason": "",
+ "identity": "restricted",
+ "manifest": {
+  "path": "tools/rehearsal/expected/hub_catalog.json",
+  "sha256": "93faf0dcbbdddf1794bbda7e5bddda05a23da2414b47dfcd74b0e5976cc14865"
+ },
+ "seconds_total": 86.5,
+ "phases": [
+  {
+   "phase": "setup: 4 databases, node credentials, staff passwords, seed stock",
+   "seconds": 30.4
+  },
+  {
+   "phase": "start hub and 3 store hosts",
+   "seconds": 6.5
+  },
+  {
+   "phase": "open tills over HTTP",
+   "seconds": 1.5
+  },
+  {
+   "phase": "first convergence",
+   "seconds": 21.5
+  },
+  {
+   "phase": "hub owner previews and imports 3 items (HTTP)",
+   "seconds": 0.7
+  },
+  {
+   "phase": "converge the imported catalog",
+   "seconds": 5.5
+  },
+  {
+   "phase": "every node holds the 3 items and their barcodes, with no stock",
+   "seconds": 1.9
+  },
+  {
+   "phase": "A receives 5 units of HUB-0001 by scanning (HTTP), then sells 1",
+   "seconds": 0.5
+  },
+  {
+   "phase": "a catalog write on store B is refused by name; B's screens know the catalog is central",
+   "seconds": 0.1
+  },
+  {
+   "phase": "converge the receipt and the sale",
+   "seconds": 9.0
+  },
+  {
+   "phase": "A's receipt and sale reach every node: 4 units at A, none elsewhere",
+   "seconds": 1.5
+  },
+  {
+   "phase": "checks",
+   "seconds": 6.1
+  }
+ ],
+ "events": [
+  {
+   "t": 37.4,
+   "event": "open till a",
+   "status": 204,
+   "problem": ""
+  },
+  {
+   "t": 37.8,
+   "event": "open till b",
+   "status": 204,
+   "problem": ""
+  },
+  {
+   "t": 38.4,
+   "event": "open till c",
+   "status": 204,
+   "problem": ""
+  },
+  {
+   "t": 66.0,
+   "event": "converge the imported catalog: converged in 5.5s",
+   "differing": []
+  },
+  {
+   "t": 68.4,
+   "event": "sale i1 at a",
+   "status": 200,
+   "problem": ""
+  },
+  {
+   "t": 77.6,
+   "event": "converge the receipt and the sale: converged in 9.0s",
+   "differing": []
+  }
+ ],
+ "checks": {
+  "passed": 49,
+  "failed": 0,
+  "failures": []
+ },
+ "check_list": [
+  "PASS http i1 accepted",
+  "PASS cloud: sale i1 once with its effects",
+  "PASS cloud: no sale outside the manifest",
+  "PASS cloud: store a totals",
+  "PASS cloud: store b totals",
+  "PASS cloud: store c totals",
+  "PASS cloud: on hand at a",
+  "PASS cloud: on hand at b",
+  "PASS cloud: on hand at c",
+  "PASS a: sale i1 once with its effects",
+  "PASS a: no sale outside the manifest",
+  "PASS a: store a totals",
+  "PASS a: store b totals",
+  "PASS a: store c totals",
+  "PASS a: on hand at a",
+  "PASS a: on hand at b",
+  "PASS a: on hand at c",
+  "PASS b: sale i1 once with its effects",
+  "PASS b: no sale outside the manifest",
+  "PASS b: store a totals",
+  "PASS b: store b totals",
+  "PASS b: store c totals",
+  "PASS b: on hand at a",
+  "PASS b: on hand at b",
+  "PASS b: on hand at c",
+  "PASS c: sale i1 once with its effects",
+  "PASS c: no sale outside the manifest",
+  "PASS c: store a totals",
+  "PASS c: store b totals",
+  "PASS c: store c totals",
+  "PASS c: on hand at a",
+  "PASS c: on hand at b",
+  "PASS c: on hand at c",
+  "PASS R1: every synced table identical on hub, a, b, c",
+  "PASS CONS: audit.usp_CheckConservation has 0 violations on 4 nodes",
+  "PASS sync converged",
+  "PASS control hub preview has no errors",
+  "PASS control hub import creates 3 items and no stock",
+  "PASS control cloud holds 3 imported items and no stock for them",
+  "PASS control a holds 3 imported items and no stock for them",
+  "PASS control b holds 3 imported items and no stock for them",
+  "PASS control c holds 3 imported items and no stock for them",
+  "PASS control A receives the hub item over HTTP",
+  "PASS control store B price write refused",
+  "PASS control store B /me says the catalog is managed by the hub",
+  "PASS control cloud holds {'a': 4} on hand of the received item",
+  "PASS control a holds {'a': 4} on hand of the received item",
+  "PASS control b holds {'a': 4} on hand of the received item",
+  "PASS control c holds {'a': 4} on hand of the received item"
+ ],
+ "controls": [
+  {
+   "control": "hub preview has no errors",
+   "ok": true,
+   "expected": "200 errorCount 0",
+   "actual": "200 0"
+  },
+  {
+   "control": "hub import creates 3 items and no stock",
+   "ok": true,
+   "expected": "200 (3, 0)",
+   "actual": "200 (3, 0)"
+  },
+  {
+   "control": "cloud holds 3 imported items and no stock for them",
+   "ok": true,
+   "expected": {
+    "i": 3,
+    "s": 0
+   },
+   "actual": {
+    "i": 3,
+    "s": 0
+   }
+  },
+  {
+   "control": "a holds 3 imported items and no stock for them",
+   "ok": true,
+   "expected": {
+    "i": 3,
+    "s": 0
+   },
+   "actual": {
+    "i": 3,
+    "s": 0
+   }
+  },
+  {
+   "control": "b holds 3 imported items and no stock for them",
+   "ok": true,
+   "expected": {
+    "i": 3,
+    "s": 0
+   },
+   "actual": {
+    "i": 3,
+    "s": 0
+   }
+  },
+  {
+   "control": "c holds 3 imported items and no stock for them",
+   "ok": true,
+   "expected": {
+    "i": 3,
+    "s": 0
+   },
+   "actual": {
+    "i": 3,
+    "s": 0
+   }
+  },
+  {
+   "control": "A receives the hub item over HTTP",
+   "ok": true,
+   "expected": "open, scan, approve, post ok",
+   "actual": "ok"
+  },
+  {
+   "control": "store B price write refused",
+   "ok": true,
+   "expected": "409 catalog.managed_by_hub",
+   "actual": "409 catalog.managed_by_hub"
+  },
+  {
+   "control": "store B /me says the catalog is managed by the hub",
+   "ok": true,
+   "expected": "200 catalogManagedByHub true",
+   "actual": "200 True"
+  },
+  {
+   "control": "cloud holds {'a': 4} on hand of the received item",
+   "ok": true,
+   "expected": {
+    "a": 4
+   },
+   "actual": {
+    "a": 4
+   }
+  },
+  {
+   "control": "a holds {'a': 4} on hand of the received item",
+   "ok": true,
+   "expected": {
+    "a": 4
+   },
+   "actual": {
+    "a": 4
+   }
+  },
+  {
+   "control": "b holds {'a': 4} on hand of the received item",
+   "ok": true,
+   "expected": {
+    "a": 4
+   },
+   "actual": {
+    "a": 4
+   }
+  },
+  {
+   "control": "c holds {'a': 4} on hand of the received item",
+   "ok": true,
+   "expected": {
+    "a": 4
+   },
+   "actual": {
+    "a": 4
+   }
+  }
+ ],
+ "outcomes": {
+  "i1": {
+   "ok": true,
+   "status": 200,
+   "detail": "200"
+  }
+ },
+ "sync_rounds_from_host_logs": {
+  "a": {
+   "successful_rounds": 8,
+   "rebuilt_rounds": 0,
+   "not_successful": 0,
+   "distinct_warnings": [],
+   "host_starts": 1
+  },
+  "b": {
+   "successful_rounds": 8,
+   "rebuilt_rounds": 0,
+   "not_successful": 0,
+   "distinct_warnings": [],
+   "host_starts": 1
+  },
+  "c": {
+   "successful_rounds": 8,
+   "rebuilt_rounds": 0,
+   "not_successful": 0,
+   "distinct_warnings": [],
+   "host_starts": 1
+  }
+ },
+ "hub_exchanges_seen_by_proxies": {
+  "a": {
+   "/sync/v1/push/plan 200": 16,
+   "/sync/v1/state 200": 8,
+   "/sync/v1/pull 200": 8,
+   "/sync/v1/push 200": 8
+  },
+  "b": {
+   "/sync/v1/push/plan 200": 16,
+   "/sync/v1/state 200": 8,
+   "/sync/v1/pull 200": 8,
+   "/sync/v1/push 200": 8
+  },
+  "c": {
+   "/sync/v1/push/plan 200": 16,
+   "/sync/v1/state 200": 8,
+   "/sync/v1/pull 200": 8,
+   "/sync/v1/push 200": 8
+  }
+ },
+ "hub_rounds_log_errors": [],
+ "host_logs": ".out/rehearsal/runs/20261122-180438-hub_catalog"
+}

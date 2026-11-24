@@ -1,0 +1,109 @@
+{
+ "scenario": "offline_sales",
+ "claim": "Three stores sell while the hub process is stopped; when it returns, every sale reaches every node once.",
+ "tills": {
+  "a": "0FF1A1E5-0000-4000-8000-0000000000A0",
+  "b": "0FF1A1E5-0000-4000-8000-0000000000B0",
+  "c": "0FF1A1E5-0000-4000-8000-0000000000C0"
+ },
+ "closures": {
+  "c": {
+   "cashCountId": "0FF1A1E5-0000-4000-8000-0000000000C1",
+   "usdCashCountId": "0FF1A1E5-0000-4000-8000-0000000000C3",
+   "closureId": "0FF1A1E5-0000-4000-8000-0000000000C2"
+  }
+ },
+ "sales": [
+  {
+   "key": "a1",
+   "store": "a",
+   "saleId": "0FF1A1E5-0000-4000-8000-000000000001",
+   "qty": 1,
+   "tenders": [
+    {
+     "kind": "cash",
+     "amount": 120000
+    }
+   ]
+  },
+  {
+   "key": "a2",
+   "store": "a",
+   "saleId": "0FF1A1E5-0000-4000-8000-000000000002",
+   "qty": 2,
+   "tenders": [
+    {
+     "kind": "card",
+     "amount": 240000
+    }
+   ]
+  },
+  {
+   "key": "b1",
+   "store": "b",
+   "saleId": "0FF1A1E5-0000-4000-8000-000000000003",
+   "qty": 1,
+   "tenders": [
+    {
+     "kind": "cash",
+     "amount": 120000
+    }
+   ]
+  },
+  {
+   "key": "b2",
+   "store": "b",
+   "saleId": "0FF1A1E5-0000-4000-8000-000000000004",
+   "qty": 2,
+   "tenders": [
+    {
+     "kind": "card",
+     "amount": 240000
+    }
+   ]
+  },
+  {
+   "key": "c1",
+   "store": "c",
+   "saleId": "0FF1A1E5-0000-4000-8000-000000000005",
+   "qty": 1,
+   "tenders": [
+    {
+     "kind": "cash",
+     "amount": 120000
+    }
+   ]
+  },
+  {
+   "key": "c2",
+   "store": "c",
+   "saleId": "0FF1A1E5-0000-4000-8000-000000000006",
+   "qty": 2,
+   "tenders": [
+    {
+     "kind": "card",
+     "amount": 240000
+    }
+   ]
+  }
+ ],
+ "store_totals": {
+  "a": {
+   "count": 2,
+   "totalMinor": 360000
+  },
+  "b": {
+   "count": 2,
+   "totalMinor": 360000
+  },
+  "c": {
+   "count": 2,
+   "totalMinor": 360000
+  }
+ },
+ "on_hand": {
+  "a": 497,
+  "b": 497,
+  "c": 497
+ }
+}

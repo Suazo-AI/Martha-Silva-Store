@@ -17,7 +17,7 @@ The GET default is an integration compatibility fix with the hardened API, not a
 
 ## Dual integration UI
 
-The DOM checks include a visible SAVIA / SISFAIN (CGA) selection; explicit local-only, unconfigured statuses; isolated carts, checkout contact data and recent-order hints; removing cross-mode order URLs; missing-module fail-closed behavior and retry; pending-operation mode locking and repeated clicks; no automatic order creation on mount; and BFCache mode restoration without mutating an in-flight operation. These checks load `integration-adapters.js` between the local API and app. `window.marthaStoreApi` diagnoses the active local model; the legacy `marthaDemoApi` is not the storefront transport.
+The DOM checks include a visible SAVIA / SISFAIN (CGA) selection; explicit local-only, unconfigured statuses; isolated carts, checkout contact data and recent-order hints; removing cross-mode order URLs; missing-module fail-closed behavior and retry; pending-operation mode locking and repeated clicks; no automatic order creation on mount; and BFCache mode restoration without mutating an in-flight operation. These checks load `integration-adapters.js` between the local API and app. `window.marthaStoreApi` diagnoses the active local model; the legacy `marthaStoreApi` is not the storefront transport.
 
 No HTTP transport is configured in the storefront. These tests do not establish compatibility with a real SAVIA deployment or a CGA API, a connected .NET backend, real payments, visual layout or mobile-browser behavior.
 
@@ -39,3 +39,11 @@ running the focused script without installing a second copy. The complete
 These are DOM and metadata checks. They do not decode photos, measure responsive
 layout in a browser, or establish a visual review. Run on this laptop only through
 the required sequential heavy-task launcher after admission succeeds.
+
+## Real-browser harness fix (2026-11-24)
+
+Result: `tests/browser-mock-validation.mjs` passes 50 of 50 again on this PC (Chrome through Playwright 1.x from `JASON/uc-clone`).
+Cause 1: the size radio is a 1 px hidden input, and its visible `<span>` takes the click. The test now clicks the size label, as a buyer does, and asserts one checked radio.
+Cause 2: checkout now offers only "Confirmar pedido" (`approved`). The declined and cancelled tests now set the provider outcome on that button before they click it.
+Command: `node tests/browser-mock-validation.mjs <playwright path> <evidence dir>`.
+Limit: declined and cancelled remain synthetic. No real payment provider exists yet (W4).

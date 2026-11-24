@@ -1,0 +1,26 @@
+kpi_business[day]            {'n': 20, 'p50': 892.3, 'p95': 1098.8, 'max': 1098.8, 'errors': 0, 'max_bytes': 22932}
+kpi_team[day]                {'n': 20, 'p50': 13.3, 'p95': 99.3, 'max': 99.3, 'errors': 0, 'max_bytes': 503}
+kpi_business[week]           {'n': 20, 'p50': 902.4, 'p95': 1530.0, 'max': 1530.0, 'errors': 0, 'max_bytes': 22958}
+kpi_team[week]               {'n': 20, 'p50': 14.5, 'p95': 17.4, 'max': 17.4, 'errors': 0, 'max_bytes': 505}
+kpi_business[month]          {'n': 20, 'p50': 927.8, 'p95': 1735.2, 'max': 1735.2, 'errors': 0, 'max_bytes': 22972}
+kpi_team[month]              {'n': 20, 'p50': 46.6, 'p95': 136.6, 'max': 136.6, 'errors': 0, 'max_bytes': 506}
+import batch 0 {'status': 200, 'ms': 565, 'bytes': 3474, 'body': None, 'other_containers_cpu': {'savia-sqlserver-dev': '3.38%'}} {'status': 200, 'ms': 6578, 'bytes': 167, 'body': None, 'other_containers_cpu': {'savia-sqlserver-dev': '2.13%'}}
+import batch 1 {'status': 200, 'ms': 179, 'bytes': 3474, 'body': None, 'other_containers_cpu': {'savia-sqlserver-dev': '2.47%'}} {'status': 200, 'ms': 3748, 'bytes': 167, 'body': None, 'other_containers_cpu': {'savia-sqlserver-dev': '1.75%'}}
+import batch 2 {'status': 200, 'ms': 75, 'bytes': 3474, 'body': None, 'other_containers_cpu': {'savia-sqlserver-dev': '12.88%'}} {'status': 200, 'ms': 4933, 'bytes': 167, 'body': None, 'other_containers_cpu': {'savia-sqlserver-dev': '2.14%'}}
+  catalog.usp_ImportCatalog                     exec=    6 reads=  178,148 cpu= 2018.5ms elapsed=2580.6ms
+  sales.usp_KpiBusiness                         exec=   69 reads=   67,214 cpu= 2474.6ms elapsed=1031.8ms
+  sales.usp_KpiTeam                             exec=   69 reads=    5,533 cpu=    8.4ms elapsed=8.4ms
+  inventory.usp_ApplyWebReleases                exec=    1 reads=      895 cpu=   30.2ms elapsed=51.5ms
+  catalog.usp_RegisterItem                      exec= 3000 reads=      182 cpu=    2.1ms elapsed=3.1ms
+  inventory.usp_EnsureWebLocations              exec=    1 reads=      135 cpu=    9.3ms elapsed=11.0ms
+  inventory.usp_ApplyMovement                   exec= 3000 reads=       68 cpu=    0.7ms elapsed=0.9ms
+  catalog.usp_RegisterProduct                   exec= 3000 reads=       46 cpu=    0.6ms elapsed=0.6ms
+  sync.usp_EnqueueEvent                         exec= 6003 reads=       31 cpu=    0.3ms elapsed=0.3ms
+  adhoc 69|19928|631|-- savia:transactional -- V040 (P2, production readiness 2026-11-22): business KPIs aggregate once per product
+  adhoc 69|16289|388|-- savia:transactional -- V040 (P2, production readiness 2026-11-22): business KPIs aggregate once per product
+  adhoc 69|8920|441|-- savia:transactional -- V040 (P2, production readiness 2026-11-22): business KPIs aggregate once per product
+  adhoc 69|6862|58|-- savia:transactional -- V040 (P2, production readiness 2026-11-22): business KPIs aggregate once per product
+  adhoc 69|5486|7| CREATE   PROCEDURE sales.usp_KpiTeam @BranchId uniqueidentifier,@ActorId uniqueidentifier,@Period varchar(8),
+  adhoc 23|11583|898|-- savia:transactional -- V040 (P2, production readiness 2026-11-22): business KPIs aggregate once per product
+  adhoc 3000|75|1| CREATE   PROCEDURE [catalog].[usp_RegisterItem]  @ProductId uniqueidentifier,@Sku nvarchar(100),@VariantName
+  adhoc 3000|65|0| CREATE   PROCEDURE [catalog].[usp_RegisterItem]  @ProductId uniqueidentifier,@Sku nvarchar(100),@VariantName

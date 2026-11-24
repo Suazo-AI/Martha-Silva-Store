@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-23T23:43:46.381904+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "build-inputs/static/ayuda.html",
+      "change": "M",
+      "git_blob": "ab8b0ddd09cf63f77f7f14bec3a761b271e18ffe"
+    },
+    {
+      "path": "build-inputs/static/locale-en.js",
+      "change": "M",
+      "git_blob": "b5ef4a31d37c25ea555de6a0c60cf00b80f1db8c"
+    },
+    {
+      "path": "dist/ayuda.html",
+      "change": "M",
+      "git_blob": "9c2f916afda362024f34f003bdfa57af3caa2b71"
+    },
+    {
+      "path": "dist/locale-en.js",
+      "change": "M",
+      "git_blob": "b5ef4a31d37c25ea555de6a0c60cf00b80f1db8c"
+    },
+    {
+      "path": "docs/production-20261122/LEGAL-SOURCES.md",
+      "change": "M",
+      "git_blob": "38f3f3049362574a4ad7d3e6e8909fb864708546"
+    },
+    {
+      "path": "evidence/releases/20261105/responsive-runtime-sha256.json",
+      "change": "M",
+      "git_blob": "bf9c75d33ac01eb9353e26436e54b7d70b66f1f5"
+    },
+    {
+      "path": "tests/page-hashes.json",
+      "change": "M",
+      "git_blob": "0e4e07900e9b7f06f3d00f1c26a1fed8746c7756"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

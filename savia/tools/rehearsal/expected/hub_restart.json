@@ -1,0 +1,78 @@
+{
+ "scenario": "hub_restart",
+ "claim": "The hub process dies after committing A's push and before answering; stores keep selling; after the restart every sale exists once everywhere.",
+ "tills": {
+  "a": "4B0E5A00-0000-4000-8000-0000000000A0",
+  "b": "4B0E5A00-0000-4000-8000-0000000000B0",
+  "c": "4B0E5A00-0000-4000-8000-0000000000C0"
+ },
+ "sales": [
+  {
+   "key": "h1",
+   "store": "a",
+   "saleId": "4B0E5A00-0000-4000-8000-000000000001",
+   "qty": 1,
+   "tenders": [
+    {
+     "kind": "cash",
+     "amount": 120000
+    }
+   ]
+  },
+  {
+   "key": "h2",
+   "store": "b",
+   "saleId": "4B0E5A00-0000-4000-8000-000000000002",
+   "qty": 1,
+   "tenders": [
+    {
+     "kind": "cash",
+     "amount": 120000
+    }
+   ]
+  },
+  {
+   "key": "h3",
+   "store": "c",
+   "saleId": "4B0E5A00-0000-4000-8000-000000000003",
+   "qty": 1,
+   "tenders": [
+    {
+     "kind": "cash",
+     "amount": 120000
+    }
+   ]
+  },
+  {
+   "key": "h4",
+   "store": "a",
+   "saleId": "4B0E5A00-0000-4000-8000-000000000004",
+   "qty": 1,
+   "tenders": [
+    {
+     "kind": "card",
+     "amount": 120000
+    }
+   ]
+  }
+ ],
+ "store_totals": {
+  "a": {
+   "count": 2,
+   "totalMinor": 240000
+  },
+  "b": {
+   "count": 1,
+   "totalMinor": 120000
+  },
+  "c": {
+   "count": 1,
+   "totalMinor": 120000
+  }
+ },
+ "on_hand": {
+  "a": 498,
+  "b": 499,
+  "c": 499
+ }
+}

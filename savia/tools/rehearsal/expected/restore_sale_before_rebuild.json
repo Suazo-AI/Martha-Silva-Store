@@ -1,0 +1,82 @@
+{
+ "scenario": "restore_sale_before_rebuild",
+ "claim": "Recovery lock (D-036). A is restored from a backup taken before its till opened. Before its first rebuild, A refuses a new till and sale r3 with sync.recovery_pending. The rebuild brings back r1, r2 and A's till; A then sells r4, and every node holds r1, r2 and r4 once and r3 nowhere.",
+ "tills": {
+  "a": [
+   "4E570AE0-0000-4000-8000-0000000000A0",
+   "4E570AE0-0000-4000-8000-0000000000A1"
+  ],
+  "b": "4E570AE0-0000-4000-8000-0000000000B0",
+  "c": "4E570AE0-0000-4000-8000-0000000000C0"
+ },
+ "sales": [
+  {
+   "key": "r1",
+   "store": "a",
+   "saleId": "4E570AE0-0000-4000-8000-000000000001",
+   "qty": 1,
+   "tenders": [
+    {
+     "kind": "cash",
+     "amount": 120000
+    }
+   ]
+  },
+  {
+   "key": "r2",
+   "store": "a",
+   "saleId": "4E570AE0-0000-4000-8000-000000000002",
+   "qty": 1,
+   "tenders": [
+    {
+     "kind": "card",
+     "amount": 120000
+    }
+   ]
+  },
+  {
+   "key": "r3",
+   "store": "a",
+   "saleId": "4E570AE0-0000-4000-8000-000000000003",
+   "qty": 1,
+   "tenders": [
+    {
+     "kind": "cash",
+     "amount": 120000
+    }
+   ],
+   "expect": "absent"
+  },
+  {
+   "key": "r4",
+   "store": "a",
+   "saleId": "4E570AE0-0000-4000-8000-000000000004",
+   "qty": 1,
+   "tenders": [
+    {
+     "kind": "cash",
+     "amount": 120000
+    }
+   ]
+  }
+ ],
+ "store_totals": {
+  "a": {
+   "count": 3,
+   "totalMinor": 360000
+  },
+  "b": {
+   "count": 0,
+   "totalMinor": 0
+  },
+  "c": {
+   "count": 0,
+   "totalMinor": 0
+  }
+ },
+ "on_hand": {
+  "a": 497,
+  "b": 500,
+  "c": 500
+ }
+}

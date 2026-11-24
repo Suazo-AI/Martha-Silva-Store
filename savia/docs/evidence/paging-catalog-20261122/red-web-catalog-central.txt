@@ -1,0 +1,29 @@
+✖ a store with a hub shows the central catalog on prices and import, and calls no API (29.3407ms)
+✔ the hub and a store without a hub keep the forms (0.9872ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 1
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 154.9194
+
+✖ failing tests:
+
+test at savia\web\tests\catalog-central.test.mjs:49:1
+✖ a store with a hub shows the central catalog on prices and import, and calls no API (29.3407ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /El catálogo se gestiona en la central\./. Input:
+  
+  'Buscar prendaBuscar'
+  
+      at TestContext.<anonymous> (<repo>/savia/web/tests/catalog-central.test.mjs:52:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Buscar prendaBuscar',
+    expected: /El catálogo se gestiona en la central\./,
+    operator: 'match',
+    diff: 'simple'
+  }

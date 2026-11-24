@@ -1,0 +1,6 @@
+FAIL    sync/260_recovery_lock_returns_transfers.sql  -- ASSERT FAIL: credit return refused while recovering expected=51864 actual=515
+SUMMARY FAIL=1  logs: .out\dbtests
+exit 1
+FAIL    credits/190_issuer_status_procedures.sql  -- Msg 2812, Level 16, State 62, Server 23b66448cd53, Line 14
+SUMMARY FAIL=1  logs: .out\dbtests
+exit 1

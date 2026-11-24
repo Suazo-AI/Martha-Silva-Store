@@ -29,11 +29,52 @@ export function replace(el, ...children) {
   return el;
 }
 
+// A restored branch refuses sales, till openings and receiving until its rebuild lands (D-036).
+// The screen's own advice ("revise los datos") would send the cashier after a problem they cannot fix.
+const NEXT_STEP_BY_CODE = {
+  'sync.recovery_pending': 'Espere unos minutos y vuelva a intentar. Si sigue igual, avise a la gerente.',
+  'sync.schema_mismatch': 'Las ventas siguen guardadas en esta sucursal. Avise a soporte para actualizar el sistema.',
+};
+
+// The store keeps selling while its rounds fail, so the till names the reason instead of failing silently (D-041).
+const SYNC_REASON_BY_CODE = {
+  'sync.schema_mismatch': 'La central rechaza esta sucursal: la versión de su base de datos no coincide.',
+  'sync.unauthorized': 'La central rechaza la credencial de esta sucursal.',
+  'sync.unreachable': 'No hay conexión con la central.',
+};
+
+/**
+ * Banner text for GET /sync/status, or null when the last round worked or sync is off.
+ * A restored store waits for its rebuild before it may sell, so the banner shows how far the rebuild got (D-036).
+ */
+export function syncNotice(status) {
+  if (!status?.enabled) return null;
+  const { rebuild } = status;
+  const progress = rebuild
+    ? `Se reconstruye esta sucursal desde la central: ${rebuild.done} de ${rebuild.total} tablas. Las ventas vuelven al terminar.`
+    : null;
+  if (!status.code) return progress;
+  const reason = SYNC_REASON_BY_CODE[status.code] ?? 'La sincronización con la central falló.';
+  const step = NEXT_STEP_BY_CODE[status.code] ?? 'Las ventas siguen guardadas en esta sucursal.';
+  return [reason, progress ?? step].join(' ');
+}
+
+/**
+ * D-039: a store with a hub only reads the catalog. Its price and import screens say so instead of offering a form the
+ * server refuses (catalog.managed_by_hub). Returns true when it replaced the screen.
+ */
+export function showCatalogManagedCentrally(root, me) {
+  if (!me?.catalogManagedByHub) return false;
+  replace(root, h('div', { class: 'page' }, h('p', { role: 'status', id: 'catalog-central' }, 'El catálogo se gestiona en la central.')));
+  return true;
+}
+
 /** Shows an ApiError (or any error) in a live region. Input fields are never cleared here. */
 export function showError(el, error, nextStep) {
   const message = error?.message || 'Ocurrió un error.';
   const parts = [message];
-  if (nextStep) parts.push(nextStep);
+  const step = NEXT_STEP_BY_CODE[error?.code] ?? nextStep;
+  if (step) parts.push(step);
   el.className = 'error';
   el.textContent = parts.join(' ');
   if (error?.code || error?.traceId) {

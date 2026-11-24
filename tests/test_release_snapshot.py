@@ -1,6 +1,7 @@
 """Current release manifest includes control hashes without counting them public."""
 import importlib.util
 import json
+import sys
 from pathlib import Path
 import tempfile
 import unittest
@@ -32,15 +33,18 @@ class SnapshotTests(unittest.TestCase):
                 target = dist / rel
                 target.parent.mkdir(parents=True, exist_ok=True)
                 target.write_bytes(data)
-                canonical = root / 'src' / rel if str(rel) in ('app.js', 'demo-api.js', 'integration-adapters.js') else static / rel
+                canonical = root / 'src' / rel if str(rel) in ('app.js', 'store-api.js', 'integration-adapters.js') else static / rel
                 canonical.parent.mkdir(parents=True, exist_ok=True)
                 canonical.write_bytes(data)
             manifest = root / 'snapshot.json'
-            with patch.object(snapshot, 'ROOT', root), patch.object(snapshot, 'SNAPSHOT', manifest):
+            # The fixture inputs are inert bytes, so build them with the demo settings whatever site.config.json holds.
+            (root / 'site.config.json').write_text('{}')
+            with patch.object(snapshot, 'ROOT', root), patch.object(snapshot, 'SNAPSHOT', manifest), \
+                    patch.object(sys.modules['prepare'], 'CONFIG_PATH', root / 'site.config.json'):
                 snapshot.verify(record=True)
                 snapshot.verify()
                 recorded = json.loads(manifest.read_text())
-                self.assertEqual(len(recorded), 1559)
+                self.assertEqual(len(recorded), 1566)  # 1565 public paths (8 Latin font subsets added 2026-11-23) + 1 control file; responsive manifest is not published (P12)
                 self.assertEqual(recorded['_headers']['sha256'], snapshot.digest(dist / '_headers'))
                 # Git checks out these publication inputs as LF on every host.
                 # Refuse a Windows-only RAW snapshot before overwriting evidence.

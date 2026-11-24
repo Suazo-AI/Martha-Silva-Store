@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Datos para la tienda en línea</title>
+<style>
+:root{--bg:#fbfaf8;--card:#fff;--ink:#1d1b19;--muted:#5f5a54;--line:#ddd7cf;--accent:#7a2e3b;--quote:#f3efe9}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+main{max-width:760px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:1.6rem;line-height:1.2;margin:0 0 8px}
+.intro{color:var(--muted);margin:0 0 24px}
+fieldset{background:var(--card);border:1px solid var(--line);border-radius:10px;margin:0 0 16px;padding:16px;min-width:0}
+legend{font-weight:650;font-size:1.05rem;padding:0 4px}
+.why{color:var(--muted);font-size:.9rem;margin:2px 0 12px}
+label.opt{display:flex;gap:10px;align-items:flex-start;padding:8px 0;cursor:pointer}
+label.opt input{margin-top:4px;width:18px;height:18px;flex:none;accent-color:var(--accent)}
+.field{display:block;margin:10px 0 0}
+.field span{display:block;font-size:.9rem;color:var(--muted);margin-bottom:4px}
+input[type=text],input[type=email],textarea{width:100%;font:inherit;padding:10px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink)}
+textarea{min-height:64px;resize:vertical}
+blockquote{margin:8px 0;padding:10px 12px;background:var(--quote);border-left:3px solid var(--accent);border-radius:4px}
+.tag{font-size:.8rem;color:var(--muted)}
+.sub{margin-top:14px;padding-top:12px;border-top:1px dashed var(--line)}
+.sub p{margin:0 0 4px;font-weight:600}
+.actions{padding:12px 0}
+button{font:inherit;font-weight:600;background:var(--accent);color:#fff;border:0;border-radius:8px;padding:12px 18px;cursor:pointer;width:100%}
+#status{min-height:1.5em;margin:8px 0 0;color:var(--muted)}
+#out{margin-top:8px;min-height:160px;font:13px/1.4 ui-monospace,Consolas,monospace}
+#out[hidden]{display:none}
+@media (min-width:640px){button{width:auto}}
+@media print{
+  body{background:#fff;font-size:12pt}
+  .actions,#out,#status{display:none!important}
+  fieldset{break-inside:avoid;border-color:#999}
+  textarea{border:1px solid #999;min-height:60px;height:auto;overflow:visible}
+  input[type=radio],input[type=checkbox]{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<main>
+<h1>Datos para vender en línea</h1>
+<p class="intro">Martha Silva Store. Marcá una opción y escribí lo que haga falta. Nada se envía ni se guarda: al final tocá "Copiar respuestas" y mandale el texto a Jason, o imprimí la hoja.</p>
+
+<fieldset data-q="Quién responde">
+<legend>Quién responde</legend>
+<p class="why">Por qué lo pedimos: para saber a quién consultar si una respuesta no queda clara.</p>
+<label class="opt"><input type="radio" name="q0" value="La dueña">La dueña</label>
+<label class="opt"><input type="radio" name="q0" value="Administración">Administración</label>
+<label class="opt"><input type="radio" name="q0" value="Otra persona de la tienda">Otra persona de la tienda</label>
+<label class="field"><span>Nombre y fecha</span><input type="text" data-k="Nombre y fecha"></label>
+</fieldset>
+
+<fieldset data-q="1. Correo de contacto">
+<legend>1. Correo de contacto</legend>
+<p class="why">Por qué lo pedimos: la ley pide mostrar una dirección electrónica antes de cada compra en línea.</p>
+<label class="opt"><input type="radio" name="q1" value="Ya tenemos un correo para clientes">Ya tenemos un correo para clientes</label>
+<label class="opt"><input type="radio" name="q1" value="Vamos a crear uno nuevo">Vamos a crear uno nuevo</label>
+<label class="opt"><input type="radio" name="q1" value="No sé">No sé</label>
+<label class="field"><span>Correo que se publica</span><input type="email" data-k="Correo"></label>
+</fieldset>
+
+<fieldset data-q="2. Nombre legal y RUC">
+<legend>2. Nombre legal y RUC</legend>
+<p class="why">Por qué lo pedimos: quien vende en línea debe identificarse por completo ante el comprador.</p>
+<label class="opt"><input type="radio" name="q2" value="La tienda está a nombre de una persona">La tienda está a nombre de una persona</label>
+<label class="opt"><input type="radio" name="q2" value="La tienda es una empresa (sociedad)">La tienda es una empresa (sociedad)</label>
+<label class="opt"><input type="radio" name="q2" value="No sé">No sé</label>
+<label class="field"><span>Nombre legal (como aparece en la factura)</span><input type="text" data-k="Nombre legal"></label>
+<label class="field"><span>Número RUC</span><input type="text" data-k="RUC"></label>
+<label class="opt"><input type="checkbox" data-k="Publicar RUC" value="Sí se puede publicar el RUC en la página">Sí se puede publicar el RUC en la página</label>
+</fieldset>
+
+<fieldset data-q="3. Horario">
+<legend>3. Horario de atención</legend>
+<p class="why">Por qué lo pedimos: lo encontramos solo en Waze y queremos publicarlo bien.</p>
+<blockquote>Lunes a sábado, de 10:00 a 19:00. Domingo, de 11:00 a 17:00.</blockquote>
+<label class="opt"><input type="radio" name="q3" value="Correcto">Correcto</label>
+<label class="opt"><input type="radio" name="q3" value="Hay que cambiarlo">Hay que cambiarlo</label>
+<label class="field"><span>Horario correcto</span><textarea data-k="Horario correcto"></textarea></label>
+</fieldset>
+
+<fieldset data-q="4. Otras sucursales y teléfonos">
+<legend>4. Otras sucursales y teléfonos</legend>
+<p class="why">Por qué lo pedimos: vimos estas direcciones en internet, sin confirmar. Hoy la página solo muestra Plaza Natura y el +505 8856 5666.</p>
+<p style="margin:0;font-weight:600">Km 15.7 carretera a Masaya <span class="tag">(sin verificar)</span></p>
+<label class="opt"><input type="radio" name="q4a" value="Km 15.7: existe, publicarla">Existe, publicarla</label>
+<label class="opt"><input type="radio" name="q4a" value="Km 15.7: existe, no publicarla">Existe, no publicarla</label>
+<label class="opt"><input type="radio" name="q4a" value="Km 15.7: no existe o cerró">No existe o cerró</label>
+<div class="sub"><p>Paseo Masaya <span class="tag">(sin verificar)</span></p>
+<label class="opt"><input type="radio" name="q4b" value="Paseo Masaya: existe, publicarla">Existe, publicarla</label>
+<label class="opt"><input type="radio" name="q4b" value="Paseo Masaya: existe, no publicarla">Existe, no publicarla</label>
+<label class="opt"><input type="radio" name="q4b" value="Paseo Masaya: no existe o cerró">No existe o cerró</label></div>
+<label class="field"><span>Direcciones, horarios y teléfonos que sí se publican</span><textarea data-k="Sucursales y teléfonos"></textarea></label>
+</fieldset>
+
+<fieldset data-q="5. Moneda de los precios">
+<legend>5. Moneda de los precios</legend>
+<p class="why">Por qué lo pedimos: la ley pide mostrar precios en córdobas con impuestos y decir por cuánto tiempo vale la oferta; hoy la tienda muestra dólares. Esto es nuestra lectura; un abogado confirma.</p>
+<label class="opt"><input type="radio" name="q5" value="Córdobas como precio principal (dólares solo como referencia)">Córdobas como precio principal, dólares solo como referencia. <span class="tag">Lo más seguro.</span></label>
+<label class="opt"><input type="radio" name="q5" value="Dólares con el precio en córdobas al lado">Dólares con el precio en córdobas al lado, al cambio oficial del Banco Central. <span class="tag">Depende de un abogado.</span></label>
+<label class="opt"><input type="radio" name="q5" value="Solo dólares, como hoy">Solo dólares, como hoy. <span class="tag">Lo más riesgoso.</span></label>
+<div class="sub"><p>¿Los precios que muestra la tienda ya incluyen IVA?</p>
+<label class="opt"><input type="radio" name="q5b" value="Sí incluyen IVA">Sí</label>
+<label class="opt"><input type="radio" name="q5b" value="No incluyen IVA">No</label>
+<label class="opt"><input type="radio" name="q5b" value="No sé si incluyen IVA">No sé</label></div>
+<div class="sub"><p>¿En qué moneda cobra hoy la tienda física?</p>
+<label class="opt"><input type="checkbox" data-k="Cobro en tienda" value="Córdobas">Córdobas</label>
+<label class="opt"><input type="checkbox" data-k="Cobro en tienda" value="Dólares">Dólares</label></div>
+<div class="sub"><p>¿Por cuánto tiempo vale un precio publicado?</p>
+<label class="opt"><input type="radio" name="q5c" value="El precio vale hasta que lo cambiemos en la página">Hasta que lo cambiemos en la página</label>
+<label class="opt"><input type="radio" name="q5c" value="Las promociones tienen fecha de fin y la publicamos">Las promociones tienen fecha de fin y la publicamos</label></div>
+<label class="field"><span>Comentario</span><textarea data-k="Comentario moneda"></textarea></label>
+</fieldset>
+
+<fieldset data-q="6. Devoluciones y retracto">
+<legend>6. Devoluciones y retracto</legend>
+<p class="why">Por qué lo pedimos: la ley y su reglamento dicen cosas distintas sobre devolver una compra en línea; la página debe decir cuál aplica. Un abogado confirma la elección.</p>
+<label class="opt"><input type="radio" name="q6" value="Versión A (sigue la ley)"><span><b>Versión A</b> (sigue la ley, más amplia)</span></label>
+<blockquote>Podés retractarte de tu compra, sin dar motivo, dentro de los cinco días hábiles siguientes a recibir la prenda. La prenda debe estar sin usar y con sus etiquetas. Avisanos por WhatsApp o por escrito, o devolvenos la prenda. Te devolvemos lo pagado.</blockquote>
+<p class="tag">Solo si venden a la medida en línea, se agrega:</p>
+<blockquote>Si la prenda se hace a tu medida y ya está terminada cuando nos avisás, este derecho no aplica. Si está a medio hacer, podés retractarte pagando lo ya hecho. Te lo avisamos por escrito antes de que pagues.</blockquote>
+<p class="tag">A favor: es lo que dice la ley y lo que ya dice la página. En contra: aceptan devoluciones sin motivo.</p>
+<label class="opt"><input type="radio" name="q6" value="Versión B (sigue el reglamento)"><span><b>Versión B</b> (sigue el reglamento, más limitada)</span></label>
+<blockquote>Si la prenda que recibís no coincide con lo ofrecido o tiene un defecto, podés retractarte dentro de los cinco días hábiles siguientes a recibirla. Avisanos por WhatsApp o por escrito, o devolvenos la prenda. Te devolvemos lo pagado.</blockquote>
+<p class="tag">A favor: menos devoluciones. En contra: el reglamento vale menos que la ley; una autoridad podría exigir la versión A.</p>
+<label class="opt"><input type="radio" name="q6" value="Que decida el abogado">Que decida el abogado</label>
+<div class="sub"><p>Hoy la página también dice:</p>
+<blockquote>Tenés un mes desde que recibís tu pedido para solicitar la devolución de una prenda. Cada solicitud se revisa.</blockquote>
+<label class="opt"><input type="radio" name="q6b" value="La política de un mes es real, mantenerla">Es real, mantenerla</label>
+<label class="opt"><input type="radio" name="q6b" value="La política de un mes no aplica, quitarla">No aplica, quitarla</label>
+<label class="opt"><input type="radio" name="q6b" value="La política de un mes debe cambiar">Hay que cambiarla</label></div>
+<div class="sub"><p>¿Venden en línea vestidos hechos a la medida (por ejemplo, de novia)?</p>
+<label class="opt"><input type="radio" name="q6c" value="Sí venden a la medida en línea">Sí</label>
+<label class="opt"><input type="radio" name="q6c" value="No venden a la medida en línea">No</label></div>
+<div class="sub"><p>Si alguien devuelve una prenda, ¿quién paga el envío de vuelta?</p>
+<label class="opt"><input type="radio" name="q6d" value="Envío de devolución: la tienda">La tienda</label>
+<label class="opt"><input type="radio" name="q6d" value="Envío de devolución: el cliente">El cliente</label>
+<label class="opt"><input type="radio" name="q6d" value="Envío de devolución: depende del motivo">Depende del motivo</label></div>
+<label class="field"><span>Comentario (por ejemplo, en cuántos días devuelven el dinero)</span><textarea data-k="Comentario devoluciones"></textarea></label>
+</fieldset>
+
+<fieldset data-q="7. Datos de los clientes">
+<legend>7. Corregir o borrar datos de un cliente</legend>
+<p class="why">Por qué lo pedimos: la página promete que un cliente puede pedir ver, corregir o borrar sus datos; alguien de la tienda tiene que poder hacerlo.</p>
+<label class="opt"><input type="radio" name="q7" value="El personal puede corregir o borrar los datos cuando el cliente lo pida">El personal puede hacerlo cuando el cliente lo pida</label>
+<label class="opt"><input type="radio" name="q7" value="Solo la dueña o la administración puede hacerlo">Solo la dueña o la administración</label>
+<label class="opt"><input type="radio" name="q7" value="Hoy nadie sabe cómo hacerlo">Hoy nadie sabe cómo hacerlo</label>
+<label class="field"><span>Nombre del cargo que atiende estos pedidos</span><input type="text" data-k="Responsable de datos"></label>
+</fieldset>
+
+<fieldset data-q="8. Entrega">
+<legend>8. Quién entrega y en cuánto tiempo</legend>
+<p class="why">Por qué lo pedimos: la ley pide informar la fecha de entrega, y el aviso de privacidad debe decir quién recibe los datos del cliente.</p>
+<label class="opt"><input type="checkbox" data-k="Quién entrega" value="Personal de la tienda">Personal de la tienda</label>
+<label class="opt"><input type="checkbox" data-k="Quién entrega" value="Empresa de mensajería">Empresa de mensajería</label>
+<label class="field"><span>Nombre de la mensajería (si aplica)</span><input type="text" data-k="Mensajería"></label>
+<label class="field"><span>Días para entregar en Managua</span><input type="text" data-k="Días Managua"></label>
+<label class="field"><span>Días para entregar en el resto de Nicaragua</span><input type="text" data-k="Días resto del país"></label>
+</fieldset>
+
+<fieldset data-q="9. Factura y garantía">
+<legend>9. Factura y garantía</legend>
+<p class="why">Por qué lo pedimos: en una compra en línea la ley pide enviar la factura por medio electrónico y decir qué garantía tiene la prenda.</p>
+<label class="opt"><input type="checkbox" data-k="Factura" value="Ya emiten factura electrónica">Ya emiten factura electrónica</label>
+<label class="opt"><input type="checkbox" data-k="Factura" value="Pueden mandar la factura por correo o WhatsApp">Pueden mandar la factura por correo o WhatsApp</label>
+<label class="opt"><input type="checkbox" data-k="Factura" value="Solo factura en papel">Solo factura en papel</label>
+<label class="field"><span>Garantía que ofrecen además de cambiar una prenda defectuosa (si hay)</span><textarea data-k="Garantía"></textarea></label>
+</fieldset>
+
+<fieldset data-q="10. Algo más">
+<legend>10. Algo más</legend>
+<p class="why">Por qué lo pedimos: cualquier dato que la página deba decir y no preguntamos.</p>
+<label class="opt"><input type="radio" name="q10" value="No hay nada más">No hay nada más</label>
+<label class="opt"><input type="radio" name="q10" value="Hay algo más (ver comentario)">Hay algo más</label>
+<label class="field"><span>Comentario</span><textarea data-k="Otros"></textarea></label>
+</fieldset>
+
+<div class="actions">
+<button type="button" id="copy">Copiar respuestas</button>
+<p id="status" role="status" aria-live="polite"></p>
+<textarea id="out" readonly hidden aria-label="Respuestas en texto"></textarea>
+</div>
+</main>
+<script>
+(function(){
+  function collect(){
+    var lines=["Respuestas: datos para la tienda en línea (Martha Silva Store)",""];
+    document.querySelectorAll("fieldset[data-q]").forEach(function(fs){
+      lines.push("## "+fs.getAttribute("data-q"));
+      var any=false;
+      fs.querySelectorAll("input[type=radio]:checked").forEach(function(r){lines.push("- "+r.value);any=true;});
+      var groups={};
+      fs.querySelectorAll("input[type=checkbox]:checked").forEach(function(c){var k=c.getAttribute("data-k")||"Marcado";(groups[k]=groups[k]||[]).push(c.value);});
+      Object.keys(groups).forEach(function(k){lines.push("- "+k+": "+groups[k].join(", "));any=true;});
+      fs.querySelectorAll("input[type=text],input[type=email],textarea").forEach(function(t){var v=t.value.trim();if(v){lines.push("- "+t.getAttribute("data-k")+": "+v.replace(/\s*\n\s*/g," / "));any=true;}});
+      if(!any)lines.push("- (sin respuesta)");
+      lines.push("");
+    });
+    return lines.join("\n");
+  }
+  var out=document.getElementById("out"),status=document.getElementById("status");
+  function fallback(){
+    out.focus();out.select();
+    var ok=false;try{ok=document.execCommand("copy");}catch(e){}
+    status.textContent=ok?"Copiado. Pegalo en el chat con Jason.":"No se pudo copiar solo. Seleccioná el texto de abajo y copialo.";
+  }
+  document.getElementById("copy").addEventListener("click",function(){
+    out.value=collect();out.hidden=false;
+    if(navigator.clipboard&&window.isSecureContext){
+      navigator.clipboard.writeText(out.value).then(function(){status.textContent="Copiado. Pegalo en el chat con Jason.";},fallback);
+    }else{fallback();}
+  });
+})();
+</script>
+</body>
+</html>

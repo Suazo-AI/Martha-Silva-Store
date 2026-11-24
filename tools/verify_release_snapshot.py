@@ -5,9 +5,12 @@ This is integrity/structure verification, not visual or runtime acceptance.
 import hashlib
 import json
 import argparse
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))
+from prepare import is_published, public_bytes, public_path  # noqa: E402
 SNAPSHOT = ROOT / 'evidence/releases/20261105/responsive-runtime-sha256.json'
 
 
@@ -24,23 +27,25 @@ def verify(record=False):
     controls = {'_headers'}
     assert controls <= set(actual), 'Missing static asset control configuration'
     public = set(actual) - {'README.txt'} - controls
-    assert len(public) == 1558, 'Responsive candidate public path count changed'
-    js = {'app.js', 'demo-api.js', 'integration-adapters.js'}
-    static = {p.relative_to(ROOT / 'build-inputs/static').as_posix(): p for p in (ROOT / 'build-inputs/static').rglob('*') if p.is_file()}
+    assert len(public) == 1565, 'Responsive candidate public path count changed'
+    js = {'app.js', 'store-api.js', 'integration-adapters.js'}
+    # dist publishes each canonical input under its public name (build-inputs/public-paths.json).
+    static = {public_path(rel): p for p in (ROOT / 'build-inputs/static').rglob('*') if p.is_file()
+              for rel in [p.relative_to(ROOT / 'build-inputs/static').as_posix()] if is_published(rel)}
     assert set(actual) == set(static) | js, 'Canonical input paths differ from dist'
     for rel, path in actual.items():
         assert not path.is_symlink(), rel
         source = ROOT / 'src' / rel if rel in js else static[rel]
         assert not source.is_symlink(), rel
         result = digest(path)
-        assert result == digest(source), 'Canonical/dist drift: ' + rel
+        assert result == hashlib.sha256(public_bytes(rel, source.read_bytes())).hexdigest(), 'Canonical/dist drift: ' + rel
         # Top-level application files and controls use eol=lf in .gitattributes.
         # Reject imported CRLF bytes before recording a Windows-only manifest.
         # Captured resources in subdirectories retain their original bytes.
         if rel in controls or (path.parent == ROOT / 'dist' and path.suffix in {'.html', '.js', '.css'}):
             assert b'\r\n' not in path.read_bytes(), 'Non-canonical CRLF publication input: ' + rel
     text = (ROOT / 'dist/catalog.js').read_text(encoding='utf-8')
-    prefix = 'window.DEMO_CATALOG='
+    prefix = 'window.STORE_CATALOG='
     assert text.startswith(prefix)
     catalog, _ = json.JSONDecoder().raw_decode(text[len(prefix):])
     products = catalog['products']

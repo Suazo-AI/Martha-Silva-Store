@@ -1,0 +1,13 @@
+Test run for C:\Users\Jason\.t3\worktrees\github\t3-9cc6a2d6-62a1465da9aeb16d\savia\tests\Savia.Tests\bin\Debug\net10.0\Savia.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:02:12.82]     Savia.Tests.SyncWorkerTests.Rebuild_larger_than_a_page_resumes_after_a_lost_page_and_reports_progress [FAIL]
+  Failed Savia.Tests.SyncWorkerTests.Rebuild_larger_than_a_page_resumes_after_a_lost_page_and_reports_progress [14 s]
+  Error Message:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(Microsoft.Data.SqlClient.SqlException)
+  Stack Trace:
+     at Savia.Tests.SyncWorkerTests.Rebuild_larger_than_a_page_resumes_after_a_lost_page_and_reports_progress() in C:\Users\Jason\.t3\worktrees\github\t3-9cc6a2d6-62a1465da9aeb16d\savia\tests\Savia.Tests\SyncWorkerTests.cs:line 203
+   at Savia.Tests.SyncWorkerTests.Rebuild_larger_than_a_page_resumes_after_a_lost_page_and_reports_progress() in C:\Users\Jason\.t3\worktrees\github\t3-9cc6a2d6-62a1465da9aeb16d\savia\tests\Savia.Tests\SyncWorkerTests.cs:line 216
+--- End of stack trace from previous location ---
+
+Failed!  - Failed:     1, Passed:    28, Skipped:     0, Total:    29, Duration: 2 m 28 s - Savia.Tests.dll (net10.0)

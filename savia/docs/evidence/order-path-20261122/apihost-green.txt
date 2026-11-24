@@ -1,0 +1,11 @@
+api-host pass for the web-order slice: SAVIA_TEST_SQL_LOGIN=api_host dotnet test --filter FullyQualifiedName~Savia.Tests.WebOrderVerticalSlice. Exit 0.
+The check.py API-host filter (Savia.Tests.VerticalSlice) does not match WebOrderVerticalSliceTests, so this run covers it.
+
+  Passed Savia.Tests.WebOrderVerticalSliceTests.Card_return_is_not_payment_until_the_gateway_confirms_and_webhooks_must_be_signed [1 s]
+  Passed Savia.Tests.WebOrderVerticalSliceTests.Sweep_skips_an_order_it_cannot_settle_and_still_expires_the_rest [945 ms]
+  Passed Savia.Tests.WebOrderVerticalSliceTests.Staff_lists_records_a_manual_payment_fulfills_and_cancels [1 s]
+  Passed Savia.Tests.WebOrderVerticalSliceTests.Public_catalog_order_and_replay_return_the_same_order [918 ms]
+  Passed Savia.Tests.WebOrderVerticalSliceTests.Order_status_needs_its_token [371 ms]
+  Passed Savia.Tests.WebOrderVerticalSliceTests.Sweep_expires_a_due_order_once_and_records_a_payment_the_buyer_never_returned_from [1 s]
+  Passed Savia.Tests.WebOrderVerticalSliceTests.Failed_bot_check_reserves_nothing [307 ms]
+  Passed Savia.Tests.WebOrderVerticalSliceTests.Last_units_go_to_one_buyer_and_the_next_gets_out_of_stock_with_the_sku [691 ms]

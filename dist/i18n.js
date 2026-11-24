@@ -13,7 +13,7 @@
   if (['es', 'en'].includes(params.get('lang'))) {
     try { localStorage.setItem(key, language); } catch {}
   }
-  const productNames = (window.DEMO_CATALOG?.products || []).map(product => [product.name, window.MARTHA_PRODUCT_EN?.[product.id]?.name || product.name]);
+  const productNames = (window.STORE_CATALOG?.products || []).map(product => [product.name, window.MARTHA_PRODUCT_EN?.[product.id]?.name || product.name]);
   const normalized = value => String(value ?? '').replace(/\s+/g, ' ').trim();
   function english(value) {
     const source = String(value ?? '');
@@ -46,12 +46,14 @@
         [/^PEDIDO (.+)$/, code => `ORDER ${code}`],
         [/^Devolución (.+)$/, code => `Return ${code}`],
         [/^Seguimiento: (.+)$/, code => `Tracking: ${code}`],
-        [/^Reembolsado en prueba: (.+)$/, amount => `Test refund: ${amount}`]
+        [/^Reembolsado: (.+)$/, amount => `Refunded: ${amount}`]
         ,[/^(\d+)\. (Contacto|Entrega|Revisión|Pago)$/, (n, label) => `${n}. ${english(label)}`]
         ,[/^Desde (.+)$/, amount => `From ${amount}`]
         ,[/^Seguimiento:$/, () => 'Tracking:']
         ,[/^fotografía (\d+)$/, n => `photo ${n}`]
-        ,[/^(Total sin entrega|Total|Entrega estimada|Entrega|Subtotal|Impuestos de prueba|Descuento) ((?:USD|US\$|\$).+)$/, (label, amount) => `${english(label)} ${amount}`]
+        ,[/^(Total sin entrega|Total|Entrega estimada|Entrega|Subtotal|Impuestos|Descuento) ((?:USD|US\$|C\$|NIO|\$).+)$/, (label, amount) => `${english(label)} ${amount}`]
+        ,[/^Los precios se muestran en ([A-Z]{3})\.$/, code => `Prices are shown in ${code}.`]
+        ,[/^Ya no hay suficiente existencia de (.+), talla (.+)\.$/, (name, size) => `There is no longer enough stock of ${english(name)}, size ${size}.`]
       ];
       let matched = false;
       for (const [pattern, render] of prefixes) {

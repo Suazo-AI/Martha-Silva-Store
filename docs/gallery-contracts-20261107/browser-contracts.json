@@ -2,7 +2,7 @@
   "chrome": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
   "base": "http://127.0.0.1:18433",
   "page": "/producto-verde-brillo-cuello-cruzado.html",
-  "generatedAt": "2026-11-07T10:34:28.022Z",
+  "generatedAt": "2026-11-22T01:46:57.208Z",
   "runs": [
     {
       "label": "desktop-1280x900",
@@ -17,9 +17,9 @@
       "failedRequests": [],
       "initial": {
         "scrollLeft": 0,
-        "scrollWidth": 1603,
-        "clientWidth": 401,
-        "clientHeight": 601,
+        "scrollWidth": 1688,
+        "clientWidth": 422,
+        "clientHeight": 633,
         "pageScrollY": 0,
         "index": 0,
         "slideCount": 4
@@ -32,14 +32,14 @@
         "currentSrc": "http://127.0.0.1:18433/responsive-images/verde-brillo-cuello-cruzado/01-front-v1-720.webp",
         "naturalWidth": 426,
         "naturalHeight": 639,
-        "renderedWidth": 400.65625,
-        "renderedHeight": 601,
-        "drawnWidth": 400.65625,
-        "drawnHeight": 600.984375,
-        "slotWidth": 400.65625,
-        "slotHeight": 601,
-        "viewportWidth": 400.65625,
-        "viewportHeight": 601,
+        "renderedWidth": 422,
+        "renderedHeight": 633,
+        "drawnWidth": 422,
+        "drawnHeight": 633,
+        "slotWidth": 422,
+        "slotHeight": 633,
+        "viewportWidth": 422,
+        "viewportHeight": 633,
         "candidates": [
           {
             "url": "http://127.0.0.1:18433/responsive-images/verde-brillo-cuello-cruzado/01-front-v1-360.webp",
@@ -54,7 +54,7 @@
             "w": 1024
           },
           {
-            "url": "http://127.0.0.1:18433/generated-luxury/verde-brillo-cuello-cruzado/01-front-v1.png",
+            "url": "http://127.0.0.1:18433/looks/verde-brillo-cuello-cruzado/01-front-v1.png",
             "w": 1024
           }
         ],
@@ -66,7 +66,8 @@
         "response": {
           "status": 200,
           "contentType": "image/webp",
-          "bytes": 86518
+          "bytes": 86518,
+          "source": "browser.response"
         }
       },
       "desktopResize": {
@@ -86,14 +87,14 @@
         "currentSrc": "http://127.0.0.1:18433/responsive-images/verde-brillo-cuello-cruzado/01-front-v1-720.webp",
         "naturalWidth": 479,
         "naturalHeight": 719,
-        "renderedWidth": 400.65625,
-        "renderedHeight": 601,
-        "drawnWidth": 400.3880389429764,
-        "drawnHeight": 601,
-        "slotWidth": 400.65625,
-        "slotHeight": 601,
-        "viewportWidth": 400.65625,
-        "viewportHeight": 601,
+        "renderedWidth": 422,
+        "renderedHeight": 633,
+        "drawnWidth": 421.7065368567455,
+        "drawnHeight": 633,
+        "slotWidth": 422,
+        "slotHeight": 633,
+        "viewportWidth": 422,
+        "viewportHeight": 633,
         "candidates": [
           {
             "url": "http://127.0.0.1:18433/responsive-images/verde-brillo-cuello-cruzado/01-front-v1-360.webp",
@@ -108,7 +109,7 @@
             "w": 1024
           },
           {
-            "url": "http://127.0.0.1:18433/generated-luxury/verde-brillo-cuello-cruzado/01-front-v1.png",
+            "url": "http://127.0.0.1:18433/looks/verde-brillo-cuello-cruzado/01-front-v1.png",
             "w": 1024
           }
         ],
@@ -120,8 +121,14 @@
         "response": {
           "status": 200,
           "contentType": "image/webp",
-          "bytes": 86518
+          "bytes": 86518,
+          "source": "browser.response"
         }
+      },
+      "journeyViewport": {
+        "width": 1280,
+        "height": 900,
+        "deviceScaleFactor": 1
       },
       "journey": {
         "label": "desktop-1280x900",
@@ -142,10 +149,10 @@
             "inArrows": false,
             "ariaCurrent": null,
             "rect": {
-              "x": 278,
+              "x": 190,
               "y": 149,
-              "w": 401,
-              "h": 601
+              "w": 422,
+              "h": 633
             },
             "visible": true,
             "display": "block",
@@ -165,21 +172,27 @@
             }
           ]
         },
+        "zoom": {
+          "opened": true,
+          "srcMatched": true,
+          "escaped": true,
+          "focusReturned": true
+        },
         "focusedPhotoScroll": {
           "before": {
             "go": null,
             "photo": true,
             "visible": true,
             "rect": {
-              "x": 278,
+              "x": 190,
               "y": 149,
-              "w": 401,
-              "h": 601
+              "w": 422,
+              "h": 633
             }
           },
           "afterScroll": {
             "index": 2,
-            "scrollLeft": 901,
+            "scrollLeft": 950,
             "heldVisible": false,
             "heldStillFocused": true
           },
@@ -193,10 +206,10 @@
             "inGallery": true,
             "visible": true,
             "rect": {
-              "x": 253,
+              "x": 163,
               "y": 149,
-              "w": 451,
-              "h": 601
+              "w": 475,
+              "h": 633
             }
           }
         },
@@ -240,8 +253,8 @@
         "end": {
           "before": 3,
           "after": 3,
-          "pageScrollYBefore": 38,
-          "pageScrollYAfter": 2602,
+          "pageScrollYBefore": 6,
+          "pageScrollYAfter": 2540,
           "defaultPrevented": false,
           "slideCount": 4
         },
@@ -262,10 +275,10 @@
         }
       },
       "final": {
-        "scrollLeft": 1201,
-        "scrollWidth": 1602,
-        "clientWidth": 400,
-        "clientHeight": 601,
+        "scrollLeft": 1266,
+        "scrollWidth": 1688,
+        "clientWidth": 422,
+        "clientHeight": 633,
         "pageScrollY": 0,
         "index": 3,
         "slideCount": 4
@@ -321,7 +334,7 @@
             "w": 1024
           },
           {
-            "url": "http://127.0.0.1:18433/generated-luxury/verde-brillo-cuello-cruzado/01-front-v1.png",
+            "url": "http://127.0.0.1:18433/looks/verde-brillo-cuello-cruzado/01-front-v1.png",
             "w": 1024
           }
         ],
@@ -333,8 +346,14 @@
         "response": {
           "status": 200,
           "contentType": "image/webp",
-          "bytes": 140962
+          "bytes": 140962,
+          "source": "browser.response"
         }
+      },
+      "journeyViewport": {
+        "width": 390,
+        "height": 844,
+        "deviceScaleFactor": 2
       },
       "journey": {
         "label": "mobile-390x844",
@@ -356,7 +375,7 @@
             "ariaCurrent": null,
             "rect": {
               "x": 0,
-              "y": 141,
+              "y": 99,
               "w": 390,
               "h": 520
             },
@@ -378,6 +397,12 @@
             }
           ]
         },
+        "zoom": {
+          "opened": true,
+          "srcMatched": true,
+          "escaped": true,
+          "focusReturned": true
+        },
         "focusedPhotoScroll": {
           "before": {
             "go": null,
@@ -385,7 +410,7 @@
             "visible": true,
             "rect": {
               "x": 0,
-              "y": 141,
+              "y": 99,
               "w": 390,
               "h": 520
             }
@@ -407,7 +432,7 @@
             "visible": true,
             "rect": {
               "x": 0,
-              "y": 141,
+              "y": 99,
               "w": 390,
               "h": 520
             }
@@ -454,7 +479,7 @@
           "before": 3,
           "after": 3,
           "pageScrollYBefore": 0,
-          "pageScrollYAfter": 2973,
+          "pageScrollYAfter": 2954,
           "defaultPrevented": false,
           "slideCount": 4
         },

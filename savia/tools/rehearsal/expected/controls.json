@@ -1,0 +1,54 @@
+{
+ "scenario": "controls",
+ "claim": "Negative controls fail as designed (401, 51851 foreign row, 51854 restored fork without rebuild token) and the cluster still converges with every sale once.",
+ "tills": {
+  "a": "C0A7401E-0000-4000-8000-0000000000A0",
+  "b": "C0A7401E-0000-4000-8000-0000000000B0",
+  "c": "C0A7401E-0000-4000-8000-0000000000C0"
+ },
+ "sales": [
+  {
+   "key": "k1",
+   "store": "a",
+   "saleId": "C0A7401E-0000-4000-8000-000000000001",
+   "qty": 1,
+   "tenders": [
+    {
+     "kind": "cash",
+     "amount": 120000
+    }
+   ]
+  },
+  {
+   "key": "k2",
+   "store": "a",
+   "saleId": "C0A7401E-0000-4000-8000-000000000002",
+   "qty": 1,
+   "tenders": [
+    {
+     "kind": "cash",
+     "amount": 120000
+    }
+   ]
+  }
+ ],
+ "store_totals": {
+  "a": {
+   "count": 2,
+   "totalMinor": 240000
+  },
+  "b": {
+   "count": 0,
+   "totalMinor": 0
+  },
+  "c": {
+   "count": 0,
+   "totalMinor": 0
+  }
+ },
+ "on_hand": {
+  "a": 498,
+  "b": 500,
+  "c": 500
+ }
+}

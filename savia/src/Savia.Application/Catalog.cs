@@ -6,7 +6,8 @@ namespace Savia.Application;
 
 public interface ICatalogStore
 {
-    Task<IReadOnlyList<CatalogProduct>> ListAsync(Guid locationId, CancellationToken ct);
+    /// <summary>Whole products in name order, at most <paramref name="limit"/> variants unless one product alone has more.</summary>
+    Task<Page<CatalogProduct>> ListAsync(Guid locationId, string? after, int limit, CancellationToken ct);
     Task<IReadOnlyList<ItemLookup>> LookupAsync(string rawCode, Guid? supplierId, CancellationToken ct);
     /// <summary>Active or draft variants whose product name, variant name, SKU or a code contains the text.</summary>
     Task<IReadOnlyList<ProductSearchRow>> SearchAsync(string text, Guid? locationId, int limit, CancellationToken ct);
@@ -20,9 +21,13 @@ public interface ICatalogStore
 /// </summary>
 public interface ICatalogMaintenanceStore
 {
-    Task<JsonElement> ItemValuesAsync(Guid branch, Guid actor, string query, CancellationToken ct);
+    /// <summary>A null branch is the hub, where the owner needs no branch grant.</summary>
+    Task<JsonElement> ItemValuesAsync(Guid? branch, Guid actor, string query, CancellationToken ct);
     Task SetItemValuesAsync(Guid item, ItemValuesRequest request, Guid actor, Guid node, CancellationToken ct);
-    Task<JsonElement> ImportCatalogAsync(Guid branch, Guid location, ImportCatalogRequest request, Guid actor, Guid node, bool commit, CancellationToken ct);
+    /// <summary>A null branch and location is the hub: products, items, barcodes and prices, and no stock.</summary>
+    Task<JsonElement> ImportCatalogAsync(Guid? branch, Guid? location, ImportCatalogRequest request, Guid actor, Guid node, bool commit,
+        CancellationToken ct);
+    Task CreateSupplierAsync(CreateSupplierRequest request, Guid actor, CancellationToken ct);
 }
 
 public sealed class CatalogService(ICatalogStore store, ICatalogMaintenanceStore maintenance, NodeContext node)
@@ -30,11 +35,13 @@ public sealed class CatalogService(ICatalogStore store, ICatalogMaintenanceStore
     private static bool HidePrice(Actor actor) =>
         actor.Roles.Contains(Roles.Inventory) && !actor.Roles.Contains(Roles.Owner) && !actor.Roles.Contains(Roles.Manager);
 
-    public async Task<IReadOnlyList<CatalogProduct>> ListAsync(Actor actor, CancellationToken ct)
+    public async Task<Page<CatalogProduct>> ListAsync(Actor actor, string? after, int? limit, CancellationToken ct)
     {
         Guard.Branch(actor, node);
-        var rows = await store.ListAsync(node.RequireLocation(), ct);
-        return HidePrice(actor) ? rows.Select(p => p with { Variants = p.Variants.Select(v => v with { UnitPriceMinor = null }).ToArray() }).ToArray() : rows;
+        var page = await store.ListAsync(node.RequireLocation(), after, Paging.Limit(limit), ct);
+        return HidePrice(actor)
+            ? page with { Items = page.Items.Select(p => p with { Variants = p.Variants.Select(v => v with { UnitPriceMinor = null }).ToArray() }).ToArray() }
+            : page;
     }
 
     /// <summary>Returns every variant the code may mean. The caller must not pick one when there are several.</summary>
@@ -56,12 +63,35 @@ public sealed class CatalogService(ICatalogStore store, ICatalogMaintenanceStore
         return HidePrice(actor) ? rows.Select(v => v with { UnitPriceMinor = null }).ToArray() : rows;
     }
 
+    // D-039: a store with a hub refuses catalog writes by name, so its screens can say where the catalog is managed.
+    private void RefuseOnHubStore()
+    {
+        if (node.CatalogManagedByHub) throw new SaviaException(Errors.CatalogManagedByHub);
+    }
+
+    // The hub has no branch, so there only the owner works on prices and imports. A store keeps its branch check.
+    private Guid? CatalogBranch(Actor actor, string[] storeRoles)
+    {
+        if (node.Kind == NodeKind.Branch) return Guard.BranchRole(actor, node, storeRoles);
+        Guard.Role(actor, Roles.OwnerOnly);
+        return null;
+    }
+
     // The catalog has one writer: cloud normally, or this branch during the explicit local pilot.
     private void RequireCatalogWriter(Actor actor)
     {
+        RefuseOnHubStore();
         if (node.Kind == NodeKind.Branch && node.LocalCatalog) Guard.Branch(actor, node);
         else Guard.Kind(node, NodeKind.Cloud);
         Guard.Role(actor, Roles.Approvers);
+    }
+
+    /// <summary>Suppliers are reference data with the catalog's single writer; stores receive them by sync (V053).</summary>
+    public Task CreateSupplierAsync(Actor actor, CreateSupplierRequest request, CancellationToken ct)
+    {
+        RequireCatalogWriter(actor);
+        Guard.Text(request.Name, "name", 200);
+        return maintenance.CreateSupplierAsync(request, actor.StaffId, ct);
     }
 
     public Task RegisterProductAsync(Actor actor, RegisterProductRequest request, CancellationToken ct)
@@ -81,11 +111,13 @@ public sealed class CatalogService(ICatalogStore store, ICatalogMaintenanceStore
     }
 
     public Task<JsonElement> ItemValuesAsync(Actor actor, string? query, CancellationToken ct) =>
-        maintenance.ItemValuesAsync(Guard.BranchRole(actor, node, Roles.Approvers), actor.StaffId, query?.Trim() ?? "", ct);
+        maintenance.ItemValuesAsync(CatalogBranch(actor, Roles.Approvers), actor.StaffId, query?.Trim() ?? "", ct);
 
     public Task SetItemValuesAsync(Actor actor, Guid item, ItemValuesRequest request, CancellationToken ct)
     {
-        Guard.Branch(actor, node);
+        // D-039: the hub owns prices; it has no branch, so only the owner role applies there.
+        RefuseOnHubStore();
+        if (node.BranchId is not null) Guard.Branch(actor, node);
         Guard.Role(actor, Roles.OwnerOnly);
         Guard.Text(request.Reason, "reason", 250);
         return maintenance.SetItemValuesAsync(item, request, actor.StaffId, node.NodeId, ct);
@@ -93,7 +125,8 @@ public sealed class CatalogService(ICatalogStore store, ICatalogMaintenanceStore
 
     public ImportFile ParseImport(Actor actor, ImportFileRequest request)
     {
-        Guard.BranchRole(actor, node, Roles.OwnerOnly);
+        RefuseOnHubStore();
+        CatalogBranch(actor, Roles.OwnerOnly);
         Guard.Text(request.FileName, "fileName", 200);
         byte[] content;
         try { content = Convert.FromBase64String(request.ContentBase64 ?? ""); }
@@ -103,10 +136,12 @@ public sealed class CatalogService(ICatalogStore store, ICatalogMaintenanceStore
 
     public Task<JsonElement> ImportCatalogAsync(Actor actor, ImportCatalogRequest request, bool commit, CancellationToken ct)
     {
-        var branch = Guard.BranchRole(actor, node, Roles.OwnerOnly);
+        RefuseOnHubStore();
+        var branch = CatalogBranch(actor, Roles.OwnerOnly);
         Guard.Text(request.FileName, "fileName", 200);
         if (request.Rows is not { Length: > 0 } || request.Rows.Length > CatalogFile.MaxRows)
             throw Errors.Invalid("import.size", $"El archivo debe tener entre 1 y {CatalogFile.MaxRows} filas.");
-        return maintenance.ImportCatalogAsync(branch, node.RequireLocation(), request, actor.StaffId, node.NodeId, commit, ct);
+        var location = branch is null ? (Guid?)null : node.RequireLocation();
+        return maintenance.ImportCatalogAsync(branch, location, request, actor.StaffId, node.NodeId, commit, ct);
     }
 }

@@ -1,0 +1,228 @@
+{
+ "scenario": "replay",
+ "verdict": "PASS",
+ "reason": "",
+ "identity": "restricted",
+ "manifest": {
+  "path": "tools/rehearsal/expected/replay.json",
+  "sha256": "06936c6d50d2ff6a8b4586860a2bff26e2d23487bbffa4e64ef0732a7afeab1e"
+ },
+ "seconds_total": 90.2,
+ "phases": [
+  {
+   "phase": "setup: 4 databases, node credentials, staff passwords, seed stock",
+   "seconds": 32.1
+  },
+  {
+   "phase": "start hub and 3 store hosts",
+   "seconds": 6.4
+  },
+  {
+   "phase": "open tills over HTTP",
+   "seconds": 1.8
+  },
+  {
+   "phase": "first convergence",
+   "seconds": 20.7
+  },
+  {
+   "phase": "A killed after the hub committed its push, before A hears the answer",
+   "seconds": 8.0
+  },
+  {
+   "phase": "B killed after the hub answered a pull carrying ra2, before B applies it",
+   "seconds": 5.0
+  },
+  {
+   "phase": "converge after restarts",
+   "seconds": 9.0
+  },
+  {
+   "phase": "checks",
+   "seconds": 6.1
+  }
+ ],
+ "events": [
+  {
+   "t": 38.9,
+   "event": "open till a",
+   "status": 204,
+   "problem": ""
+  },
+  {
+   "t": 39.3,
+   "event": "open till b",
+   "status": 204,
+   "problem": ""
+  },
+  {
+   "t": 40.2,
+   "event": "open till c",
+   "status": 204,
+   "problem": ""
+  },
+  {
+   "t": 61.3,
+   "event": "sale ra1 at a",
+   "status": 200,
+   "problem": ""
+  },
+  {
+   "t": 66.8,
+   "event": "kill point reached",
+   "fired": true,
+   "hub_status": 200
+  },
+  {
+   "t": 67.4,
+   "event": "hub holds ra1 while A is dead",
+   "count": 1
+  },
+  {
+   "t": 69.1,
+   "event": "sale ra2 at a",
+   "status": 200,
+   "problem": ""
+  },
+  {
+   "t": 71.6,
+   "event": "kill point reached",
+   "fired": true,
+   "hub_status": 200
+  },
+  {
+   "t": 72.1,
+   "event": "B does not hold ra2 yet",
+   "count": 0
+  },
+  {
+   "t": 73.9,
+   "event": "sale rc1 at c",
+   "status": 200,
+   "problem": ""
+  },
+  {
+   "t": 83.0,
+   "event": "converge after restarts: converged in 9.0s",
+   "differing": []
+  }
+ ],
+ "checks": {
+  "passed": 46,
+  "failed": 0,
+  "failures": []
+ },
+ "check_list": [
+  "PASS http ra1 accepted",
+  "PASS http ra2 accepted",
+  "PASS http rc1 accepted",
+  "PASS cloud: sale ra1 once with its effects",
+  "PASS cloud: sale ra2 once with its effects",
+  "PASS cloud: sale rc1 once with its effects",
+  "PASS cloud: no sale outside the manifest",
+  "PASS cloud: store a totals",
+  "PASS cloud: store b totals",
+  "PASS cloud: store c totals",
+  "PASS cloud: on hand at a",
+  "PASS cloud: on hand at b",
+  "PASS cloud: on hand at c",
+  "PASS a: sale ra1 once with its effects",
+  "PASS a: sale ra2 once with its effects",
+  "PASS a: sale rc1 once with its effects",
+  "PASS a: no sale outside the manifest",
+  "PASS a: store a totals",
+  "PASS a: store b totals",
+  "PASS a: store c totals",
+  "PASS a: on hand at a",
+  "PASS a: on hand at b",
+  "PASS a: on hand at c",
+  "PASS b: sale ra1 once with its effects",
+  "PASS b: sale ra2 once with its effects",
+  "PASS b: sale rc1 once with its effects",
+  "PASS b: no sale outside the manifest",
+  "PASS b: store a totals",
+  "PASS b: store b totals",
+  "PASS b: store c totals",
+  "PASS b: on hand at a",
+  "PASS b: on hand at b",
+  "PASS b: on hand at c",
+  "PASS c: sale ra1 once with its effects",
+  "PASS c: sale ra2 once with its effects",
+  "PASS c: sale rc1 once with its effects",
+  "PASS c: no sale outside the manifest",
+  "PASS c: store a totals",
+  "PASS c: store b totals",
+  "PASS c: store c totals",
+  "PASS c: on hand at a",
+  "PASS c: on hand at b",
+  "PASS c: on hand at c",
+  "PASS R1: every synced table identical on hub, a, b, c",
+  "PASS CONS: audit.usp_CheckConservation has 0 violations on 4 nodes",
+  "PASS sync converged"
+ ],
+ "controls": [],
+ "outcomes": {
+  "ra1": {
+   "ok": true,
+   "status": 200,
+   "detail": "200"
+  },
+  "ra2": {
+   "ok": true,
+   "status": 200,
+   "detail": "200"
+  },
+  "rc1": {
+   "ok": true,
+   "status": 200,
+   "detail": "200"
+  }
+ },
+ "sync_rounds_from_host_logs": {
+  "a": {
+   "successful_rounds": 8,
+   "rebuilt_rounds": 0,
+   "not_successful": 0,
+   "distinct_warnings": [],
+   "host_starts": 2
+  },
+  "b": {
+   "successful_rounds": 8,
+   "rebuilt_rounds": 0,
+   "not_successful": 0,
+   "distinct_warnings": [],
+   "host_starts": 2
+  },
+  "c": {
+   "successful_rounds": 8,
+   "rebuilt_rounds": 0,
+   "not_successful": 0,
+   "distinct_warnings": [],
+   "host_starts": 1
+  }
+ },
+ "hub_exchanges_seen_by_proxies": {
+  "a": {
+   "/sync/v1/push/plan 200": 18,
+   "/sync/v1/state 200": 9,
+   "/sync/v1/pull 200": 9,
+   "/sync/v1/push 200": 9,
+   "/sync/v1/push answer_dropped": 1
+  },
+  "b": {
+   "/sync/v1/push/plan 200": 17,
+   "/sync/v1/state 200": 9,
+   "/sync/v1/pull 200": 9,
+   "/sync/v1/push 200": 8,
+   "/sync/v1/pull answer_dropped": 1
+  },
+  "c": {
+   "/sync/v1/push/plan 200": 16,
+   "/sync/v1/state 200": 8,
+   "/sync/v1/pull 200": 8,
+   "/sync/v1/push 200": 8
+  }
+ },
+ "hub_rounds_log_errors": [],
+ "host_logs": ".out/rehearsal/runs/20261122-175156-replay"
+}

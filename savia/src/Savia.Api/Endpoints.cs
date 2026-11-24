@@ -4,20 +4,52 @@ using Savia.Domain;
 
 namespace Savia.Api;
 
-/// <summary>Reads the bearer token and loads the signed-in staff member, or answers 401.</summary>
+/// <summary>
+/// Reads the bearer token and loads the signed-in staff member, or answers 401. A staff member who signed in with a
+/// printed one-time password gets 403 auth.password_change_required everywhere except the routes marked with
+/// <see cref="PasswordChangeOpen"/> (V064).
+/// </summary>
 public sealed class ActorFilter(AuthService auth) : IEndpointFilter
 {
     public async ValueTask<object?> InvokeAsync(EndpointFilterInvocationContext context, EndpointFilterDelegate next)
     {
         var http = context.HttpContext;
-        http.Items[typeof(Actor)] = await auth.AuthenticateAsync(Http.BearerToken(http), http.RequestAborted);
+        var actor = await auth.AuthenticateAsync(Http.BearerToken(http), http.RequestAborted);
+        if (actor.MustChangePassword && http.GetEndpoint()?.Metadata.GetMetadata<PasswordChangeOpen>() is null)
+            throw new SaviaException(Errors.PasswordChangeRequired);
+        http.Items[typeof(Actor)] = actor;
         return await next(context);
     }
+}
+
+/// <summary>Endpoint metadata: the route answers a staff member who must still change a one-time password.</summary>
+public sealed class PasswordChangeOpen
+{
+    public static readonly PasswordChangeOpen Instance = new();
+
+    private PasswordChangeOpen() { }
 }
 
 public static class Http
 {
     public static Actor Actor(this HttpContext http) => (Actor)http.Items[typeof(Actor)]!;
+
+    /// <summary>
+    /// The body stays the plain array of earlier releases. The next page is in the standard Link header
+    /// (RFC 8288): the same request with <c>after</c> set to the last row of this page.
+    /// </summary>
+    public static IReadOnlyList<T> Paged<T>(this HttpContext http, Page<T> page)
+    {
+        if (page.NextAfter is not null)
+        {
+            var query = QueryString.Create(http.Request.Query
+                .Where(p => p.Key != "after")
+                .Select(p => KeyValuePair.Create<string, string?>(p.Key, p.Value.ToString()))
+                .Append(KeyValuePair.Create<string, string?>("after", page.NextAfter)));
+            http.Response.Headers.Link = $"<{http.Request.PathBase}{http.Request.Path}{query}>; rel=\"next\"";
+        }
+        return page.Items;
+    }
 
     public static string BearerToken(HttpContext http)
     {
@@ -68,6 +100,10 @@ public static class SaviaEndpoints
         CatalogEndpoints.Map(open, api, node);
         InventoryEndpoints.Map(api, node);
         TagsEndpoints.Map(api, app);
+        SyncEndpoints.Map(app, api, node);
+        PublicEndpoints.Map(open, node);
+        WebStoreEndpoints.Map(api, node);
+        CreditTransferEndpoints.Map(api, node);
         if (node.Kind != NodeKind.Branch) return;
 
         ReceivingEndpoints.Map(api);

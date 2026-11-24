@@ -1,0 +1,265 @@
+{
+ "scenario": "reference_data",
+ "verdict": "PASS",
+ "reason": "",
+ "identity": "restricted",
+ "manifest": {
+  "path": "tools/rehearsal/expected/reference_data.json",
+  "sha256": "1a48b99cf6429f9541c64d9daffaaa0bd139556a6a2f7f2dedb89103b1c92925"
+ },
+ "seconds_total": 82.2,
+ "phases": [
+  {
+   "phase": "setup: 4 databases, node credentials, staff passwords, seed stock",
+   "seconds": 28.9
+  },
+  {
+   "phase": "start hub and 3 store hosts",
+   "seconds": 6.2
+  },
+  {
+   "phase": "open tills over HTTP",
+   "seconds": 1.9
+  },
+  {
+   "phase": "first convergence",
+   "seconds": 22.4
+  },
+  {
+   "phase": "A cut off; A registers a customer and sells to it (HTTP)",
+   "seconds": 0.5
+  },
+  {
+   "phase": "hub owner changes the item price (HTTP)",
+   "seconds": 0.4
+  },
+  {
+   "phase": "link back",
+   "seconds": 0.0
+  },
+  {
+   "phase": "converge customer, sale and price",
+   "seconds": 13.7
+  },
+  {
+   "phase": "customer, its sale and the hub price on every node; no foreign key refusal",
+   "seconds": 2.0
+  },
+  {
+   "phase": "checks",
+   "seconds": 5.4
+  }
+ ],
+ "events": [
+  {
+   "t": 35.7,
+   "event": "open till a",
+   "status": 204,
+   "problem": ""
+  },
+  {
+   "t": 36.4,
+   "event": "open till b",
+   "status": 204,
+   "problem": ""
+  },
+  {
+   "t": 37.0,
+   "event": "open till c",
+   "status": 204,
+   "problem": ""
+  },
+  {
+   "t": 59.9,
+   "event": "sale n1 at a",
+   "status": 200,
+   "problem": ""
+  },
+  {
+   "t": 74.0,
+   "event": "converge customer, sale and price: converged in 13.7s",
+   "differing": []
+  }
+ ],
+ "checks": {
+  "passed": 43,
+  "failed": 0,
+  "failures": []
+ },
+ "check_list": [
+  "PASS http n1 accepted",
+  "PASS cloud: sale n1 once with its effects",
+  "PASS cloud: no sale outside the manifest",
+  "PASS cloud: store a totals",
+  "PASS cloud: store b totals",
+  "PASS cloud: store c totals",
+  "PASS cloud: on hand at a",
+  "PASS cloud: on hand at b",
+  "PASS cloud: on hand at c",
+  "PASS a: sale n1 once with its effects",
+  "PASS a: no sale outside the manifest",
+  "PASS a: store a totals",
+  "PASS a: store b totals",
+  "PASS a: store c totals",
+  "PASS a: on hand at a",
+  "PASS a: on hand at b",
+  "PASS a: on hand at c",
+  "PASS b: sale n1 once with its effects",
+  "PASS b: no sale outside the manifest",
+  "PASS b: store a totals",
+  "PASS b: store b totals",
+  "PASS b: store c totals",
+  "PASS b: on hand at a",
+  "PASS b: on hand at b",
+  "PASS b: on hand at c",
+  "PASS c: sale n1 once with its effects",
+  "PASS c: no sale outside the manifest",
+  "PASS c: store a totals",
+  "PASS c: store b totals",
+  "PASS c: store c totals",
+  "PASS c: on hand at a",
+  "PASS c: on hand at b",
+  "PASS c: on hand at c",
+  "PASS R1: every synced table identical on hub, a, b, c",
+  "PASS CONS: audit.usp_CheckConservation has 0 violations on 4 nodes",
+  "PASS sync converged",
+  "PASS control cashier A registers the customer while cut off",
+  "PASS control hub owner changes the price",
+  "PASS control cloud holds the customer, its sale and the hub price",
+  "PASS control a holds the customer, its sale and the hub price",
+  "PASS control b holds the customer, its sale and the hub price",
+  "PASS control c holds the customer, its sale and the hub price",
+  "PASS control no foreign key refusal (Msg 547) in any host log"
+ ],
+ "controls": [
+  {
+   "control": "cashier A registers the customer while cut off",
+   "ok": true,
+   "expected": "204",
+   "actual": "204 "
+  },
+  {
+   "control": "hub owner changes the price",
+   "ok": true,
+   "expected": "204",
+   "actual": "204 "
+  },
+  {
+   "control": "cloud holds the customer, its sale and the hub price",
+   "ok": true,
+   "expected": {
+    "c": 1,
+    "s": 1,
+    "p": 125000
+   },
+   "actual": {
+    "c": 1,
+    "s": 1,
+    "p": 125000
+   }
+  },
+  {
+   "control": "a holds the customer, its sale and the hub price",
+   "ok": true,
+   "expected": {
+    "c": 1,
+    "s": 1,
+    "p": 125000
+   },
+   "actual": {
+    "c": 1,
+    "s": 1,
+    "p": 125000
+   }
+  },
+  {
+   "control": "b holds the customer, its sale and the hub price",
+   "ok": true,
+   "expected": {
+    "c": 1,
+    "s": 1,
+    "p": 125000
+   },
+   "actual": {
+    "c": 1,
+    "s": 1,
+    "p": 125000
+   }
+  },
+  {
+   "control": "c holds the customer, its sale and the hub price",
+   "ok": true,
+   "expected": {
+    "c": 1,
+    "s": 1,
+    "p": 125000
+   },
+   "actual": {
+    "c": 1,
+    "s": 1,
+    "p": 125000
+   }
+  },
+  {
+   "control": "no foreign key refusal (Msg 547) in any host log",
+   "ok": true,
+   "expected": "none",
+   "actual": "none"
+  }
+ ],
+ "outcomes": {
+  "n1": {
+   "ok": true,
+   "status": 200,
+   "detail": "200"
+  }
+ },
+ "sync_rounds_from_host_logs": {
+  "a": {
+   "successful_rounds": 7,
+   "rebuilt_rounds": 0,
+   "not_successful": 1,
+   "distinct_warnings": [
+    "Sync round could not reach the hub: An error occurred while sending the request."
+   ],
+   "host_starts": 1
+  },
+  "b": {
+   "successful_rounds": 7,
+   "rebuilt_rounds": 0,
+   "not_successful": 0,
+   "distinct_warnings": [],
+   "host_starts": 1
+  },
+  "c": {
+   "successful_rounds": 7,
+   "rebuilt_rounds": 0,
+   "not_successful": 0,
+   "distinct_warnings": [],
+   "host_starts": 1
+  }
+ },
+ "hub_exchanges_seen_by_proxies": {
+  "a": {
+   "/sync/v1/push/plan 200": 15,
+   "/sync/v1/state 200": 8,
+   "/sync/v1/pull 200": 7,
+   "/sync/v1/push 200": 7,
+   "/sync/v1/pull hub_unreachable": 1
+  },
+  "b": {
+   "/sync/v1/push/plan 200": 14,
+   "/sync/v1/state 200": 7,
+   "/sync/v1/pull 200": 7,
+   "/sync/v1/push 200": 7
+  },
+  "c": {
+   "/sync/v1/push/plan 200": 14,
+   "/sync/v1/state 200": 7,
+   "/sync/v1/pull 200": 7,
+   "/sync/v1/push 200": 7
+  }
+ },
+ "hub_rounds_log_errors": [],
+ "host_logs": ".out/rehearsal/runs/20261122-180141-reference_data"
+}

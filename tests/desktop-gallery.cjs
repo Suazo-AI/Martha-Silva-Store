@@ -107,7 +107,7 @@ async function boot({desktop=true,reduced=false,width=360,deferScroll=false}={})
   w.HTMLDialogElement.prototype.close=function(){this.open=false;this.dispatchEvent(new w.Event('close'));};
   w.barba={init(options){router=options.transitions[0];}};
   for(const file of ['catalog.js','locale-en.js','i18n.js'])w.eval(fs.readFileSync(path.join(staticRoot,file),'utf8'));
-  for(const file of ['demo-api.js','integration-adapters.js','app.js'])w.eval(fs.readFileSync(path.join(root,'src',file),'utf8'));
+  for(const file of ['store-api.js','integration-adapters.js','app.js'])w.eval(fs.readFileSync(path.join(root,'src',file),'utf8'));
   await settle();await settle();
   assert.equal(slides.length,FIXTURE.slides,'fixture binding: slide count');
   assert.equal(slides.filter(node=>node.matches('.gallery-photo')).length,FIXTURE.photos,'fixture binding: photo count');

@@ -1,12 +1,13 @@
 import * as api from '../api.mjs';
 import { confirmAction } from '../confirm.mjs';
 import { formatMoney, parseMoney } from '../money.mjs';
-import { h, replace, showError } from '../ui.mjs';
+import { h, replace, showCatalogManagedCentrally, showError } from '../ui.mjs';
 import { saleDate } from './sale-view.mjs';
 
 export default {
   title: 'Precios',
-  async mount(root) {
+  async mount(root, ctx) {
+    if (showCatalogManagedCentrally(root, ctx?.me)) return {};
     const message = h('p', { role: 'alert' }),
       list = h('div', { id: 'price-list', class: 'form' });
     const query = h('input', { id: 'price-search', type: 'search', placeholder: 'Nombre o SKU' });

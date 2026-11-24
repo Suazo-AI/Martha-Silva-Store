@@ -1,0 +1,240 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-22T16:13:18.875140+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/db/migrations/MANIFEST.sha256",
+      "change": "M",
+      "git_blob": "f265a3d628e40f1af7917343cf58fa7a686a27c2"
+    },
+    {
+      "path": "savia/db/migrations/V057__web_payment_review.sql",
+      "change": "A",
+      "git_blob": "1e3df54137806f079375d9eff08349d3f1affa29"
+    },
+    {
+      "path": "savia/db/migrations/V058__kpi_business_one_pass.sql",
+      "change": "A",
+      "git_blob": "315ceefa2fe19821d3362c5bf3c5e59f74903ed0"
+    },
+    {
+      "path": "savia/db/migrations/V059__catalog_import_set_based_commit.sql",
+      "change": "A",
+      "git_blob": "6686e8041ec3fe3167c524e5cc40d8c7bae4276c"
+    },
+    {
+      "path": "savia/db/tests/catalog/155_import_commit_equals_v039.sql",
+      "change": "A",
+      "git_blob": "604cca60e9d6cb84be1c961171be36ae840faff0"
+    },
+    {
+      "path": "savia/db/tests/sales/250_kpi_business_equals_v030.sql",
+      "change": "M",
+      "git_blob": "62c3f6f56aaf99c93b11a1cde5d5c7a938454df4"
+    },
+    {
+      "path": "savia/db/tests/webstore/170_card_capture_review.sql",
+      "change": "A",
+      "git_blob": "d2b8d6c0836e10350d5ba290a1239fdd50837c4d"
+    },
+    {
+      "path": "savia/db/tests/webstore/180_payment_review_resolution.sql",
+      "change": "A",
+      "git_blob": "5dda5dba08ab5c4601f83a937d32b6858361d44d"
+    },
+    {
+      "path": "savia/docs/evidence/money-and-speed-20261122/README.md",
+      "change": "A",
+      "git_blob": "3fbf7b4275b71e6e5d41f30b790a5f5c22cf7233"
+    },
+    {
+      "path": "savia/docs/evidence/money-and-speed-20261122/bench-after-import2.txt",
+      "change": "A",
+      "git_blob": "549d0f7b03cea22d51ad49d9fcde484eecfe27d9"
+    },
+    {
+      "path": "savia/docs/evidence/money-and-speed-20261122/bench-after.txt",
+      "change": "A",
+      "git_blob": "46b16d3388f2130ac0a6562ae90bd9294d0eab03"
+    },
+    {
+      "path": "savia/docs/evidence/money-and-speed-20261122/bench-before.txt",
+      "change": "A",
+      "git_blob": "9b6e549fd1d548ac07e7123e71aab3dbaadc3a0b"
+    },
+    {
+      "path": "savia/docs/evidence/money-and-speed-20261122/green-dotnet.txt",
+      "change": "A",
+      "git_blob": "764a8cac20cac49c99ebac38993d31f17655ae85"
+    },
+    {
+      "path": "savia/docs/evidence/money-and-speed-20261122/green-web.txt",
+      "change": "A",
+      "git_blob": "8d0575b4a115135f89e2e530343942cae382cb33"
+    },
+    {
+      "path": "savia/docs/evidence/money-and-speed-20261122/p1-155-green-on-v059.txt",
+      "change": "A",
+      "git_blob": "7d9397c839a1ce0f8912baaf3f38f452a44fb64f"
+    },
+    {
+      "path": "savia/docs/evidence/money-and-speed-20261122/p1-155-red-on-v039.txt",
+      "change": "A",
+      "git_blob": "15155c12df0a90cf0108d40dfebc54e5d5fe0dd3"
+    },
+    {
+      "path": "savia/docs/evidence/money-and-speed-20261122/p1-catalog-green-v059-cursor.txt",
+      "change": "A",
+      "git_blob": "9ead8fe7c1a9f870cb32d6141e4da501cdcaaef0"
+    },
+    {
+      "path": "savia/docs/evidence/money-and-speed-20261122/p1-mutant-balance-actor.txt",
+      "change": "A",
+      "git_blob": "716a91c4964dd83c8863b387037e2adf4de5a5fc"
+    },
+    {
+      "path": "savia/docs/evidence/money-and-speed-20261122/p1-mutant-event-order-cursor.txt",
+      "change": "A",
+      "git_blob": "a7a8ee3bfe67163b066c32201458e993c993f46e"
+    },
+    {
+      "path": "savia/docs/evidence/money-and-speed-20261122/p1-mutant-event-order.txt",
+      "change": "A",
+      "git_blob": "a105ef9fbd2fb64dba8bdfacbdf55693ae30f699"
+    },
+    {
+      "path": "savia/docs/evidence/money-and-speed-20261122/p1-mutant-status.txt",
+      "change": "A",
+      "git_blob": "fd3523b235f094765a2be585b42d7be5a9e41502"
+    },
+    {
+      "path": "savia/docs/evidence/money-and-speed-20261122/p2-250-on-v040.txt",
+      "change": "A",
+      "git_blob": "a89852c90664dab25c91488662338dc0e9f6c2ab"
+    },
+    {
+      "path": "savia/docs/evidence/money-and-speed-20261122/p2-250-on-v058.txt",
+      "change": "A",
+      "git_blob": "a89852c90664dab25c91488662338dc0e9f6c2ab"
+    },
+    {
+      "path": "savia/docs/evidence/money-and-speed-20261122/p2-mutant-no-fallback.txt",
+      "change": "A",
+      "git_blob": "6a7717ddfee668c3277f0149ef4fd1f7ee1a79ff"
+    },
+    {
+      "path": "savia/docs/evidence/money-and-speed-20261122/p2-mutant-no-sku.txt",
+      "change": "A",
+      "git_blob": "528508ba394affd362d15f84a09deedf07c78725"
+    },
+    {
+      "path": "savia/docs/evidence/money-and-speed-20261122/red-170.txt",
+      "change": "A",
+      "git_blob": "2b2c25f973d82ee2070644184d4bb04cc91d335f"
+    },
+    {
+      "path": "savia/docs/evidence/money-and-speed-20261122/red-180.txt",
+      "change": "A",
+      "git_blob": "54aeebfd896dcdf1573d41be1a4611ee3a6d7b67"
+    },
+    {
+      "path": "savia/docs/evidence/money-and-speed-20261122/red-dotnet.txt",
+      "change": "A",
+      "git_blob": "a42915db2c122a8e507bd8009f243a499973c345"
+    },
+    {
+      "path": "savia/docs/evidence/money-and-speed-20261122/red-web.txt",
+      "change": "A",
+      "git_blob": "ab7c83ea51d61db8b9edc4b0f06eaf2707e80b41"
+    },
+    {
+      "path": "savia/docs/webstore/ORDER-PATH.md",
+      "change": "M",
+      "git_blob": "a39c79ef776a3f6fe9d98cb161d20c03a42de8fc"
+    },
+    {
+      "path": "savia/src/Savia.Api/WebStoreEndpoints.cs",
+      "change": "M",
+      "git_blob": "40a93a7cfdd8629c9e76200866ddf6d09514f96d"
+    },
+    {
+      "path": "savia/src/Savia.Api/WebStoreHosting.cs",
+      "change": "M",
+      "git_blob": "d7ce15568580c6d3e24713da86697682a2782c99"
+    },
+    {
+      "path": "savia/src/Savia.Application/WebStore.cs",
+      "change": "M",
+      "git_blob": "831d93fd0bc24efbfd3903b96ea01746ee9a5582"
+    },
+    {
+      "path": "savia/src/Savia.Contracts/WebStore.cs",
+      "change": "M",
+      "git_blob": "996227db0286af3332991ca05329f2d36ba26031"
+    },
+    {
+      "path": "savia/src/Savia.Infrastructure/WebStoreStore.cs",
+      "change": "M",
+      "git_blob": "1934a8c45b7d7dad4ad7e27584874ef3a425f505"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/FakeHostedGateway.cs",
+      "change": "M",
+      "git_blob": "11370b1468edb6bdc180020c1d16c18762c835a2"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/WebOrderHub.cs",
+      "change": "A",
+      "git_blob": "3add8abd782af225f13f478359c1afca1cff5cae"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/WebOrderVerticalSlicePaymentReviewTests.cs",
+      "change": "A",
+      "git_blob": "2d5b42a6ce58ba1828c5fe2d8fe8a692d010f99c"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/WebOrderVerticalSliceTests.cs",
+      "change": "M",
+      "git_blob": "79e1347b308e7d8c34d740797777925bb243beff"
+    },
+    {
+      "path": "savia/tools/load/api_bench.py",
+      "change": "M",
+      "git_blob": "2ecbdb8008da0a5d3eb3fc778402dba1bd7995cd"
+    },
+    {
+      "path": "savia/tools/load/generate.py",
+      "change": "M",
+      "git_blob": "0269c509050533a2407baf2ba7857cf735845836"
+    },
+    {
+      "path": "savia/tools/load/import_fix_probe.py",
+      "change": "M",
+      "git_blob": "6d08eb134dba9f20412f20c50d42df7817bfd96b"
+    },
+    {
+      "path": "savia/tools/load/sql_stats.py",
+      "change": "M",
+      "git_blob": "7891c94bfa1060b0d4a22ad3ac99309ac19de1e1"
+    },
+    {
+      "path": "savia/web/screens/web-orders-logic.mjs",
+      "change": "M",
+      "git_blob": "aebaf727d8a3a65a51f280cb68c67d87691216d3"
+    },
+    {
+      "path": "savia/web/screens/web-orders.mjs",
+      "change": "M",
+      "git_blob": "d5ec115c7ddbea6979cde98c5df4b25ee2093ca5"
+    },
+    {
+      "path": "savia/web/tests/web-orders.test.mjs",
+      "change": "M",
+      "git_blob": "e4855a1b9b0015aff6b1d3997a3171c86937d58a"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

@@ -3,6 +3,8 @@ from pathlib import Path
 import hashlib,json,unittest
 from PIL import Image
 ROOT=Path(__file__).resolve().parents[1]
+import sys;sys.path.insert(0,str(ROOT))
+from prepare import public_bytes
 STATIC=ROOT/'build-inputs/static'
 class ResponsiveImages(unittest.TestCase):
  def test_originals_dimensions_hashes_and_fallback(self):
@@ -21,12 +23,12 @@ class ResponsiveImages(unittest.TestCase):
     with Image.open(f) as im:self.assertEqual(im.size,(d['width'],d['height']))
     self.assertEqual(d['height'],round(a['height']*d['width']/a['width']))
     self.assertLessEqual(d['width'],a['width'])
-  self.assertEqual(hashlib.sha256((STATIC/'catalog.js').read_bytes()).hexdigest(),hashes['build-inputs/static/catalog.js'])
+  self.assertEqual(hashlib.sha256((STATIC/'catalog.js').read_bytes()).hexdigest(),json.loads((ROOT/'tests/fixtures/published-catalog-contract.json').read_text(encoding='utf-8'))['source_catalog_sha256'])
   # Page bytes are pinned by tools/pin_page_hashes.py; the October release manifest stays untouched evidence.
   pins=json.loads((ROOT/'tests/page-hashes.json').read_text(encoding='utf-8'))
   self.assertEqual(sorted(p.name for p in STATIC.glob('*.html')),sorted(pins))
   for page in STATIC.glob('*.html'):
    s=page.read_bytes()
    self.assertEqual(hashlib.sha256(s).hexdigest(),pins[page.name],page.name)
-   self.assertEqual(s,(ROOT/'dist'/page.name).read_bytes())
+   self.assertEqual(public_bytes(page.name,s),(ROOT/'dist'/page.name).read_bytes())
 if __name__=='__main__':unittest.main()

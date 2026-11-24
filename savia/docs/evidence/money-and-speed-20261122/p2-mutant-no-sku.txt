@@ -1,0 +1,2 @@
+FAIL    sales/250_kpi_business_equals_v030.sql  -- ASSERT FAIL: same JSON for day 2026-11-22 expected=1 actual=0
+SUMMARY FAIL=1  logs: .out\dbtests

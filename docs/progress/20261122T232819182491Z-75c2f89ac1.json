@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-22T23:28:19.182491+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "build-inputs/static/_headers",
+      "change": "M",
+      "git_blob": "f3ff340c4992189e81a4595d6c2ff007f3b0147e"
+    },
+    {
+      "path": "dist/_headers",
+      "change": "M",
+      "git_blob": "f3ff340c4992189e81a4595d6c2ff007f3b0147e"
+    },
+    {
+      "path": "evidence/releases/20261105/responsive-runtime-sha256.json",
+      "change": "M",
+      "git_blob": "590d6999b94b438f62f9f8049b19ffc03c3da5b4"
+    },
+    {
+      "path": "tests/static_headers.py",
+      "change": "M",
+      "git_blob": "6d230c5783f0072769f6947aff99302715ba54ff"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

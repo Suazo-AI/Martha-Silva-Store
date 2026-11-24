@@ -1,5 +1,7 @@
 # Plan de SAVIA v2
 
+Actualización 2026-11-22: el estado vigente, fila por fila, está en el [programa de producción](../../docs/production-20261122/README.md); el hub corre en Azure hasta V061 y la tabla de abajo conserva el corte anterior.
+
 Actualización 2026-11-16: [avance, UX publicado y corrección del verificador](../../docs/savia-completion-20261116/README.md).
 Los criterios entre sucursales de la tabla siguen pendientes. La evidencia de una base no los cierra.
 
@@ -18,13 +20,13 @@ Cada fila de esta tabla es una prueba que puede fallar. Sin prueba ejecutada no 
 | A-01 | El SQL instala desde cero sin errores | Un procedimiento no compila | `saviadb.py` + CP0 | verificado en una base |
 | A-02 | 100 lecturas del mismo código suman 100 en una línea | 100 SKU, o stock antes de aprobar | `db/tests/receiving/010` | verificado en una base |
 | A-03 | La caja vende con la nube apagada y deja registro para sincronizar | Espera a la nube o no deja registro | `VerticalSliceTests` | verificado en una base |
-| A-04 | Reintentar una sincronización no repite efectos | Doble stock o doble venta | Simulador con semillas | pendiente: el simulador aún no repite lotes |
+| A-04 | Reintentar una sincronización no repite efectos | Doble stock o doble venta | Simulador con semillas | verificado en simulador y transporte P9 (2026-11-20, V034): escenario `replay`, T-SQL `sync/210` y pruebas .NET `Sync*` pasan; hub desplegado sin P9 todavía; ver [P9-SPEC](sync/P9-SPEC.md) |
 | A-05 | Un anticipo transferido no se gasta en origen y destino | Doble canje | Simulador con semillas | verificado en el simulador: 3 semillas y `cancel_vs_dispatch` ([evidencia](evidence/cp4-sim-20261120/README.md)); transporte real pendiente |
 | A-06 | Arqueo y documento contable se registran una sola vez | Ingreso duplicado o segunda factura | `db/tests/sales/010` | verificado en una base |
 | A-07 | La etiqueta lleva el código original y la tienda; un trabajo no se pierde en silencio | Código alterado o trabajo descartado | `db/tests/receiving/010` (cola); impresora real | cola verificada; impresora NO probada |
 | A-08 | Una cajera de A no cambia datos de B | Acceso entre sucursales | `VerticalSliceTests` | verificado en el host de sucursal; falta la nube |
 | A-09 | Restaurar un respaldo viejo no revive derechos gastados | Saldo viejo canjeado otra vez | Simulador con semillas | parcial: el saldo no revive; falta el evento de outbox de ventas recuperadas ([evidencia](evidence/cp4-sim-20261120/README.md)) |
-| A-10 | Rendimiento medido con 50 000 productos y 250 000 variantes | Solo afirmaciones teóricas | Prueba de carga | pendiente |
+| A-10 | Rendimiento medido con 50 000 productos y 250 000 variantes | Medición local 2026-11-21: búsqueda, KPI negocio, importación y reconstrucción de sync fallan el objetivo ([evidencia](evidence/load-a10-20261121/README.md)). Tras V039-V042 (2026-11-22): búsqueda p95 158 ms y listas paginadas de 500 filas (máx. 162 KB) pasan; importación sin 503 pero 2,2-15 s por 1 000 filas; KPI negocio p95 1,9-2,4 s sigue sobre 1 s ([evidencia](evidence/performance-20261122/README.md)) | Prueba de carga | parcial; faltan KPI negocio bajo 1 s, importación bajo 3 s con carga, reconstrucción de sync y Azure SQL Basic |
 
 "Verificado en una base" significa que la regla se cumple dentro de un nodo. Entre nodos falta CP4.
 
@@ -33,12 +35,12 @@ Cada fila de esta tabla es una prueba que puede fallar. Sin prueba ejecutada no 
 | CP | Entrega | Estado | Evidencia |
 | --- | --- | --- | --- |
 | CP0 | SQL real en SQL Server 2022, línea base corregida | hecho | [cp0-sql-install](evidence/cp0-sql-install/README.md) |
-| CP1 | Arnés de pruebas de base y auditoría de los 44 procedimientos | hecho: 113 pruebas, los 44 tienen prueba; revisión escrita de anticipos y web pendiente | `python savia/tools/db/saviadb.py test` |
-| CP2 | ADR-001 y crítica independiente previa al código de sync | revisión 2 con la crítica incorporada; F14 abierto | [ADR-001](adr/ADR-001-arquitectura.md), [crítica](adr/ADR-001-critica.md) |
+| CP1 | Arnés de pruebas de base y auditoría de los 44 procedimientos | hecho: 113 pruebas, los 44 tienen prueba; revisión escrita de anticipos y web pendiente. Corrección 2026-11-21: `check.py` en `155ca23b` pasa 149 pruebas T-SQL y 195 de 195 .NET | `python savia/tools/db/saviadb.py test` |
+| CP2 | ADR-001 y crítica independiente previa al código de sync | revisión 2 con la crítica incorporada; F14 abierto. Corrección 2026-11-21: F14 cerrado según AZURE.md (V008 y V011 aplicadas en Azure SQL Basic el 2026-11-20; no releído en vivo) | [ADR-001](adr/ADR-001-arquitectura.md), [crítica](adr/ADR-001-critica.md) |
 | CP3 | Slice vertical de la API con pruebas contra SQL real | hecho (un nodo) | [cp3-vertical-slice](evidence/cp3-vertical-slice/README.md) |
-| CP4 | Sync 1 nube + 3 sucursales, oráculo y simulador | en curso: S1 base de sync (V008) | [S1](evidence/cp4-s1-sync-foundation/README.md) |
-| CP5 | Clientes sobre el contrato generado | pendiente | — |
-| CP6 | Carga, respaldos, permisos y preparación de Azure sin desplegar | pendiente | — |
+| CP4 | Sync 1 nube + 3 sucursales, oráculo y simulador | en curso: S1 base de sync (V008). Corrección 2026-11-21: transporte P9 construido y probado en local (`4a207848`, V032-V034), sin desplegar; bloquean G1-G3 y G6 de [GAPS](deploy/GAPS-20261120.md) | [S1](evidence/cp4-s1-sync-foundation/README.md) |
+| CP5 | Clientes sobre el contrato generado | pendiente. Nota 2026-11-21: la API publica `/openapi/v1.json` (`Program.cs:19`), pero el cliente web sigue escrito a mano | — |
+| CP6 | Carga, respaldos, permisos y preparación de Azure sin desplegar | pendiente. Corrección 2026-11-21: el hub se desplegó a mano en Azure el 2026-11-20 (`612f45ba`, imagen `9a55759`); faltan A-10, P5 y la guía de respaldo de sucursal (G4, G5, G9, G10) | [GAPS](deploy/GAPS-20261120.md) |
 
 ## Agentes
 

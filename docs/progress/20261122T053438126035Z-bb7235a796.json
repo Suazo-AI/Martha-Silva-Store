@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-22T05:34:38.126035+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/docs/evidence/rehearsal-20261121/README.md",
+      "change": "M",
+      "git_blob": "dad25a09796693ef16b543967bdd159612031eff"
+    },
+    {
+      "path": "savia/docs/evidence/rehearsal-20261121/controls.json",
+      "change": "M",
+      "git_blob": "524e7f5b6fda1a91acd59db34a55833111e7c5c8"
+    },
+    {
+      "path": "savia/docs/evidence/rehearsal-20261121/credit_transfer.json",
+      "change": "M",
+      "git_blob": "636e30764523861ea97ccdb591793d9d74b2c48f"
+    },
+    {
+      "path": "savia/docs/evidence/rehearsal-20261121/hub_restart.json",
+      "change": "M",
+      "git_blob": "08b3f4e24cabbf40f292dc7f6ade020c791cb6cc"
+    },
+    {
+      "path": "savia/docs/evidence/rehearsal-20261121/offline_sales.json",
+      "change": "M",
+      "git_blob": "e774441d0a22ec3c45d3be200dcc2fa151ea1fa5"
+    },
+    {
+      "path": "savia/docs/evidence/rehearsal-20261121/replay.json",
+      "change": "M",
+      "git_blob": "168ae7e4204de52e8298eddc8654e8ba75300937"
+    },
+    {
+      "path": "savia/docs/evidence/rehearsal-20261121/restore_sale_before_rebuild.json",
+      "change": "M",
+      "git_blob": "5f30783bf7ec8fbeecd9e22c5b37627516c7a2a5"
+    },
+    {
+      "path": "savia/docs/evidence/rehearsal-20261121/summary.json",
+      "change": "M",
+      "git_blob": "0f6898168fb7f9370a2f8f11cf23ed4c567bb98e"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

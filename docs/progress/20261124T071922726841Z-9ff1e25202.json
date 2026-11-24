@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-24T07:19:22.726841+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/production-20261122/README.md",
+      "change": "M",
+      "git_blob": "f1492e1a73a29d68fdd3f03790fbf87e97342bae"
+    },
+    {
+      "path": "docs/production-20261122/STORE-PC-20261124.md",
+      "change": "M",
+      "git_blob": "e3848854f0075361c540edc4759e2ac07139a8ce"
+    },
+    {
+      "path": "docs/production-20261122/public-api-azure/README.md",
+      "change": "A",
+      "git_blob": "7a8391316f106ccf9eab9570c01c4156d5b1eb09"
+    },
+    {
+      "path": "docs/production-20261122/public-api-azure/run-20261124.json",
+      "change": "A",
+      "git_blob": "78af58ea97f518337446516ecc015f287a0e3467"
+    },
+    {
+      "path": "docs/production-20261122/public-api-azure/run-20261124.txt",
+      "change": "A",
+      "git_blob": "d6de48dd4ecafa10ac753ba24d4e0050ee3d3dfb"
+    },
+    {
+      "path": "savia/deploy/store-pc/README.md",
+      "change": "M",
+      "git_blob": "6b4aa77902d76649b6e1cb35f3bf55589cfd7445"
+    },
+    {
+      "path": "savia/deploy/store-pc/backup-store.ps1",
+      "change": "A",
+      "git_blob": "bd7bf94aefe8f239f2bdea892359d3b6131d0eb5"
+    },
+    {
+      "path": "savia/deploy/store-pc/run-job.ps1",
+      "change": "M",
+      "git_blob": "3550ce174964353cf419d85a56b3f1e07546e1d4"
+    },
+    {
+      "path": "savia/deploy/store-pc/start-store.ps1",
+      "change": "M",
+      "git_blob": "be9fc360934f05434f234925704fa8979787d610"
+    },
+    {
+      "path": "savia/tools/rehearsal/e2e_azure.py",
+      "change": "A",
+      "git_blob": "b32e58dfb9abe66be294cd9c33a3cb065afe021f"
+    },
+    {
+      "path": "savia/tools/rehearsal/public_api_azure.py",
+      "change": "A",
+      "git_blob": "ab0df82c0524686a5f6a39916a3a2a6654a99d97"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

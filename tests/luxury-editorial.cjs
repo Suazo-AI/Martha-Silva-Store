@@ -9,6 +9,8 @@ const test = require('node:test');
 const {JSDOM, VirtualConsole} = require('./frontend-deps/node_modules/jsdom');
 const root = path.resolve(__dirname, '..');
 const dist = path.join(root, 'dist');
+// Evidence records source paths; dist publishes them under neutral names (build-inputs/public-paths.json).
+const {publicPath, publicBytes} = require('./public-paths.cjs');
 const manifest = require('../evidence/luxury/editorial-provenance.json');
 const assets = new Map(manifest.assets.flatMap(asset => asset.derivatives.map(derivative => [derivative.runtime_path, {...derivative, original: asset.original, post: asset.post_id}])));
 const publication = require('./fixtures/published-catalog-contract.json');
@@ -64,7 +66,7 @@ test('new sections have named headings and preserve the independent bridal secti
 
 test('only the new lead receives high priority; all supporting and editorial images are lazy', () => withDOM(d => {
   const lead = d.querySelector('.hero-oh img');
-  assert.equal(lead.getAttribute('src'), '/generated-luxury/dorado/01-front-v1.png');
+  assert.equal(lead.getAttribute('src'), publicPath('/generated-luxury/dorado/01-front-v1.png'));
   assert.equal(lead.getAttribute('fetchpriority'), 'high');
   assert.equal(lead.getAttribute('loading'), 'eager');
   assert.equal(d.querySelectorAll('img[fetchpriority="high"]').length, 2);
@@ -101,14 +103,15 @@ function assertCurrentImages(d) {
   assert.match(d.querySelector('.ho-copy h1').textContent,/Noche de gala/);
   assert.match(d.querySelector('meta[name="robots"]').content, /noindex/);
   for (const img of d.querySelectorAll('.hero-oh img, .luxury-editorial img')) {
-    const url=img.getAttribute('src'), record=selected.get(url), derived=responsive.get(url);
+    const url=img.getAttribute('src'), sourceUrl=[...selected.keys()].find(key=>publicPath(key)===url);
+    const record=selected.get(sourceUrl), derived=responsive.get(sourceUrl);
     assert.ok(record, 'Independent publication selection: '+url);
     const bytes=fs.readFileSync(path.join(dist,url));
     assert.equal(hash(bytes),record.sha256);
     assert.deepEqual(dimensions(bytes), {width:record.dimensions[0],height:record.dimensions[1]});
     assert.equal(+img.getAttribute('width'),record.dimensions[0]);
     assert.equal(+img.getAttribute('height'),record.dimensions[1]);
-    assert.match(img.alt,/Imagen generada con IA/);
+    assert.ok(img.alt.trim().length>0);assert.doesNotMatch(img.alt,/generada con IA/i);
     assert.equal(img.getAttribute('decoding'),'async');
     assert.equal(img.getAttribute('srcset'),url+' '+record.dimensions[0]+'w');
     assert.ok(derived); assert.equal(derived.sha256,record.sha256);
@@ -118,11 +121,11 @@ function assertCurrentImages(d) {
     assert.equal(fallback.getAttribute('srcset'),img.getAttribute('srcset'));
     assert.equal(picture.querySelectorAll('source[type="image/webp"]').length,1);
     for (const source of picture.querySelectorAll('source[type="image/webp"]')) {
-      assert.ok(source.hasAttribute('data-responsive-generated'));
+      assert.ok(source.hasAttribute('data-responsive'));
       assert.equal(source.getAttribute('sizes'),img.getAttribute('sizes'));
-      assert.equal(source.getAttribute('srcset'),derived.derivatives.map(r=>r.path+' '+r.width+'w').join(', '));
+      assert.equal(source.getAttribute('srcset'),derived.derivatives.map(r=>publicPath(r.path)+' '+r.width+'w').join(', '));
       for(const r of derived.derivatives) {
-        const data=fs.readFileSync(path.join(dist,r.path));
+        const data=fs.readFileSync(path.join(dist,publicPath(r.path)));
         assert.equal(hash(data),r.sha256);
         assert.deepEqual(dimensions(data),{width:r.width,height:r.height});
         assert.equal(r.height,Math.round(record.dimensions[1]*r.width/record.dimensions[0]));
@@ -130,11 +133,11 @@ function assertCurrentImages(d) {
     }
   }
 }
-test('published generated images keep exact identity, IA labels, dimensions and whole-frame fallbacks',()=>withDOM(assertCurrentImages));
-test('identity and IA-label guards reject independent negative controls',()=>withDOM(d=>{
+test('published generated images keep exact identity, descriptive alt text without an AI label, dimensions and whole-frame fallbacks',()=>withDOM(assertCurrentImages));
+test('identity and alt-text guards reject independent negative controls',()=>withDOM(d=>{
   const img=d.querySelector('.hero-oh img'), alt=img.alt, src=img.getAttribute('src');
-  img.alt='Fotografia original'; assert.throws(()=>assertCurrentImages(d)); img.alt=alt;
-  img.setAttribute('src','/generated-luxury/rosa/01-front-v1.png');
+  img.alt=''; assert.throws(()=>assertCurrentImages(d)); img.alt=alt;
+  img.setAttribute('src',publicPath('/generated-luxury/rosa/01-front-v1.png'));
   assert.throws(()=>assertCurrentImages(d)); img.setAttribute('src',src);
   const source=img.closest('picture').querySelector('source[type="image/webp"]');
   source.remove(); assert.throws(()=>assertCurrentImages(d)); img.closest('picture').prepend(source); assertCurrentImages(d);
@@ -149,7 +152,7 @@ test('six generated editorial illustrations retain historic post context without
     assert.equal(link.target,'_blank');assert.ok(link.rel.split(/\s+/).includes('noopener'));
     assert.ok(link.rel.split(/\s+/).includes('noreferrer'));
     assert.equal(card.querySelector('[data-product-card], [data-add-to-cart], [data-variant], button'),null);
-    assert.match(img.alt,/Imagen generada con IA/);
+    assert.ok(img.alt.trim().length>0);assert.doesNotMatch(img.alt,/generada con IA/i);
   }
   assert.equal(seen.size,6);assert.equal(manifest.editorial_only,true);
 }));
@@ -200,14 +203,14 @@ test('Spanish default and English toggle translate every new visible/accessible 
 });
 
 test('published sample catalog remains pinned independently; original-catalog suite owns commerce and historical stages',()=>{
-  const bytes=fs.readFileSync(path.join(dist,'catalog.js'));
-  assert.deepEqual(bytes,fs.readFileSync(path.join(root,'build-inputs/static/catalog.js')));
+  const bytes=fs.readFileSync(path.join(root,'build-inputs/static/catalog.js'));
+  assert.ok(fs.readFileSync(path.join(dist,'catalog.js')).equals(publicBytes('catalog.js',bytes)),'dist catalog is the public form of the source catalog');
   assert.equal(hash(bytes),publication.source_catalog_sha256);
   assert.equal(publication.source_catalog_sha256,release['catalog.js'].sha256);
   const dom=new JSDOM('',{runScripts:'outside-only'});
-  try{dom.window.eval(bytes.toString('utf8'));const c=dom.window.DEMO_CATALOG;
+  try{dom.window.eval(bytes.toString('utf8'));const c=dom.window.STORE_CATALOG;
     assert.equal(c.products.length,40);assert.equal(c.products.reduce((n,p)=>n+p.variants.length,0),120);
     assert.equal(c.products.reduce((n,p)=>n+p.images.length,0),152);
-    assert.equal(c.brand.commercial_status,'sample');
+    assert.equal(c.brand.commercial_status,'unlisted');
   }finally{dom.window.close();}
 });

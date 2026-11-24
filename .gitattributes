@@ -2,6 +2,8 @@
 # and line endings. Application sources keep the normal whitespace review.
 build-inputs/static/prototypes/** -text -whitespace
 dist/prototypes/** -text -whitespace
+# prepare.py publishes prototypes/ as lib/ (build-inputs/public-paths.json).
+dist/lib/** -text -whitespace
 
 # Responsive derivative manifests and media preserve the recorded RAW bytes.
 build-inputs/static/responsive-images/** -text -whitespace

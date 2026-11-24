@@ -51,6 +51,8 @@ public static class TestSql
     {
         var name = $"SAVIA_T_{label}_{Guid.NewGuid():N}";
         await RunAsync(Python, $"\"{Path.Combine(SaviaRoot, "tools", "db", "saviadb.py")}\" clone {name}");
+        // The API user exists before any backup a test takes, as on a deployed node.
+        if (ApiHostLogin.Selected) ApiHostLogin.AddUser(name);
         return name;
     }
 
@@ -141,7 +143,7 @@ public sealed class SaviaNode(string database, NodeKind kind, Guid nodeId, Guid?
             ["Savia:Node:NodeId"] = nodeId.ToString(),
             ["Savia:Node:BranchId"] = branchId?.ToString(),
             ["Savia:Node:LocationId"] = locationId?.ToString(),
-            ["Savia:Sql:ConnectionString"] = TestSql.ConnectionFor(database),
+            ["Savia:Sql:ConnectionString"] = ApiHostLogin.Selected ? ApiHostLogin.ConnectionFor(database) : TestSql.ConnectionFor(database),
         }).AddInMemoryCollection(extra ?? new Dictionary<string, string?>()));
     }
 

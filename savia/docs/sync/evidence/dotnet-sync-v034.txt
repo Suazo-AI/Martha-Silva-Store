@@ -1,0 +1,12 @@
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  Savia.Domain -> C:\Users\Jason\.t3\worktrees\github\t3-ea3f49fe-92f9416a8627c6bd\savia\src\Savia.Domain\bin\Debug\net10.0\Savia.Domain.dll
+  Savia.Contracts -> C:\Users\Jason\.t3\worktrees\github\t3-ea3f49fe-92f9416a8627c6bd\savia\src\Savia.Contracts\bin\Debug\net10.0\Savia.Contracts.dll
+  Savia.Application -> C:\Users\Jason\.t3\worktrees\github\t3-ea3f49fe-92f9416a8627c6bd\savia\src\Savia.Application\bin\Debug\net10.0\Savia.Application.dll
+  Savia.Infrastructure -> C:\Users\Jason\.t3\worktrees\github\t3-ea3f49fe-92f9416a8627c6bd\savia\src\Savia.Infrastructure\bin\Debug\net10.0\Savia.Infrastructure.dll
+  Savia.Api -> C:\Users\Jason\.t3\worktrees\github\t3-ea3f49fe-92f9416a8627c6bd\savia\src\Savia.Api\bin\Debug\net10.0\Savia.Api.dll
+  Savia.Tests -> C:\Users\Jason\.t3\worktrees\github\t3-ea3f49fe-92f9416a8627c6bd\savia\tests\Savia.Tests\bin\Debug\net10.0\Savia.Tests.dll
+Test run for C:\Users\Jason\.t3\worktrees\github\t3-ea3f49fe-92f9416a8627c6bd\savia\tests\Savia.Tests\bin\Debug\net10.0\Savia.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+
+Passed!  - Failed:     0, Passed:    10, Skipped:     0, Total:    10, Duration: 1 m 9 s - Savia.Tests.dll (net10.0)

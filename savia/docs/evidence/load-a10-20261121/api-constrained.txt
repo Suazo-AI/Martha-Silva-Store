@@ -1,0 +1,16 @@
+# api_bench.py --label constrained --n 30 (printed lines; stopped after kpi_team[day] at 05:15 UTC)
+lookup_by_code               {'n': 30, 'p50': 16.1, 'p95': 24.6, 'max': 26.1, 'errors': 0, 'max_bytes': 243}
+search_text                  {'n': 30, 'p50': 3813.7, 'p95': 5639.0, 'max': 6116.8, 'errors': 0, 'max_bytes': 6565}
+search[Blusa]                {'n': 2, 'p50': 1568.2, 'p95': 1568.2, 'max': 1568.2, 'errors': 0, 'max_bytes': 6186}
+search[Blusa Lino]           {'n': 2, 'p50': 1788.7, 'p95': 1788.7, 'max': 1788.7, 'errors': 0, 'max_bytes': 6106}
+search[Vestido Seda Noche]   {'n': 2, 'p50': 5015.7, 'p95': 5015.7, 'max': 5015.7, 'errors': 0, 'max_bytes': 6099}
+search[M12345]               {'n': 2, 'p50': 5194.4, 'p95': 5194.4, 'max': 5194.4, 'errors': 0, 'max_bytes': 1565}
+search[M4]                   {'n': 2, 'p50': 1196.2, 'p95': 1196.2, 'max': 1196.2, 'errors': 0, 'max_bytes': 6214}
+search[Aniversario]          {'n': 2, 'p50': 4409.4, 'p95': 4409.4, 'max': 4409.4, 'errors': 0, 'max_bytes': 6565}
+search[zzqx]                 {'n': 2, 'p50': 6620.5, 'p95': 6620.5, 'max': 6620.5, 'errors': 0, 'max_bytes': 2}
+search[LD004321]             {'n': 2, 'p50': 5147.0, 'p95': 5147.0, 'max': 5147.0, 'errors': 0, 'max_bytes': 1522}
+receipt_lookup               {'n': 30, 'p50': 7.4, 'p95': 11.4, 'max': 15.8, 'errors': 0, 'max_bytes': 1821}
+sales_history_page           {'n': 50, 'p50': 18.2, 'p95': 23.9, 'max': 41.6, 'errors': 0, 'max_bytes': 7813}
+day_report                   {'n': 60, 'p50': 37.3, 'p95': 60.6, 'max': 61.5, 'errors': 0, 'max_bytes': 1676}
+kpi_business[day]            {'n': 3, 'p50': 17714.6, 'p95': 18103.1, 'max': 18103.1, 'errors': 0, 'max_bytes': 22934}
+kpi_team[day]                {'n': 3, 'p50': 14.8, 'p95': 16.0, 'max': 16.0, 'errors': 0, 'max_bytes': 503}

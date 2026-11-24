@@ -1,0 +1,148 @@
+{
+ "started_utc": "2026-11-22T03:21:56+00:00",
+ "finished_utc": "2026-11-22T03:26:42+00:00",
+ "result": "PASS",
+ "sql_container": "savia-sqlserver-dev",
+ "images": {
+  "api": "savia-api:deploytest",
+  "migrator": "savia-migrator:deploytest"
+ },
+ "steps": [
+  {
+   "step": "docker build --target migrator",
+   "ok": true,
+   "detail": "View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/ppan0sitan1t05f10xtmh4kiz"
+  },
+  {
+   "step": "docker build --target api",
+   "ok": true,
+   "detail": "View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/9hd32io78p96yp2q853pd5cf8"
+  },
+  {
+   "step": "saviadb clone SAVIA_DEV_deploytest",
+   "ok": true,
+   "detail": "'SAVIA_DEV_deploytest', file 'SAVIA_T_TEMPLATE_ae70c29d6881_log' on file 1.\nRESTORE DATABASE successfully processed 1218 pages in 0.466 seconds (20.411 MB/sec)."
+  },
+  {
+   "step": "saviadb migrate SAVIA_DEV_deploytest",
+   "ok": true,
+   "detail": "applied: nothing new"
+  },
+  {
+   "step": "saviadb create SAVIA_DEV_deploytest_mig (empty)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "step": "saviadb create + migrate SAVIA_DEV_deploytest_ref (reference, no fixture)",
+   "ok": true,
+   "detail": "33__sync_rebuild_token.sql, V034__sync_review_fixes.sql, V035__api_host_role.sql"
+  },
+  {
+   "step": "temporary SQL logins created (passwords in memory only)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "step": "migrator --plan on empty database",
+   "ok": true,
+   "detail": "migrate: applied 0, pending 35: V001__baseline.sql, V002__api_support.sql, V003__conservation_oracle.sql, V004__concurrency_fixes.sql, V005__cp1a_procedure_fixes.sql, V006__return_same_branch_only.sql, V007__cp1b_procedure_fixes.sql, V008__sync_foundation.sql, V009__credit_transfer_transitions.sql, V010__credit_transfer_decisions.sql, V011__sync_tracking_all_owned.sql, V012__reject_scan.sql, V013__pilot_sales_read_models.sql, V014__catalog_grid_discount_approval.sql, V015__owner_pilot_rules.sql, V016__pilot_reports_and_exception_review.sql, V017__real_roles_and_approvals.sql, V018__seller_commissions.sql, V019__owner_prices_costs_margin.sql, V020__receiving_quality.sql, V021__scan_parent_lock_order.sql, V022__development_demo_clock.sql, V023__anonymous_sale_return_advance.sql, V024__shared_sale_returns_kpis.sql, V025__catalog_import.sql, V026__kpi_gross_sales.sql, V027__usd_cash.sql, V028__usd_change.sql, V029__return_retry_safety.sql, V030__catalog_recounts_and_business_kpis.sql, V031__oracle_replicated_sales.sql, V032__sync_transport.sql, V033__sync_rebuild_token.sql, V034__sync_review_fixes.sql, V035__api_host_role.sql"
+  },
+  {
+   "step": "migrator apply on empty database",
+   "ok": true,
+   "detail": "migrate: ledger complete (35 versions); applied now: V001__baseline.sql, V002__api_support.sql, V003__conservation_oracle.sql, V004__concurrency_fixes.sql, V005"
+  },
+  {
+   "step": "migrator re-run is idempotent",
+   "ok": true,
+   "detail": "migrate: ledger complete (35 versions); applied now: nothing new"
+  },
+  {
+   "step": "migrator refuses a changed applied migration",
+   "ok": true,
+   "detail": "migrate: V035__api_host_role.sql already applied with a different checksum. Migrations are immutable."
+  },
+  {
+   "step": "migrator reads the saviadb.py ledger (0 pending)",
+   "ok": true,
+   "detail": "migrate: applied 35, pending 0"
+  },
+  {
+   "step": "migrator grants API host permissions",
+   "ok": true,
+   "detail": "migrate: API host permissions ensured for user savia_deploytest_api"
+  },
+  {
+   "step": "API user holds no grant of its own and is only in role savia_api_host",
+   "ok": true,
+   "detail": "savia_api_host|0"
+  },
+  {
+   "step": "role savia_api_host can sync every table on a migrator-built database",
+   "ok": true,
+   "detail": "18/18"
+  },
+  {
+   "step": "schema fingerprint equal (saviadb.py runner vs production migrator, same empty start)",
+   "ok": true,
+   "detail": "C=178,D=247,F=204,FN=5,IF=1,P=91,PK=102,TR=1,U=102,UQ=46,V=7 mod=179AE9E0D698E6B1 col=A3B59B35A870DBC4 ledger=ED80149C0A2D0CCB ct=18 snapshot=1"
+  },
+  {
+   "step": "docker run API on 127.0.0.1:5090",
+   "ok": true,
+   "detail": "43728247068c"
+  },
+  {
+   "step": "GET /health",
+   "ok": true,
+   "detail": "(200, '{\"status\":\"ok\"}')"
+  },
+  {
+   "step": "GET / serves the sign-in page",
+   "ok": true,
+   "detail": "HTTP 200, 1238 bytes"
+  },
+  {
+   "step": "GET /app.mjs (static client)",
+   "ok": true,
+   "detail": "HTTP 200"
+  },
+  {
+   "step": "POST /api/v1/auth/login wrong password -> 401 (SQL reached as least-privilege user)",
+   "ok": true,
+   "detail": "HTTP 401 {\"code\":\"auth.bad_credentials\",\"message\":\"Usuario o contrase\u00f1a incorrectos.\",\"traceId\":\"0H"
+  },
+  {
+   "step": "Docker HEALTHCHECK reports healthy",
+   "ok": true,
+   "detail": "healthy"
+  },
+  {
+   "step": "process runs as non-root",
+   "ok": true,
+   "detail": "uid=1654"
+  },
+  {
+   "step": "API logs contain no SQL password",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "step": "cleanup: databases dropped",
+   "ok": true,
+   "detail": "remaining=0"
+  },
+  {
+   "step": "cleanup: temporary logins dropped",
+   "ok": true,
+   "detail": "remaining=0"
+  },
+  {
+   "step": "cleanup: no API container left",
+   "ok": true,
+   "detail": ""
+  }
+ ],
+ "note": "Local dev container only. No Azure resource was contacted. No secret is recorded."
+}

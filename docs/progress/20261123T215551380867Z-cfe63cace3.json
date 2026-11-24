@@ -1,0 +1,175 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-23T21:55:51.380867+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/production-20261122/DAY-ZERO.md",
+      "change": "M",
+      "git_blob": "79bbbcc7d2a4a707ee80e6938f375f8fbbed39a5"
+    },
+    {
+      "path": "savia/db/migrations/MANIFEST.sha256",
+      "change": "M",
+      "git_blob": "a6e53b7abc7c109906e38c2c444e1bec6cdb21cf"
+    },
+    {
+      "path": "savia/db/migrations/V064__staff_password_change.sql",
+      "change": "A",
+      "git_blob": "3bb3bee77085217c4de4549e3757be1cc0b8f0b7"
+    },
+    {
+      "path": "savia/db/tests/security/310_password_change.sql",
+      "change": "A",
+      "git_blob": "ebe9af521ef02ec4dc4d575ba596d1aea9a61fce"
+    },
+    {
+      "path": "savia/deploy/migrator/NodeProvisioning.cs",
+      "change": "M",
+      "git_blob": "0d476f397d1bf0fab561c5e50d5234b0383ba9e3"
+    },
+    {
+      "path": "savia/deploy/migrator/Program.cs",
+      "change": "M",
+      "git_blob": "0dc0e7b5a6f2550cac054b10757d2a742804235d"
+    },
+    {
+      "path": "savia/deploy/migrator/SiteProvisioning.cs",
+      "change": "M",
+      "git_blob": "3b95db41db5ff77b73a9b9b0014028362285edb5"
+    },
+    {
+      "path": "savia/docs/deploy/RUNBOOK.md",
+      "change": "M",
+      "git_blob": "9cd961065520fe6d088a4e7ad38c7a1cf8743dc0"
+    },
+    {
+      "path": "savia/docs/sync/PROVISIONING.md",
+      "change": "M",
+      "git_blob": "6255c72ee4803fbbaa9bf09aec4ecde1aa282f3f"
+    },
+    {
+      "path": "savia/src/Savia.Api/AuthEndpoints.cs",
+      "change": "M",
+      "git_blob": "e1a6cba3c6bcb342ed86e38cec86c25823e07d15"
+    },
+    {
+      "path": "savia/src/Savia.Api/Endpoints.cs",
+      "change": "M",
+      "git_blob": "121b6c4526be3c2d120ed8521ddda136e46606d3"
+    },
+    {
+      "path": "savia/src/Savia.Api/SalesEndpoints.cs",
+      "change": "M",
+      "git_blob": "69f28a7d92fe67c3d6aed54be388c17698d46bfe"
+    },
+    {
+      "path": "savia/src/Savia.Api/SiteEndpoints.cs",
+      "change": "M",
+      "git_blob": "534ab38625f9ec990a1e7eb1c3f9fff7cf5a75f0"
+    },
+    {
+      "path": "savia/src/Savia.Application/Auth.cs",
+      "change": "M",
+      "git_blob": "5ed8100391622622c8b09340cb8cd7729cf6d014"
+    },
+    {
+      "path": "savia/src/Savia.Application/Core.cs",
+      "change": "M",
+      "git_blob": "36fa7a5b722e52834eb09943e77853fc45e1f719"
+    },
+    {
+      "path": "savia/src/Savia.Application/Site.cs",
+      "change": "M",
+      "git_blob": "44a968ada905b3b29877d58c1b3e39f1304a9b0e"
+    },
+    {
+      "path": "savia/src/Savia.Contracts/Auth.cs",
+      "change": "M",
+      "git_blob": "0dc9bd9daa4b01bd528772d9b417f53735c59836"
+    },
+    {
+      "path": "savia/src/Savia.Contracts/Site.cs",
+      "change": "M",
+      "git_blob": "2b653e0f5ba532dcd7306724d4fc1cd0c147fff4"
+    },
+    {
+      "path": "savia/src/Savia.Domain/Errors.cs",
+      "change": "M",
+      "git_blob": "fa6ca778f25880a29a4c6cf15ac1e7c4fa544f26"
+    },
+    {
+      "path": "savia/src/Savia.Infrastructure/AuthStore.cs",
+      "change": "M",
+      "git_blob": "ca9a6668fe22c2fafb6e2c296122066cf346f1ee"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/NodeProvisioningTests.cs",
+      "change": "M",
+      "git_blob": "d9ca12304f8efa12f8840bc5ba8f93426726b954"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/PasswordChangeTests.cs",
+      "change": "A",
+      "git_blob": "c5c918ab1660d55b7a211a42b32684910604b580"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/TagExtractTests.cs",
+      "change": "M",
+      "git_blob": "63c953b90a84dd33a8ded95fad2a70eb16776474"
+    },
+    {
+      "path": "savia/tools/rehearsal/dayzero.py",
+      "change": "M",
+      "git_blob": "269a4202ff6e5217ee1f2a9099e22c769946a571"
+    },
+    {
+      "path": "savia/web/api.mjs",
+      "change": "M",
+      "git_blob": "15e2776279e2d65304614901f9cb609f03e67b8d"
+    },
+    {
+      "path": "savia/web/app.mjs",
+      "change": "M",
+      "git_blob": "10652de31cd78ac0db9a66349ec1251a7994afac"
+    },
+    {
+      "path": "savia/web/screens/import-logic.mjs",
+      "change": "M",
+      "git_blob": "00b09cf590a7db794f685cb641d5da4a68ab9925"
+    },
+    {
+      "path": "savia/web/screens/import.mjs",
+      "change": "M",
+      "git_blob": "58adcb9b064c1557a012a0f7ce28a1ce92532604"
+    },
+    {
+      "path": "savia/web/screens/password-logic.mjs",
+      "change": "A",
+      "git_blob": "2c821c7c0a3b1d3d60da287ec547fd765aeee76e"
+    },
+    {
+      "path": "savia/web/screens/password.mjs",
+      "change": "A",
+      "git_blob": "6e7b9b5200232fccb08f825c7f74174e0837e006"
+    },
+    {
+      "path": "savia/web/screens/settings.mjs",
+      "change": "M",
+      "git_blob": "3caecf533974259780b932ba620e70dc0474ded3"
+    },
+    {
+      "path": "savia/web/tests/account-safety-screens.test.mjs",
+      "change": "A",
+      "git_blob": "e5bfa187e755e4b1e205d0ccb50b2d7d994e4cc3"
+    },
+    {
+      "path": "savia/web/tests/account-safety.test.mjs",
+      "change": "A",
+      "git_blob": "769b1cddb54466eb5fb9d94b4e0cb9ff78b9be5b"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

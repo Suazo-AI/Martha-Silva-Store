@@ -16,6 +16,8 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))
+from prepare import public_bytes  # noqa: E402
 SITE_PAGES = json.loads((ROOT / 'tests/site-pages.json').read_text(encoding='utf-8'))
 
 
@@ -24,7 +26,7 @@ def check_fixture(root):
     if len(pages) != len(SITE_PAGES):
         raise ValueError(f'Expected {len(SITE_PAGES)} recovered pages, found {len(pages)}')
     catalog_text = (root / 'dist/catalog.js').read_text(encoding='utf-8')
-    prefix = 'window.DEMO_CATALOG='
+    prefix = 'window.STORE_CATALOG='
     if not catalog_text.startswith(prefix):
         raise ValueError('Unsupported catalog.js format')
     catalog, _ = json.JSONDecoder().raw_decode(catalog_text[len(prefix):])
@@ -36,10 +38,10 @@ def check_fixture(root):
     expected_pages.update(f'producto-{product_id}.html' for product_id in product_ids)
     if {page.name for page in pages} != expected_pages:
         raise ValueError('Published pages do not match the 40 original product IDs and the shared pages in tests/site-pages.json')
-    for name in ('app.js', 'demo-api.js', 'integration-adapters.js'):
-        if (root / 'src' / name).read_bytes() != (root / 'dist' / name).read_bytes():
+    for name in ('app.js', 'store-api.js', 'integration-adapters.js'):
+        if public_bytes(name, (root / 'src' / name).read_bytes()) != (root / 'dist' / name).read_bytes():
             raise ValueError(f'src/dist drift: {name}')
-    print(f'PASS: {len(pages)} pages / 40 sample products / 120 variants; src/dist app.js, demo-api.js and integration-adapters.js match', flush=True)
+    print(f'PASS: {len(pages)} pages / 40 products / 120 variants; src/dist app.js, store-api.js and integration-adapters.js match', flush=True)
 
 
 def clean_environment():
@@ -121,6 +123,8 @@ def main(argv=None):
         run([node, 'tests/localization-runtime.cjs'])
         stage('Local HTML structure')
         run([sys.executable, 'tests/structure.py'])
+        stage('Published names and asset references')
+        run([sys.executable, 'tests/public_names.py'])
         stage('JavaScript syntax')
         files = sorted(path for pattern in ('src/*.js', 'dist/*.js', 'tests/*.cjs', 'tests/*.test.js')
                        for path in ROOT.glob(pattern))

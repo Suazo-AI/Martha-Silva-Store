@@ -1,0 +1,2 @@
+python tools/db/saviadb.py run SAVIA_T_v61rerun db/migrations/V061__hub_catalog_import.sql
+exit 0 (no output): the second run of V061 on a migrated clone changes nothing.

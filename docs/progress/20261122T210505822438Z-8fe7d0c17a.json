@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-22T21:05:05.822438+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/production-20261122/README.md",
+      "change": "M",
+      "git_blob": "53fbe157f6b70c5394685cb313fa13d265183ad6"
+    },
+    {
+      "path": "savia/docs/deploy/AZURE.md",
+      "change": "M",
+      "git_blob": "89be1d46c9aaf558833423138ff604653c5ab1ea"
+    },
+    {
+      "path": "savia/docs/deploy/RUNBOOK.md",
+      "change": "A",
+      "git_blob": "c6dc61781ec484db2a84dcd266dafa10068d177c"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

@@ -1,0 +1,2 @@
+FAIL    outbox/090_enqueue_events_equals_single.sql  -- Msg 1087, Level 16, State 1, Server 23b66448cd53, Line 68
+SUMMARY FAIL=1  logs: .out\dbtests

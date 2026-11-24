@@ -1,0 +1,2 @@
+FAIL    catalog/158_item_values_on_hub.sql  -- Msg 52001, Level 16, State 1, Server 23b66448cd53, Procedure catalog.usp_GetItemValues, Line 6
+SUMMARY FAIL=1  logs: .out\dbtests

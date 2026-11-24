@@ -1,0 +1,5 @@
+2026-11-24T01:04:01Z
+$ Savia.Migrator --plan --migrations db/migrations  (Database=savia-d4-a10, Authentication=Active Directory Default, az CLI user)
+migrate: SQL error 18456: Login failed for user '<token-identified principal>'.
+exit=1
+2026-11-24T01:04:06Z

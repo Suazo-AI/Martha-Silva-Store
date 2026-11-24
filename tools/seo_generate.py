@@ -24,6 +24,8 @@ LANG = 'es-NI'
 META_LINE = re.compile(r'<meta name="robots"[^>]*>\s*<meta name="description"[^>]*>')
 REGION = re.compile(re.escape(START) + r'.*?' + re.escape(END), re.S)
 TITLE = re.compile(r'<title>(.*?)</title>', re.S)
+# An empty data: icon stops the browser's /favicon.ico request, which 404s and logs a console error; the store has no icon artwork yet.
+ICON = '<link rel="icon" href="data:,">'
 
 
 def read_text(path):
@@ -60,13 +62,13 @@ def refusal(cfg, catalog):
     if not cfg.get('indexable'):
         return None
     why = []
-    if catalog.get('mode') == 'local_test':
-        why.append('catalog.mode is local_test')
-    if catalog['brand'].get('commercial_status') == 'sample':
-        why.append('brand is sample data')
-    n = sum(1 for p in catalog['products'] if p.get('commercial_status') == 'sample')
+    if catalog.get('mode') == 'local':
+        why.append('catalog.mode is local')
+    if catalog['brand'].get('commercial_status') == 'unlisted':
+        why.append('brand is not listed commercially')
+    n = sum(1 for p in catalog['products'] if p.get('commercial_status') == 'unlisted')
     if n:
-        why.append(f'{n} product(s) are sample data')
+        why.append(f'{n} product(s) are not listed commercially')
     if not (cfg.get('siteUrl') or '').strip():
         why.append('siteUrl is empty')
     return '; '.join(why) or None
@@ -137,20 +139,19 @@ def build(root, cfg):
                       'sku': prod['id'], 'image': [U(i) for i in prod['images']],
                       'brand': {'@type': 'Brand', 'name': bname}, 'color': prod['color'], 'category': prod['category'],
                       'offers': [{'@type': 'Offer', 'sku': v['id'], 'price': price(prod['price_minor']), 'priceCurrency': prod['currency'],
-                                  'availability': 'https://schema.org/InStock' if v['stock'] > 0 else 'https://schema.org/OutOfStock',
                                   'itemCondition': 'https://schema.org/NewCondition', 'url': url} for v in prod['variants']]})
         return {'@context': 'https://schema.org', '@graph': g}
 
     def region(name, text):
         if name in NONINDEX:
             m = re.search(r'<meta name="description"[^>]*>', text)
-            return START + '<meta name="robots" content="noindex,nofollow">' + (m.group(0) if m else '') + END
+            return START + '<meta name="robots" content="noindex,nofollow">' + (m.group(0) if m else '') + ICON + END
         prod = prod_pages.get(name)
         title = html.unescape(TITLE.search(text).group(1).strip())
         d = descs[name]
         hero = (brand.get('hero') or {}).get('image')
         share_image = U(prod['images'][0]) if prod else (U(hero) if hero else None)
-        tags = [f'<meta name="robots" content="{robots_meta}">', f'<meta name="description" content="{esc(d)}">']
+        tags = [f'<meta name="robots" content="{robots_meta}">', f'<meta name="description" content="{esc(d)}">', ICON]
         if site:
             tags.append(f'<link rel="canonical" href="{esc(U(page_path(name)))}">')
         og = [('og:title', title), ('og:description', d), ('og:site_name', bname), ('og:type', 'product' if prod else 'website'), ('og:locale', LOCALE)]

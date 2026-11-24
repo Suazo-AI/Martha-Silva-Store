@@ -1,0 +1,1 @@
+PASS    catalog/155_import_commit_equals_v039.sql

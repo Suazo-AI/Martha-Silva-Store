@@ -1,8 +1,7 @@
 """Site-wide static markup fixes for the storefront pages (idempotent).
 
 Usage: python tools/storefront_markup_codemod.py [--check]
-1. The demo banner becomes a labelled region landmark.
-2. The product reference code is wrapped in translate="no" (it is an identifier, not copy).
+The product reference code is wrapped in translate="no" (it is an identifier, not copy).
 Without --check it rewrites build-inputs/static/*.html; with --check it only lists the
 pages that still need a change and exits 1 when any are pending.
 """
@@ -11,13 +10,10 @@ import sys
 from pathlib import Path
 
 STATIC = Path(__file__).resolve().parents[1] / 'build-inputs' / 'static'
-BANNER_OLD = '<div class="test-banner">'
-BANNER_NEW = '<div class="test-banner" role="region" aria-label="Aviso de demostración">'
 CODE = re.compile(r'(<p class="product-code">Referencia: )(?!<span translate="no">)([^<]+)(</p>)')
 
 
 def transform(text):
-    text = text.replace(BANNER_OLD, BANNER_NEW)
     return CODE.sub(r'\1<span translate="no">\2</span>\3', text)
 
 

@@ -1,0 +1,149 @@
+{
+ "step": "a->hub",
+ "mode": "normal",
+ "source_node": "A0000000-0000-0000-0000-0000000000A2",
+ "target_node": "00000000-0000-0000-0000-0000000C10D0",
+ "pages": [
+  {
+   "page": 1,
+   "rows": 5159,
+   "bytes": 1514977,
+   "bytes_state": 1728,
+   "bytes_plan": 3186,
+   "bytes_result": 83,
+   "state_s": 0.017,
+   "plan_s": 0.251,
+   "read_s": 0.623,
+   "apply_s": 17.26,
+   "seconds": 18.151,
+   "result": {
+    "changed": 5159,
+    "applied": 28,
+    "skipped": 0,
+    "page": 1,
+    "more": true,
+    "done": 27,
+    "total": 39
+   },
+   "tables": [
+    {
+     "t": "[sales].[CashTills]",
+     "n": 6,
+     "done": true
+    },
+    {
+     "t": "[sales].[Sales]",
+     "n": 34,
+     "done": true
+    },
+    {
+     "t": "[sales].[SaleLines]",
+     "n": 64,
+     "done": true
+    },
+    {
+     "t": "[sales].[SaleTenders]",
+     "n": 34,
+     "done": true
+    },
+    {
+     "t": "[sales].[CashEntries]",
+     "n": 21,
+     "done": true
+    },
+    {
+     "t": "[inventory].[StockBalances]",
+     "n": 5000,
+     "done": false
+    }
+   ]
+  },
+  {
+   "page": 2,
+   "rows": 7500,
+   "bytes": 3580690,
+   "bytes_state": 1728,
+   "bytes_plan": 3474,
+   "bytes_result": 82,
+   "state_s": 0.006,
+   "plan_s": 0.273,
+   "read_s": 1.092,
+   "apply_s": 45.074,
+   "seconds": 46.444,
+   "result": {
+    "changed": 7500,
+    "applied": 2,
+    "skipped": 0,
+    "page": 2,
+    "more": true,
+    "done": 28,
+    "total": 39
+   },
+   "tables": [
+    {
+     "t": "[inventory].[StockBalances]",
+     "n": 2500,
+     "done": true
+    },
+    {
+     "t": "[inventory].[StockMovements]",
+     "n": 5000,
+     "done": false
+    }
+   ]
+  },
+  {
+   "page": 3,
+   "rows": 2627,
+   "bytes": 1486104,
+   "bytes_state": 1728,
+   "bytes_plan": 3514,
+   "bytes_result": 84,
+   "state_s": 0.016,
+   "plan_s": 0.247,
+   "read_s": 0.558,
+   "apply_s": 30.225,
+   "seconds": 31.046,
+   "result": {
+    "changed": 2627,
+    "applied": 11,
+    "skipped": 0,
+    "page": 3,
+    "more": false,
+    "done": 39,
+    "total": 39
+   },
+   "tables": [
+    {
+     "t": "[inventory].[StockMovements]",
+     "n": 2564,
+     "done": true
+    },
+    {
+     "t": "[sales].[CashCounts]",
+     "n": 12,
+     "done": true
+    },
+    {
+     "t": "[sales].[CashCountLines]",
+     "n": 45,
+     "done": true
+    },
+    {
+     "t": "[sales].[CashClosures]",
+     "n": 6,
+     "done": true
+    }
+   ]
+  }
+ ],
+ "wall_s": 95.69,
+ "page_count": 3,
+ "rows": 15286,
+ "bytes": 6581771,
+ "bytes_all": 6597378,
+ "max_page_bytes": 3580690,
+ "read_s": 2.273,
+ "apply_s": 92.559,
+ "finished": true
+}

@@ -1,0 +1,360 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-23T00:09:41.097608+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/DECISIONS.md",
+      "change": "M",
+      "git_blob": "3ffb3fce440785a9aa0eb29dcab5a3aeb7e36195"
+    },
+    {
+      "path": "docs/production-20261122/DAY-ZERO.md",
+      "change": "A",
+      "git_blob": "75441d21d99469e79088f9bebba699296fa42894"
+    },
+    {
+      "path": "docs/production-20261122/README.md",
+      "change": "M",
+      "git_blob": "2bc4001fe0eeab7c2fbe78b6dad68b7483345933"
+    },
+    {
+      "path": "docs/production-20261122/STOREFRONT-DEPLOY.md",
+      "change": "M",
+      "git_blob": "b8527de4d695169ad86684125d3a0dc5c2b96e7c"
+    },
+    {
+      "path": "docs/production-20261122/day-zero-evidence/run1-11a-bag.png",
+      "change": "A",
+      "git_blob": "ca99f12630f174a606339f75154c4b4c1c58bcb7"
+    },
+    {
+      "path": "docs/production-20261122/day-zero-evidence/run1-11b-review.png",
+      "change": "A",
+      "git_blob": "c04ef79b540f5b67dc1f80f86256dcd350ff7470"
+    },
+    {
+      "path": "docs/production-20261122/day-zero-evidence/run1-11c-order-placed.png",
+      "change": "A",
+      "git_blob": "811532adc6e266743aa0ea1d334bf2759735b5fe"
+    },
+    {
+      "path": "docs/production-20261122/day-zero-evidence/run1-12a-web-orders.png",
+      "change": "A",
+      "git_blob": "48930b53893064749fbbe981817b795d427d3080"
+    },
+    {
+      "path": "docs/production-20261122/day-zero-evidence/run1-12b-paid.png",
+      "change": "A",
+      "git_blob": "0af99090ec49932210f716a5d334f3d6ca256d63"
+    },
+    {
+      "path": "docs/production-20261122/day-zero-evidence/run1-12c-fulfilled.png",
+      "change": "A",
+      "git_blob": "736e2a4f0ae34ea3252bf7918dffb5e822521b23"
+    },
+    {
+      "path": "docs/production-20261122/day-zero-evidence/run1-13a-buyer-order-page.png",
+      "change": "A",
+      "git_blob": "6bc8f4e344fc9b7ebb9b9efda554750a35153893"
+    },
+    {
+      "path": "docs/production-20261122/day-zero-evidence/run1.md",
+      "change": "A",
+      "git_blob": "29fb4ff09f6ba91b242329195c2c9521fe5c9e96"
+    },
+    {
+      "path": "docs/production-20261122/day-zero-evidence/run2-11a-review.png",
+      "change": "A",
+      "git_blob": "66240097ac3dfa5b5bb4cc2559e093cdbf6271e6"
+    },
+    {
+      "path": "docs/production-20261122/day-zero-evidence/run2-11b-order-placed.png",
+      "change": "A",
+      "git_blob": "ac957d7b50c6fe16fd21390f3af2d35c36825138"
+    },
+    {
+      "path": "docs/production-20261122/day-zero-evidence/run2-12a-record-payment.png",
+      "change": "A",
+      "git_blob": "6f7d403d6903284f85d2af7326330fbab6387a08"
+    },
+    {
+      "path": "docs/production-20261122/day-zero-evidence/run2-12b-paid.png",
+      "change": "A",
+      "git_blob": "0e2091b99a19332bf3a6e0339ac1ac35ef6f54ba"
+    },
+    {
+      "path": "docs/production-20261122/day-zero-evidence/run2-12c-fulfilled.png",
+      "change": "A",
+      "git_blob": "15ab1453f673ab7b48d5485c2d8884df16e1d766"
+    },
+    {
+      "path": "docs/production-20261122/day-zero-evidence/run2-13a-buyer-paid.png",
+      "change": "A",
+      "git_blob": "cfbf8c46adf47ec2086b16c204f63337e29a0e55"
+    },
+    {
+      "path": "docs/production-20261122/day-zero-evidence/run2-13b-buyer-fulfilled.png",
+      "change": "A",
+      "git_blob": "5618d654f16edc5d7727936830080167e34c1724"
+    },
+    {
+      "path": "docs/production-20261122/day-zero-evidence/run2-15a-customer-created.png",
+      "change": "A",
+      "git_blob": "bd17cfa08a205bd7797d0d1d69380241f3dc6115"
+    },
+    {
+      "path": "docs/production-20261122/day-zero-evidence/run2-15b-store-transfers.png",
+      "change": "A",
+      "git_blob": "03c6a0278609cba2cf4fb288b8165e9ecc4af3aa"
+    },
+    {
+      "path": "docs/production-20261122/day-zero-evidence/run2-15c-hub-transfers.png",
+      "change": "A",
+      "git_blob": "37178b22187afd8aa5478f3fd9c07f6e8a53a8fd"
+    },
+    {
+      "path": "docs/production-20261122/day-zero-evidence/run2.md",
+      "change": "A",
+      "git_blob": "4c7d18ca4127ae547b5db27f2dcdd27b8aa1712a"
+    },
+    {
+      "path": "docs/production-20261122/day-zero-evidence/run3.md",
+      "change": "A",
+      "git_blob": "e2b2c384ba9b801427e38367bf9a8eee178ee290"
+    },
+    {
+      "path": "savia/db/migrations/MANIFEST.sha256",
+      "change": "M",
+      "git_blob": "c90852ea34605a5a390f8a0715b76be8e959fd3d"
+    },
+    {
+      "path": "savia/db/migrations/V062__day_zero_provisioning.sql",
+      "change": "A",
+      "git_blob": "0ef5214f9e7cf999de761dc3cf40ea4c9a4fc38d"
+    },
+    {
+      "path": "savia/db/migrations/V063__credit_transfer_list.sql",
+      "change": "A",
+      "git_blob": "8d53464cb10d130d800523458b3b27f859288db2"
+    },
+    {
+      "path": "savia/db/tests/security/100_api_host_role_grants.sql",
+      "change": "M",
+      "git_blob": "a11984c0b0b8505391640b9187073f9e1de05e4f"
+    },
+    {
+      "path": "savia/db/tests/security/300_day_zero_provisioning.sql",
+      "change": "A",
+      "git_blob": "0f8639acf11f82f44d3d3f065a6ac8b673a4813f"
+    },
+    {
+      "path": "savia/deploy/migrator/NodeProvisioning.cs",
+      "change": "M",
+      "git_blob": "4602761972ccf666f90e1e507d8bc1e3e7e490b7"
+    },
+    {
+      "path": "savia/deploy/migrator/Program.cs",
+      "change": "M",
+      "git_blob": "758f6d150e85b625dfb8421356c36bc656ac7dc5"
+    },
+    {
+      "path": "savia/deploy/migrator/SiteProvisioning.cs",
+      "change": "A",
+      "git_blob": "a016926d4a2ec535cb1a58f6cb14a9cf87d38f55"
+    },
+    {
+      "path": "savia/docs/deploy/RUNBOOK.md",
+      "change": "M",
+      "git_blob": "dc133336d6fb13f22a4dc9af3ce1300ce61d0a71"
+    },
+    {
+      "path": "savia/docs/evidence/rehearsal-20261121/controls.json",
+      "change": "M",
+      "git_blob": "405f7ed075c283b280f109ca9a3596ead3b5da7c"
+    },
+    {
+      "path": "savia/docs/evidence/rehearsal-20261121/credit_transfer.json",
+      "change": "M",
+      "git_blob": "146557ac799c27f4f07fa0f51904d0969f0aa9ed"
+    },
+    {
+      "path": "savia/docs/evidence/rehearsal-20261121/hub_catalog.json",
+      "change": "M",
+      "git_blob": "3f6e4c8c44b278066b8dd929c6672cc085d531b8"
+    },
+    {
+      "path": "savia/docs/evidence/rehearsal-20261121/hub_restart.json",
+      "change": "M",
+      "git_blob": "059d75e0acbdf9927929af02e92977bc4c74fb06"
+    },
+    {
+      "path": "savia/docs/evidence/rehearsal-20261121/offline_sales.json",
+      "change": "M",
+      "git_blob": "90515c12e4dac09db2204bca95f0114371bb5b21"
+    },
+    {
+      "path": "savia/docs/evidence/rehearsal-20261121/reference_data.json",
+      "change": "M",
+      "git_blob": "084c7c9402a0062e2a54b1b40096624ae241b0f1"
+    },
+    {
+      "path": "savia/docs/evidence/rehearsal-20261121/replay.json",
+      "change": "M",
+      "git_blob": "3117836fc7e6501e42b4dfe5db53737dbe5a418f"
+    },
+    {
+      "path": "savia/docs/evidence/rehearsal-20261121/restore_sale_before_rebuild.json",
+      "change": "M",
+      "git_blob": "1b0a5427bf338f52ad568db704c2e8f09d0fe22a"
+    },
+    {
+      "path": "savia/docs/evidence/rehearsal-20261121/schema_skew.json",
+      "change": "M",
+      "git_blob": "c5cdf473fe0a2447f64a316c30ec892258661f53"
+    },
+    {
+      "path": "savia/docs/evidence/rehearsal-20261121/summary.json",
+      "change": "M",
+      "git_blob": "b6dd9cabde5caf27cfe60053eb1ed9fea07ea9cb"
+    },
+    {
+      "path": "savia/docs/sync/PROVISIONING.md",
+      "change": "M",
+      "git_blob": "7124c2ad3520d5d34be1056d6d58a4a5e57ed536"
+    },
+    {
+      "path": "savia/src/Savia.Api/CatalogEndpoints.cs",
+      "change": "M",
+      "git_blob": "fa8a422080c5081eda2ede46e446655b4ff3f8fd"
+    },
+    {
+      "path": "savia/src/Savia.Api/CreditTransferEndpoints.cs",
+      "change": "A",
+      "git_blob": "a03c3e737f80e1de312573266892de2dd6e7a9a5"
+    },
+    {
+      "path": "savia/src/Savia.Api/CustomersEndpoints.cs",
+      "change": "M",
+      "git_blob": "378e6cf0d61ff076b74e7620332686bca6908dce"
+    },
+    {
+      "path": "savia/src/Savia.Api/Endpoints.cs",
+      "change": "M",
+      "git_blob": "057d27804944168d96bc109e2549902553601069"
+    },
+    {
+      "path": "savia/src/Savia.Application/Catalog.cs",
+      "change": "M",
+      "git_blob": "2418f447f25c3c1a437e6c55af35cb298bb3f883"
+    },
+    {
+      "path": "savia/src/Savia.Application/Customers.cs",
+      "change": "M",
+      "git_blob": "0344a12fa8c9a8dba8ce6db48ebb3ad56ead7484"
+    },
+    {
+      "path": "savia/src/Savia.Contracts/Customers.cs",
+      "change": "M",
+      "git_blob": "94a19f7cee1ffe3a7dad7f8af4f16bb0d8d879a1"
+    },
+    {
+      "path": "savia/src/Savia.Contracts/Receiving.cs",
+      "change": "M",
+      "git_blob": "84edada6a5fe3ebda9b098fb97639b381ab7529b"
+    },
+    {
+      "path": "savia/src/Savia.Domain/Errors.cs",
+      "change": "M",
+      "git_blob": "e5c5dd6a32c5103df753da01e3cc3ff87947bf79"
+    },
+    {
+      "path": "savia/src/Savia.Infrastructure/CatalogStore.cs",
+      "change": "M",
+      "git_blob": "49a260db574dbf624086d30496b731e955efc2e8"
+    },
+    {
+      "path": "savia/src/Savia.Infrastructure/CustomersStore.cs",
+      "change": "M",
+      "git_blob": "c7926581d694caff3310544fe18279a8fe7a379e"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/DayZeroRoutesTests.cs",
+      "change": "A",
+      "git_blob": "1ef39dab6f3448decc91dd7b742c45195fc697ee"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/Savia.Tests.csproj",
+      "change": "M",
+      "git_blob": "6772405355552bdc5b8524e71bea73fc14b5213f"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/SiteProvisioningTests.cs",
+      "change": "A",
+      "git_blob": "bee0eebca479409c6973a9d2ef0bb64f91b0f5fd"
+    },
+    {
+      "path": "savia/tools/rehearsal/dayzero.py",
+      "change": "A",
+      "git_blob": "a9e84a4bc4983f572cc32b65ccda02e14abb64e6"
+    },
+    {
+      "path": "savia/tools/rehearsal/harness.py",
+      "change": "M",
+      "git_blob": "8b4dfa0bf408096161db7b7b73627feeb5868efc"
+    },
+    {
+      "path": "savia/tools/rehearsal/scenarios.py",
+      "change": "M",
+      "git_blob": "b4790bd9a6ded35638721593151874f3b03cbd90"
+    },
+    {
+      "path": "savia/web/api.mjs",
+      "change": "M",
+      "git_blob": "7b1cda37165123ee95de1d87fef6ef843db38a77"
+    },
+    {
+      "path": "savia/web/app.mjs",
+      "change": "M",
+      "git_blob": "6df580018312c41aff5684180bc0304eb174f9d1"
+    },
+    {
+      "path": "savia/web/roles.mjs",
+      "change": "M",
+      "git_blob": "48ed8ee09b42ec0be4853d0cd38f389bdae45555"
+    },
+    {
+      "path": "savia/web/screens/credit-transfers-logic.mjs",
+      "change": "A",
+      "git_blob": "f45db0d42a3d5c3e7de491bb64fa1ba94375db13"
+    },
+    {
+      "path": "savia/web/screens/credit-transfers.mjs",
+      "change": "A",
+      "git_blob": "7858ea536078fce955b3a25d1f833e093666e0b1"
+    },
+    {
+      "path": "savia/web/screens/customers.mjs",
+      "change": "M",
+      "git_blob": "3ef1983b4a2dedaf44ab957380c050cf43f9f3fc"
+    },
+    {
+      "path": "savia/web/tests/credit-transfers.test.mjs",
+      "change": "A",
+      "git_blob": "be4d7ffac7d0ff4c8025441dac2a04357e3765b8"
+    },
+    {
+      "path": "savia/web/tests/navigation-ux.test.mjs",
+      "change": "M",
+      "git_blob": "2eaa037ba151d0b2854a67a2ebf93377c1266230"
+    },
+    {
+      "path": "savia/web/tests/roles.test.mjs",
+      "change": "M",
+      "git_blob": "9cbc9b1dedc3890f0a3cf266a3f2be74f2398d96"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

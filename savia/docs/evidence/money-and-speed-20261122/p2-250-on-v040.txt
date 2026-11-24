@@ -1,0 +1,2 @@
+PASS    sales/250_kpi_business_equals_v030.sql
+SUMMARY PASS=1  logs: .out\dbtests

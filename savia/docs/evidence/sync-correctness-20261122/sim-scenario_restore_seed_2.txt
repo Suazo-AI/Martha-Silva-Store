@@ -1,0 +1,47 @@
+setup: 4 databases, tills open, 500 units per branch, credits ['4067C358-4EE2-47F8-9A94-E3E8AB73738F', '0925E474-9B57-4BD1-B653-F8DD9B1F282E'] (120000 each at A)
+  sync a->cloud [normal] sent=29 changed=29 skipped=0 plan={'initial': 21}
+  sync b->cloud [normal] sent=4 changed=4 skipped=0 plan={'initial': 21}
+  sync c->cloud [normal] sent=4 changed=4 skipped=0 plan={'initial': 21}
+  sync cloud->a [normal] sent=8 changed=8 skipped=0 plan={'initial': 21}
+  sync cloud->b [normal] sent=33 changed=33 skipped=0 plan={'initial': 21}
+  sync cloud->c [normal] sent=33 changed=33 skipped=0 plan={'initial': 21}
+scenario restore: A is restored from an old backup; it rebuilds from the cloud before it sends
+  sync b->cloud [normal] sent=1 changed=1 skipped=0 plan={'incremental': 21}
+  sync cloud->a [normal] sent=1 changed=1 skipped=0 plan={'incremental': 21}
+  sync cloud->c [normal] sent=1 changed=1 skipped=0 plan={'incremental': 21}
+  sync cloud->a [normal] sent=1 changed=1 skipped=0 plan={'incremental': 21}
+  sync cloud->b [normal] sent=1 changed=1 skipped=0 plan={'incremental': 21}
+  sync cloud->c [normal] sent=1 changed=1 skipped=0 plan={'incremental': 21}
+  sync a->cloud [normal] sent=6 changed=6 skipped=0 plan={'incremental': 21}
+  sync b->cloud [normal] sent=6 changed=6 skipped=0 plan={'incremental': 21}
+  sync c->cloud [normal] sent=6 changed=6 skipped=0 plan={'incremental': 21}
+  sync cloud->a [normal] sent=12 changed=12 skipped=0 plan={'incremental': 21}
+  sync cloud->b [normal] sent=12 changed=12 skipped=0 plan={'incremental': 21}
+  sync cloud->c [normal] sent=12 changed=12 skipped=0 plan={'incremental': 21}
+  backup of A taken (A still holds 120000 of credit 1)
+  sync a->cloud [normal] sent=9 changed=9 skipped=0 plan={'incremental': 21}
+  sync cloud->b [normal] sent=9 changed=9 skipped=0 plan={'incremental': 21}
+  sync cloud->c [normal] sent=9 changed=9 skipped=0 plan={'incremental': 21}
+  sync b->cloud [normal] sent=3 changed=3 skipped=0 plan={'incremental': 21}
+  sync cloud->a [normal] sent=3 changed=3 skipped=0 plan={'incremental': 21}
+  sync cloud->c [normal] sent=3 changed=3 skipped=0 plan={'incremental': 21}
+  A restored from the old backup (A holds 120000 again locally)
+PASS restored A reports recovering
+  sale at a: rejected 51864 Sucursal restaurada: no se puede vender, abrir caja ni recibir hasta que termine la reconstruccion desde el hub.
+PASS restored A may not sell before recovery (SQL refuses 51864)
+  sync cloud->a [all] sent=64 changed=12 skipped=0 plan={'rebuild': 21}
+PASS the rebuild lifts the lock
+  sync a->cloud [normal] sent=41 changed=0 skipped=0 plan={'recover': 21}
+PASS A shows 70000 after recovery, not the 120000 of the backup
+  redeem at a: rejected 51607 Saldo de anticipo insuficiente en esta sucursal.
+PASS A cannot redeem the old 120000 (only 70000 remains)
+  A sales before restore (local) = 5; everywhere after recovery = 4; lost = 1 (written at A after its last sync)
+PASS exactly the one unsynced sale is lost
+PASS R1: 21 tables, 64 rows, identical SHA-256 on cloud, a, b, c
+PASS CONS on cloud: 0 violations
+PASS CONS on a: 0 violations
+PASS CONS on b: 0 violations
+PASS CONS on c: 0 violations
+stats: pulls=79 rows_sent=312 rows_changed=219 sql_calls=353 ops={'ok_approve': 1, 'ok_dispatch': 1, 'ok_receive': 1, 'ok_request': 1, 'ok_sale': 5, 'rejected_redeem_51607': 1, 'rejected_sale_51864': 1}
+RESULT PASS
+elapsed 326s

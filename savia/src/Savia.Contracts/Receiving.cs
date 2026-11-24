@@ -17,4 +17,5 @@ public sealed record ScanSessionLine(Guid? ScanId, Guid? ItemId, string RawCode,
 public sealed record ResolveScanRequest(Guid ItemId, string Reason);
 public sealed record RejectScanRequest(string Reason);
 public sealed record SupplierRow(Guid SupplierId, string Name);
+public sealed record CreateSupplierRequest(Guid SupplierId, string Name);
 public sealed record QualityRequest(Guid CheckId, Guid ItemId, int Buena, int Danada, int Manchada, int MalOlor, int Faltante, string Reason);

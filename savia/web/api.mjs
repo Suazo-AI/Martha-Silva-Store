@@ -126,6 +126,22 @@ export async function request(method, path, body, options = {}) {
   return options.withStatus ? { status: response.status, data } : data;
 }
 
+/**
+ * Every page of a paged list (D-041: at most 500 rows per response) as one array. The server names the next page
+ * in the Link header; the caller gets the rows only after the last page, so a screen never shows half a list.
+ */
+async function allPages(first) {
+  const rows = [];
+  for (let next = first; next; ) {
+    const response = await send('GET', next);
+    const text = response.status === 204 ? '' : await response.text();
+    if (text) rows.push(...JSON.parse(text));
+    const link = /<([^>]*)>;\s*rel="next"/.exec(response.headers?.get('Link') ?? '');
+    next = link?.[1].startsWith(BASE) ? link[1].slice(BASE.length) : null;
+  }
+  return rows;
+}
+
 const q = params => {
   const entries = Object.entries(params).filter(([, v]) => v !== undefined && v !== null && v !== '');
   return entries.length ? `?${new URLSearchParams(entries).toString()}` : '';
@@ -136,11 +152,18 @@ const path = (strings, ...values) => strings.reduce((out, s, i) => out + s + (i 
 export const login = (loginName, password) => request('POST', '/auth/login', { loginName, password });
 export const logout = () => request('POST', '/auth/logout', undefined, { notifyUnauthorized: false });
 export const me = () => request('GET', '/me');
+// 403 auth.current_password_wrong counts toward the sign-in lockout; this session stays, every other one ends.
+export const changePassword = (currentPassword, newPassword) => request('POST', '/auth/password', { currentPassword, newPassword });
+
+// ---- sync
+/** SyncStatusView: the branch's last sync round; code is null after a round that worked. */
+export const syncStatus = () => request('GET', '/sync/status');
 
 // ---- catalog
 /** exact barcode or supplier code. ItemLookup[] */
 export const lookup = (code, supplierId) => request('GET', `/catalog/lookup${q({ code, supplierId })}`);
-export const catalogItems = () => request('GET', '/catalog/items');
+/** CatalogProduct[]: the whole sale catalog, read page by page. */
+export const catalogItems = () => allPages('/catalog/items');
 export const searchProducts = text => request('GET', `/catalog/search${q({ q: text })}`);
 /** Branch writes require the local pilot catalog flag and an approving role. */
 export const registerProduct = (productId, name) => request('POST', '/catalog/products', { productId, name });
@@ -159,6 +182,8 @@ export function tagExtract(image, barcode, { fetchImpl = globalThis.fetch } = {}
 
 // ---- receiving
 export const suppliers = () => request('GET', '/suppliers');
+// Hub (or a store with its own catalog): the same id and name again is a no-op, so a retry keeps the id.
+export const createSupplier = body => request('POST', '/suppliers', body);
 export const openReception = ({ containerId, scanSessionId, reference, supplierId, deviceCode }) =>
   request('POST', '/receiving/sessions', { containerId, scanSessionId, reference, supplierId, deviceCode });
 export const recordScan = (sessionId, { scanId, rawCode, quantity = 1, deviceCode }) =>
@@ -173,7 +198,7 @@ export const postReception = sessionId => request('POST', path`/receiving/sessio
 
 // ---- stock and labels
 /** StockRow[]: { itemId, sku, variantName, locationId, pool, onHand, reserved, available } */
-export const stock = itemId => request('GET', `/stock${q({ itemId })}`);
+export const stock = itemId => allPages(`/stock${q({ itemId })}`);
 /** LabelJob[]: { id, itemId, storeName, sku, barcode, copiesRequested, copiesAcknowledged, status } */
 export const labelJobs = status => request('GET', `/labels/jobs${q({ status })}`);
 
@@ -215,6 +240,14 @@ export const searchSales = ({ q: query, date, page = 1 } = {}) =>
   request('GET', `/sales${q({ q: query, from: date, to: date, page, pageSize: 25 })}`);
 export const searchCustomers = query => request('GET', `/customers${q({ q: query })}`);
 export const searchCredits = query => request('GET', `/credits/search${q({ q: query })}`);
+export const createCustomer = body => request('POST', '/customers', body);
+// Credit transfers (V063): a store requests, dispatches and receives; the hub approves and cancels.
+export const creditTransfers = () => request('GET', '/credit-transfers');
+export const requestCreditTransfer = body => request('POST', '/credit-transfers', body);
+export const approveCreditTransfer = id => request('POST', path`/credit-transfers/${id}/approve`);
+export const cancelCreditTransfer = (id, reason) => request('POST', path`/credit-transfers/${id}/cancel`, { reason });
+export const dispatchCreditTransfer = id => request('POST', path`/credit-transfers/${id}/dispatch`);
+export const receiveCreditTransfer = id => request('POST', path`/credit-transfers/${id}/receive`);
 export const dayReport = date => request('GET', `/reports/day${q({ date })}`);
 export const summaryReport = (period, date) => request('GET', `/reports/summary${q({ period, date })}`);
 export const stockExceptions = () => request('GET', '/stock/exceptions');
@@ -241,6 +274,12 @@ export const kpiBusiness = (period, date) => request('GET', `/reports/kpi/busine
 export const kpiTeam = (period, date) => request('GET', `/reports/kpi/team${q({ period, date })}`);
 export const exportKpiBusiness = (period, date) => exportReport('/reports/kpi/business.csv', period, date, 'negocio');
 export const exportKpiTeam = (period, date) => exportReport('/reports/kpi/team.csv', period, date, 'equipo');
+
+// ---- web orders (hub only; savia/docs/webstore/ORDER-PATH.md)
+export const webOrders = status => request('GET', `/web-orders${q({ status })}`);
+export const recordManualPayment = (orderId, body) => request('POST', path`/web-orders/${orderId}/manual-payment`, body);
+export const fulfillWebOrder = orderId => request('POST', path`/web-orders/${orderId}/fulfill`);
+export const cancelWebOrder = orderId => request('POST', path`/web-orders/${orderId}/cancel`);
 export const importFile = (fileName, contentBase64) => request('POST', '/catalog/import/file', { fileName, contentBase64 });
 export const previewImport = body => request('POST', '/catalog/import/preview', body);
 export const importCatalog = body => request('POST', '/catalog/import', body);

@@ -1,0 +1,4 @@
+Msg 2714, Level 16, State 5, Server <container>, Line 1
+There is already an object named 'CK_ImportBatches_Store' in the database.
+Msg 1750, Level 16, State 1, Server <container>, Line 1
+Could not create constraint or index. See previous errors.

@@ -1,0 +1,68 @@
+{
+ "identity": "restricted",
+ "scenarios": {
+  "offline_sales": {
+   "verdict": "PASS",
+   "seconds": 102.8,
+   "reason": "",
+   "checks_passed": 62,
+   "checks_failed": 0
+  },
+  "replay": {
+   "verdict": "PASS",
+   "seconds": 90.2,
+   "reason": "",
+   "checks_passed": 46,
+   "checks_failed": 0
+  },
+  "credit_transfer": {
+   "verdict": "PASS",
+   "seconds": 169.2,
+   "reason": "",
+   "checks_passed": 89,
+   "checks_failed": 0
+  },
+  "restore_sale_before_rebuild": {
+   "verdict": "PASS",
+   "seconds": 113.7,
+   "reason": "",
+   "checks_passed": 54,
+   "checks_failed": 0
+  },
+  "hub_restart": {
+   "verdict": "PASS",
+   "seconds": 100.3,
+   "reason": "",
+   "checks_passed": 51,
+   "checks_failed": 0
+  },
+  "controls": {
+   "verdict": "PASS",
+   "seconds": 111.4,
+   "reason": "",
+   "checks_passed": 51,
+   "checks_failed": 0
+  },
+  "reference_data": {
+   "verdict": "PASS",
+   "seconds": 82.2,
+   "reason": "",
+   "checks_passed": 43,
+   "checks_failed": 0
+  },
+  "schema_skew": {
+   "verdict": "PASS",
+   "seconds": 95.0,
+   "reason": "",
+   "checks_passed": 39,
+   "checks_failed": 0
+  },
+  "hub_catalog": {
+   "verdict": "PASS",
+   "seconds": 86.5,
+   "reason": "",
+   "checks_passed": 49,
+   "checks_failed": 0
+  }
+ }
+}

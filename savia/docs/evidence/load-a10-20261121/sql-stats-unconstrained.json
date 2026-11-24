@@ -1,0 +1,350 @@
+{
+ "db": "SAVIA_SIM_load_a",
+ "label": "unconstrained",
+ "queries": {
+  "lookup_by_scan": {
+   "logical_reads": 22,
+   "cpu_ms": 0,
+   "elapsed_ms": 3,
+   "cold_elapsed_ms": 1,
+   "warm_cpu_ms": 1,
+   "warm_elapsed_ms": 1,
+   "big_scans": []
+  },
+  "search[Blusa]": {
+   "logical_reads": 135354,
+   "cpu_ms": 1154,
+   "elapsed_ms": 326,
+   "cold_elapsed_ms": 345,
+   "warm_cpu_ms": 1125,
+   "warm_elapsed_ms": 338,
+   "big_scans": [
+    {
+     "op": "Clustered Index Scan",
+     "object": "catalog.Items.PK_Items",
+     "rows_read": 251003,
+     "rows_out": 251003,
+     "executions": 6
+    },
+    {
+     "op": "Index Scan",
+     "object": "catalog.Products.IX_Products_Name",
+     "rows_read": 51001,
+     "rows_out": 51001,
+     "executions": 6
+    },
+    {
+     "op": "Clustered Index Scan",
+     "object": "catalog.Sizes.PK_Sizes",
+     "rows_read": 4188,
+     "rows_out": 4188,
+     "executions": 1396
+    },
+    {
+     "op": "Clustered Index Scan",
+     "object": "catalog.Colors.PK_Colors",
+     "rows_read": 4188,
+     "rows_out": 4188,
+     "executions": 1396
+    }
+   ]
+  },
+  "search[M12345]": {
+   "logical_reads": 1520887,
+   "cpu_ms": 4819,
+   "elapsed_ms": 2308,
+   "cold_elapsed_ms": 2091,
+   "warm_cpu_ms": 4866,
+   "warm_elapsed_ms": 2160,
+   "big_scans": []
+  },
+  "search[zzqx no match]": {
+   "logical_reads": 1520797,
+   "cpu_ms": 4851,
+   "elapsed_ms": 2168,
+   "cold_elapsed_ms": 2105,
+   "warm_cpu_ms": 4890,
+   "warm_elapsed_ms": 1964,
+   "big_scans": [
+    {
+     "op": "Clustered Index Scan",
+     "object": "catalog.Items.PK_Items",
+     "rows_read": 251003,
+     "rows_out": 251003,
+     "executions": 6
+    },
+    {
+     "op": "Index Scan",
+     "object": "catalog.Products.IX_Products_Name",
+     "rows_read": 51001,
+     "rows_out": 51001,
+     "executions": 6
+    }
+   ]
+  },
+  "receipt_detail": {
+   "logical_reads": 62,
+   "cpu_ms": 7,
+   "elapsed_ms": 12,
+   "cold_elapsed_ms": 1,
+   "warm_cpu_ms": 0,
+   "warm_elapsed_ms": 1,
+   "big_scans": []
+  },
+  "day_report (usp_GetDayReport)": {
+   "logical_reads": 681,
+   "cpu_ms": 15,
+   "elapsed_ms": 16,
+   "cold_elapsed_ms": 9,
+   "warm_cpu_ms": 6,
+   "warm_elapsed_ms": 9,
+   "big_scans": []
+  },
+  "day_report (usp_GetReturnsByKind)": {
+   "logical_reads": 0,
+   "cpu_ms": 1,
+   "elapsed_ms": 1,
+   "cold_elapsed_ms": 0,
+   "warm_cpu_ms": 0,
+   "warm_elapsed_ms": 0,
+   "big_scans": []
+  },
+  "sales_search_page": {
+   "logical_reads": 12861,
+   "cpu_ms": 13,
+   "elapsed_ms": 16,
+   "cold_elapsed_ms": 65,
+   "warm_cpu_ms": 10,
+   "warm_elapsed_ms": 12,
+   "big_scans": [
+    {
+     "op": "Index Scan",
+     "object": "sales.Sales.IX_Sales_CustomerDate",
+     "rows_read": 2418,
+     "rows_out": 2388,
+     "executions": 1
+    }
+   ]
+  },
+  "kpi_business[day]": {
+   "logical_reads": 8272477,
+   "cpu_ms": 17342,
+   "elapsed_ms": 4476,
+   "cold_elapsed_ms": 4127,
+   "warm_cpu_ms": 14203,
+   "warm_elapsed_ms": 3532,
+   "big_scans": [
+    {
+     "op": "Table Scan",
+     "object": "dbo.#stock.",
+     "rows_read": 251000,
+     "rows_out": 251000,
+     "executions": 6
+    },
+    {
+     "op": "Table Scan",
+     "object": "dbo.#stock.",
+     "rows_read": 251000,
+     "rows_out": 251000,
+     "executions": 6
+    },
+    {
+     "op": "Table Scan",
+     "object": "dbo.#stock.",
+     "rows_read": 251000,
+     "rows_out": 250378,
+     "executions": 6
+    },
+    {
+     "op": "Table Scan",
+     "object": "dbo.#stock.",
+     "rows_read": 251000,
+     "rows_out": 250378,
+     "executions": 6
+    },
+    {
+     "op": "Index Scan",
+     "object": "catalog.Products.IX_Products_Name",
+     "rows_read": 51001,
+     "rows_out": 51001,
+     "executions": 6
+    },
+    {
+     "op": "Index Scan",
+     "object": "catalog.Products.IX_Products_Name",
+     "rows_read": 51001,
+     "rows_out": 51001,
+     "executions": 6
+    }
+   ]
+  },
+  "kpi_business[month]": {
+   "logical_reads": 8273717,
+   "cpu_ms": 17111,
+   "elapsed_ms": 3705,
+   "cold_elapsed_ms": 4285,
+   "warm_cpu_ms": 16633,
+   "warm_elapsed_ms": 3750,
+   "big_scans": [
+    {
+     "op": "Table Scan",
+     "object": "dbo.#stock.",
+     "rows_read": 251000,
+     "rows_out": 251000,
+     "executions": 6
+    },
+    {
+     "op": "Table Scan",
+     "object": "dbo.#stock.",
+     "rows_read": 251000,
+     "rows_out": 251000,
+     "executions": 6
+    },
+    {
+     "op": "Table Scan",
+     "object": "dbo.#stock.",
+     "rows_read": 251000,
+     "rows_out": 250378,
+     "executions": 6
+    },
+    {
+     "op": "Table Scan",
+     "object": "dbo.#stock.",
+     "rows_read": 251000,
+     "rows_out": 250378,
+     "executions": 6
+    },
+    {
+     "op": "Index Scan",
+     "object": "catalog.Products.IX_Products_Name",
+     "rows_read": 51001,
+     "rows_out": 51001,
+     "executions": 6
+    },
+    {
+     "op": "Index Scan",
+     "object": "catalog.Products.IX_Products_Name",
+     "rows_read": 51001,
+     "rows_out": 51001,
+     "executions": 6
+    }
+   ]
+  },
+  "kpi_team[month]": {
+   "logical_reads": 5100,
+   "cpu_ms": 42,
+   "elapsed_ms": 44,
+   "cold_elapsed_ms": 219,
+   "warm_cpu_ms": 10,
+   "warm_elapsed_ms": 12,
+   "big_scans": []
+  },
+  "kpi_business[year]": {
+   "logical_reads": 8273803,
+   "cpu_ms": 16202,
+   "elapsed_ms": 3702,
+   "cold_elapsed_ms": 4208,
+   "warm_cpu_ms": 17025,
+   "warm_elapsed_ms": 3760,
+   "big_scans": [
+    {
+     "op": "Table Scan",
+     "object": "dbo.#stock.",
+     "rows_read": 251000,
+     "rows_out": 251000,
+     "executions": 6
+    },
+    {
+     "op": "Table Scan",
+     "object": "dbo.#stock.",
+     "rows_read": 251000,
+     "rows_out": 251000,
+     "executions": 6
+    },
+    {
+     "op": "Clustered Index Scan",
+     "object": "sales.SaleLines.PK_SaleLines",
+     "rows_read": 4038,
+     "rows_out": 4038,
+     "executions": 1
+    },
+    {
+     "op": "Clustered Index Scan",
+     "object": "sales.SaleLines.PK_SaleLines",
+     "rows_read": 4038,
+     "rows_out": 4038,
+     "executions": 1
+    },
+    {
+     "op": "Clustered Index Scan",
+     "object": "sales.Sales.PK_Sales",
+     "rows_read": 2418,
+     "rows_out": 2418,
+     "executions": 1
+    },
+    {
+     "op": "Table Scan",
+     "object": "dbo.#s.",
+     "rows_read": 2418,
+     "rows_out": 2418,
+     "executions": 1
+    }
+   ]
+  },
+  "catalog_items_full (usp_ListSaleCatalog)": {
+   "logical_reads": 3474259,
+   "cpu_ms": 9659,
+   "elapsed_ms": 11703,
+   "cold_elapsed_ms": 11341,
+   "warm_cpu_ms": 7000,
+   "warm_elapsed_ms": 11341,
+   "big_scans": [
+    {
+     "op": "Clustered Index Scan",
+     "object": "catalog.Sizes.PK_Sizes",
+     "rows_read": 753006,
+     "rows_out": 753006,
+     "executions": 251002
+    },
+    {
+     "op": "Index Scan",
+     "object": "catalog.Items.IX_Items_Product",
+     "rows_read": 251003,
+     "rows_out": 251002,
+     "executions": 1
+    },
+    {
+     "op": "Clustered Index Scan",
+     "object": "catalog.Products.PK_Products",
+     "rows_read": 51001,
+     "rows_out": 51001,
+     "executions": 1
+    }
+   ]
+  },
+  "stock_full (/stock)": {
+   "logical_reads": 12322,
+   "cpu_ms": 860,
+   "elapsed_ms": 887,
+   "cold_elapsed_ms": 1517,
+   "warm_cpu_ms": 1105,
+   "warm_elapsed_ms": 1517,
+   "big_scans": [
+    {
+     "op": "Clustered Index Scan",
+     "object": "catalog.Items.PK_Items",
+     "rows_read": 251003,
+     "rows_out": 251003,
+     "executions": 6
+    },
+    {
+     "op": "Index Scan",
+     "object": "inventory.StockBalances.IX_StockBalances_Location_Pool",
+     "rows_read": 251000,
+     "rows_out": 251000,
+     "executions": 6
+    }
+   ]
+  }
+ }
+}

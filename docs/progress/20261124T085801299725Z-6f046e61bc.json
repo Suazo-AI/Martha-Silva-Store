@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-24T08:58:01.299725+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "dist/integration-adapters.js",
+      "change": "M",
+      "git_blob": "99f0c5c2651e153ec6ac5c8b4fad1bba76d85847"
+    },
+    {
+      "path": "src/integration-adapters.js",
+      "change": "M",
+      "git_blob": "99f0c5c2651e153ec6ac5c8b4fad1bba76d85847"
+    },
+    {
+      "path": "tests/integration-adapters.test.js",
+      "change": "M",
+      "git_blob": "8166b9c770fa38602ca64158d0dacc6d5c0fa950"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

@@ -1,0 +1,35 @@
+setup: 4 databases, tills open, 500 units per branch, credits ['35BF992D-C9E9-4616-A12E-7696A6CECC1B', 'E4B06CE6-0741-47A8-BCE4-2C8218072E8C'] (120000 each at A)
+  sync a->cloud [normal] sent=29 changed=29 skipped=0 plan={'initial': 21}
+  sync b->cloud [normal] sent=4 changed=4 skipped=0 plan={'initial': 21}
+  sync c->cloud [normal] sent=4 changed=4 skipped=0 plan={'initial': 21}
+  sync cloud->a [normal] sent=8 changed=8 skipped=0 plan={'initial': 21}
+  sync cloud->b [normal] sent=33 changed=33 skipped=0 plan={'initial': 21}
+  sync cloud->c [normal] sent=33 changed=33 skipped=0 plan={'initial': 21}
+scenario replay (A-04): duplicate, late, crashed, unacknowledged and pre-restore batches from A to the cloud
+  sync a->cloud [normal] sent=6 changed=6 skipped=0 plan={'incremental': 21}
+PASS first batch applies
+  sync a->cloud [normal] sent=6 changed=0 skipped=21 plan={'incremental': 21}
+PASS duplicate batch: no error and 0 changes
+  sync a->cloud [normal] sent=6 changed=6 skipped=0 plan={'incremental': 21}
+  sync a->cloud [normal] sent=6 changed=0 skipped=21 plan={'incremental': 21}
+PASS late batch (older than the cursor): no error and 0 changes
+PASS late batch did not move rows back
+PASS crash before COMMIT: nothing applied
+  sync a->cloud [normal] sent=6 changed=6 skipped=0 plan={'incremental': 21}
+PASS retry after the crash applies
+  sync a->cloud [normal] sent=6 changed=6 skipped=0 plan={'incremental': 21}
+PASS lost acknowledgement: the next plan sends nothing old
+  sync cloud->b [normal] sent=21 changed=21 skipped=0 plan={'incremental': 21}
+  sync cloud->c [normal] sent=21 changed=21 skipped=0 plan={'incremental': 21}
+  A restored; it rebuilds from the cloud, then the old in-flight batch arrives
+  sync cloud->a [all] sent=57 changed=0 skipped=0 plan={'rebuild': 21}
+  sync a->cloud [normal] sent=49 changed=0 skipped=0 plan={'recover': 21}
+PASS pre-restore batch after recovery is refused (51853 retired fork)
+PASS R1: 21 tables, 57 rows, identical SHA-256 on cloud, a, b, c
+PASS CONS on cloud: 0 violations
+PASS CONS on a: 0 violations
+PASS CONS on b: 0 violations
+PASS CONS on c: 0 violations
+stats: pulls=43 rows_sent=295 rows_changed=177 sql_calls=203 ops={'ok_sale': 5}
+RESULT PASS
+elapsed 101s

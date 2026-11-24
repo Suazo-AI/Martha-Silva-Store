@@ -1,0 +1,42 @@
+{
+ "scenario": "schema_skew",
+ "claim": "D-041 (G14): store C, one migration behind the hub, is refused with sync.schema_mismatch (51856) and its till status names the reason; C keeps selling, then it runs Savia.Migrator and its sale reaches the hub and stores A and B.",
+ "tills": {
+  "a": "5E4E0000-0000-4000-8000-0000000000A0",
+  "b": "5E4E0000-0000-4000-8000-0000000000B0",
+  "c": "5E4E0000-0000-4000-8000-0000000000C0"
+ },
+ "sales": [
+  {
+   "key": "n1",
+   "store": "c",
+   "saleId": "5E4E0000-0000-4000-8000-000000000001",
+   "qty": 1,
+   "tenders": [
+    {
+     "kind": "cash",
+     "amount": 120000
+    }
+   ]
+  }
+ ],
+ "store_totals": {
+  "a": {
+   "count": 0,
+   "totalMinor": 0
+  },
+  "b": {
+   "count": 0,
+   "totalMinor": 0
+  },
+  "c": {
+   "count": 1,
+   "totalMinor": 120000
+  }
+ },
+ "on_hand": {
+  "a": 500,
+  "b": 500,
+  "c": 499
+ }
+}

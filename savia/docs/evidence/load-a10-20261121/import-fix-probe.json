@@ -1,0 +1,24 @@
+{
+ "db": "SAVIA_SIM_load_b",
+ "rows": 1000,
+ "change": {
+  "from": "i.Sku=r.Sku COLLATE DATABASE_DEFAULT",
+  "to": "i.Sku=r.Sku COLLATE Latin1_General_100_BIN2"
+ },
+ "results": {
+  "catalog.usp_ImportCatalog": {
+   "exit": 0,
+   "logical_reads": 2890049,
+   "cpu_ms": 28093,
+   "elapsed_ms": 28198,
+   "preview": "{\"rowsCount\":1000,\"validCount\":1000,\"errorCount\":0,\"unitsCount\":2000,\"errors\":[],\"sample\":[{\"row\":2,\"code\":\"7690000000006\",\"sku\":\"PR"
+  },
+  "dbo.usp_ImportCatalog_probe": {
+   "exit": 0,
+   "logical_reads": 767049,
+   "cpu_ms": 949,
+   "elapsed_ms": 1012,
+   "preview": "{\"rowsCount\":1000,\"validCount\":1000,\"errorCount\":0,\"unitsCount\":2000,\"errors\":[],\"sample\":[{\"row\":2,\"code\":\"7690000000006\",\"sku\":\"PR"
+  }
+ }
+}

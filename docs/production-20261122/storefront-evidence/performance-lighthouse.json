@@ -1,0 +1,513 @@
+{
+ "tool": "Lighthouse 12.8.2, mobile preset (Lantern simulation), 3 interleaved runs per build and page; median by performance score",
+ "server": "wrangler dev serving prepare.py output with the repository _headers (Cross-Origin-Opener-Policy removed so Lighthouse can trace); live builds use a local stub hub",
+ "builds": {
+  "base": "source_sha 60722372",
+  "cand": "step 1",
+  "cand2": "steps 1-3",
+  "cand3": "steps 1-4 (final)"
+ },
+ "rounds": {
+  "poster": {
+   "what": "Step 1 only: video poster as WebP derivative (product page)",
+   "results": {
+    "base-demo": {
+     "product": {
+      "median": {
+       "perf": 70,
+       "a11y": 100,
+       "bp": 96,
+       "lcp": 5429.8608,
+       "tbt": 540.4455,
+       "cls": 0.0005,
+       "fcp": 1499.109,
+       "si": 3810.6421,
+       "bytes": 4634572,
+       "requests": 48,
+       "benchmarkIndex": 1890.5
+      },
+      "perf_runs": [
+       70,
+       59,
+       77
+      ]
+     }
+    },
+    "cand-demo": {
+     "product": {
+      "median": {
+       "perf": 84,
+       "a11y": 100,
+       "bp": 96,
+       "lcp": 3902.686,
+       "tbt": 96,
+       "cls": 0.0005,
+       "fcp": 1452.9832,
+       "si": 3496.8956,
+       "bytes": 2490089,
+       "requests": 47,
+       "benchmarkIndex": 1929.5
+      },
+      "perf_runs": [
+       84,
+       81,
+       89
+      ]
+     }
+    },
+    "base-live": {
+     "product": {
+      "median": {
+       "perf": 57,
+       "a11y": 100,
+       "bp": 96,
+       "lcp": 16720.732,
+       "tbt": 700.652,
+       "cls": 0.0005,
+       "fcp": 1493.696,
+       "si": 4167.1202,
+       "bytes": 4639462,
+       "requests": 49,
+       "benchmarkIndex": 2019
+      },
+      "perf_runs": [
+       50,
+       57,
+       65
+      ]
+     }
+    },
+    "cand-live": {
+     "product": {
+      "median": {
+       "perf": 74,
+       "a11y": 100,
+       "bp": 96,
+       "lcp": 5886.7964,
+       "tbt": 103.5,
+       "cls": 0.0005,
+       "fcp": 1632.634,
+       "si": 3322.6625,
+       "bytes": 2494868,
+       "requests": 48,
+       "benchmarkIndex": 1973
+      },
+      "perf_runs": [
+       74,
+       66,
+       77
+      ]
+     }
+    }
+   }
+  },
+  "step23": {
+   "what": "Steps 2-4 on top of step 1: carousel sizes, data: icon, gallery clone preload",
+   "results": {
+    "base-demo": {
+     "home": {
+      "median": {
+       "perf": 88,
+       "a11y": 100,
+       "bp": 96,
+       "lcp": 2900.05,
+       "tbt": 255,
+       "cls": 0.0034,
+       "fcp": 1413.473,
+       "si": 3863.4543,
+       "bytes": 2969754,
+       "requests": 56,
+       "benchmarkIndex": 1864
+      },
+      "perf_runs": [
+       71,
+       88,
+       91
+      ]
+     },
+     "catalog": {
+      "median": {
+       "perf": 88,
+       "a11y": 100,
+       "bp": 96,
+       "lcp": 3463.046,
+       "tbt": 172.977,
+       "cls": 0.0012,
+       "fcp": 1215.137,
+       "si": 2914.9696,
+       "bytes": 2736276,
+       "requests": 52,
+       "benchmarkIndex": 1880
+      },
+      "perf_runs": [
+       90,
+       88,
+       79
+      ]
+     },
+     "product": {
+      "median": {
+       "perf": 67,
+       "a11y": 100,
+       "bp": 96,
+       "lcp": 14270.628,
+       "tbt": 388.686,
+       "cls": 0.0005,
+       "fcp": 1379.8728,
+       "si": 3395.8721,
+       "bytes": 4634571,
+       "requests": 48,
+       "benchmarkIndex": 2056
+      },
+      "perf_runs": [
+       64,
+       67,
+       69
+      ]
+     }
+    },
+    "cand2-demo": {
+     "home": {
+      "median": {
+       "perf": 87,
+       "a11y": 100,
+       "bp": 100,
+       "lcp": 2771.576,
+       "tbt": 339,
+       "cls": 0.0095,
+       "fcp": 1421.576,
+       "si": 3892.7437,
+       "bytes": 1905527,
+       "requests": 54,
+       "benchmarkIndex": 1836
+      },
+      "perf_runs": [
+       89,
+       83,
+       87
+      ]
+     },
+     "catalog": {
+      "median": {
+       "perf": 88,
+       "a11y": 100,
+       "bp": 100,
+       "lcp": 3695.952,
+       "tbt": 122.0,
+       "cls": 0.0012,
+       "fcp": 1231.984,
+       "si": 3140.7249,
+       "bytes": 2731911,
+       "requests": 51,
+       "benchmarkIndex": 1910.5
+      },
+      "perf_runs": [
+       88,
+       90,
+       88
+      ]
+     },
+     "product": {
+      "median": {
+       "perf": 83,
+       "a11y": 100,
+       "bp": 100,
+       "lcp": 4263.695,
+       "tbt": 257.8295,
+       "cls": 0.0005,
+       "fcp": 1431.341,
+       "si": 3543.5991,
+       "bytes": 1463826,
+       "requests": 46,
+       "benchmarkIndex": 1857
+      },
+      "perf_runs": [
+       83,
+       76,
+       85
+      ]
+     }
+    },
+    "cand3-demo": {
+     "home": {
+      "median": {
+       "perf": 91,
+       "a11y": 100,
+       "bp": 100,
+       "lcp": 2853.587,
+       "tbt": 215.5,
+       "cls": 0.0044,
+       "fcp": 1428.211,
+       "si": 3947.7841,
+       "bytes": 1905534,
+       "requests": 54,
+       "benchmarkIndex": 1906
+      },
+      "perf_runs": [
+       79,
+       91,
+       92
+      ]
+     },
+     "catalog": {
+      "median": {
+       "perf": 91,
+       "a11y": 100,
+       "bp": 100,
+       "lcp": 3227.782,
+       "tbt": 99,
+       "cls": 0.001,
+       "fcp": 1270.7907,
+       "si": 3157.8259,
+       "bytes": 2731916,
+       "requests": 51,
+       "benchmarkIndex": 1918.5
+      },
+      "perf_runs": [
+       92,
+       91,
+       88
+      ]
+     },
+     "product": {
+      "median": {
+       "perf": 85,
+       "a11y": 100,
+       "bp": 100,
+       "lcp": 3391.9941,
+       "tbt": 128.5,
+       "cls": 0.0005,
+       "fcp": 1397.9705,
+       "si": 3566.1302,
+       "bytes": 1463883,
+       "requests": 46,
+       "benchmarkIndex": 1861.5
+      },
+      "perf_runs": [
+       89,
+       85,
+       82
+      ]
+     }
+    },
+    "base-live": {
+     "home": {
+      "median": {
+       "perf": 91,
+       "a11y": 100,
+       "bp": 96,
+       "lcp": 2728.137,
+       "tbt": 182.5,
+       "cls": 0.0013,
+       "fcp": 1398.4223,
+       "si": 3810.2792,
+       "bytes": 2975939,
+       "requests": 57,
+       "benchmarkIndex": 1912.5
+      },
+      "perf_runs": [
+       91,
+       94,
+       76
+      ]
+     },
+     "catalog": {
+      "median": {
+       "perf": 90,
+       "a11y": 100,
+       "bp": 96,
+       "lcp": 3322.058,
+       "tbt": 149.471,
+       "cls": 0,
+       "fcp": 1222.058,
+       "si": 2550.5278,
+       "bytes": 2742065,
+       "requests": 53,
+       "benchmarkIndex": 1849
+      },
+      "perf_runs": [
+       91,
+       90,
+       90
+      ]
+     },
+     "product": {
+      "median": {
+       "perf": 66,
+       "a11y": 100,
+       "bp": 96,
+       "lcp": 14544.121,
+       "tbt": 341.9395,
+       "cls": 0.0005,
+       "fcp": 1404.313,
+       "si": 3007.5405,
+       "bytes": 4639454,
+       "requests": 49,
+       "benchmarkIndex": 1889.5
+      },
+      "perf_runs": [
+       66,
+       70,
+       55
+      ]
+     }
+    },
+    "cand3-live": {
+     "home": {
+      "median": {
+       "perf": 91,
+       "a11y": 100,
+       "bp": 100,
+       "lcp": 2902.201,
+       "tbt": 190,
+       "cls": 0.0013,
+       "fcp": 1449.56,
+       "si": 3804.3476,
+       "bytes": 1911486,
+       "requests": 55,
+       "benchmarkIndex": 1855
+      },
+      "perf_runs": [
+       92,
+       87,
+       91
+      ]
+     },
+     "catalog": {
+      "median": {
+       "perf": 94,
+       "a11y": 100,
+       "bp": 100,
+       "lcp": 2811.5946,
+       "tbt": 126.5,
+       "cls": 0.001,
+       "fcp": 1299.348,
+       "si": 2720.28,
+       "bytes": 2737569,
+       "requests": 52,
+       "benchmarkIndex": 2129
+      },
+      "perf_runs": [
+       94,
+       90,
+       97
+      ]
+     },
+     "product": {
+      "median": {
+       "perf": 85,
+       "a11y": 100,
+       "bp": 100,
+       "lcp": 3417.2644,
+       "tbt": 255.8678,
+       "cls": 0.0005,
+       "fcp": 1368.927,
+       "si": 3441.697,
+       "bytes": 1468517,
+       "requests": 47,
+       "benchmarkIndex": 1882.5
+      },
+      "perf_runs": [
+       83,
+       89,
+       85
+      ]
+     }
+    }
+   }
+  },
+  "checkout": {
+   "what": "Checkout page, baseline against final candidate",
+   "results": {
+    "base-demo": {
+     "checkout": {
+      "median": {
+       "perf": 91,
+       "a11y": 100,
+       "bp": 96,
+       "lcp": 3210.261,
+       "tbt": 0,
+       "cls": 0,
+       "fcp": 2293.4406,
+       "si": 2293.4406,
+       "bytes": 376751,
+       "requests": 16,
+       "benchmarkIndex": 3082.5
+      },
+      "perf_runs": [
+       91,
+       91,
+       90
+      ]
+     }
+    },
+    "cand3-demo": {
+     "checkout": {
+      "median": {
+       "perf": 90,
+       "a11y": 100,
+       "bp": 100,
+       "lcp": 3197.7141,
+       "tbt": 0,
+       "cls": 0,
+       "fcp": 2297.7141,
+       "si": 2297.7141,
+       "bytes": 372388,
+       "requests": 15,
+       "benchmarkIndex": 3131
+      },
+      "perf_runs": [
+       90,
+       90,
+       93
+      ]
+     }
+    },
+    "base-live": {
+     "checkout": {
+      "median": {
+       "perf": 88,
+       "a11y": 100,
+       "bp": 96,
+       "lcp": 3882.6907,
+       "tbt": 0,
+       "cls": 0,
+       "fcp": 1271.7055,
+       "si": 1351.904,
+       "bytes": 378941,
+       "requests": 17,
+       "benchmarkIndex": 2943
+      },
+      "perf_runs": [
+       88,
+       88,
+       87
+      ]
+     }
+    },
+    "cand3-live": {
+     "checkout": {
+      "median": {
+       "perf": 86,
+       "a11y": 100,
+       "bp": 100,
+       "lcp": 3781.6365,
+       "tbt": 0,
+       "cls": 0,
+       "fcp": 2302.1613,
+       "si": 2302.1613,
+       "bytes": 374438,
+       "requests": 16,
+       "benchmarkIndex": 2993.5
+      },
+      "perf_runs": [
+       89,
+       86,
+       86
+      ]
+     }
+    }
+   }
+  }
+ }
+}

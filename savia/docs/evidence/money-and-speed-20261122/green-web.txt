@@ -1,0 +1,15 @@
+✔ each status offers only the staff actions the hub accepts (1.454ms)
+✔ money under review is always refundable and acceptable only when it covers the order total in its currency (0.5473ms)
+✔ each payment reads as amount, provider, state and the reason it is under review (0.6945ms)
+✔ marking money refunded needs the bank reference (0.3808ms)
+✔ staff filter money to review first among the problems (0.5637ms)
+✔ status labels are Spanish and an unknown status shows as it came (0.2416ms)
+✔ a manual payment needs a reference and records the order total (0.2136ms)
+✔ lines read as sku and quantity (0.1286ms)
+✔ web-order calls use the hub routes (1.269ms)
+✔ the web-orders screen is for approvers and appears only on the hub (0.4249ms)
+✔ the hub screen lists each order with its contact and only the buttons its status allows (64.3947ms)
+✔ on a store the screen explains that web orders are handled on the hub and calls nothing (0.7188ms)
+ℹ tests 12
+ℹ pass 12
+ℹ fail 0

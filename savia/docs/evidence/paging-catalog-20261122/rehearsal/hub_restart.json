@@ -1,0 +1,247 @@
+{
+ "scenario": "hub_restart",
+ "verdict": "PASS",
+ "reason": "",
+ "identity": "restricted",
+ "manifest": {
+  "path": "tools/rehearsal/expected/hub_restart.json",
+  "sha256": "e2aacdd445efe765ffc61b4644feda77c53643a99586326b281e0a8058853eea"
+ },
+ "seconds_total": 95.5,
+ "phases": [
+  {
+   "phase": "setup: 4 databases, node credentials, staff passwords, seed stock",
+   "seconds": 33.4
+  },
+  {
+   "phase": "start hub and 3 store hosts",
+   "seconds": 6.3
+  },
+  {
+   "phase": "open tills over HTTP",
+   "seconds": 1.7
+  },
+  {
+   "phase": "first convergence",
+   "seconds": 21.0
+  },
+  {
+   "phase": "hub killed after committing A's push, before answering",
+   "seconds": 5.9
+  },
+  {
+   "phase": "stores sell while the hub is down",
+   "seconds": 6.4
+  },
+  {
+   "phase": "hub restarted",
+   "seconds": 1.9
+  },
+  {
+   "phase": "converge after hub restart",
+   "seconds": 12.5
+  },
+  {
+   "phase": "checks",
+   "seconds": 5.0
+  }
+ ],
+ "events": [
+  {
+   "t": 40.4,
+   "event": "open till a",
+   "status": 204,
+   "problem": ""
+  },
+  {
+   "t": 41.1,
+   "event": "open till b",
+   "status": 204,
+   "problem": ""
+  },
+  {
+   "t": 41.5,
+   "event": "open till c",
+   "status": 204,
+   "problem": ""
+  },
+  {
+   "t": 62.8,
+   "event": "sale h1 at a",
+   "status": 200,
+   "problem": ""
+  },
+  {
+   "t": 68.1,
+   "event": "kill point reached",
+   "fired": true,
+   "hub_status": 200
+  },
+  {
+   "t": 68.4,
+   "event": "hub database holds h1 (committed before the crash)",
+   "count": 1
+  },
+  {
+   "t": 68.6,
+   "event": "sale h2 at b",
+   "status": 200,
+   "problem": ""
+  },
+  {
+   "t": 68.8,
+   "event": "sale h3 at c",
+   "status": 200,
+   "problem": ""
+  },
+  {
+   "t": 76.7,
+   "event": "sale h4 at a",
+   "status": 200,
+   "problem": ""
+  },
+  {
+   "t": 89.1,
+   "event": "converge after hub restart: converged in 12.5s",
+   "differing": []
+  }
+ ],
+ "checks": {
+  "passed": 51,
+  "failed": 0,
+  "failures": []
+ },
+ "check_list": [
+  "PASS http h1 accepted",
+  "PASS http h2 accepted",
+  "PASS http h3 accepted",
+  "PASS http h4 accepted",
+  "PASS cloud: sale h1 once with its effects",
+  "PASS cloud: sale h2 once with its effects",
+  "PASS cloud: sale h3 once with its effects",
+  "PASS cloud: sale h4 once with its effects",
+  "PASS cloud: no sale outside the manifest",
+  "PASS cloud: store a totals",
+  "PASS cloud: store b totals",
+  "PASS cloud: store c totals",
+  "PASS cloud: on hand at a",
+  "PASS cloud: on hand at b",
+  "PASS cloud: on hand at c",
+  "PASS a: sale h1 once with its effects",
+  "PASS a: sale h2 once with its effects",
+  "PASS a: sale h3 once with its effects",
+  "PASS a: sale h4 once with its effects",
+  "PASS a: no sale outside the manifest",
+  "PASS a: store a totals",
+  "PASS a: store b totals",
+  "PASS a: store c totals",
+  "PASS a: on hand at a",
+  "PASS a: on hand at b",
+  "PASS a: on hand at c",
+  "PASS b: sale h1 once with its effects",
+  "PASS b: sale h2 once with its effects",
+  "PASS b: sale h3 once with its effects",
+  "PASS b: sale h4 once with its effects",
+  "PASS b: no sale outside the manifest",
+  "PASS b: store a totals",
+  "PASS b: store b totals",
+  "PASS b: store c totals",
+  "PASS b: on hand at a",
+  "PASS b: on hand at b",
+  "PASS b: on hand at c",
+  "PASS c: sale h1 once with its effects",
+  "PASS c: sale h2 once with its effects",
+  "PASS c: sale h3 once with its effects",
+  "PASS c: sale h4 once with its effects",
+  "PASS c: no sale outside the manifest",
+  "PASS c: store a totals",
+  "PASS c: store b totals",
+  "PASS c: store c totals",
+  "PASS c: on hand at a",
+  "PASS c: on hand at b",
+  "PASS c: on hand at c",
+  "PASS R1: every synced table identical on hub, a, b, c",
+  "PASS CONS: audit.usp_CheckConservation has 0 violations on 4 nodes",
+  "PASS sync converged"
+ ],
+ "controls": [],
+ "outcomes": {
+  "h1": {
+   "ok": true,
+   "status": 200,
+   "detail": "200"
+  },
+  "h2": {
+   "ok": true,
+   "status": 200,
+   "detail": "200"
+  },
+  "h3": {
+   "ok": true,
+   "status": 200,
+   "detail": "200"
+  },
+  "h4": {
+   "ok": true,
+   "status": 200,
+   "detail": "200"
+  }
+ },
+ "sync_rounds_from_host_logs": {
+  "a": {
+   "successful_rounds": 6,
+   "rebuilt_rounds": 0,
+   "not_successful": 2,
+   "distinct_warnings": [
+    "Sync round could not reach the hub: An error occurred while sending the request."
+   ],
+   "host_starts": 1
+  },
+  "b": {
+   "successful_rounds": 6,
+   "rebuilt_rounds": 0,
+   "not_successful": 3,
+   "distinct_warnings": [
+    "Sync round could not reach the hub: An error occurred while sending the request."
+   ],
+   "host_starts": 1
+  },
+  "c": {
+   "successful_rounds": 8,
+   "rebuilt_rounds": 0,
+   "not_successful": 1,
+   "distinct_warnings": [
+    "Sync round could not reach the hub: An error occurred while sending the request."
+   ],
+   "host_starts": 1
+  }
+ },
+ "hub_exchanges_seen_by_proxies": {
+  "a": {
+   "/sync/v1/push/plan 200": 15,
+   "/sync/v1/state 200": 8,
+   "/sync/v1/pull 200": 8,
+   "/sync/v1/push 200": 7,
+   "/sync/v1/push answer_dropped": 1,
+   "/sync/v1/push/plan hub_unreachable": 1
+  },
+  "b": {
+   "/sync/v1/push/plan 200": 15,
+   "/sync/v1/state 200": 8,
+   "/sync/v1/pull 200": 7,
+   "/sync/v1/push 200": 6,
+   "/sync/v1/push hub_unreachable": 1,
+   "/sync/v1/push/plan hub_unreachable": 1,
+   "/sync/v1/pull hub_unreachable": 1
+  },
+  "c": {
+   "/sync/v1/push/plan 200": 16,
+   "/sync/v1/state 200": 8,
+   "/sync/v1/pull 200": 8,
+   "/sync/v1/push 200": 8,
+   "/sync/v1/push/plan hub_unreachable": 1
+  }
+ },
+ "hub_rounds_log_errors": [],
+ "host_logs": ".out/rehearsal/runs/20261122-132851-hub_restart"
+}

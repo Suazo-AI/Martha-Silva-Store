@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-24T02:34:07.670609+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "build-inputs/static/prototypes/fonts/fonts.css",
+      "change": "M",
+      "git_blob": "c663b168d4ba252314a6682181cb3f5813b3e9b7"
+    },
+    {
+      "path": "build-inputs/static/styles.css",
+      "change": "M",
+      "git_blob": "a195538c2c8df7c775f9cca8e51e78e05757b8ef"
+    },
+    {
+      "path": "dist/lib/fonts/fonts.css",
+      "change": "M",
+      "git_blob": "c663b168d4ba252314a6682181cb3f5813b3e9b7"
+    },
+    {
+      "path": "dist/styles.css",
+      "change": "M",
+      "git_blob": "a195538c2c8df7c775f9cca8e51e78e05757b8ef"
+    },
+    {
+      "path": "docs/production-20261122/README.md",
+      "change": "M",
+      "git_blob": "833ca51dd861a5443104394c8c99502cdcc823da"
+    },
+    {
+      "path": "docs/production-20261122/storefront-evidence/PERFORMANCE.md",
+      "change": "M",
+      "git_blob": "0355feb99e67b60b61aad2d17c1943ee3e6a4c9f"
+    },
+    {
+      "path": "docs/production-20261122/storefront-evidence/perf-20261123-fonts.txt",
+      "change": "A",
+      "git_blob": "d4d21698bf253af96772bfe0ca30438f79a86b33"
+    },
+    {
+      "path": "docs/production-20261122/storefront-evidence/perf-20261123-knockout.txt",
+      "change": "A",
+      "git_blob": "3f33a897a1dc4bb6c2a5aea6cfad4ab8c0fb7bd9"
+    },
+    {
+      "path": "docs/production-20261122/storefront-evidence/perf-20261123-touch-check.cjs",
+      "change": "A",
+      "git_blob": "0ce0440ceef49993de0eaa5de2d4e57339b63da3"
+    },
+    {
+      "path": "docs/production-20261122/storefront-evidence/perf-20261123-touch-sim.txt",
+      "change": "A",
+      "git_blob": "12a4a58145e9fa1e4be8ced63cec5486e665152e"
+    },
+    {
+      "path": "evidence/releases/20261105/responsive-runtime-sha256.json",
+      "change": "M",
+      "git_blob": "df2dbfadd5b3987a8c51c0f94764b6f1896ce4ff"
+    },
+    {
+      "path": "tests/responsive_fonts.py",
+      "change": "M",
+      "git_blob": "cb6c79e3a406a084c34e717e178ce58079007fed"
+    },
+    {
+      "path": "tools/responsive_fonts.py",
+      "change": "M",
+      "git_blob": "e99ea140613fc68e7414f3746be5bcabe5307c21"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

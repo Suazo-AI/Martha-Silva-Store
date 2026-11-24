@@ -314,3 +314,81 @@ Esta política completa D-032 y D-033; no acredita la práctica actual de Martha
 [Contrato y comprobaciones de caja](cash-register-20261107/README.md).
 Estado: política adoptada; implementación, permisos, persistencia y conciliación pendientes.
 No se ejecutaron devoluciones, movimientos de efectivo, cambios de cuentas, SQL, merge ni despliegue.
+
+## D-035 — El primary toma las decisiones de ingeniería
+
+Fecha: 2026-11-22. Actor: Jason. Alcance: SAVIA v2 y tienda pública.
+Jason pidió que el agente primary decida la ingeniería, despliegue y entregue una tienda lista para producción.
+El permiso cubre despliegue al hub de Azure existente y a la preview de Cloudflare de la cuenta Jason.
+No cubre compras, cuentas nuevas, la mejora de la suscripción de Azure ni mensajes externos.
+D-008 sigue vigente: sin tarjeta no se declara producción.
+[Programa y criterios](production-20261122/README.md).
+
+## D-036 — Bloqueo de recuperación
+
+Fecha: 2026-11-22. Actor: primary. Cierra la pregunta 2 de P9-SPEC (G6).
+Un nodo restaurado no vende, no abre caja y no recibe mercancía hasta que su reconstrucción termine.
+Motivo: una venta hecha antes de reconstruir choca con filas que el hub ya tiene (Msg 2601) y puede perder dinero.
+La caja muestra el motivo y el avance. Un supervisor no puede saltarse el bloqueo.
+
+## D-037 — Ventas recuperadas y outbox
+
+Fecha: 2026-11-22. Actor: primary. Cierra la pregunta 1 de P9-SPEC (G7).
+Los eventos de outbox usan un identificador estable derivado de la fila de origen.
+Una venta recuperada desde el hub no crea un evento local nuevo; el oráculo no lo espera.
+
+## D-038 — Un solo escritor para el estado de un anticipo
+
+Fecha: 2026-11-22. Actor: primary. Cierra la pregunta 6 de P9-SPEC (G8).
+La sucursal que emite el anticipo es dueña de su fila y de su estado.
+La sucursal que lo canjea escribe un movimiento propio; el estado se deriva de los movimientos.
+
+## D-039 — Clientes y tablas de referencia
+
+Fecha: 2026-11-22. Actor: primary. Cierra G1.
+Catálogo, precios, proveedores, vendedores y tipo de cambio: el hub es el dueño; las sucursales solo leen.
+Clientes: la sucursal que crea el cliente es dueña de la fila; el hub la replica a las demás.
+Dos clientes con el mismo documento no se unen solos; el hub los marca para revisión.
+
+## D-040 — Credenciales de nodo
+
+Fecha: 2026-11-22. Actor: primary. Cierra la pregunta 3 de P9-SPEC (G3).
+Un comando crea la credencial de una sucursal y muestra el secreto una sola vez.
+El hub guarda solo el hash. Una copia de recuperación queda en Key Vault `kv-savia-bukmlt`.
+En la sucursal el secreto vive en la configuración protegida del host, nunca en Git.
+Rotar: crear la credencial nueva, cambiar la sucursal, revocar la anterior.
+
+## D-041 — Paginación y versiones de esquema
+
+Fecha: 2026-11-22. Actor: primary. Cierra las preguntas 4 y 7 de P9-SPEC (G13, G14).
+Página de sync: 5 000 filas por tabla y corte al llegar a 20 MB, con llave de reanudación.
+Listas de pantalla: 500 filas por página.
+El hub rechaza con un código propio a un nodo cuyo ledger de migraciones no coincide.
+Orden de actualización: primero el hub, con migraciones compatibles con la versión anterior; después las sucursales.
+
+## D-042 — El catálogo se administra en el hub
+
+Fecha: 2026-11-22. Actor: primary. Completa D-039.
+El hub importa y registra artículos, códigos y precios, sin existencias ni ubicación.
+Una sucursal con hub rechaza cambios de catálogo con `catalog.managed_by_hub`; una sucursal sin hub conserva el comportamiento del piloto.
+Las existencias entran solo por recepción en la sucursal.
+En el hub, importar y cambiar precios exige el rol OWNER.
+
+## D-043 — Páginas de sync y reintentos
+
+Fecha: 2026-11-22. Actor: primary. Completa D-041.
+El corte por tamaño es 19 000 000 bytes, para dejar margen bajo el límite de 20 MB.
+El receptor guarda el avance de cada pasada; un proceso nuevo reanuda desde ahí.
+La lectura incremental de una sucursal omite las filas que aplicó desde otro nodo, usando el contexto de change tracking.
+Una migración no está obligada a poder ejecutarse dos veces; V061 lo permite porque el ensayo `schema_skew` la reaplica.
+
+## D-044 — Alta de un sitio y pedidos web en el día cero
+
+Fecha: 2026-11-22. Actor: primary. Completa D-039 y D-042.
+Personal, sucursales, ubicaciones, cajas y nodos se crean con comandos del migrador en cada base, con los mismos ids.
+Esas tablas no se sincronizan (V053); así ningún secreto viaja entre nodos.
+La API no puede crear personal ni sucursales: V062 niega EXECUTE a `savia_api_host` sobre esos dos procedimientos.
+No hay contraseña por defecto: `--set-password` lee `SAVIA_STAFF_PASSWORD` o imprime una contraseña de un solo uso.
+Pedidos web, valor por defecto hasta que Martha confirme quién empaca: la sucursal que consignó las unidades las empaca y envía.
+Su gerente recibe una cuenta MANAGER en el hub y usa la pantalla "Pedidos web" del hub para registrar el pago y marcar el envío.
+En el hub, MANAGER no importa ni cambia precios (D-042). La sucursal no recibe un aviso propio del pedido; se construirá solo si Martha lo pide.

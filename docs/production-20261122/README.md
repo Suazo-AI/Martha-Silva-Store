@@ -1,0 +1,77 @@
+# Production readiness program
+
+Started: 2026-11-22. Owner: primary agent. Mode: OPERATE.
+Mandate (Jason, 2026-11-22): take the engineering decisions, deploy, and deliver a production-ready store.
+Revenue link: Martha can sell online and in three stores on one system.
+Source at start: `Tony@37b6c06e`, CI 4 of 4 success (run 44991665004).
+
+## What "production ready" means
+
+Each row is a check that can fail. A row is `verified` only with evidence on the delivered artifact.
+States: `verified`, `running`, `pending`, `blocked (input)`.
+
+| ID | Check | Pass condition | State |
+| --- | --- | --- | --- |
+| H1 | Hub runs Tony HEAD on Azure | `/health/ready` 200; image tag equals the commit; ledger holds V001-V035; rollback revision named | verified 2026-11-23: revision `ca-savia-api--g1b1e001-1` at 100%, image `savia-api:1b1e0016`, job `caj-savia-migrate-wleyxdr` applied V064 (ledger complete, 58 versions through V064), rollback `ca-savia-api--g6cc2701-1`, copy `savia-premig-1b1e001-1` |
+| H2 | Restricted API identity runs sync on Azure SQL | a sync round as the managed identity returns 200 | verified 2026-11-24: store TIENDA1 on the store PC; hub console log shows `state`, `pull`, `push/plan`, `push` all 200 (35 responses, no other status) from 04:53 to 05:01 UTC ([evidence](STORE-PC-20261124.md)) |
+| H3 | Telemetry reaches Application Insights | one request visible in the workspace | verified 2026-11-22: 18 `AppRequests` and 9 `AppDependencies` in `log-savia-bukmlt` within 30 minutes of the deploy |
+| S1 | Recovery lock (G6) | rehearsal `restore_sale_before_rebuild` PASS, not XFAIL | verified 2026-11-22 (V036, V052, V060): every write that moves stock or money is refused while recovering; the till shows tables done of total; rehearsal 9 of 9 PASS |
+| S2 | Recovered-sale outbox (G7) | simulator `restore` PASS | verified 2026-11-22 (V036): simulator `restore` PASS; [evidence](../../savia/docs/evidence/sync-correctness-20261122/README.md) |
+| S3 | Credit status has one writer (G8) | simulator and T-SQL test for the two-writer case PASS | verified 2026-11-22 (V037, V052): issuer procedures block and expire a credit; simulator `credit_status` PASS |
+| S4 | Reference tables sync (G1) | a sale to a customer created offline reaches the hub without Msg 547 | verified locally 2026-11-22 (V053, 39 synced tables): rehearsal `reference_data` PASS over HTTP; [evidence](../../savia/docs/evidence/sync-completion-20261122/README.md) |
+| S5 | Sync paging (G13) | rebuild of a 250,000-variant store completes; no response above 20 MB | verified locally 2026-11-22 (V060): on 250,000 variants a rebuild killed after 3 pages resumed and finished (313 pages, 1.58 M rows, 344 s), oracle clean on 4 nodes, largest response 6.75 MB; [evidence](../../savia/docs/evidence/paging-catalog-20261122/README.md). Open: empty round measured 397 and 597 ms on a busy host (target 500 ms); not run on Azure SQL Basic |
+| S6 | Schema skew rule (G14) | a node with another ledger is refused with a named code | verified locally 2026-11-22: rehearsal `schema_skew` PASS (refused with 51856, syncs after it migrates) |
+| S7 | Node provisioning command (G3) | one command creates a store credential; the secret prints once | verified locally 2026-11-22 (V054): the rehearsal provisions its stores with `migrator --provision-node`; revoke and rotate PASS; [guide](../../savia/docs/sync/PROVISIONING.md) |
+| S8 | `sales.CashClosures` syncs | oracle shows 0 `cash.till_status_vs_closure` on replicated tills | verified 2026-11-22 (V038): rehearsal and simulator show 0 `cash.till_status_vs_closure` |
+| P1 | Catalog import is fast | 1,000 rows under 3 s on the A-10 data set | verified locally 2026-11-22 (V059, V061): 1,000 rows over HTTP in 2.5, 1.4 and 1.4 s on a quiet machine; the preview refuses duplicate size and color |
+| P2 | KPI business report | p95 under 1 s on the A-10 data set | verified 2026-11-22 (V058): p95 0.5-0.7 s on 250,000 variants, results equal to V040; [evidence](../../savia/docs/evidence/money-and-speed-20261122/README.md) |
+| P3 | Search | p95 under 300 ms on the A-10 data set | verified 2026-11-22 (V041): p95 158 ms |
+| P4 | Catalog and stock lists are paged | no screen response above 1 MB | verified 2026-11-22 (V042): largest page 162 KB |
+| W1 | Public catalog comes from the hub | storefront reads products, prices and stock through a public read API | verified locally 2026-11-22 on the final tree (V063): day-zero run 2, one hub and one store from empty databases; the storefront order ran in a real browser against the hub public catalog; [DAY-ZERO](DAY-ZERO.md), [run 2](day-zero-evidence/run2.md). On Azure 2026-11-24: the storefront in a real browser read prices and stock from a temporary copy of the hub and placed an order ([e2e-azure](e2e-azure/README.md)). The deployed storefront is in demo mode |
+| W2 | A real order is stored | browser to API to SQL: order row, stock reservation, idempotent retry | verified locally 2026-11-22 (V063): day-zero run 2, one Idempotency-Key sent twice gives 201 then 200 with one order code and one reservation; earlier: double click and last-unit race on `c4ca690f`. On Azure 2026-11-24 (temporary copy of the hub): 201 then 200, one order, one unit reserved ([e2e-azure](e2e-azure/README.md)) |
+| W3 | Public API is safe | rate limit, input validation, CORS allow-list, no staff route reachable without sign-in | verified on Azure 2026-11-24: 12 of 12 probes pass on `ca-savia-api` (429 after 60 a minute, 413, 400, 403 `turnstile_failed`, CORS allow and deny, 401 on staff and sync routes) ([evidence](public-api-azure/README.md)); real Turnstile not run |
+| W4 | Payment | card payment through a provider, with a verified webhook | blocked (input): merchant account. The seam is built: provider interface, and a review path for a card capture the order cannot take (V057) |
+| W5 | Order notification | the store team sees a new order in SAVIA | verified locally 2026-11-22 (V063): the hub screen "Pedidos web" in a real browser registered a payment and marked the order shipped. The store gets no notice of its own (D-044: the consigning store manager works the order on the hub) |
+| W6 | Storefront deployed | Cloudflare deploy from a clean commit; version id, SHA and rollback recorded | verified 2026-11-22, demo mode: `https://martha-silva-preview.jason-suazof.workers.dev` (account `66ee81b7`, D-030) from a clean worktree at `7f54e216`; version `e6934b14-3fee-4963-9a84-b5511b27f302`; `/`, `/catalogo`, `/checkout`, `/pedido` 200, unknown path 404; CSP, COOP, nosniff, noindex and `Strict-Transport-Security: max-age=31536000; includeSubDomains` present; `ci.yml` run 45084868090 green. Rollback: `npx wrangler rollback de32eca6-aa7e-4e06-97da-acfd87d55b85 --name martha-silva-preview`. Open: live mode is not deployed |
+| W7 | Storefront quality | Lighthouse performance, accessibility, best practices and SEO at 90 or more on mobile; security headers present | partial: accessibility 100, best practices 100; performance home 91, catalog 91-94, product 73 → 80-82 after Latin font subsets (2026-11-23, local paired median; second card photo no longer loads on touch screens, 250 KB less, no score gain; 90 would need fewer cards on first paint, not tested), checkout 90 demo and 86-88 live; SEO stays low while `indexable` is false; [numbers](storefront-evidence/PERFORMANCE.md) |
+| W8 | Real catalog | real products, prices, photos and stock | blocked (input): the store's data |
+| W9 | Legal and contact | business name, phone, address, terms, privacy, returns | drafted from public sources, unconfirmed ([LEGAL-SOURCES](LEGAL-SOURCES.md)); law researched 2026-11-23 ([LEGAL-RESEARCH](LEGAL-RESEARCH-20261123.md)); owner questionnaire ready ([form](legal-owner-form.html)); needs the owner's answers (email, legal name, RUC, currency, returns clause) and a lawyer on currency and returns |
+| W10 | Domain | custom domain with TLS | blocked (input): domain |
+| D0 | Day-zero path with shipped tools only | from empty migrated databases: first hub owner, branches, staff, node credential, hub import, store sync, receiving, consign to web, browser order, manual payment, fulfil; no direct SQL | verified locally 2026-11-22 (V062-V063): two empty databases to a paid and fulfilled web order with migrator commands, routes and screens only; [DAY-ZERO](DAY-ZERO.md), [run 2](day-zero-evidence/run2.md). Browser legs (storefront order, hub "Pedidos web", store "Clientes") ran in the worker run; the primary reran steps 0-14 over HTTP ([run 3](day-zero-evidence/run3.md)). On Azure 2026-11-24: steps 1 and 5-13 on a temporary copy of the hub and its database (provisioned by the production job), a local store host, a browser order; copy deleted after ([e2e-azure](e2e-azure/README.md)). Not run on the store PC |
+| D1 | Routes for steps the rehearsal does by SQL | customer creation and credit transfer dispatch and receipt have an API route and a screen | verified locally 2026-11-22 (V062-V063): `POST /customers` (store), credit transfer routes (request, dispatch, receive on a store; approve, cancel on the hub) and screens "Clientes" and "Traslados"; the rehearsal uses HTTP for them; no `sql:no-http-route` step remains |
+| D2 | One installed, provisioned store | a store host runs outside the rehearsal, syncs with the Azure hub and consigns web stock | partial 2026-11-24: TIENDA1 runs on the store PC (SQL Server Express container, host from `6e2116f7`), provisioned on the hub and the store, empty sync rounds every 60 s; consign waits for the real catalog (W8) and real staff, because no route removes a test item from the production catalog; autostart at sign-in and daily verified backup with a restore proof added the same day ([evidence](STORE-PC-20261124.md)) |
+| D3 | Store upgrade step | a written and tested step to update a store; the hub refuses a store on another schema version, so every hub migration stops that store's sync until it upgrades | verified locally 2026-11-22: day-zero run 2 steps 14.1-14.2: a hub-only migration makes the store refuse with `sync.schema_mismatch`; stop the store host, run the migrator on the store, start it, sync resumes. Steps in [DAY-ZERO](DAY-ZERO.md) and the runbook |
+| D4 | Speed on the real tier | the A-10 measurements repeated on Azure SQL Basic (5 DTU, 2 GB) | partial 2026-11-23: run at scale 0.03 on a temporary Basic server (deleted after): the relay pushed stores C, B, A in 81.8 s, 40.4 s and 95.7 s (slowest page 79.8 s, target 300 s), parity OK for all three, an empty round costs 3.6 KB and 2.4 s, DTU peaked at 100% for 2 minutes; full-scale first push extrapolated at about 2 hours once, T10 not measured ([evidence](../../savia/docs/evidence/d4-azure-basic-20261123/README.md), [relay](../../savia/docs/evidence/d4-sync-relay-20261123/README.md)) |
+| D5 | `main` holds the production code | Tony merged to main after review | pending: production runs images built from Tony |
+| D6 | Storefront full check on Linux | workflow `ci.yml` green on the deployed commit | verified 2026-11-22: `ci.yml` run 45070405272 on Tony, Linux and Windows both success |
+| O1 | Backup and restore drill | a point-in-time restore of the hub reads back; a store restore passes the rehearsal | verified 2026-11-22: `az sql db restore` of `savia` to 2026-11-23T00:12:14Z into `savia-restore-drill` (Online); migrator `--plan` on it as the migrate identity (execution `caj-savia-migrate-xp7bbr0`) read 55 applied and V062-V063 pending, the state before that night's migration; the copy was deleted and read back gone. Store restore: rehearsal `restore_sale_before_rebuild` PASS. Not done: pointing the app at a restored database, and comparing `sync.CurrentFork` (no SQL admin sign-in for the operator) |
+| S9 | Catalog authoring on the hub (D-039) | import and item registration run on the hub without stock; a store cannot change catalog rows; stock enters by receiving | verified locally 2026-11-22 (V061): rehearsal `hub_catalog` PASS: the hub imports items with no stock, stores receive them, a store receives stock and sells, a store catalog write is refused with `catalog.managed_by_hub` |
+| O2 | Runbook | deploy, rollback, node provisioning, restore and incident steps in one document | written 2026-11-22: [RUNBOOK](../../savia/docs/deploy/RUNBOOK.md); deploy and rollback steps ran 7 times; provisioning, opening web orders and the restore drill have not run on Azure |
+
+## Inputs only Jason or Martha can give
+
+These do not stop the engineering. Each one blocks only its row.
+
+1. Card merchant account (W4). D-008 requires cards for production.
+2. Real catalog: products, prices, photos, stock (W8). The 40 sample products and AI images are not inventory.
+3. Confirm the W9 draft: email, legal name and RUC, hours, data-file registration, lawyer review ([LEGAL-SOURCES](LEGAL-SOURCES.md)).
+4. Domain name (W10).
+5. Azure trial upgrade before about 2026-12-12. Without it the hub stops.
+
+## Order of work
+
+1. Deploy `Tony@37b6c06e` to the hub (H1-H3). It applies V031-V035 on Azure SQL Basic for the first time.
+2. Sync correctness: S1-S8. No real store connects to the hub before these pass.
+3. Performance: P1-P4.
+4. Public order path: W1-W3, W5, then W6-W7. Payment sits behind a provider interface (W4).
+5. Operations: O1-O2.
+
+Decisions taken for this program: [DECISIONS D-035 to D-041](../DECISIONS.md).
+Progress is recorded in this table, in the area documents, and in the commit log.
+
+Order path research and build plan (2026-11-22): [ORDER-PATH-SPEC](ORDER-PATH-SPEC.md).
+Accepted by the primary: hub-owned web stock locations filled by consignment, guest checkout, hosted-page card payment behind `IPaymentProvider`, `manual` provider labelled as not card.
+Provider recommendation: BAC E-Commerce gateway first, Pagadito as fallback; neither is contracted.
+
+Integration 2026-11-22: order path `11f7fb3c`, performance `c4ca690f`, sync correctness (V036-V038) merged on top. Merged tree in a clean worktree: T-SQL 168, .NET 227 of 227, API host login 27 of 27, web 165 of 165, container proof PASS, rehearsal 6 of 6, simulator basic, replay, restore, credit_status and cancel_vs_dispatch PASS.
+V038 sync order numbers moved to 21-23 because V048 holds 19-20. Azure still runs `37b6c06e` (V035).

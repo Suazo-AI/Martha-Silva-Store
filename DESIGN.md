@@ -33,6 +33,6 @@ El código recuperado usa GSAP para la entrada de 0.2s y Barba para transición 
 
 ## Imágenes y fidelidad
 
-Se conserva `/research/assets/...` para galerías y derivados responsive, con 40 grupos y 170 posiciones. Hay seis grupos declarados `sample_image=true`; esa marca se mantiene. La captura disponible contiene 777 medios de 778 históricos: el JPEG `/research/assets/martha-gala/f1bf4e3664d34cd4.jpg` devuelve 404 y no se reemplaza. Esa referencia antigua no pertenece a la galería renderizada actual. La integridad, el mapeo visual y el QA del build se registran por separado en `evidence/`.
+Se conserva `/research/assets/...` para galerías y derivados responsive, con 40 grupos y 170 posiciones. Hay seis grupos declarados `editorial_image=true`; esa marca se mantiene. La captura disponible contiene 777 medios de 778 históricos: el JPEG `/research/assets/martha-gala/f1bf4e3664d34cd4.jpg` devuelve 404 y no se reemplaza. Esa referencia antigua no pertenece a la galería renderizada actual. La integridad, el mapeo visual y el QA del build se registran por separado en `evidence/`.
 
 Las páginas utilizan un catálogo compartido en lugar de repetir el JSON de medios en cada HTML. Se conserva el diseño y sus selectores con menos bytes repetidos. Ningún precio, stock o foto de muestra se presenta como inventario comercial verificado. No se afirma fidelidad píxel por píxel ni validación completa de accesibilidad o rendimiento.

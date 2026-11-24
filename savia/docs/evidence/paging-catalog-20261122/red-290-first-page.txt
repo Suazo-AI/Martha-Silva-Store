@@ -1,0 +1,2 @@
+Msg 59001, Level 16, State 1, Server 23b66448cd53, Procedure test.AssertEq, Line 7
+ASSERT FAIL: a fresh plan asks for page 1 expected=1 actual=NULL

@@ -1,0 +1,12 @@
+{
+  "purpose": "Build-time public names. Source folders keep their provenance names (generated, recovered, research); prepare.py publishes them under these neutral paths and rewrites root-relative references in text files. This file is not shipped.",
+  "prefixes": [
+    ["assets/research/assets/store-media/", "assets/photos/"],
+    ["research/assets/store-media/", "photos/"],
+    ["generated-luxury/", "looks/"],
+    ["generated-illustrations/", "illustrations/"],
+    ["prototypes/", "lib/"]
+  ],
+  "unpublished": ["responsive-images/manifest.json"],
+  "verbatim": ["lib/vendor/"]
+}

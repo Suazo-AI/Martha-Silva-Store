@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-24T08:51:24.834943+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "dist/app.js",
+      "change": "M",
+      "git_blob": "2487f1f73479fb86587abe46ebf37fecba545f75"
+    },
+    {
+      "path": "dist/integration-adapters.js",
+      "change": "M",
+      "git_blob": "1309d919903370cf068322661886afbf599954cb"
+    },
+    {
+      "path": "dist/store-api.js",
+      "change": "M",
+      "git_blob": "d2207e36e2c8ea2330206c8388b3779239dc5326"
+    },
+    {
+      "path": "docs/production-20261122/STOREFRONT-DEPLOY.md",
+      "change": "M",
+      "git_blob": "7b53a17fd61a7801b230191a8319f7a394ed05df"
+    },
+    {
+      "path": "src/app.js",
+      "change": "M",
+      "git_blob": "ac538eebf3f444a0c3b1b68c099591a0d7f05156"
+    },
+    {
+      "path": "src/integration-adapters.js",
+      "change": "M",
+      "git_blob": "1309d919903370cf068322661886afbf599954cb"
+    },
+    {
+      "path": "src/store-api.js",
+      "change": "M",
+      "git_blob": "d2207e36e2c8ea2330206c8388b3779239dc5326"
+    },
+    {
+      "path": "tests/frontend-runtime.cjs",
+      "change": "M",
+      "git_blob": "df75a7402c5c65599c5ba280aeb0a4041fdefa10"
+    },
+    {
+      "path": "tests/integration-adapters.test.js",
+      "change": "M",
+      "git_blob": "4b70cdb4fcdfd4f8d5448bdebba63a36ecfbdbd3"
+    },
+    {
+      "path": "tests/localization-runtime.cjs",
+      "change": "M",
+      "git_blob": "834700269d8cab2ec4ebf87f8cee65088c1b9453"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

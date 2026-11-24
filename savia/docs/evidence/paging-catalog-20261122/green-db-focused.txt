@@ -1,0 +1,20 @@
+PASS    catalog/150_import_catalog.sql
+PASS    catalog/155_import_commit_equals_v039.sql
+PASS    catalog/156_import_on_hub.sql
+PASS    catalog/157_import_repeated_variant.sql
+PASS    catalog/158_item_values_on_hub.sql
+SUMMARY PASS=5  logs: .out\dbtests
+PASS    outbox/090_enqueue_events_equals_single.sql
+SUMMARY PASS=1  logs: .out\dbtests
+PASS    sync/200_sync_tables_match_change_tracking.sql
+PASS    sync/210_apply_batch_is_idempotent.sql
+PASS    sync/220_apply_batch_refuses_foreign_rows.sql
+PASS    sync/230_restored_sender_rules.sql
+PASS    sync/240_apply_batch_refuses_existing_foreign_rows.sql
+PASS    sync/250_recovery_lock.sql
+PASS    sync/260_fork_identity_has_one_source.sql
+PASS    sync/260_recovery_lock_returns_transfers.sql
+PASS    sync/270_reference_data_and_customers.sql
+PASS    sync/280_provision_node.sql
+PASS    sync/290_paging.sql
+SUMMARY PASS=11  logs: .out\dbtests

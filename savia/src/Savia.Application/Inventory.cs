@@ -6,7 +6,8 @@ namespace Savia.Application;
 
 public interface IInventoryStore
 {
-    Task<IReadOnlyList<StockRow>> GetStockAsync(Guid? branchId, Guid? itemId, CancellationToken ct);
+    /// <summary>Rows in SKU, location and pool order, starting after the row that <paramref name="after"/> names.</summary>
+    Task<Page<StockRow>> GetStockAsync(Guid? branchId, Guid? itemId, string? after, int limit, CancellationToken ct);
     Task<IReadOnlyList<LabelJob>> GetLabelJobsAsync(Guid branchId, string? status, CancellationToken ct);
     Task AcknowledgePrintAsync(Guid printJobId, Guid branchId, AckPrintRequest request, CancellationToken ct);
     Task<JsonElement> ExceptionsAsync(Guid branch, CancellationToken ct);
@@ -15,11 +16,11 @@ public interface IInventoryStore
 
 public sealed class InventoryService(IInventoryStore store, NodeContext node)
 {
-    public Task<IReadOnlyList<StockRow>> GetStockAsync(Actor actor, Guid? itemId, CancellationToken ct)
+    public Task<Page<StockRow>> GetStockAsync(Actor actor, Guid? itemId, string? after, int? limit, CancellationToken ct)
     {
         if (node.Kind == NodeKind.Branch) Guard.Branch(actor, node);
         else Guard.Role(actor, Roles.CloudReaders);
-        return store.GetStockAsync(node.BranchId, itemId, ct);
+        return store.GetStockAsync(node.BranchId, itemId, after, Paging.Limit(limit), ct);
     }
 
     public Task<IReadOnlyList<LabelJob>> GetLabelJobsAsync(Actor actor, string? status, CancellationToken ct) =>

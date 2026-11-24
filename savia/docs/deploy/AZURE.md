@@ -1,6 +1,7 @@
 # SAVIA hub in Azure
 
-Status: prepared and validated locally on 2026-11-12. Nothing is deployed. No Azure resource exists yet.
+Status 2026-11-23: the hub is deployed and live on `rg-savia-prod` (revision `ca-savia-api--g1b1e001-1`, migrations through V064). No store is connected. Runs are listed under "Code patches" below; steps are in [RUNBOOK.md](RUNBOOK.md); open rows are in the [production checklist](../../../docs/production-20261122/README.md).
+The design text below was written on 2026-11-12, before the first deploy.
 Checklist and exact commands: [CHECKLIST.md](CHECKLIST.md).
 
 ## Result first
@@ -156,6 +157,56 @@ The migrator now takes `--client-id` and runs `CREATE USER ... WITH SID = <clien
 Second Azure run on `9a55759`, 2026-11-20: migration job `caj-savia-migrate-446uc0l` succeeded, including the API user grant.
 Live checks: `smoke.ps1` PASS; `/health` 200; `/health/ready` 200; CSP and HSTS present; 10 bad sign-ins from one address in a minute, then 429.
 ACR Tasks are blocked on the trial subscription (`TasksOperationsNotAllowed`), so images are built with local Docker and pushed.
+
+Status on 2026-11-21, branch `t3/savia-hardening` (uncommitted patch): P2, P5, P6 and P7 are done locally. Nothing ran on Azure.
+P5: migration V035 creates role `savia_api_host`; the migrator only creates the API user and adds it to the role.
+The role also needs INSERT, UPDATE and VIEW CHANGE TRACKING on the 18 synced tables, because the sync procedures run dynamic SQL.
+Evidence: as a login that is only in the role, sync and vertical-slice tests fail 9 of 18 with the old grants (error 229) and pass 18 of 18 with V035.
+Azure SQL holds V001-V030; the next migration job applies V031-V035 together and adds the API user to the role. Not yet verified on Azure.
+Third Azure run, 2026-11-22, commit `37b6c06e` (CI run 44991665004 green): images built from a clean worktree with local Docker and pushed.
+Point-in-time target `2026-11-22T07:19:51Z`; copy `savia-premig-37b6c06e-1`; job `caj-savia-migrate-ouaaz51` applied V031-V035 (ledger complete, 35 versions) and ensured the API user.
+Revision `ca-savia-api--g37b6c06-1` passed `smoke.ps1` at 0% traffic, then took 100%; `smoke.ps1` PASS on the app URL; `/health/ready` 200; `/openapi/v1.json` 200; staff route without sign-in 401; sync push without credentials 401.
+Application Insights received 18 requests and 9 dependencies through the managed identity (P2 verified on Azure).
+Rollback: `az containerapp ingress traffic set -n ca-savia-api -g rg-savia-prod --revision-weight ca-savia-api--0000001=100`; V031-V035 are additive.
+Not verified: a sync round as the API identity on Azure SQL; it needs a node credential.
+Fourth Azure run, 2026-11-22, commit `fcf14a42`: job `caj-savia-migrate-ktlao83` failed at V036 with SQL error 208, `Invalid object name 'sys.database_recovery_status'`. The live revision did not change.
+Azure SQL Database has no `sys.database_recovery_status`. Procedures since V008 read it, so they installed but would have failed on the first sync round.
+Fix: V036 now creates the view `sync.CurrentFork` with one definition per engine, and every sync module reads it. V036 was amended because it could not install on Azure and no durable database held it.
+On Azure the fork is derived from the database creation time and broker id. Not verified: that this value changes after a point-in-time restore.
+Dry run on the copy `savia-premig-fcf14a42-1` with image `savia-migrator:dryrun-v036fix-1`, execution `caj-savia-migrate-lv0azj5`: V036 to V051 applied, ledger complete (47 versions).
+Rule: before a production migration, run the migrator against the pre-migration copy first. Test `db/tests/sync/260` fails if another module reads the system view.
+Fifth Azure run, 2026-11-22, commit `996465b3` (CI run 45026434478 green): copy `savia-premig-996465b3-1`; job `caj-savia-migrate-r974w1f` succeeded and applied V036 to V051.
+Revision `ca-savia-api--g996465b-1` passed `smoke.ps1` at 0% traffic, then took 100%; `smoke.ps1` PASS on the app URL.
+Read back on the live URL: `/health/ready` 200; `GET /api/v1/public/catalog` 200 with an empty list (no web stock consigned); `POST /api/v1/public/orders` with no lines 400 `validation`; `/api/v1/web-orders` without sign-in 401.
+Rollback: `az containerapp ingress traffic set -n ca-savia-api -g rg-savia-prod --revision-weight ca-savia-api--g37b6c06-1=100`; V036 to V051 are additive.
+Public orders are closed: no Turnstile secret is configured and the bot check fails closed. Probe on the live URL, 2026-11-22, revision `g6a962d5-1`: a well-formed order with an unknown SKU and an empty token returned 403 `turnstile_failed`. No CORS origin is configured either; CORS limits browsers only.
+Sixth Azure run, 2026-11-22, commit `11ef3616` (backend tree of `2f4279b9`, SAVIA v2 check green): dry run on the copy `savia-premig-996465b3-1` first (execution `caj-savia-migrate-hvlspii`, succeeded), then production job `caj-savia-migrate-9ob7dpw` applied V052 to V059; copy `savia-premig-11ef3616-1`.
+Revision `ca-savia-api--g11ef361-1` passed `smoke.ps1` at 0% traffic, then took 100%; `smoke.ps1` PASS on the app URL; `/health/ready` 200; public catalog 200; staff routes 401.
+Rollback: `az containerapp ingress traffic set -n ca-savia-api -g rg-savia-prod --revision-weight ca-savia-api--g996465b-1=100`.
+Seventh Azure run, 2026-11-22, commit `6a962d55` (CI run 45068315657 green): dry run on `savia-premig-11ef3616-1` (execution `caj-savia-migrate-rx96rmu`, succeeded), then production job `caj-savia-migrate-s39zgnj` applied V060 and V061; copy `savia-premig-6a962d55-1`.
+Revision `ca-savia-api--g6a962d5-1` passed `smoke.ps1` at 0% traffic, then took 100%; `smoke.ps1` PASS on the app URL; `/health/ready` 200; public catalog 200; staff routes 401.
+Rollback: `az containerapp ingress traffic set -n ca-savia-api -g rg-savia-prod --revision-weight ca-savia-api--g11ef361-1=100`.
+Steps for every later deploy: [RUNBOOK.md](RUNBOOK.md).
+
+Eighth Azure run, 2026-11-22, commit `6cc27011` (SAVIA CI run 45087141104 green): dry run on `savia-premig-6a962d55-1` (execution `caj-savia-migrate-xdbi66y`, succeeded).
+Then one `--provision-branch` on that copy as the migrate identity (execution `caj-savia-migrate-1megcr1`): log `provision: branch PRUEBA register CAJA1 ... done`, so the V062 deny does not block the migrate identity.
+Production job `caj-savia-migrate-w23romm` applied V062 and V063 (ledger complete, 57 versions); copy `savia-premig-6cc27011-1`.
+Revision `ca-savia-api--g6cc2701-1` passed `smoke.ps1` at 0% traffic, then took 100%; `smoke.ps1` PASS on the app URL; public catalog 200; an empty public order 400 `validation`; `/api/v1/credit-transfers` without sign-in 401.
+Rollback: `az containerapp ingress traffic set -n ca-savia-api -g rg-savia-prod --revision-weight ca-savia-api--g6a962d5-1=100`.
+Two command notes: `az containerapp job start --args` rejects values that start with `--`, so migrator modes run with `--yaml` and an `args:` list; in PowerShell the revision query needs `--query "[?properties.trafficWeight > \`0\`].name"` written without doubled backticks.
+Restore drill, 2026-11-22: `az sql db restore` of `savia` to 2026-11-23T00:12:14Z into `savia-restore-drill` came Online; migrator `--plan` on it (execution `caj-savia-migrate-xp7bbr0`) read 55 applied, V062 and V063 pending, the state before that night's migration; the database was deleted and the list read back `savia`, `master`, `savia-premig-6cc27011-1`.
+Not done: pointing the app at a restored database; comparing `sync.CurrentFork` (the operator account is not a SQL admin).
+
+Ninth Azure run, 2026-11-23, commit `1b1e0016` (SAVIA CI run 45274636046 green): dry run on `savia-premig-6cc27011-1` (execution `caj-savia-migrate-hynfi28`) applied V062-V064, ledger 58.
+Production job `caj-savia-migrate-wleyxdr` applied V064 (ledger complete, 58 versions); copy `savia-premig-1b1e001-1`.
+Revision `ca-savia-api--g1b1e001-1` passed `smoke.ps1` at 0% traffic, then took 100%; `smoke.ps1` PASS on the app URL; `/health/ready` 200; public catalog 200; `/api/v1/me` and `POST /api/v1/auth/password` without sign-in 401.
+Rollback: `az containerapp ingress traffic set -n ca-savia-api -g rg-savia-prod --revision-weight ca-savia-api--g6cc2701-1=100`.
+Not run on Azure: a staff password change, and RUNBOOK 3.1 (Key Vault references).
+P2: `AddSaviaTelemetry` calls `UseAzureMonitor` only when `APPLICATIONINSIGHTS_CONNECTION_STRING` is set; with `AZURE_CLIENT_ID` it signs in as that identity.
+`Azure.Monitor.OpenTelemetry.AspNetCore` 1.6.0 needs `Azure.Identity` 1.21.0 in the API: older Azure.Identity clashes with Azure.Core 1.60 on `ManagedIdentityCredential`.
+1.4.0 avoids the bump but pulls `OpenTelemetry.Api` 1.14.0 (GHSA-g94r-2vxg-569j). The managed-identity export is not tested until it runs on Azure.
+P6: `Savia.slnx` builds the migrator. P7: `savia/tools/check.py` reruns the sync tests as the role login, and runs `local_proof.py --build` unless `--quick`, `--isolated` or no dev container.
+`check.py --isolated` on the final tree: exit 0; T-SQL 151 PASS, .NET 200 of 200, role login 18 of 18. `local_proof.py --build` PASS. Evidence: `savia/docs/evidence/hardening-20261121/`.
 
 | ID | File | Change | Reason |
 | --- | --- | --- | --- |

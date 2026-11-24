@@ -200,6 +200,33 @@ test('sale approval keeps cashier bearer and passes supervisor separately', asyn
   }
 });
 
+test('catalogItems and stock follow the Link header and return every page as one list', async () => {
+  const original = globalThis.fetch;
+  const urls = [];
+  const page = (rows, next) => ({
+    ok: true,
+    status: 200,
+    headers: new Headers(next ? { Link: `<${next}>; rel="next"` } : {}),
+    text: async () => JSON.stringify(rows),
+  });
+  const pages = {
+    '/api/v1/catalog/items': page([{ productId: 'a' }], '/api/v1/catalog/items?after=a'),
+    '/api/v1/catalog/items?after=a': page([{ productId: 'b' }]),
+    '/api/v1/stock?itemId=x': page([{ pool: 'store' }]),
+  };
+  globalThis.fetch = async url => {
+    urls.push(url);
+    return pages[url];
+  };
+  try {
+    assert.deepEqual(await api.catalogItems(), [{ productId: 'a' }, { productId: 'b' }]);
+    assert.deepEqual(await api.stock('x'), [{ pool: 'store' }]);
+    assert.deepEqual(urls, ['/api/v1/catalog/items', '/api/v1/catalog/items?after=a', '/api/v1/stock?itemId=x']);
+  } finally {
+    globalThis.fetch = original;
+  }
+});
+
 test('retryIds: the same content keeps its ids; changed content or reset gets new ones', () => {
   const ids = api.retryIds('saleId', 'tillId');
   const first = ids([1, 'x']);

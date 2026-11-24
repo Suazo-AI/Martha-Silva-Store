@@ -1,0 +1,76 @@
+setup: 4 databases, tills open, 500 units per branch, credits ['36F675CC-81E7-4EF5-A8E2-5D940ED90475', '6B0D549B-6F03-475A-9600-A35A099950D8'] (120000 each at A)
+  sync a->cloud [normal] sent=29 changed=29 skipped=0 plan={'initial': 18}
+  sync b->cloud [normal] sent=4 changed=4 skipped=0 plan={'initial': 18}
+  sync c->cloud [normal] sent=4 changed=4 skipped=0 plan={'initial': 18}
+  sync cloud->a [normal] sent=8 changed=8 skipped=0 plan={'initial': 18}
+  sync cloud->b [normal] sent=33 changed=33 skipped=0 plan={'initial': 18}
+  sync cloud->c [normal] sent=33 changed=33 skipped=0 plan={'initial': 18}
+scenario random: seed=7 steps=120
+[0] link a DOWN
+[10] link c DOWN
+[13] link a up
+[15] link c up
+  sync a->cloud [normal] sent=10 changed=10 skipped=0 plan={'incremental': 18}
+  sync b->cloud [normal] sent=9 changed=9 skipped=0 plan={'incremental': 18}
+  sync c->cloud [normal] sent=8 changed=8 skipped=0 plan={'incremental': 18}
+  sync cloud->a [normal] sent=17 changed=17 skipped=0 plan={'incremental': 18}
+  sync cloud->b [normal] sent=18 changed=18 skipped=0 plan={'incremental': 18}
+  sync cloud->c [normal] sent=19 changed=19 skipped=0 plan={'incremental': 18}
+  sync a->cloud [normal] sent=9 changed=9 skipped=0 plan={'incremental': 18}
+  sync c->cloud [normal] sent=1 changed=1 skipped=0 plan={'incremental': 18}
+  sync cloud->a [normal] sent=2 changed=2 skipped=0 plan={'incremental': 18}
+  sync cloud->b [normal] sent=11 changed=11 skipped=0 plan={'incremental': 18}
+  sync cloud->c [normal] sent=10 changed=10 skipped=0 plan={'incremental': 18}
+  sync a->cloud [normal] sent=6 changed=6 skipped=0 plan={'incremental': 18}
+  sync cloud->a [normal] sent=1 changed=1 skipped=0 plan={'incremental': 18}
+  sync cloud->b [normal] sent=7 changed=7 skipped=0 plan={'incremental': 18}
+  sync cloud->c [normal] sent=7 changed=7 skipped=0 plan={'incremental': 18}
+  sync b->cloud [normal] sent=6 changed=6 skipped=0 plan={'incremental': 18}
+  sync cloud->a [normal] sent=6 changed=6 skipped=0 plan={'incremental': 18}
+  sync cloud->c [normal] sent=6 changed=6 skipped=0 plan={'incremental': 18}
+[41] link a DOWN
+  dispatch at a: rejected 51729 Saldo disponible insuficiente en la sucursal origen.
+  dispatch at a: rejected 51729 Saldo disponible insuficiente en la sucursal origen.
+  dispatch at a: rejected 51729 Saldo disponible insuficiente en la sucursal origen.
+  dispatch at a: rejected 51729 Saldo disponible insuficiente en la sucursal origen.
+  sync cloud->b [normal] sent=3 changed=3 skipped=0 plan={'incremental': 18}
+  sync cloud->c [normal] sent=3 changed=3 skipped=0 plan={'incremental': 18}
+[59] link a up
+  sync cloud->a [normal] sent=3 changed=3 skipped=0 plan={'incremental': 18}
+  dispatch at a: rejected 51729 Saldo disponible insuficiente en la sucursal origen.
+[68] link c DOWN
+  sync b->cloud [normal] sent=6 changed=6 skipped=0 plan={'incremental': 18}
+  sync cloud->a [normal] sent=7 changed=7 skipped=0 plan={'incremental': 18}
+  sync cloud->b [normal] sent=1 changed=1 skipped=0 plan={'incremental': 18}
+  dispatch at a: rejected 51729 Saldo disponible insuficiente en la sucursal origen.
+  sync cloud->a [normal] sent=1 changed=1 skipped=0 plan={'incremental': 18}
+  sync cloud->b [normal] sent=1 changed=1 skipped=0 plan={'incremental': 18}
+  dispatch at a: rejected 51729 Saldo disponible insuficiente en la sucursal origen.
+  dispatch at a: rejected 51729 Saldo disponible insuficiente en la sucursal origen.
+[81] link a DOWN
+  dispatch at a: rejected 51729 Saldo disponible insuficiente en la sucursal origen.
+  dispatch at a: rejected 51729 Saldo disponible insuficiente en la sucursal origen.
+  sync cloud->b [normal] sent=4 changed=4 skipped=0 plan={'incremental': 18}
+  dispatch at a: rejected 51729 Saldo disponible insuficiente en la sucursal origen.
+  dispatch at a: rejected 51729 Saldo disponible insuficiente en la sucursal origen.
+  dispatch at a: rejected 51729 Saldo disponible insuficiente en la sucursal origen.
+[106] link c up
+  sync c->cloud [normal] sent=6 changed=6 skipped=0 plan={'incremental': 18}
+  sync cloud->b [normal] sent=6 changed=6 skipped=0 plan={'incremental': 18}
+  sync cloud->c [normal] sent=12 changed=12 skipped=0 plan={'incremental': 18}
+  dispatch at a: rejected 51729 Saldo disponible insuficiente en la sucursal origen.
+[118] link b DOWN
+  sync a->cloud [normal] sent=21 changed=21 skipped=0 plan={'incremental': 18}
+  sync b->cloud [normal] sent=6 changed=6 skipped=0 plan={'incremental': 18}
+  sync cloud->a [normal] sent=16 changed=16 skipped=0 plan={'incremental': 18}
+  sync cloud->b [normal] sent=21 changed=21 skipped=0 plan={'incremental': 18}
+  sync cloud->c [normal] sent=27 changed=27 skipped=0 plan={'incremental': 18}
+all links up; converged in 2 rounds
+PASS R1: 18 tables, 122 rows, identical SHA-256 on cloud, a, b, c
+PASS CONS on cloud: 0 violations
+PASS CONS on a: 0 violations
+PASS CONS on b: 0 violations
+PASS CONS on c: 0 violations
+stats: pulls=130 rows_sent=408 rows_changed=408 sql_calls=660 ops={'ok_approve': 4, 'ok_cancel': 7, 'ok_redeem': 2, 'ok_request': 7, 'ok_sale': 11, 'rejected_dispatch_51729': 14}
+RESULT PASS
+elapsed 272s

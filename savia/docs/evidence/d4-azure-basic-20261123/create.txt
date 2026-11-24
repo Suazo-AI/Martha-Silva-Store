@@ -1,0 +1,14 @@
+2026-11-24T01:03:12Z
+{
+  "cap": 5,
+  "created": "2026-11-24T01:03:49.377000+00:00",
+  "maxBytes": 2147483648,
+  "name": "savia-d4-a10",
+  "sku": "Basic",
+  "status": "Online"
+}
+2026-11-24T01:03:52Z
+Name              StartIpAddress    EndIpAddress
+----------------  ----------------  --------------
+d4-temp-20261123  <this PC public IP>     <this PC public IP>
+2026-11-24T01:03:55Z

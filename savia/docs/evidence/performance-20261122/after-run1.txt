@@ -1,0 +1,75 @@
+savia-sqlserver-rehearsal 74.29%
+savia-sqlserver-load 2.42%
+savia-sqlserver-dev 155.49%
+250003
+
+lookup_by_scan                             reads=        16 cpu=2ms elapsed=1ms scans=[]
+search[Blusa]                              reads=     1,943 cpu=8ms elapsed=9ms scans=[('catalog.ItemSearch.CX_ItemSearch_Order', 15365)]
+search[M12345]                             reads=     8,803 cpu=82ms elapsed=83ms scans=[('catalog.ItemSearch.CX_ItemSearch_Order', 250003)]
+search[zzqx no match]                      reads=     8,665 cpu=79ms elapsed=80ms scans=[('catalog.ItemSearch.CX_ItemSearch_Order', 250003)]
+receipt_detail                             reads=        80 cpu=0ms elapsed=0ms scans=[]
+day_report (usp_GetDayReport)              reads=       646 cpu=2ms elapsed=3ms scans=[('sales.Sales.PK_Sales', 2240), ('sales.Sales.PK_Sales', 2240)]
+day_report (usp_GetReturnsByKind)          reads=         0 cpu=0ms elapsed=0ms scans=[]
+sales_search_page                          reads=    11,901 cpu=14ms elapsed=15ms scans=[('sales.Sales.IX_Sales_CustomerDate', 2240)]
+kpi_business[day]                          reads=    47,965 cpu=3023ms elapsed=1636ms scans=[('inventory.StockMovements.IX_StockMovement_ItemLocationDate', 253655), ('catalog.Items.PK_Items', 250003)]
+kpi_business[month]                        reads=    48,376 cpu=2200ms elapsed=1075ms scans=[('inventory.StockMovements.PK_StockMovements', 253655), ('inventory.StockMovements.IX_StockMovement_ItemLocationDate', 253655)]
+kpi_team[month]                            reads=     5,492 cpu=9ms elapsed=9ms scans=[]
+kpi_business[year]                         reads=    48,454 cpu=2308ms elapsed=1165ms scans=[('inventory.StockMovements.IX_StockMovement_ItemLocationDate', 253655), ('catalog.Items.PK_Items', 250003)]
+catalog_items_page1 (usp_ListSaleCatalog @Limit=500) reads=    16,517 cpu=40ms elapsed=40ms scans=[]
+stock_page1 (/stock)                       reads=     4,212 cpu=1ms elapsed=4ms scans=[]
+wrote docs/evidence/performance-20261122/sql-stats-after.json
+savia-sqlserver-rehearsal 5.84%
+savia-sqlserver-load 1.33%
+savia-sqlserver-dev 118.64%
+search_text                  {'n': 200, 'p50': 58.8, 'p95': 157.9, 'max': 183.4, 'errors': 0, 'max_bytes': 6565}
+search[Blusa]                {'n': 10, 'p50': 41.5, 'p95': 65.8, 'max': 65.8, 'errors': 0, 'max_bytes': 6186}
+search[Blusa Lino]           {'n': 10, 'p50': 29.8, 'p95': 50.1, 'max': 50.1, 'errors': 0, 'max_bytes': 6106}
+search[Vestido Seda Noche]   {'n': 10, 'p50': 155.9, 'p95': 199.8, 'max': 199.8, 'errors': 0, 'max_bytes': 6099}
+search[M12345]               {'n': 10, 'p50': 131.9, 'p95': 133.9, 'max': 133.9, 'errors': 0, 'max_bytes': 1565}
+search[M4]                   {'n': 10, 'p50': 14.3, 'p95': 18.5, 'max': 18.5, 'errors': 0, 'max_bytes': 6214}
+search[Aniversario]          {'n': 10, 'p50': 22.7, 'p95': 26.1, 'max': 26.1, 'errors': 0, 'max_bytes': 6565}
+search[zzqx]                 {'n': 10, 'p50': 110.5, 'p95': 143.4, 'max': 143.4, 'errors': 0, 'max_bytes': 2}
+search[LD004321]             {'n': 10, 'p50': 99.4, 'p95': 109.1, 'max': 109.1, 'errors': 0, 'max_bytes': 1522}
+kpi_business[day]            {'n': 20, 'p50': 1742.9, 'p95': 2288.7, 'max': 2288.7, 'errors': 0, 'max_bytes': 22932}
+kpi_team[day]                {'n': 20, 'p50': 18.7, 'p95': 37.9, 'max': 37.9, 'errors': 0, 'max_bytes': 503}
+kpi_business[week]           {'n': 20, 'p50': 1465.8, 'p95': 1944.6, 'max': 1944.6, 'errors': 0, 'max_bytes': 22958}
+kpi_team[week]               {'n': 20, 'p50': 16.7, 'p95': 26.4, 'max': 26.4, 'errors': 0, 'max_bytes': 505}
+kpi_business[month]          {'n': 20, 'p50': 1721.1, 'p95': 2410.2, 'max': 2410.2, 'errors': 0, 'max_bytes': 22972}
+kpi_team[month]              {'n': 20, 'p50': 10.2, 'p95': 18.3, 'max': 18.3, 'errors': 0, 'max_bytes': 506}
+catalog_items_first_page     {'n': 2, 'p50': 39.0, 'p95': 39.0, 'max': 39.0, 'errors': 0, 'max_bytes': 160410}
+stock_first_page             {'n': 2, 'p50': 8.5, 'p95': 8.5, 'max': 8.5, 'errors': 0, 'max_bytes': 102000}
+catalog_items_all_pages      {'pages': 501, 'rows': 50001, 'total_ms': 35957, 'first_page_ms': 44, 'last_page_ms': 18, 'page_p95': 121.2, 'max_bytes': 162105}
+stock_all_pages              {'pages': 500, 'rows': 250000, 'total_ms': 513670, 'first_page_ms': 26, 'last_page_ms': 2843, 'page_p95': 2284.4, 'max_bytes': 102002}
+checkout_post_sale           {'n': 200, 'p50': 26.9, 'p95': 81.5, 'max': 170.5, 'errors': 0, 'max_bytes': 143}
+import batch 0 {'status': 200, 'ms': 333, 'bytes': 3474, 'body': None} {'status': 200, 'ms': 7305, 'bytes': 167, 'body': None}
+import batch 1 {'status': 200, 'ms': 140, 'bytes': 3474, 'body': None} {'status': 200, 'ms': 12296, 'bytes': 167, 'body': None}
+import batch 2 {'status': 200, 'ms': 172, 'bytes': 3474, 'body': None} {'status': 200, 'ms': 12085, 'bytes': 167, 'body': None}
+receiving_100_scans {'n': 100, 'p50': 25.1, 'p95': 81.6, 'max': 703.4, 'errors': 0, 'first10_p50': 72.0, 'last10_p50': 14.8}
+  catalog.usp_ImportCatalog                     exec=    6 reads=  175,558 cpu= 4642.2ms elapsed=5300.8ms
+  sales.usp_KpiBusiness                         exec=   69 reads=   66,960 cpu= 4386.2ms elapsed=1704.2ms
+  catalog.usp_ListSaleCatalog                   exec=  504 reads=   17,033 cpu=   48.1ms elapsed=49.6ms
+  sales.usp_KpiTeam                             exec=   69 reads=    5,533 cpu=    8.6ms elapsed=8.7ms
+  catalog.usp_SearchItems                       exec=  307 reads=    4,908 cpu=   63.6ms elapsed=64.0ms
+  sales.usp_OpenTillCounted                     exec=    1 reads=    2,803 cpu=  171.5ms elapsed=211.1ms
+  sales.usp_OpenTill                            exec=    1 reads=    1,620 cpu=   65.5ms elapsed=89.8ms
+  sales.usp_RecordCashCount                     exec=    1 reads=      704 cpu=   43.2ms elapsed=46.7ms
+  sales.usp_PostSale                            exec=  203 reads=      317 cpu=   11.1ms elapsed=15.2ms
+  catalog.usp_RegisterItem                      exec= 3000 reads=      181 cpu=    6.4ms elapsed=7.3ms
+  sales.usp_RecordDrawerCount                   exec=    2 reads=      109 cpu=    7.5ms elapsed=8.9ms
+  receiving.usp_OpenScanSession                 exec=    1 reads=       89 cpu=    6.7ms elapsed=41.6ms
+  inventory.usp_ApplyMovement                   exec= 3405 reads=       65 cpu=    1.2ms elapsed=1.7ms
+  catalog.usp_RegisterProduct                   exec= 3000 reads=       46 cpu=    0.9ms elapsed=0.9ms
+  receiving.usp_RecordScan                      exec=  100 reads=       45 cpu=    6.5ms elapsed=9.9ms
+  adhoc 499|822305|1008|(@branch uniqueidentifier,@item nvarchar(4000),@limit int,@afterItem uniqueidentifier,@afterLocation uniqueide
+  adhoc 504|14438|36|-- V042 (P4, production readiness 2026-11-22, D-041): the sale catalog is read in pages of at most 500 variant
+  adhoc 307|4564|60| -- Same rows, columns and order as the inline query of CatalogStore.SearchAsync before V041. CREATE   PROCEDU
+  adhoc 69|19480|1080|-- savia:transactional -- V040 (P2, production readiness 2026-11-22): business KPIs aggregate once per product
+  adhoc 69|16412|699|-- savia:transactional -- V040 (P2, production readiness 2026-11-22): business KPIs aggregate once per product
+  adhoc 504|2144|8|-- V042 (P4, production readiness 2026-11-22, D-041): the sale catalog is read in pages of at most 500 variant
+  adhoc 69|9003|699|-- savia:transactional -- V040 (P2, production readiness 2026-11-22): business KPIs aggregate once per product
+  adhoc 69|6861|144|-- savia:transactional -- V040 (P2, production readiness 2026-11-22): business KPIs aggregate once per product
+wrote docs/evidence/performance-20261122/api.json
+savia-sqlserver-rehearsal 128.90%
+savia-sqlserver-load 4.03%
+savia-sqlserver-dev 170.71%
+exit=0

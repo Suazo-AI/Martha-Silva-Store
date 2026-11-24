@@ -1,0 +1,66 @@
+{
+ "scenario": "replay",
+ "claim": "A store killed after the hub committed its push, and a store killed after the hub answered its pull, restart and converge with every sale once.",
+ "tills": {
+  "a": "4E91A700-0000-4000-8000-0000000000A0",
+  "b": "4E91A700-0000-4000-8000-0000000000B0",
+  "c": "4E91A700-0000-4000-8000-0000000000C0"
+ },
+ "sales": [
+  {
+   "key": "ra1",
+   "store": "a",
+   "saleId": "4E91A700-0000-4000-8000-000000000001",
+   "qty": 1,
+   "tenders": [
+    {
+     "kind": "cash",
+     "amount": 120000
+    }
+   ]
+  },
+  {
+   "key": "ra2",
+   "store": "a",
+   "saleId": "4E91A700-0000-4000-8000-000000000002",
+   "qty": 1,
+   "tenders": [
+    {
+     "kind": "card",
+     "amount": 120000
+    }
+   ]
+  },
+  {
+   "key": "rc1",
+   "store": "c",
+   "saleId": "4E91A700-0000-4000-8000-000000000003",
+   "qty": 1,
+   "tenders": [
+    {
+     "kind": "cash",
+     "amount": 120000
+    }
+   ]
+  }
+ ],
+ "store_totals": {
+  "a": {
+   "count": 2,
+   "totalMinor": 240000
+  },
+  "b": {
+   "count": 0,
+   "totalMinor": 0
+  },
+  "c": {
+   "count": 1,
+   "totalMinor": 120000
+  }
+ },
+ "on_hand": {
+  "a": 498,
+  "b": 500,
+  "c": 499
+ }
+}

@@ -1,0 +1,320 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-21T03:24:27.905798+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/db/migrations/MANIFEST.sha256",
+      "change": "M",
+      "git_blob": "edbcb56cdafd262a35270e75a4cd3115d190811e"
+    },
+    {
+      "path": "savia/db/migrations/V032__sync_transport.sql",
+      "change": "A",
+      "git_blob": "6f257ed3967b2623dafd4cfd75860b921e500e2f"
+    },
+    {
+      "path": "savia/db/migrations/V033__sync_rebuild_token.sql",
+      "change": "A",
+      "git_blob": "e0d62396ab41ca331c9bc6783b614ffd72b71ec7"
+    },
+    {
+      "path": "savia/db/migrations/V034__sync_review_fixes.sql",
+      "change": "A",
+      "git_blob": "dc587d15057cc0d258bf19d44d18dad41b6113bc"
+    },
+    {
+      "path": "savia/db/tests/sync/200_sync_tables_match_change_tracking.sql",
+      "change": "A",
+      "git_blob": "f1164336f454451a315e27e0d2aec18a923720d5"
+    },
+    {
+      "path": "savia/db/tests/sync/210_apply_batch_is_idempotent.sql",
+      "change": "A",
+      "git_blob": "b4c31143eef1299c62b9fd9ec039bf2e64bc60cb"
+    },
+    {
+      "path": "savia/db/tests/sync/220_apply_batch_refuses_foreign_rows.sql",
+      "change": "A",
+      "git_blob": "e99c865b8508f0e99a986b0042ad9ee0e394c1d5"
+    },
+    {
+      "path": "savia/db/tests/sync/230_restored_sender_rules.sql",
+      "change": "A",
+      "git_blob": "f29c72b9960b30834398404ed2d131845f6a82ae"
+    },
+    {
+      "path": "savia/db/tests/sync/240_apply_batch_refuses_existing_foreign_rows.sql",
+      "change": "A",
+      "git_blob": "5133b51d695ca78f1c5ff792c789811e67cf7ba2"
+    },
+    {
+      "path": "savia/docs/PLAN.md",
+      "change": "M",
+      "git_blob": "410765fff554da6a93f2ef424129017e5eec2a81"
+    },
+    {
+      "path": "savia/docs/deploy/GAPS-20261120.md",
+      "change": "M",
+      "git_blob": "ed4fd7e3730e0c2b78c10b0083ca83f7a51cb3ea"
+    },
+    {
+      "path": "savia/docs/sync/P9-REPORT.yaml",
+      "change": "A",
+      "git_blob": "8cb6826ef4a80e120beb5c93cd6c0884e3440008"
+    },
+    {
+      "path": "savia/docs/sync/P9-SPEC.md",
+      "change": "A",
+      "git_blob": "5b4f032d4634f67776da505960710c9651d0221f"
+    },
+    {
+      "path": "savia/docs/sync/evidence/check-full-v033.txt",
+      "change": "A",
+      "git_blob": "cb9a914f4cdfaf0ce3ec11938c2fdb7045e36ceb"
+    },
+    {
+      "path": "savia/docs/sync/evidence/check-full-v034.txt",
+      "change": "A",
+      "git_blob": "08adf38a0c27632ce462b23f189537bd8ed79e4d"
+    },
+    {
+      "path": "savia/docs/sync/evidence/check-full.txt",
+      "change": "A",
+      "git_blob": "6439718d63e2a1d8efc3edfa1f56ac68ab2cee3b"
+    },
+    {
+      "path": "savia/docs/sync/evidence/dotnet-rebuild-first-red-v033.txt",
+      "change": "A",
+      "git_blob": "d320d086cbfd52d6164bd7e874d2adb72307a7b2"
+    },
+    {
+      "path": "savia/docs/sync/evidence/dotnet-sync-lost-rebuild-red.txt",
+      "change": "A",
+      "git_blob": "43d830fe270dcb46466fca3d3cabe2ee32dfb39b"
+    },
+    {
+      "path": "savia/docs/sync/evidence/dotnet-sync-restore-sell-before-rebuild-red.txt",
+      "change": "A",
+      "git_blob": "bb65bcc339133fb2794fe64878c3879c874ddf26"
+    },
+    {
+      "path": "savia/docs/sync/evidence/dotnet-sync-restore.txt",
+      "change": "A",
+      "git_blob": "5dbf86f7f037bb99789ba1d41ed68ae0c1c18eed"
+    },
+    {
+      "path": "savia/docs/sync/evidence/dotnet-sync-run1.txt",
+      "change": "A",
+      "git_blob": "bb65bcc339133fb2794fe64878c3879c874ddf26"
+    },
+    {
+      "path": "savia/docs/sync/evidence/dotnet-sync-v033.txt",
+      "change": "A",
+      "git_blob": "e2bc9140a15f3cdbf5db6f7b416c3863f8f34fe7"
+    },
+    {
+      "path": "savia/docs/sync/evidence/dotnet-sync-v034.txt",
+      "change": "A",
+      "git_blob": "58bd7112a60c2adf4422f7772ad86f7dc332e175"
+    },
+    {
+      "path": "savia/docs/sync/evidence/sim-basic.txt",
+      "change": "A",
+      "git_blob": "780c48e7b334632e83c04b8212454089eff51cb9"
+    },
+    {
+      "path": "savia/docs/sync/evidence/sim-cancel_vs_dispatch.txt",
+      "change": "A",
+      "git_blob": "50981fef8ae6b3ee62cfd6428a658fb0e61f5a7f"
+    },
+    {
+      "path": "savia/docs/sync/evidence/sim-random-1.txt",
+      "change": "A",
+      "git_blob": "e02ce615564b4418a4f129e6f2efe29efecc02f4"
+    },
+    {
+      "path": "savia/docs/sync/evidence/sim-random-42.txt",
+      "change": "A",
+      "git_blob": "ed9c88c038d5455c16e7cfb24d461ae1351d0a89"
+    },
+    {
+      "path": "savia/docs/sync/evidence/sim-random-7.txt",
+      "change": "A",
+      "git_blob": "447437913230693d3b64fe83713d6ce87a663c39"
+    },
+    {
+      "path": "savia/docs/sync/evidence/sim-replay-red.txt",
+      "change": "A",
+      "git_blob": "cff15f9f16bb6563b69ca322ed29aaccd827f88b"
+    },
+    {
+      "path": "savia/docs/sync/evidence/sim-replay.txt",
+      "change": "A",
+      "git_blob": "288c8b2a6b1513251cc34acf475dc2c30944ebfa"
+    },
+    {
+      "path": "savia/docs/sync/evidence/sim-restore.txt",
+      "change": "A",
+      "git_blob": "c80a543087c1d405a4d13ef6094c53d41764b9d9"
+    },
+    {
+      "path": "savia/docs/sync/evidence/sim-restore_naive.txt",
+      "change": "A",
+      "git_blob": "d9dac7ab34cd62fe7f7cba7c977023c3449823c1"
+    },
+    {
+      "path": "savia/docs/sync/evidence/sim-summary.txt",
+      "change": "A",
+      "git_blob": "5ed5175bd67fd38844668ffc1058d62fd3028251"
+    },
+    {
+      "path": "savia/docs/sync/evidence/sim-v033-basic.txt",
+      "change": "A",
+      "git_blob": "b28c640fed821a2e1ad69ba59600e88aa579ea75"
+    },
+    {
+      "path": "savia/docs/sync/evidence/sim-v033-cancel_vs_dispatch.txt",
+      "change": "A",
+      "git_blob": "6b263b5374e08457b375211d922b95edab773be9"
+    },
+    {
+      "path": "savia/docs/sync/evidence/sim-v033-random-1.txt",
+      "change": "A",
+      "git_blob": "4df958f4509171f94f6a1bed4effd85a34ed25e5"
+    },
+    {
+      "path": "savia/docs/sync/evidence/sim-v033-random-42.txt",
+      "change": "A",
+      "git_blob": "5f4521c1be45884de4d3bd6ca15773462c9de1d8"
+    },
+    {
+      "path": "savia/docs/sync/evidence/sim-v033-random-7.txt",
+      "change": "A",
+      "git_blob": "5bc42a579778de146ac901f6fa070894482f4e75"
+    },
+    {
+      "path": "savia/docs/sync/evidence/sim-v033-replay.txt",
+      "change": "A",
+      "git_blob": "dd873f77cbf088ed0a065b1b388b53aec409b1ee"
+    },
+    {
+      "path": "savia/docs/sync/evidence/sim-v033-restore.txt",
+      "change": "A",
+      "git_blob": "08c625c8efadbb62c85771348a0506fcf1284d5d"
+    },
+    {
+      "path": "savia/docs/sync/evidence/sim-v033-restore_naive.txt",
+      "change": "A",
+      "git_blob": "00d8d4a1d7bc90f67c6a04d33e2f67b85684dafe"
+    },
+    {
+      "path": "savia/docs/sync/evidence/sim-v034-basic.txt",
+      "change": "A",
+      "git_blob": "37f586713b2a7633784ce05846be9cef51384fd5"
+    },
+    {
+      "path": "savia/docs/sync/evidence/sim-v034-cancel_vs_dispatch.txt",
+      "change": "A",
+      "git_blob": "95aa9fd42981b4cd1839425d65c32b3123383e57"
+    },
+    {
+      "path": "savia/docs/sync/evidence/sim-v034-random-1.txt",
+      "change": "A",
+      "git_blob": "d5b42daeebc6807d64522c7f3c4882ed679996a4"
+    },
+    {
+      "path": "savia/docs/sync/evidence/sim-v034-random-42.txt",
+      "change": "A",
+      "git_blob": "c008962d305442c70995da08f9919e968a14713b"
+    },
+    {
+      "path": "savia/docs/sync/evidence/sim-v034-random-7.txt",
+      "change": "A",
+      "git_blob": "0ac54abb77c47287eefce03fb2bca8751951d6a0"
+    },
+    {
+      "path": "savia/docs/sync/evidence/sim-v034-replay.txt",
+      "change": "A",
+      "git_blob": "894ad12961c27e86205f5b8ed747157170e67419"
+    },
+    {
+      "path": "savia/docs/sync/evidence/sim-v034-restore.txt",
+      "change": "A",
+      "git_blob": "6702fb93591a59005adbad05ab5ebd067fa6db30"
+    },
+    {
+      "path": "savia/docs/sync/evidence/sim-v034-restore_naive.txt",
+      "change": "A",
+      "git_blob": "03ee6a2d892cd8528a725bb303a9e87c872d9730"
+    },
+    {
+      "path": "savia/docs/sync/evidence/sql-240-red-v033.txt",
+      "change": "A",
+      "git_blob": "29e4cbccfb887e40d36e99ee593d51e993d2ebb5"
+    },
+    {
+      "path": "savia/docs/sync/evidence/sql-sync-v034.txt",
+      "change": "A",
+      "git_blob": "4358222024204f6db8947ebd8cb2a2ed52dde462"
+    },
+    {
+      "path": "savia/src/Savia.Api/Endpoints.cs",
+      "change": "M",
+      "git_blob": "4e42b8e50fe320511665e948d331fe2f8e5f9b27"
+    },
+    {
+      "path": "savia/src/Savia.Api/Program.cs",
+      "change": "M",
+      "git_blob": "86e8a51204f9c94c001e8f8363ae06a76924d77b"
+    },
+    {
+      "path": "savia/src/Savia.Api/SyncEndpoints.cs",
+      "change": "A",
+      "git_blob": "49d4dfd976876c70ba278d0517b44b014bd60451"
+    },
+    {
+      "path": "savia/src/Savia.Application/Sync.cs",
+      "change": "A",
+      "git_blob": "9f9ed27e1806038a4de7b3c9b4e7ac715c57dc8a"
+    },
+    {
+      "path": "savia/src/Savia.Domain/Errors.cs",
+      "change": "M",
+      "git_blob": "accbec4d102f8c5a7c0b435c514e56cc8c474bd4"
+    },
+    {
+      "path": "savia/src/Savia.Infrastructure/ServiceRegistration.cs",
+      "change": "M",
+      "git_blob": "8e588cede292ba5ab15ee284ecf6c0021225fed4"
+    },
+    {
+      "path": "savia/src/Savia.Infrastructure/SyncStore.cs",
+      "change": "A",
+      "git_blob": "f1244a7e6337f9d8823af1072647c755049d375b"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/SyncFixture.cs",
+      "change": "A",
+      "git_blob": "c7c1cc1d250aafc48a1d18a78bdc17827162e1fd"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/SyncTransportTests.cs",
+      "change": "A",
+      "git_blob": "8ebdaa308f92082dd8cd129429462255e294ff8c"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/SyncWorkerTests.cs",
+      "change": "A",
+      "git_blob": "c007f422c8e717fddc25aaa6c1ae168cdc80a1ca"
+    },
+    {
+      "path": "savia/tools/db/simulator.py",
+      "change": "M",
+      "git_blob": "75d22abb574406cbcda77560dea95ab45af667e1"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

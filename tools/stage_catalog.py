@@ -44,7 +44,7 @@ def products_by_id(catalog):
 
 def read_demo(path):
     raw = path.read_text(encoding='utf-8')
-    prefix = 'window.DEMO_CATALOG='
+    prefix = 'window.STORE_CATALOG='
     if not raw.startswith(prefix):
         raise ValueError('Unsupported demo catalog format (JavaScript is never executed)')
     return json.JSONDecoder().raw_decode(raw[len(prefix):])[0]
@@ -110,9 +110,9 @@ def compare(recovered, demo, manifest, dist, asset_root=None):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--original', type=Path, default=ROOT / 'originals/cloudflare/catalog-extracted.json')
-    parser.add_argument('--demo', type=Path, default=ROOT / 'dist/catalog.js')
+    parser.add_argument('--demo', type=Path, default=ROOT / 'build-inputs/static/catalog.js')
     parser.add_argument('--manifest', type=Path, default=ROOT / 'evidence/asset-source-manifest.json')
-    parser.add_argument('--dist', type=Path, default=ROOT / 'dist')
+    parser.add_argument('--dist', type=Path, default=ROOT / 'build-inputs/static')
     parser.add_argument('--asset-root', type=Path, help='Optional local directory containing research/assets/...')
     args = parser.parse_args()
     result = compare(json.loads(args.original.read_text(encoding='utf-8')), read_demo(args.demo),

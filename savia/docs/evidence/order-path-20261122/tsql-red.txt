@@ -1,0 +1,20 @@
+T-SQL red: python tools/db/saviadb.py test --jobs 4 webstore, with V047-V051 moved out of db/migrations. Exit 1.
+The 10 new tests fail (objects missing); the 6 earlier webstore tests pass.
+
+PASS    webstore/010_create_reserved_order_normal_retry.sql
+PASS    webstore/020_create_order_rejections.sql
+PASS    webstore/030_web_pool_only_and_stock_limit.sql
+PASS    webstore/040_payment_normal_retry.sql
+PASS    webstore/050_payment_rejections.sql
+PASS    webstore/060_fulfill_normal_retry_rejections.sql
+FAIL    webstore/070_web_order_oversize_rejected.sql  -- Msg 1087, Level 16, State 1, Server <container>, Line 46
+FAIL    webstore/080_web_order_last_unit.sql  -- Msg 1087, Level 16, State 1, Server <container>, Line 15
+FAIL    webstore/090_web_order_replay_and_unpaid_limit.sql  -- Msg 1087, Level 16, State 1, Server <container>, Line 40
+FAIL    webstore/100_web_order_expiry_releases_once.sql  -- Msg 1087, Level 16, State 1, Server <container>, Line 17
+FAIL    webstore/110_web_payment_after_expiry_review.sql  -- Msg 1087, Level 16, State 1, Server <container>, Line 18
+FAIL    webstore/120_branch_cannot_write_web_stock.sql  -- Msg 2715, Level 16, State 3, Server <container>, Line 8
+FAIL    webstore/130_web_stock_not_in_normal_batches.sql  -- Msg 1087, Level 16, State 1, Server <container>, Line 17
+FAIL    webstore/140_consignment_applies_once.sql  -- Msg 2715, Level 16, State 3, Server <container>, Line 8
+FAIL    webstore/150_release_applies_once.sql  -- Msg 1087, Level 16, State 1, Server <container>, Line 17
+FAIL    webstore/160_web_order_reads.sql  -- Msg 1087, Level 16, State 1, Server <container>, Line 18
+SUMMARY FAIL=10 PASS=6  logs: .out\dbtests

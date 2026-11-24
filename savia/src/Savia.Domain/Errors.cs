@@ -14,9 +14,21 @@ public sealed class SaviaException(SaviaError error, Exception? inner = null) : 
 public static class Errors
 {
     public static readonly SaviaError Unauthorized = new("auth.required", ErrorKind.Unauthorized, "Inicie sesión.");
+    public static readonly SaviaError NodeUnauthorized = new("sync.unauthorized", ErrorKind.Unauthorized, "Nodo no autenticado.");
+    public static readonly SaviaError SyncMalformed = new("sync.malformed", ErrorKind.Validation, "Mensaje de sincronización inválido.");
+    public static readonly SaviaError SyncStalled = new("sync.page_stalled", ErrorKind.Conflict,
+        "Sincronización detenida: el destino no aplicó la página.");
     public static readonly SaviaError BadCredentials = new("auth.bad_credentials", ErrorKind.Unauthorized, "Usuario o contraseña incorrectos.");
+    public static readonly SaviaError PasswordChangeRequired = new("auth.password_change_required", ErrorKind.Forbidden,
+        "Cambie su contraseña temporal antes de continuar.");
+    public static readonly SaviaError CurrentPasswordWrong = new("auth.current_password_wrong", ErrorKind.Forbidden,
+        "La contraseña actual no es correcta.");
+    public static readonly SaviaError PasswordLocked = new("auth.locked", ErrorKind.Forbidden,
+        "Demasiados intentos con una contraseña incorrecta. Espere 15 minutos.");
     public static readonly SaviaError RoleRequired = new("auth.role_required", ErrorKind.Forbidden, "Su rol no permite esta operación.");
     public static readonly SaviaError BranchAccess = new("auth.branch_access", ErrorKind.Forbidden, "No tiene acceso a esta sucursal.");
+    public static readonly SaviaError CatalogManagedByHub = new("catalog.managed_by_hub", ErrorKind.Conflict,
+        "El catálogo se gestiona en la central.");
     public static readonly SaviaError WrongNode = new("node.wrong_kind", ErrorKind.NotFound, "Esta operación no existe en este nodo.");
 
     public static SaviaException Invalid(string code, string message) => new(new SaviaError(code, ErrorKind.Validation, message));
@@ -38,6 +50,7 @@ public static class DbErrors
         [51205] = ("catalog.code_taken", ErrorKind.Conflict),
         [51211] = ("catalog.item_id_reused", ErrorKind.Conflict),
         [51212] = ("catalog.sku_taken", ErrorKind.Conflict),
+        [51230] = ("page.after", ErrorKind.Validation),
         [51302] = ("receiving.scan_id_reused", ErrorKind.Conflict),
         [51303] = ("receiving.session_not_open", ErrorKind.Conflict),
         [51304] = ("receiving.reason_required", ErrorKind.Validation),
@@ -89,6 +102,10 @@ public static class DbErrors
         [51533] = ("return.amount", ErrorKind.Conflict),
         [51534] = ("return.zero_credit", ErrorKind.Conflict),
         [51606] = ("credit.customer_or_currency", ErrorKind.Conflict),
+        [51631] = ("credit.not_issuer", ErrorKind.Forbidden),
+        [51632] = ("credit.not_due", ErrorKind.Conflict),
+        [51633] = ("auth.branch_access", ErrorKind.Forbidden),
+        [51634] = ("credit.status_final", ErrorKind.Conflict),
         [52102] = ("sale.fx", ErrorKind.Validation),
         [52103] = ("sale.rate_changed", ErrorKind.Conflict),
         [52104] = ("sale.fx_conversion", ErrorKind.Validation),
@@ -113,6 +130,7 @@ public static class DbErrors
         [52030] = ("import.file", ErrorKind.Validation),
         [52031] = ("import.row_errors", ErrorKind.Conflict),
         [51901] = ("customer.search_too_short", ErrorKind.Validation),
+        [51902] = ("customer.invalid", ErrorKind.Validation),
         // V009: credit transfer as transition rows, one writer per row.
         [51719] = ("credit.transfer_retired", ErrorKind.NotFound),
         [51720] = ("credit.transfer_invalid", ErrorKind.Validation),
@@ -129,11 +147,53 @@ public static class DbErrors
         [51731] = ("credit.transfer_already_dispatched", ErrorKind.Conflict),
         [51732] = ("credit.allocation_inactive", ErrorKind.Conflict),
         [51733] = ("credit.search_too_short", ErrorKind.Validation),
+        // V001 and V047-V050: web orders, web stock and payments.
+        [51704] = ("payment.unverified", ErrorKind.Forbidden),
+        [51705] = ("payment.external_id_reused", ErrorKind.Conflict),
+        [51706] = ("payment.mismatch", ErrorKind.Conflict),
+        [51707] = ("web.not_paid", ErrorKind.Conflict),
+        [51708] = ("web.no_fulfillment", ErrorKind.Conflict),
+        [51709] = ("web.reservation_mismatch", ErrorKind.Conflict),
+        [51710] = ("web.idempotency_conflict", ErrorKind.Conflict),
+        [51712] = ("web.no_fulfillment_node", ErrorKind.Conflict),
+        [51740] = ("node.wrong_kind", ErrorKind.NotFound),
+        [51741] = ("input.id_reused", ErrorKind.Conflict),
+        [51742] = ("web.stock_move_invalid", ErrorKind.Validation),
+        [51743] = ("web.validation", ErrorKind.Validation),
+        [51744] = ("web.unknown_sku", ErrorKind.Validation),
+        [51745] = ("web.unknown_zone", ErrorKind.Validation),
+        [51746] = ("web.too_many_unpaid", ErrorKind.Conflict),
+        [51747] = ("web.status", ErrorKind.Conflict),
+        [51748] = ("web.not_found", ErrorKind.NotFound),
+        [51749] = ("web.busy", ErrorKind.Unavailable),
         // V008: sync foundation.
         [51806] = ("sync.local_node_taken", ErrorKind.Conflict),
         [51807] = ("sync.node_unknown", ErrorKind.NotFound),
         [51808] = ("sync.cursor_invalid", ErrorKind.Conflict),
         [51809] = ("sync.table_not_tracked", ErrorKind.Validation),
+        // V032: sync transport (P9).
+        [51850] = ("sync.wrong_peer", ErrorKind.Forbidden),
+        [51851] = ("sync.foreign_row", ErrorKind.Forbidden),
+        [51852] = ("sync.gap", ErrorKind.Conflict),
+        [51853] = ("sync.retired_fork", ErrorKind.Conflict),
+        [51854] = ("sync.rebuild_required", ErrorKind.Conflict),
+        [51855] = ("sync.local_node_missing", ErrorKind.Conflict),
+        [51856] = ("sync.schema_mismatch", ErrorKind.Conflict),
+        [51857] = ("sync.in_transaction", ErrorKind.Internal),
+        [51858] = ("sync.fork_changed", ErrorKind.Conflict),
+        [51859] = ("sync.changes_cleaned", ErrorKind.Conflict),
+        [51860] = ("sync.physical_delete", ErrorKind.Conflict),
+        [51861] = ("sync.malformed", ErrorKind.Validation),
+        [51862] = ("sync.credential_target", ErrorKind.Validation),
+        [51863] = ("sync.busy", ErrorKind.Unavailable),
+        [51864] = ("sync.recovery_pending", ErrorKind.Conflict),
+        [51865] = ("sync.node_mismatch", ErrorKind.Conflict),
+        // V062: day-zero provisioning and the supplier write.
+        [51866] = ("branch.provision_mismatch", ErrorKind.Conflict),
+        [51867] = ("staff.provision_mismatch", ErrorKind.Conflict),
+        [51903] = ("supplier.invalid", ErrorKind.Validation),
+        // V064: the session that asked to change the password ended first (revoked, expired or another password).
+        [51868] = ("auth.required", ErrorKind.Unauthorized),
     };
 
     /// <param name="number">SQL Server error number.</param>
@@ -144,6 +204,9 @@ public static class DbErrors
         return number switch
         {
             >= 50000 and <= 59999 => new($"rule.{number}", ErrorKind.Validation, message),
+            // One open till per register: a second opening is a cash rule, not a generic duplicate (D-036).
+            2601 when message.Contains("UX_OpenTill_Register", StringComparison.Ordinal) =>
+                new("cash.register_till_open", ErrorKind.Conflict, "Esta caja ya tiene un turno abierto. Ciérrelo antes de abrir otro."),
             2601 or 2627 => new("db.duplicate", ErrorKind.Conflict, "El registro ya existe."),
             547 => new("db.reference", ErrorKind.Conflict, "El registro referencia datos que no existen."),
             1205 or -2 => new("db.busy", ErrorKind.Unavailable, "La base de datos está ocupada. Reintente."),

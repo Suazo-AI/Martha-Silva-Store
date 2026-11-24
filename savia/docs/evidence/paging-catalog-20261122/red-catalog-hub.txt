@@ -1,0 +1,4 @@
+FAIL    catalog/156_import_on_hub.sql  -- Msg 52001, Level 16, State 1, Server 23b66448cd53, Procedure catalog.usp_ImportCatalog, Line 14
+SUMMARY FAIL=1  logs: .out\dbtests
+FAIL    catalog/157_import_repeated_variant.sql  -- ASSERT FAIL: two rows repeat one variant expected=2 actual=0
+SUMMARY FAIL=1  logs: .out\dbtests

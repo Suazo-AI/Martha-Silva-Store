@@ -23,7 +23,11 @@ from urllib.request import urlopen
 ROOT = Path(__file__).resolve().parents[1]
 POLICY = ROOT / 'build-inputs/static/_headers'
 STATIC = ROOT / 'build-inputs/static'
-SCRIPT_SRC = re.compile(r"script-src 'self'( 'sha256-[A-Za-z0-9+/=]+')?")
+_spec = importlib.util.spec_from_file_location('prepare', ROOT / 'prepare.py')
+PREPARE = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(PREPARE)
+EMPTY = {'apiBase': '', 'turnstileSiteKey': '', 'skus': {}}
+SCRIPT_SRC = re.compile(r"script-src 'self'( 'sha256-[A-Za-z0-9+/=]+')?( https://challenges\.cloudflare\.com)?")
 
 
 def validate(headers, marker=False, missing=False):
@@ -38,6 +42,9 @@ def validate(headers, marker=False, missing=False):
     assert headers.get('x-content-type-options') == 'nosniff'
     assert headers.get('referrer-policy') == 'strict-origin-when-cross-origin'
     assert headers.get('x-robots-tag') == 'noindex, nofollow'
+    assert headers.get('permissions-policy') == 'camera=(), microphone=(), geolocation=(), payment=()'
+    assert headers.get('cross-origin-opener-policy') == 'same-origin'
+    assert headers.get('strict-transport-security') == 'max-age=31536000; includeSubDomains'
     assert headers.get('access-control-allow-origin') != '*'
     cache = headers.get('cache-control', '')
     assert 'immutable' not in cache
@@ -52,7 +59,7 @@ class PolicyTests(unittest.TestCase):
         self.assertEqual(text.count('Cache-Control:'), 1)
         self.assertNotIn('immutable', text)
         self.assertNotIn('unsafe-eval', text)
-        self.assertEqual(POLICY.read_bytes(), (ROOT / 'dist/_headers').read_bytes())
+        self.assertEqual(PREPARE.public_bytes('_headers', POLICY.read_bytes()), (ROOT / 'dist/_headers').read_bytes())
 
     def test_script_src_allows_only_the_inline_loader_gate_by_hash(self):
         inline = {}
@@ -73,7 +80,9 @@ class PolicyTests(unittest.TestCase):
             validate({})
         good = {'Content-Security-Policy': "default-src 'self'; script-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'",
                 'X-Content-Type-Options': 'nosniff', 'Referrer-Policy': 'strict-origin-when-cross-origin',
-                'X-Robots-Tag': 'noindex, nofollow', 'Cache-Control': 'public, max-age=0, must-revalidate'}
+                'X-Robots-Tag': 'noindex, nofollow', 'Cache-Control': 'public, max-age=0, must-revalidate',
+                'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), payment=()', 'Cross-Origin-Opener-Policy': 'same-origin',
+                'Strict-Transport-Security': 'max-age=31536000; includeSubDomains'}
         validate(good)
         validate(dict(good, **{'Content-Security-Policy': good['Content-Security-Policy'].replace("script-src 'self'", "script-src 'self' 'sha256-AAAA'")}))
         for key, value in [('Content-Security-Policy', "default-src *"),
@@ -82,6 +91,50 @@ class PolicyTests(unittest.TestCase):
                            ('Access-Control-Allow-Origin', '*')]:
             with self.subTest(key=key), self.assertRaises(AssertionError):
                 validate(dict(good, **{key: value}))
+
+
+class DerivedPolicyTests(unittest.TestCase):
+    """The build widens the CSP only for the configured hub origin and Turnstile."""
+    def csp(self, config):
+        text = PREPARE.configured_bytes('_headers', POLICY.read_bytes(), dict(EMPTY, **config)).decode()
+        return next(line.split(': ', 1)[1] for line in text.splitlines() if line.strip().startswith('Content-Security-Policy'))
+
+    def test_demo_config_keeps_the_policy_byte_identical(self):
+        self.assertEqual(PREPARE.configured_bytes('_headers', POLICY.read_bytes(), EMPTY), POLICY.read_bytes())
+
+    def test_api_origin_reaches_connect_src_only(self):
+        csp = self.csp({'apiBase': 'https://api.example.test'})
+        self.assertIn("connect-src 'self' https://api.example.test", csp.split('; '))
+        self.assertEqual(csp.count('api.example.test'), 1)
+        self.assertNotIn('challenges.cloudflare.com', csp)
+
+    def test_site_key_adds_turnstile_to_script_and_frame_src(self):
+        csp = self.csp({'apiBase': 'https://api.example.test', 'turnstileSiteKey': '1x00000000000000000000AA'})
+        script = next(d for d in csp.split('; ') if d.startswith('script-src'))
+        self.assertTrue(SCRIPT_SRC.fullmatch(script), script)
+        self.assertIn('frame-src https://challenges.cloudflare.com', csp.split('; '))
+        self.assertNotIn('1x00000000000000000000AA', csp)
+        for directive in ("default-src 'self'", "object-src 'none'", "frame-ancestors 'none'", "form-action 'self'"):
+            self.assertIn(directive, csp.split('; '))
+
+    def test_live_pages_drop_static_prices_and_preconnect_to_the_hub(self):
+        page = (ROOT / 'build-inputs/static/producto-negro.html').read_bytes()
+        self.assertEqual(PREPARE.configured_bytes('producto-negro.html', page, EMPTY), page)
+        live = PREPARE.configured_bytes('producto-negro.html', page, dict(EMPTY, apiBase='https://api.example.test')).decode()
+        self.assertRegex(live, r'<p class="(detail-price )?product-price">&#160;</p>')
+        self.assertEqual(live.count('<link rel="preconnect" href="https://api.example.test" crossorigin>'), 1)
+        self.assertLess(live.index('rel="preconnect"'), live.index('rel="stylesheet"'))
+        self.assertIn('"offers"', page.decode())
+        self.assertNotIn('"offers"', live)
+        self.assertIn('"@type":"Product"', live)
+
+    def test_config_rejects_anything_but_an_origin(self):
+        for base in ('http://api.example.test', 'https://api.example.test/path', "https://x.test; script-src *", 'javascript:alert(1)'):
+            with self.subTest(base=base), tempfile.TemporaryDirectory() as folder:
+                path = Path(folder) / 'site.config.json'
+                path.write_text(json.dumps({'storefront': dict(EMPTY, apiBase=base)}))
+                with self.assertRaises(ValueError):
+                    PREPARE.storefront_config(path)
 
 
 def runtime(port, output):
@@ -134,7 +187,7 @@ def runtime(port, output):
                                 if process.poll() is not None or time.monotonic() > deadline:
                                     raise RuntimeError('Wrangler failed to start; inspect ' + str(output / (label + '.log')))
                                 time.sleep(.25)
-                        paths = ('/', '/app.js', '/styles.css', '/catalog.js', '/demo-api.js',
+                        paths = ('/', '/app.js', '/styles.css', '/catalog.js', '/store-api.js',
                                  '/integration-adapters.js', '/deployment.json', '/__missing_headers_probe__', '/_headers')
                         for path in paths:
                             try:

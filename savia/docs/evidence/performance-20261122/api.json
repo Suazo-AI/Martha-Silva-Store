@@ -1,0 +1,687 @@
+{
+ "before": {
+  "search_text": {
+   "n": 200,
+   "p50": 1455.4,
+   "p95": 1907.8,
+   "max": 2409.0,
+   "errors": 0,
+   "max_bytes": 6565
+  },
+  "search[Blusa]": {
+   "n": 10,
+   "p50": 287.2,
+   "p95": 310.6,
+   "max": 310.6,
+   "errors": 0,
+   "max_bytes": 6186
+  },
+  "search[Blusa Lino]": {
+   "n": 10,
+   "p50": 327.4,
+   "p95": 413.8,
+   "max": 413.8,
+   "errors": 0,
+   "max_bytes": 6106
+  },
+  "search[Vestido Seda Noche]": {
+   "n": 10,
+   "p50": 1537.7,
+   "p95": 1603.9,
+   "max": 1603.9,
+   "errors": 0,
+   "max_bytes": 6099
+  },
+  "search[M12345]": {
+   "n": 10,
+   "p50": 1681.0,
+   "p95": 2177.0,
+   "max": 2177.0,
+   "errors": 0,
+   "max_bytes": 1565
+  },
+  "search[M4]": {
+   "n": 10,
+   "p50": 179.4,
+   "p95": 234.4,
+   "max": 234.4,
+   "errors": 0,
+   "max_bytes": 6214
+  },
+  "search[Aniversario]": {
+   "n": 10,
+   "p50": 1155.7,
+   "p95": 1287.2,
+   "max": 1287.2,
+   "errors": 0,
+   "max_bytes": 6565
+  },
+  "search[zzqx]": {
+   "n": 10,
+   "p50": 1642.5,
+   "p95": 2054.3,
+   "max": 2054.3,
+   "errors": 0,
+   "max_bytes": 2
+  },
+  "search[LD004321]": {
+   "n": 10,
+   "p50": 1760.1,
+   "p95": 2360.1,
+   "max": 2360.1,
+   "errors": 0,
+   "max_bytes": 1522
+  },
+  "kpi_business[day]": {
+   "n": 20,
+   "p50": 4543.3,
+   "p95": 6510.8,
+   "max": 6510.8,
+   "errors": 0,
+   "max_bytes": 22932
+  },
+  "kpi_team[day]": {
+   "n": 20,
+   "p50": 13.0,
+   "p95": 18.4,
+   "max": 18.4,
+   "errors": 0,
+   "max_bytes": 503
+  },
+  "kpi_business[week]": {
+   "n": 20,
+   "p50": 5634.3,
+   "p95": 7166.2,
+   "max": 7166.2,
+   "errors": 0,
+   "max_bytes": 22958
+  },
+  "kpi_team[week]": {
+   "n": 20,
+   "p50": 14.4,
+   "p95": 22.6,
+   "max": 22.6,
+   "errors": 0,
+   "max_bytes": 505
+  },
+  "kpi_business[month]": {
+   "n": 20,
+   "p50": 4896.0,
+   "p95": 9965.4,
+   "max": 9965.4,
+   "errors": 0,
+   "max_bytes": 22972
+  },
+  "kpi_team[month]": {
+   "n": 20,
+   "p50": 11.7,
+   "p95": 20.9,
+   "max": 20.9,
+   "errors": 0,
+   "max_bytes": 506
+  },
+  "catalog_items_full_list": {
+   "errors": 3,
+   "max_bytes": 0,
+   "first_error": "0 /api/v1/catalog/items b'client TimeoutError after 120s' after 120011 ms"
+  },
+  "stock_full_list": {
+   "n": 2,
+   "p50": 2589.8,
+   "p95": 2589.8,
+   "max": 2589.8,
+   "errors": 0,
+   "max_bytes": 51000001
+  },
+  "open_till": 204,
+  "checkout_post_sale": {
+   "n": 200,
+   "p50": 50.5,
+   "p95": 108.7,
+   "max": 189.4,
+   "errors": 0,
+   "max_bytes": 143
+  },
+  "import_1000_preview": [
+   {
+    "status": 503,
+    "ms": 30114,
+    "bytes": 108,
+    "body": "{\"code\":\"db.busy\",\"message\":\"La base de datos est\u00e1 ocupada. Reintente.\",\"traceId\":\"0HNQ8D8VO2BN3:000000D0\"}"
+   },
+   {
+    "status": 503,
+    "ms": 30089,
+    "bytes": 108,
+    "body": "{\"code\":\"db.busy\",\"message\":\"La base de datos est\u00e1 ocupada. Reintente.\",\"traceId\":\"0HNQ8D8VO2BN3:000000D2\"}"
+   },
+   {
+    "status": 503,
+    "ms": 30050,
+    "bytes": 108,
+    "body": "{\"code\":\"db.busy\",\"message\":\"La base de datos est\u00e1 ocupada. Reintente.\",\"traceId\":\"0HNQ8D8VO2BN3:000000D4\"}"
+   }
+  ],
+  "import_1000_import": [
+   {
+    "status": 503,
+    "ms": 30071,
+    "bytes": 108,
+    "body": "{\"code\":\"db.busy\",\"message\":\"La base de datos est\u00e1 ocupada. Reintente.\",\"traceId\":\"0HNQ8D8VO2BN3:000000D1\"}"
+   },
+   {
+    "status": 503,
+    "ms": 30048,
+    "bytes": 108,
+    "body": "{\"code\":\"db.busy\",\"message\":\"La base de datos est\u00e1 ocupada. Reintente.\",\"traceId\":\"0HNQ8D8VO2BN3:000000D3\"}"
+   },
+   {
+    "status": 503,
+    "ms": 30079,
+    "bytes": 108,
+    "body": "{\"code\":\"db.busy\",\"message\":\"La base de datos est\u00e1 ocupada. Reintente.\",\"traceId\":\"0HNQ8D8VO2BN3:000000D5\"}"
+   }
+  ],
+  "open_scan_session": 204,
+  "receiving_100_scans": {
+   "n": 100,
+   "p50": 29.0,
+   "p95": 86.4,
+   "max": 323.7,
+   "errors": 0,
+   "first10_p50": 36.9,
+   "last10_p50": 19.4
+  },
+  "procedures": [
+   {
+    "proc": "sales.usp_KpiBusiness",
+    "exec": 69,
+    "avg_reads": 8225618,
+    "avg_cpu_ms": 24421.6,
+    "avg_elapsed_ms": 5091.5,
+    "max_reads": 8230175
+   },
+   {
+    "proc": "catalog.usp_ImportCatalog",
+    "exec": 6,
+    "avg_reads": 2028975,
+    "avg_cpu_ms": 29870.6,
+    "avg_elapsed_ms": 29951.6,
+    "max_reads": 2142732
+   },
+   {
+    "proc": "sales.usp_KpiTeam",
+    "exec": 69,
+    "avg_reads": 5532,
+    "avg_cpu_ms": 8.0,
+    "avg_elapsed_ms": 8.0,
+    "max_reads": 5568
+   },
+   {
+    "proc": "sales.usp_OpenTillCounted",
+    "exec": 1,
+    "avg_reads": 2021,
+    "avg_cpu_ms": 152.4,
+    "avg_elapsed_ms": 163.4,
+    "max_reads": 2021
+   },
+   {
+    "proc": "sales.usp_OpenTill",
+    "exec": 1,
+    "avg_reads": 863,
+    "avg_cpu_ms": 49.7,
+    "avg_elapsed_ms": 53.9,
+    "max_reads": 863
+   },
+   {
+    "proc": "sales.usp_RecordCashCount",
+    "exec": 1,
+    "avg_reads": 678,
+    "avg_cpu_ms": 54.7,
+    "avg_elapsed_ms": 54.7,
+    "max_reads": 678
+   },
+   {
+    "proc": "sales.usp_PostSale",
+    "exec": 203,
+    "avg_reads": 314,
+    "avg_cpu_ms": 18.3,
+    "avg_elapsed_ms": 23.1,
+    "max_reads": 503
+   },
+   {
+    "proc": "sales.usp_RecordDrawerCount",
+    "exec": 2,
+    "avg_reads": 101,
+    "avg_cpu_ms": 11.6,
+    "avg_elapsed_ms": 11.6,
+    "max_reads": 148
+   },
+   {
+    "proc": "receiving.usp_OpenScanSession",
+    "exec": 1,
+    "avg_reads": 70,
+    "avg_cpu_ms": 11.9,
+    "avg_elapsed_ms": 19.4,
+    "max_reads": 70
+   },
+   {
+    "proc": "receiving.usp_RecordScan",
+    "exec": 100,
+    "avg_reads": 53,
+    "avg_cpu_ms": 8.8,
+    "avg_elapsed_ms": 13.2,
+    "max_reads": 98
+   },
+   {
+    "proc": "inventory.usp_ApplyMovement",
+    "exec": 405,
+    "avg_reads": 46,
+    "avg_cpu_ms": 0.8,
+    "avg_elapsed_ms": 0.8,
+    "max_reads": 73
+   },
+   {
+    "proc": "sync.usp_EnqueueEvent",
+    "exec": 204,
+    "avg_reads": 33,
+    "avg_cpu_ms": 0.7,
+    "avg_elapsed_ms": 0.7,
+    "max_reads": 51
+   },
+   {
+    "proc": "sales.usp_SubmitCashCount",
+    "exec": 2,
+    "avg_reads": 11,
+    "avg_cpu_ms": 2.1,
+    "avg_elapsed_ms": 2.1,
+    "max_reads": 11
+   }
+  ],
+  "adhoc_top_reads": [
+   "23|8199761|24900| CREATE   PROCEDURE sales.usp_KpiBusiness @BranchId uniqueidentifier,@ActorId uniqueidentifier,@Period varchar",
+   "38|1511534|3832|(@limit int,@location uniqueidentifier,@pattern nvarchar(8))SELECT TOP (@limit) i.Id,i.Sku,p.Name,i.VariantNam",
+   "38|1511534|3829|(@limit int,@location uniqueidentifier,@pattern nvarchar(10))SELECT TOP (@limit) i.Id,i.Sku,p.Name,i.VariantNa",
+   "38|1511444|3838|(@limit int,@location uniqueidentifier,@pattern nvarchar(6))SELECT TOP (@limit) i.Id,i.Sku,p.Name,i.VariantNam",
+   "39|1414091|3611|(@limit int,@location uniqueidentifier,@pattern nvarchar(20))SELECT TOP (@limit) i.Id,i.Sku,p.Name,i.VariantNa",
+   "38|980804|2867|(@limit int,@location uniqueidentifier,@pattern nvarchar(13))SELECT TOP (@limit) i.Id,i.Sku,p.Name,i.VariantNa",
+   "39|169049|1291|(@limit int,@location uniqueidentifier,@pattern nvarchar(12))SELECT TOP (@limit) i.Id,i.Sku,p.Name,i.VariantNa",
+   "39|118044|1222|(@limit int,@location uniqueidentifier,@pattern nvarchar(7))SELECT TOP (@limit) i.Id,i.Sku,p.Name,i.VariantNam"
+  ]
+ },
+ "after": {
+  "search_text": {
+   "n": 200,
+   "p50": 58.8,
+   "p95": 157.9,
+   "max": 183.4,
+   "errors": 0,
+   "max_bytes": 6565
+  },
+  "search[Blusa]": {
+   "n": 10,
+   "p50": 41.5,
+   "p95": 65.8,
+   "max": 65.8,
+   "errors": 0,
+   "max_bytes": 6186
+  },
+  "search[Blusa Lino]": {
+   "n": 10,
+   "p50": 29.8,
+   "p95": 50.1,
+   "max": 50.1,
+   "errors": 0,
+   "max_bytes": 6106
+  },
+  "search[Vestido Seda Noche]": {
+   "n": 10,
+   "p50": 155.9,
+   "p95": 199.8,
+   "max": 199.8,
+   "errors": 0,
+   "max_bytes": 6099
+  },
+  "search[M12345]": {
+   "n": 10,
+   "p50": 131.9,
+   "p95": 133.9,
+   "max": 133.9,
+   "errors": 0,
+   "max_bytes": 1565
+  },
+  "search[M4]": {
+   "n": 10,
+   "p50": 14.3,
+   "p95": 18.5,
+   "max": 18.5,
+   "errors": 0,
+   "max_bytes": 6214
+  },
+  "search[Aniversario]": {
+   "n": 10,
+   "p50": 22.7,
+   "p95": 26.1,
+   "max": 26.1,
+   "errors": 0,
+   "max_bytes": 6565
+  },
+  "search[zzqx]": {
+   "n": 10,
+   "p50": 110.5,
+   "p95": 143.4,
+   "max": 143.4,
+   "errors": 0,
+   "max_bytes": 2
+  },
+  "search[LD004321]": {
+   "n": 10,
+   "p50": 99.4,
+   "p95": 109.1,
+   "max": 109.1,
+   "errors": 0,
+   "max_bytes": 1522
+  },
+  "kpi_business[day]": {
+   "n": 20,
+   "p50": 1742.9,
+   "p95": 2288.7,
+   "max": 2288.7,
+   "errors": 0,
+   "max_bytes": 22932
+  },
+  "kpi_team[day]": {
+   "n": 20,
+   "p50": 18.7,
+   "p95": 37.9,
+   "max": 37.9,
+   "errors": 0,
+   "max_bytes": 503
+  },
+  "kpi_business[week]": {
+   "n": 20,
+   "p50": 1465.8,
+   "p95": 1944.6,
+   "max": 1944.6,
+   "errors": 0,
+   "max_bytes": 22958
+  },
+  "kpi_team[week]": {
+   "n": 20,
+   "p50": 16.7,
+   "p95": 26.4,
+   "max": 26.4,
+   "errors": 0,
+   "max_bytes": 505
+  },
+  "kpi_business[month]": {
+   "n": 20,
+   "p50": 1721.1,
+   "p95": 2410.2,
+   "max": 2410.2,
+   "errors": 0,
+   "max_bytes": 22972
+  },
+  "kpi_team[month]": {
+   "n": 20,
+   "p50": 10.2,
+   "p95": 18.3,
+   "max": 18.3,
+   "errors": 0,
+   "max_bytes": 506
+  },
+  "catalog_items_first_page": {
+   "n": 2,
+   "p50": 141.0,
+   "p95": 141.0,
+   "max": 141.0,
+   "errors": 0,
+   "max_bytes": 160410
+  },
+  "stock_first_page": {
+   "n": 2,
+   "p50": 49.3,
+   "p95": 49.3,
+   "max": 49.3,
+   "errors": 0,
+   "max_bytes": 102000
+  },
+  "catalog_items_all_pages": {
+   "pages": 501,
+   "rows": 50001,
+   "total_ms": 43887,
+   "first_page_ms": 89,
+   "last_page_ms": 15,
+   "page_p95": 176.8,
+   "max_bytes": 162105
+  },
+  "stock_all_pages": {
+   "pages": 500,
+   "rows": 250000,
+   "total_ms": 19280,
+   "first_page_ms": 31,
+   "last_page_ms": 42,
+   "page_p95": 82.9,
+   "max_bytes": 102002
+  },
+  "open_till": 204,
+  "checkout_post_sale": {
+   "n": 200,
+   "p50": 56.3,
+   "p95": 173.8,
+   "max": 503.0,
+   "errors": 0,
+   "max_bytes": 143
+  },
+  "import_1000_preview": [
+   {
+    "status": 200,
+    "ms": 333,
+    "bytes": 3474,
+    "body": null
+   },
+   {
+    "status": 200,
+    "ms": 140,
+    "bytes": 3474,
+    "body": null
+   },
+   {
+    "status": 200,
+    "ms": 172,
+    "bytes": 3474,
+    "body": null
+   },
+   {
+    "status": 200,
+    "ms": 219,
+    "bytes": 3474,
+    "body": null
+   },
+   {
+    "status": 200,
+    "ms": 193,
+    "bytes": 3474,
+    "body": null
+   },
+   {
+    "status": 200,
+    "ms": 287,
+    "bytes": 3474,
+    "body": null
+   }
+  ],
+  "import_1000_import": [
+   {
+    "status": 200,
+    "ms": 7305,
+    "bytes": 167,
+    "body": null
+   },
+   {
+    "status": 200,
+    "ms": 12296,
+    "bytes": 167,
+    "body": null
+   },
+   {
+    "status": 200,
+    "ms": 12085,
+    "bytes": 167,
+    "body": null
+   },
+   {
+    "status": 200,
+    "ms": 15211,
+    "bytes": 167,
+    "body": null
+   },
+   {
+    "status": 200,
+    "ms": 12718,
+    "bytes": 167,
+    "body": null
+   },
+   {
+    "status": 200,
+    "ms": 8737,
+    "bytes": 167,
+    "body": null
+   }
+  ],
+  "open_scan_session": 204,
+  "receiving_100_scans": {
+   "n": 100,
+   "p50": 32.3,
+   "p95": 108.2,
+   "max": 142.6,
+   "errors": 0,
+   "first10_p50": 84.3,
+   "last10_p50": 19.4
+  },
+  "procedures": [
+   {
+    "proc": "catalog.usp_ImportCatalog",
+    "exec": 6,
+    "avg_reads": 176328,
+    "avg_cpu_ms": 4260.4,
+    "avg_elapsed_ms": 6132.8,
+    "max_reads": 360491
+   },
+   {
+    "proc": "catalog.usp_ListSaleCatalog",
+    "exec": 504,
+    "avg_reads": 17039,
+    "avg_cpu_ms": 56.2,
+    "avg_elapsed_ms": 57.6,
+    "max_reads": 19940
+   },
+   {
+    "proc": "sales.usp_OpenTillCounted",
+    "exec": 1,
+    "avg_reads": 2911,
+    "avg_cpu_ms": 182.9,
+    "avg_elapsed_ms": 376.5,
+    "max_reads": 2911
+   },
+   {
+    "proc": "sales.usp_OpenTill",
+    "exec": 1,
+    "avg_reads": 1623,
+    "avg_cpu_ms": 80.5,
+    "avg_elapsed_ms": 206.7,
+    "max_reads": 1623
+   },
+   {
+    "proc": "sales.usp_RecordCashCount",
+    "exec": 1,
+    "avg_reads": 701,
+    "avg_cpu_ms": 53.4,
+    "avg_elapsed_ms": 71.4,
+    "max_reads": 701
+   },
+   {
+    "proc": "sales.usp_PostSale",
+    "exec": 203,
+    "avg_reads": 317,
+    "avg_cpu_ms": 27.0,
+    "avg_elapsed_ms": 54.3,
+    "max_reads": 848
+   },
+   {
+    "proc": "catalog.usp_RegisterItem",
+    "exec": 3000,
+    "avg_reads": 181,
+    "avg_cpu_ms": 4.5,
+    "avg_elapsed_ms": 5.2,
+    "max_reads": 3920
+   },
+   {
+    "proc": "sales.usp_RecordDrawerCount",
+    "exec": 2,
+    "avg_reads": 101,
+    "avg_cpu_ms": 5.4,
+    "avg_elapsed_ms": 12.6,
+    "max_reads": 148
+   },
+   {
+    "proc": "receiving.usp_OpenScanSession",
+    "exec": 1,
+    "avg_reads": 89,
+    "avg_cpu_ms": 4.9,
+    "avg_elapsed_ms": 46.3,
+    "max_reads": 89
+   },
+   {
+    "proc": "inventory.usp_ApplyMovement",
+    "exec": 3405,
+    "avg_reads": 65,
+    "avg_cpu_ms": 1.9,
+    "avg_elapsed_ms": 5.9,
+    "max_reads": 108
+   },
+   {
+    "proc": "catalog.usp_RegisterProduct",
+    "exec": 3000,
+    "avg_reads": 46,
+    "avg_cpu_ms": 0.8,
+    "avg_elapsed_ms": 0.9,
+    "max_reads": 73
+   },
+   {
+    "proc": "receiving.usp_RecordScan",
+    "exec": 100,
+    "avg_reads": 45,
+    "avg_cpu_ms": 9.4,
+    "avg_elapsed_ms": 18.1,
+    "max_reads": 118
+   },
+   {
+    "proc": "sync.usp_EnqueueEvent",
+    "exec": 6207,
+    "avg_reads": 31,
+    "avg_cpu_ms": 0.7,
+    "avg_elapsed_ms": 0.7,
+    "max_reads": 78
+   },
+   {
+    "proc": "sales.usp_SubmitCashCount",
+    "exec": 2,
+    "avg_reads": 11,
+    "avg_cpu_ms": 0.4,
+    "avg_elapsed_ms": 1.7,
+    "max_reads": 11
+   }
+  ],
+  "adhoc_top_reads": [
+   "504|14438|42|-- V042 (P4, production readiness 2026-11-22, D-041): the sale catalog is read in pages of at most 500 variant",
+   "504|2150|8|-- V042 (P4, production readiness 2026-11-22, D-041): the sale catalog is read in pages of at most 500 variant",
+   "3000|74|1| CREATE   PROCEDURE [catalog].[usp_RegisterItem]  @ProductId uniqueidentifier,@Sku nvarchar(100),@VariantName",
+   "504|437|2|-- V042 (P4, production readiness 2026-11-22, D-041): the sale catalog is read in pages of at most 500 variant",
+   "3000|65|1| CREATE   PROCEDURE [catalog].[usp_RegisterItem]  @ProductId uniqueidentifier,@Sku nvarchar(100),@VariantName",
+   "6|17524|81|-- savia:transactional -- V039 (P1, production readiness 2026-11-22): catalog import validation without per-ro",
+   "3405|26|1| /* ==============================================================    INVENTARIO: registro atomico + idempoten",
+   "3000|26|0| /* ==============================================================    INVENTARIO: registro atomico + idempoten"
+  ]
+ }
+}

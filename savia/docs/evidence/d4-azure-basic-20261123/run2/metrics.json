@@ -1,0 +1,815 @@
+{
+  "cost": 476,
+  "interval": "PT1M",
+  "namespace": "Microsoft.Sql/servers/databases",
+  "resourceregion": "mexicocentral",
+  "timespan": "2026-11-24T02:27:47Z/2026-11-24T04:27:47Z",
+  "value": [
+    {
+      "displayDescription": "DTU Percentage. Applies to DTU-based databases.",
+      "errorCode": "Success",
+      "id": "/subscriptions/<subscription>/resourceGroups/rg-savia-d4-temp/providers/Microsoft.Sql/servers/sql-savia-d4tmp-11232204/databases/savia-d4b/providers/Microsoft.Insights/metrics/dtu_consumption_percent",
+      "name": {
+        "localizedValue": "DTU percentage",
+        "value": "dtu_consumption_percent"
+      },
+      "resourceGroup": "rg-savia-d4-temp",
+      "timeseries": [
+        {
+          "data": [
+            {
+              "timeStamp": "2026-11-24T02:27:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:28:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:29:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:30:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:31:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:32:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:33:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:34:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:35:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:36:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:37:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:38:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:39:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:40:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:41:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:42:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:43:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:44:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:45:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:46:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:47:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:48:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:49:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:50:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:51:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:52:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:53:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:54:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:55:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:56:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:57:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:58:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:59:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:00:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:01:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:02:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:03:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:04:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:05:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:06:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:07:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:08:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:09:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:10:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:11:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:12:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:13:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:14:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:15:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:16:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:17:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:18:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:19:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:20:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:21:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:22:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:23:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:24:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:25:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:26:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:27:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:28:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:29:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:30:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:31:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:32:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:33:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:34:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:35:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:36:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:37:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:38:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:39:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:40:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:41:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:42:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:43:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:44:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:45:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:46:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:47:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:48:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:49:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:50:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:51:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:52:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:53:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:54:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:55:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:56:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:57:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:58:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:59:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T04:00:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T04:01:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T04:02:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T04:03:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T04:04:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T04:05:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T04:06:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T04:07:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T04:08:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T04:09:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T04:10:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T04:11:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T04:12:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T04:13:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T04:14:00Z"
+            },
+            {
+              "average": 0.0,
+              "maximum": 0.0,
+              "timeStamp": "2026-11-24T04:15:00Z"
+            },
+            {
+              "average": 1.5,
+              "maximum": 6.0,
+              "timeStamp": "2026-11-24T04:16:00Z"
+            },
+            {
+              "average": 27.75,
+              "maximum": 36.0,
+              "timeStamp": "2026-11-24T04:17:00Z"
+            },
+            {
+              "average": 56.5,
+              "maximum": 79.0,
+              "timeStamp": "2026-11-24T04:18:00Z"
+            },
+            {
+              "average": 85.5,
+              "maximum": 100.0,
+              "timeStamp": "2026-11-24T04:19:00Z"
+            },
+            {
+              "average": 19.25,
+              "maximum": 36.0,
+              "timeStamp": "2026-11-24T04:20:00Z"
+            },
+            {
+              "average": 68.75,
+              "maximum": 100.0,
+              "timeStamp": "2026-11-24T04:21:00Z"
+            },
+            {
+              "average": 68.0,
+              "maximum": 90.0,
+              "timeStamp": "2026-11-24T04:22:00Z"
+            },
+            {
+              "average": 40.5,
+              "maximum": 88.0,
+              "timeStamp": "2026-11-24T04:23:00Z"
+            },
+            {
+              "average": 44.0,
+              "maximum": 66.0,
+              "timeStamp": "2026-11-24T04:24:00Z"
+            },
+            {
+              "average": 7.25,
+              "maximum": 29.0,
+              "timeStamp": "2026-11-24T04:25:00Z"
+            },
+            {
+              "average": 0.0,
+              "maximum": 0.0,
+              "timeStamp": "2026-11-24T04:26:00Z"
+            }
+          ],
+          "metadatavalues": []
+        }
+      ],
+      "type": "Microsoft.Insights/metrics",
+      "unit": "Percent"
+    },
+    {
+      "displayDescription": "Data space used. Not applicable to data warehouses.",
+      "errorCode": "Success",
+      "id": "/subscriptions/<subscription>/resourceGroups/rg-savia-d4-temp/providers/Microsoft.Sql/servers/sql-savia-d4tmp-11232204/databases/savia-d4b/providers/Microsoft.Insights/metrics/storage",
+      "name": {
+        "localizedValue": "Data space used",
+        "value": "storage"
+      },
+      "resourceGroup": "rg-savia-d4-temp",
+      "timeseries": [
+        {
+          "data": [
+            {
+              "timeStamp": "2026-11-24T02:27:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:28:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:29:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:30:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:31:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:32:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:33:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:34:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:35:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:36:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:37:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:38:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:39:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:40:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:41:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:42:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:43:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:44:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:45:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:46:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:47:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:48:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:49:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:50:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:51:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:52:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:53:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:54:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:55:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:56:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:57:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:58:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T02:59:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:00:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:01:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:02:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:03:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:04:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:05:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:06:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:07:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:08:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:09:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:10:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:11:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:12:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:13:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:14:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:15:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:16:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:17:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:18:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:19:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:20:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:21:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:22:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:23:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:24:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:25:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:26:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:27:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:28:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:29:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:30:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:31:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:32:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:33:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:34:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:35:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:36:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:37:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:38:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:39:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:40:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:41:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:42:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:43:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:44:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:45:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:46:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:47:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:48:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:49:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:50:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:51:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:52:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:53:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:54:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:55:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:56:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:57:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:58:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T03:59:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T04:00:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T04:01:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T04:02:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T04:03:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T04:04:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T04:05:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T04:06:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T04:07:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T04:08:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T04:09:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T04:10:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T04:11:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T04:12:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T04:13:00Z"
+            },
+            {
+              "timeStamp": "2026-11-24T04:14:00Z"
+            },
+            {
+              "average": 4259840.0,
+              "maximum": 4259840.0,
+              "timeStamp": "2026-11-24T04:15:00Z"
+            },
+            {
+              "average": 4259840.0,
+              "maximum": 4259840.0,
+              "timeStamp": "2026-11-24T04:16:00Z"
+            },
+            {
+              "average": 4259840.0,
+              "maximum": 4259840.0,
+              "timeStamp": "2026-11-24T04:17:00Z"
+            },
+            {
+              "average": 25821184.0,
+              "maximum": 25821184.0,
+              "timeStamp": "2026-11-24T04:18:00Z"
+            },
+            {
+              "average": 25821184.0,
+              "maximum": 25821184.0,
+              "timeStamp": "2026-11-24T04:19:00Z"
+            },
+            {
+              "average": 25821184.0,
+              "maximum": 25821184.0,
+              "timeStamp": "2026-11-24T04:20:00Z"
+            },
+            {
+              "average": 25821184.0,
+              "maximum": 25821184.0,
+              "timeStamp": "2026-11-24T04:21:00Z"
+            },
+            {
+              "average": 57868288.0,
+              "maximum": 57868288.0,
+              "timeStamp": "2026-11-24T04:22:00Z"
+            },
+            {
+              "average": 57868288.0,
+              "maximum": 57868288.0,
+              "timeStamp": "2026-11-24T04:23:00Z"
+            },
+            {
+              "average": 57868288.0,
+              "maximum": 57868288.0,
+              "timeStamp": "2026-11-24T04:24:00Z"
+            },
+            {
+              "average": 57868288.0,
+              "maximum": 57868288.0,
+              "timeStamp": "2026-11-24T04:25:00Z"
+            },
+            {
+              "average": 69074944.0,
+              "maximum": 69074944.0,
+              "timeStamp": "2026-11-24T04:26:00Z"
+            }
+          ],
+          "metadatavalues": []
+        }
+      ],
+      "type": "Microsoft.Insights/metrics",
+      "unit": "Bytes"
+    }
+  ]
+}

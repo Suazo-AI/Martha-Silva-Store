@@ -1,8 +1,8 @@
 import * as api from '../api.mjs';
 import { confirmAction } from '../confirm.mjs';
 import { formatMoney } from '../money.mjs';
-import { h, replace, showError } from '../ui.mjs';
-import { FIELDS, guessMapping, mappingKey, mapRows, toBase64 } from './import-logic.mjs';
+import { clearMessage, h, replace, showCatalogManagedCentrally, showError, showOk } from '../ui.mjs';
+import { FIELDS, guessMapping, mappingKey, mapRows, newSupplier, toBase64 } from './import-logic.mjs';
 
 const remembered = headers => {
   try {
@@ -19,9 +19,54 @@ const remember = (headers, mapping) => {
   }
 };
 
+/** DAY-ZERO.md gap 3: the hub owner adds a supplier by name; a retry of the same name keeps its id. */
+function supplierForm() {
+  const name = h('input', { id: 'supplier-name', name: 'supplier-name', autocomplete: 'off', maxlength: 200, required: true });
+  const message = h('p', { class: 'error', role: 'alert' });
+  const submit = h('button', { type: 'submit' }, 'Crear proveedor');
+  let pending = null;
+  return h(
+    'form',
+    {
+      class: 'panel form',
+      id: 'supplier-form',
+      novalidate: true,
+      onsubmit: async event => {
+        event.preventDefault();
+        clearMessage(message);
+        if (pending?.name !== name.value.trim()) pending = { name: name.value.trim(), id: api.uuid() };
+        const { body, error } = newSupplier(name.value, pending.id);
+        if (error) {
+          message.textContent = error;
+          name.focus();
+          return;
+        }
+        submit.disabled = true;
+        try {
+          await api.createSupplier(body);
+          showOk(message, `Proveedor creado: ${body.name}`);
+          pending = null;
+          name.value = '';
+        } catch (failure) {
+          showError(message, failure);
+        } finally {
+          submit.disabled = false;
+        }
+      },
+    },
+    h('label', { for: 'supplier-name' }, 'Nuevo proveedor'),
+    name,
+    message,
+    h('div', { class: 'actions' }, submit),
+  );
+}
+
 export default {
   title: 'Importar catálogo',
   async mount(root, ctx) {
+    if (showCatalogManagedCentrally(root, ctx.me)) return {};
+    // The hub has no stock: its import writes the catalog only, and stock enters by receiving at each store.
+    const atHub = ctx.me?.nodeKind === 'Cloud';
     const status = h('p', { role: 'alert', id: 'import-status' });
     const mapPanel = h('section', { class: 'panel', id: 'import-map', hidden: true });
     const previewPanel = h('section', { class: 'panel', id: 'import-preview', hidden: true });
@@ -210,7 +255,9 @@ export default {
       status.textContent = '';
       try {
         const confirmed = await confirmAction(
-          `Se crearán ${summary.rowsCount} prendas con ${summary.unitsCount} unidades de existencia inicial en un solo lote.`,
+          atHub
+            ? `Se crearán ${summary.rowsCount} prendas en el catálogo central en un solo lote.`
+            : `Se crearán ${summary.rowsCount} prendas con ${summary.unitsCount} unidades de existencia inicial en un solo lote.`,
         );
         if (!confirmed || !isCurrent(started)) return;
         const done = await api.importCatalog(request);
@@ -219,8 +266,14 @@ export default {
           previewPanel,
           h('h2', {}, 'Catálogo importado'),
           h('p', { id: 'import-batch' }, `Lote ${done.batchId}`),
-          h('p', { id: 'import-created' }, `${done.itemsCreated} prendas · ${done.unitsAdded} unidades`),
-          h('div', { class: 'actions' }, h('button', { type: 'button', onclick: () => ctx.go('inventario') }, 'Ver inventario')),
+          h(
+            'p',
+            { id: 'import-created' },
+            atHub ? `${done.itemsCreated} prendas` : `${done.itemsCreated} prendas · ${done.unitsAdded} unidades`,
+          ),
+          atHub
+            ? null
+            : h('div', { class: 'actions' }, h('button', { type: 'button', onclick: () => ctx.go('inventario') }, 'Ver inventario')),
         );
         mapPanel.hidden = true;
         input.value = '';
@@ -237,6 +290,7 @@ export default {
         status,
         mapPanel,
         previewPanel,
+        atHub ? supplierForm() : null,
       ),
     );
     return { handleScan: () => ctx.notify('Elija un archivo para importar.') };

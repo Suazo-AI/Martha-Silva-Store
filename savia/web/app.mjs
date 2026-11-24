@@ -4,12 +4,14 @@ import { canAccess, isApprover, isOwner, landing, navigation, roleName, SCREENS 
 import approvals from './screens/approvals.mjs';
 import cash from './screens/cash.mjs';
 import commissions from './screens/commissions.mjs';
+import creditTransfers from './screens/credit-transfers.mjs';
 import customers from './screens/customers.mjs';
 import exceptions from './screens/exceptions.mjs';
 import history from './screens/history.mjs';
 import importer from './screens/import.mjs';
 import inventory from './screens/inventory.mjs';
 import login from './screens/login.mjs';
+import password from './screens/password.mjs';
 import prices from './screens/prices.mjs';
 import qualityReport from './screens/quality-report.mjs';
 import receipt from './screens/receipt.mjs';
@@ -20,7 +22,8 @@ import review from './screens/review.mjs';
 import sale from './screens/sale.mjs';
 import settings, { applyPalette } from './screens/settings.mjs';
 import { syncTill } from './screens/till-open.mjs';
-import { device, h, replace } from './ui.mjs';
+import webOrders from './screens/web-orders.mjs';
+import { device, h, replace, syncNotice } from './ui.mjs';
 
 /** The module of each route in roles.mjs SCREENS; start() refuses to run when the two disagree. */
 const MODULES = {
@@ -34,6 +37,7 @@ const MODULES = {
   recibo: receipt,
   devolucion: returns,
   clientes: customers,
+  traslados: creditTransfers,
   reporte: report,
   excepciones: exceptions,
   aprobaciones: approvals,
@@ -41,6 +45,7 @@ const MODULES = {
   precios: prices,
   importar: importer,
   calidad: qualityReport,
+  'pedidos-web': webOrders,
 };
 const $ = id => document.getElementById(id);
 
@@ -78,9 +83,14 @@ const ctx = {
     },
   },
   refreshTill: () => renderTillState(),
+  changePassword() {
+    changingPassword = true;
+    route();
+  },
 };
 
 let current = null; // { route, handle }
+let changingPassword = false; // chosen in Ajustes; a one-time password forces the same screen
 let routeGeneration = 0;
 
 /** The one entry point for scanners: the active screen decides what a code means. */
@@ -118,7 +128,7 @@ function renderNavigation(name) {
     );
   replace(
     $('nav'),
-    navigation(ctx.roles).map(group => {
+    navigation(ctx.roles, ctx.me?.nodeKind).map(group => {
       if (!group.label) return group.screens.map(link);
       const current = group.screens.some(screen => active(screen.route));
       return h(
@@ -135,6 +145,19 @@ function renderNavigation(name) {
   );
 }
 
+// Refreshed on every screen change: cheap, and a cashier sees the reason without reloading.
+async function showSyncNotice(isCurrent) {
+  let text = null;
+  try {
+    text = syncNotice(await api.syncStatus());
+  } catch {
+    /* a hub or an older store has no status route; show nothing rather than a false alarm */
+  }
+  if (!isCurrent()) return;
+  $('sync-notice').textContent = text ?? '';
+  $('sync-notice').hidden = !text;
+}
+
 async function route() {
   const generation = ++routeGeneration;
   const hash = location.hash;
@@ -146,6 +169,17 @@ async function route() {
     $('shell').hidden = true;
     $('access').hidden = false;
     current = { route: 'ingreso', handle: login.mount($('access'), ctx, onSignedIn) };
+    return;
+  }
+  // A one-time password opens nothing else: the API answers 403 auth.password_change_required on every other route.
+  if (ctx.me.mustChangePassword || changingPassword) {
+    $('shell').hidden = true;
+    $('access').hidden = false;
+    const back = () => {
+      changingPassword = false;
+      route();
+    };
+    current = { route: 'contrasena', handle: password.mount($('access'), ctx, onPasswordChanged, signOut, back) };
     return;
   }
   const screen = MODULES[name] ?? sale;
@@ -171,8 +205,11 @@ async function route() {
   };
   $('access').hidden = true;
   $('shell').hidden = false;
+  showSyncNotice(isCurrent);
   // Sale and return recovery must mount before any till, catalog or exchange-rate dependency.
-  if (ctx.isApprover && screen !== sale && screen !== returns) await syncTill(screenCtx);
+  // The hub has no cash registers: asking for a till there returns 404 and left every hub screen blank.
+  const hasTills = ctx.me?.nodeKind !== 'Cloud';
+  if (hasTills && ctx.isApprover && screen !== sale && screen !== returns) await syncTill(screenCtx);
   if (!isCurrent()) return;
   renderHeader();
   renderNavigation(name);
@@ -206,24 +243,37 @@ async function onSignedIn(loginResponse) {
   else route();
 }
 
+async function onPasswordChanged() {
+  const token = api.getToken();
+  const actor = await api.me();
+  if (api.getToken() !== token) return;
+  ctx.me = actor;
+  changingPassword = false;
+  route();
+}
+
+async function signOut() {
+  changingPassword = false;
+  const retiring = api.logout();
+  api.setToken(null);
+  ctx.me = null;
+  ctx.till.set(null);
+  route();
+  try {
+    await retiring;
+  } catch {
+    /* the token dies on the server or expires; sign out here either way */
+  }
+}
+
 async function start() {
   const routes = SCREENS.map(s => s.route);
   const odd = [...routes.filter(r => !MODULES[r]), ...Object.keys(MODULES).filter(r => !routes.includes(r))];
   if (odd.length) throw new Error(`roles.mjs y app.mjs no coinciden en: ${odd.join(', ')}`);
   applyPalette(device.get('palette'));
-  $('logout').addEventListener('click', async () => {
-    const retiring = api.logout();
-    api.setToken(null);
-    ctx.me = null;
-    ctx.till.set(null);
-    route();
-    try {
-      await retiring;
-    } catch {
-      /* the token dies on the server or expires; sign out here either way */
-    }
-  });
+  $('logout').addEventListener('click', signOut);
   api.setUnauthorizedHandler(() => {
+    changingPassword = false;
     api.setToken(null);
     ctx.me = null;
     ctx.till.set(null);

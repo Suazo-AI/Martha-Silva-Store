@@ -1,0 +1,14 @@
+import batch 0 {'status': 200, 'ms': 266, 'bytes': 3474, 'body': None, 'other_containers_cpu': {'savia-sqlserver-dev': '2.27%'}} {'status': 200, 'ms': 2512, 'bytes': 167, 'body': None, 'other_containers_cpu': {'savia-sqlserver-dev': '1.95%'}}
+import batch 1 {'status': 200, 'ms': 134, 'bytes': 3474, 'body': None, 'other_containers_cpu': {'savia-sqlserver-dev': '2.25%'}} {'status': 200, 'ms': 1411, 'bytes': 167, 'body': None, 'other_containers_cpu': {'savia-sqlserver-dev': '3.03%'}}
+import batch 2 {'status': 200, 'ms': 113, 'bytes': 3474, 'body': None, 'other_containers_cpu': {'savia-sqlserver-dev': '2.04%'}} {'status': 200, 'ms': 1359, 'bytes': 167, 'body': None, 'other_containers_cpu': {'savia-sqlserver-dev': '1.81%'}}
+  catalog.usp_ImportCatalog                     exec=    6 reads=  281,790 cpu=  701.8ms elapsed=863.3ms
+  sync.usp_EnqueueEvents                        exec=    3 reads=  232,359 cpu=  267.6ms elapsed=295.2ms
+  adhoc 3|186624|170|-- The rules of usp_EnqueueEvent, checked once for the set: business transaction, JSON, enabled origin, the hu
+  adhoc 3|86913|384|CREATE   PROCEDURE catalog.usp_ImportCatalog @BatchId uniqueidentifier,@BranchId uniqueidentifier,@LocationId
+  adhoc 3|68209|192|CREATE   PROCEDURE catalog.usp_ImportCatalog @BatchId uniqueidentifier,@BranchId uniqueidentifier,@LocationId
+  adhoc 6|23546|41|CREATE   PROCEDURE catalog.usp_ImportCatalog @BatchId uniqueidentifier,@BranchId uniqueidentifier,@LocationId
+  adhoc 3|43944|138|CREATE   PROCEDURE catalog.usp_ImportCatalog @BatchId uniqueidentifier,@BranchId uniqueidentifier,@LocationId
+  adhoc 3|31962|64|-- The rules of usp_EnqueueEvent, checked once for the set: business transaction, JSON, enabled origin, the hu
+  adhoc 3|26996|122| -- Every writer of items, product names and codes (procedures, import, fixtures, direct inserts) keeps the ta
+  adhoc 3|26858|110|CREATE   PROCEDURE catalog.usp_ImportCatalog @BatchId uniqueidentifier,@BranchId uniqueidentifier,@LocationId
+wrote <scratch>/load/api_p1.json

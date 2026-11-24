@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-22T21:13:28.608095+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/production-20261122/README.md",
+      "change": "M",
+      "git_blob": "0241c0b865aa197ea75d92b4bdf9b12ebedf589f"
+    },
+    {
+      "path": "docs/production-20261122/STOREFRONT-DEPLOY.md",
+      "change": "M",
+      "git_blob": "fdc199773d65eee19796e33fe40c201af897d84b"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

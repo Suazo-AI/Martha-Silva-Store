@@ -1,0 +1,115 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-22T05:24:07.538319+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/Savia.slnx",
+      "change": "M",
+      "git_blob": "a2c1ccb8df514dfffabc679e5722349794fd3eac"
+    },
+    {
+      "path": "savia/db/migrations/MANIFEST.sha256",
+      "change": "M",
+      "git_blob": "ad9cced39ee8b748cbf7169735cfe154241c1b46"
+    },
+    {
+      "path": "savia/db/migrations/V035__api_host_role.sql",
+      "change": "A",
+      "git_blob": "a52114986a482718a68dcbb07abf925f4ac53c97"
+    },
+    {
+      "path": "savia/db/tests/security/100_api_host_role_grants.sql",
+      "change": "A",
+      "git_blob": "7e62d0d1de95770d1ec645fe4eec2f8fd1edf7d3"
+    },
+    {
+      "path": "savia/db/tests/security/110_api_host_role_runs_sync_rounds.sql",
+      "change": "A",
+      "git_blob": "a58720873cc9443efba25a79268f0c63e8545592"
+    },
+    {
+      "path": "savia/deploy/local_proof.py",
+      "change": "M",
+      "git_blob": "fdf83e09e5458228a45efff83778bfd0d1a765a2"
+    },
+    {
+      "path": "savia/deploy/migrator/Program.cs",
+      "change": "M",
+      "git_blob": "b3ffb0349db574bc827b97374cb3343c102f8ffb"
+    },
+    {
+      "path": "savia/docs/deploy/AZURE.md",
+      "change": "M",
+      "git_blob": "e708c87c7fdffce532e79f04376d98bf7cf3787d"
+    },
+    {
+      "path": "savia/docs/deploy/GAPS-20261120.md",
+      "change": "M",
+      "git_blob": "6d63a7566c0948d8d341ff14c7389863c86f901a"
+    },
+    {
+      "path": "savia/docs/evidence/hardening-20261121/README.md",
+      "change": "A",
+      "git_blob": "ca30f17c41d26295e4c048f0147a5fa8224f771d"
+    },
+    {
+      "path": "savia/docs/evidence/hardening-20261121/local_proof.json",
+      "change": "A",
+      "git_blob": "607a5bdb4690493c97de0b5dc50d5ddb174d243c"
+    },
+    {
+      "path": "savia/src/Savia.Api/Hosting.cs",
+      "change": "M",
+      "git_blob": "a96a5ebcf22ceb06dad7e9362c205be4b6577e37"
+    },
+    {
+      "path": "savia/src/Savia.Api/Program.cs",
+      "change": "M",
+      "git_blob": "29e8432ddf867da76f8eb6aaa1f8f74270a259f4"
+    },
+    {
+      "path": "savia/src/Savia.Api/Savia.Api.csproj",
+      "change": "M",
+      "git_blob": "e9c78c7a9889b2a8f2cea3471a6063f479e8dd99"
+    },
+    {
+      "path": "savia/src/Savia.Api/packages.lock.json",
+      "change": "M",
+      "git_blob": "52e9ee77107102dcc7b92debe4d88e6602e83e19"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/ApiHostLogin.cs",
+      "change": "A",
+      "git_blob": "ce98a6e93628ecc62870616278c89d60f249ae8b"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/ApiHostLoginTests.cs",
+      "change": "A",
+      "git_blob": "60f215ae56a744f22a325f0c4b25fb34df73d71b"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/TelemetryTests.cs",
+      "change": "A",
+      "git_blob": "c1ca17269f7b197eab50fcf5bae31703a3ff3313"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/TestSupport.cs",
+      "change": "M",
+      "git_blob": "dadb8f44e215f284a48fcb022b5f2bf70d65655d"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/packages.lock.json",
+      "change": "M",
+      "git_blob": "646148c227a80b1a8ea2516d0eea2cab9b28da3e"
+    },
+    {
+      "path": "savia/tools/check.py",
+      "change": "M",
+      "git_blob": "ad5144b8ab490852cf4551d78cf22449e44e8d5e"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

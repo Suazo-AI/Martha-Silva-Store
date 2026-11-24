@@ -1,0 +1,36 @@
+products    items       identifiers
+      50001      250003      250004
+catalog: 29.9s
+store balances    units       receipts
+A          250000      875782         500
+stock A: 53.5s
+store sales_ok    sales_failed first_error
+A            2215            0 NULL
+sales A: 33.1s
+result
+oracle clean
+store balances    units       receipts
+B          149822      524577         300
+stock B: 24.1s
+store sales_ok    sales_failed first_error
+B            2215            0 NULL
+sales B: 35.5s
+result
+oracle clean
+store balances    units       receipts
+C           99845      349472         200
+stock C: 23.0s
+store sales_ok    sales_failed first_error
+C            2215            0 NULL
+sales C: 30.5s
+result
+oracle clean
+name                                                                                                                             data_mb     log_mb
+SAVIA_SIM_load_a                                                                                                                       776.0        72.0
+SAVIA_SIM_load_b                                                                                                                       584.0        72.0
+SAVIA_SIM_load_base                                                                                                                    264.0       520.0
+SAVIA_SIM_load_c                                                                                                                       456.0        72.0
+SAVIA_SIM_load_hub                                                                                                                     264.0        72.0
+SAVIA_SIM_load_probe                                                                                                                    72.0        72.0
+total: 320s seed=a10-20261121 products=50000 variants=250000 days=60
+exit=0

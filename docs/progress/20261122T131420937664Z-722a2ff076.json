@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-22T13:14:20.937664+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/db/migrations/MANIFEST.sha256",
+      "change": "M",
+      "git_blob": "2863094efa12086858741ac7adc6fbcb4ca412c3"
+    },
+    {
+      "path": "savia/db/migrations/V036__recovery_lock_stable_events.sql",
+      "change": "M",
+      "git_blob": "100eaddfd1c59066c2985f91a6676cbde53606fd"
+    },
+    {
+      "path": "savia/db/tests/sync/260_fork_identity_has_one_source.sql",
+      "change": "A",
+      "git_blob": "f2b43633351f71d7e78144e04ffdc53c6df5a868"
+    },
+    {
+      "path": "savia/docs/deploy/AZURE.md",
+      "change": "M",
+      "git_blob": "9ae9ca80fa26d8ecb1759104a2b01adfff40b8cb"
+    },
+    {
+      "path": "savia/web/app.mjs",
+      "change": "M",
+      "git_blob": "36a5cac97c5084c6f039c58504eec0c3ef75a856"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

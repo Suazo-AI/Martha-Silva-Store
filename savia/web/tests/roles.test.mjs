@@ -10,6 +10,7 @@ const ACCESS = {
   recibo: 'OWNER,MANAGER',
   devolucion: 'OWNER,MANAGER',
   clientes: 'OWNER,MANAGER',
+  traslados: 'OWNER,MANAGER',
   excepciones: 'OWNER,MANAGER',
   ajustes: 'OWNER,MANAGER,SELLER,INVENTORY',
   comisiones: 'OWNER,MANAGER,SELLER',
@@ -21,6 +22,7 @@ const ACCESS = {
   'recepcion/revisar': 'OWNER,MANAGER,INVENTORY',
   inventario: 'OWNER,MANAGER,INVENTORY',
   calidad: 'OWNER,MANAGER,INVENTORY',
+  'pedidos-web': 'OWNER,MANAGER',
   etiqueta: '',
   ingreso: '',
   noexiste: '',
@@ -49,6 +51,7 @@ test('the menu keeps its order and leaves out screens reached from another scree
       'recepcion',
       'inventario',
       'clientes',
+      'traslados',
       'ajustes',
       'aprobaciones',
       'comisiones',
@@ -57,6 +60,7 @@ test('the menu keeps its order and leaves out screens reached from another scree
       'calidad',
       'excepciones',
       'reporte',
+      'pedidos-web',
     ],
   );
 });

@@ -1,0 +1,1104 @@
+{
+ "steps": [
+  {
+   "plan_ms": 189,
+   "read_ms": 43916,
+   "apply_ms": 53432,
+   "bytes": 93087006,
+   "result": {
+    "changed": 212423,
+    "applied": 18,
+    "skipped": 0
+   },
+   "plan": [
+    {
+     "t": "[sales].[CashTills]",
+     "a": "initial"
+    },
+    {
+     "t": "[sales].[Sales]",
+     "a": "initial"
+    },
+    {
+     "t": "[sales].[SaleLines]",
+     "a": "initial"
+    },
+    {
+     "t": "[sales].[SaleReversals]",
+     "a": "initial"
+    },
+    {
+     "t": "[sales].[SaleReversalLines]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[Credits]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[CreditAllocations]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[CreditMovements]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[CreditRedemptions]",
+     "a": "initial"
+    },
+    {
+     "t": "[sales].[SaleTenders]",
+     "a": "initial"
+    },
+    {
+     "t": "[sales].[CashEntries]",
+     "a": "initial"
+    },
+    {
+     "t": "[inventory].[StockBalances]",
+     "a": "initial"
+    },
+    {
+     "t": "[inventory].[StockMovements]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[TransferRequests]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[TransferApprovals]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[TransferCancellations]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[TransferDispatches]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[TransferReceipts]",
+     "a": "initial"
+    }
+   ],
+   "tables": [
+    {
+     "t": "[sales].[CashTills]",
+     "n": 120,
+     "bytes": 55561
+    },
+    {
+     "t": "[sales].[Sales]",
+     "n": 2215,
+     "bytes": 1554831
+    },
+    {
+     "t": "[sales].[SaleLines]",
+     "n": 3579,
+     "bytes": 2090111
+    },
+    {
+     "t": "[sales].[SaleReversals]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[sales].[SaleReversalLines]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[Credits]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[CreditAllocations]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[CreditMovements]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[CreditRedemptions]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[sales].[SaleTenders]",
+     "n": 2215,
+     "bytes": 1141125
+    },
+    {
+     "t": "[sales].[CashEntries]",
+     "n": 1025,
+     "bytes": 410861
+    },
+    {
+     "t": "[inventory].[StockBalances]",
+     "n": 99845,
+     "bytes": 28545534
+    },
+    {
+     "t": "[inventory].[StockMovements]",
+     "n": 103424,
+     "bytes": 59287628
+    },
+    {
+     "t": "[credits].[TransferRequests]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[TransferApprovals]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[TransferCancellations]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[TransferDispatches]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[TransferReceipts]",
+     "n": 0,
+     "bytes": 2
+    }
+   ],
+   "step": "c->hub",
+   "mode": "normal",
+   "wall_s": 102.0,
+   "rows": 212423
+  },
+  {
+   "plan_ms": 145,
+   "read_ms": 13538,
+   "apply_ms": 101145,
+   "bytes": 135920438,
+   "result": {
+    "changed": 312295,
+    "applied": 18,
+    "skipped": 0
+   },
+   "plan": [
+    {
+     "t": "[sales].[CashTills]",
+     "a": "initial"
+    },
+    {
+     "t": "[sales].[Sales]",
+     "a": "initial"
+    },
+    {
+     "t": "[sales].[SaleLines]",
+     "a": "initial"
+    },
+    {
+     "t": "[sales].[SaleReversals]",
+     "a": "initial"
+    },
+    {
+     "t": "[sales].[SaleReversalLines]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[Credits]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[CreditAllocations]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[CreditMovements]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[CreditRedemptions]",
+     "a": "initial"
+    },
+    {
+     "t": "[sales].[SaleTenders]",
+     "a": "initial"
+    },
+    {
+     "t": "[sales].[CashEntries]",
+     "a": "initial"
+    },
+    {
+     "t": "[inventory].[StockBalances]",
+     "a": "initial"
+    },
+    {
+     "t": "[inventory].[StockMovements]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[TransferRequests]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[TransferApprovals]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[TransferCancellations]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[TransferDispatches]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[TransferReceipts]",
+     "a": "initial"
+    }
+   ],
+   "tables": [
+    {
+     "t": "[sales].[CashTills]",
+     "n": 120,
+     "bytes": 55561
+    },
+    {
+     "t": "[sales].[Sales]",
+     "n": 2215,
+     "bytes": 1554885
+    },
+    {
+     "t": "[sales].[SaleLines]",
+     "n": 3541,
+     "bytes": 2068043
+    },
+    {
+     "t": "[sales].[SaleReversals]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[sales].[SaleReversalLines]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[Credits]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[CreditAllocations]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[CreditMovements]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[CreditRedemptions]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[sales].[SaleTenders]",
+     "n": 2215,
+     "bytes": 1141073
+    },
+    {
+     "t": "[sales].[CashEntries]",
+     "n": 1019,
+     "bytes": 408463
+    },
+    {
+     "t": "[inventory].[StockBalances]",
+     "n": 149822,
+     "bytes": 42738904
+    },
+    {
+     "t": "[inventory].[StockMovements]",
+     "n": 153363,
+     "bytes": 87952154
+    },
+    {
+     "t": "[credits].[TransferRequests]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[TransferApprovals]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[TransferCancellations]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[TransferDispatches]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[TransferReceipts]",
+     "n": 0,
+     "bytes": 2
+    }
+   ],
+   "step": "b->hub",
+   "mode": "normal",
+   "wall_s": 121.5,
+   "rows": 312295
+  },
+  {
+   "plan_ms": 134,
+   "read_ms": 196294,
+   "apply_ms": 215361,
+   "bytes": 221973498,
+   "result": {
+    "changed": 512814,
+    "applied": 18,
+    "skipped": 0
+   },
+   "plan": [
+    {
+     "t": "[sales].[CashTills]",
+     "a": "initial"
+    },
+    {
+     "t": "[sales].[Sales]",
+     "a": "initial"
+    },
+    {
+     "t": "[sales].[SaleLines]",
+     "a": "initial"
+    },
+    {
+     "t": "[sales].[SaleReversals]",
+     "a": "initial"
+    },
+    {
+     "t": "[sales].[SaleReversalLines]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[Credits]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[CreditAllocations]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[CreditMovements]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[CreditRedemptions]",
+     "a": "initial"
+    },
+    {
+     "t": "[sales].[SaleTenders]",
+     "a": "initial"
+    },
+    {
+     "t": "[sales].[CashEntries]",
+     "a": "initial"
+    },
+    {
+     "t": "[inventory].[StockBalances]",
+     "a": "initial"
+    },
+    {
+     "t": "[inventory].[StockMovements]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[TransferRequests]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[TransferApprovals]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[TransferCancellations]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[TransferDispatches]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[TransferReceipts]",
+     "a": "initial"
+    }
+   ],
+   "tables": [
+    {
+     "t": "[sales].[CashTills]",
+     "n": 120,
+     "bytes": 55561
+    },
+    {
+     "t": "[sales].[Sales]",
+     "n": 2215,
+     "bytes": 1554977
+    },
+    {
+     "t": "[sales].[SaleLines]",
+     "n": 3633,
+     "bytes": 2121737
+    },
+    {
+     "t": "[sales].[SaleReversals]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[sales].[SaleReversalLines]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[Credits]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[CreditAllocations]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[CreditMovements]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[CreditRedemptions]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[sales].[SaleTenders]",
+     "n": 2215,
+     "bytes": 1141325
+    },
+    {
+     "t": "[sales].[CashEntries]",
+     "n": 998,
+     "bytes": 399974
+    },
+    {
+     "t": "[inventory].[StockBalances]",
+     "n": 250000,
+     "bytes": 71195989
+    },
+    {
+     "t": "[inventory].[StockMovements]",
+     "n": 253633,
+     "bytes": 145502580
+    },
+    {
+     "t": "[credits].[TransferRequests]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[TransferApprovals]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[TransferCancellations]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[TransferDispatches]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[TransferReceipts]",
+     "n": 0,
+     "bytes": 2
+    }
+   ],
+   "step": "a->hub",
+   "mode": "normal",
+   "wall_s": 499.9,
+   "rows": 512814
+  },
+  {
+   "plan_ms": 1558,
+   "read_ms": 114267,
+   "apply_ms": 251066,
+   "bytes": 229006079,
+   "result": {
+    "changed": 524718,
+    "applied": 18,
+    "skipped": 0
+   },
+   "plan": [
+    {
+     "t": "[sales].[CashTills]",
+     "a": "initial"
+    },
+    {
+     "t": "[sales].[Sales]",
+     "a": "initial"
+    },
+    {
+     "t": "[sales].[SaleLines]",
+     "a": "initial"
+    },
+    {
+     "t": "[sales].[SaleReversals]",
+     "a": "initial"
+    },
+    {
+     "t": "[sales].[SaleReversalLines]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[Credits]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[CreditAllocations]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[CreditMovements]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[CreditRedemptions]",
+     "a": "initial"
+    },
+    {
+     "t": "[sales].[SaleTenders]",
+     "a": "initial"
+    },
+    {
+     "t": "[sales].[CashEntries]",
+     "a": "initial"
+    },
+    {
+     "t": "[inventory].[StockBalances]",
+     "a": "initial"
+    },
+    {
+     "t": "[inventory].[StockMovements]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[TransferRequests]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[TransferApprovals]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[TransferCancellations]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[TransferDispatches]",
+     "a": "initial"
+    },
+    {
+     "t": "[credits].[TransferReceipts]",
+     "a": "initial"
+    }
+   ],
+   "tables": [
+    {
+     "t": "[sales].[CashTills]",
+     "n": 240,
+     "bytes": 111121
+    },
+    {
+     "t": "[sales].[Sales]",
+     "n": 4430,
+     "bytes": 3109715
+    },
+    {
+     "t": "[sales].[SaleLines]",
+     "n": 7120,
+     "bytes": 4158153
+    },
+    {
+     "t": "[sales].[SaleReversals]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[sales].[SaleReversalLines]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[Credits]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[CreditAllocations]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[CreditMovements]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[CreditRedemptions]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[sales].[SaleTenders]",
+     "n": 4430,
+     "bytes": 2282197
+    },
+    {
+     "t": "[sales].[CashEntries]",
+     "n": 2044,
+     "bytes": 819323
+    },
+    {
+     "t": "[inventory].[StockBalances]",
+     "n": 249667,
+     "bytes": 71284437
+    },
+    {
+     "t": "[inventory].[StockMovements]",
+     "n": 256787,
+     "bytes": 147239781
+    },
+    {
+     "t": "[credits].[TransferRequests]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[TransferApprovals]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[TransferCancellations]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[TransferDispatches]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[TransferReceipts]",
+     "n": 0,
+     "bytes": 2
+    }
+   ],
+   "step": "hub->a",
+   "mode": "normal",
+   "wall_s": 396.0,
+   "rows": 524718
+  },
+  {
+   "plan_ms": 33,
+   "read_ms": 6265,
+   "apply_ms": 5105,
+   "bytes": 1356956,
+   "result": {
+    "changed": 2504,
+    "applied": 18,
+    "skipped": 0
+   },
+   "plan": [
+    {
+     "t": "[sales].[CashTills]",
+     "a": "incremental"
+    },
+    {
+     "t": "[sales].[Sales]",
+     "a": "incremental"
+    },
+    {
+     "t": "[sales].[SaleLines]",
+     "a": "incremental"
+    },
+    {
+     "t": "[sales].[SaleReversals]",
+     "a": "incremental"
+    },
+    {
+     "t": "[sales].[SaleReversalLines]",
+     "a": "incremental"
+    },
+    {
+     "t": "[credits].[Credits]",
+     "a": "incremental"
+    },
+    {
+     "t": "[credits].[CreditAllocations]",
+     "a": "incremental"
+    },
+    {
+     "t": "[credits].[CreditMovements]",
+     "a": "incremental"
+    },
+    {
+     "t": "[credits].[CreditRedemptions]",
+     "a": "incremental"
+    },
+    {
+     "t": "[sales].[SaleTenders]",
+     "a": "incremental"
+    },
+    {
+     "t": "[sales].[CashEntries]",
+     "a": "incremental"
+    },
+    {
+     "t": "[inventory].[StockBalances]",
+     "a": "incremental"
+    },
+    {
+     "t": "[inventory].[StockMovements]",
+     "a": "incremental"
+    },
+    {
+     "t": "[credits].[TransferRequests]",
+     "a": "incremental"
+    },
+    {
+     "t": "[credits].[TransferApprovals]",
+     "a": "incremental"
+    },
+    {
+     "t": "[credits].[TransferCancellations]",
+     "a": "incremental"
+    },
+    {
+     "t": "[credits].[TransferDispatches]",
+     "a": "incremental"
+    },
+    {
+     "t": "[credits].[TransferReceipts]",
+     "a": "incremental"
+    }
+   ],
+   "tables": [
+    {
+     "t": "[sales].[CashTills]",
+     "n": 2,
+     "bytes": 803
+    },
+    {
+     "t": "[sales].[Sales]",
+     "n": 500,
+     "bytes": 353107
+    },
+    {
+     "t": "[sales].[SaleLines]",
+     "n": 500,
+     "bytes": 294069
+    },
+    {
+     "t": "[sales].[SaleReversals]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[sales].[SaleReversalLines]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[Credits]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[CreditAllocations]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[CreditMovements]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[CreditRedemptions]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[sales].[SaleTenders]",
+     "n": 500,
+     "bytes": 258804
+    },
+    {
+     "t": "[sales].[CashEntries]",
+     "n": 2,
+     "bytes": 752
+    },
+    {
+     "t": "[inventory].[StockBalances]",
+     "n": 500,
+     "bytes": 169497
+    },
+    {
+     "t": "[inventory].[StockMovements]",
+     "n": 500,
+     "bytes": 278497
+    },
+    {
+     "t": "[credits].[TransferRequests]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[TransferApprovals]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[TransferCancellations]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[TransferDispatches]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[TransferReceipts]",
+     "n": 0,
+     "bytes": 2
+    }
+   ],
+   "step": "a->hub",
+   "mode": "normal",
+   "wall_s": 11.9,
+   "rows": 2504
+  },
+  {
+   "plan_ms": 8,
+   "read_ms": 5512,
+   "apply_ms": 185,
+   "bytes": 1384,
+   "result": {
+    "changed": 0,
+    "applied": 18,
+    "skipped": 0
+   },
+   "plan": [
+    {
+     "t": "[sales].[CashTills]",
+     "a": "incremental"
+    },
+    {
+     "t": "[sales].[Sales]",
+     "a": "incremental"
+    },
+    {
+     "t": "[sales].[SaleLines]",
+     "a": "incremental"
+    },
+    {
+     "t": "[sales].[SaleReversals]",
+     "a": "incremental"
+    },
+    {
+     "t": "[sales].[SaleReversalLines]",
+     "a": "incremental"
+    },
+    {
+     "t": "[credits].[Credits]",
+     "a": "incremental"
+    },
+    {
+     "t": "[credits].[CreditAllocations]",
+     "a": "incremental"
+    },
+    {
+     "t": "[credits].[CreditMovements]",
+     "a": "incremental"
+    },
+    {
+     "t": "[credits].[CreditRedemptions]",
+     "a": "incremental"
+    },
+    {
+     "t": "[sales].[SaleTenders]",
+     "a": "incremental"
+    },
+    {
+     "t": "[sales].[CashEntries]",
+     "a": "incremental"
+    },
+    {
+     "t": "[inventory].[StockBalances]",
+     "a": "incremental"
+    },
+    {
+     "t": "[inventory].[StockMovements]",
+     "a": "incremental"
+    },
+    {
+     "t": "[credits].[TransferRequests]",
+     "a": "incremental"
+    },
+    {
+     "t": "[credits].[TransferApprovals]",
+     "a": "incremental"
+    },
+    {
+     "t": "[credits].[TransferCancellations]",
+     "a": "incremental"
+    },
+    {
+     "t": "[credits].[TransferDispatches]",
+     "a": "incremental"
+    },
+    {
+     "t": "[credits].[TransferReceipts]",
+     "a": "incremental"
+    }
+   ],
+   "tables": [
+    {
+     "t": "[sales].[CashTills]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[sales].[Sales]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[sales].[SaleLines]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[sales].[SaleReversals]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[sales].[SaleReversalLines]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[Credits]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[CreditAllocations]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[CreditMovements]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[CreditRedemptions]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[sales].[SaleTenders]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[sales].[CashEntries]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[inventory].[StockBalances]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[inventory].[StockMovements]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[TransferRequests]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[TransferApprovals]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[TransferCancellations]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[TransferDispatches]",
+     "n": 0,
+     "bytes": 2
+    },
+    {
+     "t": "[credits].[TransferReceipts]",
+     "n": 0,
+     "bytes": 2
+    }
+   ],
+   "step": "hub->a",
+   "mode": "normal",
+   "wall_s": 6.2,
+   "rows": 0
+  },
+  {
+   "step": "hub->a",
+   "mode": "rebuild",
+   "wall_s": 901.8,
+   "error": "TimeoutExpired: Command '['docker', 'exec', 'savia-sqlserver-load', 'bash', '-c', '/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P \"$MSSQL_SA_PASSWORD\" -C -b -I -y 0 -d SAVIA_SIM_load_a -i /tmp/saviadb-c60e486d41584a95be19d97287c85115.sql']' timed out after 900 seconds"
+  }
+ ],
+ "cap_s": 900,
+ "hub_space_after_push": "used_data_mb=813 file_mb=840",
+ "oracle": {
+  "a": "240 cash.till_status_vs_closure",
+  "b": "0 ",
+  "c": "0 ",
+  "hub": "360 cash.till_status_vs_closure"
+ }
+}

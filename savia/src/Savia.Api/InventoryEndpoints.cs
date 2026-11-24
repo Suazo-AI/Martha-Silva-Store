@@ -8,8 +8,8 @@ public static class InventoryEndpoints
 {
     public static void Map(RouteGroupBuilder api, NodeContext node)
     {
-        api.MapGet("/stock", async (Guid? itemId, HttpContext http, InventoryService inventory, CancellationToken ct) =>
-            await inventory.GetStockAsync(http.Actor(), itemId, ct)).Produces<StockRow[]>().WithTags("inventory");
+        api.MapGet("/stock", async (Guid? itemId, string? after, int? limit, HttpContext http, InventoryService inventory, CancellationToken ct) =>
+            http.Paged(await inventory.GetStockAsync(http.Actor(), itemId, after, limit, ct))).Produces<StockRow[]>().WithTags("inventory");
 
         if (node.Kind != NodeKind.Branch) return;
 

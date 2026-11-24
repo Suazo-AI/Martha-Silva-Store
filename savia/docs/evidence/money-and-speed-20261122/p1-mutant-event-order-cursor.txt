@@ -1,0 +1,2 @@
+FAIL    catalog/155_import_commit_equals_v039.sql  -- ASSERT FAIL: the import wrote other rows or events than V039
+SUMMARY FAIL=1  logs: .out\dbtests

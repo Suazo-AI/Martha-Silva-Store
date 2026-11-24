@@ -3,7 +3,7 @@
 Usage: python -X utf8 tests/storefront_scorecard/slices.py --out <file.json> [--port N] [--repo PATH] [--only grid,footer,title]
 Reuses the scorecard server and browser. Each check returns {"pass": bool, ...evidence}.
 """
-import argparse, json, subprocess, sys, tempfile, time
+import argparse, json, re, subprocess, sys, tempfile, time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -564,7 +564,7 @@ def seo(b, base):
         flip['sampleRefusedExit'] = run(tmp, cfgp) if gen.exists() else None
         flip['sampleUnchanged'] = snap() == h0
         cat_orig = (st / 'catalog.js').read_text(encoding='utf-8')
-        (st / 'catalog.js').write_text(cat_orig.replace('"commercial_status":"sample"', '"commercial_status":"active"').replace('"mode":"local_test"', '"mode":"live"'), encoding='utf-8', newline='')
+        (st / 'catalog.js').write_text(cat_orig.replace('"commercial_status":"unlisted"', '"commercial_status":"active"').replace('"mode":"local"', '"mode":"live"'), encoding='utf-8', newline='')
         flip['liveExit'] = run(tmp, cfgp) if gen.exists() else None
         rd = lambda n: (st / n).read_text(encoding='utf-8') if (st / n).exists() else None
         live_bad = seo_audit(rd, open_cfg)
@@ -584,7 +584,128 @@ def seo(b, base):
     return {'pass': all(v['pass'] for v in out.values()), **out}
 
 
-CHECKS = {'grid': grid, 'footer': footer, 'title': title, 'pill': pill, 'transition': transition, 'loader': loader, 'seo': seo}
+MX = r"""(()=>{if(window.__mx&&!window.__mx.stop)return 1;const X=window.__mx={anims:[],shifts:[],add:[],stop:false};const seen=new WeakSet(),t0=performance.now();
+const grp=t=>{if(!t||!t.closest)return null;if(t.closest('[data-add]'))return'add';if(t.closest('[data-sticky-add]'))return'sticky';if(t.closest('.bag-link,[data-bag-count]'))return'bag';
+if(t.closest('[data-favorite]'))return'fav';if(t.closest('#toast'))return'toast';if(t.closest('[data-product-error],[data-error],[data-sticky-error]'))return'error';
+if(t.closest('[data-product-sizes],.plp-sizes,[data-sticky-size]'))return'size';return null};window.__mxg=grp;
+const SKIP=['offset','computedOffset','easing','composite'];
+try{new PerformanceObserver(l=>l.getEntries().forEach(e=>X.shifts.push({v:+e.value.toFixed(5),input:e.hadRecentInput,src:(e.sources||[]).map(s=>grp(s.node)||(s.node&&s.node.nodeName)||'?')}))).observe({type:'layout-shift'})}catch(e){X.shifts=null}
+let last='';const tick=()=>{const now=Math.round(performance.now()-t0);for(const a of document.getAnimations()){if(seen.has(a))continue;seen.add(a);const ef=a.effect,t=ef&&ef.target,g=grp(t);if(!g)continue;
+let kf=[];try{kf=ef.getKeyframes()}catch(e){}const ct=ef.getComputedTiming();
+X.anims.push({t:now,g,vis:g==='toast'?t.closest('#toast').classList.contains('visible'):null,type:a.constructor.name,pseudo:ef.pseudoElement||null,props:[...new Set(kf.flatMap(k=>Object.keys(k)).filter(p=>!SKIP.includes(p)))],
+dur:Math.round(ct.activeDuration||0),delay:Math.round(ef.getTiming().delay||0),tf:kf.map(k=>k.transform||(k.translate?'translate('+k.translate.split(' ').join(',')+')':'')||(k.scale?'scale('+k.scale+')':'')).filter(Boolean),op:kf.map(k=>k.opacity).filter(v=>v!==undefined)})}
+const b=document.querySelector('[data-add]');if(b){const s=[b.getAttribute('data-state')||'',Math.round(b.getBoundingClientRect().width*10)/10,b.textContent.trim().replace(/\s+/g,' '),!!b.querySelector('svg[aria-hidden="true"]')].join('|');if(s!==last){last=s;X.add.push({t:now,s})}}
+if(!X.stop)requestAnimationFrame(tick)};requestAnimationFrame(tick);return 1})()"""
+MX_TAKE = 'JSON.stringify((()=>{const X=window.__mx;X.stop=true;return{anims:X.anims,shifts:X.shifts,add:X.add}})())'
+SCALE = re.compile(r'scale(?:3d)?\(\s*(-?[\d.]+)|matrix\(\s*(-?[\d.]+)')
+TY = re.compile(r'translateY\(\s*(-?[\d.]+)px|translate(?:3d)?\(\s*-?[\d.]+(?:px|%)?\s*,\s*(-?[\d.]+)px|matrix\((?:\s*-?[\d.e]+\s*,){5}\s*(-?[\d.e]+)')
+MOTION_PROPS = {'transform', 'opacity', 'scale', 'translate'}
+# :active press rules: the selector without :active must match the element or a child it wraps; its transform scales into [.97,.99]
+PRESS = r"""JSON.stringify((()=>{const out={};const rules=[];const walk=l=>{for(const r of l){if(r.cssRules&&!r.selectorText)walk(r.cssRules);else if(r.selectorText&&r.selectorText.includes(':active'))rules.push(r)}};
+for(const s of document.styleSheets){try{walk(s.cssRules)}catch(e){}}
+for(const [k,sel] of Object.entries(%s)){const el=document.querySelector(sel);if(!el){out[k]=null;continue}let best=null;
+for(const r of rules)for(const part of r.selectorText.split(',')){if(!part.includes(':active'))continue;const base=part.replace(/:active/g,'').trim();try{if(el.matches(base)||el.querySelector(base)){const m=/scale\(\s*([\d.]+)/.exec(r.style.transform||'')||(r.style.scale?[0,r.style.scale]:null);if(m)best=+m[1]}}catch(e){}}
+const tr=getComputedStyle(el);out[k]={scale:best,transition:tr.transitionProperty+' / '+tr.transitionDuration}}return out})())"""
+PRESS_TARGETS = {'add': '[data-add]', 'size': '[data-product-sizes] label', 'quick': '.plp-quick', 'sticky': '[data-sticky-add]'}
+SIZE_PICK = "(()=>{const i=[...document.querySelectorAll('[data-product-sizes] input[name=variant]')].find(i=>!i.disabled);if(!i)return 0;(i.labels[0]||i).click();return 1})()"
+COUNT = "Number(document.querySelector('[data-bag-count]')?.textContent||-1)"
+
+
+def _mx_scales(a):
+    return [float(m.group(1) or m.group(2)) for s in a['tf'] for m in SCALE.finditer(s)]
+
+
+def _mx_ty(a):
+    return [abs(float(next(x for x in m.groups() if x is not None))) for s in a['tf'] for m in TY.finditer(s)]
+
+
+def _mx_run(b, actions, settle):
+    b.ev(MX)
+    for act in actions:
+        b.click(act[1:]) if act.startswith('@') else b.ev(act)
+        time.sleep(0.05)
+    time.sleep(settle)
+    return b.ev(MX_TAKE)
+
+
+def micro(b, base):
+    """B3 contract: feedback-only micro-interactions (transform/opacity, <=300 ms, reduced motion, no CLS)."""
+    out, all_anims = {}, []
+    prod = base + '/producto-negro.html'
+    for width, lang in ((1440, 'es'), (390, 'en')):
+        k = f'{width}{lang}'
+        q = '?lang=en' if lang == 'en' else ''
+        fresh(b, base, width, lang)
+        b.ab('open', prod + q); time.sleep(1.6)
+        press = b.ev(PRESS % json.dumps(PRESS_TARGETS))
+        err = _mx_run(b, ['@[data-add]'], 0.7)
+        size = _mx_run(b, [SIZE_PICK], 0.6)
+        c0 = b.ev(COUNT)
+        add = _mx_run(b, ['@[data-add]'], 2.3)
+        c1 = b.ev(COUNT)
+        fresh(b, base, width, lang)
+        b.ab('open', base + '/catalogo.html' + q); time.sleep(1.6)
+        p0 = b.ev('document.querySelector("[data-favorite]")?.getAttribute("aria-pressed")')
+        fav = _mx_run(b, ['@[data-favorite]'], 5.5)
+        p1 = b.ev('document.querySelector("[data-favorite]")?.getAttribute("aria-pressed")')
+        b.ev('(()=>{const f=document.querySelector("[data-favorite]");for(let i=0;i<5;i++)f.click();return 1})()'); time.sleep(1.0)
+        stuck = b.ev('JSON.stringify((()=>{const g=window.__mxg;return{running:document.getAnimations().filter(a=>a.playState==="running"&&g(a.effect&&a.effect.target)&&g(a.effect.target)!=="toast").length,'
+                     'tf:[...document.querySelectorAll("[data-favorite],[data-favorite] *,[data-bag-count]")].filter(e=>{const t=getComputedStyle(e).transform;return t!=="none"&&t!=="matrix(1, 0, 0, 1, 0, 0)"}).length}})())')
+        b.ab('open', base + '/bolsa.html' + q); time.sleep(1.6)
+        dec = _mx_run(b, ['@[data-remove-item]'], 0.8)
+        runs = {'error': err, 'size': size, 'add': add, 'fav': fav, 'dec': dec}
+        for name, r in runs.items():
+            if isinstance(r, dict):
+                all_anims += [dict(a, run=name, k=k) for a in r['anims']]
+        g = lambda r, grp: [a for a in (r['anims'] if isinstance(r, dict) else []) if a['g'] == grp]
+        tl = add['add'] if isinstance(add, dict) else []
+        on = next((e['t'] for e in tl if e['s'].startswith('added|')), None)
+        off = next((e['t'] for e in tl if on is not None and e['t'] > on and not e['s'].startswith('added|')), None)
+        widths = {e['s'].split('|')[1] for e in tl}
+        added_txt = next((e['s'] for e in tl if e['s'].startswith('added|')), '')
+        shifts = [s for r in runs.values() if isinstance(r, dict) and r['shifts'] for s in r['shifts']
+                  if any(x in ('add', 'bag', 'fav', 'toast', 'size', 'sticky') for x in s['src'])]
+        toast_in = [a for a in g(fav, 'toast') if a['vis']]
+        toast_out = [a for a in g(fav, 'toast') if not a['vis']]
+        items = {
+            'press': isinstance(press, dict) and all(isinstance(press.get(x), dict) and press[x]['scale'] is not None and .97 <= press[x]['scale'] <= .99 for x in ('add', 'size')),
+            'added_state': on is not None and off is not None and 1150 <= off - on <= 1900 and len(widths) == 1
+                           and ('Added' if lang == 'en' else 'Agregada') in added_txt and added_txt.endswith('|true'),
+            'bag_bump': c1 == c0 + 1 and any({'transform', 'scale'} & set(a['props']) and _mx_scales(a) and max(_mx_scales(a)) <= 1.2 for a in g(add, 'bag')),
+            'bag_no_bump_on_decrease': isinstance(dec, dict) and not g(dec, 'bag'),
+            'favorite': p0 != p1 and any({'transform', 'scale'} & set(a['props']) and _mx_scales(a) and max(_mx_scales(a)) <= 1.25 for a in g(fav, 'fav')),
+            'toast': any({'transform', 'translate'} & set(a['props']) for a in toast_in) and all(not _mx_ty(a) or max(_mx_ty(a)) <= 12 for a in toast_in)
+                     and any('opacity' in a['props'] for a in toast_in) and bool(toast_out) and all(set(a['props']) <= {'opacity'} for a in toast_out),
+            'size': any({'transform', 'scale'} & set(a['props']) for a in g(size, 'size')),
+            'error': any('opacity' in a['props'] for a in g(err, 'error')) and not any({'transform', 'translate'} & set(a['props']) for a in g(err, 'error')),
+            'no_stuck': isinstance(stuck, dict) and stuck['running'] == 0 and stuck['tf'] == 0,
+            'cls': not shifts,
+        }
+        out[k] = {'pass': all(items.values()), **items, 'pressRules': press, 'addTimeline': tl, 'count': [c0, c1], 'pressed': [p0, p1], 'shifts': shifts, 'stuck': stuck}
+    # the add button's colour transition (background/color, 200 ms) predates B3 and is not an effect B3 adds
+    legacy = lambda a: a['type'] == 'CSSTransition' and a['g'] in ('add', 'sticky') and set(a['props']) <= {'backgroundColor', 'color'} and a['dur'] <= 200
+    bad = [a for a in all_anims if not legacy(a) and a['dur'] > 0 and (not set(a['props']) <= MOTION_PROPS or a['dur'] + a['delay'] > 300)]
+    out['props_and_duration'] = {'pass': bool(all_anims) and not bad, 'count': len(all_anims), 'bad': bad[:12]}
+    fresh(b, base, 390, reduced=True)
+    b.ab('open', prod); time.sleep(1.6)
+    b.ev(SIZE_PICK); time.sleep(0.2)
+    c0 = b.ev(COUNT)
+    add = _mx_run(b, ['@[data-add]'], 2.3)
+    c1 = b.ev(COUNT)
+    moving = [a for a in (add['anims'] if isinstance(add, dict) else []) if a['dur'] > 1]
+    added = any(e['s'].startswith('added|') for e in (add['add'] if isinstance(add, dict) else []))
+    out['reduced'] = {'pass': not moving and added and c1 == c0 + 1, 'moving': moving[:6], 'addedState': added, 'count': [c0, c1]}
+    fresh(b, base, 1440)
+    b.ab('open', prod); time.sleep(1.6)
+    b.ev(SIZE_PICK); time.sleep(0.2)
+    c0 = b.ev(COUNT)
+    b.ev('document.querySelector("[data-add]").scrollIntoView({block:"center"});1'); b.ab('dblclick', '[data-add]'); time.sleep(2.0)
+    c1 = b.ev(COUNT)
+    out['double_click'] = {'pass': c1 == c0 + 1, 'count': [c0, c1]}
+    return {'pass': all(v['pass'] for v in out.values()), **out}
+
+
+CHECKS = {'grid': grid, 'footer': footer, 'title': title, 'pill': pill, 'transition': transition, 'loader': loader, 'seo': seo, 'micro': micro}
 
 
 def main():

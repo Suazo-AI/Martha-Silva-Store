@@ -1,0 +1,52 @@
+{
+ "roles_of_login": [
+  "savia_api_host"
+ ],
+ "grant_log": [
+  "cloud: exit 0 migrate: database SAVIA_SIM_R_hub, 34 files on disk, mode apply\nmigrate: applied 34, pending 0\nmigrate: ledger complete (34 versions); applied now: nothing new\nmigrate: API host permissions ensured for user savia_rehearsal_api",
+  "a: exit 0 migrate: database SAVIA_SIM_R_a, 34 files on disk, mode apply\nmigrate: applied 34, pending 0\nmigrate: ledger complete (34 versions); applied now: nothing new\nmigrate: API host permissions ensured for user savia_rehearsal_api",
+  "b: exit 0 migrate: database SAVIA_SIM_R_b, 34 files on disk, mode apply\nmigrate: applied 34, pending 0\nmigrate: ledger complete (34 versions); applied now: nothing new\nmigrate: API host permissions ensured for user savia_rehearsal_api",
+  "c: exit 0 migrate: database SAVIA_SIM_R_c, 34 files on disk, mode apply\nmigrate: applied 34, pending 0\nmigrate: ledger complete (34 versions); applied now: nothing new\nmigrate: API host permissions ensured for user savia_rehearsal_api"
+ ],
+ "hosts_ready": true,
+ "http_login_and_open_till": 204,
+ "converged": false,
+ "seconds": 62.9,
+ "differing_tables": [
+  "inventory.StockBalances",
+  "inventory.StockMovements",
+  "sales.CashEntries",
+  "sales.CashTills"
+ ],
+ "sql_repro_as_restricted_user": {
+  "credential on hub": "ok",
+  "pull hub->a": "a: Msg 229, Level 14, State 5, Server 852de55e1e4b, Line 1 The INSERT permission was denied on the object 'CashTills', database 'SAVIA_SIM_R_a', schema 'sales'.",
+  "push a->hub": "cloud: Msg 229, Level 14, State 5, Server 852de55e1e4b, Line 1 The INSERT permission was denied on the object 'CashTills', database 'SAVIA_SIM_R_hub', schema 'sales'."
+ },
+ "log_errors": {
+  "hub": [],
+  "a": [
+   "Sync round refused: db.error Error interno de base de datos.",
+   "Sync round refused: db.error Error interno de base de datos.",
+   "Sync round refused: db.error Error interno de base de datos.",
+   "Sync round refused: db.error Error interno de base de datos.",
+   "Sync round refused: db.error Error interno de base de datos."
+  ],
+  "b": [
+   "Sync round refused: db.error Error interno de base de datos.",
+   "Sync round refused: db.error Error interno de base de datos.",
+   "Sync round refused: db.error Error interno de base de datos.",
+   "Sync round refused: db.error Error interno de base de datos.",
+   "Sync round refused: db.error Error interno de base de datos."
+  ],
+  "c": [
+   "Sync round refused: db.error Error interno de base de datos.",
+   "Sync round refused: db.error Error interno de base de datos.",
+   "Sync round refused: db.error Error interno de base de datos.",
+   "Sync round refused: db.error Error interno de base de datos.",
+   "Sync round refused: db.error Error interno de base de datos."
+  ]
+ },
+ "verdict": "restricted FAILS; scenarios run as sa",
+ "seconds_total": 210.5
+}
