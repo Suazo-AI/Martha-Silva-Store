@@ -3,13 +3,16 @@ param([Parameter(Mandatory)][string]$Database, [Parameter(Mandatory)][string[]]$
 # Runs one migrator mode as caj-savia-migrate on $Database. Prints only the execution name, status and its log lines.
 # -WithNodeSecret passes TIENDA1's node secret (job secret node-secret-tienda1, added beforehand).
 # -SecretFile with -SecretEnv passes the file's value as that env var through a temporary job secret, removed afterwards.
-$ErrorActionPreference = 'Stop'
+# Continue: Windows PowerShell 5.1 turns any az warning on stderr into a terminating error under Stop.
+# Every failure that matters is checked explicitly below and thrown.
+$ErrorActionPreference = 'Continue'
 $image = 'acrsaviabukmlt.azurecr.io/savia-migrator:1b1e001625ad0617f60d784fe5ba697e5cbc7d16'
 $client = '89d213c2-3050-4373-9033-e654fcfe98a5'
 $conn = "Server=tcp:sql-savia-bukmlt.database.windows.net,1433;Database=$Database;Authentication=Active Directory Managed Identity;Encrypt=True;TrustServerCertificate=False;Connect Timeout=30;User Id=$client"
 $argYaml = ($JobArgs | ForEach-Object { '"' + $_ + '"' }) -join ', '
 $secretEnvYaml = if ($WithNodeSecret) { "`n  - name: SAVIA_NODE_SECRET`n    secretRef: node-secret-tienda1" } else { '' }
 $tempSecret = $null
+try {
 if ($SecretFile) {
   if (-not $SecretEnv) { throw '-SecretFile needs -SecretEnv' }
   $tempSecret = 'run-job-' + [guid]::NewGuid().ToString('N').Substring(0, 12)
@@ -20,7 +23,6 @@ if ($SecretFile) {
   if ($names -notcontains $tempSecret) { throw "job secret $tempSecret was not added" }
   $secretEnvYaml += "`n  - name: $SecretEnv`n    secretRef: $tempSecret"
 }
-try {
 $yaml = @"
 containers:
 - name: migrate
@@ -34,7 +36,9 @@ containers:
   args: [$argYaml]
 "@
 $file = Join-Path $env:TEMP "savia-job-$([guid]::NewGuid()).yaml"
-Set-Content $file $yaml -Encoding utf8
+# No BOM: Windows PowerShell 5.1 writes one with -Encoding utf8, and the job then ignores the whole override
+# and runs its default template (a plain migrate on the production database).
+[IO.File]::WriteAllText($file, $yaml)
 $before = @(az containerapp job execution list -n caj-savia-migrate -g rg-savia-prod --query "[].name" -o tsv)
 $out = az containerapp job start -n caj-savia-migrate -g rg-savia-prod --yaml $file --query name -o tsv 2>$null
 Remove-Item $file
@@ -65,4 +69,6 @@ for ($i = 0; $i -lt 20; $i++) {
 $leak = az monitor log-analytics query -w $ws --analytics-query "ContainerAppConsoleLogs_CL | where ContainerJobName_s == 'caj-savia-migrate' | where Log_s has 'node-secret:' or Log_s has 'staff-password:' | count" --query "[0].Count" -o tsv
 "secret lines in workspace: $leak"
 $lines | Where-Object { $_ -notmatch 'node-secret:|staff-password:' }
+# The override took effect only if the migrator connected to the database asked for.
+if (-not ($lines -match "database $([regex]::Escape($Database))[,:]")) { "WRONG DATABASE: the log does not name $Database"; exit 1 }
 if ($st -ne 'Succeeded') { exit 1 }

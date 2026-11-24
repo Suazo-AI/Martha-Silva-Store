@@ -9,7 +9,7 @@ A DPAPI file opens only for the Windows user who wrote it, on this PC.
 | --- | --- |
 | `start-store.ps1` | Starts the store host on `http://127.0.0.1:5080`; it syncs with the Azure hub every 60 s. Logs: `C:\Users\Jason\SaviaStore\logs`. |
 | `store-migrator.ps1` | Runs the migrator on the store database `SAVIA_TIENDA1` as `sa`. Use it for store upgrades (RUNBOOK section 5) and store-side provisioning. |
-| `run-job.ps1` | Runs one migrator mode on an Azure database as the `caj-savia-migrate` job; prints the execution, its log and the count of secret lines in the workspace. |
+| `run-job.ps1` | Runs one migrator mode on an Azure database as the `caj-savia-migrate` job; prints the execution, its log and the count of secret lines in the workspace. Run it with `pwsh`; it exits 1 when the job log names another database (a byte-order mark in the override once made the job run its default template). |
 | `backup-store.ps1` | Full copy-only backup of `SAVIA_TIENDA1` with `CHECKSUM`, then `RESTORE VERIFYONLY`; writes `C:\Users\Jason\SaviaStore\backups\SAVIA_TIENDA1-<utc>.bak`, keeps 14 days, logs to `logs\backup.txt`. |
 
 Scheduled tasks (Windows Task Scheduler, user Jason, `powershell.exe -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File ...`):

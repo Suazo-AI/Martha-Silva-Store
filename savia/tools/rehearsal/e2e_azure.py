@@ -58,7 +58,7 @@ def hub_migrator(r, *args, secret_env=None, secret=None):
         tmp.write_text(secret, encoding="ascii")
         cmd += f" -SecretFile {quote(tmp)} -SecretEnv {secret_env}"
     try:
-        p = subprocess.run(["powershell.exe", "-NoProfile", "-ExecutionPolicy", "Bypass", "-Command", cmd],
+        p = subprocess.run(["pwsh", "-NoProfile", "-ExecutionPolicy", "Bypass", "-Command", cmd],
                            capture_output=True, text=True, timeout=1800, env=dz.clean_env())
     finally:
         if tmp:
@@ -77,28 +77,35 @@ def last_lines(out, n=3):
 
 # ---------------------------------------------------------------- prepare
 def cmd_prepare(a):
-    if dz.STATE.exists():
-        raise SystemExit("a run is already prepared; run `down` first")
+    # --resume replays a prepare that stopped part-way with the same ids and secrets; every provisioning step
+    # is a no-op for the same ids (V062), so only the databases are not created again.
+    if dz.STATE.exists() != a.resume:
+        raise SystemExit("a run is already prepared; run `down` first, or pass --resume" if not a.resume
+                         else "nothing to resume; run prepare without --resume")
     for p in (dz.API_DLL, dz.MIGRATOR_DLL):
         if not p.exists():
             raise SystemExit(f"missing {p}; build it first (see dayzero.py --help)")
     r = dz.Run()
-    r.t = []
-    ids = {k: dz.new_id() for k in ("storeNode", "branch", "location", "register", "owner", "manager", "cashier")}
-    ids["hubNode"] = a.hub_node_id.upper()
-    local = a.local_hub_for_test
-    r.s = {"ids": ids, "secrets": [], "staff": {}, "storefront": a.storefront_origin.rstrip("/"), "localHub": local,
-           "hubUrl": f"http://127.0.0.1:{dz.PORT['hub']}" if local else a.hub_url.rstrip("/"), "hubDb": a.hub_db}
-    r.s["appPassword"] = r.secret(secrets.token_urlsafe(18) + "aA1")
-    for who, login, name in (("owner", "duena.e2e", "Duena e2e"), ("manager", "gerente.e2e", "Gerente e2e"),
-                             ("cashier", "cajera.e2e", "Cajera e2e")):
-        r.s["staff"][who] = {"login": login, "name": name, "password": r.secret(secrets.token_urlsafe(14) + "aA1")}
-    r.s["nodeSecret"] = r.secret(secrets.token_urlsafe(32))
-    dz.save(dz.STATE, r.s)
-    configure(r.s)
-    dz.infra(r)  # local databases: the store, plus the hub in a test run
+    if a.resume:
+        local = r.s["localHub"]
+        configure(r.s)
+    else:
+        r.t = []
+        ids = {k: dz.new_id() for k in ("storeNode", "branch", "location", "register", "owner", "manager", "cashier")}
+        ids["hubNode"] = a.hub_node_id.upper()
+        local = a.local_hub_for_test
+        r.s = {"ids": ids, "secrets": [], "staff": {}, "storefront": a.storefront_origin.rstrip("/"), "localHub": local,
+               "hubUrl": f"http://127.0.0.1:{dz.PORT['hub']}" if local else a.hub_url.rstrip("/"), "hubDb": a.hub_db}
+        r.s["appPassword"] = r.secret(secrets.token_urlsafe(18) + "aA1")
+        for who, login, name in (("owner", "duena.e2e", "Duena e2e"), ("manager", "gerente.e2e", "Gerente e2e"),
+                                 ("cashier", "cajera.e2e", "Cajera e2e")):
+            r.s["staff"][who] = {"login": login, "name": name, "password": r.secret(secrets.token_urlsafe(14) + "aA1")}
+        r.s["nodeSecret"] = r.secret(secrets.token_urlsafe(32))
+        dz.save(dz.STATE, r.s)
+        configure(r.s)
+        dz.infra(r)  # local databases: the store, plus the hub in a test run
 
-    i, st = ids, r.s["staff"]
+    i, st = r.s["ids"], r.s["staff"]
     branch_args = ["--provision-branch", "--branch-id", i["branch"], "--location-id", i["location"],
                    "--register-id", i["register"], *BRANCH]
     hub_node = ["--node-id", i["hubNode"], "--node-kind", "azure", "--node-code", "HUB"]
@@ -131,7 +138,7 @@ def cmd_prepare(a):
         lines.append("store: " + r.migrator("store", "--provision-node", "register", *args).strip())
     r.record(1, "hub and store provisioned: branch, owner, manager, cashier, store node and its credential",
              "DONE", ("local migrator on the hub (test run)" if local else
-                      f"caj-savia-migrate job on {a.hub_db}, passwords and node secret as temporary job secrets")
+                      f"caj-savia-migrate job on {r.s['hubDb']}, passwords and node secret as temporary job secrets")
              + "; local migrator on the store", lines)
 
 
@@ -293,14 +300,17 @@ def main():
     pr.add_argument("--hub-url", default="")
     pr.add_argument("--hub-db", default="")
     pr.add_argument("--hub-node-id", default=str(uuid.uuid4()))
-    pr.add_argument("--storefront-origin", required=True)
+    pr.add_argument("--storefront-origin", default="")
     pr.add_argument("--local-hub-for-test", action="store_true")
+    pr.add_argument("--resume", action="store_true", help="replay a prepare that stopped part-way")
     sub.add_parser("run")
     rp = sub.add_parser("report")
     rp.add_argument("--out", required=True)
     sub.add_parser("down")
     a = p.parse_args()
-    if a.cmd == "prepare" and not a.local_hub_for_test and not (a.hub_url and a.hub_db):
+    if a.cmd == "prepare" and not a.resume and not a.storefront_origin:
+        raise SystemExit("prepare needs --storefront-origin")
+    if a.cmd == "prepare" and not a.resume and not a.local_hub_for_test and not (a.hub_url and a.hub_db):
         p.error("prepare needs --hub-url and --hub-db, or --local-hub-for-test")
     {"prepare": cmd_prepare, "run": cmd_run, "report": cmd_report, "down": cmd_down}[a.cmd](a)
 

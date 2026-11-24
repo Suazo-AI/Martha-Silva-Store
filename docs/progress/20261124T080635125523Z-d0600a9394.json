@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-24T08:06:35.125523+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/production-20261122/README.md",
+      "change": "M",
+      "git_blob": "da460494c6dc7943d2a79d967c20a8196b897244"
+    },
+    {
+      "path": "docs/production-20261122/e2e-azure/README.md",
+      "change": "A",
+      "git_blob": "58f223a49d61b73f3f8d87bd4d40920700d72ec2"
+    },
+    {
+      "path": "docs/production-20261122/e2e-azure/browser-order-page.png",
+      "change": "A",
+      "git_blob": "2c1066cbb478a54b8de5fa42be41b6d71395aa17"
+    },
+    {
+      "path": "docs/production-20261122/e2e-azure/run-20261124.md",
+      "change": "A",
+      "git_blob": "4f714af4296ed5c19207741a9bbe627653ec1805"
+    },
+    {
+      "path": "savia/deploy/store-pc/README.md",
+      "change": "M",
+      "git_blob": "1679720bb3b69dd32dccbc2c55859f9a8a963c0d"
+    },
+    {
+      "path": "savia/deploy/store-pc/run-job.ps1",
+      "change": "M",
+      "git_blob": "d17a1efa1e39c1a12e515ec6cf7b0e1572f46c88"
+    },
+    {
+      "path": "savia/tools/rehearsal/e2e_azure.py",
+      "change": "M",
+      "git_blob": "d7967aea87d2b819cafa127f9c496dc2f46a54df"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}
