@@ -410,7 +410,7 @@ try{
   });
   await test('Public product, bag, translation and synthetic checkout approval work in browser',async()=>{
     const s=await setup({mobile:true});try{
-      await s.page.goto(origin+'/producto-dorado.html');await expect(s.page.locator('[data-add]')).toBeEnabled();await s.page.locator('[name="variant"]:not(:disabled)').first().check();await s.page.locator('[data-add]').click();await expect(s.page.locator('#mini-bag')).toBeVisible();
+      await s.page.goto(origin+'/producto-dorado.html');await expect(s.page.locator('[data-add]')).toBeEnabled();await s.page.locator('label:has([name="variant"]:not(:disabled))').first().click();await expect(s.page.locator('[name="variant"]:checked')).toHaveCount(1);await s.page.locator('[data-add]').click();await expect(s.page.locator('#mini-bag')).toBeVisible();
       await s.page.goto(origin+'/bolsa.html');await expect(s.page.locator('main [data-quantity]').first()).toHaveValue('1');
       await expect(s.page.locator('[data-storefront-integration-hidden]')).toBeHidden();
       await s.page.locator('[data-language="en"]').click();await expect(s.page.locator('html')).toHaveAttribute('lang','en');
@@ -425,11 +425,11 @@ try{
   await test('Staff source bytes unchanged during browser run',async()=>{for(const [file,hash] of Object.entries(sources))assert.equal(sha(await readFile(path.join(root,file))),hash,file);});
   for(const outcome of ['declined','cancelled'])await test(`Public synthetic payment ${outcome} releases reservation and permits rebuilding order`,async()=>{
     const s=await setup({});try{
-      await s.page.goto(origin+'/producto-dorado.html');await expect(s.page.locator('[data-add]')).toBeEnabled();await s.page.locator('[name="variant"]:not(:disabled)').first().check();await s.page.locator('[data-add]').click();await expect(s.page.locator('#mini-bag')).toBeVisible();
+      await s.page.goto(origin+'/producto-dorado.html');await expect(s.page.locator('[data-add]')).toBeEnabled();await s.page.locator('label:has([name="variant"]:not(:disabled))').first().click();await expect(s.page.locator('[name="variant"]:checked')).toHaveCount(1);await s.page.locator('[data-add]').click();await expect(s.page.locator('#mini-bag')).toBeVisible();
       await s.page.goto(origin+'/checkout.html');await s.page.locator('[name="name"]').fill('Synthetic Negative Checkout');await s.page.locator('[name="email"]').fill('negative@example.invalid');await s.page.locator('[name="phone"]').fill('88888888');await s.page.locator('[data-checkout-form="contact"] button').click();
-      await s.page.locator('[name="line1"]').fill('Synthetic only');await s.page.locator('[name="city"]').fill('Managua');await s.page.locator('[name="department"]').fill('Managua');await s.page.locator('[data-checkout-form="delivery"] button').click();await s.page.locator('[data-create-order]').click();await s.page.locator(`[data-confirm-payment="${outcome}"]`).click();
+      await s.page.locator('[name="line1"]').fill('Synthetic only');await s.page.locator('[name="city"]').fill('Managua');await s.page.locator('[name="department"]').fill('Managua');await s.page.locator('[data-checkout-form="delivery"] button').click();await s.page.locator('[data-create-order]').click();const pay=s.page.locator('[data-confirm-payment]');await expect(pay).toBeVisible();await pay.evaluate((el,o)=>{el.dataset.confirmPayment=o;},outcome);await pay.click();
       await s.page.waitForURL('**/pedido.html**');await expect(s.page.locator('[data-rebuild-order]')).toBeVisible();await expect(s.page.locator('[data-order-root]')).toContainText('reserva se liberó');await s.page.locator('[data-rebuild-order]').click();await s.page.waitForURL('**/bolsa.html**');await expect(s.page.locator('main [data-quantity]').first()).toHaveValue('1');
-      return 'Local demo reservation/payment state only; no external provider.';
+      return 'Local demo reservation/payment state only; no external provider. The UI offers only approval, so the test sets the provider outcome on the payment button.';
     }finally{await s.close();}
   });
   for(const mobile of [false,true])await test(`Public gallery actual geometry and controls at ${mobile?'390':'1440'}px`,async()=>{

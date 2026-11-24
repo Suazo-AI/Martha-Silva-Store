@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-24T08:47:45.888690+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "tests/browser-mock-validation.mjs",
+      "change": "M",
+      "git_blob": "52a0db80ed7431927f286e11fc6ac04ed7d7a90f"
+    },
+    {
+      "path": "tests/frontend-README.md",
+      "change": "M",
+      "git_blob": "d2f0e4e3c1094de17f727f88ce0c09507b320966"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}
