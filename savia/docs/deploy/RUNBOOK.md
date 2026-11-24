@@ -90,7 +90,7 @@ Without it, it prints a new one-time password once; the staff member must change
 There is no default password or secret.
 On Azure, run the hub's commands as the `caj-savia-migrate` job, always with the variables of section 3.1. Node registration, branch and store credential ran on Azure on 2026-11-24 ([STORE-PC-20261124](../../../docs/production-20261122/STORE-PC-20261124.md)).
 
-### 3.1 Create accounts and store credentials on Azure (not run on Azure)
+### 3.1 Create accounts and store credentials on Azure
 
 Status: steps 3 to 6 ran on Azure on 2026-11-24 for a node secret, with a job secret holding the value instead of a Key Vault reference, because the operator account has no Key Vault data role; 0 secret lines in the workspace ([STORE-PC-20261124](../../../docs/production-20261122/STORE-PC-20261124.md)). The Key Vault reference and the staff-password path have not run on Azure.
 Reason: the job's console output goes to Log Analytics (`ContainerAppConsoleLogs_CL`, 30-day retention).
