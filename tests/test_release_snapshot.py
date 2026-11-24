@@ -44,7 +44,7 @@ class SnapshotTests(unittest.TestCase):
                 snapshot.verify(record=True)
                 snapshot.verify()
                 recorded = json.loads(manifest.read_text())
-                self.assertEqual(len(recorded), 1558)  # 1557 public paths + 1 control file; responsive manifest is not published (P12)
+                self.assertEqual(len(recorded), 1566)  # 1565 public paths (8 Latin font subsets added 2026-11-23) + 1 control file; responsive manifest is not published (P12)
                 self.assertEqual(recorded['_headers']['sha256'], snapshot.digest(dist / '_headers'))
                 # Git checks out these publication inputs as LF on every host.
                 # Refuse a Windows-only RAW snapshot before overwriting evidence.

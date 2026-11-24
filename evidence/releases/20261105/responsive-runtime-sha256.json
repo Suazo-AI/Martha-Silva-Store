@@ -279,6 +279,10 @@
     "sha256": "8413937181a86d5b71e20045f80f8ab4f61b59abd52ba7f6083547f48f014b0b",
     "bytes": 18743
   },
+  "lib/fonts/font-0-latin.woff2": {
+    "sha256": "eb9df580e0fa032dee552abf71b4452253ab45961dc47f305836dd3c33bfa7f3",
+    "bytes": 21976
+  },
   "lib/fonts/font-0.ttf": {
     "sha256": "0b9a8a33cfaa624d30f70f9b6686da769b319b8c37a55af16e29fef690108bbf",
     "bytes": 293036
@@ -286,6 +290,10 @@
   "lib/fonts/font-0.woff2": {
     "sha256": "ab56c72ce4498aff9727ceaa67f66f0ded88dd67e0d4cdb6cc4fcdb2f35ebbc5",
     "bytes": 79828
+  },
+  "lib/fonts/font-1-latin.woff2": {
+    "sha256": "a85daeb5f55bd120d5af5f072779ed347c6c9fbdeb4714dd669869eff5fcf8ff",
+    "bytes": 20944
   },
   "lib/fonts/font-1.ttf": {
     "sha256": "6d37a86241a25d63f8fe6018b4c083449886b7165c1acb15edd0f574f690ecf7",
@@ -295,6 +303,10 @@
     "sha256": "1a28de052332e0b534fbaeb1654806bc9ee8e36cf7b1f5b9553576652ed76dee",
     "bytes": 77236
   },
+  "lib/fonts/font-2-latin.woff2": {
+    "sha256": "70f9f170648eccb95afd1ffdbcd1f1d9741a22dea8a6dba4c7b6ed495aed388f",
+    "bytes": 21288
+  },
   "lib/fonts/font-2.ttf": {
     "sha256": "1724047c8988ca5155bff667bc48fa52e97d57aabc6b42eebbf986f21a4be20b",
     "bytes": 290496
@@ -302,6 +314,10 @@
   "lib/fonts/font-2.woff2": {
     "sha256": "48122aa46aedfb745ed2caba41c5ead1002d59ce63ec43bfdb76f9cb53c0733f",
     "bytes": 78308
+  },
+  "lib/fonts/font-3-latin.woff2": {
+    "sha256": "5640d49b16a3daa750776001e7bd408ffa4a95a5ae6fc558dbb2f0f4b7d06f1b",
+    "bytes": 21444
   },
   "lib/fonts/font-3.ttf": {
     "sha256": "69e7ae35cba23d962227b86f99217c250e642e4c6f6104b4f3ec465039e4e2d8",
@@ -311,6 +327,10 @@
     "sha256": "150031f419c421f83ba00917a820c0135dd819320f0d849b1679255b838e3f9b",
     "bytes": 78408
   },
+  "lib/fonts/font-4-latin.woff2": {
+    "sha256": "55b415983b8267d1be4b9362ee9f3bbc3aef29e44836505bffde2bad80cf4b54",
+    "bytes": 13540
+  },
   "lib/fonts/font-4.ttf": {
     "sha256": "a13d9b41b0a471ce58f0e46d377fa3cc76615e4632c3b15eb397caadf7a13f0a",
     "bytes": 94972
@@ -318,6 +338,10 @@
   "lib/fonts/font-4.woff2": {
     "sha256": "51aebd6a83d14fd93d75d8e6ff34a109318281a9cb009a494ab76b2e4c0393da",
     "bytes": 36076
+  },
+  "lib/fonts/font-5-latin.woff2": {
+    "sha256": "27a030197ebfb52e934fcf7b2d0ea632cee63eb98c322990dfb546edc4c8ff5f",
+    "bytes": 13496
   },
   "lib/fonts/font-5.ttf": {
     "sha256": "f433e5d333be1128d8ec8a28b8aadd0314d10e14e4105406076666bc830fc15d",
@@ -327,6 +351,10 @@
     "sha256": "eef316d7c1cdb6f3333050da382154aadcbd407816e6402bc7de513969a72ad3",
     "bytes": 35896
   },
+  "lib/fonts/font-6-latin.woff2": {
+    "sha256": "a92a9cd29d3542ac46e3815da3134b41e061e47433eac78612a0c64c586127b9",
+    "bytes": 13540
+  },
   "lib/fonts/font-6.ttf": {
     "sha256": "6bad1a774228464cc88b8b0271555b266f7a3c64a7bedf15e165fdab4f6ac0ce",
     "bytes": 95096
@@ -334,6 +362,10 @@
   "lib/fonts/font-6.woff2": {
     "sha256": "3f8a30fd41bc4cbcf2856c527f247c2d7bd5785613c9811fbaef8c8a89c39e0e",
     "bytes": 36120
+  },
+  "lib/fonts/font-7-latin.woff2": {
+    "sha256": "a028d36477c34441bd6a65cbe88dc017755ca34f76437ea6b69fda4c57ab18d0",
+    "bytes": 13672
   },
   "lib/fonts/font-7.ttf": {
     "sha256": "b9584e099e0e7f1e1e914c3037aabb9010c50346a3ce8df5eeeeecc0563044d8",
@@ -344,8 +376,8 @@
     "bytes": 36232
   },
   "lib/fonts/fonts.css": {
-    "sha256": "5f681954e316e0d2de91995d14f0e8f9f24a460389a9739b6c7a8bd86f7b15e8",
-    "bytes": 1508
+    "sha256": "7ff751c71b1186a0b9a2fa930b4cfe7a160a6f25273b54e57c5f18179e2e6be2",
+    "bytes": 13287
   },
   "lib/vendor/barba.umd.js": {
     "sha256": "d64110367eb45375dc5f21cb4915d224a22e74d7e73ca8a82cde710c3f0e3774",

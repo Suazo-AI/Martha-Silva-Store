@@ -1,0 +1,135 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-24T01:49:10.517356+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "build-inputs/static/prototypes/fonts/font-0-latin.woff2",
+      "change": "A",
+      "git_blob": "b9620bc6d87ca1370307073168c592b947c1326b"
+    },
+    {
+      "path": "build-inputs/static/prototypes/fonts/font-1-latin.woff2",
+      "change": "A",
+      "git_blob": "a46c7855d49b1912ee7a19d2d054d0f650c06182"
+    },
+    {
+      "path": "build-inputs/static/prototypes/fonts/font-2-latin.woff2",
+      "change": "A",
+      "git_blob": "8ae2979a3a1937867f1befa17ed7633d1ff20c92"
+    },
+    {
+      "path": "build-inputs/static/prototypes/fonts/font-3-latin.woff2",
+      "change": "A",
+      "git_blob": "322d67b9d69e9d95ab64a3ab0ed5331146b9b131"
+    },
+    {
+      "path": "build-inputs/static/prototypes/fonts/font-4-latin.woff2",
+      "change": "A",
+      "git_blob": "27cf76119903f2d4a81d640033f0d10bf56c8c2d"
+    },
+    {
+      "path": "build-inputs/static/prototypes/fonts/font-5-latin.woff2",
+      "change": "A",
+      "git_blob": "d2dc54a6a8041a534367987090da903306ce8851"
+    },
+    {
+      "path": "build-inputs/static/prototypes/fonts/font-6-latin.woff2",
+      "change": "A",
+      "git_blob": "f2cdc4793df17ba23a4f6e2f2c006d52bc7ec878"
+    },
+    {
+      "path": "build-inputs/static/prototypes/fonts/font-7-latin.woff2",
+      "change": "A",
+      "git_blob": "bec74c31063d910328257b619493d0193b89ba28"
+    },
+    {
+      "path": "build-inputs/static/prototypes/fonts/fonts.css",
+      "change": "M",
+      "git_blob": "d661f68cac2220bda8503b82a39d3d51d27758c4"
+    },
+    {
+      "path": "dist/lib/fonts/font-0-latin.woff2",
+      "change": "A",
+      "git_blob": "b9620bc6d87ca1370307073168c592b947c1326b"
+    },
+    {
+      "path": "dist/lib/fonts/font-1-latin.woff2",
+      "change": "A",
+      "git_blob": "a46c7855d49b1912ee7a19d2d054d0f650c06182"
+    },
+    {
+      "path": "dist/lib/fonts/font-2-latin.woff2",
+      "change": "A",
+      "git_blob": "8ae2979a3a1937867f1befa17ed7633d1ff20c92"
+    },
+    {
+      "path": "dist/lib/fonts/font-3-latin.woff2",
+      "change": "A",
+      "git_blob": "322d67b9d69e9d95ab64a3ab0ed5331146b9b131"
+    },
+    {
+      "path": "dist/lib/fonts/font-4-latin.woff2",
+      "change": "A",
+      "git_blob": "27cf76119903f2d4a81d640033f0d10bf56c8c2d"
+    },
+    {
+      "path": "dist/lib/fonts/font-5-latin.woff2",
+      "change": "A",
+      "git_blob": "d2dc54a6a8041a534367987090da903306ce8851"
+    },
+    {
+      "path": "dist/lib/fonts/font-6-latin.woff2",
+      "change": "A",
+      "git_blob": "f2cdc4793df17ba23a4f6e2f2c006d52bc7ec878"
+    },
+    {
+      "path": "dist/lib/fonts/font-7-latin.woff2",
+      "change": "A",
+      "git_blob": "bec74c31063d910328257b619493d0193b89ba28"
+    },
+    {
+      "path": "dist/lib/fonts/fonts.css",
+      "change": "M",
+      "git_blob": "d661f68cac2220bda8503b82a39d3d51d27758c4"
+    },
+    {
+      "path": "docs/production-20261122/README.md",
+      "change": "M",
+      "git_blob": "676ef8e0cc7a192b37dd99f8b5a5236d684db65b"
+    },
+    {
+      "path": "docs/production-20261122/storefront-evidence/PERFORMANCE.md",
+      "change": "M",
+      "git_blob": "cb00b2072626894e5bdce4394936c47358f4cfe0"
+    },
+    {
+      "path": "evidence/releases/20261105/responsive-runtime-sha256.json",
+      "change": "M",
+      "git_blob": "5ee5dc153b2a8a5a1340194b8dc5cf242fe83b86"
+    },
+    {
+      "path": "tests/responsive_fonts.py",
+      "change": "M",
+      "git_blob": "06131dc46ca310d3e323ef85647d52c0cda149e8"
+    },
+    {
+      "path": "tests/test_release_snapshot.py",
+      "change": "M",
+      "git_blob": "b5789c9cec0fe7040cfbd0c6270b133cb850fc5e"
+    },
+    {
+      "path": "tools/responsive_fonts.py",
+      "change": "M",
+      "git_blob": "5b92868fc34b71a46d238f99be96ab5147eee5ed"
+    },
+    {
+      "path": "tools/verify_release_snapshot.py",
+      "change": "M",
+      "git_blob": "de3c11a09071090a22f50a127b44895a32417a14"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

@@ -63,6 +63,30 @@ Each build ran against the baseline in the same interleaved round.
 - `node --test tests/integration-adapters.test.js`: 27 pass, 0 fail (live adapter contract).
 - Every other `tests/check.py` stage passes; `asset-audit.py` and `catalog-staging.py` stop with WinError 1314 (symlink privilege) on this host.
 
+## 2026-11-23: Latin font subsets
+
+Result: product page median 73 → 82 (4 interleaved rounds, same host, same load).
+First contentful paint went from about 2.5 s to 1.7 s. Font bytes on that page went from 224 KB to 69 KB.
+
+| Build | Scores | Median | Font files requested |
+|-------|--------|--------|----------------------|
+| before | 67, 74, 73, 73 | 73 | `font-1`, `font-2`, `font-4`, `font-7` (76 + 77 + 35 + 36 KB) |
+| after | 85, 81, 82, 82 | 82 | `font-1-latin`, `font-2-latin`, `font-4-latin`, `font-7-latin` (21 + 21 + 13 + 14 KB) |
+
+- Cause found first: the score follows how many bytes start before the first paint.
+  The same build scored 74-87 depending on that cut-off. Fonts were 224 KB of it, and they were complete files.
+- Knock-out test on one page (3 rounds): no fonts alone 84, no carousels alone 79, both removed 93, base 82.
+  Only fonts were cheap to change without changing content.
+- Change: each font gets a Latin WOFF2 subset (`font-N-latin.woff2`), declared after the complete face with a Latin `unicode-range`.
+  Each complete face now declares `unicode-range` equal to its own character map.
+  So the browser never downloads a complete file for a character the font does not have (the page uses `⌄`, which Manrope lacks).
+- The complete WOFF2 and TTF files are unchanged and still served for any character outside the Latin range.
+- Built by `python tools/responsive_fonts.py`; `tests/responsive_fonts.py` checks byte-reproducible subsets, that each subset keeps every Latin character of its font, identical descriptors, and the frozen CSS baseline.
+- Browser check at 390 px: only the four Latin files load; `document.fonts` shows the same four faces loaded. A screenshot diff against the old build shows no text change (only anti-aliasing on the gallery dots).
+- Published path count 1557 → 1565 (`tools/verify_release_snapshot.py`, `tests/test_release_snapshot.py`).
+- Limit: Lighthouse cannot load the deployed URL (`NO_NAVSTART` under `Cross-Origin-Opener-Policy`), so the gain is a local paired measurement, not a deployed one.
+- Still open for 90 on the product page: the carousels (78 cards) start 14 card images before first paint. Changing that changes content or layout.
+
 ## Method
 
 - Server: `wrangler dev` on the `prepare.py` output with the repository `_headers`, so compression and cache headers match Cloudflare Pages.
@@ -79,7 +103,7 @@ Each build ran against the baseline in the same interleaved round.
   Its LCP element is an `<h2>` that appears after the hub catalog request; the score follows hub latency.
   Real hub latency was not measured.
 - A `content-visibility` trial on carousel sections did not beat noise and changed image loading timing; it was dropped.
-- Not used: `immutable` cache headers and extra inline scripts (forbidden by `tests/static_headers.py`), font subsetting (pinned font files).
+- Not used: `immutable` cache headers and extra inline scripts (forbidden by `tests/static_headers.py`), font subsetting of the pinned files (Latin subsets were added beside them on 2026-11-23).
 - Accessibility 100 comes from Lighthouse's axe-based audits; a standalone axe run was not repeated.
 - Scores are lab simulations on a shared, busy host, not field data from phones.
 - No deployed URL was measured.

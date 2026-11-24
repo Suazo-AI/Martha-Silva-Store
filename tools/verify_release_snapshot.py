@@ -27,7 +27,7 @@ def verify(record=False):
     controls = {'_headers'}
     assert controls <= set(actual), 'Missing static asset control configuration'
     public = set(actual) - {'README.txt'} - controls
-    assert len(public) == 1557, 'Responsive candidate public path count changed'
+    assert len(public) == 1565, 'Responsive candidate public path count changed'
     js = {'app.js', 'store-api.js', 'integration-adapters.js'}
     # dist publishes each canonical input under its public name (build-inputs/public-paths.json).
     static = {public_path(rel): p for p in (ROOT / 'build-inputs/static').rglob('*') if p.is_file()
