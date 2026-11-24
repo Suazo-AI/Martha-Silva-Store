@@ -182,7 +182,7 @@
       const lines = Object.entries(storedCart()).filter(([id, quantity]) => offer(id) && byVariant.has(id) && Number.isSafeInteger(quantity) && quantity > 0).map(([id, quantity]) => {
         const {product, variant} = byVariant.get(id), price = offer(id).unitPriceMinor;
         return {product_id:product.id, variant_id:id, sku:skus[id], name:product.name, color:product.color, size:variant.size, image:product.images[0],
-          quantity, unit_price_minor:price, price_minor:price, line_total_minor:price * quantity};
+          quantity, available:available(id), unit_price_minor:price, price_minor:price, line_total_minor:price * quantity};
       });
       return {lines, subtotal_minor:lines.reduce((sum, line) => sum + line.line_total_minor, 0), currency:lines.length ? offer(lines[0].variant_id).currency : null, mode:'live'};
     }

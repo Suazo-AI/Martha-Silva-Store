@@ -375,7 +375,7 @@ test('live catalog shows only hub prices and stock; unmapped variants are not fo
   await rejects(() => api('/api/cart/items', {variant_id:gris.variants[0].id, quantity:1}), 'insufficient_stock');
   await rejects(() => api('/api/cart/items', {variant_id:rosa.variants[0].id, quantity:3}), 'insufficient_stock');
   const cart = await api('/api/cart/items', {variant_id:rosa.variants[0].id, quantity:1});
-  assert.deepEqual([cart.subtotal_minor, cart.currency, cart.lines[0].sku], [450000, 'NIO', 'HUB-ROSA-S']);
+  assert.deepEqual([cart.subtotal_minor, cart.currency, cart.lines[0].sku, cart.lines[0].available], [450000, 'NIO', 'HUB-ROSA-S', 2]);
   await rejects(() => api('/api/quote', {delivery_zone:'managua'}), 'unsupported_route');
 });
 

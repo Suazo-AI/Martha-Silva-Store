@@ -127,6 +127,7 @@
       const available=v=>s.stock[v]-reserved(v);
       const line=(v,q)=>{const {p,v:pv}=variant(v);return {product_id:p.id,variant_id:v,name:p.name,color:p.color,size:pv.size,image:p.images[0],quantity:q,unit_price_minor:p.price_minor,price_minor:p.price_minor,line_total_minor:p.price_minor*q};};
       const cart=()=>{const lines=Object.entries(s.cart).map(([v,q])=>line(v,q));return {lines,subtotal_minor:lines.reduce((n,l)=>n+l.line_total_minor,0),currency:'USD',mode:'local'};};
+      const cartView=()=>{const c=cart();return {...c,lines:c.lines.map(l=>({...l,available:available(l.variant_id)}))};};
       const signature=()=>JSON.stringify(Object.entries(s.cart).sort(([a],[b])=>a.localeCompare(b)));
       const checkStock=lines=>lines.forEach(l=>{if(available(l.variant_id)<l.quantity)fail('insufficient_stock','No hay suficientes unidades de esta talla. Revisá tu bolsa.');});
       const requireAdmin=()=>{if(!s.admin)fail('admin_closed','Abrí la vista de administración.');};
@@ -137,12 +138,12 @@
       if(verb!=='GET' && !record(body))fail('invalid_body','Los datos de esta acción no son válidos. Intentá otra vez.');
       if(typeof path!=='string' || !path.startsWith('/api/') || /[?#]/.test(path))fail('unsupported_route','Esta acción no está disponible.');
       if(path==='/api/catalog' && verb==='GET')return response({products:products.map(p=>({...p,variants:p.variants.map(v=>({...v,stock:available(v.id)}))})),brand:'MARTHA SILVA',mode:'local'});
-      if(path==='/api/cart' && verb==='GET')return response(cart());
+      if(path==='/api/cart' && verb==='GET')return response(cartView());
       if(path==='/api/cart/items' && ['POST','PATCH'].includes(verb)) {
         variant(body.variant_id); integer(body.quantity,0,10);
         const quantity=verb==='POST'?(s.cart[body.variant_id]||0)+body.quantity:body.quantity;integer(quantity,0,10);
         if(quantity>available(body.variant_id))fail('insufficient_stock','No hay suficientes unidades de esta talla.');
-        if(quantity)s.cart[body.variant_id]=quantity;else delete s.cart[body.variant_id];return response(cart());
+        if(quantity)s.cart[body.variant_id]=quantity;else delete s.cart[body.variant_id];return response(cartView());
       }
       if(path==='/api/quote' && verb==='POST') {
         const c=cart();if(!c.lines.length)fail('empty_cart','Tu bolsa está vacía.');checkStock(c.lines);

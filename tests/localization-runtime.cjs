@@ -328,7 +328,8 @@ test('English favorites, validation, bag updates and stock errors stay translate
     assert.ok(bag.open);
     assert.match(text(bag.querySelector('#mini-bag-title')), /bag/i);
     const quantity = bag.querySelector('[data-quantity]');
-    quantity.value = '10'; quantity.dispatchEvent(new b.w.Event('change', {bubbles: true})); await tick();
+    await b.w.marthaStoreApi('/api/admin/inventory', {variant_id: size.value, quantity: 1, reason: 'stock drops after the bag renders'}, 'POST');
+    quantity.value = String(quantity.options.length); quantity.dispatchEvent(new b.w.Event('change', {bubbles: true})); await tick();
     const error = bag.querySelector('[data-error]:not([hidden])');
     assert.ok(error);
     assert.doesNotMatch(text(error), /No hay|unidades|talla/);
