@@ -10,6 +10,11 @@ Fix: cart lines carry `available` in the demo store and the live adapter, and th
 Checks: `node tests/frontend-runtime.cjs` 23/23 (new test fails against the previous `app.js`), `node tests/localization-runtime.cjs` 19/19, `node --test tests/integration-adapters.test.js` 27/27.
 `python tests/check.py` stops at the asset audit on this Windows PC (3 symlink tests, WinError 1314); `catalog-staging.py` has 2 more of the same; the later stages pass when run one by one.
 Not verified: a real browser against the hub. Next: deploy, then check the bag with a 1-unit SKU in live mode.
+
+2026-11-24 (not deployed): when `localStorage` was full, the live adapter dropped the order token after the hub had created the order, so the buyer could not open it (PR #12 review).
+Fix: the token falls back to `sessionStorage`, which survives the redirect in this tab, and to memory for this page.
+Checks: `node --test tests/integration-adapters.test.js` 28/28 (the new test fails without the fix), DOM 23/23, localization 19/19, real-browser harness 50/50.
+Limit: if both storages fail and the buyer leaves the page, the token is lost; the order still exists on the hub.
 The CI deploy job in step 6 is not enabled (no `CLOUDFLARE_DEPLOY_ENABLED` variable and no preview token), and every deploy to this account so far was made with Wrangler by hand.
 The live build was exercised only locally: `wrangler dev` against a local hub with a disposable database.
 
