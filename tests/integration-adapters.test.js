@@ -357,7 +357,7 @@ function liveSetup({items, onOrder} = {}) {
     return json(404, {code:'not_found'});
   };
   const api = createLiveAdapter({config:liveConfig, catalog, storage, fetch, uuid:() => `00000000-0000-4000-8000-${String(++keys).padStart(12, '0')}`});
-  return {api, calls, saved, storage, setItems:value => { hubItems = value; }, orderCalls:() => calls.filter(call => call.url.endsWith('/api/v1/public/orders'))};
+  return {api, calls, saved, storage, fetch, setItems:value => { hubItems = value; }, orderCalls:() => calls.filter(call => call.url.endsWith('/api/v1/public/orders'))};
 }
 const liveInput = (prices = {[rosa.variants[0].id]:450000}, extra = {}) => ({contact:liveContact, shipping:liveShipping, provider:'manual', locale:'es', prices, ...extra});
 
@@ -398,6 +398,23 @@ test('live order sends the exact hub body with one key, credential-free, and kee
   assert.ok(calls.every(call => !call.url.includes('token-secret')));
   await rejects(() => api('/api/orders/dddddddd-dddd-dddd-dddd-dddddddddddd'), 'not_found');
   assert.equal(calls.at(-1), get, 'an order unknown to this browser makes no request');
+});
+
+test('a full localStorage keeps the order token: sessionStorage after the redirect, memory on this page', async () => {
+  const {fetch} = liveSetup();
+  const full = new Map(), session = new Map();
+  const storage = {getItem:key => full.get(key) ?? null, setItem:(key, value) => { if (key.endsWith(':orders')) throw new DOMException('quota', 'QuotaExceededError'); full.set(key, value); }};
+  const fallbackStorage = {getItem:key => session.get(key) ?? null, setItem:(key, value) => session.set(key, value)};
+  const first = createLiveAdapter({config:liveConfig, catalog, storage, fallbackStorage, fetch});
+  await first('/api/cart/items', {variant_id:rosa.variants[0].id, quantity:1});
+  await first('/api/orders', liveInput());
+  const afterRedirect = createLiveAdapter({config:liveConfig, catalog, storage, fallbackStorage, fetch});
+  assert.equal((await afterRedirect(`/api/orders/${orderId}`)).order.status, 'paid');
+  const broken = {getItem:() => null, setItem:() => { throw new DOMException('quota', 'QuotaExceededError'); }};
+  const samePage = createLiveAdapter({config:liveConfig, catalog, storage, fallbackStorage:broken, fetch});
+  await samePage('/api/cart/items', {variant_id:rosa.variants[0].id, quantity:1});
+  await samePage('/api/orders', liveInput());
+  assert.equal((await samePage(`/api/orders/${orderId}`)).order.status, 'paid');
 });
 
 test('a retry after a lost response and a double submit reuse one Idempotency-Key; a new body gets a new key', async () => {

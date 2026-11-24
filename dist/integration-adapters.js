@@ -124,12 +124,13 @@
     unavailable:'La tienda no pudo procesar tu pedido. Intentá otra vez en unos minutos.'
   };
   const LIVE_NAMESPACE = 'martha-live-v1:';
+  function sessionStore() { try { return root.sessionStorage || null; } catch { return null; } }
   // The hub labels the manual provider with this exact text (savia/src/Savia.Api/Payments.cs).
   const MANUAL_PROVIDER = Object.freeze({code:'manual', label:'Pago manual (no es tarjeta)'});
   function liveFail(code, details = {}) { fail(code, LIVE_MESSAGES[code] || LIVE_MESSAGES.unavailable, details); }
   /* Prices, stock and orders come only from the hub. A storefront variant without a hub SKU,
      or a SKU the hub does not list, is not for sale: nothing here invents a price or stock. */
-  function createLiveAdapter({config = CONFIG, catalog, storage, fetch:request = root.fetch && root.fetch.bind(root), uuid = () => root.crypto.randomUUID()} = {}) {
+  function createLiveAdapter({config = CONFIG, catalog, storage, fallbackStorage = sessionStore(), fetch:request = root.fetch && root.fetch.bind(root), uuid = () => root.crypto.randomUUID()} = {}) {
     if (!record(catalog) || !Array.isArray(catalog.products)) fail('missing_catalog', 'No se cargó el catálogo. Recargá la página.');
     if (typeof request !== 'function') liveFail('network');
     const base = String(config.apiBase).replace(/\/+$/, '');
@@ -143,7 +144,18 @@
     const memory = new Map();
     const store = storage || {getItem:key => memory.has(key) ? memory.get(key) : null, setItem:(key, value) => memory.set(key, String(value))};
     const read = (key, fallback) => { try { return JSON.parse(store.getItem(LIVE_NAMESPACE + key)) ?? fallback; } catch { return fallback; } };
-    const write = (key, value) => { try { store.setItem(LIVE_NAMESPACE + key, JSON.stringify(value)); } catch {} };
+    const write = (key, value) => { try { store.setItem(LIVE_NAMESPACE + key, JSON.stringify(value)); return true; } catch { return false; } };
+    /* An order token must outlive a full localStorage: without it the buyer cannot open the order the hub already created.
+       It falls back to sessionStorage, which survives the redirect in this tab, and to memory for this page. */
+    const kept = new Map();
+    const backupOrders = () => { try { const value = JSON.parse(fallbackStorage?.getItem(LIVE_NAMESPACE + 'orders')); return record(value) ? value : {}; } catch { return {}; } };
+    const keepOrder = (id, saved) => {
+      const orders = read('orders', {}); orders[id] = saved;
+      if (write('orders', orders) && read('orders', {})[id]?.token === saved.token) return;
+      kept.set(id, saved);
+      try { const backup = backupOrders(); backup[id] = saved; fallbackStorage?.setItem(LIVE_NAMESPACE + 'orders', JSON.stringify(backup)); } catch {}
+    };
+    const savedOrder = id => { const saved = read('orders', {})[id]; return record(saved) ? saved : backupOrders()[id] || kept.get(id); };
     const itemName = variantId => { const found = byVariant.get(variantId); return found ? `${found.product.name}, talla ${found.variant.size}` : 'una prenda de tu bolsa'; };
     const outOfStock = (variantId, details = {}) => fail('out_of_stock', `Ya no hay suficiente existencia de ${itemName(variantId)}.`, details);
     let hub = null;
@@ -226,16 +238,15 @@
       write('pending', {key, body:signature});
       const data = await call('/api/v1/public/orders', {method:'POST', headers:{'Idempotency-Key':key},
         body:input.turnstileToken ? {...body, turnstileToken:input.turnstileToken} : body});
-      const orders = read('orders', {}), saved = {token:data.accessToken, code:data.code, shipping_minor:data.shippingMinor, payment:data.payment || null,
+      const saved = {token:data.accessToken, code:data.code, shipping_minor:data.shippingMinor, payment:data.payment || null,
         lines:current.lines.map(line => ({sku:line.sku, unit_price_minor:line.unit_price_minor}))};
-      orders[data.orderId] = saved;
-      write('orders', orders);
+      keepOrder(data.orderId, saved);
       write('pending', null);
       write('cart', {});
       return {order:orderView(data.orderId, saved, {code:data.code, status:data.status, totalMinor:data.totalMinor, currency:data.currency, expiresAt:data.expiresAt, lines:body.lines})};
     }
     async function readOrder(id) {
-      const saved = read('orders', {})[id];
+      const saved = savedOrder(id);
       if (!record(saved) || typeof saved.token !== 'string') liveFail('not_found');
       return {order:orderView(id, saved, await call(`/api/v1/public/orders/${encodeURIComponent(id)}`, {fresh:true, headers:{'X-Order-Token':saved.token}}))};
     }
