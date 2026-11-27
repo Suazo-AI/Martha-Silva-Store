@@ -19,13 +19,13 @@ When a source document changes a control, update its row here in the same commit
 
 | Status | Meaning | Rows |
 | --- | --- | --- |
-| tested | Evidence in the repository exercises the control | 31 |
+| tested | Evidence in the repository exercises the control | 33 |
 | partial | Part of the control is tested; the rest is only built | 4 |
 | built | The code or config exists; no test proves it | 28 |
-| gap | Not built | 34 |
+| gap | Not built | 32 |
 | Total | | 97 |
 
-Result: launch is blocked. 66 of 97 control rows lack full evidence, and 6 of 7 self-tests are not run.
+Result: launch is blocked. 64 of 97 control rows lack full evidence, and 6 of 7 self-tests are not run.
 
 ## Security controls (SECURITY-RULES)
 
@@ -90,8 +90,8 @@ Result: launch is blocked. 66 of 97 control rows lack full evidence, and 6 of 7 
 | LOGIN-04 | Logout ends the token | tested | `VerticalSliceTests.cs:166` |
 | LOGIN-05 | Staff session ends after 12 hours | built | No test |
 | LOGIN-06 | 5 failures lock the account for 15 minutes | partial | `PasswordChangeTests.cs:52` asserts the lock after 5 failures, not its length |
-| LOGIN-07 | Lockout counter stays inside the SQL CHECK range | gap | Suspected 500 after 20 failures; not reproduced |
-| LOGIN-08 | Lockout counter resets when a lock ends | gap | One wrong password re-locks |
+| LOGIN-07 | Lockout counter stays inside the SQL CHECK range | tested | `savia/tests/Savia.Tests/SignInLockoutTests.cs` (25 wrong passwords, 5 lock cycles, every answer 401); reproduced before the fix on 2026-11-27: 409 `db.reference` instead of 401 |
+| LOGIN-08 | Lockout counter resets when a lock ends | tested | `savia/tests/Savia.Tests/SignInLockoutTests.cs` (25 wrong passwords, 5 lock cycles, every answer 401) |
 | LOGIN-09 | Per-IP login limit, ignores forged forwarded hops | tested | `HostingTests.cs:66,76`; not exercised on Azure |
 | LOGIN-10 | Public routes limited to 60 per minute per IP | tested | Azure: `public-api-azure/README.md` |
 | LOGIN-11 | Password length 10-200 and differs from old | built | No direct test |
@@ -153,7 +153,7 @@ Each entry point is launch-ready only when its controls are `tested` and its owe
 | TM-06 | `GET /api/v1/public/orders/{id}` | Medium: limited data, but a design weakness. | Tested: `WebOrderVerticalSliceTests.cs` (`Order_status_needs_its_token`). | ST-2. Decide whether to key the token with a hub secret (proposal). |
 | TM-07 | `GET` and `POST /api/v1/public/payments/{provider}/return` | Medium: money state, guarded server-side. | Tested: `WebStorePublicTests.cs`, `WebOrderVerticalSliceTests.cs`. | ST-2. |
 | TM-08 | `POST /api/v1/public/payments/{provider}/webhook` | Low today (no provider has a webhook); high once a card provider is added. | Fake gateway only (`WebStorePublicTests.cs`). Real provider: gap. | Provider sandbox signature tests when the merchant account exists. |
-| TM-09 | Staff sign-in `POST /api/v1/auth/login` and `POST /api/v1/auth/password` | High: staff access exposes buyer data. | Tested: `HostingTests.cs` (limit per address), `PasswordChangeTests.cs`. Lockout counter gaps: LOGIN-07, LOGIN-08. | ST-2 against the sign-in route; check that error replies do not reveal which accounts exist. |
+| TM-09 | Staff sign-in `POST /api/v1/auth/login` and `POST /api/v1/auth/password` | High: staff access exposes buyer data. | Tested: `HostingTests.cs` (limit per address), `PasswordChangeTests.cs`. Lockout counter: `SignInLockoutTests.cs` (LOGIN-07, LOGIN-08). | ST-2 against the sign-in route; check that error replies do not reveal which accounts exist. |
 | TM-10 | Staff API `/api/v1/*` (web orders, catalog, inventory, `/me`, `/sync/status`) and staff screens served by the hub at `/` (`savia/web`). | High: largest store of personal data. | Partly tested: a cashier is refused a refund action (403) in `WebOrderVerticalSlicePaymentReviewTests.cs:35-37`; 401 without sign-in on Azure (`run-20261124.json`); `innerHTML` ban (`savia/tests/test_rules.py`). No full role-by-route test. | ST-5 (role matrix); ST-2 signed-in scan on a local hub. |
 | TM-11 | Staff photo upload `POST /api/v1/inventory/tag-extract` | Medium: staff-only, but it parses files. | Size cap not tested. | Oversize and malformed-image tests on a local hub. |
 | TM-12 | Store-node sync API `/sync/v1/state`, `/push/plan`, `/push`, `/pull` | High: a stolen secret writes business data. | Tested: `SyncTransportTests.cs`; 401 without credential on Azure (`run-20261124.json`). Body cap: gap. | Oversize-body test on a local hub; a credential rotation drill (`--provision-node rotate`). |

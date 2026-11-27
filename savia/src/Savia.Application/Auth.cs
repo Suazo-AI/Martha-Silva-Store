@@ -13,7 +13,7 @@ public interface IAuthStore
     Task<StaffCredential?> FindStaffByIdAsync(Guid staffId, CancellationToken ct);
     /// <summary>Roles and active branch access of an enabled staff member; null when missing or disabled.</summary>
     Task<Actor?> LoadActorAsync(Guid staffId, CancellationToken ct);
-    Task RecordSignInAsync(Guid staffId, bool success, DateTimeOffset? lockUntil, CancellationToken ct);
+    Task RecordSignInAsync(Guid staffId, bool success, DateTimeOffset now, DateTimeOffset? lockUntil, CancellationToken ct);
     Task CreateSessionAsync(Guid staffId, Guid securityVersion, byte[] tokenHash, DateTimeOffset expiresAt, CancellationToken ct);
     /// <summary>Staff id of a live session: not revoked, not expired, same security version, staff enabled.</summary>
     Task<Guid?> FindSessionStaffAsync(byte[] tokenHash, DateTimeOffset now, CancellationToken ct);
@@ -45,11 +45,11 @@ public sealed class AuthService(IAuthStore store, IPasswordHasher hasher, TimePr
             throw new SaviaException(Errors.BadCredentials);
         if (!hasher.Verify(request.Password ?? "", staff.PasswordHash))
         {
-            await store.RecordSignInAsync(staff.StaffId, false, now + LockTime, ct);
+            await store.RecordSignInAsync(staff.StaffId, false, now, now + LockTime, ct);
             throw new SaviaException(Errors.BadCredentials);
         }
         var actor = await store.LoadActorAsync(staff.StaffId, ct) ?? throw new SaviaException(Errors.BadCredentials);
-        await store.RecordSignInAsync(staff.StaffId, true, null, ct);
+        await store.RecordSignInAsync(staff.StaffId, true, now, null, ct);
         var token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32)).Replace('+', '-').Replace('/', '_').TrimEnd('=');
         var expires = now + SessionLife;
         await store.CreateSessionAsync(staff.StaffId, staff.SecurityVersion, HashToken(token), expires, ct);
@@ -79,7 +79,7 @@ public sealed class AuthService(IAuthStore store, IPasswordHasher hasher, TimePr
         if (staff.LockedUntil > now) throw new SaviaException(Errors.PasswordLocked);
         if (!hasher.Verify(request.CurrentPassword ?? "", staff.PasswordHash))
         {
-            await store.RecordSignInAsync(staff.StaffId, false, now + LockTime, ct);
+            await store.RecordSignInAsync(staff.StaffId, false, now, now + LockTime, ct);
             throw new SaviaException(Errors.CurrentPasswordWrong);
         }
         // Otherwise a printed one-time password could clear its own mark.

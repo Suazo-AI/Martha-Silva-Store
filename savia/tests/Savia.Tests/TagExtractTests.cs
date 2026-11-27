@@ -243,7 +243,7 @@ internal sealed class TagHost : WebApplicationFactory<Program>
         public Task<StaffCredential?> FindStaffAsync(string normalizedLogin, CancellationToken ct) => Task.FromResult<StaffCredential?>(null);
         public Task<StaffCredential?> FindStaffByIdAsync(Guid staffId, CancellationToken ct) => Task.FromResult<StaffCredential?>(null);
         public Task ChangeOwnPasswordAsync(Guid staffId, byte[] tokenHash, string passwordHash, CancellationToken ct) => Task.CompletedTask;
-        public Task RecordSignInAsync(Guid staffId, bool success, DateTimeOffset? lockUntil, CancellationToken ct) => Task.CompletedTask;
+        public Task RecordSignInAsync(Guid staffId, bool success, DateTimeOffset now, DateTimeOffset? lockUntil, CancellationToken ct) => Task.CompletedTask;
         public Task CreateSessionAsync(Guid staffId, Guid securityVersion, byte[] tokenHash, DateTimeOffset expiresAt, CancellationToken ct) => Task.CompletedTask;
         public Task RevokeSessionAsync(byte[] tokenHash, DateTimeOffset now, CancellationToken ct) => Task.CompletedTask;
         public Task SetPasswordAsync(Guid staffId, string passwordHash, CancellationToken ct) => Task.CompletedTask;

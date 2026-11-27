@@ -78,11 +78,10 @@ Proposal: ACCOUNTANT sees web order totals and codes, but not buyer contact fiel
 | Bot check on new web orders | Cloudflare Turnstile, fail closed | `PublicEndpoints.cs:67` |
 | Node credential failures | 401; no lockout and no rate limit | `SyncEndpoints.cs:26` |
 
-Known defects (not reproduced):
-- A success resets the counter, but the end of a lock does not.
-- After a lock ends, one wrong password locks the account again.
-- The code counts up to 1000, but SQL allows 0 to 20 (`savia/db/migrations/V001__baseline.sql:151`).
-- The 21st failure probably breaks the CHECK and returns a 500 error.
+Fixed defect (2026-11-27, reproduced first):
+- Before: the end of a lock did not reset the counter, so one wrong password locked the account again.
+- Before: the counter kept climbing past the SQL limit of 20 (`savia/db/migrations/V001__baseline.sql:151`); the 21st counted failure returned 409 `db.reference` instead of 401.
+- Now: a failure after an ended lock counts 1, and the count stops at the lock limit (LOGIN-07, LOGIN-08).
 
 ## 5. Password rules
 
@@ -137,8 +136,8 @@ Revoking a person means acting on the hub and on each store PC.
 | LOGIN-04 | Logout ends the token | `Auth.cs:91-92` | tested | `VerticalSliceTests.cs:166` |
 | LOGIN-05 | Staff session ends after 12 hours | `Auth.cs:36`, `AuthStore.cs:58-66` | built | No test |
 | LOGIN-06 | 5 failures lock the account for 15 minutes | `Auth.cs:34-35`, `AuthStore.cs:44-51` | tested (5 failures lock); built (15 minutes) | `PasswordChangeTests.cs:52` asserts the lock after 5 failures, not its length |
-| LOGIN-07 | Lockout counter stays inside the SQL CHECK range | `AuthStore.cs:44-51` vs `V001__baseline.sql:151` | gap | Suspected 500 after 20 failures; not reproduced |
-| LOGIN-08 | Lockout counter resets when a lock ends | None | gap | One wrong password re-locks |
+| LOGIN-07 | Lockout counter stays inside the SQL CHECK range | `AuthStore.cs` `RecordSignInAsync`: the count stops at the lock limit | tested | `savia/tests/Savia.Tests/SignInLockoutTests.cs` (25 wrong passwords, 5 lock cycles, every answer 401); reproduced before the fix on 2026-11-27: 409 `db.reference` instead of 401 |
+| LOGIN-08 | Lockout counter resets when a lock ends | `AuthStore.cs` `RecordSignInAsync`: a failure after an ended lock counts 1 | tested | `savia/tests/Savia.Tests/SignInLockoutTests.cs` (25 wrong passwords, 5 lock cycles, every answer 401) |
 | LOGIN-09 | Per-IP login limit, ignores forged forwarded hops | `Hosting.cs:43-55,78` | tested | `HostingTests.cs:66,76`; not exercised on Azure |
 | LOGIN-10 | Public routes limited to 60 per minute per IP | `PublicEndpoints.cs:29` | tested | Azure: `public-api-azure/README.md` |
 | LOGIN-11 | Password length 10-200 and differs from old | `Auth.cs:75-76,86-87` | built | No direct test |

@@ -41,14 +41,18 @@ public sealed class AuthStore(SqlGateway sql) : IAuthStore
         }, ct);
     }
 
-    public Task RecordSignInAsync(Guid staffId, bool success, DateTimeOffset? lockUntil, CancellationToken ct) => success
+    // A failure after an ended lock starts a fresh count, so one more wrong password does not lock again and repeated
+    // lock cycles never push the count past CK_Staff_Failed (0 to 20); the count stops at the lock limit.
+    public Task RecordSignInAsync(Guid staffId, bool success, DateTimeOffset now, DateTimeOffset? lockUntil, CancellationToken ct) => success
         ? sql.ExecAsync("UPDATE security.Staff SET FailedSignIns=0,LockedUntil=NULL WHERE Id=@id", ct, P("@id", staffId))
         : sql.ExecAsync("""
             UPDATE security.Staff SET
-              FailedSignIns=CASE WHEN FailedSignIns<1000 THEN FailedSignIns+1 ELSE FailedSignIns END,
-              LockedUntil=CASE WHEN FailedSignIns+1>=@max THEN @until ELSE LockedUntil END
+              FailedSignIns=CASE WHEN LockedUntil<=@now THEN 1 WHEN FailedSignIns<@max THEN FailedSignIns+1 ELSE @max END,
+              LockedUntil=CASE WHEN (CASE WHEN LockedUntil<=@now THEN 1 ELSE FailedSignIns+1 END)>=@max THEN @until
+                               WHEN LockedUntil<=@now THEN NULL ELSE LockedUntil END
             WHERE Id=@id
-            """, ct, P("@id", staffId), P("@max", AuthService.MaxFailedSignIns), P("@until", lockUntil?.UtcDateTime));
+            """, ct, P("@id", staffId), P("@now", now.UtcDateTime), P("@max", AuthService.MaxFailedSignIns),
+            P("@until", lockUntil?.UtcDateTime));
 
     public Task CreateSessionAsync(Guid staffId, Guid securityVersion, byte[] tokenHash, DateTimeOffset expiresAt, CancellationToken ct) =>
         sql.ExecAsync("INSERT INTO security.Sessions(Id,StaffId,SecurityVersion,ExpiresAt,TokenHash,CreatedBy) "
